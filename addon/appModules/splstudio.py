@@ -1,0 +1,11 @@
+# Module for use with Station Playlist Studio
+# Geoff Shang - April 2011# Joseph Lee - December 2013
+# The primary function of this appModule is to provide meaningful feedback to users of SplStudio# by allowing speaking of items which cannot be easily found.
+# Version 0.01 - 7 April 2011:# Initial release: Jamie's focus hack plus auto-announcement of status items.
+# Additional work done by Joseph Lee and other contributors.# For Studio status, focus movement and other utilities, see the global plugin version of this app module.
+import controlTypesfrom controlTypes import ROLE_GROUPINGimport appModuleHandlerimport apiimport uifrom NVDAObjects.IAccessible import IAccessible
+class AppModule(appModuleHandler.AppModule):
+	# GS: The following was written by James Teh <jamie@NVAccess.org	#It gets around a problem where double focus events are fired when moving around the playlist.	#Hopefully it will be possible to remove this when it is fixed in Studio.>
+	def event_NVDAObject_init(self, obj):		if obj.windowClassName == "TListView" and obj.role in (controlTypes.ROLE_CHECKBOX, controlTypes.ROLE_LISTITEM) and controlTypes.STATE_FOCUSED not in obj.states:			# These lists seem to fire a focus event on the previously focused item before firing focus on the new item.			# Try to filter this out.			obj.shouldAllowIAccessibleFocusEvent = False
+	# Automatically announce mic, line in, etc changes	# These items are static text items whose name changes.	# Note: There are two status bars, hence the need to exclude Up time so it doesn't announce every minute.	#Unfortunately, Window handles and WindowControlIDs seem to change, so can't be used.	def event_nameChange(self, obj, nextHandler):		if obj.windowClassName == "TStatusBar" and not obj.name.startswith("  Up time:"):			# Special handling for Play Status			if obj.IAccessibleChildID == 1:				# Strip off "  Play status: " for brevity				ui.message(obj.name[15:])			else:				ui.message(obj.name)			nextHandler()
+	# JL's additions.	# Reassign various properties for some Station Playlist controls.	def event_NVDAObject_init(self, obb):		# Radio button group names are not recognized as grouping, so work around this.		if obj.windowClassName == "TRadioGroup": obj.role = ROLE_GROUPING		
