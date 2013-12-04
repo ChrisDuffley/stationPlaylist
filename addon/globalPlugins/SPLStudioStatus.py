@@ -8,10 +8,10 @@
 # Initial release: Jamie's focus hack plus auto-announcement of status items.
 
 import controlTypes
-import appModuleHandler
+import globalPluginHandler
 import api
 import ui
 
-class AppModule(appModuleHandler.AppModule):
+class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	pass
