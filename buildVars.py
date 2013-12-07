@@ -16,9 +16,9 @@ addon_info = {
 	# Add-on description
 	# Translators: Long description to be shown for this add-on on installation and add-on information
 	"addon-description" : _("""Enhances support for Station Playlist Studio.
-In addition, adds status commands for the studio from everywhere."""),
+In addition, adds global commands for the studio from everywhere."""),
 	# version
-	"addon-version" : "0.1-dev",
+	"addon-version" : "0.2-dev",
 	# Author(s)
 	"addon-author" : "Geoff Shang, Joseph Lee and other contributors",
 	# URL for the add-on documentation support
