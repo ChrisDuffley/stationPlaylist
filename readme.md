@@ -14,6 +14,19 @@ Note that if the downloaded file's extension is a zip, rename this to nvda-addon
 * NVDA+Shift+grave from anywhere: switch to SPL Studio window from any program.
 * NvDA+Grave from anywhere: the next command will control various aspects of SPL Studio.
 
+## SPL Studio layer ##
+
+This layer command set allows you to obtain various status on SPL Studio, such as whether a track is playing, total duration of all tracks for the hour and so on. To enter this mode, press NVDA+Shift+P (command is subject to change), then press one of the commands from the list below.
+
+The available statu information are:
+
+* A: Automation.
+* H: Duration of music for the current hour slot.
+* Shift+H: Total duration of selected tracks for this hour slot (from the track list, press SPACE to select or uncheck the track to play).
+* L: Line in.
+* M: Microphone.
+* S: Playback status (playing or stopped).
+
 ## SPL Controller ##
 
 The SPL Controller is a set of layered commands you can use anywhere. Press NvDA+Grave, and NVDA will say, "SPL Controller." Press another command to control various Studio settings such as microphone on/off or play the next track.
