@@ -33,6 +33,7 @@ SPLMSG = winUser.WM_USER
 SPLVersion = 2 # For IPC testing purposes.
 SPLPlay = 12
 SPLStop = 13
+SPLPause = 15
 SPLAutomate = 16
 SPLMic = 17
 SPLLineIn = 18
@@ -158,6 +159,16 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		winUser.sendMessage(self.SPLWin, SPLMSG, 0, SPLPlay)
 		self.finish()
 
+	def script_pause(self, gesture):
+		playingNow = winUser.sendMessage(self.SPLWin, SPLMSG, 0, SPL_TrackPlaybackStatus)
+		if not playingNow: ui.message("There is no track playing. Try pausing while a track is playing.")
+		elif playingNow == 3: winUser.sendMessage(self.SPLWin, SPLMSG, 0, SPLPause)
+		else: winUser.sendMessage(self.SPLWin, SPLMSG, 1, SPLPause)
+		self.finish()
+
+
+
+
 	__SPLControllerGestures={
 		"kb:p":"play",
 		"kb:a":"automateOn",
@@ -167,7 +178,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:l":"lineInOn",
 		"kb:shift+l":"lineInOff",
 		"kb:s":"stopFade",
-		"kb:t":"stopInstant"
+		"kb:t":"stopInstant",
+		"kb:u":"pause"
 	}
 
 
