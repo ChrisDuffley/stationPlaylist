@@ -40,6 +40,8 @@ class AppModule(appModuleHandler.AppModule):
 			# These lists seem to fire a focus event on the previously focused item before firing focus on the new item.
 			# Try to filter this out.
 			obj.shouldAllowIAccessibleFocusEvent = False
+		# Radio button group names are not recognized as grouping, so work around this.
+		if obj.windowClassName == "TRadioGroup": obj.role = ROLE_GROUPING
 
 
 	# Automatically announce mic, line in, etc changes
@@ -59,14 +61,12 @@ class AppModule(appModuleHandler.AppModule):
 					ui.message(obj.name)
 		nextHandler()
 
-	# JL's additions.
-	# Reassign various properties for some Station Playlist controls.
-	def event_NVDAObject_init(self, obj):
-		# Radio button group names are not recognized as grouping, so work around this.
-		if obj.windowClassName == "TRadioGroup": obj.role = ROLE_GROUPING
+# JL's additions
 
 	# Various status scripts.
 	# To save keyboard commands, layered commands will be used.
+	# Most were borrowed from JFW and Window-Eyes layer scripts.
+
 	# Set up the layer script environment.
 	def getScript(self, gesture):
 		if not self.SPLPrefix: return appModuleHandler.AppModule.getScript(self, gesture)
