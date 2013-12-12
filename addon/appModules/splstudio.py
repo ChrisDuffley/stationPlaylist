@@ -32,6 +32,10 @@ def finally_(func, final):
 
 
 class AppModule(appModuleHandler.AppModule):
+
+	# Some useful variables:
+	beepAnnounce = False # Play beeps instead of announcing toggles.
+
 	# GS: The following was written by James Teh <jamie@NVAccess.org
 	#It gets around a problem where double focus events are fired when moving around the playlist.
 	#Hopefully it will be possible to remove this when it is fixed in Studio.>
@@ -48,6 +52,7 @@ class AppModule(appModuleHandler.AppModule):
 	# These items are static text items whose name changes.
 	# Note: There are two status bars, hence the need to exclude Up time so it doesn't announce every minute.
 	# Unfortunately, Window handles and WindowControlIDs seem to change, so can't be used.
+	# Bonus: if the user sets beep announce to on, beeps will be heard instead of announcements.
 	def event_nameChange(self, obj, nextHandler):
 		# Do not let NvDA get name for None object when SPL window is maximized.
 		if obj.name == None: return
@@ -58,7 +63,16 @@ class AppModule(appModuleHandler.AppModule):
 					# Strip off "  Play status: " for brevity
 					ui.message(obj.name[15:])
 				else:
-					ui.message(obj.name)
+					if self.beepAnnounce:
+						# User wishes to hear beeps instead of words. The beeps are power on and off sounds from PAC Mate Omni.
+						import nvwave # The wave playback module.
+						beep = obj.name.split(" ")
+						stat = beep[len(beep)-1]
+						# Beta: at this time, play C tone (high for on, low for off) until a way to locate the current app module path is found.
+						if stat == "Off": tones.beep(256, 200) # nvwave.playWaveFile(r"SPL_off.wav")
+						elif stat == "On": tones.beep(512, 200) # nvwave.playWaveFile(r"SPL_on.wav")
+					else:
+						ui.message(obj.name)
 		nextHandler()
 
 # JL's additions
@@ -92,6 +106,16 @@ class AppModule(appModuleHandler.AppModule):
 		remainingTime = timeWindowStr[0]
 		ui.message(remainingTime)
 	script_sayRemainingTime.__doc__="Announces the remaining track time."
+
+	# Toggle whether beeps should be heard instead of toggle announcements.
+
+	def script_toggleBeepAnnounce(self, gesture):
+		if not self.beepAnnounce:
+			self.beepAnnounce = True
+			ui.message("Toggle announcement beeps")
+		else:
+			self.beepAnnounce = False
+			ui.message("Toggle announcement words")
 
 	# The layer commands themselves.
 	# First layer: basic status such as playback, automation, etc.
@@ -155,5 +179,6 @@ class AppModule(appModuleHandler.AppModule):
 
 	__gestures={
 		"kb:control+alt+t":"sayRemainingTime",
+		"kb:nvda+shift+t":"toggleBeepAnnounce",
 		"kb:nvda+shift+p":"prefixToggle"
 	}
