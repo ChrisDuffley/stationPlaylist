@@ -65,12 +65,14 @@ class AppModule(appModuleHandler.AppModule):
 				else:
 					if self.beepAnnounce:
 						# User wishes to hear beeps instead of words. The beeps are power on and off sounds from PAC Mate Omni.
-						import nvwave # The wave playback module.
+						import nvwave, os.path # The wave playback and path manipulator.
 						beep = obj.name.split(" ")
 						stat = beep[len(beep)-1]
-						# Beta: at this time, play C tone (high for on, low for off) until a way to locate the current app module path is found.
-						if stat == "Off": tones.beep(256, 200) # nvwave.playWaveFile(r"SPL_off.wav")
-						elif stat == "On": tones.beep(512, 200) # nvwave.playWaveFile(r"SPL_on.wav")
+						wavDir, wavFile = os.path.dirname(__file__), ""
+						# Play a wave file based on on/off status.
+						if stat == "Off": wavFile = wavDir + "\SPL_off.wav"
+						elif stat == "On": wavFile = wavDir+"\SPL_on.wav"
+						nvwave.playWaveFile(wavFile)
 					else:
 						ui.message(obj.name)
 		nextHandler()
