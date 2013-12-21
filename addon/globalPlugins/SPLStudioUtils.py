@@ -49,19 +49,18 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	SPLWin = 0 #For now.
 
 	#Global layer environment (see the app module for more information).
-	SPLGlobalCMD = False # Control SPL from anywhere.
+	SPLController = False # Control SPL from anywhere.
 	SPLFG = api.getForegroundObject()
 
 	def getScript(self, gesture):
-		if not self.SPLGlobalCMD:
+		if not self.SPLController:
 			return globalPluginHandler.GlobalPlugin.getScript(self, gesture)
 		script = globalPluginHandler.GlobalPlugin.getScript(self, gesture)
-		if not script:
-			script = finally_(self.script_error, self.finish)
+		if not script: script = finally_(self.script_error, self.finish)
 		return finally_(script, self.finish)
 
 	def finish(self):
-		self.SPLGlobalCMD = False
+		self.SPLController = False
 		self.clearGestureBindings()
 		self.bindGestures(self.__gestures)
 
@@ -96,15 +95,15 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		else: SPLFG.setFocus() if SPLFG.name != "Program Manager" else ui.message("Press Alt+Tab to switch to SPL Studio window")
 	script_focusToSPLWindow.__doc__="Moves to SPL Studio window from other programs."
 
-	# The global commands driver.
+	# The SPL Controller:
 	# This layer set allows the user to control various aspects of SPL Studio from anywhere.
-	def script_globalCMDPrefix(self, gesture):
+	def script_SPLControllerPrefix(self, gesture):
 		import appModuleHandler
 		# Erorr checks:
 		# 1. If SPL Studio is not running, print an error message.
 		# 2. If we're already  in SPL, report that the user is in SPL. This is temporary - in the end, pass this gesture to the app module portion.
 		if "splstudio" in appModuleHandler.getAppModuleForNVDAObject(api.getForegroundObject()).appModuleName:
-			ui.message("You are already in SPL Studio window. For status commands, use status layer commands.")
+			ui.message("You are already in SPL Studio window. For status commands, use SPL Assistant commands.")
 			self.finish()
 			return
 		self.SPLWin = user32.FindWindowA("SPLStudio", None)
@@ -113,16 +112,16 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self.finish()
 			return
 		# No errors, so continue.
-		if not self.SPLGlobalCMD:
+		if not self.SPLController:
 			self.bindGestures(self.__SPLControllerGestures)
-			self.SPLGlobalCMD = True
+			self.SPLController = True
 			ui.message("SPL Controller")
 		else:
 			self.script_error(gesture)
 			self.finish()
-	script_globalCMDPrefix.__doc__="SPl Controller layer command. See add-on guide for available commands."
+	script_SPLControllerPrefix.__doc__="SPl Controller layer command. See add-on guide for available commands."
 
-	# The layer commands themselves.
+	# The layer commands themselves. Calls user32.SendMessage method for each script.
 
 	def script_automateOn(self, gesture):
 		winUser.sendMessage(self.SPLWin,SPLMSG,1,SPLAutomate)
@@ -186,5 +185,5 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	__gestures={
 		"kb:nvda+shift+`":"focusToSPLWindow",
-		"kb:nvda+`":"globalCMDPrefix"
+		"kb:nvda+`":"SPLControllerPrefix"
 	}
