@@ -9,7 +9,7 @@
 # For SPL Studio Controller, focus movement and other utilities, see the global plugin version of this app module.
 
 import controlTypes
-from controlTypes import ROLE_GROUPING
+from controlTypes import ROLE_GROUPING, ROLE_WINDOW
 import appModuleHandler
 import api
 import ui
@@ -47,12 +47,15 @@ class AppModule(appModuleHandler.AppModule):
 		# Radio button group names are not recognized as grouping, so work around this.
 		if obj.windowClassName == "TRadioGroup": obj.role = ROLE_GROUPING
 
+	# Check the following variable for end of track announcement.
+	SPLEndOfTrackTime = "00:05" # Should be adjustable by the user in the end. Also find a way to announce this even if SPL Studio is minimized.
 
 	# Automatically announce mic, line in, etc changes
 	# These items are static text items whose name changes.
 	# Note: There are two status bars, hence the need to exclude Up time so it doesn't announce every minute.
 	# Unfortunately, Window handles and WindowControlIDs seem to change, so can't be used.
 	# Bonus: if the user sets beep announce to on, beeps will be heard instead of announcements.
+	# Bonus 2: announce when the track is about to end.
 	def event_nameChange(self, obj, nextHandler):
 		# Do not let NvDA get name for None object when SPL window is maximized.
 		if obj.name == None: return
@@ -75,6 +78,8 @@ class AppModule(appModuleHandler.AppModule):
 						nvwave.playWaveFile(wavFile)
 					else:
 						ui.message(obj.name)
+			# Monitor the end of track time and announce it.
+			elif obj.windowClassName == "TStaticText" and obj.name == self.SPLEndOfTrackTime and obj.simplePrevious.name == "Remaining Time": tones.beep(440, 200)
 		nextHandler()
 
 # JL's additions
@@ -85,13 +90,13 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Set up the layer script environment.
 	def getScript(self, gesture):
-		if not self.SPLPrefix: return appModuleHandler.AppModule.getScript(self, gesture)
+		if not self.SPLAssistant: return appModuleHandler.AppModule.getScript(self, gesture)
 		script = appModuleHandler.AppModule.getScript(self, gesture)
 		if not script: script = finally_(self.script_error, self.finish)
 		return finally_(script, self.finish)
 
 	def finish(self):
-		self.SPLPrefix = False
+		self.SPLAssistant = False
 		self.clearGestureBindings()
 		self.bindGestures(self.__gestures)
 
@@ -121,24 +126,25 @@ class AppModule(appModuleHandler.AppModule):
 	script_toggleBeepAnnounce.__doc__="Toggles option change announcements between words and beeps."
 
 	# The layer commands themselves.
-	# First layer: basic status such as playback, automation, etc.
-	SPLPrefix = False
+	# First layer (SPL Assistant): basic status such as playback, automation, etc.
+	SPLAssistant = False
 
 	# The children constants for fetching status information from the SPL Studio window.
+	SPLElapsedTime = 3 # Elapsed time of the current track.
 	SPLPlayStatus = 5 # Play status, mic, etc.
 	SPLHourTrackDuration = 17 # For track duration for the given hour marker.
 	SPLHourSelectedDuration = 18 # In case the user selects one or more tracks in a given hour.
 
-	# The prefix layer driver.
+	# The SPL Assistant layer driver.
 
-	def script_prefixToggle(self, gesture):
-		if self.SPLPrefix:
+	def script_SPLAssistantToggle(self, gesture):
+		if self.SPLAssistant:
 			self.script_error(gesture)
 			return
-		self.bindGestures(self.__PrefixGestures)
-		self.SPLPrefix = True
+		self.bindGestures(self.__SPLAssistantGestures)
+		self.SPLAssistant = True
 		tones.beep(512, 10)
-	def script_prefixToggle.__doc__="The SPL Assistant layer command. See the add-on guide for more information on available commands."
+	script_SPLAssistantToggle.__doc__="The SPL Assistant layer command. See the add-on guide for more information on available commands."
 
 	# Whichever layer we use, get the appropriate children from the foreground window.
 	def getStatusChild(self, childIndex):
@@ -172,8 +178,8 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(obj.name)
 
 
-	__PrefixGestures={
-		"kb:s":"sayPlayStatus",
+	__SPLAssistantGestures={
+		"kb:p":"sayPlayStatus",
 		"kb:a":"sayAutomationStatus",
 		"kb:m":"sayMicStatus",
 		"kb:l":"sayLineInStatus",
@@ -183,6 +189,6 @@ class AppModule(appModuleHandler.AppModule):
 
 	__gestures={
 		"kb:control+alt+t":"sayRemainingTime",
-		"kb:nvda+shift+t":"toggleBeepAnnounce",
-		"kb:nvda+shift+p":"prefixToggle"
+		"kb:control+nvda+1":"toggleBeepAnnounce",
+		"kb:control+nvda+`":"SPLAssistantToggle"
 	}
