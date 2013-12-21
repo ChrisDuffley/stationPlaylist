@@ -25,7 +25,7 @@ def finally_(func, final):
 		return new
 	return wrap(final)
 
-# SPL Studio uses WM messages to send and receive data, similar to Winamp (see NVDA sources/appModules.winamp.py for more information).
+# SPL Studio uses WM messages to send and receive data, similar to Winamp (see NVDA sources/appModules/winamp.py for more information).
 user32 = windll.user32 # user32.dll.
 SPLMSG = winUser.WM_USER
 
@@ -120,6 +120,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		else:
 			self.script_error(gesture)
 			self.finish()
+	script_globalCMDPrefix.__doc__="SPl Controller layer command. See add-on guide for available commands."
 
 	# The layer commands themselves.
 

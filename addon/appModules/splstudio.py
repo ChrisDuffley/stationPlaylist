@@ -118,6 +118,7 @@ class AppModule(appModuleHandler.AppModule):
 		else:
 			self.beepAnnounce = False
 			ui.message("Toggle announcement words")
+	script_toggleBeepAnnounce.__doc__="Toggles option change announcements between words and beeps."
 
 	# The layer commands themselves.
 	# First layer: basic status such as playback, automation, etc.
@@ -137,6 +138,7 @@ class AppModule(appModuleHandler.AppModule):
 		self.bindGestures(self.__PrefixGestures)
 		self.SPLPrefix = True
 		tones.beep(512, 10)
+	def script_prefixToggle.__doc__="The SPL Assistant layer command. See the add-on guide for more information on available commands."
 
 	# Whichever layer we use, get the appropriate children from the foreground window.
 	def getStatusChild(self, childIndex):
