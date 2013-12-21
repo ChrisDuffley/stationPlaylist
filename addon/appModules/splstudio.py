@@ -9,13 +9,15 @@
 # For SPL Studio Controller, focus movement and other utilities, see the global plugin version of this app module.
 
 import controlTypes
-from controlTypes import ROLE_GROUPING, ROLE_WINDOW
+from controlTypes import ROLE_GROUPING, ROLE_WINDOW # May need to remove window later.
 import appModuleHandler
 import api
 import ui
 from NVDAObjects.IAccessible import IAccessible
 import tones
 from functools import wraps
+import addonHandler
+addonHandler.initTranslation()
 
 # The finally function for the toggle scripts in this module (source: Tyler Spivey's code).
 def finally_(func, final):
@@ -32,6 +34,9 @@ def finally_(func, final):
 
 
 class AppModule(appModuleHandler.AppModule):
+
+	# Translators: Script category for Station Playlist commands in input gestures dialog.
+	scriptCategory = _("Station Playlist Studio")
 
 	# Some useful variables:
 	beepAnnounce = False # Play beeps instead of announcing toggles.
@@ -112,17 +117,20 @@ class AppModule(appModuleHandler.AppModule):
 		# We want the first part only, the time itself.
 		remainingTime = timeWindowStr[0]
 		ui.message(remainingTime)
-	script_sayRemainingTime.__doc__="Announces the remaining track time."
+	# Translators: Input help mode message for a command in Station Playlist Studio.
+	script_sayRemainingTime.__doc__=_("Announces the remaining track time.")
 
 	# Toggle whether beeps should be heard instead of toggle announcements.
 
 	def script_toggleBeepAnnounce(self, gesture):
 		if not self.beepAnnounce:
 			self.beepAnnounce = True
-			ui.message("Toggle announcement beeps")
+			# Translators: Reported when toggle announcement is set to beeps in SPL Studio.
+			ui.message(_("Toggle announcement beeps"))
 		else:
 			self.beepAnnounce = False
-			ui.message("Toggle announcement words")
+			# Translators: Reported when toggle announcement is set to words in SPL Studio.
+			ui.message(_("Toggle announcement words"))
 	script_toggleBeepAnnounce.__doc__="Toggles option change announcements between words and beeps."
 
 	# The layer commands themselves.
@@ -144,7 +152,8 @@ class AppModule(appModuleHandler.AppModule):
 		self.bindGestures(self.__SPLAssistantGestures)
 		self.SPLAssistant = True
 		tones.beep(512, 10)
-	script_SPLAssistantToggle.__doc__="The SPL Assistant layer command. See the add-on guide for more information on available commands."
+	# Translators: Input help mode message for a layer command in Station Playlist Studio.
+	script_SPLAssistantToggle.__doc__=_("The SPL Assistant layer command. See the add-on guide for more information on available commands.")
 
 	# Whichever layer we use, get the appropriate children from the foreground window.
 	def getStatusChild(self, childIndex):
