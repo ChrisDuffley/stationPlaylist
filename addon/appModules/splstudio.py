@@ -71,7 +71,9 @@ class AppModule(appModuleHandler.AppModule):
 					# Strip off "  Play status: " for brevity
 					ui.message(obj.name[15:])
 				else:
-					if self.beepAnnounce:
+					# Even with beeps enabled, be sure to announce scheduled time.
+					if self.beepAnnounce and obj.name.startswith("Scheduled for"): ui.message(obj.name)
+					elif self.beepAnnounce:
 						# User wishes to hear beeps instead of words. The beeps are power on and off sounds from PAC Mate Omni.
 						import nvwave, os.path # The wave playback and path manipulator.
 						beep = obj.name.split(" ")
