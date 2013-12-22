@@ -8,11 +8,16 @@
 # Additional work done by Joseph Lee and other contributors.
 # For SPL Studio Controller, focus movement and other utilities, see the global plugin version of this app module.
 
+# Because of different interfaces between 4.x and 5.x, we need to come up with a way to ahndle both.
+# Minimum version: SPL 4.33, NvDA 2013.3.
+
 import controlTypes
-from controlTypes import ROLE_GROUPING, ROLE_WINDOW # May need to remove window later.
+from controlTypes import ROLE_GROUPING
 import appModuleHandler
 import api
 import ui
+import winUser
+from ctypes import windll
 from NVDAObjects.IAccessible import IAccessible
 import tones
 from functools import wraps
@@ -32,6 +37,12 @@ def finally_(func, final):
 		return new
 	return wrap(final)
 
+# Try both 4.x and 5.x interfaces.
+user32 = windll.user32
+SPLWin = user32.FindWindowA("SPLStudio", None)
+
+# Use IPC tags to decide what to do for 4.x and 5.x (may look similar to global plugin version).
+SPLMinVersion = 500 # Check the version string against this. If it is less, use a different procedure for some routines.
 
 class AppModule(appModuleHandler.AppModule):
 
@@ -86,7 +97,9 @@ class AppModule(appModuleHandler.AppModule):
 					else:
 						ui.message(obj.name)
 			# Monitor the end of track time and announce it.
-			elif obj.windowClassName == "TStaticText" and obj.name == self.SPLEndOfTrackTime and obj.simplePrevious.name == "Remaining Time": tones.beep(440, 200)
+			elif obj.windowClassName == "TStaticText" and obj.name == self.SPLEndOfTrackTime and obj.simpleParent.name == "Remaining Time": tones.beep(440, 200) # SPL 4.x.
+			elif obj.windowClassName == "TStaticText" and obj.name == self.SPLEndOfTrackTime and obj.simplePrevious != None and obj.simplePrevious.name == "Remaining Time": tones.beep(440, 200) # SPL 5.x.
+			# Clean this mess with a more elegant solution.
 		nextHandler()
 
 # JL's additions
