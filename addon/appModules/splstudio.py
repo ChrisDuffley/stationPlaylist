@@ -51,6 +51,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Some useful variables:
 	beepAnnounce = False # Play beeps instead of announcing toggles.
+	SPLCurVersion = winUser.sendMessage(SPLWin, 1024, 0, 2) # The version test variable.
 
 	# GS: The following was written by James Teh <jamie@NVAccess.org
 	#It gets around a problem where double focus events are fired when moving around the playlist.
@@ -126,11 +127,15 @@ class AppModule(appModuleHandler.AppModule):
 	# Let us meet the scripts themselves.
 
 	def script_sayRemainingTime(self, gesture):
-		fgWindow = api.getForegroundObject()
-		# While Studio is on focus, the playback window with remaining time info is right next door. Parse the window title.
-		timeWindowStr = fgWindow.parent.next.name.split(" ")
-		# We want the first part only, the time itself.
-		remainingTime = timeWindowStr[0]
+		fgWindow, remainingTime = api.getForegroundObject(), ""
+		# For Studio 5.x: While Studio is on focus, the playback window with remaining time info is right next door. Parse the window title.
+		# For Studio 4.x: this information is part of the main window. Fetch one of the objects.
+		if self.SPLCurVersion >= SPLMinVersion: # See if we're running 5.00 or later.
+			timeWindowStr = fgWindow.parent.next.name.split(" ")
+			# We want the first part only, the time itself.
+			remainingTime = timeWindowStr[0]
+		else: # SPL 4.x.
+			remainingTime = fgWindow.children[18].firstChild.name
 		ui.message(remainingTime)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayRemainingTime.__doc__=_("Announces the remaining track time.")
@@ -155,6 +160,7 @@ class AppModule(appModuleHandler.AppModule):
 	# The children constants for fetching status information from the SPL Studio window.
 	SPLElapsedTime = 3 # Elapsed time of the current track.
 	SPLPlayStatus = 5 # Play status, mic, etc.
+	SPL4PlayStatus = 0 # Play status for Studio 4.x.
 	SPLHourTrackDuration = 17 # For track duration for the given hour marker.
 	SPLHourSelectedDuration = 18 # In case the user selects one or more tracks in a given hour.
 
@@ -176,21 +182,22 @@ class AppModule(appModuleHandler.AppModule):
 		return childObj
 
 	# Basic status such as playback and mic.
+	# For all these methods, assign the correct child ID based on SPL Studio version.
 
 	def script_sayPlayStatus(self, gesture):
-		obj = self.getStatusChild(self.SPLPlayStatus).children[0]
+		obj = self.getStatusChild(self.SPLPlayStatus).children[0] if self.SPLCurVersion >= SPLMinVersion else self.getStatusChild(self.SPL4PlayStatus).children[0]
 		ui.message(obj.name)
 
 	def script_sayAutomationStatus(self, gesture):
-		obj = self.getStatusChild(self.SPLPlayStatus).children[1]
+		obj = self.getStatusChild(self.SPLPlayStatus).children[1] if self.SPLCurVersion >= SPLMinVersion else self.getStatusChild(self.SPL4PlayStatus).children[1]
 		ui.message(obj.name)
 
 	def script_sayMicStatus(self, gesture):
-		obj = self.getStatusChild(self.SPLPlayStatus).children[2]
+		obj = self.getStatusChild(self.SPLPlayStatus).children[2] if self.SPLCurVersion >= SPLMinVersion else self.getStatusChild(self.SPL4PlayStatus).children[2]
 		ui.message(obj.name)
 
 	def script_sayLineInStatus(self, gesture):
-		obj = self.getStatusChild(self.SPLPlayStatus).children[3]
+		obj = self.getStatusChild(self.SPLPlayStatus).children[3] if self.SPLCurVersion >= SPLMinVersion else self.getStatusChild(self.SPL4PlayStatus).children[3]
 		ui.message(obj.name)
 
 	def script_sayHourTrackDuration(self, gesture):
