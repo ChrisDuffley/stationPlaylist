@@ -95,7 +95,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if "splstudio" in appModuleHandler.getAppModuleForNVDAObject(api.getForegroundObject()).appModuleName: return
 		else: SPLFG = self.fetchSPLForegroundWindow()
 		# SPL, are you running?
-		if SPLFG == None: ui.message(_("SPL Studio is not running"))
+		if SPLFG == None: ui.message(_("SPL Studio is not running."))
 		# If user pressed Windows+M to minimize windows, give a message to switch to SPL Studio window manually. If not, move focus.
 		# Translators: Presented when NVDA cannot switch to Station Playlist Studio (all windows were minimized).
 		else: SPLFG.setFocus() if SPLFG.name != "Program Manager" else ui.message(_("Press Alt+Tab to switch to SPL Studio window"))
