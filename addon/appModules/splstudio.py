@@ -8,7 +8,7 @@
 # Additional work done by Joseph Lee and other contributors.
 # For SPL Studio Controller, focus movement and other utilities, see the global plugin version of this app module.
 
-# Because of different interfaces between 4.x and 5.x, we need to come up with a way to ahndle both.
+# Because of different interfaces between 4.x and 5.x, we need to come up with a way to handle both.
 # Minimum version: SPL 4.33, NvDA 2013.3.
 
 import controlTypes
@@ -16,6 +16,8 @@ from controlTypes import ROLE_GROUPING
 import appModuleHandler
 import api
 import ui
+import gui
+import wx
 import winUser
 from ctypes import windll
 from NVDAObjects.IAccessible import IAccessible
@@ -140,6 +142,23 @@ class AppModule(appModuleHandler.AppModule):
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayRemainingTime.__doc__=_("Announces the remaining track time.")
 
+	# Set the end of track alarm time between 1 and 9 seconds.
+
+	def script_setEndOfTrackTime(self, gesture):
+		# Borrowed from NVDA core cursorManager.py.
+		timeVal = self.SPLEndOfTrackTime[-1]
+		timeMSG = "Enter end of track alarm time in seconds (currently {curAlarmSec})".format(curAlarmSec = timeVal)
+		dlg = wx.TextEntryDialog(gui.mainFrame,
+		timeMSG,
+		"End of track alarm", defaultValue=timeVal)
+		def callback(result):
+			if result == wx.ID_OK:
+				# Check if the value is indeed between 1 and 9.
+				if not dlg.GetValue().isdigit() or int(dlg.GetValue()) < 1 or int(dlg.GetValue()) > 9: wx.CallAfter(gui.messageBox, "Incorrect value entered.", "Error",wx.OK|wx.ICON_ERROR)
+				else: self.SPLEndOfTrackTime = self.SPLEndOfTrackTime.replace(self.SPLEndOfTrackTime[-1], dlg.GetValue()) # Quite a complicated replacement expression, but it works in this case.
+		gui.runScriptModalDialog(dlg, callback)
+	script_setEndOfTrackTime.__doc__="sets end of track alarm (default is 5 seconds)."
+
 	# Toggle whether beeps should be heard instead of toggle announcements.
 
 	def script_toggleBeepAnnounce(self, gesture):
@@ -221,5 +240,6 @@ class AppModule(appModuleHandler.AppModule):
 	__gestures={
 		"kb:control+alt+t":"sayRemainingTime",
 		"kb:control+nvda+1":"toggleBeepAnnounce",
+		"kb:control+nvda+2":"setEndOfTrackTime",
 		"kb:control+nvda+`":"SPLAssistantToggle"
 	}
