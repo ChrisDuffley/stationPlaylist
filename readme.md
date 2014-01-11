@@ -1,7 +1,7 @@
 # Station Playlist Studio #
 
 * Authors: Geoff Shang, Joseph Lee and other contributors
-* Version: [1.0-dev][1]
+* Version: [1.1-dev][1]
 
 This add-on package provides improved usage of Station Playlist Studio, as well as providing utilities to control the Studio from anywhere.
 
@@ -12,6 +12,7 @@ For more information about the add-on, read the [add-on guide][2].
 * Control+Alt+T from Studio window: announce remaining time for the currently playing trakc.
 * Control+NVDA+` (grave accent) from Studio window: enter a layer command to find out status of playback such as automation.
 * Control+NVDA+1 from Studio window: toggles announcement of toggle messages (such as automation) between words and beeps.
+* Control+NVDA+2 from Studio window: Opens end of track setting dialog.
 * NVDA+Shift+grave from anywhere: switch to SPL Studio window from any program.
 * NVDA+Grave from anywhere: the next command will control various aspects of SPL Studio.
 
@@ -43,7 +44,11 @@ The available SPL Controller commands are:
 
 ## End of track alarm ##
 
-Five seconds before the current track ends, NVDA will play a short beep to indicate that the track is about to end. This works anywhere (even within SPL Studio window).
+Five seconds before the current track ends, NVDA will play a short beep to indicate that the track is about to end. This works anywhere (even within SPL Studio window). Press Control+NVDA+2 to configure this between 1 and 9 seconds.
+
+## Changes for 1.1
+
+* Added a command (Control+NvDA+2) to set end of track alarm time.
 
 ## Changes for 1.0
 
