@@ -8,7 +8,7 @@
 # Additional work done by Joseph Lee and other contributors.
 # For SPL Studio Controller, focus movement and other utilities, see the global plugin version of this app module.
 
-# Because of different interfaces between 4.x and 5.x, we need to come up with a way to ahndle both.
+# Because of different interfaces between 4.x and 5.x, we need to come up with a way to handle both.
 # Minimum version: SPL 4.33, NvDA 2013.3.
 
 import controlTypes
@@ -151,7 +151,8 @@ class AppModule(appModuleHandler.AppModule):
 			self.beepAnnounce = False
 			# Translators: Reported when toggle announcement is set to words in SPL Studio.
 			ui.message(_("Toggle announcement words"))
-	script_toggleBeepAnnounce.__doc__="Toggles option change announcements between words and beeps."
+	# Translators: Input help mode message for a command in Station Playlist Studio.
+	script_toggleBeepAnnounce.__doc__=_("Toggles option change announcements between words and beeps.")
 
 	# The layer commands themselves.
 	# First layer (SPL Assistant): basic status such as playback, automation, etc.
