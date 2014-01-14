@@ -1,11 +1,12 @@
 # Station Playlist Studio #
 
 * Authors: Geoff Shang, Joseph Lee and other contributors
-* Version: [1.0-dev][1]
+* Release version: [1.0][1]
+* Development version: [1.1-dev][2]
 
 This add-on package provides improved usage of Station Playlist Studio, as well as providing utilities to control the Studio from anywhere.
 
-For more information about the add-on, read the [add-on guide][2].
+For more information about the add-on, read the [add-on guide][3].
 
 ## Shortcut keys ##
 
@@ -49,5 +50,8 @@ Five seconds before the current track ends, NVDA will play a short beep to indic
 
 * Initial release.
 
-[1]: http://addons.nvda-project.org/files/get.php?file=spl-dev
-[2]: https://bitbucket.org/nvdaaddonteam/stationplaylist/wiki/SPLAddonGuide
+[1]: http://addons.nvda-project.org/files/get.php?file=spl
+
+[2]: http://addons.nvda-project.org/files/get.php?file=spl-dev
+
+[3]: https://bitbucket.org/nvdaaddonteam/stationplaylist/wiki/SPLAddonGuide
