@@ -135,7 +135,7 @@ class AppModule(appModuleHandler.AppModule):
 			# We want the first part only, the time itself.
 			remainingTime = timeWindowStr[0]
 		else: # SPL 4.x.
-			remainingTime = fgWindow.children[18].firstChild.name
+			remainingTime = fgWindow.children[17].firstChild.name
 		ui.message(remainingTime)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayRemainingTime.__doc__=_("Announces the remaining track time.")
