@@ -128,6 +128,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Let us meet the scripts themselves.
 
+	# A few time related scripts (elapsed time, remaining time, etc.).
+
 	def script_sayRemainingTime(self, gesture):
 		fgWindow, remainingTime = api.getForegroundObject(), ""
 		# For Studio 5.x: While Studio is on focus, the playback window with remaining time info is right next door. Parse the window title.
@@ -141,6 +143,12 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(remainingTime)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayRemainingTime.__doc__=_("Announces the remaining track time.")
+
+	def script_sayElapsedTime(self, gesture):
+		remainingTime = self.getStatusChild(self.SPLElapsedTime).children[1].name if self.SPLCurVersion >= SPLMinVersion else self.getStatusChild(self.SPL4ElapsedTime).children[0].name
+		ui.message(remainingTime)
+	# Translators: Input help mode message for a command in Station Playlist Studio.
+	script_sayElapsedTime.__doc__=_("Announces the elapsed time for the currently playing track.")
 
 	# Set the end of track alarm time between 1 and 9 seconds.
 
@@ -179,6 +187,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# The children constants for fetching status information from the SPL Studio window.
 	SPLElapsedTime = 3 # Elapsed time of the current track.
+	SPL4ElapsedTime = 16 # Elapsed time for SPL 4.x.
 	SPLPlayStatus = 5 # Play status, mic, etc.
 	SPL4PlayStatus = 0 # Play status for Studio 4.x.
 	SPLHourTrackDuration = 17 # For track duration for the given hour marker.
@@ -240,6 +249,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	__gestures={
 		"kb:control+alt+t":"sayRemainingTime",
+		"kb:alt+shift+t":"sayElapsedTime",
 		"kb:control+nvda+1":"toggleBeepAnnounce",
 		"kb:control+nvda+2":"setEndOfTrackTime",
 		"kb:control+nvda+`":"SPLAssistantToggle"

@@ -10,6 +10,7 @@ For more information about the add-on, read the [add-on guide][3].
 
 ## Shortcut keys ##
 
+* Alt+Shift+T from Studio window: announce elapsed time for the currently playing trakc.
 * Control+Alt+T from Studio window: announce remaining time for the currently playing trakc.
 * Control+NVDA+` (grave accent) from Studio window: enter a layer command to find out status of playback such as automation.
 * Control+NVDA+1 from Studio window: toggles announcement of toggle messages (such as automation) between words and beeps.
