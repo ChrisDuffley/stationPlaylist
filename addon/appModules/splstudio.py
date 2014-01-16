@@ -107,6 +107,17 @@ class AppModule(appModuleHandler.AppModule):
 
 # JL's additions
 
+	# List of children constants for fetching various status information from SPL window.
+	# These are scattered throughout the screen, so one can use foreground.children[index] to fetch them.
+		# These are consulted not only in layer commands, but also for other status commands below.
+	SPLElapsedTime = 3 # Elapsed time of the current track.
+	SPL4ElapsedTime = 16 # Elapsed time for SPL 4.x.
+	SPLPlayStatus = 5 # Play status, mic, etc.
+	SPL4PlayStatus = 0 # Play status for Studio 4.x.
+	SPLHourTrackDuration = 17 # For track duration for the given hour marker.
+	SPLHourSelectedDuration = 18 # In case the user selects one or more tracks in a given hour.
+	# Todo for 2.0: Add constants for trakc title and upcoming track. They will be assigned to the assistant layer below with commands borrowed from Winamp.
+
 	# Various status scripts.
 	# To save keyboard commands, layered commands will be used.
 	# Most were borrowed from JFW and Window-Eyes layer scripts.
@@ -128,6 +139,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Let us meet the scripts themselves.
 
+	# Global scripts which doesn't require layer command entry.
+
 	# A few time related scripts (elapsed time, remaining time, etc.).
 
 	def script_sayRemainingTime(self, gesture):
@@ -145,6 +158,7 @@ class AppModule(appModuleHandler.AppModule):
 	script_sayRemainingTime.__doc__=_("Announces the remaining track time.")
 
 	def script_sayElapsedTime(self, gesture):
+		# Quite a complicated expression there.
 		remainingTime = self.getStatusChild(self.SPLElapsedTime).children[1].name if self.SPLCurVersion >= SPLMinVersion else self.getStatusChild(self.SPL4ElapsedTime).children[0].name
 		ui.message(remainingTime)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
@@ -184,14 +198,6 @@ class AppModule(appModuleHandler.AppModule):
 	# The layer commands themselves.
 	# First layer (SPL Assistant): basic status such as playback, automation, etc.
 	SPLAssistant = False
-
-	# The children constants for fetching status information from the SPL Studio window.
-	SPLElapsedTime = 3 # Elapsed time of the current track.
-	SPL4ElapsedTime = 16 # Elapsed time for SPL 4.x.
-	SPLPlayStatus = 5 # Play status, mic, etc.
-	SPL4PlayStatus = 0 # Play status for Studio 4.x.
-	SPLHourTrackDuration = 17 # For track duration for the given hour marker.
-	SPLHourSelectedDuration = 18 # In case the user selects one or more tracks in a given hour.
 
 	# The SPL Assistant layer driver.
 
