@@ -12,7 +12,7 @@
 # Minimum version: SPL 4.33, NvDA 2013.3.
 
 import controlTypes
-from controlTypes import ROLE_GROUPING
+from controlTypes import ROLE_GROUPING, ROLE_LIST
 import appModuleHandler
 import api
 import ui
@@ -195,6 +195,49 @@ class AppModule(appModuleHandler.AppModule):
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_toggleBeepAnnounce.__doc__=_("Toggles option change announcements between words and beeps.")
 
+	# The track finder utility for find track script.
+	# Perform a linear search to locate the track description which matches the entered value.
+	findText = ""
+
+	# The utility function itself.
+
+	def trackFinder(self, text, startObj, directionForward=True):
+		foundObj = startObj # Return this found object once the search is done; for now, set this as the start pbject.
+		# Do some optimization later (techniques will include a bit of memoization using a cache dictionary of searched texts).
+		while foundObj is not None:
+			if text in foundObj.description: return foundObj
+			else: foundObj = foundObj.next if directionForward else foundObj.previous
+		return foundObj # For now, return the object itself, as the script will set focus to the found object.
+
+	# Find a specific track based on a searched text.
+	# Unfortunately, the track list does not provide obj.name (it is None), however obj.description has the actual track entry.
+
+	def script_findTrack(self, gesture):
+		if api.getForegroundObject().windowClassName != "TStudioForm": ui.message("Track finder is available only in track list.")
+		elif api.getForegroundObject().windowClassName == "TStudioForm" and api.getFocusObject().role == ROLE_LIST: ui.message("You need to add at least one track to find tracks.")
+		else:
+			startObj = api.getFocusObject()
+			searchMSG = "Enter the name of the track you wish to search."
+			dlg = wx.TextEntryDialog(gui.mainFrame,
+			searchMSG,
+			"Find track", defaultValue=self.findText)
+			def callback(result):
+				if result == wx.ID_OK:
+					# Tests (for performance reasons):
+					# First, please either add at least one track to the list, or enter something, otherwise I'll not search it.
+					if dlg.GetValue() is None: return
+					# Second, if the entered values are same, do a forward search instead.
+					# Normal: do the search across the entire track list.
+					else:
+						retObj = self.trackFinder(dlg.GetValue(), startObj)
+						if retObj is None:
+							wx.CallAfter(gui.messageBox, "Search string not found.", "Find error",wx.OK|wx.ICON_ERROR)
+						else:
+							retObj.setFocus()
+							self.findText = dlg.GetValue()
+			gui.runScriptModalDialog(dlg, callback)
+	script_findTrack.__doc__="Finds a track in the track list."
+
 	# The layer commands themselves.
 	# First layer (SPL Assistant): basic status such as playback, automation, etc.
 	SPLAssistant = False
@@ -258,5 +301,6 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:alt+shift+t":"sayElapsedTime",
 		"kb:control+nvda+1":"toggleBeepAnnounce",
 		"kb:control+nvda+2":"setEndOfTrackTime",
+		"kb:control+nvda+f":"findTrack",
 		"kb:control+nvda+`":"SPLAssistantToggle"
 	}
