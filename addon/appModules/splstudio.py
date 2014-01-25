@@ -21,6 +21,7 @@ import wx
 import winUser
 from ctypes import windll
 from NVDAObjects.IAccessible import IAccessible
+import textInfos
 import tones
 from functools import wraps
 import addonHandler
@@ -65,6 +66,12 @@ class AppModule(appModuleHandler.AppModule):
 			obj.shouldAllowIAccessibleFocusEvent = False
 		# Radio button group names are not recognized as grouping, so work around this.
 		if obj.windowClassName == "TRadioGroup": obj.role = ROLE_GROUPING
+		# In certain edit fields, the field name is written to the screen, and there's no way to fetch the object for this text. Thus use review position text.
+		elif obj.windowClassName == "TEdit" and obj.name is None:
+			import review # This means at least NVDA 2013.2 is required.
+			fieldName, fieldObj  = review.getScreenPosition(obj)
+			fieldName.expand(textInfos.UNIT_LINE)
+			obj.name = fieldName.text
 
 	# Check the following variable for end of track announcement.
 	SPLEndOfTrackTime = "00:05" # Should be adjustable by the user in the end. Also find a way to announce this even if SPL Studio is minimized.
