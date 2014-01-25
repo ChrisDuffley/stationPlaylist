@@ -48,9 +48,11 @@ The available SPL Controller commands are:
 
 Five seconds before the current track ends, NVDA will play a short beep to indicate that the track is about to end. This works anywhere (even within SPL Studio window). Press Control+NVDA+2 to configure this between 1 and 9 seconds.
 
-## Changes for 1.1
+## Changes for 1.1-dev
 
 * Added a command (Control+NvDA+2) to set end of track alarm time.
+* Fixed a bug in which field names for certain edit fields were not announced (particularly edit fields in Options dialog).
+
 
 ## Changes for 1.0
 
