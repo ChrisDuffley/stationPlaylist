@@ -245,6 +245,40 @@ class AppModule(appModuleHandler.AppModule):
 			gui.runScriptModalDialog(dlg, callback)
 	script_findTrack.__doc__="Finds a track in the track list."
 
+	# Find next and previous scripts.
+
+	def script_findTrackNext(self, gesture):
+		if api.getForegroundObject().windowClassName != "TStudioForm": ui.message("Track finder is available only in track list.")
+		elif api.getForegroundObject().windowClassName == "TStudioForm" and api.getFocusObject().role == ROLE_LIST: ui.message("You need to add at least one track to find tracks.")
+		else:
+			if self.findText == "":
+				self.script_findTrack(gesture)
+				return
+			else:
+				startObj = api.getFocusObject()
+				retObj = self.trackFinder(self.findText, startObj)
+				if retObj is None:
+					wx.CallAfter(gui.messageBox, "Search string not found.", "Find error",wx.OK|wx.ICON_ERROR)
+				else:
+					retObj.setFocus()
+	script_findTrackNext.__doc__="Finds the next occurrence of the track with the name in the track list."
+
+	def script_findTrackPrevious(self, gesture):
+		if api.getForegroundObject().windowClassName != "TStudioForm": ui.message("Track finder is available only in track list.")
+		elif api.getForegroundObject().windowClassName == "TStudioForm" and api.getFocusObject().role == ROLE_LIST: ui.message("You need to add at least one track to find tracks.")
+		else:
+			if self.findText == "":
+				self.script_findTrack(gesture)
+				return
+			else:
+				startObj = api.getFocusObject()
+				retObj = self.trackFinder(self.findText, startObj, directionForward = False)
+				if retObj is None:
+					wx.CallAfter(gui.messageBox, "Search string not found.", "Find error",wx.OK|wx.ICON_ERROR)
+				else:
+					retObj.setFocus()
+	script_findTrackPrevious.__doc__="Finds previous occurrence of the track with the name in the track list."
+
 	# The layer commands themselves.
 	# First layer (SPL Assistant): basic status such as playback, automation, etc.
 	SPLAssistant = False
@@ -309,5 +343,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:control+nvda+1":"toggleBeepAnnounce",
 		"kb:control+nvda+2":"setEndOfTrackTime",
 		"kb:control+nvda+f":"findTrack",
+		"kb:nvda+f3":"findTrackNext",
+		"kb:shift+nvda+f3":"findTrackPrevious",
 		"kb:control+nvda+`":"SPLAssistantToggle"
 	}
