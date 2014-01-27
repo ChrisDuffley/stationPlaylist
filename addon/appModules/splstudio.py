@@ -122,7 +122,9 @@ class AppModule(appModuleHandler.AppModule):
 	SPLPlayStatus = 5 # Play status, mic, etc.
 	SPL4PlayStatus = 0 # Play status for Studio 4.x.
 	SPLHourTrackDuration = 17 # For track duration for the given hour marker.
+	SPL4HourTrackDuration = 13 # Same as above for SPL 4.
 	SPLHourSelectedDuration = 18 # In case the user selects one or more tracks in a given hour.
+	SPL4HourSelectedDuration = 14 # Same as above for SPL 4.
 	# Todo for 2.0: Add constants for trakc title and upcoming track. They will be assigned to the assistant layer below with commands borrowed from Winamp.
 
 	# Various status scripts.
@@ -243,11 +245,11 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(obj.name)
 
 	def script_sayHourTrackDuration(self, gesture):
-		obj = self.getStatusChild(self.SPLHourTrackDuration).firstChild
+		obj = self.getStatusChild(self.SPLHourTrackDuration).firstChild if self.SPLCurVersion >= SPLMinVersion else self.getStatusChild(self.SPL4HourTrackDuration).firstChild
 		ui.message(obj.name)
 
 	def script_sayHourSelectedTrackDuration(self, gesture):
-		obj = self.getStatusChild(self.SPLHourSelectedDuration).firstChild
+		obj = self.getStatusChild(self.SPLHourSelectedDuration).firstChild if self.SPLCurVersion >= SPLMinVersion else self.getStatusChild(self.SPL4HourSelectedDuration).firstChild
 		ui.message(obj.name)
 
 
