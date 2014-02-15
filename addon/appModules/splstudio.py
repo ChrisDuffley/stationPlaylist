@@ -122,7 +122,9 @@ class AppModule(appModuleHandler.AppModule):
 	SPLPlayStatus = 5 # Play status, mic, etc.
 	SPL4PlayStatus = 0 # Play status for Studio 4.x.
 	SPLHourTrackDuration = 17 # For track duration for the given hour marker.
+	SPL4HourTrackDuration = 13 # Same as above for SPL 4.
 	SPLHourSelectedDuration = 18 # In case the user selects one or more tracks in a given hour.
+	SPL4HourSelectedDuration = 14 # Same as above for SPL 4.
 	# Todo for 2.0: Add constants for trakc title and upcoming track. They will be assigned to the assistant layer below with commands borrowed from Winamp.
 
 	# Various status scripts.
@@ -176,14 +178,20 @@ class AppModule(appModuleHandler.AppModule):
 	def script_setEndOfTrackTime(self, gesture):
 		# Borrowed from NVDA core cursorManager.py.
 		timeVal = self.SPLEndOfTrackTime[-1]
-		timeMSG = "Enter end of track alarm time in seconds (currently {curAlarmSec})".format(curAlarmSec = timeVal)
+		# Translators: A dialog message to set end of track alarm (curAlarmSec is the current end of track alarm in seconds).
+		timeMSG = _("Enter end of track alarm time in seconds (currently {curAlarmSec})").format(curAlarmSec = timeVal)
 		dlg = wx.TextEntryDialog(gui.mainFrame,
 		timeMSG,
-		"End of track alarm", defaultValue=timeVal)
+		# Translators: The title of end of track alarm dialog.
+		_("End of track alarm"), defaultValue=timeVal)
 		def callback(result):
 			if result == wx.ID_OK:
 				# Check if the value is indeed between 1 and 9.
-				if not dlg.GetValue().isdigit() or int(dlg.GetValue()) < 1 or int(dlg.GetValue()) > 9: wx.CallAfter(gui.messageBox, "Incorrect value entered.", "Error",wx.OK|wx.ICON_ERROR)
+				if not dlg.GetValue().isdigit() or int(dlg.GetValue()) < 1 or int(dlg.GetValue()) > 9:
+					# Translators: The error message presented when incorrect alarm time value has been entered.
+					wx.CallAfter(gui.messageBox, _("Incorrect value entered."),
+					# Translators: Standard title for error dialog (copy this from main nvda.po file).
+					_("Error"),wx.OK|wx.ICON_ERROR)
 				else: self.SPLEndOfTrackTime = self.SPLEndOfTrackTime.replace(self.SPLEndOfTrackTime[-1], dlg.GetValue()) # Quite a complicated replacement expression, but it works in this case.
 		gui.runScriptModalDialog(dlg, callback)
 	script_setEndOfTrackTime.__doc__="sets end of track alarm (default is 5 seconds)."
@@ -320,11 +328,11 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(obj.name)
 
 	def script_sayHourTrackDuration(self, gesture):
-		obj = self.getStatusChild(self.SPLHourTrackDuration).firstChild
+		obj = self.getStatusChild(self.SPLHourTrackDuration).firstChild if self.SPLCurVersion >= SPLMinVersion else self.getStatusChild(self.SPL4HourTrackDuration).firstChild
 		ui.message(obj.name)
 
 	def script_sayHourSelectedTrackDuration(self, gesture):
-		obj = self.getStatusChild(self.SPLHourSelectedDuration).firstChild
+		obj = self.getStatusChild(self.SPLHourSelectedDuration).firstChild if self.SPLCurVersion >= SPLMinVersion else self.getStatusChild(self.SPL4HourSelectedDuration).firstChild
 		ui.message(obj.name)
 
 
