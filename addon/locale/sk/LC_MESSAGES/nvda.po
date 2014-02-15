@@ -1,0 +1,100 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: DropboxPlugin 3.0\n"
+"Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
+"POT-Creation-Date: 2013-01-06 13:12+0100\n"
+"PO-Revision-Date: 2013-02-10 22:45+0400\n"
+"Last-Translator: Ondrej Rosík <ondrej.rosik@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: sk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#. Translators: the name of the dropbox general tab.
+msgid "General"
+msgstr "General"
+
+#. Translators: the name of the dropbox account tab.
+msgid "Account"
+msgstr "Account"
+
+#. Translators: the name of the dropbox bandwidth tab.
+msgid "Bandwidth"
+msgstr "Bandwidth"
+
+#. Translators: the name of the dropbox proxies tab.
+msgid "Proxies"
+msgstr "Proxies"
+
+#. Translators: the name of the dropbox advanced tab.
+msgid "Advanced"
+msgstr "Advanced"
+
+#. Translators: the title of the dropbox preferences dialog, it is important to have the same capitalization/spelling as in the dropbox gui. If Dropbox hasn't been translated to your language yet, leave this blank or write the original text.
+msgid "Dropbox Preferences"
+msgstr "Dropbox Preferences"
+
+#. Translators: the name of the dropbox preferences cancel button, it is important to have the same capitalization/spelling as in the dropbox gui. If Dropbox hasn't been translated to your language yet, leave this blank or write the original text.
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Cancel button not found"
+msgstr "Nepodarilos a nájsť tlačidlo zrušiť"
+
+#. Translators: message presented when user performs input help for this shortcut.
+msgid "Clicks the Cancel button of the Dropbox preferences dialog"
+msgstr "Aktivuje tlačidlo zrušiť v okne s možnosťami programu Dropbox"
+
+#. Translators: message presented when user performs input help for this shortcut.
+msgid "announce active Dropbox preferences dialog tab"
+msgstr "prečítať aktuálnu záložku  v nastaveniach Dropboxu"
+
+#. Translators: message presented when user performs input help for this shortcut.
+msgid "Activate previous Dropbox preferences dialog tab"
+msgstr "prejsť na predchádzajúcu záložku v nastaveniach Dropboxu"
+
+#. Translators: message presented when user performs input help for this shortcut.
+msgid "Activate next Dropbox preferences dialog tab"
+msgstr "prejsť na nasledujúcu záložku v nastaveniach Dropboxu"
+
+msgid "drop box not found"
+msgstr "Dropbox nebol nájdený"
+
+#. Documentation
+msgid ""
+"If pressed once, announces Dropbox status. If pressed twice, reports the "
+"Dropbox version. If pressed three times, open the Dropbox context menu by "
+"clicking on its systray icon"
+msgstr ""
+"Oznámi stav Dropboxu. Stlačené dvakrát rýchlo zasebou prečíta verziu "
+"Dropboxu. Stlačené rýchlo trikrát otvorí kontextové menu Dropboxu."
+
+#. Add-on description
+#. TRANSLATORS: Summary for this add-on to be shown on installation and add-on information.
+msgid "Announce Dropbox state and make preferences tabs accessible"
+msgstr "Modul pre Dropbox"
+
+#. Add-on description
+#. Translators: Long description to be shown for this add-on on installation and add-on information
+msgid ""
+"Announces Dropbox status, version or open the Dropbox systray menu.\n"
+"Shortcut: NVDA+Shift+D\n"
+"Page tabs are also working in the preferences dialog with Ctrl+tab and Shift"
+"+Ctrl+Tab.\n"
+"Ctrl+Alt+T announce the active tab.\n"
+"You can activate cancel by pressing the escape key."
+msgstr ""
+"Oznamuje stav Dropboxu, jeho verziu a umožňuje otvoriť kontextové menu "
+"programu z klávesnice.\n"
+"Klávesová skratka: NVDA+Shift+D\n"
+"Môžete sa tiež pohybovať po záložkách v možnostiach programu pomocou ctrl"
+"+tab a  Shift+Ctrl+Tab.\n"
+"Ctrl+Alt+T prečíta názov aktuálnej záložky.\n"
+"Nastavenia Dropboxu zatvoríte klávesom Escape."

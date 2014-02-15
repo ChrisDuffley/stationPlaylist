@@ -1,8 +1,8 @@
 # Station Playlist Studio #
 
 * Authors: Geoff Shang, Joseph Lee and other contributors
-* Release version: [1.0][1]
-* Development version: [1.1-dev][2]
+* Release version: [1.1][1]
+* Development version: [2.0-dev][2]
 
 This add-on package provides improved usage of Station Playlist Studio, as well as providing utilities to control the Studio from anywhere.
 
@@ -48,7 +48,7 @@ The available SPL Controller commands are:
 
 Five seconds before the current track ends, NVDA will play a short beep to indicate that the track is about to end. This works anywhere (even within SPL Studio window). Press Control+NVDA+2 to configure this between 1 and 9 seconds.
 
-## Changes for 1.1-dev
+## Changes for 1.1
 
 * Added a command (Control+NvDA+2) to set end of track alarm time.
 * Fixed a bug in which field names for certain edit fields were not announced (particularly edit fields in Options dialog).

@@ -1,0 +1,120 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: StationPlaylist 1.1-dev\n"
+"Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
+"POT-Creation-Date: 2014-01-27 23:04-0800\n"
+"PO-Revision-Date: 2014-02-10 18:19+0100\n"
+"Last-Translator: Juan C. Buño <quetzatl@eresmas.net>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.6.3\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. Translators: Script category for Station Playlist commands in input gestures dialog.
+#. Add-on description
+#. TRANSLATORS: Summary for this add-on to be shown on installation and add-on information.
+msgid "Station Playlist Studio"
+msgstr "Station Playlist Studio"
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Announces the remaining track time."
+msgstr "Anuncia el tiempo de pista restante."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Announces the elapsed time for the currently playing track."
+msgstr "Anuncia el tiempo transcurrido de la pista que se está reproduciendo."
+
+#. Translators: A dialog message to set end of track alarm (curAlarmSec is the current end of track alarm in seconds).
+msgid "Enter end of track alarm time in seconds (currently {curAlarmSec})"
+msgstr ""
+"Introducir el tiempo de aviso de final de pista en segundos (Actualmente "
+"{curAlarmSec})"
+
+#. Translators: The title of end of track alarm dialog.
+msgid "End of track alarm"
+msgstr "Aviso de final de pista"
+
+#. Translators: The error message presented when incorrect alarm time value has been entered.
+msgid "Incorrect value entered."
+msgstr "Introducido un valor incorrecto."
+
+#. Translators: Standard title for error dialog (copy this from main nvda.po file).
+msgid "Error"
+msgstr "Error"
+
+#. Translators: Reported when toggle announcement is set to beeps in SPL Studio.
+msgid "Toggle announcement beeps"
+msgstr "Conmutar anunciado de pitidos"
+
+#. Translators: Reported when toggle announcement is set to words in SPL Studio.
+msgid "Toggle announcement words"
+msgstr "Conmutar anunciado palabras"
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Toggles option change announcements between words and beeps."
+msgstr "Alterna el cambio del anunciado de opción entre palabras y sonidos."
+
+#. Translators: Input help mode message for a layer command in Station Playlist Studio.
+msgid ""
+"The SPL Assistant layer command. See the add-on guide for more information "
+"on available commands."
+msgstr ""
+"La orden SPL Assistant layer. Consulta la guía del complemento para obtener "
+"más información sobre las órdenes disponibles."
+
+#. SPL, are you running?
+#. Translators: Presented when Station Playlist Studio is not running.
+msgid "SPL Studio is not running."
+msgstr "No se está ejecutando SPL Studio."
+
+#. If user pressed Windows+M to minimize windows, give a message to switch to SPL Studio window manually. If not, move focus.
+#. Translators: Presented when NVDA cannot switch to Station Playlist Studio (all windows were minimized).
+msgid "Press Alt+Tab to switch to SPL Studio window"
+msgstr "Pulsa Alt+Tab para cambiar a la ventana SPL Studio"
+
+#. Translators: Input help mode message for a command to switch to Station Playlist Studio from any program.
+msgid "Moves to SPL Studio window from other programs."
+msgstr "Se mueve a la ventana SPL Studio desde otros programas."
+
+#. Translators: Presented when NVDA cannot enter SPL Controller layer since SPL Studio is focused.
+msgid ""
+"You are already in SPL Studio window. For status commands, use SPL Assistant "
+"commands."
+msgstr ""
+"Ya estás en la ventana SPL Estudio. Para órdenes de estado, utiliza órdenes "
+"del SPL Assistant."
+
+#. Translators: The name of a layer command set for Station Playlist Studio.
+#. Hint: it is better to translate it as "SPL Control Panel."
+msgid "SPL Controller"
+msgstr "SPL Controller"
+
+#. Translators: Input help mode message for a layer command in Station Playlist Studio.
+msgid "SPl Controller layer command. See add-on guide for available commands."
+msgstr ""
+"Capa de órdenes del SPl Controller. Consulta la guía del complemento para "
+"las órdenes disponibles."
+
+#. Translators: Presented when no track is playing in Station Playlist Studio.
+msgid "There is no track playing. Try pausing while a track is playing."
+msgstr ""
+"No hay pistas en reproducción. Trata de hacer una pausa mientras se "
+"reproduce una pista."
+
+#. Add-on description
+#. Translators: Long description to be shown for this add-on on installation and add-on information
+msgid ""
+"Enhances support for Station Playlist Studio.\n"
+"In addition, adds global commands for the studio from everywhere."
+msgstr ""
+"Mejora el soporte para Station Playlist Studio.\n"
+"Además, agrega comandos globales para el estudio desde cualquier parte."
