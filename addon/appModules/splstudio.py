@@ -118,7 +118,7 @@ class AppModule(appModuleHandler.AppModule):
 	# These are scattered throughout the screen, so one can use foreground.children[index] to fetch them.
 		# These are consulted not only in layer commands, but also for other status commands below.
 	SPLElapsedTime = 3 # Elapsed time of the current track.
-	SPL4ElapsedTime = 16 # Elapsed time for SPL 4.x.
+	SPL4ElapsedTime = -4 # Elapsed time for SPL 4.x.
 	SPLPlayStatus = 5 # Play status, mic, etc.
 	SPL4PlayStatus = 0 # Play status for Studio 4.x.
 	SPLHourTrackDuration = 17 # For track duration for the given hour marker.
@@ -161,7 +161,7 @@ class AppModule(appModuleHandler.AppModule):
 			# We want the first part only, the time itself.
 			remainingTime = timeWindowStr[0]
 		else: # SPL 4.x.
-			remainingTime = fgWindow.children[17].firstChild.name
+			remainingTime = fgWindow.children[-3].firstChild.name
 		ui.message(remainingTime)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayRemainingTime.__doc__=_("Announces the remaining track time.")
