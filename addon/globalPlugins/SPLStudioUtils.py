@@ -80,12 +80,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# First test: is splstudio running? Tell me the handle, please.
 		if user32.FindWindowA("SPLStudio", None) == 0: return None # Used ANSI version, as Wide char version always returns 0.
 		# Continue with the method.
-		fgTest = api.getForegroundObject()
-		# In some windows, the parent of foreground window is Desktop.
-		fg = fgTest.simpleParent if not isinstance(fgTest.simpleParent, NVDAObjects.window.Desktop) else fgTest
-		while fg.simpleNext != None:
+		# Turns out NVDA core does have a method to fetch desktop objects, so use this to find SPL window from among its children.
+		dt = api.getDesktopObject()
+		for fg in dt.children:
 			if "splstudio" in appModuleHandler.getAppModuleForNVDAObject(fg).appModuleName: break
-			else: fg = fg.simpleNext
 		return fg
 
 	# Switch focus to SPL Studio window from anywhere.
@@ -96,9 +94,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		else: SPLFG = self.fetchSPLForegroundWindow()
 		# SPL, are you running?
 		if SPLFG == None: ui.message(_("SPL Studio is not running."))
-		# If user pressed Windows+M to minimize windows, give a message to switch to SPL Studio window manually. If not, move focus.
-		# Translators: Presented when NVDA cannot switch to Station Playlist Studio (all windows were minimized).
-		else: SPLFG.setFocus() if SPLFG.name != "Program Manager" else ui.message(_("Press Alt+Tab to switch to SPL Studio window"))
+		else: SPLFG.setFocus()
 	# Translators: Input help mode message for a command to switch to Station Playlist Studio from any program.
 	script_focusToSPLWindow.__doc__=_("Moves to SPL Studio window from other programs.")
 
