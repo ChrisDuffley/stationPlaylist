@@ -2,7 +2,7 @@
 
 * Authors: Geoff Shang, Joseph Lee and other contributors
 * Release version: [1.1][1]
-* Development version: [1.2-dev][2]
+* Development version: [2.0-dev][2]
 
 This add-on package provides improved usage of Station Playlist Studio, as well as providing utilities to control the Studio from anywhere.
 
@@ -15,6 +15,7 @@ For more information about the add-on, read the [add-on guide][3].
 * Control+NVDA+` (grave accent) from Studio window: enter a layer command to find out status of playback such as automation.
 * Control+NVDA+1 from Studio window: toggles announcement of toggle messages (such as automation) between words and beeps.
 * Control+NVDA+2 from Studio window: Opens end of track setting dialog.
+* Control+NVDA+f from Studio window: Opens a dialog to find a track based on artist or song name.
 * NVDA+Shift+grave from anywhere: switch to SPL Studio window from any program.
 * NVDA+Grave from anywhere: the next command will control various aspects of SPL Studio.
 

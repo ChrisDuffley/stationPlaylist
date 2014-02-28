@@ -248,8 +248,9 @@ class AppModule(appModuleHandler.AppModule):
 						if retObj is None:
 							wx.CallAfter(gui.messageBox, "Search string not found.", "Find error",wx.OK|wx.ICON_ERROR)
 						else:
-							retObj.setFocus()
 							self.findText = dlg.GetValue()
+							# It appears we need to ask the focus to be set twice. This isn't ideal, but for now, this is the practical workaround.
+							retObj.setFocus(), retObj.setFocus()
 			gui.runScriptModalDialog(dlg, callback)
 	script_findTrack.__doc__="Finds a track in the track list."
 
