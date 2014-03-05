@@ -2,7 +2,7 @@
 
 * Authors: Geoff Shang, Joseph Lee and other contributors
 * Release version: [1.1][1]
-* Development version: [1.2-dev][2]
+* Development version: [2.0-dev][2]
 
 This add-on package provides improved usage of Station Playlist Studio, as well as providing utilities to control the Studio from anywhere.
 
@@ -15,6 +15,7 @@ For more information about the add-on, read the [add-on guide][3].
 * Control+NVDA+` (grave accent) from Studio window: enter a layer command to find out status of playback such as automation.
 * Control+NVDA+1 from Studio window: toggles announcement of toggle messages (such as automation) between words and beeps.
 * Control+NVDA+2 from Studio window: Opens end of track setting dialog.
+* Control+NVDA+f from Studio window: Opens a dialog to find a track based on artist or song name.
 * NVDA+Shift+grave from anywhere: switch to SPL Studio window from any program.
 * NVDA+Grave from anywhere: the next command will control various aspects of SPL Studio.
 
@@ -30,6 +31,8 @@ The available status information are:
 * L: Line in.
 * M: Microphone.
 * P: Playback status (playing or stopped).
+* R: Record to file enabled/disabled.
+* T: Cart edit mode on/off.
 
 ## SPL Controller ##
 
@@ -47,6 +50,10 @@ The available SPL Controller commands are:
 ## End of track alarm ##
 
 Five seconds before the current track ends, NVDA will play a short beep to indicate that the track is about to end. This works anywhere (even within SPL Studio window). Press Control+NVDA+2 to configure this between 1 and 9 seconds.
+
+## Changes for 2.0-dev
+
+* Added more SPL Assistant commands such as cart edit mode status.
 
 ## Changes for 1.2-dev
 
