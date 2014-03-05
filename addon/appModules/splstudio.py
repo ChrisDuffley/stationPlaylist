@@ -250,6 +250,14 @@ class AppModule(appModuleHandler.AppModule):
 		obj = self.getStatusChild(self.SPLPlayStatus).children[3] if self.SPLCurVersion >= SPLMinVersion else self.getStatusChild(self.SPL4PlayStatus).children[3]
 		ui.message(obj.name)
 
+	def script_sayRecToFileStatus(self, gesture):
+		obj = self.getStatusChild(self.SPLPlayStatus).children[4] if self.SPLCurVersion >= SPLMinVersion else self.getStatusChild(self.SPL4PlayStatus).children[4]
+		ui.message(obj.name)
+
+	def script_sayCartEditStatus(self, gesture):
+		obj = self.getStatusChild(self.SPLPlayStatus).children[5] if self.SPLCurVersion >= SPLMinVersion else self.getStatusChild(self.SPL4PlayStatus).children[5]
+		ui.message(obj.name)
+
 	def script_sayHourTrackDuration(self, gesture):
 		obj = self.getStatusChild(self.SPLHourTrackDuration).firstChild if self.SPLCurVersion >= SPLMinVersion else self.getStatusChild(self.SPL4HourTrackDuration).firstChild
 		ui.message(obj.name)
@@ -264,6 +272,8 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:a":"sayAutomationStatus",
 		"kb:m":"sayMicStatus",
 		"kb:l":"sayLineInStatus",
+		"kb:r":"sayRecToFileStatus",
+		"kb:t":"sayCartEditStatus",
 		"kb:h":"sayHourTrackDuration",
 		"kb:shift+h":"sayHourSelectedTrackDuration"
 	}
