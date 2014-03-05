@@ -31,6 +31,8 @@ The available status information are:
 * L: Line in.
 * M: Microphone.
 * P: Playback status (playing or stopped).
+* R: Record to file enabled/disabled.
+* T: Cart edit mode on/off.
 
 ## SPL Controller ##
 
@@ -48,6 +50,10 @@ The available SPL Controller commands are:
 ## End of track alarm ##
 
 Five seconds before the current track ends, NVDA will play a short beep to indicate that the track is about to end. This works anywhere (even within SPL Studio window). Press Control+NVDA+2 to configure this between 1 and 9 seconds.
+
+## Changes for 2.0-dev
+
+* Added more SPL Assistant commands such as cart edit mode status.
 
 ## Changes for 1.2-dev
 
