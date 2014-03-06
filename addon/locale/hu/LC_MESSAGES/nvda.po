@@ -8,13 +8,14 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2014-01-27 23:04-0800\n"
-"PO-Revision-Date: 2014-02-09 22:24+0100\n"
+"PO-Revision-Date: 2014-02-28 12:40+0100\n"
 "Last-Translator: Ócsvári Áron <oaron1@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.6.4\n"
+"Language: hu\n"
 
 #. Translators: Script category for Station Playlist commands in input gestures dialog.
 #. Add-on description
@@ -24,24 +25,24 @@ msgstr "Station Playlist Studio"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Announces the remaining track time."
-msgstr "Bemondja a hátralévő szám hosszát."
+msgstr "Bemondja a zeneszám hátralévő idejét."
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Announces the elapsed time for the currently playing track."
-msgstr "Bemondja az eltelt időt a játszás alatt lévő számból."
+msgstr "Bemondja az eltelt időt a lejátszás alatt lévő zeneszámból."
 
 #. Translators: A dialog message to set end of track alarm (curAlarmSec is the current end of track alarm in seconds).
 msgid "Enter end of track alarm time in seconds (currently {curAlarmSec})"
 msgstr ""
-"Írja be a szám végi riasztás idejét másodpercben (jelenleg {curAlarmSec})"
+"Írja be a zeneszám végi riasztás idejét másodpercben (jelenleg {curAlarmSec})"
 
 #. Translators: The title of end of track alarm dialog.
 msgid "End of track alarm"
-msgstr "Szám végi riasztás"
+msgstr "Zeneszám végi riasztás"
 
 #. Translators: The error message presented when incorrect alarm time value has been entered.
 msgid "Incorrect value entered."
-msgstr "Hibás bevitt érték."
+msgstr "A bevitt érték hibás."
 
 #. Translators: Standard title for error dialog (copy this from main nvda.po file).
 msgid "Error"
@@ -64,39 +65,47 @@ msgid ""
 "The SPL Assistant layer command. See the add-on guide for more information "
 "on available commands."
 msgstr ""
+"SPL Studio kisegítő parancs. A kiegészítő útmutatójában további "
+"információkat találhat a rendelkezésre álló parancsokról."
 
 #. SPL, are you running?
 #. Translators: Presented when Station Playlist Studio is not running.
 msgid "SPL Studio is not running."
-msgstr "SPL Studio nem fut."
+msgstr "Az SPL Studio jelenleg nem fut."
 
 #. If user pressed Windows+M to minimize windows, give a message to switch to SPL Studio window manually. If not, move focus.
 #. Translators: Presented when NVDA cannot switch to Station Playlist Studio (all windows were minimized).
 msgid "Press Alt+Tab to switch to SPL Studio window"
-msgstr "Nyomja meg az alt+tab billentyűt a program fókuszba hozásához."
+msgstr "Nyomja meg az alt+tab billentyűt az SPL Studio fókuszba hozásához.\v"
 
 #. Translators: Input help mode message for a command to switch to Station Playlist Studio from any program.
 msgid "Moves to SPL Studio window from other programs."
-msgstr ""
+msgstr "Az SPL Studio ablakába lép más programokból."
 
 #. Translators: Presented when NVDA cannot enter SPL Controller layer since SPL Studio is focused.
 msgid ""
 "You are already in SPL Studio window. For status commands, use SPL Assistant "
 "commands."
 msgstr ""
+"Ön már az SPL Studio ablakában van. Az állapot parancsokhoz használja az SPL "
+"kisegítő parancsokat."
 
 #. Translators: The name of a layer command set for Station Playlist Studio.
 #. Hint: it is better to translate it as "SPL Control Panel."
 msgid "SPL Controller"
-msgstr ""
+msgstr "SPL Vezérlőpult"
 
 #. Translators: Input help mode message for a layer command in Station Playlist Studio.
 msgid "SPl Controller layer command. See add-on guide for available commands."
 msgstr ""
+"SPL Vezérlőpult parancs. Az elérhető parancsok listáját a kiegészítő "
+"útmutatójában találja."
 
 #. Translators: Presented when no track is playing in Station Playlist Studio.
 msgid "There is no track playing. Try pausing while a track is playing."
 msgstr ""
+"Nincsen lejátszás alatt lévő szám. Próbálja meg szüneteltetni a lejátszás "
+"közben."
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on installation and add-on information
@@ -104,3 +113,6 @@ msgid ""
 "Enhances support for Station Playlist Studio.\n"
 "In addition, adds global commands for the studio from everywhere."
 msgstr ""
+"Javítja a Station Playlist Studio támogatását.\n"
+"Emellett olyan billentyűparancsok lettek hozzáadva, melyeket bármely "
+"programból működésre bírhat."
