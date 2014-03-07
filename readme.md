@@ -54,8 +54,9 @@ Five seconds before the current track ends, NVDA will play a short beep to indic
 ## Changes for 2.0-dev
 
 * Added more SPL Assistant commands such as cart edit mode status.
+* You can now switch to SPL Studio even with all windows minimized (may not work in some cases).
 
-## Changes for 1.2-dev
+## Changes for 1.2
 
 * When Station Playlist 4.x is installed on certain Windows 8/8.1 computers, it is again possible to hear elapsed and remaining times for a track.
 
