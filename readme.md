@@ -33,6 +33,7 @@ The available status information are:
 * P: Playback status (playing or stopped).
 * R: Record to file enabled/disabled.
 * T: Cart edit mode on/off.
+* U: Studio up time.
 
 ## SPL Controller ##
 
