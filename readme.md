@@ -50,15 +50,17 @@ The available SPL Controller commands are:
 
 ## End of track alarm ##
 
-Five seconds before the current track ends, NVDA will play a short beep to indicate that the track is about to end. This works anywhere (even within SPL Studio window). Press Control+NVDA+2 to configure this between 1 and 9 seconds.
+Five seconds before the current track ends, NVDA will play a short beep to indicate that the track is about to end. This works anywhere (even within SPL Studio window). Press Control+NVDA+2 to configure this between 1 and 59 seconds.
 
 ## Changes for 2.0-dev
 
 * Added more SPL Assistant commands such as cart edit mode status.
+* Extended the end of track alarm range to 59 seconds.
 
-## Changes for 1.2-dev
+## Changes for 1.2
 
 * When Station Playlist 4.x is installed on certain Windows 8/8.1 computers, it is again possible to hear elapsed and remaining times for a track.
+* Updated translations.
 
 ## Changes for 1.1
 
