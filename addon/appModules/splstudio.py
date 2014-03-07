@@ -121,6 +121,8 @@ class AppModule(appModuleHandler.AppModule):
 	SPL4ElapsedTime = -4 # Elapsed time for SPL 4.x.
 	SPLPlayStatus = 5 # Play status, mic, etc.
 	SPL4PlayStatus = 0 # Play status for Studio 4.x.
+	SPLSystemStatus = -3 # The second status bar containing system status such as up time.
+	SPL4SystemStatus = -2 # System status bar for 4.x.
 	SPLHourTrackDuration = 17 # For track duration for the given hour marker.
 	SPL4HourTrackDuration = 13 # Same as above for SPL 4.
 	SPLHourSelectedDuration = 18 # In case the user selects one or more tracks in a given hour.
@@ -331,6 +333,10 @@ class AppModule(appModuleHandler.AppModule):
 		obj = self.getStatusChild(self.SPLHourSelectedDuration).firstChild if self.SPLCurVersion >= SPLMinVersion else self.getStatusChild(self.SPL4HourSelectedDuration).firstChild
 		ui.message(obj.name)
 
+	def script_sayUpTime(self, gesture):
+		obj = self.getStatusChild(self.SPLSystemStatus).firstChild if self.SPLCurVersion >= SPLMinVersion else self.getStatusChild(self.SPL4SystemStatus).firstChild
+		ui.message(obj.name)
+
 
 	__SPLAssistantGestures={
 		"kb:p":"sayPlayStatus",
@@ -340,7 +346,8 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:r":"sayRecToFileStatus",
 		"kb:t":"sayCartEditStatus",
 		"kb:h":"sayHourTrackDuration",
-		"kb:shift+h":"sayHourSelectedTrackDuration"
+		"kb:shift+h":"sayHourSelectedTrackDuration",
+		"kb:u":"sayUpTime"
 	}
 
 	__gestures={
