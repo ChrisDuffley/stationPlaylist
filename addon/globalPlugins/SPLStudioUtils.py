@@ -55,7 +55,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	#Global layer environment (see the app module for more information).
 	SPLController = False # Control SPL from anywhere.
-	SPLFG = api.getForegroundObject()
 
 	def getScript(self, gesture):
 		if not self.SPLController:
@@ -76,21 +75,20 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def fetchSPLForegroundWindow(self):
 		# Let us see if SPL foreground can be fetched.
-		import appModuleHandler, NVDAObjects
+		import NVDAObjects
 		# First test: is splstudio running? Tell me the handle, please.
 		if user32.FindWindowA("SPLStudio", None) == 0: return None # Used ANSI version, as Wide char version always returns 0.
 		# Continue with the method.
 		# Turns out NVDA core does have a method to fetch desktop objects, so use this to find SPL window from among its children.
 		dt = api.getDesktopObject()
 		for fg in dt.children:
-			if "splstudio" in appModuleHandler.getAppModuleForNVDAObject(fg).appModuleName: break
-		return fg
+			if "splstudio" in fg.appModule.appModuleName: return fg
+		return None
 
 	# Switch focus to SPL Studio window from anywhere.
 	def script_focusToSPLWindow(self, gesture):
-		import appModuleHandler, ui
 		# Don't do anything if we're already focus on SPL Studio.
-		if "splstudio" in appModuleHandler.getAppModuleForNVDAObject(api.getForegroundObject()).appModuleName: return
+		if "splstudio" in api.getForegroundObject().appModule.appModuleName: return
 		else: SPLFG = self.fetchSPLForegroundWindow()
 		# SPL, are you running?
 		if SPLFG == None: ui.message(_("SPL Studio is not running."))
@@ -101,11 +99,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# The SPL Controller:
 	# This layer set allows the user to control various aspects of SPL Studio from anywhere.
 	def script_SPLControllerPrefix(self, gesture):
-		import appModuleHandler
 		# Erorr checks:
 		# 1. If SPL Studio is not running, print an error message.
 		# 2. If we're already  in SPL, report that the user is in SPL. This is temporary - in the end, pass this gesture to the app module portion.
-		if "splstudio" in appModuleHandler.getAppModuleForNVDAObject(api.getForegroundObject()).appModuleName:
+		if "splstudio" in api.getForegroundObject().appModule.appModuleName:
 			# Translators: Presented when NVDA cannot enter SPL Controller layer since SPL Studio is focused.
 			ui.message(_("You are already in SPL Studio window. For status commands, use SPL Assistant commands."))
 			self.finish()
