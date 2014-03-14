@@ -15,7 +15,7 @@ For more information about the add-on, read the [add-on guide][3].
 * Control+NVDA+` (grave accent) from Studio window: enter a layer command to find out status of playback such as automation.
 * Control+NVDA+1 from Studio window: toggles announcement of toggle messages (such as automation) between words and beeps.
 * Control+NVDA+2 from Studio window: Opens end of track setting dialog.
-* Control+NVDA+f from Studio window: Opens a dialog to find a track based on artist or song name.
+* Control+NVDA+f from Studio window: Opens a dialog to find a track based on artist or song name. Press NvDA+F3 to find forward or NVDA+Shift+F3 to find backward.
 * NVDA+Shift+grave from anywhere: switch to SPL Studio window from any program.
 * NVDA+Grave from anywhere: the next command will control various aspects of SPL Studio.
 
@@ -57,6 +57,7 @@ Five seconds before the current track ends, NVDA will play a short beep to indic
 * Added more SPL Assistant commands such as cart edit mode status.
 * You can now switch to SPL Studio even with all windows minimized (may not work in some cases).
 * Extended the end of track alarm range to 59 seconds.
+* You can now search for a track in a playlist (Control+NVDA+F to find, NvDA+F3 or NvDA+Shift+F3 to find forward or backward, respectively).
 
 ## Changes for 1.2
 

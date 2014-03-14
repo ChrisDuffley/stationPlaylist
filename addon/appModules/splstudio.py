@@ -222,13 +222,17 @@ class AppModule(appModuleHandler.AppModule):
 
 	# The utility function itself.
 
-	def trackFinder(self, text, startObj, directionForward=True):
-		foundObj = startObj # Return this found object once the search is done; for now, set this as the start pbject.
+	def trackFinder(self, text, obj, directionForward=True):
 		# Do some optimization later (techniques will include a bit of memoization using a cache dictionary of searched texts).
-		while foundObj is not None:
-			if text in foundObj.description: return foundObj
-			else: foundObj = foundObj.next if directionForward else foundObj.previous
-		return foundObj # For now, return the object itself, as the script will set focus to the found object.
+		while obj is not None:
+			if text in obj.description:
+				# We need to fire set focus event twice and exit this routine.
+				self.findText = text
+				# We need to fire set focus event twice and exit this routine.
+				obj.setFocus(), obj.setFocus()
+				return
+			else: obj = obj.next if directionForward else obj.previous
+		wx.CallAfter(gui.messageBox, "Search string not found.", "Find error",wx.OK|wx.ICON_ERROR)
 
 	# Find a specific track based on a searched text.
 	# Unfortunately, the track list does not provide obj.name (it is None), however obj.description has the actual track entry.
@@ -248,15 +252,9 @@ class AppModule(appModuleHandler.AppModule):
 					# First, please either add at least one track to the list, or enter something, otherwise I'll not search it.
 					if dlg.GetValue() is None: return
 					# Second, if the entered values are same, do a forward search instead.
+					elif dlg.GetValue() == self.findText: self.trackFinder(dlg.GetValue(), startObj.next)
 					# Normal: do the search across the entire track list.
-					else:
-						retObj = self.trackFinder(dlg.GetValue(), startObj)
-						if retObj is None:
-							wx.CallAfter(gui.messageBox, "Search string not found.", "Find error",wx.OK|wx.ICON_ERROR)
-						else:
-							self.findText = dlg.GetValue()
-							# It appears we need to ask the focus to be set twice. This isn't ideal, but for now, this is the practical workaround.
-							retObj.setFocus(), retObj.setFocus()
+					else: self.trackFinder(dlg.GetValue(), startObj)
 			gui.runScriptModalDialog(dlg, callback)
 	script_findTrack.__doc__="Finds a track in the track list."
 
@@ -266,16 +264,8 @@ class AppModule(appModuleHandler.AppModule):
 		if api.getForegroundObject().windowClassName != "TStudioForm": ui.message("Track finder is available only in track list.")
 		elif api.getForegroundObject().windowClassName == "TStudioForm" and api.getFocusObject().role == ROLE_LIST: ui.message("You need to add at least one track to find tracks.")
 		else:
-			if self.findText == "":
-				self.script_findTrack(gesture)
-				return
-			else:
-				startObj = api.getFocusObject()
-				retObj = self.trackFinder(self.findText, startObj)
-				if retObj is None:
-					wx.CallAfter(gui.messageBox, "Search string not found.", "Find error",wx.OK|wx.ICON_ERROR)
-				else:
-					retObj.setFocus()
+			if self.findText == "": self.script_findTrack(gesture)
+			else: self.trackFinder(self.findText, api.getFocusObject().next)
 	script_findTrackNext.__doc__="Finds the next occurrence of the track with the name in the track list."
 
 	def script_findTrackPrevious(self, gesture):
@@ -284,14 +274,7 @@ class AppModule(appModuleHandler.AppModule):
 		else:
 			if self.findText == "":
 				self.script_findTrack(gesture)
-				return
-			else:
-				startObj = api.getFocusObject()
-				retObj = self.trackFinder(self.findText, startObj, directionForward = False)
-				if retObj is None:
-					wx.CallAfter(gui.messageBox, "Search string not found.", "Find error",wx.OK|wx.ICON_ERROR)
-				else:
-					retObj.setFocus()
+			else: self.trackFinder(self.findText, api.getFocusObject().previous, directionForward=False)
 	script_findTrackPrevious.__doc__="Finds previous occurrence of the track with the name in the track list."
 
 	# The layer commands themselves.
