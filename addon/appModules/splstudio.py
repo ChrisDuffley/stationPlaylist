@@ -60,7 +60,7 @@ class AppModule(appModuleHandler.AppModule):
 	#It gets around a problem where double focus events are fired when moving around the playlist.
 	#Hopefully it will be possible to remove this when it is fixed in Studio.>
 	def event_NVDAObject_init(self, obj):
-		if obj.windowClassName == "TListView" and obj.role in (controlTypes.ROLE_CHECKBOX, controlTypes.ROLE_LISTITEM) and controlTypes.STATE_FOCUSED not in obj.states:
+		if obj.windowClassName == "TListView" and obj.role in (controlTypes.ROLE_CHECKBOX, controlTypes.ROLE_LISTITEM) and controlTypes.STATE_FOCUSED not in obj.states and self.SPLCurVersion < 500:
 			# These lists seem to fire a focus event on the previously focused item before firing focus on the new item.
 			# Try to filter this out.
 			obj.shouldAllowIAccessibleFocusEvent = False
