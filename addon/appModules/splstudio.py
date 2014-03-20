@@ -12,7 +12,6 @@
 # Minimum version: SPL 4.33, NvDA 2013.3.
 
 import controlTypes
-from controlTypes import ROLE_GROUPING, ROLE_LIST
 import appModuleHandler
 import api
 import ui
@@ -66,7 +65,7 @@ class AppModule(appModuleHandler.AppModule):
 			# Try to filter this out.
 			obj.shouldAllowIAccessibleFocusEvent = False
 		# Radio button group names are not recognized as grouping, so work around this.
-		if obj.windowClassName == "TRadioGroup": obj.role = ROLE_GROUPING
+		if obj.windowClassName == "TRadioGroup": obj.role = controlTypes.ROLE_GROUPING
 		# In certain edit fields, the field name is written to the screen, and there's no way to fetch the object for this text. Thus use review position text.
 		elif obj.windowClassName == "TEdit" and obj.name is None:
 			import review # This means at least NVDA 2013.2 is required.
@@ -240,7 +239,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_findTrack(self, gesture):
 		if api.getForegroundObject().windowClassName != "TStudioForm": ui.message("Track finder is available only in track list.")
-		elif api.getForegroundObject().windowClassName == "TStudioForm" and api.getFocusObject().role == ROLE_LIST: ui.message("You need to add at least one track to find tracks.")
+		elif api.getForegroundObject().windowClassName == "TStudioForm" and api.getFocusObject().role == controlTypes.ROLE_LIST: ui.message("You need to add at least one track to find tracks.")
 		else:
 			startObj = api.getFocusObject()
 			searchMSG = "Enter the name of the track you wish to search."
@@ -263,7 +262,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_findTrackNext(self, gesture):
 		if api.getForegroundObject().windowClassName != "TStudioForm": ui.message("Track finder is available only in track list.")
-		elif api.getForegroundObject().windowClassName == "TStudioForm" and api.getFocusObject().role == ROLE_LIST: ui.message("You need to add at least one track to find tracks.")
+		elif api.getForegroundObject().windowClassName == "TStudioForm" and api.getFocusObject().role == controlTypes.ROLE_LIST: ui.message("You need to add at least one track to find tracks.")
 		else:
 			if self.findText == "": self.script_findTrack(gesture)
 			else: self.trackFinder(self.findText, api.getFocusObject().next)
@@ -271,7 +270,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_findTrackPrevious(self, gesture):
 		if api.getForegroundObject().windowClassName != "TStudioForm": ui.message("Track finder is available only in track list.")
-		elif api.getForegroundObject().windowClassName == "TStudioForm" and api.getFocusObject().role == ROLE_LIST: ui.message("You need to add at least one track to find tracks.")
+		elif api.getForegroundObject().windowClassName == "TStudioForm" and api.getFocusObject().role == controlTypes.ROLE_LIST: ui.message("You need to add at least one track to find tracks.")
 		else:
 			if self.findText == "":
 				self.script_findTrack(gesture)
