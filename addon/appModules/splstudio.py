@@ -170,12 +170,12 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_sayElapsedTime(self, gesture):
 		# Quite a complicated expression there.
-		remainingTime = self.getStatusChild(self.SPLElapsedTime).children[1].name if self.SPLCurVersion >= SPLMinVersion else self.getStatusChild(self.SPL4ElapsedTime).children[0].name
-		ui.message(remainingTime)
+		elapsedTime = self.getStatusChild(self.SPLElapsedTime).children[1].name if self.SPLCurVersion >= SPLMinVersion else self.getStatusChild(self.SPL4ElapsedTime).children[0].name
+		ui.message(elapsedTime)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayElapsedTime.__doc__=_("Announces the elapsed time for the currently playing track.")
 
-	# Set the end of track alarm time between 1 and 9 seconds.
+	# Set the end of track alarm time between 1 and 59 seconds.
 
 	def script_setEndOfTrackTime(self, gesture):
 		# Borrowed from NVDA core cursorManager.py.
@@ -200,7 +200,8 @@ class AppModule(appModuleHandler.AppModule):
 					else: newAlarmSec = dlg.GetValue()
 					self.SPLEndOfTrackTime = self.SPLEndOfTrackTime.replace(self.SPLEndOfTrackTime[-2:], newAlarmSec) # Quite a complicated replacement expression, but it works in this case.
 		gui.runScriptModalDialog(dlg, callback)
-	script_setEndOfTrackTime.__doc__="sets end of track alarm (default is 5 seconds)."
+	# Translators: Input help mode message for a command in Station Playlist Studio.
+	script_setEndOfTrackTime.__doc__=_("sets end of track alarm (default is 5 seconds).")
 
 	# Toggle whether beeps should be heard instead of toggle announcements.
 
@@ -226,7 +227,6 @@ class AppModule(appModuleHandler.AppModule):
 		# Do some optimization later (techniques will include a bit of memoization using a cache dictionary of searched texts).
 		while obj is not None:
 			if text in obj.description:
-				# We need to fire set focus event twice and exit this routine.
 				self.findText = text
 				# We need to fire set focus event twice and exit this routine.
 				obj.setFocus(), obj.setFocus()

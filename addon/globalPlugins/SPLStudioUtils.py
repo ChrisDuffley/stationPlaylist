@@ -75,7 +75,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def fetchSPLForegroundWindow(self):
 		# Let us see if SPL foreground can be fetched.
-		import NVDAObjects
 		# First test: is splstudio running? Tell me the handle, please.
 		if user32.FindWindowA("SPLStudio", None) == 0: return None # Used ANSI version, as Wide char version always returns 0.
 		# Continue with the method.
