@@ -112,47 +112,18 @@ class AppModule(appModuleHandler.AppModule):
 			# Clean this mess with a more elegant solution.
 		nextHandler()
 
-# JL's additions
+	# JL's additions
 
-	# List of children constants for fetching various status information from SPL window.
-	# These are scattered throughout the screen, so one can use foreground.children[index] to fetch them.
-		# These are consulted not only in layer commands, but also for other status commands below.
-	SPLElapsedTime = 3 # Elapsed time of the current track.
-	SPL4ElapsedTime = -4 # Elapsed time for SPL 4.x.
-	SPLPlayStatus = 5 # Play status, mic, etc.
-	SPL4PlayStatus = 0 # Play status for Studio 4.x.
-	SPLSystemStatus = -3 # The second status bar containing system status such as up time.
-	SPL4SystemStatus = -2 # System status bar for 4.x.
-	SPLHourTrackDuration = 17 # For track duration for the given hour marker.
-	SPL4HourTrackDuration = 13 # Same as above for SPL 4.
-	SPLHourSelectedDuration = 18 # In case the user selects one or more tracks in a given hour.
-	SPL4HourSelectedDuration = 14 # Same as above for SPL 4.
-	# Todo for 2.0: Add constants for trakc title and upcoming track. They will be assigned to the assistant layer below with commands borrowed from Winamp.
-
-	# Various status scripts.
-	# To save keyboard commands, layered commands will be used.
-	# Most were borrowed from JFW and Window-Eyes layer scripts.
-
-	# Set up the layer script environment.
-	def getScript(self, gesture):
-		if not self.SPLAssistant: return appModuleHandler.AppModule.getScript(self, gesture)
-		script = appModuleHandler.AppModule.getScript(self, gesture)
-		if not script: script = finally_(self.script_error, self.finish)
-		return finally_(script, self.finish)
-
-	def finish(self):
-		self.SPLAssistant = False
-		self.clearGestureBindings()
-		self.bindGestures(self.__gestures)
-
-	def script_error(self, gesture):
-		tones.beep(120, 100)
-
-	# Let us meet the scripts themselves.
-
-	# Global scripts which doesn't require layer command entry.
+	# Script sections (for ease of maintenance):
+	# Time-related: elapsed time, end of track alarm, etc.
+	# Misc scripts: track finder and others.
+	# SPL Assistant layer: status commands.
 
 	# A few time related scripts (elapsed time, remaining time, etc.).
+
+	# Time status constants:
+	SPLElapsedTime = 3 # Elapsed time of the current track.
+	SPL4ElapsedTime = -4 # Elapsed time for SPL 4.x.
 
 	def script_sayRemainingTime(self, gesture):
 		fgWindow, remainingTime = api.getForegroundObject(), ""
@@ -202,6 +173,8 @@ class AppModule(appModuleHandler.AppModule):
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setEndOfTrackTime.__doc__=_("sets end of track alarm (default is 5 seconds).")
+
+	# Other commands (track finder and others)
 
 	# Toggle whether beeps should be heard instead of toggle announcements.
 
@@ -277,8 +250,26 @@ class AppModule(appModuleHandler.AppModule):
 			else: self.trackFinder(self.findText, api.getFocusObject().previous, directionForward=False)
 	script_findTrackPrevious.__doc__="Finds previous occurrence of the track with the name in the track list."
 
-	# The layer commands themselves.
-	# First layer (SPL Assistant): basic status such as playback, automation, etc.
+	# SPL Assistant: reports status on playback, operation, etc.
+	# Used layer command approach to save gesture assignments.
+	# Most were borrowed from JFW and Window-Eyes layer scripts.
+
+	# Set up the layer script environment.
+	def getScript(self, gesture):
+		if not self.SPLAssistant: return appModuleHandler.AppModule.getScript(self, gesture)
+		script = appModuleHandler.AppModule.getScript(self, gesture)
+		if not script: script = finally_(self.script_error, self.finish)
+		return finally_(script, self.finish)
+
+	def finish(self):
+		self.SPLAssistant = False
+		self.clearGestureBindings()
+		self.bindGestures(self.__gestures)
+
+	def script_error(self, gesture):
+		tones.beep(120, 100)
+
+	# SPL Assistant flag.
 	SPLAssistant = False
 
 	# The SPL Assistant layer driver.
@@ -298,8 +289,19 @@ class AppModule(appModuleHandler.AppModule):
 		childObj = api.getForegroundObject().children[childIndex]
 		return childObj
 
-	# Basic status such as playback and mic.
-	# For all these methods, assign the correct child ID based on SPL Studio version.
+	# List of children constants used in SPL Assistant
+	# These are scattered throughout the screen, so one can use foreground.children[index] to fetch them.
+	SPLPlayStatus = 5 # Play status, mic, etc.
+	SPL4PlayStatus = 0 # Play status for Studio 4.x.
+	SPLSystemStatus = -3 # The second status bar containing system status such as up time.
+	SPL4SystemStatus = -2 # System status bar for 4.x.
+	SPLHourTrackDuration = 17 # For track duration for the given hour marker.
+	SPL4HourTrackDuration = 13 # Same as above for SPL 4.
+	SPLHourSelectedDuration = 18 # In case the user selects one or more tracks in a given hour.
+	SPL4HourSelectedDuration = 14 # Same as above for SPL 4.
+	# Todo for 2.0: Add constants for trakc title and upcoming track. They will be assigned to the assistant layer below with commands borrowed from Winamp.
+
+	# The layer commands themselves.
 
 	def script_sayPlayStatus(self, gesture):
 		obj = self.getStatusChild(self.SPLPlayStatus).children[0] if self.SPLCurVersion >= SPLMinVersion else self.getStatusChild(self.SPL4PlayStatus).children[0]
