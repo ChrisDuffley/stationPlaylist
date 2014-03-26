@@ -11,6 +11,8 @@
 # Because of different interfaces between 4.x and 5.x, we need to come up with a way to handle both.
 # Minimum version: SPL 4.33, NvDA 2013.3.
 
+from ctypes import windll
+from functools import wraps
 import controlTypes
 import appModuleHandler
 import api
@@ -18,11 +20,9 @@ import ui
 import gui
 import wx
 import winUser
-from ctypes import windll
 from NVDAObjects.IAccessible import IAccessible
 import textInfos
 import tones
-from functools import wraps
 import addonHandler
 addonHandler.initTranslation()
 
@@ -98,7 +98,7 @@ class AppModule(appModuleHandler.AppModule):
 						# User wishes to hear beeps instead of words. The beeps are power on and off sounds from PAC Mate Omni.
 						import nvwave, os.path # The wave playback and path manipulator.
 						beep = obj.name.split(" ")
-						stat = beep[len(beep)-1]
+						stat = beep[-1]
 						wavDir, wavFile = os.path.dirname(__file__), ""
 						# Play a wave file based on on/off status.
 						if stat == "Off": wavFile = wavDir + "\SPL_off.wav"

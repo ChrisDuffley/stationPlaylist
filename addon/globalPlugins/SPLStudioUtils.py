@@ -3,12 +3,12 @@
 # Copyright 2013, released under GPL.
 # Adds a few utility features such as switching focus to the SPL Studio window and some global scripts.
 
-import winUser
 from ctypes import windll
+from functools import wraps
 import globalPluginHandler
 import api
 import ui
-from functools import wraps
+import winUser
 import tones
 import addonHandler
 addonHandler.initTranslation()
@@ -74,10 +74,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# Try to see if SPL foreground object can be fetched. This is used for switching to SPL Studio window from anywhere.
 
 	def fetchSPLForegroundWindow(self):
-		# Let us see if SPL foreground can be fetched.
 		# First test: is splstudio running? Tell me the handle, please.
 		if user32.FindWindowA("SPLStudio", None) == 0: return None # Used ANSI version, as Wide char version always returns 0.
-		# Continue with the method.
 		# Turns out NVDA core does have a method to fetch desktop objects, so use this to find SPL window from among its children.
 		dt = api.getDesktopObject()
 		for fg in dt.children:
