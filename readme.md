@@ -16,8 +16,15 @@ For more information about the add-on, read the [add-on guide][3].
 * Control+NVDA+1 from Studio window: toggles announcement of toggle messages (such as automation) between words and beeps.
 * Control+NVDA+2 from Studio window: Opens end of track setting dialog.
 * Control+NVDA+f from Studio window: Opens a dialog to find a track based on artist or song name. Press NvDA+F3 to find forward or NVDA+Shift+F3 to find backward.
-* NVDA+Shift+grave from anywhere: switch to SPL Studio window from any program.
 * NVDA+Grave from anywhere: the next command will control various aspects of SPL Studio.
+
+## Unassigned commands ##
+
+The following commands are not assigned by default; if you wish to assign it, use Input Gestures dialog to add custom commands.
+
+* Switching to SPL Studio window from any program.
+
+Note: Input Gestures dialog is available in 2013.3 or later.
 
 ## SPL Assistant layer
 

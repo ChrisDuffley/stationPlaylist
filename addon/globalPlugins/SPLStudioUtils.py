@@ -187,6 +187,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 
 	__gestures={
-		"kb:nvda+shift+`":"focusToSPLWindow",
+		#"kb:nvda+shift+`":"focusToSPLWindow",
 		"kb:nvda+`":"SPLControllerPrefix"
 	}
