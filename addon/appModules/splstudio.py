@@ -71,7 +71,10 @@ class AppModule(appModuleHandler.AppModule):
 			import review # This means at least NVDA 2013.2 is required.
 			fieldName, fieldObj  = review.getScreenPosition(obj)
 			fieldName.expand(textInfos.UNIT_LINE)
-			obj.name = fieldName.text.replace(obj.windowText, "")
+			if obj.windowClassName == "TComboBox":
+				obj.name = fieldName.text.replace(obj.windowText, "")
+			else:
+				obj.name = fieldName.text
 
 	# Check the following variable for end of track announcement.
 	SPLEndOfTrackTime = "00:05" # Should be adjustable by the user in the end. Also find a way to announce this even if SPL Studio is minimized.
