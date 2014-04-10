@@ -65,6 +65,7 @@ Five seconds before the current track ends, NVDA will play a short beep to indic
 * You can now switch to SPL Studio even with all windows minimized (may not work in some cases).
 * Extended the end of track alarm range to 59 seconds.
 * You can now search for a track in a playlist (Control+NVDA+F to find, NvDA+F3 or NvDA+Shift+F3 to find forward or backward, respectively).
+* Correct names of combo boxes are now announced by NVDA (e.g. Options dialog and initial SPL setup screens).
 
 ## Changes for 1.2
 
