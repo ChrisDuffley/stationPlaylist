@@ -278,6 +278,10 @@ class AppModule(appModuleHandler.AppModule):
 	# The SPL Assistant layer driver.
 
 	def script_SPLAssistantToggle(self, gesture):
+		# Enter the layer command if an only if we're in the track list to allow easier gesture assignment.
+		if api.getForegroundObject().windowClassName != "TStudioForm":
+			gesture.send()
+			return
 		if self.SPLAssistant:
 			self.script_error(gesture)
 			return
