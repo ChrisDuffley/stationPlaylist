@@ -208,20 +208,30 @@ class AppModule(appModuleHandler.AppModule):
 				obj.setFocus(), obj.setFocus()
 				return
 			else: obj = obj.next if directionForward else obj.previous
-		wx.CallAfter(gui.messageBox, "Search string not found.", "Find error",wx.OK|wx.ICON_ERROR)
+		wx.CallAfter(gui.messageBox,
+		# Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
+		_("Search string not found."),
+		# Translators: Standard error title for find error (copy this from main nvda.po).
+		_("Find error"),wx.OK|wx.ICON_ERROR)
 
 	# Find a specific track based on a searched text.
 	# Unfortunately, the track list does not provide obj.name (it is None), however obj.description has the actual track entry.
 
 	def script_findTrack(self, gesture):
-		if api.getForegroundObject().windowClassName != "TStudioForm": ui.message("Track finder is available only in track list.")
-		elif api.getForegroundObject().windowClassName == "TStudioForm" and api.getFocusObject().role == controlTypes.ROLE_LIST: ui.message("You need to add at least one track to find tracks.")
+		if api.getForegroundObject().windowClassName != "TStudioForm":
+			# Translators: Presented when a user attempts to find tracks but is not at the track list.
+			ui.message(_("Track finder is available only in track list."))
+		elif api.getForegroundObject().windowClassName == "TStudioForm" and api.getFocusObject().role == controlTypes.ROLE_LIST:
+			# Translators: Presented when a user wishes to find a track but didn't add any tracks.
+			ui.message(_("You need to add at least one track to find tracks."))
 		else:
 			startObj = api.getFocusObject()
-			searchMSG = "Enter the name of the track you wish to search."
+			# Translators: The text of the dialog for finding tracks.
+			searchMSG = _("Enter the name of the track you wish to search.")
 			dlg = wx.TextEntryDialog(gui.mainFrame,
 			searchMSG,
-			"Find track", defaultValue=self.findText)
+			# Translators: The title of the find tracks dialog.
+			_("Find track"), defaultValue=self.findText)
 			def callback(result):
 				if result == wx.ID_OK:
 					# Tests (for performance reasons):
@@ -232,26 +242,29 @@ class AppModule(appModuleHandler.AppModule):
 					# Normal: do the search across the entire track list.
 					else: self.trackFinder(dlg.GetValue(), startObj)
 			gui.runScriptModalDialog(dlg, callback)
-	script_findTrack.__doc__="Finds a track in the track list."
+	# Translators: Input help mode message for a command in Station Playlist Studio.
+	script_findTrack.__doc__=_("Finds a track in the track list.")
 
 	# Find next and previous scripts.
 
 	def script_findTrackNext(self, gesture):
-		if api.getForegroundObject().windowClassName != "TStudioForm": ui.message("Track finder is available only in track list.")
-		elif api.getForegroundObject().windowClassName == "TStudioForm" and api.getFocusObject().role == controlTypes.ROLE_LIST: ui.message("You need to add at least one track to find tracks.")
+		if api.getForegroundObject().windowClassName != "TStudioForm": ui.message(_("Track finder is available only in track list."))
+		elif api.getForegroundObject().windowClassName == "TStudioForm" and api.getFocusObject().role == controlTypes.ROLE_LIST: ui.message(_("You need to add at least one track to find tracks."))
 		else:
 			if self.findText == "": self.script_findTrack(gesture)
 			else: self.trackFinder(self.findText, api.getFocusObject().next)
-	script_findTrackNext.__doc__="Finds the next occurrence of the track with the name in the track list."
+	# Translators: Input help mode message for a command in Station Playlist Studio.
+	script_findTrackNext.__doc__=_("Finds the next occurrence of the track with the name in the track list.")
 
 	def script_findTrackPrevious(self, gesture):
-		if api.getForegroundObject().windowClassName != "TStudioForm": ui.message("Track finder is available only in track list.")
-		elif api.getForegroundObject().windowClassName == "TStudioForm" and api.getFocusObject().role == controlTypes.ROLE_LIST: ui.message("You need to add at least one track to find tracks.")
+		if api.getForegroundObject().windowClassName != "TStudioForm": ui.message(_("Track finder is available only in track list."))
+		elif api.getForegroundObject().windowClassName == "TStudioForm" and api.getFocusObject().role == controlTypes.ROLE_LIST: ui.message(_("You need to add at least one track to find tracks."))
 		else:
 			if self.findText == "":
 				self.script_findTrack(gesture)
 			else: self.trackFinder(self.findText, api.getFocusObject().previous, directionForward=False)
-	script_findTrackPrevious.__doc__="Finds previous occurrence of the track with the name in the track list."
+	# Translators: Input help mode message for a command in Station Playlist Studio.
+	script_findTrackPrevious.__doc__=_("Finds previous occurrence of the track with the name in the track list.")
 
 	# SPL Assistant: reports status on playback, operation, etc.
 	# Used layer command approach to save gesture assignments.
