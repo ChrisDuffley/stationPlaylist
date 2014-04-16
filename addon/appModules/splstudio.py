@@ -367,5 +367,5 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:control+nvda+f":"findTrack",
 		"kb:nvda+f3":"findTrackNext",
 		"kb:shift+nvda+f3":"findTrackPrevious",
-		"kb:control+nvda+`":"SPLAssistantToggle"
+		#"kb:control+nvda+`":"SPLAssistantToggle"
 	}

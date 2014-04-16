@@ -1,7 +1,7 @@
 # Station Playlist Studio #
 
 * Authors: Geoff Shang, Joseph Lee and other contributors
-* Release version: [1.1][1]
+* Release version: [1.2][1]
 * Development version: [2.0-dev][2]
 
 This add-on package provides improved usage of Station Playlist Studio, as well as providing utilities to control the Studio from anywhere.
@@ -12,23 +12,23 @@ For more information about the add-on, read the [add-on guide][3].
 
 * Alt+Shift+T from Studio window: announce elapsed time for the currently playing trakc.
 * Control+Alt+T from Studio window: announce remaining time for the currently playing trakc.
-* Control+NVDA+` (grave accent) from Studio window: enter a layer command to find out status of playback such as automation.
 * Control+NVDA+1 from Studio window: toggles announcement of toggle messages (such as automation) between words and beeps.
 * Control+NVDA+2 from Studio window: Opens end of track setting dialog.
 * Control+NVDA+f from Studio window: Opens a dialog to find a track based on artist or song name. Press NvDA+F3 to find forward or NVDA+Shift+F3 to find backward.
-* NVDA+Grave from anywhere: the next command will control various aspects of SPL Studio.
 
 ## Unassigned commands ##
 
 The following commands are not assigned by default; if you wish to assign it, use Input Gestures dialog to add custom commands.
 
 * Switching to SPL Studio window from any program.
+* SPL Controller layer.
+* SPL Assistant layer from SPL Studio.
 
 Note: Input Gestures dialog is available in 2013.3 or later.
 
 ## SPL Assistant layer
 
-This layer command set allows you to obtain various status on SPL Studio, such as whether a track is playing, total duration of all tracks for the hour and so on. To enter this mode, press Control+NVDA+` (grave accent) from SPL Studio window, then press one of the commands from the list below.
+This layer command set allows you to obtain various status on SPL Studio, such as whether a track is playing, total duration of all tracks for the hour and so on. From SPL Studio window, press the SPL Assistant layer command, then press one of the keys from the list below.
 
 The available status information are:
 
@@ -44,7 +44,7 @@ The available status information are:
 
 ## SPL Controller ##
 
-The SPL Controller is a set of layered commands you can use to control SPL Studio anywhere. Press NVDA+Grave, and NVDA will say, "SPL Controller." Press another command to control various Studio settings such as microphone on/off or play the next track.
+The SPL Controller is a set of layered commands you can use to control SPL Studio anywhere. Press the SPL Controller layer command, and NVDA will say, "SPL Controller." Press another command to control various Studio settings such as microphone on/off or play the next track.
 
 The available SPL Controller commands are:
 
@@ -59,8 +59,15 @@ The available SPL Controller commands are:
 
 Five seconds before the current track ends, NVDA will play a short beep to indicate that the track is about to end. This works anywhere (even within SPL Studio window). Press Control+NVDA+2 to configure this between 1 and 59 seconds.
 
+## Track Finder ##
+
+If you wish to quickly find a song by an artist or by song name, from track lisst, press Control+NVDA+F. Type the name of the artist or the song name. NVDA will either place you at the song if found or will display an error if it cannot find the song you're looking for. To find a previously entered song or artist, press NVDA+F3 or NVDA+Shift+F3 to find forward or backward.
+
+Note: Track Finder is case-sensitive.
+
 ## Changes for 2.0-dev
 
+* Some global and app-specific hotkeys were removed so you can assign a custom command from Input Gestures dialog (add-on version 2.0 requires NVDA 2013.3 or later).
 * Added more SPL Assistant commands such as cart edit mode status.
 * You can now switch to SPL Studio even with all windows minimized (may not work in some cases).
 * Extended the end of track alarm range to 59 seconds.
