@@ -70,7 +70,7 @@ Note: Track Finder is case-sensitive.
 * Some global and app-specific hotkeys were removed so you can assign a custom command from Input Gestures dialog (add-on version 2.0 requires NVDA 2013.3 or later).
 * Added more SPL Assistant commands such as cart edit mode status.
 * You can now switch to SPL Studio even with all windows minimized (may not work in some cases).
-* Extended the end of track alarm range to 59 seconds.
+* Increased the end of track alarm range to 59 seconds.
 * You can now search for a track in a playlist (Control+NVDA+F to find, NvDA+F3 or NvDA+Shift+F3 to find forward or backward, respectively).
 * Correct names of combo boxes are now announced by NVDA (e.g. Options dialog and initial SPL setup screens).
 
