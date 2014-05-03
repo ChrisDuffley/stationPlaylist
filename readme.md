@@ -51,7 +51,7 @@ The available SPL Controller commands are:
 * Press P to play the next selected track.
 * Press U to pause or unpause playback.
 * Press S to stop the track with fade out, or to stop the track instantly, press T.
-* Press M or Shift+M to turn on or off the microphone, respectivley.
+* Press M or Shift+M to turn on or off the microphone, respectively.
 * Press A to enable automation or Shift+A to disable it.
 * Press L to enable line-in input or Shift+L to disable it.
 

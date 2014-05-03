@@ -96,7 +96,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# The SPL Controller:
 	# This layer set allows the user to control various aspects of SPL Studio from anywhere.
 	def script_SPLControllerPrefix(self, gesture):
-		# Erorr checks:
+		# Error checks:
 		# 1. If SPL Studio is not running, print an error message.
 		# 2. If we're already  in SPL, report that the user is in SPL. This is temporary - in the end, pass this gesture to the app module portion.
 		if "splstudio" in api.getForegroundObject().appModule.appModuleName:
