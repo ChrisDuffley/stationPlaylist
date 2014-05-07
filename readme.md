@@ -73,6 +73,7 @@ Note: Track Finder is case-sensitive.
 * Increased the end of track alarm range to 59 seconds.
 * You can now search for a track in a playlist (Control+NVDA+F to find, NvDA+F3 or NvDA+Shift+F3 to find forward or backward, respectively).
 * Correct names of combo boxes are now announced by NVDA (e.g. Options dialog and initial SPL setup screens).
+* Fixed an issue where NVDA was announcing wrong information when trying to get remaining time for a track in SPL Studio 5.
 
 ## Changes for 1.2
 

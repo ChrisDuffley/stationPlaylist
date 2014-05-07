@@ -130,12 +130,9 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_sayRemainingTime(self, gesture):
 		fgWindow, remainingTime = api.getForegroundObject(), ""
-		# For Studio 5.x: While Studio is on focus, the playback window with remaining time info is right next door. Parse the window title.
-		# For Studio 4.x: this information is part of the main window. Fetch one of the objects.
 		if self.SPLCurVersion >= SPLMinVersion: # See if we're running 5.00 or later.
-			timeWindowStr = fgWindow.parent.next.name.split(" ")
 			# We want the first part only, the time itself.
-			remainingTime = timeWindowStr[0]
+			remainingTime = fgWindow.children[2].children[1].name
 		else: # SPL 4.x.
 			remainingTime = fgWindow.children[-3].firstChild.name
 		ui.message(remainingTime)
