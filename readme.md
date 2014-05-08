@@ -8,6 +8,8 @@ This add-on package provides improved usage of Station Playlist Studio, as well 
 
 For more information about the add-on, read the [add-on guide][3].
 
+IMPORTANT: Due to major incompatible changes and key assignments, please remove add-on version 1.2 before installing version 2.0 or later.
+
 ## Shortcut keys ##
 
 * Alt+Shift+T from Studio window: announce elapsed time for the currently playing trakc.
