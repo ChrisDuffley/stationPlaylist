@@ -1,8 +1,8 @@
 # Station Playlist Studio #
 
 * Authors: Geoff Shang, Joseph Lee and other contributors
-* Release version: [1.2][1]
-* Development version: [2.0-dev][2]
+* Download [stable version][1]
+* Download [development version][2]
 
 This add-on package provides improved usage of Station Playlist Studio, as well as providing utilities to control the Studio from anywhere.
 
@@ -65,7 +65,7 @@ If you wish to quickly find a song by an artist or by song name, from track liss
 
 Note: Track Finder is case-sensitive.
 
-## Changes for 2.0-dev
+## Changes for 2.0
 
 * Some global and app-specific hotkeys were removed so you can assign a custom command from Input Gestures dialog (add-on version 2.0 requires NVDA 2013.3 or later).
 * Added more SPL Assistant commands such as cart edit mode status.
