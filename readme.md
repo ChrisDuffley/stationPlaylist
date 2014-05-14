@@ -14,6 +14,7 @@ For more information about the add-on, read the [add-on guide][3].
 * Control+Alt+T from Studio window: announce remaining time for the currently playing trakc.
 * Control+NVDA+1 from Studio window: toggles announcement of toggle messages (such as automation) between words and beeps.
 * Control+NVDA+2 from Studio window: Opens end of track setting dialog.
+* Control+NVDA+3 from Studio window: Toggles cart explorer to learn cart assignments.
 * Control+NVDA+f from Studio window: Opens a dialog to find a track based on artist or song name. Press NvDA+F3 to find forward or NVDA+Shift+F3 to find backward.
 
 ## Unassigned commands ##
@@ -65,7 +66,11 @@ If you wish to quickly find a song by an artist or by song name, from track liss
 
 Note: Track Finder is case-sensitive.
 
-## Changes for 2.0-dev
+## Changes for 3.0-dev
+
+* Added Cart Explorer to learn cart assignments (up to 96 carts can be assigned).
+
+## Changes for 2.0
 
 * Some global and app-specific hotkeys were removed so you can assign a custom command from Input Gestures dialog (add-on version 2.0 requires NVDA 2013.3 or later).
 * Added more SPL Assistant commands such as cart edit mode status.

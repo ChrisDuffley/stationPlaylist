@@ -16,6 +16,7 @@ from functools import wraps
 import controlTypes
 import appModuleHandler
 import api
+import scriptHandler
 import ui
 import gui
 import wx
@@ -266,6 +267,56 @@ class AppModule(appModuleHandler.AppModule):
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_findTrackPrevious.__doc__=_("Finds previous occurrence of the track with the name in the track list.")
 
+	# Cart explorer
+	cartExplorer = False
+
+	# Assigning carts.
+
+	def buildFNCarts(self):
+		for i in range(0, 12):
+			self.bindGesture("kb:f%s"%(i+1), "cartExplorer")
+			self.bindGesture("kb:shift+f%s"%(i+1), "cartExplorer")
+			self.bindGesture("kb:control+f%s"%(i+1), "cartExplorer")
+			self.bindGesture("kb:alt+f%s"%(i+1), "cartExplorer")
+
+	def buildNumberCarts(self):
+		for i in range(0, 10):
+			self.bindGesture("kb:%s"%(i), "cartExplorer")
+			self.bindGesture("kb:shift+%s"%(i), "cartExplorer")
+			self.bindGesture("kb:control+%s"%(i), "cartExplorer")
+			self.bindGesture("kb:alt+%s"%(i), "cartExplorer")
+		# Take care of dash and equals.
+		self.bindGesture("kb:-", "cartExplorer"), self.bindGesture("kb:=", "cartExplorer")
+		self.bindGesture("kb:shift+-", "cartExplorer"), self.bindGesture("kb:shift+=", "cartExplorer")
+		self.bindGesture("kb:control+-", "cartExplorer"), self.bindGesture("kb:control+=", "cartExplorer")
+		self.bindGesture("kb:alt+-", "cartExplorer"), self.bindGesture("kb:alt+=", "cartExplorer")
+
+	
+	def cartsManager(self, build=True):
+		# A function to build and return cart commands.
+		if build:
+			self.buildFNCarts()
+			self.buildNumberCarts()
+		else:
+			self.clearGestureBindings()
+			self.bindGestures(self.__gestures)
+
+	def script_toggleCartExplorer(self, gesture):
+		if not self.cartExplorer:
+			self.cartExplorer = True
+			self.cartsManager()
+			ui.message("Entering cart explorer")
+		else:
+			self.cartExplorer = False
+			self.cartsManager(build=False)
+			ui.message("Exiting cart explorer")
+
+	def script_cartExplorer(self, gesture):
+		if scriptHandler.getLastScriptRepeatCount() >= 1: gesture.send()
+		else:
+			if gesture.displayName == "f5": ui.message("Kewel")
+			else: ui.message("not implemented...")
+
 	# SPL Assistant: reports status on playback, operation, etc.
 	# Used layer command approach to save gesture assignments.
 	# Most were borrowed from JFW and Window-Eyes layer scripts.
@@ -281,6 +332,9 @@ class AppModule(appModuleHandler.AppModule):
 		self.SPLAssistant = False
 		self.clearGestureBindings()
 		self.bindGestures(self.__gestures)
+		if self.cartExplorer:
+			self.buildFNCarts()
+			self.buildNumberCarts()
 
 	def script_error(self, gesture):
 		tones.beep(120, 100)
@@ -298,6 +352,8 @@ class AppModule(appModuleHandler.AppModule):
 		if self.SPLAssistant:
 			self.script_error(gesture)
 			return
+		# To prevent entering wrong gesture while the layer is active.
+		self.clearGestureBindings()
 		self.bindGestures(self.__SPLAssistantGestures)
 		self.SPLAssistant = True
 		tones.beep(512, 10)
@@ -380,5 +436,6 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:control+nvda+f":"findTrack",
 		"kb:nvda+f3":"findTrackNext",
 		"kb:shift+nvda+f3":"findTrackPrevious",
+		"kb:control+nvda+3":"toggleCartExplorer",
 		#"kb:control+nvda+`":"SPLAssistantToggle"
 	}
