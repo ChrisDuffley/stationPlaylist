@@ -1,12 +1,14 @@
 # Station Playlist Studio #
 
 * Authors: Geoff Shang, Joseph Lee and other contributors
-* Release version: [1.2][1]
-* Development version: [2.0-dev][2]
+* Download [stable version][1]
+* Download [development version][2]
 
 This add-on package provides improved usage of Station Playlist Studio, as well as providing utilities to control the Studio from anywhere.
 
 For more information about the add-on, read the [add-on guide][3].
+
+IMPORTANT: Due to major incompatible changes and key assignments, please remove add-on version 1.2 before installing version 2.0 or later.
 
 ## Shortcut keys ##
 
@@ -78,6 +80,7 @@ Note: Track Finder is case-sensitive.
 * Increased the end of track alarm range to 59 seconds.
 * You can now search for a track in a playlist (Control+NVDA+F to find, NvDA+F3 or NvDA+Shift+F3 to find forward or backward, respectively).
 * Correct names of combo boxes are now announced by NVDA (e.g. Options dialog and initial SPL setup screens).
+* Fixed an issue where NVDA was announcing wrong information when trying to get remaining time for a track in SPL Studio 5.
 
 ## Changes for 1.2
 
