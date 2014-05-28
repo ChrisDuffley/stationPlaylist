@@ -1,6 +1,6 @@
 # Station Playlist Studio
 # An app module and global plugin package for NVDA
-# Copyright 2011, 2013, Geoff Shang, Joseph Lee and others, released under GPL.
+# Copyright 2011, 2013-2014, Geoff Shang, Joseph Lee and others, released under GPL.
 # The primary function of this appModule is to provide meaningful feedback to users of SplStudio
 # by allowing speaking of items which cannot be easily found.
 # Version 0.01 - 7 April 2011:
@@ -43,8 +43,8 @@ def finally_(func, final):
 user32 = windll.user32
 SPLWin = user32.FindWindowA("SPLStudio", None)
 
-# Use IPC tags to decide what to do for 4.x and 5.x (may look similar to global plugin version).
-SPLMinVersion = 500 # Check the version string against this. If it is less, use a different procedure for some routines.
+# Use appModule.productVersion to decide what to do with 4.x and 5.x.
+SPLMinVersion = "5.00" # Check the version string against this. If it is less, use a different procedure for some routines.
 
 class AppModule(appModuleHandler.AppModule):
 
@@ -53,7 +53,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Some useful variables:
 	beepAnnounce = False # Play beeps instead of announcing toggles.
-	SPLCurVersion = winUser.sendMessage(SPLWin, 1024, 0, 2) # The version test variable.
+	SPLCurVersion = appModuleHandler.AppModule.productVersion # The version test variable.
 
 	# GS: The following was written by James Teh <jamie@NVAccess.org
 	#It gets around a problem where double focus events are fired when moving around the playlist.

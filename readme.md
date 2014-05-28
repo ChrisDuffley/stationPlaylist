@@ -67,6 +67,10 @@ If you wish to quickly find a song by an artist or by song name, from track liss
 
 Note: Track Finder is case-sensitive.
 
+## Changes for 2.1
+
+* Fixed an issue where user was unable to obtain status information such as automation status when SPL 5.x was first launched while NVDA was running.
+
 ## Changes for 2.0
 
 * Some global and app-specific hotkeys were removed so you can assign a custom command from Input Gestures dialog (add-on version 2.0 requires NVDA 2013.3 or later).
