@@ -301,59 +301,65 @@ class AppModule(appModuleHandler.AppModule):
 	# Translators: Input help mode message for a layer command in Station Playlist Studio.
 	script_SPLAssistantToggle.__doc__=_("The SPL Assistant layer command. See the add-on guide for more information on available commands.")
 
-	# Whichever layer we use, get the appropriate children from the foreground window.
-	def getStatusChild(self, childIndex):
-		childObj = api.getForegroundObject().children[childIndex]
-		return childObj
+	# Status table keys
+	SPLPlayStatus = 0
+	SPLSystemStatus = 1
+	SPLHourTrackDuration = 2
+	SPLHourSelectedDuration = 3
 
-	# List of children constants used in SPL Assistant
+	# Table of child constants based on versions
 	# These are scattered throughout the screen, so one can use foreground.children[index] to fetch them.
-	SPLPlayStatus = 5 # Play status, mic, etc.
-	SPL4PlayStatus = 0 # Play status for Studio 4.x.
-	SPLSystemStatus = -3 # The second status bar containing system status such as up time.
-	SPL4SystemStatus = -2 # System status bar for 4.x.
-	SPLHourTrackDuration = 17 # For track duration for the given hour marker.
-	SPL4HourTrackDuration = 13 # Same as above for SPL 4.
-	SPLHourSelectedDuration = 18 # In case the user selects one or more tracks in a given hour.
-	SPL4HourSelectedDuration = 14 # Same as above for SPL 4.
-	# Todo for 2.0: Add constants for trakc title and upcoming track. They will be assigned to the assistant layer below with commands borrowed from Winamp.
+	# Because 4.x and 5.x (an perhaps future releases) uses different screen layout, look up the needed constant from the table below (row = info needed, column = version).
+	statusObjs={
+		SPLPlayStatus:[0, 5], # Play status, mic, etc.
+		SPLSystemStatus:[-2, -3], # The second status bar containing system status such as up time.
+		SPLHourTrackDuration:[13, 17], # For track duration for the given hour marker.
+		SPLHourSelectedDuration:[14, 18], # In case the user selects one or more tracks in a given hour.
+	}
+
+	# Called in the layer commands themselves.
+	def status(self, infoIndex):
+		ver, fg = self.productVersion, api.getForegroundObject()
+		if ver.startswith("4"): statusObj = self.statusObjs[infoIndex][0]
+		elif ver.startswith("5"): statusObj = self.statusObjs[infoIndex][1]
+		return fg.children[statusObj]
 
 	# The layer commands themselves.
 
 	def script_sayPlayStatus(self, gesture):
-		obj = self.getStatusChild(self.SPLPlayStatus).children[0] if self.SPLCurVersion >= SPLMinVersion else self.getStatusChild(self.SPL4PlayStatus).children[0]
+		obj = self.status(self.SPLPlayStatus).children[0]
 		ui.message(obj.name)
 
 	def script_sayAutomationStatus(self, gesture):
-		obj = self.getStatusChild(self.SPLPlayStatus).children[1] if self.SPLCurVersion >= SPLMinVersion else self.getStatusChild(self.SPL4PlayStatus).children[1]
+		obj = self.status(self.SPLPlayStatus).children[1]
 		ui.message(obj.name)
 
 	def script_sayMicStatus(self, gesture):
-		obj = self.getStatusChild(self.SPLPlayStatus).children[2] if self.SPLCurVersion >= SPLMinVersion else self.getStatusChild(self.SPL4PlayStatus).children[2]
+		obj = self.status(self.SPLPlayStatus).children[2]
 		ui.message(obj.name)
 
 	def script_sayLineInStatus(self, gesture):
-		obj = self.getStatusChild(self.SPLPlayStatus).children[3] if self.SPLCurVersion >= SPLMinVersion else self.getStatusChild(self.SPL4PlayStatus).children[3]
+		obj = self.status(self.SPLPlayStatus).children[3]
 		ui.message(obj.name)
 
 	def script_sayRecToFileStatus(self, gesture):
-		obj = self.getStatusChild(self.SPLPlayStatus).children[4] if self.SPLCurVersion >= SPLMinVersion else self.getStatusChild(self.SPL4PlayStatus).children[4]
+		obj = self.status(self.SPLPlayStatus).children[4]
 		ui.message(obj.name)
 
 	def script_sayCartEditStatus(self, gesture):
-		obj = self.getStatusChild(self.SPLPlayStatus).children[5] if self.SPLCurVersion >= SPLMinVersion else self.getStatusChild(self.SPL4PlayStatus).children[5]
+		obj = self.status(self.SPLPlayStatus).children[5]
 		ui.message(obj.name)
 
 	def script_sayHourTrackDuration(self, gesture):
-		obj = self.getStatusChild(self.SPLHourTrackDuration).firstChild if self.SPLCurVersion >= SPLMinVersion else self.getStatusChild(self.SPL4HourTrackDuration).firstChild
+		obj = self.status(self.SPLHourTrackDuration).firstChild
 		ui.message(obj.name)
 
 	def script_sayHourSelectedTrackDuration(self, gesture):
-		obj = self.getStatusChild(self.SPLHourSelectedDuration).firstChild if self.SPLCurVersion >= SPLMinVersion else self.getStatusChild(self.SPL4HourSelectedDuration).firstChild
+		obj = self.status(self.SPLHourSelectedDuration).firstChild
 		ui.message(obj.name)
 
 	def script_sayUpTime(self, gesture):
-		obj = self.getStatusChild(self.SPLSystemStatus).firstChild if self.SPLCurVersion >= SPLMinVersion else self.getStatusChild(self.SPL4SystemStatus).firstChild
+		obj = self.status(self.SPLSystemStatus).firstChild
 		ui.message(obj.name)
 
 
