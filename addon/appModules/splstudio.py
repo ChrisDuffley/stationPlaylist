@@ -16,6 +16,7 @@ from functools import wraps
 import controlTypes
 import appModuleHandler
 import api
+from config import getUserDefaultConfigPath
 import scriptHandler
 import ui
 import gui
@@ -266,6 +267,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Cart explorer
 	cartExplorer = False
+	carts = {} # The carts dictionary (key = cart gesture, item = cart).
 
 	# Assigning carts.
 
@@ -288,7 +290,6 @@ class AppModule(appModuleHandler.AppModule):
 		self.bindGesture("kb:control+-", "cartExplorer"), self.bindGesture("kb:control+=", "cartExplorer")
 		self.bindGesture("kb:alt+-", "cartExplorer"), self.bindGesture("kb:alt+=", "cartExplorer")
 
-	
 	def cartsManager(self, build=True):
 		# A function to build and return cart commands.
 		if build:
@@ -298,21 +299,34 @@ class AppModule(appModuleHandler.AppModule):
 			self.clearGestureBindings()
 			self.bindGestures(self.__gestures)
 
+	def cartsMatcher(self):
+		# Read the SPL carts file and process the entry into a dictionary.
+		cartfile = open(getUserDefaultConfigPath()+"\\"+"splcarts.ini")
+		cartslist = cartfile.readlines()
+		cartfile.close()
+		for cart in cartslist:
+			cartentry = cart.split("=")
+			self.carts[cartentry[0]] = cartentry[1].strip()
+
 	def script_toggleCartExplorer(self, gesture):
 		if not self.cartExplorer:
 			self.cartExplorer = True
 			self.cartsManager()
+			self.cartsMatcher()
+			# Populate the carts dictionary and run this and the line above in parallel, if possible.
 			ui.message("Entering cart explorer")
 		else:
 			self.cartExplorer = False
 			self.cartsManager(build=False)
+			self.carts.clear()
+			# Clear the carts and gestures dictionaries in parallel, if possible.
 			ui.message("Exiting cart explorer")
 
 	def script_cartExplorer(self, gesture):
 		if scriptHandler.getLastScriptRepeatCount() >= 1: gesture.send()
 		else:
-			if gesture.displayName == "f5": ui.message("Kewel")
-			else: ui.message("not implemented...")
+			if gesture.displayName in self.carts: ui.message(self.carts[gesture.displayName])
+			else: ui.message("Cart unassigned")
 
 	# SPL Assistant: reports status on playback, operation, etc.
 	# Used layer command approach to save gesture assignments.
