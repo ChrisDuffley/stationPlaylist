@@ -16,6 +16,7 @@ IMPORTANT: Due to major incompatible changes and key assignments, please remove 
 * Control+Alt+T from Studio window: announce remaining time for the currently playing trakc.
 * Control+NVDA+1 from Studio window: toggles announcement of toggle messages (such as automation) between words and beeps.
 * Control+NVDA+2 from Studio window: Opens end of track setting dialog.
+* Control+NVDA+3 from Studio window: Toggles cart explorer to learn cart assignments.
 * Control+NVDA+f from Studio window: Opens a dialog to find a track based on artist or song name. Press NvDA+F3 to find forward or NVDA+Shift+F3 to find backward.
 
 ## Unassigned commands ##
@@ -66,6 +67,10 @@ Five seconds before the current track ends, NVDA will play a short beep to indic
 If you wish to quickly find a song by an artist or by song name, from track lisst, press Control+NVDA+F. Type the name of the artist or the song name. NVDA will either place you at the song if found or will display an error if it cannot find the song you're looking for. To find a previously entered song or artist, press NVDA+F3 or NVDA+Shift+F3 to find forward or backward.
 
 Note: Track Finder is case-sensitive.
+
+## Changes for 3.0-dev
+
+* Added Cart Explorer to learn cart assignments (up to 96 carts can be assigned).
 
 ## Changes for 2.1
 
