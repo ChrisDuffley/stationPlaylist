@@ -129,6 +129,8 @@ class AppModule(appModuleHandler.AppModule):
 	# Time status constants:
 	SPLElapsedTime = 3 # Elapsed time of the current track.
 	SPL4ElapsedTime = -4 # Elapsed time for SPL 4.x.
+	SPLAirTime = 13 # Air time such as "5 minutes to 3" for SPL 5.x.
+	SPL4AirTime = 8 # Air time for SPL 4.x.
 
 	def script_sayRemainingTime(self, gesture):
 		fgWindow, remainingTime = api.getForegroundObject(), ""
@@ -142,11 +144,20 @@ class AppModule(appModuleHandler.AppModule):
 	script_sayRemainingTime.__doc__=_("Announces the remaining track time.")
 
 	def script_sayElapsedTime(self, gesture):
+		fgWindow = api.getForegroundObject()
 		# Quite a complicated expression there.
-		elapsedTime = self.getStatusChild(self.SPLElapsedTime).children[1].name if self.SPLCurVersion >= SPLMinVersion else self.getStatusChild(self.SPL4ElapsedTime).children[0].name
+		elapsedTime = fgWindow.children[self.SPLElapsedTime].children[1].name if self.SPLCurVersion >= SPLMinVersion else fgWindow.children[self.SPL4ElapsedTime].children[0].name
 		ui.message(elapsedTime)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayElapsedTime.__doc__=_("Announces the elapsed time for the currently playing track.")
+
+	def script_sayAirTime(self, gesture):
+		fgWindow = api.getForegroundObject()
+		# Says things such as "25 minutes to 2" and "5 past 11".
+		airTime = fgWindow.children[self.SPLAirTime].children[0].name if self.SPLCurVersion >= SPLMinVersion else fgWindow.children[self.SPL4AirTime].children[0].name
+		ui.message(airTime)
+	# Translators: Input help mode message for a command in Station Playlist Studio.
+	script_sayAirTime.__doc__=_("Announces the time to top of the hour.")
 
 	# Set the end of track alarm time between 1 and 59 seconds.
 
@@ -448,6 +459,7 @@ class AppModule(appModuleHandler.AppModule):
 	__gestures={
 		"kb:control+alt+t":"sayRemainingTime",
 		"kb:alt+shift+t":"sayElapsedTime",
+		"kb:shift+nvda+f12":"sayAirTime",
 		"kb:control+nvda+1":"toggleBeepAnnounce",
 		"kb:control+nvda+2":"setEndOfTrackTime",
 		"kb:control+nvda+f":"findTrack",

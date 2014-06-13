@@ -14,6 +14,7 @@ IMPORTANT: Due to major incompatible changes and key assignments, please remove 
 
 * Alt+Shift+T from Studio window: announce elapsed time for the currently playing trakc.
 * Control+Alt+T from Studio window: announce remaining time for the currently playing trakc.
+* NVDA+Shift+F12 from Studio window: announces time in a more friendly format such as 5 minutes to top of the hour.
 * Control+NVDA+1 from Studio window: toggles announcement of toggle messages (such as automation) between words and beeps.
 * Control+NVDA+2 from Studio window: Opens end of track setting dialog.
 * Control+NVDA+3 from Studio window: Toggles cart explorer to learn cart assignments.
