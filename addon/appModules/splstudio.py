@@ -321,11 +321,15 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_toggleCartExplorer(self, gesture):
 		if not self.cartExplorer:
-			self.cartExplorer = True
-			self.cartsManager()
-			self.cartsMatcher()
-			# Populate the carts dictionary and run this and the line above in parallel, if possible.
-			ui.message("Entering cart explorer")
+			import os.path
+			if not os.path.isfile(getUserDefaultConfigPath()+"\\"+"splcarts.ini"):
+				ui.message("Carts configuration missing. Please restore or recreate carts configuration file and try entering cart explorer.")
+			else:
+				self.cartExplorer = True
+				self.cartsManager()
+				self.cartsMatcher()
+				# Populate the carts dictionary and run this and the line above in parallel, if possible.
+				ui.message("Entering cart explorer")
 		else:
 			self.cartExplorer = False
 			self.cartsManager(build=False)
