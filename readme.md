@@ -8,7 +8,7 @@ This add-on package provides improved usage of Station Playlist Studio, as well 
 
 For more information about the add-on, read the [add-on guide][3].
 
-IMPORTANT: Due to major incompatible changes and key assignments, please remove add-on version 1.2 before installing version 2.0 or later.
+IMPORTANT: Due to major incompatible changes and key assignments, please remove add-on version 1.2 before installing version 2.0 or later. Also, add-on 2.1 and later requires NVDA 2014.1 or later.
 
 ## Shortcut keys ##
 
@@ -68,6 +68,17 @@ Five seconds before the current track ends, NVDA will play a short beep to indic
 If you wish to quickly find a song by an artist or by song name, from track lisst, press Control+NVDA+F. Type the name of the artist or the song name. NVDA will either place you at the song if found or will display an error if it cannot find the song you're looking for. To find a previously entered song or artist, press NVDA+F3 or NVDA+Shift+F3 to find forward or backward.
 
 Note: Track Finder is case-sensitive.
+
+## Cart Explorer
+
+Depending on edition, SPL Studio allows up to 96 carts to be assigned for playback. NVDA allows you to hear which cart, or jingle is assigned to these commands.
+
+First, open your NVDA user configuration folder and create a file named "splcarts.ini" (if it does not exist). Then open the file and write the assignment as follows:
+	command=jingle
+For example:
+	f5=Kewel
+
+Once the carts are assigned, from SPL Studio, press Control+NVDA+3. Pressing the cart command once will tell you which jingle is assigned to the command. Pressing the cart command twice will play the jingle. Press Control+NvDA+3 to exit cart explorer. See the add-on guide for more information on cart explorer.
 
 ## Changes for 3.0-dev
 
