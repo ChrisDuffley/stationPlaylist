@@ -10,7 +10,7 @@ For more information about the add-on, read the [add-on guide][3].
 
 IMPORTANT: Due to major incompatible changes and key assignments, please remove add-on version 1.2 before installing version 2.0 or later. Also, add-on 2.1 and later requires NVDA 2014.1 or later.
 
-## Shortcut keys ##
+## Shortcut keys
 
 * Alt+Shift+T from Studio window: announce elapsed time for the currently playing trakc.
 * Control+Alt+T from Studio window: announce remaining time for the currently playing trakc.
@@ -20,7 +20,7 @@ IMPORTANT: Due to major incompatible changes and key assignments, please remove 
 * Control+NVDA+3 from Studio window: Toggles cart explorer to learn cart assignments.
 * Control+NVDA+f from Studio window: Opens a dialog to find a track based on artist or song name. Press NvDA+F3 to find forward or NVDA+Shift+F3 to find backward.
 
-## Unassigned commands ##
+## Unassigned commands
 
 The following commands are not assigned by default; if you wish to assign it, use Input Gestures dialog to add custom commands.
 
@@ -46,7 +46,7 @@ The available status information are:
 * T: Cart edit mode on/off.
 * U: Studio up time.
 
-## SPL Controller ##
+## SPL Controller
 
 The SPL Controller is a set of layered commands you can use to control SPL Studio anywhere. Press the SPL Controller layer command, and NVDA will say, "SPL Controller." Press another command to control various Studio settings such as microphone on/off or play the next track.
 
@@ -59,11 +59,11 @@ The available SPL Controller commands are:
 * Press A to enable automation or Shift+A to disable it.
 * Press L to enable line-in input or Shift+L to disable it.
 
-## End of track alarm ##
+## End of track alarm
 
 Five seconds before the current track ends, NVDA will play a short beep to indicate that the track is about to end. This works anywhere (even within SPL Studio window). Press Control+NVDA+2 to configure this between 1 and 59 seconds.
 
-## Track Finder ##
+## Track Finder
 
 If you wish to quickly find a song by an artist or by song name, from track lisst, press Control+NVDA+F. Type the name of the artist or the song name. NVDA will either place you at the song if found or will display an error if it cannot find the song you're looking for. To find a previously entered song or artist, press NVDA+F3 or NVDA+Shift+F3 to find forward or backward.
 
