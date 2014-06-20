@@ -278,7 +278,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Cart explorer
 	cartExplorer = False
-	carts = {} # The carts dictionary (key = cart gesture, item = cart).
+	carts = {} # The carts dictionary (key = cart gesture, item = cart name).
 
 	# Assigning carts.
 
@@ -301,7 +301,7 @@ class AppModule(appModuleHandler.AppModule):
 		self.bindGesture("kb:control+-", "cartExplorer"), self.bindGesture("kb:control+=", "cartExplorer")
 		self.bindGesture("kb:alt+-", "cartExplorer"), self.bindGesture("kb:alt+=", "cartExplorer")
 
-	def cartsManager(self, build=True):
+	def cartsBuilder(self, build=True):
 		# A function to build and return cart commands.
 		if build:
 			self.buildFNCarts()
@@ -310,29 +310,65 @@ class AppModule(appModuleHandler.AppModule):
 			self.clearGestureBindings()
 			self.bindGestures(self.__gestures)
 
-	def cartsMatcher(self):
-		# Read the SPL carts file and process the entry into a dictionary.
-		cartfile = open(getUserDefaultConfigPath()+"\\"+"splcarts.ini")
-		cartslist = cartfile.readlines()
-		cartfile.close()
-		for cart in cartslist:
-			cartentry = cart.split("=")
-			self.carts[cartentry[0]] = cartentry[1].strip()
+	def cartsStr2Carts(self, cartEntry, modifier, n):
+		# Parse the cart entry string and insert the cart/cart name pairs into the carts dictionary.
+		# n between 1 and 12 = function carts, 13 through 24 = number row carts, modifiers are checked.
+		# If a cart name has commas or other characters, SPL surrounds the cart name with quotes (""), so parse it as well.
+		if not cartEntry.startswith('""'): cartName = cartEntry.split(",")[0]
+		else: cartName = cartEntry.split('""')[1]
+		if n <= 12: identifier = "f"+str(n)
+		elif 12 < n < 22: identifier = str(n-12)
+		elif n == 22: identifier = "0"
+		elif n == 23: identifier = "-"
+		else: identifier = "="
+		if modifier == "": cart = identifier
+		elif modifier == "ctrl": cart = "control+%s"%identifier
+		else: cart = "%s+%s"%(modifier, m)
+		self.carts[cart] = cartName
+
+	def cartsFetcher(self):
+		# Use cart files in SPL's data folder to build carts dictionary.
+		# For now, use static file location.
+		def _populateCarts(c, modifier):
+			# The real cart string parser, a helper for cart explorer for building cart entries.
+			cartlst = c.split("\",\"")
+			cartlst[0], cartlst[-1] = cartlst[0][1:], cartlst[-1][:-1]
+			n = 0
+			for i in cartlst:
+				n+=1
+				# An unassigned cart is stored with three consecutive commas, so skip it.
+				if ",,," in i: continue
+				else: self.cartsStr2Carts(i, modifier, n)
+		# Back at the fetcher, locate the cart files and process them.
+		import _winreg
+		# Obtain the "real" path for SPL via registry and open the cart data folder.
+		SPLPathKey = _winreg.OpenKey(_winreg.HKEY_LOCAL_MACHINE, "SOFTWARE\\StationPlaylist\\Studio\\200-00000")
+		SPLPath, type = _winreg.QueryValueEx(SPLPathKey, "Path")
+		_winreg.CloseKey(SPLPathKey)
+		cartsDataPath = SPLPath[:-7]+"Data\\"
+		# Read *.cart files and process the cart entries within (be careful when these cart file names change between SPL releases).
+		cartFiles = ["main carts.cart", "shift carts.cart", "ctrl carts.cart", "alt carts.cart"]
+		for f in cartFiles:
+			mod = f.split(" ")[0] # Checking for modifier string such as ctrl.
+			# Todo: Check just in case some SPL flavors doesn't ship with a particular cart file.
+			cartFile = cartsDataPath+f
+			cartInfo = open(cartFile)
+			cl = cartInfo.readlines() # cl = cart list.
+			cartInfo.close()
+			del cl[0] # Throw away the empty line (again be careful if the cart file format changes in a future release).
+			preprocessedCarts = cl[0].strip()
+			_populateCarts(preprocessedCarts, "") if mod == "main" else _populateCarts(preprocessedCarts, mod) # See the comment for _populate method above.
 
 	def script_toggleCartExplorer(self, gesture):
 		if not self.cartExplorer:
-			import os.path
-			if not os.path.isfile(getUserDefaultConfigPath()+"\\"+"splcarts.ini"):
-				ui.message("Carts configuration missing. Please restore or recreate carts configuration file and try entering cart explorer.")
-			else:
-				self.cartExplorer = True
-				self.cartsManager()
-				self.cartsMatcher()
-				# Populate the carts dictionary and run this and the line above in parallel, if possible.
-				ui.message("Entering cart explorer")
+			self.cartExplorer = True
+			self.cartsBuilder()
+			self.cartsFetcher()
+			# Populate the carts dictionary and run this and the line above in parallel, if possible.
+			ui.message("Entering cart explorer")
 		else:
 			self.cartExplorer = False
-			self.cartsManager(build=False)
+			self.cartsBuilder(build=False)
 			self.carts.clear()
 			# Clear the carts and gestures dictionaries in parallel, if possible.
 			ui.message("Exiting cart explorer")
