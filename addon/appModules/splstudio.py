@@ -323,7 +323,7 @@ class AppModule(appModuleHandler.AppModule):
 		else: identifier = "="
 		if modifier == "": cart = identifier
 		elif modifier == "ctrl": cart = "control+%s"%identifier
-		else: cart = "%s+%s"%(modifier, m)
+		else: cart = "%s+%s"%(modifier, identifier)
 		self.carts[cart] = cartName
 
 	def cartsFetcher(self):
@@ -331,7 +331,7 @@ class AppModule(appModuleHandler.AppModule):
 		# For now, use static file location.
 		def _populateCarts(c, modifier):
 			# The real cart string parser, a helper for cart explorer for building cart entries.
-			cartlst = c.split("\",\"")
+			cartlst = c.split("\",\"") # c = cart text.
 			cartlst[0], cartlst[-1] = cartlst[0][1:], cartlst[-1][:-1]
 			n = 0
 			for i in cartlst:
