@@ -97,18 +97,19 @@ class AppModule(appModuleHandler.AppModule):
 					# Strip off "  Play status: " for brevity
 					ui.message(obj.name[15:])
 				else:
-					# Even with beeps enabled, be sure to announce scheduled time.
-					if self.beepAnnounce and obj.name.startswith("Scheduled for"): ui.message(obj.name)
-					elif self.beepAnnounce:
-						# User wishes to hear beeps instead of words. The beeps are power on and off sounds from PAC Mate Omni.
-						import nvwave, os.path # The wave playback and path manipulator.
-						beep = obj.name.split(" ")
-						stat = beep[-1]
-						wavDir, wavFile = os.path.dirname(__file__), ""
-						# Play a wave file based on on/off status.
-						if stat == "Off": wavFile = wavDir + "\SPL_off.wav"
-						elif stat == "On": wavFile = wavDir+"\SPL_on.wav"
-						nvwave.playWaveFile(wavFile)
+					if self.beepAnnounce:
+						# Even with beeps enabled, be sure to announce scheduled time and name of the playing cart.
+						if obj.name.startswith("Scheduled for") or obj.name.startswith("Cart") and obj.IAccessibleChildID == 3: ui.message(obj.name)
+						else:
+							# User wishes to hear beeps instead of words. The beeps are power on and off sounds from PAC Mate Omni.
+							import nvwave, os.path # The wave playback and path manipulator.
+							beep = obj.name.split(" ")
+							stat = beep[-1]
+							wavDir, wavFile = os.path.dirname(__file__), ""
+							# Play a wave file based on on/off status.
+							if stat == "Off": wavFile = wavDir + "\SPL_off.wav"
+							elif stat == "On": wavFile = wavDir+"\SPL_on.wav"
+							nvwave.playWaveFile(wavFile)
 					else:
 						ui.message(obj.name)
 			# Monitor the end of track time and announce it.
