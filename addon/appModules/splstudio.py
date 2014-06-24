@@ -346,10 +346,14 @@ class AppModule(appModuleHandler.AppModule):
 		SPLPath, type = _winreg.QueryValueEx(SPLPathKey, "Path")
 		_winreg.CloseKey(SPLPathKey)
 		cartsDataPath = SPLPath[:-7]+"Data\\"
+		# See if multiple users are using SPl Studio.
+		userName = api.getForegroundObject().name
+		userNameIndex = userName.find("-")
 		# Read *.cart files and process the cart entries within (be careful when these cart file names change between SPL releases).
-		cartFiles = ["main carts.cart", "shift carts.cart", "ctrl carts.cart", "alt carts.cart"]
+		cartFiles = [u"main carts.cart", u"shift carts.cart", u"ctrl carts.cart", u"alt carts.cart"]
+		if userNameIndex >= 0: cartFiles = [userName[userNameIndex+2:]+" "+cartFile for cartFile in cartFiles]
 		for f in cartFiles:
-			mod = f.split(" ")[0] # Checking for modifier string such as ctrl.
+			mod = f.split()[-2] # Checking for modifier string such as ctrl.
 			# Todo: Check just in case some SPL flavors doesn't ship with a particular cart file.
 			cartFile = cartsDataPath+f
 			cartInfo = open(cartFile)
