@@ -331,17 +331,19 @@ class AppModule(appModuleHandler.AppModule):
 
 	def cartsFetcher(self):
 		# Use cart files in SPL's data folder to build carts dictionary.
-		# For now, use static file location.
+		# use a combination of SPL user name and static cart location to locate cart bank files.
+		# Once the cart banks are located, use the routines in the populate method below to assign carts.
 		def _populateCarts(c, modifier):
 			# The real cart string parser, a helper for cart explorer for building cart entries.
 			cartlst = c.split("\",\"") # c = cart text.
+			# Get rid of unneeded quotes in cart entries.
 			cartlst[0], cartlst[-1] = cartlst[0][1:], cartlst[-1][:-1]
-			n = 0
+			n = 0 # To keep track of how many entries were processed.
 			for i in cartlst:
 				n+=1
 				# An unassigned cart is stored with three consecutive commas, so skip it.
 				if ",,," in i: continue
-				else: self.cartsStr2Carts(i, modifier, n)
+				else: self.cartsStr2Carts(i, modifier, n) # See the comment on str2carts for more information.
 		# Back at the fetcher, locate the cart files and process them.
 		import _winreg
 		# Obtain the "real" path for SPL via registry and open the cart data folder.
