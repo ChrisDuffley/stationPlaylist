@@ -1,6 +1,6 @@
 # Station Playlist Utilities
 # Author: Joseph Lee
-# Copyright 2013, released under GPL.
+# Copyright 2013-2014, released under GPL.
 # Adds a few utility features such as switching focus to the SPL Studio window and some global scripts.
 
 from ctypes import windll
@@ -74,8 +74,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# Try to see if SPL foreground object can be fetched. This is used for switching to SPL Studio window from anywhere.
 
 	def fetchSPLForegroundWindow(self):
-		# First test: is splstudio running? Tell me the handle, please.
-		if user32.FindWindowA("SPLStudio", None) == 0: return None # Used ANSI version, as Wide char version always returns 0.
 		# Turns out NVDA core does have a method to fetch desktop objects, so use this to find SPL window from among its children.
 		dt = api.getDesktopObject()
 		for fg in dt.children:
@@ -86,10 +84,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def script_focusToSPLWindow(self, gesture):
 		# Don't do anything if we're already focus on SPL Studio.
 		if "splstudio" in api.getForegroundObject().appModule.appModuleName: return
-		else: SPLFG = self.fetchSPLForegroundWindow()
-		# SPL, are you running?
-		if SPLFG == None: ui.message(_("SPL Studio is not running."))
-		else: SPLFG.setFocus()
+		else:
+			SPLHwnd = user32.FindWindowA("SPLStudio", None) # Used ANSI version, as Wide char version always returns 0.
+			if SPLHwnd == 0: ui.message(_("SPL Studio is not running."))
+			else:
+				SPLFG = self.fetchSPLForegroundWindow()
+				if SPLFG == None: ui.message("SPL minimized to system tray.")
+				else: SPLFG.setFocus()
 	# Translators: Input help mode message for a command to switch to Station Playlist Studio from any program.
 	script_focusToSPLWindow.__doc__=_("Moves to SPL Studio window from other programs.")
 
