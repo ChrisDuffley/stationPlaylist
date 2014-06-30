@@ -394,6 +394,7 @@ class AppModule(appModuleHandler.AppModule):
 	SPLSystemStatus = 1
 	SPLHourTrackDuration = 2
 	SPLHourSelectedDuration = 3
+	SPLNextTrackTitle = 4
 
 	# Table of child constants based on versions
 	# These are scattered throughout the screen, so one can use foreground.children[index] to fetch them.
@@ -403,6 +404,7 @@ class AppModule(appModuleHandler.AppModule):
 		SPLSystemStatus:[-2, -3], # The second status bar containing system status such as up time.
 		SPLHourTrackDuration:[13, 17], # For track duration for the given hour marker.
 		SPLHourSelectedDuration:[14, 18], # In case the user selects one or more tracks in a given hour.
+		SPLNextTrackTitle:[2, 7], # In case the user selects one or more tracks in a given hour.
 	}
 
 	# Called in the layer commands themselves.
@@ -450,6 +452,17 @@ class AppModule(appModuleHandler.AppModule):
 		obj = self.status(self.SPLSystemStatus).firstChild
 		ui.message(obj.name)
 
+	def script_sayNextTrackTitle(self, gesture):
+		obj = self.status(self.SPLNextTrackTitle).firstChild
+		ui.message("No next track scheduled or no track is playing") if obj.name is None else ui.message(obj.name)
+
+	# Constants used in the following layer commands:
+	SPLListenerCount = 35
+
+	def script_sayListenerCount(self, gesture):
+		listenerCount = winUser.sendMessage(SPLWin, 1024, 0, self.SPLListenerCount)
+		ui.message("Listener count: {currentListenerCount}".format(currentListenerCount = listenerCount))
+
 
 	__SPLAssistantGestures={
 		"kb:p":"sayPlayStatus",
@@ -460,7 +473,9 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:t":"sayCartEditStatus",
 		"kb:h":"sayHourTrackDuration",
 		"kb:shift+h":"sayHourSelectedTrackDuration",
-		"kb:u":"sayUpTime"
+		"kb:u":"sayUpTime",
+		"kb:n":"sayNextTrackTitle",
+		"kb:i":"sayListenerCount"
 	}
 
 	__gestures={
