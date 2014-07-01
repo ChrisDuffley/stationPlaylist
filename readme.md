@@ -39,8 +39,10 @@ The available status information are:
 * A: Automation.
 * H: Duration of music for the current hour slot.
 * Shift+H: Total duration of selected tracks for this hour slot (from the track list, press SPACE to select or uncheck the track to play).
+* I: Listener count.
 * L: Line in.
 * M: Microphone.
+* N: Title for the next scheduled track.
 * P: Playback status (playing or stopped).
 * R: Record to file enabled/disabled.
 * T: Cart edit mode on/off.
@@ -84,6 +86,7 @@ Once the carts are assigned, from SPL Studio, press Control+NVDA+3. Pressing the
 
 * Added Cart Explorer to learn cart assignments (up to 96 carts can be assigned).
 * Error tones are no longer heard when toggle announcement is set to beeps and status messages other than on/off toggle are announced (example: playing carts).
+* Added new commands to SPL Assistant, including listener count (i) and next track title (n).
 
 ## Changes for 2.1
 
