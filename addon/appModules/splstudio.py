@@ -101,7 +101,7 @@ class AppModule(appModuleHandler.AppModule):
 						# Even with beeps enabled, be sure to announce scheduled time and name of the playing cart.
 						if obj.name.startswith("Scheduled for") or obj.name.startswith("Cart") and obj.IAccessibleChildID == 3: ui.message(obj.name)
 						# Announce status information that does not contain toggle messages.
-						elif not obj.name.endswith(" On") or not obj.name.endswith(" Off"): ui.message(obj.name)
+						elif not (obj.name.endswith(" On") or obj.name.endswith(" Off")): ui.message(obj.name)
 						else:
 							# User wishes to hear beeps instead of words. The beeps are power on and off sounds from PAC Mate Omni.
 							import nvwave, os.path # The wave playback and path manipulator.
