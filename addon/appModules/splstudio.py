@@ -369,6 +369,9 @@ class AppModule(appModuleHandler.AppModule):
 			_populateCarts(preprocessedCarts, "") if mod == "main" else _populateCarts(preprocessedCarts, mod) # See the comment for _populate method above.
 
 	def script_toggleCartExplorer(self, gesture):
+		if api.getForegroundObject().windowClassName != "TStudioForm":
+			gesture.send()
+			return
 		if not self.cartExplorer:
 			self.cartExplorer = True
 			self.cartsBuilder()
@@ -383,7 +386,7 @@ class AppModule(appModuleHandler.AppModule):
 			ui.message("Exiting cart explorer")
 
 	def script_cartExplorer(self, gesture):
-		if scriptHandler.getLastScriptRepeatCount() >= 1: gesture.send()
+		if scriptHandler.getLastScriptRepeatCount() >= 1 or api.getForegroundObject().windowClassName != "TStudioForm": gesture.send()
 		else:
 			if gesture.displayName in self.carts: ui.message(self.carts[gesture.displayName])
 			else: ui.message("Cart unassigned")
