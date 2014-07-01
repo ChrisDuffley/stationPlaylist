@@ -334,10 +334,11 @@ class AppModule(appModuleHandler.AppModule):
 		else: cart = "%s+%s"%(modifier, identifier)
 		self.carts[cart] = cartName
 
-	def cartsFetcher(self):
+	def cartsReader(self):
 		# Use cart files in SPL's data folder to build carts dictionary.
 		# use a combination of SPL user name and static cart location to locate cart bank files.
 		# Once the cart banks are located, use the routines in the populate method below to assign carts.
+		# Todo: refactor this function by splitting it into several functions.
 		def _populateCarts(c, modifier):
 			# The real cart string parser, a helper for cart explorer for building cart entries.
 			cartlst = c.split("\",\"") # c = cart text.
@@ -349,8 +350,8 @@ class AppModule(appModuleHandler.AppModule):
 				# An unassigned cart is stored with three consecutive commas, so skip it.
 				if ",,," in i: continue
 				else: self.cartsStr2Carts(i, modifier, n) # See the comment on str2carts for more information.
-		# Back at the fetcher, locate the cart files and process them.
-		import _winreg
+		# Back at the reader, locate the cart files and process them.
+		import _winreg, os.path
 		# Obtain the "real" path for SPL via registry and open the cart data folder.
 		SPLPathKey = _winreg.OpenKey(_winreg.HKEY_LOCAL_MACHINE, "SOFTWARE\\StationPlaylist\\Studio\\200-00000")
 		SPLPath, type = _winreg.QueryValueEx(SPLPathKey, "Path")
@@ -362,27 +363,38 @@ class AppModule(appModuleHandler.AppModule):
 		# Read *.cart files and process the cart entries within (be careful when these cart file names change between SPL releases).
 		cartFiles = [u"main carts.cart", u"shift carts.cart", u"ctrl carts.cart", u"alt carts.cart"]
 		if userNameIndex >= 0: cartFiles = [userName[userNameIndex+2:]+" "+cartFile for cartFile in cartFiles]
+		cartReadSuccess = True # Just in case some or all carts were not read successfully.
 		for f in cartFiles:
-			mod = f.split()[-2] # Checking for modifier string such as ctrl.
-			# Todo: Check just in case some SPL flavors doesn't ship with a particular cart file.
+			try:
+				mod = f.split()[-2] # Checking for modifier string such as ctrl.
+				# Todo: Check just in case some SPL flavors doesn't ship with a particular cart file.
+			except IndexError:
+				cartReadSuccess = False # In a rare event that the broadcaster has saved the cart bank with the name like "carts.cart".
+				continue
 			cartFile = cartsDataPath+f
+			if not os.path.isfile(cartFile): # Cart explorer will fail if whitespaces are in the beginning or at the end of a user name.
+				cartReadSuccess = False
+				continue
 			cartInfo = open(cartFile)
 			cl = cartInfo.readlines() # cl = cart list.
 			cartInfo.close()
 			del cl[0] # Throw away the empty line (again be careful if the cart file format changes in a future release).
 			preprocessedCarts = cl[0].strip()
 			_populateCarts(preprocessedCarts, "") if mod == "main" else _populateCarts(preprocessedCarts, mod) # See the comment for _populate method above.
+		return cartReadSuccess
 
 	def script_toggleCartExplorer(self, gesture):
 		if api.getForegroundObject().windowClassName != "TStudioForm":
 			gesture.send()
 			return
 		if not self.cartExplorer:
-			self.cartExplorer = True
-			self.cartsBuilder()
-			self.cartsFetcher()
-			# Populate the carts dictionary and run this and the line above in parallel, if possible.
-			ui.message("Entering cart explorer")
+			if not self.cartsReader():
+				ui.message("Some or all carts could not be assigned, cannot enter cart explorer")
+				return
+			else:
+				self.cartExplorer = True
+				self.cartsBuilder()
+				ui.message("Entering cart explorer")
 		else:
 			self.cartExplorer = False
 			self.cartsBuilder(build=False)
