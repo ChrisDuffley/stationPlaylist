@@ -137,9 +137,9 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_sayRemainingTime(self, gesture):
 		fgWindow = api.getForegroundObject()
-		try:
+		if fgWindow.windowClassName == "TStudioForm":
 			remainingTime = fgWindow.children[2].children[1].name if self.SPLCurVersion >= SPLMinVersion else fgWindow.children[-3].firstChild.name
-		except IndexError:
+		else:
 			remainingTime = "Remaining time not available"
 		ui.message(remainingTime)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
@@ -148,9 +148,9 @@ class AppModule(appModuleHandler.AppModule):
 	def script_sayElapsedTime(self, gesture):
 		fgWindow = api.getForegroundObject()
 		# Quite a complicated expression there.
-		try:
+		if fgWindow.windowClassName == "TStudioForm":
 			elapsedTime = fgWindow.children[self.SPLElapsedTime].children[1].name if self.SPLCurVersion >= SPLMinVersion else fgWindow.children[self.SPL4ElapsedTime].children[0].name
-		except IndexError:
+		else:
 			elapsedTime = "Elapsed time not available"
 		ui.message(elapsedTime)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
@@ -159,9 +159,9 @@ class AppModule(appModuleHandler.AppModule):
 	def script_sayAirTime(self, gesture):
 		fgWindow = api.getForegroundObject()
 		# Says things such as "25 minutes to 2" and "5 past 11".
-		try:
+		if fgWindow.windowClassName == "TStudioForm":
 			airTime = fgWindow.children[self.SPLAirTime].children[0].name if self.SPLCurVersion >= SPLMinVersion else fgWindow.children[self.SPL4AirTime].children[0].name
-		except IndexError:
+		else:
 			airTime = "Top of the hour time not available"
 		ui.message(airTime)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
