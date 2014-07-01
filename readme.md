@@ -75,18 +75,14 @@ Note: Track Finder is case-sensitive.
 
 Depending on edition, SPL Studio allows up to 96 carts to be assigned for playback. NVDA allows you to hear which cart, or jingle is assigned to these commands.
 
-First, open your NVDA user configuration folder and create a file named "splcarts.ini" (if it does not exist). Then open the file and write the assignment as follows:
-	command=jingle
-For example:
-	f5=Kewel
-
-Once the carts are assigned, from SPL Studio, press Control+NVDA+3. Pressing the cart command once will tell you which jingle is assigned to the command. Pressing the cart command twice will play the jingle. Press Control+NvDA+3 to exit cart explorer. See the add-on guide for more information on cart explorer.
+To learn cart assignments, from SPL Studio, press Control+NVDA+3. Pressing the cart command once will tell you which jingle is assigned to the command. Pressing the cart command twice will play the jingle. Press Control+NvDA+3 to exit cart explorer. See the add-on guide for more information on cart explorer.
 
 ## Changes for 3.0-dev
 
 * Added Cart Explorer to learn cart assignments (up to 96 carts can be assigned).
 * Error tones are no longer heard when toggle announcement is set to beeps and status messages other than on/off toggle are announced (example: playing carts).
 * Added new commands to SPL Assistant, including listener count (i) and next track title (n).
+* When StationPlaylist window is minimized to the system tray (notification area), NVDA will announce this fact when trying to switch to SPL from other programs.
 
 ## Changes for 2.1
 
