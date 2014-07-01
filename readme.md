@@ -84,6 +84,7 @@ Once the carts are assigned, from SPL Studio, press Control+NVDA+3. Pressing the
 
 * Added Cart Explorer to learn cart assignments (up to 96 carts can be assigned).
 * Error tones are no longer heard when toggle announcement is set to beeps and status messages other than on/off toggle are announced (example: playing carts).
+* Error tones are no longer heard when trying to obtain information such as remaining time while other Studio window other than track list (such as Options dialog) is focused. If the needed information is not found, NVDA will announce this fact.
 
 ## Changes for 2.1
 
