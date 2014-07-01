@@ -136,12 +136,11 @@ class AppModule(appModuleHandler.AppModule):
 	SPL4AirTime = 8 # Air time for SPL 4.x.
 
 	def script_sayRemainingTime(self, gesture):
-		fgWindow, remainingTime = api.getForegroundObject(), ""
-		if self.SPLCurVersion >= SPLMinVersion: # See if we're running 5.00 or later.
-			# We want the first part only, the time itself.
-			remainingTime = fgWindow.children[2].children[1].name
-		else: # SPL 4.x.
-			remainingTime = fgWindow.children[-3].firstChild.name
+		fgWindow = api.getForegroundObject()
+		try:
+			remainingTime = fgWindow.children[2].children[1].name if self.SPLCurVersion >= SPLMinVersion else fgWindow.children[-3].firstChild.name
+		except IndexError:
+			remainingTime = "Remaining time not available"
 		ui.message(remainingTime)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayRemainingTime.__doc__=_("Announces the remaining track time.")
@@ -149,7 +148,10 @@ class AppModule(appModuleHandler.AppModule):
 	def script_sayElapsedTime(self, gesture):
 		fgWindow = api.getForegroundObject()
 		# Quite a complicated expression there.
-		elapsedTime = fgWindow.children[self.SPLElapsedTime].children[1].name if self.SPLCurVersion >= SPLMinVersion else fgWindow.children[self.SPL4ElapsedTime].children[0].name
+		try:
+			elapsedTime = fgWindow.children[self.SPLElapsedTime].children[1].name if self.SPLCurVersion >= SPLMinVersion else fgWindow.children[self.SPL4ElapsedTime].children[0].name
+		except IndexError:
+			elapsedTime = "Elapsed time not available"
 		ui.message(elapsedTime)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayElapsedTime.__doc__=_("Announces the elapsed time for the currently playing track.")
@@ -157,7 +159,10 @@ class AppModule(appModuleHandler.AppModule):
 	def script_sayAirTime(self, gesture):
 		fgWindow = api.getForegroundObject()
 		# Says things such as "25 minutes to 2" and "5 past 11".
-		airTime = fgWindow.children[self.SPLAirTime].children[0].name if self.SPLCurVersion >= SPLMinVersion else fgWindow.children[self.SPL4AirTime].children[0].name
+		try:
+			airTime = fgWindow.children[self.SPLAirTime].children[0].name if self.SPLCurVersion >= SPLMinVersion else fgWindow.children[self.SPL4AirTime].children[0].name
+		except IndexError:
+			airTime = "Top of the hour time not available"
 		ui.message(airTime)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayAirTime.__doc__=_("Announces the time to top of the hour.")
