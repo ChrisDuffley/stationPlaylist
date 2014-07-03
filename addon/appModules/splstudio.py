@@ -384,9 +384,6 @@ class AppModule(appModuleHandler.AppModule):
 		return cartReadSuccess
 
 	def script_toggleCartExplorer(self, gesture):
-		if api.getForegroundObject().windowClassName != "TStudioForm":
-			gesture.send()
-			return
 		if not self.cartExplorer:
 			if not self.cartsReader():
 				ui.message("Some or all carts could not be assigned, cannot enter cart explorer")
@@ -403,7 +400,7 @@ class AppModule(appModuleHandler.AppModule):
 			ui.message("Exiting cart explorer")
 
 	def script_cartExplorer(self, gesture):
-		if scriptHandler.getLastScriptRepeatCount() >= 1 or api.getForegroundObject().windowClassName != "TStudioForm": gesture.send()
+		if scriptHandler.getLastScriptRepeatCount() >= 1: gesture.send()
 		else:
 			if gesture.displayName in self.carts: ui.message(self.carts[gesture.displayName])
 			else: ui.message("Cart unassigned")
