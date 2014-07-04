@@ -351,12 +351,17 @@ class AppModule(appModuleHandler.AppModule):
 				if ",,," in i: continue
 				else: self.cartsStr2Carts(i, modifier, n) # See the comment on str2carts for more information.
 		# Back at the reader, locate the cart files and process them.
-		import _winreg, os.path
-		# Obtain the "real" path for SPL via registry and open the cart data folder.
-		SPLPathKey = _winreg.OpenKey(_winreg.HKEY_LOCAL_MACHINE, "SOFTWARE\\StationPlaylist\\Studio\\200-00000")
-		SPLPath, type = _winreg.QueryValueEx(SPLPathKey, "Path")
-		_winreg.CloseKey(SPLPathKey)
-		cartsDataPath = SPLPath[:-7]+"Data\\"
+		ui.message("Attempting to get SPL path...")
+		#import _winreg, os.path
+		import os
+		# Obtain the "real" path for SPL via registry and/or environment variables and open the cart data folder.
+		#SPLPathKey = _winreg.OpenKey(_winreg.HKEY_LOCAL_MACHINE, "SOFTWARE\\StationPlaylist\\Studio\\200-00000")
+		#SPLPath, type = _winreg.QueryValueEx(SPLPathKey, "Path")
+		#_winreg.CloseKey(SPLPathKey)
+		SPLPath = os.path.join(os.environ["PROGRAMFILES"],"StationPlaylist","Data") # Provided that Studio was installed using default path.
+		ui.message("SPL path found") if SPLPath != "" else ui.message("SPL path not found")
+		cartsDataPath = SPLPath
+		ui.message("SPL Data path: %s"%cartsDataPath)
 		# See if multiple users are using SPl Studio.
 		userName = api.getForegroundObject().name
 		userNameIndex = userName.find("-")
@@ -364,6 +369,7 @@ class AppModule(appModuleHandler.AppModule):
 		cartFiles = [u"main carts.cart", u"shift carts.cart", u"ctrl carts.cart", u"alt carts.cart"]
 		if userNameIndex >= 0: cartFiles = [userName[userNameIndex+2:]+" "+cartFile for cartFile in cartFiles]
 		cartReadSuccess = True # Just in case some or all carts were not read successfully.
+		ui.message("Processing carts...")
 		for f in cartFiles:
 			try:
 				mod = f.split()[-2] # Checking for modifier string such as ctrl.
@@ -371,7 +377,7 @@ class AppModule(appModuleHandler.AppModule):
 			except IndexError:
 				cartReadSuccess = False # In a rare event that the broadcaster has saved the cart bank with the name like "carts.cart".
 				continue
-			cartFile = cartsDataPath+f
+			cartFile = os.path.join(cartsDataPath,f)
 			if not os.path.isfile(cartFile): # Cart explorer will fail if whitespaces are in the beginning or at the end of a user name.
 				cartReadSuccess = False
 				continue
@@ -381,14 +387,19 @@ class AppModule(appModuleHandler.AppModule):
 			del cl[0] # Throw away the empty line (again be careful if the cart file format changes in a future release).
 			preprocessedCarts = cl[0].strip()
 			_populateCarts(preprocessedCarts, "") if mod == "main" else _populateCarts(preprocessedCarts, mod) # See the comment for _populate method above.
+		ui.message("Carts read successfully") if cartReadSuccess else ui.message("Carts read failed")
 		return cartReadSuccess
 
 	def script_toggleCartExplorer(self, gesture):
+		tones.beep(440, 250)
+		ui.message("Checking for cart explorer value...")
 		if not self.cartExplorer:
+			ui.message("Cart explorer is off...")
 			if not self.cartsReader():
 				ui.message("Some or all carts could not be assigned, cannot enter cart explorer")
 				return
 			else:
+				ui.message("Carts found, building carts...")
 				self.cartExplorer = True
 				self.cartsBuilder()
 				ui.message("Entering cart explorer")
