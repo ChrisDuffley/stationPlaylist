@@ -84,6 +84,7 @@ To learn cart assignments, from SPL Studio, press Control+NVDA+3. Pressing the c
 * When StationPlaylist window is minimized to the system tray (notification area), NVDA will announce this fact when trying to switch to SPL from other programs.
 * Error tones are no longer heard when toggle announcement is set to beeps and status messages other than on/off toggle are announced (example: playing carts).
 * Error tones are no longer heard when trying to obtain information such as remaining time while other Studio window other than track list (such as Options dialog) is focused. If the needed information is not found, NVDA will announce this fact.
+* It is now possible to search a track by artist name. Previously you could search by track title.
 
 ## Changes for 2.1
 

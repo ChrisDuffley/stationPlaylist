@@ -212,15 +212,12 @@ class AppModule(appModuleHandler.AppModule):
 	script_toggleBeepAnnounce.__doc__=_("Toggles option change announcements between words and beeps.")
 
 	# The track finder utility for find track script.
-	# Perform a linear search to locate the track description which matches the entered value.
+	# Perform a linear search to locate the track name and/or description which matches the entered value.
 	findText = ""
 
-	# The utility function itself.
-
 	def trackFinder(self, text, obj, directionForward=True):
-		# Do some optimization later (techniques will include a bit of memoization using a cache dictionary of searched texts).
 		while obj is not None:
-			if text in obj.description:
+			if text in obj.name or text in obj.description:
 				self.findText = text
 				# We need to fire set focus event twice and exit this routine.
 				obj.setFocus(), obj.setFocus()
