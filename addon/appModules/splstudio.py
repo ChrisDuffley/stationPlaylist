@@ -114,6 +114,9 @@ class AppModule(appModuleHandler.AppModule):
 							nvwave.playWaveFile(wavFile)
 					else:
 						ui.message(obj.name)
+						if self.cartExplorer:
+							if obj.name == "Cart Edit On": ui.message("Cart explorer is active")
+							elif obj.name == "Cart Edit Off": ui.message("Please reenter cart explorer to view updated cart assignments")
 			# Monitor the end of track time and announce it.
 			elif obj.windowClassName == "TStaticText" and obj.name == self.SPLEndOfTrackTime and obj.simpleParent.name == "Remaining Time": tones.beep(440, 200) # SPL 4.x.
 			elif obj.windowClassName == "TStaticText" and obj.name == self.SPLEndOfTrackTime and obj.simplePrevious != None and obj.simplePrevious.name == "Remaining Time": tones.beep(440, 200) # SPL 5.x.
