@@ -501,20 +501,17 @@ class AppModule(appModuleHandler.AppModule):
 		obj = self.status(self.SPLHourSelectedDuration).firstChild
 		ui.message(obj.name)
 
-	def script_sayUpTime(self, gesture):
-		obj = self.status(self.SPLSystemStatus).firstChild
-		ui.message(obj.name)
-
 	def script_sayNextTrackTitle(self, gesture):
 		obj = self.status(self.SPLNextTrackTitle).firstChild
 		ui.message("No next track scheduled or no track is playing") if obj.name is None else ui.message(obj.name)
 
-	# Constants used in the following layer commands:
-	SPLListenerCount = 35
+	def script_sayUpTime(self, gesture):
+		obj = self.status(self.SPLSystemStatus).firstChild
+		ui.message(obj.name)
 
 	def script_sayListenerCount(self, gesture):
-		listenerCount = winUser.sendMessage(SPLWin, 1024, 0, self.SPLListenerCount)
-		ui.message("Listener count: {currentListenerCount}".format(currentListenerCount = listenerCount))
+		obj = self.status(self.SPLSystemStatus).children[3]
+		ui.message(obj.name) if obj.name is not None else ui.message("Listener count not found")
 
 
 	__SPLAssistantGestures={
