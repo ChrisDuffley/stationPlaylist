@@ -132,8 +132,8 @@ class AppModule(appModuleHandler.AppModule):
 	# Time status constants:
 	SPLElapsedTime = 3 # Elapsed time of the current track.
 	SPL4ElapsedTime = -4 # Elapsed time for SPL 4.x.
-	SPLAirTime = 13 # Air time such as "5 minutes to 3" for SPL 5.x.
-	SPL4AirTime = 8 # Air time for SPL 4.x.
+	SPLBroadcasterTime = 13 # Air time such as "5 minutes to 3" for SPL 5.x.
+	SPL4BroadcasterTime = 8 # Air time for SPL 4.x.
 
 	def script_sayRemainingTime(self, gesture):
 		fgWindow = api.getForegroundObject()
@@ -156,16 +156,16 @@ class AppModule(appModuleHandler.AppModule):
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayElapsedTime.__doc__=_("Announces the elapsed time for the currently playing track.")
 
-	def script_sayAirTime(self, gesture):
+	def script_sayBroadcasterTime(self, gesture):
 		fgWindow = api.getForegroundObject()
 		# Says things such as "25 minutes to 2" and "5 past 11".
 		if fgWindow.windowClassName == "TStudioForm":
-			airTime = fgWindow.children[self.SPLAirTime].children[0].name if self.SPLCurVersion >= SPLMinVersion else fgWindow.children[self.SPL4AirTime].children[0].name
+			broadcasterTime = fgWindow.children[self.SPLBroadcasterTime].children[0].name if self.SPLCurVersion >= SPLMinVersion else fgWindow.children[self.SPL4BroadcasterTime].children[0].name
 		else:
-			airTime = "Top of the hour time not available"
-		ui.message(airTime)
+			broadcasterTime = "Broadcaster time not available"
+		ui.message(broadcasterTime)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
-	script_sayAirTime.__doc__=_("Announces the time to top of the hour.")
+	script_sayBroadcasterTime.__doc__=_("Announces broadcaster time.")
 
 	# Set the end of track alarm time between 1 and 59 seconds.
 
@@ -531,7 +531,7 @@ class AppModule(appModuleHandler.AppModule):
 	__gestures={
 		"kb:control+alt+t":"sayRemainingTime",
 		"kb:alt+shift+t":"sayElapsedTime",
-		"kb:shift+nvda+f12":"sayAirTime",
+		"kb:shift+nvda+f12":"sayBroadcasterTime",
 		"kb:control+nvda+1":"toggleBeepAnnounce",
 		"kb:control+nvda+2":"setEndOfTrackTime",
 		"kb:control+nvda+f":"findTrack",
