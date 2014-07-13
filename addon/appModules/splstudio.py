@@ -9,16 +9,18 @@
 # For SPL Studio Controller, focus movement and other utilities, see the global plugin version of this app module.
 
 # Because of different interfaces between 4.x and 5.x, we need to come up with a way to handle both.
-# Minimum version: SPL 4.33, NvDA 2013.3.
+# Minimum version: SPL 4.33, NvDA 2014.1.
 
 from ctypes import windll
 from functools import wraps
+import os
 import controlTypes
 import appModuleHandler
 import api
-from config import getUserDefaultConfigPath
+import review
 import scriptHandler
 import ui
+import nvwave
 import gui
 import wx
 import winUser
@@ -55,14 +57,14 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Some useful variables:
 	beepAnnounce = False # Play beeps instead of announcing toggles.
-	SPLCurVersion = appModuleHandler.AppModule.productVersion # The version test variable.
+	SPLCurVersion = self.productVersion # The version test variable.
 
 	# GS: The following was written by James Teh <jamie@NVAccess.org
 	#It gets around a problem where double focus events are fired when moving around the playlist.
 	#Hopefully it will be possible to remove this when it is fixed in Studio.>
 	# JL: Keeping this around for SPL 4.x users (and have confirmed that this works in 5.x).
 	def event_NVDAObject_init(self, obj):
-		if obj.windowClassName == "TListView" and obj.role in (controlTypes.ROLE_CHECKBOX, controlTypes.ROLE_LISTITEM) and controlTypes.STATE_FOCUSED not in obj.states and self.SPLCurVersion < 500:
+		if obj.windowClassName == "TListView" and obj.role in (controlTypes.ROLE_CHECKBOX, controlTypes.ROLE_LISTITEM) and controlTypes.STATE_FOCUSED not in obj.states and self.SPLCurVersion < SPLMinVersion:
 			# These lists seem to fire a focus event on the previously focused item before firing focus on the new item.
 			# Try to filter this out.
 			obj.shouldAllowIAccessibleFocusEvent = False
@@ -70,7 +72,6 @@ class AppModule(appModuleHandler.AppModule):
 		if obj.windowClassName == "TRadioGroup": obj.role = controlTypes.ROLE_GROUPING
 		# In certain edit fields and combo boxes, the field name is written to the screen, and there's no way to fetch the object for this text. Thus use review position text.
 		elif obj.windowClassName == "TEdit" or obj.windowClassName == "TComboBox" and obj.name is None:
-			import review # This means at least NVDA 2013.2 is required.
 			fieldName, fieldObj  = review.getScreenPosition(obj)
 			fieldName.expand(textInfos.UNIT_LINE)
 			if obj.windowClassName == "TComboBox":
@@ -104,7 +105,6 @@ class AppModule(appModuleHandler.AppModule):
 						elif not (obj.name.endswith(" On") or obj.name.endswith(" Off")): ui.message(obj.name)
 						else:
 							# User wishes to hear beeps instead of words. The beeps are power on and off sounds from PAC Mate Omni.
-							import nvwave, os.path # The wave playback and path manipulator.
 							beep = obj.name.split(" ")
 							stat = beep[-1]
 							wavDir, wavFile = os.path.dirname(__file__), ""
@@ -291,14 +291,14 @@ class AppModule(appModuleHandler.AppModule):
 	# Assigning carts.
 
 	def buildFNCarts(self):
-		for i in range(0, 12):
+		for i in range(12):
 			self.bindGesture("kb:f%s"%(i+1), "cartExplorer")
 			self.bindGesture("kb:shift+f%s"%(i+1), "cartExplorer")
 			self.bindGesture("kb:control+f%s"%(i+1), "cartExplorer")
 			self.bindGesture("kb:alt+f%s"%(i+1), "cartExplorer")
 
 	def buildNumberCarts(self):
-		for i in range(0, 10):
+		for i in range(10):
 			self.bindGesture("kb:%s"%(i), "cartExplorer")
 			self.bindGesture("kb:shift+%s"%(i), "cartExplorer")
 			self.bindGesture("kb:control+%s"%(i), "cartExplorer")
@@ -351,7 +351,6 @@ class AppModule(appModuleHandler.AppModule):
 				if ",,," in i: continue
 				else: self.cartsStr2Carts(i, modifier, n) # See the comment on str2carts for more information.
 		# Back at the reader, locate the cart files and process them.
-		import os
 		# Obtain the "real" path for SPL via environment variables and open the cart data folder.
 		cartsDataPath = os.path.join(os.environ["PROGRAMFILES"],"StationPlaylist","Data") # Provided that Studio was installed using default path.
 		# See if multiple users are using SPl Studio.
