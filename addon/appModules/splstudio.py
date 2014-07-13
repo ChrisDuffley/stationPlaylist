@@ -21,6 +21,7 @@ import review
 import scriptHandler
 import ui
 import nvwave
+import braille
 import gui
 import wx
 import winUser
@@ -57,7 +58,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Some useful variables:
 	beepAnnounce = False # Play beeps instead of announcing toggles.
-	SPLCurVersion = self.productVersion # The version test variable.
+	SPLCurVersion = appModuleHandler.AppModule.productVersion # The version test variable.
 
 	# GS: The following was written by James Teh <jamie@NVAccess.org
 	#It gets around a problem where double focus events are fired when moving around the playlist.
@@ -112,6 +113,7 @@ class AppModule(appModuleHandler.AppModule):
 							if stat == "Off": wavFile = wavDir + "\SPL_off.wav"
 							elif stat == "On": wavFile = wavDir+"\SPL_on.wav"
 							nvwave.playWaveFile(wavFile)
+							braille.handler.message(obj.name)
 					else:
 						ui.message(obj.name)
 						if self.cartExplorer:
