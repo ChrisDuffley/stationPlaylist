@@ -57,7 +57,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Some useful variables:
 	beepAnnounce = False # Play beeps instead of announcing toggles.
-	SPLCurVersion = self.productVersion # The version test variable.
+	SPLCurVersion = appModuleHandler.AppModule.productVersion # The version test variable.
 
 	# GS: The following was written by James Teh <jamie@NVAccess.org
 	#It gets around a problem where double focus events are fired when moving around the playlist.
@@ -114,9 +114,9 @@ class AppModule(appModuleHandler.AppModule):
 							nvwave.playWaveFile(wavFile)
 					else:
 						ui.message(obj.name)
-						if self.cartExplorer:
-							if obj.name == "Cart Edit On": ui.message("Cart explorer is active")
-							elif obj.name == "Cart Edit Off": ui.message("Please reenter cart explorer to view updated cart assignments")
+					if self.cartExplorer:
+						if obj.name == "Cart Edit On": ui.message("Cart explorer is active")
+						elif obj.name == "Cart Edit Off": ui.message("Please reenter cart explorer to view updated cart assignments")
 			# Monitor the end of track time and announce it.
 			elif obj.windowClassName == "TStaticText" and obj.name == self.SPLEndOfTrackTime and obj.simpleParent.name == "Remaining Time": tones.beep(440, 200) # SPL 4.x.
 			elif obj.windowClassName == "TStaticText" and obj.name == self.SPLEndOfTrackTime and obj.simplePrevious != None and obj.simplePrevious.name == "Remaining Time": tones.beep(440, 200) # SPL 5.x.
