@@ -30,6 +30,13 @@ The following commands are not assigned by default; if you wish to assign it, us
 
 Note: Input Gestures dialog is available in 2013.3 or later.
 
+## Additional commands when using Sam encoder
+
+The following commands are available when using Sam encoder:
+
+* F9: connect to a streaming server.
+* F10: Disconnect from the streaming server.
+
 ## SPL Assistant layer
 
 This layer command set allows you to obtain various status on SPL Studio, such as whether a track is playing, total duration of all tracks for the hour and so on. From SPL Studio window, press the SPL Assistant layer command, then press one of the keys from the list below.
