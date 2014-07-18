@@ -1,13 +1,18 @@
 # Station Playlist Utilities
 # Author: Joseph Lee
 # Copyright 2013-2014, released under GPL.
-# Adds a few utility features such as switching focus to the SPL Studio window and some global scripts.
+# Adds a few utility features such as switching focus to the SPL Studio window and some global scripts, along with support for Sam Encoder.
 
 from ctypes import windll
 from functools import wraps
+import time
 import globalPluginHandler
 import api
 import ui
+import review
+import textInfos
+from NVDAObjects.IAccessible import IAccessible
+import controlTypes
 import winUser
 import tones
 import addonHandler
@@ -32,7 +37,6 @@ user32 = windll.user32 # user32.dll.
 SPLMSG = winUser.WM_USER
 
 # Various SPL IPC tags.
-SPLVersion = 2 # For IPC testing purposes.
 SPLPlay = 12
 SPLStop = 13
 SPLPause = 15
@@ -127,7 +131,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# The layer commands themselves. Calls user32.SendMessage method for each script.
 
 	def script_automateOn(self, gesture):
-		winUser.sendMessage(self.SPLWin,SPLMSG,1,SPLAutomate)
+		ret = winUser.sendMessage(self.SPLWin,SPLMSG,1,SPLAutomate)
+		print ret
 		self.finish()
 
 	def script_automateOff(self, gesture):
@@ -191,3 +196,40 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		#"kb:nvda+shift+`":"focusToSPLWindow",
 		#"kb:nvda+`":"SPLControllerPrefix"
 	}
+
+	# Support for Sam Encoder# Sam encoder is a Winamp plug-in, so we can use overlay class.
+	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
+		fg = api.getForegroundObject()
+		if obj.windowClassName == "TListView" and fg.windowClassName == "TfoSCEncoders":
+			clsList.insert(0, self.SAMEncoderWindow)
+
+	class SAMEncoderWindow(IAccessible):
+	# Support for Sam Encoder window.
+
+		def script_connect(self, gesture):
+			gesture.send()
+			ui.message("Connecting...")
+			# Keep an eye on the stream's description field until connected or error occurs.
+			while True:
+				time.sleep(0.001)
+				info = review.getScreenPosition(self)[0]
+				info.expand(textInfos.UNIT_LINE)
+				if "Error" in info.text:
+					# Announce the description of the error.
+					ui.message(self.description[self.description.find("Status")+8:])
+					break
+				elif "Connected" in info.text:
+					# We're on air, so exit.
+					tones.beep(1000, 150)
+					break
+				#else: tones.beep(250, 100)
+
+		def script_disconnect(self, gesture):
+			gesture.send()
+			ui.message("Disconnecting...")
+
+		__gestures={
+			"kb:f9":"connect",
+			"kb:f10":"disconnect"
+		}
+
