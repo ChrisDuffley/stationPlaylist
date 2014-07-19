@@ -218,7 +218,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 					# Announce the description of the error.
 					ui.message(self.description[self.description.find("Status")+8:])
 					break
-				elif "Connected" in info.text:
+				elif "Encoding" in info.text:
 					# We're on air, so exit.
 					tones.beep(1000, 150)
 					break
