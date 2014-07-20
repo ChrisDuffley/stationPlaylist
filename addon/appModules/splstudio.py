@@ -6,12 +6,11 @@
 # Version 0.01 - 7 April 2011:
 # Initial release: Jamie's focus hack plus auto-announcement of status items.
 # Additional work done by Joseph Lee and other contributors.
-# For SPL Studio Controller, focus movement and other utilities, see the global plugin version of this app module.
+# For SPL Studio Controller, focus movement, SAM Encoder support and other utilities, see the global plugin version of this app module.
 
 # Because of different interfaces between 4.x and 5.x, we need to come up with a way to handle both.
 # Minimum version: SPL 4.33, NvDA 2014.1.
 
-from ctypes import windll
 from functools import wraps
 import os
 import controlTypes
@@ -31,7 +30,7 @@ import tones
 import addonHandler
 addonHandler.initTranslation()
 
-# The finally function for the toggle scripts in this module (source: Tyler Spivey's code).
+# The finally function for status announcement scripts in this module (source: Tyler Spivey's code).
 def finally_(func, final):
 	"""Calls final after func, even if it fails."""
 	def wrap(f):
@@ -43,10 +42,6 @@ def finally_(func, final):
 				final()
 		return new
 	return wrap(final)
-
-# Try both 4.x and 5.x interfaces.
-user32 = windll.user32
-SPLWin = user32.FindWindowA("SPLStudio", None)
 
 # Use appModule.productVersion to decide what to do with 4.x and 5.x.
 SPLMinVersion = "5.00" # Check the version string against this. If it is less, use a different procedure for some routines.
@@ -113,6 +108,7 @@ class AppModule(appModuleHandler.AppModule):
 							if stat == "Off": wavFile = wavDir + "\SPL_off.wav"
 							elif stat == "On": wavFile = wavDir+"\SPL_on.wav"
 							nvwave.playWaveFile(wavFile)
+							# Braille the toggle message regardless of whether beep is heard or not.
 							braille.handler.message(obj.name)
 					else:
 						ui.message(obj.name)
@@ -137,8 +133,8 @@ class AppModule(appModuleHandler.AppModule):
 	# Time status constants:
 	SPLElapsedTime = 3 # Elapsed time of the current track.
 	SPL4ElapsedTime = -4 # Elapsed time for SPL 4.x.
-	SPLBroadcasterTime = 13 # Air time such as "5 minutes to 3" for SPL 5.x.
-	SPL4BroadcasterTime = 8 # Air time for SPL 4.x.
+	SPLBroadcasterTime = 13 # Broadcaster time such as "5 minutes to 3" for SPL 5.x.
+	SPL4BroadcasterTime = 8 # Broadcaster time for SPL 4.x.
 
 	def script_sayRemainingTime(self, gesture):
 		fgWindow = api.getForegroundObject()
@@ -293,14 +289,15 @@ class AppModule(appModuleHandler.AppModule):
 	# Assigning carts.
 
 	def buildFNCarts(self):
-		for i in range(12):
+		# Used xrange, as it is much faster; change this to range if NvDA core decides to use Python 3.
+		for i in xrange(12):
 			self.bindGesture("kb:f%s"%(i+1), "cartExplorer")
 			self.bindGesture("kb:shift+f%s"%(i+1), "cartExplorer")
 			self.bindGesture("kb:control+f%s"%(i+1), "cartExplorer")
 			self.bindGesture("kb:alt+f%s"%(i+1), "cartExplorer")
 
 	def buildNumberCarts(self):
-		for i in range(10):
+		for i in xrange(10):
 			self.bindGesture("kb:%s"%(i), "cartExplorer")
 			self.bindGesture("kb:shift+%s"%(i), "cartExplorer")
 			self.bindGesture("kb:control+%s"%(i), "cartExplorer")
