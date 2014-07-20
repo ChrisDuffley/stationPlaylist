@@ -5,16 +5,22 @@
 
 from ctypes import windll
 from functools import wraps
+import os
+from copy import deepcopy
 import time
 import globalPluginHandler
 import api
 import ui
+import speech
+import braille
 import review
 import textInfos
 from NVDAObjects.IAccessible import IAccessible
 import controlTypes
 import winUser
 import tones
+import gui
+import wx
 import addonHandler
 addonHandler.initTranslation()
 
@@ -49,6 +55,8 @@ SPLCurTrackPlaybackTime = 105
 
 # Needed in SAM Encoder support:
 SAMFocusToStudio = {} # A dictionary to record whether to switch to SPL Studio for this encoder.
+SAMStreamLabels= {} # A dictionary to store custom labels for each stream.
+SAMStaticStreamLabels = {} # The static stream label dictionary which is used to avoid unnecesary file writes.
 
 # Try to see if SPL foreground object can be fetched. This is used for switching to SPL Studio window from anywhere and to switch to Studio window from SAM encoder window.
 
@@ -68,7 +76,38 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# The handle to SPL window (keep this guy handy).
 	SPLWin = 0 #For now.
 
-	#Global layer environment (see the app module for more information).
+	# Do some initialization, such as stream labels for SAM encoders.
+	def __init__(self):
+		super(globalPluginHandler.GlobalPlugin, self).__init__()
+		# Read stream labels.
+		streamLabelPath = os.path.join(os.path.dirname(__file__), "SAMStreamLabels.ini")
+		if os.path.isfile(streamLabelPath) and os.path.getsize(streamLabelPath) > 0:
+			labels = open(streamLabelPath)
+			for label in labels:
+				labelStr = label.strip()
+				labelEntry = labelStr.split("=")
+				SAMStaticStreamLabels[labelEntry[0]] = labelEntry[1]
+				SAMStreamLabels[labelEntry[0]] = labelEntry[1]
+			labels.close()
+
+	# Cleanup, including saving the labels file.
+	def __del__(self):
+		# Compare labels stored in static versus realtime stream labels list, and if they are different, dumpt the contents of realtime list to the file.
+		# This avoids excessive file writes.
+		modified = False
+		if len(SAMStreamLabels) != len(SAMStaticStreamLabels): modified = True
+		else:
+			for i in SAMStreamLabels:
+				if i not in SAMStaticStreamLabels or SAMStreamLabels[i] != SAMStaticStreamLabels[i]:
+					modified = True
+					break
+		if modified:
+			labelStore = open(os.path.join(os.path.dirname(__file__), "SAMStreamLabels.ini"), "w")
+			for label in SAMStreamLabels:
+				labelStore.write("{streamName}={streamLabel}\n".format(streamName = label, streamLabel = SAMStreamLabels[label]))
+			labelStore.close()
+
+			#Global layer environment (see the app module for more information).
 	SPLController = False # Control SPL from anywhere.
 
 	def getScript(self, gesture):
@@ -244,6 +283,19 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				SAMFocusToStudio[self.name] = False
 				ui.message("Do not switch to Studio after connecting")
 
+		def script_streamLabeler(self, gesture):
+			print len(SAMStreamLabels)
+			streamTitle = "Stream labeler for {streamEntry}".format(streamEntry = self.name)
+			streamText = "Enter the label for this stream"
+			dlg = wx.TextEntryDialog(gui.mainFrame,
+			streamText, streamTitle, defaultValue=""if self.name not in SAMStreamLabels else SAMStreamLabels[self.name])
+			def callback(result):
+				if result == wx.ID_OK:
+					if dlg.GetValue() != "": SAMStreamLabels[self.name] = dlg.GetValue()
+					else: del SAMStreamLabels[self.name]
+			gui.runScriptModalDialog(dlg, callback)
+
+
 		def initOverlayClass(self):
 			# Can I switch to Studio when connected to a streaming server?
 			try:
@@ -251,9 +303,24 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			except KeyError:
 				pass
 
+		def reportFocus(self):
+			try:
+				streamLabel = SAMStreamLabels[self.name]
+			except KeyError:
+				streamLabel = None
+			# Speak the stream label if it exists.
+			if streamLabel is not None: speech.speakMessage(streamLabel)
+			super(type(self), self).reportFocus()
+			# Braille the stream label if present.
+			if streamLabel is not None:
+				brailleStreamLabel = self.name + ": " + streamLabel
+				braille.handler.message(brailleStreamLabel)
+
+
 		__gestures={
 			"kb:f9":"connect",
 			"kb:f10":"disconnect",
-			"kb:f11":"toggleFocusToStudio"
+			"kb:f11":"toggleFocusToStudio",
+			"kb:f12":"streamLabeler"
 		}
 
