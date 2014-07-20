@@ -43,7 +43,6 @@ SPLPause = 15
 SPLAutomate = 16
 SPLMic = 17
 SPLLineIn = 18
-SPLListenerCount = 35
 SPLVTPlaybackTime = 37 # VT = voice track.
 SPL_TrackPlaybackStatus = 104
 SPLCurTrackPlaybackTime = 105
@@ -131,8 +130,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# The layer commands themselves. Calls user32.SendMessage method for each script.
 
 	def script_automateOn(self, gesture):
-		ret = winUser.sendMessage(self.SPLWin,SPLMSG,1,SPLAutomate)
-		print ret
+		winUser.sendMessage(self.SPLWin,SPLMSG,1,SPLAutomate)
 		self.finish()
 
 	def script_automateOff(self, gesture):
