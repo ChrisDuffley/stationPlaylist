@@ -48,6 +48,18 @@ SPLVTPlaybackTime = 37 # VT = voice track.
 SPL_TrackPlaybackStatus = 104
 SPLCurTrackPlaybackTime = 105
 
+# Needed in SAM Encoder support:
+SAMFocusToStudio = {} # A dictionary to record whether to switch to SPL Studio for this encoder.
+
+# Try to see if SPL foreground object can be fetched. This is used for switching to SPL Studio window from anywhere and to switch to Studio window from SAM encoder window.
+
+def fetchSPLForegroundWindow():
+	# Turns out NVDA core does have a method to fetch desktop objects, so use this to find SPL window from among its children.
+	dt = api.getDesktopObject()
+	for fg in dt.children:
+		if "splstudio" in fg.appModule.appModuleName: return fg
+	return None
+
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
@@ -75,15 +87,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def script_error(self, gesture):
 		tones.beep(120, 100)
 
-	# Try to see if SPL foreground object can be fetched. This is used for switching to SPL Studio window from anywhere.
-
-	def fetchSPLForegroundWindow(self):
-		# Turns out NVDA core does have a method to fetch desktop objects, so use this to find SPL window from among its children.
-		dt = api.getDesktopObject()
-		for fg in dt.children:
-			if "splstudio" in fg.appModule.appModuleName: return fg
-		return None
-
 	# Switch focus to SPL Studio window from anywhere.
 	def script_focusToSPLWindow(self, gesture):
 		# Don't do anything if we're already focus on SPL Studio.
@@ -92,7 +95,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			SPLHwnd = user32.FindWindowA("SPLStudio", None) # Used ANSI version, as Wide char version always returns 0.
 			if SPLHwnd == 0: ui.message(_("SPL Studio is not running."))
 			else:
-				SPLFG = self.fetchSPLForegroundWindow()
+				SPLFG = fetchSPLForegroundWindow()
 				if SPLFG == None: ui.message("SPL minimized to system tray.")
 				else: SPLFG.setFocus()
 	# Translators: Input help mode message for a command to switch to Station Playlist Studio from any program.
@@ -204,7 +207,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			clsList.insert(0, self.SAMEncoderWindow)
 
 	class SAMEncoderWindow(IAccessible):
-	# Support for Sam Encoder window.
+		# Support for Sam Encoder window.
+
+		# Few usefule variables for encoder list:
+		focusToStudio = False # If true, Studio will gain focus after encoder connects.
 
 		def script_connect(self, gesture):
 			gesture.send()
@@ -220,7 +226,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 					break
 				elif "Encoding" in info.text:
 					# We're on air, so exit.
+					if self.focusToStudio: fetchSPLForegroundWindow().setFocus()
 					tones.beep(1000, 150)
+
 					break
 				#else: tones.beep(250, 100)
 
@@ -228,8 +236,26 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			gesture.send()
 			ui.message("Disconnecting...")
 
+		def script_toggleFocusToStudio(self, gesture):
+			if not self.focusToStudio:
+				self.focusToStudio = True
+				SAMFocusToStudio[self.name] = True
+				ui.message("Switch to Studio after connecting")
+			else:
+				self.focusToStudio = False
+				SAMFocusToStudio[self.name] = False
+				ui.message("Do not switch to Studio after connecting")
+
+		def initOverlayClass(self):
+			# Can I switch to Studio when connected to a streaming server?
+			try:
+				self.focusToStudio = SAMFocusToStudio[self.name]
+			except KeyError:
+				pass
+
 		__gestures={
 			"kb:f9":"connect",
-			"kb:f10":"disconnect"
+			"kb:f10":"disconnect",
+			"kb:f11":"toggleFocusToStudio"
 		}
 
