@@ -303,7 +303,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			except KeyError:
 				pass
 
-		def reportFocus(self):
+		def event_gainFocus(self):
 			try:
 				streamLabel = SAMStreamLabels[self.name]
 			except KeyError:
