@@ -132,7 +132,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			if SPLHwnd == 0: ui.message(_("SPL Studio is not running."))
 			else:
 				SPLFG = fetchSPLForegroundWindow()
-				if SPLFG == None: ui.message("SPL minimized to system tray.")
+				# Translators: Presented when Studio is minimized to system tray (notification area).
+				if SPLFG == None: ui.message(_("SPL minimized to system tray."))
 				else: SPLFG.setFocus()
 	# Translators: Input help mode message for a command to switch to Station Playlist Studio from any program.
 	script_focusToSPLWindow.__doc__=_("Moves to SPL Studio window from other programs.")
@@ -250,7 +251,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 		def script_connect(self, gesture):
 			gesture.send()
-			ui.message("Connecting...")
+			# Translators: Presented when SAM Encoder is trying to connect to a streaming server.
+			ui.message(_("Connecting..."))
 			# Keep an eye on the stream's description field until connected or error occurs.
 			while True:
 				time.sleep(0.001)
@@ -265,25 +267,35 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 					if self.focusToStudio: fetchSPLForegroundWindow().setFocus()
 					tones.beep(1000, 150)
 					break
+		# Translators: Input help mode message in SAM Encoder window.
+		script_connect.__doc__=_("Connects to a streaming server.")
 
 		def script_disconnect(self, gesture):
 			gesture.send()
-			ui.message("Disconnecting...")
+			# Translators: Presented when SAM Encoder is disconnecting from a streaming server.
+			ui.message(_("Disconnecting..."))
+		# Translators: Input help mode message in SAM Encoder window.
+		script_disconnect.__doc__=_("Disconnects from a streaming server.")
 
 		def script_toggleFocusToStudio(self, gesture):
 			if not self.focusToStudio:
 				self.focusToStudio = True
 				SAMFocusToStudio[self.name] = True
-				ui.message("Switch to Studio after connecting")
+				# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+				ui.message(_("Switch to Studio after connecting"))
 			else:
 				self.focusToStudio = False
 				SAMFocusToStudio[self.name] = False
-				ui.message("Do not switch to Studio after connecting")
+				# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+				ui.message(_("Do not switch to Studio after connecting"))
+		# Translators: Input help mode message in SAM Encoder window.
+		script_toggleFocusToStudio.__doc__=_("Toggles whether NVDA will switch to Studio when connected to a streaming server.")
 
 		def script_streamLabeler(self, gesture):
-			print len(SAMStreamLabels)
-			streamTitle = "Stream labeler for {streamEntry}".format(streamEntry = self.name)
-			streamText = "Enter the label for this stream"
+			# Translators: The title of the stream labeler dialog (example: stream labeler for 1).
+			streamTitle = _("Stream labeler for {streamEntry}").format(streamEntry = self.name)
+			# Translators: The text of the stream labeler dialog.
+			streamText = _("Enter the label for this stream")
 			dlg = wx.TextEntryDialog(gui.mainFrame,
 			streamText, streamTitle, defaultValue=""if self.name not in SAMStreamLabels else SAMStreamLabels[self.name])
 			def callback(result):
@@ -291,6 +303,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 					if dlg.GetValue() != "": SAMStreamLabels[self.name] = dlg.GetValue()
 					else: del SAMStreamLabels[self.name]
 			gui.runScriptModalDialog(dlg, callback)
+		# Translators: Input help mode message in SAM Encoder window.
+		script_streamLabeler.__doc__=_("Opens a dialog to label the selected encoder.")
 
 
 		def initOverlayClass(self):

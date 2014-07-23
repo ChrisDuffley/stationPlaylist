@@ -36,6 +36,8 @@ The following commands are available when using Sam encoder:
 
 * F9: connect to a streaming server.
 * F10: Disconnect from the streaming server.
+* F11: Toggles whether NVDA will switch to Studio window for the selected encoder if connected.
+* F12: Opens a dialog to enter custom label for the selected encoder or stream.
 
 ## SPL Assistant layer
 
@@ -84,7 +86,7 @@ Depending on edition, SPL Studio allows up to 96 carts to be assigned for playba
 
 To learn cart assignments, from SPL Studio, press Control+NVDA+3. Pressing the cart command once will tell you which jingle is assigned to the command. Pressing the cart command twice will play the jingle. Press Control+NvDA+3 to exit cart explorer. See the add-on guide for more information on cart explorer.
 
-## Changes for 3.0-dev
+## Changes for 3.0
 
 * Added Cart Explorer to learn cart assignments (up to 96 carts can be assigned).
 * Added new commands, including broadcaster time (NVDA+Shift+F12) and listener count (i) and next track title (n) in SPL Assistant.
@@ -93,6 +95,7 @@ To learn cart assignments, from SPL Studio, press Control+NVDA+3. Pressing the c
 * Error tones are no longer heard when toggle announcement is set to beeps and status messages other than on/off toggle are announced (example: playing carts).
 * Error tones are no longer heard when trying to obtain information such as remaining time while other Studio window other than track list (such as Options dialog) is focused. If the needed information is not found, NVDA will announce this fact.
 * It is now possible to search a track by artist name. Previously you could search by track title.
+* Support for SAM Encoder, including ability to label the encoder and a toggle command to switch to Studio when the selected encoder is connected.
 
 ## Changes for 2.1
 

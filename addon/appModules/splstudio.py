@@ -113,8 +113,10 @@ class AppModule(appModuleHandler.AppModule):
 					else:
 						ui.message(obj.name)
 					if self.cartExplorer:
-						if obj.name == "Cart Edit On": ui.message("Cart explorer is active")
-						elif obj.name == "Cart Edit Off": ui.message("Please reenter cart explorer to view updated cart assignments")
+						# Translators: Presented when cart edit mode is toggled on while cart explorer is on.
+						if obj.name == "Cart Edit On": ui.message(_("Cart explorer is active"))
+						# Translators: Presented when cart edit mode is toggled off while cart explorer is on.
+						elif obj.name == "Cart Edit Off": ui.message(_("Please reenter cart explorer to view updated cart assignments"))
 			# Monitor the end of track time and announce it.
 			elif obj.windowClassName == "TStaticText" and obj.name == self.SPLEndOfTrackTime and obj.simpleParent.name == "Remaining Time": tones.beep(440, 200) # SPL 4.x.
 			elif obj.windowClassName == "TStaticText" and obj.name == self.SPLEndOfTrackTime and obj.simplePrevious != None and obj.simplePrevious.name == "Remaining Time": tones.beep(440, 200) # SPL 5.x.
@@ -141,7 +143,8 @@ class AppModule(appModuleHandler.AppModule):
 		if fgWindow.windowClassName == "TStudioForm":
 			remainingTime = fgWindow.children[2].children[1].name if self.SPLCurVersion >= SPLMinVersion else fgWindow.children[-3].firstChild.name
 		else:
-			remainingTime = "Remaining time not available"
+			# Translators: Presented when remaining time is unavailable.
+			remainingTime = _("Remaining time not available")
 		ui.message(remainingTime)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayRemainingTime.__doc__=_("Announces the remaining track time.")
@@ -152,7 +155,8 @@ class AppModule(appModuleHandler.AppModule):
 		if fgWindow.windowClassName == "TStudioForm":
 			elapsedTime = fgWindow.children[self.SPLElapsedTime].children[1].name if self.SPLCurVersion >= SPLMinVersion else fgWindow.children[self.SPL4ElapsedTime].children[0].name
 		else:
-			elapsedTime = "Elapsed time not available"
+			# Translators: Presented when elapsed time is unavailable.
+			elapsedTime = _("Elapsed time not available")
 		ui.message(elapsedTime)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayElapsedTime.__doc__=_("Announces the elapsed time for the currently playing track.")
@@ -163,7 +167,8 @@ class AppModule(appModuleHandler.AppModule):
 		if fgWindow.windowClassName == "TStudioForm":
 			broadcasterTime = fgWindow.children[self.SPLBroadcasterTime].children[0].name if self.SPLCurVersion >= SPLMinVersion else fgWindow.children[self.SPL4BroadcasterTime].children[0].name
 		else:
-			broadcasterTime = "Broadcaster time not available"
+			# Translators: Presented when broadcaster time is unavailable.
+			broadcasterTime = _("Broadcaster time not available")
 		ui.message(broadcasterTime)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayBroadcasterTime.__doc__=_("Announces broadcaster time.")
@@ -381,24 +386,30 @@ class AppModule(appModuleHandler.AppModule):
 	def script_toggleCartExplorer(self, gesture):
 		if not self.cartExplorer:
 			if not self.cartsReader():
-				ui.message("Some or all carts could not be assigned, cannot enter cart explorer")
+				# Translators: presented when cart explorer could not be switched on.
+				ui.message(_("Some or all carts could not be assigned, cannot enter cart explorer"))
 				return
 			else:
 				self.cartExplorer = True
 				self.cartsBuilder()
-				ui.message("Entering cart explorer")
+				# Translators: Presented when cart explorer is on.
+				ui.message(_("Entering cart explorer"))
 		else:
 			self.cartExplorer = False
 			self.cartsBuilder(build=False)
 			self.carts.clear()
-			# Clear the carts and gestures dictionaries in parallel, if possible.
-			ui.message("Exiting cart explorer")
+			# Translators: Presented when cart explorer is off.
+			ui.message(_("Exiting cart explorer"))
+	# Translators: Input help mode message for a command in Station Playlist Studio.
+	script_toggleCartExplorer.__doc__=_("Toggles cart explorer to learn cart assignments.")
 
 	def script_cartExplorer(self, gesture):
 		if scriptHandler.getLastScriptRepeatCount() >= 1: gesture.send()
 		else:
 			if gesture.displayName in self.carts: ui.message(self.carts[gesture.displayName])
-			else: ui.message("Cart unassigned")
+			else:
+				# Translators: Presented when there is no cart assigned to a cart command.
+				ui.message(_("Cart unassigned"))
 
 	# SPL Assistant: reports status on playback, operation, etc.
 	# Used layer command approach to save gesture assignments.
@@ -504,7 +515,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_sayNextTrackTitle(self, gesture):
 		obj = self.status(self.SPLNextTrackTitle).firstChild
-		ui.message("No next track scheduled or no track is playing") if obj.name is None else ui.message(obj.name)
+		# Translators: Presented when there is no information for the next track.
+		ui.message(_("No next track scheduled or no track is playing")) if obj.name is None else ui.message(obj.name)
 
 	def script_sayUpTime(self, gesture):
 		obj = self.status(self.SPLSystemStatus).firstChild
@@ -512,7 +524,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_sayListenerCount(self, gesture):
 		obj = self.status(self.SPLSystemStatus).children[3]
-		ui.message(obj.name) if obj.name is not None else ui.message("Listener count not found")
+		# Translators: Presented when there is no listener count information.
+		ui.message(obj.name) if obj.name is not None else ui.message(_("Listener count not found"))
 
 
 	__SPLAssistantGestures={
