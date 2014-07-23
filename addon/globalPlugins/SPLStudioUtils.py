@@ -6,7 +6,6 @@
 from ctypes import windll
 from functools import wraps
 import os
-from copy import deepcopy
 import time
 import globalPluginHandler
 import api
@@ -16,7 +15,6 @@ import braille
 import review
 import textInfos
 from NVDAObjects.IAccessible import IAccessible
-import controlTypes
 import winUser
 import tones
 import gui
@@ -49,7 +47,6 @@ SPLPause = 15
 SPLAutomate = 16
 SPLMic = 17
 SPLLineIn = 18
-SPLVTPlaybackTime = 37 # VT = voice track.
 SPL_TrackPlaybackStatus = 104
 SPLCurTrackPlaybackTime = 105
 
@@ -86,6 +83,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			for label in labels:
 				labelStr = label.strip()
 				labelEntry = labelStr.split("=")
+				# Assign both static and realtime dictionaries.
 				SAMStaticStreamLabels[labelEntry[0]] = labelEntry[1]
 				SAMStreamLabels[labelEntry[0]] = labelEntry[1]
 			labels.close()
@@ -237,7 +235,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		#"kb:nvda+`":"SPLControllerPrefix"
 	}
 
-	# Support for Sam Encoder# Sam encoder is a Winamp plug-in, so we can use overlay class.
+	# Support for Sam Encoder
+	# Sam encoder is a Winamp plug-in, so we can use overlay class.
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		fg = api.getForegroundObject()
 		if obj.windowClassName == "TListView" and fg.windowClassName == "TfoSCEncoders":
@@ -246,7 +245,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	class SAMEncoderWindow(IAccessible):
 		# Support for Sam Encoder window.
 
-		# Few usefule variables for encoder list:
+		# Few useful variables for encoder list:
 		focusToStudio = False # If true, Studio will gain focus after encoder connects.
 
 		def script_connect(self, gesture):
@@ -265,9 +264,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 					# We're on air, so exit.
 					if self.focusToStudio: fetchSPLForegroundWindow().setFocus()
 					tones.beep(1000, 150)
-
 					break
-				#else: tones.beep(250, 100)
 
 		def script_disconnect(self, gesture):
 			gesture.send()
