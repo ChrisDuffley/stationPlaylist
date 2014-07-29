@@ -13,6 +13,7 @@
 
 from functools import wraps
 import os
+import time
 import controlTypes
 import appModuleHandler
 import api
@@ -77,6 +78,9 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Check the following variable for end of track announcement.
 	SPLEndOfTrackTime = "00:05" # Should be adjustable by the user in the end. Also find a way to announce this even if SPL Studio is minimized.
+	# Keep an eye on library scans in insert tracks window.
+	libraryScanning = False
+	scanCount = 0
 
 	# Automatically announce mic, line in, etc changes
 	# These items are static text items whose name changes.
@@ -90,9 +94,22 @@ class AppModule(appModuleHandler.AppModule):
 		else:
 			if obj.windowClassName == "TStatusBar" and not obj.name.startswith("  Up time:"):
 				# Special handling for Play Status
+				fgWinClass = api.getForegroundObject().windowClassName
 				if obj.IAccessibleChildID == 1:
-					# Strip off "  Play status: " for brevity
-					ui.message(obj.name[15:])
+					if fgWinClass == "TStudioForm":
+						# Strip off "  Play status: " for brevity only in main playlist window.
+						ui.message(obj.name[15:])
+					elif fgWinClass == "TTrackInsertForm":
+						# If library scan is in progress, announce its progress.
+						self.scanCount+=1
+						if self.scanCount%50 == 0: ui.message("scanning")
+						if "Loading" in obj.name and not self.libraryScanning:
+							self.libraryScanning = True
+							tones.beep(740, 100) if self.beepAnnounce else ui.message("Scan start")
+						elif "match" in obj.name and self.libraryScanning:
+							tones.beep(370, 100) if self.beepAnnounce else ui.message("scan complete")
+							self.libraryScanning = False
+							self.scanCount = 0
 				else:
 					if self.beepAnnounce:
 						# Even with beeps enabled, be sure to announce scheduled time and name of the playing cart.
