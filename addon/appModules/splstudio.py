@@ -99,10 +99,15 @@ class AppModule(appModuleHandler.AppModule):
 					if fgWinClass == "TStudioForm":
 						# Strip off "  Play status: " for brevity only in main playlist window.
 						ui.message(obj.name[15:])
-					elif fgWinClass == "TTrackInsertForm":
+					elif fgWinClass == "TTrackInsertForm" and self.libraryScanProgress > 0:
 						# If library scan is in progress, announce its progress.
 						self.scanCount+=1
-						if self.scanCount%50 == 0: ui.message("scanning")
+						if self.scanCount%100 == 0:
+							if self.libraryScanProgress == 2:
+								tones.beep(550, 100) if self.beepAnnounce else ui.message("scanning")
+							elif self.libraryScanProgress == 3:
+								if self.beepAnnounce: tones.beep(550, 100)
+								ui.message(obj.name[1:obj.name.find("]")])
 						if "Loading" in obj.name and not self.libraryScanning:
 							self.libraryScanning = True
 							tones.beep(740, 100) if self.beepAnnounce else ui.message("Scan start")
@@ -428,6 +433,24 @@ class AppModule(appModuleHandler.AppModule):
 				# Translators: Presented when there is no cart assigned to a cart command.
 				ui.message(_("Cart unassigned"))
 
+	# Library scan announcement
+	# Announces progress of a library scan (launched from insert tracks dialog by pressing Control+Shift+R or from rescan option from Options dialog).
+	libraryScanProgress = 0 # Announce at the beginning and at the end of a scan.
+
+	# Library scan announcement settings list and the toggle script.
+	libraryProgressSettings=[
+		"Do not announce library scans",
+		"Announce start and end of a library scan",
+		"Announce the progress of a library scan",
+		"Announce progress and item count of a library scan"
+	]
+
+	def script_setLibraryScanProgress(self, gesture):
+		scanProgress = self.libraryScanProgress
+		scanProgress = scanProgress+1 if scanProgress < len(self.libraryProgressSettings)-1 else 0
+		ui.message(self.libraryProgressSettings[scanProgress])
+		self.libraryScanProgress = scanProgress
+
 	# SPL Assistant: reports status on playback, operation, etc.
 	# Used layer command approach to save gesture assignments.
 	# Most were borrowed from JFW and Window-Eyes layer scripts.
@@ -569,5 +592,6 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:nvda+f3":"findTrackNext",
 		"kb:shift+nvda+f3":"findTrackPrevious",
 		"kb:control+nvda+3":"toggleCartExplorer",
+		"kb:alt+nvda+r":"setLibraryScanProgress",
 		#"kb:control+nvda+`":"SPLAssistantToggle"
 	}
