@@ -104,7 +104,7 @@ class AppModule(appModuleHandler.AppModule):
 						self.scanCount+=1
 						if self.scanCount%100 == 0:
 							if self.libraryScanProgress == 2:
-								tones.beep(550, 100) if self.beepAnnounce else ui.message("scanning")
+								tones.beep(550, 100) if self.beepAnnounce else ui.message("Scanning")
 							elif self.libraryScanProgress == 3:
 								if self.beepAnnounce: tones.beep(550, 100)
 								ui.message(obj.name[1:obj.name.find("]")])
@@ -112,7 +112,7 @@ class AppModule(appModuleHandler.AppModule):
 							self.libraryScanning = True
 							tones.beep(740, 100) if self.beepAnnounce else ui.message("Scan start")
 						elif "match" in obj.name and self.libraryScanning:
-							tones.beep(370, 100) if self.beepAnnounce else ui.message("scan complete")
+							tones.beep(370, 100) if self.beepAnnounce else ui.message("Scan complete")
 							self.libraryScanning = False
 							self.scanCount = 0
 				else:
@@ -438,12 +438,12 @@ class AppModule(appModuleHandler.AppModule):
 	libraryScanProgress = 0 # Announce at the beginning and at the end of a scan.
 
 	# Library scan announcement settings list and the toggle script.
-	libraryProgressSettings=[
-		"Do not announce library scans",
-		"Announce start and end of a library scan",
-		"Announce the progress of a library scan",
-		"Announce progress and item count of a library scan"
-	]
+	libraryProgressSettings=(
+		("Do not announce library scans"),
+		("Announce start and end of a library scan"),
+		("Announce the progress of a library scan"),
+		("Announce progress and item count of a library scan")
+	)
 
 	def script_setLibraryScanProgress(self, gesture):
 		scanProgress = self.libraryScanProgress
