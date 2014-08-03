@@ -83,7 +83,10 @@ class AppModule(appModuleHandler.AppModule):
 				obj.name = fieldName.text
 
 	# Check the following variable for end of track announcement.
-	SPLEndOfTrackTime = SPLConfig["EndOfTrackTime"] if SPLConfig is not None else "00:05"
+	try:
+		SPLEndOfTrackTime = SPLConfig["EndOfTrackTime"]
+	except KeyError:
+		SPLEndOfTrackTime = "00:05"
 
 	# Automatically announce mic, line in, etc changes
 	# These items are static text items whose name changes.
@@ -135,7 +138,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Save configuration when terminating.
 	def terminate(self):
 		global SPLConfig
-		SPLConfig.write()
+		if SPLConfig is not None: SPLConfig.write()
 
 	# Script sections (for ease of maintenance):
 	# Time-related: elapsed time, end of track alarm, etc.
@@ -210,7 +213,8 @@ class AppModule(appModuleHandler.AppModule):
 					if int(dlg.GetValue()) <= 9: newAlarmSec = "0" + dlg.GetValue()
 					else: newAlarmSec = dlg.GetValue()
 					self.SPLEndOfTrackTime = self.SPLEndOfTrackTime.replace(self.SPLEndOfTrackTime[-2:], newAlarmSec) # Quite a complicated replacement expression, but it works in this case.
-					SPLConfig["EndOfTrackTime"] = self.SPLEndOfTrackTime
+					# Just in case the ini file doesn't exist.
+					if SPLConfig is not None: SPLConfig["EndOfTrackTime"] = self.SPLEndOfTrackTime
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setEndOfTrackTime.__doc__=_("sets end of track alarm (default is 5 seconds).")
