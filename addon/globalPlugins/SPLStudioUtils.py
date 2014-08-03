@@ -57,24 +57,10 @@ SAMFocusToStudio = {} # A dictionary to record whether to switch to SPL Studio f
 SAMStreamLabels= {} # A dictionary to store custom labels for each stream.
 SAMStaticStreamLabels = {} # The static stream label dictionary which is used to avoid unnecesary file writes.
 
+# Configuration management.
+Config = None
+
 # If the SAM encoder labels are modified, try writing them to disk.
-
-def labelWriteAttempt():
-	# Compare labels stored in static versus realtime stream labels list, and if they are different, dumpt the contents of realtime list to the file.
-	# This avoids excessive file writes.
-	modified = False
-	if len(SAMStreamLabels) != len(SAMStaticStreamLabels): modified = True
-	else:
-		for i in SAMStreamLabels:
-			if i not in SAMStaticStreamLabels or SAMStreamLabels[i] != SAMStaticStreamLabels[i]:
-				modified = True
-				break
-	if modified:
-		labelStore = open(os.path.join(os.path.dirname(__file__), "SAMStreamLabels.ini"), "w")
-		for label in SAMStreamLabels:
-			labelStore.write("{streamName}={streamLabel}\n".format(streamName = label, streamLabel = SAMStreamLabels[label]))
-		labelStore.close()
-
 
 # Try to see if SPL foreground object can be fetched. This is used for switching to SPL Studio window from anywhere and to switch to Studio window from SAM encoder window.
 
@@ -98,7 +84,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def __init__(self):
 		super(globalPluginHandler.GlobalPlugin, self).__init__()
 		# Load add-on configuration from a file (todo: use configspec to read only certain sectoins).
-		#config = os.path.join(config.getUserDefaultConfigPath(), "splstudio.ini")
+		global config
+		config = ConfigObj(os.path.join(config.getUserDefaultConfigPath(), "splstudio.ini"))
 		# Read stream labels.
 		streamLabelPath = os.path.join(os.path.dirname(__file__), "SAMStreamLabels.ini")
 		if os.path.isfile(streamLabelPath) and os.path.getsize(streamLabelPath) > 0:
@@ -111,6 +98,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				SAMStreamLabels[labelEntry[0]] = labelEntry[1]
 			labels.close()
 
+	# Save configuration file.
+	def terminate(self):
+		global config
+		config.write()
 
 			#Global layer environment (see the app module for more information).
 	SPLController = False # Control SPL from anywhere.
@@ -306,10 +297,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			dlg = wx.TextEntryDialog(gui.mainFrame,
 			streamText, streamTitle, defaultValue=""if self.name not in SAMStreamLabels else SAMStreamLabels[self.name])
 			def callback(result):
+				global config
 				if result == wx.ID_OK:
-					if dlg.GetValue() != "": SAMStreamLabels[self.name] = dlg.GetValue()
-					else: del SAMStreamLabels[self.name]
-				labelWriteAttempt() # Try writing the new labels if any.
+					if dlg.GetValue() != "": config["SAMStreamLabels"][self.name] = dlg.GetValue()
+					else: del config["SAMStreamLabels"][self.name]
 			gui.runScriptModalDialog(dlg, callback)
 		# Translators: Input help mode message in SAM Encoder window.
 		script_streamLabeler.__doc__=_("Opens a dialog to label the selected encoder.")
@@ -324,7 +315,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 		def event_gainFocus(self):
 			try:
-				streamLabel = SAMStreamLabels[self.name]
+				global config
+				streamLabel = config["SAMStreamLabels"][self.name]
 			except KeyError:
 				streamLabel = None
 			# Speak the stream label if it exists.
