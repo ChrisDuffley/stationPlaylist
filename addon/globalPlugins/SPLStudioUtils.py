@@ -55,12 +55,9 @@ SPLCurTrackPlaybackTime = 105
 # Needed in SAM Encoder support:
 SAMFocusToStudio = {} # A dictionary to record whether to switch to SPL Studio for this encoder.
 SAMStreamLabels= {} # A dictionary to store custom labels for each stream.
-SAMStaticStreamLabels = {} # The static stream label dictionary which is used to avoid unnecesary file writes.
 
 # Configuration management.
 Config = None
-
-# If the SAM encoder labels are modified, try writing them to disk.
 
 # Try to see if SPL foreground object can be fetched. This is used for switching to SPL Studio window from anywhere and to switch to Studio window from SAM encoder window.
 
@@ -84,23 +81,15 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def __init__(self):
 		super(globalPluginHandler.GlobalPlugin, self).__init__()
 		# Load add-on configuration from a file (todo: use configspec to read only certain sectoins).
-		global config
+		global config, SAMStreamLabels
 		config = ConfigObj(os.path.join(config.getUserDefaultConfigPath(), "splstudio.ini"))
 		# Read stream labels.
-		streamLabelPath = os.path.join(os.path.dirname(__file__), "SAMStreamLabels.ini")
-		if os.path.isfile(streamLabelPath) and os.path.getsize(streamLabelPath) > 0:
-			labels = open(streamLabelPath)
-			for label in labels:
-				labelStr = label.strip()
-				labelEntry = labelStr.split("=")
-				# Assign both static and realtime dictionaries.
-				SAMStaticStreamLabels[labelEntry[0]] = labelEntry[1]
-				SAMStreamLabels[labelEntry[0]] = labelEntry[1]
-			labels.close()
+		SAMStreamLabels = dict(config["SAMStreamLabels"])
 
 	# Save configuration file.
 	def terminate(self):
 		global config
+		config["SAMStreamLabels"] = SAMStreamLabels
 		config.write()
 
 			#Global layer environment (see the app module for more information).
@@ -240,6 +229,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		fg = api.getForegroundObject()
 		if obj.windowClassName == "TListView" and fg.windowClassName == "TfoSCEncoders":
 			clsList.insert(0, self.SAMEncoderWindow)
+		elif obj.windowClassName == "SysListView32" and "splengine" in obj.appModule.appName:
+			clsList.insert(0, self.SPLEncoderWindow)
 
 	class SAMEncoderWindow(IAccessible):
 		# Support for Sam Encoder window.
@@ -331,6 +322,96 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		__gestures={
 			"kb:f9":"connect",
 			"kb:f10":"disconnect",
+			"kb:f11":"toggleFocusToStudio",
+			"kb:f12":"streamLabeler"
+		}
+
+	class SPLEncoderWindow(SAMEncoderWindow):
+		# Support for SPL Encoder window.
+
+
+		def script_connect(self, gesture):
+			# Translators: Presented when SAM Encoder is trying to connect to a streaming server.
+			ui.message(_("Connecting..."))
+			"""
+			# Keep an eye on the stream's description field until connected or error occurs.
+			while True:
+				time.sleep(0.001)
+				info = review.getScreenPosition(self)[0]
+				info.expand(textInfos.UNIT_LINE)
+				if "Error" in info.text:
+					# Announce the description of the error.
+					ui.message(self.description[self.description.find("Status")+8:])
+					break
+				elif "Encoding" in info.text:
+					# We're on air, so exit.
+					if self.focusToStudio: fetchSPLForegroundWindow().setFocus()
+					tones.beep(1000, 150)
+					break
+			"""
+		# Translators: Input help mode message in SAM Encoder window.
+		script_connect.__doc__=_("Connects to a streaming server.")
+
+		def script_disconnect(self, gesture):
+			# Translators: Presented when SAM Encoder is disconnecting from a streaming server.
+			ui.message(_("Disconnecting..."))
+		# Translators: Input help mode message in SAM Encoder window.
+		script_disconnect.__doc__=_("Disconnects from a streaming server.")
+
+		def script_toggleFocusToStudio(self, gesture):
+			if not self.focusToStudio:
+				self.focusToStudio = True
+				SAMFocusToStudio[self.name] = True
+				# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+				ui.message(_("Switch to Studio after connecting"))
+			else:
+				self.focusToStudio = False
+				SAMFocusToStudio[self.name] = False
+				# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+				ui.message(_("Do not switch to Studio after connecting"))
+		# Translators: Input help mode message in SAM Encoder window.
+		script_toggleFocusToStudio.__doc__=_("Toggles whether NVDA will switch to Studio when connected to a streaming server.")
+
+		def script_streamLabeler(self, gesture):
+			# Translators: The title of the stream labeler dialog (example: stream labeler for 1).
+			streamTitle = _("Stream labeler for {streamEntry}").format(streamEntry = self.name)
+			# Translators: The text of the stream labeler dialog.
+			streamText = _("Enter the label for this stream")
+			dlg = wx.TextEntryDialog(gui.mainFrame,
+			streamText, streamTitle, defaultValue=""if str(self.IAccessibleChildID) not in SAMStreamLabels else SAMStreamLabels[str(self.IAccessibleChildID)])
+			def callback(result):
+				if result == wx.ID_OK:
+					if dlg.GetValue() != "": SAMStreamLabels[str(self.IAccessibleChildID)] = dlg.GetValue()
+					else: del SAMStreamLabels[str(self.IAccessibleChildID)]
+			gui.runScriptModalDialog(dlg, callback)
+		# Translators: Input help mode message in SAM Encoder window.
+		script_streamLabeler.__doc__=_("Opens a dialog to label the selected encoder.")
+
+
+		def initOverlayClass(self):
+			# Can I switch to Studio when connected to a streaming server?
+			try:
+				self.focusToStudio = SAMFocusToStudio[self.name]
+			except KeyError:
+				pass
+
+		def event_gainFocus(self):
+			try:
+				streamLabel = SAMStreamLabels[str(self.IAccessibleChildID)]
+			except KeyError:
+				streamLabel = None
+			# Speak the stream label if it exists.
+			if streamLabel is not None: speech.speakMessage(streamLabel)
+			super(type(self), self).reportFocus()
+			# Braille the stream label if present.
+			if streamLabel is not None:
+				brailleStreamLabel = self.name + ": " + streamLabel
+				braille.handler.message(brailleStreamLabel)
+
+
+		__gestures={
+			"kb:f9":"connect",
+			"kb:shift+f9":"disconnect",
 			"kb:f11":"toggleFocusToStudio",
 			"kb:f12":"streamLabeler"
 		}
