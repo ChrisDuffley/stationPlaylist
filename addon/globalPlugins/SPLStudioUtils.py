@@ -7,11 +7,13 @@ from ctypes import windll
 from functools import wraps
 import os
 import time
+from configobj import ConfigObj # Configuration management; configspec will be used to store app module and global plugin settings in one ini file.
 import globalPluginHandler
 import api
 import ui
 import speech
 import braille
+import config # Look up the user config folder, to be used in 4.0 and later.
 import review
 import textInfos
 from NVDAObjects.IAccessible import IAccessible
@@ -95,6 +97,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# Do some initialization, such as stream labels for SAM encoders.
 	def __init__(self):
 		super(globalPluginHandler.GlobalPlugin, self).__init__()
+		# Load add-on configuration from a file (todo: use configspec to read only certain sectoins).
+		#config = os.path.join(config.getUserDefaultConfigPath(), "splstudio.ini")
 		# Read stream labels.
 		streamLabelPath = os.path.join(os.path.dirname(__file__), "SAMStreamLabels.ini")
 		if os.path.isfile(streamLabelPath) and os.path.getsize(streamLabelPath) > 0:

@@ -13,9 +13,11 @@
 
 from functools import wraps
 import os
+from configobj import ConfigObj
 import controlTypes
 import appModuleHandler
 import api
+import config
 import review
 import scriptHandler
 import ui
@@ -45,6 +47,11 @@ def finally_(func, final):
 
 # Use appModule.productVersion to decide what to do with 4.x and 5.x.
 SPLMinVersion = "5.00" # Check the version string against this. If it is less, use a different procedure for some routines.
+
+# Configuration management )4.0 and later; will not be ported to 3.x).
+if os.path.isfile(os.path.join(config.getUserDefaultConfigPath(), "splstudio.ini")):
+	SPLConfig = ConfigObj(os.path.join(config.getUserDefaultConfigPath(), "splstudio.ini"))
+else: SPLConfig = None
 
 class AppModule(appModuleHandler.AppModule):
 
@@ -76,7 +83,7 @@ class AppModule(appModuleHandler.AppModule):
 				obj.name = fieldName.text
 
 	# Check the following variable for end of track announcement.
-	SPLEndOfTrackTime = "00:05" # Should be adjustable by the user in the end. Also find a way to announce this even if SPL Studio is minimized.
+	SPLEndOfTrackTime = SPLConfig["EndOfTrackTime"] if SPLConfig is not None else "00:05"
 
 	# Automatically announce mic, line in, etc changes
 	# These items are static text items whose name changes.
@@ -124,6 +131,11 @@ class AppModule(appModuleHandler.AppModule):
 		nextHandler()
 
 	# JL's additions
+
+	# Save configuration when terminating.
+	def terminate(self):
+		global SPLConfig
+		SPLConfig.write()
 
 	# Script sections (for ease of maintenance):
 	# Time-related: elapsed time, end of track alarm, etc.
@@ -185,6 +197,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Translators: The title of end of track alarm dialog.
 		_("End of track alarm"), defaultValue=timeVal if int(timeVal) >= 10 else timeVal[-1])
 		def callback(result):
+			global SPLConfig
 			if result == wx.ID_OK:
 				# Check if the value is indeed between 1 and 59.
 				if not dlg.GetValue().isdigit() or int(dlg.GetValue()) < 1 or int(dlg.GetValue()) > 59:
@@ -197,6 +210,7 @@ class AppModule(appModuleHandler.AppModule):
 					if int(dlg.GetValue()) <= 9: newAlarmSec = "0" + dlg.GetValue()
 					else: newAlarmSec = dlg.GetValue()
 					self.SPLEndOfTrackTime = self.SPLEndOfTrackTime.replace(self.SPLEndOfTrackTime[-2:], newAlarmSec) # Quite a complicated replacement expression, but it works in this case.
+					SPLConfig["EndOfTrackTime"] = self.SPLEndOfTrackTime
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setEndOfTrackTime.__doc__=_("sets end of track alarm (default is 5 seconds).")
