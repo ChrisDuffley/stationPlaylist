@@ -80,16 +80,16 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# Do some initialization, such as stream labels for SAM encoders.
 	def __init__(self):
 		super(globalPluginHandler.GlobalPlugin, self).__init__()
-		# Load add-on configuration from a file (todo: use configspec to read only certain sectoins).
+		# Load stream labels (and possibly other future goodies) from a file-based database.
 		global config, SAMStreamLabels
-		config = ConfigObj(os.path.join(config.getUserDefaultConfigPath(), "splstudio.ini"))
+		config = ConfigObj(os.path.join(config.getUserDefaultConfigPath(), "splStreamLabels.ini"))
 		# Read stream labels.
-		SAMStreamLabels = dict(config["SAMStreamLabels"])
+		SAMStreamLabels = dict(config["SAMEncoders"])
 
 	# Save configuration file.
 	def terminate(self):
 		global config
-		config["SAMStreamLabels"] = SAMStreamLabels
+		config["SAMEncoders"] = SAMStreamLabels
 		config.write()
 
 			#Global layer environment (see the app module for more information).
@@ -290,8 +290,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			def callback(result):
 				global config
 				if result == wx.ID_OK:
-					if dlg.GetValue() != "": config["SAMStreamLabels"][self.name] = dlg.GetValue()
-					else: del config["SAMStreamLabels"][self.name]
+					if dlg.GetValue() != "": SAMStreamlabels[self.name] = dlg.GetValue()
+					else: del SAMStreamLabels[self.name]
 			gui.runScriptModalDialog(dlg, callback)
 		# Translators: Input help mode message in SAM Encoder window.
 		script_streamLabeler.__doc__=_("Opens a dialog to label the selected encoder.")
@@ -307,7 +307,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		def event_gainFocus(self):
 			try:
 				global config
-				streamLabel = config["SAMStreamLabels"][self.name]
+				streamLabel = SAMStreamLabels[self.name]
 			except KeyError:
 				streamLabel = None
 			# Speak the stream label if it exists.
