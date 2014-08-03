@@ -55,6 +55,7 @@ SPLCurTrackPlaybackTime = 105
 # Needed in SAM Encoder support:
 SAMFocusToStudio = {} # A dictionary to record whether to switch to SPL Studio for this encoder.
 SAMStreamLabels= {} # A dictionary to store custom labels for each stream.
+SPLStreamLabels= {} # Same as above but optimized for SPL encoders (Studio 5.00 and later).
 
 # Configuration management.
 Config = None
@@ -81,15 +82,17 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def __init__(self):
 		super(globalPluginHandler.GlobalPlugin, self).__init__()
 		# Load stream labels (and possibly other future goodies) from a file-based database.
-		global config, SAMStreamLabels
+		global config, SAMStreamLabels, SPLStreamLabels
 		config = ConfigObj(os.path.join(config.getUserDefaultConfigPath(), "splStreamLabels.ini"))
 		# Read stream labels.
 		SAMStreamLabels = dict(config["SAMEncoders"])
+		SPLStreamLabels = dict(config["SPLEncoders"])
 
 	# Save configuration file.
 	def terminate(self):
 		global config
 		config["SAMEncoders"] = SAMStreamLabels
+		config["SPLEncoders"] = SPLStreamLabels
 		config.write()
 
 			#Global layer environment (see the app module for more information).
@@ -237,6 +240,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 		# Few useful variables for encoder list:
 		focusToStudio = False # If true, Studio will gain focus after encoder connects.
+		encoderType = "SAM"
 
 		def script_connect(self, gesture):
 			gesture.send()
@@ -281,17 +285,25 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		script_toggleFocusToStudio.__doc__=_("Toggles whether NVDA will switch to Studio when connected to a streaming server.")
 
 		def script_streamLabeler(self, gesture):
+			curStreamLabel = ""
+			if self.encoderType == "SAM" and self.name in SAMStreamLabels:
+				curStreamLabel = SAMStreamLabels[self.name]
+			elif self.encoderType == "SPL" and str(self.IAccessibleChildID) in SPLStreamLabels:
+				curStreamLabel = SPLStreamLabels[str(self.IAccessibleChildID)]
 			# Translators: The title of the stream labeler dialog (example: stream labeler for 1).
 			streamTitle = _("Stream labeler for {streamEntry}").format(streamEntry = self.name)
 			# Translators: The text of the stream labeler dialog.
 			streamText = _("Enter the label for this stream")
 			dlg = wx.TextEntryDialog(gui.mainFrame,
-			streamText, streamTitle, defaultValue=""if self.name not in SAMStreamLabels else SAMStreamLabels[self.name])
+			streamText, streamTitle, defaultValue=curStreamLabel)
 			def callback(result):
-				global config
 				if result == wx.ID_OK:
-					if dlg.GetValue() != "": SAMStreamlabels[self.name] = dlg.GetValue()
-					else: del SAMStreamLabels[self.name]
+					if dlg.GetValue() != "":
+						if self.encoderType == "SAM": SAMStreamLabels[self.name] = dlg.GetValue()
+						elif self.encoderType == "SPL": SPLStreamLabels[str(self.IAccessibleChildID)] = dlg.GetValue()
+					else:
+						if self.encoderType == "SAM": del SAMStreamLabels[self.name]
+						elif self.encoderType == "SPL": del SPLStreamLabels[(self.IAccessibleChildID)]
 			gui.runScriptModalDialog(dlg, callback)
 		# Translators: Input help mode message in SAM Encoder window.
 		script_streamLabeler.__doc__=_("Opens a dialog to label the selected encoder.")
@@ -306,7 +318,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 		def event_gainFocus(self):
 			try:
-				global config
 				streamLabel = SAMStreamLabels[self.name]
 			except KeyError:
 				streamLabel = None
@@ -329,6 +340,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	class SPLEncoderWindow(SAMEncoderWindow):
 		# Support for SPL Encoder window.
 
+		# A few more subclass flags.
+		encoderType = "SPL"
 
 		def script_connect(self, gesture):
 			# Translators: Presented when SAM Encoder is trying to connect to a streaming server.
@@ -358,35 +371,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Translators: Input help mode message in SAM Encoder window.
 		script_disconnect.__doc__=_("Disconnects from a streaming server.")
 
-		def script_toggleFocusToStudio(self, gesture):
-			if not self.focusToStudio:
-				self.focusToStudio = True
-				SAMFocusToStudio[self.name] = True
-				# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
-				ui.message(_("Switch to Studio after connecting"))
-			else:
-				self.focusToStudio = False
-				SAMFocusToStudio[self.name] = False
-				# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
-				ui.message(_("Do not switch to Studio after connecting"))
-		# Translators: Input help mode message in SAM Encoder window.
-		script_toggleFocusToStudio.__doc__=_("Toggles whether NVDA will switch to Studio when connected to a streaming server.")
-
-		def script_streamLabeler(self, gesture):
-			# Translators: The title of the stream labeler dialog (example: stream labeler for 1).
-			streamTitle = _("Stream labeler for {streamEntry}").format(streamEntry = self.name)
-			# Translators: The text of the stream labeler dialog.
-			streamText = _("Enter the label for this stream")
-			dlg = wx.TextEntryDialog(gui.mainFrame,
-			streamText, streamTitle, defaultValue=""if str(self.IAccessibleChildID) not in SAMStreamLabels else SAMStreamLabels[str(self.IAccessibleChildID)])
-			def callback(result):
-				if result == wx.ID_OK:
-					if dlg.GetValue() != "": SAMStreamLabels[str(self.IAccessibleChildID)] = dlg.GetValue()
-					else: del SAMStreamLabels[str(self.IAccessibleChildID)]
-			gui.runScriptModalDialog(dlg, callback)
-		# Translators: Input help mode message in SAM Encoder window.
-		script_streamLabeler.__doc__=_("Opens a dialog to label the selected encoder.")
-
 
 		def initOverlayClass(self):
 			# Can I switch to Studio when connected to a streaming server?
@@ -397,7 +381,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 		def event_gainFocus(self):
 			try:
-				streamLabel = SAMStreamLabels[str(self.IAccessibleChildID)]
+				streamLabel = SPLStreamLabels[str(self.IAccessibleChildID)]
 			except KeyError:
 				streamLabel = None
 			# Speak the stream label if it exists.
@@ -405,14 +389,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			super(type(self), self).reportFocus()
 			# Braille the stream label if present.
 			if streamLabel is not None:
-				brailleStreamLabel = self.name + ": " + streamLabel
+				brailleStreamLabel = str(self.IAccessibleChildID) + ": " + streamLabel
 				braille.handler.message(brailleStreamLabel)
+
 
 
 		__gestures={
 			"kb:f9":"connect",
 			"kb:shift+f9":"disconnect",
-			"kb:f11":"toggleFocusToStudio",
-			"kb:f12":"streamLabeler"
 		}
 
