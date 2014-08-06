@@ -244,7 +244,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 		def script_connect(self, gesture):
 			gesture.send()
-			# Translators: Presented when SAM Encoder is trying to connect to a streaming server.
+			# Translators: Presented when SAM/SPL Encoder is trying to connect to a streaming server.
 			ui.message(_("Connecting..."))
 			# Keep an eye on the stream's description field until connected or error occurs.
 			while True:
@@ -344,32 +344,25 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		encoderType = "SPL"
 
 		def script_connect(self, gesture):
-			# Translators: Presented when SAM Encoder is trying to connect to a streaming server.
+			# Same as SAM's connection routine, but this time, keep an eye on self.name and a different connection flag.
+			connectButton = api.getForegroundObject().children[2]
+			if connectButton.name == "Disconnect": return
 			ui.message(_("Connecting..."))
-			"""
-			# Keep an eye on the stream's description field until connected or error occurs.
-			while True:
+			# Juggle the focus around.
+			connectButton.doAction()
+			self.setFocus()
+			# Keep an eye on the stream's name until connected or error occurs.
+			for attempt in xrange(0, 100):
 				time.sleep(0.001)
 				info = review.getScreenPosition(self)[0]
 				info.expand(textInfos.UNIT_LINE)
-				if "Error" in info.text:
-					# Announce the description of the error.
-					ui.message(self.description[self.description.find("Status")+8:])
-					break
-				elif "Encoding" in info.text:
+				if info.text.endswith("Connected"):
 					# We're on air, so exit.
 					if self.focusToStudio: fetchSPLForegroundWindow().setFocus()
 					tones.beep(1000, 150)
 					break
-			"""
-		# Translators: Input help mode message in SAM Encoder window.
+			if not self.name.endswith("Connected"): ui.message(self.name[self.name.find("Transfer")+15:])
 		script_connect.__doc__=_("Connects to a streaming server.")
-
-		def script_disconnect(self, gesture):
-			# Translators: Presented when SAM Encoder is disconnecting from a streaming server.
-			ui.message(_("Disconnecting..."))
-		# Translators: Input help mode message in SAM Encoder window.
-		script_disconnect.__doc__=_("Disconnects from a streaming server.")
 
 
 		def initOverlayClass(self):
@@ -396,6 +389,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 		__gestures={
 			"kb:f9":"connect",
-			"kb:shift+f9":"disconnect",
+			"kb:f10":None
 		}
 
