@@ -255,7 +255,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 					# Announce the description of the error.
 					ui.message(self.description[self.description.find("Status")+8:])
 					break
-				elif "Encoding" in info.text:
+				elif "Encoding" in info.text or "Encoded" in info.text:
 					# We're on air, so exit.
 					if self.focusToStudio: fetchSPLForegroundWindow().setFocus()
 					tones.beep(1000, 150)
