@@ -83,10 +83,12 @@ class AppModule(appModuleHandler.AppModule):
 				obj.name = fieldName.text
 
 	# Check the following variable for end of track announcement.
-	try:
-		SPLEndOfTrackTime = SPLConfig["EndOfTrackTime"]
-	except KeyError:
-		SPLEndOfTrackTime = "00:05"
+	if SPLConfig is None: SPLEndOfTrackTime = "00:05"
+	else:
+		try:
+			SPLEndOfTrackTime = SPLConfig["EndOfTrackTime"]
+		except KeyError:
+			SPLEndOfTrackTime = "00:05"
 
 	# Automatically announce mic, line in, etc changes
 	# These items are static text items whose name changes.
