@@ -14,6 +14,7 @@
 from functools import wraps
 import os
 import time
+import threading
 import controlTypes
 import appModuleHandler
 import api
@@ -25,6 +26,7 @@ import braille
 import gui
 import wx
 import winUser
+from winUser import user32, sendMessage
 from NVDAObjects.IAccessible import IAccessible
 import textInfos
 import tones
@@ -46,6 +48,9 @@ def finally_(func, final):
 
 # Use appModule.productVersion to decide what to do with 4.x and 5.x.
 SPLMinVersion = "5.00" # Check the version string against this. If it is less, use a different procedure for some routines.
+
+# Keep a handle to SPL window for various features.
+SPLWin = user32.FindWindowA("SPLStudio", None)
 
 class AppModule(appModuleHandler.AppModule):
 
@@ -451,6 +456,19 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(self.libraryProgressSettings[scanProgress])
 		self.libraryScanProgress = scanProgress
 
+	# Report library scan (number of items scanned) in the background.
+	def libraryScanReporter(self):
+		countA = sendMessage(SPLWin, 1024, 0, 32)
+		time.sleep(0.1)
+		countB = sendMessage(SPLWin, 1024, 0, 32)
+		scanIter = 0
+		while countA != countB:
+			countA = countB
+			time.sleep(1)
+			countB, scanIter = sendMessage(SPLWin, 1024, 0, 32), scanIter+1
+			if scanIter%5 == 0: ui.message("{itemCount} items scanned".format(itemCount = countB))
+		ui.message("Scan complete with {itemCount} items".format(itemCount = countB))
+
 	# SPL Assistant: reports status on playback, operation, etc.
 	# Used layer command approach to save gesture assignments.
 	# Most were borrowed from JFW and Window-Eyes layer scripts.
@@ -567,6 +585,15 @@ class AppModule(appModuleHandler.AppModule):
 		# Translators: Presented when there is no listener count information.
 		ui.message(obj.name) if obj.name is not None else ui.message(_("Listener count not found"))
 
+	# Few toggle/misc scripts that may be excluded from the layer later.
+
+	def script_libraryScanMonitor(self, gesture):
+		t = threading.Thread(target=self.libraryScanReporter)
+		t.name = "SPLLibraryScanReporter"
+		t.daemon = True
+		t.start()
+		ui.message("Monitoring library scan")
+
 
 	__SPLAssistantGestures={
 		"kb:p":"sayPlayStatus",
@@ -579,7 +606,8 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:shift+h":"sayHourSelectedTrackDuration",
 		"kb:u":"sayUpTime",
 		"kb:n":"sayNextTrackTitle",
-		"kb:i":"sayListenerCount"
+		"kb:i":"sayListenerCount",
+		"kb:shift+r":"libraryScanMonitor"
 	}
 
 	__gestures={
