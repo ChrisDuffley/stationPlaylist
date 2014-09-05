@@ -96,6 +96,7 @@ To learn cart assignments, from SPL Studio, press Control+NVDA+3. Pressing the c
 * Error tones are no longer heard when trying to obtain information such as remaining time while other Studio window other than track list (such as Options dialog) is focused. If the needed information is not found, NVDA will announce this fact.
 * It is now possible to search a track by artist name. Previously you could search by track title.
 * Support for SAM Encoder, including ability to label the encoder and a toggle command to switch to Studio when the selected encoder is connected.
+* Add-on help is available from the Add-ons Manager.
 
 ## Changes for 2.1
 
