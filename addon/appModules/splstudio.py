@@ -460,6 +460,7 @@ class AppModule(appModuleHandler.AppModule):
 	SPLHourTrackDuration = 2
 	SPLHourSelectedDuration = 3
 	SPLNextTrackTitle = 4
+	SPLPlaylistRemainingDuration = 5
 
 	# Table of child constants based on versions
 	# These are scattered throughout the screen, so one can use foreground.children[index] to fetch them.
@@ -469,7 +470,8 @@ class AppModule(appModuleHandler.AppModule):
 		SPLSystemStatus:[-2, -3], # The second status bar containing system status such as up time.
 		SPLHourTrackDuration:[13, 17], # For track duration for the given hour marker.
 		SPLHourSelectedDuration:[14, 18], # In case the user selects one or more tracks in a given hour.
-		SPLNextTrackTitle:[2, 7], # In case the user selects one or more tracks in a given hour.
+		SPLNextTrackTitle:[2, 7], # Name and duration of the next track if any.
+		SPLPlaylistRemainingDuration:[12, 16], # Remaining time for the current playlist.
 	}
 
 	# Called in the layer commands themselves.
@@ -513,6 +515,10 @@ class AppModule(appModuleHandler.AppModule):
 		obj = self.status(self.SPLHourSelectedDuration).firstChild
 		ui.message(obj.name)
 
+	def script_sayPlaylistRemainingDuration(self, gesture):
+		obj = self.status(self.SPLPlaylistRemainingDuration).children[1]
+		ui.message(obj.name)
+
 	def script_sayNextTrackTitle(self, gesture):
 		obj = self.status(self.SPLNextTrackTitle).firstChild
 		# Translators: Presented when there is no information for the next track.
@@ -520,6 +526,10 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_sayUpTime(self, gesture):
 		obj = self.status(self.SPLSystemStatus).firstChild
+		ui.message(obj.name)
+
+	def script_sayScheduledTime(self, gesture):
+		obj = self.status(self.SPLSystemStatus).children[1]
 		ui.message(obj.name)
 
 	def script_sayListenerCount(self, gesture):
@@ -537,9 +547,11 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:t":"sayCartEditStatus",
 		"kb:h":"sayHourTrackDuration",
 		"kb:shift+h":"sayHourSelectedTrackDuration",
+		"kb:d":"sayPlaylistRemainingDuration",
 		"kb:u":"sayUpTime",
 		"kb:n":"sayNextTrackTitle",
-		"kb:i":"sayListenerCount"
+		"kb:i":"sayListenerCount",
+		"kb:s":"sayScheduledTime"
 	}
 
 	__gestures={
