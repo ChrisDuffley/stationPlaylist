@@ -5,6 +5,7 @@
 
 from ctypes import windll
 from functools import wraps
+import threading
 import os
 import time
 from configobj import ConfigObj # Configuration management; configspec will be used to store app module and global plugin settings in one ini file.
@@ -238,13 +239,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Few useful variables for encoder list:
 		focusToStudio = False # If true, Studio will gain focus after encoder connects.
 
-		def script_connect(self, gesture):
-			gesture.send()
-			# Translators: Presented when SAM Encoder is trying to connect to a streaming server.
-			ui.message(_("Connecting..."))
+		def reportConnectionStatus(self):
 			# Keep an eye on the stream's description field until connected or error occurs.
+			# In order to not block NVDA commands, this will be done using a different thread.
+			toneCounter = 0
 			while True:
 				time.sleep(0.001)
+				toneCounter+=1
+				if toneCounter%200 == 0: tones.beep(500, 100) # Play status tones every second.
 				info = review.getScreenPosition(self)[0]
 				info.expand(textInfos.UNIT_LINE)
 				if "Error" in info.text:
@@ -256,6 +258,15 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 					if self.focusToStudio: fetchSPLForegroundWindow().setFocus()
 					tones.beep(1000, 150)
 					break
+
+		def script_connect(self, gesture):
+			gesture.send()
+			# Translators: Presented when SAM Encoder is trying to connect to a streaming server.
+			ui.message(_("Connecting..."))
+			# Oi, status thread, can you keep an eye on the connection status for me?
+			statusThread = threading.Thread(target=self.reportConnectionStatus)
+			statusThread.name = "Connection Status Reporter"
+			statusThread.start()
 		# Translators: Input help mode message in SAM Encoder window.
 		script_connect.__doc__=_("Connects to a streaming server.")
 
