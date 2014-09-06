@@ -14,6 +14,8 @@
 from functools import wraps
 import os
 from configobj import ConfigObj
+import time
+import threading
 import controlTypes
 import appModuleHandler
 import api
@@ -26,6 +28,7 @@ import braille
 import gui
 import wx
 import winUser
+from winUser import user32, sendMessage
 from NVDAObjects.IAccessible import IAccessible
 import textInfos
 import tones
@@ -52,6 +55,10 @@ SPLMinVersion = "5.00" # Check the version string against this. If it is less, u
 if os.path.isfile(os.path.join(config.getUserDefaultConfigPath(), "splstudio.ini")):
 	SPLConfig = ConfigObj(os.path.join(config.getUserDefaultConfigPath(), "splstudio.ini"))
 else: SPLConfig = None
+
+# Keep a handle to SPL window for various features.
+SPLWin = user32.FindWindowA("SPLStudio", None)
+
 
 class AppModule(appModuleHandler.AppModule):
 
@@ -87,6 +94,9 @@ class AppModule(appModuleHandler.AppModule):
 		SPLEndOfTrackTime = SPLConfig["EndOfTrackTime"]
 	except KeyError:
 		SPLEndOfTrackTime = "00:05"
+	# Keep an eye on library scans in insert tracks window.
+	libraryScanning = False
+	scanCount = 0
 
 	# Automatically announce mic, line in, etc changes
 	# These items are static text items whose name changes.
@@ -100,9 +110,27 @@ class AppModule(appModuleHandler.AppModule):
 		else:
 			if obj.windowClassName == "TStatusBar" and not obj.name.startswith("  Up time:"):
 				# Special handling for Play Status
+				fgWinClass = api.getForegroundObject().windowClassName
 				if obj.IAccessibleChildID == 1:
-					# Strip off "  Play status: " for brevity
-					ui.message(obj.name[15:])
+					if fgWinClass == "TStudioForm":
+						# Strip off "  Play status: " for brevity only in main playlist window.
+						ui.message(obj.name[15:])
+					elif fgWinClass == "TTrackInsertForm" and self.libraryScanProgress > 0:
+						# If library scan is in progress, announce its progress.
+						self.scanCount+=1
+						if self.scanCount%100 == 0:
+							if self.libraryScanProgress == 2:
+								tones.beep(550, 100) if self.beepAnnounce else ui.message("Scanning")
+							elif self.libraryScanProgress == 3:
+								if self.beepAnnounce: tones.beep(550, 100)
+								ui.message(obj.name[1:obj.name.find("]")])
+						if "Loading" in obj.name and not self.libraryScanning:
+							self.libraryScanning = True
+							tones.beep(740, 100) if self.beepAnnounce else ui.message("Scan start")
+						elif "match" in obj.name and self.libraryScanning:
+							tones.beep(370, 100) if self.beepAnnounce else ui.message("Scan complete")
+							self.libraryScanning = False
+							self.scanCount = 0
 				else:
 					if self.beepAnnounce:
 						# Even with beeps enabled, be sure to announce scheduled time and name of the playing cart.
@@ -429,6 +457,37 @@ class AppModule(appModuleHandler.AppModule):
 				# Translators: Presented when there is no cart assigned to a cart command.
 				ui.message(_("Cart unassigned"))
 
+	# Library scan announcement
+	# Announces progress of a library scan (launched from insert tracks dialog by pressing Control+Shift+R or from rescan option from Options dialog).
+	libraryScanProgress = 0 # Announce at the beginning and at the end of a scan.
+
+	# Library scan announcement settings list and the toggle script.
+	libraryProgressSettings=(
+		("Do not announce library scans"),
+		("Announce start and end of a library scan"),
+		("Announce the progress of a library scan"),
+		("Announce progress and item count of a library scan")
+	)
+
+	def script_setLibraryScanProgress(self, gesture):
+		scanProgress = self.libraryScanProgress
+		scanProgress = scanProgress+1 if scanProgress < len(self.libraryProgressSettings)-1 else 0
+		ui.message(self.libraryProgressSettings[scanProgress])
+		self.libraryScanProgress = scanProgress
+
+	# Report library scan (number of items scanned) in the background.
+	def libraryScanReporter(self):
+		countA = sendMessage(SPLWin, 1024, 0, 32)
+		time.sleep(0.1)
+		countB = sendMessage(SPLWin, 1024, 0, 32)
+		scanIter = 0
+		while countA != countB:
+			countA = countB
+			time.sleep(1)
+			countB, scanIter = sendMessage(SPLWin, 1024, 0, 32), scanIter+1
+			if scanIter%5 == 0: ui.message("{itemCount} items scanned".format(itemCount = countB))
+		ui.message("Scan complete with {itemCount} items".format(itemCount = countB))
+
 	# SPL Assistant: reports status on playback, operation, etc.
 	# Used layer command approach to save gesture assignments.
 	# Most were borrowed from JFW and Window-Eyes layer scripts.
@@ -478,6 +537,7 @@ class AppModule(appModuleHandler.AppModule):
 	SPLHourTrackDuration = 2
 	SPLHourSelectedDuration = 3
 	SPLNextTrackTitle = 4
+	SPLPlaylistRemainingDuration = 5
 
 	# Table of child constants based on versions
 	# These are scattered throughout the screen, so one can use foreground.children[index] to fetch them.
@@ -487,7 +547,8 @@ class AppModule(appModuleHandler.AppModule):
 		SPLSystemStatus:[-2, -3], # The second status bar containing system status such as up time.
 		SPLHourTrackDuration:[13, 17], # For track duration for the given hour marker.
 		SPLHourSelectedDuration:[14, 18], # In case the user selects one or more tracks in a given hour.
-		SPLNextTrackTitle:[2, 7], # In case the user selects one or more tracks in a given hour.
+		SPLNextTrackTitle:[2, 7], # Name and duration of the next track if any.
+		SPLPlaylistRemainingDuration:[12, 16], # Remaining time for the current playlist.
 	}
 
 	# Called in the layer commands themselves.
@@ -531,6 +592,10 @@ class AppModule(appModuleHandler.AppModule):
 		obj = self.status(self.SPLHourSelectedDuration).firstChild
 		ui.message(obj.name)
 
+	def script_sayPlaylistRemainingDuration(self, gesture):
+		obj = self.status(self.SPLPlaylistRemainingDuration).children[1]
+		ui.message(obj.name)
+
 	def script_sayNextTrackTitle(self, gesture):
 		obj = self.status(self.SPLNextTrackTitle).firstChild
 		# Translators: Presented when there is no information for the next track.
@@ -540,10 +605,23 @@ class AppModule(appModuleHandler.AppModule):
 		obj = self.status(self.SPLSystemStatus).firstChild
 		ui.message(obj.name)
 
+	def script_sayScheduledTime(self, gesture):
+		obj = self.status(self.SPLSystemStatus).children[1]
+		ui.message(obj.name)
+
 	def script_sayListenerCount(self, gesture):
 		obj = self.status(self.SPLSystemStatus).children[3]
 		# Translators: Presented when there is no listener count information.
 		ui.message(obj.name) if obj.name is not None else ui.message(_("Listener count not found"))
+
+	# Few toggle/misc scripts that may be excluded from the layer later.
+
+	def script_libraryScanMonitor(self, gesture):
+		t = threading.Thread(target=self.libraryScanReporter)
+		t.name = "SPLLibraryScanReporter"
+		t.daemon = True
+		t.start()
+		ui.message("Monitoring library scan")
 
 
 	__SPLAssistantGestures={
@@ -555,9 +633,12 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:t":"sayCartEditStatus",
 		"kb:h":"sayHourTrackDuration",
 		"kb:shift+h":"sayHourSelectedTrackDuration",
+		"kb:d":"sayPlaylistRemainingDuration",
 		"kb:u":"sayUpTime",
 		"kb:n":"sayNextTrackTitle",
-		"kb:i":"sayListenerCount"
+		"kb:i":"sayListenerCount",
+		"kb:s":"sayScheduledTime"
+		"kb:shift+r":"libraryScanMonitor"
 	}
 
 	__gestures={
@@ -570,5 +651,6 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:nvda+f3":"findTrackNext",
 		"kb:shift+nvda+f3":"findTrackPrevious",
 		"kb:control+nvda+3":"toggleCartExplorer",
+		"kb:alt+nvda+r":"setLibraryScanProgress",
 		#"kb:control+nvda+`":"SPLAssistantToggle"
 	}
