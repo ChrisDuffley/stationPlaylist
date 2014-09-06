@@ -90,10 +90,12 @@ class AppModule(appModuleHandler.AppModule):
 				obj.name = fieldName.text
 
 	# Check the following variable for end of track announcement.
-	try:
-		SPLEndOfTrackTime = SPLConfig["EndOfTrackTime"]
-	except KeyError:
-		SPLEndOfTrackTime = "00:05"
+	if SPLConfig is None: SPLEndOfTrackTime = "00:05"
+	else:
+		try:
+			SPLEndOfTrackTime = SPLConfig["EndOfTrackTime"]
+		except KeyError:
+			SPLEndOfTrackTime = "00:05"
 	# Keep an eye on library scans in insert tracks window.
 	libraryScanning = False
 	scanCount = 0
