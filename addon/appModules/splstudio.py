@@ -598,6 +598,10 @@ class AppModule(appModuleHandler.AppModule):
 		obj = self.status(self.SPLPlaylistRemainingDuration).children[1]
 		ui.message(obj.name)
 
+	def script_sayPlaylistModified(self, gesture):
+		obj = self.status(self.SPLSystemStatus).lastChild
+		ui.message(obj.name)
+
 	def script_sayNextTrackTitle(self, gesture):
 		obj = self.status(self.SPLNextTrackTitle).firstChild
 		# Translators: Presented when there is no information for the next track.
@@ -615,6 +619,10 @@ class AppModule(appModuleHandler.AppModule):
 		obj = self.status(self.SPLSystemStatus).children[3]
 		# Translators: Presented when there is no listener count information.
 		ui.message(obj.name) if obj.name is not None else ui.message(_("Listener count not found"))
+
+	def script_sayTrackPitch(self, gesture):
+		obj = self.status(self.SPLSystemStatus).children[4]
+		ui.message(obj.name)
 
 	# Few toggle/misc scripts that may be excluded from the layer later.
 
@@ -636,10 +644,12 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:h":"sayHourTrackDuration",
 		"kb:shift+h":"sayHourSelectedTrackDuration",
 		"kb:d":"sayPlaylistRemainingDuration",
+		"kb:y":"sayPlaylistModified",
 		"kb:u":"sayUpTime",
 		"kb:n":"sayNextTrackTitle",
 		"kb:i":"sayListenerCount",
 		"kb:s":"sayScheduledTime",
+		"kb:shift+p":"sayTrackPitch",
 		"kb:shift+r":"libraryScanMonitor"
 	}
 
