@@ -8,7 +8,7 @@ This add-on package provides improved usage of Station Playlist Studio, as well 
 
 For more information about the add-on, read the [add-on guide][3].
 
-IMPORTANT: Due to major incompatible changes and key assignments, please remove add-on version 1.2 before installing version 2.0 or later. Also, add-on 2.1 and later requires NVDA 2014.1 or later.
+IMPORTANT: Due to major incompatible changes and key assignments, please remove add-on version 1.2 before installing version 2.0 or later. Also, add-on 2.1 and later requires NVDA 2014.1 or later. Add-on 4.0 requires SPL version 5.00 or later.
 
 ## Shortcut keys
 
@@ -46,6 +46,7 @@ This layer command set allows you to obtain various status on SPL Studio, such a
 The available status information are:
 
 * A: Automation.
+* D: Remaining duration for the playlist.
 * H: Duration of music for the current hour slot.
 * Shift+H: Total duration of selected tracks for this hour slot (from the track list, press SPACE to select or uncheck the track to play).
 * I: Listener count.
@@ -53,9 +54,12 @@ The available status information are:
 * M: Microphone.
 * N: Title for the next scheduled track.
 * P: Playback status (playing or stopped).
+* Shift+P: Pitch of the current track (SPL 5.00 and later).
 * R: Record to file enabled/disabled.
+* S: Track playback schedule.
 * T: Cart edit mode on/off.
 * U: Studio up time.
+* Y: Playlist modified status (SPL 5.00 and later).
 
 ## SPL Controller
 
@@ -85,6 +89,12 @@ Note: Track Finder is case-sensitive.
 Depending on edition, SPL Studio allows up to 96 carts to be assigned for playback. NVDA allows you to hear which cart, or jingle is assigned to these commands.
 
 To learn cart assignments, from SPL Studio, press Control+NVDA+3. Pressing the cart command once will tell you which jingle is assigned to the command. Pressing the cart command twice will play the jingle. Press Control+NvDA+3 to exit cart explorer. See the add-on guide for more information on cart explorer.
+
+## Changes for 4.0-dev/3.x
+
+Version 4.0 supports SPL Studio 5.00 and later, with 3.x released designed to provide some new features from 4.0 for users using earlier versions of Studio.
+
+* New SPL Assistant keys, including schedule time for the track (S) and remaining duration for the playlist (D). In addition, for Studio 5.x, added playlist modification (Y) and track pitch (Shift+P).
 
 ## Changes for 3.0
 
