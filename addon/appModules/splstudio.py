@@ -618,7 +618,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:u":"sayUpTime",
 		"kb:n":"sayNextTrackTitle",
 		"kb:i":"sayListenerCount",
-		"kb:s":"sayScheduledTime"
+		"kb:s":"sayScheduledTime",
 		"kb:shift+r":"libraryScanMonitor"
 	}
 
