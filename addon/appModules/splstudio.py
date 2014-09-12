@@ -164,6 +164,8 @@ class AppModule(appModuleHandler.AppModule):
 	SPL4ElapsedTime = -4 # Elapsed time for SPL 4.x.
 	SPLBroadcasterTime = 13 # Broadcaster time such as "5 minutes to 3" for SPL 5.x.
 	SPL4BroadcasterTime = 8 # Broadcaster time for SPL 4.x.
+	SPLCompleteTime = 15 # Complete time as in hours, minutes and seconds.
+	SPL4CompleteTime = 10 # Complete time for SPL 4.x.
 
 	def script_sayRemainingTime(self, gesture):
 		fgWindow = api.getForegroundObject()
@@ -199,6 +201,18 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(broadcasterTime)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayBroadcasterTime.__doc__=_("Announces broadcaster time.")
+
+	def script_sayCompleteTime(self, gesture):
+		fgWindow = api.getForegroundObject()
+		# Says complete time in hours, minutes and seconds.
+		if fgWindow.windowClassName == "TStudioForm":
+			CompleteTime = fgWindow.children[self.SPLCompleteTime].firstChild.name if self.SPLCurVersion >= SPLMinVersion else fgWindow.children[self.SPL4CompleteTime].firstChild.name
+		else:
+			# Translators: Presented when time information is unavailable.
+			completeTime = _("Cannot obtain time in hours, minutes and seconds")
+		ui.message(completeTime)
+	# Translators: Input help mode message for a command in Station Playlist Studio.
+	script_sayCompleteTime.__doc__=_("Announces time including seconds.")
 
 	# Set the end of track alarm time between 1 and 59 seconds.
 
