@@ -82,7 +82,9 @@ class AppModule(appModuleHandler.AppModule):
 				obj.name = fieldName.text
 
 	# Check the following variable for end of track announcement.
-	SPLEndOfTrackTime = "00:05" # Should be adjustable by the user in the end. Also find a way to announce this even if SPL Studio is minimized.
+	SPLEndOfTrackTime = "00:05"
+	# Check for end of song intros.
+	SPLSongRampTime = "00:05"
 	# Keep an eye on library scans in insert tracks window.
 	libraryScanning = False
 	scanCount = 0
@@ -144,9 +146,12 @@ class AppModule(appModuleHandler.AppModule):
 						if obj.name == "Cart Edit On": ui.message(_("Cart explorer is active"))
 						# Translators: Presented when cart edit mode is toggled off while cart explorer is on.
 						elif obj.name == "Cart Edit Off": ui.message(_("Please reenter cart explorer to view updated cart assignments"))
-			# Monitor the end of track time and announce it.
-			elif obj.windowClassName == "TStaticText" and obj.name == self.SPLEndOfTrackTime and obj.simpleParent.name == "Remaining Time": tones.beep(440, 200) # SPL 4.x.
-			elif obj.windowClassName == "TStaticText" and obj.name == self.SPLEndOfTrackTime and obj.simplePrevious != None and obj.simplePrevious.name == "Remaining Time": tones.beep(440, 200) # SPL 5.x.
+			# Monitor the end of track and song intro time and announce it.
+			elif obj.windowClassName == "TStaticText": # For future extensions.
+				if obj.name == self.SPLEndOfTrackTime and obj.simpleParent.name == "Remaining Time": tones.beep(440, 200) # End of track for SPL 4.x.
+				elif obj.name == self.SPLSongRampTime and obj.simpleParent.name == "Remaining Song Ramp": tones.beep(512, 400) # Song intro for SPL 4.x.
+				elif obj.name == self.SPLEndOfTrackTime and obj.simplePrevious != None and obj.simplePrevious.name == "Remaining Time": tones.beep(440, 200) # End of track for SPL 5.x.
+				elif obj.name == self.SPLSongRampTime and obj.simplePrevious != None and obj.simplePrevious.name == "Remaining Song Ramp": tones.beep(512, 400) # Song intro for SPL 5.x.
 			# Clean this mess with a more elegant solution.
 		nextHandler()
 
@@ -227,6 +232,30 @@ class AppModule(appModuleHandler.AppModule):
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setEndOfTrackTime.__doc__=_("sets end of track alarm (default is 5 seconds).")
+
+	# Set song ramp (introduction) time between 1 and 9 seconds.
+
+	def script_setSongRampTime(self, gesture):
+		rampVal = self.SPLSongRampTime[-2:]
+		# Translators: A dialog message to set song ramp alarm (curRampSec is the current intro monitoring alarm in seconds).
+		timeMSG = _("Enter song intro alarm time in seconds (currently {curRampSec})").format(curRampSec = rampVal if int(rampVal) >= 10 else rampVal[-1])
+		dlg = wx.TextEntryDialog(gui.mainFrame,
+		timeMSG,
+		# Translators: The title of song intro alarm dialog.
+		_("Song intro alarm"), defaultValue=rampVal if int(rampVal) >= 10 else rampVal[-1])
+		def callback(result):
+			if result == wx.ID_OK:
+				if not dlg.GetValue().isdigit() or int(dlg.GetValue()) < 1 or int(dlg.GetValue()) > 9:
+					# Translators: The error message presented when incorrect alarm time value has been entered.
+					wx.CallAfter(gui.messageBox, _("Incorrect value entered."),
+					# Translators: Standard title for error dialog (copy this from main nvda.po file).
+					_("Error"),wx.OK|wx.ICON_ERROR)
+				else:
+					newAlarmSec = "0" + dlg.GetValue()
+					self.SPLSongRampTime = self.SPLSongRampTime.replace(self.SPLSongRampTime[-2:], newAlarmSec) # Quite a complicated replacement expression, but it works in this case.
+		gui.runScriptModalDialog(dlg, callback)
+	# Translators: Input help mode message for a command in Station Playlist Studio.
+	script_setEndOfTrackTime.__doc__=_("sets song intro alarm (default is 5 seconds).")
 
 	# Other commands (track finder and others)
 
@@ -628,6 +657,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:shift+nvda+f12":"sayBroadcasterTime",
 		"kb:control+nvda+1":"toggleBeepAnnounce",
 		"kb:control+nvda+2":"setEndOfTrackTime",
+		"kb:alt+nvda+2":"setSongRampTime",
 		"kb:control+nvda+f":"findTrack",
 		"kb:nvda+f3":"findTrackNext",
 		"kb:shift+nvda+f3":"findTrackPrevious",

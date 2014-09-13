@@ -17,6 +17,7 @@ IMPORTANT: Due to major incompatible changes and key assignments, please remove 
 * NVDA+Shift+F12 from Studio window: announces broadcaster time such as 5 minutes to top of the hour.
 * Control+NVDA+1 from Studio window: toggles announcement of toggle messages (such as automation) between words and beeps.
 * Control+NVDA+2 from Studio window: Opens end of track setting dialog.
+* Alt+NVDA+2 from Studio window: Opens song intro alarm setting dialog.
 * Control+NVDA+3 from Studio window: Toggles cart explorer to learn cart assignments.
 * Control+NVDA+f from Studio window: Opens a dialog to find a track based on artist or song name. Press NvDA+F3 to find forward or NVDA+Shift+F3 to find backward.
 
@@ -78,6 +79,10 @@ The available SPL Controller commands are:
 
 Five seconds before the current track ends, NVDA will play a short beep to indicate that the track is about to end. This works anywhere (even within SPL Studio window). Press Control+NVDA+2 to configure this between 1 and 59 seconds.
 
+## Song intro alarm
+
+If you have configured song intro time via Track Tool, NVDA will beep when the vocals are about to begin. From Studio window, press Alt+NVDA+2 to configure song intro alarm between 1 and 9 seconds.
+
 ## Track Finder
 
 If you wish to quickly find a song by an artist or by song name, from track lisst, press Control+NVDA+F. Type the name of the artist or the song name. NVDA will either place you at the song if found or will display an error if it cannot find the song you're looking for. To find a previously entered song or artist, press NVDA+F3 or NVDA+Shift+F3 to find forward or backward.
@@ -95,6 +100,7 @@ To learn cart assignments, from SPL Studio, press Control+NVDA+3. Pressing the c
 Version 4.0 supports SPL Studio 5.00 and later, with 3.x released designed to provide some new features from 4.0 for users using earlier versions of Studio.
 
 * New SPL Assistant keys, including schedule time for the track (S) and remaining duration for the playlist (D). In addition, for Studio 5.x, added playlist modification (Y) and track pitch (Shift+P).
+* Added a command (Alt+NvDA+2) to set song intro alarm time between 1 and 9 seconds.
 
 ## Changes for 3.0
 
