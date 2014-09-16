@@ -89,15 +89,17 @@ class AppModule(appModuleHandler.AppModule):
 			else:
 				obj.name = fieldName.text
 
-	# Check the following variable for end of track announcement.
-	if SPLConfig is None: SPLEndOfTrackTime = "00:05"
+	# populate end of track and intro time alarm settings.
+	if SPLConfig is None:
+		SPLEndOfTrackTime = "00:05"
+		SPLSongRampTime = "00:05"
 	else:
 		try:
 			SPLEndOfTrackTime = SPLConfig["EndOfTrackTime"]
+			SPLSongRampTime = SPLConfig["SongRampTime"]
 		except KeyError:
 			SPLEndOfTrackTime = "00:05"
-	# Check for end of song intros.
-	SPLSongRampTime = "00:05"
+			SPLSongRampTime = "00:05"
 	# Keep an eye on library scans in insert tracks window.
 	libraryScanning = False
 	scanCount = 0
@@ -274,6 +276,7 @@ class AppModule(appModuleHandler.AppModule):
 				else:
 					newAlarmSec = "0" + dlg.GetValue()
 					self.SPLSongRampTime = self.SPLSongRampTime.replace(self.SPLSongRampTime[-2:], newAlarmSec) # Quite a complicated replacement expression, but it works in this case.
+					if SPLConfig is not None: SPLConfig["SongRampTime"] = self.SPLSongRampTime
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setEndOfTrackTime.__doc__=_("sets song intro alarm (default is 5 seconds).")
