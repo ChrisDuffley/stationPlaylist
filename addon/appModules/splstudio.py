@@ -255,7 +255,7 @@ class AppModule(appModuleHandler.AppModule):
 					self.SPLSongRampTime = self.SPLSongRampTime.replace(self.SPLSongRampTime[-2:], newAlarmSec) # Quite a complicated replacement expression, but it works in this case.
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
-	script_setEndOfTrackTime.__doc__=_("sets song intro alarm (default is 5 seconds).")
+	script_setSongRampTime.__doc__=_("sets song intro alarm (default is 5 seconds).")
 
 	# Other commands (track finder and others)
 
