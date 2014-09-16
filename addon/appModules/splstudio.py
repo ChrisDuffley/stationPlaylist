@@ -279,7 +279,7 @@ class AppModule(appModuleHandler.AppModule):
 					if SPLConfig is not None: SPLConfig["SongRampTime"] = self.SPLSongRampTime
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
-	script_setEndOfTrackTime.__doc__=_("sets song intro alarm (default is 5 seconds).")
+	script_setSongRampTime.__doc__=_("sets song intro alarm (default is 5 seconds).")
 
 	# Other commands (track finder and others)
 
