@@ -161,13 +161,8 @@ class AppModule(appModuleHandler.AppModule):
 		fg = api.getForegroundObject()
 		if fg.windowClassName == "TTrackInsertForm":
 			if self.libraryScanning: self.monitorLibraryScan()
+		nextHandler()
 
-	# Save configuration when terminating.
-	def terminate(self):
-		global SPLConfig
-		if SPLConfig is not None: SPLConfig.write()
-
->>>>>>> d649582... Library scan: one can now track the current library scan after exiting insert tracks dialog.
 	# Script sections (for ease of maintenance):
 	# Time-related: elapsed time, end of track alarm, etc.
 	# Misc scripts: track finder and others.
