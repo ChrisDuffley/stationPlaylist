@@ -117,7 +117,6 @@ class AppModule(appModuleHandler.AppModule):
 								ui.message(obj.name[1:obj.name.find("]")])
 						if "Loading" in obj.name and not self.libraryScanning:
 							self.libraryScanning = True
-							tones.beep(740, 100) if self.beepAnnounce else ui.message("Scan start")
 						elif "match" in obj.name and self.libraryScanning:
 							tones.beep(370, 100) if self.beepAnnounce else ui.message("Scan complete")
 							self.libraryScanning = False
@@ -157,6 +156,18 @@ class AppModule(appModuleHandler.AppModule):
 
 	# JL's additions
 
+	# Continue monitoring library scans among other focus loss management.
+	def event_loseFocus(self, obj, nextHandler):
+		fg = api.getForegroundObject()
+		if fg.windowClassName == "TTrackInsertForm":
+			if self.libraryScanning: self.monitorLibraryScan()
+
+	# Save configuration when terminating.
+	def terminate(self):
+		global SPLConfig
+		if SPLConfig is not None: SPLConfig.write()
+
+>>>>>>> d649582... Library scan: one can now track the current library scan after exiting insert tracks dialog.
 	# Script sections (for ease of maintenance):
 	# Time-related: elapsed time, end of track alarm, etc.
 	# Misc scripts: track finder and others.
@@ -485,7 +496,20 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(self.libraryProgressSettings[scanProgress])
 		self.libraryScanProgress = scanProgress
 
+	def script_startScanFromInsertTracks(self, gesture):
+		gesture.send()
+		fg = api.getForegroundObject()
+		if fg.windowClassName == "TTrackInsertForm":
+			ui.message("Scan start")
+			self.libraryScanning = True
+
 	# Report library scan (number of items scanned) in the background.
+	def monitorLibraryScan(self):
+		t = threading.Thread(target=self.libraryScanReporter)
+		t.name = "SPLLibraryScanReporter"
+		t.daemon = True
+		t.start()
+
 	def libraryScanReporter(self):
 		countA = sendMessage(SPLWin, 1024, 0, 32)
 		time.sleep(0.1)
@@ -494,9 +518,21 @@ class AppModule(appModuleHandler.AppModule):
 		while countA != countB:
 			countA = countB
 			time.sleep(1)
+			# Do not continue if we're back on insert tracks form.
+			if api.getForegroundObject().windowClassName == "TTrackInsertForm":
+				return
 			countB, scanIter = sendMessage(SPLWin, 1024, 0, 32), scanIter+1
-			if scanIter%5 == 0: ui.message("{itemCount} items scanned".format(itemCount = countB))
-		ui.message("Scan complete with {itemCount} items".format(itemCount = countB))
+			if scanIter%5 == 0:
+				if self.libraryScanProgress == 2:
+					tones.beep(550, 100) if self.beepAnnounce else ui.message("Scanning")
+				elif self.libraryScanProgress == 3:
+					if self.beepAnnounce:
+						tones.beep(550, 100)
+						ui.message("{itemCount}".format(itemCount = countB))
+					else: ui.message("{itemCount} items scanned".format(itemCount = countB))
+		self.libraryScanning = False
+		if self.beepAnnounce: tones.beep(370, 100)
+		else: ui.message("Scan complete with {itemCount} items".format(itemCount = countB))
 
 	# SPL Assistant: reports status on playback, operation, etc.
 	# Used layer command approach to save gesture assignments.
@@ -627,11 +663,10 @@ class AppModule(appModuleHandler.AppModule):
 	# Few toggle/misc scripts that may be excluded from the layer later.
 
 	def script_libraryScanMonitor(self, gesture):
-		t = threading.Thread(target=self.libraryScanReporter)
-		t.name = "SPLLibraryScanReporter"
-		t.daemon = True
-		t.start()
-		ui.message("Monitoring library scan")
+		if not self.libraryScanning:
+			self.monitorLibraryScan()
+			ui.message("Monitoring library scan")
+		else: ui.message("Scanning is in progress")
 
 
 	__SPLAssistantGestures={
@@ -663,5 +698,6 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:shift+nvda+f3":"findTrackPrevious",
 		"kb:control+nvda+3":"toggleCartExplorer",
 		"kb:alt+nvda+r":"setLibraryScanProgress",
+		"kb:control+shift+r":"startScanFromInsertTracks",
 		#"kb:control+nvda+`":"SPLAssistantToggle"
 	}
