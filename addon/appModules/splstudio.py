@@ -171,6 +171,12 @@ class AppModule(appModuleHandler.AppModule):
 
 	# JL's additions
 
+	# Continue monitoring library scans among other focus loss management.
+	def event_loseFocus(self, obj, nextHandler):
+		fg = api.getForegroundObject()
+		if fg.windowClassName == "TTrackInsertForm":
+			if self.libraryScanning: self.monitorLibraryScan()
+
 	# Save configuration when terminating.
 	def terminate(self):
 		global SPLConfig
