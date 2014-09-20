@@ -77,7 +77,8 @@ class AppModule(appModuleHandler.AppModule):
 			# Try to filter this out.
 			obj.shouldAllowIAccessibleFocusEvent = False
 		# Radio button group names are not recognized as grouping, so work around this.
-		if obj.windowClassName == "TRadioGroup": obj.role = controlTypes.ROLE_GROUPING
+		if obj.windowClassName == "TRadioGroup":
+			obj.role = controlTypes.ROLE_GROUPING
 		# In certain edit fields and combo boxes, the field name is written to the screen, and there's no way to fetch the object for this text. Thus use review position text.
 		elif obj.windowClassName == "TEdit" or obj.windowClassName == "TComboBox" and obj.name is None:
 			fieldName, fieldObj  = review.getScreenPosition(obj)
@@ -121,9 +122,9 @@ class AppModule(appModuleHandler.AppModule):
 						# If library scan is in progress, announce its progress.
 						self.scanCount+=1
 						if self.scanCount%100 == 0:
-							if self.libraryScanProgress == 2:
+							if self.libraryScanProgress == self.libraryScanMessage:
 								tones.beep(550, 100) if self.beepAnnounce else ui.message("Scanning")
-							elif self.libraryScanProgress == 3:
+							elif self.libraryScanProgress == self.libraryScanNumbers:
 								if self.beepAnnounce: tones.beep(550, 100)
 								ui.message(obj.name[1:obj.name.find("]")])
 						if "Loading" in obj.name and not self.libraryScanning:
@@ -158,10 +159,14 @@ class AppModule(appModuleHandler.AppModule):
 						elif obj.name == "Cart Edit Off": ui.message(_("Please reenter cart explorer to view updated cart assignments"))
 			# Monitor the end of track and song intro time and announce it.
 			elif obj.windowClassName == "TStaticText": # For future extensions.
-				if obj.name == self.SPLEndOfTrackTime and obj.simpleParent.name == "Remaining Time": tones.beep(440, 200) # End of track for SPL 4.x.
-				elif obj.name == self.SPLSongRampTime and obj.simpleParent.name == "Remaining Song Ramp": tones.beep(512, 400) # Song intro for SPL 4.x.
-				elif obj.name == self.SPLEndOfTrackTime and obj.simplePrevious != None and obj.simplePrevious.name == "Remaining Time": tones.beep(440, 200) # End of track for SPL 5.x.
-				elif obj.name == self.SPLSongRampTime and obj.simplePrevious != None and obj.simplePrevious.name == "Remaining Song Ramp": tones.beep(512, 400) # Song intro for SPL 5.x.
+				if obj.name == self.SPLEndOfTrackTime and obj.simpleParent.name == "Remaining Time":
+					tones.beep(440, 200) # End of track for SPL 4.x.
+				elif obj.name == self.SPLSongRampTime and obj.simpleParent.name == "Remaining Song Ramp":
+					tones.beep(512, 400) # Song intro for SPL 4.x.
+				elif obj.name == self.SPLEndOfTrackTime and obj.simplePrevious != None and obj.simplePrevious.name == "Remaining Time":
+					tones.beep(440, 200) # End of track for SPL 5.x.
+				elif obj.name == self.SPLSongRampTime and obj.simplePrevious != None and obj.simplePrevious.name == "Remaining Song Ramp":
+					tones.beep(512, 400) # Song intro for SPL 5.x.
 			# Clean this mess with a more elegant solution.
 		nextHandler()
 
@@ -263,7 +268,8 @@ class AppModule(appModuleHandler.AppModule):
 		dlg = wx.TextEntryDialog(gui.mainFrame,
 		timeMSG,
 		# Translators: The title of end of track alarm dialog.
-		_("End of track alarm"), defaultValue=timeVal if int(timeVal) >= 10 else timeVal[-1])
+		_("End of track alarm"),
+		defaultValue=timeVal if int(timeVal) >= 10 else timeVal[-1])
 		def callback(result):
 			global SPLConfig
 			if result == wx.ID_OK:
@@ -277,7 +283,7 @@ class AppModule(appModuleHandler.AppModule):
 					# To handle the case where we have single digits or two digits.
 					if int(dlg.GetValue()) <= 9: newAlarmSec = "0" + dlg.GetValue()
 					else: newAlarmSec = dlg.GetValue()
-					self.SPLEndOfTrackTime = self.SPLEndOfTrackTime.replace(self.SPLEndOfTrackTime[-2:], newAlarmSec) # Quite a complicated replacement expression, but it works in this case.
+					self.SPLEndOfTrackTime = self.SPLEndOfTrackTime.replace(self.SPLEndOfTrackTime[-2:], newAlarmSec)
 					# Just in case the ini file doesn't exist.
 					if SPLConfig is not None: SPLConfig["EndOfTrackTime"] = self.SPLEndOfTrackTime
 		gui.runScriptModalDialog(dlg, callback)
@@ -293,7 +299,8 @@ class AppModule(appModuleHandler.AppModule):
 		dlg = wx.TextEntryDialog(gui.mainFrame,
 		timeMSG,
 		# Translators: The title of song intro alarm dialog.
-		_("Song intro alarm"), defaultValue=rampVal if int(rampVal) >= 10 else rampVal[-1])
+		_("Song intro alarm"),
+		defaultValue=rampVal if int(rampVal) >= 10 else rampVal[-1])
 		def callback(result):
 			if result == wx.ID_OK:
 				if not dlg.GetValue().isdigit() or int(dlg.GetValue()) < 1 or int(dlg.GetValue()) > 9:
@@ -303,7 +310,7 @@ class AppModule(appModuleHandler.AppModule):
 					_("Error"),wx.OK|wx.ICON_ERROR)
 				else:
 					newAlarmSec = "0" + dlg.GetValue()
-					self.SPLSongRampTime = self.SPLSongRampTime.replace(self.SPLSongRampTime[-2:], newAlarmSec) # Quite a complicated replacement expression, but it works in this case.
+					self.SPLSongRampTime = self.SPLSongRampTime.replace(self.SPLSongRampTime[-2:], newAlarmSec)
 					if SPLConfig is not None: SPLConfig["SongRampTime"] = self.SPLSongRampTime
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
@@ -336,7 +343,8 @@ class AppModule(appModuleHandler.AppModule):
 				# We need to fire set focus event twice and exit this routine.
 				obj.setFocus(), obj.setFocus()
 				return
-			else: obj = obj.next if directionForward else obj.previous
+			else:
+				obj = obj.next if directionForward else obj.previous
 		wx.CallAfter(gui.messageBox,
 		# Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
 		_("Search string not found."),
@@ -470,7 +478,8 @@ class AppModule(appModuleHandler.AppModule):
 		userNameIndex = userName.find("-")
 		# Read *.cart files and process the cart entries within (be careful when these cart file names change between SPL releases).
 		cartFiles = [u"main carts.cart", u"shift carts.cart", u"ctrl carts.cart", u"alt carts.cart"]
-		if userNameIndex >= 0: cartFiles = [userName[userNameIndex+2:]+" "+cartFile for cartFile in cartFiles]
+		if userNameIndex >= 0:
+			cartFiles = [userName[userNameIndex+2:]+" "+cartFile for cartFile in cartFiles]
 		cartReadSuccess = True # Just in case some or all carts were not read successfully.
 		for f in cartFiles:
 			try:
@@ -522,6 +531,8 @@ class AppModule(appModuleHandler.AppModule):
 	# Library scan announcement
 	# Announces progress of a library scan (launched from insert tracks dialog by pressing Control+Shift+R or from rescan option from Options dialog).
 	libraryScanProgress = 0 # Announce at the beginning and at the end of a scan.
+	libraryScanMessage = 2 # Just announce "scanning".
+	libraryScanNumbers = 3 # Announce number of items scanned.
 
 	# Library scan announcement settings list and the toggle script.
 	libraryProgressSettings=(
@@ -564,16 +575,17 @@ class AppModule(appModuleHandler.AppModule):
 				return
 			countB, scanIter = sendMessage(SPLWin, 1024, 0, 32), scanIter+1
 			if scanIter%5 == 0:
-				if self.libraryScanProgress == 2:
+				if self.libraryScanProgress == self.libraryScanMessage:
 					tones.beep(550, 100) if self.beepAnnounce else ui.message("Scanning")
-				elif self.libraryScanProgress == 3:
+				elif self.libraryScanProgress == self.libraryScanNumbers:
 					if self.beepAnnounce:
 						tones.beep(550, 100)
 						ui.message("{itemCount}".format(itemCount = countB))
 					else: ui.message("{itemCount} items scanned".format(itemCount = countB))
 		self.libraryScanning = False
 		if self.beepAnnounce: tones.beep(370, 100)
-		else: ui.message("Scan complete with {itemCount} items".format(itemCount = countB))
+		else:
+			ui.message("Scan complete with {itemCount} items".format(itemCount = countB))
 
 	# SPL Assistant: reports status on playback, operation, etc.
 	# Used layer command approach to save gesture assignments.
@@ -581,9 +593,11 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Set up the layer script environment.
 	def getScript(self, gesture):
-		if not self.SPLAssistant: return appModuleHandler.AppModule.getScript(self, gesture)
+		if not self.SPLAssistant:
+			return appModuleHandler.AppModule.getScript(self, gesture)
 		script = appModuleHandler.AppModule.getScript(self, gesture)
-		if not script: script = finally_(self.script_error, self.finish)
+		if not script:
+			script = finally_(self.script_error, self.finish)
 		return finally_(script, self.finish)
 
 	def finish(self):
@@ -715,7 +729,8 @@ class AppModule(appModuleHandler.AppModule):
 		if not self.libraryScanning:
 			self.monitorLibraryScan()
 			ui.message("Monitoring library scan")
-		else: ui.message("Scanning is in progress")
+		else:
+			ui.message("Scanning is in progress")
 
 
 	__SPLAssistantGestures={
