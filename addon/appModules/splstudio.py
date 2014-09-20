@@ -191,41 +191,67 @@ class AppModule(appModuleHandler.AppModule):
 	SPL4ElapsedTime = -4 # Elapsed time for SPL 4.x.
 	SPLBroadcasterTime = 13 # Broadcaster time such as "5 minutes to 3" for SPL 5.x.
 	SPL4BroadcasterTime = 8 # Broadcaster time for SPL 4.x.
+	SPLCompleteTime = 15 # Complete time as in hours, minutes and seconds.
+	SPL4CompleteTime = 10 # Complete time for SPL 4.x.
 
-	def script_sayRemainingTime(self, gesture):
+	# Speak any time-related erorrs.
+	# Message type: error message.
+	timeMessageErrors={
+		# Translators: Presented when remaining time is unavailable.
+		1:_("Remaining time not available"),
+		# Translators: Presented when elapsed time is unavailable.
+		2:_("Elapsed time not available"),
+		# Translators: Presented when broadcaster time is unavailable.
+			3:_("Broadcaster time not available"),
+		# Translators: Presented when time information is unavailable.
+		4:_("Cannot obtain time in hours, minutes and seconds")
+	}
+
+	# Let the scripts call the below time message function to reduce code duplication and to improve readability.
+	def timeMessage(self, messageType, timeObj, timeObjChild=0):
 		fgWindow = api.getForegroundObject()
 		if fgWindow.windowClassName == "TStudioForm":
-			remainingTime = fgWindow.children[2].children[1].name if self.SPLCurVersion >= SPLMinVersion else fgWindow.children[-3].firstChild.name
+			if timeObjChild == 0:
+				obj = fgWindow.children[timeObj].firstChild
+			else: obj = fgWindow.children[timeObj].children[timeObjChild]
+			msg = obj.name
 		else:
-			# Translators: Presented when remaining time is unavailable.
-			remainingTime = _("Remaining time not available")
-		ui.message(remainingTime)
+			msg = timeMessageErrors[messageType]
+		ui.message(msg)
+
+	def script_sayRemainingTime(self, gesture):
+		if self.SPLCurVersion >= SPLMinVersion :
+			self.timeMessage(1, 2, timeObjChild=1)
+		else:
+			self.timeMessage(1, -3)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayRemainingTime.__doc__=_("Announces the remaining track time.")
 
 	def script_sayElapsedTime(self, gesture):
-		fgWindow = api.getForegroundObject()
-		# Quite a complicated expression there.
-		if fgWindow.windowClassName == "TStudioForm":
-			elapsedTime = fgWindow.children[self.SPLElapsedTime].children[1].name if self.SPLCurVersion >= SPLMinVersion else fgWindow.children[self.SPL4ElapsedTime].children[0].name
+		if self.SPLCurVersion >= SPLMinVersion :
+			self.timeMessage(2, self.SPLElapsedTime, timeObjChild=1)
 		else:
-			# Translators: Presented when elapsed time is unavailable.
-			elapsedTime = _("Elapsed time not available")
-		ui.message(elapsedTime)
+			self.timeMessage(2, self.SPL4ElapsedTime)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayElapsedTime.__doc__=_("Announces the elapsed time for the currently playing track.")
 
 	def script_sayBroadcasterTime(self, gesture):
-		fgWindow = api.getForegroundObject()
 		# Says things such as "25 minutes to 2" and "5 past 11".
-		if fgWindow.windowClassName == "TStudioForm":
-			broadcasterTime = fgWindow.children[self.SPLBroadcasterTime].children[0].name if self.SPLCurVersion >= SPLMinVersion else fgWindow.children[self.SPL4BroadcasterTime].children[0].name
+		if self.SPLCurVersion >= SPLMinVersion :
+			self.timeMessage(3, self.SPLBroadcasterTime)
 		else:
-			# Translators: Presented when broadcaster time is unavailable.
-			broadcasterTime = _("Broadcaster time not available")
-		ui.message(broadcasterTime)
+			self.timeMessage(3, self.SPL4BroadcasterTime)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayBroadcasterTime.__doc__=_("Announces broadcaster time.")
+
+	def script_sayCompleteTime(self, gesture):
+		# Says complete time in hours, minutes and seconds.
+		if self.SPLCurVersion >= SPLMinVersion :
+			self.timeMessage(4, self.SPLCompleteTime)
+		else:
+			self.timeMessage(4, self.SPL4CompleteTime)
+	# Translators: Input help mode message for a command in Station Playlist Studio.
+	script_sayCompleteTime.__doc__=_("Announces time including seconds.")
 
 	# Set the end of track alarm time between 1 and 59 seconds.
 
