@@ -52,9 +52,7 @@ def finally_(func, final):
 SPLMinVersion = "5.00" # Check the version string against this. If it is less, use a different procedure for some routines.
 
 # Configuration management )4.0 and later; will not be ported to 3.x).
-if os.path.isfile(os.path.join(config.getUserDefaultConfigPath(), "splstudio.ini")):
-	SPLConfig = ConfigObj(os.path.join(config.getUserDefaultConfigPath(), "splstudio.ini"))
-else: SPLConfig = None
+SPLConfig = ConfigObj(os.path.join(config.getUserDefaultConfigPath(), "splstudio.ini"))
 
 # Keep a handle to SPL window for various features.
 SPLWin = user32.FindWindowA("SPLStudio", None)
@@ -89,17 +87,15 @@ class AppModule(appModuleHandler.AppModule):
 			else:
 				obj.name = fieldName.text
 
-	# populate end of track and intro time alarm settings.
-	if SPLConfig is None:
+	# populate end of track and intro time alarm settings separately.
+	try:
+		SPLEndOfTrackTime = SPLConfig["EndOfTrackTime"]
+	except KeyError:
 		SPLEndOfTrackTime = "00:05"
+	try:
+		SPLSongRampTime = SPLConfig["SongRampTime"]
+	except KeyError:
 		SPLSongRampTime = "00:05"
-	else:
-		try:
-			SPLEndOfTrackTime = SPLConfig["EndOfTrackTime"]
-			SPLSongRampTime = SPLConfig["SongRampTime"]
-		except KeyError:
-			SPLEndOfTrackTime = "00:05"
-			SPLSongRampTime = "00:05"
 	# Keep an eye on library scans in insert tracks window.
 	libraryScanning = False
 	scanCount = 0
