@@ -116,7 +116,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if not self.SPLController:
 			return globalPluginHandler.GlobalPlugin.getScript(self, gesture)
 		script = globalPluginHandler.GlobalPlugin.getScript(self, gesture)
-		if not script: script = finally_(self.script_error, self.finish)
+		if not script:
+			script = finally_(self.script_error, self.finish)
 		return finally_(script, self.finish)
 
 	def finish(self):
@@ -136,8 +137,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			if SPLHwnd == 0: ui.message(_("SPL Studio is not running."))
 			else:
 				SPLFG = fetchSPLForegroundWindow()
-				# Translators: Presented when Studio is minimized to system tray (notification area).
-				if SPLFG == None: ui.message(_("SPL minimized to system tray."))
+				if SPLFG == None:
+					# Translators: Presented when Studio is minimized to system tray (notification area).
+					ui.message(_("SPL minimized to system tray."))
 				else: SPLFG.setFocus()
 	# Translators: Input help mode message for a command to switch to Station Playlist Studio from any program.
 	script_focusToSPLWindow.__doc__=_("Moves to SPL Studio window from other programs.")
