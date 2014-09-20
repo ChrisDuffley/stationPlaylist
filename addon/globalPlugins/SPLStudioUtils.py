@@ -8,11 +8,13 @@ from functools import wraps
 import threading
 import os
 import time
+from configobj import ConfigObj # Configuration management; configspec will be used to store app module and global plugin settings in one ini file.
 import globalPluginHandler
 import api
 import ui
 import speech
 import braille
+import config # Look up the user config folder, to be used in 4.0 and later.
 import review
 import textInfos
 from NVDAObjects.IAccessible import IAccessible
@@ -54,26 +56,10 @@ SPLCurTrackPlaybackTime = 105
 # Needed in SAM Encoder support:
 SAMFocusToStudio = {} # A dictionary to record whether to switch to SPL Studio for this encoder.
 SAMStreamLabels= {} # A dictionary to store custom labels for each stream.
-SAMStaticStreamLabels = {} # The static stream label dictionary which is used to avoid unnecesary file writes.
+SPLStreamLabels= {} # Same as above but optimized for SPL encoders (Studio 5.00 and later).
 
-# If the SAM encoder labels are modified, try writing them to disk.
-
-def labelWriteAttempt():
-	# Compare labels stored in static versus realtime stream labels list, and if they are different, dumpt the contents of realtime list to the file.
-	# This avoids excessive file writes.
-	modified = False
-	if len(SAMStreamLabels) != len(SAMStaticStreamLabels): modified = True
-	else:
-		for i in SAMStreamLabels:
-			if i not in SAMStaticStreamLabels or SAMStreamLabels[i] != SAMStaticStreamLabels[i]:
-				modified = True
-				break
-	if modified:
-		labelStore = open(os.path.join(os.path.dirname(__file__), "SAMStreamLabels.ini"), "w")
-		for label in SAMStreamLabels:
-			labelStore.write("{streamName}={streamLabel}\n".format(streamName = label, streamLabel = SAMStreamLabels[label]))
-		labelStore.close()
-
+# Configuration management.
+Config = None
 
 # Try to see if SPL foreground object can be fetched. This is used for switching to SPL Studio window from anywhere and to switch to Studio window from SAM encoder window.
 
@@ -96,18 +82,19 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# Do some initialization, such as stream labels for SAM encoders.
 	def __init__(self):
 		super(globalPluginHandler.GlobalPlugin, self).__init__()
+		# Load stream labels (and possibly other future goodies) from a file-based database.
+		global config, SAMStreamLabels, SPLStreamLabels
+		config = ConfigObj(os.path.join(config.getUserDefaultConfigPath(), "splStreamLabels.ini"))
 		# Read stream labels.
-		streamLabelPath = os.path.join(os.path.dirname(__file__), "SAMStreamLabels.ini")
-		if os.path.isfile(streamLabelPath) and os.path.getsize(streamLabelPath) > 0:
-			labels = open(streamLabelPath)
-			for label in labels:
-				labelStr = label.strip()
-				labelEntry = labelStr.split("=")
-				# Assign both static and realtime dictionaries.
-				SAMStaticStreamLabels[labelEntry[0]] = labelEntry[1]
-				SAMStreamLabels[labelEntry[0]] = labelEntry[1]
-			labels.close()
+		SAMStreamLabels = dict(config["SAMEncoders"])
+		SPLStreamLabels = dict(config["SPLEncoders"])
 
+	# Save configuration file.
+	def terminate(self):
+		global config
+		config["SAMEncoders"] = SAMStreamLabels
+		config["SPLEncoders"] = SPLStreamLabels
+		config.write()
 
 			#Global layer environment (see the app module for more information).
 	SPLController = False # Control SPL from anywhere.
@@ -246,12 +233,15 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		fg = api.getForegroundObject()
 		if obj.windowClassName == "TListView" and fg.windowClassName == "TfoSCEncoders":
 			clsList.insert(0, self.SAMEncoderWindow)
+		elif obj.windowClassName == "SysListView32" and "splengine" in obj.appModule.appName:
+			clsList.insert(0, self.SPLEncoderWindow)
 
 	class SAMEncoderWindow(IAccessible):
 		# Support for Sam Encoder window.
 
 		# Few useful variables for encoder list:
 		focusToStudio = False # If true, Studio will gain focus after encoder connects.
+		encoderType = "SAM"
 
 		def reportConnectionStatus(self):
 			# Keep an eye on the stream's description field until connected or error occurs.
@@ -260,14 +250,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			while True:
 				time.sleep(0.001)
 				toneCounter+=1
-				if toneCounter%200 == 0: tones.beep(500, 100) # Play status tones every second.
+				if toneCounter%50 == 0: tones.beep(500, 50) # Play status tones every second.
 				info = review.getScreenPosition(self)[0]
 				info.expand(textInfos.UNIT_LINE)
 				if "Error" in info.text:
 					# Announce the description of the error.
 					ui.message(self.description[self.description.find("Status")+8:])
 					break
-				elif "Encoding" in info.text:
+				elif "Encoding" in info.text or "Encoded" in info.text:
 					# We're on air, so exit.
 					if self.focusToStudio: fetchSPLForegroundWindow().setFocus()
 					tones.beep(1000, 150)
@@ -306,17 +296,25 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		script_toggleFocusToStudio.__doc__=_("Toggles whether NVDA will switch to Studio when connected to a streaming server.")
 
 		def script_streamLabeler(self, gesture):
+			curStreamLabel = ""
+			if self.encoderType == "SAM" and self.name in SAMStreamLabels:
+				curStreamLabel = SAMStreamLabels[self.name]
+			elif self.encoderType == "SPL" and str(self.IAccessibleChildID) in SPLStreamLabels:
+				curStreamLabel = SPLStreamLabels[str(self.IAccessibleChildID)]
 			# Translators: The title of the stream labeler dialog (example: stream labeler for 1).
 			streamTitle = _("Stream labeler for {streamEntry}").format(streamEntry = self.name)
 			# Translators: The text of the stream labeler dialog.
 			streamText = _("Enter the label for this stream")
 			dlg = wx.TextEntryDialog(gui.mainFrame,
-			streamText, streamTitle, defaultValue=""if self.name not in SAMStreamLabels else SAMStreamLabels[self.name])
+			streamText, streamTitle, defaultValue=curStreamLabel)
 			def callback(result):
 				if result == wx.ID_OK:
-					if dlg.GetValue() != "": SAMStreamLabels[self.name] = dlg.GetValue()
-					else: del SAMStreamLabels[self.name]
-				labelWriteAttempt() # Try writing the new labels if any.
+					if dlg.GetValue() != "":
+						if self.encoderType == "SAM": SAMStreamLabels[self.name] = dlg.GetValue()
+						elif self.encoderType == "SPL": SPLStreamLabels[str(self.IAccessibleChildID)] = dlg.GetValue()
+					else:
+						if self.encoderType == "SAM": del SAMStreamLabels[self.name]
+						elif self.encoderType == "SPL": del SPLStreamLabels[(self.IAccessibleChildID)]
 			gui.runScriptModalDialog(dlg, callback)
 		# Translators: Input help mode message in SAM Encoder window.
 		script_streamLabeler.__doc__=_("Opens a dialog to label the selected encoder.")
@@ -348,5 +346,67 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			"kb:f10":"disconnect",
 			"kb:f11":"toggleFocusToStudio",
 			"kb:f12":"streamLabeler"
+		}
+
+	class SPLEncoderWindow(SAMEncoderWindow):
+		# Support for SPL Encoder window.
+
+		# A few more subclass flags.
+		encoderType = "SPL"
+
+		def reportConnectionStatus(self):
+			# Same routine as SAM encoder: use a thread to prevent blocking NVDA commands.
+			for attempt in xrange(0, 100):
+				time.sleep(0.001)
+				if attempt%50 == 0: tones.beep(500, 50)
+				info = review.getScreenPosition(self)[0]
+				info.expand(textInfos.UNIT_LINE)
+				if info.text.endswith("Connected"):
+					# We're on air, so exit.
+					if self.focusToStudio: fetchSPLForegroundWindow().setFocus()
+					tones.beep(1000, 150)
+					break
+			if not self.name.endswith("Connected"): ui.message(self.name[self.name.find("Transfer")+15:])
+
+		def script_connect(self, gesture):
+			# Same as SAM's connection routine, but this time, keep an eye on self.name and a different connection flag.
+			connectButton = api.getForegroundObject().children[2]
+			if connectButton.name == "Disconnect": return
+			ui.message(_("Connecting..."))
+			# Juggle the focus around.
+			connectButton.doAction()
+			self.setFocus()
+			# Same as SAM encoders.
+			statusThread = threading.Thread(target=self.reportConnectionStatus)
+			statusThread.name = "Connection Status Reporter"
+			statusThread.start()
+		script_connect.__doc__=_("Connects to a streaming server.")
+
+
+		def initOverlayClass(self):
+			# Can I switch to Studio when connected to a streaming server?
+			try:
+				self.focusToStudio = SAMFocusToStudio[self.name]
+			except KeyError:
+				pass
+
+		def event_gainFocus(self):
+			try:
+				streamLabel = SPLStreamLabels[str(self.IAccessibleChildID)]
+			except KeyError:
+				streamLabel = None
+			# Speak the stream label if it exists.
+			if streamLabel is not None: speech.speakMessage(streamLabel)
+			super(type(self), self).reportFocus()
+			# Braille the stream label if present.
+			if streamLabel is not None:
+				brailleStreamLabel = str(self.IAccessibleChildID) + ": " + streamLabel
+				braille.handler.message(brailleStreamLabel)
+
+
+
+		__gestures={
+			"kb:f9":"connect",
+			"kb:f10":None
 		}
 

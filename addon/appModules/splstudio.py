@@ -13,11 +13,13 @@
 
 from functools import wraps
 import os
+from configobj import ConfigObj
 import time
 import threading
 import controlTypes
 import appModuleHandler
 import api
+import config
 import review
 import scriptHandler
 import ui
@@ -49,8 +51,14 @@ def finally_(func, final):
 # Use appModule.productVersion to decide what to do with 4.x and 5.x.
 SPLMinVersion = "5.00" # Check the version string against this. If it is less, use a different procedure for some routines.
 
+# Configuration management )4.0 and later; will not be ported to 3.x).
+if os.path.isfile(os.path.join(config.getUserDefaultConfigPath(), "splstudio.ini")):
+	SPLConfig = ConfigObj(os.path.join(config.getUserDefaultConfigPath(), "splstudio.ini"))
+else: SPLConfig = None
+
 # Keep a handle to SPL window for various features.
 SPLWin = user32.FindWindowA("SPLStudio", None)
+
 
 class AppModule(appModuleHandler.AppModule):
 
@@ -81,10 +89,17 @@ class AppModule(appModuleHandler.AppModule):
 			else:
 				obj.name = fieldName.text
 
-	# Check the following variable for end of track announcement.
-	SPLEndOfTrackTime = "00:05"
-	# Check for end of song intros.
-	SPLSongRampTime = "00:05"
+	# populate end of track and intro time alarm settings.
+	if SPLConfig is None:
+		SPLEndOfTrackTime = "00:05"
+		SPLSongRampTime = "00:05"
+	else:
+		try:
+			SPLEndOfTrackTime = SPLConfig["EndOfTrackTime"]
+			SPLSongRampTime = SPLConfig["SongRampTime"]
+		except KeyError:
+			SPLEndOfTrackTime = "00:05"
+			SPLSongRampTime = "00:05"
 	# Keep an eye on library scans in insert tracks window.
 	libraryScanning = False
 	scanCount = 0
@@ -162,6 +177,12 @@ class AppModule(appModuleHandler.AppModule):
 		if fg.windowClassName == "TTrackInsertForm":
 			if self.libraryScanning: self.monitorLibraryScan()
 		nextHandler()
+
+	# Save configuration when terminating.
+	def terminate(self):
+		global SPLConfig
+		if SPLConfig is not None: SPLConfig.write()
+>>>>>>> libraryScanAnnouncement
 
 	# Script sections (for ease of maintenance):
 	# Time-related: elapsed time, end of track alarm, etc.
@@ -249,6 +270,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Translators: The title of end of track alarm dialog.
 		_("End of track alarm"), defaultValue=timeVal if int(timeVal) >= 10 else timeVal[-1])
 		def callback(result):
+			global SPLConfig
 			if result == wx.ID_OK:
 				# Check if the value is indeed between 1 and 59.
 				if not dlg.GetValue().isdigit() or int(dlg.GetValue()) < 1 or int(dlg.GetValue()) > 59:
@@ -261,6 +283,8 @@ class AppModule(appModuleHandler.AppModule):
 					if int(dlg.GetValue()) <= 9: newAlarmSec = "0" + dlg.GetValue()
 					else: newAlarmSec = dlg.GetValue()
 					self.SPLEndOfTrackTime = self.SPLEndOfTrackTime.replace(self.SPLEndOfTrackTime[-2:], newAlarmSec) # Quite a complicated replacement expression, but it works in this case.
+					# Just in case the ini file doesn't exist.
+					if SPLConfig is not None: SPLConfig["EndOfTrackTime"] = self.SPLEndOfTrackTime
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setEndOfTrackTime.__doc__=_("sets end of track alarm (default is 5 seconds).")
@@ -285,6 +309,7 @@ class AppModule(appModuleHandler.AppModule):
 				else:
 					newAlarmSec = "0" + dlg.GetValue()
 					self.SPLSongRampTime = self.SPLSongRampTime.replace(self.SPLSongRampTime[-2:], newAlarmSec) # Quite a complicated replacement expression, but it works in this case.
+					if SPLConfig is not None: SPLConfig["SongRampTime"] = self.SPLSongRampTime
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setSongRampTime.__doc__=_("sets song intro alarm (default is 5 seconds).")
@@ -663,6 +688,10 @@ class AppModule(appModuleHandler.AppModule):
 		obj = self.status(self.SPLPlaylistRemainingDuration).children[1]
 		ui.message(obj.name)
 
+	def script_sayPlaylistModified(self, gesture):
+		obj = self.status(self.SPLSystemStatus).lastChild
+		ui.message(obj.name)
+
 	def script_sayNextTrackTitle(self, gesture):
 		obj = self.status(self.SPLNextTrackTitle).firstChild
 		# Translators: Presented when there is no information for the next track.
@@ -680,6 +709,10 @@ class AppModule(appModuleHandler.AppModule):
 		obj = self.status(self.SPLSystemStatus).children[3]
 		# Translators: Presented when there is no listener count information.
 		ui.message(obj.name) if obj.name is not None else ui.message(_("Listener count not found"))
+
+	def script_sayTrackPitch(self, gesture):
+		obj = self.status(self.SPLSystemStatus).children[4]
+		ui.message(obj.name)
 
 	# Few toggle/misc scripts that may be excluded from the layer later.
 
@@ -700,10 +733,12 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:h":"sayHourTrackDuration",
 		"kb:shift+h":"sayHourSelectedTrackDuration",
 		"kb:d":"sayPlaylistRemainingDuration",
+		"kb:y":"sayPlaylistModified",
 		"kb:u":"sayUpTime",
 		"kb:n":"sayNextTrackTitle",
 		"kb:i":"sayListenerCount",
 		"kb:s":"sayScheduledTime",
+		"kb:shift+p":"sayTrackPitch",
 		"kb:shift+r":"libraryScanMonitor"
 	}
 
