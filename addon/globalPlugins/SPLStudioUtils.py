@@ -84,10 +84,19 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		super(globalPluginHandler.GlobalPlugin, self).__init__()
 		# Load stream labels (and possibly other future goodies) from a file-based database.
 		global config, SAMStreamLabels, SPLStreamLabels
+		#if os.path.isfile(os.path.join(config.getUserDefaultConfigPath(), "splStreamLabels.ini")):
 		config = ConfigObj(os.path.join(config.getUserDefaultConfigPath(), "splStreamLabels.ini"))
+		#else:
+			#config = ConfigObj(os.path.join(config.getUserDefaultConfigPath(), "splStreamLabels.ini"), create_empty=True)
 		# Read stream labels.
-		SAMStreamLabels = dict(config["SAMEncoders"])
-		SPLStreamLabels = dict(config["SPLEncoders"])
+		try:
+			SAMStreamLabels = dict(config["SAMEncoders"])
+		except KeyError:
+			SAMStreamLabels = {}
+		try:
+			SPLStreamLabels = dict(config["SPLEncoders"])
+		except KeyError:
+			SPLStreamLabels = {}
 
 	# Save configuration file.
 	def terminate(self):
