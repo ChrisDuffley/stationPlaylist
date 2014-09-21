@@ -44,16 +44,18 @@ def finally_(func, final):
 	return wrap(final)
 
 # Use appModule.productVersion to decide what to do with 4.x and 5.x.
-SPLMinVersion = "5.00" # Check the version string against this. If it is less, use a different procedure for some routines.
+# Check the version string against this. If it is less, use a different procedure for some routines.
+SPLMinVersion = "5.00"
 
 class AppModule(appModuleHandler.AppModule):
 
 	# Translators: Script category for Station Playlist commands in input gestures dialog.
 	scriptCategory = _("Station Playlist Studio")
 
-	# Some useful variables:
-	beepAnnounce = False # Play beeps instead of announcing toggles.
-	SPLCurVersion = appModuleHandler.AppModule.productVersion # The version test variable.
+	# Play beeps instead of announcing toggles.
+	beepAnnounce = False
+	# Actual version of the software that we are running.
+	SPLCurVersion = appModuleHandler.AppModule.productVersion
 
 	# GS: The following was written by James Teh <jamie@NVAccess.org
 	#It gets around a problem where double focus events are fired when moving around the playlist.
@@ -65,9 +67,10 @@ class AppModule(appModuleHandler.AppModule):
 			# Try to filter this out.
 			obj.shouldAllowIAccessibleFocusEvent = False
 		# Radio button group names are not recognized as grouping, so work around this.
-		if obj.windowClassName == "TRadioGroup": obj.role = controlTypes.ROLE_GROUPING
+		if obj.windowClassName == "TRadioGroup":
+			obj.role = controlTypes.ROLE_GROUPING
 		# In certain edit fields and combo boxes, the field name is written to the screen, and there's no way to fetch the object for this text. Thus use review position text.
-		elif obj.windowClassName == "TEdit" or obj.windowClassName == "TComboBox" and obj.name is None:
+		elif obj.windowClassName in ["TEdit", "TComboBox"] and obj.name is None:
 			fieldName, fieldObj  = review.getScreenPosition(obj)
 			fieldName.expand(textInfos.UNIT_LINE)
 			if obj.windowClassName == "TComboBox":
@@ -76,7 +79,8 @@ class AppModule(appModuleHandler.AppModule):
 				obj.name = fieldName.text
 
 	# Check the following variable for end of track announcement.
-	SPLEndOfTrackTime = "00:05" # Should be adjustable by the user in the end. Also find a way to announce this even if SPL Studio is minimized.
+	# Should be adjustable by the user in the end. Also find a way to announce this even if SPL Studio is minimized.
+	SPLEndOfTrackTime = "00:05"
 
 	# Automatically announce mic, line in, etc changes
 	# These items are static text items whose name changes.
@@ -86,7 +90,8 @@ class AppModule(appModuleHandler.AppModule):
 	# Bonus 2: announce when the track is about to end.
 	def event_nameChange(self, obj, nextHandler):
 		# Do not let NvDA get name for None object when SPL window is maximized.
-		if obj.name == None: return
+		if not obj.name:
+			return
 		else:
 			if obj.windowClassName == "TStatusBar" and not obj.name.startswith("  Up time:"):
 				# Special handling for Play Status
@@ -96,47 +101,49 @@ class AppModule(appModuleHandler.AppModule):
 				else:
 					if self.beepAnnounce:
 						# Even with beeps enabled, be sure to announce scheduled time and name of the playing cart.
-						if obj.name.startswith("Scheduled for") or obj.name.startswith("Cart") and obj.IAccessibleChildID == 3: ui.message(obj.name)
-						# Announce status information that does not contain toggle messages.
-						elif not (obj.name.endswith(" On") or obj.name.endswith(" Off")): ui.message(obj.name)
+						if obj.name.startswith("Scheduled for") or obj.name.startswith("Cart") and obj.IAccessibleChildID == 3:
+							ui.message(obj.name)
+						elif not (obj.name.endswith(" On") or obj.name.endswith(" Off")):
+							# Announce status information that does not contain toggle messages.
+							ui.message(obj.name)
 						else:
 							# User wishes to hear beeps instead of words. The beeps are power on and off sounds from PAC Mate Omni.
 							beep = obj.name.split(" ")
 							stat = beep[-1]
 							wavDir, wavFile = os.path.dirname(__file__), ""
 							# Play a wave file based on on/off status.
-							if stat == "Off": wavFile = wavDir + "\SPL_off.wav"
-							elif stat == "On": wavFile = wavDir+"\SPL_on.wav"
+							if stat == "Off":
+								wavFile = wavDir + "\SPL_off.wav"
+							elif stat == "On":
+								wavFile = wavDir+"\SPL_on.wav"
 							nvwave.playWaveFile(wavFile)
 							# Braille the toggle message regardless of whether beep is heard or not.
 							braille.handler.message(obj.name)
 					else:
 						ui.message(obj.name)
 					if self.cartExplorer:
-						# Translators: Presented when cart edit mode is toggled on while cart explorer is on.
-						if obj.name == "Cart Edit On": ui.message(_("Cart explorer is active"))
-						# Translators: Presented when cart edit mode is toggled off while cart explorer is on.
-						elif obj.name == "Cart Edit Off": ui.message(_("Please reenter cart explorer to view updated cart assignments"))
+						if obj.name == "Cart Edit On":
+							# Translators: Presented when cart edit mode is toggled on while cart explorer is on.
+							ui.message(_("Cart explorer is active"))
+						elif obj.name == "Cart Edit Off":
+							# Translators: Presented when cart edit mode is toggled off while cart explorer is on.
+							ui.message(_("Please reenter cart explorer to view updated cart assignments"))
 			# Monitor the end of track time and announce it.
-			elif obj.windowClassName == "TStaticText" and obj.name == self.SPLEndOfTrackTime and obj.simpleParent.name == "Remaining Time": tones.beep(440, 200) # SPL 4.x.
-			elif obj.windowClassName == "TStaticText" and obj.name == self.SPLEndOfTrackTime and obj.simplePrevious != None and obj.simplePrevious.name == "Remaining Time": tones.beep(440, 200) # SPL 5.x.
+			elif obj.windowClassName == "TStaticText" and obj.name == self.SPLEndOfTrackTime and obj.simpleParent.name == "Remaining Time":
+				# SPL 4.x.
+				tones.beep(440, 200)
+			elif obj.windowClassName == "TStaticText" and obj.name == self.SPLEndOfTrackTime and obj.simplePrevious != None and obj.simplePrevious.name == "Remaining Time":
+				# SPL 5.x.
+				tones.beep(440, 200)
 			# Clean this mess with a more elegant solution.
 		nextHandler()
 
-	# JL's additions
 
-	# Script sections (for ease of maintenance):
-	# Time-related: elapsed time, end of track alarm, etc.
-	# Misc scripts: track finder and others.
-	# SPL Assistant layer: status commands.
-
-	# A few time related scripts (elapsed time, remaining time, etc.).
-
-	# Time status constants:
-	SPLElapsedTime = 3 # Elapsed time of the current track.
-	SPL4ElapsedTime = -4 # Elapsed time for SPL 4.x.
-	SPLBroadcasterTime = 13 # Broadcaster time such as "5 minutes to 3" for SPL 5.x.
-	SPL4BroadcasterTime = 8 # Broadcaster time for SPL 4.x.
+	SPLElapsedTrackTime = 3
+	SPL4ElapsedTrackTime = -4
+	# Broadcaster time such as "5 minutes to 3" for SPL 5.x.
+	SPLBroadcasterTime = 13
+	SPL4BroadcasterTime = 8
 
 	def script_sayRemainingTime(self, gesture):
 		fgWindow = api.getForegroundObject()
@@ -153,7 +160,7 @@ class AppModule(appModuleHandler.AppModule):
 		fgWindow = api.getForegroundObject()
 		# Quite a complicated expression there.
 		if fgWindow.windowClassName == "TStudioForm":
-			elapsedTime = fgWindow.children[self.SPLElapsedTime].children[1].name if self.SPLCurVersion >= SPLMinVersion else fgWindow.children[self.SPL4ElapsedTime].children[0].name
+			elapsedTime = fgWindow.children[self.SPLElapsedTrackTime].children[1].name if self.SPLCurVersion >= SPLMinVersion else fgWindow.children[self.SPL4ElapsedTrackTime].children[0].name
 		else:
 			# Translators: Presented when elapsed time is unavailable.
 			elapsedTime = _("Elapsed time not available")
