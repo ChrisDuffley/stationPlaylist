@@ -5,6 +5,7 @@
 
 from ctypes import windll
 from functools import wraps
+import threading
 import os
 import time
 import globalPluginHandler
@@ -38,6 +39,7 @@ def finally_(func, final):
 
 # SPL Studio uses WM messages to send and receive data, similar to Winamp (see NVDA sources/appModules/winamp.py for more information).
 user32 = windll.user32 # user32.dll.
+SPLWin = 0 # A handle to studio window.
 SPLMSG = winUser.WM_USER
 
 # Various SPL IPC tags.
@@ -52,6 +54,7 @@ SPLCurTrackPlaybackTime = 105
 
 # Needed in SAM Encoder support:
 SAMFocusToStudio = {} # A dictionary to record whether to switch to SPL Studio for this encoder.
+SAMPlayAfterConnecting = {}
 SAMStreamLabels= {} # A dictionary to store custom labels for each stream.
 SAMStaticStreamLabels = {} # The static stream label dictionary which is used to avoid unnecesary file writes.
 
@@ -89,8 +92,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# Translators: Script category for Station Playlist commands in input gestures dialog.
 	scriptCategory = _("Station Playlist Studio")
 
-	# The handle to SPL window (keep this guy handy).
-	SPLWin = 0 #For now.
 
 	# Do some initialization, such as stream labels for SAM encoders.
 	def __init__(self):
@@ -115,7 +116,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if not self.SPLController:
 			return globalPluginHandler.GlobalPlugin.getScript(self, gesture)
 		script = globalPluginHandler.GlobalPlugin.getScript(self, gesture)
-		if not script: script = finally_(self.script_error, self.finish)
+		if not script:
+			script = finally_(self.script_error, self.finish)
 		return finally_(script, self.finish)
 
 	def finish(self):
@@ -135,8 +137,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			if SPLHwnd == 0: ui.message(_("SPL Studio is not running."))
 			else:
 				SPLFG = fetchSPLForegroundWindow()
-				# Translators: Presented when Studio is minimized to system tray (notification area).
-				if SPLFG == None: ui.message(_("SPL minimized to system tray."))
+				if SPLFG == None:
+					# Translators: Presented when Studio is minimized to system tray (notification area).
+					ui.message(_("SPL minimized to system tray."))
 				else: SPLFG.setFocus()
 	# Translators: Input help mode message for a command to switch to Station Playlist Studio from any program.
 	script_focusToSPLWindow.__doc__=_("Moves to SPL Studio window from other programs.")
@@ -144,6 +147,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# The SPL Controller:
 	# This layer set allows the user to control various aspects of SPL Studio from anywhere.
 	def script_SPLControllerPrefix(self, gesture):
+		global SPLWin
 		# Error checks:
 		# 1. If SPL Studio is not running, print an error message.
 		# 2. If we're already  in SPL, report that the user is in SPL. This is temporary - in the end, pass this gesture to the app module portion.
@@ -152,8 +156,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			ui.message(_("You are already in SPL Studio window. For status commands, use SPL Assistant commands."))
 			self.finish()
 			return
-		self.SPLWin = user32.FindWindowA("SPLStudio", None)
-		if self.SPLWin == 0:
+		SPLWin = user32.FindWindowA("SPLStudio", None)
+		if SPLWin == 0:
 			# Translators: Presented when Station Playlist Studio is not running.
 			ui.message(_("SPL Studio is not running."))
 			self.finish()
@@ -174,47 +178,47 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# The layer commands themselves. Calls user32.SendMessage method for each script.
 
 	def script_automateOn(self, gesture):
-		winUser.sendMessage(self.SPLWin,SPLMSG,1,SPLAutomate)
+		winUser.sendMessage(SPLWin,SPLMSG,1,SPLAutomate)
 		self.finish()
 
 	def script_automateOff(self, gesture):
-		winUser.sendMessage(self.SPLWin,SPLMSG,0,SPLAutomate)
+		winUser.sendMessage(SPLWin,SPLMSG,0,SPLAutomate)
 		self.finish()
 
 	def script_micOn(self, gesture):
-		winUser.sendMessage(self.SPLWin,SPLMSG,1,SPLMic)
+		winUser.sendMessage(SPLWin,SPLMSG,1,SPLMic)
 		self.finish()
 
 	def script_micOff(self, gesture):
-		winUser.sendMessage(self.SPLWin,SPLMSG,0,SPLMic)
+		winUser.sendMessage(SPLWin,SPLMSG,0,SPLMic)
 		self.finish()
 
 	def script_lineInOn(self, gesture):
-		winUser.sendMessage(self.SPLWin,SPLMSG,1,SPLLineIn)
+		winUser.sendMessage(SPLWin,SPLMSG,1,SPLLineIn)
 		self.finish()
 
 	def script_lineInOff(self, gesture):
-		winUser.sendMessage(self.SPLWin,SPLMSG,0,SPLLineIn)
+		winUser.sendMessage(SPLWin,SPLMSG,0,SPLLineIn)
 		self.finish()
 
 	def script_stopFade(self, gesture):
-		winUser.sendMessage(self.SPLWin,SPLMSG,0,SPLStop)
+		winUser.sendMessage(SPLWin,SPLMSG,0,SPLStop)
 		self.finish()
 
 	def script_stopInstant(self, gesture):
-		winUser.sendMessage(self.SPLWin,SPLMSG,1,SPLStop)
+		winUser.sendMessage(SPLWin,SPLMSG,1,SPLStop)
 		self.finish()
 
 	def script_play(self, gesture):
-		winUser.sendMessage(self.SPLWin, SPLMSG, 0, SPLPlay)
+		winUser.sendMessage(SPLWin, SPLMSG, 0, SPLPlay)
 		self.finish()
 
 	def script_pause(self, gesture):
-		playingNow = winUser.sendMessage(self.SPLWin, SPLMSG, 0, SPL_TrackPlaybackStatus)
+		playingNow = winUser.sendMessage(SPLWin, SPLMSG, 0, SPL_TrackPlaybackStatus)
 		# Translators: Presented when no track is playing in Station Playlist Studio.
 		if not playingNow: ui.message(_("There is no track playing. Try pausing while a track is playing."))
-		elif playingNow == 3: winUser.sendMessage(self.SPLWin, SPLMSG, 0, SPLPause)
-		else: winUser.sendMessage(self.SPLWin, SPLMSG, 1, SPLPause)
+		elif playingNow == 3: winUser.sendMessage(SPLWin, SPLMSG, 0, SPLPause)
+		else: winUser.sendMessage(SPLWin, SPLMSG, 1, SPLPause)
 		self.finish()
 
 
@@ -251,25 +255,39 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 		# Few useful variables for encoder list:
 		focusToStudio = False # If true, Studio will gain focus after encoder connects.
+		playAfterConnecting = False # When connected, the first track will be played.
 
-		def script_connect(self, gesture):
-			gesture.send()
-			# Translators: Presented when SAM Encoder is trying to connect to a streaming server.
-			ui.message(_("Connecting..."))
+		def reportConnectionStatus(self):
 			# Keep an eye on the stream's description field until connected or error occurs.
+			# In order to not block NVDA commands, this will be done using a different thread.
+			toneCounter = 0
 			while True:
 				time.sleep(0.001)
+				toneCounter+=1
+				if toneCounter%200 == 0: tones.beep(500, 100) # Play status tones every second.
 				info = review.getScreenPosition(self)[0]
 				info.expand(textInfos.UNIT_LINE)
 				if "Error" in info.text:
 					# Announce the description of the error.
 					ui.message(self.description[self.description.find("Status")+8:])
 					break
-				elif "Encoding" in info.text:
+				elif "Encoded" in info.text or "Encoding" in info.text:
 					# We're on air, so exit.
-					if self.focusToStudio: fetchSPLForegroundWindow().setFocus()
+					if self.focusToStudio:
+						fetchSPLForegroundWindow().setFocus()
 					tones.beep(1000, 150)
+					if self.playAfterConnecting:
+						winUser.sendMessage(SPLWin, SPLMSG, 0, SPLPlay)
 					break
+
+		def script_connect(self, gesture):
+			gesture.send()
+			# Translators: Presented when SAM Encoder is trying to connect to a streaming server.
+			ui.message(_("Connecting..."))
+			# Oi, status thread, can you keep an eye on the connection status for me?
+			statusThread = threading.Thread(target=self.reportConnectionStatus)
+			statusThread.name = "Connection Status Reporter"
+			statusThread.start()
 		# Translators: Input help mode message in SAM Encoder window.
 		script_connect.__doc__=_("Connects to a streaming server.")
 
@@ -293,6 +311,20 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				ui.message(_("Do not switch to Studio after connecting"))
 		# Translators: Input help mode message in SAM Encoder window.
 		script_toggleFocusToStudio.__doc__=_("Toggles whether NVDA will switch to Studio when connected to a streaming server.")
+
+		def script_togglePlay(self, gesture):
+			if not self.playAfterConnecting:
+				self.playAfterConnecting = True
+				SAMPlayAfterConnecting[self.name] = True
+				# Translators: Presented when toggling the setting to play selected song when connected to a streaming server.
+				ui.message(_("Play first track after connecting"))
+			else:
+				self.playAfterConnecting = False
+				SAMPlayAfterConnecting[self.name] = False
+				# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+				ui.message(_("Do not play first track after connecting"))
+		# Translators: Input help mode message in SAM Encoder window.
+		script_toggleFocusToStudio.__doc__=_("Toggles whether Studio will play the first song when connected to a streaming server.")
 
 		def script_streamLabeler(self, gesture):
 			# Translators: The title of the stream labeler dialog (example: stream labeler for 1).
@@ -336,6 +368,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			"kb:f9":"connect",
 			"kb:f10":"disconnect",
 			"kb:f11":"toggleFocusToStudio",
+			"kb:shift+f11":"togglePlay",
 			"kb:f12":"streamLabeler"
 		}
 

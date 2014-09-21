@@ -37,6 +37,7 @@ The following commands are available when using Sam encoder:
 * F9: connect to a streaming server.
 * F10: Disconnect from the streaming server.
 * F11: Toggles whether NVDA will switch to Studio window for the selected encoder if connected.
+* Shift+F11: Toggles whether Studio will play the first selected track when encoder is connected to a streaming server.
 * F12: Opens a dialog to enter custom label for the selected encoder or stream.
 
 ## SPL Assistant layer
@@ -85,6 +86,11 @@ Note: Track Finder is case-sensitive.
 Depending on edition, SPL Studio allows up to 96 carts to be assigned for playback. NVDA allows you to hear which cart, or jingle is assigned to these commands.
 
 To learn cart assignments, from SPL Studio, press Control+NVDA+3. Pressing the cart command once will tell you which jingle is assigned to the command. Pressing the cart command twice will play the jingle. Press Control+NvDA+3 to exit cart explorer. See the add-on guide for more information on cart explorer.
+
+## Changes for 3.1
+
+* In SAM Encoder window, added a command (Shift+F11) to tell Studio to play the first track when connected.
+* Fixed numerous bugs when connecting to a server in SAM Encoder, including inability to perform NVDA commands, NVDA not announcing when connection has been established and error tones instead of connection beep being played when connected.
 
 ## Changes for 3.0
 
