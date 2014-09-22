@@ -38,6 +38,7 @@ The following commands are available when using Sam encoder:
 * F9: connect to a streaming server.
 * F10: Disconnect from the streaming server.
 * F11: Toggles whether NVDA will switch to Studio window for the selected encoder if connected.
+* Shift+F11: Toggles whether Studio will play the first selected track when encoder is connected to a streaming server.
 * F12: Opens a dialog to enter custom label for the selected encoder or stream.
 
 ## SPL Assistant layer
@@ -101,6 +102,11 @@ Version 4.0 supports SPL Studio 5.00 and later, with 3.x released designed to pr
 
 * New SPL Assistant keys, including schedule time for the track (S) and remaining duration for the playlist (D). In addition, for Studio 5.x, added playlist modification (Y) and track pitch (Shift+P).
 * Added a command (Alt+NvDA+2) to set song intro alarm time between 1 and 9 seconds.
+
+## Changes for 3.1
+
+* In SAM Encoder window, added a command (Shift+F11) to tell Studio to play the first track when connected.
+* Fixed numerous bugs when connecting to a server in SAM Encoder, including inability to perform NVDA commands, NVDA not announcing when connection has been established and error tones instead of connection beep being played when connected.
 
 ## Changes for 3.0
 
