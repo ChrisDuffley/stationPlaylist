@@ -54,9 +54,11 @@ SPLLineIn = 18
 SPL_TrackPlaybackStatus = 104
 SPLCurTrackPlaybackTime = 105
 
-# Needed in SAM Encoder support:
+# Needed in SAM and SPL Encoder support:
 SAMFocusToStudio = {} # A dictionary to record whether to switch to SPL Studio for this encoder.
+SPLFocusToStudio = {}
 SAMPlayAfterConnecting = {}
+SPLPlayAfterConnecting = {}
 SAMStreamLabels= {} # A dictionary to store custom labels for each stream.
 SPLStreamLabels= {} # Same as above but optimized for SPL encoders (Studio 5.00 and later).
 
@@ -301,12 +303,18 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		def script_toggleFocusToStudio(self, gesture):
 			if not self.focusToStudio:
 				self.focusToStudio = True
-				SAMFocusToStudio[self.name] = True
+				if self.encoderType == "SAM":
+					SAMFocusToStudio[self.name] = True
+				elif self.encoderType == "SPL":
+					SPLFocusToStudio[str(self.IAccessibleChildID)] = True
 				# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 				ui.message(_("Switch to Studio after connecting"))
 			else:
 				self.focusToStudio = False
-				SAMFocusToStudio[self.name] = False
+				if self.encoderType == "SAM":
+					SAMFocusToStudio[self.name] = False
+				elif self.encoderType == "SPL":
+					SPLFocusToStudio[str(self.IAccessibleChildID)] = False
 				# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 				ui.message(_("Do not switch to Studio after connecting"))
 		# Translators: Input help mode message in SAM Encoder window.
@@ -315,12 +323,18 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		def script_togglePlay(self, gesture):
 			if not self.playAfterConnecting:
 				self.playAfterConnecting = True
-				SAMPlayAfterConnecting[self.name] = True
+				if self.encoderType == "SAM":
+					SAMPlayAfterConnecting[self.name] = True
+				elif self.encoderType == "SPL":
+					SPLPlayAfterConnecting[str(self.IAccessibleChildID)] = True
 				# Translators: Presented when toggling the setting to play selected song when connected to a streaming server.
 				ui.message(_("Play first track after connecting"))
 			else:
 				self.playAfterConnecting = False
-				SAMPlayAfterConnecting[self.name] = False
+				if self.encoderType == "SAM":
+					SAMPlayAfterConnecting[self.name] = False
+				elif self.encoderType == "SPL":
+					SPLPlayAfterConnecting[str(self.IAccessibleChildID)] = False
 				# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 				ui.message(_("Do not play first track after connecting"))
 		# Translators: Input help mode message in SAM Encoder window.
@@ -395,8 +409,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				info.expand(textInfos.UNIT_LINE)
 				if info.text.endswith("Connected"):
 					# We're on air, so exit.
-					if self.focusToStudio: fetchSPLForegroundWindow().setFocus()
+					if self.focusToStudio:
+						fetchSPLForegroundWindow().setFocus()
 					tones.beep(1000, 150)
+					if self.playAfterConnecting:
+						winUser.sendMessage(SPLWin, SPLMSG, 0, SPLPlay)
 					break
 			if not self.name.endswith("Connected"): ui.message(self.name[self.name.find("Transfer")+15:])
 
