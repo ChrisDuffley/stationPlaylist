@@ -214,7 +214,7 @@ class AppModule(appModuleHandler.AppModule):
 	SPLCompleteTime = 15
 	SPL4CompleteTime = 10
 
-	# Speak any time-related erorrs.
+	# Speak any time-related errors.
 	# Message type: error message.
 	timeMessageErrors={
 		# Translators: Presented when remaining time is unavailable.
