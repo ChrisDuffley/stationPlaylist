@@ -19,7 +19,7 @@ import threading
 import controlTypes
 import appModuleHandler
 import api
-import config
+import globalVars
 import review
 import scriptHandler
 import ui
@@ -53,7 +53,7 @@ def finally_(func, final):
 SPLMinVersion = "5.00"
 
 # Configuration management )4.0 and later; will not be ported to 3.x).
-SPLConfig = ConfigObj(os.path.join(config.getUserDefaultConfigPath(), "splstudio.ini"))
+SPLConfig = ConfigObj(os.path.join(globalVars.appArgs.configPath, "splstudio.ini"))
 
 # Keep a handle to SPL window for various features.
 SPLWin = user32.FindWindowA("SPLStudio", None)

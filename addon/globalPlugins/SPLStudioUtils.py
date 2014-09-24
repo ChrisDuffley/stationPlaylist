@@ -14,7 +14,7 @@ import api
 import ui
 import speech
 import braille
-import config # Look up the user config folder, to be used in 4.0 and later.
+import globalVars
 import review
 import textInfos
 from NVDAObjects.IAccessible import IAccessible
@@ -87,7 +87,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Load stream labels (and possibly other future goodies) from a file-based database.
 		global config, SAMStreamLabels, SPLStreamLabels
 		#if os.path.isfile(os.path.join(config.getUserDefaultConfigPath(), "splStreamLabels.ini")):
-		config = ConfigObj(os.path.join(config.getUserDefaultConfigPath(), "splStreamLabels.ini"))
+		config = ConfigObj(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
 		#else:
 			#config = ConfigObj(os.path.join(config.getUserDefaultConfigPath(), "splStreamLabels.ini"), create_empty=True)
 		# Read stream labels.
