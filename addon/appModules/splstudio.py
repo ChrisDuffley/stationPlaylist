@@ -713,8 +713,11 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(obj.name)
 
 	def script_sayPlaylistModified(self, gesture):
-		obj = self.status(self.SPLSystemStatus).lastChild
-		ui.message(obj.name)
+		try:
+			obj = self.status(self.SPLSystemStatus).children[5]
+			ui.message(obj.name)
+		except IndexError:
+			ui.message("Playlist modification not available")
 
 	def script_sayNextTrackTitle(self, gesture):
 		obj = self.status(self.SPLNextTrackTitle).firstChild
@@ -735,8 +738,11 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(obj.name) if obj.name is not None else ui.message(_("Listener count not found"))
 
 	def script_sayTrackPitch(self, gesture):
-		obj = self.status(self.SPLSystemStatus).children[4]
-		ui.message(obj.name)
+		try:
+			obj = self.status(self.SPLSystemStatus).children[4]
+			ui.message(obj.name)
+		except IndexError:
+			ui.message("Song pitch not available")
 
 	# Few toggle/misc scripts that may be excluded from the layer later.
 
