@@ -403,6 +403,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 		def reportConnectionStatus(self):
 			# Same routine as SAM encoder: use a thread to prevent blocking NVDA commands.
+			SPLWin = user32.FindWindowA("SPLStudio", None)
 			for attempt in xrange(0, 100):
 				time.sleep(0.001)
 				if attempt%50 == 0: tones.beep(500, 50)
