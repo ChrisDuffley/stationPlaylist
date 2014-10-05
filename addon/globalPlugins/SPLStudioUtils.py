@@ -262,6 +262,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		def reportConnectionStatus(self):
 			# Keep an eye on the stream's description field until connected or error occurs.
 			# In order to not block NVDA commands, this will be done using a different thread.
+			SPLWin = user32.FindWindowA("SPLStudio", None)
 			toneCounter = 0
 			while True:
 				time.sleep(0.001)
