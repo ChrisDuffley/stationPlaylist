@@ -291,15 +291,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			statusThread = threading.Thread(target=self.reportConnectionStatus)
 			statusThread.name = "Connection Status Reporter"
 			statusThread.start()
-		# Translators: Input help mode message in SAM Encoder window.
-		script_connect.__doc__=_("Connects to a streaming server.")
 
 		def script_disconnect(self, gesture):
 			gesture.send()
 			# Translators: Presented when SAM Encoder is disconnecting from a streaming server.
 			ui.message(_("Disconnecting..."))
-		# Translators: Input help mode message in SAM Encoder window.
-		script_disconnect.__doc__=_("Disconnects from a streaming server.")
 
 		def script_toggleFocusToStudio(self, gesture):
 			if not self.focusToStudio:
@@ -339,7 +335,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 				ui.message(_("Do not play first track after connecting"))
 		# Translators: Input help mode message in SAM Encoder window.
-		script_toggleFocusToStudio.__doc__=_("Toggles whether Studio will play the first song when connected to a streaming server.")
+		script_togglePlay.__doc__=_("Toggles whether Studio will play the first song when connected to a streaming server.")
 
 		def script_streamLabeler(self, gesture):
 			curStreamLabel = ""
