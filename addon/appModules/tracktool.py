@@ -7,11 +7,9 @@ import appModuleHandler
 import addonHandler
 import api
 import tones
-from controlTypes import ROLE_LIST, ROLE_LISTITEM
-addonHandler.initTranslation()
-from NVDAObjects.IAccessible import IAccessible
-import scriptHandler
+from controlTypes import ROLE_LISTITEM
 import ui
+addonHandler.initTranslation()
 
 # Track Tool allows a broadcaster to manage track intros, cues and so forth. Each track is a list item with descriptions such as title, file name, intro time and so forth.
 # One can press TAB to move along the controls for Track Tool.
