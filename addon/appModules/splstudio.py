@@ -654,6 +654,7 @@ class AppModule(appModuleHandler.AppModule):
 	SPLHourSelectedDuration = 3
 	SPLNextTrackTitle = 4
 	SPLPlaylistRemainingDuration = 5
+	SPLTemperature = 6
 
 	# Table of child constants based on versions
 	# These are scattered throughout the screen, so one can use foreground.children[index] to fetch them.
@@ -665,6 +666,7 @@ class AppModule(appModuleHandler.AppModule):
 		SPLHourSelectedDuration:[14, 18], # In case the user selects one or more tracks in a given hour.
 		SPLNextTrackTitle:[2, 7], # Name and duration of the next track if any.
 		SPLPlaylistRemainingDuration:[12, 16], # Remaining time for the current playlist.
+		SPLTemperature:[1, 6], # Temperature for the current city.
 	}
 
 	# Called in the layer commands themselves.
@@ -724,6 +726,11 @@ class AppModule(appModuleHandler.AppModule):
 		# Translators: Presented when there is no information for the next track.
 		ui.message(_("No next track scheduled or no track is playing")) if obj.name is None else ui.message(obj.name)
 
+	def script_sayTemperature(self, gesture):
+		obj = self.status(self.SPLTemperature).firstChild
+		# Translators: Presented when there is no information for the next track.
+		ui.message(_("Weather and temperature not configured")) if obj.name is None else ui.message(obj.name)
+
 	def script_sayUpTime(self, gesture):
 		obj = self.status(self.SPLSystemStatus).firstChild
 		ui.message(obj.name)
@@ -767,6 +774,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:y":"sayPlaylistModified",
 		"kb:u":"sayUpTime",
 		"kb:n":"sayNextTrackTitle",
+		"kb:w":"sayTemperature",
 		"kb:i":"sayListenerCount",
 		"kb:s":"sayScheduledTime",
 		"kb:shift+p":"sayTrackPitch",
