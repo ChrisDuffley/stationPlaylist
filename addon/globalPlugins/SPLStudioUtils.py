@@ -49,6 +49,7 @@ SPLPause = 15
 SPLAutomate = 16
 SPLMic = 17
 SPLLineIn = 18
+SPLLibraryScanCount = 32
 SPL_TrackPlaybackStatus = 104
 SPLCurTrackPlaybackTime = 105
 
@@ -221,6 +222,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		else: winUser.sendMessage(SPLWin, SPLMSG, 1, SPLPause)
 		self.finish()
 
+	def script_libraryScanProgress(self, gesture):
+		scanned = winUser.sendMessage(SPLWin, SPLMSG, 0, SPLLibraryScanCount)
+		ui.message("{itemCount} items scanned".format(itemCount = scanned))
+		self.finish()
 
 
 
@@ -232,6 +237,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:shift+m":"micOff",
 		"kb:l":"lineInOn",
 		"kb:shift+l":"lineInOff",
+		"kb:shift+r":"libraryScanProgress",
 		"kb:s":"stopFade",
 		"kb:t":"stopInstant",
 		"kb:u":"pause"

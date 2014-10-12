@@ -747,6 +747,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_libraryScanMonitor(self, gesture):
 		if not self.libraryScanning:
+			self.libraryScanning = True
 			self.monitorLibraryScan()
 			ui.message("Monitoring library scan")
 		else:
