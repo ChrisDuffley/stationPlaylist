@@ -94,8 +94,6 @@ class AppModule(appModuleHandler.AppModule):
 	# These items are static text items whose name changes.
 	# Note: There are two status bars, hence the need to exclude Up time so it doesn't announce every minute.
 	# Unfortunately, Window handles and WindowControlIDs seem to change, so can't be used.
-	# Bonus: if the user sets beep announce to on, beeps will be heard instead of announcements.
-	# Bonus 2: announce when the track is about to end.
 	def event_nameChange(self, obj, nextHandler):
 		# Do not let NvDA get name for None object when SPL window is maximized.
 		if obj.name == None: return
@@ -141,11 +139,9 @@ class AppModule(appModuleHandler.AppModule):
 							braille.handler.message(obj.name)
 					else:
 						ui.message(obj.name)
-					if self.cartExplorer:
-						# Translators: Presented when cart edit mode is toggled on while cart explorer is on.
-						if obj.name == "Cart Edit On": ui.message(_("Cart explorer is active"))
-						# Translators: Presented when cart edit mode is toggled off while cart explorer is on.
-						elif obj.name == "Cart Edit Off": ui.message(_("Please reenter cart explorer to view updated cart assignments"))
+					if self.cartExplorer or self.micAlarm:
+						# Activate mic alarm or announce when cart explorer is active.
+						self.doExtraAction(obj.name)
 			# Monitor the end of track and song intro time and announce it.
 			elif obj.windowClassName == "TStaticText": # For future extensions.
 				if obj.name == self.SPLEndOfTrackTime and obj.simpleParent.name == "Remaining Time":
@@ -160,6 +156,28 @@ class AppModule(appModuleHandler.AppModule):
 		nextHandler()
 
 	# JL's additions
+
+	micAlarm = 5
+	t = threading.Timer(micAlarm, tones.beep, args=[1000, 250])
+	# Perform extra action in specific situations (mic alarm, for example).
+	def doExtraAction(self, status):
+		if self.cartExplorer:	
+			if status == "Cart Edit On":
+				# Translators: Presented when cart edit mode is toggled on while cart explorer is on.
+				ui.message(_("Cart explorer is active"))
+			elif status == "Cart Edit Off":
+				# Translators: Presented when cart edit mode is toggled off while cart explorer is on.
+				ui.message(_("Please reenter cart explorer to view updated cart assignments"))
+		if self.micAlarm:
+			# Use a timer to play a tone when microphone was active for more than the specified amount.
+			if status == "Microphone On":
+				try:
+					self.t.start()
+				except RuntimeError:
+					self.t = threading.Timer(self.micAlarm, tones.beep, args=[1000, 250])
+					self.t.start()
+			elif status == "Microphone Off":
+				self.t.cancel()
 
 	# Continue monitoring library scans among other focus loss management.
 	def event_loseFocus(self, obj, nextHandler):
@@ -295,6 +313,29 @@ class AppModule(appModuleHandler.AppModule):
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setSongRampTime.__doc__=_("sets song intro alarm (default is 5 seconds).")
+
+# Tell NVDA to play a sound when mic was active for a long time.
+
+	def script_setMicAlarm(self, gesture):
+		# Translators: A dialog message to set microphone active alarm (curAlarmSec is the current mic monitoring alarm in seconds).
+		timeMSG = _("Enter microphone alarm time in seconds (currently {curAlarmSec}, 0 disables the alarm)").format(curAlarmSec = self.micAlarm)
+		dlg = wx.TextEntryDialog(gui.mainFrame,
+		timeMSG,
+		# Translators: The title of mic alarm dialog.
+		_("Microphone alarm"),
+		defaultValue=str(self.micAlarm))
+		def callback(result):
+			if result == wx.ID_OK:
+				if not dlg.GetValue().isdigit():
+					# Translators: The error message presented when incorrect alarm time value has been entered.
+					wx.CallAfter(gui.messageBox, _("Incorrect value entered."),
+					# Translators: Standard title for error dialog (copy this from main nvda.po file).
+					_("Error"),wx.OK|wx.ICON_ERROR)
+				else:
+					self.micAlarm = int(dlg.GetValue())
+		gui.runScriptModalDialog(dlg, callback)
+	# Translators: Input help mode message for a command in Station Playlist Studio.
+	script_setMicAlarm.__doc__=_("Sets microphone alarm (default is 5 seconds).")
 
 	# Other commands (track finder and others)
 
@@ -737,6 +778,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:control+nvda+1":"toggleBeepAnnounce",
 		"kb:control+nvda+2":"setEndOfTrackTime",
 		"kb:alt+nvda+2":"setSongRampTime",
+		"kb:control+nvda+4":"setMicAlarm",
 		"kb:control+nvda+f":"findTrack",
 		"kb:nvda+f3":"findTrackNext",
 		"kb:shift+nvda+f3":"findTrackPrevious",
