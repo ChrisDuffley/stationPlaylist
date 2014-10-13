@@ -19,60 +19,48 @@ msgstr ""
 #. Translators: Script category for Station Playlist commands in input gestures dialog.
 #. Add-on description
 #. TRANSLATORS: Summary for this add-on to be shown on installation and add-on information.
-#: addon/appModules/splstudio.py:53 addon/globalPlugins/SPLStudioUtils.py:51
-#: buildVars.py:15
 msgid "Station Playlist Studio"
 msgstr "Station Playlist Studio"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
-#: addon/appModules/splstudio.py:167
 msgid "Announces the remaining track time."
 msgstr "يعلن عن الوقت المتبقي للمسار المشغل حاليا."
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
-#: addon/appModules/splstudio.py:174
 msgid "Announces the elapsed time for the currently playing track."
 msgstr "يعلن عن الوقت المنقضي للمسار المشغل حاليا."
 
 #. Translators: A dialog message to set end of track alarm (curAlarmSec is the current end of track alarm in seconds).
-#: addon/appModules/splstudio.py:182
 msgid "Enter end of track alarm time in seconds (currently {curAlarmSec})"
 msgstr "إدخال وقت التنبيه بنهاية المسار بالثواني (وهو حاليا {curAlarmSec})"
 
 #. Translators: The title of end of track alarm dialog.
-#: addon/appModules/splstudio.py:186
 msgid "End of track alarm"
 msgstr "التنبيه بوقت نهاية المسار"
 
 #. Translators: The error message presented when incorrect alarm time value has been entered.
-#: addon/appModules/splstudio.py:192
 msgid "Incorrect value entered."
 msgstr "تم إدخال قيمة غير صحيحة"
 
 #. Translators: Standard title for error dialog (copy this from main nvda.po file).
-#: addon/appModules/splstudio.py:194
 msgid "Error"
 msgstr "خطأ"
 
 #. Translators: Reported when toggle announcement is set to beeps in SPL Studio.
-#: addon/appModules/splstudio.py:205
 msgid "Toggle announcement beeps"
 msgstr "الانتقال إلى نطق الإعلانات بصوت الصفير"
 
 #. Translators: Reported when toggle announcement is set to words in SPL Studio.
-#: addon/appModules/splstudio.py:209
 msgid "Toggle announcement words"
 msgstr "الانتقال إلى نطق الإعلانات بالكلمات"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
-#: addon/appModules/splstudio.py:211
 msgid "Toggles option change announcements between words and beeps."
 msgstr ""
 "أمر ينقلك بين تغيير طريقة الإعلانات, إما الاستماع إليها بالكلمات أو بإصدار "
 "صوت الصفير."
 
 #. Translators: Input help mode message for a layer command in Station Playlist Studio.
-#: addon/appModules/splstudio.py:227
 msgid ""
 "The SPL Assistant layer command. See the add-on guide for more information "
 "on available commands."
@@ -82,24 +70,19 @@ msgstr ""
 
 #. SPL, are you running?
 #. Translators: Presented when Station Playlist Studio is not running.
-#: addon/globalPlugins/SPLStudioUtils.py:98
-#: addon/globalPlugins/SPLStudioUtils.py:120
 msgid "SPL Studio is not running."
 msgstr "الاستوديو لا يعمل."
 
 #. If user pressed Windows+M to minimize windows, give a message to switch to SPL Studio window manually. If not, move focus.
 #. Translators: Presented when NVDA cannot switch to Station Playlist Studio (all windows were minimized).
-#: addon/globalPlugins/SPLStudioUtils.py:101
 msgid "Press Alt+Tab to switch to SPL Studio window"
 msgstr "اضغط Alt+Tab للانتقال إلى نافذة الاستوديو "
 
 #. Translators: Input help mode message for a command to switch to Station Playlist Studio from any program.
-#: addon/globalPlugins/SPLStudioUtils.py:103
 msgid "Moves to SPL Studio window from other programs."
 msgstr "ينتقل إلى نافذة الاستوديو لتطبيق SPL من أي تطبيق آخر."
 
 #. Translators: Presented when NVDA cannot enter SPL Controller layer since SPL Studio is focused.
-#: addon/globalPlugins/SPLStudioUtils.py:114
 msgid ""
 "You are already in SPL Studio window. For status commands, use SPL Assistant "
 "commands."
@@ -109,19 +92,16 @@ msgstr ""
 
 #. Translators: The name of a layer command set for Station Playlist Studio.
 #. Hint: it is better to translate it as "SPL Control Panel."
-#: addon/globalPlugins/SPLStudioUtils.py:129
 msgid "SPL Controller"
 msgstr "نمط التحكم بتطبيق SPL"
 
 #. Translators: Input help mode message for a layer command in Station Playlist Studio.
-#: addon/globalPlugins/SPLStudioUtils.py:134
 msgid "SPl Controller layer command. See add-on guide for available commands."
 msgstr ""
 "نمط أوامر التحكم بتطبيق SPL. يرجى الاطلاع على ملف المساعدة الخاص بهذه "
 "الإضافة للتعرف على مفاتيح الاختصار المتاحة."
 
 #. Translators: Presented when no track is playing in Station Playlist Studio.
-#: addon/globalPlugins/SPLStudioUtils.py:177
 msgid "There is no track playing. Try pausing while a track is playing."
 msgstr ""
 "لا يوجد مسار مشغل في الوقت الراهن. حاول استخدام التوقف المؤقت أثناء تشغيل "
@@ -129,7 +109,6 @@ msgstr ""
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on installation and add-on information
-#: buildVars.py:18
 msgid ""
 "Enhances support for Station Playlist Studio.\n"
 "In addition, adds global commands for the studio from everywhere."
