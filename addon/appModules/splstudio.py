@@ -58,6 +58,9 @@ SPLConfig = ConfigObj(os.path.join(globalVars.appArgs.configPath, "splstudio.ini
 # Keep a handle to SPL window for various features.
 SPLWin = user32.FindWindowA("SPLStudio", None)
 
+# A placeholder thread.
+micAlarmT = None
+
 
 class AppModule(appModuleHandler.AppModule):
 
@@ -102,6 +105,8 @@ class AppModule(appModuleHandler.AppModule):
 	# Keep an eye on library scans in insert tracks window.
 	libraryScanning = False
 	scanCount = 0
+	# Microphone alarm.
+	micAlarm = 0
 
 	# Automatically announce mic, line in, etc changes
 	# These items are static text items whose name changes.
@@ -179,10 +184,9 @@ class AppModule(appModuleHandler.AppModule):
 
 	# JL's additions
 
-	micAlarm = 5
-	t = threading.Timer(micAlarm, tones.beep, args=[1000, 250])
 	# Perform extra action in specific situations (mic alarm, for example).
 	def doExtraAction(self, status):
+		global micAlarmT
 		if self.cartExplorer:	
 			if status == "Cart Edit On":
 				# Translators: Presented when cart edit mode is toggled on while cart explorer is on.
@@ -193,13 +197,16 @@ class AppModule(appModuleHandler.AppModule):
 		if self.micAlarm:
 			# Use a timer to play a tone when microphone was active for more than the specified amount.
 			if status == "Microphone On":
+				micAlarmT = threading.Timer(self.micAlarm, tones.beep, args=[1000, 250])
 				try:
-					self.t.start()
+					micAlarmT.start()
 				except RuntimeError:
-					self.t = threading.Timer(self.micAlarm, tones.beep, args=[1000, 250])
-					self.t.start()
+					micAlarmT = threading.Timer(self.micAlarm, tones.beep, args=[1000, 250])
+					micAlarmT.start()
 			elif status == "Microphone Off":
-				self.t.cancel()
+				if micAlarmT is not None: micAlarmT.cancel()
+				micAlarmT = None
+
 
 	# Continue monitoring library scans among other focus loss management.
 	def event_loseFocus(self, obj, nextHandler):
@@ -350,8 +357,12 @@ class AppModule(appModuleHandler.AppModule):
 # Tell NVDA to play a sound when mic was active for a long time.
 
 	def script_setMicAlarm(self, gesture):
-		# Translators: A dialog message to set microphone active alarm (curAlarmSec is the current mic monitoring alarm in seconds).
-		timeMSG = _("Enter microphone alarm time in seconds (currently {curAlarmSec}, 0 disables the alarm)").format(curAlarmSec = self.micAlarm)
+		if self.micAlarm:
+			# Translators: A dialog message to set microphone active alarm (curAlarmSec is the current mic monitoring alarm in seconds).
+			timeMSG = _("Enter microphone alarm time in seconds (currently {curAlarmSec}, 0 disables the alarm)").format(curAlarmSec = self.micAlarm)
+		else:
+			# Translators: A dialog message when microphone alarm is disabled (set to 0).
+			timeMSG = _("Enter microphone alarm time in seconds (currently disabled, 0 disables the alarm)")
 		dlg = wx.TextEntryDialog(gui.mainFrame,
 		timeMSG,
 		# Translators: The title of mic alarm dialog.
