@@ -99,8 +99,14 @@ To learn cart assignments, from SPL Studio, press Control+NVDA+3. Pressing the c
 
 Version 4.0 supports SPL Studio 5.00 and later, with 3.x released designed to provide some new features from 4.0 for users using earlier versions of Studio.
 
-* New SPL Assistant keys, including schedule time for the track (S) and remaining duration for the playlist (D). In addition, for Studio 5.x, added playlist modification (Y) and track pitch (Shift+P).
+* New SPL Assistant keys, including schedule time for the track (S), remaining duration for the playlist (D) and temperature (W if configured). In addition, for Studio 5.x, added playlist modification (Y) and track pitch (Shift+P).
+* New SPL Controller commands, including progress of library scans (Shift+R).
+* Settings such as end of track time are saved to a dedicated configuration file in your user configuration directory and are preserved during add-on upgrades (version 4.0 and later).
 * Added a command (Alt+NvDA+2) to set song intro alarm time between 1 and 9 seconds.
+* Added a feature to announce time in hours, minutes and seconds (command unassigned).
+* It is now possible to track library scans from Insert Tracks dialog or from anywhere, and a dedicated command (Alt+NVDA+R) to toggle library scan announcement options.
+* Support for Track Tool, including playing a beep if a track has intro defined and commands to announce information on a track such as duration and cue position.
+* Support for StationPlaylist Encoder (Studio 5.00 and later), providing same level of support as found in SAM Encoder support.
 
 ## Changes for 3.0
 
