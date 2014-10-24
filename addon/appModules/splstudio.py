@@ -150,14 +150,22 @@ class AppModule(appModuleHandler.AppModule):
 						self.doExtraAction(obj.name)
 			# Monitor the end of track and song intro time and announce it.
 			elif obj.windowClassName == "TStaticText": # For future extensions.
-				if obj.name == self.SPLEndOfTrackTime and obj.simpleParent.name == "Remaining Time":
-					tones.beep(440, 200) # End of track for SPL 4.x.
-				elif obj.name == self.SPLSongRampTime and obj.simpleParent.name == "Remaining Song Ramp":
-					tones.beep(512, 400) # Song intro for SPL 4.x.
-				elif obj.name == self.SPLEndOfTrackTime and obj.simplePrevious != None and obj.simplePrevious.name == "Remaining Time":
-					tones.beep(440, 200) # End of track for SPL 5.x.
-				elif obj.name == self.SPLSongRampTime and obj.simplePrevious != None and obj.simplePrevious.name == "Remaining Song Ramp":
-					tones.beep(512, 400) # Song intro for SPL 5.x.
+				if obj.simpleParent.name == "Remaining Time":
+					# End of track for SPL 4.x.
+					if obj.name == self.SPLEndOfTrackTime:
+						tones.beep(440, 200)
+				elif obj.simpleParent.name == "Remaining Song Ramp":
+					# Song intro for SPL 4.x.
+					if obj.name == self.SPLSongRampTime:
+						tones.beep(512, 400)
+				elif obj.simplePrevious != None and obj.simplePrevious.name == "Remaining Time":
+					# End of track for SPL 5.x.
+					if obj.name == self.SPLEndOfTrackTime:
+						tones.beep(440, 200)
+				elif obj.simplePrevious != None and obj.simplePrevious.name == "Remaining Song Ramp":
+					# Song intro for SPL 5.x.
+					if obj.name == self.SPLSongRampTime:
+						tones.beep(512, 400)
 			# Clean this mess with a more elegant solution.
 		nextHandler()
 
