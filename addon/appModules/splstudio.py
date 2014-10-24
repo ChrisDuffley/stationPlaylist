@@ -231,8 +231,8 @@ class AppModule(appModuleHandler.AppModule):
 	# A few time related scripts (elapsed time, remaining time, etc.).
 
 
-	SPLElapsedTrackTime = 3
-	SPL4ElapsedTrackTime = -4
+	SPLElapsedTime = 3
+	SPL4ElapsedTime = -4
 	# Broadcaster time such as "5 minutes to 3" for SPL 5.x.
 	SPLBroadcasterTime = 13
 	SPL4BroadcasterTime = 8
