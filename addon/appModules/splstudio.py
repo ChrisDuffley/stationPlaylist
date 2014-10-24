@@ -201,15 +201,17 @@ class AppModule(appModuleHandler.AppModule):
 
 	# A few time related scripts (elapsed time, remaining time, etc.).
 
-	# Time status constants:
-	SPLElapsedTime = 3 # Elapsed time of the current track.
-	SPL4ElapsedTime = -4 # Elapsed time for SPL 4.x.
-	SPLBroadcasterTime = 13 # Broadcaster time such as "5 minutes to 3" for SPL 5.x.
-	SPL4BroadcasterTime = 8 # Broadcaster time for SPL 4.x.
-	SPLCompleteTime = 15 # Complete time as in hours, minutes and seconds.
-	SPL4CompleteTime = 10 # Complete time for SPL 4.x.
 
-	# Speak any time-related erorrs.
+	SPLElapsedTime = 3
+	SPL4ElapsedTime = -4
+	# Broadcaster time such as "5 minutes to 3" for SPL 5.x.
+	SPLBroadcasterTime = 13
+	SPL4BroadcasterTime = 8
+	# Complete time as in hours, minutes and seconds.
+	SPLCompleteTime = 15
+	SPL4CompleteTime = 10
+
+	# Speak any time-related errors.
 	# Message type: error message.
 	timeMessageErrors={
 		# Translators: Presented when remaining time is unavailable.
