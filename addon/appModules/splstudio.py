@@ -106,7 +106,10 @@ class AppModule(appModuleHandler.AppModule):
 	libraryScanning = False
 	scanCount = 0
 	# Microphone alarm.
-	micAlarm = 0
+	try:
+		micAlarm = int(SPLConfig["MicAlarm"])
+	except KeyError:
+		micAlarm = 0
 
 	# Automatically announce mic, line in, etc changes
 	# These items are static text items whose name changes.
@@ -377,6 +380,7 @@ class AppModule(appModuleHandler.AppModule):
 					_("Error"),wx.OK|wx.ICON_ERROR)
 				else:
 					self.micAlarm = int(dlg.GetValue())
+					if SPLConfig is not None: SPLConfig["MicAlarm"] = self.micAlarm
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setMicAlarm.__doc__=_("Sets microphone alarm (default is 5 seconds).")
