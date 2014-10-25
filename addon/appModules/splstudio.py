@@ -69,6 +69,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Play beeps instead of announcing toggles.
 	beepAnnounce = False
+	# Monitor various track times with braille.
+	brailleCounter = False
 	# Actual version of the software that we are running.
 	SPLCurVersion = appModuleHandler.AppModule.productVersion
 
@@ -170,8 +172,10 @@ class AppModule(appModuleHandler.AppModule):
 						self.doExtraAction(obj.name)
 			# Monitor the end of track and song intro time and announce it.
 			elif obj.windowClassName == "TStaticText": # For future extensions.
+				# End of track for SPL 4.x.
 				if obj.simpleParent.name == "Remaining Time":
-					# End of track for SPL 4.x.
+					if self.brailleCounter and "00:00" < obj.name <= self.SPLEndOfTrackTime:
+						braille.handler.message(obj.name)
 					if obj.name == self.SPLEndOfTrackTime:
 						tones.beep(440, 200)
 				elif obj.simpleParent.name == "Remaining Song Ramp":
@@ -404,6 +408,18 @@ class AppModule(appModuleHandler.AppModule):
 			ui.message(_("Toggle announcement words"))
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_toggleBeepAnnounce.__doc__=_("Toggles option change announcements between words and beeps.")
+
+	def script_toggleBrailleCounter(self, gesture):
+		if not self.brailleCounter:
+			self.brailleCounter = True
+			# Translators: Reported when toggle announcement is set to beeps in SPL Studio.
+			ui.message(_("Braille counter on"))
+		else:
+			self.brailleCounter = False
+			# Translators: Reported when toggle announcement is set to words in SPL Studio.
+			ui.message(_("Braille counter off"))
+	# Translators: Input help mode message for a command in Station Playlist Studio.
+	script_toggleBrailleCounter.__doc__=_("Toggles option change announcements between words and beeps.")
 
 	# The track finder utility for find track script.
 	# Perform a linear search to locate the track name and/or description which matches the entered value.
@@ -854,5 +870,6 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:control+nvda+3":"toggleCartExplorer",
 		"kb:alt+nvda+r":"setLibraryScanProgress",
 		"kb:control+shift+r":"startScanFromInsertTracks",
+		"kb:control+shift+x":"toggleBrailleCounter",
 		#"kb:control+nvda+`":"SPLAssistantToggle"
 	}
