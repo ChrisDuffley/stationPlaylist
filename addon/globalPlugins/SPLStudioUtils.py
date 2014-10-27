@@ -221,7 +221,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		else: winUser.sendMessage(SPLWin, SPLMSG, 1, SPLPause)
 		self.finish()
 
-
+	def script_remainingTime(self, gesture):
+		remainingTime = winUser.sendMessage(SPLWin, SPLMSG, 3, SPLCurTrackPlaybackTime)
+		# Translators: Presented when no track is playing in Station Playlist Studio.
+		if remainingTime < 0: ui.message(_("There is no track playing."))
+		else: ui.message(str(remainingTime/1000))
+		self.finish()
 
 
 	__SPLControllerGestures={
@@ -234,7 +239,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:shift+l":"lineInOff",
 		"kb:s":"stopFade",
 		"kb:t":"stopInstant",
-		"kb:u":"pause"
+		"kb:u":"pause",
+		"kb:r":"remainingTime"
 	}
 
 
@@ -325,7 +331,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 				ui.message(_("Do not play first track after connecting"))
 		# Translators: Input help mode message in SAM Encoder window.
-		script_toggleFocusToStudio.__doc__=_("Toggles whether Studio will play the first song when connected to a streaming server.")
+		script_togglePlay.__doc__=_("Toggles whether Studio will play the first song when connected to a streaming server.")
 
 		def script_streamLabeler(self, gesture):
 			# Translators: The title of the stream labeler dialog (example: stream labeler for 1).
