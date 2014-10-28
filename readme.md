@@ -75,6 +75,7 @@ The available SPL Controller commands are:
 * Press M or Shift+M to turn on or off the microphone, respectively.
 * Press A to enable automation or Shift+A to disable it.
 * Press L to enable line-in input or Shift+L to disable it.
+* Press R to hear remaining time for the currently playing track in seconds.
 
 ## End of track alarm
 
@@ -108,6 +109,13 @@ Version 4.0 supports SPL Studio 5.00 and later, with 3.x released designed to pr
 * It is now possible to track library scans from Insert Tracks dialog or from anywhere, and a dedicated command (Alt+NVDA+R) to toggle library scan announcement options.
 * Support for Track Tool, including playing a beep if a track has intro defined and commands to announce information on a track such as duration and cue position.
 * Support for StationPlaylist Encoder (Studio 5.00 and later), providing same level of support as found in SAM Encoder support.
+
+## Changes for 3.2
+
+* Added a command in SPL Controller to report remaining time for the currently playing track (R).
+* In SAM encoder window, input help mode message for Shift+F11 command has been corrected
+* In cart explorer, if Studio Standard is in use, NVDA will alert that number row commands are unavailable for cart assignments.
+* Updated translations.
 
 ## Changes for 3.1
 

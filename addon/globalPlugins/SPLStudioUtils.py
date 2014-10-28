@@ -225,6 +225,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		ui.message("{itemCount} items scanned".format(itemCount = scanned))
 		self.finish()
 
+	def script_remainingTime(self, gesture):
+		remainingTime = winUser.sendMessage(SPLWin, SPLMSG, 3, SPLCurTrackPlaybackTime)
+		# Translators: Presented when no track is playing in Station Playlist Studio.
+		if remainingTime < 0: ui.message(_("There is no track playing."))
+		else: ui.message(str(remainingTime/1000))
+		self.finish()
 
 
 	__SPLControllerGestures={
@@ -238,7 +244,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:shift+r":"libraryScanProgress",
 		"kb:s":"stopFade",
 		"kb:t":"stopInstant",
-		"kb:u":"pause"
+		"kb:u":"pause",
+		"kb:r":"remainingTime"
 	}
 
 

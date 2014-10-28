@@ -553,12 +553,13 @@ class AppModule(appModuleHandler.AppModule):
 			cartlst = c.split("\",\"") # c = cart text.
 			# Get rid of unneeded quotes in cart entries.
 			cartlst[0], cartlst[-1] = cartlst[0][1:], cartlst[-1][:-1]
-			n = 0 # To keep track of how many entries were processed.
+			n = 0 # To keep track of how many entries were processed, also used to detect license type.
 			for i in cartlst:
 				n+=1
 				# An unassigned cart is stored with three consecutive commas, so skip it.
 				if ",,," in i: continue
 				else: self.cartsStr2Carts(i, modifier, n) # See the comment on str2carts for more information.
+			return n
 		# Back at the reader, locate the cart files and process them.
 		# Obtain the "real" path for SPL via environment variables and open the cart data folder.
 		cartsDataPath = os.path.join(os.environ["PROGRAMFILES"],"StationPlaylist","Data") # Provided that Studio was installed using default path.
@@ -570,6 +571,7 @@ class AppModule(appModuleHandler.AppModule):
 		if userNameIndex >= 0:
 			cartFiles = [userName[userNameIndex+2:]+" "+cartFile for cartFile in cartFiles]
 		cartReadSuccess = True # Just in case some or all carts were not read successfully.
+		cartCount = 0 # Count how many cart assignments are possible.
 		for f in cartFiles:
 			try:
 				mod = f.split()[-2] # Checking for modifier string such as ctrl.
@@ -586,18 +588,20 @@ class AppModule(appModuleHandler.AppModule):
 			cartInfo.close()
 			del cl[0] # Throw away the empty line (again be careful if the cart file format changes in a future release).
 			preprocessedCarts = cl[0].strip()
-			_populateCarts(preprocessedCarts, "") if mod == "main" else _populateCarts(preprocessedCarts, mod) # See the comment for _populate method above.
-		return cartReadSuccess
+			cartCount += _populateCarts(preprocessedCarts, "") if mod == "main" else _populateCarts(preprocessedCarts, mod) # See the comment for _populate method above.
+		return cartReadSuccess, cartCount
 
 	def script_toggleCartExplorer(self, gesture):
 		if not self.cartExplorer:
-			if not self.cartsReader():
+			cartsRead, cartCount = self.cartsReader()
+			if not cartsRead:
 				# Translators: presented when cart explorer could not be switched on.
 				ui.message(_("Some or all carts could not be assigned, cannot enter cart explorer"))
 				return
 			else:
 				self.cartExplorer = True
 				self.cartsBuilder()
+				self.carts["standardLicense"] = True if cartCount < 96 else False
 				# Translators: Presented when cart explorer is on.
 				ui.message(_("Entering cart explorer"))
 		else:
@@ -613,6 +617,9 @@ class AppModule(appModuleHandler.AppModule):
 		if scriptHandler.getLastScriptRepeatCount() >= 1: gesture.send()
 		else:
 			if gesture.displayName in self.carts: ui.message(self.carts[gesture.displayName])
+			elif self.carts["standardLicense"] and (len(gesture.displayName) == 1 or gesture.displayName[-2] == "+"):
+				# Translators: Presented when cart command is unavailable.
+				ui.message(_("Cart command unavailable"))
 			else:
 				# Translators: Presented when there is no cart assigned to a cart command.
 				ui.message(_("Cart unassigned"))
