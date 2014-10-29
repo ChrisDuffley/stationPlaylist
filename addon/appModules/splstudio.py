@@ -55,9 +55,6 @@ SPLMinVersion = "5.00"
 # Configuration management )4.0 and later; will not be ported to 3.x).
 SPLConfig = ConfigObj(os.path.join(globalVars.appArgs.configPath, "splstudio.ini"))
 
-# Keep a handle to SPL window for various features.
-SPLWin = user32.FindWindowA("SPLStudio", None)
-
 # A placeholder thread.
 micAlarmT = None
 
@@ -675,6 +672,7 @@ class AppModule(appModuleHandler.AppModule):
 		t.start()
 
 	def libraryScanReporter(self):
+		SPLWin = user32.FindWindowA("SPLStudio", None)
 		countA = sendMessage(SPLWin, 1024, 0, 32)
 		time.sleep(0.1)
 		countB = sendMessage(SPLWin, 1024, 0, 32)
