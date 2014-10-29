@@ -55,6 +55,15 @@ SPLWin = user32.FindWindowA("SPLStudio", None)
 # A placeholder thread.
 micAlarmT = None
 
+# Controls which require special handling.
+class SPL510TrackItem(IAccessible):
+
+	def script_select(self, gesture):
+		gesture.send()
+		ui.message(self.name)
+
+	__gestures={"kb:space":"select"}
+
 
 class AppModule(appModuleHandler.AppModule):
 
@@ -88,6 +97,13 @@ class AppModule(appModuleHandler.AppModule):
 				obj.name = fieldName.text.replace(obj.windowText, "")
 			else:
 				obj.name = fieldName.text
+
+	# Some controls which needs special routines.
+	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
+		fg = api.getForegroundObject()
+		role = obj.role
+		if obj.windowClassName == "TTntListView.UnicodeClass" and fg.windowClassName == "TStudioForm" and role == controlTypes.ROLE_LISTITEM and obj.name is not None:
+			clsList.insert(0, SPL510TrackItem)
 
 	# Check the following variable for end of track announcement.
 	SPLEndOfTrackTime = "00:05"
