@@ -47,6 +47,16 @@ def finally_(func, final):
 # Check the version string against this. If it is less, use a different procedure for some routines.
 SPLMinVersion = "5.00"
 
+# Controls which require special handling.
+class SPL510TrackItem(IAccessible):
+
+	def script_select(self, gesture):
+		gesture.send()
+		ui.message(self.name)
+
+	__gestures={"kb:space":"select"}
+
+
 class AppModule(appModuleHandler.AppModule):
 
 	# Translators: Script category for Station Playlist commands in input gestures dialog.
@@ -77,6 +87,13 @@ class AppModule(appModuleHandler.AppModule):
 				obj.name = fieldName.text.replace(obj.windowText, "")
 			else:
 				obj.name = fieldName.text
+
+	# Some controls which needs special routines.
+	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
+		fg = api.getForegroundObject()
+		role = obj.role
+		if obj.windowClassName == "TTntListView.UnicodeClass" and fg.windowClassName == "TStudioForm" and role == controlTypes.ROLE_LISTITEM and obj.name is not None:
+			clsList.insert(0, SPL510TrackItem)
 
 	# Check the following variable for end of track announcement.
 	# Should be adjustable by the user in the end. Also find a way to announce this even if SPL Studio is minimized.
