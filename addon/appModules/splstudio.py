@@ -246,7 +246,7 @@ class AppModule(appModuleHandler.AppModule):
 			else: obj = fgWindow.children[timeObj].children[timeObjChild]
 			msg = obj.name
 		else:
-			msg = timeMessageErrors[messageType]
+			msg = self.timeMessageErrors[messageType]
 		ui.message(msg)
 
 	def script_sayRemainingTime(self, gesture):
