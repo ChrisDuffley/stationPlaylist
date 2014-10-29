@@ -49,9 +49,6 @@ def finally_(func, final):
 # Use appModule.productVersion to decide what to do with 4.x and 5.x.
 SPLMinVersion = "5.00" # Check the version string against this. If it is less, use a different procedure for some routines.
 
-# Keep a handle to SPL window for various features.
-SPLWin = user32.FindWindowA("SPLStudio", None)
-
 # A placeholder thread.
 micAlarmT = None
 
@@ -639,6 +636,7 @@ class AppModule(appModuleHandler.AppModule):
 		t.start()
 
 	def libraryScanReporter(self):
+		SPLWin = user32.FindWindowA("SPLStudio", None)
 		countA = sendMessage(SPLWin, 1024, 0, 32)
 		time.sleep(0.1)
 		countB = sendMessage(SPLWin, 1024, 0, 32)
