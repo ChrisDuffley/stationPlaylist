@@ -440,7 +440,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def trackFinder(self, text, obj, directionForward=True):
 		while obj is not None:
-			if text in obj.name or text in obj.description:
+			if text in obj.description or (obj.name and text in obj.name and self.productVersion < "5.10"):
 				self.findText = text
 				# We need to fire set focus event twice and exit this routine.
 				obj.setFocus(), obj.setFocus()
