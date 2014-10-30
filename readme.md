@@ -93,6 +93,7 @@ To learn cart assignments, from SPL Studio, press Control+NVDA+3. Pressing the c
 * Added a command in SPL Controller to report remaining time for the currently playing track (R).
 * In SAM encoder window, input help mode message for Shift+F11 command has been corrected
 * In cart explorer, if Studio Standard is in use, NVDA will alert that number row commands are unavailable for cart assignments.
+* In Studio 5.10, track finder no longer plays error tones when searching through tracks.
 * Updated translations.
 
 ## Changes for 3.1
