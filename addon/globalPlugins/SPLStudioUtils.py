@@ -446,7 +446,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		def initOverlayClass(self):
 			# Can I switch to Studio when connected to a streaming server?
 			try:
-				self.focusToStudio = SAMFocusToStudio[self.name]
+				self.focusToStudio = SPLFocusToStudio[str(self.IAccessibleChildID)]
 			except KeyError:
 				pass
 
