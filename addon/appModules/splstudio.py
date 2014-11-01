@@ -185,8 +185,8 @@ class AppModule(appModuleHandler.AppModule):
 						self.doExtraAction(obj.name)
 			# Monitor the end of track and song intro time and announce it.
 			elif obj.windowClassName == "TStaticText": # For future extensions.
-				# End of track for SPL 4.x.
 				if obj.simpleParent.name == "Remaining Time":
+					# End of track for SPL 4.x.
 					if self.brailleCounter and "00:00" < obj.name <= self.SPLEndOfTrackTime:
 						braille.handler.message(obj.name)
 					if obj.name == self.SPLEndOfTrackTime:
@@ -197,6 +197,8 @@ class AppModule(appModuleHandler.AppModule):
 						tones.beep(512, 400)
 				elif obj.simplePrevious != None and obj.simplePrevious.name == "Remaining Time":
 					# End of track for SPL 5.x.
+					if self.brailleCounter and "00:00" < obj.name <= self.SPLEndOfTrackTime:
+						braille.handler.message(obj.name)
 					if obj.name == self.SPLEndOfTrackTime:
 						tones.beep(440, 200)
 				elif obj.simplePrevious != None and obj.simplePrevious.name == "Remaining Song Ramp":
