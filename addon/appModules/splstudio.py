@@ -695,7 +695,11 @@ class AppModule(appModuleHandler.AppModule):
 		self.libraryScanning = False
 		if self.beepAnnounce: tones.beep(370, 100)
 		else:
-			ui.message("Scan complete with {itemCount} items".format(itemCount = countB))
+			# For 5.01 and earlier, SPL reports library scan count as it is happening, but in 5.10, it returns the total count.
+			if self.productVersion < "5.10":
+				ui.message("Scan complete with {itemCount} items".format(itemCount = countB))
+			else:
+				ui.message("{itemCount} items in the library".format(itemCount = countB))
 
 	# SPL Assistant: reports status on playback, operation, etc.
 	# Used layer command approach to save gesture assignments.
@@ -849,12 +853,18 @@ class AppModule(appModuleHandler.AppModule):
 	# Few toggle/misc scripts that may be excluded from the layer later.
 
 	def script_libraryScanMonitor(self, gesture):
-		if not self.libraryScanning:
-			self.libraryScanning = True
-			self.monitorLibraryScan()
-			ui.message("Monitoring library scan")
+		if self.productVersion < "5.10":
+			if not self.libraryScanning:
+				self.libraryScanning = True
+				self.monitorLibraryScan()
+				ui.message("Monitoring library scan")
+			else:
+				ui.message("Scanning is in progress")
 		else:
-			ui.message("Scanning is in progress")
+			# In 5.10, library scan count returns total count.
+			SPLWin = user32.FindWindowA("SPLStudio", None)
+			items = sendMessage(SPLWin, 1024, 0, 32)
+			ui.message(str(items))
 
 
 	__SPLAssistantGestures={
