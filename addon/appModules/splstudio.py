@@ -47,7 +47,18 @@ def finally_(func, final):
 	return wrap(final)
 
 # Use appModule.productVersion to decide what to do with 4.x and 5.x.
-SPLMinVersion = "5.00" # Check the version string against this. If it is less, use a different procedure for some routines.
+# Check the version string against this. If it is less, use a different procedure for some routines.
+SPLMinVersion = "5.00"
+
+# Controls which require special handling.
+class SPL510TrackItem(IAccessible):
+
+	def script_select(self, gesture):
+		gesture.send()
+		ui.message(self.name)
+
+	__gestures={"kb:space":"select"}
+
 
 # A placeholder thread.
 micAlarmT = None
@@ -69,10 +80,10 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Play beeps instead of announcing toggles.
 	beepAnnounce = False
-	# Monitor various track times with braille.
-	brailleCounter = False
 	# Actual version of the software that we are running.
 	SPLCurVersion = appModuleHandler.AppModule.productVersion
+	# Monitor various track times with braille.
+	brailleCounter = False
 
 	# GS: The following was written by James Teh <jamie@NVAccess.org
 	#It gets around a problem where double focus events are fired when moving around the playlist.
@@ -87,7 +98,7 @@ class AppModule(appModuleHandler.AppModule):
 		if obj.windowClassName == "TRadioGroup":
 			obj.role = controlTypes.ROLE_GROUPING
 		# In certain edit fields and combo boxes, the field name is written to the screen, and there's no way to fetch the object for this text. Thus use review position text.
-		elif obj.windowClassName == "TEdit" or obj.windowClassName == "TComboBox" and obj.name is None:
+		elif obj.windowClassName in ["TEdit", "TComboBox"] and obj.name is None:
 			fieldName, fieldObj  = review.getScreenPosition(obj)
 			fieldName.expand(textInfos.UNIT_LINE)
 			if obj.windowClassName == "TComboBox":
@@ -118,7 +129,8 @@ class AppModule(appModuleHandler.AppModule):
 	# Unfortunately, Window handles and WindowControlIDs seem to change, so can't be used.
 	def event_nameChange(self, obj, nextHandler):
 		# Do not let NvDA get name for None object when SPL window is maximized.
-		if obj.name == None: return
+		if not obj.name:
+			return
 		else:
 			if obj.windowClassName == "TStatusBar" and not obj.name.startswith("  Up time:"):
 				# Special handling for Play Status
@@ -145,17 +157,21 @@ class AppModule(appModuleHandler.AppModule):
 				else:
 					if self.beepAnnounce:
 						# Even with beeps enabled, be sure to announce scheduled time and name of the playing cart.
-						if obj.name.startswith("Scheduled for") or obj.name.startswith("Cart") and obj.IAccessibleChildID == 3: ui.message(obj.name)
-						# Announce status information that does not contain toggle messages.
-						elif not (obj.name.endswith(" On") or obj.name.endswith(" Off")): ui.message(obj.name)
+						if obj.name.startswith("Scheduled for") or obj.name.startswith("Cart") and obj.IAccessibleChildID == 3:
+							ui.message(obj.name)
+						elif not (obj.name.endswith(" On") or obj.name.endswith(" Off")):
+							# Announce status information that does not contain toggle messages.
+							ui.message(obj.name)
 						else:
 							# User wishes to hear beeps instead of words. The beeps are power on and off sounds from PAC Mate Omni.
 							beep = obj.name.split(" ")
 							stat = beep[-1]
 							wavDir, wavFile = os.path.dirname(__file__), ""
 							# Play a wave file based on on/off status.
-							if stat == "Off": wavFile = wavDir + "\SPL_off.wav"
-							elif stat == "On": wavFile = wavDir+"\SPL_on.wav"
+							if stat == "Off":
+								wavFile = wavDir + "\SPL_off.wav"
+							elif stat == "On":
+								wavFile = wavDir+"\SPL_on.wav"
 							nvwave.playWaveFile(wavFile)
 							# Braille the toggle message regardless of whether beep is heard or not.
 							braille.handler.message(obj.name)
@@ -228,7 +244,6 @@ class AppModule(appModuleHandler.AppModule):
 	# SPL Assistant layer: status commands.
 
 	# A few time related scripts (elapsed time, remaining time, etc.).
-
 
 	SPLElapsedTime = 3
 	SPL4ElapsedTime = -4
@@ -413,7 +428,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def trackFinder(self, text, obj, directionForward=True):
 		while obj is not None:
-			if text in obj.name or text in obj.description:
+			if text in obj.description or (obj.name and text in obj.name and self.productVersion < "5.10"):
 				self.findText = text
 				# We need to fire set focus event twice and exit this routine.
 				obj.setFocus(), obj.setFocus()
@@ -539,12 +554,13 @@ class AppModule(appModuleHandler.AppModule):
 			cartlst = c.split("\",\"") # c = cart text.
 			# Get rid of unneeded quotes in cart entries.
 			cartlst[0], cartlst[-1] = cartlst[0][1:], cartlst[-1][:-1]
-			n = 0 # To keep track of how many entries were processed.
+			n = 0 # To keep track of how many entries were processed, also used to detect license type.
 			for i in cartlst:
 				n+=1
 				# An unassigned cart is stored with three consecutive commas, so skip it.
 				if ",,," in i: continue
 				else: self.cartsStr2Carts(i, modifier, n) # See the comment on str2carts for more information.
+			return n
 		# Back at the reader, locate the cart files and process them.
 		# Obtain the "real" path for SPL via environment variables and open the cart data folder.
 		cartsDataPath = os.path.join(os.environ["PROGRAMFILES"],"StationPlaylist","Data") # Provided that Studio was installed using default path.
@@ -556,6 +572,7 @@ class AppModule(appModuleHandler.AppModule):
 		if userNameIndex >= 0:
 			cartFiles = [userName[userNameIndex+2:]+" "+cartFile for cartFile in cartFiles]
 		cartReadSuccess = True # Just in case some or all carts were not read successfully.
+		cartCount = 0 # Count how many cart assignments are possible.
 		for f in cartFiles:
 			try:
 				mod = f.split()[-2] # Checking for modifier string such as ctrl.
@@ -572,18 +589,20 @@ class AppModule(appModuleHandler.AppModule):
 			cartInfo.close()
 			del cl[0] # Throw away the empty line (again be careful if the cart file format changes in a future release).
 			preprocessedCarts = cl[0].strip()
-			_populateCarts(preprocessedCarts, "") if mod == "main" else _populateCarts(preprocessedCarts, mod) # See the comment for _populate method above.
-		return cartReadSuccess
+			cartCount += _populateCarts(preprocessedCarts, "") if mod == "main" else _populateCarts(preprocessedCarts, mod) # See the comment for _populate method above.
+		return cartReadSuccess, cartCount
 
 	def script_toggleCartExplorer(self, gesture):
 		if not self.cartExplorer:
-			if not self.cartsReader():
+			cartsRead, cartCount = self.cartsReader()
+			if not cartsRead:
 				# Translators: presented when cart explorer could not be switched on.
 				ui.message(_("Some or all carts could not be assigned, cannot enter cart explorer"))
 				return
 			else:
 				self.cartExplorer = True
 				self.cartsBuilder()
+				self.carts["standardLicense"] = True if cartCount < 96 else False
 				# Translators: Presented when cart explorer is on.
 				ui.message(_("Entering cart explorer"))
 		else:
@@ -599,6 +618,9 @@ class AppModule(appModuleHandler.AppModule):
 		if scriptHandler.getLastScriptRepeatCount() >= 1: gesture.send()
 		else:
 			if gesture.displayName in self.carts: ui.message(self.carts[gesture.displayName])
+			elif self.carts["standardLicense"] and (len(gesture.displayName) == 1 or gesture.displayName[-2] == "+"):
+				# Translators: Presented when cart command is unavailable.
+				ui.message(_("Cart command unavailable"))
 			else:
 				# Translators: Presented when there is no cart assigned to a cart command.
 				ui.message(_("Cart unassigned"))

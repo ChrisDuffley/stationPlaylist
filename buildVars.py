@@ -20,7 +20,7 @@ addon_info = {
 	"addon_description" : _("""Enhances support for Station Playlist Studio.
 In addition, adds global commands for the studio from everywhere."""),
 	# version
-	"addon_version" : "3.0",
+	"addon_version" : "3.1",
 	# Author(s)
 	"addon_author" : u"Geoff Shang, Joseph Lee and other contributors",
 	# URL for the add-on documentation support

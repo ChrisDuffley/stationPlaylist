@@ -38,6 +38,7 @@ The following commands are available when using Sam encoder:
 * F9: connect to a streaming server.
 * F10: Disconnect from the streaming server.
 * F11: Toggles whether NVDA will switch to Studio window for the selected encoder if connected.
+* Shift+F11: Toggles whether Studio will play the first selected track when encoder is connected to a streaming server.
 * F12: Opens a dialog to enter custom label for the selected encoder or stream.
 
 ## SPL Assistant layer
@@ -74,6 +75,7 @@ The available SPL Controller commands are:
 * Press M or Shift+M to turn on or off the microphone, respectively.
 * Press A to enable automation or Shift+A to disable it.
 * Press L to enable line-in input or Shift+L to disable it.
+* Press R to hear remaining time for the currently playing track in seconds.
 
 ## End of track alarm
 
@@ -107,6 +109,20 @@ Version 4.0 supports SPL Studio 5.00 and later, with 3.x released designed to pr
 * It is now possible to track library scans from Insert Tracks dialog or from anywhere, and a dedicated command (Alt+NVDA+R) to toggle library scan announcement options.
 * Support for Track Tool, including playing a beep if a track has intro defined and commands to announce information on a track such as duration and cue position.
 * Support for StationPlaylist Encoder (Studio 5.00 and later), providing same level of support as found in SAM Encoder support.
+
+## Changes for 3.2
+
+* Added a command in SPL Controller to report remaining time for the currently playing track (R).
+* In SAM encoder window, input help mode message for Shift+F11 command has been corrected
+* In cart explorer, if Studio Standard is in use, NVDA will alert that number row commands are unavailable for cart assignments.
+* In Studio 5.10, track finder no longer plays error tones when searching through tracks.
+* Updated translations.
+
+## Changes for 3.1
+
+* In SAM Encoder window, added a command (Shift+F11) to tell Studio to play the first track when connected.
+* Fixed numerous bugs when connecting to a server in SAM Encoder, including inability to perform NVDA commands, NVDA not announcing when connection has been established and error tones instead of connection beep being played when connected.
+>>>>>>> 3.x
 
 ## Changes for 3.0
 
