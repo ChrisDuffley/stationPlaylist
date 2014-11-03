@@ -743,6 +743,7 @@ class AppModule(appModuleHandler.AppModule):
 	SPLNextTrackTitle = 4
 	SPLPlaylistRemainingDuration = 5
 	SPLTemperature = 6
+	SPLScheduled = 7
 
 	# Table of child constants based on versions
 	# These are scattered throughout the screen, so one can use foreground.children[index] to fetch them.
@@ -752,6 +753,7 @@ class AppModule(appModuleHandler.AppModule):
 		SPLSystemStatus:[-2, -3], # The second status bar containing system status such as up time.
 		SPLHourTrackDuration:[13, 17], # For track duration for the given hour marker.
 		SPLHourSelectedDuration:[14, 18], # In case the user selects one or more tracks in a given hour.
+		SPLScheduled:[15, 19], # Time when the selected track will begin.
 		SPLNextTrackTitle:[2, 7], # Name and duration of the next track if any.
 		SPLPlaylistRemainingDuration:[12, 16], # Remaining time for the current playlist.
 		SPLTemperature:[1, 6], # Temperature for the current city.
@@ -817,7 +819,7 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(obj.name)
 
 	def script_sayScheduledTime(self, gesture):
-		obj = self.status(self.SPLSystemStatus).children[1]
+		obj = self.status(self.SPLScheduled).firstChild
 		ui.message(obj.name)
 
 	def script_sayListenerCount(self, gesture):

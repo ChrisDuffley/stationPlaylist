@@ -58,7 +58,7 @@ The available status information are:
 * P: Playback status (playing or stopped).
 * Shift+P: Pitch of the current track (SPL 5.00 and later).
 * R: Record to file enabled/disabled.
-* S: Track playback schedule.
+* S: Track starts in (scheduled).
 * T: Cart edit mode on/off.
 * U: Studio up time.
 * Y: Playlist modified status (SPL 5.00 and later).
