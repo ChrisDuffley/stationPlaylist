@@ -20,7 +20,7 @@ import ui
 class AppModule(appModuleHandler.AppModule):
 
 	def event_gainFocus(self, obj, nextHandler):
-		if obj.windowClassName == "TListView" and obj.role == ROLE_LISTITEM:
+		if obj.windowClassName in ["TListView", "TTntListView.UnicodeClass"] and obj.role == ROLE_LISTITEM:
 			# Play a beep when intro exists.
 			if ", Intro:" in obj.description:
 				tones.beep(550, 100)
