@@ -8,33 +8,62 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
-"POT-Creation-Date: 2014-01-27 23:04-0800\n"
-"PO-Revision-Date: 2014-02-23 15:52+0200\n"
-"Last-Translator: Zahari Yurukov <zahari.yurukov@gmail.com>\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2014-10-11 09:46+0200\n"
+"Last-Translator: Kostadin Kolev <k_kolev1985@mail.bg>\n"
 "Language-Team: Български <>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"X-Generator: Poedit 1.6.9\n"
 
 #. Translators: Script category for Station Playlist commands in input gestures dialog.
-#. Add-on description
-#. TRANSLATORS: Summary for this add-on to be shown on installation and add-on information.
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on to be shown on installation and add-on information.
 msgid "Station Playlist Studio"
 msgstr "Station Playlist Studio"
+
+#. Translators: Presented when cart edit mode is toggled on while cart explorer is on.
+msgid "Cart explorer is active"
+msgstr "Прегледа на Джингъли е активен"
+
+#. Translators: Presented when cart edit mode is toggled off while cart explorer is on.
+msgid "Please reenter cart explorer to view updated cart assignments"
+msgstr ""
+"Моля влезте отново в прегледа на Джингъли за да видите обновените назначения"
+
+#. Translators: Presented when remaining time is unavailable.
+msgid "Remaining time not available"
+msgstr "не е налично оставащо време"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Announces the remaining track time."
 msgstr "Съобщава оставащо време за текущо просвирвания запис."
 
+#. Translators: Presented when elapsed time is unavailable.
+msgid "Elapsed time not available"
+msgstr "не еналично изминало време"
+
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Announces the elapsed time for the currently playing track."
 msgstr "Съобщава изминалото време от началото на текущо просвирвания запис."
 
+#. Translators: Presented when broadcaster time is unavailable.
+msgid "Broadcaster time not available"
+msgstr "не е налично ефирно време"
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Announces broadcaster time."
+msgstr "Съобщава ефирното време."
+
 #. Translators: A dialog message to set end of track alarm (curAlarmSec is the current end of track alarm in seconds).
+#, python-brace-format
 msgid "Enter end of track alarm time in seconds (currently {curAlarmSec})"
-msgstr "Въведете време за предупреждение за край на записа в секунди (текущото е {curAlarmSec})"
+msgstr ""
+"Въведете време за предупреждение за край на записа в секунди (текущото е "
+"{curAlarmSec})"
 
 #. Translators: The title of end of track alarm dialog.
 msgid "End of track alarm"
@@ -48,6 +77,12 @@ msgstr "Въвели сте некоректна стойност"
 msgid "Error"
 msgstr "Грешка"
 
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "sets end of track alarm (default is 5 seconds)."
+msgstr ""
+"Задава време за предупреждение за Край на записа (по подразбиране е 5 "
+"секунди)."
+
 #. Translators: Reported when toggle announcement is set to beeps in SPL Studio.
 msgid "Toggle announcement beeps"
 msgstr "Известяване чрез звуков сигнал"
@@ -60,47 +95,186 @@ msgstr "Известяване чрез говор"
 msgid "Toggles option change announcements between words and beeps."
 msgstr "Превключва изговарянето на съобщенията между Говор и Бибипкане."
 
-#. Translators: Input help mode message for a layer command in Station Playlist Studio.
-msgid "The SPL Assistant layer command. See the add-on guide for more information on available commands."
-msgstr "Команда за помощния слой на SPL. За повече информация относно наличните команди се обърнете към ръководството за добавката."
+#. Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
+msgid "Search string not found."
+msgstr "Търсеният низ не бе намерен."
 
-#. SPL, are you running?
+#. Translators: Standard error title for find error (copy this from main nvda.po).
+msgid "Find error"
+msgstr "Грешка при търсене"
+
+#. Translators: Presented when a user attempts to find tracks but is not at the track list.
+msgid "Track finder is available only in track list."
+msgstr "Търсенето за записи е възможно само в списъка със записи."
+
+#. Translators: Presented when a user wishes to find a track but didn't add any tracks.
+msgid "You need to add at least one track to find tracks."
+msgstr "Трябва да добавите поне един запис, за да можете да търсите за записи."
+
+#. Translators: The text of the dialog for finding tracks.
+msgid "Enter the name of the track you wish to search."
+msgstr "Въведете името на записа, който искате да намерите."
+
+#. Translators: The title of the find tracks dialog.
+msgid "Find track"
+msgstr "Търсене на запис"
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Finds a track in the track list."
+msgstr "Търси за записи в списъка със записи."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Finds the next occurrence of the track with the name in the track list."
+msgstr "Намира следващото съвпадение на записа с името в списъка със записи."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Finds previous occurrence of the track with the name in the track list."
+msgstr "Намира предишното съвпадение на записа с името в списъка със записи."
+
+#. Translators: presented when cart explorer could not be switched on.
+msgid "Some or all carts could not be assigned, cannot enter cart explorer"
+msgstr ""
+"Някои или всички Джингъли не могат да бъдат назначени, не можете да "
+"разгледате Джингълите"
+
+#. Translators: Presented when cart explorer is on.
+msgid "Entering cart explorer"
+msgstr "Разглеждане на Джингълите"
+
+#. Translators: Presented when cart explorer is off.
+msgid "Exiting cart explorer"
+msgstr "Изход от списъка с Джингъли"
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Toggles cart explorer to learn cart assignments."
+msgstr ""
+"Превключва изгледа на Джингълите, предоставяща ви списък с назначения на "
+"Джингъли."
+
+#. Translators: Presented when there is no cart assigned to a cart command.
+msgid "Cart unassigned"
+msgstr "Джингъла не е зададен"
+
+#. Translators: Input help mode message for a layer command in Station Playlist Studio.
+msgid ""
+"The SPL Assistant layer command. See the add-on guide for more information "
+"on available commands."
+msgstr ""
+"Команда за помощния слой на SPL. За повече информация относно наличните "
+"команди се обърнете към ръководството за добавката."
+
+#. Translators: Presented when there is no information for the next track.
+msgid "No next track scheduled or no track is playing"
+msgstr "Няма зададен следващ запис или няма просвирващ се запис"
+
+#. Translators: Presented when there is no listener count information.
+msgid "Listener count not found"
+msgstr "Броя на слушателите не е намерен"
+
+#. Used ANSI version, as Wide char version always returns 0.
 #. Translators: Presented when Station Playlist Studio is not running.
 msgid "SPL Studio is not running."
 msgstr "SPL Studio не е стартирана."
 
-#. If user pressed Windows+M to minimize windows, give a message to switch to SPL Studio window manually. If not, move focus.
-#. Translators: Presented when NVDA cannot switch to Station Playlist Studio (all windows were minimized).
-msgid "Press Alt+Tab to switch to SPL Studio window"
-msgstr "Натиснете Alt+Tab за да превключите към прозореца на SPL Studio"
+#. Translators: Presented when Studio is minimized to system tray (notification area).
+msgid "SPL minimized to system tray."
+msgstr "SPL е минимизиран в системния жлеб."
 
 #. Translators: Input help mode message for a command to switch to Station Playlist Studio from any program.
 msgid "Moves to SPL Studio window from other programs."
 msgstr "Превключва към прозореца на SPL Studio от други програми."
 
 #. Translators: Presented when NVDA cannot enter SPL Controller layer since SPL Studio is focused.
-msgid "You are already in SPL Studio window. For status commands, use SPL Assistant commands."
-msgstr "Вече сте в прозореца на SPL Studio. За да получите информация за състоянието, използвайте командите от помощния слой на SPL."
+msgid ""
+"You are already in SPL Studio window. For status commands, use SPL Assistant "
+"commands."
+msgstr ""
+"Вече сте в прозореца на SPL Studio. За да получите информация за "
+"състоянието, използвайте командите от помощния слой на SPL."
 
 #. Translators: The name of a layer command set for Station Playlist Studio.
 #. Hint: it is better to translate it as "SPL Control Panel."
 msgid "SPL Controller"
-msgstr "Контролер на SPL"
+msgstr "Контролен панел на SPL"
 
 #. Translators: Input help mode message for a layer command in Station Playlist Studio.
 msgid "SPl Controller layer command. See add-on guide for available commands."
-msgstr "Команда за контролера на SPL. За информация относно наличните команди се обърнете към ръководството за добавката."
+msgstr ""
+"Команда за контролния панел на SPL. За информация относно наличните команди "
+"се обърнете към ръководството за добавката."
 
 #. Translators: Presented when no track is playing in Station Playlist Studio.
 msgid "There is no track playing. Try pausing while a track is playing."
-msgstr "Няма просвирващ се запис. Може да поставите записа на пауза само ако такъв се просвирва в момента."
+msgstr ""
+"Няма просвирващ се запис. Може да поставите записа на пауза само ако такъв "
+"се просвирва в момента."
+
+#. Translators: Presented when SAM Encoder is trying to connect to a streaming server.
+msgid "Connecting..."
+msgstr "Свързване..."
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid "Connects to a streaming server."
+msgstr "Свързване към излъчващ сървър."
+
+#. Translators: Presented when SAM Encoder is disconnecting from a streaming server.
+msgid "Disconnecting..."
+msgstr "Разкачане на връзката..."
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid "Disconnects from a streaming server."
+msgstr "Прекратява връзката с излъчващ сървър."
+
+#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+msgid "Switch to Studio after connecting"
+msgstr "Превключване към прозореца на програмата след свързване"
+
+#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+msgid "Do not switch to Studio after connecting"
+msgstr "Без превключване към прозореца на програмата след свързване"
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid ""
+"Toggles whether NVDA will switch to Studio when connected to a streaming "
+"server."
+msgstr ""
+"Определя дали NVDA ще превключи към прозореца на програмата при свързване с "
+"излъчващ сървър."
+
+#. Translators: Presented when toggling the setting to play selected song when connected to a streaming server.
+msgid "Play first track after connecting"
+msgstr "Възпроизвеждане на първия запис след свързване"
+
+#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+msgid "Do not play first track after connecting"
+msgstr "Без възпроизвеждане на първия запис след свързване"
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid ""
+"Toggles whether Studio will play the first song when connected to a "
+"streaming server."
+msgstr ""
+"Определя дали Studio ще възпроизведе първата песен при свързване с излъчващ "
+"сървър."
+
+#. Translators: The title of the stream labeler dialog (example: stream labeler for 1).
+#, python-brace-format
+msgid "Stream labeler for {streamEntry}"
+msgstr "Етикетьор на потока за {streamEntry}"
+
+#. Translators: The text of the stream labeler dialog.
+msgid "Enter the label for this stream"
+msgstr "Въведете име за този поток"
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid "Opens a dialog to label the selected encoder."
+msgstr "Отваря диалог за именоване на избрания енкодер."
 
 #. Add-on description
-#. Translators: Long description to be shown for this add-on on installation and add-on information
+#. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
 msgid ""
 "Enhances support for Station Playlist Studio.\n"
 "In addition, adds global commands for the studio from everywhere."
 msgstr ""
 "Подобрява достъпността на Station Playlist Studio.\n"
 "В допълнение предоставя инструменти за контрол на програмата отвсякъде."
-

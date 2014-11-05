@@ -8,263 +8,252 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-10-12 13:46+0100\n"
-"Last-Translator: Juan C. Buño <quetzatl@eresmas.net>\n"
-"Language-Team: Add-ons translation team. <LL@li.org>\n"
-"Language: gl\n"
+"PO-Revision-Date: 2014-10-21 19:16+0545\n"
+"Last-Translator: Joseph Lee <joseph.lee22590@gmail,com>\n"
+"Language-Team: Nepali <drishtibachak@gmail.com>\n"
+"Language: ne\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.6.9\n"
-"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 1.6.1\n"
 
 #. Translators: Script category for Station Playlist commands in input gestures dialog.
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on to be shown on installation and add-on information.
 msgid "Station Playlist Studio"
-msgstr "Station Playlist Studio"
+msgstr "स्टेशन प्लेलिस्ट  स्टुडियो "
 
 #. Translators: Presented when cart edit mode is toggled on while cart explorer is on.
 msgid "Cart explorer is active"
-msgstr "O explorador de Cart está activo"
+msgstr "गाडा अन्वेषक सक्रिय छ ।"
 
 #. Translators: Presented when cart edit mode is toggled off while cart explorer is on.
 msgid "Please reenter cart explorer to view updated cart assignments"
 msgstr ""
-"Por favor reintroduce o explorador de cart para ver as asignacións "
-"actualizadas de cart"
+"अद्यावधिक गाडा कार्य हेर्नका लागि, कृपया गाडा अन्वेषकलाई पुनः प्रविष्टी गर्नु होस् ।"
 
 #. Translators: Presented when remaining time is unavailable.
 msgid "Remaining time not available"
-msgstr "Tempo restante non dispoñible"
+msgstr "बांकि समय उपलब्ध छैन ।"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Announces the remaining track time."
-msgstr "Anuncia o tempo restante da pista."
+msgstr "बाकी धुन समय बताउने छ ।"
 
 #. Translators: Presented when elapsed time is unavailable.
 msgid "Elapsed time not available"
-msgstr "Tempo transcorrido non dispoñible"
+msgstr "बितेको समय उपलब्ध छैन ।"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Announces the elapsed time for the currently playing track."
-msgstr "Anuncia o tempo transcurrido da pista que se está a reproducir."
+msgstr "हाल बजि रहेको धुन बजि सकेको  समय बताउने छ ।"
 
 #. Translators: Presented when broadcaster time is unavailable.
 msgid "Broadcaster time not available"
-msgstr "Tempo de emisión non dispoñible"
+msgstr "प्रसारण समय उपलब्ध छैन ।"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Announces broadcaster time."
-msgstr "Anuncia o tempo de emisión."
+msgstr "प्रसारकको समय बताउने छ ।"
 
 #. Translators: A dialog message to set end of track alarm (curAlarmSec is the current end of track alarm in seconds).
 #, python-brace-format
 msgid "Enter end of track alarm time in seconds (currently {curAlarmSec})"
-msgstr ""
-"Introduza o aviso de remate da pista en segundos(actualmente {curAlarmSec})"
+msgstr "धुन डाको समाप्ती समय सेकेण्डमा लेख (हालको {curAlarmSec})"
 
 #. Translators: The title of end of track alarm dialog.
 msgid "End of track alarm"
-msgstr "Aviso de remate da pista"
+msgstr "धुन डाकोको समाप्ती"
 
 #. Translators: The error message presented when incorrect alarm time value has been entered.
 msgid "Incorrect value entered."
-msgstr "Introdeucido valor incorrecto."
+msgstr "नमिल्दो मान लेखियो ।"
 
 #. Translators: Standard title for error dialog (copy this from main nvda.po file).
 msgid "Error"
-msgstr "Erro"
+msgstr "त्रुटी"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "sets end of track alarm (default is 5 seconds)."
-msgstr "Axusta  a alarma de remate da pista (por defecto é 5 segundos)."
+msgstr "धुनको डाकोको अन्त कायम गर्छ (५ सेकेण्डलाई निर्धारीत गरिएको छ) ।"
 
 #. Translators: Reported when toggle announcement is set to beeps in SPL Studio.
 msgid "Toggle announcement beeps"
-msgstr "Conmutar anunciado pitidos"
+msgstr "टिं टीं घोषणा फेरिने छ ।"
 
 #. Translators: Reported when toggle announcement is set to words in SPL Studio.
 msgid "Toggle announcement words"
-msgstr "Conmutar anunciado palabras"
+msgstr "शब्दको घोषणा फेरिने छ "
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Toggles option change announcements between words and beeps."
-msgstr "Alterna o anunciado de cambio de opción entre palabras e sons."
+msgstr "टिं टीं र शब्दको घोषणा विकल्पहरू फेरिने छन् ।."
 
 #. Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
 msgid "Search string not found."
-msgstr "Non se atopou a cadea de busca."
+msgstr "खोजिएको पदावली पाई एन ।"
 
 #. Translators: Standard error title for find error (copy this from main nvda.po).
 msgid "Find error"
-msgstr "Erro na busca"
+msgstr "त्रुटी फेला पार"
 
 #. Translators: Presented when a user attempts to find tracks but is not at the track list.
 msgid "Track finder is available only in track list."
-msgstr "O buscador de pista só está dispoñible na lista de pistas."
+msgstr "धुन खोजकलाई धुन सूचीमा मात्रै पाउन सकिन्छ ।."
 
 #. Translators: Presented when a user wishes to find a track but didn't add any tracks.
 msgid "You need to add at least one track to find tracks."
-msgstr "É necesario engadir polo menos unha pista para atopar pistas."
+msgstr "धुन पाउनका लागि कम्तिमा तपाइले एउटा धुन लेख्नै पर्छ ।"
 
 #. Translators: The text of the dialog for finding tracks.
 msgid "Enter the name of the track you wish to search."
-msgstr "Introduce o nome da pista que desexas atopar."
+msgstr "खोज्न चाहेको धुनको नाम लेख्नु होस् ।"
 
 #. Translators: The title of the find tracks dialog.
 msgid "Find track"
-msgstr "Atopar pista"
+msgstr "धुन फेलापार"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Finds a track in the track list."
-msgstr "Atopa unha pista na lista de pistas."
+msgstr "धुनलाई धुन सूचीमा  खोज्ने छ ।"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Finds the next occurrence of the track with the name in the track list."
-msgstr "Atopa a seguinte aparición da pista co nome na lista de pistas."
+msgstr "धुनको सूचीबाट उक्त नामको अघिल्लो रूप खोज्ने छ ।"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Finds previous occurrence of the track with the name in the track list."
-msgstr "Atopa  a aparición anterior da pista co nome na lista de pistas."
+msgstr "धुनको सूचीबाट उक्त नामको पछिल्लो रूप खोज्ने छ ।"
 
 #. Translators: presented when cart explorer could not be switched on.
 msgid "Some or all carts could not be assigned, cannot enter cart explorer"
-msgstr ""
-"Algunhas ou todas as carts non se puideron asignar, non se pode introducir o "
-"explorador de cart"
+msgstr "केही अथवा सबै गाडाहरूलाई तोक्न सकिएन, गाडा अन्वेषकलाई प्रविष्ट गराउन सकिएन ।"
 
 #. Translators: Presented when cart explorer is on.
 msgid "Entering cart explorer"
-msgstr "Entrando no explorador de cart"
+msgstr "गाडा अन्वेषक प्रवेश गर्दै छु ।"
 
 #. Translators: Presented when cart explorer is off.
 msgid "Exiting cart explorer"
-msgstr "Saíndo do explorador de cart"
+msgstr "गाडा अन्वेषक बहिर्गमन गर्दै छ ।"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Toggles cart explorer to learn cart assignments."
-msgstr "Conmuta o explorador de cart para deprender as asignacións de cart."
+msgstr "गाडा अन्वेषक गाडा कार्यमा फेरिन्छ ।."
 
 #. Translators: Presented when there is no cart assigned to a cart command.
 msgid "Cart unassigned"
-msgstr "Cart non asignado"
+msgstr "गाडा नतोकिएको"
 
 #. Translators: Input help mode message for a layer command in Station Playlist Studio.
 msgid ""
 "The SPL Assistant layer command. See the add-on guide for more information "
 "on available commands."
-msgstr ""
-"a capa de ordes SPL Assistant. Consulta a guía do complemento para obter "
-"máis información sobre as ordes dispoñibles."
+msgstr "SPL सहयोगी तह आदेस ।. उपलब्ध आदेस विस्तृत रूपमा जान्न निर्देशिका हेर्नु होला ।"
 
 #. Translators: Presented when there is no information for the next track.
 msgid "No next track scheduled or no track is playing"
-msgstr "Non hai seguinte pista programada ou non hai pista en reprodución"
+msgstr "अर्को धुन सारणीमा छैन अथवा अर्को धुन बजि रहेको छैन ।"
 
 #. Translators: Presented when there is no listener count information.
 msgid "Listener count not found"
-msgstr "Reconto de oubintes non atopado"
+msgstr "श्रवणकर्ताको गणना पाइएन  ।"
 
 #. Used ANSI version, as Wide char version always returns 0.
 #. Translators: Presented when Station Playlist Studio is not running.
 msgid "SPL Studio is not running."
-msgstr "Non se está a executar o SPL Studio."
+msgstr "SPL स्टुडियो चलि रहेको छैन ।."
 
 #. Translators: Presented when Studio is minimized to system tray (notification area).
 msgid "SPL minimized to system tray."
-msgstr "SPL minimizado á bandexa do sistema."
+msgstr "SPL लाई प्रणालीमा सूक्ष्मीकृत गरियो ।."
 
 #. Translators: Input help mode message for a command to switch to Station Playlist Studio from any program.
 msgid "Moves to SPL Studio window from other programs."
-msgstr "Móvese á ventá SPL Studio dende  outros programas."
+msgstr "अरू कार्यक्रम बाट SPL स्टुडियो सञ्झ्यालमा जानेछ ।"
 
 #. Translators: Presented when NVDA cannot enter SPL Controller layer since SPL Studio is focused.
 msgid ""
 "You are already in SPL Studio window. For status commands, use SPL Assistant "
 "commands."
 msgstr ""
-"Xa estás na ventá SPL Studio. Para ordes de estado, utiliza ordes do SPL "
-"Assistant."
+"तपाई SPL स्टुडियो सञ्झ्यालमा हुनु हुन्छ ।. स्थिति आदेसका लागि, SPL सहयोगी आदेसको प्रयोग "
+"गर्नु होस् ।"
 
 #. Translators: The name of a layer command set for Station Playlist Studio.
 #. Hint: it is better to translate it as "SPL Control Panel."
 msgid "SPL Controller"
-msgstr "SPL Controller"
+msgstr "SPL नियन्त्रक "
 
 #. Translators: Input help mode message for a layer command in Station Playlist Studio.
 msgid "SPl Controller layer command. See add-on guide for available commands."
-msgstr ""
-"Capa de ordes do SPl Controller. Mira a guía do complemento para ordes "
-"dispoñibles."
+msgstr "SPl नियन्त्रण तह आदेस । उपलब्ध आदेस जान्न निर्देशिका हेर्नु होला ।"
 
 #. Translators: Presented when no track is playing in Station Playlist Studio.
 msgid "There is no track playing. Try pausing while a track is playing."
-msgstr ""
-"Non hai pistas a se reproducir. Trata de facer unha pausa mentres se "
-"reproduce unha pista."
+msgstr "धुन बजि रहेको छैन । यदि चलि रहेको भए विश्राम गर्ने कोसिस गर्नु होस् ।"
 
 #. Translators: Presented when SAM Encoder is trying to connect to a streaming server.
 msgid "Connecting..."
-msgstr "Conectando..."
+msgstr "जोड्दै छु"
 
 #. Translators: Input help mode message in SAM Encoder window.
 msgid "Connects to a streaming server."
-msgstr "Conecta a un servidor de streaming. "
+msgstr "सम्बद्ध सर्बरमा जोड्ने छ ।"
 
 #. Translators: Presented when SAM Encoder is disconnecting from a streaming server.
 msgid "Disconnecting..."
-msgstr "Desconectando..."
+msgstr "विच्छेद हुदैछ..."
 
 #. Translators: Input help mode message in SAM Encoder window.
 msgid "Disconnects from a streaming server."
-msgstr "Desconecta dun servidor de streaming."
+msgstr "सम्बद्ध सर्बर बाट  विच्छेद हुनेछ ।"
 
 #. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 msgid "Switch to Studio after connecting"
-msgstr "Cambiar ó Studio despois de conectar"
+msgstr "जडान भए पछि स्टुडियोमा जाउ ।।"
 
 #. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 msgid "Do not switch to Studio after connecting"
-msgstr "Non cambiar ó Studio despois de conectar"
+msgstr "जडान भए पछि स्टुडियोमा न जाउ ।।"
 
 #. Translators: Input help mode message in SAM Encoder window.
 msgid ""
 "Toggles whether NVDA will switch to Studio when connected to a streaming "
 "server."
 msgstr ""
-"Conmutar se NVDA cambiará ó Studio cando estea conectado a un servidor de "
-"streaming."
+"जब सर्बरमा जडान हुन्छ, नेत्रवाणी स्टुडियोमा स्थानान्तरीत हुने प्रक्रिया साटोफेरो हुन्छ ।"
 
 #. Translators: Presented when toggling the setting to play selected song when connected to a streaming server.
+#, fuzzy
 msgid "Play first track after connecting"
-msgstr "Reproduce a primeira pista tras se conectar"
+msgstr "जडान भए पछि स्टुडियोमा जाउ ।।"
 
 #. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+#, fuzzy
 msgid "Do not play first track after connecting"
-msgstr "Non reproduce a primeira pista tras se conectar"
+msgstr "जडान भए पछि स्टुडियोमा न जाउ ।।"
 
 #. Translators: Input help mode message in SAM Encoder window.
+#, fuzzy
 msgid ""
 "Toggles whether Studio will play the first song when connected to a "
 "streaming server."
 msgstr ""
-"Conmuta se Studio reproducirá ou non a primeira canción  cando se conecte a "
-"un servidor de streaming."
+"जब सर्बरमा जडान हुन्छ, नेत्रवाणी स्टुडियोमा स्थानान्तरीत हुने प्रक्रिया साटोफेरो हुन्छ ।"
 
 #. Translators: The title of the stream labeler dialog (example: stream labeler for 1).
 #, python-brace-format
 msgid "Stream labeler for {streamEntry}"
-msgstr "Etiquetador de Stream para {streamEntry}"
+msgstr "{streamEntry} का लागि बहाबको नामाकरण"
 
 #. Translators: The text of the stream labeler dialog.
 msgid "Enter the label for this stream"
-msgstr "Introduce a etiqueta para este stream"
+msgstr "यो बहाबलाई नामाकरण गर ।"
 
 #. Translators: Input help mode message in SAM Encoder window.
 msgid "Opens a dialog to label the selected encoder."
-msgstr "Abre un diálogo para etiquetar o codificador seleccionado."
+msgstr "चयनीत संहिताको नाम लेख्ने पातो पल्टाउने छ ।"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
@@ -272,8 +261,5 @@ msgid ""
 "Enhances support for Station Playlist Studio.\n"
 "In addition, adds global commands for the studio from everywhere."
 msgstr ""
-"Mellora o soporte paraStation Playlist Studio.\n"
-"Ademáis, engade ordes globais para o Studio  dende calquera parte."
-
-#~ msgid "Press Alt+Tab to switch to SPL Studio window"
-#~ msgstr "Preme Alt+Tab para cambiar á ventá SPL Studio"
+"स्टेशन प्ले लिष्टको परिचालनमा थप सुविधा ल्याउने छ ।\n"
+"यसका अतिरिक्त, स्टुडियोमा जताबाट पनि सर्व आदेस थप्ने छ ।"

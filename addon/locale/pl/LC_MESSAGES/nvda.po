@@ -7,31 +7,58 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
-"POT-Creation-Date: 2014-02-05 09:37-0800\n"
-"PO-Revision-Date: 2014-02-08 13:49+0100\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2014-08-13 21:06+0100\n"
 "Last-Translator: Grzegorz Zlotowicz <grzezlo@wp.pl>\n"
 "Language-Team: Polish <killer@tyflonet.com>\n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.7\n"
-"Language: pl\n"
+"X-Generator: Poedit 1.6.7\n"
 
 #. Translators: Script category for Station Playlist commands in input gestures dialog.
-#. Add-on description
-#. TRANSLATORS: Summary for this add-on to be shown on installation and add-on information.
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on to be shown on installation and add-on information.
 msgid "Station Playlist Studio"
 msgstr "Station Playlist Studio"
+
+#. Translators: Presented when cart edit mode is toggled on while cart explorer is on.
+msgid "Cart explorer is active"
+msgstr "Eksplorator koszyka jest aktywny"
+
+#. Translators: Presented when cart edit mode is toggled off while cart explorer is on.
+msgid "Please reenter cart explorer to view updated cart assignments"
+msgstr ""
+"Proszę ponownie wejść do eksploratora koszyka aby przejrzeć zaktualizowane "
+"przypisania koszyka"
+
+#. Translators: Presented when remaining time is unavailable.
+msgid "Remaining time not available"
+msgstr "Pozostały czas jest niedostępny"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Announces the remaining track time."
 msgstr "Wypowiada pozostały czas ścieżki."
 
+#. Translators: Presented when elapsed time is unavailable.
+msgid "Elapsed time not available"
+msgstr "Czas, który upłynął, nie jest dostępny"
+
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Announces the elapsed time for the currently playing track."
 msgstr "Oznajmia czas, który upłynął dla aktualnie odtwarzanej ścieżki."
 
+#. Translators: Presented when broadcaster time is unavailable.
+msgid "Broadcaster time not available"
+msgstr "Czas nadawcy niedostępny"
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Announces broadcaster time."
+msgstr "Wypowiada czas nadawcy."
+
 #. Translators: A dialog message to set end of track alarm (curAlarmSec is the current end of track alarm in seconds).
+#, python-brace-format
 msgid "Enter end of track alarm time in seconds (currently {curAlarmSec})"
 msgstr "Wprowadź alarm końca ścieżki w sekundach (obecnie {curAlarmSec})"
 
@@ -47,6 +74,10 @@ msgstr "Wprowadzono nieprawidłową wartość."
 msgid "Error"
 msgstr "Błąd"
 
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "sets end of track alarm (default is 5 seconds)."
+msgstr "Ustawia alarm końca ścieżki (domyślnie jest 5 sekund)."
+
 #. Translators: Reported when toggle announcement is set to beeps in SPL Studio.
 msgid "Toggle announcement beeps"
 msgstr "Przełącz oznajmianie dźwięki"
@@ -59,6 +90,64 @@ msgstr "Przełącz oznajmianie mowa"
 msgid "Toggles option change announcements between words and beeps."
 msgstr "Przełącza opcję oznajmiania między dźwiękami i słowami."
 
+#. Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
+msgid "Search string not found."
+msgstr "Nie znaleziono."
+
+#. Translators: Standard error title for find error (copy this from main nvda.po).
+msgid "Find error"
+msgstr "Błąd szukania"
+
+#. Translators: Presented when a user attempts to find tracks but is not at the track list.
+msgid "Track finder is available only in track list."
+msgstr "Wyszukiwarka ścieżek dostępna tylko na liście ścieżek."
+
+#. Translators: Presented when a user wishes to find a track but didn't add any tracks.
+msgid "You need to add at least one track to find tracks."
+msgstr "Musisz dodać conajmniej jedną ścieżkę, aby rozpocząć poszukiwanie."
+
+#. Translators: The text of the dialog for finding tracks.
+msgid "Enter the name of the track you wish to search."
+msgstr "Podaj nazwę ścieżki do wyszukania."
+
+#. Translators: The title of the find tracks dialog.
+msgid "Find track"
+msgstr "Znajdź ścieżkę"
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Finds a track in the track list."
+msgstr "Szuka ścieżki na liście ścieżek."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Finds the next occurrence of the track with the name in the track list."
+msgstr "Szuka następnej pasującej ścieżki na liście ścieżek."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Finds previous occurrence of the track with the name in the track list."
+msgstr "Szuka poprzedniej pasującej ścieżki na liście ścieżek."
+
+#. Translators: presented when cart explorer could not be switched on.
+msgid "Some or all carts could not be assigned, cannot enter cart explorer"
+msgstr ""
+"Niektóre lub wszystkie koszyki nie mogły zostać przypisane, nie można wejść "
+"do eksploratora koszyka."
+
+#. Translators: Presented when cart explorer is on.
+msgid "Entering cart explorer"
+msgstr "Wejście do eksploratora koszyka"
+
+#. Translators: Presented when cart explorer is off.
+msgid "Exiting cart explorer"
+msgstr "Wyjście z eksploratora koszyka"
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Toggles cart explorer to learn cart assignments."
+msgstr "Przełącza eksplorator koszyka, aby nauczyć się przypisań koszyka"
+
+#. Translators: Presented when there is no cart assigned to a cart command.
+msgid "Cart unassigned"
+msgstr "Koszyk nieprzypisany"
+
 #. Translators: Input help mode message for a layer command in Station Playlist Studio.
 msgid ""
 "The SPL Assistant layer command. See the add-on guide for more information "
@@ -67,15 +156,23 @@ msgstr ""
 "Warstwa komend Asystenta SPL. Zajrzyj do podręcznika dodatku, aby uzyskać "
 "więcej informacji na temat dostępnych poleceń."
 
-#. SPL, are you running?
+#. Translators: Presented when there is no information for the next track.
+msgid "No next track scheduled or no track is playing"
+msgstr ""
+"Brak następnej zaplanowanej ścieżki, albo żadna ścieżka nie jest odtwarzana"
+
+#. Translators: Presented when there is no listener count information.
+msgid "Listener count not found"
+msgstr "Nie znaleziono liczby słuchaczy"
+
+#. Used ANSI version, as Wide char version always returns 0.
 #. Translators: Presented when Station Playlist Studio is not running.
 msgid "SPL Studio is not running."
 msgstr "SPL Studio nie jest uruchomione."
 
-#. If user pressed Windows+M to minimize windows, give a message to switch to SPL Studio window manually. If not, move focus.
-#. Translators: Presented when NVDA cannot switch to Station Playlist Studio (all windows were minimized).
-msgid "Press Alt+Tab to switch to SPL Studio window"
-msgstr "Naciśnij Alt+Tab aby przejść do okna SPL Studio "
+#. Translators: Presented when Studio is minimized to system tray (notification area).
+msgid "SPL minimized to system tray."
+msgstr "SPL zminimalizowane do szuflady systemu."
 
 #. Translators: Input help mode message for a command to switch to Station Playlist Studio from any program.
 msgid "Moves to SPL Studio window from other programs."
@@ -106,11 +203,78 @@ msgstr ""
 "Żadna ścieżka nie jest odtwarzana. Spróbuj wykonać pauzę w trakcie "
 "odtwarzania ścieżki."
 
+#. Translators: Presented when SAM Encoder is trying to connect to a streaming server.
+msgid "Connecting..."
+msgstr "Łączenie..."
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid "Connects to a streaming server."
+msgstr "Łączy z serwerem strumieniowania."
+
+#. Translators: Presented when SAM Encoder is disconnecting from a streaming server.
+msgid "Disconnecting..."
+msgstr "Rozłączanie..."
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid "Disconnects from a streaming server."
+msgstr "Rozłącza z serwerem strumieniowania."
+
+#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+msgid "Switch to Studio after connecting"
+msgstr "Przełączaj do studia po połączeniu"
+
+#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+msgid "Do not switch to Studio after connecting"
+msgstr "Nie przełączaj do studia po połączeniu"
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid ""
+"Toggles whether NVDA will switch to Studio when connected to a streaming "
+"server."
+msgstr ""
+"Przełącza, czy NVDA będzie przechodzić do studia po połączeniu z serwerem "
+"strumieniowania."
+
+#. Translators: Presented when toggling the setting to play selected song when connected to a streaming server.
+#, fuzzy
+msgid "Play first track after connecting"
+msgstr "Przełączaj do studia po połączeniu"
+
+#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+#, fuzzy
+msgid "Do not play first track after connecting"
+msgstr "Nie przełączaj do studia po połączeniu"
+
+#. Translators: Input help mode message in SAM Encoder window.
+#, fuzzy
+msgid ""
+"Toggles whether Studio will play the first song when connected to a "
+"streaming server."
+msgstr ""
+"Przełącza, czy NVDA będzie przechodzić do studia po połączeniu z serwerem "
+"strumieniowania."
+
+#. Translators: The title of the stream labeler dialog (example: stream labeler for 1).
+#, python-brace-format
+msgid "Stream labeler for {streamEntry}"
+msgstr "Etykietownik strumienia dla {streamEntry}"
+
+#. Translators: The text of the stream labeler dialog.
+msgid "Enter the label for this stream"
+msgstr "Wprowadź etykietę tego strumienia"
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid "Opens a dialog to label the selected encoder."
+msgstr "Otwiera okno etykietowania wybranego enkodera.."
+
 #. Add-on description
-#. Translators: Long description to be shown for this add-on on installation and add-on information
+#. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
 msgid ""
 "Enhances support for Station Playlist Studio.\n"
 "In addition, adds global commands for the studio from everywhere."
 msgstr ""
 "Poprawia dostępność Station Playlist Studio.\n"
 "Ponadto, dodaje globalne komendy dla studia, dostępne z każdego miejsca."
+
+#~ msgid "Press Alt+Tab to switch to SPL Studio window"
+#~ msgstr "Naciśnij Alt+Tab aby przejść do okna SPL Studio "
