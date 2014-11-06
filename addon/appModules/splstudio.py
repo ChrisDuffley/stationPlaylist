@@ -56,7 +56,7 @@ class SPL510TrackItem(IAccessible):
 
 	def script_select(self, gesture):
 		gesture.send()
-		ui.message(self.name)
+		speech.speakMessage(self.name)
 
 	__gestures={"kb:space":"select"}
 
