@@ -655,16 +655,20 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Report library scan (number of items scanned) in the background.
 	def monitorLibraryScan(self):
-		t = threading.Thread(target=self.libraryScanReporter)
-		t.name = "SPLLibraryScanReporter"
-		t.daemon = True
-		t.start()
-
-	def libraryScanReporter(self):
 		SPLWin = user32.FindWindowA("SPLStudio", None)
 		countA = sendMessage(SPLWin, 1024, 0, 32)
 		time.sleep(0.1)
 		countB = sendMessage(SPLWin, 1024, 0, 32)
+		if countA == countB:
+			self.libraryScanning = False
+			ui.message("{itemCount} items in the library".format(itemCount = countB))
+		else:
+			t = threading.Thread(target=self.libraryScanReporter, args=(SPLWin, countA, countB))
+			t.name = "SPLLibraryScanReporter"
+			t.daemon = True
+			t.start()
+
+	def libraryScanReporter(self, SPLWin, countA, countB):
 		scanIter = 0
 		while countA != countB:
 			countA = countB
@@ -682,13 +686,10 @@ class AppModule(appModuleHandler.AppModule):
 						ui.message("{itemCount}".format(itemCount = countB))
 					else: ui.message("{itemCount} items scanned".format(itemCount = countB))
 		self.libraryScanning = False
-		if self.beepAnnounce: tones.beep(370, 100)
-		else:
-			# For 5.01 and earlier, SPL reports library scan count as it is happening, but in 5.10, it returns the total count.
-			if self.productVersion < "5.10":
-				ui.message("Scan complete with {itemCount} items".format(itemCount = countB))
+		if self.libraryScanProgress:
+			if self.beepAnnounce: tones.beep(370, 100)
 			else:
-				ui.message("{itemCount} items in the library".format(itemCount = countB))
+				ui.message("Scan complete with {itemCount} items".format(itemCount = countB))
 
 	# SPL Assistant: reports status on playback, operation, etc.
 	# Used layer command approach to save gesture assignments.
@@ -833,15 +834,15 @@ class AppModule(appModuleHandler.AppModule):
 		if self.productVersion < "5.10":
 			if not self.libraryScanning:
 				self.libraryScanning = True
-				self.monitorLibraryScan()
 				ui.message("Monitoring library scan")
+				self.monitorLibraryScan()
 			else:
 				ui.message("Scanning is in progress")
 		else:
 			# In 5.10, library scan count returns total count.
 			SPLWin = user32.FindWindowA("SPLStudio", None)
 			items = sendMessage(SPLWin, 1024, 0, 32)
-			ui.message(str(items))
+			ui.message("{itemCount} items in the library".format(itemCount = items))
 
 
 	__SPLAssistantGestures={
