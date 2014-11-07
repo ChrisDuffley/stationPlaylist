@@ -415,12 +415,18 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		def reportConnectionStatus(self):
 			# Same routine as SAM encoder: use a thread to prevent blocking NVDA commands.
 			SPLWin = user32.FindWindowA("SPLStudio", None)
-			for attempt in xrange(0, 100):
+			attempt = 0
+			while True:
 				time.sleep(0.001)
-				if attempt%50 == 0: tones.beep(500, 50)
-				info = review.getScreenPosition(self)[0]
-				info.expand(textInfos.UNIT_LINE)
-				if info.text.endswith("Connected"):
+				attempt += 1
+				if attempt%250 == 0: tones.beep(500, 50)
+				#info = review.getScreenPosition(self)[0]
+				#info.expand(textInfos.UNIT_LINE)
+				#if not info.text.endswith("Disconnected"): ui.message(info.text)
+				#if info.text.endswith("Connected"):
+				if "Unable to connect" in self.name:
+					break
+				if self.name.endswith("Connected"):
 					# We're on air, so exit.
 					if self.focusToStudio:
 						fetchSPLForegroundWindow().setFocus()
