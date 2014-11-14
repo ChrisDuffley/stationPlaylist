@@ -8,8 +8,7 @@
 # Additional work done by Joseph Lee and other contributors.
 # For SPL Studio Controller, focus movement, SAM Encoder support and other utilities, see the global plugin version of this app module.
 
-# Because of different interfaces between 4.x and 5.x, we need to come up with a way to handle both.
-# Minimum version: SPL 4.33, NvDA 2014.1.
+# Minimum version: SPL 5.00, NvDA 2014.3.
 
 from functools import wraps
 import os
@@ -50,8 +49,7 @@ def finally_(func, final):
 	return wrap(final)
 
 # Use appModule.productVersion to decide what to do with 4.x and 5.x.
-# Check the version string against this. If it is less, use a different procedure for some routines.
-SPLMinVersion = "5.00"
+SPLMinVersion = "5.00" # Add-on 4.0 will not work properly in SPL 4.x anymore.
 
 # Configuration management )4.0 and later; will not be ported to 3.x).
 SPLConfig = ConfigObj(os.path.join(globalVars.appArgs.configPath, "splstudio.ini"))
@@ -79,15 +77,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Actual version of the software that we are running.
 	SPLCurVersion = appModuleHandler.AppModule.productVersion
 
-	# GS: The following was written by James Teh <jamie@NVAccess.org
-	#It gets around a problem where double focus events are fired when moving around the playlist.
-	#Hopefully it will be possible to remove this when it is fixed in Studio.>
-	# JL: Keeping this around for SPL 4.x users (and have confirmed that this works in 5.x).
 	def event_NVDAObject_init(self, obj):
-		if obj.windowClassName == "TListView" and obj.role in (controlTypes.ROLE_CHECKBOX, controlTypes.ROLE_LISTITEM) and controlTypes.STATE_FOCUSED not in obj.states and self.SPLCurVersion < SPLMinVersion:
-			# These lists seem to fire a focus event on the previously focused item before firing focus on the new item.
-			# Try to filter this out.
-			obj.shouldAllowIAccessibleFocusEvent = False
 		# Radio button group names are not recognized as grouping, so work around this.
 		if obj.windowClassName == "TRadioGroup":
 			obj.role = controlTypes.ROLE_GROUPING
@@ -189,19 +179,7 @@ class AppModule(appModuleHandler.AppModule):
 						self.doExtraAction(obj.name)
 			# Monitor the end of track and song intro time and announce it.
 			elif obj.windowClassName == "TStaticText": # For future extensions.
-				if obj.simpleParent.name == "Remaining Time":
-					# End of track for SPL 4.x.
-					if self.brailleTimer in [self.brailleTimerEnding, self.brailleTimerBoth] and "00:00" < obj.name <= self.SPLEndOfTrackTime:
-						braille.handler.message(obj.name)
-					if obj.name == self.SPLEndOfTrackTime:
-						tones.beep(440, 200)
-				elif obj.simpleParent.name == "Remaining Song Ramp":
-					# Song intro for SPL 4.x.
-					if self.brailleTimer in [self.brailleTimerIntro, self.brailleTimerBoth] and "00:00" < obj.name <= self.SPLSongRampTime:
-						braille.handler.message(obj.name)
-					if obj.name == self.SPLSongRampTime:
-						tones.beep(512, 400)
-				elif obj.simplePrevious != None and obj.simplePrevious.name == "Remaining Time":
+				if obj.simplePrevious != None and obj.simplePrevious.name == "Remaining Time":
 					# End of track for SPL 5.x.
 					if self.brailleTimer in [self.brailleTimerEnding, self.brailleTimerBoth] and "00:00" < obj.name <= self.SPLEndOfTrackTime:
 						braille.handler.message(obj.name)
@@ -261,15 +239,10 @@ class AppModule(appModuleHandler.AppModule):
 
 	# A few time related scripts (elapsed time, remaining time, etc.).
 
-
+	# Time location constants for SPL 5.x.
 	SPLElapsedTime = 3
-	SPL4ElapsedTime = -4
-	# Broadcaster time such as "5 minutes to 3" for SPL 5.x.
 	SPLBroadcasterTime = 13
-	SPL4BroadcasterTime = 8
-	# Complete time as in hours, minutes and seconds.
 	SPLCompleteTime = 15
-	SPL4CompleteTime = 10
 
 	# Speak any time-related errors.
 	# Message type: error message.
@@ -300,7 +273,7 @@ class AppModule(appModuleHandler.AppModule):
 		if self.SPLCurVersion >= SPLMinVersion :
 			self.timeMessage(1, 2, timeObjChild=1)
 		else:
-			self.timeMessage(1, -3)
+			ui.message("This version of Studio is no longer supported")
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayRemainingTime.__doc__=_("Announces the remaining track time.")
 
@@ -308,7 +281,7 @@ class AppModule(appModuleHandler.AppModule):
 		if self.SPLCurVersion >= SPLMinVersion :
 			self.timeMessage(2, self.SPLElapsedTime, timeObjChild=1)
 		else:
-			self.timeMessage(2, self.SPL4ElapsedTime)
+			ui.message("This version of Studio is no longer supported")
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayElapsedTime.__doc__=_("Announces the elapsed time for the currently playing track.")
 
@@ -317,7 +290,7 @@ class AppModule(appModuleHandler.AppModule):
 		if self.SPLCurVersion >= SPLMinVersion :
 			self.timeMessage(3, self.SPLBroadcasterTime)
 		else:
-			self.timeMessage(3, self.SPL4BroadcasterTime)
+			ui.message("This version of Studio is no longer supported")
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayBroadcasterTime.__doc__=_("Announces broadcaster time.")
 
@@ -326,7 +299,7 @@ class AppModule(appModuleHandler.AppModule):
 		if self.SPLCurVersion >= SPLMinVersion :
 			self.timeMessage(4, self.SPLCompleteTime)
 		else:
-			self.timeMessage(4, self.SPL4CompleteTime)
+			ui.message("This version of Studio is no longer supported")
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayCompleteTime.__doc__=_("Announces time including seconds.")
 
