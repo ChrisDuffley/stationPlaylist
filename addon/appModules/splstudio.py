@@ -57,6 +57,11 @@ SPLConfig = ConfigObj(os.path.join(globalVars.appArgs.configPath, "splstudio.ini
 # A placeholder thread.
 micAlarmT = None
 
+# Braille and play a sound in response to an alarm or an event.
+def messageSound(wavFile, message):
+	nvwave.playWaveFile(wavFile)
+	braille.handler.message(message)
+
 # Controls which require special handling.
 class SPL510TrackItem(IAccessible):
 
@@ -163,15 +168,13 @@ class AppModule(appModuleHandler.AppModule):
 							# User wishes to hear beeps instead of words. The beeps are power on and off sounds from PAC Mate Omni.
 							beep = obj.name.split(" ")
 							stat = beep[-1]
-							wavDir, wavFile = os.path.dirname(__file__), ""
+							wavDir = os.path.dirname(__file__)
 							# Play a wave file based on on/off status.
 							if stat == "Off":
-								wavFile = wavDir + "\SPL_off.wav"
+								wavFile = os.path.join(wavDir, "SPL_off.wav")
 							elif stat == "On":
-								wavFile = wavDir+"\SPL_on.wav"
-							nvwave.playWaveFile(wavFile)
-							# Braille the toggle message regardless of whether beep is heard or not.
-							braille.handler.message(obj.name)
+								wavFile = os.path.join(wavDir, "SPL_on.wav")
+							messageSound(wavFile, obj.name)
 					else:
 						ui.message(obj.name)
 					if self.cartExplorer or self.micAlarm:
@@ -207,20 +210,23 @@ class AppModule(appModuleHandler.AppModule):
 				# Translators: Presented when cart edit mode is toggled off while cart explorer is on.
 				ui.message(_("Please reenter cart explorer to view updated cart assignments"))
 		if self.micAlarm:
+			# Play an alarm sound from Braille Sense U2.
+			micAlarmWav = os.path.join(os.path.dirname(__file__), "SPL_MicAlarm.wav")
+			micAlarmMessage = "Warning: Microphone active"
 			# Use a timer to play a tone when microphone was active for more than the specified amount.
 			if status == "Microphone On":
-				micAlarmT = threading.Timer(self.micAlarm, tones.beep, args=[1000, 250])
+				micAlarmT = threading.Timer(self.micAlarm, messageSound, args=[micAlarmWav, micAlarmMessage])
 				try:
 					micAlarmT.start()
 				except RuntimeError:
-					micAlarmT = threading.Timer(self.micAlarm, tones.beep, args=[1000, 250])
+					micAlarmT = threading.Timer(self.micAlarm, messageSound, args=[micAlarmWav, micAlarmMessage])
 					micAlarmT.start()
 			elif status == "Microphone Off":
 				if micAlarmT is not None: micAlarmT.cancel()
 				micAlarmT = None
 
 
-	# Continue monitoring library scans among other focus loss management.
+				# Continue monitoring library scans among other focus loss management.
 	def event_loseFocus(self, obj, nextHandler):
 		fg = api.getForegroundObject()
 		if fg.windowClassName == "TTrackInsertForm":
