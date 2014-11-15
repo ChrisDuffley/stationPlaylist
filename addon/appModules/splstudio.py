@@ -27,7 +27,6 @@ import speech
 import braille
 import gui
 import wx
-import winUser
 from winUser import user32, sendMessage
 from NVDAObjects.IAccessible import IAccessible
 import textInfos
@@ -79,7 +78,6 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Play beeps instead of announcing toggles.
 	beepAnnounce = False
-	# Actual version of the software that we are running.
 	SPLCurVersion = appModuleHandler.AppModule.productVersion
 
 	def event_NVDAObject_init(self, obj):
@@ -119,11 +117,6 @@ class AppModule(appModuleHandler.AppModule):
 		micAlarm = int(SPLConfig["MicAlarm"])
 	except KeyError:
 		micAlarm = 0
-	# Monitor various track times with braille.
-	brailleTimer = 0
-	brailleTimerEnding = 1
-	brailleTimerIntro = 2
-	brailleTimerBoth = 3 # Both as in intro and track ending.
 
 	# Automatically announce mic, line in, etc changes
 	# These items are static text items whose name changes.
@@ -412,6 +405,13 @@ class AppModule(appModuleHandler.AppModule):
 	script_toggleBeepAnnounce.__doc__=_("Toggles option change announcements between words and beeps.")
 
 	# Braille timer.
+	# Announce end of track and other info via braille.
+	brailleTimer = 0
+	brailleTimerEnding = 1
+	brailleTimerIntro = 2
+	brailleTimerBoth = 3 # Both as in intro and track ending.
+
+	# Braille timer settings list and the toggle script.
 	brailleTimerSettings=(
 		("Braille timer off"),
 		("Braille track endings"),
@@ -419,13 +419,11 @@ class AppModule(appModuleHandler.AppModule):
 		("Braille intro and track endings")
 	)
 
-	def script_brailleTimer(self, gesture):
-		brailleTimerSetting= self.brailleTimer
-		brailleTimerSetting = brailleTimerSetting+1 if brailleTimerSetting < len(self.brailleTimerSettings)-1 else 0
-		ui.message(self.brailleTimerSettings[brailleTimerSetting])
-		self.brailleTimer = brailleTimerSetting
+	def script_setBrailleTimer(self, gesture):
+		self.brailleTimer= self.brailleTimer+1 if self.brailleTimer < len(self.brailleTimerSettings)-1 else 0
+		ui.message(self.brailleTimerSettings[self.brailleTimer])
 	# Translators: Input help mode message for a command in Station Playlist Studio.
-	script_brailleTimer.__doc__=_("Toggles option change announcements between words and beeps.")
+	script_setBrailleTimer.__doc__=_("Toggles between various braille timer settings.")
 
 	# The track finder utility for find track script.
 	# Perform a linear search to locate the track name and/or description which matches the entered value.
@@ -466,12 +464,8 @@ class AppModule(appModuleHandler.AppModule):
 			_("Find track"), defaultValue=self.findText)
 			def callback(result):
 				if result == wx.ID_OK:
-					# Tests (for performance reasons):
-					# First, please either add at least one track to the list, or enter something, otherwise I'll not search it.
 					if dlg.GetValue() is None: return
-					# Second, if the entered values are same, do a forward search instead.
 					elif dlg.GetValue() == self.findText: self.trackFinder(dlg.GetValue(), startObj.next)
-					# Normal: do the search across the entire track list.
 					else: self.trackFinder(dlg.GetValue(), startObj)
 			gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
@@ -645,10 +639,9 @@ class AppModule(appModuleHandler.AppModule):
 	)
 
 	def script_setLibraryScanProgress(self, gesture):
-		scanProgress = self.libraryScanProgress
-		scanProgress = scanProgress+1 if scanProgress < len(self.libraryProgressSettings)-1 else 0
-		ui.message(self.libraryProgressSettings[scanProgress])
-		self.libraryScanProgress = scanProgress
+		self.libraryScanProgress = self.libraryScanProgress+1 if self.libraryScanProgress < len(self.libraryProgressSettings)-1 else 0
+		ui.message(self.libraryProgressSettings[self.libraryScanProgress])
+	script_setLibraryScanProgress.__doc__="Toggles library scan progress settings."
 
 	def script_startScanFromInsertTracks(self, gesture):
 		gesture.send()
@@ -897,6 +890,6 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:control+nvda+3":"toggleCartExplorer",
 		"kb:alt+nvda+r":"setLibraryScanProgress",
 		"kb:control+shift+r":"startScanFromInsertTracks",
-		"kb:control+shift+x":"brailleTimer",
+		"kb:control+shift+x":"setBrailleTimer",
 		#"kb:control+nvda+`":"SPLAssistantToggle"
 	}
