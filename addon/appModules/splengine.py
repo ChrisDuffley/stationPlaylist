@@ -97,8 +97,6 @@ class AppModule(appModuleHandler.AppModule):
 
 
 	# Few things to check
-	focusToStudio = False
-	playAfterConnecting = False
 
 	def isEncoderWindow(self, obj):
 		fg = api.getForegroundObject()
@@ -139,12 +137,20 @@ class AppModule(appModuleHandler.AppModule):
 			#elif "Encoding" in info.text or "Encoded" in info.text:
 			elif "Encoding" in encoderWindow.description or "Encoded" in encoderWindow.description:
 				# We're on air, so exit.
-				if self.focusToStudio:
-					fetchSPLForegroundWindow().setFocus()
 				tones.beep(1000, 150)
-				if self.playAfterConnecting:
-					winUser.sendMessage(SPLWin, SPLMSG, 0, SPLPlay)
 				break
+		try:
+			focusToStudio = SAMFocusToStudio[encoderWindow.name]
+		except KeyError:
+			focusToStudio = False
+		try:
+			playAfterConnecting = SAMPlayAfterConnecting[encoderWindow.name]
+		except KeyError:
+			playAfterConnecting = False
+		if focusToStudio:
+			fetchSPLForegroundWindow().setFocus()
+		if playAfterConnecting:
+			winUser.sendMessage(SPLWin, SPLMSG, 0, SPLPlay)
 
 	# Only needed in SPL Encoder to prevent focus announcement.
 	connecting = False
@@ -153,7 +159,9 @@ class AppModule(appModuleHandler.AppModule):
 		# Same as SAM's connection routine, but this time, keep an eye on self.name and a different connection flag.
 		self.connecting = True
 		connectButton = api.getForegroundObject().children[2]
-		if connectButton.name == "Disconnect": return
+		if connectButton.name == "Disconnect":
+			self.connecting = False
+			return
 		ui.message(_("Connecting..."))
 		# Juggle the focus around.
 		connectButton.doAction()
@@ -167,6 +175,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Same routine as SAM encoder: use a thread to prevent blocking NVDA commands.
 		SPLWin = user32.FindWindowA("SPLStudio", None)
 		attempt = 0
+		connected = False
 		while True:
 			time.sleep(0.001)
 			attempt += 1
@@ -176,18 +185,26 @@ class AppModule(appModuleHandler.AppModule):
 			#if not info.text.endswith("Disconnected"): ui.message(info.text)
 			#if info.text.endswith("Connected"):
 			if "Unable to connect" in encoderWindow.name:
+				ui.message(encoderWindow.children[1].name)
 				break
 			if encoderWindow.children[1].name == "Connected":
 				# We're on air, so exit.
-				if self.focusToStudio:
-					fetchSPLForegroundWindow().setFocus()
 				tones.beep(1000, 150)
-				if self.playAfterConnecting:
-					winUser.sendMessage(SPLWin, SPLMSG, 0, SPLPlay)
 				break
-		if encoderWindow.children[1].name != "Connected":
-			self.connecting = False
-			ui.message(encoderWindow.children[1].name)
+		self.connecting = False
+		try:
+			focusToStudio = SPLFocusToStudio[str(encoderWindow.parent.children.index(encoderWindow)+1)]
+		except KeyError:
+			focusToStudio = False
+		try:
+			playAfterConnecting = SPLPlayAfterConnecting[str(encoderWindow.parent.children.index(encoderWindow)+1)]
+		except KeyError:
+			playAfterConnecting = False
+		if focusToStudio:
+			fetchSPLForegroundWindow().setFocus()
+		if playAfterConnecting:
+			winUser.sendMessage(SPLWin, SPLMSG, 0, SPLPlay)
+
 
 	# Encoder scripts
 
@@ -208,34 +225,62 @@ class AppModule(appModuleHandler.AppModule):
 			ui.message(_("Disconnecting..."))
 
 	def script_toggleFocusToStudio(self, gesture):
-		if not self.focusToStudio:
-			self.focusToStudio = True
-			#elf.encoderType == "SAM":
-				#SAMFocusToStudio[self.name] = True
-			#elif self.encoderType == "SPL":
-				#SPLFocusToStudio[str(self.IAccessibleChildID)] = True
+		focus = api.getFocusObject()
+		encoder = self.isEncoderWindow(focus)
+		if not encoder:
+			return
+		if encoder == "SAM":
+			try:
+				focusToStudio = SAMFocusToStudio[focus.name]
+			except KeyError:
+				focusToStudio = False
+		elif encoder == "SPL":
+			try:
+				focusToStudio = SPLFocusToStudio[str(focus.parent.children.index(focus)+1)]
+			except KeyError:
+				focusToStudio = False
+		if not focusToStudio:
+			focusToStudio = True
 			# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 			ui.message(_("Switch to Studio after connecting"))
 		else:
-			self.focusToStudio = False
+			focusToStudio = False
 			# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 			ui.message(_("Do not switch to Studio after connecting"))
+		if encoder == "SAM":
+			SAMFocusToStudio[focus.name] = focusToStudio
+		elif encoder == "SPL":
+			SPLFocusToStudio[str(focus.parent.children.index(focus)+1)] = focusToStudio
 	# Translators: Input help mode message in SAM Encoder window.
 	script_toggleFocusToStudio.__doc__=_("Toggles whether NVDA will switch to Studio when connected to a streaming server.")
 
 	def script_togglePlay(self, gesture):
-		if not self.playAfterConnecting:
-			self.playAfterConnecting = True
-			#if self.encoderType == "SAM":
-				#SAMPlayAfterConnecting[self.name] = True
-			#elif self.encoderType == "SPL":
-				#SPLPlayAfterConnecting[str(self.IAccessibleChildID)] = True
+		focus = api.getFocusObject()
+		encoder = self.isEncoderWindow(focus)
+		if not encoder:
+			return
+		if encoder == "SAM":
+			try:
+				playAfterConnecting = SAMPlayAfterConnecting[focus.name]
+			except KeyError:
+				playAfterConnecting = False
+		elif encoder == "SPL":
+			try:
+				playAfterConnecting = SPLPlayAfterConnecting[str(focus.parent.children.index(focus)+1)]
+			except KeyError:
+				playAfterConnecting = False
+		if not playAfterConnecting:
+			playAfterConnecting = True
 			# Translators: Presented when toggling the setting to play selected song when connected to a streaming server.
 			ui.message(_("Play first track after connecting"))
 		else:
-			self.playAfterConnecting = False
+			playAfterConnecting = False
 			# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 			ui.message(_("Do not play first track after connecting"))
+		if encoder == "SAM":
+			SAMPlayAfterConnecting[focus.name] = playAfterConnecting
+		elif encoder == "SPL":
+			SPLPlayAfterConnecting[str(focus.parent.children.index(focus)+1)] = playAfterConnecting
 	# Translators: Input help mode message in SAM Encoder window.
 	script_togglePlay.__doc__=_("Toggles whether Studio will play the first song when connected to a streaming server.")
 
