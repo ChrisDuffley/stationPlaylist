@@ -3,6 +3,11 @@
 # Copyright 2014, released under GPL.
 # Mainly used for encoder window support.
 
+# SPL Audio Engine (splengine.exe) is a container for audio processing DLL's including encoders.
+# Each encoder is a DLL. As NVDA is unable to assign app modules based on DLL's, a workaround was implemented to support each encoder.
+# The app module provides scripts to be used in encoder windows, while each "encoder window" provides it's own protocol for various scripts.
+# Here "encoder window" really is a disguised overlay class check routine.
+
 import threading
 import os
 import time
@@ -135,7 +140,7 @@ class AppModule(appModuleHandler.AppModule):
 			toneCounter+=1
 			if toneCounter%250 == 0:
 				tones.beep(500, 50)
-				if toneCounter >= 500 and "Idle" in encoderWindow.description:
+				if toneCounter >= 750 and "Idle" in encoderWindow.description:
 					self.connecting_SAM = False
 					tones.beep(250, 250)
 					return
