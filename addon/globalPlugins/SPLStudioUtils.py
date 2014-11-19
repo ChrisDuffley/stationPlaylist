@@ -4,11 +4,13 @@
 # Adds a few utility features such as switching focus to the SPL Studio window and some global scripts.
 
 from functools import wraps
+import os
 import globalPluginHandler
 import api
 import ui
 import winUser
 import tones
+import nvwave
 import addonHandler
 addonHandler.initTranslation()
 
@@ -41,6 +43,10 @@ SPLLineIn = 18
 SPLLibraryScanCount = 32
 SPL_TrackPlaybackStatus = 104
 SPLCurTrackPlaybackTime = 105
+
+# On/off toggle wave files.
+onFile = os.path.join(os.path.dirname(__file__), "..", "appModules", "SPL_on.wav")
+offFile = os.path.join(os.path.dirname(__file__), "..", "appModules", "SPL_off.wav")
 
 # Try to see if SPL foreground object can be fetched. This is used for switching to SPL Studio window from anywhere and to switch to Studio window from SAM encoder window.
 
@@ -136,10 +142,16 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def script_micOn(self, gesture):
 		winUser.sendMessage(SPLWin,SPLMSG,1,SPLMic)
+		nvwave.playWaveFile(onFile)
+		self.finish()
+
+	def script_micNoFade(self, gesture):
+		winUser.sendMessage(SPLWin,SPLMSG,2,SPLMic)
 		self.finish()
 
 	def script_micOff(self, gesture):
 		winUser.sendMessage(SPLWin,SPLMSG,0,SPLMic)
+		nvwave.playWaveFile(offFile)
 		self.finish()
 
 	def script_lineInOn(self, gesture):
@@ -189,6 +201,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:shift+a":"automateOff",
 		"kb:m":"micOn",
 		"kb:shift+m":"micOff",
+		"kb:n":"micNoFade",
 		"kb:l":"lineInOn",
 		"kb:shift+l":"lineInOff",
 		"kb:shift+r":"libraryScanProgress",
