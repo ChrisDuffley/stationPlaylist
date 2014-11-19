@@ -1,19 +1,19 @@
-# Station Playlist Encoder Engine
+# Station Playlist Audio Engine
 # Author: Joseph Lee
-# Copyright 2013-2014, released under GPL.
+# Copyright 2014, released under GPL.
+# Mainly used for encoder window support.
 
 import threading
 import os
 import time
-from configobj import ConfigObj # Configuration management; configspec will be used to store app module and global plugin settings in one ini file.
+from configobj import ConfigObj
 import appModuleHandler
 import api
 import ui
 import speech
 import braille
+import controlTypes
 import globalVars
-import review
-import textInfos
 import winUser
 import tones
 import gui
@@ -49,7 +49,7 @@ except KeyError:
 	SPLStreamLabels = {}
 
 
-# Try to see if SPL foreground object can be fetched. This is used for switching to SPL Studio window from anywhere and to switch to Studio window from SAM encoder window.
+# Try to see if SPL foreground object can be fetched. This is used for switching to SPL Studio window from anywhere and to switch to Studio window from encoder windows.
 
 def fetchSPLForegroundWindow():
 	# Turns out NVDA core does have a method to fetch desktop objects, so use this to find SPL window from among its children.
@@ -74,37 +74,40 @@ class AppModule(appModuleHandler.AppModule):
 	# Announce stream labels
 	def event_gainFocus(self, obj, nextHandler):
 		if self.connecting: return
-		encoderType = self.isEncoderWindow(obj)
-		streamLabel = None
-		if encoderType == "SAM":
-			try:
-				streamLabel = SAMStreamLabels[obj.name]
-			except KeyError:
-				streamLabel = None
-		elif encoderType == "SPL":
-			try:
-				streamLabel = SPLStreamLabels[str(obj.parent.children.index(obj)+1)]
-			except KeyError:
-				streamLabel = None
-		# Speak the stream label if it exists.
+		streamLabel = self._get_streamLabel(obj)
 		if streamLabel is not None:
 			speech.speakMessage(streamLabel)
-			if encoderType == "SAM": brailleStreamLabel = str(obj.name) + ": " + streamLabel
-			elif encoderType == "SPL":
-				brailleStreamLabel = str(obj.parent.children.index(obj)+1) + ": " + streamLabel
+			brailleStreamLabel = str(obj.IAccessibleChildID) + ":" + streamLabel
 			braille.handler.message(brailleStreamLabel)
 		nextHandler()
 
 
-	# Few things to check
+	# Few setup routines for scripts.
 
-	def isEncoderWindow(self, obj):
-		fg = api.getForegroundObject()
-		if obj.windowClassName == "TListView" and fg.windowClassName == "TfoSCEncoders":
-			return "SAM"
-		elif obj.windowClassName == "SysListView32" and "splengine" in obj.appModule.appName:
-			return "SPL"
+	def isEncoderWindow(self, obj, fg=None):
+		# The foreground variable is intended for debugging purposes and should not be set from outside the Python Console.
+		if not fg: fg = api.getForegroundObject()
+		if obj.role == controlTypes.ROLE_LISTITEM:
+			if obj.windowClassName == "TListView" and fg.windowClassName == "TfoSCEncoders":
+				return "SAM"
+			elif obj.windowClassName == "SysListView32" and fg.windowClassName == "#32770":
+				return "SPL"
 		return None
+
+	def _get_streamLabel(self, encoder, fg=None):
+		streamLabel = None
+		encoderType = self.isEncoderWindow(encoder, fg=fg)
+		if encoderType == "SAM":
+			try:
+				streamLabel = SAMStreamLabels[encoder.name]
+			except KeyError:
+				pass
+		elif encoderType == "SPL":
+			try:
+				streamLabel = SPLStreamLabels[str(encoder.firstChild.rowNumber)]
+			except KeyError:
+				pass
+		return streamLabel
 
 	# Routines for each encoder
 	# Mostly connection monitoring
@@ -127,14 +130,10 @@ class AppModule(appModuleHandler.AppModule):
 			time.sleep(0.001)
 			toneCounter+=1
 			if toneCounter%250 == 0: tones.beep(500, 50) # Play status tones every second.
-			#info = review.getScreenPosition(self)[0]
-			#info.expand(textInfos.UNIT_LINE)
-			#if "Error" in info.text:
 			if "Error" in encoderWindow.description:
 				# Announce the description of the error.
 				ui.message(encoderWindow.description[encoderWindow.description.find("Status")+8:])
 				break
-			#elif "Encoding" in info.text or "Encoded" in info.text:
 			elif "Encoding" in encoderWindow.description or "Encoded" in encoderWindow.description:
 				# We're on air, so exit.
 				tones.beep(1000, 150)
@@ -180,10 +179,6 @@ class AppModule(appModuleHandler.AppModule):
 			time.sleep(0.001)
 			attempt += 1
 			if attempt%250 == 0: tones.beep(500, 50)
-			#info = review.getScreenPosition(self)[0]
-			#info.expand(textInfos.UNIT_LINE)
-			#if not info.text.endswith("Disconnected"): ui.message(info.text)
-			#if info.text.endswith("Connected"):
 			if "Unable to connect" in encoderWindow.name:
 				ui.message(encoderWindow.children[1].name)
 				break
@@ -193,11 +188,11 @@ class AppModule(appModuleHandler.AppModule):
 				break
 		self.connecting = False
 		try:
-			focusToStudio = SPLFocusToStudio[str(encoderWindow.parent.children.index(encoderWindow)+1)]
+			focusToStudio = SPLFocusToStudio[str(encoderWindow.firstChild.rowNumber)]
 		except KeyError:
 			focusToStudio = False
 		try:
-			playAfterConnecting = SPLPlayAfterConnecting[str(encoderWindow.parent.children.index(encoderWindow)+1)]
+			playAfterConnecting = SPLPlayAfterConnecting[str(encoderWindow.firstChild.rowNumber)]
 		except KeyError:
 			playAfterConnecting = False
 		if focusToStudio:
@@ -236,7 +231,7 @@ class AppModule(appModuleHandler.AppModule):
 				focusToStudio = False
 		elif encoder == "SPL":
 			try:
-				focusToStudio = SPLFocusToStudio[str(focus.parent.children.index(focus)+1)]
+				focusToStudio = SPLFocusToStudio[str(focus.firstChild.rowNumber)]
 			except KeyError:
 				focusToStudio = False
 		if not focusToStudio:
@@ -250,7 +245,7 @@ class AppModule(appModuleHandler.AppModule):
 		if encoder == "SAM":
 			SAMFocusToStudio[focus.name] = focusToStudio
 		elif encoder == "SPL":
-			SPLFocusToStudio[str(focus.parent.children.index(focus)+1)] = focusToStudio
+			SPLFocusToStudio[str(focus.firstChild.rowNumber)] = focusToStudio
 	# Translators: Input help mode message in SAM Encoder window.
 	script_toggleFocusToStudio.__doc__=_("Toggles whether NVDA will switch to Studio when connected to a streaming server.")
 
@@ -266,7 +261,7 @@ class AppModule(appModuleHandler.AppModule):
 				playAfterConnecting = False
 		elif encoder == "SPL":
 			try:
-				playAfterConnecting = SPLPlayAfterConnecting[str(focus.parent.children.index(focus)+1)]
+				playAfterConnecting = SPLPlayAfterConnecting[str(focus.firstChild.rowNumber)]
 			except KeyError:
 				playAfterConnecting = False
 		if not playAfterConnecting:
@@ -280,7 +275,7 @@ class AppModule(appModuleHandler.AppModule):
 		if encoder == "SAM":
 			SAMPlayAfterConnecting[focus.name] = playAfterConnecting
 		elif encoder == "SPL":
-			SPLPlayAfterConnecting[str(focus.parent.children.index(focus)+1)] = playAfterConnecting
+			SPLPlayAfterConnecting[str(focus.firstChild.rowNumber)] = playAfterConnecting
 	# Translators: Input help mode message in SAM Encoder window.
 	script_togglePlay.__doc__=_("Toggles whether Studio will play the first song when connected to a streaming server.")
 
@@ -290,17 +285,10 @@ class AppModule(appModuleHandler.AppModule):
 		if not encoderType:
 			return
 		else:
-			curStreamLabel = titleText = ""
+			curStreamLabel = self._get_streamLabel(encoder)
 			if encoderType == "SAM":
-				try:
-					curStreamLabel = SAMStreamLabels[encoder.name]
-				except KeyError:
-					curStreamLabel = ""
 				titleText = encoder.name
 			elif encoderType == "SPL":
-				childPos = str(encoder.parent.children.index(encoder)+1)
-				if childPos in SPLStreamLabels:
-					curStreamLabel = SPLStreamLabels[childPos]
 				titleText = encoder.firstChild.name
 			# Translators: The title of the stream labeler dialog (example: stream labeler for 1).
 			streamTitle = _("Stream labeler for {streamEntry}").format(streamEntry = titleText)
@@ -313,11 +301,11 @@ class AppModule(appModuleHandler.AppModule):
 					if dlg.GetValue() != "":
 						if encoderType == "SAM": SAMStreamLabels[encoder.name] = dlg.GetValue()
 						elif encoderType == "SPL":
-							SPLStreamLabels[str(encoder.parent.children.index(encoder)+1)] = dlg.GetValue()
+							SPLStreamLabels[str(encoder.firstChild.rowNumber)] = dlg.GetValue()
 					else:
 						if encoderType == "SAM": del SAMStreamLabels[encoder.name]
 						elif encoderType == "SPL":
-							del SPLStreamLabels[str(encoder.parent.children.index(encoder)+1)]
+							del SPLStreamLabels[str(encoder.firstChild.rowNumber)]
 			gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message in SAM Encoder window.
 	script_streamLabeler.__doc__=_("Opens a dialog to label the selected encoder.")
