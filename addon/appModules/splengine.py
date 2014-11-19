@@ -3,6 +3,11 @@
 # Copyright 2014, released under GPL.
 # Mainly used for encoder window support.
 
+# SPL Audio Engine (splengine.exe) is a container for audio processing DLL's including encoders.
+# Each encoder is a DLL. As NVDA is unable to assign app modules based on DLL's, a workaround was implemented to support each encoder.
+# The app module provides scripts to be used in encoder windows, while each "encoder window" provides it's own protocol for various scripts.
+# Here "encoder window" really is a disguised overlay class check routine.
+
 import threading
 import os
 import time
@@ -73,7 +78,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Announce stream labels
 	def event_gainFocus(self, obj, nextHandler):
-		if self.connecting: return
+		if self.isEncoderWindow(obj) == "SPL" and self.connecting_SPL: return
 		streamLabel = self._get_streamLabel(obj)
 		if streamLabel is not None:
 			speech.speakMessage(streamLabel)
@@ -112,8 +117,12 @@ class AppModule(appModuleHandler.AppModule):
 	# Routines for each encoder
 	# Mostly connection monitoring
 
+	# A variable that acts as a mutex.
+	connecting_SAM = False
+
 	def connect_sam(self, encoderWindow, gesture):
 		gesture.send()
+		self.connecting_SAM = True
 		# Translators: Presented when SAM Encoder is trying to connect to a streaming server.
 		ui.message(_("Connecting..."))
 		# Oi, status thread, can you keep an eye on the connection status for me?
@@ -129,7 +138,12 @@ class AppModule(appModuleHandler.AppModule):
 		while True:
 			time.sleep(0.001)
 			toneCounter+=1
-			if toneCounter%250 == 0: tones.beep(500, 50) # Play status tones every second.
+			if toneCounter%250 == 0:
+				tones.beep(500, 50)
+				if toneCounter >= 750 and "Idle" in encoderWindow.description:
+					self.connecting_SAM = False
+					tones.beep(250, 250)
+					return
 			if "Error" in encoderWindow.description:
 				# Announce the description of the error.
 				ui.message(encoderWindow.description[encoderWindow.description.find("Status")+8:])
@@ -138,6 +152,7 @@ class AppModule(appModuleHandler.AppModule):
 				# We're on air, so exit.
 				tones.beep(1000, 150)
 				break
+		self.connecting_SAM = False
 		try:
 			focusToStudio = SAMFocusToStudio[encoderWindow.name]
 		except KeyError:
@@ -152,14 +167,14 @@ class AppModule(appModuleHandler.AppModule):
 			winUser.sendMessage(SPLWin, SPLMSG, 0, SPLPlay)
 
 	# Only needed in SPL Encoder to prevent focus announcement.
-	connecting = False
+	connecting_SPL = False
 
 	def connect_spl(self, encoderWindow):
 		# Same as SAM's connection routine, but this time, keep an eye on self.name and a different connection flag.
-		self.connecting = True
+		self.connecting_SPL = True
 		connectButton = api.getForegroundObject().children[2]
 		if connectButton.name == "Disconnect":
-			self.connecting = False
+			self.connecting_SPL = False
 			return
 		ui.message(_("Connecting..."))
 		# Juggle the focus around.
@@ -174,19 +189,23 @@ class AppModule(appModuleHandler.AppModule):
 		# Same routine as SAM encoder: use a thread to prevent blocking NVDA commands.
 		SPLWin = user32.FindWindowA("SPLStudio", None)
 		attempt = 0
-		connected = False
 		while True:
 			time.sleep(0.001)
 			attempt += 1
-			if attempt%250 == 0: tones.beep(500, 50)
-			if "Unable to connect" in encoderWindow.name:
+			if attempt%250 == 0:
+				tones.beep(500, 50)
+				if attempt>= 500 and encoderWindow.children[1].name == "Disconnected":
+					self.connecting_SPL = False
+					tones.beep(250, 250)
+					return
+			if "Unable to connect" in encoderWindow.name or "failed" in encoderWindow.name:
 				ui.message(encoderWindow.children[1].name)
 				break
 			if encoderWindow.children[1].name == "Connected":
 				# We're on air, so exit.
 				tones.beep(1000, 150)
 				break
-		self.connecting = False
+		self.connecting_SPL = False
 		try:
 			focusToStudio = SPLFocusToStudio[str(encoderWindow.firstChild.rowNumber)]
 		except KeyError:
@@ -209,7 +228,8 @@ class AppModule(appModuleHandler.AppModule):
 		if encoder is None:
 			return
 		elif encoder == "SAM":
-			self.connect_sam(focus, gesture)
+			if self.connecting_SAM: return
+			else: self.connect_sam(focus, gesture)
 		else:
 			self.connect_spl(focus)
 
