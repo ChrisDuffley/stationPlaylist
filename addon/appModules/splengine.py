@@ -82,7 +82,7 @@ class AppModule(appModuleHandler.AppModule):
 		streamLabel = self._get_streamLabel(obj)
 		if streamLabel is not None:
 			speech.speakMessage(streamLabel)
-			brailleStreamLabel = str(obj.IAccessibleChildID) + ":" + streamLabel
+			brailleStreamLabel = ": ".join([str(obj.IAccessibleChildID), streamLabel])
 			braille.handler.message(brailleStreamLabel)
 		nextHandler()
 
@@ -191,17 +191,21 @@ class AppModule(appModuleHandler.AppModule):
 		attempt = 0
 		while True:
 			time.sleep(0.001)
+			try:
+				statChild = encoderWindow.children[1]
+			except IndexError:
+				return # Don't leave zombie objects around.
 			attempt += 1
 			if attempt%250 == 0:
 				tones.beep(500, 50)
-				if attempt>= 500 and encoderWindow.children[1].name == "Disconnected":
+				if attempt>= 500 and statChild.name == "Disconnected":
 					self.connecting_SPL = False
 					tones.beep(250, 250)
 					return
-			if "Unable to connect" in encoderWindow.name or "failed" in encoderWindow.name:
-				ui.message(encoderWindow.children[1].name)
+			if "Unable to connect" in statChild.name or "Failed" in statChild.name:
+				ui.message(statChild.name)
 				break
-			if encoderWindow.children[1].name == "Connected":
+			if statChild.name == "Connected":
 				# We're on air, so exit.
 				tones.beep(1000, 150)
 				break
