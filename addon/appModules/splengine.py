@@ -82,7 +82,7 @@ class AppModule(appModuleHandler.AppModule):
 		streamLabel = self._get_streamLabel(obj)
 		if streamLabel is not None:
 			speech.speakMessage(streamLabel)
-			brailleStreamLabel = str(obj.IAccessibleChildID) + ":" + streamLabel
+			brailleStreamLabel = ": ".join([str(obj.IAccessibleChildID), streamLabel])
 			braille.handler.message(brailleStreamLabel)
 		nextHandler()
 
