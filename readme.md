@@ -88,6 +88,11 @@ Depending on edition, SPL Studio allows up to 96 carts to be assigned for playba
 
 To learn cart assignments, from SPL Studio, press Control+NVDA+3. Pressing the cart command once will tell you which jingle is assigned to the command. Pressing the cart command twice will play the jingle. Press Control+NvDA+3 to exit cart explorer. See the add-on guide for more information on cart explorer.
 
+## Changes for 3.3
+
+* When connecting to a streaming server using SAM encoder, it is no longer required to stay in the encoder window until connection is established.
+* Fixed an issue where encoder commands (for example, stream labeler) would no longer work when switching to SAM window from other programs.
+
 ## Changes for 3.2
 
 * Added a command in SPL Controller to report remaining time for the currently playing track (R).
