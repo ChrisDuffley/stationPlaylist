@@ -3,7 +3,6 @@
 # Copyright 2013-2014, released under GPL.
 # Adds a few utility features such as switching focus to the SPL Studio window and some global scripts, along with support for Sam Encoder.
 
-from ctypes import windll
 from functools import wraps
 import threading
 import os
@@ -39,7 +38,7 @@ def finally_(func, final):
 	return wrap(final)
 
 # SPL Studio uses WM messages to send and receive data, similar to Winamp (see NVDA sources/appModules/winamp.py for more information).
-user32 = windll.user32 # user32.dll.
+user32 = winUser.user32 # user32.dll.
 SPLWin = 0 # A handle to studio window.
 SPLMSG = winUser.WM_USER
 
@@ -112,7 +111,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				SAMStaticStreamLabels[labelEntry[0]] = labelEntry[1]
 				SAMStreamLabels[labelEntry[0]] = labelEntry[1]
 			labels.close()
-
 
 			#Global layer environment (see the app module for more information).
 	SPLController = False # Control SPL from anywhere.
@@ -268,10 +266,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	}
 
 	# Support for Sam Encoder
-	# Sam encoder is a Winamp plug-in, so we can use overlay class.
+
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
-		fg = api.getForegroundObject()
-		if obj.windowClassName == "TListView" and fg.windowClassName == "TfoSCEncoders":
+		if obj.windowClassName == "TListView":
 			clsList.insert(0, self.SAMEncoderWindow)
 
 	class SAMEncoderWindow(IAccessible):
