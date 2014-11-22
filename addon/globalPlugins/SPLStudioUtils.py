@@ -3,12 +3,11 @@
 # Copyright 2013-2014, released under GPL.
 # Adds a few utility features such as switching focus to the SPL Studio window and some global scripts, along with support for Encoders.
 
-from ctypes import windll
 from functools import wraps
 import threading
 import os
 import time
-from configobj import ConfigObj # Configuration management; configspec will be used to store app module and global plugin settings in one ini file.
+from configobj import ConfigObj
 import globalPluginHandler
 import api
 from controlTypes import ROLE_LISTITEM
@@ -40,7 +39,7 @@ def finally_(func, final):
 	return wrap(final)
 
 # SPL Studio uses WM messages to send and receive data, similar to Winamp (see NVDA sources/appModules/winamp.py for more information).
-user32 = windll.user32 # user32.dll.
+user32 = winUser.user32 # user32.dll.
 SPLWin = 0 # A handle to studio window.
 SPLMSG = winUser.WM_USER
 
@@ -64,7 +63,7 @@ SAMStreamLabels= {} # A dictionary to store custom labels for each stream.
 SPLStreamLabels= {} # Same as above but optimized for SPL encoders (Studio 5.00 and later).
 
 # Configuration management.
-Config = None
+streamLabels = None
 
 # On/off toggle wave files.
 onFile = os.path.join(os.path.dirname(__file__), "..", "appModules", "SPL_on.wav")
@@ -90,27 +89,24 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def __init__(self):
 		super(globalPluginHandler.GlobalPlugin, self).__init__()
 		# Load stream labels (and possibly other future goodies) from a file-based database.
-		global config, SAMStreamLabels, SPLStreamLabels
-		#if os.path.isfile(os.path.join(config.getUserDefaultConfigPath(), "splStreamLabels.ini")):
-		config = ConfigObj(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
-		#else:
-			#config = ConfigObj(os.path.join(config.getUserDefaultConfigPath(), "splStreamLabels.ini"), create_empty=True)
+		global streamLabels, SAMStreamLabels, SPLStreamLabels
+		streamLabels = ConfigObj(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
 		# Read stream labels.
 		try:
-			SAMStreamLabels = dict(config["SAMEncoders"])
+			SAMStreamLabels = dict(streamLabels["SAMEncoders"])
 		except KeyError:
 			SAMStreamLabels = {}
 		try:
-			SPLStreamLabels = dict(config["SPLEncoders"])
+			SPLStreamLabels = dict(streamLabels["SPLEncoders"])
 		except KeyError:
 			SPLStreamLabels = {}
 
 	# Save configuration file.
 	def terminate(self):
-		global config
-		config["SAMEncoders"] = SAMStreamLabels
-		config["SPLEncoders"] = SPLStreamLabels
-		config.write()
+		global streamLabels
+		streamLabels["SAMEncoders"] = SAMStreamLabels
+		streamLabels["SPLEncoders"] = SPLStreamLabels
+		streamLabels.write()
 
 			#Global layer environment (see the app module for more information).
 	SPLController = False # Control SPL from anywhere.
@@ -266,13 +262,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	}
 
 	# Support for Encoders
+	# Each encoder is an overlay class, thus makes it easier to add encoders in the future by implementing overlay objects.
+	# Each encoder, at a minimum, must support connection monitoring routines.
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
-		fg = api.getForegroundObject()
 		if obj.appModule.appName in ["splengine", "splstreamer"]:
-			if obj.windowClassName == "TListView" and fg.windowClassName == "TfoSCEncoders":
+			if obj.windowClassName == "TListView":
 				clsList.insert(0, self.SAMEncoderWindow)
-			elif obj.windowClassName == "SysListView32" and fg.windowClassName == "#32770":
+			elif obj.windowClassName == "SysListView32":
 				if obj.role == ROLE_LISTITEM:
 					clsList.insert(0, self.SPLEncoderWindow)
 
@@ -328,40 +325,32 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		def script_toggleFocusToStudio(self, gesture):
 			if not self.focusToStudio:
 				self.focusToStudio = True
-				if self.encoderType == "SAM":
-					SAMFocusToStudio[self.name] = True
-				elif self.encoderType == "SPL":
-					SPLFocusToStudio[str(self.IAccessibleChildID)] = True
 				# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 				ui.message(_("Switch to Studio after connecting"))
 			else:
 				self.focusToStudio = False
-				if self.encoderType == "SAM":
-					SAMFocusToStudio[self.name] = False
-				elif self.encoderType == "SPL":
-					SPLFocusToStudio[str(self.IAccessibleChildID)] = False
 				# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 				ui.message(_("Do not switch to Studio after connecting"))
+			if self.encoderType == "SAM":
+				SAMFocusToStudio[self.name] = self.focusToStudio
+			elif self.encoderType == "SPL":
+				SPLFocusToStudio[str(self.IAccessibleChildID)] = self.focusToStudio
 		# Translators: Input help mode message in SAM Encoder window.
 		script_toggleFocusToStudio.__doc__=_("Toggles whether NVDA will switch to Studio when connected to a streaming server.")
 
 		def script_togglePlay(self, gesture):
 			if not self.playAfterConnecting:
 				self.playAfterConnecting = True
-				if self.encoderType == "SAM":
-					SAMPlayAfterConnecting[self.name] = True
-				elif self.encoderType == "SPL":
-					SPLPlayAfterConnecting[str(self.IAccessibleChildID)] = True
 				# Translators: Presented when toggling the setting to play selected song when connected to a streaming server.
 				ui.message(_("Play first track after connecting"))
 			else:
 				self.playAfterConnecting = False
-				if self.encoderType == "SAM":
-					SAMPlayAfterConnecting[self.name] = False
-				elif self.encoderType == "SPL":
-					SPLPlayAfterConnecting[str(self.IAccessibleChildID)] = False
 				# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 				ui.message(_("Do not play first track after connecting"))
+			if self.encoderType == "SAM":
+				SAMPlayAfterConnecting[self.name] = self.playAfterConnecting
+			elif self.encoderType == "SPL":
+				SPLPlayAfterConnecting[str(self.IAccessibleChildID)] = self.playAfterConnecting
 		# Translators: Input help mode message in SAM Encoder window.
 		script_togglePlay.__doc__=_("Toggles whether Studio will play the first song when connected to a streaming server.")
 
