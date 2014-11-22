@@ -110,6 +110,11 @@ Version 4.0 supports SPL Studio 5.00 and later, with 3.x released designed to pr
 * Support for Track Tool, including playing a beep if a track has intro defined and commands to announce information on a track such as duration and cue position.
 * Support for StationPlaylist Encoder (Studio 5.00 and later), providing same level of support as found in SAM Encoder support.
 
+## Changes for 3.3
+
+* When connecting to a streaming server using SAM encoder, it is no longer required to stay in the encoder window until connection is established.
+* Fixed an issue where encoder commands (for example, stream labeler) would no longer work when switching to SAM window from other programs.
+
 ## Changes for 3.2
 
 * Added a command in SPL Controller to report remaining time for the currently playing track (R).
