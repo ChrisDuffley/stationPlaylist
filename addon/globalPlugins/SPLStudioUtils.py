@@ -250,8 +250,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# Support for Sam Encoder
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
-		if obj.windowClassName == "TListView":
-			clsList.insert(0, self.SAMEncoderWindow)
+		if obj.appModule.appName in ["splengine", "splstreamer"]:
+			if obj.windowClassName == "TListView":
+				clsList.insert(0, self.SAMEncoderWindow)
 
 	class SAMEncoderWindow(IAccessible):
 		# Support for Sam Encoder window.
@@ -269,13 +270,15 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				time.sleep(0.001)
 				toneCounter+=1
 				if toneCounter%200 == 0: tones.beep(500, 100) # Play status tones every second.
-				info = review.getScreenPosition(self)[0]
-				info.expand(textInfos.UNIT_LINE)
-				if "Error" in info.text:
+				#info = review.getScreenPosition(self)[0]
+				#info.expand(textInfos.UNIT_LINE)
+				#if "Error" in info.text:
+				if "Error" in self.description:
 					# Announce the description of the error.
 					ui.message(self.description[self.description.find("Status")+8:])
 					break
-				elif "Encoded" in info.text or "Encoding" in info.text:
+				#elif "Encoded" in info.text or "Encoding" in info.text:
+				elif "Encoded" in self.description or "Encoding" in self.description:
 					# We're on air, so exit.
 					if self.focusToStudio:
 						fetchSPLForegroundWindow().setFocus()
