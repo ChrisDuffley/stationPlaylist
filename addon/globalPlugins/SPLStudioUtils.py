@@ -1,16 +1,27 @@
 # Station Playlist Utilities
 # Author: Joseph Lee
 # Copyright 2013-2014, released under GPL.
-# Adds a few utility features such as switching focus to the SPL Studio window and some global scripts.
+# Adds a few utility features such as switching focus to the SPL Studio window and some global scripts, along with support for Encoders.
 
+from ctypes import windll
 from functools import wraps
+import threading
 import os
+import time
+from configobj import ConfigObj # Configuration management; configspec will be used to store app module and global plugin settings in one ini file.
 import globalPluginHandler
 import api
+from controlTypes import ROLE_LISTITEM
 import ui
+import speech
+import braille
+import globalVars
+from NVDAObjects.IAccessible import IAccessible
 import winUser
 import tones
 import nvwave
+import gui
+import wx
 import addonHandler
 addonHandler.initTranslation()
 
@@ -29,7 +40,7 @@ def finally_(func, final):
 	return wrap(final)
 
 # SPL Studio uses WM messages to send and receive data, similar to Winamp (see NVDA sources/appModules/winamp.py for more information).
-user32 = winUser.user32 # user32.dll.
+user32 = windll.user32 # user32.dll.
 SPLWin = 0 # A handle to studio window.
 SPLMSG = winUser.WM_USER
 
@@ -43,6 +54,17 @@ SPLLineIn = 18
 SPLLibraryScanCount = 32
 SPL_TrackPlaybackStatus = 104
 SPLCurTrackPlaybackTime = 105
+
+# Needed in SAM and SPL Encoder support:
+SAMFocusToStudio = {} # A dictionary to record whether to switch to SPL Studio for this encoder.
+SPLFocusToStudio = {}
+SAMPlayAfterConnecting = {}
+SPLPlayAfterConnecting = {}
+SAMStreamLabels= {} # A dictionary to store custom labels for each stream.
+SPLStreamLabels= {} # Same as above but optimized for SPL encoders (Studio 5.00 and later).
+
+# Configuration management.
+Config = None
 
 # On/off toggle wave files.
 onFile = os.path.join(os.path.dirname(__file__), "..", "appModules", "SPL_on.wav")
@@ -64,7 +86,33 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	scriptCategory = _("Station Playlist Studio")
 
 
-	#Global layer environment (see the app module for more information).
+	# Do some initialization, such as stream labels for SAM encoders.
+	def __init__(self):
+		super(globalPluginHandler.GlobalPlugin, self).__init__()
+		# Load stream labels (and possibly other future goodies) from a file-based database.
+		global config, SAMStreamLabels, SPLStreamLabels
+		#if os.path.isfile(os.path.join(config.getUserDefaultConfigPath(), "splStreamLabels.ini")):
+		config = ConfigObj(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
+		#else:
+			#config = ConfigObj(os.path.join(config.getUserDefaultConfigPath(), "splStreamLabels.ini"), create_empty=True)
+		# Read stream labels.
+		try:
+			SAMStreamLabels = dict(config["SAMEncoders"])
+		except KeyError:
+			SAMStreamLabels = {}
+		try:
+			SPLStreamLabels = dict(config["SPLEncoders"])
+		except KeyError:
+			SPLStreamLabels = {}
+
+	# Save configuration file.
+	def terminate(self):
+		global config
+		config["SAMEncoders"] = SAMStreamLabels
+		config["SPLEncoders"] = SPLStreamLabels
+		config.write()
+
+			#Global layer environment (see the app module for more information).
 	SPLController = False # Control SPL from anywhere.
 
 	def getScript(self, gesture):
@@ -145,13 +193,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		nvwave.playWaveFile(onFile)
 		self.finish()
 
-	def script_micNoFade(self, gesture):
-		winUser.sendMessage(SPLWin,SPLMSG,2,SPLMic)
-		self.finish()
-
 	def script_micOff(self, gesture):
 		winUser.sendMessage(SPLWin,SPLMSG,0,SPLMic)
 		nvwave.playWaveFile(offFile)
+		self.finish()
+
+	def script_micNoFade(self, gesture):
+		winUser.sendMessage(SPLWin,SPLMSG,2,SPLMic)
 		self.finish()
 
 	def script_lineInOn(self, gesture):
@@ -216,3 +264,236 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		#"kb:nvda+shift+`":"focusToSPLWindow",
 		#"kb:nvda+`":"SPLControllerPrefix"
 	}
+
+	# Support for Encoders
+
+	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
+		fg = api.getForegroundObject()
+		if obj.appModule.appName in ["splengine", "splstreamer"]:
+			if obj.windowClassName == "TListView" and fg.windowClassName == "TfoSCEncoders":
+				clsList.insert(0, self.SAMEncoderWindow)
+			elif obj.windowClassName == "SysListView32" and fg.windowClassName == "#32770":
+				if obj.role == ROLE_LISTITEM:
+					clsList.insert(0, self.SPLEncoderWindow)
+
+	class SAMEncoderWindow(IAccessible):
+		# Support for Sam Encoder window.
+
+		# Few useful variables for encoder list:
+		focusToStudio = False # If true, Studio will gain focus after encoder connects.
+		playAfterConnecting = False # When connected, the first track will be played.
+		encoderType = "SAM"
+
+
+		def reportConnectionStatus(self):
+			# Keep an eye on the stream's description field until connected or error occurs.
+			# In order to not block NVDA commands, this will be done using a different thread.
+			SPLWin = user32.FindWindowA("SPLStudio", None)
+			toneCounter = 0
+			while True:
+				time.sleep(0.001)
+				toneCounter+=1
+				if toneCounter%250 == 0:
+					tones.beep(500, 50)
+					if toneCounter >= 750 and "Idle" in self.description:
+						tones.beep(250, 250)
+						return
+				if "Error" in self.description:
+					# Announce the description of the error.
+					ui.message(self.description[self.description.find("Status")+8:])
+					break
+				elif "Encoding" in self.description or "Encoded" in self.description:
+					# We're on air, so exit.
+					if self.focusToStudio:
+						fetchSPLForegroundWindow().setFocus()
+					tones.beep(1000, 150)
+					if self.playAfterConnecting:
+						winUser.sendMessage(SPLWin, SPLMSG, 0, SPLPlay)
+					break
+
+		def script_connect(self, gesture):
+			gesture.send()
+			# Translators: Presented when SAM Encoder is trying to connect to a streaming server.
+			ui.message(_("Connecting..."))
+			# Oi, status thread, can you keep an eye on the connection status for me?
+			statusThread = threading.Thread(target=self.reportConnectionStatus)
+			statusThread.name = "Connection Status Reporter"
+			statusThread.start()
+
+		def script_disconnect(self, gesture):
+			gesture.send()
+			# Translators: Presented when SAM Encoder is disconnecting from a streaming server.
+			ui.message(_("Disconnecting..."))
+
+		def script_toggleFocusToStudio(self, gesture):
+			if not self.focusToStudio:
+				self.focusToStudio = True
+				if self.encoderType == "SAM":
+					SAMFocusToStudio[self.name] = True
+				elif self.encoderType == "SPL":
+					SPLFocusToStudio[str(self.IAccessibleChildID)] = True
+				# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+				ui.message(_("Switch to Studio after connecting"))
+			else:
+				self.focusToStudio = False
+				if self.encoderType == "SAM":
+					SAMFocusToStudio[self.name] = False
+				elif self.encoderType == "SPL":
+					SPLFocusToStudio[str(self.IAccessibleChildID)] = False
+				# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+				ui.message(_("Do not switch to Studio after connecting"))
+		# Translators: Input help mode message in SAM Encoder window.
+		script_toggleFocusToStudio.__doc__=_("Toggles whether NVDA will switch to Studio when connected to a streaming server.")
+
+		def script_togglePlay(self, gesture):
+			if not self.playAfterConnecting:
+				self.playAfterConnecting = True
+				if self.encoderType == "SAM":
+					SAMPlayAfterConnecting[self.name] = True
+				elif self.encoderType == "SPL":
+					SPLPlayAfterConnecting[str(self.IAccessibleChildID)] = True
+				# Translators: Presented when toggling the setting to play selected song when connected to a streaming server.
+				ui.message(_("Play first track after connecting"))
+			else:
+				self.playAfterConnecting = False
+				if self.encoderType == "SAM":
+					SAMPlayAfterConnecting[self.name] = False
+				elif self.encoderType == "SPL":
+					SPLPlayAfterConnecting[str(self.IAccessibleChildID)] = False
+				# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+				ui.message(_("Do not play first track after connecting"))
+		# Translators: Input help mode message in SAM Encoder window.
+		script_togglePlay.__doc__=_("Toggles whether Studio will play the first song when connected to a streaming server.")
+
+		def script_streamLabeler(self, gesture):
+			curStreamLabel = ""
+			if self.encoderType == "SAM" and self.name in SAMStreamLabels:
+				curStreamLabel = SAMStreamLabels[self.name]
+			elif self.encoderType == "SPL" and str(self.IAccessibleChildID) in SPLStreamLabels:
+				curStreamLabel = SPLStreamLabels[str(self.IAccessibleChildID)]
+			# Translators: The title of the stream labeler dialog (example: stream labeler for 1).
+			streamTitle = _("Stream labeler for {streamEntry}").format(streamEntry = self.name)
+			# Translators: The text of the stream labeler dialog.
+			streamText = _("Enter the label for this stream")
+			dlg = wx.TextEntryDialog(gui.mainFrame,
+			streamText, streamTitle, defaultValue=curStreamLabel)
+			def callback(result):
+				if result == wx.ID_OK:
+					if dlg.GetValue() != "":
+						if self.encoderType == "SAM": SAMStreamLabels[self.name] = dlg.GetValue()
+						elif self.encoderType == "SPL": SPLStreamLabels[str(self.IAccessibleChildID)] = dlg.GetValue()
+					else:
+						if self.encoderType == "SAM": del SAMStreamLabels[self.name]
+						elif self.encoderType == "SPL": del SPLStreamLabels[(self.IAccessibleChildID)]
+			gui.runScriptModalDialog(dlg, callback)
+		# Translators: Input help mode message in SAM Encoder window.
+		script_streamLabeler.__doc__=_("Opens a dialog to label the selected encoder.")
+
+
+		def initOverlayClass(self):
+			# Can I switch to Studio when connected to a streaming server?
+			try:
+				self.focusToStudio = SAMFocusToStudio[self.name]
+			except KeyError:
+				pass
+
+		def event_gainFocus(self):
+			try:
+				streamLabel = SAMStreamLabels[self.name]
+			except KeyError:
+				streamLabel = None
+			# Speak the stream label if it exists.
+			if streamLabel is not None: speech.speakMessage(streamLabel)
+			super(type(self), self).reportFocus()
+			# Braille the stream label if present.
+			if streamLabel is not None:
+				brailleStreamLabel = self.name + ": " + streamLabel
+				braille.handler.message(brailleStreamLabel)
+
+
+		__gestures={
+			"kb:f9":"connect",
+			"kb:f10":"disconnect",
+			"kb:f11":"toggleFocusToStudio",
+			"kb:shift+f11":"togglePlay",
+			"kb:f12":"streamLabeler"
+		}
+
+	class SPLEncoderWindow(SAMEncoderWindow):
+		# Support for SPL Encoder window.
+
+		# A few more subclass flags.
+		encoderType = "SPL"
+
+		def reportConnectionStatus(self):
+			# Same routine as SAM encoder: use a thread to prevent blocking NVDA commands.
+			SPLWin = user32.FindWindowA("SPLStudio", None)
+			attempt = 0
+			while True:
+				time.sleep(0.001)
+				try:
+					statChild = self.children[1]
+				except IndexError:
+					return # Don't leave zombie objects around.
+				attempt += 1
+				if attempt%250 == 0:
+					tones.beep(500, 50)
+					if attempt>= 500 and statChild.name == "Disconnected":
+						tones.beep(250, 250)
+						return
+				if "Unable to connect" in statChild.name or "Failed" in statChild.name:
+					ui.message(statChild.name)
+					break
+				if statChild.name == "Connected":
+					# We're on air, so exit.
+					if self.focusToStudio:
+						fetchSPLForegroundWindow().setFocus()
+					tones.beep(1000, 150)
+					if self.playAfterConnecting:
+						winUser.sendMessage(SPLWin, SPLMSG, 0, SPLPlay)
+					break
+			#if not self.name.endswith("Connected"): ui.message(self.name[self.name.find("Transfer")+15:])
+
+		def script_connect(self, gesture):
+			# Same as SAM's connection routine, but this time, keep an eye on self.name and a different connection flag.
+			connectButton = api.getForegroundObject().children[2]
+			if connectButton.name == "Disconnect": return
+			ui.message(_("Connecting..."))
+			# Juggle the focus around.
+			connectButton.doAction()
+			self.setFocus()
+			# Same as SAM encoders.
+			statusThread = threading.Thread(target=self.reportConnectionStatus)
+			statusThread.name = "Connection Status Reporter"
+			statusThread.start()
+		script_connect.__doc__=_("Connects to a streaming server.")
+
+
+		def initOverlayClass(self):
+			# Can I switch to Studio when connected to a streaming server?
+			try:
+				self.focusToStudio = SPLFocusToStudio[str(self.IAccessibleChildID)]
+			except KeyError:
+				pass
+
+		def event_gainFocus(self):
+			try:
+				streamLabel = SPLStreamLabels[str(self.IAccessibleChildID)]
+			except KeyError:
+				streamLabel = None
+			# Speak the stream label if it exists.
+			if streamLabel is not None: speech.speakMessage(streamLabel)
+			super(type(self), self).reportFocus()
+			# Braille the stream label if present.
+			if streamLabel is not None:
+				brailleStreamLabel = str(self.IAccessibleChildID) + ": " + streamLabel
+				braille.handler.message(brailleStreamLabel)
+
+
+
+		__gestures={
+			"kb:f9":"connect",
+			"kb:f10":None
+		}
+
+
