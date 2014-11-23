@@ -305,31 +305,22 @@ class AppModule(appModuleHandler.AppModule):
 	# Set the end of track alarm time between 1 and 59 seconds.
 
 	def script_setEndOfTrackTime(self, gesture):
-		# Borrowed from NVDA core cursorManager.py.
-		timeVal = self.SPLEndOfTrackTime[-2:]
+		timeVal = long(self.SPLEndOfTrackTime[-2:])
 		# Translators: A dialog message to set end of track alarm (curAlarmSec is the current end of track alarm in seconds).
-		timeMSG = _("Enter end of track alarm time in seconds (currently {curAlarmSec})").format(curAlarmSec = timeVal if int(timeVal) >= 10 else timeVal[-1])
-		dlg = wx.TextEntryDialog(gui.mainFrame,
-		timeMSG,
+		timeMSG = _("Enter end of track alarm time in seconds (currently {curAlarmSec})").format(curAlarmSec = timeVal)
+		dlg = wx.NumberEntryDialog(gui.mainFrame,
+		timeMSG, "",
 		# Translators: The title of end of track alarm dialog.
 		_("End of track alarm"),
-		defaultValue=timeVal if int(timeVal) >= 10 else timeVal[-1])
+		timeVal, 1, 59)
 		def callback(result):
 			global SPLConfig
 			if result == wx.ID_OK:
-				# Check if the value is indeed between 1 and 59.
-				if not dlg.GetValue().isdigit() or int(dlg.GetValue()) < 1 or int(dlg.GetValue()) > 59:
-					# Translators: The error message presented when incorrect alarm time value has been entered.
-					wx.CallAfter(gui.messageBox, _("Incorrect value entered."),
-					# Translators: Standard title for error dialog (copy this from main nvda.po file).
-					_("Error"),wx.OK|wx.ICON_ERROR)
-				else:
-					# To handle the case where we have single digits or two digits.
-					if int(dlg.GetValue()) <= 9: newAlarmSec = "0" + dlg.GetValue()
-					else: newAlarmSec = dlg.GetValue()
-					self.SPLEndOfTrackTime = self.SPLEndOfTrackTime.replace(self.SPLEndOfTrackTime[-2:], newAlarmSec)
-					# Just in case the ini file doesn't exist.
-					if SPLConfig is not None: SPLConfig["EndOfTrackTime"] = self.SPLEndOfTrackTime
+				if dlg.GetValue() <= 9: newAlarmSec = "0" + str(dlg.GetValue())
+				else: newAlarmSec = str(dlg.GetValue())
+				self.SPLEndOfTrackTime = self.SPLEndOfTrackTime.replace(self.SPLEndOfTrackTime[-2:], newAlarmSec)
+				# Just in case the ini file doesn't exist.
+				if SPLConfig is not None: SPLConfig["EndOfTrackTime"] = self.SPLEndOfTrackTime
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setEndOfTrackTime.__doc__=_("sets end of track alarm (default is 5 seconds).")
