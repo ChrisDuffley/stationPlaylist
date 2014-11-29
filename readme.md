@@ -109,6 +109,7 @@ Version 4.0 supports SPL Studio 5.00 and later, with 3.x released designed to pr
 * It is now possible to track library scans from Insert Tracks dialog or from anywhere, and a dedicated command (Alt+NVDA+R) to toggle library scan announcement options.
 * Support for Track Tool, including playing a beep if a track has intro defined and commands to announce information on a track such as duration and cue position.
 * Support for StationPlaylist Encoder (Studio 5.00 and later), providing same level of support as found in SAM Encoder support.
+* It is now possible to monitor introduction and end of track via braille using the braille timer options (Control+Shift+X).
 
 ## Changes for 3.3
 
