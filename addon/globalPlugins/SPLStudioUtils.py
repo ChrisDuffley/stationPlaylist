@@ -69,6 +69,23 @@ streamLabels = None
 onFile = os.path.join(os.path.dirname(__file__), "..", "appModules", "SPL_on.wav")
 offFile = os.path.join(os.path.dirname(__file__), "..", "appModules", "SPL_off.wav")
 
+# Help message for SPL Controller
+SPLConHelp="""
+After entering SPL Controller, press:
+A: Turn automation on.
+Shift+A: Turn automation off.
+M: Turn microphone on.
+Shift+M: Turn microphone off.
+N: Turn microphone on without fade.
+L: Turn line in on.
+Shift+L: Turn line in off.
+P: Play.
+U: Pause.
+S: Stop with fade.
+T: Instant stop.
+R: Remainig time for the playing track.
+Shift+R: Library scan progress."""
+
 # Try to see if SPL foreground object can be fetched. This is used for switching to SPL Studio window from anywhere and to switch to Studio window from SAM encoder window.
 
 def fetchSPLForegroundWindow():
@@ -238,6 +255,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		else: ui.message(str(remainingTime/1000))
 		self.finish()
 
+	def script_conHelp(self, gesture):
+		wx.CallAfter(gui.messageBox, SPLConHelp, "SPL Controller help")
+		self.finish()
+
 
 	__SPLControllerGestures={
 		"kb:p":"play",
@@ -252,7 +273,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:s":"stopFade",
 		"kb:t":"stopInstant",
 		"kb:u":"pause",
-		"kb:r":"remainingTime"
+		"kb:r":"remainingTime",
+		"kb:f1":"conHelp"
 	}
 
 
