@@ -392,10 +392,10 @@ class SAMEncoderWindow(IAccessible):
 		def callback(result):
 			if result == wx.ID_OK:
 				if dlg.GetValue() != "":
-					if self.encoderType == "SAM": SAMStreamLabels[self.name] = dlg.GetValue()
+					if self.encoderType == "SAM": SAMStreamLabels[str(self.IAccessibleChildID)] = dlg.GetValue()
 					elif self.encoderType == "SPL": SPLStreamLabels[str(self.IAccessibleChildID)] = dlg.GetValue()
 				else:
-					if self.encoderType == "SAM": del SAMStreamLabels[self.name]
+					if self.encoderType == "SAM": del SAMStreamLabels[str(self.IAccessibleChildID)]
 					elif self.encoderType == "SPL": del SPLStreamLabels[(self.IAccessibleChildID)]
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message in SAM Encoder window.
