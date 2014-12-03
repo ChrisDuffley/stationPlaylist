@@ -177,13 +177,13 @@ class AppModule(appModuleHandler.AppModule):
 			elif obj.windowClassName == "TStaticText": # For future extensions.
 				if obj.simplePrevious != None and obj.simplePrevious.name == "Remaining Time":
 					# End of track for SPL 5.x.
-					if self.brailleTimer in [self.brailleTimerEnding, self.brailleTimerBoth] and "00:00" < obj.name <= self.SPLEndOfTrackTime:
+					if self.brailleTimer in [self.brailleTimerEnding, self.brailleTimerBoth]: #and "00:00" < obj.name <= self.SPLEndOfTrackTime:
 						braille.handler.message(obj.name)
 					if obj.name == self.SPLEndOfTrackTime:
 						tones.beep(440, 200)
 				elif obj.simplePrevious != None and obj.simplePrevious.name == "Remaining Song Ramp":
 					# Song intro for SPL 5.x.
-					if self.brailleTimer in [self.brailleTimerIntro, self.brailleTimerBoth] and "00:00" < obj.name <= self.SPLSongRampTime:
+					if self.brailleTimer in [self.brailleTimerIntro, self.brailleTimerBoth]: #and "00:00" < obj.name <= self.SPLSongRampTime:
 						braille.handler.message(obj.name)
 					if obj.name == self.SPLSongRampTime:
 						tones.beep(512, 400)
