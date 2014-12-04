@@ -19,7 +19,10 @@ IMPORTANT: Due to major incompatible changes and key assignments, please remove 
 * Control+NVDA+2 from Studio window: Opens end of track setting dialog.
 * Alt+NVDA+2 from Studio window: Opens song intro alarm setting dialog.
 * Control+NVDA+3 from Studio window: Toggles cart explorer to learn cart assignments.
+* Control+NVDA+4 from Studio window: Opens microphone alarm dialog.
 * Control+NVDA+f from Studio window: Opens a dialog to find a track based on artist or song name. Press NvDA+F3 to find forward or NVDA+Shift+F3 to find backward.
+* Alt+NVDA+R from Studio window: Steps through library scan announcement settings.
+* Control+Shift+X from Studio window: Steps through braille timer settings.
 
 ## Unassigned commands
 
@@ -28,15 +31,16 @@ The following commands are not assigned by default; if you wish to assign it, us
 * Switching to SPL Studio window from any program.
 * SPL Controller layer.
 * SPL Assistant layer from SPL Studio.
+* Announce time including seconds from SPL Studio.
 
 Note: Input Gestures dialog is available in 2013.3 or later.
 
-## Additional commands when using Sam encoder
+## Additional commands when using Sam or SPL encoders
 
-The following commands are available when using Sam encoder:
+The following commands are available when using Sam or SPL encoders:
 
 * F9: connect to a streaming server.
-* F10: Disconnect from the streaming server.
+* F10 (SAM encoder only): Disconnect from the streaming server.
 * F11: Toggles whether NVDA will switch to Studio window for the selected encoder if connected.
 * Shift+F11: Toggles whether Studio will play the first selected track when encoder is connected to a streaming server.
 * F12: Opens a dialog to enter custom label for the selected encoder or stream.
@@ -58,9 +62,11 @@ The available status information are:
 * P: Playback status (playing or stopped).
 * Shift+P: Pitch of the current track (SPL 5.00 and later).
 * R: Record to file enabled/disabled.
+* Shift+R: Monitor library scan in progress.
 * S: Track starts in (scheduled).
 * T: Cart edit mode on/off.
 * U: Studio up time.
+* W: Weather and temperature if configured.
 * Y: Playlist modified status (SPL 5.00 and later).
 
 ## SPL Controller
@@ -72,10 +78,12 @@ The available SPL Controller commands are:
 * Press P to play the next selected track.
 * Press U to pause or unpause playback.
 * Press S to stop the track with fade out, or to stop the track instantly, press T.
-* Press M or Shift+M to turn on or off the microphone, respectively.
+* Press M or Shift+M to turn on or off the microphone, respectively, or press N to enable microphone without fade.
 * Press A to enable automation or Shift+A to disable it.
 * Press L to enable line-in input or Shift+L to disable it.
 * Press R to hear remaining time for the currently playing track in seconds.
+* Press Shift+R to get a report on library scan progress.
+* Press F1 to show a help dialog which lists available commands.
 
 ## End of track alarm
 
@@ -102,10 +110,11 @@ To learn cart assignments, from SPL Studio, press Control+NVDA+3. Pressing the c
 Version 4.0 supports SPL Studio 5.00 and later, with 3.x released designed to provide some new features from 4.0 for users using earlier versions of Studio.
 
 * New SPL Assistant keys, including schedule time for the track (S), remaining duration for the playlist (D) and temperature (W if configured). In addition, for Studio 5.x, added playlist modification (Y) and track pitch (Shift+P).
-* New SPL Controller commands, including progress of library scans (Shift+R) and enabling microphone without fade (N).
+* New SPL Controller commands, including progress of library scans (Shift+R) and enabling microphone without fade (N). Also, pressing F1 pops up a dialog showing available commands.
 * When enabling or disabling microphone via SPL Controller, beeps will be played to indicate on/off status.
 * Settings such as end of track time are saved to a dedicated configuration file in your user configuration directory and are preserved during add-on upgrades (version 4.0 and later).
 * Added a command (Alt+NvDA+2) to set song intro alarm time between 1 and 9 seconds.
+* Added a command (Control+NVDA+4) to set a time when NVDA will play a sound when microphone has been active for a while.
 * Added a feature to announce time in hours, minutes and seconds (command unassigned).
 * It is now possible to track library scans from Insert Tracks dialog or from anywhere, and a dedicated command (Alt+NVDA+R) to toggle library scan announcement options.
 * Support for Track Tool, including playing a beep if a track has intro defined and commands to announce information on a track such as duration and cue position.
