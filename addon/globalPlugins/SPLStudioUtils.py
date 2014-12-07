@@ -324,7 +324,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				elif "Encoded" in self.description or "Encoding" in self.description:
 					# We're on air, so exit.
 					if self.focusToStudio:
-						fetchSPLForegroundWindow().setFocus()
+						try:
+							fetchSPLForegroundWindow().setFocus()
+						except AttributeError:
+							pass
 					tones.beep(1000, 150)
 					if self.playAfterConnecting:
 						winUser.sendMessage(SPLWin, SPLMSG, 0, SPLPlay)
