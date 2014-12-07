@@ -330,9 +330,9 @@ class AppModule(appModuleHandler.AppModule):
 	# Set song ramp (introduction) time between 1 and 9 seconds.
 
 	def script_setSongRampTime(self, gesture):
-		rampVal = self.SPLSongRampTime[-2:]
+		rampVal = self.SPLSongRampTime[-1]
 		# Translators: A dialog message to set song ramp alarm (curRampSec is the current intro monitoring alarm in seconds).
-		timeMSG = _("Enter song intro alarm time in seconds (currently {curRampSec})").format(curRampSec = rampVal if int(rampVal) >= 10 else rampVal[-1])
+		timeMSG = _("Enter song intro alarm time in seconds (currently {curRampSec})").format(curRampSec = rampVal)
 		dlg = wx.TextEntryDialog(gui.mainFrame,
 		timeMSG,
 		# Translators: The title of song intro alarm dialog.
@@ -346,8 +346,7 @@ class AppModule(appModuleHandler.AppModule):
 					# Translators: Standard title for error dialog (copy this from main nvda.po file).
 					_("Error"),wx.OK|wx.ICON_ERROR)
 				else:
-					newAlarmSec = "0" + dlg.GetValue()
-					self.SPLSongRampTime = self.SPLSongRampTime.replace(self.SPLSongRampTime[-2:], newAlarmSec)
+					self.SPLSongRampTime = self.SPLSongRampTime.replace(self.SPLSongRampTime[-1], dlg.GetValue())
 					if SPLConfig is not None: SPLConfig["SongRampTime"] = self.SPLSongRampTime
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
