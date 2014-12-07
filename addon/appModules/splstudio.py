@@ -12,7 +12,9 @@
 
 from functools import wraps
 import os
+from cStringIO import StringIO
 from configobj import ConfigObj
+from validate import Validator
 import time
 import threading
 import controlTypes
@@ -50,8 +52,17 @@ def finally_(func, final):
 # Use appModule.productVersion to decide what to do with 4.x and 5.x.
 SPLMinVersion = "5.00" # Add-on 4.0 will not work properly in SPL 4.x anymore.
 
-# Configuration management )4.0 and later; will not be ported to 3.x).
-SPLConfig = ConfigObj(os.path.join(globalVars.appArgs.configPath, "splstudio.ini"))
+# Configuration management
+SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
+confspec = ConfigObj(StringIO("""
+EndOfTrackTime = string(default="00:05")
+SongRampTime = string(default="00:05")
+MicAlarm = string(default="0")
+"""), encoding="UTF-8", list_values=False)
+confspec.newlines = "\r\n"
+SPLConfig = ConfigObj(SPLIni, configspec = confspec, encoding="UTF-8")
+val = Validator()
+SPLConfig.validate(val)
 
 # A placeholder thread.
 micAlarmT = None
@@ -69,6 +80,67 @@ class SPL510TrackItem(IAccessible):
 		speech.speakMessage(self.name)
 
 	__gestures={"kb:space":"select"}
+
+# Configuration dialog.
+
+class SPLConfigDialog(gui.SettingsDialog):
+	# Translators: This is the label for the StationPlaylist Studio configuration dialog.
+	title = _("Studio Add-on Settings")
+
+	def makeSettings(self, settingsSizer):
+		endOfTrackSetting = long(SPLConfig["EndOfTrackTime"][-2:])
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: The label for a setting in SPL Add-on settings to specify end of track (outro) alarm.
+		label = wx.StaticText(self, wx.ID_ANY, label=_("&End of track alarm in seconds"))
+		sizer.Add(label)
+		self.endOfTrackAlarm = wx.TextCtrl(self, wx.ID_ANY)
+		self.endOfTrackAlarm.SetValue(str(endOfTrackSetting))
+		sizer.Add(self.endOfTrackAlarm)
+		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: The label for a setting in SPL Add-on settings to change microphone alarm setting.
+		label = wx.StaticText(self, wx.ID_ANY, label=_("&Microphone alarm in seconds"))
+		sizer.Add(label)
+		self.micAlarm = wx.TextCtrl(self, wx.ID_ANY)
+		self.micAlarm.SetValue(str(SPLConfig["MicAlarm"]))
+		sizer.Add(self.micAlarm)
+		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+		"""sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: The label for a setting in braille settings to set whether braille should be tethered to focus or review cursor.
+		label = wx.StaticText(self, wx.ID_ANY, label=_("Braille tethered to:"))
+		self.tetherValues=[("focus",_("focus")),("review",_("review"))]
+		self.tetherList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.tetherValues])
+		tetherConfig=braille.handler.tether
+		selection = (x for x,y in enumerate(self.tetherValues) if y[0]==tetherConfig).next()  
+		try:
+			self.tetherList.SetSelection(selection)
+		except:
+			pass
+		sizer.Add(label)
+		sizer.Add(self.tetherList)
+		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+		# Translators: The label for a setting in braille settings to read by paragraph (if it is checked, the commands to move the display by lines moves the display by paragraphs instead).
+		item = self.readByParagraphCheckBox = wx.CheckBox(self, label=_("Read by &paragraph"))
+		item.Value = config.conf["braille"]["readByParagraph"]
+		settingsSizer.Add(item, border=10, flag=wx.BOTTOM)
+
+		# Translators: The label for a setting in braille settings to enable word wrap (try to avoid spliting words at the end of the braille display).
+		item = self.wordWrapCheckBox = wx.CheckBox(self, label=_("Avoid splitting &words when possible"))
+		item.Value = config.conf["braille"]["wordWrap"]
+		settingsSizer.Add(item, border=10, flag=wx.BOTTOM)"""
+
+	def postInit(self):
+		self.endOfTrackAlarm.SetFocus()
+
+	def onOk(self, evt):
+		"""if 0 <= val <= 20:
+			config.conf["braille"]["messageTimeout"] = val
+		braille.handler.tether = self.tetherValues[self.tetherList.GetSelection()][0]
+		self.SPLApp.micAlarm = self.micAlarm.Value()"""
+		super(SPLConfigDialog,  self).onOk(evt)
 
 
 class AppModule(appModuleHandler.AppModule):
@@ -104,11 +176,11 @@ class AppModule(appModuleHandler.AppModule):
 	try:
 		SPLEndOfTrackTime = SPLConfig["EndOfTrackTime"]
 	except KeyError:
-		SPLEndOfTrackTime = "00:05"
+		SPLConfig["EndOfTrackTime"] = SPLEndOfTrackTime = "00:05"
 	try:
 		SPLSongRampTime = SPLConfig["SongRampTime"]
 	except KeyError:
-		SPLSongRampTime = "00:05"
+		SPLConfig["SongRampTime"] = SPLSongRampTime = "00:05"
 	# Keep an eye on library scans in insert tracks window.
 	libraryScanning = False
 	scanCount = 0
@@ -117,6 +189,7 @@ class AppModule(appModuleHandler.AppModule):
 		micAlarm = int(SPLConfig["MicAlarm"])
 	except KeyError:
 		micAlarm = 0
+		SPLConfig["MicAlarm"] = "0"
 
 	# Automatically announce mic, line in, etc changes
 	# These items are static text items whose name changes.
@@ -379,6 +452,14 @@ class AppModule(appModuleHandler.AppModule):
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setMicAlarm.__doc__=_("Sets microphone alarm (default is 5 seconds).")
+
+	# SPL Config management.
+
+	def script_openConfigDialog(self, gesture):
+		d = SPLConfigDialog(gui.mainFrame)
+		gui.mainFrame.prePopup()
+		d.Show()
+		gui.mainFrame.postPopup()
 
 	# Other commands (track finder and others)
 
@@ -900,5 +981,6 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:alt+nvda+r":"setLibraryScanProgress",
 		"kb:control+shift+r":"startScanFromInsertTracks",
 		"kb:control+shift+x":"setBrailleTimer",
+		"kb:control+NVDA+0":"openConfigDialog",
 		#"kb:control+nvda+`":"SPLAssistantToggle"
 	}
