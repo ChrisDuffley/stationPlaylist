@@ -172,24 +172,9 @@ class AppModule(appModuleHandler.AppModule):
 		if obj.windowClassName == "TTntListView.UnicodeClass" and fg.windowClassName == "TStudioForm" and role == controlTypes.ROLE_LISTITEM and obj.name is not None:
 			clsList.insert(0, SPL510TrackItem)
 
-	# populate end of track and intro time alarm settings separately.
-	try:
-		SPLEndOfTrackTime = SPLConfig["EndOfTrackTime"]
-	except KeyError:
-		SPLConfig["EndOfTrackTime"] = SPLEndOfTrackTime = "00:05"
-	try:
-		SPLSongRampTime = SPLConfig["SongRampTime"]
-	except KeyError:
-		SPLConfig["SongRampTime"] = SPLSongRampTime = "00:05"
 	# Keep an eye on library scans in insert tracks window.
 	libraryScanning = False
 	scanCount = 0
-	# Microphone alarm.
-	try:
-		micAlarm = int(SPLConfig["MicAlarm"])
-	except KeyError:
-		micAlarm = 0
-		SPLConfig["MicAlarm"] = "0"
 
 	# Automatically announce mic, line in, etc changes
 	# These items are static text items whose name changes.
@@ -243,7 +228,7 @@ class AppModule(appModuleHandler.AppModule):
 							messageSound(wavFile, obj.name)
 					else:
 						ui.message(obj.name)
-					if self.cartExplorer or self.micAlarm:
+					if self.cartExplorer or int(SPLConfig["MicAlarm"]):
 						# Activate mic alarm or announce when cart explorer is active.
 						self.doExtraAction(obj.name)
 			# Monitor the end of track and song intro time and announce it.
@@ -252,15 +237,14 @@ class AppModule(appModuleHandler.AppModule):
 					# End of track for SPL 5.x.
 					if self.brailleTimer in [self.brailleTimerEnding, self.brailleTimerBoth]: #and "00:00" < obj.name <= self.SPLEndOfTrackTime:
 						braille.handler.message(obj.name)
-					if obj.name == self.SPLEndOfTrackTime:
+					if obj.name == SPLConfig["EndOfTrackTime"]:
 						tones.beep(440, 200)
 				elif obj.simplePrevious != None and obj.simplePrevious.name == "Remaining Song Ramp":
 					# Song intro for SPL 5.x.
 					if self.brailleTimer in [self.brailleTimerIntro, self.brailleTimerBoth]: #and "00:00" < obj.name <= self.SPLSongRampTime:
 						braille.handler.message(obj.name)
-					if obj.name == self.SPLSongRampTime:
+					if obj.name == SPLConfig["SongRampTime"]:
 						tones.beep(512, 400)
-			# Clean this mess with a more elegant solution.
 		nextHandler()
 
 	# JL's additions
@@ -268,6 +252,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Perform extra action in specific situations (mic alarm, for example).
 	def doExtraAction(self, status):
 		global micAlarmT
+		micAlarm = int(SPLConfig["MicAlarm"]
 		if self.cartExplorer:	
 			if status == "Cart Edit On":
 				# Translators: Presented when cart edit mode is toggled on while cart explorer is on.
@@ -275,18 +260,18 @@ class AppModule(appModuleHandler.AppModule):
 			elif status == "Cart Edit Off":
 				# Translators: Presented when cart edit mode is toggled off while cart explorer is on.
 				ui.message(_("Please reenter cart explorer to view updated cart assignments"))
-		if self.micAlarm:
+		if micAlarm:
 			# Play an alarm sound from Braille Sense U2.
 			micAlarmWav = os.path.join(os.path.dirname(__file__), "SPL_MicAlarm.wav")
 			# Translators: Presented in braille when microphone was on for more than a specified time in microphone alarm dialog.
 			micAlarmMessage = _("Warning: Microphone active")
 			# Use a timer to play a tone when microphone was active for more than the specified amount.
 			if status == "Microphone On":
-				micAlarmT = threading.Timer(self.micAlarm, messageSound, args=[micAlarmWav, micAlarmMessage])
+				micAlarmT = threading.Timer(micAlarm, messageSound, args=[micAlarmWav, micAlarmMessage])
 				try:
 					micAlarmT.start()
 				except RuntimeError:
-					micAlarmT = threading.Timer(self.micAlarm, messageSound, args=[micAlarmWav, micAlarmMessage])
+					micAlarmT = threading.Timer(micAlarm, messageSound, args=[micAlarmWav, micAlarmMessage])
 					micAlarmT.start()
 			elif status == "Microphone Off":
 				if micAlarmT is not None: micAlarmT.cancel()
@@ -380,7 +365,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Set the end of track alarm time between 1 and 59 seconds.
 
 	def script_setEndOfTrackTime(self, gesture):
-		timeVal = long(self.SPLEndOfTrackTime[-2:])
+		timeVal = long(SPLConfig["EndOfTrackTime"][-2:])
 		# Translators: A dialog message to set end of track alarm (curAlarmSec is the current end of track alarm in seconds).
 		timeMSG = _("Enter end of track alarm time in seconds (currently {curAlarmSec})").format(curAlarmSec = timeVal)
 		dlg = wx.NumberEntryDialog(gui.mainFrame,
@@ -391,11 +376,9 @@ class AppModule(appModuleHandler.AppModule):
 		def callback(result):
 			global SPLConfig
 			if result == wx.ID_OK:
-				if dlg.GetValue() <= 9: newAlarmSec = "0" + str(dlg.GetValue())
-				else: newAlarmSec = str(dlg.GetValue())
-				self.SPLEndOfTrackTime = self.SPLEndOfTrackTime.replace(self.SPLEndOfTrackTime[-2:], newAlarmSec)
-				# Just in case the ini file doesn't exist.
-				if SPLConfig is not None: SPLConfig["EndOfTrackTime"] = self.SPLEndOfTrackTime
+				if dlg.GetValue() <= 9: newAlarmSec = "00:0" + str(dlg.GetValue())
+				else: newAlarmSec = "00:" + str(dlg.GetValue())
+				if SPLConfig is not None: SPLConfig["EndOfTrackTime"] = newAlarmSec
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setEndOfTrackTime.__doc__=_("sets end of track alarm (default is 5 seconds).")
@@ -403,14 +386,14 @@ class AppModule(appModuleHandler.AppModule):
 	# Set song ramp (introduction) time between 1 and 9 seconds.
 
 	def script_setSongRampTime(self, gesture):
-		rampVal = self.SPLSongRampTime[-1]
+		rampVal = SPLConfig["SongRampTime"][-1]
 		# Translators: A dialog message to set song ramp alarm (curRampSec is the current intro monitoring alarm in seconds).
 		timeMSG = _("Enter song intro alarm time in seconds (currently {curRampSec})").format(curRampSec = rampVal)
 		dlg = wx.TextEntryDialog(gui.mainFrame,
 		timeMSG,
 		# Translators: The title of song intro alarm dialog.
 		_("Song intro alarm"),
-		defaultValue=rampVal if int(rampVal) >= 10 else rampVal[-1])
+		defaultValue=rampVal)
 		def callback(result):
 			if result == wx.ID_OK:
 				if not dlg.GetValue().isdigit() or int(dlg.GetValue()) < 1 or int(dlg.GetValue()) > 9:
@@ -419,8 +402,7 @@ class AppModule(appModuleHandler.AppModule):
 					# Translators: Standard title for error dialog (copy this from main nvda.po file).
 					_("Error"),wx.OK|wx.ICON_ERROR)
 				else:
-					self.SPLSongRampTime = self.SPLSongRampTime.replace(self.SPLSongRampTime[-1], dlg.GetValue())
-					if SPLConfig is not None: SPLConfig["SongRampTime"] = self.SPLSongRampTime
+					if SPLConfig is not None: SPLConfig["SongRampTime"] = "00:0" + dlg.GetValue()
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setSongRampTime.__doc__=_("sets song intro alarm (default is 5 seconds).")
@@ -428,9 +410,10 @@ class AppModule(appModuleHandler.AppModule):
 # Tell NVDA to play a sound when mic was active for a long time.
 
 	def script_setMicAlarm(self, gesture):
-		if self.micAlarm:
+		micAlarm = SPLConfig["MicAlarm"]
+		if int(micAlarm):
 			# Translators: A dialog message to set microphone active alarm (curAlarmSec is the current mic monitoring alarm in seconds).
-			timeMSG = _("Enter microphone alarm time in seconds (currently {curAlarmSec}, 0 disables the alarm)").format(curAlarmSec = self.micAlarm)
+			timeMSG = _("Enter microphone alarm time in seconds (currently {curAlarmSec}, 0 disables the alarm)").format(curAlarmSec = micAlarm)
 		else:
 			# Translators: A dialog message when microphone alarm is disabled (set to 0).
 			timeMSG = _("Enter microphone alarm time in seconds (currently disabled, 0 disables the alarm)")
@@ -438,7 +421,7 @@ class AppModule(appModuleHandler.AppModule):
 		timeMSG,
 		# Translators: The title of mic alarm dialog.
 		_("Microphone alarm"),
-		defaultValue=str(self.micAlarm))
+		defaultValue=micAlarm))
 		def callback(result):
 			if result == wx.ID_OK:
 				if not dlg.GetValue().isdigit():
@@ -447,8 +430,7 @@ class AppModule(appModuleHandler.AppModule):
 					# Translators: Standard title for error dialog (copy this from main nvda.po file).
 					_("Error"),wx.OK|wx.ICON_ERROR)
 				else:
-					self.micAlarm = int(dlg.GetValue())
-					if SPLConfig is not None: SPLConfig["MicAlarm"] = self.micAlarm
+					if SPLConfig is not None: SPLConfig["MicAlarm"] = dlg.GetValue()
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setMicAlarm.__doc__=_("Sets microphone alarm (default is 5 seconds).")
