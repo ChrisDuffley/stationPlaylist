@@ -43,18 +43,22 @@ class AppModule(appModuleHandler.AppModule):
 	def announceColumnHeader(self, column):
 		focus = api.getFocusObject()
 		if focus.windowClassName != "TListView" and focus.role != ROLE_LISTITEM:
-			ui.message("Not in tracks list")
+			# Translators: Presented when trying to perform Track Tool commands when not focused in the track list.
+			ui.message(_("Not in tracks list"))
 		elif focus.name is None and focus.description is None:
-			ui.message("No tracks added")
+			# Translators: Presented when no tracks are added to Track Tool.
+			ui.message(_("No tracks added"))
 		else:
 			if column != 1:
 				desc = focus.description
 				colstr = self.columnHeaders[column][0]
 				if colstr not in desc:
 					if colstr == "Intro:":
-						columnInfo = "Introduction not set"
+						# Translators: Presented when intro is not defined for a track in Track Tool.
+						columnInfo = _("Introduction not set")
 					else:
-						columnInfo = "{columnInfo} not found".format(columnInfo = colstr[:-1])
+						# Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
+						columnInfo = _("{columnInfo} not found").format(columnInfo = colstr[:-1])
 				else:
 					colstrindex = desc.find(colstr)
 					if column == 8:
@@ -64,9 +68,11 @@ class AppModule(appModuleHandler.AppModule):
 						columnInfo = desc[colstrindex:colstrend]
 			else:
 				if focus.name is None:
-					columnInfo = "No artist"
+					# Translators: Presented when artist information is not found for a track in Track Tool.
+					columnInfo = _("No artist")
 				else:
-					columnInfo = "Artist: {artistName}".format(artistName = focus.name)
+					# Translators: Presents artist information for a track in Track Tool.
+					columnInfo = _("Artist: {artistName}").format(artistName = focus.name)
 			ui.message(columnInfo)
 
 	def script_announceArtist(self, gesture):
