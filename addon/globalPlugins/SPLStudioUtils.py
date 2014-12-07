@@ -70,7 +70,8 @@ onFile = os.path.join(os.path.dirname(__file__), "..", "appModules", "SPL_on.wav
 offFile = os.path.join(os.path.dirname(__file__), "..", "appModules", "SPL_off.wav")
 
 # Help message for SPL Controller
-SPLConHelp="""
+# Translators: the dialog text for SPL Controller help.
+SPLConHelp=_("""
 After entering SPL Controller, press:
 A: Turn automation on.
 Shift+A: Turn automation off.
@@ -84,7 +85,7 @@ U: Pause.
 S: Stop with fade.
 T: Instant stop.
 R: Remainig time for the playing track.
-Shift+R: Library scan progress."""
+Shift+R: Library scan progress.""")
 
 # Try to see if SPL foreground object can be fetched. This is used for switching to SPL Studio window from anywhere and to switch to Studio window from SAM encoder window.
 
@@ -245,7 +246,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def script_libraryScanProgress(self, gesture):
 		scanned = winUser.sendMessage(SPLWin, SPLMSG, 0, SPLLibraryScanCount)
-		ui.message("{itemCount} items scanned".format(itemCount = scanned))
+		# Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
+		ui.message(_("{itemCount} items scanned").format(itemCount = scanned))
 		self.finish()
 
 	def script_remainingTime(self, gesture):
@@ -256,7 +258,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.finish()
 
 	def script_conHelp(self, gesture):
-		wx.CallAfter(gui.messageBox, SPLConHelp, "SPL Controller help")
+		# Translators: The title for SPL Controller help dialog.
+		wx.CallAfter(gui.messageBox, SPLConHelp, _("SPL Controller help"))
 		self.finish()
 
 

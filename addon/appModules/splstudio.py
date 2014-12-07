@@ -205,7 +205,8 @@ class AppModule(appModuleHandler.AppModule):
 		if self.micAlarm:
 			# Play an alarm sound from Braille Sense U2.
 			micAlarmWav = os.path.join(os.path.dirname(__file__), "SPL_MicAlarm.wav")
-			micAlarmMessage = "Warning: Microphone active"
+			# Translators: Presented in braille when microphone was on for more than a specified time in microphone alarm dialog.
+			micAlarmMessage = _("Warning: Microphone active")
 			# Use a timer to play a tone when microphone was active for more than the specified amount.
 			if status == "Microphone On":
 				micAlarmT = threading.Timer(self.micAlarm, messageSound, args=[micAlarmWav, micAlarmMessage])
@@ -272,7 +273,8 @@ class AppModule(appModuleHandler.AppModule):
 		if self.SPLCurVersion >= SPLMinVersion :
 			self.timeMessage(1, 2, timeObjChild=1)
 		else:
-			ui.message("This version of Studio is no longer supported")
+			# Translators: Presented when trying to use an add-on command in an unsupported version of StationPlaylist Studio.
+			ui.message(_("This version of Studio is no longer supported"))
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayRemainingTime.__doc__=_("Announces the remaining track time.")
 
@@ -280,7 +282,7 @@ class AppModule(appModuleHandler.AppModule):
 		if self.SPLCurVersion >= SPLMinVersion :
 			self.timeMessage(2, self.SPLElapsedTime, timeObjChild=1)
 		else:
-			ui.message("This version of Studio is no longer supported")
+			ui.message(_("This version of Studio is no longer supported"))
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayElapsedTime.__doc__=_("Announces the elapsed time for the currently playing track.")
 
@@ -289,7 +291,7 @@ class AppModule(appModuleHandler.AppModule):
 		if self.SPLCurVersion >= SPLMinVersion :
 			self.timeMessage(3, self.SPLBroadcasterTime)
 		else:
-			ui.message("This version of Studio is no longer supported")
+			ui.message(_("This version of Studio is no longer supported"))
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayBroadcasterTime.__doc__=_("Announces broadcaster time.")
 
@@ -298,7 +300,7 @@ class AppModule(appModuleHandler.AppModule):
 		if self.SPLCurVersion >= SPLMinVersion :
 			self.timeMessage(4, self.SPLCompleteTime)
 		else:
-			ui.message("This version of Studio is no longer supported")
+			ui.message(_("This version of Studio is no longer supported"))
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayCompleteTime.__doc__=_("Announces time including seconds.")
 
@@ -404,10 +406,14 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Braille timer settings list and the toggle script.
 	brailleTimerSettings=(
-		("Braille timer off"),
-		("Braille track endings"),
-		("Braille intro endings"),
-		("Braille intro and track endings")
+		# Translators: A setting in braille timer options.
+		(_("Braille timer off")),
+		# Translators: A setting in braille timer options.
+		(_("Braille track endings")),
+		# Translators: A setting in braille timer options.
+		(_("Braille intro endings")),
+		# Translators: A setting in braille timer options.
+		(_("Braille intro and track endings"))
 	)
 
 	def script_setBrailleTimer(self, gesture):
@@ -623,22 +629,28 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Library scan announcement settings list and the toggle script.
 	libraryProgressSettings=(
-		("Do not announce library scans"),
-		("Announce start and end of a library scan"),
-		("Announce the progress of a library scan"),
-		("Announce progress and item count of a library scan")
+		# Translators: A setting in library scan announcement options.
+		(_("Do not announce library scans")),
+		# Translators: A setting in library scan announcement options.
+		(_("Announce start and end of a library scan")),
+		# Translators: A setting in library scan announcement options.
+		(_("Announce the progress of a library scan")),
+		# Translators: A setting in library scan announcement options.
+		(_("Announce progress and item count of a library scan"))
 	)
 
 	def script_setLibraryScanProgress(self, gesture):
 		self.libraryScanProgress = self.libraryScanProgress+1 if self.libraryScanProgress < len(self.libraryProgressSettings)-1 else 0
 		ui.message(self.libraryProgressSettings[self.libraryScanProgress])
-	script_setLibraryScanProgress.__doc__="Toggles library scan progress settings."
+	# Translators: Input help mode message for a command in Station Playlist Studio.
+	script_setLibraryScanProgress.__doc__=_("Toggles library scan progress settings.")
 
 	def script_startScanFromInsertTracks(self, gesture):
 		gesture.send()
 		fg = api.getForegroundObject()
 		if fg.windowClassName == "TTrackInsertForm":
-			ui.message("Scan start")
+			# Translators: Presented when library scan has started.
+			ui.message(_("Scan start"))
 			self.libraryScanning = True
 
 	# Report library scan (number of items scanned) in the background.
@@ -649,7 +661,8 @@ class AppModule(appModuleHandler.AppModule):
 		countB = sendMessage(SPLWin, 1024, 0, 32)
 		if countA == countB:
 			self.libraryScanning = False
-			ui.message("{itemCount} items in the library".format(itemCount = countB))
+			# Translators: Presented when library scanning is finished.
+			ui.message(_("{itemCount} items in the library").format(itemCount = countB))
 		else:
 			t = threading.Thread(target=self.libraryScanReporter, args=(SPLWin, countA, countB))
 			t.name = "SPLLibraryScanReporter"
@@ -667,17 +680,19 @@ class AppModule(appModuleHandler.AppModule):
 			countB, scanIter = sendMessage(SPLWin, 1024, 0, 32), scanIter+1
 			if scanIter%5 == 0:
 				if self.libraryScanProgress == self.libraryScanMessage:
-					tones.beep(550, 100) if self.beepAnnounce else ui.message("Scanning")
+					# Translators: Presented when library scan is in progress.
+					tones.beep(550, 100) if self.beepAnnounce else ui.message(_("Scanning"))
 				elif self.libraryScanProgress == self.libraryScanNumbers:
 					if self.beepAnnounce:
 						tones.beep(550, 100)
 						ui.message("{itemCount}".format(itemCount = countB))
-					else: ui.message("{itemCount} items scanned".format(itemCount = countB))
+					else: ui.message(_("{itemCount} items scanned").format(itemCount = countB))
 		self.libraryScanning = False
 		if self.libraryScanProgress:
 			if self.beepAnnounce: tones.beep(370, 100)
 			else:
-				ui.message("Scan complete with {itemCount} items".format(itemCount = countB))
+				# Translators: Presented after library scan is done.
+				ui.message(_("Scan complete with {itemCount} items").format(itemCount = countB))
 
 	# SPL Assistant: reports status on playback, operation, etc.
 	# Used layer command approach to save gesture assignments.
@@ -798,7 +813,8 @@ class AppModule(appModuleHandler.AppModule):
 			obj = self.status(self.SPLSystemStatus).children[5]
 			ui.message(obj.name)
 		except IndexError:
-			ui.message("Playlist modification not available")
+			# Translators: Presented when playlist modification is unavailable (for Studio 4.33 and earlier)
+			ui.message(_("Playlist modification not available"))
 
 	def script_sayNextTrackTitle(self, gesture):
 		obj = self.status(self.SPLNextTrackTitle).firstChild
@@ -807,7 +823,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_sayTemperature(self, gesture):
 		obj = self.status(self.SPLTemperature).firstChild
-		# Translators: Presented when there is no information for the next track.
+		# Translators: Presented when there is nn weather or temperature information.
 		ui.message(_("Weather and temperature not configured")) if obj.name is None else ui.message(obj.name)
 
 	def script_sayUpTime(self, gesture):
@@ -828,7 +844,8 @@ class AppModule(appModuleHandler.AppModule):
 			obj = self.status(self.SPLSystemStatus).children[4]
 			ui.message(obj.name)
 		except IndexError:
-			ui.message("Song pitch not available")
+			# Translators: Presented when there is no information on song pitch (for Studio 4.33 and earlier).
+			ui.message(_("Song pitch not available"))
 
 	# Few toggle/misc scripts that may be excluded from the layer later.
 
@@ -836,15 +853,17 @@ class AppModule(appModuleHandler.AppModule):
 		if self.productVersion < "5.10":
 			if not self.libraryScanning:
 				self.libraryScanning = True
-				ui.message("Monitoring library scan")
+				# Translators: Presented when attempting to start library scan.
+				ui.message(_("Monitoring library scan"))
 				self.monitorLibraryScan()
 			else:
-				ui.message("Scanning is in progress")
+				# Translators: Presented when library scan is already in progress.
+				ui.message(_("Scanning is in progress"))
 		else:
 			# In 5.10, library scan count returns total count.
 			SPLWin = user32.FindWindowA("SPLStudio", None)
 			items = sendMessage(SPLWin, 1024, 0, 32)
-			ui.message("{itemCount} items in the library".format(itemCount = items))
+			ui.message(_("{itemCount} items in the library").format(itemCount = items))
 
 
 	__SPLAssistantGestures={
