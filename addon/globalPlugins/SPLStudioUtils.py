@@ -327,7 +327,10 @@ class SAMEncoderWindow(IAccessible):
 			elif "Encoding" in self.description or "Encoded" in self.description:
 				# We're on air, so exit.
 				if self.focusToStudio:
-					fetchSPLForegroundWindow().setFocus()
+					try:
+						fetchSPLForegroundWindow().setFocus()
+					except AttributeError:
+						pass
 				tones.beep(1000, 150)
 				if self.playAfterConnecting:
 					winUser.sendMessage(SPLWin, SPLMSG, 0, SPLPlay)
@@ -422,7 +425,10 @@ class SAMEncoderWindow(IAccessible):
 		streamLabel = self.getStreamLabel()
 		# Speak the stream label if it exists.
 		if streamLabel is not None:
-			self.name = "(" + streamLabel + ") " + self.name
+			try:
+				self.name = "(" + streamLabel + ") " + self.name
+			except TypeError:
+				pass
 		super(globalPlugins.SPLStudioUtils.SAMEncoderWindow, self).reportFocus()
 
 
@@ -462,7 +468,10 @@ class SPLEncoderWindow(SAMEncoderWindow):
 			if statChild.name == "Connected":
 				# We're on air, so exit.
 				if self.focusToStudio:
-					fetchSPLForegroundWindow().setFocus()
+					try:
+						fetchSPLForegroundWindow().setFocus()
+					except AttributeError:
+						pass
 				tones.beep(1000, 150)
 				if self.playAfterConnecting:
 					winUser.sendMessage(SPLWin, SPLMSG, 0, SPLPlay)
