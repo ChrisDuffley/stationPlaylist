@@ -14,7 +14,7 @@ import speech
 import braille
 import review
 import textInfos
-from NVDAObjects.IAccessible import IAccessible
+from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent
 import winUser
 import tones
 import gui
@@ -104,9 +104,16 @@ Shift+R: Library scan progress.""")
 def fetchSPLForegroundWindow():
 	# Turns out NVDA core does have a method to fetch desktop objects, so use this to find SPL window from among its children.
 	dt = api.getDesktopObject()
-	for fg in dt.children:
-		if "splstudio" in fg.appModule.appModuleName: return fg
-	return None
+	fg = None
+	fgCount = 0
+	for possibleFG in dt.children:
+		if "splstudio" in possibleFG.appModule.appModuleName:
+			fg = possibleFG
+			fgCount+=1
+	# Just in case the window is really minimized (not to the system tray)
+	if fgCount == 1:
+		fg = getNVDAObjectFromEvent(user32.FindWindowA("TStudioForm", None), winUser.OBJID_CLIENT, 0)
+	return fg
 
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):

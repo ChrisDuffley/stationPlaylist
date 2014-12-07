@@ -122,6 +122,7 @@ Version 4.0 supports SPL Studio 5.00 and later, with 3.x released designed to pr
 * In encoder windows, NvDA no longer plays error tones when NVDA is told to switch to Studio upon connecting to a streaming server while Studio window is minimized.
 * Errors are no longer heard after deleting a stream with a stream label set on it.
 * It is now possible to monitor introduction and end of track via braille using the braille timer options (Control+Shift+X).
+* Fixed an issue where attempting to switch to Studio window from any program after all windows were minimized caused something else to appear.
 
 ## Changes for 3.3
 
