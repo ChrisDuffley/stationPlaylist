@@ -114,6 +114,7 @@ Version 4.0 supports SPL Studio 5.00 and later, with 3.x released designed to pr
 * When enabling or disabling microphone via SPL Controller, beeps will be played to indicate on/off status.
 * Settings such as end of track time are saved to a dedicated configuration file in your user configuration directory and are preserved during add-on upgrades (version 4.0 and later).
 * Added a command (Alt+NvDA+2) to set song intro alarm time between 1 and 9 seconds.
+* In end of track and intro alarm dialogs, you can use up and down arrows to change alarm settings. If a wrong value is entered, alarm value is set to maximum value.
 * Added a command (Control+NVDA+4) to set a time when NVDA will play a sound when microphone has been active for a while.
 * Added a feature to announce time in hours, minutes and seconds (command unassigned).
 * It is now possible to track library scans from Insert Tracks dialog or from anywhere, and a dedicated command (Alt+NVDA+R) to toggle library scan announcement options.
