@@ -50,7 +50,7 @@ def finally_(func, final):
 	return wrap(final)
 
 # Use appModule.productVersion to decide what to do with 4.x and 5.x.
-SPLMinVersion = "5.00" # Add-on 4.0 will not work properly in SPL 4.x anymore.
+SPLMinVersion = "5.00"
 
 # Configuration management
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
@@ -82,37 +82,18 @@ class SPL510TrackItem(IAccessible):
 	__gestures={"kb:space":"select"}
 
 # Configuration dialog.
-
 class SPLConfigDialog(gui.SettingsDialog):
 	# Translators: This is the label for the StationPlaylist Studio configuration dialog.
 	title = _("Studio Add-on Settings")
 
 	def makeSettings(self, settingsSizer):
-		endOfTrackSetting = long(SPLConfig["EndOfTrackTime"][-2:])
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		# Translators: The label for a setting in SPL Add-on settings to specify end of track (outro) alarm.
-		label = wx.StaticText(self, wx.ID_ANY, label=_("&End of track alarm in seconds"))
-		sizer.Add(label)
-		self.endOfTrackAlarm = wx.TextCtrl(self, wx.ID_ANY)
-		self.endOfTrackAlarm.SetValue(str(endOfTrackSetting))
-		sizer.Add(self.endOfTrackAlarm)
-		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
-
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		# Translators: The label for a setting in SPL Add-on settings to change microphone alarm setting.
-		label = wx.StaticText(self, wx.ID_ANY, label=_("&Microphone alarm in seconds"))
-		sizer.Add(label)
-		self.micAlarm = wx.TextCtrl(self, wx.ID_ANY)
-		self.micAlarm.SetValue(str(SPLConfig["MicAlarm"]))
-		sizer.Add(self.micAlarm)
-		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		"""sizer = wx.BoxSizer(wx.HORIZONTAL)
-		# Translators: The label for a setting in braille settings to set whether braille should be tethered to focus or review cursor.
-		label = wx.StaticText(self, wx.ID_ANY, label=_("Braille tethered to:"))
-		self.tetherValues=[("focus",_("focus")),("review",_("review"))]
-		self.tetherList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.tetherValues])
-		tetherConfig=braille.handler.tether
+		# Translators: The label for a setting in SPL Add-on settings to announce toggle messages as words or beeps.
+		label = wx.StaticText(self, wx.ID_ANY, label=_("&Toggle announcement"))
+		self.announcementTypes=[("words",_("words")),("beeps",_("beeps"))]
+		self.announcementTList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.announcementTypes])
+		tetherConfig=beepAnnounce
 		selection = (x for x,y in enumerate(self.tetherValues) if y[0]==tetherConfig).next()  
 		try:
 			self.tetherList.SetSelection(selection)
@@ -120,26 +101,48 @@ class SPLConfigDialog(gui.SettingsDialog):
 			pass
 		sizer.Add(label)
 		sizer.Add(self.tetherList)
+		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)"""
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: The label for a setting in SPL Add-on settings to specify end of track (outro) alarm.
+		label = wx.StaticText(self, wx.ID_ANY, label=_("&End of track alarm in seconds"))
+		sizer.Add(label)
+		self.endOfTrackAlarm = wx.SpinCtrl(self, wx.ID_ANY, min=1, max=59)
+		self.endOfTrackAlarm.SetValue(long(SPLConfig["EndOfTrackTime"][-2:]))
+		sizer.Add(self.endOfTrackAlarm)
 		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
-		# Translators: The label for a setting in braille settings to read by paragraph (if it is checked, the commands to move the display by lines moves the display by paragraphs instead).
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: The label for a setting in SPL Add-on settings to specify track intro alarm.
+		label = wx.StaticText(self, wx.ID_ANY, label=_("Track &intro alarm in seconds"))
+		sizer.Add(label)
+		self.introAlarm = wx.SpinCtrl(self, wx.ID_ANY, min=1, max=9)
+		self.introAlarm.SetValue(long(SPLConfig["SongRampTime"][-1]))
+		sizer.Add(self.introAlarm)
+		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: The label for a setting in SPL Add-on settings to change microphone alarm setting.
+		label = wx.StaticText(self, wx.ID_ANY, label=_("&Microphone alarm in seconds"))
+		sizer.Add(label)
+		self.micAlarm = wx.TextCtrl(self, wx.ID_ANY)
+		self.micAlarm.SetValue(SPLConfig["MicAlarm"])
+		sizer.Add(self.micAlarm)
+		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+		"""# Translators: The label for a setting in braille settings to read by paragraph (if it is checked, the commands to move the display by lines moves the display by paragraphs instead).
 		item = self.readByParagraphCheckBox = wx.CheckBox(self, label=_("Read by &paragraph"))
 		item.Value = config.conf["braille"]["readByParagraph"]
-		settingsSizer.Add(item, border=10, flag=wx.BOTTOM)
-
-		# Translators: The label for a setting in braille settings to enable word wrap (try to avoid spliting words at the end of the braille display).
-		item = self.wordWrapCheckBox = wx.CheckBox(self, label=_("Avoid splitting &words when possible"))
-		item.Value = config.conf["braille"]["wordWrap"]
 		settingsSizer.Add(item, border=10, flag=wx.BOTTOM)"""
 
 	def postInit(self):
 		self.endOfTrackAlarm.SetFocus()
 
 	def onOk(self, evt):
-		"""if 0 <= val <= 20:
-			config.conf["braille"]["messageTimeout"] = val
-		braille.handler.tether = self.tetherValues[self.tetherList.GetSelection()][0]
-		self.SPLApp.micAlarm = self.micAlarm.Value()"""
+		endOfTrackVal = self.endOfTrackAlarm.Value
+		SPLConfig["EndOfTrackTime"] = "00:0" + str(endOfTrackVal) if endOfTrackVal < 10 else "00:" + str(endOfTrackVal)
+		SPLConfig["SongRampTime"] = "00:0" + str(self.introAlarm.Value)
+		SPLConfig["MicAlarm"] = self.micAlarm.Value
 		super(SPLConfigDialog,  self).onOk(evt)
 
 
@@ -252,8 +255,8 @@ class AppModule(appModuleHandler.AppModule):
 	# Perform extra action in specific situations (mic alarm, for example).
 	def doExtraAction(self, status):
 		global micAlarmT
-		micAlarm = int(SPLConfig["MicAlarm"]
-		if self.cartExplorer:	
+		micAlarm = int(SPLConfig["MicAlarm"])
+		if self.cartExplorer:
 			if status == "Cart Edit On":
 				# Translators: Presented when cart edit mode is toggled on while cart explorer is on.
 				ui.message(_("Cart explorer is active"))
@@ -421,7 +424,7 @@ class AppModule(appModuleHandler.AppModule):
 		timeMSG,
 		# Translators: The title of mic alarm dialog.
 		_("Microphone alarm"),
-		defaultValue=micAlarm))
+		defaultValue=micAlarm)
 		def callback(result):
 			if result == wx.ID_OK:
 				if not dlg.GetValue().isdigit():
