@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-10-12 13:42+0100\n"
-"Last-Translator: Juan C. Buño <quetzatl@eresmas.net>\n"
+"PO-Revision-Date: 2014-11-18 03:36-0500\n"
+"Last-Translator: Slann Tonich <reydelasmaquinas@outlook.com>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.6.9\n"
+"X-Generator: Poedit 1.6.10\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Script category for Station Playlist commands in input gestures dialog.
@@ -27,13 +27,13 @@ msgstr "Station Playlist Studio"
 
 #. Translators: Presented when cart edit mode is toggled on while cart explorer is on.
 msgid "Cart explorer is active"
-msgstr "El explorador de Cart está activo"
+msgstr "El explorador de presintonías está activo"
 
 #. Translators: Presented when cart edit mode is toggled off while cart explorer is on.
 msgid "Please reenter cart explorer to view updated cart assignments"
 msgstr ""
-"Por favor reintroduce el explorador de cart para ver las asignaciones "
-"actualizadas de cart"
+"por favor, entra nuevamente al explorador de presintonías para ver las "
+"asignaciónes actualizadas de las mismas"
 
 #. Translators: Presented when remaining time is unavailable.
 msgid "Remaining time not available"
@@ -49,7 +49,8 @@ msgstr "Tiempo transcurrido no disponible"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Announces the elapsed time for the currently playing track."
-msgstr "Anuncia el tiempo transcurrido de la pista que se está reproduciendo."
+msgstr ""
+"Anuncia el tiempo transcurrido de la pista que está sonando actualmente."
 
 #. Translators: Presented when broadcaster time is unavailable.
 msgid "Broadcaster time not available"
@@ -72,7 +73,7 @@ msgstr "Aviso de final de pista"
 
 #. Translators: The error message presented when incorrect alarm time value has been entered.
 msgid "Incorrect value entered."
-msgstr "Introducido un valor incorrecto."
+msgstr "Se ha ingresado un valor incorrecto."
 
 #. Translators: Standard title for error dialog (copy this from main nvda.po file).
 msgid "Error"
@@ -150,6 +151,10 @@ msgstr "Saliendo de explorador de cart "
 msgid "Toggles cart explorer to learn cart assignments."
 msgstr "Conmuta el explorador de cart para aprender las asignaciones de cart."
 
+#. Translators: Presented when cart command is unavailable.
+msgid "Cart command unavailable"
+msgstr "Comando de presintonía no disponible"
+
 #. Translators: Presented when there is no cart assigned to a cart command.
 msgid "Cart unassigned"
 msgstr "Cart no asignado"
@@ -207,6 +212,10 @@ msgid "There is no track playing. Try pausing while a track is playing."
 msgstr ""
 "No hay pistas en reproducción. Trata de hacer una pausa mientras se "
 "reproduce una pista."
+
+#. Translators: Presented when no track is playing in Station Playlist Studio.
+msgid "There is no track playing."
+msgstr "No hay ninguna pista sonando."
 
 #. Translators: Presented when SAM Encoder is trying to connect to a streaming server.
 msgid "Connecting..."
