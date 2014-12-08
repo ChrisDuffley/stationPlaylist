@@ -543,7 +543,6 @@ class AppModule(appModuleHandler.AppModule):
 		elif n == 23: identifier = "-"
 		else: identifier = "="
 		if modifier == "": cart = identifier
-		elif modifier == "ctrl": cart = "control+%s"%identifier
 		else: cart = "%s+%s"%(modifier, identifier)
 		self.carts[cart] = cartName
 
