@@ -125,6 +125,11 @@ Version 4.0 supports SPL Studio 5.00 and later, with 3.x released designed to pr
 * It is now possible to monitor introduction and end of track via braille using the braille timer options (Control+Shift+X).
 * Fixed an issue where attempting to switch to Studio window from any program after all windows were minimized caused something else to appear.
 
+## Changes for 3.4
+
+* In cart explorer, carts involving control key (such as Ctrl+F1) are now handled correctly.
+* Updated translations.
+
 ## Changes for 3.3
 
 * When connecting to a streaming server using SAM encoder, it is no longer required to stay in the encoder window until connection is established.
