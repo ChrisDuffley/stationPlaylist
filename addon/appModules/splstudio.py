@@ -389,23 +389,17 @@ class AppModule(appModuleHandler.AppModule):
 	# Set song ramp (introduction) time between 1 and 9 seconds.
 
 	def script_setSongRampTime(self, gesture):
-		rampVal = SPLConfig["SongRampTime"][-1]
+		rampVal = long(SPLConfig["SongRampTime"][-1])
 		# Translators: A dialog message to set song ramp alarm (curRampSec is the current intro monitoring alarm in seconds).
 		timeMSG = _("Enter song intro alarm time in seconds (currently {curRampSec})").format(curRampSec = rampVal)
-		dlg = wx.TextEntryDialog(gui.mainFrame,
-		timeMSG,
+		dlg = wx.NumberEntryDialog(gui.mainFrame,
+		timeMSG, "",
 		# Translators: The title of song intro alarm dialog.
-		_("Song intro alarm"),
-		defaultValue=rampVal)
+		_("Song intro alarm"), "",
+		rampVal, 1, 9)
 		def callback(result):
 			if result == wx.ID_OK:
-				if not dlg.GetValue().isdigit() or int(dlg.GetValue()) < 1 or int(dlg.GetValue()) > 9:
-					# Translators: The error message presented when incorrect alarm time value has been entered.
-					wx.CallAfter(gui.messageBox, _("Incorrect value entered."),
-					# Translators: Standard title for error dialog (copy this from main nvda.po file).
-					_("Error"),wx.OK|wx.ICON_ERROR)
-				else:
-					if SPLConfig is not None: SPLConfig["SongRampTime"] = "00:0" + dlg.GetValue()
+				if SPLConfig is not None: SPLConfig["SongRampTime"] = "00:0" + dlg.GetValue()
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setSongRampTime.__doc__=_("sets song intro alarm (default is 5 seconds).")
@@ -601,7 +595,6 @@ class AppModule(appModuleHandler.AppModule):
 		elif n == 23: identifier = "-"
 		else: identifier = "="
 		if modifier == "": cart = identifier
-		elif modifier == "ctrl": cart = "control+%s"%identifier
 		else: cart = "%s+%s"%(modifier, identifier)
 		self.carts[cart] = cartName
 

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 3.0\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2014-09-26 19:00+1000\n"
-"PO-Revision-Date: 2014-11-02 16:06+0200\n"
+"PO-Revision-Date: 2014-11-17 20:24+0200\n"
 "Last-Translator: Çağrı Doğan <cagrid@hotmail.com>\n"
 "Language-Team: TR <cagrid@hotmail.com>\n"
 "Language: tr\n"
@@ -144,6 +144,10 @@ msgstr "Sepet kaşifi kapanıyor"
 msgid "Toggles cart explorer to learn cart assignments."
 msgstr "Sepet atamalarını öğrenmek için sepet kaşifini kapatıp açar."
 
+#. Translators: Presented when cart command is unavailable.
+msgid "Cart command unavailable"
+msgstr "Sepet komutu mevcut değil"
+
 #. Translators: Presented when there is no cart assigned to a cart command.
 msgid "Cart unassigned"
 msgstr "Sepet atanmamış"
@@ -199,6 +203,10 @@ msgstr ""
 #. Translators: Presented when no track is playing in Station Playlist Studio.
 msgid "There is no track playing. Try pausing while a track is playing."
 msgstr "Çalan parça yok. Bir parça çalarken duraklatmayı deneyin."
+
+#. Translators: Presented when no track is playing in Station Playlist Studio.
+msgid "There is no track playing."
+msgstr "Çalan parça yok"
 
 #. Translators: Presented when SAM Encoder is trying to connect to a streaming server.
 msgid "Connecting..."

@@ -95,7 +95,7 @@ If you have configured song intro time via Track Tool, NVDA will beep when the v
 
 ## Track Finder
 
-If you wish to quickly find a song by an artist or by song name, from track lisst, press Control+NVDA+F. Type the name of the artist or the song name. NVDA will either place you at the song if found or will display an error if it cannot find the song you're looking for. To find a previously entered song or artist, press NVDA+F3 or NVDA+Shift+F3 to find forward or backward.
+If you wish to quickly find a song by an artist or by song name, from track list, press Control+NVDA+F. Type the name of the artist or the song name. NVDA will either place you at the song if found or will display an error if it cannot find the song you're looking for. To find a previously entered song or artist, press NVDA+F3 or NVDA+Shift+F3 to find forward or backward.
 
 Note: Track Finder is case-sensitive.
 
@@ -114,6 +114,7 @@ Version 4.0 supports SPL Studio 5.00 and later, with 3.x released designed to pr
 * When enabling or disabling microphone via SPL Controller, beeps will be played to indicate on/off status.
 * Settings such as end of track time are saved to a dedicated configuration file in your user configuration directory and are preserved during add-on upgrades (version 4.0 and later).
 * Added a command (Alt+NvDA+2) to set song intro alarm time between 1 and 9 seconds.
+* In end of track and intro alarm dialogs, you can use up and down arrows to change alarm settings. If a wrong value is entered, alarm value is set to maximum value.
 * Added a command (Control+NVDA+4) to set a time when NVDA will play a sound when microphone has been active for a while.
 * Added a feature to announce time in hours, minutes and seconds (command unassigned).
 * It is now possible to track library scans from Insert Tracks dialog or from anywhere, and a dedicated command (Alt+NVDA+R) to toggle library scan announcement options.
@@ -123,6 +124,11 @@ Version 4.0 supports SPL Studio 5.00 and later, with 3.x released designed to pr
 * Errors are no longer heard after deleting a stream with a stream label set on it.
 * It is now possible to monitor introduction and end of track via braille using the braille timer options (Control+Shift+X).
 * Fixed an issue where attempting to switch to Studio window from any program after all windows were minimized caused something else to appear.
+
+## Changes for 3.4
+
+* In cart explorer, carts involving control key (such as Ctrl+F1) are now handled correctly.
+* Updated translations.
 
 ## Changes for 3.3
 
