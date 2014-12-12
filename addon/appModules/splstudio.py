@@ -148,29 +148,29 @@ class AppModule(appModuleHandler.AppModule):
 						tones.beep(370, 100) if self.beepAnnounce else ui.message("Scan complete")
 						self.libraryScanning = False
 						self.scanCount = 0
+			else:
+				# Even with beeps enabled, be sure to announce scheduled time and name of the playing cart.
+				if obj.name.startswith("Scheduled for") or obj.name.startswith("Cart") and obj.IAccessibleChildID == 3:
+					ui.message(obj.name)
+				elif not (obj.name.endswith(" On") or obj.name.endswith(" Off")):
+					# Announce status information that does not contain toggle messages.
+					ui.message(obj.name)
+				if self.beepAnnounce:
+					# User wishes to hear beeps instead of words. The beeps are power on and off sounds from PAC Mate Omni.
+					beep = obj.name.split(" ")
+					stat = beep[-1]
+					wavDir = os.path.dirname(__file__)
+					# Play a wave file based on on/off status.
+					if stat == "Off":
+						wavFile = os.path.join(wavDir, "SPL_off.wav")
+					elif stat == "On":
+						wavFile = os.path.join(wavDir, "SPL_on.wav")
+					messageSound(wavFile, obj.name)
 				else:
-					# Even with beeps enabled, be sure to announce scheduled time and name of the playing cart.
-					if obj.name.startswith("Scheduled for") or obj.name.startswith("Cart") and obj.IAccessibleChildID == 3:
-						ui.message(obj.name)
-					elif not (obj.name.endswith(" On") or obj.name.endswith(" Off")):
-						# Announce status information that does not contain toggle messages.
-						ui.message(obj.name)
-					if self.beepAnnounce:
-						# User wishes to hear beeps instead of words. The beeps are power on and off sounds from PAC Mate Omni.
-						beep = obj.name.split(" ")
-						stat = beep[-1]
-						wavDir = os.path.dirname(__file__)
-						# Play a wave file based on on/off status.
-						if stat == "Off":
-							wavFile = os.path.join(wavDir, "SPL_off.wav")
-						elif stat == "On":
-							wavFile = os.path.join(wavDir, "SPL_on.wav")
-						messageSound(wavFile, obj.name)
-					else:
-						ui.message(obj.name)
-				if self.cartExplorer or self.micAlarm:
-					# Activate mic alarm or announce when cart explorer is active.
-					self.doExtraAction(obj.name)
+					ui.message(obj.name)
+			if self.cartExplorer or self.micAlarm:
+				# Activate mic alarm or announce when cart explorer is active.
+				self.doExtraAction(obj.name)
 		# Monitor the end of track and song intro time and announce it.
 		elif obj.windowClassName == "TStaticText": # For future extensions.
 			if obj.simplePrevious != None:
