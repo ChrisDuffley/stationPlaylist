@@ -157,7 +157,7 @@ class AppModule(appModuleHandler.AppModule):
 					ui.message(obj.name)
 				if self.beepAnnounce:
 					# User wishes to hear beeps instead of words. The beeps are power on and off sounds from PAC Mate Omni.
-					beep = obj.name.split(" ")
+					beep = obj.name.split()
 					stat = beep[-1]
 					wavDir = os.path.dirname(__file__)
 					# Play a wave file based on on/off status.
