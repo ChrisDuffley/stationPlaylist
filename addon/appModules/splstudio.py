@@ -223,8 +223,8 @@ class AppModule(appModuleHandler.AppModule):
 				# Continue monitoring library scans among other focus loss management.
 	def event_loseFocus(self, obj, nextHandler):
 		fg = api.getForegroundObject()
-		if fg.windowClassName == "TTrackInsertForm":
-			if self.libraryScanning: self.monitorLibraryScan()
+		if fg.windowClassName == "TTrackInsertForm" and self.libraryScanning:
+			self.monitorLibraryScan()
 		nextHandler()
 
 	# Save configuration when terminating.
