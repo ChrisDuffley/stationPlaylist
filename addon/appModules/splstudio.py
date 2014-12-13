@@ -57,7 +57,7 @@ SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
 confspec = ConfigObj(StringIO("""
 EndOfTrackTime = string(default="00:05")
 SongRampTime = string(default="00:05")
-MicAlarm = int(default="0")
+MicAlarm = string(default="0")
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
 SPLConfig = ConfigObj(SPLIni, configspec = confspec, encoding="UTF-8")
@@ -150,6 +150,13 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Translators: Script category for Station Playlist commands in input gestures dialog.
 	scriptCategory = _("Station Playlist Studio")
+
+	# Prepare the settings dialog among other things.
+	def __init__(self, *args, **kwargs):
+		super(AppModule, self).__init__(*args, **kwargs)
+		self.prefsMenu = gui.mainFrame.sysTrayIcon.preferencesMenu
+		self.SPLSettings = self.prefsMenu.Append(wx.ID_ANY, _("SPL Studio Settings..."), _("SPL settings"))
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.script_openConfigDialog, self.SPLSettings)
 
 	# Play beeps instead of announcing toggles.
 	beepAnnounce = False
@@ -291,6 +298,11 @@ class AppModule(appModuleHandler.AppModule):
 	# Save configuration when terminating.
 	def terminate(self):
 		if SPLConfig is not None: SPLConfig.write()
+		try:
+			self.prefsMenu.RemoveItem(self.SPLSettings)
+		except wx.PyDeadObjectError:
+			pass
+
 
 	# Script sections (for ease of maintenance):
 	# Time-related: elapsed time, end of track alarm, etc.
@@ -434,10 +446,7 @@ class AppModule(appModuleHandler.AppModule):
 	# SPL Config management.
 
 	def script_openConfigDialog(self, gesture):
-		d = SPLConfigDialog(gui.mainFrame)
-		gui.mainFrame.prePopup()
-		d.Show()
-		gui.mainFrame.postPopup()
+		gui.mainFrame._popupSettingsDialog(SPLConfigDialog)
 
 	# Other commands (track finder and others)
 
