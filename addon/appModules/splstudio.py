@@ -171,9 +171,10 @@ class AppModule(appModuleHandler.AppModule):
 	# Some controls which needs special routines.
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		fg = api.getForegroundObject()
-		role = obj.role
-		if obj.windowClassName == "TTntListView.UnicodeClass" and fg.windowClassName == "TStudioForm" and role == controlTypes.ROLE_LISTITEM and obj.name is not None:
-			clsList.insert(0, SPL510TrackItem)
+		if fg:
+			role = obj.role
+			if obj.windowClassName == "TTntListView.UnicodeClass" and fg.windowClassName == "TStudioForm" and role == controlTypes.ROLE_LISTITEM and obj.name is not None:
+				clsList.insert(0, SPL510TrackItem)
 
 	# Keep an eye on library scans in insert tracks window.
 	libraryScanning = False
@@ -283,8 +284,8 @@ class AppModule(appModuleHandler.AppModule):
 				# Continue monitoring library scans among other focus loss management.
 	def event_loseFocus(self, obj, nextHandler):
 		fg = api.getForegroundObject()
-		if fg.windowClassName == "TTrackInsertForm":
-			if self.libraryScanning: self.monitorLibraryScan()
+		if fg.windowClassName == "TTrackInsertForm" and self.libraryScanning:
+			self.monitorLibraryScan()
 		nextHandler()
 
 	# Save configuration when terminating.
