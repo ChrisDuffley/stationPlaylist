@@ -57,7 +57,7 @@ SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
 confspec = ConfigObj(StringIO("""
 EndOfTrackTime = string(default="00:05")
 SongRampTime = string(default="00:05")
-MicAlarm = string(default="0")
+MicAlarm = int(default="0")
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
 SPLConfig = ConfigObj(SPLIni, configspec = confspec, encoding="UTF-8")
@@ -187,62 +187,61 @@ class AppModule(appModuleHandler.AppModule):
 		# Do not let NvDA get name for None object when SPL window is maximized.
 		if not obj.name:
 			return
-		else:
-			if obj.windowClassName == "TStatusBar" and not obj.name.startswith("  Up time:"):
-				# Special handling for Play Status
-				fgWinClass = api.getForegroundObject().windowClassName
-				if obj.IAccessibleChildID == 1:
-					if fgWinClass == "TStudioForm":
-						# Strip off "  Play status: " for brevity only in main playlist window.
-						ui.message(obj.name[15:])
-					elif fgWinClass == "TTrackInsertForm" and self.libraryScanProgress > 0:
-						# If library scan is in progress, announce its progress.
-						self.scanCount+=1
-						if self.scanCount%100 == 0:
-							if self.libraryScanProgress == self.libraryScanMessage:
-								tones.beep(550, 100) if self.beepAnnounce else ui.message("Scanning")
-							elif self.libraryScanProgress == self.libraryScanNumbers:
-								if self.beepAnnounce: tones.beep(550, 100)
-								ui.message(obj.name[1:obj.name.find("]")])
-						if "Loading" in obj.name and not self.libraryScanning:
-							self.libraryScanning = True
-						elif "match" in obj.name and self.libraryScanning:
-							tones.beep(370, 100) if self.beepAnnounce else ui.message("Scan complete")
-							self.libraryScanning = False
-							self.scanCount = 0
+		if obj.windowClassName == "TStatusBar" and not obj.name.startswith("  Up time:"):
+			# Special handling for Play Status
+			fgWinClass = api.getForegroundObject().windowClassName
+			if obj.IAccessibleChildID == 1:
+				if fgWinClass == "TStudioForm":
+					# Strip off "  Play status: " for brevity only in main playlist window.
+					ui.message(obj.name[15:])
+				elif fgWinClass == "TTrackInsertForm" and self.libraryScanProgress > 0:
+					# If library scan is in progress, announce its progress.
+					self.scanCount+=1
+					if self.scanCount%100 == 0:
+						if self.libraryScanProgress == self.libraryScanMessage:
+							tones.beep(550, 100) if self.beepAnnounce else ui.message("Scanning")
+						elif self.libraryScanProgress == self.libraryScanNumbers:
+							if self.beepAnnounce: tones.beep(550, 100)
+							ui.message(obj.name[1:obj.name.find("]")])
+					if "Loading" in obj.name and not self.libraryScanning:
+						self.libraryScanning = True
+					elif "match" in obj.name and self.libraryScanning:
+						tones.beep(370, 100) if self.beepAnnounce else ui.message("Scan complete")
+						self.libraryScanning = False
+						self.scanCount = 0
+			else:
+				# Even with beeps enabled, be sure to announce scheduled time and name of the playing cart.
+				if obj.name.startswith("Scheduled for") or obj.name.startswith("Cart") and obj.IAccessibleChildID == 3:
+					ui.message(obj.name)
+				elif not (obj.name.endswith(" On") or obj.name.endswith(" Off")):
+					# Announce status information that does not contain toggle messages.
+					ui.message(obj.name)
+				if self.beepAnnounce:
+					# User wishes to hear beeps instead of words. The beeps are power on and off sounds from PAC Mate Omni.
+					beep = obj.name.split()
+					stat = beep[-1]
+					wavDir = os.path.dirname(__file__)
+					# Play a wave file based on on/off status.
+					if stat == "Off":
+						wavFile = os.path.join(wavDir, "SPL_off.wav")
+					elif stat == "On":
+						wavFile = os.path.join(wavDir, "SPL_on.wav")
+					messageSound(wavFile, obj.name)
 				else:
-					if self.beepAnnounce:
-						# Even with beeps enabled, be sure to announce scheduled time and name of the playing cart.
-						if obj.name.startswith("Scheduled for") or obj.name.startswith("Cart") and obj.IAccessibleChildID == 3:
-							ui.message(obj.name)
-						elif not (obj.name.endswith(" On") or obj.name.endswith(" Off")):
-							# Announce status information that does not contain toggle messages.
-							ui.message(obj.name)
-						else:
-							# User wishes to hear beeps instead of words. The beeps are power on and off sounds from PAC Mate Omni.
-							beep = obj.name.split(" ")
-							stat = beep[-1]
-							wavDir = os.path.dirname(__file__)
-							# Play a wave file based on on/off status.
-							if stat == "Off":
-								wavFile = os.path.join(wavDir, "SPL_off.wav")
-							elif stat == "On":
-								wavFile = os.path.join(wavDir, "SPL_on.wav")
-							messageSound(wavFile, obj.name)
-					else:
-						ui.message(obj.name)
-					if self.cartExplorer or int(SPLConfig["MicAlarm"]):
-						# Activate mic alarm or announce when cart explorer is active.
-						self.doExtraAction(obj.name)
-			# Monitor the end of track and song intro time and announce it.
-			elif obj.windowClassName == "TStaticText": # For future extensions.
-				if obj.simplePrevious != None and obj.simplePrevious.name == "Remaining Time":
+					ui.message(obj.name)
+				if self.cartExplorer or int(SPLConfig["MicAlarm"]):
+					# Activate mic alarm or announce when cart explorer is active.
+					self.doExtraAction(obj.name)
+		# Monitor the end of track and song intro time and announce it.
+		elif obj.windowClassName == "TStaticText": # For future extensions.
+			if obj.simplePrevious != None:
+				if obj.simplePrevious.name == "Remaining Time":
 					# End of track for SPL 5.x.
 					if self.brailleTimer in [self.brailleTimerEnding, self.brailleTimerBoth]: #and "00:00" < obj.name <= self.SPLEndOfTrackTime:
 						braille.handler.message(obj.name)
 					if obj.name == SPLConfig["EndOfTrackTime"]:
 						tones.beep(440, 200)
-				elif obj.simplePrevious != None and obj.simplePrevious.name == "Remaining Song Ramp":
+				if obj.simplePrevious.name == "Remaining Song Ramp":
 					# Song intro for SPL 5.x.
 					if self.brailleTimer in [self.brailleTimerIntro, self.brailleTimerBoth]: #and "00:00" < obj.name <= self.SPLSongRampTime:
 						braille.handler.message(obj.name)
@@ -290,7 +289,6 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Save configuration when terminating.
 	def terminate(self):
-		global SPLConfig
 		if SPLConfig is not None: SPLConfig.write()
 
 	# Script sections (for ease of maintenance):
