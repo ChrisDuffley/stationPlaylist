@@ -113,9 +113,10 @@ class AppModule(appModuleHandler.AppModule):
 	# Some controls which needs special routines.
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		fg = api.getForegroundObject()
-		role = obj.role
-		if obj.windowClassName == "TTntListView.UnicodeClass" and fg.windowClassName == "TStudioForm" and role == controlTypes.ROLE_LISTITEM and obj.name is not None:
-			clsList.insert(0, SPL510TrackItem)
+		if fg:
+			role = obj.role
+			if obj.windowClassName == "TTntListView.UnicodeClass" and fg.windowClassName == "TStudioForm" and role == controlTypes.ROLE_LISTITEM and obj.name is not None:
+				clsList.insert(0, SPL510TrackItem)
 
 	# Check the following variable for end of track announcement.
 	SPLEndOfTrackTime = "00:05"
