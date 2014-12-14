@@ -62,6 +62,7 @@ class SPL510TrackItem(IAccessible):
 
 # A placeholder thread.
 micAlarmT = None
+libScanT = None # Library scanner.
 
 # Braille and play a sound in response to an alarm or an event.
 def messageSound(wavFile, message):
@@ -244,9 +245,11 @@ class AppModule(appModuleHandler.AppModule):
 
 				# Continue monitoring library scans among other focus loss management.
 	def event_loseFocus(self, obj, nextHandler):
+		global libScanT
 		fg = api.getForegroundObject()
-		if fg.windowClassName == "TTrackInsertForm":
-			if self.libraryScanning: self.monitorLibraryScan()
+		if fg.windowClassName == "TTrackInsertForm" and self.libraryScanning:
+			if not libScanT or (libScanT and not libScanT.isAlive()):
+				self.monitorLibraryScan()
 		nextHandler()
 
 	# Script sections (for ease of maintenance):
@@ -662,6 +665,9 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Report library scan (number of items scanned) in the background.
 	def monitorLibraryScan(self):
+		global libScanT
+		if libScanT and libScanT.isAlive():
+			return
 		SPLWin = user32.FindWindowA("SPLStudio", None)
 		countA = sendMessage(SPLWin, 1024, 0, 32)
 		time.sleep(0.1)
@@ -671,10 +677,9 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: Presented when library scanning is finished.
 			ui.message(_("{itemCount} items in the library").format(itemCount = countB))
 		else:
-			t = threading.Thread(target=self.libraryScanReporter, args=(SPLWin, countA, countB))
-			t.name = "SPLLibraryScanReporter"
-			t.daemon = True
-			t.start()
+			libScanT = threading.Thread(target=self.libraryScanReporter, args=(SPLWin, countA, countB))
+			libScanT.daemon = True
+			libScanT.start()
 
 	def libraryScanReporter(self, SPLWin, countA, countB):
 		scanIter = 0
