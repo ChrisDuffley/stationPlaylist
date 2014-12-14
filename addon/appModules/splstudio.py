@@ -646,20 +646,23 @@ class AppModule(appModuleHandler.AppModule):
 	# Report library scan (number of items scanned) in the background.
 	def monitorLibraryScan(self):
 		SPLWin = user32.FindWindowA("SPLStudio", None)
-		countA = sendMessage(SPLWin, 1024, 0, 32)
+		parem = 0 if self.SPLCurVersion < "5.10" else 1
+		countA = sendMessage(SPLWin, 1024, parem, 32)
 		time.sleep(0.1)
-		countB = sendMessage(SPLWin, 1024, 0, 32)
+		countB = sendMessage(SPLWin, 1024, parem, 32)
 		if countA == countB:
 			self.libraryScanning = False
+			if self.SPLCurVersion >= "5.10":
+				countB = sendMessage(SPLWin, 1024, 0, 32)
 			# Translators: Presented when library scanning is finished.
 			ui.message(_("{itemCount} items in the library").format(itemCount = countB))
 		else:
-			t = threading.Thread(target=self.libraryScanReporter, args=(SPLWin, countA, countB))
+			t = threading.Thread(target=self.libraryScanReporter, args=(SPLWin, countA, countB, parem))
 			t.name = "SPLLibraryScanReporter"
 			t.daemon = True
 			t.start()
 
-	def libraryScanReporter(self, SPLWin, countA, countB):
+	def libraryScanReporter(self, SPLWin, countA, countB, parem):
 		scanIter = 0
 		while countA != countB:
 			countA = countB
@@ -667,7 +670,9 @@ class AppModule(appModuleHandler.AppModule):
 			# Do not continue if we're back on insert tracks form.
 			if api.getForegroundObject().windowClassName == "TTrackInsertForm":
 				return
-			countB, scanIter = sendMessage(SPLWin, 1024, 0, 32), scanIter+1
+			countB, scanIter = sendMessage(SPLWin, 1024, parem, 32), scanIter+1
+			if countB < 0:
+				break
 			if scanIter%5 == 0:
 				if self.libraryScanProgress == self.libraryScanMessage:
 					# Translators: Presented when library scan is in progress.
@@ -840,20 +845,21 @@ class AppModule(appModuleHandler.AppModule):
 	# Few toggle/misc scripts that may be excluded from the layer later.
 
 	def script_libraryScanMonitor(self, gesture):
-		if self.productVersion < "5.10":
-			if not self.libraryScanning:
-				self.libraryScanning = True
-				# Translators: Presented when attempting to start library scan.
-				ui.message(_("Monitoring library scan"))
-				self.monitorLibraryScan()
-			else:
-				# Translators: Presented when library scan is already in progress.
-				ui.message(_("Scanning is in progress"))
+		if not self.libraryScanning:
+			if self.productVersion >= "5.10":
+				SPLWin = user32.FindWindowA("SPLStudio", None)
+				scanning = sendMessage(SPLWin, 1024, 1, 32)
+				if scanning < 0:
+					items = sendMessage(SPLWin, 1024, 0, 32)
+					ui.message(_("{itemCount} items in the library").format(itemCount = items))
+					return
+			self.libraryScanning = True
+			# Translators: Presented when attempting to start library scan.
+			ui.message(_("Monitoring library scan"))
+			self.monitorLibraryScan()
 		else:
-			# In 5.10, library scan count returns total count.
-			SPLWin = user32.FindWindowA("SPLStudio", None)
-			items = sendMessage(SPLWin, 1024, 0, 32)
-			ui.message(_("{itemCount} items in the library").format(itemCount = items))
+			# Translators: Presented when library scan is already in progress.
+			ui.message(_("Scanning is in progress"))
 
 
 	__SPLAssistantGestures={
