@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-11-02 16:50+0100\n"
+"PO-Revision-Date: 2014-12-10 13:42+0100\n"
 "Last-Translator: Ondrej Rosík <ondrej.rosik@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -142,6 +142,10 @@ msgid "Toggles cart explorer to learn cart assignments."
 msgstr ""
 "otvára a zatvára prehliadač jinglov, v ktrom môťete sledovať pozície zvučiek."
 
+#. Translators: Presented when cart command is unavailable.
+msgid "Cart command unavailable"
+msgstr "Funkcia nie je dostupná"
+
 #. Translators: Presented when there is no cart assigned to a cart command.
 msgid "Cart unassigned"
 msgstr "položka nie je priradená"
@@ -192,6 +196,10 @@ msgstr "podmnožina na ovládanie SPL.. Podrobnosti nájdete v návode k doplnku
 #. Translators: Presented when no track is playing in Station Playlist Studio.
 msgid "There is no track playing. Try pausing while a track is playing."
 msgstr "Nie je spustená žiadna skladba. Ak skladba hrá, skúste ju pozastaviť."
+
+#. Translators: Presented when no track is playing in Station Playlist Studio.
+msgid "There is no track playing."
+msgstr "Nie je spustená žiadna skladba"
 
 #. Translators: Presented when SAM Encoder is trying to connect to a streaming server.
 msgid "Connecting..."

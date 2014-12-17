@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-11-14 14:35+0100\n"
+"PO-Revision-Date: 2014-11-17 07:48+0100\n"
 "Last-Translator: Joseph Lee <joseph.lee22590@gmail,com>\n"
 "Language-Team: HU <LL@li.org>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.10\n"
+"X-Generator: Poedit 1.6.4\n"
 
 #. Translators: Script category for Station Playlist commands in input gestures dialog.
 #. Add-on summary, usually the user visible name of the addon.
@@ -210,7 +210,7 @@ msgstr ""
 
 #. Translators: Presented when no track is playing in Station Playlist Studio.
 msgid "There is no track playing."
-msgstr ""
+msgstr "Nincs szám lejátszás alatt"
 
 #. Translators: Presented when SAM Encoder is trying to connect to a streaming server.
 msgid "Connecting..."
