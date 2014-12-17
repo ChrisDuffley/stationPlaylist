@@ -57,12 +57,10 @@ SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
 confspec = ConfigObj(StringIO("""
 EndOfTrackTime = string(default="00:05")
 SongRampTime = string(default="00:05")
-MicAlarm = string(default="0")
+MicAlarm = integer(default="0")
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
-SPLConfig = ConfigObj(SPLIni, configspec = confspec, encoding="UTF-8")
-val = Validator()
-SPLConfig.validate(val)
+SPLConfig = None
 
 # A placeholder thread.
 micAlarmT = None
@@ -127,7 +125,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		label = wx.StaticText(self, wx.ID_ANY, label=_("&Microphone alarm in seconds"))
 		sizer.Add(label)
 		self.micAlarm = wx.TextCtrl(self, wx.ID_ANY)
-		self.micAlarm.SetValue(SPLConfig["MicAlarm"])
+		self.micAlarm.SetValue(str(SPLConfig["MicAlarm"]))
 		sizer.Add(self.micAlarm)
 		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
@@ -155,6 +153,10 @@ class AppModule(appModuleHandler.AppModule):
 	# Prepare the settings dialog among other things.
 	def __init__(self, *args, **kwargs):
 		super(AppModule, self).__init__(*args, **kwargs)
+		global SPLConfig, SPLIni, confspec
+		SPLConfig = ConfigObj(SPLIni, configspec = confspec, encoding="UTF-8")
+		val = Validator()
+		SPLConfig.validate(val)
 		self.prefsMenu = gui.mainFrame.sysTrayIcon.preferencesMenu
 		self.SPLSettings = self.prefsMenu.Append(wx.ID_ANY, _("SPL Studio Settings..."), _("SPL settings"))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.script_openConfigDialog, self.SPLSettings)
@@ -300,11 +302,13 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Save configuration when terminating.
 	def terminate(self):
+		global SPLConfig
 		if SPLConfig is not None: SPLConfig.write()
 		try:
 			self.prefsMenu.RemoveItem(self.SPLSettings)
 		except wx.PyDeadObjectError:
 			pass
+		SPLConfig = None
 
 
 	# Script sections (for ease of maintenance):
@@ -440,7 +444,7 @@ class AppModule(appModuleHandler.AppModule):
 		dlg = wx.NumberEntryDialog(gui.mainFrame,
 		timeMSG, "",
 		# Translators: The title of song intro alarm dialog.
-		_("Song intro alarm"), "",
+		_("Song intro alarm"),
 		rampVal, 1, 9)
 		def callback(result):
 			if result == wx.ID_OK:
@@ -452,7 +456,7 @@ class AppModule(appModuleHandler.AppModule):
 # Tell NVDA to play a sound when mic was active for a long time.
 
 	def script_setMicAlarm(self, gesture):
-		micAlarm = SPLConfig["MicAlarm"]
+		micAlarm = str(SPLConfig["MicAlarm"])
 		if int(micAlarm):
 			# Translators: A dialog message to set microphone active alarm (curAlarmSec is the current mic monitoring alarm in seconds).
 			timeMSG = _("Enter microphone alarm time in seconds (currently {curAlarmSec}, 0 disables the alarm)").format(curAlarmSec = micAlarm)
