@@ -24,7 +24,7 @@ import speech
 import braille
 import gui
 import wx
-import winUser
+from winUser import user32, sendMessage
 from NVDAObjects.IAccessible import IAccessible
 import textInfos
 import tones
@@ -204,7 +204,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Says things such as "25 minutes to 2" and "5 past 11".
 		if fgWindow.windowClassName == "TStudioForm":
 			if self.SPLCurVersion >= SPLMinVersion:
-				if self.spl510used::
+				if self.spl510used:
 					broadcasterTime = fgWindow.children[self.SPLBroadcasterTime+1].children[0].name 
 				else:
 					broadcasterTime = fgWindow.children[self.SPLBroadcasterTime].children[0].name 
@@ -522,7 +522,6 @@ class AppModule(appModuleHandler.AppModule):
 		SPLSystemStatus:[-2, -3, -2], # The second status bar containing system status such as up time.
 		SPLHourTrackDuration:[13, 17, 18], # For track duration for the given hour marker.
 		SPLHourSelectedDuration:[14, 18, 19], # In case the user selects one or more tracks in a given hour.
-		SPLScheduled:[15, 19, 20], # Time when the selected track will begin.
 		SPLNextTrackTitle:[2, 7, 8], # Name and duration of the next track if any.
 	}
 
@@ -616,7 +615,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:shift+h":"sayHourSelectedTrackDuration",
 		"kb:u":"sayUpTime",
 		"kb:n":"sayNextTrackTitle",
-		"kb:i":"sayListenerCount"
+		"kb:i":"sayListenerCount",
 		"kb:z":"togglespl510used",
 		"kb:shift+z":"togglespl510debug",
 	}
