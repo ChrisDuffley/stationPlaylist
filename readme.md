@@ -91,6 +91,7 @@ To learn cart assignments, from SPL Studio, press Control+NVDA+3. Pressing the c
 ## Changes for 3.5
 
 * When NVDA is started or restarted while Studio 5.10's main playlist window is focused, NVDA will no longer play error tones and/or not announce next and previous tracks when arrowing through tracks.
+* Fixed an issue when trying to obtain remainig time and elapsed time for a track in later builds of Studio 5.10.
 * Updated translations.
 
 ## Changes for 3.4
