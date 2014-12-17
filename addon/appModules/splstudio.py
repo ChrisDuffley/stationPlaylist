@@ -241,8 +241,6 @@ class AppModule(appModuleHandler.AppModule):
 
 	# A few time related scripts (elapsed time, remaining time, etc.).
 
-	# Time location constants for SPL 5.x.
-	SPLElapsedTime = 3
 	SPLBroadcasterTime = 13
 	SPLCompleteTime = 15
 
@@ -289,11 +287,14 @@ class AppModule(appModuleHandler.AppModule):
 			msg = self.timeMessageErrors[messageType]
 		ui.message(msg)
 
+	# Scripts which rely on API.
 	def script_sayRemainingTime(self, gesture):
-		if SPLMinVersion <= self.SPLCurVersion < "5.10":
-			self.timeMessage(1, 2, timeObjChild=1)
-		elif self.SPLCurVersion >= "5.10":
-			self.timeAPI(3)
+		if self.SPLCurVersion >= SPLMinVersion:
+			fgWindow = api.getForegroundObject()
+			if fgWindow.windowClassName == "TStudioForm":
+				self.timeAPI(3)
+			else:
+				ui.message(self.timeMessageErrors[1])
 		else:
 			# Translators: Presented when trying to use an add-on command in an unsupported version of StationPlaylist Studio.
 			ui.message(_("This version of Studio is no longer supported"))
@@ -301,10 +302,12 @@ class AppModule(appModuleHandler.AppModule):
 	script_sayRemainingTime.__doc__=_("Announces the remaining track time.")
 
 	def script_sayElapsedTime(self, gesture):
-		if SPLMinVersion <= self.SPLCurVersion < "5.10":
-			self.timeMessage(2, self.SPLElapsedTime, timeObjChild=1)
-		elif self.SPLCurVersion >= "5.10":
-			self.timeAPI(0)
+		if self.SPLCurVersion >= SPLMinVersion:
+			fgWindow = api.getForegroundObject()
+			if fgWindow.windowClassName == "TStudioForm":
+				self.timeAPI(0)
+			else:
+				ui.message(self.timeMessageErrors[2])
 		else:
 			ui.message(_("This version of Studio is no longer supported"))
 	# Translators: Input help mode message for a command in Station Playlist Studio.
