@@ -257,10 +257,6 @@ class AppModule(appModuleHandler.AppModule):
 	# Misc scripts: track finder and others.
 	# SPL Assistant layer: status commands.
 
-	# A few time related scripts (elapsed time, remaining time, etc.).
-
-	SPLElapsedTime = 3
-	SPL4ElapsedTime = -4
 	# Broadcaster time such as "5 minutes to 3" for SPL 5.x.
 	SPLBroadcasterTime = 13
 	SPL4BroadcasterTime = 8
@@ -299,7 +295,7 @@ class AppModule(appModuleHandler.AppModule):
 					tm2 = "0" + str(tm2)
 			ui.message("{a}:{b}".format(a = tm1, b = tm2))
 
-	# Let the scripts call the below time message function to reduce code duplication and to improve readability.
+	# Let the scripts that doesn't rely on API to call the below time message function to reduce code duplication and to improve readability.
 	def timeMessage(self, messageType, timeObj, timeObjChild=0):
 		fgWindow = api.getForegroundObject()
 		if fgWindow.windowClassName == "TStudioForm":
@@ -311,23 +307,22 @@ class AppModule(appModuleHandler.AppModule):
 			msg = self.timeMessageErrors[messageType]
 		ui.message(msg)
 
+	# Scripts that rely on time API.
 	def script_sayRemainingTime(self, gesture):
-		if SPLMinVersion <= self.SPLCurVersion < "5.10":
-			self.timeMessage(1, 2, timeObjChild=1)
-		elif self.SPLCurVersion >= "5.10":
+		fgWindow = api.getForegroundObject()
+		if fgWindow.windowClassName == "TStudioForm":
 			self.timeAPI(3)
 		else:
-			self.timeMessage(1, -3)
+			ui.message(self.timeMessageErrors[1])
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayRemainingTime.__doc__=_("Announces the remaining track time.")
 
 	def script_sayElapsedTime(self, gesture):
-		if SPLMinVersion <= self.SPLCurVersion < "5.10":
-			self.timeMessage(2, self.SPLElapsedTime, timeObjChild=1)
-		elif self.SPLCurVersion >= "5.10":
+		fgWindow = api.getForegroundObject()
+		if fgWindow.windowClassName == "TStudioForm":
 			self.timeAPI(0)
 		else:
-			self.timeMessage(2, self.SPL4ElapsedTime)
+			ui.message(self.timeMessageErrors[2])
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayElapsedTime.__doc__=_("Announces the elapsed time for the currently playing track.")
 
@@ -927,10 +922,14 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:d":"sayPlaylistRemainingDuration",
 		"kb:u":"sayUpTime",
 		"kb:n":"sayNextTrackTitle",
+<<<<<<< HEAD
 		"kb:w":"sayTemperature",
 		"kb:i":"sayListenerCount",
 		"kb:s":"sayScheduledTime",
 		"kb:shift+r":"libraryScanMonitor",
+=======
+		"kb:i":"sayListenerCount",
+>>>>>>> 3.x
 		"kb:z":"togglespl510used",
 		"kb:shift+z":"togglespl510debug",
 	}
