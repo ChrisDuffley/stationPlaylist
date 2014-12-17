@@ -157,19 +157,10 @@ class AppModule(appModuleHandler.AppModule):
 			# Clean this mess with a more elegant solution.
 		nextHandler()
 
-
-	SPLElapsedTrackTime = 3
-	SPL4ElapsedTrackTime = -4
 	# Broadcaster time such as "5 minutes to 3" for SPL 5.x.
 	SPLBroadcasterTime = 13
 	SPL4BroadcasterTime = 8
 
-<<<<<<< HEAD
-	def script_sayRemainingTime(self, gesture):
-		fgWindow = api.getForegroundObject()
-		if fgWindow.windowClassName == "TStudioForm":
-			remainingTime = fgWindow.children[2].children[1].name if self.SPLCurVersion >= SPLMinVersion else fgWindow.children[-3].firstChild.name
-=======
 	# Emergency patch: Call SPL API for important time messages.
 	def timeAPI(self, arg):
 		SPLWin = user32.FindWindowA("SPLStudio", None)
@@ -188,63 +179,37 @@ class AppModule(appModuleHandler.AppModule):
 					tm2 = "0" + str(tm2)
 			ui.message("{a}:{b}".format(a = tm1, b = tm2))
 
-	# Let the scripts call the below time message function to reduce code duplication and to improve readability.
-	def timeMessage(self, messageType, timeObj, timeObjChild=0):
+	def script_sayRemainingTime(self, gesture):
 		fgWindow = api.getForegroundObject()
 		if fgWindow.windowClassName == "TStudioForm":
-			if timeObjChild == 0:
-				obj = fgWindow.children[timeObj].firstChild
-			else: obj = fgWindow.children[timeObj].children[timeObjChild]
-			msg = obj.name
-		else:
-			msg = self.timeMessageErrors[messageType]
-		ui.message(msg)
-
-	def script_sayRemainingTime(self, gesture):
-		if SPLMinVersion <= self.SPLCurVersion < "5.10":
-			self.timeMessage(1, 2, timeObjChild=1)
-		elif self.SPLCurVersion >= "5.10":
 			self.timeAPI(3)
->>>>>>> 00a2fd4... PUll emergency patch from master into legacy
 		else:
 			# Translators: Presented when remaining time is unavailable.
-			remainingTime = _("Remaining time not available")
-		ui.message(remainingTime)
+			ui.message(_("Remaining time not available"))
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayRemainingTime.__doc__=_("Announces the remaining track time.")
 
 	def script_sayElapsedTime(self, gesture):
-<<<<<<< HEAD
 		fgWindow = api.getForegroundObject()
-		# Quite a complicated expression there.
 		if fgWindow.windowClassName == "TStudioForm":
-			elapsedTime = fgWindow.children[self.SPLElapsedTrackTime].children[1].name if self.SPLCurVersion >= SPLMinVersion else fgWindow.children[self.SPL4ElapsedTrackTime].children[0].name
-=======
-		if SPLMinVersion <= self.SPLCurVersion < "5.10":
-			self.timeMessage(2, self.SPLElapsedTime, timeObjChild=1)
-		elif self.SPLCurVersion >= "5.10":
 			self.timeAPI(0)
->>>>>>> 00a2fd4... PUll emergency patch from master into legacy
 		else:
 			# Translators: Presented when elapsed time is unavailable.
-			elapsedTime = _("Elapsed time not available")
-		ui.message(elapsedTime)
+			ui.message(_("Elapsed time not available"))
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayElapsedTime.__doc__=_("Announces the elapsed time for the currently playing track.")
 
 	def script_sayBroadcasterTime(self, gesture):
 		fgWindow = api.getForegroundObject()
 		# Says things such as "25 minutes to 2" and "5 past 11".
-<<<<<<< HEAD
 		if fgWindow.windowClassName == "TStudioForm":
-			broadcasterTime = fgWindow.children[self.SPLBroadcasterTime].children[0].name if self.SPLCurVersion >= SPLMinVersion else fgWindow.children[self.SPL4BroadcasterTime].children[0].name
-=======
-		if self.SPLCurVersion >= SPLMinVersion :
-			if self.spl510used:
-				self.timeMessage(3, self.SPLBroadcasterTime+1)
+			if self.SPLCurVersion >= SPLMinVersion:
+				if self.spl510used::
+					broadcasterTime = fgWindow.children[self.SPLBroadcasterTime+1].children[0].name 
+				else:
+					broadcasterTime = fgWindow.children[self.SPLBroadcasterTime].children[0].name 
 			else:
-				self.timeMessage(3, self.SPLBroadcasterTime)
->>>>>>> 00a2fd4... PUll emergency patch from master into legacy
+				broadcasterTime = fgWindow.children[self.SPL4BroadcasterTime].children[0].name
 		else:
 			# Translators: Presented when broadcaster time is unavailable.
 			broadcasterTime = _("Broadcaster time not available")
@@ -252,21 +217,6 @@ class AppModule(appModuleHandler.AppModule):
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayBroadcasterTime.__doc__=_("Announces broadcaster time.")
 
-<<<<<<< HEAD
-=======
-	def script_sayCompleteTime(self, gesture):
-		# Says complete time in hours, minutes and seconds.
-		if self.SPLCurVersion >= SPLMinVersion :
-			if self.spl510used:
-				self.timeMessage(4, self.SPLCompleteTime+1)
-			else:
-				self.timeMessage(4, self.SPLCompleteTime)
-		else:
-			self.timeMessage(4, self.SPL4CompleteTime)
-	# Translators: Input help mode message for a command in Station Playlist Studio.
-	script_sayCompleteTime.__doc__=_("Announces time including seconds.")
-
->>>>>>> 00a2fd4... PUll emergency patch from master into legacy
 	# Set the end of track alarm time between 1 and 59 seconds.
 
 	def script_setEndOfTrackTime(self, gesture):
