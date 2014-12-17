@@ -259,6 +259,24 @@ class AppModule(appModuleHandler.AppModule):
 		4:_("Cannot obtain time in hours, minutes and seconds")
 	}
 
+	# Emergency patch: Call SPL API for important time messages.
+	def timeAPI(self, arg):
+		SPLWin = user32.FindWindowA("SPLStudio", None)
+		t = sendMessage(SPLWin, 1024, arg, 105)
+		if t < 0:
+			ui.message("00:00")
+		else:
+			tm = (t/1000)+1
+			if tm < 60:
+				tm1, tm2 = "00", tm
+			else:
+				tm1, tm2 = tm/60, tm%60
+				if tm1 < 10:
+					tm1 = "0" + str(tm1)
+				if tm2 < 10:
+					tm2 = "0" + str(tm2)
+			ui.message("{a}:{b}".format(a = tm1, b = tm2))
+
 	# Let the scripts call the below time message function to reduce code duplication and to improve readability.
 	def timeMessage(self, messageType, timeObj, timeObjChild=0):
 		fgWindow = api.getForegroundObject()
@@ -272,8 +290,10 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(msg)
 
 	def script_sayRemainingTime(self, gesture):
-		if self.SPLCurVersion >= SPLMinVersion :
+		if SPLMinVersion <= self.SPLCurVersion < "5.10":
 			self.timeMessage(1, 2, timeObjChild=1)
+		elif self.SPLCurVersion >= "5.10":
+			self.timeAPI(3)
 		else:
 			# Translators: Presented when trying to use an add-on command in an unsupported version of StationPlaylist Studio.
 			ui.message(_("This version of Studio is no longer supported"))
@@ -281,8 +301,10 @@ class AppModule(appModuleHandler.AppModule):
 	script_sayRemainingTime.__doc__=_("Announces the remaining track time.")
 
 	def script_sayElapsedTime(self, gesture):
-		if self.SPLCurVersion >= SPLMinVersion :
+		if SPLMinVersion <= self.SPLCurVersion < "5.10":
 			self.timeMessage(2, self.SPLElapsedTime, timeObjChild=1)
+		elif self.SPLCurVersion >= "5.10":
+			self.timeAPI(0)
 		else:
 			ui.message(_("This version of Studio is no longer supported"))
 	# Translators: Input help mode message for a command in Station Playlist Studio.
@@ -291,7 +313,10 @@ class AppModule(appModuleHandler.AppModule):
 	def script_sayBroadcasterTime(self, gesture):
 		# Says things such as "25 minutes to 2" and "5 past 11".
 		if self.SPLCurVersion >= SPLMinVersion :
-			self.timeMessage(3, self.SPLBroadcasterTime)
+			if self.spl510used:
+				self.timeMessage(3, self.SPLBroadcasterTime+1)
+			else:
+				self.timeMessage(3, self.SPLBroadcasterTime)
 		else:
 			ui.message(_("This version of Studio is no longer supported"))
 	# Translators: Input help mode message for a command in Station Playlist Studio.
@@ -300,7 +325,10 @@ class AppModule(appModuleHandler.AppModule):
 	def script_sayCompleteTime(self, gesture):
 		# Says complete time in hours, minutes and seconds.
 		if self.SPLCurVersion >= SPLMinVersion :
-			self.timeMessage(4, self.SPLCompleteTime)
+			if self.spl510used:
+				self.timeMessage(4, self.SPLCompleteTime+1)
+			else:
+				self.timeMessage(4, self.SPLCompleteTime)
 		else:
 			ui.message(_("This version of Studio is no longer supported"))
 	# Translators: Input help mode message for a command in Station Playlist Studio.
@@ -439,6 +467,8 @@ class AppModule(appModuleHandler.AppModule):
 	# Unfortunately, the track list does not provide obj.name (it is None), however obj.description has the actual track entry.
 
 	def script_findTrack(self, gesture):
+		if self.spl510debug:
+			ui.message(api.getForegroundObject().windowClassName)
 		if api.getForegroundObject().windowClassName != "TStudioForm":
 			# Translators: Presented when a user attempts to find tracks but is not at the track list.
 			ui.message(_("Track finder is available only in track list."))
@@ -748,21 +778,23 @@ class AppModule(appModuleHandler.AppModule):
 	# These are scattered throughout the screen, so one can use foreground.children[index] to fetch them.
 	# Because 4.x and 5.x (an perhaps future releases) uses different screen layout, look up the needed constant from the table below (row = info needed, column = version).
 	statusObjs={
-		SPLPlayStatus:[0, 5], # Play status, mic, etc.
-		SPLSystemStatus:[-2, -3], # The second status bar containing system status such as up time.
-		SPLHourTrackDuration:[13, 17], # For track duration for the given hour marker.
-		SPLHourSelectedDuration:[14, 18], # In case the user selects one or more tracks in a given hour.
-		SPLScheduled:[15, 19], # Time when the selected track will begin.
-		SPLNextTrackTitle:[2, 7], # Name and duration of the next track if any.
-		SPLPlaylistRemainingDuration:[12, 16], # Remaining time for the current playlist.
-		SPLTemperature:[1, 6], # Temperature for the current city.
+		SPLPlayStatus:[0, 5, 6], # Play status, mic, etc.
+		SPLSystemStatus:[-2, -3, -2], # The second status bar containing system status such as up time.
+		SPLHourTrackDuration:[13, 17, 18], # For track duration for the given hour marker.
+		SPLHourSelectedDuration:[14, 18, 19], # In case the user selects one or more tracks in a given hour.
+		SPLScheduled:[15, 19, 20], # Time when the selected track will begin.
+		SPLNextTrackTitle:[2, 7, 8], # Name and duration of the next track if any.
+		SPLPlaylistRemainingDuration:[12, 16, 17], # Remaining time for the current playlist.
+		SPLTemperature:[1, 6, 7], # Temperature for the current city.
 	}
 
 	# Called in the layer commands themselves.
 	def status(self, infoIndex):
 		ver, fg = self.productVersion, api.getForegroundObject()
 		if ver.startswith("4"): statusObj = self.statusObjs[infoIndex][0]
-		elif ver.startswith("5"): statusObj = self.statusObjs[infoIndex][1]
+		elif ver.startswith("5"):
+			if not self.spl510used: statusObj = self.statusObjs[infoIndex][1]
+			else: statusObj = self.statusObjs[infoIndex][2]
 		return fg.children[statusObj]
 
 	# The layer commands themselves.
@@ -860,6 +892,27 @@ class AppModule(appModuleHandler.AppModule):
 			items = sendMessage(SPLWin, 1024, 0, 32)
 			ui.message(_("{itemCount} items in the library").format(itemCount = items))
 
+	# For SPL 5.10 users only: debug and use configuration
+	spl510used = False
+	spl510debug = False
+	def script_togglespl510used(self, gesture):
+		if not self.spl510used:
+			self.spl510used = True
+			# For reviewers: do not translate this message.
+			ui.message("Studio 5.10 interface on")
+		else:
+			self.spl510used = False
+			ui.message("Studio 5.10 interface off")
+
+	def script_togglespl510debug(self, gesture):
+		if not self.spl510debug:
+			self.spl510debug = True
+			# For reviewers: do not translate this message.
+			ui.message("Studio 5.10 debugger on")
+		else:
+			self.spl510debug = False
+			ui.message("Studio 5.10 debugger off")
+
 
 	__SPLAssistantGestures={
 		"kb:p":"sayPlayStatus",
@@ -878,7 +931,9 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:i":"sayListenerCount",
 		"kb:s":"sayScheduledTime",
 		"kb:shift+p":"sayTrackPitch",
-		"kb:shift+r":"libraryScanMonitor"
+		"kb:shift+r":"libraryScanMonitor",
+		"kb:z":"togglespl510used",
+		"kb:shift+z":"togglespl510debug",
 	}
 
 	__gestures={
