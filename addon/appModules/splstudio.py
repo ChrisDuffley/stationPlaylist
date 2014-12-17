@@ -487,7 +487,7 @@ class AppModule(appModuleHandler.AppModule):
 	)
 
 	def script_setBrailleTimer(self, gesture):
-		self.brailleTimer= self.brailleTimer+1 if self.brailleTimer < len(self.brailleTimerSettings)-1 else 0
+		self.brailleTimer= (self.brailleTimer+1) % len(self.brailleTimerSettings)
 		ui.message(self.brailleTimerSettings[self.brailleTimer])
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setBrailleTimer.__doc__=_("Toggles between various braille timer settings.")
@@ -709,7 +709,7 @@ class AppModule(appModuleHandler.AppModule):
 	)
 
 	def script_setLibraryScanProgress(self, gesture):
-		self.libraryScanProgress = self.libraryScanProgress+1 if self.libraryScanProgress < len(self.libraryProgressSettings)-1 else 0
+		self.libraryScanProgress = (self.libraryScanProgress+1) % len(self.libraryProgressSettings)
 		ui.message(self.libraryProgressSettings[self.libraryScanProgress])
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setLibraryScanProgress.__doc__=_("Toggles library scan progress settings.")
