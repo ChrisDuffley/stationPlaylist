@@ -50,16 +50,6 @@ def finally_(func, final):
 # Check the version string against this. If it is less, use a different procedure for some routines.
 SPLMinVersion = "5.00"
 
-# Controls which require special handling.
-class SPL510TrackItem(IAccessible):
-
-	def script_select(self, gesture):
-		gesture.send()
-		speech.speakMessage(self.name)
-
-	__gestures={"kb:space":"select"}
-
-
 # A placeholder thread.
 micAlarmT = None
 libScanT = None # Library scanner.
@@ -277,7 +267,7 @@ class AppModule(appModuleHandler.AppModule):
 		4:_("Cannot obtain time in hours, minutes and seconds")
 	}
 
-	# Emergency patch: Call SPL API for important time messages.
+	# Call SPL API for important time messages.
 	def timeAPI(self, arg):
 		SPLWin = user32.FindWindowA("SPLStudio", None)
 		t = sendMessage(SPLWin, 1024, arg, 105)
