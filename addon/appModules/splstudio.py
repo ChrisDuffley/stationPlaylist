@@ -230,6 +230,17 @@ class AppModule(appModuleHandler.AppModule):
 				self.monitorLibraryScan()
 		nextHandler()
 
+	# Call SPL API to obtain needed values.
+	# This is needed for some Assistant and time commands.
+	# A thin wrapper around user32.SendMessage and calling a callback if defined.
+	def statusAPI(self, arg, command, func=None, ret=False):
+		SPLWin = user32.FindWindowA("SPLStudio", None)
+		val = sendMessage(SPLWin, 1024, arg, command)
+		if ret:
+			return val
+		if func:
+			func(val)
+
 	# Save configuration when terminating.
 	def terminate(self):
 		if SPLConfig is not None: SPLConfig.write()
@@ -257,18 +268,7 @@ class AppModule(appModuleHandler.AppModule):
 		4:_("Cannot obtain time in hours, minutes and seconds")
 	}
 
-	# Call SPL API to obtain needed values.
-	# This is needed for some Assistant and time commands.
-	# A thin wrapper around user32.SendMessage and calling a callback if defined.
-	def statusAPI(self, arg, command, func=None, ret=False):
-		SPLWin = user32.FindWindowA("SPLStudio", None)
-		val = sendMessage(SPLWin, 1024, arg, command)
-		if ret:
-			return val
-		if func:
-			func(val)
-
-	# Specific to time scripts.
+	# Specific to time scripts using Studio API.
 	def announceTime(self, t):
 		if t < 0:
 			ui.message("00:00")
