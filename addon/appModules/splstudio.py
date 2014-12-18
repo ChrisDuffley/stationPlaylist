@@ -762,7 +762,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_SPLAssistantToggle(self, gesture):
 		# Enter the layer command if an only if we're in the track list to allow easier gesture assignment.
-		if api.getForegroundObject().windowClassName != "TStudioForm":
+		fg = api.getForegroundObject()
+		if fg.windowClassName != "TStudioForm":
 			gesture.send()
 			return
 		if self.SPLAssistant:
@@ -773,6 +774,10 @@ class AppModule(appModuleHandler.AppModule):
 		self.bindGestures(self.__SPLAssistantGestures)
 		self.SPLAssistant = True
 		tones.beep(512, 10)
+		# Because different builds of 5.10 have different object placement...
+		if self.SPLCurVersion >= "5.10":
+			if fg.children[5].role != controlTypes.ROLE_STATUSBAR:
+				self.spl510used = True
 	# Translators: Input help mode message for a layer command in Station Playlist Studio.
 	script_SPLAssistantToggle.__doc__=_("The SPL Assistant layer command. See the add-on guide for more information on available commands.")
 
