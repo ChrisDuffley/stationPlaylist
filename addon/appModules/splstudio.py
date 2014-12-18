@@ -257,10 +257,19 @@ class AppModule(appModuleHandler.AppModule):
 		4:_("Cannot obtain time in hours, minutes and seconds")
 	}
 
-	# Emergency patch: Call SPL API for important time messages.
-	def timeAPI(self, arg):
+	# Call SPL API to obtain needed values.
+	# This is needed for some Assistant and time commands.
+	# A thin wrapper around user32.SendMessage and calling a callback if defined.
+	def statusAPI(self, arg, command, func=None, ret=False):
 		SPLWin = user32.FindWindowA("SPLStudio", None)
-		t = sendMessage(SPLWin, 1024, arg, 105)
+		val = sendMessage(SPLWin, 1024, arg, command)
+		if ret:
+			return val
+		if func:
+			func(val)
+
+	# Specific to time scripts.
+	def announceTime(self, t):
 		if t < 0:
 			ui.message("00:00")
 		else:
@@ -276,6 +285,7 @@ class AppModule(appModuleHandler.AppModule):
 			ui.message("{a}:{b}".format(a = tm1, b = tm2))
 
 	# Let the scripts call the below time message function to reduce code duplication and to improve readability.
+	# This is utilized for ones which doens't return via the API.
 	def timeMessage(self, messageType, timeObj, timeObjChild=0):
 		fgWindow = api.getForegroundObject()
 		if fgWindow.windowClassName == "TStudioForm":
@@ -292,7 +302,7 @@ class AppModule(appModuleHandler.AppModule):
 		if self.SPLCurVersion >= SPLMinVersion:
 			fgWindow = api.getForegroundObject()
 			if fgWindow.windowClassName == "TStudioForm":
-				self.timeAPI(3)
+				self.statusAPI(3, 105, self.announceTime)
 			else:
 				ui.message(self.timeMessageErrors[1])
 		else:
@@ -305,7 +315,7 @@ class AppModule(appModuleHandler.AppModule):
 		if self.SPLCurVersion >= SPLMinVersion:
 			fgWindow = api.getForegroundObject()
 			if fgWindow.windowClassName == "TStudioForm":
-				self.timeAPI(0)
+				self.statusAPI(0, 105, self.announceTime)
 			else:
 				ui.message(self.timeMessageErrors[2])
 		else:
