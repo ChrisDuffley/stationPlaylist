@@ -189,6 +189,8 @@ class AppModule(appModuleHandler.AppModule):
 	# Keep an eye on library scans in insert tracks window.
 	libraryScanning = False
 	scanCount = 0
+	# For SPL 5.10: take care of some object child constant changes across builds.
+	spl510used = False
 
 	# Automatically announce mic, line in, etc changes
 	# These items are static text items whose name changes.
@@ -237,7 +239,11 @@ class AppModule(appModuleHandler.AppModule):
 						wavFile = os.path.join(wavDir, "SPL_off.wav")
 					elif stat == "On":
 						wavFile = os.path.join(wavDir, "SPL_on.wav")
-					messageSound(wavFile, obj.name)
+					# Yet another Studio 5.10 fix: sometimes, status bar fires this event once more.
+					try:
+						messageSound(wavFile, obj.name)
+					except:
+						return
 				else:
 					ui.message(obj.name)
 				if self.cartExplorer or int(SPLConfig["MicAlarm"]):
@@ -356,6 +362,9 @@ class AppModule(appModuleHandler.AppModule):
 	def timeMessage(self, messageType, timeObj, timeObjChild=0):
 		fgWindow = api.getForegroundObject()
 		if fgWindow.windowClassName == "TStudioForm":
+			if not self.spl510used and self.SPLCurVersion >= "5.10" and fgWindow.children[5].role != controlTypes.ROLE_STATUSBAR:
+				self.spl510used = True
+			if self.spl510used: timeObj += 1
 			if timeObjChild == 0:
 				obj = fgWindow.children[timeObj].firstChild
 			else: obj = fgWindow.children[timeObj].children[timeObjChild]
@@ -393,10 +402,7 @@ class AppModule(appModuleHandler.AppModule):
 	def script_sayBroadcasterTime(self, gesture):
 		# Says things such as "25 minutes to 2" and "5 past 11".
 		if self.SPLCurVersion >= SPLMinVersion :
-			if self.spl510used:
-				self.timeMessage(3, self.SPLBroadcasterTime+1)
-			else:
-				self.timeMessage(3, self.SPLBroadcasterTime)
+			self.timeMessage(3, self.SPLBroadcasterTime)
 		else:
 			ui.message(_("This version of Studio is no longer supported"))
 	# Translators: Input help mode message for a command in Station Playlist Studio.
@@ -405,10 +411,7 @@ class AppModule(appModuleHandler.AppModule):
 	def script_sayCompleteTime(self, gesture):
 		# Says complete time in hours, minutes and seconds.
 		if self.SPLCurVersion >= SPLMinVersion :
-			if self.spl510used:
-				self.timeMessage(4, self.SPLCompleteTime+1)
-			else:
-				self.timeMessage(4, self.SPLCompleteTime)
+			self.timeMessage(4, self.SPLCompleteTime)
 		else:
 			ui.message(_("This version of Studio is no longer supported"))
 	# Translators: Input help mode message for a command in Station Playlist Studio.
@@ -851,7 +854,7 @@ class AppModule(appModuleHandler.AppModule):
 		self.SPLAssistant = True
 		tones.beep(512, 10)
 		# Because different builds of 5.10 have different object placement...
-		if self.SPLCurVersion >= "5.10":
+		if self.SPLCurVersion >= "5.10" and not self.spl510used:
 			if fg.children[5].role != controlTypes.ROLE_STATUSBAR:
 				self.spl510used = True
 	# Translators: Input help mode message for a layer command in Station Playlist Studio.
@@ -986,27 +989,6 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: Presented when library scan is already in progress.
 			ui.message(_("Scanning is in progress"))
 
-	# For SPL 5.10 users only: debug and use configuration
-	spl510used = False
-	spl510debug = False
-	def script_togglespl510used(self, gesture):
-		if not self.spl510used:
-			self.spl510used = True
-			# For reviewers: do not translate this message.
-			ui.message("Studio 5.10 interface on")
-		else:
-			self.spl510used = False
-			ui.message("Studio 5.10 interface off")
-
-	def script_togglespl510debug(self, gesture):
-		if not self.spl510debug:
-			self.spl510debug = True
-			# For reviewers: do not translate this message.
-			ui.message("Studio 5.10 debugger on")
-		else:
-			self.spl510debug = False
-			ui.message("Studio 5.10 debugger off")
-
 
 	__SPLAssistantGestures={
 		"kb:p":"sayPlayStatus",
@@ -1026,8 +1008,6 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:s":"sayScheduledTime",
 		"kb:shift+p":"sayTrackPitch",
 		"kb:shift+r":"libraryScanMonitor",
-		"kb:z":"togglespl510used",
-		"kb:shift+z":"togglespl510debug",
 	}
 
 	__gestures={
