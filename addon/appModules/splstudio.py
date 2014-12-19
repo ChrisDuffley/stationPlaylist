@@ -100,6 +100,8 @@ class AppModule(appModuleHandler.AppModule):
 	# Check the following variable for end of track announcement.
 	# Should be adjustable by the user in the end. Also find a way to announce this even if SPL Studio is minimized.
 	SPLEndOfTrackTime = "00:05"
+	# For SPL 5.10: take care of some object child constant changes across builds.
+	spl510used = False
 
 	# Automatically announce mic, line in, etc changes
 	# These items are static text items whose name changes.
@@ -161,7 +163,7 @@ class AppModule(appModuleHandler.AppModule):
 	SPLBroadcasterTime = 13
 	SPL4BroadcasterTime = 8
 
-	# Emergency patch: Call SPL API for important time messages.
+	# Call SPL API for important time messages.
 	def timeAPI(self, arg):
 		SPLWin = user32.FindWindowA("SPLStudio", None)
 		t = sendMessage(SPLWin, 1024, arg, 105)
@@ -204,6 +206,8 @@ class AppModule(appModuleHandler.AppModule):
 		# Says things such as "25 minutes to 2" and "5 past 11".
 		if fgWindow.windowClassName == "TStudioForm":
 			if self.SPLCurVersion >= SPLMinVersion:
+				if not self.spl510used and self.SPLCurVersion >= "5.10" and fgWindow.children[5].role != controlTypes.ROLE_STATUSBAR:
+					self.spl510used = True
 				if self.spl510used:
 					broadcasterTime = fgWindow.children[self.SPLBroadcasterTime+1].children[0].name 
 				else:
@@ -493,7 +497,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_SPLAssistantToggle(self, gesture):
 		# Enter the layer command if an only if we're in the track list to allow easier gesture assignment.
-		if api.getForegroundObject().windowClassName != "TStudioForm":
+		fg = api.getForegroundObject()
+		if fg.windowClassName != "TStudioForm":
 			gesture.send()
 			return
 		if self.SPLAssistant:
@@ -504,6 +509,9 @@ class AppModule(appModuleHandler.AppModule):
 		self.bindGestures(self.__SPLAssistantGestures)
 		self.SPLAssistant = True
 		tones.beep(512, 10)
+		if self.SPLCurVersion >= "5.10" and not self.spl510used:
+			if fg.children[5].role != controlTypes.ROLE_STATUSBAR:
+				self.spl510used = True
 	# Translators: Input help mode message for a layer command in Station Playlist Studio.
 	script_SPLAssistantToggle.__doc__=_("The SPL Assistant layer command. See the add-on guide for more information on available commands.")
 
@@ -582,27 +590,6 @@ class AppModule(appModuleHandler.AppModule):
 		# Translators: Presented when there is no listener count information.
 		ui.message(obj.name) if obj.name is not None else ui.message(_("Listener count not found"))
 
-	# For SPL 5.10 users only: debug and use configuration
-	spl510used = False
-	spl510debug = False
-	def script_togglespl510used(self, gesture):
-		if not self.spl510used:
-			self.spl510used = True
-			# For reviewers: do not translate this message.
-			ui.message("Studio 5.10 interface on")
-		else:
-			self.spl510used = False
-			ui.message("Studio 5.10 interface off")
-
-	def script_togglespl510debug(self, gesture):
-		if not self.spl510debug:
-			self.spl510debug = True
-			# For reviewers: do not translate this message.
-			ui.message("Studio 5.10 debugger on")
-		else:
-			self.spl510debug = False
-			ui.message("Studio 5.10 debugger off")
-
 
 	__SPLAssistantGestures={
 		"kb:p":"sayPlayStatus",
@@ -616,8 +603,6 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:u":"sayUpTime",
 		"kb:n":"sayNextTrackTitle",
 		"kb:i":"sayListenerCount",
-		"kb:z":"togglespl510used",
-		"kb:shift+z":"togglespl510debug",
 	}
 
 	__gestures={
