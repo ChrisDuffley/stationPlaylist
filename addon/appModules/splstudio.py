@@ -118,6 +118,8 @@ class AppModule(appModuleHandler.AppModule):
 	scanCount = 0
 	# Microphone alarm.
 	micAlarm = 0
+	# For SPL 5.10: take care of some object child constant changes across builds.
+	spl510used = False
 
 	# Automatically announce mic, line in, etc changes
 	# These items are static text items whose name changes.
@@ -886,27 +888,6 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: Presented when library scan is already in progress.
 			ui.message(_("Scanning is in progress"))
 
-	# For SPL 5.10 users only: debug and use configuration
-	spl510used = False
-	spl510debug = False
-	def script_togglespl510used(self, gesture):
-		if not self.spl510used:
-			self.spl510used = True
-			# For reviewers: do not translate this message.
-			ui.message("Studio 5.10 interface on")
-		else:
-			self.spl510used = False
-			ui.message("Studio 5.10 interface off")
-
-	def script_togglespl510debug(self, gesture):
-		if not self.spl510debug:
-			self.spl510debug = True
-			# For reviewers: do not translate this message.
-			ui.message("Studio 5.10 debugger on")
-		else:
-			self.spl510debug = False
-			ui.message("Studio 5.10 debugger off")
-
 
 	__SPLAssistantGestures={
 		"kb:p":"sayPlayStatus",
@@ -924,8 +905,6 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:i":"sayListenerCount",
 		"kb:s":"sayScheduledTime",
 		"kb:shift+r":"libraryScanMonitor",
-		"kb:z":"togglespl510used",
-		"kb:shift+z":"togglespl510debug",
 	}
 
 	__gestures={
