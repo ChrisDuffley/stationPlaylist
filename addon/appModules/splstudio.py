@@ -28,6 +28,7 @@ import braille
 import gui
 import wx
 from winUser import user32, sendMessage
+from winKernel import GetTimeFormat, LOCALE_USER_DEFAULT
 from NVDAObjects.IAccessible import IAccessible
 import textInfos
 import tones
@@ -248,7 +249,6 @@ class AppModule(appModuleHandler.AppModule):
 	# A few time related scripts (elapsed time, remaining time, etc.).
 
 	SPLBroadcasterTime = 13
-	SPLCompleteTime = 15
 
 	# Speak any time-related errors.
 	# Message type: error message.
@@ -332,9 +332,12 @@ class AppModule(appModuleHandler.AppModule):
 	script_sayBroadcasterTime.__doc__=_("Announces broadcaster time.")
 
 	def script_sayCompleteTime(self, gesture):
-		# Says complete time in hours, minutes and seconds.
+		# Says complete time in hours, minutes and seconds via kernel32's routines.
 		if self.SPLCurVersion >= SPLMinVersion :
-			self.timeMessage(4, self.SPLCompleteTime)
+			if api.getForegroundObject().windowClassName == "TStudioForm":
+				ui.message(GetTimeFormat(LOCALE_USER_DEFAULT, 0, None, None))
+			else:
+				ui.message(self.timeMessageErrors[4])
 		else:
 			ui.message(_("This version of Studio is no longer supported"))
 	# Translators: Input help mode message for a command in Station Playlist Studio.
