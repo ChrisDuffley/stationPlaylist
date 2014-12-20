@@ -27,6 +27,7 @@ import braille
 import gui
 import wx
 from winUser import user32, sendMessage
+from winKernel import GetTimeFormat, LOCALE_USER_DEFAULT
 from NVDAObjects.IAccessible import IAccessible
 import textInfos
 import tones
@@ -252,9 +253,6 @@ class AppModule(appModuleHandler.AppModule):
 	# Broadcaster time such as "5 minutes to 3" for SPL 5.x.
 	SPLBroadcasterTime = 13
 	SPL4BroadcasterTime = 8
-	# Complete time as in hours, minutes and seconds.
-	SPLCompleteTime = 15
-	SPL4CompleteTime = 10
 
 	# Speak any time-related errors.
 	# Message type: error message.
@@ -331,11 +329,11 @@ class AppModule(appModuleHandler.AppModule):
 	script_sayBroadcasterTime.__doc__=_("Announces broadcaster time.")
 
 	def script_sayCompleteTime(self, gesture):
-		# Says complete time in hours, minutes and seconds.
-		if self.SPLCurVersion >= SPLMinVersion :
-			self.timeMessage(4, self.SPLCompleteTime)
+		# Says complete time in hours, minutes and seconds via kernel32's routines.
+		if api.getForegroundObject().windowClassName == "TStudioForm":
+			ui.message(GetTimeFormat(LOCALE_USER_DEFAULT, 0, None, None))
 		else:
-			self.timeMessage(4, self.SPL4CompleteTime)
+			ui.message(self.timeMessageErrors[4])
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayCompleteTime.__doc__=_("Announces time including seconds.")
 
