@@ -478,8 +478,6 @@ class AppModule(appModuleHandler.AppModule):
 	# Unfortunately, the track list does not provide obj.name (it is None), however obj.description has the actual track entry.
 
 	def script_findTrack(self, gesture):
-		if self.spl510debug:
-			ui.message(api.getForegroundObject().windowClassName)
 		if api.getForegroundObject().windowClassName != "TStudioForm":
 			# Translators: Presented when a user attempts to find tracks but is not at the track list.
 			ui.message(_("Track finder is available only in track list."))
