@@ -259,8 +259,6 @@ class AppModule(appModuleHandler.AppModule):
 
 	# A few time related scripts (elapsed time, remaining time, etc.).
 
-	SPLBroadcasterTime = 13
-
 	# Speak any time-related errors.
 	# Message type: error message.
 	timeMessageErrors={
@@ -290,22 +288,6 @@ class AppModule(appModuleHandler.AppModule):
 					tm2 = "0" + str(tm2)
 			ui.message("{a}:{b}".format(a = tm1, b = tm2))
 
-	# Let the scripts call the below time message function to reduce code duplication and to improve readability.
-	# This is utilized for ones which doens't return via the API.
-	def timeMessage(self, messageType, timeObj, timeObjChild=0):
-		fgWindow = api.getForegroundObject()
-		if fgWindow.windowClassName == "TStudioForm":
-			if not self.spl510used and self.SPLCurVersion >= "5.10" and fgWindow.children[5].role != controlTypes.ROLE_STATUSBAR:
-				self.spl510used = True
-			if self.spl510used: timeObj += 1
-			if timeObjChild == 0:
-				obj = fgWindow.children[timeObj].firstChild
-			else: obj = fgWindow.children[timeObj].children[timeObjChild]
-			msg = obj.name
-		else:
-			msg = self.timeMessageErrors[messageType]
-		ui.message(msg)
-
 	# Scripts which rely on API.
 	def script_sayRemainingTime(self, gesture):
 		if self.SPLCurVersion >= SPLMinVersion:
@@ -334,8 +316,26 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_sayBroadcasterTime(self, gesture):
 		# Says things such as "25 minutes to 2" and "5 past 11".
-		if self.SPLCurVersion >= SPLMinVersion :
-			self.timeMessage(3, self.SPLBroadcasterTime)
+		if self.SPLCurVersion >= SPLMinVersion:
+			fgWindow = api.getForegroundObject()
+			if fgWindow.windowClassName == "TStudioForm":
+				# Parse the local time and say it similar to how Studio presents broadcaster time.
+				h, m = time.localtime()[3], time.localtime()[4]
+				if h not in (0, 12):
+					h %= 12
+				if m == 0:
+					if h == 0: h+=12
+					broadcasterTime = "{hour} o'clock".format(hour = h)
+				elif 1 <= m <= 30:
+					if h == 0: h+=12
+					broadcasterTime = "{minute} min past {hour}".format(minute = m, hour = h)
+				else:
+					if h == 12: h = 1
+					m = 60-m
+					broadcasterTime = "{minute} min to {hour}".format(minute = m, hour = h+1)
+				ui.message(broadcasterTime)
+			else:
+				ui.message(self.timeMessageErrors[3])
 		else:
 			ui.message(_("This version of Studio is no longer supported"))
 	# Translators: Input help mode message for a command in Station Playlist Studio.
