@@ -160,7 +160,7 @@ class AppModule(appModuleHandler.AppModule):
 				elif not (obj.name.endswith(" On") or obj.name.endswith(" Off")):
 					# Announce status information that does not contain toggle messages.
 					ui.message(obj.name)
-				if self.beepAnnounce:
+				elif self.beepAnnounce:
 					# User wishes to hear beeps instead of words. The beeps are power on and off sounds from PAC Mate Omni.
 					beep = obj.name.split()
 					stat = beep[-1]
