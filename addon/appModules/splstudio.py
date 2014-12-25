@@ -247,8 +247,10 @@ class AppModule(appModuleHandler.AppModule):
 	# This is needed for some Assistant and time commands.
 	# A thin wrapper around user32.SendMessage and calling a callback if defined.
 	def statusAPI(self, arg, command, func=None, ret=False):
+		c = time.clock()
 		SPLWin = user32.FindWindowA("SPLStudio", None)
 		val = sendMessage(SPLWin, 1024, arg, command)
+		ui.message("%s"%time.clock()-c)
 		if ret:
 			return val
 		if func:
@@ -823,18 +825,24 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Called in the layer commands themselves.
 	def status(self, infoIndex):
+		c = time.clock()
 		ver, fg = self.productVersion, api.getForegroundObject()
 		if ver.startswith("4"): statusObj = self.statusObjs[infoIndex][0]
 		elif ver.startswith("5"):
 			if not self.spl510used: statusObj = self.statusObjs[infoIndex][1]
 			else: statusObj = self.statusObjs[infoIndex][2]
+		ui.message("%s"%time.clock()-c)
 		return fg.children[statusObj]
 
 	# The layer commands themselves.
 
 	def script_sayPlayStatus(self, gesture):
-		obj = self.status(self.SPLPlayStatus).children[0]
-		ui.message(obj.name)
+		"""obj = self.status(self.SPLPlayStatus).children[0]
+		ui.message(obj.name)"""
+		if self.statusAPI(0, 104, ret=True):
+			ui.message("Play status: Playing")
+		else:
+			ui.message("Play status: Stopped")
 
 	def script_sayAutomationStatus(self, gesture):
 		obj = self.status(self.SPLPlayStatus).children[1]
