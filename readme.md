@@ -124,6 +124,7 @@ Version 4.0 supports SPL Studio 5.00 and later, with 3.x released designed to pr
 * Errors are no longer heard after deleting a stream with a stream label set on it.
 * It is now possible to monitor introduction and end of track via braille using the braille timer options (Control+Shift+X).
 * Fixed an issue where attempting to switch to Studio window from any program after all windows were minimized caused something else to appear.
+* When using Studio 5.01 and earlier, NVDA will no longer announce certain status information such as scheduled time multiple times.
 
 ## Changes for 3.5
 

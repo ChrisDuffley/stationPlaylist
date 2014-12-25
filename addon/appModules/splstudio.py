@@ -30,6 +30,7 @@ import braille
 import gui
 import wx
 from winUser import user32, sendMessage
+from winKernel import GetTimeFormat, LOCALE_USER_DEFAULT
 from NVDAObjects.IAccessible import IAccessible
 import textInfos
 import tones
@@ -191,6 +192,8 @@ class AppModule(appModuleHandler.AppModule):
 	scanCount = 0
 	# For SPL 5.10: take care of some object child constant changes across builds.
 	spl510used = False
+	# For 5.0X and earlier: prevent NVDA from announcing scheduled time multiple times.
+	scheduledTimeCache = ""
 
 	# Automatically announce mic, line in, etc changes
 	# These items are static text items whose name changes.
@@ -223,13 +226,17 @@ class AppModule(appModuleHandler.AppModule):
 						self.libraryScanning = False
 						self.scanCount = 0
 			else:
-				# Even with beeps enabled, be sure to announce scheduled time and name of the playing cart.
-				if obj.name.startswith("Scheduled for") or obj.name.startswith("Cart") and obj.IAccessibleChildID == 3:
+				if obj.name.startswith("Scheduled for"):
+					if self.scheduledTimeCache == obj.name: return
+					else:
+						self.scheduledTimeCache = obj.name
+						ui.message(obj.name)
+						return
+				elif not (obj.name.endswith(" On") or obj.name.endswith(" Off")) or (obj.name.startswith("Cart") and obj.IAccessibleChildID == 3):
+					# Announce status information that does not contain toggle messages and return immediately.
 					ui.message(obj.name)
-				elif not (obj.name.endswith(" On") or obj.name.endswith(" Off")):
-					# Announce status information that does not contain toggle messages.
-					ui.message(obj.name)
-				if self.beepAnnounce:
+					return
+				elif self.beepAnnounce:
 					# User wishes to hear beeps instead of words. The beeps are power on and off sounds from PAC Mate Omni.
 					beep = obj.name.split()
 					stat = beep[-1]
@@ -324,9 +331,6 @@ class AppModule(appModuleHandler.AppModule):
 
 	# A few time related scripts (elapsed time, remaining time, etc.).
 
-	SPLBroadcasterTime = 13
-	SPLCompleteTime = 15
-
 	# Speak any time-related errors.
 	# Message type: error message.
 	timeMessageErrors={
@@ -340,7 +344,7 @@ class AppModule(appModuleHandler.AppModule):
 		4:_("Cannot obtain time in hours, minutes and seconds")
 	}
 
-	# Emergency patch: Call SPL API for important time messages.
+	# Call SPL API for important time messages.
 	def timeAPI(self, arg):
 		SPLWin = user32.FindWindowA("SPLStudio", None)
 		t = sendMessage(SPLWin, 1024, arg, 105)
@@ -357,21 +361,6 @@ class AppModule(appModuleHandler.AppModule):
 				if tm2 < 10:
 					tm2 = "0" + str(tm2)
 			ui.message("{a}:{b}".format(a = tm1, b = tm2))
-
-	# Let the scripts call the below time message function to reduce code duplication and to improve readability.
-	def timeMessage(self, messageType, timeObj, timeObjChild=0):
-		fgWindow = api.getForegroundObject()
-		if fgWindow.windowClassName == "TStudioForm":
-			if not self.spl510used and self.SPLCurVersion >= "5.10" and fgWindow.children[5].role != controlTypes.ROLE_STATUSBAR:
-				self.spl510used = True
-			if self.spl510used: timeObj += 1
-			if timeObjChild == 0:
-				obj = fgWindow.children[timeObj].firstChild
-			else: obj = fgWindow.children[timeObj].children[timeObjChild]
-			msg = obj.name
-		else:
-			msg = self.timeMessageErrors[messageType]
-		ui.message(msg)
 
 	# Scripts which rely on API.
 	def script_sayRemainingTime(self, gesture):
@@ -401,17 +390,38 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_sayBroadcasterTime(self, gesture):
 		# Says things such as "25 minutes to 2" and "5 past 11".
-		if self.SPLCurVersion >= SPLMinVersion :
-			self.timeMessage(3, self.SPLBroadcasterTime)
+		if self.SPLCurVersion >= SPLMinVersion:
+			fgWindow = api.getForegroundObject()
+			if fgWindow.windowClassName == "TStudioForm":
+				# Parse the local time and say it similar to how Studio presents broadcaster time.
+				h, m = time.localtime()[3], time.localtime()[4]
+				if h not in (0, 12):
+					h %= 12
+				if m == 0:
+					if h == 0: h+=12
+					broadcasterTime = "{hour} o'clock".format(hour = h)
+				elif 1 <= m <= 30:
+					if h == 0: h+=12
+					broadcasterTime = "{minute} min past {hour}".format(minute = m, hour = h)
+				else:
+					if h == 12: h = 1
+					m = 60-m
+					broadcasterTime = "{minute} min to {hour}".format(minute = m, hour = h+1)
+				ui.message(broadcasterTime)
+			else:
+				ui.message(self.timeMessageErrors[3])
 		else:
 			ui.message(_("This version of Studio is no longer supported"))
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayBroadcasterTime.__doc__=_("Announces broadcaster time.")
 
 	def script_sayCompleteTime(self, gesture):
-		# Says complete time in hours, minutes and seconds.
+		# Says complete time in hours, minutes and seconds via kernel32's routines.
 		if self.SPLCurVersion >= SPLMinVersion :
-			self.timeMessage(4, self.SPLCompleteTime)
+			if api.getForegroundObject().windowClassName == "TStudioForm":
+				ui.message(GetTimeFormat(LOCALE_USER_DEFAULT, 0, None, None))
+			else:
+				ui.message(self.timeMessageErrors[4])
 		else:
 			ui.message(_("This version of Studio is no longer supported"))
 	# Translators: Input help mode message for a command in Station Playlist Studio.
@@ -553,8 +563,6 @@ class AppModule(appModuleHandler.AppModule):
 	# Unfortunately, the track list does not provide obj.name (it is None), however obj.description has the actual track entry.
 
 	def script_findTrack(self, gesture):
-		if self.spl510debug:
-			ui.message(api.getForegroundObject().windowClassName)
 		if api.getForegroundObject().windowClassName != "TStudioForm":
 			# Translators: Presented when a user attempts to find tracks but is not at the track list.
 			ui.message(_("Track finder is available only in track list."))
@@ -779,7 +787,7 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: Presented when library scanning is finished.
 			ui.message(_("{itemCount} items in the library").format(itemCount = countB))
 		else:
-			libScanT = threading.Thread(target=self.libraryScanReporter, args=(SPLWin, countA, countB))
+			libScanT = threading.Thread(target=self.libraryScanReporter, args=(SPLWin, countA, countB, parem))
 			libScanT.daemon = True
 			libScanT.start()
 
