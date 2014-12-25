@@ -121,6 +121,8 @@ class AppModule(appModuleHandler.AppModule):
 	micAlarm = 0
 	# For SPL 5.10: take care of some object child constant changes across builds.
 	spl510used = False
+	# For 5.0X and earlier: prevent NVDA from announcing scheduled time multiple times.
+	scheduledTimeCache = ""
 
 	# Automatically announce mic, line in, etc changes
 	# These items are static text items whose name changes.
@@ -154,11 +156,18 @@ class AppModule(appModuleHandler.AppModule):
 							self.libraryScanning = False
 							self.scanCount = 0
 				else:
+					if obj.name.startswith("Scheduled for"):
+						if self.scheduledTimeCache == obj.name: return
+						else:
+							self.scheduledTimeCache = obj.name
+							ui.message(obj.name)
+							return
 					if self.beepAnnounce:
 						# Even with beeps enabled, be sure to announce and name of the playing cart.
 						if not (obj.name.endswith(" On") or obj.name.endswith(" Off")) or (obj.name.startswith("Cart") and obj.IAccessibleChildID == 3):
-							# Announce status information that does not contain toggle messages.
+							# Announce status information that does not contain toggle messages and return immediately.
 							ui.message(obj.name)
+							return
 						else:
 							# User wishes to hear beeps instead of words. The beeps are power on and off sounds from PAC Mate Omni.
 							beep = obj.name.split(" ")
