@@ -139,6 +139,14 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.endOfTrackAlarm.SetFocus()
 
 	def onOk(self, evt):
+		if not self.micAlarm.Value.isdigit():
+			gui.messageBox(
+				# Translators: Message to report wrong value for microphone alarm.
+				_("Incorrect microphone alarm value entered."),
+				# Translators: The title of the message box
+				_("Error"), wx.OK|wx.ICON_ERROR,self)
+			self.micAlarm.SetFocus()
+			return
 		endOfTrackVal = self.endOfTrackAlarm.Value
 		SPLConfig["EndOfTrackTime"] = "00:0" + str(endOfTrackVal) if endOfTrackVal < 10 else "00:" + str(endOfTrackVal)
 		SPLConfig["SongRampTime"] = "00:0" + str(self.introAlarm.Value)
