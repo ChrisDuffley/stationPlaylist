@@ -155,10 +155,8 @@ class AppModule(appModuleHandler.AppModule):
 							self.scanCount = 0
 				else:
 					if self.beepAnnounce:
-						# Even with beeps enabled, be sure to announce scheduled time and name of the playing cart.
-						if obj.name.startswith("Scheduled for") or obj.name.startswith("Cart") and obj.IAccessibleChildID == 3:
-							ui.message(obj.name)
-						elif not (obj.name.endswith(" On") or obj.name.endswith(" Off")):
+						# Even with beeps enabled, be sure to announce and name of the playing cart.
+						if not (obj.name.endswith(" On") or obj.name.endswith(" Off")) or (obj.name.startswith("Cart") and obj.IAccessibleChildID == 3):
 							# Announce status information that does not contain toggle messages.
 							ui.message(obj.name)
 						else:
