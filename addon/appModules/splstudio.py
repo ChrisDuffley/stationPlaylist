@@ -701,7 +701,7 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: Presented when library scanning is finished.
 			ui.message(_("{itemCount} items in the library").format(itemCount = countB))
 		else:
-			libScanT = threading.Thread(target=self.libraryScanReporter, args=(SPLWin, countA, countB))
+			libScanT = threading.Thread(target=self.libraryScanReporter, args=(SPLWin, countA, countB, parem))
 			libScanT.daemon = True
 			libScanT.start()
 
