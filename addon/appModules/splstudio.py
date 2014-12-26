@@ -246,15 +246,15 @@ class AppModule(appModuleHandler.AppModule):
 	# Call SPL API to obtain needed values.
 	# This is needed for some Assistant and time commands.
 	# A thin wrapper around user32.SendMessage and calling a callback if defined.
-	def statusAPI(self, arg, command, func=None, ret=False):
+	def statusAPI(self, arg, command, func=None, ret=False, offset=None):
 		c = time.clock()
 		SPLWin = user32.FindWindowA("SPLStudio", None)
 		val = sendMessage(SPLWin, 1024, arg, command)
-		ui.message("%s"%time.clock()-c)
+		ui.message("{c}".format(c = time.clock()-c))
 		if ret:
 			return val
 		if func:
-			func(val)
+			func(val) if not offset else func(val, offset)
 
 	# Save configuration when terminating.
 	def terminate(self):
@@ -281,11 +281,11 @@ class AppModule(appModuleHandler.AppModule):
 	}
 
 	# Specific to time scripts using Studio API.
-	def announceTime(self, t):
+	def announceTime(self, t, offset = None):
 		if t < 0:
 			ui.message("00:00")
 		else:
-			tm = (t/1000)+1
+			tm = (t/1000) if not offset else (t/1000)+offset
 			if tm < 60:
 				tm1, tm2 = "00", tm
 			else:
@@ -301,7 +301,7 @@ class AppModule(appModuleHandler.AppModule):
 		if self.SPLCurVersion >= SPLMinVersion:
 			fgWindow = api.getForegroundObject()
 			if fgWindow.windowClassName == "TStudioForm":
-				self.statusAPI(3, 105, self.announceTime)
+				self.statusAPI(3, 105, self.announceTime, offset=1)
 			else:
 				ui.message(self.timeMessageErrors[1])
 		else:
@@ -314,7 +314,7 @@ class AppModule(appModuleHandler.AppModule):
 		if self.SPLCurVersion >= SPLMinVersion:
 			fgWindow = api.getForegroundObject()
 			if fgWindow.windowClassName == "TStudioForm":
-				self.statusAPI(0, 105, self.announceTime)
+				self.statusAPI(0, 105, self.announceTime, offset=1)
 			else:
 				ui.message(self.timeMessageErrors[2])
 		else:
@@ -831,7 +831,7 @@ class AppModule(appModuleHandler.AppModule):
 		elif ver.startswith("5"):
 			if not self.spl510used: statusObj = self.statusObjs[infoIndex][1]
 			else: statusObj = self.statusObjs[infoIndex][2]
-		ui.message("%s"%time.clock()-c)
+		ui.message("{c}".format(c = time.clock()-c))
 		return fg.children[statusObj]
 
 	# The layer commands themselves.
@@ -865,16 +865,18 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(obj.name)
 
 	def script_sayHourTrackDuration(self, gesture):
-		obj = self.status(self.SPLHourTrackDuration).firstChild
-		ui.message(obj.name)
+		"""obj = self.status(self.SPLHourTrackDuration).firstChild
+		ui.message(obj.name)"""
+		self.statusAPI(0, 27, self.announceTime)
 
 	def script_sayHourSelectedTrackDuration(self, gesture):
 		obj = self.status(self.SPLHourSelectedDuration).firstChild
 		ui.message(obj.name)
 
 	def script_sayPlaylistRemainingDuration(self, gesture):
-		obj = self.status(self.SPLPlaylistRemainingDuration).children[1]
-		ui.message(obj.name)
+		"""obj = self.status(self.SPLPlaylistRemainingDuration).children[1]
+		ui.message(obj.name)"""
+		self.statusAPI(1, 27, self.announceTime)
 
 	def script_sayPlaylistModified(self, gesture):
 		try:
