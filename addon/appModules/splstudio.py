@@ -63,8 +63,13 @@ def messageSound(wavFile, message):
 	nvwave.playWaveFile(wavFile)
 	braille.handler.message(message)
 
-# Controls which require special handling.
+# Routines for track items themselves (prepare for future work).
+class SPLTrackItem(IAccessible):
+	"""Track item for earlier versions of Studio such as 5.00."""
+	pass
+
 class SPL510TrackItem(IAccessible):
+	""" Track item for Studio 5.10 and later."""
 
 	def script_select(self, gesture):
 		gesture.send()
@@ -102,6 +107,8 @@ class AppModule(appModuleHandler.AppModule):
 			role = obj.role
 			if obj.windowClassName == "TTntListView.UnicodeClass" and fg.windowClassName == "TStudioForm" and role == controlTypes.ROLE_LISTITEM and obj.name is not None:
 				clsList.insert(0, SPL510TrackItem)
+			elif obj.windowClassName == "TListView" and fg.windowClassName == "TStudioForm" and role == controlTypes.ROLE_CHECKBOX:
+				clsList.insert(0, SPLTrackItem)
 
 	# populate end of track and intro time alarm settings separately.
 	try:
