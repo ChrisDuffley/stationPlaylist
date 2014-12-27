@@ -282,7 +282,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Specific to time scripts using Studio API.
 	def announceTime(self, t, offset = None):
-		if t < 0:
+		if t <= 0:
 			ui.message("00:00")
 		else:
 			tm = (t/1000) if not offset else (t/1000)+offset
@@ -290,10 +290,10 @@ class AppModule(appModuleHandler.AppModule):
 				tm1, tm2 = "00", tm
 			else:
 				tm1, tm2 = tm/60, tm%60
-				if tm1 < 10:
-					tm1 = "0" + str(tm1)
-				if tm2 < 10:
-					tm2 = "0" + str(tm2)
+			if tm1 < 10:
+				tm1 = "0" + str(tm1)
+			if tm2 < 10:
+				tm2 = "0" + str(tm2)
 			ui.message("{a}:{b}".format(a = tm1, b = tm2))
 
 	# Scripts which rely on API.
