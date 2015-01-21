@@ -1,6 +1,6 @@
 # Station Playlist Utilities
 # Author: Joseph Lee
-# Copyright 2013-2014, released under GPL.
+# Copyright 2013-2015, released under GPL.
 # Adds a few utility features such as switching focus to the SPL Studio window and some global scripts, along with support for Encoders.
 
 from functools import wraps
@@ -15,8 +15,10 @@ import ui
 import speech
 import braille
 import globalVars
+import scriptHandler
 from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent
 import winUser
+import winKernel
 import tones
 import nvwave
 import gui
@@ -414,6 +416,14 @@ class SAMEncoderWindow(IAccessible):
 	# Translators: Input help mode message in SAM Encoder window.
 	script_streamLabeler.__doc__=_("Opens a dialog to label the selected encoder.")
 
+	# Announce complete time including seconds (slight change from global commands version).
+	def script_encoderDateTime(self, gesture):
+		if scriptHandler.getLastScriptRepeatCount()==0:
+			text=winKernel.GetTimeFormat(winKernel.LOCALE_USER_DEFAULT, 0, None, None)
+		else:
+			text=winKernel.GetDateFormat(winKernel.LOCALE_USER_DEFAULT, winKernel.DATE_LONGDATE, None, None)
+		ui.message(text)
+
 
 	def initOverlayClass(self):
 		# Can I switch to Studio when connected to a streaming server?
@@ -426,6 +436,10 @@ class SAMEncoderWindow(IAccessible):
 		if str(self.IAccessibleChildID) in SAMStreamLabels:
 			return SAMStreamLabels[str(self.IAccessibleChildID)]
 		return None
+
+	# Announce complete time including seconds.
+	def script_completeTime(self, gesture):
+		ui.message(GetTimeFormat(LOCALE_USER_DEFAULT, 0, None, None))
 
 	def reportFocus(self):
 		import globalPlugins
@@ -444,7 +458,8 @@ class SAMEncoderWindow(IAccessible):
 		"kb:f10":"disconnect",
 		"kb:f11":"toggleFocusToStudio",
 		"kb:shift+f11":"togglePlay",
-		"kb:f12":"streamLabeler"
+		"kb:f12":"streamLabeler",
+		"kb:NVDA+F12":"encoderDateTime"
 	}
 
 class SPLEncoderWindow(SAMEncoderWindow):
