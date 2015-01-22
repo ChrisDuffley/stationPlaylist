@@ -8,7 +8,7 @@ This add-on package provides improved usage of Station Playlist Studio, as well 
 
 For more information about the add-on, read the [add-on guide][3].
 
-IMPORTANT: Due to major incompatible changes and key assignments, please remove add-on version 1.2 before installing version 2.0 or later. Also, add-on 2.1 and later requires NVDA 2014.1 or later. Add-on 4.0 requires SPL version 5.00 or later.
+IMPORTANT: Due to major incompatible changes and key assignments, please remove add-on version 1.2 before installing version 2.0 or later. Also, add-on 2.1 and later requires NVDA 2014.1 or later. Add-on 4.0 requires SPL version 5.00 or later. Users using Studio 4.33 can [visit this link][4] to download add-on 3.x releases.
 
 ## Shortcut keys
 
@@ -93,6 +93,10 @@ Five seconds before the current track ends, NVDA will play a short beep to indic
 
 If you have configured song intro time via Track Tool, NVDA will beep when the vocals are about to begin. From Studio window, press Alt+NVDA+2 to configure song intro alarm between 1 and 9 seconds.
 
+## Microphone alarm
+
+You can ask NVDA to play a sound when microphone has been active for a while. Press Control+NVDA+4 to configure alarm time in seconds (0 disables it).
+
 ## Track Finder
 
 If you wish to quickly find a song by an artist or by song name, from track list, press Control+NVDA+F. Type the name of the artist or the song name. NVDA will either place you at the song if found or will display an error if it cannot find the song you're looking for. To find a previously entered song or artist, press NVDA+F3 or NVDA+Shift+F3 to find forward or backward.
@@ -105,9 +109,9 @@ Depending on edition, SPL Studio allows up to 96 carts to be assigned for playba
 
 To learn cart assignments, from SPL Studio, press Control+NVDA+3. Pressing the cart command once will tell you which jingle is assigned to the command. Pressing the cart command twice will play the jingle. Press Control+NvDA+3 to exit cart explorer. See the add-on guide for more information on cart explorer.
 
-## Changes for 4.0/3.x
+## Changes for 4.0/3.6
 
-Version 4.0 supports SPL Studio 5.00 and later, with 3.x released designed to provide some new features from 4.0 for users using earlier versions of Studio.
+Version 4.0 supports SPL Studio 5.00 and later, with 3.x designed to provide some new features from 4.0 for users using earlier versions of Studio.
 
 * New SPL Assistant keys, including schedule time for the track (S), remaining duration for the playlist (D) and temperature (W if configured). In addition, for Studio 5.x, added playlist modification (Y) and track pitch (Shift+P).
 * New SPL Controller commands, including progress of library scans (Shift+R) and enabling microphone without fade (N). Also, pressing F1 pops up a dialog showing available commands.
@@ -129,7 +133,7 @@ Version 4.0 supports SPL Studio 5.00 and later, with 3.x released designed to pr
 ## Changes for 3.5
 
 * When NVDA is started or restarted while Studio 5.10's main playlist window is focused, NVDA will no longer play error tones and/or not announce next and previous tracks when arrowing through tracks.
-* Fixed an issue when trying to obtain remainig time and elapsed time for a track in later builds of Studio 5.10.
+* Fixed an issue when trying to obtain remaining time and elapsed time for a track in later builds of Studio 5.10.
 * Updated translations.
 
 ## Changes for 3.4
@@ -202,3 +206,5 @@ Version 4.0 supports SPL Studio 5.00 and later, with 3.x released designed to pr
 [2]: http://addons.nvda-project.org/files/get.php?file=spl-dev
 
 [3]: https://bitbucket.org/nvdaaddonteam/stationplaylist/wiki/SPLAddonGuide
+
+[4]: https://bitbucket.org/nvdaaddonteam/stationplaylist/wiki/DownloadLegacy
