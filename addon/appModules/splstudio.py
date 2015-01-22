@@ -56,6 +56,7 @@ SPLMinVersion = "5.00"
 # Configuration management
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
 confspec = ConfigObj(StringIO("""
+BeepAnnounce = boolean(default=false)
 EndOfTrackTime = string(default="00:05")
 SongRampTime = string(default="00:05")
 MicAlarm = integer(default="0")
@@ -109,6 +110,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)"""
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
+		self.beepAnnounceCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Beep for status announcements"))
+		self.beepAnnounceCheckbox.SetValue(SPLConfig["BeepAnnounce"])
+		sizer.Add(self.beepAnnounceCheckbox, border=10,flag=wx.BOTTOM)
 		# Translators: The label for a setting in SPL Add-on settings to specify end of track (outro) alarm.
 		label = wx.StaticText(self, wx.ID_ANY, label=_("&End of track alarm in seconds"))
 		sizer.Add(label)
@@ -141,7 +146,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		settingsSizer.Add(item, border=10, flag=wx.BOTTOM)"""
 
 	def postInit(self):
-		self.endOfTrackAlarm.SetFocus()
+		self.beepAnnounceCheckbox.SetFocus()
 
 	def onOk(self, evt):
 		if not self.micAlarm.Value.isdigit():
