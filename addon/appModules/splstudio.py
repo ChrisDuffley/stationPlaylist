@@ -65,15 +65,71 @@ def messageSound(wavFile, message):
 
 # Routines for track items themselves (prepare for future work).
 class SPLTrackItem(IAccessible):
-	"""Track item for earlier versions of Studio such as 5.00."""
-	pass
+	"""Track item for earlier versions of Studio such as 5.00.
+	A base class for providing utility scripts when track entries are focused, such as track dial."""
 
-class SPL510TrackItem(IAccessible):
+	# Track Dial: using arrow keys to move through columns.
+	# This is similar to enhanced arrow keys in other screen readers.
+	colNumber = 0
+
+	def script_toggleTrackDial(self, gesture):
+		self.columnHeaders = self.parent.children[-1]
+		ui.message(str(self.columnHeaders.childCount))
+		for header in self.columnHeaders.children[1:]:
+			if (header.name + ":") in self.description:
+				ui.message("{h} in description".format(h = header.name))
+
+	# Some helper functions to handle corner cases.
+	# Each track item provides its own version.
+	def _leftmostcol(self):
+		self.columnHeaders = self.parent.children[-1]
+		leftmost = self.columnHeaders.firstChild.name
+		if self.name == "":
+			ui.message("{h} not found".format(h = leftmost))
+		else:
+			ui.message("{h}: {n}".format(h = self.columnHeaders.children[self.colNumber].name, n = self.name))
+
+	def script_nextColumn(self, gesture):
+		self.columnHeaders = self.parent.children[-1]
+		if (self.colNumber+1) == self.columnHeaders.childCount:
+			tones.beep(2000, 100)
+		else:
+			self.colNumber +=1
+			if (self.columnHeaders.children[self.colNumber].name + ":") in self.description:
+				ui.message("{h} found".format(h = self.columnHeaders.children[self.colNumber].name))
+			else:
+				ui.message("{h}: blank".format(h = self.columnHeaders.children[self.colNumber].name))
+
+	def script_prevColumn(self, gesture):
+		self.columnHeaders = self.parent.children[-1]
+		if self.colNumber <= 0:
+			tones.beep(2000, 100)
+		else:
+			self.colNumber -=1
+			if self.colNumber == 0:
+				self._leftmostcol()
+			else:
+				if (self.columnHeaders.children[self.colNumber].name + ":") in self.description:
+					ui.message("{h} found".format(h = self.columnHeaders.children[self.colNumber].name))
+				else:
+					ui.message(self.columnHeaders.children[self.colNumber].name)
+
+	__gestures={
+		"kb:control+`":"toggleTrackDial",
+		"kb:rightArrow":"nextColumn",
+		"kb:leftArrow":"prevColumn",
+	}
+
+class SPL510TrackItem(SPLTrackItem):
 	""" Track item for Studio 5.10 and later."""
 
 	def script_select(self, gesture):
 		gesture.send()
 		speech.speakMessage(self.name)
+
+	# Handle track dial for SPL 5.10.
+	def _leftmostcol(self):
+		ui.message("Status: {n}".format(n = self.name))
 
 	__gestures={"kb:space":"select"}
 
@@ -744,6 +800,10 @@ class AppModule(appModuleHandler.AppModule):
 			else:
 				# Translators: Presented after library scan is done.
 				ui.message(_("Scan complete with {itemCount} items").format(itemCount = countB))
+
+	# Track Dial
+	# See the overlay class driver for more information.
+
 
 	# SPL Assistant: reports status on playback, operation, etc.
 	# Used layer command approach to save gesture assignments.
