@@ -1,6 +1,6 @@
 # Station Playlist Studio
 # An app module and global plugin package for NVDA
-# Copyright 2011, 2013-2014, Geoff Shang, Joseph Lee and others, released under GPL.
+# Copyright 2011, 2013-2015, Geoff Shang, Joseph Lee and others, released under GPL.
 # The primary function of this appModule is to provide meaningful feedback to users of SplStudio
 # by allowing speaking of items which cannot be easily found.
 # Version 0.01 - 7 April 2011:
@@ -254,10 +254,10 @@ class AppModule(appModuleHandler.AppModule):
 	# This is needed for some Assistant and time commands.
 	# A thin wrapper around user32.SendMessage and calling a callback if defined.
 	def statusAPI(self, arg, command, func=None, ret=False, offset=None):
-		c = time.clock()
+		#c = time.clock()
 		SPLWin = user32.FindWindowA("SPLStudio", None)
 		val = sendMessage(SPLWin, 1024, arg, command)
-		ui.message("{c}".format(c = time.clock()-c))
+		#ui.message("{c}".format(c = time.clock()-c))
 		if ret:
 			return val
 		if func:
@@ -809,10 +809,10 @@ class AppModule(appModuleHandler.AppModule):
 	# Status table keys
 	SPLPlayStatus = 0
 	SPLSystemStatus = 1
-	SPLHourTrackDuration = 2
+	#SPLHourTrackDuration = 2
 	SPLHourSelectedDuration = 3
 	SPLNextTrackTitle = 4
-	SPLPlaylistRemainingDuration = 5
+	#SPLPlaylistRemainingDuration = 5
 	SPLTemperature = 6
 	SPLScheduled = 7
 
@@ -822,23 +822,23 @@ class AppModule(appModuleHandler.AppModule):
 	statusObjs={
 		SPLPlayStatus:[0, 5, 6], # Play status, mic, etc.
 		SPLSystemStatus:[-2, -3, -2], # The second status bar containing system status such as up time.
-		SPLHourTrackDuration:[13, 17, 18], # For track duration for the given hour marker.
+		#SPLHourTrackDuration:[13, 17, 18], # For track duration for the given hour marker.
 		SPLHourSelectedDuration:[14, 18, 19], # In case the user selects one or more tracks in a given hour.
 		SPLScheduled:[15, 19, 20], # Time when the selected track will begin.
 		SPLNextTrackTitle:[2, 7, 8], # Name and duration of the next track if any.
-		SPLPlaylistRemainingDuration:[12, 16, 17], # Remaining time for the current playlist.
+		#SPLPlaylistRemainingDuration:[12, 16, 17], # Remaining time for the current playlist.
 		SPLTemperature:[1, 6, 7], # Temperature for the current city.
 	}
 
 	# Called in the layer commands themselves.
 	def status(self, infoIndex):
-		c = time.clock()
+		#c = time.clock()
 		ver, fg = self.productVersion, api.getForegroundObject()
 		if ver.startswith("4"): statusObj = self.statusObjs[infoIndex][0]
 		elif ver.startswith("5"):
 			if not self.spl510used: statusObj = self.statusObjs[infoIndex][1]
 			else: statusObj = self.statusObjs[infoIndex][2]
-		ui.message("{c}".format(c = time.clock()-c))
+		#ui.message("{c}".format(c = time.clock()-c))
 		return fg.children[statusObj]
 
 	# The layer commands themselves.
