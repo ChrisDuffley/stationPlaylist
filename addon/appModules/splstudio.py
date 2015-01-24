@@ -250,6 +250,19 @@ class AppModule(appModuleHandler.AppModule):
 				self.monitorLibraryScan()
 		nextHandler()
 
+	# Call SPL API to obtain needed values.
+	# This is needed for some Assistant and time commands.
+	# A thin wrapper around user32.SendMessage and calling a callback if defined.
+	def statusAPI(self, arg, command, func=None, ret=False, offset=None):
+		c = time.clock()
+		SPLWin = user32.FindWindowA("SPLStudio", None)
+		val = sendMessage(SPLWin, 1024, arg, command)
+		ui.message("{c}".format(c = time.clock()-c))
+		if ret:
+			return val
+		if func:
+			func(val) if not offset else func(val, offset)
+
 	# Save configuration when terminating.
 	def terminate(self):
 		if SPLConfig is not None: SPLConfig.write()
@@ -274,22 +287,20 @@ class AppModule(appModuleHandler.AppModule):
 		4:_("Cannot obtain time in hours, minutes and seconds")
 	}
 
-	# Call SPL API for important time messages.
-	def timeAPI(self, arg):
-		SPLWin = user32.FindWindowA("SPLStudio", None)
-		t = sendMessage(SPLWin, 1024, arg, 105)
-		if t < 0:
+	# Specific to time scripts using Studio API.
+	def announceTime(self, t, offset = None):
+		if t <= 0:
 			ui.message("00:00")
 		else:
-			tm = (t/1000)+1
+			tm = (t/1000) if not offset else (t/1000)+offset
 			if tm < 60:
 				tm1, tm2 = "00", tm
 			else:
 				tm1, tm2 = tm/60, tm%60
-				if tm1 < 10:
-					tm1 = "0" + str(tm1)
-				if tm2 < 10:
-					tm2 = "0" + str(tm2)
+			if tm1 < 10:
+				tm1 = "0" + str(tm1)
+			if tm2 < 10:
+				tm2 = "0" + str(tm2)
 			ui.message("{a}:{b}".format(a = tm1, b = tm2))
 
 	# Scripts which rely on API.
@@ -297,7 +308,7 @@ class AppModule(appModuleHandler.AppModule):
 		if self.SPLCurVersion >= SPLMinVersion:
 			fgWindow = api.getForegroundObject()
 			if fgWindow.windowClassName == "TStudioForm":
-				self.timeAPI(3)
+				self.statusAPI(3, 105, self.announceTime, offset=1)
 			else:
 				ui.message(self.timeMessageErrors[1])
 		else:
@@ -310,7 +321,7 @@ class AppModule(appModuleHandler.AppModule):
 		if self.SPLCurVersion >= SPLMinVersion:
 			fgWindow = api.getForegroundObject()
 			if fgWindow.windowClassName == "TStudioForm":
-				self.timeAPI(0)
+				self.statusAPI(0, 105, self.announceTime, offset=1)
 			else:
 				ui.message(self.timeMessageErrors[2])
 		else:
@@ -821,18 +832,24 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Called in the layer commands themselves.
 	def status(self, infoIndex):
+		c = time.clock()
 		ver, fg = self.productVersion, api.getForegroundObject()
 		if ver.startswith("4"): statusObj = self.statusObjs[infoIndex][0]
 		elif ver.startswith("5"):
 			if not self.spl510used: statusObj = self.statusObjs[infoIndex][1]
 			else: statusObj = self.statusObjs[infoIndex][2]
+		ui.message("{c}".format(c = time.clock()-c))
 		return fg.children[statusObj]
 
 	# The layer commands themselves.
 
 	def script_sayPlayStatus(self, gesture):
-		obj = self.status(self.SPLPlayStatus).children[0]
-		ui.message(obj.name)
+		"""obj = self.status(self.SPLPlayStatus).children[0]
+		ui.message(obj.name)"""
+		if self.statusAPI(0, 104, ret=True):
+			ui.message("Play status: Playing")
+		else:
+			ui.message("Play status: Stopped")
 
 	def script_sayAutomationStatus(self, gesture):
 		obj = self.status(self.SPLPlayStatus).children[1]
@@ -855,16 +872,18 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(obj.name)
 
 	def script_sayHourTrackDuration(self, gesture):
-		obj = self.status(self.SPLHourTrackDuration).firstChild
-		ui.message(obj.name)
+		"""obj = self.status(self.SPLHourTrackDuration).firstChild
+		ui.message(obj.name)"""
+		self.statusAPI(0, 27, self.announceTime)
 
 	def script_sayHourSelectedTrackDuration(self, gesture):
 		obj = self.status(self.SPLHourSelectedDuration).firstChild
 		ui.message(obj.name)
 
 	def script_sayPlaylistRemainingDuration(self, gesture):
-		obj = self.status(self.SPLPlaylistRemainingDuration).children[1]
-		ui.message(obj.name)
+		"""obj = self.status(self.SPLPlaylistRemainingDuration).children[1]
+		ui.message(obj.name)"""
+		self.statusAPI(1, 27, self.announceTime)
 
 	def script_sayPlaylistModified(self, gesture):
 		try:
