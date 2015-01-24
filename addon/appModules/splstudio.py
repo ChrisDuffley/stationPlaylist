@@ -241,7 +241,14 @@ class AppModule(appModuleHandler.AppModule):
 				micAlarmT = None
 
 
-				# Continue monitoring library scans among other focus loss management.
+	# Hacks for gain focus events.
+	def event_gainFocus(self, obj, nextHandler):
+		if self.deletedFocusObj:
+			self.deletedFocusObj = False
+			return
+		nextHandler()
+
+	# Continue monitoring library scans among other focus loss management.
 	def event_loseFocus(self, obj, nextHandler):
 		global libScanT
 		fg = api.getForegroundObject()
@@ -756,6 +763,23 @@ class AppModule(appModuleHandler.AppModule):
 				# Translators: Presented after library scan is done.
 				ui.message(_("Scan complete with {itemCount} items").format(itemCount = countB))
 
+	# Some handlers for native commands.
+
+	# In Studio 5.0x, when deleting a track, NVDA announces wrong track item due to focus bouncing.
+	# The below hack is sensitive to changes in NVDA core.
+	deletedFocusObj = False
+
+	def script_deleteTrack(self, gesture):
+		gesture.send()
+		if self.productVersion.startswith("5.0") and api.getForegroundObject().windowClassName == "TStudioForm":
+			self.deletedFocusObj = True
+			focus = api.getFocusObject()
+			if focus.IAccessibleChildID < focus.parent.childCount:
+				focus.setFocus()
+			self.deletedFocusObj = False
+			focus.setFocus()
+
+
 	# SPL Assistant: reports status on playback, operation, etc.
 	# Used layer command approach to save gesture assignments.
 	# Most were borrowed from JFW and Window-Eyes layer scripts.
@@ -979,5 +1003,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:alt+nvda+r":"setLibraryScanProgress",
 		"kb:control+shift+r":"startScanFromInsertTracks",
 		"kb:control+shift+x":"setBrailleTimer",
+		"kb:Shift+delete":"deleteTrack",
+		"kb:Shift+numpadDelete":"deleteTrack",
 		#"kb:control+nvda+`":"SPLAssistantToggle"
 	}
