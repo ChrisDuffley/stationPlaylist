@@ -760,13 +760,14 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_deleteTrack(self, gesture):
 		gesture.send()
-		if self.productVersion.startswith("5.0") and api.getForegroundObject().windowClassName == "TStudioForm":
-			self.deletedFocusObj = True
-			focus = api.getFocusObject()
-			if focus.IAccessibleChildID < focus.parent.childCount:
-				focus.setFocus()
-			self.deletedFocusObj = False
-			focus.setFocus()
+		if self.productVersion.startswith("5.0"):
+			if api.getForegroundObject().windowClassName == "TStudioForm":
+				focus = api.getFocusObject()
+				if focus.IAccessibleChildID < focus.parent.childCount:
+					self.deletedFocusObj = True
+					focus.setFocus()
+					self.deletedFocusObj = False
+					focus.setFocus()
 
 
 	# SPL Assistant: reports status on playback, operation, etc.
