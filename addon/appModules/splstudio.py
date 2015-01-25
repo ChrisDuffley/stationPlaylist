@@ -68,56 +68,85 @@ class SPLTrackItem(IAccessible):
 	"""Track item for earlier versions of Studio such as 5.00.
 	A base class for providing utility scripts when track entries are focused, such as track dial."""
 
+	def initOverlayClass(self):
+		if self.appModule.SPLTrackDial:
+			self.bindGesture("kb:rightArrow", "nextColumn")
+			self.bindGesture("kb:leftArrow", "prevColumn")
+
 	# Track Dial: using arrow keys to move through columns.
 	# This is similar to enhanced arrow keys in other screen readers.
-	colNumber = 0
 
-	def script_toggleTrackDial(self, gesture):
+	def script_columnCheckDebug(self, gesture):
 		self.columnHeaders = self.parent.children[-1]
 		ui.message(str(self.columnHeaders.childCount))
 		for header in self.columnHeaders.children[1:]:
 			if (header.name + ":") in self.description:
 				ui.message("{h} in description".format(h = header.name))
 
+	def script_toggleTrackDial(self, gesture):
+		if not self.appModule.SPLTrackDial:
+			self.appModule.SPLTrackDial = True
+			self.bindGesture("kb:rightArrow", "nextColumn")
+			self.bindGesture("kb:leftArrow", "prevColumn")
+			dialText = "Track Dial on"
+			if self.appModule.SPLColNumber > 0:
+				dialText+= ", located at column {columnHeader}".format(columnHeader = self.appModule.SPLColNumber+1)
+			ui.message(dialText)
+		else:
+			self.appModule.SPLTrackDial = False
+			try:
+				self.removeGestureBinding("kb:rightArrow")
+				self.removeGestureBinding("kb:leftArrow")
+			except KeyError:
+				pass
+			ui.message("Track Dial off")
+
 	# Some helper functions to handle corner cases.
 	# Each track item provides its own version.
 	def _leftmostcol(self):
-		self.columnHeaders = self.parent.children[-1]
 		leftmost = self.columnHeaders.firstChild.name
 		if self.name == "":
 			ui.message("{h} not found".format(h = leftmost))
 		else:
-			ui.message("{h}: {n}".format(h = self.columnHeaders.children[self.colNumber].name, n = self.name))
+			ui.message("{h}: {n}".format(h = self.columnHeaders.children[self.appModule.SPLColNumber].name, n = self.name))
+
+	# Announce column content if any.
+	def _announceColumnContent(self, colNumber):
+			columnHeader = self.columnHeaders.children[colNumber].name
+			if (columnHeader+":") in self.description:
+				# First, the rightmost column.
+				if (colNumber+1) == self.columnHeaders.childCount:
+					index = self.description.find((columnHeader+":"))
+					columnContent = self.description[index:]
+				else:
+					columnContent = columnHeader + ": found"
+				ui.message(columnContent)
+			else:
+				speech.speakMessage("{h}: blank".format(h = columnHeader))
+				braille.handler.message("{h}: ()".format(h = columnHeader))
 
 	def script_nextColumn(self, gesture):
 		self.columnHeaders = self.parent.children[-1]
-		if (self.colNumber+1) == self.columnHeaders.childCount:
+		if (self.appModule.SPLColNumber+1) == self.columnHeaders.childCount:
 			tones.beep(2000, 100)
 		else:
-			self.colNumber +=1
-			if (self.columnHeaders.children[self.colNumber].name + ":") in self.description:
-				ui.message("{h} found".format(h = self.columnHeaders.children[self.colNumber].name))
-			else:
-				ui.message("{h}: blank".format(h = self.columnHeaders.children[self.colNumber].name))
+			self.appModule.SPLColNumber +=1
+		self._announceColumnContent(self.appModule.SPLColNumber)
 
 	def script_prevColumn(self, gesture):
 		self.columnHeaders = self.parent.children[-1]
-		if self.colNumber <= 0:
+		if self.appModule.SPLColNumber <= 0:
 			tones.beep(2000, 100)
 		else:
-			self.colNumber -=1
-			if self.colNumber == 0:
-				self._leftmostcol()
-			else:
-				if (self.columnHeaders.children[self.colNumber].name + ":") in self.description:
-					ui.message("{h} found".format(h = self.columnHeaders.children[self.colNumber].name))
-				else:
-					ui.message(self.columnHeaders.children[self.colNumber].name)
+			self.appModule.SPLColNumber -=1
+		if self.appModule.SPLColNumber == 0:
+			self._leftmostcol()
+		else:
+			self._announceColumnContent(self.appModule.SPLColNumber)
 
 	__gestures={
 		"kb:control+`":"toggleTrackDial",
-		"kb:rightArrow":"nextColumn",
-		"kb:leftArrow":"prevColumn",
+		"kb:nvda+x":"columnCheckDebug",
 	}
 
 class SPL510TrackItem(SPLTrackItem):
@@ -187,6 +216,9 @@ class AppModule(appModuleHandler.AppModule):
 	spl510used = False
 	# For 5.0X and earlier: prevent NVDA from announcing scheduled time multiple times.
 	scheduledTimeCache = ""
+	# Track Dial (A.K.A. enhanced arrow keys)
+	SPLTrackDial = False
+	SPLColNumber = 0
 
 	# Automatically announce mic, line in, etc changes
 	# These items are static text items whose name changes.
