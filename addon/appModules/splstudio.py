@@ -244,7 +244,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Hacks for gain focus events.
 	def event_gainFocus(self, obj, nextHandler):
-		if self.deletedFocusObj:
+		if self.deletedFocusObj or (obj.windowClassName == "TListView" and obj.role == 0):
 			self.deletedFocusObj = False
 			return
 		nextHandler()
