@@ -74,6 +74,7 @@ class SPL510TrackItem(IAccessible):
 	def script_select(self, gesture):
 		gesture.send()
 		speech.speakMessage(self.name)
+		braille.handler.handleUpdate(self)
 
 	__gestures={"kb:space":"select"}
 
