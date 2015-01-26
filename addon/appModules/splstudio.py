@@ -1,6 +1,6 @@
 # Station Playlist Studio
 # An app module and global plugin package for NVDA
-# Copyright 2011, 2013-2014, Geoff Shang, Joseph Lee and others, released under GPL.
+# Copyright 2011, 2013-2015, Geoff Shang, Joseph Lee and others, released under GPL.
 # The primary function of this appModule is to provide meaningful feedback to users of SplStudio
 # by allowing speaking of items which cannot be easily found.
 # Version 0.01 - 7 April 2011:
@@ -75,15 +75,100 @@ def messageSound(wavFile, message):
 
 # Routines for track items themselves (prepare for future work).
 class SPLTrackItem(IAccessible):
-	"""Track item for earlier versions of Studio such as 5.00."""
-	pass
+	"""Track item for earlier versions of Studio such as 5.00.
+	A base class for providing utility scripts when track entries are focused, such as track dial."""
 
-class SPL510TrackItem(IAccessible):
+	def initOverlayClass(self):
+		if self.appModule.SPLTrackDial:
+			self.bindGesture("kb:rightArrow", "nextColumn")
+			self.bindGesture("kb:leftArrow", "prevColumn")
+
+	# Track Dial: using arrow keys to move through columns.
+	# This is similar to enhanced arrow keys in other screen readers.
+
+	def script_columnCheckDebug(self, gesture):
+		self.columnHeaders = self.parent.children[-1]
+		ui.message(str(self.columnHeaders.childCount))
+		for header in self.columnHeaders.children[1:]:
+			if (header.name + ":") in self.description:
+				ui.message("{h} in description".format(h = header.name))
+
+	def script_toggleTrackDial(self, gesture):
+		if not self.appModule.SPLTrackDial:
+			self.appModule.SPLTrackDial = True
+			self.bindGesture("kb:rightArrow", "nextColumn")
+			self.bindGesture("kb:leftArrow", "prevColumn")
+			dialText = "Track Dial on"
+			if self.appModule.SPLColNumber > 0:
+				dialText+= ", located at column {columnHeader}".format(columnHeader = self.appModule.SPLColNumber+1)
+			ui.message(dialText)
+		else:
+			self.appModule.SPLTrackDial = False
+			try:
+				self.removeGestureBinding("kb:rightArrow")
+				self.removeGestureBinding("kb:leftArrow")
+			except KeyError:
+				pass
+			ui.message("Track Dial off")
+
+	# Some helper functions to handle corner cases.
+	# Each track item provides its own version.
+	def _leftmostcol(self):
+		leftmost = self.columnHeaders.firstChild.name
+		if self.name == "":
+			ui.message("{h} not found".format(h = leftmost))
+		else:
+			ui.message("{h}: {n}".format(h = self.columnHeaders.children[self.appModule.SPLColNumber].name, n = self.name))
+
+	# Announce column content if any.
+	def _announceColumnContent(self, colNumber):
+			columnHeader = self.columnHeaders.children[colNumber].name
+			if (columnHeader+":") in self.description:
+				# First, the rightmost column.
+				if (colNumber+1) == self.columnHeaders.childCount:
+					index = self.description.find((columnHeader+":"))
+					columnContent = self.description[index:]
+				else:
+					columnContent = columnHeader + ": found"
+				ui.message(columnContent)
+			else:
+				speech.speakMessage("{h}: blank".format(h = columnHeader))
+				braille.handler.message("{h}: ()".format(h = columnHeader))
+
+	def script_nextColumn(self, gesture):
+		self.columnHeaders = self.parent.children[-1]
+		if (self.appModule.SPLColNumber+1) == self.columnHeaders.childCount:
+			tones.beep(2000, 100)
+		else:
+			self.appModule.SPLColNumber +=1
+		self._announceColumnContent(self.appModule.SPLColNumber)
+
+	def script_prevColumn(self, gesture):
+		self.columnHeaders = self.parent.children[-1]
+		if self.appModule.SPLColNumber <= 0:
+			tones.beep(2000, 100)
+		else:
+			self.appModule.SPLColNumber -=1
+		if self.appModule.SPLColNumber == 0:
+			self._leftmostcol()
+		else:
+			self._announceColumnContent(self.appModule.SPLColNumber)
+
+	__gestures={
+		"kb:control+`":"toggleTrackDial",
+		"kb:nvda+x":"columnCheckDebug",
+	}
+
+class SPL510TrackItem(SPLTrackItem):
 	""" Track item for Studio 5.10 and later."""
 
 	def script_select(self, gesture):
 		gesture.send()
 		speech.speakMessage(self.name)
+
+	# Handle track dial for SPL 5.10.
+	def _leftmostcol(self):
+		ui.message("Status: {n}".format(n = self.name))
 
 	__gestures={"kb:space":"select"}
 
@@ -214,6 +299,9 @@ class AppModule(appModuleHandler.AppModule):
 	spl510used = False
 	# For 5.0X and earlier: prevent NVDA from announcing scheduled time multiple times.
 	scheduledTimeCache = ""
+	# Track Dial (A.K.A. enhanced arrow keys)
+	SPLTrackDial = False
+	SPLColNumber = 0
 
 	# Automatically announce mic, line in, etc changes
 	# These items are static text items whose name changes.
@@ -324,7 +412,14 @@ class AppModule(appModuleHandler.AppModule):
 				micAlarmT = None
 
 
-				# Continue monitoring library scans among other focus loss management.
+	# Hacks for gain focus events.
+	def event_gainFocus(self, obj, nextHandler):
+		if self.deletedFocusObj:
+			self.deletedFocusObj = False
+			return
+		nextHandler()
+
+	# Continue monitoring library scans among other focus loss management.
 	def event_loseFocus(self, obj, nextHandler):
 		global libScanT
 		fg = api.getForegroundObject()
@@ -332,6 +427,19 @@ class AppModule(appModuleHandler.AppModule):
 			if not libScanT or (libScanT and not libScanT.isAlive()):
 				self.monitorLibraryScan()
 		nextHandler()
+
+	# Call SPL API to obtain needed values.
+	# This is needed for some Assistant and time commands.
+	# A thin wrapper around user32.SendMessage and calling a callback if defined.
+	def statusAPI(self, arg, command, func=None, ret=False, offset=None):
+		#c = time.clock()
+		SPLWin = user32.FindWindowA("SPLStudio", None)
+		val = sendMessage(SPLWin, 1024, arg, command)
+		#ui.message("{c}".format(c = time.clock()-c))
+		if ret:
+			return val
+		if func:
+			func(val) if not offset else func(val, offset)
 
 	# Save configuration when terminating.
 	def terminate(self):
@@ -364,22 +472,20 @@ class AppModule(appModuleHandler.AppModule):
 		4:_("Cannot obtain time in hours, minutes and seconds")
 	}
 
-	# Call SPL API for important time messages.
-	def timeAPI(self, arg):
-		SPLWin = user32.FindWindowA("SPLStudio", None)
-		t = sendMessage(SPLWin, 1024, arg, 105)
-		if t < 0:
+	# Specific to time scripts using Studio API.
+	def announceTime(self, t, offset = None):
+		if t <= 0:
 			ui.message("00:00")
 		else:
-			tm = (t/1000)+1
+			tm = (t/1000) if not offset else (t/1000)+offset
 			if tm < 60:
 				tm1, tm2 = "00", tm
 			else:
 				tm1, tm2 = tm/60, tm%60
-				if tm1 < 10:
-					tm1 = "0" + str(tm1)
-				if tm2 < 10:
-					tm2 = "0" + str(tm2)
+			if tm1 < 10:
+				tm1 = "0" + str(tm1)
+			if tm2 < 10:
+				tm2 = "0" + str(tm2)
 			ui.message("{a}:{b}".format(a = tm1, b = tm2))
 
 	# Scripts which rely on API.
@@ -387,7 +493,7 @@ class AppModule(appModuleHandler.AppModule):
 		if self.SPLCurVersion >= SPLMinVersion:
 			fgWindow = api.getForegroundObject()
 			if fgWindow.windowClassName == "TStudioForm":
-				self.timeAPI(3)
+				self.statusAPI(3, 105, self.announceTime, offset=1)
 			else:
 				ui.message(self.timeMessageErrors[1])
 		else:
@@ -400,7 +506,7 @@ class AppModule(appModuleHandler.AppModule):
 		if self.SPLCurVersion >= SPLMinVersion:
 			fgWindow = api.getForegroundObject()
 			if fgWindow.windowClassName == "TStudioForm":
-				self.timeAPI(0)
+				self.statusAPI(0, 105, self.announceTime, offset=1)
 			else:
 				ui.message(self.timeMessageErrors[2])
 		else:
@@ -799,6 +905,9 @@ class AppModule(appModuleHandler.AppModule):
 		parem = 0 if self.SPLCurVersion < "5.10" else 1
 		countA = sendMessage(SPLWin, 1024, parem, 32)
 		time.sleep(0.1)
+		if api.getForegroundObject().windowClassName == "TTrackInsertForm" and self.productVersion.startswith("5.1"):
+			self.libraryScanning = False
+			return
 		countB = sendMessage(SPLWin, 1024, parem, 32)
 		if countA == countB:
 			self.libraryScanning = False
@@ -837,6 +946,24 @@ class AppModule(appModuleHandler.AppModule):
 			else:
 				# Translators: Presented after library scan is done.
 				ui.message(_("Scan complete with {itemCount} items").format(itemCount = countB))
+
+	# Some handlers for native commands.
+
+	# In Studio 5.0x, when deleting a track, NVDA announces wrong track item due to focus bouncing.
+	# The below hack is sensitive to changes in NVDA core.
+	deletedFocusObj = False
+
+	def script_deleteTrack(self, gesture):
+		gesture.send()
+		if self.productVersion.startswith("5.0"):
+			if api.getForegroundObject().windowClassName == "TStudioForm":
+				focus = api.getFocusObject()
+				if focus.IAccessibleChildID < focus.parent.childCount:
+					self.deletedFocusObj = True
+					focus.setFocus()
+					self.deletedFocusObj = False
+					focus.setFocus()
+
 
 	# SPL Assistant: reports status on playback, operation, etc.
 	# Used layer command approach to save gesture assignments.
@@ -891,10 +1018,10 @@ class AppModule(appModuleHandler.AppModule):
 	# Status table keys
 	SPLPlayStatus = 0
 	SPLSystemStatus = 1
-	SPLHourTrackDuration = 2
+	#SPLHourTrackDuration = 2
 	SPLHourSelectedDuration = 3
 	SPLNextTrackTitle = 4
-	SPLPlaylistRemainingDuration = 5
+	#SPLPlaylistRemainingDuration = 5
 	SPLTemperature = 6
 	SPLScheduled = 7
 
@@ -904,28 +1031,34 @@ class AppModule(appModuleHandler.AppModule):
 	statusObjs={
 		SPLPlayStatus:[0, 5, 6], # Play status, mic, etc.
 		SPLSystemStatus:[-2, -3, -2], # The second status bar containing system status such as up time.
-		SPLHourTrackDuration:[13, 17, 18], # For track duration for the given hour marker.
+		#SPLHourTrackDuration:[13, 17, 18], # For track duration for the given hour marker.
 		SPLHourSelectedDuration:[14, 18, 19], # In case the user selects one or more tracks in a given hour.
 		SPLScheduled:[15, 19, 20], # Time when the selected track will begin.
 		SPLNextTrackTitle:[2, 7, 8], # Name and duration of the next track if any.
-		SPLPlaylistRemainingDuration:[12, 16, 17], # Remaining time for the current playlist.
+		#SPLPlaylistRemainingDuration:[12, 16, 17], # Remaining time for the current playlist.
 		SPLTemperature:[1, 6, 7], # Temperature for the current city.
 	}
 
 	# Called in the layer commands themselves.
 	def status(self, infoIndex):
+		#c = time.clock()
 		ver, fg = self.productVersion, api.getForegroundObject()
 		if ver.startswith("4"): statusObj = self.statusObjs[infoIndex][0]
 		elif ver.startswith("5"):
 			if not self.spl510used: statusObj = self.statusObjs[infoIndex][1]
 			else: statusObj = self.statusObjs[infoIndex][2]
+		#ui.message("{c}".format(c = time.clock()-c))
 		return fg.children[statusObj]
 
 	# The layer commands themselves.
 
 	def script_sayPlayStatus(self, gesture):
-		obj = self.status(self.SPLPlayStatus).children[0]
-		ui.message(obj.name)
+		"""obj = self.status(self.SPLPlayStatus).children[0]
+		ui.message(obj.name)"""
+		if self.statusAPI(0, 104, ret=True):
+			ui.message("Play status: Playing")
+		else:
+			ui.message("Play status: Stopped")
 
 	def script_sayAutomationStatus(self, gesture):
 		obj = self.status(self.SPLPlayStatus).children[1]
@@ -948,16 +1081,18 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(obj.name)
 
 	def script_sayHourTrackDuration(self, gesture):
-		obj = self.status(self.SPLHourTrackDuration).firstChild
-		ui.message(obj.name)
+		"""obj = self.status(self.SPLHourTrackDuration).firstChild
+		ui.message(obj.name)"""
+		self.statusAPI(0, 27, self.announceTime)
 
 	def script_sayHourSelectedTrackDuration(self, gesture):
 		obj = self.status(self.SPLHourSelectedDuration).firstChild
 		ui.message(obj.name)
 
 	def script_sayPlaylistRemainingDuration(self, gesture):
-		obj = self.status(self.SPLPlaylistRemainingDuration).children[1]
-		ui.message(obj.name)
+		"""obj = self.status(self.SPLPlaylistRemainingDuration).children[1]
+		ui.message(obj.name)"""
+		self.statusAPI(1, 27, self.announceTime)
 
 	def script_sayPlaylistModified(self, gesture):
 		try:
@@ -1054,5 +1189,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:control+shift+r":"startScanFromInsertTracks",
 		"kb:control+shift+x":"setBrailleTimer",
 		"kb:control+NVDA+0":"openConfigDialog",
+		"kb:Shift+delete":"deleteTrack",
+		"kb:Shift+numpadDelete":"deleteTrack",
 		#"kb:control+nvda+`":"SPLAssistantToggle"
 	}
