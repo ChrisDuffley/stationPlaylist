@@ -165,6 +165,7 @@ class SPL510TrackItem(SPLTrackItem):
 	def script_select(self, gesture):
 		gesture.send()
 		speech.speakMessage(self.name)
+		braille.handler.handleUpdate(self)
 
 	# Handle track dial for SPL 5.10.
 	def _leftmostcol(self):
@@ -395,7 +396,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Hacks for gain focus events.
 	def event_gainFocus(self, obj, nextHandler):
-		if self.deletedFocusObj:
+		if self.deletedFocusObj or (obj.windowClassName == "TListView" and obj.role == 0):
 			self.deletedFocusObj = False
 			return
 		nextHandler()

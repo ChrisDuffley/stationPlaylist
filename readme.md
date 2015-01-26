@@ -113,6 +113,12 @@ To learn cart assignments, from SPL Studio, press Control+NVDA+3. Pressing the c
 
 * A dedicated settings dialog for SPL add-on has been added, accessible from NVDA's preferences menu or by pressing Control+NVDA+0 from SPL window.
 
+## Changes for 4.1
+
+* In Studio 5.0x, deleting a track from the main playlist viewer will no longer cause NVDA to announce the track below the newly focused track (more noticeable if the second to last track was deleted, in which case NVDA said "unknown").
+* Fixed several library scan issues in Studio 5.10, including announcing total number of items in the library while tabbing around in the insert tracks dialog and saying "scan is in progress" when attempting to monitor library scans via SPL Assistant.
+* When using a braille display with Studio 5.10 and if a track is checked, pressing SPACE to check a track below no longer causes braille to not reflect the newly checked state.
+
 ## Changes for 4.0/3.6
 
 Version 4.0 supports SPL Studio 5.00 and later, with 3.x designed to provide some new features from 4.0 for users using earlier versions of Studio.
