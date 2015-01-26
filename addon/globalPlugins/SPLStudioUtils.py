@@ -423,6 +423,9 @@ class SAMEncoderWindow(IAccessible):
 		else:
 			text=winKernel.GetDateFormat(winKernel.LOCALE_USER_DEFAULT, winKernel.DATE_LONGDATE, None, None)
 		ui.message(text)
+	# Translators: Input help mode message for report date and time command.
+	script_encoderDateTime.__doc__=_("If pressed once, reports the current time including seconds. If pressed twice, reports the current date")
+	script_encoderDateTime.category=_("Station Playlist Studio")
 
 
 	def initOverlayClass(self):
@@ -437,16 +440,6 @@ class SAMEncoderWindow(IAccessible):
 			return SAMStreamLabels[str(self.IAccessibleChildID)]
 		return None
 
-	# Announce complete time including seconds.
-	def script_completeTime(self, gesture):
-		if scriptHandler.getLastScriptRepeatCount()==0:
-			text=winKernel.GetTimeFormat(winKernel.LOCALE_USER_DEFAULT, 0, None, None)
-		else:
-			text=winKernel.GetDateFormat(winKernel.LOCALE_USER_DEFAULT, winKernel.DATE_LONGDATE, None, None)
-		ui.message(text)
-	# Translators: Input help mode message for report date and time command.
-	script_completeTime.__doc__=_("If pressed once, reports the current time including seconds. If pressed twice, reports the current date")
-	script_completeTime.category=_("Station Playlist Studio")
 
 	def reportFocus(self):
 		import globalPlugins
