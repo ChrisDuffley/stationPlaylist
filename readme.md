@@ -109,6 +109,12 @@ Depending on edition, SPL Studio allows up to 96 carts to be assigned for playba
 
 To learn cart assignments, from SPL Studio, press Control+NVDA+3. Pressing the cart command once will tell you which jingle is assigned to the command. Pressing the cart command twice will play the jingle. Press Control+NvDA+3 to exit cart explorer. See the add-on guide for more information on cart explorer.
 
+## Changes for 4.1
+
+* In Studio 5.0x, deleting a track from the main playlist viewer will no longer cause NVDA to announce the track below the newly focused track (more noticeable if the second to last track was deleted, in which case NVDA said "unknown").
+* Fixed several library scan issues in Studio 5.10, including announcing total number of items in the library while tabbing around in the insert tracks dialog and saying "scan is in progress" when attempting to monitor library scans via SPL Assistant.
+* When using a braille display with Studio 5.10 and if a track is checked, pressing SPACE to check a track below no longer causes braille to not reflect the newly checked state.
+
 ## Changes for 4.0/3.6
 
 Version 4.0 supports SPL Studio 5.00 and later, with 3.x designed to provide some new features from 4.0 for users using earlier versions of Studio.
