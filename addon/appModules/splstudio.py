@@ -890,6 +890,9 @@ class AppModule(appModuleHandler.AppModule):
 		SPLWin = user32.FindWindowA("SPLStudio", None)
 		parem = 0 if self.SPLCurVersion < "5.10" else 1
 		countA = sendMessage(SPLWin, 1024, parem, 32)
+		if countA == 0:
+			self.libraryScanning = False
+			return
 		time.sleep(0.1)
 		if api.getForegroundObject().windowClassName == "TTrackInsertForm" and self.productVersion.startswith("5.1"):
 			self.libraryScanning = False
