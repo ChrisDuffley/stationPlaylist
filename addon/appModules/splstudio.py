@@ -57,6 +57,8 @@ SPLConfig = ConfigObj(os.path.join(globalVars.appArgs.configPath, "splstudio.ini
 # A placeholder thread.
 micAlarmT = None
 libScanT = None # Library scanner.
+# Blacklisted versions of Studio where library scanning functionality is broken.
+noLibScanMonitor = ["5.10"]
 
 # Braille and play a sound in response to an alarm or an event.
 def messageSound(wavFile, message):
@@ -139,6 +141,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Unfortunately, Window handles and WindowControlIDs seem to change, so can't be used.
 	def event_nameChange(self, obj, nextHandler):
 		# Do not let NvDA get name for None object when SPL window is maximized.
+		global noLibScanMonitor
 		if not obj.name:
 			return
 		if obj.windowClassName == "TStatusBar" and not obj.name.startswith("  Up time:"):
@@ -158,10 +161,10 @@ class AppModule(appModuleHandler.AppModule):
 							if self.beepAnnounce: tones.beep(550, 100)
 							ui.message(obj.name[1:obj.name.find("]")])
 					if "Loading" in obj.name and not self.libraryScanning:
-						self.libraryScanning = True
-					elif "match" in obj.name and self.libraryScanning:
+						if self.productVersion not in noLibScanMonitor: self.libraryScanning = True
+					elif "match" in obj.name:
 						tones.beep(370, 100) if self.beepAnnounce else ui.message("Scan complete")
-						self.libraryScanning = False
+						if self.libraryScanning: self.libraryScanning = False
 						self.scanCount = 0
 			else:
 				if obj.name.startswith("Scheduled for"):
@@ -699,16 +702,17 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_startScanFromInsertTracks(self, gesture):
 		gesture.send()
+		global noLibScanMonitor
 		fg = api.getForegroundObject()
 		if fg.windowClassName == "TTrackInsertForm":
 			# Translators: Presented when library scan has started.
 			ui.message(_("Scan start"))
-			self.libraryScanning = True
+			if self.productVersion not in noLibScanMonitor: self.libraryScanning = True
 
 	# Report library scan (number of items scanned) in the background.
 	def monitorLibraryScan(self):
 		global libScanT
-		if libScanT and libScanT.isAlive():
+		if libScanT and libScanT.isAlive() and api.getForegroundObject().windowClassName == "TTrackInsertForm":
 			return
 		SPLWin = user32.FindWindowA("SPLStudio", None)
 		parem = 0 if self.SPLCurVersion < "5.10" else 1
