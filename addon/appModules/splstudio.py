@@ -179,26 +179,12 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	def makeSettings(self, settingsSizer):
 
-		"""sizer = wx.BoxSizer(wx.HORIZONTAL)
-		# Translators: The label for a setting in SPL Add-on settings to announce toggle messages as words or beeps.
-		label = wx.StaticText(self, wx.ID_ANY, label=_("&Toggle announcement"))
-		self.announcementTypes=[("words",_("words")),("beeps",_("beeps"))]
-		self.announcementTList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.announcementTypes])
-		tetherConfig=beepAnnounce
-		selection = (x for x,y in enumerate(self.tetherValues) if y[0]==tetherConfig).next()  
-		try:
-			self.tetherList.SetSelection(selection)
-		except:
-			pass
-		sizer.Add(label)
-		sizer.Add(self.tetherList)
-		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)"""
-
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
 		self.beepAnnounceCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Beep for status announcements"))
 		self.beepAnnounceCheckbox.SetValue(SPLConfig["BeepAnnounce"])
 		sizer.Add(self.beepAnnounceCheckbox, border=10,flag=wx.BOTTOM)
+
 		# Translators: The label for a setting in SPL Add-on settings to specify end of track (outro) alarm.
 		label = wx.StaticText(self, wx.ID_ANY, label=_("&End of track alarm in seconds"))
 		sizer.Add(label)
@@ -224,11 +210,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.micAlarm.SetValue(str(SPLConfig["MicAlarm"]))
 		sizer.Add(self.micAlarm)
 		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
-
-		"""# Translators: The label for a setting in braille settings to read by paragraph (if it is checked, the commands to move the display by lines moves the display by paragraphs instead).
-		item = self.readByParagraphCheckBox = wx.CheckBox(self, label=_("Read by &paragraph"))
-		item.Value = config.conf["braille"]["readByParagraph"]
-		settingsSizer.Add(item, border=10, flag=wx.BOTTOM)"""
 
 	def postInit(self):
 		self.beepAnnounceCheckbox.SetFocus()
