@@ -713,6 +713,9 @@ class AppModule(appModuleHandler.AppModule):
 		parem = 0 if self.SPLCurVersion < "5.10" else 1
 		countA = sendMessage(SPLWin, 1024, parem, 32)
 		time.sleep(0.1)
+		if api.getForegroundObject().windowClassName == "TTrackInsertForm" and self.productVersion.startswith("5.1"):
+			self.libraryScanning = False
+			return
 		countB = sendMessage(SPLWin, 1024, parem, 32)
 		if countA == countB:
 			self.libraryScanning = False
