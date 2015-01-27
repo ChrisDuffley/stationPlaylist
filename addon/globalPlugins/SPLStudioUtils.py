@@ -66,6 +66,8 @@ SPLStreamLabels= {} # Same as above but optimized for SPL encoders (Studio 5.00 
 SAMBackgroundMonitor = {}
 SPLBackgroundMonitor = {}
 SAMConnectionAttempt = {}
+SPLConnectionAttempt = {}
+encoderMonCount = {"SAM":0, "SPL":0}
 
 # Configuration management.
 streamLabels = None
@@ -327,7 +329,8 @@ class SAMEncoderWindow(IAccessible):
 		toneCounter = 0
 		messageCache = ""
 		idle = False
-		while SAMBackgroundMonitor[self.IAccessibleChildID]:
+		connected = False
+		while SAMBackgroundMonitor[self.IAccessibleChildID] or SAMConnectionAttempt[self.IAccessibleChildID]:
 			time.sleep(0.001)
 			toneCounter+=1
 			if toneCounter%250 == 0 and not idle:
@@ -340,24 +343,34 @@ class SAMEncoderWindow(IAccessible):
 				# Announce the description of the error.
 				error = True
 				messageCache = self.description[self.description.find("Status")+8:]
-				ui.message(messageCache)
+				self.encoderStatusMessage(messageCache, self.IAccessibleChildID)
 				SAMConnectionAttempt[self.IAccessibleChildID] = False
-			elif "Encoding" in self.description or "Encoded" in self.description and not statusFound:
-				# We're on air, so exit.
+			elif "Encoding" in self.description or "Encoded" in self.description and not connected:
+				# We're on air, so exit unless told to monitor for connection changes.
+				tones.beep(1000, 150)
 				SAMConnectionAttempt[self.IAccessibleChildID] = False
-				if self.focusToStudio:
+				if self.focusToStudio and not connected:
+					if api.getFocusObject().appModule == "splstudio":
+						continue
 					try:
 						fetchSPLForegroundWindow().setFocus()
 					except AttributeError:
 						pass
-				tones.beep(1000, 150)
-				if self.playAfterConnecting:
+				if self.playAfterConnecting and not connected:
 					winUser.sendMessage(SPLWin, SPLMSG, 0, SPLPlay)
+				connected = True
 			else:
 				if "Idle" not in self.description and idle: idle = False
 				if messageCache != self.description[self.description.find("Status")+8:]:
 					messageCache = self.description[self.description.find("Status")+8:]
-					ui.message(messageCache)
+					self.encoderStatusMessage(messageCache, self.IAccessibleChildID)
+
+	# Format the status message to prepare for monitoring multiple encoders.
+	def encoderStatusMessage(self, message, id):
+		if encoderMonCount[self.encoderType] > 1:
+			ui.message("{encoder} {encoderNumber}: {status}".format(encoder = self.encoderType, encoderNumber = id, status = message))
+		else:
+			ui.message(message)
 
 	def script_connect(self, gesture):
 		gesture.send()
@@ -367,7 +380,7 @@ class SAMEncoderWindow(IAccessible):
 		ui.message(str(threading.activeCount()))
 		if self.IAccessibleChildID not in SAMBackgroundMonitor.keys():
 			SAMBackgroundMonitor[self.IAccessibleChildID] = self.backgroundMonitor
-		elif self.IAccessibleChildID not in SAMConnectionAttempt.keys():
+		if self.IAccessibleChildID not in SAMConnectionAttempt.keys():
 			SAMConnectionAttempt[self.IAccessibleChildID] = True
 		if not self.backgroundMonitor:
 			statusThread = threading.Thread(target=self.reportConnectionStatus)
@@ -415,9 +428,11 @@ class SAMEncoderWindow(IAccessible):
 		ui.message(str(threading.activeCount()))
 		if not self.backgroundMonitor:
 			self.backgroundMonitor = True
+			encoderMonCount[self.encoderType] += 1 # Multiple encoders.
 			ui.message("Monitoring encoder {encoderNumber}".format(encoderNumber = self.IAccessibleChildID))
 		else:
 			self.backgroundMonitor = False
+			encoderMonCount[self.encoderType] -= 1
 			ui.message("Encoder {encoderNumber} will not be monitored".format(encoderNumber = self.IAccessibleChildID))
 		if self.encoderType == "SAM":
 			SAMBackgroundMonitor[self.IAccessibleChildID] = self.backgroundMonitor
@@ -426,8 +441,10 @@ class SAMEncoderWindow(IAccessible):
 			SPLBackgroundMonitor[self.IAccessibleChildID] = self.backgroundMonitor
 			bgMap = SPLBackgroundMonitor
 		if self.backgroundMonitor:
-			if self.IAccessibleChildID not in SAMConnectionAttempt.keys():
+			if self.encoderType == "SAM" and self.IAccessibleChildID not in SAMConnectionAttempt.keys():
 				SAMConnectionAttempt[self.IAccessibleChildID] = False
+			elif self.encoderType == "SPL" and self.IAccessibleChildID not in SPLConnectionAttempt.keys():
+				SPLConnectionAttempt[self.IAccessibleChildID] = False
 			statusThread = threading.Thread(target=self.reportConnectionStatus)
 			statusThread.name = "Connection Status Reporter " + str(self.IAccessibleChildID)
 			statusThread.start()
@@ -519,22 +536,28 @@ class SPLEncoderWindow(SAMEncoderWindow):
 		# Same routine as SAM encoder: use a thread to prevent blocking NVDA commands.
 		SPLWin = user32.FindWindowA("SPLStudio", None)
 		attempt = 0
-		while True:
+		messageCache = ""
+		disconnected = False
+		while SPLBackgroundMonitor[self.IAccessibleChildID]:
 			time.sleep(0.001)
 			try:
 				statChild = self.children[1]
 			except IndexError:
 				return # Don't leave zombie objects around.
 			attempt += 1
-			if attempt%250 == 0:
+			if attempt%250 == 0 and not disconnected:
 				tones.beep(500, 50)
-				if attempt>= 500 and statChild.name == "Disconnected":
+				if attempt>= 500 and statChild.name == "Disconnected" and not disconnected:
 					tones.beep(250, 250)
-					return
-			if "Unable to connect" in statChild.name or "Failed" in statChild.name:
-				ui.message(statChild.name)
-				break
-			if statChild.name == "Connected":
+					disconnected = True
+					if not SPLBackgroundMonitor[self.IAccessibleChildID]: return
+			if messageCache != statChild.name:
+				messageCache = statChild.name
+			else:
+				continue
+			if statChild.name != "Disconnected" and disconnected:
+				disconnected = False
+			elif statChild.name == "Connected":
 				# We're on air, so exit.
 				if self.focusToStudio:
 					try:
@@ -544,7 +567,11 @@ class SPLEncoderWindow(SAMEncoderWindow):
 				tones.beep(1000, 150)
 				if self.playAfterConnecting:
 					winUser.sendMessage(SPLWin, SPLMSG, 0, SPLPlay)
-				break
+				if not SPLBackgroundMonitor[self.IAccessibleChildID]: break
+			if "Unable to connect" in statChild.name or "Failed" in statChild.name:
+				ui.message(messageCache)
+			else:
+				if not disconnected: ui.message(messageCache)
 
 	def script_connect(self, gesture):
 		# Same as SAM's connection routine, but this time, keep an eye on self.name and a different connection flag.
@@ -555,9 +582,14 @@ class SPLEncoderWindow(SAMEncoderWindow):
 		connectButton.doAction()
 		self.setFocus()
 		# Same as SAM encoders.
-		statusThread = threading.Thread(target=self.reportConnectionStatus)
-		statusThread.name = "Connection Status Reporter"
-		statusThread.start()
+		if self.IAccessibleChildID not in SPLBackgroundMonitor.keys():
+			SPLBackgroundMonitor[self.IAccessibleChildID] = self.backgroundMonitor
+		if self.IAccessibleChildID not in SPLConnectionAttempt.keys():
+			SPLConnectionAttempt[self.IAccessibleChildID] = True
+		if not self.backgroundMonitor:
+			statusThread = threading.Thread(target=self.reportConnectionStatus)
+			statusThread.name = "Connection Status Reporter"
+			statusThread.start()
 	script_connect.__doc__=_("Connects to a streaming server.")
 
 
