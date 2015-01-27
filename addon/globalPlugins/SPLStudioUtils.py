@@ -63,6 +63,9 @@ SAMPlayAfterConnecting = {}
 SPLPlayAfterConnecting = {}
 SAMStreamLabels= {} # A dictionary to store custom labels for each stream.
 SPLStreamLabels= {} # Same as above but optimized for SPL encoders (Studio 5.00 and later).
+SAMBackgroundMonitor = {}
+SPLBackgroundMonitor = {}
+SAMConnectionAttempt = {}
 
 # Configuration management.
 streamLabels = None
@@ -314,27 +317,34 @@ class SAMEncoderWindow(IAccessible):
 	focusToStudio = False # If true, Studio will gain focus after encoder connects.
 	playAfterConnecting = False # When connected, the first track will be played.
 	encoderType = "SAM"
+	backgroundMonitor = False # Monitor this encoder for connection status changes.
 
 
 	def reportConnectionStatus(self):
-		# Keep an eye on the stream's description field until connected or error occurs.
+		# Keep an eye on the stream's description field for connection changes.
 		# In order to not block NVDA commands, this will be done using a different thread.
 		SPLWin = user32.FindWindowA("SPLStudio", None)
 		toneCounter = 0
-		while True:
+		messageCache = ""
+		idle = False
+		while SAMBackgroundMonitor[self.IAccessibleChildID]:
 			time.sleep(0.001)
 			toneCounter+=1
-			if toneCounter%250 == 0:
+			if toneCounter%250 == 0 and not idle:
 				tones.beep(500, 50)
-				if toneCounter >= 750 and "Idle" in self.description:
-					tones.beep(250, 250)
-					return
-			if "Error" in self.description:
+				if "Idle" in self.description:
+					if not idle:
+						tones.beep(250, 250)
+						idle = True
+			elif "Error" in self.description and "Error" not in messageCache:
 				# Announce the description of the error.
-				ui.message(self.description[self.description.find("Status")+8:])
-				break
-			elif "Encoding" in self.description or "Encoded" in self.description:
+				error = True
+				messageCache = self.description[self.description.find("Status")+8:]
+				ui.message(messageCache)
+				SAMConnectionAttempt[self.IAccessibleChildID] = False
+			elif "Encoding" in self.description or "Encoded" in self.description and not statusFound:
 				# We're on air, so exit.
+				SAMConnectionAttempt[self.IAccessibleChildID] = False
 				if self.focusToStudio:
 					try:
 						fetchSPLForegroundWindow().setFocus()
@@ -343,16 +353,26 @@ class SAMEncoderWindow(IAccessible):
 				tones.beep(1000, 150)
 				if self.playAfterConnecting:
 					winUser.sendMessage(SPLWin, SPLMSG, 0, SPLPlay)
-				break
+			else:
+				if "Idle" not in self.description and idle: idle = False
+				if messageCache != self.description[self.description.find("Status")+8:]:
+					messageCache = self.description[self.description.find("Status")+8:]
+					ui.message(messageCache)
 
 	def script_connect(self, gesture):
 		gesture.send()
 		# Translators: Presented when SAM Encoder is trying to connect to a streaming server.
 		ui.message(_("Connecting..."))
 		# Oi, status thread, can you keep an eye on the connection status for me?
-		statusThread = threading.Thread(target=self.reportConnectionStatus)
-		statusThread.name = "Connection Status Reporter"
-		statusThread.start()
+		ui.message(str(threading.activeCount()))
+		if self.IAccessibleChildID not in SAMBackgroundMonitor.keys():
+			SAMBackgroundMonitor[self.IAccessibleChildID] = self.backgroundMonitor
+		elif self.IAccessibleChildID not in SAMConnectionAttempt.keys():
+			SAMConnectionAttempt[self.IAccessibleChildID] = True
+		if not self.backgroundMonitor:
+			statusThread = threading.Thread(target=self.reportConnectionStatus)
+			statusThread.name = "Connection Status Reporter " + str(self.IAccessibleChildID)
+			statusThread.start()
 
 	def script_disconnect(self, gesture):
 		gesture.send()
@@ -390,6 +410,27 @@ class SAMEncoderWindow(IAccessible):
 			SPLPlayAfterConnecting[self.IAccessibleChildID] = self.playAfterConnecting
 	# Translators: Input help mode message in SAM Encoder window.
 	script_togglePlay.__doc__=_("Toggles whether Studio will play the first song when connected to a streaming server.")
+
+	def script_toggleBackgroundEncoderMonitor(self, gesture):
+		ui.message(str(threading.activeCount()))
+		if not self.backgroundMonitor:
+			self.backgroundMonitor = True
+			ui.message("Monitoring encoder {encoderNumber}".format(encoderNumber = self.IAccessibleChildID))
+		else:
+			self.backgroundMonitor = False
+			ui.message("Encoder {encoderNumber} will not be monitored".format(encoderNumber = self.IAccessibleChildID))
+		if self.encoderType == "SAM":
+			SAMBackgroundMonitor[self.IAccessibleChildID] = self.backgroundMonitor
+			bgMap = SAMBackgroundMonitor
+		elif self.encoderType == "SPL":
+			SPLBackgroundMonitor[self.IAccessibleChildID] = self.backgroundMonitor
+			bgMap = SPLBackgroundMonitor
+		if self.backgroundMonitor:
+			if self.IAccessibleChildID not in SAMConnectionAttempt.keys():
+				SAMConnectionAttempt[self.IAccessibleChildID] = False
+			statusThread = threading.Thread(target=self.reportConnectionStatus)
+			statusThread.name = "Connection Status Reporter " + str(self.IAccessibleChildID)
+			statusThread.start()
 
 	def script_streamLabeler(self, gesture):
 		curStreamLabel, title = self.getStreamLabel(), ""
@@ -434,6 +475,11 @@ class SAMEncoderWindow(IAccessible):
 			self.focusToStudio = SAMFocusToStudio[self.IAccessibleChildID]
 		except KeyError:
 			pass
+		# Am I being monitored for connection changes?
+		try:
+			self.backgroundMonitor = SAMBackgroundMonitor[self.IAccessibleChildID]
+		except KeyError:
+			pass
 
 	def getStreamLabel(self):
 		if str(self.IAccessibleChildID) in SAMStreamLabels:
@@ -458,6 +504,7 @@ class SAMEncoderWindow(IAccessible):
 		"kb:f10":"disconnect",
 		"kb:f11":"toggleFocusToStudio",
 		"kb:shift+f11":"togglePlay",
+		"kb:control+f11":"toggleBackgroundEncoderMonitor",
 		"kb:f12":"streamLabeler",
 		"kb:NVDA+F12":"encoderDateTime"
 	}
@@ -518,6 +565,10 @@ class SPLEncoderWindow(SAMEncoderWindow):
 		# Can I switch to Studio when connected to a streaming server?
 		try:
 			self.focusToStudio = SPLFocusToStudio[self.IAccessibleChildID]
+		except KeyError:
+			pass
+		try:
+			self.backgroundMonitor = SPLBackgroundMonitor[self.IAccessibleChildID]
 		except KeyError:
 			pass
 
