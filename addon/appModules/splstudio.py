@@ -48,15 +48,16 @@ def finally_(func, final):
 		return new
 	return wrap(final)
 
-# Use appModule.productVersion to decide what to do with 4.x and 5.x.
-SPLMinVersion = "5.00" # Add-on 4.0 will not work properly in SPL 4.x anymore.
+# Make sure the broadcaster is running a compatible version.
+SPLMinVersion = "5.00"
 
 # Configuration management )4.0 and later; will not be ported to 3.x).
 SPLConfig = ConfigObj(os.path.join(globalVars.appArgs.configPath, "splstudio.ini"))
 
-# A placeholder thread.
+# Threads pool.
 micAlarmT = None
-libScanT = None # Library scanner.
+libScanT = None
+
 # Blacklisted versions of Studio where library scanning functionality is broken.
 noLibScanMonitor = ["5.10"]
 
@@ -95,7 +96,7 @@ class AppModule(appModuleHandler.AppModule):
 		if obj.windowClassName == "TRadioGroup":
 			obj.role = controlTypes.ROLE_GROUPING
 		# In certain edit fields and combo boxes, the field name is written to the screen, and there's no way to fetch the object for this text. Thus use review position text.
-		elif obj.windowClassName in ["TEdit", "TComboBox"] and obj.name is None:
+		elif obj.windowClassName in ("TEdit", "TComboBox") and not obj.name:
 			fieldName, fieldObj  = review.getScreenPosition(obj)
 			fieldName.expand(textInfos.UNIT_LINE)
 			if obj.windowClassName == "TComboBox":
@@ -108,10 +109,12 @@ class AppModule(appModuleHandler.AppModule):
 		fg = api.getForegroundObject()
 		if fg:
 			role = obj.role
-			if obj.windowClassName == "TTntListView.UnicodeClass" and fg.windowClassName == "TStudioForm" and role == controlTypes.ROLE_LISTITEM and obj.name is not None:
+			# Ignore hour markers when using add-on 3.x and 4.x with Studio 5.10.
+			if obj.windowClassName == "TTntListView.UnicodeClass" and fg.windowClassName == "TStudioForm" and role == controlTypes.ROLE_LISTITEM and obj.name:
 				clsList.insert(0, SPL510TrackItem)
-			elif obj.windowClassName == "TListView" and fg.windowClassName == "TStudioForm" and role == controlTypes.ROLE_CHECKBOX:
-				clsList.insert(0, SPLTrackItem)
+			# For now, ignore track entries for earlier Studio versions.
+			"""elif obj.windowClassName == "TListView" and fg.windowClassName == "TStudioForm" and role == controlTypes.ROLE_CHECKBOX:
+				clsList.insert(0, SPLTrackItem)"""
 
 	# populate end of track and intro time alarm settings separately.
 	try:
@@ -219,7 +222,6 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Perform extra action in specific situations (mic alarm, for example).
 	def doExtraAction(self, status):
-		global micAlarmT
 		if self.cartExplorer:
 			if status == "Cart Edit On":
 				# Translators: Presented when cart edit mode is toggled on while cart explorer is on.
@@ -229,6 +231,7 @@ class AppModule(appModuleHandler.AppModule):
 				ui.message(_("Please reenter cart explorer to view updated cart assignments"))
 		if self.micAlarm:
 			# Play an alarm sound from Braille Sense U2.
+			global micAlarmT
 			micAlarmWav = os.path.join(os.path.dirname(__file__), "SPL_MicAlarm.wav")
 			# Translators: Presented in braille when microphone was on for more than a specified time in microphone alarm dialog.
 			micAlarmMessage = _("Warning: Microphone active")
@@ -254,9 +257,9 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Continue monitoring library scans among other focus loss management.
 	def event_loseFocus(self, obj, nextHandler):
-		global libScanT
 		fg = api.getForegroundObject()
 		if fg.windowClassName == "TTrackInsertForm" and self.libraryScanning:
+			global libScanT
 			if not libScanT or (libScanT and not libScanT.isAlive()):
 				self.monitorLibraryScan()
 		nextHandler()
@@ -341,6 +344,7 @@ class AppModule(appModuleHandler.AppModule):
 					h %= 12
 				if m == 0:
 					if h == 0: h+=12
+					# Messages in this method should not be translated.
 					broadcasterTime = "{hour} o'clock".format(hour = h)
 				elif 1 <= m <= 30:
 					if h == 0: h+=12
@@ -500,6 +504,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Find a specific track based on a searched text.
 	# Unfortunately, the track list does not provide obj.name (it is None), however obj.description has the actual track entry.
+	# For Studio 5.01 and earlier, artist label appears as the name, while in Studio 5.10, obj.name is none.
 
 	def script_findTrack(self, gesture):
 		if api.getForegroundObject().windowClassName != "TStudioForm":
@@ -585,6 +590,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Parse the cart entry string and insert the cart/cart name pairs into the carts dictionary.
 		# n between 1 and 12 = function carts, 13 through 24 = number row carts, modifiers are checked.
 		# If a cart name has commas or other characters, SPL surrounds the cart name with quotes (""), so parse it as well.
+		# If only the carts were representable as CSV file and NVDA core ships with CSV module built in...
 		if not cartEntry.startswith('""'): cartName = cartEntry.split(",")[0]
 		else: cartName = cartEntry.split('""')[1]
 		if n <= 12: identifier = "f"+str(n)
@@ -620,6 +626,7 @@ class AppModule(appModuleHandler.AppModule):
 		userName = api.getForegroundObject().name
 		userNameIndex = userName.find("-")
 		# Read *.cart files and process the cart entries within (be careful when these cart file names change between SPL releases).
+		# Until NVDA core moves to Python 3, assume that file names aren't unicode.
 		cartFiles = [u"main carts.cart", u"shift carts.cart", u"ctrl carts.cart", u"alt carts.cart"]
 		if userNameIndex >= 0:
 			cartFiles = [userName[userNameIndex+2:]+" "+cartFile for cartFile in cartFiles]
