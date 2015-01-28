@@ -263,6 +263,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Save configuration when terminating.
 	def terminate(self):
+		super(AppModule, self).terminate()
 		if SPLConfig is not None: SPLConfig.write()
 
 	# Script sections (for ease of maintenance):
