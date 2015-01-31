@@ -113,10 +113,10 @@ class SPLTrackItem(IAccessible):
 	# Each track item provides its own version.
 	def _leftmostcol(self):
 		leftmost = self.columnHeaders.firstChild.name
-		if self.name == "":
-			ui.message("{h} not found".format(h = leftmost))
+		if not self.name or self.name == "":
+			ui.message("{leftmostColumn} not found".format(leftmostColumn = leftmost))
 		else:
-			ui.message("{h}: {n}".format(h = self.columnHeaders.children[self.appModule.SPLColNumber].name, n = self.name))
+			ui.message("{leftmostColumn}: {leftmostContent}".format(leftmostColumn = self.columnHeaders.children[self.appModule.SPLColNumber].name, leftmostContent = self.name))
 
 	# Locate column content.
 	def _getColumnContent(self, col):
@@ -187,7 +187,10 @@ class SPL510TrackItem(SPLTrackItem):
 
 	# Handle track dial for SPL 5.10.
 	def _leftmostcol(self):
-		ui.message("Status: {n}".format(n = self.name))
+		if not self.name:
+			ui.message("Status not found")
+		else:
+			ui.message("Status: {n}".format(n = self.name))
 
 	__gestures={"kb:space":"select"}
 
@@ -287,12 +290,10 @@ class AppModule(appModuleHandler.AppModule):
 		fg = api.getForegroundObject()
 		if fg:
 			role = obj.role
-			# Ignore hour markers when using add-on 3.x and 4.x with Studio 5.10.
-			if obj.windowClassName == "TTntListView.UnicodeClass" and fg.windowClassName == "TStudioForm" and role == controlTypes.ROLE_LISTITEM and obj.name:
+			if obj.windowClassName == "TTntListView.UnicodeClass" and fg.windowClassName == "TStudioForm" and role == controlTypes.ROLE_LISTITEM:
 				clsList.insert(0, SPL510TrackItem)
-			# For now, ignore track entries for earlier Studio versions.
-			"""elif obj.windowClassName == "TListView" and fg.windowClassName == "TStudioForm" and role == controlTypes.ROLE_CHECKBOX:
-				clsList.insert(0, SPLTrackItem)"""
+			elif obj.windowClassName == "TListView" and fg.windowClassName == "TStudioForm" and role == controlTypes.ROLE_CHECKBOX:
+				clsList.insert(0, SPLTrackItem)
 
 	# Keep an eye on library scans in insert tracks window.
 	libraryScanning = False
