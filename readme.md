@@ -109,9 +109,14 @@ Depending on edition, SPL Studio allows up to 96 carts to be assigned for playba
 
 To learn cart assignments, from SPL Studio, press Control+NVDA+3. Pressing the cart command once will tell you which jingle is assigned to the command. Pressing the cart command twice will play the jingle. Press Control+NvDA+3 to exit cart explorer. See the add-on guide for more information on cart explorer.
 
+## Track Dial
+
+You can use arrow keys to review various information about a track. To turn Track Dial on, while a track is focused in the main playlist viewer, press Control+Grave. Then use left and right arrow keys to review information such as artist, duration and so on.
+
 ## Changes for 5.0-dev
 
 * A dedicated settings dialog for SPL add-on has been added, accessible from NVDA's preferences menu or by pressing Control+NVDA+0 from SPL window.
+* You can now use Track Dial feature to review columns in a track entry in Studio's main playlist viewer (to toggle this feature, press Control+Grave accent).
 
 ## Changes for 4.1
 
