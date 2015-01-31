@@ -10,6 +10,8 @@
 
 # Minimum version: SPL 5.00, NvDA 2014.3.
 
+import ctypes
+from ctypes import wintypes
 from functools import wraps
 import os
 from cStringIO import StringIO
@@ -30,8 +32,8 @@ import braille
 import gui
 import wx
 from winUser import user32, sendMessage
-from winKernel import GetTimeFormat, LOCALE_USER_DEFAULT
-from NVDAObjects.IAccessible import IAccessible
+import winKernel
+from NVDAObjects.IAccessible import IAccessible, sysListView32 # SysListView32 is used for Track Dial (see below).
 import textInfos
 import tones
 import addonHandler
@@ -89,13 +91,6 @@ class SPLTrackItem(IAccessible):
 	# Track Dial: using arrow keys to move through columns.
 	# This is similar to enhanced arrow keys in other screen readers.
 
-	def script_columnCheckDebug(self, gesture):
-		self.columnHeaders = self.parent.children[-1]
-		ui.message(str(self.columnHeaders.childCount))
-		for header in self.columnHeaders.children[1:]:
-			if (header.name + ":") in self.description:
-				ui.message("{h} in description".format(h = header.name))
-
 	def script_toggleTrackDial(self, gesture):
 		if not self.appModule.SPLTrackDial:
 			self.appModule.SPLTrackDial = True
@@ -123,20 +118,41 @@ class SPLTrackItem(IAccessible):
 		else:
 			ui.message("{h}: {n}".format(h = self.columnHeaders.children[self.appModule.SPLColNumber].name, n = self.name))
 
+	# Locate column content.
+	def _getColumnContent(self, col):
+		# Borrowed from SysListView32 implementation.
+		# For add-on 6.0: see if track items can be subclassed from SysListView32.ListItem.
+		buffer=None
+		processHandle=self.processHandle
+		# Because each process in an OS has separate memory spaces, use VM functions to find column content.
+		internalItem=winKernel.virtualAllocEx(processHandle,None,ctypes.sizeof(sysListView32.LVITEM),winKernel.MEM_COMMIT,winKernel.PAGE_READWRITE)
+		try:
+			internalText=winKernel.virtualAllocEx(processHandle,None,520,winKernel.MEM_COMMIT,winKernel.PAGE_READWRITE)
+			try:
+				item=sysListView32.LVITEM(iItem=self.IAccessibleChildID-1,mask=sysListView32.LVIF_TEXT|sysListView32.LVIF_COLUMNS,iSubItem=col,pszText=internalText,cchTextMax=260)
+				winKernel.writeProcessMemory(processHandle,internalItem,ctypes.byref(item),ctypes.sizeof(sysListView32.LVITEM),None)
+				len = sendMessage(self.windowHandle,sysListView32.LVM_GETITEMTEXTW, (self.IAccessibleChildID-1), internalItem)
+				if len:
+					winKernel.readProcessMemory(processHandle,internalItem,ctypes.byref(item),ctypes.sizeof(sysListView32.LVITEM),None)
+					buffer=ctypes.create_unicode_buffer(len)
+					winKernel.readProcessMemory(processHandle,item.pszText,buffer,ctypes.sizeof(buffer),None)
+			finally:
+				winKernel.virtualFreeEx(processHandle,internalText,0,winKernel.MEM_RELEASE)
+		finally:
+			winKernel.virtualFreeEx(processHandle,internalItem,0,winKernel.MEM_RELEASE)
+		return buffer.value if buffer else None
+
 	# Announce column content if any.
-	def _announceColumnContent(self, colNumber):
-			columnHeader = self.columnHeaders.children[colNumber].name
-			if (columnHeader+":") in self.description:
-				# First, the rightmost column.
-				if (colNumber+1) == self.columnHeaders.childCount:
-					index = self.description.find((columnHeader+":"))
-					columnContent = self.description[index:]
-				else:
-					columnContent = columnHeader + ": found"
-				ui.message(columnContent)
-			else:
-				speech.speakMessage("{h}: blank".format(h = columnHeader))
-				braille.handler.message("{h}: ()".format(h = columnHeader))
+	def announceColumnContent(self, colNumber):
+		columnHeader = self.columnHeaders.children[colNumber].name
+		columnContent = self._getColumnContent(colNumber)
+		if columnContent:
+			ui.message("{header}: {content}".format(header = columnHeader, content = columnContent))
+		else:
+			speech.speakMessage("{header}: blank".format(header = columnHeader))
+			braille.handler.message("{header}: ()".format(header = columnHeader))
+
+	# Now the scripts.
 
 	def script_nextColumn(self, gesture):
 		self.columnHeaders = self.parent.children[-1]
@@ -144,7 +160,7 @@ class SPLTrackItem(IAccessible):
 			tones.beep(2000, 100)
 		else:
 			self.appModule.SPLColNumber +=1
-		self._announceColumnContent(self.appModule.SPLColNumber)
+		self.announceColumnContent(self.appModule.SPLColNumber)
 
 	def script_prevColumn(self, gesture):
 		self.columnHeaders = self.parent.children[-1]
@@ -155,11 +171,10 @@ class SPLTrackItem(IAccessible):
 		if self.appModule.SPLColNumber == 0:
 			self._leftmostcol()
 		else:
-			self._announceColumnContent(self.appModule.SPLColNumber)
+			self.announceColumnContent(self.appModule.SPLColNumber)
 
 	__gestures={
 		"kb:control+`":"toggleTrackDial",
-		"kb:nvda+x":"columnCheckDebug",
 	}
 
 class SPL510TrackItem(SPLTrackItem):
@@ -535,7 +550,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Says complete time in hours, minutes and seconds via kernel32's routines.
 		if self.SPLCurVersion >= SPLMinVersion :
 			if api.getForegroundObject().windowClassName == "TStudioForm":
-				ui.message(GetTimeFormat(LOCALE_USER_DEFAULT, 0, None, None))
+				ui.message(winKernel.GetTimeFormat(winKernel.LOCALE_USER_DEFAULT, 0, None, None))
 			else:
 				ui.message(self.timeMessageErrors[4])
 		else:
