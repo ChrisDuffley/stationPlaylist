@@ -66,6 +66,16 @@ MicAlarm = integer(default="0")
 confspec.newlines = "\r\n"
 SPLConfig = None
 
+# Display an error dialog when configuration is wrong.
+def runConfigErrorDialog():
+	global SPLConfig
+	if SPLConfig is not None: SPLConfig.write()
+	wx.CallAfter(gui.messageBox,
+	# Translators: Standard dialog message when Studio configuration has problems.
+	_("Your Studio configuration has errors and was reset to factory defaults."),
+	# Translators: Standard error title for configuration error.
+	_("Studio Configuration error"),wx.OK|wx.ICON_ERROR)
+
 # Threads pool.
 micAlarmT = None
 libScanT = None
