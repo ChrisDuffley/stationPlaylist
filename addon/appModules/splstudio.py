@@ -59,17 +59,15 @@ SPLMinVersion = "5.00"
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
 confspec = ConfigObj(StringIO("""
 BeepAnnounce = boolean(default=false)
-EndOfTrackTime = string(default="00:05")
-SongRampTime = string(default="00:05")
-MicAlarm = integer(default="0")
+EndOfTrackTime = string(min=5, max=5, default="00:05")
+SongRampTime = string(min=5, max=5, default="00:05")
+MicAlarm = integer(min=0, default="0")
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
 SPLConfig = None
 
 # Display an error dialog when configuration is wrong.
 def runConfigErrorDialog():
-	global SPLConfig
-	if SPLConfig is not None: SPLConfig.write()
 	wx.CallAfter(gui.messageBox,
 	# Translators: Standard dialog message when Studio configuration has problems.
 	_("Your Studio configuration has errors and was reset to factory defaults."),
@@ -273,7 +271,14 @@ class AppModule(appModuleHandler.AppModule):
 		global SPLConfig, SPLIni, confspec
 		SPLConfig = ConfigObj(SPLIni, configspec = confspec, encoding="UTF-8")
 		val = Validator()
-		SPLConfig.validate(val)
+		configTest = SPLConfig.validate(val)
+		if isinstance(configTest, dict):
+			os.remove(SPLIni)
+			SPLConfig = ConfigObj(SPLIni, configspec = confspec, encoding="UTF-8")
+			try:
+				runConfigErrorDialog()
+			except AttributeError:
+				pass
 		self.prefsMenu = gui.mainFrame.sysTrayIcon.preferencesMenu
 		self.SPLSettings = self.prefsMenu.Append(wx.ID_ANY, _("SPL Studio Settings..."), _("SPL settings"))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.script_openConfigDialog, self.SPLSettings)
