@@ -54,6 +54,16 @@ SPLMinVersion = "5.00"
 # Configuration management )4.0 and later; will not be ported to 3.x).
 SPLConfig = ConfigObj(os.path.join(globalVars.appArgs.configPath, "splstudio.ini"))
 
+# Display an error dialog when configuration is wrong.
+def runConfigErrorDialog():
+	global SPLConfig
+	if SPLConfig is not None: SPLConfig.write()
+	wx.CallAfter(gui.messageBox,
+	# Translators: Standard dialog message when Studio configuration has problems.
+	_("Your Studio configuration has errors and was reset to factory defaults."),
+	# Translators: Standard error title for configuration error.
+	_("Studio Configuration error"),wx.OK|wx.ICON_ERROR)
+
 # Threads pool.
 micAlarmT = None
 libScanT = None
@@ -117,12 +127,29 @@ class AppModule(appModuleHandler.AppModule):
 				clsList.insert(0, SPLTrackItem)"""
 
 	# populate end of track and intro time alarm settings separately.
+	unexpectedConfig = False
 	try:
+		# Manually correct config mistakes (it'll be automated in add-on 5.0).
 		SPLEndOfTrackTime = SPLConfig["EndOfTrackTime"]
+		if (len(SPLEndOfTrackTime) != 5
+		or not SPLEndOfTrackTime.startswith("00:")
+		or SPLEndOfTrackTime[2] != ":"
+		or not SPLEndOfTrackTime.split(":")[1].isdigit()):
+			SPLEndOfTrackTime = "00:05"
+			# Tell NVDA to write the config again.
+			unexpectedConfig = True
+			SPLConfig["EndOfTrackTime"] = SPLEndOfTrackTime
 	except KeyError:
 		SPLEndOfTrackTime = "00:05"
 	try:
 		SPLSongRampTime = SPLConfig["SongRampTime"]
+		if (len(SPLSongRampTime) != 5
+		or not SPLSongRampTime.startswith("00:0")
+		or SPLSongRampTime[2] != ":"
+		or not SPLSongRampTime[-1].isdigit()):
+			SPLSongRampTime = "00:05"
+			unexpectedConfig = True
+			SPLConfig["SongRampTime"] = SPLSongRampTime
 	except KeyError:
 		SPLSongRampTime = "00:05"
 	# Keep an eye on library scans in insert tracks window.
@@ -130,9 +157,22 @@ class AppModule(appModuleHandler.AppModule):
 	scanCount = 0
 	# Microphone alarm.
 	try:
-		micAlarm = int(SPLConfig["MicAlarm"])
+		try:
+			micAlarm = int(SPLConfig["MicAlarm"])
+		except ValueError:
+			micAlarm = 0
+			unexpectedConfig = True
+			SPLConfig["MicAlarm"] = micAlarm
+		if micAlarm < 0:
+			micAlarm = 0
+			unexpectedConfig = True
+			SPLConfig["MicAlarm"] = micAlarm
 	except KeyError:
 		micAlarm = 0
+	# Rewrite the config.
+	if unexpectedConfig:
+		runConfigErrorDialog()
+		unexpectedConfig = False
 	# For SPL 5.10: take care of some object child constant changes across builds.
 	spl510used = False
 	# For 5.0X and earlier: prevent NVDA from announcing scheduled time multiple times.
