@@ -59,12 +59,33 @@ SPLMinVersion = "5.00"
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
 confspec = ConfigObj(StringIO("""
 BeepAnnounce = boolean(default=false)
-EndOfTrackTime = string(min=5, max=5, default="00:05")
-SongRampTime = string(min=5, max=5, default="00:05")
+EndOfTrackTime = integer(min=1, max=59, default=5)
+SongRampTime = integer(min=1, max=9, default=5)
 MicAlarm = integer(min=0, default="0")
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
 SPLConfig = None
+
+# List of values to be converted manually.
+# This will be called only once: when upgrading from prior versions to 5.0, to be removed in 5.1.
+configConversions=("EndOfTrackTime", "SongRampTime")
+
+# The accompanying function for config conversion.
+# Returns config=false if errors occur, to be checked in the app module constructor.
+def config4to5():
+	global SPLConfig, configConversions
+	for setting in configConversions:
+		oldValue = str(SPLConfig[setting])
+		if oldValue.isdigit():
+			continue
+		# If the old value doesn't conform to below conditions, start from a fresh config spec.
+		if (len(oldValue) != 5
+		and not oldValue.startswith("00:")
+		and not oldValue.split(":")[1].isdigit()):
+			return False
+		newValue = SPLConfig[setting].split(":")[1]
+		SPLConfig[setting] = int(newValue)
+	return True
 
 # Display an error dialog when configuration is wrong.
 def runConfigErrorDialog():
@@ -219,7 +240,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		label = wx.StaticText(self, wx.ID_ANY, label=_("&End of track alarm in seconds"))
 		sizer.Add(label)
 		self.endOfTrackAlarm = wx.SpinCtrl(self, wx.ID_ANY, min=1, max=59)
-		self.endOfTrackAlarm.SetValue(long(SPLConfig["EndOfTrackTime"][-2:]))
+		self.endOfTrackAlarm.SetValue(long(SPLConfig["EndOfTrackTime"]))
 		sizer.Add(self.endOfTrackAlarm)
 		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
@@ -228,7 +249,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		label = wx.StaticText(self, wx.ID_ANY, label=_("Track &intro alarm in seconds"))
 		sizer.Add(label)
 		self.introAlarm = wx.SpinCtrl(self, wx.ID_ANY, min=1, max=9)
-		self.introAlarm.SetValue(long(SPLConfig["SongRampTime"][-1]))
+		self.introAlarm.SetValue(long(SPLConfig["SongRampTime"]))
 		sizer.Add(self.introAlarm)
 		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
@@ -253,9 +274,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 				_("Error"), wx.OK|wx.ICON_ERROR,self)
 			self.micAlarm.SetFocus()
 			return
-		endOfTrackVal = self.endOfTrackAlarm.Value
-		SPLConfig["EndOfTrackTime"] = "00:0" + str(endOfTrackVal) if endOfTrackVal < 10 else "00:" + str(endOfTrackVal)
-		SPLConfig["SongRampTime"] = "00:0" + str(self.introAlarm.Value)
+		SPLConfig["EndOfTrackTime"] = self.endOfTrackAlarm.Value
+		SPLConfig["SongRampTime"] = self.introAlarm.Value
 		SPLConfig["MicAlarm"] = self.micAlarm.Value
 		super(SPLConfigDialog,  self).onOk(evt)
 
@@ -271,9 +291,11 @@ class AppModule(appModuleHandler.AppModule):
 		global SPLConfig, SPLIni, confspec
 		SPLConfig = ConfigObj(SPLIni, configspec = confspec, encoding="UTF-8")
 		val = Validator()
-		configTest = SPLConfig.validate(val)
-		if isinstance(configTest, dict):
+		configTest = SPLConfig.validate(val, copy=True)
+		if isinstance(configTest, dict) and not config4to5():
 			os.remove(SPLIni)
+			SPLConfig2 = ConfigObj(SPLIni, configspec = confspec, encoding="UTF-8")
+			SPLConfig2.write()
 			SPLConfig = ConfigObj(SPLIni, configspec = confspec, encoding="UTF-8")
 			try:
 				runConfigErrorDialog()
@@ -390,13 +412,13 @@ class AppModule(appModuleHandler.AppModule):
 					# End of track for SPL 5.x.
 					if self.brailleTimer in [self.brailleTimerEnding, self.brailleTimerBoth]: #and "00:00" < obj.name <= self.SPLEndOfTrackTime:
 						braille.handler.message(obj.name)
-					if obj.name == SPLConfig["EndOfTrackTime"]:
+					if obj.name == "00:{0:02d}".format(SPLConfig["EndOfTrackTime"]):
 						tones.beep(440, 200)
 				if obj.simplePrevious.name == "Remaining Song Ramp":
 					# Song intro for SPL 5.x.
 					if self.brailleTimer in [self.brailleTimerIntro, self.brailleTimerBoth]: #and "00:00" < obj.name <= self.SPLSongRampTime:
 						braille.handler.message(obj.name)
-					if obj.name == SPLConfig["SongRampTime"]:
+					if obj.name == "00:{0:02d}".format(SPLConfig["SongRampTime"]):
 						tones.beep(512, 400)
 		nextHandler()
 
@@ -577,7 +599,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Set the end of track alarm time between 1 and 59 seconds.
 
 	def script_setEndOfTrackTime(self, gesture):
-		timeVal = long(SPLConfig["EndOfTrackTime"][-2:])
+		timeVal = long(SPLConfig["EndOfTrackTime"])
 		# Translators: A dialog message to set end of track alarm (curAlarmSec is the current end of track alarm in seconds).
 		timeMSG = _("Enter end of track alarm time in seconds (currently {curAlarmSec})").format(curAlarmSec = timeVal)
 		dlg = wx.NumberEntryDialog(gui.mainFrame,
@@ -588,9 +610,7 @@ class AppModule(appModuleHandler.AppModule):
 		def callback(result):
 			global SPLConfig
 			if result == wx.ID_OK:
-				if dlg.GetValue() <= 9: newAlarmSec = "00:0" + str(dlg.GetValue())
-				else: newAlarmSec = "00:" + str(dlg.GetValue())
-				if SPLConfig is not None: SPLConfig["EndOfTrackTime"] = newAlarmSec
+				SPLConfig["EndOfTrackTime"] = dlg.GetValue()
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setEndOfTrackTime.__doc__=_("sets end of track alarm (default is 5 seconds).")
@@ -598,7 +618,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Set song ramp (introduction) time between 1 and 9 seconds.
 
 	def script_setSongRampTime(self, gesture):
-		rampVal = long(SPLConfig["SongRampTime"][-1])
+		rampVal = long(SPLConfig["SongRampTime"])
 		# Translators: A dialog message to set song ramp alarm (curRampSec is the current intro monitoring alarm in seconds).
 		timeMSG = _("Enter song intro alarm time in seconds (currently {curRampSec})").format(curRampSec = rampVal)
 		dlg = wx.NumberEntryDialog(gui.mainFrame,
@@ -608,7 +628,7 @@ class AppModule(appModuleHandler.AppModule):
 		rampVal, 1, 9)
 		def callback(result):
 			if result == wx.ID_OK:
-				if SPLConfig is not None: SPLConfig["SongRampTime"] = "00:0" + dlg.GetValue()
+				SPLConfig["SongRampTime"] = dlg.GetValue()
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setSongRampTime.__doc__=_("sets song intro alarm (default is 5 seconds).")
