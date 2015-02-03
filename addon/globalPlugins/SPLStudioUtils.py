@@ -405,12 +405,16 @@ class SAMEncoderWindow(IAccessible):
 		def callback(result):
 			global streamLabels
 			if result == wx.ID_OK:
-				if dlg.GetValue() != "":
-					if self.encoderType == "SAM": SAMStreamLabels[str(self.IAccessibleChildID)] = dlg.GetValue()
-					elif self.encoderType == "SPL": SPLStreamLabels[str(self.IAccessibleChildID)] = dlg.GetValue()
+				newStreamLabel = dlg.GetValue()
+				if newStreamLabel == curStreamLabel:
+					return # No need to write to disk.
 				else:
-					if self.encoderType == "SAM": del SAMStreamLabels[str(self.IAccessibleChildID)]
-					elif self.encoderType == "SPL": del SPLStreamLabels[(self.IAccessibleChildID)]
+					if len(newStreamLabel):
+						if self.encoderType == "SAM": SAMStreamLabels[str(self.IAccessibleChildID)] = dlg.GetValue()
+						elif self.encoderType == "SPL": SPLStreamLabels[str(self.IAccessibleChildID)] = dlg.GetValue()
+					else:
+						if self.encoderType == "SAM": del SAMStreamLabels[str(self.IAccessibleChildID)]
+						elif self.encoderType == "SPL": del SPLStreamLabels[(self.IAccessibleChildID)]
 				streamLabels["SAMEncoders"] = SAMStreamLabels
 				streamLabels["SPLEncoders"] = SPLStreamLabels
 				streamLabels.write()
