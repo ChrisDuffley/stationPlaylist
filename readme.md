@@ -118,6 +118,12 @@ You can use arrow keys to review various information about a track. To turn Trac
 * A dedicated settings dialog for SPL add-on has been added, accessible from NVDA's preferences menu or by pressing Control+NVDA+0 from SPL window.
 * You can now use Track Dial feature to review columns in a track entry in Studio's main playlist viewer (to toggle this feature, press Control+Grave accent).
 
+## Changes for 4.2/3.7
+
+* NVDA will no longer forget to retain new and changed encoder labels when a user logs off or restarts a computer.
+* When the add-on configuration becomes corrupted when NVDA starts, NVDA will restore default configuration and will display a message to inform the user of this fact.
+* In add-on 3.7, focus issue seen when deleting tracks in Studio 4.33 has been corrected (same fix is available for Studio 5.0x users in add-on 4.1).
+
 ## Changes for 4.1
 
 * In Studio 5.0x, deleting a track from the main playlist viewer will no longer cause NVDA to announce the track below the newly focused track (more noticeable if the second to last track was deleted, in which case NVDA said "unknown").

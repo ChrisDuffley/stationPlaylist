@@ -134,11 +134,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			SPLStreamLabels = {}
 
 	# Save configuration file.
-	def terminate(self):
+	"""def terminate(self):
 		global streamLabels
 		streamLabels["SAMEncoders"] = SAMStreamLabels
 		streamLabels["SPLEncoders"] = SPLStreamLabels
-		streamLabels.write()
+		streamLabels.write()"""
 
 			#Global layer environment (see the app module for more information).
 	SPLController = False # Control SPL from anywhere.
@@ -471,13 +471,21 @@ class SAMEncoderWindow(IAccessible):
 		dlg = wx.TextEntryDialog(gui.mainFrame,
 		streamText, streamTitle, defaultValue=curStreamLabel)
 		def callback(result):
+			global streamLabels
 			if result == wx.ID_OK:
-				if dlg.GetValue() != "":
-					if self.encoderType == "SAM": SAMStreamLabels[str(self.IAccessibleChildID)] = dlg.GetValue()
-					elif self.encoderType == "SPL": SPLStreamLabels[str(self.IAccessibleChildID)] = dlg.GetValue()
+				newStreamLabel = dlg.GetValue()
+				if newStreamLabel == curStreamLabel:
+					return # No need to write to disk.
 				else:
-					if self.encoderType == "SAM": del SAMStreamLabels[str(self.IAccessibleChildID)]
-					elif self.encoderType == "SPL": del SPLStreamLabels[(self.IAccessibleChildID)]
+					if len(newStreamLabel):
+						if self.encoderType == "SAM": SAMStreamLabels[str(self.IAccessibleChildID)] = dlg.GetValue()
+						elif self.encoderType == "SPL": SPLStreamLabels[str(self.IAccessibleChildID)] = dlg.GetValue()
+					else:
+						if self.encoderType == "SAM": del SAMStreamLabels[str(self.IAccessibleChildID)]
+						elif self.encoderType == "SPL": del SPLStreamLabels[(self.IAccessibleChildID)]
+				streamLabels["SAMEncoders"] = SAMStreamLabels
+				streamLabels["SPLEncoders"] = SPLStreamLabels
+				streamLabels.write()
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message in SAM Encoder window.
 	script_streamLabeler.__doc__=_("Opens a dialog to label the selected encoder.")
