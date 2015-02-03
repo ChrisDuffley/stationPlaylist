@@ -10,9 +10,13 @@
 
 # Minimum version: SPL 5.00, NvDA 2014.3.
 
+import ctypes
+from ctypes import wintypes
 from functools import wraps
 import os
+from cStringIO import StringIO
 from configobj import ConfigObj
+from validate import Validator
 import time
 import threading
 import controlTypes
@@ -20,6 +24,7 @@ import appModuleHandler
 import api
 import globalVars
 import review
+import eventHandler
 import scriptHandler
 import ui
 import nvwave
@@ -28,8 +33,8 @@ import braille
 import gui
 import wx
 from winUser import user32, sendMessage
-from winKernel import GetTimeFormat, LOCALE_USER_DEFAULT
-from NVDAObjects.IAccessible import IAccessible
+import winKernel
+from NVDAObjects.IAccessible import IAccessible, sysListView32 # SysListView32 is used for Track Dial (see below).
 import textInfos
 import tones
 import addonHandler
@@ -51,13 +56,40 @@ def finally_(func, final):
 # Make sure the broadcaster is running a compatible version.
 SPLMinVersion = "5.00"
 
-# Configuration management )4.0 and later; will not be ported to 3.x).
-SPLConfig = ConfigObj(os.path.join(globalVars.appArgs.configPath, "splstudio.ini"))
+# Configuration management
+SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
+confspec = ConfigObj(StringIO("""
+BeepAnnounce = boolean(default=false)
+EndOfTrackTime = integer(min=1, max=59, default=5)
+SongRampTime = integer(min=1, max=9, default=5)
+MicAlarm = integer(min=0, default="0")
+"""), encoding="UTF-8", list_values=False)
+confspec.newlines = "\r\n"
+SPLConfig = None
+
+# List of values to be converted manually.
+# This will be called only once: when upgrading from prior versions to 5.0, to be removed in 5.1.
+configConversions=("EndOfTrackTime", "SongRampTime")
+
+# The accompanying function for config conversion.
+# Returns config=false if errors occur, to be checked in the app module constructor.
+def config4to5():
+	global SPLConfig, configConversions
+	for setting in configConversions:
+		oldValue = str(SPLConfig[setting])
+		if oldValue.isdigit():
+			continue
+		# If the old value doesn't conform to below conditions, start from a fresh config spec.
+		if (len(oldValue) != 5
+		and not oldValue.startswith("00:")
+		and not oldValue.split(":")[1].isdigit()):
+			return False
+		newValue = SPLConfig[setting].split(":")[1]
+		SPLConfig[setting] = int(newValue)
+	return True
 
 # Display an error dialog when configuration is wrong.
 def runConfigErrorDialog():
-	global SPLConfig
-	if SPLConfig is not None: SPLConfig.write()
 	wx.CallAfter(gui.messageBox,
 	# Translators: Standard dialog message when Studio configuration has problems.
 	_("Your Studio configuration has errors and was reset to factory defaults."),
@@ -78,10 +110,104 @@ def messageSound(wavFile, message):
 
 # Routines for track items themselves (prepare for future work).
 class SPLTrackItem(IAccessible):
-	"""Track item for earlier versions of Studio such as 5.00."""
-	pass
+	"""Track item for earlier versions of Studio such as 5.00.
+	A base class for providing utility scripts when track entries are focused, such as track dial."""
 
-class SPL510TrackItem(IAccessible):
+	def initOverlayClass(self):
+		if self.appModule.SPLTrackDial:
+			self.bindGesture("kb:rightArrow", "nextColumn")
+			self.bindGesture("kb:leftArrow", "prevColumn")
+
+	# Track Dial: using arrow keys to move through columns.
+	# This is similar to enhanced arrow keys in other screen readers.
+
+	def script_toggleTrackDial(self, gesture):
+		if not self.appModule.SPLTrackDial:
+			self.appModule.SPLTrackDial = True
+			self.bindGesture("kb:rightArrow", "nextColumn")
+			self.bindGesture("kb:leftArrow", "prevColumn")
+			dialText = "Track Dial on"
+			if self.appModule.SPLColNumber > 0:
+				dialText+= ", located at column {columnHeader}".format(columnHeader = self.appModule.SPLColNumber+1)
+			ui.message(dialText)
+		else:
+			self.appModule.SPLTrackDial = False
+			try:
+				self.removeGestureBinding("kb:rightArrow")
+				self.removeGestureBinding("kb:leftArrow")
+			except KeyError:
+				pass
+			ui.message("Track Dial off")
+
+	# Some helper functions to handle corner cases.
+	# Each track item provides its own version.
+	def _leftmostcol(self):
+		leftmost = self.columnHeaders.firstChild.name
+		if not self.name or self.name == "":
+			ui.message("{leftmostColumn} not found".format(leftmostColumn = leftmost))
+		else:
+			ui.message("{leftmostColumn}: {leftmostContent}".format(leftmostColumn = self.columnHeaders.children[self.appModule.SPLColNumber].name, leftmostContent = self.name))
+
+	# Locate column content.
+	def _getColumnContent(self, col):
+		# Borrowed from SysListView32 implementation.
+		# For add-on 6.0: see if track items can be subclassed from SysListView32.ListItem.
+		buffer=None
+		processHandle=self.processHandle
+		# Because each process in an OS has separate memory spaces, use VM functions to find column content.
+		internalItem=winKernel.virtualAllocEx(processHandle,None,ctypes.sizeof(sysListView32.LVITEM),winKernel.MEM_COMMIT,winKernel.PAGE_READWRITE)
+		try:
+			internalText=winKernel.virtualAllocEx(processHandle,None,520,winKernel.MEM_COMMIT,winKernel.PAGE_READWRITE)
+			try:
+				item=sysListView32.LVITEM(iItem=self.IAccessibleChildID-1,mask=sysListView32.LVIF_TEXT|sysListView32.LVIF_COLUMNS,iSubItem=col,pszText=internalText,cchTextMax=260)
+				winKernel.writeProcessMemory(processHandle,internalItem,ctypes.byref(item),ctypes.sizeof(sysListView32.LVITEM),None)
+				len = sendMessage(self.windowHandle,sysListView32.LVM_GETITEMTEXTW, (self.IAccessibleChildID-1), internalItem)
+				if len:
+					winKernel.readProcessMemory(processHandle,internalItem,ctypes.byref(item),ctypes.sizeof(sysListView32.LVITEM),None)
+					buffer=ctypes.create_unicode_buffer(len)
+					winKernel.readProcessMemory(processHandle,item.pszText,buffer,ctypes.sizeof(buffer),None)
+			finally:
+				winKernel.virtualFreeEx(processHandle,internalText,0,winKernel.MEM_RELEASE)
+		finally:
+			winKernel.virtualFreeEx(processHandle,internalItem,0,winKernel.MEM_RELEASE)
+		return buffer.value if buffer else None
+
+	# Announce column content if any.
+	def announceColumnContent(self, colNumber):
+		columnHeader = self.columnHeaders.children[colNumber].name
+		columnContent = self._getColumnContent(colNumber)
+		if columnContent:
+			ui.message("{header}: {content}".format(header = columnHeader, content = columnContent))
+		else:
+			speech.speakMessage("{header}: blank".format(header = columnHeader))
+			braille.handler.message("{header}: ()".format(header = columnHeader))
+
+	# Now the scripts.
+
+	def script_nextColumn(self, gesture):
+		self.columnHeaders = self.parent.children[-1]
+		if (self.appModule.SPLColNumber+1) == self.columnHeaders.childCount:
+			tones.beep(2000, 100)
+		else:
+			self.appModule.SPLColNumber +=1
+		self.announceColumnContent(self.appModule.SPLColNumber)
+
+	def script_prevColumn(self, gesture):
+		self.columnHeaders = self.parent.children[-1]
+		if self.appModule.SPLColNumber <= 0:
+			tones.beep(2000, 100)
+		else:
+			self.appModule.SPLColNumber -=1
+		if self.appModule.SPLColNumber == 0:
+			self._leftmostcol()
+		else:
+			self.announceColumnContent(self.appModule.SPLColNumber)
+
+	__gestures={
+		"kb:control+`":"toggleTrackDial",
+	}
+
+class SPL510TrackItem(SPLTrackItem):
 	""" Track item for Studio 5.10 and later."""
 
 	def script_select(self, gesture):
@@ -89,13 +215,104 @@ class SPL510TrackItem(IAccessible):
 		speech.speakMessage(self.name)
 		braille.handler.handleUpdate(self)
 
+	# Handle track dial for SPL 5.10.
+	def _leftmostcol(self):
+		if not self.name:
+			ui.message("Status not found")
+		else:
+			ui.message("Status: {n}".format(n = self.name))
+
 	__gestures={"kb:space":"select"}
+
+# Configuration dialog.
+class SPLConfigDialog(gui.SettingsDialog):
+	# Translators: This is the label for the StationPlaylist Studio configuration dialog.
+	title = _("Studio Add-on Settings")
+
+	def makeSettings(self, settingsSizer):
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
+		self.beepAnnounceCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Beep for status announcements"))
+		self.beepAnnounceCheckbox.SetValue(SPLConfig["BeepAnnounce"])
+		sizer.Add(self.beepAnnounceCheckbox, border=10,flag=wx.BOTTOM)
+
+		# Translators: The label for a setting in SPL Add-on settings to specify end of track (outro) alarm.
+		label = wx.StaticText(self, wx.ID_ANY, label=_("&End of track alarm in seconds"))
+		sizer.Add(label)
+		self.endOfTrackAlarm = wx.SpinCtrl(self, wx.ID_ANY, min=1, max=59)
+		self.endOfTrackAlarm.SetValue(long(SPLConfig["EndOfTrackTime"]))
+		sizer.Add(self.endOfTrackAlarm)
+		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: The label for a setting in SPL Add-on settings to specify track intro alarm.
+		label = wx.StaticText(self, wx.ID_ANY, label=_("Track &intro alarm in seconds"))
+		sizer.Add(label)
+		self.introAlarm = wx.SpinCtrl(self, wx.ID_ANY, min=1, max=9)
+		self.introAlarm.SetValue(long(SPLConfig["SongRampTime"]))
+		sizer.Add(self.introAlarm)
+		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: The label for a setting in SPL Add-on settings to change microphone alarm setting.
+		label = wx.StaticText(self, wx.ID_ANY, label=_("&Microphone alarm in seconds"))
+		sizer.Add(label)
+		self.micAlarm = wx.TextCtrl(self, wx.ID_ANY)
+		self.micAlarm.SetValue(str(SPLConfig["MicAlarm"]))
+		sizer.Add(self.micAlarm)
+		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+	def postInit(self):
+		self.beepAnnounceCheckbox.SetFocus()
+
+	def onOk(self, evt):
+		if not self.micAlarm.Value.isdigit():
+			gui.messageBox(
+				# Translators: Message to report wrong value for microphone alarm.
+				_("Incorrect microphone alarm value entered."),
+				# Translators: The title of the message box
+				_("Error"), wx.OK|wx.ICON_ERROR,self)
+			self.micAlarm.SetFocus()
+			return
+		SPLConfig["EndOfTrackTime"] = self.endOfTrackAlarm.Value
+		SPLConfig["SongRampTime"] = self.introAlarm.Value
+		SPLConfig["MicAlarm"] = self.micAlarm.Value
+		super(SPLConfigDialog,  self).onOk(evt)
 
 
 class AppModule(appModuleHandler.AppModule):
 
 	# Translators: Script category for Station Playlist commands in input gestures dialog.
 	scriptCategory = _("Station Playlist Studio")
+
+	# Prepare the settings dialog among other things.
+	def __init__(self, *args, **kwargs):
+		super(AppModule, self).__init__(*args, **kwargs)
+		global SPLConfig, SPLIni, confspec
+		SPLConfig = ConfigObj(SPLIni, configspec = confspec, encoding="UTF-8")
+		val = Validator()
+		configTest = SPLConfig.validate(val, copy=True)
+		if isinstance(configTest, dict) and not config4to5():
+			os.remove(SPLIni)
+			SPLConfig2 = ConfigObj(SPLIni, configspec = confspec, encoding="UTF-8")
+			SPLConfig2.write()
+			SPLConfig = ConfigObj(SPLIni, configspec = confspec, encoding="UTF-8")
+			try:
+				runConfigErrorDialog()
+			except AttributeError:
+				pass
+		# Announce status changes while using other programs.
+		# This requires NVDA core support and will be available in 5.0 and later (cannot be ported to earlier versions).
+		# For now, handle all background events, but in the end, make this configurable.
+		if hasattr(eventHandler, "requestEvents"):
+			eventHandler.requestEvents(eventName="nameChange", processId=self.processID, windowClassName="TStatusBar")
+			self.backgroundStatusMonitor = True
+		else:
+			self.backgroundStatusMonitor = False
+		self.prefsMenu = gui.mainFrame.sysTrayIcon.preferencesMenu
+		self.SPLSettings = self.prefsMenu.Append(wx.ID_ANY, _("SPL Studio Settings..."), _("SPL settings"))
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.script_openConfigDialog, self.SPLSettings)
 
 	# Play beeps instead of announcing toggles.
 	beepAnnounce = False
@@ -119,96 +336,59 @@ class AppModule(appModuleHandler.AppModule):
 		fg = api.getForegroundObject()
 		if fg:
 			role = obj.role
-			# Ignore hour markers when using add-on 3.x and 4.x with Studio 5.10.
-			if obj.windowClassName == "TTntListView.UnicodeClass" and fg.windowClassName == "TStudioForm" and role == controlTypes.ROLE_LISTITEM and obj.name:
+			if obj.windowClassName == "TTntListView.UnicodeClass" and fg.windowClassName == "TStudioForm" and role == controlTypes.ROLE_LISTITEM:
 				clsList.insert(0, SPL510TrackItem)
-			# For now, ignore track entries for earlier Studio versions.
-			"""elif obj.windowClassName == "TListView" and fg.windowClassName == "TStudioForm" and role == controlTypes.ROLE_CHECKBOX:
-				clsList.insert(0, SPLTrackItem)"""
+			elif obj.windowClassName == "TListView" and fg.windowClassName == "TStudioForm" and role == controlTypes.ROLE_CHECKBOX:
+				clsList.insert(0, SPLTrackItem)
 
-	# populate end of track and intro time alarm settings separately.
-	unexpectedConfig = False
-	try:
-		# Manually correct config mistakes (it'll be automated in add-on 5.0).
-		SPLEndOfTrackTime = SPLConfig["EndOfTrackTime"]
-		if (len(SPLEndOfTrackTime) != 5
-		or not SPLEndOfTrackTime.startswith("00:")
-		or SPLEndOfTrackTime[2] != ":"
-		or not SPLEndOfTrackTime.split(":")[1].isdigit()):
-			SPLEndOfTrackTime = "00:05"
-			# Tell NVDA to write the config again.
-			unexpectedConfig = True
-			SPLConfig["EndOfTrackTime"] = SPLEndOfTrackTime
-	except KeyError:
-		SPLEndOfTrackTime = "00:05"
-	try:
-		SPLSongRampTime = SPLConfig["SongRampTime"]
-		if (len(SPLSongRampTime) != 5
-		or not SPLSongRampTime.startswith("00:0")
-		or SPLSongRampTime[2] != ":"
-		or not SPLSongRampTime[-1].isdigit()):
-			SPLSongRampTime = "00:05"
-			unexpectedConfig = True
-			SPLConfig["SongRampTime"] = SPLSongRampTime
-	except KeyError:
-		SPLSongRampTime = "00:05"
 	# Keep an eye on library scans in insert tracks window.
 	libraryScanning = False
 	scanCount = 0
-	# Microphone alarm.
-	try:
-		try:
-			micAlarm = int(SPLConfig["MicAlarm"])
-		except ValueError:
-			micAlarm = 0
-			unexpectedConfig = True
-			SPLConfig["MicAlarm"] = micAlarm
-		if micAlarm < 0:
-			micAlarm = 0
-			unexpectedConfig = True
-			SPLConfig["MicAlarm"] = micAlarm
-	except KeyError:
-		micAlarm = 0
-	# Rewrite the config.
-	if unexpectedConfig:
-		runConfigErrorDialog()
-		unexpectedConfig = False
 	# For SPL 5.10: take care of some object child constant changes across builds.
 	spl510used = False
 	# For 5.0X and earlier: prevent NVDA from announcing scheduled time multiple times.
 	scheduledTimeCache = ""
+	# Track Dial (A.K.A. enhanced arrow keys)
+	SPLTrackDial = False
+	SPLColNumber = 0
 
 	# Automatically announce mic, line in, etc changes
 	# These items are static text items whose name changes.
 	# Note: There are two status bars, hence the need to exclude Up time so it doesn't announce every minute.
 	# Unfortunately, Window handles and WindowControlIDs seem to change, so can't be used.
 	def event_nameChange(self, obj, nextHandler):
-		# Do not let NvDA get name for None object when SPL window is maximized.
 		global noLibScanMonitor
+		# Do not let NvDA get name for None object when SPL window is maximized.
 		if not obj.name:
 			return
+		# Suppress announcing status messages when background monitoring is unavailable.
+		if api.getForegroundObject().processID != self.processID and not self.backgroundStatusMonitor:
+			nextHandler()
 		if obj.windowClassName == "TStatusBar" and not obj.name.startswith("  Up time:"):
+			#tones.beep(512, 200)
 			# Special handling for Play Status
-			fgWinClass = api.getForegroundObject().windowClassName
 			if obj.IAccessibleChildID == 1:
-				if fgWinClass == "TStudioForm":
+				if "Play status" in obj.name:
 					# Strip off "  Play status: " for brevity only in main playlist window.
-					ui.message(obj.name[15:])
-				elif fgWinClass == "TTrackInsertForm" and self.libraryScanProgress > 0:
-					# If library scan is in progress, announce its progress.
-					self.scanCount+=1
-					if self.scanCount%100 == 0:
-						if self.libraryScanProgress == self.libraryScanMessage:
-							tones.beep(550, 100) if self.beepAnnounce else ui.message("Scanning")
-						elif self.libraryScanProgress == self.libraryScanNumbers:
-							if self.beepAnnounce: tones.beep(550, 100)
-							ui.message(obj.name[1:obj.name.find("]")])
-					if "Loading" in obj.name and not self.libraryScanning:
-						if self.productVersion not in noLibScanMonitor: self.libraryScanning = True
-					elif "match" in obj.name:
+					ui.message(obj.name.split(":")[1])
+				elif "Loading" in obj.name:
+					if self.libraryScanProgress > 0:
+						# If library scan is in progress, announce its progress.
+						self.scanCount+=1
+						if self.scanCount%100 == 0:
+							if self.libraryScanProgress == self.libraryScanMessage:
+								tones.beep(550, 100) if self.beepAnnounce else ui.message("Scanning")
+							elif self.libraryScanProgress == self.libraryScanNumbers:
+								if self.beepAnnounce: tones.beep(550, 100)
+								ui.message(obj.name[1:obj.name.find("]")])
+					if not self.libraryScanning:
+						if self.productVersion not in noLibScanMonitor:
+							if not self.backgroundStatusMonitor: self.libraryScanning = True
+				elif "match" in obj.name:
+					if self.libraryScanProgress:
 						tones.beep(370, 100) if self.beepAnnounce else ui.message("Scan complete")
-						if self.libraryScanning: self.libraryScanning = False
-						self.scanCount = 0
+					if self.libraryScanning: self.libraryScanning = False
+					self.scanCount = 0
 			else:
 				if obj.name.startswith("Scheduled for"):
 					if self.scheduledTimeCache == obj.name: return
@@ -237,9 +417,9 @@ class AppModule(appModuleHandler.AppModule):
 						return
 				else:
 					ui.message(obj.name)
-			if self.cartExplorer or self.micAlarm:
-				# Activate mic alarm or announce when cart explorer is active.
-				self.doExtraAction(obj.name)
+				if self.cartExplorer or int(SPLConfig["MicAlarm"]):
+					# Activate mic alarm or announce when cart explorer is active.
+					self.doExtraAction(obj.name)
 		# Monitor the end of track and song intro time and announce it.
 		elif obj.windowClassName == "TStaticText": # For future extensions.
 			if obj.simplePrevious != None:
@@ -247,21 +427,21 @@ class AppModule(appModuleHandler.AppModule):
 					# End of track for SPL 5.x.
 					if self.brailleTimer in [self.brailleTimerEnding, self.brailleTimerBoth]: #and "00:00" < obj.name <= self.SPLEndOfTrackTime:
 						braille.handler.message(obj.name)
-					if obj.name == self.SPLEndOfTrackTime:
+					if obj.name == "00:{0:02d}".format(SPLConfig["EndOfTrackTime"]):
 						tones.beep(440, 200)
 				if obj.simplePrevious.name == "Remaining Song Ramp":
 					# Song intro for SPL 5.x.
 					if self.brailleTimer in [self.brailleTimerIntro, self.brailleTimerBoth]: #and "00:00" < obj.name <= self.SPLSongRampTime:
 						braille.handler.message(obj.name)
-					if obj.name == self.SPLSongRampTime:
+					if obj.name == "00:{0:02d}".format(SPLConfig["SongRampTime"]):
 						tones.beep(512, 400)
-		# Clean this mess with a more elegant solution.
 		nextHandler()
 
 	# JL's additions
 
 	# Perform extra action in specific situations (mic alarm, for example).
 	def doExtraAction(self, status):
+		micAlarm = int(SPLConfig["MicAlarm"])
 		if self.cartExplorer:
 			if status == "Cart Edit On":
 				# Translators: Presented when cart edit mode is toggled on while cart explorer is on.
@@ -269,7 +449,7 @@ class AppModule(appModuleHandler.AppModule):
 			elif status == "Cart Edit Off":
 				# Translators: Presented when cart edit mode is toggled off while cart explorer is on.
 				ui.message(_("Please reenter cart explorer to view updated cart assignments"))
-		if self.micAlarm:
+		if micAlarm:
 			# Play an alarm sound from Braille Sense U2.
 			global micAlarmT
 			micAlarmWav = os.path.join(os.path.dirname(__file__), "SPL_MicAlarm.wav")
@@ -277,11 +457,11 @@ class AppModule(appModuleHandler.AppModule):
 			micAlarmMessage = _("Warning: Microphone active")
 			# Use a timer to play a tone when microphone was active for more than the specified amount.
 			if status == "Microphone On":
-				micAlarmT = threading.Timer(self.micAlarm, messageSound, args=[micAlarmWav, micAlarmMessage])
+				micAlarmT = threading.Timer(micAlarm, messageSound, args=[micAlarmWav, micAlarmMessage])
 				try:
 					micAlarmT.start()
 				except RuntimeError:
-					micAlarmT = threading.Timer(self.micAlarm, messageSound, args=[micAlarmWav, micAlarmMessage])
+					micAlarmT = threading.Timer(micAlarm, messageSound, args=[micAlarmWav, micAlarmMessage])
 					micAlarmT.start()
 			elif status == "Microphone Off":
 				if micAlarmT is not None: micAlarmT.cancel()
@@ -298,16 +478,38 @@ class AppModule(appModuleHandler.AppModule):
 	# Continue monitoring library scans among other focus loss management.
 	def event_loseFocus(self, obj, nextHandler):
 		fg = api.getForegroundObject()
-		if fg.windowClassName == "TTrackInsertForm" and self.libraryScanning:
+		if fg.windowClassName == "TTrackInsertForm" and self.libraryScanning and not self.backgroundStatusMonitor:
 			global libScanT
 			if not libScanT or (libScanT and not libScanT.isAlive()):
 				self.monitorLibraryScan()
 		nextHandler()
 
+	# Call SPL API to obtain needed values.
+	# This is needed for some Assistant and time commands.
+	# A thin wrapper around user32.SendMessage and calling a callback if defined.
+	def statusAPI(self, arg, command, func=None, ret=False, offset=None):
+		#c = time.clock()
+		SPLWin = user32.FindWindowA("SPLStudio", None)
+		val = sendMessage(SPLWin, 1024, arg, command)
+		#ui.message("{c}".format(c = time.clock()-c))
+		if ret:
+			return val
+		if func:
+			func(val) if not offset else func(val, offset)
+
 	# Save configuration when terminating.
 	def terminate(self):
 		super(AppModule, self).terminate()
+		global SPLConfig
 		if SPLConfig is not None: SPLConfig.write()
+		# Hack: until the public API is available, remove SPL entry from accepted events manually.
+		eventHandler._acceptEvents.remove(("nameChange", self.processID, "TStatusBar"))
+		try:
+			self.prefsMenu.RemoveItem(self.SPLSettings)
+		except wx.PyDeadObjectError:
+			pass
+		SPLConfig = None
+
 
 	# Script sections (for ease of maintenance):
 	# Time-related: elapsed time, end of track alarm, etc.
@@ -329,22 +531,20 @@ class AppModule(appModuleHandler.AppModule):
 		4:_("Cannot obtain time in hours, minutes and seconds")
 	}
 
-	# Call SPL API for important time messages.
-	def timeAPI(self, arg):
-		SPLWin = user32.FindWindowA("SPLStudio", None)
-		t = sendMessage(SPLWin, 1024, arg, 105)
-		if t < 0:
+	# Specific to time scripts using Studio API.
+	def announceTime(self, t, offset = None):
+		if t <= 0:
 			ui.message("00:00")
 		else:
-			tm = (t/1000)+1
+			tm = (t/1000) if not offset else (t/1000)+offset
 			if tm < 60:
 				tm1, tm2 = "00", tm
 			else:
 				tm1, tm2 = tm/60, tm%60
-				if tm1 < 10:
-					tm1 = "0" + str(tm1)
-				if tm2 < 10:
-					tm2 = "0" + str(tm2)
+			if tm1 < 10:
+				tm1 = "0" + str(tm1)
+			if tm2 < 10:
+				tm2 = "0" + str(tm2)
 			ui.message("{a}:{b}".format(a = tm1, b = tm2))
 
 	# Scripts which rely on API.
@@ -352,7 +552,7 @@ class AppModule(appModuleHandler.AppModule):
 		if self.SPLCurVersion >= SPLMinVersion:
 			fgWindow = api.getForegroundObject()
 			if fgWindow.windowClassName == "TStudioForm":
-				self.timeAPI(3)
+				self.statusAPI(3, 105, self.announceTime, offset=1)
 			else:
 				ui.message(self.timeMessageErrors[1])
 		else:
@@ -365,7 +565,7 @@ class AppModule(appModuleHandler.AppModule):
 		if self.SPLCurVersion >= SPLMinVersion:
 			fgWindow = api.getForegroundObject()
 			if fgWindow.windowClassName == "TStudioForm":
-				self.timeAPI(0)
+				self.statusAPI(0, 105, self.announceTime, offset=1)
 			else:
 				ui.message(self.timeMessageErrors[2])
 		else:
@@ -405,7 +605,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Says complete time in hours, minutes and seconds via kernel32's routines.
 		if self.SPLCurVersion >= SPLMinVersion :
 			if api.getForegroundObject().windowClassName == "TStudioForm":
-				ui.message(GetTimeFormat(LOCALE_USER_DEFAULT, 0, None, None))
+				ui.message(winKernel.GetTimeFormat(winKernel.LOCALE_USER_DEFAULT, 0, None, None))
 			else:
 				ui.message(self.timeMessageErrors[4])
 		else:
@@ -416,7 +616,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Set the end of track alarm time between 1 and 59 seconds.
 
 	def script_setEndOfTrackTime(self, gesture):
-		timeVal = long(self.SPLEndOfTrackTime[-2:])
+		timeVal = long(SPLConfig["EndOfTrackTime"])
 		# Translators: A dialog message to set end of track alarm (curAlarmSec is the current end of track alarm in seconds).
 		timeMSG = _("Enter end of track alarm time in seconds (currently {curAlarmSec})").format(curAlarmSec = timeVal)
 		dlg = wx.NumberEntryDialog(gui.mainFrame,
@@ -427,10 +627,7 @@ class AppModule(appModuleHandler.AppModule):
 		def callback(result):
 			global SPLConfig
 			if result == wx.ID_OK:
-				if dlg.GetValue() <= 9: newAlarmSec = "0" + str(dlg.GetValue())
-				else: newAlarmSec = str(dlg.GetValue())
-				self.SPLEndOfTrackTime = self.SPLEndOfTrackTime.replace(self.SPLEndOfTrackTime[-2:], newAlarmSec)
-				if SPLConfig is not None: SPLConfig["EndOfTrackTime"] = self.SPLEndOfTrackTime
+				SPLConfig["EndOfTrackTime"] = dlg.GetValue()
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setEndOfTrackTime.__doc__=_("sets end of track alarm (default is 5 seconds).")
@@ -438,7 +635,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Set song ramp (introduction) time between 1 and 9 seconds.
 
 	def script_setSongRampTime(self, gesture):
-		rampVal = long(self.SPLSongRampTime[-1])
+		rampVal = long(SPLConfig["SongRampTime"])
 		# Translators: A dialog message to set song ramp alarm (curRampSec is the current intro monitoring alarm in seconds).
 		timeMSG = _("Enter song intro alarm time in seconds (currently {curRampSec})").format(curRampSec = rampVal)
 		dlg = wx.NumberEntryDialog(gui.mainFrame,
@@ -448,8 +645,7 @@ class AppModule(appModuleHandler.AppModule):
 		rampVal, 1, 9)
 		def callback(result):
 			if result == wx.ID_OK:
-					self.SPLSongRampTime = self.SPLSongRampTime.replace(self.SPLSongRampTime[-1], str(dlg.GetValue()))
-					if SPLConfig is not None: SPLConfig["SongRampTime"] = self.SPLSongRampTime
+				SPLConfig["SongRampTime"] = dlg.GetValue()
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setSongRampTime.__doc__=_("sets song intro alarm (default is 5 seconds).")
@@ -457,9 +653,10 @@ class AppModule(appModuleHandler.AppModule):
 # Tell NVDA to play a sound when mic was active for a long time.
 
 	def script_setMicAlarm(self, gesture):
-		if self.micAlarm:
+		micAlarm = str(SPLConfig["MicAlarm"])
+		if int(micAlarm):
 			# Translators: A dialog message to set microphone active alarm (curAlarmSec is the current mic monitoring alarm in seconds).
-			timeMSG = _("Enter microphone alarm time in seconds (currently {curAlarmSec}, 0 disables the alarm)").format(curAlarmSec = self.micAlarm)
+			timeMSG = _("Enter microphone alarm time in seconds (currently {curAlarmSec}, 0 disables the alarm)").format(curAlarmSec = micAlarm)
 		else:
 			# Translators: A dialog message when microphone alarm is disabled (set to 0).
 			timeMSG = _("Enter microphone alarm time in seconds (currently disabled, 0 disables the alarm)")
@@ -467,7 +664,7 @@ class AppModule(appModuleHandler.AppModule):
 		timeMSG,
 		# Translators: The title of mic alarm dialog.
 		_("Microphone alarm"),
-		defaultValue=str(self.micAlarm))
+		defaultValue=micAlarm)
 		def callback(result):
 			if result == wx.ID_OK:
 				if not dlg.GetValue().isdigit():
@@ -476,11 +673,15 @@ class AppModule(appModuleHandler.AppModule):
 					# Translators: Standard title for error dialog (copy this from main nvda.po file).
 					_("Error"),wx.OK|wx.ICON_ERROR)
 				else:
-					self.micAlarm = int(dlg.GetValue())
-					if SPLConfig is not None: SPLConfig["MicAlarm"] = self.micAlarm
+					if SPLConfig is not None: SPLConfig["MicAlarm"] = dlg.GetValue()
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setMicAlarm.__doc__=_("Sets microphone alarm (default is 5 seconds).")
+
+	# SPL Config management.
+
+	def script_openConfigDialog(self, gesture):
+		gui.mainFrame._popupSettingsDialog(SPLConfigDialog)
 
 	# Other commands (track finder and others)
 
@@ -882,10 +1083,10 @@ class AppModule(appModuleHandler.AppModule):
 	# Status table keys
 	SPLPlayStatus = 0
 	SPLSystemStatus = 1
-	SPLHourTrackDuration = 2
+	#SPLHourTrackDuration = 2
 	SPLHourSelectedDuration = 3
 	SPLNextTrackTitle = 4
-	SPLPlaylistRemainingDuration = 5
+	#SPLPlaylistRemainingDuration = 5
 	SPLTemperature = 6
 	SPLScheduled = 7
 
@@ -895,28 +1096,34 @@ class AppModule(appModuleHandler.AppModule):
 	statusObjs={
 		SPLPlayStatus:[0, 5, 6], # Play status, mic, etc.
 		SPLSystemStatus:[-2, -3, -2], # The second status bar containing system status such as up time.
-		SPLHourTrackDuration:[13, 17, 18], # For track duration for the given hour marker.
+		#SPLHourTrackDuration:[13, 17, 18], # For track duration for the given hour marker.
 		SPLHourSelectedDuration:[14, 18, 19], # In case the user selects one or more tracks in a given hour.
 		SPLScheduled:[15, 19, 20], # Time when the selected track will begin.
 		SPLNextTrackTitle:[2, 7, 8], # Name and duration of the next track if any.
-		SPLPlaylistRemainingDuration:[12, 16, 17], # Remaining time for the current playlist.
+		#SPLPlaylistRemainingDuration:[12, 16, 17], # Remaining time for the current playlist.
 		SPLTemperature:[1, 6, 7], # Temperature for the current city.
 	}
 
 	# Called in the layer commands themselves.
 	def status(self, infoIndex):
+		#c = time.clock()
 		ver, fg = self.productVersion, api.getForegroundObject()
 		if ver.startswith("4"): statusObj = self.statusObjs[infoIndex][0]
 		elif ver.startswith("5"):
 			if not self.spl510used: statusObj = self.statusObjs[infoIndex][1]
 			else: statusObj = self.statusObjs[infoIndex][2]
+		#ui.message("{c}".format(c = time.clock()-c))
 		return fg.children[statusObj]
 
 	# The layer commands themselves.
 
 	def script_sayPlayStatus(self, gesture):
-		obj = self.status(self.SPLPlayStatus).children[0]
-		ui.message(obj.name)
+		"""obj = self.status(self.SPLPlayStatus).children[0]
+		ui.message(obj.name)"""
+		if self.statusAPI(0, 104, ret=True):
+			ui.message("Play status: Playing")
+		else:
+			ui.message("Play status: Stopped")
 
 	def script_sayAutomationStatus(self, gesture):
 		obj = self.status(self.SPLPlayStatus).children[1]
@@ -939,16 +1146,18 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(obj.name)
 
 	def script_sayHourTrackDuration(self, gesture):
-		obj = self.status(self.SPLHourTrackDuration).firstChild
-		ui.message(obj.name)
+		"""obj = self.status(self.SPLHourTrackDuration).firstChild
+		ui.message(obj.name)"""
+		self.statusAPI(0, 27, self.announceTime)
 
 	def script_sayHourSelectedTrackDuration(self, gesture):
 		obj = self.status(self.SPLHourSelectedDuration).firstChild
 		ui.message(obj.name)
 
 	def script_sayPlaylistRemainingDuration(self, gesture):
-		obj = self.status(self.SPLPlaylistRemainingDuration).children[1]
-		ui.message(obj.name)
+		"""obj = self.status(self.SPLPlaylistRemainingDuration).children[1]
+		ui.message(obj.name)"""
+		self.statusAPI(1, 27, self.announceTime)
 
 	def script_sayPlaylistModified(self, gesture):
 		try:
@@ -1044,6 +1253,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:alt+nvda+r":"setLibraryScanProgress",
 		"kb:control+shift+r":"startScanFromInsertTracks",
 		"kb:control+shift+x":"setBrailleTimer",
+		"kb:control+NVDA+0":"openConfigDialog",
 		"kb:Shift+delete":"deleteTrack",
 		"kb:Shift+numpadDelete":"deleteTrack",
 		#"kb:control+nvda+`":"SPLAssistantToggle"
