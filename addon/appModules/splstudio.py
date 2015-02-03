@@ -24,6 +24,7 @@ import appModuleHandler
 import api
 import globalVars
 import review
+import eventHandler
 import scriptHandler
 import ui
 import nvwave
@@ -301,6 +302,14 @@ class AppModule(appModuleHandler.AppModule):
 				runConfigErrorDialog()
 			except AttributeError:
 				pass
+		# Announce status changes while using other programs.
+		# This requires NVDA core support and will be available in 5.0 and later (cannot be ported to earlier versions).
+		# For now, handle all background events, but in the end, make this configurable.
+		if hasattr(eventHandler, "requestEvents"):
+			eventHandler.requestEvents(eventName="nameChange", processId=self.processID, windowClassName="TStatusBar")
+			self.backgroundStatusMonitor = True
+		else:
+			self.backgroundStatusMonitor = False
 		self.prefsMenu = gui.mainFrame.sysTrayIcon.preferencesMenu
 		self.SPLSettings = self.prefsMenu.Append(wx.ID_ANY, _("SPL Studio Settings..."), _("SPL settings"))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.script_openConfigDialog, self.SPLSettings)
@@ -348,32 +357,38 @@ class AppModule(appModuleHandler.AppModule):
 	# Note: There are two status bars, hence the need to exclude Up time so it doesn't announce every minute.
 	# Unfortunately, Window handles and WindowControlIDs seem to change, so can't be used.
 	def event_nameChange(self, obj, nextHandler):
-		# Do not let NvDA get name for None object when SPL window is maximized.
 		global noLibScanMonitor
+		# Do not let NvDA get name for None object when SPL window is maximized.
 		if not obj.name:
 			return
+		# Suppress announcing status messages when background monitoring is unavailable.
+		if api.getForegroundObject().processID != self.processID and not self.backgroundStatusMonitor:
+			nextHandler()
 		if obj.windowClassName == "TStatusBar" and not obj.name.startswith("  Up time:"):
+			#tones.beep(512, 200)
 			# Special handling for Play Status
-			fgWinClass = api.getForegroundObject().windowClassName
 			if obj.IAccessibleChildID == 1:
-				if fgWinClass == "TStudioForm":
+				if "Play status" in obj.name:
 					# Strip off "  Play status: " for brevity only in main playlist window.
-					ui.message(obj.name[15:])
-				elif fgWinClass == "TTrackInsertForm" and self.libraryScanProgress > 0:
-					# If library scan is in progress, announce its progress.
-					self.scanCount+=1
-					if self.scanCount%100 == 0:
-						if self.libraryScanProgress == self.libraryScanMessage:
-							tones.beep(550, 100) if self.beepAnnounce else ui.message("Scanning")
-						elif self.libraryScanProgress == self.libraryScanNumbers:
-							if self.beepAnnounce: tones.beep(550, 100)
-							ui.message(obj.name[1:obj.name.find("]")])
-					if "Loading" in obj.name and not self.libraryScanning:
-						if self.productVersion not in noLibScanMonitor: self.libraryScanning = True
-					elif "match" in obj.name:
+					ui.message(obj.name.split(":")[1])
+				elif "Loading" in obj.name:
+					if self.libraryScanProgress > 0:
+						# If library scan is in progress, announce its progress.
+						self.scanCount+=1
+						if self.scanCount%100 == 0:
+							if self.libraryScanProgress == self.libraryScanMessage:
+								tones.beep(550, 100) if self.beepAnnounce else ui.message("Scanning")
+							elif self.libraryScanProgress == self.libraryScanNumbers:
+								if self.beepAnnounce: tones.beep(550, 100)
+								ui.message(obj.name[1:obj.name.find("]")])
+					if not self.libraryScanning:
+						if self.productVersion not in noLibScanMonitor:
+							if not self.backgroundStatusMonitor: self.libraryScanning = True
+				elif "match" in obj.name:
+					if self.libraryScanProgress:
 						tones.beep(370, 100) if self.beepAnnounce else ui.message("Scan complete")
-						if self.libraryScanning: self.libraryScanning = False
-						self.scanCount = 0
+					if self.libraryScanning: self.libraryScanning = False
+					self.scanCount = 0
 			else:
 				if obj.name.startswith("Scheduled for"):
 					if self.scheduledTimeCache == obj.name: return
@@ -463,7 +478,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Continue monitoring library scans among other focus loss management.
 	def event_loseFocus(self, obj, nextHandler):
 		fg = api.getForegroundObject()
-		if fg.windowClassName == "TTrackInsertForm" and self.libraryScanning:
+		if fg.windowClassName == "TTrackInsertForm" and self.libraryScanning and not self.backgroundStatusMonitor:
 			global libScanT
 			if not libScanT or (libScanT and not libScanT.isAlive()):
 				self.monitorLibraryScan()
@@ -487,6 +502,8 @@ class AppModule(appModuleHandler.AppModule):
 		super(AppModule, self).terminate()
 		global SPLConfig
 		if SPLConfig is not None: SPLConfig.write()
+		# Hack: until the public API is available, remove SPL entry from accepted events manually.
+		eventHandler._acceptEvents.remove(("nameChange", self.processID, "TStatusBar"))
 		try:
 			self.prefsMenu.RemoveItem(self.SPLSettings)
 		except wx.PyDeadObjectError:
