@@ -307,6 +307,7 @@ class AppModule(appModuleHandler.AppModule):
 		# For now, handle all background events, but in the end, make this configurable.
 		if hasattr(eventHandler, "requestEvents"):
 			eventHandler.requestEvents(eventName="nameChange", processId=self.processID, windowClassName="TStatusBar")
+			eventHandler.requestEvents(eventName="nameChange", processId=self.processID, windowClassName="TStaticText")
 			self.backgroundStatusMonitor = True
 		else:
 			self.backgroundStatusMonitor = False
@@ -338,7 +339,7 @@ class AppModule(appModuleHandler.AppModule):
 			role = obj.role
 			if obj.windowClassName == "TTntListView.UnicodeClass" and fg.windowClassName == "TStudioForm" and role == controlTypes.ROLE_LISTITEM:
 				clsList.insert(0, SPL510TrackItem)
-			elif obj.windowClassName == "TListView" and fg.windowClassName == "TStudioForm" and role == controlTypes.ROLE_CHECKBOX:
+			elif obj.windowClassName == "TListView" and fg.windowClassName == "TStudioForm" and role in (controlTypes.ROLE_CHECKBOX, controlTypes.ROLE_LISTITEM):
 				clsList.insert(0, SPLTrackItem)
 
 	# Keep an eye on library scans in insert tracks window.
@@ -370,7 +371,7 @@ class AppModule(appModuleHandler.AppModule):
 			if obj.IAccessibleChildID == 1:
 				if "Play status" in obj.name:
 					# Strip off "  Play status: " for brevity only in main playlist window.
-					ui.message(obj.name.split(":")[1])
+					ui.message(obj.name.split(":")[1][1:])
 				elif "Loading" in obj.name:
 					if self.libraryScanProgress > 0:
 						# If library scan is in progress, announce its progress.
@@ -425,13 +426,13 @@ class AppModule(appModuleHandler.AppModule):
 			if obj.simplePrevious != None:
 				if obj.simplePrevious.name == "Remaining Time":
 					# End of track for SPL 5.x.
-					if self.brailleTimer in [self.brailleTimerEnding, self.brailleTimerBoth]: #and "00:00" < obj.name <= self.SPLEndOfTrackTime:
+					if self.brailleTimer in [self.brailleTimerEnding, self.brailleTimerBoth] and api.getForegroundObject().processID == self.processID: #and "00:00" < obj.name <= self.SPLEndOfTrackTime:
 						braille.handler.message(obj.name)
 					if obj.name == "00:{0:02d}".format(SPLConfig["EndOfTrackTime"]):
 						tones.beep(440, 200)
 				if obj.simplePrevious.name == "Remaining Song Ramp":
 					# Song intro for SPL 5.x.
-					if self.brailleTimer in [self.brailleTimerIntro, self.brailleTimerBoth]: #and "00:00" < obj.name <= self.SPLSongRampTime:
+					if self.brailleTimer in [self.brailleTimerIntro, self.brailleTimerBoth] and api.getForegroundObject().processID == self.processID: #and "00:00" < obj.name <= self.SPLSongRampTime:
 						braille.handler.message(obj.name)
 					if obj.name == "00:{0:02d}".format(SPLConfig["SongRampTime"]):
 						tones.beep(512, 400)
@@ -504,6 +505,7 @@ class AppModule(appModuleHandler.AppModule):
 		if SPLConfig is not None: SPLConfig.write()
 		# Hack: until the public API is available, remove SPL entry from accepted events manually.
 		eventHandler._acceptEvents.remove(("nameChange", self.processID, "TStatusBar"))
+		eventHandler._acceptEvents.remove(("nameChange", self.processID, "TStaticText"))
 		try:
 			self.prefsMenu.RemoveItem(self.SPLSettings)
 		except wx.PyDeadObjectError:
