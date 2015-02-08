@@ -63,6 +63,7 @@ BeepAnnounce = boolean(default=false)
 EndOfTrackTime = integer(min=1, max=59, default=5)
 SongRampTime = integer(min=1, max=9, default=5)
 MicAlarm = integer(min=0, default="0")
+TrackDial = boolean(default=false)
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
 SPLConfig = None
@@ -114,7 +115,7 @@ class SPLTrackItem(IAccessible):
 	A base class for providing utility scripts when track entries are focused, such as track dial."""
 
 	def initOverlayClass(self):
-		if self.appModule.SPLTrackDial:
+		if SPLConfig["TrackDial"]:
 			self.bindGesture("kb:rightArrow", "nextColumn")
 			self.bindGesture("kb:leftArrow", "prevColumn")
 
@@ -122,8 +123,9 @@ class SPLTrackItem(IAccessible):
 	# This is similar to enhanced arrow keys in other screen readers.
 
 	def script_toggleTrackDial(self, gesture):
-		if not self.appModule.SPLTrackDial:
-			self.appModule.SPLTrackDial = True
+		global SPLConfig
+		if not SPLConfig["TrackDial"]:
+			SPLConfig["TrackDial"] = True
 			self.bindGesture("kb:rightArrow", "nextColumn")
 			self.bindGesture("kb:leftArrow", "prevColumn")
 			dialText = "Track Dial on"
@@ -131,13 +133,15 @@ class SPLTrackItem(IAccessible):
 				dialText+= ", located at column {columnHeader}".format(columnHeader = self.appModule.SPLColNumber+1)
 			ui.message(dialText)
 		else:
-			self.appModule.SPLTrackDial = False
+			SPLConfig["TrackDial"] = False
 			try:
 				self.removeGestureBinding("kb:rightArrow")
 				self.removeGestureBinding("kb:leftArrow")
 			except KeyError:
 				pass
 			ui.message("Track Dial off")
+	script_toggleTrackDial.__doc__="Toggles track dial on and off."
+	script_toggleTrackDial.category = "StationPlaylist Studio"
 
 	# Some helper functions to handle corner cases.
 	# Each track item provides its own version.
@@ -154,16 +158,17 @@ class SPLTrackItem(IAccessible):
 		# For add-on 6.0: see if track items can be subclassed from SysListView32.ListItem.
 		buffer=None
 		processHandle=self.processHandle
+		sizeofLVITEM = ctypes.sizeof(sysListView32.LVITEM)
 		# Because each process in an OS has separate memory spaces, use VM functions to find column content.
-		internalItem=winKernel.virtualAllocEx(processHandle,None,ctypes.sizeof(sysListView32.LVITEM),winKernel.MEM_COMMIT,winKernel.PAGE_READWRITE)
+		internalItem=winKernel.virtualAllocEx(processHandle,None,sizeofLVITEM,winKernel.MEM_COMMIT,winKernel.PAGE_READWRITE)
 		try:
 			internalText=winKernel.virtualAllocEx(processHandle,None,520,winKernel.MEM_COMMIT,winKernel.PAGE_READWRITE)
 			try:
 				item=sysListView32.LVITEM(iItem=self.IAccessibleChildID-1,mask=sysListView32.LVIF_TEXT|sysListView32.LVIF_COLUMNS,iSubItem=col,pszText=internalText,cchTextMax=260)
-				winKernel.writeProcessMemory(processHandle,internalItem,ctypes.byref(item),ctypes.sizeof(sysListView32.LVITEM),None)
+				winKernel.writeProcessMemory(processHandle,internalItem,ctypes.byref(item),sizeofLVITEM,None)
 				len = sendMessage(self.windowHandle,sysListView32.LVM_GETITEMTEXTW, (self.IAccessibleChildID-1), internalItem)
 				if len:
-					winKernel.readProcessMemory(processHandle,internalItem,ctypes.byref(item),ctypes.sizeof(sysListView32.LVITEM),None)
+					winKernel.readProcessMemory(processHandle,internalItem,ctypes.byref(item),sizeofLVITEM,None)
 					buffer=ctypes.create_unicode_buffer(len)
 					winKernel.readProcessMemory(processHandle,item.pszText,buffer,ctypes.sizeof(buffer),None)
 			finally:
@@ -237,6 +242,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.beepAnnounceCheckbox.SetValue(SPLConfig["BeepAnnounce"])
 		sizer.Add(self.beepAnnounceCheckbox, border=10,flag=wx.BOTTOM)
 
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: The label for a setting in SPL Add-on settings to specify end of track (outro) alarm.
 		label = wx.StaticText(self, wx.ID_ANY, label=_("&End of track alarm in seconds"))
 		sizer.Add(label)
@@ -245,7 +251,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 		sizer.Add(self.endOfTrackAlarm)
 		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: The label for a setting in SPL Add-on settings to specify track intro alarm.
 		label = wx.StaticText(self, wx.ID_ANY, label=_("Track &intro alarm in seconds"))
 		sizer.Add(label)
@@ -254,7 +259,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		sizer.Add(self.introAlarm)
 		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		sizer = wx.BoxSizer(wx.VERTICAL)
 		# Translators: The label for a setting in SPL Add-on settings to change microphone alarm setting.
 		label = wx.StaticText(self, wx.ID_ANY, label=_("&Microphone alarm in seconds"))
 		sizer.Add(label)
@@ -262,6 +267,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.micAlarm.SetValue(str(SPLConfig["MicAlarm"]))
 		sizer.Add(self.micAlarm)
 		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+		# Translators: the label for a setting in SPL add-on settings to toggle track dial mode on and off.
+		self.trackDialCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Track Dial mode"))
+		self.trackDialCheckbox.SetValue(SPLConfig["TrackDial"])
+		sizer.Add(self.trackDialCheckbox, border=10,flag=wx.BOTTOM)
 
 	def postInit(self):
 		self.beepAnnounceCheckbox.SetFocus()
@@ -278,13 +288,14 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["EndOfTrackTime"] = self.endOfTrackAlarm.Value
 		SPLConfig["SongRampTime"] = self.introAlarm.Value
 		SPLConfig["MicAlarm"] = self.micAlarm.Value
+		SPLConfig["TrackDial"] = self.trackDialCheckbox.Value
 		super(SPLConfigDialog,  self).onOk(evt)
 
 
 class AppModule(appModuleHandler.AppModule):
 
 	# Translators: Script category for Station Playlist commands in input gestures dialog.
-	scriptCategory = _("Station Playlist Studio")
+	scriptCategory = _("StationPlaylist Studio")
 
 	# Prepare the settings dialog among other things.
 	def __init__(self, *args, **kwargs):
@@ -350,7 +361,6 @@ class AppModule(appModuleHandler.AppModule):
 	# For 5.0X and earlier: prevent NVDA from announcing scheduled time multiple times.
 	scheduledTimeCache = ""
 	# Track Dial (A.K.A. enhanced arrow keys)
-	SPLTrackDial = False
 	SPLColNumber = 0
 
 	# Automatically announce mic, line in, etc changes
@@ -1120,8 +1130,7 @@ class AppModule(appModuleHandler.AppModule):
 	# The layer commands themselves.
 
 	def script_sayPlayStatus(self, gesture):
-		"""obj = self.status(self.SPLPlayStatus).children[0]
-		ui.message(obj.name)"""
+		# Please do not translate the following messages.
 		if self.statusAPI(0, 104, ret=True):
 			ui.message("Play status: Playing")
 		else:
@@ -1148,8 +1157,6 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(obj.name)
 
 	def script_sayHourTrackDuration(self, gesture):
-		"""obj = self.status(self.SPLHourTrackDuration).firstChild
-		ui.message(obj.name)"""
 		self.statusAPI(0, 27, self.announceTime)
 
 	def script_sayHourSelectedTrackDuration(self, gesture):
@@ -1157,8 +1164,6 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(obj.name)
 
 	def script_sayPlaylistRemainingDuration(self, gesture):
-		"""obj = self.status(self.SPLPlaylistRemainingDuration).children[1]
-		ui.message(obj.name)"""
 		self.statusAPI(1, 27, self.announceTime)
 
 	def script_sayPlaylistModified(self, gesture):
