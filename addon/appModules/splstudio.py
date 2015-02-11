@@ -714,6 +714,9 @@ class AppModule(appModuleHandler.AppModule):
 	script_toggleCartExplorer.__doc__=_("Toggles cart explorer to learn cart assignments.")
 
 	def script_cartExplorer(self, gesture):
+		if api.getForegroundObject().windowClassName != "TStudioForm":
+			gesture.send()
+			return
 		if scriptHandler.getLastScriptRepeatCount() >= 1: gesture.send()
 		else:
 			if gesture.displayName in self.carts: ui.message(self.carts[gesture.displayName])
