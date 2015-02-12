@@ -322,7 +322,7 @@ class SAMEncoderWindow(IAccessible):
 	backgroundMonitor = False # Monitor this encoder for connection status changes.
 
 
-	def reportConnectionStatus(self):
+	def reportConnectionStatus(self, connecting=False):
 		# Keep an eye on the stream's description field for connection changes.
 		# In order to not block NVDA commands, this will be done using a different thread.
 		SPLWin = user32.FindWindowA("SPLStudio", None)
@@ -331,28 +331,39 @@ class SAMEncoderWindow(IAccessible):
 		idle = False
 		error = False
 		encoding = False
+		alreadyEncoding = False
 		ui.message("testing")
+		c = 0
 		while True:
 			time.sleep(0.001)
-			if messageCache != self.description[self.description.find("Status")+8:] and not encoding:
-				messageCache = self.description[self.description.find("Status")+8:]
-				self.encoderStatusMessage(messageCache, self.IAccessibleChildID)
+			try:
+				if messageCache != self.description[self.description.find("Status")+8:]:
+					messageCache = self.description[self.description.find("Status")+8:]
+					if not messageCache.startswith("Encoding"):
+						self.encoderStatusMessage(messageCache, self.IAccessibleChildID)
+			except AttributeError:
+				return
 			if messageCache.startswith("Idle"):
+				if alreadyEncoding: alreadyEncoding = False
+				if encoding: encoding = False
 				if not idle:
 					tones.beep(250, 250)
 					idle = True
 					toneCounter = 0
-				if not SAMBackgroundMonitor[self.IAccessibleChildID]: return
 			elif messageCache.startswith("Error"):
 				# Announce the description of the error.
+				if connecting: connecting= False
 				if not error:
 					error = True
 					toneCounter = 0
-				if not SAMBackgroundMonitor[self.IAccessibleChildID]: return
+				if alreadyEncoding: alreadyEncoding = False
 			elif messageCache.startswith("Encoding"):
+				if connecting: connecting = False
 				# We're on air, so exit unless told to monitor for connection changes.
 				#braille.handler.message(messageCache)
-				if not encoding: tones.beep(1000, 150)
+				if not encoding:
+					tones.beep(1000, 150)
+					self.encoderStatusMessage(messageCache, self.IAccessibleChildID)
 				if self.focusToStudio and not encoding:
 					if api.getFocusObject().appModule == "splstudio":
 						continue
@@ -364,14 +375,15 @@ class SAMEncoderWindow(IAccessible):
 				if self.playAfterConnecting and not encoding:
 					winUser.sendMessage(SPLWin, SPLMSG, 0, SPLPlay)
 				if not encoding: encoding = True
-				if not SAMBackgroundMonitor[self.IAccessibleChildID]: return
 			else:
-				if not SAMBackgroundMonitor[self.IAccessibleChildID]: return
-				if "Encoding" not in self.description and encoding: encoding = False
+				if alreadyEncoding: alreadyEncoding = False
+				if encoding: encoding = False
 				elif "Error" not in self.description and error: error = False
 				toneCounter+=1
 				if toneCounter%250 == 0:
 					tones.beep(500, 50)
+			if connecting: continue
+			if not SAMBackgroundMonitor[self.IAccessibleChildID]: return
 
 	# Format the status message to prepare for monitoring multiple encoders.
 	def encoderStatusMessage(self, message, id):
@@ -388,7 +400,7 @@ class SAMEncoderWindow(IAccessible):
 		if self.IAccessibleChildID not in SAMBackgroundMonitor.keys():
 			SAMBackgroundMonitor[self.IAccessibleChildID] = self.backgroundMonitor
 		if not self.backgroundMonitor:
-			statusThread = threading.Thread(target=self.reportConnectionStatus)
+			statusThread = threading.Thread(target=self.reportConnectionStatus, kwargs=dict(connecting=True))
 			statusThread.name = "Connection Status Reporter " + str(self.IAccessibleChildID)
 			statusThread.start()
 			SAMMonitorThreads[self.IAccessibleChildID] = statusThread
