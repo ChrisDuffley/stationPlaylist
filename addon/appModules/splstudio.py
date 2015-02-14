@@ -639,7 +639,7 @@ class AppModule(appModuleHandler.AppModule):
 		def callback(result):
 			global SPLConfig
 			if result == wx.ID_OK:
-				SPLConfig["EndOfTrackTime"] = dlg.GetValue()
+				if SPLConfig: SPLConfig["EndOfTrackTime"] = dlg.GetValue()
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setEndOfTrackTime.__doc__=_("sets end of track alarm (default is 5 seconds).")
@@ -657,7 +657,7 @@ class AppModule(appModuleHandler.AppModule):
 		rampVal, 1, 9)
 		def callback(result):
 			if result == wx.ID_OK:
-				SPLConfig["SongRampTime"] = dlg.GetValue()
+				if SPLConfig: SPLConfig["SongRampTime"] = dlg.GetValue()
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setSongRampTime.__doc__=_("sets song intro alarm (default is 5 seconds).")
@@ -685,7 +685,7 @@ class AppModule(appModuleHandler.AppModule):
 					# Translators: Standard title for error dialog (copy this from main nvda.po file).
 					_("Error"),wx.OK|wx.ICON_ERROR)
 				else:
-					if SPLConfig is not None: SPLConfig["MicAlarm"] = dlg.GetValue()
+					if SPLConfig: SPLConfig["MicAlarm"] = dlg.GetValue()
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setMicAlarm.__doc__=_("Sets microphone alarm (default is 5 seconds).")
