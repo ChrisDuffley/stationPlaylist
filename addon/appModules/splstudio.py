@@ -77,25 +77,64 @@ configConversions=("EndOfTrackTime", "SongRampTime")
 def config4to5():
 	global SPLConfig, configConversions
 	for setting in configConversions:
-		oldValue = str(SPLConfig[setting])
+		try:
+			oldValue = str(SPLConfig[setting])
+		except KeyError:
+			continue
 		if oldValue.isdigit():
 			continue
 		# If the old value doesn't conform to below conditions, start from a fresh config spec.
-		if (len(oldValue) != 5
-		and not oldValue.startswith("00:")
-		and not oldValue.split(":")[1].isdigit()):
+		try:
+			if (len(oldValue) != 5
+			and not oldValue.startswith("00:")
+			and not oldValue.split(":")[1].isdigit()):
+				return False
+		finally:
 			return False
 		newValue = SPLConfig[setting].split(":")[1]
 		SPLConfig[setting] = int(newValue)
 	return True
 
-# Display an error dialog when configuration is wrong.
-def runConfigErrorDialog():
-	wx.CallAfter(gui.messageBox,
-	# Translators: Standard dialog message when Studio configuration has problems.
-	_("Your Studio add-on configuration has errors and was reset to factory defaults."),
-	# Translators: Standard error title for configuration error.
-	_("Studio add-on Configuration error"),wx.OK|wx.ICON_ERROR)
+# Display an error dialog when configuration validation fails.
+def runConfigErrorDialog(errorText, errorType):
+	wx.CallAfter(gui.messageBox, errorText, errorType, wx.OK|wx.ICON_ERROR)
+
+# To be run in app module constructor.
+def configSetup():
+	global SPLConfig, SPLIni, confspec
+	SPLConfig = ConfigObj(SPLIni, configspec = confspec, encoding="UTF-8")
+	# 5.0 only: migrate 4.x format to 5.0, to be removed in 5.1.
+	migrated = config4to5()
+	# 5.1 and later: check to make sure all values are correct.
+	val = Validator()
+	configTest = SPLConfig.validate(val, copy=True)
+	if not configTest == True:
+		# Hack: have a dummy config obj handy just for storing default values.
+		SPLDefaults = ConfigObj(None, configspec = confspec, encoding="UTF-8")
+		SPLDefaults.validate(val, copy=True)
+		# Translators: Standard error title for configuration error.
+		title = _("Studio add-on Configuration error")
+		if not configTest or not migrated:
+			# Case 1: restore settings to defaults.
+			# This may happen when 4.x config had parsing issues or 5.x config validation has failed on all values.
+			for setting in SPLConfig:
+				SPLConfig[setting] = SPLDefaults[setting]
+			# Translators: Standard dialog message when Studio configuration has problems and was reset to defaults.
+			errorMessage = _("Your Studio add-on configuration has errors and was reset to factory defaults.")
+		elif isinstance(configTest, dict):
+			# Case 2: For 5.x and later, attempt to reconstruct the failed values.
+			for setting in configTest:
+				if not configTest[setting]:
+					SPLConfig[setting] = SPLDefaults[setting]
+			# Translators: Standard dialog message when some Studio configuration settings were reset to defaults.
+			errorMessage = _("Errors were found in some of your Studio configuration settings. The affected settings were reset to defaults.")
+		SPLConfig.write()
+		try:
+			runConfigErrorDialog(errorMessage, title)
+		except AttributeError:
+			pass
+		
+
 
 # Threads pool.
 micAlarmT = None
@@ -300,19 +339,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Prepare the settings dialog among other things.
 	def __init__(self, *args, **kwargs):
 		super(AppModule, self).__init__(*args, **kwargs)
-		global SPLConfig, SPLIni, confspec
-		SPLConfig = ConfigObj(SPLIni, configspec = confspec, encoding="UTF-8")
-		val = Validator()
-		configTest = SPLConfig.validate(val, copy=True)
-		if isinstance(configTest, dict) and not config4to5():
-			os.remove(SPLIni)
-			SPLConfig2 = ConfigObj(SPLIni, configspec = confspec, encoding="UTF-8")
-			SPLConfig2.write()
-			SPLConfig = ConfigObj(SPLIni, configspec = confspec, encoding="UTF-8")
-			try:
-				runConfigErrorDialog()
-			except AttributeError:
-				pass
+		configSetup()
 		# Announce status changes while using other programs.
 		# This requires NVDA core support and will be available in 5.0 and later (cannot be ported to earlier versions).
 		# For now, handle all background events, but in the end, make this configurable.
