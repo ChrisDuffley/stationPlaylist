@@ -118,6 +118,10 @@ You can use arrow keys to review various information about a track. To turn Trac
 * A dedicated settings dialog for SPL add-on has been added, accessible from NVDA's preferences menu or by pressing Control+NVDA+0 from SPL window.
 * You can now use Track Dial feature to review columns in a track entry in Studio's main playlist viewer (to toggle this feature, press Control+Grave accent).
 
+## Changes for 4.3/3.8
+
+* When switching to another part of Studio such as insert tracks dialog while cart explorer is active, NVDA will no longer announce cart messages when cart keys are pressed (for example, locating a track from insert tracks dialog).
+
 ## Changes for 4.2/3.7
 
 * NVDA will no longer forget to retain new and changed encoder labels when a user logs off or restarts a computer.
