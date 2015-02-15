@@ -436,10 +436,13 @@ class AppModule(appModuleHandler.AppModule):
 		def callback(result):
 			global SPLConfig
 			if result == wx.ID_OK:
-				if dlg.GetValue() <= 9: newAlarmSec = "0" + str(dlg.GetValue())
-				else: newAlarmSec = str(dlg.GetValue())
-				self.SPLEndOfTrackTime = self.SPLEndOfTrackTime.replace(self.SPLEndOfTrackTime[-2:], newAlarmSec)
-				if SPLConfig is not None: SPLConfig["EndOfTrackTime"] = self.SPLEndOfTrackTime
+				# Optimization: don't bother if Studio is dead and if the same value has been entered.
+				newVal = dlg.GetValue()
+				if user32.FindWindowA("SPLStudio", None) and timeVal != newVal:
+					if newVal <= 9: newAlarmSec = "0" + str(newVal)
+					else: newAlarmSec = str(newVal)
+					self.SPLEndOfTrackTime = self.SPLEndOfTrackTime.replace(self.SPLEndOfTrackTime[-2:], newAlarmSec)
+					if SPLConfig is not None: SPLConfig["EndOfTrackTime"] = self.SPLEndOfTrackTime
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setEndOfTrackTime.__doc__=_("sets end of track alarm (default is 5 seconds).")
@@ -457,7 +460,9 @@ class AppModule(appModuleHandler.AppModule):
 		rampVal, 1, 9)
 		def callback(result):
 			if result == wx.ID_OK:
-					self.SPLSongRampTime = self.SPLSongRampTime.replace(self.SPLSongRampTime[-1], str(dlg.GetValue()))
+				newVal = dlg.GetValue()
+				if user32.FindWindowA("SPLStudio", None) and newVal != rampVal:
+					self.SPLSongRampTime = self.SPLSongRampTime.replace(self.SPLSongRampTime[-1], str(newVal))
 					if SPLConfig is not None: SPLConfig["SongRampTime"] = self.SPLSongRampTime
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
@@ -479,14 +484,17 @@ class AppModule(appModuleHandler.AppModule):
 		defaultValue=str(self.micAlarm))
 		def callback(result):
 			if result == wx.ID_OK:
-				if not dlg.GetValue().isdigit():
+				if not user32.FindWindowA("SPLStudio", None): return
+				newVal = dlg.GetValue()
+				if not newVal.isdigit():
 					# Translators: The error message presented when incorrect alarm time value has been entered.
 					wx.CallAfter(gui.messageBox, _("Incorrect value entered."),
 					# Translators: Standard title for error dialog (copy this from main nvda.po file).
 					_("Error"),wx.OK|wx.ICON_ERROR)
 				else:
-					self.micAlarm = int(dlg.GetValue())
-					if SPLConfig is not None: SPLConfig["MicAlarm"] = self.micAlarm
+					if self.micAlarm != newVal:
+						self.micAlarm = int(newVal)
+						if SPLConfig is not None: SPLConfig["MicAlarm"] = self.micAlarm
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setMicAlarm.__doc__=_("Sets microphone alarm (default is 5 seconds).")
