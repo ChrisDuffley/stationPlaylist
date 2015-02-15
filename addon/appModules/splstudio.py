@@ -639,7 +639,10 @@ class AppModule(appModuleHandler.AppModule):
 		def callback(result):
 			global SPLConfig
 			if result == wx.ID_OK:
-				if SPLConfig: SPLConfig["EndOfTrackTime"] = dlg.GetValue()
+				# Optimization: don't bother if Studio is dead and if the same value has been entered.
+				newVal = dlg.GetValue()
+				if user32.FindWindowA("SPLStudio", None) and timeVal != newVal:
+					SPLConfig["EndOfTrackTime"] = newVal
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setEndOfTrackTime.__doc__=_("sets end of track alarm (default is 5 seconds).")
@@ -657,7 +660,9 @@ class AppModule(appModuleHandler.AppModule):
 		rampVal, 1, 9)
 		def callback(result):
 			if result == wx.ID_OK:
-				if SPLConfig: SPLConfig["SongRampTime"] = dlg.GetValue()
+				newVal = dlg.GetValue()
+				if user32.FindWindowA("SPLStudio", None) and newVal != rampVal:
+					SPLConfig["SongRampTime"] = newVal
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setSongRampTime.__doc__=_("sets song intro alarm (default is 5 seconds).")
@@ -679,13 +684,16 @@ class AppModule(appModuleHandler.AppModule):
 		defaultValue=micAlarm)
 		def callback(result):
 			if result == wx.ID_OK:
-				if not dlg.GetValue().isdigit():
+				if not user32.FindWindowA("SPLStudio", None): return
+				newVal = dlg.GetValue()
+				if not newVal.isdigit():
 					# Translators: The error message presented when incorrect alarm time value has been entered.
 					wx.CallAfter(gui.messageBox, _("Incorrect value entered."),
 					# Translators: Standard title for error dialog (copy this from main nvda.po file).
 					_("Error"),wx.OK|wx.ICON_ERROR)
 				else:
-					if SPLConfig: SPLConfig["MicAlarm"] = dlg.GetValue()
+					if micAlarm != newVal:
+						SPLConfig["MicAlarm"] = newVal
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setMicAlarm.__doc__=_("Sets microphone alarm (default is 5 seconds).")
