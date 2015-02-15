@@ -100,15 +100,15 @@ def runConfigErrorDialog(errorText, errorType):
 	wx.CallAfter(gui.messageBox, errorText, errorType, wx.OK|wx.ICON_ERROR)
 
 # To be run in app module constructor.
-def configSetup():
-	global SPLConfig, SPLIni, confspec
+def initConfig():
+	global SPLConfig
 	SPLConfig = ConfigObj(SPLIni, configspec = confspec, encoding="UTF-8")
 	# 5.0 only: migrate 4.x format to 5.0, to be removed in 5.1.
 	migrated = config4to5()
 	# 5.1 and later: check to make sure all values are correct.
 	val = Validator()
 	configTest = SPLConfig.validate(val, copy=True)
-	if not configTest == True:
+	if configTest != True:
 		# Hack: have a dummy config obj handy just for storing default values.
 		SPLDefaults = ConfigObj(None, configspec = confspec, encoding="UTF-8")
 		SPLDefaults.validate(val, copy=True)
@@ -133,8 +133,6 @@ def configSetup():
 			runConfigErrorDialog(errorMessage, title)
 		except AttributeError:
 			pass
-		
-
 
 # Threads pool.
 micAlarmT = None
@@ -324,6 +322,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 				_("Error"), wx.OK|wx.ICON_ERROR,self)
 			self.micAlarm.SetFocus()
 			return
+		SPLConfig["BeepAnnounce"] = self.beepAnnounceCheckbox.Value
 		SPLConfig["EndOfTrackTime"] = self.endOfTrackAlarm.Value
 		SPLConfig["SongRampTime"] = self.introAlarm.Value
 		SPLConfig["MicAlarm"] = self.micAlarm.Value
@@ -339,7 +338,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Prepare the settings dialog among other things.
 	def __init__(self, *args, **kwargs):
 		super(AppModule, self).__init__(*args, **kwargs)
-		configSetup()
+		initConfig()
 		# Announce status changes while using other programs.
 		# This requires NVDA core support and will be available in 5.0 and later (cannot be ported to earlier versions).
 		# For now, handle all background events, but in the end, make this configurable.
@@ -353,8 +352,6 @@ class AppModule(appModuleHandler.AppModule):
 		self.SPLSettings = self.prefsMenu.Append(wx.ID_ANY, _("SPL Studio Settings..."), _("SPL settings"))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.script_openConfigDialog, self.SPLSettings)
 
-	# Play beeps instead of announcing toggles.
-	beepAnnounce = False
 	SPLCurVersion = appModuleHandler.AppModule.productVersion
 
 	def event_NVDAObject_init(self, obj):
@@ -395,7 +392,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Note: There are two status bars, hence the need to exclude Up time so it doesn't announce every minute.
 	# Unfortunately, Window handles and WindowControlIDs seem to change, so can't be used.
 	def event_nameChange(self, obj, nextHandler):
-		global noLibScanMonitor
+		global SPLConfig, noLibScanMonitor
 		# Do not let NvDA get name for None object when SPL window is maximized.
 		if not obj.name:
 			return
@@ -415,16 +412,16 @@ class AppModule(appModuleHandler.AppModule):
 						self.scanCount+=1
 						if self.scanCount%100 == 0:
 							if self.libraryScanProgress == self.libraryScanMessage:
-								tones.beep(550, 100) if self.beepAnnounce else ui.message("Scanning")
+								tones.beep(550, 100) if SPLConfig["BeepAnnounce"] else ui.message("Scanning")
 							elif self.libraryScanProgress == self.libraryScanNumbers:
-								if self.beepAnnounce: tones.beep(550, 100)
+								if SPLConfig["BeepAnnounce"]: tones.beep(550, 100)
 								ui.message(obj.name[1:obj.name.find("]")])
 					if not self.libraryScanning:
 						if self.productVersion not in noLibScanMonitor:
 							if not self.backgroundStatusMonitor: self.libraryScanning = True
 				elif "match" in obj.name:
 					if self.libraryScanProgress:
-						tones.beep(370, 100) if self.beepAnnounce else ui.message("Scan complete")
+						tones.beep(370, 100) if SPLConfig["BeepAnnounce"] else ui.message("Scan complete")
 					if self.libraryScanning: self.libraryScanning = False
 					self.scanCount = 0
 			else:
@@ -438,7 +435,7 @@ class AppModule(appModuleHandler.AppModule):
 					# Announce status information that does not contain toggle messages and return immediately.
 					ui.message(obj.name)
 					return
-				elif self.beepAnnounce:
+				elif SPLConfig["BeepAnnounce"]:
 					# User wishes to hear beeps instead of words. The beeps are power on and off sounds from PAC Mate Omni.
 					beep = obj.name.split()
 					stat = beep[-1]
@@ -735,16 +732,17 @@ class AppModule(appModuleHandler.AppModule):
 	# Toggle whether beeps should be heard instead of toggle announcements.
 
 	def script_toggleBeepAnnounce(self, gesture):
-		if not self.beepAnnounce:
-			self.beepAnnounce = True
-			# Translators: Reported when toggle announcement is set to beeps in SPL Studio.
-			ui.message(_("Toggle announcement beeps"))
+		global SPLConfig
+		if not SPLConfig["BeepAnnounce"]:
+			SPLConfig["BeepAnnounce"] = True
+			# Translators: Reported when status announcement is set to beeps in SPL Studio.
+			ui.message(_("Status announcement beeps"))
 		else:
-			self.beepAnnounce = False
-			# Translators: Reported when toggle announcement is set to words in SPL Studio.
-			ui.message(_("Toggle announcement words"))
+			SPLConfig["BeepAnnounce"] = False
+			# Translators: Reported when status announcement is set to words in SPL Studio.
+			ui.message(_("Status announcement words"))
 	# Translators: Input help mode message for a command in Station Playlist Studio.
-	script_toggleBeepAnnounce.__doc__=_("Toggles option change announcements between words and beeps.")
+	script_toggleBeepAnnounce.__doc__=_("Toggles status announcements between words and beeps.")
 
 	# Braille timer.
 	# Announce end of track and other info via braille.
@@ -1036,6 +1034,7 @@ class AppModule(appModuleHandler.AppModule):
 			libScanT.start()
 
 	def libraryScanReporter(self, SPLWin, countA, countB, parem):
+		global SPLConfig
 		scanIter = 0
 		while countA != countB:
 			countA = countB
@@ -1049,15 +1048,15 @@ class AppModule(appModuleHandler.AppModule):
 			if scanIter%5 == 0:
 				if self.libraryScanProgress == self.libraryScanMessage:
 					# Translators: Presented when library scan is in progress.
-					tones.beep(550, 100) if self.beepAnnounce else ui.message(_("Scanning"))
+					tones.beep(550, 100) if SPLConfig["BeepAnnounce"] else ui.message(_("Scanning"))
 				elif self.libraryScanProgress == self.libraryScanNumbers:
-					if self.beepAnnounce:
+					if SPLConfig["BeepAnnounce"]:
 						tones.beep(550, 100)
 						ui.message("{itemCount}".format(itemCount = countB))
 					else: ui.message(_("{itemCount} items scanned").format(itemCount = countB))
 		self.libraryScanning = False
 		if self.libraryScanProgress:
-			if self.beepAnnounce: tones.beep(370, 100)
+			if SPLConfig["BeepAnnounce"]: tones.beep(370, 100)
 			else:
 				# Translators: Presented after library scan is done.
 				ui.message(_("Scan complete with {itemCount} items").format(itemCount = countB))
