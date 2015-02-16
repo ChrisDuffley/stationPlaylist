@@ -411,11 +411,13 @@ class AppModule(appModuleHandler.AppModule):
 						# If library scan is in progress, announce its progress.
 						self.scanCount+=1
 						if self.scanCount%100 == 0:
-							if self.libraryScanProgress == self.libraryScanMessage:
+							# To be removed in 5.0.
+							"""if self.libraryScanProgress == self.libraryScanMessage:
 								tones.beep(550, 100) if SPLConfig["BeepAnnounce"] else ui.message("Scanning")
 							elif self.libraryScanProgress == self.libraryScanNumbers:
 								if SPLConfig["BeepAnnounce"]: tones.beep(550, 100)
-								ui.message(obj.name[1:obj.name.find("]")])
+								ui.message(obj.name[1:obj.name.find("]")])"""
+							self._libraryScanAnnouncer(obj.name[1:obj.name.find("]")], self.libraryScanProgress)
 					if not self.libraryScanning:
 						if self.productVersion not in noLibScanMonitor:
 							if not self.backgroundStatusMonitor: self.libraryScanning = True
@@ -1046,20 +1048,34 @@ class AppModule(appModuleHandler.AppModule):
 			if countB < 0:
 				break
 			if scanIter%5 == 0:
-				if self.libraryScanProgress == self.libraryScanMessage:
+				# To be removed in 5.0.
+				"""if self.libraryScanProgress == self.libraryScanMessage:
 					# Translators: Presented when library scan is in progress.
 					tones.beep(550, 100) if SPLConfig["BeepAnnounce"] else ui.message(_("Scanning"))
 				elif self.libraryScanProgress == self.libraryScanNumbers:
 					if SPLConfig["BeepAnnounce"]:
 						tones.beep(550, 100)
 						ui.message("{itemCount}".format(itemCount = countB))
-					else: ui.message(_("{itemCount} items scanned").format(itemCount = countB))
+					else: ui.message(_("{itemCount} items scanned").format(itemCount = countB))"""
+				self._libraryScanAnnouncer(countB, self.libraryScanProgress)
 		self.libraryScanning = False
 		if self.libraryScanProgress:
 			if SPLConfig["BeepAnnounce"]: tones.beep(370, 100)
 			else:
 				# Translators: Presented after library scan is done.
 				ui.message(_("Scan complete with {itemCount} items").format(itemCount = countB))
+
+	# Take care of library scanning announcement.
+	def _libraryScanAnnouncer(self, count, announcementType):
+		if announcementType == self.libraryScanMessage:
+			# Translators: Presented when library scan is in progress.
+			tones.beep(550, 100) if SPLConfig["BeepAnnounce"] else ui.message(_("Scanning"))
+		elif announcementType == self.libraryScanNumbers:
+			if SPLConfig["BeepAnnounce"]:
+				tones.beep(550, 100)
+				# No need to provide translatable string - just use index.
+				ui.message("{0}".format(count))
+			else: ui.message(_("{itemCount} items scanned").format(itemCount = count))
 
 	# Some handlers for native commands.
 
