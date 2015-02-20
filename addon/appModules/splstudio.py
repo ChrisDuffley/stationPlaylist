@@ -423,7 +423,12 @@ class AppModule(appModuleHandler.AppModule):
 							if not self.backgroundStatusMonitor: self.libraryScanning = True
 				elif "match" in obj.name:
 					if self.libraryScanProgress:
-						tones.beep(370, 100) if SPLConfig["BeepAnnounce"] else ui.message("Scan complete")
+						if SPLConfig["BeepAnnounce"]: tones.beep(370, 100)
+						else:
+							# 5.0: Store the handle only once.
+							SPLWin  = user32.FindWindowA("SPLStudio", None)
+							count = sendMessage(SPLWin, 1024, 0, 32)
+							ui.message("Scan complete with {scanCount} items".format(scanCount = count))
 					if self.libraryScanning: self.libraryScanning = False
 					self.scanCount = 0
 			else:
@@ -1059,6 +1064,7 @@ class AppModule(appModuleHandler.AppModule):
 					else: ui.message(_("{itemCount} items scanned").format(itemCount = countB))"""
 				self._libraryScanAnnouncer(countB, self.libraryScanProgress)
 		self.libraryScanning = False
+		if self.backgroundStatusMonitor: return
 		if self.libraryScanProgress:
 			if SPLConfig["BeepAnnounce"]: tones.beep(370, 100)
 			else:
