@@ -64,6 +64,8 @@ EndOfTrackTime = integer(min=1, max=59, default=5)
 SongRampTime = integer(min=1, max=9, default=5)
 MicAlarm = integer(min=0, default="0")
 TrackDial = boolean(default=false)
+SayScheduledFor = boolean(default=true)
+SayListenerCount = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
 SPLConfig = None
@@ -310,6 +312,16 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.trackDialCheckbox.SetValue(SPLConfig["TrackDial"])
 		sizer.Add(self.trackDialCheckbox, border=10,flag=wx.BOTTOM)
 
+		# Translators: the label for a setting in SPL add-on settings to announce scheduled time.
+		self.scheduledForCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce &scheduled time for the selected track"))
+		self.scheduledForCheckbox.SetValue(SPLConfig["SayScheduledFor"])
+		sizer.Add(self.scheduledForCheckbox, border=10,flag=wx.BOTTOM)
+
+		# Translators: the label for a setting in SPL add-on settings to announce listener count.
+		self.listenerCountCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce &listener count"))
+		self.listenerCountCheckbox.SetValue(SPLConfig["SayListenerCount"])
+		sizer.Add(self.listenerCountCheckbox, border=10,flag=wx.BOTTOM)
+
 	def postInit(self):
 		self.beepAnnounceCheckbox.SetFocus()
 
@@ -386,9 +398,6 @@ class AppModule(appModuleHandler.AppModule):
 	scheduledTimeCache = ""
 	# Track Dial (A.K.A. enhanced arrow keys)
 	SPLColNumber = 0
-	# To be removed in 5.0:
-	sayScheduledFor = True
-	sayListenerCount = True
 
 	# Automatically announce mic, line in, etc changes
 	# These items are static text items whose name changes.
@@ -436,7 +445,7 @@ class AppModule(appModuleHandler.AppModule):
 					self.scanCount = 0
 			else:
 				if obj.name.startswith("Scheduled for"):
-					if not self.sayScheduledFor:
+					if not SPLConfig["SayScheduledFor"]:
 						nextHandler()
 						return
 					if self.scheduledTimeCache == obj.name: return
@@ -444,7 +453,7 @@ class AppModule(appModuleHandler.AppModule):
 						self.scheduledTimeCache = obj.name
 						ui.message(obj.name)
 						return
-				elif "Listener" in obj.name and not self.sayListenerCount:
+				elif "Listener" in obj.name and not SPLConfig["SayListenerCount"]:
 					nextHandler()
 					return
 				elif not (obj.name.endswith(" On") or obj.name.endswith(" Off")) or (obj.name.startswith("Cart") and obj.IAccessibleChildID == 3):
@@ -1268,19 +1277,21 @@ class AppModule(appModuleHandler.AppModule):
 	# To be removed in 5.0.
 	# Messages in the following two functions should not be translated until 5.0.
 	def script_toggleScheduledTime(self, gesture):
-		if self.sayScheduledFor:
-			self.sayScheduledFor = False
+		global SPLConfig
+		if SPLConfig["SayScheduledFor"]:
+			SPLConfig["SayScheduledFor"] = False
 			ui.message("Do not announce scheduled time")
 		else:
-			self.sayScheduledFor = True
+			SPLConfig["SayScheduledFor"] = True
 			ui.message("Announce scheduled time")
 
 	def script_toggleListenerCount(self, gesture):
-		if not self.sayListenerCount:
-			self.sayListenerCount = True
+		global SPLConfig
+		if not SPLConfig["SayListenerCount"]:
+			SPLConfig["SayListenerCount"] = True
 			ui.message("Announce listener count")
 		else:
-			self.sayListenerCount = False
+			SPLConfig["SayListenerCount"] = False
 			ui.message("Do not announce listener count")
 
 	def script_sayTrackPitch(self, gesture):
