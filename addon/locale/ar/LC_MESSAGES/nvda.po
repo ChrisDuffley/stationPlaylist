@@ -14,7 +14,17 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.9\n"
+"X-Generator: Poedit 1.7.4\n"
+
+#. Translators: Standard dialog message when Studio configuration has problems.
+msgid ""
+"Your Studio add-on configuration has errors and was reset to factory "
+"defaults."
+msgstr "يحتوي ملف الإعدادات على أخطاء وتم استرجاع الإعدادات الافتراضية"
+
+#. Translators: Standard error title for configuration error.
+msgid "Studio add-on Configuration error"
+msgstr "خطأ بملفات الإضافة"
 
 #. Translators: Script category for Station Playlist commands in input gestures dialog.
 #. Add-on summary, usually the user visible name of the addon.
@@ -32,29 +42,45 @@ msgstr ""
 "يرجى إعادة الدخول في مستكشف التنويهات لمعرفة ما تم تحديثه من مفاتيح "
 "للتنويهات المختلفة."
 
+#. Translators: Presented in braille when microphone was on for more than a specified time in microphone alarm dialog.
+msgid "Warning: Microphone active"
+msgstr "تحذير: الميكروفون يعمل"
+
 #. Translators: Presented when remaining time is unavailable.
 msgid "Remaining time not available"
 msgstr "الوقت المتبقي غير متوفر"
-
-#. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "Announces the remaining track time."
-msgstr "يعلن عن الوقت المتبقي للمسار المشغل حاليا."
 
 #. Translators: Presented when elapsed time is unavailable.
 msgid "Elapsed time not available"
 msgstr "الوقت المنقضي غير متوفر"
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "Announces the elapsed time for the currently playing track."
-msgstr "يعلن عن الوقت المنقضي للمسار المشغل حاليا."
-
 #. Translators: Presented when broadcaster time is unavailable.
 msgid "Broadcaster time not available"
 msgstr "وقت المذيع غير متوفر"
 
+#. Translators: Presented when time information is unavailable.
+msgid "Cannot obtain time in hours, minutes and seconds"
+msgstr "تعذر الحصول على الوقت بالساعات والدقائق والثواني"
+
+#. Translators: Presented when trying to use an add-on command in an unsupported version of StationPlaylist Studio.
+msgid "This version of Studio is no longer supported"
+msgstr "توقف دعم هذا الإصدار من التطبيق"
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Announces the remaining track time."
+msgstr "يعلن عن الوقت المتبقي للمسار المشغل حاليا."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Announces the elapsed time for the currently playing track."
+msgstr "يعلن عن الوقت المنقضي للمسار المشغل حاليا."
+
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Announces broadcaster time."
 msgstr "يعلن عن وقت المذيع"
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Announces time including seconds."
+msgstr "الإعلان عن الوقت بما في ذلك الثواني"
 
 #. Translators: A dialog message to set end of track alarm (curAlarmSec is the current end of track alarm in seconds).
 #, python-brace-format
@@ -65,6 +91,44 @@ msgstr "إدخال وقت التنبيه بنهاية المسار بالثوا�
 msgid "End of track alarm"
 msgstr "التنبيه بوقت نهاية المسار"
 
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "sets end of track alarm (default is 5 seconds)."
+msgstr ""
+"يحدد المدة التي سيصدر عندها صوت ينبه بنهاية المسار (الوقت الافتراضي هو 5 "
+"ثوان)."
+
+#. Translators: A dialog message to set song ramp alarm (curRampSec is the current intro monitoring alarm in seconds).
+#, python-brace-format
+msgid "Enter song intro alarm time in seconds (currently {curRampSec})"
+msgstr "ادخل وقت مقدمة الأغنية بالثواني (حاليا {curRampSec})"
+
+#. Translators: The title of song intro alarm dialog.
+msgid "Song intro alarm"
+msgstr "التنبيه بمقدمة الأغنية"
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "sets song intro alarm (default is 5 seconds)."
+msgstr "ضبط وقت بداية الأغنية (الوقت الافتراضي 5 ثواني)"
+
+#. Translators: A dialog message to set microphone active alarm (curAlarmSec is the current mic monitoring alarm in seconds).
+#, python-brace-format
+msgid ""
+"Enter microphone alarm time in seconds (currently {curAlarmSec}, 0 disables "
+"the alarm)"
+msgstr ""
+"ادخل وقت التنبيه بالميكروفون بالثواني (حاليا {curAlarmSec}, الرقم 0 يعطل "
+"التنبيه)"
+
+#. Translators: A dialog message when microphone alarm is disabled (set to 0).
+msgid ""
+"Enter microphone alarm time in seconds (currently disabled, 0 disables the "
+"alarm)"
+msgstr "ادخل وقت التنبيه بالميكروفون بالثواني (معطل حاليا, 0 يعطله)."
+
+#. Translators: The title of mic alarm dialog.
+msgid "Microphone alarm"
+msgstr "التنبيه بعمل الميكروفون"
+
 #. Translators: The error message presented when incorrect alarm time value has been entered.
 msgid "Incorrect value entered."
 msgstr "تم إدخال قيمة غير صحيحة"
@@ -74,10 +138,8 @@ msgid "Error"
 msgstr "خطأ"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "sets end of track alarm (default is 5 seconds)."
-msgstr ""
-"يحدد المدة التي سيصدر عندها صوت ينبه بنهاية المسار (الوقت الافتراضي هو 5 "
-"ثوان)."
+msgid "Sets microphone alarm (default is 5 seconds)."
+msgstr "ضبط التنبيه بالميكروفون (الوقت الافتراضي 5 ثواني)."
 
 #. Translators: Reported when toggle announcement is set to beeps in SPL Studio.
 msgid "Toggle announcement beeps"
@@ -92,6 +154,26 @@ msgid "Toggles option change announcements between words and beeps."
 msgstr ""
 "أمر ينقلك بين تغيير طريقة الإعلانات, إما الاستماع إليها بالكلمات أو بإصدار "
 "صوت الصفير."
+
+#. Translators: A setting in braille timer options.
+msgid "Braille timer off"
+msgstr "ميقات البرايل تعطيل"
+
+#. Translators: A setting in braille timer options.
+msgid "Braille track endings"
+msgstr "نهايات مسار البرايل"
+
+#. Translators: A setting in braille timer options.
+msgid "Braille intro endings"
+msgstr "نهايات مقدمة البرايل"
+
+#. Translators: A setting in braille timer options.
+msgid "Braille intro and track endings"
+msgstr "نهايات المقدمة والمسار بالخط البارز"
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Toggles between various braille timer settings."
+msgstr "التنقل بين مختلف إعدادات ميقات البرايل"
 
 #. Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
 msgid "Search string not found."
@@ -145,9 +227,56 @@ msgstr "الخروج من مستكشف التنويهات"
 msgid "Toggles cart explorer to learn cart assignments."
 msgstr "تشغيل مستكشف التنويهات لمعرفة المفاتيح المنوطة بكل تنويه"
 
+#. Translators: Presented when cart command is unavailable.
+msgid "Cart command unavailable"
+msgstr "تعيين اختصار للتنويهات غير متاح الآن"
+
 #. Translators: Presented when there is no cart assigned to a cart command.
 msgid "Cart unassigned"
 msgstr "التنويه ليس له مفتاح"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Do not announce library scans"
+msgstr "لا تعلن عن البحث في المكتبة"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Announce start and end of a library scan"
+msgstr "الإعلان عن بداية ونهاية البحث في المكتبة"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Announce the progress of a library scan"
+msgstr "إعلان مدى التقدم في البحث بالمكتبة"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Announce progress and item count of a library scan"
+msgstr "الإعلان عن التقدم وعدد العناصر للبحث في المكتبة"
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Toggles library scan progress settings."
+msgstr "التنقل بين إعدادات التقدم في البحث بالمكتبة"
+
+#. Translators: Presented when library scan has started.
+msgid "Scan start"
+msgstr "بدأ البحث"
+
+#. Translators: Presented when library scanning is finished.
+#, python-brace-format
+msgid "{itemCount} items in the library"
+msgstr "{itemCount} عنصر بالمكتبة"
+
+#. Translators: Presented when library scan is in progress.
+msgid "Scanning"
+msgstr "جاري البحث"
+
+#. Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
+#, python-brace-format
+msgid "{itemCount} items scanned"
+msgstr "{itemCount} عنصر تم فحصه"
+
+#. Translators: Presented after library scan is done.
+#, python-brace-format
+msgid "Scan complete with {itemCount} items"
+msgstr "تم فحص {itemCount} عنصر"
 
 #. Translators: Input help mode message for a layer command in Station Playlist Studio.
 msgid ""
@@ -157,13 +286,94 @@ msgstr ""
 "نمط مساعد الأوامر بتطبيق SPL. يرجى الاطلاع على ملف المساعدة الخاص بهذه "
 "الإضافة للتعرف على مفاتيح الاختصار المتاحة."
 
+#. Translators: Presented when playlist modification is unavailable (for Studio 4.33 and earlier)
+msgid "Playlist modification not available"
+msgstr "تعديلات قائمة التشغيل غير متوفرة"
+
 #. Translators: Presented when there is no information for the next track.
 msgid "No next track scheduled or no track is playing"
 msgstr "لا يوجد مسار تالي محدد أو لا يوجد مسار يعمل حاليا"
 
+#. Translators: Presented when there is nn weather or temperature information.
+msgid "Weather and temperature not configured"
+msgstr "لم يتم إعداد حالة التقس ودرجة الحرارة"
+
 #. Translators: Presented when there is no listener count information.
 msgid "Listener count not found"
 msgstr "عدد المستمعين غير موجود"
+
+#. Translators: Presented when there is no information on song pitch (for Studio 4.33 and earlier).
+msgid "Song pitch not available"
+msgstr "حدة الأغنية غير متوفرة"
+
+#. Translators: Presented when attempting to start library scan.
+msgid "Monitoring library scan"
+msgstr "جاري مراقبة فحص المكتبة"
+
+#. Translators: Presented when library scan is already in progress.
+msgid "Scanning is in progress"
+msgstr "جاري الفحص"
+
+#. Translators: Presented when trying to perform Track Tool commands when not focused in the track list.
+msgid "Not in tracks list"
+msgstr "لست بقائمة مسارات"
+
+#. Translators: Presented when no tracks are added to Track Tool.
+msgid "No tracks added"
+msgstr "لم يتم إضافة مسارات "
+
+#. Translators: Presented when intro is not defined for a track in Track Tool.
+msgid "Introduction not set"
+msgstr "لم يتم ضبط المقدمة"
+
+#. Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
+#, python-brace-format
+msgid "{columnInfo} not found"
+msgstr "{columnInfo} غير موجود"
+
+#. Translators: Presented when artist information is not found for a track in Track Tool.
+msgid "No artist"
+msgstr "لا يوجد مطرب"
+
+#. Translators: Presents artist information for a track in Track Tool.
+#, python-brace-format
+msgid "Artist: {artistName}"
+msgstr "المطرب: {artistName}"
+
+#. Help message for SPL Controller
+#. Translators: the dialog text for SPL Controller help.
+msgid ""
+"\n"
+"After entering SPL Controller, press:\n"
+"A: Turn automation on.\n"
+"Shift+A: Turn automation off.\n"
+"M: Turn microphone on.\n"
+"Shift+M: Turn microphone off.\n"
+"N: Turn microphone on without fade.\n"
+"L: Turn line in on.\n"
+"Shift+L: Turn line in off.\n"
+"P: Play.\n"
+"U: Pause.\n"
+"S: Stop with fade.\n"
+"T: Instant stop.\n"
+"R: Remainig time for the playing track.\n"
+"Shift+R: Library scan progress."
+msgstr ""
+"\n"
+"بعد الدخول في نمط التحكم ل SPL, اضغط:\n"
+"A: تشغيل الآلية.\n"
+"Shift+A: تعطيل الآلية.\n"
+"M: تشغيل الميكروفون.\n"
+"Shift+M: تعطيل الميكروفون.\n"
+"N: تشغيل الميكروفون دون التلاشي.\n"
+"L: تشغيل مدخل الصوت.\n"
+"Shift+L: تعطيل مدخل الصوت.\n"
+"P: تشغيل.\n"
+"U: توقف مؤقت.\n"
+"S: توقف مع التلاشي.\n"
+"T: توقف مفاجئ.\n"
+"R: الوقت المتبقي للمسار المشغل.\n"
+"Shift+R: التقدم في فحص المكتبة."
 
 #. Used ANSI version, as Wide char version always returns 0.
 #. Translators: Presented when Station Playlist Studio is not running.
@@ -203,21 +413,21 @@ msgstr ""
 "لا يوجد مسار مشغل في الوقت الراهن. حاول استخدام التوقف المؤقت أثناء تشغيل "
 "أحد المسارات."
 
+#. Translators: Presented when no track is playing in Station Playlist Studio.
+msgid "There is no track playing."
+msgstr "لا يوجد مسار مشغل حاليا"
+
+#. Translators: The title for SPL Controller help dialog.
+msgid "SPL Controller help"
+msgstr "مساعد نمط التحكم بتطبيق SPL"
+
 #. Translators: Presented when SAM Encoder is trying to connect to a streaming server.
 msgid "Connecting..."
 msgstr "جاري الاتصال بالخادم..."
 
-#. Translators: Input help mode message in SAM Encoder window.
-msgid "Connects to a streaming server."
-msgstr "يتصل بالخادم"
-
 #. Translators: Presented when SAM Encoder is disconnecting from a streaming server.
 msgid "Disconnecting..."
 msgstr "جاري قطع الاتصال عن الخادم..."
-
-#. Translators: Input help mode message in SAM Encoder window.
-msgid "Disconnects from a streaming server."
-msgstr "يقطع الاتصال عن الخادم"
 
 #. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 msgid "Switch to Studio after connecting"
@@ -262,6 +472,9 @@ msgstr "ادخل اسم لهذا الملف"
 msgid "Opens a dialog to label the selected encoder."
 msgstr "يفتح محاورة لاختيار اسم للملف الذي سيبث"
 
+msgid "Connects to a streaming server."
+msgstr "يتصل بالخادم"
+
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
 msgid ""
@@ -270,6 +483,9 @@ msgid ""
 msgstr ""
 "تطوير دعم NVDA مع تطبيق Station Playlist Studio.\n"
 "فضلا عن إضافة مفاتيح اختصار للتحكم في الاستوديو من أي مكان."
+
+#~ msgid "Disconnects from a streaming server."
+#~ msgstr "يقطع الاتصال عن الخادم"
 
 #~ msgid "Press Alt+Tab to switch to SPL Studio window"
 #~ msgstr "اضغط Alt+Tab للانتقال إلى نافذة الاستوديو "
