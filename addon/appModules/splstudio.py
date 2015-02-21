@@ -177,6 +177,9 @@ class AppModule(appModuleHandler.AppModule):
 	spl510used = False
 	# For 5.0X and earlier: prevent NVDA from announcing scheduled time multiple times.
 	scheduledTimeCache = ""
+	# To be removed in 5.0:
+	sayScheduledFor = True
+	sayListenerCount = True
 
 	# Automatically announce mic, line in, etc changes
 	# These items are static text items whose name changes.
@@ -210,12 +213,14 @@ class AppModule(appModuleHandler.AppModule):
 						if self.libraryScanning: self.libraryScanning = False
 						self.scanCount = 0
 			else:
-				if obj.name.startswith("Scheduled for"):
+				if obj.name.startswith("Scheduled for") and self.sayScheduledFor:
 					if self.scheduledTimeCache == obj.name: return
 					else:
 						self.scheduledTimeCache = obj.name
 						ui.message(obj.name)
 						return
+				elif "Listener" in obj.name and self.sayListenerCount:
+					ui.message(obj.name)
 				elif not (obj.name.endswith(" On") or obj.name.endswith(" Off")) or (obj.name.startswith("Cart") and obj.IAccessibleChildID == 3):
 					# Announce status information that does not contain toggle messages and return immediately.
 					ui.message(obj.name)
@@ -984,6 +989,24 @@ class AppModule(appModuleHandler.AppModule):
 		# Translators: Presented when there is no listener count information.
 		ui.message(obj.name) if obj.name is not None else ui.message(_("Listener count not found"))
 
+	# To be removed in 5.0.
+	# Messages in the following two functions should not be translated until 5.0.
+	def script_toggleScheduledTime(self, gesture):
+		if self.sayScheduledFor:
+			self.sayScheduledFor = False
+			ui.message("Do not announce scheduled time")
+		else:
+			self.sayScheduledFor = True
+			ui.message("Announce scheduled time")
+
+	def script_toggleListenerCount(self, gesture):
+		if not self.sayListenerCount:
+			self.sayListenerCount = True
+			ui.message("Announce listener count")
+		else:
+			self.sayListenerCount = False
+			ui.message("Do not announce listener count")
+
 	def script_sayTrackPitch(self, gesture):
 		try:
 			obj = self.status(self.SPLSystemStatus).children[4]
@@ -1028,6 +1051,9 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:w":"sayTemperature",
 		"kb:i":"sayListenerCount",
 		"kb:s":"sayScheduledTime",
+		# To be removed in 5.0
+		"kb:shift+i":"toggleListenerCount",
+		"kb:shift+s":"toggleScheduledTime",
 		"kb:shift+p":"sayTrackPitch",
 		"kb:shift+r":"libraryScanMonitor",
 	}
