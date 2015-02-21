@@ -213,14 +213,18 @@ class AppModule(appModuleHandler.AppModule):
 						if self.libraryScanning: self.libraryScanning = False
 						self.scanCount = 0
 			else:
-				if obj.name.startswith("Scheduled for") and self.sayScheduledFor:
+				if obj.name.startswith("Scheduled for"):
+					if not self.sayScheduledFor:
+						nextHandler()
+						return
 					if self.scheduledTimeCache == obj.name: return
 					else:
 						self.scheduledTimeCache = obj.name
 						ui.message(obj.name)
 						return
-				elif "Listener" in obj.name and self.sayListenerCount:
-					ui.message(obj.name)
+				elif "Listener" in obj.name and not self.sayListenerCount:
+					nextHandler()
+					return
 				elif not (obj.name.endswith(" On") or obj.name.endswith(" Off")) or (obj.name.startswith("Cart") and obj.IAccessibleChildID == 3):
 					# Announce status information that does not contain toggle messages and return immediately.
 					ui.message(obj.name)
