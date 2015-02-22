@@ -112,6 +112,7 @@ To learn cart assignments, from SPL Studio, press Control+NVDA+3. Pressing the c
 ## Changes for 4.3/3.8
 
 * When switching to another part of Studio such as insert tracks dialog while cart explorer is active, NVDA will no longer announce cart messages when cart keys are pressed (for example, locating a track from insert tracks dialog).
+* When exiting Studio while various alarm dialogs are opened, NVDA will detect that Studio has been exited and will not save newly modified alarm values.
 
 ## Changes for 4.2/3.7
 
