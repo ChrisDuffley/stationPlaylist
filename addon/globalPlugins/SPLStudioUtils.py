@@ -181,12 +181,17 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		global SPLWin
 		# Error checks:
 		# 1. If SPL Studio is not running, print an error message.
-		# 2. If we're already  in SPL, report that the user is in SPL. This is temporary - in the end, pass this gesture to the app module portion.
+		# 2. If we're already  in SPL, report that the user is in SPL. This is temporary - in the end, pass this gesture to the app module portion if told to do so.
+		# For SPL Controller passthrough, it needs to be enabled via Python. This is experimental.
 		if "splstudio" in api.getForegroundObject().appModule.appModuleName:
-			# Translators: Presented when NVDA cannot enter SPL Controller layer since SPL Studio is focused.
-			ui.message(_("You are already in SPL Studio window. For status commands, use SPL Assistant commands."))
-			self.finish()
-			return
+			if not api.getForegroundObject().appModule.SPLConPassthrough:
+				# Translators: Presented when NVDA cannot enter SPL Controller layer since SPL Studio is focused.
+				ui.message(_("You are already in SPL Studio window. For status commands, use SPL Assistant commands."))
+				self.finish()
+				return
+			else:
+				api.getForegroundObject().appModule.script_SPLAssistantToggle(gesture)
+				return
 		SPLWin = user32.FindWindowA("SPLStudio", None)
 		if SPLWin == 0:
 			# Translators: Presented when Station Playlist Studio is not running.

@@ -365,6 +365,9 @@ class AppModule(appModuleHandler.AppModule):
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.script_openConfigDialog, self.SPLSettings)
 
 	SPLCurVersion = appModuleHandler.AppModule.productVersion
+	# 5.0/Experimental: allow SPL Controller layer command to invoke SPL Assistant.
+	# For now, this needs to be enabled from Python Console and may or may not make it into 5.0.
+	SPLConPassthrough = False
 
 	def event_NVDAObject_init(self, obj):
 		# Radio button group names are not recognized as grouping, so work around this.
