@@ -62,6 +62,7 @@ confspec = ConfigObj(StringIO("""
 BeepAnnounce = boolean(default=false)
 EndOfTrackTime = integer(min=1, max=59, default=5)
 SongRampTime = integer(min=1, max=9, default=5)
+BrailleTimer = option("off", "intro", "outro", "both", default="off")
 MicAlarm = integer(min=0, default="0")
 TrackDial = boolean(default=false)
 SayScheduledFor = boolean(default=true)
@@ -298,6 +299,25 @@ class SPLConfigDialog(gui.SettingsDialog):
 		sizer.Add(self.introAlarm)
 		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: The label for a setting in SPL add-on dialog to control braille timer.
+		label = wx.StaticText(self, wx.ID_ANY, label=_("&Braille timer:"))
+		self.brailleTimerValues=[("off",_("off")),
+		# Translators: One of the braille timer settings.
+		("outro",_("track ending")),
+		("intro",_("track intro")),
+		("both",_("track intro and ending"))]
+		self.brailleTimerList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.brailleTimerValues])
+		brailleTimerCurValue=SPLConfig["BrailleTimer"]
+		selection = (x for x,y in enumerate(self.brailleTimerValues) if y[0]==brailleTimerCurValue).next()  
+		try:
+			self.brailleTimerList.SetSelection(selection)
+		except:
+			pass
+		sizer.Add(label)
+		sizer.Add(self.brailleTimerList)
+		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
 		sizer = wx.BoxSizer(wx.VERTICAL)
 		# Translators: The label for a setting in SPL Add-on settings to change microphone alarm setting.
 		label = wx.StaticText(self, wx.ID_ANY, label=_("&Microphone alarm in seconds"))
@@ -337,6 +357,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["BeepAnnounce"] = self.beepAnnounceCheckbox.Value
 		SPLConfig["EndOfTrackTime"] = self.endOfTrackAlarm.Value
 		SPLConfig["SongRampTime"] = self.introAlarm.Value
+		SPLConfig["BrailleTimer"] = self.brailleTimerValues[self.brailleTimerList.GetSelection()][0]
 		SPLConfig["MicAlarm"] = self.micAlarm.Value
 		SPLConfig["TrackDial"] = self.trackDialCheckbox.Value
 		super(SPLConfigDialog,  self).onOk(evt)
@@ -485,13 +506,13 @@ class AppModule(appModuleHandler.AppModule):
 			if obj.simplePrevious != None:
 				if obj.simplePrevious.name == "Remaining Time":
 					# End of track for SPL 5.x.
-					if self.brailleTimer in [self.brailleTimerEnding, self.brailleTimerBoth] and api.getForegroundObject().processID == self.processID: #and "00:00" < obj.name <= self.SPLEndOfTrackTime:
+					if SPLConfig["BrailleTimer"] in ("outro", "both") and api.getForegroundObject().processID == self.processID: #and "00:00" < obj.name <= self.SPLEndOfTrackTime:
 						braille.handler.message(obj.name)
 					if obj.name == "00:{0:02d}".format(SPLConfig["EndOfTrackTime"]):
 						tones.beep(440, 200)
 				if obj.simplePrevious.name == "Remaining Song Ramp":
 					# Song intro for SPL 5.x.
-					if self.brailleTimer in [self.brailleTimerIntro, self.brailleTimerBoth] and api.getForegroundObject().processID == self.processID: #and "00:00" < obj.name <= self.SPLSongRampTime:
+					if SPLConfig["BrailleTimer"] in ("intro", "both") and api.getForegroundObject().processID == self.processID: #and "00:00" < obj.name <= self.SPLSongRampTime:
 						braille.handler.message(obj.name)
 					if obj.name == "00:{0:02d}".format(SPLConfig["SongRampTime"]):
 						tones.beep(512, 400)
@@ -771,10 +792,6 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Braille timer.
 	# Announce end of track and other info via braille.
-	brailleTimer = 0
-	brailleTimerEnding = 1
-	brailleTimerIntro = 2
-	brailleTimerBoth = 3 # Both as in intro and track ending.
 
 	# Braille timer settings list and the toggle script.
 	brailleTimerSettings=(
@@ -789,8 +806,25 @@ class AppModule(appModuleHandler.AppModule):
 	)
 
 	def script_setBrailleTimer(self, gesture):
-		self.brailleTimer= (self.brailleTimer+1) % len(self.brailleTimerSettings)
-		ui.message(self.brailleTimerSettings[self.brailleTimer])
+		global SPLConfig
+		brailleTimer = SPLConfig["BrailleTimer"]
+		if brailleTimer == "off":
+			brailleTimer = "outro"
+			# Translators: A setting in braille timer options.
+			ui.message(_("Braille track endings"))
+		elif brailleTimer == "outro":
+			brailleTimer = "intro"
+			# Translators: A setting in braille timer options.
+			ui.message(_("Braille intro endings"))
+		elif brailleTimer == "intro":
+			brailleTimer = "both"
+			# Translators: A setting in braille timer options.
+			ui.message(_("Braille intro and track endings"))
+		else:
+			brailleTimer = "off"
+			# Translators: A setting in braille timer options.
+			ui.message(_("Braille timer off"))
+		SPLConfig["BrailleTimer"] = brailleTimer
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setBrailleTimer.__doc__=_("Toggles between various braille timer settings.")
 
