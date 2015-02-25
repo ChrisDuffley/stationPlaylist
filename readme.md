@@ -134,8 +134,8 @@ From studio window, you can press Control+NVDA+0 to open the add-on configuratio
 ## Changes for 4.3/3.8
 
 * When switching to another part of Studio such as insert tracks dialog while cart explorer is active, NVDA will no longer announce cart messages when cart keys are pressed (for example, locating a track from insert tracks dialog).
-* When exiting Studio and if alarm dialogs are opened, NVDA will not save new alarm settings even though you changed it to reflect the fact that Studio is closed.
 * New SPL Assistant keys, including toggling announcement of scheduled time and listener count (Shift+S and Shift+I, respectively). These settings are not retained across sessions.
+* When exiting Studio while various alarm dialogs are opened, NVDA will detect that Studio has been exited and will not save newly modified alarm values.
 
 ## Changes for 4.2/3.7
 
