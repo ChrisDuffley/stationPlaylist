@@ -23,6 +23,8 @@ IMPORTANT: Due to major incompatible changes and key assignments, please remove 
 * Control+NVDA+f from Studio window: Opens a dialog to find a track based on artist or song name. Press NvDA+F3 to find forward or NVDA+Shift+F3 to find backward.
 * Alt+NVDA+R from Studio window: Steps through library scan announcement settings.
 * Control+Shift+X from Studio window: Steps through braille timer settings.
+* Control+grave accent from Studio window: Toggles track dial on or off (works properly while a track is focused).
+* Control+NVDA+0 from Studio window: Opens the Studio add-on configuration dialog.
 
 ## Unassigned commands
 
@@ -43,6 +45,7 @@ The following commands are available when using Sam or SPL encoders:
 * F10 (SAM encoder only): Disconnect from the streaming server.
 * F11: Toggles whether NVDA will switch to Studio window for the selected encoder if connected.
 * Shift+F11: Toggles whether Studio will play the first selected track when encoder is connected to a streaming server.
+* Control+F11: Toggles background monitoring of the selected encoder.
 * F12: Opens a dialog to enter custom label for the selected encoder or stream.
 
 ## SPL Assistant layer
@@ -56,6 +59,7 @@ The available status information are:
 * H: Duration of music for the current hour slot.
 * Shift+H: Total duration of selected tracks for this hour slot (from the track list, press SPACE to select or uncheck the track to play).
 * I: Listener count.
+* Shift+I: Toggles announcement of listener count (not saved across sessions).
 * L: Line in.
 * M: Microphone.
 * N: Title for the next scheduled track.
@@ -64,6 +68,7 @@ The available status information are:
 * R: Record to file enabled/disabled.
 * Shift+R: Monitor library scan in progress.
 * S: Track starts in (scheduled).
+* Shift+S: Toggles announcement of scheduled time for the track (not saved across sessions).
 * T: Cart edit mode on/off.
 * U: Studio up time.
 * W: Weather and temperature if configured.
@@ -113,14 +118,24 @@ To learn cart assignments, from SPL Studio, press Control+NVDA+3. Pressing the c
 
 You can use arrow keys to review various information about a track. To turn Track Dial on, while a track is focused in the main playlist viewer, press Control+Grave. Then use left and right arrow keys to review information such as artist, duration and so on.
 
+## Configuration dialog
+
+From studio window, you can press Control+NVDA+0 to open the add-on configuration dialog. Alternatively, go to NVDA's preferences menu and select SPL Studio Settings item.
+
 ## Changes for 5.0-dev
 
 * A dedicated settings dialog for SPL add-on has been added, accessible from NVDA's preferences menu or by pressing Control+NVDA+0 from SPL window.
+* If some of the settings have errors, only the affected settings will be reset to factory defaults.
+* Renamed "toggle announcement" to "status announcement" as beeps are used for announcing other status information such as completion of library scans.
+* Status announcement setting is now retained across sessions. Previously you had to configure this setting manually when Studio starts.
 * You can now use Track Dial feature to review columns in a track entry in Studio's main playlist viewer (to toggle this feature, press Control+Grave accent).
+* You can now monitor individual encoders for connection status and for other messages by pressing Control+F11 while the encoder you wish to monitor is focused (works better when using SAM encoders).
 
 ## Changes for 4.3/3.8
 
 * When switching to another part of Studio such as insert tracks dialog while cart explorer is active, NVDA will no longer announce cart messages when cart keys are pressed (for example, locating a track from insert tracks dialog).
+* When exiting Studio and if alarm dialogs are opened, NVDA will not save new alarm settings even though you changed it to reflect the fact that Studio is closed.
+* New SPL Assistant keys, including toggling announcement of scheduled time and listener count (Shift+S and Shift+I, respectively). These settings are not retained across sessions.
 
 ## Changes for 4.2/3.7
 
