@@ -11,11 +11,13 @@ import globalVars
 import ui
 import gui
 import wx
+from winUser import user32
 
 # Configuration management
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
 confspec = ConfigObj(StringIO("""
 BeepAnnounce = boolean(default=false)
+SayEndOfTrackTime = boolean(default=true)
 EndOfTrackTime = integer(min=1, max=59, default=5)
 SongRampTime = integer(min=1, max=9, default=5)
 BrailleTimer = option("off", "intro", "outro", "both", default="off")
@@ -185,3 +187,51 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["MicAlarm"] = self.micAlarm.Value
 		SPLConfig["TrackDial"] = self.trackDialCheckbox.Value
 		super(SPLConfigDialog,  self).onOk(evt)
+
+# Additional configuration dialogs
+
+# Common alarm dialogs.
+# Based on NVDA core's find dialog code (implemented by the author of this add-on).
+class SPLAlarmDialog(wx.Dialog):
+	"""A dialog providing common alarm settings.
+	This dialog contains a number edit field for alarm duration and a check box to enable or disable the alarm.
+	"""
+
+	def __init__(self, parent, setting, toggleSetting, title, alarmField, alarmToggle, min, max):
+		# Translators: Title of a dialog to find text.
+		super(SPLAlarmDialog, self).__init__(parent, wx.ID_ANY, title)
+		self.setting = setting
+		self.toggleSetting = toggleSetting
+		mainSizer = wx.BoxSizer(wx.VERTICAL)
+
+		alarmSizer = wx.BoxSizer(wx.HORIZONTAL)
+		alarmMessage = wx.StaticText(self, wx.ID_ANY, label=alarmField)
+		alarmSizer.Add(alarmMessage)
+		self.alarm= wx.SpinCtrl(self, wx.ID_ANY, min=min, max=max)
+		self.alarm.SetValue(SPLConfig[setting])
+		alarmSizer.Add(self.alarm)
+		mainSizer.Add(alarmSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
+		self.toggleCheckBox=wx.CheckBox(self,wx.NewId(),label=alarmToggle)
+		self.toggleCheckBox.SetValue(SPLConfig[toggleSetting])
+		mainSizer.Add(self.toggleCheckBox,border=10,flag=wx.BOTTOM)
+
+		mainSizer.AddSizer(self.CreateButtonSizer(wx.OK|wx.CANCEL))
+		self.Bind(wx.EVT_BUTTON,self.onOk,id=wx.ID_OK)
+		self.Bind(wx.EVT_BUTTON,self.onCancel,id=wx.ID_CANCEL)
+		mainSizer.Fit(self)
+		self.SetSizer(mainSizer)
+		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+		self.alarm.SetFocus()
+
+	def onOk(self, evt):
+		# Optimization: don't bother if Studio is dead and if the same value has been entered.
+		if user32.FindWindowA("SPLStudio", None):
+			newVal = self.alarm.GetValue()
+			newToggle = self.toggleCheckBox.GetValue()
+			if SPLConfig[self.setting] != newVal: SPLConfig[self.setting] = newVal
+			elif SPLConfig[self.toggleSetting] != newToggle: SPLConfig[self.toggleSetting] = newToggle
+		print SPLConfig[self.setting]
+		self.Destroy()
+
+	def onCancel(self, evt):
+		self.Destroy()

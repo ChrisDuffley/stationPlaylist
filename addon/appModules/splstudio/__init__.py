@@ -519,28 +519,23 @@ class AppModule(appModuleHandler.AppModule):
 	# Set the end of track alarm time between 1 and 59 seconds.
 
 	def script_setEndOfTrackTime(self, gesture):
-		timeVal = long(splconfig.SPLConfig["EndOfTrackTime"])
-		# Translators: A dialog message to set end of track alarm (curAlarmSec is the current end of track alarm in seconds).
-		timeMSG = _("Enter end of track alarm time in seconds (currently {curAlarmSec})").format(curAlarmSec = timeVal)
-		dlg = wx.NumberEntryDialog(gui.mainFrame,
-		timeMSG, "",
+		timeVal = splconfig.SPLConfig["EndOfTrackTime"]
+		d = splconfig.SPLAlarmDialog(gui.mainFrame, "EndOfTrackTime", "SayEndOfTrackTime",
 		# Translators: The title of end of track alarm dialog.
 		_("End of track alarm"),
-		timeVal, 1, 59)
-		def callback(result):
-			if result == wx.ID_OK:
-				# Optimization: don't bother if Studio is dead and if the same value has been entered.
-				newVal = dlg.GetValue()
-				if user32.FindWindowA("SPLStudio", None) and timeVal != newVal:
-					splconfig.SPLConfig["EndOfTrackTime"] = newVal
-		gui.runScriptModalDialog(dlg, callback)
+		# Translators: A dialog message to set end of track alarm (curAlarmSec is the current end of track alarm in seconds).
+		_("Enter &end of track alarm time in seconds (currently {curAlarmSec})").format(curAlarmSec = timeVal),
+		"&Notify when end of track is approaching", 1, 59)
+		gui.mainFrame.prePopup()
+		d.Show()
+		gui.mainFrame.postPopup()
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setEndOfTrackTime.__doc__=_("sets end of track alarm (default is 5 seconds).")
 
 	# Set song ramp (introduction) time between 1 and 9 seconds.
 
 	def script_setSongRampTime(self, gesture):
-		rampVal = long(splConfig.SPLConfig["SongRampTime"])
+		rampVal = long(splconfig.SPLConfig["SongRampTime"])
 		# Translators: A dialog message to set song ramp alarm (curRampSec is the current intro monitoring alarm in seconds).
 		timeMSG = _("Enter song intro alarm time in seconds (currently {curRampSec})").format(curRampSec = rampVal)
 		dlg = wx.NumberEntryDialog(gui.mainFrame,
