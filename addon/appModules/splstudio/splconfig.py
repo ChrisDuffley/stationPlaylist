@@ -17,8 +17,9 @@ from winUser import user32
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
 confspec = ConfigObj(StringIO("""
 BeepAnnounce = boolean(default=false)
-SayEndOfTrackTime = boolean(default=true)
+SayEndOfTrack = boolean(default=true)
 EndOfTrackTime = integer(min=1, max=59, default=5)
+SaySongRamp = boolean(default=true)
 SongRampTime = integer(min=1, max=9, default=5)
 BrailleTimer = option("off", "intro", "outro", "both", default="off")
 MicAlarm = integer(min=0, default="0")
@@ -108,22 +109,40 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.beepAnnounceCheckbox.SetValue(SPLConfig["BeepAnnounce"])
 		sizer.Add(self.beepAnnounceCheckbox, border=10,flag=wx.BOTTOM)
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		self.outroSizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Check box hiding method comes from Alberto Buffalino's Columns Review add-on.
+		self.outroCheckBox=wx.CheckBox(self,wx.NewId(),label=_("&Notify when end of track is approaching"))
+		self.outroCheckBox.SetValue(SPLConfig["SayEndOfTrack"])
+		self.outroCheckBox.Bind(wx.EVT_CHECKBOX, self.onCheck)
+		self.outroSizer.Add(self.outroCheckBox, border=10,flag=wx.BOTTOM)
+
 		# Translators: The label for a setting in SPL Add-on settings to specify end of track (outro) alarm.
-		label = wx.StaticText(self, wx.ID_ANY, label=_("&End of track alarm in seconds"))
-		sizer.Add(label)
+		self.outroAlarmLabel = wx.StaticText(self, wx.ID_ANY, label=_("&End of track alarm in seconds"))
+		self.outroSizer.Add(self.outroAlarmLabel)
 		self.endOfTrackAlarm = wx.SpinCtrl(self, wx.ID_ANY, min=1, max=59)
 		self.endOfTrackAlarm.SetValue(long(SPLConfig["EndOfTrackTime"]))
-		sizer.Add(self.endOfTrackAlarm)
-		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+		self.outroSizer.Add(self.endOfTrackAlarm)
+		if not self.outroCheckBox.IsChecked():
+			self.outroSizer.Hide(self.outroAlarmLabel)
+			self.outroSizer.Hide(self.endOfTrackAlarm)
+		settingsSizer.Add(self.outroSizer, border=10, flag=wx.BOTTOM)
+
+		self.introSizer = wx.BoxSizer(wx.HORIZONTAL)
+		self.introCheckBox=wx.CheckBox(self,wx.NewId(),label=_("&Notify when end of introduction is approaching"))
+		self.introCheckBox.SetValue(SPLConfig["SaySongRamp"])
+		self.introCheckBox.Bind(wx.EVT_CHECKBOX, self.onCheck2)
+		self.introSizer.Add(self.introCheckBox, border=10,flag=wx.BOTTOM)
 
 		# Translators: The label for a setting in SPL Add-on settings to specify track intro alarm.
-		label = wx.StaticText(self, wx.ID_ANY, label=_("Track &intro alarm in seconds"))
-		sizer.Add(label)
-		self.introAlarm = wx.SpinCtrl(self, wx.ID_ANY, min=1, max=9)
-		self.introAlarm.SetValue(long(SPLConfig["SongRampTime"]))
-		sizer.Add(self.introAlarm)
-		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+		self.introAlarmLabel = wx.StaticText(self, wx.ID_ANY, label=_("&Track intro alarm in seconds"))
+		self.introSizer.Add(self.outroAlarmLabel)
+		self.songRampAlarm = wx.SpinCtrl(self, wx.ID_ANY, min=1, max=9)
+		self.songRampAlarm.SetValue(long(SPLConfig["SongRampTime"]))
+		self.introSizer.Add(self.songRampAlarm)
+		if not self.introCheckBox.IsChecked():
+			self.introSizer.Hide(self.introAlarmLabel)
+			self.introSizer.Hide(self.songRampAlarm)
+		settingsSizer.Add(self.introSizer, border=10, flag=wx.BOTTOM)
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: The label for a setting in SPL add-on dialog to control braille timer.
@@ -181,12 +200,33 @@ class SPLConfigDialog(gui.SettingsDialog):
 			self.micAlarm.SetFocus()
 			return
 		SPLConfig["BeepAnnounce"] = self.beepAnnounceCheckbox.Value
+		SPLConfig["SayEndOfTrack"] = self.outroCheckBox.Value
 		SPLConfig["EndOfTrackTime"] = self.endOfTrackAlarm.Value
-		SPLConfig["SongRampTime"] = self.introAlarm.Value
+		SPLConfig["SaySongRamp"] = self.introCheckBox.Value
+		SPLConfig["SongRampTime"] = self.songRampAlarm.Value
 		SPLConfig["BrailleTimer"] = self.brailleTimerValues[self.brailleTimerList.GetSelection()][0]
 		SPLConfig["MicAlarm"] = self.micAlarm.Value
 		SPLConfig["TrackDial"] = self.trackDialCheckbox.Value
 		super(SPLConfigDialog,  self).onOk(evt)
+
+	# Check events for outro and intro alarms, respectively.
+	def onCheck(self, evt):
+		if not self.outroCheckBox.IsChecked():
+			self.outroSizer.Hide(self.outroAlarmLabel)
+			self.outroSizer.Hide(self.endOfTrackAlarm)
+		else:
+			self.outroSizer.Show(self.outroAlarmLabel)
+			self.outroSizer.Show(self.endOfTrackAlarm)
+		self.Fit()
+
+	def onCheck2(self, evt):
+		if not self.introCheckBox.IsChecked():
+			self.introSizer.Hide(self.introAlarmLabel)
+			self.introSizer.Hide(self.songRampAlarm)
+		else:
+			self.introSizer.Show(self.introAlarmLabel)
+			self.introSizer.Show(self.songRampAlarm)
+		self.Fit()
 
 # Additional configuration dialogs
 
@@ -194,24 +234,24 @@ class SPLConfigDialog(gui.SettingsDialog):
 # Based on NVDA core's find dialog code (implemented by the author of this add-on).
 class SPLAlarmDialog(wx.Dialog):
 	"""A dialog providing common alarm settings.
-	This dialog contains a number edit field for alarm duration and a check box to enable or disable the alarm.
+	This dialog contains a number entry field for alarm duration and a check box to enable or disable the alarm.
 	"""
 
-	def __init__(self, parent, setting, toggleSetting, title, alarmField, alarmToggle, min, max):
-		# Translators: Title of a dialog to find text.
+	def __init__(self, parent, setting, toggleSetting, title, alarmPrompt, alarmToggleLabel, min, max):
 		super(SPLAlarmDialog, self).__init__(parent, wx.ID_ANY, title)
 		self.setting = setting
 		self.toggleSetting = toggleSetting
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 
 		alarmSizer = wx.BoxSizer(wx.HORIZONTAL)
-		alarmMessage = wx.StaticText(self, wx.ID_ANY, label=alarmField)
+		alarmMessage = wx.StaticText(self, wx.ID_ANY, label=alarmPrompt)
 		alarmSizer.Add(alarmMessage)
-		self.alarm= wx.SpinCtrl(self, wx.ID_ANY, min=min, max=max)
-		self.alarm.SetValue(SPLConfig[setting])
-		alarmSizer.Add(self.alarm)
+		self.alarmEntry = wx.SpinCtrl(self, wx.ID_ANY, min=min, max=max)
+		self.alarmEntry.SetValue(SPLConfig[setting])
+		alarmSizer.Add(self.alarmEntry)
 		mainSizer.Add(alarmSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
-		self.toggleCheckBox=wx.CheckBox(self,wx.NewId(),label=alarmToggle)
+
+		self.toggleCheckBox=wx.CheckBox(self,wx.NewId(),label=alarmToggleLabel)
 		self.toggleCheckBox.SetValue(SPLConfig[toggleSetting])
 		mainSizer.Add(self.toggleCheckBox,border=10,flag=wx.BOTTOM)
 
@@ -221,16 +261,15 @@ class SPLAlarmDialog(wx.Dialog):
 		mainSizer.Fit(self)
 		self.SetSizer(mainSizer)
 		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
-		self.alarm.SetFocus()
+		self.alarmEntry.SetFocus()
 
 	def onOk(self, evt):
 		# Optimization: don't bother if Studio is dead and if the same value has been entered.
 		if user32.FindWindowA("SPLStudio", None):
-			newVal = self.alarm.GetValue()
+			newVal = self.alarmEntry.GetValue()
 			newToggle = self.toggleCheckBox.GetValue()
 			if SPLConfig[self.setting] != newVal: SPLConfig[self.setting] = newVal
 			elif SPLConfig[self.toggleSetting] != newToggle: SPLConfig[self.toggleSetting] = newToggle
-		print SPLConfig[self.setting]
 		self.Destroy()
 
 	def onCancel(self, evt):

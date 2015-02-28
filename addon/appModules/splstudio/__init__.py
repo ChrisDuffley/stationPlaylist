@@ -520,7 +520,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_setEndOfTrackTime(self, gesture):
 		timeVal = splconfig.SPLConfig["EndOfTrackTime"]
-		d = splconfig.SPLAlarmDialog(gui.mainFrame, "EndOfTrackTime", "SayEndOfTrackTime",
+		d = splconfig.SPLAlarmDialog(gui.mainFrame, "EndOfTrackTime", "SayEndOfTrack",
 		# Translators: The title of end of track alarm dialog.
 		_("End of track alarm"),
 		# Translators: A dialog message to set end of track alarm (curAlarmSec is the current end of track alarm in seconds).
