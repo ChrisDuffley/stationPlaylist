@@ -130,6 +130,8 @@ From studio window, you can press Control+NVDA+0 to open the add-on configuratio
 * Status announcement setting is now retained across sessions. Previously you had to configure this setting manually when Studio starts.
 * You can now use Track Dial feature to review columns in a track entry in Studio's main playlist viewer (to toggle this feature, press Control+Grave accent).
 * You can now monitor individual encoders for connection status and for other messages by pressing Control+F11 while the encoder you wish to monitor is focused (works better when using SAM encoders).
+* Added a checkbox in end of track and song intro alarm dialogs to enable or disable these alarms (check to enable). These can also be "configured" from add-on settings (experimental, nonfunctional).
+* Added ability to use SPL Controller layer command to invoke SPL Assistant (experimental; consult the add-on guide on how to enable this).
 
 ## Changes for 4.3/3.8
 
