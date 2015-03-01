@@ -7,6 +7,7 @@ import os
 from cStringIO import StringIO
 from configobj import ConfigObj
 from validate import Validator
+import weakref
 import globalVars
 import ui
 import gui
@@ -228,16 +229,43 @@ class SPLConfigDialog(gui.SettingsDialog):
 			self.introSizer.Show(self.songRampAlarm)
 		self.Fit()
 
-# Additional configuration dialogs
+
+		# Additional configuration dialogs
 
 # Common alarm dialogs.
 # Based on NVDA core's find dialog code (implemented by the author of this add-on).
+# Only one instance can be active at a given moment (code borrowed from GUI's exit dialog routine).
+_alarmDialogOpened = False
+
+# A common alarm error dialog.
+def _alarmError():
+	gui.messageBox(_("An alarm dialog is already opened."),_("Error"),style=wx.OK | wx.ICON_ERROR)
+
 class SPLAlarmDialog(wx.Dialog):
 	"""A dialog providing common alarm settings.
 	This dialog contains a number entry field for alarm duration and a check box to enable or disable the alarm.
 	"""
 
+	# The following comes from exit dialog class from GUI package (credit: NV Access and Zahari from Bulgaria).
+	_instance = None
+
+	def __new__(cls, parent, *args, **kwargs):
+		# Make this a singleton and prompt an error dialog if it isn't.
+		if _alarmDialogOpened:
+			raise RuntimeError("An instance of alarm dialog is opened")
+		inst = cls._instance() if cls._instance else None
+		if not inst:
+			return super(cls, cls).__new__(cls, parent, *args, **kwargs)
+		return inst
+
 	def __init__(self, parent, setting, toggleSetting, title, alarmPrompt, alarmToggleLabel, min, max):
+		inst = SPLAlarmDialog._instance() if SPLAlarmDialog._instance else None
+		if inst:
+			return
+		# Use a weakref so the instance can die.
+		SPLAlarmDialog._instance = weakref.ref(self)
+
+		# Now the actual alarm dialog code.
 		super(SPLAlarmDialog, self).__init__(parent, wx.ID_ANY, title)
 		self.setting = setting
 		self.toggleSetting = toggleSetting
@@ -264,6 +292,7 @@ class SPLAlarmDialog(wx.Dialog):
 		self.alarmEntry.SetFocus()
 
 	def onOk(self, evt):
+		global _alarmDialogOpened
 		# Optimization: don't bother if Studio is dead and if the same value has been entered.
 		if user32.FindWindowA("SPLStudio", None):
 			newVal = self.alarmEntry.GetValue()
@@ -271,6 +300,9 @@ class SPLAlarmDialog(wx.Dialog):
 			if SPLConfig[self.setting] != newVal: SPLConfig[self.setting] = newVal
 			elif SPLConfig[self.toggleSetting] != newToggle: SPLConfig[self.toggleSetting] = newToggle
 		self.Destroy()
+		_alarmDialogOpened = False
 
 	def onCancel(self, evt):
 		self.Destroy()
+		global _alarmDialogOpened
+		_alarmDialogOpened = False

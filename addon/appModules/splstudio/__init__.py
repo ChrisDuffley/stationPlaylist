@@ -516,16 +516,21 @@ class AppModule(appModuleHandler.AppModule):
 	# Set the end of track alarm time between 1 and 59 seconds.
 
 	def script_setEndOfTrackTime(self, gesture):
-		timeVal = splconfig.SPLConfig["EndOfTrackTime"]
-		d = splconfig.SPLAlarmDialog(gui.mainFrame, "EndOfTrackTime", "SayEndOfTrack",
-		# Translators: The title of end of track alarm dialog.
-		_("End of track alarm"),
-		# Translators: A dialog message to set end of track alarm (curAlarmSec is the current end of track alarm in seconds).
-		_("Enter &end of track alarm time in seconds (currently {curAlarmSec})").format(curAlarmSec = timeVal),
-		"&Notify when end of track is approaching", 1, 59)
-		gui.mainFrame.prePopup()
-		d.Show()
-		gui.mainFrame.postPopup()
+		try:
+			timeVal = splconfig.SPLConfig["EndOfTrackTime"]
+			d = splconfig.SPLAlarmDialog(gui.mainFrame, "EndOfTrackTime", "SayEndOfTrack",
+			# Translators: The title of end of track alarm dialog.
+			_("End of track alarm"),
+			# Translators: A dialog message to set end of track alarm (curAlarmSec is the current end of track alarm in seconds).
+			_("Enter &end of track alarm time in seconds (currently {curAlarmSec})").format(curAlarmSec = timeVal),
+			"&Notify when end of track is approaching", 1, 59)
+			gui.mainFrame.prePopup()
+			d.Raise()
+			d.Show()
+			gui.mainFrame.postPopup()
+			splconfig._alarmDialogOpened = True
+		except RuntimeError:
+			wx.CallAfter(splconfig._alarmError)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setEndOfTrackTime.__doc__=_("sets end of track alarm (default is 5 seconds).")
 
@@ -533,19 +538,16 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_setSongRampTime(self, gesture):
 		rampVal = long(splconfig.SPLConfig["SongRampTime"])
-		# Translators: A dialog message to set song ramp alarm (curRampSec is the current intro monitoring alarm in seconds).
-		timeMSG = _("Enter song intro alarm time in seconds (currently {curRampSec})").format(curRampSec = rampVal)
-		dlg = wx.NumberEntryDialog(gui.mainFrame,
-		timeMSG, "",
+		d = splconfig.SPLAlarmDialog(gui.mainFrame, "SongRampTime", "SaySongRamp",
 		# Translators: The title of song intro alarm dialog.
 		_("Song intro alarm"),
-		rampVal, 1, 9)
-		def callback(result):
-			if result == wx.ID_OK:
-				newVal = dlg.GetValue()
-				if user32.FindWindowA("SPLStudio", None) and newVal != rampVal:
-					splconfig.SPLConfig["SongRampTime"] = newVal
-		gui.runScriptModalDialog(dlg, callback)
+		# Translators: A dialog message to set song ramp alarm (curRampSec is the current intro monitoring alarm in seconds).
+		_("Enter song &intro alarm time in seconds (currently {curRampSec})").format(curRampSec = rampVal),
+		_("&Notify when end of introduction is approaching"), 1, 9)
+		gui.mainFrame.prePopup()
+		d.Raise()
+		d.Show()
+		gui.mainFrame.postPopup()
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setSongRampTime.__doc__=_("sets song intro alarm (default is 5 seconds).")
 
