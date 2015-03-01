@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2015-02-01 19:02+0100\n"
+"PO-Revision-Date: 2015-02-22 18:13+0100\n"
 "Last-Translator: Juan C. Buño <quetzatl@eresmas.net>\n"
 "Language-Team: Add-ons translation team. <LL@li.org>\n"
 "Language: gl\n"
@@ -24,10 +24,12 @@ msgid ""
 "Your Studio add-on configuration has errors and was reset to factory "
 "defaults."
 msgstr ""
+"A configuración do teu complemento de Studio ten erros e foi reiniciada a "
+"predeterminada de fábrica."
 
 #. Translators: Standard error title for configuration error.
 msgid "Studio add-on Configuration error"
-msgstr ""
+msgstr "Erro da configuración do complemento Studio"
 
 #. Translators: Script category for Station Playlist commands in input gestures dialog.
 #. Add-on summary, usually the user visible name of the addon.
