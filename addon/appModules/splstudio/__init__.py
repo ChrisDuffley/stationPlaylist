@@ -218,7 +218,7 @@ class AppModule(appModuleHandler.AppModule):
 			self.backgroundStatusMonitor = False
 		self.prefsMenu = gui.mainFrame.sysTrayIcon.preferencesMenu
 		self.SPLSettings = self.prefsMenu.Append(wx.ID_ANY, _("SPL Studio Settings..."), _("SPL settings"))
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.script_openConfigDialog, self.SPLSettings)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, splconfig.onConfigDialog, self.SPLSettings)
 
 	SPLCurVersion = appModuleHandler.AppModule.productVersion
 	# 5.0/Experimental: allow SPL Controller layer command to invoke SPL Assistant.
@@ -585,7 +585,7 @@ class AppModule(appModuleHandler.AppModule):
 	# SPL Config management.
 
 	def script_openConfigDialog(self, gesture):
-		gui.mainFrame._popupSettingsDialog(splconfig.SPLConfigDialog)
+		wx.CallAfter(splconfig.onConfigDialog, None)
 
 	# Other commands (track finder and others)
 

@@ -229,10 +229,13 @@ class SPLConfigDialog(gui.SettingsDialog):
 			self.introSizer.Show(self.songRampAlarm)
 		self.Fit()
 
+# Open the above dialog upon request.
+def onConfigDialog(evt):
+	gui.mainFrame._popupSettingsDialog(SPLConfigDialog)
 
-		# Additional configuration dialogs
+# Additional configuration dialogs
 
-# Common alarm dialogs.
+# A common alarm dialog
 # Based on NVDA core's find dialog code (implemented by the author of this add-on).
 # Only one instance can be active at a given moment (code borrowed from GUI's exit dialog routine).
 _alarmDialogOpened = False
