@@ -115,11 +115,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	def makeSettings(self, settingsSizer):
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
 		self.beepAnnounceCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Beep for status announcements"))
 		self.beepAnnounceCheckbox.SetValue(SPLConfig["BeepAnnounce"])
-		sizer.Add(self.beepAnnounceCheckbox, border=10,flag=wx.BOTTOM)
+		settingsSizer.Add(self.beepAnnounceCheckbox, border=10,flag=wx.TOP)
 
 		self.outroSizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Check box hiding method comes from Alberto Buffalino's Columns Review add-on.
@@ -147,7 +146,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 		# Translators: The label for a setting in SPL Add-on settings to specify track intro alarm.
 		self.introAlarmLabel = wx.StaticText(self, wx.ID_ANY, label=_("&Track intro alarm in seconds"))
-		self.introSizer.Add(self.outroAlarmLabel)
+		self.introSizer.Add(self.introAlarmLabel)
 		self.songRampAlarm = wx.SpinCtrl(self, wx.ID_ANY, min=1, max=9)
 		self.songRampAlarm.SetValue(long(SPLConfig["SongRampTime"]))
 		self.introSizer.Add(self.songRampAlarm)
