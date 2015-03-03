@@ -121,7 +121,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		settingsSizer.Add(self.beepAnnounceCheckbox, border=10,flag=wx.TOP)
 
 		self.outroSizer = wx.BoxSizer(wx.HORIZONTAL)
-		# Check box hiding method comes from Alberto Buffalino's Columns Review add-on.
+		# Check box hiding method comes from Alberto Buffolino's Columns Review add-on.
 		self.outroCheckBox=wx.CheckBox(self,wx.NewId(),label=_("&Notify when end of track is approaching"))
 		self.outroCheckBox.SetValue(SPLConfig["SayEndOfTrack"])
 		self.outroCheckBox.Bind(wx.EVT_CHECKBOX, self.onCheck)
