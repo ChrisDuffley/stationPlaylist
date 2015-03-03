@@ -61,6 +61,19 @@ def config4to5():
 def runConfigErrorDialog(errorText, errorType):
 	wx.CallAfter(gui.messageBox, errorText, errorType, wx.OK|wx.ICON_ERROR)
 
+# Reset settings to defaults.
+# This will be called when validation fails or when the user asks for it.
+def resetConfig(defaults, intentional=False):
+	global SPLConfig
+	for setting in SPLConfig:
+		SPLConfig[setting] = defaults[setting]
+	SPLConfig.write()
+	if intentional:
+		# Translators: A dialog message shown when settings were reset to defaults.
+		wx.CallAfter(gui.messageBox, _("Successfully applied default add-on settings."),
+		# Translators: Title of the reset config dialog.
+		_("Reset configuration"), wx.OK|wx.ICON_INFORMATION)
+
 # To be run in app module constructor.
 def initConfig():
 	global SPLConfig
@@ -79,8 +92,7 @@ def initConfig():
 		if not configTest or not migrated:
 			# Case 1: restore settings to defaults.
 			# This may happen when 4.x config had parsing issues or 5.x config validation has failed on all values.
-			for setting in SPLConfig:
-				SPLConfig[setting] = SPLDefaults[setting]
+			resetConfig(SPLDefaults)
 			# Translators: Standard dialog message when Studio configuration has problems and was reset to defaults.
 			errorMessage = _("Your Studio add-on configuration has errors and was reset to factory defaults.")
 		elif isinstance(configTest, dict):
@@ -187,6 +199,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.listenerCountCheckbox.SetValue(SPLConfig["SayListenerCount"])
 		sizer.Add(self.listenerCountCheckbox, border=10,flag=wx.BOTTOM)
 
+		# Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
+		self.resetConfigButton = wx.Button(self, wx.ID_ANY, label=_("Reset settings"))
+		self.resetConfigButton.Bind(wx.EVT_BUTTON,self.onResetConfig)
+		sizer.Add(self.resetConfigButton)
+
 	def postInit(self):
 		self.beepAnnounceCheckbox.SetFocus()
 
@@ -227,6 +244,23 @@ class SPLConfigDialog(gui.SettingsDialog):
 			self.introSizer.Show(self.introAlarmLabel)
 			self.introSizer.Show(self.songRampAlarm)
 		self.Fit()
+
+	# Reset settings to defaults.
+	def onResetConfig(self, evt):
+		if gui.messageBox(
+		# Translators: A message to warn about resetting SPL config settings to factory defaults.
+		_("Are you sure you wish to reset SPL add-on settings to defaults?"),
+		# Translators: The title of the warning dialog.
+		_("Warning"),wx.YES_NO|wx.NO_DEFAULT|wx.ICON_WARNING,self
+		)==wx.YES:
+			val = Validator()
+			SPLDefaults = ConfigObj(None, configspec = confspec, encoding="UTF-8")
+			SPLDefaults.validate(val, copy=True)
+			resetConfig(SPLDefaults, intentional=True)
+			self.Destroy()
+
+
+
 
 # Additional configuration dialogs
 
