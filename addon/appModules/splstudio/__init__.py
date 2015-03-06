@@ -271,23 +271,24 @@ class AppModule(appModuleHandler.AppModule):
 		if api.getForegroundObject().processID != self.processID and not self.backgroundStatusMonitor:
 			nextHandler()
 		if obj.windowClassName == "TStatusBar" and not obj.name.startswith("  Up time:"):
-			#tones.beep(512, 200)
 			# Special handling for Play Status
 			if obj.IAccessibleChildID == 1:
+				# Cache the global config for library scans.
+				libraryScanProgress = splconfig.SPLConfig["LibraryScanAnnounce"]
 				if "Play status" in obj.name:
 					# Strip off "  Play status: " for brevity only in main playlist window.
 					ui.message(obj.name.split(":")[1][1:])
 				elif "Loading" in obj.name:
-					if self.libraryScanProgress > 0:
+					if libraryScanProgress != "off":
 						# If library scan is in progress, announce its progress.
 						self.scanCount+=1
 						if self.scanCount%100 == 0:
-							self._libraryScanAnnouncer(obj.name[1:obj.name.find("]")], self.libraryScanProgress)
+							self._libraryScanAnnouncer(obj.name[1:obj.name.find("]")], libraryScanProgress)
 					if not self.libraryScanning:
 						if self.productVersion not in noLibScanMonitor:
 							if not self.backgroundStatusMonitor: self.libraryScanning = True
 				elif "match" in obj.name:
-					if self.libraryScanProgress:
+					if libraryScanProgress != "off":
 						if splconfig.SPLConfig["BeepAnnounce"]: tones.beep(370, 100)
 						else:
 							# 5.0: Store the handle only once.
@@ -844,25 +845,26 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Library scan announcement
 	# Announces progress of a library scan (launched from insert tracks dialog by pressing Control+Shift+R or from rescan option from Options dialog).
-	libraryScanProgress = 0 # Announce at the beginning and at the end of a scan.
-	libraryScanMessage = 2 # Just announce "scanning".
-	libraryScanNumbers = 3 # Announce number of items scanned.
-
-	# Library scan announcement settings list and the toggle script.
-	libraryProgressSettings=(
-		# Translators: A setting in library scan announcement options.
-		(_("Do not announce library scans")),
-		# Translators: A setting in library scan announcement options.
-		(_("Announce start and end of a library scan")),
-		# Translators: A setting in library scan announcement options.
-		(_("Announce the progress of a library scan")),
-		# Translators: A setting in library scan announcement options.
-		(_("Announce progress and item count of a library scan"))
-	)
 
 	def script_setLibraryScanProgress(self, gesture):
-		self.libraryScanProgress = (self.libraryScanProgress+1) % len(self.libraryProgressSettings)
-		ui.message(self.libraryProgressSettings[self.libraryScanProgress])
+		libraryScanAnnounce = splconfig.SPLConfig["LibraryScanAnnounce"]
+		if libraryScanAnnounce == "off":
+			libraryScanAnnounce = "ending"
+			# Translators: A setting in library scan announcement options.
+			ui.message(_("Announce start and end of a library scan"))
+		elif libraryScanAnnounce == "ending":
+			libraryScanAnnounce = "progress"
+			# Translators: A setting in library scan announcement options.
+			ui.message(_("Announce the progress of a library scan"))
+		elif libraryScanAnnounce == "progress":
+			libraryScanAnnounce = "numbers"
+			# Translators: A setting in library scan announcement options.
+			ui.message(_("Announce progress and item count of a library scan"))
+		else:
+			libraryScanAnnounce = "off"
+			# Translators: A setting in library scan announcement options.
+			ui.message(_("Do not announce library scans"))
+		splconfig.SPLConfig["LibraryScanAnnounce"] = libraryScanAnnounce
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setLibraryScanProgress.__doc__=_("Toggles library scan progress settings.")
 
@@ -914,10 +916,10 @@ class AppModule(appModuleHandler.AppModule):
 			if countB < 0:
 				break
 			if scanIter%5 == 0:
-				self._libraryScanAnnouncer(countB, self.libraryScanProgress)
+				self._libraryScanAnnouncer(countB, splconfig.SPLConfig["LibraryScanAnnounce"])
 		self.libraryScanning = False
 		if self.backgroundStatusMonitor: return
-		if self.libraryScanProgress:
+		if splconfig.SPLConfig["LibraryScanAnnounce"] != "off":
 			if splconfig.SPLConfig["BeepAnnounce"]: tones.beep(370, 100)
 			else:
 				# Translators: Presented after library scan is done.
@@ -925,10 +927,10 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Take care of library scanning announcement.
 	def _libraryScanAnnouncer(self, count, announcementType):
-		if announcementType == self.libraryScanMessage:
+		if announcementType == "progress":
 			# Translators: Presented when library scan is in progress.
 			tones.beep(550, 100) if splconfig.SPLConfig["BeepAnnounce"] else ui.message(_("Scanning"))
-		elif announcementType == self.libraryScanNumbers:
+		elif announcementType == "numbers":
 			if splconfig.SPLConfig["BeepAnnounce"]:
 				tones.beep(550, 100)
 				# No need to provide translatable string - just use index.

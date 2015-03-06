@@ -23,6 +23,7 @@ SaySongRamp = boolean(default=true)
 SongRampTime = integer(min=1, max=9, default=5)
 BrailleTimer = option("off", "intro", "outro", "both", default="off")
 MicAlarm = integer(min=0, default="0")
+LibraryScanAnnounce = option("off", "ending", "progress", "numbers", default="off")
 TrackDial = boolean(default=false)
 SayScheduledFor = boolean(default=true)
 SayListenerCount = boolean(default=true)
@@ -183,6 +184,25 @@ class SPLConfigDialog(gui.SettingsDialog):
 		sizer.Add(self.micAlarm)
 		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: The label for a setting in SPL add-on dialog to control library scan announcement.
+		label = wx.StaticText(self, wx.ID_ANY, label=_("&Library scan announcement:"))
+		self.libScanValues=[("off",_("off")),
+		# Translators: One of the braille timer settings.
+		("ending",_("start and end only")),
+		("progress",_("scan progress")),
+		("numbers",_("scan count"))]
+		self.libScanList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.libScanValues])
+		libScanCurValue=SPLConfig["LibraryScanAnnounce"]
+		selection = (x for x,y in enumerate(self.libScanValues) if y[0]==libScanCurValue).next()  
+		try:
+			self.libScanList.SetSelection(selection)
+		except:
+			pass
+		sizer.Add(label)
+		sizer.Add(self.libScanList)
+		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
 		# Translators: the label for a setting in SPL add-on settings to toggle track dial mode on and off.
 		self.trackDialCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Track Dial mode"))
 		self.trackDialCheckbox.SetValue(SPLConfig["TrackDial"])
@@ -222,6 +242,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["SongRampTime"] = self.songRampAlarm.Value
 		SPLConfig["BrailleTimer"] = self.brailleTimerValues[self.brailleTimerList.GetSelection()][0]
 		SPLConfig["MicAlarm"] = self.micAlarm.Value
+		SPLConfig["LibraryScanAnnounce"] = self.libScanValues[self.libScanList.GetSelection()][0]
 		SPLConfig["TrackDial"] = self.trackDialCheckbox.Value
 		super(SPLConfigDialog,  self).onOk(evt)
 
