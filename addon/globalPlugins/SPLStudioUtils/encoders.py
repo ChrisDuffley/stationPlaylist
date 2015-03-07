@@ -187,8 +187,7 @@ class Encoder(IAccessible):
 	script_encoderDateTime.category=_("Station Playlist Studio")
 
 
-	"""def reportFocus(self):
-		import globalPlugins
+	def reportFocus(self):
 		streamLabel = self.getStreamLabel()
 		# Speak the stream label if it exists.
 		if streamLabel is not None:
@@ -196,7 +195,7 @@ class Encoder(IAccessible):
 				self.name = "(" + streamLabel + ") " + self.name
 			except TypeError:
 				pass
-		super(globalPlugins.SPLStudioUtils.SAMEncoderWindow, self).reportFocus()"""
+		super(Encoder, self).reportFocus()
 
 
 	__gestures={
@@ -313,23 +312,12 @@ class SAMEncoder(Encoder):
 		try:
 			self.backgroundMonitor = SAMBackgroundMonitor[self.IAccessibleChildID]
 		except KeyError:
-			pass #self.backgroundMonitor = False
+			pass
 
 	def getStreamLabel(self):
 		if str(self.IAccessibleChildID) in SAMStreamLabels:
 			return SAMStreamLabels[str(self.IAccessibleChildID)]
 		return None
-
-
-	def reportFocus(self):
-		streamLabel = self.getStreamLabel()
-		# Speak the stream label if it exists.
-		if streamLabel is not None:
-			try:
-				self.name = "(" + streamLabel + ") " + self.name
-			except TypeError:
-				pass
-		super(SAMEncoder, self).reportFocus()
 
 
 	__gestures={
@@ -426,7 +414,7 @@ class SPLEncoder(Encoder):
 		try:
 			self.backgroundMonitor = SPLBackgroundMonitor[self.IAccessibleChildID]
 		except KeyError:
-			pass #self.backgroundMonitor = False
+			pass
 
 	def getStreamLabel(self):
 		if str(self.IAccessibleChildID) in SPLStreamLabels:
