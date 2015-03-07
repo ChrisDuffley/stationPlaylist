@@ -24,6 +24,7 @@ SaySongRamp = boolean(default=true)
 SongRampTime = integer(min=1, max=9, default=5)
 BrailleTimer = option("off", "intro", "outro", "both", default="off")
 MicAlarm = integer(min=0, default="0")
+LibraryScanAnnounce = option("off", "ending", "progress", "numbers", default="off")
 TrackDial = boolean(default=false)
 SayScheduledFor = boolean(default=true)
 SayListenerCount = boolean(default=true)
@@ -62,6 +63,19 @@ def config4to5():
 def runConfigErrorDialog(errorText, errorType):
 	wx.CallAfter(gui.messageBox, errorText, errorType, wx.OK|wx.ICON_ERROR)
 
+# Reset settings to defaults.
+# This will be called when validation fails or when the user asks for it.
+def resetConfig(defaults, intentional=False):
+	global SPLConfig
+	for setting in SPLConfig:
+		SPLConfig[setting] = defaults[setting]
+	SPLConfig.write()
+	if intentional:
+		# Translators: A dialog message shown when settings were reset to defaults.
+		wx.CallAfter(gui.messageBox, _("Successfully applied default add-on settings."),
+		# Translators: Title of the reset config dialog.
+		_("Reset configuration"), wx.OK|wx.ICON_INFORMATION)
+
 # To be run in app module constructor.
 def initConfig():
 	global SPLConfig
@@ -80,8 +94,7 @@ def initConfig():
 		if not configTest or not migrated:
 			# Case 1: restore settings to defaults.
 			# This may happen when 4.x config had parsing issues or 5.x config validation has failed on all values.
-			for setting in SPLConfig:
-				SPLConfig[setting] = SPLDefaults[setting]
+			resetConfig(SPLDefaults)
 			# Translators: Standard dialog message when Studio configuration has problems and was reset to defaults.
 			errorMessage = _("Your Studio add-on configuration has errors and was reset to factory defaults.")
 		elif isinstance(configTest, dict):
@@ -104,14 +117,13 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	def makeSettings(self, settingsSizer):
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
 		self.beepAnnounceCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Beep for status announcements"))
 		self.beepAnnounceCheckbox.SetValue(SPLConfig["BeepAnnounce"])
-		sizer.Add(self.beepAnnounceCheckbox, border=10,flag=wx.BOTTOM)
+		settingsSizer.Add(self.beepAnnounceCheckbox, border=10,flag=wx.TOP)
 
 		self.outroSizer = wx.BoxSizer(wx.HORIZONTAL)
-		# Check box hiding method comes from Alberto Buffalino's Columns Review add-on.
+		# Check box hiding method comes from Alberto Buffolino's Columns Review add-on.
 		self.outroCheckBox=wx.CheckBox(self,wx.NewId(),label=_("&Notify when end of track is approaching"))
 		self.outroCheckBox.SetValue(SPLConfig["SayEndOfTrack"])
 		self.outroCheckBox.Bind(wx.EVT_CHECKBOX, self.onCheck)
@@ -136,7 +148,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 		# Translators: The label for a setting in SPL Add-on settings to specify track intro alarm.
 		self.introAlarmLabel = wx.StaticText(self, wx.ID_ANY, label=_("&Track intro alarm in seconds"))
-		self.introSizer.Add(self.outroAlarmLabel)
+		self.introSizer.Add(self.introAlarmLabel)
 		self.songRampAlarm = wx.SpinCtrl(self, wx.ID_ANY, min=1, max=9)
 		self.songRampAlarm.SetValue(long(SPLConfig["SongRampTime"]))
 		self.introSizer.Add(self.songRampAlarm)
@@ -173,6 +185,25 @@ class SPLConfigDialog(gui.SettingsDialog):
 		sizer.Add(self.micAlarm)
 		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: The label for a setting in SPL add-on dialog to control library scan announcement.
+		label = wx.StaticText(self, wx.ID_ANY, label=_("&Library scan announcement:"))
+		self.libScanValues=[("off",_("off")),
+		# Translators: One of the braille timer settings.
+		("ending",_("start and end only")),
+		("progress",_("scan progress")),
+		("numbers",_("scan count"))]
+		self.libScanList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.libScanValues])
+		libScanCurValue=SPLConfig["LibraryScanAnnounce"]
+		selection = (x for x,y in enumerate(self.libScanValues) if y[0]==libScanCurValue).next()  
+		try:
+			self.libScanList.SetSelection(selection)
+		except:
+			pass
+		sizer.Add(label)
+		sizer.Add(self.libScanList)
+		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
 		# Translators: the label for a setting in SPL add-on settings to toggle track dial mode on and off.
 		self.trackDialCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Track Dial mode"))
 		self.trackDialCheckbox.SetValue(SPLConfig["TrackDial"])
@@ -187,6 +218,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.listenerCountCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce &listener count"))
 		self.listenerCountCheckbox.SetValue(SPLConfig["SayListenerCount"])
 		sizer.Add(self.listenerCountCheckbox, border=10,flag=wx.BOTTOM)
+
+		# Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
+		self.resetConfigButton = wx.Button(self, wx.ID_ANY, label=_("Reset settings"))
+		self.resetConfigButton.Bind(wx.EVT_BUTTON,self.onResetConfig)
+		sizer.Add(self.resetConfigButton)
 
 	def postInit(self):
 		self.beepAnnounceCheckbox.SetFocus()
@@ -207,6 +243,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["SongRampTime"] = self.songRampAlarm.Value
 		SPLConfig["BrailleTimer"] = self.brailleTimerValues[self.brailleTimerList.GetSelection()][0]
 		SPLConfig["MicAlarm"] = self.micAlarm.Value
+		SPLConfig["LibraryScanAnnounce"] = self.libScanValues[self.libScanList.GetSelection()][0]
 		SPLConfig["TrackDial"] = self.trackDialCheckbox.Value
 		super(SPLConfigDialog,  self).onOk(evt)
 
@@ -228,6 +265,21 @@ class SPLConfigDialog(gui.SettingsDialog):
 			self.introSizer.Show(self.introAlarmLabel)
 			self.introSizer.Show(self.songRampAlarm)
 		self.Fit()
+
+	# Reset settings to defaults.
+	def onResetConfig(self, evt):
+		if gui.messageBox(
+		# Translators: A message to warn about resetting SPL config settings to factory defaults.
+		_("Are you sure you wish to reset SPL add-on settings to defaults?"),
+		# Translators: The title of the warning dialog.
+		_("Warning"),wx.YES_NO|wx.NO_DEFAULT|wx.ICON_WARNING,self
+		)==wx.YES:
+			val = Validator()
+			SPLDefaults = ConfigObj(None, configspec = confspec, encoding="UTF-8")
+			SPLDefaults.validate(val, copy=True)
+			resetConfig(SPLDefaults, intentional=True)
+			self.Destroy()
+
 
 # Open the above dialog upon request.
 def onConfigDialog(evt):
