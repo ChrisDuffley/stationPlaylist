@@ -143,12 +143,8 @@ class Encoder(IAccessible):
 				threadPool[self.IAccessibleChildID] = statusThread
 
 	def script_streamLabeler(self, gesture):
-		curStreamLabel, title = self.getStreamLabel(), ""
+		curStreamLabel, title = self.getStreamLabel(getTitle=True)
 		if not curStreamLabel: curStreamLabel = ""
-		if self.encoderType == "SAM":
-			title = self.IAccessibleChildID
-		elif self.encoderType == "SPL":
-			title = self.firstChild.name
 		# Translators: The title of the stream labeler dialog (example: stream labeler for 1).
 		streamTitle = _("Stream labeler for {streamEntry}").format(streamEntry = title)
 		# Translators: The text of the stream labeler dialog.
@@ -156,21 +152,11 @@ class Encoder(IAccessible):
 		dlg = wx.TextEntryDialog(gui.mainFrame,
 		streamText, streamTitle, defaultValue=curStreamLabel)
 		def callback(result):
-			global streamLabels
 			if result == wx.ID_OK:
 				newStreamLabel = dlg.GetValue()
 				if newStreamLabel == curStreamLabel:
 					return # No need to write to disk.
-				else:
-					if len(newStreamLabel):
-						if self.encoderType == "SAM": SAMStreamLabels[str(self.IAccessibleChildID)] = dlg.GetValue()
-						elif self.encoderType == "SPL": SPLStreamLabels[str(self.IAccessibleChildID)] = dlg.GetValue()
-					else:
-						if self.encoderType == "SAM": del SAMStreamLabels[str(self.IAccessibleChildID)]
-						elif self.encoderType == "SPL": del SPLStreamLabels[(self.IAccessibleChildID)]
-				streamLabels["SAMEncoders"] = SAMStreamLabels
-				streamLabels["SPLEncoders"] = SPLStreamLabels
-				streamLabels.write()
+				else: self.setStreamLabel(newStreamLabel)
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message in SAM Encoder window.
 	script_streamLabeler.__doc__=_("Opens a dialog to label the selected encoder.")
@@ -188,7 +174,7 @@ class Encoder(IAccessible):
 
 
 	def reportFocus(self):
-		streamLabel = self.getStreamLabel()
+		streamLabel = self.getStreamLabel()[0]
 		# Speak the stream label if it exists.
 		if streamLabel is not None:
 			try:
@@ -314,10 +300,19 @@ class SAMEncoder(Encoder):
 		except KeyError:
 			pass
 
-	def getStreamLabel(self):
+	def getStreamLabel(self, getTitle=False):
 		if str(self.IAccessibleChildID) in SAMStreamLabels:
-			return SAMStreamLabels[str(self.IAccessibleChildID)]
-		return None
+			streamLabel = SAMStreamLabels[str(self.IAccessibleChildID)]
+			return streamLabel, self.IAccessibleChildID if getTitle else streamLabel
+		return self.IAccessibleChildID if getTitle else None
+
+	def setStreamLabel(self, newStreamLabel):
+		if len(newStreamLabel):
+			SAMStreamLabels[str(self.IAccessibleChildID)] = newStreamLabel
+		else:
+			del SAMStreamLabels[str(self.IAccessibleChildID)]
+		streamLabels["SAMEncoders"] = SAMStreamLabels
+		streamLabels.write()
 
 
 	__gestures={
@@ -416,10 +411,19 @@ class SPLEncoder(Encoder):
 		except KeyError:
 			pass
 
-	def getStreamLabel(self):
+	def getStreamLabel(self, getTitle=False):
 		if str(self.IAccessibleChildID) in SPLStreamLabels:
-			return SPLStreamLabels[str(self.IAccessibleChildID)]
-		return None
+			streamLabel = SPLStreamLabels[str(self.IAccessibleChildID)]
+			return streamLabel, self.firstChild.name if getTitle else streamLabel
+		return self.firstChild.name if getTitle else None
+
+	def setStreamLabel(self, newStreamLabel):
+		if len(newStreamLabel):
+			SPLStreamLabels[str(self.IAccessibleChildID)] = newStreamLabel
+		else:
+			del SPLStreamLabels[str(self.IAccessibleChildID)]
+		streamLabels["SPLEncoders"] = SPLStreamLabels
+		streamLabels.write()
 
 
 	__gestures={
