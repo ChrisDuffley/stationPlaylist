@@ -357,9 +357,10 @@ class SAMEncoder(Encoder):
 			else:
 				startPosition = 0
 				if pos > min(encoderPositions):
-					for item in encoderPositions:
-						if encoderPositions[position] >= pos:
-							startPosition = encoderPositions.index(position)
+					for candidate in encoderPositions:
+						if candidate >= pos:
+							startPositionCandidate = encoderPositions.index(candidate)
+							startPosition = startPositionCandidate+1 if candidate == pos else startPositionCandidate
 							break
 				# Now move them forward.
 				for position in encoderPositions[startPosition:]:
@@ -498,7 +499,8 @@ class SPLEncoder(Encoder):
 				if pos > min(encoderPositions):
 					for candidate in encoderPositions:
 						if candidate >= pos:
-							startPosition = encoderPositions.index(candidate)
+							startPositionCandidate = encoderPositions.index(candidate)
+							startPosition = startPositionCandidate+1 if candidate == pos else startPositionCandidate
 							break
 				# Now move them forward.
 				for position in encoderPositions[startPosition:]:
