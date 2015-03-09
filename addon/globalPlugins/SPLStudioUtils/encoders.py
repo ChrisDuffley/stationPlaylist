@@ -345,6 +345,7 @@ class SAMEncoder(Encoder):
 		if not labelLength or pos > max(SAMStreamLabels.keys()): return
 		elif labelLength  == 1:
 			if not pos in SAMStreamLabels:
+				pos = SPLStreamLabels.keys()[0]
 				oldPosition = int(pos)
 				SAMStreamLabels[str(oldPosition-1)] = SAMStreamLabels[pos]
 			del SAMStreamLabels[pos]
@@ -484,6 +485,7 @@ class SPLEncoder(Encoder):
 		if not labelLength or pos > max(SPLStreamLabels.keys()): return
 		elif labelLength  == 1:
 			if not pos in SPLStreamLabels:
+				pos = SPLStreamLabels.keys()[0]
 				oldPosition = int(pos)
 				SPLStreamLabels[str(oldPosition-1)] = SPLStreamLabels[pos]
 			del SPLStreamLabels[pos]
