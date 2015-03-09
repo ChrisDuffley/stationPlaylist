@@ -81,7 +81,13 @@ def fetchSPLForegroundWindow():
 # Each encoder must support connection routines.
 
 class Encoder(IAccessible):
-	# The ideal encoder window.
+	"""Represents an encoder from within StationPlaylist Studio or Streamer.
+	This base encoder provides scripts for all encoders such as stream labeler and toggling focusing to Studio when connected.
+	Subclasses must provide scripts to handle encoder connection and connection announcement routines.
+	In addition, they must implement the required actions to set options such as focusing to Studio, storing stream labels and so on, as each subclass relies on a feature map.
+	For example, for SAM encoder class, the feature map is SAM* where * denotes the feature in question.
+	Lastly, each encoder class must provide a unique identifying string to identify the type of the encoder (e.g. SAM for SAM encoder).
+	"""
 
 	# Few useful variables for encoder list:
 	focusToStudio = False # If true, Studio will gain focus after encoder connects.
@@ -174,7 +180,10 @@ class Encoder(IAccessible):
 
 
 	def reportFocus(self):
-		streamLabel = self.getStreamLabel()[0]
+		try:
+			streamLabel = self.getStreamLabel()[0]
+		except TypeError:
+			streamLabel = None
 		# Speak the stream label if it exists.
 		if streamLabel is not None:
 			try:
@@ -428,7 +437,6 @@ class SPLEncoder(Encoder):
 
 	__gestures={
 		"kb:f9":"connect",
-		"kb:f10":None
 	}
 
 
