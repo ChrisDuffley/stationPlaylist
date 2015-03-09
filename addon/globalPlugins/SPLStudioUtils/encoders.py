@@ -167,6 +167,21 @@ class Encoder(IAccessible):
 	# Translators: Input help mode message in SAM Encoder window.
 	script_streamLabeler.__doc__=_("Opens a dialog to label the selected encoder.")
 
+	def script_streamLabelEraser(self, gesture):
+		ui.message("Stream label successor in progress")
+		# Translators: The title of the stream label eraser.
+		streamEraserTitle = _("Stream label eraser")
+		# Translators: The text of the stream label eraser dialog.
+		streamEraserText = _("Enter the position of the encoder you wish to delete or will delete")
+		dlg = wx.NumberEntryDialog(gui.mainFrame,
+		streamEraserText, "", streamEraserTitle, self.IAccessibleChildID, 1, self.simpleParent.childCount)
+		def callback(result):
+			if result == wx.ID_OK:
+				self.removeStreamLabel(str(dlg.GetValue()))
+		gui.runScriptModalDialog(dlg, callback)
+	# Translators: Input help mode message in SAM Encoder window.
+	script_streamLabelEraser.__doc__=_("Opens a dialog to erase stream labels from an encoder that was deleted.")
+
 	# Announce complete time including seconds (slight change from global commands version).
 	def script_encoderDateTime(self, gesture):
 		if scriptHandler.getLastScriptRepeatCount()==0:
@@ -198,6 +213,7 @@ class Encoder(IAccessible):
 		"kb:shift+f11":"togglePlay",
 		"kb:control+f11":"toggleBackgroundEncoderMonitor",
 		"kb:f12":"streamLabeler",
+		"kb:control+f12":"streamLabelEraser",
 		"kb:NVDA+F12":"encoderDateTime"
 	}
 
@@ -323,6 +339,35 @@ class SAMEncoder(Encoder):
 		streamLabels["SAMEncoders"] = SAMStreamLabels
 		streamLabels.write()
 
+	def removeStreamLabel(self, pos):
+		# An application of map successor algorithm.
+		labelLength = len(SAMStreamLabels)
+		if not labelLength or pos > max(SAMStreamLabels.keys()): return
+		elif labelLength  == 1:
+			if not pos in SAMStreamLabels:
+				oldPosition = int(pos)
+				SAMStreamLabels[str(oldPosition-1)] = SAMStreamLabels[pos]
+			del SAMStreamLabels[pos]
+		else:
+			encoderPositions = sorted(SAMStreamLabels.keys())
+						# What if the position happens to be the last stream label position?
+			if pos == max(encoderPositions): del SPLStreamLabels[pos]
+			# Find the exact or closest successor.
+			else:
+				startPosition = 0
+				if pos > min(encoderPositions):
+					for item in encoderPositions:
+						if encoderPositions[position] >= pos:
+							startPosition = encoderPositions.index(position)
+							break
+				# Now move them forward.
+				for position in encoderPositions[startPosition:]:
+					oldPosition = int(position)
+					SAMStreamLabels[str(oldPosition-1)] = SAMStreamLabels[position]
+					del SAMStreamLabels[position]
+		streamLabels["SAMEncoders"] = SAMStreamLabels
+		streamLabels.write()
+
 
 	__gestures={
 		"kb:f9":"connect",
@@ -424,13 +469,40 @@ class SPLEncoder(Encoder):
 		if str(self.IAccessibleChildID) in SPLStreamLabels:
 			streamLabel = SPLStreamLabels[str(self.IAccessibleChildID)]
 			return streamLabel, self.firstChild.name if getTitle else streamLabel
-		return self.firstChild.name if getTitle else None
+		return (None, self.firstChild.name) if getTitle else None
 
 	def setStreamLabel(self, newStreamLabel):
 		if len(newStreamLabel):
 			SPLStreamLabels[str(self.IAccessibleChildID)] = newStreamLabel
 		else:
 			del SPLStreamLabels[str(self.IAccessibleChildID)]
+		streamLabels["SPLEncoders"] = SPLStreamLabels
+		streamLabels.write()
+
+	def removeStreamLabel(self, pos):
+		labelLength = len(SPLStreamLabels)
+		if not labelLength or pos > max(SPLStreamLabels.keys()): return
+		elif labelLength  == 1:
+			if not pos in SPLStreamLabels:
+				oldPosition = int(pos)
+				SPLStreamLabels[str(oldPosition-1)] = SPLStreamLabels[pos]
+			del SPLStreamLabels[pos]
+		else:
+			encoderPositions = sorted(SPLStreamLabels.keys())
+			if pos == max(encoderPositions): del SPLStreamLabels[pos]
+			else:
+				# Find the exact or closest successor.
+				startPosition = 0
+				if pos > min(encoderPositions):
+					for candidate in encoderPositions:
+						if candidate >= pos:
+							startPosition = encoderPositions.index(candidate)
+							break
+				# Now move them forward.
+				for position in encoderPositions[startPosition:]:
+					oldPosition = int(position)
+					SPLStreamLabels[str(oldPosition-1)] = SPLStreamLabels[position]
+					del SPLStreamLabels[position]
 		streamLabels["SPLEncoders"] = SPLStreamLabels
 		streamLabels.write()
 
