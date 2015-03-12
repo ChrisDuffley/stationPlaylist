@@ -496,7 +496,10 @@ class SPLEncoder(Encoder):
 			else:
 				# Find the exact or closest successor.
 				startPosition = 0
-				if pos > min(encoderPositions):
+				if pos == min(encoderPositions):
+					del SPLStreamLabels[pos]
+					startPosition = 1
+				elif pos > min(encoderPositions):
 					for candidate in encoderPositions:
 						if candidate >= pos:
 							startPositionCandidate = encoderPositions.index(candidate)
