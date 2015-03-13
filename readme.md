@@ -125,13 +125,16 @@ From studio window, you can press Control+NVDA+0 to open the add-on configuratio
 ## Changes for 5.0-dev
 
 * A dedicated settings dialog for SPL add-on has been added, accessible from NVDA's preferences menu or by pressing Control+NVDA+0 from SPL window.
+* Added ability to reset all settings to defaults via configuration dialog.
 * If some of the settings have errors, only the affected settings will be reset to factory defaults.
 * Renamed "toggle announcement" to "status announcement" as beeps are used for announcing other status information such as completion of library scans.
 * Status announcement setting is now retained across sessions. Previously you had to configure this setting manually when Studio starts.
 * You can now use Track Dial feature to review columns in a track entry in Studio's main playlist viewer (to toggle this feature, press Control+Grave accent).
 * You can now monitor individual encoders for connection status and for other messages by pressing Control+F11 while the encoder you wish to monitor is focused (works better when using SAM encoders).
 * Added a checkbox in end of track and song intro alarm dialogs to enable or disable these alarms (check to enable). These can also be "configured" from add-on settings (experimental, nonfunctional).
+* Fixed an issue where pressing alarm dialog command while another alarm dialog is opened would cause another instance of the alarm dialog to appear. NVDA will pop up a message asking you to close the previously opened alarm dialog first.
 * Added ability to use SPL Controller layer command to invoke SPL Assistant (experimental; consult the add-on guide on how to enable this).
+* In encoder windows, NVDA's time and date announcement command (NVDA+F12 by default) will announce time including seconds.
 
 ## Changes for 4.3/3.8
 
