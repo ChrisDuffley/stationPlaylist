@@ -239,6 +239,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		else: ui.message(str(remainingTime/1000))
 		self.finish()
 
+	def script_announceNumMonitoringEncoders(self, gesture):
+		encoders.announceNumMonitoringEncoders()
+		self.finish()
+
 	def script_conHelp(self, gesture):
 		# Translators: The title for SPL Controller help dialog.
 		wx.CallAfter(gui.messageBox, SPLConHelp, _("SPL Controller help"))
@@ -259,6 +263,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:t":"stopInstant",
 		"kb:u":"pause",
 		"kb:r":"remainingTime",
+		"kb:e":"announceNumMonitoringEncoders",
 		"kb:f1":"conHelp"
 	}
 
