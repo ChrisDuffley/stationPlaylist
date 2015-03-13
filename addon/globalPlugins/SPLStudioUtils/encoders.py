@@ -373,7 +373,10 @@ class SAMEncoder(Encoder):
 			# Find the exact or closest successor.
 			else:
 				startPosition = 0
-				if pos > min(encoderPositions):
+				if pos == min(encoderPositions):
+					del SAMStreamLabels[pos]
+					startPosition = 1
+				elif pos > min(encoderPositions):
 					for candidate in encoderPositions:
 						if candidate >= pos:
 							startPositionCandidate = encoderPositions.index(candidate)
