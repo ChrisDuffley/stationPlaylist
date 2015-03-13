@@ -30,15 +30,14 @@ SPLMSG = winUser.WM_USER
 # Various SPL IPC tags.
 SPLPlay = 12
 
-# Needed in SAM and SPL Encoder support:
-SAMFocusToStudio = {} # A dictionary to record whether to switch to SPL Studio for this encoder.
-SPLFocusToStudio = {}
-SAMPlayAfterConnecting = {}
-SPLPlayAfterConnecting = {}
+# Needed in Encoder support:
+SPLFocusToStudio = set() # Whether to focus to Studio or not.
+SPLPlayAfterConnecting = set()
+SPLBackgroundMonitor = set()
+
+# Customized for each encoder type.
 SAMStreamLabels= {} # A dictionary to store custom labels for each stream.
 SPLStreamLabels= {} # Same as above but optimized for SPL encoders (Studio 5.00 and later).
-SAMBackgroundMonitor = {}
-SPLBackgroundMonitor = {}
 SAMMonitorThreads = {}
 SPLMonitorThreads = {}
 encoderMonCount = {"SAM":0, "SPL":0}
@@ -60,6 +59,13 @@ def loadStreamLabels():
 	except KeyError:
 		SPLStreamLabels = {}
 
+# Report number of encoders being monitored.
+def announceNumMonitoringEncoders():
+	monitorCount = len(SPLBackgroundMonitor)
+	if not monitorCount:
+		ui.message("No encoders are being monitored")
+	else:
+		ui.message("Number of encoders monitored: {numberOfEncoders}".format(numberOfEncoders = monitorCount))
 
 # Try to see if SPL foreground object can be fetched. This is used for switching to SPL Studio window from anywhere and to switch to Studio window from SAM encoder window.
 
@@ -123,7 +129,7 @@ class Encoder(IAccessible):
 			self.playAfterConnecting = False
 			# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 			ui.message(_("Do not play first track after connecting"))
-		self._set_playAfterConnecting()
+		self.setPlayAfterConnecting()
 	# Translators: Input help mode message in SAM Encoder window.
 	script_togglePlay.__doc__=_("Toggles whether Studio will play the first song when connected to a streaming server.")
 
@@ -193,6 +199,19 @@ class Encoder(IAccessible):
 	script_encoderDateTime.__doc__=_("If pressed once, reports the current time including seconds. If pressed twice, reports the current date")
 	script_encoderDateTime.category=_("Station Playlist Studio")
 
+
+	def initOverlayClass(self):
+		encoderIdentifier = " ".join([self.encoderType, str(self.IAccessibleChildID)])
+		# Can I switch to Studio when connected to a streaming server?
+		try:
+			self.focusToStudio = encoderIdentifier in SPLFocusToStudio
+		except KeyError:
+			pass
+		# Am I being monitored for connection changes?
+		try:
+			self.backgroundMonitor = encoderIdentifier in SPLBackgroundMonitor
+		except KeyError:
+			pass
 
 	def reportFocus(self):
 		try:
@@ -282,15 +301,13 @@ class SAMEncoder(Encoder):
 				if toneCounter%250 == 0:
 					tones.beep(500, 50)
 			if connecting: continue
-			if not SAMBackgroundMonitor[self.IAccessibleChildID]: return
+			if not " ".join([self.encoderType, str(self.IAccessibleChildID)]) in SPLBackgroundMonitor: return
 
 	def script_connect(self, gesture):
 		gesture.send()
 		# Translators: Presented when SAM Encoder is trying to connect to a streaming server.
 		ui.message(_("Connecting..."))
 		# Oi, status thread, can you keep an eye on the connection status for me?
-		if self.IAccessibleChildID not in SAMBackgroundMonitor.keys():
-			SAMBackgroundMonitor[self.IAccessibleChildID] = self.backgroundMonitor
 		if not self.backgroundMonitor:
 			statusThread = threading.Thread(target=self.reportConnectionStatus, kwargs=dict(connecting=True))
 			statusThread.name = "Connection Status Reporter " + str(self.IAccessibleChildID)
@@ -303,33 +320,33 @@ class SAMEncoder(Encoder):
 		ui.message(_("Disconnecting..."))
 
 	def _set_FocusToStudio(self):
-		SAMFocusToStudio[self.IAccessibleChildID] = self.focusToStudio
+		SAMIdentifier = " ".join([self.encoderType, str(self.IAccessibleChildID)])
+		if self.focusToStudio and not SAMIdentifier in SPLFocusToStudio:
+			SPLFocusToStudio.add(SAMIdentifier)
+		elif not self.focusToStudio and SAMIdentifier in SPLFocusToStudio:
+			SPLFocusToStudio.remove(SAMIdentifier)
 
-	def _set_playAfterConnecting(self):
-		SAMPlayAfterConnecting[self.IAccessibleChildID] = self.playAfterConnecting
+	def setPlayAfterConnecting(self):
+		SAMIdentifier = " ".join([self.encoderType, str(self.IAccessibleChildID)])
+		if self.playAfterConnecting and not SAMIdentifier in SPLPlayAfterConnecting:
+			SPLPlayAfterConnecting.add(SAMIdentifier)
+		elif not self.playAfterConnecting and SAMIdentifier in SPLPlayAfterConnecting:
+			SPLPlayAfterConnecting.remove(SAMIdentifier)
 
 	def setBackgroundMonitor(self):
-		SAMBackgroundMonitor[self.IAccessibleChildID] = self.backgroundMonitor
+		SAMIdentifier = " ".join([self.encoderType, str(self.IAccessibleChildID)])
+		if self.backgroundMonitor and not SAMIdentifier in SPLBackgroundMonitor:
+			SPLBackgroundMonitor.add(SAMIdentifier)
+		elif not self.backgroundMonitor and SAMIdentifier in SPLBackgroundMonitor:
+			SPLBackgroundMonitor.remove(SAMIdentifier)
 		return SAMMonitorThreads
 
-
-	def initOverlayClass(self):
-		# Can I switch to Studio when connected to a streaming server?
-		try:
-			self.focusToStudio = SAMFocusToStudio[self.IAccessibleChildID]
-		except KeyError:
-			pass
-		# Am I being monitored for connection changes?
-		try:
-			self.backgroundMonitor = SAMBackgroundMonitor[self.IAccessibleChildID]
-		except KeyError:
-			pass
 
 	def getStreamLabel(self, getTitle=False):
 		if str(self.IAccessibleChildID) in SAMStreamLabels:
 			streamLabel = SAMStreamLabels[str(self.IAccessibleChildID)]
 			return streamLabel, self.IAccessibleChildID if getTitle else streamLabel
-		return self.IAccessibleChildID if getTitle else None
+		return None, self.IAccessibleChildID if getTitle else None
 
 	def setStreamLabel(self, newStreamLabel):
 		if len(newStreamLabel):
@@ -425,7 +442,7 @@ class SPLEncoder(Encoder):
 						if attempt>= 500 and statChild.name == "Disconnected":
 							tones.beep(250, 250)
 				if connecting: continue
-			if not SPLBackgroundMonitor[self.IAccessibleChildID]: return
+			if not " ".join([self.encoderType, str(self.IAccessibleChildID)]) in SPLBackgroundMonitor: return
 
 	def script_connect(self, gesture):
 		# Same as SAM's connection routine, but this time, keep an eye on self.name and a different connection flag.
@@ -436,8 +453,6 @@ class SPLEncoder(Encoder):
 		connectButton.doAction()
 		self.setFocus()
 		# Same as SAM encoders.
-		if self.IAccessibleChildID not in SPLBackgroundMonitor.keys():
-			SPLBackgroundMonitor[self.IAccessibleChildID] = self.backgroundMonitor
 		if not self.backgroundMonitor:
 			statusThread = threading.Thread(target=self.reportConnectionStatus, kwargs=dict(connecting=True))
 			statusThread.name = "Connection Status Reporter"
@@ -446,26 +461,26 @@ class SPLEncoder(Encoder):
 	script_connect.__doc__=_("Connects to a streaming server.")
 
 	def _set_FocusToStudio(self):
-		SPLFocusToStudio[self.IAccessibleChildID] = self.focusToStudio
+		SPLIdentifier = " ".join([self.encoderType, str(self.IAccessibleChildID)])
+		if self.focusToStudio and not SPLIdentifier in SPLFocusToStudio:
+			SPLFocusToStudio.add(SPLIdentifier)
+		elif not self.focusToStudio and SPLIdentifier in SPLFocusToStudio:
+			SPLFocusToStudio.remove(SPLIdentifier)
 
-	def _set_playAfterConnecting(self):
-		SPLPlayAfterConnecting[self.IAccessibleChildID] = self.playAfterConnecting
+	def setPlayAfterConnecting(self):
+		SPLIdentifier = " ".join([self.encoderType, str(self.IAccessibleChildID)])
+		if self.playAfterConnecting and not SPLIdentifier in SPLPlayAfterConnecting:
+			SPLPlayAfterConnecting.add(SPLIdentifier)
+		elif not self.playAfterConnecting and SPLIdentifier in SPLPlayAfterConnecting:
+			SPLPlayAfterConnecting.remove(SPLIdentifier)
 
 	def setBackgroundMonitor(self):
-		SPLBackgroundMonitor[self.IAccessibleChildID] = self.backgroundMonitor
+		SPLIdentifier = " ".join([self.encoderType, str(self.IAccessibleChildID)])
+		if self.backgroundMonitor and not SPLIdentifier in SPLBackgroundMonitor:
+			SPLBackgroundMonitor.add(SPLIdentifier)
+		elif not self.backgroundMonitor and SPLIdentifier in SPLBackgroundMonitor:
+			SPLBackgroundMonitor.remove(SPLIdentifier)
 		return SPLMonitorThreads
-
-
-	def initOverlayClass(self):
-		# Can I switch to Studio when connected to a streaming server?
-		try:
-			self.focusToStudio = SPLFocusToStudio[self.IAccessibleChildID]
-		except KeyError:
-			pass
-		try:
-			self.backgroundMonitor = SPLBackgroundMonitor[self.IAccessibleChildID]
-		except KeyError:
-			pass
 
 	def getStreamLabel(self, getTitle=False):
 		if str(self.IAccessibleChildID) in SPLStreamLabels:
