@@ -206,6 +206,13 @@ class AppModule(appModuleHandler.AppModule):
 	# Prepare the settings dialog among other things.
 	def __init__(self, *args, **kwargs):
 		super(AppModule, self).__init__(*args, **kwargs)
+		ui.message("Using SPL Studio version {SPLVersion}".format(SPLVersion = self.SPLCurVersion))
+		# Enforce minimum version.
+		if self.SPLCurVersion < SPLMinVersion:
+			self.__gestures.clear()
+			self.__SPLAssistantGestures.clear()
+			self.terminate()
+			return
 		splconfig.initConfig()
 		# Announce status changes while using other programs.
 		# This requires NVDA core support and will be available in 5.0 and later (cannot be ported to earlier versions).
@@ -403,11 +410,14 @@ class AppModule(appModuleHandler.AppModule):
 		super(AppModule, self).terminate()
 		if splconfig.SPLConfig is not None: splconfig.SPLConfig.write()
 		# Hack: until the public API is available, remove SPL entry from accepted events manually.
-		eventHandler._acceptEvents.remove(("nameChange", self.processID, "TStatusBar"))
-		eventHandler._acceptEvents.remove(("nameChange", self.processID, "TStaticText"))
+		try:
+			eventHandler._acceptEvents.remove(("nameChange", self.processID, "TStatusBar"))
+			eventHandler._acceptEvents.remove(("nameChange", self.processID, "TStaticText"))
+		except KeyError:
+			pass
 		try:
 			self.prefsMenu.RemoveItem(self.SPLSettings)
-		except wx.PyDeadObjectError:
+		except AttributeError, wx.PyDeadObjectError:
 			pass
 		splconfig.SPLConfig = None
 
@@ -559,6 +569,9 @@ class AppModule(appModuleHandler.AppModule):
 # Tell NVDA to play a sound when mic was active for a long time.
 
 	def script_setMicAlarm(self, gesture):
+		if splconfig._alarmDialogOpened:
+			wx.CallAfter(splconfig._alarmError)
+			return
 		micAlarm = str(splconfig.SPLConfig["MicAlarm"])
 		if int(micAlarm):
 			# Translators: A dialog message to set microphone active alarm (curAlarmSec is the current mic monitoring alarm in seconds).
@@ -571,7 +584,9 @@ class AppModule(appModuleHandler.AppModule):
 		# Translators: The title of mic alarm dialog.
 		_("Microphone alarm"),
 		defaultValue=micAlarm)
+		splconfig._alarmDialogOpened = True
 		def callback(result):
+			splconfig._alarmDialogOpened = False
 			if result == wx.ID_OK:
 				if not user32.FindWindowA("SPLStudio", None): return
 				newVal = dlg.GetValue()
@@ -992,24 +1007,29 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_SPLAssistantToggle(self, gesture):
 		# Enter the layer command if an only if we're in the track list to allow easier gesture assignment.
-		fg = api.getForegroundObject()
-		if fg.windowClassName != "TStudioForm":
-			gesture.send()
+		# Also, do not bother if the app module is not running.
+		try:
+			fg = api.getForegroundObject()
+			if fg.windowClassName != "TStudioForm":
+				gesture.send()
+				return
+			if self.SPLAssistant:
+				self.script_error(gesture)
+				return
+			# To prevent entering wrong gesture while the layer is active.
+			self.clearGestureBindings()
+			self.bindGestures(self.__SPLAssistantGestures)
+			self.SPLAssistant = True
+			tones.beep(512, 10)
+			# Because different builds of 5.10 have different object placement...
+			if self.SPLCurVersion >= "5.10" and not self.spl510used:
+				if fg.children[5].role != controlTypes.ROLE_STATUSBAR:
+					self.spl510used = True
+		except WindowsError:
 			return
-		if self.SPLAssistant:
-			self.script_error(gesture)
-			return
-		# To prevent entering wrong gesture while the layer is active.
-		self.clearGestureBindings()
-		self.bindGestures(self.__SPLAssistantGestures)
-		self.SPLAssistant = True
-		tones.beep(512, 10)
-		# Because different builds of 5.10 have different object placement...
-		if self.SPLCurVersion >= "5.10" and not self.spl510used:
-			if fg.children[5].role != controlTypes.ROLE_STATUSBAR:
-				self.spl510used = True
 	# Translators: Input help mode message for a layer command in Station Playlist Studio.
 	script_SPLAssistantToggle.__doc__=_("The SPL Assistant layer command. See the add-on guide for more information on available commands.")
+
 
 	# Status table keys
 	SPLPlayStatus = 0
