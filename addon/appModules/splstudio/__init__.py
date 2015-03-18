@@ -11,7 +11,6 @@
 # Minimum version: SPL 5.00, NvDA 2014.3.
 
 import ctypes
-from ctypes import wintypes
 from functools import wraps
 import os
 import time
@@ -27,6 +26,7 @@ import ui
 import nvwave
 import speech
 import braille
+import touchHandler
 import gui
 import wx
 from winUser import user32, sendMessage
@@ -404,6 +404,25 @@ class AppModule(appModuleHandler.AppModule):
 			if not libScanT or (libScanT and not libScanT.isAlive()):
 				self.monitorLibraryScan()
 		nextHandler()
+
+	# Add or remove SPL-specific touch commands.
+	# Code comes from Enhanced Touch Gestures add-on from the same author.
+	# This may change if NVDA core decides to abandon touch mode concept.
+
+	def event_appModule_gainFocus(self):
+		tones.beep(512, 200)
+		if "SPL" not in touchHandler.availableTouchModes:
+			touchHandler.availableTouchModes.append("SPL")
+
+	def event_appModule_loseFocus(self):
+		tones.beep(1024, 200)
+		# Switch to object mode.
+		touchHandler.handler._curTouchMode = touchHandler.availableTouchModes[1]
+		if "SPL" in touchHandler.availableTouchModes:
+			# If we have too many touch modes, pop all except the original entries.
+			for mode in touchHandler.availableTouchModes:
+				if mode == "SPL": touchHandler.availableTouchModes.pop()
+
 
 	# Save configuration when terminating.
 	def terminate(self):
@@ -1211,7 +1230,9 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:shift+nvda+f12":"sayBroadcasterTime",
 		"kb:control+nvda+1":"toggleBeepAnnounce",
 		"kb:control+nvda+2":"setEndOfTrackTime",
+		"ts(SPL):2finger_flickRight":"setEndOfTrackTime",
 		"kb:alt+nvda+2":"setSongRampTime",
+		"ts(SPL):2finger_flickLeft":"setSongRampTime",
 		"kb:control+nvda+4":"setMicAlarm",
 		"kb:control+nvda+f":"findTrack",
 		"kb:nvda+f3":"findTrackNext",
