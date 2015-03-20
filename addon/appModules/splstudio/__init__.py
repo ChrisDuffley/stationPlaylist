@@ -108,7 +108,8 @@ class SPLTrackItem(IAccessible):
 			except KeyError:
 				pass
 			ui.message("Track Dial off")
-	script_toggleTrackDial.__doc__="Toggles track dial on and off."
+	# Translators: Input help mode message for SPL track item.
+	script_toggleTrackDial.__doc__=_("Toggles track dial on and off.")
 	script_toggleTrackDial.category = "StationPlaylist Studio"
 
 	# Some helper functions to handle corner cases.
@@ -177,7 +178,7 @@ class SPLTrackItem(IAccessible):
 			self.announceColumnContent(self.appModule.SPLColNumber)
 
 	__gestures={
-		"kb:control+`":"toggleTrackDial",
+		#"kb:control+`":"toggleTrackDial",
 	}
 
 class SPL510TrackItem(SPLTrackItem):
@@ -606,6 +607,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_openConfigDialog(self, gesture):
 		wx.CallAfter(splconfig.onConfigDialog, None)
+	script_openConfigDialog.__doc__="Opens SPL Studio add-on configuration dialog."
 
 	# Other commands (track finder and others)
 
