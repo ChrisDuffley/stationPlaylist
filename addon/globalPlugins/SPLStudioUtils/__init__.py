@@ -101,7 +101,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# Do some initialization, such as stream labels for SAM encoders.
 	def __init__(self):
 		super(globalPluginHandler.GlobalPlugin, self).__init__()
-		encoders.loadStreamLabels()
+		#encoders.loadStreamLabels()
 
 			#Global layer environment (see the app module for more information).
 	SPLController = False # Control SPL from anywhere.

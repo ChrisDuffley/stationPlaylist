@@ -201,6 +201,8 @@ class Encoder(IAccessible):
 
 
 	def initOverlayClass(self):
+		# Load stream labels upon request.
+		if not streamLabels: loadStreamLabels()
 		encoderIdentifier = " ".join([self.encoderType, str(self.IAccessibleChildID)])
 		# Can I switch to Studio when connected to a streaming server?
 		try:
