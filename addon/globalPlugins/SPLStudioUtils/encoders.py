@@ -134,25 +134,31 @@ class Encoder(IAccessible):
 	script_togglePlay.__doc__=_("Toggles whether Studio will play the first song when connected to a streaming server.")
 
 	def script_toggleBackgroundEncoderMonitor(self, gesture):
-		if not self.backgroundMonitor:
-			self.backgroundMonitor = True
-			encoderMonCount[self.encoderType] += 1 # Multiple encoders.
-			ui.message("Monitoring encoder {encoderNumber}".format(encoderNumber = self.IAccessibleChildID))
+		if scriptHandler.getLastScriptRepeatCount()==0:
+			if not self.backgroundMonitor:
+				self.backgroundMonitor = True
+				encoderMonCount[self.encoderType] += 1 # Multiple encoders.
+				ui.message("Monitoring encoder {encoderNumber}".format(encoderNumber = self.IAccessibleChildID))
+			else:
+				self.backgroundMonitor = False
+				encoderMonCount[self.encoderType] -= 1
+				ui.message("Encoder {encoderNumber} will not be monitored".format(encoderNumber = self.IAccessibleChildID))
+			threadPool = self.setBackgroundMonitor()
+			if self.backgroundMonitor:
+				try:
+					monitoring = threadPool[self.IAccessibleChildID].isAlive()
+				except KeyError:
+					monitoring = False
+				if not monitoring:
+					statusThread = threading.Thread(target=self.reportConnectionStatus)
+					statusThread.name = "Connection Status Reporter " + str(self.IAccessibleChildID)
+					statusThread.start()
+					threadPool[self.IAccessibleChildID] = statusThread
 		else:
-			self.backgroundMonitor = False
-			encoderMonCount[self.encoderType] -= 1
-			ui.message("Encoder {encoderNumber} will not be monitored".format(encoderNumber = self.IAccessibleChildID))
-		threadPool = self.setBackgroundMonitor()
-		if self.backgroundMonitor:
-			try:
-				monitoring = threadPool[self.IAccessibleChildID].isAlive()
-			except KeyError:
-				monitoring = False
-			if not monitoring:
-				statusThread = threading.Thread(target=self.reportConnectionStatus)
-				statusThread.name = "Connection Status Reporter " + str(self.IAccessibleChildID)
-				statusThread.start()
-				threadPool[self.IAccessibleChildID] = statusThread
+			for encoderType in encoderMonCount:
+				encoderMonCount[encoderType] = 0
+			SPLBackgroundMonitor.clear()
+			ui.message("Encoder monitoring canceled")
 
 	def script_streamLabeler(self, gesture):
 		curStreamLabel, title = self.getStreamLabel(getTitle=True)
@@ -419,6 +425,7 @@ class SPLEncoder(Encoder):
 				return # Don't leave zombie objects around.
 			if messageCache != statChild.name:
 				messageCache = statChild.name
+				if not messageCache: return
 				if "Kbps" not in messageCache:
 					self.encoderStatusMessage(messageCache, self.IAccessibleChildID)
 			if messageCache == "Disconnected":
