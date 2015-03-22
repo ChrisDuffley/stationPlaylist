@@ -349,13 +349,15 @@ class AppModule(appModuleHandler.AppModule):
 					# End of track for SPL 5.x.
 					if splconfig.SPLConfig["BrailleTimer"] in ("outro", "both") and api.getForegroundObject().processID == self.processID: #and "00:00" < obj.name <= self.SPLEndOfTrackTime:
 						braille.handler.message(obj.name)
-					if obj.name == "00:{0:02d}".format(splconfig.SPLConfig["EndOfTrackTime"]):
+					if (obj.name == "00:{0:02d}".format(splconfig.SPLConfig["EndOfTrackTime"])
+					and splconfig.SPLConfig["SayEndOfTrack"]):
 						tones.beep(440, 200)
 				if obj.simplePrevious.name == "Remaining Song Ramp":
 					# Song intro for SPL 5.x.
 					if splconfig.SPLConfig["BrailleTimer"] in ("intro", "both") and api.getForegroundObject().processID == self.processID: #and "00:00" < obj.name <= self.SPLSongRampTime:
 						braille.handler.message(obj.name)
-					if obj.name == "00:{0:02d}".format(splconfig.SPLConfig["SongRampTime"]):
+					if (obj.name == "00:{0:02d}".format(splconfig.SPLConfig["SongRampTime"])
+					and splconfig.SPLConfig["SaySongRamp"]):
 						tones.beep(512, 400)
 		nextHandler()
 

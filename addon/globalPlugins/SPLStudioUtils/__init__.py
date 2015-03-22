@@ -95,7 +95,7 @@ def fetchSPLForegroundWindow():
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	# Translators: Script category for Station Playlist commands in input gestures dialog.
-	scriptCategory = _("Station Playlist Studio")
+	scriptCategory = _("StationPlaylist Studio")
 
 
 	# Do some initialization, such as stream labels for SAM encoders.
