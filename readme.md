@@ -1,10 +1,10 @@
-# Station Playlist Studio #
+# StationPlaylist Studio #
 
 * Authors: Geoff Shang, Joseph Lee and other contributors
 * Download [stable version][1]
 * Download [development version][2]
 
-This add-on package provides improved usage of Station Playlist Studio, as well as providing utilities to control the Studio from anywhere.
+This add-on package provides improved usage of StationPlaylist Studio, as well as providing utilities to control the Studio from anywhere.
 
 For more information about the add-on, read the [add-on guide][3].
 
@@ -89,6 +89,7 @@ The available SPL Controller commands are:
 * Press L to enable line-in input or Shift+L to disable it.
 * Press R to hear remaining time for the currently playing track in seconds.
 * Press Shift+R to get a report on library scan progress.
+* Press E to get a count of encoders being monitored.
 * Press F1 to show a help dialog which lists available commands.
 
 ## End of track alarm
@@ -136,6 +137,7 @@ From studio window, you can press Control+NVDA+0 to open the add-on configuratio
 * Added ability to use SPL Controller layer command to invoke SPL Assistant (experimental; consult the add-on guide on how to enable this).
 * In encoder windows, NVDA's time and date announcement command (NVDA+F12 by default) will announce time including seconds.
 * You can now monitor individual encoders for connection status and for other messages by pressing Control+F11 while the encoder you wish to monitor is focused (works better when using SAM encoders).
+* Added a command in SPL Controller layer to announce status of encoders being monitored (E).
 * A workaround is now available to fix an issue where NvDA was announcing stream labels for the wrong encoders, especially after deleting an encoder (to realign stream labels, press Control+F12, then select the position of the encoder you have removed).
 
 ## Changes for 4.3/3.8
