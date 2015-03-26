@@ -40,6 +40,7 @@ configConversions=("EndOfTrackTime", "SongRampTime")
 # Returns config=false if errors occur, to be checked in the app module constructor.
 def config4to5():
 	global SPLConfig, configConversions
+	migrationFailure = 0
 	for setting in configConversions:
 		try:
 			oldValue = str(SPLConfig[setting])
@@ -49,15 +50,19 @@ def config4to5():
 			continue
 		# If the old value doesn't conform to below conditions, start from a fresh config spec.
 		try:
-			if (len(oldValue) != 5
-			and not oldValue.startswith("00:")
-			and not oldValue.split(":")[1].isdigit()):
-				return False
-		finally:
-			return False
-		newValue = SPLConfig[setting].split(":")[1]
-		SPLConfig[setting] = int(newValue)
-	return True
+			if (len(oldValue) == 5
+			and oldValue.startswith("00:")
+			and oldValue.split(":")[1].isdigit()):
+				newValue = SPLConfig[setting].split(":")[1]
+				SPLConfig[setting] = int(newValue)
+			else:
+				migrationFailure+=1
+				continue
+		except IndexError, ValueError:
+			migrationFailure += 1
+			continue
+	print migrationFailure
+	return True if not migrationFailure else False
 
 # Display an error dialog when configuration validation fails.
 def runConfigErrorDialog(errorText, errorType):
