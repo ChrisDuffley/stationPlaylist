@@ -180,7 +180,6 @@ class Encoder(IAccessible):
 	script_streamLabeler.__doc__=_("Opens a dialog to label the selected encoder.")
 
 	def script_streamLabelEraser(self, gesture):
-		ui.message("Stream label successor in progress")
 		# Translators: The title of the stream label eraser.
 		streamEraserTitle = _("Stream label eraser")
 		# Translators: The text of the stream label eraser dialog.

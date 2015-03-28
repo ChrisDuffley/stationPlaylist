@@ -61,7 +61,6 @@ def config4to5():
 		except IndexError, ValueError:
 			migrationFailure += 1
 			continue
-	print migrationFailure
 	return True if not migrationFailure else False
 
 # Display an error dialog when configuration validation fails.
