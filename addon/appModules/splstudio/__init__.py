@@ -413,16 +413,18 @@ class AppModule(appModuleHandler.AppModule):
 	# This may change if NVDA core decides to abandon touch mode concept.
 
 	def event_appModule_gainFocus(self):
-		if "SPL" not in touchHandler.availableTouchModes:
-			touchHandler.availableTouchModes.append("SPL")
+		if touchHandler.handler:
+			if "SPL" not in touchHandler.availableTouchModes:
+				touchHandler.availableTouchModes.append("SPL")
 
 	def event_appModule_loseFocus(self):
-		# Switch to object mode.
-		touchHandler.handler._curTouchMode = touchHandler.availableTouchModes[1]
-		if "SPL" in touchHandler.availableTouchModes:
-			# If we have too many touch modes, pop all except the original entries.
-			for mode in touchHandler.availableTouchModes:
-				if mode == "SPL": touchHandler.availableTouchModes.pop()
+		if touchHandler.handler:
+			# Switch to object mode.
+			touchHandler.handler._curTouchMode = touchHandler.availableTouchModes[1]
+			if "SPL" in touchHandler.availableTouchModes:
+				# If we have too many touch modes, pop all except the original entries.
+				for mode in touchHandler.availableTouchModes:
+					if mode == "SPL": touchHandler.availableTouchModes.pop()
 
 
 	# Save configuration when terminating.
@@ -1141,9 +1143,12 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_sayTemperature(self, gesture):
 		obj = self.status(self.SPLTemperature).firstChild
+		# Just in case this was executed before invoking assistant layer:
+		if obj.parent.role == controlTypes.ROLE_STATUSBAR:
+			obj = obj.parent.simpleNext
 		# Translators: Presented when there is nn weather or temperature information.
 		ui.message(_("Weather and temperature not configured")) if obj.name is None else ui.message(obj.name)
-	script_sayTemperature.__doc__="Announces temperature and weather information"
+	script_sayTemperature.__doc__=_("Announces temperature and weather information")
 
 	def script_sayUpTime(self, gesture):
 		obj = self.status(self.SPLSystemStatus).firstChild
