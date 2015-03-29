@@ -25,6 +25,8 @@ IMPORTANT: Add-on 4.0 requires SPL version 5.00 or later. Users using Studio 4.3
 * Control+Shift+X from Studio window: Steps through braille timer settings.
 * Control+NVDA+0 from Studio window: Opens the Studio add-on configuration dialog.
 
+Note: If you are using touchscreens, switch to SPL mode and use two finger flick right and left for end of track and song intro alarm dialogs, respectively.
+
 ## Unassigned commands
 
 The following commands are not assigned by default; if you wish to assign it, use Input Gestures dialog to add custom commands.
@@ -124,11 +126,16 @@ You can use arrow keys to review various information about a track. To turn Trac
 
 From studio window, you can press Control+NVDA+0 to open the add-on configuration dialog. Alternatively, go to NVDA's preferences menu and select SPL Studio Settings item.
 
+## SPL touch mode
+
+If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
+
 ## Changes for 5.0-dev
 
 * A dedicated settings dialog for SPL add-on has been added, accessible from NVDA's preferences menu or by pressing Control+NVDA+0 from SPL window.
 * Added ability to reset all settings to defaults via configuration dialog.
 * If some of the settings have errors, only the affected settings will be reset to factory defaults.
+* Added a dedicated SPL touchscreen mode and touch commands to open alarm dialogs.
 * Renamed "toggle announcement" to "status announcement" as beeps are used for announcing other status information such as completion of library scans.
 * Status announcement setting is now retained across sessions. Previously you had to configure this setting manually when Studio starts.
 * You can now use Track Dial feature to review columns in a track entry in Studio's main playlist viewer (to toggle this feature, press the command you assigned for this feature).
