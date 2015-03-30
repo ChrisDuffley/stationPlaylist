@@ -207,13 +207,10 @@ class AppModule(appModuleHandler.AppModule):
 	# Prepare the settings dialog among other things.
 	def __init__(self, *args, **kwargs):
 		super(AppModule, self).__init__(*args, **kwargs)
-		ui.message("Using SPL Studio version {SPLVersion}".format(SPLVersion = self.SPLCurVersion))
-		# Enforce minimum version.
 		if self.SPLCurVersion < SPLMinVersion:
-			self.__gestures.clear()
-			self.__SPLAssistantGestures.clear()
-			self.terminate()
-			return
+			ui.message("Error: Unsupported version of Studio is running")
+			raise RuntimeError("Unsupported version of Studio is running, exiting app module")
+		ui.message("Using SPL Studio version {SPLVersion}".format(SPLVersion = self.SPLCurVersion))
 		splconfig.initConfig()
 		# Announce status changes while using other programs.
 		# This requires NVDA core support and will be available in 5.0 and later (cannot be ported to earlier versions).
@@ -473,7 +470,7 @@ class AppModule(appModuleHandler.AppModule):
 			if tm < 60:
 				tm1, tm2 = "00", tm
 			else:
-				tm1, tm2 = tm/60, tm%60
+				tm1, tm2 = divmod(tm, 60)
 			if tm1 < 10:
 				tm1 = "0" + str(tm1)
 			if tm2 < 10:
@@ -1066,27 +1063,23 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Table of child constants based on versions
 	# These are scattered throughout the screen, so one can use foreground.children[index] to fetch them.
-	# Because 4.x and 5.x (an perhaps future releases) uses different screen layout, look up the needed constant from the table below (row = info needed, column = version).
+	# Because 5.x (an perhaps future releases) uses different screen layout, look up the needed constant from the table below (row = info needed, column = version).
 	statusObjs={
-		SPLPlayStatus:[0, 5, 6], # Play status, mic, etc.
-		SPLSystemStatus:[-2, -3, -2], # The second status bar containing system status such as up time.
+		SPLPlayStatus:[5, 6], # Play status, mic, etc.
+		SPLSystemStatus:[-3, -2], # The second status bar containing system status such as up time.
 		#SPLHourTrackDuration:[13, 17, 18], # For track duration for the given hour marker.
-		SPLHourSelectedDuration:[14, 18, 19], # In case the user selects one or more tracks in a given hour.
-		SPLScheduled:[15, 19, 20], # Time when the selected track will begin.
-		SPLNextTrackTitle:[2, 7, 8], # Name and duration of the next track if any.
+		SPLHourSelectedDuration:[18, 19], # In case the user selects one or more tracks in a given hour.
+		SPLScheduled:[19, 20], # Time when the selected track will begin.
+		SPLNextTrackTitle:[7, 8], # Name and duration of the next track if any.
 		#SPLPlaylistRemainingDuration:[12, 16, 17], # Remaining time for the current playlist.
-		SPLTemperature:[1, 6, 7], # Temperature for the current city.
+		SPLTemperature:[6, 7], # Temperature for the current city.
 	}
 
 	# Called in the layer commands themselves.
 	def status(self, infoIndex):
-		#c = time.clock()
-		ver, fg = self.productVersion, api.getForegroundObject()
-		if ver.startswith("4"): statusObj = self.statusObjs[infoIndex][0]
-		elif ver.startswith("5"):
-			if not self.spl510used: statusObj = self.statusObjs[infoIndex][1]
-			else: statusObj = self.statusObjs[infoIndex][2]
-		#ui.message("{c}".format(c = time.clock()-c))
+		fg = api.getForegroundObject()
+		if not self.spl510used: statusObj = self.statusObjs[infoIndex][0]
+		else: statusObj = self.statusObjs[infoIndex][1]
 		return fg.children[statusObj]
 
 	# The layer commands themselves.
