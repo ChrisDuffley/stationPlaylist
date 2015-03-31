@@ -432,7 +432,7 @@ class AppModule(appModuleHandler.AppModule):
 		try:
 			eventHandler._acceptEvents.remove(("nameChange", self.processID, "TStatusBar"))
 			eventHandler._acceptEvents.remove(("nameChange", self.processID, "TStaticText"))
-		except KeyError:
+		except KeyError, AttributeError:
 			pass
 		try:
 			self.prefsMenu.RemoveItem(self.SPLSettings)
