@@ -1,4 +1,4 @@
-# Station Playlist Studio
+# StationPlaylist Studio
 # An app module and global plugin package for NVDA
 # Copyright 2011, 2013-2015, Geoff Shang, Joseph Lee and others, released under GPL.
 # The primary function of this appModule is to provide meaningful feedback to users of SplStudio
@@ -646,18 +646,6 @@ class AppModule(appModuleHandler.AppModule):
 	# Braille timer.
 	# Announce end of track and other info via braille.
 
-	# Braille timer settings list and the toggle script.
-	brailleTimerSettings=(
-		# Translators: A setting in braille timer options.
-		(_("Braille timer off")),
-		# Translators: A setting in braille timer options.
-		(_("Braille track endings")),
-		# Translators: A setting in braille timer options.
-		(_("Braille intro endings")),
-		# Translators: A setting in braille timer options.
-		(_("Braille intro and track endings"))
-	)
-
 	def script_setBrailleTimer(self, gesture):
 		brailleTimer = splconfig.SPLConfig["BrailleTimer"]
 		if brailleTimer == "off":
@@ -1054,10 +1042,8 @@ class AppModule(appModuleHandler.AppModule):
 	# Status table keys
 	SPLPlayStatus = 0
 	SPLSystemStatus = 1
-	#SPLHourTrackDuration = 2
 	SPLHourSelectedDuration = 3
 	SPLNextTrackTitle = 4
-	#SPLPlaylistRemainingDuration = 5
 	SPLTemperature = 6
 	SPLScheduled = 7
 
@@ -1067,11 +1053,9 @@ class AppModule(appModuleHandler.AppModule):
 	statusObjs={
 		SPLPlayStatus:[5, 6], # Play status, mic, etc.
 		SPLSystemStatus:[-3, -2], # The second status bar containing system status such as up time.
-		#SPLHourTrackDuration:[13, 17, 18], # For track duration for the given hour marker.
 		SPLHourSelectedDuration:[18, 19], # In case the user selects one or more tracks in a given hour.
 		SPLScheduled:[19, 20], # Time when the selected track will begin.
 		SPLNextTrackTitle:[7, 8], # Name and duration of the next track if any.
-		#SPLPlaylistRemainingDuration:[12, 16, 17], # Remaining time for the current playlist.
 		SPLTemperature:[6, 7], # Temperature for the current city.
 	}
 
