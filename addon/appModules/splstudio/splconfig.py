@@ -38,12 +38,12 @@ configConversions=("EndOfTrackTime", "SongRampTime")
 
 # The accompanying function for config conversion.
 # Returns config=false if errors occur, to be checked in the app module constructor.
-def config4to5():
-	global SPLConfig, configConversions
+def config4to5(config):
+	global configConversions
 	migrationFailure = 0
 	for setting in configConversions:
 		try:
-			oldValue = str(SPLConfig[setting])
+			oldValue = str(config[setting])
 		except KeyError:
 			continue
 		if oldValue.isdigit():
@@ -54,7 +54,7 @@ def config4to5():
 			and oldValue.startswith("00:")
 			and oldValue.split(":")[1].isdigit()):
 				newValue = SPLConfig[setting].split(":")[1]
-				SPLConfig[setting] = int(newValue)
+				config[setting] = int(newValue)
 			else:
 				migrationFailure+=1
 				continue
@@ -69,11 +69,10 @@ def runConfigErrorDialog(errorText, errorType):
 
 # Reset settings to defaults.
 # This will be called when validation fails or when the user asks for it.
-def resetConfig(defaults, intentional=False):
-	global SPLConfig
-	for setting in SPLConfig:
-		SPLConfig[setting] = defaults[setting]
-	SPLConfig.write()
+def resetConfig(defaults, activeConfig, intentional=False):
+	for setting in activeConfig:
+		activeConfig[setting] = defaults[setting]
+	activeConfig.write()
 	if intentional:
 		# Translators: A dialog message shown when settings were reset to defaults.
 		wx.CallAfter(gui.messageBox, _("Successfully applied default add-on settings."),
@@ -81,14 +80,22 @@ def resetConfig(defaults, intentional=False):
 		_("Reset configuration"), wx.OK|wx.ICON_INFORMATION)
 
 # To be run in app module constructor.
+# With the load function below, load the config upon request.
+# 6.0: The below init function is really a vehicle that traverses through config profiles in a loop.
 def initConfig():
+	# Load the default config.
+	# Todo (6.0: go through the config beltway, loading each config along the way.
 	global SPLConfig
-	SPLConfig = ConfigObj(SPLIni, configspec = confspec, encoding="UTF-8")
+	SPLConfig = unlockConfig(SPLIni)
+
+# 6.0: Unlock (load) profiles from files.
+def unlockConfig(path):
+	SPLConfigCheckpoint = ConfigObj(path, configspec = confspec, encoding="UTF-8")
 	# 5.0 only: migrate 4.x format to 5.0, to be removed in 5.1.
-	migrated = config4to5()
+	migrated = config4to5(SPLConfigCheckpoint)
 	# 5.1 and later: check to make sure all values are correct.
 	val = Validator()
-	configTest = SPLConfig.validate(val, copy=True)
+	configTest = SPLConfigCheckpoint.validate(val, copy=True)
 	if configTest != True:
 		# Hack: have a dummy config obj handy just for storing default values.
 		SPLDefaults = ConfigObj(None, configspec = confspec, encoding="UTF-8")
@@ -98,21 +105,22 @@ def initConfig():
 		if not configTest or not migrated:
 			# Case 1: restore settings to defaults.
 			# This may happen when 4.x config had parsing issues or 5.x config validation has failed on all values.
-			resetConfig(SPLDefaults)
+			resetConfig(SPLDefaults, SPLConfigCheckpoint)
 			# Translators: Standard dialog message when Studio configuration has problems and was reset to defaults.
 			errorMessage = _("Your Studio add-on configuration has errors and was reset to factory defaults.")
 		elif isinstance(configTest, dict):
 			# Case 2: For 5.x and later, attempt to reconstruct the failed values.
 			for setting in configTest:
 				if not configTest[setting]:
-					SPLConfig[setting] = SPLDefaults[setting]
+					SPLConfigCheckpoint[setting] = SPLDefaults[setting]
 			# Translators: Standard dialog message when some Studio configuration settings were reset to defaults.
 			errorMessage = _("Errors were found in some of your Studio configuration settings. The affected settings were reset to defaults.")
-		SPLConfig.write()
+		SPLConfigCheckpoint.write()
 		try:
 			runConfigErrorDialog(errorMessage, title)
 		except AttributeError:
 			pass
+	return SPLConfigCheckpoint
 
 # Configuration dialog.
 class SPLConfigDialog(gui.SettingsDialog):
@@ -281,7 +289,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 			val = Validator()
 			SPLDefaults = ConfigObj(None, configspec = confspec, encoding="UTF-8")
 			SPLDefaults.validate(val, copy=True)
-			resetConfig(SPLDefaults, intentional=True)
+			resetConfig(SPLDefaults, SPLConfig, intentional=True)
 			self.Destroy()
 
 
