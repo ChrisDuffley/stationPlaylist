@@ -122,6 +122,15 @@ def unlockConfig(path):
 			pass
 	return SPLConfigCheckpoint
 
+# Save configuration database.
+def saveConfig():
+	# 5.0: Save the one and only SPL config database.
+	# Todo for 6.0: save all config profiles.
+	global SPLConfig
+	if SPLConfig is not None: SPLConfig.write()
+	SPLConfig = None
+
+
 # Configuration dialog.
 class SPLConfigDialog(gui.SettingsDialog):
 	# Translators: This is the label for the StationPlaylist Studio configuration dialog.
