@@ -413,6 +413,8 @@ class AppModule(appModuleHandler.AppModule):
 		if touchHandler.handler:
 			if "SPL" not in touchHandler.availableTouchModes:
 				touchHandler.availableTouchModes.append("SPL")
+				# Add the human-readable representation also.
+				touchHandler.touchModeLabels["spl"] = _("SPL mode")
 
 	def event_appModule_loseFocus(self):
 		if touchHandler.handler:
@@ -422,6 +424,10 @@ class AppModule(appModuleHandler.AppModule):
 				# If we have too many touch modes, pop all except the original entries.
 				for mode in touchHandler.availableTouchModes:
 					if mode == "SPL": touchHandler.availableTouchModes.pop()
+			try:
+				del touchHandler.touchModeLabels["spl"]
+			except KeyError:
+				pass
 
 
 	# Save configuration when terminating.
