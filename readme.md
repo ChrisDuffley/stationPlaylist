@@ -13,8 +13,8 @@ IMPORTANT: Add-on 4.0 requires SPL version 5.00 or later. Users using Studio 4.3
 ## Shortcut keys
 
 * Alt+Shift+T from Studio window: announce elapsed time for the currently playing trakc.
-* Control+Alt+T from Studio window: announce remaining time for the currently playing trakc.
-* NVDA+Shift+F12 from Studio window: announces broadcaster time such as 5 minutes to top of the hour.
+* Control+Alt+T (two finger flick down in SPL touch mode) from Studio window: announce remaining time for the currently playing trakc.
+* NVDA+Shift+F12 (two finger flick up in SPL touch mode) from Studio window: announces broadcaster time such as 5 minutes to top of the hour.
 * Control+NVDA+1 from Studio window: toggles announcement of status messages (such as automation and end of library scan) between words and beeps.
 * Control+NVDA+2 from Studio window: Opens end of track setting dialog.
 * Alt+NVDA+2 from Studio window: Opens song intro alarm setting dialog.
@@ -24,8 +24,6 @@ IMPORTANT: Add-on 4.0 requires SPL version 5.00 or later. Users using Studio 4.3
 * Alt+NVDA+R from Studio window: Steps through library scan announcement settings.
 * Control+Shift+X from Studio window: Steps through braille timer settings.
 * Control+NVDA+0 from Studio window: Opens the Studio add-on configuration dialog.
-
-Note: If you are using touchscreens, switch to SPL mode and use two finger flick right and left for end of track and song intro alarm dialogs, respectively.
 
 ## Unassigned commands
 
@@ -136,7 +134,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * A dedicated settings dialog for SPL add-on has been added, accessible from NVDA's preferences menu or by pressing Control+NVDA+0 from SPL window.
 * Added ability to reset all settings to defaults via configuration dialog.
 * If some of the settings have errors, only the affected settings will be reset to factory defaults.
-* Added a dedicated SPL touchscreen mode and touch commands to open alarm dialogs.
+* Added a dedicated SPL touchscreen mode and touch commands to perform various Studio commands.
 * Renamed "toggle announcement" to "status announcement" as beeps are used for announcing other status information such as completion of library scans.
 * Status announcement setting is now retained across sessions. Previously you had to configure this setting manually when Studio starts.
 * You can now use Track Dial feature to review columns in a track entry in Studio's main playlist viewer (to toggle this feature, press the command you assigned for this feature).
