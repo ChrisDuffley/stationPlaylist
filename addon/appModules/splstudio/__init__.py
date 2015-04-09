@@ -413,6 +413,8 @@ class AppModule(appModuleHandler.AppModule):
 		if touchHandler.handler:
 			if "SPL" not in touchHandler.availableTouchModes:
 				touchHandler.availableTouchModes.append("SPL")
+				# Add the human-readable representation also.
+				touchHandler.touchModeLabels["spl"] = _("SPL mode")
 
 	def event_appModule_loseFocus(self):
 		if touchHandler.handler:
@@ -422,18 +424,16 @@ class AppModule(appModuleHandler.AppModule):
 				# If we have too many touch modes, pop all except the original entries.
 				for mode in touchHandler.availableTouchModes:
 					if mode == "SPL": touchHandler.availableTouchModes.pop()
+			try:
+				del touchHandler.touchModeLabels["spl"]
+			except KeyError:
+				pass
 
 
 	# Save configuration when terminating.
 	def terminate(self):
 		super(AppModule, self).terminate()
 		splconfig.saveConfig()
-		# Hack: until the public API is available, remove SPL entry from accepted events manually.
-		try:
-			eventHandler._acceptEvents.remove(("nameChange", self.processID, "TStatusBar"))
-			eventHandler._acceptEvents.remove(("nameChange", self.processID, "TStaticText"))
-		except KeyError, AttributeError:
-			pass
 		try:
 			self.prefsMenu.RemoveItem(self.SPLSettings)
 		except AttributeError, wx.PyDeadObjectError:
@@ -478,67 +478,54 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Scripts which rely on API.
 	def script_sayRemainingTime(self, gesture):
-		if self.SPLCurVersion >= SPLMinVersion:
-			fgWindow = api.getForegroundObject()
-			if fgWindow.windowClassName == "TStudioForm":
-				statusAPI(3, 105, self.announceTime, offset=1)
-			else:
-				ui.message(self.timeMessageErrors[1])
+		fgWindow = api.getForegroundObject()
+		if fgWindow.windowClassName == "TStudioForm":
+			statusAPI(3, 105, self.announceTime, offset=1)
 		else:
-			# Translators: Presented when trying to use an add-on command in an unsupported version of StationPlaylist Studio.
-			ui.message(_("This version of Studio is no longer supported"))
+			ui.message(self.timeMessageErrors[1])
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayRemainingTime.__doc__=_("Announces the remaining track time.")
 
 	def script_sayElapsedTime(self, gesture):
-		if self.SPLCurVersion >= SPLMinVersion:
-			fgWindow = api.getForegroundObject()
-			if fgWindow.windowClassName == "TStudioForm":
-				statusAPI(0, 105, self.announceTime, offset=1)
-			else:
-				ui.message(self.timeMessageErrors[2])
+		fgWindow = api.getForegroundObject()
+		if fgWindow.windowClassName == "TStudioForm":
+			statusAPI(0, 105, self.announceTime, offset=1)
 		else:
-			ui.message(_("This version of Studio is no longer supported"))
+			ui.message(self.timeMessageErrors[2])
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayElapsedTime.__doc__=_("Announces the elapsed time for the currently playing track.")
 
 	def script_sayBroadcasterTime(self, gesture):
 		# Says things such as "25 minutes to 2" and "5 past 11".
-		if self.SPLCurVersion >= SPLMinVersion:
-			fgWindow = api.getForegroundObject()
-			if fgWindow.windowClassName == "TStudioForm":
-				# Parse the local time and say it similar to how Studio presents broadcaster time.
-				h, m = time.localtime()[3], time.localtime()[4]
-				if h not in (0, 12):
-					h %= 12
-				if m == 0:
-					if h == 0: h+=12
-					# Messages in this method should not be translated.
-					broadcasterTime = "{hour} o'clock".format(hour = h)
-				elif 1 <= m <= 30:
-					if h == 0: h+=12
-					broadcasterTime = "{minute} min past {hour}".format(minute = m, hour = h)
-				else:
-					if h == 12: h = 1
-					m = 60-m
-					broadcasterTime = "{minute} min to {hour}".format(minute = m, hour = h+1)
-				ui.message(broadcasterTime)
+		fgWindow = api.getForegroundObject()
+		if fgWindow.windowClassName == "TStudioForm":
+			# Parse the local time and say it similar to how Studio presents broadcaster time.
+			h, m = time.localtime()[3], time.localtime()[4]
+			if h not in (0, 12):
+				h %= 12
+			if m == 0:
+				if h == 0: h+=12
+				# Messages in this method should not be translated.
+				broadcasterTime = "{hour} o'clock".format(hour = h)
+			elif 1 <= m <= 30:
+				if h == 0: h+=12
+				broadcasterTime = "{minute} min past {hour}".format(minute = m, hour = h)
 			else:
-				ui.message(self.timeMessageErrors[3])
+				if h == 12: h = 1
+				m = 60-m
+				broadcasterTime = "{minute} min to {hour}".format(minute = m, hour = h+1)
+			ui.message(broadcasterTime)
 		else:
-			ui.message(_("This version of Studio is no longer supported"))
+			ui.message(self.timeMessageErrors[3])
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayBroadcasterTime.__doc__=_("Announces broadcaster time.")
 
 	def script_sayCompleteTime(self, gesture):
 		# Says complete time in hours, minutes and seconds via kernel32's routines.
-		if self.SPLCurVersion >= SPLMinVersion :
-			if api.getForegroundObject().windowClassName == "TStudioForm":
-				ui.message(winKernel.GetTimeFormat(winKernel.LOCALE_USER_DEFAULT, 0, None, None))
-			else:
-				ui.message(self.timeMessageErrors[4])
+		if api.getForegroundObject().windowClassName == "TStudioForm":
+			ui.message(winKernel.GetTimeFormat(winKernel.LOCALE_USER_DEFAULT, 0, None, None))
 		else:
-			ui.message(_("This version of Studio is no longer supported"))
+			ui.message(self.timeMessageErrors[4])
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayCompleteTime.__doc__=_("Announces time including seconds.")
 
@@ -1210,8 +1197,10 @@ class AppModule(appModuleHandler.AppModule):
 
 	__gestures={
 		"kb:control+alt+t":"sayRemainingTime",
+		"ts(SPL):2finger_flickDown":"sayRemainingTime",
 		"kb:alt+shift+t":"sayElapsedTime",
 		"kb:shift+nvda+f12":"sayBroadcasterTime",
+		"ts(SPL):2finger_flickUp":"sayBroadcasterTime",
 		"kb:control+nvda+1":"toggleBeepAnnounce",
 		"kb:control+nvda+2":"setEndOfTrackTime",
 		"ts(SPL):2finger_flickRight":"setEndOfTrackTime",
