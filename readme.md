@@ -16,8 +16,8 @@ IMPORTANT: Add-on 4.0 requires SPL version 5.00 or later. Users using Studio 4.3
 * Control+Alt+T (two finger flick down in SPL touch mode) from Studio window: announce remaining time for the currently playing trakc.
 * NVDA+Shift+F12 (two finger flick up in SPL touch mode) from Studio window: announces broadcaster time such as 5 minutes to top of the hour.
 * Control+NVDA+1 from Studio window: toggles announcement of status messages (such as automation and end of library scan) between words and beeps.
-* Control+NVDA+2 from Studio window: Opens end of track setting dialog.
-* Alt+NVDA+2 from Studio window: Opens song intro alarm setting dialog.
+* Control+NVDA+2 (two finger flick right in SPL mode) from Studio window: Opens end of track setting dialog.
+* Alt+NVDA+2 (two finger flick left in SPL mode) from Studio window: Opens song intro alarm setting dialog.
 * Control+NVDA+3 from Studio window: Toggles cart explorer to learn cart assignments.
 * Control+NVDA+4 from Studio window: Opens microphone alarm dialog.
 * Control+NVDA+f from Studio window: Opens a dialog to find a track based on artist or song name. Press NvDA+F3 to find forward or NVDA+Shift+F3 to find backward.
