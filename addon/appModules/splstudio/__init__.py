@@ -434,12 +434,6 @@ class AppModule(appModuleHandler.AppModule):
 	def terminate(self):
 		super(AppModule, self).terminate()
 		if splconfig.SPLConfig is not None: splconfig.SPLConfig.write()
-		# Hack: until the public API is available, remove SPL entry from accepted events manually.
-		try:
-			eventHandler._acceptEvents.remove(("nameChange", self.processID, "TStatusBar"))
-			eventHandler._acceptEvents.remove(("nameChange", self.processID, "TStaticText"))
-		except KeyError, AttributeError:
-			pass
 		try:
 			self.prefsMenu.RemoveItem(self.SPLSettings)
 		except AttributeError, wx.PyDeadObjectError:
