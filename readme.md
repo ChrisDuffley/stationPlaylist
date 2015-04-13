@@ -75,6 +75,7 @@ The available status information are:
 * U: Studio up time.
 * W: Weather and temperature if configured.
 * Y: Playlist modified status (SPL 5.00 and later).
+* F1: Layer help.
 
 ## SPL Controller
 

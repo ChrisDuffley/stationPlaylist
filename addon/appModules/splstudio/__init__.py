@@ -198,6 +198,26 @@ class SPL510TrackItem(SPLTrackItem):
 
 	__gestures={"kb:space":"select"}
 
+SPLAssistantHelp=_("""
+After entering SPL Assistant, press:
+A: Automation.
+D: Remaining time for the playlist.
+H: Duration of trakcs in this hour slot.
+Shift+H: Duration of selected tracks.
+I: Listener count.
+L: Line-in status.
+M: Microphone status.
+N: Next track.
+P: Playback status.
+Shift+P: Pitch for the current track.
+R: Record to file.
+Shift+R: Monitor library scan.
+S: Scheduled time for the track.
+T: Cart edit mode.
+U: Studio up time.
+W: Weather and temperature.
+Y: Playlist modification.""")
+
 
 class AppModule(appModuleHandler.AppModule):
 
@@ -1171,6 +1191,10 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: Presented when library scan is already in progress.
 			ui.message(_("Scanning is in progress"))
 
+	def script_layerHelp(self, gesture):
+		# Translators: The title for SPL Assistant help dialog.
+		wx.CallAfter(gui.messageBox, SPLAssistantHelp, _("SPL Assistant help"))
+
 
 	__SPLAssistantGestures={
 		"kb:p":"sayPlayStatus",
@@ -1193,6 +1217,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:shift+s":"toggleScheduledTime",
 		"kb:shift+p":"sayTrackPitch",
 		"kb:shift+r":"libraryScanMonitor",
+		"kb:f1":"layerHelp",
 	}
 
 	__gestures={
