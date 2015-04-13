@@ -115,7 +115,7 @@ def unlockConfig(path):
 					SPLConfigCheckpoint[setting] = SPLDefaults[setting]
 			# Translators: Standard dialog message when some Studio configuration settings were reset to defaults.
 			errorMessage = _("Errors were found in some of your Studio configuration settings. The affected settings were reset to defaults.")
-		SPLConfigCheckpoint.write()
+			SPLConfigCheckpoint.write()
 		try:
 			runConfigErrorDialog(errorMessage, title)
 		except AttributeError:
