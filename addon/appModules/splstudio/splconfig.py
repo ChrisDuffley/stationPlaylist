@@ -53,7 +53,7 @@ def config4to5(config):
 			if (len(oldValue) == 5
 			and oldValue.startswith("00:")
 			and oldValue.split(":")[1].isdigit()):
-				newValue = SPLConfig[setting].split(":")[1]
+				newValue = config[setting].split(":")[1]
 				config[setting] = int(newValue)
 			else:
 				migrationFailure+=1
