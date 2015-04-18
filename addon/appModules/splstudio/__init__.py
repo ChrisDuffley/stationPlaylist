@@ -223,13 +223,13 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Translators: Script category for Station Playlist commands in input gestures dialog.
 	scriptCategory = _("StationPlaylist Studio")
+	SPLCurVersion = appModuleHandler.AppModule.productVersion
 
 	# Prepare the settings dialog among other things.
 	def __init__(self, *args, **kwargs):
 		super(AppModule, self).__init__(*args, **kwargs)
-		self.SPLCurVersion = appModuleHandler.AppModule.productVersion
 		if self.SPLCurVersion < SPLMinVersion:
-			ui.message("Error: Unsupported version of Studio is running")
+			wx.CallAfter(ui.message, "Error: Unsupported version of Studio is running")
 			raise RuntimeError("Unsupported version of Studio is running, exiting app module")
 		ui.message("Using SPL Studio version {SPLVersion}".format(SPLVersion = self.SPLCurVersion))
 		splconfig.initConfig()
