@@ -227,25 +227,27 @@ class AppModule(appModuleHandler.AppModule):
 	# Prepare the settings dialog among other things.
 	def __init__(self, *args, **kwargs):
 		super(AppModule, self).__init__(*args, **kwargs)
+		self.SPLCurVersion = appModuleHandler.AppModule.productVersion
 		if self.SPLCurVersion < SPLMinVersion:
 			ui.message("Error: Unsupported version of Studio is running")
 			raise RuntimeError("Unsupported version of Studio is running, exiting app module")
 		ui.message("Using SPL Studio version {SPLVersion}".format(SPLVersion = self.SPLCurVersion))
 		splconfig.initConfig()
 		# Announce status changes while using other programs.
-		# This requires NVDA core support and will be available in 5.0 and later (cannot be ported to earlier versions).
+		# This requires NVDA core support and will be available in 6.0 and later (cannot be ported to earlier versions).
 		# For now, handle all background events, but in the end, make this configurable.
-		if hasattr(eventHandler, "requestEvents"):
+		"""if hasattr(eventHandler, "requestEvents"):
 			eventHandler.requestEvents(eventName="nameChange", processId=self.processID, windowClassName="TStatusBar")
 			eventHandler.requestEvents(eventName="nameChange", processId=self.processID, windowClassName="TStaticText")
 			self.backgroundStatusMonitor = True
 		else:
-			self.backgroundStatusMonitor = False
+			self.backgroundStatusMonitor = False"""
+		# Emergency hack: disable this until recursion issue is fixed.
+		self.backgroundStatusMonitor = False
 		self.prefsMenu = gui.mainFrame.sysTrayIcon.preferencesMenu
 		self.SPLSettings = self.prefsMenu.Append(wx.ID_ANY, _("SPL Studio Settings..."), _("SPL settings"))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, splconfig.onConfigDialog, self.SPLSettings)
 
-	SPLCurVersion = appModuleHandler.AppModule.productVersion
 	# 5.0/Experimental: allow SPL Controller layer command to invoke SPL Assistant.
 	# For now, this needs to be enabled from Python Console and may or may not make it into 5.0.
 	SPLConPassthrough = False

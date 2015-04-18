@@ -8,7 +8,7 @@ This add-on package provides improved usage of StationPlaylist Studio, as well a
 
 For more information about the add-on, read the [add-on guide][3].
 
-IMPORTANT: Add-on 4.0 requires SPL version 5.00 or later. Users using Studio 4.33 can [visit this link][4] to download add-on 3.x releases.
+IMPORTANT: This add-on requires NVDA 2014.3 or later and StationPlaylist Studio 5.00 or later.
 
 ## Shortcut keys
 
