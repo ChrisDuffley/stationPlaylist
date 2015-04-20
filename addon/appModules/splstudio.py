@@ -317,6 +317,7 @@ class AppModule(appModuleHandler.AppModule):
 	def terminate(self):
 		super(AppModule, self).terminate()
 		if SPLConfig is not None: SPLConfig.write()
+		self.carts.clear()
 
 	# Script sections (for ease of maintenance):
 	# Time-related: elapsed time, end of track alarm, etc.
