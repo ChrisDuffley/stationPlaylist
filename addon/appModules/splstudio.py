@@ -69,7 +69,7 @@ micAlarmT = None
 libScanT = None
 
 # Blacklisted versions of Studio where library scanning functionality is broken.
-noLibScanMonitor = ["5.10"]
+noLibScanMonitor = []
 
 # Braille and play a sound in response to an alarm or an event.
 def messageSound(wavFile, message):

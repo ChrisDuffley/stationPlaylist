@@ -109,6 +109,10 @@ Depending on edition, SPL Studio allows up to 96 carts to be assigned for playba
 
 To learn cart assignments, from SPL Studio, press Control+NVDA+3. Pressing the cart command once will tell you which jingle is assigned to the command. Pressing the cart command twice will play the jingle. Press Control+NvDA+3 to exit cart explorer. See the add-on guide for more information on cart explorer.
 
+## Changes for 4.4/3.9
+
+* Library scan function now works in Studio 5.10 (requires latest Studio 5.10 build).
+
 ## Changes for 4.3/3.8
 
 * When switching to another part of Studio such as insert tracks dialog while cart explorer is active, NVDA will no longer announce cart messages when cart keys are pressed (for example, locating a track from insert tracks dialog).
