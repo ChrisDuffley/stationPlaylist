@@ -1067,12 +1067,17 @@ class AppModule(appModuleHandler.AppModule):
 		SPLTemperature:[6, 7], # Temperature for the current city.
 	}
 
+	_cachedStatusObjs = {}
+
 	# Called in the layer commands themselves.
 	def status(self, infoIndex):
-		fg = api.getForegroundObject()
-		if not self.spl510used: statusObj = self.statusObjs[infoIndex][0]
-		else: statusObj = self.statusObjs[infoIndex][1]
-		return fg.children[statusObj]
+		# Look up the cached objects first for faster response.
+		if not infoIndex in self._cachedStatusObjs:
+			fg = api.getForegroundObject()
+			if not self.spl510used: statusObj = self.statusObjs[infoIndex][0]
+			else: statusObj = self.statusObjs[infoIndex][1]
+			self._cachedStatusObjs[infoIndex] = fg.children[statusObj]
+		return self._cachedStatusObjs[infoIndex]
 
 	# The layer commands themselves.
 
