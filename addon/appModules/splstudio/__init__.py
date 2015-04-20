@@ -460,7 +460,9 @@ class AppModule(appModuleHandler.AppModule):
 			self.prefsMenu.RemoveItem(self.SPLSettings)
 		except AttributeError, wx.PyDeadObjectError:
 			pass
+		# Manually clear the following dictionaries.
 		self.carts.clear()
+		self._cachedStatusObjs.clear()
 
 
 	# Script sections (for ease of maintenance):
