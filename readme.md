@@ -148,6 +148,10 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * Added a command in SPL Controller layer to announce status of encoders being monitored (E).
 * A workaround is now available to fix an issue where NvDA was announcing stream labels for the wrong encoders, especially after deleting an encoder (to realign stream labels, press Control+F12, then select the position of the encoder you have removed).
 
+## Changes for 4.4/3.9
+
+* Library scan function now works in Studio 5.10 (requires latest Studio 5.10 build).
+
 ## Changes for 4.3/3.8
 
 * When switching to another part of Studio such as insert tracks dialog while cart explorer is active, NVDA will no longer announce cart messages when cart keys are pressed (for example, locating a track from insert tracks dialog).

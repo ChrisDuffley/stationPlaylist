@@ -59,7 +59,7 @@ micAlarmT = None
 libScanT = None
 
 # Blacklisted versions of Studio where library scanning functionality is broken.
-noLibScanMonitor = ["5.10"]
+noLibScanMonitor = []
 
 # Braille and play a sound in response to an alarm or an event.
 def messageSound(wavFile, message):
@@ -926,7 +926,7 @@ class AppModule(appModuleHandler.AppModule):
 			self.libraryScanning = False
 			return
 		time.sleep(0.1)
-		if api.getForegroundObject().windowClassName == "TTrackInsertForm" and self.productVersion.startswith("5.1"):
+		if api.getForegroundObject().windowClassName == "TTrackInsertForm" and self.productVersion in noLibScanMonitor:
 			self.libraryScanning = False
 			return
 		countB = sendMessage(SPLWin, 1024, parem, 32)
