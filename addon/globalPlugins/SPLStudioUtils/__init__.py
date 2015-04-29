@@ -1,4 +1,4 @@
-# Station Playlist Utilities
+# StationPlaylist Utilities
 # Author: Joseph Lee
 # Copyright 2013-2015, released under GPL.
 # Adds a few utility features such as switching focus to the SPL Studio window and some global scripts.
@@ -278,7 +278,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# Each encoder, at a minimum, must support connection monitoring routines.
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
-		if obj.appModule.appName in ["splengine", "splstreamer"]:
+		if obj.appModule.appName in ("splengine", "splstreamer"):
 			if obj.windowClassName == "TListView":
 				clsList.insert(0, encoders.SAMEncoder)
 			elif obj.windowClassName == "SysListView32":

@@ -8,7 +8,6 @@ import os
 import time
 from configobj import ConfigObj
 import api
-from controlTypes import ROLE_LISTITEM
 import ui
 import speech
 import braille

@@ -147,7 +147,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# Check box hiding method comes from Alberto Buffolino's Columns Review add-on.
 		self.outroCheckBox=wx.CheckBox(self,wx.NewId(),label=_("&Notify when end of track is approaching"))
 		self.outroCheckBox.SetValue(SPLConfig["SayEndOfTrack"])
-		self.outroCheckBox.Bind(wx.EVT_CHECKBOX, self.onCheck)
+		self.outroCheckBox.Bind(wx.EVT_CHECKBOX, self.onOutroCheck)
 		self.outroSizer.Add(self.outroCheckBox, border=10,flag=wx.BOTTOM)
 
 		# Translators: The label for a setting in SPL Add-on settings to specify end of track (outro) alarm.
@@ -164,7 +164,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.introSizer = wx.BoxSizer(wx.HORIZONTAL)
 		self.introCheckBox=wx.CheckBox(self,wx.NewId(),label=_("&Notify when end of introduction is approaching"))
 		self.introCheckBox.SetValue(SPLConfig["SaySongRamp"])
-		self.introCheckBox.Bind(wx.EVT_CHECKBOX, self.onCheck2)
+		self.introCheckBox.Bind(wx.EVT_CHECKBOX, self.onIntroCheck)
 		self.introSizer.Add(self.introCheckBox, border=10,flag=wx.BOTTOM)
 
 		# Translators: The label for a setting in SPL Add-on settings to specify track intro alarm.
@@ -184,7 +184,9 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.brailleTimerValues=[("off",_("off")),
 		# Translators: One of the braille timer settings.
 		("outro",_("track ending")),
+		# Translators: One of the braille timer settings.
 		("intro",_("track intro")),
+		# Translators: One of the braille timer settings.
 		("both",_("track intro and ending"))]
 		self.brailleTimerList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.brailleTimerValues])
 		brailleTimerCurValue=SPLConfig["BrailleTimer"]
@@ -210,9 +212,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# Translators: The label for a setting in SPL add-on dialog to control library scan announcement.
 		label = wx.StaticText(self, wx.ID_ANY, label=_("&Library scan announcement:"))
 		self.libScanValues=[("off",_("off")),
-		# Translators: One of the braille timer settings.
+		# Translators: One of the library scan announcement settings.
 		("ending",_("start and end only")),
+		# Translators: One of the library scan announcement settings.
 		("progress",_("scan progress")),
+		# Translators: One of the library scan announcement settings.
 		("numbers",_("scan count"))]
 		self.libScanList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.libScanValues])
 		libScanCurValue=SPLConfig["LibraryScanAnnounce"]
@@ -269,7 +273,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		super(SPLConfigDialog,  self).onOk(evt)
 
 	# Check events for outro and intro alarms, respectively.
-	def onCheck(self, evt):
+	def onOutroCheck(self, evt):
 		if not self.outroCheckBox.IsChecked():
 			self.outroSizer.Hide(self.outroAlarmLabel)
 			self.outroSizer.Hide(self.endOfTrackAlarm)
@@ -278,7 +282,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 			self.outroSizer.Show(self.endOfTrackAlarm)
 		self.Fit()
 
-	def onCheck2(self, evt):
+	def onIntroCheck(self, evt):
 		if not self.introCheckBox.IsChecked():
 			self.introSizer.Hide(self.introAlarmLabel)
 			self.introSizer.Hide(self.songRampAlarm)
