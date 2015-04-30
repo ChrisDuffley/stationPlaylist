@@ -1,6 +1,6 @@
 # StationPlaylist Track Tool
 # An app module for NVDA
-# Copyright 2014 Joseph Lee and contributors, released under gPL.
+# Copyright 2014-2015 Joseph Lee and contributors, released under gPL.
 # Functionality is based on JFW scripts for SPL Track Tool by Brian Hartgen.
 
 import appModuleHandler
@@ -9,20 +9,28 @@ import api
 import tones
 from controlTypes import ROLE_LISTITEM
 import ui
+from NVDAObjects.IAccessible import IAccessible # Place holder for add-on 5.1.
 addonHandler.initTranslation()
 
 # Track Tool allows a broadcaster to manage track intros, cues and so forth. Each track is a list item with descriptions such as title, file name, intro time and so forth.
 # One can press TAB to move along the controls for Track Tool.
 
+class TrackToolItem(IAccessible):
+	"""An entry in Track Tool, used to implement some exciting features.
+	"""
+
+	def reportFocus(self):
+		# Play a beep when intro exists.
+		if ", Intro:" in self.description:
+			tones.beep(550, 100)
+		super(TrackToolItem, self).reportFocus()
+
 
 class AppModule(appModuleHandler.AppModule):
 
-	def event_gainFocus(self, obj, nextHandler):
-		if obj.windowClassName in ["TListView", "TTntListView.UnicodeClass"] and obj.role == ROLE_LISTITEM:
-			# Play a beep when intro exists.
-			if ", Intro:" in obj.description:
-				tones.beep(550, 100)
-		nextHandler()
+	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
+		if obj.windowClassName in ("TListView", "TTntListView.UnicodeClass") and obj.role == ROLE_LISTITEM:
+			clsList.insert(0, TrackToolItem)
 
 	# Various column reading scripts (row with fake navigation should not be used).
 
