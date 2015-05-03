@@ -298,14 +298,12 @@ class AppModule(appModuleHandler.AppModule):
 		if obj.windowClassName == "TStatusBar" and not obj.name.startswith("  Up time:"):
 			# Special handling for Play Status
 			if obj.IAccessibleChildID == 1:
-				# Cache the global config for library scans.
-				libraryScanProgress = splconfig.SPLConfig["LibraryScanAnnounce"]
 				if "Play status" in obj.name:
 					# Strip off "  Play status: " for brevity only in main playlist window.
 					ui.message(obj.name.split(":")[1][1:])
 				elif "Loading" in obj.name:
-					if libraryScanProgress != "off":
-						# If library scan is in progress, announce its progress.
+					if splconfig.SPLConfig["LibraryScanAnnounce"] not in ("off", "ending"):
+						# If library scan is in progress, announce its progress when told to do so.
 						self.scanCount+=1
 						if self.scanCount%100 == 0:
 							self._libraryScanAnnouncer(obj.name[1:obj.name.find("]")], libraryScanProgress)
@@ -313,7 +311,7 @@ class AppModule(appModuleHandler.AppModule):
 						if self.productVersion not in noLibScanMonitor:
 							if not self.backgroundStatusMonitor: self.libraryScanning = True
 				elif "match" in obj.name:
-					if libraryScanProgress != "off":
+					if splconfig.SPLConfig["LibraryScanAnnounce"] != "off":
 						if splconfig.SPLConfig["BeepAnnounce"]: tones.beep(370, 100)
 						else:
 							# 5.0: Store the handle only once.
@@ -952,7 +950,7 @@ class AppModule(appModuleHandler.AppModule):
 			countB, scanIter = sendMessage(SPLWin, 1024, parem, 32), scanIter+1
 			if countB < 0:
 				break
-			if scanIter%5 == 0:
+			if scanIter%5 == 0 and splconfig.SPLConfig["LibraryScanAnnounce"] not in ("off", "ending"):
 				self._libraryScanAnnouncer(countB, splconfig.SPLConfig["LibraryScanAnnounce"])
 		self.libraryScanning = False
 		if self.backgroundStatusMonitor: return
