@@ -39,7 +39,6 @@ configConversions=("EndOfTrackTime", "SongRampTime")
 # The accompanying function for config conversion.
 # Returns config=false if errors occur, to be checked in the app module constructor.
 def config4to5(config):
-	global configConversions
 	migrationFailure = 0
 	for setting in configConversions:
 		try:

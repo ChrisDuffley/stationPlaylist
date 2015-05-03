@@ -229,7 +229,6 @@ class AppModule(appModuleHandler.AppModule):
 	def __init__(self, *args, **kwargs):
 		super(AppModule, self).__init__(*args, **kwargs)
 		if self.SPLCurVersion < SPLMinVersion:
-			wx.CallAfter(ui.message, "Error: Unsupported version of Studio is running")
 			raise RuntimeError("Unsupported version of Studio is running, exiting app module")
 		ui.message("Using SPL Studio version {SPLVersion}".format(SPLVersion = self.SPLCurVersion))
 		splconfig.initConfig()
@@ -290,7 +289,6 @@ class AppModule(appModuleHandler.AppModule):
 	# Note: There are two status bars, hence the need to exclude Up time so it doesn't announce every minute.
 	# Unfortunately, Window handles and WindowControlIDs seem to change, so can't be used.
 	def event_nameChange(self, obj, nextHandler):
-		global noLibScanMonitor
 		# Do not let NvDA get name for None object when SPL window is maximized.
 		if not obj.name:
 			return
@@ -910,7 +908,6 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_startScanFromInsertTracks(self, gesture):
 		gesture.send()
-		global noLibScanMonitor
 		fg = api.getForegroundObject()
 		if fg.windowClassName == "TTrackInsertForm":
 			# Translators: Presented when library scan has started.
