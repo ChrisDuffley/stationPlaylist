@@ -136,6 +136,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * Added ability to reset all settings to defaults via configuration dialog.
 * If some of the settings have errors, only the affected settings will be reset to factory defaults.
 * Added a dedicated SPL touchscreen mode and touch commands to perform various Studio commands.
+* Changes to SPL Assistant layer include addition of layer help command (F1) and removal of commands to toggle listener count (Shift+I) and scheduled time announcement (Shift+S). You can configure these settings in add-on settings dialog.
 * Renamed "toggle announcement" to "status announcement" as beeps are used for announcing other status information such as completion of library scans.
 * Status announcement setting is now retained across sessions. Previously you had to configure this setting manually when Studio starts.
 * You can now use Track Dial feature to review columns in a track entry in Studio's main playlist viewer (to toggle this feature, press the command you assigned for this feature).

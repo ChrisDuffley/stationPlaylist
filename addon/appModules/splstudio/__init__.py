@@ -1013,6 +1013,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_error(self, gesture):
 		tones.beep(120, 100)
+		self.finish()
 
 	# SPL Assistant flag.
 	SPLAssistant = False
@@ -1134,7 +1135,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Just in case this was executed before invoking assistant layer:
 		if obj.parent.role == controlTypes.ROLE_STATUSBAR:
 			obj = obj.parent.simpleNext
-		# Translators: Presented when there is nn weather or temperature information.
+		# Translators: Presented when there is no weather or temperature information.
 		ui.message(_("Weather and temperature not configured")) if obj.name is None else ui.message(obj.name)
 	script_sayTemperature.__doc__=_("Announces temperature and weather information")
 
@@ -1150,24 +1151,6 @@ class AppModule(appModuleHandler.AppModule):
 		obj = self.status(self.SPLSystemStatus).children[3]
 		# Translators: Presented when there is no listener count information.
 		ui.message(obj.name) if obj.name is not None else ui.message(_("Listener count not found"))
-
-	# To be removed in 5.0.
-	# Messages in the following two functions should not be translated until 5.0.
-	def script_toggleScheduledTime(self, gesture):
-		if splconfig.SPLConfig["SayScheduledFor"]:
-			splconfig.SPLConfig["SayScheduledFor"] = False
-			ui.message("Do not announce scheduled time")
-		else:
-			splconfig.SPLConfig["SayScheduledFor"] = True
-			ui.message("Announce scheduled time")
-
-	def script_toggleListenerCount(self, gesture):
-		if not splconfig.SPLConfig["SayListenerCount"]:
-			splconfig.SPLConfig["SayListenerCount"] = True
-			ui.message("Announce listener count")
-		else:
-			splconfig.SPLConfig["SayListenerCount"] = False
-			ui.message("Do not announce listener count")
 
 	def script_sayTrackPitch(self, gesture):
 		try:
@@ -1217,9 +1200,6 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:w":"sayTemperature",
 		"kb:i":"sayListenerCount",
 		"kb:s":"sayScheduledTime",
-		# To be removed in 5.0
-		"kb:shift+i":"toggleListenerCount",
-		"kb:shift+s":"toggleScheduledTime",
 		"kb:shift+p":"sayTrackPitch",
 		"kb:shift+r":"libraryScanMonitor",
 		"kb:f1":"layerHelp",

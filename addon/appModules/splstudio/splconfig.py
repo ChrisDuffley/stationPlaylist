@@ -269,6 +269,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["MicAlarm"] = self.micAlarm.Value
 		SPLConfig["LibraryScanAnnounce"] = self.libScanValues[self.libScanList.GetSelection()][0]
 		SPLConfig["TrackDial"] = self.trackDialCheckbox.Value
+		SPLConfig["SayScheduledFor"] = self.scheduledForCheckbox.Value
+		SPLConfig["SayListenerCount"] = self.listenerCountCheckbox.Value
 		super(SPLConfigDialog,  self).onOk(evt)
 
 	# Check events for outro and intro alarms, respectively.
