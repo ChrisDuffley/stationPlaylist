@@ -99,7 +99,7 @@ class SPLTrackItem(IAccessible):
 			dialText = "Track Dial on"
 			if self.appModule.SPLColNumber > 0:
 				dialText+= ", located at column {columnHeader}".format(columnHeader = self.appModule.SPLColNumber+1)
-			ui.message(dialText)
+			dialTone = 780
 		else:
 			splconfig.SPLConfig["TrackDial"] = False
 			try:
@@ -107,7 +107,15 @@ class SPLTrackItem(IAccessible):
 				self.removeGestureBinding("kb:leftArrow")
 			except KeyError:
 				pass
-			ui.message("Track Dial off")
+			dialText = "Track Dial off"
+			dialTone = 390
+		if not splconfig.SPLConfig["BeepAnnounce"]:
+			ui.message(dialText)
+		else:
+			tones.beep(dialTone, 100)
+			braille.handler.message(dialText)
+			if splconfig.SPLConfig["TrackDial"] and self.appModule.SPLColNumber > 0:
+				speech.speakMessage("Column {columnNumber}".format(columnNumber = self.appModule.SPLColNumber))
 	# Translators: Input help mode message for SPL track item.
 	script_toggleTrackDial.__doc__=_("Toggles track dial on and off.")
 	script_toggleTrackDial.category = "StationPlaylist Studio"
