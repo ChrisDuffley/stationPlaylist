@@ -115,7 +115,7 @@ class SPLTrackItem(IAccessible):
 			tones.beep(dialTone, 100)
 			braille.handler.message(dialText)
 			if splconfig.SPLConfig["TrackDial"] and self.appModule.SPLColNumber > 0:
-				speech.speakMessage("Column {columnNumber}".format(columnNumber = self.appModule.SPLColNumber))
+				speech.speakMessage("Column {columnNumber}".format(columnNumber = self.appModule.SPLColNumber+1))
 	# Translators: Input help mode message for SPL track item.
 	script_toggleTrackDial.__doc__=_("Toggles track dial on and off.")
 	script_toggleTrackDial.category = "StationPlaylist Studio"
@@ -341,7 +341,7 @@ class AppModule(appModuleHandler.AppModule):
 				elif "Listener" in obj.name and not splconfig.SPLConfig["SayListenerCount"]:
 					nextHandler()
 					return
-				elif not (obj.name.endswith(" On") or obj.name.endswith(" Off")) or (obj.name.startswith("Cart") and obj.IAccessibleChildID == 3):
+				elif not obj.name.endswith((" On", " Off")) or (obj.name.startswith("Cart") and obj.IAccessibleChildID == 3):
 					# Announce status information that does not contain toggle messages and return immediately.
 					ui.message(obj.name)
 					return
