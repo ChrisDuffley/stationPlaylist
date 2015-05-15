@@ -159,7 +159,7 @@ class SPLTrackItem(IAccessible):
 		columnHeader = self.columnHeaders.children[colNumber].name
 		columnContent = self._getColumnContent(colNumber)
 		if columnContent:
-			ui.message("{header}: {content}".format(header = columnHeader, content = columnContent))
+			ui.message(unicode("{header}: {content}").format(header = columnHeader, content = columnContent))
 		else:
 			speech.speakMessage("{header}: blank".format(header = columnHeader))
 			braille.handler.message("{header}: ()".format(header = columnHeader))
