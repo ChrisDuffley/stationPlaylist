@@ -142,7 +142,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * You can now use Track Dial feature to review columns in a track entry in Studio's main playlist viewer (to toggle this feature, press the command you assigned for this feature).
 * You can now assign a custom command to hear temperature information.
 * Added a checkbox in end of track and song intro alarm dialogs to enable or disable these alarms (check to enable). These can also be "configured" from add-on settings.
-* Fixed an issue where pressing alarm dialog command while another alarm dialog is opened would cause another instance of the alarm dialog to appear. NVDA will pop up a message asking you to close the previously opened alarm dialog first.
+* Fixed an issue where pressing alarm dialog or track finder commands while another alarm  or find dialog is opened would cause another instance of the same dialog to appear. NVDA will pop up a message asking you to close the previously opened dialog first.
 * Added ability to use SPL Controller layer command to invoke SPL Assistant (experimental; consult the add-on guide on how to enable this).
 * In encoder windows, NVDA's time and date announcement command (NVDA+F12 by default) will announce time including seconds.
 * You can now monitor individual encoders for connection status and for other messages by pressing Control+F11 while the encoder you wish to monitor is focused (works better when using SAM encoders).

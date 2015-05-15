@@ -685,9 +685,12 @@ class AppModule(appModuleHandler.AppModule):
 
 	# The track finder utility for find track script.
 	# Perform a linear search to locate the track name and/or description which matches the entered value.
+	# Also, find column content for a specific column if requested.
 	findText = ""
+	# Prevent multiple instances of track finder from being invoked.
+	_trackFinderOpen = False
 
-	def trackFinder(self, text, obj, directionForward=True):
+	def trackFinder(self, text, obj, directionForward=True, column=None):
 		while obj is not None:
 			if text in obj.description or (obj.name and text in obj.name and self.productVersion < "5.10"):
 				self.findText = text
@@ -714,19 +717,25 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: Presented when a user wishes to find a track but didn't add any tracks.
 			ui.message(_("You need to add at least one track to find tracks."))
 		else:
-			startObj = api.getFocusObject()
-			# Translators: The text of the dialog for finding tracks.
-			searchMSG = _("Enter the name of the track you wish to search.")
-			dlg = wx.TextEntryDialog(gui.mainFrame,
-			searchMSG,
-			# Translators: The title of the find tracks dialog.
-			_("Find track"), defaultValue=self.findText)
-			def callback(result):
-				if result == wx.ID_OK:
-					if dlg.GetValue() is None: return
-					elif dlg.GetValue() == self.findText: self.trackFinder(dlg.GetValue(), startObj.next)
-					else: self.trackFinder(dlg.GetValue(), startObj)
-			gui.runScriptModalDialog(dlg, callback)
+			if self._trackFinderOpen:
+				# Translators: Standard dialog message when find dialog is already open.
+				wx.CallAfter(gui.messageBox, _("Find track dialog is already open."), _("Error"),wx.OK|wx.ICON_ERROR)
+			else:
+				startObj = api.getFocusObject()
+				# Translators: The text of the dialog for finding tracks.
+				searchMSG = _("Enter the name of the track you wish to search.")
+				dlg = wx.TextEntryDialog(gui.mainFrame,
+				searchMSG,
+				# Translators: The title of the find tracks dialog.
+				_("Find track"), defaultValue=self.findText)
+				self._trackFinderOpen = True
+				def callback(result):
+					self._trackFinderOpen = False
+					if result == wx.ID_OK:
+						if dlg.GetValue() is None: return
+						elif dlg.GetValue() == self.findText: self.trackFinder(dlg.GetValue(), startObj.next)
+						else: self.trackFinder(dlg.GetValue(), startObj)
+				gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_findTrack.__doc__=_("Finds a track in the track list.")
 
