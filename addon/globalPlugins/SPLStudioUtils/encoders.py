@@ -62,9 +62,11 @@ def loadStreamLabels():
 def announceNumMonitoringEncoders():
 	monitorCount = len(SPLBackgroundMonitor)
 	if not monitorCount:
-		ui.message("No encoders are being monitored")
+		# Translators: Message presented when there are no encoders being monitored.
+		ui.message(_("No encoders are being monitored"))
 	else:
-		ui.message("Number of encoders monitored: {numberOfEncoders}".format(numberOfEncoders = monitorCount))
+		# Translators: Announces number of encoders being monitored in the background.
+		ui.message(_("Number of encoders monitored: {numberOfEncoders}").format(numberOfEncoders = monitorCount))
 
 # Try to see if SPL foreground object can be fetched. This is used for switching to SPL Studio window from anywhere and to switch to Studio window from SAM encoder window.
 
@@ -102,7 +104,8 @@ class Encoder(IAccessible):
 	# Format the status message to prepare for monitoring multiple encoders.
 	def encoderStatusMessage(self, message, id):
 		if encoderMonCount[self.encoderType] > 1:
-			ui.message("{encoder} {encoderNumber}: {status}".format(encoder = self.encoderType, encoderNumber = id, status = message))
+			# Translators: Status message for encoder monitoring.
+			ui.message(_("{encoder} {encoderNumber}: {status}").format(encoder = self.encoderType, encoderNumber = id, status = message))
 		else:
 			ui.message(message)
 
@@ -137,11 +140,13 @@ class Encoder(IAccessible):
 			if not self.backgroundMonitor:
 				self.backgroundMonitor = True
 				encoderMonCount[self.encoderType] += 1 # Multiple encoders.
-				ui.message("Monitoring encoder {encoderNumber}".format(encoderNumber = self.IAccessibleChildID))
+				# Translators: Presented when toggling the setting to monitor the selected encoder.
+				ui.message(_("Monitoring encoder {encoderNumber}").format(encoderNumber = self.IAccessibleChildID))
 			else:
 				self.backgroundMonitor = False
 				encoderMonCount[self.encoderType] -= 1
-				ui.message("Encoder {encoderNumber} will not be monitored".format(encoderNumber = self.IAccessibleChildID))
+				# Translators: Presented when toggling the setting to monitor the selected encoder.
+				ui.message(_("Encoder {encoderNumber} will not be monitored").format(encoderNumber = self.IAccessibleChildID))
 			threadPool = self.setBackgroundMonitor()
 			if self.backgroundMonitor:
 				try:
@@ -157,7 +162,10 @@ class Encoder(IAccessible):
 			for encoderType in encoderMonCount:
 				encoderMonCount[encoderType] = 0
 			SPLBackgroundMonitor.clear()
-			ui.message("Encoder monitoring canceled")
+			# Translators: Announced when background encoder monitoring is canceled.
+			ui.message(_("Encoder monitoring canceled"))
+	# Translators: Input help mode message in SAM Encoder window.
+	script_toggleBackgroundEncoderMonitor.__doc__=_("Toggles whether NVDA will monitor the selected encoder in the background.")
 
 	def script_streamLabeler(self, gesture):
 		curStreamLabel, title = self.getStreamLabel(getTitle=True)

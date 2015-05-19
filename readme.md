@@ -61,7 +61,6 @@ The available status information are:
 * H: Duration of music for the current hour slot.
 * Shift+H: Total duration of selected tracks for this hour slot (from the track list, press SPACE to select or uncheck the track to play).
 * I: Listener count.
-* Shift+I: Toggles announcement of listener count (not saved across sessions).
 * L: Line in.
 * M: Microphone.
 * N: Title for the next scheduled track.
@@ -70,7 +69,6 @@ The available status information are:
 * R: Record to file enabled/disabled.
 * Shift+R: Monitor library scan in progress.
 * S: Track starts in (scheduled).
-* Shift+S: Toggles announcement of scheduled time for the track (not saved across sessions).
 * T: Cart edit mode on/off.
 * U: Studio up time.
 * W: Weather and temperature if configured.
@@ -130,7 +128,7 @@ From studio window, you can press Control+NVDA+0 to open the add-on configuratio
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
-## Changes for 5.0-dev
+## Changes for 5.0
 
 * A dedicated settings dialog for SPL add-on has been added, accessible from NVDA's preferences menu or by pressing Control+NVDA+0 from SPL window.
 * Added ability to reset all settings to defaults via configuration dialog.

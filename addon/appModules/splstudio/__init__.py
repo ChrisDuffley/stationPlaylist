@@ -96,9 +96,11 @@ class SPLTrackItem(IAccessible):
 			splconfig.SPLConfig["TrackDial"] = True
 			self.bindGesture("kb:rightArrow", "nextColumn")
 			self.bindGesture("kb:leftArrow", "prevColumn")
-			dialText = "Track Dial on"
+			# Translators: Reported when track dial is on.
+			dialText = _("Track Dial on")
 			if self.appModule.SPLColNumber > 0:
-				dialText+= ", located at column {columnHeader}".format(columnHeader = self.appModule.SPLColNumber+1)
+				# Translators: Announced when located on a column other than the leftmost column while using track dial.
+				dialText+= _(", located at column {columnHeader}").format(columnHeader = self.appModule.SPLColNumber+1)
 			dialTone = 780
 		else:
 			splconfig.SPLConfig["TrackDial"] = False
@@ -107,7 +109,8 @@ class SPLTrackItem(IAccessible):
 				self.removeGestureBinding("kb:leftArrow")
 			except KeyError:
 				pass
-			dialText = "Track Dial off"
+			# Translators: Reported when track dial is off.
+			dialText = _("Track Dial off")
 			dialTone = 390
 		if not splconfig.SPLConfig["BeepAnnounce"]:
 			ui.message(dialText)
@@ -115,19 +118,22 @@ class SPLTrackItem(IAccessible):
 			tones.beep(dialTone, 100)
 			braille.handler.message(dialText)
 			if splconfig.SPLConfig["TrackDial"] and self.appModule.SPLColNumber > 0:
-				speech.speakMessage("Column {columnNumber}".format(columnNumber = self.appModule.SPLColNumber+1))
+				# Translators: Spoken when enabling track dial while status message is set to beeps.
+				speech.speakMessage(_("Column {columnNumber}").format(columnNumber = self.appModule.SPLColNumber+1))
 	# Translators: Input help mode message for SPL track item.
 	script_toggleTrackDial.__doc__=_("Toggles track dial on and off.")
-	script_toggleTrackDial.category = "StationPlaylist Studio"
+	script_toggleTrackDial.category = _("StationPlaylist Studio")
 
 	# Some helper functions to handle corner cases.
 	# Each track item provides its own version.
 	def _leftmostcol(self):
 		leftmost = self.columnHeaders.firstChild.name
 		if not self.name or self.name == "":
-			ui.message("{leftmostColumn} not found".format(leftmostColumn = leftmost))
+			# Translators: Announced when leftmost column has no text while track dial is active.
+			ui.message(_("{leftmostColumn} not found").format(leftmostColumn = leftmost))
 		else:
-			ui.message("{leftmostColumn}: {leftmostContent}".format(leftmostColumn = self.columnHeaders.children[self.appModule.SPLColNumber].name, leftmostContent = self.name))
+			# Translators: Standard message for announcing column content.
+			ui.message(_("{leftmostColumn}: {leftmostContent}").format(leftmostColumn = self.columnHeaders.children[self.appModule.SPLColNumber].name, leftmostContent = self.name))
 
 	# Locate column content.
 	def _getColumnContent(self, col):
@@ -159,10 +165,13 @@ class SPLTrackItem(IAccessible):
 		columnHeader = self.columnHeaders.children[colNumber].name
 		columnContent = self._getColumnContent(colNumber)
 		if columnContent:
-			ui.message(unicode("{header}: {content}").format(header = columnHeader, content = columnContent))
+			# Translators: Standard message for announcing column content.
+			ui.message(unicode(_("{header}: {content}")).format(header = columnHeader, content = columnContent))
 		else:
-			speech.speakMessage("{header}: blank".format(header = columnHeader))
-			braille.handler.message("{header}: ()".format(header = columnHeader))
+			# Translators: Spoken when column content is blank.
+			speech.speakMessage(_("{header}: blank").format(header = columnHeader))
+			# Translators: Brailled to indicate empty column content.
+			braille.handler.message(_("{header}: ()").format(header = columnHeader))
 
 	# Now the scripts.
 
@@ -200,14 +209,16 @@ class SPL510TrackItem(SPLTrackItem):
 	# Handle track dial for SPL 5.10.
 	def _leftmostcol(self):
 		if not self.name:
-			ui.message("Status not found")
+			# Translators: Presented when no track status is found in Studio 5.10.
+			ui.message(_("Status not found"))
 		else:
-			ui.message("Status: {n}".format(n = self.name))
+			# Translators: Status information for a checked track in Studio 5.10.
+			ui.message(_("Status: {name}").format(name = self.name))
 
 	__gestures={"kb:space":"select"}
 
-SPLAssistantHelp=_("""
-After entering SPL Assistant, press:
+# Translators: The text of the help command in SPL Assistant layer.
+	SPLAssistantHelp=_("""After entering SPL Assistant, press:
 A: Automation.
 D: Remaining time for the playlist.
 H: Duration of trakcs in this hour slot.
@@ -518,7 +529,7 @@ class AppModule(appModuleHandler.AppModule):
 	def script_sayElapsedTime(self, gesture):
 		fgWindow = api.getForegroundObject()
 		if fgWindow.windowClassName == "TStudioForm":
-			statusAPI(0, 105, self.announceTime, offset=1)
+			statusAPI(0, 105, self.announceTime)
 		else:
 			ui.message(self.timeMessageErrors[2])
 	# Translators: Input help mode message for a command in Station Playlist Studio.
@@ -568,7 +579,8 @@ class AppModule(appModuleHandler.AppModule):
 			_("End of track alarm"),
 			# Translators: A dialog message to set end of track alarm (curAlarmSec is the current end of track alarm in seconds).
 			_("Enter &end of track alarm time in seconds (currently {curAlarmSec})").format(curAlarmSec = timeVal),
-			"&Notify when end of track is approaching", 1, 59)
+			# Translators: A check box to toggle notification of end of track alarm.
+			_("&Notify when end of track is approaching"), 1, 59)
 			gui.mainFrame.prePopup()
 			d.Raise()
 			d.Show()
@@ -589,6 +601,7 @@ class AppModule(appModuleHandler.AppModule):
 			_("Song intro alarm"),
 			# Translators: A dialog message to set song ramp alarm (curRampSec is the current intro monitoring alarm in seconds).
 			_("Enter song &intro alarm time in seconds (currently {curRampSec})").format(curRampSec = rampVal),
+			# Translators: A check box to toggle notification of end of intro alarm.
 			_("&Notify when end of introduction is approaching"), 1, 9)
 			gui.mainFrame.prePopup()
 			d.Raise()
@@ -640,7 +653,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_openConfigDialog(self, gesture):
 		wx.CallAfter(splconfig.onConfigDialog, None)
-	script_openConfigDialog.__doc__="Opens SPL Studio add-on configuration dialog."
+	# Translators: Input help mode message for a command in Station Playlist Studio.
+	script_openConfigDialog.__doc__=_("Opens SPL Studio add-on configuration dialog.")
 
 	# Other commands (track finder and others)
 
@@ -1154,6 +1168,7 @@ class AppModule(appModuleHandler.AppModule):
 			obj = obj.parent.simpleNext
 		# Translators: Presented when there is no weather or temperature information.
 		ui.message(_("Weather and temperature not configured")) if obj.name is None else ui.message(obj.name)
+	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayTemperature.__doc__=_("Announces temperature and weather information")
 
 	def script_sayUpTime(self, gesture):

@@ -144,6 +144,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 		self.outroSizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Check box hiding method comes from Alberto Buffolino's Columns Review add-on.
+		# Translators: Label for a check box in SPL add-on settings to notify when end of track (outro) is approaching.
 		self.outroCheckBox=wx.CheckBox(self,wx.NewId(),label=_("&Notify when end of track is approaching"))
 		self.outroCheckBox.SetValue(SPLConfig["SayEndOfTrack"])
 		self.outroCheckBox.Bind(wx.EVT_CHECKBOX, self.onOutroCheck)
@@ -161,6 +162,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		settingsSizer.Add(self.outroSizer, border=10, flag=wx.BOTTOM)
 
 		self.introSizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: Label for a check box in SPL add-on settings to notify when end of intro is approaching.
 		self.introCheckBox=wx.CheckBox(self,wx.NewId(),label=_("&Notify when end of introduction is approaching"))
 		self.introCheckBox.SetValue(SPLConfig["SaySongRamp"])
 		self.introCheckBox.Bind(wx.EVT_CHECKBOX, self.onIntroCheck)
@@ -320,7 +322,8 @@ _alarmDialogOpened = False
 
 # A common alarm error dialog.
 def _alarmError():
-	gui.messageBox(_("An alarm dialog is already opened."),_("Error"),style=wx.OK | wx.ICON_ERROR)
+	# Translators: Text of the dialog when another alarm dialog is open.
+	gui.messageBox(_("Another alarm dialog is open."),_("Error"),style=wx.OK | wx.ICON_ERROR)
 
 class SPLAlarmDialog(wx.Dialog):
 	"""A dialog providing common alarm settings.
