@@ -1158,8 +1158,12 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_sayNextTrackTitle(self, gesture):
 		obj = self.status(self.SPLNextTrackTitle).firstChild
+		if obj.parent.role == controlTypes.ROLE_STATUSBAR:
+			obj = obj.parent.simpleNext
 		# Translators: Presented when there is no information for the next track.
 		ui.message(_("No next track scheduled or no track is playing")) if obj.name is None else ui.message(obj.name)
+	# Translators: Input help mode message for a command in Station Playlist Studio.
+	script_sayNextTrackTitle.__doc__=_("Announces title of the next track if any")
 
 	def script_sayTemperature(self, gesture):
 		obj = self.status(self.SPLTemperature).firstChild

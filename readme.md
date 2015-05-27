@@ -35,6 +35,7 @@ The following commands are not assigned by default; if you wish to assign it, us
 * Announce time including seconds from SPL Studio.
 * Toggling track dial on or off (works properly while a track is focused; to assign a command to this, select a track, then open NVDA's input gestures dialog.).
 * Announcing temperature.
+* Announcing title of next track if scheduled.
 
 Note: Input Gestures dialog is available in 2013.3 or later.
 
@@ -138,7 +139,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * Renamed "toggle announcement" to "status announcement" as beeps are used for announcing other status information such as completion of library scans.
 * Status announcement setting is now retained across sessions. Previously you had to configure this setting manually when Studio starts.
 * You can now use Track Dial feature to review columns in a track entry in Studio's main playlist viewer (to toggle this feature, press the command you assigned for this feature).
-* You can now assign a custom command to hear temperature information.
+* You can now assign custom commands to hear temperature information or to announce title for the upcoming track if scheduled.
 * Added a checkbox in end of track and song intro alarm dialogs to enable or disable these alarms (check to enable). These can also be "configured" from add-on settings.
 * Fixed an issue where pressing alarm dialog or track finder commands while another alarm  or find dialog is opened would cause another instance of the same dialog to appear. NVDA will pop up a message asking you to close the previously opened dialog first.
 * Added ability to use SPL Controller layer command to invoke SPL Assistant (experimental; consult the add-on guide on how to enable this).
