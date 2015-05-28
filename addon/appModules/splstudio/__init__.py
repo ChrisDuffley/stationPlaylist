@@ -1110,6 +1110,9 @@ class AppModule(appModuleHandler.AppModule):
 		# Look up the cached objects first for faster response.
 		if not infoIndex in self._cachedStatusObjs:
 			fg = api.getForegroundObject()
+			# Only evaluated when SPL Assistant is not invoked first.
+			if fg.children[5].role != controlTypes.ROLE_STATUSBAR:
+				self.spl510used = True
 			if not self.spl510used: statusObj = self.statusObjs[infoIndex][0]
 			else: statusObj = self.statusObjs[infoIndex][1]
 			self._cachedStatusObjs[infoIndex] = fg.children[statusObj]
@@ -1164,9 +1167,6 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_sayNextTrackTitle(self, gesture):
 		obj = self.status(self.SPLNextTrackTitle).firstChild
-		# Do not confuse this with temperature display.
-		if obj.parent.simplePrevious.role == controlTypes.ROLE_STATUSBAR:
-			obj = obj.parent.simpleNext
 		# Translators: Presented when there is no information for the next track.
 		ui.message(_("No next track scheduled or no track is playing")) if obj.name is None else ui.message(obj.name)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
@@ -1174,9 +1174,6 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_sayTemperature(self, gesture):
 		obj = self.status(self.SPLTemperature).firstChild
-		# Just in case this was executed before invoking assistant layer:
-		if obj.parent.role == controlTypes.ROLE_STATUSBAR:
-			obj = obj.parent.simpleNext
 		# Translators: Presented when there is no weather or temperature information.
 		ui.message(_("Weather and temperature not configured")) if obj.name is None else ui.message(obj.name)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
