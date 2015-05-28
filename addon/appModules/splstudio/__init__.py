@@ -703,6 +703,7 @@ class AppModule(appModuleHandler.AppModule):
 	findText = ""
 	# Prevent multiple instances of track finder from being invoked.
 	_trackFinderOpen = False
+	_trackFinderDlgOpen = False
 
 	def trackFinder(self, text, obj, directionForward=True, column=None):
 		while obj is not None:
@@ -732,8 +733,12 @@ class AppModule(appModuleHandler.AppModule):
 			ui.message(_("You need to add at least one track to find tracks."))
 		else:
 			if self._trackFinderOpen:
-				# Translators: Standard dialog message when find dialog is already open.
-				wx.CallAfter(gui.messageBox, _("Find track dialog is already open."), _("Error"),wx.OK|wx.ICON_ERROR)
+				if not self._trackFinderDlgOpen:
+					# Translators: Standard dialog message when find dialog is already open.
+					wx.CallAfter(gui.messageBox, _("Find track dialog is already open."), _("Error"),wx.OK|wx.ICON_ERROR)
+					self._trackFinderDlgOpen = True
+				else:
+					ui.message(_("Find track dialog is already open."))
 			else:
 				startObj = api.getFocusObject()
 				# Translators: The text of the dialog for finding tracks.
@@ -745,6 +750,7 @@ class AppModule(appModuleHandler.AppModule):
 				self._trackFinderOpen = True
 				def callback(result):
 					self._trackFinderOpen = False
+					self._trackFinderDlgOpen = False
 					if result == wx.ID_OK:
 						if dlg.GetValue() is None: return
 						elif dlg.GetValue() == self.findText: self.trackFinder(dlg.GetValue(), startObj.next)
