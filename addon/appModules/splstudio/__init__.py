@@ -1110,6 +1110,8 @@ class AppModule(appModuleHandler.AppModule):
 		# Look up the cached objects first for faster response.
 		if not infoIndex in self._cachedStatusObjs:
 			fg = api.getForegroundObject()
+			if not fg.windowClassName == "TStudioForm":
+				raise RuntimeError("Not focused in playlist viewer")
 			# Only evaluated when SPL Assistant is not invoked first.
 			if fg.children[5].role != controlTypes.ROLE_STATUSBAR:
 				self.spl510used = True
@@ -1166,14 +1168,24 @@ class AppModule(appModuleHandler.AppModule):
 			ui.message(_("Playlist modification not available"))
 
 	def script_sayNextTrackTitle(self, gesture):
-		obj = self.status(self.SPLNextTrackTitle).firstChild
+		try:
+			obj = self.status(self.SPLNextTrackTitle).firstChild
+		except RuntimeError:
+			# Translators: Presented when next track information is unavailable.
+			ui.message(_("Cannot find next track information"))
+			return
 		# Translators: Presented when there is no information for the next track.
 		ui.message(_("No next track scheduled or no track is playing")) if obj.name is None else ui.message(obj.name)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayNextTrackTitle.__doc__=_("Announces title of the next track if any")
 
 	def script_sayTemperature(self, gesture):
-		obj = self.status(self.SPLTemperature).firstChild
+		try:
+			obj = self.status(self.SPLTemperature).firstChild
+		except RuntimeError:
+			# Translators: Presented when temperature information cannot be found.
+			ui.message(_("Weather information not found"))
+			return
 		# Translators: Presented when there is no weather or temperature information.
 		ui.message(_("Weather and temperature not configured")) if obj.name is None else ui.message(obj.name)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
