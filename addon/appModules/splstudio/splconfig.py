@@ -16,6 +16,7 @@ from winUser import user32
 
 # Configuration management
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
+SPLProfiles = os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "profiles")
 confspec = ConfigObj(StringIO("""
 BeepAnnounce = boolean(default=false)
 SayEndOfTrack = boolean(default=true)
@@ -31,6 +32,8 @@ SayListenerCount = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
 SPLConfig = None
+# A pool of broadcast profiles.
+SPLConfigPool = []
 
 # List of values to be converted manually.
 # This will be called only once: when upgrading from prior versions to 5.0, to be removed in 5.1.
@@ -82,13 +85,31 @@ def resetConfig(defaults, activeConfig, intentional=False):
 # With the load function below, load the config upon request.
 # 6.0: The below init function is really a vehicle that traverses through config profiles in a loop.
 def initConfig():
-	# Load the default config.
-	# Todo (6.0: go through the config beltway, loading each config along the way.
-	global SPLConfig
-	SPLConfig = unlockConfig(SPLIni)
+	# Is this the first time I'm seeing a profile?
+	if not os.path.exists(SPLProfiles):
+		tempProfiles = os.path.join(globalVars.appArgs.configPath, "__SPLProfiles")
+		# Is this really an empty profile set?
+		if os.path.exists(tempProfiles):
+			# Import contents of installation (temp) profiles directory to the real profiles folder.
+			import shutil
+			inis = filter(lambda fn: os.path.splitext(fn)[-1] == ".ini", os.listdir(tempProfiles))
+			if len(inis):
+				os.mkdir(SPLProfiles)
+				for ini in inis:
+					shutil.copy2(os.path.join(tempProfiles, ini), SPLProfiles)
+	# Load the default config from a list of profiles.
+	global SPLConfig, SPLConfigPool
+	SPLConfigPool.append(unlockConfig(SPLIni, profileName="Normal profile"))
+	try:
+		profiles = filter(lambda fn: os.path.splitext(fn)[-1] == ".ini", os.listdir(SPLProfiles))
+		for profile in profiles:
+			SPLConfigPool.append(unlockConfig(os.path.join(SPLProfiles, profile), profileName=os.path.splitext(profile)[0]))
+	except WindowsError:
+		pass
+	SPLConfig = SPLConfigPool[0]
 
 # 6.0: Unlock (load) profiles from files.
-def unlockConfig(path):
+def unlockConfig(path, profileName=None):
 	SPLConfigCheckpoint = ConfigObj(path, configspec = confspec, encoding="UTF-8")
 	# 5.0 only: migrate 4.x format to 5.0, to be removed in 5.1.
 	migrated = config4to5(SPLConfigCheckpoint)
@@ -119,15 +140,17 @@ def unlockConfig(path):
 			runConfigErrorDialog(errorMessage, title)
 		except AttributeError:
 			pass
+	SPLConfigCheckpoint.name = profileName
 	return SPLConfigCheckpoint
 
 # Save configuration database.
 def saveConfig():
-	# 5.0: Save the one and only SPL config database.
-	# Todo for 6.0: save all config profiles.
-	global SPLConfig
-	if SPLConfig is not None: SPLConfig.write()
+	# Save all config profiles.
+	global SPLConfig, SPLConfigPool
+	for configuration in SPLConfigPool:
+		if configuration is not None: configuration.write()
 	SPLConfig = None
+	SPLConfigPool = None
 
 
 # Configuration dialog.
