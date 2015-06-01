@@ -88,7 +88,6 @@ def initConfig():
 	# Is this the first time I'm seeing a profile?
 	if not os.path.exists(SPLProfiles):
 		tempProfiles = os.path.join(globalVars.appArgs.configPath, "__SPLProfiles")
-		# Is this really an empty profile set?
 		if os.path.exists(tempProfiles):
 			# Import contents of installation (temp) profiles directory to the real profiles folder.
 			import shutil
@@ -97,6 +96,8 @@ def initConfig():
 				os.mkdir(SPLProfiles)
 				for ini in inis:
 					shutil.copy2(os.path.join(tempProfiles, ini), SPLProfiles)
+			# Thank you.
+			shutil.rmtree(tempProfiles)
 	# Load the default config from a list of profiles.
 	global SPLConfig, SPLConfigPool
 	SPLConfigPool.append(unlockConfig(SPLIni, profileName="Normal profile"))
