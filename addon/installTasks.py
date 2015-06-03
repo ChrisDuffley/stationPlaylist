@@ -11,10 +11,10 @@ import globalVars
 
 def onInstall():
 	profiles = os.path.join(os.path.dirname(__file__), "..", "stationPlaylist", "profiles")
-	# Backup profiles to be picked up by the newly installed app module when it starts for the first time.
+	# Import old profiles.
 	if os.path.exists(profiles):
-		profileBackups = os.path.join(globalVars.appArgs.configPath, "__SPLProfiles")
+		newProfiles = os.path.join(os.path.dirname(__file__), "profiles")
 		try:
-			shutil.copytree(profiles, profileBackups)
+			shutil.copytree(profiles, newProfiles)
 		except IOError:
 			pass

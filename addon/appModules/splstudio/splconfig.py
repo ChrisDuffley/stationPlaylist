@@ -85,19 +85,7 @@ def resetConfig(defaults, activeConfig, intentional=False):
 # With the load function below, load the config upon request.
 # 6.0: The below init function is really a vehicle that traverses through config profiles in a loop.
 def initConfig():
-	# Is this the first time I'm seeing a profile?
-	if not os.path.exists(SPLProfiles):
-		tempProfiles = os.path.join(globalVars.appArgs.configPath, "__SPLProfiles")
-		if os.path.exists(tempProfiles):
-			# Import contents of installation (temp) profiles directory to the real profiles folder.
-			import shutil
-			inis = filter(lambda fn: os.path.splitext(fn)[-1] == ".ini", os.listdir(tempProfiles))
-			if len(inis):
-				os.mkdir(SPLProfiles)
-				for ini in inis:
-					shutil.copy2(os.path.join(tempProfiles, ini), SPLProfiles)
-			# Thank you.
-			shutil.rmtree(tempProfiles)
+	#if not os.path.exists(SPLProfiles):
 	# Load the default config from a list of profiles.
 	global SPLConfig, SPLConfigPool
 	SPLConfigPool.append(unlockConfig(SPLIni, profileName="Normal profile"))
@@ -161,7 +149,19 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	def makeSettings(self, settingsSizer):
 
-		# Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
+		label = wx.StaticText(self, wx.ID_ANY, label=_("Broadcast &profile:"))
+		self.profiles = wx.Choice(self, wx.ID_ANY, choices=[profile.name for profile in SPLConfigPool])
+		try:
+			self.profiles.SetSelection(SPLConfigPool.index(SPLConfig))
+		except:
+			pass
+		sizer.Add(label)
+		sizer.Add(self.profiles)
+		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+	# Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
 		self.beepAnnounceCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Beep for status announcements"))
 		self.beepAnnounceCheckbox.SetValue(SPLConfig["BeepAnnounce"])
 		settingsSizer.Add(self.beepAnnounceCheckbox, border=10,flag=wx.TOP)
@@ -286,6 +286,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 				_("Error"), wx.OK|wx.ICON_ERROR,self)
 			self.micAlarm.SetFocus()
 			return
+		SPLConfig = self.profiles.GetSelection()
 		SPLConfig["BeepAnnounce"] = self.beepAnnounceCheckbox.Value
 		SPLConfig["SayEndOfTrack"] = self.outroCheckBox.Value
 		SPLConfig["EndOfTrackTime"] = self.endOfTrackAlarm.Value
