@@ -153,6 +153,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
 		label = wx.StaticText(self, wx.ID_ANY, label=_("Broadcast &profile:"))
 		self.profiles = wx.Choice(self, wx.ID_ANY, choices=[profile.name for profile in SPLConfigPool])
+		self.profiles.Bind(wx.EVT_CHOICE, self.onProfileSelection)
 		try:
 			self.profiles.SetSelection(SPLConfigPool.index(SPLConfig))
 		except:
@@ -286,7 +287,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 				_("Error"), wx.OK|wx.ICON_ERROR,self)
 			self.micAlarm.SetFocus()
 			return
-		SPLConfig = self.profiles.GetSelection()
+		global SPLConfig
+		SPLConfig = SPLConfigPool[self.profiles.GetSelection()]
 		SPLConfig["BeepAnnounce"] = self.beepAnnounceCheckbox.Value
 		SPLConfig["SayEndOfTrack"] = self.outroCheckBox.Value
 		SPLConfig["EndOfTrackTime"] = self.endOfTrackAlarm.Value
@@ -318,6 +320,17 @@ class SPLConfigDialog(gui.SettingsDialog):
 			self.introSizer.Show(self.introAlarmLabel)
 			self.introSizer.Show(self.songRampAlarm)
 		self.Fit()
+
+	# Load settings from profiles.
+	def onProfileSelection(self, evt):
+		import tones
+		tones.beep(500, 100)
+		global SPLConfig
+		SPLConfig = SPLConfigPool[self.profiles.GetSelection()]
+		self.beepAnnounceCheckbox.SetValue(SPLConfig["BeepAnnounce"])
+		self.outroCheckBox.SetValue(SPLConfig["SayEndOfTrack"])
+		self.endOfTrackAlarm.SetValue(long(SPLConfig["EndOfTrackTime"]))
+		self.onOutroCheck(None)
 
 	# Reset settings to defaults.
 	def onResetConfig(self, evt):
