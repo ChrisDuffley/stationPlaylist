@@ -325,11 +325,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 	def onProfileSelection(self, evt):
 		import tones
 		tones.beep(500, 100)
-		global SPLConfig
-		SPLConfig = SPLConfigPool[self.profiles.GetSelection()]
-		self.beepAnnounceCheckbox.SetValue(SPLConfig["BeepAnnounce"])
-		self.outroCheckBox.SetValue(SPLConfig["SayEndOfTrack"])
-		self.endOfTrackAlarm.SetValue(long(SPLConfig["EndOfTrackTime"]))
+		# Don't rely on SPLConfig here, as we don't want to interupt the show.
+		selectedProfile = SPLConfigPool[self.profiles.GetSelection()]
+		self.beepAnnounceCheckbox.SetValue(selectedProfile["BeepAnnounce"])
+		self.outroCheckBox.SetValue(selectedProfile["SayEndOfTrack"])
+		self.endOfTrackAlarm.SetValue(long(selectedProfile["EndOfTrackTime"]))
 		self.onOutroCheck(None)
 
 	# Reset settings to defaults.
