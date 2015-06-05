@@ -10,6 +10,7 @@ from validate import Validator
 import weakref
 import globalVars
 import ui
+import api
 import gui
 import wx
 from winUser import user32
@@ -88,6 +89,7 @@ def initConfig():
 	#if not os.path.exists(SPLProfiles):
 	# Load the default config from a list of profiles.
 	global SPLConfig, SPLConfigPool
+	if SPLConfigPool is None: SPLConfigPool = []
 	SPLConfigPool.append(unlockConfig(SPLIni, profileName="Normal profile"))
 	try:
 		profiles = filter(lambda fn: os.path.splitext(fn)[-1] == ".ini", os.listdir(SPLProfiles))
@@ -149,6 +151,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	def makeSettings(self, settingsSizer):
 
+		# Broadcast profile controls were inspired by Config Profiles dialog in NVDA Core.
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
 		label = wx.StaticText(self, wx.ID_ANY, label=_("Broadcast &profile:"))
@@ -161,6 +164,26 @@ class SPLConfigDialog(gui.SettingsDialog):
 		sizer.Add(label)
 		sizer.Add(self.profiles)
 		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+		# Profile controls code credit: NV Access (except copy button).
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: The label of a button to create a new broadcast profile.
+		item = newButton = wx.Button(self, label=_("&New"))
+		item.Bind(wx.EVT_BUTTON, self.onNew)
+		sizer.Add(item)
+		# Translators: The label of a button to copy a broadcast profile.
+		item = copyButton = wx.Button(self, label=_("Cop&y"))
+		item.Bind(wx.EVT_BUTTON, self.onCopy)
+		sizer.Add(item)
+		# Translators: The label of a button to rename a broadcast profile.
+		item = self.renameButton = wx.Button(self, label=_("&Rename"))
+		#item.Bind(wx.EVT_BUTTON, self.onRename)
+		sizer.Add(item)
+		# Translators: The label of a button to delete a broadcast profile.
+		item = self.deleteButton = wx.Button(self, label=_("&Delete"))
+		#item.Bind(wx.EVT_BUTTON, self.onDelete)
+		sizer.Add(item)
+		settingsSizer.Add(sizer)
 
 	# Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
 		self.beepAnnounceCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Beep for status announcements"))
@@ -332,6 +355,15 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.endOfTrackAlarm.SetValue(long(selectedProfile["EndOfTrackTime"]))
 		self.onOutroCheck(None)
 
+	# Profile controls.
+	def onNew(self, evt):
+		self.Disable()
+		NewProfileDialog(self).Show()
+
+	def onCopy(self, evt):
+		self.Disable()
+		NewProfileDialog(self, copy=True).Show()
+
 	# Reset settings to defaults.
 	def onResetConfig(self, evt):
 		if gui.messageBox(
@@ -351,7 +383,101 @@ class SPLConfigDialog(gui.SettingsDialog):
 def onConfigDialog(evt):
 	gui.mainFrame._popupSettingsDialog(SPLConfigDialog)
 
-# Additional configuration dialogs
+# Helper dialogs for add-on settings dialog.
+
+# New broadcast profile dialog: Modification of new config profile dialog from NvDA Core.
+class NewProfileDialog(wx.Dialog):
+
+	def __init__(self, parent, copy=False):
+		self.copy = copy
+		if not self.copy:
+			# Translators: The title of the dialog to create a new broadcast profile.
+			dialogTitle = _("New Profile")
+		else:
+			# Translators: The title of the dialog to copy a broadcast profile.
+			dialogTitle = _("Copy Profile")
+		super(NewProfileDialog, self).__init__(parent, title=dialogTitle)
+		mainSizer = wx.BoxSizer(wx.VERTICAL)
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: The label of a field to enter the name of a new broadcast profile.
+		sizer.Add(wx.StaticText(self, label=_("Profile name:")))
+		item = self.profileName = wx.TextCtrl(self)
+		sizer.Add(item)
+		mainSizer.Add(sizer)
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: The label for a setting in SPL add-on dialog to select a base  profile for copying.
+		label = wx.StaticText(self, wx.ID_ANY, label=_("&Base profile:"))
+		self.baseProfiles = wx.Choice(self, wx.ID_ANY, choices=[profile.name for profile in SPLConfigPool])
+		try:
+			self.baseProfiles.SetSelection(SPLConfigPool.index(SPLConfig))
+		except:
+			pass
+		sizer.Add(label)
+		sizer.Add(self.baseProfiles)
+		if not self.copy:
+			sizer.Hide(label)
+			sizer.Hide(self.baseProfiles)
+		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
+		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
+		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
+		mainSizer.Fit(self)
+		self.Sizer = mainSizer
+		self.profileName.SetFocus()
+		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+
+	def onOk(self, evt):
+		global SPLConfigPool
+		profileNames = [profile.name for profile in SPLConfigPool]
+		name = api.filterFileName(self.profileName.Value)
+		if not name:
+			return
+		if name in profileNames:
+			# Translators: An error displayed when the user attempts to create a profile which already exists.
+			gui.messageBox(_("That profile already exists. Please choose a different name."),
+				_("Error"), wx.OK | wx.ICON_ERROR, self)
+			return
+		namePath = name + ".ini"
+		if not os.path.exists(SPLProfiles):
+			os.mkdir(SPLProfiles)
+		newProfile = os.path.join(SPLProfiles, namePath)
+		if self.copy:
+			import shutil
+			baseProfile = SPLConfigPool[self.baseProfiles.GetSelection()]
+			shutil.copy2(baseProfile.filename, newProfile)
+		SPLConfigPool.append(unlockConfig(newProfile, profileName=name))
+		parent = self.Parent
+		parent.profiles.Append(name)
+		parent.profiles.Selection = parent.profiles.Count - 1
+		parent.onProfileSelection(None)
+		parent.profiles.SetFocus()
+		parent.Enable()
+		self.Destroy()
+		return
+
+	def onCancel(self, evt):
+		self.Parent.Enable()
+		self.Destroy()
+
+	"""def onTriggerChoice(self, evt):
+		spec, disp, manualEdit = self.triggers[self.triggerChoice.Selection]
+		if not spec:
+			# Manual activation shouldn't guess a name.
+			name = ""
+		elif spec.startswith("app:"):
+			name = spec[4:]
+		else:
+			name = disp
+		if self.profileName.Value == self.autoProfileName:
+			# The user hasn't changed the automatically filled value.
+			self.profileName.Value = name
+			self.profileName.SelectAll()
+		self.autoProfileName = name"""
+
+	# Additional configuration dialogs
 
 # A common alarm dialog
 # Based on NVDA core's find dialog code (implemented by the author of this add-on).
