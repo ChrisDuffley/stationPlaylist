@@ -156,9 +156,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.endOfTrackAlarm = wx.SpinCtrl(self, wx.ID_ANY, min=1, max=59)
 		self.endOfTrackAlarm.SetValue(long(SPLConfig["EndOfTrackTime"]))
 		self.outroSizer.Add(self.endOfTrackAlarm)
-		if not self.outroCheckBox.IsChecked():
-			self.outroSizer.Hide(self.outroAlarmLabel)
-			self.outroSizer.Hide(self.endOfTrackAlarm)
+		self.onOutroCheck(None)
 		settingsSizer.Add(self.outroSizer, border=10, flag=wx.BOTTOM)
 
 		self.introSizer = wx.BoxSizer(wx.HORIZONTAL)
@@ -174,9 +172,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.songRampAlarm = wx.SpinCtrl(self, wx.ID_ANY, min=1, max=9)
 		self.songRampAlarm.SetValue(long(SPLConfig["SongRampTime"]))
 		self.introSizer.Add(self.songRampAlarm)
-		if not self.introCheckBox.IsChecked():
-			self.introSizer.Hide(self.introAlarmLabel)
-			self.introSizer.Hide(self.songRampAlarm)
+		self.onIntroCheck(None)
 		settingsSizer.Add(self.introSizer, border=10, flag=wx.BOTTOM)
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
