@@ -249,7 +249,8 @@ class AppModule(appModuleHandler.AppModule):
 		super(AppModule, self).__init__(*args, **kwargs)
 		if self.SPLCurVersion < SPLMinVersion:
 			raise RuntimeError("Unsupported version of Studio is running, exiting app module")
-		ui.message("Using SPL Studio version {SPLVersion}".format(SPLVersion = self.SPLCurVersion))
+		# Translators: The sign-on message for Studio app module.
+		ui.message(_("Using SPL Studio version {SPLVersion}").format(SPLVersion = self.SPLCurVersion))
 		splconfig.initConfig()
 		# Announce status changes while using other programs.
 		# This requires NVDA core support and will be available in 6.0 and later (cannot be ported to earlier versions).
@@ -882,6 +883,13 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_toggleCartExplorer(self, gesture):
 		if not self.cartExplorer:
+			# Prevent cart explorer from being engaged outside of playlist viewer.
+			# Todo for 6.0: Let users set cart banks.
+			fg = api.getForegroundObject()
+			if fg.windowClassName != "TStudioForm":
+				# Translators: Presented when cart explorer cannot be entered.
+				ui.message(_("You are not in playlist viewer, cannot enter cart explorer"))
+				return
 			cartsRead, cartCount = self.cartsReader()
 			if not cartsRead:
 				# Translators: presented when cart explorer could not be switched on.
