@@ -183,6 +183,9 @@ class SPLConfigDialog(gui.SettingsDialog):
 		item = self.deleteButton = wx.Button(self, label=_("&Delete"))
 		item.Bind(wx.EVT_BUTTON, self.onDelete)
 		sizer.Add(item)
+		if SPLConfigPool.index(SPLConfig) == 0:
+			self.renameButton.Disable()
+			self.deleteButton.Disable()
 		settingsSizer.Add(sizer)
 
 	# Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
@@ -345,7 +348,14 @@ class SPLConfigDialog(gui.SettingsDialog):
 		import tones
 		tones.beep(500, 100)
 		# Don't rely on SPLConfig here, as we don't want to interupt the show.
-		selectedProfile = SPLConfigPool[self.profiles.GetSelection()]
+		selection = self.profiles.GetSelection()
+		if selection == 0:
+			self.renameButton.Disable()
+			self.deleteButton.Disable()
+		else:
+			self.renameButton.Enable()
+			self.deleteButton.Enable()
+		selectedProfile = SPLConfigPool[selection]
 		self.beepAnnounceCheckbox.SetValue(selectedProfile["BeepAnnounce"])
 		self.outroCheckBox.SetValue(selectedProfile["SayEndOfTrack"])
 		self.endOfTrackAlarm.SetValue(long(selectedProfile["EndOfTrackTime"]))
