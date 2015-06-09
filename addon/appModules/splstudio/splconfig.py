@@ -177,11 +177,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 		sizer.Add(item)
 		# Translators: The label of a button to rename a broadcast profile.
 		item = self.renameButton = wx.Button(self, label=_("&Rename"))
-		#item.Bind(wx.EVT_BUTTON, self.onRename)
+		item.Bind(wx.EVT_BUTTON, self.onRename)
 		sizer.Add(item)
 		# Translators: The label of a button to delete a broadcast profile.
 		item = self.deleteButton = wx.Button(self, label=_("&Delete"))
-		#item.Bind(wx.EVT_BUTTON, self.onDelete)
+		item.Bind(wx.EVT_BUTTON, self.onDelete)
 		sizer.Add(item)
 		settingsSizer.Add(sizer)
 
@@ -352,6 +352,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.onOutroCheck(None)
 
 	# Profile controls.
+	# Rename and delete events come from GUI/config profiles dialog from NVDA core.
 	def onNew(self, evt):
 		self.Disable()
 		NewProfileDialog(self).Show()
@@ -359,6 +360,56 @@ class SPLConfigDialog(gui.SettingsDialog):
 	def onCopy(self, evt):
 		self.Disable()
 		NewProfileDialog(self, copy=True).Show()
+
+	def onRename(self, evt):
+		global SPLConfigPool
+		index = self.profiles.Selection
+		oldName = SPLConfigPool[index].name
+		# Translators: The label of a field to enter a new name for a broadcast profile.
+		with wx.TextEntryDialog(self, _("New name:"),
+				# Translators: The title of the dialog to rename a profile.
+				_("Rename Profile"), defaultValue=oldName) as d:
+			if d.ShowModal() == wx.ID_CANCEL:
+				return
+			newName = api.filterFileName(d.Value)
+		if oldName == newName: return
+		newNamePath = newName + ".ini"
+		newProfile = os.path.join(SPLProfiles, newNamePath)
+		if oldName.lower() != newName.lower() and os.path.isfile(newProfile):
+			# Translators: An error displayed when renaming a configuration profile
+			# and a profile with the new name already exists.
+			gui.messageBox(_("That profile already exists. Please choose a different name."),
+				_("Error"), wx.OK | wx.ICON_ERROR, self)
+			return
+		oldNamePath = oldName + ".ini"
+		oldProfile = os.path.join(SPLProfiles, oldNamePath)
+		os.rename(oldProfile, newProfile)
+		SPLConfigPool[index].name = newName
+		SPLConfigPool[index].filename = newProfile
+		self.profiles.SetString(index, newName)
+		self.profiles.Selection = index
+		self.profiles.SetFocus()
+
+	def onDelete(self, evt):
+		index = self.profiles.Selection
+		if gui.messageBox(
+			# Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
+			_("Are you sure you want to delete this profile? This cannot be undone."),
+			# Translators: The title of the confirmation dialog for deletion of a profile.
+			_("Confirm Deletion"),
+			wx.YES | wx.NO | wx.ICON_QUESTION, self
+		) == wx.NO:
+			return
+		global SPLConfigPool
+		name = SPLConfigPool[index].name
+		path = SPLConfigPool[index].filename
+		del SPLConfigPool[index]
+		os.remove(path)
+		self.profiles.Delete(index)
+		self.profiles.SetString(0, SPLConfigPool[0].name)
+		self.profiles.Selection = 0
+		self.onProfileSelection(None)
+		self.profiles.SetFocus()
 
 	# Reset settings to defaults.
 	def onResetConfig(self, evt):
