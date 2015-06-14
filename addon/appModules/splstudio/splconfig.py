@@ -360,6 +360,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.outroCheckBox.SetValue(selectedProfile["SayEndOfTrack"])
 		self.endOfTrackAlarm.SetValue(long(selectedProfile["EndOfTrackTime"]))
 		self.onOutroCheck(None)
+		self.introCheckBox.SetValue(selectedProfile["SaySongRamp"])
+		self.songRampAlarm.SetValue(long(selectedProfile["SongRampTime"]))
+		self.onIntroCheck(None)
+		self.micAlarm.SetValue(str(selectedProfile["MicAlarm"]))
 
 	# Profile controls.
 	# Rename and delete events come from GUI/config profiles dialog from NVDA core.
