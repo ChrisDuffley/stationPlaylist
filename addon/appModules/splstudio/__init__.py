@@ -502,20 +502,23 @@ class AppModule(appModuleHandler.AppModule):
 	}
 
 	# Specific to time scripts using Studio API.
+	# 6.0: Split this into two functions: the announcer (below) and formatter.
 	def announceTime(self, t, offset = None):
 		if t <= 0:
 			ui.message("00:00")
 		else:
+			ui.message(self._ms2time(t, offset = offset))
+
+	# Formatter: given time in milliseconds, convert it to human-readable format.
+	def _ms2time(self, t, offset = None):
+		if t <= 0:
+			return "00:00"
+		else:
 			tm = (t/1000) if not offset else (t/1000)+offset
-			if tm < 60:
-				tm1, tm2 = "00", tm
-			else:
-				tm1, tm2 = divmod(tm, 60)
-			if tm1 < 10:
-				tm1 = "0" + str(tm1)
-			if tm2 < 10:
-				tm2 = "0" + str(tm2)
-			ui.message("{a}:{b}".format(a = tm1, b = tm2))
+			timeComponents = divmod(tm, 60)
+			tm1 = str(timeComponents[0]).zfill(2)
+			tm2 = str(timeComponents[1]).zfill(2)
+			return ":".join([tm1, tm2])
 
 	# Scripts which rely on API.
 	def script_sayRemainingTime(self, gesture):
@@ -1239,6 +1242,37 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: Presented when library scan is already in progress.
 			ui.message(_("Scanning is in progress"))
 
+	# Track time analysis: return total length of the selected tracks upon request.
+	# Analysis command will be assignable.
+	_analysisMarker = None
+
+	def script_markTrackForAnalysis(self, gesture):
+		focus = api.getFocusObject()
+		if focus.role == controlTypes.ROLE_LIST:
+			ui.message("No tracks were added, cannot perform track time analysis")
+			return
+		self._analysisMarker = focus.IAccessibleChildID-1
+		ui.message("Track time analysis activated")
+
+	def script_trackTimeAnalysis(self, gesture):
+		if self._analysisMarker is None:
+			ui.message("No track selected as start of analysis marker, cannot perform time analysis")
+			return
+		trackPos = api.getFocusObject().IAccessibleChildID-1
+		if self._analysisMarker == trackPos:
+			filename = statusAPI(self._analysisMarker, 211, ret=True)
+			statusAPI(filename, 30, func=self.announceTime)
+		else:
+			analysisBegin = min(self._analysisMarker, trackPos)
+			analysisEnd = max(self._analysisMarker, trackPos)
+			analysisRange = analysisEnd-analysisBegin+1
+			ui.message("Tracks: {numberOfSelectedTracks}".format(numberOfSelectedTracks = analysisRange))
+			totalLength = 0
+			for track in xrange(analysisBegin, analysisEnd+1):
+				filename = statusAPI(track, 211, ret=True)
+				totalLength+=statusAPI(filename, 30, ret=True)
+			ui.message(self.announceTime(totalLength))
+
 	def script_layerHelp(self, gesture):
 		# Translators: The title for SPL Assistant help dialog.
 		wx.CallAfter(gui.messageBox, SPLAssistantHelp, _("SPL Assistant help"))
@@ -1262,6 +1296,8 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:s":"sayScheduledTime",
 		"kb:shift+p":"sayTrackPitch",
 		"kb:shift+r":"libraryScanMonitor",
+		"kb:f9":"markTrackForAnalysis",
+		"kb:f10":"trackTimeAnalysis",
 		"kb:f1":"layerHelp",
 	}
 
