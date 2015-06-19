@@ -707,14 +707,18 @@ class AppModule(appModuleHandler.AppModule):
 	_trackFinderDlgOpen = False
 
 	def trackFinder(self, text, obj, directionForward=True, column=None):
+		speech.cancelSpeech()
 		while obj is not None:
-			if text in obj.description or (obj.name and text in obj.name and self.productVersion < "5.10"):
-				self.findText = text
-				# We need to fire set focus event twice and exit this routine.
-				obj.setFocus(), obj.setFocus()
-				return
-			else:
-				obj = obj.next if directionForward else obj.previous
+			try:
+				if (not column and (text in obj.description or (obj.name and text in obj.name and self.productVersion < "5.10"))
+				or (column and text in obj._getColumnContent(column))):
+					self.findText = text
+					# We need to fire set focus event twice and exit this routine.
+					obj.setFocus(), obj.setFocus()
+					return
+			except TypeError:
+				pass
+			obj = obj.next if directionForward else obj.previous
 		wx.CallAfter(gui.messageBox,
 		# Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
 		_("Search string not found."),
@@ -733,30 +737,15 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: Presented when a user wishes to find a track but didn't add any tracks.
 			ui.message(_("You need to add at least one track to find tracks."))
 		else:
-			if self._trackFinderOpen:
-				if not self._trackFinderDlgOpen:
-					# Translators: Standard dialog message when find dialog is already open.
-					wx.CallAfter(gui.messageBox, _("Find track dialog is already open."), _("Error"),wx.OK|wx.ICON_ERROR)
-					self._trackFinderDlgOpen = True
-				else:
-					ui.message(_("Find track dialog is already open."))
-			else:
-				startObj = api.getFocusObject()
-				# Translators: The text of the dialog for finding tracks.
-				searchMSG = _("Enter the name of the track you wish to search.")
-				dlg = wx.TextEntryDialog(gui.mainFrame,
-				searchMSG,
-				# Translators: The title of the find tracks dialog.
-				_("Find track"), defaultValue=self.findText)
-				self._trackFinderOpen = True
-				def callback(result):
-					self._trackFinderOpen = False
-					self._trackFinderDlgOpen = False
-					if result == wx.ID_OK:
-						if dlg.GetValue() is None: return
-						elif dlg.GetValue() == self.findText: self.trackFinder(dlg.GetValue(), startObj.next)
-						else: self.trackFinder(dlg.GetValue(), startObj)
-				gui.runScriptModalDialog(dlg, callback)
+			try:
+				d = splconfig.SPLFindDialog(gui.mainFrame, api.getFocusObject(), self.findText, "Find track", columnSearch = True)
+				gui.mainFrame.prePopup()
+				d.Raise()
+				d.Show()
+				gui.mainFrame.postPopup()
+				splconfig._findDialogOpened = True
+			except RuntimeError:
+				wx.CallAfter(splconfig._finderError)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_findTrack.__doc__=_("Finds a track in the track list.")
 
