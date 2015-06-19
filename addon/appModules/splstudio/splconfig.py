@@ -426,6 +426,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.profiles.SetFocus()
 
 	# Reset settings to defaults.
+	# This affects the currently selected profile.
 	def onResetConfig(self, evt):
 		if gui.messageBox(
 		# Translators: A message to warn about resetting SPL config settings to factory defaults.
@@ -436,6 +437,9 @@ class SPLConfigDialog(gui.SettingsDialog):
 			val = Validator()
 			SPLDefaults = ConfigObj(None, configspec = confspec, encoding="UTF-8")
 			SPLDefaults.validate(val, copy=True)
+			# Reset the selected config only.
+			global SPLConfig
+			SPLConfig = SPLConfigPool[self.profiles.GetSelection()]
 			resetConfig(SPLDefaults, SPLConfig, intentional=True)
 			self.Destroy()
 
