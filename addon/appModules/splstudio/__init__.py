@@ -1251,8 +1251,12 @@ class AppModule(appModuleHandler.AppModule):
 		if focus.role == controlTypes.ROLE_LIST:
 			ui.message("No tracks were added, cannot perform track time analysis")
 			return
-		self._analysisMarker = focus.IAccessibleChildID-1
-		ui.message("Track time analysis activated")
+		if scriptHandler.getLastScriptRepeatCount() == 0:
+			self._analysisMarker = focus.IAccessibleChildID-1
+			ui.message("Track time analysis activated")
+		else:
+			self._analysisMarker = None
+			ui.message("Track time analysis deactivated")
 
 	def script_trackTimeAnalysis(self, gesture):
 		if self._analysisMarker is None:
@@ -1266,12 +1270,11 @@ class AppModule(appModuleHandler.AppModule):
 			analysisBegin = min(self._analysisMarker, trackPos)
 			analysisEnd = max(self._analysisMarker, trackPos)
 			analysisRange = analysisEnd-analysisBegin+1
-			ui.message("Tracks: {numberOfSelectedTracks}".format(numberOfSelectedTracks = analysisRange))
 			totalLength = 0
 			for track in xrange(analysisBegin, analysisEnd+1):
 				filename = statusAPI(track, 211, ret=True)
 				totalLength+=statusAPI(filename, 30, ret=True)
-			ui.message(self.announceTime(totalLength))
+			ui.message("Tracks: {numberOfSelectedTracks}, totaling {totalTime}".format(numberOfSelectedTracks = analysisRange, totalTime = self._ms2time(totalLength)))
 
 	def script_layerHelp(self, gesture):
 		# Translators: The title for SPL Assistant help dialog.
