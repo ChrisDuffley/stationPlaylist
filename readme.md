@@ -1,28 +1,29 @@
-# Station Playlist Studio #
+# StationPlaylist Studio #
 
 * Authors: Geoff Shang, Joseph Lee and other contributors
 * Download [stable version][1]
 * Download [development version][2]
 
-This add-on package provides improved usage of Station Playlist Studio, as well as providing utilities to control the Studio from anywhere.
+This add-on package provides improved usage of StationPlaylist Studio, as well as providing utilities to control the Studio from anywhere.
 
 For more information about the add-on, read the [add-on guide][3].
 
-IMPORTANT: Due to major incompatible changes and key assignments, please remove add-on version 1.2 before installing version 2.0 or later. Also, add-on 2.1 and later requires NVDA 2014.1 or later. Add-on 4.0 requires SPL version 5.00 or later. Users using Studio 4.33 can [visit this link][4] to download add-on 3.x releases.
+IMPORTANT: This add-on requires NVDA 2014.3 or later and StationPlaylist Studio 5.00 or later.
 
 ## Shortcut keys
 
 * Alt+Shift+T from Studio window: announce elapsed time for the currently playing trakc.
-* Control+Alt+T from Studio window: announce remaining time for the currently playing trakc.
-* NVDA+Shift+F12 from Studio window: announces broadcaster time such as 5 minutes to top of the hour.
-* Control+NVDA+1 from Studio window: toggles announcement of toggle messages (such as automation) between words and beeps.
-* Control+NVDA+2 from Studio window: Opens end of track setting dialog.
-* Alt+NVDA+2 from Studio window: Opens song intro alarm setting dialog.
+* Control+Alt+T (two finger flick down in SPL touch mode) from Studio window: announce remaining time for the currently playing trakc.
+* NVDA+Shift+F12 (two finger flick up in SPL touch mode) from Studio window: announces broadcaster time such as 5 minutes to top of the hour.
+* Control+NVDA+1 from Studio window: toggles announcement of status messages (such as automation and end of library scan) between words and beeps.
+* Control+NVDA+2 (two finger flick right in SPL mode) from Studio window: Opens end of track setting dialog.
+* Alt+NVDA+2 (two finger flick left in SPL mode) from Studio window: Opens song intro alarm setting dialog.
 * Control+NVDA+3 from Studio window: Toggles cart explorer to learn cart assignments.
 * Control+NVDA+4 from Studio window: Opens microphone alarm dialog.
 * Control+NVDA+f from Studio window: Opens a dialog to find a track based on artist or song name. Press NvDA+F3 to find forward or NVDA+Shift+F3 to find backward.
 * Alt+NVDA+R from Studio window: Steps through library scan announcement settings.
 * Control+Shift+X from Studio window: Steps through braille timer settings.
+* Control+NVDA+0 from Studio window: Opens the Studio add-on configuration dialog.
 
 ## Unassigned commands
 
@@ -32,6 +33,9 @@ The following commands are not assigned by default; if you wish to assign it, us
 * SPL Controller layer.
 * SPL Assistant layer from SPL Studio.
 * Announce time including seconds from SPL Studio.
+* Toggling track dial on or off (works properly while a track is focused; to assign a command to this, select a track, then open NVDA's input gestures dialog.).
+* Announcing temperature.
+* Announcing title of next track if scheduled.
 
 Note: Input Gestures dialog is available in 2013.3 or later.
 
@@ -43,7 +47,9 @@ The following commands are available when using Sam or SPL encoders:
 * F10 (SAM encoder only): Disconnect from the streaming server.
 * F11: Toggles whether NVDA will switch to Studio window for the selected encoder if connected.
 * Shift+F11: Toggles whether Studio will play the first selected track when encoder is connected to a streaming server.
+* Control+F11: Toggles background monitoring of the selected encoder.
 * F12: Opens a dialog to enter custom label for the selected encoder or stream.
+* Control+F12: opens a dialog to select the encoder you have deleted (to realign stream labels).
 
 ## SPL Assistant layer
 
@@ -68,6 +74,7 @@ The available status information are:
 * U: Studio up time.
 * W: Weather and temperature if configured.
 * Y: Playlist modified status (SPL 5.00 and later).
+* F1: Layer help.
 
 ## SPL Controller
 
@@ -83,6 +90,7 @@ The available SPL Controller commands are:
 * Press L to enable line-in input or Shift+L to disable it.
 * Press R to hear remaining time for the currently playing track in seconds.
 * Press Shift+R to get a report on library scan progress.
+* Press E to get a count of encoders being monitored.
 * Press F1 to show a help dialog which lists available commands.
 
 ## End of track alarm
@@ -108,6 +116,38 @@ Note: Track Finder is case-sensitive.
 Depending on edition, SPL Studio allows up to 96 carts to be assigned for playback. NVDA allows you to hear which cart, or jingle is assigned to these commands.
 
 To learn cart assignments, from SPL Studio, press Control+NVDA+3. Pressing the cart command once will tell you which jingle is assigned to the command. Pressing the cart command twice will play the jingle. Press Control+NvDA+3 to exit cart explorer. See the add-on guide for more information on cart explorer.
+
+## Track Dial
+
+You can use arrow keys to review various information about a track. To turn Track Dial on, while a track is focused in the main playlist viewer, press Control+Grave. Then use left and right arrow keys to review information such as artist, duration and so on.
+
+## Configuration dialog
+
+From studio window, you can press Control+NVDA+0 to open the add-on configuration dialog. Alternatively, go to NVDA's preferences menu and select SPL Studio Settings item.
+
+## SPL touch mode
+
+If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
+
+## Changes for 5.0
+
+* A dedicated settings dialog for SPL add-on has been added, accessible from NVDA's preferences menu or by pressing Control+NVDA+0 from SPL window.
+* Added ability to reset all settings to defaults via configuration dialog.
+* If some of the settings have errors, only the affected settings will be reset to factory defaults.
+* Added a dedicated SPL touchscreen mode and touch commands to perform various Studio commands.
+* Changes to SPL Assistant layer include addition of layer help command (F1) and removal of commands to toggle listener count (Shift+I) and scheduled time announcement (Shift+S). You can configure these settings in add-on settings dialog.
+* Renamed "toggle announcement" to "status announcement" as beeps are used for announcing other status information such as completion of library scans.
+* Status announcement setting is now retained across sessions. Previously you had to configure this setting manually when Studio starts.
+* You can now use Track Dial feature to review columns in a track entry in Studio's main playlist viewer (to toggle this feature, press the command you assigned for this feature).
+* You can now assign custom commands to hear temperature information or to announce title for the upcoming track if scheduled.
+* Added a checkbox in end of track and song intro alarm dialogs to enable or disable these alarms (check to enable). These can also be "configured" from add-on settings.
+* Fixed an issue where pressing alarm dialog or track finder commands while another alarm  or find dialog is opened would cause another instance of the same dialog to appear. NVDA will pop up a message asking you to close the previously opened dialog first.
+* Cart explorer changes and fixes, including exploring wrong cart banks when user is not focused on playlist viewer. Cart explorer will now check to make sure that you are in playlist viewer.
+* Added ability to use SPL Controller layer command to invoke SPL Assistant (experimental; consult the add-on guide on how to enable this).
+* In encoder windows, NVDA's time and date announcement command (NVDA+F12 by default) will announce time including seconds.
+* You can now monitor individual encoders for connection status and for other messages by pressing Control+F11 while the encoder you wish to monitor is focused (works better when using SAM encoders).
+* Added a command in SPL Controller layer to announce status of encoders being monitored (E).
+* A workaround is now available to fix an issue where NvDA was announcing stream labels for the wrong encoders, especially after deleting an encoder (to realign stream labels, press Control+F12, then select the position of the encoder you have removed).
 
 ## Changes for 4.4/3.9
 
