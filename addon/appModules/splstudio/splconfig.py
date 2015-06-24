@@ -82,13 +82,21 @@ def resetConfig(defaults, activeConfig, intentional=False):
 		# Translators: Title of the reset config dialog.
 		_("Reset configuration"), wx.OK|wx.ICON_INFORMATION)
 
+# In case one or more profiles had config issues, look up the error message form the following map.
+_configErrors = (
+	("All settings reset to defaults"),
+	("Some settings reset to defaults")
+)
+
 # To be run in app module constructor.
 # With the load function below, load the config upon request.
 # 6.0: The below init function is really a vehicle that traverses through config profiles in a loop.
+# Prompt the config error dialog only once.
+_configLoadStatus = {} # Key = filename, value is pass or no pass.
+
 def initConfig():
-	#if not os.path.exists(SPLProfiles):
 	# Load the default config from a list of profiles.
-	global SPLConfig, SPLConfigPool
+	global SPLConfig, SPLConfigPool, _configLoadStatus
 	if SPLConfigPool is None: SPLConfigPool = []
 	SPLConfigPool.append(unlockConfig(SPLIni, profileName="Normal profile"))
 	try:
@@ -98,9 +106,20 @@ def initConfig():
 	except WindowsError:
 		pass
 	SPLConfig = SPLConfigPool[0]
+	if len(_configLoadStatus):
+		# Translators: Standard error title for configuration error.
+		title = _("Studio add-on Configuration error")
+		messages = []
+		messages.append("One or more broadcast profiles had issues:\n\n")
+		for profile in _configLoadStatus:
+			error = _configErrors[_configLoadStatus[profile]]
+			messages.append("{profileName}: {errorMessage}".format(profileName = profile, errorMessage = error))
+		_configLoadStatus.clear()
+		runConfigErrorDialog("\n".join(messages), title)
 
 # 6.0: Unlock (load) profiles from files.
 def unlockConfig(path, profileName=None):
+	global _configLoadStatus # To be mutated only during unlock routine.
 	SPLConfigCheckpoint = ConfigObj(path, configspec = confspec, encoding="UTF-8")
 	# 5.0 only: migrate 4.x format to 5.0, to be removed in 5.1.
 	migrated = config4to5(SPLConfigCheckpoint)
@@ -111,26 +130,18 @@ def unlockConfig(path, profileName=None):
 		# Hack: have a dummy config obj handy just for storing default values.
 		SPLDefaults = ConfigObj(None, configspec = confspec, encoding="UTF-8")
 		SPLDefaults.validate(val, copy=True)
-		# Translators: Standard error title for configuration error.
-		title = _("Studio add-on Configuration error")
 		if not configTest or not migrated:
 			# Case 1: restore settings to defaults.
 			# This may happen when 4.x config had parsing issues or 5.x config validation has failed on all values.
 			resetConfig(SPLDefaults, SPLConfigCheckpoint)
-			# Translators: Standard dialog message when Studio configuration has problems and was reset to defaults.
-			errorMessage = _("Your Studio add-on configuration has errors and was reset to factory defaults.")
+			_configLoadStatus[profileName] = 0
 		elif isinstance(configTest, dict):
 			# Case 2: For 5.x and later, attempt to reconstruct the failed values.
 			for setting in configTest:
 				if not configTest[setting]:
 					SPLConfigCheckpoint[setting] = SPLDefaults[setting]
-			# Translators: Standard dialog message when some Studio configuration settings were reset to defaults.
-			errorMessage = _("Errors were found in some of your Studio configuration settings. The affected settings were reset to defaults.")
 			SPLConfigCheckpoint.write()
-		try:
-			runConfigErrorDialog(errorMessage, title)
-		except AttributeError:
-			pass
+			_configLoadStatus[profileName] = 1
 	SPLConfigCheckpoint.name = profileName
 	return SPLConfigCheckpoint
 
@@ -298,7 +309,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		sizer.Add(self.resetConfigButton)
 
 	def postInit(self):
-		self.beepAnnounceCheckbox.SetFocus()
+		self.profiles.SetFocus()
 
 	def onOk(self, evt):
 		if not self.micAlarm.Value.isdigit():
