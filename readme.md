@@ -119,7 +119,7 @@ To learn cart assignments, from SPL Studio, press Control+NVDA+3. Pressing the c
 
 ## Track Dial
 
-You can use arrow keys to review various information about a track. To turn Track Dial on, while a track is focused in the main playlist viewer, press Control+Grave. Then use left and right arrow keys to review information such as artist, duration and so on.
+You can use arrow keys to review various information about a track. To turn Track Dial on, while a track is focused in the main playlist viewer, press the command you assigned for toggling Track Dial. Then use left and right arrow keys to review information such as artist, duration and so on.
 
 ## Configuration dialog
 
