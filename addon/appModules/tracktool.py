@@ -3,19 +3,19 @@
 # Copyright 2014-2015 Joseph Lee and contributors, released under gPL.
 # Functionality is based on JFW scripts for SPL Track Tool by Brian Hartgen.
 
-#import ctypes
+import ctypes
 import appModuleHandler
 import addonHandler
 import api
 import tones
-#import speech
-#import braille
+import speech
+import braille
 from controlTypes import ROLE_LISTITEM
 import ui
-#import winKernel
-#from winUser import sendMessage
-from NVDAObjects.IAccessible import IAccessible #, sysListView32 # Place holder for add-on 5.1.
-#from splstudio import splconfig
+import winKernel
+from winUser import sendMessage
+from NVDAObjects.IAccessible import IAccessible, sysListView32
+from splstudio import splconfig
 addonHandler.initTranslation()
 
 # Track Tool allows a broadcaster to manage track intros, cues and so forth. Each track is a list item with descriptions such as title, file name, intro time and so forth.
@@ -33,8 +33,6 @@ class TrackToolItem(IAccessible):
 			tones.beep(550, 100)
 		super(TrackToolItem, self).reportFocus()
 
-	# Incubating:
-	"""
 	def initOverlayClass(self):
 		if self.appModule.TTDial:
 			self.bindGesture("kb:rightArrow", "nextColumn")
@@ -124,17 +122,13 @@ class TrackToolItem(IAccessible):
 
 	__gestures={
 		#"kb:control+`":"toggleTrackDial",
-	}"""
-	# To be enabled in 5.1 after optimizing the app module.
+	}
 
 
 class AppModule(appModuleHandler.AppModule):
 
-	#def terminate(self):
-		#super(AppModule, self).terminate()
-
-	#TTDial = False
-	#SPLColNumber = 0
+	TTDial = False
+	SPLColNumber = 0
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		if obj.windowClassName in ("TListView", "TTntListView.UnicodeClass") and obj.role == ROLE_LISTITEM:
