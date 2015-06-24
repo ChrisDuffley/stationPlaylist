@@ -41,6 +41,10 @@ class TrackToolItem(IAccessible):
 			# Add-on 5.1: Track Dial for Track Tool.
 
 	def script_toggleTrackDial(self, gesture):
+		if splconfig.SPLConfig is None:
+			# Translators: Presented when only Track Tool is running (Track Dial requires Studio to be running as well).
+			ui.message(_("Only Track Tool is running, Track Dial is unavailable"))
+			return
 		if not self.appModule.TTDial:
 			self.appModule.TTDial = True
 			self.bindGesture("kb:rightArrow", "nextColumn")
