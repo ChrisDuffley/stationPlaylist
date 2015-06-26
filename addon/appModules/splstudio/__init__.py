@@ -308,6 +308,22 @@ class AppModule(appModuleHandler.AppModule):
 	# These items are static text items whose name changes.
 	# Note: There are two status bars, hence the need to exclude Up time so it doesn't announce every minute.
 	# Unfortunately, Window handles and WindowControlIDs seem to change, so can't be used.
+	# Only announce changes if told to do so via the following function.
+	def _TStatusBarChanged(self, obj):
+		name = obj.name
+		if name.startswith("  Up time:"):
+			return False
+		elif name.startswith("Scheduled for"):
+			if self.scheduledTimeCache == name: return False
+			self.scheduledTimeCache = name
+			return splconfig.SPLConfig["SayScheduledFor"]
+		elif "Listener" in name:
+			return splconfig.SPLConfig["SayListenerCount"]
+		elif name.startswith("Cart") and obj.IAccessibleChildID == 3:
+			return splconfig.SPLConfig["SayPlayingCartName"]
+		return True
+
+	# Now the actual event.
 	def event_nameChange(self, obj, nextHandler):
 		# Do not let NvDA get name for None object when SPL window is maximized.
 		if not obj.name:
@@ -315,7 +331,8 @@ class AppModule(appModuleHandler.AppModule):
 		# Suppress announcing status messages when background monitoring is unavailable.
 		if api.getForegroundObject().processID != self.processID and not self.backgroundStatusMonitor:
 			nextHandler()
-		if obj.windowClassName == "TStatusBar" and not obj.name.startswith("  Up time:"):
+		# Only announce changes in status bar objects when told to do so.
+		if obj.windowClassName == "TStatusBar" and self._TStatusBarChanged(obj):
 			# Special handling for Play Status
 			if obj.IAccessibleChildID == 1:
 				if "Play status" in obj.name:
@@ -341,23 +358,7 @@ class AppModule(appModuleHandler.AppModule):
 					if self.libraryScanning: self.libraryScanning = False
 					self.scanCount = 0
 			else:
-				if obj.name.startswith("Scheduled for"):
-					if not splconfig.SPLConfig["SayScheduledFor"]:
-						nextHandler()
-						return
-					if self.scheduledTimeCache == obj.name: return
-					else:
-						self.scheduledTimeCache = obj.name
-						ui.message(obj.name)
-						return
-				elif "Listener" in obj.name and not splconfig.SPLConfig["SayListenerCount"]:
-					nextHandler()
-					return
-				elif not obj.name.endswith((" On", " Off")) or (obj.name.startswith("Cart") and obj.IAccessibleChildID == 3):
-					# Announce status information that does not contain toggle messages and return immediately.
-					ui.message(obj.name)
-					return
-				elif splconfig.SPLConfig["BeepAnnounce"]:
+				if obj.name.endswith((" On", " Off")) and splconfig.SPLConfig["BeepAnnounce"]:
 					# User wishes to hear beeps instead of words. The beeps are power on and off sounds from PAC Mate Omni.
 					beep = obj.name.split()
 					stat = beep[-1]
@@ -502,20 +503,23 @@ class AppModule(appModuleHandler.AppModule):
 	}
 
 	# Specific to time scripts using Studio API.
+	# 6.0: Split this into two functions: the announcer (below) and formatter.
 	def announceTime(self, t, offset = None):
 		if t <= 0:
 			ui.message("00:00")
 		else:
+			ui.message(self._ms2time(t, offset = offset))
+
+	# Formatter: given time in milliseconds, convert it to human-readable format.
+	def _ms2time(self, t, offset = None):
+		if t <= 0:
+			return "00:00"
+		else:
 			tm = (t/1000) if not offset else (t/1000)+offset
-			if tm < 60:
-				tm1, tm2 = "00", tm
-			else:
-				tm1, tm2 = divmod(tm, 60)
-			if tm1 < 10:
-				tm1 = "0" + str(tm1)
-			if tm2 < 10:
-				tm2 = "0" + str(tm2)
-			ui.message("{a}:{b}".format(a = tm1, b = tm2))
+			timeComponents = divmod(tm, 60)
+			tm1 = str(timeComponents[0]).zfill(2)
+			tm2 = str(timeComponents[1]).zfill(2)
+			return ":".join([tm1, tm2])
 
 	# Scripts which rely on API.
 	def script_sayRemainingTime(self, gesture):
@@ -1228,6 +1232,46 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: Presented when library scan is already in progress.
 			ui.message(_("Scanning is in progress"))
 
+	# Track time analysis: return total length of the selected tracks upon request.
+	# Analysis command will be assignable.
+	_analysisMarker = None
+
+	def script_markTrackForAnalysis(self, gesture):
+		focus = api.getFocusObject()
+		if focus.role == controlTypes.ROLE_LIST:
+			ui.message("No tracks were added, cannot perform track time analysis")
+			return
+		if scriptHandler.getLastScriptRepeatCount() == 0:
+			self._analysisMarker = focus.IAccessibleChildID-1
+			ui.message("Track time analysis activated")
+		else:
+			self._analysisMarker = None
+			ui.message("Track time analysis deactivated")
+	script_markTrackForAnalysis.__doc__=_("Marks focused track as start marker for track time analysis")
+
+	def script_trackTimeAnalysis(self, gesture):
+		focus = api.getFocusObject()
+		if focus.role == controlTypes.ROLE_LIST:
+			ui.message("No tracks were added, cannot perform track time analysis")
+			return
+		if self._analysisMarker is None:
+			ui.message("No track selected as start of analysis marker, cannot perform time analysis")
+			return
+		trackPos = focus.IAccessibleChildID-1
+		if self._analysisMarker == trackPos:
+			filename = statusAPI(self._analysisMarker, 211, ret=True)
+			statusAPI(filename, 30, func=self.announceTime)
+		else:
+			analysisBegin = min(self._analysisMarker, trackPos)
+			analysisEnd = max(self._analysisMarker, trackPos)
+			analysisRange = analysisEnd-analysisBegin+1
+			totalLength = 0
+			for track in xrange(analysisBegin, analysisEnd+1):
+				filename = statusAPI(track, 211, ret=True)
+				totalLength+=statusAPI(filename, 30, ret=True)
+			ui.message("Tracks: {numberOfSelectedTracks}, totaling {totalTime}".format(numberOfSelectedTracks = analysisRange, totalTime = self._ms2time(totalLength)))
+	script_trackTimeAnalysis.__doc__=_("Announces total length of tracks between analysis start marker and the current track")
+
 	def script_layerHelp(self, gesture):
 		# Translators: The title for SPL Assistant help dialog.
 		wx.CallAfter(gui.messageBox, SPLAssistantHelp, _("SPL Assistant help"))
@@ -1251,6 +1295,8 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:s":"sayScheduledTime",
 		"kb:shift+p":"sayTrackPitch",
 		"kb:shift+r":"libraryScanMonitor",
+		"kb:f9":"markTrackForAnalysis",
+		"kb:f10":"trackTimeAnalysis",
 		"kb:f1":"layerHelp",
 	}
 
