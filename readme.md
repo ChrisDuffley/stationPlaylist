@@ -36,6 +36,8 @@ The following commands are not assigned by default; if you wish to assign it, us
 * Toggling track dial on or off (works properly while a track is focused; to assign a command to this, select a track, then open NVDA's input gestures dialog.).
 * Announcing temperature.
 * Announcing title of next track if scheduled.
+* Marking current track for start of track time analysis.
+* Performing track time analysis.
 
 Note: Input Gestures dialog is available in 2013.3 or later.
 
@@ -74,6 +76,8 @@ The available status information are:
 * U: Studio up time.
 * W: Weather and temperature if configured.
 * Y: Playlist modified status (SPL 5.00 and later).
+* F9: Mark current track for track time analysis.
+* F10: Perform track time analysis.
 * F1: Layer help.
 
 ## SPL Controller
@@ -121,9 +125,13 @@ To learn cart assignments, from SPL Studio, press Control+NVDA+3. Pressing the c
 
 You can use arrow keys to review various information about a track. To turn Track Dial on, while a track is focused in the main playlist viewer, press the command you assigned for toggling Track Dial. Then use left and right arrow keys to review information such as artist, duration and so on.
 
+## Track time analysis
+
+To obtain length to play selected tracks, mark current track for start of track time analysis (SPL Assistant, F9), then press SPL Assistant, F10 when reaching end of selection.
+
 ## Configuration dialog
 
-From studio window, you can press Control+NVDA+0 to open the add-on configuration dialog. Alternatively, go to NVDA's preferences menu and select SPL Studio Settings item.
+From studio window, you can press Control+NVDA+0 to open the add-on configuration dialog. Alternatively, go to NVDA's preferences menu and select SPL Studio Settings item. This dialog is also used to manage broadcast profiles.
 
 ## SPL touch mode
 
@@ -132,6 +140,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Changes for 6.0-dev
 
 * You can now ask NVDA to apply certain settings in specific situations by defining broadcast profiles. See the add-on guide for details on broadcast profiles.
+* You can now ask NVDA to report total length of a range of tracks via track time analysis feature. Press SPL Assistant, F9 to mark current track as start marker, move to end of track range and press SPL Assistant, F10. These commands can be reassigned so one doesn't have to invoke SPL Assistant layer to perform track time analysis.
 
 ## Changes for 5.0
 
