@@ -1258,6 +1258,7 @@ class AppModule(appModuleHandler.AppModule):
 		else:
 			self._analysisMarker = None
 			ui.message("Track time analysis deactivated")
+	script_markTrackForAnalysis.__doc__=_("Marks focused track as start marker for track time analysis")
 
 	def script_trackTimeAnalysis(self, gesture):
 		focus = api.getFocusObject()
@@ -1280,6 +1281,7 @@ class AppModule(appModuleHandler.AppModule):
 				filename = statusAPI(track, 211, ret=True)
 				totalLength+=statusAPI(filename, 30, ret=True)
 			ui.message("Tracks: {numberOfSelectedTracks}, totaling {totalTime}".format(numberOfSelectedTracks = analysisRange, totalTime = self._ms2time(totalLength)))
+	script_trackTimeAnalysis.__doc__=_("Announces total length of tracks between analysis start marker and the current track")
 
 	def script_layerHelp(self, gesture):
 		# Translators: The title for SPL Assistant help dialog.
