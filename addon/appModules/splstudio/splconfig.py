@@ -28,6 +28,7 @@ LibraryScanAnnounce = option("off", "ending", "progress", "numbers", default="of
 TrackDial = boolean(default=false)
 SayScheduledFor = boolean(default=true)
 SayListenerCount = boolean(default=true)
+SayPlayingCartName = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
 SPLConfig = None
@@ -241,6 +242,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.listenerCountCheckbox.SetValue(SPLConfig["SayListenerCount"])
 		sizer.Add(self.listenerCountCheckbox, border=10,flag=wx.BOTTOM)
 
+		# Translators: the label for a setting in SPL add-on settings to announce currently playing cart.
+		self.cartNameCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Announce name of the currently playing cart"))
+		self.cartNameCheckbox.SetValue(SPLConfig["SayPlayingCartName"])
+		sizer.Add(self.listenerCountCheckbox, border=10,flag=wx.BOTTOM)
+
 		# Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
 		self.resetConfigButton = wx.Button(self, wx.ID_ANY, label=_("Reset settings"))
 		self.resetConfigButton.Bind(wx.EVT_BUTTON,self.onResetConfig)
@@ -269,6 +275,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["TrackDial"] = self.trackDialCheckbox.Value
 		SPLConfig["SayScheduledFor"] = self.scheduledForCheckbox.Value
 		SPLConfig["SayListenerCount"] = self.listenerCountCheckbox.Value
+		SPLConfig["SayPlayingCartName"] = self.cartNameCheckbox.Value
 		super(SPLConfigDialog,  self).onOk(evt)
 
 	# Check events for outro and intro alarms, respectively.

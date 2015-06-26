@@ -353,8 +353,12 @@ class AppModule(appModuleHandler.AppModule):
 				elif "Listener" in obj.name and not splconfig.SPLConfig["SayListenerCount"]:
 					nextHandler()
 					return
-				elif not obj.name.endswith((" On", " Off")) or (obj.name.startswith("Cart") and obj.IAccessibleChildID == 3):
+				elif obj.name.startswith("Cart") and obj.IAccessibleChildID == 3 and not splconfig.SPLConfig["SayPlayingCartName"]:
+					nextHandler()
+					return
+				elif not obj.name.endswith((" On", " Off")):
 					# Announce status information that does not contain toggle messages and return immediately.
+					# Optimize this in 6.0.
 					ui.message(obj.name)
 					return
 				elif splconfig.SPLConfig["BeepAnnounce"]:
