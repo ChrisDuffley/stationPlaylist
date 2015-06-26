@@ -1260,10 +1260,14 @@ class AppModule(appModuleHandler.AppModule):
 			ui.message("Track time analysis deactivated")
 
 	def script_trackTimeAnalysis(self, gesture):
+		focus = api.getFocusObject()
+		if focus.role == controlTypes.ROLE_LIST:
+			ui.message("No tracks were added, cannot perform track time analysis")
+			return
 		if self._analysisMarker is None:
 			ui.message("No track selected as start of analysis marker, cannot perform time analysis")
 			return
-		trackPos = api.getFocusObject().IAccessibleChildID-1
+		trackPos = focus.IAccessibleChildID-1
 		if self._analysisMarker == trackPos:
 			filename = statusAPI(self._analysisMarker, 211, ret=True)
 			statusAPI(filename, 30, func=self.announceTime)
