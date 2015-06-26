@@ -10,12 +10,14 @@ from validate import Validator
 import weakref
 import globalVars
 import ui
+import api
 import gui
 import wx
 from winUser import user32
 
 # Configuration management
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
+SPLProfiles = os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "profiles")
 confspec = ConfigObj(StringIO("""
 BeepAnnounce = boolean(default=false)
 SayEndOfTrack = boolean(default=true)
@@ -32,6 +34,8 @@ SayPlayingCartName = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
 SPLConfig = None
+# A pool of broadcast profiles.
+SPLConfigPool = []
 
 # List of values to be converted manually.
 # This will be called only once: when upgrading from prior versions to 5.0, to be removed in 5.1.
@@ -79,17 +83,44 @@ def resetConfig(defaults, activeConfig, intentional=False):
 		# Translators: Title of the reset config dialog.
 		_("Reset configuration"), wx.OK|wx.ICON_INFORMATION)
 
+# In case one or more profiles had config issues, look up the error message form the following map.
+_configErrors = (
+	("All settings reset to defaults"),
+	("Some settings reset to defaults")
+)
+
 # To be run in app module constructor.
 # With the load function below, load the config upon request.
 # 6.0: The below init function is really a vehicle that traverses through config profiles in a loop.
+# Prompt the config error dialog only once.
+_configLoadStatus = {} # Key = filename, value is pass or no pass.
+
 def initConfig():
-	# Load the default config.
-	# Todo (6.0: go through the config beltway, loading each config along the way.
-	global SPLConfig
-	SPLConfig = unlockConfig(SPLIni)
+	# Load the default config from a list of profiles.
+	global SPLConfig, SPLConfigPool, _configLoadStatus
+	if SPLConfigPool is None: SPLConfigPool = []
+	SPLConfigPool.append(unlockConfig(SPLIni, profileName="Normal profile"))
+	try:
+		profiles = filter(lambda fn: os.path.splitext(fn)[-1] == ".ini", os.listdir(SPLProfiles))
+		for profile in profiles:
+			SPLConfigPool.append(unlockConfig(os.path.join(SPLProfiles, profile), profileName=os.path.splitext(profile)[0]))
+	except WindowsError:
+		pass
+	SPLConfig = SPLConfigPool[0]
+	if len(_configLoadStatus):
+		# Translators: Standard error title for configuration error.
+		title = _("Studio add-on Configuration error")
+		messages = []
+		messages.append("One or more broadcast profiles had issues:\n\n")
+		for profile in _configLoadStatus:
+			error = _configErrors[_configLoadStatus[profile]]
+			messages.append("{profileName}: {errorMessage}".format(profileName = profile, errorMessage = error))
+		_configLoadStatus.clear()
+		runConfigErrorDialog("\n".join(messages), title)
 
 # 6.0: Unlock (load) profiles from files.
-def unlockConfig(path):
+def unlockConfig(path, profileName=None):
+	global _configLoadStatus # To be mutated only during unlock routine.
 	SPLConfigCheckpoint = ConfigObj(path, configspec = confspec, encoding="UTF-8")
 	# 5.0 only: migrate 4.x format to 5.0, to be removed in 5.1.
 	migrated = config4to5(SPLConfigCheckpoint)
@@ -100,35 +131,29 @@ def unlockConfig(path):
 		# Hack: have a dummy config obj handy just for storing default values.
 		SPLDefaults = ConfigObj(None, configspec = confspec, encoding="UTF-8")
 		SPLDefaults.validate(val, copy=True)
-		# Translators: Standard error title for configuration error.
-		title = _("Studio add-on Configuration error")
 		if not configTest or not migrated:
 			# Case 1: restore settings to defaults.
 			# This may happen when 4.x config had parsing issues or 5.x config validation has failed on all values.
 			resetConfig(SPLDefaults, SPLConfigCheckpoint)
-			# Translators: Standard dialog message when Studio configuration has problems and was reset to defaults.
-			errorMessage = _("Your Studio add-on configuration has errors and was reset to factory defaults.")
+			_configLoadStatus[profileName] = 0
 		elif isinstance(configTest, dict):
 			# Case 2: For 5.x and later, attempt to reconstruct the failed values.
 			for setting in configTest:
 				if not configTest[setting]:
 					SPLConfigCheckpoint[setting] = SPLDefaults[setting]
-			# Translators: Standard dialog message when some Studio configuration settings were reset to defaults.
-			errorMessage = _("Errors were found in some of your Studio configuration settings. The affected settings were reset to defaults.")
 			SPLConfigCheckpoint.write()
-		try:
-			runConfigErrorDialog(errorMessage, title)
-		except AttributeError:
-			pass
+			_configLoadStatus[profileName] = 1
+	SPLConfigCheckpoint.name = profileName
 	return SPLConfigCheckpoint
 
 # Save configuration database.
 def saveConfig():
-	# 5.0: Save the one and only SPL config database.
-	# Todo for 6.0: save all config profiles.
-	global SPLConfig
-	if SPLConfig is not None: SPLConfig.write()
+	# Save all config profiles.
+	global SPLConfig, SPLConfigPool
+	for configuration in SPLConfigPool:
+		if configuration is not None: configuration.write()
 	SPLConfig = None
+	SPLConfigPool = None
 
 
 # Configuration dialog.
@@ -138,7 +163,44 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	def makeSettings(self, settingsSizer):
 
-		# Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
+		# Broadcast profile controls were inspired by Config Profiles dialog in NVDA Core.
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
+		label = wx.StaticText(self, wx.ID_ANY, label=_("Broadcast &profile:"))
+		self.profiles = wx.Choice(self, wx.ID_ANY, choices=[profile.name for profile in SPLConfigPool])
+		self.profiles.Bind(wx.EVT_CHOICE, self.onProfileSelection)
+		try:
+			self.profiles.SetSelection(SPLConfigPool.index(SPLConfig))
+		except:
+			pass
+		sizer.Add(label)
+		sizer.Add(self.profiles)
+		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+		# Profile controls code credit: NV Access (except copy button).
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: The label of a button to create a new broadcast profile.
+		item = newButton = wx.Button(self, label=_("&New"))
+		item.Bind(wx.EVT_BUTTON, self.onNew)
+		sizer.Add(item)
+		# Translators: The label of a button to copy a broadcast profile.
+		item = copyButton = wx.Button(self, label=_("Cop&y"))
+		item.Bind(wx.EVT_BUTTON, self.onCopy)
+		sizer.Add(item)
+		# Translators: The label of a button to rename a broadcast profile.
+		item = self.renameButton = wx.Button(self, label=_("&Rename"))
+		item.Bind(wx.EVT_BUTTON, self.onRename)
+		sizer.Add(item)
+		# Translators: The label of a button to delete a broadcast profile.
+		item = self.deleteButton = wx.Button(self, label=_("&Delete"))
+		item.Bind(wx.EVT_BUTTON, self.onDelete)
+		sizer.Add(item)
+		if SPLConfigPool.index(SPLConfig) == 0:
+			self.renameButton.Disable()
+			self.deleteButton.Disable()
+		settingsSizer.Add(sizer)
+
+	# Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
 		self.beepAnnounceCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Beep for status announcements"))
 		self.beepAnnounceCheckbox.SetValue(SPLConfig["BeepAnnounce"])
 		settingsSizer.Add(self.beepAnnounceCheckbox, border=10,flag=wx.TOP)
@@ -253,7 +315,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		sizer.Add(self.resetConfigButton)
 
 	def postInit(self):
-		self.beepAnnounceCheckbox.SetFocus()
+		self.profiles.SetFocus()
 
 	def onOk(self, evt):
 		if not self.micAlarm.Value.isdigit():
@@ -264,6 +326,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 				_("Error"), wx.OK|wx.ICON_ERROR,self)
 			self.micAlarm.SetFocus()
 			return
+		global SPLConfig
+		SPLConfig = SPLConfigPool[self.profiles.GetSelection()]
 		SPLConfig["BeepAnnounce"] = self.beepAnnounceCheckbox.Value
 		SPLConfig["SayEndOfTrack"] = self.outroCheckBox.Value
 		SPLConfig["EndOfTrackTime"] = self.endOfTrackAlarm.Value
@@ -297,7 +361,90 @@ class SPLConfigDialog(gui.SettingsDialog):
 			self.introSizer.Show(self.songRampAlarm)
 		self.Fit()
 
+	# Load settings from profiles.
+	def onProfileSelection(self, evt):
+		import tones
+		tones.beep(500, 100)
+		# Don't rely on SPLConfig here, as we don't want to interupt the show.
+		selection = self.profiles.GetSelection()
+		if selection == 0:
+			self.renameButton.Disable()
+			self.deleteButton.Disable()
+		else:
+			self.renameButton.Enable()
+			self.deleteButton.Enable()
+		selectedProfile = SPLConfigPool[selection]
+		self.beepAnnounceCheckbox.SetValue(selectedProfile["BeepAnnounce"])
+		self.outroCheckBox.SetValue(selectedProfile["SayEndOfTrack"])
+		self.endOfTrackAlarm.SetValue(long(selectedProfile["EndOfTrackTime"]))
+		self.onOutroCheck(None)
+		self.introCheckBox.SetValue(selectedProfile["SaySongRamp"])
+		self.songRampAlarm.SetValue(long(selectedProfile["SongRampTime"]))
+		self.onIntroCheck(None)
+		self.micAlarm.SetValue(str(selectedProfile["MicAlarm"]))
+
+	# Profile controls.
+	# Rename and delete events come from GUI/config profiles dialog from NVDA core.
+	def onNew(self, evt):
+		self.Disable()
+		NewProfileDialog(self).Show()
+
+	def onCopy(self, evt):
+		self.Disable()
+		NewProfileDialog(self, copy=True).Show()
+
+	def onRename(self, evt):
+		global SPLConfigPool
+		index = self.profiles.Selection
+		oldName = SPLConfigPool[index].name
+		# Translators: The label of a field to enter a new name for a broadcast profile.
+		with wx.TextEntryDialog(self, _("New name:"),
+				# Translators: The title of the dialog to rename a profile.
+				_("Rename Profile"), defaultValue=oldName) as d:
+			if d.ShowModal() == wx.ID_CANCEL:
+				return
+			newName = api.filterFileName(d.Value)
+		if oldName == newName: return
+		newNamePath = newName + ".ini"
+		newProfile = os.path.join(SPLProfiles, newNamePath)
+		if oldName.lower() != newName.lower() and os.path.isfile(newProfile):
+			# Translators: An error displayed when renaming a configuration profile
+			# and a profile with the new name already exists.
+			gui.messageBox(_("That profile already exists. Please choose a different name."),
+				_("Error"), wx.OK | wx.ICON_ERROR, self)
+			return
+		oldNamePath = oldName + ".ini"
+		oldProfile = os.path.join(SPLProfiles, oldNamePath)
+		os.rename(oldProfile, newProfile)
+		SPLConfigPool[index].name = newName
+		SPLConfigPool[index].filename = newProfile
+		self.profiles.SetString(index, newName)
+		self.profiles.Selection = index
+		self.profiles.SetFocus()
+
+	def onDelete(self, evt):
+		index = self.profiles.Selection
+		if gui.messageBox(
+			# Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
+			_("Are you sure you want to delete this profile? This cannot be undone."),
+			# Translators: The title of the confirmation dialog for deletion of a profile.
+			_("Confirm Deletion"),
+			wx.YES | wx.NO | wx.ICON_QUESTION, self
+		) == wx.NO:
+			return
+		global SPLConfigPool
+		name = SPLConfigPool[index].name
+		path = SPLConfigPool[index].filename
+		del SPLConfigPool[index]
+		os.remove(path)
+		self.profiles.Delete(index)
+		self.profiles.SetString(0, SPLConfigPool[0].name)
+		self.profiles.Selection = 0
+		self.onProfileSelection(None)
+		self.profiles.SetFocus()
+
 	# Reset settings to defaults.
+	# This affects the currently selected profile.
 	def onResetConfig(self, evt):
 		if gui.messageBox(
 		# Translators: A message to warn about resetting SPL config settings to factory defaults.
@@ -308,6 +455,9 @@ class SPLConfigDialog(gui.SettingsDialog):
 			val = Validator()
 			SPLDefaults = ConfigObj(None, configspec = confspec, encoding="UTF-8")
 			SPLDefaults.validate(val, copy=True)
+			# Reset the selected config only.
+			global SPLConfig
+			SPLConfig = SPLConfigPool[self.profiles.GetSelection()]
 			resetConfig(SPLDefaults, SPLConfig, intentional=True)
 			self.Destroy()
 
@@ -316,7 +466,101 @@ class SPLConfigDialog(gui.SettingsDialog):
 def onConfigDialog(evt):
 	gui.mainFrame._popupSettingsDialog(SPLConfigDialog)
 
-# Additional configuration dialogs
+# Helper dialogs for add-on settings dialog.
+
+# New broadcast profile dialog: Modification of new config profile dialog from NvDA Core.
+class NewProfileDialog(wx.Dialog):
+
+	def __init__(self, parent, copy=False):
+		self.copy = copy
+		if not self.copy:
+			# Translators: The title of the dialog to create a new broadcast profile.
+			dialogTitle = _("New Profile")
+		else:
+			# Translators: The title of the dialog to copy a broadcast profile.
+			dialogTitle = _("Copy Profile")
+		super(NewProfileDialog, self).__init__(parent, title=dialogTitle)
+		mainSizer = wx.BoxSizer(wx.VERTICAL)
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: The label of a field to enter the name of a new broadcast profile.
+		sizer.Add(wx.StaticText(self, label=_("Profile name:")))
+		item = self.profileName = wx.TextCtrl(self)
+		sizer.Add(item)
+		mainSizer.Add(sizer)
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: The label for a setting in SPL add-on dialog to select a base  profile for copying.
+		label = wx.StaticText(self, wx.ID_ANY, label=_("&Base profile:"))
+		self.baseProfiles = wx.Choice(self, wx.ID_ANY, choices=[profile.name for profile in SPLConfigPool])
+		try:
+			self.baseProfiles.SetSelection(SPLConfigPool.index(SPLConfig))
+		except:
+			pass
+		sizer.Add(label)
+		sizer.Add(self.baseProfiles)
+		if not self.copy:
+			sizer.Hide(label)
+			sizer.Hide(self.baseProfiles)
+		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
+		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
+		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
+		mainSizer.Fit(self)
+		self.Sizer = mainSizer
+		self.profileName.SetFocus()
+		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+
+	def onOk(self, evt):
+		global SPLConfigPool
+		profileNames = [profile.name for profile in SPLConfigPool]
+		name = api.filterFileName(self.profileName.Value)
+		if not name:
+			return
+		if name in profileNames:
+			# Translators: An error displayed when the user attempts to create a profile which already exists.
+			gui.messageBox(_("That profile already exists. Please choose a different name."),
+				_("Error"), wx.OK | wx.ICON_ERROR, self)
+			return
+		namePath = name + ".ini"
+		if not os.path.exists(SPLProfiles):
+			os.mkdir(SPLProfiles)
+		newProfile = os.path.join(SPLProfiles, namePath)
+		if self.copy:
+			import shutil
+			baseProfile = SPLConfigPool[self.baseProfiles.GetSelection()]
+			shutil.copy2(baseProfile.filename, newProfile)
+		SPLConfigPool.append(unlockConfig(newProfile, profileName=name))
+		parent = self.Parent
+		parent.profiles.Append(name)
+		parent.profiles.Selection = parent.profiles.Count - 1
+		parent.onProfileSelection(None)
+		parent.profiles.SetFocus()
+		parent.Enable()
+		self.Destroy()
+		return
+
+	def onCancel(self, evt):
+		self.Parent.Enable()
+		self.Destroy()
+
+	"""def onTriggerChoice(self, evt):
+		spec, disp, manualEdit = self.triggers[self.triggerChoice.Selection]
+		if not spec:
+			# Manual activation shouldn't guess a name.
+			name = ""
+		elif spec.startswith("app:"):
+			name = spec[4:]
+		else:
+			name = disp
+		if self.profileName.Value == self.autoProfileName:
+			# The user hasn't changed the automatically filled value.
+			self.profileName.Value = name
+			self.profileName.SelectAll()
+		self.autoProfileName = name"""
+
+	# Additional configuration dialogs
 
 # A common alarm dialog
 # Based on NVDA core's find dialog code (implemented by the author of this add-on).
