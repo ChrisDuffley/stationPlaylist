@@ -129,6 +129,10 @@ From studio window, you can press Control+NVDA+0 to open the add-on configuratio
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Changes for 6.0-dev
+
+* You can now ask NVDA to apply certain settings in specific situations by defining broadcast profiles. See the add-on guide for details on broadcast profiles.
+
 ## Changes for 5.0
 
 * A dedicated settings dialog for SPL add-on has been added, accessible from NVDA's preferences menu or by pressing Control+NVDA+0 from SPL window.
@@ -269,5 +273,3 @@ Version 4.0 supports SPL Studio 5.00 and later, with 3.x designed to provide som
 [2]: http://addons.nvda-project.org/files/get.php?file=spl-dev
 
 [3]: https://bitbucket.org/nvdaaddonteam/stationplaylist/wiki/SPLAddonGuide
-
-[4]: https://bitbucket.org/nvdaaddonteam/stationplaylist/wiki/DownloadLegacy
