@@ -308,6 +308,22 @@ class AppModule(appModuleHandler.AppModule):
 	# These items are static text items whose name changes.
 	# Note: There are two status bars, hence the need to exclude Up time so it doesn't announce every minute.
 	# Unfortunately, Window handles and WindowControlIDs seem to change, so can't be used.
+	# Only announce changes if told to do so via the following function.
+	def _TStatusBarChanged(self, obj):
+		name = obj.name
+		if name.startswith("  Up time:"):
+			return False
+		elif name.startswith("Scheduled for"):
+			if self.scheduledTimeCache == name: return False
+			self.scheduledTimeCache = name
+			return splconfig.SPLConfig["SayScheduledFor"]
+		elif "Listener" in name:
+			return splconfig.SPLConfig["SayListenerCount"]
+		elif name.startswith("Cart") and obj.IAccessibleChildID == 3:
+			return splconfig.SPLConfig["SayPlayingCartName"]
+		return True
+
+	# Now the actual event.
 	def event_nameChange(self, obj, nextHandler):
 		# Do not let NvDA get name for None object when SPL window is maximized.
 		if not obj.name:
@@ -315,7 +331,8 @@ class AppModule(appModuleHandler.AppModule):
 		# Suppress announcing status messages when background monitoring is unavailable.
 		if api.getForegroundObject().processID != self.processID and not self.backgroundStatusMonitor:
 			nextHandler()
-		if obj.windowClassName == "TStatusBar" and not obj.name.startswith("  Up time:"):
+		# Only announce changes in status bar objects when told to do so.
+		if obj.windowClassName == "TStatusBar" and self._TStatusBarChanged(obj):
 			# Special handling for Play Status
 			if obj.IAccessibleChildID == 1:
 				if "Play status" in obj.name:
@@ -341,27 +358,7 @@ class AppModule(appModuleHandler.AppModule):
 					if self.libraryScanning: self.libraryScanning = False
 					self.scanCount = 0
 			else:
-				if obj.name.startswith("Scheduled for"):
-					if not splconfig.SPLConfig["SayScheduledFor"]:
-						nextHandler()
-						return
-					if self.scheduledTimeCache == obj.name: return
-					else:
-						self.scheduledTimeCache = obj.name
-						ui.message(obj.name)
-						return
-				elif "Listener" in obj.name and not splconfig.SPLConfig["SayListenerCount"]:
-					nextHandler()
-					return
-				elif obj.name.startswith("Cart") and obj.IAccessibleChildID == 3 and not splconfig.SPLConfig["SayPlayingCartName"]:
-					nextHandler()
-					return
-				elif not obj.name.endswith((" On", " Off")):
-					# Announce status information that does not contain toggle messages and return immediately.
-					# Optimize this in 6.0.
-					ui.message(obj.name)
-					return
-				elif splconfig.SPLConfig["BeepAnnounce"]:
+				if obj.name.endswith((" On", " Off")) and splconfig.SPLConfig["BeepAnnounce"]:
 					# User wishes to hear beeps instead of words. The beeps are power on and off sounds from PAC Mate Omni.
 					beep = obj.name.split()
 					stat = beep[-1]
