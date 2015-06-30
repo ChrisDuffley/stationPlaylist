@@ -54,6 +54,9 @@ def finally_(func, final):
 # Make sure the broadcaster is running a compatible version.
 SPLMinVersion = "5.00"
 
+# Cache the handle to main Studio window.
+_SPLWin = None
+
 # Threads pool.
 micAlarmT = None
 libScanT = None
@@ -70,9 +73,8 @@ def messageSound(wavFile, message):
 # A thin wrapper around user32.SendMessage and calling a callback if defined.
 # Offset is used in some time commands.
 def statusAPI(arg, command, func=None, ret=False, offset=None):
-	SPLWin = user32.FindWindowA("SPLStudio", None)
-	if not SPLWin: return
-	val = sendMessage(SPLWin, 1024, arg, command)
+	if _SPLWin is None: return
+	val = sendMessage(_SPLWin, 1024, arg, command)
 	if ret:
 		return val
 	if func:
@@ -266,6 +268,19 @@ class AppModule(appModuleHandler.AppModule):
 		self.prefsMenu = gui.mainFrame.sysTrayIcon.preferencesMenu
 		self.SPLSettings = self.prefsMenu.Append(wx.ID_ANY, _("SPL Studio Settings..."), _("SPL settings"))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, splconfig.onConfigDialog, self.SPLSettings)
+		# Let me know the Studio window handle.
+		threading.Thread(target=self._locateSPLHwnd).start()
+
+	# Locate the handle for main window for caching purposes.
+	def _locateSPLHwnd(self):
+		hwnd = user32.FindWindowA("SPLStudio", None)
+		while not hwnd:
+			time.sleep(1)
+			hwnd = user32.FindWindowA("SPLStudio", None)
+		# Only this thread will have privilege of notifying handle's existence.
+		with threading.Lock() as hwndNotifier:
+			global _SPLWin
+			_SPLWin = hwnd
 
 	# 5.0/Experimental: allow SPL Controller layer command to invoke SPL Assistant.
 	# For now, this needs to be enabled from Python Console and may or may not make it into 5.0.
@@ -351,9 +366,7 @@ class AppModule(appModuleHandler.AppModule):
 					if splconfig.SPLConfig["LibraryScanAnnounce"] != "off":
 						if splconfig.SPLConfig["BeepAnnounce"]: tones.beep(370, 100)
 						else:
-							# 5.0: Store the handle only once.
-							SPLWin  = user32.FindWindowA("SPLStudio", None)
-							count = sendMessage(SPLWin, 1024, 0, 32)
+							count = sendMessage(_SPLWin, 1024, 0, 32)
 							ui.message("Scan complete with {scanCount} items".format(scanCount = count))
 					if self.libraryScanning: self.libraryScanning = False
 					self.scanCount = 0
@@ -480,6 +493,9 @@ class AppModule(appModuleHandler.AppModule):
 		# Manually clear the following dictionaries.
 		self.carts.clear()
 		self._cachedStatusObjs.clear()
+		# Just to make sure:
+		global _SPLWin
+		if _SPLWin: _SPLWin = None
 
 
 	# Script sections (for ease of maintenance):
@@ -966,9 +982,8 @@ class AppModule(appModuleHandler.AppModule):
 		global libScanT
 		if libScanT and libScanT.isAlive() and api.getForegroundObject().windowClassName == "TTrackInsertForm":
 			return
-		SPLWin = user32.FindWindowA("SPLStudio", None)
 		parem = 0 if self.SPLCurVersion < "5.10" else 1
-		countA = sendMessage(SPLWin, 1024, parem, 32)
+		countA = sendMessage(_SPLWin, 1024, parem, 32)
 		if countA == 0:
 			self.libraryScanning = False
 			return
@@ -976,19 +991,19 @@ class AppModule(appModuleHandler.AppModule):
 		if api.getForegroundObject().windowClassName == "TTrackInsertForm" and self.productVersion in noLibScanMonitor:
 			self.libraryScanning = False
 			return
-		countB = sendMessage(SPLWin, 1024, parem, 32)
+		countB = sendMessage(_SPLWin, 1024, parem, 32)
 		if countA == countB:
 			self.libraryScanning = False
 			if self.SPLCurVersion >= "5.10":
-				countB = sendMessage(SPLWin, 1024, 0, 32)
+				countB = sendMessage(_SPLWin, 1024, 0, 32)
 			# Translators: Presented when library scanning is finished.
 			ui.message(_("{itemCount} items in the library").format(itemCount = countB))
 		else:
-			libScanT = threading.Thread(target=self.libraryScanReporter, args=(SPLWin, countA, countB, parem))
+			libScanT = threading.Thread(target=self.libraryScanReporter, args=(_SPLWin, countA, countB, parem))
 			libScanT.daemon = True
 			libScanT.start()
 
-	def libraryScanReporter(self, SPLWin, countA, countB, parem):
+	def libraryScanReporter(self, _SPLWin, countA, countB, parem):
 		scanIter = 0
 		while countA != countB:
 			countA = countB
@@ -996,7 +1011,7 @@ class AppModule(appModuleHandler.AppModule):
 			# Do not continue if we're back on insert tracks form.
 			if api.getForegroundObject().windowClassName == "TTrackInsertForm":
 				return
-			countB, scanIter = sendMessage(SPLWin, 1024, parem, 32), scanIter+1
+			countB, scanIter = sendMessage(_SPLWin, 1024, parem, 32), scanIter+1
 			if countB < 0:
 				break
 			if scanIter%5 == 0 and splconfig.SPLConfig["LibraryScanAnnounce"] not in ("off", "ending"):
@@ -1231,10 +1246,9 @@ class AppModule(appModuleHandler.AppModule):
 	def script_libraryScanMonitor(self, gesture):
 		if not self.libraryScanning:
 			if self.productVersion >= "5.10":
-				SPLWin = user32.FindWindowA("SPLStudio", None)
-				scanning = sendMessage(SPLWin, 1024, 1, 32)
+				scanning = sendMessage(_SPLWin, 1024, 1, 32)
 				if scanning < 0:
-					items = sendMessage(SPLWin, 1024, 0, 32)
+					items = sendMessage(_SPLWin, 1024, 0, 32)
 					ui.message(_("{itemCount} items in the library").format(itemCount = items))
 					return
 			self.libraryScanning = True
