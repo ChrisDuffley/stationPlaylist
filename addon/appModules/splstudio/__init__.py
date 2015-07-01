@@ -730,7 +730,7 @@ class AppModule(appModuleHandler.AppModule):
 		while obj is not None:
 			try:
 				if (not column and (text in obj.description or (obj.name and text in obj.name and self.productVersion < "5.10"))
-				or (column and text in obj._getColumnContent(column))):
+				or (column and hasattr(obj, "_getColumnContent") and text in obj._getColumnContent(column))):
 					self.findText = text
 					# We need to fire set focus event twice and exit this routine.
 					obj.setFocus(), obj.setFocus()
