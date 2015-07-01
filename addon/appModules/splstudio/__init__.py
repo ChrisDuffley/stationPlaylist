@@ -263,7 +263,6 @@ class AppModule(appModuleHandler.AppModule):
 			self.backgroundStatusMonitor = True
 		else:
 			self.backgroundStatusMonitor = False"""
-		# Emergency hack: disable this until recursion issue is fixed.
 		self.backgroundStatusMonitor = False
 		self.prefsMenu = gui.mainFrame.sysTrayIcon.preferencesMenu
 		self.SPLSettings = self.prefsMenu.Append(wx.ID_ANY, _("SPL Studio Settings..."), _("SPL settings"))
@@ -759,7 +758,9 @@ class AppModule(appModuleHandler.AppModule):
 
 	def trackFinderGUI(self, columnSearch=False):
 		try:
-			d = splconfig.SPLFindDialog(gui.mainFrame, api.getFocusObject(), self.findText, "Find track", columnSearch = columnSearch)
+			if not columnSearch: title = "Find track"
+			else: title = "Column search"
+			d = splconfig.SPLFindDialog(gui.mainFrame, api.getFocusObject(), self.findText, title, columnSearch = columnSearch)
 			gui.mainFrame.prePopup()
 			d.Raise()
 			d.Show()
