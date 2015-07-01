@@ -252,7 +252,10 @@ class AppModule(appModuleHandler.AppModule):
 		if self.SPLCurVersion < SPLMinVersion:
 			raise RuntimeError("Unsupported version of Studio is running, exiting app module")
 		# Translators: The sign-on message for Studio app module.
-		ui.message(_("Using SPL Studio version {SPLVersion}").format(SPLVersion = self.SPLCurVersion))
+		try:
+			ui.message(_("Using SPL Studio version {SPLVersion}").format(SPLVersion = self.SPLCurVersion))
+		except IOError:
+			pass
 		splconfig.initConfig()
 		# Announce status changes while using other programs.
 		# This requires NVDA core support and will be available in 6.0 and later (cannot be ported to earlier versions).

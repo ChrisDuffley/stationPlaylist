@@ -54,8 +54,8 @@ SPLCurTrackPlaybackTime = 105
 
 
 # On/off toggle wave files.
-onFile = os.path.join(os.path.dirname(__file__), "..", "..", "appModules", "SPL_on.wav")
-offFile = os.path.join(os.path.dirname(__file__), "..", "..", "appModules", "SPL_off.wav")
+onFile = os.path.join(os.path.dirname(__file__), "..", "..", "appModules", "splstudio", "SPL_on.wav")
+offFile = os.path.join(os.path.dirname(__file__), "..", "..", "appModules", "splstudio", "SPL_off.wav")
 
 # Help message for SPL Controller
 # Translators: the dialog text for SPL Controller help.
