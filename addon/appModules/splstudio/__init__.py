@@ -260,14 +260,12 @@ class AppModule(appModuleHandler.AppModule):
 		# Announce status changes while using other programs.
 		# This requires NVDA core support and will be available in 6.0 and later (cannot be ported to earlier versions).
 		# For now, handle all background events, but in the end, make this configurable.
-		"""if hasattr(eventHandler, "requestEvents"):
+		if hasattr(eventHandler, "requestEvents"):
 			eventHandler.requestEvents(eventName="nameChange", processId=self.processID, windowClassName="TStatusBar")
 			eventHandler.requestEvents(eventName="nameChange", processId=self.processID, windowClassName="TStaticText")
 			self.backgroundStatusMonitor = True
 		else:
-			self.backgroundStatusMonitor = False"""
-		# Emergency hack: disable this until recursion issue is fixed.
-		self.backgroundStatusMonitor = False
+			self.backgroundStatusMonitor = False
 		self.prefsMenu = gui.mainFrame.sysTrayIcon.preferencesMenu
 		self.SPLSettings = self.prefsMenu.Append(wx.ID_ANY, _("SPL Studio Settings..."), _("SPL settings"))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, splconfig.onConfigDialog, self.SPLSettings)
