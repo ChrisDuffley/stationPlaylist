@@ -37,36 +37,6 @@ SPLConfig = None
 # A pool of broadcast profiles.
 SPLConfigPool = []
 
-# List of values to be converted manually.
-# This will be called only once: when upgrading from prior versions to 5.0, to be removed in 5.1.
-configConversions=("EndOfTrackTime", "SongRampTime")
-
-# The accompanying function for config conversion.
-# Returns config=false if errors occur, to be checked in the app module constructor.
-def config4to5(config):
-	migrationFailure = 0
-	for setting in configConversions:
-		try:
-			oldValue = str(config[setting])
-		except KeyError:
-			continue
-		if oldValue.isdigit():
-			continue
-		# If the old value doesn't conform to below conditions, start from a fresh config spec.
-		try:
-			if (len(oldValue) == 5
-			and oldValue.startswith("00:")
-			and oldValue.split(":")[1].isdigit()):
-				newValue = config[setting].split(":")[1]
-				config[setting] = int(newValue)
-			else:
-				migrationFailure+=1
-				continue
-		except IndexError, ValueError:
-			migrationFailure += 1
-			continue
-	return True if not migrationFailure else False
-
 # Display an error dialog when configuration validation fails.
 def runConfigErrorDialog(errorText, errorType):
 	wx.CallAfter(gui.messageBox, errorText, errorType, wx.OK|wx.ICON_ERROR)
@@ -122,18 +92,17 @@ def initConfig():
 def unlockConfig(path, profileName=None):
 	global _configLoadStatus # To be mutated only during unlock routine.
 	SPLConfigCheckpoint = ConfigObj(path, configspec = confspec, encoding="UTF-8")
-	# 5.0 only: migrate 4.x format to 5.0, to be removed in 5.1.
-	migrated = config4to5(SPLConfigCheckpoint)
-	# 5.1 and later: check to make sure all values are correct.
+	# 5.2 and later: check to make sure all values are correct.
 	val = Validator()
 	configTest = SPLConfigCheckpoint.validate(val, copy=True)
 	if configTest != True:
 		# Hack: have a dummy config obj handy just for storing default values.
 		SPLDefaults = ConfigObj(None, configspec = confspec, encoding="UTF-8")
 		SPLDefaults.validate(val, copy=True)
-		if not configTest or not migrated:
-			# Case 1: restore settings to defaults.
-			# This may happen when 4.x config had parsing issues or 5.x config validation has failed on all values.
+		# Translators: Standard error title for configuration error.
+		title = _("Studio add-on Configuration error")
+		if not configTest:
+			# Case 1: restore settings to defaults when 5.x config validation has failed on all values.
 			resetConfig(SPLDefaults, SPLConfigCheckpoint)
 			_configLoadStatus[profileName] = 0
 		elif isinstance(configTest, dict):
