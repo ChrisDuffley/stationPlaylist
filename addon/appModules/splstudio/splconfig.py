@@ -28,6 +28,8 @@ BrailleTimer = option("off", "intro", "outro", "both", default="off")
 MicAlarm = integer(min=0, default="0")
 LibraryScanAnnounce = option("off", "ending", "progress", "numbers", default="off")
 TrackDial = boolean(default=false)
+UseScreenColumnOrder = boolean(default=true)
+ColumnOrder = string(default="Artist,Title,Duration,Intro,Category,Filename")
 SayScheduledFor = boolean(default=true)
 SayListenerCount = boolean(default=true)
 SayPlayingCartName = boolean(default=true)
@@ -112,15 +114,26 @@ def unlockConfig(path, profileName=None):
 					SPLConfigCheckpoint[setting] = SPLDefaults[setting]
 			SPLConfigCheckpoint.write()
 			_configLoadStatus[profileName] = 1
+	_extraInitSteps(SPLConfigCheckpoint)
 	SPLConfigCheckpoint.name = profileName
 	return SPLConfigCheckpoint
 
-# Save configuration database.
+# Extra initialization steps such as converting value types.
+def _extraInitSteps(conf):
+	conf["ColumnOrder"] = conf["ColumnOrder"].split(",")
+
+# Perform some extra work before writing the config file.
+def _preSave(conf):
+	conf["ColumnOrder"] = ",".join(conf["ColumnOrder"])
+
+	# Save configuration database.
 def saveConfig():
 	# Save all config profiles.
 	global SPLConfig, SPLConfigPool
 	for configuration in SPLConfigPool:
-		if configuration is not None: configuration.write()
+		if configuration is not None:
+			_preSave(configuration)
+			configuration.write()
 	SPLConfig = None
 	SPLConfigPool = None
 
@@ -686,7 +699,7 @@ class SPLFindDialog(wx.Dialog):
 		if user32.FindWindowA("SPLStudio", None) and text:
 			appMod = self.obj.appModule
 			column = self.columnHeaders.Selection if self.columnSearch else None
-			if appMod.productVersion >= "5.10": column+=1
+			if column and appMod.productVersion >= "5.10": column+=1
 			startObj = self.obj
 			if text == appMod.findText: startObj = startObj.next
 			# If this is called right away, we land on an invisible window.

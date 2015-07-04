@@ -90,6 +90,25 @@ class SPLTrackItem(IAccessible):
 			self.bindGesture("kb:rightArrow", "nextColumn")
 			self.bindGesture("kb:leftArrow", "prevColumn")
 
+	# Read selected columns.
+	# But first, find where the needed column lives.
+	def _indexOf(self, columnHeader):
+		self.columnHeaders = self.parent.children[-1]
+		headers = [header.name for header in self.columnHeaders.children]
+		return headers.index(columnHeader)
+
+	def reportFocus(self):
+		tones.beep(800, 400)
+		#if not splconfig.SPLConfig["UseScreenColumnOrder"]:
+		descriptionPieces = []
+		for header in splconfig.SPLConfig["ColumnOrder"]:
+			index = self._indexOf(header)
+			content = self._getColumnContent(index)
+			if content:
+				descriptionPieces.append("%s: %s"%(header, content))
+		self.description = ", ".join(descriptionPieces)
+		super(IAccessible, self).reportFocus()
+
 	# Track Dial: using arrow keys to move through columns.
 	# This is similar to enhanced arrow keys in other screen readers.
 
