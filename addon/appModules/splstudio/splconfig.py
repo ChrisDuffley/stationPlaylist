@@ -276,6 +276,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.trackDialCheckbox.SetValue(SPLConfig["TrackDial"])
 		sizer.Add(self.trackDialCheckbox, border=10,flag=wx.BOTTOM)
 
+		# Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
+		self.columnOrderCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce columns in the &order shown on screen"))
+		self.columnOrderCheckbox.SetValue(SPLConfig["UseScreenColumnOrder"])
+		sizer.Add(self.columnOrderCheckbox, border=10,flag=wx.BOTTOM)
+
 		# Translators: the label for a setting in SPL add-on settings to announce scheduled time.
 		self.scheduledForCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce &scheduled time for the selected track"))
 		self.scheduledForCheckbox.SetValue(SPLConfig["SayScheduledFor"])
@@ -319,6 +324,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["MicAlarm"] = self.micAlarm.Value
 		SPLConfig["LibraryScanAnnounce"] = self.libScanValues[self.libScanList.GetSelection()][0]
 		SPLConfig["TrackDial"] = self.trackDialCheckbox.Value
+		SPLConfig["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
 		SPLConfig["SayScheduledFor"] = self.scheduledForCheckbox.Value
 		SPLConfig["SayListenerCount"] = self.listenerCountCheckbox.Value
 		SPLConfig["SayPlayingCartName"] = self.cartNameCheckbox.Value
