@@ -14,6 +14,7 @@ import api
 import gui
 import wx
 from winUser import user32
+import tones
 
 # Configuration management
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
@@ -279,6 +280,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
 		self.columnOrderCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce columns in the &order shown on screen"))
 		self.columnOrderCheckbox.SetValue(SPLConfig["UseScreenColumnOrder"])
+		self.columnOrder = SPLConfig["ColumnOrder"]
 		sizer.Add(self.columnOrderCheckbox, border=10,flag=wx.BOTTOM)
 		# Translators: The label of a button to manage column announcements.
 		item = manageColumnsButton = wx.Button(self, label=_("&Manage track column announcements..."))
@@ -329,6 +331,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["LibraryScanAnnounce"] = self.libScanValues[self.libScanList.GetSelection()][0]
 		SPLConfig["TrackDial"] = self.trackDialCheckbox.Value
 		SPLConfig["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
+		SPLConfig["ColumnOrder"] = self.columnOrder
 		SPLConfig["SayScheduledFor"] = self.scheduledForCheckbox.Value
 		SPLConfig["SayListenerCount"] = self.listenerCountCheckbox.Value
 		SPLConfig["SayPlayingCartName"] = self.cartNameCheckbox.Value
@@ -553,13 +556,26 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: The label for a setting in SPL add-on dialog to select a base  profile for copying.
 		label = wx.StaticText(self, wx.ID_ANY, label=_("C&olumns:"))
-		self.trackColumns= wx.Choice(self, wx.ID_ANY, choices=SPLConfig["ColumnOrder"])
+		# WXPython Phoenix contains RearrangeList to allow item orders to be changed automatically.
+		# Because WXPython Classic doesn't include this, work around by using a variant of check list box and move up/down buttons.
+		self.trackColumns= wx.CheckListBox(self, wx.ID_ANY, choices=parent.columnOrder)
 		try:
 			self.trackColumns.SetSelection(0)
 		except:
 			pass
 		sizer.Add(label)
 		sizer.Add(self.trackColumns)
+		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
+		self.upButton = wx.Button(self, wx.ID_ANY, label=_("Move &up"))
+		self.upButton.Bind(wx.EVT_BUTTON,self.onMoveUp)
+		sizer.Add(self.upButton)
+				# Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
+		self.dnButton = wx.Button(self, wx.ID_ANY, label=_("Move &down"))
+		self.dnButton.Bind(wx.EVT_BUTTON,self.onMoveDown)
+		sizer.Add(self.dnButton)
 		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
@@ -572,6 +588,7 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 
 	def onOk(self, evt):
 		parent = self.Parent
+		parent.columnOrder = self.trackColumns.GetItems()
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()
@@ -580,6 +597,24 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 	def onCancel(self, evt):
 		self.Parent.Enable()
 		self.Destroy()
+
+	def onMoveUp(self, evt):
+		tones.beep(1000, 200)
+		selIndex= self.trackColumns.GetSelection()
+		if selIndex > 0:
+			selItem = self.trackColumns.GetString(selIndex)
+			self.trackColumns.Delete(selIndex)
+			self.trackColumns.Insert(selItem, selIndex-1)
+			self.trackColumns.Select(selIndex-1)
+
+	def onMoveDown(self, evt):
+		tones.beep(500, 200)
+		selIndex= self.trackColumns.GetSelection()
+		if selIndex < self.trackColumns.GetCount()-1:
+			selItem = self.trackColumns.GetString(selIndex)
+			self.trackColumns.Delete(selIndex)
+			self.trackColumns.Insert(selItem, selIndex+1)
+			self.trackColumns.Select(selIndex+1)
 
 # Additional configuration dialogs
 

@@ -99,14 +99,14 @@ class SPLTrackItem(IAccessible):
 
 	def reportFocus(self):
 		tones.beep(800, 400)
-		#if not splconfig.SPLConfig["UseScreenColumnOrder"]:
-		descriptionPieces = []
-		for header in splconfig.SPLConfig["ColumnOrder"]:
-			index = self._indexOf(header)
-			content = self._getColumnContent(index)
-			if content:
-				descriptionPieces.append("%s: %s"%(header, content))
-		self.description = ", ".join(descriptionPieces)
+		if not splconfig.SPLConfig["UseScreenColumnOrder"]:
+			descriptionPieces = []
+			for header in splconfig.SPLConfig["ColumnOrder"]:
+				index = self._indexOf(header)
+				content = self._getColumnContent(index)
+				if content:
+					descriptionPieces.append("%s: %s"%(header, content))
+			self.description = ", ".join(descriptionPieces)
 		super(IAccessible, self).reportFocus()
 
 	# Track Dial: using arrow keys to move through columns.
