@@ -280,6 +280,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.columnOrderCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce columns in the &order shown on screen"))
 		self.columnOrderCheckbox.SetValue(SPLConfig["UseScreenColumnOrder"])
 		sizer.Add(self.columnOrderCheckbox, border=10,flag=wx.BOTTOM)
+		# Translators: The label of a button to manage column announcements.
+		item = manageColumnsButton = wx.Button(self, label=_("&Manage track column announcements..."))
+		item.Bind(wx.EVT_BUTTON, self.onManageColumns)
+		sizer.Add(item)
 
 		# Translators: the label for a setting in SPL add-on settings to announce scheduled time.
 		self.scheduledForCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce &scheduled time for the selected track"))
@@ -431,6 +435,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.onProfileSelection(None)
 		self.profiles.SetFocus()
 
+	# Manage column announcements.
+	def onManageColumns(self, evt):
+		self.Disable()
+		ColumnAnnouncementsDialog(self).Show()
+
 	# Reset settings to defaults.
 	# This affects the currently selected profile.
 	def onResetConfig(self, evt):
@@ -533,22 +542,46 @@ class NewProfileDialog(wx.Dialog):
 		self.Parent.Enable()
 		self.Destroy()
 
-	"""def onTriggerChoice(self, evt):
-		spec, disp, manualEdit = self.triggers[self.triggerChoice.Selection]
-		if not spec:
-			# Manual activation shouldn't guess a name.
-			name = ""
-		elif spec.startswith("app:"):
-			name = spec[4:]
-		else:
-			name = disp
-		if self.profileName.Value == self.autoProfileName:
-			# The user hasn't changed the automatically filled value.
-			self.profileName.Value = name
-			self.profileName.SelectAll()
-		self.autoProfileName = name"""
+# Column announcement manager.
+# Select which track columns should be announced and in which order.
+class ColumnAnnouncementsDialog(wx.Dialog):
 
-	# Additional configuration dialogs
+	def __init__(self, parent):
+		super(ColumnAnnouncementsDialog, self).__init__(parent, title="Manage column announcements")
+		mainSizer = wx.BoxSizer(wx.VERTICAL)
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: The label for a setting in SPL add-on dialog to select a base  profile for copying.
+		label = wx.StaticText(self, wx.ID_ANY, label=_("C&olumns:"))
+		self.trackColumns= wx.Choice(self, wx.ID_ANY, choices=SPLConfig["ColumnOrder"])
+		try:
+			self.trackColumns.SetSelection(0)
+		except:
+			pass
+		sizer.Add(label)
+		sizer.Add(self.trackColumns)
+		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
+		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
+		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
+		mainSizer.Fit(self)
+		self.Sizer = mainSizer
+		self.trackColumns.SetFocus()
+		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+
+	def onOk(self, evt):
+		parent = self.Parent
+		parent.profiles.SetFocus()
+		parent.Enable()
+		self.Destroy()
+		return
+
+	def onCancel(self, evt):
+		self.Parent.Enable()
+		self.Destroy()
+
+# Additional configuration dialogs
 
 # A common alarm dialog
 # Based on NVDA core's find dialog code (implemented by the author of this add-on).
