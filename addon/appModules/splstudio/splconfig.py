@@ -37,6 +37,9 @@ SPLConfig = None
 # A pool of broadcast profiles.
 SPLConfigPool = []
 
+# The following settings can be changed in profiles:
+_mutableSettings=("SayEndOfTrack","EndOfTrackTime","SaySongRamp","SongRampTime","MicAlarm")
+
 # Display an error dialog when configuration validation fails.
 def runConfigErrorDialog(errorText, errorType):
 	wx.CallAfter(gui.messageBox, errorText, errorType, wx.OK|wx.ICON_ERROR)
@@ -119,6 +122,11 @@ def unlockConfig(path, profileName=None):
 def saveConfig():
 	# Save all config profiles.
 	global SPLConfig, SPLConfigPool
+	# Apply any global settings changed in profiles to normal configuration.
+	if SPLConfigPool.index(SPLConfig) > 0:
+		for setting in SPLConfig:
+			if setting not in _mutableSettings:
+				SPLConfigPool[0][setting] = SPLConfig[setting]
 	for configuration in SPLConfigPool:
 		if configuration is not None: configuration.write()
 	SPLConfig = None
@@ -343,7 +351,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 			self.renameButton.Enable()
 			self.deleteButton.Enable()
 		selectedProfile = SPLConfigPool[selection]
-		self.beepAnnounceCheckbox.SetValue(selectedProfile["BeepAnnounce"])
 		self.outroCheckBox.SetValue(selectedProfile["SayEndOfTrack"])
 		self.endOfTrackAlarm.SetValue(long(selectedProfile["EndOfTrackTime"]))
 		self.onOutroCheck(None)
