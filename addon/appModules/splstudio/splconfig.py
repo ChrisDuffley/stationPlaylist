@@ -72,7 +72,7 @@ def initConfig():
 	# Load the default config from a list of profiles.
 	global SPLConfig, SPLConfigPool, _configLoadStatus
 	if SPLConfigPool is None: SPLConfigPool = []
-	SPLConfigPool.append(unlockConfig(SPLIni, profileName="Normal profile"))
+	SPLConfigPool.append(unlockConfig(SPLIni, profileName="Normal profile", prefill=True))
 	try:
 		profiles = filter(lambda fn: os.path.splitext(fn)[-1] == ".ini", os.listdir(SPLProfiles))
 		for profile in profiles:
@@ -92,12 +92,12 @@ def initConfig():
 		runConfigErrorDialog("\n".join(messages), title)
 
 # 6.0: Unlock (load) profiles from files.
-def unlockConfig(path, profileName=None):
+def unlockConfig(path, profileName=None, prefill=False):
 	global _configLoadStatus # To be mutated only during unlock routine.
 	SPLConfigCheckpoint = ConfigObj(path, configspec = confspec, encoding="UTF-8")
 	# 5.2 and later: check to make sure all values are correct.
 	val = Validator()
-	configTest = SPLConfigCheckpoint.validate(val, copy=True)
+	configTest = SPLConfigCheckpoint.validate(val, copy=prefill)
 	if configTest != True:
 		# Hack: have a dummy config obj handy just for storing default values.
 		SPLDefaults = ConfigObj(None, configspec = confspec, encoding="UTF-8")
@@ -412,7 +412,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 		name = SPLConfigPool[index].name
 		path = SPLConfigPool[index].filename
 		del SPLConfigPool[index]
-		os.remove(path)
+		try:
+			os.remove(path)
+		except WindowsError:
+			pass
 		self.profiles.Delete(index)
 		self.profiles.SetString(0, SPLConfigPool[0].name)
 		self.profiles.Selection = 0
