@@ -561,14 +561,31 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 
 	def __init__(self, parent):
 		super(ColumnAnnouncementsDialog, self).__init__(parent, title="Manage column announcements")
+
+		# WX's CheckListBox isn't user friendly.
+		# Therefore use checkboxes laid out across the top.
+		self.checkedColumns = []
+		for column in ("Artist", "Title", "Duration", "Intro", "Category", "Filename"):
+			checkedColumn=wx.CheckBox(self,wx.NewId(),label=column)
+			checkedColumn.SetValue(column in SPLConfig["ColumnOrder"])
+			self.checkedColumns.append(checkedColumn)
+
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
+		# First, a help text.
+		label = wx.StaticText(self, wx.ID_ANY, label=_("Select columns to be announced"))
+		mainSizer.Add(label,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		for checkedColumn in self.checkedColumns:
+			sizer.Add(checkedColumn)
+		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: The label for a setting in SPL add-on dialog to select a base  profile for copying.
-		label = wx.StaticText(self, wx.ID_ANY, label=_("C&olumns:"))
+		label = wx.StaticText(self, wx.ID_ANY, label=_("Column &order:"))
 		# WXPython Phoenix contains RearrangeList to allow item orders to be changed automatically.
-		# Because WXPython Classic doesn't include this, work around by using a variant of check list box and move up/down buttons.
-		self.trackColumns= wx.CheckListBox(self, wx.ID_ANY, choices=parent.columnOrder)
+		# Because WXPython Classic doesn't include this, work around by using a variant of list box and move up/down buttons.
+		self.trackColumns= wx.ListBox(self, wx.ID_ANY, choices=parent.columnOrder)
 		try:
 			self.trackColumns.SetSelection(0)
 		except:
@@ -593,7 +610,7 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
-		self.trackColumns.SetFocus()
+		self.checkedColumns[0].SetFocus()
 		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
