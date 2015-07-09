@@ -31,6 +31,7 @@ LibraryScanAnnounce = option("off", "ending", "progress", "numbers", default="of
 TrackDial = boolean(default=false)
 UseScreenColumnOrder = boolean(default=true)
 ColumnOrder = string(default="Artist,Title,Duration,Intro,Category,Filename")
+IncludedColumns = string(default="Artist,Title,Duration,Intro,Category,Filename")
 SayScheduledFor = boolean(default=true)
 SayListenerCount = boolean(default=true)
 SayPlayingCartName = boolean(default=true)
@@ -125,10 +126,12 @@ def unlockConfig(path, profileName=None, prefill=False):
 # Extra initialization steps such as converting value types.
 def _extraInitSteps(conf):
 	conf["ColumnOrder"] = conf["ColumnOrder"].split(",")
+	conf["IncludedColumns"] = set(conf["IncludedColumns"].split(","))
 
 # Perform some extra work before writing the config file.
 def _preSave(conf):
 	conf["ColumnOrder"] = ",".join(conf["ColumnOrder"])
+	conf["IncludedColumns"] = ",".join(conf["IncludedColumns"])
 
 	# Save configuration database.
 def saveConfig():
@@ -289,6 +292,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.columnOrderCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce columns in the &order shown on screen"))
 		self.columnOrderCheckbox.SetValue(SPLConfig["UseScreenColumnOrder"])
 		self.columnOrder = SPLConfig["ColumnOrder"]
+		self.includedColumns = SPLConfig["IncludedColumns"]
 		sizer.Add(self.columnOrderCheckbox, border=10,flag=wx.BOTTOM)
 		# Translators: The label of a button to manage column announcements.
 		item = manageColumnsButton = wx.Button(self, label=_("&Manage track column announcements..."))
@@ -340,6 +344,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["TrackDial"] = self.trackDialCheckbox.Value
 		SPLConfig["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
 		SPLConfig["ColumnOrder"] = self.columnOrder
+		SPLConfig["IncludedColumns"] = self.includedColumns
 		SPLConfig["SayScheduledFor"] = self.scheduledForCheckbox.Value
 		SPLConfig["SayListenerCount"] = self.listenerCountCheckbox.Value
 		SPLConfig["SayPlayingCartName"] = self.cartNameCheckbox.Value
@@ -567,7 +572,7 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 		self.checkedColumns = []
 		for column in ("Artist", "Title", "Duration", "Intro", "Category", "Filename"):
 			checkedColumn=wx.CheckBox(self,wx.NewId(),label=column)
-			checkedColumn.SetValue(column in SPLConfig["ColumnOrder"])
+			checkedColumn.SetValue(column in SPLConfig["IncludedColumns"])
 			self.checkedColumns.append(checkedColumn)
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
@@ -616,6 +621,9 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 	def onOk(self, evt):
 		parent = self.Parent
 		parent.columnOrder = self.trackColumns.GetItems()
+		for checkbox in self.checkedColumns:
+			action = parent.includedColumns.add if checkbox.Value else parent.includedColumns.remove
+			action(checkbox.Label)
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()

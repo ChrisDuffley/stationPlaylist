@@ -91,7 +91,7 @@ class SPLTrackItem(IAccessible):
 			self.bindGesture("kb:leftArrow", "prevColumn")
 
 	# Read selected columns.
-	# But first, find where the needed column lives.
+	# But first, find where the requested column lives.
 	def _indexOf(self, columnHeader):
 		self.columnHeaders = self.parent.children[-1]
 		headers = [header.name for header in self.columnHeaders.children]
@@ -102,10 +102,11 @@ class SPLTrackItem(IAccessible):
 		if not splconfig.SPLConfig["UseScreenColumnOrder"]:
 			descriptionPieces = []
 			for header in splconfig.SPLConfig["ColumnOrder"]:
-				index = self._indexOf(header)
-				content = self._getColumnContent(index)
-				if content:
-					descriptionPieces.append("%s: %s"%(header, content))
+				if header in splconfig.SPLConfig["IncludedColumns"]:
+					index = self._indexOf(header)
+					content = self._getColumnContent(index)
+					if content:
+						descriptionPieces.append("%s: %s"%(header, content))
 			self.description = ", ".join(descriptionPieces)
 		super(IAccessible, self).reportFocus()
 
