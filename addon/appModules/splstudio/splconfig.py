@@ -591,6 +591,7 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 		# WXPython Phoenix contains RearrangeList to allow item orders to be changed automatically.
 		# Because WXPython Classic doesn't include this, work around by using a variant of list box and move up/down buttons.
 		self.trackColumns= wx.ListBox(self, wx.ID_ANY, choices=parent.columnOrder)
+		self.trackColumns.Bind(wx.EVT_LISTBOX,self.onColumnSelection)
 		try:
 			self.trackColumns.SetSelection(0)
 		except:
@@ -603,6 +604,7 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 		# Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
 		self.upButton = wx.Button(self, wx.ID_ANY, label=_("Move &up"))
 		self.upButton.Bind(wx.EVT_BUTTON,self.onMoveUp)
+		self.upButton.Disable()
 		sizer.Add(self.upButton)
 				# Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
 		self.dnButton = wx.Button(self, wx.ID_ANY, label=_("Move &down"))
@@ -633,23 +635,30 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 		self.Parent.Enable()
 		self.Destroy()
 
+	def onColumnSelection(self, evt):
+		selIndex = self.trackColumns.GetSelection()
+		self.upButton.Disable() if selIndex == 0 else self.upButton.Enable()
+		self.dnButton.Disable() if selIndex == self.trackColumns.GetCount()-1 else self.dnButton.Enable()
+
 	def onMoveUp(self, evt):
 		tones.beep(1000, 200)
-		selIndex= self.trackColumns.GetSelection()
+		selIndex = self.trackColumns.GetSelection()
 		if selIndex > 0:
 			selItem = self.trackColumns.GetString(selIndex)
 			self.trackColumns.Delete(selIndex)
 			self.trackColumns.Insert(selItem, selIndex-1)
 			self.trackColumns.Select(selIndex-1)
+			self.onColumnSelection(None)
 
 	def onMoveDown(self, evt):
 		tones.beep(500, 200)
-		selIndex= self.trackColumns.GetSelection()
+		selIndex = self.trackColumns.GetSelection()
 		if selIndex < self.trackColumns.GetCount()-1:
 			selItem = self.trackColumns.GetString(selIndex)
 			self.trackColumns.Delete(selIndex)
 			self.trackColumns.Insert(selItem, selIndex+1)
 			self.trackColumns.Select(selIndex+1)
+			self.onColumnSelection(None)
 
 # Additional configuration dialogs
 
