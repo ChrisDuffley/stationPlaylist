@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2015-02-22 18:11+0100\n"
+"PO-Revision-Date: 2015-06-28 12:24+0100\n"
 "Last-Translator: Juan C. Buño <quetzatl@eresmas.net>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -16,26 +16,148 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.7.4\n"
+"X-Generator: Poedit 1.6.11\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#. Translators: Standard dialog message when Studio configuration has problems.
-msgid ""
-"Your Studio add-on configuration has errors and was reset to factory "
-"defaults."
+#. Translators: Presented when only Track Tool is running (Track Dial requires Studio to be running as well).
+msgid "Only Track Tool is running, Track Dial is unavailable"
 msgstr ""
-"La configuración de tu complemento de Studio tiene errores y fue reiniciada "
-"a la predeterminada de fábrica."
 
-#. Translators: Standard error title for configuration error.
-msgid "Studio add-on Configuration error"
-msgstr "Erro da configuración do complemento do Studio"
+#. Translators: Input help mode message for SPL track item.
+msgid "Toggles track dial on and off."
+msgstr "Activa o desactiva dial de pista."
+
+#. Translators: Presented when trying to perform Track Tool commands when not focused in the track list.
+msgid "Not in tracks list"
+msgstr "No está en lista de pistas"
+
+#. Translators: Presented when no tracks are added to Track Tool.
+msgid "No tracks added"
+msgstr "No se añadieron pistas"
+
+#. Translators: Presented when intro is not defined for a track in Track Tool.
+msgid "Introduction not set"
+msgstr "No se estableció introducción"
+
+#. Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
+#, python-brace-format
+msgid "{columnInfo} not found"
+msgstr "{columnInfo} no encontrada"
+
+#. Translators: Presented when artist information is not found for a track in Track Tool.
+msgid "No artist"
+msgstr "No hay artista"
+
+#. Translators: Presents artist information for a track in Track Tool.
+#, python-brace-format
+msgid "Artist: {artistName}"
+msgstr "Artista: {artistName}"
+
+#. Translators: Reported when track dial is on.
+msgid "Track Dial on"
+msgstr "Dial de pista activado"
+
+#. Translators: Announced when located on a column other than the leftmost column while using track dial.
+#, python-brace-format
+msgid ", located at column {columnHeader}"
+msgstr ", colocado en la columna {columnHeader}"
+
+#. Translators: Reported when track dial is off.
+msgid "Track Dial off"
+msgstr "Dial de pista desactivado"
+
+#. Translators: Spoken when enabling track dial while status message is set to beeps.
+#, python-brace-format
+msgid "Column {columnNumber}"
+msgstr "Columna {columnNumber}"
 
 #. Translators: Script category for Station Playlist commands in input gestures dialog.
-#. Add-on summary, usually the user visible name of the addon.
-#. Translators: Summary for this add-on to be shown on installation and add-on information.
-msgid "Station Playlist Studio"
-msgstr "Station Playlist Studio"
+msgid "StationPlaylist Studio"
+msgstr "StationPlaylist Studio"
+
+#. Translators: Announced when leftmost column has no text while track dial is active.
+#, python-brace-format
+msgid "{leftmostColumn} not found"
+msgstr "{leftmostColumn} no encontrado"
+
+#. Translators: Standard message for announcing column content.
+#, python-brace-format
+msgid "{leftmostColumn}: {leftmostContent}"
+msgstr "{leftmostColumn}: {leftmostContent}"
+
+#. Translators: Standard message for announcing column content.
+#, python-brace-format
+msgid "{header}: {content}"
+msgstr "{header}: {content}"
+
+#. Translators: Spoken when column content is blank.
+#, python-brace-format
+msgid "{header}: blank"
+msgstr "{header}: en blanco"
+
+#. Translators: Brailled to indicate empty column content.
+#, python-brace-format
+msgid "{header}: ()"
+msgstr "{header}: ()"
+
+#. Translators: Presented when no track status is found in Studio 5.10.
+msgid "Status not found"
+msgstr "Estado no encontrado"
+
+#. Translators: Status information for a checked track in Studio 5.10.
+#, python-brace-format
+msgid "Status: {name}"
+msgstr "Estado: {name}"
+
+#. Translators: The text of the help command in SPL Assistant layer.
+msgid ""
+"After entering SPL Assistant, press:\n"
+"A: Automation.\n"
+"D: Remaining time for the playlist.\n"
+"H: Duration of trakcs in this hour slot.\n"
+"Shift+H: Duration of selected tracks.\n"
+"I: Listener count.\n"
+"L: Line-in status.\n"
+"M: Microphone status.\n"
+"N: Next track.\n"
+"P: Playback status.\n"
+"Shift+P: Pitch for the current track.\n"
+"R: Record to file.\n"
+"Shift+R: Monitor library scan.\n"
+"S: Scheduled time for the track.\n"
+"T: Cart edit mode.\n"
+"U: Studio up time.\n"
+"W: Weather and temperature.\n"
+"Y: Playlist modification."
+msgstr ""
+"Después de entrar en SPL Assistant, pulsa:\n"
+"A: Automatización.\n"
+"D: Tiempo restante para la lista de reproducción.\n"
+"H: Duración de pistas en este slot horario .\n"
+"Shift+H: Duración de pistas seleccionadas.\n"
+"I: Recuento de oyentes. \n"
+"L: Estado de en Línea .\n"
+"M: Estado de micrófono.\n"
+"N: Siguiente pista.\n"
+"P: Estado de reproducción.\n"
+"Shift+P: Tono para la pista actual.\n"
+"R: Grabar en fichero.\n"
+"Shift+R: Monitorizar escaneado de biblioteca.\n"
+"S: Tiempo programado para la pista.\n"
+"T: Modo de edición de Cart.\n"
+"U: Actualización de Studio.\n"
+"W: Tiempo y temperatura.\n"
+"Y: Modificación de lista de reproducción."
+
+#, python-brace-format
+msgid "Using SPL Studio version {SPLVersion}"
+msgstr "Utilizando versión de SPL Studio {SPLVersion}"
+
+msgid "SPL Studio Settings..."
+msgstr "Opciones de SPL Studio..."
+
+msgid "SPL settings"
+msgstr "Opciones de SPL"
 
 #. Translators: Presented when cart edit mode is toggled on while cart explorer is on.
 msgid "Cart explorer is active"
@@ -50,6 +172,10 @@ msgstr ""
 #. Translators: Presented in braille when microphone was on for more than a specified time in microphone alarm dialog.
 msgid "Warning: Microphone active"
 msgstr "Atención: Micrófono activo"
+
+#. Add the human-readable representation also.
+msgid "SPL mode"
+msgstr "Modo SPL"
 
 #. Translators: Presented when remaining time is unavailable.
 msgid "Remaining time not available"
@@ -67,10 +193,6 @@ msgstr "Tiempo de emisión no disponible"
 msgid "Cannot obtain time in hours, minutes and seconds"
 msgstr "No se pudo obtener el tiempo en horas, minutos y segundos"
 
-#. Translators: Presented when trying to use an add-on command in an unsupported version of StationPlaylist Studio.
-msgid "This version of Studio is no longer supported"
-msgstr "Esta versión de Studio ya no se soporta"
-
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Announces the remaining track time."
 msgstr "Anuncia el tiempo de pista restante."
@@ -87,31 +209,42 @@ msgstr "Anuncia tiempo de emisión."
 msgid "Announces time including seconds."
 msgstr "Anuncia el tiempo incluyendo segundos."
 
-#. Translators: A dialog message to set end of track alarm (curAlarmSec is the current end of track alarm in seconds).
-#, python-brace-format
-msgid "Enter end of track alarm time in seconds (currently {curAlarmSec})"
-msgstr ""
-"Introducir el tiempo de aviso de final de pista en segundos (Actualmente "
-"{curAlarmSec})"
-
 #. Translators: The title of end of track alarm dialog.
 msgid "End of track alarm"
 msgstr "Aviso de final de pista"
+
+#. Translators: A dialog message to set end of track alarm (curAlarmSec is the current end of track alarm in seconds).
+#, python-brace-format
+msgid "Enter &end of track alarm time in seconds (currently {curAlarmSec})"
+msgstr ""
+"Introducir el tiempo de alarma de &fin de pista en segundos (Actualmente "
+"{curAlarmSec})"
+
+#. Translators: A check box to toggle notification of end of track alarm.
+#. Check box hiding method comes from Alberto Buffolino's Columns Review add-on.
+#. Translators: Label for a check box in SPL add-on settings to notify when end of track (outro) is approaching.
+msgid "&Notify when end of track is approaching"
+msgstr "&Notificar cuando se acerque el final de la pista"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "sets end of track alarm (default is 5 seconds)."
 msgstr "ajusta la alarma de fin de pista (predeterminada es de 5 segundos)."
 
-#. Translators: A dialog message to set song ramp alarm (curRampSec is the current intro monitoring alarm in seconds).
-#, python-brace-format
-msgid "Enter song intro alarm time in seconds (currently {curRampSec})"
-msgstr ""
-"Introducir el tiempo de alarma de intro de la canción en segundos "
-"(actualmente {curRampSec})"
-
 #. Translators: The title of song intro alarm dialog.
 msgid "Song intro alarm"
 msgstr "Alarma de intro de sonido"
+
+#. Translators: A dialog message to set song ramp alarm (curRampSec is the current intro monitoring alarm in seconds).
+#, python-brace-format
+msgid "Enter song &intro alarm time in seconds (currently {curRampSec})"
+msgstr ""
+"Introducir tiempo de canción de alarma de &intro en segundos (actualmente "
+"{curRampSec})"
+
+#. Translators: A check box to toggle notification of end of intro alarm.
+#. Translators: Label for a check box in SPL add-on settings to notify when end of intro is approaching.
+msgid "&Notify when end of introduction is approaching"
+msgstr "&Notificar cuando se acerque el final de la introducción"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "sets song intro alarm (default is 5 seconds)."
@@ -143,6 +276,7 @@ msgid "Incorrect value entered."
 msgstr "Introducido un valor incorrecto."
 
 #. Translators: Standard title for error dialog (copy this from main nvda.po file).
+#. Translators: The title of the message box
 msgid "Error"
 msgstr "Error"
 
@@ -150,21 +284,21 @@ msgstr "Error"
 msgid "Sets microphone alarm (default is 5 seconds)."
 msgstr "Ajusta la alarma de micrófono (por defecto es 5 segundos)."
 
-#. Translators: Reported when toggle announcement is set to beeps in SPL Studio.
-msgid "Toggle announcement beeps"
-msgstr "Conmutar anunciado de pitidos"
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Opens SPL Studio add-on configuration dialog."
+msgstr "Abre el diálogo de configuración del complemento SPL Studio."
 
-#. Translators: Reported when toggle announcement is set to words in SPL Studio.
-msgid "Toggle announcement words"
-msgstr "Conmutar anunciado palabras"
+#. Translators: Reported when status announcement is set to beeps in SPL Studio.
+msgid "Status announcement beeps"
+msgstr "Anunciado de estado en pitidos"
+
+#. Translators: Reported when status announcement is set to words in SPL Studio.
+msgid "Status announcement words"
+msgstr "Anunciado de estado en palabras"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "Toggles option change announcements between words and beeps."
-msgstr "Alterna el cambio del anunciado de opción entre palabras y sonidos."
-
-#. Translators: A setting in braille timer options.
-msgid "Braille timer off"
-msgstr "Temporizador braille apagado"
+msgid "Toggles status announcements between words and beeps."
+msgstr "Conmutar el anunciado de estado entre palabras y pitidos."
 
 #. Translators: A setting in braille timer options.
 msgid "Braille track endings"
@@ -177,6 +311,10 @@ msgstr "Terminaciones braille de intro"
 #. Translators: A setting in braille timer options.
 msgid "Braille intro and track endings"
 msgstr "Terminaciones de intro y de pista braille"
+
+#. Translators: A setting in braille timer options.
+msgid "Braille timer off"
+msgstr "Temporizador braille apagado"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Toggles between various braille timer settings."
@@ -197,6 +335,10 @@ msgstr "El Buscador de pista sólo está disponible en la lista de pistas."
 #. Translators: Presented when a user wishes to find a track but didn't add any tracks.
 msgid "You need to add at least one track to find tracks."
 msgstr "Es necesario agregar al menos una pista para encontrar pistas."
+
+#. Translators: Standard dialog message when find dialog is already open.
+msgid "Find track dialog is already open."
+msgstr "El diálogo Encontrar pista ya está abierto."
 
 #. Translators: The text of the dialog for finding tracks.
 msgid "Enter the name of the track you wish to search."
@@ -219,6 +361,12 @@ msgstr ""
 msgid "Finds previous occurrence of the track with the name in the track list."
 msgstr ""
 "Busca la aparición anterior de la pista con el nombre en la lista de pistas."
+
+#. Translators: Presented when cart explorer cannot be entered.
+msgid "You are not in playlist viewer, cannot enter cart explorer"
+msgstr ""
+"No estás en el visualizador de lista de reproducción, no puedes entrar en el "
+"explorador de cart"
 
 #. Translators: presented when cart explorer could not be switched on.
 msgid "Some or all carts could not be assigned, cannot enter cart explorer"
@@ -247,10 +395,6 @@ msgid "Cart unassigned"
 msgstr "Cart no asignado"
 
 #. Translators: A setting in library scan announcement options.
-msgid "Do not announce library scans"
-msgstr "No anunciar escaneados de la biblioteca"
-
-#. Translators: A setting in library scan announcement options.
 msgid "Announce start and end of a library scan"
 msgstr "Anunciar inicio y fin de un escaneado de la biblioteca"
 
@@ -263,6 +407,10 @@ msgid "Announce progress and item count of a library scan"
 msgstr ""
 "Anunciar el progreso y la cuenta de elementos de un escaneado de la "
 "biblioteca"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Do not announce library scans"
+msgstr "No anunciar escaneados de la biblioteca"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Toggles library scan progress settings."
@@ -277,6 +425,11 @@ msgstr "Comenzar escaneado"
 msgid "{itemCount} items in the library"
 msgstr "{itemCount} elementos en la biblioteca"
 
+#. Translators: Presented after library scan is done.
+#, python-brace-format
+msgid "Scan complete with {itemCount} items"
+msgstr "Escaneado completado con {itemCount} elementos"
+
 #. Translators: Presented when library scan is in progress.
 msgid "Scanning"
 msgstr "Escaneando"
@@ -285,11 +438,6 @@ msgstr "Escaneando"
 #, python-brace-format
 msgid "{itemCount} items scanned"
 msgstr "{itemCount} elementos escaneados"
-
-#. Translators: Presented after library scan is done.
-#, python-brace-format
-msgid "Scan complete with {itemCount} items"
-msgstr "Escaneado completado con {itemCount} elementos"
 
 #. Translators: Input help mode message for a layer command in Station Playlist Studio.
 msgid ""
@@ -307,9 +455,25 @@ msgstr "Modificación de lista de reproducción no disponible"
 msgid "No next track scheduled or no track is playing"
 msgstr "No hay siguiente pista programada o no hay pista en reproducción"
 
-#. Translators: Presented when there is nn weather or temperature information.
+#. Translators: Presented when next track information is unavailable.
+msgid "Cannot find next track information"
+msgstr "No se pudo encontrar información de la siguiente pista "
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Announces title of the next track if any"
+msgstr "Anuncia el título de la siguiente pista si la hay"
+
+#. Translators: Presented when there is no weather or temperature information.
 msgid "Weather and temperature not configured"
 msgstr "Tiempo y temperatura no configurados"
+
+#. Translators: Presented when temperature information cannot be found.
+msgid "Weather information not found"
+msgstr "Información del tiempo no encontrada"
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Announces temperature and weather information"
+msgstr "Anuncia la temperatura y la información del tiempo "
 
 #. Translators: Presented when there is no listener count information.
 msgid "Listener count not found"
@@ -327,31 +491,131 @@ msgstr "Monitorizando escaneo de biblioteca"
 msgid "Scanning is in progress"
 msgstr "El escaneado está en progreso"
 
-#. Translators: Presented when trying to perform Track Tool commands when not focused in the track list.
-msgid "Not in tracks list"
-msgstr "No está en lista de pistas"
+#. Translators: The title for SPL Assistant help dialog.
+msgid "SPL Assistant help"
+msgstr "Ayuda de SPL Assistant"
 
-#. Translators: Presented when no tracks are added to Track Tool.
-msgid "No tracks added"
-msgstr "No se añadieron pistas"
+#. Translators: A dialog message shown when settings were reset to defaults.
+msgid "Successfully applied default add-on settings."
+msgstr "Se aplicaron con éxito las opciones predeterminadas del complemento."
 
-#. Translators: Presented when intro is not defined for a track in Track Tool.
-msgid "Introduction not set"
-msgstr "No se estableció introducción"
+#. Translators: Title of the reset config dialog.
+msgid "Reset configuration"
+msgstr "Reiniciar configuración"
 
-#. Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
-#, python-brace-format
-msgid "{columnInfo} not found"
-msgstr "{columnInfo} no encontrada"
+#. Translators: Standard error title for configuration error.
+msgid "Studio add-on Configuration error"
+msgstr "Erro da configuración do complemento do Studio"
 
-#. Translators: Presented when artist information is not found for a track in Track Tool.
-msgid "No artist"
-msgstr "No hay artista"
+#. Translators: Standard dialog message when Studio configuration has problems and was reset to defaults.
+msgid ""
+"Your Studio add-on configuration has errors and was reset to factory "
+"defaults."
+msgstr ""
+"La configuración de tu complemento de Studio tiene errores y fue reiniciada "
+"a la predeterminada de fábrica."
 
-#. Translators: Presents artist information for a track in Track Tool.
-#, python-brace-format
-msgid "Artist: {artistName}"
-msgstr "Artista: {artistName}"
+#. Translators: Standard dialog message when some Studio configuration settings were reset to defaults.
+msgid ""
+"Errors were found in some of your Studio configuration settings. The "
+"affected settings were reset to defaults."
+msgstr ""
+"Se encontraron errores en algunas de las opciones de configuración de tu "
+"Studio. Las opciones afectadas se reiniciaron a las predeterminadas."
+
+#. Translators: This is the label for the StationPlaylist Studio configuration dialog.
+msgid "Studio Add-on Settings"
+msgstr "Opciones del complemento Studio"
+
+#. Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
+msgid "&Beep for status announcements"
+msgstr "&Pitar para el anunciado de estado"
+
+#. Translators: The label for a setting in SPL Add-on settings to specify end of track (outro) alarm.
+msgid "&End of track alarm in seconds"
+msgstr "Alarma de &Fin de pista en segundos"
+
+#. Translators: The label for a setting in SPL Add-on settings to specify track intro alarm.
+msgid "&Track intro alarm in seconds"
+msgstr "Alarma de intro de &Pista en segundos"
+
+#. Translators: The label for a setting in SPL add-on dialog to control braille timer.
+msgid "&Braille timer:"
+msgstr "Temporizador &Braille:"
+
+msgid "off"
+msgstr "desactivado"
+
+#. Translators: One of the braille timer settings.
+msgid "track ending"
+msgstr "finalización de pista"
+
+#. Translators: One of the braille timer settings.
+msgid "track intro"
+msgstr "intro de pista"
+
+#. Translators: One of the braille timer settings.
+msgid "track intro and ending"
+msgstr "intro y finalización de pista"
+
+#. Translators: The label for a setting in SPL Add-on settings to change microphone alarm setting.
+msgid "&Microphone alarm in seconds"
+msgstr "Alarma de &Micrófono en segundos"
+
+#. Translators: The label for a setting in SPL add-on dialog to control library scan announcement.
+msgid "&Library scan announcement:"
+msgstr "Anunciado de escaneado de &Biblioteca:"
+
+#. Translators: One of the library scan announcement settings.
+msgid "start and end only"
+msgstr "Comenzar y finalizar sólo"
+
+#. Translators: One of the library scan announcement settings.
+msgid "scan progress"
+msgstr "progreso del escaneado"
+
+#. Translators: One of the library scan announcement settings.
+msgid "scan count"
+msgstr "escanear cuenta"
+
+#. Translators: the label for a setting in SPL add-on settings to toggle track dial mode on and off.
+msgid "&Track Dial mode"
+msgstr "Modo Dial de &Pista"
+
+#. Translators: the label for a setting in SPL add-on settings to announce scheduled time.
+msgid "Announce &scheduled time for the selected track"
+msgstr "Anunciar tiempo &programado para la pista seleccionada"
+
+#. Translators: the label for a setting in SPL add-on settings to announce listener count.
+msgid "Announce &listener count"
+msgstr "Anunciar recuento de &oyentes"
+
+#. Translators: the label for a setting in SPL add-on settings to announce currently playing cart.
+#, fuzzy
+msgid "&Announce name of the currently playing cart"
+msgstr "Anuncia el tiempo transcurrido de la pista que se está reproduciendo."
+
+#. Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
+msgid "Reset settings"
+msgstr "Reiniciar opciones"
+
+#. Translators: Message to report wrong value for microphone alarm.
+msgid "Incorrect microphone alarm value entered."
+msgstr "Introducido un valor incorrecto para la alarma de micrófono."
+
+#. Translators: A message to warn about resetting SPL config settings to factory defaults.
+msgid "Are you sure you wish to reset SPL add-on settings to defaults?"
+msgstr ""
+"¿Estás seguro de querer reiniciar las opciones del complemento SPL a las "
+"predeterminadas?"
+
+#. Translators: The title of the warning dialog.
+msgid "Warning"
+msgstr "Precaución"
+
+#. Translators: Text of the dialog when another alarm dialog is open.
+msgid "Another alarm dialog is open."
+msgstr "Está abierto otro diálogo de alarma."
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
@@ -434,13 +698,19 @@ msgstr "No hay pista en reproducción."
 msgid "SPL Controller help"
 msgstr "Ayuda del SPL Controller"
 
-#. Translators: Presented when SAM Encoder is trying to connect to a streaming server.
-msgid "Connecting..."
-msgstr "Conectando..."
+#. Translators: Message presented when there are no encoders being monitored.
+msgid "No encoders are being monitored"
+msgstr "No hay codificadores siendo monitorizados"
 
-#. Translators: Presented when SAM Encoder is disconnecting from a streaming server.
-msgid "Disconnecting..."
-msgstr "Desconectando..."
+#. Translators: Announces number of encoders being monitored in the background.
+#, python-brace-format
+msgid "Number of encoders monitored: {numberOfEncoders}"
+msgstr "Número de codificadores monitorizados: {numberOfEncoders}"
+
+#. Translators: Status message for encoder monitoring.
+#, python-brace-format
+msgid "{encoder} {encoderNumber}: {status}"
+msgstr "{encoder} {encoderNumber}: {status}"
 
 #. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 msgid "Switch to Studio after connecting"
@@ -474,6 +744,27 @@ msgstr ""
 "Conmuta si Studio reproducirá o no la primera  canción cuando se conecte a "
 "un servidor de streaming."
 
+#. Multiple encoders.
+#. Translators: Presented when toggling the setting to monitor the selected encoder.
+#, python-brace-format
+msgid "Monitoring encoder {encoderNumber}"
+msgstr "Monitorizando codificador {encoderNumber}"
+
+#. Translators: Presented when toggling the setting to monitor the selected encoder.
+#, python-brace-format
+msgid "Encoder {encoderNumber} will not be monitored"
+msgstr "El codificador {encoderNumber} no se monitorizará"
+
+#. Translators: Announced when background encoder monitoring is canceled.
+msgid "Encoder monitoring canceled"
+msgstr "Monitorización de codificador cancelada"
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid ""
+"Toggles whether NVDA will monitor the selected encoder in the background."
+msgstr ""
+"Conmuta si NVDA monitorizará el codificador seleccionado en segundo plano."
+
 #. Translators: The title of the stream labeler dialog (example: stream labeler for 1).
 #, python-brace-format
 msgid "Stream labeler for {streamEntry}"
@@ -487,6 +778,42 @@ msgstr "Introduce la etiqueta para este stream"
 msgid "Opens a dialog to label the selected encoder."
 msgstr "Abre un diálogo para etiquetar el codificador seleccionado."
 
+#. Translators: The title of the stream label eraser.
+msgid "Stream label eraser"
+msgstr "Eliminador de etiqueta de cadena"
+
+#. Translators: The text of the stream label eraser dialog.
+msgid "Enter the position of the encoder you wish to delete or will delete"
+msgstr ""
+"Introduce la posición del codificador que deseas eliminar o se eliminará"
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid "Opens a dialog to erase stream labels from an encoder that was deleted."
+msgstr ""
+"Abre un diálogo para borrar etiquetas de cadena desde un codificador que fue "
+"eleminado."
+
+#. Translators: Input help mode message for report date and time command.
+msgid ""
+"If pressed once, reports the current time including seconds. If pressed "
+"twice, reports the current date"
+msgstr ""
+"Si se pulsó una vez, anuncia la hora actual incluyendo segundos. Si se pulsó "
+"dos veces, anuncia la fecha actual."
+
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on to be shown on installation and add-on information.
+msgid "Station Playlist Studio"
+msgstr "Station Playlist Studio"
+
+#. Translators: Presented when SAM Encoder is trying to connect to a streaming server.
+msgid "Connecting..."
+msgstr "Conectando..."
+
+#. Translators: Presented when SAM Encoder is disconnecting from a streaming server.
+msgid "Disconnecting..."
+msgstr "Desconectando..."
+
 msgid "Connects to a streaming server."
 msgstr "Conecta a un servidor de streaming."
 
@@ -498,6 +825,9 @@ msgid ""
 msgstr ""
 "Mejora el soporte para Station Playlist Studio.\n"
 "Además, agrega comandos globales para el estudio desde cualquier parte."
+
+#~ msgid "This version of Studio is no longer supported"
+#~ msgstr "Esta versión de Studio ya no se soporta"
 
 #~ msgid "Disconnects from a streaming server."
 #~ msgstr "Desconecta de un servidor de streaming."
