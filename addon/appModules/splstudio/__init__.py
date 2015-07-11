@@ -35,6 +35,7 @@ from NVDAObjects.IAccessible import IAccessible, sysListView32 # SysListView32 i
 import textInfos
 import tones
 import splconfig
+import splmisc
 import addonHandler
 addonHandler.initTranslation()
 
@@ -782,14 +783,14 @@ class AppModule(appModuleHandler.AppModule):
 		try:
 			if not columnSearch: title = "Find track"
 			else: title = "Column search"
-			d = splconfig.SPLFindDialog(gui.mainFrame, api.getFocusObject(), self.findText, title, columnSearch = columnSearch)
+			d = splmisc.SPLFindDialog(gui.mainFrame, api.getFocusObject(), self.findText, title, columnSearch = columnSearch)
 			gui.mainFrame.prePopup()
 			d.Raise()
 			d.Show()
 			gui.mainFrame.postPopup()
-			splconfig._findDialogOpened = True
+			splmisc._findDialogOpened = True
 		except RuntimeError:
-			wx.CallAfter(splconfig._finderError)
+			wx.CallAfter(splmisc._finderError)
 
 	def script_findTrack(self, gesture):
 		if self._trackFinderCheck(): self.trackFinderGUI()
