@@ -10,7 +10,6 @@
 
 # Minimum version: SPL 5.00, NvDA 2014.3.
 
-import ctypes
 from functools import wraps
 import os
 import time
@@ -31,7 +30,7 @@ import gui
 import wx
 from winUser import user32, sendMessage
 import winKernel
-from NVDAObjects.IAccessible import IAccessible, sysListView32 # SysListView32 is used for Track Dial (see below).
+from NVDAObjects.IAccessible import IAccessible
 import textInfos
 import tones
 import splconfig
@@ -159,29 +158,9 @@ class SPLTrackItem(IAccessible):
 			ui.message(_("{leftmostColumn}: {leftmostContent}").format(leftmostColumn = self.columnHeaders.children[self.appModule.SPLColNumber].name, leftmostContent = self.name))
 
 	# Locate column content.
+	# This is merely the proxy of the module level function defined in the misc module.
 	def _getColumnContent(self, col):
-		# Borrowed from SysListView32 implementation.
-		# For add-on 6.0: see if track items can be subclassed from SysListView32.ListItem.
-		buffer=None
-		processHandle=self.processHandle
-		sizeofLVITEM = ctypes.sizeof(sysListView32.LVITEM)
-		# Because each process in an OS has separate memory spaces, use VM functions to find column content.
-		internalItem=winKernel.virtualAllocEx(processHandle,None,sizeofLVITEM,winKernel.MEM_COMMIT,winKernel.PAGE_READWRITE)
-		try:
-			internalText=winKernel.virtualAllocEx(processHandle,None,520,winKernel.MEM_COMMIT,winKernel.PAGE_READWRITE)
-			try:
-				item=sysListView32.LVITEM(iItem=self.IAccessibleChildID-1,mask=sysListView32.LVIF_TEXT|sysListView32.LVIF_COLUMNS,iSubItem=col,pszText=internalText,cchTextMax=260)
-				winKernel.writeProcessMemory(processHandle,internalItem,ctypes.byref(item),sizeofLVITEM,None)
-				len = sendMessage(self.windowHandle,sysListView32.LVM_GETITEMTEXTW, (self.IAccessibleChildID-1), internalItem)
-				if len:
-					winKernel.readProcessMemory(processHandle,internalItem,ctypes.byref(item),sizeofLVITEM,None)
-					buffer=ctypes.create_unicode_buffer(len)
-					winKernel.readProcessMemory(processHandle,item.pszText,buffer,ctypes.sizeof(buffer),None)
-			finally:
-				winKernel.virtualFreeEx(processHandle,internalText,0,winKernel.MEM_RELEASE)
-		finally:
-			winKernel.virtualFreeEx(processHandle,internalItem,0,winKernel.MEM_RELEASE)
-		return buffer.value if buffer else None
+		return splmisc._getColumnContent(self, col)
 
 	# Announce column content if any.
 	def announceColumnContent(self, colNumber):
@@ -749,8 +728,10 @@ class AppModule(appModuleHandler.AppModule):
 		speech.cancelSpeech()
 		while obj is not None:
 			try:
+				# Do not use column content attribute, because sometimes NVDA will say it isn't a track item when in fact it is.
+				# If this happens, use the module level version of column content getter.
 				if (not column and (text in obj.description or (obj.name and text in obj.name and self.productVersion < "5.10"))
-				or (column and hasattr(obj, "_getColumnContent") and text in obj._getColumnContent(column))):
+				or (column and text in splmisc._getColumnContent(obj, column))):
 					self.findText = text
 					# We need to fire set focus event twice and exit this routine.
 					obj.setFocus(), obj.setFocus()

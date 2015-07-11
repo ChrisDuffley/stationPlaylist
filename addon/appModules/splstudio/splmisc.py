@@ -4,10 +4,40 @@
 # Miscellaneous functions and user interfaces
 # Split from config module in 2015.
 
+import ctypes
 import weakref
 import gui
 import wx
-from winUser import user32
+from NVDAObjects.IAccessible import sysListView32
+from winUser import user32, sendMessage
+import winKernel
+
+# Locate column content.
+# Given an object and the column number, locate text in the given column.
+# This is the module level version of column content getter found in the app module.
+# This is used by the track item class as well as in track finder.
+# In track finder, this is used when encountering the track item but NVDA says otherwise.
+def _getColumnContent(obj, col):
+	# Borrowed from SysListView32 implementation.
+	buffer=None
+	processHandle=obj.processHandle
+	sizeofLVITEM = ctypes.sizeof(sysListView32.LVITEM)
+	internalItem=winKernel.virtualAllocEx(processHandle,None,sizeofLVITEM,winKernel.MEM_COMMIT,winKernel.PAGE_READWRITE)
+	try:
+		internalText=winKernel.virtualAllocEx(processHandle,None,520,winKernel.MEM_COMMIT,winKernel.PAGE_READWRITE)
+		try:
+			item=sysListView32.LVITEM(iItem=obj.IAccessibleChildID-1,mask=sysListView32.LVIF_TEXT|sysListView32.LVIF_COLUMNS,iSubItem=col,pszText=internalText,cchTextMax=260)
+			winKernel.writeProcessMemory(processHandle,internalItem,ctypes.byref(item),sizeofLVITEM,None)
+			len = sendMessage(obj.windowHandle,sysListView32.LVM_GETITEMTEXTW, (obj.IAccessibleChildID-1), internalItem)
+			if len:
+				winKernel.readProcessMemory(processHandle,internalItem,ctypes.byref(item),sizeofLVITEM,None)
+				buffer=ctypes.create_unicode_buffer(len)
+				winKernel.readProcessMemory(processHandle,item.pszText,buffer,ctypes.sizeof(buffer),None)
+		finally:
+			winKernel.virtualFreeEx(processHandle,internalText,0,winKernel.MEM_RELEASE)
+	finally:
+		winKernel.virtualFreeEx(processHandle,internalItem,0,winKernel.MEM_RELEASE)
+	return buffer.value if buffer else None
 
 # A common dialog for Track Finder
 _findDialogOpened = False
