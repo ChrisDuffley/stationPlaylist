@@ -1280,6 +1280,7 @@ class AppModule(appModuleHandler.AppModule):
 	_analysisMarker = None
 
 	def script_markTrackForAnalysis(self, gesture):
+		self.finish()
 		focus = api.getFocusObject()
 		if focus.role == controlTypes.ROLE_LIST:
 			ui.message("No tracks were added, cannot perform track time analysis")
@@ -1293,6 +1294,7 @@ class AppModule(appModuleHandler.AppModule):
 	script_markTrackForAnalysis.__doc__=_("Marks focused track as start marker for track time analysis")
 
 	def script_trackTimeAnalysis(self, gesture):
+		self.finish()
 		focus = api.getFocusObject()
 		if focus.role == controlTypes.ROLE_LIST:
 			ui.message("No tracks were added, cannot perform track time analysis")
