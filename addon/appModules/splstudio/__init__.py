@@ -1261,42 +1261,50 @@ class AppModule(appModuleHandler.AppModule):
 	# Analysis command will be assignable.
 	_analysisMarker = None
 
+	def _trackAnalysisAllowed(self):
+		if api.getForegroundObject().windowClassName != "TStudioForm":
+			ui.message("Not in playlist viewer, cannot perform track time analysis")
+			return False
+		return True
+
 	def script_markTrackForAnalysis(self, gesture):
 		self.finish()
-		focus = api.getFocusObject()
-		if focus.role == controlTypes.ROLE_LIST:
-			ui.message("No tracks were added, cannot perform track time analysis")
-			return
-		if scriptHandler.getLastScriptRepeatCount() == 0:
-			self._analysisMarker = focus.IAccessibleChildID-1
-			ui.message("Track time analysis activated")
-		else:
-			self._analysisMarker = None
-			ui.message("Track time analysis deactivated")
+		if self._trackAnalysisAllowed():
+			focus = api.getFocusObject()
+			if focus.role == controlTypes.ROLE_LIST:
+				ui.message("No tracks were added, cannot perform track time analysis")
+				return
+			if scriptHandler.getLastScriptRepeatCount() == 0:
+				self._analysisMarker = focus.IAccessibleChildID-1
+				ui.message("Track time analysis activated")
+			else:
+				self._analysisMarker = None
+				ui.message("Track time analysis deactivated")
 	script_markTrackForAnalysis.__doc__=_("Marks focused track as start marker for track time analysis")
 
 	def script_trackTimeAnalysis(self, gesture):
 		self.finish()
-		focus = api.getFocusObject()
-		if focus.role == controlTypes.ROLE_LIST:
-			ui.message("No tracks were added, cannot perform track time analysis")
-			return
-		if self._analysisMarker is None:
-			ui.message("No track selected as start of analysis marker, cannot perform time analysis")
-			return
-		trackPos = focus.IAccessibleChildID-1
-		if self._analysisMarker == trackPos:
-			filename = statusAPI(self._analysisMarker, 211, ret=True)
-			statusAPI(filename, 30, func=self.announceTime)
-		else:
-			analysisBegin = min(self._analysisMarker, trackPos)
-			analysisEnd = max(self._analysisMarker, trackPos)
-			analysisRange = analysisEnd-analysisBegin+1
-			totalLength = 0
-			for track in xrange(analysisBegin, analysisEnd+1):
-				filename = statusAPI(track, 211, ret=True)
-				totalLength+=statusAPI(filename, 30, ret=True)
-			ui.message("Tracks: {numberOfSelectedTracks}, totaling {totalTime}".format(numberOfSelectedTracks = analysisRange, totalTime = self._ms2time(totalLength)))
+		if self._trackAnalysisAllowed():
+			focus = api.getFocusObject()
+			if focus.role == controlTypes.ROLE_LIST:
+				ui.message("No tracks were added, cannot perform track time analysis")
+				return
+			if self._analysisMarker is None:
+				ui.message("No track selected as start of analysis marker, cannot perform time analysis")
+				return
+			trackPos = focus.IAccessibleChildID-1
+			if self._analysisMarker == trackPos:
+				filename = statusAPI(self._analysisMarker, 211, ret=True)
+				statusAPI(filename, 30, func=self.announceTime)
+			else:
+				analysisBegin = min(self._analysisMarker, trackPos)
+				analysisEnd = max(self._analysisMarker, trackPos)
+				analysisRange = analysisEnd-analysisBegin+1
+				totalLength = 0
+				for track in xrange(analysisBegin, analysisEnd+1):
+					filename = statusAPI(track, 211, ret=True)
+					totalLength+=statusAPI(filename, 30, ret=True)
+				ui.message("Tracks: {numberOfSelectedTracks}, totaling {totalTime}".format(numberOfSelectedTracks = analysisRange, totalTime = self._ms2time(totalLength)))
 	script_trackTimeAnalysis.__doc__=_("Announces total length of tracks between analysis start marker and the current track")
 
 	def script_layerHelp(self, gesture):
