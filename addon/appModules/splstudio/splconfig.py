@@ -152,6 +152,8 @@ def saveConfig():
 
 
 # Configuration dialog.
+_configDialogOpened = False
+
 class SPLConfigDialog(gui.SettingsDialog):
 	# Translators: This is the label for the StationPlaylist Studio configuration dialog.
 	title = _("Studio Add-on Settings")
@@ -321,6 +323,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 		sizer.Add(self.resetConfigButton)
 
 	def postInit(self):
+		global _configDialogOpened
+		_configDialogOpened = True
 		self.profiles.SetFocus()
 
 	def onOk(self, evt):
@@ -332,7 +336,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 				_("Error"), wx.OK|wx.ICON_ERROR,self)
 			self.micAlarm.SetFocus()
 			return
-		global SPLConfig
+		global SPLConfig, _configDialogOpened
 		SPLConfig = SPLConfigPool[self.profiles.GetSelection()]
 		SPLConfig["BeepAnnounce"] = self.beepAnnounceCheckbox.Value
 		SPLConfig["SayEndOfTrack"] = self.outroCheckBox.Value
@@ -349,7 +353,13 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["SayScheduledFor"] = self.scheduledForCheckbox.Value
 		SPLConfig["SayListenerCount"] = self.listenerCountCheckbox.Value
 		SPLConfig["SayPlayingCartName"] = self.cartNameCheckbox.Value
+		_configDialogOpened = False
 		super(SPLConfigDialog,  self).onOk(evt)
+
+	def onCancel(self, evt):
+		global _configDialogOpened
+		_configDialogOpened = False
+		super(SPLConfigDialog,  self).onCancel(evt)
 
 	# Check events for outro and intro alarms, respectively.
 	def onOutroCheck(self, evt):
