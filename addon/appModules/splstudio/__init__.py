@@ -578,8 +578,13 @@ class AppModule(appModuleHandler.AppModule):
 	script_sayCompleteTime.__doc__=_("Announces time including seconds.")
 
 	# Set the end of track alarm time between 1 and 59 seconds.
+	# 5.2: Make sure one of either settings or alarm dialogs is open.
 
 	def script_setEndOfTrackTime(self, gesture):
+		if splconfig._configDialogOpened:
+			# Translators: Presented when the add-on config dialog is opened.
+			wx.CallAfter(gui.messageBox, _("The add-on settings dialog is opened. Please close the settings dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
+			return
 		try:
 			timeVal = splconfig.SPLConfig["EndOfTrackTime"]
 			d = splconfig.SPLAlarmDialog(gui.mainFrame, "EndOfTrackTime", "SayEndOfTrack",
@@ -602,6 +607,9 @@ class AppModule(appModuleHandler.AppModule):
 	# Set song ramp (introduction) time between 1 and 9 seconds.
 
 	def script_setSongRampTime(self, gesture):
+		if splconfig._configDialogOpened:
+			wx.CallAfter(gui.messageBox, _("The add-on settings dialog is opened. Please close the settings dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
+			return
 		try:
 			rampVal = long(splconfig.SPLConfig["SongRampTime"])
 			d = splconfig.SPLAlarmDialog(gui.mainFrame, "SongRampTime", "SaySongRamp",
@@ -624,7 +632,10 @@ class AppModule(appModuleHandler.AppModule):
 # Tell NVDA to play a sound when mic was active for a long time.
 
 	def script_setMicAlarm(self, gesture):
-		if splconfig._alarmDialogOpened:
+		if splconfig._configDialogOpened:
+			wx.CallAfter(gui.messageBox, _("The add-on settings dialog is opened. Please close the settings dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
+			return
+		elif splconfig._alarmDialogOpened:
 			wx.CallAfter(splconfig._alarmError)
 			return
 		micAlarm = str(splconfig.SPLConfig["MicAlarm"])
@@ -660,7 +671,11 @@ class AppModule(appModuleHandler.AppModule):
 	# SPL Config management.
 
 	def script_openConfigDialog(self, gesture):
-		wx.CallAfter(splconfig.onConfigDialog, None)
+		# 5.2: Guard against alarm dialogs.
+		if splconfig._alarmDialogOpened:
+			# Translators: Presented when an alarm dialog is opened.
+			wx.CallAfter(gui.messageBox, _("An alarm dialog is already opened. Please close the alarm dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
+		else: wx.CallAfter(splconfig.onConfigDialog, None)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_openConfigDialog.__doc__=_("Opens SPL Studio add-on configuration dialog.")
 
