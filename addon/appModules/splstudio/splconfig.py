@@ -43,7 +43,7 @@ SPLConfig = None
 SPLConfigPool = []
 
 # The following settings can be changed in profiles:
-_mutableSettings=("SayEndOfTrack","EndOfTrackTime","SaySongRamp","SongRampTime","MicAlarm")
+_mutatableSettings=("SayEndOfTrack","EndOfTrackTime","SaySongRamp","SongRampTime","MicAlarm")
 
 # Display an error dialog when configuration validation fails.
 def runConfigErrorDialog(errorText, errorType):
@@ -75,8 +75,9 @@ _configLoadStatus = {} # Key = filename, value is pass or no pass.
 
 def initConfig():
 	# Load the default config from a list of profiles.
-	global SPLConfig, SPLConfigPool, _configLoadStatus
+	global SPLConfig, SPLConfigPool, _configLoadStatus, SPLActiveProfile
 	if SPLConfigPool is None: SPLConfigPool = []
+	if SPLActiveProfile is None: SPLActiveProfile = 0
 	SPLConfigPool.append(unlockConfig(SPLIni, profileName="Normal profile", prefill=True))
 	try:
 		profiles = filter(lambda fn: os.path.splitext(fn)[-1] == ".ini", os.listdir(SPLProfiles))
@@ -137,11 +138,11 @@ def _preSave(conf):
 	# Save configuration database.
 def saveConfig():
 	# Save all config profiles.
-	global SPLConfig, SPLConfigPool
+	global SPLConfig, SPLConfigPool, SPLActiveProfile
 	# Apply any global settings changed in profiles to normal configuration.
 	if SPLConfigPool.index(SPLConfig) > 0:
 		for setting in SPLConfig:
-			if setting not in _mutableSettings:
+			if setting not in _mutatableSettings:
 				SPLConfigPool[0][setting] = SPLConfig[setting]
 	for configuration in SPLConfigPool:
 		if configuration is not None:
@@ -149,7 +150,30 @@ def saveConfig():
 			configuration.write()
 	SPLConfig = None
 	SPLConfigPool = None
+	SPLActiveProfile = None
 
+# Switch between profiles.
+SPLActiveProfile = None
+SPLPrevProfile = None
+SPLSwitchProfile = 1
+
+# Called from within the app module.
+def instantProfileSwitch():
+	global SPLPrevProfile, SPLConfig
+	if SPLSwitchProfile is None:
+		ui.message("No instant switch profile is defined")
+	else:
+		if SPLActiveProfile == SPLSwitchProfile:
+			ui.message("You are already in the active profile")
+		elif SPLPrevProfile is None:
+			# Switch to the given profile.
+			SPLPrevProfile = SPLConfigPool.index(SPLConfig)
+			SPLConfig = SPLConfigPool[SPLSwitchProfile]
+			ui.message("Switching profiles")
+		else:
+			SPLConfig = SPLConfigPool[SPLPrevProfile]
+			SPLPrevProfile = None
+			ui.message("Returning to previous profile")
 
 # Configuration dialog.
 _configDialogOpened = False
@@ -336,8 +360,9 @@ class SPLConfigDialog(gui.SettingsDialog):
 				_("Error"), wx.OK|wx.ICON_ERROR,self)
 			self.micAlarm.SetFocus()
 			return
-		global SPLConfig, _configDialogOpened
-		SPLConfig = SPLConfigPool[self.profiles.GetSelection()]
+		global SPLConfig, SPLActiveProfile, _configDialogOpened
+		selectedProfile = self.profiles.GetSelection()
+		SPLConfig = SPLConfigPool[selectedProfile]
 		SPLConfig["BeepAnnounce"] = self.beepAnnounceCheckbox.Value
 		SPLConfig["SayEndOfTrack"] = self.outroCheckBox.Value
 		SPLConfig["EndOfTrackTime"] = self.endOfTrackAlarm.Value
@@ -353,6 +378,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["SayScheduledFor"] = self.scheduledForCheckbox.Value
 		SPLConfig["SayListenerCount"] = self.listenerCountCheckbox.Value
 		SPLConfig["SayPlayingCartName"] = self.cartNameCheckbox.Value
+		SPLActiveProfile = selectedProfile
 		_configDialogOpened = False
 		super(SPLConfigDialog,  self).onOk(evt)
 

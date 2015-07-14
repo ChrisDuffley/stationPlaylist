@@ -1322,6 +1322,9 @@ class AppModule(appModuleHandler.AppModule):
 				ui.message("Tracks: {numberOfSelectedTracks}, totaling {totalTime}".format(numberOfSelectedTracks = analysisRange, totalTime = self._ms2time(totalLength)))
 	script_trackTimeAnalysis.__doc__=_("Announces total length of tracks between analysis start marker and the current track")
 
+	def script_switchProfiles(self, gesture):
+		splconfig.instantProfileSwitch()
+
 	def script_layerHelp(self, gesture):
 		# Translators: The title for SPL Assistant help dialog.
 		wx.CallAfter(gui.messageBox, SPLAssistantHelp, _("SPL Assistant help"))
@@ -1347,6 +1350,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:shift+r":"libraryScanMonitor",
 		"kb:f9":"markTrackForAnalysis",
 		"kb:f10":"trackTimeAnalysis",
+		"kb:f12":"switchProfiles",
 		"kb:f1":"layerHelp",
 	}
 
