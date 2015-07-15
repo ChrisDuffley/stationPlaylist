@@ -850,7 +850,7 @@ class AppModule(appModuleHandler.AppModule):
 		elif n == 22: identifier = "0"
 		elif n == 23: identifier = "-"
 		else: identifier = "="
-		if modifier == "": cart = identifier
+		if modifier == "main": cart = identifier
 		else: cart = "%s+%s"%(modifier, identifier)
 		self.carts[cart] = cartName
 
@@ -895,12 +895,10 @@ class AppModule(appModuleHandler.AppModule):
 			if not os.path.isfile(cartFile): # Cart explorer will fail if whitespaces are in the beginning or at the end of a user name.
 				cartReadSuccess = False
 				continue
-			cartInfo = open(cartFile)
-			cl = cartInfo.readlines() # cl = cart list.
-			cartInfo.close()
-			del cl[0] # Throw away the empty line (again be careful if the cart file format changes in a future release).
-			preprocessedCarts = cl[0].strip()
-			cartCount += _populateCarts(preprocessedCarts, "") if mod == "main" else _populateCarts(preprocessedCarts, mod) # See the comment for _populate method above.
+			with open(cartFile) as cartInfo:
+				cl = cartInfo.readlines() # cl = cart list.
+			preprocessedCarts = cl[1].strip() # Ignore the empty line (again be careful if the cart file format changes in a future release).
+			cartCount += _populateCarts(preprocessedCarts, mod) # See the comment for _populate method above.
 		return cartReadSuccess, cartCount
 
 	def script_toggleCartExplorer(self, gesture):
