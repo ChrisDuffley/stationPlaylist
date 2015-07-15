@@ -122,7 +122,7 @@ def unlockConfig(path, profileName=None, prefill=False):
 					SPLConfigCheckpoint[setting] = SPLDefaults[setting]
 			SPLConfigCheckpoint.write()
 			_configLoadStatus[profileName] = "partialReset"
-	_extraInitSteps(SPLConfigCheckpoint, profileName)
+	_extraInitSteps(SPLConfigCheckpoint, profileName=profileName)
 	SPLConfigCheckpoint.name = profileName
 	return SPLConfigCheckpoint
 
