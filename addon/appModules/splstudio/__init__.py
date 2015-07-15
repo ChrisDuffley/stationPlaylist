@@ -865,16 +865,20 @@ class AppModule(appModuleHandler.AppModule):
 		else: cart = "%s+%s"%(modifier, identifier)
 		self.carts[cart] = cartName
 
-	def cartsReader(self):
+	def cartsReader(self, standardEdition=False):
 		# Use cart files in SPL's data folder to build carts dictionary.
 		# use a combination of SPL user name and static cart location to locate cart bank files.
 		# Once the cart banks are located, use the routines in the populate method below to assign carts.
 		# Todo: refactor this function by splitting it into several functions.
-		def _populateCarts(c, modifier):
+		# Since sstandard edition does not support number row carts, skip them if told to do so.
+		def _populateCarts(c, modifier, standardEdition=False):
 			# The real cart string parser, a helper for cart explorer for building cart entries.
 			cartlst = c.split("\",\"") # c = cart text.
 			# Get rid of unneeded quotes in cart entries.
-			cartlst[0], cartlst[-1] = cartlst[0][1:], cartlst[-1][:-1]
+			cartlst[0] = cartlst[0][1:]
+			# 5.2: Discard number row if SPL Standard is in use.
+			if standardEdition: cartlst = cartlst[:12]
+			else: cartlst[-1] = cartlst[-1][:-1]
 			n = 0 # To keep track of how many entries were processed, also used to detect license type.
 			for i in cartlst:
 				n+=1
@@ -909,7 +913,7 @@ class AppModule(appModuleHandler.AppModule):
 			with open(cartFile) as cartInfo:
 				cl = cartInfo.readlines() # cl = cart list.
 			preprocessedCarts = cl[1].strip() # Ignore the empty line (again be careful if the cart file format changes in a future release).
-			cartCount += _populateCarts(preprocessedCarts, mod) # See the comment for _populate method above.
+			cartCount += _populateCarts(preprocessedCarts, mod, standardEdition=standardEdition) # See the comment for _populate method above.
 		return cartReadSuccess, cartCount
 
 	def script_toggleCartExplorer(self, gesture):
@@ -921,7 +925,7 @@ class AppModule(appModuleHandler.AppModule):
 				# Translators: Presented when cart explorer cannot be entered.
 				ui.message(_("You are not in playlist viewer, cannot enter cart explorer"))
 				return
-			cartsRead, cartCount = self.cartsReader()
+			cartsRead, cartCount = self.cartsReader(standardEdition=fg.name.startswith("StationPlaylist Studio standard"))
 			if not cartsRead:
 				# Translators: presented when cart explorer could not be switched on.
 				ui.message(_("Some or all carts could not be assigned, cannot enter cart explorer"))
