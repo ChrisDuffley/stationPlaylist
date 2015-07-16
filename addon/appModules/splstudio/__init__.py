@@ -865,7 +865,7 @@ class AppModule(appModuleHandler.AppModule):
 		else: cart = "%s+%s"%(modifier, identifier)
 		self.carts[cart] = cartName
 
-	def cartsReader(self, standardEdition=False):
+	def cartsReader(self, userName, standardEdition=False):
 		# Use cart files in SPL's data folder to build carts dictionary.
 		# use a combination of SPL user name and static cart location to locate cart bank files.
 		# Once the cart banks are located, use the routines in the populate method below to assign carts.
@@ -890,7 +890,6 @@ class AppModule(appModuleHandler.AppModule):
 		# Obtain the "real" path for SPL via environment variables and open the cart data folder.
 		cartsDataPath = os.path.join(os.environ["PROGRAMFILES"],"StationPlaylist","Data") # Provided that Studio was installed using default path.
 		# See if multiple users are using SPl Studio.
-		userName = api.getForegroundObject().name
 		userNameIndex = userName.find("-")
 		# Read *.cart files and process the cart entries within (be careful when these cart file names change between SPL releases).
 		# Until NVDA core moves to Python 3, assume that file names aren't unicode.
@@ -917,6 +916,7 @@ class AppModule(appModuleHandler.AppModule):
 		return cartReadSuccess, cartCount
 
 	def script_toggleCartExplorer(self, gesture):
+		t = time.time()
 		if not self.cartExplorer:
 			# Prevent cart explorer from being engaged outside of playlist viewer.
 			# Todo for 6.0: Let users set cart banks.
@@ -925,9 +925,10 @@ class AppModule(appModuleHandler.AppModule):
 				# Translators: Presented when cart explorer cannot be entered.
 				ui.message(_("You are not in playlist viewer, cannot enter cart explorer"))
 				return
-			#cartsRead, cartCount = self.cartsReader(standardEdition=fg.name.startswith("StationPlaylist Studio Standard"))
+			#cartsRead, cartCount = self.cartsReader(fg.name, standardEdition=fg.name.startswith("StationPlaylist Studio Standard"))
 			self.carts = splmisc.cartExplorerInit(fg.name)
-			if self.carts["faultyCarts"]: #not cartsRead:
+			#if not cartsRead:
+			if self.carts["faultyCarts"]:
 				# Translators: presented when cart explorer could not be switched on.
 				ui.message(_("Some or all carts could not be assigned, cannot enter cart explorer"))
 				return
@@ -943,6 +944,7 @@ class AppModule(appModuleHandler.AppModule):
 			self.carts.clear()
 			# Translators: Presented when cart explorer is off.
 			ui.message(_("Exiting cart explorer"))
+		print time.time()-t
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_toggleCartExplorer.__doc__=_("Toggles cart explorer to learn cart assignments.")
 

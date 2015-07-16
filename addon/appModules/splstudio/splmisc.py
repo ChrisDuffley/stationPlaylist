@@ -174,22 +174,21 @@ def cartExplorerInit(StudioTitle, cartFiles=None):
 		# Until NVDA core moves to Python 3, assume that file names aren't unicode.
 		cartFiles = [u"main carts.cart", u"shift carts.cart", u"ctrl carts.cart", u"alt carts.cart"]
 		if userNameIndex >= 0:
-			cartFiles = [userName[userNameIndex+2:]+" "+cartFile for cartFile in cartFiles]
-	faultyCarts = 0
+			cartFiles = [StudioTitle[userNameIndex+2:]+" "+cartFile for cartFile in cartFiles]
+	faultyCarts = False
 	for f in cartFiles:
 		try:
 			mod = f.split()[-2] # Checking for modifier string such as ctrl.
 			# Todo: Check just in case some SPL flavors doesn't ship with a particular cart file.
 		except IndexError:
-			faultyCarts+=1 # In a rare event that the broadcaster has saved the cart bank with the name like "carts.cart".
+			faultyCarts = True # In a rare event that the broadcaster has saved the cart bank with the name like "carts.cart".
 			continue
 		cartFile = os.path.join(cartsDataPath,f)
 		if not os.path.isfile(cartFile): # Cart explorer will fail if whitespaces are in the beginning or at the end of a user name.
-			faultyCarts+=1
+			faultyCarts = True
 			continue
 		with open(cartFile) as cartInfo:
-			cartsCSV = csv.reader(cartInfo)
-			cl = [row for row in cartsCSV]
+			cl = [row for row in csv.reader(cartInfo)]
 		_populateCarts(carts, cl[1], mod, standardEdition=carts["standardLicense"]) # See the comment for _populate method above.
 	carts["faultyCarts"] = faultyCarts
 	return carts
