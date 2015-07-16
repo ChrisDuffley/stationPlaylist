@@ -61,11 +61,13 @@ def resetConfig(defaults, activeConfig, intentional=False):
 		# Translators: Title of the reset config dialog.
 		_("Reset configuration"), wx.OK|wx.ICON_INFORMATION)
 
-# In case one or more profiles had config issues, look up the error message form the following map.
-_configErrors = (
-	("All settings reset to defaults"),
-	("Some settings reset to defaults")
-)
+# In case one or more profiles had config issues, look up the error message from the following map.
+_configErrors ={
+	"completeReset":"All settings reset to defaults",
+	"partialReset":"Some settings reset to defaults",
+	"columnOrderReset":"Column announcement order reset to defaults",
+	"partialAndColumnOrderReset":"Some settings, including column announcement order reset to defaults"
+}
 
 # To be run in app module constructor.
 # With the load function below, load the config upon request.
@@ -113,21 +115,34 @@ def unlockConfig(path, profileName=None, prefill=False):
 		if not configTest:
 			# Case 1: restore settings to defaults when 5.x config validation has failed on all values.
 			resetConfig(SPLDefaults, SPLConfigCheckpoint)
-			_configLoadStatus[profileName] = 0
+			_configLoadStatus[profileName] = "completeReset"
 		elif isinstance(configTest, dict):
 			# Case 2: For 5.x and later, attempt to reconstruct the failed values.
 			for setting in configTest:
 				if not configTest[setting]:
 					SPLConfigCheckpoint[setting] = SPLDefaults[setting]
 			SPLConfigCheckpoint.write()
-			_configLoadStatus[profileName] = 1
-	_extraInitSteps(SPLConfigCheckpoint)
+			_configLoadStatus[profileName] = "partialReset"
+	_extraInitSteps(SPLConfigCheckpoint, profileName=profileName)
 	SPLConfigCheckpoint.name = profileName
 	return SPLConfigCheckpoint
 
 # Extra initialization steps such as converting value types.
-def _extraInitSteps(conf):
-	conf["ColumnOrder"] = conf["ColumnOrder"].split(",")
+def _extraInitSteps(conf, profileName=None):
+	global _configLoadStatus
+	columnOrder = conf["ColumnOrder"].split(",")
+	# Catch suttle errors.
+	fields = ["Artist","Title","Duration","Intro","Category","Filename"]
+	invalidFields = 0
+	for field in fields:
+		if field not in columnOrder: invalidFields+=1
+	if invalidFields or len(columnOrder) != 6:
+		if profileName in _configLoadStatus and _configLoadStatus[profileName] == "partialReset":
+			_configLoadStatus[profileName] = "partialAndColumnOrderReset"
+		else:
+			_configLoadStatus[profileName] = "columnOrderReset"
+		columnOrder = fields
+	conf["ColumnOrder"] = columnOrder
 	conf["IncludedColumns"] = set(conf["IncludedColumns"].split(","))
 
 # Perform some extra work before writing the config file.

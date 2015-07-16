@@ -143,6 +143,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * You can now ask NVDA to apply certain settings in specific situations by defining broadcast profiles. See the add-on guide for details on broadcast profiles.
 * You can now ask NVDA to report total length of a range of tracks via track time analysis feature. Press SPL Assistant, F9 to mark current track as start marker, move to end of track range and press SPL Assistant, F10. These commands can be reassigned so one doesn't have to invoke SPL Assistant layer to perform track time analysis.
 * Added a column search dialog (command unassigned) to find text in specific columns such as artist or part of file name.
+* Added ability to reorder track column announcement and to suppress announcement of specific columns if "use screen order" is unchecked from add-on settings dialog. Use "manage column announcement" dialog to reorder columns.
 
 ## Changes for 5.1
 
