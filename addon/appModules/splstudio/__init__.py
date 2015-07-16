@@ -925,15 +925,16 @@ class AppModule(appModuleHandler.AppModule):
 				# Translators: Presented when cart explorer cannot be entered.
 				ui.message(_("You are not in playlist viewer, cannot enter cart explorer"))
 				return
-			cartsRead, cartCount = self.cartsReader(standardEdition=fg.name.startswith("StationPlaylist Studio Standard"))
-			if not cartsRead:
+			#cartsRead, cartCount = self.cartsReader(standardEdition=fg.name.startswith("StationPlaylist Studio Standard"))
+			self.carts = splmisc.cartExplorerInit(fg.name)
+			if self.carts["faultyCarts"]: #not cartsRead:
 				# Translators: presented when cart explorer could not be switched on.
 				ui.message(_("Some or all carts could not be assigned, cannot enter cart explorer"))
 				return
 			else:
 				self.cartExplorer = True
 				self.cartsBuilder()
-				self.carts["standardLicense"] = True if cartCount < 96 else False
+				#self.carts["standardLicense"] = True if cartCount < 96 else False
 				# Translators: Presented when cart explorer is on.
 				ui.message(_("Entering cart explorer"))
 		else:
