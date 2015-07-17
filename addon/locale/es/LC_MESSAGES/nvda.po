@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2015-06-28 12:24+0100\n"
+"PO-Revision-Date: 2015-07-12 22:25+0100\n"
 "Last-Translator: Juan C. Buño <quetzatl@eresmas.net>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -22,6 +22,7 @@ msgstr ""
 #. Translators: Presented when only Track Tool is running (Track Dial requires Studio to be running as well).
 msgid "Only Track Tool is running, Track Dial is unavailable"
 msgstr ""
+"Sólo Herramienta de Pista está en ejecución, Dial de Pista no está disponible"
 
 #. Translators: Input help mode message for SPL track item.
 msgid "Toggles track dial on and off."
@@ -591,9 +592,8 @@ msgid "Announce &listener count"
 msgstr "Anunciar recuento de &oyentes"
 
 #. Translators: the label for a setting in SPL add-on settings to announce currently playing cart.
-#, fuzzy
 msgid "&Announce name of the currently playing cart"
-msgstr "Anuncia el tiempo transcurrido de la pista que se está reproduciendo."
+msgstr "&Anuncia el nombre del cart pista que se está reproduciendo."
 
 #. Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
 msgid "Reset settings"
