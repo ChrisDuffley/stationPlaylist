@@ -334,38 +334,38 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# Translators: the label for a setting in SPL add-on settings to toggle track dial mode on and off.
 		self.trackDialCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Track Dial mode"))
 		self.trackDialCheckbox.SetValue(SPLConfig["TrackDial"])
-		sizer.Add(self.trackDialCheckbox, border=10,flag=wx.BOTTOM)
+		settingsSizer.Add(self.trackDialCheckbox, border=10,flag=wx.BOTTOM)
 
 		# Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
 		self.columnOrderCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce columns in the &order shown on screen"))
 		self.columnOrderCheckbox.SetValue(SPLConfig["UseScreenColumnOrder"])
 		self.columnOrder = SPLConfig["ColumnOrder"]
 		self.includedColumns = SPLConfig["IncludedColumns"]
-		sizer.Add(self.columnOrderCheckbox, border=10,flag=wx.BOTTOM)
+		settingsSizer.Add(self.columnOrderCheckbox, border=10,flag=wx.BOTTOM)
 		# Translators: The label of a button to manage column announcements.
 		item = manageColumnsButton = wx.Button(self, label=_("&Manage track column announcements..."))
 		item.Bind(wx.EVT_BUTTON, self.onManageColumns)
-		sizer.Add(item)
+		settingsSizer.Add(item)
 
 		# Translators: the label for a setting in SPL add-on settings to announce scheduled time.
 		self.scheduledForCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce &scheduled time for the selected track"))
 		self.scheduledForCheckbox.SetValue(SPLConfig["SayScheduledFor"])
-		sizer.Add(self.scheduledForCheckbox, border=10,flag=wx.BOTTOM)
+		settingsSizer.Add(self.scheduledForCheckbox, border=10,flag=wx.BOTTOM)
 
 		# Translators: the label for a setting in SPL add-on settings to announce listener count.
 		self.listenerCountCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce &listener count"))
 		self.listenerCountCheckbox.SetValue(SPLConfig["SayListenerCount"])
-		sizer.Add(self.listenerCountCheckbox, border=10,flag=wx.BOTTOM)
+		settingsSizer.Add(self.listenerCountCheckbox, border=10,flag=wx.BOTTOM)
 
 		# Translators: the label for a setting in SPL add-on settings to announce currently playing cart.
 		self.cartNameCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Announce name of the currently playing cart"))
 		self.cartNameCheckbox.SetValue(SPLConfig["SayPlayingCartName"])
-		sizer.Add(self.listenerCountCheckbox, border=10,flag=wx.BOTTOM)
+		settingsSizer.Add(self.cartNameCheckbox, border=10,flag=wx.BOTTOM)
 
 		# Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
 		self.resetConfigButton = wx.Button(self, wx.ID_ANY, label=_("Reset settings"))
 		self.resetConfigButton.Bind(wx.EVT_BUTTON,self.onResetConfig)
-		sizer.Add(self.resetConfigButton)
+		settingsSizer.Add(self.resetConfigButton)
 
 	def postInit(self):
 		global _configDialogOpened
