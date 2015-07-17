@@ -231,9 +231,15 @@ class SPLConfigDialog(gui.SettingsDialog):
 		item = self.deleteButton = wx.Button(self, label=_("&Delete"))
 		item.Bind(wx.EVT_BUTTON, self.onDelete)
 		sizer.Add(item)
+		# Translators: The label of a button to toggle instant profile switching on and off.
+		item = self.instantSwitchButton = wx.Button(self, label=_("Enable instant profile switching"))
+		item.Bind(wx.EVT_BUTTON, self.onInstantSwitch)
+		self.switchProfile = SPLSwitchProfile
+		sizer.Add(item)
 		if SPLConfigPool.index(SPLConfig) == 0:
 			self.renameButton.Disable()
 			self.deleteButton.Disable()
+			self.instantSwitchButton.Disable()
 		settingsSizer.Add(sizer)
 
 	# Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
@@ -430,9 +436,15 @@ class SPLConfigDialog(gui.SettingsDialog):
 		if selection == 0:
 			self.renameButton.Disable()
 			self.deleteButton.Disable()
+			self.instantSwitchButton.Disable()
 		else:
 			self.renameButton.Enable()
 			self.deleteButton.Enable()
+			if selection != self.switchProfile:
+				self.instantSwitchButton.Label = "Enable instant profile switching"
+			else:
+				self.instantSwitchButton.Label = "Disable instant profile switching"
+			self.instantSwitchButton.Enable()
 		selectedProfile = SPLConfigPool[selection]
 		self.outroCheckBox.SetValue(selectedProfile["SayEndOfTrack"])
 		self.endOfTrackAlarm.SetValue(long(selectedProfile["EndOfTrackTime"]))
@@ -504,6 +516,19 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.profiles.Selection = 0
 		self.onProfileSelection(None)
 		self.profiles.SetFocus()
+
+	def onInstantSwitch(self, evt):
+		import tones
+		ui.message(str(self.switchProfile is not None))
+		selection = self.profiles.GetSelection()
+		if self.switchProfile is None or (selection != self.switchProfile):
+			self.instantSwitchButton.Label = "Disable instant profile switching"
+			self.switchProfile = selection
+			tones.beep(1000, 500)
+		else:
+			self.instantSwitchButton.Label = "Enable instant profile switching"
+			self.switchProfile = None
+			tones.beep(500, 500)
 
 	# Manage column announcements.
 	def onManageColumns(self, evt):
