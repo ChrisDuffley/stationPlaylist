@@ -175,6 +175,9 @@ SPLSwitchProfile = 1
 # Called from within the app module.
 def instantProfileSwitch():
 	global SPLPrevProfile, SPLConfig, SPLActiveProfile
+	if _configDialogOpened:
+		ui.message("Add-on settings dialog is open, cannot switch profiles")
+		return
 	if SPLSwitchProfile is None:
 		ui.message("No instant switch profile is defined")
 	else:
