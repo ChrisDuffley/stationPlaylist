@@ -685,11 +685,7 @@ class AppModule(appModuleHandler.AppModule):
 	# SPL Config management.
 
 	def script_openConfigDialog(self, gesture):
-		# 5.2: Guard against alarm dialogs.
-		if splconfig._alarmDialogOpened:
-			# Translators: Presented when an alarm dialog is opened.
-			wx.CallAfter(gui.messageBox, _("An alarm dialog is already opened. Please close the alarm dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
-		else: wx.CallAfter(splconfig.onConfigDialog, None)
+		wx.CallAfter(splconfig.onConfigDialog, None)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_openConfigDialog.__doc__=_("Opens SPL Studio add-on configuration dialog.")
 
