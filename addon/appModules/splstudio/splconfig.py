@@ -505,7 +505,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 # Open the above dialog upon request.
 def onConfigDialog(evt):
-	gui.mainFrame._popupSettingsDialog(SPLConfigDialog)
+	# 5.2: Guard against alarm dialogs.
+	if _alarmDialogOpened:
+		# Translators: Presented when an alarm dialog is opened.
+		wx.CallAfter(gui.messageBox, _("An alarm dialog is already opened. Please close the alarm dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
+	else: gui.mainFrame._popupSettingsDialog(SPLConfigDialog)
 
 # Helper dialogs for add-on settings dialog.
 
