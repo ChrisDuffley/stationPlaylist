@@ -79,8 +79,8 @@ def initConfig():
 	# Load the default config from a list of profiles.
 	global SPLConfig, SPLConfigPool, _configLoadStatus, SPLActiveProfile
 	if SPLConfigPool is None: SPLConfigPool = []
-	if SPLActiveProfile is None: SPLActiveProfile = 0
-	SPLConfigPool.append(unlockConfig(SPLIni, profileName="Normal profile", prefill=True))
+	if SPLActiveProfile is None: SPLActiveProfile = "Normal profile"
+	SPLConfigPool.append(unlockConfig(SPLIni, profileName=SPLActiveProfile, prefill=True))
 	try:
 		profiles = filter(lambda fn: os.path.splitext(fn)[-1] == ".ini", os.listdir(SPLProfiles))
 		for profile in profiles:
@@ -170,7 +170,7 @@ def saveConfig():
 # Switch between profiles.
 SPLActiveProfile = None
 SPLPrevProfile = None
-SPLSwitchProfile = 1
+SPLSwitchProfile = None
 
 # Called from within the app module.
 def instantProfileSwitch():
@@ -186,12 +186,13 @@ def instantProfileSwitch():
 				ui.message("You are already in the instant switch profile")
 				return
 			# Switch to the given profile.
+			switchProfileIndex = [profile.name for profile in SPLConfigPool].index(SPLSwitchProfile)
 			SPLPrevProfile = SPLConfigPool.index(SPLConfig)
-			SPLConfig = SPLConfigPool[SPLSwitchProfile]
+			SPLConfig = SPLConfigPool[switchProfileIndex]
 			ui.message("Switching profiles")
 		else:
 			SPLConfig = SPLConfigPool[SPLPrevProfile]
-			SPLActiveProfile = SPLPrevProfile
+			SPLActiveProfile = SPLConfig.name
 			SPLPrevProfile = None
 			ui.message("Returning to previous profile")
 
@@ -237,7 +238,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		item.Bind(wx.EVT_BUTTON, self.onDelete)
 		sizer.Add(item)
 		# Translators: The label of a button to toggle instant profile switching on and off.
-		if SPLPrevProfile is None: switchLabel = "Enable instant profile switching"
+		if SPLPrevProfile is None and SPLSwitchProfile is None: switchLabel = "Enable instant profile switching"
 		else: switchLabel = "Disable instant profile switching"
 		item = self.instantSwitchButton = wx.Button(self, label=switchLabel)
 		item.Bind(wx.EVT_BUTTON, self.onInstantSwitch)
@@ -388,7 +389,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 				_("Error"), wx.OK|wx.ICON_ERROR,self)
 			self.micAlarm.SetFocus()
 			return
-		global SPLConfig, SPLActiveProfile, _configDialogOpened
+		global SPLConfig, SPLActiveProfile, _configDialogOpened, SPLSwitchProfile
 		selectedProfile = self.profiles.GetSelection()
 		SPLConfig = SPLConfigPool[selectedProfile]
 		SPLConfig["BeepAnnounce"] = self.beepAnnounceCheckbox.Value
@@ -406,7 +407,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["SayScheduledFor"] = self.scheduledForCheckbox.Value
 		SPLConfig["SayListenerCount"] = self.listenerCountCheckbox.Value
 		SPLConfig["SayPlayingCartName"] = self.cartNameCheckbox.Value
-		SPLActiveProfile = selectedProfile
+		SPLActiveProfile = SPLConfigPool[selectedProfile].name
+		SPLSwitchProfile = self.switchProfile
 		_configDialogOpened = False
 		super(SPLConfigDialog,  self).onOk(evt)
 
@@ -447,7 +449,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		else:
 			self.renameButton.Enable()
 			self.deleteButton.Enable()
-			if selection != self.switchProfile:
+			if SPLConfigPool[selection].name != self.switchProfile:
 				self.instantSwitchButton.Label = "Enable instant profile switching"
 			else:
 				self.instantSwitchButton.Label = "Disable instant profile switching"
@@ -527,9 +529,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 	def onInstantSwitch(self, evt):
 		import tones
 		selection = self.profiles.GetSelection()
-		if self.switchProfile is None or (selection != self.switchProfile):
+		selectedName = SPLConfigPool[selection].name
+		if self.switchProfile is None or (selectedName != self.switchProfile):
 			self.instantSwitchButton.Label = "Disable instant profile switching"
-			self.switchProfile = selection
+			self.switchProfile = selectedName
 			tones.beep(1000, 500)
 		else:
 			self.instantSwitchButton.Label = "Enable instant profile switching"
