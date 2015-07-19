@@ -4,8 +4,12 @@
 # Miscellaneous functions and user interfaces
 # Split from config module in 2015.
 
+# JL's disclaimer: Apart from CSV module, others in this folder are my modules. CSV is part of Python distribution (Copyright Python Software Foundation).
+
 import ctypes
 import weakref
+import os
+import csv # For cart explorer.
 import gui
 import wx
 from NVDAObjects.IAccessible import sysListView32
@@ -128,4 +132,64 @@ class SPLFindDialog(wx.Dialog):
 		self.Destroy()
 		global _findDialogOpened
 		_findDialogOpened = False
+
+
+# Cart Explorer helper.
+
+def _populateCarts(carts, cartlst, modifier, standardEdition=False):
+	# The real cart string parser, a helper for cart explorer for building cart entries.
+	# 5.2: Discard number row if SPL Standard is in use.
+	if standardEdition: cartlst = cartlst[:12]
+	for entry in cartlst:
+		# An unassigned cart is stored with three consecutive commas, so skip it.
+		if ",,," in entry: continue
+		# Pos between 1 and 12 = function carts, 13 through 24 = number row carts, modifiers are checked.
+		pos = cartlst.index(entry)+1
+		# If a cart name has commas or other characters, SPL surrounds the cart name with quotes (""), so parse it as well.
+		if not entry.startswith('""'): cartName = entry.split(",")[0]
+		else: cartName = entry.split('""')[1]
+		if pos <= 12: identifier = "f%s"%(pos)
+		elif 12 < pos < 22: identifier = str(pos-12)
+		elif pos == 22: identifier = "0"
+		elif pos == 23: identifier = "-"
+		else: identifier = "="
+		if modifier == "main": cart = identifier
+		else: cart = "%s+%s"%(modifier, identifier)
+		carts[cart] = cartName
+
+# Initialize Cart Explorer i.e. fetch carts.
+# Cart files list is for future use when custom cart names are used.
+def cartExplorerInit(StudioTitle, cartFiles=None):
+	# Use cart files in SPL's data folder to build carts dictionary.
+	# use a combination of SPL user name and static cart location to locate cart bank files.
+	# Once the cart banks are located, use the routines in the populate method below to assign carts.
+	# Since sstandard edition does not support number row carts, skip them if told to do so.
+	carts = {"standardLicense":StudioTitle.startswith("StationPlaylist Studio Standard")}
+	# Obtain the "real" path for SPL via environment variables and open the cart data folder.
+	cartsDataPath = os.path.join(os.environ["PROGRAMFILES"],"StationPlaylist","Data") # Provided that Studio was installed using default path.
+	if cartFiles is None:
+		# See if multiple users are using SPl Studio.
+		userNameIndex = StudioTitle.find("-")
+		# Read *.cart files and process the cart entries within (be careful when these cart file names change between SPL releases).
+		# Until NVDA core moves to Python 3, assume that file names aren't unicode.
+		cartFiles = [u"main carts.cart", u"shift carts.cart", u"ctrl carts.cart", u"alt carts.cart"]
+		if userNameIndex >= 0:
+			cartFiles = [StudioTitle[userNameIndex+2:]+" "+cartFile for cartFile in cartFiles]
+	faultyCarts = False
+	for f in cartFiles:
+		try:
+			mod = f.split()[-2] # Checking for modifier string such as ctrl.
+			# Todo: Check just in case some SPL flavors doesn't ship with a particular cart file.
+		except IndexError:
+			faultyCarts = True # In a rare event that the broadcaster has saved the cart bank with the name like "carts.cart".
+			continue
+		cartFile = os.path.join(cartsDataPath,f)
+		if not os.path.isfile(cartFile): # Cart explorer will fail if whitespaces are in the beginning or at the end of a user name.
+			faultyCarts = True
+			continue
+		with open(cartFile) as cartInfo:
+			cl = [row for row in csv.reader(cartInfo)]
+		_populateCarts(carts, cl[1], mod, standardEdition=carts["standardLicense"]) # See the comment for _populate method above.
+	carts["faultyCarts"] = faultyCarts
+	return carts
 
