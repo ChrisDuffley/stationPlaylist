@@ -238,7 +238,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		item.Bind(wx.EVT_BUTTON, self.onDelete)
 		sizer.Add(item)
 		# Translators: The label of a button to toggle instant profile switching on and off.
-		if SPLPrevProfile is None and SPLSwitchProfile is None: switchLabel = "Enable instant profile switching"
+		if SPLSwitchProfile is None: switchLabel = "Enable instant profile switching"
 		else: switchLabel = "Disable instant profile switching"
 		item = self.instantSwitchButton = wx.Button(self, label=switchLabel)
 		item.Bind(wx.EVT_BUTTON, self.onInstantSwitch)
@@ -389,7 +389,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 				_("Error"), wx.OK|wx.ICON_ERROR,self)
 			self.micAlarm.SetFocus()
 			return
-		global SPLConfig, SPLActiveProfile, _configDialogOpened, SPLSwitchProfile
+		global SPLConfig, SPLActiveProfile, _configDialogOpened, SPLSwitchProfile, SPLPrevProfile
 		selectedProfile = self.profiles.GetSelection()
 		SPLConfig = SPLConfigPool[selectedProfile]
 		SPLConfig["BeepAnnounce"] = self.beepAnnounceCheckbox.Value
@@ -409,6 +409,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["SayPlayingCartName"] = self.cartNameCheckbox.Value
 		SPLActiveProfile = SPLConfigPool[selectedProfile].name
 		SPLSwitchProfile = self.switchProfile
+		# Without nullifying prev profile while switch profile is undefined, NVDA will assume it can switch back to that profile when it can't.
+		# It also causes NVDA to display wrong label for switch button.
+		if self.switchProfile is None:
+			SPLPrevProfile = None
 		_configDialogOpened = False
 		super(SPLConfigDialog,  self).onOk(evt)
 
