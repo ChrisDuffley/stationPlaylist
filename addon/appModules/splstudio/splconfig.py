@@ -212,7 +212,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.profiles = wx.Choice(self, wx.ID_ANY, choices=[profile.name for profile in SPLConfigPool])
 		self.profiles.Bind(wx.EVT_CHOICE, self.onProfileSelection)
 		try:
-			self.profiles.SetSelection(SPLConfigPool.index(SPLConfig))
+			self.profiles.SetSelection([profile.name for profile in SPLConfigPool].index(SPLConfig.name))
 		except:
 			pass
 		sizer.Add(label)
