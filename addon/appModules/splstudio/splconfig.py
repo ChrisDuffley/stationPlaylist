@@ -31,8 +31,8 @@ MicAlarm = integer(min=0, default="0")
 LibraryScanAnnounce = option("off", "ending", "progress", "numbers", default="off")
 TrackDial = boolean(default=false)
 UseScreenColumnOrder = boolean(default=true)
-ColumnOrder = string(default="Artist,Title,Duration,Intro,Category,Filename")
-IncludedColumns = string(default="Artist,Title,Duration,Intro,Category,Filename")
+ColumnOrder = string_list(default=list("Artist","Title","Duration","Intro","Category","Filename"))
+IncludedColumns = string_list(default=list("Artist","Title","Duration","Intro","Category","Filename"))
 SayScheduledFor = boolean(default=true)
 SayListenerCount = boolean(default=true)
 SayPlayingCartName = boolean(default=true)
@@ -130,7 +130,7 @@ def unlockConfig(path, profileName=None, prefill=False):
 # Extra initialization steps such as converting value types.
 def _extraInitSteps(conf, profileName=None):
 	global _configLoadStatus
-	columnOrder = conf["ColumnOrder"].split(",")
+	columnOrder = conf["ColumnOrder"]
 	# Catch suttle errors.
 	fields = ["Artist","Title","Duration","Intro","Category","Filename"]
 	invalidFields = 0
@@ -143,12 +143,12 @@ def _extraInitSteps(conf, profileName=None):
 			_configLoadStatus[profileName] = "columnOrderReset"
 		columnOrder = fields
 	conf["ColumnOrder"] = columnOrder
-	conf["IncludedColumns"] = set(conf["IncludedColumns"].split(","))
+	conf["IncludedColumns"] = set(conf["IncludedColumns"])
 
 # Perform some extra work before writing the config file.
 def _preSave(conf):
-	conf["ColumnOrder"] = ",".join(conf["ColumnOrder"])
-	conf["IncludedColumns"] = ",".join(conf["IncludedColumns"])
+	#conf["ColumnOrder"] = ",".join(conf["ColumnOrder"])
+	conf["IncludedColumns"] = list(conf["IncludedColumns"])
 
 	# Save configuration database.
 def saveConfig():
