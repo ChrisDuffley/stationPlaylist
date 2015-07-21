@@ -31,8 +31,8 @@ MicAlarm = integer(min=0, default="0")
 LibraryScanAnnounce = option("off", "ending", "progress", "numbers", default="off")
 TrackDial = boolean(default=false)
 UseScreenColumnOrder = boolean(default=true)
-ColumnOrder = string(default="Artist,Title,Duration,Intro,Category,Filename")
-IncludedColumns = string(default="Artist,Title,Duration,Intro,Category,Filename")
+ColumnOrder = string_list(default=list("Artist","Title","Duration","Intro","Category","Filename"))
+IncludedColumns = string_list(default=list("Artist","Title","Duration","Intro","Category","Filename"))
 SayScheduledFor = boolean(default=true)
 SayListenerCount = boolean(default=true)
 SayPlayingCartName = boolean(default=true)
@@ -43,7 +43,7 @@ SPLConfig = None
 SPLConfigPool = []
 
 # The following settings can be changed in profiles:
-_mutableSettings=("SayEndOfTrack","EndOfTrackTime","SaySongRamp","SongRampTime","MicAlarm")
+_mutatableSettings=("SayEndOfTrack","EndOfTrackTime","SaySongRamp","SongRampTime","MicAlarm")
 
 # Display an error dialog when configuration validation fails.
 def runConfigErrorDialog(errorText, errorType):
@@ -77,9 +77,10 @@ _configLoadStatus = {} # Key = filename, value is pass or no pass.
 
 def initConfig():
 	# Load the default config from a list of profiles.
-	global SPLConfig, SPLConfigPool, _configLoadStatus
+	global SPLConfig, SPLConfigPool, _configLoadStatus, SPLActiveProfile
 	if SPLConfigPool is None: SPLConfigPool = []
-	SPLConfigPool.append(unlockConfig(SPLIni, profileName="Normal profile", prefill=True))
+	if SPLActiveProfile is None: SPLActiveProfile = "Normal profile"
+	SPLConfigPool.append(unlockConfig(SPLIni, profileName=SPLActiveProfile, prefill=True))
 	try:
 		profiles = filter(lambda fn: os.path.splitext(fn)[-1] == ".ini", os.listdir(SPLProfiles))
 		for profile in profiles:
@@ -129,7 +130,7 @@ def unlockConfig(path, profileName=None, prefill=False):
 # Extra initialization steps such as converting value types.
 def _extraInitSteps(conf, profileName=None):
 	global _configLoadStatus
-	columnOrder = conf["ColumnOrder"].split(",")
+	columnOrder = conf["ColumnOrder"]
 	# Catch suttle errors.
 	fields = ["Artist","Title","Duration","Intro","Category","Filename"]
 	invalidFields = 0
@@ -142,21 +143,21 @@ def _extraInitSteps(conf, profileName=None):
 			_configLoadStatus[profileName] = "columnOrderReset"
 		columnOrder = fields
 	conf["ColumnOrder"] = columnOrder
-	conf["IncludedColumns"] = set(conf["IncludedColumns"].split(","))
+	conf["IncludedColumns"] = set(conf["IncludedColumns"])
 
 # Perform some extra work before writing the config file.
 def _preSave(conf):
-	conf["ColumnOrder"] = ",".join(conf["ColumnOrder"])
-	conf["IncludedColumns"] = ",".join(conf["IncludedColumns"])
+	#conf["ColumnOrder"] = ",".join(conf["ColumnOrder"])
+	conf["IncludedColumns"] = list(conf["IncludedColumns"])
 
 	# Save configuration database.
 def saveConfig():
 	# Save all config profiles.
-	global SPLConfig, SPLConfigPool
+	global SPLConfig, SPLConfigPool, SPLActiveProfile
 	# Apply any global settings changed in profiles to normal configuration.
 	if SPLConfigPool.index(SPLConfig) > 0:
 		for setting in SPLConfig:
-			if setting not in _mutableSettings:
+			if setting not in _mutatableSettings:
 				SPLConfigPool[0][setting] = SPLConfig[setting]
 	for configuration in SPLConfigPool:
 		if configuration is not None:
@@ -164,7 +165,36 @@ def saveConfig():
 			configuration.write()
 	SPLConfig = None
 	SPLConfigPool = None
+	SPLActiveProfile = None
 
+# Switch between profiles.
+SPLActiveProfile = None
+SPLPrevProfile = None
+SPLSwitchProfile = None
+
+# Called from within the app module.
+def instantProfileSwitch():
+	global SPLPrevProfile, SPLConfig, SPLActiveProfile
+	if _configDialogOpened:
+		ui.message("Add-on settings dialog is open, cannot switch profiles")
+		return
+	if SPLSwitchProfile is None:
+		ui.message("No instant switch profile is defined")
+	else:
+		if SPLPrevProfile is None:
+			if SPLActiveProfile == SPLSwitchProfile:
+				ui.message("You are already in the instant switch profile")
+				return
+			# Switch to the given profile.
+			switchProfileIndex = [profile.name for profile in SPLConfigPool].index(SPLSwitchProfile)
+			SPLPrevProfile = SPLConfigPool.index(SPLConfig)
+			SPLConfig = SPLConfigPool[switchProfileIndex]
+			ui.message("Switching profiles")
+		else:
+			SPLConfig = SPLConfigPool[SPLPrevProfile]
+			SPLActiveProfile = SPLConfig.name
+			SPLPrevProfile = None
+			ui.message("Returning to previous profile")
 
 # Configuration dialog.
 _configDialogOpened = False
@@ -182,7 +212,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.profiles = wx.Choice(self, wx.ID_ANY, choices=[profile.name for profile in SPLConfigPool])
 		self.profiles.Bind(wx.EVT_CHOICE, self.onProfileSelection)
 		try:
-			self.profiles.SetSelection(SPLConfigPool.index(SPLConfig))
+			self.profiles.SetSelection([profile.name for profile in SPLConfigPool].index(SPLConfig.name))
 		except:
 			pass
 		sizer.Add(label)
@@ -207,9 +237,17 @@ class SPLConfigDialog(gui.SettingsDialog):
 		item = self.deleteButton = wx.Button(self, label=_("&Delete"))
 		item.Bind(wx.EVT_BUTTON, self.onDelete)
 		sizer.Add(item)
+		# Translators: The label of a button to toggle instant profile switching on and off.
+		if SPLSwitchProfile is None: switchLabel = "Enable instant profile switching"
+		else: switchLabel = "Disable instant profile switching"
+		item = self.instantSwitchButton = wx.Button(self, label=switchLabel)
+		item.Bind(wx.EVT_BUTTON, self.onInstantSwitch)
+		self.switchProfile = SPLSwitchProfile
+		sizer.Add(item)
 		if SPLConfigPool.index(SPLConfig) == 0:
 			self.renameButton.Disable()
 			self.deleteButton.Disable()
+			self.instantSwitchButton.Disable()
 		settingsSizer.Add(sizer)
 
 	# Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
@@ -351,8 +389,9 @@ class SPLConfigDialog(gui.SettingsDialog):
 				_("Error"), wx.OK|wx.ICON_ERROR,self)
 			self.micAlarm.SetFocus()
 			return
-		global SPLConfig, _configDialogOpened
-		SPLConfig = SPLConfigPool[self.profiles.GetSelection()]
+		global SPLConfig, SPLActiveProfile, _configDialogOpened, SPLSwitchProfile, SPLPrevProfile
+		selectedProfile = self.profiles.GetSelection()
+		SPLConfig = SPLConfigPool[selectedProfile]
 		SPLConfig["BeepAnnounce"] = self.beepAnnounceCheckbox.Value
 		SPLConfig["SayEndOfTrack"] = self.outroCheckBox.Value
 		SPLConfig["EndOfTrackTime"] = self.endOfTrackAlarm.Value
@@ -368,6 +407,12 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["SayScheduledFor"] = self.scheduledForCheckbox.Value
 		SPLConfig["SayListenerCount"] = self.listenerCountCheckbox.Value
 		SPLConfig["SayPlayingCartName"] = self.cartNameCheckbox.Value
+		SPLActiveProfile = SPLConfigPool[selectedProfile].name
+		SPLSwitchProfile = self.switchProfile
+		# Without nullifying prev profile while switch profile is undefined, NVDA will assume it can switch back to that profile when it can't.
+		# It also causes NVDA to display wrong label for switch button.
+		if self.switchProfile is None:
+			SPLPrevProfile = None
 		_configDialogOpened = False
 		super(SPLConfigDialog,  self).onOk(evt)
 
@@ -404,9 +449,15 @@ class SPLConfigDialog(gui.SettingsDialog):
 		if selection == 0:
 			self.renameButton.Disable()
 			self.deleteButton.Disable()
+			self.instantSwitchButton.Disable()
 		else:
 			self.renameButton.Enable()
 			self.deleteButton.Enable()
+			if SPLConfigPool[selection].name != self.switchProfile:
+				self.instantSwitchButton.Label = "Enable instant profile switching"
+			else:
+				self.instantSwitchButton.Label = "Disable instant profile switching"
+			self.instantSwitchButton.Enable()
 		selectedProfile = SPLConfigPool[selection]
 		self.outroCheckBox.SetValue(selectedProfile["SayEndOfTrack"])
 		self.endOfTrackAlarm.SetValue(long(selectedProfile["EndOfTrackTime"]))
@@ -479,6 +530,19 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.onProfileSelection(None)
 		self.profiles.SetFocus()
 
+	def onInstantSwitch(self, evt):
+		import tones
+		selection = self.profiles.GetSelection()
+		selectedName = SPLConfigPool[selection].name
+		if self.switchProfile is None or (selectedName != self.switchProfile):
+			self.instantSwitchButton.Label = "Disable instant profile switching"
+			self.switchProfile = selectedName
+			tones.beep(1000, 500)
+		else:
+			self.instantSwitchButton.Label = "Enable instant profile switching"
+			self.switchProfile = None
+			tones.beep(500, 500)
+
 	# Manage column announcements.
 	def onManageColumns(self, evt):
 		self.Disable()
@@ -505,7 +569,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 # Open the above dialog upon request.
 def onConfigDialog(evt):
-	gui.mainFrame._popupSettingsDialog(SPLConfigDialog)
+	# 5.2: Guard against alarm dialogs.
+	if _alarmDialogOpened:
+		# Translators: Presented when an alarm dialog is opened.
+		wx.CallAfter(gui.messageBox, _("An alarm dialog is already opened. Please close the alarm dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
+	else: gui.mainFrame._popupSettingsDialog(SPLConfigDialog)
 
 # Helper dialogs for add-on settings dialog.
 

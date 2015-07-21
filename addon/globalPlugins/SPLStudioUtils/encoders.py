@@ -28,6 +28,7 @@ SPLMSG = winUser.WM_USER
 
 # Various SPL IPC tags.
 SPLPlay = 12
+SPL_TrackPlaybackStatus = 104
 
 # Needed in Encoder support:
 SPLFocusToStudio = set() # Whether to focus to Studio or not.
@@ -59,14 +60,30 @@ def loadStreamLabels():
 		SPLStreamLabels = {}
 
 # Report number of encoders being monitored.
+# 6.0: Refactor the below function to use the newer encoder config format.
+def getStreamLabel(identifier):
+	encoderType, id = identifier.split()
+	# 5.2: Use a static map.
+	# 6.0: Look up the encoder type.
+	if encoderType == "SAM": labels = SAMStreamLabels
+	elif encoderType == "SPL": labels = SPLStreamLabels
+	if id in labels: return labels[id]
+	return None
+
 def announceNumMonitoringEncoders():
 	monitorCount = len(SPLBackgroundMonitor)
 	if not monitorCount:
 		# Translators: Message presented when there are no encoders being monitored.
 		ui.message(_("No encoders are being monitored"))
 	else:
+		# Locate stream labels if any.
+		labels = []
+		for identifier in SPLBackgroundMonitor:
+			label = getStreamLabel(identifier)
+			if label is None: labels.append(identifier)
+			else: labels.append("{encoderID} ({streamLabel})".format(encoderID = identifier, streamLabel=label))
 		# Translators: Announces number of encoders being monitored in the background.
-		ui.message(_("Number of encoders monitored: {numberOfEncoders}").format(numberOfEncoders = monitorCount))
+		ui.message(_("Number of encoders monitored: {numberOfEncoders}: {streamLabels}").format(numberOfEncoders = monitorCount, streamLabels=", ".join(labels)))
 
 # Try to see if SPL foreground object can be fetched. This is used for switching to SPL Studio window from anywhere and to switch to Studio window from SAM encoder window.
 
@@ -305,7 +322,9 @@ class SAMEncoder(Encoder):
 						pass
 				focused = True
 				if self.playAfterConnecting and not encoding:
-					winUser.sendMessage(SPLWin, SPLMSG, 0, SPLPlay)
+					# Do not interupt the currently playing track.
+					if winUser.sendMessage(SPLWin, SPLMSG, 0, SPL_TrackPlaybackStatus) == 0:
+						winUser.sendMessage(SPLWin, SPLMSG, 0, SPLPlay)
 				if not encoding: encoding = True
 			else:
 				if alreadyEncoding: alreadyEncoding = False
@@ -407,7 +426,9 @@ class SAMEncoder(Encoder):
 
 	__gestures={
 		"kb:f9":"connect",
-		"kb:f10":"disconnect"
+		"kb:control+f9":"connect",
+		"kb:f10":"disconnect",
+		"kb:control+f10":"disconnect"
 	}
 
 

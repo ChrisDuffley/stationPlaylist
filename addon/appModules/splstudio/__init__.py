@@ -685,11 +685,7 @@ class AppModule(appModuleHandler.AppModule):
 	# SPL Config management.
 
 	def script_openConfigDialog(self, gesture):
-		# 5.2: Guard against alarm dialogs.
-		if splconfig._alarmDialogOpened:
-			# Translators: Presented when an alarm dialog is opened.
-			wx.CallAfter(gui.messageBox, _("An alarm dialog is already opened. Please close the alarm dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
-		else: wx.CallAfter(splconfig.onConfigDialog, None)
+		wx.CallAfter(splconfig.onConfigDialog, None)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_openConfigDialog.__doc__=_("Opens SPL Studio add-on configuration dialog.")
 
@@ -1327,6 +1323,9 @@ class AppModule(appModuleHandler.AppModule):
 				ui.message("Tracks: {numberOfSelectedTracks}, totaling {totalTime}".format(numberOfSelectedTracks = analysisRange, totalTime = self._ms2time(totalLength)))
 	script_trackTimeAnalysis.__doc__=_("Announces total length of tracks between analysis start marker and the current track")
 
+	def script_switchProfiles(self, gesture):
+		splconfig.instantProfileSwitch()
+
 	def script_layerHelp(self, gesture):
 		# Translators: The title for SPL Assistant help dialog.
 		wx.CallAfter(gui.messageBox, SPLAssistantHelp, _("SPL Assistant help"))
@@ -1352,6 +1351,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:shift+r":"libraryScanMonitor",
 		"kb:f9":"markTrackForAnalysis",
 		"kb:f10":"trackTimeAnalysis",
+		"kb:f12":"switchProfiles",
 		"kb:f1":"layerHelp",
 	}
 
