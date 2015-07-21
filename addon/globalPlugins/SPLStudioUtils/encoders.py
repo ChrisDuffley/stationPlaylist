@@ -28,6 +28,7 @@ SPLMSG = winUser.WM_USER
 
 # Various SPL IPC tags.
 SPLPlay = 12
+SPL_TrackPlaybackStatus = 104
 
 # Needed in Encoder support:
 SPLFocusToStudio = set() # Whether to focus to Studio or not.
@@ -321,7 +322,9 @@ class SAMEncoder(Encoder):
 						pass
 				focused = True
 				if self.playAfterConnecting and not encoding:
-					winUser.sendMessage(SPLWin, SPLMSG, 0, SPLPlay)
+					# Do not interupt the currently playing track.
+					if winUser.sendMessage(SPLWin, SPLMSG, 0, SPL_TrackPlaybackStatus) == 0:
+						winUser.sendMessage(SPLWin, SPLMSG, 0, SPLPlay)
 				if not encoding: encoding = True
 			else:
 				if alreadyEncoding: alreadyEncoding = False
