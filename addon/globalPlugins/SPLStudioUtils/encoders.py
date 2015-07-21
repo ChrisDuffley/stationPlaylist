@@ -426,7 +426,9 @@ class SAMEncoder(Encoder):
 
 	__gestures={
 		"kb:f9":"connect",
-		"kb:f10":"disconnect"
+		"kb:control+f9":"connect",
+		"kb:f10":"disconnect",
+		"kb:control+f10":"disconnect"
 	}
 
 
