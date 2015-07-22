@@ -732,7 +732,10 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 	def onColumnSelection(self, evt):
 		selIndex = self.trackColumns.GetSelection()
 		self.upButton.Disable() if selIndex == 0 else self.upButton.Enable()
-		self.dnButton.Disable() if selIndex == self.trackColumns.GetCount()-1 else self.dnButton.Enable()
+		if selIndex == self.trackColumns.GetCount()-1:
+			self.upButton.SetFocus()
+			self.dnButton.Disable()
+		else: self.dnButton.Enable()
 
 	def onMoveUp(self, evt):
 		tones.beep(1000, 200)
