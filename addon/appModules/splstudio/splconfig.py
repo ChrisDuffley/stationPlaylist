@@ -153,7 +153,7 @@ def _preSave(conf):
 	# Save configuration database.
 def saveConfig():
 	# Save all config profiles.
-	global SPLConfig, SPLConfigPool, SPLActiveProfile
+	global SPLConfig, SPLConfigPool, SPLActiveProfile, SPLPrevProfile, SPLSwitchProfile
 	# Apply any global settings changed in profiles to normal configuration.
 	if SPLConfigPool.index(SPLConfig) > 0:
 		for setting in SPLConfig:
@@ -166,6 +166,8 @@ def saveConfig():
 	SPLConfig = None
 	SPLConfigPool = None
 	SPLActiveProfile = None
+	SPLPrevProfile = None
+	SPLSwitchProfile = None
 
 # Switch between profiles.
 SPLActiveProfile = None
