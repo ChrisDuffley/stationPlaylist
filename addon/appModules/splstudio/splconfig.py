@@ -246,6 +246,9 @@ class SPLConfigDialog(gui.SettingsDialog):
 		item.Bind(wx.EVT_BUTTON, self.onInstantSwitch)
 		self.switchProfile = SPLSwitchProfile
 		self.activeProfile = SPLActiveProfile
+		# Used as sanity check in case switch profile is renamed or deleted.
+		self.switchProfileRenamed = False
+		self.switchProfileDeleted = False
 		sizer.Add(item)
 		if SPLConfigPool.index(SPLConfig) == 0:
 			self.renameButton.Disable()
@@ -420,9 +423,12 @@ class SPLConfigDialog(gui.SettingsDialog):
 		super(SPLConfigDialog,  self).onOk(evt)
 
 	def onCancel(self, evt):
-		global _configDialogOpened, SPLActiveProfile, SPLSwitchProfile
+		global _configDialogOpened, SPLActiveProfile, SPLSwitchProfile, SPLConfig
 		SPLActiveProfile = self.activeProfile
-		SPLSwitchProfile = self.switchProfile
+		if self.switchProfileRenamed or self.switchProfileDeleted:
+			SPLSwitchProfile = self.switchProfile
+		if self.switchProfileDeleted:
+			SPLConfig = SPLConfigPool[0]
 		_configDialogOpened = False
 		super(SPLConfigDialog,  self).onCancel(evt)
 
@@ -507,6 +513,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		os.rename(oldProfile, newProfile)
 		if self.switchProfile == oldName:
 			self.switchProfile = newName
+			self.switchProfileRenamed = True
 		if self.activeProfile == oldName:
 			self.activeProfile = newName
 		SPLConfigPool[index].name = newName
@@ -533,9 +540,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 			os.remove(path)
 		except WindowsError:
 			pass
-		if name == self.switchProfile:
+		if name == self.switchProfile or name == self.activeProfile:
 			self.switchProfile = None
 			SPLPrevProfile = None
+			self.switchProfileDeleted = True
 		self.profiles.Delete(index)
 		self.profiles.SetString(0, SPLConfigPool[0].name)
 		self.activeProfile = SPLConfigPool[0].name
