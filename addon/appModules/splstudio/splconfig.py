@@ -245,6 +245,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		item = self.instantSwitchButton = wx.Button(self, label=switchLabel)
 		item.Bind(wx.EVT_BUTTON, self.onInstantSwitch)
 		self.switchProfile = SPLSwitchProfile
+		self.activeProfile = SPLActiveProfile
 		sizer.Add(item)
 		if SPLConfigPool.index(SPLConfig) == 0:
 			self.renameButton.Disable()
@@ -409,7 +410,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["SayScheduledFor"] = self.scheduledForCheckbox.Value
 		SPLConfig["SayListenerCount"] = self.listenerCountCheckbox.Value
 		SPLConfig["SayPlayingCartName"] = self.cartNameCheckbox.Value
-		SPLActiveProfile = SPLConfigPool[selectedProfile].name
+		SPLActiveProfile = SPLConfig.name
 		SPLSwitchProfile = self.switchProfile
 		# Without nullifying prev profile while switch profile is undefined, NVDA will assume it can switch back to that profile when it can't.
 		# It also causes NVDA to display wrong label for switch button.
@@ -419,7 +420,9 @@ class SPLConfigDialog(gui.SettingsDialog):
 		super(SPLConfigDialog,  self).onOk(evt)
 
 	def onCancel(self, evt):
-		global _configDialogOpened
+		global _configDialogOpened, SPLActiveProfile, SPLSwitchProfile
+		SPLActiveProfile = self.activeProfile
+		SPLSwitchProfile = self.switchProfile
 		_configDialogOpened = False
 		super(SPLConfigDialog,  self).onCancel(evt)
 
@@ -502,6 +505,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 		oldNamePath = oldName + ".ini"
 		oldProfile = os.path.join(SPLProfiles, oldNamePath)
 		os.rename(oldProfile, newProfile)
+		if self.switchProfile == oldName:
+			self.switchProfile = newName
+		if self.activeProfile == oldName:
+			self.activeProfile = newName
 		SPLConfigPool[index].name = newName
 		SPLConfigPool[index].filename = newProfile
 		self.profiles.SetString(index, newName)
@@ -518,7 +525,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 			wx.YES | wx.NO | wx.ICON_QUESTION, self
 		) == wx.NO:
 			return
-		global SPLConfigPool
+		global SPLConfigPool, SPLSwitchProfile, SPLPrevProfile
 		name = SPLConfigPool[index].name
 		path = SPLConfigPool[index].filename
 		del SPLConfigPool[index]
@@ -526,8 +533,12 @@ class SPLConfigDialog(gui.SettingsDialog):
 			os.remove(path)
 		except WindowsError:
 			pass
+		if name == self.switchProfile:
+			self.switchProfile = None
+			SPLPrevProfile = None
 		self.profiles.Delete(index)
 		self.profiles.SetString(0, SPLConfigPool[0].name)
+		self.activeProfile = SPLConfigPool[0].name
 		self.profiles.Selection = 0
 		self.onProfileSelection(None)
 		self.profiles.SetFocus()
