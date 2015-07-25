@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2015-05-09 15:59+0100\n"
+"PO-Revision-Date: 2015-07-14 16:31+0100\n"
 "Last-Translator: Joseph Lee <joseph.lee22590@gmail,com>\n"
 "Language-Team: HU <LL@li.org>\n"
 "Language: hu\n"
@@ -17,310 +17,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.6.10\n"
 
-#. Translators: Standard dialog message when Studio configuration has problems.
-msgid ""
-"Your Studio add-on configuration has errors and was reset to factory "
-"defaults."
-msgstr ""
-"A Studio kiegészítő konfigurációja hibákat tartalmaz, ezért vissza lett "
-"állítva a gyári beállításokra."
-
-#. Translators: Standard error title for configuration error.
-msgid "Studio add-on Configuration error"
-msgstr "Studio kiegészítő konfigurációs hiba"
-
-#. Translators: Script category for Station Playlist commands in input gestures dialog.
-#. Add-on summary, usually the user visible name of the addon.
-#. Translators: Summary for this add-on to be shown on installation and add-on information.
-msgid "Station Playlist Studio"
-msgstr "Station Playlist Studio"
-
-#. Translators: Presented when cart edit mode is toggled on while cart explorer is on.
-msgid "Cart explorer is active"
-msgstr "A Cart Explorer aktív"
-
-#. Translators: Presented when cart edit mode is toggled off while cart explorer is on.
-msgid "Please reenter cart explorer to view updated cart assignments"
-msgstr ""
-"Nyissa meg újra a cart explorert a frissített hozzárendelések "
-"megtekintéséhez!"
-
-#. Translators: Presented in braille when microphone was on for more than a specified time in microphone alarm dialog.
-msgid "Warning: Microphone active"
-msgstr "Figyelem: A mikrofon aktív!"
-
-#. Translators: Presented when remaining time is unavailable.
-msgid "Remaining time not available"
-msgstr "A hátralévő idő nem elérhető."
-
-#. Translators: Presented when elapsed time is unavailable.
-msgid "Elapsed time not available"
-msgstr "Az eltelt idő nem elérhető."
-
-#. Translators: Presented when broadcaster time is unavailable.
-msgid "Broadcaster time not available"
-msgstr "A broadcast ideje nem elérhető."
-
-#. Translators: Presented when time information is unavailable.
-msgid "Cannot obtain time in hours, minutes and seconds"
-msgstr "Nem érhető el idő órában, percben, és másodpercben!"
-
-#. Translators: Presented when trying to use an add-on command in an unsupported version of StationPlaylist Studio.
-msgid "This version of Studio is no longer supported"
-msgstr "A Studio ezen verziója már nem támogatott"
-
-#. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "Announces the remaining track time."
-msgstr "Bemondja a zeneszám hátralévő idejét."
-
-#. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "Announces the elapsed time for the currently playing track."
-msgstr "Bemondja az eltelt időt a lejátszás alatt lévő zeneszámból."
-
-#. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "Announces broadcaster time."
-msgstr "Bemondja a broadcast idejét."
-
-#. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "Announces time including seconds."
-msgstr "Bemondja az időt másodpercre pontosan"
-
-#. Translators: A dialog message to set end of track alarm (curAlarmSec is the current end of track alarm in seconds).
-#, python-brace-format
-msgid "Enter end of track alarm time in seconds (currently {curAlarmSec})"
-msgstr ""
-"Írja be a zeneszám végi figyelmeztetés idejét másodpercben (jelenleg "
-"{curAlarmSec})"
-
-#. Translators: The title of end of track alarm dialog.
-msgid "End of track alarm"
-msgstr "Zeneszám végi figyelmeztetés"
-
-#. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "sets end of track alarm (default is 5 seconds)."
-msgstr "Szám végi figyelmeztetés beállítása (az alapértelmezett 5 másodperc)"
-
-#. Translators: A dialog message to set song ramp alarm (curRampSec is the current intro monitoring alarm in seconds).
-#, python-brace-format
-msgid "Enter song intro alarm time in seconds (currently {curRampSec})"
-msgstr ""
-"Írja be a zeneszám intró figyelmeztetés idejét másodpercben! (Jelenleg: "
-"{curRampSec})"
-
-#. Translators: The title of song intro alarm dialog.
-msgid "Song intro alarm"
-msgstr "Zeneszám intró figyelmeztetés"
-
-#. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "sets song intro alarm (default is 5 seconds)."
-msgstr "Zeneszám intró beállítása (az alapértelmezett 5 másodperc)"
-
-#. Translators: A dialog message to set microphone active alarm (curAlarmSec is the current mic monitoring alarm in seconds).
-#, python-brace-format
-msgid ""
-"Enter microphone alarm time in seconds (currently {curAlarmSec}, 0 disables "
-"the alarm)"
-msgstr ""
-"Írja be a mikrofon figyelmeztetés idejét másodpercben! (Jelenleg: "
-"{curAlarmSec}, 0: kikapcsolja a figyelmeztetést)"
-
-#. Translators: A dialog message when microphone alarm is disabled (set to 0).
-msgid ""
-"Enter microphone alarm time in seconds (currently disabled, 0 disables the "
-"alarm)"
-msgstr ""
-"Írja be a mikrofon figyelmeztetés idejét másodpercben! (Jelenleg "
-"kikapcsolva, 0: kikapcsolja a figyelmeztetést)"
-
-#. Translators: The title of mic alarm dialog.
-msgid "Microphone alarm"
-msgstr "Mikrofon figyelmeztetés"
-
-#. Translators: The error message presented when incorrect alarm time value has been entered.
-msgid "Incorrect value entered."
-msgstr "A bevitt érték hibás."
-
-#. Translators: Standard title for error dialog (copy this from main nvda.po file).
-msgid "Error"
-msgstr "Hiba"
-
-#. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "Sets microphone alarm (default is 5 seconds)."
-msgstr "Mikrofon figyelmeztetés beállítása (az alapértelmezett 5 másodperc)"
-
-#. Translators: Reported when toggle announcement is set to beeps in SPL Studio.
-msgid "Toggle announcement beeps"
-msgstr "Hangjelzésre váltás"
-
-#. Translators: Reported when toggle announcement is set to words in SPL Studio.
-msgid "Toggle announcement words"
-msgstr "Beszédre váltás"
-
-#. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "Toggles option change announcements between words and beeps."
-msgstr "Váltogathat a beszéd és a hangjelzés között."
-
-#. Translators: A setting in braille timer options.
-msgid "Braille timer off"
-msgstr "Braille időzítő ki"
-
-#. Translators: A setting in braille timer options.
-msgid "Braille track endings"
-msgstr "Braille szám vége"
-
-#. Translators: A setting in braille timer options.
-msgid "Braille intro endings"
-msgstr "Braille intró vége"
-
-#. Translators: A setting in braille timer options.
-msgid "Braille intro and track endings"
-msgstr "Braille intró és szám vége"
-
-#. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "Toggles between various braille timer settings."
-msgstr "Váltogat a különböző braille időzítő beállítások között"
-
-#. Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
-msgid "Search string not found."
-msgstr "A keresett kifejezés nem található."
-
-#. Translators: Standard error title for find error (copy this from main nvda.po).
-msgid "Find error"
-msgstr "Keresési hiba"
-
-#. Translators: Presented when a user attempts to find tracks but is not at the track list.
-msgid "Track finder is available only in track list."
-msgstr "A szám kereső csak a számok listájában érhető el"
-
-#. Translators: Presented when a user wishes to find a track but didn't add any tracks.
-msgid "You need to add at least one track to find tracks."
-msgstr "legalább egy zeneszámot hozzá kell adnia hogy kereshessen közöttük."
-
-#. Translators: The text of the dialog for finding tracks.
-msgid "Enter the name of the track you wish to search."
-msgstr "Írja be a keresendő zeneszám címét."
-
-#. Translators: The title of the find tracks dialog.
-msgid "Find track"
-msgstr "Szám kereső"
-
-#. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "Finds a track in the track list."
-msgstr "Megkeres egy számot a zeneszámok listájában."
-
-#. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "Finds the next occurrence of the track with the name in the track list."
-msgstr ""
-"Megkeresi a következő előfordulását a zeneszám nevének a számok listájában."
-
-#. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "Finds previous occurrence of the track with the name in the track list."
-msgstr ""
-"Megkeresi az előző előfordulását a zeneszám nevének a számok listájában."
-
-#. Translators: presented when cart explorer could not be switched on.
-msgid "Some or all carts could not be assigned, cannot enter cart explorer"
-msgstr ""
-"Néhány, vagy egy cart sem hozzárendelhető, a cart explorer nem nyitható meg."
-
-#. Translators: Presented when cart explorer is on.
-msgid "Entering cart explorer"
-msgstr "A cart explorer megnyitása"
-
-#. Translators: Presented when cart explorer is off.
-msgid "Exiting cart explorer"
-msgstr "A cart explorer bezárása"
-
-#. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "Toggles cart explorer to learn cart assignments."
-msgstr "A cart explorer megnyitása a hozzárendelések megtekintéséhez."
-
-#. Translators: Presented when cart command is unavailable.
-msgid "Cart command unavailable"
-msgstr "A Cart parancs nem érhető el"
-
-#. Translators: Presented when there is no cart assigned to a cart command.
-msgid "Cart unassigned"
-msgstr "Nincs cart hozzárendelve"
-
-#. Translators: A setting in library scan announcement options.
-msgid "Do not announce library scans"
-msgstr "Ne jelentse be a gyűjtemény vizsgálatokat"
-
-#. Translators: A setting in library scan announcement options.
-msgid "Announce start and end of a library scan"
-msgstr "A kezdet és a befejezés bejelentése"
-
-#. Translators: A setting in library scan announcement options.
-msgid "Announce the progress of a library scan"
-msgstr "A folyamat bejelentése"
-
-#. Translators: A setting in library scan announcement options.
-msgid "Announce progress and item count of a library scan"
-msgstr "A folyamat és az elemek számának bejelentése"
-
-#. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "Toggles library scan progress settings."
-msgstr "Váltogathat a gyűjtemény-vizsgálat beállításai között"
-
-#. Translators: Presented when library scan has started.
-msgid "Scan start"
-msgstr "A vizsgálat elindult"
-
-#. Translators: Presented when library scanning is finished.
-#, python-brace-format
-msgid "{itemCount} items in the library"
-msgstr "{itemCount} elem a gyűjteményben"
-
-#. Translators: Presented when library scan is in progress.
-msgid "Scanning"
-msgstr "Vizsgálat folyamatban"
-
-#. Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
-#, python-brace-format
-msgid "{itemCount} items scanned"
-msgstr "{itemCount} elem vizsgálva"
-
-#. Translators: Presented after library scan is done.
-#, python-brace-format
-msgid "Scan complete with {itemCount} items"
-msgstr "{itemCount} elem vizsgálata befejeződött"
-
-#. Translators: Input help mode message for a layer command in Station Playlist Studio.
-msgid ""
-"The SPL Assistant layer command. See the add-on guide for more information "
-"on available commands."
-msgstr ""
-"SPL Studio kisegítő parancs. A kiegészítő útmutatójában további "
-"információkat találhat a rendelkezésre álló parancsokról."
-
-#. Translators: Presented when playlist modification is unavailable (for Studio 4.33 and earlier)
-msgid "Playlist modification not available"
-msgstr "A lejátszási lista módosítása nem engedélyezett"
-
-#. Translators: Presented when there is no information for the next track.
-msgid "No next track scheduled or no track is playing"
-msgstr "Nincs következő dal, vagy nincs lejátszás alatt lévő dal."
-
-#. Translators: Presented when there is nn weather or temperature information.
-msgid "Weather and temperature not configured"
-msgstr "Az időjárás és a hőmérséklet nincs beállítva."
-
-#. Translators: Presented when there is no listener count information.
-msgid "Listener count not found"
-msgstr "A hallgatók száma nem található."
-
-#. Translators: Presented when there is no information on song pitch (for Studio 4.33 and earlier).
-msgid "Song pitch not available"
-msgstr "A zeneszám hangmagassága nem elérhető"
-
-#. Translators: Presented when attempting to start library scan.
-msgid "Monitoring library scan"
-msgstr "A gyűjtemény vizsgálatának követése"
-
-#. Translators: Presented when library scan is already in progress.
-msgid "Scanning is in progress"
-msgstr "A vizsgálat már folyamatban van!"
+#. Translators: Presented when only Track Tool is running (Track Dial requires Studio to be running as well).
+msgid "Only Track Tool is running, Track Dial is unavailable"
+msgstr "Csak a Track Tool fut, a Track Dial nem elérhető"
+
+#. Translators: Input help mode message for SPL track item.
+msgid "Toggles track dial on and off."
+msgstr "Track dial be- és kikapcsolása"
 
 #. Translators: Presented when trying to perform Track Tool commands when not focused in the track list.
 msgid "Not in tracks list"
@@ -347,6 +50,565 @@ msgstr "Ismeretlen előadó"
 #, python-brace-format
 msgid "Artist: {artistName}"
 msgstr "Előadó: {artistName}"
+
+#. Translators: Reported when track dial is on.
+msgid "Track Dial on"
+msgstr "Track dial be"
+
+#. Translators: Announced when located on a column other than the leftmost column while using track dial.
+#, python-brace-format
+msgid ", located at column {columnHeader}"
+msgstr ", {columnHeader} oszlopban található"
+
+#. Translators: Reported when track dial is off.
+msgid "Track Dial off"
+msgstr "Track Dial ki"
+
+#. Translators: Spoken when enabling track dial while status message is set to beeps.
+#, python-brace-format
+msgid "Column {columnNumber}"
+msgstr "oszlop {columnNumber}"
+
+#. Translators: Script category for Station Playlist commands in input gestures dialog.
+msgid "StationPlaylist Studio"
+msgstr "StationPlaylist Studio"
+
+#. Translators: Announced when leftmost column has no text while track dial is active.
+#, python-brace-format
+msgid "{leftmostColumn} not found"
+msgstr "{leftmostColumn} nem található"
+
+#. Translators: Standard message for announcing column content.
+#, python-brace-format
+msgid "{leftmostColumn}: {leftmostContent}"
+msgstr "{leftmostColumn}: {leftmostContent}"
+
+#. Translators: Standard message for announcing column content.
+#, python-brace-format
+msgid "{header}: {content}"
+msgstr "{header}: {content}"
+
+#. Translators: Spoken when column content is blank.
+#, python-brace-format
+msgid "{header}: blank"
+msgstr "{header}: üres"
+
+#. Translators: Brailled to indicate empty column content.
+#, python-brace-format
+msgid "{header}: ()"
+msgstr "{header}: ()"
+
+#. Translators: Presented when no track status is found in Studio 5.10.
+msgid "Status not found"
+msgstr "Az állapot nem elérhető"
+
+#. Translators: Status information for a checked track in Studio 5.10.
+#, python-brace-format
+msgid "Status: {name}"
+msgstr "Állapot: {name}"
+
+#. Translators: The text of the help command in SPL Assistant layer.
+msgid ""
+"After entering SPL Assistant, press:\n"
+"A: Automation.\n"
+"D: Remaining time for the playlist.\n"
+"H: Duration of trakcs in this hour slot.\n"
+"Shift+H: Duration of selected tracks.\n"
+"I: Listener count.\n"
+"L: Line-in status.\n"
+"M: Microphone status.\n"
+"N: Next track.\n"
+"P: Playback status.\n"
+"Shift+P: Pitch for the current track.\n"
+"R: Record to file.\n"
+"Shift+R: Monitor library scan.\n"
+"S: Scheduled time for the track.\n"
+"T: Cart edit mode.\n"
+"U: Studio up time.\n"
+"W: Weather and temperature.\n"
+"Y: Playlist modification."
+msgstr ""
+"Az SPL segédréteg megnyitása után, nyomja meg:\n"
+"A: Automatikus lejátszás.\n"
+"D: A lejátszási lista hátralévő ideje.\n"
+"H: Zeneszámok hossza ebben az órában.\n"
+"Shift+H: Kijelölt zeneszámok hossza.\n"
+"I: Hallgatók száma.\n"
+"L: Vonalbemenet állapota.\n"
+"M: Mikrofon állapota.\n"
+"N: Következő zeneszám.\n"
+"P: Lejátszás állapota.\n"
+"Shift+P: Aktuális zeneszám frekvenciája.\n"
+"R: Felvétel fájlba.\n"
+"Shift+R: Gyűjtemény-vizsgálat ellenőrzése.\n"
+"S: A zeneszám ütemezett ideje.\n"
+"T: Cart szerkesztő mód.\n"
+"U: Studio futási ideje.\n"
+"W: Időjárás és hőmérséklet.\n"
+"Y: Lejátszási lista módosítás."
+
+#, python-brace-format
+msgid "Using SPL Studio version {SPLVersion}"
+msgstr "A használatban lévő SPL Studio verziója: {SPLVersion}"
+
+msgid "SPL Studio Settings..."
+msgstr "SPL Studio Beállítások"
+
+msgid "SPL settings"
+msgstr "SPL beállítások"
+
+#. Translators: Presented when cart edit mode is toggled on while cart explorer is on.
+msgid "Cart explorer is active"
+msgstr "A Cart Explorer aktív"
+
+#. Translators: Presented when cart edit mode is toggled off while cart explorer is on.
+msgid "Please reenter cart explorer to view updated cart assignments"
+msgstr ""
+"Nyissa meg újra a cart explorert a frissített hozzárendelések "
+"megtekintéséhez!"
+
+#. Translators: Presented in braille when microphone was on for more than a specified time in microphone alarm dialog.
+msgid "Warning: Microphone active"
+msgstr "Figyelem: A mikrofon aktív!"
+
+#. Add the human-readable representation also.
+msgid "SPL mode"
+msgstr "SPL mód"
+
+#. Translators: Presented when remaining time is unavailable.
+msgid "Remaining time not available"
+msgstr "A hátralévő idő nem elérhető."
+
+#. Translators: Presented when elapsed time is unavailable.
+msgid "Elapsed time not available"
+msgstr "Az eltelt idő nem elérhető."
+
+#. Translators: Presented when broadcaster time is unavailable.
+msgid "Broadcaster time not available"
+msgstr "A broadcast ideje nem elérhető."
+
+#. Translators: Presented when time information is unavailable.
+msgid "Cannot obtain time in hours, minutes and seconds"
+msgstr "Nem érhető el idő órában, percben, és másodpercben!"
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Announces the remaining track time."
+msgstr "Bemondja a zeneszám hátralévő idejét."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Announces the elapsed time for the currently playing track."
+msgstr "Bemondja az eltelt időt a lejátszás alatt lévő zeneszámból."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Announces broadcaster time."
+msgstr "Bemondja a broadcast idejét."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Announces time including seconds."
+msgstr "Bemondja az időt másodpercre pontosan"
+
+#. Translators: The title of end of track alarm dialog.
+msgid "End of track alarm"
+msgstr "Zeneszám végi riasztás"
+
+#. Translators: A dialog message to set end of track alarm (curAlarmSec is the current end of track alarm in seconds).
+#, python-brace-format
+msgid "Enter &end of track alarm time in seconds (currently {curAlarmSec})"
+msgstr ""
+"Írja be a zeneszám &végi riasztás idejét másodpercben (jelenleg "
+"{curAlarmSec})"
+
+#. Translators: A check box to toggle notification of end of track alarm.
+#. Check box hiding method comes from Alberto Buffolino's Columns Review add-on.
+#. Translators: Label for a check box in SPL add-on settings to notify when end of track (outro) is approaching.
+msgid "&Notify when end of track is approaching"
+msgstr "Figyelmeztessen, ha a &zeneszám vége közeledik"
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "sets end of track alarm (default is 5 seconds)."
+msgstr "Beállítja a zeneszám végi riasztást (az alapértelmezett 5 másodperc)"
+
+#. Translators: The title of song intro alarm dialog.
+msgid "Song intro alarm"
+msgstr "Intró riasztás"
+
+#. Translators: A dialog message to set song ramp alarm (curRampSec is the current intro monitoring alarm in seconds).
+#, python-brace-format
+msgid "Enter song &intro alarm time in seconds (currently {curRampSec})"
+msgstr ""
+"Írja be a &intró riasztás idejét másodpercben! (Jelenleg: {curRampSec})"
+
+#. Translators: A check box to toggle notification of end of intro alarm.
+#. Translators: Label for a check box in SPL add-on settings to notify when end of intro is approaching.
+msgid "&Notify when end of introduction is approaching"
+msgstr "Figyelmeztessen, ha az &intro vége közeleg"
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "sets song intro alarm (default is 5 seconds)."
+msgstr "Beálllítja az intrót (az alapértelmezett 5 másodperc)"
+
+#. Translators: A dialog message to set microphone active alarm (curAlarmSec is the current mic monitoring alarm in seconds).
+#, python-brace-format
+msgid ""
+"Enter microphone alarm time in seconds (currently {curAlarmSec}, 0 disables "
+"the alarm)"
+msgstr ""
+"Írja be a mikrofon riasztás idejét másodpercben! (Jelenleg: {curAlarmSec}, "
+"0: kikapcsolja a figyelmeztetést)"
+
+#. Translators: A dialog message when microphone alarm is disabled (set to 0).
+msgid ""
+"Enter microphone alarm time in seconds (currently disabled, 0 disables the "
+"alarm)"
+msgstr ""
+"Írja be a mikrofon riasztás idejét másodpercben! (Jelenleg kikapcsolva, 0: "
+"kikapcsolja a figyelmeztetést)"
+
+#. Translators: The title of mic alarm dialog.
+msgid "Microphone alarm"
+msgstr "Mikrofon riasztás"
+
+#. Translators: The error message presented when incorrect alarm time value has been entered.
+msgid "Incorrect value entered."
+msgstr "A bevitt érték hibás."
+
+#. Translators: Standard title for error dialog (copy this from main nvda.po file).
+#. Translators: The title of the message box
+msgid "Error"
+msgstr "Hiba"
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Sets microphone alarm (default is 5 seconds)."
+msgstr "Beállítja a mikrofon riasztást (az alapértelmezett 5 másodperc)"
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Opens SPL Studio add-on configuration dialog."
+msgstr "Megnyitja az SPL Studio kiegészítő beállítási párbeszédpanelét."
+
+#. Translators: Reported when status announcement is set to beeps in SPL Studio.
+msgid "Status announcement beeps"
+msgstr "Hangjelzésre váltás"
+
+#. Translators: Reported when status announcement is set to words in SPL Studio.
+msgid "Status announcement words"
+msgstr "Beszédre váltás"
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Toggles status announcements between words and beeps."
+msgstr "Váltogathat a beszéd és a hangjelzés között."
+
+#. Translators: A setting in braille timer options.
+msgid "Braille track endings"
+msgstr "Braille szám vége"
+
+#. Translators: A setting in braille timer options.
+msgid "Braille intro endings"
+msgstr "Braille intró vége"
+
+#. Translators: A setting in braille timer options.
+msgid "Braille intro and track endings"
+msgstr "Braille intró és szám vége"
+
+#. Translators: A setting in braille timer options.
+msgid "Braille timer off"
+msgstr "Braille időzítő ki"
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Toggles between various braille timer settings."
+msgstr "Váltogat a különböző braille időzítő beállítások között"
+
+#. Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
+msgid "Search string not found."
+msgstr "A keresett kifejezés nem található."
+
+#. Translators: Standard error title for find error (copy this from main nvda.po).
+msgid "Find error"
+msgstr "Keresési hiba"
+
+#. Translators: Presented when a user attempts to find tracks but is not at the track list.
+msgid "Track finder is available only in track list."
+msgstr "A zeneszám kereső csak a zeneszámok listájában érhető el"
+
+#. Translators: Presented when a user wishes to find a track but didn't add any tracks.
+msgid "You need to add at least one track to find tracks."
+msgstr "legalább egy zeneszámot hozzá kell adnia hogy kereshessen közöttük."
+
+#. Translators: Standard dialog message when find dialog is already open.
+msgid "Find track dialog is already open."
+msgstr "A Zeneszám kereső már meg van nyitva!"
+
+#. Translators: The text of the dialog for finding tracks.
+msgid "Enter the name of the track you wish to search."
+msgstr "Írja be a keresendő zeneszám címét."
+
+#. Translators: The title of the find tracks dialog.
+msgid "Find track"
+msgstr "Zeneszámkereső"
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Finds a track in the track list."
+msgstr "Megkeres egy zeneszámot a zeneszámok listájában."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Finds the next occurrence of the track with the name in the track list."
+msgstr ""
+"Megkeresi a következő előfordulását a zeneszám nevének a zeneszámok "
+"listájában."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Finds previous occurrence of the track with the name in the track list."
+msgstr ""
+"Megkeresi az előző előfordulását a zeneszám nevének a zeneszámok listájában."
+
+#. Translators: Presented when cart explorer cannot be entered.
+msgid "You are not in playlist viewer, cannot enter cart explorer"
+msgstr ""
+"Jelenleg nincs a lejátszási listában, a Cart explorer nem nyitható meg!"
+
+#. Translators: presented when cart explorer could not be switched on.
+msgid "Some or all carts could not be assigned, cannot enter cart explorer"
+msgstr ""
+"Néhány, vagy egy cart sem hozzárendelhető, a cart explorer nem nyitható meg."
+
+#. Translators: Presented when cart explorer is on.
+msgid "Entering cart explorer"
+msgstr "A cart explorer megnyitása"
+
+#. Translators: Presented when cart explorer is off.
+msgid "Exiting cart explorer"
+msgstr "A cart explorer bezárása"
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Toggles cart explorer to learn cart assignments."
+msgstr "A cart explorer megnyitása a hozzárendelések megtekintéséhez."
+
+#. Translators: Presented when cart command is unavailable.
+msgid "Cart command unavailable"
+msgstr "A Cart parancs nem elérhető!"
+
+#. Translators: Presented when there is no cart assigned to a cart command.
+msgid "Cart unassigned"
+msgstr "Nincs cart hozzárendelve"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Announce start and end of a library scan"
+msgstr "A kezdet és a befejezés bejelentése"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Announce the progress of a library scan"
+msgstr "A folyamat bejelentése"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Announce progress and item count of a library scan"
+msgstr "A folyamat és az elemek számának bejelentése"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Do not announce library scans"
+msgstr "Ne jelentse be a gyűjtemény vizsgálatokat"
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Toggles library scan progress settings."
+msgstr "Váltogathat a gyűjtemény-vizsgálat beállításai között"
+
+#. Translators: Presented when library scan has started.
+msgid "Scan start"
+msgstr "A vizsgálat elindult"
+
+#. Translators: Presented when library scanning is finished.
+#, python-brace-format
+msgid "{itemCount} items in the library"
+msgstr "{itemCount} elem a gyűjteményben"
+
+#. Translators: Presented after library scan is done.
+#, python-brace-format
+msgid "Scan complete with {itemCount} items"
+msgstr "{itemCount} elem vizsgálata befejeződött"
+
+#. Translators: Presented when library scan is in progress.
+msgid "Scanning"
+msgstr "Vizsgálat folyamatban"
+
+#. Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
+#, python-brace-format
+msgid "{itemCount} items scanned"
+msgstr "{itemCount} elem vizsgálva"
+
+#. Translators: Input help mode message for a layer command in Station Playlist Studio.
+msgid ""
+"The SPL Assistant layer command. See the add-on guide for more information "
+"on available commands."
+msgstr ""
+"SPL Studio kisegítő parancs. A kiegészítő útmutatójában további "
+"információkat találhat a rendelkezésre álló parancsokról."
+
+#. Translators: Presented when playlist modification is unavailable (for Studio 4.33 and earlier)
+msgid "Playlist modification not available"
+msgstr "A lejátszási lista módosítása nem engedélyezett"
+
+#. Translators: Presented when there is no information for the next track.
+msgid "No next track scheduled or no track is playing"
+msgstr "Nincs következő dal, vagy nincs lejátszás alatt lévő dal."
+
+#. Translators: Presented when next track information is unavailable.
+msgid "Cannot find next track information"
+msgstr "A következő zeneszámról nem érhetők el információk."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Announces title of the next track if any"
+msgstr "Bemondja a következő zeneszám címét, ha van"
+
+#. Translators: Presented when there is no weather or temperature information.
+msgid "Weather and temperature not configured"
+msgstr "Az időjárás és a hőmérséklet nincs beállítva."
+
+#. Translators: Presented when temperature information cannot be found.
+msgid "Weather information not found"
+msgstr "Nem található időjárással kapcsolatos információ"
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Announces temperature and weather information"
+msgstr "Bejelenti a hőmérsékletet, és az időjárást."
+
+#. Translators: Presented when there is no listener count information.
+msgid "Listener count not found"
+msgstr "A hallgatók száma nem található."
+
+#. Translators: Presented when there is no information on song pitch (for Studio 4.33 and earlier).
+msgid "Song pitch not available"
+msgstr "A zeneszám frekvenciája nem elérhető"
+
+#. Translators: Presented when attempting to start library scan.
+msgid "Monitoring library scan"
+msgstr "A gyűjtemény vizsgálatának ellenőrzése"
+
+#. Translators: Presented when library scan is already in progress.
+msgid "Scanning is in progress"
+msgstr "A vizsgálat már folyamatban van!"
+
+#. Translators: The title for SPL Assistant help dialog.
+msgid "SPL Assistant help"
+msgstr "SPL kisegítő Súgó"
+
+#. Translators: A dialog message shown when settings were reset to defaults.
+msgid "Successfully applied default add-on settings."
+msgstr "A kiegészítő alapértelmezett beállításai sikeresen betöltve."
+
+#. Translators: Title of the reset config dialog.
+msgid "Reset configuration"
+msgstr "Beállítások visszaállítása"
+
+#. Translators: Standard error title for configuration error.
+msgid "Studio add-on Configuration error"
+msgstr "Studio kiegészítő konfigurációs hiba"
+
+#. Translators: Standard dialog message when Studio configuration has problems and was reset to defaults.
+msgid ""
+"Your Studio add-on configuration has errors and was reset to factory "
+"defaults."
+msgstr ""
+"A Studio kiegészítő konfigurációja hibákat tartalmaz, ezért vissza lett "
+"állítva a gyári beállításokra."
+
+#. Translators: Standard dialog message when some Studio configuration settings were reset to defaults.
+msgid ""
+"Errors were found in some of your Studio configuration settings. The "
+"affected settings were reset to defaults."
+msgstr ""
+"Hiba a beállításokban! A hibás értékek vissza lettek állítva az "
+"alapértelmezés szerinti értékekre."
+
+#. Translators: This is the label for the StationPlaylist Studio configuration dialog.
+msgid "Studio Add-on Settings"
+msgstr "Studio kiegészítő beállításai"
+
+#. Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
+msgid "&Beep for status announcements"
+msgstr "&Hangjelzés"
+
+#. Translators: The label for a setting in SPL Add-on settings to specify end of track (outro) alarm.
+msgid "&End of track alarm in seconds"
+msgstr "Zeneszám &végi riasztás másodpercben"
+
+#. Translators: The label for a setting in SPL Add-on settings to specify track intro alarm.
+msgid "&Track intro alarm in seconds"
+msgstr "&Intro riasztás másodpercben"
+
+#. Translators: The label for a setting in SPL add-on dialog to control braille timer.
+msgid "&Braille timer:"
+msgstr "&Braille időzítő"
+
+msgid "off"
+msgstr "Ki"
+
+#. Translators: One of the braille timer settings.
+msgid "track ending"
+msgstr "Zeneszám vége"
+
+#. Translators: One of the braille timer settings.
+msgid "track intro"
+msgstr "Intró"
+
+#. Translators: One of the braille timer settings.
+msgid "track intro and ending"
+msgstr "Intró és zeneszám vége"
+
+#. Translators: The label for a setting in SPL Add-on settings to change microphone alarm setting.
+msgid "&Microphone alarm in seconds"
+msgstr "&Mikrofon riasztás másodpercben"
+
+#. Translators: The label for a setting in SPL add-on dialog to control library scan announcement.
+msgid "&Library scan announcement:"
+msgstr "&Gyűjtemény vizsgálat bejelentése"
+
+#. Translators: One of the library scan announcement settings.
+msgid "start and end only"
+msgstr "Csak az elején és a végén"
+
+#. Translators: One of the library scan announcement settings.
+msgid "scan progress"
+msgstr "Vizsgálat folyamata"
+
+#. Translators: One of the library scan announcement settings.
+msgid "scan count"
+msgstr "Vizsgálat száma"
+
+#. Translators: the label for a setting in SPL add-on settings to toggle track dial mode on and off.
+msgid "&Track Dial mode"
+msgstr "Track &Dial mód"
+
+#. Translators: the label for a setting in SPL add-on settings to announce scheduled time.
+msgid "Announce &scheduled time for the selected track"
+msgstr "Bemondja a kijelölt zeneszám &tervezett lejátszási idejét"
+
+#. Translators: the label for a setting in SPL add-on settings to announce listener count.
+msgid "Announce &listener count"
+msgstr "&Hallgatók számának bejelentése"
+
+#. Translators: the label for a setting in SPL add-on settings to announce currently playing cart.
+msgid "&Announce name of the currently playing cart"
+msgstr "Bemondja a lejátszás alatt álló &cart nevét."
+
+#. Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
+msgid "Reset settings"
+msgstr "Beállítások visszaállítása"
+
+#. Translators: Message to report wrong value for microphone alarm.
+msgid "Incorrect microphone alarm value entered."
+msgstr "A bevitt mikrofon riasztás érték hibás!"
+
+#. Translators: A message to warn about resetting SPL config settings to factory defaults.
+msgid "Are you sure you wish to reset SPL add-on settings to defaults?"
+msgstr ""
+"Biztosan vissza akarja állítani az SPL kiegészítő beállításait az "
+"alapértelmezett értékekre?"
+
+#. Translators: The title of the warning dialog.
+msgid "Warning"
+msgstr "Figyelmeztetés"
+
+#. Translators: Text of the dialog when another alarm dialog is open.
+msgid "Another alarm dialog is open."
+msgstr "Egy másik riasztás ablak már nyitva van."
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
@@ -429,13 +691,19 @@ msgstr "Nincs lejátszás alatt lévő zeneszám"
 msgid "SPL Controller help"
 msgstr "SPL Vezérlőpult Súgó"
 
-#. Translators: Presented when SAM Encoder is trying to connect to a streaming server.
-msgid "Connecting..."
-msgstr "Kapcsolódás..."
+#. Translators: Message presented when there are no encoders being monitored.
+msgid "No encoders are being monitored"
+msgstr "Nincsenek encoderek ellenőrzés alatt"
 
-#. Translators: Presented when SAM Encoder is disconnecting from a streaming server.
-msgid "Disconnecting..."
-msgstr "Szétkapcsolódás..."
+#. Translators: Announces number of encoders being monitored in the background.
+#, python-brace-format
+msgid "Number of encoders monitored: {numberOfEncoders}"
+msgstr "{numberOfEncoders} encoder ellenőrizve"
+
+#. Translators: Status message for encoder monitoring.
+#, python-brace-format
+msgid "{encoder} {encoderNumber}: {status}"
+msgstr "{encoderNumber} {encoder}: {status}"
 
 #. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 msgid "Switch to Studio after connecting"
@@ -454,11 +722,11 @@ msgstr ""
 
 #. Translators: Presented when toggling the setting to play selected song when connected to a streaming server.
 msgid "Play first track after connecting"
-msgstr "Indítsa el az első számot kapcsolódás után"
+msgstr "Indítsa el az első zeneszámot kapcsolódás után"
 
 #. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 msgid "Do not play first track after connecting"
-msgstr "Ne indítsa el az első számot kapcsolódás után"
+msgstr "Ne indítsa el az első zeneszámot kapcsolódás után"
 
 #. Translators: Input help mode message in SAM Encoder window.
 msgid ""
@@ -467,6 +735,26 @@ msgid ""
 msgstr ""
 "Az első szám lejátszásának beállítása streaming szerverhez való kapcsolódás "
 "után."
+
+#. Multiple encoders.
+#. Translators: Presented when toggling the setting to monitor the selected encoder.
+#, python-brace-format
+msgid "Monitoring encoder {encoderNumber}"
+msgstr "{encoderNumber} encoder ellenőrzés alatt"
+
+#. Translators: Presented when toggling the setting to monitor the selected encoder.
+#, python-brace-format
+msgid "Encoder {encoderNumber} will not be monitored"
+msgstr "{encoderNumber} encoder nem lesz ellenőrizve"
+
+#. Translators: Announced when background encoder monitoring is canceled.
+msgid "Encoder monitoring canceled"
+msgstr "Encoder ellenőrzés megszakítva"
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid ""
+"Toggles whether NVDA will monitor the selected encoder in the background."
+msgstr "Beállítja, hogy az NVDA a háttérben ellenőrizze-e a kijelölt encodert"
 
 #. Translators: The title of the stream labeler dialog (example: stream labeler for 1).
 #, python-brace-format
@@ -481,6 +769,40 @@ msgstr "Adja meg a stream nevét!"
 msgid "Opens a dialog to label the selected encoder."
 msgstr "Megnyit egy párbeszédpanelt a kiválasztott encoder elnevezéséhez."
 
+#. Translators: The title of the stream label eraser.
+msgid "Stream label eraser"
+msgstr "Stream címke eltávolító"
+
+#. Translators: The text of the stream label eraser dialog.
+msgid "Enter the position of the encoder you wish to delete or will delete"
+msgstr "Írja be a törlendő encoder pozícióját!"
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid "Opens a dialog to erase stream labels from an encoder that was deleted."
+msgstr ""
+"Megnyit egy párbeszédpanelt a törölt encoder címkéinek eltávolításához."
+
+#. Translators: Input help mode message for report date and time command.
+msgid ""
+"If pressed once, reports the current time including seconds. If pressed "
+"twice, reports the current date"
+msgstr ""
+"Egyszeri lenyomásra másodpercre pontosan az időt, kétszeri lenyomásra az "
+"aktuális dátumot mondja be. "
+
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on to be shown on installation and add-on information.
+msgid "Station Playlist Studio"
+msgstr "Station Playlist Studio"
+
+#. Translators: Presented when SAM Encoder is trying to connect to a streaming server.
+msgid "Connecting..."
+msgstr "Kapcsolódás..."
+
+#. Translators: Presented when SAM Encoder is disconnecting from a streaming server.
+msgid "Disconnecting..."
+msgstr "Szétkapcsolódás..."
+
 msgid "Connects to a streaming server."
 msgstr "Kapcsolódás a streaming szerverhez."
 
@@ -493,6 +815,9 @@ msgstr ""
 "Javítja a Station Playlist Studio támogatását.\n"
 "Emellett olyan billentyűparancsok lettek hozzáadva, melyeket bármely "
 "programból működésre bírhat."
+
+#~ msgid "This version of Studio is no longer supported"
+#~ msgstr "A Studio ezen verziója már nem támogatott"
 
 #~ msgid "Disconnects from a streaming server."
 #~ msgstr "Bontja a kapcsolatot a streaming szerverrel."
