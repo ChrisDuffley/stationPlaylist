@@ -99,6 +99,8 @@ def saveConfig():
 
 
 # Configuration dialog.
+_configDialogOpened = False
+
 class SPLConfigDialog(gui.SettingsDialog):
 	# Translators: This is the label for the StationPlaylist Studio configuration dialog.
 	title = _("Studio Add-on Settings")
@@ -197,29 +199,31 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# Translators: the label for a setting in SPL add-on settings to toggle track dial mode on and off.
 		self.trackDialCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Track Dial mode"))
 		self.trackDialCheckbox.SetValue(SPLConfig["TrackDial"])
-		sizer.Add(self.trackDialCheckbox, border=10,flag=wx.BOTTOM)
+		settingsSizer.Add(self.trackDialCheckbox, border=10,flag=wx.BOTTOM)
 
 		# Translators: the label for a setting in SPL add-on settings to announce scheduled time.
 		self.scheduledForCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce &scheduled time for the selected track"))
 		self.scheduledForCheckbox.SetValue(SPLConfig["SayScheduledFor"])
-		sizer.Add(self.scheduledForCheckbox, border=10,flag=wx.BOTTOM)
+		settingsSizer.Add(self.scheduledForCheckbox, border=10,flag=wx.BOTTOM)
 
 		# Translators: the label for a setting in SPL add-on settings to announce listener count.
 		self.listenerCountCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce &listener count"))
 		self.listenerCountCheckbox.SetValue(SPLConfig["SayListenerCount"])
-		sizer.Add(self.listenerCountCheckbox, border=10,flag=wx.BOTTOM)
+		settingsSizer.Add(self.listenerCountCheckbox, border=10,flag=wx.BOTTOM)
 
 		# Translators: the label for a setting in SPL add-on settings to announce currently playing cart.
 		self.cartNameCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Announce name of the currently playing cart"))
 		self.cartNameCheckbox.SetValue(SPLConfig["SayPlayingCartName"])
-		sizer.Add(self.listenerCountCheckbox, border=10,flag=wx.BOTTOM)
+		settingsSizer.Add(self.cartNameCheckbox, border=10,flag=wx.BOTTOM)
 
 		# Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
 		self.resetConfigButton = wx.Button(self, wx.ID_ANY, label=_("Reset settings"))
 		self.resetConfigButton.Bind(wx.EVT_BUTTON,self.onResetConfig)
-		sizer.Add(self.resetConfigButton)
+		settingsSizer.Add(self.resetConfigButton)
 
 	def postInit(self):
+		global _configDialogOpened
+		_configDialogOpened = True
 		self.beepAnnounceCheckbox.SetFocus()
 
 	def onOk(self, evt):
@@ -243,7 +247,14 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["SayScheduledFor"] = self.scheduledForCheckbox.Value
 		SPLConfig["SayListenerCount"] = self.listenerCountCheckbox.Value
 		SPLConfig["SayPlayingCartName"] = self.cartNameCheckbox.Value
+		global _configDialogOpened
+		_configDialogOpened = False
 		super(SPLConfigDialog,  self).onOk(evt)
+
+	def onCancel(self, evt):
+		global _configDialogOpened
+		_configDialogOpened = False
+		super(SPLConfigDialog,  self).onCancel(evt)
 
 	# Check events for outro and intro alarms, respectively.
 	def onOutroCheck(self, evt):
@@ -281,7 +292,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 # Open the above dialog upon request.
 def onConfigDialog(evt):
-	gui.mainFrame._popupSettingsDialog(SPLConfigDialog)
+	# 5.2: Guard against alarm dialogs.
+	if _alarmDialogOpened:
+		# Translators: Presented when an alarm dialog is opened.
+		wx.CallAfter(gui.messageBox, _("An alarm dialog is already opened. Please close the alarm dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
+	else: gui.mainFrame._popupSettingsDialog(SPLConfigDialog)
 
 # Additional configuration dialogs
 
