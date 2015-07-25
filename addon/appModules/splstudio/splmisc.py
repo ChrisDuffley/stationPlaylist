@@ -9,7 +9,7 @@
 import ctypes
 import weakref
 import os
-import csv # For cart explorer.
+from csv import reader # For cart explorer.
 import gui
 import wx
 from NVDAObjects.IAccessible import sysListView32
@@ -146,8 +146,8 @@ def _populateCarts(carts, cartlst, modifier, standardEdition=False):
 		# Pos between 1 and 12 = function carts, 13 through 24 = number row carts, modifiers are checked.
 		pos = cartlst.index(entry)+1
 		# If a cart name has commas or other characters, SPL surrounds the cart name with quotes (""), so parse it as well.
-		if not entry.startswith('""'): cartName = entry.split(",")[0]
-		else: cartName = entry.split('""')[1]
+		if not entry.startswith('"'): cartName = entry.split(",")[0]
+		else: cartName = entry.split('"')[1]
 		if pos <= 12: identifier = "f%s"%(pos)
 		elif 12 < pos < 22: identifier = str(pos-12)
 		elif pos == 22: identifier = "0"
@@ -188,7 +188,7 @@ def cartExplorerInit(StudioTitle, cartFiles=None):
 			faultyCarts = True
 			continue
 		with open(cartFile) as cartInfo:
-			cl = [row for row in csv.reader(cartInfo)]
+			cl = [row for row in reader(cartInfo)]
 		_populateCarts(carts, cl[1], mod, standardEdition=carts["standardLicense"]) # See the comment for _populate method above.
 	carts["faultyCarts"] = faultyCarts
 	return carts
