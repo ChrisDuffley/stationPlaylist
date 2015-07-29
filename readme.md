@@ -45,6 +45,7 @@ The following commands are available when using Sam or SPL encoders:
 
 * F9: connect to a streaming server.
 * F10 (SAM encoder only): Disconnect from the streaming server.
+* Control+F9/Control+F10 (SAM encoder only): Connect or disconnect all encoders, respectivley.
 * F11: Toggles whether NVDA will switch to Studio window for the selected encoder if connected.
 * Shift+F11: Toggles whether Studio will play the first selected track when encoder is connected to a streaming server.
 * Control+F11: Toggles background monitoring of the selected encoder.
@@ -90,7 +91,7 @@ The available SPL Controller commands are:
 * Press L to enable line-in input or Shift+L to disable it.
 * Press R to hear remaining time for the currently playing track in seconds.
 * Press Shift+R to get a report on library scan progress.
-* Press E to get a count of encoders being monitored.
+* Press E to get count and labels for encoders being monitored.
 * Press F1 to show a help dialog which lists available commands.
 
 ## End of track alarm
@@ -128,6 +129,14 @@ From studio window, you can press Control+NVDA+0 to open the add-on configuratio
 ## SPL touch mode
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
+
+## Changes for 5.2
+
+* NVDA will no longer allow both settings and alarm dialogs to be opened. A warning will be shown asking you to close the previously opened dialog before opening another dialog.
+* When monitoring one or more encoders, pressing SPL Controller, E will now announce encoder count, encoder ID and stream label(s) if any.
+* NVDA supports connect/disconnect all commands (Control+F9/Control+F10) in SAM encoders.
+* NVDA will no longer play the next track if an encoder connects while Studio is playing a track and Studio is told to play tracks when an encoder is connected.
+* Updated translations.
 
 ## Changes for 5.1
 
