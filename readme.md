@@ -49,6 +49,7 @@ The following commands are available when using Sam or SPL encoders:
 
 * F9: connect to a streaming server.
 * F10 (SAM encoder only): Disconnect from the streaming server.
+* Control+F9/Control+F10 (SAM encoder only): Connect or disconnect all encoders, respectivley.
 * F11: Toggles whether NVDA will switch to Studio window for the selected encoder if connected.
 * Shift+F11: Toggles whether Studio will play the first selected track when encoder is connected to a streaming server.
 * Control+F11: Toggles background monitoring of the selected encoder.
@@ -97,7 +98,7 @@ The available SPL Controller commands are:
 * Press L to enable line-in input or Shift+L to disable it.
 * Press R to hear remaining time for the currently playing track in seconds.
 * Press Shift+R to get a report on library scan progress.
-* Press E to get a count of encoders being monitored.
+* Press E to get count and labels for encoders being monitored.
 * Press F1 to show a help dialog which lists available commands.
 
 ## End of track alarm
@@ -146,6 +147,14 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * You can now ask NVDA to report total length of a range of tracks via track time analysis feature. Press SPL Assistant, F9 to mark current track as start marker, move to end of track range and press SPL Assistant, F10. These commands can be reassigned so one doesn't have to invoke SPL Assistant layer to perform track time analysis.
 * Added a column search dialog (command unassigned) to find text in specific columns such as artist or part of file name.
 * Added ability to reorder track column announcement and to suppress announcement of specific columns if "use screen order" is unchecked from add-on settings dialog. Use "manage column announcement" dialog to reorder columns.
+
+## Changes for 5.2
+
+* NVDA will no longer allow both settings and alarm dialogs to be opened. A warning will be shown asking you to close the previously opened dialog before opening another dialog.
+* When monitoring one or more encoders, pressing SPL Controller, E will now announce encoder count, encoder ID and stream label(s) if any.
+* NVDA supports connect/disconnect all commands (Control+F9/Control+F10) in SAM encoders.
+* NVDA will no longer play the next track if an encoder connects while Studio is playing a track and Studio is told to play tracks when an encoder is connected.
+* Updated translations.
 
 ## Changes for 5.1
 
