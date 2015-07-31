@@ -210,6 +210,16 @@ msgstr "Gibt die Sendezeit aus."
 msgid "Announces time including seconds."
 msgstr "Gibt die Zeit einschließlich Sekunden aus."
 
+#. Translators: Presented when the add-on config dialog is opened.
+msgid ""
+"The add-on settings dialog is opened. Please close the settings dialog first."
+msgstr ""
+
+#. Translators: Standard title for error dialog (copy this from main nvda.po file).
+#. Translators: The title of the message box
+msgid "Error"
+msgstr "Fehler"
+
 #. Translators: The title of end of track alarm dialog.
 msgid "End of track alarm"
 msgstr "Benachrichtigung bei Titelende"
@@ -277,11 +287,6 @@ msgstr "Mikrofon-Alarm"
 #. Translators: The error message presented when incorrect alarm time value has been entered.
 msgid "Incorrect value entered."
 msgstr "Falschen Wert eingegeben."
-
-#. Translators: Standard title for error dialog (copy this from main nvda.po file).
-#. Translators: The title of the message box
-msgid "Error"
-msgstr "Fehler"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Sets microphone alarm (default is 5 seconds)."
@@ -622,6 +627,10 @@ msgstr ""
 msgid "Warning"
 msgstr "Warnung"
 
+#. Translators: Presented when an alarm dialog is opened.
+msgid "An alarm dialog is already opened. Please close the alarm dialog first."
+msgstr ""
+
 #. Translators: Text of the dialog when another alarm dialog is open.
 msgid "Another alarm dialog is open."
 msgstr "Ein anderer Benachrichtigungsdialog ist offen."
@@ -712,8 +721,8 @@ msgid "No encoders are being monitored"
 msgstr "Kein Encoder wird überwacht."
 
 #. Translators: Announces number of encoders being monitored in the background.
-#, python-brace-format
-msgid "Number of encoders monitored: {numberOfEncoders}"
+#, fuzzy, python-brace-format
+msgid "Number of encoders monitored: {numberOfEncoders}: {streamLabels}"
 msgstr "Zu überwachende Anzahl der Encoder: {numberOfEncoders}"
 
 #. Translators: Status message for encoder monitoring.
