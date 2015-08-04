@@ -36,6 +36,7 @@ The following commands are not assigned by default; if you wish to assign it, us
 * Toggling track dial on or off (works properly while a track is focused; to assign a command to this, select a track, then open NVDA's input gestures dialog.).
 * Announcing temperature.
 * Announcing title of next track if scheduled.
+* Announcing title of the currently playing track.
 * Marking current track for start of track time analysis.
 * Performing track time analysis.
 * Switch profiles.
@@ -63,6 +64,7 @@ This layer command set allows you to obtain various status on SPL Studio, such a
 The available status information are:
 
 * A: Automation.
+* C: Title for the currently playing track.
 * D: Remaining duration for the playlist.
 * H: Duration of music for the current hour slot.
 * Shift+H: Total duration of selected tracks for this hour slot (from the track list, press SPACE to select or uncheck the track to play).
@@ -143,6 +145,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Changes for 6.0-dev
 
+* New SPL Assistant commands, including announcing title of the currently playing track (C).
 * Ability to package favorite settings as broadcast profiles to be used during a show and to switch to a predefined profile. See the add-on guide for details on broadcast profiles.
 * You can now ask NVDA to report total length of a range of tracks via track time analysis feature. Press SPL Assistant, F9 to mark current track as start marker, move to end of track range and press SPL Assistant, F10. These commands can be reassigned so one doesn't have to invoke SPL Assistant layer to perform track time analysis.
 * Added a column search dialog (command unassigned) to find text in specific columns such as artist or part of file name.

@@ -1111,13 +1111,10 @@ class AppModule(appModuleHandler.AppModule):
 				return
 			# To prevent entering wrong gesture while the layer is active.
 			self.clearGestureBindings()
+			# Project Rainbow: choose the required compatibility layer.
 			self.bindGestures(self.__SPLAssistantGestures)
 			self.SPLAssistant = True
 			tones.beep(512, 10)
-			# Because different builds of 5.10 have different object placement...
-			if self.SPLCurVersion >= "5.10" and not self.spl510used:
-				if fg.children[5].role != controlTypes.ROLE_STATUSBAR:
-					self.spl510used = True
 		except WindowsError:
 			return
 	# Translators: Input help mode message for a layer command in Station Playlist Studio.
@@ -1129,6 +1126,7 @@ class AppModule(appModuleHandler.AppModule):
 	SPLSystemStatus = 1
 	SPLHourSelectedDuration = 3
 	SPLNextTrackTitle = 4
+	SPLCurrentTrackTitle = 5
 	SPLTemperature = 6
 	SPLScheduled = 7
 
@@ -1141,6 +1139,7 @@ class AppModule(appModuleHandler.AppModule):
 		SPLHourSelectedDuration:[18, 19], # In case the user selects one or more tracks in a given hour.
 		SPLScheduled:[19, 20], # Time when the selected track will begin.
 		SPLNextTrackTitle:[7, 8], # Name and duration of the next track if any.
+		SPLCurrentTrackTitle:[8, 9], # Name of the currently playing track.
 		SPLTemperature:[6, 7], # Temperature for the current city.
 	}
 
@@ -1153,10 +1152,7 @@ class AppModule(appModuleHandler.AppModule):
 			fg = api.getForegroundObject()
 			if not fg.windowClassName == "TStudioForm":
 				raise RuntimeError("Not focused in playlist viewer")
-			# Only evaluated when SPL Assistant is not invoked first.
-			if fg.children[5].role != controlTypes.ROLE_STATUSBAR:
-				self.spl510used = True
-			if not self.spl510used: statusObj = self.statusObjs[infoIndex][0]
+			if not self.productVersion >= "5.10": statusObj = self.statusObjs[infoIndex][0]
 			else: statusObj = self.statusObjs[infoIndex][1]
 			self._cachedStatusObjs[infoIndex] = fg.children[statusObj]
 		return self._cachedStatusObjs[infoIndex]
@@ -1220,6 +1216,19 @@ class AppModule(appModuleHandler.AppModule):
 			self.finish()
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayNextTrackTitle.__doc__=_("Announces title of the next track if any")
+
+	def script_sayCurrentTrackTitle(self, gesture):
+		try:
+			obj = self.status(self.SPLCurrentTrackTitle).firstChild
+			# Translators: Presented when there is no information for the current track.
+			ui.message(_("Cannot locate current track information or no track is playing")) if obj.name is None else ui.message(obj.name)
+		except RuntimeError:
+			# Translators: Presented when current track information is unavailable.
+			ui.message(_("Cannot find current track information"))
+		finally:
+			self.finish()
+	# Translators: Input help mode message for a command in Station Playlist Studio.
+	script_sayCurrentTrackTitle.__doc__=_("Announces title of the next track if any")
 
 	def script_sayTemperature(self, gesture):
 		try:
@@ -1344,6 +1353,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:y":"sayPlaylistModified",
 		"kb:u":"sayUpTime",
 		"kb:n":"sayNextTrackTitle",
+		"kb:c":"sayCurrentTrackTitle",
 		"kb:w":"sayTemperature",
 		"kb:i":"sayListenerCount",
 		"kb:s":"sayScheduledTime",
