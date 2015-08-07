@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2015-07-12 22:25+0100\n"
+"PO-Revision-Date: 2015-07-31 16:36+0100\n"
 "Last-Translator: Juan C. Buño <quetzatl@eresmas.net>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -214,6 +214,8 @@ msgstr "Anuncia el tiempo incluyendo segundos."
 msgid ""
 "The add-on settings dialog is opened. Please close the settings dialog first."
 msgstr ""
+"El diálogo de opciones del complemento está abierto. Por favor ciérralo "
+"antes."
 
 #. Translators: Standard title for error dialog (copy this from main nvda.po file).
 #. Translators: The title of the message box
@@ -620,7 +622,7 @@ msgstr "Precaución"
 
 #. Translators: Presented when an alarm dialog is opened.
 msgid "An alarm dialog is already opened. Please close the alarm dialog first."
-msgstr ""
+msgstr "Está todavía abierto un diálogo de alarma. Por favor ciérralo antes."
 
 #. Translators: Text of the dialog when another alarm dialog is open.
 msgid "Another alarm dialog is open."
@@ -712,9 +714,10 @@ msgid "No encoders are being monitored"
 msgstr "No hay codificadores siendo monitorizados"
 
 #. Translators: Announces number of encoders being monitored in the background.
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Number of encoders monitored: {numberOfEncoders}: {streamLabels}"
-msgstr "Número de codificadores monitorizados: {numberOfEncoders}"
+msgstr ""
+"Número de codificadores monitorizados: {numberOfEncoders}: {streamLabels}"
 
 #. Translators: Status message for encoder monitoring.
 #, python-brace-format
