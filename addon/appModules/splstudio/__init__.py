@@ -218,7 +218,7 @@ class SPL510TrackItem(SPLTrackItem):
 	__gestures={"kb:space":"select"}
 
 # Translators: The text of the help command in SPL Assistant layer.
-	SPLAssistantHelp=_("""After entering SPL Assistant, press:
+SPLAssistantHelp=_("""After entering SPL Assistant, press:
 A: Automation.
 D: Remaining time for the playlist.
 H: Duration of trakcs in this hour slot.
