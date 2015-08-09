@@ -220,8 +220,9 @@ class SPL510TrackItem(SPLTrackItem):
 	__gestures={"kb:space":"select"}
 
 # Translators: The text of the help command in SPL Assistant layer.
-	SPLAssistantHelp=_("""After entering SPL Assistant, press:
+SPLAssistantHelp=_("""After entering SPL Assistant, press:
 A: Automation.
+C: Announce name of the currently playing track.
 D: Remaining time for the playlist.
 H: Duration of trakcs in this hour slot.
 Shift+H: Duration of selected tracks.
@@ -237,7 +238,11 @@ S: Scheduled time for the track.
 T: Cart edit mode.
 U: Studio up time.
 W: Weather and temperature.
-Y: Playlist modification.""")
+Y: Playlist modification.
+F9: Mark current track as start of track time analysis.
+F10: Perform track time analysis.
+F12: Switch to an instant switch profile.
+Shift+F1: Open online user guide.""")
 
 
 class AppModule(appModuleHandler.AppModule):
@@ -1339,6 +1344,9 @@ class AppModule(appModuleHandler.AppModule):
 		# Translators: The title for SPL Assistant help dialog.
 		wx.CallAfter(gui.messageBox, SPLAssistantHelp, _("SPL Assistant help"))
 
+	def script_openOnlineDoc(self, gesture):
+		os.startfile("https://bitbucket.org/nvdaaddonteam/stationplaylist/wiki/SPLDevAddonGuide")
+
 
 	__SPLAssistantGestures={
 		"kb:p":"sayPlayStatus",
@@ -1363,6 +1371,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:f10":"trackTimeAnalysis",
 		"kb:f12":"switchProfiles",
 		"kb:f1":"layerHelp",
+		"kb:shift+f1":"openOnlineDoc",
 	}
 
 	__gestures={
