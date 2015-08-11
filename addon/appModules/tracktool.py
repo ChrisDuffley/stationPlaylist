@@ -16,12 +16,11 @@ import winKernel
 from winUser import sendMessage
 from NVDAObjects.IAccessible import IAccessible, sysListView32
 from splstudio import splconfig
+from splstudio.splmisc import _getColumnContent
 addonHandler.initTranslation()
 
 # Track Tool allows a broadcaster to manage track intros, cues and so forth. Each track is a list item with descriptions such as title, file name, intro time and so forth.
 # One can press TAB to move along the controls for Track Tool.
-# The below code is an unoptimized version for add-on 5.0.
-# Add-on 5.1 will enable Track Dial, and 6.0 will feature optimized code, deriving from SPL Studio code.
 
 class TrackToolItem(IAccessible):
 	"""An entry in Track Tool, used to implement some exciting features.
@@ -38,7 +37,7 @@ class TrackToolItem(IAccessible):
 			self.bindGesture("kb:rightArrow", "nextColumn")
 			self.bindGesture("kb:leftArrow", "prevColumn")
 
-			# Add-on 5.1: Track Dial for Track Tool.
+			# Track Dial for Track Tool.
 
 	def script_toggleTrackDial(self, gesture):
 		if splconfig.SPLConfig is None:
@@ -73,38 +72,20 @@ class TrackToolItem(IAccessible):
 	script_toggleTrackDial.__doc__=_("Toggles track dial on and off.")
 	script_toggleTrackDial.category = "StationPlaylist Studio"
 
-	# Locate column content.
-	def _getColumnContent(self, col):
-	# See main splstudio app module.
-		buffer=None
-		processHandle=self.processHandle
-		sizeofLVITEM = ctypes.sizeof(sysListView32.LVITEM)
-		internalItem=winKernel.virtualAllocEx(processHandle,None,sizeofLVITEM,winKernel.MEM_COMMIT,winKernel.PAGE_READWRITE)
-		try:
-			internalText=winKernel.virtualAllocEx(processHandle,None,520,winKernel.MEM_COMMIT,winKernel.PAGE_READWRITE)
-			try:
-				item=sysListView32.LVITEM(iItem=self.IAccessibleChildID-1,mask=sysListView32.LVIF_TEXT|sysListView32.LVIF_COLUMNS,iSubItem=col,pszText=internalText,cchTextMax=260)
-				winKernel.writeProcessMemory(processHandle,internalItem,ctypes.byref(item),sizeofLVITEM,None)
-				len = sendMessage(self.windowHandle,sysListView32.LVM_GETITEMTEXTW, (self.IAccessibleChildID-1), internalItem)
-				if len:
-					winKernel.readProcessMemory(processHandle,internalItem,ctypes.byref(item),sizeofLVITEM,None)
-					buffer=ctypes.create_unicode_buffer(len)
-					winKernel.readProcessMemory(processHandle,item.pszText,buffer,ctypes.sizeof(buffer),None)
-			finally:
-				winKernel.virtualFreeEx(processHandle,internalText,0,winKernel.MEM_RELEASE)
-		finally:
-			winKernel.virtualFreeEx(processHandle,internalItem,0,winKernel.MEM_RELEASE)
-		return buffer.value if buffer else None
-
 	# Tweak for Track Tool: Announce column header if given.
-	def announceColumnContent(self, colNumber, columnHeader=None):
+	# Also take care of this when specific columns are asked.
+	def announceColumnContent(self, colNumber, columnHeader=None, individualColumns=False):
 		if not columnHeader: columnHeader = self.columnHeaders.children[colNumber].name
-		columnContent = self._getColumnContent(colNumber)
+		columnContent = _getColumnContent(self, colNumber)
 		if columnContent:
 			ui.message("{header}: {content}".format(header = columnHeader, content = columnContent))
 		else:
-			speech.speakMessage("{header}: blank".format(header = columnHeader))
-			braille.handler.message("{header}: ()".format(header = columnHeader))
+			if individualColumns:
+				# Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
+				ui.message("{header} not found".format(header = columnHeader))
+			else:
+				speech.speakMessage("{header}: blank".format(header = columnHeader))
+				braille.handler.message("{header}: ()".format(header = columnHeader))
 
 	# Now the scripts.
 
@@ -194,39 +175,49 @@ class AppModule(appModuleHandler.AppModule):
 	# 6.0: Cache column header indecies.
 	#headerToIndex={}
 
-	"""def announceColumnContent(self, headerText):
+	def announceColumnContent(self, headerText):
 		item = api.getFocusObject()
-		columnHeaders = item.parent.children[-1].children
-		for header in columnHeaders:
-			if header.name == headerText:
-				pos = columnHeaders.index(header)
-		item.announceColumnContent(pos, columnHeader=headerText)"""
+		if item.windowClassName not in  ("TListView", "TTntListView.UnicodeClass") and item.role != ROLE_LISTITEM:
+			# Translators: Presented when trying to perform Track Tool commands when not focused in the track list.
+			ui.message(_("Not in tracks list"))
+		elif item.name is None and item.description is None:
+			# Translators: Presented when no tracks are added to Track Tool.
+			ui.message(_("No tracks added"))
+		else:
+			columnHeaders = item.parent.children[-1].children
+			for header in columnHeaders:
+				if header.name == headerText:
+					pos = columnHeaders.index(header)
+			item.announceColumnContent(pos, columnHeader=headerText)
 
 
 	def script_announceArtist(self, gesture):
-		self.announceColumnHeader(1)
-		#self.announceColumnContent("Artist")
+		self.announceColumnContent("Artist")
 
 	def script_announceTitle(self, gesture):
-		self.announceColumnHeader(2)
+		self.announceColumnContent("Title")
 
 	def script_announceDuration(self, gesture):
-		self.announceColumnHeader(3)
+		self.announceColumnContent("Duration")
 
 	def script_announceCue(self, gesture):
-		self.announceColumnHeader(4)
+		self.announceColumnContent("Cue")
 
 	def script_announceOverlap(self, gesture):
-		self.announceColumnHeader(5)
+		self.announceColumnContent("Overlap")
 
 	def script_announceIntro(self, gesture):
-		self.announceColumnHeader(6)
+		# Special case for intro to make it compatible with old add-on releases.
+		if "Intro:" not in api.getFocusObject().description:
+			# Translators: Presented when intro is not defined for a track in Track Tool.
+			ui.message(_("Introduction not set"))
+		else: self.announceColumnContent("Intro")
 
 	def script_announceSegue(self, gesture):
-		self.announceColumnHeader(7)
+		self.announceColumnContent("Segue")
 
 	def script_announceFilename(self, gesture):
-		self.announceColumnHeader(8)
+		self.announceColumnContent("Filename")
 
 	__gestures={
 		"kb:control+NVDA+1":"announceArtist",

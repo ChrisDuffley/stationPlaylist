@@ -19,7 +19,7 @@ import winKernel
 # Locate column content.
 # Given an object and the column number, locate text in the given column.
 # This is the module level version of column content getter found in the app module.
-# This is used by the track item class as well as in track finder.
+# This is used by the track item class, Track Tool items and in track finder.
 # In track finder, this is used when encountering the track item but NVDA says otherwise.
 def _getColumnContent(obj, col):
 	# Borrowed from SysListView32 implementation.
