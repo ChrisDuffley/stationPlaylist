@@ -288,9 +288,9 @@ class AppModule(appModuleHandler.AppModule):
 			global _SPLWin
 			_SPLWin = hwnd
 
-	# 5.0/Experimental: allow SPL Controller layer command to invoke SPL Assistant.
-	# For now, this needs to be enabled from Python Console and may or may not make it into 5.0.
-	SPLConPassthrough = False
+	# Let the global plugin know if SPLController passthrough is allowed.
+	def SPLConPassthrough(self):
+		return splconfig.SPLConfig["SPLConPassthrough"]
 
 	def event_NVDAObject_init(self, obj):
 		# Radio button group names are not recognized as grouping, so work around this.

@@ -36,6 +36,7 @@ IncludedColumns = string_list(default=list("Artist","Title","Duration","Intro","
 SayScheduledFor = boolean(default=true)
 SayListenerCount = boolean(default=true)
 SayPlayingCartName = boolean(default=true)
+SPLConPassthrough = boolean(default=false)
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
 SPLConfig = None
@@ -376,6 +377,12 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.cartNameCheckbox.SetValue(SPLConfig["SayPlayingCartName"])
 		settingsSizer.Add(self.cartNameCheckbox, border=10,flag=wx.BOTTOM)
 
+		# Translators: The label of a button to open advanced options such as using SPL Controller command to invoke Assistant layer.
+		item = advancedOptButton = wx.Button(self, label=_("&Advanced options..."))
+		item.Bind(wx.EVT_BUTTON, self.onAdvancedOptions)
+		self.splConPassthrough = SPLConfig["SPLConPassthrough"]
+		settingsSizer.Add(item)
+
 		# Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
 		self.resetConfigButton = wx.Button(self, wx.ID_ANY, label=_("Reset settings"))
 		self.resetConfigButton.Bind(wx.EVT_BUTTON,self.onResetConfig)
@@ -413,6 +420,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["SayScheduledFor"] = self.scheduledForCheckbox.Value
 		SPLConfig["SayListenerCount"] = self.listenerCountCheckbox.Value
 		SPLConfig["SayPlayingCartName"] = self.cartNameCheckbox.Value
+		SPLConfig["SPLConPassthrough"] = self.splConPassthrough
 		SPLActiveProfile = SPLConfig.name
 		SPLSwitchProfile = self.switchProfile
 		# Without nullifying prev profile while switch profile is undefined, NVDA will assume it can switch back to that profile when it can't.
@@ -568,6 +576,12 @@ class SPLConfigDialog(gui.SettingsDialog):
 	def onManageColumns(self, evt):
 		self.Disable()
 		ColumnAnnouncementsDialog(self).Show()
+
+	# Advanced options.
+	# See advanced options class for more details.
+	def onAdvancedOptions(self, evt):
+		self.Disable()
+		AdvancedOptionsDialog(self).Show()
 
 	# Reset settings to defaults.
 	# This affects the currently selected profile.
@@ -777,6 +791,43 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 			self.trackColumns.Insert(selItem, selIndex+1)
 			self.trackColumns.Select(selIndex+1)
 			self.onColumnSelection(None)
+
+# Advanced options
+# This dialog houses advanced options such as using SPL Controller command to invoke SPL Assistant.
+# More options will be added in Project Rainbow.
+class AdvancedOptionsDialog(wx.Dialog):
+
+	def __init__(self, parent):
+		super(AdvancedOptionsDialog, self).__init__(parent, title="Advanced options")
+
+		mainSizer = wx.BoxSizer(wx.VERTICAL)
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
+		self.splConPassthroughCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Allow SPL C&ontroller command to invoke SPL Assistant layer"))
+		self.splConPassthroughCheckbox.SetValue(SPLConfig["SPLConPassthrough"])
+		sizer.Add(self.splConPassthroughCheckbox, border=10,flag=wx.TOP)
+		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
+		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
+		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
+		mainSizer.Fit(self)
+		self.Sizer = mainSizer
+		self.splConPassthroughCheckbox.SetFocus()
+		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+
+	def onOk(self, evt):
+		parent = self.Parent
+		parent.splConPassthrough = self.splConPassthroughCheckbox.Value
+		parent.profiles.SetFocus()
+		parent.Enable()
+		self.Destroy()
+		return
+
+	def onCancel(self, evt):
+		self.Parent.Enable()
+		self.Destroy()
 
 # Additional configuration dialogs
 

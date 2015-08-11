@@ -47,7 +47,7 @@ streamLabels = None
 
 # Load stream labels (and possibly other future goodies) from a file-based database.
 def loadStreamLabels():
-	global streamLabels, SAMStreamLabels, SPLStreamLabels
+	global streamLabels, SAMStreamLabels, SPLStreamLabels, SPLFocusToStudio
 	streamLabels = ConfigObj(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
 	# Read stream labels.
 	try:
@@ -58,6 +58,10 @@ def loadStreamLabels():
 		SPLStreamLabels = dict(streamLabels["SPLEncoders"])
 	except KeyError:
 		SPLStreamLabels = {}
+	# Read other settings.
+	if "FocusToStudio" in streamLabels:
+		SPLFocusToStudio = set(streamLabels["FocusToStudio"])
+
 
 # Report number of encoders being monitored.
 # 6.0: Refactor the below function to use the newer encoder config format.
@@ -118,6 +122,13 @@ class Encoder(IAccessible):
 	playAfterConnecting = False # When connected, the first track will be played.
 	backgroundMonitor = False # Monitor this encoder for connection status changes.
 
+	# Some helper functions
+
+	# Get the encoder identifier.
+	# This consists of two or three letter abbreviations for the encoder and the child ID.
+	def getEncoderId(self):
+		return " ".join([self.encoderType, str(self.IAccessibleChildID)])
+
 	# Format the status message to prepare for monitoring multiple encoders.
 	def encoderStatusMessage(self, message, id):
 		if encoderMonCount[self.encoderType] > 1:
@@ -125,6 +136,23 @@ class Encoder(IAccessible):
 			ui.message(_("{encoder} {encoderNumber}: {status}").format(encoder = self.encoderType, encoderNumber = id, status = message))
 		else:
 			ui.message(message)
+
+	# A master flag setter.
+	# Set or clear a given flag for the encoder given its ID, flag and flag container (currently a feature set).
+	# Also take in the flag key for storing it into the settings file.
+	# The flag will then be written to the configuration file.
+	def _set_Flags(self, encoderId, flag, flagMap, flagKey):
+		if flag and not encoderId in flagMap:
+			flagMap.add(encoderId)
+		elif not flag and encoderId in flagMap:
+			flagMap.remove(encoderId)
+		# No need to store an empty flag map.
+		if len(flagMap): streamLabels[flagKey] = list(flagMap)
+		else: del streamLabels[flagKey]
+		streamLabels.write()
+
+	# Now the flag configuration scripts.
+	# Project Rainbow: a new way to configure these will be created.
 
 	def script_toggleFocusToStudio(self, gesture):
 		if not self.focusToStudio:
@@ -232,7 +260,7 @@ class Encoder(IAccessible):
 	def initOverlayClass(self):
 		# Load stream labels upon request.
 		if not streamLabels: loadStreamLabels()
-		encoderIdentifier = " ".join([self.encoderType, str(self.IAccessibleChildID)])
+		encoderIdentifier = self.getEncoderId()
 		# Can I switch to Studio when connected to a streaming server?
 		try:
 			self.focusToStudio = encoderIdentifier in SPLFocusToStudio
@@ -352,26 +380,17 @@ class SAMEncoder(Encoder):
 		# Translators: Presented when SAM Encoder is disconnecting from a streaming server.
 		ui.message(_("Disconnecting..."))
 
+	# The following mutators will be removed as part of Project Rainbow.
+	# These will be kept in 6.0 for backwards compatibility.
+
 	def _set_FocusToStudio(self):
-		SAMIdentifier = " ".join([self.encoderType, str(self.IAccessibleChildID)])
-		if self.focusToStudio and not SAMIdentifier in SPLFocusToStudio:
-			SPLFocusToStudio.add(SAMIdentifier)
-		elif not self.focusToStudio and SAMIdentifier in SPLFocusToStudio:
-			SPLFocusToStudio.remove(SAMIdentifier)
+		self._set_Flags(self.getEncoderId(), self.focusToStudio, SPLFocusToStudio, "FocusToStudio")
 
 	def setPlayAfterConnecting(self):
-		SAMIdentifier = " ".join([self.encoderType, str(self.IAccessibleChildID)])
-		if self.playAfterConnecting and not SAMIdentifier in SPLPlayAfterConnecting:
-			SPLPlayAfterConnecting.add(SAMIdentifier)
-		elif not self.playAfterConnecting and SAMIdentifier in SPLPlayAfterConnecting:
-			SPLPlayAfterConnecting.remove(SAMIdentifier)
+		self._set_Flags(self.getEncoderId(), self.playAfterConnecting, SPLPlayAfterConnecting, "PlayAfterConnecting")
 
 	def setBackgroundMonitor(self):
-		SAMIdentifier = " ".join([self.encoderType, str(self.IAccessibleChildID)])
-		if self.backgroundMonitor and not SAMIdentifier in SPLBackgroundMonitor:
-			SPLBackgroundMonitor.add(SAMIdentifier)
-		elif not self.backgroundMonitor and SAMIdentifier in SPLBackgroundMonitor:
-			SPLBackgroundMonitor.remove(SAMIdentifier)
+		self._set_Flags(self.getEncoderId(), self.backgroundMonitor, SPLBackgroundMonitor, "BackgroundMonitor")
 		return SAMMonitorThreads
 
 
