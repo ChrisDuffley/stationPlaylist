@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 4.1\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2015-07-14 13:57+0100\n"
-"Last-Translator: Rémy Ruiz <remyruiz@gmail.com>\n"
+"PO-Revision-Date: 2015-07-31 11:24+0100\n"
+"Last-Translator: Michel Such <michel.such@free.fr>\n"
 "Language-Team: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.1\n"
+"X-Generator: Poedit 1.7.6\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Presented when only Track Tool is running (Track Dial requires Studio to be running as well).
@@ -213,6 +213,8 @@ msgstr "Annonce le temps y compris les secondes."
 msgid ""
 "The add-on settings dialog is opened. Please close the settings dialog first."
 msgstr ""
+"Le dialogue de paramètres du module complémentaire est ouvert. Veuillez le "
+"fermer."
 
 #. Translators: Standard title for error dialog (copy this from main nvda.po file).
 #. Translators: The title of the message box
@@ -632,7 +634,7 @@ msgstr "Attention"
 
 #. Translators: Presented when an alarm dialog is opened.
 msgid "An alarm dialog is already opened. Please close the alarm dialog first."
-msgstr ""
+msgstr "Un dialogue d'alarme est déjà ouvert. Veuillez le fermer."
 
 #. Translators: Text of the dialog when another alarm dialog is open.
 msgid "Another alarm dialog is open."
@@ -725,9 +727,9 @@ msgid "No encoders are being monitored"
 msgstr "Aucun des encodeurs sont contrôlés"
 
 #. Translators: Announces number of encoders being monitored in the background.
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Number of encoders monitored: {numberOfEncoders}: {streamLabels}"
-msgstr "Nombre d'encodeurs contrôlés: {numberOfEncoders}"
+msgstr "Nombre d'encodeurs monitorés : {numberOfEncoders} : {streamLabels}"
 
 #. Translators: Status message for encoder monitoring.
 #, python-brace-format
