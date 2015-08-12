@@ -468,7 +468,8 @@ class SPLEncoder(Encoder):
 					except AttributeError:
 						pass
 				if self.playAfterConnecting and not connected:
-					winUser.sendMessage(SPLWin, SPLMSG, 0, SPLPlay)
+					if winUser.sendMessage(SPLWin, SPLMSG, 0, SPL_TrackPlaybackStatus) == 0:
+						winUser.sendMessage(SPLWin, SPLMSG, 0, SPLPlay)
 				if not connected: connected = True
 			elif "Unable to connect" in messageCache or "Failed" in messageCache:
 				if connected: connected = False
