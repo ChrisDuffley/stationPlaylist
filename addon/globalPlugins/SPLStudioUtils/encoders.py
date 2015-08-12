@@ -256,6 +256,21 @@ class Encoder(IAccessible):
 	script_encoderDateTime.__doc__=_("If pressed once, reports the current time including seconds. If pressed twice, reports the current date")
 	script_encoderDateTime.category=_("Station Playlist Studio")
 
+	# Various column announcement scripts.
+	# This base class implements encoder position and stream labels.
+	def script_announceEncoderPosition(self, gesture):
+		ui.message("Position: {pos}".format(pos = self.IAccessibleChildID))
+
+	def script_announceEncoderLabel(self, gesture):
+		try:
+			streamLabel = self.getStreamLabel()[0]
+		except TypeError:
+			streamLabel = None
+		if streamLabel:
+			ui.message("Label: {label}".format(label = streamLabel))
+		else:
+			ui.message("No stream label")
+
 
 	def initOverlayClass(self):
 		# Load stream labels upon request.
@@ -292,7 +307,10 @@ class Encoder(IAccessible):
 		"kb:control+f11":"toggleBackgroundEncoderMonitor",
 		"kb:f12":"streamLabeler",
 		"kb:control+f12":"streamLabelEraser",
-		"kb:NVDA+F12":"encoderDateTime"
+		"kb:NVDA+F12":"encoderDateTime",
+		"kb:control+NVDA+0":"streamLabeler",
+		"kb:control+NVDA+1":"announceEncoderPosition",
+		"kb:control+NVDA+2":"announceEncoderLabel",
 	}
 
 
