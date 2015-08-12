@@ -120,64 +120,12 @@ class AppModule(appModuleHandler.AppModule):
 			clsList.insert(0, TrackToolItem)
 
 	# Various column reading scripts (row with fake navigation should not be used).
-	# Add-on 5.0: Keep the below routine.
-	# 5.1/6.0: Use SysListView32.
-
-	# Columns headers list:
-	# Number: start substring, ending substring.
-	columnHeaders = {
-		2: ["Title:", ", Duration:"], #Title
-		3: ["Duration:", ", "], #Duration
-		4: ["Cue:", ", "], #Cue
-		5: ["Overlap:", ", "], #Overlap
-		6: ["Intro:", ", "], #Intro
-		7: ["Segue:", ", "], # Segue
-		8: ["Filename:", None] # Actual file name.
-	}
-
-	# Up to add-on 5.0.
-	def announceColumnHeader(self, column):
-		focus = api.getFocusObject()
-		if focus.windowClassName not in  ("TListView", "TTntListView.UnicodeClass") and focus.role != ROLE_LISTITEM:
-			# Translators: Presented when trying to perform Track Tool commands when not focused in the track list.
-			ui.message(_("Not in tracks list"))
-		elif focus.name is None and focus.description is None:
-			# Translators: Presented when no tracks are added to Track Tool.
-			ui.message(_("No tracks added"))
-		else:
-			if column != 1:
-				desc = focus.description
-				colstr = self.columnHeaders[column][0]
-				if colstr not in desc:
-					if colstr == "Intro:":
-						# Translators: Presented when intro is not defined for a track in Track Tool.
-						columnInfo = _("Introduction not set")
-					else:
-						# Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
-						columnInfo = _("{columnInfo} not found").format(columnInfo = colstr[:-1])
-				else:
-					colstrindex = desc.find(colstr)
-					if column == 8:
-						columnInfo = desc[colstrindex:]
-					else:
-						colstrend = colstrindex+desc[colstrindex:].find(self.columnHeaders[column][1])
-						columnInfo = desc[colstrindex:colstrend]
-			else:
-				if focus.name is None:
-					# Translators: Presented when artist information is not found for a track in Track Tool.
-					columnInfo = _("No artist")
-				else:
-					# Translators: Presents artist information for a track in Track Tool.
-					columnInfo = _("Artist: {artistName}").format(artistName = focus.name)
-			ui.message(columnInfo)
-
-	# 5.1: Superseeds column announcement method.
 	# 6.0: Cache column header indecies.
 	#headerToIndex={}
 
 	def announceColumnContent(self, headerText):
 		item = api.getFocusObject()
-		if item.windowClassName not in  ("TListView", "TTntListView.UnicodeClass") and item.role != ROLE_LISTITEM:
+		if not isinstance(item, TrackToolItem):
 			# Translators: Presented when trying to perform Track Tool commands when not focused in the track list.
 			ui.message(_("Not in tracks list"))
 		elif item.name is None and item.description is None:
@@ -188,11 +136,24 @@ class AppModule(appModuleHandler.AppModule):
 			for header in columnHeaders:
 				if header.name == headerText:
 					pos = columnHeaders.index(header)
-			item.announceColumnContent(pos, columnHeader=headerText)
+			try:
+				item.announceColumnContent(pos, columnHeader=headerText)
+			except AttributeError:
+				ui.message(_("Not in tracks list"))
 
 
 	def script_announceArtist(self, gesture):
-		self.announceColumnContent("Artist")
+		# Special case for artist field to make it compatible with old add-on releases.
+		item = api.getFocusObject()
+		if isinstance(item, TrackToolItem):
+			if item.name is None:
+				# Translators: Presented when artist information is not found for a track in Track Tool.
+				ui.message(_("No artist"))
+			else:
+				# Translators: Presents artist information for a track in Track Tool.
+				ui.message(_("Artist: {artistName}").format(artistName = item.name))
+		else:
+			ui.message(_("Not in tracks list"))
 
 	def script_announceTitle(self, gesture):
 		self.announceColumnContent("Title")
@@ -208,7 +169,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_announceIntro(self, gesture):
 		# Special case for intro to make it compatible with old add-on releases.
-		if "Intro:" not in api.getFocusObject().description:
+		item = api.getFocusObject()
+		if isinstance(item, TrackToolItem) and "Intro:" not in item.description:
 			# Translators: Presented when intro is not defined for a track in Track Tool.
 			ui.message(_("Introduction not set"))
 		else: self.announceColumnContent("Intro")
