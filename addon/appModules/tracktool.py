@@ -121,7 +121,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Various column reading scripts (row with fake navigation should not be used).
 	# 6.0: Cache column header indecies.
-	#headerToIndex={}
+	headerToIndex={}
 
 	def announceColumnContent(self, headerText):
 		item = api.getFocusObject()
@@ -132,10 +132,13 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: Presented when no tracks are added to Track Tool.
 			ui.message(_("No tracks added"))
 		else:
-			columnHeaders = item.parent.children[-1].children
-			for header in columnHeaders:
-				if header.name == headerText:
-					pos = columnHeaders.index(header)
+			# Cached values always takes precedence.
+			if headerText not in self.headerToIndex:
+				columnHeaders = item.parent.children[-1].children
+				for header in columnHeaders:
+					if header.name == headerText:
+						self.headerToIndex[headerText] = columnHeaders.index(header)
+			pos = self.headerToIndex[headerText]
 			try:
 				item.announceColumnContent(pos, columnHeader=headerText)
 			except AttributeError:
