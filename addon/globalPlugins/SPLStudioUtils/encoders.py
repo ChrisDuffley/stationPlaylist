@@ -398,6 +398,20 @@ class SAMEncoder(Encoder):
 		# Translators: Presented when SAM Encoder is disconnecting from a streaming server.
 		ui.message(_("Disconnecting..."))
 
+	# Announce SAM columns: encoder name/type, status and description.
+	def script_announceEncoderFormat(self, gesture):
+		typeIndex = self.description.find(", Status: ")
+		ui.message(self.description[:typeIndex])
+
+	def script_announceEncoderStatus(self, gesture):
+		typeIndex = self.description.find(", Status: ")
+		statusIndex = self.description.find(", Description: ")
+		ui.message(self.description[typeIndex+2:statusIndex])
+
+	def script_announceEncoderStatusDesc(self, gesture):
+		statusIndex = self.description.find(", Description: ")
+		ui.message(self.description[statusIndex+2:])
+
 	# The following mutators will be removed as part of Project Rainbow.
 	# These will be kept in 6.0 for backwards compatibility.
 
@@ -465,7 +479,10 @@ class SAMEncoder(Encoder):
 		"kb:f9":"connect",
 		"kb:control+f9":"connect",
 		"kb:f10":"disconnect",
-		"kb:control+f10":"disconnect"
+		"kb:control+f10":"disconnect",
+		"kb:control+NVDA+3":"announceEncoderFormat",
+		"kb:control+NVDA+4":"announceEncoderStatus",
+		"kb:control+NVDA+5":"announceEncoderStatusDesc"
 	}
 
 
