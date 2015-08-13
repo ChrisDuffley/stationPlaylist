@@ -553,6 +553,13 @@ class SPLEncoder(Encoder):
 			SPLMonitorThreads[self.IAccessibleChildID] = statusThread
 	script_connect.__doc__=_("Connects to a streaming server.")
 
+	# Announce SPL Encoder columns: encoder settings and transfer rate.
+	def script_announceEncoderSettings(self, gesture):
+		ui.message("Encoder Settings: {setting}".format(setting = self.children[0].name))
+
+	def script_announceEncoderTransfer(self, gesture):
+		ui.message("Transfer Rate: {transferRate}".format(transferRate = self.children[1].name))
+
 	def _set_FocusToStudio(self):
 		SPLIdentifier = " ".join([self.encoderType, str(self.IAccessibleChildID)])
 		if self.focusToStudio and not SPLIdentifier in SPLFocusToStudio:
@@ -624,6 +631,8 @@ class SPLEncoder(Encoder):
 
 	__gestures={
 		"kb:f9":"connect",
+		"kb:control+NVDA+3":"announceEncoderSettings",
+		"kb:control+NVDA+4":"announceEncoderTransfer"
 	}
 
 
