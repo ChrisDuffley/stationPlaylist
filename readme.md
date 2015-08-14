@@ -130,6 +130,11 @@ From studio window, you can press Control+NVDA+0 to open the add-on configuratio
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Changes for 5.3/3
+
+* The fix for SAM Encoder (not playing the next track if a track is playing and when the encoder connects) is now available for SPL Encoder users.
+* NVDA no longer plays errors or does not do anything when SPL Assistant, F1 (Assistant help dialog) is pressed.
+
 ## Changes for 5.2
 
 * NVDA will no longer allow both settings and alarm dialogs to be opened. A warning will be shown asking you to close the previously opened dialog before opening another dialog.
