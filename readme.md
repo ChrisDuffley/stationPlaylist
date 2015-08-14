@@ -143,6 +143,7 @@ From studio window, you can press Control+NVDA+0 to open the add-on configuratio
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+<<<<<<< .merge_file_TnKUYW
 ## Changes for 6.0-dev
 
 * New SPL Assistant commands, including announcing title of the currently playing track (C) and opening the online user guide (Shift+F1).
@@ -152,6 +153,12 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * Added ability to reorder track column announcement and to suppress announcement of specific columns if "use screen order" is unchecked from add-on settings dialog. Use "manage column announcement" dialog to reorder columns.
 * In SAM Encoders, settings such as focusing to Studio when connected is now remembered.
 * Added ability to use SPL Controller layer command to invoke SPL Assistant layer.
+=======
+## Changes for 5.3/3
+
+* The fix for SAM Encoder (not playing the next track if a track is playing and when the encoder connects) is now available for SPL Encoder users.
+* NVDA no longer plays errors or does not do anything when SPL Assistant, F1 (Assistant help dialog) is pressed.
+>>>>>>> .merge_file_rgkYIz
 
 ## Changes for 5.2
 
