@@ -54,8 +54,18 @@ The following commands are available when using Sam or SPL encoders:
 * F11: Toggles whether NVDA will switch to Studio window for the selected encoder if connected.
 * Shift+F11: Toggles whether Studio will play the first selected track when encoder is connected to a streaming server.
 * Control+F11: Toggles background monitoring of the selected encoder.
-* F12: Opens a dialog to enter custom label for the selected encoder or stream.
+* F12/Control+NVDA+0: Opens a dialog to enter custom label for the selected encoder or stream.
 * Control+F12: opens a dialog to select the encoder you have deleted (to realign stream labels).
+
+In addition, column review commands are available, including:
+
+* Control+NVDA+1: Encoder position.
+* Control+NVDA+2: stream label.
+* Control+NVDA+3 from SAM Encoder: Encoder format.
+* Control+NVDA+3 from SPL Encoder: Encoder settings.
+* Control+NvDA+4 from SAM Encoder: Encoder connection status.
+* Control+NVDA+4 from SPL Encoder: Transfer rate or connection status.
+* Control+NVDA+5 from SAM Encoder: Connection status description.
 
 ## SPL Assistant layer
 
@@ -85,6 +95,7 @@ The available status information are:
 * F10: Perform track time analysis.
 * F12: Switch between current and a predefined profile.
 * F1: Layer help.
+* Shift+F1: Opens online user guide.
 
 ## SPL Controller
 
@@ -143,7 +154,6 @@ From studio window, you can press Control+NVDA+0 to open the add-on configuratio
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
-<<<<<<< .merge_file_TnKUYW
 ## Changes for 6.0-dev
 
 * New SPL Assistant commands, including announcing title of the currently playing track (C) and opening the online user guide (Shift+F1).
@@ -151,9 +161,10 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * You can now ask NVDA to report total length of a range of tracks via track time analysis feature. Press SPL Assistant, F9 to mark current track as start marker, move to end of track range and press SPL Assistant, F10. These commands can be reassigned so one doesn't have to invoke SPL Assistant layer to perform track time analysis.
 * Added a column search dialog (command unassigned) to find text in specific columns such as artist or part of file name.
 * Added ability to reorder track column announcement and to suppress announcement of specific columns if "use screen order" is unchecked from add-on settings dialog. Use "manage column announcement" dialog to reorder columns.
-* In SAM Encoders, settings such as focusing to Studio when connected is now remembered.
 * Added ability to use SPL Controller layer command to invoke SPL Assistant layer.
-=======
+* In SAM Encoders, settings such as focusing to Studio when connected is now remembered.
+* It is now possible to view various columns from encoder window (such as encoder connection status) via Control+NVDA+number command; consult the encoder commands above.
+
 ## Changes for 5.3/3
 
 * The fix for SAM Encoder (not playing the next track if a track is playing and when the encoder connects) is now available for SPL Encoder users.
