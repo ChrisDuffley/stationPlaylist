@@ -165,11 +165,10 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * In SAM Encoders, settings such as focusing to Studio when connected is now remembered.
 * It is now possible to view various columns from encoder window (such as encoder connection status) via Control+NVDA+number command; consult the encoder commands above.
 
-## Changes for 5.3/3
+## Changes for 5.3
 
 * The fix for SAM Encoder (not playing the next track if a track is playing and when the encoder connects) is now available for SPL Encoder users.
 * NVDA no longer plays errors or does not do anything when SPL Assistant, F1 (Assistant help dialog) is pressed.
->>>>>>> .merge_file_rgkYIz
 
 ## Changes for 5.2
 
