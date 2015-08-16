@@ -146,6 +146,24 @@ def _extraInitSteps(conf, profileName=None):
 	conf["ColumnOrder"] = columnOrder
 	conf["IncludedColumns"] = set(conf["IncludedColumns"])
 
+# Fetch the profile index with a given name.
+def getProfileIndexByName(name):
+	return [profile.name for profile in SPLConfigPool].index(name)
+
+# And:
+def getProfileByName(name):
+	return SPLConfigPool[getProfileIndexByName(name)]
+
+# Is the config pool itself sorted?
+# This check is performed when displaying broadcast profiles.
+def isConfigPoolSorted():
+		profileNames = [profile.name for profile in SPLConfigPool][1:]
+		for pos in xrange(len(profileNames)-1):
+			if profileNames[pos] > profileNames[pos+1]:
+				return False
+		return True
+
+
 # Perform some extra work before writing the config file.
 def _preSave(conf):
 	#conf["ColumnOrder"] = ",".join(conf["ColumnOrder"])
@@ -189,7 +207,7 @@ def instantProfileSwitch():
 				ui.message("You are already in the instant switch profile")
 				return
 			# Switch to the given profile.
-			switchProfileIndex = [profile.name for profile in SPLConfigPool].index(SPLSwitchProfile)
+			switchProfileIndex = getProfileIndexByName(SPLSwitchProfile)
 			SPLPrevProfile = SPLConfigPool.index(SPLConfig)
 			SPLConfig = SPLConfigPool[switchProfileIndex]
 			ui.message("Switching profiles")
@@ -212,10 +230,17 @@ class SPLConfigDialog(gui.SettingsDialog):
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
 		label = wx.StaticText(self, wx.ID_ANY, label=_("Broadcast &profile:"))
-		self.profiles = wx.Choice(self, wx.ID_ANY, choices=[profile.name for profile in SPLConfigPool])
+		# Sort profiles for display purposes (the config pool might not be sorted).
+		sortedProfiles = [profile.name for profile in SPLConfigPool]
+		# No need to sort if the only living profile is the normal configuration or there is one other profile besides this.
+		# Optimization: Only sort if config pool itself isn't  - usually after creating, renaming or deleting profile(s).
+		if len(sortedProfiles) > 2 and not isConfigPoolSorted():
+			firstProfile = SPLConfigPool[0].name
+			sortedProfiles = [firstProfile] + sorted(sortedProfiles[1:])
+		self.profiles = wx.Choice(self, wx.ID_ANY, choices=sortedProfiles)
 		self.profiles.Bind(wx.EVT_CHOICE, self.onProfileSelection)
 		try:
-			self.profiles.SetSelection([profile.name for profile in SPLConfigPool].index(SPLConfig.name))
+			self.profiles.SetSelection(sortedProfiles.index(SPLConfig.name))
 		except:
 			pass
 		sizer.Add(label)
@@ -403,8 +428,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 			self.micAlarm.SetFocus()
 			return
 		global SPLConfig, SPLActiveProfile, _configDialogOpened, SPLSwitchProfile, SPLPrevProfile
-		selectedProfile = self.profiles.GetSelection()
-		SPLConfig = SPLConfigPool[selectedProfile]
+		selectedProfile = self.profiles.GetStringSelection()
+		SPLConfig = getProfileByName(selectedProfile)
 		SPLConfig["BeepAnnounce"] = self.beepAnnounceCheckbox.Value
 		SPLConfig["SayEndOfTrack"] = self.outroCheckBox.Value
 		SPLConfig["EndOfTrackTime"] = self.endOfTrackAlarm.Value
@@ -465,6 +490,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		tones.beep(500, 100)
 		# Don't rely on SPLConfig here, as we don't want to interupt the show.
 		selection = self.profiles.GetSelection()
+		selectedProfile = self.profiles.GetStringSelection()
 		if selection == 0:
 			self.renameButton.Disable()
 			self.deleteButton.Disable()
@@ -472,19 +498,19 @@ class SPLConfigDialog(gui.SettingsDialog):
 		else:
 			self.renameButton.Enable()
 			self.deleteButton.Enable()
-			if SPLConfigPool[selection].name != self.switchProfile:
+			if selectedProfile != self.switchProfile:
 				self.instantSwitchButton.Label = "Enable instant profile switching"
 			else:
 				self.instantSwitchButton.Label = "Disable instant profile switching"
 			self.instantSwitchButton.Enable()
-		selectedProfile = SPLConfigPool[selection]
-		self.outroCheckBox.SetValue(selectedProfile["SayEndOfTrack"])
-		self.endOfTrackAlarm.SetValue(long(selectedProfile["EndOfTrackTime"]))
+		curProfile = getProfileByName(selectedProfile)
+		self.outroCheckBox.SetValue(curProfile["SayEndOfTrack"])
+		self.endOfTrackAlarm.SetValue(long(curProfile["EndOfTrackTime"]))
 		self.onOutroCheck(None)
-		self.introCheckBox.SetValue(selectedProfile["SaySongRamp"])
-		self.songRampAlarm.SetValue(long(selectedProfile["SongRampTime"]))
+		self.introCheckBox.SetValue(curProfile["SaySongRamp"])
+		self.songRampAlarm.SetValue(long(curProfile["SongRampTime"]))
 		self.onIntroCheck(None)
-		self.micAlarm.SetValue(str(selectedProfile["MicAlarm"]))
+		self.micAlarm.SetValue(str(curProfile["MicAlarm"]))
 
 	# Profile controls.
 	# Rename and delete events come from GUI/config profiles dialog from NVDA core.
@@ -498,8 +524,9 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	def onRename(self, evt):
 		global SPLConfigPool
+		oldName = self.profiles.GetStringSelection()
 		index = self.profiles.Selection
-		oldName = SPLConfigPool[index].name
+		configPos = getProfileIndexByName(oldName)
 		# Translators: The label of a field to enter a new name for a broadcast profile.
 		with wx.TextEntryDialog(self, _("New name:"),
 				# Translators: The title of the dialog to rename a profile.
@@ -524,14 +551,16 @@ class SPLConfigDialog(gui.SettingsDialog):
 			self.switchProfileRenamed = True
 		if self.activeProfile == oldName:
 			self.activeProfile = newName
-		SPLConfigPool[index].name = newName
-		SPLConfigPool[index].filename = newProfile
+		SPLConfigPool[configPos].name = newName
+		SPLConfigPool[configPos].filename = newProfile
 		self.profiles.SetString(index, newName)
 		self.profiles.Selection = index
 		self.profiles.SetFocus()
 
 	def onDelete(self, evt):
 		index = self.profiles.Selection
+		name = self.profiles.GetStringSelection()
+		configPos = getProfileIndexByName(name)
 		if gui.messageBox(
 			# Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
 			_("Are you sure you want to delete this profile? This cannot be undone."),
@@ -541,9 +570,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 		) == wx.NO:
 			return
 		global SPLConfigPool, SPLSwitchProfile, SPLPrevProfile
-		name = SPLConfigPool[index].name
-		path = SPLConfigPool[index].filename
-		del SPLConfigPool[index]
+		path = SPLConfigPool[configPos].filename
+		del SPLConfigPool[configPos]
 		try:
 			os.remove(path)
 		except WindowsError:
@@ -562,7 +590,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 	def onInstantSwitch(self, evt):
 		import tones
 		selection = self.profiles.GetSelection()
-		selectedName = SPLConfigPool[selection].name
+		selectedName = self.profiles.GetStringSelection()
 		if self.switchProfile is None or (selectedName != self.switchProfile):
 			self.instantSwitchButton.Label = "Disable instant profile switching"
 			self.switchProfile = selectedName
@@ -597,7 +625,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 			SPLDefaults.validate(val, copy=True)
 			# Reset the selected config only.
 			global SPLConfig
-			SPLConfig = SPLConfigPool[self.profiles.GetSelection()]
+			SPLConfig = getProfileByName(self.profiles.GetStringSelection())
 			resetConfig(SPLDefaults, SPLConfig, intentional=True)
 			self.Destroy()
 
@@ -636,9 +664,9 @@ class NewProfileDialog(wx.Dialog):
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: The label for a setting in SPL add-on dialog to select a base  profile for copying.
 		label = wx.StaticText(self, wx.ID_ANY, label=_("&Base profile:"))
-		self.baseProfiles = wx.Choice(self, wx.ID_ANY, choices=[profile.name for profile in SPLConfigPool])
+		self.baseProfiles = wx.Choice(self, wx.ID_ANY, choices=parent.profiles.GetItems())
 		try:
-			self.baseProfiles.SetSelection(SPLConfigPool.index(SPLConfig))
+			self.baseProfiles.SetSelection(self.baseProfiles.GetItems().index(parent.profiles.GetStringSelection()))
 		except:
 			pass
 		sizer.Add(label)
@@ -673,7 +701,7 @@ class NewProfileDialog(wx.Dialog):
 		newProfile = os.path.join(SPLProfiles, namePath)
 		if self.copy:
 			import shutil
-			baseProfile = SPLConfigPool[self.baseProfiles.GetSelection()]
+			baseProfile = getProfileByName(self.baseProfiles.GetStringSelection())
 			shutil.copy2(baseProfile.filename, newProfile)
 		SPLConfigPool.append(unlockConfig(newProfile, profileName=name))
 		parent = self.Parent
