@@ -8,7 +8,7 @@
 # Additional work done by Joseph Lee and other contributors.
 # For SPL Studio Controller, focus movement, SAM Encoder support and other utilities, see the global plugin version of this app module.
 
-# Minimum version: SPL 5.00, NvDA 2014.3.
+# Minimum version: SPL 5.00, NvDA 2015.3.
 
 from functools import wraps
 import os
@@ -597,7 +597,7 @@ class AppModule(appModuleHandler.AppModule):
 	script_sayCompleteTime.__doc__=_("Announces time including seconds.")
 
 	# Set the end of track alarm time between 1 and 59 seconds.
-	# 5.2: Make sure one of either settings or alarm dialogs is open.
+	# Make sure one of either settings or alarm dialogs is open.
 
 	def script_setEndOfTrackTime(self, gesture):
 		if splconfig._configDialogOpened:
@@ -850,74 +850,7 @@ class AppModule(appModuleHandler.AppModule):
 			self.clearGestureBindings()
 			self.bindGestures(self.__gestures)
 
-	def cartsStr2Carts(self, cartEntry, modifier, n):
-		# Parse the cart entry string and insert the cart/cart name pairs into the carts dictionary.
-		# n between 1 and 12 = function carts, 13 through 24 = number row carts, modifiers are checked.
-		# If a cart name has commas or other characters, SPL surrounds the cart name with quotes (""), so parse it as well.
-		# If only the carts were representable as CSV file and NVDA core ships with CSV module built in...
-		if not cartEntry.startswith('""'): cartName = cartEntry.split(",")[0]
-		else: cartName = cartEntry.split('""')[1]
-		if n <= 12: identifier = "f"+str(n)
-		elif 12 < n < 22: identifier = str(n-12)
-		elif n == 22: identifier = "0"
-		elif n == 23: identifier = "-"
-		else: identifier = "="
-		if modifier == "main": cart = identifier
-		else: cart = "%s+%s"%(modifier, identifier)
-		self.carts[cart] = cartName
-
-	def cartsReader(self, userName, standardEdition=False):
-		# Use cart files in SPL's data folder to build carts dictionary.
-		# use a combination of SPL user name and static cart location to locate cart bank files.
-		# Once the cart banks are located, use the routines in the populate method below to assign carts.
-		# Todo: refactor this function by splitting it into several functions.
-		# Since sstandard edition does not support number row carts, skip them if told to do so.
-		def _populateCarts(c, modifier, standardEdition=False):
-			# The real cart string parser, a helper for cart explorer for building cart entries.
-			cartlst = c.split("\",\"") # c = cart text.
-			# Get rid of unneeded quotes in cart entries.
-			cartlst[0] = cartlst[0][1:]
-			# 5.2: Discard number row if SPL Standard is in use.
-			if standardEdition: cartlst = cartlst[:12]
-			else: cartlst[-1] = cartlst[-1][:-1]
-			n = 0 # To keep track of how many entries were processed, also used to detect license type.
-			for i in cartlst:
-				n+=1
-				# An unassigned cart is stored with three consecutive commas, so skip it.
-				if ",,," in i: continue
-				else: self.cartsStr2Carts(i, modifier, n) # See the comment on str2carts for more information.
-			return n
-		# Back at the reader, locate the cart files and process them.
-		# Obtain the "real" path for SPL via environment variables and open the cart data folder.
-		cartsDataPath = os.path.join(os.environ["PROGRAMFILES"],"StationPlaylist","Data") # Provided that Studio was installed using default path.
-		# See if multiple users are using SPl Studio.
-		userNameIndex = userName.find("-")
-		# Read *.cart files and process the cart entries within (be careful when these cart file names change between SPL releases).
-		# Until NVDA core moves to Python 3, assume that file names aren't unicode.
-		cartFiles = [u"main carts.cart", u"shift carts.cart", u"ctrl carts.cart", u"alt carts.cart"]
-		if userNameIndex >= 0:
-			cartFiles = [userName[userNameIndex+2:]+" "+cartFile for cartFile in cartFiles]
-		cartReadSuccess = True # Just in case some or all carts were not read successfully.
-		cartCount = 0 # Count how many cart assignments are possible.
-		for f in cartFiles:
-			try:
-				mod = f.split()[-2] # Checking for modifier string such as ctrl.
-				# Todo: Check just in case some SPL flavors doesn't ship with a particular cart file.
-			except IndexError:
-				cartReadSuccess = False # In a rare event that the broadcaster has saved the cart bank with the name like "carts.cart".
-				continue
-			cartFile = os.path.join(cartsDataPath,f)
-			if not os.path.isfile(cartFile): # Cart explorer will fail if whitespaces are in the beginning or at the end of a user name.
-				cartReadSuccess = False
-				continue
-			with open(cartFile) as cartInfo:
-				cl = cartInfo.readlines() # cl = cart list.
-			preprocessedCarts = cl[1].strip() # Ignore the empty line (again be careful if the cart file format changes in a future release).
-			cartCount += _populateCarts(preprocessedCarts, mod, standardEdition=standardEdition) # See the comment for _populate method above.
-		return cartReadSuccess, cartCount
-
 	def script_toggleCartExplorer(self, gesture):
-		t = time.time()
 		if not self.cartExplorer:
 			# Prevent cart explorer from being engaged outside of playlist viewer.
 			# Todo for 6.0: Let users set cart banks.
@@ -926,9 +859,7 @@ class AppModule(appModuleHandler.AppModule):
 				# Translators: Presented when cart explorer cannot be entered.
 				ui.message(_("You are not in playlist viewer, cannot enter cart explorer"))
 				return
-			#cartsRead, cartCount = self.cartsReader(fg.name, standardEdition=fg.name.startswith("StationPlaylist Studio Standard"))
 			self.carts = splmisc.cartExplorerInit(fg.name)
-			#if not cartsRead:
 			if self.carts["faultyCarts"]:
 				# Translators: presented when cart explorer could not be switched on.
 				ui.message(_("Some or all carts could not be assigned, cannot enter cart explorer"))
@@ -936,7 +867,6 @@ class AppModule(appModuleHandler.AppModule):
 			else:
 				self.cartExplorer = True
 				self.cartsBuilder()
-				#self.carts["standardLicense"] = True if cartCount < 96 else False
 				# Translators: Presented when cart explorer is on.
 				ui.message(_("Entering cart explorer"))
 		else:
@@ -945,7 +875,6 @@ class AppModule(appModuleHandler.AppModule):
 			self.carts.clear()
 			# Translators: Presented when cart explorer is off.
 			ui.message(_("Exiting cart explorer"))
-		print time.time()-t
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_toggleCartExplorer.__doc__=_("Toggles cart explorer to learn cart assignments.")
 

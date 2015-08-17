@@ -1,4 +1,4 @@
-# SPL Studio Miscellaneous User Interfaces
+# SPL Studio Miscellaneous User Interfaces and internal services
 # An app module and global plugin package for NVDA
 # Copyright 2015 Joseph Lee and others, released under GPL.
 # Miscellaneous functions and user interfaces
@@ -162,7 +162,7 @@ def _populateCarts(carts, cartlst, modifier, standardEdition=False):
 def cartExplorerInit(StudioTitle, cartFiles=None):
 	# Use cart files in SPL's data folder to build carts dictionary.
 	# use a combination of SPL user name and static cart location to locate cart bank files.
-	# Once the cart banks are located, use the routines in the populate method below to assign carts.
+	# Once the cart banks are located, use the routines in the populate method above to assign carts.
 	# Since sstandard edition does not support number row carts, skip them if told to do so.
 	carts = {"standardLicense":StudioTitle.startswith("StationPlaylist Studio Standard")}
 	# Obtain the "real" path for SPL via environment variables and open the cart data folder.
