@@ -28,6 +28,7 @@ SaySongRamp = boolean(default=true)
 SongRampTime = integer(min=1, max=9, default=5)
 BrailleTimer = option("off", "intro", "outro", "both", default="off")
 MicAlarm = integer(min=0, default="0")
+AlarmAnnounce = option("beep", "message", "both", default="beep")
 LibraryScanAnnounce = option("off", "ending", "progress", "numbers", default="off")
 TrackDial = boolean(default=false)
 UseScreenColumnOrder = boolean(default=true)
@@ -351,6 +352,26 @@ class SPLConfigDialog(gui.SettingsDialog):
 		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: The label for a setting in SPL add-on dialog to control alarm announcement type.
+		label = wx.StaticText(self, wx.ID_ANY, label=_("&Alarm notification:"))
+		# Translators: One of the alarm notification options.
+		self.alarmAnnounceValues=[("beep",_("beep")),
+		# Translators: One of the alarm notification options.
+		("message",_("message")),
+		# Translators: One of the alarm notification options.
+		("both",_("both beep and message"))]
+		self.alarmAnnounceList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.alarmAnnounceValues])
+		alarmAnnounceCurValue=SPLConfig["AlarmAnnounce"]
+		selection = (x for x,y in enumerate(self.alarmAnnounceValues) if y[0]==alarmAnnounceCurValue).next()  
+		try:
+			self.alarmAnnounceList.SetSelection(selection)
+		except:
+			pass
+		sizer.Add(label)
+		sizer.Add(self.alarmAnnounceList)
+		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: The label for a setting in SPL add-on dialog to control library scan announcement.
 		label = wx.StaticText(self, wx.ID_ANY, label=_("&Library scan announcement:"))
 		self.libScanValues=[("off",_("off")),
@@ -437,6 +458,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["SongRampTime"] = self.songRampAlarm.Value
 		SPLConfig["BrailleTimer"] = self.brailleTimerValues[self.brailleTimerList.GetSelection()][0]
 		SPLConfig["MicAlarm"] = self.micAlarm.Value
+		SPLConfig["AlarmAnnounce"] = self.alarmAnnounceValues[self.alarmAnnounceList.GetSelection()][0]
 		SPLConfig["LibraryScanAnnounce"] = self.libScanValues[self.libScanList.GetSelection()][0]
 		SPLConfig["TrackDial"] = self.trackDialCheckbox.Value
 		SPLConfig["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
