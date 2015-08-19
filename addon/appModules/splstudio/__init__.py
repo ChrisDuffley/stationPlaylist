@@ -406,14 +406,14 @@ class AppModule(appModuleHandler.AppModule):
 						braille.handler.message(obj.name)
 					if (obj.name == "00:{0:02d}".format(splconfig.SPLConfig["EndOfTrackTime"])
 					and splconfig.SPLConfig["SayEndOfTrack"]):
-						tones.beep(440, 200)
-				if obj.simplePrevious.name == "Remaining Song Ramp":
+						self.alarmAnnounce(obj.name, 440, 200)
+				elif obj.simplePrevious.name == "Remaining Song Ramp":
 					# Song intro for SPL 5.x.
 					if splconfig.SPLConfig["BrailleTimer"] in ("intro", "both") and api.getForegroundObject().processID == self.processID: #and "00:00" < obj.name <= self.SPLSongRampTime:
 						braille.handler.message(obj.name)
 					if (obj.name == "00:{0:02d}".format(splconfig.SPLConfig["SongRampTime"])
 					and splconfig.SPLConfig["SaySongRamp"]):
-						tones.beep(512, 400)
+						self.alarmAnnounce(obj.name, 512, 400, intro=True)
 		nextHandler()
 
 	# JL's additions
@@ -445,6 +445,17 @@ class AppModule(appModuleHandler.AppModule):
 			elif status == "Microphone Off":
 				if micAlarmT is not None: micAlarmT.cancel()
 				micAlarmT = None
+
+	# Alarm announcement: Alarm notification via beeps, speech or both.
+	def alarmAnnounce(self, timeText, tone, duration, intro=False):
+		if splconfig.SPLConfig["AlarmAnnounce"] in ("beep", "both"):
+			tones.beep(tone, duration)
+		if splconfig.SPLConfig["AlarmAnnounce"] in ("message", "both"):
+			alarmTime = int(timeText.split(":")[1])
+			if intro:
+				ui.message("Warning: {seconds} sec left in track introduction".format(seconds = str(alarmTime)))
+			else:
+				ui.message("Warning: {seconds} sec remaining".format(seconds = str(alarmTime)))
 
 
 	# Hacks for gain focus events.
