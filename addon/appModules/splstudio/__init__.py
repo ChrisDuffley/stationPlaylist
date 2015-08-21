@@ -364,7 +364,7 @@ class AppModule(appModuleHandler.AppModule):
 						# If library scan is in progress, announce its progress when told to do so.
 						self.scanCount+=1
 						if self.scanCount%100 == 0:
-							self._libraryScanAnnouncer(obj.name[1:obj.name.find("]")], libraryScanProgress)
+							self._libraryScanAnnouncer(obj.name[1:obj.name.find("]")], splconfig.SPLConfig["LibraryScanAnnounce"])
 					if not self.libraryScanning:
 						if self.productVersion not in noLibScanMonitor:
 							if not self.backgroundStatusMonitor: self.libraryScanning = True
