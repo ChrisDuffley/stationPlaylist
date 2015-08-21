@@ -450,15 +450,6 @@ class AppModule(appModuleHandler.AppModule):
 			return
 		nextHandler()
 
-	# Continue monitoring library scans among other focus loss management.
-	def event_loseFocus(self, obj, nextHandler):
-		fg = api.getForegroundObject()
-		if fg.windowClassName == "TTrackInsertForm" and self.libraryScanning and not self.backgroundStatusMonitor:
-			global libScanT
-			if not libScanT or (libScanT and not libScanT.isAlive()):
-				self.monitorLibraryScan()
-		nextHandler()
-
 	# Add or remove SPL-specific touch commands.
 	# Code comes from Enhanced Touch Gestures add-on from the same author.
 	# This may change if NVDA core decides to abandon touch mode concept.
@@ -937,11 +928,13 @@ class AppModule(appModuleHandler.AppModule):
 			return
 		countB = sendMessage(_SPLWin, 1024, parem, 32)
 		if countA == countB:
+			print "values are equal"
 			self.libraryScanning = False
 			if self.SPLCurVersion >= "5.10":
 				countB = sendMessage(_SPLWin, 1024, 0, 32)
 			# Translators: Presented when library scanning is finished.
 			ui.message(_("{itemCount} items in the library").format(itemCount = countB))
+			print "scan done"
 		else:
 			libScanT = threading.Thread(target=self.libraryScanReporter, args=(_SPLWin, countA, countB, parem))
 			libScanT.daemon = True
@@ -950,10 +943,11 @@ class AppModule(appModuleHandler.AppModule):
 	def libraryScanReporter(self, _SPLWin, countA, countB, parem):
 		scanIter = 0
 		while countA != countB:
+			if not self.libraryScanning: return
 			countA = countB
 			time.sleep(1)
-			# Do not continue if we're back on insert tracks form.
-			if api.getForegroundObject().windowClassName == "TTrackInsertForm":
+			# Do not continue if we're back on insert tracks form or library scan is finished.
+			if api.getForegroundObject().windowClassName == "TTrackInsertForm" or not self.libraryScanning:
 				return
 			countB, scanIter = sendMessage(_SPLWin, 1024, parem, 32), scanIter+1
 			if countB < 0:
@@ -998,6 +992,13 @@ class AppModule(appModuleHandler.AppModule):
 					focus.setFocus()
 					self.deletedFocusObj = False
 					focus.setFocus()
+
+	# When Escape is pressed, activate background library scan if conditions are right.
+	def script_escape(self, gesture):
+		gesture.send()
+		if self.libraryScanning:
+			if not libScanT or (libScanT and not libScanT.isAlive()):
+				self.monitorLibraryScan()
 
 
 	# SPL Assistant: reports status on playback, operation, etc.
@@ -1323,5 +1324,6 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:control+NVDA+0":"openConfigDialog",
 		"kb:Shift+delete":"deleteTrack",
 		"kb:Shift+numpadDelete":"deleteTrack",
+		"kb:escape":"escape",
 		#"kb:control+nvda+`":"SPLAssistantToggle"
 	}
