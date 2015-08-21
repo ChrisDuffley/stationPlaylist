@@ -349,9 +349,6 @@ class AppModule(appModuleHandler.AppModule):
 		# Do not let NvDA get name for None object when SPL window is maximized.
 		if not obj.name:
 			return
-		# Suppress announcing status messages when background monitoring is unavailable.
-		if api.getForegroundObject().processID != self.processID and not self.backgroundStatusMonitor:
-			nextHandler()
 		# Only announce changes in status bar objects when told to do so.
 		if obj.windowClassName == "TStatusBar" and self._TStatusBarChanged(obj):
 			# Special handling for Play Status
@@ -369,11 +366,10 @@ class AppModule(appModuleHandler.AppModule):
 						if self.productVersion not in noLibScanMonitor:
 							if not self.backgroundStatusMonitor: self.libraryScanning = True
 				elif "match" in obj.name:
-					if splconfig.SPLConfig["LibraryScanAnnounce"] != "off":
+					if splconfig.SPLConfig["LibraryScanAnnounce"] != "off" and self.libraryScanning:
 						if splconfig.SPLConfig["BeepAnnounce"]: tones.beep(370, 100)
 						else:
-							count = sendMessage(_SPLWin, 1024, 0, 32)
-							ui.message("Scan complete with {scanCount} items".format(scanCount = count))
+							ui.message("Scan complete with {scanCount} items".format(scanCount = obj.name.split()[3]))
 					if self.libraryScanning: self.libraryScanning = False
 					self.scanCount = 0
 			else:
@@ -967,7 +963,9 @@ class AppModule(appModuleHandler.AppModule):
 		self.libraryScanning = False
 		if self.backgroundStatusMonitor: return
 		if splconfig.SPLConfig["LibraryScanAnnounce"] != "off":
-			if splconfig.SPLConfig["BeepAnnounce"]: tones.beep(370, 100)
+			if splconfig.SPLConfig["BeepAnnounce"]:
+				tones.beep(370, 100)
+				print "scan done"
 			else:
 				# Translators: Presented after library scan is done.
 				ui.message(_("Scan complete with {itemCount} items").format(itemCount = countB))
