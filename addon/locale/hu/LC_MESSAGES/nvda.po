@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2015-07-14 16:31+0100\n"
+"PO-Revision-Date: 2015-08-15 21:28+0100\n"
 "Last-Translator: Joseph Lee <joseph.lee22590@gmail,com>\n"
 "Language-Team: HU <LL@li.org>\n"
 "Language: hu\n"
@@ -211,6 +211,8 @@ msgstr "Bemondja az időt másodpercre pontosan"
 msgid ""
 "The add-on settings dialog is opened. Please close the settings dialog first."
 msgstr ""
+"A kiegészítő beállítási párbeszédpanele meg van nyitva, kérem, előbb zárja "
+"be azt az ablakot."
 
 #. Translators: Standard title for error dialog (copy this from main nvda.po file).
 #. Translators: The title of the message box
@@ -614,6 +616,8 @@ msgstr "Figyelmeztetés"
 #. Translators: Presented when an alarm dialog is opened.
 msgid "An alarm dialog is already opened. Please close the alarm dialog first."
 msgstr ""
+"Egy riasztás párbeszédpanel már meg van nyitva, kérem előbb zárja be azt az "
+"ablakot."
 
 #. Translators: Text of the dialog when another alarm dialog is open.
 msgid "Another alarm dialog is open."
@@ -705,9 +709,9 @@ msgid "No encoders are being monitored"
 msgstr "Nincsenek encoderek ellenőrzés alatt"
 
 #. Translators: Announces number of encoders being monitored in the background.
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Number of encoders monitored: {numberOfEncoders}: {streamLabels}"
-msgstr "{numberOfEncoders} encoder ellenőrizve"
+msgstr "{numberOfEncoders} encoder ellenőrizve, {streamLabels}"
 
 #. Translators: Status message for encoder monitoring.
 #, python-brace-format

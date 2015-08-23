@@ -43,6 +43,10 @@ confspec.newlines = "\r\n"
 SPLConfig = None
 # A pool of broadcast profiles.
 SPLConfigPool = []
+# Default config spec container.
+_SPLDefaults = ConfigObj(None, configspec = confspec, encoding="UTF-8")
+_val = Validator()
+_SPLDefaults.validate(_val, copy=True)
 
 # The following settings can be changed in profiles:
 _mutatableSettings=("SayEndOfTrack","EndOfTrackTime","SaySongRamp","SongRampTime","MicAlarm")
@@ -106,23 +110,19 @@ def unlockConfig(path, profileName=None, prefill=False):
 	global _configLoadStatus # To be mutated only during unlock routine.
 	SPLConfigCheckpoint = ConfigObj(path, configspec = confspec, encoding="UTF-8")
 	# 5.2 and later: check to make sure all values are correct.
-	val = Validator()
-	configTest = SPLConfigCheckpoint.validate(val, copy=prefill)
+	configTest = SPLConfigCheckpoint.validate(_val, copy=prefill)
 	if configTest != True:
-		# Hack: have a dummy config obj handy just for storing default values.
-		SPLDefaults = ConfigObj(None, configspec = confspec, encoding="UTF-8")
-		SPLDefaults.validate(val, copy=True)
 		# Translators: Standard error title for configuration error.
 		title = _("Studio add-on Configuration error")
 		if not configTest:
 			# Case 1: restore settings to defaults when 5.x config validation has failed on all values.
-			resetConfig(SPLDefaults, SPLConfigCheckpoint)
+			resetConfig(_SPLDefaults, SPLConfigCheckpoint)
 			_configLoadStatus[profileName] = "completeReset"
 		elif isinstance(configTest, dict):
 			# Case 2: For 5.x and later, attempt to reconstruct the failed values.
 			for setting in configTest:
 				if not configTest[setting]:
-					SPLConfigCheckpoint[setting] = SPLDefaults[setting]
+					SPLConfigCheckpoint[setting] = _SPLDefaults[setting]
 			SPLConfigCheckpoint.write()
 			_configLoadStatus[profileName] = "partialReset"
 	_extraInitSteps(SPLConfigCheckpoint, profileName=profileName)
@@ -167,10 +167,16 @@ def isConfigPoolSorted():
 
 # Perform some extra work before writing the config file.
 def _preSave(conf):
-	#conf["ColumnOrder"] = ",".join(conf["ColumnOrder"])
-	conf["IncludedColumns"] = list(conf["IncludedColumns"])
+	# Perform global setting processing only for the normal profile.
+	if SPLConfigPool.index(conf) == 0:
+		conf["IncludedColumns"] = list(conf["IncludedColumns"])
+	# For other profiles, remove global settings before writing to disk.
+	else:
+		for setting in conf.keys():
+			if setting not in _mutatableSettings or (setting in _mutatableSettings and conf[setting] == _SPLDefaults[setting]):
+				del conf[setting]
 
-	# Save configuration database.
+# Save configuration database.
 def saveConfig():
 	# Save all config profiles.
 	global SPLConfig, SPLConfigPool, SPLActiveProfile, SPLPrevProfile, SPLSwitchProfile
@@ -642,13 +648,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# Translators: The title of the warning dialog.
 		_("Warning"),wx.YES_NO|wx.NO_DEFAULT|wx.ICON_WARNING,self
 		)==wx.YES:
-			val = Validator()
-			SPLDefaults = ConfigObj(None, configspec = confspec, encoding="UTF-8")
-			SPLDefaults.validate(val, copy=True)
 			# Reset the selected config only.
 			global SPLConfig
 			SPLConfig = getProfileByName(self.profiles.GetStringSelection())
-			resetConfig(SPLDefaults, SPLConfig, intentional=True)
+			resetConfig(_SPLDefaults, SPLConfig, intentional=True)
 			self.Destroy()
 
 
@@ -720,12 +723,14 @@ class NewProfileDialog(wx.Dialog):
 		namePath = name + ".ini"
 		if not os.path.exists(SPLProfiles):
 			os.mkdir(SPLProfiles)
-		newProfile = os.path.join(SPLProfiles, namePath)
+		newProfilePath = os.path.join(SPLProfiles, namePath)
+		SPLConfigPool.append(unlockConfig(newProfilePath, profileName=name))
+		newProfile = SPLConfigPool[-1]
 		if self.copy:
-			import shutil
 			baseProfile = getProfileByName(self.baseProfiles.GetStringSelection())
-			shutil.copy2(baseProfile.filename, newProfile)
-		SPLConfigPool.append(unlockConfig(newProfile, profileName=name))
+			for setting in baseProfile:
+				if baseProfile[setting] != newProfile[setting]:
+					newProfile[setting] = baseProfile[setting]
 		parent = self.Parent
 		parent.profiles.Append(name)
 		parent.profiles.Selection = parent.profiles.Count - 1
