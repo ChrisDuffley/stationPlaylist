@@ -311,7 +311,7 @@ class AppModule(appModuleHandler.AppModule):
 		windowStyle = obj.windowStyle
 		if obj.windowClassName == "TTntListView.UnicodeClass" and role == controlTypes.ROLE_LISTITEM and windowStyle == 1443991625:
 			clsList.insert(0, SPL510TrackItem)
-		elif obj.windowClassName == "TListView" and role in (controlTypes.ROLE_CHECKBOX, controlTypes.ROLE_LISTITEM) and windowStyle == 1443991625:
+		elif obj.windowClassName == "TListView" and role in (controlTypes.ROLE_CHECKBOX, controlTypes.ROLE_LISTITEM) and windowStyle == 1442938953:
 			clsList.insert(0, SPLTrackItem)
 
 	# Keep an eye on library scans in insert tracks window.
