@@ -114,13 +114,9 @@ The available SPL Controller commands are:
 * Press E to get count and labels for encoders being monitored.
 * Press F1 to show a help dialog which lists available commands.
 
-## End of track alarm
+## Track alarms
 
-Five seconds before the current track ends, NVDA will play a short beep to indicate that the track is about to end. This works anywhere (even within SPL Studio window). Press Control+NVDA+2 to configure this between 1 and 59 seconds.
-
-## Song intro alarm
-
-If you have configured song intro time via Track Tool, NVDA will beep when the vocals are about to begin. From Studio window, press Alt+NVDA+2 to configure song intro alarm between 1 and 9 seconds.
+By default, NvDA will play a beep if five seconds are left in the track (outro) and/or intro. To configure this value as well as to enable or disable them, press Control+NVDA+2 or Alt+NVDA+2 to open end of track and song ramp dialogs, respectively. In addition, use Studio add-on settings dialog to configure if you'll hear a beep, a message or both when alarms are turned on.
 
 ## Microphone alarm
 
@@ -161,9 +157,11 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * You can now ask NVDA to report total length of a range of tracks via track time analysis feature. Press SPL Assistant, F9 to mark current track as start marker, move to end of track range and press SPL Assistant, F10. These commands can be reassigned so one doesn't have to invoke SPL Assistant layer to perform track time analysis.
 * Added a column search dialog (command unassigned) to find text in specific columns such as artist or part of file name.
 * Added ability to reorder track column announcement and to suppress announcement of specific columns if "use screen order" is unchecked from add-on settings dialog. Use "manage column announcement" dialog to reorder columns.
-* Added ability to use SPL Controller layer command to invoke SPL Assistant layer.
+* Added a setting in add-on settings dialog to configure alarm notification (beep, message or both).
+* Added ability to use SPL Controller layer command to invoke SPL Assistant layer (configurable from advanced Settings dialog found in add-on settings dialog).
 * In SAM Encoders, settings such as focusing to Studio when connected is now remembered.
 * It is now possible to view various columns from encoder window (such as encoder connection status) via Control+NVDA+number command; consult the encoder commands above.
+* Fixed a rare bug where switching to Studio or closing an NVDA dialog (including Studio add-on dialogs) prevented track commands (such as toggling Track Dial) from working as expected.
 
 ## Changes for 5.3
 
