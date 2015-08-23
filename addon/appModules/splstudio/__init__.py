@@ -307,13 +307,12 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Some controls which needs special routines.
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
-		fg = api.getForegroundObject()
-		if fg:
-			role = obj.role
-			if obj.windowClassName == "TTntListView.UnicodeClass" and fg.windowClassName == "TStudioForm" and role == controlTypes.ROLE_LISTITEM:
-				clsList.insert(0, SPL510TrackItem)
-			elif obj.windowClassName == "TListView" and fg.windowClassName == "TStudioForm" and role in (controlTypes.ROLE_CHECKBOX, controlTypes.ROLE_LISTITEM):
-				clsList.insert(0, SPLTrackItem)
+		role = obj.role
+		windowStyle = obj.windowStyle
+		if obj.windowClassName == "TTntListView.UnicodeClass" and role == controlTypes.ROLE_LISTITEM and windowStyle == 1443991625:
+			clsList.insert(0, SPL510TrackItem)
+		elif obj.windowClassName == "TListView" and role in (controlTypes.ROLE_CHECKBOX, controlTypes.ROLE_LISTITEM) and windowStyle == 1442938953:
+			clsList.insert(0, SPLTrackItem)
 
 	# Keep an eye on library scans in insert tracks window.
 	libraryScanning = False
