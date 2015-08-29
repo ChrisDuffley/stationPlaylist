@@ -83,17 +83,21 @@ The available status information are:
 * M: Microphone.
 * N: Title for the next scheduled track.
 * P: Playback status (playing or stopped).
-* Shift+P: Pitch of the current track (SPL 5.00 and later).
+* Shift+P: Pitch of the current track.
 * R: Record to file enabled/disabled.
 * Shift+R: Monitor library scan in progress.
 * S: Track starts in (scheduled).
 * T: Cart edit mode on/off.
 * U: Studio up time.
 * W: Weather and temperature if configured.
+<<<<<<< HEAD
 * Y: Playlist modified status (SPL 5.00 and later).
 * F9: Mark current track for track time analysis.
 * F10: Perform track time analysis.
 * F12: Switch between current and a predefined profile.
+=======
+* Y: Playlist modified status.
+>>>>>>> stable
 * F1: Layer help.
 * Shift+F1: Opens online user guide.
 
@@ -162,6 +166,11 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * In SAM Encoders, settings such as focusing to Studio when connected is now remembered.
 * It is now possible to view various columns from encoder window (such as encoder connection status) via Control+NVDA+number command; consult the encoder commands above.
 * Fixed a rare bug where switching to Studio or closing an NVDA dialog (including Studio add-on dialogs) prevented track commands (such as toggling Track Dial) from working as expected.
+
+## Changes for 5.4
+
+* Performing library scan from Insert Tracks dialog no longer causes NVDA to not announce scan status or play error tones if NVDA is configured to announce library scan progress or scan count.
+* Updated translations.
 
 ## Changes for 5.3
 
