@@ -928,7 +928,7 @@ class AppModule(appModuleHandler.AppModule):
 		if libScanT and libScanT.isAlive() and api.getForegroundObject().windowClassName == "TTrackInsertForm":
 			return
 		parem = 0 if self.SPLCurVersion < "5.10" else 1
-		countA = sendMessage(_SPLWin, 1024, parem, 32)
+		countA = statusAPI(parem, 32, ret=True)
 		if countA == 0:
 			self.libraryScanning = False
 			return
@@ -936,12 +936,11 @@ class AppModule(appModuleHandler.AppModule):
 		if api.getForegroundObject().windowClassName == "TTrackInsertForm" and self.productVersion in noLibScanMonitor:
 			self.libraryScanning = False
 			return
-		countB = sendMessage(_SPLWin, 1024, parem, 32)
+		countB = statusAPI(parem, 32, ret=True)
 		if countA == countB:
-			print "values are equal"
 			self.libraryScanning = False
 			if self.SPLCurVersion >= "5.10":
-				countB = sendMessage(_SPLWin, 1024, 0, 32)
+				countB = statusAPI(0, 32, ret=True)
 			# Translators: Presented when library scanning is finished.
 			ui.message(_("{itemCount} items in the library").format(itemCount = countB))
 			print "scan done"
@@ -959,7 +958,7 @@ class AppModule(appModuleHandler.AppModule):
 			# Do not continue if we're back on insert tracks form or library scan is finished.
 			if api.getForegroundObject().windowClassName == "TTrackInsertForm" or not self.libraryScanning:
 				return
-			countB, scanIter = sendMessage(_SPLWin, 1024, parem, 32), scanIter+1
+			countB, scanIter = statusAPI(parem, 32, ret=True), scanIter+1
 			if countB < 0:
 				break
 			if scanIter%5 == 0 and splconfig.SPLConfig["LibraryScanAnnounce"] not in ("off", "ending"):
@@ -1212,9 +1211,9 @@ class AppModule(appModuleHandler.AppModule):
 	def script_libraryScanMonitor(self, gesture):
 		if not self.libraryScanning:
 			if self.productVersion >= "5.10":
-				scanning = sendMessage(_SPLWin, 1024, 1, 32)
+				scanning = statusAPI(1, 32, ret=True)
 				if scanning < 0:
-					items = sendMessage(_SPLWin, 1024, 0, 32)
+					items = statusAPI(0, 32, ret=True)
 					ui.message(_("{itemCount} items in the library").format(itemCount = items))
 					return
 			self.libraryScanning = True
