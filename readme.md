@@ -67,14 +67,14 @@ The available status information are:
 * M: Microphone.
 * N: Title for the next scheduled track.
 * P: Playback status (playing or stopped).
-* Shift+P: Pitch of the current track (SPL 5.00 and later).
+* Shift+P: Pitch of the current track.
 * R: Record to file enabled/disabled.
 * Shift+R: Monitor library scan in progress.
 * S: Track starts in (scheduled).
 * T: Cart edit mode on/off.
 * U: Studio up time.
 * W: Weather and temperature if configured.
-* Y: Playlist modified status (SPL 5.00 and later).
+* Y: Playlist modified status.
 * F1: Layer help.
 
 ## SPL Controller
@@ -130,7 +130,12 @@ From studio window, you can press Control+NVDA+0 to open the add-on configuratio
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
-## Changes for 5.3/3
+## Changes for 5.4
+
+* Performing library scan from Insert Tracks dialog no longer causes NVDA to not announce scan status or play error tones if NVDA is configured to announce library scan progress or scan count.
+* Updated translations.
+
+## Changes for 5.3
 
 * The fix for SAM Encoder (not playing the next track if a track is playing and when the encoder connects) is now available for SPL Encoder users.
 * NVDA no longer plays errors or does not do anything when SPL Assistant, F1 (Assistant help dialog) is pressed.
