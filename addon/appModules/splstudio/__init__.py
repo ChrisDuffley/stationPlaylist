@@ -64,6 +64,9 @@ libScanT = None
 # Blacklisted versions of Studio where library scanning functionality is broken.
 noLibScanMonitor = []
 
+# List of known window style values to check for track items.
+knownStyles = [1443991625, 1442938953, 1443987529]
+
 # Braille and play a sound in response to an alarm or an event.
 def messageSound(wavFile, message):
 	nvwave.playWaveFile(wavFile)
@@ -309,10 +312,11 @@ class AppModule(appModuleHandler.AppModule):
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		role = obj.role
 		windowStyle = obj.windowStyle
-		if obj.windowClassName == "TTntListView.UnicodeClass" and role == controlTypes.ROLE_LISTITEM and windowStyle == 1443991625:
-			clsList.insert(0, SPL510TrackItem)
-		elif obj.windowClassName == "TListView" and role in (controlTypes.ROLE_CHECKBOX, controlTypes.ROLE_LISTITEM) and windowStyle == 1442938953:
-			clsList.insert(0, SPLTrackItem)
+		if windowStyle in knownStyles:
+			if obj.windowClassName == "TTntListView.UnicodeClass" and role == controlTypes.ROLE_LISTITEM and windowStyle == 1443991625:
+				clsList.insert(0, SPL510TrackItem)
+			elif obj.windowClassName == "TListView" and role in (controlTypes.ROLE_CHECKBOX, controlTypes.ROLE_LISTITEM) and windowStyle in (1442938953, 1443987529):
+				clsList.insert(0, SPLTrackItem)
 
 	# Keep an eye on library scans in insert tracks window.
 	libraryScanning = False

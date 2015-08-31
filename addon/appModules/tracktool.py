@@ -36,6 +36,12 @@ class TrackToolItem(IAccessible):
 		if self.appModule.TTDial:
 			self.bindGesture("kb:rightArrow", "nextColumn")
 			self.bindGesture("kb:leftArrow", "prevColumn")
+		# See if Track Dial toggle for Studio is defined, and if so, pull it in.
+		import inputCore
+		userGestures = inputCore.manager.userGestureMap._map
+		for gesture in userGestures:
+			if userGestures[gesture][0][2] == "toggleTrackDial":
+				self.bindGesture(gesture, "toggleTrackDial")
 
 			# Track Dial for Track Tool.
 
