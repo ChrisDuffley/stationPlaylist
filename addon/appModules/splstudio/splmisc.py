@@ -120,11 +120,11 @@ class SPLFindDialog(wx.Dialog):
 		if user32.FindWindowA("SPLStudio", None) and text:
 			appMod = self.obj.appModule
 			column = self.columnHeaders.Selection if self.columnSearch else None
-			if column and appMod.productVersion >= "5.10": column+=1
+			if column is not None and appMod.productVersion >= "5.10": column+=1
 			startObj = self.obj
 			if text == appMod.findText: startObj = startObj.next
 			# If this is called right away, we land on an invisible window.
-			wx.CallLater(100, appMod.trackFinder, text, startObj, column=column)
+			wx.CallLater(100, appMod.trackFinder, text, obj=startObj, column=column)
 		self.Destroy()
 		_findDialogOpened = False
 
