@@ -66,6 +66,7 @@ noLibScanMonitor = []
 
 # List of known window style values to check for track items in Studio 5.0x..
 known50styles = [1442938953, 1443987529]
+known51styles = [1443991625, 1446088777]
 
 # Braille and play a sound in response to an alarm or an event.
 def messageSound(wavFile, message):
@@ -312,7 +313,7 @@ class AppModule(appModuleHandler.AppModule):
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		role = obj.role
 		windowStyle = obj.windowStyle
-		if obj.windowClassName == "TTntListView.UnicodeClass" and role == controlTypes.ROLE_LISTITEM and windowStyle == 1443991625:
+		if obj.windowClassName == "TTntListView.UnicodeClass" and role == controlTypes.ROLE_LISTITEM and windowStyle in known51styles:
 			clsList.insert(0, SPL510TrackItem)
 		elif obj.windowClassName == "TListView" and role in (controlTypes.ROLE_CHECKBOX, controlTypes.ROLE_LISTITEM) and windowStyle in known50styles:
 			clsList.insert(0, SPLTrackItem)
@@ -735,9 +736,11 @@ class AppModule(appModuleHandler.AppModule):
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setBrailleTimer.__doc__=_("Toggles between various braille timer settings.")
 
-	# The track finder utility for find track script.
+	# The track finder utility for find track script and other functions
 	# Perform a linear search to locate the track name and/or description which matches the entered value.
 	# Also, find column content for a specific column if requested.
+	# 6.0: Split this routine into two functions, with the while loop moving to a function of its own.
+	# This new function will be used by track finder and place marker locator.
 	findText = ""
 
 	def trackFinder(self, text, obj, directionForward=True, column=None):
@@ -988,6 +991,24 @@ class AppModule(appModuleHandler.AppModule):
 				ui.message("{0}".format(count))
 			else: ui.message(_("{itemCount} items scanned").format(itemCount = count))
 
+	# Place markers.
+	placeMarker = None
+
+	# Is the place marker set on this track?
+	# Track argument is None (only useful for debugging purposes).
+	def isPlaceMarkerTrack(self, track=None):
+		if track is None: track = api.getFocusObject()
+		index = track._indexOf("Filename")
+		filename = track._getColumnContent(index)
+		if self.placeMarker == (index, filename):
+			return True
+		return False
+
+	# Used in delete track workaround routine.
+	def preTrackRemoval(self):
+		if self.isPlaceMarkerTrack(track=api.getFocusObject()):
+			self.placeMarker = None
+
 	# Some handlers for native commands.
 
 	# In Studio 5.0x, when deleting a track, NVDA announces wrong track item due to focus bouncing.
@@ -995,6 +1016,7 @@ class AppModule(appModuleHandler.AppModule):
 	deletedFocusObj = False
 
 	def script_deleteTrack(self, gesture):
+		if self.placeMarkerObj: self.preTrackRemoval()
 		gesture.send()
 		if self.productVersion.startswith("5.0"):
 			if api.getForegroundObject().windowClassName == "TStudioForm":
@@ -1280,6 +1302,22 @@ class AppModule(appModuleHandler.AppModule):
 	def script_switchProfiles(self, gesture):
 		splconfig.instantProfileSwitch()
 
+	def script_setPlaceMarker(self, gesture):
+		obj = api.getFocusObject()
+		index = obj._indexOf("Filename")
+		filename = obj._getColumnContent(index)
+		if filename:
+			self.placeMarker = (index, filename)
+			ui.message("place marker set")
+		else:
+			ui.message("This track cannot be used as a place marker track")
+
+	def script_findPlaceMarker(self, gesture):
+		if self.placeMarker is None:
+			ui.message("No place marker found")
+		else:
+			self.trackFinder(self.placeMarker[1], api.getFocusObject().parent.firstChild, column=self.placeMarker[0])
+
 	def script_layerHelp(self, gesture):
 		# Translators: The title for SPL Assistant help dialog.
 		wx.CallAfter(gui.messageBox, SPLAssistantHelp, _("SPL Assistant help"))
@@ -1310,6 +1348,8 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:f9":"markTrackForAnalysis",
 		"kb:f10":"trackTimeAnalysis",
 		"kb:f12":"switchProfiles",
+		"kb:Control+k":"setPlaceMarker",
+		"kb:k":"findPlaceMarker",
 		"kb:f1":"layerHelp",
 		"kb:shift+f1":"openOnlineDoc",
 	}
