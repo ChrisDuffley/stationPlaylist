@@ -996,14 +996,17 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_deleteTrack(self, gesture):
 		gesture.send()
+		focus = api.getFocusObject()
 		if self.productVersion.startswith("5.0"):
 			if api.getForegroundObject().windowClassName == "TStudioForm":
-				focus = api.getFocusObject()
 				if focus.IAccessibleChildID < focus.parent.childCount:
 					self.deletedFocusObj = True
 					focus.setFocus()
 					self.deletedFocusObj = False
 					focus.setFocus()
+		if self._placeMarkerObj == focus:
+			tones.beep(1024, 10)
+			self._placeMarkerObj = None
 
 	# When Escape is pressed, activate background library scan if conditions are right.
 	def script_escape(self, gesture):
@@ -1280,6 +1283,21 @@ class AppModule(appModuleHandler.AppModule):
 	def script_switchProfiles(self, gesture):
 		splconfig.instantProfileSwitch()
 
+	# Cache place marker object.
+	_placeMarkerObj = None
+
+	def script_setPlaceMarker(self, gesture):
+		self._placeMarkerObj = api.getFocusObject()
+		ui.message("place marker set")
+
+	def script_findPlaceMarker(self, gesture):
+		if self._placeMarkerObj and (not self._placeMarkerObj.name and not self._placeMarkerObj.description):
+			self._placeMarkerObj = None
+		if self._placeMarkerObj is None:
+			ui.message("No place marker found")
+		else:
+			self._placeMarkerObj.setFocus(), self._placeMarkerObj.setFocus()
+
 	def script_layerHelp(self, gesture):
 		# Translators: The title for SPL Assistant help dialog.
 		wx.CallAfter(gui.messageBox, SPLAssistantHelp, _("SPL Assistant help"))
@@ -1310,6 +1328,8 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:f9":"markTrackForAnalysis",
 		"kb:f10":"trackTimeAnalysis",
 		"kb:f12":"switchProfiles",
+		"kb:Control+k":"setPlaceMarker",
+		"kb:k":"findPlaceMarker",
 		"kb:f1":"layerHelp",
 		"kb:shift+f1":"openOnlineDoc",
 	}
