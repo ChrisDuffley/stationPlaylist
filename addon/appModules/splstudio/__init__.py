@@ -745,26 +745,36 @@ class AppModule(appModuleHandler.AppModule):
 
 	def trackFinder(self, text, obj, directionForward=True, column=None):
 		speech.cancelSpeech()
+		t = time.time()
+		track = self._trackLocator(text, obj=obj, directionForward=directionForward, column=column)
+		print "Track locator took %s seconds"%(time.time()-t)
+		if track:
+			if self.findText != text: self.findText = text
+			# We need to fire set focus event twice and exit this routine.
+			track.setFocus(), track.setFocus()
+		else:
+			wx.CallAfter(gui.messageBox,
+			# Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
+			_("Search string not found."),
+			# Translators: Standard error title for find error (copy this from main nvda.po).
+			_("Find error"),wx.OK|wx.ICON_ERROR)
+
+	# Split from track finder in 2015.
+	# Return a track with the given search criteria.
+	def _trackLocator(self, text, obj=api.getFocusObject(), directionForward=True, column=None):
 		while obj is not None:
 			try:
 				# Do not use column content attribute, because sometimes NVDA will say it isn't a track item when in fact it is.
 				# If this happens, use the module level version of column content getter.
 				if (not column and (text in obj.description or (obj.name and text in obj.name and self.productVersion < "5.10"))
 				or (column and text in splmisc._getColumnContent(obj, column))):
-					self.findText = text
-					# We need to fire set focus event twice and exit this routine.
-					obj.setFocus(), obj.setFocus()
-					return
+					break # Because if search doesn't yield anything, obj will be None.
 			except TypeError:
 				pass
 			obj = obj.next if directionForward else obj.previous
-		wx.CallAfter(gui.messageBox,
-		# Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
-		_("Search string not found."),
-		# Translators: Standard error title for find error (copy this from main nvda.po).
-		_("Find error"),wx.OK|wx.ICON_ERROR)
+		return obj
 
-	# Find a specific track based on a searched text.
+		# Find a specific track based on a searched text.
 	# Unfortunately, the track list does not provide obj.name (it is None), however obj.description has the actual track entry.
 	# For Studio 5.01 and earlier, artist label appears as the name, while in Studio 5.10, obj.name is none.
 	# But first, check if track finder can be invoked.
@@ -807,14 +817,14 @@ class AppModule(appModuleHandler.AppModule):
 	def script_findTrackNext(self, gesture):
 		if self._trackFinderCheck():
 			if self.findText == "": self.trackFinderGUI()
-			else: self.trackFinder(self.findText, api.getFocusObject().next)
+			else: self.trackFinder(self.findText, obj=api.getFocusObject().next)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_findTrackNext.__doc__=_("Finds the next occurrence of the track with the name in the track list.")
 
 	def script_findTrackPrevious(self, gesture):
 		if self._trackFinderCheck():
 			if self.findText == "": self.trackFinderGUI()
-			else: self.trackFinder(self.findText, api.getFocusObject().previous, directionForward=False)
+			else: self.trackFinder(self.findText, obj=api.getFocusObject().previous, directionForward=False)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_findTrackPrevious.__doc__=_("Finds previous occurrence of the track with the name in the track list.")
 
@@ -1316,7 +1326,8 @@ class AppModule(appModuleHandler.AppModule):
 		if self.placeMarker is None:
 			ui.message("No place marker found")
 		else:
-			self.trackFinder(self.placeMarker[1], api.getFocusObject().parent.firstChild, column=self.placeMarker[0])
+			track = self._trackLocator(self.placeMarker[1], obj=api.getFocusObject().parent.firstChild, column=self.placeMarker[0])
+			track.setFocus(), track.setFocus()
 
 	def script_layerHelp(self, gesture):
 		# Translators: The title for SPL Assistant help dialog.
