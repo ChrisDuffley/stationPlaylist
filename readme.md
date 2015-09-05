@@ -33,7 +33,7 @@ The following commands are not assigned by default; if you wish to assign it, us
 * SPL Controller layer.
 * SPL Assistant layer from SPL Studio.
 * Announce time including seconds from SPL Studio.
-* Toggling track dial on or off (works properly while a track is focused; to assign a command to this, select a track, then open NVDA's input gestures dialog.).
+* Toggling track dial on or off (works properly while a track is focused; to assign a command to this, move to a track in Studio, then open NVDA's input gestures dialog.).
 * Announcing temperature.
 * Announcing title of next track if scheduled.
 * Announcing title of the currently playing track.
@@ -41,8 +41,6 @@ The following commands are not assigned by default; if you wish to assign it, us
 * Performing track time analysis.
 * Switch profiles.
 * Find text in specific columns.
-
-Note: Input Gestures dialog is available in 2013.3 or later.
 
 ## Additional commands when using Sam or SPL encoders
 
@@ -90,14 +88,10 @@ The available status information are:
 * T: Cart edit mode on/off.
 * U: Studio up time.
 * W: Weather and temperature if configured.
-<<<<<<< HEAD
-* Y: Playlist modified status (SPL 5.00 and later).
+* Y: Playlist modified status.
 * F9: Mark current track for track time analysis.
 * F10: Perform track time analysis.
 * F12: Switch between current and a predefined profile.
-=======
-* Y: Playlist modified status.
->>>>>>> stable
 * F1: Layer help.
 * Shift+F1: Opens online user guide.
 
@@ -162,6 +156,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * Added a column search dialog (command unassigned) to find text in specific columns such as artist or part of file name.
 * Added ability to reorder track column announcement and to suppress announcement of specific columns if "use screen order" is unchecked from add-on settings dialog. Use "manage column announcement" dialog to reorder columns.
 * Added a setting in add-on settings dialog to configure alarm notification (beep, message or both).
+* You can now use Track Dial toggle command in Studio to toggle Track Dial in Track Tool provided that you didn't assign a command to toggle Track Dial in Track Tool.
 * Added ability to use SPL Controller layer command to invoke SPL Assistant layer (configurable from advanced Settings dialog found in add-on settings dialog).
 * In SAM Encoders, settings such as focusing to Studio when connected is now remembered.
 * It is now possible to view various columns from encoder window (such as encoder connection status) via Control+NVDA+number command; consult the encoder commands above.
