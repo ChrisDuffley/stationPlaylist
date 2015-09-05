@@ -1059,7 +1059,7 @@ class AppModule(appModuleHandler.AppModule):
 			# Project Rainbow: choose the required compatibility layer.
 			self.bindGestures(self.__SPLAssistantGestures)
 			self.SPLAssistant = True
-			tones.beep(512, 10)
+			tones.beep(512, 50) if splconfig.SPLConfig["BeepAnnounce"] else ui.message("Studio")
 		except WindowsError:
 			return
 	# Translators: Input help mode message for a layer command in Station Playlist Studio.
