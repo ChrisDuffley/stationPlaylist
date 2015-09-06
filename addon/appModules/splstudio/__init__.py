@@ -745,9 +745,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def trackFinder(self, text, obj, directionForward=True, column=None):
 		speech.cancelSpeech()
-		t = time.time()
 		track = self._trackLocator(text, obj=obj, directionForward=directionForward, column=column)
-		print "Track locator took %s seconds"%(time.time()-t)
 		if track:
 			if self.findText != text: self.findText = text
 			# We need to fire set focus event twice and exit this routine.
@@ -762,17 +760,27 @@ class AppModule(appModuleHandler.AppModule):
 	# Split from track finder in 2015.
 	# Return a track with the given search criteria.
 	def _trackLocator(self, text, obj=api.getFocusObject(), directionForward=True, column=None):
+		print column
+		t = time.time()
 		while obj is not None:
 			try:
 				# Do not use column content attribute, because sometimes NVDA will say it isn't a track item when in fact it is.
 				# If this happens, use the module level version of column content getter.
-				if (not column and (text in obj.description or (obj.name and text in obj.name and self.productVersion < "5.10"))
-				or (column and text in splmisc._getColumnContent(obj, column))):
+				if (column is None and self._isArtistTitle(obj, text)) or (column >= 0 and text in splmisc._getColumnContent(obj, column)):
 					break # Because if search doesn't yield anything, obj will be None.
 			except TypeError:
 				pass
 			obj = obj.next if directionForward else obj.previous
+		print "Track locator took %s seconds"%(time.time()-t)
 		return obj
+
+	# A helper for the track finder in case searching for the next or previous occurrence.
+	_artistTitle = None
+
+	def _isArtistTitle(self, track, text):
+		artist = track._getColumnContent(self._artistTitle[0])
+		title = track._getColumnContent(self._artistTitle[1])
+		return (artist and text in artist) or (title and text in title)
 
 		# Find a specific track based on a searched text.
 	# Unfortunately, the track list does not provide obj.name (it is None), however obj.description has the actual track entry.

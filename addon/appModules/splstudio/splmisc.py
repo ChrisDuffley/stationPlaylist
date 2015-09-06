@@ -119,6 +119,10 @@ class SPLFindDialog(wx.Dialog):
 		# Studio, are you alive?
 		if user32.FindWindowA("SPLStudio", None) and text:
 			appMod = self.obj.appModule
+			if appMod._artistTitle is None:
+				artist = self.obj._indexOf("Artist")
+				title = self.obj._indexOf("Title")
+				appMod._artistTitle = (artist, title)
 			column = self.columnHeaders.Selection if self.columnSearch else None
 			if column is not None and appMod.productVersion >= "5.10": column+=1
 			startObj = self.obj
