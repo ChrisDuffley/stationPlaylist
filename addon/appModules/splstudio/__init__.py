@@ -97,8 +97,9 @@ class SPLTrackItem(IAccessible):
 	# Read selected columns.
 	# But first, find where the requested column lives.
 	def _indexOf(self, columnHeader):
-		self.columnHeaders = self.parent.children[-1]
-		headers = [header.name for header in self.columnHeaders.children]
+		if self.appModule._columnHeaders is None:
+			self.appModule._columnHeaders = self.parent.children[-1]
+		headers = [header.name for header in self.appModule._columnHeaders.children]
 		return headers.index(columnHeader)
 
 	def reportFocus(self):
@@ -168,7 +169,7 @@ class SPLTrackItem(IAccessible):
 
 	# Announce column content if any.
 	def announceColumnContent(self, colNumber):
-		columnHeader = self.columnHeaders.children[colNumber].name
+		columnHeader = self.appModule._columnHeaders.children[colNumber].name
 		columnContent = self._getColumnContent(colNumber)
 		if columnContent:
 			# Translators: Standard message for announcing column content.
@@ -182,15 +183,17 @@ class SPLTrackItem(IAccessible):
 	# Now the scripts.
 
 	def script_nextColumn(self, gesture):
-		self.columnHeaders = self.parent.children[-1]
-		if (self.appModule.SPLColNumber+1) == self.columnHeaders.childCount:
+		if self.appModule._columnHeaders is None:
+			self.appModule._columnHeaders = self.parent.children[-1]
+		if (self.appModule.SPLColNumber+1) == self.appModule._columnHeaders.childCount:
 			tones.beep(2000, 100)
 		else:
 			self.appModule.SPLColNumber +=1
 		self.announceColumnContent(self.appModule.SPLColNumber)
 
 	def script_prevColumn(self, gesture):
-		self.columnHeaders = self.parent.children[-1]
+		if self.appModule._columnHeaders is None:
+			self.appModule._columnHeaders = self.parent.children[-1]
 		if self.appModule.SPLColNumber <= 0:
 			tones.beep(2000, 100)
 		else:
@@ -254,6 +257,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Translators: Script category for Station Playlist commands in input gestures dialog.
 	scriptCategory = _("StationPlaylist Studio")
 	SPLCurVersion = appModuleHandler.AppModule.productVersion
+	_columnHeaders = None
 
 	# Prepare the settings dialog among other things.
 	def __init__(self, *args, **kwargs):
