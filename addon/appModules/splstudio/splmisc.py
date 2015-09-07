@@ -15,6 +15,7 @@ import wx
 from NVDAObjects.IAccessible import sysListView32
 from winUser import user32, sendMessage
 import winKernel
+import time
 
 # Locate column content.
 # Given an object and the column number, locate text in the given column.
@@ -95,7 +96,11 @@ class SPLFindDialog(wx.Dialog):
 			# Translators: The label in track finder to search columns.
 			label = wx.StaticText(self, wx.ID_ANY, label=_("C&olumn to search:"))
 			left = 1 if obj.appModule.productVersion >= "5.10" else 0
-			headers = [header.name for header in obj.parent.children[-1].children[left:]]
+			t = time.time()
+			if obj.appModule._columnHeaders is None:
+				obj.appModule._columnHeaders = obj.parent.children[-1]
+			headers = [header.name for header in obj.appModule._columnHeaders.children[left:]]
+			print time.time()-t
 			self.columnHeaders = wx.Choice(self, wx.ID_ANY, choices=headers)
 			try:
 				self.columnHeaders.SetSelection(0)
@@ -119,12 +124,8 @@ class SPLFindDialog(wx.Dialog):
 		# Studio, are you alive?
 		if user32.FindWindowA("SPLStudio", None) and text:
 			appMod = self.obj.appModule
-			if appMod._artistTitle is None:
-				artist = self.obj._indexOf("Artist")
-				title = self.obj._indexOf("Title")
-				appMod._artistTitle = (artist, title)
-			column = self.columnHeaders.Selection if self.columnSearch else None
-			if column is not None and appMod.productVersion >= "5.10": column+=1
+			column = [self.columnHeaders.Selection] if self.columnSearch else None
+			if column is not None and appMod.productVersion >= "5.10": column[0]+=1
 			startObj = self.obj
 			if text == appMod.findText: startObj = startObj.next
 			# If this is called right away, we land on an invisible window.

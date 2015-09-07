@@ -749,7 +749,9 @@ class AppModule(appModuleHandler.AppModule):
 
 	def trackFinder(self, text, obj, directionForward=True, column=None):
 		speech.cancelSpeech()
-		track = self._trackLocator(text, obj=obj, directionForward=directionForward, column=column)
+		if column is None: 
+			column = [obj._indexOf("Artist"), obj._indexOf("Title")]
+		track = self._trackLocator(text, obj=obj, directionForward=directionForward, columns=column)
 		if track:
 			if self.findText != text: self.findText = text
 			# We need to fire set focus event twice and exit this routine.
@@ -763,28 +765,22 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Split from track finder in 2015.
 	# Return a track with the given search criteria.
-	def _trackLocator(self, text, obj=api.getFocusObject(), directionForward=True, column=None):
-		print column
+	# Column is a list of columns to be searched (if none, it'll be artist and title).
+	def _trackLocator(self, text, obj=api.getFocusObject(), directionForward=True, columns=None):
+		nextTrack = "next" if directionForward else "previous"
 		t = time.time()
 		while obj is not None:
-			try:
-				# Do not use column content attribute, because sometimes NVDA will say it isn't a track item when in fact it is.
-				# If this happens, use the module level version of column content getter.
-				if (column is None and self._isArtistTitle(obj, text)) or (column >= 0 and text in splmisc._getColumnContent(obj, column)):
-					break # Because if search doesn't yield anything, obj will be None.
-			except TypeError:
-				pass
-			obj = obj.next if directionForward else obj.previous
+			# Do not use column content attribute, because sometimes NVDA will say it isn't a track item when in fact it is.
+			# If this happens, use the module level version of column content getter.
+			# Optimization: search column texts.
+			for column in columns:
+				columnText = splmisc._getColumnContent(obj, column)
+				if columnText and text in columnText:
+					print "Track locator took %s seconds"%(time.time()-t)
+					return obj
+			obj = getattr(obj, nextTrack)
 		print "Track locator took %s seconds"%(time.time()-t)
-		return obj
-
-	# A helper for the track finder in case searching for the next or previous occurrence.
-	_artistTitle = None
-
-	def _isArtistTitle(self, track, text):
-		artist = track._getColumnContent(self._artistTitle[0])
-		title = track._getColumnContent(self._artistTitle[1])
-		return (artist and text in artist) or (title and text in title)
+		return None
 
 		# Find a specific track based on a searched text.
 	# Unfortunately, the track list does not provide obj.name (it is None), however obj.description has the actual track entry.
@@ -1338,7 +1334,7 @@ class AppModule(appModuleHandler.AppModule):
 		if self.placeMarker is None:
 			ui.message("No place marker found")
 		else:
-			track = self._trackLocator(self.placeMarker[1], obj=api.getFocusObject().parent.firstChild, column=self.placeMarker[0])
+			track = self._trackLocator(self.placeMarker[1], obj=api.getFocusObject().parent.firstChild, columns=[self.placeMarker[0]])
 			track.setFocus(), track.setFocus()
 
 	def script_layerHelp(self, gesture):
