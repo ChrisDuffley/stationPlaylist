@@ -65,8 +65,8 @@ libScanT = None
 noLibScanMonitor = []
 
 # List of known window style values to check for track items in Studio 5.0x..
-known50styles = [1442938953, 1443987529]
-known51styles = [1443991625, 1446088777]
+known50styles = (1442938953, 1443987529, 1446084681)
+known51styles = (1443991625, 1446088777)
 
 # Braille and play a sound in response to an alarm or an event.
 def messageSound(wavFile, message):
@@ -154,7 +154,9 @@ class SPLTrackItem(IAccessible):
 	# Some helper functions to handle corner cases.
 	# Each track item provides its own version.
 	def _leftmostcol(self):
-		leftmost = self.columnHeaders.firstChild.name
+		if self.appModule._columnHeaders is None:
+			self.appModule._columnHeaders = self.parent.children[-1]
+		leftmost = self.appModule._columnHeaders.firstChild.name
 		if not self.name or self.name == "":
 			# Translators: Announced when leftmost column has no text while track dial is active.
 			ui.message(_("{leftmostColumn} not found").format(leftmostColumn = leftmost))
