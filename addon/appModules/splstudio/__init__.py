@@ -103,7 +103,7 @@ class SPLTrackItem(IAccessible):
 		return headers.index(columnHeader)
 
 	def reportFocus(self):
-		tones.beep(800, 400)
+		tones.beep(800, 100)
 		if not splconfig.SPLConfig["UseScreenColumnOrder"]:
 			descriptionPieces = []
 			for header in splconfig.SPLConfig["ColumnOrder"]:
@@ -969,7 +969,6 @@ class AppModule(appModuleHandler.AppModule):
 				countB = statusAPI(0, 32, ret=True)
 			# Translators: Presented when library scanning is finished.
 			ui.message(_("{itemCount} items in the library").format(itemCount = countB))
-			print "scan done"
 		else:
 			libScanT = threading.Thread(target=self.libraryScanReporter, args=(_SPLWin, countA, countB, parem))
 			libScanT.daemon = True
@@ -994,7 +993,6 @@ class AppModule(appModuleHandler.AppModule):
 		if splconfig.SPLConfig["LibraryScanAnnounce"] != "off":
 			if splconfig.SPLConfig["BeepAnnounce"]:
 				tones.beep(370, 100)
-				print "scan done"
 			else:
 				# Translators: Presented after library scan is done.
 				ui.message(_("Scan complete with {itemCount} items").format(itemCount = countB))
