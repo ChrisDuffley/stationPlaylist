@@ -73,16 +73,18 @@ The available status information are:
 
 * A: Automation.
 * C: Title for the currently playing track.
-* D: Remaining duration for the playlist.
+* D (R when compatibility mode is active): Remaining duration for the playlist.
 * H: Duration of music for the current hour slot.
 * Shift+H: Total duration of selected tracks for this hour slot (from the track list, press SPACE to select or uncheck the track to play).
-* I: Listener count.
-* L: Line in.
+* I (L when compatibility mode is active): Listener count.
+* K: Move to the marked track.
+* Control+K: Set the current track as the place marker track.
+* L (Shift+L when compatibility mode is active): Line in.
 * M: Microphone.
 * N: Title for the next scheduled track.
 * P: Playback status (playing or stopped).
 * Shift+P: Pitch of the current track.
-* R: Record to file enabled/disabled.
+* R (E when compatibility mode is active): Record to file enabled/disabled.
 * Shift+R: Monitor library scan in progress.
 * S: Track starts in (scheduled).
 * T: Cart edit mode on/off.
@@ -150,15 +152,18 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Changes for 6.0-dev
 
-* If status announcement is set to words, NVDA will announce "Studio" when invoking SPL Assistant layer.
 * New SPL Assistant commands, including announcing title of the currently playing track (C) and opening the online user guide (Shift+F1).
+* If status announcement is set to words, NVDA will announce "Studio" when invoking SPL Assistant layer.
 * Ability to package favorite settings as broadcast profiles to be used during a show and to switch to a predefined profile. See the add-on guide for details on broadcast profiles.
 * You can now ask NVDA to report total length of a range of tracks via track time analysis feature. Press SPL Assistant, F9 to mark current track as start marker, move to end of track range and press SPL Assistant, F10. These commands can be reassigned so one doesn't have to invoke SPL Assistant layer to perform track time analysis.
 * Added a column search dialog (command unassigned) to find text in specific columns such as artist or part of file name.
 * Added ability to reorder track column announcement and to suppress announcement of specific columns if "use screen order" is unchecked from add-on settings dialog. Use "manage column announcement" dialog to reorder columns.
+* Added ability to mark a track as a place marker to return to it later (SPL Assistant, Control+K to set, SPL Assistant, K to move to the marked track).
+* Improved performance when searching for next or previous track text containing the searched text.
 * Added a setting in add-on settings dialog to configure alarm notification (beep, message or both).
 * You can now use Track Dial toggle command in Studio to toggle Track Dial in Track Tool provided that you didn't assign a command to toggle Track Dial in Track Tool.
 * Added ability to use SPL Controller layer command to invoke SPL Assistant layer (configurable from advanced Settings dialog found in add-on settings dialog).
+* Ability for NvDA to use certain SPL Assistant commands used by other screen readers (experimental). To configure this, go to add-on settings, select Advanced Settings and check screen reader compatibility mode checkbox.
 * In SAM Encoders, settings such as focusing to Studio when connected is now remembered.
 * It is now possible to view various columns from encoder window (such as encoder connection status) via Control+NVDA+number command; consult the encoder commands above.
 * Fixed a rare bug where switching to Studio or closing an NVDA dialog (including Studio add-on dialogs) prevented track commands (such as toggling Track Dial) from working as expected.
