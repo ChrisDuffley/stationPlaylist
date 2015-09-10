@@ -38,6 +38,7 @@ SayScheduledFor = boolean(default=true)
 SayListenerCount = boolean(default=true)
 SayPlayingCartName = boolean(default=true)
 SPLConPassthrough = boolean(default=false)
+CompatibilityLayer = option("off", "jfw", default="off")
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
 SPLConfig = None
@@ -433,6 +434,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		item = advancedOptButton = wx.Button(self, label=_("&Advanced options..."))
 		item.Bind(wx.EVT_BUTTON, self.onAdvancedOptions)
 		self.splConPassthrough = SPLConfig["SPLConPassthrough"]
+		self.compLayer = SPLConfig["CompatibilityLayer"]
 		settingsSizer.Add(item)
 
 		# Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
@@ -474,6 +476,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["SayListenerCount"] = self.listenerCountCheckbox.Value
 		SPLConfig["SayPlayingCartName"] = self.cartNameCheckbox.Value
 		SPLConfig["SPLConPassthrough"] = self.splConPassthrough
+		SPLConfig["CompatibilityLayer"] = self.compLayer
 		SPLActiveProfile = SPLConfig.name
 		SPLSwitchProfile = self.switchProfile
 		# Without nullifying prev profile while switch profile is undefined, NVDA will assume it can switch back to that profile when it can't.
@@ -864,6 +867,13 @@ class AdvancedOptionsDialog(wx.Dialog):
 		sizer.Add(self.splConPassthroughCheckbox, border=10,flag=wx.TOP)
 		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		self.compLayerCheckbox=wx.CheckBox(self,wx.NewId(),label="Screen &reader compatibility Mode (experimental)")
+		# Project Rainbow: change the UI for this control.
+		self.compLayerCheckbox.SetValue(SPLConfig["CompatibilityLayer"] != "off")
+		sizer.Add(self.compLayerCheckbox, border=10,flag=wx.TOP)
+		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
 		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
@@ -875,6 +885,8 @@ class AdvancedOptionsDialog(wx.Dialog):
 	def onOk(self, evt):
 		parent = self.Parent
 		parent.splConPassthrough = self.splConPassthroughCheckbox.Value
+		comp = "jfw" if self.compLayerCheckbox.Value else "off"
+		parent.compLayer = comp
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()

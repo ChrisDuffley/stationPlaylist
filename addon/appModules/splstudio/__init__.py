@@ -1099,9 +1099,10 @@ class AppModule(appModuleHandler.AppModule):
 			# To prevent entering wrong gesture while the layer is active.
 			self.clearGestureBindings()
 			# Project Rainbow: choose the required compatibility layer.
-			self.bindGestures(self.__SPLAssistantGestures)
+			self.bindGestures(self.__SPLAssistantGestures) if splconfig.SPLConfig["CompatibilityLayer"] == "off" else self.bindGestures(self.__SPLAssistantJFWGestures)
 			self.SPLAssistant = True
 			tones.beep(512, 50) if splconfig.SPLConfig["BeepAnnounce"] else ui.message("Studio")
+			if splconfig.SPLConfig["CompatibilityLayer"] == "jfw": ui.message("JAWS")
 		except WindowsError:
 			return
 	# Translators: Input help mode message for a layer command in Station Playlist Studio.
@@ -1363,6 +1364,34 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:c":"sayCurrentTrackTitle",
 		"kb:w":"sayTemperature",
 		"kb:i":"sayListenerCount",
+		"kb:s":"sayScheduledTime",
+		"kb:shift+p":"sayTrackPitch",
+		"kb:shift+r":"libraryScanMonitor",
+		"kb:f9":"markTrackForAnalysis",
+		"kb:f10":"trackTimeAnalysis",
+		"kb:f12":"switchProfiles",
+		"kb:Control+k":"setPlaceMarker",
+		"kb:k":"findPlaceMarker",
+		"kb:f1":"layerHelp",
+		"kb:shift+f1":"openOnlineDoc",
+	}
+
+	__SPLAssistantJFWGestures={
+		"kb:p":"sayPlayStatus",
+		"kb:a":"sayAutomationStatus",
+		"kb:m":"sayMicStatus",
+		"kb:shift+l":"sayLineInStatus",
+		"kb:e":"sayRecToFileStatus",
+		"kb:t":"sayCartEditStatus",
+		"kb:h":"sayHourTrackDuration",
+		"kb:shift+h":"sayHourSelectedTrackDuration",
+		"kb:r":"sayPlaylistRemainingDuration",
+		"kb:y":"sayPlaylistModified",
+		"kb:u":"sayUpTime",
+		"kb:n":"sayNextTrackTitle",
+		"kb:c":"sayCurrentTrackTitle",
+		"kb:w":"sayTemperature",
+		"kb:l":"sayListenerCount",
 		"kb:s":"sayScheduledTime",
 		"kb:shift+p":"sayTrackPitch",
 		"kb:shift+r":"libraryScanMonitor",
