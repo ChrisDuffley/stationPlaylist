@@ -162,7 +162,7 @@ class SPLTrackItem(IAccessible):
 			ui.message(_("{leftmostColumn} not found").format(leftmostColumn = leftmost))
 		else:
 			# Translators: Standard message for announcing column content.
-			ui.message(_("{leftmostColumn}: {leftmostContent}").format(leftmostColumn = self.columnHeaders.children[self.appModule.SPLColNumber].name, leftmostContent = self.name))
+			ui.message(_("{leftmostColumn}: {leftmostContent}").format(leftmostColumn = leftmost, leftmostContent = self.name))
 
 	# Locate column content.
 	# This is merely the proxy of the module level function defined in the misc module.
