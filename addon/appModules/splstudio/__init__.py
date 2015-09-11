@@ -21,6 +21,7 @@ import globalVars
 import review
 import eventHandler
 import scriptHandler
+import queueHandler # To queue message announcement functions.
 import ui
 import nvwave
 import speech
@@ -297,6 +298,9 @@ class AppModule(appModuleHandler.AppModule):
 		with threading.Lock() as hwndNotifier:
 			global _SPLWin
 			_SPLWin = hwnd
+		# Remind me to broadcast metadata information.
+		if splconfig.SPLConfig["MetadataReminder"]:
+			self._metadataReminder()
 
 	# Let the global plugin know if SPLController passthrough is allowed.
 	def SPLConPassthrough(self):
@@ -785,8 +789,6 @@ class AppModule(appModuleHandler.AppModule):
 		return None
 
 		# Find a specific track based on a searched text.
-	# Unfortunately, the track list does not provide obj.name (it is None), however obj.description has the actual track entry.
-	# For Studio 5.01 and earlier, artist label appears as the name, while in Studio 5.10, obj.name is none.
 	# But first, check if track finder can be invoked.
 	def _trackFinderCheck(self):
 		if api.getForegroundObject().windowClassName != "TStudioForm":
@@ -1026,6 +1028,35 @@ class AppModule(appModuleHandler.AppModule):
 	def preTrackRemoval(self):
 		if self.isPlaceMarkerTrack(track=api.getFocusObject()):
 			self.placeMarker = None
+
+	# Metadata streaming manager
+	# Obtains information on metadata streaming for each URL, reminding the broadcaster if told to do so upon startup.
+
+	# First, the reminder function.
+	def _metadataReminder(self):
+		configuredPos = self.metadataStreamers()
+		reminderMessage = None
+		if len(configuredPos) == 1:
+			reminderMessage = "Please enable metadata streaming for URL {URL}".format(URL = configuredPos[0])
+		elif len(configuredPos) > 1:
+			reminderMessage = "Please enable metadata streaming for URL's {URL}".format(URL = ", ".join(configuredPos))
+		nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "metadatarem.wav"))
+		queueHandler.queueFunction(queueHandler.eventQueue, ui.message, reminderMessage)
+
+	# Find out which URL's are configured to show meatadata streaming.
+	# 6.1/7.0: Combine this with the above function.
+	def metadataStreamers(self, announcer=False):
+		configuredPos = []
+		for pos in xrange(1, 5):
+			checked = statusAPI(pos, 36, ret=True)
+			if checked == 1: configuredPos.append(pos)
+		if not announcer: return configuredPos
+		if len(configuredPos) == 1:
+			ui.message("Metadata streaming configured for URL {URL}".format(URL = configuredPos[0]))
+		elif len(configuredPos) > 1:
+			ui.message("Metadata streaming configured for URL's {URL}".format(URL = ", ".join(configuredPos)))
+		else:
+			ui.message("No metadata streaming URL's defined")
 
 	# Some handlers for native commands.
 
@@ -1338,6 +1369,19 @@ class AppModule(appModuleHandler.AppModule):
 			track = self._trackLocator(self.placeMarker[1], obj=api.getFocusObject().parent.firstChild, columns=[self.placeMarker[0]])
 			track.setFocus(), track.setFocus()
 
+	def script_metadataStreamingAnnouncer(self, gesture):
+		self.metadataStreamers(announcer=True)
+
+	# Gesture(s) cannot be changed by users.
+	def script_metadataEnabled(self, gesture):
+		url = int(gesture.displayName[-1])
+		checked = statusAPI(url, 36, ret=True)
+		if checked == 1:
+			ui.message("Metadata streaming on URL {URLPosition} enabled".format(URLPosition = url))
+		else:
+			ui.message("Metadata streaming on URL {URLPosition} disabled".format(URLPosition = url))
+
+
 	def script_layerHelp(self, gesture):
 		# Translators: The title for SPL Assistant help dialog.
 		wx.CallAfter(gui.messageBox, SPLAssistantHelp, _("SPL Assistant help"))
@@ -1370,6 +1414,11 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:f12":"switchProfiles",
 		"kb:Control+k":"setPlaceMarker",
 		"kb:k":"findPlaceMarker",
+		"kb:e":"metadataStreamingAnnouncer",
+		"kb:1":"metadataEnabled",
+		"kb:2":"metadataEnabled",
+		"kb:3":"metadataEnabled",
+		"kb:4":"metadataEnabled",
 		"kb:f1":"layerHelp",
 		"kb:shift+f1":"openOnlineDoc",
 	}

@@ -31,6 +31,7 @@ MicAlarm = integer(min=0, default="0")
 AlarmAnnounce = option("beep", "message", "both", default="beep")
 LibraryScanAnnounce = option("off", "ending", "progress", "numbers", default="off")
 TrackDial = boolean(default=false)
+MetadataReminder = boolean(default=true)
 UseScreenColumnOrder = boolean(default=true)
 ColumnOrder = string_list(default=list("Artist","Title","Duration","Intro","Category","Filename"))
 IncludedColumns = string_list(default=list("Artist","Title","Duration","Intro","Category","Filename"))
@@ -404,6 +405,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.trackDialCheckbox.SetValue(SPLConfig["TrackDial"])
 		settingsSizer.Add(self.trackDialCheckbox, border=10,flag=wx.BOTTOM)
 
+		# Translators: the label for a setting in SPL add-on settings to remind users to enable metadata streaming.
+		self.metadataCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce a &reminder message to enable metadata streaming when Studio loads"))
+		self.metadataCheckbox.SetValue(SPLConfig["MetadataReminder"])
+		settingsSizer.Add(self.metadataCheckbox, border=10,flag=wx.BOTTOM)
+
 		# Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
 		self.columnOrderCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce columns in the &order shown on screen"))
 		self.columnOrderCheckbox.SetValue(SPLConfig["UseScreenColumnOrder"])
@@ -469,6 +475,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["AlarmAnnounce"] = self.alarmAnnounceValues[self.alarmAnnounceList.GetSelection()][0]
 		SPLConfig["LibraryScanAnnounce"] = self.libScanValues[self.libScanList.GetSelection()][0]
 		SPLConfig["TrackDial"] = self.trackDialCheckbox.Value
+		SPLConfig["MetadataReminder"] = self.metadataCheckbox.Value
 		SPLConfig["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
 		SPLConfig["ColumnOrder"] = self.columnOrder
 		SPLConfig["IncludedColumns"] = self.includedColumns
