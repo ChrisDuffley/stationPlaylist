@@ -300,7 +300,7 @@ class AppModule(appModuleHandler.AppModule):
 			_SPLWin = hwnd
 		# Remind me to broadcast metadata information.
 		if splconfig.SPLConfig["MetadataReminder"]:
-			self._metadataReminder()
+			self._metadataAnnouncer(reminder=True)
 
 	# Let the global plugin know if SPLController passthrough is allowed.
 	def SPLConPassthrough(self):
@@ -1033,30 +1033,51 @@ class AppModule(appModuleHandler.AppModule):
 	# Obtains information on metadata streaming for each URL, reminding the broadcaster if told to do so upon startup.
 
 	# First, the reminder function.
-	def _metadataReminder(self):
+	def _metadataAnnouncer(self, reminder=False):
 		configuredPos = self.metadataStreamers()
-		reminderMessage = None
+		if not len(configuredPos):
+			if not reminder:
+				ui.message("No metadata streaming URL's defined")
+			return
+		# Build the status/reminder message piece by piece.
+		status = None
+		dsp = False
+		if (0, 1) in configuredPos:
+			dsp = True
 		if len(configuredPos) == 1:
-			reminderMessage = "Please enable metadata streaming for URL {URL}".format(URL = configuredPos[0])
-		elif len(configuredPos) > 1:
-			reminderMessage = "Please enable metadata streaming for URL's {URL}".format(URL = ", ".join(configuredPos))
-		nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "metadatarem.wav"))
-		queueHandler.queueFunction(queueHandler.eventQueue, ui.message, reminderMessage)
-
-	# Find out which URL's are configured to show meatadata streaming.
-	# 6.1/7.0: Combine this with the above function.
-	def metadataStreamers(self, announcer=False):
-		configuredPos = []
-		for pos in xrange(1, 5):
-			checked = statusAPI(pos, 36, ret=True)
-			if checked == 1: configuredPos.append(pos)
-		if not announcer: return configuredPos
-		if len(configuredPos) == 1:
-			ui.message("Metadata streaming configured for URL {URL}".format(URL = configuredPos[0]))
-		elif len(configuredPos) > 1:
-			ui.message("Metadata streaming configured for URL's {URL}".format(URL = ", ".join(configuredPos)))
+			if dsp:
+				if reminder: status = "Please enable metadata streaming for the DSP encoder"
+				else: status = "Metadata streaming configured for DSP encoder"
+			else:
+				if reminder: status = "Please enable metadata streaming for URL {URL}".format(URL = configuredPos[0][0])
+				else: status = "Metadata streaming configured for URL {URL}".format(URL = configuredPos[0][0])
 		else:
-			ui.message("No metadata streaming URL's defined")
+			if dsp: metadataPos = [pos[0] for pos in configuredPos[1:]]
+			else: metadataPos = [pos[0] for pos in configuredPos]
+			if len(metadataPos) == 1:
+				urls = "URL {URL}".format(URL = metadataPos[0])
+			else: 
+				urls = "URL's {URL}".format(URL = ", ".join([pos[0] for pos in configuredPos]))
+			if dsp:
+				if reminder: status = "Please enable metadata streaming for DSP encoder and {URL}".format(URL = urls)
+				else: status = "Metadata streaming configured for DSP encoder and {URL}".format(URL = urls)
+			else:
+				if reminder: status = "Please enable metadata streaming for {URL}".format(URL = urls)
+				else: status = "Metadata streaming configured for {URL}".format(URL = urls)
+		if reminder:
+			queueHandler.queueFunction(queueHandler.eventQueue, ui.message, status)
+			nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "metadatarem.wav"))
+		else:
+			ui.message(status)
+
+	# Return a list of metadata streamers.
+	# 6.1/7.0: Possibly combine with the above function.
+	def metadataStreamers(self):
+		configuredPos = []
+		for pos in xrange(5):
+			checked = statusAPI(pos, 36, ret=True)
+			if checked == 1: configuredPos.append((pos, checked))
+		return configuredPos
 
 	# Some handlers for native commands.
 
@@ -1370,17 +1391,24 @@ class AppModule(appModuleHandler.AppModule):
 			track.setFocus(), track.setFocus()
 
 	def script_metadataStreamingAnnouncer(self, gesture):
-		self.metadataStreamers(announcer=True)
+		self._metadataAnnouncer()
 
-	# Gesture(s) cannot be changed by users.
+	# Gesture(s) for the following script cannot be changed by users.
 	def script_metadataEnabled(self, gesture):
 		url = int(gesture.displayName[-1])
 		checked = statusAPI(url, 36, ret=True)
 		if checked == 1:
-			ui.message("Metadata streaming on URL {URLPosition} enabled".format(URLPosition = url))
+			# 0 is DSP encoder status, others are servers.
+			if url:
+				status = "Metadata streaming on URL {URLPosition} enabled".format(URLPosition = url)
+			else:
+				status = "Metadata streaming on DSP encoder enabled"
 		else:
-			ui.message("Metadata streaming on URL {URLPosition} disabled".format(URLPosition = url))
-
+			if url:
+				status = "Metadata streaming on URL {URLPosition} disabled".format(URLPosition = url)
+			else:
+				status = "Metadata streaming on DSP encoder disabled"
+		ui.message(status)
 
 	def script_layerHelp(self, gesture):
 		# Translators: The title for SPL Assistant help dialog.
@@ -1419,6 +1447,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:2":"metadataEnabled",
 		"kb:3":"metadataEnabled",
 		"kb:4":"metadataEnabled",
+		"kb:0":"metadataEnabled",
 		"kb:f1":"layerHelp",
 		"kb:shift+f1":"openOnlineDoc",
 	}
