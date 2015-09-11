@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 4.1\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2015-08-15 09:53+0100\n"
+"PO-Revision-Date: 2015-09-08 16:07+0100\n"
 "Last-Translator: Bachir BENANOU <ben_bach@yahoo.fr>\n"
 "Language-Team: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language: fr\n"
@@ -242,7 +242,7 @@ msgstr "&Notifier lorsque la fin de piste est proche"
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "sets end of track alarm (default is 5 seconds)."
 msgstr ""
-"Définir l'alarme de fin de piste (la valeur par défaut est 5 secondes)."
+"Définit l'alarme de fin de piste (la valeur par défaut est 5 secondes)."
 
 #. Translators: The title of song intro alarm dialog.
 msgid "Song intro alarm"
@@ -278,7 +278,7 @@ msgid ""
 "Enter microphone alarm time in seconds (currently disabled, 0 disables the "
 "alarm)"
 msgstr ""
-"Entrez l'heur de l'alarme microphone en secondes actuellement désactivé, 0 "
+"Entrez l'heure de l'alarme microphone en secondes (actuellement désactivé, 0 "
 "désactive l'alarme)"
 
 #. Translators: The title of mic alarm dialog.
@@ -291,12 +291,12 @@ msgstr "Valeur saisie incorrecte."
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Sets microphone alarm (default is 5 seconds)."
-msgstr "Définir alarme microphone (la valeur par défaut est 5 secondes)."
+msgstr "Définit alarme microphone (la valeur par défaut est 5 secondes)."
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Opens SPL Studio add-on configuration dialog."
 msgstr ""
-"Ouvre la boîte de dialogue configuration du module complémentaire Studio SPL."
+"Ouvre le dialogue de configuration du module complémentaire Studio SPL."
 
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Status announcement beeps"
@@ -308,7 +308,7 @@ msgstr "Annonce le statut en mots"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Toggles status announcements between words and beeps."
-msgstr "Basculer l'annonce de statut entre mots et bips."
+msgstr "Bascule l'annonce de statut entre mots et bips."
 
 #. Translators: A setting in braille timer options.
 msgid "Braille track endings"
@@ -412,21 +412,21 @@ msgstr "Chariot non assignés"
 
 #. Translators: A setting in library scan announcement options.
 msgid "Announce start and end of a library scan"
-msgstr "Annoncer le début et la fin d'un balayage dans la bibliothèque"
+msgstr "Annoncer le début et la fin de balayage d'une bibliothèque"
 
 #. Translators: A setting in library scan announcement options.
 msgid "Announce the progress of a library scan"
-msgstr "Annoncer l'avancement d'un balayage dans la bibliothèque"
+msgstr "Annoncer l'avancement du balayage d'une bibliothèque"
 
 #. Translators: A setting in library scan announcement options.
 msgid "Announce progress and item count of a library scan"
 msgstr ""
-"Annoncer l'avancement et le nombre d'éléments d'un balayage dans la "
+"Annoncer l'avancement et le nombre des éléments lors du balayage d'une "
 "bibliothèque"
 
 #. Translators: A setting in library scan announcement options.
 msgid "Do not announce library scans"
-msgstr "Ne pas annoncer les balayages dans la bibliothèque"
+msgstr "Ne pas annoncer les balayages d'une bibliothèque"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Toggles library scan progress settings."
@@ -470,8 +470,7 @@ msgstr "Modification playlist  non disponible"
 
 #. Translators: Presented when there is no information for the next track.
 msgid "No next track scheduled or no track is playing"
-msgstr ""
-"Aucune piste suivante planifié ou aucune piste n'est en cours de lecture"
+msgstr "Aucune piste planifiée ou aucune piste n'est en cours de lecture"
 
 #. Translators: Presented when next track information is unavailable.
 msgid "Cannot find next track information"
