@@ -1034,50 +1034,56 @@ class AppModule(appModuleHandler.AppModule):
 
 	# First, the reminder function.
 	def _metadataAnnouncer(self, reminder=False):
-		configuredPos = self.metadataStreamers()
-		if not len(configuredPos):
-			if not reminder:
-				ui.message("No metadata streaming URL's defined")
-			return
-		# Build the status/reminder message piece by piece.
-		status = None
-		dsp = False
-		if (0, 1) in configuredPos:
-			dsp = True
-		if len(configuredPos) == 1:
-			if dsp:
-				if reminder: status = "Please enable metadata streaming for the DSP encoder"
-				else: status = "Metadata streaming configured for DSP encoder"
-			else:
-				if reminder: status = "Please enable metadata streaming for URL {URL}".format(URL = configuredPos[0][0])
-				else: status = "Metadata streaming configured for URL {URL}".format(URL = configuredPos[0][0])
-		else:
-			if dsp: metadataPos = [pos[0] for pos in configuredPos[1:]]
-			else: metadataPos = [pos[0] for pos in configuredPos]
-			if len(metadataPos) == 1:
-				urls = "URL {URL}".format(URL = metadataPos[0])
-			else: 
-				urls = "URL's {URL}".format(URL = ", ".join([pos[0] for pos in configuredPos]))
-			if dsp:
-				if reminder: status = "Please enable metadata streaming for DSP encoder and {URL}".format(URL = urls)
-				else: status = "Metadata streaming configured for DSP encoder and {URL}".format(URL = urls)
-			else:
-				if reminder: status = "Please enable metadata streaming for {URL}".format(URL = urls)
-				else: status = "Metadata streaming configured for {URL}".format(URL = urls)
+		dsp = 1 if statusAPI(0, 36, ret=True) == 1 else 0
+		configuredPos = [dsp]
+		streamCount = []
+		for pos in xrange(1, 5):
+			checked = statusAPI(pos, 36, ret=True)
+			if checked == -1: checked += 1
+			configuredPos.append(checked)
+			if checked == 1: streamCount.append(pos)
 		if reminder:
+			self._metadataReminder(configuredPos)
+			return
+		# The rest of this function assumes reminder is false.
+		status = None
+		if not len(streamCount):
+			if not dsp: status = "No metadata streaming URL's defined"
+			else: status = "Metadata streaming configured for DSP encoder"
+		elif len(streamCount) == 1:
+			if dsp: status = "Metadata streaming configured for DSP encoder and URL {URL}".format(URL = streamCount[0])
+			else: status = "Metadata streaming configured for URL {URL}".format(URL = streamCount[0])
+		else:
+			if dsp: status = "Metadata streaming configured for DSP encoder and URL's {URL}".format(URL = ", ".join([streamCount]))
+			else: status = "Metadata streaming configured for URL's {URL}".format(URL = ", ".join([streamCount]))
+		ui.message(status)
+
+	# A private function used for reminders.
+	# Building reminder strings require careful coordination between stream count, metadta positon and the config dtabase.
+	def _metadataReminder(self, urlList):
+		urlStatus = []
+		for pos in xrange(1, 5):
+			if splconfig.SPLConfig["MetadataURL"][pos]: urlStatus.append(pos)
+		# Contrary to its name, dsp == True means DSP isn't streaming.
+		dsp = splconfig.SPLConfig["MetadataURL"][0] and not urlList[0]
+		additionalURL = len(urlStatus)
+		urls = None
+		if additionalURL == 1:
+			urls = "URL {URL}".format(URL = urlStatus[0])
+		elif additionalURL >= 2:
+			urls = "URL's {URL}".format(URL = ", ".join([pos for pos in urlStatus]))
+		# Build the reminder message piece by piece.
+		status = None
+		if dsp:
+			if not additionalURL: status = "Please enable metadata streaming for the DSP encoder"
+			else: status = "Please enable metadata streaming for DSP encoder and {URL}".format(URL = urls)
+		else:
+			if urls: status = "Please enable metadata streaming for {URL}".format(URL = urls)
+		if status or urls:
+			time.sleep(2)
+			speech.cancelSpeech()
 			queueHandler.queueFunction(queueHandler.eventQueue, ui.message, status)
 			nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "metadatarem.wav"))
-		else:
-			ui.message(status)
-
-	# Return a list of metadata streamers.
-	# 6.1/7.0: Possibly combine with the above function.
-	def metadataStreamers(self):
-		configuredPos = []
-		for pos in xrange(5):
-			checked = statusAPI(pos, 36, ret=True)
-			if checked == 1: configuredPos.append((pos, checked))
-		return configuredPos
 
 	# Some handlers for native commands.
 
