@@ -31,7 +31,7 @@ MicAlarm = integer(min=0, default="0")
 AlarmAnnounce = option("beep", "message", "both", default="beep")
 LibraryScanAnnounce = option("off", "ending", "progress", "numbers", default="off")
 TrackDial = boolean(default=false)
-MetadataReminder = boolean(default=true)
+MetadataReminder = option("off", "startup", "instant", default="startup")
 MetadataURL = bool_list(default=list(True,False,False,False,False))
 UseScreenColumnOrder = boolean(default=true)
 ColumnOrder = string_list(default=list("Artist","Title","Duration","Intro","Category","Filename"))
@@ -221,6 +221,9 @@ def instantProfileSwitch():
 			SPLPrevProfile = SPLConfigPool.index(SPLConfig)
 			SPLConfig = SPLConfigPool[switchProfileIndex]
 			ui.message("Switching profiles")
+			# Use the focus.appModule's metadata reminder method if told to do so now.
+			if SPLConfig["MetadataReminder"] == "instant":
+				api.getFocusObject().appModule._metadataAnnouncer(reminder=True)
 		else:
 			SPLConfig = SPLConfigPool[SPLPrevProfile]
 			SPLActiveProfile = SPLConfig.name
@@ -406,16 +409,29 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.trackDialCheckbox.SetValue(SPLConfig["TrackDial"])
 		settingsSizer.Add(self.trackDialCheckbox, border=10,flag=wx.BOTTOM)
 
-		# Translators: the label for a setting in SPL add-on settings to remind users to enable metadata streaming.
-		self.metadataCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce a &reminder message to enable metadata streaming when Studio loads"))
-		self.metadataCheckbox.SetValue(SPLConfig["MetadataReminder"])
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: the label for a setting in SPL add-on settings to when to remind users to enable metadata streaming.
+		label = wx.StaticText(self, wx.ID_ANY, label=_("&Reminder to enable metadata streaming"))
 		self.metadataStreams = SPLConfig["MetadataURL"]
-		settingsSizer.Add(self.metadataCheckbox, border=10,flag=wx.BOTTOM)
+		self.metadataValues=[("off",_("off")),
+		# Translators: One of the metadata reminder settings.
+		("startup",_("when Studio starts")),
+		# Translators: One of the metadata reminder settings.
+		("instant",_("when instant switch profile is active"))]
+		self.metadataList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.metadataValues])
+		metadataCurValue=SPLConfig["MetadataReminder"]
+		selection = (x for x,y in enumerate(self.metadataValues) if y[0]==metadataCurValue).next()  
+		try:
+			self.metadataList.SetSelection(selection)
+		except:
+			pass
+		sizer.Add(label)
+		sizer.Add(self.metadataList)
+		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 		# Translators: The label of a button to manage metadata streaming URL's.
 		item = metadataButton = wx.Button(self, label=_("&Manage metadata stream reminder URL's..."))
 		item.Bind(wx.EVT_BUTTON, self.onManageMetadata)
 		settingsSizer.Add(item)
-
 
 		# Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
 		self.columnOrderCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce columns in the &order shown on screen"))
@@ -482,7 +498,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["AlarmAnnounce"] = self.alarmAnnounceValues[self.alarmAnnounceList.GetSelection()][0]
 		SPLConfig["LibraryScanAnnounce"] = self.libScanValues[self.libScanList.GetSelection()][0]
 		SPLConfig["TrackDial"] = self.trackDialCheckbox.Value
-		SPLConfig["MetadataReminder"] = self.metadataCheckbox.Value
+		SPLConfig["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
 		SPLConfig["MetadataURL"] = self.metadataStreams
 		SPLConfig["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
 		SPLConfig["ColumnOrder"] = self.columnOrder

@@ -299,8 +299,8 @@ class AppModule(appModuleHandler.AppModule):
 			global _SPLWin
 			_SPLWin = hwnd
 		# Remind me to broadcast metadata information.
-		if splconfig.SPLConfig["MetadataReminder"]:
-			self._metadataAnnouncer(reminder=True)
+		if splconfig.SPLConfig["MetadataReminder"] == "startup":
+			self._metadataAnnouncer(reminder=True, pause=True)
 
 	# Let the global plugin know if SPLController passthrough is allowed.
 	def SPLConPassthrough(self):
@@ -1033,7 +1033,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Obtains information on metadata streaming for each URL, reminding the broadcaster if told to do so upon startup.
 
 	# First, the reminder function.
-	def _metadataAnnouncer(self, reminder=False):
+	def _metadataAnnouncer(self, reminder=False, pause=False):
 		dsp = 1 if statusAPI(0, 36, ret=True) == 1 else 0
 		configuredPos = [dsp]
 		streamCount = []
@@ -1043,7 +1043,7 @@ class AppModule(appModuleHandler.AppModule):
 			configuredPos.append(checked)
 			if checked == 1: streamCount.append(pos)
 		if reminder:
-			self._metadataReminder(configuredPos)
+			self._metadataReminder(configuredPos, pause=pause)
 			return
 		# The rest of this function assumes reminder is false.
 		status = None
@@ -1060,7 +1060,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# A private function used for reminders.
 	# Building reminder strings require careful coordination between stream count, metadta positon and the config dtabase.
-	def _metadataReminder(self, urlList):
+	def _metadataReminder(self, urlList, pause=False):
 		urlStatus = []
 		for pos in xrange(1, 5):
 			if splconfig.SPLConfig["MetadataURL"][pos]: urlStatus.append(pos)
@@ -1080,8 +1080,9 @@ class AppModule(appModuleHandler.AppModule):
 		else:
 			if urls: status = "Please enable metadata streaming for {URL}".format(URL = urls)
 		if status or urls:
-			time.sleep(2)
-			speech.cancelSpeech()
+			if pause:
+				time.sleep(2)
+				speech.cancelSpeech()
 			queueHandler.queueFunction(queueHandler.eventQueue, ui.message, status)
 			nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "metadatarem.wav"))
 
