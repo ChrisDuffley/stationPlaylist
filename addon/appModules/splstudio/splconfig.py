@@ -32,6 +32,7 @@ AlarmAnnounce = option("beep", "message", "both", default="beep")
 LibraryScanAnnounce = option("off", "ending", "progress", "numbers", default="off")
 TrackDial = boolean(default=false)
 MetadataReminder = boolean(default=true)
+MetadataURL = bool_list(default=list(True,False,False,False,False))
 UseScreenColumnOrder = boolean(default=true)
 ColumnOrder = string_list(default=list("Artist","Title","Duration","Intro","Category","Filename"))
 IncludedColumns = string_list(default=list("Artist","Title","Duration","Intro","Category","Filename"))
@@ -408,7 +409,13 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# Translators: the label for a setting in SPL add-on settings to remind users to enable metadata streaming.
 		self.metadataCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce a &reminder message to enable metadata streaming when Studio loads"))
 		self.metadataCheckbox.SetValue(SPLConfig["MetadataReminder"])
+		self.metadataStreams = SPLConfig["MetadataURL"]
 		settingsSizer.Add(self.metadataCheckbox, border=10,flag=wx.BOTTOM)
+		# Translators: The label of a button to manage metadata streaming URL's.
+		item = metadataButton = wx.Button(self, label=_("&Manage metadata stream reminder URL's..."))
+		item.Bind(wx.EVT_BUTTON, self.onManageMetadata)
+		settingsSizer.Add(item)
+
 
 		# Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
 		self.columnOrderCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce columns in the &order shown on screen"))
@@ -476,6 +483,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["LibraryScanAnnounce"] = self.libScanValues[self.libScanList.GetSelection()][0]
 		SPLConfig["TrackDial"] = self.trackDialCheckbox.Value
 		SPLConfig["MetadataReminder"] = self.metadataCheckbox.Value
+		SPLConfig["MetadataURL"] = self.metadataStreams
 		SPLConfig["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
 		SPLConfig["ColumnOrder"] = self.columnOrder
 		SPLConfig["IncludedColumns"] = self.includedColumns
@@ -638,6 +646,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 			self.switchProfile = None
 			tones.beep(500, 500)
 
+	def onManageMetadata(self, evt):
+		self.Disable()
+		MetadataStreamingDialog(self).Show()
+
 	# Manage column announcements.
 	def onManageColumns(self, evt):
 		self.Disable()
@@ -754,6 +766,57 @@ class NewProfileDialog(wx.Dialog):
 		self.Parent.Enable()
 		self.Destroy()
 
+# Metadata reminder controller.
+# Select reminder URL's for metadata streaming.
+class MetadataStreamingDialog(wx.Dialog):
+
+	def __init__(self, parent):
+		super(MetadataStreamingDialog, self).__init__(parent, title="Metadata streaming options")
+
+		# WX's CheckListBox isn't user friendly.
+		# Therefore use checkboxes laid out across the top.
+		self.checkedStreams = []
+		# Add the DSP encoder checkbox first before adding other URL's.
+		checkedDSP=wx.CheckBox(self,wx.NewId(),label="DSP encoder")
+		checkedDSP.SetValue(SPLConfig["MetadataURL"][0])
+		self.checkedStreams.append(checkedDSP)
+		# Now the rest.
+		for url in xrange(1, 5):
+			checkedURL=wx.CheckBox(self,wx.NewId(),label="URL {URL}".format(URL = url))
+			checkedURL.SetValue(SPLConfig["MetadataURL"][url])
+			self.checkedStreams.append(checkedURL)
+
+		mainSizer = wx.BoxSizer(wx.VERTICAL)
+		# First, a help text.
+		label = wx.StaticText(self, wx.ID_ANY, label=_("Select the URL for metadata streaming"))
+		mainSizer.Add(label,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		for checkedStream in self.checkedStreams:
+			sizer.Add(checkedStream)
+		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
+		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
+		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
+		mainSizer.Fit(self)
+		self.Sizer = mainSizer
+		self.checkedStreams[0].SetFocus()
+		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+
+	def onOk(self, evt):
+		parent = self.Parent
+		for url in xrange(5):
+			parent.metadataStreams[url] = self.checkedStreams[url].Value
+		parent.profiles.SetFocus()
+		parent.Enable()
+		self.Destroy()
+		return
+
+	def onCancel(self, evt):
+		self.Parent.Enable()
+		self.Destroy()
+
 # Column announcement manager.
 # Select which track columns should be announced and in which order.
 class ColumnAnnouncementsDialog(wx.Dialog):
@@ -761,8 +824,7 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 	def __init__(self, parent):
 		super(ColumnAnnouncementsDialog, self).__init__(parent, title="Manage column announcements")
 
-		# WX's CheckListBox isn't user friendly.
-		# Therefore use checkboxes laid out across the top.
+		# Same as metadata dialog (wx.CheckListBox isn't user friendly).
 		self.checkedColumns = []
 		for column in ("Artist", "Title", "Duration", "Intro", "Category", "Filename"):
 			checkedColumn=wx.CheckBox(self,wx.NewId(),label=column)
