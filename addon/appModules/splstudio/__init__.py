@@ -1030,7 +1030,7 @@ class AppModule(appModuleHandler.AppModule):
 			self.placeMarker = None
 
 	# Metadata streaming manager
-	# Obtains information on metadata streaming for each URL, reminding the broadcaster if told to do so upon startup.
+	# Obtains information on metadata streaming for each URL, notifying the broadcaster if told to do so upon startup.
 	# Also allows broadcasters to toggle metadata streaming.
 
 	# First, the reminder function.
@@ -1043,10 +1043,11 @@ class AppModule(appModuleHandler.AppModule):
 			if checked == -1: checked += 1
 			configuredPos.append(checked)
 			if checked == 1: streamCount.append(pos)
-		if reminder:
-			self._metadataReminder(configuredPos, pause=pause)
-			return
-		# The rest of this function assumes reminder is false.
+		# The private function may be used for some other purposes such as automatically enabling metadata streaming.
+		#if reminder:
+			#self._metadataReminder(configuredPos, pause=pause)
+			#return
+		# Announce streaming status when told to do so.
 		status = None
 		if not len(streamCount):
 			if not dsp: status = "No metadata streaming URL's defined"
@@ -1058,7 +1059,12 @@ class AppModule(appModuleHandler.AppModule):
 			urltext = ", ".join([str(stream) for stream in streamCount])
 			if dsp: status = "Metadata streaming configured for DSP encoder and URL's {URL}".format(URL = urltext)
 			else: status = "Metadata streaming configured for URL's {URL}".format(URL = urltext)
-		ui.message(status)
+		if reminder:
+			time.sleep(2)
+			speech.cancelSpeech()
+			queueHandler.queueFunction(queueHandler.eventQueue, ui.message, status)
+			nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "metadatarem.wav"))
+		else: ui.message(status)
 
 	# A private function used for reminders.
 	# Building reminder strings require careful coordination between stream count, metadta positon and the config dtabase.
