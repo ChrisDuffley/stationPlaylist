@@ -783,10 +783,31 @@ class NewProfileDialog(wx.Dialog):
 		self.Destroy()
 
 # Metadata reminder controller.
-# Select reminder URL's for metadata streaming.
+# Select notification/streaming URL's for metadata streaming.
+_metadataDialogOpened = False
+
 class MetadataStreamingDialog(wx.Dialog):
+	"""A dialog to toggle metadata streaming quickly.
+	"""
+	# The following comes from exit dialog class from GUI package (credit: NV Access and Zahari from Bulgaria).
+	_instance = None
+
+	def __new__(cls, parent, *args, **kwargs):
+		# Make this a singleton and prompt an error dialog if it isn't.
+		if _metadataDialogOpened:
+			raise RuntimeError("An instance of metadata stremaing dialog is opened")
+		inst = cls._instance() if cls._instance else None
+		if not inst:
+			return super(cls, cls).__new__(cls, parent, *args, **kwargs)
+		return inst
 
 	def __init__(self, parent, func=None):
+		inst = MetadataStreamingDialog._instance() if MetadataStreamingDialog._instance else None
+		if inst:
+			return
+		# Use a weakref so the instance can die.
+		MetadataStreamingDialog._instance = weakref.ref(self)
+
 		super(MetadataStreamingDialog, self).__init__(parent, title="Metadata streaming options")
 		self.func = func
 

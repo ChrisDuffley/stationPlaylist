@@ -1096,15 +1096,27 @@ class AppModule(appModuleHandler.AppModule):
 
 	# The script version to open the manage metadata URL's dialog.
 	def script_manageMetadataStreams(self, gesture):
-		if splconfig._configDialogOpened or splconfig._alarmDialogOpened:
-			ui.message("Another add-on dialog is opened. Please close the opened dialog first")
+		# Do not even think about opening this dialog if handle to Studio isn't found.
+		if _SPLWin is None:
+			# Translators: Presented when stremaing dialog cannot be shown.
+			ui.message(_("Cannot open metadata streaming dialog"))
 			return
-		# Passing in the function object is enough to change the dialog UI.
-		d = splconfig.MetadataStreamingDialog(gui.mainFrame, func=statusAPI)
-		gui.mainFrame.prePopup()
-		d.Raise()
-		d.Show()
-		gui.mainFrame.postPopup()
+		if splconfig._configDialogOpened or splconfig._metadataDialogOpened:
+			# Translators: Presented when the add-on config dialog is opened.
+			wx.CallAfter(gui.messageBox, _("The add-on settings dialog or the metadata streaming dialog is opened. Please close the opened dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
+			return
+		try:
+			# Passing in the function object is enough to change the dialog UI.
+			d = splconfig.MetadataStreamingDialog(gui.mainFrame, func=statusAPI)
+			gui.mainFrame.prePopup()
+			d.Raise()
+			d.Show()
+			gui.mainFrame.postPopup()
+			splconfig._metadataDialogOpened = True
+		except RuntimeError:
+			wx.CallAfter(splconfig._alarmError)
+	# Translators: Input help mode message for a command in Station Playlist Studio.
+	script_manageMetadataStreams.__doc__=_("Opens a dialog to quickly enable or disable metadata streaming.")
 
 	# Some handlers for native commands.
 
