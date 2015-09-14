@@ -1031,6 +1031,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Metadata streaming manager
 	# Obtains information on metadata streaming for each URL, reminding the broadcaster if told to do so upon startup.
+	# Also allows broadcasters to toggle metadata streaming.
 
 	# First, the reminder function.
 	def _metadataAnnouncer(self, reminder=False, pause=False):
@@ -1054,8 +1055,9 @@ class AppModule(appModuleHandler.AppModule):
 			if dsp: status = "Metadata streaming configured for DSP encoder and URL {URL}".format(URL = streamCount[0])
 			else: status = "Metadata streaming configured for URL {URL}".format(URL = streamCount[0])
 		else:
-			if dsp: status = "Metadata streaming configured for DSP encoder and URL's {URL}".format(URL = ", ".join([streamCount]))
-			else: status = "Metadata streaming configured for URL's {URL}".format(URL = ", ".join([streamCount]))
+			urltext = ", ".join([str(stream) for stream in streamCount])
+			if dsp: status = "Metadata streaming configured for DSP encoder and URL's {URL}".format(URL = urltext)
+			else: status = "Metadata streaming configured for URL's {URL}".format(URL = urltext)
 		ui.message(status)
 
 	# A private function used for reminders.
@@ -1071,7 +1073,7 @@ class AppModule(appModuleHandler.AppModule):
 		if additionalURL == 1:
 			urls = "URL {URL}".format(URL = urlStatus[0])
 		elif additionalURL >= 2:
-			urls = "URL's {URL}".format(URL = ", ".join([pos for pos in urlStatus]))
+			urls = "URL's {URL}".format(URL = ", ".join([str(pos) for pos in urlStatus]))
 		# Build the reminder message piece by piece.
 		status = None
 		if dsp:
@@ -1085,6 +1087,18 @@ class AppModule(appModuleHandler.AppModule):
 				speech.cancelSpeech()
 			queueHandler.queueFunction(queueHandler.eventQueue, ui.message, status)
 			nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "metadatarem.wav"))
+
+	# The script version to open the manage metadata URL's dialog.
+	def script_manageMetadataStreams(self, gesture):
+		if splconfig._configDialogOpened or splconfig._alarmDialogOpened:
+			ui.message("Another add-on dialog is opened. Please close the opened dialog first")
+			return
+		# Passing in the function object is enough to change the dialog UI.
+		d = splconfig.MetadataStreamingDialog(gui.mainFrame, func=statusAPI)
+		gui.mainFrame.prePopup()
+		d.Raise()
+		d.Show()
+		gui.mainFrame.postPopup()
 
 	# Some handlers for native commands.
 
@@ -1506,6 +1520,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:alt+nvda+r":"setLibraryScanProgress",
 		"kb:control+shift+r":"startScanFromInsertTracks",
 		"kb:control+shift+x":"setBrailleTimer",
+		"kb:Alt+nvda+e":"manageMetadataStreams",
 		"kb:control+NVDA+0":"openConfigDialog",
 		"kb:Shift+delete":"deleteTrack",
 		"kb:Shift+numpadDelete":"deleteTrack",

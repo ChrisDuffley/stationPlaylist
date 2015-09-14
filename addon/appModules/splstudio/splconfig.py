@@ -786,25 +786,36 @@ class NewProfileDialog(wx.Dialog):
 # Select reminder URL's for metadata streaming.
 class MetadataStreamingDialog(wx.Dialog):
 
-	def __init__(self, parent):
+	def __init__(self, parent, func=None):
 		super(MetadataStreamingDialog, self).__init__(parent, title="Metadata streaming options")
+		self.func = func
 
 		# WX's CheckListBox isn't user friendly.
 		# Therefore use checkboxes laid out across the top.
 		self.checkedStreams = []
 		# Add the DSP encoder checkbox first before adding other URL's.
 		checkedDSP=wx.CheckBox(self,wx.NewId(),label="DSP encoder")
-		checkedDSP.SetValue(SPLConfig["MetadataURL"][0])
+		if func:
+			streaming = func(0, 36, ret=True)
+			if streaming == -1: streaming += 1
+			checkedDSP.SetValue(streaming)
+		else: checkedDSP.SetValue(SPLConfig["MetadataURL"][0])
 		self.checkedStreams.append(checkedDSP)
 		# Now the rest.
 		for url in xrange(1, 5):
 			checkedURL=wx.CheckBox(self,wx.NewId(),label="URL {URL}".format(URL = url))
-			checkedURL.SetValue(SPLConfig["MetadataURL"][url])
+			if func:
+				streaming = func(url, 36, ret=True)
+				if streaming == -1: streaming += 1
+				checkedURL.SetValue(streaming)
+			else: checkedURL.SetValue(SPLConfig["MetadataURL"][url])
 			self.checkedStreams.append(checkedURL)
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		# First, a help text.
-		label = wx.StaticText(self, wx.ID_ANY, label=_("Select the URL for metadata streaming"))
+		if func is None: labelText=_("Select the URL for metadata streaming.")
+		else: labelText=_("Check to enable metadata streaming, uncheck to disable.")
+		label = wx.StaticText(self, wx.ID_ANY, label=labelText)
 		mainSizer.Add(label,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
@@ -821,11 +832,15 @@ class MetadataStreamingDialog(wx.Dialog):
 		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
-		parent = self.Parent
+		if self.func is None: parent = self.Parent
 		for url in xrange(5):
-			parent.metadataStreams[url] = self.checkedStreams[url].Value
-		parent.profiles.SetFocus()
-		parent.Enable()
+			if self.func is None: parent.metadataStreams[url] = self.checkedStreams[url].Value
+			else:
+				dataLo = 0x00010000 if self.checkedStreams[url].Value else 0xffff0000
+				self.func(dataLo | url, 36)
+		if self.func is None:
+			parent.profiles.SetFocus()
+			parent.Enable()
 		self.Destroy()
 		return
 
