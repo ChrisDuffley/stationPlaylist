@@ -789,7 +789,6 @@ _metadataDialogOpened = False
 class MetadataStreamingDialog(wx.Dialog):
 	"""A dialog to toggle metadata streaming quickly.
 	"""
-	# The following comes from exit dialog class from GUI package (credit: NV Access and Zahari from Bulgaria).
 	_instance = None
 
 	def __new__(cls, parent, *args, **kwargs):
@@ -853,6 +852,7 @@ class MetadataStreamingDialog(wx.Dialog):
 		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
+		global _metadataDialogOpened
 		if self.func is None: parent = self.Parent
 		for url in xrange(5):
 			if self.func is None: parent.metadataStreams[url] = self.checkedStreams[url].Value
@@ -863,11 +863,14 @@ class MetadataStreamingDialog(wx.Dialog):
 			parent.profiles.SetFocus()
 			parent.Enable()
 		self.Destroy()
+		_metadataDialogOpened = False
 		return
 
 	def onCancel(self, evt):
-		self.Parent.Enable()
+		global _metadataDialogOpened
+		if self.func is None: self.Parent.Enable()
 		self.Destroy()
+		_metadataDialogOpened = False
 
 # Column announcement manager.
 # Select which track columns should be announced and in which order.
