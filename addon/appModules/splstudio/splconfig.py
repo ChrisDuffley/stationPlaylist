@@ -204,7 +204,10 @@ def _preSave(conf):
 		if SPLSwitchProfile is not None:
 			conf["InstantProfile"] = SPLSwitchProfile
 		else:
-			del conf["InstantProfile"]
+			try:
+				del conf["InstantProfile"]
+			except KeyError:
+				pass
 	# For other profiles, remove global settings before writing to disk.
 	else:
 		for setting in conf.keys():
