@@ -75,18 +75,19 @@ _configErrors ={
 	"completeReset":"All settings reset to defaults",
 	"partialReset":"Some settings reset to defaults",
 	"columnOrderReset":"Column announcement order reset to defaults",
-	"partialAndColumnOrderReset":"Some settings, including column announcement order reset to defaults"
+	"partialAndColumnOrderReset":"Some settings, including column announcement order reset to defaults",
+	"noInstantProfile":"Cannot find instant profile"
 }
 
 # To be run in app module constructor.
 # With the load function below, load the config upon request.
-# 6.0: The below init function is really a vehicle that traverses through config profiles in a loop.
+# The below init function is really a vehicle that traverses through config profiles in a loop.
 # Prompt the config error dialog only once.
 _configLoadStatus = {} # Key = filename, value is pass or no pass.
 
 def initConfig():
 	# Load the default config from a list of profiles.
-	global SPLConfig, SPLConfigPool, _configLoadStatus, SPLActiveProfile
+	global SPLConfig, SPLConfigPool, _configLoadStatus, SPLActiveProfile, SPLSwitchProfile
 	if SPLConfigPool is None: SPLConfigPool = []
 	if SPLActiveProfile is None: SPLActiveProfile = "Normal profile"
 	SPLConfigPool.append(unlockConfig(SPLIni, profileName=SPLActiveProfile, prefill=True))
@@ -97,6 +98,12 @@ def initConfig():
 	except WindowsError:
 		pass
 	SPLConfig = SPLConfigPool[0]
+	# Locate instant profile.
+	if "InstantProfile" in SPLConfig:
+		try:
+			SPLSwitchProfile = SPLConfigPool[getProfileIndexByName(SPLConfig["InstantProfile"])].name
+		except ValueError:
+			_configLoadStatus[SPLConfig.name] = "noInstantProfile"
 	if len(_configLoadStatus):
 		# Translators: Standard error title for configuration error.
 		title = _("Studio add-on Configuration error")
@@ -108,7 +115,7 @@ def initConfig():
 		_configLoadStatus.clear()
 		runConfigErrorDialog("\n".join(messages), title)
 
-# 6.0: Unlock (load) profiles from files.
+# Unlock (load) profiles from files.
 def unlockConfig(path, profileName=None, prefill=False):
 	global _configLoadStatus # To be mutated only during unlock routine.
 	SPLConfigCheckpoint = ConfigObj(path, configspec = confspec, encoding="UTF-8")
@@ -119,16 +126,26 @@ def unlockConfig(path, profileName=None, prefill=False):
 		title = _("Studio add-on Configuration error")
 		if not configTest:
 			# Case 1: restore settings to defaults when 5.x config validation has failed on all values.
-			resetConfig(_SPLDefaults, SPLConfigCheckpoint)
+			# 6.0: In case this is a user profile, apply base configuration.
+			baseProfile = _SPLDefaults if prefill else SPLConfigPool[0]
+			resetConfig(baseProfile, SPLConfigCheckpoint)
 			_configLoadStatus[profileName] = "completeReset"
 		elif isinstance(configTest, dict):
 			# Case 2: For 5.x and later, attempt to reconstruct the failed values.
+			# 6.0: Cherry-pick global settings only.
 			for setting in configTest:
 				if not configTest[setting]:
-					SPLConfigCheckpoint[setting] = _SPLDefaults[setting]
+					if prefill: # Base profile only.
+						SPLConfigCheckpoint[setting] = _SPLDefaults[setting]
+					else: # Broadcast profiles.
+						if setting not in _mutatableSettings:
+							SPLConfigCheckpoint[setting] = SPLConfigPool[0][setting]
+						else: SPLConfigCheckpoint[setting] = _SPLDefaults[setting]
 			SPLConfigCheckpoint.write()
 			_configLoadStatus[profileName] = "partialReset"
-	_extraInitSteps(SPLConfigCheckpoint, profileName=profileName)
+	# Do this only for base profile.
+	if prefill: _extraInitSteps(SPLConfigCheckpoint, profileName=profileName)
+	else: _applyBaseSettings(SPLConfigCheckpoint)
 	SPLConfigCheckpoint.name = profileName
 	return SPLConfigCheckpoint
 
@@ -149,6 +166,16 @@ def _extraInitSteps(conf, profileName=None):
 		columnOrder = fields
 	conf["ColumnOrder"] = columnOrder
 	conf["IncludedColumns"] = set(conf["IncludedColumns"])
+
+# Apply base profile if loading user-defined broadcast profiles.
+def _applyBaseSettings(conf):
+	for setting in SPLConfigPool[0]:
+		# Ignore profile-specific settings.
+		if setting not in _mutatableSettings:
+			conf[setting] = SPLConfigPool[0][setting]
+
+# Instant profile switch helpers.
+# A number of helper functions assisting instatn switch profile routine, including sorting and locating the needed profile upon request.
 
 # Fetch the profile index with a given name.
 def getProfileIndexByName(name):
@@ -173,6 +200,11 @@ def _preSave(conf):
 	# Perform global setting processing only for the normal profile.
 	if SPLConfigPool.index(conf) == 0:
 		conf["IncludedColumns"] = list(conf["IncludedColumns"])
+		# Cache instant profile for later use.
+		if SPLSwitchProfile is not None:
+			conf["InstantProfile"] = SPLSwitchProfile
+		else:
+			del conf["InstantProfile"]
 	# For other profiles, remove global settings before writing to disk.
 	else:
 		for setting in conf.keys():
@@ -766,9 +798,18 @@ class NewProfileDialog(wx.Dialog):
 		newProfile = SPLConfigPool[-1]
 		if self.copy:
 			baseProfile = getProfileByName(self.baseProfiles.GetStringSelection())
-			for setting in baseProfile:
+		else:
+			baseProfile = SPLConfigPool[0]
+		for setting in baseProfile:
+			try:
 				if baseProfile[setting] != newProfile[setting]:
 					newProfile[setting] = baseProfile[setting]
+			except KeyError:
+				pass
+		# If this is a brand new profile, load defaults for profile-specific settings.
+		if not self.copy:
+			for setting in _mutatableSettings:
+				newProfile[setting] = _SPLDefaults[setting]
 		parent = self.Parent
 		parent.profiles.Append(name)
 		parent.profiles.Selection = parent.profiles.Count - 1
