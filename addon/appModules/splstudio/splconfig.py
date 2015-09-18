@@ -58,6 +58,7 @@ def runConfigErrorDialog(errorText, errorType):
 
 # Reset settings to defaults.
 # This will be called when validation fails or when the user asks for it.
+# 7.0: This will be split into several functions, with one of them being the master copy/settings transfer routine.
 def resetConfig(defaults, activeConfig, intentional=False):
 	for setting in activeConfig:
 		activeConfig[setting] = defaults[setting]
@@ -763,21 +764,17 @@ class NewProfileDialog(wx.Dialog):
 			os.mkdir(SPLProfiles)
 		newProfilePath = os.path.join(SPLProfiles, namePath)
 		SPLConfigPool.append(unlockConfig(newProfilePath, profileName=name))
-		newProfile = SPLConfigPool[-1]
 		if self.copy:
+			newProfile = SPLConfigPool[-1]
 			baseProfile = getProfileByName(self.baseProfiles.GetStringSelection())
-		else:
-			baseProfile = SPLConfigPool[0]
-		for setting in baseProfile:
-			try:
-				if baseProfile[setting] != newProfile[setting]:
-					newProfile[setting] = baseProfile[setting]
-			except KeyError:
-				pass
-		# If this is a brand new profile, load defaults for profile-specific settings.
-		if not self.copy:
-			for setting in _mutatableSettings:
-				newProfile[setting] = _SPLDefaults[setting]
+			for setting in baseProfile:
+				try:
+					# Go through all settings (including profile-specific ones for now).
+					# 6.1/7.0: Only iterate through mutatable keys.
+					if baseProfile[setting] != newProfile[setting]:
+						newProfile[setting] = baseProfile[setting]
+				except KeyError:
+					pass
 		parent = self.Parent
 		parent.profiles.Append(name)
 		parent.profiles.Selection = parent.profiles.Count - 1
