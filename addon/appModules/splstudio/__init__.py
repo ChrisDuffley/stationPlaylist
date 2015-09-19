@@ -21,6 +21,7 @@ import globalVars
 import review
 import eventHandler
 import scriptHandler
+import queueHandler # To queue message announcement functions.
 import ui
 import nvwave
 import speech
@@ -297,6 +298,9 @@ class AppModule(appModuleHandler.AppModule):
 		with threading.Lock() as hwndNotifier:
 			global _SPLWin
 			_SPLWin = hwnd
+		# Remind me to broadcast metadata information.
+		if splconfig.SPLConfig["MetadataReminder"] == "startup":
+			self._metadataAnnouncer(reminder=True, pause=True)
 
 	# Let the global plugin know if SPLController passthrough is allowed.
 	def SPLConPassthrough(self):
@@ -785,8 +789,6 @@ class AppModule(appModuleHandler.AppModule):
 		return None
 
 		# Find a specific track based on a searched text.
-	# Unfortunately, the track list does not provide obj.name (it is None), however obj.description has the actual track entry.
-	# For Studio 5.01 and earlier, artist label appears as the name, while in Studio 5.10, obj.name is none.
 	# But first, check if track finder can be invoked.
 	def _trackFinderCheck(self):
 		if api.getForegroundObject().windowClassName != "TStudioForm":
@@ -1026,6 +1028,95 @@ class AppModule(appModuleHandler.AppModule):
 	def preTrackRemoval(self):
 		if self.isPlaceMarkerTrack(track=api.getFocusObject()):
 			self.placeMarker = None
+
+	# Metadata streaming manager
+	# Obtains information on metadata streaming for each URL, notifying the broadcaster if told to do so upon startup.
+	# Also allows broadcasters to toggle metadata streaming.
+
+	# First, the reminder function.
+	def _metadataAnnouncer(self, reminder=False, pause=False):
+		dsp = 1 if statusAPI(0, 36, ret=True) == 1 else 0
+		configuredPos = [dsp]
+		streamCount = []
+		for pos in xrange(1, 5):
+			checked = statusAPI(pos, 36, ret=True)
+			if checked == -1: checked += 1
+			configuredPos.append(checked)
+			if checked == 1: streamCount.append(pos)
+		# The private function may be used for some other purposes such as automatically enabling metadata streaming.
+		#if reminder:
+			#self._metadataReminder(configuredPos, pause=pause)
+			#return
+		# Announce streaming status when told to do so.
+		status = None
+		if not len(streamCount):
+			if not dsp: status = "No metadata streaming URL's defined"
+			else: status = "Metadata streaming configured for DSP encoder"
+		elif len(streamCount) == 1:
+			if dsp: status = "Metadata streaming configured for DSP encoder and URL {URL}".format(URL = streamCount[0])
+			else: status = "Metadata streaming configured for URL {URL}".format(URL = streamCount[0])
+		else:
+			urltext = ", ".join([str(stream) for stream in streamCount])
+			if dsp: status = "Metadata streaming configured for DSP encoder and URL's {URL}".format(URL = urltext)
+			else: status = "Metadata streaming configured for URL's {URL}".format(URL = urltext)
+		if reminder:
+			time.sleep(2)
+			speech.cancelSpeech()
+			queueHandler.queueFunction(queueHandler.eventQueue, ui.message, status)
+			nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "metadatarem.wav"))
+		else: ui.message(status)
+
+	# A private function used for reminders.
+	# Building reminder strings require careful coordination between stream count, metadta positon and the config dtabase.
+	def _metadataReminder(self, urlList, pause=False):
+		urlStatus = []
+		for pos in xrange(1, 5):
+			if splconfig.SPLConfig["MetadataURL"][pos]: urlStatus.append(pos)
+		# Contrary to its name, dsp == True means DSP isn't streaming.
+		dsp = splconfig.SPLConfig["MetadataURL"][0] and not urlList[0]
+		additionalURL = len(urlStatus)
+		urls = None
+		if additionalURL == 1:
+			urls = "URL {URL}".format(URL = urlStatus[0])
+		elif additionalURL >= 2:
+			urls = "URL's {URL}".format(URL = ", ".join([str(pos) for pos in urlStatus]))
+		# Build the reminder message piece by piece.
+		status = None
+		if dsp:
+			if not additionalURL: status = "Please enable metadata streaming for the DSP encoder"
+			else: status = "Please enable metadata streaming for DSP encoder and {URL}".format(URL = urls)
+		else:
+			if urls: status = "Please enable metadata streaming for {URL}".format(URL = urls)
+		if status or urls:
+			if pause:
+				time.sleep(2)
+				speech.cancelSpeech()
+			queueHandler.queueFunction(queueHandler.eventQueue, ui.message, status)
+			nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "metadatarem.wav"))
+
+	# The script version to open the manage metadata URL's dialog.
+	def script_manageMetadataStreams(self, gesture):
+		# Do not even think about opening this dialog if handle to Studio isn't found.
+		if _SPLWin is None:
+			# Translators: Presented when stremaing dialog cannot be shown.
+			ui.message(_("Cannot open metadata streaming dialog"))
+			return
+		if splconfig._configDialogOpened or splconfig._metadataDialogOpened:
+			# Translators: Presented when the add-on config dialog is opened.
+			wx.CallAfter(gui.messageBox, _("The add-on settings dialog or the metadata streaming dialog is opened. Please close the opened dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
+			return
+		try:
+			# Passing in the function object is enough to change the dialog UI.
+			d = splconfig.MetadataStreamingDialog(gui.mainFrame, func=statusAPI)
+			gui.mainFrame.prePopup()
+			d.Raise()
+			d.Show()
+			gui.mainFrame.postPopup()
+			splconfig._metadataDialogOpened = True
+		except RuntimeError:
+			wx.CallAfter(splconfig._alarmError)
+	# Translators: Input help mode message for a command in Station Playlist Studio.
+	script_manageMetadataStreams.__doc__=_("Opens a dialog to quickly enable or disable metadata streaming.")
 
 	# Some handlers for native commands.
 
@@ -1338,6 +1429,26 @@ class AppModule(appModuleHandler.AppModule):
 			track = self._trackLocator(self.placeMarker[1], obj=api.getFocusObject().parent.firstChild, columns=[self.placeMarker[0]])
 			track.setFocus(), track.setFocus()
 
+	def script_metadataStreamingAnnouncer(self, gesture):
+		self._metadataAnnouncer()
+
+	# Gesture(s) for the following script cannot be changed by users.
+	def script_metadataEnabled(self, gesture):
+		url = int(gesture.displayName[-1])
+		checked = statusAPI(url, 36, ret=True)
+		if checked == 1:
+			# 0 is DSP encoder status, others are servers.
+			if url:
+				status = "Metadata streaming on URL {URLPosition} enabled".format(URLPosition = url)
+			else:
+				status = "Metadata streaming on DSP encoder enabled"
+		else:
+			if url:
+				status = "Metadata streaming on URL {URLPosition} disabled".format(URLPosition = url)
+			else:
+				status = "Metadata streaming on DSP encoder disabled"
+		ui.message(status)
+
 	def script_layerHelp(self, gesture):
 		# Translators: The title for SPL Assistant help dialog.
 		wx.CallAfter(gui.messageBox, SPLAssistantHelp, _("SPL Assistant help"))
@@ -1370,6 +1481,12 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:f12":"switchProfiles",
 		"kb:Control+k":"setPlaceMarker",
 		"kb:k":"findPlaceMarker",
+		"kb:e":"metadataStreamingAnnouncer",
+		"kb:1":"metadataEnabled",
+		"kb:2":"metadataEnabled",
+		"kb:3":"metadataEnabled",
+		"kb:4":"metadataEnabled",
+		"kb:0":"metadataEnabled",
 		"kb:f1":"layerHelp",
 		"kb:shift+f1":"openOnlineDoc",
 	}
@@ -1421,6 +1538,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:alt+nvda+r":"setLibraryScanProgress",
 		"kb:control+shift+r":"startScanFromInsertTracks",
 		"kb:control+shift+x":"setBrailleTimer",
+		"kb:Alt+nvda+e":"manageMetadataStreams",
 		"kb:control+NVDA+0":"openConfigDialog",
 		"kb:Shift+delete":"deleteTrack",
 		"kb:Shift+numpadDelete":"deleteTrack",
