@@ -58,6 +58,7 @@ def runConfigErrorDialog(errorText, errorType):
 
 # Reset settings to defaults.
 # This will be called when validation fails or when the user asks for it.
+# 6.0: The below function resets a single profile. A sister function will reset all of them.
 # 7.0: This will be split into several functions, with one of them being the master copy/settings transfer routine.
 def resetConfig(defaults, activeConfig, intentional=False):
 	for setting in activeConfig:
@@ -68,6 +69,20 @@ def resetConfig(defaults, activeConfig, intentional=False):
 		wx.CallAfter(gui.messageBox, _("Successfully applied default add-on settings."),
 		# Translators: Title of the reset config dialog.
 		_("Reset configuration"), wx.OK|wx.ICON_INFORMATION)
+
+# Reset all profiles upon request.
+def resetAllConfig():
+	for profile in SPLConfigPool:
+		# Retrieve the profile path, as ConfigObj.reset nullifies it.
+		profilePath = profile.filename
+		profile.reset()
+		profile.filename = profilePath
+		for setting in _SPLDefaults:
+			profile[setting] = _SPLDefaults[setting]
+	# Translators: A dialog message shown when settings were reset to defaults.
+	wx.CallAfter(gui.messageBox, _("Successfully applied default add-on settings."),
+	# Translators: Title of the reset config dialog.
+	_("Reset configuration"), wx.OK|wx.ICON_INFORMATION)
 
 # In case one or more profiles had config issues, look up the error message from the following map.
 _configErrors ={
@@ -196,6 +211,7 @@ def isConfigPoolSorted():
 
 # Perform some extra work before writing the config file.
 def _preSave(conf):
+	print SPLConfigPool.index(conf)
 	# Perform global setting processing only for the normal profile.
 	if SPLConfigPool.index(conf) == 0:
 		conf["IncludedColumns"] = list(conf["IncludedColumns"])
@@ -225,7 +241,13 @@ def saveConfig():
 	for configuration in SPLConfigPool:
 		if configuration is not None:
 			_preSave(configuration)
-			configuration.write()
+			# Save broadcast profiles first.
+			if SPLConfigPool.index(configuration) > 0:
+				configuration.write()
+	# Global flags, be gone.
+	if "Reset" in SPLConfigPool[0]:
+		del SPLConfigPool[0]["Reset"]
+	SPLConfigPool[0].write()
 	SPLConfig = None
 	SPLConfigPool = None
 	SPLActiveProfile = None
@@ -687,10 +709,17 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# Translators: The title of the warning dialog.
 		_("Warning"),wx.YES_NO|wx.NO_DEFAULT|wx.ICON_WARNING,self
 		)==wx.YES:
-			# Reset the selected config only.
-			global SPLConfig
-			SPLConfig = getProfileByName(self.profiles.GetStringSelection())
-			resetConfig(_SPLDefaults, SPLConfig, intentional=True)
+			# Reset all profiles.
+			resetAllConfig()
+			global SPLConfig, SPLActiveProfile, _configDialogOpened, SPLSwitchProfile, SPLPrevProfile
+			SPLConfig = SPLConfigPool[0]
+			SPLActiveProfile = SPLConfig.name
+			# Workaround: store the reset flag in the normal profile to prevent config databases from becoming references to old generation.
+			SPLConfig["Reset"] = True
+		if SPLSwitchProfile is not None:
+			SPLSwitchProfile = None
+		SPLPrevProfile = None
+		_configDialogOpened = False
 			self.Destroy()
 
 
