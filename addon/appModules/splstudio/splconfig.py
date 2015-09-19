@@ -755,7 +755,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 			SPLSwitchProfile = None
 		SPLPrevProfile = None
 		_configDialogOpened = False
-			self.Destroy()
+		self.Destroy()
 
 
 # Open the above dialog upon request.
