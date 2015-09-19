@@ -1538,7 +1538,6 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:alt+nvda+r":"setLibraryScanProgress",
 		"kb:control+shift+r":"startScanFromInsertTracks",
 		"kb:control+shift+x":"setBrailleTimer",
-		"kb:Alt+nvda+e":"manageMetadataStreams",
 		"kb:control+NVDA+0":"openConfigDialog",
 		"kb:Shift+delete":"deleteTrack",
 		"kb:Shift+numpadDelete":"deleteTrack",

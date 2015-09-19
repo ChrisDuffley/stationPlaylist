@@ -41,6 +41,7 @@ The following commands are not assigned by default; if you wish to assign it, us
 * Performing track time analysis.
 * Switch profiles.
 * Find text in specific columns.
+* Quickly enable or disable metadata streaming.
 
 ## Additional commands when using Sam or SPL encoders
 
@@ -152,12 +153,14 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Changes for 6.0-dev
 
-* New SPL Assistant commands, including announcing title of the currently playing track (C) and opening the online user guide (Shift+F1).
+* New SPL Assistant commands, including announcing title of the currently playing track (C), announcing status of metadata streaming (E, 1 through 4 and 0) and opening the online user guide (Shift+F1).
 * If status announcement is set to words, NVDA will announce "Studio" when invoking SPL Assistant layer.
 * Ability to package favorite settings as broadcast profiles to be used during a show and to switch to a predefined profile. See the add-on guide for details on broadcast profiles.
 * You can now ask NVDA to report total length of a range of tracks via track time analysis feature. Press SPL Assistant, F9 to mark current track as start marker, move to end of track range and press SPL Assistant, F10. These commands can be reassigned so one doesn't have to invoke SPL Assistant layer to perform track time analysis.
 * Added a column search dialog (command unassigned) to find text in specific columns such as artist or part of file name.
 * Added ability to reorder track column announcement and to suppress announcement of specific columns if "use screen order" is unchecked from add-on settings dialog. Use "manage column announcement" dialog to reorder columns.
+* Added a dialog (command unassigned) to quickly toggle metadata streaming.
+* Added a setting in add-on settings dialog to configure when metadata streaming status should be announced.
 * Added ability to mark a track as a place marker to return to it later (SPL Assistant, Control+K to set, SPL Assistant, K to move to the marked track).
 * Improved performance when searching for next or previous track text containing the searched text.
 * Added a setting in add-on settings dialog to configure alarm notification (beep, message or both).
