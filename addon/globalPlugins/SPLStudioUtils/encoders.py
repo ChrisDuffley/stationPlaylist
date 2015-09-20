@@ -9,8 +9,6 @@ import time
 from configobj import ConfigObj
 import api
 import ui
-import speech
-import braille
 import globalVars
 import scriptHandler
 from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent
@@ -292,7 +290,7 @@ class Encoder(IAccessible):
 			streamLabel = self.getStreamLabel()[0]
 		except TypeError:
 			streamLabel = None
-		# Speak the stream label if it exists.
+		# Announce stream label if it exists.
 		if streamLabel is not None:
 			try:
 				self.name = "(" + streamLabel + ") " + self.name

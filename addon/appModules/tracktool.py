@@ -3,7 +3,6 @@
 # Copyright 2014-2015 Joseph Lee and contributors, released under gPL.
 # Functionality is based on JFW scripts for SPL Track Tool by Brian Hartgen.
 
-import ctypes
 import appModuleHandler
 import addonHandler
 import api
@@ -12,9 +11,7 @@ import speech
 import braille
 from controlTypes import ROLE_LISTITEM
 import ui
-import winKernel
-from winUser import sendMessage
-from NVDAObjects.IAccessible import IAccessible, sysListView32
+from NVDAObjects.IAccessible import IAccessible
 from splstudio import splconfig
 from splstudio.splmisc import _getColumnContent
 addonHandler.initTranslation()

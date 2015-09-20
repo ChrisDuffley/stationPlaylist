@@ -17,11 +17,10 @@ import threading
 import controlTypes
 import appModuleHandler
 import api
-import globalVars
 import review
 import eventHandler
 import scriptHandler
-import queueHandler # To queue message announcement functions.
+import queueHandler
 import ui
 import nvwave
 import speech

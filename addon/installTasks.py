@@ -7,7 +7,6 @@
 import addonHandler
 import os
 import shutil
-import globalVars
 
 def onInstall():
 	profiles = os.path.join(os.path.dirname(__file__), "..", "stationPlaylist", "profiles")

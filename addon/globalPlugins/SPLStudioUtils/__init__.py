@@ -10,8 +10,6 @@ import globalPluginHandler
 import api
 from controlTypes import ROLE_LISTITEM
 import ui
-import globalVars
-import scriptHandler
 from NVDAObjects.IAccessible import getNVDAObjectFromEvent
 import winUser
 import tones
