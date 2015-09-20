@@ -484,10 +484,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 		sizer.Add(label)
 		sizer.Add(self.metadataList)
 		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
-		# Translators: The label of a button to manage metadata streaming URL's.
-		#item = metadataButton = wx.Button(self, label=_("&Manage metadata stream reminder URL's..."))
-		#item.Bind(wx.EVT_BUTTON, self.onManageMetadata)
-		#settingsSizer.Add(item)
 
 		# Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
 		self.columnOrderCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce columns in the &order shown on screen"))
@@ -716,10 +712,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 			self.instantSwitchButton.Label = "Enable instant profile switching"
 			self.switchProfile = None
 			tones.beep(500, 500)
-
-	def onManageMetadata(self, evt):
-		self.Disable()
-		MetadataStreamingDialog(self).Show()
 
 	# Manage column announcements.
 	def onManageColumns(self, evt):
