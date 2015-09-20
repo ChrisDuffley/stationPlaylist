@@ -1042,10 +1042,6 @@ class AppModule(appModuleHandler.AppModule):
 			if checked == -1: checked += 1
 			configuredPos.append(checked)
 			if checked == 1: streamCount.append(pos)
-		# The private function may be used for some other purposes such as automatically enabling metadata streaming.
-		#if reminder:
-			#self._metadataReminder(configuredPos, pause=pause)
-			#return
 		# Announce streaming status when told to do so.
 		status = None
 		if not len(streamCount):
@@ -1062,36 +1058,8 @@ class AppModule(appModuleHandler.AppModule):
 			time.sleep(2)
 			speech.cancelSpeech()
 			queueHandler.queueFunction(queueHandler.eventQueue, ui.message, status)
-			nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "metadatarem.wav"))
+			nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_Metadata.wav"))
 		else: ui.message(status)
-
-	# A private function used for reminders.
-	# Building reminder strings require careful coordination between stream count, metadta positon and the config dtabase.
-	def _metadataReminder(self, urlList, pause=False):
-		urlStatus = []
-		for pos in xrange(1, 5):
-			if splconfig.SPLConfig["MetadataURL"][pos]: urlStatus.append(pos)
-		# Contrary to its name, dsp == True means DSP isn't streaming.
-		dsp = splconfig.SPLConfig["MetadataURL"][0] and not urlList[0]
-		additionalURL = len(urlStatus)
-		urls = None
-		if additionalURL == 1:
-			urls = "URL {URL}".format(URL = urlStatus[0])
-		elif additionalURL >= 2:
-			urls = "URL's {URL}".format(URL = ", ".join([str(pos) for pos in urlStatus]))
-		# Build the reminder message piece by piece.
-		status = None
-		if dsp:
-			if not additionalURL: status = "Please enable metadata streaming for the DSP encoder"
-			else: status = "Please enable metadata streaming for DSP encoder and {URL}".format(URL = urls)
-		else:
-			if urls: status = "Please enable metadata streaming for {URL}".format(URL = urls)
-		if status or urls:
-			if pause:
-				time.sleep(2)
-				speech.cancelSpeech()
-			queueHandler.queueFunction(queueHandler.eventQueue, ui.message, status)
-			nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "metadatarem.wav"))
 
 	# The script version to open the manage metadata URL's dialog.
 	def script_manageMetadataStreams(self, gesture):

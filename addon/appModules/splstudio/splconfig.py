@@ -32,7 +32,6 @@ AlarmAnnounce = option("beep", "message", "both", default="beep")
 LibraryScanAnnounce = option("off", "ending", "progress", "numbers", default="off")
 TrackDial = boolean(default=false)
 MetadataReminder = option("off", "startup", "instant", default="off")
-MetadataURL = bool_list(default=list(False,False,False,False,False))
 UseScreenColumnOrder = boolean(default=true)
 ColumnOrder = string_list(default=list("Artist","Title","Duration","Intro","Category","Filename"))
 IncludedColumns = string_list(default=list("Artist","Title","Duration","Intro","Category","Filename"))
@@ -470,7 +469,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: the label for a setting in SPL add-on settings to be notified that metadata streaming is enabled.
 		label = wx.StaticText(self, wx.ID_ANY, label=_("&Metadata streaming notification"))
-		#self.metadataStreams = SPLConfig["MetadataURL"]
 		self.metadataValues=[("off",_("off")),
 		# Translators: One of the metadata notification settings.
 		("startup",_("when Studio starts")),
@@ -557,7 +555,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["LibraryScanAnnounce"] = self.libScanValues[self.libScanList.GetSelection()][0]
 		SPLConfig["TrackDial"] = self.trackDialCheckbox.Value
 		SPLConfig["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
-		#SPLConfig["MetadataURL"] = self.metadataStreams
 		SPLConfig["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
 		SPLConfig["ColumnOrder"] = self.columnOrder
 		SPLConfig["IncludedColumns"] = self.includedColumns
@@ -889,7 +886,7 @@ class MetadataStreamingDialog(wx.Dialog):
 			streaming = func(0, 36, ret=True)
 			if streaming == -1: streaming += 1
 			checkedDSP.SetValue(streaming)
-		else: checkedDSP.SetValue(SPLConfig["MetadataURL"][0])
+		else: checkedDSP.SetValue(False)
 		self.checkedStreams.append(checkedDSP)
 		# Now the rest.
 		for url in xrange(1, 5):
@@ -898,7 +895,7 @@ class MetadataStreamingDialog(wx.Dialog):
 				streaming = func(url, 36, ret=True)
 				if streaming == -1: streaming += 1
 				checkedURL.SetValue(streaming)
-			else: checkedURL.SetValue(SPLConfig["MetadataURL"][url])
+			else: checkedURL.SetValue(False)
 			self.checkedStreams.append(checkedURL)
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
