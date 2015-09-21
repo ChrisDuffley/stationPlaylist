@@ -243,7 +243,7 @@ class Encoder(IAccessible):
 			self.playAfterConnecting = encoderIdentifier in SPLPlayAfterConnecting
 		except KeyError:
 			pass
-			# Am I being monitored for connection changes?
+		# Am I being monitored for connection changes?
 		try:
 			self.backgroundMonitor = encoderIdentifier in SPLBackgroundMonitor
 		except KeyError:
