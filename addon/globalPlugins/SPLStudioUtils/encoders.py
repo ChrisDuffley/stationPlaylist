@@ -565,25 +565,13 @@ class SPLEncoder(Encoder):
 		ui.message("Transfer Rate: {transferRate}".format(transferRate = self.children[1].name))
 
 	def _set_FocusToStudio(self):
-		SPLIdentifier = " ".join([self.encoderType, str(self.IAccessibleChildID)])
-		if self.focusToStudio and not SPLIdentifier in SPLFocusToStudio:
-			SPLFocusToStudio.add(SPLIdentifier)
-		elif not self.focusToStudio and SPLIdentifier in SPLFocusToStudio:
-			SPLFocusToStudio.remove(SPLIdentifier)
+		self._set_Flags(self.getEncoderId(), self.focusToStudio, SPLFocusToStudio, "FocusToStudio")
 
 	def setPlayAfterConnecting(self):
-		SPLIdentifier = " ".join([self.encoderType, str(self.IAccessibleChildID)])
-		if self.playAfterConnecting and not SPLIdentifier in SPLPlayAfterConnecting:
-			SPLPlayAfterConnecting.add(SPLIdentifier)
-		elif not self.playAfterConnecting and SPLIdentifier in SPLPlayAfterConnecting:
-			SPLPlayAfterConnecting.remove(SPLIdentifier)
+		self._set_Flags(self.getEncoderId(), self.playAfterConnecting, SPLPlayAfterConnecting, "PlayAfterConnecting")
 
 	def setBackgroundMonitor(self):
-		SPLIdentifier = " ".join([self.encoderType, str(self.IAccessibleChildID)])
-		if self.backgroundMonitor and not SPLIdentifier in SPLBackgroundMonitor:
-			SPLBackgroundMonitor.add(SPLIdentifier)
-		elif not self.backgroundMonitor and SPLIdentifier in SPLBackgroundMonitor:
-			SPLBackgroundMonitor.remove(SPLIdentifier)
+		self._set_Flags(self.getEncoderId(), self.backgroundMonitor, SPLBackgroundMonitor, "BackgroundMonitor")
 		return SPLMonitorThreads
 
 	def getStreamLabel(self, getTitle=False):
