@@ -279,6 +279,11 @@ class Encoder(IAccessible):
 			self.focusToStudio = encoderIdentifier in SPLFocusToStudio
 		except KeyError:
 			pass
+		# Can I play tracks when connected?
+		try:
+			self.playAfterConnecting = encoderIdentifier in SPLPlayAfterConnecting
+		except KeyError:
+			pass
 		# Am I being monitored for connection changes?
 		try:
 			self.backgroundMonitor = encoderIdentifier in SPLBackgroundMonitor
