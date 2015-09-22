@@ -45,7 +45,7 @@ streamLabels = None
 
 # Load stream labels (and possibly other future goodies) from a file-based database.
 def loadStreamLabels():
-	global streamLabels, SAMStreamLabels, SPLStreamLabels, SPLFocusToStudio
+	global streamLabels, SAMStreamLabels, SPLStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor
 	streamLabels = ConfigObj(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
 	# Read stream labels.
 	try:
@@ -59,7 +59,10 @@ def loadStreamLabels():
 	# Read other settings.
 	if "FocusToStudio" in streamLabels:
 		SPLFocusToStudio = set(streamLabels["FocusToStudio"])
-
+	if "PlayAfterConnecting" in streamLabels:
+		SPLPlayAfterConnecting = set(streamLabels["PlayAfterConnecting"])
+	if "BackgroundMonitor" in streamLabels:
+		SPLBackgroundMonitor = set(streamLabels["BackgroundMonitor"])
 
 # Report number of encoders being monitored.
 # 6.0: Refactor the below function to use the newer encoder config format.
