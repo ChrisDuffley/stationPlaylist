@@ -171,6 +171,10 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * It is now possible to view various columns from encoder window (such as encoder connection status) via Control+NVDA+number command; consult the encoder commands above.
 * Fixed a rare bug where switching to Studio or closing an NVDA dialog (including Studio add-on dialogs) prevented track commands (such as toggling Track Dial) from working as expected.
 
+## Changes for 5.5
+
+* Play after connecting setting will be remembered when moving away from the encoder window.
+
 ## Changes for 5.4
 
 * Performing library scan from Insert Tracks dialog no longer causes NVDA to not announce scan status or play error tones if NVDA is configured to announce library scan progress or scan count.
