@@ -154,7 +154,6 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Changes for 6.0-dev
 
 * New SPL Assistant commands, including announcing title of the currently playing track (C), announcing status of metadata streaming (E, 1 through 4 and 0) and opening the online user guide (Shift+F1).
-* If status announcement is set to words, NVDA will announce "Studio" when invoking SPL Assistant layer.
 * Ability to package favorite settings as broadcast profiles to be used during a show and to switch to a predefined profile. See the add-on guide for details on broadcast profiles.
 * You can now ask NVDA to report total length of a range of tracks via track time analysis feature. Press SPL Assistant, F9 to mark current track as start marker, move to end of track range and press SPL Assistant, F10. These commands can be reassigned so one doesn't have to invoke SPL Assistant layer to perform track time analysis.
 * Added a column search dialog (command unassigned) to find text in specific columns such as artist or part of file name.
@@ -167,7 +166,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * You can now use Track Dial toggle command in Studio to toggle Track Dial in Track Tool provided that you didn't assign a command to toggle Track Dial in Track Tool.
 * Added ability to use SPL Controller layer command to invoke SPL Assistant layer (configurable from advanced Settings dialog found in add-on settings dialog).
 * Ability for NvDA to use certain SPL Assistant commands used by other screen readers (experimental). To configure this, go to add-on settings, select Advanced Settings and check screen reader compatibility mode checkbox.
-* In SAM Encoders, settings such as focusing to Studio when connected is now remembered.
+* In encoders, settings such as focusing to Studio when connected are now remembered.
 * It is now possible to view various columns from encoder window (such as encoder connection status) via Control+NVDA+number command; consult the encoder commands above.
 * Fixed a rare bug where switching to Studio or closing an NVDA dialog (including Studio add-on dialogs) prevented track commands (such as toggling Track Dial) from working as expected.
 

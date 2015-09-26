@@ -1157,7 +1157,7 @@ class AppModule(appModuleHandler.AppModule):
 			# Project Rainbow: choose the required compatibility layer.
 			self.bindGestures(self.__SPLAssistantGestures) if splconfig.SPLConfig["CompatibilityLayer"] == "off" else self.bindGestures(self.__SPLAssistantJFWGestures)
 			self.SPLAssistant = True
-			tones.beep(512, 50) if splconfig.SPLConfig["BeepAnnounce"] else ui.message("Studio")
+			tones.beep(512, 50)
 			if splconfig.SPLConfig["CompatibilityLayer"] == "jfw": ui.message("JAWS")
 		except WindowsError:
 			return
