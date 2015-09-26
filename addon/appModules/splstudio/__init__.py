@@ -1381,7 +1381,11 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_setPlaceMarker(self, gesture):
 		obj = api.getFocusObject()
-		index = obj._indexOf("Filename")
+		try:
+			index = obj._indexOf("Filename")
+		except AttributeError:
+			ui.message("No tracks found, cannot set place marker")
+			return
 		filename = obj._getColumnContent(index)
 		if filename:
 			self.placeMarker = (index, filename)
