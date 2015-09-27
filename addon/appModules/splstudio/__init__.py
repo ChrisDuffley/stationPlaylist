@@ -839,6 +839,23 @@ class AppModule(appModuleHandler.AppModule):
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_findTrackPrevious.__doc__=_("Finds previous occurrence of the track with the name in the track list.")
 
+	# Time range finder.
+	# Locate a track with duration falling between min and max.
+
+	def script_timeRangeFinder(self, gesture):
+		try:
+			d = splmisc.SPLTimeRangeDialog(gui.mainFrame, api.getFocusObject(), statusAPI)
+			gui.mainFrame.prePopup()
+			d.Raise()
+			d.Show()
+			gui.mainFrame.postPopup()
+			#splmisc._alarmDialogOpened = True
+		except RuntimeError:
+			#wx.CallAfter(splmisc._alarmError)
+			pass
+	# Translators: Input help mode message for a command in Station Playlist Studio.
+	script_timeRangeFinder.__doc__=_("Locates track dwith duration within a time range")
+
 	# Cart explorer
 	cartExplorer = False
 	carts = {} # The carts dictionary (key = cart gesture, item = cart name).
