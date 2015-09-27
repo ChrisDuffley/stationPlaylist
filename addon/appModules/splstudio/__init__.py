@@ -59,6 +59,7 @@ _SPLWin = None
 
 # Threads pool.
 micAlarmT = None
+micAlarmT2 = None
 libScanT = None
 
 # Blacklisted versions of Studio where library scanning functionality is broken.
@@ -72,6 +73,21 @@ known51styles = (1443991625, 1446088777)
 def messageSound(wavFile, message):
 	nvwave.playWaveFile(wavFile)
 	braille.handler.message(message)
+
+# A special version for microphone alarm (continuous or not).
+def _micAlarmAnnouncer():
+	nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_MicAlarm2.wav"))
+	ui.message("Microphone active")
+
+# Manage microphone alarm announcement.
+def micAlarmManager(micAlarmWav, micAlarmMessage):
+	messageSound(micAlarmWav, micAlarmMessage)
+	# Play an alarm sound (courtesy of Jerry Mader from Mader Radio).
+	global micAlarmT2
+	# Use a timer to play a tone when microphone was active for more than the specified amount.
+	# Mechanics come from Clock add-on.
+	micAlarmT2 = wx.PyTimer(_micAlarmAnnouncer)
+	micAlarmT2.Start(1000)
 
 # Call SPL API to obtain needed values.
 # A thin wrapper around user32.SendMessage and calling a callback if defined.
@@ -437,14 +453,14 @@ class AppModule(appModuleHandler.AppModule):
 				# Translators: Presented when cart edit mode is toggled off while cart explorer is on.
 				ui.message(_("Please reenter cart explorer to view updated cart assignments"))
 		if micAlarm:
-			# Play an alarm sound from Braille Sense U2.
-			global micAlarmT
-			micAlarmWav = os.path.join(os.path.dirname(__file__), "SPL_MicAlarm.wav")
-			# Translators: Presented in braille when microphone was on for more than a specified time in microphone alarm dialog.
+			# Play an alarm sound (courtesy of Jerry Mader from Mader Radio).
+			global micAlarmT, micAlarmT2
+			micAlarmWav = os.path.join(os.path.dirname(__file__), "SPL_MicAlarm2.wav")
+			# Translators: Presented when microphone was on for more than a specified time in microphone alarm dialog.
 			micAlarmMessage = _("Warning: Microphone active")
 			# Use a timer to play a tone when microphone was active for more than the specified amount.
 			if status == "Microphone On":
-				micAlarmT = threading.Timer(micAlarm, messageSound, args=[micAlarmWav, micAlarmMessage])
+				micAlarmT = threading.Timer(micAlarm, micAlarmManager, args=[micAlarmWav, micAlarmMessage])
 				try:
 					micAlarmT.start()
 				except RuntimeError:
@@ -453,6 +469,8 @@ class AppModule(appModuleHandler.AppModule):
 			elif status == "Microphone Off":
 				if micAlarmT is not None: micAlarmT.cancel()
 				micAlarmT = None
+				if micAlarmT2 is not None: micAlarmT2.Stop()
+				micAlarmT2 = None
 
 	# Alarm announcement: Alarm notification via beeps, speech or both.
 	def alarmAnnounce(self, timeText, tone, duration, intro=False):
