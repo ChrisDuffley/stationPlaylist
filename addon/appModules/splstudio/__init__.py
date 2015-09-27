@@ -86,8 +86,9 @@ def micAlarmManager(micAlarmWav, micAlarmMessage):
 	global micAlarmT2
 	# Use a timer to play a tone when microphone was active for more than the specified amount.
 	# Mechanics come from Clock add-on.
-	micAlarmT2 = wx.PyTimer(_micAlarmAnnouncer)
-	micAlarmT2.Start(1000)
+	if splconfig.SPLConfig["MicAlarmInterval"]:
+		micAlarmT2 = wx.PyTimer(_micAlarmAnnouncer)
+		micAlarmT2.Start(splconfig.SPLConfig["MicAlarmInterval"] * 1000)
 
 # Call SPL API to obtain needed values.
 # A thin wrapper around user32.SendMessage and calling a callback if defined.
