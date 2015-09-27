@@ -22,6 +22,7 @@ SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
 SPLProfiles = os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "profiles")
 confspec = ConfigObj(StringIO("""
 BeepAnnounce = boolean(default=false)
+MessageVerbosity = option("beginner", "advanced", default="beginner")
 SayEndOfTrack = boolean(default=true)
 EndOfTrackTime = integer(min=1, max=59, default=5)
 SaySongRamp = boolean(default=true)
@@ -357,6 +358,24 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.beepAnnounceCheckbox.SetValue(SPLConfig["BeepAnnounce"])
 		settingsSizer.Add(self.beepAnnounceCheckbox, border=10,flag=wx.TOP)
 
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: The label for a setting in SPL add-on dialog to set message verbosity.
+		label = wx.StaticText(self, wx.ID_ANY, label=_("Message &verbosity:"))
+		# Translators: One of the message verbosity levels.
+		self.verbosityLevels=[("beginner",_("beginner")),
+		# Translators: One of the message verbosity levels.
+		("advanced",_("advanced"))]
+		self.verbosityList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.verbosityLevels])
+		currentVerbosity=SPLConfig["MessageVerbosity"]
+		selection = (x for x,y in enumerate(self.verbosityLevels) if y[0]==currentVerbosity).next()  
+		try:
+			self.verbosityList.SetSelection(selection)
+		except:
+			pass
+		sizer.Add(label)
+		sizer.Add(self.verbosityList)
+		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
 		self.outroSizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Check box hiding method comes from Alberto Buffolino's Columns Review add-on.
 		# Translators: Label for a check box in SPL add-on settings to notify when end of track (outro) is approaching.
@@ -541,6 +560,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		selectedProfile = self.profiles.GetStringSelection()
 		SPLConfig = getProfileByName(selectedProfile)
 		SPLConfig["BeepAnnounce"] = self.beepAnnounceCheckbox.Value
+		SPLConfig["MessageVerbosity"] = self.verbosityLevels[self.verbosityList.GetSelection()][0]
 		SPLConfig["SayEndOfTrack"] = self.outroCheckBox.Value
 		SPLConfig["EndOfTrackTime"] = self.endOfTrackAlarm.Value
 		SPLConfig["SaySongRamp"] = self.introCheckBox.Value

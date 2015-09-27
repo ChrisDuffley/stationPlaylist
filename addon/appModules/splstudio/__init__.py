@@ -385,21 +385,8 @@ class AppModule(appModuleHandler.AppModule):
 					if self.libraryScanning: self.libraryScanning = False
 					self.scanCount = 0
 			else:
-				if obj.name.endswith((" On", " Off")) and splconfig.SPLConfig["BeepAnnounce"]:
-					# User wishes to hear beeps instead of words. The beeps are power on and off sounds from PAC Mate Omni.
-					beep = obj.name.split()
-					stat = beep[-1]
-					wavDir = os.path.dirname(__file__)
-					# Play a wave file based on on/off status.
-					if stat == "Off":
-						wavFile = os.path.join(wavDir, "SPL_off.wav")
-					elif stat == "On":
-						wavFile = os.path.join(wavDir, "SPL_on.wav")
-					# Yet another Studio 5.10 fix: sometimes, status bar fires this event once more.
-					try:
-						messageSound(wavFile, obj.name)
-					except:
-						return
+				if obj.name.endswith((" On", " Off")):
+					self._toggleMessage(obj.name)
 				else:
 					ui.message(obj.name)
 				if self.cartExplorer or int(splconfig.SPLConfig["MicAlarm"]):
@@ -425,6 +412,35 @@ class AppModule(appModuleHandler.AppModule):
 		nextHandler()
 
 	# JL's additions
+
+	# Handle toggle messages.
+	def _toggleMessage(self, msg):
+		if splconfig.SPLConfig["MessageVerbosity"] != "beginner":
+			msg = msg.split()[-1]
+		if splconfig.SPLConfig["BeepAnnounce"]:
+			# User wishes to hear beeps instead of words. The beeps are power on and off sounds from PAC Mate Omni.
+			if msg.endswith("Off"):
+				if splconfig.SPLConfig["MessageVerbosity"] == "beginner":
+					wavFile = os.path.join(os.path.dirname(__file__), "SPL_off.wav")
+					try:
+						messageSound(wavFile, msg)
+					except:
+						pass
+				else:
+					tones.beep(500, 100)
+					braille.handler.message(msg)
+			elif msg.endswith("On"):
+				if splconfig.SPLConfig["MessageVerbosity"] == "beginner":
+					wavFile = os.path.join(os.path.dirname(__file__), "SPL_on.wav")
+					try:
+						messageSound(wavFile, msg)
+					except:
+						pass
+				else:
+					tones.beep(1000, 100)
+					braille.handler.message(msg)
+		else:
+			ui.message(msg)
 
 	# Perform extra action in specific situations (mic alarm, for example).
 	def doExtraAction(self, status):
