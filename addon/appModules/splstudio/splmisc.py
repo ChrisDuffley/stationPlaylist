@@ -204,7 +204,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 		if user32.FindWindowA("SPLStudio", None):
 			minDuration = ((self.minMinEntry.GetValue() * 60) + self.minSecEntry.GetValue()) * 1000
 			maxDuration = ((self.maxMinEntry.GetValue() * 60) + self.maxSecEntry.GetValue()) * 1000
-			obj = self.obj
+			obj = self.obj.next
 			# Manually locate tracks here.
 			while obj is not None:
 				filename = self.func(obj.IAccessibleChildID-1, 211, ret=True)
