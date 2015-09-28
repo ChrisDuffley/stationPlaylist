@@ -727,12 +727,9 @@ class AppModule(appModuleHandler.AppModule):
 	def script_toggleBeepAnnounce(self, gesture):
 		if not splconfig.SPLConfig["BeepAnnounce"]:
 			splconfig.SPLConfig["BeepAnnounce"] = True
-			# Translators: Reported when status announcement is set to beeps in SPL Studio.
-			ui.message(_("Status announcement beeps"))
 		else:
 			splconfig.SPLConfig["BeepAnnounce"] = False
-			# Translators: Reported when status announcement is set to words in SPL Studio.
-			ui.message(_("Status announcement words"))
+		splconfig.message("BeepAnnounce", splconfig.SPLConfig["BeepAnnounce"])
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_toggleBeepAnnounce.__doc__=_("Toggles status announcements between words and beeps.")
 

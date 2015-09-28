@@ -1177,3 +1177,23 @@ class SPLAlarmDialog(wx.Dialog):
 		global _alarmDialogOpened
 		_alarmDialogOpened = False
 
+# Message verbosity pool.
+# To be moved to its own module in add-on 7.0.
+# This is a multimap, consisting of category, value and message.
+# Most of the categories are same as confspec keys, hence the below message function is invoked when settings are changed.
+def message(category, value):
+	verbosityLevels = ("beginner", "advanced")
+	ui.message(messagePool[category][value][verbosityLevels.index(SPLConfig["MessageVerbosity"])])
+
+messagePool={
+	"BeepAnnounce":
+		{True:
+			# Translators: Reported when status announcement is set to beeps in SPL Studio.
+			(_("Status announcement beeps"),
+			# Translators: Reported when status announcement is set to beeps in SPL Studio.
+			_("Beeps")),
+		False:
+			# Translators: Reported when status announcement is set to beeps in SPL Studio.
+			(_("Status announcement words"),
+			# Translators: Reported when status announcement is set to beeps in SPL Studio.
+			_("Words"))},}
