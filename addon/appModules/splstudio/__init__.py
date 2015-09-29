@@ -1109,7 +1109,7 @@ class AppModule(appModuleHandler.AppModule):
 	deletedFocusObj = False
 
 	def script_deleteTrack(self, gesture):
-		if self.placeMarkerObj: self.preTrackRemoval()
+		self.preTrackRemoval()
 		gesture.send()
 		if self.productVersion.startswith("5.0"):
 			if api.getForegroundObject().windowClassName == "TStudioForm":
