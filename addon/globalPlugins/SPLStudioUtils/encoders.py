@@ -90,6 +90,43 @@ def announceNumMonitoringEncoders():
 		# Translators: Announces number of encoders being monitored in the background.
 		ui.message(_("Number of encoders monitored: {numberOfEncoders}: {streamLabels}").format(numberOfEncoders = monitorCount, streamLabels=", ".join(labels)))
 
+# Remove encoder ID from various settings maps.
+# This is a private module level function in order for it to be invoked by humans alone.
+_encoderConfigRemoved = None
+def _removeEncoderID(encoderType, pos):
+	global _encoderConfigRemoved
+	# For now, store the key to map.
+	# This might become a module-level constant if other functions require this dictionary.
+	key2map = {"FocusToStudio":SPLFocusToStudio, "PlayAfterConnecting":SPLPlayAfterConnecting, "BackgroundMonitor":SPLBackgroundMonitor}
+	encoderID = " ".join([encoderType, pos])
+	# Go through each feature map, remove the encoder ID and manipulate encoder positions in these sets.
+	# For each set, have a list of set items handy, otherwise set cardinality error (RuntimeError) will occur if items are removed on the fly.
+	for key in key2map:
+		map = key2map[key]
+		if encoderID in map:
+			map.remove(encoderID)
+			_encoderConfigRemoved = True
+		# If not sorted, encoders will appear in random order (a downside of using sets, as their ordering is quite unpredictable).
+		currentEncoders = sorted(filter(lambda x: x.startswith(encoderType), map))
+		if len(currentEncoders) and encoderID < currentEncoders[-1]:
+			# Same algorithm as stream label remover.
+			start = 0
+			if encoderID > currentEncoders[0]:
+				for candidate in currentEncoders:
+					if encoderID < candidate:
+						start = currentEncoders.index(candidate)
+			# Do set entry manipulations (remove first, then add).
+			for item in currentEncoders[start:]:
+				map.remove(item)
+				map.add(" ".join([encoderType, "%s"%(int(item.split()[-1])-1)]))
+		_encoderConfigRemoved = True
+		if len(map): streamLabels[key] = list(map)
+		else:
+			try:
+				del streamLabels[key]
+			except KeyError:
+				pass
+
 # Try to see if SPL foreground object can be fetched. This is used for switching to SPL Studio window from anywhere and to switch to Studio window from SAM encoder window.
 
 def fetchSPLForegroundWindow():
@@ -241,7 +278,7 @@ class Encoder(IAccessible):
 		streamEraserText, "", streamEraserTitle, self.IAccessibleChildID, 1, self.simpleParent.childCount)
 		def callback(result):
 			if result == wx.ID_OK:
-				self.removeStreamLabel(str(dlg.GetValue()))
+				self.removeStreamConfig(str(dlg.GetValue()))
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message in SAM Encoder window.
 	script_streamLabelEraser.__doc__=_("Opens a dialog to erase stream labels from an encoder that was deleted.")
@@ -478,6 +515,8 @@ class SAMEncoder(Encoder):
 					SAMStreamLabels[str(oldPosition-1)] = SAMStreamLabels[position]
 					del SAMStreamLabels[position]
 		streamLabels["SAMEncoders"] = SAMStreamLabels
+		# Remove encoder settings from SAM encoers maps.
+		_removeEncoderID("SAM", pos)
 		streamLabels.write()
 
 
@@ -591,9 +630,18 @@ class SPLEncoder(Encoder):
 		streamLabels["SPLEncoders"] = SPLStreamLabels
 		streamLabels.write()
 
-	def removeStreamLabel(self, pos):
+	def removeStreamConfig(self, pos):
+		global _encoderConfigRemoved
+		print "Removing stream config..."
+		# This time, manipulate SPL ID entries.
+		_removeEncoderID("SPL", pos)
+		print "Removing stream labels..."
 		labelLength = len(SPLStreamLabels)
-		if not labelLength or pos > max(SPLStreamLabels.keys()): return
+		if not labelLength or pos > max(SPLStreamLabels.keys()):
+			if _encoderConfigRemoved is not None:
+				streamLabels.write()
+				_encoderConfigRemoved = None
+			return
 		elif labelLength  == 1:
 			if not pos in SPLStreamLabels:
 				pos = SPLStreamLabels.keys()[0]
@@ -620,6 +668,8 @@ class SPLEncoder(Encoder):
 					oldPosition = int(position)
 					SPLStreamLabels[str(oldPosition-1)] = SPLStreamLabels[position]
 					del SPLStreamLabels[position]
+		print "Saving stream settings..."
+		print streamLabels
 		streamLabels["SPLEncoders"] = SPLStreamLabels
 		streamLabels.write()
 
