@@ -483,22 +483,31 @@ class SAMEncoder(Encoder):
 		streamLabels["SAMEncoders"] = SAMStreamLabels
 		streamLabels.write()
 
-	def removeStreamLabel(self, pos):
+	def removeStreamConfig(self, pos):
 		# An application of map successor algorithm.
+		global _encoderConfigRemoved
+		print "Removing stream config..."
+		# Manipulate SAM encoder settings and labels.
+		_removeEncoderID("SAM", pos)
+		print "Removing stream labels..."
 		labelLength = len(SAMStreamLabels)
-		if not labelLength or pos > max(SAMStreamLabels.keys()): return
+		if not labelLength or pos > max(SAMStreamLabels.keys()):
+			if _encoderConfigRemoved is not None:
+				streamLabels.write()
+				_encoderConfigRemoved = None
+			return
 		elif labelLength  == 1:
 			if not pos in SAMStreamLabels:
-				pos = SPLStreamLabels.keys()[0]
+				pos = SAMStreamLabels.keys()[0]
 				oldPosition = int(pos)
 				SAMStreamLabels[str(oldPosition-1)] = SAMStreamLabels[pos]
 			del SAMStreamLabels[pos]
 		else:
 			encoderPositions = sorted(SAMStreamLabels.keys())
-						# What if the position happens to be the last stream label position?
-			if pos == max(encoderPositions): del SPLStreamLabels[pos]
-			# Find the exact or closest successor.
+			# What if the position happens to be the last stream label position?
+			if pos == max(encoderPositions): del SAMStreamLabels[pos]
 			else:
+				# Find the exact or closest successor.
 				startPosition = 0
 				if pos == min(encoderPositions):
 					del SAMStreamLabels[pos]
@@ -514,9 +523,9 @@ class SAMEncoder(Encoder):
 					oldPosition = int(position)
 					SAMStreamLabels[str(oldPosition-1)] = SAMStreamLabels[position]
 					del SAMStreamLabels[position]
+		print "Saving stream settings..."
+		print streamLabels
 		streamLabels["SAMEncoders"] = SAMStreamLabels
-		# Remove encoder settings from SAM encoers maps.
-		_removeEncoderID("SAM", pos)
 		streamLabels.write()
 
 
