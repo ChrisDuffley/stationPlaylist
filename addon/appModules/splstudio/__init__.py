@@ -299,7 +299,7 @@ class AppModule(appModuleHandler.AppModule):
 			_SPLWin = hwnd
 		# Remind me to broadcast metadata information.
 		if splconfig.SPLConfig["MetadataReminder"] == "startup":
-			self._metadataAnnouncer(reminder=True, pause=True)
+			self._metadataAnnouncer(reminder=True)
 
 	# Let the global plugin know if SPLController passthrough is allowed.
 	def SPLConPassthrough(self):
@@ -1033,14 +1033,18 @@ class AppModule(appModuleHandler.AppModule):
 	# Also allows broadcasters to toggle metadata streaming.
 
 	# First, the reminder function.
-	def _metadataAnnouncer(self, reminder=False, pause=False):
+	def _metadataAnnouncer(self, reminder=False):
+		# If told to remind and connect, metadata streaming will be enabled at this time.
+		# 6.0: Call Studio API twice - once to set, once more to obtain the needed information.
+		# 6.2/7.0: When Studio API is called, add the value into the stream count list also.
+		if reminder:
+			for url in xrange(5):
+				dataLo = 0x00010000 if splconfig.SPLConfig["MetadataEnabled"][url] else 0xffff0000
+				statusAPI(dataLo | url, 36)
 		dsp = 1 if statusAPI(0, 36, ret=True) == 1 else 0
-		configuredPos = [dsp]
 		streamCount = []
 		for pos in xrange(1, 5):
 			checked = statusAPI(pos, 36, ret=True)
-			if checked == -1: checked += 1
-			configuredPos.append(checked)
 			if checked == 1: streamCount.append(pos)
 		# Announce streaming status when told to do so.
 		status = None
