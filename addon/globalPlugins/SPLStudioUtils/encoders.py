@@ -270,9 +270,9 @@ class Encoder(IAccessible):
 	script_streamLabeler.__doc__=_("Opens a dialog to label the selected encoder.")
 
 	def script_streamLabelEraser(self, gesture):
-		# Translators: The title of the stream label eraser.
-		streamEraserTitle = _("Stream label eraser")
-		# Translators: The text of the stream label eraser dialog.
+		# Translators: The title of the stream configuration eraser dialog.
+		streamEraserTitle = _("Stream label and settings eraser")
+		# Translators: The text of the stream configuration eraser dialog.
 		streamEraserText = _("Enter the position of the encoder you wish to delete or will delete")
 		dlg = wx.NumberEntryDialog(gui.mainFrame,
 		streamEraserText, "", streamEraserTitle, self.IAccessibleChildID, 1, self.simpleParent.childCount)
@@ -281,7 +281,7 @@ class Encoder(IAccessible):
 				self.removeStreamConfig(str(dlg.GetValue()))
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message in SAM Encoder window.
-	script_streamLabelEraser.__doc__=_("Opens a dialog to erase stream labels from an encoder that was deleted.")
+	script_streamLabelEraser.__doc__=_("Opens a dialog to erase stream labels and settings from an encoder that was deleted.")
 
 	# Announce complete time including seconds (slight change from global commands version).
 	def script_encoderDateTime(self, gesture):

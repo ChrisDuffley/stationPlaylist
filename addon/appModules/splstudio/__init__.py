@@ -77,7 +77,7 @@ def messageSound(wavFile, message):
 # A special version for microphone alarm (continuous or not).
 def _micAlarmAnnouncer():
 		if splconfig.SPLConfig["AlarmAnnounce"] in ("beep", "both"):
-			nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_MicAlarm2.wav"))
+			nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_MicAlarm.wav"))
 		if splconfig.SPLConfig["AlarmAnnounce"] in ("message", "both"):
 			ui.message("Microphone active")
 
@@ -474,7 +474,7 @@ class AppModule(appModuleHandler.AppModule):
 		if micAlarm:
 			# Play an alarm sound (courtesy of Jerry Mader from Mader Radio).
 			global micAlarmT, micAlarmT2
-			micAlarmWav = os.path.join(os.path.dirname(__file__), "SPL_MicAlarm2.wav")
+			micAlarmWav = os.path.join(os.path.dirname(__file__), "SPL_MicAlarm.wav")
 			# Translators: Presented when microphone was on for more than a specified time in microphone alarm dialog.
 			micAlarmMessage = _("Warning: Microphone active")
 			# Use a timer to play a tone when microphone was active for more than the specified amount.
