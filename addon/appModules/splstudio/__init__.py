@@ -688,32 +688,26 @@ class AppModule(appModuleHandler.AppModule):
 		elif splconfig._alarmDialogOpened:
 			wx.CallAfter(splconfig._alarmError)
 			return
-		micAlarm = str(splconfig.SPLConfig["MicAlarm"])
-		if int(micAlarm):
+		micAlarm = splconfig.SPLConfig["MicAlarm"]
+		if micAlarm:
 			# Translators: A dialog message to set microphone active alarm (curAlarmSec is the current mic monitoring alarm in seconds).
 			timeMSG = _("Enter microphone alarm time in seconds (currently {curAlarmSec}, 0 disables the alarm)").format(curAlarmSec = micAlarm)
 		else:
 			# Translators: A dialog message when microphone alarm is disabled (set to 0).
 			timeMSG = _("Enter microphone alarm time in seconds (currently disabled, 0 disables the alarm)")
-		dlg = wx.TextEntryDialog(gui.mainFrame,
-		timeMSG,
+		dlg = wx.NumberEntryDialog(gui.mainFrame,
+		timeMSG, "",
 		# Translators: The title of mic alarm dialog.
 		_("Microphone alarm"),
-		defaultValue=micAlarm)
+		long(micAlarm), 0, 7200)
 		splconfig._alarmDialogOpened = True
 		def callback(result):
 			splconfig._alarmDialogOpened = False
 			if result == wx.ID_OK:
 				if not user32.FindWindowA("SPLStudio", None): return
 				newVal = dlg.GetValue()
-				if not newVal.isdigit():
-					# Translators: The error message presented when incorrect alarm time value has been entered.
-					wx.CallAfter(gui.messageBox, _("Incorrect value entered."),
-					# Translators: Standard title for error dialog (copy this from main nvda.po file).
-					_("Error"),wx.OK|wx.ICON_ERROR)
-				else:
-					if micAlarm != newVal:
-						splconfig.SPLConfig["MicAlarm"] = newVal
+				if micAlarm != newVal:
+					splconfig.SPLConfig["MicAlarm"] = newVal
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setMicAlarm.__doc__=_("Sets microphone alarm (default is 5 seconds).")
