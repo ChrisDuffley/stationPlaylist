@@ -1215,4 +1215,42 @@ messagePool={
 			# Translators: Reported when status announcement is set to beeps in SPL Studio.
 			(_("Status announcement words"),
 			# Translators: Reported when status announcement is set to beeps in SPL Studio.
-			_("Words"))},}
+			_("Words"))},
+	"BrailleTimer":
+		{"off":
+			# Translators: A setting in braille timer options.
+			(_("Braille timer off"), _("Off")),
+		"outro":
+			# Translators: A setting in braille timer options.
+			(_("Braille track endings"),
+						# Translators: A setting in braille timer options.
+			_("Outro")),
+		"intro":
+			# Translators: A setting in braille timer options.
+			(_("Braille intro endings"),
+						# Translators: A setting in braille timer options.
+			_("Intro")),
+		"both":
+			# Translators: A setting in braille timer options.
+			(_("Braille intro and track endings"),
+						# Translators: A setting in braille timer options.
+			_("Both"))},
+	"LibraryScanAnnounce":
+		{"off":
+			# Translators: A setting in library scan announcement options.
+			(_("Do not announce library scans"), _("Off")),
+		"ending":
+			# Translators: A setting in library scan announcement options.
+			(_("Announce start and end of a library scan"),
+						# Translators: A setting in library scan announcement options.
+			_("Start and end")),
+		"progress":
+			# Translators: A setting in library scan announcement options.
+			(_("Announce the progress of a library scan"),
+						# Translators: A setting in library scan announcement options.
+			_("Scan progress")),
+		"numbers":
+			# Translators: A setting in library scan announcement options.
+			(_("Announce progress and item count of a library scan"),
+						# Translators: A setting in library scan announcement options.
+			_("Scan count"))}}
