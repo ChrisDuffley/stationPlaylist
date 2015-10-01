@@ -28,7 +28,8 @@ EndOfTrackTime = integer(min=1, max=59, default=5)
 SaySongRamp = boolean(default=true)
 SongRampTime = integer(min=1, max=9, default=5)
 BrailleTimer = option("off", "intro", "outro", "both", default="off")
-MicAlarm = integer(min=0, default="0")
+MicAlarm = integer(min=0, max=7200, default="0")
+MicAlarmInterval = integer(min=0, max=60, default=0)
 AlarmAnnounce = option("beep", "message", "both", default="beep")
 LibraryScanAnnounce = option("off", "ending", "progress", "numbers", default="off")
 TrackDial = boolean(default=false)
@@ -53,7 +54,7 @@ _val = Validator()
 _SPLDefaults.validate(_val, copy=True)
 
 # The following settings can be changed in profiles:
-_mutatableSettings=("SayEndOfTrack","EndOfTrackTime","SaySongRamp","SongRampTime","MicAlarm")
+_mutatableSettings=("SayEndOfTrack","EndOfTrackTime","SaySongRamp","SongRampTime","MicAlarm", "MicAlarmInterval")
 
 # Display an error dialog when configuration validation fails.
 def runConfigErrorDialog(errorText, errorType):
@@ -390,6 +391,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.outroSizer.Add(self.outroAlarmLabel)
 		self.endOfTrackAlarm = wx.SpinCtrl(self, wx.ID_ANY, min=1, max=59)
 		self.endOfTrackAlarm.SetValue(long(SPLConfig["EndOfTrackTime"]))
+		self.endOfTrackAlarm.SetSelection(-1, -1)
 		self.outroSizer.Add(self.endOfTrackAlarm)
 		self.onOutroCheck(None)
 		settingsSizer.Add(self.outroSizer, border=10, flag=wx.BOTTOM)
@@ -406,6 +408,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.introSizer.Add(self.introAlarmLabel)
 		self.songRampAlarm = wx.SpinCtrl(self, wx.ID_ANY, min=1, max=9)
 		self.songRampAlarm.SetValue(long(SPLConfig["SongRampTime"]))
+		self.songRampAlarm.SetSelection(-1, -1)
 		self.introSizer.Add(self.songRampAlarm)
 		self.onIntroCheck(None)
 		settingsSizer.Add(self.introSizer, border=10, flag=wx.BOTTOM)
@@ -431,14 +434,23 @@ class SPLConfigDialog(gui.SettingsDialog):
 		sizer.Add(self.brailleTimerList)
 		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
-		sizer = wx.BoxSizer(wx.VERTICAL)
+		self.micSizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: The label for a setting in SPL Add-on settings to change microphone alarm setting.
 		label = wx.StaticText(self, wx.ID_ANY, label=_("&Microphone alarm in seconds"))
-		sizer.Add(label)
-		self.micAlarm = wx.TextCtrl(self, wx.ID_ANY)
-		self.micAlarm.SetValue(str(SPLConfig["MicAlarm"]))
-		sizer.Add(self.micAlarm)
-		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+		self.micSizer.Add(label)
+		self.micAlarm = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=7200)
+		self.micAlarm.SetValue(long(SPLConfig["MicAlarm"]))
+		self.micAlarm.SetSelection(-1, -1)
+		self.micSizer.Add(self.micAlarm)
+
+		# Translators: The label for a setting in SPL Add-on settings to specify mic alarm interval.
+		self.micAlarmIntervalLabel = wx.StaticText(self, wx.ID_ANY, label=_("Microphone alarm &interval in seconds"))
+		self.micSizer.Add(self.micAlarmIntervalLabel)
+		self.micAlarmInterval = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=60)
+		self.micAlarmInterval.SetValue(long(SPLConfig["MicAlarmInterval"]))
+		self.micAlarmInterval.SetSelection(-1, -1)
+		self.micSizer.Add(self.micAlarmInterval)
+		settingsSizer.Add(self.micSizer, border=10, flag=wx.BOTTOM)
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: The label for a setting in SPL add-on dialog to control alarm announcement type.
@@ -554,14 +566,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.profiles.SetFocus()
 
 	def onOk(self, evt):
-		if not self.micAlarm.Value.isdigit():
-			gui.messageBox(
-				# Translators: Message to report wrong value for microphone alarm.
-				_("Incorrect microphone alarm value entered."),
-				# Translators: The title of the message box
-				_("Error"), wx.OK|wx.ICON_ERROR,self)
-			self.micAlarm.SetFocus()
-			return
 		global SPLConfig, SPLActiveProfile, _configDialogOpened, SPLSwitchProfile, SPLPrevProfile
 		selectedProfile = self.profiles.GetStringSelection()
 		SPLConfig = getProfileByName(selectedProfile)
@@ -573,6 +577,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["SongRampTime"] = self.songRampAlarm.Value
 		SPLConfig["BrailleTimer"] = self.brailleTimerValues[self.brailleTimerList.GetSelection()][0]
 		SPLConfig["MicAlarm"] = self.micAlarm.Value
+		SPLConfig["MicAlarmInterval"] = self.micAlarmInterval.Value
 		SPLConfig["AlarmAnnounce"] = self.alarmAnnounceValues[self.alarmAnnounceList.GetSelection()][0]
 		SPLConfig["LibraryScanAnnounce"] = self.libScanValues[self.libScanList.GetSelection()][0]
 		SPLConfig["TrackDial"] = self.trackDialCheckbox.Value
@@ -650,7 +655,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.introCheckBox.SetValue(curProfile["SaySongRamp"])
 		self.songRampAlarm.SetValue(long(curProfile["SongRampTime"]))
 		self.onIntroCheck(None)
-		self.micAlarm.SetValue(str(curProfile["MicAlarm"]))
+		self.micAlarm.SetValue(long(curProfile["MicAlarm"]))
+		self.micAlarmInterval.SetValue(long(curProfile["MicAlarmInterval"]))
 
 	# Profile controls.
 	# Rename and delete events come from GUI/config profiles dialog from NVDA core.
@@ -1158,6 +1164,7 @@ class SPLAlarmDialog(wx.Dialog):
 		alarmSizer.Add(alarmMessage)
 		self.alarmEntry = wx.SpinCtrl(self, wx.ID_ANY, min=min, max=max)
 		self.alarmEntry.SetValue(SPLConfig[setting])
+		self.alarmEntry.SetSelection(-1, -1)
 		alarmSizer.Add(self.alarmEntry)
 		mainSizer.Add(alarmSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 

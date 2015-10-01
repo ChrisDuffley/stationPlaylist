@@ -59,6 +59,7 @@ _SPLWin = None
 
 # Threads pool.
 micAlarmT = None
+micAlarmT2 = None
 libScanT = None
 
 # Blacklisted versions of Studio where library scanning functionality is broken.
@@ -72,6 +73,24 @@ known51styles = (1443991625, 1446088777)
 def messageSound(wavFile, message):
 	nvwave.playWaveFile(wavFile)
 	braille.handler.message(message)
+
+# A special version for microphone alarm (continuous or not).
+def _micAlarmAnnouncer():
+		if splconfig.SPLConfig["AlarmAnnounce"] in ("beep", "both"):
+			nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_MicAlarm2.wav"))
+		if splconfig.SPLConfig["AlarmAnnounce"] in ("message", "both"):
+			ui.message("Microphone active")
+
+# Manage microphone alarm announcement.
+def micAlarmManager(micAlarmWav, micAlarmMessage):
+	messageSound(micAlarmWav, micAlarmMessage)
+	# Play an alarm sound (courtesy of Jerry Mader from Mader Radio).
+	global micAlarmT2
+	# Use a timer to play a tone when microphone was active for more than the specified amount.
+	# Mechanics come from Clock add-on.
+	if splconfig.SPLConfig["MicAlarmInterval"]:
+		micAlarmT2 = wx.PyTimer(_micAlarmAnnouncer)
+		micAlarmT2.Start(splconfig.SPLConfig["MicAlarmInterval"] * 1000)
 
 # Call SPL API to obtain needed values.
 # A thin wrapper around user32.SendMessage and calling a callback if defined.
@@ -453,14 +472,14 @@ class AppModule(appModuleHandler.AppModule):
 				# Translators: Presented when cart edit mode is toggled off while cart explorer is on.
 				ui.message(_("Please reenter cart explorer to view updated cart assignments"))
 		if micAlarm:
-			# Play an alarm sound from Braille Sense U2.
-			global micAlarmT
-			micAlarmWav = os.path.join(os.path.dirname(__file__), "SPL_MicAlarm.wav")
-			# Translators: Presented in braille when microphone was on for more than a specified time in microphone alarm dialog.
+			# Play an alarm sound (courtesy of Jerry Mader from Mader Radio).
+			global micAlarmT, micAlarmT2
+			micAlarmWav = os.path.join(os.path.dirname(__file__), "SPL_MicAlarm2.wav")
+			# Translators: Presented when microphone was on for more than a specified time in microphone alarm dialog.
 			micAlarmMessage = _("Warning: Microphone active")
 			# Use a timer to play a tone when microphone was active for more than the specified amount.
 			if status == "Microphone On":
-				micAlarmT = threading.Timer(micAlarm, messageSound, args=[micAlarmWav, micAlarmMessage])
+				micAlarmT = threading.Timer(micAlarm, micAlarmManager, args=[micAlarmWav, micAlarmMessage])
 				try:
 					micAlarmT.start()
 				except RuntimeError:
@@ -469,6 +488,8 @@ class AppModule(appModuleHandler.AppModule):
 			elif status == "Microphone Off":
 				if micAlarmT is not None: micAlarmT.cancel()
 				micAlarmT = None
+				if micAlarmT2 is not None: micAlarmT2.Stop()
+				micAlarmT2 = None
 
 	# Alarm announcement: Alarm notification via beeps, speech or both.
 	def alarmAnnounce(self, timeText, tone, duration, intro=False):
@@ -683,32 +704,26 @@ class AppModule(appModuleHandler.AppModule):
 		elif splconfig._alarmDialogOpened:
 			wx.CallAfter(splconfig._alarmError)
 			return
-		micAlarm = str(splconfig.SPLConfig["MicAlarm"])
-		if int(micAlarm):
+		micAlarm = splconfig.SPLConfig["MicAlarm"]
+		if micAlarm:
 			# Translators: A dialog message to set microphone active alarm (curAlarmSec is the current mic monitoring alarm in seconds).
 			timeMSG = _("Enter microphone alarm time in seconds (currently {curAlarmSec}, 0 disables the alarm)").format(curAlarmSec = micAlarm)
 		else:
 			# Translators: A dialog message when microphone alarm is disabled (set to 0).
 			timeMSG = _("Enter microphone alarm time in seconds (currently disabled, 0 disables the alarm)")
-		dlg = wx.TextEntryDialog(gui.mainFrame,
-		timeMSG,
+		dlg = wx.NumberEntryDialog(gui.mainFrame,
+		timeMSG, "",
 		# Translators: The title of mic alarm dialog.
 		_("Microphone alarm"),
-		defaultValue=micAlarm)
+		long(micAlarm), 0, 7200)
 		splconfig._alarmDialogOpened = True
 		def callback(result):
 			splconfig._alarmDialogOpened = False
 			if result == wx.ID_OK:
 				if not user32.FindWindowA("SPLStudio", None): return
 				newVal = dlg.GetValue()
-				if not newVal.isdigit():
-					# Translators: The error message presented when incorrect alarm time value has been entered.
-					wx.CallAfter(gui.messageBox, _("Incorrect value entered."),
-					# Translators: Standard title for error dialog (copy this from main nvda.po file).
-					_("Error"),wx.OK|wx.ICON_ERROR)
-				else:
-					if micAlarm != newVal:
-						splconfig.SPLConfig["MicAlarm"] = newVal
+				if micAlarm != newVal:
+					splconfig.SPLConfig["MicAlarm"] = newVal
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setMicAlarm.__doc__=_("Sets microphone alarm (default is 5 seconds).")
@@ -802,10 +817,18 @@ class AppModule(appModuleHandler.AppModule):
 
 		# Find a specific track based on a searched text.
 	# But first, check if track finder can be invoked.
-	def _trackFinderCheck(self):
+	# Attempt level specifies which track finder to open (0 = Track Finder, 1 = Column Search, 2 = Time range).
+	def _trackFinderCheck(self, attemptLevel):
 		if api.getForegroundObject().windowClassName != "TStudioForm":
-			# Translators: Presented when a user attempts to find tracks but is not at the track list.
-			ui.message(_("Track finder is available only in track list."))
+			if attemptLevel == 0:
+				# Translators: Presented when a user attempts to find tracks but is not at the track list.
+				ui.message(_("Track finder is available only in track list."))
+			elif attemptLevel == 1:
+				# Translators: Presented when a user attempts to find tracks but is not at the track list.
+				ui.message(_("Column search is available only in track list."))
+			elif attemptLevel == 2:
+				# Translators: Presented when a user attempts to find tracks but is not at the track list.
+				ui.message(_("Time range finder is available only in track list."))
 			return False
 		elif api.getForegroundObject().windowClassName == "TStudioForm" and api.getFocusObject().role == controlTypes.ROLE_LIST:
 			# Translators: Presented when a user wishes to find a track but didn't add any tracks.
@@ -827,30 +850,47 @@ class AppModule(appModuleHandler.AppModule):
 			wx.CallAfter(splmisc._finderError)
 
 	def script_findTrack(self, gesture):
-		if self._trackFinderCheck(): self.trackFinderGUI()
+		if self._trackFinderCheck(0): self.trackFinderGUI()
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_findTrack.__doc__=_("Finds a track in the track list.")
 
 	def script_columnSearch(self, gesture):
-		if self._trackFinderCheck(): self.trackFinderGUI(columnSearch=True)
+		if self._trackFinderCheck(1): self.trackFinderGUI(columnSearch=True)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_columnSearch.__doc__=_("Finds text in columns.")
 
 	# Find next and previous scripts.
 
 	def script_findTrackNext(self, gesture):
-		if self._trackFinderCheck():
+		if self._trackFinderCheck(0):
 			if self.findText == "": self.trackFinderGUI()
 			else: self.trackFinder(self.findText, obj=api.getFocusObject().next)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_findTrackNext.__doc__=_("Finds the next occurrence of the track with the name in the track list.")
 
 	def script_findTrackPrevious(self, gesture):
-		if self._trackFinderCheck():
+		if self._trackFinderCheck(0):
 			if self.findText == "": self.trackFinderGUI()
 			else: self.trackFinder(self.findText, obj=api.getFocusObject().previous, directionForward=False)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_findTrackPrevious.__doc__=_("Finds previous occurrence of the track with the name in the track list.")
+
+	# Time range finder.
+	# Locate a track with duration falling between min and max.
+
+	def script_timeRangeFinder(self, gesture):
+		if self._trackFinderCheck(2):
+			try:
+				d = splmisc.SPLTimeRangeDialog(gui.mainFrame, api.getFocusObject(), statusAPI)
+				gui.mainFrame.prePopup()
+				d.Raise()
+				d.Show()
+				gui.mainFrame.postPopup()
+				splmisc._findDialogOpened = True
+			except RuntimeError:
+				wx.CallAfter(splmisc._finderError)
+	# Translators: Input help mode message for a command in Station Playlist Studio.
+	script_timeRangeFinder.__doc__=_("Locates track dwith duration within a time range")
 
 	# Cart explorer
 	cartExplorer = False

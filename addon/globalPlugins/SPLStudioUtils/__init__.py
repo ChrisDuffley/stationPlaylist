@@ -16,7 +16,6 @@ import tones
 import nvwave
 import gui
 import wx
-import encoders
 import addonHandler
 addonHandler.initTranslation()
 
@@ -99,7 +98,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# Do some initialization, such as stream labels for SAM encoders.
 	def __init__(self):
 		super(globalPluginHandler.GlobalPlugin, self).__init__()
-		#encoders.loadStreamLabels()
 
 			#Global layer environment (see the app module for more information).
 	SPLController = False # Control SPL from anywhere.
@@ -238,6 +236,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.finish()
 
 	def script_announceNumMonitoringEncoders(self, gesture):
+		import encoders
 		encoders.announceNumMonitoringEncoders()
 		self.finish()
 
@@ -277,6 +276,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		if obj.appModule.appName in ("splengine", "splstreamer"):
+			import encoders
 			if obj.windowClassName == "TListView":
 				clsList.insert(0, encoders.SAMEncoder)
 			elif obj.windowClassName == "SysListView32":
