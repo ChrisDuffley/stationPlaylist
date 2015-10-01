@@ -39,8 +39,8 @@ The following commands are not assigned by default; if you wish to assign it, us
 * Announcing title of the currently playing track.
 * Marking current track for start of track time analysis.
 * Performing track time analysis.
-* Switch profiles.
 * Find text in specific columns.
+* Find tracks with duration that falls within a given range via time range finder.
 * Quickly enable or disable metadata streaming.
 
 ## Additional commands when using Sam or SPL encoders
@@ -54,7 +54,7 @@ The following commands are available when using Sam or SPL encoders:
 * Shift+F11: Toggles whether Studio will play the first selected track when encoder is connected to a streaming server.
 * Control+F11: Toggles background monitoring of the selected encoder.
 * F12/Control+NVDA+0: Opens a dialog to enter custom label for the selected encoder or stream.
-* Control+F12: opens a dialog to select the encoder you have deleted (to realign stream labels).
+* Control+F12: opens a dialog to select the encoder you have deleted (to realign stream labels and encoder settings).
 
 In addition, column review commands are available, including:
 
@@ -75,6 +75,7 @@ The available status information are:
 * A: Automation.
 * C: Title for the currently playing track.
 * D (R when compatibility mode is active): Remaining duration for the playlist.
+* E: Metadata streaming status.
 * H: Duration of music for the current hour slot.
 * Shift+H: Total duration of selected tracks for this hour slot (from the track list, press SPACE to select or uncheck the track to play).
 * I (L when compatibility mode is active): Listener count.
@@ -85,7 +86,7 @@ The available status information are:
 * N: Title for the next scheduled track.
 * P: Playback status (playing or stopped).
 * Shift+P: Pitch of the current track.
-* R (E when compatibility mode is active): Record to file enabled/disabled.
+* R (Shift+E when compatibility mode is active): Record to file enabled/disabled.
 * Shift+R: Monitor library scan in progress.
 * S: Track starts in (scheduled).
 * T: Cart edit mode on/off.
@@ -157,12 +158,15 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * Ability to package favorite settings as broadcast profiles to be used during a show and to switch to a predefined profile. See the add-on guide for details on broadcast profiles.
 * You can now ask NVDA to report total length of a range of tracks via track time analysis feature. Press SPL Assistant, F9 to mark current track as start marker, move to end of track range and press SPL Assistant, F10. These commands can be reassigned so one doesn't have to invoke SPL Assistant layer to perform track time analysis.
 * Added a column search dialog (command unassigned) to find text in specific columns such as artist or part of file name.
+* Added a time range finder dialog (command unassigned) to find a track with duration that falls within a specified range, useful if wishing to find a track to fill an hour slot.
 * Added ability to reorder track column announcement and to suppress announcement of specific columns if "use screen order" is unchecked from add-on settings dialog. Use "manage column announcement" dialog to reorder columns.
 * Added a dialog (command unassigned) to quickly toggle metadata streaming.
-* Added a setting in add-on settings dialog to configure when metadata streaming status should be announced.
+* Added a setting in add-on settings dialog to configure when metadata streaming status should be announced and to enable metadata streaming.
 * Added ability to mark a track as a place marker to return to it later (SPL Assistant, Control+K to set, SPL Assistant, K to move to the marked track).
 * Improved performance when searching for next or previous track text containing the searched text.
 * Added a setting in add-on settings dialog to configure alarm notification (beep, message or both).
+* It is now possible to configure microphone alarm between 0 (disabled) and two hours (7200 seconds) and to use up and down arrow keys to configure this setting.
+* Added a setting in add-on settings dialog to allow microphone active notification to be given periodically.
 * You can now use Track Dial toggle command in Studio to toggle Track Dial in Track Tool provided that you didn't assign a command to toggle Track Dial in Track Tool.
 * Added ability to use SPL Controller layer command to invoke SPL Assistant layer (configurable from advanced Settings dialog found in add-on settings dialog).
 * Ability for NvDA to use certain SPL Assistant commands used by other screen readers (experimental). To configure this, go to add-on settings, select Advanced Settings and check screen reader compatibility mode checkbox.

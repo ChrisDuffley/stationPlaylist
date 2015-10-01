@@ -804,10 +804,18 @@ class AppModule(appModuleHandler.AppModule):
 
 		# Find a specific track based on a searched text.
 	# But first, check if track finder can be invoked.
-	def _trackFinderCheck(self):
+	# Attempt level specifies which track finder to open (0 = Track Finder, 1 = Column Search, 2 = Time range).
+	def _trackFinderCheck(self, attemptLevel):
 		if api.getForegroundObject().windowClassName != "TStudioForm":
-			# Translators: Presented when a user attempts to find tracks but is not at the track list.
-			ui.message(_("Track finder is available only in track list."))
+			if attemptLevel == 0:
+				# Translators: Presented when a user attempts to find tracks but is not at the track list.
+				ui.message(_("Track finder is available only in track list."))
+			elif attemptLevel == 1:
+				# Translators: Presented when a user attempts to find tracks but is not at the track list.
+				ui.message(_("Column search is available only in track list."))
+			elif attemptLevel == 2:
+				# Translators: Presented when a user attempts to find tracks but is not at the track list.
+				ui.message(_("Time range finder is available only in track list."))
 			return False
 		elif api.getForegroundObject().windowClassName == "TStudioForm" and api.getFocusObject().role == controlTypes.ROLE_LIST:
 			# Translators: Presented when a user wishes to find a track but didn't add any tracks.
@@ -829,30 +837,47 @@ class AppModule(appModuleHandler.AppModule):
 			wx.CallAfter(splmisc._finderError)
 
 	def script_findTrack(self, gesture):
-		if self._trackFinderCheck(): self.trackFinderGUI()
+		if self._trackFinderCheck(0): self.trackFinderGUI()
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_findTrack.__doc__=_("Finds a track in the track list.")
 
 	def script_columnSearch(self, gesture):
-		if self._trackFinderCheck(): self.trackFinderGUI(columnSearch=True)
+		if self._trackFinderCheck(1): self.trackFinderGUI(columnSearch=True)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_columnSearch.__doc__=_("Finds text in columns.")
 
 	# Find next and previous scripts.
 
 	def script_findTrackNext(self, gesture):
-		if self._trackFinderCheck():
+		if self._trackFinderCheck(0):
 			if self.findText == "": self.trackFinderGUI()
 			else: self.trackFinder(self.findText, obj=api.getFocusObject().next)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_findTrackNext.__doc__=_("Finds the next occurrence of the track with the name in the track list.")
 
 	def script_findTrackPrevious(self, gesture):
-		if self._trackFinderCheck():
+		if self._trackFinderCheck(0):
 			if self.findText == "": self.trackFinderGUI()
 			else: self.trackFinder(self.findText, obj=api.getFocusObject().previous, directionForward=False)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_findTrackPrevious.__doc__=_("Finds previous occurrence of the track with the name in the track list.")
+
+	# Time range finder.
+	# Locate a track with duration falling between min and max.
+
+	def script_timeRangeFinder(self, gesture):
+		if self._trackFinderCheck(2):
+			try:
+				d = splmisc.SPLTimeRangeDialog(gui.mainFrame, api.getFocusObject(), statusAPI)
+				gui.mainFrame.prePopup()
+				d.Raise()
+				d.Show()
+				gui.mainFrame.postPopup()
+				splmisc._findDialogOpened = True
+			except RuntimeError:
+				wx.CallAfter(splmisc._finderError)
+	# Translators: Input help mode message for a command in Station Playlist Studio.
+	script_timeRangeFinder.__doc__=_("Locates track dwith duration within a time range")
 
 	# Cart explorer
 	cartExplorer = False

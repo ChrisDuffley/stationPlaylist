@@ -136,6 +136,97 @@ class SPLFindDialog(wx.Dialog):
 		_findDialogOpened = False
 
 
+# Time range finder: a variation on track finder.
+# Similar to track finder, locate tracks with duration that falls between min and max.
+class SPLTimeRangeDialog(wx.Dialog):
+
+	_instance = None
+
+	def __new__(cls, parent, *args, **kwargs):
+		# Make this a singleton and prompt an error dialog if it isn't.
+		if _findDialogOpened:
+			raise RuntimeError("An instance of find dialog is opened")
+		inst = cls._instance() if cls._instance else None
+		if not inst:
+			return super(cls, cls).__new__(cls, parent, *args, **kwargs)
+		return inst
+
+	def __init__(self, parent, obj, func):
+		inst = SPLTimeRangeDialog._instance() if SPLTimeRangeDialog._instance else None
+		if inst:
+			return
+		# Use a weakref so the instance can die.
+		SPLTimeRangeDialog._instance = weakref.ref(self)
+
+		super(SPLTimeRangeDialog, self).__init__(parent, wx.ID_ANY, "Time range finder")
+		self.obj = obj
+		self.func = func
+
+		mainSizer = wx.BoxSizer(wx.VERTICAL)
+
+		minSizer = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Minimum duration")), wx.HORIZONTAL)
+		prompt = wx.StaticText(self, wx.ID_ANY, label="Minute")
+		minSizer.Add(prompt)
+		self.minMinEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=60)
+		self.minMinEntry.SetValue(3)
+		minSizer.Add(self.minMinEntry)
+		prompt = wx.StaticText(self, wx.ID_ANY, label="Second")
+		minSizer.Add(prompt)
+		self.minSecEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=60)
+		self.minSecEntry.SetValue(0)
+		minSizer.Add(self.minSecEntry)
+		mainSizer.Add(minSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
+
+		maxSizer = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Maximum duration")), wx.HORIZONTAL)
+		prompt = wx.StaticText(self, wx.ID_ANY, label="Minute")
+		maxSizer.Add(prompt)
+		self.maxMinEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=60)
+		self.maxMinEntry.SetValue(5)
+		maxSizer.Add(self.maxMinEntry)
+		prompt = wx.StaticText(self, wx.ID_ANY, label="Second")
+		maxSizer.Add(prompt)
+		self.maxSecEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=60)
+		self.maxSecEntry.SetValue(0)
+		maxSizer.Add(self.maxSecEntry)
+		mainSizer.Add(maxSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
+
+		mainSizer.AddSizer(self.CreateButtonSizer(wx.OK|wx.CANCEL))
+		self.Bind(wx.EVT_BUTTON,self.onOk,id=wx.ID_OK)
+		self.Bind(wx.EVT_BUTTON,self.onCancel,id=wx.ID_CANCEL)
+		mainSizer.Fit(self)
+		self.SetSizer(mainSizer)
+		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+		self.minMinEntry.SetFocus()
+
+	def onOk(self, evt):
+		self.Destroy()
+		global _findDialogOpened
+		if user32.FindWindowA("SPLStudio", None):
+			minDuration = ((self.minMinEntry.GetValue() * 60) + self.minSecEntry.GetValue()) * 1000
+			maxDuration = ((self.maxMinEntry.GetValue() * 60) + self.maxSecEntry.GetValue()) * 1000
+			obj = self.obj.next
+			# Manually locate tracks here.
+			while obj is not None:
+				filename = self.func(obj.IAccessibleChildID-1, 211, ret=True)
+				if minDuration <= self.func(filename, 30, ret=True) <= maxDuration:
+					break
+				obj = obj.next
+			if obj is not None:
+				obj.setFocus(), obj.setFocus()
+			else:
+				wx.CallAfter(gui.messageBox,
+				# Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
+				_("No track with duration between minimum and maximum duration."),
+				# Translators: Standard error title for find error (copy this from main nvda.po).
+				_("Time range find error"),wx.OK|wx.ICON_ERROR)
+		_findDialogOpened = False
+
+	def onCancel(self, evt):
+		self.Destroy()
+		global _findDialogOpened
+		_findDialogOpened = False
+
+
 # Cart Explorer helper.
 
 def _populateCarts(carts, cartlst, modifier, standardEdition=False):
