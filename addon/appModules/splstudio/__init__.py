@@ -404,21 +404,8 @@ class AppModule(appModuleHandler.AppModule):
 					if self.libraryScanning: self.libraryScanning = False
 					self.scanCount = 0
 			else:
-				if obj.name.endswith((" On", " Off")) and splconfig.SPLConfig["BeepAnnounce"]:
-					# User wishes to hear beeps instead of words. The beeps are power on and off sounds from PAC Mate Omni.
-					beep = obj.name.split()
-					stat = beep[-1]
-					wavDir = os.path.dirname(__file__)
-					# Play a wave file based on on/off status.
-					if stat == "Off":
-						wavFile = os.path.join(wavDir, "SPL_off.wav")
-					elif stat == "On":
-						wavFile = os.path.join(wavDir, "SPL_on.wav")
-					# Yet another Studio 5.10 fix: sometimes, status bar fires this event once more.
-					try:
-						messageSound(wavFile, obj.name)
-					except:
-						return
+				if obj.name.endswith((" On", " Off")):
+					self._toggleMessage(obj.name)
 				else:
 					ui.message(obj.name)
 				if self.cartExplorer or int(splconfig.SPLConfig["MicAlarm"]):
@@ -444,6 +431,35 @@ class AppModule(appModuleHandler.AppModule):
 		nextHandler()
 
 	# JL's additions
+
+	# Handle toggle messages.
+	def _toggleMessage(self, msg):
+		if splconfig.SPLConfig["MessageVerbosity"] != "beginner":
+			msg = msg.split()[-1]
+		if splconfig.SPLConfig["BeepAnnounce"]:
+			# User wishes to hear beeps instead of words. The beeps are power on and off sounds from PAC Mate Omni.
+			if msg.endswith("Off"):
+				if splconfig.SPLConfig["MessageVerbosity"] == "beginner":
+					wavFile = os.path.join(os.path.dirname(__file__), "SPL_off.wav")
+					try:
+						messageSound(wavFile, msg)
+					except:
+						pass
+				else:
+					tones.beep(500, 100)
+					braille.handler.message(msg)
+			elif msg.endswith("On"):
+				if splconfig.SPLConfig["MessageVerbosity"] == "beginner":
+					wavFile = os.path.join(os.path.dirname(__file__), "SPL_on.wav")
+					try:
+						messageSound(wavFile, msg)
+					except:
+						pass
+				else:
+					tones.beep(1000, 100)
+					braille.handler.message(msg)
+		else:
+			ui.message(msg)
 
 	# Perform extra action in specific situations (mic alarm, for example).
 	def doExtraAction(self, status):
@@ -726,12 +742,9 @@ class AppModule(appModuleHandler.AppModule):
 	def script_toggleBeepAnnounce(self, gesture):
 		if not splconfig.SPLConfig["BeepAnnounce"]:
 			splconfig.SPLConfig["BeepAnnounce"] = True
-			# Translators: Reported when status announcement is set to beeps in SPL Studio.
-			ui.message(_("Status announcement beeps"))
 		else:
 			splconfig.SPLConfig["BeepAnnounce"] = False
-			# Translators: Reported when status announcement is set to words in SPL Studio.
-			ui.message(_("Status announcement words"))
+		splconfig.message("BeepAnnounce", splconfig.SPLConfig["BeepAnnounce"])
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_toggleBeepAnnounce.__doc__=_("Toggles status announcements between words and beeps.")
 
@@ -742,21 +755,14 @@ class AppModule(appModuleHandler.AppModule):
 		brailleTimer = splconfig.SPLConfig["BrailleTimer"]
 		if brailleTimer == "off":
 			brailleTimer = "outro"
-			# Translators: A setting in braille timer options.
-			ui.message(_("Braille track endings"))
 		elif brailleTimer == "outro":
 			brailleTimer = "intro"
-			# Translators: A setting in braille timer options.
-			ui.message(_("Braille intro endings"))
 		elif brailleTimer == "intro":
 			brailleTimer = "both"
-			# Translators: A setting in braille timer options.
-			ui.message(_("Braille intro and track endings"))
 		else:
 			brailleTimer = "off"
-			# Translators: A setting in braille timer options.
-			ui.message(_("Braille timer off"))
 		splconfig.SPLConfig["BrailleTimer"] = brailleTimer
+		splconfig.message("BrailleTimer", brailleTimer)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setBrailleTimer.__doc__=_("Toggles between various braille timer settings.")
 
@@ -963,21 +969,14 @@ class AppModule(appModuleHandler.AppModule):
 		libraryScanAnnounce = splconfig.SPLConfig["LibraryScanAnnounce"]
 		if libraryScanAnnounce == "off":
 			libraryScanAnnounce = "ending"
-			# Translators: A setting in library scan announcement options.
-			ui.message(_("Announce start and end of a library scan"))
 		elif libraryScanAnnounce == "ending":
 			libraryScanAnnounce = "progress"
-			# Translators: A setting in library scan announcement options.
-			ui.message(_("Announce the progress of a library scan"))
 		elif libraryScanAnnounce == "progress":
 			libraryScanAnnounce = "numbers"
-			# Translators: A setting in library scan announcement options.
-			ui.message(_("Announce progress and item count of a library scan"))
 		else:
 			libraryScanAnnounce = "off"
-			# Translators: A setting in library scan announcement options.
-			ui.message(_("Do not announce library scans"))
 		splconfig.SPLConfig["LibraryScanAnnounce"] = libraryScanAnnounce
+		splconfig.message("LibraryScanAnnounce", libraryScanAnnounce)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setLibraryScanProgress.__doc__=_("Toggles library scan progress settings.")
 
@@ -1250,29 +1249,35 @@ class AppModule(appModuleHandler.AppModule):
 	def script_sayPlayStatus(self, gesture):
 		# Please do not translate the following messages.
 		if statusAPI(0, 104, ret=True):
-			ui.message("Play status: Playing")
+			msg = "Play status: Playing" if splconfig.SPLConfig["MessageVerbosity"] == "beginner" else "Playing"
 		else:
-			ui.message("Play status: Stopped")
+			msg = "Play status: Stopped" if splconfig.SPLConfig["MessageVerbosity"] == "beginner" else "Stopped"
+		ui.message(msg)
 
 	def script_sayAutomationStatus(self, gesture):
 		obj = self.status(self.SPLPlayStatus).children[1]
-		ui.message(obj.name)
+		msg = obj.name if splconfig.SPLConfig["MessageVerbosity"] == "beginner" else obj.name.split()[-1]
+		ui.message(msg)
 
 	def script_sayMicStatus(self, gesture):
 		obj = self.status(self.SPLPlayStatus).children[2]
-		ui.message(obj.name)
+		msg = obj.name if splconfig.SPLConfig["MessageVerbosity"] == "beginner" else obj.name.split()[-1]
+		ui.message(msg)
 
 	def script_sayLineInStatus(self, gesture):
 		obj = self.status(self.SPLPlayStatus).children[3]
-		ui.message(obj.name)
+		msg = obj.name if splconfig.SPLConfig["MessageVerbosity"] == "beginner" else obj.name.split()[-1]
+		ui.message(msg)
 
 	def script_sayRecToFileStatus(self, gesture):
 		obj = self.status(self.SPLPlayStatus).children[4]
-		ui.message(obj.name)
+		msg = obj.name if splconfig.SPLConfig["MessageVerbosity"] == "beginner" else obj.name.split()[-1]
+		ui.message(msg)
 
 	def script_sayCartEditStatus(self, gesture):
 		obj = self.status(self.SPLPlayStatus).children[5]
-		ui.message(obj.name)
+		msg = obj.name if splconfig.SPLConfig["MessageVerbosity"] == "beginner" else obj.name.split()[-1]
+		ui.message(msg)
 
 	def script_sayHourTrackDuration(self, gesture):
 		statusAPI(0, 27, self.announceTime)
