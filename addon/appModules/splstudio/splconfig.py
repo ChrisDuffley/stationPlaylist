@@ -281,13 +281,17 @@ def instantProfileSwitch():
 			SPLConfig = SPLConfigPool[switchProfileIndex]
 			ui.message("Switching profiles")
 			# Use the focus.appModule's metadata reminder method if told to do so now.
-			if SPLConfig["MetadataReminder"] == "instant":
+			if SPLConfig["MetadataReminder"] in ("startup", "instant"):
 				api.getFocusObject().appModule._metadataAnnouncer(reminder=True)
 		else:
 			SPLConfig = SPLConfigPool[SPLPrevProfile]
 			SPLActiveProfile = SPLConfig.name
 			SPLPrevProfile = None
 			ui.message("Returning to previous profile")
+			# 6.2: Don't forget to switch streaming status around.
+			if SPLConfig["MetadataReminder"] in ("startup", "instant"):
+				api.getFocusObject().appModule._metadataAnnouncer(reminder=True)
+
 
 # Configuration dialog.
 _configDialogOpened = False
