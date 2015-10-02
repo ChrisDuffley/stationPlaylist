@@ -69,6 +69,7 @@ P: Play.
 U: Pause.
 S: Stop with fade.
 T: Instant stop.
+E: Announce if any encoders are being monitored.
 R: Remainig time for the playing track.
 Shift+R: Library scan progress.""")
 

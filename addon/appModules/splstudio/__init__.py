@@ -229,7 +229,7 @@ class SPLTrackItem(IAccessible):
 	}
 
 class SPL510TrackItem(SPLTrackItem):
-	""" Track item for Studio 5.10 and later."""
+	"""Track item for Studio 5.10 and later."""
 
 	def script_select(self, gesture):
 		gesture.send()
@@ -252,6 +252,8 @@ SPLAssistantHelp=_("""After entering SPL Assistant, press:
 A: Automation.
 C: Announce name of the currently playing track.
 D: Remaining time for the playlist.
+E: Overall metadata streaming status.
+1 through 4, 0: Metadata streaming status for DSP encoder and four additional URL's.
 H: Duration of trakcs in this hour slot.
 Shift+H: Duration of selected tracks.
 I: Listener count.
@@ -1517,7 +1519,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:a":"sayAutomationStatus",
 		"kb:m":"sayMicStatus",
 		"kb:shift+l":"sayLineInStatus",
-		"kb:e":"sayRecToFileStatus",
+		"kb:shift+e":"sayRecToFileStatus",
 		"kb:t":"sayCartEditStatus",
 		"kb:h":"sayHourTrackDuration",
 		"kb:shift+h":"sayHourSelectedTrackDuration",
@@ -1536,6 +1538,12 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:f12":"switchProfiles",
 		"kb:Control+k":"setPlaceMarker",
 		"kb:k":"findPlaceMarker",
+		"kb:e":"metadataStreamingAnnouncer",
+		"kb:1":"metadataEnabled",
+		"kb:2":"metadataEnabled",
+		"kb:3":"metadataEnabled",
+		"kb:4":"metadataEnabled",
+		"kb:0":"metadataEnabled",
 		"kb:f1":"layerHelp",
 		"kb:shift+f1":"openOnlineDoc",
 	}

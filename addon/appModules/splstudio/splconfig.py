@@ -338,8 +338,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 		item.Bind(wx.EVT_BUTTON, self.onDelete)
 		sizer.Add(item)
 		# Translators: The label of a button to toggle instant profile switching on and off.
-		if SPLSwitchProfile is None: switchLabel = "Enable instant profile switching"
-		else: switchLabel = "Disable instant profile switching"
+		if SPLSwitchProfile is None: switchLabel = _("Enable instant profile switching")
+		else:
+			# Translators: The label of a button to toggle instant profile switching on and off.
+			switchLabel = _("Disable instant profile switching")
 		item = self.instantSwitchButton = wx.Button(self, label=switchLabel)
 		item.Bind(wx.EVT_BUTTON, self.onInstantSwitch)
 		self.switchProfile = SPLSwitchProfile
@@ -643,9 +645,9 @@ class SPLConfigDialog(gui.SettingsDialog):
 			self.renameButton.Enable()
 			self.deleteButton.Enable()
 			if selectedProfile != self.switchProfile:
-				self.instantSwitchButton.Label = "Enable instant profile switching"
+				self.instantSwitchButton.Label = _("Enable instant profile switching")
 			else:
-				self.instantSwitchButton.Label = "Disable instant profile switching"
+				self.instantSwitchButton.Label = _("Disable instant profile switching")
 			self.instantSwitchButton.Enable()
 		curProfile = getProfileByName(selectedProfile)
 		self.outroCheckBox.SetValue(curProfile["SayEndOfTrack"])
@@ -737,11 +739,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 		selection = self.profiles.GetSelection()
 		selectedName = self.profiles.GetStringSelection()
 		if self.switchProfile is None or (selectedName != self.switchProfile):
-			self.instantSwitchButton.Label = "Disable instant profile switching"
+			self.instantSwitchButton.Label = _("Disable instant profile switching")
 			self.switchProfile = selectedName
 			tones.beep(1000, 500)
 		else:
-			self.instantSwitchButton.Label = "Enable instant profile switching"
+			self.instantSwitchButton.Label = _("Enable instant profile switching")
 			self.switchProfile = None
 			tones.beep(500, 500)
 
@@ -903,7 +905,7 @@ class MetadataStreamingDialog(wx.Dialog):
 		# Use a weakref so the instance can die.
 		MetadataStreamingDialog._instance = weakref.ref(self)
 
-		super(MetadataStreamingDialog, self).__init__(parent, title="Metadata streaming options")
+		super(MetadataStreamingDialog, self).__init__(parent, title=_("Metadata streaming options"))
 		self.func = func
 
 		# WX's CheckListBox isn't user friendly.
@@ -973,7 +975,7 @@ class MetadataStreamingDialog(wx.Dialog):
 class ColumnAnnouncementsDialog(wx.Dialog):
 
 	def __init__(self, parent):
-		super(ColumnAnnouncementsDialog, self).__init__(parent, title="Manage column announcements")
+		super(ColumnAnnouncementsDialog, self).__init__(parent, title=_("Manage column announcements"))
 
 		# Same as metadata dialog (wx.CheckListBox isn't user friendly).
 		self.checkedColumns = []
@@ -1076,7 +1078,7 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 class AdvancedOptionsDialog(wx.Dialog):
 
 	def __init__(self, parent):
-		super(AdvancedOptionsDialog, self).__init__(parent, title="Advanced options")
+		super(AdvancedOptionsDialog, self).__init__(parent, title=_("Advanced options"))
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 
