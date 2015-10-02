@@ -215,7 +215,6 @@ def isConfigPoolSorted():
 
 # Perform some extra work before writing the config file.
 def _preSave(conf):
-	print SPLConfigPool.index(conf)
 	# Perform global setting processing only for the normal profile.
 	if SPLConfigPool.index(conf) == 0:
 		conf["IncludedColumns"] = list(conf["IncludedColumns"])

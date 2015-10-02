@@ -802,10 +802,8 @@ class AppModule(appModuleHandler.AppModule):
 			for column in columns:
 				columnText = splmisc._getColumnContent(obj, column)
 				if columnText and text in columnText:
-					print "Track locator took %s seconds"%(time.time()-t)
 					return obj
 			obj = getattr(obj, nextTrack)
-		print "Track locator took %s seconds"%(time.time()-t)
 		return None
 
 		# Find a specific track based on a searched text.

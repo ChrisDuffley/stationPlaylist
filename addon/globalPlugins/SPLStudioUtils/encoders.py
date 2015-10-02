@@ -486,10 +486,8 @@ class SAMEncoder(Encoder):
 	def removeStreamConfig(self, pos):
 		# An application of map successor algorithm.
 		global _encoderConfigRemoved
-		print "Removing stream config..."
 		# Manipulate SAM encoder settings and labels.
 		_removeEncoderID("SAM", pos)
-		print "Removing stream labels..."
 		labelLength = len(SAMStreamLabels)
 		if not labelLength or pos > max(SAMStreamLabels.keys()):
 			if _encoderConfigRemoved is not None:
@@ -523,8 +521,6 @@ class SAMEncoder(Encoder):
 					oldPosition = int(position)
 					SAMStreamLabels[str(oldPosition-1)] = SAMStreamLabels[position]
 					del SAMStreamLabels[position]
-		print "Saving stream settings..."
-		print streamLabels
 		streamLabels["SAMEncoders"] = SAMStreamLabels
 		streamLabels.write()
 
@@ -641,10 +637,8 @@ class SPLEncoder(Encoder):
 
 	def removeStreamConfig(self, pos):
 		global _encoderConfigRemoved
-		print "Removing stream config..."
 		# This time, manipulate SPL ID entries.
 		_removeEncoderID("SPL", pos)
-		print "Removing stream labels..."
 		labelLength = len(SPLStreamLabels)
 		if not labelLength or pos > max(SPLStreamLabels.keys()):
 			if _encoderConfigRemoved is not None:
@@ -677,8 +671,6 @@ class SPLEncoder(Encoder):
 					oldPosition = int(position)
 					SPLStreamLabels[str(oldPosition-1)] = SPLStreamLabels[position]
 					del SPLStreamLabels[position]
-		print "Saving stream settings..."
-		print streamLabels
 		streamLabels["SPLEncoders"] = SPLStreamLabels
 		streamLabels.write()
 

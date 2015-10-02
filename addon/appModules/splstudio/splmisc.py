@@ -169,11 +169,13 @@ class SPLTimeRangeDialog(wx.Dialog):
 		minSizer.Add(prompt)
 		self.minMinEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=60)
 		self.minMinEntry.SetValue(3)
+		self.minMinEntry.SetSelection(-1, -1)
 		minSizer.Add(self.minMinEntry)
 		prompt = wx.StaticText(self, wx.ID_ANY, label="Second")
 		minSizer.Add(prompt)
 		self.minSecEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=60)
 		self.minSecEntry.SetValue(0)
+		self.minSecEntry.SetSelection(-1, -1)
 		minSizer.Add(self.minSecEntry)
 		mainSizer.Add(minSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
@@ -182,11 +184,13 @@ class SPLTimeRangeDialog(wx.Dialog):
 		maxSizer.Add(prompt)
 		self.maxMinEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=60)
 		self.maxMinEntry.SetValue(5)
+		self.maxMinEntry.SetSelection(-1, -1)
 		maxSizer.Add(self.maxMinEntry)
 		prompt = wx.StaticText(self, wx.ID_ANY, label="Second")
 		maxSizer.Add(prompt)
 		self.maxSecEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=60)
 		self.maxSecEntry.SetValue(0)
+		self.maxSecEntry.SetSelection(-1, -1)
 		maxSizer.Add(self.maxSecEntry)
 		mainSizer.Add(maxSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
@@ -212,7 +216,8 @@ class SPLTimeRangeDialog(wx.Dialog):
 					break
 				obj = obj.next
 			if obj is not None:
-				obj.setFocus(), obj.setFocus()
+				# This time, set focus once, as doing it twice causes focus problems.
+				obj.setFocus()
 			else:
 				wx.CallAfter(gui.messageBox,
 				# Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
