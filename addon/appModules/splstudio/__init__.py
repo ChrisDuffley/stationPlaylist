@@ -325,8 +325,11 @@ class AppModule(appModuleHandler.AppModule):
 		return splconfig.SPLConfig["SPLConPassthrough"]
 
 	def event_NVDAObject_init(self, obj):
+		# From 0.01: previously focused item fires focus event when it shouldn't.
+		if obj.windowClassName == "TListView" and obj.role in (controlTypes.ROLE_CHECKBOX, controlTypes.ROLE_LISTITEM) and controlTypes.STATE_FOCUSED not in obj.states:
+			obj.shouldAllowIAccessibleFocusEvent = False
 		# Radio button group names are not recognized as grouping, so work around this.
-		if obj.windowClassName == "TRadioGroup":
+		elif obj.windowClassName == "TRadioGroup":
 			obj.role = controlTypes.ROLE_GROUPING
 		# In certain edit fields and combo boxes, the field name is written to the screen, and there's no way to fetch the object for this text. Thus use review position text.
 		elif obj.windowClassName in ("TEdit", "TComboBox") and not obj.name:
