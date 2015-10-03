@@ -229,6 +229,9 @@ def _preSave(conf):
 				del conf["InstantProfile"]
 			except KeyError:
 				pass
+		# 6.0 only: Remove obsolete keys.
+		if "MetadataURL" in conf:
+			del conf["InstantProfile"]
 	# For other profiles, remove global settings before writing to disk.
 	else:
 		for setting in conf.keys():
