@@ -184,6 +184,9 @@ def _extraInitSteps(conf, profileName=None):
 		columnOrder = fields
 	conf["ColumnOrder"] = columnOrder
 	conf["IncludedColumns"] = set(conf["IncludedColumns"])
+	# Artist and Title must be present at all times (quite redundant, but just in case).
+	conf["IncludedColumns"].add("Artist")
+	conf["IncludedColumns"].add("Title")
 
 # Apply base profile if loading user-defined broadcast profiles.
 def _applyBaseSettings(conf):
@@ -982,15 +985,16 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 		super(ColumnAnnouncementsDialog, self).__init__(parent, title=_("Manage column announcements"))
 
 		# Same as metadata dialog (wx.CheckListBox isn't user friendly).
+		# Gather values for checkboxes except artist and title.
 		self.checkedColumns = []
-		for column in ("Artist", "Title", "Duration", "Intro", "Category", "Filename"):
+		for column in ("Duration", "Intro", "Category", "Filename"):
 			checkedColumn=wx.CheckBox(self,wx.NewId(),label=column)
 			checkedColumn.SetValue(column in SPLConfig["IncludedColumns"])
 			self.checkedColumns.append(checkedColumn)
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		# First, a help text.
-		label = wx.StaticText(self, wx.ID_ANY, label=_("Select columns to be announced"))
+		label = wx.StaticText(self, wx.ID_ANY, label=_("Select columns to be announced (artist and title are announced by default"))
 		mainSizer.Add(label,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
@@ -1036,6 +1040,9 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 	def onOk(self, evt):
 		parent = self.Parent
 		parent.columnOrder = self.trackColumns.GetItems()
+		# Make sure artist and title are always included.
+		parent.includedColumns.add("Artist")
+		parent.includedColumns.add("Title")
 		for checkbox in self.checkedColumns:
 			action = parent.includedColumns.add if checkbox.Value else parent.includedColumns.remove
 			action(checkbox.Label)
@@ -1052,7 +1059,6 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 		selIndex = self.trackColumns.GetSelection()
 		self.upButton.Disable() if selIndex == 0 else self.upButton.Enable()
 		if selIndex == self.trackColumns.GetCount()-1:
-			self.upButton.SetFocus()
 			self.dnButton.Disable()
 		else: self.dnButton.Enable()
 
@@ -1075,6 +1081,10 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 			self.trackColumns.Insert(selItem, selIndex+1)
 			self.trackColumns.Select(selIndex+1)
 			self.onColumnSelection(None)
+			# Hack: Wen the last item is selected, forcefully move the focus to "move up" button.
+			# This will cause NVDA to say "unavailable" as focus is lost momentarily. A bit anoying but a necessary hack.
+			if self.FindFocus().GetId() == wx.ID_OK:
+				self.upButton.SetFocus()
 
 # Advanced options
 # This dialog houses advanced options such as using SPL Controller command to invoke SPL Assistant.
