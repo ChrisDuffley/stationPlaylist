@@ -35,8 +35,12 @@ import textInfos
 import tones
 import splconfig
 import splmisc
+import splupdate
 import addonHandler
 addonHandler.initTranslation()
+
+def update():
+	splupdate._updateCheckEx()
 
 # The finally function for status announcement scripts in this module (source: Tyler Spivey's code).
 def finally_(func, final):
@@ -1479,6 +1483,9 @@ class AppModule(appModuleHandler.AppModule):
 	def script_openOnlineDoc(self, gesture):
 		os.startfile("https://bitbucket.org/nvdaaddonteam/stationplaylist/wiki/SPLDevAddonGuide")
 
+	def script_updateCheck(self, gesture):
+		splupdate.updateCheck()
+
 
 	__SPLAssistantGestures={
 		"kb:p":"sayPlayStatus",
@@ -1512,6 +1519,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:0":"metadataEnabled",
 		"kb:f1":"layerHelp",
 		"kb:shift+f1":"openOnlineDoc",
+		"kb:control+shift+u":"updateCheck",
 	}
 
 	__SPLAssistantJFWGestures={
@@ -1546,6 +1554,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:0":"metadataEnabled",
 		"kb:f1":"layerHelp",
 		"kb:shift+f1":"openOnlineDoc",
+		"kb:control+shift+u":"updateCheck",
 	}
 
 	__gestures={
