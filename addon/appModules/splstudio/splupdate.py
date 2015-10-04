@@ -10,10 +10,17 @@ import gui
 import wx
 import tones
 import splconfig
+import addonHandler
+
+# Add-on manifest routine (credit: various add-on authors including Noelia Martinez).
+# Do not rely on using absolute path to open to manifest, as installation directory may change in a future NVDA Core version (highly unlikely, but...).
+_addonDir = os.path.join(os.path.dirname(__file__), "..", "..")
+# Move this to the main app module in case version will be queried by users.
+SPLAddonVersion = addonHandler.Addon(_addonDir).manifest['version']
 
 # Cache the file size for the last downloaded SPL add-on installer.
 SPLAddonSize = 0
-# Update URL.
+# Update URL (the only way to change it is installing a different version from a different branch).
 SPLUpdateURL = "http://addons.nvda-project.org/files/get.php?file=spl-dev"
 
 def _versionFromURL(url):
@@ -21,23 +28,44 @@ def _versionFromURL(url):
 	name = filename.split(".nvda-addon")[0]
 	return name[name.find("-")+1:]
 
+def updateProgress():
+	tones.beep(440, 40)
+
+def updateQualify(url):
+	size = int(url.info().getheader("Content-Length"))
+	version = _versionFromURL(url.url)
+	# In case we are running the latest version, check the content length (size).
+	if version == SPLAddonVersion:
+		if "-dev" not in version or ("-dev" in SPLAddonVersion and size == SPLAddonSize):
+			return None
+	elif version > SPLAddonVersion or ("-dev" in version and size != SPLAddonSize):
+		return version
+	else:
+		return ""
+
 def updateCheck():
 	#global SPLAddonSize
-	tones.beep(900, 200)
+	tones.beep(110, 40)
+	# Try builds does not (and will not) support upgrade checking unless absolutely required.
 	# All the information will be stored in the URL object, so just close it once the headers are downloaded.
+	progressTone = wx.PyTimer(updateProgress)
+	progressTone.Start(1000)
 	url = urllib.urlopen(SPLUpdateURL)
 	url.close()
 	if url.code != 200:
-		wx.CallAfter(gui.messageBox, "Add-on update check failed.", "Check for add-on update")
-		return
-	size = int(url.info().getheader("Content-Length"))
-	if size == SPLAddonSize:
-		wx.CallAfter(gui.messageBox, "No add-on update available.", "Check for add-on update")
-		return
+		checkMessage = "Add-on update check failed."
 	else:
-		version = _versionFromURL(url.url)
-		wx.CallAfter(gui.messageBox, "Studio add-on {newVersion} is available.".format(newVersion = version), "Check for add-on update")
-		#SPLAddonSize = size
+		# In case we are running the latest version, check the content length (size).
+		qualified = updateQualify(url)
+		if qualified is None:
+			checkMessage = "No add-on update available."
+		elif qualified == "":
+			checkMessage = "You appear to be running a version newer than the latest released version. Please reinstall the official version to downgrade."
+		else:
+			checkMessage = "Studio add-on {newVersion} is available.".format(newVersion = qualified)
+	progressTone.Stop()
+	wx.CallAfter(gui.messageBox, checkMessage, "Check for add-on update")
+	#SPLAddonSize = size
 
 def _updateCheckEx():
 	#global SPLAddonSize
