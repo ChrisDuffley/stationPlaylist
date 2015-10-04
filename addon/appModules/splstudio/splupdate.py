@@ -39,7 +39,7 @@ def updateProgress():
 	tones.beep(440, 40)
 
 def updateQualify(url):
-	size = int(url.info().getheader("Content-Length"))
+	size = hex(int(url.info().getheader("Content-Length")))
 	version = _versionFromURL(url.url)
 	# In case we are running the latest version, check the content length (size).
 	if version == SPLAddonVersion:
