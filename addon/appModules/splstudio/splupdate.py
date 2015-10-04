@@ -32,6 +32,7 @@ def _versionFromURL(url):
 def _lastModified(lastModified):
 	# Add-ons server uses British date format (dd-mm-yyyy).
 	day, month, year = lastModified.split()[1:4]
+	# Adopted from a Stack Overflow entry on converting month abbreviations to indecies.
 	month = str({v: k for k,v in enumerate(month_abbr)}[month]).zfill(2)
 	return "-".join([year, month, day])
 
