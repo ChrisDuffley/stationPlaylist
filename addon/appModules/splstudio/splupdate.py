@@ -6,6 +6,7 @@
 
 import urllib
 import os # Essentially, update download is no different than file downloads.
+from calendar import month_abbr # Last modified date formatting.
 import gui
 import wx
 import tones
@@ -27,6 +28,12 @@ def _versionFromURL(url):
 	filename = url.split("/")[-1]
 	name = filename.split(".nvda-addon")[0]
 	return name[name.find("-")+1:]
+
+def _lastModified(lastModified):
+	# Add-ons server uses British date format (dd-mm-yyyy).
+	day, month, year = lastModified.split()[1:4]
+	month = str({v: k for k,v in enumerate(month_abbr)}[month]).zfill(2)
+	return "-".join([year, month, day])
 
 def updateProgress():
 	tones.beep(440, 40)
@@ -55,14 +62,14 @@ def updateCheck():
 	if url.code != 200:
 		checkMessage = "Add-on update check failed."
 	else:
-		# In case we are running the latest version, check the content length (size).
+		# Am I qualified to update?
 		qualified = updateQualify(url)
 		if qualified is None:
 			checkMessage = "No add-on update available."
 		elif qualified == "":
 			checkMessage = "You appear to be running a version newer than the latest released version. Please reinstall the official version to downgrade."
 		else:
-			checkMessage = "Studio add-on {newVersion} is available.".format(newVersion = qualified)
+			checkMessage = "Studio add-on {newVersion} ({modifiedDate}) is available.".format(newVersion = qualified, modifiedDate = _lastModified(url.info().getheader("Last-Modified")))
 	progressTone.Stop()
 	wx.CallAfter(gui.messageBox, checkMessage, "Check for add-on update")
 	#SPLAddonSize = size
