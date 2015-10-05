@@ -834,8 +834,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	def trackFinderGUI(self, columnSearch=False):
 		try:
-			if not columnSearch: title = "Find track"
-			else: title = "Column search"
+			if not columnSearch: title = _("Find track")
+			else: title = _("Column search")
 			d = splmisc.SPLFindDialog(gui.mainFrame, api.getFocusObject(), self.findText, title, columnSearch = columnSearch)
 			gui.mainFrame.prePopup()
 			d.Raise()
