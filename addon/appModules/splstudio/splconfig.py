@@ -108,7 +108,8 @@ def initConfig():
 	# Load the default config from a list of profiles.
 	global SPLConfig, SPLConfigPool, _configLoadStatus, SPLActiveProfile, SPLSwitchProfile
 	if SPLConfigPool is None: SPLConfigPool = []
-	if SPLActiveProfile is None: SPLActiveProfile = "Normal profile"
+	# Translators: The name of the default (normal) profile.
+	if SPLActiveProfile is None: SPLActiveProfile = _("Normal profile")
 	SPLConfigPool.append(unlockConfig(SPLIni, profileName=SPLActiveProfile, prefill=True))
 	try:
 		profiles = filter(lambda fn: os.path.splitext(fn)[-1] == ".ini", os.listdir(SPLProfiles))
@@ -433,13 +434,13 @@ class SPLConfigDialog(gui.SettingsDialog):
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: The label for a setting in SPL add-on dialog to control braille timer.
 		label = wx.StaticText(self, wx.ID_ANY, label=_("&Braille timer:"))
-		self.brailleTimerValues=[("off",_("off")),
+		self.brailleTimerValues=[("off",_("Off")),
 		# Translators: One of the braille timer settings.
-		("outro",_("track ending")),
+		("outro",_("Track ending")),
 		# Translators: One of the braille timer settings.
-		("intro",_("track intro")),
+		("intro",_("Track intro")),
 		# Translators: One of the braille timer settings.
-		("both",_("track intro and ending"))]
+		("both",_("Track intro and ending"))]
 		self.brailleTimerList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.brailleTimerValues])
 		brailleTimerCurValue=SPLConfig["BrailleTimer"]
 		selection = (x for x,y in enumerate(self.brailleTimerValues) if y[0]==brailleTimerCurValue).next()  
@@ -492,13 +493,13 @@ class SPLConfigDialog(gui.SettingsDialog):
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: The label for a setting in SPL add-on dialog to control library scan announcement.
 		label = wx.StaticText(self, wx.ID_ANY, label=_("&Library scan announcement:"))
-		self.libScanValues=[("off",_("off")),
+		self.libScanValues=[("off",_("Off")),
 		# Translators: One of the library scan announcement settings.
-		("ending",_("start and end only")),
+		("ending",_("Start and end only")),
 		# Translators: One of the library scan announcement settings.
-		("progress",_("scan progress")),
+		("progress",_("Scan progress")),
 		# Translators: One of the library scan announcement settings.
-		("numbers",_("scan count"))]
+		("numbers",_("Scan count"))]
 		self.libScanList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.libScanValues])
 		libScanCurValue=SPLConfig["LibraryScanAnnounce"]
 		selection = (x for x,y in enumerate(self.libScanValues) if y[0]==libScanCurValue).next()  
@@ -518,11 +519,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: the label for a setting in SPL add-on settings to be notified that metadata streaming is enabled.
 		label = wx.StaticText(self, wx.ID_ANY, label=_("&Metadata streaming notification and connection"))
-		self.metadataValues=[("off",_("off")),
+		self.metadataValues=[("off",_("Off")),
 		# Translators: One of the metadata notification settings.
-		("startup",_("when Studio starts")),
+		("startup",_("When Studio starts")),
 		# Translators: One of the metadata notification settings.
-		("instant",_("when instant switch profile is active"))]
+		("instant",_("When instant switch profile is active"))]
 		self.metadataList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.metadataValues])
 		metadataCurValue=SPLConfig["MetadataReminder"]
 		selection = (x for x,y in enumerate(self.metadataValues) if y[0]==metadataCurValue).next()  
@@ -648,8 +649,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	# Load settings from profiles.
 	def onProfileSelection(self, evt):
-		import tones
-		tones.beep(500, 100)
 		# Don't rely on SPLConfig here, as we don't want to interupt the show.
 		selection = self.profiles.GetSelection()
 		selectedProfile = self.profiles.GetStringSelection()
@@ -751,7 +750,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.profiles.SetFocus()
 
 	def onInstantSwitch(self, evt):
-		import tones
 		selection = self.profiles.GetSelection()
 		selectedName = self.profiles.GetStringSelection()
 		if self.switchProfile is None or (selectedName != self.switchProfile):
@@ -1266,15 +1264,12 @@ messagePool={
 		"ending":
 			# Translators: A setting in library scan announcement options.
 			(_("Announce start and end of a library scan"),
-						# Translators: A setting in library scan announcement options.
-			_("Start and end")),
+			_("Start and end only")),
 		"progress":
 			# Translators: A setting in library scan announcement options.
 			(_("Announce the progress of a library scan"),
-						# Translators: A setting in library scan announcement options.
 			_("Scan progress")),
 		"numbers":
 			# Translators: A setting in library scan announcement options.
 			(_("Announce progress and item count of a library scan"),
-						# Translators: A setting in library scan announcement options.
 			_("Scan count"))}}

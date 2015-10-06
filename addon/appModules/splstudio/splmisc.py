@@ -158,7 +158,8 @@ class SPLTimeRangeDialog(wx.Dialog):
 		# Use a weakref so the instance can die.
 		SPLTimeRangeDialog._instance = weakref.ref(self)
 
-		super(SPLTimeRangeDialog, self).__init__(parent, wx.ID_ANY, "Time range finder")
+		# Translators: The title of a dialog to find tracks with duration within a specified range.
+		super(SPLTimeRangeDialog, self).__init__(parent, wx.ID_ANY, _("Time range finder"))
 		self.obj = obj
 		self.func = func
 
@@ -167,13 +168,13 @@ class SPLTimeRangeDialog(wx.Dialog):
 		minSizer = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Minimum duration")), wx.HORIZONTAL)
 		prompt = wx.StaticText(self, wx.ID_ANY, label="Minute")
 		minSizer.Add(prompt)
-		self.minMinEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=60)
+		self.minMinEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=59)
 		self.minMinEntry.SetValue(3)
 		self.minMinEntry.SetSelection(-1, -1)
 		minSizer.Add(self.minMinEntry)
 		prompt = wx.StaticText(self, wx.ID_ANY, label="Second")
 		minSizer.Add(prompt)
-		self.minSecEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=60)
+		self.minSecEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=59)
 		self.minSecEntry.SetValue(0)
 		self.minSecEntry.SetSelection(-1, -1)
 		minSizer.Add(self.minSecEntry)
@@ -182,13 +183,13 @@ class SPLTimeRangeDialog(wx.Dialog):
 		maxSizer = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Maximum duration")), wx.HORIZONTAL)
 		prompt = wx.StaticText(self, wx.ID_ANY, label="Minute")
 		maxSizer.Add(prompt)
-		self.maxMinEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=60)
+		self.maxMinEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=59)
 		self.maxMinEntry.SetValue(5)
 		self.maxMinEntry.SetSelection(-1, -1)
 		maxSizer.Add(self.maxMinEntry)
 		prompt = wx.StaticText(self, wx.ID_ANY, label="Second")
 		maxSizer.Add(prompt)
-		self.maxSecEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=60)
+		self.maxSecEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=59)
 		self.maxSecEntry.SetValue(0)
 		self.maxSecEntry.SetSelection(-1, -1)
 		maxSizer.Add(self.maxSecEntry)
@@ -203,11 +204,20 @@ class SPLTimeRangeDialog(wx.Dialog):
 		self.minMinEntry.SetFocus()
 
 	def onOk(self, evt):
+		minDuration = ((self.minMinEntry.GetValue() * 60) + self.minSecEntry.GetValue()) * 1000
+		maxDuration = ((self.maxMinEntry.GetValue() * 60) + self.maxSecEntry.GetValue()) * 1000
+		# What if minimum is greater than maximum (subtle oversight)?
+		if minDuration >= maxDuration:
+			gui.messageBox(
+				# Translators: Message to report wrong value for duration fields.
+				_("Minimum duration is greater than the maximum duration."),
+				# Translators: The title of the message box
+				_("Error"), wx.OK|wx.ICON_ERROR,self)
+			self.minMinEntry.SetFocus()
+			return
 		self.Destroy()
 		global _findDialogOpened
 		if user32.FindWindowA("SPLStudio", None):
-			minDuration = ((self.minMinEntry.GetValue() * 60) + self.minSecEntry.GetValue()) * 1000
-			maxDuration = ((self.maxMinEntry.GetValue() * 60) + self.maxSecEntry.GetValue()) * 1000
 			obj = self.obj.next
 			# Manually locate tracks here.
 			while obj is not None:

@@ -838,8 +838,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	def trackFinderGUI(self, columnSearch=False):
 		try:
-			if not columnSearch: title = "Find track"
-			else: title = "Column search"
+			if not columnSearch: title = _("Find track")
+			else: title = _("Column search")
 			d = splmisc.SPLFindDialog(gui.mainFrame, api.getFocusObject(), self.findText, title, columnSearch = columnSearch)
 			gui.mainFrame.prePopup()
 			d.Raise()
@@ -890,7 +890,7 @@ class AppModule(appModuleHandler.AppModule):
 			except RuntimeError:
 				wx.CallAfter(splmisc._finderError)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
-	script_timeRangeFinder.__doc__=_("Locates track dwith duration within a time range")
+	script_timeRangeFinder.__doc__=_("Locates track with duration within a time range")
 
 	# Cart explorer
 	cartExplorer = False
