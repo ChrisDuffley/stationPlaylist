@@ -643,8 +643,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	# Load settings from profiles.
 	def onProfileSelection(self, evt):
-		import tones
-		tones.beep(500, 100)
 		# Don't rely on SPLConfig here, as we don't want to interupt the show.
 		selection = self.profiles.GetSelection()
 		selectedProfile = self.profiles.GetStringSelection()
@@ -746,7 +744,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.profiles.SetFocus()
 
 	def onInstantSwitch(self, evt):
-		import tones
 		selection = self.profiles.GetSelection()
 		selectedName = self.profiles.GetStringSelection()
 		if self.switchProfile is None or (selectedName != self.switchProfile):

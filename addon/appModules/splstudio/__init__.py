@@ -886,7 +886,7 @@ class AppModule(appModuleHandler.AppModule):
 			except RuntimeError:
 				wx.CallAfter(splmisc._finderError)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
-	script_timeRangeFinder.__doc__=_("Locates track dwith duration within a time range")
+	script_timeRangeFinder.__doc__=_("Locates track with duration within a time range")
 
 	# Cart explorer
 	cartExplorer = False
