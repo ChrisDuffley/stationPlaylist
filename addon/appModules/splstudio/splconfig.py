@@ -20,6 +20,7 @@ import tones
 # Configuration management
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
 SPLProfiles = os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "profiles")
+# Old (5.0) style config.
 confspec = ConfigObj(StringIO("""
 BeepAnnounce = boolean(default=false)
 MessageVerbosity = option("beginner", "advanced", default="beginner")
@@ -45,16 +46,53 @@ SPLConPassthrough = boolean(default=false)
 CompatibilityLayer = option("off", "jfw", default="off")
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
+# New (7.0) style config.
+confspec7 = ConfigObj(StringIO("""
+[General]
+BeepAnnounce = boolean(default=false)
+MessageVerbosity = option("beginner", "advanced", default="beginner")
+BrailleTimer = option("off", "intro", "outro", "both", default="off")
+AlarmAnnounce = option("beep", "message", "both", default="beep")
+LibraryScanAnnounce = option("off", "ending", "progress", "numbers", default="off")
+TrackDial = boolean(default=false)
+[IntroOutroAlarms]
+SayEndOfTrack = boolean(default=true)
+EndOfTrackTime = integer(min=1, max=59, default=5)
+SaySongRamp = boolean(default=true)
+SongRampTime = integer(min=1, max=9, default=5)
+[MicAlarm]
+MicAlarm = integer(min=0, max=7200, default="0")
+MicAlarmInterval = integer(min=0, max=60, default=0)
+[MetadataStreaming]
+MetadataReminder = option("off", "startup", "instant", default="off")
+MetadataEnabled = bool_list(default=list(false,false,false,false,false))
+[ColumnAnnouncement]
+UseScreenColumnOrder = boolean(default=true)
+ColumnOrder = string_list(default=list("Artist","Title","Duration","Intro","Category","Filename"))
+IncludedColumns = string_list(default=list("Artist","Title","Duration","Intro","Category","Filename"))
+[SayStatus]
+SayScheduledFor = boolean(default=true)
+SayListenerCount = boolean(default=true)
+SayPlayingCartName = boolean(default=true)
+[Advanced]
+SPLConPassthrough = boolean(default=false)
+CompatibilityLayer = option("off", "jfw", default="off")
+"""), encoding="UTF-8", list_values=False)
+confspec7.newlines = "\r\n"
 SPLConfig = None
 # A pool of broadcast profiles.
 SPLConfigPool = []
 # Default config spec container.
 _SPLDefaults = ConfigObj(None, configspec = confspec, encoding="UTF-8")
+# And version 7 equivalent.
+_SPLDefaults7 = ConfigObj(None, configspec = confspec7, encoding="UTF-8")
 _val = Validator()
 _SPLDefaults.validate(_val, copy=True)
+_SPLDefaults7.validate(_val, copy=True)
 
 # The following settings can be changed in profiles:
 _mutatableSettings=("SayEndOfTrack","EndOfTrackTime","SaySongRamp","SongRampTime","MicAlarm", "MicAlarmInterval")
+_mutatableSettings7=("SayEndOfTrack","EndOfTrackTime","SaySongRamp","SongRampTime","MicAlarm", "MicAlarmInterval")
 
 # Display an error dialog when configuration validation fails.
 def runConfigErrorDialog(errorText, errorType):
