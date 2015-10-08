@@ -273,20 +273,24 @@ SPLSwitchProfile = None
 def instantProfileSwitch():
 	global SPLPrevProfile, SPLConfig, SPLActiveProfile
 	if _configDialogOpened:
-		ui.message("Add-on settings dialog is open, cannot switch profiles")
+		# Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
+		ui.message(_("Add-on settings dialog is open, cannot switch profiles"))
 		return
 	if SPLSwitchProfile is None:
-		ui.message("No instant switch profile is defined")
+		# Translators: Presented when trying to switch to an instant switch profile when the instant switch profile is not defined.
+		ui.message(_("No instant switch profile is defined"))
 	else:
 		if SPLPrevProfile is None:
 			if SPLActiveProfile == SPLSwitchProfile:
-				ui.message("You are already in the instant switch profile")
+				# Translators: Presented when trying to switch to an instant switch profile when one is already using the instant switch profile.
+				ui.message(_("You are already in the instant switch profile"))
 				return
 			# Switch to the given profile.
 			switchProfileIndex = getProfileIndexByName(SPLSwitchProfile)
 			SPLPrevProfile = SPLConfigPool.index(SPLConfig)
 			SPLConfig = SPLConfigPool[switchProfileIndex]
-			ui.message("Switching profiles")
+			# Translators: Presented when switch to instant switch profile was successful.
+			ui.message(_("Switching profiles"))
 			# Use the focus.appModule's metadata reminder method if told to do so now.
 			if SPLConfig["MetadataReminder"] in ("startup", "instant"):
 				api.getFocusObject().appModule._metadataAnnouncer(reminder=True)
@@ -294,7 +298,8 @@ def instantProfileSwitch():
 			SPLConfig = SPLConfigPool[SPLPrevProfile]
 			SPLActiveProfile = SPLConfig.name
 			SPLPrevProfile = None
-			ui.message("Returning to previous profile")
+			# Translators: Presented when switching from instant switch profile to a previous profile.
+			ui.message(_("Returning to previous profile"))
 			# 6.2: Don't forget to switch streaming status around.
 			if SPLConfig["MetadataReminder"] in ("startup", "instant"):
 				api.getFocusObject().appModule._metadataAnnouncer(reminder=True)

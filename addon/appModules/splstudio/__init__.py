@@ -79,7 +79,8 @@ def _micAlarmAnnouncer():
 		if splconfig.SPLConfig["AlarmAnnounce"] in ("beep", "both"):
 			nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_MicAlarm.wav"))
 		if splconfig.SPLConfig["AlarmAnnounce"] in ("message", "both"):
-			ui.message("Microphone active")
+			# Translators: Presented when microphone has been active for a while.
+			ui.message(_("Microphone active"))
 
 # Manage microphone alarm announcement.
 def micAlarmManager(micAlarmWav, micAlarmMessage):
@@ -405,7 +406,8 @@ class AppModule(appModuleHandler.AppModule):
 					if splconfig.SPLConfig["LibraryScanAnnounce"] != "off" and self.libraryScanning:
 						if splconfig.SPLConfig["BeepAnnounce"]: tones.beep(370, 100)
 						else:
-							ui.message("Scan complete with {scanCount} items".format(scanCount = obj.name.split()[3]))
+							# Translators: Presented when library scan is complete.
+							ui.message(_("Scan complete with {scanCount} items").format(scanCount = obj.name.split()[3]))
 					if self.libraryScanning: self.libraryScanning = False
 					self.scanCount = 0
 			else:
@@ -503,9 +505,11 @@ class AppModule(appModuleHandler.AppModule):
 		if splconfig.SPLConfig["AlarmAnnounce"] in ("message", "both"):
 			alarmTime = int(timeText.split(":")[1])
 			if intro:
-				ui.message("Warning: {seconds} sec left in track introduction".format(seconds = str(alarmTime)))
+				# Translators: Presented when end of introduction is approaching (example output: 5 sec left in track introduction).
+				ui.message(_("Warning: {seconds} sec left in track introduction").format(seconds = str(alarmTime)))
 			else:
-				ui.message("Warning: {seconds} sec remaining".format(seconds = str(alarmTime)))
+				# Translators: Presented when end of track is approaching.
+				ui.message(_("Warning: {seconds} sec remaining").format(seconds = str(alarmTime)))
 
 
 	# Hacks for gain focus events.
@@ -834,7 +838,9 @@ class AppModule(appModuleHandler.AppModule):
 
 	def trackFinderGUI(self, columnSearch=False):
 		try:
+			# Translators: Title for track finder dialog.
 			if not columnSearch: title = _("Find track")
+			# Translators: Title for column search dialog.
 			else: title = _("Column search")
 			d = splmisc.SPLFindDialog(gui.mainFrame, api.getFocusObject(), self.findText, title, columnSearch = columnSearch)
 			gui.mainFrame.prePopup()
@@ -1091,15 +1097,21 @@ class AppModule(appModuleHandler.AppModule):
 		# Announce streaming status when told to do so.
 		status = None
 		if not len(streamCount):
-			if not dsp: status = "No metadata streaming URL's defined"
-			else: status = "Metadata streaming configured for DSP encoder"
+			# Translators: Status message for metadata streaming.
+			if not dsp: status = _("No metadata streaming URL's defined")
+			# Translators: Status message for metadata streaming.
+			else: status = _("Metadata streaming configured for DSP encoder")
 		elif len(streamCount) == 1:
-			if dsp: status = "Metadata streaming configured for DSP encoder and URL {URL}".format(URL = streamCount[0])
-			else: status = "Metadata streaming configured for URL {URL}".format(URL = streamCount[0])
+			# Translators: Status message for metadata streaming.
+			if dsp: status = _("Metadata streaming configured for DSP encoder and URL {URL}").format(URL = streamCount[0])
+			# Translators: Status message for metadata streaming.
+			else: status = _("Metadata streaming configured for URL {URL}").format(URL = streamCount[0])
 		else:
 			urltext = ", ".join([str(stream) for stream in streamCount])
-			if dsp: status = "Metadata streaming configured for DSP encoder and URL's {URL}".format(URL = urltext)
-			else: status = "Metadata streaming configured for URL's {URL}".format(URL = urltext)
+			# Translators: Status message for metadata streaming.
+			if dsp: status = _("Metadata streaming configured for DSP encoder and URL's {URL}").format(URL = urltext)
+			# Translators: Status message for metadata streaming.
+			else: status = _("Metadata streaming configured for URL's {URL}").format(URL = urltext)
 		if reminder:
 			time.sleep(2)
 			speech.cancelSpeech()
@@ -1384,7 +1396,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	def _trackAnalysisAllowed(self):
 		if api.getForegroundObject().windowClassName != "TStudioForm":
-			ui.message("Not in playlist viewer, cannot perform track time analysis")
+			# Translators: Presented when track time anlaysis cannot be performed because user is not focused on playlist viewer.
+			ui.message(_("Not in playlist viewer, cannot perform track time analysis"))
 			return False
 		return True
 
@@ -1393,14 +1406,18 @@ class AppModule(appModuleHandler.AppModule):
 		if self._trackAnalysisAllowed():
 			focus = api.getFocusObject()
 			if focus.role == controlTypes.ROLE_LIST:
+				# Translators: Presented when track time analysis cannot be activated.
 				ui.message(_("No tracks were added, cannot perform track time analysis"))
 				return
 			if scriptHandler.getLastScriptRepeatCount() == 0:
 				self._analysisMarker = focus.IAccessibleChildID-1
+				# Translators: Presented when track time analysis is turned on.
 				ui.message(_("Track time analysis activated"))
 			else:
 				self._analysisMarker = None
+				# Translators: Presented when track time analysis is turned off.
 				ui.message(_("Track time analysis deactivated"))
+	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_markTrackForAnalysis.__doc__=_("Marks focused track as start marker for track time analysis")
 
 	def script_trackTimeAnalysis(self, gesture):
@@ -1411,6 +1428,7 @@ class AppModule(appModuleHandler.AppModule):
 				ui.message(_("No tracks were added, cannot perform track time analysis"))
 				return
 			if self._analysisMarker is None:
+				# Translators: Presented when track time analysis cannot be used because start marker is not set.
 				ui.message(_("No track selected as start of analysis marker, cannot perform time analysis"))
 				return
 			trackPos = focus.IAccessibleChildID-1
@@ -1425,7 +1443,9 @@ class AppModule(appModuleHandler.AppModule):
 				for track in xrange(analysisBegin, analysisEnd+1):
 					filename = statusAPI(track, 211, ret=True)
 					totalLength+=statusAPI(filename, 30, ret=True)
+				# Translators: Presented when time analysis is done for a number of tracks (example output: Tracks: 3, totaling 5:00).
 				ui.message(_("Tracks: {numberOfSelectedTracks}, totaling {totalTime}").format(numberOfSelectedTracks = analysisRange, totalTime = self._ms2time(totalLength)))
+	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_trackTimeAnalysis.__doc__=_("Announces total length of tracks between analysis start marker and the current track")
 
 	def script_switchProfiles(self, gesture):
@@ -1436,18 +1456,22 @@ class AppModule(appModuleHandler.AppModule):
 		try:
 			index = obj._indexOf("Filename")
 		except AttributeError:
-			ui.message("No tracks found, cannot set place marker")
+			# Translators: Presented when place marker cannot be set.
+			ui.message(_("No tracks found, cannot set place marker"))
 			return
 		filename = obj._getColumnContent(index)
 		if filename:
 			self.placeMarker = (index, filename)
-			ui.message("place marker set")
+			# Translators: Presented when place marker track is set.
+			ui.message(_("place marker set"))
 		else:
-			ui.message("This track cannot be used as a place marker track")
+			# Translators: Presented when attempting to place a place marker on an unsupported track.
+			ui.message(_("This track cannot be used as a place marker track"))
 
 	def script_findPlaceMarker(self, gesture):
 		if self.placeMarker is None:
-			ui.message("No place marker found")
+			# Translators: Presented when no place marker is found.
+			ui.message(_("No place marker found"))
 		else:
 			track = self._trackLocator(self.placeMarker[1], obj=api.getFocusObject().parent.firstChild, columns=[self.placeMarker[0]])
 			track.setFocus(), track.setFocus()
@@ -1462,14 +1486,18 @@ class AppModule(appModuleHandler.AppModule):
 		if checked == 1:
 			# 0 is DSP encoder status, others are servers.
 			if url:
-				status = "Metadata streaming on URL {URLPosition} enabled".format(URLPosition = url)
+				# Translators: Status message for metadata streaming.
+				status = _("Metadata streaming on URL {URLPosition} enabled").format(URLPosition = url)
 			else:
-				status = "Metadata streaming on DSP encoder enabled"
+				# Translators: Status message for metadata streaming.
+				status = _("Metadata streaming on DSP encoder enabled")
 		else:
 			if url:
-				status = "Metadata streaming on URL {URLPosition} disabled".format(URLPosition = url)
+				# Translators: Status message for metadata streaming.
+				status = _("Metadata streaming on URL {URLPosition} disabled").format(URLPosition = url)
 			else:
-				status = "Metadata streaming on DSP encoder disabled"
+				# Translators: Status message for metadata streaming.
+				status = _("Metadata streaming on DSP encoder disabled")
 		ui.message(status)
 
 	def script_layerHelp(self, gesture):
