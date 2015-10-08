@@ -123,7 +123,7 @@ class SPLTrackItem(IAccessible):
 		return headers.index(columnHeader)
 
 	def reportFocus(self):
-		tones.beep(800, 100)
+		#tones.beep(800, 100)
 		if not splconfig.SPLConfig["UseScreenColumnOrder"]:
 			descriptionPieces = []
 			for header in splconfig.SPLConfig["ColumnOrder"]:
