@@ -143,6 +143,74 @@ def fetchSPLForegroundWindow():
 		fg = getNVDAObjectFromEvent(user32.FindWindowA("TStudioForm", None), winUser.OBJID_CLIENT, 0)
 	return fg
 
+
+# Encoder configuration dialog.
+_configDialogOpened = False
+
+# Presented if the config dialog for another encoder is opened.
+def _configDialogError():
+	# Translators: Text of the dialog when another alarm dialog is open.
+	gui.messageBox(_("Another encoder settings dialog is open."),_("Error"),style=wx.OK | wx.ICON_ERROR)
+
+class EncoderConfigDialog(wx.Dialog):
+
+	# The following comes from exit dialog class from GUI package (credit: NV Access and Zahari from Bulgaria).
+	_instance = None
+
+	def __new__(cls, parent, *args, **kwargs):
+		# Make this a singleton and prompt an error dialog if it isn't.
+		if _configDialogOpened:
+			raise RuntimeError("An instance of encoder settings dialog is opened")
+		inst = cls._instance() if cls._instance else None
+		if not inst:
+			return super(cls, cls).__new__(cls, parent, *args, **kwargs)
+		return inst
+
+	def __init__(self, parent, obj):
+		inst = EncoderConfigDialog._instance() if EncoderConfigDialog._instance else None
+		if inst:
+			return
+		# Use a weakref so the instance can die.
+		EncoderConfigDialog._instance = weakref.ref(self)
+
+		self.obj = obj
+		curStreamLabel, title = obj.getStreamLabel(getTitle=True)
+		super(EncoderConfigDialog, self).__init__(parent, wx.ID_ANY, "Encoder settings for {name}".format(name = title))
+		mainSizer = wx.BoxSizer(wx.VERTICAL)
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		streamLabelPrompt = wx.StaticText(self, wx.ID_ANY, label="Stream label")
+		sizer.Add(streamLabelPrompt)
+		self.streamLabel = wx.TextCtrl(self, wx.ID_ANY)
+		self.streamLabel.SetValue(curStreamLabel if curStreamLabel is not None else "")
+		sizer.Add(self.streamLabel)
+		mainSizer.Add(sizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
+
+		self.focusToStudio=wx.CheckBox(self,wx.NewId(),label="Focus to Studio when connected")
+		self.focusToStudio.SetValue(obj.getEncoderId() in SPLFocusToStudio)
+		mainSizer.Add(self.focusToStudio,border=10,flag=wx.BOTTOM)
+		self.playAfterConnecting=wx.CheckBox(self,wx.NewId(),label="Play first track when connected")
+		self.playAfterConnecting.SetValue(obj.getEncoderId() in SPLPlayAfterConnecting)
+		mainSizer.Add(self.playAfterConnecting,border=10,flag=wx.BOTTOM)
+		self.backgroundMonitor=wx.CheckBox(self,wx.NewId(),label="Enable background connection monitoring")
+		self.backgroundMonitor.SetValue(obj.getEncoderId() in SPLBackgroundMonitor)
+		mainSizer.Add(self.backgroundMonitor,border=10,flag=wx.BOTTOM)
+
+		mainSizer.AddSizer(self.CreateButtonSizer(wx.OK|wx.CANCEL))
+		self.Bind(wx.EVT_BUTTON,self.onOk,id=wx.ID_OK)
+		self.Bind(wx.EVT_BUTTON,self.onCancel,id=wx.ID_CANCEL)
+		mainSizer.Fit(self)
+		self.SetSizer(mainSizer)
+		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+		self.streamLabel.SetFocus()
+
+	def onOk(self, evt):
+		self.Destroy()
+
+	def onCancel(self, evt):
+		self.Destroy()
+
+
 # Support for various encoders.
 # Each encoder must support connection routines.
 
