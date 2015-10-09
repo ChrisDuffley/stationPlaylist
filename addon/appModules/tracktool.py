@@ -51,9 +51,9 @@ class TrackToolItem(IAccessible):
 			self.appModule.TTDial = True
 			self.bindGesture("kb:rightArrow", "nextColumn")
 			self.bindGesture("kb:leftArrow", "prevColumn")
-			dialText = "Track Dial on"
+			dialText = _("Track Dial on")
 			if self.appModule.SPLColNumber > 0:
-				dialText+= ", located at column {columnHeader}".format(columnHeader = self.appModule.SPLColNumber+1)
+				dialText+= _(", located at column {columnHeader}").format(columnHeader = self.appModule.SPLColNumber+1)
 			dialTone = 780
 		else:
 			self.appModule.TTDial = False
@@ -62,7 +62,7 @@ class TrackToolItem(IAccessible):
 				self.removeGestureBinding("kb:leftArrow")
 			except KeyError:
 				pass
-			dialText = "Track Dial off"
+			dialText = _("Track Dial off")
 			dialTone = 390
 		if not splconfig.SPLConfig["BeepAnnounce"]:
 			ui.message(dialText)
@@ -73,7 +73,7 @@ class TrackToolItem(IAccessible):
 				speech.speakMessage("Column {columnNumber}".format(columnNumber = self.appModule.SPLColNumber+1))
 	# Translators: Input help mode message for SPL track item.
 	script_toggleTrackDial.__doc__=_("Toggles track dial on and off.")
-	script_toggleTrackDial.category = "StationPlaylist Studio"
+	script_toggleTrackDial.category = _("StationPlaylist Studio")
 
 	# Tweak for Track Tool: Announce column header if given.
 	# Also take care of this when specific columns are asked.

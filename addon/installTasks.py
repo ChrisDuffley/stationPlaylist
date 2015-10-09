@@ -27,6 +27,7 @@ MicAlarmInterval = integer(min=0, max=60, default=0)
 AlarmAnnounce = option("beep", "message", "both", default="beep")
 LibraryScanAnnounce = option("off", "ending", "progress", "numbers", default="off")
 TrackDial = boolean(default=false)
+TimeHourAnnouncement = boolean(default=false)
 MetadataReminder = option("off", "startup", "instant", default="off")
 MetadataEnabled = bool_list(default=list(false,false,false,false,false))
 UseScreenColumnOrder = boolean(default=true)
@@ -48,6 +49,7 @@ _conversionConfig = {
 	"AlarmAnnounce":"General",
 	"LibraryScanAnnounce":"General",
 	"TrackDial":"General",
+	"TimeHourAnnouncement":"General",
 	"SayEndOfTrack":"IntroOutroAlarms",
 	"EndOfTrackTime":"IntroOutroAlarms",
 	"SaySongRamp":"IntroOutroAlarms",
