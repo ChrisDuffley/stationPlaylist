@@ -62,7 +62,7 @@ SayEndOfTrack = boolean(default=true)
 EndOfTrackTime = integer(min=1, max=59, default=5)
 SaySongRamp = boolean(default=true)
 SongRampTime = integer(min=1, max=9, default=5)
-[MicAlarm]
+[MicrophoneAlarm]
 MicAlarm = integer(min=0, max=7200, default="0")
 MicAlarmInterval = integer(min=0, max=60, default=0)
 [MetadataStreaming]
@@ -94,7 +94,7 @@ _SPLDefaults7.validate(_val, copy=True)
 
 # The following settings can be changed in profiles:
 _mutatableSettings=("SayEndOfTrack","EndOfTrackTime","SaySongRamp","SongRampTime","MicAlarm", "MicAlarmInterval")
-_mutatableSettings7=("SayEndOfTrack","EndOfTrackTime","SaySongRamp","SongRampTime","MicAlarm", "MicAlarmInterval")
+_mutatableSettings7=("IntroOutroAlarms", "MicrophoneAlarm", "ColumnAnnouncement", "MetadataStreaming")
 
 # Display an error dialog when configuration validation fails.
 def runConfigErrorDialog(errorText, errorType):
@@ -121,8 +121,8 @@ def resetAllConfig():
 		profilePath = profile.filename
 		profile.reset()
 		profile.filename = profilePath
-		for setting in _SPLDefaults:
-			profile[setting] = _SPLDefaults[setting]
+		for setting in _SPLDefaults7:
+			profile[setting] = _SPLDefaults7[setting]
 	# Translators: A dialog message shown when settings were reset to defaults.
 	wx.CallAfter(gui.messageBox, _("Successfully applied default add-on settings."),
 	# Translators: Title of the reset config dialog.
@@ -177,29 +177,33 @@ def initConfig():
 # Unlock (load) profiles from files.
 def unlockConfig(path, profileName=None, prefill=False):
 	global _configLoadStatus # To be mutated only during unlock routine.
-	SPLConfigCheckpoint = ConfigObj(path, configspec = confspec, encoding="UTF-8")
+	SPLConfigCheckpoint = ConfigObj(path, configspec = confspec7, encoding="UTF-8")
 	# 5.2 and later: check to make sure all values are correct.
-	configTest = SPLConfigCheckpoint.validate(_val, copy=prefill)
+	# 7.0: Make sure errors are displayed as config keys are now sections and may need to go through subkeys.
+	configTest = SPLConfigCheckpoint.validate(_val, copy=prefill, preserve_errors=True)
 	if configTest != True:
 		# Translators: Standard error title for configuration error.
 		title = _("Studio add-on Configuration error")
 		if not configTest:
 			# Case 1: restore settings to defaults when 5.x config validation has failed on all values.
 			# 6.0: In case this is a user profile, apply base configuration.
-			baseProfile = _SPLDefaults if prefill else SPLConfigPool[0]
+			baseProfile = _SPLDefaults7 if prefill else SPLConfigPool[0]
 			resetConfig(baseProfile, SPLConfigCheckpoint)
 			_configLoadStatus[profileName] = "completeReset"
 		elif isinstance(configTest, dict):
 			# Case 2: For 5.x and later, attempt to reconstruct the failed values.
 			# 6.0: Cherry-pick global settings only.
-			for setting in configTest:
-				if not configTest[setting]:
-					if prefill: # Base profile only.
-						SPLConfigCheckpoint[setting] = _SPLDefaults[setting]
-					else: # Broadcast profiles.
-						if setting not in _mutatableSettings:
-							SPLConfigCheckpoint[setting] = SPLConfigPool[0][setting]
-						else: SPLConfigCheckpoint[setting] = _SPLDefaults[setting]
+			# 7.0: Go through failed sections.
+			for setting in configTest.keys():
+				if isinstance(configTest[setting], dict):
+					for failedKey in configTest[setting].keys():
+						if not isinstance(SPLConfigCheckpoint[setting][failedKey], int):
+							if prefill: # Base profile only.
+								SPLConfigCheckpoint[setting][failedKey] = _SPLDefaults7[setting][failedKey]
+							else: # Broadcast profiles.
+								if setting not in _mutatableSettings7:
+									SPLConfigCheckpoint[setting][failedKey] = SPLConfigPool[0][setting][failedKey]
+								else: SPLConfigCheckpoint[setting][failedKey] = _SPLDefaults7[setting][failedKey]
 			SPLConfigCheckpoint.write()
 			_configLoadStatus[profileName] = "partialReset"
 	# Do this only for base profile.
@@ -276,8 +280,15 @@ def _preSave(conf):
 	# For other profiles, remove global settings before writing to disk.
 	else:
 		for setting in conf.keys():
-			if setting not in _mutatableSettings or (setting in _mutatableSettings and conf[setting] == _SPLDefaults[setting]):
+			if setting not in _mutatableSettings7 or (setting in _mutatableSettings7 and _presaveEmpty(conf, setting)):
 				del conf[setting]
+
+# 7.0: Make sure a section is empty before deleting it (called from presave routine above.
+def _presaveEmpty(conf, setting):
+	for key in conf[setting].keys():
+		if conf[setting][key] == _SPLDefaults7[setting][key]:
+			del conf[setting][key]
+	return len(conf[setting]) == 0
 
 # Save configuration database.
 def saveConfig():
@@ -286,7 +297,7 @@ def saveConfig():
 	# Apply any global settings changed in profiles to normal configuration.
 	if SPLConfigPool.index(SPLConfig) > 0:
 		for setting in SPLConfig:
-			if setting not in _mutatableSettings:
+			if setting not in _mutatableSettings7:
 				SPLConfigPool[0][setting] = SPLConfig[setting]
 	for configuration in SPLConfigPool:
 		if configuration is not None:
