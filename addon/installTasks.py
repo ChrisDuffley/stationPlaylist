@@ -12,6 +12,7 @@ from cStringIO import StringIO
 import globalVars
 
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
+SPLIni7 = os.path.join(globalVars.appArgs.configPath, "splstudio7.ini")
 
 # Old (5.0) style config.
 confspec = ConfigObj(StringIO("""
@@ -75,18 +76,22 @@ def config6to7(path):
 	# 7.2: Remove old config to save disk space.
 	for setting in _conversionConfig.keys():
 		if setting in profile:
-			print "setting found"
 			section = _conversionConfig[setting]
 			if section not in profile:
-				print "section not found"
 				profile[section] = {}
 			else:
-				print "section found"
-			try:
-				profile[section][setting] = profile[setting]
-			except:
-				pass
-	profile.write()
+				try:
+					profile[section][setting] = profile[setting]
+				except:
+					pass
+	# Just in case studio is running.
+	# If so, when the app module exits, it'll rewrite the whole config, so save the converted config somewhere to be imported by the app module later.
+	if path == SPLIni:
+		profile7 = ConfigObj(SPLIni7, configspec = confspec, encoding="UTF-8")
+		for key in profile:
+			profile7[key] = profile[key]
+		profile7.write()
+	else: profile.write()
 
 
 def onInstall():

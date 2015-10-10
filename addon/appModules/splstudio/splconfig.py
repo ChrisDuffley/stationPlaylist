@@ -144,6 +144,10 @@ _configErrors ={
 _configLoadStatus = {} # Key = filename, value is pass or no pass.
 
 def initConfig():
+	# 7.0: When add-on 7.0 starts for the first time, check if a conversion file exists.
+	if os.path.isfile(os.path.join(globalVars.appArgs.configPath, "splstudio7.ini")):
+		os.remove(SPLIni)
+		os.rename(os.path.join(globalVars.appArgs.configPath, "splstudio7.ini"), SPLIni)
 	# Load the default config from a list of profiles.
 	global SPLConfig, SPLConfigPool, _configLoadStatus, SPLActiveProfile, SPLSwitchProfile
 	if SPLConfigPool is None: SPLConfigPool = []
@@ -279,7 +283,7 @@ def _preSave(conf):
 			del conf["MetadataURL"]
 	# For other profiles, remove global settings before writing to disk.
 	else:
-		for setting in _SPLDefaults7.keys():
+		for setting in conf.keys():
 			if setting not in _mutatableSettings7: del conf[setting]
 			else:
 				for key in conf[setting].keys():
@@ -307,6 +311,12 @@ def saveConfig():
 			_preSave(configuration)
 			# Save broadcast profiles first.
 			if SPLConfigPool.index(configuration) > 0:
+				# 7.0: Convert profile-specific settings back to 5.x format in case add-on 6.x will be installed later (not recommended).
+				# This will be removed in add-on 7.2.
+				if len(configuration) > 0:
+					for section in configuration.keys():
+						for key in configuration[section]:
+							configuration[key] = configuration[section][key]
 				configuration.write()
 	# Global flags, be gone.
 	if "Reset" in SPLConfigPool[0]:
