@@ -279,16 +279,14 @@ def _preSave(conf):
 			del conf["MetadataURL"]
 	# For other profiles, remove global settings before writing to disk.
 	else:
-		for setting in conf.keys():
-			if setting not in _mutatableSettings7 or (setting in _mutatableSettings7 and _presaveEmpty(conf, setting)):
+		for setting in _SPLDefaults7.keys():
+			if setting not in _mutatableSettings7: del conf[setting]
+			else:
+				for key in conf[setting].keys():
+					if conf[setting][key] == _SPLDefaults7[setting][key]:
+						del conf[setting][key]
+			if setting in conf and not len(conf[setting]):
 				del conf[setting]
-
-# 7.0: Make sure a section is empty before deleting it (called from presave routine above.
-def _presaveEmpty(conf, setting):
-	for key in conf[setting].keys():
-		if conf[setting][key] == _SPLDefaults7[setting][key]:
-			del conf[setting][key]
-	return len(conf[setting]) == 0
 
 # Save configuration database.
 def saveConfig():
@@ -299,6 +297,11 @@ def saveConfig():
 		for setting in SPLConfig:
 			if setting not in _mutatableSettings7:
 				SPLConfigPool[0][setting] = SPLConfig[setting]
+	# 7.0 hack: Due to Python internals, preserving profile-specific settings removes the corresponding keys from normal profile.
+	# Therefore, have a temporary place holder for mutatable settings until a more elegant solution is found.
+	tempNormalProfile = {}
+	for section in _mutatableSettings7:
+		tempNormalProfile[section] = dict(SPLConfigPool[0][section])
 	for configuration in SPLConfigPool:
 		if configuration is not None:
 			_preSave(configuration)
@@ -308,6 +311,9 @@ def saveConfig():
 	# Global flags, be gone.
 	if "Reset" in SPLConfigPool[0]:
 		del SPLConfigPool[0]["Reset"]
+	# Restore the possibly deleted sections.
+	for section in tempNormalProfile.keys():
+		SPLConfigPool[0][section] = tempNormalProfile[section]
 	SPLConfigPool[0].write()
 	SPLConfig = None
 	SPLConfigPool = None
