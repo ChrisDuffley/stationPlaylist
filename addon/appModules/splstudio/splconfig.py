@@ -94,7 +94,7 @@ _SPLDefaults7.validate(_val, copy=True)
 
 # The following settings can be changed in profiles:
 _mutatableSettings=("SayEndOfTrack","EndOfTrackTime","SaySongRamp","SongRampTime","MicAlarm", "MicAlarmInterval")
-_mutatableSettings7=("IntroOutroAlarms", "MicrophoneAlarm", "ColumnAnnouncement", "MetadataStreaming")
+_mutatableSettings7=("IntroOutroAlarms", "MicrophoneAlarm")
 
 # Display an error dialog when configuration validation fails.
 def runConfigErrorDialog(errorText, errorType):
