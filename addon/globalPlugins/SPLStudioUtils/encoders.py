@@ -6,6 +6,7 @@
 import threading
 import os
 import time
+import weakref
 from configobj import ConfigObj
 import api
 import ui
@@ -32,6 +33,7 @@ SPL_TrackPlaybackStatus = 104
 SPLFocusToStudio = set() # Whether to focus to Studio or not.
 SPLPlayAfterConnecting = set()
 SPLBackgroundMonitor = set()
+SPLConnectionTone = set()
 
 # Customized for each encoder type.
 SAMStreamLabels= {} # A dictionary to store custom labels for each stream.
@@ -63,6 +65,8 @@ def loadStreamLabels():
 		SPLPlayAfterConnecting = set(streamLabels["PlayAfterConnecting"])
 	if "BackgroundMonitor" in streamLabels:
 		SPLBackgroundMonitor = set(streamLabels["BackgroundMonitor"])
+	if "ConnectionTone" in streamLabels:
+		SPLConnectionTone = set(streamLabels["ConnectionTone"])
 
 # Report number of encoders being monitored.
 # 6.0: Refactor the below function to use the newer encoder config format.
@@ -179,7 +183,7 @@ class EncoderConfigDialog(wx.Dialog):
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		streamLabelPrompt = wx.StaticText(self, wx.ID_ANY, label="Stream label")
+		streamLabelPrompt = wx.StaticText(self, wx.ID_ANY, label=_("Stream &label"))
 		sizer.Add(streamLabelPrompt)
 		self.streamLabel = wx.TextCtrl(self, wx.ID_ANY)
 		self.streamLabel.SetValue(curStreamLabel if curStreamLabel is not None else "")
@@ -195,6 +199,9 @@ class EncoderConfigDialog(wx.Dialog):
 		self.backgroundMonitor=wx.CheckBox(self,wx.NewId(),label="Enable background connection monitoring")
 		self.backgroundMonitor.SetValue(obj.getEncoderId() in SPLBackgroundMonitor)
 		mainSizer.Add(self.backgroundMonitor,border=10,flag=wx.BOTTOM)
+		self.connectionTone=wx.CheckBox(self,wx.NewId(),label="Play connection status beep while connecting")
+		self.connectionTone.SetValue(obj.getEncoderId() in SPLConnectionTone)
+		mainSizer.Add(self.connectionTone,border=10,flag=wx.BOTTOM)
 
 		mainSizer.AddSizer(self.CreateButtonSizer(wx.OK|wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON,self.onOk,id=wx.ID_OK)
@@ -351,6 +358,23 @@ class Encoder(IAccessible):
 	# Translators: Input help mode message in SAM Encoder window.
 	script_streamLabelEraser.__doc__=_("Opens a dialog to erase stream labels and settings from an encoder that was deleted.")
 
+	# stream settings.
+	def script_encoderSettings(self, gesture):
+		#if splconfig._configDialogOpened:
+			#wx.CallAfter(gui.messageBox, _("The add-on settings dialog is opened. Please close the settings dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
+			#return
+		try:
+			d = EncoderConfigDialog(gui.mainFrame, self)
+			gui.mainFrame.prePopup()
+			d.Raise()
+			d.Show()
+			gui.mainFrame.postPopup()
+			#splconfig._alarmDialogOpened = True
+		except RuntimeError:
+			wx.CallAfter(ui.message, "A settings dialog is opened")
+	# Translators: Input help mode message for a command in Station Playlist Studio.
+	script_encoderSettings.__doc__=_("sets song intro alarm (default is 5 seconds).")
+
 	# Announce complete time including seconds (slight change from global commands version).
 	def script_encoderDateTime(self, gesture):
 		if scriptHandler.getLastScriptRepeatCount()==0:
@@ -419,7 +443,7 @@ class Encoder(IAccessible):
 		"kb:f12":"streamLabeler",
 		"kb:control+f12":"streamLabelEraser",
 		"kb:NVDA+F12":"encoderDateTime",
-		"kb:control+NVDA+0":"streamLabeler",
+		"kb:control+NVDA+0":"encoderSettings",
 		"kb:control+NVDA+1":"announceEncoderPosition",
 		"kb:control+NVDA+2":"announceEncoderLabel",
 	}
