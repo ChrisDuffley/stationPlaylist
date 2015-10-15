@@ -511,6 +511,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 		sizer.Add(self.libScanList)
 		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
+		self.hourAnnounceCheckbox=wx.CheckBox(self,wx.NewId(),label="Include &hours when announcing track or playlist duration")
+		self.hourAnnounceCheckbox.SetValue(SPLConfig["TimeHourAnnounce"])
+		settingsSizer.Add(self.hourAnnounceCheckbox, border=10,flag=wx.BOTTOM)
+
 		# Translators: the label for a setting in SPL add-on settings to toggle track dial mode on and off.
 		self.trackDialCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Track Dial mode"))
 		self.trackDialCheckbox.SetValue(SPLConfig["TrackDial"])
@@ -598,6 +602,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["MicAlarmInterval"] = self.micAlarmInterval.Value
 		SPLConfig["AlarmAnnounce"] = self.alarmAnnounceValues[self.alarmAnnounceList.GetSelection()][0]
 		SPLConfig["LibraryScanAnnounce"] = self.libScanValues[self.libScanList.GetSelection()][0]
+		SPLConfig["TimeHourAnnounce"] = self.hourAnnounceCheckbox.Value
 		SPLConfig["TrackDial"] = self.trackDialCheckbox.Value
 		SPLConfig["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
 		SPLConfig["MetadataEnabled"] = self.metadataStreams
