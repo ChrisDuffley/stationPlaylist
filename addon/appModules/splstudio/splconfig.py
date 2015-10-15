@@ -955,6 +955,11 @@ class MetadataStreamingDialog(wx.Dialog):
 			sizer.Add(checkedStream)
 		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
+		if self.func is not None:
+			self.applyCheckbox=wx.CheckBox(self,wx.NewId(),label="&Apply streaming changes to the selected profile")
+			self.applyCheckbox.SetValue(SPLConfig["BeepAnnounce"])
+			mainSizer.Add(self.applyCheckbox, border=10,flag=wx.TOP)
+
 		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
@@ -966,14 +971,19 @@ class MetadataStreamingDialog(wx.Dialog):
 	def onOk(self, evt):
 		global _metadataDialogOpened
 		if self.func is None: parent = self.Parent
+		metadataEnabled = []
 		for url in xrange(5):
 			if self.func is None: parent.metadataStreams[url] = self.checkedStreams[url].Value
 			else:
 				dataLo = 0x00010000 if self.checkedStreams[url].Value else 0xffff0000
 				self.func(dataLo | url, 36)
+				if self.applyCheckbox.Value: metadataEnabled.append(self.checkedStreams[url].Value)
 		if self.func is None:
 			parent.profiles.SetFocus()
 			parent.Enable()
+		else:
+			# 6.1: Store just toggled settings to profile if told to do so.
+			if len(metadataEnabled): SPLConfig["MetadataEnabled"] = metadataEnabled
 		self.Destroy()
 		_metadataDialogOpened = False
 		return
