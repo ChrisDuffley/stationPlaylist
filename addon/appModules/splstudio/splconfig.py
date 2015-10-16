@@ -43,7 +43,7 @@ SayScheduledFor = boolean(default=true)
 SayListenerCount = boolean(default=true)
 SayPlayingCartName = boolean(default=true)
 SPLConPassthrough = boolean(default=false)
-CompatibilityLayer = option("off", "jfw", default="off")
+CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
 SPLConfig = None
@@ -1126,10 +1126,19 @@ class AdvancedOptionsDialog(wx.Dialog):
 		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		self.compLayerCheckbox=wx.CheckBox(self,wx.NewId(),label="Screen &reader compatibility Mode (experimental)")
-		# Project Rainbow: change the UI for this control.
-		self.compLayerCheckbox.SetValue(SPLConfig["CompatibilityLayer"] != "off")
-		sizer.Add(self.compLayerCheckbox, border=10,flag=wx.TOP)
+		# Translators: The label for a setting in SPL add-on dialog to set keyboard layout for SPL Assistant.
+		label = wx.StaticText(self, wx.ID_ANY, label=_("SPL Assistant command &layout:"))
+		self.compatibilityLayouts=[("off","NVDA"),
+		("jfw","JAWS for Windows"),
+		("wineyes","Window-Eyes")]
+		self.compatibilityList= wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.compatibilityLayouts])
+		selection = (x for x,y in enumerate(self.compatibilityLayouts) if y[0]==SPLConfig["CompatibilityLayer"]).next()  
+		try:
+			self.compatibilityList.SetSelection(selection)
+		except:
+			pass
+		sizer.Add(label)
+		sizer.Add(self.compatibilityList)
 		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
@@ -1143,8 +1152,7 @@ class AdvancedOptionsDialog(wx.Dialog):
 	def onOk(self, evt):
 		parent = self.Parent
 		parent.splConPassthrough = self.splConPassthroughCheckbox.Value
-		comp = "jfw" if self.compLayerCheckbox.Value else "off"
-		parent.compLayer = comp
+		parent.compLayer = self.compatibilityLayouts[self.compatibilityList.GetSelection()][0]
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()
