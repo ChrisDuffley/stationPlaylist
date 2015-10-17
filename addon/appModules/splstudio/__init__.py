@@ -1278,6 +1278,7 @@ class AppModule(appModuleHandler.AppModule):
 			self.SPLAssistant = True
 			tones.beep(512, 50)
 			if splconfig.SPLConfig["CompatibilityLayer"] == "jfw": ui.message("JAWS")
+			elif splconfig.SPLConfig["CompatibilityLayer"] == "wineyes": ui.message("Window-Eyes")
 		except WindowsError:
 			return
 	# Translators: Input help mode message for a layer command in Station Playlist Studio.
