@@ -594,10 +594,16 @@ class AppModule(appModuleHandler.AppModule):
 			return "00:00"
 		else:
 			tm = (t/1000) if not offset else (t/1000)+offset
-			timeComponents = divmod(tm, 60)
-			tm1 = str(timeComponents[0]).zfill(2)
-			tm2 = str(timeComponents[1]).zfill(2)
-			return ":".join([tm1, tm2])
+			mm, ss = divmod(tm, 60)
+			if mm > 59 and splconfig.SPLConfig["TimeHourAnnounce"]:
+				hh, mm = divmod(mm, 60)
+				tm1 = str(mm).zfill(2)
+				tm2 = str(ss).zfill(2)
+				return ":".join([str(hh), tm1, tm2])
+			else:
+				tm1 = str(mm).zfill(2)
+				tm2 = str(ss).zfill(2)
+				return ":".join([tm1, tm2])
 
 	# Scripts which rely on API.
 	def script_sayRemainingTime(self, gesture):
