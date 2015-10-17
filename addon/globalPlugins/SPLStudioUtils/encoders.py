@@ -178,7 +178,7 @@ class EncoderConfigDialog(wx.Dialog):
 		EncoderConfigDialog._instance = weakref.ref(self)
 
 		self.obj = obj
-		curStreamLabel, title = obj.getStreamLabel(getTitle=True)
+		self.curStreamLabel, title = obj.getStreamLabel(getTitle=True)
 		super(EncoderConfigDialog, self).__init__(parent, wx.ID_ANY, "Encoder settings for {name}".format(name = title))
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -186,7 +186,7 @@ class EncoderConfigDialog(wx.Dialog):
 		streamLabelPrompt = wx.StaticText(self, wx.ID_ANY, label=_("Stream &label"))
 		sizer.Add(streamLabelPrompt)
 		self.streamLabel = wx.TextCtrl(self, wx.ID_ANY)
-		self.streamLabel.SetValue(curStreamLabel if curStreamLabel is not None else "")
+		self.streamLabel.SetValue(self.curStreamLabel if self.curStreamLabel is not None else "")
 		sizer.Add(self.streamLabel)
 		mainSizer.Add(sizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
@@ -212,6 +212,15 @@ class EncoderConfigDialog(wx.Dialog):
 		self.streamLabel.SetFocus()
 
 	def onOk(self, evt):
+		self.obj._set_Flags(self.obj.getEncoderId(), self.focusToStudio.Value, SPLFocusToStudio, "FocusToStudio", save=False)
+		self.obj._set_Flags(self.obj.getEncoderId(), self.playAfterConnecting.Value, SPLPlayAfterConnecting, "PlayAfterConnecting", save=False)
+		self.obj._set_Flags(self.obj.getEncoderId(), self.backgroundMonitor.Value, SPLBackgroundMonitor, "BackgroundMonitor", save=False)
+		#self.connectionTone.Value
+		newStreamLabel = self.streamLabel.Value
+		if newStreamLabel is None: newStreamLabel = ""
+		if newStreamLabel == self.curStreamLabel:
+			streamLabels.write() # Only flag(s) have changed.
+		else: self.obj.setStreamLabel(newStreamLabel)
 		self.Destroy()
 
 	def onCancel(self, evt):
@@ -254,15 +263,20 @@ class Encoder(IAccessible):
 	# Set or clear a given flag for the encoder given its ID, flag and flag container (currently a feature set).
 	# Also take in the flag key for storing it into the settings file.
 	# The flag will then be written to the configuration file.
-	def _set_Flags(self, encoderId, flag, flagMap, flagKey):
+	# 7.0: Don't dump flags to disk unless told.
+	def _set_Flags(self, encoderId, flag, flagMap, flagKey, save=True):
 		if flag and not encoderId in flagMap:
 			flagMap.add(encoderId)
 		elif not flag and encoderId in flagMap:
 			flagMap.remove(encoderId)
 		# No need to store an empty flag map.
 		if len(flagMap): streamLabels[flagKey] = list(flagMap)
-		else: del streamLabels[flagKey]
-		streamLabels.write()
+		else:
+			try:
+				del streamLabels[flagKey]
+			except KeyError:
+				pass
+		if save: streamLabels.write()
 
 	# Now the flag configuration scripts.
 	# Project Rainbow: a new way to configure these will be created.
@@ -571,7 +585,10 @@ class SAMEncoder(Encoder):
 		if len(newStreamLabel):
 			SAMStreamLabels[str(self.IAccessibleChildID)] = newStreamLabel
 		else:
-			del SAMStreamLabels[str(self.IAccessibleChildID)]
+			try:
+				del SAMStreamLabels[str(self.IAccessibleChildID)]
+			except KeyError:
+				pass
 		streamLabels["SAMEncoders"] = SAMStreamLabels
 		streamLabels.write()
 
@@ -723,7 +740,10 @@ class SPLEncoder(Encoder):
 		if len(newStreamLabel):
 			SPLStreamLabels[str(self.IAccessibleChildID)] = newStreamLabel
 		else:
-			del SPLStreamLabels[str(self.IAccessibleChildID)]
+			try:
+				del SPLStreamLabels[str(self.IAccessibleChildID)]
+			except KeyError:
+				pass
 		streamLabels["SPLEncoders"] = SPLStreamLabels
 		streamLabels.write()
 
