@@ -34,6 +34,7 @@ MicAlarmInterval = integer(min=0, max=60, default=0)
 AlarmAnnounce = option("beep", "message", "both", default="beep")
 LibraryScanAnnounce = option("off", "ending", "progress", "numbers", default="off")
 TrackDial = boolean(default=false)
+TimeHourAnnounce = boolean(default=false)
 MetadataReminder = option("off", "startup", "instant", default="off")
 MetadataEnabled = bool_list(default=list(false,false,false,false,false))
 UseScreenColumnOrder = boolean(default=true)
@@ -55,7 +56,9 @@ _val = Validator()
 _SPLDefaults.validate(_val, copy=True)
 
 # The following settings can be changed in profiles:
-_mutatableSettings=("SayEndOfTrack","EndOfTrackTime","SaySongRamp","SongRampTime","MicAlarm", "MicAlarmInterval")
+_mutatableSettings=("SayEndOfTrack","EndOfTrackTime","SaySongRamp","SongRampTime","MicAlarm","MicAlarmInterval")
+# Unlock in 6.1.
+#,"MetadataEnabled","UseScreenColumnOrder","ColumnOrder","IncludedColumns")
 
 # Display an error dialog when configuration validation fails.
 def runConfigErrorDialog(errorText, errorType):
@@ -168,6 +171,8 @@ def unlockConfig(path, profileName=None, prefill=False):
 	# Do this only for base profile.
 	if prefill: _extraInitSteps(SPLConfigCheckpoint, profileName=profileName)
 	else: _applyBaseSettings(SPLConfigCheckpoint)
+	# Unlock in 6.1.
+	#if not prefill: _applyBaseSettings(SPLConfigCheckpoint)
 	SPLConfigCheckpoint.name = profileName
 	return SPLConfigCheckpoint
 
@@ -191,6 +196,14 @@ def _extraInitSteps(conf, profileName=None):
 	# Artist and Title must be present at all times (quite redundant, but just in case).
 	conf["IncludedColumns"].add("Artist")
 	conf["IncludedColumns"].add("Title")
+	# Perform a similar check for metadata streaming.
+	# Unlock in 6.1.
+	"""if len(conf["MetadataEnabled"]) != 5:
+		if profileName in _configLoadStatus and _configLoadStatus[profileName] == "partialReset":
+			_configLoadStatus[profileName] = "partialAndMetadataReset"
+		else:
+			_configLoadStatus[profileName] = "metadataReset"
+		conf["MetadataEnabled"] = [False, False, False, False, False]"""
 
 # Apply base profile if loading user-defined broadcast profiles.
 def _applyBaseSettings(conf):
@@ -222,6 +235,9 @@ def isConfigPoolSorted():
 
 # Perform some extra work before writing the config file.
 def _preSave(conf):
+	# 6.1: Transform column inclusion data structure now.
+	# Unlock in 6.1.
+	#conf["IncludedColumns"] = list(conf["IncludedColumns"])
 	# Perform global setting processing only for the normal profile.
 	if SPLConfigPool.index(conf) == 0:
 		conf["IncludedColumns"] = list(conf["IncludedColumns"])
@@ -241,9 +257,17 @@ def _preSave(conf):
 			conf["PSZ"] = splupdate.SPLAddonSize
 	# For other profiles, remove global settings before writing to disk.
 	else:
+		# 6.1: Make sure column order and inclusion aren't same as default values.
+		# Unlock in 6.1.
+		"""includedColumns = set(_SPLDefaults["IncludedColumns"])
+		if conf["IncludedColumns"] == includedColumns:
+			del conf["IncludedColumns"]
+		if conf["ColumnOrder"] == ["Artist","Title","Duration","Intro","Category","Filename"]:
+			del conf["ColumnOrder"]"""
 		for setting in conf.keys():
 			if setting not in _mutatableSettings or (setting in _mutatableSettings and conf[setting] == _SPLDefaults[setting]):
 				del conf[setting]
+
 
 # Save configuration database.
 def saveConfig():
@@ -279,20 +303,24 @@ SPLSwitchProfile = None
 def instantProfileSwitch():
 	global SPLPrevProfile, SPLConfig, SPLActiveProfile
 	if _configDialogOpened:
-		ui.message("Add-on settings dialog is open, cannot switch profiles")
+		# Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
+		ui.message(_("Add-on settings dialog is open, cannot switch profiles"))
 		return
 	if SPLSwitchProfile is None:
-		ui.message("No instant switch profile is defined")
+		# Translators: Presented when trying to switch to an instant switch profile when the instant switch profile is not defined.
+		ui.message(_("No instant switch profile is defined"))
 	else:
 		if SPLPrevProfile is None:
 			if SPLActiveProfile == SPLSwitchProfile:
-				ui.message("You are already in the instant switch profile")
+				# Translators: Presented when trying to switch to an instant switch profile when one is already using the instant switch profile.
+				ui.message(_("You are already in the instant switch profile"))
 				return
 			# Switch to the given profile.
 			switchProfileIndex = getProfileIndexByName(SPLSwitchProfile)
 			SPLPrevProfile = SPLConfigPool.index(SPLConfig)
 			SPLConfig = SPLConfigPool[switchProfileIndex]
-			ui.message("Switching profiles")
+			# Translators: Presented when switch to instant switch profile was successful.
+			ui.message(_("Switching profiles"))
 			# Use the focus.appModule's metadata reminder method if told to do so now.
 			if SPLConfig["MetadataReminder"] in ("startup", "instant"):
 				api.getFocusObject().appModule._metadataAnnouncer(reminder=True)
@@ -300,7 +328,8 @@ def instantProfileSwitch():
 			SPLConfig = SPLConfigPool[SPLPrevProfile]
 			SPLActiveProfile = SPLConfig.name
 			SPLPrevProfile = None
-			ui.message("Returning to previous profile")
+			# Translators: Presented when switching from instant switch profile to a previous profile.
+			ui.message(_("Returning to previous profile"))
 			# 6.2: Don't forget to switch streaming status around.
 			if SPLConfig["MetadataReminder"] in ("startup", "instant"):
 				api.getFocusObject().appModule._metadataAnnouncer(reminder=True)
@@ -511,6 +540,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 		sizer.Add(self.libScanList)
 		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
+		self.hourAnnounceCheckbox=wx.CheckBox(self,wx.NewId(),label="Include &hours when announcing track or playlist duration")
+		self.hourAnnounceCheckbox.SetValue(SPLConfig["TimeHourAnnounce"])
+		settingsSizer.Add(self.hourAnnounceCheckbox, border=10,flag=wx.BOTTOM)
+
 		# Translators: the label for a setting in SPL add-on settings to toggle track dial mode on and off.
 		self.trackDialCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Track Dial mode"))
 		self.trackDialCheckbox.SetValue(SPLConfig["TrackDial"])
@@ -598,6 +631,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["MicAlarmInterval"] = self.micAlarmInterval.Value
 		SPLConfig["AlarmAnnounce"] = self.alarmAnnounceValues[self.alarmAnnounceList.GetSelection()][0]
 		SPLConfig["LibraryScanAnnounce"] = self.libScanValues[self.libScanList.GetSelection()][0]
+		SPLConfig["TimeHourAnnounce"] = self.hourAnnounceCheckbox.Value
 		SPLConfig["TrackDial"] = self.trackDialCheckbox.Value
 		SPLConfig["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
 		SPLConfig["MetadataEnabled"] = self.metadataStreams
@@ -652,6 +686,9 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# Don't rely on SPLConfig here, as we don't want to interupt the show.
 		selection = self.profiles.GetSelection()
 		selectedProfile = self.profiles.GetStringSelection()
+		# Play a tone to indicate active profile.
+		if SPLActiveProfile == selectedProfile:
+			tones.beep(512, 40)
 		if selection == 0:
 			self.renameButton.Disable()
 			self.deleteButton.Disable()
@@ -673,6 +710,12 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.onIntroCheck(None)
 		self.micAlarm.SetValue(long(curProfile["MicAlarm"]))
 		self.micAlarmInterval.SetValue(long(curProfile["MicAlarmInterval"]))
+		# 6.1: Take care of profile-specific column and metadata settings.
+		# Unlock in 6.1.
+		"""self.metadataStreams = curProfile["MetadataEnabled"]
+		self.columnOrderCheckbox.SetValue(curProfile["UseScreenColumnOrder"])
+		self.columnOrder = curProfile["ColumnOrder"]
+		self.includedColumns = curProfile["IncludedColumns"]"""
 
 	# Profile controls.
 	# Rename and delete events come from GUI/config profiles dialog from NVDA core.
@@ -955,6 +998,11 @@ class MetadataStreamingDialog(wx.Dialog):
 			sizer.Add(checkedStream)
 		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
+		if self.func is not None:
+			self.applyCheckbox=wx.CheckBox(self,wx.NewId(),label="&Apply streaming changes to the selected profile")
+			self.applyCheckbox.SetValue(SPLConfig["BeepAnnounce"])
+			mainSizer.Add(self.applyCheckbox, border=10,flag=wx.TOP)
+
 		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
@@ -966,14 +1014,19 @@ class MetadataStreamingDialog(wx.Dialog):
 	def onOk(self, evt):
 		global _metadataDialogOpened
 		if self.func is None: parent = self.Parent
+		metadataEnabled = []
 		for url in xrange(5):
 			if self.func is None: parent.metadataStreams[url] = self.checkedStreams[url].Value
 			else:
 				dataLo = 0x00010000 if self.checkedStreams[url].Value else 0xffff0000
 				self.func(dataLo | url, 36)
+				if self.applyCheckbox.Value: metadataEnabled.append(self.checkedStreams[url].Value)
 		if self.func is None:
 			parent.profiles.SetFocus()
 			parent.Enable()
+		else:
+			# 6.1: Store just toggled settings to profile if told to do so.
+			if len(metadataEnabled): SPLConfig["MetadataEnabled"] = metadataEnabled
 		self.Destroy()
 		_metadataDialogOpened = False
 		return

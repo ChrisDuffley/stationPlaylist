@@ -8,7 +8,7 @@ This add-on package provides improved usage of StationPlaylist Studio, as well a
 
 For more information about the add-on, read the [add-on guide][3].
 
-IMPORTANT: This add-on requires NVDA 2014.3 or later and StationPlaylist Studio 5.00 or later.
+IMPORTANT: This add-on requires NVDA 2015.3 or later and StationPlaylist Studio 5.00 or later.
 
 ## Shortcut keys
 
@@ -152,11 +152,12 @@ From studio window, you can press Control+NVDA+0 to open the add-on configuratio
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
-## Changes for 6.0-dev
+## Changes for 6.0
 
 * New SPL Assistant commands, including announcing title of the currently playing track (C), announcing status of metadata streaming (E, 1 through 4 and 0) and opening the online user guide (Shift+F1).
 * Ability to package favorite settings as broadcast profiles to be used during a show and to switch to a predefined profile. See the add-on guide for details on broadcast profiles.
 * Added a new setting in add-on settings to control message verbosity (some messages will be shortened when advanced verbosity is selected).
+* Added a new setting in add-on settings to let NVDA announce hours, minutes and seconds for track or playlist duration commands (affected features include announcing elapsed and remaining time for the currently playing track, track time analysis and others).
 * You can now ask NVDA to report total length of a range of tracks via track time analysis feature. Press SPL Assistant, F9 to mark current track as start marker, move to end of track range and press SPL Assistant, F10. These commands can be reassigned so one doesn't have to invoke SPL Assistant layer to perform track time analysis.
 * Added a column search dialog (command unassigned) to find text in specific columns such as artist or part of file name.
 * Added a time range finder dialog (command unassigned) to find a track with duration that falls within a specified range, useful if wishing to find a track to fill an hour slot.
