@@ -33,7 +33,7 @@ SPL_TrackPlaybackStatus = 104
 SPLFocusToStudio = set() # Whether to focus to Studio or not.
 SPLPlayAfterConnecting = set()
 SPLBackgroundMonitor = set()
-SPLConnectionTone = set()
+SPLNoConnectionTone = set()
 
 # Customized for each encoder type.
 SAMStreamLabels= {} # A dictionary to store custom labels for each stream.
@@ -66,7 +66,7 @@ def loadStreamLabels():
 	if "BackgroundMonitor" in streamLabels:
 		SPLBackgroundMonitor = set(streamLabels["BackgroundMonitor"])
 	if "ConnectionTone" in streamLabels:
-		SPLConnectionTone = set(streamLabels["ConnectionTone"])
+		SPLNoConnectionTone = set(streamLabels["NoConnectionTone"])
 
 # Report number of encoders being monitored.
 # 6.0: Refactor the below function to use the newer encoder config format.
@@ -101,7 +101,7 @@ def _removeEncoderID(encoderType, pos):
 	global _encoderConfigRemoved
 	# For now, store the key to map.
 	# This might become a module-level constant if other functions require this dictionary.
-	key2map = {"FocusToStudio":SPLFocusToStudio, "PlayAfterConnecting":SPLPlayAfterConnecting, "BackgroundMonitor":SPLBackgroundMonitor}
+	key2map = {"FocusToStudio":SPLFocusToStudio, "PlayAfterConnecting":SPLPlayAfterConnecting, "BackgroundMonitor":SPLBackgroundMonitor, "NoConnectionTone":SPLNoConnectionTone}
 	encoderID = " ".join([encoderType, pos])
 	# Go through each feature map, remove the encoder ID and manipulate encoder positions in these sets.
 	# For each set, have a list of set items handy, otherwise set cardinality error (RuntimeError) will occur if items are removed on the fly.
@@ -199,9 +199,9 @@ class EncoderConfigDialog(wx.Dialog):
 		self.backgroundMonitor=wx.CheckBox(self,wx.NewId(),label="Enable background connection monitoring")
 		self.backgroundMonitor.SetValue(obj.getEncoderId() in SPLBackgroundMonitor)
 		mainSizer.Add(self.backgroundMonitor,border=10,flag=wx.BOTTOM)
-		self.connectionTone=wx.CheckBox(self,wx.NewId(),label="Play connection status beep while connecting")
-		self.connectionTone.SetValue(obj.getEncoderId() in SPLConnectionTone)
-		mainSizer.Add(self.connectionTone,border=10,flag=wx.BOTTOM)
+		self.noConnectionTone=wx.CheckBox(self,wx.NewId(),label="Play connection status beep while connecting")
+		self.noConnectionTone.SetValue(obj.getEncoderId() not in SPLNoConnectionTone)
+		mainSizer.Add(self.noConnectionTone,border=10,flag=wx.BOTTOM)
 
 		mainSizer.AddSizer(self.CreateButtonSizer(wx.OK|wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON,self.onOk,id=wx.ID_OK)
@@ -215,7 +215,8 @@ class EncoderConfigDialog(wx.Dialog):
 		self.obj._set_Flags(self.obj.getEncoderId(), self.focusToStudio.Value, SPLFocusToStudio, "FocusToStudio", save=False)
 		self.obj._set_Flags(self.obj.getEncoderId(), self.playAfterConnecting.Value, SPLPlayAfterConnecting, "PlayAfterConnecting", save=False)
 		self.obj._set_Flags(self.obj.getEncoderId(), self.backgroundMonitor.Value, SPLBackgroundMonitor, "BackgroundMonitor", save=False)
-		#self.connectionTone.Value
+		# Invert the following only.
+		self.obj._set_Flags(self.obj.getEncoderId(), not self.noConnectionTone.Value, SPLNoConnectionTone, "NoConnectionTone", save=False)
 		newStreamLabel = self.streamLabel.Value
 		if newStreamLabel is None: newStreamLabel = ""
 		if newStreamLabel == self.curStreamLabel:
@@ -243,6 +244,8 @@ class Encoder(IAccessible):
 	focusToStudio = False # If true, Studio will gain focus after encoder connects.
 	playAfterConnecting = False # When connected, the first track will be played.
 	backgroundMonitor = False # Monitor this encoder for connection status changes.
+	connectionTone = True # Play connection tone while connecting.
+
 
 	# Some helper functions
 
@@ -435,6 +438,12 @@ class Encoder(IAccessible):
 			self.backgroundMonitor = encoderIdentifier in SPLBackgroundMonitor
 		except KeyError:
 			pass
+		# Can I play connection beeps?
+		try:
+			self.connectionTone = encoderIdentifier not in SPLNoConnectionTone
+		except KeyError:
+			pass
+
 
 	def reportFocus(self):
 		try:
@@ -526,7 +535,7 @@ class SAMEncoder(Encoder):
 				if encoding: encoding = False
 				elif "Error" not in self.description and error: error = False
 				toneCounter+=1
-				if toneCounter%250 == 0:
+				if toneCounter%250 == 0 and self.connectionTone:
 					tones.beep(500, 50)
 			if connecting: continue
 			if not " ".join([self.encoderType, str(self.IAccessibleChildID)]) in SPLBackgroundMonitor: return
@@ -690,7 +699,7 @@ class SPLEncoder(Encoder):
 				if connected: connected = False
 				if not "Kbps" in messageCache:
 					attempt += 1
-					if attempt%250 == 0:
+					if attempt%250 == 0 and self.connectionTone:
 						tones.beep(500, 50)
 						if attempt>= 500 and statChild.name == "Disconnected":
 							tones.beep(250, 250)
