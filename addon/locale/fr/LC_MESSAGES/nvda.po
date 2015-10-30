@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 4.1\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2015-09-08 16:07+0100\n"
+"PO-Revision-Date: 2015-10-29 13:02+0100\n"
 "Last-Translator: Bachir BENANOU <ben_bach@yahoo.fr>\n"
 "Language-Team: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language: fr\n"
@@ -196,11 +196,11 @@ msgstr "Impossible d'obtenir le temps en heures, minutes et secondes"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Announces the remaining track time."
-msgstr "Annonce le temps restant pour la piste."
+msgstr "Annonce le temps restant de la piste."
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Announces the elapsed time for the currently playing track."
-msgstr "Annonce le temps écoulé pour la piste en cours de lecture."
+msgstr "Annonce le temps écoulé de la piste en cours de lecture."
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Announces broadcaster time."
@@ -262,7 +262,7 @@ msgstr "&Notifier lorsque la fin de l'introduction est proche"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "sets song intro alarm (default is 5 seconds)."
-msgstr "définir allarme chanson intro (la valeur par défaut est 5 secondes)."
+msgstr "définit l'allarme chanson intro (la valeur par défaut est 5 secondes)."
 
 #. Translators: A dialog message to set microphone active alarm (curAlarmSec is the current mic monitoring alarm in seconds).
 #, python-brace-format
@@ -351,7 +351,7 @@ msgstr ""
 
 #. Translators: Standard dialog message when find dialog is already open.
 msgid "Find track dialog is already open."
-msgstr "Le dialogue Trouver une piste est déjà ouvert."
+msgstr "Le dialogue Rechercher une piste est déjà ouvert."
 
 #. Translators: The text of the dialog for finding tracks.
 msgid "Enter the name of the track you wish to search."
@@ -359,11 +359,11 @@ msgstr "Entrez le nom de la piste que vous souhaitez rechercher."
 
 #. Translators: The title of the find tracks dialog.
 msgid "Find track"
-msgstr "Trouver une piste"
+msgstr "Rechercher une piste"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Finds a track in the track list."
-msgstr "Trouve une piste dans la liste des pistes."
+msgstr "Cherche une piste dans la liste des pistes."
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Finds the next occurrence of the track with the name in the track list."
@@ -478,7 +478,7 @@ msgstr "Impossible de trouver les informations de la piste suivante"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Announces title of the next track if any"
-msgstr "Annonce le titre de la piste suivante dans le cas échéant"
+msgstr "Annonce le titre de la piste suivante s'il y a lieu"
 
 #. Translators: Presented when there is no weather or temperature information.
 msgid "Weather and temperature not configured"
@@ -498,7 +498,7 @@ msgstr "Nombre d'auditeurs introuvable"
 
 #. Translators: Presented when there is no information on song pitch (for Studio 4.33 and earlier).
 msgid "Song pitch not available"
-msgstr "Hauteur de la chanson non disponible"
+msgstr "Tonalité de la chanson non disponible"
 
 #. Translators: Presented when attempting to start library scan.
 msgid "Monitoring library scan"
@@ -598,7 +598,7 @@ msgstr "nombre de balayage"
 
 #. Translators: the label for a setting in SPL add-on settings to toggle track dial mode on and off.
 msgid "&Track Dial mode"
-msgstr "Mode Cadran  de &piste"
+msgstr "Mode Cadran de &piste"
 
 #. Translators: the label for a setting in SPL add-on settings to announce scheduled time.
 msgid "Announce &scheduled time for the selected track"
@@ -610,7 +610,7 @@ msgstr "Annoncer le &nombre d'auditeurs"
 
 #. Translators: the label for a setting in SPL add-on settings to announce currently playing cart.
 msgid "&Announce name of the currently playing cart"
-msgstr "&Annoncer du nom du chariot en cours de lecture"
+msgstr "&Annonce du nom du chariot en cours de lecture"
 
 #. Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
 msgid "Reset settings"
@@ -692,7 +692,7 @@ msgid ""
 "You are already in SPL Studio window. For status commands, use SPL Assistant "
 "commands."
 msgstr ""
-"Vous êtes déjà dans la fenêtre SPL Studio. Pour le statut des commandes, "
+"Vous êtes déjà dans la fenêtre SPL Studio. Pour les commandes de statut, "
 "utilisez les commandes de l'Assistant SPL."
 
 #. Translators: The name of a layer command set for Station Playlist Studio.
@@ -710,7 +710,7 @@ msgstr ""
 msgid "There is no track playing. Try pausing while a track is playing."
 msgstr ""
 "Il n'y a aucune piste en cours de lecture. Essayez une pause lorsqu'une "
-"piste est en cours de lecture."
+"piste est jouée."
 
 #. Translators: Presented when no track is playing in Station Playlist Studio.
 msgid "There is no track playing."
@@ -748,7 +748,7 @@ msgid ""
 "server."
 msgstr ""
 "Détermine si NVDA bascule vers Studio lorsqu'il est connecté à un serveur de "
-"streaming."
+"flux."
 
 #. Translators: Presented when toggling the setting to play selected song when connected to a streaming server.
 msgid "Play first track after connecting"
@@ -764,7 +764,7 @@ msgid ""
 "streaming server."
 msgstr ""
 "Détermine si Studio lit la première piste lorsqu'il est connecté à un "
-"serveur de streaming."
+"serveur de flux."
 
 #. Multiple encoders.
 #. Translators: Presented when toggling the setting to monitor the selected encoder.
@@ -784,7 +784,7 @@ msgstr "Contrôle d'Encodeur annulé"
 #. Translators: Input help mode message in SAM Encoder window.
 msgid ""
 "Toggles whether NVDA will monitor the selected encoder in the background."
-msgstr "Détermine si NVDA contrôle l'encodeur sélectionné en arrière-plan."
+msgstr "Détermine si NVDA surveille l'encodeur sélectionné en arrière-plan."
 
 #. Translators: The title of the stream labeler dialog (example: stream labeler for 1).
 #, python-brace-format
@@ -797,11 +797,11 @@ msgstr "Entrez l'étiquette pour ce flux"
 
 #. Translators: Input help mode message in SAM Encoder window.
 msgid "Opens a dialog to label the selected encoder."
-msgstr "Ouvre un dialogue pour l'étiquette de l'encodeur sélectionné."
+msgstr "Ouvre un dialogue pour étiqueter l'encodeur sélectionné."
 
 #. Translators: The title of the stream label eraser.
 msgid "Stream label eraser"
-msgstr "Supprimer étiquette de flux"
+msgstr "Effaceur d'étiquette de flux"
 
 #. Translators: The text of the stream label eraser dialog.
 msgid "Enter the position of the encoder you wish to delete or will delete"
@@ -812,7 +812,7 @@ msgstr ""
 #. Translators: Input help mode message in SAM Encoder window.
 msgid "Opens a dialog to erase stream labels from an encoder that was deleted."
 msgstr ""
-"Ouvre un dialogue pour supprimer les étiquettes de flux  d'un encodeur qui a "
+"Ouvre un dialogue pour effacer les étiquettes de flux  d'un encodeur qui a "
 "été supprimé."
 
 #. Translators: Input help mode message for report date and time command.
@@ -837,7 +837,7 @@ msgid "Disconnecting..."
 msgstr "Déconnexion en cours..."
 
 msgid "Connects to a streaming server."
-msgstr "Se connecter à un serveur de streaming."
+msgstr "Se connecter à un serveur de flux."
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
