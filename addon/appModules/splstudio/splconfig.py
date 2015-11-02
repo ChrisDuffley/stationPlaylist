@@ -681,7 +681,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		selection = self.profiles.GetSelection()
 		selectedProfile = self.profiles.GetStringSelection()
 		# Play a tone to indicate active profile.
-		if SPLActiveProfile == selectedProfile:
+		if self.activeProfile == selectedProfile:
 			tones.beep(512, 40)
 		if selection == 0:
 			self.renameButton.Disable()
