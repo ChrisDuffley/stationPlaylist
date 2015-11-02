@@ -16,6 +16,7 @@ import gui
 import wx
 from winUser import user32
 import tones
+import splupdate
 
 # Configuration management
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
@@ -120,6 +121,8 @@ def initConfig():
 	except WindowsError:
 		pass
 	SPLConfig = SPLConfigPool[0]
+	# 7.0: Store add-on installer size in case one wishes to check for updates (default size is 0 or no update checked attempted).
+	if "PSZ" in SPLConfig: splupdate.SPLAddonSize != conf["PSZ"]
 	# Locate instant profile.
 	if "InstantProfile" in SPLConfig:
 		try:
@@ -249,6 +252,9 @@ def _preSave(conf):
 		# 6.0 only: Remove obsolete keys.
 		if "MetadataURL" in conf:
 			del conf["MetadataURL"]
+		# 7.0: Check if updates are pending.
+		if "PSZ" in conf and splupdate.SPLAddonSize != conf["PSZ"]:
+			conf["PSZ"] = splupdate.SPLAddonSize
 	# For other profiles, remove global settings before writing to disk.
 	else:
 		# 6.1: Make sure column order and inclusion aren't same as default values.
