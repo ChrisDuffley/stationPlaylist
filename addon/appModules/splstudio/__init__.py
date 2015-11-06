@@ -120,15 +120,23 @@ class SPLTrackItem(IAccessible):
 		if self.appModule._columnHeaders is None:
 			self.appModule._columnHeaders = self.parent.children[-1]
 		headers = [header.name for header in self.appModule._columnHeaders.children]
-		return headers.index(columnHeader)
+		# Handle both 5.0x and 5.10 column headers.
+		try:
+			return headers.index(columnHeader)
+		except ValueError:
+			return None
 
 	def reportFocus(self):
 		#tones.beep(800, 100)
 		if not splconfig.SPLConfig["UseScreenColumnOrder"]:
 			descriptionPieces = []
 			for header in splconfig.SPLConfig["ColumnOrder"]:
+				# Artist field should not be included in Studio 5.0x, as the checkbox serves this role.
+				if header == "Artist" and self.appModule.productVersion.startswith("5.0"):
+					continue
 				if header in splconfig.SPLConfig["IncludedColumns"]:
 					index = self._indexOf(header)
+					if index is None: continue # Header not found, mostly encountered in Studio 5.0x.
 					content = self._getColumnContent(index)
 					if content:
 						descriptionPieces.append("%s: %s"%(header, content))
@@ -594,10 +602,16 @@ class AppModule(appModuleHandler.AppModule):
 			return "00:00"
 		else:
 			tm = (t/1000) if not offset else (t/1000)+offset
-			timeComponents = divmod(tm, 60)
-			tm1 = str(timeComponents[0]).zfill(2)
-			tm2 = str(timeComponents[1]).zfill(2)
-			return ":".join([tm1, tm2])
+			mm, ss = divmod(tm, 60)
+			if mm > 59 and splconfig.SPLConfig["TimeHourAnnounce"]:
+				hh, mm = divmod(mm, 60)
+				tm1 = str(mm).zfill(2)
+				tm2 = str(ss).zfill(2)
+				return ":".join([str(hh), tm1, tm2])
+			else:
+				tm1 = str(mm).zfill(2)
+				tm2 = str(ss).zfill(2)
+				return ":".join([tm1, tm2])
 
 	# Scripts which rely on API.
 	def script_sayRemainingTime(self, gesture):
