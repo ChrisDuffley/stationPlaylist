@@ -994,7 +994,7 @@ class MetadataStreamingDialog(wx.Dialog):
 
 		if self.func is not None:
 			self.applyCheckbox=wx.CheckBox(self,wx.NewId(),label="&Apply streaming changes to the selected profile")
-			self.applyCheckbox.SetValue(SPLConfig["BeepAnnounce"])
+			self.applyCheckbox.SetValue(False)
 			mainSizer.Add(self.applyCheckbox, border=10,flag=wx.TOP)
 
 		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
@@ -1057,7 +1057,7 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		# Translators: The label for a setting in SPL add-on dialog to select a base  profile for copying.
+		# Translators: The label for a setting in SPL add-on dialog to select column announcement order.
 		label = wx.StaticText(self, wx.ID_ANY, label=_("Column &order:"))
 		# WXPython Phoenix contains RearrangeList to allow item orders to be changed automatically.
 		# Because WXPython Classic doesn't include this, work around by using a variant of list box and move up/down buttons.
@@ -1158,7 +1158,7 @@ class AdvancedOptionsDialog(wx.Dialog):
 		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		self.compLayerCheckbox=wx.CheckBox(self,wx.NewId(),label="Screen &reader compatibility Mode (experimental)")
+		self.compLayerCheckbox=wx.CheckBox(self,wx.NewId(),label="Screen &reader compatibility Mode")
 		# Project Rainbow: change the UI for this control.
 		self.compLayerCheckbox.SetValue(SPLConfig["CompatibilityLayer"] != "off")
 		sizer.Add(self.compLayerCheckbox, border=10,flag=wx.TOP)
