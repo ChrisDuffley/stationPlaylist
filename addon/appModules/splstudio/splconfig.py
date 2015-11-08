@@ -38,8 +38,8 @@ TimeHourAnnounce = boolean(default=false)
 MetadataReminder = option("off", "startup", "instant", default="off")
 MetadataEnabled = bool_list(default=list(false,false,false,false,false))
 UseScreenColumnOrder = boolean(default=true)
-ColumnOrder = string_list(default=list("Artist","Title","Duration","Intro","Category","Filename"))
-IncludedColumns = string_list(default=list("Artist","Title","Duration","Intro","Category","Filename"))
+ColumnOrder = string_list(default=list("Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"))
+IncludedColumns = string_list(default=list("Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"))
 SayScheduledFor = boolean(default=true)
 SayListenerCount = boolean(default=true)
 SayPlayingCartName = boolean(default=true)
@@ -181,11 +181,11 @@ def _extraInitSteps(conf, profileName=None):
 	global _configLoadStatus
 	columnOrder = conf["ColumnOrder"]
 	# Catch suttle errors.
-	fields = ["Artist","Title","Duration","Intro","Category","Filename"]
+	fields = ["Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"]
 	invalidFields = 0
 	for field in fields:
 		if field not in columnOrder: invalidFields+=1
-	if invalidFields or len(columnOrder) != 6:
+	if invalidFields or len(columnOrder) != 17:
 		if profileName in _configLoadStatus and _configLoadStatus[profileName] == "partialReset":
 			_configLoadStatus[profileName] = "partialAndColumnOrderReset"
 		else:
@@ -1000,7 +1000,7 @@ class MetadataStreamingDialog(wx.Dialog):
 
 		if self.func is not None:
 			self.applyCheckbox=wx.CheckBox(self,wx.NewId(),label="&Apply streaming changes to the selected profile")
-			self.applyCheckbox.SetValue(SPLConfig["BeepAnnounce"])
+			self.applyCheckbox.SetValue(False)
 			mainSizer.Add(self.applyCheckbox, border=10,flag=wx.TOP)
 
 		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
@@ -1063,7 +1063,7 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		# Translators: The label for a setting in SPL add-on dialog to select a base  profile for copying.
+		# Translators: The label for a setting in SPL add-on dialog to select column announcement order.
 		label = wx.StaticText(self, wx.ID_ANY, label=_("Column &order:"))
 		# WXPython Phoenix contains RearrangeList to allow item orders to be changed automatically.
 		# Because WXPython Classic doesn't include this, work around by using a variant of list box and move up/down buttons.
@@ -1164,7 +1164,7 @@ class AdvancedOptionsDialog(wx.Dialog):
 		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		self.compLayerCheckbox=wx.CheckBox(self,wx.NewId(),label="Screen &reader compatibility Mode (experimental)")
+		self.compLayerCheckbox=wx.CheckBox(self,wx.NewId(),label="Screen &reader compatibility Mode")
 		# Project Rainbow: change the UI for this control.
 		self.compLayerCheckbox.SetValue(SPLConfig["CompatibilityLayer"] != "off")
 		sizer.Add(self.compLayerCheckbox, border=10,flag=wx.TOP)
