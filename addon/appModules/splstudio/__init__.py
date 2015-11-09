@@ -120,15 +120,23 @@ class SPLTrackItem(IAccessible):
 		if self.appModule._columnHeaders is None:
 			self.appModule._columnHeaders = self.parent.children[-1]
 		headers = [header.name for header in self.appModule._columnHeaders.children]
-		return headers.index(columnHeader)
+		# Handle both 5.0x and 5.10 column headers.
+		try:
+			return headers.index(columnHeader)
+		except ValueError:
+			return None
 
 	def reportFocus(self):
 		#tones.beep(800, 100)
 		if not splconfig.SPLConfig["UseScreenColumnOrder"]:
 			descriptionPieces = []
 			for header in splconfig.SPLConfig["ColumnOrder"]:
+				# Artist field should not be included in Studio 5.0x, as the checkbox serves this role.
+				if header == "Artist" and self.appModule.productVersion.startswith("5.0"):
+					continue
 				if header in splconfig.SPLConfig["IncludedColumns"]:
 					index = self._indexOf(header)
+					if index is None: continue # Header not found, mostly encountered in Studio 5.0x.
 					content = self._getColumnContent(index)
 					if content:
 						descriptionPieces.append("%s: %s"%(header, content))
