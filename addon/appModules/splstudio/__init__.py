@@ -605,9 +605,12 @@ class AppModule(appModuleHandler.AppModule):
 			mm, ss = divmod(tm, 60)
 			if mm > 59 and splconfig.SPLConfig["TimeHourAnnounce"]:
 				hh, mm = divmod(mm, 60)
+				# Hour value is also filled with leading zero's.
+				# 6.1: Optimize the string builder so it can return just one string.
+				tm0 = str(hh).zfill(2)
 				tm1 = str(mm).zfill(2)
 				tm2 = str(ss).zfill(2)
-				return ":".join([str(hh), tm1, tm2])
+				return ":".join([tm0, tm1, tm2])
 			else:
 				tm1 = str(mm).zfill(2)
 				tm2 = str(ss).zfill(2)
