@@ -286,19 +286,20 @@ Shift+F1: Open online user guide."""),
 # Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
 	"jfw":_("""After entering SPL Assistant, press:
 A: Automation.
-C: Announce name of the currently playing track.
-D: Remaining time for the playlist.
+C: Toggle cart explorer.
+Shift+C: Announce name of the currently playing track.
+R: Remaining time for the playlist.
 E: Overall metadata streaming status.
 1 through 4, 0: Metadata streaming status for DSP encoder and four additional URL's.
 H: Duration of trakcs in this hour slot.
 Shift+H: Duration of selected tracks.
-I: Listener count.
-L: Line-in status.
+L: Listener count.
+Shift+L: Line-in status.
 M: Microphone status.
 N: Next track.
 P: Playback status.
 Shift+P: Pitch for the current track.
-R: Record to file.
+Shift+E: Record to file.
 Shift+R: Monitor library scan.
 S: Scheduled time for the track.
 T: Cart edit mode.
@@ -312,19 +313,20 @@ Shift+F1: Open online user guide."""),
 # Translators: The text of the help command in SPL Assistant layer when Window-Eyes layer is active.
 	"wineyes":_("""After entering SPL Assistant, press:
 A: Automation.
-C: Announce name of the currently playing track.
+C: Toggle cart explorer.
+Shift+C: Announce name of the currently playing track.
 D: Remaining time for the playlist.
 E: Overall metadata streaming status.
 1 through 4, 0: Metadata streaming status for DSP encoder and four additional URL's.
 H: Duration of trakcs in this hour slot.
 Shift+H: Duration of selected tracks.
-I: Listener count.
-L: Line-in status.
+L: Listener count.
+Shift+L: Line-in status.
 M: Microphone status.
 N: Next track.
 P: Playback status.
 Shift+P: Pitch for the current track.
-R: Record to file.
+Shift+E: Record to file.
 Shift+R: Monitor library scan.
 S: Scheduled time for the track.
 T: Cart edit mode.
@@ -1631,7 +1633,8 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:y":"sayPlaylistModified",
 		"kb:u":"sayUpTime",
 		"kb:n":"sayNextTrackTitle",
-		"kb:c":"sayCurrentTrackTitle",
+		"kb:shift+c":"sayCurrentTrackTitle",
+		"kb:c":"toggleCartExplorer",
 		"kb:w":"sayTemperature",
 		"kb:l":"sayListenerCount",
 		"kb:s":"sayScheduledTime",
@@ -1665,7 +1668,8 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:y":"sayPlaylistModified",
 		"kb:u":"sayUpTime",
 		"kb:n":"sayNextTrackTitle",
-		"kb:c":"sayCurrentTrackTitle",
+		"kb:shift+c":"sayCurrentTrackTitle",
+		"kb:c":"toggleCartExplorer",
 		"kb:w":"sayTemperature",
 		"kb:l":"sayListenerCount",
 		"kb:s":"sayScheduledTime",
