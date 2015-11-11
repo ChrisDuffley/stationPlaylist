@@ -130,6 +130,11 @@ From studio window, you can press Control+NVDA+0 to open the add-on configuratio
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Changes for 5.6
+
+* In Studio 5.10 and later, NVDA no longer announces "not selected" when the selected track is playing.
+* Due to an issue with Studio itself, NVDA will now announce name of the currently playing track automatically. An option to toggle this behavior has been added in studio add-on settings dialog.
+
 ## Changes for 5.5
 
 * Play after connecting setting will be remembered when moving away from the encoder window.
