@@ -201,6 +201,11 @@ class SPLTrackItem(IAccessible):
 class SPL510TrackItem(SPLTrackItem):
 	""" Track item for Studio 5.10 and later."""
 
+	def event_stateChange(self):
+		# Why is it that NVDA keeps announcing "not selected" when track items are scrolled?
+		if 4 not in self.states:
+			pass
+
 	def script_select(self, gesture):
 		gesture.send()
 		speech.speakMessage(self.name)
