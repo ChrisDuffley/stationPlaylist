@@ -399,13 +399,18 @@ class AppModule(appModuleHandler.AppModule):
 					if (obj.name == "00:{0:02d}".format(splconfig.SPLConfig["EndOfTrackTime"])
 					and splconfig.SPLConfig["SayEndOfTrack"]):
 						tones.beep(440, 200)
-				if obj.simplePrevious.name == "Remaining Song Ramp":
+				elif obj.simplePrevious.name == "Remaining Song Ramp":
 					# Song intro for SPL 5.x.
 					if splconfig.SPLConfig["BrailleTimer"] in ("intro", "both") and api.getForegroundObject().processID == self.processID: #and "00:00" < obj.name <= self.SPLSongRampTime:
 						braille.handler.message(obj.name)
 					if (obj.name == "00:{0:02d}".format(splconfig.SPLConfig["SongRampTime"])
 					and splconfig.SPLConfig["SaySongRamp"]):
 						tones.beep(512, 400)
+				# Hack: auto scroll in Studio itself might be broken (according to Brian Hartgen), so force NVDA to announce currently playing track automatically if checked.
+				if splconfig.SPLConfig["SayPlayingTrackName"]:
+					statusBar = obj.parent.parent.parent.previous.previous.previous
+					if statusBar is not None and statusBar.firstChild is not None and statusBar.firstChild.role == 27:
+						ui.message(obj.name)
 		nextHandler()
 
 	# JL's additions

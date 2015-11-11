@@ -29,6 +29,7 @@ TrackDial = boolean(default=false)
 SayScheduledFor = boolean(default=true)
 SayListenerCount = boolean(default=true)
 SayPlayingCartName = boolean(default=true)
+SayPlayingTrackName = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
 SPLConfig = None
@@ -216,6 +217,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.cartNameCheckbox.SetValue(SPLConfig["SayPlayingCartName"])
 		settingsSizer.Add(self.cartNameCheckbox, border=10,flag=wx.BOTTOM)
 
+		# Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
+		self.playingTrackNameCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce name of the currently playing &track automatically"))
+		self.playingTrackNameCheckbox.SetValue(SPLConfig["SayPlayingTrackName"])
+		settingsSizer.Add(self.playingTrackNameCheckbox, border=10,flag=wx.BOTTOM)
+
 		# Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
 		self.resetConfigButton = wx.Button(self, wx.ID_ANY, label=_("Reset settings"))
 		self.resetConfigButton.Bind(wx.EVT_BUTTON,self.onResetConfig)
@@ -247,6 +253,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["SayScheduledFor"] = self.scheduledForCheckbox.Value
 		SPLConfig["SayListenerCount"] = self.listenerCountCheckbox.Value
 		SPLConfig["SayPlayingCartName"] = self.cartNameCheckbox.Value
+		SPLConfig["SayPlayingTrackName"] = self.playingTrackNameCheckbox.Value
 		global _configDialogOpened
 		_configDialogOpened = False
 		super(SPLConfigDialog,  self).onOk(evt)
