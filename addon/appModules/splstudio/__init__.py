@@ -448,13 +448,16 @@ class AppModule(appModuleHandler.AppModule):
 					if (obj.name == "00:{0:02d}".format(splconfig.SPLConfig["SongRampTime"])
 					and splconfig.SPLConfig["SaySongRamp"]):
 						self.alarmAnnounce(obj.name, 512, 400, intro=True)
-				# Hack: auto scroll in Studio itself might be broken (according to Brian Hartgen), so force NVDA to announce currently playing track automatically if checked.
+				# Hack: auto scroll in Studio itself might be broken (according to Brian Hartgen), so force NVDA to announce currently playing track automatically if told to do so.
 				if splconfig.SPLConfig["SayPlayingTrackName"]:
-					statusBarFG = obj.parent.parent.parent
-					if statusBarFG is not None:
-						statusBar = statusBarFG.previous.previous.previous
-						if statusBar is not None and statusBar.firstChild is not None and statusBar.firstChild.role == 27:
-							ui.message(obj.name)
+					try:
+						statusBarFG = obj.parent.parent.parent
+						if statusBarFG is not None:
+							statusBar = statusBarFG.previous.previous.previous
+							if statusBar is not None and statusBar.firstChild is not None and statusBar.firstChild.role == 27:
+								ui.message(obj.name)
+					except AttributeError:
+						pass
 		nextHandler()
 
 	# JL's additions
