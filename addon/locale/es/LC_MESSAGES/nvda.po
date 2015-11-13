@@ -602,6 +602,11 @@ msgstr "Anunciar recuento de &oyentes"
 msgid "&Announce name of the currently playing cart"
 msgstr "&Anuncia el nombre del cart pista que se está reproduciendo."
 
+#. Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
+#, fuzzy
+msgid "Announce name of the currently playing &track automatically"
+msgstr "&Anuncia el nombre del cart pista que se está reproduciendo."
+
 #. Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
 msgid "Reset settings"
 msgstr "Reiniciar opciones"
