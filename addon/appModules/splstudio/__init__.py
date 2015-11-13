@@ -244,6 +244,11 @@ class SPLTrackItem(IAccessible):
 class SPL510TrackItem(SPLTrackItem):
 	"""Track item for Studio 5.10 and later."""
 
+	def event_stateChange(self):
+		# Why is it that NVDA keeps announcing "not selected" when track items are scrolled?
+		if 4 not in self.states:
+			pass
+
 	def script_select(self, gesture):
 		gesture.send()
 		speech.speakMessage(self.name)
@@ -502,6 +507,16 @@ class AppModule(appModuleHandler.AppModule):
 					if (obj.name == "00:{0:02d}".format(splconfig.SPLConfig["SongRampTime"])
 					and splconfig.SPLConfig["SaySongRamp"]):
 						self.alarmAnnounce(obj.name, 512, 400, intro=True)
+				# Hack: auto scroll in Studio itself might be broken (according to Brian Hartgen), so force NVDA to announce currently playing track automatically if told to do so.
+				if splconfig.SPLConfig["SayPlayingTrackName"]:
+					try:
+						statusBarFG = obj.parent.parent.parent
+						if statusBarFG is not None:
+							statusBar = statusBarFG.previous.previous.previous
+							if statusBar is not None and statusBar.firstChild is not None and statusBar.firstChild.role == 27:
+								ui.message(obj.name)
+					except AttributeError:
+						pass
 		nextHandler()
 
 	# JL's additions
@@ -664,9 +679,12 @@ class AppModule(appModuleHandler.AppModule):
 			mm, ss = divmod(tm, 60)
 			if mm > 59 and splconfig.SPLConfig["TimeHourAnnounce"]:
 				hh, mm = divmod(mm, 60)
+				# Hour value is also filled with leading zero's.
+				# 6.1: Optimize the string builder so it can return just one string.
+				tm0 = str(hh).zfill(2)
 				tm1 = str(mm).zfill(2)
 				tm2 = str(ss).zfill(2)
-				return ":".join([str(hh), tm1, tm2])
+				return ":".join([tm0, tm1, tm2])
 			else:
 				tm1 = str(mm).zfill(2)
 				tm2 = str(ss).zfill(2)

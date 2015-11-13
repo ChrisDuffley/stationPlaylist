@@ -176,6 +176,11 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * It is now possible to view various columns from encoder window (such as encoder connection status) via Control+NVDA+number command; consult the encoder commands above.
 * Fixed a rare bug where switching to Studio or closing an NVDA dialog (including Studio add-on dialogs) prevented track commands (such as toggling Track Dial) from working as expected.
 
+## Changes for 5.6
+
+* In Studio 5.10 and later, NVDA no longer announces "not selected" when the selected track is playing.
+* Due to an issue with Studio itself, NVDA will now announce name of the currently playing track automatically. An option to toggle this behavior has been added in studio add-on settings dialog.
+
 ## Changes for 5.5
 
 * Play after connecting setting will be remembered when moving away from the encoder window.
