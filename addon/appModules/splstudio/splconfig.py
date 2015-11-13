@@ -254,7 +254,8 @@ def _preSave(conf):
 		if "MetadataURL" in conf:
 			del conf["MetadataURL"]
 		# 7.0: Check if updates are pending.
-		if "PSZ" in conf and splupdate.SPLAddonSize != conf["PSZ"]:
+		if (("PSZ" in conf and splupdate.SPLAddonSize != conf["PSZ"])
+		or ("PSZ" not in conf and splupdate.SPLAddonSize != 0x0)):
 			conf["PSZ"] = splupdate.SPLAddonSize
 	# For other profiles, remove global settings before writing to disk.
 	else:

@@ -76,25 +76,8 @@ def updateCheck():
 	else: wx.CallAfter(getUpdateResponse, checkMessage, "Check for add-on update", url.info().getheader("Content-Length"))
 
 def getUpdateResponse(message, caption, size):
+	global SPLAddonSize
 	if gui.messageBox(message, caption, wx.YES | wx.NO | wx.CANCEL | wx.CENTER | wx.ICON_QUESTION) == wx.YES:
 		SPLAddonSize = hex(int(size))
-		print SPLAddonSize
-
-def _updateCheckEx():
-	#global SPLAddonSize
-	url = urllib.urlopen(SPLUpdateURL)
-	if url.code != 200:
-		print "Update check failed"
-		url.close()
-		return
-	size = int(url.info().getheader("Content-Length"))
-	if size == SPLAddonSize:
-		print "You have the latest version"
-		url.close()
-		return
-	else:
-		version = _versionFromURL(url.url)
-		print "Add-on version {newVersion} is available.".format(newVersion = version)
-		url.close()
-		#SPLAddonSize = size
+		os.startfile(SPLUpdateURL)
 
