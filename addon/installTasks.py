@@ -37,6 +37,7 @@ IncludedColumns = string_list(default=list("Artist","Title","Duration","Intro","
 SayScheduledFor = boolean(default=true)
 SayListenerCount = boolean(default=true)
 SayPlayingCartName = boolean(default=true)
+SayPlayingTrackName = boolean(default=true)
 SPLConPassthrough = boolean(default=false)
 CompatibilityLayer = option("off", "jfw", default="off")
 """), encoding="UTF-8", list_values=False)
@@ -65,6 +66,7 @@ _conversionConfig = {
 	"SayScheduledFor":"SayStatus",
 	"SayListenerCount":"SayStatus",
 	"SayPlayingCartName":"SayStatus",
+	"SayPlayingTrackName":"SayStatus",
 	"SPLConPassthrough":"Advanced",
 	"CompatibilityLayer":"Advanced",
 }
