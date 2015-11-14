@@ -449,7 +449,7 @@ class AppModule(appModuleHandler.AppModule):
 					and splconfig.SPLConfig["SaySongRamp"]):
 						self.alarmAnnounce(obj.name, 512, 400, intro=True)
 				# Hack: auto scroll in Studio itself might be broken (according to Brian Hartgen), so force NVDA to announce currently playing track automatically if told to do so.
-				if splconfig.SPLConfig["SayPlayingTrackName"]:
+				if splconfig.SPLConfig["SayPlayingTrackName"] == "True": # Had to do this to transform this key to something else later.
 					try:
 						statusBarFG = obj.parent.parent.parent
 						if statusBarFG is not None:
