@@ -123,7 +123,7 @@ def initConfig():
 		pass
 	SPLConfig = SPLConfigPool[0]
 	# 7.0: Store add-on installer size in case one wishes to check for updates (default size is 0 or no update checked attempted).
-	if "PSZ" in SPLConfig: splupdate.SPLAddonSize != conf["PSZ"]
+	if "PSZ" in SPLConfig: splupdate.SPLAddonSize != SPLConfig["PSZ"]
 	# Locate instant profile.
 	if "InstantProfile" in SPLConfig:
 		try:
