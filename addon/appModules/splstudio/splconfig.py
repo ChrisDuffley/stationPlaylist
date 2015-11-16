@@ -1,6 +1,6 @@
 # SPL Studio Configuration Manager
 # An app module and global plugin package for NVDA
-# Copyright 2015 Joseph Lee and others, released under GPL.
+# Copyright 2015-2016 Joseph Lee and others, released under GPL.
 # Provides the configuration management package for SPL Studio app module.
 # For miscellaneous dialogs and tool, see SPLMisc module.
 
@@ -56,9 +56,7 @@ _val = Validator()
 _SPLDefaults.validate(_val, copy=True)
 
 # The following settings can be changed in profiles:
-_mutatableSettings=("SayEndOfTrack","EndOfTrackTime","SaySongRamp","SongRampTime","MicAlarm","MicAlarmInterval")
-# Unlock in 6.1.
-#,"MetadataEnabled","UseScreenColumnOrder","ColumnOrder","IncludedColumns")
+_mutatableSettings=("SayEndOfTrack","EndOfTrackTime","SaySongRamp","SongRampTime","MicAlarm","MicAlarmInterval","MetadataEnabled","UseScreenColumnOrder","ColumnOrder","IncludedColumns")
 
 # Display an error dialog when configuration validation fails.
 def runConfigErrorDialog(errorText, errorType):
@@ -166,11 +164,9 @@ def unlockConfig(path, profileName=None, prefill=False):
 						else: SPLConfigCheckpoint[setting] = _SPLDefaults[setting]
 			SPLConfigCheckpoint.write()
 			_configLoadStatus[profileName] = "partialReset"
-	# Do this only for base profile.
-	if prefill: _extraInitSteps(SPLConfigCheckpoint, profileName=profileName)
-	else: _applyBaseSettings(SPLConfigCheckpoint)
-	# Unlock in 6.1.
-	#if not prefill: _applyBaseSettings(SPLConfigCheckpoint)
+	_extraInitSteps(SPLConfigCheckpoint, profileName=profileName)
+	# Only run when loading profiles other than normal profile.
+	if not prefill: _applyBaseSettings(SPLConfigCheckpoint)
 	SPLConfigCheckpoint.name = profileName
 	return SPLConfigCheckpoint
 
@@ -195,13 +191,12 @@ def _extraInitSteps(conf, profileName=None):
 	conf["IncludedColumns"].add("Artist")
 	conf["IncludedColumns"].add("Title")
 	# Perform a similar check for metadata streaming.
-	# Unlock in 6.1.
-	"""if len(conf["MetadataEnabled"]) != 5:
+	if len(conf["MetadataEnabled"]) != 5:
 		if profileName in _configLoadStatus and _configLoadStatus[profileName] == "partialReset":
 			_configLoadStatus[profileName] = "partialAndMetadataReset"
 		else:
 			_configLoadStatus[profileName] = "metadataReset"
-		conf["MetadataEnabled"] = [False, False, False, False, False]"""
+		conf["MetadataEnabled"] = [False, False, False, False, False]
 
 # Apply base profile if loading user-defined broadcast profiles.
 def _applyBaseSettings(conf):
@@ -211,7 +206,7 @@ def _applyBaseSettings(conf):
 			conf[setting] = SPLConfigPool[0][setting]
 
 # Instant profile switch helpers.
-# A number of helper functions assisting instatn switch profile routine, including sorting and locating the needed profile upon request.
+# A number of helper functions assisting instant switch profile routine, including sorting and locating the needed profile upon request.
 
 # Fetch the profile index with a given name.
 def getProfileIndexByName(name):
@@ -234,8 +229,7 @@ def isConfigPoolSorted():
 # Perform some extra work before writing the config file.
 def _preSave(conf):
 	# 6.1: Transform column inclusion data structure now.
-	# Unlock in 6.1.
-	#conf["IncludedColumns"] = list(conf["IncludedColumns"])
+	conf["IncludedColumns"] = list(conf["IncludedColumns"])
 	# Perform global setting processing only for the normal profile.
 	if SPLConfigPool.index(conf) == 0:
 		conf["IncludedColumns"] = list(conf["IncludedColumns"])
@@ -253,12 +247,11 @@ def _preSave(conf):
 	# For other profiles, remove global settings before writing to disk.
 	else:
 		# 6.1: Make sure column order and inclusion aren't same as default values.
-		# Unlock in 6.1.
-		"""includedColumns = set(_SPLDefaults["IncludedColumns"])
+		includedColumns = set(_SPLDefaults["IncludedColumns"])
 		if conf["IncludedColumns"] == includedColumns:
 			del conf["IncludedColumns"]
-		if conf["ColumnOrder"] == ["Artist","Title","Duration","Intro","Category","Filename"]:
-			del conf["ColumnOrder"]"""
+		if conf["ColumnOrder"] == ["Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"]:
+			del conf["ColumnOrder"]
 		for setting in conf.keys():
 			if setting not in _mutatableSettings or (setting in _mutatableSettings and conf[setting] == _SPLDefaults[setting]):
 				del conf[setting]
