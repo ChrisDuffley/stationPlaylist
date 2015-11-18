@@ -43,7 +43,7 @@ IncludedColumns = string_list(default=list("Artist","Title","Duration","Intro","
 SayScheduledFor = boolean(default=true)
 SayListenerCount = boolean(default=true)
 SayPlayingCartName = boolean(default=true)
-SayPlayingTrackName = boolean(default=true)
+SayPlayingTrackName = string(default="True")
 SPLConPassthrough = boolean(default=false)
 CompatibilityLayer = option("off", "jfw", default="off")
 """), encoding="UTF-8", list_values=False)
@@ -663,7 +663,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 		# Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
 		self.playingTrackNameCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce name of the currently playing &track automatically"))
-		self.playingTrackNameCheckbox.SetValue(SPLConfig["SayStatus"]["SayPlayingTrackName"])
+		self.playingTrackNameCheckbox.SetValue(SPLConfig["SayStatus"]["SayPlayingTrackName"] == "True")
 		settingsSizer.Add(self.playingTrackNameCheckbox, border=10,flag=wx.BOTTOM)
 
 		# Translators: The label of a button to open advanced options such as using SPL Controller command to invoke Assistant layer.
@@ -708,7 +708,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["SayStatus"]["SayScheduledFor"] = self.scheduledForCheckbox.Value
 		SPLConfig["SayStatus"]["SayListenerCount"] = self.listenerCountCheckbox.Value
 		SPLConfig["SayStatus"]["SayPlayingCartName"] = self.cartNameCheckbox.Value
-		SPLConfig["SayStatus"]["SayPlayingTrackName"] = self.playingTrackNameCheckbox.Value
+		SPLConfig["SayStatus"]["SayPlayingTrackName"] = str(self.playingTrackNameCheckbox.Value)
 		SPLConfig["Advanced"]["SPLConPassthrough"] = self.splConPassthrough
 		SPLConfig["Advanced"]["CompatibilityLayer"] = self.compLayer
 		SPLActiveProfile = SPLConfig.name
