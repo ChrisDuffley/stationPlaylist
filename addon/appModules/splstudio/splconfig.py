@@ -16,6 +16,7 @@ import gui
 import wx
 from winUser import user32
 import tones
+import splupdate
 
 # Configuration management
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
@@ -45,7 +46,7 @@ SayListenerCount = boolean(default=true)
 SayPlayingCartName = boolean(default=true)
 SayPlayingTrackName = string(default="True")
 SPLConPassthrough = boolean(default=false)
-CompatibilityLayer = option("off", "jfw", default="off")
+CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
 # New (7.0) style config.
@@ -165,6 +166,8 @@ def initConfig():
 	except WindowsError:
 		pass
 	SPLConfig = SPLConfigPool[0]
+	# 7.0: Store add-on installer size in case one wishes to check for updates (default size is 0 or no update checked attempted).
+	if "PSZ" in SPLConfig: splupdate.SPLAddonSize != SPLConfig["PSZ"]
 	# Locate instant profile.
 	if "InstantProfile" in SPLConfig:
 		try:
@@ -298,6 +301,10 @@ def _preSave(conf):
 		# 6.0 only: Remove obsolete keys.
 		if "MetadataURL" in conf:
 			del conf["MetadataURL"]
+		# 7.0: Check if updates are pending.
+		if (("PSZ" in conf and splupdate.SPLAddonSize != conf["PSZ"])
+		or ("PSZ" not in conf and splupdate.SPLAddonSize != 0x0)):
+			conf["PSZ"] = splupdate.SPLAddonSize
 	# For other profiles, remove global settings before writing to disk.
 	else:
 		# 6.1: Make sure column order and inclusion aren't same as default values.
@@ -1233,10 +1240,20 @@ class AdvancedOptionsDialog(wx.Dialog):
 		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		self.compLayerCheckbox=wx.CheckBox(self,wx.NewId(),label="Screen &reader compatibility Mode")
-		# Project Rainbow: change the UI for this control.
-		self.compLayerCheckbox.SetValue(SPLConfig["Advanced"]["CompatibilityLayer"] != "off")
-		sizer.Add(self.compLayerCheckbox, border=10,flag=wx.TOP)
+		# Translators: The label for a setting in SPL add-on dialog to set keyboard layout for SPL Assistant.
+		label = wx.StaticText(self, wx.ID_ANY, label=_("SPL Assistant command &layout:"))
+		self.compatibilityLayouts=[("off","NVDA"),
+		("jfw","JAWS for Windows"),
+		("wineyes","Window-Eyes")]
+		self.compatibilityList= wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.compatibilityLayouts])
+		selection = (x for x,y in enumerate(self.compatibilityLayouts) if y[0]==SPLConfig["Advanced"]["CompatibilityLayer"]).next()  
+		try:
+			self.compatibilityList.SetSelection(selection)
+		except:
+			pass
+		sizer.Add(label)
+		sizer.Add(self.compatibilityList)
+>>>>>>> staging
 		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
@@ -1250,8 +1267,7 @@ class AdvancedOptionsDialog(wx.Dialog):
 	def onOk(self, evt):
 		parent = self.Parent
 		parent.splConPassthrough = self.splConPassthroughCheckbox.Value
-		comp = "jfw" if self.compLayerCheckbox.Value else "off"
-		parent.compLayer = comp
+		parent.compLayer = self.compatibilityLayouts[self.compatibilityList.GetSelection()][0]
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()

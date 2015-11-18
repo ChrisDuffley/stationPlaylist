@@ -35,8 +35,12 @@ import textInfos
 import tones
 import splconfig
 import splmisc
+import splupdate
 import addonHandler
 addonHandler.initTranslation()
+
+def update():
+	splupdate._updateCheckEx()
 
 # The finally function for status announcement scripts in this module (source: Tyler Spivey's code).
 def finally_(func, final):
@@ -261,8 +265,9 @@ class SPL510TrackItem(SPLTrackItem):
 
 	__gestures={"kb:space":"select"}
 
-# Translators: The text of the help command in SPL Assistant layer.
-SPLAssistantHelp=_("""After entering SPL Assistant, press:
+SPLAssistantHelp={
+	# Translators: The text of the help command in SPL Assistant layer.
+	"off":_("""After entering SPL Assistant, press:
 A: Automation.
 C: Announce name of the currently playing track.
 D: Remaining time for the playlist.
@@ -286,7 +291,61 @@ Y: Playlist modification.
 F9: Mark current track as start of track time analysis.
 F10: Perform track time analysis.
 F12: Switch to an instant switch profile.
-Shift+F1: Open online user guide.""")
+Shift+F1: Open online user guide."""),
+# Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
+	"jfw":_("""After entering SPL Assistant, press:
+A: Automation.
+C: Toggle cart explorer.
+Shift+C: Announce name of the currently playing track.
+R: Remaining time for the playlist.
+E: Overall metadata streaming status.
+1 through 4, 0: Metadata streaming status for DSP encoder and four additional URL's.
+H: Duration of trakcs in this hour slot.
+Shift+H: Duration of selected tracks.
+L: Listener count.
+Shift+L: Line-in status.
+M: Microphone status.
+N: Next track.
+P: Playback status.
+Shift+P: Pitch for the current track.
+Shift+E: Record to file.
+Shift+R: Monitor library scan.
+S: Scheduled time for the track.
+T: Cart edit mode.
+U: Studio up time.
+W: Weather and temperature.
+Y: Playlist modification.
+F9: Mark current track as start of track time analysis.
+F10: Perform track time analysis.
+F12: Switch to an instant switch profile.
+Shift+F1: Open online user guide."""),
+# Translators: The text of the help command in SPL Assistant layer when Window-Eyes layer is active.
+	"wineyes":_("""After entering SPL Assistant, press:
+A: Automation.
+C: Toggle cart explorer.
+Shift+C: Announce name of the currently playing track.
+D: Remaining time for the playlist.
+E: Overall metadata streaming status.
+1 through 4, 0: Metadata streaming status for DSP encoder and four additional URL's.
+H: Duration of trakcs in this hour slot.
+Shift+H: Duration of selected tracks.
+L: Listener count.
+Shift+L: Line-in status.
+M: Microphone status.
+N: Next track.
+P: Playback status.
+Shift+P: Pitch for the current track.
+Shift+E: Record to file.
+Shift+R: Monitor library scan.
+S: Scheduled time for the track.
+T: Cart edit mode.
+U: Studio up time.
+W: Weather and temperature.
+Y: Playlist modification.
+F9: Mark current track as start of track time analysis.
+F10: Perform track time analysis.
+F12: Switch to an instant switch profile.
+Shift+F1: Open online user guide.""")}
 
 
 class AppModule(appModuleHandler.AppModule):
@@ -1244,11 +1303,14 @@ class AppModule(appModuleHandler.AppModule):
 				return
 			# To prevent entering wrong gesture while the layer is active.
 			self.clearGestureBindings()
-			# Project Rainbow: choose the required compatibility layer.
-			self.bindGestures(self.__SPLAssistantGestures) if splconfig.SPLConfig["CompatibilityLayer"] == "off" else self.bindGestures(self.__SPLAssistantJFWGestures)
+			# 7.0: choose the required compatibility layer.
+			if splconfig.SPLConfig["CompatibilityLayer"] == "off": self.bindGestures(self.__SPLAssistantGestures)
+			elif splconfig.SPLConfig["CompatibilityLayer"] == "jfw": self.bindGestures(self.__SPLAssistantJFWGestures)
+			elif splconfig.SPLConfig["CompatibilityLayer"] == "wineyes": self.bindGestures(self.__SPLAssistantWEGestures)
 			self.SPLAssistant = True
 			tones.beep(512, 50)
 			if splconfig.SPLConfig["CompatibilityLayer"] == "jfw": ui.message("JAWS")
+			elif splconfig.SPLConfig["CompatibilityLayer"] == "wineyes": ui.message("Window-Eyes")
 		except WindowsError:
 			return
 	# Translators: Input help mode message for a layer command in Station Playlist Studio.
@@ -1533,11 +1595,20 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(status)
 
 	def script_layerHelp(self, gesture):
+		compatibility = splconfig.SPLConfig["CompatibilityLayer"]
 		# Translators: The title for SPL Assistant help dialog.
-		wx.CallAfter(gui.messageBox, SPLAssistantHelp, _("SPL Assistant help"))
+		if compatibility == "off": title = _("SPL Assistant help")
+		# Translators: The title for SPL Assistant help dialog.
+		elif compatibility == "jfw": title = _("SPL Assistant help for JAWS layout")
+		# Translators: The title for SPL Assistant help dialog.
+		elif compatibility == "wineyes": title = _("SPL Assistant help for Window-Eyes layout")
+		wx.CallAfter(gui.messageBox, SPLAssistantHelp[compatibility], title)
 
 	def script_openOnlineDoc(self, gesture):
 		os.startfile("https://bitbucket.org/nvdaaddonteam/stationplaylist/wiki/SPLDevAddonGuide")
+
+	def script_updateCheck(self, gesture):
+		splupdate.updateCheck()
 
 
 	__SPLAssistantGestures={
@@ -1572,6 +1643,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:0":"metadataEnabled",
 		"kb:f1":"layerHelp",
 		"kb:shift+f1":"openOnlineDoc",
+		"kb:control+shift+u":"updateCheck",
 	}
 
 	__SPLAssistantJFWGestures={
@@ -1587,7 +1659,8 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:y":"sayPlaylistModified",
 		"kb:u":"sayUpTime",
 		"kb:n":"sayNextTrackTitle",
-		"kb:c":"sayCurrentTrackTitle",
+		"kb:shift+c":"sayCurrentTrackTitle",
+		"kb:c":"toggleCartExplorer",
 		"kb:w":"sayTemperature",
 		"kb:l":"sayListenerCount",
 		"kb:s":"sayScheduledTime",
@@ -1606,6 +1679,42 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:0":"metadataEnabled",
 		"kb:f1":"layerHelp",
 		"kb:shift+f1":"openOnlineDoc",
+	}
+
+	__SPLAssistantWEGestures={
+		"kb:p":"sayPlayStatus",
+		"kb:a":"sayAutomationStatus",
+		"kb:m":"sayMicStatus",
+		"kb:shift+l":"sayLineInStatus",
+		"kb:shift+e":"sayRecToFileStatus",
+		"kb:t":"sayCartEditStatus",
+		"kb:h":"sayHourTrackDuration",
+		"kb:shift+h":"sayHourSelectedTrackDuration",
+		"kb:r":"sayPlaylistRemainingDuration",
+		"kb:y":"sayPlaylistModified",
+		"kb:u":"sayUpTime",
+		"kb:n":"sayNextTrackTitle",
+		"kb:shift+c":"sayCurrentTrackTitle",
+		"kb:c":"toggleCartExplorer",
+		"kb:w":"sayTemperature",
+		"kb:l":"sayListenerCount",
+		"kb:s":"sayScheduledTime",
+		"kb:shift+p":"sayTrackPitch",
+		"kb:shift+r":"libraryScanMonitor",
+		"kb:f9":"markTrackForAnalysis",
+		"kb:f10":"trackTimeAnalysis",
+		"kb:f12":"switchProfiles",
+		"kb:Control+k":"setPlaceMarker",
+		"kb:k":"findPlaceMarker",
+		"kb:e":"metadataStreamingAnnouncer",
+		"kb:1":"metadataEnabled",
+		"kb:2":"metadataEnabled",
+		"kb:3":"metadataEnabled",
+		"kb:4":"metadataEnabled",
+		"kb:0":"metadataEnabled",
+		"kb:f1":"layerHelp",
+		"kb:shift+f1":"openOnlineDoc",
+		"kb:control+shift+u":"updateCheck",
 	}
 
 	__gestures={

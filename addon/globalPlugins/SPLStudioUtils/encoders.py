@@ -6,6 +6,7 @@
 import threading
 import os
 import time
+import weakref
 from configobj import ConfigObj
 import api
 import ui
@@ -32,6 +33,7 @@ SPL_TrackPlaybackStatus = 104
 SPLFocusToStudio = set() # Whether to focus to Studio or not.
 SPLPlayAfterConnecting = set()
 SPLBackgroundMonitor = set()
+SPLNoConnectionTone = set()
 
 # Customized for each encoder type.
 SAMStreamLabels= {} # A dictionary to store custom labels for each stream.
@@ -63,6 +65,8 @@ def loadStreamLabels():
 		SPLPlayAfterConnecting = set(streamLabels["PlayAfterConnecting"])
 	if "BackgroundMonitor" in streamLabels:
 		SPLBackgroundMonitor = set(streamLabels["BackgroundMonitor"])
+	if "ConnectionTone" in streamLabels:
+		SPLNoConnectionTone = set(streamLabels["NoConnectionTone"])
 
 # Report number of encoders being monitored.
 # 6.0: Refactor the below function to use the newer encoder config format.
@@ -97,7 +101,7 @@ def _removeEncoderID(encoderType, pos):
 	global _encoderConfigRemoved
 	# For now, store the key to map.
 	# This might become a module-level constant if other functions require this dictionary.
-	key2map = {"FocusToStudio":SPLFocusToStudio, "PlayAfterConnecting":SPLPlayAfterConnecting, "BackgroundMonitor":SPLBackgroundMonitor}
+	key2map = {"FocusToStudio":SPLFocusToStudio, "PlayAfterConnecting":SPLPlayAfterConnecting, "BackgroundMonitor":SPLBackgroundMonitor, "NoConnectionTone":SPLNoConnectionTone}
 	encoderID = " ".join([encoderType, pos])
 	# Go through each feature map, remove the encoder ID and manipulate encoder positions in these sets.
 	# For each set, have a list of set items handy, otherwise set cardinality error (RuntimeError) will occur if items are removed on the fly.
@@ -143,6 +147,87 @@ def fetchSPLForegroundWindow():
 		fg = getNVDAObjectFromEvent(user32.FindWindowA("TStudioForm", None), winUser.OBJID_CLIENT, 0)
 	return fg
 
+
+# Encoder configuration dialog.
+_configDialogOpened = False
+
+# Presented if the config dialog for another encoder is opened.
+def _configDialogError():
+	# Translators: Text of the dialog when another alarm dialog is open.
+	gui.messageBox(_("Another encoder settings dialog is open."),_("Error"),style=wx.OK | wx.ICON_ERROR)
+
+class EncoderConfigDialog(wx.Dialog):
+
+	# The following comes from exit dialog class from GUI package (credit: NV Access and Zahari from Bulgaria).
+	_instance = None
+
+	def __new__(cls, parent, *args, **kwargs):
+		# Make this a singleton and prompt an error dialog if it isn't.
+		if _configDialogOpened:
+			raise RuntimeError("An instance of encoder settings dialog is opened")
+		inst = cls._instance() if cls._instance else None
+		if not inst:
+			return super(cls, cls).__new__(cls, parent, *args, **kwargs)
+		return inst
+
+	def __init__(self, parent, obj):
+		inst = EncoderConfigDialog._instance() if EncoderConfigDialog._instance else None
+		if inst:
+			return
+		# Use a weakref so the instance can die.
+		EncoderConfigDialog._instance = weakref.ref(self)
+
+		self.obj = obj
+		self.curStreamLabel, title = obj.getStreamLabel(getTitle=True)
+		super(EncoderConfigDialog, self).__init__(parent, wx.ID_ANY, "Encoder settings for {name}".format(name = title))
+		mainSizer = wx.BoxSizer(wx.VERTICAL)
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		streamLabelPrompt = wx.StaticText(self, wx.ID_ANY, label=_("Stream &label"))
+		sizer.Add(streamLabelPrompt)
+		self.streamLabel = wx.TextCtrl(self, wx.ID_ANY)
+		self.streamLabel.SetValue(self.curStreamLabel if self.curStreamLabel is not None else "")
+		sizer.Add(self.streamLabel)
+		mainSizer.Add(sizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
+
+		self.focusToStudio=wx.CheckBox(self,wx.NewId(),label="Focus to Studio when connected")
+		self.focusToStudio.SetValue(obj.getEncoderId() in SPLFocusToStudio)
+		mainSizer.Add(self.focusToStudio,border=10,flag=wx.BOTTOM)
+		self.playAfterConnecting=wx.CheckBox(self,wx.NewId(),label="Play first track when connected")
+		self.playAfterConnecting.SetValue(obj.getEncoderId() in SPLPlayAfterConnecting)
+		mainSizer.Add(self.playAfterConnecting,border=10,flag=wx.BOTTOM)
+		self.backgroundMonitor=wx.CheckBox(self,wx.NewId(),label="Enable background connection monitoring")
+		self.backgroundMonitor.SetValue(obj.getEncoderId() in SPLBackgroundMonitor)
+		mainSizer.Add(self.backgroundMonitor,border=10,flag=wx.BOTTOM)
+		self.noConnectionTone=wx.CheckBox(self,wx.NewId(),label="Play connection status beep while connecting")
+		self.noConnectionTone.SetValue(obj.getEncoderId() not in SPLNoConnectionTone)
+		mainSizer.Add(self.noConnectionTone,border=10,flag=wx.BOTTOM)
+
+		mainSizer.AddSizer(self.CreateButtonSizer(wx.OK|wx.CANCEL))
+		self.Bind(wx.EVT_BUTTON,self.onOk,id=wx.ID_OK)
+		self.Bind(wx.EVT_BUTTON,self.onCancel,id=wx.ID_CANCEL)
+		mainSizer.Fit(self)
+		self.SetSizer(mainSizer)
+		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+		self.streamLabel.SetFocus()
+
+	def onOk(self, evt):
+		self.obj._set_Flags(self.obj.getEncoderId(), self.focusToStudio.Value, SPLFocusToStudio, "FocusToStudio", save=False)
+		self.obj._set_Flags(self.obj.getEncoderId(), self.playAfterConnecting.Value, SPLPlayAfterConnecting, "PlayAfterConnecting", save=False)
+		self.obj._set_Flags(self.obj.getEncoderId(), self.backgroundMonitor.Value, SPLBackgroundMonitor, "BackgroundMonitor", save=False)
+		# Invert the following only.
+		self.obj._set_Flags(self.obj.getEncoderId(), not self.noConnectionTone.Value, SPLNoConnectionTone, "NoConnectionTone", save=False)
+		newStreamLabel = self.streamLabel.Value
+		if newStreamLabel is None: newStreamLabel = ""
+		if newStreamLabel == self.curStreamLabel:
+			streamLabels.write() # Only flag(s) have changed.
+		else: self.obj.setStreamLabel(newStreamLabel)
+		self.Destroy()
+
+	def onCancel(self, evt):
+		self.Destroy()
+
+
 # Support for various encoders.
 # Each encoder must support connection routines.
 
@@ -159,6 +244,8 @@ class Encoder(IAccessible):
 	focusToStudio = False # If true, Studio will gain focus after encoder connects.
 	playAfterConnecting = False # When connected, the first track will be played.
 	backgroundMonitor = False # Monitor this encoder for connection status changes.
+	connectionTone = True # Play connection tone while connecting.
+
 
 	# Some helper functions
 
@@ -179,15 +266,20 @@ class Encoder(IAccessible):
 	# Set or clear a given flag for the encoder given its ID, flag and flag container (currently a feature set).
 	# Also take in the flag key for storing it into the settings file.
 	# The flag will then be written to the configuration file.
-	def _set_Flags(self, encoderId, flag, flagMap, flagKey):
+	# 7.0: Don't dump flags to disk unless told.
+	def _set_Flags(self, encoderId, flag, flagMap, flagKey, save=True):
 		if flag and not encoderId in flagMap:
 			flagMap.add(encoderId)
 		elif not flag and encoderId in flagMap:
 			flagMap.remove(encoderId)
 		# No need to store an empty flag map.
 		if len(flagMap): streamLabels[flagKey] = list(flagMap)
-		else: del streamLabels[flagKey]
-		streamLabels.write()
+		else:
+			try:
+				del streamLabels[flagKey]
+			except KeyError:
+				pass
+		if save: streamLabels.write()
 
 	# Now the flag configuration scripts.
 	# Project Rainbow: a new way to configure these will be created.
@@ -283,6 +375,23 @@ class Encoder(IAccessible):
 	# Translators: Input help mode message in SAM Encoder window.
 	script_streamLabelEraser.__doc__=_("Opens a dialog to erase stream labels and settings from an encoder that was deleted.")
 
+	# stream settings.
+	def script_encoderSettings(self, gesture):
+		#if splconfig._configDialogOpened:
+			#wx.CallAfter(gui.messageBox, _("The add-on settings dialog is opened. Please close the settings dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
+			#return
+		try:
+			d = EncoderConfigDialog(gui.mainFrame, self)
+			gui.mainFrame.prePopup()
+			d.Raise()
+			d.Show()
+			gui.mainFrame.postPopup()
+			#splconfig._alarmDialogOpened = True
+		except RuntimeError:
+			wx.CallAfter(ui.message, "A settings dialog is opened")
+	# Translators: Input help mode message for a command in Station Playlist Studio.
+	script_encoderSettings.__doc__=_("sets song intro alarm (default is 5 seconds).")
+
 	# Announce complete time including seconds (slight change from global commands version).
 	def script_encoderDateTime(self, gesture):
 		if scriptHandler.getLastScriptRepeatCount()==0:
@@ -329,6 +438,12 @@ class Encoder(IAccessible):
 			self.backgroundMonitor = encoderIdentifier in SPLBackgroundMonitor
 		except KeyError:
 			pass
+		# Can I play connection beeps?
+		try:
+			self.connectionTone = encoderIdentifier not in SPLNoConnectionTone
+		except KeyError:
+			pass
+
 
 	def reportFocus(self):
 		try:
@@ -351,7 +466,7 @@ class Encoder(IAccessible):
 		"kb:f12":"streamLabeler",
 		"kb:control+f12":"streamLabelEraser",
 		"kb:NVDA+F12":"encoderDateTime",
-		"kb:control+NVDA+0":"streamLabeler",
+		"kb:control+NVDA+0":"encoderSettings",
 		"kb:control+NVDA+1":"announceEncoderPosition",
 		"kb:control+NVDA+2":"announceEncoderLabel",
 	}
@@ -420,7 +535,7 @@ class SAMEncoder(Encoder):
 				if encoding: encoding = False
 				elif "Error" not in self.description and error: error = False
 				toneCounter+=1
-				if toneCounter%250 == 0:
+				if toneCounter%250 == 0 and self.connectionTone:
 					tones.beep(500, 50)
 			if connecting: continue
 			if not " ".join([self.encoderType, str(self.IAccessibleChildID)]) in SPLBackgroundMonitor: return
@@ -479,7 +594,10 @@ class SAMEncoder(Encoder):
 		if len(newStreamLabel):
 			SAMStreamLabels[str(self.IAccessibleChildID)] = newStreamLabel
 		else:
-			del SAMStreamLabels[str(self.IAccessibleChildID)]
+			try:
+				del SAMStreamLabels[str(self.IAccessibleChildID)]
+			except KeyError:
+				pass
 		streamLabels["SAMEncoders"] = SAMStreamLabels
 		streamLabels.write()
 
@@ -581,7 +699,7 @@ class SPLEncoder(Encoder):
 				if connected: connected = False
 				if not "Kbps" in messageCache:
 					attempt += 1
-					if attempt%250 == 0:
+					if attempt%250 == 0 and self.connectionTone:
 						tones.beep(500, 50)
 						if attempt>= 500 and statChild.name == "Disconnected":
 							tones.beep(250, 250)
@@ -631,7 +749,10 @@ class SPLEncoder(Encoder):
 		if len(newStreamLabel):
 			SPLStreamLabels[str(self.IAccessibleChildID)] = newStreamLabel
 		else:
-			del SPLStreamLabels[str(self.IAccessibleChildID)]
+			try:
+				del SPLStreamLabels[str(self.IAccessibleChildID)]
+			except KeyError:
+				pass
 		streamLabels["SPLEncoders"] = SPLStreamLabels
 		streamLabels.write()
 
