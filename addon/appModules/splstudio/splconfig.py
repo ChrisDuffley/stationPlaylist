@@ -247,8 +247,7 @@ def _preSave(conf):
 	# For other profiles, remove global settings before writing to disk.
 	else:
 		# 6.1: Make sure column order and inclusion aren't same as default values.
-		includedColumns = set(_SPLDefaults["IncludedColumns"])
-		if conf["IncludedColumns"] == includedColumns:
+		if len(conf["IncludedColumns"]) == 17:
 			del conf["IncludedColumns"]
 		if conf["ColumnOrder"] == ["Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"]:
 			del conf["ColumnOrder"]
@@ -706,11 +705,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.micAlarm.SetValue(long(curProfile["MicAlarm"]))
 		self.micAlarmInterval.SetValue(long(curProfile["MicAlarmInterval"]))
 		# 6.1: Take care of profile-specific column and metadata settings.
-		# Unlock in 6.1.
-		"""self.metadataStreams = curProfile["MetadataEnabled"]
+		self.metadataStreams = curProfile["MetadataEnabled"]
 		self.columnOrderCheckbox.SetValue(curProfile["UseScreenColumnOrder"])
 		self.columnOrder = curProfile["ColumnOrder"]
-		self.includedColumns = curProfile["IncludedColumns"]"""
+		self.includedColumns = curProfile["IncludedColumns"]
 
 	# Profile controls.
 	# Rename and delete events come from GUI/config profiles dialog from NVDA core.
@@ -1044,7 +1042,7 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 		self.checkedColumns = []
 		for column in ("Duration", "Intro", "Category", "Filename"):
 			checkedColumn=wx.CheckBox(self,wx.NewId(),label=column)
-			checkedColumn.SetValue(column in SPLConfig["IncludedColumns"])
+			checkedColumn.SetValue(column in self.Parent.includedColumns)
 			self.checkedColumns.append(checkedColumn)
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
@@ -1100,7 +1098,10 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 		parent.includedColumns.add("Title")
 		for checkbox in self.checkedColumns:
 			action = parent.includedColumns.add if checkbox.Value else parent.includedColumns.remove
-			action(checkbox.Label)
+			try:
+				action(checkbox.Label)
+			except KeyError:
+				pass
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()
