@@ -265,18 +265,20 @@ class SPL510TrackItem(SPLTrackItem):
 SPLAssistantHelp=_("""After entering SPL Assistant, press:
 A: Automation.
 C: Announce name of the currently playing track.
-D: Remaining time for the playlist.
+D (R if compatibility mode is on): Remaining time for the playlist.
 E: Overall metadata streaming status.
 1 through 4, 0: Metadata streaming status for DSP encoder and four additional URL's.
 H: Duration of trakcs in this hour slot.
 Shift+H: Duration of selected tracks.
-I: Listener count.
-L: Line-in status.
+I (L if compatibility mode is on): Listener count.
+K: Move to place marker track.
+Control+K: Set place marker track.
+L (Shift+L if compatibility mode is on): Line-in status.
 M: Microphone status.
 N: Next track.
 P: Playback status.
 Shift+P: Pitch for the current track.
-R: Record to file.
+R (Shift+E if compatibility mode is on): Record to file.
 Shift+R: Monitor library scan.
 S: Scheduled time for the track.
 T: Cart edit mode.
