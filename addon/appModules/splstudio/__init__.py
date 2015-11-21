@@ -288,9 +288,9 @@ Shift+F1: Open online user guide."""),
 A: Automation.
 C: Toggle cart explorer.
 Shift+C: Announce name of the currently playing track.
-R: Remaining time for the playlist.
 E: Overall metadata streaming status.
 1 through 4, 0: Metadata streaming status for DSP encoder and four additional URL's.
+Shift+E: Record to file.
 H: Duration of trakcs in this hour slot.
 Shift+H: Duration of selected tracks.
 L: Listener count.
@@ -299,7 +299,7 @@ M: Microphone status.
 N: Next track.
 P: Playback status.
 Shift+P: Pitch for the current track.
-Shift+E: Record to file.
+R: Remaining time for the playlist.
 Shift+R: Monitor library scan.
 S: Scheduled time for the track.
 T: Cart edit mode.
