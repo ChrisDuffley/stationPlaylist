@@ -84,7 +84,9 @@ def resetAllConfig():
 		profile.reset()
 		profile.filename = profilePath
 		for setting in _SPLDefaults:
-			profile[setting] = _SPLDefaults[setting]
+			# Convert certain settings to a different format.
+			if setting == "IncludedColumns": profile["IncludedColumns"] = set(_SPLDefaults["IncludedColumns"])
+			else: profile[setting] = _SPLDefaults[setting]
 	# Translators: A dialog message shown when settings were reset to defaults.
 	wx.CallAfter(gui.messageBox, _("Successfully applied default add-on settings."),
 	# Translators: Title of the reset config dialog.
@@ -564,7 +566,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.columnOrderCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce columns in the &order shown on screen"))
 		self.columnOrderCheckbox.SetValue(SPLConfig["UseScreenColumnOrder"])
 		self.columnOrder = SPLConfig["ColumnOrder"]
-		self.includedColumns = SPLConfig["IncludedColumns"]
+		# Without manual conversion below, it produces a rare bug where clicking cancel after changing column inclusion causes new set to be retained.
+		self.includedColumns = set(SPLConfig["IncludedColumns"])
 		settingsSizer.Add(self.columnOrderCheckbox, border=10,flag=wx.BOTTOM)
 		# Translators: The label of a button to manage column announcements.
 		item = manageColumnsButton = wx.Button(self, label=_("&Manage track column announcements..."))
@@ -648,6 +651,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	def onCancel(self, evt):
 		global _configDialogOpened, SPLActiveProfile, SPLSwitchProfile, SPLConfig
+		self.includedColumns.clear()
 		SPLActiveProfile = self.activeProfile
 		if self.switchProfileRenamed or self.switchProfileDeleted:
 			SPLSwitchProfile = self.switchProfile
