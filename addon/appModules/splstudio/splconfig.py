@@ -1,6 +1,6 @@
 # SPL Studio Configuration Manager
 # An app module and global plugin package for NVDA
-# Copyright 2015 Joseph Lee and others, released under GPL.
+# Copyright 2015-2016 Joseph Lee and others, released under GPL.
 # Provides the configuration management package for SPL Studio app module.
 # For miscellaneous dialogs and tool, see SPLMisc module.
 
@@ -58,6 +58,7 @@ BrailleTimer = option("off", "intro", "outro", "both", default="off")
 AlarmAnnounce = option("beep", "message", "both", default="beep")
 LibraryScanAnnounce = option("off", "ending", "progress", "numbers", default="off")
 TrackDial = boolean(default=false)
+MetadataReminder = option("off", "startup", "instant", default="off")
 TimeHourAnnounce = boolean(default=false)
 [IntroOutroAlarms]
 SayEndOfTrack = boolean(default=true)
@@ -68,7 +69,6 @@ SongRampTime = integer(min=1, max=9, default=5)
 MicAlarm = integer(min=0, max=7200, default="0")
 MicAlarmInterval = integer(min=0, max=60, default=0)
 [MetadataStreaming]
-MetadataReminder = option("off", "startup", "instant", default="off")
 MetadataEnabled = bool_list(default=list(false,false,false,false,false))
 [ColumnAnnouncement]
 UseScreenColumnOrder = boolean(default=true)
@@ -96,10 +96,8 @@ _SPLDefaults.validate(_val, copy=True)
 _SPLDefaults7.validate(_val, copy=True)
 
 # The following settings can be changed in profiles:
-_mutatableSettings=("SayEndOfTrack","EndOfTrackTime","SaySongRamp","SongRampTime","MicAlarm", "MicAlarmInterval")
-_mutatableSettings7=("IntroOutroAlarms", "MicrophoneAlarm")
-# Unlock in 6.1.
-#,"MetadataEnabled","UseScreenColumnOrder","ColumnOrder","IncludedColumns")
+_mutatableSettings=("SayEndOfTrack","EndOfTrackTime","SaySongRamp","SongRampTime","MicAlarm","MicAlarmInterval","MetadataEnabled","UseScreenColumnOrder","ColumnOrder","IncludedColumns")
+_mutatableSettings7=("IntroOutroAlarms", "MicrophoneAlarm", "MetadataStreaming", "ColumnAnnouncement")
 
 # Display an error dialog when configuration validation fails.
 def runConfigErrorDialog(errorText, errorType):
@@ -128,6 +126,8 @@ def resetAllConfig():
 		profile.filename = profilePath
 		for setting in _SPLDefaults7:
 			profile[setting] = _SPLDefaults7[setting]
+		# Convert certain settings to a different format.
+		profile["ColumnAnnouncement"]["IncludedColumns"] = set(_SPLDefaults7["ColumnAnnouncement"]["IncludedColumns"])
 	# Translators: A dialog message shown when settings were reset to defaults.
 	wx.CallAfter(gui.messageBox, _("Successfully applied default add-on settings."),
 	# Translators: Title of the reset config dialog.
@@ -217,18 +217,16 @@ def unlockConfig(path, profileName=None, prefill=False):
 								else: SPLConfigCheckpoint[setting][failedKey] = _SPLDefaults7[setting][failedKey]
 			SPLConfigCheckpoint.write()
 			_configLoadStatus[profileName] = "partialReset"
-	# Do this only for base profile.
-	if prefill: _extraInitSteps(SPLConfigCheckpoint, profileName=profileName)
-	else: _applyBaseSettings(SPLConfigCheckpoint)
-	# Unlock in 6.1.
-	#if not prefill: _applyBaseSettings(SPLConfigCheckpoint)
+	_extraInitSteps(SPLConfigCheckpoint, profileName=profileName)
+	# Only run when loading profiles other than normal profile.
+	if not prefill: _applyBaseSettings(SPLConfigCheckpoint)
 	SPLConfigCheckpoint.name = profileName
 	return SPLConfigCheckpoint
 
 # Extra initialization steps such as converting value types.
 def _extraInitSteps(conf, profileName=None):
 	global _configLoadStatus
-	columnOrder = conf["ColumnOrder"]
+	columnOrder = conf["ColumnAnnouncement"]["ColumnOrder"]
 	# Catch suttle errors.
 	fields = ["Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"]
 	invalidFields = 0
@@ -240,19 +238,18 @@ def _extraInitSteps(conf, profileName=None):
 		else:
 			_configLoadStatus[profileName] = "columnOrderReset"
 		columnOrder = fields
-	conf["ColumnOrder"] = columnOrder
-	conf["IncludedColumns"] = set(conf["IncludedColumns"])
+	conf["ColumnAnnouncement"]["ColumnOrder"] = columnOrder
+	conf["ColumnAnnouncement"]["IncludedColumns"] = set(conf["ColumnAnnouncement"]["IncludedColumns"])
 	# Artist and Title must be present at all times (quite redundant, but just in case).
-	conf["IncludedColumns"].add("Artist")
-	conf["IncludedColumns"].add("Title")
+	conf["ColumnAnnouncement"]["IncludedColumns"].add("Artist")
+	conf["ColumnAnnouncement"]["IncludedColumns"].add("Title")
 	# Perform a similar check for metadata streaming.
-	# Unlock in 6.1.
-	"""if len(conf["MetadataEnabled"]) != 5:
+	if len(conf["MetadataStreaming"]["MetadataEnabled"]) != 5:
 		if profileName in _configLoadStatus and _configLoadStatus[profileName] == "partialReset":
 			_configLoadStatus[profileName] = "partialAndMetadataReset"
 		else:
 			_configLoadStatus[profileName] = "metadataReset"
-		conf["MetadataEnabled"] = [False, False, False, False, False]"""
+		conf["MetadataStreaming"]["MetadataEnabled"] = [False, False, False, False, False]
 
 # Apply base profile if loading user-defined broadcast profiles.
 def _applyBaseSettings(conf):
@@ -262,7 +259,7 @@ def _applyBaseSettings(conf):
 			conf[setting] = SPLConfigPool[0][setting]
 
 # Instant profile switch helpers.
-# A number of helper functions assisting instatn switch profile routine, including sorting and locating the needed profile upon request.
+# A number of helper functions assisting instant switch profile routine, including sorting and locating the needed profile upon request.
 
 # Fetch the profile index with a given name.
 def getProfileIndexByName(name):
@@ -285,11 +282,10 @@ def isConfigPoolSorted():
 # Perform some extra work before writing the config file.
 def _preSave(conf):
 	# 6.1: Transform column inclusion data structure now.
-	# Unlock in 6.1.
-	#conf["IncludedColumns"] = list(conf["IncludedColumns"])
+	conf["ColumnAnnouncement"]["IncludedColumns"] = list(conf["ColumnAnnouncement"]["IncludedColumns"])
 	# Perform global setting processing only for the normal profile.
 	if SPLConfigPool.index(conf) == 0:
-		conf["IncludedColumns"] = list(conf["IncludedColumns"])
+		conf["ColumnAnnouncement"]["IncludedColumns"] = list(conf["ColumnAnnouncement"]["IncludedColumns"])
 		# Cache instant profile for later use.
 		if SPLSwitchProfile is not None:
 			conf["InstantProfile"] = SPLSwitchProfile
@@ -308,12 +304,10 @@ def _preSave(conf):
 	# For other profiles, remove global settings before writing to disk.
 	else:
 		# 6.1: Make sure column order and inclusion aren't same as default values.
-		# Unlock in 6.1.
-		"""includedColumns = set(_SPLDefaults["IncludedColumns"])
-		if conf["IncludedColumns"] == includedColumns:
-			del conf["IncludedColumns"]
-		if conf["ColumnOrder"] == ["Artist","Title","Duration","Intro","Category","Filename"]:
-			del conf["ColumnOrder"]"""
+		if len(conf["ColumnAnnouncement"]["IncludedColumns"]) == 17:
+			del conf["ColumnAnnouncement"]["IncludedColumns"]
+		if conf["ColumnAnnouncement"]["ColumnOrder"] == ["Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"]:
+			del conf["ColumnAnnouncement"]["ColumnOrder"]
 		for setting in conf.keys():
 			if setting not in _mutatableSettings7: del conf[setting]
 			else:
@@ -627,7 +621,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# Translators: One of the metadata notification settings.
 		("instant",_("When instant switch profile is active"))]
 		self.metadataList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.metadataValues])
-		metadataCurValue=SPLConfig["MetadataStreaming"]["MetadataReminder"]
+		metadataCurValue=SPLConfig["General"]["MetadataReminder"]
 		selection = (x for x,y in enumerate(self.metadataValues) if y[0]==metadataCurValue).next()  
 		try:
 			self.metadataList.SetSelection(selection)
@@ -646,7 +640,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.columnOrderCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce columns in the &order shown on screen"))
 		self.columnOrderCheckbox.SetValue(SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"])
 		self.columnOrder = SPLConfig["ColumnAnnouncement"]["ColumnOrder"]
-		self.includedColumns = SPLConfig["ColumnAnnouncement"]["IncludedColumns"]
+		# Without manual conversion below, it produces a rare bug where clicking cancel after changing column inclusion causes new set to be retained.
+		self.includedColumns = set(SPLConfig["ColumnAnnouncement"]["IncludedColumns"])
 		settingsSizer.Add(self.columnOrderCheckbox, border=10,flag=wx.BOTTOM)
 		# Translators: The label of a button to manage column announcements.
 		item = manageColumnsButton = wx.Button(self, label=_("&Manage track column announcements..."))
@@ -707,7 +702,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["General"]["LibraryScanAnnounce"] = self.libScanValues[self.libScanList.GetSelection()][0]
 		SPLConfig["General"]["TimeHourAnnounce"] = self.hourAnnounceCheckbox.Value
 		SPLConfig["General"]["TrackDial"] = self.trackDialCheckbox.Value
-		SPLConfig["MetadataStreaming"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
+		SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
 		SPLConfig["MetadataStreaming"]["MetadataEnabled"] = self.metadataStreams
 		SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
 		SPLConfig["ColumnAnnouncement"]["ColumnOrder"] = self.columnOrder
@@ -730,13 +725,18 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	def onCancel(self, evt):
 		global _configDialogOpened, SPLActiveProfile, SPLSwitchProfile, SPLConfig
+		# 6.1: Discard changes to included columns set.
+		print len(self.includedColumns)
+		self.includedColumns.clear()
+		self.includedColumns = None
 		SPLActiveProfile = self.activeProfile
 		if self.switchProfileRenamed or self.switchProfileDeleted:
 			SPLSwitchProfile = self.switchProfile
 		if self.switchProfileDeleted:
 			SPLConfig = SPLConfigPool[0]
 		_configDialogOpened = False
-		super(SPLConfigDialog,  self).onCancel(evt)
+		#super(SPLConfigDialog,  self).onCancel(evt)
+		self.Destroy()
 
 	# Check events for outro and intro alarms, respectively.
 	def onOutroCheck(self, evt):
@@ -787,11 +787,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.micAlarm.SetValue(long(curProfile["MicrophoneAlarm"]["MicAlarm"]))
 		self.micAlarmInterval.SetValue(long(curProfile["MicrophoneAlarm"]["MicAlarmInterval"]))
 		# 6.1: Take care of profile-specific column and metadata settings.
-		# Unlock in 6.1.
-		"""self.metadataStreams = curProfile["MetadataEnabled"]
+		self.metadataStreams = curProfile["MetadataStreaming"]["MetadataEnabled"]
 		self.columnOrderCheckbox.SetValue(curProfile["UseScreenColumnOrder"])
-		self.columnOrder = curProfile["ColumnOrder"]
-		self.includedColumns = curProfile["IncludedColumns"]"""
+		self.columnOrder = curProfile["ColumnAnnouncement"]["ColumnOrder"]
+		# 6.1: Again convert list to set.
+		self.includedColumns = set(curProfile["ColumnAnnouncement"]["IncludedColumns"])
 
 	# Profile controls.
 	# Rename and delete events come from GUI/config profiles dialog from NVDA core.
@@ -1122,11 +1122,23 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 
 		# Same as metadata dialog (wx.CheckListBox isn't user friendly).
 		# Gather values for checkboxes except artist and title.
+		# 6.1: Split these columns into rows.
 		self.checkedColumns = []
 		for column in ("Duration", "Intro", "Category", "Filename"):
 			checkedColumn=wx.CheckBox(self,wx.NewId(),label=column)
-			checkedColumn.SetValue(column in SPLConfig["ColumnAnnouncement"]["IncludedColumns"])
+			checkedColumn.SetValue(column in self.Parent.includedColumns)
 			self.checkedColumns.append(checkedColumn)
+		self.checkedColumns2 = []
+		for column in ("Outro","Year","Album","Genre","Mood","Energy"):
+			checkedColumn=wx.CheckBox(self,wx.NewId(),label=column)
+			checkedColumn.SetValue(column in self.Parent.includedColumns)
+			self.checkedColumns2.append(checkedColumn)
+		self.checkedColumns3 = []
+		for column in ("Tempo","BPM","Gender","Rating","Time Scheduled"):
+			checkedColumn=wx.CheckBox(self,wx.NewId(),label=column)
+			checkedColumn.SetValue(column in self.Parent.includedColumns)
+			self.checkedColumns3.append(checkedColumn)
+
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		# First, a help text.
@@ -1135,6 +1147,16 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		for checkedColumn in self.checkedColumns:
+			sizer.Add(checkedColumn)
+		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		for checkedColumn in self.checkedColumns2:
+			sizer.Add(checkedColumn)
+		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		for checkedColumn in self.checkedColumns3:
 			sizer.Add(checkedColumn)
 		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
@@ -1179,9 +1201,12 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 		# Make sure artist and title are always included.
 		parent.includedColumns.add("Artist")
 		parent.includedColumns.add("Title")
-		for checkbox in self.checkedColumns:
+		for checkbox in self.checkedColumns + self.checkedColumns2 + self.checkedColumns3:
 			action = parent.includedColumns.add if checkbox.Value else parent.includedColumns.remove
-			action(checkbox.Label)
+			try:
+				action(checkbox.Label)
+			except KeyError:
+				pass
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()

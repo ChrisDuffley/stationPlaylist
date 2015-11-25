@@ -58,7 +58,7 @@ _conversionConfig = {
 	"SongRampTime":"IntroOutroAlarms",
 	"MicAlarm":"MicAlarm",
 	"MicAlarmInterval":"MicAlarm",
-	"MetadataReminder":"MetadataStreaming",
+	"MetadataReminder":"General",
 	"MetadataEnabled":"MetadataStreaming",
 	"UseScreenColumnOrder":"ColumnAnnouncement",
 	"ColumnOrder":"ColumnAnnouncement",

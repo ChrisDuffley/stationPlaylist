@@ -171,7 +171,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * Added a setting in add-on settings dialog to allow microphone active notification to be given periodically.
 * You can now use Track Dial toggle command in Studio to toggle Track Dial in Track Tool provided that you didn't assign a command to toggle Track Dial in Track Tool.
 * Added ability to use SPL Controller layer command to invoke SPL Assistant layer (configurable from advanced Settings dialog found in add-on settings dialog).
-* Ability for NvDA to use certain SPL Assistant commands used by other screen readers (experimental). To configure this, go to add-on settings, select Advanced Settings and check screen reader compatibility mode checkbox.
+* Added ability for NvDA to use certain SPL Assistant commands used by other screen readers. To configure this, go to add-on settings, select Advanced Settings and check screen reader compatibility mode checkbox.
 * In encoders, settings such as focusing to Studio when connected are now remembered.
 * It is now possible to view various columns from encoder window (such as encoder connection status) via Control+NVDA+number command; consult the encoder commands above.
 * Fixed a rare bug where switching to Studio or closing an NVDA dialog (including Studio add-on dialogs) prevented track commands (such as toggling Track Dial) from working as expected.
