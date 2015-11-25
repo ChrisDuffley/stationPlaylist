@@ -562,7 +562,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 			pass
 		sizer.Add(label)
 		sizer.Add(self.metadataList)
-		self.metadataStreams = SPLConfig["MetadataEnabled"]
+		self.metadataStreams = list(SPLConfig["MetadataEnabled"])
 		# Translators: The label of a button to manage column announcements.
 		item = manageMetadataButton = wx.Button(self, label=_("Configure metadata &streaming connection options..."))
 		item.Bind(wx.EVT_BUTTON, self.onManageMetadata)
@@ -983,7 +983,7 @@ class MetadataStreamingDialog(wx.Dialog):
 			streaming = func(0, 36, ret=True)
 			if streaming == -1: streaming += 1
 			checkedDSP.SetValue(streaming)
-		else: checkedDSP.SetValue(SPLConfig["MetadataEnabled"][0])
+		else: checkedDSP.SetValue(self.Parent.metadataStreams[0])
 		self.checkedStreams.append(checkedDSP)
 		# Now the rest.
 		for url in xrange(1, 5):
@@ -992,7 +992,7 @@ class MetadataStreamingDialog(wx.Dialog):
 				streaming = func(url, 36, ret=True)
 				if streaming == -1: streaming += 1
 				checkedURL.SetValue(streaming)
-			else: checkedURL.SetValue(SPLConfig["MetadataEnabled"][url])
+			else: checkedURL.SetValue(self.Parent.metadataStreams[url])
 			self.checkedStreams.append(checkedURL)
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
@@ -1193,7 +1193,7 @@ class AdvancedOptionsDialog(wx.Dialog):
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 		self.splConPassthroughCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Allow SPL C&ontroller command to invoke SPL Assistant layer"))
-		self.splConPassthroughCheckbox.SetValue(SPLConfig["SPLConPassthrough"])
+		self.splConPassthroughCheckbox.SetValue(self.Parent.splConPassthrough)
 		sizer.Add(self.splConPassthroughCheckbox, border=10,flag=wx.TOP)
 		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
@@ -1204,7 +1204,7 @@ class AdvancedOptionsDialog(wx.Dialog):
 		("jfw","JAWS for Windows"),
 		("wineyes","Window-Eyes")]
 		self.compatibilityList= wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.compatibilityLayouts])
-		selection = (x for x,y in enumerate(self.compatibilityLayouts) if y[0]==SPLConfig["CompatibilityLayer"]).next()  
+		selection = (x for x,y in enumerate(self.compatibilityLayouts) if y[0]==self.Parent.compLayer).next()  
 		try:
 			self.compatibilityList.SetSelection(selection)
 		except:
