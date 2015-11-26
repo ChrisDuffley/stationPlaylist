@@ -80,9 +80,9 @@ def messageSound(wavFile, message):
 
 # A special version for microphone alarm (continuous or not).
 def _micAlarmAnnouncer():
-		if splconfig.SPLConfig["AlarmAnnounce"] in ("beep", "both"):
+		if splconfig.SPLConfig["General"]["AlarmAnnounce"] in ("beep", "both"):
 			nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_MicAlarm.wav"))
-		if splconfig.SPLConfig["AlarmAnnounce"] in ("message", "both"):
+		if splconfig.SPLConfig["General"]["AlarmAnnounce"] in ("message", "both"):
 			# Translators: Presented when microphone has been active for a while.
 			ui.message(_("Microphone active"))
 
@@ -93,9 +93,9 @@ def micAlarmManager(micAlarmWav, micAlarmMessage):
 	global micAlarmT2
 	# Use a timer to play a tone when microphone was active for more than the specified amount.
 	# Mechanics come from Clock add-on.
-	if splconfig.SPLConfig["MicAlarmInterval"]:
+	if splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"]:
 		micAlarmT2 = wx.PyTimer(_micAlarmAnnouncer)
-		micAlarmT2.Start(splconfig.SPLConfig["MicAlarmInterval"] * 1000)
+		micAlarmT2.Start(splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] * 1000)
 
 # Call SPL API to obtain needed values.
 # A thin wrapper around user32.SendMessage and calling a callback if defined.
@@ -114,7 +114,7 @@ class SPLTrackItem(IAccessible):
 	A base class for providing utility scripts when track entries are focused, such as track dial."""
 
 	def initOverlayClass(self):
-		if splconfig.SPLConfig["TrackDial"]:
+		if splconfig.SPLConfig["General"]["TrackDial"]:
 			self.bindGesture("kb:rightArrow", "nextColumn")
 			self.bindGesture("kb:leftArrow", "prevColumn")
 
@@ -132,13 +132,13 @@ class SPLTrackItem(IAccessible):
 
 	def reportFocus(self):
 		#tones.beep(800, 100)
-		if not splconfig.SPLConfig["UseScreenColumnOrder"]:
+		if not splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"]:
 			descriptionPieces = []
-			for header in splconfig.SPLConfig["ColumnOrder"]:
+			for header in splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"]:
 				# Artist field should not be included in Studio 5.0x, as the checkbox serves this role.
 				if header == "Artist" and self.appModule.productVersion.startswith("5.0"):
 					continue
-				if header in splconfig.SPLConfig["IncludedColumns"]:
+				if header in splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"]:
 					index = self._indexOf(header)
 					if index is None: continue # Header not found, mostly encountered in Studio 5.0x.
 					content = self._getColumnContent(index)
@@ -151,8 +151,8 @@ class SPLTrackItem(IAccessible):
 	# This is similar to enhanced arrow keys in other screen readers.
 
 	def script_toggleTrackDial(self, gesture):
-		if not splconfig.SPLConfig["TrackDial"]:
-			splconfig.SPLConfig["TrackDial"] = True
+		if not splconfig.SPLConfig["General"]["TrackDial"]:
+			splconfig.SPLConfig["General"]["TrackDial"] = True
 			self.bindGesture("kb:rightArrow", "nextColumn")
 			self.bindGesture("kb:leftArrow", "prevColumn")
 			# Translators: Reported when track dial is on.
@@ -162,7 +162,7 @@ class SPLTrackItem(IAccessible):
 				dialText+= _(", located at column {columnHeader}").format(columnHeader = self.appModule.SPLColNumber+1)
 			dialTone = 780
 		else:
-			splconfig.SPLConfig["TrackDial"] = False
+			splconfig.SPLConfig["General"]["TrackDial"] = False
 			try:
 				self.removeGestureBinding("kb:rightArrow")
 				self.removeGestureBinding("kb:leftArrow")
@@ -171,12 +171,12 @@ class SPLTrackItem(IAccessible):
 			# Translators: Reported when track dial is off.
 			dialText = _("Track Dial off")
 			dialTone = 390
-		if not splconfig.SPLConfig["BeepAnnounce"]:
+		if not splconfig.SPLConfig["General"]["BeepAnnounce"]:
 			ui.message(dialText)
 		else:
 			tones.beep(dialTone, 100)
 			braille.handler.message(dialText)
-			if splconfig.SPLConfig["TrackDial"] and self.appModule.SPLColNumber > 0:
+			if splconfig.SPLConfig["General"]["TrackDial"] and self.appModule.SPLColNumber > 0:
 				# Translators: Spoken when enabling track dial while status message is set to beeps.
 				speech.speakMessage(_("Column {columnNumber}").format(columnNumber = self.appModule.SPLColNumber+1))
 	# Translators: Input help mode message for SPL track item.
@@ -394,12 +394,12 @@ class AppModule(appModuleHandler.AppModule):
 			global _SPLWin
 			_SPLWin = hwnd
 		# Remind me to broadcast metadata information.
-		if splconfig.SPLConfig["MetadataReminder"] == "startup":
+		if splconfig.SPLConfig["General"]["MetadataReminder"] == "startup":
 			self._metadataAnnouncer(reminder=True)
 
 	# Let the global plugin know if SPLController passthrough is allowed.
 	def SPLConPassthrough(self):
-		return splconfig.SPLConfig["SPLConPassthrough"]
+		return splconfig.SPLConfig["Advanced"]["SPLConPassthrough"]
 
 	def event_NVDAObject_init(self, obj):
 		# From 0.01: previously focused item fires focus event when it shouldn't.
@@ -448,11 +448,11 @@ class AppModule(appModuleHandler.AppModule):
 		elif name.startswith("Scheduled for"):
 			if self.scheduledTimeCache == name: return False
 			self.scheduledTimeCache = name
-			return splconfig.SPLConfig["SayScheduledFor"]
+			return splconfig.SPLConfig["SayStatus"]["SayScheduledFor"]
 		elif "Listener" in name:
-			return splconfig.SPLConfig["SayListenerCount"]
+			return splconfig.SPLConfig["SayStatus"]["SayListenerCount"]
 		elif name.startswith("Cart") and obj.IAccessibleChildID == 3:
-			return splconfig.SPLConfig["SayPlayingCartName"]
+			return splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"]
 		return True
 
 	# Now the actual event.
@@ -468,17 +468,17 @@ class AppModule(appModuleHandler.AppModule):
 					# Strip off "  Play status: " for brevity only in main playlist window.
 					ui.message(obj.name.split(":")[1][1:])
 				elif "Loading" in obj.name:
-					if splconfig.SPLConfig["LibraryScanAnnounce"] not in ("off", "ending"):
+					if splconfig.SPLConfig["General"]["LibraryScanAnnounce"] not in ("off", "ending"):
 						# If library scan is in progress, announce its progress when told to do so.
 						self.scanCount+=1
 						if self.scanCount%100 == 0:
-							self._libraryScanAnnouncer(obj.name[1:obj.name.find("]")], splconfig.SPLConfig["LibraryScanAnnounce"])
+							self._libraryScanAnnouncer(obj.name[1:obj.name.find("]")], splconfig.SPLConfig["General"]["LibraryScanAnnounce"])
 					if not self.libraryScanning:
 						if self.productVersion not in noLibScanMonitor:
 							if not self.backgroundStatusMonitor: self.libraryScanning = True
 				elif "match" in obj.name:
-					if splconfig.SPLConfig["LibraryScanAnnounce"] != "off" and self.libraryScanning:
-						if splconfig.SPLConfig["BeepAnnounce"]: tones.beep(370, 100)
+					if splconfig.SPLConfig["General"]["LibraryScanAnnounce"] != "off" and self.libraryScanning:
+						if splconfig.SPLConfig["General"]["BeepAnnounce"]: tones.beep(370, 100)
 						else:
 							# Translators: Presented when library scan is complete.
 							ui.message(_("Scan complete with {scanCount} items").format(scanCount = obj.name.split()[3]))
@@ -489,7 +489,7 @@ class AppModule(appModuleHandler.AppModule):
 					self._toggleMessage(obj.name)
 				else:
 					ui.message(obj.name)
-				if self.cartExplorer or int(splconfig.SPLConfig["MicAlarm"]):
+				if self.cartExplorer or int(splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"]):
 					# Activate mic alarm or announce when cart explorer is active.
 					self.doExtraAction(obj.name)
 		# Monitor the end of track and song intro time and announce it.
@@ -497,20 +497,20 @@ class AppModule(appModuleHandler.AppModule):
 			if obj.simplePrevious != None:
 				if obj.simplePrevious.name == "Remaining Time":
 					# End of track for SPL 5.x.
-					if splconfig.SPLConfig["BrailleTimer"] in ("outro", "both") and api.getForegroundObject().processID == self.processID: #and "00:00" < obj.name <= self.SPLEndOfTrackTime:
+					if splconfig.SPLConfig["General"]["BrailleTimer"] in ("outro", "both") and api.getForegroundObject().processID == self.processID: #and "00:00" < obj.name <= self.SPLEndOfTrackTime:
 						braille.handler.message(obj.name)
-					if (obj.name == "00:{0:02d}".format(splconfig.SPLConfig["EndOfTrackTime"])
-					and splconfig.SPLConfig["SayEndOfTrack"]):
+					if (obj.name == "00:{0:02d}".format(splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"])
+					and splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"]):
 						self.alarmAnnounce(obj.name, 440, 200)
 				elif obj.simplePrevious.name == "Remaining Song Ramp":
 					# Song intro for SPL 5.x.
-					if splconfig.SPLConfig["BrailleTimer"] in ("intro", "both") and api.getForegroundObject().processID == self.processID: #and "00:00" < obj.name <= self.SPLSongRampTime:
+					if splconfig.SPLConfig["General"]["BrailleTimer"] in ("intro", "both") and api.getForegroundObject().processID == self.processID: #and "00:00" < obj.name <= self.SPLSongRampTime:
 						braille.handler.message(obj.name)
-					if (obj.name == "00:{0:02d}".format(splconfig.SPLConfig["SongRampTime"])
-					and splconfig.SPLConfig["SaySongRamp"]):
+					if (obj.name == "00:{0:02d}".format(splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"])
+					and splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"]):
 						self.alarmAnnounce(obj.name, 512, 400, intro=True)
 				# Hack: auto scroll in Studio itself might be broken (according to Brian Hartgen), so force NVDA to announce currently playing track automatically if told to do so.
-				if splconfig.SPLConfig["SayPlayingTrackName"] == "True": # Had to do this to transform this key to something else later.
+				if splconfig.SPLConfig["SayStatus"]["SayPlayingTrackName"] == "True": # Had to do this to transform this key to something else later.
 					try:
 						statusBarFG = obj.parent.parent.parent
 						if statusBarFG is not None:
@@ -525,12 +525,12 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Handle toggle messages.
 	def _toggleMessage(self, msg):
-		if splconfig.SPLConfig["MessageVerbosity"] != "beginner":
+		if splconfig.SPLConfig["General"]["MessageVerbosity"] != "beginner":
 			msg = msg.split()[-1]
-		if splconfig.SPLConfig["BeepAnnounce"]:
+		if splconfig.SPLConfig["General"]["BeepAnnounce"]:
 			# User wishes to hear beeps instead of words. The beeps are power on and off sounds from PAC Mate Omni.
 			if msg.endswith("Off"):
-				if splconfig.SPLConfig["MessageVerbosity"] == "beginner":
+				if splconfig.SPLConfig["General"]["MessageVerbosity"] == "beginner":
 					wavFile = os.path.join(os.path.dirname(__file__), "SPL_off.wav")
 					try:
 						messageSound(wavFile, msg)
@@ -540,7 +540,7 @@ class AppModule(appModuleHandler.AppModule):
 					tones.beep(500, 100)
 					braille.handler.message(msg)
 			elif msg.endswith("On"):
-				if splconfig.SPLConfig["MessageVerbosity"] == "beginner":
+				if splconfig.SPLConfig["General"]["MessageVerbosity"] == "beginner":
 					wavFile = os.path.join(os.path.dirname(__file__), "SPL_on.wav")
 					try:
 						messageSound(wavFile, msg)
@@ -554,7 +554,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Perform extra action in specific situations (mic alarm, for example).
 	def doExtraAction(self, status):
-		micAlarm = int(splconfig.SPLConfig["MicAlarm"])
+		micAlarm = int(splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"])
 		if self.cartExplorer:
 			if status == "Cart Edit On":
 				# Translators: Presented when cart edit mode is toggled on while cart explorer is on.
@@ -584,9 +584,9 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Alarm announcement: Alarm notification via beeps, speech or both.
 	def alarmAnnounce(self, timeText, tone, duration, intro=False):
-		if splconfig.SPLConfig["AlarmAnnounce"] in ("beep", "both"):
+		if splconfig.SPLConfig["General"]["AlarmAnnounce"] in ("beep", "both"):
 			tones.beep(tone, duration)
-		if splconfig.SPLConfig["AlarmAnnounce"] in ("message", "both"):
+		if splconfig.SPLConfig["General"]["AlarmAnnounce"] in ("message", "both"):
 			alarmTime = int(timeText.split(":")[1])
 			if intro:
 				# Translators: Presented when end of introduction is approaching (example output: 5 sec left in track introduction).
@@ -679,7 +679,7 @@ class AppModule(appModuleHandler.AppModule):
 		else:
 			tm = (t/1000) if not offset else (t/1000)+offset
 			mm, ss = divmod(tm, 60)
-			if mm > 59 and splconfig.SPLConfig["TimeHourAnnounce"]:
+			if mm > 59 and splconfig.SPLConfig["General"]["TimeHourAnnounce"]:
 				hh, mm = divmod(mm, 60)
 				# Hour value is also filled with leading zero's.
 				# 6.1: Optimize the string builder so it can return just one string.
@@ -754,7 +754,7 @@ class AppModule(appModuleHandler.AppModule):
 			wx.CallAfter(gui.messageBox, _("The add-on settings dialog is opened. Please close the settings dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
 			return
 		try:
-			timeVal = splconfig.SPLConfig["EndOfTrackTime"]
+			timeVal = splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"]
 			d = splconfig.SPLAlarmDialog(gui.mainFrame, "EndOfTrackTime", "SayEndOfTrack",
 			# Translators: The title of end of track alarm dialog.
 			_("End of track alarm"),
@@ -779,7 +779,7 @@ class AppModule(appModuleHandler.AppModule):
 			wx.CallAfter(gui.messageBox, _("The add-on settings dialog is opened. Please close the settings dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
 			return
 		try:
-			rampVal = long(splconfig.SPLConfig["SongRampTime"])
+			rampVal = long(splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"])
 			d = splconfig.SPLAlarmDialog(gui.mainFrame, "SongRampTime", "SaySongRamp",
 			# Translators: The title of song intro alarm dialog.
 			_("Song intro alarm"),
@@ -806,7 +806,7 @@ class AppModule(appModuleHandler.AppModule):
 		elif splconfig._alarmDialogOpened:
 			wx.CallAfter(splconfig._alarmError)
 			return
-		micAlarm = splconfig.SPLConfig["MicAlarm"]
+		micAlarm = splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"]
 		if micAlarm:
 			# Translators: A dialog message to set microphone active alarm (curAlarmSec is the current mic monitoring alarm in seconds).
 			timeMSG = _("Enter microphone alarm time in seconds (currently {curAlarmSec}, 0 disables the alarm)").format(curAlarmSec = micAlarm)
@@ -825,7 +825,7 @@ class AppModule(appModuleHandler.AppModule):
 				if not user32.FindWindowA("SPLStudio", None): return
 				newVal = dlg.GetValue()
 				if micAlarm != newVal:
-					splconfig.SPLConfig["MicAlarm"] = newVal
+					splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"] = newVal
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setMicAlarm.__doc__=_("Sets microphone alarm (default is 5 seconds).")
@@ -842,11 +842,11 @@ class AppModule(appModuleHandler.AppModule):
 	# Toggle whether beeps should be heard instead of toggle announcements.
 
 	def script_toggleBeepAnnounce(self, gesture):
-		if not splconfig.SPLConfig["BeepAnnounce"]:
-			splconfig.SPLConfig["BeepAnnounce"] = True
+		if not splconfig.SPLConfig["General"]["BeepAnnounce"]:
+			splconfig.SPLConfig["General"]["BeepAnnounce"] = True
 		else:
-			splconfig.SPLConfig["BeepAnnounce"] = False
-		splconfig.message("BeepAnnounce", splconfig.SPLConfig["BeepAnnounce"])
+			splconfig.SPLConfig["General"]["BeepAnnounce"] = False
+		splconfig.message("BeepAnnounce", splconfig.SPLConfig["General"]["BeepAnnounce"])
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_toggleBeepAnnounce.__doc__=_("Toggles status announcements between words and beeps.")
 
@@ -854,7 +854,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Announce end of track and other info via braille.
 
 	def script_setBrailleTimer(self, gesture):
-		brailleTimer = splconfig.SPLConfig["BrailleTimer"]
+		brailleTimer = splconfig.SPLConfig["General"]["BrailleTimer"]
 		if brailleTimer == "off":
 			brailleTimer = "outro"
 		elif brailleTimer == "outro":
@@ -863,7 +863,7 @@ class AppModule(appModuleHandler.AppModule):
 			brailleTimer = "both"
 		else:
 			brailleTimer = "off"
-		splconfig.SPLConfig["BrailleTimer"] = brailleTimer
+		splconfig.SPLConfig["General"]["BrailleTimer"] = brailleTimer
 		splconfig.message("BrailleTimer", brailleTimer)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setBrailleTimer.__doc__=_("Toggles between various braille timer settings.")
@@ -1068,7 +1068,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Announces progress of a library scan (launched from insert tracks dialog by pressing Control+Shift+R or from rescan option from Options dialog).
 
 	def script_setLibraryScanProgress(self, gesture):
-		libraryScanAnnounce = splconfig.SPLConfig["LibraryScanAnnounce"]
+		libraryScanAnnounce = splconfig.SPLConfig["General"]["LibraryScanAnnounce"]
 		if libraryScanAnnounce == "off":
 			libraryScanAnnounce = "ending"
 		elif libraryScanAnnounce == "ending":
@@ -1077,7 +1077,7 @@ class AppModule(appModuleHandler.AppModule):
 			libraryScanAnnounce = "numbers"
 		else:
 			libraryScanAnnounce = "off"
-		splconfig.SPLConfig["LibraryScanAnnounce"] = libraryScanAnnounce
+		splconfig.SPLConfig["General"]["LibraryScanAnnounce"] = libraryScanAnnounce
 		splconfig.message("LibraryScanAnnounce", libraryScanAnnounce)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setLibraryScanProgress.__doc__=_("Toggles library scan progress settings.")
@@ -1128,12 +1128,12 @@ class AppModule(appModuleHandler.AppModule):
 			countB, scanIter = statusAPI(parem, 32, ret=True), scanIter+1
 			if countB < 0:
 				break
-			if scanIter%5 == 0 and splconfig.SPLConfig["LibraryScanAnnounce"] not in ("off", "ending"):
-				self._libraryScanAnnouncer(countB, splconfig.SPLConfig["LibraryScanAnnounce"])
+			if scanIter%5 == 0 and splconfig.SPLConfig["General"]["LibraryScanAnnounce"] not in ("off", "ending"):
+				self._libraryScanAnnouncer(countB, splconfig.SPLConfig["General"]["LibraryScanAnnounce"])
 		self.libraryScanning = False
 		if self.backgroundStatusMonitor: return
-		if splconfig.SPLConfig["LibraryScanAnnounce"] != "off":
-			if splconfig.SPLConfig["BeepAnnounce"]:
+		if splconfig.SPLConfig["General"]["LibraryScanAnnounce"] != "off":
+			if splconfig.SPLConfig["General"]["BeepAnnounce"]:
 				tones.beep(370, 100)
 			else:
 				# Translators: Presented after library scan is done.
@@ -1143,9 +1143,9 @@ class AppModule(appModuleHandler.AppModule):
 	def _libraryScanAnnouncer(self, count, announcementType):
 		if announcementType == "progress":
 			# Translators: Presented when library scan is in progress.
-			tones.beep(550, 100) if splconfig.SPLConfig["BeepAnnounce"] else ui.message(_("Scanning"))
+			tones.beep(550, 100) if splconfig.SPLConfig["General"]["BeepAnnounce"] else ui.message(_("Scanning"))
 		elif announcementType == "numbers":
-			if splconfig.SPLConfig["BeepAnnounce"]:
+			if splconfig.SPLConfig["General"]["BeepAnnounce"]:
 				tones.beep(550, 100)
 				# No need to provide translatable string - just use index.
 				ui.message("{0}".format(count))
@@ -1180,7 +1180,7 @@ class AppModule(appModuleHandler.AppModule):
 		# 6.2/7.0: When Studio API is called, add the value into the stream count list also.
 		if reminder:
 			for url in xrange(5):
-				dataLo = 0x00010000 if splconfig.SPLConfig["MetadataEnabled"][url] else 0xffff0000
+				dataLo = 0x00010000 if splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"][url] else 0xffff0000
 				statusAPI(dataLo | url, 36)
 		dsp = 1 if statusAPI(0, 36, ret=True) == 1 else 0
 		streamCount = []
@@ -1306,13 +1306,13 @@ class AppModule(appModuleHandler.AppModule):
 			# To prevent entering wrong gesture while the layer is active.
 			self.clearGestureBindings()
 			# 7.0: choose the required compatibility layer.
-			if splconfig.SPLConfig["CompatibilityLayer"] == "off": self.bindGestures(self.__SPLAssistantGestures)
-			elif splconfig.SPLConfig["CompatibilityLayer"] == "jfw": self.bindGestures(self.__SPLAssistantJFWGestures)
-			elif splconfig.SPLConfig["CompatibilityLayer"] == "wineyes": self.bindGestures(self.__SPLAssistantWEGestures)
+			if splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "off": self.bindGestures(self.__SPLAssistantGestures)
+			elif splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "jfw": self.bindGestures(self.__SPLAssistantJFWGestures)
+			elif splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "wineyes": self.bindGestures(self.__SPLAssistantWEGestures)
 			self.SPLAssistant = True
 			tones.beep(512, 50)
-			if splconfig.SPLConfig["CompatibilityLayer"] == "jfw": ui.message("JAWS")
-			elif splconfig.SPLConfig["CompatibilityLayer"] == "wineyes": ui.message("Window-Eyes")
+			if splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "jfw": ui.message("JAWS")
+			elif splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "wineyes": ui.message("Window-Eyes")
 		except WindowsError:
 			return
 	# Translators: Input help mode message for a layer command in Station Playlist Studio.
@@ -1360,34 +1360,34 @@ class AppModule(appModuleHandler.AppModule):
 	def script_sayPlayStatus(self, gesture):
 		# Please do not translate the following messages.
 		if statusAPI(0, 104, ret=True):
-			msg = "Play status: Playing" if splconfig.SPLConfig["MessageVerbosity"] == "beginner" else "Playing"
+			msg = "Play status: Playing" if splconfig.SPLConfig["General"]["MessageVerbosity"] == "beginner" else "Playing"
 		else:
-			msg = "Play status: Stopped" if splconfig.SPLConfig["MessageVerbosity"] == "beginner" else "Stopped"
+			msg = "Play status: Stopped" if splconfig.SPLConfig["General"]["MessageVerbosity"] == "beginner" else "Stopped"
 		ui.message(msg)
 
 	def script_sayAutomationStatus(self, gesture):
 		obj = self.status(self.SPLPlayStatus).children[1]
-		msg = obj.name if splconfig.SPLConfig["MessageVerbosity"] == "beginner" else obj.name.split()[-1]
+		msg = obj.name if splconfig.SPLConfig["General"]["MessageVerbosity"] == "beginner" else obj.name.split()[-1]
 		ui.message(msg)
 
 	def script_sayMicStatus(self, gesture):
 		obj = self.status(self.SPLPlayStatus).children[2]
-		msg = obj.name if splconfig.SPLConfig["MessageVerbosity"] == "beginner" else obj.name.split()[-1]
+		msg = obj.name if splconfig.SPLConfig["General"]["MessageVerbosity"] == "beginner" else obj.name.split()[-1]
 		ui.message(msg)
 
 	def script_sayLineInStatus(self, gesture):
 		obj = self.status(self.SPLPlayStatus).children[3]
-		msg = obj.name if splconfig.SPLConfig["MessageVerbosity"] == "beginner" else obj.name.split()[-1]
+		msg = obj.name if splconfig.SPLConfig["General"]["MessageVerbosity"] == "beginner" else obj.name.split()[-1]
 		ui.message(msg)
 
 	def script_sayRecToFileStatus(self, gesture):
 		obj = self.status(self.SPLPlayStatus).children[4]
-		msg = obj.name if splconfig.SPLConfig["MessageVerbosity"] == "beginner" else obj.name.split()[-1]
+		msg = obj.name if splconfig.SPLConfig["General"]["MessageVerbosity"] == "beginner" else obj.name.split()[-1]
 		ui.message(msg)
 
 	def script_sayCartEditStatus(self, gesture):
 		obj = self.status(self.SPLPlayStatus).children[5]
-		msg = obj.name if splconfig.SPLConfig["MessageVerbosity"] == "beginner" else obj.name.split()[-1]
+		msg = obj.name if splconfig.SPLConfig["General"]["MessageVerbosity"] == "beginner" else obj.name.split()[-1]
 		ui.message(msg)
 
 	def script_sayHourTrackDuration(self, gesture):
@@ -1597,7 +1597,7 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(status)
 
 	def script_layerHelp(self, gesture):
-		compatibility = splconfig.SPLConfig["CompatibilityLayer"]
+		compatibility = splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]
 		# Translators: The title for SPL Assistant help dialog.
 		if compatibility == "off": title = _("SPL Assistant help")
 		# Translators: The title for SPL Assistant help dialog.

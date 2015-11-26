@@ -788,7 +788,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.micAlarmInterval.SetValue(long(curProfile["MicrophoneAlarm"]["MicAlarmInterval"]))
 		# 6.1: Take care of profile-specific column and metadata settings.
 		self.metadataStreams = curProfile["MetadataStreaming"]["MetadataEnabled"]
-		self.columnOrderCheckbox.SetValue(curProfile["UseScreenColumnOrder"])
+		self.columnOrderCheckbox.SetValue(curProfile["ColumnAnnouncement"]["UseScreenColumnOrder"])
 		self.columnOrder = curProfile["ColumnAnnouncement"]["ColumnOrder"]
 		# 6.1: Again convert list to set.
 		self.includedColumns = set(curProfile["ColumnAnnouncement"]["IncludedColumns"])
