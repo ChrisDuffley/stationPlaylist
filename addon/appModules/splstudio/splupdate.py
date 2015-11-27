@@ -42,13 +42,18 @@ def updateProgress():
 	tones.beep(440, 40)
 
 def updateQualify(url):
+	# The add-on version is of the form "major.minor". The "-dev" suffix indicates development release.
+	# Anything after "-dev" indicates a try or a custom build.
+	curVersion =SPLAddonVersion.split("Try")[0]
 	size = hex(int(url.info().getheader("Content-Length")))
 	version = _versionFromURL(url.url)
 	# In case we are running the latest version, check the content length (size).
-	if version == SPLAddonVersion:
-		if "-dev" not in version or ("-dev" in SPLAddonVersion and size == SPLAddonSize):
+	if version == curVersion:
+		if "-dev" not in version:
 			return None
-	elif version > SPLAddonVersion or ("-dev" in version and size != SPLAddonSize):
+		elif ("-dev" in SPLAddonVersion and size != SPLAddonSize):
+			return version
+	elif version > curVersion:
 		return version
 	else:
 		return ""

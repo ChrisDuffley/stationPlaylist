@@ -123,8 +123,8 @@ def initConfig():
 	SPLConfig = SPLConfigPool[0]
 	# 7.0: Store add-on installer size in case one wishes to check for updates (default size is 0 or no update checked attempted).
 	# Same goes to update check time and date (stored as Unix time stamp).
-	if "PSZ" in SPLConfig: splupdate.SPLAddonSize != SPLConfig["PSZ"]
-	if "PDT" in SPLConfig: splupdate.SPLAddonCheck != SPLConfig["PDT"]
+	if "PSZ" in SPLConfig: splupdate.SPLAddonSize = SPLConfig["PSZ"]
+	if "PDT" in SPLConfig: splupdate.SPLAddonCheck = SPLConfig["PDT"]
 	# Locate instant profile.
 	if "InstantProfile" in SPLConfig:
 		try:
