@@ -44,7 +44,9 @@ def updateProgress():
 def updateQualify(url):
 	# The add-on version is of the form "major.minor". The "-dev" suffix indicates development release.
 	# Anything after "-dev" indicates a try or a custom build.
-	curVersion =SPLAddonVersion.split("Try")[0]
+	curVersion =SPLAddonVersion.split("-")[0]
+	# Because we'll be using the same file name for snapshots...
+	if "-dev" in SPLAddonVersion: curVersion+="-dev"
 	size = hex(int(url.info().getheader("Content-Length")))
 	version = _versionFromURL(url.url)
 	# In case we are running the latest version, check the content length (size).
