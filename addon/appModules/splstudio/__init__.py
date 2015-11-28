@@ -382,6 +382,12 @@ class AppModule(appModuleHandler.AppModule):
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, splconfig.onConfigDialog, self.SPLSettings)
 		# Let me know the Studio window handle.
 		threading.Thread(target=self._locateSPLHwnd).start()
+		# Check for add-on update if told to do so.
+		if splconfig.SPLConfig["AutoUpdateCheck"]:
+			# 7.0 alpha: Let the user know about auto update checking routine.
+			time.sleep(2)
+			queueHandler.queueFunction(queueHandler.eventQueue, ui.message, "Checking for add-on updates...")
+			splupdate.updateCheck(auto=True)
 
 	# Locate the handle for main window for caching purposes.
 	def _locateSPLHwnd(self):

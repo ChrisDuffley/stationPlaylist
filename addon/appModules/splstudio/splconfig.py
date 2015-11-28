@@ -47,6 +47,7 @@ SayPlayingCartName = boolean(default=true)
 SayPlayingTrackName = string(default="True")
 SPLConPassthrough = boolean(default=false)
 CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
+AutoUpdateCheck = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
 # New (7.0) style config.
@@ -167,7 +168,9 @@ def initConfig():
 		pass
 	SPLConfig = SPLConfigPool[0]
 	# 7.0: Store add-on installer size in case one wishes to check for updates (default size is 0 or no update checked attempted).
-	if "PSZ" in SPLConfig: splupdate.SPLAddonSize != SPLConfig["PSZ"]
+	# Same goes to update check time and date (stored as Unix time stamp).
+	if "PSZ" in SPLConfig: splupdate.SPLAddonSize = SPLConfig["PSZ"]
+	if "PDT" in SPLConfig: splupdate.SPLAddonCheck = SPLConfig["PDT"]
 	# Locate instant profile.
 	if "InstantProfile" in SPLConfig:
 		try:
@@ -301,6 +304,10 @@ def _preSave(conf):
 		if (("PSZ" in conf and splupdate.SPLAddonSize != conf["PSZ"])
 		or ("PSZ" not in conf and splupdate.SPLAddonSize != 0x0)):
 			conf["PSZ"] = splupdate.SPLAddonSize
+		# Same goes to update check time and date.
+		if (("PDT" in conf and splupdate.SPLAddonCheck != conf["PDT"])
+		or ("PDT" not in conf and splupdate.SPLAddonCheck != 0)):
+			conf["PDT"] = splupdate.SPLAddonCheck
 	# For other profiles, remove global settings before writing to disk.
 	else:
 		# 6.1: Make sure column order and inclusion aren't same as default values.
