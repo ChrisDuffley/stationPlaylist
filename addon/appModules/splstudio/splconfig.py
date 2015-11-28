@@ -234,7 +234,6 @@ def _preSave(conf):
 	conf["IncludedColumns"] = list(conf["IncludedColumns"])
 	# Perform global setting processing only for the normal profile.
 	if SPLConfigPool.index(conf) == 0:
-		conf["IncludedColumns"] = list(conf["IncludedColumns"])
 		# Cache instant profile for later use.
 		if SPLSwitchProfile is not None:
 			conf["InstantProfile"] = SPLSwitchProfile
