@@ -86,7 +86,9 @@ def resetAllConfig():
 		profile.reset()
 		profile.filename = profilePath
 		for setting in _SPLDefaults:
-			profile[setting] = _SPLDefaults[setting]
+			# Convert certain settings to a different format.
+			if setting == "IncludedColumns": profile["IncludedColumns"] = set(_SPLDefaults["IncludedColumns"])
+			else: profile[setting] = _SPLDefaults[setting]
 	# Translators: A dialog message shown when settings were reset to defaults.
 	wx.CallAfter(gui.messageBox, _("Successfully applied default add-on settings."),
 	# Translators: Title of the reset config dialog.
@@ -567,7 +569,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 			pass
 		sizer.Add(label)
 		sizer.Add(self.metadataList)
-		self.metadataStreams = SPLConfig["MetadataEnabled"]
+		self.metadataStreams = list(SPLConfig["MetadataEnabled"])
 		# Translators: The label of a button to manage column announcements.
 		item = manageMetadataButton = wx.Button(self, label=_("Configure metadata &streaming connection options..."))
 		item.Bind(wx.EVT_BUTTON, self.onManageMetadata)
@@ -578,7 +580,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.columnOrderCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce columns in the &order shown on screen"))
 		self.columnOrderCheckbox.SetValue(SPLConfig["UseScreenColumnOrder"])
 		self.columnOrder = SPLConfig["ColumnOrder"]
-		self.includedColumns = SPLConfig["IncludedColumns"]
+		# Without manual conversion below, it produces a rare bug where clicking cancel after changing column inclusion causes new set to be retained.
+		self.includedColumns = set(SPLConfig["IncludedColumns"])
 		settingsSizer.Add(self.columnOrderCheckbox, border=10,flag=wx.BOTTOM)
 		# Translators: The label of a button to manage column announcements.
 		item = manageColumnsButton = wx.Button(self, label=_("&Manage track column announcements..."))
@@ -662,6 +665,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	def onCancel(self, evt):
 		global _configDialogOpened, SPLActiveProfile, SPLSwitchProfile, SPLConfig
+		self.includedColumns.clear()
 		SPLActiveProfile = self.activeProfile
 		if self.switchProfileRenamed or self.switchProfileDeleted:
 			SPLSwitchProfile = self.switchProfile
@@ -981,7 +985,7 @@ class MetadataStreamingDialog(wx.Dialog):
 			streaming = func(0, 36, ret=True)
 			if streaming == -1: streaming += 1
 			checkedDSP.SetValue(streaming)
-		else: checkedDSP.SetValue(SPLConfig["MetadataEnabled"][0])
+		else: checkedDSP.SetValue(self.Parent.metadataStreams[0])
 		self.checkedStreams.append(checkedDSP)
 		# Now the rest.
 		for url in xrange(1, 5):
@@ -990,7 +994,7 @@ class MetadataStreamingDialog(wx.Dialog):
 				streaming = func(url, 36, ret=True)
 				if streaming == -1: streaming += 1
 				checkedURL.SetValue(streaming)
-			else: checkedURL.SetValue(SPLConfig["MetadataEnabled"][url])
+			else: checkedURL.SetValue(self.Parent.metadataStreams[url])
 			self.checkedStreams.append(checkedURL)
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
@@ -1169,7 +1173,7 @@ class AdvancedOptionsDialog(wx.Dialog):
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 		self.splConPassthroughCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Allow SPL C&ontroller command to invoke SPL Assistant layer"))
-		self.splConPassthroughCheckbox.SetValue(SPLConfig["SPLConPassthrough"])
+		self.splConPassthroughCheckbox.SetValue(self.Parent.splConPassthrough)
 		sizer.Add(self.splConPassthroughCheckbox, border=10,flag=wx.TOP)
 		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
