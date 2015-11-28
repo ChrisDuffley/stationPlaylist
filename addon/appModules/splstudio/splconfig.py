@@ -73,8 +73,8 @@ MicAlarmInterval = integer(min=0, max=60, default=0)
 MetadataEnabled = bool_list(default=list(false,false,false,false,false))
 [ColumnAnnouncement]
 UseScreenColumnOrder = boolean(default=true)
-ColumnOrder = string_list(default=list("Artist","Title","Duration","Intro","Category","Filename"))
-IncludedColumns = string_list(default=list("Artist","Title","Duration","Intro","Category","Filename"))
+ColumnOrder = string_list(default=list("Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"))
+IncludedColumns = string_list(default=list("Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"))
 [SayStatus]
 SayScheduledFor = boolean(default=true)
 SayListenerCount = boolean(default=true)
@@ -82,7 +82,9 @@ SayPlayingCartName = boolean(default=true)
 SayPlayingTrackName = boolean(default=true)
 [Advanced]
 SPLConPassthrough = boolean(default=false)
-CompatibilityLayer = option("off", "jfw", default="off")
+CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
+[Update]
+AutoUpdateCheck = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
 confspec7.newlines = "\r\n"
 SPLConfig = None
@@ -151,7 +153,15 @@ _configLoadStatus = {} # Key = filename, value is pass or no pass.
 
 def initConfig():
 	# 7.0: When add-on 7.0 starts for the first time, check if a conversion file exists.
+	# To be removed in add-on 7.2.
+	curInstantProfile = ""
 	if os.path.isfile(os.path.join(globalVars.appArgs.configPath, "splstudio7.ini")):
+		# Save add-on update related keys and instant profile signature from death.
+		# Necessary since the old-style config file contains newer information about update package size, last installed date and records instant profile name.
+		tempConfig = ConfigObj(SPLIni, configspec = confspec, encoding="UTF-8")
+		if "PSZ" in tempConfig: splupdate.SPLAddonSize = tempConfig["PSZ"]
+		if "PDT" in tempConfig: splupdate.SPLAddonCheck = tempConfig["PDT"]
+		if "InstantProfile" in tempConfig: curInstantProfile = tempConfig["InstantProfile"]
 		os.remove(SPLIni)
 		os.rename(os.path.join(globalVars.appArgs.configPath, "splstudio7.ini"), SPLIni)
 	# Load the default config from a list of profiles.
@@ -167,6 +177,7 @@ def initConfig():
 	except WindowsError:
 		pass
 	SPLConfig = SPLConfigPool[0]
+	if curInstantProfile != "": SPLConfig["InstantProfile"] = curInstantProfile
 	# 7.0: Store add-on installer size in case one wishes to check for updates (default size is 0 or no update checked attempted).
 	# Same goes to update check time and date (stored as Unix time stamp).
 	if "PSZ" in SPLConfig: splupdate.SPLAddonSize = SPLConfig["PSZ"]
@@ -218,6 +229,7 @@ def unlockConfig(path, profileName=None, prefill=False):
 								if setting not in _mutatableSettings7:
 									SPLConfigCheckpoint[setting][failedKey] = SPLConfigPool[0][setting][failedKey]
 								else: SPLConfigCheckpoint[setting][failedKey] = _SPLDefaults7[setting][failedKey]
+			# 7.0/magenta: Disqualified from being cached this time.
 			SPLConfigCheckpoint.write()
 			_configLoadStatus[profileName] = "partialReset"
 	_extraInitSteps(SPLConfigCheckpoint, profileName=profileName)
@@ -256,9 +268,9 @@ def _extraInitSteps(conf, profileName=None):
 
 # Apply base profile if loading user-defined broadcast profiles.
 def _applyBaseSettings(conf):
-	for setting in SPLConfigPool[0]:
-		# Ignore profile-specific settings.
-		if setting not in _mutatableSettings:
+	for setting in SPLConfigPool[0].keys():
+		# Ignore profile-specific settings/sections.
+		if setting not in _mutatableSettings7:
 			conf[setting] = SPLConfigPool[0][setting]
 
 # Instant profile switch helpers.
@@ -1285,7 +1297,6 @@ class AdvancedOptionsDialog(wx.Dialog):
 			pass
 		sizer.Add(label)
 		sizer.Add(self.compatibilityList)
->>>>>>> staging
 		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))

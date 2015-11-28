@@ -32,14 +32,15 @@ TimeHourAnnounce = boolean(default=false)
 MetadataReminder = option("off", "startup", "instant", default="off")
 MetadataEnabled = bool_list(default=list(false,false,false,false,false))
 UseScreenColumnOrder = boolean(default=true)
-ColumnOrder = string_list(default=list("Artist","Title","Duration","Intro","Category","Filename"))
-IncludedColumns = string_list(default=list("Artist","Title","Duration","Intro","Category","Filename"))
+ColumnOrder = string_list(default=list("Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"))
+IncludedColumns = string_list(default=list("Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"))
 SayScheduledFor = boolean(default=true)
 SayListenerCount = boolean(default=true)
 SayPlayingCartName = boolean(default=true)
 SayPlayingTrackName = boolean(default=true)
 SPLConPassthrough = boolean(default=false)
-CompatibilityLayer = option("off", "jfw", default="off")
+CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
+AutoUpdateCheck = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
 
@@ -69,11 +70,16 @@ _conversionConfig = {
 	"SayPlayingTrackName":"SayStatus",
 	"SPLConPassthrough":"Advanced",
 	"CompatibilityLayer":"Advanced",
+	"AutoUpdateCheck":"Update",
 }
 
 # Invoked when upgrading to 7.0 (to be removed in 7.2).
 def config6to7(path):
 	profile = ConfigObj(path, configspec = confspec, encoding="UTF-8")
+	# Optimization: no need to convert if sectionized.
+	for section in ["General", "IntroOutroAlarms", "MicrophoneAlarm", "ColumnAnnouncement", "MetadataStreaming", "SayStatus", "Advanced", "Update"]:
+		if section in profile:
+			return
 	# For now, manually convert.
 	# 7.2: Remove old config to save disk space.
 	for setting in _conversionConfig.keys():
