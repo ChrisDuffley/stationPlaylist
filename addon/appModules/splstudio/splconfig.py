@@ -350,6 +350,8 @@ def saveConfig():
 	tempNormalProfile = {}
 	for section in _mutatableSettings7:
 		tempNormalProfile[section] = dict(SPLConfigPool[0][section])
+	# Convert column inclusion set to list even for temp profile to prevent weird problems from coming up next time add-on loads.
+	tempNormalProfile["ColumnAnnouncement"]["IncludedColumns"] = list(tempNormalProfile["ColumnAnnouncement"]["IncludedColumns"])
 	for configuration in SPLConfigPool:
 		if configuration is not None:
 			_preSave(configuration)
