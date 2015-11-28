@@ -300,7 +300,6 @@ def _preSave(conf):
 	conf["ColumnAnnouncement"]["IncludedColumns"] = list(conf["ColumnAnnouncement"]["IncludedColumns"])
 	# Perform global setting processing only for the normal profile.
 	if SPLConfigPool.index(conf) == 0:
-		conf["ColumnAnnouncement"]["IncludedColumns"] = list(conf["ColumnAnnouncement"]["IncludedColumns"])
 		# Cache instant profile for later use.
 		if SPLSwitchProfile is not None:
 			conf["InstantProfile"] = SPLSwitchProfile
