@@ -613,6 +613,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		item.Bind(wx.EVT_BUTTON, self.onAdvancedOptions)
 		self.splConPassthrough = SPLConfig["SPLConPassthrough"]
 		self.compLayer = SPLConfig["CompatibilityLayer"]
+		self.autoUpdateCheck = SPLConfig["AutoUpdateCheck"]
 		settingsSizer.Add(item)
 
 		# Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
@@ -653,6 +654,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["SayPlayingTrackName"] = str(self.playingTrackNameCheckbox.Value)
 		SPLConfig["SPLConPassthrough"] = self.splConPassthrough
 		SPLConfig["CompatibilityLayer"] = self.compLayer
+		SPLConfig["AutoUpdateCheck"] = self.autoUpdateCheck
 		SPLActiveProfile = SPLConfig.name
 		SPLSwitchProfile = self.switchProfile
 		# Without nullifying prev profile while switch profile is undefined, NVDA will assume it can switch back to that profile when it can't.
@@ -1162,13 +1164,22 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 
 # Advanced options
 # This dialog houses advanced options such as using SPL Controller command to invoke SPL Assistant.
-# More options will be added in Project Rainbow.
+# More options will be added in 7.0.
+# 7.0: Auto update check will be configurable from this dialog.
 class AdvancedOptionsDialog(wx.Dialog):
 
 	def __init__(self, parent):
 		super(AdvancedOptionsDialog, self).__init__(parent, title=_("Advanced options"))
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		self.autoUpdateCheck
+		# Translators: A checkbox to toggle automatic add-on updates.
+		self.autoUpdateCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Automatically check for add-on &updates"))
+		self.autoUpdateCheckbox.SetValue(self.Parent.autoUpdateCheck)
+		sizer.Add(self.autoUpdateCheckbox, border=10,flag=wx.TOP)
+		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
@@ -1198,13 +1209,14 @@ class AdvancedOptionsDialog(wx.Dialog):
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
-		self.splConPassthroughCheckbox.SetFocus()
+		self.autoUpdateCheckbox.SetFocus()
 		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
 		parent = self.Parent
 		parent.splConPassthrough = self.splConPassthroughCheckbox.Value
 		parent.compLayer = self.compatibilityLayouts[self.compatibilityList.GetSelection()][0]
+		parent.autoUpdateCheck = self.autoUpdateCheckbox.Value
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()
