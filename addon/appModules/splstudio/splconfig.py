@@ -9,6 +9,7 @@ from cStringIO import StringIO
 from configobj import ConfigObj
 from validate import Validator
 import weakref
+import time
 import globalVars
 import ui
 import api
@@ -126,7 +127,7 @@ def initConfig():
 	# 7.0: Store add-on installer size in case one wishes to check for updates (default size is 0 or no update checked attempted).
 	# Same goes to update check time and date (stored as Unix time stamp).
 	if "PSZ" in SPLConfig: splupdate.SPLAddonSize = SPLConfig["PSZ"]
-	if "PDT" in SPLConfig: splupdate.SPLAddonCheck = SPLConfig["PDT"]
+	if "PDT" in SPLConfig: splupdate.SPLAddonCheck = float(SPLConfig["PDT"])
 	# Locate instant profile.
 	if "InstantProfile" in SPLConfig:
 		try:
@@ -276,6 +277,9 @@ def _preSave(conf):
 def saveConfig():
 	# Save all config profiles.
 	global SPLConfig, SPLConfigPool, SPLActiveProfile, SPLPrevProfile, SPLSwitchProfile
+	# 7.0: Turn off auto update check timer.
+	if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
+	splupdate._SPLUpdateT = None
 	# Apply any global settings changed in profiles to normal configuration.
 	if SPLConfigPool.index(SPLConfig) > 0:
 		for setting in SPLConfig:
@@ -336,6 +340,30 @@ def instantProfileSwitch():
 			# 6.2: Don't forget to switch streaming status around.
 			if SPLConfig["MetadataReminder"] in ("startup", "instant"):
 				api.getFocusObject().appModule._metadataAnnouncer(reminder=True)
+
+
+# Automatic update checker.
+
+# The function below is called as part of the update check timer.
+# Its only job is to call the update check function (splupdate) with the auto check enabled.
+# The update checker will not be engaged if an instant switch profile is active or it is not time to check for it yet (check will be done every 24 hours).
+def autoUpdateCheck():
+	ui.message("Checking for add-on updates...")
+	splupdate.updateCheck(auto=True, continuous=SPLConfig["AutoUpdateCheck"])
+
+# The timer itself.
+# A bit simpler than NVDA Core's auto update checker.
+def updateInit():
+	currentTime = time.time()
+	nextCheck = splupdate.SPLAddonCheck+86400.0
+	if splupdate.SPLAddonCheck < currentTime < nextCheck:
+		interval = int(nextCheck - currentTime)
+	elif splupdate.SPLAddonCheck < nextCheck < currentTime:
+		interval = 86400
+		# Call the update check now.
+		splupdate.updateCheck(auto=True) # No repeat here.
+	splupdate._SPLUpdateT = wx.PyTimer(autoUpdateCheck)
+	splupdate._SPLUpdateT.Start(interval * 1000, True)
 
 
 # Configuration dialog.
@@ -1174,7 +1202,6 @@ class AdvancedOptionsDialog(wx.Dialog):
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		self.autoUpdateCheck
 		# Translators: A checkbox to toggle automatic add-on updates.
 		self.autoUpdateCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Automatically check for add-on &updates"))
 		self.autoUpdateCheckbox.SetValue(self.Parent.autoUpdateCheck)

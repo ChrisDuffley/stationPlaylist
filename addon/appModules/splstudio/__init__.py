@@ -39,8 +39,6 @@ import splupdate
 import addonHandler
 addonHandler.initTranslation()
 
-def update():
-	splupdate._updateCheckEx()
 
 # The finally function for status announcement scripts in this module (source: Tyler Spivey's code).
 def finally_(func, final):
@@ -384,10 +382,8 @@ class AppModule(appModuleHandler.AppModule):
 		threading.Thread(target=self._locateSPLHwnd).start()
 		# Check for add-on update if told to do so.
 		if splconfig.SPLConfig["AutoUpdateCheck"]:
-			# 7.0 alpha: Let the user know about auto update checking routine.
-			time.sleep(2)
-			queueHandler.queueFunction(queueHandler.eventQueue, ui.message, "Checking for add-on updates...")
-			splupdate.updateCheck(auto=True)
+			# 7.0: Have a timer call the update function indirectly.
+			queueHandler.queueFunction(queueHandler.eventQueue, splconfig.updateInit)
 
 	# Locate the handle for main window for caching purposes.
 	def _locateSPLHwnd(self):
@@ -1616,7 +1612,8 @@ class AppModule(appModuleHandler.AppModule):
 		os.startfile("https://bitbucket.org/nvdaaddonteam/stationplaylist/wiki/SPLDevAddonGuide")
 
 	def script_updateCheck(self, gesture):
-		splupdate.updateCheck()
+		if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
+		splupdate.updateCheck(continuous=splconfig.SPLConfig["AutoUpdateCheck"])
 
 
 	__SPLAssistantGestures={

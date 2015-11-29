@@ -18,13 +18,16 @@ import addonHandler
 _addonDir = os.path.join(os.path.dirname(__file__), "..", "..")
 # Move this to the main app module in case version will be queried by users.
 SPLAddonVersion = addonHandler.Addon(_addonDir).manifest['version']
-
 # Cache the file size for the last downloaded SPL add-on installer (stored in hexadecimal for security).
 SPLAddonSize = "0x0"
 # The Unix time stamp for add-on check time.
 SPLAddonCheck = 0
 # Update URL (the only way to change it is installing a different version from a different branch).
 SPLUpdateURL = "http://addons.nvda-project.org/files/get.php?file=spl-dev"
+# Update check timer.
+_SPLUpdateT = None
+# How long it should wait between automatic checks.
+_updateInterval = 86400
 
 def _versionFromURL(url):
 	filename = url.split("/")[-1]
@@ -60,7 +63,14 @@ def updateQualify(url):
 	else:
 		return ""
 
-def updateCheck(auto=False):
+# The update check routine.
+# Auto is whether to respond with UI (manual check only), continuous takes in auto update check variable for restarting the timer.
+def updateCheck(auto=False, continuous=False):
+	global _SPLUpdateT, SPLAddonCheck
+	# Regardless of whether it is an auto check, update the check time.
+	SPLAddonCheck = time.time()
+	# Should the timer be set again?
+	if continuous: _SPLUpdateT.Start(_updateInterval*1000, True)
 	# Auto disables UI portion of this function if no updates are pending.
 	if not auto: tones.beep(110, 40)
 	# Try builds does not (and will not) support upgrade checking unless absolutely required.
@@ -91,9 +101,8 @@ def updateCheck(auto=False):
 	else: wx.CallAfter(getUpdateResponse, checkMessage, "Check for add-on update", url.info().getheader("Content-Length"))
 
 def getUpdateResponse(message, caption, size):
-	global SPLAddonSize, SPLAddonCheck
+	global SPLAddonSize
 	if gui.messageBox(message, caption, wx.YES | wx.NO | wx.CANCEL | wx.CENTER | wx.ICON_QUESTION) == wx.YES:
 		SPLAddonSize = hex(int(size))
-		SPLAddonCheck = time.time()
 		os.startfile(SPLUpdateURL)
 
