@@ -646,6 +646,12 @@ class SPLConfigDialog(gui.SettingsDialog):
 			SPLPrevProfile = None
 		global _configDialogOpened
 		_configDialogOpened = False
+		# 6.1: Activate metadata streams, split this into a new function in 7.0.
+		hwnd = user32.FindWindowA("SPLStudio", None)
+		if hwnd:
+			for url in xrange(5):
+				dataLo = 0x00010000 if SPLConfig["MetadataEnabled"][url] else 0xffff0000
+				user32.SendMessageW(hwnd, 1024, dataLo | url, 36)
 		super(SPLConfigDialog,  self).onOk(evt)
 
 	def onCancel(self, evt):
