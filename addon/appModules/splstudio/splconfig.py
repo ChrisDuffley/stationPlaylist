@@ -796,10 +796,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 		hwnd = user32.FindWindowA("SPLStudio", None)
 		if hwnd:
 			for url in xrange(5):
-				dataLo = 0x00010000 if SPLConfig["MetadataEnabled"][url] else 0xffff0000
+				dataLo = 0x00010000 if SPLConfig["MetadataStreaming"]["MetadataEnabled"][url] else 0xffff0000
 				user32.SendMessageW(hwnd, 1024, dataLo | url, 36)
 		# Coordinate auto update timer restart routine if told to do so.
-		if not SPLConfig["AutoUpdateCheck"]:
+		if not SPLConfig["Update"]["AutoUpdateCheck"]:
 			if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
 			splupdate._SPLUpdateT = None
 		else:
