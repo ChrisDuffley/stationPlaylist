@@ -771,6 +771,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 			SPLPrevProfile = None
 		global _configDialogOpened
 		_configDialogOpened = False
+		# 7.0: Perform extra action such as restarting auto update timer.
+		self.onCloseExtraAction()
 		super(SPLConfigDialog,  self).onOk(evt)
 
 	def onCancel(self, evt):
@@ -787,6 +789,21 @@ class SPLConfigDialog(gui.SettingsDialog):
 		_configDialogOpened = False
 		#super(SPLConfigDialog,  self).onCancel(evt)
 		self.Destroy()
+
+	# Perform extra action when closing this dialog such as restarting update timer.
+	def onCloseExtraAction(self):
+		# Change metadata streaming.
+		hwnd = user32.FindWindowA("SPLStudio", None)
+		if hwnd:
+			for url in xrange(5):
+				dataLo = 0x00010000 if SPLConfig["MetadataEnabled"][url] else 0xffff0000
+				user32.SendMessageW(hwnd, 1024, dataLo | url, 36)
+		# Coordinate auto update timer restart routine if told to do so.
+		if not SPLConfig["AutoUpdateCheck"]:
+			if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
+			splupdate._SPLUpdateT = None
+		else:
+			if splupdate._SPLUpdateT is None: updateInit()
 
 	# Check events for outro and intro alarms, respectively.
 	def onOutroCheck(self, evt):
