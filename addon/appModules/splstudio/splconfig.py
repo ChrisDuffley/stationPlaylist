@@ -88,7 +88,7 @@ def resetAllConfig():
 		profile.filename = profilePath
 		for setting in _SPLDefaults:
 			# Convert certain settings to a different format.
-			if setting == "IncludedColumns": profile["IncludedColumns"] = set(_SPLDefaults["IncludedColumns"])
+			if setting == "IncludedColumns": profile[setting] = set(_SPLDefaults[setting])
 			else: profile[setting] = _SPLDefaults[setting]
 	# Translators: A dialog message shown when settings were reset to defaults.
 	wx.CallAfter(gui.messageBox, _("Successfully applied default add-on settings."),
@@ -241,7 +241,6 @@ def _preSave(conf):
 	conf["IncludedColumns"] = list(conf["IncludedColumns"])
 	# Perform global setting processing only for the normal profile.
 	if SPLConfigPool.index(conf) == 0:
-		conf["IncludedColumns"] = list(conf["IncludedColumns"])
 		# Cache instant profile for later use.
 		if SPLSwitchProfile is not None:
 			conf["InstantProfile"] = SPLSwitchProfile
@@ -691,18 +690,28 @@ class SPLConfigDialog(gui.SettingsDialog):
 			SPLPrevProfile = None
 		global _configDialogOpened
 		_configDialogOpened = False
+		# 6.1: Activate metadata streams, split this into a new function in 7.0.
+		hwnd = user32.FindWindowA("SPLStudio", None)
+		if hwnd:
+			for url in xrange(5):
+				dataLo = 0x00010000 if SPLConfig["MetadataEnabled"][url] else 0xffff0000
+				user32.SendMessageW(hwnd, 1024, dataLo | url, 36)
 		super(SPLConfigDialog,  self).onOk(evt)
 
 	def onCancel(self, evt):
 		global _configDialogOpened, SPLActiveProfile, SPLSwitchProfile, SPLConfig
+		# 6.1: Discard changes to included columns set.
+		print len(self.includedColumns)
 		self.includedColumns.clear()
+		self.includedColumns = None
 		SPLActiveProfile = self.activeProfile
 		if self.switchProfileRenamed or self.switchProfileDeleted:
 			SPLSwitchProfile = self.switchProfile
 		if self.switchProfileDeleted:
 			SPLConfig = SPLConfigPool[0]
 		_configDialogOpened = False
-		super(SPLConfigDialog,  self).onCancel(evt)
+		#super(SPLConfigDialog,  self).onCancel(evt)
+		self.Destroy()
 
 	# Check events for outro and intro alarms, respectively.
 	def onOutroCheck(self, evt):
@@ -756,7 +765,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.metadataStreams = curProfile["MetadataEnabled"]
 		self.columnOrderCheckbox.SetValue(curProfile["UseScreenColumnOrder"])
 		self.columnOrder = curProfile["ColumnOrder"]
-		self.includedColumns = curProfile["IncludedColumns"]
+		# 6.1: Again convert list to set.
+		self.includedColumns = set(curProfile["IncludedColumns"])
 
 	# Profile controls.
 	# Rename and delete events come from GUI/config profiles dialog from NVDA core.
@@ -1087,11 +1097,23 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 
 		# Same as metadata dialog (wx.CheckListBox isn't user friendly).
 		# Gather values for checkboxes except artist and title.
+		# 6.1: Split these columns into rows.
 		self.checkedColumns = []
 		for column in ("Duration", "Intro", "Category", "Filename"):
 			checkedColumn=wx.CheckBox(self,wx.NewId(),label=column)
 			checkedColumn.SetValue(column in self.Parent.includedColumns)
 			self.checkedColumns.append(checkedColumn)
+		self.checkedColumns2 = []
+		for column in ("Outro","Year","Album","Genre","Mood","Energy"):
+			checkedColumn=wx.CheckBox(self,wx.NewId(),label=column)
+			checkedColumn.SetValue(column in self.Parent.includedColumns)
+			self.checkedColumns2.append(checkedColumn)
+		self.checkedColumns3 = []
+		for column in ("Tempo","BPM","Gender","Rating","Time Scheduled"):
+			checkedColumn=wx.CheckBox(self,wx.NewId(),label=column)
+			checkedColumn.SetValue(column in self.Parent.includedColumns)
+			self.checkedColumns3.append(checkedColumn)
+
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		# First, a help text.
@@ -1100,6 +1122,16 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		for checkedColumn in self.checkedColumns:
+			sizer.Add(checkedColumn)
+		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		for checkedColumn in self.checkedColumns2:
+			sizer.Add(checkedColumn)
+		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		for checkedColumn in self.checkedColumns3:
 			sizer.Add(checkedColumn)
 		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
@@ -1144,7 +1176,7 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 		# Make sure artist and title are always included.
 		parent.includedColumns.add("Artist")
 		parent.includedColumns.add("Title")
-		for checkbox in self.checkedColumns:
+		for checkbox in self.checkedColumns + self.checkedColumns2 + self.checkedColumns3:
 			action = parent.includedColumns.add if checkbox.Value else parent.includedColumns.remove
 			try:
 				action(checkbox.Label)
