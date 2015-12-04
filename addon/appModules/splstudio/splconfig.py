@@ -429,7 +429,7 @@ def instantProfileSwitch():
 # The update checker will not be engaged if an instant switch profile is active or it is not time to check for it yet (check will be done every 24 hours).
 def autoUpdateCheck():
 	ui.message("Checking for add-on updates...")
-	splupdate.updateCheck(auto=True, continuous=SPLConfig["AutoUpdateCheck"])
+	splupdate.updateCheck(auto=True, continuous=SPLConfig["Update"]["AutoUpdateCheck"])
 
 # The timer itself.
 # A bit simpler than NVDA Core's auto update checker.

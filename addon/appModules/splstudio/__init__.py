@@ -381,7 +381,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Let me know the Studio window handle.
 		threading.Thread(target=self._locateSPLHwnd).start()
 		# Check for add-on update if told to do so.
-		if splconfig.SPLConfig["AutoUpdateCheck"]:
+		if splconfig.SPLConfig["Update"]["AutoUpdateCheck"]:
 			# 7.0: Have a timer call the update function indirectly.
 			queueHandler.queueFunction(queueHandler.eventQueue, splconfig.updateInit)
 
@@ -1613,7 +1613,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_updateCheck(self, gesture):
 		if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
-		splupdate.updateCheck(continuous=splconfig.SPLConfig["AutoUpdateCheck"])
+		splupdate.updateCheck(continuous=splconfig.SPLConfig["Update"]["AutoUpdateCheck"])
 
 
 	__SPLAssistantGestures={
