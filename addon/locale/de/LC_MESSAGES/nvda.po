@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2015-11-09 08:02+0100\n"
+"PO-Revision-Date: 2015-11-27 12:38+0100\n"
 "Last-Translator: Bernd Dorer <bdorer@mailbox.org>\n"
 "Language-Team: Deutsch <bernd_dorer@yahoo.de>\n"
 "Language: de\n"
@@ -612,9 +612,8 @@ msgid "&Announce name of the currently playing cart"
 msgstr "&Namen der aktuell abgespielten Karte ausgeben"
 
 #. Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
-#, fuzzy
 msgid "Announce name of the currently playing &track automatically"
-msgstr "&Namen der aktuell abgespielten Karte ausgeben"
+msgstr "&Namen des aktuell abgespielten Titels automatisch ausgeben"
 
 #. Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
 msgid "Reset settings"
