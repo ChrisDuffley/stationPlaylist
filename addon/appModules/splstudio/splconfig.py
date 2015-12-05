@@ -211,7 +211,7 @@ def _applyBaseSettings(conf):
 			conf[setting] = SPLConfigPool[0][setting]
 
 # Instant profile switch helpers.
-# A number of helper functions assisting instant switch profile routine, including sorting and locating the needed profile upon request.
+# A number of helper functions assisting instant switch profile routine and others, including sorting and locating the needed profile upon request.
 
 # Fetch the profile index with a given name.
 def getProfileIndexByName(name):
@@ -220,6 +220,17 @@ def getProfileIndexByName(name):
 # And:
 def getProfileByName(name):
 	return SPLConfigPool[getProfileIndexByName(name)]
+
+# Last but not least...
+def getProfileFlags(name):
+	flags = []
+	if name == SPLActiveProfile:
+		# Translators: A flag indicating the currently active broadcast profile.
+		flags.append(_("active"))
+	if name == SPLSwitchProfile:
+		# Translators: A flag indicating the broadcast profile is an instant switch profile.
+		flags.append(_("instant switch"))
+	return name if len(flags) == 0 else "{0} <{1}>".format(name, ", ".join(flags))
 
 # Is the config pool itself sorted?
 # This check is performed when displaying broadcast profiles.
@@ -350,10 +361,12 @@ class SPLConfigDialog(gui.SettingsDialog):
 		if len(sortedProfiles) > 2 and not isConfigPoolSorted():
 			firstProfile = SPLConfigPool[0].name
 			sortedProfiles = [firstProfile] + sorted(sortedProfiles[1:])
-		self.profiles = wx.Choice(self, wx.ID_ANY, choices=sortedProfiles)
+		# 7.0: Have a copy of the sorted profiles so the actual combo box items can show profile flags.
+		self.profileNames = list(sortedProfiles)
+		self.profiles = wx.Choice(self, wx.ID_ANY, choices=self.displayProfiles(sortedProfiles))
 		self.profiles.Bind(wx.EVT_CHOICE, self.onProfileSelection)
 		try:
-			self.profiles.SetSelection(sortedProfiles.index(SPLConfig.name))
+			self.profiles.SetSelection(self.profileNames.index(SPLConfig.name))
 		except:
 			pass
 		sizer.Add(label)
@@ -619,7 +632,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	def onOk(self, evt):
 		global SPLConfig, SPLActiveProfile, _configDialogOpened, SPLSwitchProfile, SPLPrevProfile
-		selectedProfile = self.profiles.GetStringSelection()
+		selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
 		SPLConfig = getProfileByName(selectedProfile)
 		SPLConfig["BeepAnnounce"] = self.beepAnnounceCheckbox.Value
 		SPLConfig["MessageVerbosity"] = self.verbosityLevels[self.verbosityList.GetSelection()][0]
@@ -695,11 +708,19 @@ class SPLConfigDialog(gui.SettingsDialog):
 			self.introSizer.Show(self.songRampAlarm)
 		self.Fit()
 
+	# Include profile flags such as instant profile string for display purposes.
+	def displayProfiles(self, profiles):
+		for index in xrange(len(profiles)):
+			profiles[index] = getProfileFlags(profiles[index])
+		return profiles
+
+
 	# Load settings from profiles.
 	def onProfileSelection(self, evt):
 		# Don't rely on SPLConfig here, as we don't want to interupt the show.
 		selection = self.profiles.GetSelection()
-		selectedProfile = self.profiles.GetStringSelection()
+		# No need to look at the profile flag.
+		selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
 		# Play a tone to indicate active profile.
 		if self.activeProfile == selectedProfile:
 			tones.beep(512, 40)
@@ -743,9 +764,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	def onRename(self, evt):
 		global SPLConfigPool
-		oldName = self.profiles.GetStringSelection()
+		oldName = self.profiles.GetStringSelection().split(" <")[0]
 		index = self.profiles.Selection
 		configPos = getProfileIndexByName(oldName)
+		profilePos = self.profileNames.index(oldName)
 		# Translators: The label of a field to enter a new name for a broadcast profile.
 		with wx.TextEntryDialog(self, _("New name:"),
 				# Translators: The title of the dialog to rename a profile.
@@ -770,6 +792,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 			self.switchProfileRenamed = True
 		if self.activeProfile == oldName:
 			self.activeProfile = newName
+		self.profileNames[profilePos] = newName
 		SPLConfigPool[configPos].name = newName
 		SPLConfigPool[configPos].filename = newProfile
 		self.profiles.SetString(index, newName)
@@ -778,8 +801,9 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	def onDelete(self, evt):
 		index = self.profiles.Selection
-		name = self.profiles.GetStringSelection()
+		name = self.profiles.GetStringSelection().split(" <")[0]
 		configPos = getProfileIndexByName(name)
+		profilePos = self.profileNames.index(name)
 		if gui.messageBox(
 			# Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
 			_("Are you sure you want to delete this profile? This cannot be undone."),
@@ -800,7 +824,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 			SPLPrevProfile = None
 			self.switchProfileDeleted = True
 		self.profiles.Delete(index)
-		self.profiles.SetString(0, SPLConfigPool[0].name)
+		del self.profileNames[profilePos]
+		self.profiles.SetString(0, getProfileFlags(SPLConfigPool[0].name))
 		self.activeProfile = SPLConfigPool[0].name
 		self.profiles.Selection = 0
 		self.onProfileSelection(None)
@@ -808,7 +833,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	def onInstantSwitch(self, evt):
 		selection = self.profiles.GetSelection()
-		selectedName = self.profiles.GetStringSelection()
+		selectedName = self.profiles.GetStringSelection().split(" <")[0]
 		if self.switchProfile is None or (selectedName != self.switchProfile):
 			self.instantSwitchButton.Label = _("Disable instant profile switching")
 			self.switchProfile = selectedName
@@ -891,9 +916,9 @@ class NewProfileDialog(wx.Dialog):
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: The label for a setting in SPL add-on dialog to select a base  profile for copying.
 		label = wx.StaticText(self, wx.ID_ANY, label=_("&Base profile:"))
-		self.baseProfiles = wx.Choice(self, wx.ID_ANY, choices=parent.profiles.GetItems())
+		self.baseProfiles = wx.Choice(self, wx.ID_ANY, choices=[profile.split(" <")[0] for profile in parent.profiles.GetItems()])
 		try:
-			self.baseProfiles.SetSelection(self.baseProfiles.GetItems().index(parent.profiles.GetStringSelection()))
+			self.baseProfiles.SetSelection(self.baseProfiles.GetItems().index(parent.profiles.GetStringSelection().split(" <")[0]))
 		except:
 			pass
 		sizer.Add(label)
@@ -939,6 +964,7 @@ class NewProfileDialog(wx.Dialog):
 				except KeyError:
 					pass
 		parent = self.Parent
+		parent.profileNames.append(name)
 		parent.profiles.Append(name)
 		parent.profiles.Selection = parent.profiles.Count - 1
 		parent.onProfileSelection(None)
