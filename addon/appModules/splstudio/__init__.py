@@ -267,6 +267,8 @@ E: Overall metadata streaming status.
 H: Duration of trakcs in this hour slot.
 Shift+H: Duration of selected tracks.
 I: Listener count.
+K: Move to place marker track.
+Control+K: Set place marker track.
 L: Line-in status.
 M: Microphone status.
 N: Next track.
@@ -293,6 +295,8 @@ E: Overall metadata streaming status.
 Shift+E: Record to file.
 H: Duration of trakcs in this hour slot.
 Shift+H: Duration of selected tracks.
+K: Move to place marker track.
+Control+K: Set place marker track.
 L: Listener count.
 Shift+L: Line-in status.
 M: Microphone status.
@@ -320,6 +324,8 @@ E: Overall metadata streaming status.
 1 through 4, 0: Metadata streaming status for DSP encoder and four additional URL's.
 H: Duration of trakcs in this hour slot.
 Shift+H: Duration of selected tracks.
+K: Move to place marker track.
+Control+K: Set place marker track.
 L: Listener count.
 Shift+L: Line-in status.
 M: Microphone status.
