@@ -614,6 +614,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 		settingsSizer.Add(self.playingTrackNameCheckbox, border=10,flag=wx.BOTTOM)
 
 		# Translators: The label of a button to open advanced options such as using SPL Controller command to invoke Assistant layer.
+		item = sayStatusButton = wx.Button(self, label=_("&Status announcements..."))
+		item.Bind(wx.EVT_BUTTON, self.onStatusAnnouncement)
+		settingsSizer.Add(item)
+
+		# Translators: The label of a button to open advanced options such as using SPL Controller command to invoke Assistant layer.
 		item = advancedOptButton = wx.Button(self, label=_("&Advanced options..."))
 		item.Bind(wx.EVT_BUTTON, self.onAdvancedOptions)
 		self.splConPassthrough = SPLConfig["SPLConPassthrough"]
@@ -852,6 +857,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 	def onManageColumns(self, evt):
 		self.Disable()
 		ColumnAnnouncementsDialog(self).Show()
+
+	# Status announcement dialog.
+	def onStatusAnnouncement(self, evt):
+		self.Disable()
+		SayStatusDialog(self).Show()
 
 	# Advanced options.
 	# See advanced options class for more details.
@@ -1210,6 +1220,56 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 			# This will cause NVDA to say "unavailable" as focus is lost momentarily. A bit anoying but a necessary hack.
 			if self.FindFocus().GetId() == wx.ID_OK:
 				self.upButton.SetFocus()
+
+# Say status dialog.
+# Houses options such as announcing cart names.
+class SayStatusDialog(wx.Dialog):
+
+	def __init__(self, parent):
+		super(SayStatusDialog, self).__init__(parent, title=_("Status announcements"))
+
+		mainSizer = wx.BoxSizer(wx.VERTICAL)
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: the label for a setting in SPL add-on settings to announce scheduled time.
+		self.scheduledForCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce &scheduled time for the selected track"))
+		self.scheduledForCheckbox.SetValue(SPLConfig["SayScheduledFor"])
+		sizer.Add(self.scheduledForCheckbox, border=10,flag=wx.BOTTOM)
+
+		# Translators: the label for a setting in SPL add-on settings to announce listener count.
+		self.listenerCountCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce &listener count"))
+		self.listenerCountCheckbox.SetValue(SPLConfig["SayListenerCount"])
+		sizer.Add(self.listenerCountCheckbox, border=10,flag=wx.BOTTOM)
+
+		# Translators: the label for a setting in SPL add-on settings to announce currently playing cart.
+		self.cartNameCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Announce name of the currently playing cart"))
+		self.cartNameCheckbox.SetValue(SPLConfig["SayPlayingCartName"])
+		sizer.Add(self.cartNameCheckbox, border=10,flag=wx.BOTTOM)
+
+		# Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
+		self.playingTrackNameCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce name of the currently playing &track automatically"))
+		self.playingTrackNameCheckbox.SetValue(SPLConfig["SayPlayingTrackName"] == "True")
+		sizer.Add(self.playingTrackNameCheckbox, border=10,flag=wx.BOTTOM)
+		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
+		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
+		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
+		mainSizer.Fit(self)
+		self.Sizer = mainSizer
+		self.scheduledForCheckbox.SetFocus()
+		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+
+	def onOk(self, evt):
+		parent = self.Parent
+		parent.profiles.SetFocus()
+		parent.Enable()
+		self.Destroy()
+		return
+
+	def onCancel(self, evt):
+		self.Parent.Enable()
+		self.Destroy()
 
 # Advanced options
 # This dialog houses advanced options such as using SPL Controller command to invoke SPL Assistant.
