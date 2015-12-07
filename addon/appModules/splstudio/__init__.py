@@ -322,6 +322,8 @@ class AppModule(appModuleHandler.AppModule):
 		self.SPLSettings = self.prefsMenu.Append(wx.ID_ANY, _("SPL Studio Settings..."), _("SPL settings"))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, splconfig.onConfigDialog, self.SPLSettings)
 		# Let me know the Studio window handle.
+		# 6.1: Do not allow this thread to run forever (seen when evaluation times out and the app module starts).
+		self.noMoreHandle = threading.Event()
 		threading.Thread(target=self._locateSPLHwnd).start()
 
 	# Locate the handle for main window for caching purposes.
@@ -329,6 +331,12 @@ class AppModule(appModuleHandler.AppModule):
 		hwnd = user32.FindWindowA("SPLStudio", None)
 		while not hwnd:
 			time.sleep(1)
+			# If the demo copy expires and the app module begins, this loop will spin forever.
+			# Make sure this loop catches this case.
+			if self.noMoreHandle.isSet():
+				self.noMoreHandle.clear()
+				self.noMoreHandle = None
+				return
 			hwnd = user32.FindWindowA("SPLStudio", None)
 		# Only this thread will have privilege of notifying handle's existence.
 		with threading.Lock() as hwndNotifier:
@@ -577,6 +585,8 @@ class AppModule(appModuleHandler.AppModule):
 			self.prefsMenu.RemoveItem(self.SPLSettings)
 		except AttributeError, wx.PyDeadObjectError:
 			pass
+		# Tell the handle finder thread it's time to leave this world.
+		self.noMoreHandle.set()
 		# Manually clear the following dictionaries.
 		self.carts.clear()
 		self._cachedStatusObjs.clear()
