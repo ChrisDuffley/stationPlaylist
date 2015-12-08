@@ -8,7 +8,7 @@ This add-on package provides improved usage of StationPlaylist Studio, as well a
 
 For more information about the add-on, read the [add-on guide][3].
 
-IMPORTANT: This add-on requires NVDA 2014.3 or later and StationPlaylist Studio 5.00 or later.
+IMPORTANT: This add-on requires NVDA 2015.3 or later and StationPlaylist Studio 5.00 or later.
 
 ## Shortcut keys
 
@@ -33,11 +33,15 @@ The following commands are not assigned by default; if you wish to assign it, us
 * SPL Controller layer.
 * SPL Assistant layer from SPL Studio.
 * Announce time including seconds from SPL Studio.
-* Toggling track dial on or off (works properly while a track is focused; to assign a command to this, select a track, then open NVDA's input gestures dialog.).
+* Toggling track dial on or off (works properly while a track is focused; to assign a command to this, move to a track in Studio, then open NVDA's input gestures dialog.).
 * Announcing temperature.
 * Announcing title of next track if scheduled.
-
-Note: Input Gestures dialog is available in 2013.3 or later.
+* Announcing title of the currently playing track.
+* Marking current track for start of track time analysis.
+* Performing track time analysis.
+* Find text in specific columns.
+* Find tracks with duration that falls within a given range via time range finder.
+* Quickly enable or disable metadata streaming.
 
 ## Additional commands when using Sam or SPL encoders
 
@@ -49,8 +53,18 @@ The following commands are available when using Sam or SPL encoders:
 * F11: Toggles whether NVDA will switch to Studio window for the selected encoder if connected.
 * Shift+F11: Toggles whether Studio will play the first selected track when encoder is connected to a streaming server.
 * Control+F11: Toggles background monitoring of the selected encoder.
-* F12: Opens a dialog to enter custom label for the selected encoder or stream.
-* Control+F12: opens a dialog to select the encoder you have deleted (to realign stream labels).
+* F12/Control+NVDA+0: Opens a dialog to enter custom label for the selected encoder or stream.
+* Control+F12: opens a dialog to select the encoder you have deleted (to realign stream labels and encoder settings).
+
+In addition, column review commands are available, including:
+
+* Control+NVDA+1: Encoder position.
+* Control+NVDA+2: stream label.
+* Control+NVDA+3 from SAM Encoder: Encoder format.
+* Control+NVDA+3 from SPL Encoder: Encoder settings.
+* Control+NvDA+4 from SAM Encoder: Encoder connection status.
+* Control+NVDA+4 from SPL Encoder: Transfer rate or connection status.
+* Control+NVDA+5 from SAM Encoder: Connection status description.
 
 ## SPL Assistant layer
 
@@ -59,23 +73,31 @@ This layer command set allows you to obtain various status on SPL Studio, such a
 The available status information are:
 
 * A: Automation.
-* D: Remaining duration for the playlist.
+* C: Title for the currently playing track.
+* D (R when compatibility mode is active): Remaining duration for the playlist.
+* E: Metadata streaming status.
 * H: Duration of music for the current hour slot.
 * Shift+H: Total duration of selected tracks for this hour slot (from the track list, press SPACE to select or uncheck the track to play).
-* I: Listener count.
-* L: Line in.
+* I (L when compatibility mode is active): Listener count.
+* K: Move to the marked track.
+* Control+K: Set the current track as the place marker track.
+* L (Shift+L when compatibility mode is active): Line in.
 * M: Microphone.
 * N: Title for the next scheduled track.
 * P: Playback status (playing or stopped).
 * Shift+P: Pitch of the current track.
-* R: Record to file enabled/disabled.
+* R (Shift+E when compatibility mode is active): Record to file enabled/disabled.
 * Shift+R: Monitor library scan in progress.
 * S: Track starts in (scheduled).
 * T: Cart edit mode on/off.
 * U: Studio up time.
 * W: Weather and temperature if configured.
 * Y: Playlist modified status.
+* F9: Mark current track for track time analysis.
+* F10: Perform track time analysis.
+* F12: Switch between current and a predefined profile.
 * F1: Layer help.
+* Shift+F1: Opens online user guide.
 
 ## SPL Controller
 
@@ -94,13 +116,9 @@ The available SPL Controller commands are:
 * Press E to get count and labels for encoders being monitored.
 * Press F1 to show a help dialog which lists available commands.
 
-## End of track alarm
+## Track alarms
 
-Five seconds before the current track ends, NVDA will play a short beep to indicate that the track is about to end. This works anywhere (even within SPL Studio window). Press Control+NVDA+2 to configure this between 1 and 59 seconds.
-
-## Song intro alarm
-
-If you have configured song intro time via Track Tool, NVDA will beep when the vocals are about to begin. From Studio window, press Alt+NVDA+2 to configure song intro alarm between 1 and 9 seconds.
+By default, NvDA will play a beep if five seconds are left in the track (outro) and/or intro. To configure this value as well as to enable or disable them, press Control+NVDA+2 or Alt+NVDA+2 to open end of track and song ramp dialogs, respectively. In addition, use Studio add-on settings dialog to configure if you'll hear a beep, a message or both when alarms are turned on.
 
 ## Microphone alarm
 
@@ -122,13 +140,41 @@ To learn cart assignments, from SPL Studio, press Control+NVDA+3. Pressing the c
 
 You can use arrow keys to review various information about a track. To turn Track Dial on, while a track is focused in the main playlist viewer, press the command you assigned for toggling Track Dial. Then use left and right arrow keys to review information such as artist, duration and so on.
 
+## Track time analysis
+
+To obtain length to play selected tracks, mark current track for start of track time analysis (SPL Assistant, F9), then press SPL Assistant, F10 when reaching end of selection.
+
 ## Configuration dialog
 
-From studio window, you can press Control+NVDA+0 to open the add-on configuration dialog. Alternatively, go to NVDA's preferences menu and select SPL Studio Settings item.
+From studio window, you can press Control+NVDA+0 to open the add-on configuration dialog. Alternatively, go to NVDA's preferences menu and select SPL Studio Settings item. This dialog is also used to manage broadcast profiles.
 
 ## SPL touch mode
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
+
+## Changes for 6.0
+
+* New SPL Assistant commands, including announcing title of the currently playing track (C), announcing status of metadata streaming (E, 1 through 4 and 0) and opening the online user guide (Shift+F1).
+* Ability to package favorite settings as broadcast profiles to be used during a show and to switch to a predefined profile. See the add-on guide for details on broadcast profiles.
+* Added a new setting in add-on settings to control message verbosity (some messages will be shortened when advanced verbosity is selected).
+* Added a new setting in add-on settings to let NVDA announce hours, minutes and seconds for track or playlist duration commands (affected features include announcing elapsed and remaining time for the currently playing track, track time analysis and others).
+* You can now ask NVDA to report total length of a range of tracks via track time analysis feature. Press SPL Assistant, F9 to mark current track as start marker, move to end of track range and press SPL Assistant, F10. These commands can be reassigned so one doesn't have to invoke SPL Assistant layer to perform track time analysis.
+* Added a column search dialog (command unassigned) to find text in specific columns such as artist or part of file name.
+* Added a time range finder dialog (command unassigned) to find a track with duration that falls within a specified range, useful if wishing to find a track to fill an hour slot.
+* Added ability to reorder track column announcement and to suppress announcement of specific columns if "use screen order" is unchecked from add-on settings dialog. Use "manage column announcement" dialog to reorder columns.
+* Added a dialog (command unassigned) to quickly toggle metadata streaming.
+* Added a setting in add-on settings dialog to configure when metadata streaming status should be announced and to enable metadata streaming.
+* Added ability to mark a track as a place marker to return to it later (SPL Assistant, Control+K to set, SPL Assistant, K to move to the marked track).
+* Improved performance when searching for next or previous track text containing the searched text.
+* Added a setting in add-on settings dialog to configure alarm notification (beep, message or both).
+* It is now possible to configure microphone alarm between 0 (disabled) and two hours (7200 seconds) and to use up and down arrow keys to configure this setting.
+* Added a setting in add-on settings dialog to allow microphone active notification to be given periodically.
+* You can now use Track Dial toggle command in Studio to toggle Track Dial in Track Tool provided that you didn't assign a command to toggle Track Dial in Track Tool.
+* Added ability to use SPL Controller layer command to invoke SPL Assistant layer (configurable from advanced Settings dialog found in add-on settings dialog).
+* Added ability for NvDA to use certain SPL Assistant commands used by other screen readers. To configure this, go to add-on settings, select Advanced Settings and check screen reader compatibility mode checkbox.
+* In encoders, settings such as focusing to Studio when connected are now remembered.
+* It is now possible to view various columns from encoder window (such as encoder connection status) via Control+NVDA+number command; consult the encoder commands above.
+* Fixed a rare bug where switching to Studio or closing an NVDA dialog (including Studio add-on dialogs) prevented track commands (such as toggling Track Dial) from working as expected.
 
 ## Changes for 5.6
 
@@ -304,5 +350,3 @@ Version 4.0 supports SPL Studio 5.00 and later, with 3.x designed to provide som
 [2]: http://addons.nvda-project.org/files/get.php?file=spl-dev
 
 [3]: https://bitbucket.org/nvdaaddonteam/stationplaylist/wiki/SPLAddonGuide
-
-[4]: https://bitbucket.org/nvdaaddonteam/stationplaylist/wiki/DownloadLegacy

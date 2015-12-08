@@ -9,8 +9,6 @@ import time
 from configobj import ConfigObj
 import api
 import ui
-import speech
-import braille
 import globalVars
 import scriptHandler
 from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent
@@ -47,7 +45,7 @@ streamLabels = None
 
 # Load stream labels (and possibly other future goodies) from a file-based database.
 def loadStreamLabels():
-	global streamLabels, SAMStreamLabels, SPLStreamLabels
+	global streamLabels, SAMStreamLabels, SPLStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor
 	streamLabels = ConfigObj(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
 	# Read stream labels.
 	try:
@@ -58,6 +56,13 @@ def loadStreamLabels():
 		SPLStreamLabels = dict(streamLabels["SPLEncoders"])
 	except KeyError:
 		SPLStreamLabels = {}
+	# Read other settings.
+	if "FocusToStudio" in streamLabels:
+		SPLFocusToStudio = set(streamLabels["FocusToStudio"])
+	if "PlayAfterConnecting" in streamLabels:
+		SPLPlayAfterConnecting = set(streamLabels["PlayAfterConnecting"])
+	if "BackgroundMonitor" in streamLabels:
+		SPLBackgroundMonitor = set(streamLabels["BackgroundMonitor"])
 
 # Report number of encoders being monitored.
 # 6.0: Refactor the below function to use the newer encoder config format.
@@ -84,6 +89,43 @@ def announceNumMonitoringEncoders():
 			else: labels.append("{encoderID} ({streamLabel})".format(encoderID = identifier, streamLabel=label))
 		# Translators: Announces number of encoders being monitored in the background.
 		ui.message(_("Number of encoders monitored: {numberOfEncoders}: {streamLabels}").format(numberOfEncoders = monitorCount, streamLabels=", ".join(labels)))
+
+# Remove encoder ID from various settings maps.
+# This is a private module level function in order for it to be invoked by humans alone.
+_encoderConfigRemoved = None
+def _removeEncoderID(encoderType, pos):
+	global _encoderConfigRemoved
+	# For now, store the key to map.
+	# This might become a module-level constant if other functions require this dictionary.
+	key2map = {"FocusToStudio":SPLFocusToStudio, "PlayAfterConnecting":SPLPlayAfterConnecting, "BackgroundMonitor":SPLBackgroundMonitor}
+	encoderID = " ".join([encoderType, pos])
+	# Go through each feature map, remove the encoder ID and manipulate encoder positions in these sets.
+	# For each set, have a list of set items handy, otherwise set cardinality error (RuntimeError) will occur if items are removed on the fly.
+	for key in key2map:
+		map = key2map[key]
+		if encoderID in map:
+			map.remove(encoderID)
+			_encoderConfigRemoved = True
+		# If not sorted, encoders will appear in random order (a downside of using sets, as their ordering is quite unpredictable).
+		currentEncoders = sorted(filter(lambda x: x.startswith(encoderType), map))
+		if len(currentEncoders) and encoderID < currentEncoders[-1]:
+			# Same algorithm as stream label remover.
+			start = 0
+			if encoderID > currentEncoders[0]:
+				for candidate in currentEncoders:
+					if encoderID < candidate:
+						start = currentEncoders.index(candidate)
+			# Do set entry manipulations (remove first, then add).
+			for item in currentEncoders[start:]:
+				map.remove(item)
+				map.add(" ".join([encoderType, "%s"%(int(item.split()[-1])-1)]))
+		_encoderConfigRemoved = True
+		if len(map): streamLabels[key] = list(map)
+		else:
+			try:
+				del streamLabels[key]
+			except KeyError:
+				pass
 
 # Try to see if SPL foreground object can be fetched. This is used for switching to SPL Studio window from anywhere and to switch to Studio window from SAM encoder window.
 
@@ -118,6 +160,13 @@ class Encoder(IAccessible):
 	playAfterConnecting = False # When connected, the first track will be played.
 	backgroundMonitor = False # Monitor this encoder for connection status changes.
 
+	# Some helper functions
+
+	# Get the encoder identifier.
+	# This consists of two or three letter abbreviations for the encoder and the child ID.
+	def getEncoderId(self):
+		return " ".join([self.encoderType, str(self.IAccessibleChildID)])
+
 	# Format the status message to prepare for monitoring multiple encoders.
 	def encoderStatusMessage(self, message, id):
 		if encoderMonCount[self.encoderType] > 1:
@@ -125,6 +174,23 @@ class Encoder(IAccessible):
 			ui.message(_("{encoder} {encoderNumber}: {status}").format(encoder = self.encoderType, encoderNumber = id, status = message))
 		else:
 			ui.message(message)
+
+	# A master flag setter.
+	# Set or clear a given flag for the encoder given its ID, flag and flag container (currently a feature set).
+	# Also take in the flag key for storing it into the settings file.
+	# The flag will then be written to the configuration file.
+	def _set_Flags(self, encoderId, flag, flagMap, flagKey):
+		if flag and not encoderId in flagMap:
+			flagMap.add(encoderId)
+		elif not flag and encoderId in flagMap:
+			flagMap.remove(encoderId)
+		# No need to store an empty flag map.
+		if len(flagMap): streamLabels[flagKey] = list(flagMap)
+		else: del streamLabels[flagKey]
+		streamLabels.write()
+
+	# Now the flag configuration scripts.
+	# Project Rainbow: a new way to configure these will be created.
 
 	def script_toggleFocusToStudio(self, gesture):
 		if not self.focusToStudio:
@@ -204,18 +270,18 @@ class Encoder(IAccessible):
 	script_streamLabeler.__doc__=_("Opens a dialog to label the selected encoder.")
 
 	def script_streamLabelEraser(self, gesture):
-		# Translators: The title of the stream label eraser.
-		streamEraserTitle = _("Stream label eraser")
-		# Translators: The text of the stream label eraser dialog.
+		# Translators: The title of the stream configuration eraser dialog.
+		streamEraserTitle = _("Stream label and settings eraser")
+		# Translators: The text of the stream configuration eraser dialog.
 		streamEraserText = _("Enter the position of the encoder you wish to delete or will delete")
 		dlg = wx.NumberEntryDialog(gui.mainFrame,
 		streamEraserText, "", streamEraserTitle, self.IAccessibleChildID, 1, self.simpleParent.childCount)
 		def callback(result):
 			if result == wx.ID_OK:
-				self.removeStreamLabel(str(dlg.GetValue()))
+				self.removeStreamConfig(str(dlg.GetValue()))
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message in SAM Encoder window.
-	script_streamLabelEraser.__doc__=_("Opens a dialog to erase stream labels from an encoder that was deleted.")
+	script_streamLabelEraser.__doc__=_("Opens a dialog to erase stream labels and settings from an encoder that was deleted.")
 
 	# Announce complete time including seconds (slight change from global commands version).
 	def script_encoderDateTime(self, gesture):
@@ -228,11 +294,26 @@ class Encoder(IAccessible):
 	script_encoderDateTime.__doc__=_("If pressed once, reports the current time including seconds. If pressed twice, reports the current date")
 	script_encoderDateTime.category=_("Station Playlist Studio")
 
+	# Various column announcement scripts.
+	# This base class implements encoder position and stream labels.
+	def script_announceEncoderPosition(self, gesture):
+		ui.message("Position: {pos}".format(pos = self.IAccessibleChildID))
+
+	def script_announceEncoderLabel(self, gesture):
+		try:
+			streamLabel = self.getStreamLabel()[0]
+		except TypeError:
+			streamLabel = None
+		if streamLabel:
+			ui.message("Label: {label}".format(label = streamLabel))
+		else:
+			ui.message("No stream label")
+
 
 	def initOverlayClass(self):
 		# Load stream labels upon request.
 		if not streamLabels: loadStreamLabels()
-		encoderIdentifier = " ".join([self.encoderType, str(self.IAccessibleChildID)])
+		encoderIdentifier = self.getEncoderId()
 		# Can I switch to Studio when connected to a streaming server?
 		try:
 			self.focusToStudio = encoderIdentifier in SPLFocusToStudio
@@ -254,7 +335,7 @@ class Encoder(IAccessible):
 			streamLabel = self.getStreamLabel()[0]
 		except TypeError:
 			streamLabel = None
-		# Speak the stream label if it exists.
+		# Announce stream label if it exists.
 		if streamLabel is not None:
 			try:
 				self.name = "(" + streamLabel + ") " + self.name
@@ -269,7 +350,10 @@ class Encoder(IAccessible):
 		"kb:control+f11":"toggleBackgroundEncoderMonitor",
 		"kb:f12":"streamLabeler",
 		"kb:control+f12":"streamLabelEraser",
-		"kb:NVDA+F12":"encoderDateTime"
+		"kb:NVDA+F12":"encoderDateTime",
+		"kb:control+NVDA+0":"streamLabeler",
+		"kb:control+NVDA+1":"announceEncoderPosition",
+		"kb:control+NVDA+2":"announceEncoderLabel",
 	}
 
 
@@ -357,26 +441,31 @@ class SAMEncoder(Encoder):
 		# Translators: Presented when SAM Encoder is disconnecting from a streaming server.
 		ui.message(_("Disconnecting..."))
 
+	# Announce SAM columns: encoder name/type, status and description.
+	def script_announceEncoderFormat(self, gesture):
+		typeIndex = self.description.find(", Status: ")
+		ui.message(self.description[:typeIndex])
+
+	def script_announceEncoderStatus(self, gesture):
+		typeIndex = self.description.find(", Status: ")
+		statusIndex = self.description.find(", Description: ")
+		ui.message(self.description[typeIndex+2:statusIndex])
+
+	def script_announceEncoderStatusDesc(self, gesture):
+		statusIndex = self.description.find(", Description: ")
+		ui.message(self.description[statusIndex+2:])
+
+	# The following mutators will be removed as part of Project Rainbow.
+	# These will be kept in 6.0 for backwards compatibility.
+
 	def _set_FocusToStudio(self):
-		SAMIdentifier = " ".join([self.encoderType, str(self.IAccessibleChildID)])
-		if self.focusToStudio and not SAMIdentifier in SPLFocusToStudio:
-			SPLFocusToStudio.add(SAMIdentifier)
-		elif not self.focusToStudio and SAMIdentifier in SPLFocusToStudio:
-			SPLFocusToStudio.remove(SAMIdentifier)
+		self._set_Flags(self.getEncoderId(), self.focusToStudio, SPLFocusToStudio, "FocusToStudio")
 
 	def setPlayAfterConnecting(self):
-		SAMIdentifier = " ".join([self.encoderType, str(self.IAccessibleChildID)])
-		if self.playAfterConnecting and not SAMIdentifier in SPLPlayAfterConnecting:
-			SPLPlayAfterConnecting.add(SAMIdentifier)
-		elif not self.playAfterConnecting and SAMIdentifier in SPLPlayAfterConnecting:
-			SPLPlayAfterConnecting.remove(SAMIdentifier)
+		self._set_Flags(self.getEncoderId(), self.playAfterConnecting, SPLPlayAfterConnecting, "PlayAfterConnecting")
 
 	def setBackgroundMonitor(self):
-		SAMIdentifier = " ".join([self.encoderType, str(self.IAccessibleChildID)])
-		if self.backgroundMonitor and not SAMIdentifier in SPLBackgroundMonitor:
-			SPLBackgroundMonitor.add(SAMIdentifier)
-		elif not self.backgroundMonitor and SAMIdentifier in SPLBackgroundMonitor:
-			SPLBackgroundMonitor.remove(SAMIdentifier)
+		self._set_Flags(self.getEncoderId(), self.backgroundMonitor, SPLBackgroundMonitor, "BackgroundMonitor")
 		return SAMMonitorThreads
 
 
@@ -394,22 +483,29 @@ class SAMEncoder(Encoder):
 		streamLabels["SAMEncoders"] = SAMStreamLabels
 		streamLabels.write()
 
-	def removeStreamLabel(self, pos):
+	def removeStreamConfig(self, pos):
 		# An application of map successor algorithm.
+		global _encoderConfigRemoved
+		# Manipulate SAM encoder settings and labels.
+		_removeEncoderID("SAM", pos)
 		labelLength = len(SAMStreamLabels)
-		if not labelLength or pos > max(SAMStreamLabels.keys()): return
+		if not labelLength or pos > max(SAMStreamLabels.keys()):
+			if _encoderConfigRemoved is not None:
+				streamLabels.write()
+				_encoderConfigRemoved = None
+			return
 		elif labelLength  == 1:
 			if not pos in SAMStreamLabels:
-				pos = SPLStreamLabels.keys()[0]
+				pos = SAMStreamLabels.keys()[0]
 				oldPosition = int(pos)
 				SAMStreamLabels[str(oldPosition-1)] = SAMStreamLabels[pos]
 			del SAMStreamLabels[pos]
 		else:
 			encoderPositions = sorted(SAMStreamLabels.keys())
-						# What if the position happens to be the last stream label position?
-			if pos == max(encoderPositions): del SPLStreamLabels[pos]
-			# Find the exact or closest successor.
+			# What if the position happens to be the last stream label position?
+			if pos == max(encoderPositions): del SAMStreamLabels[pos]
 			else:
+				# Find the exact or closest successor.
 				startPosition = 0
 				if pos == min(encoderPositions):
 					del SAMStreamLabels[pos]
@@ -433,7 +529,10 @@ class SAMEncoder(Encoder):
 		"kb:f9":"connect",
 		"kb:control+f9":"connect",
 		"kb:f10":"disconnect",
-		"kb:control+f10":"disconnect"
+		"kb:control+f10":"disconnect",
+		"kb:control+NVDA+3":"announceEncoderFormat",
+		"kb:control+NVDA+4":"announceEncoderStatus",
+		"kb:control+NVDA+5":"announceEncoderStatusDesc"
 	}
 
 
@@ -505,26 +604,21 @@ class SPLEncoder(Encoder):
 			SPLMonitorThreads[self.IAccessibleChildID] = statusThread
 	script_connect.__doc__=_("Connects to a streaming server.")
 
+	# Announce SPL Encoder columns: encoder settings and transfer rate.
+	def script_announceEncoderSettings(self, gesture):
+		ui.message("Encoder Settings: {setting}".format(setting = self.children[0].name))
+
+	def script_announceEncoderTransfer(self, gesture):
+		ui.message("Transfer Rate: {transferRate}".format(transferRate = self.children[1].name))
+
 	def _set_FocusToStudio(self):
-		SPLIdentifier = " ".join([self.encoderType, str(self.IAccessibleChildID)])
-		if self.focusToStudio and not SPLIdentifier in SPLFocusToStudio:
-			SPLFocusToStudio.add(SPLIdentifier)
-		elif not self.focusToStudio and SPLIdentifier in SPLFocusToStudio:
-			SPLFocusToStudio.remove(SPLIdentifier)
+		self._set_Flags(self.getEncoderId(), self.focusToStudio, SPLFocusToStudio, "FocusToStudio")
 
 	def setPlayAfterConnecting(self):
-		SPLIdentifier = " ".join([self.encoderType, str(self.IAccessibleChildID)])
-		if self.playAfterConnecting and not SPLIdentifier in SPLPlayAfterConnecting:
-			SPLPlayAfterConnecting.add(SPLIdentifier)
-		elif not self.playAfterConnecting and SPLIdentifier in SPLPlayAfterConnecting:
-			SPLPlayAfterConnecting.remove(SPLIdentifier)
+		self._set_Flags(self.getEncoderId(), self.playAfterConnecting, SPLPlayAfterConnecting, "PlayAfterConnecting")
 
 	def setBackgroundMonitor(self):
-		SPLIdentifier = " ".join([self.encoderType, str(self.IAccessibleChildID)])
-		if self.backgroundMonitor and not SPLIdentifier in SPLBackgroundMonitor:
-			SPLBackgroundMonitor.add(SPLIdentifier)
-		elif not self.backgroundMonitor and SPLIdentifier in SPLBackgroundMonitor:
-			SPLBackgroundMonitor.remove(SPLIdentifier)
+		self._set_Flags(self.getEncoderId(), self.backgroundMonitor, SPLBackgroundMonitor, "BackgroundMonitor")
 		return SPLMonitorThreads
 
 	def getStreamLabel(self, getTitle=False):
@@ -541,9 +635,16 @@ class SPLEncoder(Encoder):
 		streamLabels["SPLEncoders"] = SPLStreamLabels
 		streamLabels.write()
 
-	def removeStreamLabel(self, pos):
+	def removeStreamConfig(self, pos):
+		global _encoderConfigRemoved
+		# This time, manipulate SPL ID entries.
+		_removeEncoderID("SPL", pos)
 		labelLength = len(SPLStreamLabels)
-		if not labelLength or pos > max(SPLStreamLabels.keys()): return
+		if not labelLength or pos > max(SPLStreamLabels.keys()):
+			if _encoderConfigRemoved is not None:
+				streamLabels.write()
+				_encoderConfigRemoved = None
+			return
 		elif labelLength  == 1:
 			if not pos in SPLStreamLabels:
 				pos = SPLStreamLabels.keys()[0]
@@ -576,6 +677,8 @@ class SPLEncoder(Encoder):
 
 	__gestures={
 		"kb:f9":"connect",
+		"kb:control+NVDA+3":"announceEncoderSettings",
+		"kb:control+NVDA+4":"announceEncoderTransfer"
 	}
 
 

@@ -8,9 +8,8 @@
 # Additional work done by Joseph Lee and other contributors.
 # For SPL Studio Controller, focus movement, SAM Encoder support and other utilities, see the global plugin version of this app module.
 
-# Minimum version: SPL 5.00, NvDA 2014.3.
+# Minimum version: SPL 5.00, NvDA 2015.3.
 
-import ctypes
 from functools import wraps
 import os
 import time
@@ -18,10 +17,10 @@ import threading
 import controlTypes
 import appModuleHandler
 import api
-import globalVars
 import review
 import eventHandler
 import scriptHandler
+import queueHandler
 import ui
 import nvwave
 import speech
@@ -31,10 +30,11 @@ import gui
 import wx
 from winUser import user32, sendMessage
 import winKernel
-from NVDAObjects.IAccessible import IAccessible, sysListView32 # SysListView32 is used for Track Dial (see below).
+from NVDAObjects.IAccessible import IAccessible
 import textInfos
 import tones
 import splconfig
+import splmisc
 import addonHandler
 addonHandler.initTranslation()
 
@@ -54,25 +54,51 @@ def finally_(func, final):
 # Make sure the broadcaster is running a compatible version.
 SPLMinVersion = "5.00"
 
+# Cache the handle to main Studio window.
+_SPLWin = None
+
 # Threads pool.
 micAlarmT = None
+micAlarmT2 = None
 libScanT = None
 
 # Blacklisted versions of Studio where library scanning functionality is broken.
 noLibScanMonitor = []
+
+# List of known window style values to check for track items in Studio 5.0x..
+known50styles = (1442938953, 1443987529, 1446084681)
+known51styles = (1443991625, 1446088777)
 
 # Braille and play a sound in response to an alarm or an event.
 def messageSound(wavFile, message):
 	nvwave.playWaveFile(wavFile)
 	braille.handler.message(message)
 
+# A special version for microphone alarm (continuous or not).
+def _micAlarmAnnouncer():
+		if splconfig.SPLConfig["AlarmAnnounce"] in ("beep", "both"):
+			nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_MicAlarm.wav"))
+		if splconfig.SPLConfig["AlarmAnnounce"] in ("message", "both"):
+			# Translators: Presented when microphone has been active for a while.
+			ui.message(_("Microphone active"))
+
+# Manage microphone alarm announcement.
+def micAlarmManager(micAlarmWav, micAlarmMessage):
+	messageSound(micAlarmWav, micAlarmMessage)
+	# Play an alarm sound (courtesy of Jerry Mader from Mader Radio).
+	global micAlarmT2
+	# Use a timer to play a tone when microphone was active for more than the specified amount.
+	# Mechanics come from Clock add-on.
+	if splconfig.SPLConfig["MicAlarmInterval"]:
+		micAlarmT2 = wx.PyTimer(_micAlarmAnnouncer)
+		micAlarmT2.Start(splconfig.SPLConfig["MicAlarmInterval"] * 1000)
+
 # Call SPL API to obtain needed values.
 # A thin wrapper around user32.SendMessage and calling a callback if defined.
 # Offset is used in some time commands.
 def statusAPI(arg, command, func=None, ret=False, offset=None):
-	SPLWin = user32.FindWindowA("SPLStudio", None)
-	if not SPLWin: return
-	val = sendMessage(SPLWin, 1024, arg, command)
+	if _SPLWin is None: return
+	val = sendMessage(_SPLWin, 1024, arg, command)
 	if ret:
 		return val
 	if func:
@@ -87,6 +113,35 @@ class SPLTrackItem(IAccessible):
 		if splconfig.SPLConfig["TrackDial"]:
 			self.bindGesture("kb:rightArrow", "nextColumn")
 			self.bindGesture("kb:leftArrow", "prevColumn")
+
+	# Read selected columns.
+	# But first, find where the requested column lives.
+	def _indexOf(self, columnHeader):
+		if self.appModule._columnHeaders is None:
+			self.appModule._columnHeaders = self.parent.children[-1]
+		headers = [header.name for header in self.appModule._columnHeaders.children]
+		# Handle both 5.0x and 5.10 column headers.
+		try:
+			return headers.index(columnHeader)
+		except ValueError:
+			return None
+
+	def reportFocus(self):
+		#tones.beep(800, 100)
+		if not splconfig.SPLConfig["UseScreenColumnOrder"]:
+			descriptionPieces = []
+			for header in splconfig.SPLConfig["ColumnOrder"]:
+				# Artist field should not be included in Studio 5.0x, as the checkbox serves this role.
+				if header == "Artist" and self.appModule.productVersion.startswith("5.0"):
+					continue
+				if header in splconfig.SPLConfig["IncludedColumns"]:
+					index = self._indexOf(header)
+					if index is None: continue # Header not found, mostly encountered in Studio 5.0x.
+					content = self._getColumnContent(index)
+					if content:
+						descriptionPieces.append("%s: %s"%(header, content))
+			self.description = ", ".join(descriptionPieces)
+		super(IAccessible, self).reportFocus()
 
 	# Track Dial: using arrow keys to move through columns.
 	# This is similar to enhanced arrow keys in other screen readers.
@@ -127,42 +182,24 @@ class SPLTrackItem(IAccessible):
 	# Some helper functions to handle corner cases.
 	# Each track item provides its own version.
 	def _leftmostcol(self):
-		leftmost = self.columnHeaders.firstChild.name
+		if self.appModule._columnHeaders is None:
+			self.appModule._columnHeaders = self.parent.children[-1]
+		leftmost = self.appModule._columnHeaders.firstChild.name
 		if not self.name or self.name == "":
 			# Translators: Announced when leftmost column has no text while track dial is active.
 			ui.message(_("{leftmostColumn} not found").format(leftmostColumn = leftmost))
 		else:
 			# Translators: Standard message for announcing column content.
-			ui.message(_("{leftmostColumn}: {leftmostContent}").format(leftmostColumn = self.columnHeaders.children[self.appModule.SPLColNumber].name, leftmostContent = self.name))
+			ui.message(_("{leftmostColumn}: {leftmostContent}").format(leftmostColumn = leftmost, leftmostContent = self.name))
 
 	# Locate column content.
+	# This is merely the proxy of the module level function defined in the misc module.
 	def _getColumnContent(self, col):
-		# Borrowed from SysListView32 implementation.
-		# For add-on 6.0: see if track items can be subclassed from SysListView32.ListItem.
-		buffer=None
-		processHandle=self.processHandle
-		sizeofLVITEM = ctypes.sizeof(sysListView32.LVITEM)
-		# Because each process in an OS has separate memory spaces, use VM functions to find column content.
-		internalItem=winKernel.virtualAllocEx(processHandle,None,sizeofLVITEM,winKernel.MEM_COMMIT,winKernel.PAGE_READWRITE)
-		try:
-			internalText=winKernel.virtualAllocEx(processHandle,None,520,winKernel.MEM_COMMIT,winKernel.PAGE_READWRITE)
-			try:
-				item=sysListView32.LVITEM(iItem=self.IAccessibleChildID-1,mask=sysListView32.LVIF_TEXT|sysListView32.LVIF_COLUMNS,iSubItem=col,pszText=internalText,cchTextMax=260)
-				winKernel.writeProcessMemory(processHandle,internalItem,ctypes.byref(item),sizeofLVITEM,None)
-				len = sendMessage(self.windowHandle,sysListView32.LVM_GETITEMTEXTW, (self.IAccessibleChildID-1), internalItem)
-				if len:
-					winKernel.readProcessMemory(processHandle,internalItem,ctypes.byref(item),sizeofLVITEM,None)
-					buffer=ctypes.create_unicode_buffer(len)
-					winKernel.readProcessMemory(processHandle,item.pszText,buffer,ctypes.sizeof(buffer),None)
-			finally:
-				winKernel.virtualFreeEx(processHandle,internalText,0,winKernel.MEM_RELEASE)
-		finally:
-			winKernel.virtualFreeEx(processHandle,internalItem,0,winKernel.MEM_RELEASE)
-		return buffer.value if buffer else None
+		return splmisc._getColumnContent(self, col)
 
 	# Announce column content if any.
 	def announceColumnContent(self, colNumber):
-		columnHeader = self.columnHeaders.children[colNumber].name
+		columnHeader = self.appModule._columnHeaders.children[colNumber].name
 		columnContent = self._getColumnContent(colNumber)
 		if columnContent:
 			# Translators: Standard message for announcing column content.
@@ -176,15 +213,17 @@ class SPLTrackItem(IAccessible):
 	# Now the scripts.
 
 	def script_nextColumn(self, gesture):
-		self.columnHeaders = self.parent.children[-1]
-		if (self.appModule.SPLColNumber+1) == self.columnHeaders.childCount:
+		if self.appModule._columnHeaders is None:
+			self.appModule._columnHeaders = self.parent.children[-1]
+		if (self.appModule.SPLColNumber+1) == self.appModule._columnHeaders.childCount:
 			tones.beep(2000, 100)
 		else:
 			self.appModule.SPLColNumber +=1
 		self.announceColumnContent(self.appModule.SPLColNumber)
 
 	def script_prevColumn(self, gesture):
-		self.columnHeaders = self.parent.children[-1]
+		if self.appModule._columnHeaders is None:
+			self.appModule._columnHeaders = self.parent.children[-1]
 		if self.appModule.SPLColNumber <= 0:
 			tones.beep(2000, 100)
 		else:
@@ -199,7 +238,7 @@ class SPLTrackItem(IAccessible):
 	}
 
 class SPL510TrackItem(SPLTrackItem):
-	""" Track item for Studio 5.10 and later."""
+	"""Track item for Studio 5.10 and later."""
 
 	def event_stateChange(self):
 		# Why is it that NVDA keeps announcing "not selected" when track items are scrolled?
@@ -225,22 +264,31 @@ class SPL510TrackItem(SPLTrackItem):
 # Translators: The text of the help command in SPL Assistant layer.
 SPLAssistantHelp=_("""After entering SPL Assistant, press:
 A: Automation.
-D: Remaining time for the playlist.
+C: Announce name of the currently playing track.
+D (R if compatibility mode is on): Remaining time for the playlist.
+E: Overall metadata streaming status.
+1 through 4, 0: Metadata streaming status for DSP encoder and four additional URL's.
 H: Duration of trakcs in this hour slot.
 Shift+H: Duration of selected tracks.
-I: Listener count.
-L: Line-in status.
+I (L if compatibility mode is on): Listener count.
+K: Move to place marker track.
+Control+K: Set place marker track.
+L (Shift+L if compatibility mode is on): Line-in status.
 M: Microphone status.
 N: Next track.
 P: Playback status.
 Shift+P: Pitch for the current track.
-R: Record to file.
+R (Shift+E if compatibility mode is on): Record to file.
 Shift+R: Monitor library scan.
 S: Scheduled time for the track.
 T: Cart edit mode.
 U: Studio up time.
 W: Weather and temperature.
-Y: Playlist modification.""")
+Y: Playlist modification.
+F9: Mark current track as start of track time analysis.
+F10: Perform track time analysis.
+F12: Switch to an instant switch profile.
+Shift+F1: Open online user guide.""")
 
 
 class AppModule(appModuleHandler.AppModule):
@@ -248,6 +296,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Translators: Script category for Station Playlist commands in input gestures dialog.
 	scriptCategory = _("StationPlaylist Studio")
 	SPLCurVersion = appModuleHandler.AppModule.productVersion
+	_columnHeaders = None
 
 	# Prepare the settings dialog among other things.
 	def __init__(self, *args, **kwargs):
@@ -263,25 +312,42 @@ class AppModule(appModuleHandler.AppModule):
 		# Announce status changes while using other programs.
 		# This requires NVDA core support and will be available in 6.0 and later (cannot be ported to earlier versions).
 		# For now, handle all background events, but in the end, make this configurable.
-		"""if hasattr(eventHandler, "requestEvents"):
+		if hasattr(eventHandler, "requestEvents"):
 			eventHandler.requestEvents(eventName="nameChange", processId=self.processID, windowClassName="TStatusBar")
 			eventHandler.requestEvents(eventName="nameChange", processId=self.processID, windowClassName="TStaticText")
 			self.backgroundStatusMonitor = True
 		else:
-			self.backgroundStatusMonitor = False"""
-		# Emergency hack: disable this until recursion issue is fixed.
-		self.backgroundStatusMonitor = False
+			self.backgroundStatusMonitor = False
 		self.prefsMenu = gui.mainFrame.sysTrayIcon.preferencesMenu
 		self.SPLSettings = self.prefsMenu.Append(wx.ID_ANY, _("SPL Studio Settings..."), _("SPL settings"))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, splconfig.onConfigDialog, self.SPLSettings)
+		# Let me know the Studio window handle.
+		threading.Thread(target=self._locateSPLHwnd).start()
 
-	# 5.0/Experimental: allow SPL Controller layer command to invoke SPL Assistant.
-	# For now, this needs to be enabled from Python Console and may or may not make it into 5.0.
-	SPLConPassthrough = False
+	# Locate the handle for main window for caching purposes.
+	def _locateSPLHwnd(self):
+		hwnd = user32.FindWindowA("SPLStudio", None)
+		while not hwnd:
+			time.sleep(1)
+			hwnd = user32.FindWindowA("SPLStudio", None)
+		# Only this thread will have privilege of notifying handle's existence.
+		with threading.Lock() as hwndNotifier:
+			global _SPLWin
+			_SPLWin = hwnd
+		# Remind me to broadcast metadata information.
+		if splconfig.SPLConfig["MetadataReminder"] == "startup":
+			self._metadataAnnouncer(reminder=True)
+
+	# Let the global plugin know if SPLController passthrough is allowed.
+	def SPLConPassthrough(self):
+		return splconfig.SPLConfig["SPLConPassthrough"]
 
 	def event_NVDAObject_init(self, obj):
+		# From 0.01: previously focused item fires focus event when it shouldn't.
+		if obj.windowClassName == "TListView" and obj.role in (controlTypes.ROLE_CHECKBOX, controlTypes.ROLE_LISTITEM) and controlTypes.STATE_FOCUSED not in obj.states:
+			obj.shouldAllowIAccessibleFocusEvent = False
 		# Radio button group names are not recognized as grouping, so work around this.
-		if obj.windowClassName == "TRadioGroup":
+		elif obj.windowClassName == "TRadioGroup":
 			obj.role = controlTypes.ROLE_GROUPING
 		# In certain edit fields and combo boxes, the field name is written to the screen, and there's no way to fetch the object for this text. Thus use review position text.
 		elif obj.windowClassName in ("TEdit", "TComboBox") and not obj.name:
@@ -294,13 +360,12 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Some controls which needs special routines.
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
-		fg = api.getForegroundObject()
-		if fg:
-			role = obj.role
-			if obj.windowClassName == "TTntListView.UnicodeClass" and fg.windowClassName == "TStudioForm" and role == controlTypes.ROLE_LISTITEM:
-				clsList.insert(0, SPL510TrackItem)
-			elif obj.windowClassName == "TListView" and fg.windowClassName == "TStudioForm" and role in (controlTypes.ROLE_CHECKBOX, controlTypes.ROLE_LISTITEM):
-				clsList.insert(0, SPLTrackItem)
+		role = obj.role
+		windowStyle = obj.windowStyle
+		if obj.windowClassName == "TTntListView.UnicodeClass" and role == controlTypes.ROLE_LISTITEM and abs(windowStyle - 1443991625)%0x100000 == 0:
+			clsList.insert(0, SPL510TrackItem)
+		elif obj.windowClassName == "TListView" and role in (controlTypes.ROLE_CHECKBOX, controlTypes.ROLE_LISTITEM) and abs(windowStyle - 1442938953)%0x100000 == 0:
+			clsList.insert(0, SPLTrackItem)
 
 	# Keep an eye on library scans in insert tracks window.
 	libraryScanning = False
@@ -316,14 +381,28 @@ class AppModule(appModuleHandler.AppModule):
 	# These items are static text items whose name changes.
 	# Note: There are two status bars, hence the need to exclude Up time so it doesn't announce every minute.
 	# Unfortunately, Window handles and WindowControlIDs seem to change, so can't be used.
+	# Only announce changes if told to do so via the following function.
+	def _TStatusBarChanged(self, obj):
+		name = obj.name
+		if name.startswith("  Up time:"):
+			return False
+		elif name.startswith("Scheduled for"):
+			if self.scheduledTimeCache == name: return False
+			self.scheduledTimeCache = name
+			return splconfig.SPLConfig["SayScheduledFor"]
+		elif "Listener" in name:
+			return splconfig.SPLConfig["SayListenerCount"]
+		elif name.startswith("Cart") and obj.IAccessibleChildID == 3:
+			return splconfig.SPLConfig["SayPlayingCartName"]
+		return True
+
+	# Now the actual event.
 	def event_nameChange(self, obj, nextHandler):
 		# Do not let NvDA get name for None object when SPL window is maximized.
 		if not obj.name:
 			return
-		# Suppress announcing status messages when background monitoring is unavailable.
-		if api.getForegroundObject().processID != self.processID and not self.backgroundStatusMonitor:
-			nextHandler()
-		if obj.windowClassName == "TStatusBar" and not obj.name.startswith("  Up time:"):
+		# Only announce changes in status bar objects when told to do so.
+		if obj.windowClassName == "TStatusBar" and self._TStatusBarChanged(obj):
 			# Special handling for Play Status
 			if obj.IAccessibleChildID == 1:
 				if "Play status" in obj.name:
@@ -339,51 +418,16 @@ class AppModule(appModuleHandler.AppModule):
 						if self.productVersion not in noLibScanMonitor:
 							if not self.backgroundStatusMonitor: self.libraryScanning = True
 				elif "match" in obj.name:
-					if splconfig.SPLConfig["LibraryScanAnnounce"] != "off":
+					if splconfig.SPLConfig["LibraryScanAnnounce"] != "off" and self.libraryScanning:
 						if splconfig.SPLConfig["BeepAnnounce"]: tones.beep(370, 100)
 						else:
-							# 5.0: Store the handle only once.
-							SPLWin  = user32.FindWindowA("SPLStudio", None)
-							count = sendMessage(SPLWin, 1024, 0, 32)
-							ui.message("Scan complete with {scanCount} items".format(scanCount = count))
+							# Translators: Presented when library scan is complete.
+							ui.message(_("Scan complete with {scanCount} items").format(scanCount = obj.name.split()[3]))
 					if self.libraryScanning: self.libraryScanning = False
 					self.scanCount = 0
 			else:
-				if obj.name.startswith("Scheduled for"):
-					if not splconfig.SPLConfig["SayScheduledFor"]:
-						nextHandler()
-						return
-					if self.scheduledTimeCache == obj.name: return
-					else:
-						self.scheduledTimeCache = obj.name
-						ui.message(obj.name)
-						return
-				elif "Listener" in obj.name and not splconfig.SPLConfig["SayListenerCount"]:
-					nextHandler()
-					return
-				elif obj.name.startswith("Cart") and obj.IAccessibleChildID == 3 and not splconfig.SPLConfig["SayPlayingCartName"]:
-					nextHandler()
-					return
-				elif not obj.name.endswith((" On", " Off")):
-					# Announce status information that does not contain toggle messages and return immediately.
-					# Optimize this in 6.0.
-					ui.message(obj.name)
-					return
-				elif splconfig.SPLConfig["BeepAnnounce"]:
-					# User wishes to hear beeps instead of words. The beeps are power on and off sounds from PAC Mate Omni.
-					beep = obj.name.split()
-					stat = beep[-1]
-					wavDir = os.path.dirname(__file__)
-					# Play a wave file based on on/off status.
-					if stat == "Off":
-						wavFile = os.path.join(wavDir, "SPL_off.wav")
-					elif stat == "On":
-						wavFile = os.path.join(wavDir, "SPL_on.wav")
-					# Yet another Studio 5.10 fix: sometimes, status bar fires this event once more.
-					try:
-						messageSound(wavFile, obj.name)
-					except:
-						return
+				if obj.name.endswith((" On", " Off")):
+					self._toggleMessage(obj.name)
 				else:
 					ui.message(obj.name)
 				if self.cartExplorer or int(splconfig.SPLConfig["MicAlarm"]):
@@ -398,24 +442,56 @@ class AppModule(appModuleHandler.AppModule):
 						braille.handler.message(obj.name)
 					if (obj.name == "00:{0:02d}".format(splconfig.SPLConfig["EndOfTrackTime"])
 					and splconfig.SPLConfig["SayEndOfTrack"]):
-						tones.beep(440, 200)
+						self.alarmAnnounce(obj.name, 440, 200)
 				elif obj.simplePrevious.name == "Remaining Song Ramp":
 					# Song intro for SPL 5.x.
 					if splconfig.SPLConfig["BrailleTimer"] in ("intro", "both") and api.getForegroundObject().processID == self.processID: #and "00:00" < obj.name <= self.SPLSongRampTime:
 						braille.handler.message(obj.name)
 					if (obj.name == "00:{0:02d}".format(splconfig.SPLConfig["SongRampTime"])
 					and splconfig.SPLConfig["SaySongRamp"]):
-						tones.beep(512, 400)
-				# Hack: auto scroll in Studio itself might be broken (according to Brian Hartgen), so force NVDA to announce currently playing track automatically if checked.
-				if splconfig.SPLConfig["SayPlayingTrackName"]:
-					statusBarFG = obj.parent.parent.parent
-					if statusBarFG is not None:
-						statusBar = statusBarFG.previous.previous.previous
-						if statusBar is not None and statusBar.firstChild is not None and statusBar.firstChild.role == 27:
-							ui.message(obj.name)
+						self.alarmAnnounce(obj.name, 512, 400, intro=True)
+				# Hack: auto scroll in Studio itself might be broken (according to Brian Hartgen), so force NVDA to announce currently playing track automatically if told to do so.
+				if splconfig.SPLConfig["SayPlayingTrackName"] == "True": # Had to do this to transform this key to something else later.
+					try:
+						statusBarFG = obj.parent.parent.parent
+						if statusBarFG is not None:
+							statusBar = statusBarFG.previous.previous.previous
+							if statusBar is not None and statusBar.firstChild is not None and statusBar.firstChild.role == 27:
+								ui.message(obj.name)
+					except AttributeError:
+						pass
 		nextHandler()
 
 	# JL's additions
+
+	# Handle toggle messages.
+	def _toggleMessage(self, msg):
+		if splconfig.SPLConfig["MessageVerbosity"] != "beginner":
+			msg = msg.split()[-1]
+		if splconfig.SPLConfig["BeepAnnounce"]:
+			# User wishes to hear beeps instead of words. The beeps are power on and off sounds from PAC Mate Omni.
+			if msg.endswith("Off"):
+				if splconfig.SPLConfig["MessageVerbosity"] == "beginner":
+					wavFile = os.path.join(os.path.dirname(__file__), "SPL_off.wav")
+					try:
+						messageSound(wavFile, msg)
+					except:
+						pass
+				else:
+					tones.beep(500, 100)
+					braille.handler.message(msg)
+			elif msg.endswith("On"):
+				if splconfig.SPLConfig["MessageVerbosity"] == "beginner":
+					wavFile = os.path.join(os.path.dirname(__file__), "SPL_on.wav")
+					try:
+						messageSound(wavFile, msg)
+					except:
+						pass
+				else:
+					tones.beep(1000, 100)
+					braille.handler.message(msg)
+		else:
+			ui.message(msg)
 
 	# Perform extra action in specific situations (mic alarm, for example).
 	def doExtraAction(self, status):
@@ -428,14 +504,14 @@ class AppModule(appModuleHandler.AppModule):
 				# Translators: Presented when cart edit mode is toggled off while cart explorer is on.
 				ui.message(_("Please reenter cart explorer to view updated cart assignments"))
 		if micAlarm:
-			# Play an alarm sound from Braille Sense U2.
-			global micAlarmT
+			# Play an alarm sound (courtesy of Jerry Mader from Mader Radio).
+			global micAlarmT, micAlarmT2
 			micAlarmWav = os.path.join(os.path.dirname(__file__), "SPL_MicAlarm.wav")
-			# Translators: Presented in braille when microphone was on for more than a specified time in microphone alarm dialog.
+			# Translators: Presented when microphone was on for more than a specified time in microphone alarm dialog.
 			micAlarmMessage = _("Warning: Microphone active")
 			# Use a timer to play a tone when microphone was active for more than the specified amount.
 			if status == "Microphone On":
-				micAlarmT = threading.Timer(micAlarm, messageSound, args=[micAlarmWav, micAlarmMessage])
+				micAlarmT = threading.Timer(micAlarm, micAlarmManager, args=[micAlarmWav, micAlarmMessage])
 				try:
 					micAlarmT.start()
 				except RuntimeError:
@@ -444,6 +520,21 @@ class AppModule(appModuleHandler.AppModule):
 			elif status == "Microphone Off":
 				if micAlarmT is not None: micAlarmT.cancel()
 				micAlarmT = None
+				if micAlarmT2 is not None: micAlarmT2.Stop()
+				micAlarmT2 = None
+
+	# Alarm announcement: Alarm notification via beeps, speech or both.
+	def alarmAnnounce(self, timeText, tone, duration, intro=False):
+		if splconfig.SPLConfig["AlarmAnnounce"] in ("beep", "both"):
+			tones.beep(tone, duration)
+		if splconfig.SPLConfig["AlarmAnnounce"] in ("message", "both"):
+			alarmTime = int(timeText.split(":")[1])
+			if intro:
+				# Translators: Presented when end of introduction is approaching (example output: 5 sec left in track introduction).
+				ui.message(_("Warning: {seconds} sec left in track introduction").format(seconds = str(alarmTime)))
+			else:
+				# Translators: Presented when end of track is approaching.
+				ui.message(_("Warning: {seconds} sec remaining").format(seconds = str(alarmTime)))
 
 
 	# Hacks for gain focus events.
@@ -451,15 +542,6 @@ class AppModule(appModuleHandler.AppModule):
 		if self.deletedFocusObj or (obj.windowClassName == "TListView" and obj.role == 0):
 			self.deletedFocusObj = False
 			return
-		nextHandler()
-
-	# Continue monitoring library scans among other focus loss management.
-	def event_loseFocus(self, obj, nextHandler):
-		fg = api.getForegroundObject()
-		if fg.windowClassName == "TTrackInsertForm" and self.libraryScanning and not self.backgroundStatusMonitor:
-			global libScanT
-			if not libScanT or (libScanT and not libScanT.isAlive()):
-				self.monitorLibraryScan()
 		nextHandler()
 
 	# Add or remove SPL-specific touch commands.
@@ -498,6 +580,9 @@ class AppModule(appModuleHandler.AppModule):
 		# Manually clear the following dictionaries.
 		self.carts.clear()
 		self._cachedStatusObjs.clear()
+		# Just to make sure:
+		global _SPLWin
+		if _SPLWin: _SPLWin = None
 
 
 	# Script sections (for ease of maintenance):
@@ -521,20 +606,32 @@ class AppModule(appModuleHandler.AppModule):
 	}
 
 	# Specific to time scripts using Studio API.
+	# 6.0: Split this into two functions: the announcer (below) and formatter.
 	def announceTime(self, t, offset = None):
 		if t <= 0:
 			ui.message("00:00")
 		else:
+			ui.message(self._ms2time(t, offset = offset))
+
+	# Formatter: given time in milliseconds, convert it to human-readable format.
+	def _ms2time(self, t, offset = None):
+		if t <= 0:
+			return "00:00"
+		else:
 			tm = (t/1000) if not offset else (t/1000)+offset
-			if tm < 60:
-				tm1, tm2 = "00", tm
+			mm, ss = divmod(tm, 60)
+			if mm > 59 and splconfig.SPLConfig["TimeHourAnnounce"]:
+				hh, mm = divmod(mm, 60)
+				# Hour value is also filled with leading zero's.
+				# 6.1: Optimize the string builder so it can return just one string.
+				tm0 = str(hh).zfill(2)
+				tm1 = str(mm).zfill(2)
+				tm2 = str(ss).zfill(2)
+				return ":".join([tm0, tm1, tm2])
 			else:
-				tm1, tm2 = divmod(tm, 60)
-			if tm1 < 10:
-				tm1 = "0" + str(tm1)
-			if tm2 < 10:
-				tm2 = "0" + str(tm2)
-			ui.message("{a}:{b}".format(a = tm1, b = tm2))
+				tm1 = str(mm).zfill(2)
+				tm2 = str(ss).zfill(2)
+				return ":".join([tm1, tm2])
 
 	# Scripts which rely on API.
 	def script_sayRemainingTime(self, gesture):
@@ -590,7 +687,7 @@ class AppModule(appModuleHandler.AppModule):
 	script_sayCompleteTime.__doc__=_("Announces time including seconds.")
 
 	# Set the end of track alarm time between 1 and 59 seconds.
-	# 5.2: Make sure one of either settings or alarm dialogs is open.
+	# Make sure one of either settings or alarm dialogs is open.
 
 	def script_setEndOfTrackTime(self, gesture):
 		if splconfig._configDialogOpened:
@@ -650,32 +747,26 @@ class AppModule(appModuleHandler.AppModule):
 		elif splconfig._alarmDialogOpened:
 			wx.CallAfter(splconfig._alarmError)
 			return
-		micAlarm = str(splconfig.SPLConfig["MicAlarm"])
-		if int(micAlarm):
+		micAlarm = splconfig.SPLConfig["MicAlarm"]
+		if micAlarm:
 			# Translators: A dialog message to set microphone active alarm (curAlarmSec is the current mic monitoring alarm in seconds).
 			timeMSG = _("Enter microphone alarm time in seconds (currently {curAlarmSec}, 0 disables the alarm)").format(curAlarmSec = micAlarm)
 		else:
 			# Translators: A dialog message when microphone alarm is disabled (set to 0).
 			timeMSG = _("Enter microphone alarm time in seconds (currently disabled, 0 disables the alarm)")
-		dlg = wx.TextEntryDialog(gui.mainFrame,
-		timeMSG,
+		dlg = wx.NumberEntryDialog(gui.mainFrame,
+		timeMSG, "",
 		# Translators: The title of mic alarm dialog.
 		_("Microphone alarm"),
-		defaultValue=micAlarm)
+		long(micAlarm), 0, 7200)
 		splconfig._alarmDialogOpened = True
 		def callback(result):
 			splconfig._alarmDialogOpened = False
 			if result == wx.ID_OK:
 				if not user32.FindWindowA("SPLStudio", None): return
 				newVal = dlg.GetValue()
-				if not newVal.isdigit():
-					# Translators: The error message presented when incorrect alarm time value has been entered.
-					wx.CallAfter(gui.messageBox, _("Incorrect value entered."),
-					# Translators: Standard title for error dialog (copy this from main nvda.po file).
-					_("Error"),wx.OK|wx.ICON_ERROR)
-				else:
-					if micAlarm != newVal:
-						splconfig.SPLConfig["MicAlarm"] = newVal
+				if micAlarm != newVal:
+					splconfig.SPLConfig["MicAlarm"] = newVal
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setMicAlarm.__doc__=_("Sets microphone alarm (default is 5 seconds).")
@@ -694,12 +785,9 @@ class AppModule(appModuleHandler.AppModule):
 	def script_toggleBeepAnnounce(self, gesture):
 		if not splconfig.SPLConfig["BeepAnnounce"]:
 			splconfig.SPLConfig["BeepAnnounce"] = True
-			# Translators: Reported when status announcement is set to beeps in SPL Studio.
-			ui.message(_("Status announcement beeps"))
 		else:
 			splconfig.SPLConfig["BeepAnnounce"] = False
-			# Translators: Reported when status announcement is set to words in SPL Studio.
-			ui.message(_("Status announcement words"))
+		splconfig.message("BeepAnnounce", splconfig.SPLConfig["BeepAnnounce"])
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_toggleBeepAnnounce.__doc__=_("Toggles status announcements between words and beeps.")
 
@@ -710,106 +798,135 @@ class AppModule(appModuleHandler.AppModule):
 		brailleTimer = splconfig.SPLConfig["BrailleTimer"]
 		if brailleTimer == "off":
 			brailleTimer = "outro"
-			# Translators: A setting in braille timer options.
-			ui.message(_("Braille track endings"))
 		elif brailleTimer == "outro":
 			brailleTimer = "intro"
-			# Translators: A setting in braille timer options.
-			ui.message(_("Braille intro endings"))
 		elif brailleTimer == "intro":
 			brailleTimer = "both"
-			# Translators: A setting in braille timer options.
-			ui.message(_("Braille intro and track endings"))
 		else:
 			brailleTimer = "off"
-			# Translators: A setting in braille timer options.
-			ui.message(_("Braille timer off"))
 		splconfig.SPLConfig["BrailleTimer"] = brailleTimer
+		splconfig.message("BrailleTimer", brailleTimer)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setBrailleTimer.__doc__=_("Toggles between various braille timer settings.")
 
-	# The track finder utility for find track script.
+	# The track finder utility for find track script and other functions
 	# Perform a linear search to locate the track name and/or description which matches the entered value.
 	# Also, find column content for a specific column if requested.
+	# 6.0: Split this routine into two functions, with the while loop moving to a function of its own.
+	# This new function will be used by track finder and place marker locator.
 	findText = ""
-	# Prevent multiple instances of track finder from being invoked.
-	_trackFinderOpen = False
-	_trackFinderDlgOpen = False
 
 	def trackFinder(self, text, obj, directionForward=True, column=None):
+		speech.cancelSpeech()
+		if column is None: 
+			column = [obj._indexOf("Artist"), obj._indexOf("Title")]
+		track = self._trackLocator(text, obj=obj, directionForward=directionForward, columns=column)
+		if track:
+			if self.findText != text: self.findText = text
+			# We need to fire set focus event twice and exit this routine.
+			track.setFocus(), track.setFocus()
+		else:
+			wx.CallAfter(gui.messageBox,
+			# Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
+			_("Search string not found."),
+			# Translators: Standard error title for find error (copy this from main nvda.po).
+			_("Find error"),wx.OK|wx.ICON_ERROR)
+
+	# Split from track finder in 2015.
+	# Return a track with the given search criteria.
+	# Column is a list of columns to be searched (if none, it'll be artist and title).
+	def _trackLocator(self, text, obj=api.getFocusObject(), directionForward=True, columns=None):
+		nextTrack = "next" if directionForward else "previous"
+		t = time.time()
 		while obj is not None:
-			if text in obj.description or (obj.name and text in obj.name and self.productVersion < "5.10"):
-				self.findText = text
-				# We need to fire set focus event twice and exit this routine.
-				obj.setFocus(), obj.setFocus()
-				return
-			else:
-				obj = obj.next if directionForward else obj.previous
-		wx.CallAfter(gui.messageBox,
-		# Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
-		_("Search string not found."),
-		# Translators: Standard error title for find error (copy this from main nvda.po).
-		_("Find error"),wx.OK|wx.ICON_ERROR)
+			# Do not use column content attribute, because sometimes NVDA will say it isn't a track item when in fact it is.
+			# If this happens, use the module level version of column content getter.
+			# Optimization: search column texts.
+			for column in columns:
+				columnText = splmisc._getColumnContent(obj, column)
+				if columnText and text in columnText:
+					return obj
+			obj = getattr(obj, nextTrack)
+		return None
 
-	# Find a specific track based on a searched text.
-	# Unfortunately, the track list does not provide obj.name (it is None), however obj.description has the actual track entry.
-	# For Studio 5.01 and earlier, artist label appears as the name, while in Studio 5.10, obj.name is none.
-
-	def script_findTrack(self, gesture):
+		# Find a specific track based on a searched text.
+	# But first, check if track finder can be invoked.
+	# Attempt level specifies which track finder to open (0 = Track Finder, 1 = Column Search, 2 = Time range).
+	def _trackFinderCheck(self, attemptLevel):
 		if api.getForegroundObject().windowClassName != "TStudioForm":
-			# Translators: Presented when a user attempts to find tracks but is not at the track list.
-			ui.message(_("Track finder is available only in track list."))
+			if attemptLevel == 0:
+				# Translators: Presented when a user attempts to find tracks but is not at the track list.
+				ui.message(_("Track finder is available only in track list."))
+			elif attemptLevel == 1:
+				# Translators: Presented when a user attempts to find tracks but is not at the track list.
+				ui.message(_("Column search is available only in track list."))
+			elif attemptLevel == 2:
+				# Translators: Presented when a user attempts to find tracks but is not at the track list.
+				ui.message(_("Time range finder is available only in track list."))
+			return False
 		elif api.getForegroundObject().windowClassName == "TStudioForm" and api.getFocusObject().role == controlTypes.ROLE_LIST:
 			# Translators: Presented when a user wishes to find a track but didn't add any tracks.
 			ui.message(_("You need to add at least one track to find tracks."))
-		else:
-			if self._trackFinderOpen:
-				if not self._trackFinderDlgOpen:
-					# Translators: Standard dialog message when find dialog is already open.
-					wx.CallAfter(gui.messageBox, _("Find track dialog is already open."), _("Error"),wx.OK|wx.ICON_ERROR)
-					self._trackFinderDlgOpen = True
-				else:
-					ui.message(_("Find track dialog is already open."))
-			else:
-				startObj = api.getFocusObject()
-				# Translators: The text of the dialog for finding tracks.
-				searchMSG = _("Enter the name of the track you wish to search.")
-				dlg = wx.TextEntryDialog(gui.mainFrame,
-				searchMSG,
-				# Translators: The title of the find tracks dialog.
-				_("Find track"), defaultValue=self.findText)
-				self._trackFinderOpen = True
-				def callback(result):
-					self._trackFinderOpen = False
-					self._trackFinderDlgOpen = False
-					if result == wx.ID_OK:
-						if dlg.GetValue() is None: return
-						elif dlg.GetValue() == self.findText: self.trackFinder(dlg.GetValue(), startObj.next)
-						else: self.trackFinder(dlg.GetValue(), startObj)
-				gui.runScriptModalDialog(dlg, callback)
+			return False
+		return True
+
+	def trackFinderGUI(self, columnSearch=False):
+		try:
+			# Translators: Title for track finder dialog.
+			if not columnSearch: title = _("Find track")
+			# Translators: Title for column search dialog.
+			else: title = _("Column search")
+			d = splmisc.SPLFindDialog(gui.mainFrame, api.getFocusObject(), self.findText, title, columnSearch = columnSearch)
+			gui.mainFrame.prePopup()
+			d.Raise()
+			d.Show()
+			gui.mainFrame.postPopup()
+			splmisc._findDialogOpened = True
+		except RuntimeError:
+			wx.CallAfter(splmisc._finderError)
+
+	def script_findTrack(self, gesture):
+		if self._trackFinderCheck(0): self.trackFinderGUI()
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_findTrack.__doc__=_("Finds a track in the track list.")
+
+	def script_columnSearch(self, gesture):
+		if self._trackFinderCheck(1): self.trackFinderGUI(columnSearch=True)
+	# Translators: Input help mode message for a command in Station Playlist Studio.
+	script_columnSearch.__doc__=_("Finds text in columns.")
 
 	# Find next and previous scripts.
 
 	def script_findTrackNext(self, gesture):
-		if api.getForegroundObject().windowClassName != "TStudioForm": ui.message(_("Track finder is available only in track list."))
-		elif api.getForegroundObject().windowClassName == "TStudioForm" and api.getFocusObject().role == controlTypes.ROLE_LIST: ui.message(_("You need to add at least one track to find tracks."))
-		else:
-			if self.findText == "": self.script_findTrack(gesture)
-			else: self.trackFinder(self.findText, api.getFocusObject().next)
+		if self._trackFinderCheck(0):
+			if self.findText == "": self.trackFinderGUI()
+			else: self.trackFinder(self.findText, obj=api.getFocusObject().next)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_findTrackNext.__doc__=_("Finds the next occurrence of the track with the name in the track list.")
 
 	def script_findTrackPrevious(self, gesture):
-		if api.getForegroundObject().windowClassName != "TStudioForm": ui.message(_("Track finder is available only in track list."))
-		elif api.getForegroundObject().windowClassName == "TStudioForm" and api.getFocusObject().role == controlTypes.ROLE_LIST: ui.message(_("You need to add at least one track to find tracks."))
-		else:
-			if self.findText == "":
-				self.script_findTrack(gesture)
-			else: self.trackFinder(self.findText, api.getFocusObject().previous, directionForward=False)
+		if self._trackFinderCheck(0):
+			if self.findText == "": self.trackFinderGUI()
+			else: self.trackFinder(self.findText, obj=api.getFocusObject().previous, directionForward=False)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_findTrackPrevious.__doc__=_("Finds previous occurrence of the track with the name in the track list.")
+
+	# Time range finder.
+	# Locate a track with duration falling between min and max.
+
+	def script_timeRangeFinder(self, gesture):
+		if self._trackFinderCheck(2):
+			try:
+				d = splmisc.SPLTimeRangeDialog(gui.mainFrame, api.getFocusObject(), statusAPI)
+				gui.mainFrame.prePopup()
+				d.Raise()
+				d.Show()
+				gui.mainFrame.postPopup()
+				splmisc._findDialogOpened = True
+			except RuntimeError:
+				wx.CallAfter(splmisc._finderError)
+	# Translators: Input help mode message for a command in Station Playlist Studio.
+	script_timeRangeFinder.__doc__=_("Locates track with duration within a time range")
 
 	# Cart explorer
 	cartExplorer = False
@@ -846,73 +963,6 @@ class AppModule(appModuleHandler.AppModule):
 			self.clearGestureBindings()
 			self.bindGestures(self.__gestures)
 
-	def cartsStr2Carts(self, cartEntry, modifier, n):
-		# Parse the cart entry string and insert the cart/cart name pairs into the carts dictionary.
-		# n between 1 and 12 = function carts, 13 through 24 = number row carts, modifiers are checked.
-		# If a cart name has commas or other characters, SPL surrounds the cart name with quotes (""), so parse it as well.
-		# If only the carts were representable as CSV file and NVDA core ships with CSV module built in...
-		if not cartEntry.startswith('""'): cartName = cartEntry.split(",")[0]
-		else: cartName = cartEntry.split('""')[1]
-		if n <= 12: identifier = "f"+str(n)
-		elif 12 < n < 22: identifier = str(n-12)
-		elif n == 22: identifier = "0"
-		elif n == 23: identifier = "-"
-		else: identifier = "="
-		if modifier == "main": cart = identifier
-		else: cart = "%s+%s"%(modifier, identifier)
-		self.carts[cart] = cartName
-
-	def cartsReader(self, standardEdition=False):
-		# Use cart files in SPL's data folder to build carts dictionary.
-		# use a combination of SPL user name and static cart location to locate cart bank files.
-		# Once the cart banks are located, use the routines in the populate method below to assign carts.
-		# Todo: refactor this function by splitting it into several functions.
-		# Since sstandard edition does not support number row carts, skip them if told to do so.
-		def _populateCarts(c, modifier, standardEdition=False):
-			# The real cart string parser, a helper for cart explorer for building cart entries.
-			cartlst = c.split("\",\"") # c = cart text.
-			# Get rid of unneeded quotes in cart entries.
-			cartlst[0] = cartlst[0][1:]
-			# 5.2: Discard number row if SPL Standard is in use.
-			if standardEdition: cartlst = cartlst[:12]
-			else: cartlst[-1] = cartlst[-1][:-1]
-			n = 0 # To keep track of how many entries were processed, also used to detect license type.
-			for i in cartlst:
-				n+=1
-				# An unassigned cart is stored with three consecutive commas, so skip it.
-				if ",,," in i: continue
-				else: self.cartsStr2Carts(i, modifier, n) # See the comment on str2carts for more information.
-			return n
-		# Back at the reader, locate the cart files and process them.
-		# Obtain the "real" path for SPL via environment variables and open the cart data folder.
-		cartsDataPath = os.path.join(os.environ["PROGRAMFILES"],"StationPlaylist","Data") # Provided that Studio was installed using default path.
-		# See if multiple users are using SPl Studio.
-		userName = api.getForegroundObject().name
-		userNameIndex = userName.find("-")
-		# Read *.cart files and process the cart entries within (be careful when these cart file names change between SPL releases).
-		# Until NVDA core moves to Python 3, assume that file names aren't unicode.
-		cartFiles = [u"main carts.cart", u"shift carts.cart", u"ctrl carts.cart", u"alt carts.cart"]
-		if userNameIndex >= 0:
-			cartFiles = [userName[userNameIndex+2:]+" "+cartFile for cartFile in cartFiles]
-		cartReadSuccess = True # Just in case some or all carts were not read successfully.
-		cartCount = 0 # Count how many cart assignments are possible.
-		for f in cartFiles:
-			try:
-				mod = f.split()[-2] # Checking for modifier string such as ctrl.
-				# Todo: Check just in case some SPL flavors doesn't ship with a particular cart file.
-			except IndexError:
-				cartReadSuccess = False # In a rare event that the broadcaster has saved the cart bank with the name like "carts.cart".
-				continue
-			cartFile = os.path.join(cartsDataPath,f)
-			if not os.path.isfile(cartFile): # Cart explorer will fail if whitespaces are in the beginning or at the end of a user name.
-				cartReadSuccess = False
-				continue
-			with open(cartFile) as cartInfo:
-				cl = cartInfo.readlines() # cl = cart list.
-			preprocessedCarts = cl[1].strip() # Ignore the empty line (again be careful if the cart file format changes in a future release).
-			cartCount += _populateCarts(preprocessedCarts, mod, standardEdition=standardEdition) # See the comment for _populate method above.
-		return cartReadSuccess, cartCount
-
 	def script_toggleCartExplorer(self, gesture):
 		if not self.cartExplorer:
 			# Prevent cart explorer from being engaged outside of playlist viewer.
@@ -922,15 +972,14 @@ class AppModule(appModuleHandler.AppModule):
 				# Translators: Presented when cart explorer cannot be entered.
 				ui.message(_("You are not in playlist viewer, cannot enter cart explorer"))
 				return
-			cartsRead, cartCount = self.cartsReader(standardEdition=fg.name.startswith("StationPlaylist Studio Standard"))
-			if not cartsRead:
+			self.carts = splmisc.cartExplorerInit(fg.name)
+			if self.carts["faultyCarts"]:
 				# Translators: presented when cart explorer could not be switched on.
 				ui.message(_("Some or all carts could not be assigned, cannot enter cart explorer"))
 				return
 			else:
 				self.cartExplorer = True
 				self.cartsBuilder()
-				self.carts["standardLicense"] = True if cartCount < 96 else False
 				# Translators: Presented when cart explorer is on.
 				ui.message(_("Entering cart explorer"))
 		else:
@@ -963,21 +1012,14 @@ class AppModule(appModuleHandler.AppModule):
 		libraryScanAnnounce = splconfig.SPLConfig["LibraryScanAnnounce"]
 		if libraryScanAnnounce == "off":
 			libraryScanAnnounce = "ending"
-			# Translators: A setting in library scan announcement options.
-			ui.message(_("Announce start and end of a library scan"))
 		elif libraryScanAnnounce == "ending":
 			libraryScanAnnounce = "progress"
-			# Translators: A setting in library scan announcement options.
-			ui.message(_("Announce the progress of a library scan"))
 		elif libraryScanAnnounce == "progress":
 			libraryScanAnnounce = "numbers"
-			# Translators: A setting in library scan announcement options.
-			ui.message(_("Announce progress and item count of a library scan"))
 		else:
 			libraryScanAnnounce = "off"
-			# Translators: A setting in library scan announcement options.
-			ui.message(_("Do not announce library scans"))
 		splconfig.SPLConfig["LibraryScanAnnounce"] = libraryScanAnnounce
+		splconfig.message("LibraryScanAnnounce", libraryScanAnnounce)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setLibraryScanProgress.__doc__=_("Toggles library scan progress settings.")
 
@@ -994,9 +1036,8 @@ class AppModule(appModuleHandler.AppModule):
 		global libScanT
 		if libScanT and libScanT.isAlive() and api.getForegroundObject().windowClassName == "TTrackInsertForm":
 			return
-		SPLWin = user32.FindWindowA("SPLStudio", None)
 		parem = 0 if self.SPLCurVersion < "5.10" else 1
-		countA = sendMessage(SPLWin, 1024, parem, 32)
+		countA = statusAPI(parem, 32, ret=True)
 		if countA == 0:
 			self.libraryScanning = False
 			return
@@ -1004,27 +1045,28 @@ class AppModule(appModuleHandler.AppModule):
 		if api.getForegroundObject().windowClassName == "TTrackInsertForm" and self.productVersion in noLibScanMonitor:
 			self.libraryScanning = False
 			return
-		countB = sendMessage(SPLWin, 1024, parem, 32)
+		countB = statusAPI(parem, 32, ret=True)
 		if countA == countB:
 			self.libraryScanning = False
 			if self.SPLCurVersion >= "5.10":
-				countB = sendMessage(SPLWin, 1024, 0, 32)
+				countB = statusAPI(0, 32, ret=True)
 			# Translators: Presented when library scanning is finished.
 			ui.message(_("{itemCount} items in the library").format(itemCount = countB))
 		else:
-			libScanT = threading.Thread(target=self.libraryScanReporter, args=(SPLWin, countA, countB, parem))
+			libScanT = threading.Thread(target=self.libraryScanReporter, args=(_SPLWin, countA, countB, parem))
 			libScanT.daemon = True
 			libScanT.start()
 
-	def libraryScanReporter(self, SPLWin, countA, countB, parem):
+	def libraryScanReporter(self, _SPLWin, countA, countB, parem):
 		scanIter = 0
 		while countA != countB:
+			if not self.libraryScanning: return
 			countA = countB
 			time.sleep(1)
-			# Do not continue if we're back on insert tracks form.
-			if api.getForegroundObject().windowClassName == "TTrackInsertForm":
+			# Do not continue if we're back on insert tracks form or library scan is finished.
+			if api.getForegroundObject().windowClassName == "TTrackInsertForm" or not self.libraryScanning:
 				return
-			countB, scanIter = sendMessage(SPLWin, 1024, parem, 32), scanIter+1
+			countB, scanIter = statusAPI(parem, 32, ret=True), scanIter+1
 			if countB < 0:
 				break
 			if scanIter%5 == 0 and splconfig.SPLConfig["LibraryScanAnnounce"] not in ("off", "ending"):
@@ -1032,7 +1074,8 @@ class AppModule(appModuleHandler.AppModule):
 		self.libraryScanning = False
 		if self.backgroundStatusMonitor: return
 		if splconfig.SPLConfig["LibraryScanAnnounce"] != "off":
-			if splconfig.SPLConfig["BeepAnnounce"]: tones.beep(370, 100)
+			if splconfig.SPLConfig["BeepAnnounce"]:
+				tones.beep(370, 100)
 			else:
 				# Translators: Presented after library scan is done.
 				ui.message(_("Scan complete with {itemCount} items").format(itemCount = countB))
@@ -1049,6 +1092,91 @@ class AppModule(appModuleHandler.AppModule):
 				ui.message("{0}".format(count))
 			else: ui.message(_("{itemCount} items scanned").format(itemCount = count))
 
+	# Place markers.
+	placeMarker = None
+
+	# Is the place marker set on this track?
+	# Track argument is None (only useful for debugging purposes).
+	def isPlaceMarkerTrack(self, track=None):
+		if track is None: track = api.getFocusObject()
+		index = track._indexOf("Filename")
+		filename = track._getColumnContent(index)
+		if self.placeMarker == (index, filename):
+			return True
+		return False
+
+	# Used in delete track workaround routine.
+	def preTrackRemoval(self):
+		if self.isPlaceMarkerTrack(track=api.getFocusObject()):
+			self.placeMarker = None
+
+	# Metadata streaming manager
+	# Obtains information on metadata streaming for each URL, notifying the broadcaster if told to do so upon startup.
+	# Also allows broadcasters to toggle metadata streaming.
+
+	# First, the reminder function.
+	def _metadataAnnouncer(self, reminder=False):
+		# If told to remind and connect, metadata streaming will be enabled at this time.
+		# 6.0: Call Studio API twice - once to set, once more to obtain the needed information.
+		# 6.2/7.0: When Studio API is called, add the value into the stream count list also.
+		if reminder:
+			for url in xrange(5):
+				dataLo = 0x00010000 if splconfig.SPLConfig["MetadataEnabled"][url] else 0xffff0000
+				statusAPI(dataLo | url, 36)
+		dsp = 1 if statusAPI(0, 36, ret=True) == 1 else 0
+		streamCount = []
+		for pos in xrange(1, 5):
+			checked = statusAPI(pos, 36, ret=True)
+			if checked == 1: streamCount.append(pos)
+		# Announce streaming status when told to do so.
+		status = None
+		if not len(streamCount):
+			# Translators: Status message for metadata streaming.
+			if not dsp: status = _("No metadata streaming URL's defined")
+			# Translators: Status message for metadata streaming.
+			else: status = _("Metadata streaming configured for DSP encoder")
+		elif len(streamCount) == 1:
+			# Translators: Status message for metadata streaming.
+			if dsp: status = _("Metadata streaming configured for DSP encoder and URL {URL}").format(URL = streamCount[0])
+			# Translators: Status message for metadata streaming.
+			else: status = _("Metadata streaming configured for URL {URL}").format(URL = streamCount[0])
+		else:
+			urltext = ", ".join([str(stream) for stream in streamCount])
+			# Translators: Status message for metadata streaming.
+			if dsp: status = _("Metadata streaming configured for DSP encoder and URL's {URL}").format(URL = urltext)
+			# Translators: Status message for metadata streaming.
+			else: status = _("Metadata streaming configured for URL's {URL}").format(URL = urltext)
+		if reminder:
+			time.sleep(2)
+			speech.cancelSpeech()
+			queueHandler.queueFunction(queueHandler.eventQueue, ui.message, status)
+			nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_Metadata.wav"))
+		else: ui.message(status)
+
+	# The script version to open the manage metadata URL's dialog.
+	def script_manageMetadataStreams(self, gesture):
+		# Do not even think about opening this dialog if handle to Studio isn't found.
+		if _SPLWin is None:
+			# Translators: Presented when stremaing dialog cannot be shown.
+			ui.message(_("Cannot open metadata streaming dialog"))
+			return
+		if splconfig._configDialogOpened or splconfig._metadataDialogOpened:
+			# Translators: Presented when the add-on config dialog is opened.
+			wx.CallAfter(gui.messageBox, _("The add-on settings dialog or the metadata streaming dialog is opened. Please close the opened dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
+			return
+		try:
+			# Passing in the function object is enough to change the dialog UI.
+			d = splconfig.MetadataStreamingDialog(gui.mainFrame, func=statusAPI)
+			gui.mainFrame.prePopup()
+			d.Raise()
+			d.Show()
+			gui.mainFrame.postPopup()
+			splconfig._metadataDialogOpened = True
+		except RuntimeError:
+			wx.CallAfter(splconfig._alarmError)
+	# Translators: Input help mode message for a command in Station Playlist Studio.
+	script_manageMetadataStreams.__doc__=_("Opens a dialog to quickly enable or disable metadata streaming.")
+
 	# Some handlers for native commands.
 
 	# In Studio 5.0x, when deleting a track, NVDA announces wrong track item due to focus bouncing.
@@ -1056,6 +1184,7 @@ class AppModule(appModuleHandler.AppModule):
 	deletedFocusObj = False
 
 	def script_deleteTrack(self, gesture):
+		self.preTrackRemoval()
 		gesture.send()
 		if self.productVersion.startswith("5.0"):
 			if api.getForegroundObject().windowClassName == "TStudioForm":
@@ -1065,6 +1194,13 @@ class AppModule(appModuleHandler.AppModule):
 					focus.setFocus()
 					self.deletedFocusObj = False
 					focus.setFocus()
+
+	# When Escape is pressed, activate background library scan if conditions are right.
+	def script_escape(self, gesture):
+		gesture.send()
+		if self.libraryScanning:
+			if not libScanT or (libScanT and not libScanT.isAlive()):
+				self.monitorLibraryScan()
 
 
 	# SPL Assistant: reports status on playback, operation, etc.
@@ -1110,13 +1246,11 @@ class AppModule(appModuleHandler.AppModule):
 				return
 			# To prevent entering wrong gesture while the layer is active.
 			self.clearGestureBindings()
-			self.bindGestures(self.__SPLAssistantGestures)
+			# Project Rainbow: choose the required compatibility layer.
+			self.bindGestures(self.__SPLAssistantGestures) if splconfig.SPLConfig["CompatibilityLayer"] == "off" else self.bindGestures(self.__SPLAssistantJFWGestures)
 			self.SPLAssistant = True
-			tones.beep(512, 10)
-			# Because different builds of 5.10 have different object placement...
-			if self.SPLCurVersion >= "5.10" and not self.spl510used:
-				if fg.children[5].role != controlTypes.ROLE_STATUSBAR:
-					self.spl510used = True
+			tones.beep(512, 50)
+			if splconfig.SPLConfig["CompatibilityLayer"] == "jfw": ui.message("JAWS")
 		except WindowsError:
 			return
 	# Translators: Input help mode message for a layer command in Station Playlist Studio.
@@ -1128,6 +1262,7 @@ class AppModule(appModuleHandler.AppModule):
 	SPLSystemStatus = 1
 	SPLHourSelectedDuration = 3
 	SPLNextTrackTitle = 4
+	SPLCurrentTrackTitle = 5
 	SPLTemperature = 6
 	SPLScheduled = 7
 
@@ -1140,6 +1275,7 @@ class AppModule(appModuleHandler.AppModule):
 		SPLHourSelectedDuration:[18, 19], # In case the user selects one or more tracks in a given hour.
 		SPLScheduled:[19, 20], # Time when the selected track will begin.
 		SPLNextTrackTitle:[7, 8], # Name and duration of the next track if any.
+		SPLCurrentTrackTitle:[8, 9], # Name of the currently playing track.
 		SPLTemperature:[6, 7], # Temperature for the current city.
 	}
 
@@ -1152,10 +1288,7 @@ class AppModule(appModuleHandler.AppModule):
 			fg = api.getForegroundObject()
 			if not fg.windowClassName == "TStudioForm":
 				raise RuntimeError("Not focused in playlist viewer")
-			# Only evaluated when SPL Assistant is not invoked first.
-			if fg.children[5].role != controlTypes.ROLE_STATUSBAR:
-				self.spl510used = True
-			if not self.spl510used: statusObj = self.statusObjs[infoIndex][0]
+			if not self.productVersion >= "5.10": statusObj = self.statusObjs[infoIndex][0]
 			else: statusObj = self.statusObjs[infoIndex][1]
 			self._cachedStatusObjs[infoIndex] = fg.children[statusObj]
 		return self._cachedStatusObjs[infoIndex]
@@ -1165,29 +1298,35 @@ class AppModule(appModuleHandler.AppModule):
 	def script_sayPlayStatus(self, gesture):
 		# Please do not translate the following messages.
 		if statusAPI(0, 104, ret=True):
-			ui.message("Play status: Playing")
+			msg = "Play status: Playing" if splconfig.SPLConfig["MessageVerbosity"] == "beginner" else "Playing"
 		else:
-			ui.message("Play status: Stopped")
+			msg = "Play status: Stopped" if splconfig.SPLConfig["MessageVerbosity"] == "beginner" else "Stopped"
+		ui.message(msg)
 
 	def script_sayAutomationStatus(self, gesture):
 		obj = self.status(self.SPLPlayStatus).children[1]
-		ui.message(obj.name)
+		msg = obj.name if splconfig.SPLConfig["MessageVerbosity"] == "beginner" else obj.name.split()[-1]
+		ui.message(msg)
 
 	def script_sayMicStatus(self, gesture):
 		obj = self.status(self.SPLPlayStatus).children[2]
-		ui.message(obj.name)
+		msg = obj.name if splconfig.SPLConfig["MessageVerbosity"] == "beginner" else obj.name.split()[-1]
+		ui.message(msg)
 
 	def script_sayLineInStatus(self, gesture):
 		obj = self.status(self.SPLPlayStatus).children[3]
-		ui.message(obj.name)
+		msg = obj.name if splconfig.SPLConfig["MessageVerbosity"] == "beginner" else obj.name.split()[-1]
+		ui.message(msg)
 
 	def script_sayRecToFileStatus(self, gesture):
 		obj = self.status(self.SPLPlayStatus).children[4]
-		ui.message(obj.name)
+		msg = obj.name if splconfig.SPLConfig["MessageVerbosity"] == "beginner" else obj.name.split()[-1]
+		ui.message(msg)
 
 	def script_sayCartEditStatus(self, gesture):
 		obj = self.status(self.SPLPlayStatus).children[5]
-		ui.message(obj.name)
+		msg = obj.name if splconfig.SPLConfig["MessageVerbosity"] == "beginner" else obj.name.split()[-1]
+		ui.message(msg)
 
 	def script_sayHourTrackDuration(self, gesture):
 		statusAPI(0, 27, self.announceTime)
@@ -1219,6 +1358,19 @@ class AppModule(appModuleHandler.AppModule):
 			self.finish()
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayNextTrackTitle.__doc__=_("Announces title of the next track if any")
+
+	def script_sayCurrentTrackTitle(self, gesture):
+		try:
+			obj = self.status(self.SPLCurrentTrackTitle).firstChild
+			# Translators: Presented when there is no information for the current track.
+			ui.message(_("Cannot locate current track information or no track is playing")) if obj.name is None else ui.message(obj.name)
+		except RuntimeError:
+			# Translators: Presented when current track information is unavailable.
+			ui.message(_("Cannot find current track information"))
+		finally:
+			self.finish()
+	# Translators: Input help mode message for a command in Station Playlist Studio.
+	script_sayCurrentTrackTitle.__doc__=_("Announces title of the next track if any")
 
 	def script_sayTemperature(self, gesture):
 		try:
@@ -1259,10 +1411,9 @@ class AppModule(appModuleHandler.AppModule):
 	def script_libraryScanMonitor(self, gesture):
 		if not self.libraryScanning:
 			if self.productVersion >= "5.10":
-				SPLWin = user32.FindWindowA("SPLStudio", None)
-				scanning = sendMessage(SPLWin, 1024, 1, 32)
+				scanning = statusAPI(1, 32, ret=True)
 				if scanning < 0:
-					items = sendMessage(SPLWin, 1024, 0, 32)
+					items = statusAPI(0, 32, ret=True)
 					ui.message(_("{itemCount} items in the library").format(itemCount = items))
 					return
 			self.libraryScanning = True
@@ -1273,9 +1424,122 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: Presented when library scan is already in progress.
 			ui.message(_("Scanning is in progress"))
 
+	# Track time analysis: return total length of the selected tracks upon request.
+	# Analysis command will be assignable.
+	_analysisMarker = None
+
+	def _trackAnalysisAllowed(self):
+		if api.getForegroundObject().windowClassName != "TStudioForm":
+			# Translators: Presented when track time anlaysis cannot be performed because user is not focused on playlist viewer.
+			ui.message(_("Not in playlist viewer, cannot perform track time analysis"))
+			return False
+		return True
+
+	def script_markTrackForAnalysis(self, gesture):
+		self.finish()
+		if self._trackAnalysisAllowed():
+			focus = api.getFocusObject()
+			if focus.role == controlTypes.ROLE_LIST:
+				# Translators: Presented when track time analysis cannot be activated.
+				ui.message(_("No tracks were added, cannot perform track time analysis"))
+				return
+			if scriptHandler.getLastScriptRepeatCount() == 0:
+				self._analysisMarker = focus.IAccessibleChildID-1
+				# Translators: Presented when track time analysis is turned on.
+				ui.message(_("Track time analysis activated"))
+			else:
+				self._analysisMarker = None
+				# Translators: Presented when track time analysis is turned off.
+				ui.message(_("Track time analysis deactivated"))
+	# Translators: Input help mode message for a command in Station Playlist Studio.
+	script_markTrackForAnalysis.__doc__=_("Marks focused track as start marker for track time analysis")
+
+	def script_trackTimeAnalysis(self, gesture):
+		self.finish()
+		if self._trackAnalysisAllowed():
+			focus = api.getFocusObject()
+			if focus.role == controlTypes.ROLE_LIST:
+				ui.message(_("No tracks were added, cannot perform track time analysis"))
+				return
+			if self._analysisMarker is None:
+				# Translators: Presented when track time analysis cannot be used because start marker is not set.
+				ui.message(_("No track selected as start of analysis marker, cannot perform time analysis"))
+				return
+			trackPos = focus.IAccessibleChildID-1
+			if self._analysisMarker == trackPos:
+				filename = statusAPI(self._analysisMarker, 211, ret=True)
+				statusAPI(filename, 30, func=self.announceTime)
+			else:
+				analysisBegin = min(self._analysisMarker, trackPos)
+				analysisEnd = max(self._analysisMarker, trackPos)
+				analysisRange = analysisEnd-analysisBegin+1
+				totalLength = 0
+				for track in xrange(analysisBegin, analysisEnd+1):
+					filename = statusAPI(track, 211, ret=True)
+					totalLength+=statusAPI(filename, 30, ret=True)
+				# Translators: Presented when time analysis is done for a number of tracks (example output: Tracks: 3, totaling 5:00).
+				ui.message(_("Tracks: {numberOfSelectedTracks}, totaling {totalTime}").format(numberOfSelectedTracks = analysisRange, totalTime = self._ms2time(totalLength)))
+	# Translators: Input help mode message for a command in Station Playlist Studio.
+	script_trackTimeAnalysis.__doc__=_("Announces total length of tracks between analysis start marker and the current track")
+
+	def script_switchProfiles(self, gesture):
+		splconfig.instantProfileSwitch()
+
+	def script_setPlaceMarker(self, gesture):
+		obj = api.getFocusObject()
+		try:
+			index = obj._indexOf("Filename")
+		except AttributeError:
+			# Translators: Presented when place marker cannot be set.
+			ui.message(_("No tracks found, cannot set place marker"))
+			return
+		filename = obj._getColumnContent(index)
+		if filename:
+			self.placeMarker = (index, filename)
+			# Translators: Presented when place marker track is set.
+			ui.message(_("place marker set"))
+		else:
+			# Translators: Presented when attempting to place a place marker on an unsupported track.
+			ui.message(_("This track cannot be used as a place marker track"))
+
+	def script_findPlaceMarker(self, gesture):
+		if self.placeMarker is None:
+			# Translators: Presented when no place marker is found.
+			ui.message(_("No place marker found"))
+		else:
+			track = self._trackLocator(self.placeMarker[1], obj=api.getFocusObject().parent.firstChild, columns=[self.placeMarker[0]])
+			track.setFocus(), track.setFocus()
+
+	def script_metadataStreamingAnnouncer(self, gesture):
+		self._metadataAnnouncer()
+
+	# Gesture(s) for the following script cannot be changed by users.
+	def script_metadataEnabled(self, gesture):
+		url = int(gesture.displayName[-1])
+		checked = statusAPI(url, 36, ret=True)
+		if checked == 1:
+			# 0 is DSP encoder status, others are servers.
+			if url:
+				# Translators: Status message for metadata streaming.
+				status = _("Metadata streaming on URL {URLPosition} enabled").format(URLPosition = url)
+			else:
+				# Translators: Status message for metadata streaming.
+				status = _("Metadata streaming on DSP encoder enabled")
+		else:
+			if url:
+				# Translators: Status message for metadata streaming.
+				status = _("Metadata streaming on URL {URLPosition} disabled").format(URLPosition = url)
+			else:
+				# Translators: Status message for metadata streaming.
+				status = _("Metadata streaming on DSP encoder disabled")
+		ui.message(status)
+
 	def script_layerHelp(self, gesture):
 		# Translators: The title for SPL Assistant help dialog.
 		wx.CallAfter(gui.messageBox, SPLAssistantHelp, _("SPL Assistant help"))
+
+	def script_openOnlineDoc(self, gesture):
+		os.startfile("https://bitbucket.org/nvdaaddonteam/stationplaylist/wiki/SPLDevAddonGuide")
 
 
 	__SPLAssistantGestures={
@@ -1291,12 +1555,59 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:y":"sayPlaylistModified",
 		"kb:u":"sayUpTime",
 		"kb:n":"sayNextTrackTitle",
+		"kb:c":"sayCurrentTrackTitle",
 		"kb:w":"sayTemperature",
 		"kb:i":"sayListenerCount",
 		"kb:s":"sayScheduledTime",
 		"kb:shift+p":"sayTrackPitch",
 		"kb:shift+r":"libraryScanMonitor",
+		"kb:f9":"markTrackForAnalysis",
+		"kb:f10":"trackTimeAnalysis",
+		"kb:f12":"switchProfiles",
+		"kb:Control+k":"setPlaceMarker",
+		"kb:k":"findPlaceMarker",
+		"kb:e":"metadataStreamingAnnouncer",
+		"kb:1":"metadataEnabled",
+		"kb:2":"metadataEnabled",
+		"kb:3":"metadataEnabled",
+		"kb:4":"metadataEnabled",
+		"kb:0":"metadataEnabled",
 		"kb:f1":"layerHelp",
+		"kb:shift+f1":"openOnlineDoc",
+	}
+
+	__SPLAssistantJFWGestures={
+		"kb:p":"sayPlayStatus",
+		"kb:a":"sayAutomationStatus",
+		"kb:m":"sayMicStatus",
+		"kb:shift+l":"sayLineInStatus",
+		"kb:shift+e":"sayRecToFileStatus",
+		"kb:t":"sayCartEditStatus",
+		"kb:h":"sayHourTrackDuration",
+		"kb:shift+h":"sayHourSelectedTrackDuration",
+		"kb:r":"sayPlaylistRemainingDuration",
+		"kb:y":"sayPlaylistModified",
+		"kb:u":"sayUpTime",
+		"kb:n":"sayNextTrackTitle",
+		"kb:c":"sayCurrentTrackTitle",
+		"kb:w":"sayTemperature",
+		"kb:l":"sayListenerCount",
+		"kb:s":"sayScheduledTime",
+		"kb:shift+p":"sayTrackPitch",
+		"kb:shift+r":"libraryScanMonitor",
+		"kb:f9":"markTrackForAnalysis",
+		"kb:f10":"trackTimeAnalysis",
+		"kb:f12":"switchProfiles",
+		"kb:Control+k":"setPlaceMarker",
+		"kb:k":"findPlaceMarker",
+		"kb:e":"metadataStreamingAnnouncer",
+		"kb:1":"metadataEnabled",
+		"kb:2":"metadataEnabled",
+		"kb:3":"metadataEnabled",
+		"kb:4":"metadataEnabled",
+		"kb:0":"metadataEnabled",
+		"kb:f1":"layerHelp",
+		"kb:shift+f1":"openOnlineDoc",
 	}
 
 	__gestures={
@@ -1321,5 +1632,6 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:control+NVDA+0":"openConfigDialog",
 		"kb:Shift+delete":"deleteTrack",
 		"kb:Shift+numpadDelete":"deleteTrack",
+		"kb:escape":"escape",
 		#"kb:control+nvda+`":"SPLAssistantToggle"
 	}
