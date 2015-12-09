@@ -320,14 +320,17 @@ def instantProfileSwitch():
 
 # Propagate changes from one profile to others.
 # This is needed if global settings are changed while an instant switch profile is active.
+# The key argument is meant for toggle scripts and controls exactly which setting to propagate.
 # A more elegant function will be implemented in add-on 7.0.
-def _propagateChanges():
+def _propagateChanges(key=None):
 	global SPLConfigPool, SPLConfig
-	globalSettings = set(_SPLDefaults) - set(_mutatableSettings)
+	if key is None: globalSettings = set(_SPLDefaults) - set(_mutatableSettings)
 	for profile in xrange(len(SPLConfigPool)):
 		if profile == getProfileIndexByName(SPLConfig.name): continue
-		for setting in globalSettings:
-			SPLConfigPool[profile][setting] = SPLConfig[setting]
+		# 6.1 (optimization): Change the setting indicated by the key argument, improves performance slightly.
+		if key is not None: SPLConfigPool[profile][key] = SPLConfig[key]
+		else:
+			for setting in globalSettings: SPLConfigPool[profile][setting] = SPLConfig[setting]
 
 # Configuration dialog.
 _configDialogOpened = False
