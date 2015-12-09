@@ -28,9 +28,9 @@ import braille
 import touchHandler
 import gui
 import wx
-from winUser import user32, sendMessage
+from winUser import user32, sendMessage, OBJID_CLIENT
 import winKernel
-from NVDAObjects.IAccessible import IAccessible
+from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent
 import textInfos
 import tones
 import splconfig
@@ -1296,8 +1296,9 @@ class AppModule(appModuleHandler.AppModule):
 		# Look up the cached objects first for faster response.
 		if not infoIndex in self._cachedStatusObjs:
 			fg = api.getForegroundObject()
-			if not fg.windowClassName == "TStudioForm":
-				raise RuntimeError("Not focused in playlist viewer")
+			if fg.windowClassName != "TStudioForm":
+				# 6.1: Allow gesture-based functions to look up status information even if Studio window isn't focused.
+				fg = getNVDAObjectFromEvent(user32.FindWindowA("TStudioForm", None), OBJID_CLIENT, 0)
 			if not self.productVersion >= "5.10": statusObj = self.statusObjs[infoIndex][0]
 			else: statusObj = self.statusObjs[infoIndex][1]
 			self._cachedStatusObjs[infoIndex] = fg.children[statusObj]
