@@ -342,6 +342,9 @@ def instantProfileSwitch():
 			# Use the focus.appModule's metadata reminder method if told to do so now.
 			if SPLConfig["MetadataReminder"] in ("startup", "instant"):
 				api.getFocusObject().appModule._metadataAnnouncer(reminder=True)
+			# Pause automatic update checking.
+			if SPLConfig["AutoUpdateCheck"]:
+				if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning: splupdate._SPLUpdateT.Stop()
 		else:
 			SPLConfig = SPLConfigPool[SPLPrevProfile]
 			SPLActiveProfile = SPLConfig.name
@@ -351,6 +354,8 @@ def instantProfileSwitch():
 			# 6.1: Don't forget to switch streaming status around.
 			if SPLConfig["MetadataReminder"] in ("startup", "instant"):
 				api.getFocusObject().appModule._metadataAnnouncer(reminder=True)
+			# Resume auto update checker if told to do so.
+			if SPLConfig["AutoUpdateCheck"]: updateInit()
 
 
 # Automatic update checker.

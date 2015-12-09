@@ -1624,7 +1624,7 @@ class AppModule(appModuleHandler.AppModule):
 		wx.CallAfter(gui.messageBox, SPLAssistantHelp[compatibility], title)
 
 	def script_openOnlineDoc(self, gesture):
-		os.startfile("https://bitbucket.org/nvdaaddonteam/stationplaylist/wiki/SPLAddonGuide")
+		os.startfile("https://bitbucket.org/nvdaaddonteam/stationplaylist/wiki/SPLDevAddonGuide")
 
 	def script_updateCheck(self, gesture):
 		if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
