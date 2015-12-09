@@ -21,7 +21,6 @@ addon_info = {
 In addition, adds global commands for the studio from everywhere."""),
 	# version
 	"addon_version" : "6.1-dev",
-	"addon_version" : "6.0",
 	# Author(s)
 	"addon_author" : u"Geoff Shang, Joseph Lee and other contributors",
 	# URL for the add-on documentation support
