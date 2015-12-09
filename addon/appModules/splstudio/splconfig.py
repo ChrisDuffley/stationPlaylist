@@ -334,7 +334,8 @@ def instantProfileSwitch():
 				return
 			# Switch to the given profile.
 			switchProfileIndex = getProfileIndexByName(SPLSwitchProfile)
-			SPLPrevProfile = SPLConfigPool.index(SPLConfig)
+			# 6.1: Do to referencing nature of Python, use the profile index function to locate the index for the soon to be deactivated profile.
+			SPLPrevProfile = getProfileIndexByName(SPLActiveProfile)
 			SPLConfig = SPLConfigPool[switchProfileIndex]
 			# Translators: Presented when switch to instant switch profile was successful.
 			ui.message(_("Switching profiles"))
@@ -347,7 +348,7 @@ def instantProfileSwitch():
 			SPLPrevProfile = None
 			# Translators: Presented when switching from instant switch profile to a previous profile.
 			ui.message(_("Returning to previous profile"))
-			# 6.2: Don't forget to switch streaming status around.
+			# 6.1: Don't forget to switch streaming status around.
 			if SPLConfig["MetadataReminder"] in ("startup", "instant"):
 				api.getFocusObject().appModule._metadataAnnouncer(reminder=True)
 
@@ -710,7 +711,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 	def onCancel(self, evt):
 		global _configDialogOpened, SPLActiveProfile, SPLSwitchProfile, SPLConfig
 		# 6.1: Discard changes to included columns set.
-		print len(self.includedColumns)
 		self.includedColumns.clear()
 		self.includedColumns = None
 		SPLActiveProfile = self.activeProfile
@@ -1088,7 +1088,7 @@ class MetadataStreamingDialog(wx.Dialog):
 
 		if self.func is not None:
 			self.applyCheckbox=wx.CheckBox(self,wx.NewId(),label="&Apply streaming changes to the selected profile")
-			self.applyCheckbox.SetValue(False)
+			self.applyCheckbox.SetValue(True)
 			mainSizer.Add(self.applyCheckbox, border=10,flag=wx.TOP)
 
 		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
@@ -1214,11 +1214,8 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 		parent.includedColumns.add("Artist")
 		parent.includedColumns.add("Title")
 		for checkbox in self.checkedColumns + self.checkedColumns2 + self.checkedColumns3:
-			action = parent.includedColumns.add if checkbox.Value else parent.includedColumns.remove
-			try:
-				action(checkbox.Label)
-			except KeyError:
-				pass
+			action = parent.includedColumns.add if checkbox.Value else parent.includedColumns.discard
+			action(checkbox.Label)
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()

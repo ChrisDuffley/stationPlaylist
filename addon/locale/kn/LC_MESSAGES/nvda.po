@@ -9,12 +9,12 @@ msgstr ""
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2015-07-10 19:00+1000\n"
 "PO-Revision-Date: 2015-08-13 18:48+0530\n"
+"Last-Translator: siddalingeshwar ingalagi <ingalagisiddu@gmail.com>\n"
+"Language-Team: \n"
 "Language: kn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Last-Translator: siddalingeshwar ingalagi <ingalagisiddu@gmail.com>\n"
-"Language-Team: \n"
 "X-Generator: Poedit 1.7.1\n"
 
 #. Translators: Presented when only Track Tool is running (Track Dial requires Studio to be running as well).
@@ -163,7 +163,9 @@ msgstr "ವಾಹಕದ ಅನ್ವೇಶಕವು  ಸಕ್ರೀಯಗೊಂ
 
 #. Translators: Presented when cart edit mode is toggled off while cart explorer is on.
 msgid "Please reenter cart explorer to view updated cart assignments"
-msgstr "ವಾಹಕದ ಹೊಸತು ನಿಯೋಜಿತಗಳ  ಮಾಹಿತಿಯನ್ನು ತಿಳಿದುಕೊಳ್ಳಲು ದಯವಿಟ್ಟು ಮತ್ತೊಮ್ಮೆ ವಾಹಕದ ಅನ್ವೇಶಕವನ್ನು ಹೊತ್ತಿರಿ"
+msgstr ""
+"ವಾಹಕದ ಹೊಸತು ನಿಯೋಜಿತಗಳ  ಮಾಹಿತಿಯನ್ನು ತಿಳಿದುಕೊಳ್ಳಲು ದಯವಿಟ್ಟು ಮತ್ತೊಮ್ಮೆ ವಾಹಕದ "
+"ಅನ್ವೇಶಕವನ್ನು ಹೊತ್ತಿರಿ"
 
 #. Translators: Presented in braille when microphone was on for more than a specified time in microphone alarm dialog.
 msgid "Warning: Microphone active"
@@ -206,7 +208,8 @@ msgid "Announces time including seconds."
 msgstr "ಸೆಕೆಂಡ್ಸ್ ಜೊತೆಗೆ ಸಮಯವನ್ನು ಹೇಳುತ್ತದೆ."
 
 #. Translators: Presented when the add-on config dialog is opened.
-msgid "The add-on settings dialog is opened. Please close the settings dialog first."
+msgid ""
+"The add-on settings dialog is opened. Please close the settings dialog first."
 msgstr "ಹೆಚ್ಚುವರಿ ತಂತ್ರಾಂಶದ ಸಂರಚನಾ ಸಂವಾದವು ತೆರೆದಿದೆ. ದಯವಿಟ್ಟು ಮೊದಲು ಅದನ್ನು ಮುಚ್ಚಿರಿ"
 
 #. Translators: Standard title for error dialog (copy this from main nvda.po file).
@@ -221,7 +224,9 @@ msgstr "ಕೊನೆಯ ಹಾಡಿನ ಎಚ್ಚರ"
 #. Translators: A dialog message to set end of track alarm (curAlarmSec is the current end of track alarm in seconds).
 #, python-brace-format
 msgid "Enter &end of track alarm time in seconds (currently {curAlarmSec})"
-msgstr "(currently {curAlarmSec}) ಕೊನೆಗೊಳಿಸಬೇಕಾದ ಹಾಡಿನ ಎಚ್ಚರಿಸುವಿಕೆಯನ್ನು ಸೆಕೆಂಡ್ಸ್ಗಳಲ್ಲಿ ನಮೂದಿಸಿರಿ."
+msgstr ""
+"(currently {curAlarmSec}) ಕೊನೆಗೊಳಿಸಬೇಕಾದ ಹಾಡಿನ ಎಚ್ಚರಿಸುವಿಕೆಯನ್ನು ಸೆಕೆಂಡ್ಸ್ಗಳಲ್ಲಿ "
+"ನಮೂದಿಸಿರಿ."
 
 #. Translators: A check box to toggle notification of end of track alarm.
 #. Check box hiding method comes from Alberto Buffolino's Columns Review add-on.
@@ -240,7 +245,9 @@ msgstr "ಹಾಡಿನ ಕುರಿತಾಗಿರುವ ತಿಳಿಸುವ�
 #. Translators: A dialog message to set song ramp alarm (curRampSec is the current intro monitoring alarm in seconds).
 #, python-brace-format
 msgid "Enter song &intro alarm time in seconds (currently {curRampSec})"
-msgstr "ಸೆಕೆಂಡ್ಸ್ಗಳಲ್ಲಿ ಹಾಡಿನ ಪರಿಚಯವನ್ನು ತಿಳಿಸುವ ಸಮಯವನ್ನು & ನಮೂದಿಸಿರಿ (currently {curRampSec})"
+msgstr ""
+"ಸೆಕೆಂಡ್ಸ್ಗಳಲ್ಲಿ ಹಾಡಿನ ಪರಿಚಯವನ್ನು ತಿಳಿಸುವ ಸಮಯವನ್ನು & ನಮೂದಿಸಿರಿ (currently "
+"{curRampSec})"
 
 #. Translators: A check box to toggle notification of end of intro alarm.
 #. Translators: Label for a check box in SPL add-on settings to notify when end of intro is approaching.
@@ -253,12 +260,20 @@ msgstr "ಹಾಡಿನ  ಪರಿಚಯದ ಸಮಯವನ್ನು (default is
 
 #. Translators: A dialog message to set microphone active alarm (curAlarmSec is the current mic monitoring alarm in seconds).
 #, python-brace-format
-msgid "Enter microphone alarm time in seconds (currently {curAlarmSec}, 0 disables the alarm)"
-msgstr "ಮೈಕ್ರೋ ಫೋನ್ ಸಮಯವನ್ನು ತಿಳಿಸಲು ಸೆಕೆಂಡ್ಸ್ಗಳಲ್ಲಿ ನಮೂದಿಸಿರಿ (currently {curAlarmSec}, 0 disables the alarm)"
+msgid ""
+"Enter microphone alarm time in seconds (currently {curAlarmSec}, 0 disables "
+"the alarm)"
+msgstr ""
+"ಮೈಕ್ರೋ ಫೋನ್ ಸಮಯವನ್ನು ತಿಳಿಸಲು ಸೆಕೆಂಡ್ಸ್ಗಳಲ್ಲಿ ನಮೂದಿಸಿರಿ (currently {curAlarmSec}, 0 "
+"disables the alarm)"
 
 #. Translators: A dialog message when microphone alarm is disabled (set to 0).
-msgid "Enter microphone alarm time in seconds (currently disabled, 0 disables the alarm)"
-msgstr "ಮೈಕ್ರೋ ಫೋನ್ ಸಮಯವನ್ನು ತಿಳಿಸಲು ಸೆಕೆಂಡ್ಸ್ಗಳಲ್ಲಿ ನಮೂದಿಸಿರಿ (currently disabled, 0 disables the alarm)"
+msgid ""
+"Enter microphone alarm time in seconds (currently disabled, 0 disables the "
+"alarm)"
+msgstr ""
+"ಮೈಕ್ರೋ ಫೋನ್ ಸಮಯವನ್ನು ತಿಳಿಸಲು ಸೆಕೆಂಡ್ಸ್ಗಳಲ್ಲಿ ನಮೂದಿಸಿರಿ (currently disabled, 0 "
+"disables the alarm)"
 
 #. Translators: The title of mic alarm dialog.
 msgid "Microphone alarm"
@@ -350,11 +365,15 @@ msgstr "ಹಿಂದಿನ    ಹಾಡನ್ನು ಹೆಸರೊಂದಿಗ�
 
 #. Translators: Presented when cart explorer cannot be entered.
 msgid "You are not in playlist viewer, cannot enter cart explorer"
-msgstr "ನೀವು ಹಾಡುಗಳನ್ನು ಹಾಡಿಸುವಿಕೆಯ ಪಟ್ಟಿಯ ವೀಕ್ಷಣೆಯಲ್ಲಿಲ್ಲ, ಆದ್ದರಿಂದ ಕಾರ್ಟ್ ಎಕ್ಸ್ಪ್ಲೋರರ್ರನ್ನು ನಮೂದಿಸಲು ಆಗದು."
+msgstr ""
+"ನೀವು ಹಾಡುಗಳನ್ನು ಹಾಡಿಸುವಿಕೆಯ ಪಟ್ಟಿಯ ವೀಕ್ಷಣೆಯಲ್ಲಿಲ್ಲ, ಆದ್ದರಿಂದ ಕಾರ್ಟ್ ಎಕ್ಸ್ಪ್ಲೋರರ್ರನ್ನು "
+"ನಮೂದಿಸಲು ಆಗದು."
 
 #. Translators: presented when cart explorer could not be switched on.
 msgid "Some or all carts could not be assigned, cannot enter cart explorer"
-msgstr "ಕೆಲವು ಅಥವಾ ಎಲ್ಲಾ ಕಾರ್ಟ್ಗಳನ್ನು ನಿಯೋಜಿಸಿಲ್ಲ, ಆದ್ದರಿಂದ ಕಾರ್ಟ್ ಎಕ್ಸ್ಪ್ಲೋರರ್ರನ್ನು ನಮೂದಿಸಲು ಆಗದು."
+msgstr ""
+"ಕೆಲವು ಅಥವಾ ಎಲ್ಲಾ ಕಾರ್ಟ್ಗಳನ್ನು ನಿಯೋಜಿಸಿಲ್ಲ, ಆದ್ದರಿಂದ ಕಾರ್ಟ್ ಎಕ್ಸ್ಪ್ಲೋರರ್ರನ್ನು ನಮೂದಿಸಲು "
+"ಆಗದು."
 
 #. Translators: Presented when cart explorer is on.
 msgid "Entering cart explorer"
@@ -420,8 +439,12 @@ msgid "{itemCount} items scanned"
 msgstr "{itemCount} ಅಂಶಗಳು ಸ್ಕ್ಯಾನ್ ಆದವು"
 
 #. Translators: Input help mode message for a layer command in Station Playlist Studio.
-msgid "The SPL Assistant layer command. See the add-on guide for more information on available commands."
-msgstr "spl ಸಹಾಯಕದ ಆದೇಶಗಳ ಪರದೆ. ಹೆಚ್ಚಿನ ವಿವರಗಳಿಗೆ ಹೆಚ್ಚುವರಿ ತಂತ್ರಾಂಶದ ಮಾರ್ಗಸೂಚಿಕೆಯನ್ನು ನೋಡಿ."
+msgid ""
+"The SPL Assistant layer command. See the add-on guide for more information "
+"on available commands."
+msgstr ""
+"spl ಸಹಾಯಕದ ಆದೇಶಗಳ ಪರದೆ. ಹೆಚ್ಚಿನ ವಿವರಗಳಿಗೆ ಹೆಚ್ಚುವರಿ ತಂತ್ರಾಂಶದ ಮಾರ್ಗಸೂಚಿಕೆಯನ್ನು "
+"ನೋಡಿ."
 
 #. Translators: Presented when playlist modification is unavailable (for Studio 4.33 and earlier)
 msgid "Playlist modification not available"
@@ -484,13 +507,20 @@ msgid "Studio add-on Configuration error"
 msgstr "ಸ್ಟೂಡಿಯೊ ಸಂರಚನೆಗಳ ದೋಷ"
 
 #. Translators: Standard dialog message when Studio configuration has problems and was reset to defaults.
-msgid "Your Studio add-on configuration has errors and was reset to factory defaults."
-msgstr "ಸ್ಟೂಡಿಯೊದ ಹೆಚ್ಚುವರಿ ತಂತ್ರಾಂಶದ ಸಂರಚನೆಗಳಲ್ಲಿ ದೋಷವಿದ್ದುದ್ದರಿಂದ ಅದನ್ನು ಪೂರ್ವನಿಯೋಜಿತ ಸಂರಚನೆಗಳಿಗೆ ಹೊಂದಿಸಲಾಗಿದೆ."
+msgid ""
+"Your Studio add-on configuration has errors and was reset to factory "
+"defaults."
+msgstr ""
+"ಸ್ಟೂಡಿಯೊದ ಹೆಚ್ಚುವರಿ ತಂತ್ರಾಂಶದ ಸಂರಚನೆಗಳಲ್ಲಿ ದೋಷವಿದ್ದುದ್ದರಿಂದ ಅದನ್ನು ಪೂರ್ವನಿಯೋಜಿತ "
+"ಸಂರಚನೆಗಳಿಗೆ ಹೊಂದಿಸಲಾಗಿದೆ."
 
 #. Translators: Standard dialog message when some Studio configuration settings were reset to defaults.
 msgid ""
-"Errors were found in some of your Studio configuration settings. The affected settings were reset to defaults."
-msgstr "ಹೆಚ್ಚುವರಿ ತಂತ್ರಾಂಶದ ಕೆಲವು ಸಂರಚನೆಗಳಲ್ಲಿ ದೋಷ ಕಂಡುಬಂದಿದೆ. ಮುಂಚಿನ ಸಂರಚನೆಗಳಿಗೆ ಹೊಂದಿಸಲಾಗಿದೆ."
+"Errors were found in some of your Studio configuration settings. The "
+"affected settings were reset to defaults."
+msgstr ""
+"ಹೆಚ್ಚುವರಿ ತಂತ್ರಾಂಶದ ಕೆಲವು ಸಂರಚನೆಗಳಲ್ಲಿ ದೋಷ ಕಂಡುಬಂದಿದೆ. ಮುಂಚಿನ ಸಂರಚನೆಗಳಿಗೆ "
+"ಹೊಂದಿಸಲಾಗಿದೆ."
 
 #. Translators: This is the label for the StationPlaylist Studio configuration dialog.
 msgid "Studio Add-on Settings"
@@ -561,6 +591,11 @@ msgstr "ಕೇಳುತ್ತಿರುವವರ ಎಣಿಕೆ & ಹೇಳು"
 
 #. Translators: the label for a setting in SPL add-on settings to announce currently playing cart.
 msgid "&Announce name of the currently playing cart"
+msgstr "& ಈಗ ಹಾಡುತ್ತಿರುವುದನ್ನು ಹೇಳು"
+
+#. Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
+#, fuzzy
+msgid "Announce name of the currently playing &track automatically"
 msgstr "& ಈಗ ಹಾಡುತ್ತಿರುವುದನ್ನು ಹೇಳು"
 
 #. Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
@@ -636,7 +671,9 @@ msgid "Moves to SPL Studio window from other programs."
 msgstr "ಮತ್ತೊಂದು ಕಾರ್ಯಕ್ರಮದಿಂದ spl ಸ್ಟೂಡಿಯೋ ಕಿಟಕಿಗೆ ಚಲಿಸುತ್ತದೆ."
 
 #. Translators: Presented when NVDA cannot enter SPL Controller layer since SPL Studio is focused.
-msgid "You are already in SPL Studio window. For status commands, use SPL Assistant commands."
+msgid ""
+"You are already in SPL Studio window. For status commands, use SPL Assistant "
+"commands."
 msgstr "ಈಗಾಗಲೆ SPL ಸ್ಟೂಡಿಯೋ ಕಿಟಕಿಯಲ್ಲಿದ್ದೀರಿ. ಸ್ಥಿತಿಯ ಆದೇಶಕ್ಕಾಗಿ spl ನೆರವನ್ನು ಬಳಸಿ."
 
 #. Translators: The name of a layer command set for Station Playlist Studio.
@@ -667,7 +704,9 @@ msgstr "ಯಾವುದೇ ಎಂಕೋಡರ್ಗಳನ್ನು ಮೇಲ್�
 #. Translators: Announces number of encoders being monitored in the background.
 #, python-brace-format
 msgid "Number of encoders monitored: {numberOfEncoders}: {streamLabels}"
-msgstr "ಹಲವು ಎಂಕೋಡರ್ಗಳನ್ನು ಮೇಲ್ವಿಚಾರಣೆಗೆ ಒಳಪಡಿಸಲಾಗಿದೆ: {numberOfEncoders}: {streamLabels}"
+msgstr ""
+"ಹಲವು ಎಂಕೋಡರ್ಗಳನ್ನು ಮೇಲ್ವಿಚಾರಣೆಗೆ ಒಳಪಡಿಸಲಾಗಿದೆ: {numberOfEncoders}: "
+"{streamLabels}"
 
 #. Translators: Status message for encoder monitoring.
 #, python-brace-format
@@ -683,7 +722,9 @@ msgid "Do not switch to Studio after connecting"
 msgstr "ಸಂಪರ್ಕಗೊಂಡಾಗ ಸ್ಟೂಡಿಯೊವನ್ನು ಆರಂಭಿಸಬೇಡ"
 
 #. Translators: Input help mode message in SAM Encoder window.
-msgid "Toggles whether NVDA will switch to Studio when connected to a streaming server."
+msgid ""
+"Toggles whether NVDA will switch to Studio when connected to a streaming "
+"server."
 msgstr "ಸರ್ವರ್ಗೆ ಸಂಪರ್ಕಗೊಂಡಾಗ nvda ಯನ್ನು ಸಕ್ರೀಯಗೊಳಿಸುತ್ತದೆ"
 
 #. Translators: Presented when toggling the setting to play selected song when connected to a streaming server.
@@ -695,7 +736,9 @@ msgid "Do not play first track after connecting"
 msgstr "ಸಂಪರ್ಕಗೊಂಡಾಗ ಮೊದಲ ಹಾಡನ್ನು ಹಾಡಿಸದಿರಿ"
 
 #. Translators: Input help mode message in SAM Encoder window.
-msgid "Toggles whether Studio will play the first song when connected to a streaming server."
+msgid ""
+"Toggles whether Studio will play the first song when connected to a "
+"streaming server."
 msgstr "ಸರ್ವರ್ಗೆ ಸಂಪರ್ಕಗೊಂಡಾಗ ಸ್ಟೂಡಿಯೊ ಮೊದಲ ಹಾಡನ್ನು ಆಡಿಸಲಿಕ್ಕೆ  ಬದಲಿಸುತ್ತದೆ."
 
 #. Multiple encoders.
@@ -714,8 +757,10 @@ msgid "Encoder monitoring canceled"
 msgstr "ಎಂಕೋಡರ್ನ ಮೇಲ್ವಿಚಾರಣೆಯು ರದ್ದುಗೊಂಡಿದೆ"
 
 #. Translators: Input help mode message in SAM Encoder window.
-msgid "Toggles whether NVDA will monitor the selected encoder in the background."
-msgstr "ಹಿನ್ನೆಲೆಯಲ್ಲಿ ಆಯ್ಕೆಗೊಂಡಿರುವ ಎಂಕೋಡರ್ನ ಮೇಲ್ವಿಚಾರಣೆಯನ್ನು ಮಾಡಲು NVDA ವಹಿಸಲು ಬದಲಿಸುತ್ತದೆ."
+msgid ""
+"Toggles whether NVDA will monitor the selected encoder in the background."
+msgstr ""
+"ಹಿನ್ನೆಲೆಯಲ್ಲಿ ಆಯ್ಕೆಗೊಂಡಿರುವ ಎಂಕೋಡರ್ನ ಮೇಲ್ವಿಚಾರಣೆಯನ್ನು ಮಾಡಲು NVDA ವಹಿಸಲು ಬದಲಿಸುತ್ತದೆ."
 
 #. Translators: The title of the stream labeler dialog (example: stream labeler for 1).
 #, python-brace-format
@@ -743,7 +788,9 @@ msgid "Opens a dialog to erase stream labels from an encoder that was deleted."
 msgstr "ಅಳಿಸಲ್ಪಟ್ಟ ಎಂಕೋಡರ್ನಿಂದ  ಲೇಬಲ್ ಸ್ಟ್ರೀಮ್ ಸಂವಾದವನ್ನು ತೆರೆಯುತ್ತದೆ."
 
 #. Translators: Input help mode message for report date and time command.
-msgid "If pressed once, reports the current time including seconds. If pressed twice, reports the current date"
+msgid ""
+"If pressed once, reports the current time including seconds. If pressed "
+"twice, reports the current date"
 msgstr ""
 "ಒಮ್ಮೆ ಒತ್ತಿದರೆ ಸೆಕೆಂಡ್ಸ್ಗಳೊಂದಿಗೆ ಸಮಯವನ್ನು  ಹೇಳುತ್ತದೆ.\n"
 "ಎರಡು ಸಲ ತತಕ್ಷಣ ಒತ್ತಿದರೆ, ಪ್ರಸ್ತುತದ ದಿನಾಂಕವನ್ನು ಹೇಳುತ್ತದೆ."
