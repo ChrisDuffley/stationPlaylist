@@ -1007,7 +1007,7 @@ class MetadataStreamingDialog(wx.Dialog):
 
 		if self.func is not None:
 			self.applyCheckbox=wx.CheckBox(self,wx.NewId(),label="&Apply streaming changes to the selected profile")
-			self.applyCheckbox.SetValue(False)
+			self.applyCheckbox.SetValue(True)
 			mainSizer.Add(self.applyCheckbox, border=10,flag=wx.TOP)
 
 		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
@@ -1133,11 +1133,8 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 		parent.includedColumns.add("Artist")
 		parent.includedColumns.add("Title")
 		for checkbox in self.checkedColumns + self.checkedColumns2 + self.checkedColumns3:
-			action = parent.includedColumns.add if checkbox.Value else parent.includedColumns.remove
-			try:
-				action(checkbox.Label)
-			except KeyError:
-				pass
+			action = parent.includedColumns.add if checkbox.Value else parent.includedColumns.discard
+			action(checkbox.Label)
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()
