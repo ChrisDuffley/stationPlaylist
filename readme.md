@@ -53,8 +53,9 @@ The following commands are available when using Sam or SPL encoders:
 * F11: Toggles whether NVDA will switch to Studio window for the selected encoder if connected.
 * Shift+F11: Toggles whether Studio will play the first selected track when encoder is connected to a streaming server.
 * Control+F11: Toggles background monitoring of the selected encoder.
-* F12/Control+NVDA+0: Opens a dialog to enter custom label for the selected encoder or stream.
+* F12: Opens a dialog to enter custom label for the selected encoder or stream.
 * Control+F12: opens a dialog to select the encoder you have deleted (to realign stream labels and encoder settings).
+* Control+NVDA+0: Opens encoder settings dialog to configure options such as stream label.
 
 In addition, column review commands are available, including:
 
@@ -68,29 +69,31 @@ In addition, column review commands are available, including:
 
 ## SPL Assistant layer
 
-This layer command set allows you to obtain various status on SPL Studio, such as whether a track is playing, total duration of all tracks for the hour and so on. From SPL Studio window, press the SPL Assistant layer command, then press one of the keys from the list below.
+This layer command set allows you to obtain various status on SPL Studio, such as whether a track is playing, total duration of all tracks for the hour and so on. From SPL Studio window, press the SPL Assistant layer command, then press one of the keys from the list below. You can also configure NvDA to emulate commands from other screen readers.
 
-The available status information are:
+The available commands are:
 
 * A: Automation.
-* C: Title for the currently playing track.
-* D (R when compatibility mode is active): Remaining duration for the playlist.
+* C (NVDA layout): Title for the currently playing track.
+* C in JAWS or Window-Eyes layouts: Toggle cart explorer.
+* D (R in JAWS or Window-Eyes layouts): Remaining duration for the playlist.
 * E: Metadata streaming status.
 * H: Duration of music for the current hour slot.
 * Shift+H: Total duration of selected tracks for this hour slot (from the track list, press SPACE to select or uncheck the track to play).
-* I (L when compatibility mode is active): Listener count.
+* I (L in JAWS or Window-Eyes layouts): Listener count.
 * K: Move to the marked track.
 * Control+K: Set the current track as the place marker track.
-* L (Shift+L when compatibility mode is active): Line in.
+* L (Shift+L in JAWS or Window-Eyes layouts): Line in.
 * M: Microphone.
 * N: Title for the next scheduled track.
 * P: Playback status (playing or stopped).
 * Shift+P: Pitch of the current track.
-* R (Shift+E when compatibility mode is active): Record to file enabled/disabled.
+* R (Shift+E in JAWS or Window-Eyes layouts): Record to file enabled/disabled.
 * Shift+R: Monitor library scan in progress.
 * S: Track starts in (scheduled).
 * T: Cart edit mode on/off.
 * U: Studio up time.
+* Control+Shift+U: Check for add-on updates.
 * W: Weather and temperature if configured.
 * Y: Playlist modified status.
 * F9: Mark current track for track time analysis.
@@ -151,6 +154,13 @@ From studio window, you can press Control+NVDA+0 to open the add-on configuratio
 ## SPL touch mode
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
+
+## Changes for 7.0-dev
+
+* Added add-on update check feature. This can be done manually (SPL Assistant, Control+Shift+U) or automatically (configurable via advanced options dialog from add-on settings).
+* It is now possible to use a different screen reader command layout for SPL Assistant commands. Go to advanced options dialog from add-on settings to configure this option between NVDA, JAWS and Window-Eyes layouts. See the SPL Assistant commands above for details.
+* In encoders, pressing Control+NVDA+0 will present encoder settings dialog for configuring various options such as stream label, focusing to Studio when connected and so on.
+* In encoders, it is now possible to turn off connection progress tone (configurable from encoder settings dialog).
 
 ## Changes for 6.0
 
