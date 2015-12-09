@@ -233,7 +233,7 @@ def _preSave(conf):
 	# 6.1: Transform column inclusion data structure now.
 	conf["IncludedColumns"] = list(conf["IncludedColumns"])
 	# Perform global setting processing only for the normal profile.
-	if SPLConfigPool.index(conf) == 0:
+	if getProfileIndexByName(conf.name) == 0:
 		# Cache instant profile for later use.
 		if SPLSwitchProfile is not None:
 			conf["InstantProfile"] = SPLSwitchProfile
@@ -261,16 +261,11 @@ def _preSave(conf):
 def saveConfig():
 	# Save all config profiles.
 	global SPLConfig, SPLConfigPool, SPLActiveProfile, SPLPrevProfile, SPLSwitchProfile
-	# Apply any global settings changed in profiles to normal configuration.
-	if SPLConfigPool.index(SPLConfig) > 0:
-		for setting in SPLConfig:
-			if setting not in _mutatableSettings:
-				SPLConfigPool[0][setting] = SPLConfig[setting]
 	for configuration in SPLConfigPool:
 		if configuration is not None:
 			_preSave(configuration)
 			# Save broadcast profiles first.
-			if SPLConfigPool.index(configuration) > 0:
+			if getProfileIndexByName(configuration.name) > 0:
 				configuration.write()
 	# Global flags, be gone.
 	if "Reset" in SPLConfigPool[0]:
@@ -323,6 +318,16 @@ def instantProfileSwitch():
 			if SPLConfig["MetadataReminder"] in ("startup", "instant"):
 				api.getFocusObject().appModule._metadataAnnouncer(reminder=True)
 
+# Propagate changes from one profile to others.
+# This is needed if global settings are changed while an instant switch profile is active.
+# A more elegant function will be implemented in add-on 7.0.
+def _propagateChanges():
+	global SPLConfigPool, SPLConfig
+	globalSettings = set(_SPLDefaults) - set(_mutatableSettings)
+	for profile in xrange(len(SPLConfigPool)):
+		if profile == getProfileIndexByName(SPLConfig.name): continue
+		for setting in globalSettings:
+			SPLConfigPool[profile][setting] = SPLConfig[setting]
 
 # Configuration dialog.
 _configDialogOpened = False
@@ -385,7 +390,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.switchProfileRenamed = False
 		self.switchProfileDeleted = False
 		sizer.Add(item)
-		if SPLConfigPool.index(SPLConfig) == 0:
+		if getProfileIndexByName(SPLConfig.name) == 0:
 			self.renameButton.Disable()
 			self.deleteButton.Disable()
 			self.instantSwitchButton.Disable()
@@ -652,7 +657,9 @@ class SPLConfigDialog(gui.SettingsDialog):
 		if hwnd:
 			for url in xrange(5):
 				dataLo = 0x00010000 if SPLConfig["MetadataEnabled"][url] else 0xffff0000
-				user32.SendMessageW(hwnd, 1024, dataLo | url, 36)
+				user32.SendMessageA(hwnd, 1024, dataLo | url, 36)
+		# 6.1: Propagate global settings.
+		_propagateChanges()
 		super(SPLConfigDialog,  self).onOk(evt)
 
 	def onCancel(self, evt):
@@ -723,6 +730,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.columnOrder = curProfile["ColumnOrder"]
 		# 6.1: Again convert list to set.
 		self.includedColumns = set(curProfile["IncludedColumns"])
+		print self.metadataStreams
 
 	# Profile controls.
 	# Rename and delete events come from GUI/config profiles dialog from NVDA core.
