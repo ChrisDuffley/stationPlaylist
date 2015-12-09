@@ -1549,7 +1549,7 @@ class AppModule(appModuleHandler.AppModule):
 		wx.CallAfter(gui.messageBox, SPLAssistantHelp, _("SPL Assistant help"))
 
 	def script_openOnlineDoc(self, gesture):
-		os.startfile("https://bitbucket.org/nvdaaddonteam/stationplaylist/wiki/SPLDevAddonGuide")
+		os.startfile("https://bitbucket.org/nvdaaddonteam/stationplaylist/wiki/SPLAddonGuide")
 
 
 	__SPLAssistantGestures={

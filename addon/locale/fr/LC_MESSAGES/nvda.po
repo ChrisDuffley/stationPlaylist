@@ -612,6 +612,11 @@ msgstr "Annoncer le &nombre d'auditeurs"
 msgid "&Announce name of the currently playing cart"
 msgstr "&Annonce du nom du chariot en cours de lecture"
 
+#. Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
+#, fuzzy
+msgid "Announce name of the currently playing &track automatically"
+msgstr "&Annonce du nom du chariot en cours de lecture"
+
 #. Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
 msgid "Reset settings"
 msgstr "Réinitialiser les paramètres"
