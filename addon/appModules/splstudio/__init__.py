@@ -28,9 +28,9 @@ import braille
 import touchHandler
 import gui
 import wx
-from winUser import user32, sendMessage
+from winUser import user32, sendMessage, OBJID_CLIENT
 import winKernel
-from NVDAObjects.IAccessible import IAccessible
+from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent
 import textInfos
 import tones
 import splconfig
@@ -383,6 +383,8 @@ class AppModule(appModuleHandler.AppModule):
 		self.SPLSettings = self.prefsMenu.Append(wx.ID_ANY, _("SPL Studio Settings..."), _("SPL settings"))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, splconfig.onConfigDialog, self.SPLSettings)
 		# Let me know the Studio window handle.
+		# 6.1: Do not allow this thread to run forever (seen when evaluation times out and the app module starts).
+		self.noMoreHandle = threading.Event()
 		threading.Thread(target=self._locateSPLHwnd).start()
 		# Check for add-on update if told to do so.
 		if splconfig.SPLConfig["Update"]["AutoUpdateCheck"]:
@@ -394,6 +396,12 @@ class AppModule(appModuleHandler.AppModule):
 		hwnd = user32.FindWindowA("SPLStudio", None)
 		while not hwnd:
 			time.sleep(1)
+			# If the demo copy expires and the app module begins, this loop will spin forever.
+			# Make sure this loop catches this case.
+			if self.noMoreHandle.isSet():
+				self.noMoreHandle.clear()
+				self.noMoreHandle = None
+				return
 			hwnd = user32.FindWindowA("SPLStudio", None)
 		# Only this thread will have privilege of notifying handle's existence.
 		with threading.Lock() as hwndNotifier:
@@ -642,6 +650,8 @@ class AppModule(appModuleHandler.AppModule):
 			self.prefsMenu.RemoveItem(self.SPLSettings)
 		except AttributeError, wx.PyDeadObjectError:
 			pass
+		# Tell the handle finder thread it's time to leave this world.
+		self.noMoreHandle.set()
 		# Manually clear the following dictionaries.
 		self.carts.clear()
 		self._cachedStatusObjs.clear()
@@ -1354,8 +1364,9 @@ class AppModule(appModuleHandler.AppModule):
 		# Look up the cached objects first for faster response.
 		if not infoIndex in self._cachedStatusObjs:
 			fg = api.getForegroundObject()
-			if not fg.windowClassName == "TStudioForm":
-				raise RuntimeError("Not focused in playlist viewer")
+			if fg.windowClassName != "TStudioForm":
+				# 6.1: Allow gesture-based functions to look up status information even if Studio window isn't focused.
+				fg = getNVDAObjectFromEvent(user32.FindWindowA("TStudioForm", None), OBJID_CLIENT, 0)
 			if not self.productVersion >= "5.10": statusObj = self.statusObjs[infoIndex][0]
 			else: statusObj = self.statusObjs[infoIndex][1]
 			self._cachedStatusObjs[infoIndex] = fg.children[statusObj]
