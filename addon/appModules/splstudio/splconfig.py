@@ -595,21 +595,25 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 		# Translators: the label for a setting in SPL add-on settings to announce scheduled time.
 		self.scheduledForCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce &scheduled time for the selected track"))
+		self.scheduledFor = SPLConfig["SayScheduledFor"]
 		self.scheduledForCheckbox.SetValue(SPLConfig["SayScheduledFor"])
 		settingsSizer.Add(self.scheduledForCheckbox, border=10,flag=wx.BOTTOM)
 
 		# Translators: the label for a setting in SPL add-on settings to announce listener count.
 		self.listenerCountCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce &listener count"))
+		self.listenerCount = SPLConfig["SayListenerCount"]
 		self.listenerCountCheckbox.SetValue(SPLConfig["SayListenerCount"])
 		settingsSizer.Add(self.listenerCountCheckbox, border=10,flag=wx.BOTTOM)
 
 		# Translators: the label for a setting in SPL add-on settings to announce currently playing cart.
 		self.cartNameCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Announce name of the currently playing cart"))
+		self.cartName = SPLConfig["SayPlayingCartName"]
 		self.cartNameCheckbox.SetValue(SPLConfig["SayPlayingCartName"])
 		settingsSizer.Add(self.cartNameCheckbox, border=10,flag=wx.BOTTOM)
 
 		# Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
 		self.playingTrackNameCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce name of the currently playing &track automatically"))
+		self.playingTrackName = SPLConfig["SayPlayingTrackName"] == "True"
 		self.playingTrackNameCheckbox.SetValue(SPLConfig["SayPlayingTrackName"] == "True")
 		settingsSizer.Add(self.playingTrackNameCheckbox, border=10,flag=wx.BOTTOM)
 
@@ -1233,22 +1237,22 @@ class SayStatusDialog(wx.Dialog):
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: the label for a setting in SPL add-on settings to announce scheduled time.
 		self.scheduledForCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce &scheduled time for the selected track"))
-		self.scheduledForCheckbox.SetValue(SPLConfig["SayScheduledFor"])
+		self.scheduledForCheckbox.SetValue(self.Parent.scheduledForCheckbox.Value)
 		sizer.Add(self.scheduledForCheckbox, border=10,flag=wx.BOTTOM)
 
 		# Translators: the label for a setting in SPL add-on settings to announce listener count.
 		self.listenerCountCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce &listener count"))
-		self.listenerCountCheckbox.SetValue(SPLConfig["SayListenerCount"])
+		self.listenerCountCheckbox.SetValue(self.Parent.listenerCountCheckbox.Value)
 		sizer.Add(self.listenerCountCheckbox, border=10,flag=wx.BOTTOM)
 
 		# Translators: the label for a setting in SPL add-on settings to announce currently playing cart.
 		self.cartNameCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Announce name of the currently playing cart"))
-		self.cartNameCheckbox.SetValue(SPLConfig["SayPlayingCartName"])
+		self.cartNameCheckbox.SetValue(self.Parent.cartNameCheckbox.Value)
 		sizer.Add(self.cartNameCheckbox, border=10,flag=wx.BOTTOM)
 
 		# Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
 		self.playingTrackNameCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce name of the currently playing &track automatically"))
-		self.playingTrackNameCheckbox.SetValue(SPLConfig["SayPlayingTrackName"] == "True")
+		self.playingTrackNameCheckbox.SetValue(self.Parent.playingTrackNameCheckbox.Value)
 		sizer.Add(self.playingTrackNameCheckbox, border=10,flag=wx.BOTTOM)
 		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
@@ -1262,6 +1266,10 @@ class SayStatusDialog(wx.Dialog):
 
 	def onOk(self, evt):
 		parent = self.Parent
+		parent.scheduledForCheckbox.SetValue(self.scheduledForCheckbox.Value)
+		parent.listenerCountCheckbox.SetValue(self.listenerCountCheckbox.Value)
+		parent.cartNameCheckbox.SetValue(self.cartNameCheckbox.Value)
+		parent.playingTrackNameCheckbox.SetValue(self.playingTrackNameCheckbox.Value)
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()
