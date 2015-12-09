@@ -71,6 +71,7 @@ class TrackToolItem(IAccessible):
 			braille.handler.message(dialText)
 			if self.appModule.TTDial and self.appModule.SPLColNumber > 0:
 				speech.speakMessage("Column {columnNumber}".format(columnNumber = self.appModule.SPLColNumber+1))
+		splconfig._propagateChanges()
 	# Translators: Input help mode message for SPL track item.
 	script_toggleTrackDial.__doc__=_("Toggles track dial on and off.")
 	script_toggleTrackDial.category = _("StationPlaylist Studio")
