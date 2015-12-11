@@ -177,7 +177,10 @@ def initConfig():
 			SPLConfigPool.append(unlockConfig(os.path.join(SPLProfiles, profile), profileName=os.path.splitext(profile)[0]))
 	except WindowsError:
 		pass
-	SPLConfig = SPLConfigPool[0]
+	# 7.0: Store the config as a dictionary.
+	# This opens up many possibilities, including config caching, loading specific sections only and others (the latter saves memory).
+	SPLConfig = dict(SPLConfigPool[0])
+	SPLConfig["ActiveIndex"] = 0 # Holds settings form normal profile.
 	if curInstantProfile != "": SPLConfig["InstantProfile"] = curInstantProfile
 	# 7.0: Store add-on installer size in case one wishes to check for updates (default size is 0 or no update checked attempted).
 	# Same goes to update check time and date (stored as Unix time stamp).
@@ -188,7 +191,7 @@ def initConfig():
 		try:
 			SPLSwitchProfile = SPLConfigPool[getProfileIndexByName(SPLConfig["InstantProfile"])].name
 		except ValueError:
-			_configLoadStatus[SPLConfig.name] = "noInstantProfile"
+			_configLoadStatus[SPLConfigPool[0].name] = "noInstantProfile"
 	if len(_configLoadStatus):
 		# Translators: Standard error title for configuration error.
 		title = _("Studio add-on Configuration error")
@@ -235,7 +238,7 @@ def unlockConfig(path, profileName=None, prefill=False):
 			_configLoadStatus[profileName] = "partialReset"
 	_extraInitSteps(SPLConfigCheckpoint, profileName=profileName)
 	# Only run when loading profiles other than normal profile.
-	if not prefill: _applyBaseSettings(SPLConfigCheckpoint)
+	if not prefill: _discardGlobalSettings(SPLConfigCheckpoint)
 	SPLConfigCheckpoint.name = profileName
 	return SPLConfigCheckpoint
 
@@ -267,12 +270,16 @@ def _extraInitSteps(conf, profileName=None):
 			_configLoadStatus[profileName] = "metadataReset"
 		conf["MetadataStreaming"]["MetadataEnabled"] = [False, False, False, False, False]
 
-# Apply base profile if loading user-defined broadcast profiles.
-def _applyBaseSettings(conf):
+# Discard global settings when loading broadcast profiles.
+# This helps in conserving memory.
+def _discardGlobalSettings(conf):
 	for setting in SPLConfigPool[0].keys():
 		# Ignore profile-specific settings/sections.
 		if setting not in _mutatableSettings7:
-			conf[setting] = SPLConfigPool[0][setting]
+			try:
+				del conf[setting]
+			except KeyError:
+				pass
 
 # Instant profile switch helpers.
 # A number of helper functions assisting instant switch profile routine and others, including sorting and locating the needed profile upon request.
@@ -284,6 +291,21 @@ def getProfileIndexByName(name):
 # And:
 def getProfileByName(name):
 	return SPLConfigPool[getProfileIndexByName(name)]
+
+# Merge sections when switching profiles.
+# This is also employed by the routine which saves changes to a profile when user selects a different profile from add-on settings dialog.
+# Profiles refer to indecies.
+def mergeSections(profile):
+	global SPLConfig, SPLConfigPool
+	for section in _mutatableSettings7:
+		SPLConfig[section] = dict(SPLConfigPool[profile][section])
+	SPLConfig["ActiveIndex"] = profile
+
+# A reverse of the above.
+def applySections(profile):
+	global SPLConfig, SPLConfigPool
+	for section in _mutatableSettings7:
+		SPLConfigPool[profile][section] = dict(SPLConfig[section])
 
 # Last but not least...
 def getProfileFlags(name):
@@ -339,24 +361,23 @@ def _preSave(conf):
 		if conf["ColumnAnnouncement"]["ColumnOrder"] == ["Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"]:
 			del conf["ColumnAnnouncement"]["ColumnOrder"]
 		for setting in conf.keys():
-			if setting not in _mutatableSettings7: del conf[setting]
-			else:
-				for key in conf[setting].keys():
-					if conf[setting][key] == _SPLDefaults7[setting][key]:
-						del conf[setting][key]
+			for key in conf[setting].keys():
+				if conf[setting][key] == _SPLDefaults7[setting][key]:
+					del conf[setting][key]
 			if setting in conf and not len(conf[setting]):
 				del conf[setting]
 
 
 # Save configuration database.
 def saveConfig():
-	# Save all config profiles.
 	global SPLConfig, SPLConfigPool, SPLActiveProfile, SPLPrevProfile, SPLSwitchProfile
 	# 7.0: Turn off auto update check timer.
 	if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
 	splupdate._SPLUpdateT = None
 	# Apply any global settings changed in profiles to normal configuration.
-	if SPLConfigPool.index(SPLConfig) > 0:
+	activeIndex = SPLConfig["ActiveIndex"]
+	del SPLConfig["ActiveIndex"]
+	if activeIndex > 0:
 		for setting in SPLConfig:
 			if setting not in _mutatableSettings7:
 				SPLConfigPool[0][setting] = SPLConfig[setting]
@@ -417,7 +438,8 @@ def instantProfileSwitch():
 			switchProfileIndex = getProfileIndexByName(SPLSwitchProfile)
 			# 6.1: Do to referencing nature of Python, use the profile index function to locate the index for the soon to be deactivated profile.
 			SPLPrevProfile = getProfileIndexByName(SPLActiveProfile)
-			SPLConfig = SPLConfigPool[switchProfileIndex]
+			mergeSections(switchProfileIndex)
+			SPLConfig["ActiveIndex"] = switchProfileIndex
 			# Translators: Presented when switch to instant switch profile was successful.
 			ui.message(_("Switching profiles"))
 			# Use the focus.appModule's metadata reminder method if told to do so now.
@@ -427,8 +449,9 @@ def instantProfileSwitch():
 			if SPLConfig["Update"]["AutoUpdateCheck"]:
 				if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning: splupdate._SPLUpdateT.Stop()
 		else:
-			SPLConfig = SPLConfigPool[SPLPrevProfile]
-			SPLActiveProfile = SPLConfig.name
+			mergeSections(SPLPrevProfile)
+			SPLConfig["ActiveIndex"] = SPLPrevProfile
+			SPLActiveProfile = SPLConfigPool[SPLPrevProfile].name
 			SPLPrevProfile = None
 			# Translators: Presented when switching from instant switch profile to a previous profile.
 			ui.message(_("Returning to previous profile"))
@@ -756,7 +779,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 	def onOk(self, evt):
 		global SPLConfig, SPLActiveProfile, _configDialogOpened, SPLSwitchProfile, SPLPrevProfile
 		selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
-		SPLConfig = getProfileByName(selectedProfile)
+		profileIndex = getProfileIndexByName(selectedProfile)
 		SPLConfig["General"]["BeepAnnounce"] = self.beepAnnounceCheckbox.Value
 		SPLConfig["General"]["MessageVerbosity"] = self.verbosityLevels[self.verbosityList.GetSelection()][0]
 		SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"] = self.outroCheckBox.Value
@@ -782,7 +805,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["Advanced"]["SPLConPassthrough"] = self.splConPassthrough
 		SPLConfig["Advanced"]["CompatibilityLayer"] = self.compLayer
 		SPLConfig["Update"]["AutoUpdateCheck"] = self.autoUpdateCheck
-		SPLActiveProfile = SPLConfig.name
+		SPLConfig["ActiveIndex"] = profileIndex
+		# Reverse of merge: save profile specific sections to individual config dictionaries.
+		applySections(profileIndex)
+		SPLActiveProfile = selectedProfile
 		SPLSwitchProfile = self.switchProfile
 		# Without nullifying prev profile while switch profile is undefined, NVDA will assume it can switch back to that profile when it can't.
 		# It also causes NVDA to display wrong label for switch button.
@@ -803,7 +829,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 		if self.switchProfileRenamed or self.switchProfileDeleted:
 			SPLSwitchProfile = self.switchProfile
 		if self.switchProfileDeleted:
-			SPLConfig = SPLConfigPool[0]
+			# Return to normal profile by merging the first profile in the config pool.
+			mergeSections(0)
 		_configDialogOpened = False
 		#super(SPLConfigDialog,  self).onCancel(evt)
 		self.Destroy()
@@ -1004,11 +1031,12 @@ class SPLConfigDialog(gui.SettingsDialog):
 		)==wx.YES:
 			# Reset all profiles.
 			resetAllConfig()
-			global SPLConfig, SPLActiveProfile, _configDialogOpened, SPLSwitchProfile, SPLPrevProfile
-			SPLConfig = SPLConfigPool[0]
-			SPLActiveProfile = SPLConfig.name
+			global SPLConfig, SPLConfigPool, SPLActiveProfile, _configDialogOpened, SPLSwitchProfile, SPLPrevProfile
+			SPLConfig = dict(_SPLDefaults7)
+			SPLConfig["ActiveIndex"] = 0
+			SPLActiveProfile = SPLConfigPool[0].name
 			# Workaround: store the reset flag in the normal profile to prevent config databases from becoming references to old generation.
-			SPLConfig["Reset"] = True
+			SPLConfigPool[0]["Reset"] = True
 		if SPLSwitchProfile is not None:
 			SPLSwitchProfile = None
 		SPLPrevProfile = None
