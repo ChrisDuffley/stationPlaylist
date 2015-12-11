@@ -511,7 +511,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.profiles = wx.Choice(self, wx.ID_ANY, choices=self.displayProfiles(sortedProfiles))
 		self.profiles.Bind(wx.EVT_CHOICE, self.onProfileSelection)
 		try:
-			self.profiles.SetSelection(self.profileNames.index(SPLConfig.name))
+			self.profiles.SetSelection(SPLConfig["ActiveIndex"])
 		except:
 			pass
 		sizer.Add(label)
@@ -549,7 +549,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.switchProfileRenamed = False
 		self.switchProfileDeleted = False
 		sizer.Add(item)
-		if SPLConfigPool.index(SPLConfig) == 0:
+		if SPLConfig["ActiveIndex"] == 0:
 			self.renameButton.Disable()
 			self.deleteButton.Disable()
 			self.instantSwitchButton.Disable()
