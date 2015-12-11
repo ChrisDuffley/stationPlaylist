@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2015-07-20 23:08+0200\n"
+"PO-Revision-Date: 2015-11-27 12:38+0100\n"
 "Last-Translator: Bernd Dorer <bdorer@mailbox.org>\n"
 "Language-Team: Deutsch <bernd_dorer@yahoo.de>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.8.6\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
@@ -214,6 +214,8 @@ msgstr "Gibt die Zeit einschließlich Sekunden aus."
 msgid ""
 "The add-on settings dialog is opened. Please close the settings dialog first."
 msgstr ""
+"Der Einstellungsdialog für die Erweiterung ist noch geöffnet. Bitte "
+"schließen Sie den Einstellungsdialog."
 
 #. Translators: Standard title for error dialog (copy this from main nvda.po file).
 #. Translators: The title of the message box
@@ -552,11 +554,11 @@ msgstr "&Benachrichtigung zum Ende eines Titels in Sekunden"
 
 #. Translators: The label for a setting in SPL Add-on settings to specify track intro alarm.
 msgid "&Track intro alarm in seconds"
-msgstr ""
+msgstr "&Vorwarnzeit für Titelanfang in Sekunden"
 
 #. Translators: The label for a setting in SPL add-on dialog to control braille timer.
 msgid "&Braille timer:"
-msgstr ""
+msgstr "&Braille-Timer:"
 
 msgid "off"
 msgstr "Aus"
@@ -579,7 +581,7 @@ msgstr "&Mikrofon-Alarm in Sekunden"
 
 #. Translators: The label for a setting in SPL add-on dialog to control library scan announcement.
 msgid "&Library scan announcement:"
-msgstr ""
+msgstr "&Meldung beim Durchsuchen der Bibliothek"
 
 #. Translators: One of the library scan announcement settings.
 msgid "start and end only"
@@ -591,15 +593,15 @@ msgstr "Scanfortschritt"
 
 #. Translators: One of the library scan announcement settings.
 msgid "scan count"
-msgstr ""
+msgstr "Scan-Anzahl"
 
 #. Translators: the label for a setting in SPL add-on settings to toggle track dial mode on and off.
 msgid "&Track Dial mode"
-msgstr ""
+msgstr "&Auswahlmodus für Titel"
 
 #. Translators: the label for a setting in SPL add-on settings to announce scheduled time.
 msgid "Announce &scheduled time for the selected track"
-msgstr ""
+msgstr "Kündigen & geplanten Zeitpunkt für die ausgewählte Spur"
 
 #. Translators: the label for a setting in SPL add-on settings to announce listener count.
 msgid "Announce &listener count"
@@ -607,7 +609,11 @@ msgstr "Anzahl &Zuhörer ansagen"
 
 #. Translators: the label for a setting in SPL add-on settings to announce currently playing cart.
 msgid "&Announce name of the currently playing cart"
-msgstr ""
+msgstr "&Namen der aktuell abgespielten Karte ausgeben"
+
+#. Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
+msgid "Announce name of the currently playing &track automatically"
+msgstr "&Namen des aktuell abgespielten Titels automatisch ausgeben"
 
 #. Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
 msgid "Reset settings"
@@ -615,7 +621,7 @@ msgstr "Einstellungen zurücksetzen"
 
 #. Translators: Message to report wrong value for microphone alarm.
 msgid "Incorrect microphone alarm value entered."
-msgstr ""
+msgstr "ungültiger Mikrofon-Alarm"
 
 #. Translators: A message to warn about resetting SPL config settings to factory defaults.
 msgid "Are you sure you wish to reset SPL add-on settings to defaults?"
@@ -630,6 +636,8 @@ msgstr "Warnung"
 #. Translators: Presented when an alarm dialog is opened.
 msgid "An alarm dialog is already opened. Please close the alarm dialog first."
 msgstr ""
+"Ein Alarm-Dialog ist bereits eröffnet. Bitte schließen Sie zuerst den Alarm-"
+"Dialog."
 
 #. Translators: Text of the dialog when another alarm dialog is open.
 msgid "Another alarm dialog is open."
@@ -721,9 +729,9 @@ msgid "No encoders are being monitored"
 msgstr "Kein Encoder wird überwacht."
 
 #. Translators: Announces number of encoders being monitored in the background.
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Number of encoders monitored: {numberOfEncoders}: {streamLabels}"
-msgstr "Zu überwachende Anzahl der Encoder: {numberOfEncoders}"
+msgstr "Anzahgl überwachter Encoder: {numberOfEncoders}: {streamLabels}"
 
 #. Translators: Status message for encoder monitoring.
 #, python-brace-format
@@ -766,21 +774,22 @@ msgstr ""
 #. Translators: Presented when toggling the setting to monitor the selected encoder.
 #, python-brace-format
 msgid "Monitoring encoder {encoderNumber}"
-msgstr ""
+msgstr "Encoder {encoderNumber} wird überwacht"
 
 #. Translators: Presented when toggling the setting to monitor the selected encoder.
 #, python-brace-format
 msgid "Encoder {encoderNumber} will not be monitored"
-msgstr ""
+msgstr "Encoder {encoderNumber} wird nicht überwacht"
 
 #. Translators: Announced when background encoder monitoring is canceled.
 msgid "Encoder monitoring canceled"
-msgstr ""
+msgstr "Encoderüberwachung abgebrochen"
 
 #. Translators: Input help mode message in SAM Encoder window.
 msgid ""
 "Toggles whether NVDA will monitor the selected encoder in the background."
 msgstr ""
+"legt fest, ob NVDA den ausgewählten Encoder im Hintergrund überwachen soll."
 
 #. Translators: The title of the stream labeler dialog (example: stream labeler for 1).
 #, python-brace-format
@@ -798,15 +807,16 @@ msgstr ""
 
 #. Translators: The title of the stream label eraser.
 msgid "Stream label eraser"
-msgstr ""
+msgstr "Beschriftungen für Streams löschen"
 
 #. Translators: The text of the stream label eraser dialog.
 msgid "Enter the position of the encoder you wish to delete or will delete"
-msgstr ""
+msgstr "Geben Sie die Position des Encoddrs ein, den Sie löschen möchten"
 
 #. Translators: Input help mode message in SAM Encoder window.
 msgid "Opens a dialog to erase stream labels from an encoder that was deleted."
 msgstr ""
+"Öffnet einen Dialog, um die Beschriftung gelöschter Encoder zu entfernen."
 
 #. Translators: Input help mode message for report date and time command.
 msgid ""

@@ -1436,7 +1436,7 @@ class AppModule(appModuleHandler.AppModule):
 		finally:
 			self.finish()
 	# Translators: Input help mode message for a command in Station Playlist Studio.
-	script_sayCurrentTrackTitle.__doc__=_("Announces title of the next track if any")
+	script_sayCurrentTrackTitle.__doc__=_("Announces title of the currently playing track")
 
 	def script_sayTemperature(self, gesture):
 		try:

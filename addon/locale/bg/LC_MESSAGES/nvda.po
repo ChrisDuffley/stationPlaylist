@@ -600,6 +600,11 @@ msgstr "Докладвай броя &слушатели"
 msgid "&Announce name of the currently playing cart"
 msgstr "&Съобщава името на текущо просвирвания джингъл"
 
+#. Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
+#, fuzzy
+msgid "Announce name of the currently playing &track automatically"
+msgstr "&Съобщава името на текущо просвирвания джингъл"
+
 #. Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
 msgid "Reset settings"
 msgstr "Връщане на настройките"
