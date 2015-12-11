@@ -333,7 +333,7 @@ def _preSave(conf):
 	# 6.1: Transform column inclusion data structure now.
 	conf["ColumnAnnouncement"]["IncludedColumns"] = list(conf["ColumnAnnouncement"]["IncludedColumns"])
 	# Perform global setting processing only for the normal profile.
-	if SPLConfigPool.index(conf) == 0:
+	if getProfileIndexByName(conf.name) == 0:
 		# Cache instant profile for later use.
 		if SPLSwitchProfile is not None:
 			conf["InstantProfile"] = SPLSwitchProfile
@@ -392,7 +392,7 @@ def saveConfig():
 		if configuration is not None:
 			_preSave(configuration)
 			# Save broadcast profiles first.
-			if SPLConfigPool.index(configuration) > 0:
+			if getProfileIndexByName(configuration.name) > 0:
 				# 7.0: Convert profile-specific settings back to 5.x format in case add-on 6.x will be installed later (not recommended).
 				# This will be removed in add-on 7.2.
 				if len(configuration) > 0:
