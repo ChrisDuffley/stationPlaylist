@@ -842,6 +842,8 @@ class AppModule(appModuleHandler.AppModule):
 				newVal = dlg.GetValue()
 				if micAlarm != newVal:
 					splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"] = newVal
+				# Apply microphone alarm setting to the active profile.
+				splconfig.applySections(SPLConfig["ActiveIndex"], "/".join(["MicrophoneAlarm", "MicAlarm"]))
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setMicAlarm.__doc__=_("Sets microphone alarm (default is 5 seconds).")

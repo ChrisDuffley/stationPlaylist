@@ -302,10 +302,19 @@ def mergeSections(profile):
 	SPLConfig["ActiveIndex"] = profile
 
 # A reverse of the above.
-def applySections(profile):
+def applySections(profile, key=None):
 	global SPLConfig, SPLConfigPool
-	for section in _mutatableSettings7:
-		SPLConfigPool[profile][section] = dict(SPLConfig[section])
+	if key is None:
+		for section in _mutatableSettings7:
+			SPLConfigPool[profile][section] = dict(SPLConfig[section])
+	else:
+		# A slash (/) will denote section/key hierarchy.
+		tree, leaf = key.split("/")
+		if tree in SPLConfig:
+			if leaf == "": # Section only.
+				SPLConfigPool[profile][tree] = dict(SPLConfig[tree])
+			else:
+				SPLConfigPool[profile][tree][leaf] = SPLConfig][tree][leaf]
 
 # Last but not least...
 def getProfileFlags(name):
@@ -1504,6 +1513,9 @@ class SPLAlarmDialog(wx.Dialog):
 			newToggle = self.toggleCheckBox.GetValue()
 			if SPLConfig["IntroOutroAlarms"][self.setting] != newVal: SPLConfig["IntroOutroAlarms"][self.setting] = newVal
 			elif SPLConfig["IntroOutroAlarms"][self.toggleSetting] != newToggle: SPLConfig["IntroOutroAlarms"][self.toggleSetting] = newToggle
+			# Apply alarm settings only.
+			applySections(SPLConfig["ActiveIndex"], "/".join(["IntroOutroAlarms", self.setting]))
+			applySections(SPLConfig["ActiveIndex"], "/".join(["IntroOutroAlarms", self.toggleSetting]))
 		self.Destroy()
 		_alarmDialogOpened = False
 
