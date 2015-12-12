@@ -314,7 +314,7 @@ def applySections(profile, key=None):
 			if leaf == "": # Section only.
 				SPLConfigPool[profile][tree] = dict(SPLConfig[tree])
 			else:
-				SPLConfigPool[profile][tree][leaf] = SPLConfig][tree][leaf]
+				SPLConfigPool[profile][tree][leaf] = SPLConfig[tree][leaf]
 
 # Last but not least...
 def getProfileFlags(name):
