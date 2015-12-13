@@ -177,6 +177,7 @@ class SPLTrackItem(IAccessible):
 			if splconfig.SPLConfig["TrackDial"] and self.appModule.SPLColNumber > 0:
 				# Translators: Spoken when enabling track dial while status message is set to beeps.
 				speech.speakMessage(_("Column {columnNumber}").format(columnNumber = self.appModule.SPLColNumber+1))
+		splconfig._propagateChanges(key="TrackDial")
 	# Translators: Input help mode message for SPL track item.
 	script_toggleTrackDial.__doc__=_("Toggles track dial on and off.")
 	script_toggleTrackDial.category = _("StationPlaylist Studio")
@@ -863,6 +864,8 @@ class AppModule(appModuleHandler.AppModule):
 		else:
 			splconfig.SPLConfig["BeepAnnounce"] = False
 		splconfig.message("BeepAnnounce", splconfig.SPLConfig["BeepAnnounce"])
+		# 6.1: Due to changes introduced when fixing instant switching bug, make sure to propagate changes to all profiles.
+		splconfig._propagateChanges(key="BeepAnnounce")
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_toggleBeepAnnounce.__doc__=_("Toggles status announcements between words and beeps.")
 
@@ -881,6 +884,7 @@ class AppModule(appModuleHandler.AppModule):
 			brailleTimer = "off"
 		splconfig.SPLConfig["BrailleTimer"] = brailleTimer
 		splconfig.message("BrailleTimer", brailleTimer)
+		splconfig._propagateChanges(key="BrailleTimer")
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setBrailleTimer.__doc__=_("Toggles between various braille timer settings.")
 
@@ -1095,6 +1099,7 @@ class AppModule(appModuleHandler.AppModule):
 			libraryScanAnnounce = "off"
 		splconfig.SPLConfig["LibraryScanAnnounce"] = libraryScanAnnounce
 		splconfig.message("LibraryScanAnnounce", libraryScanAnnounce)
+		splconfig._propagateChanges(key="LibraryScanAnnounce")
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setLibraryScanProgress.__doc__=_("Toggles library scan progress settings.")
 

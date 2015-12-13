@@ -138,10 +138,17 @@ def initConfig():
 		# Translators: Standard error title for configuration error.
 		title = _("Studio add-on Configuration error")
 		messages = []
-		messages.append("One or more broadcast profiles had issues:\n\n")
-		for profile in _configLoadStatus:
-			error = _configErrors[_configLoadStatus[profile]]
-			messages.append("{profileName}: {errorMessage}".format(profileName = profile, errorMessage = error))
+		# 6.1: Display just the error message if the only corrupt profile is the normal profile.
+		if len(_configLoadStatus) == 1 and SPLActiveProfile in _configLoadStatus:
+			# Translators: Error message shown when add-on configuration had issues.
+			messages.append("Your add-on configuration had following issues:\n\n")
+			messages.append(_configErrors[_configLoadStatus[SPLActiveProfile]])
+		else:
+			# Translators: Error message shown when add-on configuration had issues.
+			messages.append("One or more broadcast profiles had issues:\n\n")
+			for profile in _configLoadStatus:
+				error = _configErrors[_configLoadStatus[profile]]
+				messages.append("{profileName}: {errorMessage}".format(profileName = profile, errorMessage = error))
 		_configLoadStatus.clear()
 		runConfigErrorDialog("\n".join(messages), title)
 
@@ -251,7 +258,7 @@ def _preSave(conf):
 	# 6.1: Transform column inclusion data structure now.
 	conf["IncludedColumns"] = list(conf["IncludedColumns"])
 	# Perform global setting processing only for the normal profile.
-	if SPLConfigPool.index(conf) == 0:
+	if getProfileIndexByName(conf.name) == 0:
 		# Cache instant profile for later use.
 		if SPLSwitchProfile is not None:
 			conf["InstantProfile"] = SPLSwitchProfile
@@ -299,7 +306,7 @@ def saveConfig():
 		if configuration is not None:
 			_preSave(configuration)
 			# Save broadcast profiles first.
-			if SPLConfigPool.index(configuration) > 0:
+			if getProfileIndexByName(configuration.name) > 0:
 				configuration.write()
 	# Global flags, be gone.
 	if "Reset" in SPLConfigPool[0]:
@@ -381,6 +388,19 @@ def updateInit():
 	splupdate._SPLUpdateT = wx.PyTimer(autoUpdateCheck)
 	splupdate._SPLUpdateT.Start(interval * 1000, True)
 
+# Propagate changes from one profile to others.
+# This is needed if global settings are changed while an instant switch profile is active.
+# The key argument is meant for toggle scripts and controls exactly which setting to propagate.
+# A more elegant function will be implemented in add-on 7.0.
+def _propagateChanges(key=None):
+	global SPLConfigPool, SPLConfig
+	if key is None: globalSettings = set(_SPLDefaults) - set(_mutatableSettings)
+	for profile in xrange(len(SPLConfigPool)):
+		if profile == getProfileIndexByName(SPLConfig.name): continue
+		# 6.1 (optimization): Change the setting indicated by the key argument, improves performance slightly.
+		if key is not None: SPLConfigPool[profile][key] = SPLConfig[key]
+		else:
+			for setting in globalSettings: SPLConfigPool[profile][setting] = SPLConfig[setting]
 
 # Configuration dialog.
 _configDialogOpened = False
@@ -445,7 +465,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.switchProfileRenamed = False
 		self.switchProfileDeleted = False
 		sizer.Add(item)
-		if SPLConfigPool.index(SPLConfig) == 0:
+		if getProfileIndexByName(SPLConfig.name) == 0:
 			self.renameButton.Disable()
 			self.deleteButton.Disable()
 			self.instantSwitchButton.Disable()
@@ -711,6 +731,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 		_configDialogOpened = False
 		# 7.0: Perform extra action such as restarting auto update timer.
 		self.onCloseExtraAction()
+		# 6.1: Propagate global settings.
+		_propagateChanges()
 		super(SPLConfigDialog,  self).onOk(evt)
 
 	def onCancel(self, evt):
@@ -804,6 +826,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.columnOrder = curProfile["ColumnOrder"]
 		# 6.1: Again convert list to set.
 		self.includedColumns = set(curProfile["IncludedColumns"])
+		print self.metadataStreams
 
 	# Profile controls.
 	# Rename and delete events come from GUI/config profiles dialog from NVDA core.
