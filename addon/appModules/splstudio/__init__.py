@@ -28,9 +28,9 @@ import braille
 import touchHandler
 import gui
 import wx
-from winUser import user32, sendMessage
+from winUser import user32, sendMessage, OBJID_CLIENT
 import winKernel
-from NVDAObjects.IAccessible import IAccessible
+from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent
 import textInfos
 import tones
 import splconfig
@@ -39,8 +39,6 @@ import splupdate
 import addonHandler
 addonHandler.initTranslation()
 
-def update():
-	splupdate._updateCheckEx()
 
 # The finally function for status announcement scripts in this module (source: Tyler Spivey's code).
 def finally_(func, final):
@@ -179,6 +177,7 @@ class SPLTrackItem(IAccessible):
 			if splconfig.SPLConfig["TrackDial"] and self.appModule.SPLColNumber > 0:
 				# Translators: Spoken when enabling track dial while status message is set to beeps.
 				speech.speakMessage(_("Column {columnNumber}").format(columnNumber = self.appModule.SPLColNumber+1))
+		splconfig._propagateChanges(key="TrackDial")
 	# Translators: Input help mode message for SPL track item.
 	script_toggleTrackDial.__doc__=_("Toggles track dial on and off.")
 	script_toggleTrackDial.category = _("StationPlaylist Studio")
@@ -385,13 +384,25 @@ class AppModule(appModuleHandler.AppModule):
 		self.SPLSettings = self.prefsMenu.Append(wx.ID_ANY, _("SPL Studio Settings..."), _("SPL settings"))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, splconfig.onConfigDialog, self.SPLSettings)
 		# Let me know the Studio window handle.
+		# 6.1: Do not allow this thread to run forever (seen when evaluation times out and the app module starts).
+		self.noMoreHandle = threading.Event()
 		threading.Thread(target=self._locateSPLHwnd).start()
+		# Check for add-on update if told to do so.
+		if splconfig.SPLConfig["AutoUpdateCheck"]:
+			# 7.0: Have a timer call the update function indirectly.
+			queueHandler.queueFunction(queueHandler.eventQueue, splconfig.updateInit)
 
 	# Locate the handle for main window for caching purposes.
 	def _locateSPLHwnd(self):
 		hwnd = user32.FindWindowA("SPLStudio", None)
 		while not hwnd:
 			time.sleep(1)
+			# If the demo copy expires and the app module begins, this loop will spin forever.
+			# Make sure this loop catches this case.
+			if self.noMoreHandle.isSet():
+				self.noMoreHandle.clear()
+				self.noMoreHandle = None
+				return
 			hwnd = user32.FindWindowA("SPLStudio", None)
 		# Only this thread will have privilege of notifying handle's existence.
 		with threading.Lock() as hwndNotifier:
@@ -640,6 +651,8 @@ class AppModule(appModuleHandler.AppModule):
 			self.prefsMenu.RemoveItem(self.SPLSettings)
 		except AttributeError, wx.PyDeadObjectError:
 			pass
+		# Tell the handle finder thread it's time to leave this world.
+		self.noMoreHandle.set()
 		# Manually clear the following dictionaries.
 		self.carts.clear()
 		self._cachedStatusObjs.clear()
@@ -851,6 +864,8 @@ class AppModule(appModuleHandler.AppModule):
 		else:
 			splconfig.SPLConfig["BeepAnnounce"] = False
 		splconfig.message("BeepAnnounce", splconfig.SPLConfig["BeepAnnounce"])
+		# 6.1: Due to changes introduced when fixing instant switching bug, make sure to propagate changes to all profiles.
+		splconfig._propagateChanges(key="BeepAnnounce")
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_toggleBeepAnnounce.__doc__=_("Toggles status announcements between words and beeps.")
 
@@ -869,6 +884,7 @@ class AppModule(appModuleHandler.AppModule):
 			brailleTimer = "off"
 		splconfig.SPLConfig["BrailleTimer"] = brailleTimer
 		splconfig.message("BrailleTimer", brailleTimer)
+		splconfig._propagateChanges(key="BrailleTimer")
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setBrailleTimer.__doc__=_("Toggles between various braille timer settings.")
 
@@ -1083,6 +1099,7 @@ class AppModule(appModuleHandler.AppModule):
 			libraryScanAnnounce = "off"
 		splconfig.SPLConfig["LibraryScanAnnounce"] = libraryScanAnnounce
 		splconfig.message("LibraryScanAnnounce", libraryScanAnnounce)
+		splconfig._propagateChanges(key="LibraryScanAnnounce")
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setLibraryScanProgress.__doc__=_("Toggles library scan progress settings.")
 
@@ -1352,8 +1369,9 @@ class AppModule(appModuleHandler.AppModule):
 		# Look up the cached objects first for faster response.
 		if not infoIndex in self._cachedStatusObjs:
 			fg = api.getForegroundObject()
-			if not fg.windowClassName == "TStudioForm":
-				raise RuntimeError("Not focused in playlist viewer")
+			if fg.windowClassName != "TStudioForm":
+				# 6.1: Allow gesture-based functions to look up status information even if Studio window isn't focused.
+				fg = getNVDAObjectFromEvent(user32.FindWindowA("TStudioForm", None), OBJID_CLIENT, 0)
 			if not self.productVersion >= "5.10": statusObj = self.statusObjs[infoIndex][0]
 			else: statusObj = self.statusObjs[infoIndex][1]
 			self._cachedStatusObjs[infoIndex] = fg.children[statusObj]
@@ -1436,7 +1454,7 @@ class AppModule(appModuleHandler.AppModule):
 		finally:
 			self.finish()
 	# Translators: Input help mode message for a command in Station Playlist Studio.
-	script_sayCurrentTrackTitle.__doc__=_("Announces title of the next track if any")
+	script_sayCurrentTrackTitle.__doc__=_("Announces title of the currently playing track")
 
 	def script_sayTemperature(self, gesture):
 		try:
@@ -1614,7 +1632,8 @@ class AppModule(appModuleHandler.AppModule):
 		os.startfile("https://bitbucket.org/nvdaaddonteam/stationplaylist/wiki/SPLDevAddonGuide")
 
 	def script_updateCheck(self, gesture):
-		splupdate.updateCheck()
+		if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
+		splupdate.updateCheck(continuous=splconfig.SPLConfig["AutoUpdateCheck"])
 
 
 	__SPLAssistantGestures={
