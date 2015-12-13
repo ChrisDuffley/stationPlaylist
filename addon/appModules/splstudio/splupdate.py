@@ -10,6 +10,7 @@ from calendar import month_abbr # Last modified date formatting.
 import gui
 import wx
 import tones
+import time
 import addonHandler
 
 # Add-on manifest routine (credit: various add-on authors including Noelia Martinez).
@@ -17,11 +18,18 @@ import addonHandler
 _addonDir = os.path.join(os.path.dirname(__file__), "..", "..")
 # Move this to the main app module in case version will be queried by users.
 SPLAddonVersion = addonHandler.Addon(_addonDir).manifest['version']
-
 # Cache the file size for the last downloaded SPL add-on installer (stored in hexadecimal for security).
 SPLAddonSize = "0x0"
+# The Unix time stamp for add-on check time.
+SPLAddonCheck = 0
 # Update URL (the only way to change it is installing a different version from a different branch).
 SPLUpdateURL = "http://addons.nvda-project.org/files/get.php?file=spl-dev"
+# Update check timer.
+_SPLUpdateT = None
+# How long it should wait between automatic checks.
+_updateInterval = 86400
+# Set if a socket error occurs.
+_retryAfterFailure = False
 
 def _versionFromURL(url):
 	filename = url.split("/")[-1]
@@ -39,39 +47,77 @@ def updateProgress():
 	tones.beep(440, 40)
 
 def updateQualify(url):
+	# The add-on version is of the form "major.minor". The "-dev" suffix indicates development release.
+	# Anything after "-dev" indicates a try or a custom build.
+	curVersion =SPLAddonVersion.split("-")[0]
+	# Because we'll be using the same file name for snapshots...
+	if "-dev" in SPLAddonVersion: curVersion+="-dev"
 	size = hex(int(url.info().getheader("Content-Length")))
 	version = _versionFromURL(url.url)
 	# In case we are running the latest version, check the content length (size).
-	if version == SPLAddonVersion:
-		if "-dev" not in version or ("-dev" in SPLAddonVersion and size == SPLAddonSize):
+	if version == curVersion:
+		if "-dev" not in version:
 			return None
-	elif version > SPLAddonVersion or ("-dev" in version and size != SPLAddonSize):
+		elif ("-dev" in SPLAddonVersion and size != SPLAddonSize):
+			return version
+	elif version > curVersion:
 		return version
 	else:
 		return ""
 
-def updateCheck():
-	tones.beep(110, 40)
+# The update check routine.
+# Auto is whether to respond with UI (manual check only), continuous takes in auto update check variable for restarting the timer.
+def updateCheck(auto=False, continuous=False):
+	global _SPLUpdateT, SPLAddonCheck, _retryAfterFailure
+	# Regardless of whether it is an auto check, update the check time.
+	# However, this shouldnt' be done if this is a retry after a failed attempt.
+	if not _retryAfterFailure: SPLAddonCheck = time.time()
+	# Should the timer be set again?
+	if continuous and not _retryAfterFailure: _SPLUpdateT.Start(_updateInterval*1000, True)
+	# Auto disables UI portion of this function if no updates are pending.
+	if not auto: tones.beep(110, 40)
 	# Try builds does not (and will not) support upgrade checking unless absolutely required.
 	# All the information will be stored in the URL object, so just close it once the headers are downloaded.
-	progressTone = wx.PyTimer(updateProgress)
-	progressTone.Start(1000)
+	if not auto:
+		progressTone = wx.PyTimer(updateProgress)
+		progressTone.Start(1000)
 	updateCandidate = False
-	url = urllib.urlopen(SPLUpdateURL)
-	url.close()
+	try:
+		url = urllib.urlopen(SPLUpdateURL)
+		url.close()
+	except IOError:
+		_retryAfterFailure = True
+		if not auto:
+			progressTone.Stop()
+			wx.CallAfter(gui.messageBox, "Error checking for update.", "Check for add-on update", wx.ICON_ERROR)
+		if continuous: _SPLUpdateT.Start(600000, True)
+		return
+	if _retryAfterFailure:
+		_retryAfterFailure = False
+		# Now is the time to update the check time if this is a retry.
+		SPLAddonCheck = time.time()
 	if url.code != 200:
+		if auto:
+			if continuous: _SPLUpdateT.Start(_updateInterval*1000, True)
+			return # No need to interact with the user.
 		checkMessage = "Add-on update check failed."
 	else:
 		# Am I qualified to update?
 		qualified = updateQualify(url)
 		if qualified is None:
+			if auto:
+				if continuous: _SPLUpdateT.Start(_updateInterval*1000, True)
+				return
 			checkMessage = "No add-on update available."
 		elif qualified == "":
+			if auto:
+				if continuous: _SPLUpdateT.Start(_updateInterval*1000, True)
+				return
 			checkMessage = "You appear to be running a version newer than the latest released version. Please reinstall the official version to downgrade."
 		else:
 			checkMessage = "Studio add-on {newVersion} ({modifiedDate}) is available. Would you like to update?".format(newVersion = qualified, modifiedDate = _lastModified(url.info().getheader("Last-Modified")))
 			updateCandidate = True
-	progressTone.Stop()
+	if not auto: progressTone.Stop()
 	if not updateCandidate: wx.CallAfter(gui.messageBox, checkMessage, "Check for add-on update")
 	else: wx.CallAfter(getUpdateResponse, checkMessage, "Check for add-on update", url.info().getheader("Content-Length"))
 

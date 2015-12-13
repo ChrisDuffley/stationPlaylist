@@ -9,6 +9,7 @@ from cStringIO import StringIO
 from configobj import ConfigObj
 from validate import Validator
 import weakref
+import time
 import globalVars
 import ui
 import api
@@ -46,6 +47,7 @@ SayPlayingCartName = boolean(default=true)
 SayPlayingTrackName = string(default="True")
 SPLConPassthrough = boolean(default=false)
 CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
+AutoUpdateCheck = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
 SPLConfig = None
@@ -123,7 +125,9 @@ def initConfig():
 		pass
 	SPLConfig = SPLConfigPool[0]
 	# 7.0: Store add-on installer size in case one wishes to check for updates (default size is 0 or no update checked attempted).
-	if "PSZ" in SPLConfig: splupdate.SPLAddonSize != SPLConfig["PSZ"]
+	# Same goes to update check time and date (stored as Unix time stamp).
+	if "PSZ" in SPLConfig: splupdate.SPLAddonSize = SPLConfig["PSZ"]
+	if "PDT" in SPLConfig: splupdate.SPLAddonCheck = float(SPLConfig["PDT"])
 	# Locate instant profile.
 	if "InstantProfile" in SPLConfig:
 		try:
@@ -263,6 +267,10 @@ def _preSave(conf):
 		if (("PSZ" in conf and splupdate.SPLAddonSize != conf["PSZ"])
 		or ("PSZ" not in conf and splupdate.SPLAddonSize != 0x0)):
 			conf["PSZ"] = splupdate.SPLAddonSize
+		# Same goes to update check time and date.
+		if (("PDT" in conf and splupdate.SPLAddonCheck != conf["PDT"])
+		or ("PDT" not in conf and splupdate.SPLAddonCheck != 0)):
+			conf["PDT"] = splupdate.SPLAddonCheck
 	# For other profiles, remove global settings before writing to disk.
 	else:
 		# 6.1: Make sure column order and inclusion aren't same as default values.
@@ -279,6 +287,9 @@ def _preSave(conf):
 def saveConfig():
 	# Save all config profiles.
 	global SPLConfig, SPLConfigPool, SPLActiveProfile, SPLPrevProfile, SPLSwitchProfile
+	# 7.0: Turn off auto update check timer.
+	if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
+	splupdate._SPLUpdateT = None
 	# Apply any global settings changed in profiles to normal configuration.
 	if SPLConfigPool.index(SPLConfig) > 0:
 		for setting in SPLConfig:
@@ -323,22 +334,52 @@ def instantProfileSwitch():
 				return
 			# Switch to the given profile.
 			switchProfileIndex = getProfileIndexByName(SPLSwitchProfile)
-			SPLPrevProfile = SPLConfigPool.index(SPLConfig)
+			# 6.1: Do to referencing nature of Python, use the profile index function to locate the index for the soon to be deactivated profile.
+			SPLPrevProfile = getProfileIndexByName(SPLActiveProfile)
 			SPLConfig = SPLConfigPool[switchProfileIndex]
 			# Translators: Presented when switch to instant switch profile was successful.
 			ui.message(_("Switching profiles"))
 			# Use the focus.appModule's metadata reminder method if told to do so now.
 			if SPLConfig["MetadataReminder"] in ("startup", "instant"):
 				api.getFocusObject().appModule._metadataAnnouncer(reminder=True)
+			# Pause automatic update checking.
+			if SPLConfig["AutoUpdateCheck"]:
+				if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning: splupdate._SPLUpdateT.Stop()
 		else:
 			SPLConfig = SPLConfigPool[SPLPrevProfile]
 			SPLActiveProfile = SPLConfig.name
 			SPLPrevProfile = None
 			# Translators: Presented when switching from instant switch profile to a previous profile.
 			ui.message(_("Returning to previous profile"))
-			# 6.2: Don't forget to switch streaming status around.
+			# 6.1: Don't forget to switch streaming status around.
 			if SPLConfig["MetadataReminder"] in ("startup", "instant"):
 				api.getFocusObject().appModule._metadataAnnouncer(reminder=True)
+			# Resume auto update checker if told to do so.
+			if SPLConfig["AutoUpdateCheck"]: updateInit()
+
+
+# Automatic update checker.
+
+# The function below is called as part of the update check timer.
+# Its only job is to call the update check function (splupdate) with the auto check enabled.
+# The update checker will not be engaged if an instant switch profile is active or it is not time to check for it yet (check will be done every 24 hours).
+def autoUpdateCheck():
+	ui.message("Checking for add-on updates...")
+	splupdate.updateCheck(auto=True, continuous=SPLConfig["AutoUpdateCheck"])
+
+# The timer itself.
+# A bit simpler than NVDA Core's auto update checker.
+def updateInit():
+	currentTime = time.time()
+	nextCheck = splupdate.SPLAddonCheck+86400.0
+	if splupdate.SPLAddonCheck < currentTime < nextCheck:
+		interval = int(nextCheck - currentTime)
+	elif splupdate.SPLAddonCheck < nextCheck < currentTime:
+		interval = 86400
+		# Call the update check now.
+		splupdate.updateCheck(auto=True) # No repeat here.
+	splupdate._SPLUpdateT = wx.PyTimer(autoUpdateCheck)
+	splupdate._SPLUpdateT.Start(interval * 1000, True)
 
 
 # Configuration dialog.
@@ -618,6 +659,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		item.Bind(wx.EVT_BUTTON, self.onAdvancedOptions)
 		self.splConPassthrough = SPLConfig["SPLConPassthrough"]
 		self.compLayer = SPLConfig["CompatibilityLayer"]
+		self.autoUpdateCheck = SPLConfig["AutoUpdateCheck"]
 		settingsSizer.Add(item)
 
 		# Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
@@ -658,6 +700,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["SayPlayingTrackName"] = str(self.playingTrackNameCheckbox.Value)
 		SPLConfig["SPLConPassthrough"] = self.splConPassthrough
 		SPLConfig["CompatibilityLayer"] = self.compLayer
+		SPLConfig["AutoUpdateCheck"] = self.autoUpdateCheck
 		SPLActiveProfile = SPLConfig.name
 		SPLSwitchProfile = self.switchProfile
 		# Without nullifying prev profile while switch profile is undefined, NVDA will assume it can switch back to that profile when it can't.
@@ -666,18 +709,13 @@ class SPLConfigDialog(gui.SettingsDialog):
 			SPLPrevProfile = None
 		global _configDialogOpened
 		_configDialogOpened = False
-		# 6.1: Activate metadata streams, split this into a new function in 7.0.
-		hwnd = user32.FindWindowA("SPLStudio", None)
-		if hwnd:
-			for url in xrange(5):
-				dataLo = 0x00010000 if SPLConfig["MetadataEnabled"][url] else 0xffff0000
-				user32.SendMessageW(hwnd, 1024, dataLo | url, 36)
+		# 7.0: Perform extra action such as restarting auto update timer.
+		self.onCloseExtraAction()
 		super(SPLConfigDialog,  self).onOk(evt)
 
 	def onCancel(self, evt):
 		global _configDialogOpened, SPLActiveProfile, SPLSwitchProfile, SPLConfig
 		# 6.1: Discard changes to included columns set.
-		print len(self.includedColumns)
 		self.includedColumns.clear()
 		self.includedColumns = None
 		SPLActiveProfile = self.activeProfile
@@ -688,6 +726,21 @@ class SPLConfigDialog(gui.SettingsDialog):
 		_configDialogOpened = False
 		#super(SPLConfigDialog,  self).onCancel(evt)
 		self.Destroy()
+
+	# Perform extra action when closing this dialog such as restarting update timer.
+	def onCloseExtraAction(self):
+		# Change metadata streaming.
+		hwnd = user32.FindWindowA("SPLStudio", None)
+		if hwnd:
+			for url in xrange(5):
+				dataLo = 0x00010000 if SPLConfig["MetadataEnabled"][url] else 0xffff0000
+				user32.SendMessageW(hwnd, 1024, dataLo | url, 36)
+		# Coordinate auto update timer restart routine if told to do so.
+		if not SPLConfig["AutoUpdateCheck"]:
+			if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
+			splupdate._SPLUpdateT = None
+		else:
+			if splupdate._SPLUpdateT is None: updateInit()
 
 	# Check events for outro and intro alarms, respectively.
 	def onOutroCheck(self, evt):
@@ -1040,7 +1093,7 @@ class MetadataStreamingDialog(wx.Dialog):
 
 		if self.func is not None:
 			self.applyCheckbox=wx.CheckBox(self,wx.NewId(),label="&Apply streaming changes to the selected profile")
-			self.applyCheckbox.SetValue(False)
+			self.applyCheckbox.SetValue(True)
 			mainSizer.Add(self.applyCheckbox, border=10,flag=wx.TOP)
 
 		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
@@ -1166,11 +1219,8 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 		parent.includedColumns.add("Artist")
 		parent.includedColumns.add("Title")
 		for checkbox in self.checkedColumns + self.checkedColumns2 + self.checkedColumns3:
-			action = parent.includedColumns.add if checkbox.Value else parent.includedColumns.remove
-			try:
-				action(checkbox.Label)
-			except KeyError:
-				pass
+			action = parent.includedColumns.add if checkbox.Value else parent.includedColumns.discard
+			action(checkbox.Label)
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()
@@ -1213,13 +1263,21 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 
 # Advanced options
 # This dialog houses advanced options such as using SPL Controller command to invoke SPL Assistant.
-# More options will be added in Project Rainbow.
+# More options will be added in 7.0.
+# 7.0: Auto update check will be configurable from this dialog.
 class AdvancedOptionsDialog(wx.Dialog):
 
 	def __init__(self, parent):
 		super(AdvancedOptionsDialog, self).__init__(parent, title=_("Advanced options"))
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: A checkbox to toggle automatic add-on updates.
+		self.autoUpdateCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Automatically check for add-on &updates"))
+		self.autoUpdateCheckbox.SetValue(self.Parent.autoUpdateCheck)
+		sizer.Add(self.autoUpdateCheckbox, border=10,flag=wx.TOP)
+		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
@@ -1249,13 +1307,14 @@ class AdvancedOptionsDialog(wx.Dialog):
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
-		self.splConPassthroughCheckbox.SetFocus()
+		self.autoUpdateCheckbox.SetFocus()
 		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
 		parent = self.Parent
 		parent.splConPassthrough = self.splConPassthroughCheckbox.Value
 		parent.compLayer = self.compatibilityLayouts[self.compatibilityList.GetSelection()][0]
+		parent.autoUpdateCheck = self.autoUpdateCheckbox.Value
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()
