@@ -131,10 +131,17 @@ def initConfig():
 		# Translators: Standard error title for configuration error.
 		title = _("Studio add-on Configuration error")
 		messages = []
-		messages.append("One or more broadcast profiles had issues:\n\n")
-		for profile in _configLoadStatus:
-			error = _configErrors[_configLoadStatus[profile]]
-			messages.append("{profileName}: {errorMessage}".format(profileName = profile, errorMessage = error))
+		# 6.1: Display just the error message if the only corrupt profile is the normal profile.
+		if len(_configLoadStatus) == 1 and SPLActiveProfile in _configLoadStatus:
+			# Translators: Error message shown when add-on configuration had issues.
+			messages.append("Your add-on configuration had following issues:\n\n")
+			messages.append(_configErrors[_configLoadStatus[SPLActiveProfile]])
+		else:
+			# Translators: Error message shown when add-on configuration had issues.
+			messages.append("One or more broadcast profiles had issues:\n\n")
+			for profile in _configLoadStatus:
+				error = _configErrors[_configLoadStatus[profile]]
+				messages.append("{profileName}: {errorMessage}".format(profileName = profile, errorMessage = error))
 		_configLoadStatus.clear()
 		runConfigErrorDialog("\n".join(messages), title)
 
