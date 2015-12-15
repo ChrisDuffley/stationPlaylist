@@ -247,6 +247,9 @@ def unlockConfig(path, profileName=None, prefill=False):
 	# Only run when loading profiles other than normal profile.
 	if not prefill: _discardGlobalSettings(SPLConfigCheckpoint)
 	SPLConfigCheckpoint.name = profileName
+	# 7.0 optimization: Store an online backup.
+	# This online backup is used to prolong SSD life (no need to save a config if it is same as this copy).
+	_cacheConfig(SPLConfigCheckpoint)
 	return SPLConfigCheckpoint
 
 # Extra initialization steps such as converting value types.
@@ -287,6 +290,23 @@ def _discardGlobalSettings(conf):
 				del conf[setting]
 			except KeyError:
 				pass
+
+# Cache a copy of the loaded config.
+# This comes in handy when saving configuration to disk. For the most part, no change occurs to config.
+# This helps prolong life of a solid-state drive (preventing unnecessary writes).
+_SPLCache = {}
+
+def _cacheConfig(conf):
+	global _SPLCache
+	if _SPLCache is None: _SPLCache = {}
+	key = None if conf.name == SPLActiveProfile else conf.name
+	_SPLCache[key] = {}
+	# Optimization: For broadcast profiles, copy profile-specific keys only.
+	for setting in conf.keys():
+		if isinstance(conf[setting], dict): _SPLCache[key][setting] = dict(conf[setting])
+		else: _SPLCache[key][setting] = conf[setting]
+	# Column inclusion only.
+	_SPLCache[key]["ColumnAnnouncement"]["IncludedColumns"] = list(conf["ColumnAnnouncement"]["IncludedColumns"])
 
 # Instant profile switch helpers.
 # A number of helper functions assisting instant switch profile routine and others, including sorting and locating the needed profile upon request.
@@ -386,7 +406,8 @@ def _preSave(conf):
 
 # Save configuration database.
 def saveConfig():
-	global SPLConfig, SPLConfigPool, SPLActiveProfile, SPLPrevProfile, SPLSwitchProfile
+	# Save all config profiles.
+	global SPLConfig, SPLConfigPool, SPLActiveProfile, SPLPrevProfile, SPLSwitchProfile, _SPLCache
 	# 7.0: Turn off auto update check timer.
 	if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
 	splupdate._SPLUpdateT = None
@@ -422,12 +443,24 @@ def saveConfig():
 	# Restore the possibly deleted sections.
 	for section in tempNormalProfile.keys():
 		SPLConfigPool[0][section] = tempNormalProfile[section]
-	SPLConfigPool[0].write()
+	# Perform same disk write optimization on normal profile now.
+	# Convert a few keys.
+	_SPLCache[None]["PDT"] = float(_SPLCache[None]["PDT"])
+	for setting in SPLConfigPool[0]:
+		try:
+			if _SPLCache[None][setting] != SPLConfigPool[0][setting]:
+				print setting
+		except KeyError: pass
+	if _SPLCache[None] != SPLConfigPool[0]:
+		SPLConfigPool[0].write()
 	SPLConfig = None
 	SPLConfigPool = None
 	SPLActiveProfile = None
 	SPLPrevProfile = None
 	SPLSwitchProfile = None
+	_SPLCache.clear()
+	_SPLCache = None
+
 
 # Switch between profiles.
 SPLActiveProfile = None
