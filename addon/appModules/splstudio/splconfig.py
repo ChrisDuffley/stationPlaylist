@@ -314,7 +314,9 @@ def setNextTimedProfile(profile, bits, switchTime, date=None):
 				trigger = [bits, date.year, date.month, date.day, switchTime.hour, switchTime.minute, 0]
 			else:
 				trigger = findNextAirDate(bits, date, dayIndex, switchTime)
-			return trigger
+		else:
+			trigger = findNextAirDate(bits, date, dayIndex, switchTime)
+		return trigger
 
 # Dump profile triggers pickle away.
 def saveProfileTriggers():
@@ -340,6 +342,9 @@ def getProfileFlags(name):
 	if name == SPLSwitchProfile:
 		# Translators: A flag indicating the broadcast profile is an instant switch profile.
 		flags.append(_("instant switch"))
+	if name in profileTriggers:
+		# Translators: A flag indicating the time-based triggers profile.
+		flags.append(_("time-based"))
 	return name if len(flags) == 0 else "{0} <{1}>".format(name, ", ".join(flags))
 
 # Is the config pool itself sorted?
@@ -1214,7 +1219,9 @@ class TriggersDialog(wx.Dialog):
 		for day in self.triggerDays:
 			if day.Value: bit+=64 >> self.triggerDays.index(day)
 		print bit
-		profileTriggers[self.profile] = setNextTimedProfile(self.profile, bit, datetime.time(self.hourEntry.GetValue(), self.minEntry.GetValue()))
+		if bit: profileTriggers[self.profile] = setNextTimedProfile(self.profile, bit, datetime.time(self.hourEntry.GetValue(), self.minEntry.GetValue()))
+		elif bit == 0 and self.profile in profileTriggers:
+			del profileTriggers[self.profile]
 		parent = self.Parent
 		parent.profiles.SetFocus()
 		parent.Enable()
