@@ -1195,8 +1195,17 @@ class TriggersDialog(wx.Dialog):
 		# Translators: The title of the broadcast profile triggers dialog.
 		super(TriggersDialog, self).__init__(parent, title=_("Profile triggers for {profileName}").format(profileName = profile))
 		self.profile = profile
+		if profile in profileTriggers:
+			t = profileTriggers[profile]
+			d = "-".join([str(t[1]), str(t[2]).zfill(2), str(t[3]).zfill(2)])
+			t = ":".join([str(t[4]).zfill(2), str(t[5]).zfill(2)])
+			triggerText = "The next trigger is scheduled on {0} at {1}.".format(d, t)
+		else:
+			triggerText = "No triggers defined."
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
+		label = wx.StaticText(self, wx.ID_ANY, label=triggerText)
+		mainSizer.Add(label)
 
 		daysSizer = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Day")), wx.HORIZONTAL)
 		self.triggerDays = []
