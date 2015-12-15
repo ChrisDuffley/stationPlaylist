@@ -950,7 +950,9 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	def onRename(self, evt):
 		global SPLConfigPool
-		oldName = self.profiles.GetStringSelection().split(" <")[0]
+		oldDisplayName = self.profiles.GetStringSelection()
+		state = oldDisplayName.split(" <")
+		oldName = state[0]
 		index = self.profiles.Selection
 		configPos = getProfileIndexByName(oldName)
 		profilePos = self.profileNames.index(oldName)
@@ -981,6 +983,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.profileNames[profilePos] = newName
 		SPLConfigPool[configPos].name = newName
 		SPLConfigPool[configPos].filename = newProfile
+		if len(state) > 1: newName = " <".join([newName, state[1]])
 		self.profiles.SetString(index, newName)
 		self.profiles.Selection = index
 		self.profiles.SetFocus()
@@ -1024,14 +1027,29 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	def onInstantSwitch(self, evt):
 		selection = self.profiles.GetSelection()
-		selectedName = self.profiles.GetStringSelection().split(" <")[0]
+		selectedDisplayName = self.profiles.GetStringSelection()
+		state = selectedDisplayName.split(" <")
+		if len(state) > 1: normalizedStates = state[1][:-1].split(", ")
+		selectedName = state[0]
+		flag = _("instant switch")
 		if self.switchProfile is None or (selectedName != self.switchProfile):
 			self.instantSwitchButton.Label = _("Disable instant profile switching")
 			self.switchProfile = selectedName
+			# Add "instant switch" flag.
+			if len(state) == 1: 
+				selectedName = "{0} <{1}>".format(selectedName, flag)
+			else:
+				normalizedStates.append(flag)
+				selectedName = "{0} <{1}>".format(selectedName, ", ".join(normalizedStates))
+			self.profiles.SetString(selection, selectedName)
 			tones.beep(1000, 500)
 		else:
 			self.instantSwitchButton.Label = _("Enable instant profile switching")
 			self.switchProfile = None
+			normalizedStates.remove(flag)
+			if len(normalizedStates):
+				selectedName = "{0} <{1}>".format(selectedName, ", ".join(normalizedStates))
+			self.profiles.SetString(selection, selectedName)
 			tones.beep(500, 500)
 
 	# Manage metadata streaming.
