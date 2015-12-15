@@ -10,6 +10,10 @@ from configobj import ConfigObj
 from validate import Validator
 import weakref
 import time
+import datetime
+import cPickle
+import calendar
+import math
 import globalVars
 import ui
 import api
@@ -57,7 +61,6 @@ SPLConfigPool = []
 _SPLDefaults = ConfigObj(None, configspec = confspec, encoding="UTF-8")
 _val = Validator()
 _SPLDefaults.validate(_val, copy=True)
-
 # The following settings can be changed in profiles:
 _mutatableSettings=("SayEndOfTrack","EndOfTrackTime","SaySongRamp","SongRampTime","MicAlarm","MicAlarmInterval","MetadataEnabled","UseScreenColumnOrder","ColumnOrder","IncludedColumns")
 
@@ -151,6 +154,8 @@ def initConfig():
 				messages.append("{profileName}: {errorMessage}".format(profileName = profile, errorMessage = error))
 		_configLoadStatus.clear()
 		runConfigErrorDialog("\n".join(messages), title)
+	# Fire up profile triggers.
+	initProfileTriggers()
 
 # Unlock (load) profiles from files.
 def unlockConfig(path, profileName=None, prefill=False):
@@ -220,6 +225,100 @@ def _applyBaseSettings(conf):
 		# Ignore profile-specific settings.
 		if setting not in _mutatableSettings:
 			conf[setting] = SPLConfigPool[0][setting]
+
+# Record profile triggers.
+# Each record (profile name) consists of seven fields organized as a list:
+# A bit vector specifying which days should this profile be active, and first six fields needed for constructing a datetime.datetime object used to look up when to trigger this profile.
+# A future extension will add three more fields specifying the length of this trigger.
+profileTriggers = {} # Using a pickle is quite elegant.
+# Profile triggers pickle.
+SPLTriggersFile = os.path.join(globalVars.appArgs.configPath, "spltriggers.pickle")
+
+# Prepare the triggers dictionary and other runtime support.
+def initProfileTriggers():
+	global profileTriggers
+	try:
+		profileTriggers = cPickle.load(file(SPLTriggersFile), "r")
+	except IOError:
+		pass
+	queuedProfile = nextTimedProfile()
+	if queuedProfile is not None:
+		try:
+			nextProfileIndex = SPLConfigPool[getProfileIndexByName(queuedProfile[1])].name
+		except ValueError:
+			pass
+		switchAfter = (queuedProfile[0] - datetime.datetime.now()).seconds
+		print switchAfter
+
+# Locate time-based profiles if any.
+# A 3-tuple will be returned, containing the next trigger time (for time delta calculation), the profile name for this trigger time and whether an immediate switch is necessary.
+# For now, the third field will be ignored (always set to False).
+def nextTimedProfile(current=None):
+	if current is None: current = datetime.datetime.now()
+	# No need to proceed if no timed profiles are defined.
+	if not len(profileTriggers): return None
+	possibleTriggers = []
+	for profile in profileTriggers.keys():
+		entry = list(profileTriggers[profile])
+		# Construct the comparison datetime (see the profile triggers spec).
+		triggerTime = datetime.datetime(entry[1], entry[2], entry[3], entry[4], entry[5])
+		if current <= triggerTime:
+			possibleTriggers.append((triggerTime, profile, False))
+	if len(possibleTriggers):
+		d = min(possibleTriggers)[0] - current
+		print d.days
+		print d.seconds
+	return min(possibleTriggers) if len(possibleTriggers) else None
+
+# Some helpers used in locating next air date/time.
+
+# Locate the trigger given a different date.
+# this is used if one misses a profile switch.
+def findNextAirDate(bits, date, dayIndex, hhmm):
+	triggerCandidate = 64 >> dayIndex
+	# Case 1: This is a weekly show.
+	if bits == triggerCandidate:
+		delta = 7
+	else:
+		# Scan the bit vector until finding the correct date and calculate the resulting delta (dayIndex modulo 7).
+		# Take away the current trigger bit as this function is called past the switch time.
+		days = bits-triggerCandidate if bits & triggerCandidate else bits
+		currentDay = int(math.log(triggerCandidate, 2))
+		nextDay = int(math.log(days, 2))
+		# Hoping the resulting vector will have some bits set to 1...
+		if triggerCandidate > days:
+			delta = currentDay-nextDay
+		else:
+			triggerBit = -1
+			for bit in xrange(currentDay-1, -1, -1):
+				if 2 ** bit & days:
+					triggerBit = bit
+					break
+			if triggerBit > -1:
+				delta = currentDay-triggerBit
+			else:
+				delta = 7-(nextDay-currentDay)
+	date += datetime.timedelta(delta)
+	return [bits, date.year, date.month, date.day, hhmm.hour, hhmm.minute, 0]
+
+# Set the next timed profile.
+# Bits indicate the trigger days vector, hhmm is time, with the optional date being a specific date otherwise current date.
+def setNextTimedProfile(profile, bits, switchTime, date=None):
+	if date is None: date = datetime.datetime.now()
+	dayIndex = date.weekday()
+	currentTime = datetime.time(date.hour, date.minute)
+	if profile in profileTriggers: return findNextAirDate(bits, date, dayIndex, switchTime)
+	else:
+		if bits & (64 >> dayIndex):
+			if currentTime < switchTime:
+				trigger = [bits, date.year, date.month, date.day, switchTime.hour, switchTime.minute, 0]
+			else:
+				trigger = findNextAirDate(bits, date, dayIndex, switchTime)
+			return trigger
+
+# Dump profile triggers pickle away.
+def saveProfileTriggers():
+	pass
 
 # Instant profile switch helpers.
 # A number of helper functions assisting instant switch profile routine and others, including sorting and locating the needed profile upon request.
@@ -297,6 +396,8 @@ def saveConfig():
 	# 7.0: Turn off auto update check timer.
 	if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
 	splupdate._SPLUpdateT = None
+	# Close profile triggers dictionary.
+	saveProfileTriggers()
 	# Apply any global settings changed in profiles to normal configuration.
 	if SPLConfigPool.index(SPLConfig) > 0:
 		for setting in SPLConfig:
@@ -451,6 +552,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# Translators: The label of a button to delete a broadcast profile.
 		item = self.deleteButton = wx.Button(self, label=_("&Delete"))
 		item.Bind(wx.EVT_BUTTON, self.onDelete)
+		sizer.Add(item)
+		# Translators: The label of a button to manage show profile triggers.
+		item = self.triggerButton = wx.Button(self, label=_("&Triggers..."))
+		item.Bind(wx.EVT_BUTTON, self.onTriggers)
 		sizer.Add(item)
 		# Translators: The label of a button to toggle instant profile switching on and off.
 		if SPLSwitchProfile is None: switchLabel = _("Enable instant profile switching")
@@ -907,6 +1012,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.onProfileSelection(None)
 		self.profiles.SetFocus()
 
+	def onTriggers(self, evt):
+		self.Disable()
+		selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
+		TriggersDialog(self, selectedProfile).Show()
+
 	def onInstantSwitch(self, evt):
 		selection = self.profiles.GetSelection()
 		selectedName = self.profiles.GetStringSelection().split(" <")[0]
@@ -1044,6 +1154,68 @@ class NewProfileDialog(wx.Dialog):
 		parent.profiles.Append(name)
 		parent.profiles.Selection = parent.profiles.Count - 1
 		parent.onProfileSelection(None)
+		parent.profiles.SetFocus()
+		parent.Enable()
+		self.Destroy()
+		return
+
+	def onCancel(self, evt):
+		self.Parent.Enable()
+		self.Destroy()
+
+# Broadcast profile triggers dialog.
+# This dialog is similar to NVDA Core's profile triggers dialog and allows one to configure when to trigger this profile.
+testBit = 96
+class TriggersDialog(wx.Dialog):
+
+	def __init__(self, parent, profile):
+		# Translators: The title of the broadcast profile triggers dialog.
+		super(TriggersDialog, self).__init__(parent, title=_("Profile triggers for {profileName}").format(profileName = profile))
+		self.profile = profile
+
+		mainSizer = wx.BoxSizer(wx.VERTICAL)
+
+		daysSizer = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Day")), wx.HORIZONTAL)
+		self.triggerDays = []
+		for day in xrange(len(calendar.day_name)):
+			triggerDay=wx.CheckBox(self, wx.NewId(),label=calendar.day_name[day])
+			value = (64 >> day & profileTriggers[profile][0]) if profile in profileTriggers else 0
+			triggerDay.SetValue(value)
+			self.triggerDays.append(triggerDay)
+		for day in self.triggerDays:
+			daysSizer.Add(day)
+		mainSizer.Add(daysSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
+
+		timeSizer = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Time")), wx.HORIZONTAL)
+		prompt = wx.StaticText(self, wx.ID_ANY, label="Hour")
+		timeSizer.Add(prompt)
+		self.hourEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=23)
+		self.hourEntry.SetValue(profileTriggers[profile][4] if profile in profileTriggers else 0)
+		self.hourEntry.SetSelection(-1, -1)
+		timeSizer.Add(self.hourEntry)
+		prompt = wx.StaticText(self, wx.ID_ANY, label="Minute")
+		timeSizer.Add(prompt)
+		self.minEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=59)
+		self.minEntry.SetValue(profileTriggers[profile][5] if profile in profileTriggers else 0)
+		self.minEntry.SetSelection(-1, -1)
+		timeSizer.Add(self.minEntry)
+		mainSizer.Add(timeSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.BOTTOM)
+
+		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
+		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
+		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
+		mainSizer.Fit(self)
+		self.SetSizer(mainSizer)
+		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+		self.triggerDays[0].SetFocus()
+
+	def onOk(self, evt):
+		bit = 0
+		for day in self.triggerDays:
+			if day.Value: bit+=64 >> self.triggerDays.index(day)
+		print bit
+		profileTriggers[self.profile] = setNextTimedProfile(self.profile, bit, datetime.time(self.hourEntry.GetValue(), self.minEntry.GetValue()))
+		parent = self.Parent
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()
