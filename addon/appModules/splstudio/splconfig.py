@@ -344,6 +344,8 @@ def instantProfileSwitch():
 			# 6.1: Do to referencing nature of Python, use the profile index function to locate the index for the soon to be deactivated profile.
 			SPLPrevProfile = getProfileIndexByName(SPLActiveProfile)
 			SPLConfig = SPLConfigPool[switchProfileIndex]
+			# Also change the active profile, otherwise this flag will not be shown.
+			SPLActiveProfile = SPLSwitchProfile
 			# Translators: Presented when switch to instant switch profile was successful.
 			ui.message(_("Switching profiles"))
 			# Use the focus.appModule's metadata reminder method if told to do so now.
