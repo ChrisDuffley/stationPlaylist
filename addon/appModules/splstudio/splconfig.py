@@ -22,6 +22,7 @@ import wx
 from winUser import user32
 import tones
 import splupdate
+from splmisc import SPLCountdownTimer
 
 # Configuration management
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
@@ -233,22 +234,17 @@ def _applyBaseSettings(conf):
 profileTriggers = {} # Using a pickle is quite elegant.
 # Profile triggers pickle.
 SPLTriggersFile = os.path.join(globalVars.appArgs.configPath, "spltriggers.pickle")
+# Trigger timer.
+triggerTimer = None
 
 # Prepare the triggers dictionary and other runtime support.
 def initProfileTriggers():
-	global profileTriggers
+	global profileTriggers, SPLTriggerProfile, triggerTimer
 	try:
-		profileTriggers = cPickle.load(file(SPLTriggersFile), "r")
+		profileTriggers = cPickle.load(file(SPLTriggersFile, "r"))
 	except IOError:
 		pass
-	queuedProfile = nextTimedProfile()
-	if queuedProfile is not None:
-		try:
-			nextProfileIndex = SPLConfigPool[getProfileIndexByName(queuedProfile[1])].name
-		except ValueError:
-			pass
-		switchAfter = (queuedProfile[0] - datetime.datetime.now()).seconds
-		print switchAfter
+	triggerStart()
 
 # Locate time-based profiles if any.
 # A 3-tuple will be returned, containing the next trigger time (for time delta calculation), the profile name for this trigger time and whether an immediate switch is necessary.
@@ -307,20 +303,43 @@ def setNextTimedProfile(profile, bits, switchTime, date=None):
 	if date is None: date = datetime.datetime.now()
 	dayIndex = date.weekday()
 	currentTime = datetime.time(date.hour, date.minute)
-	if profile in profileTriggers: return findNextAirDate(bits, date, dayIndex, switchTime)
+	if profile in profileTriggers:
+		ts = profileTriggers[profile]
+		if (64 >> dayIndex) == bits:
+			# No need to calculate date delta if switching will happen later today.
+			if datetime.time(ts[4], ts[5]) <= currentTime < switchTime:
+				return [bits, date.year, date.month, date.day, switchTime.hour, switchTime.minute, 0]
+			else: return findNextAirDate(bits, date, dayIndex, switchTime)
 	else:
 		if bits & (64 >> dayIndex):
 			if currentTime < switchTime:
-				trigger = [bits, date.year, date.month, date.day, switchTime.hour, switchTime.minute, 0]
-			else:
-				trigger = findNextAirDate(bits, date, dayIndex, switchTime)
-		else:
-			trigger = findNextAirDate(bits, date, dayIndex, switchTime)
-		return trigger
+				return [bits, date.year, date.month, date.day, switchTime.hour, switchTime.minute, 0]
+			else: return findNextAirDate(bits, date, dayIndex, switchTime)
+		else: return findNextAirDate(bits, date, dayIndex, switchTime)
+
+# Start the trigger timer based on above information.
+def triggerStart():
+	global SPLTriggerProfile, triggerTimer
+	queuedProfile = nextTimedProfile()
+	if queuedProfile is not None:
+		try:
+			SPLTriggerProfile = queuedProfile[1]
+		except ValueError:
+			SPLTriggerProfile = None
+		switchAfter = (queuedProfile[0] - datetime.datetime.now())
+		print switchAfter.seconds
+		if switchAfter.days == 0 and switchAfter.seconds <= 3600:
+			triggerTimer = SPLCountdownTimer(switchAfter.seconds, triggerProfileSwitch, 15)
+			triggerTimer.start()
 
 # Dump profile triggers pickle away.
 def saveProfileTriggers():
-	pass
+	global triggerTimer, profileTriggers
+	if triggerTimer is not None and triggerTimer.IsRunning():
+		triggerTimer.stop()
+		triggerTimer = None
+	cPickle.dump(profileTriggers, file(SPLTriggersFile, "wb"))
+	profileTriggers = None
 
 # Instant profile switch helpers.
 # A number of helper functions assisting instant switch profile routine and others, including sorting and locating the needed profile upon request.
@@ -428,6 +447,18 @@ def saveConfig():
 SPLActiveProfile = None
 SPLPrevProfile = None
 SPLSwitchProfile = None
+SPLTriggerProfile = None
+
+# A general-purpose profile switcher.
+# Allows the add-on to switch between profiles as a result of manual intervention or through profile trigger timer.
+# Instant profile switching is just a special case of this function.
+def switchProfile(activeProfile, newProfile):
+	global SPLConfig
+	# Switch to the given profile.
+	SPLConfig = SPLConfigPool[newProfile]
+	# Use the focus.appModule's metadata reminder method if told to do so now.
+	if SPLConfig["MetadataReminder"] in ("startup", "instant"):
+		api.getFocusObject().appModule._metadataAnnouncer(reminder=True)
 
 # Called from within the app module.
 def instantProfileSwitch():
@@ -449,24 +480,59 @@ def instantProfileSwitch():
 			switchProfileIndex = getProfileIndexByName(SPLSwitchProfile)
 			# 6.1: Do to referencing nature of Python, use the profile index function to locate the index for the soon to be deactivated profile.
 			SPLPrevProfile = getProfileIndexByName(SPLActiveProfile)
-			SPLConfig = SPLConfigPool[switchProfileIndex]
+			# Pass in the prev profile, which will be None for instant profile switch.
+			switchProfile(SPLPrevProfile, switchProfileIndex)
 			# Translators: Presented when switch to instant switch profile was successful.
 			ui.message(_("Switching profiles"))
-			# Use the focus.appModule's metadata reminder method if told to do so now.
-			if SPLConfig["MetadataReminder"] in ("startup", "instant"):
-				api.getFocusObject().appModule._metadataAnnouncer(reminder=True)
 			# Pause automatic update checking.
 			if SPLConfig["AutoUpdateCheck"]:
 				if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning: splupdate._SPLUpdateT.Stop()
 		else:
-			SPLConfig = SPLConfigPool[SPLPrevProfile]
+			switchProfile(None, SPLPrevProfile)
 			SPLActiveProfile = SPLConfig.name
 			SPLPrevProfile = None
 			# Translators: Presented when switching from instant switch profile to a previous profile.
 			ui.message(_("Returning to previous profile"))
-			# 6.1: Don't forget to switch streaming status around.
-			if SPLConfig["MetadataReminder"] in ("startup", "instant"):
-				api.getFocusObject().appModule._metadataAnnouncer(reminder=True)
+			# Resume auto update checker if told to do so.
+			if SPLConfig["AutoUpdateCheck"]: updateInit()
+
+# The triggers version of the above function.
+# 7.0: Try consolidating this into one or some more functions.
+def triggerProfileSwitch():
+	global SPLPrevProfile, SPLConfig, SPLActiveProfile, triggerTimer
+	if _configDialogOpened:
+		# Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
+		ui.message(_("Add-on settings dialog is open, cannot switch profiles"))
+		return
+	if SPLTriggerProfile is None:
+		# Technically a dead code, but for now...
+		# Translators: Presented when trying to switch to an instant switch profile when the instant switch profile is not defined.
+		ui.message(_("No profile triggers defined"))
+	else:
+		if SPLPrevProfile is None:
+			if SPLActiveProfile == SPLTriggerProfile:
+				# Translators: Presented when trying to switch to an instant switch profile when one is already using the instant switch profile.
+				ui.message(_("A profile trigger is already active"))
+				return
+			# Switch to the given profile.
+			triggerProfileIndex = getProfileIndexByName(SPLTriggerProfile)
+			SPLPrevProfile = getProfileIndexByName(SPLActiveProfile)
+			# Pass in the prev profile, which will be None for instant profile switch.
+			switchProfile(SPLPrevProfile, triggerProfileIndex)
+			# Translators: Presented when switch to instant switch profile was successful.
+			ui.message(_("Switching profiles"))
+			# Pause automatic update checking.
+			if SPLConfig["AutoUpdateCheck"]:
+				if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning: splupdate._SPLUpdateT.Stop()
+			# Set the next trigger date and time.
+			triggerSettings = profileTriggers[SPLTriggerProfile]
+			profileTriggers[SPLTriggerProfile] = setNextTimedProfile(SPLTriggerProfile, triggerSettings[0], datetime.time(triggerSettings[4], triggerSettings[5]))
+		else:
+			switchProfile(None, SPLPrevProfile)
+			SPLActiveProfile = SPLConfig.name
+			SPLPrevProfile = None
+			# Translators: Presented when switching from instant switch profile to a previous profile.
+			ui.message(_("Returning to previous profile"))
 			# Resume auto update checker if told to do so.
 			if SPLConfig["AutoUpdateCheck"]: updateInit()
 
@@ -1242,11 +1308,14 @@ class TriggersDialog(wx.Dialog):
 		self.triggerDays[0].SetFocus()
 
 	def onOk(self, evt):
+		global SPLTriggerProfile, triggerTimer
 		bit = 0
 		for day in self.triggerDays:
 			if day.Value: bit+=64 >> self.triggerDays.index(day)
 		print bit
-		if bit: profileTriggers[self.profile] = setNextTimedProfile(self.profile, bit, datetime.time(self.hourEntry.GetValue(), self.minEntry.GetValue()))
+		if bit:
+			profileTriggers[self.profile] = setNextTimedProfile(self.profile, bit, datetime.time(self.hourEntry.GetValue(), self.minEntry.GetValue()))
+			triggerStart()
 		elif bit == 0 and self.profile in profileTriggers:
 			del profileTriggers[self.profile]
 		parent = self.Parent
