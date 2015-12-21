@@ -519,6 +519,7 @@ def triggerProfileSwitch():
 			SPLPrevProfile = getProfileIndexByName(SPLActiveProfile)
 			# Pass in the prev profile, which will be None for instant profile switch.
 			switchProfile(SPLPrevProfile, triggerProfileIndex)
+			SPLActiveProfile = SPLTriggerProfile
 			# Translators: Presented when switch to instant switch profile was successful.
 			ui.message(_("Switching profiles"))
 			# Pause automatic update checking.
