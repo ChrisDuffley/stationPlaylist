@@ -258,8 +258,11 @@ def nextTimedProfile(current=None):
 		entry = list(profileTriggers[profile])
 		# Construct the comparison datetime (see the profile triggers spec).
 		triggerTime = datetime.datetime(entry[1], entry[2], entry[3], entry[4], entry[5])
-		if current <= triggerTime:
-			possibleTriggers.append((triggerTime, profile, False))
+		# Hopefully the trigger should be ready before the show, but sometimes it isn't.
+		if current > triggerTime:
+			print "time passed"
+			profileTriggers[profile] = setNextTimedProfile(profile, entry[0], datetime.time(entry[4], entry[5]), date=current)
+		possibleTriggers.append((triggerTime, profile, False))
 	if len(possibleTriggers):
 		d = min(possibleTriggers)[0] - current
 		print d.days
@@ -302,24 +305,19 @@ def findNextAirDate(bits, date, dayIndex, hhmm):
 def setNextTimedProfile(profile, bits, switchTime, date=None):
 	if date is None: date = datetime.datetime.now()
 	dayIndex = date.weekday()
-	currentTime = datetime.time(date.hour, date.minute)
-	if profile in profileTriggers:
-		ts = profileTriggers[profile]
-		if (64 >> dayIndex) == bits:
-			# No need to calculate date delta if switching will happen later today.
-			if datetime.time(ts[4], ts[5]) <= currentTime < switchTime:
-				return [bits, date.year, date.month, date.day, switchTime.hour, switchTime.minute, 0]
-			else: return findNextAirDate(bits, date, dayIndex, switchTime)
-	else:
-		if bits & (64 >> dayIndex):
-			if currentTime < switchTime:
-				return [bits, date.year, date.month, date.day, switchTime.hour, switchTime.minute, 0]
-			else: return findNextAirDate(bits, date, dayIndex, switchTime)
-		else: return findNextAirDate(bits, date, dayIndex, switchTime)
+	currentTime = datetime.time(date.hour, date.minute, date.second, date.microsecond)
+	if (bits & (64 >> dayIndex)) and currentTime < switchTime:
+		return [bits, date.year, date.month, date.day, switchTime.hour, switchTime.minute, 0]
+	else: return findNextAirDate(bits, date, dayIndex, switchTime)
 
 # Start the trigger timer based on above information.
-def triggerStart():
+# Can be restarted if needed.
+def triggerStart(restart=False):
 	global SPLTriggerProfile, triggerTimer
+	# Restart the timer when called from triggers dialog in order to prevent multiple timers from running.
+	if triggerTimer is not None and triggerTimer.IsRunning() and restart:
+		triggerTimer.stop()
+		triggerTimer = None
 	queuedProfile = nextTimedProfile()
 	if queuedProfile is not None:
 		try:
@@ -327,8 +325,8 @@ def triggerStart():
 		except ValueError:
 			SPLTriggerProfile = None
 		switchAfter = (queuedProfile[0] - datetime.datetime.now())
-		print switchAfter.seconds
 		if switchAfter.days == 0 and switchAfter.seconds <= 3600:
+			time.sleep((switchAfter.microseconds+1000) / 1000000.0)
 			triggerTimer = SPLCountdownTimer(switchAfter.seconds, triggerProfileSwitch, 15)
 			triggerTimer.start()
 
@@ -644,6 +642,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		if getProfileIndexByName(SPLConfig.name) == 0:
 			self.renameButton.Disable()
 			self.deleteButton.Disable()
+			self.triggerButton.Disable()
 			self.instantSwitchButton.Disable()
 		settingsSizer.Add(sizer)
 
@@ -978,10 +977,12 @@ class SPLConfigDialog(gui.SettingsDialog):
 		if selection == 0:
 			self.renameButton.Disable()
 			self.deleteButton.Disable()
+			self.triggerButton.Disable()
 			self.instantSwitchButton.Disable()
 		else:
 			self.renameButton.Enable()
 			self.deleteButton.Enable()
+			self.triggerButton.Enable()
 			if selectedProfile != self.switchProfile:
 				self.instantSwitchButton.Label = _("Enable instant profile switching")
 			else:
@@ -1312,10 +1313,9 @@ class TriggersDialog(wx.Dialog):
 		bit = 0
 		for day in self.triggerDays:
 			if day.Value: bit+=64 >> self.triggerDays.index(day)
-		print bit
 		if bit:
 			profileTriggers[self.profile] = setNextTimedProfile(self.profile, bit, datetime.time(self.hourEntry.GetValue(), self.minEntry.GetValue()))
-			triggerStart()
+			triggerStart(restart=True)
 		elif bit == 0 and self.profile in profileTriggers:
 			del profileTriggers[self.profile]
 		parent = self.Parent
