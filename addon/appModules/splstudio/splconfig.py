@@ -488,6 +488,7 @@ def instantProfileSwitch():
 			# 6.1: Do to referencing nature of Python, use the profile index function to locate the index for the soon to be deactivated profile.
 			SPLPrevProfile = getProfileIndexByName(SPLActiveProfile)
 			mergeSections(switchProfileIndex)
+			SPLActiveProfile = SPLConfigPool[switchProfileIndex].name
 			SPLConfig["ActiveIndex"] = switchProfileIndex
 			# Translators: Presented when switch to instant switch profile was successful.
 			ui.message(_("Switching profiles"))
@@ -790,22 +791,35 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# Translators: the label for a setting in SPL add-on settings to announce scheduled time.
 		self.scheduledForCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce &scheduled time for the selected track"))
 		self.scheduledForCheckbox.SetValue(SPLConfig["SayStatus"]["SayScheduledFor"])
+		self.scheduledFor = SPLConfig["SayStatus"]["SayScheduledFor"]
+		self.scheduledForCheckbox.Hide()
 		settingsSizer.Add(self.scheduledForCheckbox, border=10,flag=wx.BOTTOM)
 
 		# Translators: the label for a setting in SPL add-on settings to announce listener count.
 		self.listenerCountCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce &listener count"))
 		self.listenerCountCheckbox.SetValue(SPLConfig["SayStatus"]["SayListenerCount"])
+		self.listenerCount = SPLConfig["SayStatus"]["SayListenerCount"]
+		self.listenerCountCheckbox.Hide()
 		settingsSizer.Add(self.listenerCountCheckbox, border=10,flag=wx.BOTTOM)
 
 		# Translators: the label for a setting in SPL add-on settings to announce currently playing cart.
 		self.cartNameCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Announce name of the currently playing cart"))
 		self.cartNameCheckbox.SetValue(SPLConfig["SayStatus"]["SayPlayingCartName"])
+		self.cartName = SPLConfig["SayStatus"]["SayPlayingCartName"]
+		self.cartNameCheckbox.Hide()
 		settingsSizer.Add(self.cartNameCheckbox, border=10,flag=wx.BOTTOM)
 
 		# Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
 		self.playingTrackNameCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce name of the currently playing &track automatically"))
 		self.playingTrackNameCheckbox.SetValue(SPLConfig["SayStatus"]["SayPlayingTrackName"] == "True")
+		self.playingTrackName = SPLConfig["SayStatus"]["SayPlayingTrackName"] == "True"
+		self.playingTrackNameCheckbox.Hide()
 		settingsSizer.Add(self.playingTrackNameCheckbox, border=10,flag=wx.BOTTOM)
+
+		# Translators: The label of a button to open advanced options such as using SPL Controller command to invoke Assistant layer.
+		item = sayStatusButton = wx.Button(self, label=_("&Status announcements..."))
+		item.Bind(wx.EVT_BUTTON, self.onStatusAnnouncement)
+		settingsSizer.Add(item)
 
 		# Translators: The label of a button to open advanced options such as using SPL Controller command to invoke Assistant layer.
 		item = advancedOptButton = wx.Button(self, label=_("&Advanced options..."))
@@ -974,7 +988,9 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	def onRename(self, evt):
 		global SPLConfigPool
-		oldName = self.profiles.GetStringSelection().split(" <")[0]
+		oldDisplayName = self.profiles.GetStringSelection()
+		state = oldDisplayName.split(" <")
+		oldName = state[0]
 		index = self.profiles.Selection
 		configPos = getProfileIndexByName(oldName)
 		profilePos = self.profileNames.index(oldName)
@@ -1005,6 +1021,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.profileNames[profilePos] = newName
 		SPLConfigPool[configPos].name = newName
 		SPLConfigPool[configPos].filename = newProfile
+		if len(state) > 1: newName = " <".join([newName, state[1]])
 		self.profiles.SetString(index, newName)
 		self.profiles.Selection = index
 		self.profiles.SetFocus()
@@ -1043,14 +1060,29 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	def onInstantSwitch(self, evt):
 		selection = self.profiles.GetSelection()
-		selectedName = self.profiles.GetStringSelection().split(" <")[0]
+		selectedDisplayName = self.profiles.GetStringSelection()
+		state = selectedDisplayName.split(" <")
+		if len(state) > 1: normalizedStates = state[1][:-1].split(", ")
+		selectedName = state[0]
+		flag = _("instant switch")
 		if self.switchProfile is None or (selectedName != self.switchProfile):
 			self.instantSwitchButton.Label = _("Disable instant profile switching")
 			self.switchProfile = selectedName
+			# Add "instant switch" flag.
+			if len(state) == 1: 
+				selectedName = "{0} <{1}>".format(selectedName, flag)
+			else:
+				normalizedStates.append(flag)
+				selectedName = "{0} <{1}>".format(selectedName, ", ".join(normalizedStates))
+			self.profiles.SetString(selection, selectedName)
 			tones.beep(1000, 500)
 		else:
 			self.instantSwitchButton.Label = _("Enable instant profile switching")
 			self.switchProfile = None
+			normalizedStates.remove(flag)
+			if len(normalizedStates):
+				selectedName = "{0} <{1}>".format(selectedName, ", ".join(normalizedStates))
+			self.profiles.SetString(selection, selectedName)
 			tones.beep(500, 500)
 
 	# Manage metadata streaming.
@@ -1062,6 +1094,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 	def onManageColumns(self, evt):
 		self.Disable()
 		ColumnAnnouncementsDialog(self).Show()
+
+	# Status announcement dialog.
+	def onStatusAnnouncement(self, evt):
+		self.Disable()
+		SayStatusDialog(self).Show()
 
 	# Advanced options.
 	# See advanced options class for more details.
@@ -1418,6 +1455,58 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 			# This will cause NVDA to say "unavailable" as focus is lost momentarily. A bit anoying but a necessary hack.
 			if self.FindFocus().GetId() == wx.ID_OK:
 				self.upButton.SetFocus()
+
+# Say status dialog.
+# Houses options such as announcing cart names.
+class SayStatusDialog(wx.Dialog):
+
+	def __init__(self, parent):
+		super(SayStatusDialog, self).__init__(parent, title=_("Status announcements"))
+
+		mainSizer = wx.BoxSizer(wx.VERTICAL)
+
+		# Translators: the label for a setting in SPL add-on settings to announce scheduled time.
+		self.scheduledForCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce &scheduled time for the selected track"))
+		self.scheduledForCheckbox.SetValue(self.Parent.scheduledForCheckbox.Value)
+		mainSizer.Add(self.scheduledForCheckbox, border=10,flag=wx.BOTTOM)
+
+		# Translators: the label for a setting in SPL add-on settings to announce listener count.
+		self.listenerCountCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce &listener count"))
+		self.listenerCountCheckbox.SetValue(self.Parent.listenerCountCheckbox.Value)
+		mainSizer.Add(self.listenerCountCheckbox, border=10,flag=wx.BOTTOM)
+
+		# Translators: the label for a setting in SPL add-on settings to announce currently playing cart.
+		self.cartNameCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Announce name of the currently playing cart"))
+		self.cartNameCheckbox.SetValue(self.Parent.cartNameCheckbox.Value)
+		mainSizer.Add(self.cartNameCheckbox, border=10,flag=wx.BOTTOM)
+
+		# Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
+		self.playingTrackNameCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce name of the currently playing &track automatically"))
+		self.playingTrackNameCheckbox.SetValue(self.Parent.playingTrackNameCheckbox.Value)
+		mainSizer.Add(self.playingTrackNameCheckbox, border=10,flag=wx.BOTTOM)
+
+		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
+		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
+		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
+		mainSizer.Fit(self)
+		self.Sizer = mainSizer
+		self.scheduledForCheckbox.SetFocus()
+		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+
+	def onOk(self, evt):
+		parent = self.Parent
+		parent.scheduledForCheckbox.SetValue(self.scheduledForCheckbox.Value)
+		parent.listenerCountCheckbox.SetValue(self.listenerCountCheckbox.Value)
+		parent.cartNameCheckbox.SetValue(self.cartNameCheckbox.Value)
+		parent.playingTrackNameCheckbox.SetValue(self.playingTrackNameCheckbox.Value)
+		parent.profiles.SetFocus()
+		parent.Enable()
+		self.Destroy()
+		return
+
+	def onCancel(self, evt):
+		self.Parent.Enable()
+		self.Destroy()
 
 # Advanced options
 # This dialog houses advanced options such as using SPL Controller command to invoke SPL Assistant.
