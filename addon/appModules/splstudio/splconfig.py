@@ -604,10 +604,25 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.cartNameCheckbox.SetValue(SPLConfig["SayPlayingCartName"])
 		settingsSizer.Add(self.cartNameCheckbox, border=10,flag=wx.BOTTOM)
 
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
-		self.playingTrackNameCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce name of the currently playing &track automatically"))
-		self.playingTrackNameCheckbox.SetValue(SPLConfig["SayPlayingTrackName"] == "True")
-		settingsSizer.Add(self.playingTrackNameCheckbox, border=10,flag=wx.BOTTOM)
+		label = wx.StaticText(self, wx.ID_ANY, label=_("&Track name announcement:"))
+		# Translators: One of the track name announcement options.
+		self.trackAnnouncements=[("True",_("automatic")),
+		# Translators: One of the track name announcement options.
+		("Background",_("while using other programs")),
+		# Translators: One of the track name announcement options.
+		("False",_("off"))]
+		self.trackAnnouncementList= wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.trackAnnouncements])
+		trackAnnouncement=SPLConfig["SayPlayingTrackName"]
+		selection = (x for x,y in enumerate(self.trackAnnouncements) if y[0]==trackAnnouncement).next()  
+		try:
+			self.trackAnnouncementList.SetSelection(selection)
+		except:
+			pass
+		sizer.Add(label)
+		sizer.Add(self.trackAnnouncementList)
+		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		# Translators: The label of a button to open advanced options such as using SPL Controller command to invoke Assistant layer.
 		item = advancedOptButton = wx.Button(self, label=_("&Advanced options..."))
@@ -651,7 +666,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["SayScheduledFor"] = self.scheduledForCheckbox.Value
 		SPLConfig["SayListenerCount"] = self.listenerCountCheckbox.Value
 		SPLConfig["SayPlayingCartName"] = self.cartNameCheckbox.Value
-		SPLConfig["SayPlayingTrackName"] = str(self.playingTrackNameCheckbox.Value)
+		SPLConfig["SayPlayingTrackName"] = self.trackAnnouncements[self.trackAnnouncementList.GetSelection()][0]
 		SPLConfig["SPLConPassthrough"] = self.splConPassthrough
 		SPLConfig["CompatibilityLayer"] = self.compLayer
 		SPLActiveProfile = SPLConfig.name

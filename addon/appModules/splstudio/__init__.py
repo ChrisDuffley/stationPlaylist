@@ -465,8 +465,9 @@ class AppModule(appModuleHandler.AppModule):
 						statusBarFG = obj.parent.parent.parent
 						if statusBarFG is not None:
 							statusBar = statusBarFG.previous.previous.previous
-							if statusBar is not None and statusBar.firstChild is not None and statusBar.firstChild.role == 27:
+							if statusBar is not None and statusBar.firstChild is not None and statusBar.firstChild.role == controlTypes.ROLE_STATUSBAR:
 								ui.message(obj.name)
+								tones.beep(1000, 100)
 					except AttributeError:
 						pass
 		nextHandler()
