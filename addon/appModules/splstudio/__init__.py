@@ -1419,7 +1419,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_sayPlaylistRemainingDuration(self, gesture):
 		# 6.2: By default, remaining time for the hour will be announced.
-		if splconfig.SPLConfig["PlaylistRemainder"] == "hour":
+		if splconfig.SPLConfig["Advanced"]["PlaylistRemainder"] == "hour":
 			statusAPI(1, 27, self.announceTime)
 		else:
 			# 6.2: Emulate track time analysis from current track to the end of the playlist.

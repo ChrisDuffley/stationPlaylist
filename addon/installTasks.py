@@ -37,9 +37,10 @@ IncludedColumns = string_list(default=list("Artist","Title","Duration","Intro","
 SayScheduledFor = boolean(default=true)
 SayListenerCount = boolean(default=true)
 SayPlayingCartName = boolean(default=true)
-SayPlayingTrackName = boolean(default=true)
+SayPlayingTrackName = string(default="True")
 SPLConPassthrough = boolean(default=false)
 CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
+PlaylistRemainder = option("hour", "playlist", default="hour")
 AutoUpdateCheck = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
@@ -70,6 +71,7 @@ _conversionConfig = {
 	"SayPlayingTrackName":"SayStatus",
 	"SPLConPassthrough":"Advanced",
 	"CompatibilityLayer":"Advanced",
+	"PlaylistRemainder":"Advanced",
 	"AutoUpdateCheck":"Update",
 }
 
