@@ -483,7 +483,7 @@ class SAMEncoder(Encoder):
 		time.sleep(0.5)
 		speech.speechMode = speechMode
 		speech.cancelSpeech()
-		eventHandler.executeEvent("gainFocus",focus)
+		#eventHandler.executeEvent("gainFocus",focus)
 
 
 	# Announce SAM columns: encoder name/type, status and description.
