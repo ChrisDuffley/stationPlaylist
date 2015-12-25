@@ -1457,6 +1457,7 @@ class AppModule(appModuleHandler.AppModule):
 			statusAPI(1, 27, self.announceTime)
 		else:
 			# 7.0: A new total time function will be employed.
+			tones.beep(1024, 30)
 			focus = api.getFocusObject()
 			if focus.role == controlTypes.ROLE_LIST:
 				ui.message("00:00")
