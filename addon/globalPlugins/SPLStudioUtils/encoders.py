@@ -9,7 +9,6 @@ import time
 from configobj import ConfigObj
 import api
 import ui
-import eventHandler
 import speech
 import globalVars
 import scriptHandler
@@ -460,12 +459,11 @@ class SAMEncoder(Encoder):
 		time.sleep(0.2)
 
 	def script_connectAll(self, gesture):
-		gesture.send()
 		# Translators: Presented when SAM Encoder is disconnecting from a streaming server.
 		ui.message(_("Connecting..."))
 		speechMode = speech.speechMode
 		speech.speechMode = 0
-		wx.CallLater(1000, self._samContextMenu, 7)
+		wx.CallAfter(self._samContextMenu, 7)
 		# Oi, status thread, can you keep an eye on the connection status for me?
 		if not self.backgroundMonitor:
 			statusThread = threading.Thread(target=self.reportConnectionStatus, kwargs=dict(connecting=True))
@@ -479,11 +477,10 @@ class SAMEncoder(Encoder):
 		ui.message(_("Disconnecting..."))
 		speechMode = speech.speechMode
 		speech.speechMode = 0
-		wx.CallLater(1000, self._samContextMenu, 8)
+		wx.CallAfter(self._samContextMenu, 8)
 		time.sleep(0.5)
 		speech.speechMode = speechMode
 		speech.cancelSpeech()
-		#eventHandler.executeEvent("gainFocus",focus)
 
 
 	# Announce SAM columns: encoder name/type, status and description.
