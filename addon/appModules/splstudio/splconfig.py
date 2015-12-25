@@ -48,6 +48,7 @@ SayPlayingCartName = boolean(default=true)
 SayPlayingTrackName = string(default="True")
 SPLConPassthrough = boolean(default=false)
 CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
+PlaylistRemainder = option("hour", "playlist", default="hour")
 AutoUpdateCheck = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
@@ -80,10 +81,11 @@ IncludedColumns = string_list(default=list("Artist","Title","Duration","Intro","
 SayScheduledFor = boolean(default=true)
 SayListenerCount = boolean(default=true)
 SayPlayingCartName = boolean(default=true)
-SayPlayingTrackName = boolean(default=true)
+SayPlayingTrackName = string(default="True")
 [Advanced]
 SPLConPassthrough = boolean(default=false)
 CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
+PlaylistRemainder = option("hour", "playlist", default="hour")
 [Update]
 AutoUpdateCheck = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
@@ -809,12 +811,28 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.cartNameCheckbox.Hide()
 		settingsSizer.Add(self.cartNameCheckbox, border=10,flag=wx.BOTTOM)
 
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
-		self.playingTrackNameCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce name of the currently playing &track automatically"))
-		self.playingTrackNameCheckbox.SetValue(SPLConfig["SayStatus"]["SayPlayingTrackName"] == "True")
-		self.playingTrackName = SPLConfig["SayStatus"]["SayPlayingTrackName"] == "True"
-		self.playingTrackNameCheckbox.Hide()
-		settingsSizer.Add(self.playingTrackNameCheckbox, border=10,flag=wx.BOTTOM)
+		label = wx.StaticText(self, wx.ID_ANY, label=_("&Track name announcement:"))
+		# Translators: One of the track name announcement options.
+		self.trackAnnouncements=[("True",_("automatic")),
+		# Translators: One of the track name announcement options.
+		("Background",_("while using other programs")),
+		# Translators: One of the track name announcement options.
+		("False",_("off"))]
+		self.trackAnnouncementList= wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.trackAnnouncements])
+		trackAnnouncement=SPLConfig["SayStatus"]["SayPlayingTrackName"]
+		self.playingTrackName = SPLConfig["SayStatus"]["SayPlayingTrackName"]
+		selection = (x for x,y in enumerate(self.trackAnnouncements) if y[0]==trackAnnouncement).next()  
+		try:
+			self.trackAnnouncementList.SetSelection(selection)
+		except:
+			pass
+		label.Hide()
+		self.trackAnnouncementList.Hide()
+		sizer.Add(label)
+		sizer.Add(self.trackAnnouncementList)
+		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		# Translators: The label of a button to open advanced options such as using SPL Controller command to invoke Assistant layer.
 		item = sayStatusButton = wx.Button(self, label=_("&Status announcements..."))
@@ -826,6 +844,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		item.Bind(wx.EVT_BUTTON, self.onAdvancedOptions)
 		self.splConPassthrough = SPLConfig["Advanced"]["SPLConPassthrough"]
 		self.compLayer = SPLConfig["Advanced"]["CompatibilityLayer"]
+		self.playlistRemainder = SPLConfig["Advanced"]["PlaylistRemainder"]
 		self.autoUpdateCheck = SPLConfig["Update"]["AutoUpdateCheck"]
 		settingsSizer.Add(item)
 
@@ -864,9 +883,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["SayStatus"]["SayScheduledFor"] = self.scheduledForCheckbox.Value
 		SPLConfig["SayStatus"]["SayListenerCount"] = self.listenerCountCheckbox.Value
 		SPLConfig["SayStatus"]["SayPlayingCartName"] = self.cartNameCheckbox.Value
-		SPLConfig["SayStatus"]["SayPlayingTrackName"] = str(self.playingTrackNameCheckbox.Value)
+		SPLConfig["SayStatus"]["SayPlayingTrackName"] = self.trackAnnouncements[self.trackAnnouncementList.GetSelection()][0]
 		SPLConfig["Advanced"]["SPLConPassthrough"] = self.splConPassthrough
 		SPLConfig["Advanced"]["CompatibilityLayer"] = self.compLayer
+		SPLConfig["Advanced"]["PlaylistRemainder"] = self.playlistRemainder
 		SPLConfig["Update"]["AutoUpdateCheck"] = self.autoUpdateCheck
 		SPLConfig["ActiveIndex"] = profileIndex
 		# Reverse of merge: save profile specific sections to individual config dictionaries.
@@ -1480,10 +1500,14 @@ class SayStatusDialog(wx.Dialog):
 		self.cartNameCheckbox.SetValue(self.Parent.cartNameCheckbox.Value)
 		mainSizer.Add(self.cartNameCheckbox, border=10,flag=wx.BOTTOM)
 
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
-		self.playingTrackNameCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce name of the currently playing &track automatically"))
-		self.playingTrackNameCheckbox.SetValue(self.Parent.playingTrackNameCheckbox.Value)
-		mainSizer.Add(self.playingTrackNameCheckbox, border=10,flag=wx.BOTTOM)
+		label = wx.StaticText(self, wx.ID_ANY, label=_("&Track name announcement:"))
+		self.trackAnnouncementList= wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.Parent.trackAnnouncements])
+		self.trackAnnouncementList.SetSelection(self.Parent.trackAnnouncementList.GetSelection())
+		sizer.Add(label)
+		sizer.Add(self.trackAnnouncementList)
+		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
@@ -1498,7 +1522,7 @@ class SayStatusDialog(wx.Dialog):
 		parent.scheduledForCheckbox.SetValue(self.scheduledForCheckbox.Value)
 		parent.listenerCountCheckbox.SetValue(self.listenerCountCheckbox.Value)
 		parent.cartNameCheckbox.SetValue(self.cartNameCheckbox.Value)
-		parent.playingTrackNameCheckbox.SetValue(self.playingTrackNameCheckbox.Value)
+		parent.trackAnnouncementList.SetSelection(self.trackAnnouncementList.GetSelection())
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()
@@ -1549,6 +1573,23 @@ class AdvancedOptionsDialog(wx.Dialog):
 		sizer.Add(self.compatibilityList)
 		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: The label for a setting in SPL add-on dialog to control playlist remainder announcement command (SPL Assistant, D/R).
+		label = wx.StaticText(self, wx.ID_ANY, label=_("Playlist &remainder announcement:"))
+		# Translators: One of the playlist remainder announcement options.
+		self.playlistRemainderValues=[("hour",_("current hour only")),
+		# Translators: One of the playlist remainder announcement options.
+		("playlist",_("entire playlist"))]
+		self.playlistRemainderList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.playlistRemainderValues])
+		selection = (x for x,y in enumerate(self.playlistRemainderValues) if y[0]==self.Parent.playlistRemainder).next()  
+		try:
+			self.playlistRemainderList.SetSelection(selection)
+		except:
+			pass
+		sizer.Add(label)
+		sizer.Add(self.playlistRemainderList)
+		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
 		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
@@ -1561,6 +1602,7 @@ class AdvancedOptionsDialog(wx.Dialog):
 		parent = self.Parent
 		parent.splConPassthrough = self.splConPassthroughCheckbox.Value
 		parent.compLayer = self.compatibilityLayouts[self.compatibilityList.GetSelection()][0]
+		parent.playlistRemainder = self.playlistRemainderValues[self.playlistRemainderList.GetSelection()][0]
 		parent.autoUpdateCheck = self.autoUpdateCheckbox.Value
 		parent.profiles.SetFocus()
 		parent.Enable()
