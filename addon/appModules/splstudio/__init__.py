@@ -1353,7 +1353,27 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(obj.name)
 
 	def script_sayPlaylistRemainingDuration(self, gesture):
-		statusAPI(1, 27, self.announceTime)
+		# 6.2: By default, remaining time for the hour will be announced.
+		if splconfig.SPLConfig["PlaylistRemainder"] == "hour":
+			statusAPI(1, 27, self.announceTime)
+		else:
+			# 6.2: Emulate track time analysis from current track to the end of the playlist.
+			# 7.0: A new track analysis function will be employed.
+			focus = api.getFocusObject()
+			if focus.role == controlTypes.ROLE_LIST:
+				ui.message("00:00")
+				return
+			trackCount = statusAPI(0, 124, ret=True)-1
+			trackPos = focus.IAccessibleChildID-1
+			if trackPos == trackCount:
+				filename = statusAPI(self._analysisMarker, 211, ret=True)
+				statusAPI(filename, 30, func=self.announceTime)
+			else:
+				totalLength = 0
+				for track in xrange(trackPos, trackCount+1):
+					filename = statusAPI(track, 211, ret=True)
+					totalLength+=statusAPI(filename, 30, ret=True)
+				ui.message(str(self._ms2time(totalLength)))
 
 	def script_sayPlaylistModified(self, gesture):
 		try:
