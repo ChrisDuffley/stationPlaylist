@@ -1258,6 +1258,37 @@ class AppModule(appModuleHandler.AppModule):
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_manageMetadataStreams.__doc__=_("Opens a dialog to quickly enable or disable metadata streaming.")
 
+	# Track time analysis
+	# Return total length of the selected tracks upon request.
+	# Analysis command (SPL Assistant) will be assignable.
+	_analysisMarker = None
+
+	# Trakc time analysis requires main playlist viewer to be the foreground window.
+	def _trackAnalysisAllowed(self):
+		if api.getForegroundObject().windowClassName != "TStudioForm":
+			# Translators: Presented when track time anlaysis cannot be performed because user is not focused on playlist viewer.
+			ui.message(_("Not in playlist viewer, cannot perform track time analysis"))
+			return False
+		return True
+
+	# Return total duration of a range of tracks.
+	# This is used in track time analysis when multiple tracks are selected.
+	# This is also called from playlist duration scripts.
+	def totalTime(self, start, end):
+		# Take care of errors such as the following.
+		if start < 0 or end > statusAPI(0, 124, ret=True)-1:
+			raise ValueError("Track range start or end position out of range")
+			return
+		totalLength = 0
+		if start == end:
+			filename = statusAPI(start, 211, ret=True)
+			totalLength = statusAPI(filename, 30, ret=True)
+		else:
+			for track in xrange(start, end+1):
+				filename = statusAPI(track, 211, ret=True)
+				totalLength+=statusAPI(filename, 30, ret=True)
+		return totalLength
+
 	# Some handlers for native commands.
 
 	# In Studio 5.0x, when deleting a track, NVDA announces wrong track item due to focus bouncing.
@@ -1425,23 +1456,15 @@ class AppModule(appModuleHandler.AppModule):
 		if splconfig.SPLConfig["PlaylistRemainder"] == "hour":
 			statusAPI(1, 27, self.announceTime)
 		else:
-			# 6.2: Emulate track time analysis from current track to the end of the playlist.
-			# 7.0: A new track analysis function will be employed.
+			# 7.0: A new total time function will be employed.
 			focus = api.getFocusObject()
 			if focus.role == controlTypes.ROLE_LIST:
 				ui.message("00:00")
 				return
 			trackCount = statusAPI(0, 124, ret=True)-1
 			trackPos = focus.IAccessibleChildID-1
-			if trackPos == trackCount:
-				filename = statusAPI(self._analysisMarker, 211, ret=True)
-				statusAPI(filename, 30, func=self.announceTime)
-			else:
-				totalLength = 0
-				for track in xrange(trackPos, trackCount+1):
-					filename = statusAPI(track, 211, ret=True)
-					totalLength+=statusAPI(filename, 30, ret=True)
-				ui.message(str(self._ms2time(totalLength)))
+			totalLength = self.totalTime(trackPos, trackCount)
+			self.announceTime(totalLength)
 
 	def script_sayPlaylistModified(self, gesture):
 		try:
@@ -1529,17 +1552,6 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: Presented when library scan is already in progress.
 			ui.message(_("Scanning is in progress"))
 
-	# Track time analysis: return total length of the selected tracks upon request.
-	# Analysis command will be assignable.
-	_analysisMarker = None
-
-	def _trackAnalysisAllowed(self):
-		if api.getForegroundObject().windowClassName != "TStudioForm":
-			# Translators: Presented when track time anlaysis cannot be performed because user is not focused on playlist viewer.
-			ui.message(_("Not in playlist viewer, cannot perform track time analysis"))
-			return False
-		return True
-
 	def script_markTrackForAnalysis(self, gesture):
 		self.finish()
 		if self._trackAnalysisAllowed():
@@ -1571,17 +1583,13 @@ class AppModule(appModuleHandler.AppModule):
 				ui.message(_("No track selected as start of analysis marker, cannot perform time analysis"))
 				return
 			trackPos = focus.IAccessibleChildID-1
-			if self._analysisMarker == trackPos:
-				filename = statusAPI(self._analysisMarker, 211, ret=True)
-				statusAPI(filename, 30, func=self.announceTime)
+			analysisBegin = min(self._analysisMarker, trackPos)
+			analysisEnd = max(self._analysisMarker, trackPos)
+			analysisRange = analysisEnd-analysisBegin+1
+			totalLength = self.totalTime(analysisBegin, analysisEnd)
+			if analysisRange == 1:
+				self.announceTime(totalLength)
 			else:
-				analysisBegin = min(self._analysisMarker, trackPos)
-				analysisEnd = max(self._analysisMarker, trackPos)
-				analysisRange = analysisEnd-analysisBegin+1
-				totalLength = 0
-				for track in xrange(analysisBegin, analysisEnd+1):
-					filename = statusAPI(track, 211, ret=True)
-					totalLength+=statusAPI(filename, 30, ret=True)
 				# Translators: Presented when time analysis is done for a number of tracks (example output: Tracks: 3, totaling 5:00).
 				ui.message(_("Tracks: {numberOfSelectedTracks}, totaling {totalTime}").format(numberOfSelectedTracks = analysisRange, totalTime = self._ms2time(totalLength)))
 	# Translators: Input help mode message for a command in Station Playlist Studio.
