@@ -1364,10 +1364,14 @@ class SayStatusDialog(wx.Dialog):
 		self.cartNameCheckbox.SetValue(self.Parent.cartNameCheckbox.Value)
 		mainSizer.Add(self.cartNameCheckbox, border=10,flag=wx.BOTTOM)
 
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
-		self.playingTrackNameCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce name of the currently playing &track automatically"))
-		self.playingTrackNameCheckbox.SetValue(self.Parent.playingTrackNameCheckbox.Value)
-		mainSizer.Add(self.playingTrackNameCheckbox, border=10,flag=wx.BOTTOM)
+		label = wx.StaticText(self, wx.ID_ANY, label=_("&Track name announcement:"))
+		self.trackAnnouncementList= wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.Parent.trackAnnouncements])
+		self.trackAnnouncementList.SetSelection(self.Parent.trackAnnouncementList.GetSelection())
+		sizer.Add(label)
+		sizer.Add(self.trackAnnouncementList)
+		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
@@ -1382,7 +1386,7 @@ class SayStatusDialog(wx.Dialog):
 		parent.scheduledForCheckbox.SetValue(self.scheduledForCheckbox.Value)
 		parent.listenerCountCheckbox.SetValue(self.listenerCountCheckbox.Value)
 		parent.cartNameCheckbox.SetValue(self.cartNameCheckbox.Value)
-		parent.playingTrackNameCheckbox.SetValue(self.playingTrackNameCheckbox.Value)
+		parent.trackAnnouncementList.SetSelection(self.trackAnnouncementList.GetSelection())
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()
