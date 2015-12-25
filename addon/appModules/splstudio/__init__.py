@@ -1359,6 +1359,7 @@ class AppModule(appModuleHandler.AppModule):
 		else:
 			# 6.2: Emulate track time analysis from current track to the end of the playlist.
 			# 7.0: A new track analysis function will be employed.
+			tones.beep(1024, 30)
 			focus = api.getFocusObject()
 			if focus.role == controlTypes.ROLE_LIST:
 				ui.message("00:00")
