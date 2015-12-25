@@ -45,6 +45,7 @@ SayPlayingCartName = boolean(default=true)
 SayPlayingTrackName = string(default="True")
 SPLConPassthrough = boolean(default=false)
 CompatibilityLayer = option("off", "jfw", default="off")
+PlaylistRemainder = option("hour", "playlist", default="hour")
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
 SPLConfig = None
@@ -629,6 +630,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		item.Bind(wx.EVT_BUTTON, self.onAdvancedOptions)
 		self.splConPassthrough = SPLConfig["SPLConPassthrough"]
 		self.compLayer = SPLConfig["CompatibilityLayer"]
+		self.playlistRemainder = SPLConfig["PlaylistRemainder"]
 		settingsSizer.Add(item)
 
 		# Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
@@ -669,6 +671,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["SayPlayingTrackName"] = self.trackAnnouncements[self.trackAnnouncementList.GetSelection()][0]
 		SPLConfig["SPLConPassthrough"] = self.splConPassthrough
 		SPLConfig["CompatibilityLayer"] = self.compLayer
+		SPLConfig["PlaylistRemainder"] = self.playlistRemainder
 		SPLActiveProfile = SPLConfig.name
 		SPLSwitchProfile = self.switchProfile
 		# Without nullifying prev profile while switch profile is undefined, NVDA will assume it can switch back to that profile when it can't.
@@ -1232,6 +1235,23 @@ class AdvancedOptionsDialog(wx.Dialog):
 		sizer.Add(self.compLayerCheckbox, border=10,flag=wx.TOP)
 		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: The label for a setting in SPL add-on dialog to control playlist remainder announcement command (SPL Assistant, D/R).
+		label = wx.StaticText(self, wx.ID_ANY, label=_("Playlist &remainder announcement:"))
+		# Translators: One of the playlist remainder announcement options.
+		self.playlistRemainderValues=[("hour",_("current hour only")),
+		# Translators: One of the playlist remainder announcement options.
+		("playlist",_("entire playlist"))]
+		self.playlistRemainderList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.playlistRemainderValues])
+		selection = (x for x,y in enumerate(self.playlistRemainderValues) if y[0]==self.Parent.playlistRemainder).next()  
+		try:
+			self.playlistRemainderList.SetSelection(selection)
+		except:
+			pass
+		sizer.Add(label)
+		sizer.Add(self.playlistRemainderList)
+		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
 		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
@@ -1245,6 +1265,7 @@ class AdvancedOptionsDialog(wx.Dialog):
 		parent.splConPassthrough = self.splConPassthroughCheckbox.Value
 		comp = "jfw" if self.compLayerCheckbox.Value else "off"
 		parent.compLayer = comp
+		parent.playlistRemainder = self.playlistRemainderValues[self.playlistRemainderList.GetSelection()][0]
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()
