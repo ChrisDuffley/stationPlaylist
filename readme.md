@@ -152,6 +152,15 @@ From studio window, you can press Control+NVDA+0 to open the add-on configuratio
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Changes for 6.1
+
+* Column announcement order and inclusion, as well as metadata streaming settings are now profile-specific settings.
+* When changing profiles, the correct metadata streams will be enabled.
+* When opening quick metadata streaming settings dialog (command unassigned), the changed settings are now applied to the active profile.
+* When starting Studio, changed how the errors are displayed if the only corrupt profile is the normal profile.
+* When changing certain settings using shortcut keys such as status announcements, fixed an issue where the changed settings are not retained when switching to and from an instant switch profile.
+* When using a SPL Assistant command with a custom gesture defined (such as next track command), it is no longer required to stay in the Studio's playlist viewer to use these commands (they can be performed from other Studio windows).
+
 ## Changes for 6.0
 
 * New SPL Assistant commands, including announcing title of the currently playing track (C), announcing status of metadata streaming (E, 1 through 4 and 0) and opening the online user guide (Shift+F1).
