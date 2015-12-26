@@ -453,7 +453,7 @@ class SAMEncoder(Encoder):
 			focus =api.getFocusObject()
 			focus.children[pos].doAction()
 		import keyboardHandler
-		contextMenu = keyboardHandler.KeyboardInputGesture.fromName("shift+f10")
+		contextMenu = keyboardHandler.KeyboardInputGesture.fromName("applications")
 		contextMenu.send()
 		wx.CallLater(100, _samContextMenuActivate, pos)
 		time.sleep(0.2)
