@@ -160,9 +160,18 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * Added add-on update check feature. This can be done manually (SPL Assistant, Control+Shift+U) or automatically (configurable via advanced options dialog from add-on settings).
 * It is now possible to use a different screen reader command layout for SPL Assistant commands. Go to advanced options dialog from add-on settings to configure this option between NVDA, JAWS and Window-Eyes layouts. See the SPL Assistant commands above for details.
 * Entries in profiles combo box in add-on settings dialog now shows profile flags such as active, whether it is an instant switch profile and so on.
-* In add-on settings dialog, the checkboxes used to toggle announcement of scheduled time, listener count, cart name and track name has been moved to a dedicated status announcements dialog (select status announcement button to open this dialog).
+* In add-on settings dialog, the controls used to toggle announcement of scheduled time, listener count, cart name and track name has been moved to a dedicated status announcements dialog (select status announcement button to open this dialog).
 * In encoders, pressing Control+NVDA+0 will present encoder settings dialog for configuring various options such as stream label, focusing to Studio when connected and so on.
 * In encoders, it is now possible to turn off connection progress tone (configurable from encoder settings dialog).
+
+## Changes for 6.1
+
+* Column announcement order and inclusion, as well as metadata streaming settings are now profile-specific settings.
+* When changing profiles, the correct metadata streams will be enabled.
+* When opening quick metadata streaming settings dialog (command unassigned), the changed settings are now applied to the active profile.
+* When starting Studio, changed how the errors are displayed if the only corrupt profile is the normal profile.
+* When changing certain settings using shortcut keys such as status announcements, fixed an issue where the changed settings are not retained when switching to and from an instant switch profile.
+* When using a SPL Assistant command with a custom gesture defined (such as next track command), it is no longer required to stay in the Studio's playlist viewer to use these commands (they can be performed from other Studio windows).
 
 ## Changes for 6.0
 

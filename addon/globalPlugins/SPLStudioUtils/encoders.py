@@ -10,6 +10,7 @@ import weakref
 from configobj import ConfigObj
 import api
 import ui
+import speech
 import globalVars
 import scriptHandler
 from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent
@@ -293,7 +294,7 @@ class Encoder(IAccessible):
 			self.focusToStudio = False
 			# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 			ui.message(_("Do not switch to Studio after connecting"))
-		self._set_FocusToStudio()
+		self._set_Flags(self.getEncoderId(), self.focusToStudio, SPLFocusToStudio, "FocusToStudio")
 	# Translators: Input help mode message in SAM Encoder window.
 	script_toggleFocusToStudio.__doc__=_("Toggles whether NVDA will switch to Studio when connected to a streaming server.")
 
@@ -306,7 +307,7 @@ class Encoder(IAccessible):
 			self.playAfterConnecting = False
 			# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 			ui.message(_("Do not play first track after connecting"))
-		self.setPlayAfterConnecting()
+		self._set_Flags(self.getEncoderId(), self.playAfterConnecting, SPLPlayAfterConnecting, "PlayAfterConnecting")
 	# Translators: Input help mode message in SAM Encoder window.
 	script_togglePlay.__doc__=_("Toggles whether Studio will play the first song when connected to a streaming server.")
 
@@ -545,6 +546,7 @@ class SAMEncoder(Encoder):
 		# Translators: Presented when SAM Encoder is trying to connect to a streaming server.
 		ui.message(_("Connecting..."))
 		# Oi, status thread, can you keep an eye on the connection status for me?
+		# To be packaged into a new function in 7.0.
 		if not self.backgroundMonitor:
 			statusThread = threading.Thread(target=self.reportConnectionStatus, kwargs=dict(connecting=True))
 			statusThread.name = "Connection Status Reporter " + str(self.IAccessibleChildID)
@@ -555,6 +557,46 @@ class SAMEncoder(Encoder):
 		gesture.send()
 		# Translators: Presented when SAM Encoder is disconnecting from a streaming server.
 		ui.message(_("Disconnecting..."))
+
+	# Connecting/disconnecting all encoders at once.
+	# Control+F9/Control+F10 hotkeys are broken. Thankfully, context menu retains these commands.
+	# Use object navigation and key press emulation hack.
+
+	def _samContextMenu(self, pos):
+		def _samContextMenuActivate(pos):
+			speech.cancelSpeech()
+			focus =api.getFocusObject()
+			focus.children[pos].doAction()
+		import keyboardHandler
+		contextMenu = keyboardHandler.KeyboardInputGesture.fromName("applications")
+		contextMenu.send()
+		wx.CallLater(100, _samContextMenuActivate, pos)
+		time.sleep(0.2)
+
+	def script_connectAll(self, gesture):
+		# Translators: Presented when SAM Encoder is disconnecting from a streaming server.
+		ui.message(_("Connecting..."))
+		speechMode = speech.speechMode
+		speech.speechMode = 0
+		wx.CallAfter(self._samContextMenu, 7)
+		# Oi, status thread, can you keep an eye on the connection status for me?
+		if not self.backgroundMonitor:
+			statusThread = threading.Thread(target=self.reportConnectionStatus, kwargs=dict(connecting=True))
+			statusThread.name = "Connection Status Reporter " + str(self.IAccessibleChildID)
+			statusThread.start()
+			SAMMonitorThreads[self.IAccessibleChildID] = statusThread
+		speech.speechMode = speechMode
+
+	def script_disconnectAll(self, gesture):
+		# Translators: Presented when SAM Encoder is disconnecting from a streaming server.
+		ui.message(_("Disconnecting..."))
+		speechMode = speech.speechMode
+		speech.speechMode = 0
+		wx.CallAfter(self._samContextMenu, 8)
+		time.sleep(0.5)
+		speech.speechMode = speechMode
+		speech.cancelSpeech()
+
 
 	# Announce SAM columns: encoder name/type, status and description.
 	def script_announceEncoderFormat(self, gesture):
@@ -645,9 +687,9 @@ class SAMEncoder(Encoder):
 
 	__gestures={
 		"kb:f9":"connect",
-		"kb:control+f9":"connect",
+		"kb:control+f9":"connectAll",
 		"kb:f10":"disconnect",
-		"kb:control+f10":"disconnect",
+		"kb:control+f10":"disconnectAll",
 		"kb:control+NVDA+3":"announceEncoderFormat",
 		"kb:control+NVDA+4":"announceEncoderStatus",
 		"kb:control+NVDA+5":"announceEncoderStatusDesc"
