@@ -530,8 +530,9 @@ class AppModule(appModuleHandler.AppModule):
 						statusBarFG = obj.parent.parent.parent
 						if statusBarFG is not None:
 							statusBar = statusBarFG.previous.previous.previous
-							if statusBar is not None and statusBar.firstChild is not None and statusBar.firstChild.role == 27:
+							if statusBar is not None and statusBar.firstChild is not None and statusBar.firstChild.role == controlTypes.ROLE_STATUSBAR:
 								ui.message(obj.name)
+								tones.beep(1000, 100)
 					except AttributeError:
 						pass
 		nextHandler()
@@ -683,31 +684,34 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Specific to time scripts using Studio API.
 	# 6.0: Split this into two functions: the announcer (below) and formatter.
-	def announceTime(self, t, offset = None):
+	# 7.0: The ms (millisecond) argument will be used when announcing playlist remainder.
+	def announceTime(self, t, offset = None, ms=True):
 		if t <= 0:
 			ui.message("00:00")
 		else:
-			ui.message(self._ms2time(t, offset = offset))
+			ui.message(self._ms2time(t, offset = offset, ms=ms))
 
 	# Formatter: given time in milliseconds, convert it to human-readable format.
-	def _ms2time(self, t, offset = None):
+	# 7.0: There will be times when one will deal with time in seconds.
+	def _ms2time(self, t, offset = None, ms=True):
 		if t <= 0:
 			return "00:00"
 		else:
-			tm = (t/1000) if not offset else (t/1000)+offset
-			mm, ss = divmod(tm, 60)
+			if ms:
+				t = (t/1000) if not offset else (t/1000)+offset
+			mm, ss = divmod(t, 60)
 			if mm > 59 and splconfig.SPLConfig["TimeHourAnnounce"]:
 				hh, mm = divmod(mm, 60)
 				# Hour value is also filled with leading zero's.
 				# 6.1: Optimize the string builder so it can return just one string.
-				tm0 = str(hh).zfill(2)
-				tm1 = str(mm).zfill(2)
-				tm2 = str(ss).zfill(2)
-				return ":".join([tm0, tm1, tm2])
+				t0 = str(hh).zfill(2)
+				t1 = str(mm).zfill(2)
+				t2 = str(ss).zfill(2)
+				return ":".join([t0, t1, t2])
 			else:
-				tm1 = str(mm).zfill(2)
-				tm2 = str(ss).zfill(2)
-				return ":".join([tm1, tm2])
+				t1 = str(mm).zfill(2)
+				t2 = str(ss).zfill(2)
+				return ":".join([t1, t2])
 
 	# Scripts which rely on API.
 	def script_sayRemainingTime(self, gesture):
@@ -1257,6 +1261,37 @@ class AppModule(appModuleHandler.AppModule):
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_manageMetadataStreams.__doc__=_("Opens a dialog to quickly enable or disable metadata streaming.")
 
+	# Track time analysis
+	# Return total length of the selected tracks upon request.
+	# Analysis command (SPL Assistant) will be assignable.
+	_analysisMarker = None
+
+	# Trakc time analysis requires main playlist viewer to be the foreground window.
+	def _trackAnalysisAllowed(self):
+		if api.getForegroundObject().windowClassName != "TStudioForm":
+			# Translators: Presented when track time anlaysis cannot be performed because user is not focused on playlist viewer.
+			ui.message(_("Not in playlist viewer, cannot perform track time analysis"))
+			return False
+		return True
+
+	# Return total duration of a range of tracks.
+	# This is used in track time analysis when multiple tracks are selected.
+	# This is also called from playlist duration scripts.
+	def totalTime(self, start, end):
+		# Take care of errors such as the following.
+		if start < 0 or end > statusAPI(0, 124, ret=True)-1:
+			raise ValueError("Track range start or end position out of range")
+			return
+		totalLength = 0
+		if start == end:
+			filename = statusAPI(start, 211, ret=True)
+			totalLength = statusAPI(filename, 30, ret=True)
+		else:
+			for track in xrange(start, end+1):
+				filename = statusAPI(track, 211, ret=True)
+				totalLength+=statusAPI(filename, 30, ret=True)
+		return totalLength
+
 	# Some handlers for native commands.
 
 	# In Studio 5.0x, when deleting a track, NVDA announces wrong track item due to focus bouncing.
@@ -1420,7 +1455,26 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(obj.name)
 
 	def script_sayPlaylistRemainingDuration(self, gesture):
-		statusAPI(1, 27, self.announceTime)
+		# 6.2: By default, remaining time for the hour will be announced.
+		if splconfig.SPLConfig["PlaylistRemainder"] == "hour":
+			statusAPI(1, 27, self.announceTime)
+		else:
+			# 6.2: Manually go through all tracks, gathering segue information.
+			tones.beep(1024, 30)
+			obj = api.getFocusObject()
+			if obj.role == controlTypes.ROLE_LIST:
+				ui.message("00:00")
+				return
+			col = obj._indexOf("Duration")
+			totalDuration = 0
+			while obj is not None:
+				segue = obj._getColumnContent(col)
+				if segue is not None:
+					hms = segue.split(":")
+					totalDuration += (int(hms[0])*3600) + (int(hms[1])*60) + int(hms[2]) if len(hms) == 3 else (int(hms[0])*60) + int(hms[1])
+				obj = obj.next
+			# 6.2: For now, millisecond will be calculated manually.
+			self.announceTime(totalDuration, ms=False)
 
 	def script_sayPlaylistModified(self, gesture):
 		try:
@@ -1508,17 +1562,6 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: Presented when library scan is already in progress.
 			ui.message(_("Scanning is in progress"))
 
-	# Track time analysis: return total length of the selected tracks upon request.
-	# Analysis command will be assignable.
-	_analysisMarker = None
-
-	def _trackAnalysisAllowed(self):
-		if api.getForegroundObject().windowClassName != "TStudioForm":
-			# Translators: Presented when track time anlaysis cannot be performed because user is not focused on playlist viewer.
-			ui.message(_("Not in playlist viewer, cannot perform track time analysis"))
-			return False
-		return True
-
 	def script_markTrackForAnalysis(self, gesture):
 		self.finish()
 		if self._trackAnalysisAllowed():
@@ -1550,17 +1593,13 @@ class AppModule(appModuleHandler.AppModule):
 				ui.message(_("No track selected as start of analysis marker, cannot perform time analysis"))
 				return
 			trackPos = focus.IAccessibleChildID-1
-			if self._analysisMarker == trackPos:
-				filename = statusAPI(self._analysisMarker, 211, ret=True)
-				statusAPI(filename, 30, func=self.announceTime)
+			analysisBegin = min(self._analysisMarker, trackPos)
+			analysisEnd = max(self._analysisMarker, trackPos)
+			analysisRange = analysisEnd-analysisBegin+1
+			totalLength = self.totalTime(analysisBegin, analysisEnd)
+			if analysisRange == 1:
+				self.announceTime(totalLength)
 			else:
-				analysisBegin = min(self._analysisMarker, trackPos)
-				analysisEnd = max(self._analysisMarker, trackPos)
-				analysisRange = analysisEnd-analysisBegin+1
-				totalLength = 0
-				for track in xrange(analysisBegin, analysisEnd+1):
-					filename = statusAPI(track, 211, ret=True)
-					totalLength+=statusAPI(filename, 30, ret=True)
 				# Translators: Presented when time analysis is done for a number of tracks (example output: Tracks: 3, totaling 5:00).
 				ui.message(_("Tracks: {numberOfSelectedTracks}, totaling {totalTime}").format(numberOfSelectedTracks = analysisRange, totalTime = self._ms2time(totalLength)))
 	# Translators: Input help mode message for a command in Station Playlist Studio.
