@@ -598,11 +598,12 @@ SPLTriggerProfile = None
 # Allows the add-on to switch between profiles as a result of manual intervention or through profile trigger timer.
 # Instant profile switching is just a special case of this function.
 def switchProfile(activeProfile, newProfile):
-	global SPLConfig
-	# Switch to the given profile.
-	SPLConfig = SPLConfigPool[newProfile]
+	global SPLConfig, SPLActiveProfile
+	mergeSections(newProfile)
+	SPLActiveProfile = SPLConfigPool[newProfile].name
+	SPLConfig["ActiveIndex"] = newProfile
 	# Use the focus.appModule's metadata reminder method if told to do so now.
-	if SPLConfig["MetadataReminder"] in ("startup", "instant"):
+	if SPLConfig["General"]["MetadataReminder"] in ("startup", "instant"):
 		api.getFocusObject().appModule._metadataAnnouncer(reminder=True)
 
 # Called from within the app module.
@@ -625,39 +626,24 @@ def instantProfileSwitch():
 			switchProfileIndex = getProfileIndexByName(SPLSwitchProfile)
 			# 6.1: Do to referencing nature of Python, use the profile index function to locate the index for the soon to be deactivated profile.
 			SPLPrevProfile = getProfileIndexByName(SPLActiveProfile)
-			# Resolve later.
 			# Pass in the prev profile, which will be None for instant profile switch.
-			#switchProfile(SPLPrevProfile, switchProfileIndex)
-			# Also change the active profile, otherwise this flag will not be shown.
-			#SPLActiveProfile = SPLSwitchProfile
+			switchProfile(SPLPrevProfile, switchProfileIndex)
 			# Translators: Presented when switch to instant switch profile was successful.
-			#ui.message(_("Switching profiles"))
-			# Versus
-			#mergeSections(switchProfileIndex)
-			#SPLActiveProfile = SPLConfigPool[switchProfileIndex].name
-			#SPLConfig["ActiveIndex"] = switchProfileIndex
-			# Translators: Presented when switch to instant switch profile was successful.
-			#ui.message(_("Switching profiles"))
-			# Use the focus.appModule's metadata reminder method if told to do so now.
-			#if SPLConfig["General"]["MetadataReminder"] in ("startup", "instant"):
-				#api.getFocusObject().appModule._metadataAnnouncer(reminder=True)
-				# Resolve end
+			ui.message(_("Switching profiles"))
 			# Pause automatic update checking.
 			if SPLConfig["Update"]["AutoUpdateCheck"]:
 				if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning: splupdate._SPLUpdateT.Stop()
 		else:
-			# Resolve later
-			#switchProfile(None, SPLPrevProfile)
-			#SPLActiveProfile = SPLConfig.name
-			#SPLPrevProfile = None
+			switchProfile(None, SPLPrevProfile)
+			SPLPrevProfile = None
 			# Translators: Presented when switching from instant switch profile to a previous profile.
-			#ui.message(_("Returning to previous profile"))
+			ui.message(_("Returning to previous profile"))
 			# Resume auto update checker if told to do so.
-			#if SPLConfig["AutoUpdateCheck"]: updateInit()
+			if SPLConfig["Update"]["AutoUpdateCheck"]: updateInit()
 
 # The triggers version of the above function.
 # 7.0: Try consolidating this into one or some more functions.
-"""def triggerProfileSwitch():
+def triggerProfileSwitch():
 	global SPLPrevProfile, SPLConfig, SPLActiveProfile, triggerTimer
 	if _configDialogOpened:
 		# Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
@@ -678,33 +664,20 @@ def instantProfileSwitch():
 			SPLPrevProfile = getProfileIndexByName(SPLActiveProfile)
 			# Pass in the prev profile, which will be None for instant profile switch.
 			switchProfile(SPLPrevProfile, triggerProfileIndex)
-			SPLActiveProfile = SPLTriggerProfile
 			# Translators: Presented when switch to instant switch profile was successful.
 			ui.message(_("Switching profiles"))
 			# Pause automatic update checking.
-			if SPLConfig["AutoUpdateCheck"]:
+			if SPLConfig["Update"]["AutoUpdateCheck"]:
 				if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning: splupdate._SPLUpdateT.Stop()
 			# Set the next trigger date and time.
 			triggerSettings = profileTriggers[SPLTriggerProfile]
 			profileTriggers[SPLTriggerProfile] = setNextTimedProfile(SPLTriggerProfile, triggerSettings[0], datetime.time(triggerSettings[4], triggerSettings[5]))
 		else:
 			switchProfile(None, SPLPrevProfile)
-			SPLActiveProfile = SPLConfig.name
 			SPLPrevProfile = None
 			# Translators: Presented when switching from instant switch profile to a previous profile.
 			ui.message(_("Returning to previous profile"))
-=======
-			mergeSections(SPLPrevProfile)
-			SPLConfig["ActiveIndex"] = SPLPrevProfile
-			SPLActiveProfile = SPLConfigPool[SPLPrevProfile].name
-			SPLPrevProfile = None
-			# Translators: Presented when switching from instant switch profile to a previous profile.
-			ui.message(_("Returning to previous profile"))
-			# 6.1: Don't forget to switch streaming status around.
-			if SPLConfig["General"]["MetadataReminder"] in ("startup", "instant"):
-				api.getFocusObject().appModule._metadataAnnouncer(reminder=True)
->>>>>>> rainbow/redConfigSections
-			"""# Resume auto update checker if told to do so.
+			# Resume auto update checker if told to do so.
 			if SPLConfig["Update"]["AutoUpdateCheck"]: updateInit()
 
 
