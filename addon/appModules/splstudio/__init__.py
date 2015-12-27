@@ -619,14 +619,16 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Specific to time scripts using Studio API.
 	# 6.0: Split this into two functions: the announcer (below) and formatter.
-	def announceTime(self, t, offset = None):
+	# 7.0: The ms (millisecond) argument will be used when announcing playlist remainder.
+	def announceTime(self, t, offset = None, ms=True):
 		if t <= 0:
 			ui.message("00:00")
 		else:
-			ui.message(self._ms2time(t, offset = offset))
+			ui.message(self._ms2time(t, offset = offset, ms=ms))
 
 	# Formatter: given time in milliseconds, convert it to human-readable format.
-	def _ms2time(self, t, offset = None):
+	# 7.0: There will be times when one will deal with time in seconds.
+	def _ms2time(self, t, offset = None, ms=True):
 		if t <= 0:
 			return "00:00"
 		else:
@@ -1357,24 +1359,22 @@ class AppModule(appModuleHandler.AppModule):
 		if splconfig.SPLConfig["PlaylistRemainder"] == "hour":
 			statusAPI(1, 27, self.announceTime)
 		else:
-			# 6.2: Emulate track time analysis from current track to the end of the playlist.
-			# 7.0: A new track analysis function will be employed.
+			# 6.2: Manually go through all tracks, gathering segue information.
 			tones.beep(1024, 30)
-			focus = api.getFocusObject()
-			if focus.role == controlTypes.ROLE_LIST:
+			obj = api.getFocusObject()
+			if obj.role == controlTypes.ROLE_LIST:
 				ui.message("00:00")
 				return
-			trackCount = statusAPI(0, 124, ret=True)-1
-			trackPos = focus.IAccessibleChildID-1
-			if trackPos == trackCount:
-				filename = statusAPI(self._analysisMarker, 211, ret=True)
-				statusAPI(filename, 30, func=self.announceTime)
-			else:
-				totalLength = 0
-				for track in xrange(trackPos, trackCount+1):
-					filename = statusAPI(track, 211, ret=True)
-					totalLength+=statusAPI(filename, 30, ret=True)
-				ui.message(str(self._ms2time(totalLength)))
+			col = obj._indexOf("Duration")
+			totalDuration = 0
+			while obj is not None:
+				segue = obj._getColumnContent(col)
+				if segue is not None:
+					hms = segue.split(":")
+					totalDuration += (int(hms[0])*3600) + (int(hms[1])*60) + int(hms[2]) if len(hms) == 3 else (int(hms[0])*60) + int(hms[1])
+				obj = obj.next
+			# 6.2: For now, millisecond will be calculated manually.
+			self.announceTime(totalDuration*1000)
 
 	def script_sayPlaylistModified(self, gesture):
 		try:
