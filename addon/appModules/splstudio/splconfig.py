@@ -27,6 +27,7 @@ from splmisc import SPLCountdownTimer
 # Configuration management
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
 SPLProfiles = os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "profiles")
+# Old (5.0) style config.
 confspec = ConfigObj(StringIO("""
 BeepAnnounce = boolean(default=false)
 MessageVerbosity = option("beginner", "advanced", default="beginner")
@@ -56,15 +57,58 @@ PlaylistRemainder = option("hour", "playlist", default="hour")
 AutoUpdateCheck = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
+# New (7.0) style config.
+confspec7 = ConfigObj(StringIO("""
+[General]
+BeepAnnounce = boolean(default=false)
+MessageVerbosity = option("beginner", "advanced", default="beginner")
+BrailleTimer = option("off", "intro", "outro", "both", default="off")
+AlarmAnnounce = option("beep", "message", "both", default="beep")
+LibraryScanAnnounce = option("off", "ending", "progress", "numbers", default="off")
+TrackDial = boolean(default=false)
+MetadataReminder = option("off", "startup", "instant", default="off")
+TimeHourAnnounce = boolean(default=false)
+[IntroOutroAlarms]
+SayEndOfTrack = boolean(default=true)
+EndOfTrackTime = integer(min=1, max=59, default=5)
+SaySongRamp = boolean(default=true)
+SongRampTime = integer(min=1, max=9, default=5)
+[MicrophoneAlarm]
+MicAlarm = integer(min=0, max=7200, default="0")
+MicAlarmInterval = integer(min=0, max=60, default=0)
+[MetadataStreaming]
+MetadataEnabled = bool_list(default=list(false,false,false,false,false))
+[ColumnAnnouncement]
+UseScreenColumnOrder = boolean(default=true)
+ColumnOrder = string_list(default=list("Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"))
+IncludedColumns = string_list(default=list("Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"))
+[SayStatus]
+SayScheduledFor = boolean(default=true)
+SayListenerCount = boolean(default=true)
+SayPlayingCartName = boolean(default=true)
+SayPlayingTrackName = string(default="True")
+[Advanced]
+SPLConPassthrough = boolean(default=false)
+CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
+PlaylistRemainder = option("hour", "playlist", default="hour")
+[Update]
+AutoUpdateCheck = boolean(default=true)
+"""), encoding="UTF-8", list_values=False)
+confspec7.newlines = "\r\n"
 SPLConfig = None
 # A pool of broadcast profiles.
 SPLConfigPool = []
 # Default config spec container.
 _SPLDefaults = ConfigObj(None, configspec = confspec, encoding="UTF-8")
+# And version 7 equivalent.
+_SPLDefaults7 = ConfigObj(None, configspec = confspec7, encoding="UTF-8")
 _val = Validator()
 _SPLDefaults.validate(_val, copy=True)
+_SPLDefaults7.validate(_val, copy=True)
+
 # The following settings can be changed in profiles:
 _mutatableSettings=("SayEndOfTrack","EndOfTrackTime","SaySongRamp","SongRampTime","MicAlarm","MicAlarmInterval","MetadataEnabled","UseScreenColumnOrder","ColumnOrder","IncludedColumns")
+_mutatableSettings7=("IntroOutroAlarms", "MicrophoneAlarm", "MetadataStreaming", "ColumnAnnouncement")
 
 # Display an error dialog when configuration validation fails.
 def runConfigErrorDialog(errorText, errorType):
@@ -91,10 +135,10 @@ def resetAllConfig():
 		profilePath = profile.filename
 		profile.reset()
 		profile.filename = profilePath
-		for setting in _SPLDefaults:
-			# Convert certain settings to a different format.
-			if setting == "IncludedColumns": profile[setting] = set(_SPLDefaults[setting])
-			else: profile[setting] = _SPLDefaults[setting]
+		for setting in _SPLDefaults7:
+			profile[setting] = _SPLDefaults7[setting]
+		# Convert certain settings to a different format.
+		profile["ColumnAnnouncement"]["IncludedColumns"] = set(_SPLDefaults7["ColumnAnnouncement"]["IncludedColumns"])
 	# Translators: A dialog message shown when settings were reset to defaults.
 	wx.CallAfter(gui.messageBox, _("Successfully applied default add-on settings."),
 	# Translators: Title of the reset config dialog.
@@ -116,6 +160,18 @@ _configErrors ={
 _configLoadStatus = {} # Key = filename, value is pass or no pass.
 
 def initConfig():
+	# 7.0: When add-on 7.0 starts for the first time, check if a conversion file exists.
+	# To be removed in add-on 7.2.
+	curInstantProfile = ""
+	if os.path.isfile(os.path.join(globalVars.appArgs.configPath, "splstudio7.ini")):
+		# Save add-on update related keys and instant profile signature from death.
+		# Necessary since the old-style config file contains newer information about update package size, last installed date and records instant profile name.
+		tempConfig = ConfigObj(SPLIni, configspec = confspec, encoding="UTF-8")
+		if "PSZ" in tempConfig: splupdate.SPLAddonSize = tempConfig["PSZ"]
+		if "PDT" in tempConfig: splupdate.SPLAddonCheck = tempConfig["PDT"]
+		if "InstantProfile" in tempConfig: curInstantProfile = tempConfig["InstantProfile"]
+		os.remove(SPLIni)
+		os.rename(os.path.join(globalVars.appArgs.configPath, "splstudio7.ini"), SPLIni)
 	# Load the default config from a list of profiles.
 	global SPLConfig, SPLConfigPool, _configLoadStatus, SPLActiveProfile, SPLSwitchProfile
 	if SPLConfigPool is None: SPLConfigPool = []
@@ -128,7 +184,11 @@ def initConfig():
 			SPLConfigPool.append(unlockConfig(os.path.join(SPLProfiles, profile), profileName=os.path.splitext(profile)[0]))
 	except WindowsError:
 		pass
-	SPLConfig = SPLConfigPool[0]
+	# 7.0: Store the config as a dictionary.
+	# This opens up many possibilities, including config caching, loading specific sections only and others (the latter saves memory).
+	SPLConfig = dict(SPLConfigPool[0])
+	SPLConfig["ActiveIndex"] = 0 # Holds settings form normal profile.
+	if curInstantProfile != "": SPLConfig["InstantProfile"] = curInstantProfile
 	# 7.0: Store add-on installer size in case one wishes to check for updates (default size is 0 or no update checked attempted).
 	# Same goes to update check time and date (stored as Unix time stamp).
 	if "PSZ" in SPLConfig: splupdate.SPLAddonSize = SPLConfig["PSZ"]
@@ -138,7 +198,7 @@ def initConfig():
 		try:
 			SPLSwitchProfile = SPLConfigPool[getProfileIndexByName(SPLConfig["InstantProfile"])].name
 		except ValueError:
-			_configLoadStatus[SPLConfig.name] = "noInstantProfile"
+			_configLoadStatus[SPLConfigPool[0].name] = "noInstantProfile"
 	if len(_configLoadStatus):
 		# Translators: Standard error title for configuration error.
 		title = _("Studio add-on Configuration error")
@@ -162,41 +222,49 @@ def initConfig():
 # Unlock (load) profiles from files.
 def unlockConfig(path, profileName=None, prefill=False):
 	global _configLoadStatus # To be mutated only during unlock routine.
-	SPLConfigCheckpoint = ConfigObj(path, configspec = confspec, encoding="UTF-8")
+	SPLConfigCheckpoint = ConfigObj(path, configspec = confspec7, encoding="UTF-8")
 	# 5.2 and later: check to make sure all values are correct.
-	configTest = SPLConfigCheckpoint.validate(_val, copy=prefill)
+	# 7.0: Make sure errors are displayed as config keys are now sections and may need to go through subkeys.
+	configTest = SPLConfigCheckpoint.validate(_val, copy=prefill, preserve_errors=True)
 	if configTest != True:
 		# Translators: Standard error title for configuration error.
 		title = _("Studio add-on Configuration error")
 		if not configTest:
 			# Case 1: restore settings to defaults when 5.x config validation has failed on all values.
 			# 6.0: In case this is a user profile, apply base configuration.
-			baseProfile = _SPLDefaults if prefill else SPLConfigPool[0]
+			baseProfile = _SPLDefaults7 if prefill else SPLConfigPool[0]
 			resetConfig(baseProfile, SPLConfigCheckpoint)
 			_configLoadStatus[profileName] = "completeReset"
 		elif isinstance(configTest, dict):
 			# Case 2: For 5.x and later, attempt to reconstruct the failed values.
 			# 6.0: Cherry-pick global settings only.
-			for setting in configTest:
-				if not configTest[setting]:
-					if prefill: # Base profile only.
-						SPLConfigCheckpoint[setting] = _SPLDefaults[setting]
-					else: # Broadcast profiles.
-						if setting not in _mutatableSettings:
-							SPLConfigCheckpoint[setting] = SPLConfigPool[0][setting]
-						else: SPLConfigCheckpoint[setting] = _SPLDefaults[setting]
+			# 7.0: Go through failed sections.
+			for setting in configTest.keys():
+				if isinstance(configTest[setting], dict):
+					for failedKey in configTest[setting].keys():
+						if not isinstance(SPLConfigCheckpoint[setting][failedKey], int):
+							if prefill: # Base profile only.
+								SPLConfigCheckpoint[setting][failedKey] = _SPLDefaults7[setting][failedKey]
+							else: # Broadcast profiles.
+								if setting not in _mutatableSettings7:
+									SPLConfigCheckpoint[setting][failedKey] = SPLConfigPool[0][setting][failedKey]
+								else: SPLConfigCheckpoint[setting][failedKey] = _SPLDefaults7[setting][failedKey]
+			# 7.0/magenta: Disqualified from being cached this time.
 			SPLConfigCheckpoint.write()
 			_configLoadStatus[profileName] = "partialReset"
 	_extraInitSteps(SPLConfigCheckpoint, profileName=profileName)
 	# Only run when loading profiles other than normal profile.
-	if not prefill: _applyBaseSettings(SPLConfigCheckpoint)
+	if not prefill: _discardGlobalSettings(SPLConfigCheckpoint)
 	SPLConfigCheckpoint.name = profileName
+	# 7.0 optimization: Store an online backup.
+	# This online backup is used to prolong SSD life (no need to save a config if it is same as this copy).
+	_cacheConfig(SPLConfigCheckpoint)
 	return SPLConfigCheckpoint
 
 # Extra initialization steps such as converting value types.
 def _extraInitSteps(conf, profileName=None):
 	global _configLoadStatus
-	columnOrder = conf["ColumnOrder"]
+	columnOrder = conf["ColumnAnnouncement"]["ColumnOrder"]
 	# Catch suttle errors.
 	fields = ["Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"]
 	invalidFields = 0
@@ -208,25 +276,46 @@ def _extraInitSteps(conf, profileName=None):
 		else:
 			_configLoadStatus[profileName] = "columnOrderReset"
 		columnOrder = fields
-	conf["ColumnOrder"] = columnOrder
-	conf["IncludedColumns"] = set(conf["IncludedColumns"])
+	conf["ColumnAnnouncement"]["ColumnOrder"] = columnOrder
+	conf["ColumnAnnouncement"]["IncludedColumns"] = set(conf["ColumnAnnouncement"]["IncludedColumns"])
 	# Artist and Title must be present at all times (quite redundant, but just in case).
-	conf["IncludedColumns"].add("Artist")
-	conf["IncludedColumns"].add("Title")
+	conf["ColumnAnnouncement"]["IncludedColumns"].add("Artist")
+	conf["ColumnAnnouncement"]["IncludedColumns"].add("Title")
 	# Perform a similar check for metadata streaming.
-	if len(conf["MetadataEnabled"]) != 5:
+	if len(conf["MetadataStreaming"]["MetadataEnabled"]) != 5:
 		if profileName in _configLoadStatus and _configLoadStatus[profileName] == "partialReset":
 			_configLoadStatus[profileName] = "partialAndMetadataReset"
 		else:
 			_configLoadStatus[profileName] = "metadataReset"
-		conf["MetadataEnabled"] = [False, False, False, False, False]
+		conf["MetadataStreaming"]["MetadataEnabled"] = [False, False, False, False, False]
 
-# Apply base profile if loading user-defined broadcast profiles.
-def _applyBaseSettings(conf):
-	for setting in SPLConfigPool[0]:
-		# Ignore profile-specific settings.
-		if setting not in _mutatableSettings:
-			conf[setting] = SPLConfigPool[0][setting]
+# Discard global settings when loading broadcast profiles.
+# This helps in conserving memory.
+def _discardGlobalSettings(conf):
+	for setting in SPLConfigPool[0].keys():
+		# Ignore profile-specific settings/sections.
+		if setting not in _mutatableSettings7:
+			try:
+				del conf[setting]
+			except KeyError:
+				pass
+
+# Cache a copy of the loaded config.
+# This comes in handy when saving configuration to disk. For the most part, no change occurs to config.
+# This helps prolong life of a solid-state drive (preventing unnecessary writes).
+_SPLCache = {}
+
+def _cacheConfig(conf):
+	global _SPLCache
+	if _SPLCache is None: _SPLCache = {}
+	key = None if conf.name == SPLActiveProfile else conf.name
+	_SPLCache[key] = {}
+	# Optimization: For broadcast profiles, copy profile-specific keys only.
+	for setting in conf.keys():
+		if isinstance(conf[setting], dict): _SPLCache[key][setting] = dict(conf[setting])
+		else: _SPLCache[key][setting] = conf[setting]
+	# Column inclusion only.
+	_SPLCache[key]["ColumnAnnouncement"]["IncludedColumns"] = list(conf["ColumnAnnouncement"]["IncludedColumns"])
 
 # Record profile triggers.
 # Each record (profile name) consists of seven fields organized as a list:
@@ -351,6 +440,30 @@ def getProfileIndexByName(name):
 def getProfileByName(name):
 	return SPLConfigPool[getProfileIndexByName(name)]
 
+# Merge sections when switching profiles.
+# This is also employed by the routine which saves changes to a profile when user selects a different profile from add-on settings dialog.
+# Profiles refer to indecies.
+def mergeSections(profile):
+	global SPLConfig, SPLConfigPool
+	for section in _mutatableSettings7:
+		SPLConfig[section] = dict(SPLConfigPool[profile][section])
+	SPLConfig["ActiveIndex"] = profile
+
+# A reverse of the above.
+def applySections(profile, key=None):
+	global SPLConfig, SPLConfigPool
+	if key is None:
+		for section in _mutatableSettings7:
+			SPLConfigPool[profile][section] = dict(SPLConfig[section])
+	else:
+		# A slash (/) will denote section/key hierarchy.
+		tree, leaf = key.split("/")
+		if tree in SPLConfig:
+			if leaf == "": # Section only.
+				SPLConfigPool[profile][tree] = dict(SPLConfig[tree])
+			else:
+				SPLConfigPool[profile][tree][leaf] = SPLConfig[tree][leaf]
+
 # Last but not least...
 def getProfileFlags(name):
 	flags = []
@@ -378,7 +491,7 @@ def isConfigPoolSorted():
 # Perform some extra work before writing the config file.
 def _preSave(conf):
 	# 6.1: Transform column inclusion data structure now.
-	conf["IncludedColumns"] = list(conf["IncludedColumns"])
+	conf["ColumnAnnouncement"]["IncludedColumns"] = list(conf["ColumnAnnouncement"]["IncludedColumns"])
 	# Perform global setting processing only for the normal profile.
 	if getProfileIndexByName(conf.name) == 0:
 		# Cache instant profile for later use.
@@ -403,44 +516,77 @@ def _preSave(conf):
 	# For other profiles, remove global settings before writing to disk.
 	else:
 		# 6.1: Make sure column order and inclusion aren't same as default values.
-		if len(conf["IncludedColumns"]) == 17:
-			del conf["IncludedColumns"]
-		if conf["ColumnOrder"] == ["Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"]:
-			del conf["ColumnOrder"]
+		if len(conf["ColumnAnnouncement"]["IncludedColumns"]) == 17:
+			del conf["ColumnAnnouncement"]["IncludedColumns"]
+		if conf["ColumnAnnouncement"]["ColumnOrder"] == ["Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"]:
+			del conf["ColumnAnnouncement"]["ColumnOrder"]
 		for setting in conf.keys():
-			if setting not in _mutatableSettings or (setting in _mutatableSettings and conf[setting] == _SPLDefaults[setting]):
+			for key in conf[setting].keys():
+				if conf[setting][key] == _SPLDefaults7[setting][key]:
+					del conf[setting][key]
+			if setting in conf and not len(conf[setting]):
 				del conf[setting]
 
 
 # Save configuration database.
 def saveConfig():
 	# Save all config profiles.
-	global SPLConfig, SPLConfigPool, SPLActiveProfile, SPLPrevProfile, SPLSwitchProfile
+	global SPLConfig, SPLConfigPool, SPLActiveProfile, SPLPrevProfile, SPLSwitchProfile, _SPLCache
 	# 7.0: Turn off auto update check timer.
 	if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
 	splupdate._SPLUpdateT = None
 	# Close profile triggers dictionary.
 	saveProfileTriggers()
 	# Apply any global settings changed in profiles to normal configuration.
-	if SPLConfigPool.index(SPLConfig) > 0:
+	activeIndex = SPLConfig["ActiveIndex"]
+	del SPLConfig["ActiveIndex"]
+	if activeIndex > 0:
 		for setting in SPLConfig:
-			if setting not in _mutatableSettings:
+			if setting not in _mutatableSettings7:
 				SPLConfigPool[0][setting] = SPLConfig[setting]
+	# 7.0 hack: Due to Python internals, preserving profile-specific settings removes the corresponding keys from normal profile.
+	# Therefore, have a temporary place holder for mutatable settings until a more elegant solution is found.
+	tempNormalProfile = {}
+	for section in _mutatableSettings7:
+		tempNormalProfile[section] = dict(SPLConfigPool[0][section])
+	# Convert column inclusion set to list even for temp profile to prevent weird problems from coming up next time add-on loads.
+	tempNormalProfile["ColumnAnnouncement"]["IncludedColumns"] = list(tempNormalProfile["ColumnAnnouncement"]["IncludedColumns"])
 	for configuration in SPLConfigPool:
 		if configuration is not None:
 			_preSave(configuration)
 			# Save broadcast profiles first.
 			if getProfileIndexByName(configuration.name) > 0:
+				# 7.0: Convert profile-specific settings back to 5.x format in case add-on 6.x will be installed later (not recommended).
+				# This will be removed in add-on 7.2.
+				if len(configuration) > 0:
+					for section in configuration.keys():
+						for key in configuration[section]:
+							configuration[key] = configuration[section][key]
 				configuration.write()
 	# Global flags, be gone.
 	if "Reset" in SPLConfigPool[0]:
 		del SPLConfigPool[0]["Reset"]
-	SPLConfigPool[0].write()
+	# Restore the possibly deleted sections.
+	for section in tempNormalProfile.keys():
+		SPLConfigPool[0][section] = tempNormalProfile[section]
+	# Perform same disk write optimization on normal profile now.
+	# Convert a few keys.
+	_SPLCache[None]["PDT"] = float(_SPLCache[None]["PDT"])
+	for setting in SPLConfigPool[0]:
+		try:
+			if _SPLCache[None][setting] != SPLConfigPool[0][setting]:
+				print setting
+		except KeyError: pass
+	if _SPLCache[None] != SPLConfigPool[0]:
+		SPLConfigPool[0].write()
 	SPLConfig = None
 	SPLConfigPool = None
 	SPLActiveProfile = None
 	SPLPrevProfile = None
 	SPLSwitchProfile = None
+	_SPLCache.clear()
+	_SPLCache = None
+
 
 # Switch between profiles.
 SPLActiveProfile = None
@@ -479,27 +625,39 @@ def instantProfileSwitch():
 			switchProfileIndex = getProfileIndexByName(SPLSwitchProfile)
 			# 6.1: Do to referencing nature of Python, use the profile index function to locate the index for the soon to be deactivated profile.
 			SPLPrevProfile = getProfileIndexByName(SPLActiveProfile)
+			# Resolve later.
 			# Pass in the prev profile, which will be None for instant profile switch.
-			switchProfile(SPLPrevProfile, switchProfileIndex)
+			#switchProfile(SPLPrevProfile, switchProfileIndex)
 			# Also change the active profile, otherwise this flag will not be shown.
-			SPLActiveProfile = SPLSwitchProfile
+			#SPLActiveProfile = SPLSwitchProfile
 			# Translators: Presented when switch to instant switch profile was successful.
-			ui.message(_("Switching profiles"))
+			#ui.message(_("Switching profiles"))
+			# Versus
+			#mergeSections(switchProfileIndex)
+			#SPLActiveProfile = SPLConfigPool[switchProfileIndex].name
+			#SPLConfig["ActiveIndex"] = switchProfileIndex
+			# Translators: Presented when switch to instant switch profile was successful.
+			#ui.message(_("Switching profiles"))
+			# Use the focus.appModule's metadata reminder method if told to do so now.
+			#if SPLConfig["General"]["MetadataReminder"] in ("startup", "instant"):
+				#api.getFocusObject().appModule._metadataAnnouncer(reminder=True)
+				# Resolve end
 			# Pause automatic update checking.
-			if SPLConfig["AutoUpdateCheck"]:
+			if SPLConfig["Update"]["AutoUpdateCheck"]:
 				if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning: splupdate._SPLUpdateT.Stop()
 		else:
-			switchProfile(None, SPLPrevProfile)
-			SPLActiveProfile = SPLConfig.name
-			SPLPrevProfile = None
+			# Resolve later
+			#switchProfile(None, SPLPrevProfile)
+			#SPLActiveProfile = SPLConfig.name
+			#SPLPrevProfile = None
 			# Translators: Presented when switching from instant switch profile to a previous profile.
-			ui.message(_("Returning to previous profile"))
+			#ui.message(_("Returning to previous profile"))
 			# Resume auto update checker if told to do so.
-			if SPLConfig["AutoUpdateCheck"]: updateInit()
+			#if SPLConfig["AutoUpdateCheck"]: updateInit()
 
 # The triggers version of the above function.
 # 7.0: Try consolidating this into one or some more functions.
-def triggerProfileSwitch():
+"""def triggerProfileSwitch():
 	global SPLPrevProfile, SPLConfig, SPLActiveProfile, triggerTimer
 	if _configDialogOpened:
 		# Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
@@ -535,8 +693,19 @@ def triggerProfileSwitch():
 			SPLPrevProfile = None
 			# Translators: Presented when switching from instant switch profile to a previous profile.
 			ui.message(_("Returning to previous profile"))
-			# Resume auto update checker if told to do so.
-			if SPLConfig["AutoUpdateCheck"]: updateInit()
+=======
+			mergeSections(SPLPrevProfile)
+			SPLConfig["ActiveIndex"] = SPLPrevProfile
+			SPLActiveProfile = SPLConfigPool[SPLPrevProfile].name
+			SPLPrevProfile = None
+			# Translators: Presented when switching from instant switch profile to a previous profile.
+			ui.message(_("Returning to previous profile"))
+			# 6.1: Don't forget to switch streaming status around.
+			if SPLConfig["General"]["MetadataReminder"] in ("startup", "instant"):
+				api.getFocusObject().appModule._metadataAnnouncer(reminder=True)
+>>>>>>> rainbow/redConfigSections
+			"""# Resume auto update checker if told to do so.
+			if SPLConfig["Update"]["AutoUpdateCheck"]: updateInit()
 
 
 # Automatic update checker.
@@ -546,7 +715,7 @@ def triggerProfileSwitch():
 # The update checker will not be engaged if an instant switch profile is active or it is not time to check for it yet (check will be done every 24 hours).
 def autoUpdateCheck():
 	ui.message("Checking for add-on updates...")
-	splupdate.updateCheck(auto=True, continuous=SPLConfig["AutoUpdateCheck"])
+	splupdate.updateCheck(auto=True, continuous=SPLConfig["Update"]["AutoUpdateCheck"])
 
 # The timer itself.
 # A bit simpler than NVDA Core's auto update checker.
@@ -562,19 +731,6 @@ def updateInit():
 	splupdate._SPLUpdateT = wx.PyTimer(autoUpdateCheck)
 	splupdate._SPLUpdateT.Start(interval * 1000, True)
 
-# Propagate changes from one profile to others.
-# This is needed if global settings are changed while an instant switch profile is active.
-# The key argument is meant for toggle scripts and controls exactly which setting to propagate.
-# A more elegant function will be implemented in add-on 7.0.
-def _propagateChanges(key=None):
-	global SPLConfigPool, SPLConfig
-	if key is None: globalSettings = set(_SPLDefaults) - set(_mutatableSettings)
-	for profile in xrange(len(SPLConfigPool)):
-		if profile == getProfileIndexByName(SPLConfig.name): continue
-		# 6.1 (optimization): Change the setting indicated by the key argument, improves performance slightly.
-		if key is not None: SPLConfigPool[profile][key] = SPLConfig[key]
-		else:
-			for setting in globalSettings: SPLConfigPool[profile][setting] = SPLConfig[setting]
 
 # Configuration dialog.
 _configDialogOpened = False
@@ -601,7 +757,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.profiles = wx.Choice(self, wx.ID_ANY, choices=self.displayProfiles(sortedProfiles))
 		self.profiles.Bind(wx.EVT_CHOICE, self.onProfileSelection)
 		try:
-			self.profiles.SetSelection(self.profileNames.index(SPLConfig.name))
+			self.profiles.SetSelection(SPLConfig["ActiveIndex"])
 		except:
 			pass
 		sizer.Add(label)
@@ -643,7 +799,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.switchProfileRenamed = False
 		self.switchProfileDeleted = False
 		sizer.Add(item)
-		if getProfileIndexByName(SPLConfig.name) == 0:
+		if SPLConfig["ActiveIndex"] == 0:
 			self.renameButton.Disable()
 			self.deleteButton.Disable()
 			self.triggerButton.Disable()
@@ -652,7 +808,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	# Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
 		self.beepAnnounceCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Beep for status announcements"))
-		self.beepAnnounceCheckbox.SetValue(SPLConfig["BeepAnnounce"])
+		self.beepAnnounceCheckbox.SetValue(SPLConfig["General"]["BeepAnnounce"])
 		settingsSizer.Add(self.beepAnnounceCheckbox, border=10,flag=wx.TOP)
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
@@ -663,7 +819,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# Translators: One of the message verbosity levels.
 		("advanced",_("advanced"))]
 		self.verbosityList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.verbosityLevels])
-		currentVerbosity=SPLConfig["MessageVerbosity"]
+		currentVerbosity=SPLConfig["General"]["MessageVerbosity"]
 		selection = (x for x,y in enumerate(self.verbosityLevels) if y[0]==currentVerbosity).next()  
 		try:
 			self.verbosityList.SetSelection(selection)
@@ -677,7 +833,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# Check box hiding method comes from Alberto Buffolino's Columns Review add-on.
 		# Translators: Label for a check box in SPL add-on settings to notify when end of track (outro) is approaching.
 		self.outroCheckBox=wx.CheckBox(self,wx.NewId(),label=_("&Notify when end of track is approaching"))
-		self.outroCheckBox.SetValue(SPLConfig["SayEndOfTrack"])
+		self.outroCheckBox.SetValue(SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"])
 		self.outroCheckBox.Bind(wx.EVT_CHECKBOX, self.onOutroCheck)
 		self.outroSizer.Add(self.outroCheckBox, border=10,flag=wx.BOTTOM)
 
@@ -685,7 +841,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.outroAlarmLabel = wx.StaticText(self, wx.ID_ANY, label=_("&End of track alarm in seconds"))
 		self.outroSizer.Add(self.outroAlarmLabel)
 		self.endOfTrackAlarm = wx.SpinCtrl(self, wx.ID_ANY, min=1, max=59)
-		self.endOfTrackAlarm.SetValue(long(SPLConfig["EndOfTrackTime"]))
+		self.endOfTrackAlarm.SetValue(long(SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"]))
 		self.endOfTrackAlarm.SetSelection(-1, -1)
 		self.outroSizer.Add(self.endOfTrackAlarm)
 		self.onOutroCheck(None)
@@ -694,7 +850,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.introSizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: Label for a check box in SPL add-on settings to notify when end of intro is approaching.
 		self.introCheckBox=wx.CheckBox(self,wx.NewId(),label=_("&Notify when end of introduction is approaching"))
-		self.introCheckBox.SetValue(SPLConfig["SaySongRamp"])
+		self.introCheckBox.SetValue(SPLConfig["IntroOutroAlarms"]["SaySongRamp"])
 		self.introCheckBox.Bind(wx.EVT_CHECKBOX, self.onIntroCheck)
 		self.introSizer.Add(self.introCheckBox, border=10,flag=wx.BOTTOM)
 
@@ -702,7 +858,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.introAlarmLabel = wx.StaticText(self, wx.ID_ANY, label=_("&Track intro alarm in seconds"))
 		self.introSizer.Add(self.introAlarmLabel)
 		self.songRampAlarm = wx.SpinCtrl(self, wx.ID_ANY, min=1, max=9)
-		self.songRampAlarm.SetValue(long(SPLConfig["SongRampTime"]))
+		self.songRampAlarm.SetValue(long(SPLConfig["IntroOutroAlarms"]["SongRampTime"]))
 		self.songRampAlarm.SetSelection(-1, -1)
 		self.introSizer.Add(self.songRampAlarm)
 		self.onIntroCheck(None)
@@ -719,7 +875,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# Translators: One of the braille timer settings.
 		("both",_("Track intro and ending"))]
 		self.brailleTimerList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.brailleTimerValues])
-		brailleTimerCurValue=SPLConfig["BrailleTimer"]
+		brailleTimerCurValue=SPLConfig["General"]["BrailleTimer"]
 		selection = (x for x,y in enumerate(self.brailleTimerValues) if y[0]==brailleTimerCurValue).next()  
 		try:
 			self.brailleTimerList.SetSelection(selection)
@@ -734,7 +890,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		label = wx.StaticText(self, wx.ID_ANY, label=_("&Microphone alarm in seconds"))
 		self.micSizer.Add(label)
 		self.micAlarm = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=7200)
-		self.micAlarm.SetValue(long(SPLConfig["MicAlarm"]))
+		self.micAlarm.SetValue(long(SPLConfig["MicrophoneAlarm"]["MicAlarm"]))
 		self.micAlarm.SetSelection(-1, -1)
 		self.micSizer.Add(self.micAlarm)
 
@@ -742,7 +898,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.micAlarmIntervalLabel = wx.StaticText(self, wx.ID_ANY, label=_("Microphone alarm &interval in seconds"))
 		self.micSizer.Add(self.micAlarmIntervalLabel)
 		self.micAlarmInterval = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=60)
-		self.micAlarmInterval.SetValue(long(SPLConfig["MicAlarmInterval"]))
+		self.micAlarmInterval.SetValue(long(SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"]))
 		self.micAlarmInterval.SetSelection(-1, -1)
 		self.micSizer.Add(self.micAlarmInterval)
 		settingsSizer.Add(self.micSizer, border=10, flag=wx.BOTTOM)
@@ -757,7 +913,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# Translators: One of the alarm notification options.
 		("both",_("both beep and message"))]
 		self.alarmAnnounceList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.alarmAnnounceValues])
-		alarmAnnounceCurValue=SPLConfig["AlarmAnnounce"]
+		alarmAnnounceCurValue=SPLConfig["General"]["AlarmAnnounce"]
 		selection = (x for x,y in enumerate(self.alarmAnnounceValues) if y[0]==alarmAnnounceCurValue).next()  
 		try:
 			self.alarmAnnounceList.SetSelection(selection)
@@ -778,7 +934,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# Translators: One of the library scan announcement settings.
 		("numbers",_("Scan count"))]
 		self.libScanList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.libScanValues])
-		libScanCurValue=SPLConfig["LibraryScanAnnounce"]
+		libScanCurValue=SPLConfig["General"]["LibraryScanAnnounce"]
 		selection = (x for x,y in enumerate(self.libScanValues) if y[0]==libScanCurValue).next()  
 		try:
 			self.libScanList.SetSelection(selection)
@@ -789,12 +945,12 @@ class SPLConfigDialog(gui.SettingsDialog):
 		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		self.hourAnnounceCheckbox=wx.CheckBox(self,wx.NewId(),label="Include &hours when announcing track or playlist duration")
-		self.hourAnnounceCheckbox.SetValue(SPLConfig["TimeHourAnnounce"])
+		self.hourAnnounceCheckbox.SetValue(SPLConfig["General"]["TimeHourAnnounce"])
 		settingsSizer.Add(self.hourAnnounceCheckbox, border=10,flag=wx.BOTTOM)
 
 		# Translators: the label for a setting in SPL add-on settings to toggle track dial mode on and off.
 		self.trackDialCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Track Dial mode"))
-		self.trackDialCheckbox.SetValue(SPLConfig["TrackDial"])
+		self.trackDialCheckbox.SetValue(SPLConfig["General"]["TrackDial"])
 		settingsSizer.Add(self.trackDialCheckbox, border=10,flag=wx.BOTTOM)
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
@@ -806,7 +962,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# Translators: One of the metadata notification settings.
 		("instant",_("When instant switch profile is active"))]
 		self.metadataList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.metadataValues])
-		metadataCurValue=SPLConfig["MetadataReminder"]
+		metadataCurValue=SPLConfig["General"]["MetadataReminder"]
 		selection = (x for x,y in enumerate(self.metadataValues) if y[0]==metadataCurValue).next()  
 		try:
 			self.metadataList.SetSelection(selection)
@@ -814,7 +970,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 			pass
 		sizer.Add(label)
 		sizer.Add(self.metadataList)
-		self.metadataStreams = list(SPLConfig["MetadataEnabled"])
+		self.metadataStreams = list(SPLConfig["MetadataStreaming"]["MetadataEnabled"])
 		# Translators: The label of a button to manage column announcements.
 		item = manageMetadataButton = wx.Button(self, label=_("Configure metadata &streaming connection options..."))
 		item.Bind(wx.EVT_BUTTON, self.onManageMetadata)
@@ -823,10 +979,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 		# Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
 		self.columnOrderCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce columns in the &order shown on screen"))
-		self.columnOrderCheckbox.SetValue(SPLConfig["UseScreenColumnOrder"])
-		self.columnOrder = SPLConfig["ColumnOrder"]
+		self.columnOrderCheckbox.SetValue(SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"])
+		self.columnOrder = SPLConfig["ColumnAnnouncement"]["ColumnOrder"]
 		# Without manual conversion below, it produces a rare bug where clicking cancel after changing column inclusion causes new set to be retained.
-		self.includedColumns = set(SPLConfig["IncludedColumns"])
+		self.includedColumns = set(SPLConfig["ColumnAnnouncement"]["IncludedColumns"])
 		settingsSizer.Add(self.columnOrderCheckbox, border=10,flag=wx.BOTTOM)
 		# Translators: The label of a button to manage column announcements.
 		item = manageColumnsButton = wx.Button(self, label=_("&Manage track column announcements..."))
@@ -835,22 +991,22 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 		# Translators: the label for a setting in SPL add-on settings to announce scheduled time.
 		self.scheduledForCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce &scheduled time for the selected track"))
-		self.scheduledFor = SPLConfig["SayScheduledFor"]
-		self.scheduledForCheckbox.SetValue(SPLConfig["SayScheduledFor"])
+		self.scheduledForCheckbox.SetValue(SPLConfig["SayStatus"]["SayScheduledFor"])
+		self.scheduledFor = SPLConfig["SayStatus"]["SayScheduledFor"]
 		self.scheduledForCheckbox.Hide()
 		settingsSizer.Add(self.scheduledForCheckbox, border=10,flag=wx.BOTTOM)
 
 		# Translators: the label for a setting in SPL add-on settings to announce listener count.
 		self.listenerCountCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce &listener count"))
-		self.listenerCount = SPLConfig["SayListenerCount"]
-		self.listenerCountCheckbox.SetValue(SPLConfig["SayListenerCount"])
+		self.listenerCountCheckbox.SetValue(SPLConfig["SayStatus"]["SayListenerCount"])
+		self.listenerCount = SPLConfig["SayStatus"]["SayListenerCount"]
 		self.listenerCountCheckbox.Hide()
 		settingsSizer.Add(self.listenerCountCheckbox, border=10,flag=wx.BOTTOM)
 
 		# Translators: the label for a setting in SPL add-on settings to announce currently playing cart.
 		self.cartNameCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Announce name of the currently playing cart"))
-		self.cartName = SPLConfig["SayPlayingCartName"]
-		self.cartNameCheckbox.SetValue(SPLConfig["SayPlayingCartName"])
+		self.cartNameCheckbox.SetValue(SPLConfig["SayStatus"]["SayPlayingCartName"])
+		self.cartName = SPLConfig["SayStatus"]["SayPlayingCartName"]
 		self.cartNameCheckbox.Hide()
 		settingsSizer.Add(self.cartNameCheckbox, border=10,flag=wx.BOTTOM)
 
@@ -864,7 +1020,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# Translators: One of the track name announcement options.
 		("False",_("off"))]
 		self.trackAnnouncementList= wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.trackAnnouncements])
-		trackAnnouncement=SPLConfig["SayPlayingTrackName"]
+		trackAnnouncement=SPLConfig["SayStatus"]["SayPlayingTrackName"]
+		self.playingTrackName = SPLConfig["SayStatus"]["SayPlayingTrackName"]
 		selection = (x for x,y in enumerate(self.trackAnnouncements) if y[0]==trackAnnouncement).next()  
 		try:
 			self.trackAnnouncementList.SetSelection(selection)
@@ -884,10 +1041,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# Translators: The label of a button to open advanced options such as using SPL Controller command to invoke Assistant layer.
 		item = advancedOptButton = wx.Button(self, label=_("&Advanced options..."))
 		item.Bind(wx.EVT_BUTTON, self.onAdvancedOptions)
-		self.splConPassthrough = SPLConfig["SPLConPassthrough"]
-		self.compLayer = SPLConfig["CompatibilityLayer"]
-		self.playlistRemainder = SPLConfig["PlaylistRemainder"]
-		self.autoUpdateCheck = SPLConfig["AutoUpdateCheck"]
+		self.splConPassthrough = SPLConfig["Advanced"]["SPLConPassthrough"]
+		self.compLayer = SPLConfig["Advanced"]["CompatibilityLayer"]
+		self.playlistRemainder = SPLConfig["Advanced"]["PlaylistRemainder"]
+		self.autoUpdateCheck = SPLConfig["Update"]["AutoUpdateCheck"]
 		settingsSizer.Add(item)
 
 		# Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
@@ -903,34 +1060,37 @@ class SPLConfigDialog(gui.SettingsDialog):
 	def onOk(self, evt):
 		global SPLConfig, SPLActiveProfile, _configDialogOpened, SPLSwitchProfile, SPLPrevProfile
 		selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
-		SPLConfig = getProfileByName(selectedProfile)
-		SPLConfig["BeepAnnounce"] = self.beepAnnounceCheckbox.Value
-		SPLConfig["MessageVerbosity"] = self.verbosityLevels[self.verbosityList.GetSelection()][0]
-		SPLConfig["SayEndOfTrack"] = self.outroCheckBox.Value
-		SPLConfig["EndOfTrackTime"] = self.endOfTrackAlarm.Value
-		SPLConfig["SaySongRamp"] = self.introCheckBox.Value
-		SPLConfig["SongRampTime"] = self.songRampAlarm.Value
-		SPLConfig["BrailleTimer"] = self.brailleTimerValues[self.brailleTimerList.GetSelection()][0]
-		SPLConfig["MicAlarm"] = self.micAlarm.Value
-		SPLConfig["MicAlarmInterval"] = self.micAlarmInterval.Value
-		SPLConfig["AlarmAnnounce"] = self.alarmAnnounceValues[self.alarmAnnounceList.GetSelection()][0]
-		SPLConfig["LibraryScanAnnounce"] = self.libScanValues[self.libScanList.GetSelection()][0]
-		SPLConfig["TimeHourAnnounce"] = self.hourAnnounceCheckbox.Value
-		SPLConfig["TrackDial"] = self.trackDialCheckbox.Value
-		SPLConfig["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
-		SPLConfig["MetadataEnabled"] = self.metadataStreams
-		SPLConfig["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
-		SPLConfig["ColumnOrder"] = self.columnOrder
-		SPLConfig["IncludedColumns"] = self.includedColumns
-		SPLConfig["SayScheduledFor"] = self.scheduledForCheckbox.Value
-		SPLConfig["SayListenerCount"] = self.listenerCountCheckbox.Value
-		SPLConfig["SayPlayingCartName"] = self.cartNameCheckbox.Value
-		SPLConfig["SayPlayingTrackName"] = self.trackAnnouncements[self.trackAnnouncementList.GetSelection()][0]
-		SPLConfig["SPLConPassthrough"] = self.splConPassthrough
-		SPLConfig["CompatibilityLayer"] = self.compLayer
-		SPLConfig["PlaylistRemainder"] = self.playlistRemainder
-		SPLConfig["AutoUpdateCheck"] = self.autoUpdateCheck
-		SPLActiveProfile = SPLConfig.name
+		profileIndex = getProfileIndexByName(selectedProfile)
+		SPLConfig["General"]["BeepAnnounce"] = self.beepAnnounceCheckbox.Value
+		SPLConfig["General"]["MessageVerbosity"] = self.verbosityLevels[self.verbosityList.GetSelection()][0]
+		SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"] = self.outroCheckBox.Value
+		SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] = self.endOfTrackAlarm.Value
+		SPLConfig["IntroOutroAlarms"]["SaySongRamp"] = self.introCheckBox.Value
+		SPLConfig["IntroOutroAlarms"]["SongRampTime"] = self.songRampAlarm.Value
+		SPLConfig["General"]["BrailleTimer"] = self.brailleTimerValues[self.brailleTimerList.GetSelection()][0]
+		SPLConfig["MicrophoneAlarm"]["MicAlarm"] = self.micAlarm.Value
+		SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] = self.micAlarmInterval.Value
+		SPLConfig["General"]["AlarmAnnounce"] = self.alarmAnnounceValues[self.alarmAnnounceList.GetSelection()][0]
+		SPLConfig["General"]["LibraryScanAnnounce"] = self.libScanValues[self.libScanList.GetSelection()][0]
+		SPLConfig["General"]["TimeHourAnnounce"] = self.hourAnnounceCheckbox.Value
+		SPLConfig["General"]["TrackDial"] = self.trackDialCheckbox.Value
+		SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
+		SPLConfig["MetadataStreaming"]["MetadataEnabled"] = self.metadataStreams
+		SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
+		SPLConfig["ColumnAnnouncement"]["ColumnOrder"] = self.columnOrder
+		SPLConfig["ColumnAnnouncement"]["IncludedColumns"] = self.includedColumns
+		SPLConfig["SayStatus"]["SayScheduledFor"] = self.scheduledForCheckbox.Value
+		SPLConfig["SayStatus"]["SayListenerCount"] = self.listenerCountCheckbox.Value
+		SPLConfig["SayStatus"]["SayPlayingCartName"] = self.cartNameCheckbox.Value
+		SPLConfig["SayStatus"]["SayPlayingTrackName"] = self.trackAnnouncements[self.trackAnnouncementList.GetSelection()][0]
+		SPLConfig["Advanced"]["SPLConPassthrough"] = self.splConPassthrough
+		SPLConfig["Advanced"]["CompatibilityLayer"] = self.compLayer
+		SPLConfig["Advanced"]["PlaylistRemainder"] = self.playlistRemainder
+		SPLConfig["Update"]["AutoUpdateCheck"] = self.autoUpdateCheck
+		SPLConfig["ActiveIndex"] = profileIndex
+		# Reverse of merge: save profile specific sections to individual config dictionaries.
+		applySections(profileIndex)
+		SPLActiveProfile = selectedProfile
 		SPLSwitchProfile = self.switchProfile
 		# Without nullifying prev profile while switch profile is undefined, NVDA will assume it can switch back to that profile when it can't.
 		# It also causes NVDA to display wrong label for switch button.
@@ -940,8 +1100,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 		_configDialogOpened = False
 		# 7.0: Perform extra action such as restarting auto update timer.
 		self.onCloseExtraAction()
-		# 6.1: Propagate global settings.
-		_propagateChanges()
 		super(SPLConfigDialog,  self).onOk(evt)
 
 	def onCancel(self, evt):
@@ -953,7 +1111,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 		if self.switchProfileRenamed or self.switchProfileDeleted:
 			SPLSwitchProfile = self.switchProfile
 		if self.switchProfileDeleted:
-			SPLConfig = SPLConfigPool[0]
+			# Return to normal profile by merging the first profile in the config pool.
+			mergeSections(0)
 		_configDialogOpened = False
 		#super(SPLConfigDialog,  self).onCancel(evt)
 		self.Destroy()
@@ -964,10 +1123,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 		hwnd = user32.FindWindowA("SPLStudio", None)
 		if hwnd:
 			for url in xrange(5):
-				dataLo = 0x00010000 if SPLConfig["MetadataEnabled"][url] else 0xffff0000
+				dataLo = 0x00010000 if SPLConfig["MetadataStreaming"]["MetadataEnabled"][url] else 0xffff0000
 				user32.SendMessageW(hwnd, 1024, dataLo | url, 36)
 		# Coordinate auto update timer restart routine if told to do so.
-		if not SPLConfig["AutoUpdateCheck"]:
+		if not SPLConfig["Update"]["AutoUpdateCheck"]:
 			if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
 			splupdate._SPLUpdateT = None
 		else:
@@ -1023,21 +1182,20 @@ class SPLConfigDialog(gui.SettingsDialog):
 				self.instantSwitchButton.Label = _("Disable instant profile switching")
 			self.instantSwitchButton.Enable()
 		curProfile = getProfileByName(selectedProfile)
-		self.outroCheckBox.SetValue(curProfile["SayEndOfTrack"])
-		self.endOfTrackAlarm.SetValue(long(curProfile["EndOfTrackTime"]))
+		self.outroCheckBox.SetValue(curProfile["IntroOutroAlarms"]["SayEndOfTrack"])
+		self.endOfTrackAlarm.SetValue(long(curProfile["IntroOutroAlarms"]["EndOfTrackTime"]))
 		self.onOutroCheck(None)
-		self.introCheckBox.SetValue(curProfile["SaySongRamp"])
-		self.songRampAlarm.SetValue(long(curProfile["SongRampTime"]))
+		self.introCheckBox.SetValue(curProfile["IntroOutroAlarms"]["SaySongRamp"])
+		self.songRampAlarm.SetValue(long(curProfile["IntroOutroAlarms"]["SongRampTime"]))
 		self.onIntroCheck(None)
-		self.micAlarm.SetValue(long(curProfile["MicAlarm"]))
-		self.micAlarmInterval.SetValue(long(curProfile["MicAlarmInterval"]))
+		self.micAlarm.SetValue(long(curProfile["MicrophoneAlarm"]["MicAlarm"]))
+		self.micAlarmInterval.SetValue(long(curProfile["MicrophoneAlarm"]["MicAlarmInterval"]))
 		# 6.1: Take care of profile-specific column and metadata settings.
-		self.metadataStreams = curProfile["MetadataEnabled"]
-		self.columnOrderCheckbox.SetValue(curProfile["UseScreenColumnOrder"])
-		self.columnOrder = curProfile["ColumnOrder"]
+		self.metadataStreams = curProfile["MetadataStreaming"]["MetadataEnabled"]
+		self.columnOrderCheckbox.SetValue(curProfile["ColumnAnnouncement"]["UseScreenColumnOrder"])
+		self.columnOrder = curProfile["ColumnAnnouncement"]["ColumnOrder"]
 		# 6.1: Again convert list to set.
-		self.includedColumns = set(curProfile["IncludedColumns"])
-		print self.metadataStreams
+		self.includedColumns = set(curProfile["ColumnAnnouncement"]["IncludedColumns"])
 
 	# Profile controls.
 	# Rename and delete events come from GUI/config profiles dialog from NVDA core.
@@ -1185,11 +1343,12 @@ class SPLConfigDialog(gui.SettingsDialog):
 		)==wx.YES:
 			# Reset all profiles.
 			resetAllConfig()
-			global SPLConfig, SPLActiveProfile, _configDialogOpened, SPLSwitchProfile, SPLPrevProfile
-			SPLConfig = SPLConfigPool[0]
-			SPLActiveProfile = SPLConfig.name
+			global SPLConfig, SPLConfigPool, SPLActiveProfile, _configDialogOpened, SPLSwitchProfile, SPLPrevProfile
+			SPLConfig = dict(_SPLDefaults7)
+			SPLConfig["ActiveIndex"] = 0
+			SPLActiveProfile = SPLConfigPool[0].name
 			# Workaround: store the reset flag in the normal profile to prevent config databases from becoming references to old generation.
-			SPLConfig["Reset"] = True
+			SPLConfigPool[0]["Reset"] = True
 		if SPLSwitchProfile is not None:
 			SPLSwitchProfile = None
 		SPLPrevProfile = None
@@ -1456,7 +1615,7 @@ class MetadataStreamingDialog(wx.Dialog):
 			parent.Enable()
 		else:
 			# 6.1: Store just toggled settings to profile if told to do so.
-			if len(metadataEnabled): SPLConfig["MetadataEnabled"] = metadataEnabled
+			if len(metadataEnabled): SPLConfig["MetadataStreaming"]["MetadataEnabled"] = metadataEnabled
 		self.Destroy()
 		_metadataDialogOpened = False
 		return
@@ -1781,13 +1940,13 @@ class SPLAlarmDialog(wx.Dialog):
 		alarmMessage = wx.StaticText(self, wx.ID_ANY, label=alarmPrompt)
 		alarmSizer.Add(alarmMessage)
 		self.alarmEntry = wx.SpinCtrl(self, wx.ID_ANY, min=min, max=max)
-		self.alarmEntry.SetValue(SPLConfig[setting])
+		self.alarmEntry.SetValue(SPLConfig["IntroOutroAlarms"][setting])
 		self.alarmEntry.SetSelection(-1, -1)
 		alarmSizer.Add(self.alarmEntry)
 		mainSizer.Add(alarmSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
 		self.toggleCheckBox=wx.CheckBox(self,wx.NewId(),label=alarmToggleLabel)
-		self.toggleCheckBox.SetValue(SPLConfig[toggleSetting])
+		self.toggleCheckBox.SetValue(SPLConfig["IntroOutroAlarms"][toggleSetting])
 		mainSizer.Add(self.toggleCheckBox,border=10,flag=wx.BOTTOM)
 
 		mainSizer.AddSizer(self.CreateButtonSizer(wx.OK|wx.CANCEL))
@@ -1804,8 +1963,11 @@ class SPLAlarmDialog(wx.Dialog):
 		if user32.FindWindowA("SPLStudio", None):
 			newVal = self.alarmEntry.GetValue()
 			newToggle = self.toggleCheckBox.GetValue()
-			if SPLConfig[self.setting] != newVal: SPLConfig[self.setting] = newVal
-			elif SPLConfig[self.toggleSetting] != newToggle: SPLConfig[self.toggleSetting] = newToggle
+			if SPLConfig["IntroOutroAlarms"][self.setting] != newVal: SPLConfig["IntroOutroAlarms"][self.setting] = newVal
+			elif SPLConfig["IntroOutroAlarms"][self.toggleSetting] != newToggle: SPLConfig["IntroOutroAlarms"][self.toggleSetting] = newToggle
+			# Apply alarm settings only.
+			applySections(SPLConfig["ActiveIndex"], "/".join(["IntroOutroAlarms", self.setting]))
+			applySections(SPLConfig["ActiveIndex"], "/".join(["IntroOutroAlarms", self.toggleSetting]))
 		self.Destroy()
 		_alarmDialogOpened = False
 
@@ -1820,7 +1982,7 @@ class SPLAlarmDialog(wx.Dialog):
 # Most of the categories are same as confspec keys, hence the below message function is invoked when settings are changed.
 def message(category, value):
 	verbosityLevels = ("beginner", "advanced")
-	ui.message(messagePool[category][value][verbosityLevels.index(SPLConfig["MessageVerbosity"])])
+	ui.message(messagePool[category][value][verbosityLevels.index(SPLConfig["General"]["MessageVerbosity"])])
 
 messagePool={
 	"BeepAnnounce":
