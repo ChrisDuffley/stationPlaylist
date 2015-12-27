@@ -684,31 +684,34 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Specific to time scripts using Studio API.
 	# 6.0: Split this into two functions: the announcer (below) and formatter.
-	def announceTime(self, t, offset = None):
+	# 7.0: The ms (millisecond) argument will be used when announcing playlist remainder.
+	def announceTime(self, t, offset = None, ms=True):
 		if t <= 0:
 			ui.message("00:00")
 		else:
-			ui.message(self._ms2time(t, offset = offset))
+			ui.message(self._ms2time(t, offset = offset, ms=ms))
 
 	# Formatter: given time in milliseconds, convert it to human-readable format.
-	def _ms2time(self, t, offset = None):
+	# 7.0: There will be times when one will deal with time in seconds.
+	def _ms2time(self, t, offset = None, ms=True):
 		if t <= 0:
 			return "00:00"
 		else:
-			tm = (t/1000) if not offset else (t/1000)+offset
-			mm, ss = divmod(tm, 60)
+			if ms:
+				t = (t/1000) if not offset else (t/1000)+offset
+			mm, ss = divmod(t, 60)
 			if mm > 59 and splconfig.SPLConfig["TimeHourAnnounce"]:
 				hh, mm = divmod(mm, 60)
 				# Hour value is also filled with leading zero's.
 				# 6.1: Optimize the string builder so it can return just one string.
-				tm0 = str(hh).zfill(2)
-				tm1 = str(mm).zfill(2)
-				tm2 = str(ss).zfill(2)
-				return ":".join([tm0, tm1, tm2])
+				t0 = str(hh).zfill(2)
+				t1 = str(mm).zfill(2)
+				t2 = str(ss).zfill(2)
+				return ":".join([t0, t1, t2])
 			else:
-				tm1 = str(mm).zfill(2)
-				tm2 = str(ss).zfill(2)
-				return ":".join([tm1, tm2])
+				t1 = str(mm).zfill(2)
+				t2 = str(ss).zfill(2)
+				return ":".join([t1, t2])
 
 	# Scripts which rely on API.
 	def script_sayRemainingTime(self, gesture):
@@ -1456,16 +1459,22 @@ class AppModule(appModuleHandler.AppModule):
 		if splconfig.SPLConfig["PlaylistRemainder"] == "hour":
 			statusAPI(1, 27, self.announceTime)
 		else:
-			# 7.0: A new total time function will be employed.
+			# 6.2: Manually go through all tracks, gathering segue information.
 			tones.beep(1024, 30)
-			focus = api.getFocusObject()
-			if focus.role == controlTypes.ROLE_LIST:
+			obj = api.getFocusObject()
+			if obj.role == controlTypes.ROLE_LIST:
 				ui.message("00:00")
 				return
-			trackCount = statusAPI(0, 124, ret=True)-1
-			trackPos = focus.IAccessibleChildID-1
-			totalLength = self.totalTime(trackPos, trackCount)
-			self.announceTime(totalLength)
+			col = obj._indexOf("Duration")
+			totalDuration = 0
+			while obj is not None:
+				segue = obj._getColumnContent(col)
+				if segue is not None:
+					hms = segue.split(":")
+					totalDuration += (int(hms[0])*3600) + (int(hms[1])*60) + int(hms[2]) if len(hms) == 3 else (int(hms[0])*60) + int(hms[1])
+				obj = obj.next
+			# 6.2: For now, millisecond will be calculated manually.
+			self.announceTime(totalDuration, ms=False)
 
 	def script_sayPlaylistModified(self, gesture):
 		try:
