@@ -64,7 +64,7 @@ class TrackToolItem(IAccessible):
 				pass
 			dialText = _("Track Dial off")
 			dialTone = 390
-		if not splconfig.SPLConfig["BeepAnnounce"]:
+		if not splconfig.SPLConfig["General"]["BeepAnnounce"]:
 			ui.message(dialText)
 		else:
 			tones.beep(dialTone, 100)
