@@ -106,6 +106,13 @@ def statusAPI(arg, command, func=None, ret=False, offset=None):
 	if func:
 		func(val) if not offset else func(val, offset)
 
+# Category sounds dictionary (key = cateogry, value = tone pitch).
+_SPLCategoryTones = {
+	"Break Note":415,
+	"Timed Break Note":208,
+	"<Manual Intro>":600,
+}
+
 # Routines for track items themselves (prepare for future work).
 class SPLTrackItem(IAccessible):
 	"""Track item for earlier versions of Studio such as 5.00.
@@ -129,7 +136,10 @@ class SPLTrackItem(IAccessible):
 			return None
 
 	def reportFocus(self):
-		#tones.beep(800, 100)
+		if splconfig.SPLConfig["General"]["CategorySounds"]:
+			category = self._getColumnContent(self._indexOf("Category"))
+			if category in _SPLCategoryTones:
+				tones.beep(_SPLCategoryTones[category], 50)
 		if not splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"]:
 			descriptionPieces = []
 			for header in splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"]:

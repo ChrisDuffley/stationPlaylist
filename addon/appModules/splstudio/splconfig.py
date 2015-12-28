@@ -61,6 +61,7 @@ BrailleTimer = option("off", "intro", "outro", "both", default="off")
 AlarmAnnounce = option("beep", "message", "both", default="beep")
 LibraryScanAnnounce = option("off", "ending", "progress", "numbers", default="off")
 TrackDial = boolean(default=false)
+CategorySounds = boolean(default=true)
 MetadataReminder = option("off", "startup", "instant", default="off")
 TimeHourAnnounce = boolean(default=false)
 [IntroOutroAlarms]
