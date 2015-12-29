@@ -319,8 +319,7 @@ def _cacheConfig(conf):
 
 # Record profile triggers.
 # Each record (profile name) consists of seven fields organized as a list:
-# A bit vector specifying which days should this profile be active, and first six fields needed for constructing a datetime.datetime object used to look up when to trigger this profile.
-# A future extension will add three more fields specifying the length of this trigger.
+# A bit vector specifying which days should this profile be active, the first five fields needed for constructing a datetime.datetime object used to look up when to trigger this profile, and an integer specifying the duration in minutes.
 profileTriggers = {} # Using a pickle is quite elegant.
 # Profile triggers pickle.
 SPLTriggersFile = os.path.join(globalVars.appArgs.configPath, "spltriggers.pickle")
@@ -345,6 +344,7 @@ def nextTimedProfile(current=None):
 	if not len(profileTriggers): return None
 	possibleTriggers = []
 	for profile in profileTriggers.keys():
+		shouldBeSwitched = False
 		entry = list(profileTriggers[profile])
 		# Construct the comparison datetime (see the profile triggers spec).
 		triggerTime = datetime.datetime(entry[1], entry[2], entry[3], entry[4], entry[5])
@@ -352,7 +352,9 @@ def nextTimedProfile(current=None):
 		if current > triggerTime:
 			print "time passed"
 			profileTriggers[profile] = setNextTimedProfile(profile, entry[0], datetime.time(entry[4], entry[5]), date=current)
-		possibleTriggers.append((triggerTime, profile, False))
+			if (current-triggerTime).seconds < entry[6]*60:
+				shouldBeSwitched = True
+		possibleTriggers.append((triggerTime, profile, shouldBeSwitched))
 	if len(possibleTriggers):
 		d = min(possibleTriggers)[0] - current
 		print d.days
@@ -414,11 +416,15 @@ def triggerStart(restart=False):
 			SPLTriggerProfile = queuedProfile[1]
 		except ValueError:
 			SPLTriggerProfile = None
-		switchAfter = (queuedProfile[0] - datetime.datetime.now())
-		if switchAfter.days == 0 and switchAfter.seconds <= 3600:
-			time.sleep((switchAfter.microseconds+1000) / 1000000.0)
-			triggerTimer = SPLCountdownTimer(switchAfter.seconds, triggerProfileSwitch, 15)
-			triggerTimer.start()
+		# We are in the midst of a show, so switch now.
+		if queuedProfile[2]:
+			triggerProfileSwitch()
+		else:
+			switchAfter = (queuedProfile[0] - datetime.datetime.now())
+			if switchAfter.days == 0 and switchAfter.seconds <= 3600:
+				time.sleep((switchAfter.microseconds+1000) / 1000000.0)
+				triggerTimer = SPLCountdownTimer(switchAfter.seconds, triggerProfileSwitch, 15)
+				triggerTimer.start()
 
 # Dump profile triggers pickle away.
 def saveProfileTriggers():
@@ -1469,6 +1475,12 @@ class TriggersDialog(wx.Dialog):
 		self.minEntry.SetValue(profileTriggers[profile][5] if profile in profileTriggers else 0)
 		self.minEntry.SetSelection(-1, -1)
 		timeSizer.Add(self.minEntry)
+		prompt = wx.StaticText(self, wx.ID_ANY, label="Duration in minutes")
+		timeSizer.Add(prompt)
+		self.durationEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=1440)
+		self.durationEntry.SetValue(profileTriggers[profile][6] if profile in profileTriggers else 0)
+		self.durationEntry.SetSelection(-1, -1)
+		timeSizer.Add(self.durationEntry)
 		mainSizer.Add(timeSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.BOTTOM)
 
 		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
@@ -1486,6 +1498,7 @@ class TriggersDialog(wx.Dialog):
 			if day.Value: bit+=64 >> self.triggerDays.index(day)
 		if bit:
 			profileTriggers[self.profile] = setNextTimedProfile(self.profile, bit, datetime.time(self.hourEntry.GetValue(), self.minEntry.GetValue()))
+			profileTriggers[self.profile][6] = self.minEntry.GetValue()
 			triggerStart(restart=True)
 		elif bit == 0 and self.profile in profileTriggers:
 			del profileTriggers[self.profile]
