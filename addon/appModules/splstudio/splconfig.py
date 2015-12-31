@@ -649,10 +649,12 @@ def instantProfileSwitch():
 
 # The triggers version of the above function.
 # 7.0: Try consolidating this into one or some more functions.
+_SPLTriggerEndTimer = None
+
 def triggerProfileSwitch():
-	global SPLPrevProfile, SPLConfig, SPLActiveProfile, triggerTimer
+	global SPLPrevProfile, SPLConfig, SPLActiveProfile, triggerTimer, _SPLTriggerEndTimer
 	if _configDialogOpened:
-		# Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
+		# Translators: Presented when trying to switch profiles when add-on settings dialog is active.
 		ui.message(_("Add-on settings dialog is open, cannot switch profiles"))
 		return
 	if SPLTriggerProfile is None:
@@ -677,7 +679,12 @@ def triggerProfileSwitch():
 				if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning: splupdate._SPLUpdateT.Stop()
 			# Set the next trigger date and time.
 			triggerSettings = profileTriggers[SPLTriggerProfile]
-			profileTriggers[SPLTriggerProfile] = setNextTimedProfile(SPLTriggerProfile, triggerSettings[0], datetime.time(triggerSettings[4], triggerSettings[5]))
+			# Set next trigger if no duration is specified.
+			if triggerSettings[6] == 0:
+				profileTriggers[SPLTriggerProfile] = setNextTimedProfile(SPLTriggerProfile, triggerSettings[0], datetime.time(triggerSettings[4], triggerSettings[5]))
+			else:
+				_SPLTriggerEndTimer = wx.PyTimer(triggerProfileSwitch)
+				_SPLTriggerEndTimer.Start(triggerSettings[6] * 60 * 1000, True)
 		else:
 			switchProfile(None, SPLPrevProfile)
 			SPLPrevProfile = None
@@ -685,6 +692,10 @@ def triggerProfileSwitch():
 			ui.message(_("Returning to previous profile"))
 			# Resume auto update checker if told to do so.
 			if SPLConfig["Update"]["AutoUpdateCheck"]: updateInit()
+			# Stop the ending timer.
+			if _SPLTriggerEndTimer is not None and _SPLTriggerEndTimer.IsRunning():
+				_SPLTriggerEndTimer.Stop()
+				_SPLTriggerEndTimer = None
 
 
 # Automatic update checker.
