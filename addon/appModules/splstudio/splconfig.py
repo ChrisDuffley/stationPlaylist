@@ -772,6 +772,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 		item = self.deleteButton = wx.Button(self, label=_("&Delete"))
 		item.Bind(wx.EVT_BUTTON, self.onDelete)
 		sizer.Add(item)
+		# Have a copy of the triggers dictionary.
+		self._profileTriggersConfig = dict(profileTriggers)
 		# Translators: The label of a button to manage show profile triggers.
 		item = self.triggerButton = wx.Button(self, label=_("&Triggers..."))
 		item.Bind(wx.EVT_BUTTON, self.onTriggers)
@@ -1048,7 +1050,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.profiles.SetFocus()
 
 	def onOk(self, evt):
-		global SPLConfig, SPLActiveProfile, _configDialogOpened, SPLSwitchProfile, SPLPrevProfile
+		global SPLConfig, SPLActiveProfile, _configDialogOpened, SPLSwitchProfile, SPLPrevProfile, profileTriggers
 		selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
 		profileIndex = getProfileIndexByName(selectedProfile)
 		SPLConfig["General"]["BeepAnnounce"] = self.beepAnnounceCheckbox.Value
@@ -1089,6 +1091,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 		_configDialogOpened = False
 		# 7.0: Perform extra action such as restarting auto update timer.
 		self.onCloseExtraAction()
+		# Apply changes to profile triggers.
+		profileTriggers = dict(self._profileTriggersConfig)
+		self._profileTriggersConfig.clear()
+		self._profileTriggersConfig = None
+		triggerStart(restart=True)
 		super(SPLConfigDialog,  self).onOk(evt)
 
 	def onCancel(self, evt):
@@ -1096,6 +1103,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# 6.1: Discard changes to included columns set.
 		self.includedColumns.clear()
 		self.includedColumns = None
+		# Remove profile triggers as well.
+		self._profileTriggersConfig.clear()
+		self._profileTriggersConfig = None
+		triggerStart(restart=True)
 		SPLActiveProfile = self.activeProfile
 		if self.switchProfileRenamed or self.switchProfileDeleted:
 			SPLSwitchProfile = self.switchProfile
@@ -1449,8 +1460,10 @@ class TriggersDialog(wx.Dialog):
 		# Translators: The title of the broadcast profile triggers dialog.
 		super(TriggersDialog, self).__init__(parent, title=_("Profile triggers for {profileName}").format(profileName = profile))
 		self.profile = profile
-		if profile in profileTriggers:
-			t = profileTriggers[profile]
+		# When reerencing profile triggers, use the dictionary stored in the main add-on settings.
+		# This is needed in order to discard changes when cancel button is clicked from the parent dialog.
+		if profile in self.Parent._profileTriggersConfig:
+			t = self.Parent._profileTriggersConfig[profile]
 			d = "-".join([str(t[1]), str(t[2]).zfill(2), str(t[3]).zfill(2)])
 			t = ":".join([str(t[4]).zfill(2), str(t[5]).zfill(2)])
 			triggerText = "The next trigger is scheduled on {0} at {1}.".format(d, t)
@@ -1465,7 +1478,7 @@ class TriggersDialog(wx.Dialog):
 		self.triggerDays = []
 		for day in xrange(len(calendar.day_name)):
 			triggerDay=wx.CheckBox(self, wx.NewId(),label=calendar.day_name[day])
-			value = (64 >> day & profileTriggers[profile][0]) if profile in profileTriggers else 0
+			value = (64 >> day & self.Parent._profileTriggersConfig[profile][0]) if profile in self.Parent._profileTriggersConfig else 0
 			triggerDay.SetValue(value)
 			self.triggerDays.append(triggerDay)
 		for day in self.triggerDays:
@@ -1476,19 +1489,19 @@ class TriggersDialog(wx.Dialog):
 		prompt = wx.StaticText(self, wx.ID_ANY, label="Hour")
 		timeSizer.Add(prompt)
 		self.hourEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=23)
-		self.hourEntry.SetValue(profileTriggers[profile][4] if profile in profileTriggers else 0)
+		self.hourEntry.SetValue(self.Parent._profileTriggersConfig[profile][4] if profile in self.Parent._profileTriggersConfig else 0)
 		self.hourEntry.SetSelection(-1, -1)
 		timeSizer.Add(self.hourEntry)
 		prompt = wx.StaticText(self, wx.ID_ANY, label="Minute")
 		timeSizer.Add(prompt)
 		self.minEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=59)
-		self.minEntry.SetValue(profileTriggers[profile][5] if profile in profileTriggers else 0)
+		self.minEntry.SetValue(self.Parent._profileTriggersConfig[profile][5] if profile in self.Parent._profileTriggersConfig else 0)
 		self.minEntry.SetSelection(-1, -1)
 		timeSizer.Add(self.minEntry)
 		prompt = wx.StaticText(self, wx.ID_ANY, label="Duration in minutes")
 		timeSizer.Add(prompt)
 		self.durationEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=1440)
-		self.durationEntry.SetValue(profileTriggers[profile][6] if profile in profileTriggers else 0)
+		self.durationEntry.SetValue(self.Parent._profileTriggersConfig[profile][6] if profile in self.Parent._profileTriggersConfig else 0)
 		self.durationEntry.SetSelection(-1, -1)
 		timeSizer.Add(self.durationEntry)
 		mainSizer.Add(timeSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.BOTTOM)
@@ -1507,14 +1520,12 @@ class TriggersDialog(wx.Dialog):
 		for day in self.triggerDays:
 			if day.Value: bit+=64 >> self.triggerDays.index(day)
 		if bit:
-			profileTriggers[self.profile] = setNextTimedProfile(self.profile, bit, datetime.time(self.hourEntry.GetValue(), self.minEntry.GetValue()))
-			profileTriggers[self.profile][6] = self.minEntry.GetValue()
-			triggerStart(restart=True)
-		elif bit == 0 and self.profile in profileTriggers:
-			del profileTriggers[self.profile]
-		parent = self.Parent
-		parent.profiles.SetFocus()
-		parent.Enable()
+			self.Parent._profileTriggersConfig[self.profile] = setNextTimedProfile(self.profile, bit, datetime.time(self.hourEntry.GetValue(), self.minEntry.GetValue()))
+			self.Parent._profileTriggersConfig[self.profile][6] = self.minEntry.GetValue()
+		elif bit == 0 and self.profile in self.Parent._profileTriggersConfig:
+			del self.Parent._profileTriggersConfig[self.profile]
+		self.Parent.profiles.SetFocus()
+		self.Parent.Enable()
 		self.Destroy()
 		return
 
