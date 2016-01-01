@@ -460,14 +460,14 @@ class AppModule(appModuleHandler.AppModule):
 					and splconfig.SPLConfig["SaySongRamp"]):
 						self.alarmAnnounce(obj.name, 512, 400, intro=True)
 				# Hack: auto scroll in Studio itself might be broken (according to Brian Hartgen), so force NVDA to announce currently playing track automatically if told to do so.
-				if splconfig.SPLConfig["SayPlayingTrackName"] == "True": # Had to do this to transform this key to something else later.
+				if ((splconfig.SPLConfig["SayPlayingTrackName"] == "True" and self.SPLCurVersion < "5.11")
+				or (splconfig.SPLConfig["SayPlayingTrackName"] == "Background" and api.getForegroundObject().windowClassName != "TStudioForm")):
 					try:
 						statusBarFG = obj.parent.parent.parent
 						if statusBarFG is not None:
 							statusBar = statusBarFG.previous.previous.previous
 							if statusBar is not None and statusBar.firstChild is not None and statusBar.firstChild.role == controlTypes.ROLE_STATUSBAR:
 								ui.message(obj.name)
-								tones.beep(1000, 100)
 					except AttributeError:
 						pass
 		nextHandler()
