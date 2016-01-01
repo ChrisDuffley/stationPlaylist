@@ -402,6 +402,22 @@ def setNextTimedProfile(profile, bits, switchTime, date=None):
 		return [bits, date.year, date.month, date.day, switchTime.hour, switchTime.minute, 0]
 	else: return findNextAirDate(bits, date, dayIndex, switchTime)
 
+# Find if another profile is occupying the specified time slot.
+def duplicateExists(map, profile, bits, hour, min, duration):
+	if len(map) == 0 or (len(map) == 1 and profile in map): return False
+	# Convdrt hours and minutes to an integer for faster comparison.
+	start1 = (hour*60) + min
+	end1 = start1+duration
+	# A possible duplicate may exist simply because of bits.
+	for item in filter(lambda p: p != profile, map.keys()):
+		if map[item][0] == bits:
+			entry = map[item]
+			start2 = (entry[4] * 60) + entry[5]
+			end2 = start2+entry[6]
+			if start1 <= start2 <= end1 or start2 <= start1 <= end2:
+				return True
+	return False
+
 # Start the trigger timer based on above information.
 # Can be restarted if needed.
 def triggerStart(restart=False):
@@ -1520,8 +1536,14 @@ class TriggersDialog(wx.Dialog):
 		for day in self.triggerDays:
 			if day.Value: bit+=64 >> self.triggerDays.index(day)
 		if bit:
-			self.Parent._profileTriggersConfig[self.profile] = setNextTimedProfile(self.profile, bit, datetime.time(self.hourEntry.GetValue(), self.minEntry.GetValue()))
-			self.Parent._profileTriggersConfig[self.profile][6] = self.minEntry.GetValue()
+			hour, min = self.hourEntry.GetValue(), self.minEntry.GetValue()
+			duration = self.durationEntry.GetValue()
+			if duplicateExists(self.Parent._profileTriggersConfig, self.profile, bit, hour, min, duration):
+				gui.messageBox(_("A profile trigger already exists for the entered time slot. Please choose a different date or time."),
+					_("Error"), wx.OK | wx.ICON_ERROR, self)
+				return
+			self.Parent._profileTriggersConfig[self.profile] = setNextTimedProfile(self.profile, bit, datetime.time(hour, min))
+			self.Parent._profileTriggersConfig[self.profile][6] = duration
 		elif bit == 0 and self.profile in self.Parent._profileTriggersConfig:
 			del self.Parent._profileTriggersConfig[self.profile]
 		self.Parent.profiles.SetFocus()
