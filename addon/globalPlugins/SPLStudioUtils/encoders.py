@@ -439,6 +439,15 @@ class Encoder(IAccessible):
 			self.backgroundMonitor = encoderIdentifier in SPLBackgroundMonitor
 		except KeyError:
 			pass
+		# 6.2: Make sure background monitor threads are started if the flag is set.
+		if self.backgroundMonitor:
+			if self.encoderType == "SAM": threadPool = SAMMonitorThreads
+			elif self.encoderType == "SPL": threadPool = SPLMonitorThreads
+			if self.IAccessibleChildID not in threadPool:
+				statusThread = threading.Thread(target=self.reportConnectionStatus)
+				statusThread.name = "Connection Status Reporter " + str(self.IAccessibleChildID)
+				statusThread.start()
+				threadPool[self.IAccessibleChildID] = statusThread
 		# Can I play connection beeps?
 		try:
 			self.connectionTone = encoderIdentifier not in SPLNoConnectionTone
