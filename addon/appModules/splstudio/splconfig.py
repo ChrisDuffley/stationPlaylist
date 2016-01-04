@@ -385,9 +385,6 @@ def _preSave(conf):
 				del conf["InstantProfile"]
 			except KeyError:
 				pass
-		# 6.0 only: Remove obsolete keys.
-		if "MetadataURL" in conf:
-			del conf["MetadataURL"]
 		# 7.0: Check if updates are pending.
 		if (("PSZ" in conf and splupdate.SPLAddonSize != conf["PSZ"])
 		or ("PSZ" not in conf and splupdate.SPLAddonSize != 0x0)):
@@ -1030,7 +1027,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		NewProfileDialog(self, copy=True).Show()
 
 	def onRename(self, evt):
-		global SPLConfigPool
+		global SPLConfigPool, _SPLCache
 		oldDisplayName = self.profiles.GetStringSelection()
 		state = oldDisplayName.split(" <")
 		oldName = state[0]
@@ -1064,6 +1061,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.profileNames[profilePos] = newName
 		SPLConfigPool[configPos].name = newName
 		SPLConfigPool[configPos].filename = newProfile
+		_SPLCache[newName] = _SPLCache[oldName]
+		del _SPLCache[oldName]
 		if len(state) > 1: newName = " <".join([newName, state[1]])
 		self.profiles.SetString(index, newName)
 		self.profiles.Selection = index
@@ -1082,7 +1081,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 			wx.YES | wx.NO | wx.ICON_QUESTION, self
 		) == wx.NO:
 			return
-		global SPLConfigPool, SPLSwitchProfile, SPLPrevProfile
+		global SPLConfigPool, SPLSwitchProfile, SPLPrevProfile, _SPLCache
 		path = SPLConfigPool[configPos].filename
 		del SPLConfigPool[configPos]
 		try:
@@ -1095,6 +1094,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 			self.switchProfileDeleted = True
 		self.profiles.Delete(index)
 		del self.profileNames[profilePos]
+		del _SPLCache[name]
 		self.profiles.SetString(0, getProfileFlags(SPLConfigPool[0].name))
 		self.activeProfile = SPLConfigPool[0].name
 		self.profiles.Selection = 0
