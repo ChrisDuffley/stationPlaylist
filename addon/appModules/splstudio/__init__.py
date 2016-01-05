@@ -268,9 +268,10 @@ SPLAssistantHelp={
 	"off":_("""After entering SPL Assistant, press:
 A: Automation.
 C: Announce name of the currently playing track.
-D (R if compatibility mode is on): Remaining time for the playlist.
+D: Remaining time for the playlist.
 E: Overall metadata streaming status.
 1 through 4, 0: Metadata streaming status for DSP encoder and four additional URL's.
+F: Track finder.
 H: Duration of trakcs in this hour slot.
 Shift+H: Duration of remaining trakcs in this hour slot.
 I: Listener count.
@@ -281,7 +282,7 @@ M: Microphone status.
 N: Next track.
 P: Playback status.
 Shift+P: Pitch for the current track.
-R (Shift+E if compatibility mode is on): Record to file.
+R: Record to file.
 Shift+R: Monitor library scan.
 S: Scheduled time for the track.
 Shift+S: Time until the selected track will play.
@@ -301,6 +302,7 @@ Shift+C: Announce name of the currently playing track.
 E: Overall metadata streaming status.
 1 through 4, 0: Metadata streaming status for DSP encoder and four additional URL's.
 Shift+E: Record to file.
+F: Track finder.
 H: Duration of trakcs in this hour slot.
 Shift+H: Duration of remaining trakcs in this hour slot.
 K: Move to place marker track.
@@ -329,7 +331,10 @@ A: Automation.
 C: Toggle cart explorer.
 Shift+C: Announce name of the currently playing track.
 D: Remaining time for the playlist.
-E: Overall metadata streaming status.
+E: Elapsed time.
+F: Track finder.
+R: Remaining time for the currently playing track.
+G: Overall metadata streaming status.
 1 through 4, 0: Metadata streaming status for DSP encoder and four additional URL's.
 H: Duration of trakcs in this hour slot.
 Shift+H: Duration of remaining trakcs in this hour slot.
@@ -1699,6 +1704,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:f9":"markTrackForAnalysis",
 		"kb:f10":"trackTimeAnalysis",
 		"kb:f12":"switchProfiles",
+		"kb:f":"findTrack",
 		"kb:Control+k":"setPlaceMarker",
 		"kb:k":"findPlaceMarker",
 		"kb:e":"metadataStreamingAnnouncer",
@@ -1736,6 +1742,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:f9":"markTrackForAnalysis",
 		"kb:f10":"trackTimeAnalysis",
 		"kb:f12":"switchProfiles",
+		"kb:f":"findTrack",
 		"kb:Control+k":"setPlaceMarker",
 		"kb:k":"findPlaceMarker",
 		"kb:e":"metadataStreamingAnnouncer",
@@ -1755,9 +1762,11 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:shift+l":"sayLineInStatus",
 		"kb:shift+e":"sayRecToFileStatus",
 		"kb:t":"sayCartEditStatus",
+		"kb:e":"sayElapsedTime",
+		"kb:r":"sayRemainingTime",
 		"kb:h":"sayHourTrackDuration",
 		"kb:shift+h":"sayHourRemaining",
-		"kb:r":"sayPlaylistRemainingDuration",
+		"kb:d":"sayPlaylistRemainingDuration",
 		"kb:y":"sayPlaylistModified",
 		"kb:u":"sayUpTime",
 		"kb:n":"sayNextTrackTitle",
@@ -1772,9 +1781,10 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:f9":"markTrackForAnalysis",
 		"kb:f10":"trackTimeAnalysis",
 		"kb:f12":"switchProfiles",
+		"kb:f":"findTrack",
 		"kb:Control+k":"setPlaceMarker",
 		"kb:k":"findPlaceMarker",
-		"kb:e":"metadataStreamingAnnouncer",
+		"kb:g":"metadataStreamingAnnouncer",
 		"kb:1":"metadataEnabled",
 		"kb:2":"metadataEnabled",
 		"kb:3":"metadataEnabled",
