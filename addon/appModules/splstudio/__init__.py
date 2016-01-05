@@ -268,7 +268,7 @@ SPLAssistantHelp={
 	"off":_("""After entering SPL Assistant, press:
 A: Automation.
 C: Announce name of the currently playing track.
-D (R if compatibility mode is on): Remaining time for the playlist.
+D: Remaining time for the playlist.
 E: Overall metadata streaming status.
 1 through 4, 0: Metadata streaming status for DSP encoder and four additional URL's.
 H: Duration of trakcs in this hour slot.
@@ -281,7 +281,7 @@ M: Microphone status.
 N: Next track.
 P: Playback status.
 Shift+P: Pitch for the current track.
-R (Shift+E if compatibility mode is on): Record to file.
+R: Record to file.
 Shift+R: Monitor library scan.
 S: Scheduled time for the track.
 Shift+S: Time until the selected track will play.
@@ -301,6 +301,7 @@ Shift+C: Announce name of the currently playing track.
 E: Overall metadata streaming status.
 1 through 4, 0: Metadata streaming status for DSP encoder and four additional URL's.
 Shift+E: Record to file.
+F: Track finder.
 H: Duration of trakcs in this hour slot.
 Shift+H: Duration of remaining trakcs in this hour slot.
 K: Move to place marker track.
@@ -329,7 +330,10 @@ A: Automation.
 C: Toggle cart explorer.
 Shift+C: Announce name of the currently playing track.
 D: Remaining time for the playlist.
-E: Overall metadata streaming status.
+E: Elapsed time.
+F: Track finder.
+R: Remaining time for the currently playing track.
+G: Overall metadata streaming status.
 1 through 4, 0: Metadata streaming status for DSP encoder and four additional URL's.
 H: Duration of trakcs in this hour slot.
 Shift+H: Duration of remaining trakcs in this hour slot.
@@ -527,8 +531,8 @@ class AppModule(appModuleHandler.AppModule):
 					and splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"]):
 						self.alarmAnnounce(obj.name, 512, 400, intro=True)
 				# Hack: auto scroll in Studio itself might be broken (according to Brian Hartgen), so force NVDA to announce currently playing track automatically if told to do so.
-				if ((splconfig.SPLConfig["SayPlayingTrackName"] == "True" and self.SPLCurVersion < "5.11")
-				or (splconfig.SPLConfig["SayPlayingTrackName"] == "Background" and api.getForegroundObject().windowClassName != "TStudioForm")):
+				if ((splconfig.SPLConfig["SayStatus"]["SayPlayingTrackName"] == "True" and self.SPLCurVersion < "5.11")
+				or (splconfig.SPLConfig["SayStatus"]["SayPlayingTrackName"] == "Background" and api.getForegroundObject().windowClassName != "TStudioForm")):
 					try:
 						statusBarFG = obj.parent.parent.parent
 						if statusBarFG is not None:
@@ -671,19 +675,6 @@ class AppModule(appModuleHandler.AppModule):
 
 	# A few time related scripts (elapsed time, remaining time, etc.).
 
-	# Speak any time-related errors.
-	# Message type: error message.
-	timeMessageErrors={
-		# Translators: Presented when remaining time is unavailable.
-		1:_("Remaining time not available"),
-		# Translators: Presented when elapsed time is unavailable.
-		2:_("Elapsed time not available"),
-		# Translators: Presented when broadcaster time is unavailable.
-			3:_("Broadcaster time not available"),
-		# Translators: Presented when time information is unavailable.
-		4:_("Cannot obtain time in hours, minutes and seconds")
-	}
-
 	# Specific to time scripts using Studio API.
 	# 6.0: Split this into two functions: the announcer (below) and formatter.
 	# 7.0: The ms (millisecond) argument will be used when announcing playlist remainder.
@@ -717,54 +708,39 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Scripts which rely on API.
 	def script_sayRemainingTime(self, gesture):
-		fgWindow = api.getForegroundObject()
-		if fgWindow.windowClassName == "TStudioForm":
-			statusAPI(3, 105, self.announceTime, offset=1)
-		else:
-			ui.message(self.timeMessageErrors[1])
+		statusAPI(3, 105, self.announceTime, offset=1)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayRemainingTime.__doc__=_("Announces the remaining track time.")
 
 	def script_sayElapsedTime(self, gesture):
-		fgWindow = api.getForegroundObject()
-		if fgWindow.windowClassName == "TStudioForm":
-			statusAPI(0, 105, self.announceTime)
-		else:
-			ui.message(self.timeMessageErrors[2])
+		statusAPI(0, 105, self.announceTime)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayElapsedTime.__doc__=_("Announces the elapsed time for the currently playing track.")
 
 	def script_sayBroadcasterTime(self, gesture):
 		# Says things such as "25 minutes to 2" and "5 past 11".
-		fgWindow = api.getForegroundObject()
-		if fgWindow.windowClassName == "TStudioForm":
-			# Parse the local time and say it similar to how Studio presents broadcaster time.
-			h, m = time.localtime()[3], time.localtime()[4]
-			if h not in (0, 12):
-				h %= 12
-			if m == 0:
-				if h == 0: h+=12
-				# Messages in this method should not be translated.
-				broadcasterTime = "{hour} o'clock".format(hour = h)
-			elif 1 <= m <= 30:
-				if h == 0: h+=12
-				broadcasterTime = "{minute} min past {hour}".format(minute = m, hour = h)
-			else:
-				if h == 12: h = 1
-				m = 60-m
-				broadcasterTime = "{minute} min to {hour}".format(minute = m, hour = h+1)
-			ui.message(broadcasterTime)
+		# Parse the local time and say it similar to how Studio presents broadcaster time.
+		h, m = time.localtime()[3], time.localtime()[4]
+		if h not in (0, 12):
+			h %= 12
+		if m == 0:
+			if h == 0: h+=12
+			# Messages in this method should not be translated.
+			broadcasterTime = "{hour} o'clock".format(hour = h)
+		elif 1 <= m <= 30:
+			if h == 0: h+=12
+			broadcasterTime = "{minute} min past {hour}".format(minute = m, hour = h)
 		else:
-			ui.message(self.timeMessageErrors[3])
+			if h == 12: h = 1
+			m = 60-m
+			broadcasterTime = "{minute} min to {hour}".format(minute = m, hour = h+1)
+		ui.message(broadcasterTime)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayBroadcasterTime.__doc__=_("Announces broadcaster time.")
 
 	def script_sayCompleteTime(self, gesture):
 		# Says complete time in hours, minutes and seconds via kernel32's routines.
-		if api.getForegroundObject().windowClassName == "TStudioForm":
-			ui.message(winKernel.GetTimeFormat(winKernel.LOCALE_USER_DEFAULT, 0, None, None))
-		else:
-			ui.message(self.timeMessageErrors[4])
+		ui.message(winKernel.GetTimeFormat(winKernel.LOCALE_USER_DEFAULT, 0, None, None))
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayCompleteTime.__doc__=_("Announces time including seconds.")
 
@@ -1699,6 +1675,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:f9":"markTrackForAnalysis",
 		"kb:f10":"trackTimeAnalysis",
 		"kb:f12":"switchProfiles",
+		"kb:f":"findTrack",
 		"kb:Control+k":"setPlaceMarker",
 		"kb:k":"findPlaceMarker",
 		"kb:e":"metadataStreamingAnnouncer",
@@ -1736,6 +1713,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:f9":"markTrackForAnalysis",
 		"kb:f10":"trackTimeAnalysis",
 		"kb:f12":"switchProfiles",
+		"kb:f":"findTrack",
 		"kb:Control+k":"setPlaceMarker",
 		"kb:k":"findPlaceMarker",
 		"kb:e":"metadataStreamingAnnouncer",
@@ -1755,9 +1733,11 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:shift+l":"sayLineInStatus",
 		"kb:shift+e":"sayRecToFileStatus",
 		"kb:t":"sayCartEditStatus",
+		"kb:e":"sayElapsedTime",
+		"kb:r":"sayRemainingTime",
 		"kb:h":"sayHourTrackDuration",
 		"kb:shift+h":"sayHourRemaining",
-		"kb:r":"sayPlaylistRemainingDuration",
+		"kb:d":"sayPlaylistRemainingDuration",
 		"kb:y":"sayPlaylistModified",
 		"kb:u":"sayUpTime",
 		"kb:n":"sayNextTrackTitle",
@@ -1772,9 +1752,10 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:f9":"markTrackForAnalysis",
 		"kb:f10":"trackTimeAnalysis",
 		"kb:f12":"switchProfiles",
+		"kb:f":"findTrack",
 		"kb:Control+k":"setPlaceMarker",
 		"kb:k":"findPlaceMarker",
-		"kb:e":"metadataStreamingAnnouncer",
+		"kb:g":"metadataStreamingAnnouncer",
 		"kb:1":"metadataEnabled",
 		"kb:2":"metadataEnabled",
 		"kb:3":"metadataEnabled",
