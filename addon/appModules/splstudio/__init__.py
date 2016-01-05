@@ -271,7 +271,6 @@ C: Announce name of the currently playing track.
 D: Remaining time for the playlist.
 E: Overall metadata streaming status.
 1 through 4, 0: Metadata streaming status for DSP encoder and four additional URL's.
-F: Track finder.
 H: Duration of trakcs in this hour slot.
 Shift+H: Duration of remaining trakcs in this hour slot.
 I: Listener count.
@@ -676,19 +675,6 @@ class AppModule(appModuleHandler.AppModule):
 
 	# A few time related scripts (elapsed time, remaining time, etc.).
 
-	# Speak any time-related errors.
-	# Message type: error message.
-	timeMessageErrors={
-		# Translators: Presented when remaining time is unavailable.
-		1:_("Remaining time not available"),
-		# Translators: Presented when elapsed time is unavailable.
-		2:_("Elapsed time not available"),
-		# Translators: Presented when broadcaster time is unavailable.
-			3:_("Broadcaster time not available"),
-		# Translators: Presented when time information is unavailable.
-		4:_("Cannot obtain time in hours, minutes and seconds")
-	}
-
 	# Specific to time scripts using Studio API.
 	# 6.0: Split this into two functions: the announcer (below) and formatter.
 	# 7.0: The ms (millisecond) argument will be used when announcing playlist remainder.
@@ -722,54 +708,39 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Scripts which rely on API.
 	def script_sayRemainingTime(self, gesture):
-		fgWindow = api.getForegroundObject()
-		if fgWindow.windowClassName == "TStudioForm":
-			statusAPI(3, 105, self.announceTime, offset=1)
-		else:
-			ui.message(self.timeMessageErrors[1])
+		statusAPI(3, 105, self.announceTime, offset=1)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayRemainingTime.__doc__=_("Announces the remaining track time.")
 
 	def script_sayElapsedTime(self, gesture):
-		fgWindow = api.getForegroundObject()
-		if fgWindow.windowClassName == "TStudioForm":
-			statusAPI(0, 105, self.announceTime)
-		else:
-			ui.message(self.timeMessageErrors[2])
+		statusAPI(0, 105, self.announceTime)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayElapsedTime.__doc__=_("Announces the elapsed time for the currently playing track.")
 
 	def script_sayBroadcasterTime(self, gesture):
 		# Says things such as "25 minutes to 2" and "5 past 11".
-		fgWindow = api.getForegroundObject()
-		if fgWindow.windowClassName == "TStudioForm":
-			# Parse the local time and say it similar to how Studio presents broadcaster time.
-			h, m = time.localtime()[3], time.localtime()[4]
-			if h not in (0, 12):
-				h %= 12
-			if m == 0:
-				if h == 0: h+=12
-				# Messages in this method should not be translated.
-				broadcasterTime = "{hour} o'clock".format(hour = h)
-			elif 1 <= m <= 30:
-				if h == 0: h+=12
-				broadcasterTime = "{minute} min past {hour}".format(minute = m, hour = h)
-			else:
-				if h == 12: h = 1
-				m = 60-m
-				broadcasterTime = "{minute} min to {hour}".format(minute = m, hour = h+1)
-			ui.message(broadcasterTime)
+		# Parse the local time and say it similar to how Studio presents broadcaster time.
+		h, m = time.localtime()[3], time.localtime()[4]
+		if h not in (0, 12):
+			h %= 12
+		if m == 0:
+			if h == 0: h+=12
+			# Messages in this method should not be translated.
+			broadcasterTime = "{hour} o'clock".format(hour = h)
+		elif 1 <= m <= 30:
+			if h == 0: h+=12
+			broadcasterTime = "{minute} min past {hour}".format(minute = m, hour = h)
 		else:
-			ui.message(self.timeMessageErrors[3])
+			if h == 12: h = 1
+			m = 60-m
+			broadcasterTime = "{minute} min to {hour}".format(minute = m, hour = h+1)
+		ui.message(broadcasterTime)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayBroadcasterTime.__doc__=_("Announces broadcaster time.")
 
 	def script_sayCompleteTime(self, gesture):
 		# Says complete time in hours, minutes and seconds via kernel32's routines.
-		if api.getForegroundObject().windowClassName == "TStudioForm":
-			ui.message(winKernel.GetTimeFormat(winKernel.LOCALE_USER_DEFAULT, 0, None, None))
-		else:
-			ui.message(self.timeMessageErrors[4])
+		ui.message(winKernel.GetTimeFormat(winKernel.LOCALE_USER_DEFAULT, 0, None, None))
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayCompleteTime.__doc__=_("Announces time including seconds.")
 

@@ -166,6 +166,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * It is now possible to use a different screen reader command layout for SPL Assistant commands. Go to advanced options dialog from add-on settings to configure this option between NVDA, JAWS and Window-Eyes layouts. See the SPL Assistant commands above for details.
 * Entries in profiles combo box in add-on settings dialog now shows profile flags such as active, whether it is an instant switch profile and so on.
 * In add-on settings dialog, the controls used to toggle announcement of scheduled time, listener count, cart name and track name has been moved to a dedicated status announcements dialog (select status announcement button to open this dialog).
+* It is no longer required to stay in the playlist viewer window in order to obtain time announcements such as remaining time for the track and broadcaster time.
 * In encoders, pressing Control+NVDA+0 will present encoder settings dialog for configuring various options such as stream label, focusing to Studio when connected and so on.
 * In encoders, it is now possible to turn off connection progress tone (configurable from encoder settings dialog).
 
