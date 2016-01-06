@@ -1321,8 +1321,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	def onTriggers(self, evt):
 		self.Disable()
-		selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
-		TriggersDialog(self, selectedProfile).Show()
+		TriggersDialog(self, self.profiles.GetStringSelection()).Show()
 
 	def onInstantSwitch(self, evt):
 		selection = self.profiles.GetSelection()
@@ -1493,14 +1492,16 @@ class NewProfileDialog(wx.Dialog):
 
 # Broadcast profile triggers dialog.
 # This dialog is similar to NVDA Core's profile triggers dialog and allows one to configure when to trigger this profile.
-testBit = 96
 class TriggersDialog(wx.Dialog):
 
 	def __init__(self, parent, profile):
+		flagList = profile.split(" <")
+		self.profileFlags = set() if "<" not in profile else set(flagList[1][:-1].split(", "))
+		profile = flagList[0]
 		# Translators: The title of the broadcast profile triggers dialog.
 		super(TriggersDialog, self).__init__(parent, title=_("Profile triggers for {profileName}").format(profileName = profile))
 		self.profile = profile
-		# When reerencing profile triggers, use the dictionary stored in the main add-on settings.
+		# When referencing profile triggers, use the dictionary stored in the main add-on settings.
 		# This is needed in order to discard changes when cancel button is clicked from the parent dialog.
 		if profile in self.Parent._profileTriggersConfig:
 			t = self.Parent._profileTriggersConfig[profile]
@@ -1570,6 +1571,11 @@ class TriggersDialog(wx.Dialog):
 			self.Parent._profileTriggersConfig[self.profile][6] = duration
 		elif bit == 0 and self.profile in self.Parent._profileTriggersConfig:
 			del self.Parent._profileTriggersConfig[self.profile]
+		self.profileFlags.add("time-based") if self.profile in self.Parent._profileTriggersConfig else self.profileFlags.discard("time-based")
+		if len(self.profileFlags):
+			flagText = "<{flags}>".format(flags = ", ".join(self.profileFlags))
+			self.profile = " ".join([self.profile, flagText])
+		self.Parent.profiles.SetString(self.Parent.profiles.GetSelection(), self.profile)
 		self.Parent.profiles.SetFocus()
 		self.Parent.Enable()
 		self.Destroy()
