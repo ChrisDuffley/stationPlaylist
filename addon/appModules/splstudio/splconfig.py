@@ -424,7 +424,7 @@ def triggerStart(restart=False):
 	global SPLTriggerProfile, triggerTimer
 	# Restart the timer when called from triggers dialog in order to prevent multiple timers from running.
 	if triggerTimer is not None and triggerTimer.IsRunning() and restart:
-		triggerTimer.stop()
+		triggerTimer.Stop()
 		triggerTimer = None
 	queuedProfile = nextTimedProfile()
 	if queuedProfile is not None:
@@ -440,13 +440,13 @@ def triggerStart(restart=False):
 			if switchAfter.days == 0 and switchAfter.seconds <= 3600:
 				time.sleep((switchAfter.microseconds+1000) / 1000000.0)
 				triggerTimer = SPLCountdownTimer(switchAfter.seconds, triggerProfileSwitch, 15)
-				triggerTimer.start()
+				triggerTimer.Start()
 
 # Dump profile triggers pickle away.
 def saveProfileTriggers():
 	global triggerTimer, profileTriggers
 	if triggerTimer is not None and triggerTimer.IsRunning():
-		triggerTimer.stop()
+		triggerTimer.Stop()
 		triggerTimer = None
 	cPickle.dump(profileTriggers, file(SPLTriggersFile, "wb"))
 	profileTriggers = None

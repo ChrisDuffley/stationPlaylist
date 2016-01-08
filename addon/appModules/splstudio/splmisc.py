@@ -315,12 +315,12 @@ class SPLCountdownTimer(object):
 		self.func = func
 		self.threshold = threshold
 
-	def start(self):
+	def Start(self):
 		self.timer = wx.PyTimer(self.countdown)
 		ui.message("Countdown started")
 		self.timer.Start(1000)
 
-	def stop(self):
+	def Stop(self):
 		self.timer.Stop()
 
 	def IsRunning(self):
