@@ -61,7 +61,7 @@ BrailleTimer = option("off", "intro", "outro", "both", default="off")
 AlarmAnnounce = option("beep", "message", "both", default="beep")
 LibraryScanAnnounce = option("off", "ending", "progress", "numbers", default="off")
 TrackDial = boolean(default=false)
-CategorySounds = boolean(default=true)
+CategorySounds = boolean(default=false)
 MetadataReminder = option("off", "startup", "instant", default="off")
 TimeHourAnnounce = boolean(default=false)
 [IntroOutroAlarms]
@@ -776,6 +776,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.trackDialCheckbox.SetValue(SPLConfig["General"]["TrackDial"])
 		settingsSizer.Add(self.trackDialCheckbox, border=10,flag=wx.BOTTOM)
 
+		# Translators: the label for a setting in SPL add-on settings to toggle category sound announcement.
+		self.categorySoundsCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Beep for different track categories"))
+		self.categorySoundsCheckbox.SetValue(SPLConfig["General"]["CategorySounds"])
+		settingsSizer.Add(self.categorySoundsCheckbox, border=10,flag=wx.BOTTOM)
+
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: the label for a setting in SPL add-on settings to be notified that metadata streaming is enabled.
 		label = wx.StaticText(self, wx.ID_ANY, label=_("&Metadata streaming notification and connection"))
@@ -897,6 +902,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["General"]["LibraryScanAnnounce"] = self.libScanValues[self.libScanList.GetSelection()][0]
 		SPLConfig["General"]["TimeHourAnnounce"] = self.hourAnnounceCheckbox.Value
 		SPLConfig["General"]["TrackDial"] = self.trackDialCheckbox.Value
+		SPLConfig["General"]["CategorySounds"] = self.categorySoundsCheckbox.Value
 		SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
 		SPLConfig["MetadataStreaming"]["MetadataEnabled"] = self.metadataStreams
 		SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
