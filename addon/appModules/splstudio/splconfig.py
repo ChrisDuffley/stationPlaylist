@@ -183,7 +183,7 @@ def initConfig():
 	# 7.0: Store the config as a dictionary.
 	# This opens up many possibilities, including config caching, loading specific sections only and others (the latter saves memory).
 	SPLConfig = dict(SPLConfigPool[0])
-	SPLConfig["ActiveIndex"] = 0 # Holds settings form normal profile.
+	SPLConfig["ActiveIndex"] = 0 # Holds settings from normal profile.
 	if curInstantProfile != "": SPLConfig["InstantProfile"] = curInstantProfile
 	# 7.0: Store add-on installer size in case one wishes to check for updates (default size is 0 or no update checked attempted).
 	# Same goes to update check time and date (stored as Unix time stamp).
@@ -243,7 +243,7 @@ def unlockConfig(path, profileName=None, prefill=False):
 								if setting not in _mutatableSettings7:
 									SPLConfigCheckpoint[setting][failedKey] = SPLConfigPool[0][setting][failedKey]
 								else: SPLConfigCheckpoint[setting][failedKey] = _SPLDefaults7[setting][failedKey]
-			# 7.0/magenta: Disqualified from being cached this time.
+			# 7.0: Disqualified from being cached this time.
 			SPLConfigCheckpoint.write()
 			_configLoadStatus[profileName] = "partialReset"
 	_extraInitSteps(SPLConfigCheckpoint, profileName=profileName)
@@ -325,11 +325,12 @@ def getProfileByName(name):
 # Merge sections when switching profiles.
 # This is also employed by the routine which saves changes to a profile when user selects a different profile from add-on settings dialog.
 # Profiles refer to indecies.
-def mergeSections(profile):
+# Active refers to whether this is a runtime switch (false if saving profiles).
+def mergeSections(profile, active=True):
 	global SPLConfig, SPLConfigPool
 	for section in _mutatableSettings7:
 		SPLConfig[section] = dict(SPLConfigPool[profile][section])
-	SPLConfig["ActiveIndex"] = profile
+	if active: SPLConfig["ActiveIndex"] = profile
 
 # A reverse of the above.
 def applySections(profile, key=None):
@@ -372,18 +373,19 @@ def _preSave(conf):
 	# 6.1: Transform column inclusion data structure now.
 	conf["ColumnAnnouncement"]["IncludedColumns"] = list(conf["ColumnAnnouncement"]["IncludedColumns"])
 	# Perform global setting processing only for the normal profile.
-	if getProfileIndexByName(conf.name) == 0:
+	# 7.0: if this is a second pass, index 0 may not be normal profile at all.
+	# Use profile path instead.
+	if conf.filename == SPLIni:
 		# Cache instant profile for later use.
 		if SPLSwitchProfile is not None:
 			conf["InstantProfile"] = SPLSwitchProfile
+			# 7.0: Also update the runtime dictionary.
+			SPLConfig["InstantProfile"] = SPLSwitchProfile
 		else:
 			try:
 				del conf["InstantProfile"]
 			except KeyError:
 				pass
-		# 6.0 only: Remove obsolete keys.
-		if "MetadataURL" in conf:
-			del conf["MetadataURL"]
 		# 7.0: Check if updates are pending.
 		if (("PSZ" in conf and splupdate.SPLAddonSize != conf["PSZ"])
 		or ("PSZ" not in conf and splupdate.SPLAddonSize != 0x0)):
@@ -401,10 +403,25 @@ def _preSave(conf):
 			del conf["ColumnAnnouncement"]["ColumnOrder"]
 		for setting in conf.keys():
 			for key in conf[setting].keys():
-				if conf[setting][key] == _SPLDefaults7[setting][key]:
-					del conf[setting][key]
+				try:
+					if conf[setting][key] == _SPLDefaults7[setting][key]:
+						del conf[setting][key]
+				except KeyError:
+					pass
 			if setting in conf and not len(conf[setting]):
 				del conf[setting]
+
+# Check if the profile should be written to disk.
+# For the most part, no setting will be modified.
+def shouldSave(profile):
+	tree = None if profile.filename == SPLIni else profile.name
+	for section in profile.keys():
+		if isinstance(profile[section], dict):
+			for key in profile[section]:
+				if profile[section][key] != _SPLCache[tree][section][key]:
+					print key
+					return True # Setting modified.
+	return False
 
 
 # Save configuration database.
@@ -414,48 +431,52 @@ def saveConfig():
 	# 7.0: Turn off auto update check timer.
 	if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
 	splupdate._SPLUpdateT = None
-	# Apply any global settings changed in profiles to normal configuration.
+	# Save profile-specific settings to appropriate dictionary if this is the case.
 	activeIndex = SPLConfig["ActiveIndex"]
 	del SPLConfig["ActiveIndex"]
 	if activeIndex > 0:
-		for setting in SPLConfig:
-			if setting not in _mutatableSettings7:
-				SPLConfigPool[0][setting] = SPLConfig[setting]
-	# 7.0 hack: Due to Python internals, preserving profile-specific settings removes the corresponding keys from normal profile.
-	# Therefore, have a temporary place holder for mutatable settings until a more elegant solution is found.
-	tempNormalProfile = {}
-	for section in _mutatableSettings7:
-		tempNormalProfile[section] = dict(SPLConfigPool[0][section])
-	# Convert column inclusion set to list even for temp profile to prevent weird problems from coming up next time add-on loads.
-	tempNormalProfile["ColumnAnnouncement"]["IncludedColumns"] = list(tempNormalProfile["ColumnAnnouncement"]["IncludedColumns"])
+		applySections(activeIndex)
+	# 7.0: Save normal profile first.
+	# Step 1: temporarily merge normal profile.
+	mergeSections(0)
+	# Step 2: Perform presave routine.
+	_preSave(SPLConfigPool[0])
+	# Step 3: global flags, be gone.
+	if "Reset" in SPLConfigPool[0]:
+		del SPLConfigPool[0]["Reset"]
+	# Step 4: Convert keys back to 5.x format.
+	for section in SPLConfigPool[0].keys():
+		if isinstance(SPLConfigPool[0][section], dict):
+			for key in SPLConfigPool[0][section]:
+				SPLConfigPool[0][key] = SPLConfigPool[0][section][key]
+	# Step 5: Disk write optimization check please.
+	# Convert a few keys.
+	if "PDT" in _SPLCache[None]:
+		_SPLCache[None]["PDT"] = float(_SPLCache[None]["PDT"])
+	# Until update check dictionary is separated...
+	updateChecked = False
+	if ((splupdate.SPLAddonSize != SPLConfigPool[0]["PSZ"])
+	or (splupdate.SPLAddonCheck != SPLConfigPool[0]["PDT"])):
+		updateChecked = True
+	if shouldSave(SPLConfigPool[0]) or updateChecked:
+		SPLConfigPool[0].write()
+	del SPLConfigPool[0]
+	# Now save broadcast profiles.
 	for configuration in SPLConfigPool:
 		if configuration is not None:
 			_preSave(configuration)
-			# Save broadcast profiles first.
-			if getProfileIndexByName(configuration.name) > 0:
-				# 7.0: Convert profile-specific settings back to 5.x format in case add-on 6.x will be installed later (not recommended).
-				# This will be removed in add-on 7.2.
-				if len(configuration) > 0:
-					for section in configuration.keys():
+			profileIndex = getProfileIndexByName(configuration.name)
+			# 7.0: Convert profile-specific settings back to 5.x format in case add-on 6.x will be installed later (not recommended).
+			# This will be removed in add-on 7.2.
+			if len(configuration) > 0:
+				for section in configuration.keys():
+					if isinstance(configuration[section], dict):
 						for key in configuration[section]:
 							configuration[key] = configuration[section][key]
+			# 7.0: See if profiles themselves must be saved.
+			if shouldSave(SPLConfigPool[profileIndex]):
 				configuration.write()
-	# Global flags, be gone.
-	if "Reset" in SPLConfigPool[0]:
-		del SPLConfigPool[0]["Reset"]
-	# Restore the possibly deleted sections.
-	for section in tempNormalProfile.keys():
-		SPLConfigPool[0][section] = tempNormalProfile[section]
-	# Perform same disk write optimization on normal profile now.
-	# Convert a few keys.
-	_SPLCache[None]["PDT"] = float(_SPLCache[None]["PDT"])
-	for setting in SPLConfigPool[0]:
-		try:
-			if _SPLCache[None][setting] != SPLConfigPool[0][setting]:
-				print setting
-		except KeyError: pass
-	if _SPLCache[None] != SPLConfigPool[0]:
-		SPLConfigPool[0].write()
+	SPLConfig.clear()
 	SPLConfig = None
 	SPLConfigPool = None
 	SPLActiveProfile = None
@@ -887,7 +908,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["SayStatus"]["SayPlayingTrackName"] = self.trackAnnouncements[self.trackAnnouncementList.GetSelection()][0]
 		SPLConfig["Advanced"]["SPLConPassthrough"] = self.splConPassthrough
 		SPLConfig["Advanced"]["CompatibilityLayer"] = self.compLayer
-		SPLConfig["Advanced"]["PlaylistRemainder"] = self.playlistRemainder
 		SPLConfig["Update"]["AutoUpdateCheck"] = self.autoUpdateCheck
 		SPLConfig["ActiveIndex"] = profileIndex
 		# Reverse of merge: save profile specific sections to individual config dictionaries.
@@ -1008,7 +1028,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		NewProfileDialog(self, copy=True).Show()
 
 	def onRename(self, evt):
-		global SPLConfigPool
+		global SPLConfigPool, _SPLCache
 		oldDisplayName = self.profiles.GetStringSelection()
 		state = oldDisplayName.split(" <")
 		oldName = state[0]
@@ -1042,6 +1062,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.profileNames[profilePos] = newName
 		SPLConfigPool[configPos].name = newName
 		SPLConfigPool[configPos].filename = newProfile
+		_SPLCache[newName] = _SPLCache[oldName]
+		del _SPLCache[oldName]
 		if len(state) > 1: newName = " <".join([newName, state[1]])
 		self.profiles.SetString(index, newName)
 		self.profiles.Selection = index
@@ -1060,7 +1082,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 			wx.YES | wx.NO | wx.ICON_QUESTION, self
 		) == wx.NO:
 			return
-		global SPLConfigPool, SPLSwitchProfile, SPLPrevProfile
+		global SPLConfigPool, SPLSwitchProfile, SPLPrevProfile, _SPLCache
 		path = SPLConfigPool[configPos].filename
 		del SPLConfigPool[configPos]
 		try:
@@ -1073,6 +1095,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 			self.switchProfileDeleted = True
 		self.profiles.Delete(index)
 		del self.profileNames[profilePos]
+		del _SPLCache[name]
 		self.profiles.SetString(0, getProfileFlags(SPLConfigPool[0].name))
 		self.activeProfile = SPLConfigPool[0].name
 		self.profiles.Selection = 0
@@ -1574,23 +1597,6 @@ class AdvancedOptionsDialog(wx.Dialog):
 		sizer.Add(self.compatibilityList)
 		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		# Translators: The label for a setting in SPL add-on dialog to control playlist remainder announcement command (SPL Assistant, D/R).
-		label = wx.StaticText(self, wx.ID_ANY, label=_("Playlist &remainder announcement:"))
-		# Translators: One of the playlist remainder announcement options.
-		self.playlistRemainderValues=[("hour",_("current hour only")),
-		# Translators: One of the playlist remainder announcement options.
-		("playlist",_("entire playlist"))]
-		self.playlistRemainderList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.playlistRemainderValues])
-		selection = (x for x,y in enumerate(self.playlistRemainderValues) if y[0]==self.Parent.playlistRemainder).next()  
-		try:
-			self.playlistRemainderList.SetSelection(selection)
-		except:
-			pass
-		sizer.Add(label)
-		sizer.Add(self.playlistRemainderList)
-		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
-
 		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
@@ -1603,7 +1609,6 @@ class AdvancedOptionsDialog(wx.Dialog):
 		parent = self.Parent
 		parent.splConPassthrough = self.splConPassthroughCheckbox.Value
 		parent.compLayer = self.compatibilityLayouts[self.compatibilityList.GetSelection()][0]
-		parent.playlistRemainder = self.playlistRemainderValues[self.playlistRemainderList.GetSelection()][0]
 		parent.autoUpdateCheck = self.autoUpdateCheckbox.Value
 		parent.profiles.SetFocus()
 		parent.Enable()

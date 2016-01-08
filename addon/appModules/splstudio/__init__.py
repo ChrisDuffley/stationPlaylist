@@ -278,11 +278,11 @@ SPLAssistantHelp={
 	"off":_("""After entering SPL Assistant, press:
 A: Automation.
 C: Announce name of the currently playing track.
-D (R if compatibility mode is on): Remaining time for the playlist.
+D: Remaining time for the playlist.
 E: Overall metadata streaming status.
 1 through 4, 0: Metadata streaming status for DSP encoder and four additional URL's.
 H: Duration of trakcs in this hour slot.
-Shift+H: Duration of selected tracks.
+Shift+H: Duration of remaining trakcs in this hour slot.
 I: Listener count.
 K: Move to place marker track.
 Control+K: Set place marker track.
@@ -291,9 +291,10 @@ M: Microphone status.
 N: Next track.
 P: Playback status.
 Shift+P: Pitch for the current track.
-R (Shift+E if compatibility mode is on): Record to file.
+R: Record to file.
 Shift+R: Monitor library scan.
 S: Scheduled time for the track.
+Shift+S: Time until the selected track will play.
 T: Cart edit mode.
 U: Studio up time.
 W: Weather and temperature.
@@ -310,8 +311,9 @@ Shift+C: Announce name of the currently playing track.
 E: Overall metadata streaming status.
 1 through 4, 0: Metadata streaming status for DSP encoder and four additional URL's.
 Shift+E: Record to file.
+F: Track finder.
 H: Duration of trakcs in this hour slot.
-Shift+H: Duration of selected tracks.
+Shift+H: Duration of remaining trakcs in this hour slot.
 K: Move to place marker track.
 Control+K: Set place marker track.
 L: Listener count.
@@ -323,6 +325,7 @@ Shift+P: Pitch for the current track.
 R: Remaining time for the playlist.
 Shift+R: Monitor library scan.
 S: Scheduled time for the track.
+Shift+S: Time until the selected track will play.
 T: Cart edit mode.
 U: Studio up time.
 W: Weather and temperature.
@@ -337,10 +340,13 @@ A: Automation.
 C: Toggle cart explorer.
 Shift+C: Announce name of the currently playing track.
 D: Remaining time for the playlist.
-E: Overall metadata streaming status.
+E: Elapsed time.
+F: Track finder.
+R: Remaining time for the currently playing track.
+G: Overall metadata streaming status.
 1 through 4, 0: Metadata streaming status for DSP encoder and four additional URL's.
 H: Duration of trakcs in this hour slot.
-Shift+H: Duration of selected tracks.
+Shift+H: Duration of remaining trakcs in this hour slot.
 K: Move to place marker track.
 Control+K: Set place marker track.
 L: Listener count.
@@ -352,6 +358,7 @@ Shift+P: Pitch for the current track.
 Shift+E: Record to file.
 Shift+R: Monitor library scan.
 S: Scheduled time for the track.
+Shift+S: Time until the selected track will play.
 T: Cart edit mode.
 U: Studio up time.
 W: Weather and temperature.
@@ -534,14 +541,14 @@ class AppModule(appModuleHandler.AppModule):
 					and splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"]):
 						self.alarmAnnounce(obj.name, 512, 400, intro=True)
 				# Hack: auto scroll in Studio itself might be broken (according to Brian Hartgen), so force NVDA to announce currently playing track automatically if told to do so.
-				if splconfig.SPLConfig["SayStatus"]["SayPlayingTrackName"] == "True": # Had to do this to transform this key to something else later.
+				if ((splconfig.SPLConfig["SayStatus"]["SayPlayingTrackName"] == "True" and self.SPLCurVersion < "5.11")
+				or (splconfig.SPLConfig["SayStatus"]["SayPlayingTrackName"] == "Background" and api.getForegroundObject().windowClassName != "TStudioForm")):
 					try:
 						statusBarFG = obj.parent.parent.parent
 						if statusBarFG is not None:
 							statusBar = statusBarFG.previous.previous.previous
 							if statusBar is not None and statusBar.firstChild is not None and statusBar.firstChild.role == controlTypes.ROLE_STATUSBAR:
 								ui.message(obj.name)
-								tones.beep(1000, 100)
 					except AttributeError:
 						pass
 		nextHandler()
@@ -678,19 +685,6 @@ class AppModule(appModuleHandler.AppModule):
 
 	# A few time related scripts (elapsed time, remaining time, etc.).
 
-	# Speak any time-related errors.
-	# Message type: error message.
-	timeMessageErrors={
-		# Translators: Presented when remaining time is unavailable.
-		1:_("Remaining time not available"),
-		# Translators: Presented when elapsed time is unavailable.
-		2:_("Elapsed time not available"),
-		# Translators: Presented when broadcaster time is unavailable.
-			3:_("Broadcaster time not available"),
-		# Translators: Presented when time information is unavailable.
-		4:_("Cannot obtain time in hours, minutes and seconds")
-	}
-
 	# Specific to time scripts using Studio API.
 	# 6.0: Split this into two functions: the announcer (below) and formatter.
 	# 7.0: The ms (millisecond) argument will be used when announcing playlist remainder.
@@ -724,54 +718,39 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Scripts which rely on API.
 	def script_sayRemainingTime(self, gesture):
-		fgWindow = api.getForegroundObject()
-		if fgWindow.windowClassName == "TStudioForm":
-			statusAPI(3, 105, self.announceTime, offset=1)
-		else:
-			ui.message(self.timeMessageErrors[1])
+		statusAPI(3, 105, self.announceTime, offset=1)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayRemainingTime.__doc__=_("Announces the remaining track time.")
 
 	def script_sayElapsedTime(self, gesture):
-		fgWindow = api.getForegroundObject()
-		if fgWindow.windowClassName == "TStudioForm":
-			statusAPI(0, 105, self.announceTime)
-		else:
-			ui.message(self.timeMessageErrors[2])
+		statusAPI(0, 105, self.announceTime)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayElapsedTime.__doc__=_("Announces the elapsed time for the currently playing track.")
 
 	def script_sayBroadcasterTime(self, gesture):
 		# Says things such as "25 minutes to 2" and "5 past 11".
-		fgWindow = api.getForegroundObject()
-		if fgWindow.windowClassName == "TStudioForm":
-			# Parse the local time and say it similar to how Studio presents broadcaster time.
-			h, m = time.localtime()[3], time.localtime()[4]
-			if h not in (0, 12):
-				h %= 12
-			if m == 0:
-				if h == 0: h+=12
-				# Messages in this method should not be translated.
-				broadcasterTime = "{hour} o'clock".format(hour = h)
-			elif 1 <= m <= 30:
-				if h == 0: h+=12
-				broadcasterTime = "{minute} min past {hour}".format(minute = m, hour = h)
-			else:
-				if h == 12: h = 1
-				m = 60-m
-				broadcasterTime = "{minute} min to {hour}".format(minute = m, hour = h+1)
-			ui.message(broadcasterTime)
+		# Parse the local time and say it similar to how Studio presents broadcaster time.
+		h, m = time.localtime()[3], time.localtime()[4]
+		if h not in (0, 12):
+			h %= 12
+		if m == 0:
+			if h == 0: h+=12
+			# Messages in this method should not be translated.
+			broadcasterTime = "{hour} o'clock".format(hour = h)
+		elif 1 <= m <= 30:
+			if h == 0: h+=12
+			broadcasterTime = "{minute} min past {hour}".format(minute = m, hour = h)
 		else:
-			ui.message(self.timeMessageErrors[3])
+			if h == 12: h = 1
+			m = 60-m
+			broadcasterTime = "{minute} min to {hour}".format(minute = m, hour = h+1)
+		ui.message(broadcasterTime)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayBroadcasterTime.__doc__=_("Announces broadcaster time.")
 
 	def script_sayCompleteTime(self, gesture):
 		# Says complete time in hours, minutes and seconds via kernel32's routines.
-		if api.getForegroundObject().windowClassName == "TStudioForm":
-			ui.message(winKernel.GetTimeFormat(winKernel.LOCALE_USER_DEFAULT, 0, None, None))
-		else:
-			ui.message(self.timeMessageErrors[4])
+		ui.message(winKernel.GetTimeFormat(winKernel.LOCALE_USER_DEFAULT, 0, None, None))
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayCompleteTime.__doc__=_("Announces time including seconds.")
 
@@ -1385,7 +1364,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Status table keys
 	SPLPlayStatus = 0
 	SPLSystemStatus = 1
-	SPLHourSelectedDuration = 3
+	SPLScheduledToPlay = 3
 	SPLNextTrackTitle = 4
 	SPLCurrentTrackTitle = 5
 	SPLTemperature = 6
@@ -1397,7 +1376,7 @@ class AppModule(appModuleHandler.AppModule):
 	statusObjs={
 		SPLPlayStatus:[5, 6], # Play status, mic, etc.
 		SPLSystemStatus:[-3, -2], # The second status bar containing system status such as up time.
-		SPLHourSelectedDuration:[18, 19], # In case the user selects one or more tracks in a given hour.
+		SPLScheduledToPlay:[18, 19], # In case the user selects one or more tracks in a given hour.
 		SPLScheduled:[19, 20], # Time when the selected track will begin.
 		SPLNextTrackTitle:[7, 8], # Name and duration of the next track if any.
 		SPLCurrentTrackTitle:[8, 9], # Name of the currently playing track.
@@ -1457,31 +1436,26 @@ class AppModule(appModuleHandler.AppModule):
 	def script_sayHourTrackDuration(self, gesture):
 		statusAPI(0, 27, self.announceTime)
 
-	def script_sayHourSelectedTrackDuration(self, gesture):
-		obj = self.status(self.SPLHourSelectedDuration).firstChild
-		ui.message(obj.name)
+	def script_sayHourRemaining(self, gesture):
+		# 7.0: Split from playlist remaining script (formerly the playlist remainder command).
+		statusAPI(1, 27, self.announceTime)
 
 	def script_sayPlaylistRemainingDuration(self, gesture):
-		# 6.2: By default, remaining time for the hour will be announced.
-		if splconfig.SPLConfig["Advanced"]["PlaylistRemainder"] == "hour":
-			statusAPI(1, 27, self.announceTime)
-		else:
-			# 6.2: Manually go through all tracks, gathering segue information.
-			tones.beep(1024, 30)
-			obj = api.getFocusObject()
-			if obj.role == controlTypes.ROLE_LIST:
-				ui.message("00:00")
-				return
-			col = obj._indexOf("Duration")
-			totalDuration = 0
-			while obj is not None:
-				segue = obj._getColumnContent(col)
-				if segue is not None:
-					hms = segue.split(":")
-					totalDuration += (int(hms[0])*3600) + (int(hms[1])*60) + int(hms[2]) if len(hms) == 3 else (int(hms[0])*60) + int(hms[1])
-				obj = obj.next
-			# 6.2: For now, millisecond will be calculated manually.
-			self.announceTime(totalDuration, ms=False)
+		# 7.0: Manually go through all tracks, calculationg total duration (a bit of discrepancy may result).
+		tones.beep(1024, 30)
+		obj = api.getFocusObject()
+		if obj.role == controlTypes.ROLE_LIST:
+			ui.message("00:00")
+			return
+		col = obj._indexOf("Duration")
+		totalDuration = 0
+		while obj is not None:
+			segue = obj._getColumnContent(col)
+			if segue is not None:
+				hms = segue.split(":")
+				totalDuration += (int(hms[0])*3600) + (int(hms[1])*60) + int(hms[2]) if len(hms) == 3 else (int(hms[0])*60) + int(hms[1])
+			obj = obj.next
+		self.announceTime(totalDuration, ms=False)
 
 	def script_sayPlaylistModified(self, gesture):
 		try:
@@ -1535,7 +1509,13 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(obj.name)
 
 	def script_sayScheduledTime(self, gesture):
+		# 7.0: Scheduled is the time originally specified in Studio, scheduled to play is broadcast time based on current time.
 		obj = self.status(self.SPLScheduled).firstChild
+		ui.message(obj.name)
+
+	def script_sayScheduledToPlay(self, gesture):
+		# 7.0: This script announces length of time remaining until the selected track will play.
+		obj = self.status(self.SPLScheduledToPlay).firstChild
 		ui.message(obj.name)
 
 	def script_sayListenerCount(self, gesture):
@@ -1690,7 +1670,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:r":"sayRecToFileStatus",
 		"kb:t":"sayCartEditStatus",
 		"kb:h":"sayHourTrackDuration",
-		"kb:shift+h":"sayHourSelectedTrackDuration",
+		"kb:shift+h":"sayHourRemaining",
 		"kb:d":"sayPlaylistRemainingDuration",
 		"kb:y":"sayPlaylistModified",
 		"kb:u":"sayUpTime",
@@ -1699,11 +1679,13 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:w":"sayTemperature",
 		"kb:i":"sayListenerCount",
 		"kb:s":"sayScheduledTime",
+		"kb:shift+s":"sayScheduledToPlay",
 		"kb:shift+p":"sayTrackPitch",
 		"kb:shift+r":"libraryScanMonitor",
 		"kb:f9":"markTrackForAnalysis",
 		"kb:f10":"trackTimeAnalysis",
 		"kb:f12":"switchProfiles",
+		"kb:f":"findTrack",
 		"kb:Control+k":"setPlaceMarker",
 		"kb:k":"findPlaceMarker",
 		"kb:e":"metadataStreamingAnnouncer",
@@ -1725,7 +1707,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:shift+e":"sayRecToFileStatus",
 		"kb:t":"sayCartEditStatus",
 		"kb:h":"sayHourTrackDuration",
-		"kb:shift+h":"sayHourSelectedTrackDuration",
+		"kb:shift+h":"sayHourRemaining",
 		"kb:r":"sayPlaylistRemainingDuration",
 		"kb:y":"sayPlaylistModified",
 		"kb:u":"sayUpTime",
@@ -1735,11 +1717,13 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:w":"sayTemperature",
 		"kb:l":"sayListenerCount",
 		"kb:s":"sayScheduledTime",
+		"kb:shift+s":"sayScheduledToPlay",
 		"kb:shift+p":"sayTrackPitch",
 		"kb:shift+r":"libraryScanMonitor",
 		"kb:f9":"markTrackForAnalysis",
 		"kb:f10":"trackTimeAnalysis",
 		"kb:f12":"switchProfiles",
+		"kb:f":"findTrack",
 		"kb:Control+k":"setPlaceMarker",
 		"kb:k":"findPlaceMarker",
 		"kb:e":"metadataStreamingAnnouncer",
@@ -1759,9 +1743,11 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:shift+l":"sayLineInStatus",
 		"kb:shift+e":"sayRecToFileStatus",
 		"kb:t":"sayCartEditStatus",
+		"kb:e":"sayElapsedTime",
+		"kb:r":"sayRemainingTime",
 		"kb:h":"sayHourTrackDuration",
-		"kb:shift+h":"sayHourSelectedTrackDuration",
-		"kb:r":"sayPlaylistRemainingDuration",
+		"kb:shift+h":"sayHourRemaining",
+		"kb:d":"sayPlaylistRemainingDuration",
 		"kb:y":"sayPlaylistModified",
 		"kb:u":"sayUpTime",
 		"kb:n":"sayNextTrackTitle",
@@ -1770,14 +1756,16 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:w":"sayTemperature",
 		"kb:l":"sayListenerCount",
 		"kb:s":"sayScheduledTime",
+		"kb:shift+s":"sayScheduledToPlay",
 		"kb:shift+p":"sayTrackPitch",
 		"kb:shift+r":"libraryScanMonitor",
 		"kb:f9":"markTrackForAnalysis",
 		"kb:f10":"trackTimeAnalysis",
 		"kb:f12":"switchProfiles",
+		"kb:f":"findTrack",
 		"kb:Control+k":"setPlaceMarker",
 		"kb:k":"findPlaceMarker",
-		"kb:e":"metadataStreamingAnnouncer",
+		"kb:g":"metadataStreamingAnnouncer",
 		"kb:1":"metadataEnabled",
 		"kb:2":"metadataEnabled",
 		"kb:3":"metadataEnabled",

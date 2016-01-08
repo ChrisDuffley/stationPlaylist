@@ -74,23 +74,26 @@ This layer command set allows you to obtain various status on SPL Studio, such a
 The available commands are:
 
 * A: Automation.
-* C (NVDA layout): Title for the currently playing track.
-* C in JAWS or Window-Eyes layouts: Toggle cart explorer.
-* D (R in JAWS or Window-Eyes layouts): Remaining duration for the playlist.
-* E: Metadata streaming status.
+* C (Shift+C  in JAWS and Window-Eyes layouts): Title for the currently playing track.
+* C (JAWS and Window-Eyes layouts): Toggle cart explorer.
+* D (R in JAWS layout): Remaining duration for the playlist.
+* E (G in Window-Eyes layout): Metadata streaming status.
+* 1 through 4, 0: Status for individual metadata streaming URL's (0 is for DSP encoder).
+* E (Window-Eyes layout): Elapsed time for the currently playing track.
 * H: Duration of music for the current hour slot.
-* Shift+H: Total duration of selected tracks for this hour slot (from the track list, press SPACE to select or uncheck the track to play).
+* Shift+H: Remaining track duration for the hour slot.
 * I (L in JAWS or Window-Eyes layouts): Listener count.
 * K: Move to the marked track.
 * Control+K: Set the current track as the place marker track.
-* L (Shift+L in JAWS or Window-Eyes layouts): Line in.
+* L (Shift+L in JAWS and Window-Eyes layouts): Line in.
 * M: Microphone.
 * N: Title for the next scheduled track.
 * P: Playback status (playing or stopped).
 * Shift+P: Pitch of the current track.
-* R (Shift+E in JAWS or Window-Eyes layouts): Record to file enabled/disabled.
+* R (Shift+E in JAWS and Window-Eyes layouts): Record to file enabled/disabled.
 * Shift+R: Monitor library scan in progress.
 * S: Track starts in (scheduled).
+* Shift+S: Time until selected track will play.
 * T: Cart edit mode on/off.
 * U: Studio up time.
 * Control+Shift+U: Check for add-on updates.
@@ -158,9 +161,12 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Changes for 7.0-dev
 
 * Added add-on update check feature. This can be done manually (SPL Assistant, Control+Shift+U) or automatically (configurable via advanced options dialog from add-on settings).
+* Changes to SPL Assistant commands, including playlist duration (D), reassignment of hour selection duration from Shift+H to Shift+S and Shift+H now used to announce duration of remaining tracks for the current hour slot.
+* It is now possible to invoke track finder via SPL Assistant (F).
 * It is now possible to use a different screen reader command layout for SPL Assistant commands. Go to advanced options dialog from add-on settings to configure this option between NVDA, JAWS and Window-Eyes layouts. See the SPL Assistant commands above for details.
 * Entries in profiles combo box in add-on settings dialog now shows profile flags such as active, whether it is an instant switch profile and so on.
 * In add-on settings dialog, the controls used to toggle announcement of scheduled time, listener count, cart name and track name has been moved to a dedicated status announcements dialog (select status announcement button to open this dialog).
+* It is no longer required to stay in the playlist viewer window in order to obtain time announcements such as remaining time for the track and broadcaster time.
 * In encoders, pressing Control+NVDA+0 will present encoder settings dialog for configuring various options such as stream label, focusing to Studio when connected and so on.
 * In encoders, it is now possible to turn off connection progress tone (configurable from encoder settings dialog).
 
