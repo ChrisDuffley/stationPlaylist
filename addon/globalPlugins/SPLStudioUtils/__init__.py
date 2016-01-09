@@ -138,7 +138,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# 1. If SPL Studio is not running, print an error message.
 		# 2. If we're already  in SPL, ask the app module if SPL Assistant can be invoked with this command.
 		if "splstudio" in api.getForegroundObject().appModule.appModuleName:
-			if not api.getForegroundObject().appModule.SPLConPassthrough:
+			if not api.getForegroundObject().appModule.SPLConPassthrough():
 				# Translators: Presented when NVDA cannot enter SPL Controller layer since SPL Studio is focused.
 				ui.message(_("You are already in SPL Studio window. For status commands, use SPL Assistant commands."))
 				self.finish()
