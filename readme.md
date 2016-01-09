@@ -74,7 +74,7 @@ The available status information are:
 
 * A: Automation.
 * C: Title for the currently playing track.
-* D (R when compatibility mode is active): Remaining duration for the playlist.
+* D (R when compatibility mode is active): Remaining duration for the playlist or for the current hour (configurable from add-on settings/advanced settings). Note that for large playlists spanning multiple hours, the time reported would be off by several seconds.
 * E: Metadata streaming status.
 * H: Duration of music for the current hour slot.
 * Shift+H: Total duration of selected tracks for this hour slot (from the track list, press SPACE to select or uncheck the track to play).
@@ -151,6 +151,14 @@ From studio window, you can press Control+NVDA+0 to open the add-on configuratio
 ## SPL touch mode
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
+
+## Changes for 6.2
+
+* Fixed an issue with playlist remainder command (SPL Assistant, D (R if compatibility mode is on)) where the duration for the current hour was announced as opposed to the entire playlist (the behavior of this command can be configured from advanced settings found in add-on settings dialog).
+* NvDA can now announce name of the currently playing track while using another program (configurable from add-on settings).
+* The setting used to let SPL Controller command invoke SPL Assistant is now honored (previously it was enabled at all times).
+* In SAM encoders, Control+F9 and Control+F10 commands now works correctly.
+* In encoders, when an encoder is first focused and if this encoder is configured to be monitored in the background, NVDA will now start the background monitor automatically.
 
 ## Changes for 6.1
 
