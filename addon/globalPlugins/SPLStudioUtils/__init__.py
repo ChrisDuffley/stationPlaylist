@@ -144,7 +144,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# 2. If we're already  in SPL, report that the user is in SPL. This is temporary - in the end, pass this gesture to the app module portion if told to do so.
 		# For SPL Controller passthrough, it needs to be enabled via Python. This is experimental.
 		if "splstudio" in api.getForegroundObject().appModule.appModuleName:
-			if not api.getForegroundObject().appModule.SPLConPassthrough:
+			if not api.getForegroundObject().appModule.SPLConPassthrough():
 				# Translators: Presented when NVDA cannot enter SPL Controller layer since SPL Studio is focused.
 				ui.message(_("You are already in SPL Studio window. For status commands, use SPL Assistant commands."))
 				self.finish()
