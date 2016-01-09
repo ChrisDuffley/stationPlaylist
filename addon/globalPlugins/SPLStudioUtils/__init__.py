@@ -95,11 +95,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# Translators: Script category for Station Playlist commands in input gestures dialog.
 	scriptCategory = _("StationPlaylist Studio")
 
-
-	# Do some initialization, such as stream labels for SAM encoders.
-	def __init__(self):
-		super(globalPluginHandler.GlobalPlugin, self).__init__()
-
 			#Global layer environment (see the app module for more information).
 	SPLController = False # Control SPL from anywhere.
 
@@ -141,8 +136,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		global SPLWin
 		# Error checks:
 		# 1. If SPL Studio is not running, print an error message.
-		# 2. If we're already  in SPL, report that the user is in SPL. This is temporary - in the end, pass this gesture to the app module portion if told to do so.
-		# For SPL Controller passthrough, it needs to be enabled via Python. This is experimental.
+		# 2. If we're already  in SPL, ask the app module if SPL Assistant can be invoked with this command.
 		if "splstudio" in api.getForegroundObject().appModule.appModuleName:
 			if not api.getForegroundObject().appModule.SPLConPassthrough:
 				# Translators: Presented when NVDA cannot enter SPL Controller layer since SPL Studio is focused.
