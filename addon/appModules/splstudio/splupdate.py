@@ -7,11 +7,13 @@
 import urllib
 import os # Essentially, update download is no different than file downloads.
 from calendar import month_abbr # Last modified date formatting.
+import cPickle
 import gui
 import wx
 import tones
 import time
 import addonHandler
+import globalVars
 
 # Add-on manifest routine (credit: various add-on authors including Noelia Martinez).
 # Do not rely on using absolute path to open to manifest, as installation directory may change in a future NVDA Core version (highly unlikely, but...).
@@ -22,6 +24,8 @@ SPLAddonVersion = addonHandler.Addon(_addonDir).manifest['version']
 SPLAddonSize = "0x0"
 # The Unix time stamp for add-on check time.
 SPLAddonCheck = 0
+# Update metadata storage.
+SPLAddonState = {}
 # Update URL (the only way to change it is installing a different version from a different branch).
 SPLUpdateURL = "http://addons.nvda-project.org/files/get.php?file=spl-dev"
 # Update check timer.
@@ -30,6 +34,26 @@ _SPLUpdateT = None
 _updateInterval = 86400
 # Set if a socket error occurs.
 _retryAfterFailure = False
+# Stores update state.
+_updatePickle = os.path.join(globalVars.appArgs.configPath, "splupdate.pickle")
+
+# Come forth, update check routines.
+def initialize():
+	global SPLAddonState, SPLAddonSize, SPLAddonCheck
+	try:
+		SPLAddonState = cPickle.load(file(_updatePickle, "r"))
+		SPLAddonCheck = SPLAddonState["PDT"]
+		SPLAddonSize = SPLAddonState["PSZ"]
+	except IOError:
+		pass
+
+def terminate():
+	global SPLAddonState
+	SPLAddonState["PSZ"] = SPLAddonSize
+	SPLAddonState["PDT"] = SPLAddonCheck
+	cPickle.dump(SPLAddonState, file(_updatePickle, "wb"))
+	SPLAddonState = None
+
 
 def _versionFromURL(url):
 	filename = url.split("/")[-1]

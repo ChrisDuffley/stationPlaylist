@@ -167,8 +167,6 @@ def initConfig():
 		# Save add-on update related keys and instant profile signature from death.
 		# Necessary since the old-style config file contains newer information about update package size, last installed date and records instant profile name.
 		tempConfig = ConfigObj(SPLIni, configspec = confspec, encoding="UTF-8")
-		if "PSZ" in tempConfig: splupdate.SPLAddonSize = tempConfig["PSZ"]
-		if "PDT" in tempConfig: splupdate.SPLAddonCheck = tempConfig["PDT"]
 		if "InstantProfile" in tempConfig: curInstantProfile = tempConfig["InstantProfile"]
 		os.remove(SPLIni)
 		os.rename(os.path.join(globalVars.appArgs.configPath, "splstudio7.ini"), SPLIni)
@@ -189,10 +187,6 @@ def initConfig():
 	SPLConfig = dict(SPLConfigPool[0])
 	SPLConfig["ActiveIndex"] = 0 # Holds settings from normal profile.
 	if curInstantProfile != "": SPLConfig["InstantProfile"] = curInstantProfile
-	# 7.0: Store add-on installer size in case one wishes to check for updates (default size is 0 or no update checked attempted).
-	# Same goes to update check time and date (stored as Unix time stamp).
-	if "PSZ" in SPLConfig: splupdate.SPLAddonSize = SPLConfig["PSZ"]
-	if "PDT" in SPLConfig: splupdate.SPLAddonCheck = float(SPLConfig["PDT"])
 	# Locate instant profile.
 	if "InstantProfile" in SPLConfig:
 		try:
@@ -218,6 +212,8 @@ def initConfig():
 		runConfigErrorDialog("\n".join(messages), title)
 	# Fire up profile triggers.
 	initProfileTriggers()
+	# Let the update check begin.
+	splupdate.initialize()
 
 # Unlock (load) profiles from files.
 def unlockConfig(path, profileName=None, prefill=False):
@@ -255,6 +251,16 @@ def unlockConfig(path, profileName=None, prefill=False):
 	_extraInitSteps(SPLConfigCheckpoint, profileName=profileName)
 	# Only run when loading profiles other than normal profile.
 	if not prefill: _discardGlobalSettings(SPLConfigCheckpoint)
+	# Conversely:
+	else:
+		if "PSZ" in SPLConfigCheckpoint:
+			splupdate.SPLAddonSize = hex(int(SPLConfigCheckpoint["PSZ"], 16))
+			try: del SPLConfigCheckpoint["PSZ"]
+			except KeyError: pass
+		if "PDT" in SPLConfigCheckpoint:
+			splupdate.SPLAddonCheck = float(SPLConfigCheckpoint["PDT"])
+			try: del SPLConfigCheckpoint["PDT"]
+			except KeyError: pass
 	SPLConfigCheckpoint.name = profileName
 	# 7.0 optimization: Store an online backup.
 	# This online backup is used to prolong SSD life (no need to save a config if it is same as this copy).
@@ -350,15 +356,12 @@ def nextTimedProfile(current=None):
 		triggerTime = datetime.datetime(entry[1], entry[2], entry[3], entry[4], entry[5])
 		# Hopefully the trigger should be ready before the show, but sometimes it isn't.
 		if current > triggerTime:
-			print "time passed"
 			profileTriggers[profile] = setNextTimedProfile(profile, entry[0], datetime.time(entry[4], entry[5]), date=current)
 			if (current-triggerTime).seconds < entry[6]*60:
 				shouldBeSwitched = True
 		possibleTriggers.append((triggerTime, profile, shouldBeSwitched))
 	if len(possibleTriggers):
 		d = min(possibleTriggers)[0] - current
-		print d.days
-		print d.seconds
 	return min(possibleTriggers) if len(possibleTriggers) else None
 
 # Some helpers used in locating next air date/time.
@@ -529,14 +532,6 @@ def _preSave(conf):
 				del conf["InstantProfile"]
 			except KeyError:
 				pass
-		# 7.0: Check if updates are pending.
-		if (("PSZ" in conf and splupdate.SPLAddonSize != conf["PSZ"])
-		or ("PSZ" not in conf and splupdate.SPLAddonSize != 0x0)):
-			conf["PSZ"] = splupdate.SPLAddonSize
-		# Same goes to update check time and date.
-		if (("PDT" in conf and splupdate.SPLAddonCheck != conf["PDT"])
-		or ("PDT" not in conf and splupdate.SPLAddonCheck != 0)):
-			conf["PDT"] = splupdate.SPLAddonCheck
 	# For other profiles, remove global settings before writing to disk.
 	else:
 		# 6.1: Make sure column order and inclusion aren't same as default values.
@@ -575,34 +570,27 @@ def saveConfig():
 	splupdate._SPLUpdateT = None
 	# Close profile triggers dictionary.
 	saveProfileTriggers()
+	# Save update check state.
+	splupdate.terminate()
 	# Save profile-specific settings to appropriate dictionary if this is the case.
 	activeIndex = SPLConfig["ActiveIndex"]
 	del SPLConfig["ActiveIndex"]
 	if activeIndex > 0:
 		applySections(activeIndex)
 	# 7.0: Save normal profile first.
-	# Step 1: temporarily merge normal profile.
+	# Temporarily merge normal profile.
 	mergeSections(0)
-	# Step 2: Perform presave routine.
 	_preSave(SPLConfigPool[0])
-	# Step 3: global flags, be gone.
+	# Global flags, be gone.
 	if "Reset" in SPLConfigPool[0]:
 		del SPLConfigPool[0]["Reset"]
-	# Step 4: Convert keys back to 5.x format.
+	# Convert keys back to 5.x format.
 	for section in SPLConfigPool[0].keys():
 		if isinstance(SPLConfigPool[0][section], dict):
 			for key in SPLConfigPool[0][section]:
 				SPLConfigPool[0][key] = SPLConfigPool[0][section][key]
-	# Step 5: Disk write optimization check please.
-	# Convert a few keys.
-	if "PDT" in _SPLCache[None]:
-		_SPLCache[None]["PDT"] = float(_SPLCache[None]["PDT"])
-	# Until update check dictionary is separated...
-	updateChecked = False
-	if ((splupdate.SPLAddonSize != SPLConfigPool[0]["PSZ"])
-	or (splupdate.SPLAddonCheck != SPLConfigPool[0]["PDT"])):
-		updateChecked = True
-	if shouldSave(SPLConfigPool[0]) or updateChecked:
+	# Disk write optimization check please.
+	if shouldSave(SPLConfigPool[0]):
 		SPLConfigPool[0].write()
 	del SPLConfigPool[0]
 	# Now save broadcast profiles.
