@@ -12,6 +12,7 @@ import os
 from csv import reader # For cart explorer.
 import gui
 import wx
+import ui
 from NVDAObjects.IAccessible import sysListView32
 from winUser import user32, sendMessage
 import winKernel
@@ -300,4 +301,39 @@ def cartExplorerInit(StudioTitle, cartFiles=None):
 		_populateCarts(carts, cl[1], mod, standardEdition=carts["standardLicense"]) # See the comment for _populate method above.
 	carts["faultyCarts"] = faultyCarts
 	return carts
+
+
+# Countdown timer.
+# This is utilized by many services, chiefly profile triggers routine.
+
+class SPLCountdownTimer(object):
+
+	def __init__(self, duration, func, threshold):
+		# Threshold is used to instruct this timer when to start countdown announcement.
+		self.duration = duration
+		self.total = duration
+		self.func = func
+		self.threshold = threshold
+
+	def Start(self):
+		self.timer = wx.PyTimer(self.countdown)
+		ui.message("Countdown started")
+		self.timer.Start(1000)
+
+	def Stop(self):
+		self.timer.Stop()
+
+	def IsRunning(self):
+		return self.timer.IsRunning()
+
+	def countdown(self):
+		self.duration -= 1
+		if self.duration == 0:
+			ui.message("Timer complete")
+			if self.func is not None:
+				self.func()
+			self.stop()
+		elif 0 < self.duration <= self.threshold:
+			ui.message(str(self.duration))
+
 
