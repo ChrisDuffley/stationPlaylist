@@ -171,6 +171,14 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * In encoders, pressing Control+NVDA+0 will present encoder settings dialog for configuring various options such as stream label, focusing to Studio when connected and so on.
 * In encoders, it is now possible to turn off connection progress tone (configurable from encoder settings dialog).
 
+## Changes for 6.2
+
+* Fixed an issue with playlist remainder command (SPL Assistant, D (R if compatibility mode is on)) where the duration for the current hour was announced as opposed to the entire playlist (the behavior of this command can be configured from advanced settings found in add-on settings dialog).
+* NvDA can now announce name of the currently playing track while using another program (configurable from add-on settings).
+* The setting used to let SPL Controller command invoke SPL Assistant is now honored (previously it was enabled at all times).
+* In SAM encoders, Control+F9 and Control+F10 commands now works correctly.
+* In encoders, when an encoder is first focused and if this encoder is configured to be monitored in the background, NVDA will now start the background monitor automatically.
+
 ## Changes for 6.1
 
 * Column announcement order and inclusion, as well as metadata streaming settings are now profile-specific settings.
