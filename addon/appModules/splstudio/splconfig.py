@@ -418,7 +418,6 @@ def shouldSave(profile):
 		if isinstance(profile[section], dict):
 			for key in profile[section]:
 				if profile[section][key] != _SPLCache[tree][section][key]:
-					print key
 					return True # Setting modified.
 	return False
 
@@ -917,7 +916,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# It also causes NVDA to display wrong label for switch button.
 		if self.switchProfile is None:
 			SPLPrevProfile = None
-		global _configDialogOpened
 		_configDialogOpened = False
 		# 7.0: Perform extra action such as restarting auto update timer.
 		self.onCloseExtraAction()
@@ -935,8 +933,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 			# Return to normal profile by merging the first profile in the config pool.
 			mergeSections(0)
 		_configDialogOpened = False
-		#super(SPLConfigDialog,  self).onCancel(evt)
-		self.Destroy()
+		super(SPLConfigDialog,  self).onCancel(evt)
 
 	# Perform extra action when closing this dialog such as restarting update timer.
 	def onCloseExtraAction(self):

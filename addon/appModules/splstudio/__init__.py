@@ -1,6 +1,6 @@
 # StationPlaylist Studio
 # An app module and global plugin package for NVDA
-# Copyright 2011, 2013-2015, Geoff Shang, Joseph Lee and others, released under GPL.
+# Copyright 2011, 2013-2016, Geoff Shang, Joseph Lee and others, released under GPL.
 # The primary function of this appModule is to provide meaningful feedback to users of SplStudio
 # by allowing speaking of items which cannot be easily found.
 # Version 0.01 - 7 April 2011:
@@ -66,10 +66,6 @@ libScanT = None
 
 # Blacklisted versions of Studio where library scanning functionality is broken.
 noLibScanMonitor = []
-
-# List of known window style values to check for track items in Studio 5.0x..
-known50styles = (1442938953, 1443987529, 1446084681)
-known51styles = (1443991625, 1446088777)
 
 # Braille and play a sound in response to an alarm or an event.
 def messageSound(wavFile, message):
@@ -450,8 +446,6 @@ class AppModule(appModuleHandler.AppModule):
 	# Keep an eye on library scans in insert tracks window.
 	libraryScanning = False
 	scanCount = 0
-	# For SPL 5.10: take care of some object child constant changes across builds.
-	spl510used = False
 	# For 5.0X and earlier: prevent NVDA from announcing scheduled time multiple times.
 	scheduledTimeCache = ""
 	# Track Dial (A.K.A. enhanced arrow keys)
@@ -576,7 +570,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Perform extra action in specific situations (mic alarm, for example).
 	def doExtraAction(self, status):
-		micAlarm = int(splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"])
+		micAlarm = splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"]
 		if self.cartExplorer:
 			if status == "Cart Edit On":
 				# Translators: Presented when cart edit mode is toggled on while cart explorer is on.
@@ -778,7 +772,7 @@ class AppModule(appModuleHandler.AppModule):
 			wx.CallAfter(gui.messageBox, _("The add-on settings dialog is opened. Please close the settings dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
 			return
 		try:
-			rampVal = long(splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"])
+			rampVal = splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"]
 			d = splconfig.SPLAlarmDialog(gui.mainFrame, "SongRampTime", "SaySongRamp",
 			# Translators: The title of song intro alarm dialog.
 			_("Song intro alarm"),
@@ -897,7 +891,6 @@ class AppModule(appModuleHandler.AppModule):
 	# Column is a list of columns to be searched (if none, it'll be artist and title).
 	def _trackLocator(self, text, obj=api.getFocusObject(), directionForward=True, columns=None):
 		nextTrack = "next" if directionForward else "previous"
-		t = time.time()
 		while obj is not None:
 			# Do not use column content attribute, because sometimes NVDA will say it isn't a track item when in fact it is.
 			# If this happens, use the module level version of column content getter.
