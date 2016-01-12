@@ -93,24 +93,6 @@ CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
 AutoUpdateCheck = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
 confspec7.newlines = "\r\n"
-# 7.0: Profile-specific confspec (might be removed once a more optimal way to validate sections is found).
-confspecprofiles = ConfigObj(StringIO("""
-[IntroOutroAlarms]
-SayEndOfTrack = boolean(default=true)
-EndOfTrackTime = integer(min=1, max=59, default=5)
-SaySongRamp = boolean(default=true)
-SongRampTime = integer(min=1, max=9, default=5)
-[MicrophoneAlarm]
-MicAlarm = integer(min=0, max=7200, default="0")
-MicAlarmInterval = integer(min=0, max=60, default=0)
-[MetadataStreaming]
-MetadataEnabled = bool_list(default=list(false,false,false,false,false))
-[ColumnAnnouncement]
-UseScreenColumnOrder = boolean(default=true)
-ColumnOrder = string_list(default=list("Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"))
-IncludedColumns = string_list(default=list("Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"))
-"""), encoding="UTF-8", list_values=False)
-confspecprofiles.newlines = "\r\n"
 SPLConfig = None
 # A pool of broadcast profiles.
 SPLConfigPool = []
@@ -125,6 +107,9 @@ _SPLDefaults7.validate(_val, copy=True)
 # The following settings can be changed in profiles:
 _mutatableSettings=("SayEndOfTrack","EndOfTrackTime","SaySongRamp","SongRampTime","MicAlarm","MicAlarmInterval","MetadataEnabled","UseScreenColumnOrder","ColumnOrder","IncludedColumns")
 _mutatableSettings7=("IntroOutroAlarms", "MicrophoneAlarm", "MetadataStreaming", "ColumnAnnouncement")
+# 7.0: Profile-specific confspec (might be removed once a more optimal way to validate sections is found).
+# Dictionary comprehension is better here.
+confspecprofiles = {sect:key for sect, key in confspec7.iteritems() if sect in _mutatableSettings7}
 
 # Display an error dialog when configuration validation fails.
 def runConfigErrorDialog(errorText, errorType):
@@ -310,17 +295,6 @@ def _extraInitSteps(conf, profileName=None):
 		else:
 			_configLoadStatus[profileName] = "metadataReset"
 		conf["MetadataStreaming"]["MetadataEnabled"] = [False, False, False, False, False]
-
-# Discard global settings when loading broadcast profiles.
-# This helps in conserving memory.
-def _discardGlobalSettings(conf):
-	for setting in SPLConfigPool[0].keys():
-		# Ignore profile-specific settings/sections.
-		if setting not in _mutatableSettings7:
-			try:
-				del conf[setting]
-			except KeyError:
-				pass
 
 # Cache a copy of the loaded config.
 # This comes in handy when saving configuration to disk. For the most part, no change occurs to config.
