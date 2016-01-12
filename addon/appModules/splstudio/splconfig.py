@@ -93,6 +93,24 @@ CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
 AutoUpdateCheck = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
 confspec7.newlines = "\r\n"
+# 7.0: Profile-specific confspec (might be removed once a more optimal way to validate sections is found).
+confspecprofiles = ConfigObj(StringIO("""
+[IntroOutroAlarms]
+SayEndOfTrack = boolean(default=true)
+EndOfTrackTime = integer(min=1, max=59, default=5)
+SaySongRamp = boolean(default=true)
+SongRampTime = integer(min=1, max=9, default=5)
+[MicrophoneAlarm]
+MicAlarm = integer(min=0, max=7200, default="0")
+MicAlarmInterval = integer(min=0, max=60, default=0)
+[MetadataStreaming]
+MetadataEnabled = bool_list(default=list(false,false,false,false,false))
+[ColumnAnnouncement]
+UseScreenColumnOrder = boolean(default=true)
+ColumnOrder = string_list(default=list("Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"))
+IncludedColumns = string_list(default=list("Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"))
+"""), encoding="UTF-8", list_values=False)
+confspecprofiles.newlines = "\r\n"
 SPLConfig = None
 # A pool of broadcast profiles.
 SPLConfigPool = []
@@ -158,6 +176,7 @@ _configErrors ={
 _configLoadStatus = {} # Key = filename, value is pass or no pass.
 
 def initConfig():
+	t = time.time()
 	# 7.0: When add-on 7.0 starts for the first time, check if a conversion file exists.
 	# To be removed in add-on 7.2.
 	curInstantProfile = ""
@@ -212,11 +231,15 @@ def initConfig():
 	initProfileTriggers()
 	# Let the update check begin.
 	splupdate.initialize()
+	print time.time()-t
 
 # Unlock (load) profiles from files.
 def unlockConfig(path, profileName=None, prefill=False):
+	t = time.time()
 	global _configLoadStatus # To be mutated only during unlock routine.
-	SPLConfigCheckpoint = ConfigObj(path, configspec = confspec7, encoding="UTF-8")
+	# Optimization: Profiles other than normal profile contains profile-specific sections only.
+	# This speeds up profile loading routine significantly as there is no need to call a function to strip global settings.
+	SPLConfigCheckpoint = ConfigObj(path, configspec = confspec7 if prefill else confspecprofiles, encoding="UTF-8")
 	# 5.2 and later: check to make sure all values are correct.
 	# 7.0: Make sure errors are displayed as config keys are now sections and may need to go through subkeys.
 	configTest = SPLConfigCheckpoint.validate(_val, copy=prefill, preserve_errors=True)
@@ -237,20 +260,14 @@ def unlockConfig(path, profileName=None, prefill=False):
 				if isinstance(configTest[setting], dict):
 					for failedKey in configTest[setting].keys():
 						if not isinstance(SPLConfigCheckpoint[setting][failedKey], int):
-							if prefill: # Base profile only.
-								SPLConfigCheckpoint[setting][failedKey] = _SPLDefaults7[setting][failedKey]
-							else: # Broadcast profiles.
-								if setting not in _mutatableSettings7:
-									SPLConfigCheckpoint[setting][failedKey] = SPLConfigPool[0][setting][failedKey]
-								else: SPLConfigCheckpoint[setting][failedKey] = _SPLDefaults7[setting][failedKey]
+							# 7.0 optimization: just reload from defaults dictionary, as broadcast profiles contain profile-specific settings only.
+							SPLConfigCheckpoint[setting][failedKey] = _SPLDefaults7[setting][failedKey]
 			# 7.0: Disqualified from being cached this time.
 			SPLConfigCheckpoint.write()
 			_configLoadStatus[profileName] = "partialReset"
 	_extraInitSteps(SPLConfigCheckpoint, profileName=profileName)
-	# Only run when loading profiles other than normal profile.
-	if not prefill: _discardGlobalSettings(SPLConfigCheckpoint)
-	# Conversely:
-	else:
+	# Take care of global flags such as updates and so on.
+	if prefill:
 		if "PSZ" in SPLConfigCheckpoint:
 			splupdate.SPLAddonSize = hex(int(SPLConfigCheckpoint["PSZ"], 16))
 			try: del SPLConfigCheckpoint["PSZ"]
@@ -263,6 +280,7 @@ def unlockConfig(path, profileName=None, prefill=False):
 	# 7.0 optimization: Store an online backup.
 	# This online backup is used to prolong SSD life (no need to save a config if it is same as this copy).
 	_cacheConfig(SPLConfigCheckpoint)
+	print time.time()-t
 	return SPLConfigCheckpoint
 
 # Extra initialization steps such as converting value types.
