@@ -1,5 +1,5 @@
 # StationPlaylist Studio add-on installation tasks
-# Copyright 2015 Joseph Lee and others, released under GPL.
+# Copyright 2015-2016 Joseph Lee and others, released under GPL.
 
 # Provides needed routines during add-on installation and removal.
 # Routines are partly based on other add-ons, particularly Place Markers by Noelia Martinez (thanks add-on authors).
@@ -40,7 +40,6 @@ SayPlayingCartName = boolean(default=true)
 SayPlayingTrackName = string(default="True")
 SPLConPassthrough = boolean(default=false)
 CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
-PlaylistRemainder = option("hour", "playlist", default="hour")
 AutoUpdateCheck = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
@@ -71,7 +70,6 @@ _conversionConfig = {
 	"SayPlayingTrackName":"SayStatus",
 	"SPLConPassthrough":"Advanced",
 	"CompatibilityLayer":"Advanced",
-	"PlaylistRemainder":"Advanced",
 	"AutoUpdateCheck":"Update",
 }
 

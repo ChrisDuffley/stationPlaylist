@@ -53,7 +53,6 @@ SayPlayingCartName = boolean(default=true)
 SayPlayingTrackName = string(default="True")
 SPLConPassthrough = boolean(default=false)
 CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
-PlaylistRemainder = option("hour", "playlist", default="hour")
 AutoUpdateCheck = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
@@ -90,7 +89,6 @@ SayPlayingTrackName = string(default="True")
 [Advanced]
 SPLConPassthrough = boolean(default=false)
 CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
-PlaylistRemainder = option("hour", "playlist", default="hour")
 [Update]
 AutoUpdateCheck = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
@@ -539,6 +537,8 @@ def _preSave(conf):
 				del conf["InstantProfile"]
 			except KeyError:
 				pass
+		# Todo for 7.2: Remove obsolete keys from normal profile (not runtime config yet).
+		# Del PlaylistRemainder.
 	# For other profiles, remove global settings before writing to disk.
 	else:
 		# 6.1: Make sure column order and inclusion aren't same as default values.
@@ -1066,7 +1066,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 		item.Bind(wx.EVT_BUTTON, self.onAdvancedOptions)
 		self.splConPassthrough = SPLConfig["Advanced"]["SPLConPassthrough"]
 		self.compLayer = SPLConfig["Advanced"]["CompatibilityLayer"]
-		self.playlistRemainder = SPLConfig["Advanced"]["PlaylistRemainder"]
 		self.autoUpdateCheck = SPLConfig["Update"]["AutoUpdateCheck"]
 		settingsSizer.Add(item)
 
