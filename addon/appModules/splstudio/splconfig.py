@@ -327,6 +327,7 @@ def _cacheConfig(conf):
 # Each record (profile name) consists of seven fields organized as a list:
 # A bit vector specifying which days should this profile be active, the first five fields needed for constructing a datetime.datetime object used to look up when to trigger this profile, and an integer specifying the duration in minutes.
 profileTriggers = {} # Using a pickle is quite elegant.
+profileTriggers2 = {} # For caching purposes.
 # Profile triggers pickle.
 SPLTriggersFile = os.path.join(globalVars.appArgs.configPath, "spltriggers.pickle")
 # Trigger timer.
@@ -334,11 +335,13 @@ triggerTimer = None
 
 # Prepare the triggers dictionary and other runtime support.
 def initProfileTriggers():
-	global profileTriggers, SPLTriggerProfile, triggerTimer
+	global profileTriggers, profileTriggers2, SPLTriggerProfile, triggerTimer
 	try:
 		profileTriggers = cPickle.load(file(SPLTriggersFile, "r"))
 	except IOError:
 		pass
+	# Cache profile triggers, used to compare the runtime dictionary against the cache.
+	profileTriggers2 = profileTriggers
 	triggerStart()
 
 # Locate time-based profiles if any.
@@ -447,12 +450,16 @@ def triggerStart(restart=False):
 
 # Dump profile triggers pickle away.
 def saveProfileTriggers():
-	global triggerTimer, profileTriggers
+	global triggerTimer, profileTriggers, profileTriggers2
 	if triggerTimer is not None and triggerTimer.IsRunning():
 		triggerTimer.Stop()
 		triggerTimer = None
-	cPickle.dump(profileTriggers, file(SPLTriggersFile, "wb"))
+	# Unless it is a daily show, profile triggers would not have been modified.
+	# This trick is employed in order to reduce unnecessary disk writes.
+	if profileTriggers != profileTriggers2:
+		cPickle.dump(profileTriggers, file(SPLTriggersFile, "wb"))
 	profileTriggers = None
+	profileTriggers2 = None
 
 # Instant profile switch helpers.
 # A number of helper functions assisting instant switch profile routine and others, including sorting and locating the needed profile upon request.

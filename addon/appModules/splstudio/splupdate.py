@@ -45,13 +45,17 @@ def initialize():
 		SPLAddonCheck = SPLAddonState["PDT"]
 		SPLAddonSize = SPLAddonState["PSZ"]
 	except IOError:
-		pass
+		SPLAddonState["PDT"] = 0
+		SPLAddonState["PSZ"] = 0x0
 
 def terminate():
 	global SPLAddonState
-	SPLAddonState["PSZ"] = SPLAddonSize
-	SPLAddonState["PDT"] = SPLAddonCheck
-	cPickle.dump(SPLAddonState, file(_updatePickle, "wb"))
+	# Store new values if it is absolutely required.
+	stateChanged = SPLAddonState["PSZ"] != SPLAddonSize or SPLAddonState["PDT"] != SPLAddonCheck
+	if stateChanged:
+		SPLAddonState["PSZ"] = SPLAddonSize
+		SPLAddonState["PDT"] = SPLAddonCheck
+		cPickle.dump(SPLAddonState, file(_updatePickle, "wb"))
 	SPLAddonState = None
 
 
