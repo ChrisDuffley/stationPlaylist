@@ -107,6 +107,9 @@ _SPLDefaults7.validate(_val, copy=True)
 # The following settings can be changed in profiles:
 _mutatableSettings=("SayEndOfTrack","EndOfTrackTime","SaySongRamp","SongRampTime","MicAlarm","MicAlarmInterval","MetadataEnabled","UseScreenColumnOrder","ColumnOrder","IncludedColumns")
 _mutatableSettings7=("IntroOutroAlarms", "MicrophoneAlarm", "MetadataStreaming", "ColumnAnnouncement")
+# 7.0: Profile-specific confspec (might be removed once a more optimal way to validate sections is found).
+# Dictionary comprehension is better here.
+confspecprofiles = {sect:key for sect, key in confspec7.iteritems() if sect in _mutatableSettings7}
 
 # Display an error dialog when configuration validation fails.
 def runConfigErrorDialog(errorText, errorType):
@@ -217,8 +220,11 @@ def initConfig():
 
 # Unlock (load) profiles from files.
 def unlockConfig(path, profileName=None, prefill=False):
+	t = time.time()
 	global _configLoadStatus # To be mutated only during unlock routine.
-	SPLConfigCheckpoint = ConfigObj(path, configspec = confspec7, encoding="UTF-8")
+	# Optimization: Profiles other than normal profile contains profile-specific sections only.
+	# This speeds up profile loading routine significantly as there is no need to call a function to strip global settings.
+	SPLConfigCheckpoint = ConfigObj(path, configspec = confspec7 if prefill else confspecprofiles, encoding="UTF-8")
 	# 5.2 and later: check to make sure all values are correct.
 	# 7.0: Make sure errors are displayed as config keys are now sections and may need to go through subkeys.
 	configTest = SPLConfigCheckpoint.validate(_val, copy=prefill, preserve_errors=True)
@@ -239,20 +245,14 @@ def unlockConfig(path, profileName=None, prefill=False):
 				if isinstance(configTest[setting], dict):
 					for failedKey in configTest[setting].keys():
 						if not isinstance(SPLConfigCheckpoint[setting][failedKey], int):
-							if prefill: # Base profile only.
-								SPLConfigCheckpoint[setting][failedKey] = _SPLDefaults7[setting][failedKey]
-							else: # Broadcast profiles.
-								if setting not in _mutatableSettings7:
-									SPLConfigCheckpoint[setting][failedKey] = SPLConfigPool[0][setting][failedKey]
-								else: SPLConfigCheckpoint[setting][failedKey] = _SPLDefaults7[setting][failedKey]
+							# 7.0 optimization: just reload from defaults dictionary, as broadcast profiles contain profile-specific settings only.
+							SPLConfigCheckpoint[setting][failedKey] = _SPLDefaults7[setting][failedKey]
 			# 7.0: Disqualified from being cached this time.
 			SPLConfigCheckpoint.write()
 			_configLoadStatus[profileName] = "partialReset"
 	_extraInitSteps(SPLConfigCheckpoint, profileName=profileName)
-	# Only run when loading profiles other than normal profile.
-	if not prefill: _discardGlobalSettings(SPLConfigCheckpoint)
-	# Conversely:
-	else:
+	# Take care of global flags such as updates and so on.
+	if prefill:
 		if "PSZ" in SPLConfigCheckpoint:
 			splupdate.SPLAddonSize = hex(int(SPLConfigCheckpoint["PSZ"], 16))
 			try: del SPLConfigCheckpoint["PSZ"]
@@ -265,6 +265,7 @@ def unlockConfig(path, profileName=None, prefill=False):
 	# 7.0 optimization: Store an online backup.
 	# This online backup is used to prolong SSD life (no need to save a config if it is same as this copy).
 	_cacheConfig(SPLConfigCheckpoint)
+	print time.time()-t
 	return SPLConfigCheckpoint
 
 # Extra initialization steps such as converting value types.
@@ -294,17 +295,6 @@ def _extraInitSteps(conf, profileName=None):
 		else:
 			_configLoadStatus[profileName] = "metadataReset"
 		conf["MetadataStreaming"]["MetadataEnabled"] = [False, False, False, False, False]
-
-# Discard global settings when loading broadcast profiles.
-# This helps in conserving memory.
-def _discardGlobalSettings(conf):
-	for setting in SPLConfigPool[0].keys():
-		# Ignore profile-specific settings/sections.
-		if setting not in _mutatableSettings7:
-			try:
-				del conf[setting]
-			except KeyError:
-				pass
 
 # Cache a copy of the loaded config.
 # This comes in handy when saving configuration to disk. For the most part, no change occurs to config.
