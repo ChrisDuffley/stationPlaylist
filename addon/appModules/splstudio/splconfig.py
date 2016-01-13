@@ -158,6 +158,7 @@ _configErrors ={
 _configLoadStatus = {} # Key = filename, value is pass or no pass.
 
 def initConfig():
+	t = time.time()
 	# 7.0: When add-on 7.0 starts for the first time, check if a conversion file exists.
 	# To be removed in add-on 7.2.
 	curInstantProfile = ""
@@ -212,6 +213,7 @@ def initConfig():
 	initProfileTriggers()
 	# Let the update check begin.
 	splupdate.initialize()
+	print time.time()-t
 
 # Unlock (load) profiles from files.
 def unlockConfig(path, profileName=None, prefill=False):
