@@ -331,7 +331,7 @@ def initProfileTriggers():
 	except IOError:
 		pass
 	# Cache profile triggers, used to compare the runtime dictionary against the cache.
-	profileTriggers2 = profileTriggers
+	profileTriggers2 = dict(profileTriggers)
 	triggerStart()
 
 # Locate time-based profiles if any.
