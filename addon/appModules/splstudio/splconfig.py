@@ -552,6 +552,8 @@ def _preSave(conf):
 # For the most part, no setting will be modified.
 def shouldSave(profile):
 	tree = None if profile.filename == SPLIni else profile.name
+	# One downside of caching: new profiles are not recognized as such.
+	if "___new___" in _SPLCache[tree]: return True
 	for section in profile.keys():
 		if isinstance(profile[section], dict):
 			for key in profile[section]:
@@ -1433,7 +1435,7 @@ class NewProfileDialog(wx.Dialog):
 		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
-		global SPLConfigPool
+		global SPLConfigPool, _SPLCache
 		profileNames = [profile.name for profile in SPLConfigPool]
 		name = api.filterFileName(self.profileName.Value)
 		if not name:
@@ -1448,12 +1450,14 @@ class NewProfileDialog(wx.Dialog):
 			os.mkdir(SPLProfiles)
 		newProfilePath = os.path.join(SPLProfiles, namePath)
 		SPLConfigPool.append(unlockConfig(newProfilePath, profileName=name))
+		# Make the cache know this is a new profile.
+		# If nothing happens to this profile, the newly created profile will be saved to disk.
+		_SPLCache[name]["___new___"] = True
 		if self.copy:
 			newProfile = SPLConfigPool[-1]
 			baseProfile = getProfileByName(self.baseProfiles.GetStringSelection())
-			for setting in baseProfile:
+			for setting in newProfile.keys():
 				try:
-					# Go through all settings (including profile-specific ones for now).
 					# 6.1/7.0: Only iterate through mutatable keys.
 					if baseProfile[setting] != newProfile[setting]:
 						newProfile[setting] = baseProfile[setting]
