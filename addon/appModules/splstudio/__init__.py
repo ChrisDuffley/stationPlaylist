@@ -1335,7 +1335,11 @@ class AppModule(appModuleHandler.AppModule):
 			elif splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "jfw": self.bindGestures(self.__SPLAssistantJFWGestures)
 			elif splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "wineyes": self.bindGestures(self.__SPLAssistantWEGestures)
 			# 7.0: Certain commands involving number row.
-			for i in xrange(1, 7):
+			# 7.x only: Take care of both Studio 5.0x and 5.1x.
+			# 8.0: Remove the conditionals below, as only Studio 5.10 and later will be supported.
+			start = 1 if self.SPLCurVersion < "5.1" else 0
+			end = 7 if self.SPLCurVersion < "5.1" else 10
+			for i in xrange(start, end):
 				self.bindGesture("kb:%s"%(i), "columnExplorer")
 			self.SPLAssistant = True
 			tones.beep(512, 50)
@@ -1636,9 +1640,8 @@ class AppModule(appModuleHandler.AppModule):
 			if not isinstance(focus, SPLTrackItem):
 				ui.message("Not a track")
 			else:
-				if self._columnHeaders is None:
-					self._columnHeaders = focus.parent.children[-1]
-				focus.announceColumnContent(int(gesture.displayName) - 1)
+				columns = ("Artist", "Title", "Duration", "Intro", "Category", "Filename", "Year", "Album", "Genre", "Time Scheduled")
+				focus.announceColumnContent(focus._indexOf(columns[int(gesture.displayName)-1]))
 
 	def script_layerHelp(self, gesture):
 		compatibility = splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]
