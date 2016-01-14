@@ -266,7 +266,7 @@ A: Automation.
 C: Announce name of the currently playing track.
 D: Remaining time for the playlist.
 E: Overall metadata streaming status.
-1 through 4, 0: Metadata streaming status for DSP encoder and four additional URL's.
+Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder and four additional URL's.
 H: Duration of trakcs in this hour slot.
 Shift+H: Duration of remaining trakcs in this hour slot.
 I: Listener count.
@@ -295,7 +295,7 @@ A: Automation.
 C: Toggle cart explorer.
 Shift+C: Announce name of the currently playing track.
 E: Overall metadata streaming status.
-1 through 4, 0: Metadata streaming status for DSP encoder and four additional URL's.
+Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder and four additional URL's.
 Shift+E: Record to file.
 F: Track finder.
 H: Duration of trakcs in this hour slot.
@@ -330,7 +330,7 @@ E: Elapsed time.
 F: Track finder.
 R: Remaining time for the currently playing track.
 G: Overall metadata streaming status.
-1 through 4, 0: Metadata streaming status for DSP encoder and four additional URL's.
+Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder and four additional URL's.
 H: Duration of trakcs in this hour slot.
 Shift+H: Duration of remaining trakcs in this hour slot.
 K: Move to place marker track.
@@ -1672,11 +1672,11 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:Control+k":"setPlaceMarker",
 		"kb:k":"findPlaceMarker",
 		"kb:e":"metadataStreamingAnnouncer",
-		"kb:1":"metadataEnabled",
-		"kb:2":"metadataEnabled",
-		"kb:3":"metadataEnabled",
-		"kb:4":"metadataEnabled",
-		"kb:0":"metadataEnabled",
+		"kb:shift+1":"metadataEnabled",
+		"kb:shift+2":"metadataEnabled",
+		"kb:shift+3":"metadataEnabled",
+		"kb:shift+4":"metadataEnabled",
+		"kb:shift+0":"metadataEnabled",
 		"kb:f1":"layerHelp",
 		"kb:shift+f1":"openOnlineDoc",
 		"kb:control+shift+u":"updateCheck",
@@ -1710,11 +1710,11 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:Control+k":"setPlaceMarker",
 		"kb:k":"findPlaceMarker",
 		"kb:e":"metadataStreamingAnnouncer",
-		"kb:1":"metadataEnabled",
-		"kb:2":"metadataEnabled",
-		"kb:3":"metadataEnabled",
-		"kb:4":"metadataEnabled",
-		"kb:0":"metadataEnabled",
+		"kb:shift+1":"metadataEnabled",
+		"kb:shift+2":"metadataEnabled",
+		"kb:shift+3":"metadataEnabled",
+		"kb:shift+4":"metadataEnabled",
+		"kb:shift+0":"metadataEnabled",
 		"kb:f1":"layerHelp",
 		"kb:shift+f1":"openOnlineDoc",
 	}
@@ -1749,11 +1749,11 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:Control+k":"setPlaceMarker",
 		"kb:k":"findPlaceMarker",
 		"kb:g":"metadataStreamingAnnouncer",
-		"kb:1":"metadataEnabled",
-		"kb:2":"metadataEnabled",
-		"kb:3":"metadataEnabled",
-		"kb:4":"metadataEnabled",
-		"kb:0":"metadataEnabled",
+		"kb:shift+1":"metadataEnabled",
+		"kb:shift+2":"metadataEnabled",
+		"kb:shift+3":"metadataEnabled",
+		"kb:shift+4":"metadataEnabled",
+		"kb:shift+0":"metadataEnabled",
 		"kb:f1":"layerHelp",
 		"kb:shift+f1":"openOnlineDoc",
 		"kb:control+shift+u":"updateCheck",
