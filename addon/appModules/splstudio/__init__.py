@@ -1334,6 +1334,9 @@ class AppModule(appModuleHandler.AppModule):
 			if splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "off": self.bindGestures(self.__SPLAssistantGestures)
 			elif splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "jfw": self.bindGestures(self.__SPLAssistantJFWGestures)
 			elif splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "wineyes": self.bindGestures(self.__SPLAssistantWEGestures)
+			# 7.0: Certain commands involving number row.
+			for i in xrange(1, 7):
+				self.bindGesture("kb:%s"%(i), "columnExplorer")
 			self.SPLAssistant = True
 			tones.beep(512, 50)
 			if splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "jfw": ui.message("JAWS")
@@ -1626,6 +1629,16 @@ class AppModule(appModuleHandler.AppModule):
 				# Translators: Status message for metadata streaming.
 				status = _("Metadata streaming on DSP encoder disabled")
 		ui.message(status)
+
+	def script_columnExplorer(self, gesture):
+		if gesture.displayName.isdigit():
+			focus = api.getFocusObject()
+			if not isinstance(focus, SPLTrackItem):
+				ui.message("Not a track")
+			else:
+				if self._columnHeaders is None:
+					self._columnHeaders = focus.parent.children[-1]
+				focus.announceColumnContent(int(gesture.displayName) - 1)
 
 	def script_layerHelp(self, gesture):
 		compatibility = splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]
