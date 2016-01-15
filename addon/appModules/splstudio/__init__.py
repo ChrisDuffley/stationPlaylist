@@ -393,6 +393,8 @@ class AppModule(appModuleHandler.AppModule):
 		if splconfig.SPLConfig["Update"]["AutoUpdateCheck"]:
 			# 7.0: Have a timer call the update function indirectly.
 			queueHandler.queueFunction(queueHandler.eventQueue, splconfig.updateInit)
+		# Display startup dialogs if any.
+		wx.CallAfter(splconfig.showStartupDialogs)
 
 	# Locate the handle for main window for caching purposes.
 	def _locateSPLHwnd(self):

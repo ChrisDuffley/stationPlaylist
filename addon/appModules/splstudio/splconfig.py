@@ -54,6 +54,7 @@ SayPlayingTrackName = string(default="True")
 SPLConPassthrough = boolean(default=false)
 CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
 AutoUpdateCheck = boolean(default=true)
+AudioDuckingReminder = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
 # New (7.0) style config.
@@ -91,6 +92,8 @@ SPLConPassthrough = boolean(default=false)
 CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
 [Update]
 AutoUpdateCheck = boolean(default=true)
+[Startup]
+AudioDuckingReminder = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
 confspec7.newlines = "\r\n"
 SPLConfig = None
@@ -2001,6 +2004,54 @@ class SPLAlarmDialog(wx.Dialog):
 		self.Destroy()
 		global _alarmDialogOpened
 		_alarmDialogOpened = False
+
+
+# Startup dialogs.
+
+# Audio ducking reminder (NVDA 2016.1 and later).
+class AudioDuckingReminder(wx.Dialog):
+	"""A dialog to remind users to turn off audio ducking (NVDA 2016.1 and later).
+	"""
+
+	def __init__(self, parent):
+		super(AudioDuckingReminder, self).__init__(parent, title=_("SPL Studio and audio ducking"))
+
+		mainSizer = wx.BoxSizer(wx.VERTICAL)
+
+		# Translators: A message displayed if audio ducking should be disabled.
+		label = wx.StaticText(self, wx.ID_ANY, label=_("NVDA 2016.1 and later allows NVDA to decrease volume of background audio including that of Studio. In order to not disrupt the listening experience of your listeners, please disable audio ducking by opening synthesizer dialog in NVDA and selecting 'no ducking' from audio ducking mode combo box or press NVDA+Shift+D."))
+		mainSizer.Add(label,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: A checkbox to turn off audio ducking reminder message.
+		self.audioDuckingReminder=wx.CheckBox(self,wx.NewId(),label=_("Do not show this message again"))
+		self.audioDuckingReminder.SetValue(not SPLConfig["Startup"]["AudioDuckingReminder"])
+		sizer.Add(self.audioDuckingReminder, border=10,flag=wx.TOP)
+		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+		mainSizer.Add(self.CreateButtonSizer(wx.OK))
+		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
+		mainSizer.Fit(self)
+		self.Sizer = mainSizer
+		self.audioDuckingReminder.SetFocus()
+		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+
+	def onOk(self, evt):
+		if self.audioDuckingReminder.Value:
+			SPLConfig["Startup"]["AudioDuckingReminder"] = not self.audioDuckingReminder.Value
+		self.Destroy()
+
+# And to open the above dialog and any other dialogs.
+def showStartupDialogs():
+	try:
+		import audioDucking
+		if SPLConfig["Startup"]["AudioDuckingReminder"] and audioDucking.isAudioDuckingSupported():
+			gui.mainFrame.prePopup()
+			AudioDuckingReminder(gui.mainFrame).Show()
+			gui.mainFrame.postPopup()
+	except ImportError:
+		pass
+
 
 # Message verbosity pool.
 # To be moved to its own module in add-on 7.0.
