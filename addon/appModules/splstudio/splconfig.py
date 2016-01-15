@@ -96,6 +96,13 @@ confspec7.newlines = "\r\n"
 SPLConfig = None
 # A pool of broadcast profiles.
 SPLConfigPool = []
+# The following settings can be changed in profiles:
+_mutatableSettings=("SayEndOfTrack","EndOfTrackTime","SaySongRamp","SongRampTime","MicAlarm","MicAlarmInterval","MetadataEnabled","UseScreenColumnOrder","ColumnOrder","IncludedColumns")
+_mutatableSettings7=("IntroOutroAlarms", "MicrophoneAlarm", "MetadataStreaming", "ColumnAnnouncement")
+# 7.0: Profile-specific confspec (might be removed once a more optimal way to validate sections is found).
+# Dictionary comprehension is better here.
+confspecprofiles = {sect:key for sect, key in confspec7.iteritems() if sect in _mutatableSettings7}
+
 # Default config spec container.
 _SPLDefaults = ConfigObj(None, configspec = confspec, encoding="UTF-8")
 # And version 7 equivalent.
@@ -103,13 +110,8 @@ _SPLDefaults7 = ConfigObj(None, configspec = confspec7, encoding="UTF-8")
 _val = Validator()
 _SPLDefaults.validate(_val, copy=True)
 _SPLDefaults7.validate(_val, copy=True)
-
-# The following settings can be changed in profiles:
-_mutatableSettings=("SayEndOfTrack","EndOfTrackTime","SaySongRamp","SongRampTime","MicAlarm","MicAlarmInterval","MetadataEnabled","UseScreenColumnOrder","ColumnOrder","IncludedColumns")
-_mutatableSettings7=("IntroOutroAlarms", "MicrophoneAlarm", "MetadataStreaming", "ColumnAnnouncement")
-# 7.0: Profile-specific confspec (might be removed once a more optimal way to validate sections is found).
-# Dictionary comprehension is better here.
-confspecprofiles = {sect:key for sect, key in confspec7.iteritems() if sect in _mutatableSettings7}
+# 7.0: Just in case multiple broadcast profiles will need to be reset.
+_SPLDefaultsProfiles7 = {sect:key for sect, key in _SPLDefaults7.iteritems() if sect in _mutatableSettings7}
 
 # Display an error dialog when configuration validation fails.
 def runConfigErrorDialog(errorText, errorType):
@@ -118,16 +120,9 @@ def runConfigErrorDialog(errorText, errorType):
 # Reset settings to defaults.
 # This will be called when validation fails or when the user asks for it.
 # 6.0: The below function resets a single profile. A sister function will reset all of them.
-# 7.0: This will be split into several functions, with one of them being the master copy/settings transfer routine.
-def resetConfig(defaults, activeConfig, intentional=False):
-	for setting in activeConfig:
-		activeConfig[setting] = defaults[setting]
-	activeConfig.write()
-	if intentional:
-		# Translators: A dialog message shown when settings were reset to defaults.
-		wx.CallAfter(gui.messageBox, _("Successfully applied default add-on settings."),
-		# Translators: Title of the reset config dialog.
-		_("Reset configuration"), wx.OK|wx.ICON_INFORMATION)
+# 7.0: This calls copy profile function with default dictionary as the source profile.
+def resetConfig(defaults, activeConfig):
+	copyProfile(defaults, activeConfig, complete=True)
 
 # Reset all profiles upon request.
 def resetAllConfig():
@@ -136,8 +131,10 @@ def resetAllConfig():
 		profilePath = profile.filename
 		profile.reset()
 		profile.filename = profilePath
-		for setting in _SPLDefaults7:
-			profile[setting] = _SPLDefaults7[setting]
+		# 7.0: Without writing the profile, we end up with inconsistency between profile cache and actual profile.
+		profile.write()
+		# 7.0: Copying all sections wastes memory and time when profiles other than normal profile are reset to defaults.
+		resetConfig(_SPLDefaults7 if profilePath == SPLIni else _SPLDefaultsProfiles7, profile)
 		# Convert certain settings to a different format.
 		profile["ColumnAnnouncement"]["IncludedColumns"] = set(_SPLDefaults7["ColumnAnnouncement"]["IncludedColumns"])
 	# Translators: A dialog message shown when settings were reset to defaults.
@@ -220,7 +217,6 @@ def initConfig():
 
 # Unlock (load) profiles from files.
 def unlockConfig(path, profileName=None, prefill=False):
-	t = time.time()
 	global _configLoadStatus # To be mutated only during unlock routine.
 	# Optimization: Profiles other than normal profile contains profile-specific sections only.
 	# This speeds up profile loading routine significantly as there is no need to call a function to strip global settings.
@@ -234,7 +230,8 @@ def unlockConfig(path, profileName=None, prefill=False):
 		if not configTest:
 			# Case 1: restore settings to defaults when 5.x config validation has failed on all values.
 			# 6.0: In case this is a user profile, apply base configuration.
-			baseProfile = _SPLDefaults7 if prefill else SPLConfigPool[0]
+			# 7.0: Only apply profile-specific settings and save this profile to disk.
+			baseProfile = _SPLDefaults7 if prefill else _SPLDefaultsProfiles7
 			resetConfig(baseProfile, SPLConfigCheckpoint)
 			_configLoadStatus[profileName] = "completeReset"
 		elif isinstance(configTest, dict):
@@ -265,7 +262,6 @@ def unlockConfig(path, profileName=None, prefill=False):
 	# 7.0 optimization: Store an online backup.
 	# This online backup is used to prolong SSD life (no need to save a config if it is same as this copy).
 	_cacheConfig(SPLConfigCheckpoint)
-	print time.time()-t
 	return SPLConfigCheckpoint
 
 # Extra initialization steps such as converting value types.
@@ -304,7 +300,7 @@ _SPLCache = {}
 def _cacheConfig(conf):
 	global _SPLCache
 	if _SPLCache is None: _SPLCache = {}
-	key = None if conf.name == SPLActiveProfile else conf.name
+	key = None if conf.filename == SPLIni else conf.name
 	_SPLCache[key] = {}
 	# Optimization: For broadcast profiles, copy profile-specific keys only.
 	for setting in conf.keys():
@@ -462,22 +458,26 @@ def getProfileIndexByName(name):
 def getProfileByName(name):
 	return SPLConfigPool[getProfileIndexByName(name)]
 
+# Copy settings across profiles.
+# Setting complete flag controls whether profile-specific settings are applied (true otherwise, only set when resetting profiles).
+def copyProfile(sourceProfile, targetProfile, complete=False):
+	for section in sourceProfile.keys() if complete else _mutatableSettings7:
+		targetProfile[section] = dict(sourceProfile[section])
+
 # Merge sections when switching profiles.
 # This is also employed by the routine which saves changes to a profile when user selects a different profile from add-on settings dialog.
 # Profiles refer to indecies.
 # Active refers to whether this is a runtime switch (false if saving profiles).
 def mergeSections(profile, active=True):
 	global SPLConfig, SPLConfigPool
-	for section in _mutatableSettings7:
-		SPLConfig[section] = dict(SPLConfigPool[profile][section])
+	copyProfile(SPLConfigPool[profile], SPLConfig)
 	if active: SPLConfig["ActiveIndex"] = profile
 
 # A reverse of the above.
 def applySections(profile, key=None):
 	global SPLConfig, SPLConfigPool
 	if key is None:
-		for section in _mutatableSettings7:
-			SPLConfigPool[profile][section] = dict(SPLConfig[section])
+		copyProfile(SPLConfig, SPLConfigPool[profile])
 	else:
 		# A slash (/) will denote section/key hierarchy.
 		tree, leaf = key.split("/")
