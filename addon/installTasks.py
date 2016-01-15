@@ -39,8 +39,8 @@ SayListenerCount = boolean(default=true)
 SayPlayingCartName = boolean(default=true)
 SayPlayingTrackName = string(default="True")
 SPLConPassthrough = boolean(default=false)
-CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
-AutoUpdateCheck = boolean(default=true)
+CompatibilityLayer = option("off", "jfw", default="off")
+AudioDuckingReminder = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
 
@@ -70,14 +70,14 @@ _conversionConfig = {
 	"SayPlayingTrackName":"SayStatus",
 	"SPLConPassthrough":"Advanced",
 	"CompatibilityLayer":"Advanced",
-	"AutoUpdateCheck":"Update",
+	"AudioDuckingReminder":"Startup",
 }
 
 # Invoked when upgrading to 7.0 (to be removed in 7.2).
 def config6to7(path):
 	profile = ConfigObj(path, configspec = confspec, encoding="UTF-8")
 	# Optimization: no need to convert if sectionized.
-	for section in ["General", "IntroOutroAlarms", "MicrophoneAlarm", "ColumnAnnouncement", "MetadataStreaming", "SayStatus", "Advanced", "Update"]:
+	for section in ["General", "IntroOutroAlarms", "MicrophoneAlarm", "ColumnAnnouncement", "MetadataStreaming", "SayStatus", "Advanced", "Startup"]:
 		if section in profile:
 			return
 	# For now, manually convert.
