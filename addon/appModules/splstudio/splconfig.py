@@ -122,7 +122,8 @@ def runConfigErrorDialog(errorText, errorType):
 # 6.0: The below function resets a single profile. A sister function will reset all of them.
 # 7.0: This calls copy profile function with default dictionary as the source profile.
 def resetConfig(defaults, activeConfig):
-	copyProfile(defaults, activeConfig, complete=True)
+	# The only time everything should be copied is when resetting normal profile.
+	copyProfile(defaults, activeConfig, complete=activeConfig.filename == SPLIni)
 
 # Reset all profiles upon request.
 def resetAllConfig():
@@ -133,8 +134,7 @@ def resetAllConfig():
 		profile.filename = profilePath
 		# 7.0: Without writing the profile, we end up with inconsistency between profile cache and actual profile.
 		profile.write()
-		# 7.0: Copying all sections wastes memory and time when profiles other than normal profile are reset to defaults.
-		resetConfig(_SPLDefaults7 if profilePath == SPLIni else _SPLDefaultsProfiles7, profile)
+		resetConfig(_SPLDefaults7, profile)
 		# Convert certain settings to a different format.
 		profile["ColumnAnnouncement"]["IncludedColumns"] = set(_SPLDefaults7["ColumnAnnouncement"]["IncludedColumns"])
 	# Translators: A dialog message shown when settings were reset to defaults.
@@ -230,9 +230,7 @@ def unlockConfig(path, profileName=None, prefill=False):
 		if not configTest:
 			# Case 1: restore settings to defaults when 5.x config validation has failed on all values.
 			# 6.0: In case this is a user profile, apply base configuration.
-			# 7.0: Only apply profile-specific settings and save this profile to disk.
-			baseProfile = _SPLDefaults7 if prefill else _SPLDefaultsProfiles7
-			resetConfig(baseProfile, SPLConfigCheckpoint)
+			resetConfig(_SPLDefaults7, SPLConfigCheckpoint)
 			_configLoadStatus[profileName] = "completeReset"
 		elif isinstance(configTest, dict):
 			# Case 2: For 5.x and later, attempt to reconstruct the failed values.
