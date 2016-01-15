@@ -1,6 +1,6 @@
 # StationPlaylist Studio
 # An app module and global plugin package for NVDA
-# Copyright 2011, 2013-2015, Geoff Shang, Joseph Lee and others, released under GPL.
+# Copyright 2011, 2013-2016, Geoff Shang, Joseph Lee and others, released under GPL.
 # The primary function of this appModule is to provide meaningful feedback to users of SplStudio
 # by allowing speaking of items which cannot be easily found.
 # Version 0.01 - 7 April 2011:
@@ -326,6 +326,8 @@ class AppModule(appModuleHandler.AppModule):
 		# 6.1: Do not allow this thread to run forever (seen when evaluation times out and the app module starts).
 		self.noMoreHandle = threading.Event()
 		threading.Thread(target=self._locateSPLHwnd).start()
+				# Display startup dialogs if any.
+		wx.CallAfter(splconfig.showStartupDialogs)
 
 	# Locate the handle for main window for caching purposes.
 	def _locateSPLHwnd(self):
