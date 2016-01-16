@@ -28,6 +28,7 @@ from splmisc import SPLCountdownTimer
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
 SPLProfiles = os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "profiles")
 # Old (5.0) style config.
+# To be superseeded by confspec7 in 8.0.
 confspec = ConfigObj(StringIO("""
 BeepAnnounce = boolean(default=false)
 MessageVerbosity = option("beginner", "advanced", default="beginner")
@@ -53,7 +54,7 @@ SayPlayingCartName = boolean(default=true)
 SayPlayingTrackName = string(default="True")
 SPLConPassthrough = boolean(default=false)
 CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
-AutoUpdateCheck = boolean(default=true)
+AudioDuckingReminder = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
 # New (7.0) style config.
@@ -91,25 +92,28 @@ SPLConPassthrough = boolean(default=false)
 CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
 [Update]
 AutoUpdateCheck = boolean(default=true)
+[Startup]
+AudioDuckingReminder = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
 confspec7.newlines = "\r\n"
 SPLConfig = None
 # A pool of broadcast profiles.
 SPLConfigPool = []
-# Default config spec container.
-_SPLDefaults = ConfigObj(None, configspec = confspec, encoding="UTF-8")
-# And version 7 equivalent.
-_SPLDefaults7 = ConfigObj(None, configspec = confspec7, encoding="UTF-8")
-_val = Validator()
-_SPLDefaults.validate(_val, copy=True)
-_SPLDefaults7.validate(_val, copy=True)
-
 # The following settings can be changed in profiles:
 _mutatableSettings=("SayEndOfTrack","EndOfTrackTime","SaySongRamp","SongRampTime","MicAlarm","MicAlarmInterval","MetadataEnabled","UseScreenColumnOrder","ColumnOrder","IncludedColumns")
 _mutatableSettings7=("IntroOutroAlarms", "MicrophoneAlarm", "MetadataStreaming", "ColumnAnnouncement")
 # 7.0: Profile-specific confspec (might be removed once a more optimal way to validate sections is found).
 # Dictionary comprehension is better here.
 confspecprofiles = {sect:key for sect, key in confspec7.iteritems() if sect in _mutatableSettings7}
+
+# Default config spec container.
+# To be removed in add-on 8.0.
+_SPLDefaults = ConfigObj(None, configspec = confspec, encoding="UTF-8")
+# And version 7 equivalent.
+_SPLDefaults7 = ConfigObj(None, configspec = confspec7, encoding="UTF-8")
+_val = Validator()
+_SPLDefaults.validate(_val, copy=True)
+_SPLDefaults7.validate(_val, copy=True)
 
 # Display an error dialog when configuration validation fails.
 def runConfigErrorDialog(errorText, errorType):
@@ -118,16 +122,10 @@ def runConfigErrorDialog(errorText, errorType):
 # Reset settings to defaults.
 # This will be called when validation fails or when the user asks for it.
 # 6.0: The below function resets a single profile. A sister function will reset all of them.
-# 7.0: This will be split into several functions, with one of them being the master copy/settings transfer routine.
-def resetConfig(defaults, activeConfig, intentional=False):
-	for setting in activeConfig:
-		activeConfig[setting] = defaults[setting]
-	activeConfig.write()
-	if intentional:
-		# Translators: A dialog message shown when settings were reset to defaults.
-		wx.CallAfter(gui.messageBox, _("Successfully applied default add-on settings."),
-		# Translators: Title of the reset config dialog.
-		_("Reset configuration"), wx.OK|wx.ICON_INFORMATION)
+# 7.0: This calls copy profile function with default dictionary as the source profile.
+def resetConfig(defaults, activeConfig):
+	# The only time everything should be copied is when resetting normal profile.
+	copyProfile(defaults, activeConfig, complete=activeConfig.filename == SPLIni)
 
 # Reset all profiles upon request.
 def resetAllConfig():
@@ -136,8 +134,9 @@ def resetAllConfig():
 		profilePath = profile.filename
 		profile.reset()
 		profile.filename = profilePath
-		for setting in _SPLDefaults7:
-			profile[setting] = _SPLDefaults7[setting]
+		# 7.0: Without writing the profile, we end up with inconsistencies between profile cache and actual profile.
+		profile.write()
+		resetConfig(_SPLDefaults7, profile)
 		# Convert certain settings to a different format.
 		profile["ColumnAnnouncement"]["IncludedColumns"] = set(_SPLDefaults7["ColumnAnnouncement"]["IncludedColumns"])
 	# Translators: A dialog message shown when settings were reset to defaults.
@@ -220,7 +219,6 @@ def initConfig():
 
 # Unlock (load) profiles from files.
 def unlockConfig(path, profileName=None, prefill=False):
-	t = time.time()
 	global _configLoadStatus # To be mutated only during unlock routine.
 	# Optimization: Profiles other than normal profile contains profile-specific sections only.
 	# This speeds up profile loading routine significantly as there is no need to call a function to strip global settings.
@@ -234,8 +232,7 @@ def unlockConfig(path, profileName=None, prefill=False):
 		if not configTest:
 			# Case 1: restore settings to defaults when 5.x config validation has failed on all values.
 			# 6.0: In case this is a user profile, apply base configuration.
-			baseProfile = _SPLDefaults7 if prefill else SPLConfigPool[0]
-			resetConfig(baseProfile, SPLConfigCheckpoint)
+			resetConfig(_SPLDefaults7, SPLConfigCheckpoint)
 			_configLoadStatus[profileName] = "completeReset"
 		elif isinstance(configTest, dict):
 			# Case 2: For 5.x and later, attempt to reconstruct the failed values.
@@ -265,7 +262,6 @@ def unlockConfig(path, profileName=None, prefill=False):
 	# 7.0 optimization: Store an online backup.
 	# This online backup is used to prolong SSD life (no need to save a config if it is same as this copy).
 	_cacheConfig(SPLConfigCheckpoint)
-	print time.time()-t
 	return SPLConfigCheckpoint
 
 # Extra initialization steps such as converting value types.
@@ -304,7 +300,7 @@ _SPLCache = {}
 def _cacheConfig(conf):
 	global _SPLCache
 	if _SPLCache is None: _SPLCache = {}
-	key = None if conf.name == SPLActiveProfile else conf.name
+	key = None if conf.filename == SPLIni else conf.name
 	_SPLCache[key] = {}
 	# Optimization: For broadcast profiles, copy profile-specific keys only.
 	for setting in conf.keys():
@@ -331,12 +327,11 @@ def initProfileTriggers():
 	except IOError:
 		pass
 	# Cache profile triggers, used to compare the runtime dictionary against the cache.
-	profileTriggers2 = profileTriggers
+	profileTriggers2 = dict(profileTriggers)
 	triggerStart()
 
 # Locate time-based profiles if any.
 # A 3-tuple will be returned, containing the next trigger time (for time delta calculation), the profile name for this trigger time and whether an immediate switch is necessary.
-# For now, the third field will be ignored (always set to False).
 def nextTimedProfile(current=None):
 	if current is None: current = datetime.datetime.now()
 	# No need to proceed if no timed profiles are defined.
@@ -353,8 +348,6 @@ def nextTimedProfile(current=None):
 			if (current-triggerTime).seconds < entry[6]*60:
 				shouldBeSwitched = True
 		possibleTriggers.append((triggerTime, profile, shouldBeSwitched))
-	if len(possibleTriggers):
-		d = min(possibleTriggers)[0] - current
 	return min(possibleTriggers) if len(possibleTriggers) else None
 
 # Some helpers used in locating next air date/time.
@@ -401,7 +394,7 @@ def setNextTimedProfile(profile, bits, switchTime, date=None):
 # Find if another profile is occupying the specified time slot.
 def duplicateExists(map, profile, bits, hour, min, duration):
 	if len(map) == 0 or (len(map) == 1 and profile in map): return False
-	# Convdrt hours and minutes to an integer for faster comparison.
+	# Convert hours and minutes to an integer for faster comparison.
 	start1 = (hour*60) + min
 	end1 = start1+duration
 	# A possible duplicate may exist simply because of bits.
@@ -462,22 +455,26 @@ def getProfileIndexByName(name):
 def getProfileByName(name):
 	return SPLConfigPool[getProfileIndexByName(name)]
 
+# Copy settings across profiles.
+# Setting complete flag controls whether profile-specific settings are applied (true otherwise, only set when resetting profiles).
+def copyProfile(sourceProfile, targetProfile, complete=False):
+	for section in sourceProfile.keys() if complete else _mutatableSettings7:
+		targetProfile[section] = dict(sourceProfile[section])
+
 # Merge sections when switching profiles.
 # This is also employed by the routine which saves changes to a profile when user selects a different profile from add-on settings dialog.
 # Profiles refer to indecies.
 # Active refers to whether this is a runtime switch (false if saving profiles).
 def mergeSections(profile, active=True):
 	global SPLConfig, SPLConfigPool
-	for section in _mutatableSettings7:
-		SPLConfig[section] = dict(SPLConfigPool[profile][section])
+	copyProfile(SPLConfigPool[profile], SPLConfig)
 	if active: SPLConfig["ActiveIndex"] = profile
 
 # A reverse of the above.
 def applySections(profile, key=None):
 	global SPLConfig, SPLConfigPool
 	if key is None:
-		for section in _mutatableSettings7:
-			SPLConfigPool[profile][section] = dict(SPLConfig[section])
+		copyProfile(SPLConfig, SPLConfigPool[profile])
 	else:
 		# A slash (/) will denote section/key hierarchy.
 		tree, leaf = key.split("/")
@@ -2003,6 +2000,54 @@ class SPLAlarmDialog(wx.Dialog):
 		self.Destroy()
 		global _alarmDialogOpened
 		_alarmDialogOpened = False
+
+
+# Startup dialogs.
+
+# Audio ducking reminder (NVDA 2016.1 and later).
+class AudioDuckingReminder(wx.Dialog):
+	"""A dialog to remind users to turn off audio ducking (NVDA 2016.1 and later).
+	"""
+
+	def __init__(self, parent):
+		super(AudioDuckingReminder, self).__init__(parent, title=_("SPL Studio and audio ducking"))
+
+		mainSizer = wx.BoxSizer(wx.VERTICAL)
+
+		# Translators: A message displayed if audio ducking should be disabled.
+		label = wx.StaticText(self, wx.ID_ANY, label=_("NVDA 2016.1 and later allows NVDA to decrease volume of background audio including that of Studio. In order to not disrupt the listening experience of your listeners, please disable audio ducking by opening synthesizer dialog in NVDA and selecting 'no ducking' from audio ducking mode combo box or press NVDA+Shift+D."))
+		mainSizer.Add(label,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: A checkbox to turn off audio ducking reminder message.
+		self.audioDuckingReminder=wx.CheckBox(self,wx.NewId(),label=_("Do not show this message again"))
+		self.audioDuckingReminder.SetValue(not SPLConfig["Startup"]["AudioDuckingReminder"])
+		sizer.Add(self.audioDuckingReminder, border=10,flag=wx.TOP)
+		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+		mainSizer.Add(self.CreateButtonSizer(wx.OK))
+		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
+		mainSizer.Fit(self)
+		self.Sizer = mainSizer
+		self.audioDuckingReminder.SetFocus()
+		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+
+	def onOk(self, evt):
+		if self.audioDuckingReminder.Value:
+			SPLConfig["Startup"]["AudioDuckingReminder"] = not self.audioDuckingReminder.Value
+		self.Destroy()
+
+# And to open the above dialog and any other dialogs.
+def showStartupDialogs():
+	try:
+		import audioDucking
+		if SPLConfig["Startup"]["AudioDuckingReminder"] and audioDucking.isAudioDuckingSupported():
+			gui.mainFrame.prePopup()
+			AudioDuckingReminder(gui.mainFrame).Show()
+			gui.mainFrame.postPopup()
+	except ImportError:
+		pass
+
 
 # Message verbosity pool.
 # To be moved to its own module in add-on 7.0.
