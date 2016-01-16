@@ -348,7 +348,6 @@ def nextTimedProfile(current=None):
 			if (current-triggerTime).seconds < entry[6]*60:
 				shouldBeSwitched = True
 		possibleTriggers.append((triggerTime, profile, shouldBeSwitched))
-	if len(possibleTriggers):
 	return min(possibleTriggers) if len(possibleTriggers) else None
 
 # Some helpers used in locating next air date/time.
