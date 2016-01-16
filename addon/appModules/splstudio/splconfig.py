@@ -68,6 +68,7 @@ LibraryScanAnnounce = option("off", "ending", "progress", "numbers", default="of
 TrackDial = boolean(default=false)
 MetadataReminder = option("off", "startup", "instant", default="off")
 TimeHourAnnounce = boolean(default=false)
+ExploreColumns = string_list(default=list("Artist","Title","Duration","Intro","Category","Filename","Year","Album","Genre","Time Scheduled"))
 [IntroOutroAlarms]
 SayEndOfTrack = boolean(default=true)
 EndOfTrackTime = integer(min=1, max=59, default=5)

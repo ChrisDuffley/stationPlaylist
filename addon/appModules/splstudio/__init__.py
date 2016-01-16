@@ -1638,12 +1638,12 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_columnExplorer(self, gesture):
 		if gesture.displayName.isdigit():
+			columnPos = int(gesture.displayName)-1
 			focus = api.getFocusObject()
 			if not isinstance(focus, SPLTrackItem):
 				ui.message("Not a track")
 			else:
-				columns = ("Artist", "Title", "Duration", "Intro", "Category", "Filename", "Year", "Album", "Genre", "Time Scheduled")
-				focus.announceColumnContent(focus._indexOf(columns[int(gesture.displayName)-1]))
+				focus.announceColumnContent(focus._indexOf(splconfig.SPLConfig["General"]["ExploreColumns"][columnPos]))
 
 	def script_layerHelp(self, gesture):
 		compatibility = splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]
