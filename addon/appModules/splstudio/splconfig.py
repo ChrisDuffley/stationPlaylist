@@ -28,6 +28,7 @@ from splmisc import SPLCountdownTimer
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
 SPLProfiles = os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "profiles")
 # Old (5.0) style config.
+# To be superseeded by confspec7 in 8.0.
 confspec = ConfigObj(StringIO("""
 BeepAnnounce = boolean(default=false)
 MessageVerbosity = option("beginner", "advanced", default="beginner")
@@ -53,7 +54,6 @@ SayPlayingCartName = boolean(default=true)
 SayPlayingTrackName = string(default="True")
 SPLConPassthrough = boolean(default=false)
 CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
-AutoUpdateCheck = boolean(default=true)
 AudioDuckingReminder = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
@@ -107,14 +107,13 @@ _mutatableSettings7=("IntroOutroAlarms", "MicrophoneAlarm", "MetadataStreaming",
 confspecprofiles = {sect:key for sect, key in confspec7.iteritems() if sect in _mutatableSettings7}
 
 # Default config spec container.
+# To be removed in add-on 8.0.
 _SPLDefaults = ConfigObj(None, configspec = confspec, encoding="UTF-8")
 # And version 7 equivalent.
 _SPLDefaults7 = ConfigObj(None, configspec = confspec7, encoding="UTF-8")
 _val = Validator()
 _SPLDefaults.validate(_val, copy=True)
 _SPLDefaults7.validate(_val, copy=True)
-# 7.0: Just in case multiple broadcast profiles will need to be reset.
-_SPLDefaultsProfiles7 = {sect:key for sect, key in _SPLDefaults7.iteritems() if sect in _mutatableSettings7}
 
 # Display an error dialog when configuration validation fails.
 def runConfigErrorDialog(errorText, errorType):
@@ -135,7 +134,7 @@ def resetAllConfig():
 		profilePath = profile.filename
 		profile.reset()
 		profile.filename = profilePath
-		# 7.0: Without writing the profile, we end up with inconsistency between profile cache and actual profile.
+		# 7.0: Without writing the profile, we end up with inconsistencies between profile cache and actual profile.
 		profile.write()
 		resetConfig(_SPLDefaults7, profile)
 		# Convert certain settings to a different format.
@@ -333,7 +332,6 @@ def initProfileTriggers():
 
 # Locate time-based profiles if any.
 # A 3-tuple will be returned, containing the next trigger time (for time delta calculation), the profile name for this trigger time and whether an immediate switch is necessary.
-# For now, the third field will be ignored (always set to False).
 def nextTimedProfile(current=None):
 	if current is None: current = datetime.datetime.now()
 	# No need to proceed if no timed profiles are defined.
@@ -351,7 +349,6 @@ def nextTimedProfile(current=None):
 				shouldBeSwitched = True
 		possibleTriggers.append((triggerTime, profile, shouldBeSwitched))
 	if len(possibleTriggers):
-		d = min(possibleTriggers)[0] - current
 	return min(possibleTriggers) if len(possibleTriggers) else None
 
 # Some helpers used in locating next air date/time.
@@ -398,7 +395,7 @@ def setNextTimedProfile(profile, bits, switchTime, date=None):
 # Find if another profile is occupying the specified time slot.
 def duplicateExists(map, profile, bits, hour, min, duration):
 	if len(map) == 0 or (len(map) == 1 and profile in map): return False
-	# Convdrt hours and minutes to an integer for faster comparison.
+	# Convert hours and minutes to an integer for faster comparison.
 	start1 = (hour*60) + min
 	end1 = start1+duration
 	# A possible duplicate may exist simply because of bits.
