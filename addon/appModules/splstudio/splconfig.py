@@ -1004,6 +1004,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 		item = manageColumnsButton = wx.Button(self, label=_("&Manage track column announcements..."))
 		item.Bind(wx.EVT_BUTTON, self.onManageColumns)
 		settingsSizer.Add(item)
+		# Translators: The label of a button to configure columns explorer slots (SPL Assistant, number row keys to announce specific columns).
+		item = columnsExplorerButton = wx.Button(self, label=_("Columns E&xplorer..."))
+		item.Bind(wx.EVT_BUTTON, self.onColumnsExplorer)
+		self.exploreColumns = SPLConfig["General"]["ExploreColumns"]
+		settingsSizer.Add(item)
 
 		# Translators: the label for a setting in SPL add-on settings to announce scheduled time.
 		self.scheduledForCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce &scheduled time for the selected track"))
@@ -1094,6 +1099,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
 		SPLConfig["ColumnAnnouncement"]["ColumnOrder"] = self.columnOrder
 		SPLConfig["ColumnAnnouncement"]["IncludedColumns"] = self.includedColumns
+		SPLConfig["General"]["ExploreColumns"] = self.exploreColumns
 		SPLConfig["SayStatus"]["SayScheduledFor"] = self.scheduledForCheckbox.Value
 		SPLConfig["SayStatus"]["SayListenerCount"] = self.listenerCountCheckbox.Value
 		SPLConfig["SayStatus"]["SayPlayingCartName"] = self.cartNameCheckbox.Value
@@ -1343,6 +1349,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 	def onManageColumns(self, evt):
 		self.Disable()
 		ColumnAnnouncementsDialog(self).Show()
+
+	# Columns Explorer configuration.
+	def onColumnsExplorer(self, evt):
+		self.Disable()
+		ColumnsExplorerDialog(self).Show()
 
 	# Status announcement dialog.
 	def onStatusAnnouncement(self, evt):
@@ -1804,6 +1815,72 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 			# This will cause NVDA to say "unavailable" as focus is lost momentarily. A bit anoying but a necessary hack.
 			if self.FindFocus().GetId() == wx.ID_OK:
 				self.upButton.SetFocus()
+
+# Columns Explorer.
+# Configure which column will be announced when SPL Assistnat, number keys are pressed.
+class ColumnsExplorerDialog(wx.Dialog):
+
+	def __init__(self, parent):
+		super(ColumnsExplorerDialog, self).__init__(parent, title=_("Columns Explorer"))
+
+		# Gather column slots.
+		# 7.0: First six slots are reserved for Studio 5.0x columns.
+		self.columnSlots = []
+
+		mainSizer = wx.BoxSizer(wx.VERTICAL)
+
+		# 7.0: Studio 5.0x columns.
+		# 8.0: Remove the below code.
+		oldStudioColumns = ["Artist", "Title", "Duration", "Intro", "Category", "Filename"]
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		for slot in xrange(6):
+			# Translators: The label for a setting in SPL add-on dialog to select column for this column slot.
+			label = wx.StaticText(self, wx.ID_ANY, label=_("Slot {position}").format(position = slot+1))
+			columns = wx.Choice(self, wx.ID_ANY, choices=oldStudioColumns)
+			try:
+				columns.SetSelection(oldStudioColumns.index(parent.exploreColumns[slot]))
+			except:
+				pass
+			sizer.Add(label)
+			sizer.Add(columns)
+			self.columnSlots.append(columns)
+		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+		# For Studio 5.10 and later.
+		if SPLConfig["ColumnExpRange"] == (0, 10):
+			sizer = wx.BoxSizer(wx.HORIZONTAL)
+			for slot in xrange(6, 10):
+				label = wx.StaticText(self, wx.ID_ANY, label=_("Slot {position}").format(position = slot+1))
+				columns = wx.Choice(self, wx.ID_ANY, choices=_SPLDefaults7["ColumnAnnouncement"]["ColumnOrder"])
+				try:
+					columns.SetSelection(_SPLDefaults7["ColumnAnnouncement"]["ColumnOrder"].index(parent.exploreColumns[slot]))
+				except:
+					pass
+				sizer.Add(label)
+				sizer.Add(columns)
+				self.columnSlots.append(columns)
+			mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
+		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
+		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
+		mainSizer.Fit(self)
+		self.Sizer = mainSizer
+		self.columnSlots[0].SetFocus()
+		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+
+	def onOk(self, evt):
+		parent = self.Parent
+		for slot in xrange(len(self.columnSlots)):
+			parent.exploreColumns[slot] = self.columnSlots[slot].GetStringSelection()
+		parent.profiles.SetFocus()
+		parent.Enable()
+		self.Destroy()
+		return
+
+	def onCancel(self, evt):
+		self.Parent.Enable()
+		self.Destroy()
 
 # Say status dialog.
 # Houses options such as announcing cart names.
