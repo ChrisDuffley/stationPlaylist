@@ -801,24 +801,21 @@ class SPLConfigDialog(gui.SettingsDialog):
 		item = self.triggerButton = wx.Button(self, label=_("&Triggers..."))
 		item.Bind(wx.EVT_BUTTON, self.onTriggers)
 		sizer.Add(item)
-		# Translators: The label of a button to toggle instant profile switching on and off.
-		if SPLSwitchProfile is None: switchLabel = _("Enable instant profile switching")
-		else:
-			# Translators: The label of a button to toggle instant profile switching on and off.
-			switchLabel = _("Disable instant profile switching")
-		item = self.instantSwitchButton = wx.Button(self, label=switchLabel)
-		item.Bind(wx.EVT_BUTTON, self.onInstantSwitch)
+		# Translators: The label of a checkbox to toggle if selected profile is an instant switch profile.
+		self.instantSwitchCheckbox=wx.CheckBox(self,wx.NewId(),label=_("This is an instant switch profile"))
 		self.switchProfile = SPLSwitchProfile
 		self.activeProfile = SPLActiveProfile
 		# Used as sanity check in case switch profile is renamed or deleted.
 		self.switchProfileRenamed = False
 		self.switchProfileDeleted = False
-		sizer.Add(item)
+		self.instantSwitchCheckbox.SetValue(self.switchProfile == self.profiles.GetStringSelection().split(" <")[0])
+		self.instantSwitchCheckbox.Bind(wx.EVT_CHECKBOX, self.onInstantSwitch)
+		sizer.Add(self.instantSwitchCheckbox, border=10,flag=wx.BOTTOM)
 		if SPLConfig["ActiveIndex"] == 0:
 			self.renameButton.Disable()
 			self.deleteButton.Disable()
 			self.triggerButton.Disable()
-			self.instantSwitchButton.Disable()
+			self.instantSwitchCheckbox.Disable()
 		settingsSizer.Add(sizer)
 
 	# Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
@@ -1197,16 +1194,13 @@ class SPLConfigDialog(gui.SettingsDialog):
 			self.renameButton.Disable()
 			self.deleteButton.Disable()
 			self.triggerButton.Disable()
-			self.instantSwitchButton.Disable()
+			self.instantSwitchCheckbox.Disable()
 		else:
 			self.renameButton.Enable()
 			self.deleteButton.Enable()
 			self.triggerButton.Enable()
-			if selectedProfile != self.switchProfile:
-				self.instantSwitchButton.Label = _("Enable instant profile switching")
-			else:
-				self.instantSwitchButton.Label = _("Disable instant profile switching")
-			self.instantSwitchButton.Enable()
+			self.instantSwitchCheckbox.SetValue(self.switchProfile == selectedProfile)
+			self.instantSwitchCheckbox.Enable()
 		curProfile = getProfileByName(selectedProfile)
 		self.outroCheckBox.SetValue(curProfile["IntroOutroAlarms"]["SayEndOfTrack"])
 		self.endOfTrackAlarm.SetValue(long(curProfile["IntroOutroAlarms"]["EndOfTrackTime"]))
@@ -1314,30 +1308,33 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	def onInstantSwitch(self, evt):
 		selection = self.profiles.GetSelection()
-		selectedDisplayName = self.profiles.GetStringSelection()
-		state = selectedDisplayName.split(" <")
-		if len(state) > 1: normalizedStates = state[1][:-1].split(", ")
-		selectedName = state[0]
+		selectedName = self.profiles.GetStringSelection().split(" <")[0]
 		flag = _("instant switch")
-		if self.switchProfile is None or (selectedName != self.switchProfile):
-			self.instantSwitchButton.Label = _("Disable instant profile switching")
+		if self.instantSwitchCheckbox.Value:
+			if self.switchProfile is not None and (selectedName != self.switchProfile):
+				# Instant switch flag is set on another profile, so remove the flag first.
+				for entry in xrange(len(self.profiles.Items)):
+					if self.profiles.Items[entry].startswith(self.switchProfile):
+						self.setProfileFlags(entry, "discard", flag)
+						break
+			self.setProfileFlags(selection, "add", flag)
 			self.switchProfile = selectedName
-			# Add "instant switch" flag.
-			if len(state) == 1: 
-				selectedName = "{0} <{1}>".format(selectedName, flag)
-			else:
-				normalizedStates.append(flag)
-				selectedName = "{0} <{1}>".format(selectedName, ", ".join(normalizedStates))
-			self.profiles.SetString(selection, selectedName)
-			tones.beep(1000, 500)
+			tones.beep(1000, 50)
 		else:
-			self.instantSwitchButton.Label = _("Enable instant profile switching")
 			self.switchProfile = None
-			normalizedStates.remove(flag)
-			if len(normalizedStates):
-				selectedName = "{0} <{1}>".format(selectedName, ", ".join(normalizedStates))
-			self.profiles.SetString(selection, selectedName)
-			tones.beep(500, 500)
+			self.setProfileFlags(selection, "discard", flag)
+			tones.beep(500, 50)
+
+	# Handle flag modifications such as when toggling instant switch.
+	def setProfileFlags(self, index, action, flag):
+		normalizedStates = set()
+		profile = self.profiles.Items[index]
+		state = profile.split(" <")
+		# Force a union of normalized states and the "real" flags set if one or more flags were detected.
+		if len(state) > 1: normalizedStates | set(state[1][:-1].split(", "))
+		action = getattr(normalizedStates, action)
+		action(flag)
+		self.profiles.SetString(index, state[0] if not len(normalizedStates) else "{0} <{1}>".format(profile, ", ".join(normalizedStates)))
 
 	# Manage metadata streaming.
 	def onManageMetadata(self, evt):
