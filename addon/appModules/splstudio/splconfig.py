@@ -583,6 +583,7 @@ def saveConfig():
 	# Global flags, be gone.
 	if "Reset" in SPLConfigPool[0]:
 		del SPLConfigPool[0]["Reset"]
+	del SPLConfig["ColumnExpRange"]
 	# Convert keys back to 5.x format.
 	for section in SPLConfigPool[0].keys():
 		if isinstance(SPLConfigPool[0][section], dict):
@@ -1364,11 +1365,14 @@ class SPLConfigDialog(gui.SettingsDialog):
 		_("Warning"),wx.YES_NO|wx.NO_DEFAULT|wx.ICON_WARNING,self
 		)==wx.YES:
 			# Reset all profiles.
-			resetAllConfig()
+			# Save some flags from death.
 			global SPLConfig, SPLConfigPool, SPLActiveProfile, _configDialogOpened, SPLSwitchProfile, SPLPrevProfile
+			colRange = SPLConfig["ColumnExpRange"]
+			resetAllConfig()
 			SPLConfig = dict(_SPLDefaults7)
 			SPLConfig["ActiveIndex"] = 0
 			SPLActiveProfile = SPLConfigPool[0].name
+			SPLConfig["ColumnExpRange"] = colRange
 			# Workaround: store the reset flag in the normal profile to prevent config databases from becoming references to old generation.
 			SPLConfigPool[0]["Reset"] = True
 		if SPLSwitchProfile is not None:
