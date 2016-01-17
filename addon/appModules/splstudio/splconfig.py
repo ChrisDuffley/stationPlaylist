@@ -1304,7 +1304,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	def onTriggers(self, evt):
 		self.Disable()
-		TriggersDialog(self, self.profiles.GetStringSelection()).Show()
+		TriggersDialog(self, self.profiles.GetStringSelection().split(" <")[0]).Show()
 
 	def onInstantSwitch(self, evt):
 		selection = self.profiles.GetSelection()
@@ -1326,6 +1326,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 			tones.beep(500, 50)
 
 	# Handle flag modifications such as when toggling instant switch.
+	# 7.0: Provide a sister function that'll return profile flags set.
 	def setProfileFlags(self, index, action, flag):
 		normalizedStates = set()
 		profile = self.profiles.Items[index]
@@ -1483,12 +1484,10 @@ class NewProfileDialog(wx.Dialog):
 class TriggersDialog(wx.Dialog):
 
 	def __init__(self, parent, profile):
-		flagList = profile.split(" <")
-		self.profileFlags = set() if "<" not in profile else set(flagList[1][:-1].split(", "))
-		profile = flagList[0]
 		# Translators: The title of the broadcast profile triggers dialog.
 		super(TriggersDialog, self).__init__(parent, title=_("Profile triggers for {profileName}").format(profileName = profile))
 		self.profile = profile
+		self.selection = parent.profiles.GetSelection()
 		# When referencing profile triggers, use the dictionary stored in the main add-on settings.
 		# This is needed in order to discard changes when cancel button is clicked from the parent dialog.
 		if profile in self.Parent._profileTriggersConfig:
@@ -1559,11 +1558,7 @@ class TriggersDialog(wx.Dialog):
 			self.Parent._profileTriggersConfig[self.profile][6] = duration
 		elif bit == 0 and self.profile in self.Parent._profileTriggersConfig:
 			del self.Parent._profileTriggersConfig[self.profile]
-		self.profileFlags.add("time-based") if self.profile in self.Parent._profileTriggersConfig else self.profileFlags.discard("time-based")
-		if len(self.profileFlags):
-			flagText = "<{flags}>".format(flags = ", ".join(self.profileFlags))
-			self.profile = " ".join([self.profile, flagText])
-		self.Parent.profiles.SetString(self.Parent.profiles.GetSelection(), self.profile)
+		self.Parent.setProfileFlags(self.selection, "add" if self.profile in self.Parent._profileTriggersConfig else "discard", "time-based")
 		self.Parent.profiles.SetFocus()
 		self.Parent.Enable()
 		self.Destroy()
