@@ -486,18 +486,26 @@ def applySections(profile, key=None):
 				SPLConfigPool[profile][tree][leaf] = SPLConfig[tree][leaf]
 
 # Last but not least...
-def getProfileFlags(name):
-	flags = []
-	if name == SPLActiveProfile:
+# Module level version of get profile flags function.
+# Optional keyword arguments are to be added when called from dialogs such as add-on settings.
+# A crucial kwarg is contained, and if so, profile flags set will be returned.
+def getProfileFlags(name, active=None, instant=None, triggers=None, contained=False):
+	flags = set()
+	if active is None: active = SPLActiveProfile
+	if instant is None: instant = SPLSwitchProfile
+	if triggers is None: triggers = profileTriggers
+	if name == active:
 		# Translators: A flag indicating the currently active broadcast profile.
-		flags.append(_("active"))
-	if name == SPLSwitchProfile:
+		flags.add(_("active"))
+	if name == instant:
 		# Translators: A flag indicating the broadcast profile is an instant switch profile.
-		flags.append(_("instant switch"))
-	if name in profileTriggers:
+		flags.add(_("instant switch"))
+	if name in triggers:
 		# Translators: A flag indicating the time-based triggers profile.
-		flags.append(_("time-based"))
-	return name if len(flags) == 0 else "{0} <{1}>".format(name, ", ".join(flags))
+		flags.add(_("time-based"))
+	if not contained:
+		return name if len(flags) == 0 else "{0} <{1}>".format(name, ", ".join(flags))
+	else: return flags
 
 # Is the config pool itself sorted?
 # This check is performed when displaying broadcast profiles.
@@ -1304,19 +1312,18 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	def onTriggers(self, evt):
 		self.Disable()
-		TriggersDialog(self, self.profiles.GetStringSelection().split(" <")[0]).Show()
+		TriggersDialog(self, self.profileNames[self.profiles.Selection]).Show()
 
 	def onInstantSwitch(self, evt):
 		selection = self.profiles.GetSelection()
-		selectedName = self.profiles.GetStringSelection().split(" <")[0]
+		# More efficient to pull the name straight from the names pool.
+		selectedName = self.profileNames.index(selection)
 		flag = _("instant switch")
 		if self.instantSwitchCheckbox.Value:
 			if self.switchProfile is not None and (selectedName != self.switchProfile):
 				# Instant switch flag is set on another profile, so remove the flag first.
-				for entry in xrange(len(self.profiles.Items)):
-					if self.profiles.Items[entry].startswith(self.switchProfile):
-						self.setProfileFlags(entry, "discard", flag)
-						break
+				# No need to worry about index 0, as instant switch is valid for profiles other than normal profile.
+				self.setProfileFlags(self.profileNames.index(self.switchProfile), "discard", flag)
 			self.setProfileFlags(selection, "add", flag)
 			self.switchProfile = selectedName
 			tones.beep(1000, 50)
@@ -1325,17 +1332,20 @@ class SPLConfigDialog(gui.SettingsDialog):
 			self.setProfileFlags(selection, "discard", flag)
 			tones.beep(500, 50)
 
+	# Obtain profile flags for a given profile.
+	# This is a proxy to the module level profile flag retriever with custom strings/maps as arguments.
+	def getProfileFlags(self, name):
+		return getProfileFlags(name, active=self.activeProfile, instant=self.switchProfile, triggers=self._profileTriggersConfig, contained=True)
+
 	# Handle flag modifications such as when toggling instant switch.
-	# 7.0: Provide a sister function that'll return profile flags set.
-	def setProfileFlags(self, index, action, flag):
-		normalizedStates = set()
-		profile = self.profiles.Items[index]
-		state = profile.split(" <")
-		# Force a union of normalized states and the "real" flags set if one or more flags were detected.
-		if len(state) > 1: normalizedStates | set(state[1][:-1].split(", "))
-		action = getattr(normalizedStates, action)
+	# Unless given, flags will be queried.
+	# This is a sister function to profile flags retriever.
+	def setProfileFlags(self, index, action, flag, flags=None):
+		profile = self.profileNames[index]
+		if flags is None: flags = self.getProfileFlags(profile)
+		action = getattr(flags, action)
 		action(flag)
-		self.profiles.SetString(index, state[0] if not len(normalizedStates) else "{0} <{1}>".format(profile, ", ".join(normalizedStates)))
+		self.profiles.SetString(index, profile if not len(flags) else "{0} <{1}>".format(profile, ", ".join(flags)))
 
 	# Manage metadata streaming.
 	def onManageMetadata(self, evt):
@@ -1544,23 +1554,30 @@ class TriggersDialog(wx.Dialog):
 
 	def onOk(self, evt):
 		global SPLTriggerProfile, triggerTimer
+		parent = self.Parent
 		bit = 0
 		for day in self.triggerDays:
 			if day.Value: bit+=64 >> self.triggerDays.index(day)
 		if bit:
 			hour, min = self.hourEntry.GetValue(), self.minEntry.GetValue()
 			duration = self.durationEntry.GetValue()
-			if duplicateExists(self.Parent._profileTriggersConfig, self.profile, bit, hour, min, duration):
+			if duplicateExists(parent._profileTriggersConfig, self.profile, bit, hour, min, duration):
 				gui.messageBox(_("A profile trigger already exists for the entered time slot. Please choose a different date or time."),
 					_("Error"), wx.OK | wx.ICON_ERROR, self)
 				return
-			self.Parent._profileTriggersConfig[self.profile] = setNextTimedProfile(self.profile, bit, datetime.time(hour, min))
-			self.Parent._profileTriggersConfig[self.profile][6] = duration
+			# Change display name if there is no profile of this name registered.
+			# This helps in preventing unnecessary calls to profile flags retriever, a huge time and memory savings.
+			# Otherwise trigger flag will be added each time this is called (either this handler or the add-on settings' flags retriever must retrieve the flags set).
+			if not self.profile in parent._profileTriggersConfig:
+				parent.setProfileFlags(self.selection, "add", "time-based")
+			parent._profileTriggersConfig[self.profile] = setNextTimedProfile(self.profile, bit, datetime.time(hour, min))
+			parent._profileTriggersConfig[self.profile][6] = duration
 		elif bit == 0 and self.profile in self.Parent._profileTriggersConfig:
-			del self.Parent._profileTriggersConfig[self.profile]
-		self.Parent.setProfileFlags(self.selection, "add" if self.profile in self.Parent._profileTriggersConfig else "discard", "time-based")
-		self.Parent.profiles.SetFocus()
-		self.Parent.Enable()
+			del parent._profileTriggersConfig[self.profile]
+			# Calling set profile flags with discard argument is always safe here.
+			parent.setProfileFlags(self.selection, "discard", "time-based")
+		parent.profiles.SetFocus()
+		parent.Enable()
 		self.Destroy()
 		return
 
