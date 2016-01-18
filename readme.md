@@ -78,7 +78,7 @@ The available commands are:
 * C (JAWS and Window-Eyes layouts): Toggle cart explorer.
 * D (R in JAWS layout): Remaining duration for the playlist.
 * E (G in Window-Eyes layout): Metadata streaming status.
-* 1 through 4, 0: Status for individual metadata streaming URL's (0 is for DSP encoder).
+* Shift+1 through Shift+4, Shift+0: Status for individual metadata streaming URL's (0 is for DSP encoder).
 * E (Window-Eyes layout): Elapsed time for the currently playing track.
 * H: Duration of music for the current hour slot.
 * Shift+H: Remaining track duration for the hour slot.
