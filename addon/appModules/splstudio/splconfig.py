@@ -326,7 +326,7 @@ def initProfileTriggers():
 	try:
 		profileTriggers = cPickle.load(file(SPLTriggersFile, "r"))
 	except IOError:
-		pass
+		profileTriggers = {}
 	# Cache profile triggers, used to compare the runtime dictionary against the cache.
 	profileTriggers2 = dict(profileTriggers)
 	triggerStart()
