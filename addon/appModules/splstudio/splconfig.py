@@ -66,6 +66,7 @@ BrailleTimer = option("off", "intro", "outro", "both", default="off")
 AlarmAnnounce = option("beep", "message", "both", default="beep")
 LibraryScanAnnounce = option("off", "ending", "progress", "numbers", default="off")
 TrackDial = boolean(default=false)
+CategorySounds = boolean(default=false)
 MetadataReminder = option("off", "startup", "instant", default="off")
 TimeHourAnnounce = boolean(default=false)
 ExploreColumns = string_list(default=list("Artist","Title","Duration","Intro","Category","Filename","Year","Album","Genre","Time Scheduled"))
@@ -326,7 +327,7 @@ def initProfileTriggers():
 	try:
 		profileTriggers = cPickle.load(file(SPLTriggersFile, "r"))
 	except IOError:
-		pass
+		profileTriggers = {}
 	# Cache profile triggers, used to compare the runtime dictionary against the cache.
 	profileTriggers2 = dict(profileTriggers)
 	triggerStart()
@@ -486,18 +487,26 @@ def applySections(profile, key=None):
 				SPLConfigPool[profile][tree][leaf] = SPLConfig[tree][leaf]
 
 # Last but not least...
-def getProfileFlags(name):
-	flags = []
-	if name == SPLActiveProfile:
+# Module level version of get profile flags function.
+# Optional keyword arguments are to be added when called from dialogs such as add-on settings.
+# A crucial kwarg is contained, and if so, profile flags set will be returned.
+def getProfileFlags(name, active=None, instant=None, triggers=None, contained=False):
+	flags = set()
+	if active is None: active = SPLActiveProfile
+	if instant is None: instant = SPLSwitchProfile
+	if triggers is None: triggers = profileTriggers
+	if name == active:
 		# Translators: A flag indicating the currently active broadcast profile.
-		flags.append(_("active"))
-	if name == SPLSwitchProfile:
+		flags.add(_("active"))
+	if name == instant:
 		# Translators: A flag indicating the broadcast profile is an instant switch profile.
-		flags.append(_("instant switch"))
-	if name in profileTriggers:
+		flags.add(_("instant switch"))
+	if name in triggers:
 		# Translators: A flag indicating the time-based triggers profile.
-		flags.append(_("time-based"))
-	return name if len(flags) == 0 else "{0} <{1}>".format(name, ", ".join(flags))
+		flags.add(_("time-based"))
+	if not contained:
+		return name if len(flags) == 0 else "{0} <{1}>".format(name, ", ".join(flags))
+	else: return flags
 
 # Is the config pool itself sorted?
 # This check is performed when displaying broadcast profiles.
@@ -802,24 +811,21 @@ class SPLConfigDialog(gui.SettingsDialog):
 		item = self.triggerButton = wx.Button(self, label=_("&Triggers..."))
 		item.Bind(wx.EVT_BUTTON, self.onTriggers)
 		sizer.Add(item)
-		# Translators: The label of a button to toggle instant profile switching on and off.
-		if SPLSwitchProfile is None: switchLabel = _("Enable instant profile switching")
-		else:
-			# Translators: The label of a button to toggle instant profile switching on and off.
-			switchLabel = _("Disable instant profile switching")
-		item = self.instantSwitchButton = wx.Button(self, label=switchLabel)
-		item.Bind(wx.EVT_BUTTON, self.onInstantSwitch)
+		# Translators: The label of a checkbox to toggle if selected profile is an instant switch profile.
+		self.instantSwitchCheckbox=wx.CheckBox(self,wx.NewId(),label=_("This is an instant switch profile"))
 		self.switchProfile = SPLSwitchProfile
 		self.activeProfile = SPLActiveProfile
 		# Used as sanity check in case switch profile is renamed or deleted.
 		self.switchProfileRenamed = False
 		self.switchProfileDeleted = False
-		sizer.Add(item)
+		self.instantSwitchCheckbox.SetValue(self.switchProfile == self.profiles.GetStringSelection().split(" <")[0])
+		self.instantSwitchCheckbox.Bind(wx.EVT_CHECKBOX, self.onInstantSwitch)
+		sizer.Add(self.instantSwitchCheckbox, border=10,flag=wx.BOTTOM)
 		if SPLConfig["ActiveIndex"] == 0:
 			self.renameButton.Disable()
 			self.deleteButton.Disable()
 			self.triggerButton.Disable()
-			self.instantSwitchButton.Disable()
+			self.instantSwitchCheckbox.Disable()
 		settingsSizer.Add(sizer)
 
 	# Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
@@ -969,6 +975,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.trackDialCheckbox.SetValue(SPLConfig["General"]["TrackDial"])
 		settingsSizer.Add(self.trackDialCheckbox, border=10,flag=wx.BOTTOM)
 
+		# Translators: the label for a setting in SPL add-on settings to toggle category sound announcement.
+		self.categorySoundsCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Beep for different track categories"))
+		self.categorySoundsCheckbox.SetValue(SPLConfig["General"]["CategorySounds"])
+		settingsSizer.Add(self.categorySoundsCheckbox, border=10,flag=wx.BOTTOM)
+
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: the label for a setting in SPL add-on settings to be notified that metadata streaming is enabled.
 		label = wx.StaticText(self, wx.ID_ANY, label=_("&Metadata streaming notification and connection"))
@@ -1094,6 +1105,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfig["General"]["LibraryScanAnnounce"] = self.libScanValues[self.libScanList.GetSelection()][0]
 		SPLConfig["General"]["TimeHourAnnounce"] = self.hourAnnounceCheckbox.Value
 		SPLConfig["General"]["TrackDial"] = self.trackDialCheckbox.Value
+		SPLConfig["General"]["CategorySounds"] = self.categorySoundsCheckbox.Value
 		SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
 		SPLConfig["MetadataStreaming"]["MetadataEnabled"] = self.metadataStreams
 		SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
@@ -1198,16 +1210,13 @@ class SPLConfigDialog(gui.SettingsDialog):
 			self.renameButton.Disable()
 			self.deleteButton.Disable()
 			self.triggerButton.Disable()
-			self.instantSwitchButton.Disable()
+			self.instantSwitchCheckbox.Disable()
 		else:
 			self.renameButton.Enable()
 			self.deleteButton.Enable()
 			self.triggerButton.Enable()
-			if selectedProfile != self.switchProfile:
-				self.instantSwitchButton.Label = _("Enable instant profile switching")
-			else:
-				self.instantSwitchButton.Label = _("Disable instant profile switching")
-			self.instantSwitchButton.Enable()
+			self.instantSwitchCheckbox.SetValue(self.switchProfile == selectedProfile)
+			self.instantSwitchCheckbox.Enable()
 		curProfile = getProfileByName(selectedProfile)
 		self.outroCheckBox.SetValue(curProfile["IntroOutroAlarms"]["SayEndOfTrack"])
 		self.endOfTrackAlarm.SetValue(long(curProfile["IntroOutroAlarms"]["EndOfTrackTime"]))
@@ -1311,34 +1320,40 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	def onTriggers(self, evt):
 		self.Disable()
-		TriggersDialog(self, self.profiles.GetStringSelection()).Show()
+		TriggersDialog(self, self.profileNames[self.profiles.Selection]).Show()
 
 	def onInstantSwitch(self, evt):
 		selection = self.profiles.GetSelection()
-		selectedDisplayName = self.profiles.GetStringSelection()
-		state = selectedDisplayName.split(" <")
-		if len(state) > 1: normalizedStates = state[1][:-1].split(", ")
-		selectedName = state[0]
+		# More efficient to pull the name straight from the names pool.
+		selectedName = self.profileNames.index(selection)
 		flag = _("instant switch")
-		if self.switchProfile is None or (selectedName != self.switchProfile):
-			self.instantSwitchButton.Label = _("Disable instant profile switching")
+		if self.instantSwitchCheckbox.Value:
+			if self.switchProfile is not None and (selectedName != self.switchProfile):
+				# Instant switch flag is set on another profile, so remove the flag first.
+				# No need to worry about index 0, as instant switch is valid for profiles other than normal profile.
+				self.setProfileFlags(self.profileNames.index(self.switchProfile), "discard", flag)
+			self.setProfileFlags(selection, "add", flag)
 			self.switchProfile = selectedName
-			# Add "instant switch" flag.
-			if len(state) == 1: 
-				selectedName = "{0} <{1}>".format(selectedName, flag)
-			else:
-				normalizedStates.append(flag)
-				selectedName = "{0} <{1}>".format(selectedName, ", ".join(normalizedStates))
-			self.profiles.SetString(selection, selectedName)
-			tones.beep(1000, 500)
+			tones.beep(1000, 50)
 		else:
-			self.instantSwitchButton.Label = _("Enable instant profile switching")
 			self.switchProfile = None
-			normalizedStates.remove(flag)
-			if len(normalizedStates):
-				selectedName = "{0} <{1}>".format(selectedName, ", ".join(normalizedStates))
-			self.profiles.SetString(selection, selectedName)
-			tones.beep(500, 500)
+			self.setProfileFlags(selection, "discard", flag)
+			tones.beep(500, 50)
+
+	# Obtain profile flags for a given profile.
+	# This is a proxy to the module level profile flag retriever with custom strings/maps as arguments.
+	def getProfileFlags(self, name):
+		return getProfileFlags(name, active=self.activeProfile, instant=self.switchProfile, triggers=self._profileTriggersConfig, contained=True)
+
+	# Handle flag modifications such as when toggling instant switch.
+	# Unless given, flags will be queried.
+	# This is a sister function to profile flags retriever.
+	def setProfileFlags(self, index, action, flag, flags=None):
+		profile = self.profileNames[index]
+		if flags is None: flags = self.getProfileFlags(profile)
+		action = getattr(flags, action)
+		action(flag)
+		self.profiles.SetString(index, profile if not len(flags) else "{0} <{1}>".format(profile, ", ".join(flags)))
 
 	# Manage metadata streaming.
 	def onManageMetadata(self, evt):
@@ -1495,12 +1510,10 @@ class NewProfileDialog(wx.Dialog):
 class TriggersDialog(wx.Dialog):
 
 	def __init__(self, parent, profile):
-		flagList = profile.split(" <")
-		self.profileFlags = set() if "<" not in profile else set(flagList[1][:-1].split(", "))
-		profile = flagList[0]
 		# Translators: The title of the broadcast profile triggers dialog.
 		super(TriggersDialog, self).__init__(parent, title=_("Profile triggers for {profileName}").format(profileName = profile))
 		self.profile = profile
+		self.selection = parent.profiles.GetSelection()
 		# When referencing profile triggers, use the dictionary stored in the main add-on settings.
 		# This is needed in order to discard changes when cancel button is clicked from the parent dialog.
 		if profile in self.Parent._profileTriggersConfig:
@@ -1557,27 +1570,30 @@ class TriggersDialog(wx.Dialog):
 
 	def onOk(self, evt):
 		global SPLTriggerProfile, triggerTimer
+		parent = self.Parent
 		bit = 0
 		for day in self.triggerDays:
 			if day.Value: bit+=64 >> self.triggerDays.index(day)
 		if bit:
 			hour, min = self.hourEntry.GetValue(), self.minEntry.GetValue()
 			duration = self.durationEntry.GetValue()
-			if duplicateExists(self.Parent._profileTriggersConfig, self.profile, bit, hour, min, duration):
+			if duplicateExists(parent._profileTriggersConfig, self.profile, bit, hour, min, duration):
 				gui.messageBox(_("A profile trigger already exists for the entered time slot. Please choose a different date or time."),
 					_("Error"), wx.OK | wx.ICON_ERROR, self)
 				return
-			self.Parent._profileTriggersConfig[self.profile] = setNextTimedProfile(self.profile, bit, datetime.time(hour, min))
-			self.Parent._profileTriggersConfig[self.profile][6] = duration
+			# Change display name if there is no profile of this name registered.
+			# This helps in preventing unnecessary calls to profile flags retriever, a huge time and memory savings.
+			# Otherwise trigger flag will be added each time this is called (either this handler or the add-on settings' flags retriever must retrieve the flags set).
+			if not self.profile in parent._profileTriggersConfig:
+				parent.setProfileFlags(self.selection, "add", "time-based")
+			parent._profileTriggersConfig[self.profile] = setNextTimedProfile(self.profile, bit, datetime.time(hour, min))
+			parent._profileTriggersConfig[self.profile][6] = duration
 		elif bit == 0 and self.profile in self.Parent._profileTriggersConfig:
-			del self.Parent._profileTriggersConfig[self.profile]
-		self.profileFlags.add("time-based") if self.profile in self.Parent._profileTriggersConfig else self.profileFlags.discard("time-based")
-		if len(self.profileFlags):
-			flagText = "<{flags}>".format(flags = ", ".join(self.profileFlags))
-			self.profile = " ".join([self.profile, flagText])
-		self.Parent.profiles.SetString(self.Parent.profiles.GetSelection(), self.profile)
-		self.Parent.profiles.SetFocus()
-		self.Parent.Enable()
+			del parent._profileTriggersConfig[self.profile]
+			# Calling set profile flags with discard argument is always safe here.
+			parent.setProfileFlags(self.selection, "discard", "time-based")
+		parent.profiles.SetFocus()
+		parent.Enable()
 		self.Destroy()
 		return
 
