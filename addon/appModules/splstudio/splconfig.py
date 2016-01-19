@@ -779,7 +779,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.profiles = wx.Choice(self, wx.ID_ANY, choices=self.displayProfiles(sortedProfiles))
 		self.profiles.Bind(wx.EVT_CHOICE, self.onProfileSelection)
 		try:
-			self.profiles.SetSelection(SPLConfig["ActiveIndex"])
+			self.profiles.SetSelection(self.profileNames.index(SPLActiveProfile))
 		except:
 			pass
 		sizer.Add(label)
