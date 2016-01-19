@@ -1837,6 +1837,7 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 class ColumnsExplorerDialog(wx.Dialog):
 
 	def __init__(self, parent):
+		# Translators: The title of Columns Explorer configuration dialog.
 		super(ColumnsExplorerDialog, self).__init__(parent, title=_("Columns Explorer"))
 
 		# Gather column slots.

@@ -295,6 +295,7 @@ T: Cart edit mode.
 U: Studio up time.
 W: Weather and temperature.
 Y: Playlist modification.
+1 through 0 (6 for Studio 5.01 and earlier): Announce columns via Columns Explorer (0 is tenth column slot).
 F9: Mark current track as start of track time analysis.
 F10: Perform track time analysis.
 F12: Switch to an instant switch profile.
@@ -326,6 +327,7 @@ T: Cart edit mode.
 U: Studio up time.
 W: Weather and temperature.
 Y: Playlist modification.
+1 through 0 (6 for Studio 5.01 and earlier): Announce columns via Columns Explorer (0 is tenth column slot).
 F9: Mark current track as start of track time analysis.
 F10: Perform track time analysis.
 F12: Switch to an instant switch profile.
@@ -359,6 +361,7 @@ T: Cart edit mode.
 U: Studio up time.
 W: Weather and temperature.
 Y: Playlist modification.
+1 through 0 (6 for Studio 5.01 and earlier): Announce columns via Columns Explorer (0 is tenth column slot).
 F9: Mark current track as start of track time analysis.
 F10: Perform track time analysis.
 F12: Switch to an instant switch profile.
@@ -1652,7 +1655,8 @@ class AppModule(appModuleHandler.AppModule):
 			columnPos = int(gesture.displayName)-1
 			focus = api.getFocusObject()
 			if not isinstance(focus, SPLTrackItem):
-				ui.message("Not a track")
+				# Translators: Presented when attempting to announce specific columns but the focused item isn't a track.
+				ui.message(_("Not a track"))
 			else:
 				focus.announceColumnContent(focus._indexOf(splconfig.SPLConfig["General"]["ExploreColumns"][columnPos]))
 

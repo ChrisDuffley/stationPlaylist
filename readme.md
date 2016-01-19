@@ -150,6 +150,10 @@ You can use arrow keys to review various information about a track. To turn Trac
 
 To obtain length to play selected tracks, mark current track for start of track time analysis (SPL Assistant, F9), then press SPL Assistant, F10 when reaching end of selection.
 
+## Columns Explorer
+
+By pressing SPL Assistant, 1 through 0 (6 for Studio 5.01 and earlier), you can obtain contents of specific columns. By default, these are artist, title, duration, intro, category and filename (Studio 5.10 adds year, album, genre and time scheduled). You can configure which columns will be explored via columns explorer dialog found in add-on settings dialog.
+
 ## Configuration dialog
 
 From studio window, you can press Control+NVDA+0 to open the add-on configuration dialog. Alternatively, go to NVDA's preferences menu and select SPL Studio Settings item. This dialog is also used to manage broadcast profiles.
