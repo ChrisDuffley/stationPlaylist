@@ -1158,12 +1158,17 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self._profileTriggersConfig.clear()
 		self._profileTriggersConfig = None
 		triggerStart(restart=True)
-		SPLActiveProfile = self.activeProfile
 		if self.switchProfileRenamed or self.switchProfileDeleted:
 			SPLSwitchProfile = self.switchProfile
 		if self.switchProfileDeleted:
-			# Return to normal profile by merging the first profile in the config pool.
-			mergeSections(0)
+			# 6.3: Make sure to set active profile to normal profile if and only if the previously active profile is gone.
+			try:
+				prevActive = getProfileIndexByName(self.activeProfile)
+			except ValueError:
+				prevActive = 0
+			SPLActiveProfile = SPLConfigPool[prevActive].name
+			# 7.0: Merge just obtained profile index.
+			mergeSections(prevActive)
 		_configDialogOpened = False
 		super(SPLConfigDialog,  self).onCancel(evt)
 
@@ -1280,7 +1285,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 			return
 		oldNamePath = oldName + ".ini"
 		oldProfile = os.path.join(SPLProfiles, oldNamePath)
-		os.rename(oldProfile, newProfile)
+		try:
+			os.rename(oldProfile, newProfile)
+		except WindowsError:
+			pass
 		if self.switchProfile == oldName:
 			self.switchProfile = newName
 			self.switchProfileRenamed = True
@@ -1323,9 +1331,12 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.profiles.Delete(index)
 		del self.profileNames[profilePos]
 		del _SPLCache[name]
-		self.profiles.SetString(0, getProfileFlags(SPLConfigPool[0].name))
-		self.activeProfile = SPLConfigPool[0].name
-		self.profiles.Selection = 0
+		# 6.3: Select normal profile if the active profile is gone.
+		try:
+			self.profiles.Selection = self.profiles.Items.index(self.activeProfile)
+		except ValueError:
+			self.activeProfile = SPLConfigPool[0].name
+			self.profiles.Selection = 0
 		self.onProfileSelection(None)
 		self.profiles.SetFocus()
 
