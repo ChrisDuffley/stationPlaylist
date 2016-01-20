@@ -772,7 +772,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.columnOrder = curProfile["ColumnOrder"]
 		# 6.1: Again convert list to set.
 		self.includedColumns = set(curProfile["IncludedColumns"])
-		print self.metadataStreams
 
 	# Profile controls.
 	# Rename and delete events come from GUI/config profiles dialog from NVDA core.
@@ -807,7 +806,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 			return
 		oldNamePath = oldName + ".ini"
 		oldProfile = os.path.join(SPLProfiles, oldNamePath)
-		os.rename(oldProfile, newProfile)
+		try:
+			os.rename(oldProfile, newProfile)
+		except WindowsError:
+			pass
 		if self.switchProfile == oldName:
 			self.switchProfile = newName
 			self.switchProfileRenamed = True
@@ -843,7 +845,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 			SPLPrevProfile = None
 			self.switchProfileDeleted = True
 		self.profiles.Delete(index)
-		self.profiles.SetString(0, SPLConfigPool[0].name)
 		# 6.3: Select normal profile if the active profile is gone.
 		try:
 			self.profiles.Selection = self.profiles.Items.index(self.activeProfile)
