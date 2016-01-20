@@ -754,6 +754,14 @@ def updateInit():
 	splupdate._SPLUpdateT.Start(interval * 1000, True)
 
 
+# Let SPL track item know if it needs to build descriptoin pieces.
+# To be renamed and used in other places in 7.0.
+def _shouldBuildDescriptionPieces():
+	return (not SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"]
+	and (SPLConfig["ColumnAnnouncement"]["ColumnOrder"] != _SPLDefaults["ColumnOrder"]
+	or len(SPLConfig["ColumnAnnouncement"]["IncludedColumns"]) != 17))
+
+
 # Configuration dialog.
 _configDialogOpened = False
 
