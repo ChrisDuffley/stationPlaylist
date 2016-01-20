@@ -704,11 +704,16 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# 6.1: Discard changes to included columns set.
 		self.includedColumns.clear()
 		self.includedColumns = None
-		SPLActiveProfile = self.activeProfile
 		if self.switchProfileRenamed or self.switchProfileDeleted:
 			SPLSwitchProfile = self.switchProfile
 		if self.switchProfileDeleted:
-			SPLConfig = SPLConfigPool[0]
+			# 6.3: Make sure to set active profile to normal profile if and only if the previously active profile is gone.
+			try:
+				prevActive = getProfileIndexByName(self.activeProfile)
+			except ValueError:
+				prevActive = 0
+			SPLActiveProfile = SPLConfigPool[prevActive].name
+			SPLConfig = SPLConfigPool[prevActive]
 		_configDialogOpened = False
 		#super(SPLConfigDialog,  self).onCancel(evt)
 		self.Destroy()
@@ -839,8 +844,12 @@ class SPLConfigDialog(gui.SettingsDialog):
 			self.switchProfileDeleted = True
 		self.profiles.Delete(index)
 		self.profiles.SetString(0, SPLConfigPool[0].name)
-		self.activeProfile = SPLConfigPool[0].name
-		self.profiles.Selection = 0
+		# 6.3: Select normal profile if the active profile is gone.
+		try:
+			self.profiles.Selection = self.profiles.Items.index(self.activeProfile)
+		except ValueError:
+			self.activeProfile = SPLConfigPool[0].name
+			self.profiles.Selection = 0
 		self.onProfileSelection(None)
 		self.profiles.SetFocus()
 
