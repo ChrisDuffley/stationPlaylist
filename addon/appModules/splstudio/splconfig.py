@@ -341,6 +341,14 @@ def _propagateChanges(key=None):
 		else:
 			for setting in globalSettings: SPLConfigPool[profile][setting] = SPLConfig[setting]
 
+# Let SPL track item know if it needs to build descriptoin pieces.
+# To be renamed and used in other places in 7.0.
+def _shouldBuildDescriptionPieces():
+	return (not SPLConfig["UseScreenColumnOrder"]
+	and (SPLConfig["ColumnOrder"] != _SPLDefaults["ColumnOrder"]
+	or len(SPLConfig["IncludedColumns"]) != 17))
+
+
 # Configuration dialog.
 _configDialogOpened = False
 

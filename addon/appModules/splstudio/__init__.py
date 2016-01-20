@@ -127,8 +127,8 @@ class SPLTrackItem(IAccessible):
 			return None
 
 	def reportFocus(self):
-		#tones.beep(800, 100)
-		if not splconfig.SPLConfig["UseScreenColumnOrder"]:
+		# 6.3: Catch an unusual case where screen order is off yet column order is same as screen order and NvDA is told to announce all columns.
+		if splconfig._shouldBuildDescriptionPieces():
 			descriptionPieces = []
 			for header in splconfig.SPLConfig["ColumnOrder"]:
 				# Artist field should not be included in Studio 5.0x, as the checkbox serves this role.
