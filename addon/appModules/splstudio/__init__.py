@@ -136,7 +136,8 @@ class SPLTrackItem(IAccessible):
 			category = self._getColumnContent(self._indexOf("Category"))
 			if category in _SPLCategoryTones:
 				tones.beep(_SPLCategoryTones[category], 50)
-		if not splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"]:
+		# 6.3: Catch an unusual case where screen order is off yet column order is same as screen order and NvDA is told to announce all columns.
+		if splconfig._shouldBuildDescriptionPieces():
 			descriptionPieces = []
 			for header in splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"]:
 				# Artist field should not be included in Studio 5.0x, as the checkbox serves this role.

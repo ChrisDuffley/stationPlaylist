@@ -57,8 +57,8 @@ _conversionConfig = {
 	"EndOfTrackTime":"IntroOutroAlarms",
 	"SaySongRamp":"IntroOutroAlarms",
 	"SongRampTime":"IntroOutroAlarms",
-	"MicAlarm":"MicAlarm",
-	"MicAlarmInterval":"MicAlarm",
+	"MicAlarm":"MicrophoneAlarm",
+	"MicAlarmInterval":"MicrophoneAlarm",
 	"MetadataReminder":"General",
 	"MetadataEnabled":"MetadataStreaming",
 	"UseScreenColumnOrder":"ColumnAnnouncement",
@@ -87,6 +87,7 @@ def config6to7(path):
 			section = _conversionConfig[setting]
 			if section not in profile:
 				profile[section] = {}
+				profile[section][setting] = profile[setting]
 			else:
 				try:
 					profile[section][setting] = profile[setting]

@@ -92,6 +92,7 @@ SayPlayingTrackName = string(default="True")
 [Advanced]
 SPLConPassthrough = boolean(default=false)
 CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
+ProfileTriggerThreshold = integer(min=5, max=60, default=15)
 [Update]
 AutoUpdateCheck = boolean(default=true)
 [Startup]
@@ -430,7 +431,7 @@ def triggerStart(restart=False):
 			switchAfter = (queuedProfile[0] - datetime.datetime.now())
 			if switchAfter.days == 0 and switchAfter.seconds <= 3600:
 				time.sleep((switchAfter.microseconds+1000) / 1000000.0)
-				triggerTimer = SPLCountdownTimer(switchAfter.seconds, triggerProfileSwitch, 15)
+				triggerTimer = SPLCountdownTimer(switchAfter.seconds, triggerProfileSwitch, SPLConfig["Advanced"]["ProfileTriggerThreshold"])
 				triggerTimer.Start()
 
 # Dump profile triggers pickle away.
@@ -755,6 +756,14 @@ def updateInit():
 	splupdate._SPLUpdateT.Start(interval * 1000, True)
 
 
+# Let SPL track item know if it needs to build descriptoin pieces.
+# To be renamed and used in other places in 7.0.
+def _shouldBuildDescriptionPieces():
+	return (not SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"]
+	and (SPLConfig["ColumnAnnouncement"]["ColumnOrder"] != _SPLDefaults["ColumnOrder"]
+	or len(SPLConfig["ColumnAnnouncement"]["IncludedColumns"]) != 17))
+
+
 # Configuration dialog.
 _configDialogOpened = False
 
@@ -780,7 +789,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.profiles = wx.Choice(self, wx.ID_ANY, choices=self.displayProfiles(sortedProfiles))
 		self.profiles.Bind(wx.EVT_CHOICE, self.onProfileSelection)
 		try:
-			self.profiles.SetSelection(SPLConfig["ActiveIndex"])
+			self.profiles.SetSelection(self.profileNames.index(SPLActiveProfile))
 		except:
 			pass
 		sizer.Add(label)
@@ -811,6 +820,9 @@ class SPLConfigDialog(gui.SettingsDialog):
 		item = self.triggerButton = wx.Button(self, label=_("&Triggers..."))
 		item.Bind(wx.EVT_BUTTON, self.onTriggers)
 		sizer.Add(item)
+		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: The label of a checkbox to toggle if selected profile is an instant switch profile.
 		self.instantSwitchCheckbox=wx.CheckBox(self,wx.NewId(),label=_("This is an instant switch profile"))
 		self.switchProfile = SPLSwitchProfile
@@ -821,14 +833,21 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.instantSwitchCheckbox.SetValue(self.switchProfile == self.profiles.GetStringSelection().split(" <")[0])
 		self.instantSwitchCheckbox.Bind(wx.EVT_CHECKBOX, self.onInstantSwitch)
 		sizer.Add(self.instantSwitchCheckbox, border=10,flag=wx.BOTTOM)
+		# Translators: The label for a setting in SPL Add-on settings to configure countdown seconds before switching profiles.
+		self.triggerThresholdLabel = wx.StaticText(self, wx.ID_ANY, label=_("Countdown seconds before switching profiles"))
+		sizer.Add(self.triggerThresholdLabel)
+		self.triggerThreshold = wx.SpinCtrl(self, wx.ID_ANY, min=10, max=60)
+		self.triggerThreshold.SetValue(long(SPLConfig["Advanced"]["ProfileTriggerThreshold"]))
+		self.triggerThreshold.SetSelection(-1, -1)
+		sizer.Add(self.triggerThreshold)
 		if SPLConfig["ActiveIndex"] == 0:
 			self.renameButton.Disable()
 			self.deleteButton.Disable()
 			self.triggerButton.Disable()
 			self.instantSwitchCheckbox.Disable()
-		settingsSizer.Add(sizer)
+		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
-	# Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
+		# Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
 		self.beepAnnounceCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Beep for status announcements"))
 		self.beepAnnounceCheckbox.SetValue(SPLConfig["General"]["BeepAnnounce"])
 		settingsSizer.Add(self.beepAnnounceCheckbox, border=10,flag=wx.TOP)
