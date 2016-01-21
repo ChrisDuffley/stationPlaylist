@@ -1158,17 +1158,16 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self._profileTriggersConfig.clear()
 		self._profileTriggersConfig = None
 		triggerStart(restart=True)
+		# 7.0: No matter what happens, merge appropriate profile.
+		try:
+			prevActive = self.profileNames.index(self.activeProfile)
+		except ValueError:
+			prevActive = 0
+		mergeSections(prevActive)
 		if self.switchProfileRenamed or self.switchProfileDeleted:
 			SPLSwitchProfile = self.switchProfile
 		if self.switchProfileDeleted:
-			# 6.3: Make sure to set active profile to normal profile if and only if the previously active profile is gone.
-			try:
-				prevActive = getProfileIndexByName(self.activeProfile)
-			except ValueError:
-				prevActive = 0
 			SPLActiveProfile = SPLConfigPool[prevActive].name
-			# 7.0: Merge just obtained profile index.
-			mergeSections(prevActive)
 		_configDialogOpened = False
 		super(SPLConfigDialog,  self).onCancel(evt)
 
@@ -1332,8 +1331,9 @@ class SPLConfigDialog(gui.SettingsDialog):
 		del self.profileNames[profilePos]
 		del _SPLCache[name]
 		# 6.3: Select normal profile if the active profile is gone.
+		# 7.0: Consult profile names instead.
 		try:
-			self.profiles.Selection = self.profiles.Items.index(self.activeProfile)
+			self.profiles.Selection = self.profileNames.index(self.activeProfile)
 		except ValueError:
 			self.activeProfile = SPLConfigPool[0].name
 			self.profiles.Selection = 0
