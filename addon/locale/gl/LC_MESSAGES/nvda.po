@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2015-12-31 16:02+0100\n"
+"PO-Revision-Date: 2016-01-17 19:29+0100\n"
 "Last-Translator: Juan C. Buño <oprisniki@gmail.com>\n"
 "Language-Team: Add-ons translation team <oprisniki@gmail.com>\n"
 "Language: gl\n"
@@ -834,22 +834,20 @@ msgid "&Announce name of the currently playing cart"
 msgstr "&Anuncia o nome do cart pista que se está reproducindo."
 
 #. Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
-#, fuzzy
 msgid "&Track name announcement:"
-msgstr "Anunciado de escaneado da &Biblioteca:"
+msgstr "Anunciado do nome da &pista:"
 
 #. Translators: One of the track name announcement options.
 msgid "automatic"
-msgstr ""
+msgstr "automático"
 
 #. Translators: One of the track name announcement options.
 msgid "while using other programs"
-msgstr ""
+msgstr "mentres se usan outros programas"
 
 #. Translators: One of the track name announcement options.
-#, fuzzy
 msgid "off"
-msgstr "desactivado"
+msgstr "desativado"
 
 #. Translators: The label of a button to open advanced options such as using SPL Controller command to invoke Assistant layer.
 msgid "&Advanced options..."
@@ -954,17 +952,16 @@ msgid "Allow SPL C&ontroller command to invoke SPL Assistant layer"
 msgstr "Permite á orde SPL C&ontroller chamar ó SPL Assistant layer"
 
 #. Translators: The label for a setting in SPL add-on dialog to control playlist remainder announcement command (SPL Assistant, D/R).
-#, fuzzy
 msgid "Playlist &remainder announcement:"
-msgstr "Anunciado de escaneado da &Biblioteca:"
+msgstr "Anunciado da lista de reprodución &restante:"
 
 #. Translators: One of the playlist remainder announcement options.
 msgid "current hour only"
-msgstr ""
+msgstr "só hora actual"
 
 #. Translators: One of the playlist remainder announcement options.
 msgid "entire playlist"
-msgstr ""
+msgstr "lista de reprodución enteira"
 
 #. Translators: Text of the dialog when another alarm dialog is open.
 msgid "Another alarm dialog is open."
