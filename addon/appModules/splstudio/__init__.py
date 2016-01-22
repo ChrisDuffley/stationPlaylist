@@ -277,7 +277,7 @@ A: Automation.
 C: Announce name of the currently playing track.
 D: Remaining time for the playlist.
 E: Overall metadata streaming status.
-1 through 4, 0: Metadata streaming status for DSP encoder and four additional URL's.
+Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder and four additional URL's.
 H: Duration of trakcs in this hour slot.
 Shift+H: Duration of remaining trakcs in this hour slot.
 I: Listener count.
@@ -296,6 +296,7 @@ T: Cart edit mode.
 U: Studio up time.
 W: Weather and temperature.
 Y: Playlist modification.
+1 through 0 (6 for Studio 5.01 and earlier): Announce columns via Columns Explorer (0 is tenth column slot).
 F9: Mark current track as start of track time analysis.
 F10: Perform track time analysis.
 F12: Switch to an instant switch profile.
@@ -306,7 +307,7 @@ A: Automation.
 C: Toggle cart explorer.
 Shift+C: Announce name of the currently playing track.
 E: Overall metadata streaming status.
-1 through 4, 0: Metadata streaming status for DSP encoder and four additional URL's.
+Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder and four additional URL's.
 Shift+E: Record to file.
 F: Track finder.
 H: Duration of trakcs in this hour slot.
@@ -327,6 +328,7 @@ T: Cart edit mode.
 U: Studio up time.
 W: Weather and temperature.
 Y: Playlist modification.
+1 through 0 (6 for Studio 5.01 and earlier): Announce columns via Columns Explorer (0 is tenth column slot).
 F9: Mark current track as start of track time analysis.
 F10: Perform track time analysis.
 F12: Switch to an instant switch profile.
@@ -341,7 +343,7 @@ E: Elapsed time.
 F: Track finder.
 R: Remaining time for the currently playing track.
 G: Overall metadata streaming status.
-1 through 4, 0: Metadata streaming status for DSP encoder and four additional URL's.
+Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder and four additional URL's.
 H: Duration of trakcs in this hour slot.
 Shift+H: Duration of remaining trakcs in this hour slot.
 K: Move to place marker track.
@@ -360,6 +362,7 @@ T: Cart edit mode.
 U: Studio up time.
 W: Weather and temperature.
 Y: Playlist modification.
+1 through 0 (6 for Studio 5.01 and earlier): Announce columns via Columns Explorer (0 is tenth column slot).
 F9: Mark current track as start of track time analysis.
 F10: Perform track time analysis.
 F12: Switch to an instant switch profile.
@@ -406,6 +409,8 @@ class AppModule(appModuleHandler.AppModule):
 			queueHandler.queueFunction(queueHandler.eventQueue, splconfig.updateInit)
 		# Display startup dialogs if any.
 		wx.CallAfter(splconfig.showStartupDialogs)
+		# Cache start and end range for column exploration.
+		splconfig.SPLConfig["ColumnExpRange"] = (1, 7) if self.SPLCurVersion < "5.1" else (0, 10)
 
 	# Locate the handle for main window for caching purposes.
 	def _locateSPLHwnd(self):
@@ -1347,6 +1352,12 @@ class AppModule(appModuleHandler.AppModule):
 			if splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "off": self.bindGestures(self.__SPLAssistantGestures)
 			elif splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "jfw": self.bindGestures(self.__SPLAssistantJFWGestures)
 			elif splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "wineyes": self.bindGestures(self.__SPLAssistantWEGestures)
+			# 7.0: Certain commands involving number row.
+			# 7.x only: Take care of both Studio 5.0x and 5.1x.
+			# 8.0: Remove tuple unpack routine below, as all ten keys are available.
+			start, end = splconfig.SPLConfig["ColumnExpRange"]
+			for i in xrange(start, end):
+				self.bindGesture("kb:%s"%(i), "columnExplorer")
 			self.SPLAssistant = True
 			tones.beep(512, 50)
 			if splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "jfw": ui.message("JAWS")
@@ -1640,6 +1651,16 @@ class AppModule(appModuleHandler.AppModule):
 				status = _("Metadata streaming on DSP encoder disabled")
 		ui.message(status)
 
+	def script_columnExplorer(self, gesture):
+		if gesture.displayName.isdigit():
+			columnPos = int(gesture.displayName)-1
+			focus = api.getFocusObject()
+			if not isinstance(focus, SPLTrackItem):
+				# Translators: Presented when attempting to announce specific columns but the focused item isn't a track.
+				ui.message(_("Not a track"))
+			else:
+				focus.announceColumnContent(focus._indexOf(splconfig.SPLConfig["General"]["ExploreColumns"][columnPos]))
+
 	def script_layerHelp(self, gesture):
 		compatibility = splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]
 		# Translators: The title for SPL Assistant help dialog.
@@ -1685,11 +1706,11 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:Control+k":"setPlaceMarker",
 		"kb:k":"findPlaceMarker",
 		"kb:e":"metadataStreamingAnnouncer",
-		"kb:1":"metadataEnabled",
-		"kb:2":"metadataEnabled",
-		"kb:3":"metadataEnabled",
-		"kb:4":"metadataEnabled",
-		"kb:0":"metadataEnabled",
+		"kb:shift+1":"metadataEnabled",
+		"kb:shift+2":"metadataEnabled",
+		"kb:shift+3":"metadataEnabled",
+		"kb:shift+4":"metadataEnabled",
+		"kb:shift+0":"metadataEnabled",
 		"kb:f1":"layerHelp",
 		"kb:shift+f1":"openOnlineDoc",
 		"kb:control+shift+u":"updateCheck",
@@ -1723,11 +1744,11 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:Control+k":"setPlaceMarker",
 		"kb:k":"findPlaceMarker",
 		"kb:e":"metadataStreamingAnnouncer",
-		"kb:1":"metadataEnabled",
-		"kb:2":"metadataEnabled",
-		"kb:3":"metadataEnabled",
-		"kb:4":"metadataEnabled",
-		"kb:0":"metadataEnabled",
+		"kb:shift+1":"metadataEnabled",
+		"kb:shift+2":"metadataEnabled",
+		"kb:shift+3":"metadataEnabled",
+		"kb:shift+4":"metadataEnabled",
+		"kb:shift+0":"metadataEnabled",
 		"kb:f1":"layerHelp",
 		"kb:shift+f1":"openOnlineDoc",
 	}
@@ -1762,11 +1783,11 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:Control+k":"setPlaceMarker",
 		"kb:k":"findPlaceMarker",
 		"kb:g":"metadataStreamingAnnouncer",
-		"kb:1":"metadataEnabled",
-		"kb:2":"metadataEnabled",
-		"kb:3":"metadataEnabled",
-		"kb:4":"metadataEnabled",
-		"kb:0":"metadataEnabled",
+		"kb:shift+1":"metadataEnabled",
+		"kb:shift+2":"metadataEnabled",
+		"kb:shift+3":"metadataEnabled",
+		"kb:shift+4":"metadataEnabled",
+		"kb:shift+0":"metadataEnabled",
 		"kb:f1":"layerHelp",
 		"kb:shift+f1":"openOnlineDoc",
 		"kb:control+shift+u":"updateCheck",
