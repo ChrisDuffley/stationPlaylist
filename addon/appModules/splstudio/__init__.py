@@ -1222,6 +1222,10 @@ class AppModule(appModuleHandler.AppModule):
 			if not libScanT or (libScanT and not libScanT.isAlive()):
 				self.monitorLibraryScan()
 
+	# The developer would like to get feedback from you.
+	def script_sendFeedbackEmail(self, gesture):
+		os.startfile("mailto:joseph.lee22590@gmail.com")
+
 
 	# SPL Assistant: reports status on playback, operation, etc.
 	# Used layer command approach to save gesture assignments.
@@ -1673,5 +1677,6 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:Shift+delete":"deleteTrack",
 		"kb:Shift+numpadDelete":"deleteTrack",
 		"kb:escape":"escape",
+		"kb:control+nvda+-":"sendFeedbackEmail",
 		#"kb:control+nvda+`":"SPLAssistantToggle"
 	}
