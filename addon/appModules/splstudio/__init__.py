@@ -1225,6 +1225,7 @@ class AppModule(appModuleHandler.AppModule):
 	# The developer would like to get feedback from you.
 	def script_sendFeedbackEmail(self, gesture):
 		os.startfile("mailto:joseph.lee22590@gmail.com")
+	script_sendFeedbackEmail.__doc__="Opens the default email client to send an email to the add-on developer"
 
 
 	# SPL Assistant: reports status on playback, operation, etc.
