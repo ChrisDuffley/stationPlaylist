@@ -1143,8 +1143,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		applySections(profileIndex)
 		SPLActiveProfile = selectedProfile
 		SPLSwitchProfile = self.switchProfile
-		# Without nullifying prev profile while switch profile is undefined, NVDA will assume it can switch back to that profile when it can't.
-		# It also causes NVDA to display wrong label for switch button.
+		# Make sure to nullify prev profile if instant switch profile is gone.
 		if self.switchProfile is None:
 			SPLPrevProfile = None
 		_configDialogOpened = False
@@ -1158,11 +1157,12 @@ class SPLConfigDialog(gui.SettingsDialog):
 		super(SPLConfigDialog,  self).onOk(evt)
 
 	def onCancel(self, evt):
-		global _configDialogOpened, SPLActiveProfile, SPLSwitchProfile, SPLConfig
+		global _configDialogOpened, SPLActiveProfile, SPLSwitchProfile, SPLConfig, profileTriggers
 		# 6.1: Discard changes to included columns set.
 		self.includedColumns.clear()
 		self.includedColumns = None
-		# Remove profile triggers as well.
+		# Apply profile trigger changes if any.
+		profileTriggers = dict(self._profileTriggersConfig)
 		self._profileTriggersConfig.clear()
 		self._profileTriggersConfig = None
 		triggerStart(restart=True)
@@ -1299,6 +1299,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 		if self.switchProfile == oldName:
 			self.switchProfile = newName
 			self.switchProfileRenamed = True
+		# Be sure to update profile triggers.
+		if oldName in self._profileTriggersConfig:
+			self._profileTriggersConfig[newName] = self._profileTriggersConfig[oldName]
+			del self._profileTriggersConfig[oldName]
 		if self.activeProfile == oldName:
 			self.activeProfile = newName
 		self.profileNames[profilePos] = newName
@@ -1355,7 +1359,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 	def onInstantSwitch(self, evt):
 		selection = self.profiles.GetSelection()
 		# More efficient to pull the name straight from the names pool.
-		selectedName = self.profileNames.index(selection)
+		selectedName = self.profileNames[selection]
 		flag = _("instant switch")
 		if self.instantSwitchCheckbox.Value:
 			if self.switchProfile is not None and (selectedName != self.switchProfile):
