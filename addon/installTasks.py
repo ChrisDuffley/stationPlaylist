@@ -75,7 +75,12 @@ _conversionConfig = {
 
 # Invoked when upgrading to 7.0 (to be removed in 7.2).
 def config6to7(path):
-	profile = ConfigObj(path, configspec = confspec, encoding="UTF-8")
+	# Sometimes, an exception could be thrown if ConfigObj says it cannot parse the config file, so skip offending files.
+	# This means the unlock function in splconfig will handle this case.
+	try:
+		profile = ConfigObj(path, configspec = confspec, encoding="UTF-8")
+	except:
+		return
 	# Optimization: no need to convert if sectionized.
 	for section in ["General", "IntroOutroAlarms", "MicrophoneAlarm", "ColumnAnnouncement", "MetadataStreaming", "SayStatus", "Advanced", "Startup"]:
 		if section in profile:

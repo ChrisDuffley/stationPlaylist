@@ -149,6 +149,7 @@ def resetAllConfig():
 
 # In case one or more profiles had config issues, look up the error message from the following map.
 _configErrors ={
+	"fileReset":"Settings reset to defaults due to configuration file coruption",
 	"completeReset":"All settings reset to defaults",
 	"partialReset":"Some settings reset to defaults",
 	"columnOrderReset":"Column announcement order reset to defaults",
@@ -163,7 +164,6 @@ _configErrors ={
 _configLoadStatus = {} # Key = filename, value is pass or no pass.
 
 def initConfig():
-	t = time.time()
 	# 7.0: When add-on 7.0 starts for the first time, check if a conversion file exists.
 	# To be removed in add-on 7.2.
 	curInstantProfile = ""
@@ -218,14 +218,20 @@ def initConfig():
 	initProfileTriggers()
 	# Let the update check begin.
 	splupdate.initialize()
-	print time.time()-t
 
 # Unlock (load) profiles from files.
 def unlockConfig(path, profileName=None, prefill=False):
 	global _configLoadStatus # To be mutated only during unlock routine.
 	# Optimization: Profiles other than normal profile contains profile-specific sections only.
 	# This speeds up profile loading routine significantly as there is no need to call a function to strip global settings.
-	SPLConfigCheckpoint = ConfigObj(path, configspec = confspec7 if prefill else confspecprofiles, encoding="UTF-8")
+	# 7.0: What if profiles have parsing errors?
+	# If so, reset everything back to factory defaults.
+	try:
+		SPLConfigCheckpoint = ConfigObj(path, configspec = confspec7 if prefill else confspecprofiles, encoding="UTF-8")
+	except:
+		open(path, "w").close()
+		SPLConfigCheckpoint = ConfigObj(path, configspec = confspec7 if prefill else confspecprofiles, encoding="UTF-8")
+		_configLoadStatus[profileName] = "fileReset"
 	# 5.2 and later: check to make sure all values are correct.
 	# 7.0: Make sure errors are displayed as config keys are now sections and may need to go through subkeys.
 	configTest = SPLConfigCheckpoint.validate(_val, copy=prefill, preserve_errors=True)
