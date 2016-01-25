@@ -332,7 +332,7 @@ class SPLCountdownTimer(object):
 			ui.message("Timer complete")
 			if self.func is not None:
 				self.func()
-			self.stop()
+			self.Stop()
 		elif 0 < self.duration <= self.threshold:
 			ui.message(str(self.duration))
 

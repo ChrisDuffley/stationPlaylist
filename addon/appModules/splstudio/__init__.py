@@ -1605,7 +1605,7 @@ class AppModule(appModuleHandler.AppModule):
 	script_trackTimeAnalysis.__doc__=_("Announces total length of tracks between analysis start marker and the current track")
 
 	def script_switchProfiles(self, gesture):
-		splconfig.triggerProfileSwitch() if splconfig._SPLTriggerEndTimer.IsRunning() else splconfig.instantProfileSwitch()
+		splconfig.triggerProfileSwitch() if splconfig._triggerProfileActive else splconfig.instantProfileSwitch()
 
 	def script_setPlaceMarker(self, gesture):
 		obj = api.getFocusObject()

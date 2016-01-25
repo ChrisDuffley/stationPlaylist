@@ -690,9 +690,11 @@ def instantProfileSwitch():
 # The triggers version of the above function.
 # 7.0: Try consolidating this into one or some more functions.
 _SPLTriggerEndTimer = None
+# Record if time-based profile is active or not.
+_triggerProfileActive = False
 
 def triggerProfileSwitch():
-	global SPLPrevProfile, SPLConfig, SPLActiveProfile, triggerTimer, _SPLTriggerEndTimer
+	global SPLPrevProfile, SPLConfig, SPLActiveProfile, triggerTimer, _SPLTriggerEndTimer, _triggerProfileActive
 	if _configDialogOpened:
 		# Translators: Presented when trying to switch profiles when add-on settings dialog is active.
 		ui.message(_("Add-on settings dialog is open, cannot switch profiles"))
@@ -712,6 +714,8 @@ def triggerProfileSwitch():
 			SPLPrevProfile = getProfileIndexByName(SPLActiveProfile)
 			# Pass in the prev profile, which will be None for instant profile switch.
 			switchProfile(SPLPrevProfile, triggerProfileIndex)
+			# Set the global trigger flag to inform various subsystems such as add-on settings dialog.
+			_triggerProfileActive = True
 			# Translators: Presented when switch to instant switch profile was successful.
 			ui.message(_("Switching profiles"))
 			# Pause automatic update checking.
@@ -727,6 +731,7 @@ def triggerProfileSwitch():
 				_SPLTriggerEndTimer.Start(triggerSettings[6] * 60 * 1000, True)
 		else:
 			switchProfile(None, SPLPrevProfile)
+			_triggerProfileActive = False
 			SPLPrevProfile = None
 			# Translators: Presented when switching from instant switch profile to a previous profile.
 			ui.message(_("Returning to previous profile"))
@@ -1322,6 +1327,13 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.profiles.SetFocus()
 
 	def onDelete(self, evt):
+		# Prevent profile deletion in the midst of a broadcast, otherwise time-based profile switching flag will become inconsistent.
+		# 7.1: Find a way to safely proceed via two-step verification if trying to delete currently active time-based profile.
+		global _SPLTriggerEndTimer, _triggerProfileActive
+		if (_SPLTriggerEndTimer is not None and _SPLTriggerEndTimer.IsRunning()) or _triggerProfileActive:
+			gui.messageBox(_("Are you currently broadcasting a show? If so, please press SPL Assistant, F12 to switch back to a previously active profile before opening add-on settings to delete a profile."),
+				_("Midst of a broadcast"), wx.OK | wx.ICON_ERROR, self)
+			return
 		index = self.profiles.Selection
 		name = self.profiles.GetStringSelection().split(" <")[0]
 		configPos = getProfileIndexByName(name)
@@ -1348,6 +1360,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.profiles.Delete(index)
 		del self.profileNames[profilePos]
 		del _SPLCache[name]
+				if name in self._profileTriggersConfig:
+			del self._profileTriggersConfig[name]
 		# 6.3: Select normal profile if the active profile is gone.
 		# 7.0: Consult profile names instead.
 		try:
