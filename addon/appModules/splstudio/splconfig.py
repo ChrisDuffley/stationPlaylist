@@ -1119,7 +1119,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.profiles.SetFocus()
 
 	def onOk(self, evt):
-		global SPLConfig, SPLActiveProfile, _configDialogOpened, SPLSwitchProfile, SPLPrevProfile, profileTriggers
+		global SPLConfig, SPLActiveProfile, _configDialogOpened, SPLSwitchProfile, SPLPrevProfile, profileTriggers, _triggerProfileActive
 		selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
 		profileIndex = getProfileIndexByName(selectedProfile)
 		SPLConfig["General"]["BeepAnnounce"] = self.beepAnnounceCheckbox.Value
@@ -1155,7 +1155,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLActiveProfile = selectedProfile
 		SPLSwitchProfile = self.switchProfile
 		# Make sure to nullify prev profile if instant switch profile is gone.
-		if self.switchProfile is None:
+		# 7.0: Don't do the following in the midst of a broadcast.
+		if self.switchProfile is None and not _triggerProfileActive:
 			SPLPrevProfile = None
 		_configDialogOpened = False
 		# 7.0: Perform extra action such as restarting auto update timer.
@@ -1360,7 +1361,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.profiles.Delete(index)
 		del self.profileNames[profilePos]
 		del _SPLCache[name]
-				if name in self._profileTriggersConfig:
+		if name in self._profileTriggersConfig:
 			del self._profileTriggersConfig[name]
 		# 6.3: Select normal profile if the active profile is gone.
 		# 7.0: Consult profile names instead.
