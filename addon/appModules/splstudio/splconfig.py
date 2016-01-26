@@ -27,36 +27,6 @@ from splmisc import SPLCountdownTimer
 # Configuration management
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
 SPLProfiles = os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "profiles")
-# Old (5.0) style config.
-# To be superseeded by confspec7 in 8.0.
-confspec = ConfigObj(StringIO("""
-BeepAnnounce = boolean(default=false)
-MessageVerbosity = option("beginner", "advanced", default="beginner")
-SayEndOfTrack = boolean(default=true)
-EndOfTrackTime = integer(min=1, max=59, default=5)
-SaySongRamp = boolean(default=true)
-SongRampTime = integer(min=1, max=9, default=5)
-BrailleTimer = option("off", "intro", "outro", "both", default="off")
-MicAlarm = integer(min=0, max=7200, default="0")
-MicAlarmInterval = integer(min=0, max=60, default=0)
-AlarmAnnounce = option("beep", "message", "both", default="beep")
-LibraryScanAnnounce = option("off", "ending", "progress", "numbers", default="off")
-TrackDial = boolean(default=false)
-TimeHourAnnounce = boolean(default=false)
-MetadataReminder = option("off", "startup", "instant", default="off")
-MetadataEnabled = bool_list(default=list(false,false,false,false,false))
-UseScreenColumnOrder = boolean(default=true)
-ColumnOrder = string_list(default=list("Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"))
-IncludedColumns = string_list(default=list("Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"))
-SayScheduledFor = boolean(default=true)
-SayListenerCount = boolean(default=true)
-SayPlayingCartName = boolean(default=true)
-SayPlayingTrackName = string(default="True")
-SPLConPassthrough = boolean(default=false)
-CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
-AudioDuckingReminder = boolean(default=true)
-"""), encoding="UTF-8", list_values=False)
-confspec.newlines = "\r\n"
 # New (7.0) style config.
 confspec7 = ConfigObj(StringIO("""
 [General]
@@ -103,19 +73,15 @@ SPLConfig = None
 # A pool of broadcast profiles.
 SPLConfigPool = []
 # The following settings can be changed in profiles:
-_mutatableSettings=("SayEndOfTrack","EndOfTrackTime","SaySongRamp","SongRampTime","MicAlarm","MicAlarmInterval","MetadataEnabled","UseScreenColumnOrder","ColumnOrder","IncludedColumns")
 _mutatableSettings7=("IntroOutroAlarms", "MicrophoneAlarm", "MetadataStreaming", "ColumnAnnouncement")
 # 7.0: Profile-specific confspec (might be removed once a more optimal way to validate sections is found).
 # Dictionary comprehension is better here.
 confspecprofiles = {sect:key for sect, key in confspec7.iteritems() if sect in _mutatableSettings7}
 
 # Default config spec container.
-# To be removed in add-on 8.0.
-_SPLDefaults = ConfigObj(None, configspec = confspec, encoding="UTF-8")
-# And version 7 equivalent.
+# To be moved to a different place in 8.0.
 _SPLDefaults7 = ConfigObj(None, configspec = confspec7, encoding="UTF-8")
 _val = Validator()
-_SPLDefaults.validate(_val, copy=True)
 _SPLDefaults7.validate(_val, copy=True)
 
 # Display an error dialog when configuration validation fails.
@@ -170,7 +136,7 @@ def initConfig():
 	if os.path.isfile(os.path.join(globalVars.appArgs.configPath, "splstudio7.ini")):
 		# Save add-on update related keys and instant profile signature from death.
 		# Necessary since the old-style config file contains newer information about update package size, last installed date and records instant profile name.
-		tempConfig = ConfigObj(SPLIni, configspec = confspec, encoding="UTF-8")
+		tempConfig = ConfigObj(SPLIni)
 		if "InstantProfile" in tempConfig: curInstantProfile = tempConfig["InstantProfile"]
 		os.remove(SPLIni)
 		os.rename(os.path.join(globalVars.appArgs.configPath, "splstudio7.ini"), SPLIni)
@@ -771,7 +737,7 @@ def updateInit():
 # To be renamed and used in other places in 7.0.
 def _shouldBuildDescriptionPieces():
 	return (not SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"]
-	and (SPLConfig["ColumnAnnouncement"]["ColumnOrder"] != _SPLDefaults["ColumnOrder"]
+	and (SPLConfig["ColumnAnnouncement"]["ColumnOrder"] != _SPLDefaults7["ColumnAnnouncement"]["ColumnOrder"]
 	or len(SPLConfig["ColumnAnnouncement"]["IncludedColumns"]) != 17))
 
 
