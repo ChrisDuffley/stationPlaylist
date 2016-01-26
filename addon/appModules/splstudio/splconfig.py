@@ -277,10 +277,12 @@ def _cacheConfig(conf):
 	if _SPLCache is None: _SPLCache = {}
 	key = None if conf.filename == SPLIni else conf.name
 	_SPLCache[key] = {}
-	# Optimization: For broadcast profiles, copy profile-specific keys only.
 	for setting in conf.keys():
 		if isinstance(conf[setting], dict): _SPLCache[key][setting] = dict(conf[setting])
-		else: _SPLCache[key][setting] = conf[setting]
+		else:
+			_SPLCache[key][setting] = conf[setting]
+			# Optimization: free 5.0-style config keys while the app module is running, to be removed permanently in add-on 7.2.
+			if setting != "InstantProfile": del conf[setting]
 	# Column inclusion only.
 	_SPLCache[key]["ColumnAnnouncement"]["IncludedColumns"] = list(conf["ColumnAnnouncement"]["IncludedColumns"])
 
@@ -534,6 +536,10 @@ def shouldSave(profile):
 	tree = None if profile.filename == SPLIni else profile.name
 	# One downside of caching: new profiles are not recognized as such.
 	if "___new___" in _SPLCache[tree]: return True
+	# Playlist Remainder, be gone!
+	if "Advanced" in profile and "PlaylistRemainder" in profile["Advanced"]:
+		del profile["Advanced"]["PlaylistRemainder"]
+		return True
 	for section in profile.keys():
 		if isinstance(profile[section], dict):
 			for key in profile[section]:

@@ -14,36 +14,6 @@ import globalVars
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
 SPLIni7 = os.path.join(globalVars.appArgs.configPath, "splstudio7.ini")
 
-# Old (5.0) style config.
-confspec = ConfigObj(StringIO("""
-BeepAnnounce = boolean(default=false)
-MessageVerbosity = option("beginner", "advanced", default="beginner")
-SayEndOfTrack = boolean(default=true)
-EndOfTrackTime = integer(min=1, max=59, default=5)
-SaySongRamp = boolean(default=true)
-SongRampTime = integer(min=1, max=9, default=5)
-BrailleTimer = option("off", "intro", "outro", "both", default="off")
-MicAlarm = integer(min=0, max=7200, default="0")
-MicAlarmInterval = integer(min=0, max=60, default=0)
-AlarmAnnounce = option("beep", "message", "both", default="beep")
-LibraryScanAnnounce = option("off", "ending", "progress", "numbers", default="off")
-TrackDial = boolean(default=false)
-TimeHourAnnounce = boolean(default=false)
-MetadataReminder = option("off", "startup", "instant", default="off")
-MetadataEnabled = bool_list(default=list(false,false,false,false,false))
-UseScreenColumnOrder = boolean(default=true)
-ColumnOrder = string_list(default=list("Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"))
-IncludedColumns = string_list(default=list("Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"))
-SayScheduledFor = boolean(default=true)
-SayListenerCount = boolean(default=true)
-SayPlayingCartName = boolean(default=true)
-SayPlayingTrackName = string(default="True")
-SPLConPassthrough = boolean(default=false)
-CompatibilityLayer = option("off", "jfw", default="off")
-AudioDuckingReminder = boolean(default=true)
-"""), encoding="UTF-8", list_values=False)
-confspec.newlines = "\r\n"
-
 # New style config (used during profile conversion).
 _conversionConfig = {
 	"BeepAnnounce":"General",
@@ -78,7 +48,7 @@ def config6to7(path):
 	# Sometimes, an exception could be thrown if ConfigObj says it cannot parse the config file, so skip offending files.
 	# This means the unlock function in splconfig will handle this case.
 	try:
-		profile = ConfigObj(path, configspec = confspec, encoding="UTF-8")
+		profile = ConfigObj(path)
 	except:
 		return
 	# Optimization: no need to convert if sectionized.
@@ -101,7 +71,7 @@ def config6to7(path):
 	# Just in case studio is running.
 	# If so, when the app module exits, it'll rewrite the whole config, so save the converted config somewhere to be imported by the app module later.
 	if path == SPLIni:
-		profile7 = ConfigObj(SPLIni7, configspec = confspec, encoding="UTF-8")
+		profile7 = ConfigObj(SPLIni7)
 		for key in profile:
 			profile7[key] = profile[key]
 		profile7.write()
