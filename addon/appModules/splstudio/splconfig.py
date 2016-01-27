@@ -202,8 +202,6 @@ def unlockConfig(path, profileName=None, prefill=False):
 	# 7.0: Make sure errors are displayed as config keys are now sections and may need to go through subkeys.
 	configTest = SPLConfigCheckpoint.validate(_val, copy=prefill, preserve_errors=True)
 	if configTest != True:
-		# Translators: Standard error title for configuration error.
-		title = _("Studio add-on Configuration error")
 		if not configTest:
 			# Case 1: restore settings to defaults when 5.x config validation has failed on all values.
 			# 6.0: In case this is a user profile, apply base configuration.
@@ -569,8 +567,6 @@ def saveConfig():
 	mergeSections(0)
 	_preSave(SPLConfigPool[0])
 	# Global flags, be gone.
-	if "Reset" in SPLConfigPool[0]:
-		del SPLConfigPool[0]["Reset"]
 	del SPLConfig["ColumnExpRange"]
 	# Convert keys back to 5.x format.
 	for section in SPLConfigPool[0].keys():
@@ -1426,8 +1422,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 			SPLConfig["ActiveIndex"] = 0
 			SPLActiveProfile = SPLConfigPool[0].name
 			SPLConfig["ColumnExpRange"] = colRange
-			# Workaround: store the reset flag in the normal profile to prevent config databases from becoming references to old generation.
-			SPLConfigPool[0]["Reset"] = True
 		if SPLSwitchProfile is not None:
 			SPLSwitchProfile = None
 		SPLPrevProfile = None
