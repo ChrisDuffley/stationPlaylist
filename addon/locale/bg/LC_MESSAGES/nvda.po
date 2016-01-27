@@ -24,36 +24,6 @@ msgid "Only Track Tool is running, Track Dial is unavailable"
 msgstr ""
 "Стартиран е само инструментът за записи, прегледа на записи не е наличен"
 
-#. Translators: Input help mode message for SPL track item.
-msgid "Toggles track dial on and off."
-msgstr "Включва и изключва прегледа на записи."
-
-#. Translators: Presented when trying to perform Track Tool commands when not focused in the track list.
-msgid "Not in tracks list"
-msgstr "Не се намирате в списъка със записи"
-
-#. Translators: Presented when no tracks are added to Track Tool.
-msgid "No tracks added"
-msgstr "Няма добавени записи"
-
-#. Translators: Presented when intro is not defined for a track in Track Tool.
-msgid "Introduction not set"
-msgstr "Не е зададено въведение"
-
-#. Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
-#, python-brace-format
-msgid "{columnInfo} not found"
-msgstr "{columnInfo} не е намерено"
-
-#. Translators: Presented when artist information is not found for a track in Track Tool.
-msgid "No artist"
-msgstr "Не е наличен изпълнител"
-
-#. Translators: Presents artist information for a track in Track Tool.
-#, python-brace-format
-msgid "Artist: {artistName}"
-msgstr "Изпълнител: {artistName}"
-
 #. Translators: Reported when track dial is on.
 msgid "Track Dial on"
 msgstr "Прегледа на записи е включен"
@@ -67,14 +37,44 @@ msgstr ", намиращ се в колона {columnHeader}"
 msgid "Track Dial off"
 msgstr "Прегледа на записи е изключен"
 
-#. Translators: Spoken when enabling track dial while status message is set to beeps.
-#, python-brace-format
-msgid "Column {columnNumber}"
-msgstr "Колона {columnNumber}"
+#. Translators: Input help mode message for SPL track item.
+msgid "Toggles track dial on and off."
+msgstr "Включва и изключва прегледа на записи."
 
 #. Translators: Script category for Station Playlist commands in input gestures dialog.
 msgid "StationPlaylist Studio"
 msgstr "StationPlaylist Studio"
+
+#. Translators: Presented when trying to perform Track Tool commands when not focused in the track list.
+msgid "Not in tracks list"
+msgstr "Не се намирате в списъка със записи"
+
+#. Translators: Presented when no tracks are added to Track Tool.
+msgid "No tracks added"
+msgstr "Няма добавени записи"
+
+#. Translators: Presented when artist information is not found for a track in Track Tool.
+msgid "No artist"
+msgstr "Не е наличен изпълнител"
+
+#. Translators: Presents artist information for a track in Track Tool.
+#, python-brace-format
+msgid "Artist: {artistName}"
+msgstr "Изпълнител: {artistName}"
+
+#. Translators: Presented when intro is not defined for a track in Track Tool.
+msgid "Introduction not set"
+msgstr "Не е зададено въведение"
+
+#. Translators: Presented when microphone has been active for a while.
+#, fuzzy
+msgid "Microphone active"
+msgstr "Предупреждение: Микрофонът е активен"
+
+#. Translators: Spoken when enabling track dial while status message is set to beeps.
+#, python-brace-format
+msgid "Column {columnNumber}"
+msgstr "Колона {columnNumber}"
 
 #. Translators: Announced when leftmost column has no text while track dial is active.
 #, python-brace-format
@@ -111,25 +111,36 @@ msgid "Status: {name}"
 msgstr "Състояние: {name}"
 
 #. Translators: The text of the help command in SPL Assistant layer.
+#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
-"D: Remaining time for the playlist.\n"
+"C: Announce name of the currently playing track.\n"
+"D (R if compatibility mode is on): Remaining time for the playlist.\n"
+"E: Overall metadata streaming status.\n"
+"1 through 4, 0: Metadata streaming status for DSP encoder and four "
+"additional URL's.\n"
 "H: Duration of trakcs in this hour slot.\n"
 "Shift+H: Duration of selected tracks.\n"
-"I: Listener count.\n"
-"L: Line-in status.\n"
+"I (L if compatibility mode is on): Listener count.\n"
+"K: Move to place marker track.\n"
+"Control+K: Set place marker track.\n"
+"L (Shift+L if compatibility mode is on): Line-in status.\n"
 "M: Microphone status.\n"
 "N: Next track.\n"
 "P: Playback status.\n"
 "Shift+P: Pitch for the current track.\n"
-"R: Record to file.\n"
+"R (Shift+E if compatibility mode is on): Record to file.\n"
 "Shift+R: Monitor library scan.\n"
 "S: Scheduled time for the track.\n"
 "T: Cart edit mode.\n"
 "U: Studio up time.\n"
 "W: Weather and temperature.\n"
-"Y: Playlist modification."
+"Y: Playlist modification.\n"
+"F9: Mark current track as start of track time analysis.\n"
+"F10: Perform track time analysis.\n"
+"F12: Switch to an instant switch profile.\n"
+"Shift+F1: Open online user guide."
 msgstr ""
 "След отваряне на асистента на SPL, натиснете:\n"
 "A: автоматизация.\n"
@@ -160,6 +171,11 @@ msgstr "Настройки на SPL Studio..."
 msgid "SPL settings"
 msgstr "Настройки на SPL"
 
+#. Translators: Presented when library scan is complete.
+#, fuzzy, python-brace-format
+msgid "Scan complete with {scanCount} items"
+msgstr "Сканирането завърши с {itemCount} елемента"
+
 #. Translators: Presented when cart edit mode is toggled on while cart explorer is on.
 msgid "Cart explorer is active"
 msgstr "Прегледа на Джингъли е активен"
@@ -169,9 +185,19 @@ msgid "Please reenter cart explorer to view updated cart assignments"
 msgstr ""
 "Моля влезте отново в прегледа на Джингъли за да видите обновените назначения"
 
-#. Translators: Presented in braille when microphone was on for more than a specified time in microphone alarm dialog.
+#. Translators: Presented when microphone was on for more than a specified time in microphone alarm dialog.
 msgid "Warning: Microphone active"
 msgstr "Предупреждение: Микрофонът е активен"
+
+#. Translators: Presented when end of introduction is approaching (example output: 5 sec left in track introduction).
+#, python-brace-format
+msgid "Warning: {seconds} sec left in track introduction"
+msgstr ""
+
+#. Translators: Presented when end of track is approaching.
+#, python-brace-format
+msgid "Warning: {seconds} sec remaining"
+msgstr ""
 
 #. Add the human-readable representation also.
 msgid "SPL mode"
@@ -214,7 +240,6 @@ msgid ""
 "The add-on settings dialog is opened. Please close the settings dialog first."
 msgstr "Диалога за настройка на добавката е отворен. Моля, първо го затворете."
 
-#. Translators: Standard title for error dialog (copy this from main nvda.po file).
 #. Translators: The title of the message box
 msgid "Error"
 msgstr "Грешка"
@@ -284,10 +309,6 @@ msgstr ""
 msgid "Microphone alarm"
 msgstr "Предупреждение за микрофона"
 
-#. Translators: The error message presented when incorrect alarm time value has been entered.
-msgid "Incorrect value entered."
-msgstr "Въвели сте некоректна стойност"
-
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Sets microphone alarm (default is 5 seconds)."
 msgstr "Задава предупреждението за микрофона (по подразбиране е 5 секунди)."
@@ -296,33 +317,9 @@ msgstr "Задава предупреждението за микрофона (�
 msgid "Opens SPL Studio add-on configuration dialog."
 msgstr "Отваря диалога за настройка на добавката SPL Studio."
 
-#. Translators: Reported when status announcement is set to beeps in SPL Studio.
-msgid "Status announcement beeps"
-msgstr "Известяване чрез звуков сигнал"
-
-#. Translators: Reported when status announcement is set to words in SPL Studio.
-msgid "Status announcement words"
-msgstr "Известяване чрез говор"
-
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Toggles status announcements between words and beeps."
 msgstr "Превключва изговарянето на съобщенията между Говор и Бибипкане."
-
-#. Translators: A setting in braille timer options.
-msgid "Braille track endings"
-msgstr "Извеждай края на записите на брайл"
-
-#. Translators: A setting in braille timer options.
-msgid "Braille intro endings"
-msgstr "Извеждай края на въведенията на брайл"
-
-#. Translators: A setting in braille timer options.
-msgid "Braille intro and track endings"
-msgstr "Извеждай края на записите и въведенията на брайл"
-
-#. Translators: A setting in braille timer options.
-msgid "Braille timer off"
-msgstr "Не извеждай таймера на брайл"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Toggles between various braille timer settings."
@@ -340,25 +337,35 @@ msgstr "Грешка при търсене"
 msgid "Track finder is available only in track list."
 msgstr "Търсенето за записи е възможно само в списъка със записи."
 
+#. Translators: Presented when a user attempts to find tracks but is not at the track list.
+#, fuzzy
+msgid "Column search is available only in track list."
+msgstr "Търсенето за записи е възможно само в списъка със записи."
+
+#. Translators: Presented when a user attempts to find tracks but is not at the track list.
+#, fuzzy
+msgid "Time range finder is available only in track list."
+msgstr "Търсенето за записи е възможно само в списъка със записи."
+
 #. Translators: Presented when a user wishes to find a track but didn't add any tracks.
 msgid "You need to add at least one track to find tracks."
 msgstr "Трябва да добавите поне един запис, за да можете да търсите за записи."
 
-#. Translators: Standard dialog message when find dialog is already open.
-msgid "Find track dialog is already open."
-msgstr "Вече е отворен диалог за търсене на запис."
-
-#. Translators: The text of the dialog for finding tracks.
-msgid "Enter the name of the track you wish to search."
-msgstr "Въведете името на записа, който искате да намерите."
-
-#. Translators: The title of the find tracks dialog.
+#. Translators: Title for track finder dialog.
 msgid "Find track"
 msgstr "Търсене на запис"
+
+#. Translators: Title for column search dialog.
+msgid "Column search"
+msgstr ""
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Finds a track in the track list."
 msgstr "Търси за записи в списъка със записи."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Finds text in columns."
+msgstr ""
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Finds the next occurrence of the track with the name in the track list."
@@ -367,6 +374,10 @@ msgstr "Намира следващото съвпадение на записа
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Finds previous occurrence of the track with the name in the track list."
 msgstr "Намира предишното съвпадение на записа с името в списъка със записи."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Locates track with duration within a time range"
+msgstr ""
 
 #. Translators: Presented when cart explorer cannot be entered.
 msgid "You are not in playlist viewer, cannot enter cart explorer"
@@ -400,22 +411,6 @@ msgstr "Командата за джингъла е недостъпна"
 msgid "Cart unassigned"
 msgstr "Джингъла не е зададен"
 
-#. Translators: A setting in library scan announcement options.
-msgid "Announce start and end of a library scan"
-msgstr "Съобщавай при начало и край на сканиране на библиотеката"
-
-#. Translators: A setting in library scan announcement options.
-msgid "Announce the progress of a library scan"
-msgstr "Съобщавай напредъка при сканиране на библиотеката"
-
-#. Translators: A setting in library scan announcement options.
-msgid "Announce progress and item count of a library scan"
-msgstr "Съобщавай напредъка и броя на елементите при сканиране на библиотеката"
-
-#. Translators: A setting in library scan announcement options.
-msgid "Do not announce library scans"
-msgstr "Не съобщавай за сканиранията на библиотеката"
-
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Toggles library scan progress settings."
 msgstr ""
@@ -445,6 +440,50 @@ msgstr "Сканиране"
 msgid "{itemCount} items scanned"
 msgstr "{itemCount} сканирани елемента"
 
+#. Translators: Status message for metadata streaming.
+msgid "No metadata streaming URL's defined"
+msgstr ""
+
+#. Translators: Status message for metadata streaming.
+msgid "Metadata streaming configured for DSP encoder"
+msgstr ""
+
+#. Translators: Status message for metadata streaming.
+#, python-brace-format
+msgid "Metadata streaming configured for DSP encoder and URL {URL}"
+msgstr ""
+
+#. Translators: Status message for metadata streaming.
+#, python-brace-format
+msgid "Metadata streaming configured for URL {URL}"
+msgstr ""
+
+#. Translators: Status message for metadata streaming.
+#, python-brace-format
+msgid "Metadata streaming configured for DSP encoder and URL's {URL}"
+msgstr ""
+
+#. Translators: Status message for metadata streaming.
+#, python-brace-format
+msgid "Metadata streaming configured for URL's {URL}"
+msgstr ""
+
+#. Translators: Presented when stremaing dialog cannot be shown.
+msgid "Cannot open metadata streaming dialog"
+msgstr ""
+
+#. Translators: Presented when the add-on config dialog is opened.
+#, fuzzy
+msgid ""
+"The add-on settings dialog or the metadata streaming dialog is opened. "
+"Please close the opened dialog first."
+msgstr "Диалога за настройка на добавката е отворен. Моля, първо го затворете."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+#, fuzzy
+msgid "Opens a dialog to quickly enable or disable metadata streaming."
+msgstr "Отваря диалог за именоване на избрания енкодер."
+
 #. Translators: Input help mode message for a layer command in Station Playlist Studio.
 msgid ""
 "The SPL Assistant layer command. See the add-on guide for more information "
@@ -468,6 +507,21 @@ msgstr "Не може да бъде намерена информация за �
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Announces title of the next track if any"
 msgstr "Съобщава заглавието на следващия запис, ако има такъв"
+
+#. Translators: Presented when there is no information for the current track.
+#, fuzzy
+msgid "Cannot locate current track information or no track is playing"
+msgstr "Няма зададен следващ запис или няма просвирващ се запис"
+
+#. Translators: Presented when current track information is unavailable.
+#, fuzzy
+msgid "Cannot find current track information"
+msgstr "Не може да бъде намерена информация за следващ запис"
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+#, fuzzy
+msgid "Announces title of the currently playing track"
+msgstr "&Съобщава името на текущо просвирвания джингъл"
 
 #. Translators: Presented when there is no weather or temperature information.
 msgid "Weather and temperature not configured"
@@ -497,6 +551,77 @@ msgstr "Наблюдаване сканирането на библиотека�
 msgid "Scanning is in progress"
 msgstr "Извършва се сканиране"
 
+#. Translators: Presented when track time anlaysis cannot be performed because user is not focused on playlist viewer.
+#, fuzzy
+msgid "Not in playlist viewer, cannot perform track time analysis"
+msgstr "Не сте в разглеждача на джингъли, не можете да разгледате Джингълите"
+
+#. Translators: Presented when track time analysis cannot be activated.
+msgid "No tracks were added, cannot perform track time analysis"
+msgstr ""
+
+#. Translators: Presented when track time analysis is turned on.
+msgid "Track time analysis activated"
+msgstr ""
+
+#. Translators: Presented when track time analysis is turned off.
+msgid "Track time analysis deactivated"
+msgstr ""
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Marks focused track as start marker for track time analysis"
+msgstr ""
+
+#. Translators: Presented when track time analysis cannot be used because start marker is not set.
+msgid ""
+"No track selected as start of analysis marker, cannot perform time analysis"
+msgstr ""
+
+#. Translators: Presented when time analysis is done for a number of tracks (example output: Tracks: 3, totaling 5:00).
+#, python-brace-format
+msgid "Tracks: {numberOfSelectedTracks}, totaling {totalTime}"
+msgstr ""
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid ""
+"Announces total length of tracks between analysis start marker and the "
+"current track"
+msgstr ""
+
+#. Translators: Presented when place marker cannot be set.
+msgid "No tracks found, cannot set place marker"
+msgstr ""
+
+#. Translators: Presented when place marker track is set.
+msgid "place marker set"
+msgstr ""
+
+#. Translators: Presented when attempting to place a place marker on an unsupported track.
+msgid "This track cannot be used as a place marker track"
+msgstr ""
+
+#. Translators: Presented when no place marker is found.
+msgid "No place marker found"
+msgstr ""
+
+#. Translators: Status message for metadata streaming.
+#, python-brace-format
+msgid "Metadata streaming on URL {URLPosition} enabled"
+msgstr ""
+
+#. Translators: Status message for metadata streaming.
+msgid "Metadata streaming on DSP encoder enabled"
+msgstr ""
+
+#. Translators: Status message for metadata streaming.
+#, python-brace-format
+msgid "Metadata streaming on URL {URLPosition} disabled"
+msgstr ""
+
+#. Translators: Status message for metadata streaming.
+msgid "Metadata streaming on DSP encoder disabled"
+msgstr ""
+
 #. Translators: The title for SPL Assistant help dialog.
 msgid "SPL Assistant help"
 msgstr "Помощ за асистента за SPL"
@@ -509,33 +634,82 @@ msgstr "Настройките по подразбиране за добавка
 msgid "Reset configuration"
 msgstr "Връщане на конфигурацията"
 
+#. Translators: The name of the default (normal) profile.
+msgid "Normal profile"
+msgstr ""
+
 #. Translators: Standard error title for configuration error.
 msgid "Studio add-on Configuration error"
 msgstr "Грешка в настройките за добавката за Studio"
 
-#. Translators: Standard dialog message when Studio configuration has problems and was reset to defaults.
-msgid ""
-"Your Studio add-on configuration has errors and was reset to factory "
-"defaults."
-msgstr ""
-"Възникнаха грешки във вашите настройки за добавката за Studio и настройките "
-"бяха върнати към заводските им стойности."
+#. Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
+#, fuzzy
+msgid "Add-on settings dialog is open, cannot switch profiles"
+msgstr "Диалога за настройка на добавката е отворен. Моля, първо го затворете."
 
-#. Translators: Standard dialog message when some Studio configuration settings were reset to defaults.
-msgid ""
-"Errors were found in some of your Studio configuration settings. The "
-"affected settings were reset to defaults."
+#. Translators: Presented when trying to switch to an instant switch profile when the instant switch profile is not defined.
+msgid "No instant switch profile is defined"
 msgstr ""
-"Бяха открити грешки в някои от вашите настройки на Studio. Засегнатите "
-"настройки бяха върнати до стойностите им по подразбиране."
+
+#. Translators: Presented when trying to switch to an instant switch profile when one is already using the instant switch profile.
+msgid "You are already in the instant switch profile"
+msgstr ""
+
+#. Translators: Presented when switch to instant switch profile was successful.
+msgid "Switching profiles"
+msgstr ""
+
+#. Translators: Presented when switching from instant switch profile to a previous profile.
+msgid "Returning to previous profile"
+msgstr ""
 
 #. Translators: This is the label for the StationPlaylist Studio configuration dialog.
 msgid "Studio Add-on Settings"
 msgstr "Настройки на добавката за Studio"
 
+#. Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
+msgid "Broadcast &profile:"
+msgstr ""
+
+#. Translators: The label of a button to create a new broadcast profile.
+msgid "&New"
+msgstr ""
+
+#. Translators: The label of a button to copy a broadcast profile.
+msgid "Cop&y"
+msgstr ""
+
+#. Translators: The label of a button to rename a broadcast profile.
+msgid "&Rename"
+msgstr ""
+
+#. Translators: The label of a button to delete a broadcast profile.
+msgid "&Delete"
+msgstr ""
+
+#. Translators: The label of a button to toggle instant profile switching on and off.
+msgid "Enable instant profile switching"
+msgstr ""
+
+#. Translators: The label of a button to toggle instant profile switching on and off.
+msgid "Disable instant profile switching"
+msgstr ""
+
 #. Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
 msgid "&Beep for status announcements"
 msgstr "Издавай &звуков сигнал за съобщаване на състоянието"
+
+#. Translators: The label for a setting in SPL add-on dialog to set message verbosity.
+msgid "Message &verbosity:"
+msgstr ""
+
+#. Translators: One of the message verbosity levels.
+msgid "beginner"
+msgstr ""
+
+#. Translators: One of the message verbosity levels.
+msgid "advanced"
+msgstr ""
 
 #. Translators: The label for a setting in SPL Add-on settings to specify end of track (outro) alarm.
 msgid "&End of track alarm in seconds"
@@ -549,44 +723,96 @@ msgstr "Аларма за въведението в записа в секунд
 msgid "&Braille timer:"
 msgstr "&Брайлов брояч:"
 
-msgid "off"
+#, fuzzy
+msgid "Off"
 msgstr "изключен"
 
 #. Translators: One of the braille timer settings.
-msgid "track ending"
+#, fuzzy
+msgid "Track ending"
 msgstr "Завършек на записа"
 
 #. Translators: One of the braille timer settings.
-msgid "track intro"
+#, fuzzy
+msgid "Track intro"
 msgstr "въведение в записа"
 
 #. Translators: One of the braille timer settings.
-msgid "track intro and ending"
+#, fuzzy
+msgid "Track intro and ending"
 msgstr "Въведение в записа и завършек"
 
 #. Translators: The label for a setting in SPL Add-on settings to change microphone alarm setting.
 msgid "&Microphone alarm in seconds"
 msgstr "Предупреждение за &микрофона в секунди"
 
+#. Translators: The label for a setting in SPL Add-on settings to specify mic alarm interval.
+#, fuzzy
+msgid "Microphone alarm &interval in seconds"
+msgstr "Предупреждение за &микрофона в секунди"
+
+#. Translators: The label for a setting in SPL add-on dialog to control alarm announcement type.
+msgid "&Alarm notification:"
+msgstr ""
+
+#. Translators: One of the alarm notification options.
+msgid "beep"
+msgstr ""
+
+#. Translators: One of the alarm notification options.
+msgid "message"
+msgstr ""
+
+#. Translators: One of the alarm notification options.
+msgid "both beep and message"
+msgstr ""
+
 #. Translators: The label for a setting in SPL add-on dialog to control library scan announcement.
 msgid "&Library scan announcement:"
 msgstr "&Съобщаване на сканиране на библиотека:"
 
 #. Translators: One of the library scan announcement settings.
-msgid "start and end only"
+#, fuzzy
+msgid "Start and end only"
 msgstr "само начало и край"
 
 #. Translators: One of the library scan announcement settings.
-msgid "scan progress"
+#, fuzzy
+msgid "Scan progress"
 msgstr "Напредък на сканирането"
 
 #. Translators: One of the library scan announcement settings.
-msgid "scan count"
+#, fuzzy
+msgid "Scan count"
 msgstr "Брой на сканирания"
 
 #. Translators: the label for a setting in SPL add-on settings to toggle track dial mode on and off.
 msgid "&Track Dial mode"
 msgstr "Режим на &преглед на записи"
+
+#. Translators: the label for a setting in SPL add-on settings to be notified that metadata streaming is enabled.
+msgid "&Metadata streaming notification and connection"
+msgstr ""
+
+#. Translators: One of the metadata notification settings.
+msgid "When Studio starts"
+msgstr ""
+
+#. Translators: One of the metadata notification settings.
+msgid "When instant switch profile is active"
+msgstr ""
+
+#. Translators: The label of a button to manage column announcements.
+msgid "Configure metadata &streaming connection options..."
+msgstr ""
+
+#. Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
+msgid "Announce columns in the &order shown on screen"
+msgstr ""
+
+#. Translators: The label of a button to manage column announcements.
+msgid "&Manage track column announcements..."
+msgstr ""
 
 #. Translators: the label for a setting in SPL add-on settings to announce scheduled time.
 msgid "Announce &scheduled time for the selected track"
@@ -602,16 +828,51 @@ msgstr "&Съобщава името на текущо просвирвания 
 
 #. Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
 #, fuzzy
-msgid "Announce name of the currently playing &track automatically"
-msgstr "&Съобщава името на текущо просвирвания джингъл"
+msgid "&Track name announcement:"
+msgstr "&Съобщаване на сканиране на библиотека:"
+
+#. Translators: One of the track name announcement options.
+msgid "automatic"
+msgstr ""
+
+#. Translators: One of the track name announcement options.
+msgid "while using other programs"
+msgstr ""
+
+#. Translators: One of the track name announcement options.
+#, fuzzy
+msgid "off"
+msgstr "изключен"
+
+#. Translators: The label of a button to open advanced options such as using SPL Controller command to invoke Assistant layer.
+msgid "&Advanced options..."
+msgstr ""
 
 #. Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
 msgid "Reset settings"
 msgstr "Връщане на настройките"
 
-#. Translators: Message to report wrong value for microphone alarm.
-msgid "Incorrect microphone alarm value entered."
-msgstr "Въвели сте некоректна стойност за аларма за микрофона."
+#. Translators: The label of a field to enter a new name for a broadcast profile.
+msgid "New name:"
+msgstr ""
+
+#. Translators: The title of the dialog to rename a profile.
+msgid "Rename Profile"
+msgstr ""
+
+#. Translators: An error displayed when renaming a configuration profile
+#. and a profile with the new name already exists.
+#. Translators: An error displayed when the user attempts to create a profile which already exists.
+msgid "That profile already exists. Please choose a different name."
+msgstr ""
+
+#. Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
+msgid "Are you sure you want to delete this profile? This cannot be undone."
+msgstr ""
+
+#. Translators: The title of the confirmation dialog for deletion of a profile.
+msgid "Confirm Deletion"
+msgstr ""
 
 #. Translators: A message to warn about resetting SPL config settings to factory defaults.
 msgid "Are you sure you wish to reset SPL add-on settings to defaults?"
@@ -627,12 +888,178 @@ msgstr "Предупреждение"
 msgid "An alarm dialog is already opened. Please close the alarm dialog first."
 msgstr "Диалога за аларма вече е отворен. Моля, първо го затворете."
 
+#. Translators: The title of the dialog to create a new broadcast profile.
+msgid "New Profile"
+msgstr ""
+
+#. Translators: The title of the dialog to copy a broadcast profile.
+msgid "Copy Profile"
+msgstr ""
+
+#. Translators: The label of a field to enter the name of a new broadcast profile.
+msgid "Profile name:"
+msgstr ""
+
+#. Translators: The label for a setting in SPL add-on dialog to select a base  profile for copying.
+msgid "&Base profile:"
+msgstr ""
+
+msgid "Metadata streaming options"
+msgstr ""
+
+#. First, a help text.
+msgid "Select the URL for metadata streaming upon request."
+msgstr ""
+
+msgid "Check to enable metadata streaming, uncheck to disable."
+msgstr ""
+
+#, fuzzy
+msgid "Manage column announcements"
+msgstr "Издавай &звуков сигнал за съобщаване на състоянието"
+
+#. First, a help text.
+msgid ""
+"Select columns to be announced (artist and title are announced by default"
+msgstr ""
+
+#. Translators: The label for a setting in SPL add-on dialog to select column announcement order.
+msgid "Column &order:"
+msgstr ""
+
+#. Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
+msgid "Move &up"
+msgstr ""
+
+#. Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
+msgid "Move &down"
+msgstr ""
+
+msgid "Advanced options"
+msgstr ""
+
+#. Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
+msgid "Allow SPL C&ontroller command to invoke SPL Assistant layer"
+msgstr ""
+
+#. Translators: The label for a setting in SPL add-on dialog to control playlist remainder announcement command (SPL Assistant, D/R).
+#, fuzzy
+msgid "Playlist &remainder announcement:"
+msgstr "&Съобщаване на сканиране на библиотека:"
+
+#. Translators: One of the playlist remainder announcement options.
+msgid "current hour only"
+msgstr ""
+
+#. Translators: One of the playlist remainder announcement options.
+msgid "entire playlist"
+msgstr ""
+
 #. Translators: Text of the dialog when another alarm dialog is open.
 msgid "Another alarm dialog is open."
 msgstr "Отворен е друг диалог за аларма."
 
+#. Translators: Reported when status announcement is set to beeps in SPL Studio.
+msgid "Status announcement beeps"
+msgstr "Известяване чрез звуков сигнал"
+
+#. Translators: Reported when status announcement is set to beeps in SPL Studio.
+msgid "Beeps"
+msgstr ""
+
+#. Translators: Reported when status announcement is set to beeps in SPL Studio.
+msgid "Status announcement words"
+msgstr "Известяване чрез говор"
+
+#. Translators: Reported when status announcement is set to beeps in SPL Studio.
+msgid "Words"
+msgstr ""
+
+#. Translators: A setting in braille timer options.
+msgid "Braille timer off"
+msgstr "Не извеждай таймера на брайл"
+
+#. Translators: A setting in braille timer options.
+msgid "Braille track endings"
+msgstr "Извеждай края на записите на брайл"
+
+#. Translators: A setting in braille timer options.
+msgid "Outro"
+msgstr ""
+
+#. Translators: A setting in braille timer options.
+msgid "Braille intro endings"
+msgstr "Извеждай края на въведенията на брайл"
+
+#. Translators: A setting in braille timer options.
+msgid "Intro"
+msgstr ""
+
+#. Translators: A setting in braille timer options.
+msgid "Braille intro and track endings"
+msgstr "Извеждай края на записите и въведенията на брайл"
+
+#. Translators: A setting in braille timer options.
+msgid "Both"
+msgstr ""
+
+#. Translators: A setting in library scan announcement options.
+msgid "Do not announce library scans"
+msgstr "Не съобщавай за сканиранията на библиотеката"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Announce start and end of a library scan"
+msgstr "Съобщавай при начало и край на сканиране на библиотеката"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Announce the progress of a library scan"
+msgstr "Съобщавай напредъка при сканиране на библиотеката"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Announce progress and item count of a library scan"
+msgstr "Съобщавай напредъка и броя на елементите при сканиране на библиотеката"
+
+#. Translators: Text of the dialog when another find dialog is open.
+#, fuzzy
+msgid "Another find dialog is open."
+msgstr "Отворен е друг диалог за аларма."
+
+#, fuzzy
+msgid "Enter the name or the artist of the track you wish to &search"
+msgstr "Въведете името на записа, който искате да намерите."
+
+msgid "Enter text to be &searched in a column"
+msgstr ""
+
+#. Translators: The label in track finder to search columns.
+msgid "C&olumn to search:"
+msgstr ""
+
+#. Translators: The title of a dialog to find tracks with duration within a specified range.
+msgid "Time range finder"
+msgstr ""
+
+msgid "Minimum duration"
+msgstr ""
+
+msgid "Maximum duration"
+msgstr ""
+
+#. Translators: Message to report wrong value for duration fields.
+msgid "Minimum duration is greater than the maximum duration."
+msgstr ""
+
+#. Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
+msgid "No track with duration between minimum and maximum duration."
+msgstr ""
+
+#. Translators: Standard error title for find error (copy this from main nvda.po).
+msgid "Time range find error"
+msgstr ""
+
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
+#, fuzzy
 msgid ""
 "\n"
 "After entering SPL Controller, press:\n"
@@ -647,6 +1074,7 @@ msgid ""
 "U: Pause.\n"
 "S: Stop with fade.\n"
 "T: Instant stop.\n"
+"E: Announce if any encoders are being monitored.\n"
 "R: Remainig time for the playing track.\n"
 "Shift+R: Library scan progress."
 msgstr ""
@@ -791,16 +1219,20 @@ msgstr "Въведете име за този поток"
 msgid "Opens a dialog to label the selected encoder."
 msgstr "Отваря диалог за именоване на избрания енкодер."
 
-#. Translators: The title of the stream label eraser.
-msgid "Stream label eraser"
+#. Translators: The title of the stream configuration eraser dialog.
+#, fuzzy
+msgid "Stream label and settings eraser"
 msgstr "Изтриване на етикет на поток"
 
-#. Translators: The text of the stream label eraser dialog.
+#. Translators: The text of the stream configuration eraser dialog.
 msgid "Enter the position of the encoder you wish to delete or will delete"
 msgstr "Въведете позицията на енкодера, който искате да изтриете"
 
 #. Translators: Input help mode message in SAM Encoder window.
-msgid "Opens a dialog to erase stream labels from an encoder that was deleted."
+#, fuzzy
+msgid ""
+"Opens a dialog to erase stream labels and settings from an encoder that was "
+"deleted."
 msgstr ""
 "Отваря диалог за изтриване на етикети на потоци от енкодер, който е бил "
 "изтрит."
@@ -819,6 +1251,7 @@ msgid "Station Playlist Studio"
 msgstr "Station Playlist Studio"
 
 #. Translators: Presented when SAM Encoder is trying to connect to a streaming server.
+#. Translators: Presented when SAM Encoder is disconnecting from a streaming server.
 msgid "Connecting..."
 msgstr "Свързване..."
 
@@ -837,6 +1270,36 @@ msgid ""
 msgstr ""
 "Подобрява достъпността на Station Playlist Studio.\n"
 "В допълнение предоставя инструменти за контрол на програмата отвсякъде."
+
+#, fuzzy
+#~ msgid "Announce name of the currently playing &track automatically"
+#~ msgstr "&Съобщава името на текущо просвирвания джингъл"
+
+#~ msgid "{columnInfo} not found"
+#~ msgstr "{columnInfo} не е намерено"
+
+#~ msgid "Incorrect value entered."
+#~ msgstr "Въвели сте некоректна стойност"
+
+#~ msgid "Find track dialog is already open."
+#~ msgstr "Вече е отворен диалог за търсене на запис."
+
+#~ msgid ""
+#~ "Your Studio add-on configuration has errors and was reset to factory "
+#~ "defaults."
+#~ msgstr ""
+#~ "Възникнаха грешки във вашите настройки за добавката за Studio и "
+#~ "настройките бяха върнати към заводските им стойности."
+
+#~ msgid ""
+#~ "Errors were found in some of your Studio configuration settings. The "
+#~ "affected settings were reset to defaults."
+#~ msgstr ""
+#~ "Бяха открити грешки в някои от вашите настройки на Studio. Засегнатите "
+#~ "настройки бяха върнати до стойностите им по подразбиране."
+
+#~ msgid "Incorrect microphone alarm value entered."
+#~ msgstr "Въвели сте некоректна стойност за аларма за микрофона."
 
 #~ msgid "This version of Studio is no longer supported"
 #~ msgstr "Тази версия на Studio вече не се поддържа"
