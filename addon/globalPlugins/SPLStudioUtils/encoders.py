@@ -621,14 +621,6 @@ class SAMEncoder(Encoder):
 		statusIndex = self.description.find(", Description: ")
 		ui.message(self.description[statusIndex+2:])
 
-	# The following mutators will be removed as part of Project Rainbow.
-	# These will be kept in 6.0 for backwards compatibility.
-
-	def _set_FocusToStudio(self):
-		self._set_Flags(self.getEncoderId(), self.focusToStudio, SPLFocusToStudio, "FocusToStudio")
-
-	def setPlayAfterConnecting(self):
-		self._set_Flags(self.getEncoderId(), self.playAfterConnecting, SPLPlayAfterConnecting, "PlayAfterConnecting")
 
 	def setBackgroundMonitor(self):
 		self._set_Flags(self.getEncoderId(), self.backgroundMonitor, SPLBackgroundMonitor, "BackgroundMonitor")
@@ -779,12 +771,6 @@ class SPLEncoder(Encoder):
 
 	def script_announceEncoderTransfer(self, gesture):
 		ui.message("Transfer Rate: {transferRate}".format(transferRate = self.children[1].name))
-
-	def _set_FocusToStudio(self):
-		self._set_Flags(self.getEncoderId(), self.focusToStudio, SPLFocusToStudio, "FocusToStudio")
-
-	def setPlayAfterConnecting(self):
-		self._set_Flags(self.getEncoderId(), self.playAfterConnecting, SPLPlayAfterConnecting, "PlayAfterConnecting")
 
 	def setBackgroundMonitor(self):
 		self._set_Flags(self.getEncoderId(), self.backgroundMonitor, SPLBackgroundMonitor, "BackgroundMonitor")
