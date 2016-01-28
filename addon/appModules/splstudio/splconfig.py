@@ -274,7 +274,7 @@ def _cacheConfig(conf):
 	if "PDT" in conf:
 		_SPLCache[key]["___oldupdatekeys___"] = True
 		splupdate.SPLAddonCheck = float(conf["PDT"])
-		try: del SPLConfigCheckpoint["PDT"]
+		try: del conf["PDT"]
 		except KeyError: pass
 	for setting in conf.keys():
 		if isinstance(conf[setting], dict): _SPLCache[key][setting] = dict(conf[setting])
