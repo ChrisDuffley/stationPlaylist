@@ -221,16 +221,6 @@ def unlockConfig(path, profileName=None, prefill=False):
 			SPLConfigCheckpoint.write()
 			_configLoadStatus[profileName] = "partialReset"
 	_extraInitSteps(SPLConfigCheckpoint, profileName=profileName)
-	# Take care of global flags such as updates and so on.
-	if prefill:
-		if "PSZ" in SPLConfigCheckpoint:
-			splupdate.SPLAddonSize = hex(int(SPLConfigCheckpoint["PSZ"], 16))
-			try: del SPLConfigCheckpoint["PSZ"]
-			except KeyError: pass
-		if "PDT" in SPLConfigCheckpoint:
-			splupdate.SPLAddonCheck = float(SPLConfigCheckpoint["PDT"])
-			try: del SPLConfigCheckpoint["PDT"]
-			except KeyError: pass
 	SPLConfigCheckpoint.name = profileName
 	# 7.0 optimization: Store an online backup.
 	# This online backup is used to prolong SSD life (no need to save a config if it is same as this copy).
@@ -275,6 +265,17 @@ def _cacheConfig(conf):
 	if _SPLCache is None: _SPLCache = {}
 	key = None if conf.filename == SPLIni else conf.name
 	_SPLCache[key] = {}
+	# Take care of global flags in caching normal profile.
+	if "PSZ" in conf:
+		_SPLCache[key]["___oldupdatekeys___"] = True
+		splupdate.SPLAddonSize = hex(int(conf["PSZ"], 16))
+		try: del conf["PSZ"]
+		except KeyError: pass
+	if "PDT" in conf:
+		_SPLCache[key]["___oldupdatekeys___"] = True
+		splupdate.SPLAddonCheck = float(conf["PDT"])
+		try: del SPLConfigCheckpoint["PDT"]
+		except KeyError: pass
 	for setting in conf.keys():
 		if isinstance(conf[setting], dict): _SPLCache[key][setting] = dict(conf[setting])
 		else:
@@ -538,6 +539,8 @@ def shouldSave(profile):
 	if "Advanced" in profile and "PlaylistRemainder" in profile["Advanced"]:
 		del profile["Advanced"]["PlaylistRemainder"]
 		return True
+	# Goodbye old-style update keys (to be removed in add-on 7.1).
+	if "___oldupdatekeys___" in _SPLCache[tree]: return True
 	for section in profile.keys():
 		if isinstance(profile[section], dict):
 			for key in profile[section]:
