@@ -1549,8 +1549,22 @@ class TriggersDialog(wx.Dialog):
 			triggerText = "No triggers defined."
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		label = wx.StaticText(self, wx.ID_ANY, label=triggerText)
-		mainSizer.Add(label)
+		sizer.Add(label)
+
+		# Translators: The label of a checkbox to toggle if selected profile is an instant switch profile.
+		self.instantSwitchCheckbox=wx.CheckBox(self,wx.NewId(),label=_("This is an &instant switch profile"))
+		self.instantSwitchCheckbox.SetValue(parent.switchProfile == parent.profiles.GetStringSelection().split(" <")[0])
+		sizer.Add(self.instantSwitchCheckbox, border=10,flag=wx.TOP)
+
+		# Translators: The label of a checkbox to toggle if selected profile is a time-based profile.
+		self.timeSwitchCheckbox=wx.CheckBox(self,wx.NewId(),label=_("This is a &time-based switch profile"))
+		self.timeSwitchCheckbox.SetValue(profile in self.Parent._profileTriggersConfig)
+		self.timeSwitchCheckbox.Bind(wx.EVT_CHECKBOX, self.onTimeSwitch)
+		sizer.Add(self.timeSwitchCheckbox, border=10,flag=wx.TOP)
+		mainSizer.Add(sizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
 		daysSizer = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Day")), wx.HORIZONTAL)
 		self.triggerDays = []
@@ -1561,27 +1575,35 @@ class TriggersDialog(wx.Dialog):
 			self.triggerDays.append(triggerDay)
 		for day in self.triggerDays:
 			daysSizer.Add(day)
+			if not self.timeSwitchCheckbox.IsChecked(): daysSizer.Hide(day)
 		mainSizer.Add(daysSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
 		timeSizer = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Time")), wx.HORIZONTAL)
-		prompt = wx.StaticText(self, wx.ID_ANY, label="Hour")
-		timeSizer.Add(prompt)
+		self.hourPrompt = wx.StaticText(self, wx.ID_ANY, label="Hour")
+		timeSizer.Add(self.hourPrompt)
 		self.hourEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=23)
 		self.hourEntry.SetValue(self.Parent._profileTriggersConfig[profile][4] if profile in self.Parent._profileTriggersConfig else 0)
 		self.hourEntry.SetSelection(-1, -1)
 		timeSizer.Add(self.hourEntry)
-		prompt = wx.StaticText(self, wx.ID_ANY, label="Minute")
-		timeSizer.Add(prompt)
+		self.minPrompt = wx.StaticText(self, wx.ID_ANY, label="Minute")
+		timeSizer.Add(self.minPrompt)
 		self.minEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=59)
 		self.minEntry.SetValue(self.Parent._profileTriggersConfig[profile][5] if profile in self.Parent._profileTriggersConfig else 0)
 		self.minEntry.SetSelection(-1, -1)
 		timeSizer.Add(self.minEntry)
-		prompt = wx.StaticText(self, wx.ID_ANY, label="Duration in minutes")
-		timeSizer.Add(prompt)
+		self.durationPrompt = wx.StaticText(self, wx.ID_ANY, label="Duration in minutes")
+		timeSizer.Add(self.durationPrompt)
 		self.durationEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=1440)
 		self.durationEntry.SetValue(self.Parent._profileTriggersConfig[profile][6] if profile in self.Parent._profileTriggersConfig else 0)
 		self.durationEntry.SetSelection(-1, -1)
 		timeSizer.Add(self.durationEntry)
+		if not self.timeSwitchCheckbox.IsChecked():
+			timeSizer.Hide(self.hourPrompt)
+			timeSizer.Hide(self.hourEntry)
+			timeSizer.Hide(self.minPrompt)
+			timeSizer.Hide(self.minEntry)
+			timeSizer.Hide(self.durationPrompt)
+			timeSizer.Hide(self.durationEntry)
 		mainSizer.Add(timeSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.BOTTOM)
 
 		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
@@ -1590,7 +1612,7 @@ class TriggersDialog(wx.Dialog):
 		mainSizer.Fit(self)
 		self.SetSizer(mainSizer)
 		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
-		self.triggerDays[0].SetFocus()
+		self.instantSwitchCheckbox.SetFocus()
 
 	def onOk(self, evt):
 		global SPLTriggerProfile, triggerTimer
@@ -1624,6 +1646,15 @@ class TriggersDialog(wx.Dialog):
 	def onCancel(self, evt):
 		self.Parent.Enable()
 		self.Destroy()
+
+	# Disable date and time sizers when time switch checkbox is cleared and vice versa.
+	def onTimeSwitch(self, evt):
+		# Hack: Somehow, NVDA is not notified of state change for this checkbox, so force NVDA to report the new state.
+		import eventHandler
+		eventHandler.executeEvent("stateChange", api.getFocusObject())
+		for prompt in self.triggerDays + [self.hourPrompt, self.hourEntry, self.minPrompt, self.minEntry, self.durationPrompt, self.durationEntry]:
+			prompt.Show() if self.timeSwitchCheckbox.IsChecked() else prompt.Hide()
+		self.Fit()
 
 # Metadata reminder controller.
 # Select notification/streaming URL's for metadata streaming.
