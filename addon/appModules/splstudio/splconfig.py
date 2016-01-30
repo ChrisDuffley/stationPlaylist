@@ -1579,27 +1579,44 @@ class TriggersDialog(wx.Dialog):
 	def onOk(self, evt):
 		global SPLTriggerProfile, triggerTimer
 		parent = self.Parent
-		bit = 0
-		for day in self.triggerDays:
-			if day.Value: bit+=64 >> self.triggerDays.index(day)
-		if bit:
-			hour, min = self.hourEntry.GetValue(), self.minEntry.GetValue()
-			duration = self.durationEntry.GetValue()
-			if duplicateExists(parent._profileTriggersConfig, self.profile, bit, hour, min, duration):
-				gui.messageBox(_("A profile trigger already exists for the entered time slot. Please choose a different date or time."),
+		# Handle instant switch checkbox.
+		if self.instantSwitchCheckbox.Value:
+			if parent.switchProfile is not None and (self.profile != parent.switchProfile):
+				# Instant switch flag is set on another profile, so remove the flag first.
+				parent.setProfileFlags(parent.profileNames.index(parent.switchProfile), "discard", _("instant switch"))
+			parent.setProfileFlags(self.selection, "add", _("instant switch"))
+			parent.switchProfile = self.profile
+		else:
+			parent.switchProfile = None
+			parent.setProfileFlags(self.selection, "discard", _("instant switch"))
+		# Now time-based profile checkbox.
+		if self.timeSwitchCheckbox.Value:
+			bit = 0
+			for day in self.triggerDays:
+				if day.Value: bit+=64 >> self.triggerDays.index(day)
+			if bit:
+				hour, min = self.hourEntry.GetValue(), self.minEntry.GetValue()
+				duration = self.durationEntry.GetValue()
+				if duplicateExists(parent._profileTriggersConfig, self.profile, bit, hour, min, duration):
+					gui.messageBox(_("A profile trigger already exists for the entered time slot. Please choose a different date or time."),
+						_("Error"), wx.OK | wx.ICON_ERROR, self)
+					return
+				# Change display name if there is no profile of this name registered.
+				# This helps in preventing unnecessary calls to profile flags retriever, a huge time and memory savings.
+				# Otherwise trigger flag will be added each time this is called (either this handler or the add-on settings' flags retriever must retrieve the flags set).
+				if not self.profile in parent._profileTriggersConfig:
+					parent.setProfileFlags(self.selection, "add", _("time-based"))
+				parent._profileTriggersConfig[self.profile] = setNextTimedProfile(self.profile, bit, datetime.time(hour, min))
+				parent._profileTriggersConfig[self.profile][6] = duration
+			else:
+				# Er, did you specify a date?
+				gui.messageBox(_("The time-based profile checkbox is checked but no switch dates are given. Please either specify switch date(s) or uncheck time-based profile checkbox."),
 					_("Error"), wx.OK | wx.ICON_ERROR, self)
 				return
-			# Change display name if there is no profile of this name registered.
-			# This helps in preventing unnecessary calls to profile flags retriever, a huge time and memory savings.
-			# Otherwise trigger flag will be added each time this is called (either this handler or the add-on settings' flags retriever must retrieve the flags set).
-			if not self.profile in parent._profileTriggersConfig:
-				parent.setProfileFlags(self.selection, "add", "time-based")
-			parent._profileTriggersConfig[self.profile] = setNextTimedProfile(self.profile, bit, datetime.time(hour, min))
-			parent._profileTriggersConfig[self.profile][6] = duration
-		elif bit == 0 and self.profile in self.Parent._profileTriggersConfig:
+		elif not self.timeSwitchCheckbox.Value and self.profile in self.Parent._profileTriggersConfig:
 			del parent._profileTriggersConfig[self.profile]
 			# Calling set profile flags with discard argument is always safe here.
-			parent.setProfileFlags(self.selection, "discard", "time-based")
+			parent.setProfileFlags(self.selection, "discard", _("time-based"))
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()
