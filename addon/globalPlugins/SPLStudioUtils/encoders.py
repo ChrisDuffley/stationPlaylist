@@ -133,6 +133,8 @@ def cleanup():
 	global streamLabels, SAMStreamLabels, SPLStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, encoderMonCount
 	for map in [streamLabels, SAMStreamLabels, SPLStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor]:
 		if map is not None: map.clear()
+	# Nullify stream labels.
+	streamLabels = None
 	# Without resetting monitor count, we end up with higher and higher value for this.
 	# 7.0: Destroy threads also.
 	encoderMonCount = {"SAM":0, "SPL":0}
@@ -323,7 +325,7 @@ class Encoder(IAccessible):
 	def initOverlayClass(self):
 		global encoderMonCount
 		# Load stream labels upon request.
-		if not streamLabels: loadStreamLabels()
+		if streamLabels is None: loadStreamLabels()
 		encoderIdentifier = self.getEncoderId()
 		# Can I switch to Studio when connected to a streaming server?
 		try:
