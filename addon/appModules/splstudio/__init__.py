@@ -584,6 +584,12 @@ class AppModule(appModuleHandler.AppModule):
 	# Save configuration when terminating.
 	def terminate(self):
 		super(AppModule, self).terminate()
+		# 6.3: Memory leak results if encoder flag sets and other encoder support maps aren't cleaned up.
+		# This also could have allowed a hacker to modify the flags set (highly unlikely) so NvDA could get confused next time Studio loads.
+		import sys
+		if "globalPlugins.SPLStudioUtils.encoders" in sys.modules:
+			import globalPlugins.SPLStudioUtils.encoders
+			globalPlugins.SPLStudioUtils.encoders.cleanup()
 		splconfig.saveConfig()
 		try:
 			self.prefsMenu.RemoveItem(self.SPLSettings)

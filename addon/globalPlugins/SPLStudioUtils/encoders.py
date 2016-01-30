@@ -128,6 +128,15 @@ def _removeEncoderID(encoderType, pos):
 			except KeyError:
 				pass
 
+# Nullify various flag sets, otherwise memory leak occurs.
+def cleanup():
+	global streamLabels, SAMStreamLabels, SPLStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, encoderMonCount
+	for map in [streamLabels, SAMStreamLabels, SPLStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor]:
+		if map is not None: map.clear()
+	# Without resetting monitor count, we end up with higher and higher value for this.
+	# 7.0: Destroy threads also.
+	encoderMonCount = {"SAM":0, "SPL":0}
+
 # Try to see if SPL foreground object can be fetched. This is used for switching to SPL Studio window from anywhere and to switch to Studio window from SAM encoder window.
 
 def fetchSPLForegroundWindow():
@@ -312,6 +321,7 @@ class Encoder(IAccessible):
 
 
 	def initOverlayClass(self):
+		global encoderMonCount
 		# Load stream labels upon request.
 		if not streamLabels: loadStreamLabels()
 		encoderIdentifier = self.getEncoderId()
@@ -334,12 +344,16 @@ class Encoder(IAccessible):
 		if self.backgroundMonitor:
 			if self.encoderType == "SAM": threadPool = SAMMonitorThreads
 			elif self.encoderType == "SPL": threadPool = SPLMonitorThreads
-			if self.IAccessibleChildID not in threadPool:
-				statusThread = threading.Thread(target=self.reportConnectionStatus)
-				statusThread.name = "Connection Status Reporter " + str(self.IAccessibleChildID)
-				statusThread.start()
-				threadPool[self.IAccessibleChildID] = statusThread
-
+			if self.IAccessibleChildID in threadPool:
+				if not threadPool[self.IAccessibleChildID].is_alive():
+					del threadPool[self.IAccessibleChildID]
+				# If it is indeed alive... Otherwise another thread will be created to keep an eye on this encoder (undesirable).
+				else: return
+			statusThread = threading.Thread(target=self.reportConnectionStatus)
+			statusThread.name = "Connection Status Reporter " + str(self.IAccessibleChildID)
+			statusThread.start()
+			threadPool[self.IAccessibleChildID] = statusThread
+			encoderMonCount[self.encoderType] += 1
 
 	def reportFocus(self):
 		try:
