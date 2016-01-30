@@ -130,7 +130,7 @@ def _removeEncoderID(encoderType, pos):
 
 # Nullify various flag sets, otherwise memory leak occurs.
 def cleanup():
-	global streamLabels, SAMStreamLabels, SPLStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, encoderMonCount
+	global streamLabels, SAMStreamLabels, SPLStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, encoderMonCount
 	for map in [streamLabels, SAMStreamLabels, SPLStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor]:
 		if map is not None: map.clear()
 	# Without resetting monitor count, we end up with higher and higher value for this.
