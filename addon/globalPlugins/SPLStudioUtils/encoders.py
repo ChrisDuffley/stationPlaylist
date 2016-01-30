@@ -134,14 +134,15 @@ def _removeEncoderID(encoderType, pos):
 
 # Nullify various flag sets, otherwise memory leak occurs.
 def cleanup():
-	global streamLabels, SAMStreamLabels, SPLStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, encoderMonCount
-	for map in [streamLabels, SAMStreamLabels, SPLStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone]:
+	global streamLabels, SAMStreamLabels, SPLStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, encoderMonCount, SAMMonitorThreads, SPLMonitorThreads
+	for map in [streamLabels, SAMStreamLabels, SPLStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SAMMonitorThreads, SPLMonitorThreads]:
 		if map is not None: map.clear()
 	# Nullify stream labels.
 	streamLabels = None
 	# Without resetting monitor count, we end up with higher and higher value for this.
 	# 7.0: Destroy threads also.
 	encoderMonCount = {"SAM":0, "SPL":0}
+
 
 # Try to see if SPL foreground object can be fetched. This is used for switching to SPL Studio window from anywhere and to switch to Studio window from SAM encoder window.
 
@@ -727,7 +728,11 @@ class SPLEncoder(Encoder):
 		while True:
 			time.sleep(0.001)
 			try:
-				statChild = self.children[1]
+				# An inner try block is required because statChild may say the base class is gone.
+				try:
+					statChild = self.children[1]
+				except NotImplementedError:
+					return # Only seen when the encoder dies.
 			except IndexError:
 				return # Don't leave zombie objects around.
 			if messageCache != statChild.name:
