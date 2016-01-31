@@ -805,16 +805,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		# Translators: The label of a checkbox to toggle if selected profile is an instant switch profile.
-		self.instantSwitchCheckbox=wx.CheckBox(self,wx.NewId(),label=_("This is an instant switch profile"))
 		self.switchProfile = SPLSwitchProfile
 		self.activeProfile = SPLActiveProfile
 		# Used as sanity check in case switch profile is renamed or deleted.
 		self.switchProfileRenamed = False
 		self.switchProfileDeleted = False
-		self.instantSwitchCheckbox.SetValue(self.switchProfile == self.profiles.GetStringSelection().split(" <")[0])
-		self.instantSwitchCheckbox.Bind(wx.EVT_CHECKBOX, self.onInstantSwitch)
-		sizer.Add(self.instantSwitchCheckbox, border=10,flag=wx.BOTTOM)
 		# Translators: The label for a setting in SPL Add-on settings to configure countdown seconds before switching profiles.
 		self.triggerThresholdLabel = wx.StaticText(self, wx.ID_ANY, label=_("Countdown seconds before switching profiles"))
 		sizer.Add(self.triggerThresholdLabel)
@@ -826,7 +821,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 			self.renameButton.Disable()
 			self.deleteButton.Disable()
 			self.triggerButton.Disable()
-			self.instantSwitchCheckbox.Disable()
 		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		# Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
@@ -1178,13 +1172,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 			self.renameButton.Disable()
 			self.deleteButton.Disable()
 			self.triggerButton.Disable()
-			self.instantSwitchCheckbox.Disable()
 		else:
 			self.renameButton.Enable()
 			self.deleteButton.Enable()
 			self.triggerButton.Enable()
-			self.instantSwitchCheckbox.SetValue(self.switchProfile == selectedProfile)
-			self.instantSwitchCheckbox.Enable()
 		curProfile = getProfileByName(selectedProfile)
 		self.outroCheckBox.SetValue(curProfile["IntroOutroAlarms"]["SayEndOfTrack"])
 		self.endOfTrackAlarm.SetValue(long(curProfile["IntroOutroAlarms"]["EndOfTrackTime"]))
@@ -1309,24 +1300,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 	def onTriggers(self, evt):
 		self.Disable()
 		TriggersDialog(self, self.profileNames[self.profiles.Selection]).Show()
-
-	def onInstantSwitch(self, evt):
-		selection = self.profiles.GetSelection()
-		# More efficient to pull the name straight from the names pool.
-		selectedName = self.profileNames[selection]
-		flag = _("instant switch")
-		if self.instantSwitchCheckbox.Value:
-			if self.switchProfile is not None and (selectedName != self.switchProfile):
-				# Instant switch flag is set on another profile, so remove the flag first.
-				# No need to worry about index 0, as instant switch is valid for profiles other than normal profile.
-				self.setProfileFlags(self.profileNames.index(self.switchProfile), "discard", flag)
-			self.setProfileFlags(selection, "add", flag)
-			self.switchProfile = selectedName
-			tones.beep(1000, 50)
-		else:
-			self.switchProfile = None
-			self.setProfileFlags(selection, "discard", flag)
-			tones.beep(500, 50)
 
 	# Obtain profile flags for a given profile.
 	# This is a proxy to the module level profile flag retriever with custom strings/maps as arguments.
