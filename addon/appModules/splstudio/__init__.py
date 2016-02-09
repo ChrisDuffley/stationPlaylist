@@ -122,16 +122,21 @@ class SPLTrackItem(IAccessible):
 	# Read selected columns.
 	# But first, find where the requested column lives.
 	def _indexOf(self, columnHeader):
-		if self.appModule._columnHeaders is None:
-			self.appModule._columnHeaders = self.parent.children[-1]
-		headers = [header.name for header in self.appModule._columnHeaders.children]
 		# Handle both 5.0x and 5.10 column headers.
 		try:
-			return headers.index(columnHeader)
+			return self.appModule._columnHeaderNames.index(columnHeader)
 		except ValueError:
 			return None
 
 	def reportFocus(self):
+		# 7.0: Cache column header data structures if meeting track items for the first time.
+		# It is better to do it while reporting focus, otherwise Python throws recursion limit exceeded error when initOverlayClass does this.
+		# Cache header column.
+		if self.appModule._columnHeaders is None:
+			self.appModule._columnHeaders = self.parent.children[-1]
+		# 7.0: Also cache column header names to improve performance (may need to check for header repositioning later).
+		if self.appModule._columnHeaderNames is None:
+			self.appModule._columnHeaderNames = [header.name for header in self.appModule._columnHeaders.children]
 		if splconfig.SPLConfig["General"]["CategorySounds"]:
 			category = self._getColumnContent(self._indexOf("Category"))
 			if category in _SPLCategoryTones:
@@ -375,6 +380,7 @@ class AppModule(appModuleHandler.AppModule):
 	scriptCategory = _("StationPlaylist Studio")
 	SPLCurVersion = appModuleHandler.AppModule.productVersion
 	_columnHeaders = None
+	_columnHeaderNames = None
 
 	# Prepare the settings dialog among other things.
 	def __init__(self, *args, **kwargs):
