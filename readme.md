@@ -177,6 +177,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * In add-on settings dialog, the controls used to toggle announcement of scheduled time, listener count, cart name and track name has been moved to a dedicated status announcements dialog (select status announcement button to open this dialog).
 * Added a new setting in add-on settings dialog to let NVDA play beep for different track categories when moving between tracks in playlist viewer.
 * It is no longer required to stay in the playlist viewer window in order to obtain time announcements such as remaining time for the track and broadcaster time.
+* When announcing time such as remaining time for the playing track, hours are also announced.
 * In encoders, pressing Control+NVDA+0 will present encoder settings dialog for configuring various options such as stream label, focusing to Studio when connected and so on.
 * In encoders, it is now possible to turn off connection progress tone (configurable from encoder settings dialog).
 
