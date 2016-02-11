@@ -38,7 +38,7 @@ LibraryScanAnnounce = option("off", "ending", "progress", "numbers", default="of
 TrackDial = boolean(default=false)
 CategorySounds = boolean(default=false)
 MetadataReminder = option("off", "startup", "instant", default="off")
-TimeHourAnnounce = boolean(default=false)
+TimeHourAnnounce = boolean(default=true)
 ExploreColumns = string_list(default=list("Artist","Title","Duration","Intro","Category","Filename","Year","Album","Genre","Time Scheduled"))
 [IntroOutroAlarms]
 SayEndOfTrack = boolean(default=true)
@@ -152,6 +152,8 @@ def initConfig():
 			SPLConfigPool.append(unlockConfig(os.path.join(SPLProfiles, profile), profileName=os.path.splitext(profile)[0]))
 	except WindowsError:
 		pass
+	# Manually set certain options (thankfully, it is cached already, so it'll be saved when the app module dies).
+	SPLConfigPool[0]["General"]["TimeHourAnnounce"] = True
 	# 7.0: Store the config as a dictionary.
 	# This opens up many possibilities, including config caching, loading specific sections only and others (the latter saves memory).
 	SPLConfig = dict(SPLConfigPool[0])
@@ -961,7 +963,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 		sizer.Add(self.libScanList)
 		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
-		self.hourAnnounceCheckbox=wx.CheckBox(self,wx.NewId(),label="Include &hours when announcing track or playlist duration")
+		# Translators: the label for a setting in SPL add-on settings to announce time including hours.
+		self.hourAnnounceCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Include &hours when announcing track or playlist duration"))
 		self.hourAnnounceCheckbox.SetValue(SPLConfig["General"]["TimeHourAnnounce"])
 		settingsSizer.Add(self.hourAnnounceCheckbox, border=10,flag=wx.BOTTOM)
 
