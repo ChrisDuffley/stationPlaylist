@@ -1,6 +1,6 @@
 # StationPlaylist Studio
 # An app module and global plugin package for NVDA
-# Copyright 2011, 2013-2015, Geoff Shang, Joseph Lee and others, released under GPL.
+# Copyright 2011, 2013-2016, Geoff Shang, Joseph Lee and others, released under GPL.
 # The primary function of this appModule is to provide meaningful feedback to users of SplStudio
 # by allowing speaking of items which cannot be easily found.
 # Version 0.01 - 7 April 2011:
@@ -127,8 +127,8 @@ class SPLTrackItem(IAccessible):
 			return None
 
 	def reportFocus(self):
-		#tones.beep(800, 100)
-		if not splconfig.SPLConfig["UseScreenColumnOrder"]:
+		# 6.3: Catch an unusual case where screen order is off yet column order is same as screen order and NvDA is told to announce all columns.
+		if splconfig._shouldBuildDescriptionPieces():
 			descriptionPieces = []
 			for header in splconfig.SPLConfig["ColumnOrder"]:
 				# Artist field should not be included in Studio 5.0x, as the checkbox serves this role.
@@ -326,6 +326,8 @@ class AppModule(appModuleHandler.AppModule):
 		# 6.1: Do not allow this thread to run forever (seen when evaluation times out and the app module starts).
 		self.noMoreHandle = threading.Event()
 		threading.Thread(target=self._locateSPLHwnd).start()
+				# Display startup dialogs if any.
+		wx.CallAfter(splconfig.showStartupDialogs)
 
 	# Locate the handle for main window for caching purposes.
 	def _locateSPLHwnd(self):
@@ -582,6 +584,12 @@ class AppModule(appModuleHandler.AppModule):
 	# Save configuration when terminating.
 	def terminate(self):
 		super(AppModule, self).terminate()
+		# 6.3: Memory leak results if encoder flag sets and other encoder support maps aren't cleaned up.
+		# This also could have allowed a hacker to modify the flags set (highly unlikely) so NvDA could get confused next time Studio loads.
+		import sys
+		if "globalPlugins.SPLStudioUtils.encoders" in sys.modules:
+			import globalPlugins.SPLStudioUtils.encoders
+			globalPlugins.SPLStudioUtils.encoders.cleanup()
 		splconfig.saveConfig()
 		try:
 			self.prefsMenu.RemoveItem(self.SPLSettings)
@@ -1220,6 +1228,11 @@ class AppModule(appModuleHandler.AppModule):
 			if not libScanT or (libScanT and not libScanT.isAlive()):
 				self.monitorLibraryScan()
 
+	# The developer would like to get feedback from you.
+	def script_sendFeedbackEmail(self, gesture):
+		os.startfile("mailto:joseph.lee22590@gmail.com")
+	script_sendFeedbackEmail.__doc__="Opens the default email client to send an email to the add-on developer"
+
 
 	# SPL Assistant: reports status on playback, operation, etc.
 	# Used layer command approach to save gesture assignments.
@@ -1671,5 +1684,6 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:Shift+delete":"deleteTrack",
 		"kb:Shift+numpadDelete":"deleteTrack",
 		"kb:escape":"escape",
+		"kb:control+nvda+-":"sendFeedbackEmail",
 		#"kb:control+nvda+`":"SPLAssistantToggle"
 	}

@@ -8,7 +8,7 @@ This add-on package provides improved usage of StationPlaylist Studio, as well a
 
 For more information about the add-on, read the [add-on guide][3].
 
-IMPORTANT: This add-on requires NVDA 2015.3 or later and StationPlaylist Studio 5.00 or later.
+IMPORTANT: This add-on requires NVDA 2015.3 or later and StationPlaylist Studio 5.00 or later. If you have installed NVDA 2016.1 or later on Windows 8 and later, disable audio ducking mode.
 
 ## Shortcut keys
 
@@ -24,6 +24,7 @@ IMPORTANT: This add-on requires NVDA 2015.3 or later and StationPlaylist Studio 
 * Alt+NVDA+R from Studio window: Steps through library scan announcement settings.
 * Control+Shift+X from Studio window: Steps through braille timer settings.
 * Control+NVDA+0 from Studio window: Opens the Studio add-on configuration dialog.
+* Control+NVDA+- (hyphen) from Studio window: Send feedback to add-on developer using the default email client.
 
 ## Unassigned commands
 
@@ -151,6 +152,13 @@ From studio window, you can press Control+NVDA+0 to open the add-on configuratio
 ## SPL touch mode
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
+
+## Changes for 6.3
+
+* Internal security enhancements.
+* When add-on 6.3 or later is first launched on a computer running Windows 8 or later with NVDA 2016.1 or later installed, an alert dialog will be shown asking you to disable audio ducking mode (NVDA+Shift+D). Select the checkbox to suppress this dialog in the future.
+* Added a command to send bug reports, feature suggestions and other feedback to add-on developer (Control+NVDA+dash (hyphen, "-")).
+* Updated translations.
 
 ## Changes for 6.2
 

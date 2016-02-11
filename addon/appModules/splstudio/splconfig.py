@@ -46,6 +46,7 @@ SayPlayingTrackName = string(default="True")
 SPLConPassthrough = boolean(default=false)
 CompatibilityLayer = option("off", "jfw", default="off")
 PlaylistRemainder = option("hour", "playlist", default="hour")
+AudioDuckingReminder = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
 SPLConfig = None
@@ -339,6 +340,14 @@ def _propagateChanges(key=None):
 		if key is not None: SPLConfigPool[profile][key] = SPLConfig[key]
 		else:
 			for setting in globalSettings: SPLConfigPool[profile][setting] = SPLConfig[setting]
+
+# Let SPL track item know if it needs to build descriptoin pieces.
+# To be renamed and used in other places in 7.0.
+def _shouldBuildDescriptionPieces():
+	return (not SPLConfig["UseScreenColumnOrder"]
+	and (SPLConfig["ColumnOrder"] != _SPLDefaults["ColumnOrder"]
+	or len(SPLConfig["IncludedColumns"]) != 17))
+
 
 # Configuration dialog.
 _configDialogOpened = False
@@ -695,11 +704,16 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# 6.1: Discard changes to included columns set.
 		self.includedColumns.clear()
 		self.includedColumns = None
-		SPLActiveProfile = self.activeProfile
 		if self.switchProfileRenamed or self.switchProfileDeleted:
 			SPLSwitchProfile = self.switchProfile
 		if self.switchProfileDeleted:
-			SPLConfig = SPLConfigPool[0]
+			# 6.3: Make sure to set active profile to normal profile if and only if the previously active profile is gone.
+			try:
+				prevActive = getProfileIndexByName(self.activeProfile)
+			except ValueError:
+				prevActive = 0
+			SPLActiveProfile = SPLConfigPool[prevActive].name
+			SPLConfig = SPLConfigPool[prevActive]
 		_configDialogOpened = False
 		#super(SPLConfigDialog,  self).onCancel(evt)
 		self.Destroy()
@@ -758,7 +772,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.columnOrder = curProfile["ColumnOrder"]
 		# 6.1: Again convert list to set.
 		self.includedColumns = set(curProfile["IncludedColumns"])
-		print self.metadataStreams
 
 	# Profile controls.
 	# Rename and delete events come from GUI/config profiles dialog from NVDA core.
@@ -793,7 +806,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 			return
 		oldNamePath = oldName + ".ini"
 		oldProfile = os.path.join(SPLProfiles, oldNamePath)
-		os.rename(oldProfile, newProfile)
+		try:
+			os.rename(oldProfile, newProfile)
+		except WindowsError:
+			pass
 		if self.switchProfile == oldName:
 			self.switchProfile = newName
 			self.switchProfileRenamed = True
@@ -829,9 +845,12 @@ class SPLConfigDialog(gui.SettingsDialog):
 			SPLPrevProfile = None
 			self.switchProfileDeleted = True
 		self.profiles.Delete(index)
-		self.profiles.SetString(0, SPLConfigPool[0].name)
-		self.activeProfile = SPLConfigPool[0].name
-		self.profiles.Selection = 0
+		# 6.3: Select normal profile if the active profile is gone.
+		try:
+			self.profiles.Selection = self.profiles.Items.index(self.activeProfile)
+		except ValueError:
+			self.activeProfile = SPLConfigPool[0].name
+			self.profiles.Selection = 0
 		self.onProfileSelection(None)
 		self.profiles.SetFocus()
 
@@ -1353,6 +1372,55 @@ class SPLAlarmDialog(wx.Dialog):
 		self.Destroy()
 		global _alarmDialogOpened
 		_alarmDialogOpened = False
+
+
+# Startup dialogs.
+
+# Audio ducking reminder (NVDA 2016.1 and later).
+class AudioDuckingReminder(wx.Dialog):
+	"""A dialog to remind users to turn off audio ducking (NVDA 2016.1 and later).
+	"""
+
+	def __init__(self, parent):
+		super(AudioDuckingReminder, self).__init__(parent, title=_("SPL Studio and audio ducking"))
+
+		mainSizer = wx.BoxSizer(wx.VERTICAL)
+
+		# Translators: A message displayed if audio ducking should be disabled.
+		label = wx.StaticText(self, wx.ID_ANY, label=_("NVDA 2016.1 and later allows NVDA to decrease volume of background audio including that of Studio. In order to not disrupt the listening experience of your listeners, please disable audio ducking by opening synthesizer dialog in NVDA and selecting 'no ducking' from audio ducking mode combo box or press NVDA+Shift+D."))
+		mainSizer.Add(label,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: A checkbox to turn off audio ducking reminder message.
+		self.audioDuckingReminder=wx.CheckBox(self,wx.NewId(),label=_("Do not show this message again"))
+		self.audioDuckingReminder.SetValue(not SPLConfig["AudioDuckingReminder"])
+		sizer.Add(self.audioDuckingReminder, border=10,flag=wx.TOP)
+		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+		mainSizer.Add(self.CreateButtonSizer(wx.OK))
+		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
+		mainSizer.Fit(self)
+		self.Sizer = mainSizer
+		self.audioDuckingReminder.SetFocus()
+		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+
+	def onOk(self, evt):
+		if self.audioDuckingReminder.Value:
+			SPLConfig["AudioDuckingReminder"] = not self.audioDuckingReminder.Value
+			_propagateChanges(key="AudioDuckingReminder")
+		self.Destroy()
+
+# And to open the above dialog and any other dialogs.
+def showStartupDialogs():
+	try:
+		import audioDucking
+		if SPLConfig["AudioDuckingReminder"] and audioDucking.isAudioDuckingSupported():
+			gui.mainFrame.prePopup()
+			AudioDuckingReminder(gui.mainFrame).Show()
+			gui.mainFrame.postPopup()
+	except ImportError:
+		pass
+
 
 # Message verbosity pool.
 # To be moved to its own module in add-on 7.0.
