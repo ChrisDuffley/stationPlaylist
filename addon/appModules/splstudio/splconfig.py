@@ -153,6 +153,7 @@ def initConfig():
 	except WindowsError:
 		pass
 	# Manually set certain options (thankfully, it is cached already, so it'll be saved when the app module dies).
+	# To be removed in 7.1.
 	SPLConfigPool[0]["General"]["TimeHourAnnounce"] = True
 	# 7.0: Store the config as a dictionary.
 	# This opens up many possibilities, including config caching, loading specific sections only and others (the latter saves memory).
@@ -427,7 +428,10 @@ def saveProfileTriggers():
 
 # Fetch the profile index with a given name.
 def getProfileIndexByName(name):
-	return [profile.name for profile in SPLConfigPool].index(name)
+	try:
+		return [profile.name for profile in SPLConfigPool].index(name)
+	except ValueError:
+		raise ValueError("The specified profile does not exist")
 
 # And:
 def getProfileByName(name):
