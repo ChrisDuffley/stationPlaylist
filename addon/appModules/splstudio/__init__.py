@@ -119,12 +119,19 @@ class SPLTrackItem(IAccessible):
 			self.bindGesture("kb:rightArrow", "nextColumn")
 			self.bindGesture("kb:leftArrow", "prevColumn")
 
+	# Locate the real column index for a column header.
+	# This is response to a situation where columns were rearranged yet testing shows in-memory arrangement remains the same.
+	# Subclasses must provide this function.
+	def _origIndexOf(self, columnHeader):
+		return splconfig._SPLDefaults7["General"]["ExploreColumns"].index(columnHeader)
+
 	# Read selected columns.
 	# But first, find where the requested column lives.
+	# 8.0: Make this a public function.
 	def _indexOf(self, columnHeader):
 		# Handle both 5.0x and 5.10 column headers.
 		try:
-			return self.appModule._columnHeaderNames.index(columnHeader)
+			return self._origIndexOf(columnHeader)
 		except ValueError:
 			return None
 
@@ -212,9 +219,10 @@ class SPLTrackItem(IAccessible):
 		return splmisc._getColumnContent(self, col)
 
 	# Announce column content if any.
-	def announceColumnContent(self, colNumber):
-		columnHeader = self.appModule._columnHeaders.children[colNumber].name
-		columnContent = self._getColumnContent(colNumber)
+	# 7.0: Add an optional header in order to announce correct header information in columns explorer.
+	def announceColumnContent(self, colNumber, header=None):
+		columnHeader = header if header is not None else self.appModule._columnHeaderNames[colNumber]
+		columnContent = self._getColumnContent(self._indexOf(columnHeader))
 		if columnContent:
 			# Translators: Standard message for announcing column content.
 			ui.message(unicode(_("{header}: {content}")).format(header = columnHeader, content = columnContent))
@@ -227,8 +235,6 @@ class SPLTrackItem(IAccessible):
 	# Now the scripts.
 
 	def script_nextColumn(self, gesture):
-		if self.appModule._columnHeaders is None:
-			self.appModule._columnHeaders = self.parent.children[-1]
 		if (self.appModule.SPLColNumber+1) == self.appModule._columnHeaders.childCount:
 			tones.beep(2000, 100)
 		else:
@@ -236,8 +242,6 @@ class SPLTrackItem(IAccessible):
 		self.announceColumnContent(self.appModule.SPLColNumber)
 
 	def script_prevColumn(self, gesture):
-		if self.appModule._columnHeaders is None:
-			self.appModule._columnHeaders = self.parent.children[-1]
 		if self.appModule.SPLColNumber <= 0:
 			tones.beep(2000, 100)
 		else:
@@ -263,6 +267,10 @@ class SPL510TrackItem(SPLTrackItem):
 		gesture.send()
 		speech.speakMessage(self.name)
 		braille.handler.handleUpdate(self)
+
+	# Studio 5.10 version of original index finder.
+	def _origIndexOf(self, columnHeader):
+		return splconfig._SPLDefaults7["ColumnAnnouncement"]["ColumnOrder"].index(columnHeader)+1
 
 	# Handle track dial for SPL 5.10.
 	def _leftmostcol(self):
@@ -1676,7 +1684,8 @@ class AppModule(appModuleHandler.AppModule):
 				# Translators: Presented when attempting to announce specific columns but the focused item isn't a track.
 				ui.message(_("Not a track"))
 			else:
-				focus.announceColumnContent(focus._indexOf(splconfig.SPLConfig["General"]["ExploreColumns"][columnPos]))
+				header = splconfig.SPLConfig["General"]["ExploreColumns"][columnPos]
+				focus.announceColumnContent(focus._indexOf(header), header=header)
 
 	def script_layerHelp(self, gesture):
 		compatibility = splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]
