@@ -323,7 +323,7 @@ def nextTimedProfile(current=None):
 		triggerTime = datetime.datetime(entry[1], entry[2], entry[3], entry[4], entry[5])
 		# Hopefully the trigger should be ready before the show, but sometimes it isn't.
 		if current > triggerTime:
-			profileTriggers[profile] = setNextTimedProfile(profile, entry[0], datetime.time(entry[4], entry[5]), date=current)
+			profileTriggers[profile] = setNextTimedProfile(profile, entry[0], datetime.time(entry[4], entry[5]), date=current, duration=entry[6])
 			if (current-triggerTime).seconds < entry[6]*60:
 				shouldBeSwitched = True
 		possibleTriggers.append((triggerTime, profile, shouldBeSwitched))
@@ -333,7 +333,7 @@ def nextTimedProfile(current=None):
 
 # Locate the trigger given a different date.
 # this is used if one misses a profile switch.
-def findNextAirDate(bits, date, dayIndex, hhmm):
+def findNextAirDate(bits, date, dayIndex, hhmm, duration):
 	triggerCandidate = 64 >> dayIndex
 	# Case 1: This is a weekly show.
 	if bits == triggerCandidate:
@@ -358,17 +358,17 @@ def findNextAirDate(bits, date, dayIndex, hhmm):
 			else:
 				delta = 7-(nextDay-currentDay)
 	date += datetime.timedelta(delta)
-	return [bits, date.year, date.month, date.day, hhmm.hour, hhmm.minute, 0]
+	return [bits, date.year, date.month, date.day, hhmm.hour, hhmm.minute, duration]
 
 # Set the next timed profile.
 # Bits indicate the trigger days vector, hhmm is time, with the optional date being a specific date otherwise current date.
-def setNextTimedProfile(profile, bits, switchTime, date=None):
+def setNextTimedProfile(profile, bits, switchTime, date=None, duration=0):
 	if date is None: date = datetime.datetime.now()
 	dayIndex = date.weekday()
 	currentTime = datetime.time(date.hour, date.minute, date.second, date.microsecond)
 	if (bits & (64 >> dayIndex)) and currentTime < switchTime:
-		return [bits, date.year, date.month, date.day, switchTime.hour, switchTime.minute, 0]
-	else: return findNextAirDate(bits, date, dayIndex, switchTime)
+		return [bits, date.year, date.month, date.day, switchTime.hour, switchTime.minute, duration]
+	else: return findNextAirDate(bits, date, dayIndex, switchTime, duration)
 
 # Find if another profile is occupying the specified time slot.
 def duplicateExists(map, profile, bits, hour, min, duration):
@@ -1588,8 +1588,7 @@ class TriggersDialog(wx.Dialog):
 				# Otherwise trigger flag will be added each time this is called (either this handler or the add-on settings' flags retriever must retrieve the flags set).
 				if not self.profile in parent._profileTriggersConfig:
 					parent.setProfileFlags(self.selection, "add", _("time-based"))
-				parent._profileTriggersConfig[self.profile] = setNextTimedProfile(self.profile, bit, datetime.time(hour, min))
-				parent._profileTriggersConfig[self.profile][6] = duration
+				parent._profileTriggersConfig[self.profile] = setNextTimedProfile(self.profile, bit, datetime.time(hour, min), duration=duration)
 			else:
 				# Er, did you specify a date?
 				gui.messageBox(_("The time-based profile checkbox is checked but no switch dates are given. Please either specify switch date(s) or uncheck time-based profile checkbox."),
