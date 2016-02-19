@@ -630,6 +630,7 @@ def switchProfile(activeProfile, newProfile):
 # Called from within the app module.
 def instantProfileSwitch():
 	global SPLPrevProfile, SPLConfig, SPLActiveProfile
+	from splconfui import _configDialogOpened
 	if _configDialogOpened:
 		# Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
 		ui.message(_("Add-on settings dialog is open, cannot switch profiles"))
@@ -670,6 +671,7 @@ _triggerProfileActive = False
 
 def triggerProfileSwitch():
 	global SPLPrevProfile, SPLConfig, SPLActiveProfile, triggerTimer, _SPLTriggerEndTimer, _triggerProfileActive
+	from splconfui import _configDialogOpened
 	if _configDialogOpened:
 		# Translators: Presented when trying to switch profiles when add-on settings dialog is active.
 		ui.message(_("Add-on settings dialog is open, cannot switch profiles"))

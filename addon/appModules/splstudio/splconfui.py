@@ -16,6 +16,7 @@ import wx
 from winUser import user32
 import tones
 import splupdate
+import splconfig
 
 
 # Configuration dialog.
@@ -640,7 +641,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 # Open the above dialog upon request.
 def onConfigDialog(evt):
 	# 5.2: Guard against alarm dialogs.
-	if _alarmDialogOpened:
+	if splconfig._alarmDialogOpened:
 		# Translators: Presented when an alarm dialog is opened.
 		wx.CallAfter(gui.messageBox, _("An alarm dialog is already opened. Please close the alarm dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
 	else: gui.mainFrame._popupSettingsDialog(SPLConfigDialog)

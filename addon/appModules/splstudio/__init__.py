@@ -34,6 +34,7 @@ from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent
 import textInfos
 import tones
 import splconfig
+import splconfui
 import splmisc
 import splupdate
 import addonHandler
@@ -412,7 +413,7 @@ class AppModule(appModuleHandler.AppModule):
 			self.backgroundStatusMonitor = False
 		self.prefsMenu = gui.mainFrame.sysTrayIcon.preferencesMenu
 		self.SPLSettings = self.prefsMenu.Append(wx.ID_ANY, _("SPL Studio Settings..."), _("SPL settings"))
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, splconfig.onConfigDialog, self.SPLSettings)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, splconfui.onConfigDialog, self.SPLSettings)
 		# Let me know the Studio window handle.
 		# 6.1: Do not allow this thread to run forever (seen when evaluation times out and the app module starts).
 		self.noMoreHandle = threading.Event()
@@ -780,7 +781,7 @@ class AppModule(appModuleHandler.AppModule):
 	# The below invocation function is also used for error handling purposes.
 
 	def alarmDialog(self, setting, toggleSetting, title, alarmPrompt, alarmToggleLabel, min, max):
-		if splconfig._configDialogOpened:
+		if splconfui._configDialogOpened:
 			# Translators: Presented when the add-on config dialog is opened.
 			wx.CallAfter(gui.messageBox, _("The add-on settings dialog is opened. Please close the settings dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
 			return
@@ -1245,18 +1246,18 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: Presented when stremaing dialog cannot be shown.
 			ui.message(_("Cannot open metadata streaming dialog"))
 			return
-		if splconfig._configDialogOpened or splconfig._metadataDialogOpened:
+		if splconfui._configDialogOpened or splconfui._metadataDialogOpened:
 			# Translators: Presented when the add-on config dialog is opened.
 			wx.CallAfter(gui.messageBox, _("The add-on settings dialog or the metadata streaming dialog is opened. Please close the opened dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
 			return
 		try:
 			# Passing in the function object is enough to change the dialog UI.
-			d = splconfig.MetadataStreamingDialog(gui.mainFrame, func=statusAPI)
+			d = splconfui.MetadataStreamingDialog(gui.mainFrame, func=statusAPI)
 			gui.mainFrame.prePopup()
 			d.Raise()
 			d.Show()
 			gui.mainFrame.postPopup()
-			splconfig._metadataDialogOpened = True
+			splconfui._metadataDialogOpened = True
 		except RuntimeError:
 			wx.CallAfter(splconfig._alarmError)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
