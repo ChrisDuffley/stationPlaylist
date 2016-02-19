@@ -119,19 +119,31 @@ class SPLTrackItem(IAccessible):
 			self.bindGesture("kb:rightArrow", "nextColumn")
 			self.bindGesture("kb:leftArrow", "prevColumn")
 
+	# Locate the real column index for a column header.
+	# This is response to a situation where columns were rearranged yet testing shows in-memory arrangement remains the same.
+	# Subclasses must provide this function.
+	def _origIndexOf(self, columnHeader):
+		return splconfig._SPLDefaults7["General"]["ExploreColumns"].index(columnHeader)
+
 	# Read selected columns.
 	# But first, find where the requested column lives.
+	# 8.0: Make this a public function.
 	def _indexOf(self, columnHeader):
-		if self.appModule._columnHeaders is None:
-			self.appModule._columnHeaders = self.parent.children[-1]
-		headers = [header.name for header in self.appModule._columnHeaders.children]
 		# Handle both 5.0x and 5.10 column headers.
 		try:
-			return headers.index(columnHeader)
+			return self._origIndexOf(columnHeader)
 		except ValueError:
 			return None
 
 	def reportFocus(self):
+		# 7.0: Cache column header data structures if meeting track items for the first time.
+		# It is better to do it while reporting focus, otherwise Python throws recursion limit exceeded error when initOverlayClass does this.
+		# Cache header column.
+		if self.appModule._columnHeaders is None:
+			self.appModule._columnHeaders = self.parent.children[-1]
+		# 7.0: Also cache column header names to improve performance (may need to check for header repositioning later).
+		if self.appModule._columnHeaderNames is None:
+			self.appModule._columnHeaderNames = [header.name for header in self.appModule._columnHeaders.children]
 		if splconfig.SPLConfig["General"]["CategorySounds"]:
 			category = self._getColumnContent(self._indexOf("Category"))
 			if category in _SPLCategoryTones:
@@ -207,9 +219,10 @@ class SPLTrackItem(IAccessible):
 		return splmisc._getColumnContent(self, col)
 
 	# Announce column content if any.
-	def announceColumnContent(self, colNumber):
-		columnHeader = self.appModule._columnHeaders.children[colNumber].name
-		columnContent = self._getColumnContent(colNumber)
+	# 7.0: Add an optional header in order to announce correct header information in columns explorer.
+	def announceColumnContent(self, colNumber, header=None):
+		columnHeader = header if header is not None else self.appModule._columnHeaderNames[colNumber]
+		columnContent = self._getColumnContent(self._indexOf(columnHeader))
 		if columnContent:
 			# Translators: Standard message for announcing column content.
 			ui.message(unicode(_("{header}: {content}")).format(header = columnHeader, content = columnContent))
@@ -222,8 +235,6 @@ class SPLTrackItem(IAccessible):
 	# Now the scripts.
 
 	def script_nextColumn(self, gesture):
-		if self.appModule._columnHeaders is None:
-			self.appModule._columnHeaders = self.parent.children[-1]
 		if (self.appModule.SPLColNumber+1) == self.appModule._columnHeaders.childCount:
 			tones.beep(2000, 100)
 		else:
@@ -231,8 +242,6 @@ class SPLTrackItem(IAccessible):
 		self.announceColumnContent(self.appModule.SPLColNumber)
 
 	def script_prevColumn(self, gesture):
-		if self.appModule._columnHeaders is None:
-			self.appModule._columnHeaders = self.parent.children[-1]
 		if self.appModule.SPLColNumber <= 0:
 			tones.beep(2000, 100)
 		else:
@@ -251,13 +260,17 @@ class SPL510TrackItem(SPLTrackItem):
 
 	def event_stateChange(self):
 		# Why is it that NVDA keeps announcing "not selected" when track items are scrolled?
-		if 4 not in self.states:
+		if controlTypes.STATE_SELECTED not in self.states:
 			pass
 
 	def script_select(self, gesture):
 		gesture.send()
 		speech.speakMessage(self.name)
 		braille.handler.handleUpdate(self)
+
+	# Studio 5.10 version of original index finder.
+	def _origIndexOf(self, columnHeader):
+		return splconfig._SPLDefaults7["ColumnAnnouncement"]["ColumnOrder"].index(columnHeader)+1
 
 	# Handle track dial for SPL 5.10.
 	def _leftmostcol(self):
@@ -375,6 +388,7 @@ class AppModule(appModuleHandler.AppModule):
 	scriptCategory = _("StationPlaylist Studio")
 	SPLCurVersion = appModuleHandler.AppModule.productVersion
 	_columnHeaders = None
+	_columnHeaderNames = None
 
 	# Prepare the settings dialog among other things.
 	def __init__(self, *args, **kwargs):
@@ -454,12 +468,12 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Some controls which needs special routines.
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
-		role = obj.role
-		windowStyle = obj.windowStyle
-		if obj.windowClassName == "TTntListView.UnicodeClass" and role == controlTypes.ROLE_LISTITEM and abs(windowStyle - 1443991625)%0x100000 == 0:
-			clsList.insert(0, SPL510TrackItem)
-		elif obj.windowClassName == "TListView" and role in (controlTypes.ROLE_CHECKBOX, controlTypes.ROLE_LISTITEM) and abs(windowStyle - 1442938953)%0x100000 == 0:
-			clsList.insert(0, SPLTrackItem)
+		# 7.0: Do (chained) Bitwise and between window style and expected style(s).
+		if obj.windowStyle & 0x100000 and obj.windowStyle & 0x8000:
+			if obj.windowClassName == "TTntListView.UnicodeClass" and obj.role == controlTypes.ROLE_LISTITEM and obj.windowStyle & 0x1000:
+				clsList.insert(0, SPL510TrackItem)
+			elif obj.windowClassName == "TListView" and obj.role == controlTypes.ROLE_CHECKBOX:
+				clsList.insert(0, SPLTrackItem)
 
 	# Keep an eye on library scans in insert tracks window.
 	libraryScanning = False
@@ -762,23 +776,16 @@ class AppModule(appModuleHandler.AppModule):
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayCompleteTime.__doc__=_("Announces time including seconds.")
 
-	# Set the end of track alarm time between 1 and 59 seconds.
-	# Make sure one of either settings or alarm dialogs is open.
+	# Invoke the common alarm dialog.
+	# The below invocation function is also used for error handling purposes.
 
-	def script_setEndOfTrackTime(self, gesture):
+	def alarmDialog(self, setting, toggleSetting, title, alarmPrompt, alarmToggleLabel, min, max):
 		if splconfig._configDialogOpened:
 			# Translators: Presented when the add-on config dialog is opened.
 			wx.CallAfter(gui.messageBox, _("The add-on settings dialog is opened. Please close the settings dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
 			return
 		try:
-			timeVal = splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"]
-			d = splconfig.SPLAlarmDialog(gui.mainFrame, "EndOfTrackTime", "SayEndOfTrack",
-			# Translators: The title of end of track alarm dialog.
-			_("End of track alarm"),
-			# Translators: A dialog message to set end of track alarm (curAlarmSec is the current end of track alarm in seconds).
-			_("Enter &end of track alarm time in seconds (currently {curAlarmSec})").format(curAlarmSec = timeVal),
-			# Translators: A check box to toggle notification of end of track alarm.
-			_("&Notify when end of track is approaching"), 1, 59)
+			d = splconfig.SPLAlarmDialog(gui.mainFrame, setting, toggleSetting, title, alarmPrompt, alarmToggleLabel, min, max)
 			gui.mainFrame.prePopup()
 			d.Raise()
 			d.Show()
@@ -786,35 +793,36 @@ class AppModule(appModuleHandler.AppModule):
 			splconfig._alarmDialogOpened = True
 		except RuntimeError:
 			wx.CallAfter(splconfig._alarmError)
+
+	# Set the end of track alarm time between 1 and 59 seconds.
+
+	def script_setEndOfTrackTime(self, gesture):
+		timeVal = splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"]
+		self.alarmDialog("EndOfTrackTime", "SayEndOfTrack",
+		# Translators: The title of end of track alarm dialog.
+		_("End of track alarm"),
+		# Translators: A dialog message to set end of track alarm (curAlarmSec is the current end of track alarm in seconds).
+		_("Enter &end of track alarm time in seconds (currently {curAlarmSec})").format(curAlarmSec = timeVal),
+		# Translators: A check box to toggle notification of end of track alarm.
+		_("&Notify when end of track is approaching"), 1, 59)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setEndOfTrackTime.__doc__=_("sets end of track alarm (default is 5 seconds).")
 
 	# Set song ramp (introduction) time between 1 and 9 seconds.
 
 	def script_setSongRampTime(self, gesture):
-		if splconfig._configDialogOpened:
-			wx.CallAfter(gui.messageBox, _("The add-on settings dialog is opened. Please close the settings dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
-			return
-		try:
-			rampVal = splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"]
-			d = splconfig.SPLAlarmDialog(gui.mainFrame, "SongRampTime", "SaySongRamp",
-			# Translators: The title of song intro alarm dialog.
-			_("Song intro alarm"),
-			# Translators: A dialog message to set song ramp alarm (curRampSec is the current intro monitoring alarm in seconds).
-			_("Enter song &intro alarm time in seconds (currently {curRampSec})").format(curRampSec = rampVal),
-			# Translators: A check box to toggle notification of end of intro alarm.
-			_("&Notify when end of introduction is approaching"), 1, 9)
-			gui.mainFrame.prePopup()
-			d.Raise()
-			d.Show()
-			gui.mainFrame.postPopup()
-			splconfig._alarmDialogOpened = True
-		except RuntimeError:
-			wx.CallAfter(splconfig._alarmError)
+		rampVal = splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"]
+		self.alarmDialog("SongRampTime", "SaySongRamp",
+		# Translators: The title of song intro alarm dialog.
+		_("Song intro alarm"),
+		# Translators: A dialog message to set song ramp alarm (curRampSec is the current intro monitoring alarm in seconds).
+		_("Enter song &intro alarm time in seconds (currently {curRampSec})").format(curRampSec = rampVal),
+		# Translators: A check box to toggle notification of end of intro alarm.
+		_("&Notify when end of introduction is approaching"), 1, 9)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setSongRampTime.__doc__=_("sets song intro alarm (default is 5 seconds).")
 
-# Tell NVDA to play a sound when mic was active for a long time.
+	# Tell NVDA to play a sound when mic was active for a long time.
 
 	def script_setMicAlarm(self, gesture):
 		if splconfig._configDialogOpened:
@@ -844,7 +852,7 @@ class AppModule(appModuleHandler.AppModule):
 				if micAlarm != newVal:
 					splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"] = newVal
 				# Apply microphone alarm setting to the active profile.
-				splconfig.applySections(SPLConfig["ActiveIndex"], "/".join(["MicrophoneAlarm", "MicAlarm"]))
+				splconfig.applySections(SPLConfig["ActiveIndex"], "MicrophoneAlarm/MicAlarm")
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setMicAlarm.__doc__=_("Sets microphone alarm (default is 5 seconds).")
@@ -1459,8 +1467,6 @@ class AppModule(appModuleHandler.AppModule):
 		statusAPI(1, 27, self.announceTime)
 
 	def script_sayPlaylistRemainingDuration(self, gesture):
-		# 7.0: Manually go through all tracks, calculationg total duration (a bit of discrepancy may result).
-		tones.beep(1024, 30)
 		obj = api.getFocusObject()
 		if obj.role == controlTypes.ROLE_LIST:
 			ui.message("00:00")
@@ -1670,7 +1676,8 @@ class AppModule(appModuleHandler.AppModule):
 				# Translators: Presented when attempting to announce specific columns but the focused item isn't a track.
 				ui.message(_("Not a track"))
 			else:
-				focus.announceColumnContent(focus._indexOf(splconfig.SPLConfig["General"]["ExploreColumns"][columnPos]))
+				header = splconfig.SPLConfig["General"]["ExploreColumns"][columnPos]
+				focus.announceColumnContent(focus._indexOf(header), header=header)
 
 	def script_layerHelp(self, gesture):
 		compatibility = splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]

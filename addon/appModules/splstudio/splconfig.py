@@ -217,9 +217,8 @@ def unlockConfig(path, profileName=None, prefill=False):
 			for setting in configTest.keys():
 				if isinstance(configTest[setting], dict):
 					for failedKey in configTest[setting].keys():
-						if not isinstance(SPLConfigCheckpoint[setting][failedKey], int):
-							# 7.0 optimization: just reload from defaults dictionary, as broadcast profiles contain profile-specific settings only.
-							SPLConfigCheckpoint[setting][failedKey] = _SPLDefaults7[setting][failedKey]
+						# 7.0 optimization: just reload from defaults dictionary, as broadcast profiles contain profile-specific settings only.
+						SPLConfigCheckpoint[setting][failedKey] = _SPLDefaults7[setting][failedKey]
 			# 7.0: Disqualified from being cached this time.
 			SPLConfigCheckpoint.write()
 			_configLoadStatus[profileName] = "partialReset"
@@ -235,7 +234,7 @@ def _extraInitSteps(conf, profileName=None):
 	global _configLoadStatus
 	columnOrder = conf["ColumnAnnouncement"]["ColumnOrder"]
 	# Catch suttle errors.
-	fields = ["Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"]
+	fields = _SPLDefaults7["ColumnAnnouncement"]["ColumnOrder"]
 	invalidFields = 0
 	for field in fields:
 		if field not in columnOrder: invalidFields+=1
@@ -244,8 +243,7 @@ def _extraInitSteps(conf, profileName=None):
 			_configLoadStatus[profileName] = "partialAndColumnOrderReset"
 		else:
 			_configLoadStatus[profileName] = "columnOrderReset"
-		columnOrder = fields
-	conf["ColumnAnnouncement"]["ColumnOrder"] = columnOrder
+	conf["ColumnAnnouncement"]["ColumnOrder"] = fields
 	conf["ColumnAnnouncement"]["IncludedColumns"] = set(conf["ColumnAnnouncement"]["IncludedColumns"])
 	# Artist and Title must be present at all times (quite redundant, but just in case).
 	conf["ColumnAnnouncement"]["IncludedColumns"].add("Artist")
@@ -518,11 +516,9 @@ def _preSave(conf):
 		# Del PlaylistRemainder.
 	# For other profiles, remove global settings before writing to disk.
 	else:
-		# 6.1: Make sure column order and inclusion aren't same as default values.
+		# 6.1: Make sure column inclusion aren't same as default values.
 		if len(conf["ColumnAnnouncement"]["IncludedColumns"]) == 17:
 			del conf["ColumnAnnouncement"]["IncludedColumns"]
-		if conf["ColumnAnnouncement"]["ColumnOrder"] == ["Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"]:
-			del conf["ColumnAnnouncement"]["ColumnOrder"]
 		for setting in conf.keys():
 			for key in conf[setting].keys():
 				try:
