@@ -500,8 +500,6 @@ def isConfigPoolSorted():
 
 # Perform some extra work before writing the config file.
 def _preSave(conf):
-	# 6.1: Transform column inclusion data structure now.
-	conf["ColumnAnnouncement"]["IncludedColumns"] = list(conf["ColumnAnnouncement"]["IncludedColumns"])
 	# Perform global setting processing only for the normal profile.
 	# 7.0: if this is a second pass, index 0 may not be normal profile at all.
 	# Use profile path instead.
@@ -574,6 +572,9 @@ def saveConfig():
 	# 7.0: Save normal profile first.
 	# Temporarily merge normal profile.
 	mergeSections(0)
+	# 6.1: Transform column inclusion data structure (for normal profile) now.
+	# 7.0: This will be repeated for broadcast profiles later.
+	SPLConfigPool[0]["ColumnAnnouncement"]["IncludedColumns"] = list(SPLConfigPool[0]["ColumnAnnouncement"]["IncludedColumns"])
 	_preSave(SPLConfigPool[0])
 	# Global flags, be gone.
 	del SPLConfig["ColumnExpRange"]
@@ -589,17 +590,18 @@ def saveConfig():
 	# Now save broadcast profiles.
 	for configuration in SPLConfigPool:
 		if configuration is not None:
-			_preSave(configuration)
-			profileIndex = getProfileIndexByName(configuration.name)
-			# 7.0: Convert profile-specific settings back to 5.x format in case add-on 6.x will be installed later (not recommended).
-			# This will be removed in add-on 7.2.
-			if len(configuration) > 0:
-				for section in configuration.keys():
-					if isinstance(configuration[section], dict):
-						for key in configuration[section]:
-							configuration[key] = configuration[section][key]
+			configuration["ColumnAnnouncement"]["IncludedColumns"] = list(configuration["ColumnAnnouncement"]["IncludedColumns"])
 			# 7.0: See if profiles themselves must be saved.
-			if shouldSave(SPLConfigPool[profileIndex]):
+			# This must be done now, otherwise changes to broadcast profiles (cached) will not be saved as presave removes them.
+			if shouldSave(configuration):
+				_preSave(configuration)
+				# 7.0: Convert profile-specific settings back to 5.x format in case add-on 6.x will be installed later (not recommended).
+				# This will be removed in add-on 7.2.
+				if len(configuration) > 0:
+					for section in configuration.keys():
+						if isinstance(configuration[section], dict):
+							for key in configuration[section]:
+								configuration[key] = configuration[section][key]
 				configuration.write()
 	SPLConfig.clear()
 	SPLConfig = None
