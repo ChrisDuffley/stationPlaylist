@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2016-01-17 19:29+0100\n"
+"PO-Revision-Date: 2016-02-16 19:11+0100\n"
 "Last-Translator: Juan C. Buño <oprisniki@gmail.com>\n"
 "Language-Team: Add-ons translation team <oprisniki@gmail.com>\n"
 "Language: gl\n"
@@ -967,9 +967,8 @@ msgstr "lista de reprodución enteira"
 msgid "Another alarm dialog is open."
 msgstr "Está aberto outro diálogo de alarma."
 
-#, fuzzy
 msgid "SPL Studio and audio ducking"
-msgstr "Non se está a executar o SPL Studio."
+msgstr "SPL Studio e atenuación do audio"
 
 #. Translators: A message displayed if audio ducking should be disabled.
 msgid ""
@@ -979,10 +978,15 @@ msgid ""
 "dialog in NVDA and selecting 'no ducking' from audio ducking mode combo box "
 "or press NVDA+Shift+D."
 msgstr ""
+"NVDA 2016.1 e posteriores permiten ao NVDA disminuir o volume do audio de "
+"fondo incluindo o do Studio. Para non interrumpir a experiencia de escoita "
+"dos teus o`´oíntes, por favor deshabilita a atenuación do audio abrindo o "
+"diálogo Sintetizador no NVDA e selecionando 'sen atenuación' dende a caixa "
+"combinada Modo de atenuación do audio ou preme NVDA+Shift+D."
 
 #. Translators: A checkbox to turn off audio ducking reminder message.
 msgid "Do not show this message again"
-msgstr ""
+msgstr "Non amosar esta mensaxe de novo"
 
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Status announcement beeps"
