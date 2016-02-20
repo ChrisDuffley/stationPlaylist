@@ -12,8 +12,6 @@ import weakref
 import time
 import datetime
 import cPickle
-import calendar
-import math
 import globalVars
 import ui
 import api
@@ -329,44 +327,42 @@ def nextTimedProfile(current=None):
 
 # Some helpers used in locating next air date/time.
 
-# Locate the trigger given a different date.
-# this is used if one misses a profile switch.
-def findNextAirDate(bits, date, dayIndex, hhmm, duration):
-	triggerCandidate = 64 >> dayIndex
-	# Case 1: This is a weekly show.
-	if bits == triggerCandidate:
-		delta = 7
-	else:
-		# Scan the bit vector until finding the correct date and calculate the resulting delta (dayIndex modulo 7).
-		# Take away the current trigger bit as this function is called past the switch time.
-		days = bits-triggerCandidate if bits & triggerCandidate else bits
-		currentDay = int(math.log(triggerCandidate, 2))
-		nextDay = int(math.log(days, 2))
-		# Hoping the resulting vector will have some bits set to 1...
-		if triggerCandidate > days:
-			delta = currentDay-nextDay
-		else:
-			triggerBit = -1
-			for bit in xrange(currentDay-1, -1, -1):
-				if 2 ** bit & days:
-					triggerBit = bit
-					break
-			if triggerBit > -1:
-				delta = currentDay-triggerBit
-			else:
-				delta = 7-(nextDay-currentDay)
-	date += datetime.timedelta(delta)
-	return [bits, date.year, date.month, date.day, hhmm.hour, hhmm.minute, duration]
-
 # Set the next timed profile.
 # Bits indicate the trigger days vector, hhmm is time, with the optional date being a specific date otherwise current date.
 def setNextTimedProfile(profile, bits, switchTime, date=None, duration=0):
 	if date is None: date = datetime.datetime.now()
 	dayIndex = date.weekday()
+	triggerCandidate = 64 >> dayIndex
 	currentTime = datetime.time(date.hour, date.minute, date.second, date.microsecond)
-	if (bits & (64 >> dayIndex)) and currentTime < switchTime:
-		return [bits, date.year, date.month, date.day, switchTime.hour, switchTime.minute, duration]
-	else: return findNextAirDate(bits, date, dayIndex, switchTime, duration)
+	# Case 1: Show hasn't begun.
+	if (bits & triggerCandidate) and currentTime < switchTime:
+		delta = 0
+	else:
+		# Case 2: This is a weekly show.
+		if bits == triggerCandidate:
+			delta = 7
+		else:
+			import math
+			# Scan the bit vector until finding the correct date and calculate the resulting delta (dayIndex modulo 7).
+			# Take away the current trigger bit as this is invoked once the show air date has passed.
+			days = bits-triggerCandidate if bits & triggerCandidate else bits
+			currentDay = int(math.log(triggerCandidate, 2))
+			nextDay = int(math.log(days, 2))
+			# Hoping the resulting vector will have some bits set to 1...
+			if triggerCandidate > days:
+				delta = currentDay-nextDay
+			else:
+				triggerBit = -1
+				for bit in xrange(currentDay-1, -1, -1):
+					if 2 ** bit & days:
+						triggerBit = bit
+						break
+				if triggerBit > -1:
+					delta = currentDay-triggerBit
+				else:
+					delta = 7-(nextDay-currentDay)
+	date += datetime.timedelta(delta)
+	return [bits, date.year, date.month, date.day, switchTime.hour, switchTime.minute, duration]
 
 # Find if another profile is occupying the specified time slot.
 def duplicateExists(map, profile, bits, hour, min, duration):
@@ -1476,6 +1472,7 @@ class TriggersDialog(wx.Dialog):
 	def __init__(self, parent, profile):
 		# Translators: The title of the broadcast profile triggers dialog.
 		super(TriggersDialog, self).__init__(parent, title=_("Profile triggers for {profileName}").format(profileName = profile))
+		import calendar
 		self.profile = profile
 		self.selection = parent.profiles.GetSelection()
 		# When referencing profile triggers, use the dictionary stored in the main add-on settings.
