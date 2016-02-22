@@ -92,18 +92,13 @@ class SPLFindDialog(wx.Dialog):
 		mainSizer.Add(findSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
 		if columnSearch:
+			import splconfig
 			columnSizer = wx.BoxSizer(wx.HORIZONTAL)
 			# Translators: The label in track finder to search columns.
 			label = wx.StaticText(self, wx.ID_ANY, label=_("C&olumn to search:"))
-			left = 1 if obj.appModule.productVersion >= "5.10" else 0
-			if obj.appModule._columnHeaders is None:
-				obj.appModule._columnHeaders = obj.parent.children[-1]
-			headers = [header.name for header in obj.appModule._columnHeaders.children[left:]]
-			self.columnHeaders = wx.Choice(self, wx.ID_ANY, choices=headers)
-			try:
-				self.columnHeaders.SetSelection(0)
-			except:
-				pass
+			section, key, pos = ("ColumnAnnouncement", "ColumnOrder", None) if obj.appModule.productVersion >= "5.10" else ("General", "ExploreColumns", 6)
+			self.columnHeaders = wx.Choice(self, wx.ID_ANY, choices=splconfig._SPLDefaults7[section][key][:pos])
+			self.columnHeaders.SetSelection(0)
 			columnSizer.Add(label)
 			columnSizer.Add(self.columnHeaders)
 			mainSizer.Add(columnSizer, border=10, flag=wx.BOTTOM)
