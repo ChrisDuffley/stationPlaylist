@@ -301,6 +301,20 @@ def initProfileTriggers():
 		profileTriggers = {}
 	# Cache profile triggers, used to compare the runtime dictionary against the cache.
 	profileTriggers2 = dict(profileTriggers)
+	# Is the triggers dictionary and the config pool in sync?
+	if len(profileTriggers):
+		nonexistent = []
+		for profile in profileTriggers.keys():
+			try:
+				getProfileIndexByName(profile)
+			except ValueError:
+				nonexistent.append(profile)
+				del profileTriggers[profile]
+		if len(nonexistent):
+			# Translators: Message presented indicating missing time-based profiles.
+			wx.CallAfter(gui.messageBox, _("Could not locate the following time-based profile(s):\n{profiles}").format(profiles = ", ".join(nonexistent)),
+			# Translators: The title of a dialog shown when some time-based profiles doesn't exist.
+			_("Time-based profiles missing"), wx.OK|wx.ICON_ERROR)
 	triggerStart()
 
 # Locate time-based profiles if any.
