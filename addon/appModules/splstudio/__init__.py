@@ -1416,7 +1416,7 @@ class AppModule(appModuleHandler.AppModule):
 			if not self.productVersion >= "5.10": statusObj = self.statusObjs[infoIndex][0]
 			else: statusObj = self.statusObjs[infoIndex][1]
 			# 7.0: sometimes (especially when first loaded), OBJID_CLIENT fails, so resort to retrieving focused object instead.
-			if fg is not None:
+			if fg is not None and fg.childCount > 1:
 				self._cachedStatusObjs[infoIndex] = fg.children[statusObj]
 			else: return api.getFocusObject()
 		return self._cachedStatusObjs[infoIndex]
