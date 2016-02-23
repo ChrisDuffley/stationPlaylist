@@ -855,7 +855,7 @@ class AppModule(appModuleHandler.AppModule):
 	# SPL Config management.
 
 	def script_openConfigDialog(self, gesture):
-		wx.CallAfter(splconfig.onConfigDialog, None)
+		wx.CallAfter(splconfui.onConfigDialog, None)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_openConfigDialog.__doc__=_("Opens SPL Studio add-on configuration dialog.")
 
