@@ -469,12 +469,12 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Some controls which needs special routines.
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
-		# 7.0: Do (chained) Bitwise and between window style and expected style(s).
-		if obj.windowStyle & 0x100000 and obj.windowStyle & 0x8000:
-			if obj.windowClassName == "TTntListView.UnicodeClass" and obj.role == controlTypes.ROLE_LISTITEM and obj.windowStyle & 0x1000:
-				clsList.insert(0, SPL510TrackItem)
-			elif obj.windowClassName == "TListView" and obj.role == controlTypes.ROLE_CHECKBOX:
-				clsList.insert(0, SPLTrackItem)
+		role = obj.role
+		windowStyle = obj.windowStyle
+		if obj.windowClassName == "TTntListView.UnicodeClass" and role == controlTypes.ROLE_LISTITEM and abs(windowStyle - 1443991625)%0x100000 == 0:
+			clsList.insert(0, SPL510TrackItem)
+		elif obj.windowClassName == "TListView" and role == controlTypes.ROLE_CHECKBOX and abs(windowStyle - 1442938953)%0x100000 == 0:
+			clsList.insert(0, SPLTrackItem)
 
 	# Keep an eye on library scans in insert tracks window.
 	libraryScanning = False
@@ -542,17 +542,17 @@ class AppModule(appModuleHandler.AppModule):
 					self.doExtraAction(obj.name)
 		# Monitor the end of track and song intro time and announce it.
 		elif obj.windowClassName == "TStaticText": # For future extensions.
-			if obj.simplePrevious != None:
+			if obj.simplePrevious is not None:
 				if obj.simplePrevious.name == "Remaining Time":
 					# End of track for SPL 5.x.
-					if splconfig.SPLConfig["General"]["BrailleTimer"] in ("outro", "both") and api.getForegroundObject().processID == self.processID: #and "00:00" < obj.name <= self.SPLEndOfTrackTime:
+					if splconfig.SPLConfig["General"]["BrailleTimer"] in ("outro", "both") and api.getForegroundObject().processID == self.processID:
 						braille.handler.message(obj.name)
 					if (obj.name == "00:{0:02d}".format(splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"])
 					and splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"]):
 						self.alarmAnnounce(obj.name, 440, 200)
 				elif obj.simplePrevious.name == "Remaining Song Ramp":
 					# Song intro for SPL 5.x.
-					if splconfig.SPLConfig["General"]["BrailleTimer"] in ("intro", "both") and api.getForegroundObject().processID == self.processID: #and "00:00" < obj.name <= self.SPLSongRampTime:
+					if splconfig.SPLConfig["General"]["BrailleTimer"] in ("intro", "both") and api.getForegroundObject().processID == self.processID:
 						braille.handler.message(obj.name)
 					if (obj.name == "00:{0:02d}".format(splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"])
 					and splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"]):
@@ -1411,12 +1411,15 @@ class AppModule(appModuleHandler.AppModule):
 		# Look up the cached objects first for faster response.
 		if not infoIndex in self._cachedStatusObjs:
 			fg = api.getForegroundObject()
-			if fg.windowClassName != "TStudioForm":
+			if fg is not None and fg.windowClassName != "TStudioForm":
 				# 6.1: Allow gesture-based functions to look up status information even if Studio window isn't focused.
 				fg = getNVDAObjectFromEvent(user32.FindWindowA("TStudioForm", None), OBJID_CLIENT, 0)
 			if not self.productVersion >= "5.10": statusObj = self.statusObjs[infoIndex][0]
 			else: statusObj = self.statusObjs[infoIndex][1]
-			self._cachedStatusObjs[infoIndex] = fg.children[statusObj]
+			# 7.0: sometimes (especially when first loaded), OBJID_CLIENT fails, so resort to retrieving focused object instead.
+			if fg is not None and fg.childCount > 1:
+				self._cachedStatusObjs[infoIndex] = fg.children[statusObj]
+			else: return api.getFocusObject()
 		return self._cachedStatusObjs[infoIndex]
 
 	# The layer commands themselves.
