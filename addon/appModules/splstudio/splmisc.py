@@ -15,7 +15,6 @@ import wx
 import ui
 from NVDAObjects.IAccessible import sysListView32
 from winUser import user32, sendMessage
-import winKernel
 
 # Locate column content.
 # Given an object and the column number, locate text in the given column.
@@ -23,6 +22,7 @@ import winKernel
 # This is used by the track item class, Track Tool items and in track finder.
 # In track finder, this is used when encountering the track item but NVDA says otherwise.
 def _getColumnContent(obj, col):
+	import winKernel
 	# Borrowed from SysListView32 implementation.
 	buffer=None
 	processHandle=obj.processHandle
@@ -331,4 +331,46 @@ class SPLCountdownTimer(object):
 		elif 0 < self.duration <= self.threshold:
 			ui.message(str(self.duration))
 
+
+# Module-level version of metadata announcer.
+# Moved to this module in 2016 to allow this function to work while Studio window isn't focused.
+def _metadataAnnouncer(reminder=False, handle=None):
+	import time, nvwave, queueHandler, speech, splconfig
+	if handle is None: handle = user32.FindWindowA("SPLStudio", None)
+	# If told to remind and connect, metadata streaming will be enabled at this time.
+	# 6.0: Call Studio API twice - once to set, once more to obtain the needed information.
+	# 6.2/7.0: When Studio API is called, add the value into the stream count list also.
+	if reminder:
+		for url in xrange(5):
+			dataLo = 0x00010000 if splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"][url] else 0xffff0000
+			sendMessage(handle, 1024, dataLo | url, 36)
+	dsp = 1 if sendMessage(handle, 1024, 0, 36) == 1 else 0
+	streamCount = []
+	for pos in xrange(1, 5):
+		checked = sendMessage(handle, 1024, pos, 36)
+		if checked == 1: streamCount.append(pos)
+	# Announce streaming status when told to do so.
+	status = None
+	if not len(streamCount):
+		# Translators: Status message for metadata streaming.
+		if not dsp: status = _("No metadata streaming URL's defined")
+		# Translators: Status message for metadata streaming.
+		else: status = _("Metadata streaming configured for DSP encoder")
+	elif len(streamCount) == 1:
+		# Translators: Status message for metadata streaming.
+		if dsp: status = _("Metadata streaming configured for DSP encoder and URL {URL}").format(URL = streamCount[0])
+		# Translators: Status message for metadata streaming.
+		else: status = _("Metadata streaming configured for URL {URL}").format(URL = streamCount[0])
+	else:
+		urltext = ", ".join([str(stream) for stream in streamCount])
+		# Translators: Status message for metadata streaming.
+		if dsp: status = _("Metadata streaming configured for DSP encoder and URL's {URL}").format(URL = urltext)
+		# Translators: Status message for metadata streaming.
+		else: status = _("Metadata streaming configured for URL's {URL}").format(URL = urltext)
+	if reminder:
+		time.sleep(2)
+		speech.cancelSpeech()
+		queueHandler.queueFunction(queueHandler.eventQueue, ui.message, status)
+		nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_Metadata.wav"))
+	else: ui.message(status)
 

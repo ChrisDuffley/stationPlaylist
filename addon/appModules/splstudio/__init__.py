@@ -29,7 +29,6 @@ import touchHandler
 import gui
 import wx
 from winUser import user32, sendMessage, OBJID_CLIENT
-import winKernel
 from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent
 import textInfos
 import tones
@@ -766,6 +765,7 @@ class AppModule(appModuleHandler.AppModule):
 	script_sayBroadcasterTime.__doc__=_("Announces broadcaster time.")
 
 	def script_sayCompleteTime(self, gesture):
+		import winKernel
 		# Says complete time in hours, minutes and seconds via kernel32's routines.
 		ui.message(winKernel.GetTimeFormat(winKernel.LOCALE_USER_DEFAULT, 0, None, None))
 	# Translators: Input help mode message for a command in Station Playlist Studio.
@@ -1195,43 +1195,9 @@ class AppModule(appModuleHandler.AppModule):
 	# Also allows broadcasters to toggle metadata streaming.
 
 	# First, the reminder function.
+	# 7.0: Calls the module-level version.
 	def _metadataAnnouncer(self, reminder=False):
-		# If told to remind and connect, metadata streaming will be enabled at this time.
-		# 6.0: Call Studio API twice - once to set, once more to obtain the needed information.
-		# 6.2/7.0: When Studio API is called, add the value into the stream count list also.
-		if reminder:
-			for url in xrange(5):
-				dataLo = 0x00010000 if splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"][url] else 0xffff0000
-				statusAPI(dataLo | url, 36)
-		dsp = 1 if statusAPI(0, 36, ret=True) == 1 else 0
-		streamCount = []
-		for pos in xrange(1, 5):
-			checked = statusAPI(pos, 36, ret=True)
-			if checked == 1: streamCount.append(pos)
-		# Announce streaming status when told to do so.
-		status = None
-		if not len(streamCount):
-			# Translators: Status message for metadata streaming.
-			if not dsp: status = _("No metadata streaming URL's defined")
-			# Translators: Status message for metadata streaming.
-			else: status = _("Metadata streaming configured for DSP encoder")
-		elif len(streamCount) == 1:
-			# Translators: Status message for metadata streaming.
-			if dsp: status = _("Metadata streaming configured for DSP encoder and URL {URL}").format(URL = streamCount[0])
-			# Translators: Status message for metadata streaming.
-			else: status = _("Metadata streaming configured for URL {URL}").format(URL = streamCount[0])
-		else:
-			urltext = ", ".join([str(stream) for stream in streamCount])
-			# Translators: Status message for metadata streaming.
-			if dsp: status = _("Metadata streaming configured for DSP encoder and URL's {URL}").format(URL = urltext)
-			# Translators: Status message for metadata streaming.
-			else: status = _("Metadata streaming configured for URL's {URL}").format(URL = urltext)
-		if reminder:
-			time.sleep(2)
-			speech.cancelSpeech()
-			queueHandler.queueFunction(queueHandler.eventQueue, ui.message, status)
-			nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_Metadata.wav"))
-		else: ui.message(status)
+		splmisc._metadataAnnouncer(reminder=reminder, handle=_SPLWin)
 
 	# The script version to open the manage metadata URL's dialog.
 	def script_manageMetadataStreams(self, gesture):
@@ -1643,6 +1609,7 @@ class AppModule(appModuleHandler.AppModule):
 			track.setFocus(), track.setFocus()
 
 	def script_metadataStreamingAnnouncer(self, gesture):
+		# 8.0: Call the module-level function directly.
 		self._metadataAnnouncer()
 
 	# Gesture(s) for the following script cannot be changed by users.

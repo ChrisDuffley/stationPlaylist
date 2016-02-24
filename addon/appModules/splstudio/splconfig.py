@@ -18,7 +18,7 @@ import api
 import gui
 import wx
 import splupdate
-from splmisc import SPLCountdownTimer
+from splmisc import SPLCountdownTimer, _metadataAnnouncer
 
 # Configuration management
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
@@ -648,9 +648,9 @@ def switchProfile(prevProfile, newProfile):
 		# Resume auto update checker if told to do so.
 		if SPLConfig["Update"]["AutoUpdateCheck"]: updateInit()
 	SPLPrevProfile = prevProfile
-	# Use the focus.appModule's metadata reminder method if told to do so now.
+	# Use the module-level metadata reminder method if told to do so now.
 	if SPLConfig["General"]["MetadataReminder"] in ("startup", "instant"):
-		api.getFocusObject().appModule._metadataAnnouncer(reminder=True)
+		_metadataAnnouncer(reminder=True)
 
 # Called from within the app module.
 def instantProfileSwitch():
