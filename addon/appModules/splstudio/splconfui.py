@@ -372,7 +372,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 	def onCancel(self, evt):
 		global _configDialogOpened
 		# 6.1: Discard changes to included columns set.
-		self.includedColumns.clear()
+		if self.includedColumns is not None: self.includedColumns.clear()
 		self.includedColumns = None
 		# Apply profile trigger changes if any.
 		splconfig.profileTriggers = dict(self._profileTriggersConfig)
@@ -829,7 +829,9 @@ class TriggersDialog(wx.Dialog):
 			parent.setProfileFlags(self.selection, "add", _("instant switch"))
 			parent.switchProfile = self.profile
 		else:
-			parent.switchProfile = None
+			# Don't nullify switch profile just yet...
+			if self.profile == parent.switchProfile:
+				parent.switchProfile = None
 			parent.setProfileFlags(self.selection, "discard", _("instant switch"))
 		# Now time-based profile checkbox.
 		if self.timeSwitchCheckbox.Value:
