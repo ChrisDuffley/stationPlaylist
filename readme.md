@@ -100,6 +100,7 @@ The available commands are:
 * Control+Shift+U: Check for add-on updates.
 * W: Weather and temperature if configured.
 * Y: Playlist modified status.
+* 1 through 0 (6 for Studio 5.0x): Announce column content for a specified column.
 * F9: Mark current track for track time analysis.
 * F10: Perform track time analysis.
 * F12: Switch between current and a predefined profile.
@@ -169,11 +170,13 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * Changes to SPL Assistant commands, including playlist duration (D), reassignment of hour selection duration from Shift+H to Shift+S and Shift+H now used to announce duration of remaining tracks for the current hour slot, metadata streaming status command reassigned (1 through 4, 0 is now Shift+1 through Shift+4, Shift+0).
 * It is now possible to invoke track finder via SPL Assistant (F).
 * SPL Assistant, numbers 1 through 0 (6 for Studio 5.01 and earlier) can be used to announce specific column information. These column slots can be changed under Columns Explorer item in add-on settings dialog.
+* Improvements to Track Dial, including improved responsiveness when moving through columns and tracking how columns are presented on screen.
 * It is now possible to use a different screen reader command layout for SPL Assistant commands. Go to advanced options dialog from add-on settings to configure this option between NVDA, JAWS and Window-Eyes layouts. See the SPL Assistant commands above for details.
 * NVDA can be configured to switch to a specific broadcast profile at a specific day and time. Use the new triggers dialog in add-on settings to configure this.
 * Moved instant switch toggle (now a checkbox) to the new triggers dialog.
 * Entries in profiles combo box in add-on settings dialog now shows profile flags such as active, whether it is an instant switch profile and so on.
 * If a serious problem with reading broadcast profile files are found, NVDA will present an error dialog and reset settings to defaults instead of doing nothing or sounding an error tone.
+* Settings will be saved to disk if and only if you change settings. This prolongs life of SSD's (solid state drives) by preventing unnecessary saves to disk if no settings have changed.
 * In add-on settings dialog, the controls used to toggle announcement of scheduled time, listener count, cart name and track name has been moved to a dedicated status announcements dialog (select status announcement button to open this dialog).
 * Added a new setting in add-on settings dialog to let NVDA play beep for different track categories when moving between tracks in playlist viewer.
 * It is no longer required to stay in the playlist viewer window in order to obtain time announcements such as remaining time for the track and broadcaster time.
