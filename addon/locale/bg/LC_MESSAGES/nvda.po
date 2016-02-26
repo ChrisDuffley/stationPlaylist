@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2016-02-05 00:22+0200\n"
+"PO-Revision-Date: 2016-02-25 23:13-0800\n"
 "Last-Translator: Zahari Yurukov <zahari.yurukov@gmail.com>\n"
 "Language-Team: Български <>\n"
 "Language: bg_BG\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 1.5.5\n"
 
 #. Translators: Presented when only Track Tool is running (Track Dial requires Studio to be running as well).
 msgid "Only Track Tool is running, Track Dial is unavailable"
@@ -29,7 +29,6 @@ msgid "Track Dial on"
 msgstr "Прегледа на записи е включен"
 
 #. Translators: Announced when located on a column other than the leftmost column while using track dial.
-#, python-brace-format
 msgid ", located at column {columnHeader}"
 msgstr ", намиращ се в колона {columnHeader}"
 
@@ -58,7 +57,6 @@ msgid "No artist"
 msgstr "Не е наличен изпълнител"
 
 #. Translators: Presents artist information for a track in Track Tool.
-#, python-brace-format
 msgid "Artist: {artistName}"
 msgstr "Изпълнител: {artistName}"
 
@@ -72,32 +70,26 @@ msgid "Microphone active"
 msgstr "Предупреждение: Микрофонът е активен"
 
 #. Translators: Spoken when enabling track dial while status message is set to beeps.
-#, python-brace-format
 msgid "Column {columnNumber}"
 msgstr "Колона {columnNumber}"
 
 #. Translators: Announced when leftmost column has no text while track dial is active.
-#, python-brace-format
 msgid "{leftmostColumn} not found"
 msgstr "{leftmostColumn} не е намерена"
 
 #. Translators: Standard message for announcing column content.
-#, python-brace-format
 msgid "{leftmostColumn}: {leftmostContent}"
 msgstr "{leftmostColumn}: {leftmostContent}"
 
 #. Translators: Standard message for announcing column content.
-#, python-brace-format
 msgid "{header}: {content}"
 msgstr "{header}: {content}"
 
 #. Translators: Spoken when column content is blank.
-#, python-brace-format
 msgid "{header}: blank"
 msgstr "{header}: празен"
 
 #. Translators: Brailled to indicate empty column content.
-#, python-brace-format
 msgid "{header}: ()"
 msgstr "{header}: ()"
 
@@ -106,7 +98,6 @@ msgid "Status not found"
 msgstr "Състоянието не е намерено"
 
 #. Translators: Status information for a checked track in Studio 5.10.
-#, python-brace-format
 msgid "Status: {name}"
 msgstr "Състояние: {name}"
 
@@ -161,7 +152,6 @@ msgstr ""
 "W: Време и температура.\n"
 "Y: Промяна на плейлиста."
 
-#, python-brace-format
 msgid "Using SPL Studio version {SPLVersion}"
 msgstr "Използване на SPL Studio версия {SPLVersion}"
 
@@ -172,7 +162,6 @@ msgid "SPL settings"
 msgstr "Настройки на SPL"
 
 #. Translators: Presented when library scan is complete.
-#, python-brace-format
 msgid "Scan complete with {scanCount} items"
 msgstr "Сканирането завърши с {scanCount} елемента"
 
@@ -190,12 +179,10 @@ msgid "Warning: Microphone active"
 msgstr "Предупреждение: Микрофонът е активен"
 
 #. Translators: Presented when end of introduction is approaching (example output: 5 sec left in track introduction).
-#, python-brace-format
 msgid "Warning: {seconds} sec left in track introduction"
 msgstr "Предупреждение: Остават {seconds} секунди във въведението на записа"
 
 #. Translators: Presented when end of track is approaching.
-#, python-brace-format
 msgid "Warning: {seconds} sec remaining"
 msgstr "Предупреждение: Остават {seconds} секунди"
 
@@ -249,7 +236,6 @@ msgid "End of track alarm"
 msgstr "Предупреждение за край на записа"
 
 #. Translators: A dialog message to set end of track alarm (curAlarmSec is the current end of track alarm in seconds).
-#, python-brace-format
 msgid "Enter &end of track alarm time in seconds (currently {curAlarmSec})"
 msgstr ""
 "Въведете време за предупреждение за &край на записа в секунди (текущото е "
@@ -272,7 +258,6 @@ msgid "Song intro alarm"
 msgstr "Предупреждение за въвеждащата мелодия"
 
 #. Translators: A dialog message to set song ramp alarm (curRampSec is the current intro monitoring alarm in seconds).
-#, python-brace-format
 msgid "Enter song &intro alarm time in seconds (currently {curRampSec})"
 msgstr ""
 "Въведете времето в секунди за предупреждението за въвеждащата &мелодия "
@@ -289,7 +274,6 @@ msgstr ""
 "Задава предупреждението за въвеждащата мелодия (по подразбиране е 5 секунди)."
 
 #. Translators: A dialog message to set microphone active alarm (curAlarmSec is the current mic monitoring alarm in seconds).
-#, python-brace-format
 msgid ""
 "Enter microphone alarm time in seconds (currently {curAlarmSec}, 0 disables "
 "the alarm)"
@@ -422,12 +406,10 @@ msgid "Scan start"
 msgstr "Сканирането започна"
 
 #. Translators: Presented when library scanning is finished.
-#, python-brace-format
 msgid "{itemCount} items in the library"
 msgstr "{itemCount} елемента в библиотеката"
 
 #. Translators: Presented after library scan is done.
-#, python-brace-format
 msgid "Scan complete with {itemCount} items"
 msgstr "Сканирането завърши с {itemCount} елемента"
 
@@ -436,7 +418,6 @@ msgid "Scanning"
 msgstr "Сканиране"
 
 #. Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
-#, python-brace-format
 msgid "{itemCount} items scanned"
 msgstr "{itemCount} сканирани елемента"
 
@@ -449,22 +430,18 @@ msgid "Metadata streaming configured for DSP encoder"
 msgstr "Излъчването на метаданни е настроено за енкодера DSP"
 
 #. Translators: Status message for metadata streaming.
-#, python-brace-format
 msgid "Metadata streaming configured for DSP encoder and URL {URL}"
 msgstr "Излъчването на метаданни е настроено за енкодера DSP и адреса {URL}"
 
 #. Translators: Status message for metadata streaming.
-#, python-brace-format
 msgid "Metadata streaming configured for URL {URL}"
 msgstr "Излъчването на метаданни е настроено за адреса {URL}"
 
 #. Translators: Status message for metadata streaming.
-#, python-brace-format
 msgid "Metadata streaming configured for DSP encoder and URL's {URL}"
 msgstr "Излъчването на метаданни е настроено за енкодера DSP и адресите {URL}"
 
 #. Translators: Status message for metadata streaming.
-#, python-brace-format
 msgid "Metadata streaming configured for URL's {URL}"
 msgstr "Излъчването на метаданни е настроено за адресите {URL}"
 
@@ -582,7 +559,6 @@ msgstr ""
 "анализира продължителността"
 
 #. Translators: Presented when time analysis is done for a number of tracks (example output: Tracks: 3, totaling 5:00).
-#, python-brace-format
 msgid "Tracks: {numberOfSelectedTracks}, totaling {totalTime}"
 msgstr "Записи: {numberOfSelectedTracks}, общо {totalTime}"
 
@@ -611,7 +587,6 @@ msgid "No place marker found"
 msgstr "Няма намерен маркер"
 
 #. Translators: Status message for metadata streaming.
-#, python-brace-format
 msgid "Metadata streaming on URL {URLPosition} enabled"
 msgstr "Излъчването на метаданни на адрес {URLPosition} е включено"
 
@@ -620,7 +595,6 @@ msgid "Metadata streaming on DSP encoder enabled"
 msgstr "Излъчването на метаданни за енкодера DSP е включено"
 
 #. Translators: Status message for metadata streaming.
-#, python-brace-format
 msgid "Metadata streaming on URL {URLPosition} disabled"
 msgstr "Излъчването на метаданни на адрес {URLPosition} е изключено"
 
@@ -1176,12 +1150,10 @@ msgid "No encoders are being monitored"
 msgstr "Няма наблюдавани енкодери"
 
 #. Translators: Announces number of encoders being monitored in the background.
-#, python-brace-format
 msgid "Number of encoders monitored: {numberOfEncoders}: {streamLabels}"
 msgstr "Брой наблюдавани енкодери: {numberOfEncoders}: {streamLabels}"
 
 #. Translators: Status message for encoder monitoring.
-#, python-brace-format
 msgid "{encoder} {encoderNumber}: {status}"
 msgstr "{encoder} {encoderNumber}: {status}"
 
@@ -1219,12 +1191,10 @@ msgstr ""
 
 #. Multiple encoders.
 #. Translators: Presented when toggling the setting to monitor the selected encoder.
-#, python-brace-format
 msgid "Monitoring encoder {encoderNumber}"
 msgstr "Наблюдение на енкодер {encoderNumber}"
 
 #. Translators: Presented when toggling the setting to monitor the selected encoder.
-#, python-brace-format
 msgid "Encoder {encoderNumber} will not be monitored"
 msgstr "Енкодерът {encoderNumber} няма да бъде наблюдаван"
 
@@ -1238,7 +1208,6 @@ msgid ""
 msgstr "Превключва дали NVDA ще наблюдава избраният енкодер във фонов режим."
 
 #. Translators: The title of the stream labeler dialog (example: stream labeler for 1).
-#, python-brace-format
 msgid "Stream labeler for {streamEntry}"
 msgstr "Етикетьор на потока за {streamEntry}"
 
@@ -1301,39 +1270,3 @@ msgid ""
 msgstr ""
 "Подобрява достъпността на Station Playlist Studio.\n"
 "В допълнение предоставя инструменти за контрол на програмата отвсякъде."
-
-#, fuzzy
-#~ msgid "Announce name of the currently playing &track automatically"
-#~ msgstr "&Съобщава името на текущо просвирвания джингъл"
-
-#~ msgid "{columnInfo} not found"
-#~ msgstr "{columnInfo} не е намерено"
-
-#~ msgid "Incorrect value entered."
-#~ msgstr "Въвели сте некоректна стойност"
-
-#~ msgid "Find track dialog is already open."
-#~ msgstr "Вече е отворен диалог за търсене на запис."
-
-#~ msgid ""
-#~ "Your Studio add-on configuration has errors and was reset to factory "
-#~ "defaults."
-#~ msgstr ""
-#~ "Възникнаха грешки във вашите настройки за добавката за Studio и "
-#~ "настройките бяха върнати към заводските им стойности."
-
-#~ msgid ""
-#~ "Errors were found in some of your Studio configuration settings. The "
-#~ "affected settings were reset to defaults."
-#~ msgstr ""
-#~ "Бяха открити грешки в някои от вашите настройки на Studio. Засегнатите "
-#~ "настройки бяха върнати до стойностите им по подразбиране."
-
-#~ msgid "Incorrect microphone alarm value entered."
-#~ msgstr "Въвели сте некоректна стойност за аларма за микрофона."
-
-#~ msgid "This version of Studio is no longer supported"
-#~ msgstr "Тази версия на Studio вече не се поддържа"
-
-#~ msgid "Disconnects from a streaming server."
-#~ msgstr "Прекратява връзката с излъчващ сървър."
