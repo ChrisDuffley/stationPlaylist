@@ -54,7 +54,7 @@ IncludedColumns = string_list(default=list("Artist","Title","Duration","Intro","
 SayScheduledFor = boolean(default=true)
 SayListenerCount = boolean(default=true)
 SayPlayingCartName = boolean(default=true)
-SayPlayingTrackName = string(default="True")
+SayPlayingTrackName = option("auto", "background", "off", default="auto")
 [Advanced]
 SPLConPassthrough = boolean(default=false)
 CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
@@ -142,6 +142,12 @@ def initConfig():
 	# Translators: The name of the default (normal) profile.
 	if SPLActiveProfile is None: SPLActiveProfile = _("Normal profile")
 	SPLConfigPool.append(unlockConfig(SPLIni, profileName=SPLActiveProfile, prefill=True))
+	# 7.0 only: Change value for track name announcement, to be removed in add-on 7.1.
+	sayPlayingTrackName = SPLConfigPool[0]["SayStatus"]["SayPlayingTrackName"]
+	if sayPlayingTrackName == "True": sayPlayingTrackName = "auto"
+	elif sayPlayingTrackName == "Background": sayPlayingTrackName = "background"
+	elif sayPlayingTrackName == "False": sayPlayingTrackName = "off"
+	SPLConfigPool[0]["SayStatus"]["SayPlayingTrackName"] = sayPlayingTrackName
 	try:
 		profiles = filter(lambda fn: os.path.splitext(fn)[-1] == ".ini", os.listdir(SPLProfiles))
 		for profile in profiles:
@@ -587,6 +593,11 @@ def saveConfig():
 		if isinstance(SPLConfigPool[0][section], dict):
 			for key in SPLConfigPool[0][section]:
 				SPLConfigPool[0][key] = SPLConfigPool[0][section][key]
+	sayPlayingTrackName = SPLConfigPool[0]["SayPlayingTrackName"]
+	if sayPlayingTrackName == "auto": sayPlayingTrackName = "True"
+	elif sayPlayingTrackName == "background": sayPlayingTrackName = "Background"
+	elif sayPlayingTrackName == "off": sayPlayingTrackName = "False"
+	SPLConfigPool[0]["SayPlayingTrackName"] = sayPlayingTrackName
 	# Disk write optimization check please.
 	if shouldSave(SPLConfigPool[0]):
 		SPLConfigPool[0].write()

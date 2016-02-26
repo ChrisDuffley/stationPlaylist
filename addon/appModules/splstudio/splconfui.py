@@ -1205,11 +1205,11 @@ class SayStatusDialog(wx.Dialog):
 		# Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
 		label = wx.StaticText(self, wx.ID_ANY, label=_("&Track name announcement:"))
 		# Translators: One of the track name announcement options.
-		self.trackAnnouncements=[("True",_("automatic")),
+		self.trackAnnouncements=[("auto",_("automatic")),
 		# Translators: One of the track name announcement options.
-		("Background",_("while using other programs")),
+		("background",_("while using other programs")),
 		# Translators: One of the track name announcement options.
-		("False",_("off"))]
+		("off",_("off"))]
 		self.trackAnnouncementList= wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.trackAnnouncements])
 		selection = (x for x,y in enumerate(self.trackAnnouncements) if y[0]==parent.playingTrackName).next()  
 		try:
