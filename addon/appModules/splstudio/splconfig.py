@@ -822,6 +822,15 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.profiles.SetFocus()
 
 	def onDelete(self, evt):
+		# Prevent profile deletion in the midst of a broadcast, otherwise wrong profile will be used when switching back from an instant switch profile.
+		# 6.4: This is the case if a profile that is before the previously active profile is gone, resulting in index confusion
+		global SPLPrevProfile
+		if SPLPrevProfile is not None:
+			# Translators: Message reported when attempting to delete a profile while a profile is triggered.
+			gui.messageBox(_("An instant switch profile might be active. If so, please press SPL Assistant, F12 to switch back to a previously active profile before opening add-on settings to delete a profile."),
+				# Translators: Title of a dialog shown when profile cannot be deleted.
+				_("Profile delete error"), wx.OK | wx.ICON_ERROR, self)
+			return
 		index = self.profiles.Selection
 		name = self.profiles.GetStringSelection()
 		configPos = getProfileIndexByName(name)
