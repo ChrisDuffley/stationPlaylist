@@ -184,6 +184,10 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * In encoders, pressing Control+NVDA+0 will present encoder settings dialog for configuring various options such as stream label, focusing to Studio when connected and so on.
 * In encoders, it is now possible to turn off connection progress tone (configurable from encoder settings dialog).
 
+## Changes for 6.4
+
+* Fixed a major problem when switching back from an instant switch profile and the instant switch profile becomes active again, seen after deleting a profile that was positioned right before the previously active profile. When attempting to delete a profile, a warning dialog will be shown if an instant switch profile is active.
+
 ## Changes for 6.3
 
 * Internal security enhancements.
