@@ -525,11 +525,15 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.profiles.SetFocus()
 
 	def onDelete(self, evt):
-		# Prevent profile deletion in the midst of a broadcast, otherwise time-based profile switching flag will become inconsistent.
+		# Prevent profile deletion while a trigger is active (in the midst of a broadcast), otherwise flags such as instant switch and time-based profiles become inconsistent.
+		# 6.4: This was seen after deleting a profile one positoin before the previsouly active profile.
+		# 7.0: One should never delete the currently active time-based profile.
 		# 7.1: Find a way to safely proceed via two-step verification if trying to delete currently active time-based profile.
-		if (splconfig._SPLTriggerEndTimer is not None and splconfig._SPLTriggerEndTimer.IsRunning()) or splconfig._triggerProfileActive:
-			gui.messageBox(_("Are you currently broadcasting a show? If so, please press SPL Assistant, F12 to switch back to a previously active profile before opening add-on settings to delete a profile."),
-				_("Midst of a broadcast"), wx.OK | wx.ICON_ERROR, self)
+		if (splconfig._SPLTriggerEndTimer is not None and splconfig._SPLTriggerEndTimer.IsRunning()) or splconfig._triggerProfileActive or splconfig.SPLPrevProfile is not None:
+			# Translators: Message reported when attempting to delete a profile while a profile is triggered.
+			gui.messageBox(_("An instant switch profile might be active or you are in the midst of a broadcast. If so, please press SPL Assistant, F12 to switch back to a previously active profile before opening add-on settings to delete a profile."),
+				# Translators: Title of a dialog shown when profile cannot be deleted.
+				_("Profile delete error"), wx.OK | wx.ICON_ERROR, self)
 			return
 		index = self.profiles.Selection
 		name = self.profiles.GetStringSelection().split(" <")[0]
