@@ -658,13 +658,13 @@ def switchProfile(prevProfile, newProfile):
 	SPLConfig["ActiveIndex"] = newProfile
 	if prevProfile is not None:
 		# Translators: Presented when switch to instant switch profile was successful.
-		ui.message(_("Switching profiles"))
+		ui.message(_("Switching to {newProfileName}").format(newProfileName = SPLActiveProfile))
 		# Pause automatic update checking.
 		if SPLConfig["Update"]["AutoUpdateCheck"]:
 			if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning: splupdate._SPLUpdateT.Stop()
 	else:
 		# Translators: Presented when switching from instant switch profile to a previous profile.
-		ui.message(_("Returning to previous profile"))
+		ui.message(_("Returning to {previousProfile}").format(previousProfile = SPLActiveProfile))
 		# Resume auto update checker if told to do so.
 		if SPLConfig["Update"]["AutoUpdateCheck"]: updateInit()
 	SPLPrevProfile = prevProfile
