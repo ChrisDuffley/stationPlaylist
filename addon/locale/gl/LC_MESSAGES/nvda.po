@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2016-02-16 19:11+0100\n"
+"PO-Revision-Date: 2016-02-26 01:58-0800\n"
 "Last-Translator: Juan C. Buño <oprisniki@gmail.com>\n"
 "Language-Team: Add-ons translation team <oprisniki@gmail.com>\n"
 "Language: gl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.6.11\n"
+"X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Presented when only Track Tool is running (Track Dial requires Studio to be running as well).
@@ -871,6 +871,17 @@ msgstr "Renomear Perfil"
 msgid "That profile already exists. Please choose a different name."
 msgstr "Ese perfil xa existe. Por favor elige un nombre diferente."
 
+#. Translators: Message reported when attempting to delete a profile while a profile is triggered.
+msgid ""
+"An instant switch profile might be active. If so, please press SPL "
+"Assistant, F12 to switch back to a previously active profile before opening "
+"add-on settings to delete a profile."
+msgstr ""
+
+#. Translators: Title of a dialog shown when profile cannot be deleted.
+msgid "Profile delete error"
+msgstr ""
+
 #. Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
 msgid "Are you sure you want to delete this profile? This cannot be undone."
 msgstr ""
@@ -1298,41 +1309,3 @@ msgid ""
 msgstr ""
 "Mellora o soporte para Station Playlist Studio.\n"
 "Ademáis, engade ordes globais para o estudio dende calquera parte."
-
-#~ msgid "Announce name of the currently playing &track automatically"
-#~ msgstr "Anuncia automáticamente o nome da &pista actualmente en reprodución"
-
-#~ msgid "{columnInfo} not found"
-#~ msgstr "{columnInfo} no encontrada"
-
-#~ msgid "Incorrect value entered."
-#~ msgstr "Introducido un valor incorrecto."
-
-#~ msgid "Find track dialog is already open."
-#~ msgstr "El diálogo Encontrar pista ya está abierto."
-
-#~ msgid ""
-#~ "Your Studio add-on configuration has errors and was reset to factory "
-#~ "defaults."
-#~ msgstr ""
-#~ "La configuración de tu complemento de Studio tiene errores y fue "
-#~ "reiniciada a la predeterminada de fábrica."
-
-#~ msgid ""
-#~ "Errors were found in some of your Studio configuration settings. The "
-#~ "affected settings were reset to defaults."
-#~ msgstr ""
-#~ "Se encontraron errores en algunas de las opciones de configuración de tu "
-#~ "Studio. Las opciones afectadas se reiniciaron a las predeterminadas."
-
-#~ msgid "Incorrect microphone alarm value entered."
-#~ msgstr "Introducido un valor incorrecto para la alarma de micrófono."
-
-#~ msgid "This version of Studio is no longer supported"
-#~ msgstr "Esta versión de Studio ya no se soporta"
-
-#~ msgid "Disconnects from a streaming server."
-#~ msgstr "Desconecta de un servidor de streaming."
-
-#~ msgid "Press Alt+Tab to switch to SPL Studio window"
-#~ msgstr "Pulsa Alt+Tab para cambiar a la ventana SPL Studio"
