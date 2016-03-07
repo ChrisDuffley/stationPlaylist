@@ -645,9 +645,9 @@ class SPLConfigDialog(gui.SettingsDialog):
 # Open the above dialog upon request.
 def onConfigDialog(evt):
 	# 5.2: Guard against alarm dialogs.
-	if splconfig._alarmDialogOpened:
+	if splconfig._alarmDialogOpened or _metadataDialogOpened:
 		# Translators: Presented when an alarm dialog is opened.
-		wx.CallAfter(gui.messageBox, _("An alarm dialog is already opened. Please close the alarm dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
+		wx.CallAfter(gui.messageBox, _("Another add-on settings dialog is open. Please close the previously opened dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
 	else: gui.mainFrame._popupSettingsDialog(SPLConfigDialog)
 
 # Helper dialogs for add-on settings dialog.
@@ -895,7 +895,7 @@ class MetadataStreamingDialog(wx.Dialog):
 	def __new__(cls, parent, *args, **kwargs):
 		# Make this a singleton and prompt an error dialog if it isn't.
 		if _metadataDialogOpened:
-			raise RuntimeError("An instance of metadata stremaing dialog is opened")
+			raise RuntimeError("An instance of metadata streaming dialog is opened")
 		inst = cls._instance() if cls._instance else None
 		if not inst:
 			return super(cls, cls).__new__(cls, parent, *args, **kwargs)
