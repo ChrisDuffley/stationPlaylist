@@ -1661,6 +1661,7 @@ class AppModule(appModuleHandler.AppModule):
 		os.startfile("https://bitbucket.org/nvdaaddonteam/stationplaylist/wiki/SPLDevAddonGuide")
 
 	def script_updateCheck(self, gesture):
+		self.finish()
 		if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
 		splupdate.updateCheck(continuous=splconfig.SPLConfig["Update"]["AutoUpdateCheck"])
 

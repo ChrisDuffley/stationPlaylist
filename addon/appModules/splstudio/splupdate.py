@@ -2,12 +2,13 @@
 # A support module for SPL add-on
 # Copyright 2015-2016, Joseph Lee, released under GPL.
 
-# Provides update check facility.
+# Provides update check facility, basics borrowed from NVDA Core's update checker class.
 
 import urllib
 import os # Essentially, update download is no different than file downloads.
 from calendar import month_abbr # Last modified date formatting.
 import cPickle
+import threading
 import gui
 import wx
 import tones
@@ -71,8 +72,21 @@ def _lastModified(lastModified):
 	month = str({v: k for k,v in enumerate(month_abbr)}[month]).zfill(2)
 	return "-".join([year, month, day])
 
-def updateProgress():
+# Run the progress thread from another thread because urllib.urlopen blocks everyone.
+_progressThread = None
+
+def _updateProgress():
 	tones.beep(440, 40)
+
+def updateProgress():
+	global _progressThread
+	_progressThread = wx.PyTimer(updateProgress)
+	_progressThread.Start(1000)
+
+def stopUpdateProgress():
+	global _progressThread
+	_progressThread.Stop()
+	_progressThread = None
 
 def updateQualify(url):
 	# The add-on version is of the form "major.minor". The "-dev" suffix indicates development release.
@@ -96,7 +110,8 @@ def updateQualify(url):
 
 # The update check routine.
 # Auto is whether to respond with UI (manual check only), continuous takes in auto update check variable for restarting the timer.
-def updateCheck(auto=False, continuous=False):
+# LTS: The "lts" flag is used to obtain update metadata from somewhere else (typically the LTS server).
+def updateCheck(auto=False, continuous=False, lts=False):
 	global _SPLUpdateT, SPLAddonCheck, _retryAfterFailure
 	# Regardless of whether it is an auto check, update the check time.
 	# However, this shouldnt' be done if this is a retry after a failed attempt.
@@ -107,8 +122,7 @@ def updateCheck(auto=False, continuous=False):
 	if not auto: tones.beep(110, 40)
 	# All the information will be stored in the URL object, so just close it once the headers are downloaded.
 	if not auto:
-		progressTone = wx.PyTimer(updateProgress)
-		progressTone.Start(1000)
+		threading.Thread(target=updateProgress).start()
 	updateCandidate = False
 	try:
 		url = urllib.urlopen(SPLUpdateURL)
@@ -116,8 +130,8 @@ def updateCheck(auto=False, continuous=False):
 	except IOError:
 		_retryAfterFailure = True
 		if not auto:
-			progressTone.Stop()
-			# Translators: Erro text shown when add-on update check fails.
+			stopUpdateProgress()
+			# Translators: Error text shown when add-on update check fails.
 			wx.CallAfter(gui.messageBox, _("Error checking for update."), _("Check for add-on update"), wx.ICON_ERROR)
 		if continuous: _SPLUpdateT.Start(600000, True)
 		return
@@ -150,7 +164,7 @@ def updateCheck(auto=False, continuous=False):
 			# Translators: Text shown if an add-on update is available.
 			checkMessage = _("Studio add-on {newVersion} ({modifiedDate}) is available. Would you like to update?".format(newVersion = qualified, modifiedDate = _lastModified(url.info().getheader("Last-Modified"))))
 			updateCandidate = True
-	if not auto: progressTone.Stop()
+	if not auto: stopUpdateProgress()
 	# Translators: Title of the add-on update check dialog.
 	if not updateCandidate: wx.CallAfter(gui.messageBox, checkMessage, _("Check for add-on update"))
 	else: wx.CallAfter(getUpdateResponse, checkMessage, _("Check for add-on update"), url.info().getheader("Content-Length"))
