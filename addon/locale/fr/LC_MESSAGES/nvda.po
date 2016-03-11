@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 4.1\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2016-01-15 16:13+0100\n"
+"PO-Revision-Date: 2016-03-04 22:01+0100\n"
 "Last-Translator: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language-Team: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language: fr\n"
@@ -891,6 +891,21 @@ msgstr "Renommer le profil"
 msgid "That profile already exists. Please choose a different name."
 msgstr "Ce profil existe déjà. Veuillez choisir un nom différent."
 
+#. Translators: Message reported when attempting to delete a profile while a profile is triggered.
+msgid ""
+"An instant switch profile might be active. If so, please press SPL "
+"Assistant, F12 to switch back to a previously active profile before opening "
+"add-on settings to delete a profile."
+msgstr ""
+"Un changement de profil immédiat peut-être actif. Dans l'affirmative, s'il "
+"vous plaît Appuyer sur Assistant SPL, F12 pour revenir à un profil "
+"précédemment actif avant d'ouvrir les paramètres du module complémentaire "
+"pour supprimer un profil."
+
+#. Translators: Title of a dialog shown when profile cannot be deleted.
+msgid "Profile delete error"
+msgstr "Erreur lors de la suppression de profil"
+
 #. Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
 msgid "Are you sure you want to delete this profile? This cannot be undone."
 msgstr ""
@@ -987,9 +1002,8 @@ msgstr "playlist entière"
 msgid "Another alarm dialog is open."
 msgstr "Un autre dialogue d'alarme est ouvert."
 
-#, fuzzy
 msgid "SPL Studio and audio ducking"
-msgstr "SPL Studio n'est pas en cours d'exécution."
+msgstr "SPL Studio et atténuation audio"
 
 #. Translators: A message displayed if audio ducking should be disabled.
 msgid ""
@@ -999,10 +1013,15 @@ msgid ""
 "dialog in NVDA and selecting 'no ducking' from audio ducking mode combo box "
 "or press NVDA+Shift+D."
 msgstr ""
+"NVDA 2016.1 et au-delà permet de réduire le volume des sons en arrière-plan, "
+"incluant celui de Studio. Dans le but de ne pas perturber l'expérience de "
+"vos auditeurs, veuillez désactiver l'atténuation audio en ouvrant le "
+"dialogue Synthétiseur de NVDA et sélectionner 'pas d'atténuation audio' dans "
+"la liste déroulante mode d'atténuation audio ou presser NVDA+maj+D."
 
 #. Translators: A checkbox to turn off audio ducking reminder message.
 msgid "Do not show this message again"
-msgstr ""
+msgstr "Ne plus afficher ce message"
 
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Status announcement beeps"
@@ -1315,42 +1334,3 @@ msgid ""
 msgstr ""
 "Améliore la prise en charge de Station Playlist Studio.\n"
 "En outre, ajoute des commandes globales pour studio où que vous soyez."
-
-#~ msgid "Announce name of the currently playing &track automatically"
-#~ msgstr "Annonce du nom de la &piste en cours de lecture automatiquement"
-
-#~ msgid "{columnInfo} not found"
-#~ msgstr "{columnInfo} introuvable"
-
-#~ msgid "Incorrect value entered."
-#~ msgstr "Valeur saisie incorrecte."
-
-#~ msgid "Find track dialog is already open."
-#~ msgstr "Le dialogue Rechercher une piste est déjà ouvert."
-
-#~ msgid ""
-#~ "Your Studio add-on configuration has errors and was reset to factory "
-#~ "defaults."
-#~ msgstr ""
-#~ "Votre configuration du module complémentaire Studio comporte des erreurs, "
-#~ "elle a été réinitialisée aux paramètres d'usine."
-
-#~ msgid ""
-#~ "Errors were found in some of your Studio configuration settings. The "
-#~ "affected settings were reset to defaults."
-#~ msgstr ""
-#~ "Erreurs trouvées dans certains de vos paramètres de configuration de "
-#~ "Studio. Les paramètres affectés ont été réinitialisés aux valeurs par "
-#~ "défaut."
-
-#~ msgid "Incorrect microphone alarm value entered."
-#~ msgstr "La valeur de l'alarme microphone saisie est incorrecte."
-
-#~ msgid "This version of Studio is no longer supported"
-#~ msgstr "Cette version de Studio n'est plus supportée"
-
-#~ msgid "Disconnects from a streaming server."
-#~ msgstr "Se déconnecter d'un serveur de streaming."
-
-#~ msgid "Press Alt+Tab to switch to SPL Studio window"
-#~ msgstr "Appuyez sur Alt+Tab pour passer à la fenêtre SPL Studio"

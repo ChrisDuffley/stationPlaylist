@@ -25,6 +25,7 @@ msgid "Track Dial on"
 msgstr "إدارة المسار تشغيل"
 
 #. Translators: Announced when located on a column other than the leftmost column while using track dial.
+#, python-brace-format
 msgid ", located at column {columnHeader}"
 msgstr ", موجودة بالعمود {columnHeader}"
 
@@ -53,6 +54,7 @@ msgid "No artist"
 msgstr "لا يوجد مطرب"
 
 #. Translators: Presents artist information for a track in Track Tool.
+#, python-brace-format
 msgid "Artist: {artistName}"
 msgstr "المطرب: {artistName}"
 
@@ -65,26 +67,32 @@ msgid "Microphone active"
 msgstr "الميكروفون يعمل"
 
 #. Translators: Spoken when enabling track dial while status message is set to beeps.
+#, python-brace-format
 msgid "Column {columnNumber}"
 msgstr "العمود {columnNumber}"
 
 #. Translators: Announced when leftmost column has no text while track dial is active.
+#, python-brace-format
 msgid "{leftmostColumn} not found"
 msgstr "{leftmostColumn} غير موجود"
 
 #. Translators: Standard message for announcing column content.
+#, python-brace-format
 msgid "{leftmostColumn}: {leftmostContent}"
 msgstr "{leftmostColumn}: {leftmostContent}"
 
 #. Translators: Standard message for announcing column content.
+#, python-brace-format
 msgid "{header}: {content}"
 msgstr "{header}: {content}"
 
 #. Translators: Spoken when column content is blank.
+#, python-brace-format
 msgid "{header}: blank"
 msgstr "{header}: فراغ"
 
 #. Translators: Brailled to indicate empty column content.
+#, python-brace-format
 msgid "{header}: ()"
 msgstr "{header}: ()"
 
@@ -93,6 +101,7 @@ msgid "Status not found"
 msgstr "الحالة غير موجودة"
 
 #. Translators: Status information for a checked track in Studio 5.10.
+#, python-brace-format
 msgid "Status: {name}"
 msgstr "الحالة:{name}"
 
@@ -155,6 +164,7 @@ msgstr ""
 "F12: الانتقال إلى وضع فوري.\n"
 "Shift+F1: فتح دليل المستخدم على الإنترنت."
 
+#, python-brace-format
 msgid "Using SPL Studio version {SPLVersion}"
 msgstr "استخدام إصدار {SPLVersion} من SPL"
 
@@ -165,6 +175,7 @@ msgid "SPL settings"
 msgstr "إعدادات SPL"
 
 #. Translators: Presented when library scan is complete.
+#, python-brace-format
 msgid "Scan complete with {scanCount} items"
 msgstr "تم فحص {scanCount} عنصر"
 
@@ -183,10 +194,12 @@ msgid "Warning: Microphone active"
 msgstr "تحذير: الميكروفون يعمل"
 
 #. Translators: Presented when end of introduction is approaching (example output: 5 sec left in track introduction).
+#, python-brace-format
 msgid "Warning: {seconds} sec left in track introduction"
 msgstr "تحذير: باقي {seconds} ثواني على مقدمة المسار"
 
 #. Translators: Presented when end of track is approaching.
+#, python-brace-format
 msgid "Warning: {seconds} sec remaining"
 msgstr "تحذير: باقي {seconds} ثواني"
 
@@ -240,6 +253,7 @@ msgid "End of track alarm"
 msgstr "التنبيه بوقت نهاية المسار"
 
 #. Translators: A dialog message to set end of track alarm (curAlarmSec is the current end of track alarm in seconds).
+#, python-brace-format
 msgid "Enter &end of track alarm time in seconds (currently {curAlarmSec})"
 msgstr "ادخل وقت التنب&يه بنهاية المسار بالثواني (وهو حاليا {curAlarmSec})"
 
@@ -260,6 +274,7 @@ msgid "Song intro alarm"
 msgstr "التنبيه بمقدمة الأغنية"
 
 #. Translators: A dialog message to set song ramp alarm (curRampSec is the current intro monitoring alarm in seconds).
+#, python-brace-format
 msgid "Enter song &intro alarm time in seconds (currently {curRampSec})"
 msgstr "ادخل وقت التن&بيه بمقدمة الأغنية بالثواني (حاليا {curRampSec})"
 
@@ -273,6 +288,7 @@ msgid "sets song intro alarm (default is 5 seconds)."
 msgstr "ضبط وقت بداية الأغنية (الوقت الافتراضي 5 ثواني)"
 
 #. Translators: A dialog message to set microphone active alarm (curAlarmSec is the current mic monitoring alarm in seconds).
+#, python-brace-format
 msgid ""
 "Enter microphone alarm time in seconds (currently {curAlarmSec}, 0 disables "
 "the alarm)"
@@ -395,10 +411,12 @@ msgid "Scan start"
 msgstr "بدأ البحث"
 
 #. Translators: Presented when library scanning is finished.
+#, python-brace-format
 msgid "{itemCount} items in the library"
 msgstr "{itemCount} عنصر بالمكتبة"
 
 #. Translators: Presented after library scan is done.
+#, python-brace-format
 msgid "Scan complete with {itemCount} items"
 msgstr "تم فحص {itemCount} عنصر"
 
@@ -407,6 +425,7 @@ msgid "Scanning"
 msgstr "جاري البحث"
 
 #. Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
+#, python-brace-format
 msgid "{itemCount} items scanned"
 msgstr "{itemCount} عنصر تم فحصه"
 
@@ -419,18 +438,22 @@ msgid "Metadata streaming configured for DSP encoder"
 msgstr "تم إعداد بيانات البث لتشفير DSP "
 
 #. Translators: Status message for metadata streaming.
+#, python-brace-format
 msgid "Metadata streaming configured for DSP encoder and URL {URL}"
 msgstr "تم إعداد بيانات البث لتشفير DSP والرابط {URL}"
 
 #. Translators: Status message for metadata streaming.
+#, python-brace-format
 msgid "Metadata streaming configured for URL {URL}"
 msgstr "تم إعداد بيانات البث للرابط {URL}"
 
 #. Translators: Status message for metadata streaming.
+#, python-brace-format
 msgid "Metadata streaming configured for DSP encoder and URL's {URL}"
 msgstr "تم إعداد بيانات البث لتشفير DSB وللرابط {URL}"
 
 #. Translators: Status message for metadata streaming.
+#, python-brace-format
 msgid "Metadata streaming configured for URL's {URL}"
 msgstr "تم إعداد بيانات البث للرابط {URL}"
 
@@ -539,6 +562,7 @@ msgid ""
 msgstr "لم يحدد مسار ليكون بداية للتحليل, تعذر إجراء تحليل الوقت."
 
 #. Translators: Presented when time analysis is done for a number of tracks (example output: Tracks: 3, totaling 5:00).
+#, python-brace-format
 msgid "Tracks: {numberOfSelectedTracks}, totaling {totalTime}"
 msgstr "المسارات: {numberOfSelectedTracks}, بإجمالي وقت {totalTime}"
 
@@ -565,6 +589,7 @@ msgid "No place marker found"
 msgstr "لا توجد علامة مرجعية"
 
 #. Translators: Status message for metadata streaming.
+#, python-brace-format
 msgid "Metadata streaming on URL {URLPosition} enabled"
 msgstr "تفعيل بث البيانات من الرابط {URLPosition} "
 
@@ -573,6 +598,7 @@ msgid "Metadata streaming on DSP encoder enabled"
 msgstr "تفعيل بث البيانات للتشفير DSB"
 
 #. Translators: Status message for metadata streaming.
+#, python-brace-format
 msgid "Metadata streaming on URL {URLPosition} disabled"
 msgstr "تعطيل بث البيانات من الرابط {URLPosition} "
 
@@ -812,6 +838,17 @@ msgstr "تسمية الوضع"
 #. Translators: An error displayed when the user attempts to create a profile which already exists.
 msgid "That profile already exists. Please choose a different name."
 msgstr "هذا الموضع موجود بالفعل. يرجى اختيار اسم جديد"
+
+#. Translators: Message reported when attempting to delete a profile while a profile is triggered.
+msgid ""
+"An instant switch profile might be active. If so, please press SPL "
+"Assistant, F12 to switch back to a previously active profile before opening "
+"add-on settings to delete a profile."
+msgstr ""
+
+#. Translators: Title of a dialog shown when profile cannot be deleted.
+msgid "Profile delete error"
+msgstr ""
 
 #. Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
 msgid "Are you sure you want to delete this profile? This cannot be undone."
@@ -1105,10 +1142,12 @@ msgid "No encoders are being monitored"
 msgstr "لا توجد تشفيرات جاري مراقبتها"
 
 #. Translators: Announces number of encoders being monitored in the background.
+#, python-brace-format
 msgid "Number of encoders monitored: {numberOfEncoders}: {streamLabels}"
 msgstr "عدد التشفيرات المراقبة: {numberOfEncoders}: {streamLabels}"
 
 #. Translators: Status message for encoder monitoring.
+#, python-brace-format
 msgid "{encoder} {encoderNumber}: {status}"
 msgstr "{encoder} {encoderNumber}: {status}"
 
@@ -1144,10 +1183,12 @@ msgstr ""
 
 #. Multiple encoders.
 #. Translators: Presented when toggling the setting to monitor the selected encoder.
+#, python-brace-format
 msgid "Monitoring encoder {encoderNumber}"
 msgstr "جاري مراقبة التشفير رقم {encoderNumber} "
 
 #. Translators: Presented when toggling the setting to monitor the selected encoder.
+#, python-brace-format
 msgid "Encoder {encoderNumber} will not be monitored"
 msgstr "التشفير رقم {encoderNumber} لم تتم مراقبته"
 
@@ -1161,6 +1202,7 @@ msgid ""
 msgstr "تشغيل أو تعطيل ما إذا كان NVDA سيراقب التشفير المحدد في الخلفية."
 
 #. Translators: The title of the stream labeler dialog (example: stream labeler for 1).
+#, python-brace-format
 msgid "Stream labeler for {streamEntry}"
 msgstr "تسمية الملف الجاري بثه {streamEntry}"
 
