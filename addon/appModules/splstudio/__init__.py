@@ -102,7 +102,7 @@ def statusAPI(arg, command, func=None, ret=False, offset=None):
 	if func:
 		func(val) if not offset else func(val, offset)
 
-# Category sounds dictionary (key = cateogry, value = tone pitch).
+# Category sounds dictionary (key = category, value = tone pitch).
 _SPLCategoryTones = {
 	"Break Note":415,
 	"Timed Break Note":208,
