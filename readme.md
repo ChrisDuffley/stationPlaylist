@@ -166,6 +166,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Changes for 7.0
 
+* Fixed numerous errors reported by users when installing add-on 7.0 for the first time when no prior version of this add-on was installed.
 * Added add-on update check feature. This can be done manually (SPL Assistant, Control+Shift+U) or automatically (configurable via advanced options dialog from add-on settings).
 * Changes to SPL Assistant commands, including playlist duration (D), reassignment of hour selection duration from Shift+H to Shift+S and Shift+H now used to announce duration of remaining tracks for the current hour slot, metadata streaming status command reassigned (1 through 4, 0 is now Shift+1 through Shift+4, Shift+0).
 * It is now possible to invoke track finder via SPL Assistant (F).

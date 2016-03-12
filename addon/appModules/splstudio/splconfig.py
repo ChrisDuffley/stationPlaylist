@@ -199,7 +199,8 @@ def unlockConfig(path, profileName=None, prefill=False):
 		_configLoadStatus[profileName] = "fileReset"
 	# 7.0 only: If 6.x value for track title announcement is found, inform the cache that the profile must be saved.
 	oldValueFound = False
-	if path == SPLIni and SPLConfigCheckpoint["SayStatus"]["SayPlayingTrackName"] in ("True", "Background", "False"):
+	# 7.0: Change values if and only if this is an upgrade.
+	if path == SPLIni and "SayStatus" in SPLConfigCheckpoint and SPLConfigCheckpoint["SayStatus"]["SayPlayingTrackName"] in ("True", "Background", "False"):
 		oldValueFound = True
 		sayPlayingTrackName = SPLConfigCheckpoint["SayStatus"]["SayPlayingTrackName"]
 		if sayPlayingTrackName == "True": sayPlayingTrackName = "auto"

@@ -86,7 +86,9 @@ def config6to7(path):
 
 def onInstall():
 	# 7.0: Convert config formats, starting with normal profile.
-	config6to7(SPLIni)
+	# 7.0: Do this if and only if the file exists in the first place (without this, add-on installer throws errors).
+	if os.path.isfile(SPLIni):
+		config6to7(SPLIni)
 	profiles = os.path.join(os.path.dirname(__file__), "..", "stationPlaylist", "profiles")
 	# Import old profiles.
 	if os.path.exists(profiles):
