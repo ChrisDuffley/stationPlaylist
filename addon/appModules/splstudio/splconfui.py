@@ -749,19 +749,19 @@ class TriggersDialog(wx.Dialog):
 		self.selection = parent.profiles.GetSelection()
 		# When referencing profile triggers, use the dictionary stored in the main add-on settings.
 		# This is needed in order to discard changes when cancel button is clicked from the parent dialog.
-		if profile in self.Parent._profileTriggersConfig:
+		# 7.0: Remove this text for now (may return in 7.1 if requested).
+		"""if profile in self.Parent._profileTriggersConfig:
 			t = self.Parent._profileTriggersConfig[profile]
 			d = "-".join([str(t[1]), str(t[2]).zfill(2), str(t[3]).zfill(2)])
 			t = ":".join([str(t[4]).zfill(2), str(t[5]).zfill(2)])
 			triggerText = "The next trigger is scheduled on {0} at {1}.".format(d, t)
 		else:
 			triggerText = "No triggers defined."
-
-		mainSizer = wx.BoxSizer(wx.VERTICAL)
-
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		label = wx.StaticText(self, wx.ID_ANY, label=triggerText)
-		sizer.Add(label)
+		sizer.Add(label)"""
+
+		mainSizer = wx.BoxSizer(wx.VERTICAL)
 
 		# Translators: The label of a checkbox to toggle if selected profile is an instant switch profile.
 		self.instantSwitchCheckbox=wx.CheckBox(self,wx.NewId(),label=_("This is an &instant switch profile"))
@@ -788,19 +788,19 @@ class TriggersDialog(wx.Dialog):
 		mainSizer.Add(daysSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
 		timeSizer = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Time")), wx.HORIZONTAL)
-		self.hourPrompt = wx.StaticText(self, wx.ID_ANY, label="Hour")
+		self.hourPrompt = wx.StaticText(self, wx.ID_ANY, label=_("Hour"))
 		timeSizer.Add(self.hourPrompt)
 		self.hourEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=23)
 		self.hourEntry.SetValue(self.Parent._profileTriggersConfig[profile][4] if profile in self.Parent._profileTriggersConfig else 0)
 		self.hourEntry.SetSelection(-1, -1)
 		timeSizer.Add(self.hourEntry)
-		self.minPrompt = wx.StaticText(self, wx.ID_ANY, label="Minute")
+		self.minPrompt = wx.StaticText(self, wx.ID_ANY, label=_("Minute"))
 		timeSizer.Add(self.minPrompt)
 		self.minEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=59)
 		self.minEntry.SetValue(self.Parent._profileTriggersConfig[profile][5] if profile in self.Parent._profileTriggersConfig else 0)
 		self.minEntry.SetSelection(-1, -1)
 		timeSizer.Add(self.minEntry)
-		self.durationPrompt = wx.StaticText(self, wx.ID_ANY, label="Duration in minutes")
+		self.durationPrompt = wx.StaticText(self, wx.ID_ANY, label=_("Duration in minutes"))
 		timeSizer.Add(self.durationPrompt)
 		self.durationEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=1440)
 		self.durationEntry.SetValue(self.Parent._profileTriggersConfig[profile][6] if profile in self.Parent._profileTriggersConfig else 0)
@@ -846,6 +846,7 @@ class TriggersDialog(wx.Dialog):
 				hour, min = self.hourEntry.GetValue(), self.minEntry.GetValue()
 				duration = self.durationEntry.GetValue()
 				if splconfig.duplicateExists(parent._profileTriggersConfig, self.profile, bit, hour, min, duration):
+					# Translators: Presented if another profile occupies a time slot set by the user.
 					gui.messageBox(_("A profile trigger already exists for the entered time slot. Please choose a different date or time."),
 						_("Error"), wx.OK | wx.ICON_ERROR, self)
 					return
@@ -908,6 +909,7 @@ class MetadataStreamingDialog(wx.Dialog):
 		# Use a weakref so the instance can die.
 		MetadataStreamingDialog._instance = weakref.ref(self)
 
+		# Translators: Title of a dialog to configure metadata streaming status for DSP encoder and four additional URL's.
 		super(MetadataStreamingDialog, self).__init__(parent, title=_("Metadata streaming options"))
 		self.func = func
 
@@ -933,7 +935,6 @@ class MetadataStreamingDialog(wx.Dialog):
 			self.checkedStreams.append(checkedURL)
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
-		# First, a help text.
 		if func is None: labelText=_("Select the URL for metadata streaming upon request.")
 		else: labelText=_("Check to enable metadata streaming, uncheck to disable.")
 		label = wx.StaticText(self, wx.ID_ANY, label=labelText)
@@ -945,7 +946,8 @@ class MetadataStreamingDialog(wx.Dialog):
 		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		if self.func is not None:
-			self.applyCheckbox=wx.CheckBox(self,wx.NewId(),label="&Apply streaming changes to the selected profile")
+			# Translators: A checkbox to let metadata streaming status be applied to the currently active broadcast profile.
+			self.applyCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Apply streaming changes to the selected profile"))
 			self.applyCheckbox.SetValue(True)
 			mainSizer.Add(self.applyCheckbox, border=10,flag=wx.TOP)
 
@@ -988,6 +990,7 @@ class MetadataStreamingDialog(wx.Dialog):
 class ColumnAnnouncementsDialog(wx.Dialog):
 
 	def __init__(self, parent):
+		# Translators: Title of a dialog to configure column announcements (order and what columns should be announced).
 		super(ColumnAnnouncementsDialog, self).__init__(parent, title=_("Manage column announcements"))
 
 		# Same as metadata dialog (wx.CheckListBox isn't user friendly).
@@ -1011,7 +1014,7 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
-		# First, a help text.
+		# Translators: Help text to select columns to be announced.
 		label = wx.StaticText(self, wx.ID_ANY, label=_("Select columns to be announced (artist and title are announced by default"))
 		mainSizer.Add(label,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
@@ -1186,6 +1189,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 class SayStatusDialog(wx.Dialog):
 
 	def __init__(self, parent):
+		# Translators: Title of a dialog to configure various status announcements such as announcing listener count.
 		super(SayStatusDialog, self).__init__(parent, title=_("Status announcements"))
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
@@ -1254,6 +1258,7 @@ class SayStatusDialog(wx.Dialog):
 class AdvancedOptionsDialog(wx.Dialog):
 
 	def __init__(self, parent):
+		# Translators: The title of a dialog to configure advanced SPL add-on options such as update checking.
 		super(AdvancedOptionsDialog, self).__init__(parent, title=_("Advanced options"))
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)

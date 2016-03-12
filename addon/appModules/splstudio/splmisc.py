@@ -162,13 +162,13 @@ class SPLTimeRangeDialog(wx.Dialog):
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 
 		minSizer = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Minimum duration")), wx.HORIZONTAL)
-		prompt = wx.StaticText(self, wx.ID_ANY, label="Minute")
+		prompt = wx.StaticText(self, wx.ID_ANY, label=_("Minute"))
 		minSizer.Add(prompt)
 		self.minMinEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=59)
 		self.minMinEntry.SetValue(3)
 		self.minMinEntry.SetSelection(-1, -1)
 		minSizer.Add(self.minMinEntry)
-		prompt = wx.StaticText(self, wx.ID_ANY, label="Second")
+		prompt = wx.StaticText(self, wx.ID_ANY, label=_("Second"))
 		minSizer.Add(prompt)
 		self.minSecEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=59)
 		self.minSecEntry.SetValue(0)
@@ -177,13 +177,13 @@ class SPLTimeRangeDialog(wx.Dialog):
 		mainSizer.Add(minSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
 		maxSizer = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Maximum duration")), wx.HORIZONTAL)
-		prompt = wx.StaticText(self, wx.ID_ANY, label="Minute")
+		prompt = wx.StaticText(self, wx.ID_ANY, label=_("Minute"))
 		maxSizer.Add(prompt)
 		self.maxMinEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=59)
 		self.maxMinEntry.SetValue(5)
 		self.maxMinEntry.SetSelection(-1, -1)
 		maxSizer.Add(self.maxMinEntry)
-		prompt = wx.StaticText(self, wx.ID_ANY, label="Second")
+		prompt = wx.StaticText(self, wx.ID_ANY, label=_("Second"))
 		maxSizer.Add(prompt)
 		self.maxSecEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=59)
 		self.maxSecEntry.SetValue(0)
@@ -312,7 +312,7 @@ class SPLCountdownTimer(object):
 
 	def Start(self):
 		self.timer = wx.PyTimer(self.countdown)
-		ui.message("Countdown started")
+		ui.message(_("Countdown started"))
 		self.timer.Start(1000)
 
 	def Stop(self):
@@ -324,7 +324,7 @@ class SPLCountdownTimer(object):
 	def countdown(self):
 		self.duration -= 1
 		if self.duration == 0:
-			ui.message("Timer complete")
+			ui.message(_("Timer complete"))
 			if self.func is not None:
 				self.func()
 			self.Stop()

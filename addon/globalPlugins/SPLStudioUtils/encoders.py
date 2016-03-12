@@ -192,10 +192,12 @@ class EncoderConfigDialog(wx.Dialog):
 
 		self.obj = obj
 		self.curStreamLabel, title = obj.getStreamLabel(getTitle=True)
-		super(EncoderConfigDialog, self).__init__(parent, wx.ID_ANY, "Encoder settings for {name}".format(name = title))
+		# Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
+		super(EncoderConfigDialog, self).__init__(parent, wx.ID_ANY, _("Encoder settings for {name}").format(name = title))
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: An edit field in encoder settings to set stream label for this encoder.
 		streamLabelPrompt = wx.StaticText(self, wx.ID_ANY, label=_("Stream &label"))
 		sizer.Add(streamLabelPrompt)
 		self.streamLabel = wx.TextCtrl(self, wx.ID_ANY)
@@ -203,16 +205,20 @@ class EncoderConfigDialog(wx.Dialog):
 		sizer.Add(self.streamLabel)
 		mainSizer.Add(sizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
-		self.focusToStudio=wx.CheckBox(self,wx.NewId(),label="Focus to Studio when connected")
+		# Translators: A checkbox in encoder settings to set if NvDA should switch focus to Studio window when connected.
+		self.focusToStudio=wx.CheckBox(self,wx.NewId(),label=_("&Focus to Studio when connected"))
 		self.focusToStudio.SetValue(obj.getEncoderId() in SPLFocusToStudio)
 		mainSizer.Add(self.focusToStudio,border=10,flag=wx.BOTTOM)
-		self.playAfterConnecting=wx.CheckBox(self,wx.NewId(),label="Play first track when connected")
+		# Translators: A checkbox in encoder settings to set if NvDA should play the next track when connected.
+		self.playAfterConnecting=wx.CheckBox(self,wx.NewId(),label=_("&Play first track when connected"))
 		self.playAfterConnecting.SetValue(obj.getEncoderId() in SPLPlayAfterConnecting)
 		mainSizer.Add(self.playAfterConnecting,border=10,flag=wx.BOTTOM)
-		self.backgroundMonitor=wx.CheckBox(self,wx.NewId(),label="Enable background connection monitoring")
+		# Translators: A checkbox in encoder settings to set if NvDA should monitor the status of this encoder in the background.
+		self.backgroundMonitor=wx.CheckBox(self,wx.NewId(),label=_("Enable background connection &monitoring"))
 		self.backgroundMonitor.SetValue(obj.getEncoderId() in SPLBackgroundMonitor)
 		mainSizer.Add(self.backgroundMonitor,border=10,flag=wx.BOTTOM)
-		self.noConnectionTone=wx.CheckBox(self,wx.NewId(),label="Play connection status beep while connecting")
+		# Translators: A checkbox in encoder settings to set if NvDA should play connection progress tone.
+		self.noConnectionTone=wx.CheckBox(self,wx.NewId(),label=_("Play connection status &beep while connecting"))
 		self.noConnectionTone.SetValue(obj.getEncoderId() not in SPLNoConnectionTone)
 		mainSizer.Add(self.noConnectionTone,border=10,flag=wx.BOTTOM)
 
@@ -390,20 +396,17 @@ class Encoder(IAccessible):
 
 	# stream settings.
 	def script_encoderSettings(self, gesture):
-		#if splconfig._configDialogOpened:
-			#wx.CallAfter(gui.messageBox, _("The add-on settings dialog is opened. Please close the settings dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
-			#return
 		try:
 			d = EncoderConfigDialog(gui.mainFrame, self)
 			gui.mainFrame.prePopup()
 			d.Raise()
 			d.Show()
 			gui.mainFrame.postPopup()
-			#splconfig._alarmDialogOpened = True
 		except RuntimeError:
 			wx.CallAfter(ui.message, "A settings dialog is opened")
 	# Translators: Input help mode message for a command in Station Playlist Studio.
-	script_encoderSettings.__doc__=_("sets song intro alarm (default is 5 seconds).")
+	script_encoderSettings.__doc__=_("Shows encoder configuration dialog to configure various encoder settings such as stream label.")
+	script_encoderSettings.category=_("Station Playlist Studio")
 
 	# Announce complete time including seconds (slight change from global commands version).
 	def script_encoderDateTime(self, gesture):
@@ -419,7 +422,7 @@ class Encoder(IAccessible):
 	# Various column announcement scripts.
 	# This base class implements encoder position and stream labels.
 	def script_announceEncoderPosition(self, gesture):
-		ui.message("Position: {pos}".format(pos = self.IAccessibleChildID))
+		ui.message(_("Position: {pos}").format(pos = self.IAccessibleChildID))
 
 	def script_announceEncoderLabel(self, gesture):
 		try:
@@ -427,9 +430,9 @@ class Encoder(IAccessible):
 		except TypeError:
 			streamLabel = None
 		if streamLabel:
-			ui.message("Label: {label}".format(label = streamLabel))
+			ui.message(_("Label: {label}").format(label = streamLabel))
 		else:
-			ui.message("No stream label")
+			ui.message(_("No stream label"))
 
 
 	def initOverlayClass(self):
@@ -568,7 +571,7 @@ class SAMEncoder(Encoder):
 
 	def script_connect(self, gesture):
 		gesture.send()
-		# Translators: Presented when SAM Encoder is trying to connect to a streaming server.
+		# Translators: Presented when an Encoder is trying to connect to a streaming server.
 		ui.message(_("Connecting..."))
 		# Oi, status thread, can you keep an eye on the connection status for me?
 		# To be packaged into a new function in 7.0.
@@ -580,7 +583,7 @@ class SAMEncoder(Encoder):
 
 	def script_disconnect(self, gesture):
 		gesture.send()
-		# Translators: Presented when SAM Encoder is disconnecting from a streaming server.
+		# Translators: Presented when an Encoder is disconnecting from a streaming server.
 		ui.message(_("Disconnecting..."))
 
 	# Connecting/disconnecting all encoders at once.
@@ -599,7 +602,6 @@ class SAMEncoder(Encoder):
 		time.sleep(0.2)
 
 	def script_connectAll(self, gesture):
-		# Translators: Presented when SAM Encoder is disconnecting from a streaming server.
 		ui.message(_("Connecting..."))
 		speechMode = speech.speechMode
 		speech.speechMode = 0
@@ -613,7 +615,6 @@ class SAMEncoder(Encoder):
 		speech.speechMode = speechMode
 
 	def script_disconnectAll(self, gesture):
-		# Translators: Presented when SAM Encoder is disconnecting from a streaming server.
 		ui.message(_("Disconnecting..."))
 		speechMode = speech.speechMode
 		speech.speechMode = 0
@@ -787,10 +788,10 @@ class SPLEncoder(Encoder):
 
 	# Announce SPL Encoder columns: encoder settings and transfer rate.
 	def script_announceEncoderSettings(self, gesture):
-		ui.message("Encoder Settings: {setting}".format(setting = self.children[0].name))
+		ui.message(_("Encoder Settings: {setting}").format(setting = self.children[0].name))
 
 	def script_announceEncoderTransfer(self, gesture):
-		ui.message("Transfer Rate: {transferRate}".format(transferRate = self.children[1].name))
+		ui.message(_("Transfer Rate: {transferRate}").format(transferRate = self.children[1].name))
 
 	def setBackgroundMonitor(self):
 		self._set_Flags(self.getEncoderId(), self.backgroundMonitor, SPLBackgroundMonitor, "BackgroundMonitor")

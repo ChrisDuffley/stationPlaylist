@@ -736,7 +736,6 @@ def triggerProfileSwitch():
 # Its only job is to call the update check function (splupdate) with the auto check enabled.
 # The update checker will not be engaged if an instant switch profile is active or it is not time to check for it yet (check will be done every 24 hours).
 def autoUpdateCheck():
-	ui.message("Checking for add-on updates...")
 	splupdate.updateCheck(auto=True, continuous=SPLConfig["Update"]["AutoUpdateCheck"])
 
 # The timer itself.
@@ -855,6 +854,7 @@ class AudioDuckingReminder(wx.Dialog):
 	"""
 
 	def __init__(self, parent):
+		# Translators: Title of a dialog displayed when the add-on starts reminding broadcasters to disable audio ducking.
 		super(AudioDuckingReminder, self).__init__(parent, title=_("SPL Studio and audio ducking"))
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
