@@ -823,7 +823,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Tell NVDA to play a sound when mic was active for a long time.
 
 	def script_setMicAlarm(self, gesture):
-		if splconfig._configDialogOpened:
+		if splconfui._configDialogOpened:
 			wx.CallAfter(gui.messageBox, _("The add-on settings dialog is opened. Please close the settings dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
 			return
 		elif splconfig._alarmDialogOpened:
@@ -867,10 +867,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Toggle whether beeps should be heard instead of toggle announcements.
 
 	def script_toggleBeepAnnounce(self, gesture):
-		if not splconfig.SPLConfig["General"]["BeepAnnounce"]:
-			splconfig.SPLConfig["General"]["BeepAnnounce"] = True
-		else:
-			splconfig.SPLConfig["General"]["BeepAnnounce"] = False
+		splconfig.SPLConfig["General"]["BeepAnnounce"] = not splconfig.SPLConfig["General"]["BeepAnnounce"]
 		splconfig.message("BeepAnnounce", splconfig.SPLConfig["General"]["BeepAnnounce"])
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_toggleBeepAnnounce.__doc__=_("Toggles status announcements between words and beeps.")

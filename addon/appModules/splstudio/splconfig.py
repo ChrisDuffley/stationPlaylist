@@ -830,7 +830,8 @@ class SPLAlarmDialog(wx.Dialog):
 	def onOk(self, evt):
 		global SPLConfig, _alarmDialogOpened
 		# Optimization: don't bother if Studio is dead and if the same value has been entered.
-		if user32.FindWindowA("SPLStudio", None):
+		import winUser
+		if winUser.user32.FindWindowA("SPLStudio", None):
 			newVal = self.alarmEntry.GetValue()
 			newToggle = self.toggleCheckBox.GetValue()
 			if SPLConfig["IntroOutroAlarms"][self.setting] != newVal: SPLConfig["IntroOutroAlarms"][self.setting] = newVal
@@ -902,7 +903,7 @@ def showStartupDialogs():
 # Most of the categories are same as confspec keys, hence the below message function is invoked when settings are changed.
 def message(category, value):
 	verbosityLevels = ("beginner", "advanced")
-	ui.message(messagePool[category][value][verbosityLevels.index(splconfig.SPLConfig["General"]["MessageVerbosity"])])
+	ui.message(messagePool[category][value][verbosityLevels.index(SPLConfig["General"]["MessageVerbosity"])])
 
 messagePool={
 	"BeepAnnounce":
