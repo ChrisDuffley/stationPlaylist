@@ -837,8 +837,8 @@ class SPLAlarmDialog(wx.Dialog):
 			if SPLConfig["IntroOutroAlarms"][self.setting] != newVal: SPLConfig["IntroOutroAlarms"][self.setting] = newVal
 			elif SPLConfig["IntroOutroAlarms"][self.toggleSetting] != newToggle: SPLConfig["IntroOutroAlarms"][self.toggleSetting] = newToggle
 			# Apply alarm settings only.
-			applySections(splconfig.SPLConfig["ActiveIndex"], "/".join(["IntroOutroAlarms", self.setting]))
-			applySections(splconfig.SPLConfig["ActiveIndex"], "/".join(["IntroOutroAlarms", self.toggleSetting]))
+			applySections(SPLConfig["ActiveIndex"], "/".join(["IntroOutroAlarms", self.setting]))
+			applySections(SPLConfig["ActiveIndex"], "/".join(["IntroOutroAlarms", self.toggleSetting]))
 		self.Destroy()
 		_alarmDialogOpened = False
 
