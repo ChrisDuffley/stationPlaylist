@@ -29,6 +29,10 @@ SPLAddonCheck = 0
 SPLAddonState = {}
 # Update URL (the only way to change it is installing a different version from a different branch).
 SPLUpdateURL = "http://addons.nvda-project.org/files/get.php?file=spl-dev"
+# 7.0 beta only: Stable version URL and flag.
+SPLUpdateURL2 = "http://addons.nvda-project.org/files/get.php?file=spl"
+_stableChannel = False
+_pendingChannelChange = False
 # Update check timer.
 _SPLUpdateT = None
 # How long it should wait between automatic checks.
@@ -40,11 +44,12 @@ _updatePickle = os.path.join(globalVars.appArgs.configPath, "splupdate.pickle")
 
 # Come forth, update check routines.
 def initialize():
-	global SPLAddonState, SPLAddonSize, SPLAddonCheck
+	global SPLAddonState, SPLAddonSize, SPLAddonCheck, _stableChannel
 	try:
 		SPLAddonState = cPickle.load(file(_updatePickle, "r"))
 		SPLAddonCheck = SPLAddonState["PDT"]
 		SPLAddonSize = SPLAddonState["PSZ"]
+		_stableChannel = "PCH" in SPLAddonState
 	except IOError:
 		SPLAddonState["PDT"] = 0
 		SPLAddonState["PSZ"] = 0x0
@@ -88,11 +93,12 @@ def stopUpdateProgress():
 	_progressThread.Stop()
 	_progressThread = None
 
-def updateQualify(url):
+# 7.0 beta/LTS: allow custom version to be passed into this function.
+def updateQualify(url, cv=None):
 	# The add-on version is of the form "major.minor". The "-dev" suffix indicates development release.
 	# Anything after "-dev" indicates a try or a custom build.
 	# LTS: Support upgrading between LTS releases.
-	curVersion =SPLAddonVersion.split("-")[0]
+	curVersion =cv if cv is not None else SPLAddonVersion.split("-")[0]
 	# Because we'll be using the same file name for snapshots...
 	if "-dev" in SPLAddonVersion: curVersion+="-dev"
 	size = hex(int(url.info().getheader("Content-Length")))
@@ -112,6 +118,9 @@ def updateQualify(url):
 # Auto is whether to respond with UI (manual check only), continuous takes in auto update check variable for restarting the timer.
 # LTS: The "lts" flag is used to obtain update metadata from somewhere else (typically the LTS server).
 def updateCheck(auto=False, continuous=False, lts=False):
+	if _pendingChannelChange:
+		wx.CallAfter(gui.messageBox, _("Did you recently tell SPL add-on to use a different update channel? If so, please restart NVDA before checking for add-on updates."), _("Update channel changed"), wx.ICON_ERROR)
+		return
 	global _SPLUpdateT, SPLAddonCheck, _retryAfterFailure
 	# Regardless of whether it is an auto check, update the check time.
 	# However, this shouldnt' be done if this is a retry after a failed attempt.
@@ -125,8 +134,18 @@ def updateCheck(auto=False, continuous=False, lts=False):
 		threading.Thread(target=updateProgress).start()
 	updateCandidate = False
 	try:
-		url = urllib.urlopen(SPLUpdateURL)
-		url.close()
+		# 7.0 beta: give priority to stable version if this is such a case.
+		if _stableChannel:
+			urlStable = urllib.urlopen(SPLUpdateURL2)
+			urlStable.close()
+			if urlStable.code == 200 and updateQualify(urlStable, cv="6.a") not in (None, ""):
+				url = urllib.urlopen(SPLUpdateURL2)
+			else:
+				url = urllib.urlopen(SPLUpdateURL)
+			url.close()
+		else:
+			url = urllib.urlopen(SPLUpdateURL)
+			url.close()
 	except IOError:
 		_retryAfterFailure = True
 		if not auto:
@@ -147,7 +166,7 @@ def updateCheck(auto=False, continuous=False, lts=False):
 		checkMessage = _("Add-on update check failed.")
 	else:
 		# Am I qualified to update?
-		qualified = updateQualify(url)
+		qualified = updateQualify(url, cv ="6.a" if _stableChannel else None)
 		if qualified is None:
 			if auto:
 				if continuous: _SPLUpdateT.Start(_updateInterval*1000, True)
