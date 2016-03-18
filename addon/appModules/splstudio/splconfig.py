@@ -185,7 +185,17 @@ def initConfig():
 	splupdate.initialize()
 
 # Unlock (load) profiles from files.
-def unlockConfig(path, profileName=None, prefill=False):
+# LTS: Allow new profile settings to be overridden by a parent profile.
+def unlockConfig(path, profileName=None, prefill=False, parent=None):
+	# LTS: Suppose this is one of the steps taken when copying settings when instantiating a new profile.
+	# If so, go through same procedure as though config passes validation tests, as all values from parent are in the right format.
+	if parent is not None:
+		SPLConfigCheckpoint = ConfigObj(parent, encoding="UTF-8")
+		SPLConfigCheckpoint.filename = path
+		SPLConfigCheckpoint.name = profileName
+		_cacheConfig(SPLConfigCheckpoint)
+		return SPLConfigCheckpoint
+	# For the rest.
 	global _configLoadStatus # To be mutated only during unlock routine.
 	# Optimization: Profiles other than normal profile contains profile-specific sections only.
 	# This speeds up profile loading routine significantly as there is no need to call a function to strip global settings.

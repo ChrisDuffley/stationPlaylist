@@ -710,20 +710,15 @@ class NewProfileDialog(wx.Dialog):
 		if not os.path.exists(splconfig.SPLProfiles):
 			os.mkdir(splconfig.SPLProfiles)
 		newProfilePath = os.path.join(splconfig.SPLProfiles, namePath)
-		splconfig.SPLConfigPool.append(splconfig.unlockConfig(newProfilePath, profileName=name))
+		# LTS optimization: just build base profile dictionary here if copying a profile.
+		if self.copy:
+			baseConfig = splconfig.getProfileByName(self.baseProfiles.GetStringSelection())
+			baseProfile = {sect:key for sect, key in baseConfig.iteritems() if sect in splconfig._mutatableSettings7}
+		else: baseProfile = None
+		splconfig.SPLConfigPool.append(splconfig.unlockConfig(newProfilePath, profileName=name, parent=baseProfile))
 		# Make the cache know this is a new profile.
 		# If nothing happens to this profile, the newly created profile will be saved to disk.
 		splconfig._SPLCache[name]["___new___"] = True
-		if self.copy:
-			newProfile = splconfig.SPLConfigPool[-1]
-			baseProfile = splconfig.getProfileByName(self.baseProfiles.GetStringSelection())
-			for setting in newProfile.keys():
-				try:
-					# 6.1/7.0: Only iterate through mutatable keys.
-					if baseProfile[setting] != newProfile[setting]:
-						newProfile[setting] = baseProfile[setting]
-				except KeyError:
-					pass
 		parent = self.Parent
 		parent.profileNames.append(name)
 		parent.profiles.Append(name)
