@@ -251,8 +251,27 @@ class SPLTrackItem(IAccessible):
 		else:
 			self.announceColumnContent(self.appModule.SPLColNumber)
 
+	# Track movement scripts.
+	# Detects top/bottom of a playlist if told to do so.
+
+	def script_nextTrack(self, gesture):
+		t = time.time()
+		gesture.send()
+		if self.IAccessibleChildID == self.parent.childCount-1:
+			tones.beep(2000, 100)
+		print time.time()-t
+
+	def script_prevTrack(self, gesture):
+		t = time.time()
+		gesture.send()
+		if self.IAccessibleChildID == 1:
+			tones.beep(2000, 100)
+		print time.time()-t
+
 	__gestures={
 		#"kb:control+`":"toggleTrackDial",
+		"kb:downArrow":"nextTrack",
+		"kb:upArrow":"prevTrack",
 	}
 
 class SPL510TrackItem(SPLTrackItem):
