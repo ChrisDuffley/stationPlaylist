@@ -148,9 +148,6 @@ def initConfig():
 			SPLConfigPool.append(unlockConfig(os.path.join(SPLProfiles, profile), profileName=os.path.splitext(profile)[0]))
 	except WindowsError:
 		pass
-	# Manually set certain options (thankfully, it is cached already, so it'll be saved when the app module dies).
-	# To be removed in 7.1.
-	SPLConfigPool[0]["General"]["TimeHourAnnounce"] = True
 	# 7.0: Store the config as a dictionary.
 	# This opens up many possibilities, including config caching, loading specific sections only and others (the latter saves memory).
 	SPLConfig = dict(SPLConfigPool[0])
@@ -562,8 +559,6 @@ def shouldSave(profile):
 	if "Advanced" in profile and "PlaylistRemainder" in profile["Advanced"]:
 		del profile["Advanced"]["PlaylistRemainder"]
 		return True
-	# Goodbye old-style update keys (to be removed in add-on 7.1).
-	if "___oldupdatekeys___" in _SPLCache[tree]: return True
 	for section in profile.keys():
 		if isinstance(profile[section], dict):
 			for key in profile[section]:
@@ -754,7 +749,7 @@ def updateInit():
 	splupdate._SPLUpdateT.Start(interval * 1000, True)
 
 
-# Let SPL track item know if it needs to build descriptoin pieces.
+# Let SPL track item know if it needs to build description pieces.
 # To be renamed and used in other places in 7.0.
 def _shouldBuildDescriptionPieces():
 	return (not SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"]
