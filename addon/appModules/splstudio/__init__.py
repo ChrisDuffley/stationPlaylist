@@ -1317,14 +1317,14 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_SPLAssistantToggle(self, gesture):
 		# Enter the layer command if an only if we're in the track list to allow easier gesture assignment.
-		# 8.0: This requirement has been relaxed (command themselves will check for specific conditions).
+		# 7.0: This requirement has been relaxed (commands themselves will check for specific conditions).
 		# Also, do not bother if the app module is not running.
 		if scriptHandler.getLastScriptRepeatCount() > 0:
 			gesture.send()
 			self.finish()
 			return
 		try:
-			# 8.0: Don't bother if handle to Studio isn't found.
+			# 7.0: Don't bother if handle to Studio isn't found.
 			if _SPLWin is None:
 				# Translators: Presented when SPL Assistant cannot be invoked.
 				ui.message(_("Failed to locate Studio main window, cannot enter SPL Assistant"))
