@@ -23,6 +23,7 @@ IMPORTANT: This add-on requires NVDA 2015.3 or later and StationPlaylist Studio 
 * Control+NVDA+f from Studio window: Opens a dialog to find a track based on artist or song name. Press NvDA+F3 to find forward or NVDA+Shift+F3 to find backward.
 * Alt+NVDA+R from Studio window: Steps through library scan announcement settings.
 * Control+Shift+X from Studio window: Steps through braille timer settings.
+* Control+Alt+right/left arrow (while focused on a track): Announce next/previous track column.
 * Control+NVDA+0 from Studio window: Opens the Studio add-on configuration dialog.
 * Control+NVDA+- (hyphen) from Studio window: Send feedback to add-on developer using the default email client.
 
@@ -70,22 +71,23 @@ In addition, column review commands are available, including:
 
 ## SPL Assistant layer
 
-This layer command set allows you to obtain various status on SPL Studio, such as whether a track is playing, total duration of all tracks for the hour and so on. From SPL Studio window, press the SPL Assistant layer command, then press one of the keys from the list below. You can also configure NvDA to emulate commands from other screen readers.
+This layer command set allows you to obtain various status on SPL Studio, such as whether a track is playing, total duration of all tracks for the hour and so on. From any SPL Studio window, press the SPL Assistant layer command, then press one of the keys from the list below (one or more commands are exclusive to playlist viewer). You can also configure NvDA to emulate commands from other screen readers.
 
 The available commands are:
 
 * A: Automation.
 * C (Shift+C  in JAWS and Window-Eyes layouts): Title for the currently playing track.
-* C (JAWS and Window-Eyes layouts): Toggle cart explorer.
-* D (R in JAWS layout): Remaining duration for the playlist.
+* C (JAWS and Window-Eyes layouts): Toggle cart explorer (playlist viewer only).
+* D (R in JAWS layout): Remaining duration for the playlist (if an error message is given, move to playlist viewer and then issue this command).
 * E (G in Window-Eyes layout): Metadata streaming status.
 * Shift+1 through Shift+4, Shift+0: Status for individual metadata streaming URL's (0 is for DSP encoder).
 * E (Window-Eyes layout): Elapsed time for the currently playing track.
+* F: Find track (playlist viewer only).
 * H: Duration of music for the current hour slot.
 * Shift+H: Remaining track duration for the hour slot.
 * I (L in JAWS or Window-Eyes layouts): Listener count.
-* K: Move to the marked track.
-* Control+K: Set the current track as the place marker track.
+* K: Move to the marked track (playlist viewer only).
+* Control+K: Set the current track as the place marker track (playlist viewer only).
 * L (Shift+L in JAWS and Window-Eyes layouts): Line in.
 * M: Microphone.
 * N: Title for the next scheduled track.
@@ -101,8 +103,8 @@ The available commands are:
 * W: Weather and temperature if configured.
 * Y: Playlist modified status.
 * 1 through 0 (6 for Studio 5.0x): Announce column content for a specified column.
-* F9: Mark current track for track time analysis.
-* F10: Perform track time analysis.
+* F9: Mark current track for track time analysis (playlist viewer only).
+* F10: Perform track time analysis (playlist viewer only).
 * F12: Switch between current and a predefined profile.
 * F1: Layer help.
 * Shift+F1: Opens online user guide.
@@ -119,7 +121,7 @@ The available SPL Controller commands are:
 * Press M or Shift+M to turn on or off the microphone, respectively, or press N to enable microphone without fade.
 * Press A to enable automation or Shift+A to disable it.
 * Press L to enable line-in input or Shift+L to disable it.
-* Press R to hear remaining time for the currently playing track in seconds.
+* Press R to hear remaining time for the currently playing track.
 * Press Shift+R to get a report on library scan progress.
 * Press E to get count and labels for encoders being monitored.
 * Press F1 to show a help dialog which lists available commands.
@@ -146,7 +148,7 @@ To learn cart assignments, from SPL Studio, press Control+NVDA+3. Pressing the c
 
 ## Track Dial
 
-You can use arrow keys to review various information about a track. To turn Track Dial on, while a track is focused in the main playlist viewer, press the command you assigned for toggling Track Dial. Then use left and right arrow keys to review information such as artist, duration and so on.
+You can use arrow keys to review various information about a track. To turn Track Dial on, while a track is focused in the main playlist viewer, press the command you assigned for toggling Track Dial. Then use left and right arrow keys to review information such as artist, duration and so on. Alternatively, press Control+Alt+left or right arrows to navigate between columns without invoking Track Dial.
 
 ## Track time analysis
 
@@ -167,12 +169,13 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Changes for 7.0
 
 * Added add-on update check feature. This can be done manually (SPL Assistant, Control+Shift+U) or automatically (configurable via advanced options dialog from add-on settings).
-* It is no longer required to stay in the playlist viewer window in order to invoke SPL Assistant layer commands or obtain time announcements such as remaining time for the track and broadcaster time.
+* It is no longer required to stay in the playlist viewer window in order to invoke most SPL Assistant layer commands or obtain time announcements such as remaining time for the track and broadcaster time.
 * Changes to SPL Assistant commands, including playlist duration (D), reassignment of hour selection duration from Shift+H to Shift+S and Shift+H now used to announce duration of remaining tracks for the current hour slot, metadata streaming status command reassigned (1 through 4, 0 is now Shift+1 through Shift+4, Shift+0).
 * It is now possible to invoke track finder via SPL Assistant (F).
 * SPL Assistant, numbers 1 through 0 (6 for Studio 5.01 and earlier) can be used to announce specific column information. These column slots can be changed under Columns Explorer item in add-on settings dialog.
 * Fixed numerous errors reported by users when installing add-on 7.0 for the first time when no prior version of this add-on was installed.
 * Improvements to Track Dial, including improved responsiveness when moving through columns and tracking how columns are presented on screen.
+* Added ability to press Control+Alt+left or right arrow keys to move between track columns.
 * It is now possible to use a different screen reader command layout for SPL Assistant commands. Go to advanced options dialog from add-on settings to configure this option between NVDA, JAWS and Window-Eyes layouts. See the SPL Assistant commands above for details.
 * NVDA can be configured to switch to a specific broadcast profile at a specific day and time. Use the new triggers dialog in add-on settings to configure this.
 * NVDA will report name of the profile one is switching to via instant switch (SPL Assistant, F12) or as a result of time-based profile becoming active.

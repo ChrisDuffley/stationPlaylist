@@ -254,6 +254,8 @@ class SPLTrackItem(IAccessible):
 			self.announceColumnContent(self.appModule.SPLColNumber)
 
 	__gestures={
+		"kb:control+alt+rightArrow":"nextColumn",
+		"kb:control+alt+leftArrow":"prevColumn",
 		#"kb:control+`":"toggleTrackDial",
 	}
 
