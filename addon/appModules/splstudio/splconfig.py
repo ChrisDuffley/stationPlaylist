@@ -63,6 +63,7 @@ ProfileTriggerThreshold = integer(min=5, max=60, default=15)
 AutoUpdateCheck = boolean(default=true)
 [Startup]
 AudioDuckingReminder = boolean(default=true)
+WelcomeDialog = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
 confspec7.newlines = "\r\n"
 SPLConfig = None
@@ -895,8 +896,65 @@ class AudioDuckingReminder(wx.Dialog):
 			SPLConfig["Startup"]["AudioDuckingReminder"] = not self.audioDuckingReminder.Value
 		self.Destroy()
 
+# Welcome dialog (emulating NvDA Core)
+class WelcomeDialog(wx.Dialog):
+
+	# Translators: A message giving basic information about the add-on.
+	welcomeMessage=_("""Welcome to StationPlaylist Studio add-on for NVDA,
+your companion to broadcasting with SPL Studio using NVDA screen reader.
+
+Highlights of StationPlaylist Studio add-on include:
+* Layer commands for obtaining status information.
+* Various ways to examine track columns.
+* Various ways to find tracks.
+* Cart Explorer to learn cart assignments.
+* Comprehensive settings and documentation.
+* Check for add-on updates automatically or manually.
+* Completely free, open-source and community-driven.
+* And much more.
+
+Visit www.stationplaylist.com for details on StationPlaylist Studio.
+Visit StationPlaylist entry on NVDA Community Add-ons page (addons.nvda-project.org) for more information on the add-on and to read the documentation.
+Want to see this dialog again? Just press Alt+NVDA+F1 while using Studio to return to this dialog.
+Have something to say about the add-on? Press Control+NVDA+hyphen (-) to send a feedback to the developer of this add-on using your default email program.
+
+Thank you.""")
+
+	def __init__(self, parent):
+		# Translators: Title of a dialog displayed when the add-on starts presenting basic information, similar to NVDA's own welcome dialog.
+		super(WelcomeDialog, self).__init__(parent, title=_("Welcome to StationPlaylist Studio add-on"))
+
+		mainSizer = wx.BoxSizer(wx.VERTICAL)
+
+		label = wx.StaticText(self, wx.ID_ANY, label=self.welcomeMessage)
+		mainSizer.Add(label,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: A checkbox to turn off welcome dialog.
+		self.showWelcomeDialog=wx.CheckBox(self,wx.NewId(),label=_("Do not show welcome dialog when I start Studio"))
+		self.showWelcomeDialog.SetValue(not SPLConfig["Startup"]["WelcomeDialog"])
+		sizer.Add(self.showWelcomeDialog, border=10,flag=wx.TOP)
+		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+		mainSizer.Add(self.CreateButtonSizer(wx.OK))
+		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
+		mainSizer.Fit(self)
+		self.Sizer = mainSizer
+		self.showWelcomeDialog.SetFocus()
+		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+
+	def onOk(self, evt):
+		global SPLConfig
+		if self.showWelcomeDialog.Value:
+			SPLConfig["Startup"]["WelcomeDialog"] = not self.showWelcomeDialog.Value
+		self.Destroy()
+
 # And to open the above dialog and any other dialogs.
 def showStartupDialogs():
+	if SPLConfig["Startup"]["WelcomeDialog"]:
+		gui.mainFrame.prePopup()
+		WelcomeDialog(gui.mainFrame).Show()
+		gui.mainFrame.postPopup()
 	try:
 		import audioDucking
 		if SPLConfig["Startup"]["AudioDuckingReminder"] and audioDucking.isAudioDuckingSupported():

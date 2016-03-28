@@ -874,12 +874,19 @@ class AppModule(appModuleHandler.AppModule):
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setMicAlarm.__doc__=_("Sets microphone alarm (default is 5 seconds).")
 
-	# SPL Config management.
+	# SPL Config management among others.
 
 	def script_openConfigDialog(self, gesture):
 		wx.CallAfter(splconfui.onConfigDialog, None)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_openConfigDialog.__doc__=_("Opens SPL Studio add-on configuration dialog.")
+
+	def script_openWelcomeDialog(self, gesture):
+		gui.mainFrame.prePopup()
+		splconfig.WelcomeDialog(gui.mainFrame).Show()
+		gui.mainFrame.postPopup()
+	# Translators: Input help mode message for a command in Station Playlist Studio.
+	script_openWelcomeDialog.__doc__=_("Opens SPL Studio add-on welcome dialog.")
 
 	# Other commands (track finder and others)
 
@@ -1816,6 +1823,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:control+shift+r":"startScanFromInsertTracks",
 		"kb:control+shift+x":"setBrailleTimer",
 		"kb:control+NVDA+0":"openConfigDialog",
+		"kb:alt+NVDA+f1":"openWelcomeDialog",
 		"kb:Shift+delete":"deleteTrack",
 		"kb:Shift+numpadDelete":"deleteTrack",
 		"kb:escape":"escape",
