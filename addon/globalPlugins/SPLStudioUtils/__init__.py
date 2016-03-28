@@ -227,7 +227,23 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		remainingTime = winUser.sendMessage(SPLWin, SPLMSG, 3, SPLCurTrackPlaybackTime)
 		# Translators: Presented when no track is playing in Station Playlist Studio.
 		if remainingTime < 0: ui.message(_("There is no track playing."))
-		else: ui.message(str(remainingTime/1000))
+		else:
+			# 7.0: Present remaining time in hh:mm:ss format for enhanced experience (borrowed from the app module).
+			remainingTime = (remainingTime/1000)+1
+			if remainingTime == 0: ui.message("00:00")
+			elif 1 <= remainingTime <= 59: ui.message("00:{0}".format(str(remainingTime).zfill(2)))
+			else:
+				mm, ss = divmod(remainingTime, 60)
+				if mm > 59:
+					hh, mm = divmod(mm, 60)
+					t0 = str(hh).zfill(2)
+					t1 = str(mm).zfill(2)
+					t2 = str(ss).zfill(2)
+					ui.message(":".join([t0, t1, t2]))
+				else:
+					t1 = str(mm).zfill(2)
+					t2 = str(ss).zfill(2)
+					ui.message(":".join([t1, t2]))
 		self.finish()
 
 	def script_announceNumMonitoringEncoders(self, gesture):
