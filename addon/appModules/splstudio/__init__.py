@@ -163,6 +163,8 @@ class SPLTrackItem(IAccessible):
 						descriptionPieces.append("%s: %s"%(header, content))
 			self.description = ", ".join(descriptionPieces)
 		super(IAccessible, self).reportFocus()
+		# 7.0: Let the app module keep a reference to this track.
+		self.appModule._focusedTrack = self
 
 	# Track Dial: using arrow keys to move through columns.
 	# This is similar to enhanced arrow keys in other screen readers.
@@ -269,6 +271,8 @@ class SPLTrackItem(IAccessible):
 		print time.time()-t
 
 	__gestures={
+		"kb:control+alt+rightArrow":"nextColumn",
+		"kb:control+alt+leftArrow":"prevColumn",
 		#"kb:control+`":"toggleTrackDial",
 		"kb:downArrow":"nextTrack",
 		"kb:upArrow":"prevTrack",
@@ -408,6 +412,7 @@ class AppModule(appModuleHandler.AppModule):
 	SPLCurVersion = appModuleHandler.AppModule.productVersion
 	_columnHeaders = None
 	_columnHeaderNames = None
+	_focusedTrack = None
 
 	# Prepare the settings dialog among other things.
 	def __init__(self, *args, **kwargs):
@@ -702,6 +707,8 @@ class AppModule(appModuleHandler.AppModule):
 			import globalPlugins.SPLStudioUtils.encoders
 			globalPlugins.SPLStudioUtils.encoders.cleanup()
 		splconfig.saveConfig()
+		# Delete focused track reference.
+		self._focusedTrack = None
 		try:
 			self.prefsMenu.RemoveItem(self.SPLSettings)
 		except AttributeError, wx.PyDeadObjectError:
@@ -1336,11 +1343,17 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_SPLAssistantToggle(self, gesture):
 		# Enter the layer command if an only if we're in the track list to allow easier gesture assignment.
+		# 7.0: This requirement has been relaxed (commands themselves will check for specific conditions).
 		# Also, do not bother if the app module is not running.
+		if scriptHandler.getLastScriptRepeatCount() > 0:
+			gesture.send()
+			self.finish()
+			return
 		try:
-			fg = api.getForegroundObject()
-			if fg.windowClassName != "TStudioForm":
-				gesture.send()
+			# 7.0: Don't bother if handle to Studio isn't found.
+			if _SPLWin is None:
+				# Translators: Presented when SPL Assistant cannot be invoked.
+				ui.message(_("Failed to locate Studio main window, cannot enter SPL Assistant"))
 				return
 			if self.SPLAssistant:
 				self.script_error(gesture)
@@ -1450,7 +1463,10 @@ class AppModule(appModuleHandler.AppModule):
 		statusAPI(1, 27, self.announceTime)
 
 	def script_sayPlaylistRemainingDuration(self, gesture):
-		obj = api.getFocusObject()
+		obj = api.getFocusObject() if api.getForegroundObject().windowClassName == "TStudioForm" else self._focusedTrack
+		if obj is None:
+			ui.message("Please return to playlist viewer before invoking this command.")
+			return
 		if obj.role == controlTypes.ROLE_LIST:
 			ui.message("00:00")
 			return
@@ -1620,6 +1636,11 @@ class AppModule(appModuleHandler.AppModule):
 			ui.message(_("This track cannot be used as a place marker track"))
 
 	def script_findPlaceMarker(self, gesture):
+		# 7.0: Place marker command will still be restricted to playlist viewer in order to prevent focus bouncing.
+		if api.getForegroundObject().windowClassName != "TStudioForm":
+			# Translators: Presented when attempting to move to a place marker track when not focused in playlist viewer.
+			ui.message(_("You cannot move to a place marker track outside of playlist viewer."))
+			return
 		if self.placeMarker is None:
 			# Translators: Presented when no place marker is found.
 			ui.message(_("No place marker found"))
