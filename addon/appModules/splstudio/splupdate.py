@@ -149,7 +149,7 @@ def updateCheck(auto=False, continuous=False, lts=False):
 			checkMessage = _("You appear to be running a version newer than the latest released version. Please reinstall the official version to downgrade.")
 		else:
 			# Translators: Text shown if an add-on update is available.
-			checkMessage = _("Studio add-on {newVersion} is available. Would you like to update?".format(newVersion = qualified)
+			checkMessage = _("Studio add-on {newVersion} is available. Would you like to update?").format(newVersion = qualified)
 			updateCandidate = True
 	if not auto: stopUpdateProgress()
 	# Translators: Title of the add-on update check dialog.
