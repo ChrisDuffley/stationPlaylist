@@ -763,6 +763,7 @@ class TriggersDialog(wx.Dialog):
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 
+		sizer = wx.BoxSizer(wx.VERTICAL)
 		# Translators: The label of a checkbox to toggle if selected profile is an instant switch profile.
 		self.instantSwitchCheckbox=wx.CheckBox(self,wx.NewId(),label=_("This is an &instant switch profile"))
 		self.instantSwitchCheckbox.SetValue(parent.switchProfile == parent.profiles.GetStringSelection().split(" <")[0])
