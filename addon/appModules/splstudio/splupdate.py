@@ -6,7 +6,6 @@
 
 import urllib
 import os # Essentially, update download is no different than file downloads.
-from calendar import month_abbr # Last modified date formatting.
 import cPickle
 import threading
 import gui
@@ -64,13 +63,6 @@ def _versionFromURL(url):
 	filename = url.split("/")[-1]
 	name = filename.split(".nvda-addon")[0]
 	return name[name.find("-")+1:]
-
-def _lastModified(lastModified):
-	# Add-ons server uses British date format (dd-mm-yyyy).
-	day, month, year = lastModified.split()[1:4]
-	# Adapted an entry on Stack Overflow on how to convert month names to indecies.
-	month = str({v: k for k,v in enumerate(month_abbr)}[month]).zfill(2)
-	return "-".join([year, month, day])
 
 # Run the progress thread from another thread because urllib.urlopen blocks everyone.
 _progressThread = None
@@ -157,7 +149,7 @@ def updateCheck(auto=False, continuous=False, lts=False):
 			checkMessage = _("You appear to be running a version newer than the latest released version. Please reinstall the official version to downgrade.")
 		else:
 			# Translators: Text shown if an add-on update is available.
-			checkMessage = _("Studio add-on {newVersion} ({modifiedDate}) is available. Would you like to update?".format(newVersion = qualified, modifiedDate = _lastModified(url.info().getheader("Last-Modified"))))
+			checkMessage = _("Studio add-on {newVersion} is available. Would you like to update?".format(newVersion = qualified)
 			updateCandidate = True
 	if not auto: stopUpdateProgress()
 	# Translators: Title of the add-on update check dialog.
