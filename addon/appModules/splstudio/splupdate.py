@@ -92,17 +92,12 @@ def updateQualify(url):
 	# The add-on version is of the form "major.minor". The "-dev" suffix indicates development release.
 	# Anything after "-dev" indicates a try or a custom build.
 	# LTS: Support upgrading between LTS releases.
-	curVersion =SPLAddonVersion.split("-")[0]
-	# Because we'll be using the same file name for snapshots...
-	if "-dev" in SPLAddonVersion: curVersion+="-dev"
-	size = hex(int(url.info().getheader("Content-Length")))
+	# 7.0: Just worry about version label differences (suggested by Jamie Teh from NV Access).
+	curVersion =SPLAddonVersion
 	version = _versionFromURL(url.url)
 	# In case we are running the latest version, check the content length (size).
 	if version == curVersion:
-		if "-dev" not in version:
-			return None
-		elif ("-dev" in SPLAddonVersion and size != SPLAddonSize):
-			return version
+		return None
 	elif version > curVersion:
 		return version
 	else:
