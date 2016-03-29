@@ -6,7 +6,6 @@
 
 import urllib
 import os # Essentially, update download is no different than file downloads.
-from calendar import month_abbr # Last modified date formatting.
 import cPickle
 import threading
 import gui
@@ -65,13 +64,6 @@ def _versionFromURL(url):
 	name = filename.split(".nvda-addon")[0]
 	return name[name.find("-")+1:]
 
-def _lastModified(lastModified):
-	# Add-ons server uses British date format (dd-mm-yyyy).
-	day, month, year = lastModified.split()[1:4]
-	# Adapted an entry on Stack Overflow on how to convert month names to indecies.
-	month = str({v: k for k,v in enumerate(month_abbr)}[month]).zfill(2)
-	return "-".join([year, month, day])
-
 # Run the progress thread from another thread because urllib.urlopen blocks everyone.
 _progressThread = None
 
@@ -92,17 +84,12 @@ def updateQualify(url):
 	# The add-on version is of the form "major.minor". The "-dev" suffix indicates development release.
 	# Anything after "-dev" indicates a try or a custom build.
 	# LTS: Support upgrading between LTS releases.
-	curVersion =SPLAddonVersion.split("-")[0]
-	# Because we'll be using the same file name for snapshots...
-	if "-dev" in SPLAddonVersion: curVersion+="-dev"
-	size = hex(int(url.info().getheader("Content-Length")))
+	# 7.0: Just worry about version label differences (suggested by Jamie Teh from NV Access).
+	curVersion =SPLAddonVersion
 	version = _versionFromURL(url.url)
 	# In case we are running the latest version, check the content length (size).
 	if version == curVersion:
-		if "-dev" not in version:
-			return None
-		elif ("-dev" in SPLAddonVersion and size != SPLAddonSize):
-			return version
+		return None
 	elif version > curVersion:
 		return version
 	else:
@@ -162,7 +149,7 @@ def updateCheck(auto=False, continuous=False, lts=False):
 			checkMessage = _("You appear to be running a version newer than the latest released version. Please reinstall the official version to downgrade.")
 		else:
 			# Translators: Text shown if an add-on update is available.
-			checkMessage = _("Studio add-on {newVersion} ({modifiedDate}) is available. Would you like to update?".format(newVersion = qualified, modifiedDate = _lastModified(url.info().getheader("Last-Modified"))))
+			checkMessage = _("Studio add-on {newVersion} is available. Would you like to update?").format(newVersion = qualified)
 			updateCandidate = True
 	if not auto: stopUpdateProgress()
 	# Translators: Title of the add-on update check dialog.
