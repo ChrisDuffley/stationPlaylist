@@ -166,6 +166,12 @@ From studio window, you can press Control+NVDA+0 to open the add-on configuratio
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Changes for 8.0-dev/7.x-LTS
+
+Version 8.0 supports SPL Studio 5.10 and later, with 7.x designed to provide some new features from 8.0 for users using earlier versions of Studio.
+
+* Added a setting in add-on settings dialog to let NVDA notify you if you've reached top or bottom of playlist viewer.
+
 ## Changes for 7.0
 
 * Added add-on update check feature. This can be done manually (SPL Assistant, Control+Shift+U) or automatically (configurable via advanced options dialog from add-on settings).

@@ -249,6 +249,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.categorySoundsCheckbox.SetValue(splconfig.SPLConfig["General"]["CategorySounds"])
 		settingsSizer.Add(self.categorySoundsCheckbox, border=10,flag=wx.BOTTOM)
 
+		# Translators: the label for a setting in SPL add-on settings to toggle top and bottom notification.
+		self.topBottomCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Notify when located at &top or bottom of playlist viewer"))
+		self.topBottomCheckbox.SetValue(splconfig.SPLConfig["General"]["TopBottomAnnounce"])
+		settingsSizer.Add(self.topBottomCheckbox, border=10,flag=wx.BOTTOM)
+
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: the label for a setting in SPL add-on settings to be notified that metadata streaming is enabled.
 		label = wx.StaticText(self, wx.ID_ANY, label=_("&Metadata streaming notification and connection"))
@@ -337,6 +342,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		splconfig.SPLConfig["General"]["TimeHourAnnounce"] = self.hourAnnounceCheckbox.Value
 		splconfig.SPLConfig["General"]["TrackDial"] = self.trackDialCheckbox.Value
 		splconfig.SPLConfig["General"]["CategorySounds"] = self.categorySoundsCheckbox.Value
+		splconfig.SPLConfig["General"]["TopBottomAnnounce"] = self.topBottomCheckbox.Value
 		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
 		splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = self.metadataStreams
 		splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value

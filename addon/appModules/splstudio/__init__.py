@@ -257,18 +257,14 @@ class SPLTrackItem(IAccessible):
 	# Detects top/bottom of a playlist if told to do so.
 
 	def script_nextTrack(self, gesture):
-		t = time.time()
 		gesture.send()
-		if self.IAccessibleChildID == self.parent.childCount-1:
+		if self.IAccessibleChildID == self.parent.childCount-1 and splconfig.SPLConfig["General"]["TopBottomAnnounce"]:
 			tones.beep(2000, 100)
-		print time.time()-t
 
 	def script_prevTrack(self, gesture):
-		t = time.time()
 		gesture.send()
-		if self.IAccessibleChildID == 1:
+		if self.IAccessibleChildID == 1 and splconfig.SPLConfig["General"]["TopBottomAnnounce"]:
 			tones.beep(2000, 100)
-		print time.time()-t
 
 	__gestures={
 		"kb:control+alt+rightArrow":"nextColumn",
