@@ -683,11 +683,12 @@ def instantProfileSwitch():
 			# Switch to the given profile.
 			switchProfileIndex = getProfileIndexByName(SPLSwitchProfile)
 			# 6.1: Do to referencing nature of Python, use the profile index function to locate the index for the soon to be deactivated profile.
+			# 7.0: Store the profile name instead in order to prevent profile index mangling if profiles are deleted.
 			# Pass in the prev profile, which will be None for instant profile switch.
 			# 7.0: Now activate "activeProfile" argument which controls the behavior of the function below.
-			switchProfile(getProfileIndexByName(SPLActiveProfile), switchProfileIndex)
+			switchProfile(SPLActiveProfile, switchProfileIndex)
 		else:
-			switchProfile(None, SPLPrevProfile)
+			switchProfile(None, getProfileIndexByName(SPLPrevProfile))
 
 # The triggers version of the above function.
 _SPLTriggerEndTimer = None
@@ -706,7 +707,7 @@ def triggerProfileSwitch():
 		# Switch to the given profile.
 		triggerProfileIndex = getProfileIndexByName(SPLTriggerProfile)
 		# Pass in the prev profile, which will be None for instant profile switch.
-		switchProfile(getProfileIndexByName(SPLActiveProfile), triggerProfileIndex)
+		switchProfile(SPLActiveProfile, triggerProfileIndex)
 		# Set the global trigger flag to inform various subsystems such as add-on settings dialog.
 		_triggerProfileActive = True
 		# Set the next trigger date and time.
@@ -718,7 +719,7 @@ def triggerProfileSwitch():
 			_SPLTriggerEndTimer = wx.PyTimer(triggerProfileSwitch)
 			_SPLTriggerEndTimer.Start(triggerSettings[6] * 60 * 1000, True)
 	else:
-		switchProfile(None, SPLPrevProfile)
+		switchProfile(None, getProfileIndexByName(SPLPrevProfile))
 		_triggerProfileActive = False
 		# Stop the ending timer.
 		if _SPLTriggerEndTimer is not None and _SPLTriggerEndTimer.IsRunning():
