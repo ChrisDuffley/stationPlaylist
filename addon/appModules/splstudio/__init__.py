@@ -1678,7 +1678,12 @@ class AppModule(appModuleHandler.AppModule):
 				ui.message(_("Not a track"))
 			else:
 				header = splconfig.SPLConfig["General"]["ExploreColumns"][columnPos]
-				focus.announceColumnContent(focus._indexOf(header), header=header)
+				column = focus._indexOf(header)
+				if column is not None:
+					focus.announceColumnContent(column, header=header)
+				else:
+					# Translators: Presented when a specific column header is not found.
+					ui.message(_("{headerText} not found").format(headerText = header))
 
 	def script_layerHelp(self, gesture):
 		compatibility = splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]

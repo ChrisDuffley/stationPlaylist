@@ -149,9 +149,6 @@ def initConfig():
 			SPLConfigPool.append(unlockConfig(os.path.join(SPLProfiles, profile), profileName=os.path.splitext(profile)[0]))
 	except WindowsError:
 		pass
-	# Manually set certain options (thankfully, it is cached already, so it'll be saved when the app module dies).
-	# To be removed in 7.1.
-	SPLConfigPool[0]["General"]["TimeHourAnnounce"] = True
 	# 7.0: Store the config as a dictionary.
 	# This opens up many possibilities, including config caching, loading specific sections only and others (the latter saves memory).
 	SPLConfig = dict(SPLConfigPool[0])
@@ -573,8 +570,6 @@ def shouldSave(profile):
 	if "Advanced" in profile and "PlaylistRemainder" in profile["Advanced"]:
 		del profile["Advanced"]["PlaylistRemainder"]
 		return True
-	# Goodbye old-style update keys (to be removed in add-on 7.1).
-	if "___oldupdatekeys___" in _SPLCache[tree]: return True
 	for section in profile.keys():
 		if isinstance(profile[section], dict):
 			for key in profile[section]:
@@ -699,11 +694,12 @@ def instantProfileSwitch():
 			# Switch to the given profile.
 			switchProfileIndex = getProfileIndexByName(SPLSwitchProfile)
 			# 6.1: Do to referencing nature of Python, use the profile index function to locate the index for the soon to be deactivated profile.
+			# 7.0: Store the profile name instead in order to prevent profile index mangling if profiles are deleted.
 			# Pass in the prev profile, which will be None for instant profile switch.
 			# 7.0: Now activate "activeProfile" argument which controls the behavior of the function below.
-			switchProfile(getProfileIndexByName(SPLActiveProfile), switchProfileIndex)
+			switchProfile(SPLActiveProfile, switchProfileIndex)
 		else:
-			switchProfile(None, SPLPrevProfile)
+			switchProfile(None, getProfileIndexByName(SPLPrevProfile))
 
 # The triggers version of the above function.
 _SPLTriggerEndTimer = None
@@ -722,7 +718,7 @@ def triggerProfileSwitch():
 		# Switch to the given profile.
 		triggerProfileIndex = getProfileIndexByName(SPLTriggerProfile)
 		# Pass in the prev profile, which will be None for instant profile switch.
-		switchProfile(getProfileIndexByName(SPLActiveProfile), triggerProfileIndex)
+		switchProfile(SPLActiveProfile, triggerProfileIndex)
 		# Set the global trigger flag to inform various subsystems such as add-on settings dialog.
 		_triggerProfileActive = True
 		# Set the next trigger date and time.
@@ -734,7 +730,7 @@ def triggerProfileSwitch():
 			_SPLTriggerEndTimer = wx.PyTimer(triggerProfileSwitch)
 			_SPLTriggerEndTimer.Start(triggerSettings[6] * 60 * 1000, True)
 	else:
-		switchProfile(None, SPLPrevProfile)
+		switchProfile(None, getProfileIndexByName(SPLPrevProfile))
 		_triggerProfileActive = False
 		# Stop the ending timer.
 		if _SPLTriggerEndTimer is not None and _SPLTriggerEndTimer.IsRunning():
@@ -765,7 +761,7 @@ def updateInit():
 	splupdate._SPLUpdateT.Start(interval * 1000, True)
 
 
-# Let SPL track item know if it needs to build descriptoin pieces.
+# Let SPL track item know if it needs to build description pieces.
 # To be renamed and used in other places in 7.0.
 def _shouldBuildDescriptionPieces():
 	return (not SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"]
