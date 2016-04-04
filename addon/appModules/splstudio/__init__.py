@@ -443,8 +443,6 @@ class AppModule(appModuleHandler.AppModule):
 			queueHandler.queueFunction(queueHandler.eventQueue, splconfig.updateInit)
 		# Display startup dialogs if any.
 		wx.CallAfter(splconfig.showStartupDialogs)
-		# Cache start and end range for column exploration.
-		splconfig.SPLConfig["ColumnExpRange"] = (1, 7) if self.SPLCurVersion < "5.1" else (0, 10)
 
 	# Locate the handle for main window for caching purposes.
 	def _locateSPLHwnd(self):
@@ -1361,10 +1359,8 @@ class AppModule(appModuleHandler.AppModule):
 			elif splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "jfw": self.bindGestures(self.__SPLAssistantJFWGestures)
 			elif splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "wineyes": self.bindGestures(self.__SPLAssistantWEGestures)
 			# 7.0: Certain commands involving number row.
-			# 7.x only: Take care of both Studio 5.0x and 5.1x.
-			# 8.0: Remove tuple unpack routine below, as all ten keys are available.
-			start, end = splconfig.SPLConfig["ColumnExpRange"]
-			for i in xrange(start, end):
+			# 8.0: Also assign encoder status commands in addition to columns explorer.
+			for i in xrange(10):
 				self.bindGesture("kb:%s"%(i), "columnExplorer")
 			self.SPLAssistant = True
 			tones.beep(512, 50)

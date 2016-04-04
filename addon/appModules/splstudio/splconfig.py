@@ -601,8 +601,6 @@ def saveConfig():
 	# 7.0: This will be repeated for broadcast profiles later.
 	SPLConfigPool[0]["ColumnAnnouncement"]["IncludedColumns"] = list(SPLConfigPool[0]["ColumnAnnouncement"]["IncludedColumns"])
 	_preSave(SPLConfigPool[0])
-	# Global flags, be gone.
-	del SPLConfig["ColumnExpRange"]
 	# Convert keys back to 5.x format.
 	for section in SPLConfigPool[0].keys():
 		if isinstance(SPLConfigPool[0][section], dict):

@@ -635,12 +635,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 			# Reset all profiles.
 			# Save some flags from death.
 			global _configDialogOpened
-			colRange = splconfig.SPLConfig["ColumnExpRange"]
 			splconfig.resetAllConfig()
 			splconfig.SPLConfig = dict(splconfig._SPLDefaults7)
 			splconfig.SPLConfig["ActiveIndex"] = 0
 			splconfig.SPLActiveProfile = splconfig.SPLConfigPool[0].name
-			splconfig.SPLConfig["ColumnExpRange"] = colRange
 		if splconfig.SPLSwitchProfile is not None:
 			splconfig.SPLSwitchProfile = None
 		splconfig.SPLPrevProfile = None
@@ -1128,21 +1126,18 @@ class ColumnsExplorerDialog(wx.Dialog):
 		super(ColumnsExplorerDialog, self).__init__(parent, title=_("Columns Explorer"))
 
 		# Gather column slots.
-		# 7.0: First six slots are reserved for Studio 5.0x columns.
 		self.columnSlots = []
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 
 		# 7.0: Studio 5.0x columns.
-		# 8.0: Remove the below code.
-		oldStudioColumns = ["Artist", "Title", "Duration", "Intro", "Category", "Filename"]
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		for slot in xrange(6):
 			# Translators: The label for a setting in SPL add-on dialog to select column for this column slot.
 			label = wx.StaticText(self, wx.ID_ANY, label=_("Slot {position}").format(position = slot+1))
-			columns = wx.Choice(self, wx.ID_ANY, choices=oldStudioColumns)
+			columns = wx.Choice(self, wx.ID_ANY, choices=splconfig._SPLDefaults7["ColumnAnnouncement"]["ColumnOrder"])
 			try:
-				columns.SetSelection(oldStudioColumns.index(parent.exploreColumns[slot]))
+				columns.SetSelection(splconfig._SPLDefaults7["ColumnAnnouncement"]["ColumnOrder"].index(parent.exploreColumns[slot]))
 			except:
 				pass
 			sizer.Add(label)
@@ -1150,20 +1145,18 @@ class ColumnsExplorerDialog(wx.Dialog):
 			self.columnSlots.append(columns)
 		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
-		# For Studio 5.10 and later.
-		if splconfig.SPLConfig["ColumnExpRange"] == (0, 10):
-			sizer = wx.BoxSizer(wx.HORIZONTAL)
-			for slot in xrange(6, 10):
-				label = wx.StaticText(self, wx.ID_ANY, label=_("Slot {position}").format(position = slot+1))
-				columns = wx.Choice(self, wx.ID_ANY, choices=splconfig._SPLDefaults7["ColumnAnnouncement"]["ColumnOrder"])
-				try:
-					columns.SetSelection(splconfig._SPLDefaults7["ColumnAnnouncement"]["ColumnOrder"].index(parent.exploreColumns[slot]))
-				except:
-					pass
-				sizer.Add(label)
-				sizer.Add(columns)
-				self.columnSlots.append(columns)
-			mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		for slot in xrange(6, 10):
+			label = wx.StaticText(self, wx.ID_ANY, label=_("Slot {position}").format(position = slot+1))
+			columns = wx.Choice(self, wx.ID_ANY, choices=splconfig._SPLDefaults7["ColumnAnnouncement"]["ColumnOrder"])
+			try:
+				columns.SetSelection(splconfig._SPLDefaults7["ColumnAnnouncement"]["ColumnOrder"].index(parent.exploreColumns[slot]))
+			except:
+				pass
+			sizer.Add(label)
+			sizer.Add(columns)
+			self.columnSlots.append(columns)
+		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
