@@ -159,6 +159,8 @@ def initConfig():
 			SPLSwitchProfile = SPLConfigPool[getProfileIndexByName(SPLConfig["InstantProfile"])].name
 		except ValueError:
 			_configLoadStatus[SPLConfigPool[0].name] = "noInstantProfile"
+		# 7.1: The config module knows the fate of the instant profile.
+		del SPLConfig["InstantProfile"]
 	if len(_configLoadStatus):
 		# Translators: Standard error title for configuration error.
 		title = _("Studio add-on Configuration error")
