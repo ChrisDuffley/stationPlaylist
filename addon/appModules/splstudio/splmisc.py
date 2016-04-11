@@ -1,6 +1,6 @@
 # SPL Studio Miscellaneous User Interfaces and internal services
 # An app module and global plugin package for NVDA
-# Copyright 2015 Joseph Lee and others, released under GPL.
+# Copyright 2015-2016 Joseph Lee and others, released under GPL.
 # Miscellaneous functions and user interfaces
 # Split from config module in 2015.
 
@@ -12,9 +12,9 @@ import os
 from csv import reader # For cart explorer.
 import gui
 import wx
+import ui
 from NVDAObjects.IAccessible import sysListView32
 from winUser import user32, sendMessage
-import winKernel
 
 # Locate column content.
 # Given an object and the column number, locate text in the given column.
@@ -22,6 +22,7 @@ import winKernel
 # This is used by the track item class, Track Tool items and in track finder.
 # In track finder, this is used when encountering the track item but NVDA says otherwise.
 def _getColumnContent(obj, col):
+	import winKernel
 	# Borrowed from SysListView32 implementation.
 	buffer=None
 	processHandle=obj.processHandle
@@ -91,18 +92,13 @@ class SPLFindDialog(wx.Dialog):
 		mainSizer.Add(findSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
 		if columnSearch:
+			import splconfig
 			columnSizer = wx.BoxSizer(wx.HORIZONTAL)
 			# Translators: The label in track finder to search columns.
 			label = wx.StaticText(self, wx.ID_ANY, label=_("C&olumn to search:"))
-			left = 1 if obj.appModule.productVersion >= "5.10" else 0
-			if obj.appModule._columnHeaders is None:
-				obj.appModule._columnHeaders = obj.parent.children[-1]
-			headers = [header.name for header in obj.appModule._columnHeaders.children[left:]]
-			self.columnHeaders = wx.Choice(self, wx.ID_ANY, choices=headers)
-			try:
-				self.columnHeaders.SetSelection(0)
-			except:
-				pass
+			section, key, pos = ("ColumnAnnouncement", "ColumnOrder", None) if obj.appModule.productVersion >= "5.10" else ("General", "ExploreColumns", 6)
+			self.columnHeaders = wx.Choice(self, wx.ID_ANY, choices=splconfig._SPLDefaults7[section][key][:pos])
+			self.columnHeaders.SetSelection(0)
 			columnSizer.Add(label)
 			columnSizer.Add(self.columnHeaders)
 			mainSizer.Add(columnSizer, border=10, flag=wx.BOTTOM)
@@ -166,13 +162,13 @@ class SPLTimeRangeDialog(wx.Dialog):
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 
 		minSizer = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Minimum duration")), wx.HORIZONTAL)
-		prompt = wx.StaticText(self, wx.ID_ANY, label="Minute")
+		prompt = wx.StaticText(self, wx.ID_ANY, label=_("Minute"))
 		minSizer.Add(prompt)
 		self.minMinEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=59)
 		self.minMinEntry.SetValue(3)
 		self.minMinEntry.SetSelection(-1, -1)
 		minSizer.Add(self.minMinEntry)
-		prompt = wx.StaticText(self, wx.ID_ANY, label="Second")
+		prompt = wx.StaticText(self, wx.ID_ANY, label=_("Second"))
 		minSizer.Add(prompt)
 		self.minSecEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=59)
 		self.minSecEntry.SetValue(0)
@@ -181,13 +177,13 @@ class SPLTimeRangeDialog(wx.Dialog):
 		mainSizer.Add(minSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
 		maxSizer = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Maximum duration")), wx.HORIZONTAL)
-		prompt = wx.StaticText(self, wx.ID_ANY, label="Minute")
+		prompt = wx.StaticText(self, wx.ID_ANY, label=_("Minute"))
 		maxSizer.Add(prompt)
 		self.maxMinEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=59)
 		self.maxMinEntry.SetValue(5)
 		self.maxMinEntry.SetSelection(-1, -1)
 		maxSizer.Add(self.maxMinEntry)
-		prompt = wx.StaticText(self, wx.ID_ANY, label="Second")
+		prompt = wx.StaticText(self, wx.ID_ANY, label=_("Second"))
 		maxSizer.Add(prompt)
 		self.maxSecEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=59)
 		self.maxSecEntry.SetValue(0)
@@ -300,4 +296,81 @@ def cartExplorerInit(StudioTitle, cartFiles=None):
 		_populateCarts(carts, cl[1], mod, standardEdition=carts["standardLicense"]) # See the comment for _populate method above.
 	carts["faultyCarts"] = faultyCarts
 	return carts
+
+
+# Countdown timer.
+# This is utilized by many services, chiefly profile triggers routine.
+
+class SPLCountdownTimer(object):
+
+	def __init__(self, duration, func, threshold):
+		# Threshold is used to instruct this timer when to start countdown announcement.
+		self.duration = duration
+		self.total = duration
+		self.func = func
+		self.threshold = threshold
+
+	def Start(self):
+		self.timer = wx.PyTimer(self.countdown)
+		ui.message(_("Countdown started"))
+		self.timer.Start(1000)
+
+	def Stop(self):
+		self.timer.Stop()
+
+	def IsRunning(self):
+		return self.timer.IsRunning()
+
+	def countdown(self):
+		self.duration -= 1
+		if self.duration == 0:
+			ui.message(_("Timer complete"))
+			if self.func is not None:
+				self.func()
+			self.Stop()
+		elif 0 < self.duration <= self.threshold:
+			ui.message(str(self.duration))
+
+
+# Module-level version of metadata announcer.
+# Moved to this module in 2016 to allow this function to work while Studio window isn't focused.
+def _metadataAnnouncer(reminder=False, handle=None):
+	import time, nvwave, queueHandler, speech, splconfig
+	if handle is None: handle = user32.FindWindowA("SPLStudio", None)
+	# If told to remind and connect, metadata streaming will be enabled at this time.
+	# 6.0: Call Studio API twice - once to set, once more to obtain the needed information.
+	# 6.2/7.0: When Studio API is called, add the value into the stream count list also.
+	if reminder:
+		for url in xrange(5):
+			dataLo = 0x00010000 if splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"][url] else 0xffff0000
+			sendMessage(handle, 1024, dataLo | url, 36)
+	dsp = 1 if sendMessage(handle, 1024, 0, 36) == 1 else 0
+	streamCount = []
+	for pos in xrange(1, 5):
+		checked = sendMessage(handle, 1024, pos, 36)
+		if checked == 1: streamCount.append(pos)
+	# Announce streaming status when told to do so.
+	status = None
+	if not len(streamCount):
+		# Translators: Status message for metadata streaming.
+		if not dsp: status = _("No metadata streaming URL's defined")
+		# Translators: Status message for metadata streaming.
+		else: status = _("Metadata streaming configured for DSP encoder")
+	elif len(streamCount) == 1:
+		# Translators: Status message for metadata streaming.
+		if dsp: status = _("Metadata streaming configured for DSP encoder and URL {URL}").format(URL = streamCount[0])
+		# Translators: Status message for metadata streaming.
+		else: status = _("Metadata streaming configured for URL {URL}").format(URL = streamCount[0])
+	else:
+		urltext = ", ".join([str(stream) for stream in streamCount])
+		# Translators: Status message for metadata streaming.
+		if dsp: status = _("Metadata streaming configured for DSP encoder and URL's {URL}").format(URL = urltext)
+		# Translators: Status message for metadata streaming.
+		else: status = _("Metadata streaming configured for URL's {URL}").format(URL = urltext)
+	if reminder:
+		time.sleep(2)
+		speech.cancelSpeech()
+		queueHandler.queueFunction(queueHandler.eventQueue, ui.message, status)
+		nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_Metadata.wav"))
+	else: ui.message(status)
 

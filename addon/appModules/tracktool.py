@@ -1,6 +1,6 @@
 # StationPlaylist Track Tool
 # An app module for NVDA
-# Copyright 2014-2015 Joseph Lee and contributors, released under gPL.
+# Copyright 2014-2016 Joseph Lee and contributors, released under gPL.
 # Functionality is based on JFW scripts for SPL Track Tool by Brian Hartgen.
 
 import appModuleHandler
@@ -64,14 +64,13 @@ class TrackToolItem(IAccessible):
 				pass
 			dialText = _("Track Dial off")
 			dialTone = 390
-		if not splconfig.SPLConfig["BeepAnnounce"]:
+		if not splconfig.SPLConfig["General"]["BeepAnnounce"]:
 			ui.message(dialText)
 		else:
 			tones.beep(dialTone, 100)
 			braille.handler.message(dialText)
 			if self.appModule.TTDial and self.appModule.SPLColNumber > 0:
-				speech.speakMessage("Column {columnNumber}".format(columnNumber = self.appModule.SPLColNumber+1))
-		splconfig._propagateChanges(key="TrackDial")
+				speech.speakMessage(_("Column {columnNumber}").format(columnNumber = self.appModule.SPLColNumber+1))
 	# Translators: Input help mode message for SPL track item.
 	script_toggleTrackDial.__doc__=_("Toggles track dial on and off.")
 	script_toggleTrackDial.category = _("StationPlaylist Studio")
@@ -82,14 +81,14 @@ class TrackToolItem(IAccessible):
 		if not columnHeader: columnHeader = self.columnHeaders.children[colNumber].name
 		columnContent = _getColumnContent(self, colNumber)
 		if columnContent:
-			ui.message("{header}: {content}".format(header = columnHeader, content = columnContent))
+			ui.message(unicode(_("{header}: {content}")).format(header = columnHeader, content = columnContent))
 		else:
 			if individualColumns:
 				# Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
-				ui.message("{header} not found".format(header = columnHeader))
+				ui.message(_("{header} not found").format(header = columnHeader))
 			else:
-				speech.speakMessage("{header}: blank".format(header = columnHeader))
-				braille.handler.message("{header}: ()".format(header = columnHeader))
+				speech.speakMessage(_("{header}: blank").format(header = columnHeader))
+				braille.handler.message(_("{header}: ()").format(header = columnHeader))
 
 	# Now the scripts.
 

@@ -1,6 +1,6 @@
 # StationPlaylist Utilities
 # Author: Joseph Lee
-# Copyright 2013-2015, released under GPL.
+# Copyright 2013-2016, released under GPL.
 # Adds a few utility features such as switching focus to the SPL Studio window and some global scripts.
 # For encoder support, see the encoders package.
 
@@ -95,11 +95,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# Translators: Script category for Station Playlist commands in input gestures dialog.
 	scriptCategory = _("StationPlaylist Studio")
 
-
-	# Do some initialization, such as stream labels for SAM encoders.
-	def __init__(self):
-		super(globalPluginHandler.GlobalPlugin, self).__init__()
-
 			#Global layer environment (see the app module for more information).
 	SPLController = False # Control SPL from anywhere.
 
@@ -141,8 +136,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		global SPLWin
 		# Error checks:
 		# 1. If SPL Studio is not running, print an error message.
-		# 2. If we're already  in SPL, report that the user is in SPL. This is temporary - in the end, pass this gesture to the app module portion if told to do so.
-		# For SPL Controller passthrough, it needs to be enabled via Python. This is experimental.
+		# 2. If we're already  in SPL, ask the app module if SPL Assistant can be invoked with this command.
 		if "splstudio" in api.getForegroundObject().appModule.appModuleName:
 			if not api.getForegroundObject().appModule.SPLConPassthrough():
 				# Translators: Presented when NVDA cannot enter SPL Controller layer since SPL Studio is focused.
@@ -233,7 +227,23 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		remainingTime = winUser.sendMessage(SPLWin, SPLMSG, 3, SPLCurTrackPlaybackTime)
 		# Translators: Presented when no track is playing in Station Playlist Studio.
 		if remainingTime < 0: ui.message(_("There is no track playing."))
-		else: ui.message(str(remainingTime/1000))
+		else:
+			# 7.0: Present remaining time in hh:mm:ss format for enhanced experience (borrowed from the app module).
+			remainingTime = (remainingTime/1000)+1
+			if remainingTime == 0: ui.message("00:00")
+			elif 1 <= remainingTime <= 59: ui.message("00:{0}".format(str(remainingTime).zfill(2)))
+			else:
+				mm, ss = divmod(remainingTime, 60)
+				if mm > 59:
+					hh, mm = divmod(mm, 60)
+					t0 = str(hh).zfill(2)
+					t1 = str(mm).zfill(2)
+					t2 = str(ss).zfill(2)
+					ui.message(":".join([t0, t1, t2]))
+				else:
+					t1 = str(mm).zfill(2)
+					t2 = str(ss).zfill(2)
+					ui.message(":".join([t1, t2]))
 		self.finish()
 
 	def script_announceNumMonitoringEncoders(self, gesture):
