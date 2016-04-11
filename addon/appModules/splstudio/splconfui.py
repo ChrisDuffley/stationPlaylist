@@ -249,6 +249,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.categorySoundsCheckbox.SetValue(splconfig.SPLConfig["General"]["CategorySounds"])
 		settingsSizer.Add(self.categorySoundsCheckbox, border=10,flag=wx.BOTTOM)
 
+		# Translators: the label for a setting in SPL add-on settings to toggle top and bottom notification.
+		self.topBottomCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Notify when located at &top or bottom of playlist viewer"))
+		self.topBottomCheckbox.SetValue(splconfig.SPLConfig["General"]["TopBottomAnnounce"])
+		settingsSizer.Add(self.topBottomCheckbox, border=10,flag=wx.BOTTOM)
+
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: the label for a setting in SPL add-on settings to be notified that metadata streaming is enabled.
 		label = wx.StaticText(self, wx.ID_ANY, label=_("&Metadata streaming notification and connection"))
@@ -337,6 +342,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		splconfig.SPLConfig["General"]["TimeHourAnnounce"] = self.hourAnnounceCheckbox.Value
 		splconfig.SPLConfig["General"]["TrackDial"] = self.trackDialCheckbox.Value
 		splconfig.SPLConfig["General"]["CategorySounds"] = self.categorySoundsCheckbox.Value
+		splconfig.SPLConfig["General"]["TopBottomAnnounce"] = self.topBottomCheckbox.Value
 		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
 		splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = self.metadataStreams
 		splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
@@ -625,16 +631,17 @@ class SPLConfigDialog(gui.SettingsDialog):
 		_("Are you sure you wish to reset SPL add-on settings to defaults?"),
 		# Translators: The title of the warning dialog.
 		_("Warning"),wx.YES_NO|wx.NO_DEFAULT|wx.ICON_WARNING,self
-		)==wx.YES:
-			# Reset all profiles.
-			# Save some flags from death.
-			global _configDialogOpened
-			colRange = splconfig.SPLConfig["ColumnExpRange"]
-			splconfig.resetAllConfig()
-			splconfig.SPLConfig = dict(splconfig._SPLDefaults7)
-			splconfig.SPLConfig["ActiveIndex"] = 0
-			splconfig.SPLActiveProfile = splconfig.SPLConfigPool[0].name
-			splconfig.SPLConfig["ColumnExpRange"] = colRange
+		)!=wx.YES:
+			return
+		# Reset all profiles.
+		# Save some flags from death.
+		global _configDialogOpened
+		colRange = splconfig.SPLConfig["ColumnExpRange"]
+		splconfig.resetAllConfig()
+		splconfig.SPLConfig = dict(splconfig._SPLDefaults7)
+		splconfig.SPLConfig["ActiveIndex"] = 0
+		splconfig.SPLActiveProfile = splconfig.SPLConfigPool[0].name
+		splconfig.SPLConfig["ColumnExpRange"] = colRange
 		if splconfig.SPLSwitchProfile is not None:
 			splconfig.SPLSwitchProfile = None
 		splconfig.SPLPrevProfile = None
@@ -710,20 +717,15 @@ class NewProfileDialog(wx.Dialog):
 		if not os.path.exists(splconfig.SPLProfiles):
 			os.mkdir(splconfig.SPLProfiles)
 		newProfilePath = os.path.join(splconfig.SPLProfiles, namePath)
-		splconfig.SPLConfigPool.append(splconfig.unlockConfig(newProfilePath, profileName=name))
+		# LTS optimization: just build base profile dictionary here if copying a profile.
+		if self.copy:
+			baseConfig = splconfig.getProfileByName(self.baseProfiles.GetStringSelection())
+			baseProfile = {sect:key for sect, key in baseConfig.iteritems() if sect in splconfig._mutatableSettings7}
+		else: baseProfile = None
+		splconfig.SPLConfigPool.append(splconfig.unlockConfig(newProfilePath, profileName=name, parent=baseProfile))
 		# Make the cache know this is a new profile.
 		# If nothing happens to this profile, the newly created profile will be saved to disk.
 		splconfig._SPLCache[name]["___new___"] = True
-		if self.copy:
-			newProfile = splconfig.SPLConfigPool[-1]
-			baseProfile = splconfig.getProfileByName(self.baseProfiles.GetStringSelection())
-			for setting in newProfile.keys():
-				try:
-					# 6.1/7.0: Only iterate through mutatable keys.
-					if baseProfile[setting] != newProfile[setting]:
-						newProfile[setting] = baseProfile[setting]
-				except KeyError:
-					pass
 		parent = self.Parent
 		parent.profileNames.append(name)
 		parent.profiles.Append(name)

@@ -253,10 +253,25 @@ class SPLTrackItem(IAccessible):
 		else:
 			self.announceColumnContent(self.appModule.SPLColNumber)
 
+	# Track movement scripts.
+	# Detects top/bottom of a playlist if told to do so.
+
+	def script_nextTrack(self, gesture):
+		gesture.send()
+		if self.IAccessibleChildID == self.parent.childCount-1 and splconfig.SPLConfig["General"]["TopBottomAnnounce"]:
+			tones.beep(2000, 100)
+
+	def script_prevTrack(self, gesture):
+		gesture.send()
+		if self.IAccessibleChildID == 1 and splconfig.SPLConfig["General"]["TopBottomAnnounce"]:
+			tones.beep(2000, 100)
+
 	__gestures={
 		"kb:control+alt+rightArrow":"nextColumn",
 		"kb:control+alt+leftArrow":"prevColumn",
 		#"kb:control+`":"toggleTrackDial",
+		"kb:downArrow":"nextTrack",
+		"kb:upArrow":"prevTrack",
 	}
 
 class SPL510TrackItem(SPLTrackItem):
@@ -1663,7 +1678,12 @@ class AppModule(appModuleHandler.AppModule):
 				ui.message(_("Not a track"))
 			else:
 				header = splconfig.SPLConfig["General"]["ExploreColumns"][columnPos]
-				focus.announceColumnContent(focus._indexOf(header), header=header)
+				column = focus._indexOf(header)
+				if column is not None:
+					focus.announceColumnContent(column, header=header)
+				else:
+					# Translators: Presented when a specific column header is not found.
+					ui.message(_("{headerText} not found").format(headerText = header))
 
 	def script_layerHelp(self, gesture):
 		compatibility = splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]
