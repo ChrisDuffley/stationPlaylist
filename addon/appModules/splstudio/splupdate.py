@@ -27,7 +27,7 @@ SPLAddonCheck = 0
 # Update metadata storage.
 SPLAddonState = {}
 # Update URL (the only way to change it is installing a different version from a different branch).
-SPLUpdateURL = "http://addons.nvda-project.org/files/get.php?file=spl"
+SPLUpdateURL = "http://addons.nvda-project.org/files/get.php?file=spl-dev"
 # Update check timer.
 _SPLUpdateT = None
 # How long it should wait between automatic checks.
