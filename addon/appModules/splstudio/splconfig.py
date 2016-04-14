@@ -182,6 +182,15 @@ def initConfig():
 	initProfileTriggers()
 	# Let the update check begin.
 	splupdate.initialize()
+	# 7.1: Make sure encoder settings map isn't corrupted.
+	try:
+		streamLabels = ConfigObj(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
+	except:
+		open(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"), "w").close()
+		# Translators: Message displayed if errors were found in encoder configuration file.
+		runConfigErrorDialog(_("Your encoder settings had errors and were reset to defaults. If you have stream labels configured for various encoders, please add them again."),
+		# Translators: Title of the encoder settings error dialog.
+		_("Encoder settings error"))
 
 # Unlock (load) profiles from files.
 def unlockConfig(path, profileName=None, prefill=False):
