@@ -631,14 +631,14 @@ class SPLConfigDialog(gui.SettingsDialog):
 		_("Are you sure you wish to reset SPL add-on settings to defaults?"),
 		# Translators: The title of the warning dialog.
 		_("Warning"),wx.YES_NO|wx.NO_DEFAULT|wx.ICON_WARNING,self
-		)==wx.YES:
-			# Reset all profiles.
-			# Save some flags from death.
-			global _configDialogOpened
-			splconfig.resetAllConfig()
-			splconfig.SPLConfig = dict(splconfig._SPLDefaults7)
-			splconfig.SPLConfig["ActiveIndex"] = 0
-			splconfig.SPLActiveProfile = splconfig.SPLConfigPool[0].name
+		)!=wx.YES:
+			return
+		# Reset all profiles.
+		global _configDialogOpened
+		splconfig.resetAllConfig()
+		splconfig.SPLConfig = dict(splconfig._SPLDefaults7)
+		splconfig.SPLConfig["ActiveIndex"] = 0
+		splconfig.SPLActiveProfile = splconfig.SPLConfigPool[0].name
 		if splconfig.SPLSwitchProfile is not None:
 			splconfig.SPLSwitchProfile = None
 		splconfig.SPLPrevProfile = None

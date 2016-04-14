@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2016-02-25 23:44-0800\n"
+"PO-Revision-Date: 2016-03-21 22:06+0100\n"
 "Last-Translator: Juan C. Buño <oprisniki@gmail.com>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.5\n"
+"X-Generator: Poedit 1.6.11\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Presented when only Track Tool is running (Track Dial requires Studio to be running as well).
@@ -885,10 +885,13 @@ msgid ""
 "Assistant, F12 to switch back to a previously active profile before opening "
 "add-on settings to delete a profile."
 msgstr ""
+"Un perfil de cambio instantáneo podría estár activado. Si es así, por favor "
+"pulsa SPL Assistant, F12 para regresar a un perfil previamente activado "
+"antes de abrir las opciones del complemento para borrar un perfil."
 
 #. Translators: Title of a dialog shown when profile cannot be deleted.
 msgid "Profile delete error"
-msgstr ""
+msgstr "Error de borrado de perfil"
 
 #. Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
 msgid "Are you sure you want to delete this profile? This cannot be undone."
