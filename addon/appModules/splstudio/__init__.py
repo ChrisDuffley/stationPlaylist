@@ -1360,8 +1360,12 @@ class AppModule(appModuleHandler.AppModule):
 			elif splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "wineyes": self.bindGestures(self.__SPLAssistantWEGestures)
 			# 7.0: Certain commands involving number row.
 			# 8.0: Also assign encoder status commands in addition to columns explorer.
-			for i in xrange(10):
+			for i in xrange(5):
 				self.bindGesture("kb:%s"%(i), "columnExplorer")
+				self.bindGesture("kb:shift+%s"%(i), "metadataEnabled")
+			for i in xrange(5, 10):
+				self.bindGesture("kb:%s"%(i), "columnExplorer")
+
 			self.SPLAssistant = True
 			tones.beep(512, 50)
 			if splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "jfw": ui.message("JAWS")
@@ -1727,11 +1731,6 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:Control+k":"setPlaceMarker",
 		"kb:k":"findPlaceMarker",
 		"kb:e":"metadataStreamingAnnouncer",
-		"kb:shift+1":"metadataEnabled",
-		"kb:shift+2":"metadataEnabled",
-		"kb:shift+3":"metadataEnabled",
-		"kb:shift+4":"metadataEnabled",
-		"kb:shift+0":"metadataEnabled",
 		"kb:f1":"layerHelp",
 		"kb:shift+f1":"openOnlineDoc",
 		"kb:control+shift+u":"updateCheck",
@@ -1765,11 +1764,6 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:Control+k":"setPlaceMarker",
 		"kb:k":"findPlaceMarker",
 		"kb:e":"metadataStreamingAnnouncer",
-		"kb:shift+1":"metadataEnabled",
-		"kb:shift+2":"metadataEnabled",
-		"kb:shift+3":"metadataEnabled",
-		"kb:shift+4":"metadataEnabled",
-		"kb:shift+0":"metadataEnabled",
 		"kb:f1":"layerHelp",
 		"kb:shift+f1":"openOnlineDoc",
 	}
@@ -1804,11 +1798,6 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:Control+k":"setPlaceMarker",
 		"kb:k":"findPlaceMarker",
 		"kb:g":"metadataStreamingAnnouncer",
-		"kb:shift+1":"metadataEnabled",
-		"kb:shift+2":"metadataEnabled",
-		"kb:shift+3":"metadataEnabled",
-		"kb:shift+4":"metadataEnabled",
-		"kb:shift+0":"metadataEnabled",
 		"kb:f1":"layerHelp",
 		"kb:shift+f1":"openOnlineDoc",
 		"kb:control+shift+u":"updateCheck",
