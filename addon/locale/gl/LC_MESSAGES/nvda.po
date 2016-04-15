@@ -37,6 +37,11 @@ msgstr ", colocado na columna {columnHeader}"
 msgid "Track Dial off"
 msgstr "Dial de pista desactivado"
 
+#. Translators: Spoken when enabling track dial while status message is set to beeps.
+#, python-brace-format
+msgid "Column {columnNumber}"
+msgstr "Columna {columnNumber}"
+
 #. Translators: Input help mode message for SPL track item.
 msgid "Toggles track dial on and off."
 msgstr "Activa ou desactiva dial de pista."
@@ -44,6 +49,26 @@ msgstr "Activa ou desactiva dial de pista."
 #. Translators: Script category for Station Playlist commands in input gestures dialog.
 msgid "StationPlaylist Studio"
 msgstr "StationPlaylist Studio"
+
+#. Translators: Standard message for announcing column content.
+#, python-brace-format
+msgid "{header}: {content}"
+msgstr "{header}: {content}"
+
+#. Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
+#, fuzzy, python-brace-format
+msgid "{header} not found"
+msgstr "{header}: {content}"
+
+#. Translators: Spoken when column content is blank.
+#, python-brace-format
+msgid "{header}: blank"
+msgstr "{header}: en branco"
+
+#. Translators: Brailled to indicate empty column content.
+#, python-brace-format
+msgid "{header}: ()"
+msgstr "{header}: ()"
 
 #. Translators: Presented when trying to perform Track Tool commands when not focused in the track list.
 msgid "Not in tracks list"
@@ -70,11 +95,6 @@ msgstr "Non se estableciu introducción"
 msgid "Microphone active"
 msgstr "Micrófono activo"
 
-#. Translators: Spoken when enabling track dial while status message is set to beeps.
-#, python-brace-format
-msgid "Column {columnNumber}"
-msgstr "Columna {columnNumber}"
-
 #. Translators: Announced when leftmost column has no text while track dial is active.
 #, python-brace-format
 msgid "{leftmostColumn} not found"
@@ -84,21 +104,6 @@ msgstr "{leftmostColumn} non atopada"
 #, python-brace-format
 msgid "{leftmostColumn}: {leftmostContent}"
 msgstr "{leftmostColumn}: {leftmostContent}"
-
-#. Translators: Standard message for announcing column content.
-#, python-brace-format
-msgid "{header}: {content}"
-msgstr "{header}: {content}"
-
-#. Translators: Spoken when column content is blank.
-#, python-brace-format
-msgid "{header}: blank"
-msgstr "{header}: en branco"
-
-#. Translators: Brailled to indicate empty column content.
-#, python-brace-format
-msgid "{header}: ()"
-msgstr "{header}: ()"
 
 #. Translators: Presented when no track status is found in Studio 5.10.
 msgid "Status not found"
@@ -110,31 +115,171 @@ msgid "Status: {name}"
 msgstr "Estado: {name}"
 
 #. Translators: The text of the help command in SPL Assistant layer.
+#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
 "C: Announce name of the currently playing track.\n"
-"D (R if compatibility mode is on): Remaining time for the playlist.\n"
+"D: Remaining time for the playlist.\n"
 "E: Overall metadata streaming status.\n"
-"1 through 4, 0: Metadata streaming status for DSP encoder and four "
-"additional URL's.\n"
+"Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder "
+"and four additional URL's.\n"
 "H: Duration of trakcs in this hour slot.\n"
-"Shift+H: Duration of selected tracks.\n"
-"I (L if compatibility mode is on): Listener count.\n"
+"Shift+H: Duration of remaining trakcs in this hour slot.\n"
+"I: Listener count.\n"
 "K: Move to place marker track.\n"
 "Control+K: Set place marker track.\n"
-"L (Shift+L if compatibility mode is on): Line-in status.\n"
+"L: Line-in status.\n"
 "M: Microphone status.\n"
 "N: Next track.\n"
 "P: Playback status.\n"
 "Shift+P: Pitch for the current track.\n"
-"R (Shift+E if compatibility mode is on): Record to file.\n"
+"R: Record to file.\n"
 "Shift+R: Monitor library scan.\n"
 "S: Scheduled time for the track.\n"
+"Shift+S: Time until the selected track will play.\n"
 "T: Cart edit mode.\n"
 "U: Studio up time.\n"
 "W: Weather and temperature.\n"
 "Y: Playlist modification.\n"
+"1 through 0 (6 for Studio 5.01 and earlier): Announce columns via Columns "
+"Explorer (0 is tenth column slot).\n"
+"F9: Mark current track as start of track time analysis.\n"
+"F10: Perform track time analysis.\n"
+"F12: Switch to an instant switch profile.\n"
+"Shift+F1: Open online user guide."
+msgstr ""
+"Despois de entrar no SPL Assistant, preme:\n"
+"A: Automatización.\n"
+"C: Anunciar o nome da pista actual en reprodución.\n"
+"D (R se o modo de compatibilidade está activado): tempo restante para a "
+"lista de reprodución.\n"
+"E: Estado xeral dos metadatos do streaming.\n"
+"1 ata 4, 0: Estado dos Metadatos do streaming para o codificador DSP e "
+"cuatro URLs adicionais.\n"
+"H: Duración de pistas en este slot horario .\n"
+"Shift+H: Duración de pistas selecionadas.\n"
+"I: (L se o modo compatibilidade está activado): reconto de oubintes. \n"
+"K: Move ó marcador da pista.\n"
+"Control+K: pon un marcador á pista.\n"
+"L (Shift+L se o modo de compatibilidade está activo): Liña en estado.\n"
+"M: Estado de micrófono.\n"
+"N: Seguinte pista.\n"
+"P: Estado de reprodución.\n"
+"Shift+P: Ton para a pista actual.\n"
+"R: (Shift+E se o modo de compatibilidade está activo): Grabar en ficheiro.\n"
+"Shift+R: Monitorizar escaneado de biblioteca.\n"
+"S: Tempo programado para a pista.\n"
+"T: Modo de edición de Cart.\n"
+"U: Actualización de Studio.\n"
+": Tempo e temperatura.\n"
+"Y: Modificación de lista de reprodución.\n"
+"F9: Marca a pista actual coma  comezo de análise de tempo da pista.\n"
+"F10: Realiza a análise de tempo da pista.\n"
+"F12: Cambia a un perfil de cambio instantáneo.\n"
+"Shift+F1: Abre a guía de usuario en liña."
+
+#. Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
+#, fuzzy
+msgid ""
+"After entering SPL Assistant, press:\n"
+"A: Automation.\n"
+"C: Toggle cart explorer.\n"
+"Shift+C: Announce name of the currently playing track.\n"
+"E: Overall metadata streaming status.\n"
+"Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder "
+"and four additional URL's.\n"
+"Shift+E: Record to file.\n"
+"F: Track finder.\n"
+"H: Duration of trakcs in this hour slot.\n"
+"Shift+H: Duration of remaining trakcs in this hour slot.\n"
+"K: Move to place marker track.\n"
+"Control+K: Set place marker track.\n"
+"L: Listener count.\n"
+"Shift+L: Line-in status.\n"
+"M: Microphone status.\n"
+"N: Next track.\n"
+"P: Playback status.\n"
+"Shift+P: Pitch for the current track.\n"
+"R: Remaining time for the playlist.\n"
+"Shift+R: Monitor library scan.\n"
+"S: Scheduled time for the track.\n"
+"Shift+S: Time until the selected track will play.\n"
+"T: Cart edit mode.\n"
+"U: Studio up time.\n"
+"W: Weather and temperature.\n"
+"Y: Playlist modification.\n"
+"1 through 0 (6 for Studio 5.01 and earlier): Announce columns via Columns "
+"Explorer (0 is tenth column slot).\n"
+"F9: Mark current track as start of track time analysis.\n"
+"F10: Perform track time analysis.\n"
+"F12: Switch to an instant switch profile.\n"
+"Shift+F1: Open online user guide."
+msgstr ""
+"Despois de entrar no SPL Assistant, preme:\n"
+"A: Automatización.\n"
+"C: Anunciar o nome da pista actual en reprodución.\n"
+"D (R se o modo de compatibilidade está activado): tempo restante para a "
+"lista de reprodución.\n"
+"E: Estado xeral dos metadatos do streaming.\n"
+"1 ata 4, 0: Estado dos Metadatos do streaming para o codificador DSP e "
+"cuatro URLs adicionais.\n"
+"H: Duración de pistas en este slot horario .\n"
+"Shift+H: Duración de pistas selecionadas.\n"
+"I: (L se o modo compatibilidade está activado): reconto de oubintes. \n"
+"K: Move ó marcador da pista.\n"
+"Control+K: pon un marcador á pista.\n"
+"L (Shift+L se o modo de compatibilidade está activo): Liña en estado.\n"
+"M: Estado de micrófono.\n"
+"N: Seguinte pista.\n"
+"P: Estado de reprodución.\n"
+"Shift+P: Ton para a pista actual.\n"
+"R: (Shift+E se o modo de compatibilidade está activo): Grabar en ficheiro.\n"
+"Shift+R: Monitorizar escaneado de biblioteca.\n"
+"S: Tempo programado para a pista.\n"
+"T: Modo de edición de Cart.\n"
+"U: Actualización de Studio.\n"
+": Tempo e temperatura.\n"
+"Y: Modificación de lista de reprodución.\n"
+"F9: Marca a pista actual coma  comezo de análise de tempo da pista.\n"
+"F10: Realiza a análise de tempo da pista.\n"
+"F12: Cambia a un perfil de cambio instantáneo.\n"
+"Shift+F1: Abre a guía de usuario en liña."
+
+#. Translators: The text of the help command in SPL Assistant layer when Window-Eyes layer is active.
+#, fuzzy
+msgid ""
+"After entering SPL Assistant, press:\n"
+"A: Automation.\n"
+"C: Toggle cart explorer.\n"
+"Shift+C: Announce name of the currently playing track.\n"
+"D: Remaining time for the playlist.\n"
+"E: Elapsed time.\n"
+"F: Track finder.\n"
+"R: Remaining time for the currently playing track.\n"
+"G: Overall metadata streaming status.\n"
+"Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder "
+"and four additional URL's.\n"
+"H: Duration of trakcs in this hour slot.\n"
+"Shift+H: Duration of remaining trakcs in this hour slot.\n"
+"K: Move to place marker track.\n"
+"Control+K: Set place marker track.\n"
+"L: Listener count.\n"
+"Shift+L: Line-in status.\n"
+"M: Microphone status.\n"
+"N: Next track.\n"
+"P: Playback status.\n"
+"Shift+P: Pitch for the current track.\n"
+"Shift+E: Record to file.\n"
+"Shift+R: Monitor library scan.\n"
+"S: Scheduled time for the track.\n"
+"Shift+S: Time until the selected track will play.\n"
+"T: Cart edit mode.\n"
+"U: Studio up time.\n"
+"W: Weather and temperature.\n"
+"Y: Playlist modification.\n"
+"1 through 0 (6 for Studio 5.01 and earlier): Announce columns via Columns "
+"Explorer (0 is tenth column slot).\n"
 "F9: Mark current track as start of track time analysis.\n"
 "F10: Perform track time analysis.\n"
 "F12: Switch to an instant switch profile.\n"
@@ -212,22 +357,6 @@ msgstr "Atención: {seconds} seg restantes"
 #. Add the human-readable representation also.
 msgid "SPL mode"
 msgstr "Modo SPL"
-
-#. Translators: Presented when remaining time is unavailable.
-msgid "Remaining time not available"
-msgstr "Tempo restante non dispoñible"
-
-#. Translators: Presented when elapsed time is unavailable.
-msgid "Elapsed time not available"
-msgstr "Tempo transcorrido non dispoñible"
-
-#. Translators: Presented when broadcaster time is unavailable.
-msgid "Broadcaster time not available"
-msgstr "Tempo de emisión non dispoñible"
-
-#. Translators: Presented when time information is unavailable.
-msgid "Cannot obtain time in hours, minutes and seconds"
-msgstr "Non se puido obter o tempo en horas, minutos e segundos"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Announces the remaining track time."
@@ -444,36 +573,6 @@ msgstr "Escaneando"
 msgid "{itemCount} items scanned"
 msgstr "{itemCount} elementos escaneados"
 
-#. Translators: Status message for metadata streaming.
-msgid "No metadata streaming URL's defined"
-msgstr "Non se definiron URLs para os metadatos do streaming"
-
-#. Translators: Status message for metadata streaming.
-msgid "Metadata streaming configured for DSP encoder"
-msgstr "Os Metadatos do streaming configuráronse para o codificador DSP"
-
-#. Translators: Status message for metadata streaming.
-#, python-brace-format
-msgid "Metadata streaming configured for DSP encoder and URL {URL}"
-msgstr ""
-"Os metadatos do streaming configuráronse para o codificador DSP e a URL {URL}"
-
-#. Translators: Status message for metadata streaming.
-#, python-brace-format
-msgid "Metadata streaming configured for URL {URL}"
-msgstr "Os metadatos do streaming configuráronse para a URL {URL}"
-
-#. Translators: Status message for metadata streaming.
-#, python-brace-format
-msgid "Metadata streaming configured for DSP encoder and URL's {URL}"
-msgstr ""
-"Os metadatos do streaming configuráronse para o codificador DSP e a URL {URL}"
-
-#. Translators: Status message for metadata streaming.
-#, python-brace-format
-msgid "Metadata streaming configured for URL's {URL}"
-msgstr "Os metadatos do streaming configuráronse para a URL {URL}"
-
 #. Translators: Presented when stremaing dialog cannot be shown.
 msgid "Cannot open metadata streaming dialog"
 msgstr "Non se poideron abrir os metadatos do diálogo streaming"
@@ -491,6 +590,16 @@ msgid "Opens a dialog to quickly enable or disable metadata streaming."
 msgstr ""
 "Abre un diálogo para habilitar ou deshabilitar rápidamente os metadatos do "
 "streaming."
+
+#. Translators: Presented when track time anlaysis cannot be performed because user is not focused on playlist viewer.
+msgid "Not in playlist viewer, cannot perform track time analysis"
+msgstr ""
+"Non estás no visualizador de lista de reprodución, non podes realizar a "
+"análise de tempo."
+
+#. Translators: Presented when SPL Assistant cannot be invoked.
+msgid "Failed to locate Studio main window, cannot enter SPL Assistant"
+msgstr ""
 
 #. Translators: Input help mode message for a layer command in Station Playlist Studio.
 msgid ""
@@ -558,12 +667,6 @@ msgstr "Monitorizando escaneo de biblioteca"
 msgid "Scanning is in progress"
 msgstr "O escaneado está en progreso"
 
-#. Translators: Presented when track time anlaysis cannot be performed because user is not focused on playlist viewer.
-msgid "Not in playlist viewer, cannot perform track time analysis"
-msgstr ""
-"Non estás no visualizador de lista de reprodución, non podes realizar a "
-"análise de tempo."
-
 #. Translators: Presented when track time analysis cannot be activated.
 msgid "No tracks were added, cannot perform track time analysis"
 msgstr ""
@@ -614,6 +717,10 @@ msgstr "Marcador posto"
 msgid "This track cannot be used as a place marker track"
 msgstr "Esta pista non se pode utilizar como un marcador de pista"
 
+#. Translators: Presented when attempting to move to a place marker track when not focused in playlist viewer.
+msgid "You cannot move to a place marker track outside of playlist viewer."
+msgstr ""
+
 #. Translators: Presented when no place marker is found.
 msgid "No place marker found"
 msgstr "Non se atopou marcador"
@@ -636,8 +743,23 @@ msgstr "Metadatos de Streaming en URL {URLPosition} deshabilitado"
 msgid "Metadata streaming on DSP encoder disabled"
 msgstr "Metadatos de streaming en codificador DSP deshabilitado"
 
+#. Translators: Presented when attempting to announce specific columns but the focused item isn't a track.
+#, fuzzy
+msgid "Not a track"
+msgstr "Non está na lista das pistas"
+
 #. Translators: The title for SPL Assistant help dialog.
 msgid "SPL Assistant help"
+msgstr "Axuda de SPL Assistant"
+
+#. Translators: The title for SPL Assistant help dialog.
+#, fuzzy
+msgid "SPL Assistant help for JAWS layout"
+msgstr "Axuda de SPL Assistant"
+
+#. Translators: The title for SPL Assistant help dialog.
+#, fuzzy
+msgid "SPL Assistant help for Window-Eyes layout"
 msgstr "Axuda de SPL Assistant"
 
 #. Translators: A dialog message shown when settings were reset to defaults.
@@ -656,11 +778,47 @@ msgstr "Perfil normal"
 msgid "Studio add-on Configuration error"
 msgstr "Erro da configuración do complemento do Studio"
 
+#. Translators: Message presented indicating missing time-based profiles.
+#, python-brace-format
+msgid ""
+"Could not locate the following time-based profile(s):\n"
+"{profiles}"
+msgstr ""
+
+#. Translators: The title of a dialog shown when some time-based profiles doesn't exist.
+msgid "Time-based profiles missing"
+msgstr ""
+
+#. Translators: A flag indicating the currently active broadcast profile.
+msgid "active"
+msgstr ""
+
+#. Translators: A flag indicating the broadcast profile is an instant switch profile.
+#. Instant switch flag is set on another profile, so remove the flag first.
+#, fuzzy
+msgid "instant switch"
+msgstr "Habilitar cambio de perfil instantáneo"
+
+#. Translators: A flag indicating the time-based triggers profile.
+#. Calling set profile flags with discard argument is always safe here.
+msgid "time-based"
+msgstr ""
+
 #. Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
 msgid "Add-on settings dialog is open, cannot switch profiles"
 msgstr ""
 "O diálogo de opcións do complemento está aberto. no se puede cambiar de "
 "perfil."
+
+#. Translators: Presented when switch to instant switch profile was successful.
+#, fuzzy, python-brace-format
+msgid "Switching to {newProfileName}"
+msgstr "Cambiando perfiles"
+
+#. Translators: Presented when switching from instant switch profile to a previous profile.
+#, fuzzy, python-brace-format
+msgid "Returning to {previousProfile}"
+msgstr "Voltando ó perfil anterior"
 
 #. Translators: Presented when trying to switch to an instant switch profile when the instant switch profile is not defined.
 msgid "No instant switch profile is defined"
@@ -670,317 +828,15 @@ msgstr "Non se definiu o perfil cambio istantáneo"
 msgid "You are already in the instant switch profile"
 msgstr "Xa estás no perfil cambio instantáneo"
 
-#. Translators: Presented when switch to instant switch profile was successful.
-msgid "Switching profiles"
-msgstr "Cambiando perfiles"
-
-#. Translators: Presented when switching from instant switch profile to a previous profile.
-msgid "Returning to previous profile"
-msgstr "Voltando ó perfil anterior"
-
-#. Translators: This is the label for the StationPlaylist Studio configuration dialog.
-msgid "Studio Add-on Settings"
-msgstr "Opcións do complemento Studio"
-
-#. Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
-msgid "Broadcast &profile:"
-msgstr "&Perfil emisión:"
-
-#. Translators: The label of a button to create a new broadcast profile.
-msgid "&New"
-msgstr "&Novo"
-
-#. Translators: The label of a button to copy a broadcast profile.
-msgid "Cop&y"
-msgstr "Cop&iar"
-
-#. Translators: The label of a button to rename a broadcast profile.
-msgid "&Rename"
-msgstr "&Renomear"
-
-#. Translators: The label of a button to delete a broadcast profile.
-msgid "&Delete"
-msgstr "&Eliminar"
-
-#. Translators: The label of a button to toggle instant profile switching on and off.
-msgid "Enable instant profile switching"
-msgstr "Habilitar cambio de perfil instantáneo"
-
-#. Translators: The label of a button to toggle instant profile switching on and off.
-msgid "Disable instant profile switching"
-msgstr "Deshabilitar cambio de perfil instantáneo"
-
-#. Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
-msgid "&Beep for status announcements"
-msgstr "&Pitar para o anunciamento do estado"
-
-#. Translators: The label for a setting in SPL add-on dialog to set message verbosity.
-msgid "Message &verbosity:"
-msgstr "&verbosidade das mensaxes:"
-
-#. Translators: One of the message verbosity levels.
-msgid "beginner"
-msgstr "aprendiz"
-
-#. Translators: One of the message verbosity levels.
-msgid "advanced"
-msgstr "avanzado"
-
-#. Translators: The label for a setting in SPL Add-on settings to specify end of track (outro) alarm.
-msgid "&End of track alarm in seconds"
-msgstr "Alarma de &Remate da pista en segundos"
-
-#. Translators: The label for a setting in SPL Add-on settings to specify track intro alarm.
-msgid "&Track intro alarm in seconds"
-msgstr "Alarma de intro da &Pista en segundos"
-
-#. Translators: The label for a setting in SPL add-on dialog to control braille timer.
-msgid "&Braille timer:"
-msgstr "Temporizador &Braille:"
-
-msgid "Off"
-msgstr "desactivado"
-
-#. Translators: One of the braille timer settings.
-msgid "Track ending"
-msgstr "Remate da pista"
-
-#. Translators: One of the braille timer settings.
-msgid "Track intro"
-msgstr "Intro da pista"
-
-#. Translators: One of the braille timer settings.
-msgid "Track intro and ending"
-msgstr "Intro e remate da pista"
-
-#. Translators: The label for a setting in SPL Add-on settings to change microphone alarm setting.
-msgid "&Microphone alarm in seconds"
-msgstr "Alarma do &Micrófono en segundos"
-
-#. Translators: The label for a setting in SPL Add-on settings to specify mic alarm interval.
-msgid "Microphone alarm &interval in seconds"
-msgstr "&Intervalo da alarma do &Micrófono en segundos"
-
-#. Translators: The label for a setting in SPL add-on dialog to control alarm announcement type.
-msgid "&Alarm notification:"
-msgstr "Notificación da &Alarma"
-
-#. Translators: One of the alarm notification options.
-msgid "beep"
-msgstr "pitido"
-
-#. Translators: One of the alarm notification options.
-msgid "message"
-msgstr "mensaxe"
-
-#. Translators: One of the alarm notification options.
-msgid "both beep and message"
-msgstr "pitido e mensaxe"
-
-#. Translators: The label for a setting in SPL add-on dialog to control library scan announcement.
-msgid "&Library scan announcement:"
-msgstr "Anunciado de escaneado da &Biblioteca:"
-
-#. Translators: One of the library scan announcement settings.
-msgid "Start and end only"
-msgstr "Comezar e rematar só"
-
-#. Translators: One of the library scan announcement settings.
-msgid "Scan progress"
-msgstr "Progreso do escaneado"
-
-#. Translators: One of the library scan announcement settings.
-msgid "Scan count"
-msgstr "Escanear conta"
-
-#. Translators: the label for a setting in SPL add-on settings to toggle track dial mode on and off.
-msgid "&Track Dial mode"
-msgstr "Modo Dial da &Pista"
-
-#. Translators: the label for a setting in SPL add-on settings to be notified that metadata streaming is enabled.
-msgid "&Metadata streaming notification and connection"
-msgstr "Notificación e conexión dos &Metadatos de streaming"
-
-#. Translators: One of the metadata notification settings.
-msgid "When Studio starts"
-msgstr "Cando arranca Studio"
-
-#. Translators: One of the metadata notification settings.
-msgid "When instant switch profile is active"
-msgstr "Cando o perfil cambio instantáneo está activo"
-
-#. Translators: The label of a button to manage column announcements.
-msgid "Configure metadata &streaming connection options..."
-msgstr "Configurar opcións de metadatos de conexión de &streaming..."
-
-#. Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
-msgid "Announce columns in the &order shown on screen"
-msgstr "Anuncia columnas na &orde amosada na pantalla"
-
-#. Translators: The label of a button to manage column announcements.
-msgid "&Manage track column announcements..."
-msgstr "&Administrar anunciado de columna da pista..."
-
-#. Translators: the label for a setting in SPL add-on settings to announce scheduled time.
-msgid "Announce &scheduled time for the selected track"
-msgstr "Anunciar tempo &programado para a pista selecionada"
-
-#. Translators: the label for a setting in SPL add-on settings to announce listener count.
-msgid "Announce &listener count"
-msgstr "Anunciar reconto de &oíntes"
-
-#. Translators: the label for a setting in SPL add-on settings to announce currently playing cart.
-msgid "&Announce name of the currently playing cart"
-msgstr "&Anuncia o nome do cart pista que se está reproducindo."
-
-#. Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
-msgid "&Track name announcement:"
-msgstr "Anunciado do nome da &pista:"
-
-#. Translators: One of the track name announcement options.
-msgid "automatic"
-msgstr "automático"
-
-#. Translators: One of the track name announcement options.
-msgid "while using other programs"
-msgstr "mentres se usan outros programas"
-
-#. Translators: One of the track name announcement options.
-msgid "off"
-msgstr "desativado"
-
-#. Translators: The label of a button to open advanced options such as using SPL Controller command to invoke Assistant layer.
-msgid "&Advanced options..."
-msgstr "Opcións &Avanzadas..."
-
-#. Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
-msgid "Reset settings"
-msgstr "Reiniciar opcións"
-
-#. Translators: The label of a field to enter a new name for a broadcast profile.
-msgid "New name:"
-msgstr "Nome novo:"
-
-#. Translators: The title of the dialog to rename a profile.
-msgid "Rename Profile"
-msgstr "Renomear Perfil"
-
-#. Translators: An error displayed when renaming a configuration profile
-#. and a profile with the new name already exists.
-#. Translators: An error displayed when the user attempts to create a profile which already exists.
-msgid "That profile already exists. Please choose a different name."
-msgstr "Ese perfil xa existe. Por favor elige un nombre diferente."
-
-#. Translators: Message reported when attempting to delete a profile while a profile is triggered.
-msgid ""
-"An instant switch profile might be active. If so, please press SPL "
-"Assistant, F12 to switch back to a previously active profile before opening "
-"add-on settings to delete a profile."
+#. Translators: Presented when trying to switch to an instant switch profile when one is already using the instant switch profile.
+msgid "A profile trigger is already active"
 msgstr ""
-"Podería estar activo un perfil de cambio instantáneo. Se é así, por favor "
-"preme SPL Assistant, F12 para voltar a un perfil anteriormente activo antes "
-"de abrir as opcións do complemento para borrar un perfil."
-
-#. Translators: Title of a dialog shown when profile cannot be deleted.
-msgid "Profile delete error"
-msgstr "Erro de borrado de perfil"
-
-#. Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
-msgid "Are you sure you want to delete this profile? This cannot be undone."
-msgstr ""
-"¿Estás seguro de querer eliminar este perfil? Esto non se pode desfacer."
-
-#. Translators: The title of the confirmation dialog for deletion of a profile.
-msgid "Confirm Deletion"
-msgstr "Confirmar Eliminación"
-
-#. Translators: A message to warn about resetting SPL config settings to factory defaults.
-msgid "Are you sure you wish to reset SPL add-on settings to defaults?"
-msgstr ""
-"¿Estás seguro de querer reiniciar as opcións do complemento SPL ás "
-"predeterminadas?"
-
-#. Translators: The title of the warning dialog.
-msgid "Warning"
-msgstr "Precaución"
-
-#. Translators: Presented when an alarm dialog is opened.
-msgid "An alarm dialog is already opened. Please close the alarm dialog first."
-msgstr "Está aínda aberto un diálogo de alarma. Por favor péchao antes."
-
-#. Translators: The title of the dialog to create a new broadcast profile.
-msgid "New Profile"
-msgstr "Novo Perfil"
-
-#. Translators: The title of the dialog to copy a broadcast profile.
-msgid "Copy Profile"
-msgstr "Copiar Perfil"
-
-#. Translators: The label of a field to enter the name of a new broadcast profile.
-msgid "Profile name:"
-msgstr "Nome de Perfil:"
-
-#. Translators: The label for a setting in SPL add-on dialog to select a base  profile for copying.
-msgid "&Base profile:"
-msgstr "Perfil &Base:"
-
-msgid "Metadata streaming options"
-msgstr "Opcións de metadatos de streaming"
-
-#. First, a help text.
-msgid "Select the URL for metadata streaming upon request."
-msgstr "Selecionar a URL para metadatos de streaming baixo demanda."
-
-msgid "Check to enable metadata streaming, uncheck to disable."
-msgstr ""
-"Marca para habilitar os metadatos de streaming, desmarca para  "
-"deshabilitalos."
-
-msgid "Manage column announcements"
-msgstr "Administrar anunciado de columna"
-
-#. First, a help text.
-msgid ""
-"Select columns to be announced (artist and title are announced by default"
-msgstr ""
-"Seleciona as columnas a seren anunciadas (artista e título anúncianse "
-"predeterminadamente"
-
-#. Translators: The label for a setting in SPL add-on dialog to select column announcement order.
-msgid "Column &order:"
-msgstr "&orde de columna:"
-
-#. Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
-msgid "Move &up"
-msgstr "Mover &arriba"
-
-#. Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
-msgid "Move &down"
-msgstr "Mover a&baixo"
-
-msgid "Advanced options"
-msgstr "Opcións avanzadas"
-
-#. Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
-msgid "Allow SPL C&ontroller command to invoke SPL Assistant layer"
-msgstr "Permite á orde SPL C&ontroller chamar ó SPL Assistant layer"
-
-#. Translators: The label for a setting in SPL add-on dialog to control playlist remainder announcement command (SPL Assistant, D/R).
-msgid "Playlist &remainder announcement:"
-msgstr "Anunciado da lista de reprodución &restante:"
-
-#. Translators: One of the playlist remainder announcement options.
-msgid "current hour only"
-msgstr "só hora actual"
-
-#. Translators: One of the playlist remainder announcement options.
-msgid "entire playlist"
-msgstr "lista de reprodución enteira"
 
 #. Translators: Text of the dialog when another alarm dialog is open.
 msgid "Another alarm dialog is open."
 msgstr "Está aberto outro diálogo de alarma."
 
+#. Translators: Title of a dialog displayed when the add-on starts reminding broadcasters to disable audio ducking.
 msgid "SPL Studio and audio ducking"
 msgstr "SPL Studio e atenuación do audio"
 
@@ -1022,6 +878,9 @@ msgstr "Palabras"
 msgid "Braille timer off"
 msgstr "Temporizador braille apagado"
 
+msgid "Off"
+msgstr "desactivado"
+
 #. Translators: A setting in braille timer options.
 msgid "Braille track endings"
 msgstr "Terminacións braille de pista"
@@ -1054,13 +913,392 @@ msgstr "Non anunciar escaneados da biblioteca"
 msgid "Announce start and end of a library scan"
 msgstr "Anunciar o comezo e o remate dun escaneado da biblioteca"
 
+#. Translators: One of the library scan announcement settings.
+msgid "Start and end only"
+msgstr "Comezar e rematar só"
+
 #. Translators: A setting in library scan announcement options.
 msgid "Announce the progress of a library scan"
 msgstr "Anunciar o progreso dun escaneado da biblioteca"
 
+#. Translators: One of the library scan announcement settings.
+msgid "Scan progress"
+msgstr "Progreso do escaneado"
+
 #. Translators: A setting in library scan announcement options.
 msgid "Announce progress and item count of a library scan"
 msgstr "Anunciar o progreso e a conta de elementos dun escaneado da biblioteca"
+
+#. Translators: One of the library scan announcement settings.
+msgid "Scan count"
+msgstr "Escanear conta"
+
+#. Translators: This is the label for the StationPlaylist Studio configuration dialog.
+msgid "Studio Add-on Settings"
+msgstr "Opcións do complemento Studio"
+
+#. Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
+msgid "Broadcast &profile:"
+msgstr "&Perfil emisión:"
+
+#. Translators: The label of a button to create a new broadcast profile.
+msgid "&New"
+msgstr "&Novo"
+
+#. Translators: The label of a button to copy a broadcast profile.
+msgid "Cop&y"
+msgstr "Cop&iar"
+
+#. Translators: The label of a button to rename a broadcast profile.
+msgid "&Rename"
+msgstr "&Renomear"
+
+#. Translators: The label of a button to delete a broadcast profile.
+msgid "&Delete"
+msgstr "&Eliminar"
+
+#. Translators: The label of a button to manage show profile triggers.
+msgid "&Triggers..."
+msgstr ""
+
+#. Translators: The label for a setting in SPL Add-on settings to configure countdown seconds before switching profiles.
+msgid "Countdown seconds before switching profiles"
+msgstr ""
+
+#. Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
+msgid "&Beep for status announcements"
+msgstr "&Pitar para o anunciamento do estado"
+
+#. Translators: The label for a setting in SPL add-on dialog to set message verbosity.
+msgid "Message &verbosity:"
+msgstr "&verbosidade das mensaxes:"
+
+#. Translators: One of the message verbosity levels.
+msgid "beginner"
+msgstr "aprendiz"
+
+#. Translators: One of the message verbosity levels.
+msgid "advanced"
+msgstr "avanzado"
+
+#. Translators: The label for a setting in SPL Add-on settings to specify end of track (outro) alarm.
+msgid "&End of track alarm in seconds"
+msgstr "Alarma de &Remate da pista en segundos"
+
+#. Translators: The label for a setting in SPL Add-on settings to specify track intro alarm.
+msgid "&Track intro alarm in seconds"
+msgstr "Alarma de intro da &Pista en segundos"
+
+#. Translators: The label for a setting in SPL add-on dialog to control braille timer.
+msgid "&Braille timer:"
+msgstr "Temporizador &Braille:"
+
+#. Translators: One of the braille timer settings.
+msgid "Track ending"
+msgstr "Remate da pista"
+
+#. Translators: One of the braille timer settings.
+msgid "Track intro"
+msgstr "Intro da pista"
+
+#. Translators: One of the braille timer settings.
+msgid "Track intro and ending"
+msgstr "Intro e remate da pista"
+
+#. Translators: The label for a setting in SPL Add-on settings to change microphone alarm setting.
+msgid "&Microphone alarm in seconds"
+msgstr "Alarma do &Micrófono en segundos"
+
+#. Translators: The label for a setting in SPL Add-on settings to specify mic alarm interval.
+msgid "Microphone alarm &interval in seconds"
+msgstr "&Intervalo da alarma do &Micrófono en segundos"
+
+#. Translators: The label for a setting in SPL add-on dialog to control alarm announcement type.
+msgid "&Alarm notification:"
+msgstr "Notificación da &Alarma"
+
+#. Translators: One of the alarm notification options.
+msgid "beep"
+msgstr "pitido"
+
+#. Translators: One of the alarm notification options.
+msgid "message"
+msgstr "mensaxe"
+
+#. Translators: One of the alarm notification options.
+msgid "both beep and message"
+msgstr "pitido e mensaxe"
+
+#. Translators: The label for a setting in SPL add-on dialog to control library scan announcement.
+msgid "&Library scan announcement:"
+msgstr "Anunciado de escaneado da &Biblioteca:"
+
+#. Translators: the label for a setting in SPL add-on settings to announce time including hours.
+msgid "Include &hours when announcing track or playlist duration"
+msgstr ""
+
+#. Translators: the label for a setting in SPL add-on settings to toggle track dial mode on and off.
+msgid "&Track Dial mode"
+msgstr "Modo Dial da &Pista"
+
+#. Translators: the label for a setting in SPL add-on settings to toggle category sound announcement.
+msgid "&Beep for different track categories"
+msgstr ""
+
+#. Translators: the label for a setting in SPL add-on settings to be notified that metadata streaming is enabled.
+msgid "&Metadata streaming notification and connection"
+msgstr "Notificación e conexión dos &Metadatos de streaming"
+
+#. Translators: One of the metadata notification settings.
+msgid "When Studio starts"
+msgstr "Cando arranca Studio"
+
+#. Translators: One of the metadata notification settings.
+msgid "When instant switch profile is active"
+msgstr "Cando o perfil cambio instantáneo está activo"
+
+#. Translators: The label of a button to manage column announcements.
+msgid "Configure metadata &streaming connection options..."
+msgstr "Configurar opcións de metadatos de conexión de &streaming..."
+
+#. Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
+msgid "Announce columns in the &order shown on screen"
+msgstr "Anuncia columnas na &orde amosada na pantalla"
+
+#. Translators: The label of a button to manage column announcements.
+msgid "&Manage track column announcements..."
+msgstr "&Administrar anunciado de columna da pista..."
+
+#. Translators: The label of a button to configure columns explorer slots (SPL Assistant, number row keys to announce specific columns).
+#, fuzzy
+msgid "Columns E&xplorer..."
+msgstr "&orde de columna:"
+
+#. Translators: The label of a button to open advanced options such as using SPL Controller command to invoke Assistant layer.
+#, fuzzy
+msgid "&Status announcements..."
+msgstr "Anunciado de estado en pitidos"
+
+#. Translators: The label of a button to open advanced options such as using SPL Controller command to invoke Assistant layer.
+msgid "&Advanced options..."
+msgstr "Opcións &Avanzadas..."
+
+#. Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
+msgid "Reset settings"
+msgstr "Reiniciar opcións"
+
+#. Translators: The label of a field to enter a new name for a broadcast profile.
+msgid "New name:"
+msgstr "Nome novo:"
+
+#. Translators: The title of the dialog to rename a profile.
+msgid "Rename Profile"
+msgstr "Renomear Perfil"
+
+#. Translators: An error displayed when renaming a configuration profile
+#. and a profile with the new name already exists.
+#. Translators: An error displayed when the user attempts to create a profile which already exists.
+msgid "That profile already exists. Please choose a different name."
+msgstr "Ese perfil xa existe. Por favor elige un nombre diferente."
+
+#. Translators: Message reported when attempting to delete a profile while a profile is triggered.
+#, fuzzy
+msgid ""
+"An instant switch profile might be active or you are in the midst of a "
+"broadcast. If so, please press SPL Assistant, F12 to switch back to a "
+"previously active profile before opening add-on settings to delete a profile."
+msgstr ""
+"Podería estar activo un perfil de cambio instantáneo. Se é así, por favor "
+"preme SPL Assistant, F12 para voltar a un perfil anteriormente activo antes "
+"de abrir as opcións do complemento para borrar un perfil."
+
+#. Translators: Title of a dialog shown when profile cannot be deleted.
+msgid "Profile delete error"
+msgstr "Erro de borrado de perfil"
+
+#. Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
+msgid "Are you sure you want to delete this profile? This cannot be undone."
+msgstr ""
+"¿Estás seguro de querer eliminar este perfil? Esto non se pode desfacer."
+
+#. Translators: The title of the confirmation dialog for deletion of a profile.
+msgid "Confirm Deletion"
+msgstr "Confirmar Eliminación"
+
+#. Translators: A message to warn about resetting SPL config settings to factory defaults.
+msgid "Are you sure you wish to reset SPL add-on settings to defaults?"
+msgstr ""
+"¿Estás seguro de querer reiniciar as opcións do complemento SPL ás "
+"predeterminadas?"
+
+#. Translators: The title of the warning dialog.
+msgid "Warning"
+msgstr "Precaución"
+
+#. Translators: Presented when an alarm dialog is opened.
+#, fuzzy
+msgid ""
+"Another add-on settings dialog is open. Please close the previously opened "
+"dialog first."
+msgstr ""
+"O diálogo de opcións do complemento está aberto. Por favor péchao antes."
+
+#. Translators: The title of the dialog to create a new broadcast profile.
+msgid "New Profile"
+msgstr "Novo Perfil"
+
+#. Translators: The title of the dialog to copy a broadcast profile.
+msgid "Copy Profile"
+msgstr "Copiar Perfil"
+
+#. Translators: The label of a field to enter the name of a new broadcast profile.
+msgid "Profile name:"
+msgstr "Nome de Perfil:"
+
+#. Translators: The label for a setting in SPL add-on dialog to select a base  profile for copying.
+msgid "&Base profile:"
+msgstr "Perfil &Base:"
+
+#. Translators: The title of the broadcast profile triggers dialog.
+#, python-brace-format
+msgid "Profile triggers for {profileName}"
+msgstr ""
+
+#. Translators: The label of a checkbox to toggle if selected profile is an instant switch profile.
+#, fuzzy
+msgid "This is an &instant switch profile"
+msgstr "Cando o perfil cambio instantáneo está activo"
+
+#. Translators: The label of a checkbox to toggle if selected profile is a time-based profile.
+msgid "This is a &time-based switch profile"
+msgstr ""
+
+msgid "Day"
+msgstr ""
+
+msgid "Time"
+msgstr ""
+
+msgid "Hour"
+msgstr ""
+
+msgid "Minute"
+msgstr ""
+
+msgid "Duration in minutes"
+msgstr ""
+
+#. Translators: Presented if another profile occupies a time slot set by the user.
+#, fuzzy
+msgid ""
+"A profile trigger already exists for the entered time slot. Please choose a "
+"different date or time."
+msgstr "Ese perfil xa existe. Por favor elige un nombre diferente."
+
+#. Er, did you specify a date?
+msgid ""
+"The time-based profile checkbox is checked but no switch dates are given. "
+"Please either specify switch date(s) or uncheck time-based profile checkbox."
+msgstr ""
+
+#. Translators: Title of a dialog to configure metadata streaming status for DSP encoder and four additional URL's.
+msgid "Metadata streaming options"
+msgstr "Opcións de metadatos de streaming"
+
+msgid "Select the URL for metadata streaming upon request."
+msgstr "Selecionar a URL para metadatos de streaming baixo demanda."
+
+msgid "Check to enable metadata streaming, uncheck to disable."
+msgstr ""
+"Marca para habilitar os metadatos de streaming, desmarca para  "
+"deshabilitalos."
+
+#. Translators: A checkbox to let metadata streaming status be applied to the currently active broadcast profile.
+msgid "&Apply streaming changes to the selected profile"
+msgstr ""
+
+#. Translators: Title of a dialog to configure column announcements (order and what columns should be announced).
+msgid "Manage column announcements"
+msgstr "Administrar anunciado de columna"
+
+#. Translators: Help text to select columns to be announced.
+msgid ""
+"Select columns to be announced (artist and title are announced by default"
+msgstr ""
+"Seleciona as columnas a seren anunciadas (artista e título anúncianse "
+"predeterminadamente"
+
+#. Translators: The label for a setting in SPL add-on dialog to select column announcement order.
+msgid "Column &order:"
+msgstr "&orde de columna:"
+
+#. Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
+msgid "Move &up"
+msgstr "Mover &arriba"
+
+#. Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
+msgid "Move &down"
+msgstr "Mover a&baixo"
+
+#. Translators: The title of Columns Explorer configuration dialog.
+#, fuzzy
+msgid "Columns Explorer"
+msgstr "&orde de columna:"
+
+#. Translators: The label for a setting in SPL add-on dialog to select column for this column slot.
+#, python-brace-format
+msgid "Slot {position}"
+msgstr ""
+
+#. Translators: Title of a dialog to configure various status announcements such as announcing listener count.
+#, fuzzy
+msgid "Status announcements"
+msgstr "Anunciado de estado en pitidos"
+
+#. Translators: the label for a setting in SPL add-on settings to announce scheduled time.
+msgid "Announce &scheduled time for the selected track"
+msgstr "Anunciar tempo &programado para a pista selecionada"
+
+#. Translators: the label for a setting in SPL add-on settings to announce listener count.
+msgid "Announce &listener count"
+msgstr "Anunciar reconto de &oíntes"
+
+#. Translators: the label for a setting in SPL add-on settings to announce currently playing cart.
+msgid "&Announce name of the currently playing cart"
+msgstr "&Anuncia o nome do cart pista que se está reproducindo."
+
+#. Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
+msgid "&Track name announcement:"
+msgstr "Anunciado do nome da &pista:"
+
+#. Translators: One of the track name announcement options.
+msgid "automatic"
+msgstr "automático"
+
+#. Translators: One of the track name announcement options.
+msgid "while using other programs"
+msgstr "mentres se usan outros programas"
+
+#. Translators: One of the track name announcement options.
+msgid "off"
+msgstr "desativado"
+
+#. Translators: The title of a dialog to configure advanced SPL add-on options such as update checking.
+msgid "Advanced options"
+msgstr "Opcións avanzadas"
+
+#. Translators: A checkbox to toggle automatic add-on updates.
+msgid "Automatically check for add-on &updates"
+msgstr ""
+
+#. Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
+msgid "Allow SPL C&ontroller command to invoke SPL Assistant layer"
+msgstr "Permite á orde SPL C&ontroller chamar ó SPL Assistant layer"
+
+#. Translators: The label for a setting in SPL add-on dialog to set keyboard layout for SPL Assistant.
+#, fuzzy
+msgid "SPL Assistant command &layout:"
+msgstr "Axuda de SPL Assistant"
 
 #. Translators: Text of the dialog when another find dialog is open.
 msgid "Another find dialog is open."
@@ -1083,6 +1321,9 @@ msgstr "Buscador de rango de tempo"
 msgid "Minimum duration"
 msgstr "Duración mínima"
 
+msgid "Second"
+msgstr ""
+
 msgid "Maximum duration"
 msgstr "Duración máxima"
 
@@ -1097,6 +1338,70 @@ msgstr "Non hai pista con duración entre mínima e máxima duración."
 #. Translators: Standard error title for find error (copy this from main nvda.po).
 msgid "Time range find error"
 msgstr "Erro de buscador de rango de tempo"
+
+msgid "Countdown started"
+msgstr ""
+
+msgid "Timer complete"
+msgstr ""
+
+#. Translators: Status message for metadata streaming.
+msgid "No metadata streaming URL's defined"
+msgstr "Non se definiron URLs para os metadatos do streaming"
+
+#. Translators: Status message for metadata streaming.
+msgid "Metadata streaming configured for DSP encoder"
+msgstr "Os Metadatos do streaming configuráronse para o codificador DSP"
+
+#. Translators: Status message for metadata streaming.
+#, python-brace-format
+msgid "Metadata streaming configured for DSP encoder and URL {URL}"
+msgstr ""
+"Os metadatos do streaming configuráronse para o codificador DSP e a URL {URL}"
+
+#. Translators: Status message for metadata streaming.
+#, python-brace-format
+msgid "Metadata streaming configured for URL {URL}"
+msgstr "Os metadatos do streaming configuráronse para a URL {URL}"
+
+#. Translators: Status message for metadata streaming.
+#, python-brace-format
+msgid "Metadata streaming configured for DSP encoder and URL's {URL}"
+msgstr ""
+"Os metadatos do streaming configuráronse para o codificador DSP e a URL {URL}"
+
+#. Translators: Status message for metadata streaming.
+#, python-brace-format
+msgid "Metadata streaming configured for URL's {URL}"
+msgstr "Os metadatos do streaming configuráronse para a URL {URL}"
+
+#. Translators: Error text shown when add-on update check fails.
+msgid "Error checking for update."
+msgstr ""
+
+#. Translators: Title of the add-on update check dialog.
+msgid "Check for add-on update"
+msgstr ""
+
+#. No need to interact with the user.
+#. Translators: Text shown when update check fails for some odd reason.
+msgid "Add-on update check failed."
+msgstr ""
+
+#. Translators: Presented when no add-on update is available.
+msgid "No add-on update available."
+msgstr ""
+
+#. Translators: An error text shown when one is using a newer version of the add-on.
+msgid ""
+"You appear to be running a version newer than the latest released version. "
+"Please reinstall the official version to downgrade."
+msgstr ""
+
+#. Translators: Text shown if an add-on update is available.
+#, python-brace-format
+msgid "Studio add-on {newVersion} is available. Would you like to update?"
+msgstr ""
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
@@ -1191,6 +1496,38 @@ msgid "Number of encoders monitored: {numberOfEncoders}: {streamLabels}"
 msgstr ""
 "Número de codificadores monitorizados: {numberOfEncoders}: {streamLabels}"
 
+#. Translators: Text of the dialog when another alarm dialog is open.
+#, fuzzy
+msgid "Another encoder settings dialog is open."
+msgstr "Está aberto outro diálogo de procura."
+
+#. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
+#, python-brace-format
+msgid "Encoder settings for {name}"
+msgstr ""
+
+#. Translators: An edit field in encoder settings to set stream label for this encoder.
+msgid "Stream &label"
+msgstr ""
+
+#. Translators: A checkbox in encoder settings to set if NvDA should switch focus to Studio window when connected.
+#, fuzzy
+msgid "&Focus to Studio when connected"
+msgstr "Cambiar ó Studio tras se conectar"
+
+#. Translators: A checkbox in encoder settings to set if NvDA should play the next track when connected.
+#, fuzzy
+msgid "&Play first track when connected"
+msgstr "Reproducir primeira pista despois de conectar"
+
+#. Translators: A checkbox in encoder settings to set if NvDA should monitor the status of this encoder in the background.
+msgid "Enable background connection &monitoring"
+msgstr ""
+
+#. Translators: A checkbox in encoder settings to set if NvDA should play connection progress tone.
+msgid "Play connection status &beep while connecting"
+msgstr ""
+
 #. Translators: Status message for encoder monitoring.
 #, python-brace-format
 msgid "{encoder} {encoderNumber}: {status}"
@@ -1279,6 +1616,17 @@ msgstr ""
 "Abre un diálogo para borrar etiquetas de cadea e opcións dun codificador que "
 "foi eleminado."
 
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid ""
+"Shows encoder configuration dialog to configure various encoder settings "
+"such as stream label."
+msgstr ""
+
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on to be shown on installation and add-on information.
+msgid "Station Playlist Studio"
+msgstr "Station Playlist Studio"
+
 #. Translators: Input help mode message for report date and time command.
 msgid ""
 "If pressed once, reports the current time including seconds. If pressed "
@@ -1287,22 +1635,35 @@ msgstr ""
 "Se se premeu unha vez, anuncia a hora actual incluindo segundos. Se se "
 "premeu dúas veces, anuncia a data actual."
 
-#. Add-on summary, usually the user visible name of the addon.
-#. Translators: Summary for this add-on to be shown on installation and add-on information.
-msgid "Station Playlist Studio"
-msgstr "Station Playlist Studio"
+#, python-brace-format
+msgid "Position: {pos}"
+msgstr ""
 
-#. Translators: Presented when SAM Encoder is trying to connect to a streaming server.
-#. Translators: Presented when SAM Encoder is disconnecting from a streaming server.
+#, python-brace-format
+msgid "Label: {label}"
+msgstr ""
+
+msgid "No stream label"
+msgstr ""
+
+#. Translators: Presented when an Encoder is trying to connect to a streaming server.
 msgid "Connecting..."
 msgstr "Conectando..."
 
-#. Translators: Presented when SAM Encoder is disconnecting from a streaming server.
+#. Translators: Presented when an Encoder is disconnecting from a streaming server.
 msgid "Disconnecting..."
 msgstr "Desconectando..."
 
 msgid "Connects to a streaming server."
 msgstr "Conecta a un servidor de streaming."
+
+#, python-brace-format
+msgid "Encoder Settings: {setting}"
+msgstr ""
+
+#, python-brace-format
+msgid "Transfer Rate: {transferRate}"
+msgstr ""
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
@@ -1312,3 +1673,31 @@ msgid ""
 msgstr ""
 "Mellora o soporte para Station Playlist Studio.\n"
 "Ademáis, engade ordes globais para o estudio dende calquera parte."
+
+#~ msgid "Remaining time not available"
+#~ msgstr "Tempo restante non dispoñible"
+
+#~ msgid "Elapsed time not available"
+#~ msgstr "Tempo transcorrido non dispoñible"
+
+#~ msgid "Broadcaster time not available"
+#~ msgstr "Tempo de emisión non dispoñible"
+
+#~ msgid "Cannot obtain time in hours, minutes and seconds"
+#~ msgstr "Non se puido obter o tempo en horas, minutos e segundos"
+
+#~ msgid "Disable instant profile switching"
+#~ msgstr "Deshabilitar cambio de perfil instantáneo"
+
+#~ msgid ""
+#~ "An alarm dialog is already opened. Please close the alarm dialog first."
+#~ msgstr "Está aínda aberto un diálogo de alarma. Por favor péchao antes."
+
+#~ msgid "Playlist &remainder announcement:"
+#~ msgstr "Anunciado da lista de reprodución &restante:"
+
+#~ msgid "current hour only"
+#~ msgstr "só hora actual"
+
+#~ msgid "entire playlist"
+#~ msgstr "lista de reprodución enteira"
