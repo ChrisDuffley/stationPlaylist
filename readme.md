@@ -26,6 +26,7 @@ IMPORTANT: This add-on requires NVDA 2015.3 or later and StationPlaylist Studio 
 * Control+Alt+right/left arrow (while focused on a track): Announce next/previous track column.
 * Control+NVDA+0 from Studio window: Opens the Studio add-on configuration dialog.
 * Control+NVDA+- (hyphen) from Studio window: Send feedback to add-on developer using the default email client.
+* Alt+NVDA+F1: Open welcome dialog.
 
 ## Unassigned commands
 
@@ -170,6 +171,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 Version 8.0 supports SPL Studio 5.10 and later, with 7.x designed to provide some new features from 8.0 for users using earlier versions of Studio.
 
+* Added a welcome dialog that launches when Studio starts after installing the add-on. A command (Alt+NvDA+F1) has been added to reopen this dialog once dismissed.
 * Added a setting in add-on settings dialog to let NVDA notify you if you've reached top or bottom of playlist viewer.
 
 ## Changes for 7.0
