@@ -30,6 +30,7 @@ BeepAnnounce = boolean(default=false)
 MessageVerbosity = option("beginner", "advanced", default="beginner")
 BrailleTimer = option("off", "intro", "outro", "both", default="off")
 AlarmAnnounce = option("beep", "message", "both", default="beep")
+TrackCommentAnnounce = option("off", "beep", "message", "both", default="off")
 LibraryScanAnnounce = option("off", "ending", "progress", "numbers", default="off")
 TrackDial = boolean(default=false)
 CategorySounds = boolean(default=false)
@@ -126,6 +127,8 @@ _configErrors ={
 # The below init function is really a vehicle that traverses through config profiles in a loop.
 # Prompt the config error dialog only once.
 _configLoadStatus = {} # Key = filename, value is pass or no pass.
+# Track comments map.
+trackComments = {}
 
 def initConfig():
 	# 7.0: When add-on 7.0 starts for the first time, check if a conversion file exists.
@@ -139,7 +142,7 @@ def initConfig():
 		os.remove(SPLIni)
 		os.rename(os.path.join(globalVars.appArgs.configPath, "splstudio7.ini"), SPLIni)
 	# Load the default config from a list of profiles.
-	global SPLConfig, SPLConfigPool, _configLoadStatus, SPLActiveProfile, SPLSwitchProfile
+	global SPLConfig, SPLConfigPool, _configLoadStatus, SPLActiveProfile, SPLSwitchProfile, trackComments
 	if SPLConfigPool is None: SPLConfigPool = []
 	# Translators: The name of the default (normal) profile.
 	if SPLActiveProfile is None: SPLActiveProfile = _("Normal profile")
@@ -163,6 +166,12 @@ def initConfig():
 			_configLoadStatus[SPLConfigPool[0].name] = "noInstantProfile"
 		# 7.1: The config module knows the fate of the instant profile.
 		del SPLConfig["InstantProfile"]
+	# LTS: Load track comments if they exist.
+	# This must be a separate file (another pickle file).
+	try:
+		trackComments = cPickle.load(file(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"), "r"))
+	except IOError:
+		pass
 	if len(_configLoadStatus):
 		# Translators: Standard error title for configuration error.
 		title = _("Studio add-on Configuration error")
@@ -599,6 +608,8 @@ def saveConfig():
 	splupdate._SPLUpdateT = None
 	# Close profile triggers dictionary.
 	saveProfileTriggers()
+	# Dump track comments.
+	cPickle.dump(trackComments, file(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"), "wb"))
 	# Save update check state.
 	splupdate.terminate()
 	# Save profile-specific settings to appropriate dictionary if this is the case.

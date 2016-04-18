@@ -138,7 +138,6 @@ class SPLTrackItem(IAccessible):
 	def reportFocus(self):
 		# 7.0: Cache column header data structures if meeting track items for the first time.
 		# It is better to do it while reporting focus, otherwise Python throws recursion limit exceeded error when initOverlayClass does this.
-		# Cache header column.
 		if self.appModule._columnHeaders is None:
 			self.appModule._columnHeaders = self.parent.children[-1]
 		# 7.0: Also cache column header names to improve performance (may need to check for header repositioning later).
@@ -148,6 +147,9 @@ class SPLTrackItem(IAccessible):
 			category = self._getColumnContent(self._indexOf("Category"))
 			if category in _SPLCategoryTones:
 				tones.beep(_SPLCategoryTones[category], 50)
+		# LTS: Comments please.
+		if splconfig.SPLConfig["General"]["TrackCommentAnnounce"] != "off":
+			self.announceTrackComment(0)
 		# 6.3: Catch an unusual case where screen order is off yet column order is same as screen order and NvDA is told to announce all columns.
 		if splconfig._shouldBuildDescriptionPieces():
 			descriptionPieces = []
@@ -266,12 +268,37 @@ class SPLTrackItem(IAccessible):
 		if self.IAccessibleChildID == 1 and splconfig.SPLConfig["General"]["TopBottomAnnounce"]:
 			tones.beep(2000, 100)
 
+	# Track comments.
+
+	# Track comment announcer.
+	# Levels indicate what should be done.
+	# 0 indicates reportFocus, subsequent levels indicate script repeat count+1.
+	def announceTrackComment(self, level):
+		filename = self._getColumnContent(self._indexOf("Filename"))
+		if filename in splconfig.trackComments:
+			if level == 0:
+				if splconfig.SPLConfig["General"]["TrackCommentAnnounce"] in ("message", "both"):
+					ui.message(_("Has comment"))
+				if splconfig.SPLConfig["General"]["TrackCommentAnnounce"] in ("message", "both"):
+					tones.beep(512, 500)
+			elif level == 1:
+				ui.message(splconfig.trackComments[filename])
+			elif level == 2:
+				api.copyToClip(splconfig.trackComments[filename])
+		else:
+			if level in (1, 2):
+				ui.message(_("No comment"))
+
+	def script_announceTrackComment(self, gesture):
+		self.announceTrackComment(scriptHandler.getLastScriptRepeatCount()+1)
+
 	__gestures={
 		"kb:control+alt+rightArrow":"nextColumn",
 		"kb:control+alt+leftArrow":"prevColumn",
 		#"kb:control+`":"toggleTrackDial",
 		"kb:downArrow":"nextTrack",
 		"kb:upArrow":"prevTrack",
+		"kb:Alt+NVDA+C":"announceTrackComment"
 	}
 
 class SPL510TrackItem(SPLTrackItem):
