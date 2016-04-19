@@ -279,15 +279,34 @@ class SPLTrackItem(IAccessible):
 			if level == 0:
 				if splconfig.SPLConfig["General"]["TrackCommentAnnounce"] in ("message", "both"):
 					ui.message(_("Has comment"))
-				if splconfig.SPLConfig["General"]["TrackCommentAnnounce"] in ("message", "both"):
-					tones.beep(512, 500)
+				if splconfig.SPLConfig["General"]["TrackCommentAnnounce"] in ("beep", "both"):
+					tones.beep(1024, 100)
 			elif level == 1:
 				ui.message(splconfig.trackComments[filename])
 			elif level == 2:
 				api.copyToClip(splconfig.trackComments[filename])
+				# Translators: Presented when track comment has been copied to clipboard.
+				ui.message(_("Track comment copied to clipboard"))
+			else:
+				self._trackCommentsEntry(filename, splconfig.trackComments[filename])
 		else:
 			if level in (1, 2):
 				ui.message(_("No comment"))
+			elif level == 3:
+				self._trackCommentsEntry(filename, "")
+
+	# A proxy function to call the track comments entry dialog.
+	def _trackCommentsEntry(self, filename, comment):
+		dlg = wx.TextEntryDialog(gui.mainFrame,
+		_("Track comment"),
+		# Translators: The title of the track comments dialog.
+		_("Track comment"), defaultValue=comment)
+		def callback(result):
+			if result == wx.ID_OK:
+				if dlg.GetValue() is None: return
+				elif dlg.GetValue() == "": del splconfig.trackComments[filename]
+				else: splconfig.trackComments[filename] = dlg.GetValue()
+		gui.runScriptModalDialog(dlg, callback)
 
 	def script_announceTrackComment(self, gesture):
 		self.announceTrackComment(scriptHandler.getLastScriptRepeatCount()+1)
