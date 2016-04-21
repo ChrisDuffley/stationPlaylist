@@ -275,7 +275,7 @@ class SPLTrackItem(IAccessible):
 	# 0 indicates reportFocus, subsequent levels indicate script repeat count+1.
 	def announceTrackComment(self, level):
 		filename = self._getColumnContent(self._indexOf("Filename"))
-		if filename in splconfig.trackComments:
+		if filename is not None and filename in splconfig.trackComments:
 			if level == 0:
 				if splconfig.SPLConfig["General"]["TrackCommentAnnounce"] in ("message", "both"):
 					ui.message(_("Has comment"))
@@ -291,9 +291,14 @@ class SPLTrackItem(IAccessible):
 				self._trackCommentsEntry(filename, splconfig.trackComments[filename])
 		else:
 			if level in (1, 2):
+				# Translators: Presented when there is no track comment for the focused track.
 				ui.message(_("No comment"))
-			elif level == 3:
-				self._trackCommentsEntry(filename, "")
+			elif level >= 3:
+				if filename is not None:
+					self._trackCommentsEntry(filename, "")
+				else:
+					# Translators: Presented when focused on a track other than an actual track (such as hour marker).
+					ui.message(_("Comments cannot be added to this kind of track"))
 
 	# A proxy function to call the track comments entry dialog.
 	def _trackCommentsEntry(self, filename, comment):
