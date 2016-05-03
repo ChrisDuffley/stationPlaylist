@@ -24,6 +24,7 @@ IMPORTANT: This add-on requires NVDA 2015.3 or later and StationPlaylist Studio 
 * Alt+NVDA+R from Studio window: Steps through library scan announcement settings.
 * Control+Shift+X from Studio window: Steps through braille timer settings.
 * Control+Alt+right/left arrow (while focused on a track): Announce next/previous track column.
+* Alt+NVDA+C while focused on a track: announces track comments if any.
 * Control+NVDA+0 from Studio window: Opens the Studio add-on configuration dialog.
 * Control+NVDA+- (hyphen) from Studio window: Send feedback to add-on developer using the default email client.
 * Alt+NVDA+F1: Open welcome dialog.
@@ -173,6 +174,8 @@ Version 8.0 supports SPL Studio 5.10 and later, with 7.x designed to provide som
 
 * Added a welcome dialog that launches when Studio starts after installing the add-on. A command (Alt+NvDA+F1) has been added to reopen this dialog once dismissed.
 * Added a setting in add-on settings dialog to let NVDA notify you if you've reached top or bottom of playlist viewer.
+* You can now add, view, change or delete track comments (notes). Press Alt+NVDA+C from a track in the playlist viewer to hear track comments if defined, press twice to copy comment to clipboard or three times to open a dialog to edit comments.
+* Added ability to notify if a track comment exists, as well as a setting in add-on settings to control how this should be done.
 
 ## Changes for 7.1
 
