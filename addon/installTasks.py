@@ -74,12 +74,15 @@ def config6to7(path):
 		profile7 = ConfigObj(SPLIni7)
 		for key in profile:
 			profile7[key] = profile[key]
-		# 7.0 only: Change track name announcement value, to be removed in add-on 7.1.
-		sayPlayingTrackName = profile["SayPlayingTrackName"]
-		if sayPlayingTrackName == "True": sayPlayingTrackName = "auto"
-		elif sayPlayingTrackName == "Background": sayPlayingTrackName = "background"
-		elif sayPlayingTrackName == "False": sayPlayingTrackName = "off"
-		profile7["SayStatus"]["SayPlayingTrackName"] = sayPlayingTrackName
+		# 7.0 only: Change track name announcement value, to be removed in add-on 7.2.
+		# 7.1: Track name announcement was never part of 5.x.
+		if "SayPlayingTrackName" in profile:
+			sayPlayingTrackName = profile["SayPlayingTrackName"]
+			if sayPlayingTrackName == "True": sayPlayingTrackName = "auto"
+			elif sayPlayingTrackName == "Background": sayPlayingTrackName = "background"
+			elif sayPlayingTrackName == "False": sayPlayingTrackName = "off"
+			profile7["SayStatus"]["SayPlayingTrackName"] = sayPlayingTrackName
+		else: profile7["SayStatus"]["SayPlayingTrackName"] = "auto"
 		profile7.write()
 	else: profile.write()
 
