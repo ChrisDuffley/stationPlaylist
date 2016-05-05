@@ -249,6 +249,27 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.categorySoundsCheckbox.SetValue(splconfig.SPLConfig["General"]["CategorySounds"])
 		settingsSizer.Add(self.categorySoundsCheckbox, border=10,flag=wx.BOTTOM)
 
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: the label for a setting in SPL add-on settings to set how track comments are announced.
+		label = wx.StaticText(self, wx.ID_ANY, label=_("&Track comment announcement:"))
+		self.trackCommentValues=[("off",_("Off")),
+		# Translators: One of the track comment notification settings.
+		("message",_("Message")),
+		# Translators: One of the track comment notification settings.
+		("beep",_("Beep")),
+		# Translators: One of the track comment notification settings.
+		("both",_("Both"))]
+		self.trackCommentList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.trackCommentValues])
+		trackCommentCurValue=splconfig.SPLConfig["General"]["TrackCommentAnnounce"]
+		selection = (x for x,y in enumerate(self.trackCommentValues) if y[0]==trackCommentCurValue).next()  
+		try:
+			self.trackCommentList.SetSelection(selection)
+		except:
+			pass
+		sizer.Add(label)
+		sizer.Add(self.trackCommentList)
+		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
 		# Translators: the label for a setting in SPL add-on settings to toggle top and bottom notification.
 		self.topBottomCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Notify when located at &top or bottom of playlist viewer"))
 		self.topBottomCheckbox.SetValue(splconfig.SPLConfig["General"]["TopBottomAnnounce"])
@@ -342,6 +363,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		splconfig.SPLConfig["General"]["TimeHourAnnounce"] = self.hourAnnounceCheckbox.Value
 		splconfig.SPLConfig["General"]["TrackDial"] = self.trackDialCheckbox.Value
 		splconfig.SPLConfig["General"]["CategorySounds"] = self.categorySoundsCheckbox.Value
+		splconfig.SPLConfig["General"]["TrackCommentAnnounce"] = self.trackCommentValues[self.trackCommentList.GetSelection()][0]
 		splconfig.SPLConfig["General"]["TopBottomAnnounce"] = self.topBottomCheckbox.Value
 		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
 		splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = self.metadataStreams
