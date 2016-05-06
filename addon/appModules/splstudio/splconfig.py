@@ -126,16 +126,6 @@ _configErrors ={
 _configLoadStatus = {} # Key = filename, value is pass or no pass.
 
 def initConfig():
-	# 7.0: When add-on 7.0 starts for the first time, check if a conversion file exists.
-	# To be removed in add-on 7.2.
-	curInstantProfile = ""
-	if os.path.isfile(os.path.join(globalVars.appArgs.configPath, "splstudio7.ini")):
-		# Save add-on update related keys and instant profile signature from death.
-		# Necessary since the old-style config file contains newer information about update package size, last installed date and records instant profile name.
-		tempConfig = ConfigObj(SPLIni)
-		if "InstantProfile" in tempConfig: curInstantProfile = tempConfig["InstantProfile"]
-		os.remove(SPLIni)
-		os.rename(os.path.join(globalVars.appArgs.configPath, "splstudio7.ini"), SPLIni)
 	# Load the default config from a list of profiles.
 	global SPLConfig, SPLConfigPool, _configLoadStatus, SPLActiveProfile, SPLSwitchProfile
 	if SPLConfigPool is None: SPLConfigPool = []
@@ -152,7 +142,6 @@ def initConfig():
 	# This opens up many possibilities, including config caching, loading specific sections only and others (the latter saves memory).
 	SPLConfig = dict(SPLConfigPool[0])
 	SPLConfig["ActiveIndex"] = 0 # Holds settings from normal profile.
-	if curInstantProfile != "": SPLConfig["InstantProfile"] = curInstantProfile
 	# Locate instant profile.
 	if "InstantProfile" in SPLConfig:
 		try:
@@ -205,16 +194,6 @@ def unlockConfig(path, profileName=None, prefill=False):
 		open(path, "w").close()
 		SPLConfigCheckpoint = ConfigObj(path, configspec = confspec7 if prefill else confspecprofiles, encoding="UTF-8")
 		_configLoadStatus[profileName] = "fileReset"
-	# 7.0 only: If 6.x value for track title announcement is found, inform the cache that the profile must be saved.
-	oldValueFound = False
-	# 7.0: Change values if and only if this is an upgrade.
-	if path == SPLIni and "SayStatus" in SPLConfigCheckpoint and SPLConfigCheckpoint["SayStatus"]["SayPlayingTrackName"] in ("True", "Background", "False"):
-		oldValueFound = True
-		sayPlayingTrackName = SPLConfigCheckpoint["SayStatus"]["SayPlayingTrackName"]
-		if sayPlayingTrackName == "True": sayPlayingTrackName = "auto"
-		elif sayPlayingTrackName == "Background": sayPlayingTrackName = "background"
-		elif sayPlayingTrackName == "False": sayPlayingTrackName = "off"
-		SPLConfigCheckpoint["SayStatus"]["SayPlayingTrackName"] = sayPlayingTrackName
 	# 5.2 and later: check to make sure all values are correct.
 	# 7.0: Make sure errors are displayed as config keys are now sections and may need to go through subkeys.
 	configTest = SPLConfigCheckpoint.validate(_val, copy=prefill, preserve_errors=True)
@@ -241,9 +220,6 @@ def unlockConfig(path, profileName=None, prefill=False):
 	# 7.0 optimization: Store an online backup.
 	# This online backup is used to prolong SSD life (no need to save a config if it is same as this copy).
 	_cacheConfig(SPLConfigCheckpoint)
-	if path == SPLIni and oldValueFound:
-		# 7.0 only: Let the cache carry old value flag.
-		_SPLCache[None]["___60value___"] = True
 	return SPLConfigCheckpoint
 
 # Extra initialization steps such as converting value types.
@@ -541,8 +517,6 @@ def _preSave(conf):
 				del conf["InstantProfile"]
 			except KeyError:
 				pass
-		# Todo for 7.2: Remove obsolete keys from normal profile (not runtime config yet).
-		# Del PlaylistRemainder.
 	# For other profiles, remove global settings before writing to disk.
 	else:
 		# 6.1: Make sure column inclusion aren't same as default values.
@@ -564,12 +538,6 @@ def shouldSave(profile):
 	tree = None if profile.filename == SPLIni else profile.name
 	# One downside of caching: new profiles are not recognized as such.
 	if "___new___" in _SPLCache[tree]: return True
-	# 7.0 only: Don't leave 6.x values around.
-	if "___60value___" in _SPLCache[tree]: return True
-	# Playlist Remainder, be gone!
-	if "Advanced" in profile and "PlaylistRemainder" in profile["Advanced"]:
-		del profile["Advanced"]["PlaylistRemainder"]
-		return True
 	for section in profile.keys():
 		if isinstance(profile[section], dict):
 			for key in profile[section]:
@@ -603,17 +571,6 @@ def saveConfig():
 	_preSave(SPLConfigPool[0])
 	# Global flags, be gone.
 	del SPLConfig["ColumnExpRange"]
-	# Convert keys back to 5.x format.
-	for section in SPLConfigPool[0].keys():
-		if isinstance(SPLConfigPool[0][section], dict):
-			for key in SPLConfigPool[0][section]:
-				SPLConfigPool[0][key] = SPLConfigPool[0][section][key]
-	# 7.0 only: Return to 6.x value.
-	sayPlayingTrackName = SPLConfigPool[0]["SayPlayingTrackName"]
-	if sayPlayingTrackName == "auto": sayPlayingTrackName = "True"
-	elif sayPlayingTrackName == "background": sayPlayingTrackName = "Background"
-	elif sayPlayingTrackName == "off": sayPlayingTrackName = "False"
-	SPLConfigPool[0]["SayPlayingTrackName"] = sayPlayingTrackName
 	# Disk write optimization check please.
 	if shouldSave(SPLConfigPool[0]):
 		SPLConfigPool[0].write()
@@ -626,13 +583,6 @@ def saveConfig():
 			# This must be done now, otherwise changes to broadcast profiles (cached) will not be saved as presave removes them.
 			if shouldSave(configuration):
 				_preSave(configuration)
-				# 7.0: Convert profile-specific settings back to 5.x format in case add-on 6.x will be installed later (not recommended).
-				# This will be removed in add-on 7.2.
-				if len(configuration) > 0:
-					for section in configuration.keys():
-						if isinstance(configuration[section], dict):
-							for key in configuration[section]:
-								configuration[key] = configuration[section][key]
 				configuration.write()
 	SPLConfig.clear()
 	SPLConfig = None
