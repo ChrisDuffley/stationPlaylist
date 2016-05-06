@@ -315,6 +315,8 @@ class SPLTrackItem(IAccessible):
 
 	def script_announceTrackComment(self, gesture):
 		self.announceTrackComment(scriptHandler.getLastScriptRepeatCount()+1)
+	# Translators: Input help message for track comment announcemnet command in SPL Studio.
+	script_announceTrackComment.__doc__ = _("Announces track comment if any. Press twice to copy this information to the clipboard, and press three times to open a dialog to add, change or remove track comments")
 
 	__gestures={
 		"kb:control+alt+rightArrow":"nextColumn",
