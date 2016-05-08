@@ -281,22 +281,16 @@ def _cacheConfig(conf):
 	key = None if conf.filename == SPLIni else conf.name
 	_SPLCache[key] = {}
 	# Take care of global flags in caching normal profile.
-	if "PSZ" in conf:
-		_SPLCache[key]["___oldupdatekeys___"] = True
-		splupdate.SPLAddonSize = hex(int(conf["PSZ"], 16))
-		try: del conf["PSZ"]
-		except KeyError: pass
-	if "PDT" in conf:
-		_SPLCache[key]["___oldupdatekeys___"] = True
-		splupdate.SPLAddonCheck = float(conf["PDT"])
-		try: del conf["PDT"]
-		except KeyError: pass
+	# 7.2: If there are any old keys, tell the add-on this config must be saved.
+	pre70count = 0
 	for setting in conf.keys():
 		if isinstance(conf[setting], dict): _SPLCache[key][setting] = dict(conf[setting])
 		else:
-			_SPLCache[key][setting] = conf[setting]
-			# Optimization: free 5.0-style config keys while the app module is running, to be removed permanently in add-on 7.2.
-			if setting != "InstantProfile": del conf[setting]
+			# 7.2: Remove old-style config, also prevent these keys from being cached and tell config routine these must be gone when saving.
+			if setting != "InstantProfile":
+				del conf[setting]
+				pre70count+=1
+	if pre70count: _SPLCache[key]["___pre70keys___"] = True
 	# Column inclusion only.
 	_SPLCache[key]["ColumnAnnouncement"]["IncludedColumns"] = list(conf["ColumnAnnouncement"]["IncludedColumns"])
 
@@ -558,7 +552,10 @@ def _preSave(conf):
 def shouldSave(profile):
 	tree = None if profile.filename == SPLIni else profile.name
 	# One downside of caching: new profiles are not recognized as such.
-	if "___new___" in _SPLCache[tree]: return True
+	# 7.2 only: Also save if pre-7.0 keys were found.
+	# 8.0: Streamline the whole process by comparing values alone instead of walking the entire dictionary.
+	# The old loop will be kept in 7.x/LTS for compatibility and to reduce risks associated with accidental saving/discard.
+	if "___new___" in _SPLCache[tree] or "___pre70keys___" in _SPLCache[tree]: return True
 	for section in profile.keys():
 		if isinstance(profile[section], dict):
 			for key in profile[section]:
