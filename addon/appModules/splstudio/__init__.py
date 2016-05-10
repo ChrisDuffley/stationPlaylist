@@ -128,7 +128,7 @@ class SPLTrackItem(IAccessible):
 	# Read selected columns.
 	# But first, find where the requested column lives.
 	# 8.0: Make this a public function.
-	def _indexOf(self, columnHeader):
+	def indexOf(self, columnHeader):
 		# Handle both 5.0x and 5.10 column headers.
 		try:
 			return self._origIndexOf(columnHeader)
@@ -144,7 +144,7 @@ class SPLTrackItem(IAccessible):
 		if self.appModule._columnHeaderNames is None:
 			self.appModule._columnHeaderNames = [header.name for header in self.appModule._columnHeaders.children]
 		if splconfig.SPLConfig["General"]["CategorySounds"]:
-			category = self._getColumnContent(self._indexOf("Category"))
+			category = self._getColumnContent(self.indexOf("Category"))
 			if category in _SPLCategoryTones:
 				tones.beep(_SPLCategoryTones[category], 50)
 		# LTS: Comments please.
@@ -158,7 +158,7 @@ class SPLTrackItem(IAccessible):
 				if header == "Artist" and self.appModule.productVersion.startswith("5.0"):
 					continue
 				if header in splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"]:
-					index = self._indexOf(header)
+					index = self.indexOf(header)
 					if index is None: continue # Header not found, mostly encountered in Studio 5.0x.
 					content = self._getColumnContent(index)
 					if content:
@@ -226,7 +226,7 @@ class SPLTrackItem(IAccessible):
 	# 7.0: Add an optional header in order to announce correct header information in columns explorer.
 	def announceColumnContent(self, colNumber, header=None):
 		columnHeader = header if header is not None else self.appModule._columnHeaderNames[colNumber]
-		columnContent = self._getColumnContent(self._indexOf(columnHeader))
+		columnContent = self._getColumnContent(self.indexOf(columnHeader))
 		if columnContent:
 			# Translators: Standard message for announcing column content.
 			ui.message(unicode(_("{header}: {content}")).format(header = columnHeader, content = columnContent))
@@ -274,7 +274,7 @@ class SPLTrackItem(IAccessible):
 	# Levels indicate what should be done.
 	# 0 indicates reportFocus, subsequent levels indicate script repeat count+1.
 	def announceTrackComment(self, level):
-		filename = self._getColumnContent(self._indexOf("Filename"))
+		filename = self._getColumnContent(self.indexOf("Filename"))
 		if filename is not None and filename in splconfig.trackComments:
 			if level == 0:
 				if splconfig.SPLConfig["General"]["TrackCommentAnnounce"] in ("message", "both"):
@@ -982,7 +982,7 @@ class AppModule(appModuleHandler.AppModule):
 	def trackFinder(self, text, obj, directionForward=True, column=None):
 		speech.cancelSpeech()
 		if column is None: 
-			column = [obj._indexOf("Artist"), obj._indexOf("Title")]
+			column = [obj.indexOf("Artist"), obj.indexOf("Title")]
 		track = self._trackLocator(text, obj=obj, directionForward=directionForward, columns=column)
 		if track:
 			if self.findText != text: self.findText = text
@@ -1261,7 +1261,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Track argument is None (only useful for debugging purposes).
 	def isPlaceMarkerTrack(self, track=None):
 		if track is None: track = api.getFocusObject()
-		index = track._indexOf("Filename")
+		index = track.indexOf("Filename")
 		filename = track._getColumnContent(index)
 		if self.placeMarker == (index, filename):
 			return True
@@ -1526,7 +1526,7 @@ class AppModule(appModuleHandler.AppModule):
 		if obj.role == controlTypes.ROLE_LIST:
 			ui.message("00:00")
 			return
-		col = obj._indexOf("Duration")
+		col = obj.indexOf("Duration")
 		totalDuration = 0
 		while obj is not None:
 			segue = obj._getColumnContent(col)
@@ -1677,7 +1677,7 @@ class AppModule(appModuleHandler.AppModule):
 	def script_setPlaceMarker(self, gesture):
 		obj = api.getFocusObject()
 		try:
-			index = obj._indexOf("Filename")
+			index = obj.indexOf("Filename")
 		except AttributeError:
 			# Translators: Presented when place marker cannot be set.
 			ui.message(_("No tracks found, cannot set place marker"))
@@ -1738,7 +1738,7 @@ class AppModule(appModuleHandler.AppModule):
 				ui.message(_("Not a track"))
 			else:
 				header = splconfig.SPLConfig["General"]["ExploreColumns"][columnPos]
-				column = focus._indexOf(header)
+				column = focus.indexOf(header)
 				if column is not None:
 					focus.announceColumnContent(column, header=header)
 				else:
