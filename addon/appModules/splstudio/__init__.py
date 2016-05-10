@@ -1823,6 +1823,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:control+shift+r":"startScanFromInsertTracks",
 		"kb:control+shift+x":"setBrailleTimer",
 		"kb:control+NVDA+0":"openConfigDialog",
+		"kb:alt+NVDA+0":"openConfigDialog",
 		"kb:Shift+delete":"deleteTrack",
 		"kb:Shift+numpadDelete":"deleteTrack",
 		"kb:escape":"escape",
