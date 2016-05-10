@@ -20,8 +20,6 @@ import globalVars
 _addonDir = os.path.join(os.path.dirname(__file__), "..", "..")
 # Move this to the main app module in case version will be queried by users.
 SPLAddonVersion = addonHandler.Addon(_addonDir).manifest['version']
-# Cache the file size for the last downloaded SPL add-on installer (stored in hexadecimal for security).
-SPLAddonSize = "0x0"
 # The Unix time stamp for add-on check time.
 SPLAddonCheck = 0
 # Update metadata storage.
@@ -43,17 +41,16 @@ def initialize():
 	try:
 		SPLAddonState = cPickle.load(file(_updatePickle, "r"))
 		SPLAddonCheck = SPLAddonState["PDT"]
-		SPLAddonSize = SPLAddonState["PSZ"]
+		if "PSZ" in SPLAddonState: del SPLAddonState["PSZ"]
+		if "PCH" in SPLAddonState: del SPLAddonState["PCH"]
 	except IOError:
 		SPLAddonState["PDT"] = 0
-		SPLAddonState["PSZ"] = 0x0
 
 def terminate():
 	global SPLAddonState
 	# Store new values if it is absolutely required.
-	stateChanged = SPLAddonState["PSZ"] != SPLAddonSize or SPLAddonState["PDT"] != SPLAddonCheck
+	stateChanged = SPLAddonState["PDT"] != SPLAddonCheck
 	if stateChanged:
-		SPLAddonState["PSZ"] = SPLAddonSize
 		SPLAddonState["PDT"] = SPLAddonCheck
 		cPickle.dump(SPLAddonState, file(_updatePickle, "wb"))
 	SPLAddonState = None
