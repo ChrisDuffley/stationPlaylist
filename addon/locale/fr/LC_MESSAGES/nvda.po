@@ -770,6 +770,11 @@ msgstr "Métadonnées en streaming sur l'encodeur DSP désactivé"
 msgid "Not a track"
 msgstr "Pas dans la liste des pistes"
 
+#. Translators: Presented when a specific column header is not found.
+#, fuzzy, python-brace-format
+msgid "{headerText} not found"
+msgstr "{header}: {content}"
+
 #. Translators: The title for SPL Assistant help dialog.
 msgid "SPL Assistant help"
 msgstr "Aide Assistant SPL"
@@ -800,6 +805,16 @@ msgstr "Profil normal"
 #. Translators: Standard error title for configuration error.
 msgid "Studio add-on Configuration error"
 msgstr "Erreur de Configuration du module complémentaire Studio"
+
+#. Translators: Message displayed if errors were found in encoder configuration file.
+msgid ""
+"Your encoder settings had errors and were reset to defaults. If you have "
+"stream labels configured for various encoders, please add them again."
+msgstr ""
+
+#. Translators: Title of the encoder settings error dialog.
+msgid "Encoder settings error"
+msgstr ""
 
 #. Translators: Message presented indicating missing time-based profiles.
 #, python-brace-format
