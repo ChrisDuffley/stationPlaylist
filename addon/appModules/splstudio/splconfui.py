@@ -655,19 +655,27 @@ class SPLConfigDialog(gui.SettingsDialog):
 		_("Warning"),wx.YES_NO|wx.NO_DEFAULT|wx.ICON_WARNING,self
 		)!=wx.YES:
 			return
+		import threading, sys, globalVars
 		# Reset all profiles.
+		# LTS: Only a priveleged thread should do this, otherwise unexpected things may happen.
 		# Save some flags from death.
-		global _configDialogOpened
-		colRange = splconfig.SPLConfig["ColumnExpRange"]
-		splconfig.resetAllConfig()
-		splconfig.SPLConfig = dict(splconfig._SPLDefaults7)
-		splconfig.SPLConfig["ActiveIndex"] = 0
-		splconfig.SPLActiveProfile = splconfig.SPLConfigPool[0].name
-		splconfig.SPLConfig["ColumnExpRange"] = colRange
-		if splconfig.SPLSwitchProfile is not None:
-			splconfig.SPLSwitchProfile = None
-		splconfig.SPLPrevProfile = None
-		_configDialogOpened = False
+		with threading.Lock() as resetting:
+			global _configDialogOpened
+			colRange = splconfig.SPLConfig["ColumnExpRange"]
+			splconfig.resetAllConfig()
+			splconfig.SPLConfig = dict(splconfig._SPLDefaults7)
+			splconfig.SPLConfig["ActiveIndex"] = 0
+			splconfig.SPLActiveProfile = splconfig.SPLConfigPool[0].name
+			splconfig.SPLConfig["ColumnExpRange"] = colRange
+			if splconfig.SPLSwitchProfile is not None:
+				splconfig.SPLSwitchProfile = None
+			splconfig.SPLPrevProfile = None
+			if os.path.exists(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini")):
+				os.remove(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
+			if "globalPlugins.SPLStudioUtils.encoders" in sys.modules:
+				import globalPlugins.SPLStudioUtils.encoders
+				globalPlugins.SPLStudioUtils.encoders.cleanup()
+			_configDialogOpened = False
 		self.Destroy()
 
 
