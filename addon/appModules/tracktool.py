@@ -110,6 +110,8 @@ class TrackToolItem(IAccessible):
 
 	__gestures={
 		#"kb:control+`":"toggleTrackDial",
+		"kb:control+alt+rightArrow":"nextColumn",
+		"kb:control+alt+leftArrow":"prevColumn",
 	}
 
 

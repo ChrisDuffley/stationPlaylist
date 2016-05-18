@@ -16,16 +16,16 @@ IMPORTANT: This add-on requires NVDA 2015.3 or later and StationPlaylist Studio 
 * Control+Alt+T (two finger flick down in SPL touch mode) from Studio window: announce remaining time for the currently playing trakc.
 * NVDA+Shift+F12 (two finger flick up in SPL touch mode) from Studio window: announces broadcaster time such as 5 minutes to top of the hour.
 * Control+NVDA+1 from Studio window: toggles announcement of status messages (such as automation and end of library scan) between words and beeps.
-* Control+NVDA+2 (two finger flick right in SPL mode) from Studio window: Opens end of track setting dialog.
+* Alt+NVDA+1 (two finger flick right in SPL mode) from Studio window: Opens end of track setting dialog.
 * Alt+NVDA+2 (two finger flick left in SPL mode) from Studio window: Opens song intro alarm setting dialog.
-* Control+NVDA+3 from Studio window: Toggles cart explorer to learn cart assignments.
-* Control+NVDA+4 from Studio window: Opens microphone alarm dialog.
+* Alt+NVDA+3 from Studio window: Toggles cart explorer to learn cart assignments.
+* Alt+NVDA+4 from Studio window: Opens microphone alarm dialog.
 * Control+NVDA+f from Studio window: Opens a dialog to find a track based on artist or song name. Press NvDA+F3 to find forward or NVDA+Shift+F3 to find backward.
 * Alt+NVDA+R from Studio window: Steps through library scan announcement settings.
 * Control+Shift+X from Studio window: Steps through braille timer settings.
 * Control+Alt+right/left arrow (while focused on a track): Announce next/previous track column.
 * Alt+NVDA+C while focused on a track: announces track comments if any.
-* Control+NVDA+0 from Studio window: Opens the Studio add-on configuration dialog.
+* Control+NVDA+0 or Alt+NVDA+0 from Studio window: Opens the Studio add-on configuration dialog.
 * Control+NVDA+- (hyphen) from Studio window: Send feedback to add-on developer using the default email client.
 * Alt+NVDA+F1: Open welcome dialog.
 
@@ -130,7 +130,7 @@ The available SPL Controller commands are:
 
 ## Track alarms
 
-By default, NvDA will play a beep if five seconds are left in the track (outro) and/or intro. To configure this value as well as to enable or disable them, press Control+NVDA+2 or Alt+NVDA+2 to open end of track and song ramp dialogs, respectively. In addition, use Studio add-on settings dialog to configure if you'll hear a beep, a message or both when alarms are turned on.
+By default, NvDA will play a beep if five seconds are left in the track (outro) and/or intro. To configure this value as well as to enable or disable them, press Alt+NVDA+1 or Alt+NVDA+2 to open end of track and song ramp dialogs, respectively. In addition, use Studio add-on settings dialog to configure if you'll hear a beep, a message or both when alarms are turned on.
 
 ## Microphone alarm
 
@@ -146,7 +146,7 @@ Note: Track Finder is case-sensitive.
 
 Depending on edition, SPL Studio allows up to 96 carts to be assigned for playback. NVDA allows you to hear which cart, or jingle is assigned to these commands.
 
-To learn cart assignments, from SPL Studio, press Control+NVDA+3. Pressing the cart command once will tell you which jingle is assigned to the command. Pressing the cart command twice will play the jingle. Press Control+NvDA+3 to exit cart explorer. See the add-on guide for more information on cart explorer.
+To learn cart assignments, from SPL Studio, press Alt+NVDA+3. Pressing the cart command once will tell you which jingle is assigned to the command. Pressing the cart command twice will play the jingle. Press Alt+NvDA+3 to exit cart explorer. See the add-on guide for more information on cart explorer.
 
 ## Track Dial
 
@@ -162,7 +162,7 @@ By pressing SPL Assistant, 1 through 0 (6 for Studio 5.01 and earlier), you can 
 
 ## Configuration dialog
 
-From studio window, you can press Control+NVDA+0 to open the add-on configuration dialog. Alternatively, go to NVDA's preferences menu and select SPL Studio Settings item. This dialog is also used to manage broadcast profiles.
+From studio window, you can press Control+NVDA+0 or Alt+NVDA+0 to open the add-on configuration dialog. Alternatively, go to NVDA's preferences menu and select SPL Studio Settings item. This dialog is also used to manage broadcast profiles.
 
 ## SPL touch mode
 
@@ -173,6 +173,8 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 Version 8.0 supports SPL Studio 5.10 and later, with 7.x designed to provide some new features from 8.0 for users using earlier versions of Studio.
 
 * Added a welcome dialog that launches when Studio starts after installing the add-on. A command (Alt+NvDA+F1) has been added to reopen this dialog once dismissed.
+* Changes to various add-on commands, including removal of status announcement toggle (Control+NvDA+1), reassigned end of track alarm to Alt+NVDA+1, Cart Explorer toggle is now Alt+NvDA+3, microphone alarm dialog is Alt+NVDA+4 and add-on/encoder settings dialog is Alt+NvDA+0. This was done to allow Control+NVDA+number row to be assigned to Columns Explorer in 8.0 and later.
+* 8.0: Relaxed Columns Explorer restriction in place in 7.x so numbers 1 through 6 can be configured to announce Studio 5.1x columns.
 * Added a setting in add-on settings dialog to let NVDA notify you if you've reached top or bottom of playlist viewer.
 * You can now add, view, change or delete track comments (notes). Press Alt+NVDA+C from a track in the playlist viewer to hear track comments if defined, press twice to copy comment to clipboard or three times to open a dialog to edit comments.
 * Added ability to notify if a track comment exists, as well as a setting in add-on settings to control how this should be done.
