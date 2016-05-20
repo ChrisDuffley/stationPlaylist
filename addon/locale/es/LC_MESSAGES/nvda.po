@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2016-04-28 18:27+0100\n"
+"PO-Revision-Date: 2016-05-16 10:25+0100\n"
 "Last-Translator: Juan C. Buño <oprisniki@gmail.com>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -767,9 +767,9 @@ msgid "Not a track"
 msgstr "No está en una pista"
 
 #. Translators: Presented when a specific column header is not found.
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "{headerText} not found"
-msgstr "{header} no enconrado"
+msgstr "{headerText} no encontrado"
 
 #. Translators: The title for SPL Assistant help dialog.
 msgid "SPL Assistant help"
@@ -804,11 +804,13 @@ msgid ""
 "Your encoder settings had errors and were reset to defaults. If you have "
 "stream labels configured for various encoders, please add them again."
 msgstr ""
+"Tus opciones de codificador tenían errores y fueron reiniciadas a las "
+"predeterminadas. Si tienes etiquetas de cadena configuradas para varios "
+"codificadores, por favor añádelas de nuevo."
 
 #. Translators: Title of the encoder settings error dialog.
-#, fuzzy
 msgid "Encoder settings error"
-msgstr "Opciones de codificador para {name}"
+msgstr "Error de opciones de codificador"
 
 #. Translators: Message presented indicating missing time-based profiles.
 #, python-brace-format
