@@ -1382,14 +1382,23 @@ class ResetDialog(wx.Dialog):
 			splconfig.SPLConfig["ActiveIndex"] = 0
 			splconfig.SPLActiveProfile = splconfig.SPLConfigPool[0].name
 			splconfig.SPLConfig["ColumnExpRange"] = colRange
-			if splconfig.SPLSwitchProfile is not None:
-				splconfig.SPLSwitchProfile = None
-			splconfig.SPLPrevProfile = None
-			if os.path.exists(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini")):
-				os.remove(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
-			if "globalPlugins.SPLStudioUtils.encoders" in sys.modules:
-				import globalPlugins.SPLStudioUtils.encoders
-				globalPlugins.SPLStudioUtils.encoders.cleanup()
+			if self.resetInstantProfileCheckbox.Value:
+				if splconfig.SPLSwitchProfile is not None:
+					splconfig.SPLSwitchProfile = None
+					splconfig.SPLPrevProfile = None
+			if self.resetTimeProfileCheckbox.Value:
+				splconfig.profileTriggers.clear()
+				if splconfig.triggerTimer is not None and splconfig.triggerTimer.IsRunning():
+					splconfig.triggerTimer.Stop()
+					splconfig.triggerTimer = None
+			if self.resetTrackCommentsCheckbox.Value:
+				splconfig.trackComments.clear()
+			if self.resetEncodersCheckbox.Value:
+				if os.path.exists(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini")):
+					os.remove(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
+				if "globalPlugins.SPLStudioUtils.encoders" in sys.modules:
+					import globalPlugins.SPLStudioUtils.encoders
+					globalPlugins.SPLStudioUtils.encoders.cleanup()
 			_configDialogOpened = False
 		self.Destroy()
 		parent.Destroy()
