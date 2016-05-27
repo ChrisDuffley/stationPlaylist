@@ -30,6 +30,7 @@ import gui
 import wx
 from winUser import user32, sendMessage, OBJID_CLIENT
 from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent
+from NVDAObjects.behaviors import Dialog
 import textInfos
 import tones
 import splconfig
@@ -479,6 +480,9 @@ class AppModule(appModuleHandler.AppModule):
 			clsList.insert(0, SPL510TrackItem)
 		elif obj.windowClassName == "TListView" and role == controlTypes.ROLE_CHECKBOX and abs(windowStyle - 1442938953)%0x100000 == 0:
 			clsList.insert(0, SPLTrackItem)
+		# 7.2: Recognize known dialogs.
+		elif obj.windowClassName in ("TAboutForm", "TDemoRegForm", "TOpenPlaylist"):
+			clsList.insert(0, Dialog)
 
 	# Keep an eye on library scans in insert tracks window.
 	libraryScanning = False
