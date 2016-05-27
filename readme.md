@@ -15,7 +15,6 @@ IMPORTANT: This add-on requires NVDA 2015.3 or later and StationPlaylist Studio 
 * Alt+Shift+T from Studio window: announce elapsed time for the currently playing trakc.
 * Control+Alt+T (two finger flick down in SPL touch mode) from Studio window: announce remaining time for the currently playing trakc.
 * NVDA+Shift+F12 (two finger flick up in SPL touch mode) from Studio window: announces broadcaster time such as 5 minutes to top of the hour.
-* Control+NVDA+1 from Studio window: toggles announcement of status messages (such as automation and end of library scan) between words and beeps.
 * Alt+NVDA+1 (two finger flick right in SPL mode) from Studio window: Opens end of track setting dialog.
 * Alt+NVDA+2 (two finger flick left in SPL mode) from Studio window: Opens song intro alarm setting dialog.
 * Alt+NVDA+3 from Studio window: Toggles cart explorer to learn cart assignments.
@@ -25,7 +24,7 @@ IMPORTANT: This add-on requires NVDA 2015.3 or later and StationPlaylist Studio 
 * Control+Shift+X from Studio window: Steps through braille timer settings.
 * Control+Alt+right/left arrow (while focused on a track): Announce next/previous track column.
 * Alt+NVDA+C while focused on a track: announces track comments if any.
-* Control+NVDA+0 or Alt+NVDA+0 from Studio window: Opens the Studio add-on configuration dialog.
+* Alt+NVDA+0 from Studio window: Opens the Studio add-on configuration dialog.
 * Control+NVDA+- (hyphen) from Studio window: Send feedback to add-on developer using the default email client.
 * Alt+NVDA+F1: Open welcome dialog.
 
@@ -134,7 +133,7 @@ By default, NvDA will play a beep if five seconds are left in the track (outro) 
 
 ## Microphone alarm
 
-You can ask NVDA to play a sound when microphone has been active for a while. Press Control+NVDA+4 to configure alarm time in seconds (0 disables it).
+You can ask NVDA to play a sound when microphone has been active for a while. Press Alt+NVDA+4 to configure alarm time in seconds (0 disables it).
 
 ## Track Finder
 

@@ -947,12 +947,12 @@ class AppModule(appModuleHandler.AppModule):
 	# Other commands (track finder and others)
 
 	# Toggle whether beeps should be heard instead of toggle announcements.
+	# Deprecated in 8.0, may come back later.
 
-	def script_toggleBeepAnnounce(self, gesture):
-		splconfig.SPLConfig["General"]["BeepAnnounce"] = not splconfig.SPLConfig["General"]["BeepAnnounce"]
-		splconfig.message("BeepAnnounce", splconfig.SPLConfig["General"]["BeepAnnounce"])
-	# Translators: Input help mode message for a command in Station Playlist Studio.
-	script_toggleBeepAnnounce.__doc__=_("Toggles status announcements between words and beeps.")
+	#def script_toggleBeepAnnounce(self, gesture):
+		#splconfig.SPLConfig["General"]["BeepAnnounce"] = not splconfig.SPLConfig["General"]["BeepAnnounce"]
+		#splconfig.message("BeepAnnounce", splconfig.SPLConfig["General"]["BeepAnnounce"])
+	#script_toggleBeepAnnounce.__doc__=_("Toggles status announcements between words and beeps.")
 
 	# Braille timer.
 	# Announce end of track and other info via braille.
@@ -1884,23 +1884,18 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:alt+shift+t":"sayElapsedTime",
 		"kb:shift+nvda+f12":"sayBroadcasterTime",
 		"ts(SPL):2finger_flickUp":"sayBroadcasterTime",
-		"kb:control+nvda+1":"toggleBeepAnnounce",
-		"kb:control+nvda+2":"setEndOfTrackTime",
 		"kb:alt+nvda+1":"setEndOfTrackTime",
 		"ts(SPL):2finger_flickRight":"setEndOfTrackTime",
 		"kb:alt+nvda+2":"setSongRampTime",
 		"ts(SPL):2finger_flickLeft":"setSongRampTime",
-		"kb:control+nvda+4":"setMicAlarm",
 		"kb:alt+nvda+4":"setMicAlarm",
 		"kb:control+nvda+f":"findTrack",
 		"kb:nvda+f3":"findTrackNext",
 		"kb:shift+nvda+f3":"findTrackPrevious",
-		"kb:control+nvda+3":"toggleCartExplorer",
 		"kb:alt+nvda+3":"toggleCartExplorer",
 		"kb:alt+nvda+r":"setLibraryScanProgress",
 		"kb:control+shift+r":"startScanFromInsertTracks",
 		"kb:control+shift+x":"setBrailleTimer",
-		"kb:control+NVDA+0":"openConfigDialog",
 		"kb:alt+NVDA+0":"openConfigDialog",
 		"kb:alt+NVDA+f1":"openWelcomeDialog",
 		"kb:Shift+delete":"deleteTrack",

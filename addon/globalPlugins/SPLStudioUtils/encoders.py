@@ -496,7 +496,6 @@ class Encoder(IAccessible):
 		"kb:f12":"streamLabeler",
 		"kb:control+f12":"streamLabelEraser",
 		"kb:NVDA+F12":"encoderDateTime",
-		"kb:control+NVDA+0":"encoderSettings",
 		"kb:alt+NVDA+0":"encoderSettings",
 		"kb:control+NVDA+1":"announceEncoderPosition",
 		"kb:control+NVDA+2":"announceEncoderLabel",
