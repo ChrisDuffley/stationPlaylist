@@ -497,7 +497,15 @@ class AppModule(appModuleHandler.AppModule):
 		# Display startup dialogs if any.
 		wx.CallAfter(splconfig.showStartupDialogs)
 		# Cache start and end range for column exploration.
-		splconfig.SPLConfig["ColumnExpRange"] = (1, 7) if self.SPLCurVersion < "5.1" else (0, 10)
+		# LTS: This is also used for enhanced Columns Explorer (Control+NVDA+number row).
+		if self.SPLCurVersion < "5.1":
+			splconfig.SPLConfig["ColumnExpRange"] = (1, 7)
+			for i in xrange(1, 7):
+				self.bindGesture("kb:control+nvda+%s"%(i), "columnExplorer")
+		else:
+			splconfig.SPLConfig["ColumnExpRange"] = (0, 10)
+			for i in xrange(10):
+				self.bindGesture("kb:control+nvda+%s"%(i), "columnExplorer")
 
 	# Locate the handle for main window for caching purposes.
 	def _locateSPLHwnd(self):
