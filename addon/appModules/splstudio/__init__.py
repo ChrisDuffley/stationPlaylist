@@ -1743,20 +1743,22 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(status)
 
 	def script_columnExplorer(self, gesture):
-		if gesture.displayName.isdigit():
-			columnPos = int(gesture.displayName)-1
-			focus = api.getFocusObject()
-			if not isinstance(focus, SPLTrackItem):
-				# Translators: Presented when attempting to announce specific columns but the focused item isn't a track.
-				ui.message(_("Not a track"))
+		focus = api.getFocusObject()
+		if not isinstance(focus, SPLTrackItem):
+			# Translators: Presented when attempting to announce specific columns but the focused item isn't a track.
+			ui.message(_("Not a track"))
+		else:
+			# LTS: Just in case Control+NVDA+number row command is pressed...
+			# Due to the below formula, columns explorer will be restricted to number commands.
+			columnPos = int(gesture.displayName.split("+")[-1])-1
+			header = splconfig.SPLConfig["General"]["ExploreColumns"][columnPos]
+			column = focus.indexOf(header)
+			if column is not None:
+				focus.announceColumnContent(column, header=header)
 			else:
-				header = splconfig.SPLConfig["General"]["ExploreColumns"][columnPos]
-				column = focus.indexOf(header)
-				if column is not None:
-					focus.announceColumnContent(column, header=header)
-				else:
-					# Translators: Presented when a specific column header is not found.
-					ui.message(_("{headerText} not found").format(headerText = header))
+				# Translators: Presented when a specific column header is not found.
+				ui.message(_("{headerText} not found").format(headerText = header))
+		self.finish()
 
 	def script_layerHelp(self, gesture):
 		compatibility = splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]
