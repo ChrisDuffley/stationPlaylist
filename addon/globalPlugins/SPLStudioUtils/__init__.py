@@ -46,6 +46,7 @@ SPLAutomate = 16
 SPLMic = 17
 SPLLineIn = 18
 SPLLibraryScanCount = 32
+SPLListenerCount = 35
 SPL_TrackPlaybackStatus = 104
 SPLCurTrackPlaybackTime = 105
 
@@ -70,7 +71,8 @@ U: Pause.
 S: Stop with fade.
 T: Instant stop.
 E: Announce if any encoders are being monitored.
-R: Remainig time for the playing track.
+I: Announce listener count.
+R: Remaining time for the playing track.
 Shift+R: Library scan progress.""")
 
 # Try to see if SPL foreground object can be fetched. This is used for switching to SPL Studio window from anywhere and to switch to Studio window from SAM encoder window.
@@ -223,6 +225,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		ui.message(_("{itemCount} items scanned").format(itemCount = scanned))
 		self.finish()
 
+	def script_listenerCount(self, gesture):
+		count = winUser.sendMessage(SPLWin, SPLMSG, 0, SPLListenerCount)
+		# Translators: Announces number of stream listeners.
+		ui.message(_("Listener count: {listenerCount}").format(listenerCount = count))
+		self.finish()
+
 	def script_remainingTime(self, gesture):
 		remainingTime = winUser.sendMessage(SPLWin, SPLMSG, 3, SPLCurTrackPlaybackTime)
 		# Translators: Presented when no track is playing in Station Playlist Studio.
@@ -272,6 +280,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:u":"pause",
 		"kb:r":"remainingTime",
 		"kb:e":"announceNumMonitoringEncoders",
+		"kb:i":"listenerCount",
 		"kb:f1":"conHelp"
 	}
 
