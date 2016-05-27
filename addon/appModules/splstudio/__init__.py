@@ -554,8 +554,8 @@ class AppModule(appModuleHandler.AppModule):
 		# 7.2: Recognize known dialogs.
 		elif obj.windowClassName in ("TDemoRegForm", "TOpenPlaylist"):
 			clsList.insert(0, Dialog)
-		# For About dialog.
-		elif obj.windowClassName == "TAboutForm":
+		# For About dialog in Studio 5.1x and later.
+		elif obj.windowClassName == "TAboutForm" and self.SPLCurVersion >= "5.1":
 			clsList.insert(0, ReversedDialog)
 
 	# Keep an eye on library scans in insert tracks window.
