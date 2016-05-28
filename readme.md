@@ -170,7 +170,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Changes for 8.0-dev/7.x-LTS
 
-Version 8.0 supports SPL Studio 5.10 and later, with 7.x designed to provide some new features from 8.0 for users using earlier versions of Studio. Unless otherwise noted, entries below apply to both 8.0 and 7.x.
+Version 8.0 supports SPL Studio 5.10 and later, with 7.x designed to provide some new features from 8.0 for users using earlier versions of Studio. Unless otherwise noted, entries below apply to both 8.0 and 7.x. A warning dialog will be shown the first time you use add-on 8.0 with Studio 5.0x installed, asking you to use 7.x LTS version.
 
 * Added a welcome dialog that launches when Studio starts after installing the add-on. A command (Alt+NvDA+F1) has been added to reopen this dialog once dismissed.
 * Changes to various add-on commands, including removal of status announcement toggle (Control+NvDA+1), reassigned end of track alarm to Alt+NVDA+1, Cart Explorer toggle is now Alt+NvDA+3, microphone alarm dialog is Alt+NVDA+4 and add-on/encoder settings dialog is Alt+NvDA+0. This was done to allow Control+NVDA+number row to be assigned to Columns Explorer.
