@@ -149,6 +149,8 @@ class AppModule(appModuleHandler.AppModule):
 			except AttributeError:
 				ui.message(_("Not in tracks list"))
 
+	# LTS: Leave the below commands in the app module.
+	# 8.0: Move them to the overlay class so custom column slot assignment can be consulted.
 
 	def script_announceArtist(self, gesture):
 		# Special case for artist field to make it compatible with old add-on releases.
@@ -189,6 +191,12 @@ class AppModule(appModuleHandler.AppModule):
 	def script_announceFilename(self, gesture):
 		self.announceColumnContent("Filename")
 
+	def script_announceAlbum(self, gesture):
+		self.announceColumnContent("Album")
+
+	def script_announceCDCode(self, gesture):
+		self.announceColumnContent("CD Code")
+
 	__gestures={
 		"kb:control+NVDA+1":"announceArtist",
 		"kb:control+NVDA+2":"announceTitle",
@@ -198,4 +206,6 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:control+NVDA+6":"announceIntro",
 		"kb:control+NVDA+7":"announceSegue",
 		"kb:control+NVDA+8":"announceFilename",
+		"kb:control+NVDA+9":"announceAlbum",
+		"kb:control+NVDA+0":"announceCDCode",
 	}

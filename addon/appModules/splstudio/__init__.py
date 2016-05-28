@@ -29,7 +29,9 @@ import touchHandler
 import gui
 import wx
 from winUser import user32, sendMessage, OBJID_CLIENT
+from NVDAObjects import NVDAObject, NVDAObjectTextInfo
 from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent
+from NVDAObjects.behaviors import Dialog
 import textInfos
 import tones
 import splconfig
@@ -453,6 +455,76 @@ F10: Perform track time analysis.
 F12: Switch to an instant switch profile.
 Shift+F1: Open online user guide.""")}
 
+# Provide a way to fetch dialog description in reverse order.
+# This is used in Studio's About dialog as children are in reverse tab order somehow.
+class ReversedDialog(Dialog):
+	"""Overrides the description property to obtain dialog text except in reverse order.
+	This is employed in Studio's help/About dialog.
+	"""
+
+	@classmethod
+	def getDialogText(cls,obj,allowFocusedDescendants=True):
+		"""This classmethod walks through the children of the given object, and collects up and returns any text that seems to be  part of a dialog's message text.
+		@param obj: the object who's children you want to collect the text from
+		@type obj: L{IAccessible}
+		@param allowFocusedDescendants: if false no text will be returned at all if one of the descendants is focused.
+		@type allowFocusedDescendants: boolean
+		"""
+		children=obj.children
+		textList=[]
+		childCount=len(children)
+		# For these dialogs, children are arranged in reverse tab order (very strange indeed).
+		for index in xrange(childCount-1, -1, -1):
+			child=children[index]
+			childStates=child.states
+			childRole=child.role
+			#We don't want to handle invisible or unavailable objects
+			if controlTypes.STATE_INVISIBLE in childStates or controlTypes.STATE_UNAVAILABLE in childStates: 
+				continue
+			#For particular objects, we want to descend in to them and get their children's message text
+			if childRole in (controlTypes.ROLE_PROPERTYPAGE,controlTypes.ROLE_PANE,controlTypes.ROLE_PANEL,controlTypes.ROLE_WINDOW,controlTypes.ROLE_GROUPING,controlTypes.ROLE_PARAGRAPH,controlTypes.ROLE_SECTION,controlTypes.ROLE_TEXTFRAME,controlTypes.ROLE_UNKNOWN):
+				#Grab text from descendants, but not for a child which inherits from Dialog and has focusable descendants
+				#Stops double reporting when focus is in a property page in a dialog
+				childText=cls.getDialogText(child,not isinstance(child,Dialog))
+				if childText:
+					textList.append(childText)
+				elif childText is None:
+					return None
+				continue
+			#If the child is focused  we should just stop and return None
+			if not allowFocusedDescendants and controlTypes.STATE_FOCUSED in child.states:
+				return None
+			# We only want text from certain controls.
+			if not (
+				 # Static text, labels and links
+				 childRole in (controlTypes.ROLE_STATICTEXT,controlTypes.ROLE_LABEL,controlTypes.ROLE_LINK)
+				# Read-only, non-multiline edit fields
+				or (childRole==controlTypes.ROLE_EDITABLETEXT and controlTypes.STATE_READONLY in childStates and controlTypes.STATE_MULTILINE not in childStates)
+			):
+				continue
+			#We should ignore a text object directly after a grouping object, as it's probably the grouping's description
+			if index>0 and children[index-1].role==controlTypes.ROLE_GROUPING:
+				continue
+			#Like the last one, but a graphic might be before the grouping's description
+			if index>1 and children[index-1].role==controlTypes.ROLE_GRAPHIC and children[index-2].role==controlTypes.ROLE_GROUPING:
+				continue
+			childName=child.name
+			if childName and index<(childCount-1) and children[index+1].role not in (controlTypes.ROLE_GRAPHIC,controlTypes.ROLE_STATICTEXT,controlTypes.ROLE_SEPARATOR,controlTypes.ROLE_WINDOW,controlTypes.ROLE_PANE,controlTypes.ROLE_BUTTON) and children[index+1].name==childName:
+				# This is almost certainly the label for the next object, so skip it.
+				continue
+			isNameIncluded=child.TextInfo is NVDAObjectTextInfo or childRole in (controlTypes.ROLE_LABEL,controlTypes.ROLE_STATICTEXT)
+			childText=child.makeTextInfo(textInfos.POSITION_ALL).text
+			if not childText or childText.isspace() and child.TextInfo is not NVDAObjectTextInfo:
+				childText=child.basicText
+				isNameIncluded=True
+			if not isNameIncluded:
+				# The label isn't in the text, so explicitly include it first.
+				if childName:
+					textList.append(childName)
+			if childText:
+				textList.append(childText)
+		return "\n".join(textList)
+
 
 class AppModule(appModuleHandler.AppModule):
 
@@ -549,6 +621,12 @@ class AppModule(appModuleHandler.AppModule):
 			clsList.insert(0, SPL510TrackItem)
 		elif obj.windowClassName == "TListView" and role == controlTypes.ROLE_CHECKBOX and abs(windowStyle - 1442938953)%0x100000 == 0:
 			clsList.insert(0, SPLTrackItem)
+		# 7.2: Recognize known dialogs.
+		elif obj.windowClassName in ("TDemoRegForm", "TOpenPlaylist"):
+			clsList.insert(0, Dialog)
+		# For About dialog in Studio 5.1x and later.
+		elif obj.windowClassName == "TAboutForm" and self.SPLCurVersion >= "5.1":
+			clsList.insert(0, ReversedDialog)
 
 	# Keep an eye on library scans in insert tracks window.
 	libraryScanning = False
