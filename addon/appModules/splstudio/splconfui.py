@@ -336,9 +336,9 @@ class SPLConfigDialog(gui.SettingsDialog):
 		settingsSizer.Add(item)
 
 		# Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
-		self.resetConfigButton = wx.Button(self, wx.ID_ANY, label=_("Reset settings"))
-		self.resetConfigButton.Bind(wx.EVT_BUTTON,self.onResetConfig)
-		settingsSizer.Add(self.resetConfigButton)
+		item = resetButton = wx.Button(self, label=_("Reset settings..."))
+		item.Bind(wx.EVT_BUTTON,self.onResetConfig)
+		settingsSizer.Add(item)
 
 	def postInit(self):
 		global _configDialogOpened
@@ -648,27 +648,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 	# Reset settings to defaults.
 	# This affects the currently selected profile.
 	def onResetConfig(self, evt):
-		if gui.messageBox(
-		# Translators: A message to warn about resetting SPL config settings to factory defaults.
-		_("Are you sure you wish to reset SPL add-on settings to defaults?"),
-		# Translators: The title of the warning dialog.
-		_("Warning"),wx.YES_NO|wx.NO_DEFAULT|wx.ICON_WARNING,self
-		)!=wx.YES:
-			return
-		# Reset all profiles.
-		# Save some flags from death.
-		global _configDialogOpened
-		colRange = splconfig.SPLConfig["ColumnExpRange"]
-		splconfig.resetAllConfig()
-		splconfig.SPLConfig = dict(splconfig._SPLDefaults7)
-		splconfig.SPLConfig["ActiveIndex"] = 0
-		splconfig.SPLActiveProfile = splconfig.SPLConfigPool[0].name
-		splconfig.SPLConfig["ColumnExpRange"] = colRange
-		if splconfig.SPLSwitchProfile is not None:
-			splconfig.SPLSwitchProfile = None
-		splconfig.SPLPrevProfile = None
-		_configDialogOpened = False
-		self.Destroy()
+		self.Disable()
+		ResetDialog(self).Show()
 
 
 # Open the above dialog upon request.
@@ -1340,3 +1321,89 @@ class AdvancedOptionsDialog(wx.Dialog):
 		self.Parent.Enable()
 		self.Destroy()
 
+# A dialog to reset add-on config including encoder settings and others.
+class ResetDialog(wx.Dialog):
+
+	def __init__(self, parent):
+		# Translators: Title of the dialog to reset various add-on settings.
+		super(ResetDialog, self).__init__(parent, title=_("Reset settings"))
+
+		mainSizer = wx.BoxSizer(wx.VERTICAL)
+
+		# Translators: the label for resetting profile triggers.
+		self.resetInstantProfileCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Reset instant switch profile"))
+		self.resetInstantProfileCheckbox.SetValue(False)
+		mainSizer.Add(self.resetInstantProfileCheckbox, border=10,flag=wx.BOTTOM)
+
+		# Translators: the label for resetting profile triggers.
+		self.resetTimeProfileCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Delete time-based profile database"))
+		self.resetTimeProfileCheckbox.SetValue(False)
+		mainSizer.Add(self.resetTimeProfileCheckbox, border=10,flag=wx.BOTTOM)
+
+				# Translators: the label for resetting encoder settings.
+		self.resetEncodersCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Remove encoder settings"))
+		self.resetEncodersCheckbox.SetValue(False)
+		mainSizer.Add(self.resetEncodersCheckbox, border=10,flag=wx.BOTTOM)
+
+		# Translators: the label for resetting track comments.
+		self.resetTrackCommentsCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Erase track comments"))
+		self.resetTrackCommentsCheckbox.SetValue(False)
+		mainSizer.Add(self.resetTrackCommentsCheckbox, border=10,flag=wx.BOTTOM)
+
+		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
+		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
+		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
+		mainSizer.Fit(self)
+		self.Sizer = mainSizer
+		self.resetInstantProfileCheckbox.SetFocus()
+		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+
+	def onOk(self, evt):
+		parent = self.Parent
+		if gui.messageBox(
+		# Translators: A message to warn about resetting SPL config settings to factory defaults.
+		_("Are you sure you wish to reset SPL add-on settings to defaults?"),
+		# Translators: The title of the warning dialog.
+		_("Warning"),wx.YES_NO|wx.NO_DEFAULT|wx.ICON_WARNING,self
+		)!=wx.YES:
+			parent.profiles.SetFocus()
+			parent.Enable()
+			self.Destroy()
+			return
+		import threading, sys, globalVars
+		# Reset all profiles.
+		# LTS: Only a priveleged thread should do this, otherwise unexpected things may happen.
+		# Save some flags from death.
+		with threading.Lock() as resetting:
+			global _configDialogOpened
+			colRange = splconfig.SPLConfig["ColumnExpRange"]
+			splconfig.resetAllConfig()
+			splconfig.SPLConfig = dict(splconfig._SPLDefaults7)
+			splconfig.SPLConfig["ActiveIndex"] = 0
+			splconfig.SPLActiveProfile = splconfig.SPLConfigPool[0].name
+			splconfig.SPLConfig["ColumnExpRange"] = colRange
+			if self.resetInstantProfileCheckbox.Value:
+				if splconfig.SPLSwitchProfile is not None:
+					splconfig.SPLSwitchProfile = None
+					splconfig.SPLPrevProfile = None
+			if self.resetTimeProfileCheckbox.Value:
+				splconfig.profileTriggers.clear()
+				if splconfig.triggerTimer is not None and splconfig.triggerTimer.IsRunning():
+					splconfig.triggerTimer.Stop()
+					splconfig.triggerTimer = None
+			if self.resetTrackCommentsCheckbox.Value:
+				splconfig.trackComments.clear()
+			if self.resetEncodersCheckbox.Value:
+				if os.path.exists(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini")):
+					os.remove(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
+				if "globalPlugins.SPLStudioUtils.encoders" in sys.modules:
+					import globalPlugins.SPLStudioUtils.encoders
+					globalPlugins.SPLStudioUtils.encoders.cleanup()
+			_configDialogOpened = False
+		self.Destroy()
+		parent.Destroy()
+
+
+	def onCancel(self, evt):
+		self.Parent.Enable()
+		self.Destroy()
