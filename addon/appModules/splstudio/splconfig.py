@@ -38,6 +38,7 @@ TopBottomAnnounce = boolean(default=true)
 MetadataReminder = option("off", "startup", "instant", default="off")
 TimeHourAnnounce = boolean(default=true)
 ExploreColumns = string_list(default=list("Artist","Title","Duration","Intro","Category","Filename","Year","Album","Genre","Time Scheduled"))
+ExploreColumnsTT = string_list(default=list("Artist","Title","Duration","Cue","Overlap","Intro","Segue","Filename","Album","CD Code","Outro","Year","URL 1","URL 2","Genre"))
 [IntroOutroAlarms]
 SayEndOfTrack = boolean(default=true)
 EndOfTrackTime = integer(min=1, max=59, default=5)
