@@ -33,6 +33,9 @@ class TrackToolItem(IAccessible):
 		if self.appModule.TTDial:
 			self.bindGesture("kb:rightArrow", "nextColumn")
 			self.bindGesture("kb:leftArrow", "prevColumn")
+		# 8.0: Assign Control+NVDA+number row for Columns Explorer just like the main app module.
+		for i in xrange(10):
+			self.bindGesture("kb:control+nvda+%s"%(i), "columnExplorer")
 		# See if Track Dial toggle for Studio is defined, and if so, pull it in.
 		import inputCore
 		userGestures = inputCore.manager.userGestureMap._map
@@ -108,6 +111,36 @@ class TrackToolItem(IAccessible):
 			self.appModule.SPLColNumber -=1
 		self.announceColumnContent(self.appModule.SPLColNumber)
 
+	# Special script for Columns Explorer.
+
+	def script_columnExplorer(self, gesture):
+		# Just like the main app module, due to the below formula, columns explorer will be restricted to number commands.
+		columnPos = int(gesture.displayName.split("+")[-1])-1
+		print columnPos
+		header = splconfig.SPLConfig["General"]["ExploreColumnsTT"][columnPos]
+		# Several corner cases.
+		# Look up track name if artist is the header name.
+		if header == "Artist":
+			if self.name is None:
+				# Translators: Presented when artist information is not found for a track in Track Tool.
+				ui.message(_("No artist"))
+			else:
+				# Translators: Presents artist information for a track in Track Tool.
+				ui.message(_("Artist: {artistName}").format(artistName = self.name))
+		# Special case for intro to make it compatible with old add-on releases.
+		elif header == "Intro" and "Intro:" not in self.description:
+			# Translators: Presented when intro is not defined for a track in Track Tool.
+			ui.message(_("Introduction not set"))
+		else:
+			print header
+			column = self.appModule.ttIndexOf(header)
+			print column
+			if column is not None:
+				self.announceColumnContent(column, columnHeader=header)
+			else:
+				# Translators: Presented when a specific column header is not found.
+				ui.message(_("{headerText} not found").format(headerText = header))
+
 	__gestures={
 		#"kb:control+`":"toggleTrackDial",
 		"kb:control+alt+rightArrow":"nextColumn",
@@ -124,88 +157,18 @@ class AppModule(appModuleHandler.AppModule):
 		if obj.windowClassName in ("TListView", "TTntListView.UnicodeClass") and obj.role == ROLE_LISTITEM:
 			clsList.insert(0, TrackToolItem)
 
-	# Various column reading scripts (row with fake navigation should not be used).
 	# 6.0: Cache column header indecies.
+	# 8.0: Kept here for backward compatibility.
 	headerToIndex={}
 
-	def announceColumnContent(self, headerText):
-		item = api.getFocusObject()
-		if not isinstance(item, TrackToolItem):
-			# Translators: Presented when trying to perform Track Tool commands when not focused in the track list.
-			ui.message(_("Not in tracks list"))
-		elif item.name is None and item.description is None:
-			# Translators: Presented when no tracks are added to Track Tool.
-			ui.message(_("No tracks added"))
-		else:
-			# Cached values always takes precedence.
-			if headerText not in self.headerToIndex:
-				columnHeaders = item.parent.children[-1].children
-				for header in columnHeaders:
-					if header.name == headerText:
-						self.headerToIndex[headerText] = columnHeaders.index(header)
-			pos = self.headerToIndex[headerText]
-			try:
-				item.announceColumnContent(pos, columnHeader=headerText)
-			except AttributeError:
-				ui.message(_("Not in tracks list"))
+	# A private function to serve as a Track Tool module version of item.indexOf, to be integrated into trakc item in 9.0
 
-	# LTS: Leave the below commands in the app module.
-	# 8.0: Move them to the overlay class so custom column slot assignment can be consulted.
+	def ttIndexOf(self, headerText):
+		# Cached values always takes precedence.
+		if headerText not in self.headerToIndex:
+			columnHeaders = api.getFocusObject().parent.children[-1].children
+			for header in columnHeaders:
+				if header.name == headerText:
+					self.headerToIndex[headerText] = columnHeaders.index(header)
+		return self.headerToIndex[headerText]
 
-	def script_announceArtist(self, gesture):
-		# Special case for artist field to make it compatible with old add-on releases.
-		item = api.getFocusObject()
-		if isinstance(item, TrackToolItem):
-			if item.name is None:
-				# Translators: Presented when artist information is not found for a track in Track Tool.
-				ui.message(_("No artist"))
-			else:
-				# Translators: Presents artist information for a track in Track Tool.
-				ui.message(_("Artist: {artistName}").format(artistName = item.name))
-		else:
-			ui.message(_("Not in tracks list"))
-
-	def script_announceTitle(self, gesture):
-		self.announceColumnContent("Title")
-
-	def script_announceDuration(self, gesture):
-		self.announceColumnContent("Duration")
-
-	def script_announceCue(self, gesture):
-		self.announceColumnContent("Cue")
-
-	def script_announceOverlap(self, gesture):
-		self.announceColumnContent("Overlap")
-
-	def script_announceIntro(self, gesture):
-		# Special case for intro to make it compatible with old add-on releases.
-		item = api.getFocusObject()
-		if isinstance(item, TrackToolItem) and "Intro:" not in item.description:
-			# Translators: Presented when intro is not defined for a track in Track Tool.
-			ui.message(_("Introduction not set"))
-		else: self.announceColumnContent("Intro")
-
-	def script_announceSegue(self, gesture):
-		self.announceColumnContent("Segue")
-
-	def script_announceFilename(self, gesture):
-		self.announceColumnContent("Filename")
-
-	def script_announceAlbum(self, gesture):
-		self.announceColumnContent("Album")
-
-	def script_announceCDCode(self, gesture):
-		self.announceColumnContent("CD Code")
-
-	__gestures={
-		"kb:control+NVDA+1":"announceArtist",
-		"kb:control+NVDA+2":"announceTitle",
-		"kb:control+NVDA+3":"announceDuration",
-		"kb:control+NVDA+4":"announceCue",
-		"kb:control+NVDA+5":"announceOverlap",
-		"kb:control+NVDA+6":"announceIntro",
-		"kb:control+NVDA+7":"announceSegue",
-		"kb:control+NVDA+8":"announceFilename",
-		"kb:control+NVDA+9":"announceAlbum",
-		"kb:control+NVDA+0":"announceCDCode",
-	}
