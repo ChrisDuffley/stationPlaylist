@@ -950,8 +950,8 @@ class OldVersionReminder(wx.Dialog):
 		self.Destroy()
 
 # And to open the above dialog and any other dialogs.
-def showStartupDialogs():
-	if SPLConfig["Startup"]["Studio500"]:
+def showStartupDialogs(oldVer=False):
+	if oldVer and SPLConfig["Startup"]["Studio500"]:
 		gui.mainFrame.prePopup()
 		OldVersionReminder(gui.mainFrame).Show()
 		gui.mainFrame.postPopup()

@@ -1371,12 +1371,10 @@ class ResetDialog(wx.Dialog):
 		# Save some flags from death.
 		with threading.Lock() as resetting:
 			global _configDialogOpened
-			colRange = splconfig.SPLConfig["ColumnExpRange"]
 			splconfig.resetAllConfig()
 			splconfig.SPLConfig = dict(splconfig._SPLDefaults7)
 			splconfig.SPLConfig["ActiveIndex"] = 0
 			splconfig.SPLActiveProfile = splconfig.SPLConfigPool[0].name
-			splconfig.SPLConfig["ColumnExpRange"] = colRange
 			if self.resetInstantProfileCheckbox.Value:
 				if splconfig.SPLSwitchProfile is not None:
 					splconfig.SPLSwitchProfile = None
