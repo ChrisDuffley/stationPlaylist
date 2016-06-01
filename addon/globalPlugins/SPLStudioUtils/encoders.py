@@ -758,7 +758,7 @@ class SPLEncoder(Encoder):
 					if winUser.sendMessage(SPLWin, SPLMSG, 0, SPL_TrackPlaybackStatus) == 0:
 						winUser.sendMessage(SPLWin, SPLMSG, 0, SPLPlay)
 				if not connected: connected = True
-			elif "Unable to connect" in messageCache or "Failed" in messageCache:
+			elif "Unable to connect" in messageCache or "Failed" in messageCache or statChild.name == "AutoConnect stopped.":
 				if connected: connected = False
 			else:
 				if connected: connected = False
