@@ -85,8 +85,14 @@ class TrackToolItem(IAccessible):
 
 	# Tweak for Track Tool: Announce column header if given.
 	# Also take care of this when specific columns are asked.
+	# This also allows display order to be checked (Studio 5.10 and later).
 	def announceColumnContent(self, colNumber, columnHeader=None, individualColumns=False):
-		if not columnHeader: columnHeader = self.columnHeaders.children[colNumber].name
+		if not columnHeader:
+			columnHeader = self.columnHeaders.children[colNumber].name
+		# LTS: Studio 5.10 data structure change is evident in Track Tool as well, so don't rely on column headers alone.
+			internalHeaders = indexOf(self.appModule.productVersion)
+			if internalHeaders[colNumber] != columnHeader:
+				colNumber = internalHeaders.index(columnHeader)
 		columnContent = _getColumnContent(self, colNumber)
 		if columnContent:
 			ui.message(unicode(_("{header}: {content}")).format(header = columnHeader, content = columnContent))
