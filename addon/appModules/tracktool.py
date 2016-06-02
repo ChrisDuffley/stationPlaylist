@@ -19,6 +19,14 @@ addonHandler.initTranslation()
 # Track Tool allows a broadcaster to manage track intros, cues and so forth. Each track is a list item with descriptions such as title, file name, intro time and so forth.
 # One can press TAB to move along the controls for Track Tool.
 
+# Return a tuple of column headers.
+# This is just a thinly disguised indexOf function from Studio's track item class.
+def indexOf(ttVersion):
+	if ttVersion < "5.10":
+		return ("Artist","Title","Duration","Cue","Overlap","Intro","Segue","Album","CD Code","URL 1","URL 2","Filename")
+	else:
+		return ("Artist","Title","Duration","Cue","Overlap","Intro","Outro","Segue","Year","Album","CD Code","URL 1","URL 2","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Client","Other","Intro Link","Outro Link")
+
 class TrackToolItem(IAccessible):
 	"""An entry in Track Tool, used to implement some exciting features.
 	"""
@@ -77,8 +85,14 @@ class TrackToolItem(IAccessible):
 
 	# Tweak for Track Tool: Announce column header if given.
 	# Also take care of this when specific columns are asked.
+	# This also allows display order to be checked (Studio 5.10 and later).
 	def announceColumnContent(self, colNumber, columnHeader=None, individualColumns=False):
-		if not columnHeader: columnHeader = self.columnHeaders.children[colNumber].name
+		if not columnHeader:
+			columnHeader = self.columnHeaders.children[colNumber].name
+		# LTS: Studio 5.10 data structure change is evident in Track Tool as well, so don't rely on column headers alone.
+			internalHeaders = indexOf(self.appModule.productVersion)
+			if internalHeaders[colNumber] != columnHeader:
+				colNumber = internalHeaders.index(columnHeader)
 		columnContent = _getColumnContent(self, colNumber)
 		if columnContent:
 			ui.message(unicode(_("{header}: {content}")).format(header = columnHeader, content = columnContent))
@@ -124,10 +138,6 @@ class AppModule(appModuleHandler.AppModule):
 		if obj.windowClassName in ("TListView", "TTntListView.UnicodeClass") and obj.role == ROLE_LISTITEM:
 			clsList.insert(0, TrackToolItem)
 
-	# Various column reading scripts (row with fake navigation should not be used).
-	# 6.0: Cache column header indecies.
-	headerToIndex={}
-
 	def announceColumnContent(self, headerText):
 		item = api.getFocusObject()
 		if not isinstance(item, TrackToolItem):
@@ -137,15 +147,13 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: Presented when no tracks are added to Track Tool.
 			ui.message(_("No tracks added"))
 		else:
-			# Cached values always takes precedence.
-			if headerText not in self.headerToIndex:
-				columnHeaders = item.parent.children[-1].children
-				for header in columnHeaders:
-					if header.name == headerText:
-						self.headerToIndex[headerText] = columnHeaders.index(header)
-			pos = self.headerToIndex[headerText]
+			# LTS: Tuple lookup.
 			try:
+				pos = indexOf(self.productVersion).index(headerText)
 				item.announceColumnContent(pos, columnHeader=headerText)
+			except ValueError:
+				# Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
+				ui.message(_("{header} not found").format(header = headerText))
 			except AttributeError:
 				ui.message(_("Not in tracks list"))
 
