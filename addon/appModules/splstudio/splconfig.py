@@ -67,6 +67,7 @@ AutoUpdateCheck = boolean(default=true)
 [Startup]
 AudioDuckingReminder = boolean(default=true)
 WelcomeDialog = boolean(default=true)
+Studio500 = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
 confspec7.newlines = "\r\n"
 SPLConfig = None
@@ -914,8 +915,47 @@ Thank you.""")
 			SPLConfig["Startup"]["WelcomeDialog"] = not self.showWelcomeDialog.Value
 		self.Destroy()
 
+# Old version reminder.
+class OldVersionReminder(wx.Dialog):
+	"""A dialog shown when using add-on 8.x under Studio 5.0x.
+	"""
+
+	def __init__(self, parent):
+		# Translators: Title of a dialog displayed when the add-on starts reminding broadcasters about old Studio releases.
+		super(OldVersionReminder, self).__init__(parent, title=_("Old Studio version detected"))
+
+		mainSizer = wx.BoxSizer(wx.VERTICAL)
+
+		# Translators: A message displayed if using an old Studio version.
+		label = wx.StaticText(self, wx.ID_ANY, label=_("You are using an older version of StationPlaylist Studio. Add-on 8.0 and later will not support Studio versions earlier than 5.10. Studio 5.0x are fully supported in 7.x LTS (long-term support) versions."))
+		mainSizer.Add(label,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: A checkbox to turn off old version reminder message.
+		self.oldVersionReminder=wx.CheckBox(self,wx.NewId(),label=_("Do not show this message again"))
+		self.oldVersionReminder.SetValue(not SPLConfig["Startup"]["Studio500"])
+		sizer.Add(self.oldVersionReminder, border=10,flag=wx.TOP)
+		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+		mainSizer.Add(self.CreateButtonSizer(wx.OK))
+		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
+		mainSizer.Fit(self)
+		self.Sizer = mainSizer
+		self.oldVersionReminder.SetFocus()
+		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+
+	def onOk(self, evt):
+		global SPLConfig
+		if self.oldVersionReminder.Value:
+			SPLConfig["Startup"]["Studio500"] = not self.oldVersionReminder.Value
+		self.Destroy()
+
 # And to open the above dialog and any other dialogs.
-def showStartupDialogs():
+def showStartupDialogs(oldVer=False):
+	if oldVer and SPLConfig["Startup"]["Studio500"]:
+		gui.mainFrame.prePopup()
+		OldVersionReminder(gui.mainFrame).Show()
+		gui.mainFrame.postPopup()
 	if SPLConfig["Startup"]["WelcomeDialog"]:
 		gui.mainFrame.prePopup()
 		WelcomeDialog(gui.mainFrame).Show()

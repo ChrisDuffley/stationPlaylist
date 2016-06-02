@@ -567,7 +567,7 @@ class AppModule(appModuleHandler.AppModule):
 			# 7.0: Have a timer call the update function indirectly.
 			queueHandler.queueFunction(queueHandler.eventQueue, splconfig.updateInit)
 		# Display startup dialogs if any.
-		wx.CallAfter(splconfig.showStartupDialogs)
+		wx.CallAfter(splconfig.showStartupDialogs, oldVer=self.SPLCurVersion < "5.10")
 		# 8.x only: Assign Control+NVDA+number row to Columns Explorer via the constructor.
 		# 9.0: The overlay class will take care of this.
 		for i in xrange(10):
