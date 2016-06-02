@@ -147,12 +147,11 @@ class TrackToolItem(IAccessible):
 			ui.message(_("Introduction not set"))
 		else:
 			print header
-			column = self.appModule.ttIndexOf(header)
-			print column
-			if column is not None:
-				self.announceColumnContent(column, columnHeader=header)
-			else:
-				# Translators: Presented when a specific column header is not found.
+			try:
+				pos = indexOf(self.appModule.productVersion).index(header)
+				self.announceColumnContent(pos, columnHeader=header)
+			except ValueError:
+				# Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
 				ui.message(_("{headerText} not found").format(headerText = header))
 
 	__gestures={
@@ -171,23 +170,3 @@ class AppModule(appModuleHandler.AppModule):
 		if obj.windowClassName in ("TListView", "TTntListView.UnicodeClass") and obj.role == ROLE_LISTITEM:
 			clsList.insert(0, TrackToolItem)
 
-	# A private function to serve as a Track Tool module version of item.indexOf, to be integrated into trakc item in 9.0
-
-	def ttIndexOf(self, headerText):
-		item = api.getFocusObject()
-		if not isinstance(item, TrackToolItem):
-			# Translators: Presented when trying to perform Track Tool commands when not focused in the track list.
-			ui.message(_("Not in tracks list"))
-		elif item.name is None and item.description is None:
-			# Translators: Presented when no tracks are added to Track Tool.
-			ui.message(_("No tracks added"))
-		else:
-			# LTS: Tuple lookup.
-			try:
-				pos = indexOf(self.productVersion).index(headerText)
-				item.announceColumnContent(pos, columnHeader=headerText)
-			except ValueError:
-				# Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
-				ui.message(_("{header} not found").format(header = headerText))
-			except AttributeError:
-				ui.message(_("Not in tracks list"))
