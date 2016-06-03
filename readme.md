@@ -166,6 +166,15 @@ From studio window, you can press Control+NVDA+0 to open the add-on configuratio
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Changes for 7.2
+
+* Due to removal of old-style internal configuration format, it is mandatory to install add-on 7.2. Once installed, you cannot go back to an earlier version of the add-on.
+* Added a command in SPL Controller to report listener count (I).
+* You can now open SPL add-on settings and encoder settings dialogs by pressing Alt+NVDA+0. You can still use Control+NVDA+0 to open these dialogs (to be removed in add-on 8.0).
+* In Track Tool, you can use Control+Alt+left or right arrow keys to navigate between columns.
+* In SPL Encoders, NVDA will silence connection tone if auto-connect is enabled and then turned off from encoder context menu while the selected encoder is connecting.
+* Updated translations.
+
 ## Changes for 7.1
 
 * Fixed erorrs encountered when upgrading from add-on 5.5 and below to 7.0.
