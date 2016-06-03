@@ -1368,7 +1368,6 @@ class ResetDialog(wx.Dialog):
 		import threading, sys, globalVars
 		# Reset all profiles.
 		# LTS: Only a priveleged thread should do this, otherwise unexpected things may happen.
-		# Save some flags from death.
 		with threading.Lock() as resetting:
 			global _configDialogOpened
 			splconfig.resetAllConfig()

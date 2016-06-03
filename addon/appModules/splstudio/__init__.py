@@ -1462,8 +1462,7 @@ class AppModule(appModuleHandler.AppModule):
 		self.bindGestures(self.__gestures)
 		# LTS: Also bind Control+NVDA+number row.
 		# 9.0: No longer needed as the overlay class will take care of it.
-		start, end = splconfig.SPLConfig["ColumnExpRange"]
-		for i in xrange(start, end):
+		for i in xrange(10):
 			self.bindGesture("kb:control+nvda+%s"%(i), "columnExplorer")
 		if self.cartExplorer:
 			self.buildFNCarts()
