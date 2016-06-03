@@ -495,7 +495,9 @@ class AppModule(appModuleHandler.AppModule):
 		self.noMoreHandle = threading.Event()
 		threading.Thread(target=self._locateSPLHwnd).start()
 		# Check for add-on update if told to do so.
-		if splconfig.SPLConfig["Update"]["AutoUpdateCheck"]:
+		# LTS: Only do this if channel hasn't changed.
+		# To be unlocked in 8.0 beta 1.
+		if splconfig.SPLConfig["Update"]["AutoUpdateCheck"]: # 7lts: or splupdate._updateNow:
 			# 7.0: Have a timer call the update function indirectly.
 			queueHandler.queueFunction(queueHandler.eventQueue, splconfig.updateInit)
 		# Display startup dialogs if any.
