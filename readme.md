@@ -3,12 +3,13 @@
 * Authors: Geoff Shang, Joseph Lee and other contributors
 * Download [stable version][1]
 * Download [development version][2]
+* Download [long-term support version][3] - add-on 7.x for Studio 5.0x users
 
 This add-on package provides improved usage of StationPlaylist Studio, as well as providing utilities to control the Studio from anywhere.
 
-For more information about the add-on, read the [add-on guide][3].
+For more information about the add-on, read the [add-on guide][4].
 
-IMPORTANT: This add-on requires NVDA 2015.3 or later and StationPlaylist Studio 5.00 or later. If you have installed NVDA 2016.1 or later on Windows 8 and later, disable audio ducking mode.
+IMPORTANT: This add-on requires NVDA 2015.3 or later and StationPlaylist Studio 5.00 or later. If you have installed NVDA 2016.1 or later on Windows 8 and later, disable audio ducking mode. Also, add-on 8.0 requires Studio 5.10 and later, and for broadcasters using Studio 5.0x, a long-term support version (7.x) is available.
 
 ## Shortcut keys
 
@@ -436,4 +437,6 @@ Version 4.0 supports SPL Studio 5.00 and later, with 3.x designed to provide som
 
 [2]: http://addons.nvda-project.org/files/get.php?file=spl-dev
 
-[3]: https://bitbucket.org/nvdaaddonteam/stationplaylist/wiki/SPLAddonGuide
+[3]: http://spl.nvda-kr.org/files/get.php?file=spl-lts7
+
+[4]: https://bitbucket.org/nvdaaddonteam/stationplaylist/wiki/SPLAddonGuide
