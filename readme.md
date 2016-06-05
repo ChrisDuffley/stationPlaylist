@@ -181,6 +181,7 @@ Version 8.0 supports SPL Studio 5.10 and later, with 7.x designed to provide som
 * Added ability to notify if a track comment exists, as well as a setting in add-on settings to control how this should be done.
 * Added a setting in add-on settings dialog to let NVDA notify you if you've reached top or bottom of playlist viewer.
 * When resetting add-on settings, you can now specify what gets reset. By default, add-on settings will be reset, with checkboxes for resetting instant switch profile, time-based profile, encoder settings and erasing track comments added to reset settings dialog.
+* In Track Tool, you can obtain information on album and CD code by pressing Control+NVDA+9 and Control+NVDA+0, respectively.
 
 ## Changes for 7.2
 
