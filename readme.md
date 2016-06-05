@@ -3,12 +3,13 @@
 * Authors: Geoff Shang, Joseph Lee and other contributors
 * Download [stable version][1]
 * Download [development version][2]
+* Download [long-term support version][3] - add-on 7.x for Studio 5.0x users
 
 This add-on package provides improved usage of StationPlaylist Studio, as well as providing utilities to control the Studio from anywhere.
 
-For more information about the add-on, read the [add-on guide][3].
+For more information about the add-on, read the [add-on guide][4].
 
-IMPORTANT: This add-on requires NVDA 2015.3 or later and StationPlaylist Studio 5.00 or later. If you have installed NVDA 2016.1 or later on Windows 8 and later, disable audio ducking mode.
+IMPORTANT: This add-on requires NVDA 2015.3 or later and StationPlaylist Studio 5.00 or later. If you have installed NVDA 2016.1 or later on Windows 8 and later, disable audio ducking mode. Also, add-on 8.0 requires Studio 5.10 and later, and for broadcasters using Studio 5.0x, a long-term support version (7.x) is available.
 
 ## Shortcut keys
 
@@ -180,6 +181,7 @@ Version 8.0 supports SPL Studio 5.10 and later, with 7.x designed to provide som
 * Added ability to notify if a track comment exists, as well as a setting in add-on settings to control how this should be done.
 * Added a setting in add-on settings dialog to let NVDA notify you if you've reached top or bottom of playlist viewer.
 * When resetting add-on settings, you can now specify what gets reset. By default, add-on settings will be reset, with checkboxes for resetting instant switch profile, time-based profile, encoder settings and erasing track comments added to reset settings dialog.
+* In Track Tool, you can obtain information on album and CD code by pressing Control+NVDA+9 and Control+NVDA+0, respectively.
 
 ## Changes for 7.2
 
@@ -447,4 +449,6 @@ Version 4.0 supports SPL Studio 5.00 and later, with 3.x designed to provide som
 
 [2]: http://addons.nvda-project.org/files/get.php?file=spl-dev
 
-[3]: https://bitbucket.org/nvdaaddonteam/stationplaylist/wiki/SPLAddonGuide
+[3]: http://spl.nvda-kr.org/files/get.php?file=spl-lts7
+
+[4]: https://bitbucket.org/nvdaaddonteam/stationplaylist/wiki/SPLAddonGuide
