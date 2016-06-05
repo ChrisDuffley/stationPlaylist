@@ -127,6 +127,7 @@ The available SPL Controller commands are:
 * Press R to hear remaining time for the currently playing track.
 * Press Shift+R to get a report on library scan progress.
 * Press E to get count and labels for encoders being monitored.
+* Press I to obtain listener count.
 * Press F1 to show a help dialog which lists available commands.
 
 ## Track alarms
@@ -180,6 +181,16 @@ Version 8.0 supports SPL Studio 5.10 and later, with 7.x designed to provide som
 * Added ability to notify if a track comment exists, as well as a setting in add-on settings to control how this should be done.
 * Added a setting in add-on settings dialog to let NVDA notify you if you've reached top or bottom of playlist viewer.
 * When resetting add-on settings, you can now specify what gets reset. By default, add-on settings will be reset, with checkboxes for resetting instant switch profile, time-based profile, encoder settings and erasing track comments added to reset settings dialog.
+
+## Changes for 7.2
+
+* Due to removal of old-style internal configuration format, it is mandatory to install add-on 7.2. Once installed, you cannot go back to an earlier version of the add-on.
+* Added a command in SPL Controller to report listener count (I).
+* You can now open SPL add-on settings and encoder settings dialogs by pressing Alt+NVDA+0. You can still use Control+NVDA+0 to open these dialogs (to be removed in add-on 8.0).
+* In Track Tool, you can use Control+Alt+left or right arrow keys to navigate between columns.
+* Contents of various Studio dialogs such as About dialog in Studio 5.1x are now announced.
+* In SPL Encoders, NVDA will silence connection tone if auto-connect is enabled and then turned off from encoder context menu while the selected encoder is connecting.
+* Updated translations.
 
 ## Changes for 7.1
 
