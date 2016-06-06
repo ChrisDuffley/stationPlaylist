@@ -568,6 +568,10 @@ class AppModule(appModuleHandler.AppModule):
 			queueHandler.queueFunction(queueHandler.eventQueue, splconfig.updateInit)
 		# Display startup dialogs if any.
 		wx.CallAfter(splconfig.showStartupDialogs, oldVer=self.SPLCurVersion < "5.10")
+		# 8.x only: Assign Control+NVDA+number row to Columns Explorer via the constructor.
+		# 9.0: The overlay class will take care of this.
+		for i in xrange(10):
+			self.bindGesture("kb:control+nvda+%s"%(i), "columnExplorer")
 
 	# Locate the handle for main window for caching purposes.
 	def _locateSPLHwnd(self):

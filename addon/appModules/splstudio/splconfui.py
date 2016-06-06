@@ -315,6 +315,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 		item.Bind(wx.EVT_BUTTON, self.onColumnsExplorer)
 		self.exploreColumns = splconfig.SPLConfig["General"]["ExploreColumns"]
 		settingsSizer.Add(item)
+		# Translators: The label of a button to configure columns explorer slots for Track Tool (SPL Assistant, number row keys to announce specific columns).
+		item = columnsExplorerButton = wx.Button(self, label=_("Columns Explorer for &Track Tool..."))
+		item.Bind(wx.EVT_BUTTON, self.onColumnsExplorerTT)
+		self.exploreColumnsTT = splconfig.SPLConfig["General"]["ExploreColumnsTT"]
+		settingsSizer.Add(item)
 
 		# Say status flags to be picked up by the dialog of this name.
 		self.scheduledFor = splconfig.SPLConfig["SayStatus"]["SayScheduledFor"]
@@ -371,6 +376,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"] = self.columnOrder
 		splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"] = self.includedColumns
 		splconfig.SPLConfig["General"]["ExploreColumns"] = self.exploreColumns
+		splconfig.SPLConfig["General"]["ExploreColumnsTT"] = self.exploreColumnsTT
 		splconfig.SPLConfig["SayStatus"]["SayScheduledFor"] = self.scheduledFor
 		splconfig.SPLConfig["SayStatus"]["SayListenerCount"] = self.listenerCount
 		splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"] = self.cartName
@@ -634,7 +640,12 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.Disable()
 		ColumnsExplorerDialog(self).Show()
 
-	# Status announcement dialog.
+	# Track Tool Columns Explorer configuration.
+	def onColumnsExplorerTT(self, evt):
+		self.Disable()
+		ColumnsExplorerDialog(self, tt=True).Show()
+
+		# Status announcement dialog.
 	def onStatusAnnouncement(self, evt):
 		self.Disable()
 		SayStatusDialog(self).Show()
@@ -1123,13 +1134,21 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 			if self.FindFocus().GetId() == wx.ID_OK:
 				self.upButton.SetFocus()
 
-# Columns Explorer.
-# Configure which column will be announced when SPL Assistnat, number keys are pressed.
+# Columns Explorer for both Studio and Track Tool
+# Configure which column will be announced when Control+NVDA+number row keys are pressed.
 class ColumnsExplorerDialog(wx.Dialog):
 
-	def __init__(self, parent):
-		# Translators: The title of Columns Explorer configuration dialog.
-		super(ColumnsExplorerDialog, self).__init__(parent, title=_("Columns Explorer"))
+	def __init__(self, parent, tt=False):
+		self.trackTool = tt
+		if not tt:
+			# Translators: The title of Columns Explorer configuration dialog.
+			actualTitle = _("Columns Explorer")
+			cols = splconfig._SPLDefaults7["ColumnAnnouncement"]["ColumnOrder"]
+		else:
+			# Translators: The title of Columns Explorer configuration dialog.
+			actualTitle = _("Columns Explorer for Track Tool")
+			cols = cols = ("Artist","Title","Duration","Cue","Overlap","Intro","Segue","Filename","Album","CD Code","Outro","Year","URL 1","URL 2","Genre")
+		super(ColumnsExplorerDialog, self).__init__(parent, title=actualTitle)
 
 		# Gather column slots.
 		self.columnSlots = []
@@ -1141,9 +1160,9 @@ class ColumnsExplorerDialog(wx.Dialog):
 		for slot in xrange(6):
 			# Translators: The label for a setting in SPL add-on dialog to select column for this column slot.
 			label = wx.StaticText(self, wx.ID_ANY, label=_("Slot {position}").format(position = slot+1))
-			columns = wx.Choice(self, wx.ID_ANY, choices=splconfig._SPLDefaults7["ColumnAnnouncement"]["ColumnOrder"])
+			columns = wx.Choice(self, wx.ID_ANY, choices=cols)
 			try:
-				columns.SetSelection(splconfig._SPLDefaults7["ColumnAnnouncement"]["ColumnOrder"].index(parent.exploreColumns[slot]))
+				columns.SetSelection(cols.index(parent.exploreColumns[slot] if not tt else parent.exploreColumnsTT[slot]))
 			except:
 				pass
 			sizer.Add(label)
@@ -1154,9 +1173,9 @@ class ColumnsExplorerDialog(wx.Dialog):
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		for slot in xrange(6, 10):
 			label = wx.StaticText(self, wx.ID_ANY, label=_("Slot {position}").format(position = slot+1))
-			columns = wx.Choice(self, wx.ID_ANY, choices=splconfig._SPLDefaults7["ColumnAnnouncement"]["ColumnOrder"])
+			columns = wx.Choice(self, wx.ID_ANY, choices=cols)
 			try:
-				columns.SetSelection(splconfig._SPLDefaults7["ColumnAnnouncement"]["ColumnOrder"].index(parent.exploreColumns[slot]))
+				columns.SetSelection(cols.index(parent.exploreColumns[slot] if not tt else parent.exploreColumnsTT[slot]))
 			except:
 				pass
 			sizer.Add(label)
@@ -1174,8 +1193,9 @@ class ColumnsExplorerDialog(wx.Dialog):
 
 	def onOk(self, evt):
 		parent = self.Parent
+		slots = parent.exploreColumns if not self.trackTool else parent.exploreColumnsTT
 		for slot in xrange(len(self.columnSlots)):
-			parent.exploreColumns[slot] = self.columnSlots[slot].GetStringSelection()
+			slots[slot] = self.columnSlots[slot].GetStringSelection()
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()
