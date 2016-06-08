@@ -309,21 +309,20 @@ class SPLConfigDialog(gui.SettingsDialog):
 		item = manageColumnsButton = wx.Button(self, label=_("&Manage track column announcements..."))
 		item.Bind(wx.EVT_BUTTON, self.onManageColumns)
 		sizer.Add(item)
+		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: The label of a button to configure columns explorer slots (SPL Assistant, number row keys to announce specific columns).
 		item = columnsExplorerButton = wx.Button(self, label=_("Columns E&xplorer..."))
 		item.Bind(wx.EVT_BUTTON, self.onColumnsExplorer)
 		self.exploreColumns = splconfig.SPLConfig["General"]["ExploreColumns"]
-<<<<<<< HEAD
-		settingsSizer.Add(item)
+		sizer.Add(item)
 		# Translators: The label of a button to configure columns explorer slots for Track Tool (SPL Assistant, number row keys to announce specific columns).
 		item = columnsExplorerButton = wx.Button(self, label=_("Columns Explorer for &Track Tool..."))
 		item.Bind(wx.EVT_BUTTON, self.onColumnsExplorerTT)
 		self.exploreColumnsTT = splconfig.SPLConfig["General"]["ExploreColumnsTT"]
-		settingsSizer.Add(item)
-=======
 		sizer.Add(item)
 		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
->>>>>>> lts
 
 		# Say status flags to be picked up by the dialog of this name.
 		self.scheduledFor = splconfig.SPLConfig["SayStatus"]["SayScheduledFor"]
