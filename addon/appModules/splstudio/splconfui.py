@@ -75,9 +75,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		item = self.triggerButton = wx.Button(self, label=_("&Triggers..."))
 		item.Bind(wx.EVT_BUTTON, self.onTriggers)
 		sizer.Add(item)
-		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		self.switchProfile = splconfig.SPLSwitchProfile
 		self.activeProfile = splconfig.SPLActiveProfile
 		# Used as sanity check in case switch profile is renamed or deleted.
@@ -299,27 +297,33 @@ class SPLConfigDialog(gui.SettingsDialog):
 		sizer.Add(item)
 		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
 		self.columnOrderCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce columns in the &order shown on screen"))
 		self.columnOrderCheckbox.SetValue(splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"])
 		self.columnOrder = splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"]
 		# Without manual conversion below, it produces a rare bug where clicking cancel after changing column inclusion causes new set to be retained.
 		self.includedColumns = set(splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"])
-		settingsSizer.Add(self.columnOrderCheckbox, border=10,flag=wx.BOTTOM)
+		sizer.Add(self.columnOrderCheckbox, border=10,flag=wx.BOTTOM)
 		# Translators: The label of a button to manage column announcements.
 		item = manageColumnsButton = wx.Button(self, label=_("&Manage track column announcements..."))
 		item.Bind(wx.EVT_BUTTON, self.onManageColumns)
-		settingsSizer.Add(item)
+		sizer.Add(item)
 		# Translators: The label of a button to configure columns explorer slots (SPL Assistant, number row keys to announce specific columns).
 		item = columnsExplorerButton = wx.Button(self, label=_("Columns E&xplorer..."))
 		item.Bind(wx.EVT_BUTTON, self.onColumnsExplorer)
 		self.exploreColumns = splconfig.SPLConfig["General"]["ExploreColumns"]
+<<<<<<< HEAD
 		settingsSizer.Add(item)
 		# Translators: The label of a button to configure columns explorer slots for Track Tool (SPL Assistant, number row keys to announce specific columns).
 		item = columnsExplorerButton = wx.Button(self, label=_("Columns Explorer for &Track Tool..."))
 		item.Bind(wx.EVT_BUTTON, self.onColumnsExplorerTT)
 		self.exploreColumnsTT = splconfig.SPLConfig["General"]["ExploreColumnsTT"]
 		settingsSizer.Add(item)
+=======
+		sizer.Add(item)
+		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+>>>>>>> lts
 
 		# Say status flags to be picked up by the dialog of this name.
 		self.scheduledFor = splconfig.SPLConfig["SayStatus"]["SayScheduledFor"]
@@ -327,10 +331,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.cartName = splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"]
 		self.playingTrackName = splconfig.SPLConfig["SayStatus"]["SayPlayingTrackName"]
 
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: The label of a button to open advanced options such as using SPL Controller command to invoke Assistant layer.
 		item = sayStatusButton = wx.Button(self, label=_("&Status announcements..."))
 		item.Bind(wx.EVT_BUTTON, self.onStatusAnnouncement)
-		settingsSizer.Add(item)
+		sizer.Add(item)
 
 		# Translators: The label of a button to open advanced options such as using SPL Controller command to invoke Assistant layer.
 		item = advancedOptButton = wx.Button(self, label=_("&Advanced options..."))
@@ -338,7 +343,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.splConPassthrough = splconfig.SPLConfig["Advanced"]["SPLConPassthrough"]
 		self.compLayer = splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]
 		self.autoUpdateCheck = splconfig.SPLConfig["Update"]["AutoUpdateCheck"]
-		settingsSizer.Add(item)
+		sizer.Add(item)
+		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		# Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
 		item = resetButton = wx.Button(self, label=_("Reset settings..."))
