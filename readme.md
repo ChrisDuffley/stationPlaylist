@@ -7,7 +7,7 @@
 
 This add-on package provides improved usage of StationPlaylist Studio, as well as providing utilities to control the Studio from anywhere.
 
-For more information about the add-on, read the [add-on guide][4].
+For more information about the add-on, read the [add-on guide][4]. For developers seeking to know how to build the add-on, see buildInstructions.txt located at the root of the add-on source code repository.
 
 IMPORTANT: This add-on requires NVDA 2015.3 or later and StationPlaylist Studio 5.00 or later. If you have installed NVDA 2016.1 or later on Windows 8 and later, disable audio ducking mode. Also, add-on 8.0 requires Studio 5.10 and later, and for broadcasters using Studio 5.0x, a long-term support version (7.x) is available.
 
@@ -172,16 +172,20 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Changes for 8.0-dev/7.x-LTS
 
-Version 8.0 supports SPL Studio 5.10 and later, with 7.x designed to provide some new features from 8.0 for users using earlier versions of Studio. Unless otherwise noted, entries below apply to both 8.0 and 7.x.
+Version 8.0 supports SPL Studio 5.10 and later, with 7.x designed to provide some new features from 8.0 for users using earlier versions of Studio. Unless otherwise noted, entries below apply to both 8.0 and 7.x. A warning dialog will be shown the first time you use add-on 8.0 with Studio 5.0x installed, asking you to use 7.x LTS version.
 
+* Add-on source code is now hosted on GitHub (repository located at https://github.com/josephsl/stationPlaylist).
 * Added a welcome dialog that launches when Studio starts after installing the add-on. A command (Alt+NvDA+F1) has been added to reopen this dialog once dismissed.
 * Changes to various add-on commands, including removal of status announcement toggle (Control+NvDA+1), reassigned end of track alarm to Alt+NVDA+1, Cart Explorer toggle is now Alt+NvDA+3, microphone alarm dialog is Alt+NVDA+4 and add-on/encoder settings dialog is Alt+NvDA+0. This was done to allow Control+NVDA+number row to be assigned to Columns Explorer.
 * 8.0: Relaxed Columns Explorer restriction in place in 7.x so numbers 1 through 6 can be configured to announce Studio 5.1x columns.
+* 8.0: SPL Assistant, number row and Track Dial toggle commands (and the corresponding setting in add-on settings) are deprecated and will be removed in 9.0. These commands will remain available in add-on 7.x.
 * You can now add, view, change or delete track comments (notes). Press Alt+NVDA+C from a track in the playlist viewer to hear track comments if defined, press twice to copy comment to clipboard or three times to open a dialog to edit comments.
 * Added ability to notify if a track comment exists, as well as a setting in add-on settings to control how this should be done.
 * Added a setting in add-on settings dialog to let NVDA notify you if you've reached top or bottom of playlist viewer.
 * When resetting add-on settings, you can now specify what gets reset. By default, add-on settings will be reset, with checkboxes for resetting instant switch profile, time-based profile, encoder settings and erasing track comments added to reset settings dialog.
 * In Track Tool, you can obtain information on album and CD code by pressing Control+NVDA+9 and Control+NVDA+0, respectively.
+* Performance improvements when obtaining column information for the first time in Track Tool.
+* 8.0: Added a dialog in add-on settings to configure Columns Explorer slots for Track Tool.
 
 ## Changes for 7.2
 
