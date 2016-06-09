@@ -406,6 +406,9 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self._profileTriggersConfig.clear()
 		self._profileTriggersConfig = None
 		splconfig.triggerStart(restart=True)
+		# 8.0: Make sure NVDA knows this must be cached.
+		if profileIndex != 0 and selectedProfile not in splconfig._SPLCache:
+			splconfig._cacheConfig(splconfig.SPLConfigPool[profileIndex])
 		super(SPLConfigDialog,  self).onOk(evt)
 
 	def onCancel(self, evt):
