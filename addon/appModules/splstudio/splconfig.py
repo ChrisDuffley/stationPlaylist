@@ -148,6 +148,10 @@ def initConfig():
 	# 7.0: Store the config as a dictionary.
 	# This opens up many possibilities, including config caching, loading specific sections only and others (the latter saves memory).
 	SPLConfig = dict(SPLConfigPool[0])
+	# 7.0 optimization: Store an online backup.
+	# This online backup is used to prolong SSD life (no need to save a config if it is same as this copy).
+	# 8.0: Only cache the normal profile for now, which results in space savings and allows the app module to load faster.
+	_cacheConfig(SPLConfigPool[0])
 	SPLConfig["ActiveIndex"] = 0 # Holds settings from normal profile.
 	# Locate instant profile.
 	if "InstantProfile" in SPLConfig:
@@ -194,6 +198,9 @@ def initConfig():
 		# Translators: Title of the encoder settings error dialog.
 		_("Encoder settings error"))
 
+# A set of new profiles to avoid this flag being recorded inside the cache.
+SPLNewProfiles = set()
+
 # Unlock (load) profiles from files.
 # LTS: Allow new profile settings to be overridden by a parent profile.
 def unlockConfig(path, profileName=None, prefill=False, parent=None):
@@ -203,7 +210,6 @@ def unlockConfig(path, profileName=None, prefill=False, parent=None):
 		SPLConfigCheckpoint = ConfigObj(parent, encoding="UTF-8")
 		SPLConfigCheckpoint.filename = path
 		SPLConfigCheckpoint.name = profileName
-		_cacheConfig(SPLConfigCheckpoint)
 		return SPLConfigCheckpoint
 	# For the rest.
 	global _configLoadStatus # To be mutated only during unlock routine.
@@ -240,9 +246,6 @@ def unlockConfig(path, profileName=None, prefill=False, parent=None):
 			_configLoadStatus[profileName] = "partialReset"
 	_extraInitSteps(SPLConfigCheckpoint, profileName=profileName)
 	SPLConfigCheckpoint.name = profileName
-	# 7.0 optimization: Store an online backup.
-	# This online backup is used to prolong SSD life (no need to save a config if it is same as this copy).
-	_cacheConfig(SPLConfigCheckpoint)
 	return SPLConfigCheckpoint
 
 # Extra initialization steps such as converting value types.
@@ -624,7 +627,7 @@ SPLTriggerProfile = None
 # Allows the add-on to switch between profiles as a result of manual intervention or through profile trigger timer.
 # Instant profile switching is just a special case of this function.
 def switchProfile(prevProfile, newProfile):
-	global SPLConfig, SPLActiveProfile, SPLPrevProfile
+	global SPLConfig, SPLActiveProfile, SPLPrevProfile, _SPLCache
 	from splconfui import _configDialogOpened
 	if _configDialogOpened:
 		# Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
@@ -632,6 +635,9 @@ def switchProfile(prevProfile, newProfile):
 		return
 	mergeSections(newProfile)
 	SPLActiveProfile = SPLConfigPool[newProfile].name
+	# 8.0: Cache other profiles this time.
+	if newProfile != 0 and SPLActiveProfile not in _SPLCache:
+		_cacheConfig(SPLConfigPool[newProfile])
 	SPLConfig["ActiveIndex"] = newProfile
 	if prevProfile is not None:
 		# Translators: Presented when switch to instant switch profile was successful.

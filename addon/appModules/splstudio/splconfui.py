@@ -556,8 +556,9 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.profileNames[profilePos] = newName
 		splconfig.SPLConfigPool[configPos].name = newName
 		splconfig.SPLConfigPool[configPos].filename = newProfile
-		splconfig._SPLCache[newName] = splconfig._SPLCache[oldName]
-		del splconfig._SPLCache[oldName]
+		if oldName in splconfig._SPLCache:
+			splconfig._SPLCache[newName] = splconfig._SPLCache[oldName]
+			del splconfig._SPLCache[oldName]
 		if len(state) > 1: newName = " <".join([newName, state[1]])
 		self.profiles.SetString(index, newName)
 		self.profiles.Selection = index
@@ -598,7 +599,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 			self.switchProfileDeleted = True
 		self.profiles.Delete(index)
 		del self.profileNames[profilePos]
-		del splconfig._SPLCache[name]
+		if name in splconfig._SPLCache: del splconfig._SPLCache[name]
 		if name in self._profileTriggersConfig:
 			del self._profileTriggersConfig[name]
 		# 6.3: Select normal profile if the active profile is gone.
@@ -744,7 +745,8 @@ class NewProfileDialog(wx.Dialog):
 		splconfig.SPLConfigPool.append(splconfig.unlockConfig(newProfilePath, profileName=name, parent=baseProfile))
 		# Make the cache know this is a new profile.
 		# If nothing happens to this profile, the newly created profile will be saved to disk.
-		splconfig._SPLCache[name]["___new___"] = True
+		# 8.0: The recipient has been changed to the new profiles name set.
+		splconfig.SPLNewProfiles.add(name)
 		parent = self.Parent
 		parent.profileNames.append(name)
 		parent.profiles.Append(name)
