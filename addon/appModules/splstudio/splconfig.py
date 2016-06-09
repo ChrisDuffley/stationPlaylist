@@ -572,7 +572,7 @@ def shouldSave(profile):
 # Save configuration database.
 def saveConfig():
 	# Save all config profiles.
-	global SPLConfig, SPLConfigPool, SPLActiveProfile, SPLPrevProfile, SPLSwitchProfile, _SPLCache
+	global SPLConfig, SPLConfigPool, SPLActiveProfile, SPLPrevProfile, SPLSwitchProfile, _SPLCache, SPLNewProfiles
 	# 7.0: Turn off auto update check timer.
 	if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
 	splupdate._SPLUpdateT = None
@@ -604,12 +604,15 @@ def saveConfig():
 			configuration["ColumnAnnouncement"]["IncludedColumns"] = list(configuration["ColumnAnnouncement"]["IncludedColumns"])
 			# 7.0: See if profiles themselves must be saved.
 			# This must be done now, otherwise changes to broadcast profiles (cached) will not be saved as presave removes them.
-			if shouldSave(configuration):
+			# 8.0: Bypass cache check routine if this is a new profile.
+			# Takes advantage of the fact that Python's "or" operator evaluates from left to right, considerably saving time.
+			if configuration.name in SPLNewProfiles or shouldSave(configuration):
 				_preSave(configuration)
 				configuration.write()
 	SPLConfig.clear()
 	SPLConfig = None
 	SPLConfigPool = None
+	SPLNewProfiles.clear()
 	SPLActiveProfile = None
 	SPLPrevProfile = None
 	SPLSwitchProfile = None

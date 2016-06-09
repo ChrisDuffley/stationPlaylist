@@ -559,6 +559,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 		if oldName in splconfig._SPLCache:
 			splconfig._SPLCache[newName] = splconfig._SPLCache[oldName]
 			del splconfig._SPLCache[oldName]
+		# Just in case a new profile has been renamed...
+		if oldName in splconfig.SPLNewProfiles:
+			splconfig.SPLNewProfiles.discard(oldName)
+			splconfig.SPLNewProfiles.add(newName)
 		if len(state) > 1: newName = " <".join([newName, state[1]])
 		self.profiles.SetString(index, newName)
 		self.profiles.Selection = index
@@ -600,6 +604,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.profiles.Delete(index)
 		del self.profileNames[profilePos]
 		if name in splconfig._SPLCache: del splconfig._SPLCache[name]
+		splconfig.SPLNewProfiles.discard(name)
 		if name in self._profileTriggersConfig:
 			del self._profileTriggersConfig[name]
 		# 6.3: Select normal profile if the active profile is gone.
