@@ -285,19 +285,8 @@ def _cacheConfig(conf):
 	if _SPLCache is None: _SPLCache = {}
 	key = None if conf.filename == SPLIni else conf.name
 	_SPLCache[key] = {}
-	# Take care of global flags in caching normal profile.
-	# 7.2: If there are any old keys, tell the add-on this config must be saved.
-	pre70count = 0
-	for setting in conf.keys():
-		if isinstance(conf[setting], dict): _SPLCache[key][setting] = dict(conf[setting])
-		else:
-			# 7.2: Remove old-style config, also prevent these keys from being cached and tell config routine these must be gone when saving.
-			if setting != "InstantProfile":
-				del conf[setting]
-				pre70count+=1
-	if pre70count: _SPLCache[key]["___pre70keys___"] = True
-	# Column inclusion only.
-	_SPLCache[key]["ColumnAnnouncement"]["IncludedColumns"] = list(conf["ColumnAnnouncement"]["IncludedColumns"])
+	# 8.0: Caching the dictionary (items) is enough.
+	_SPLCache[key] = dict(conf)
 
 # Record profile triggers.
 # Each record (profile name) consists of seven fields organized as a list:
@@ -556,18 +545,9 @@ def _preSave(conf):
 # For the most part, no setting will be modified.
 def shouldSave(profile):
 	tree = None if profile.filename == SPLIni else profile.name
-	# One downside of caching: new profiles are not recognized as such.
-	# 7.2 only: Also save if pre-7.0 keys were found.
 	# 8.0: Streamline the whole process by comparing values alone instead of walking the entire dictionary.
 	# The old loop will be kept in 7.x/LTS for compatibility and to reduce risks associated with accidental saving/discard.
-	if "___new___" in _SPLCache[tree] or "___pre70keys___" in _SPLCache[tree]: return True
-	for section in profile.keys():
-		if isinstance(profile[section], dict):
-			for key in profile[section]:
-				if profile[section][key] != _SPLCache[tree][section][key]:
-					return True # Setting modified.
-	return False
-
+	return _SPLCache[tree] != profile
 
 # Save configuration database.
 def saveConfig():
@@ -590,23 +570,24 @@ def saveConfig():
 	# 7.0: Save normal profile first.
 	# Temporarily merge normal profile.
 	mergeSections(0)
-	# 6.1: Transform column inclusion data structure (for normal profile) now.
-	# 7.0: This will be repeated for broadcast profiles later.
-	SPLConfigPool[0]["ColumnAnnouncement"]["IncludedColumns"] = list(SPLConfigPool[0]["ColumnAnnouncement"]["IncludedColumns"])
 	_preSave(SPLConfigPool[0])
 	# Disk write optimization check please.
 	if shouldSave(SPLConfigPool[0]):
+		# 6.1: Transform column inclusion data structure (for normal profile) now.
+		# 7.0: This will be repeated for broadcast profiles later.
+		# 8.0: Conversion will happen here, as conversion to list is necessary before writing it to disk (if told to do so).
+		SPLConfigPool[0]["ColumnAnnouncement"]["IncludedColumns"] = list(SPLConfigPool[0]["ColumnAnnouncement"]["IncludedColumns"])
 		SPLConfigPool[0].write()
 	del SPLConfigPool[0]
 	# Now save broadcast profiles.
 	for configuration in SPLConfigPool:
 		if configuration is not None:
-			configuration["ColumnAnnouncement"]["IncludedColumns"] = list(configuration["ColumnAnnouncement"]["IncludedColumns"])
 			# 7.0: See if profiles themselves must be saved.
 			# This must be done now, otherwise changes to broadcast profiles (cached) will not be saved as presave removes them.
 			# 8.0: Bypass cache check routine if this is a new profile.
 			# Takes advantage of the fact that Python's "or" operator evaluates from left to right, considerably saving time.
-			if configuration.name in SPLNewProfiles or shouldSave(configuration):
+			if configuration.name in SPLNewProfiles or (configuration.name in _SPLCache and shouldSave(configuration)):
+				configuration["ColumnAnnouncement"]["IncludedColumns"] = list(configuration["ColumnAnnouncement"]["IncludedColumns"])
 				_preSave(configuration)
 				configuration.write()
 	SPLConfig.clear()
