@@ -1370,6 +1370,7 @@ msgstr ""
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
+#, fuzzy
 msgid ""
 "\n"
 "After entering SPL Controller, press:\n"
@@ -1385,7 +1386,8 @@ msgid ""
 "S: Stop with fade.\n"
 "T: Instant stop.\n"
 "E: Announce if any encoders are being monitored.\n"
-"R: Remainig time for the playing track.\n"
+"I: Announce listener count.\n"
+"R: Remaining time for the playing track.\n"
 "Shift+R: Library scan progress."
 msgstr ""
 "\n"
@@ -1441,6 +1443,11 @@ msgid "There is no track playing. Try pausing while a track is playing."
 msgstr ""
 "لا يوجد مسار مشغل في الوقت الراهن. حاول استخدام التوقف المؤقت أثناء تشغيل "
 "أحد المسارات."
+
+#. Translators: Announces number of stream listeners.
+#, fuzzy, python-brace-format
+msgid "Listener count: {listenerCount}"
+msgstr "عدد المستمعين غير موجود"
 
 #. Translators: Presented when no track is playing in Station Playlist Studio.
 msgid "There is no track playing."
