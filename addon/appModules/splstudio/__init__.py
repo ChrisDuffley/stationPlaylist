@@ -125,8 +125,6 @@ class SPLTrackItem(IAccessible):
 		for i in xrange(start, end):
 			self.bindGesture("kb:control+nvda+%s"%(i), "columnExplorer")
 
-
-
 	# Locate the real column index for a column header.
 	# This is response to a situation where columns were rearranged yet testing shows in-memory arrangement remains the same.
 	# Subclasses must provide this function.
@@ -1483,11 +1481,6 @@ class AppModule(appModuleHandler.AppModule):
 		self.SPLAssistant = False
 		self.clearGestureBindings()
 		self.bindGestures(self.__gestures)
-		# LTS: Also bind Control+NVDA+number row.
-		# 9.0: No longer needed as the overlay class will take care of it.
-		start, end = splconfig.SPLConfig["ColumnExpRange"]
-		for i in xrange(start, end):
-			self.bindGesture("kb:control+nvda+%s"%(i), "columnExplorer")
 		if self.cartExplorer:
 			self.buildFNCarts()
 			self.buildNumberCarts()
