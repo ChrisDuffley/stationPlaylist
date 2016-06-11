@@ -120,6 +120,12 @@ class SPLTrackItem(IAccessible):
 		if splconfig.SPLConfig["General"]["TrackDial"]:
 			self.bindGesture("kb:rightArrow", "nextColumn")
 			self.bindGesture("kb:leftArrow", "prevColumn")
+		# LTS: Take a greater role in assigning enhanced Columns Explorer command at the expense of limiting where this can be invoked.
+		start, end = splconfig.SPLConfig["ColumnExpRange"]
+		for i in xrange(start, end):
+			self.bindGesture("kb:control+nvda+%s"%(i), "columnExplorer")
+
+
 
 	# Locate the real column index for a column header.
 	# This is response to a situation where columns were rearranged yet testing shows in-memory arrangement remains the same.
@@ -270,7 +276,21 @@ class SPLTrackItem(IAccessible):
 		if self.IAccessibleChildID == 1 and splconfig.SPLConfig["General"]["TopBottomAnnounce"]:
 			tones.beep(2000, 100)
 
-	# Track comments.
+	# Overlay class version of Columns Explorer.
+
+	def script_columnExplorer(self, gesture):
+		# LTS: Just in case Control+NVDA+number row command is pressed...
+		# Due to the below formula, columns explorer will be restricted to number commands.
+		columnPos = int(gesture.displayName.split("+")[-1])-1
+		header = splconfig.SPLConfig["General"]["ExploreColumns"][columnPos]
+		column = self.indexOf(header)
+		if column is not None:
+			self.announceColumnContent(column, header=header)
+		else:
+			# Translators: Presented when a specific column header is not found.
+			ui.message(_("{headerText} not found").format(headerText = header))
+
+# Track comments.
 
 	# Track comment announcer.
 	# Levels indicate what should be done.
@@ -570,14 +590,7 @@ class AppModule(appModuleHandler.AppModule):
 		wx.CallAfter(splconfig.showStartupDialogs)
 		# Cache start and end range for column exploration.
 		# LTS: This is also used for enhanced Columns Explorer (Control+NVDA+number row).
-		if self.SPLCurVersion < "5.1":
-			splconfig.SPLConfig["ColumnExpRange"] = (1, 7)
-			for i in xrange(1, 7):
-				self.bindGesture("kb:control+nvda+%s"%(i), "columnExplorer")
-		else:
-			splconfig.SPLConfig["ColumnExpRange"] = (0, 10)
-			for i in xrange(10):
-				self.bindGesture("kb:control+nvda+%s"%(i), "columnExplorer")
+		splconfig.SPLConfig["ColumnExpRange"] = (1, 7) if self.SPLCurVersion < "5.1" else (0, 10)
 
 	# Locate the handle for main window for caching purposes.
 	def _locateSPLHwnd(self):
@@ -1826,16 +1839,8 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: Presented when attempting to announce specific columns but the focused item isn't a track.
 			ui.message(_("Not a track"))
 		else:
-			# LTS: Just in case Control+NVDA+number row command is pressed...
-			# Due to the below formula, columns explorer will be restricted to number commands.
-			columnPos = int(gesture.displayName.split("+")[-1])-1
-			header = splconfig.SPLConfig["General"]["ExploreColumns"][columnPos]
-			column = focus.indexOf(header)
-			if column is not None:
-				focus.announceColumnContent(column, header=header)
-			else:
-				# Translators: Presented when a specific column header is not found.
-				ui.message(_("{headerText} not found").format(headerText = header))
+					# LTS: Call the overlay class version.
+			focus.script_columnExplorer(gesture)
 		self.finish()
 
 	def script_layerHelp(self, gesture):
