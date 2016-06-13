@@ -945,14 +945,15 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Invoke the common alarm dialog.
 	# The below invocation function is also used for error handling purposes.
+	# Levels indicate which dialog to show (0 = all, 1 = outro, 2 = intro, 3 = microphone).
 
-	def alarmDialog(self, setting, toggleSetting, title, alarmPrompt, alarmToggleLabel, min, max):
+	def alarmDialog(self, level):
 		if splconfui._configDialogOpened:
 			# Translators: Presented when the add-on config dialog is opened.
 			wx.CallAfter(gui.messageBox, _("The add-on settings dialog is opened. Please close the settings dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
 			return
 		try:
-			d = splconfig.SPLAlarmDialog(gui.mainFrame, setting, toggleSetting, title, alarmPrompt, alarmToggleLabel, min, max)
+			d = splconfig.SPLAlarmDialog(gui.mainFrame, level)
 			gui.mainFrame.prePopup()
 			d.Raise()
 			d.Show()
@@ -964,63 +965,22 @@ class AppModule(appModuleHandler.AppModule):
 	# Set the end of track alarm time between 1 and 59 seconds.
 
 	def script_setEndOfTrackTime(self, gesture):
-		timeVal = splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"]
-		self.alarmDialog("EndOfTrackTime", "SayEndOfTrack",
-		# Translators: The title of end of track alarm dialog.
-		_("End of track alarm"),
-		# Translators: A dialog message to set end of track alarm (curAlarmSec is the current end of track alarm in seconds).
-		_("Enter &end of track alarm time in seconds (currently {curAlarmSec})").format(curAlarmSec = timeVal),
-		# Translators: A check box to toggle notification of end of track alarm.
-		_("&Notify when end of track is approaching"), 1, 59)
+		self.alarmDialog(1)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setEndOfTrackTime.__doc__=_("sets end of track alarm (default is 5 seconds).")
 
 	# Set song ramp (introduction) time between 1 and 9 seconds.
 
 	def script_setSongRampTime(self, gesture):
-		rampVal = splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"]
-		self.alarmDialog("SongRampTime", "SaySongRamp",
-		# Translators: The title of song intro alarm dialog.
-		_("Song intro alarm"),
-		# Translators: A dialog message to set song ramp alarm (curRampSec is the current intro monitoring alarm in seconds).
-		_("Enter song &intro alarm time in seconds (currently {curRampSec})").format(curRampSec = rampVal),
-		# Translators: A check box to toggle notification of end of intro alarm.
-		_("&Notify when end of introduction is approaching"), 1, 9)
+		self.alarmDialog(2)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setSongRampTime.__doc__=_("sets song intro alarm (default is 5 seconds).")
 
-	# Tell NVDA to play a sound when mic was active for a long time.
+	# Tell NVDA to play a sound when mic was active for a long time, as well as contorl the alarm interval.
+	# 8.0: This dialog will let users configure mic alarm interval as well.
 
 	def script_setMicAlarm(self, gesture):
-		if splconfui._configDialogOpened:
-			wx.CallAfter(gui.messageBox, _("The add-on settings dialog is opened. Please close the settings dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
-			return
-		elif splconfig._alarmDialogOpened:
-			wx.CallAfter(splconfig._alarmError)
-			return
-		micAlarm = splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"]
-		if micAlarm:
-			# Translators: A dialog message to set microphone active alarm (curAlarmSec is the current mic monitoring alarm in seconds).
-			timeMSG = _("Enter microphone alarm time in seconds (currently {curAlarmSec}, 0 disables the alarm)").format(curAlarmSec = micAlarm)
-		else:
-			# Translators: A dialog message when microphone alarm is disabled (set to 0).
-			timeMSG = _("Enter microphone alarm time in seconds (currently disabled, 0 disables the alarm)")
-		dlg = wx.NumberEntryDialog(gui.mainFrame,
-		timeMSG, "",
-		# Translators: The title of mic alarm dialog.
-		_("Microphone alarm"),
-		long(micAlarm), 0, 7200)
-		splconfig._alarmDialogOpened = True
-		def callback(result):
-			splconfig._alarmDialogOpened = False
-			if result == wx.ID_OK:
-				if not user32.FindWindowA("SPLStudio", None): return
-				newVal = dlg.GetValue()
-				if micAlarm != newVal:
-					splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"] = newVal
-				# Apply microphone alarm setting to the active profile.
-				splconfig.applySections(splconfig.SPLConfig["ActiveIndex"], "MicrophoneAlarm/MicAlarm")
-		gui.runScriptModalDialog(dlg, callback)
+		self.alarmDialog(3)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_setMicAlarm.__doc__=_("Sets microphone alarm (default is 5 seconds).")
 
