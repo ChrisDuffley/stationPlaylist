@@ -740,6 +740,7 @@ def _shouldBuildDescriptionPieces():
 
 # A common alarm dialog
 # Based on NVDA core's find dialog code (implemented by the author of this add-on).
+# Extended in 2016 to handle microphone alarms.
 # Only one instance can be active at a given moment (code borrowed from GUI's exit dialog routine).
 _alarmDialogOpened = False
 
@@ -751,6 +752,7 @@ def _alarmError():
 class SPLAlarmDialog(wx.Dialog):
 	"""A dialog providing common alarm settings.
 	This dialog contains a number entry field for alarm duration and a check box to enable or disable the alarm.
+	For one particular case, it consists of two number entry fields.
 	"""
 
 	# The following comes from exit dialog class from GUI package (credit: NV Access and Zahari from Bulgaria).
@@ -765,7 +767,7 @@ class SPLAlarmDialog(wx.Dialog):
 			return super(cls, cls).__new__(cls, parent, *args, **kwargs)
 		return inst
 
-	def __init__(self, parent, setting, toggleSetting, title, alarmPrompt, alarmToggleLabel, min, max):
+	def __init__(self, parent, level=0):
 		inst = SPLAlarmDialog._instance() if SPLAlarmDialog._instance else None
 		if inst:
 			return
@@ -774,23 +776,63 @@ class SPLAlarmDialog(wx.Dialog):
 		SPLAlarmDialog._instance = weakref.ref(self)
 
 		# Now the actual alarm dialog code.
-		super(SPLAlarmDialog, self).__init__(parent, wx.ID_ANY, title)
-		self.setting = setting
-		self.toggleSetting = toggleSetting
+		# 8.0: Apart from level 0 (all settings shown), levels change title.
+		titles = (_("Alarms Center"), _("End of track alarm"), _("Song intro alarm"), _("Microphone alarm"))
+		super(SPLAlarmDialog, self).__init__(parent, wx.ID_ANY, titles[level])
+		self.level = level
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 
-		alarmSizer = wx.BoxSizer(wx.HORIZONTAL)
-		alarmMessage = wx.StaticText(self, wx.ID_ANY, label=alarmPrompt)
-		alarmSizer.Add(alarmMessage)
-		self.alarmEntry = wx.SpinCtrl(self, wx.ID_ANY, min=min, max=max)
-		self.alarmEntry.SetValue(SPLConfig["IntroOutroAlarms"][setting])
-		self.alarmEntry.SetSelection(-1, -1)
-		alarmSizer.Add(self.alarmEntry)
-		mainSizer.Add(alarmSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
+		if level in (0, 1):
+			timeVal = SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"]
+			alarmSizer = wx.BoxSizer(wx.HORIZONTAL)
+			alarmMessage = wx.StaticText(self, wx.ID_ANY, label=_("Enter &end of track alarm time in seconds (currently {curAlarmSec})").format(curAlarmSec = timeVal))
+			alarmSizer.Add(alarmMessage)
+			self.outroAlarmEntry = wx.SpinCtrl(self, wx.ID_ANY, min=1, max=59)
+			self.outroAlarmEntry.SetValue(timeVal)
+			self.outroAlarmEntry.SetSelection(-1, -1)
+			alarmSizer.Add(self.outroAlarmEntry)
+			mainSizer.Add(alarmSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
+			self.outroToggleCheckBox=wx.CheckBox(self,wx.NewId(),label=_("&Notify when end of track is approaching"))
+			self.outroToggleCheckBox.SetValue(SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"])
+			mainSizer.Add(self.outroToggleCheckBox,border=10,flag=wx.BOTTOM)
 
-		self.toggleCheckBox=wx.CheckBox(self,wx.NewId(),label=alarmToggleLabel)
-		self.toggleCheckBox.SetValue(SPLConfig["IntroOutroAlarms"][toggleSetting])
-		mainSizer.Add(self.toggleCheckBox,border=10,flag=wx.BOTTOM)
+		if level in (0, 2):
+			rampVal = SPLConfig["IntroOutroAlarms"]["SongRampTime"]
+			alarmSizer = wx.BoxSizer(wx.HORIZONTAL)
+			alarmMessage = wx.StaticText(self, wx.ID_ANY, label=_("Enter song &intro alarm time in seconds (currently {curRampSec})").format(curRampSec = rampVal))
+			alarmSizer.Add(alarmMessage)
+			self.introAlarmEntry = wx.SpinCtrl(self, wx.ID_ANY, min=1, max=9)
+			self.introAlarmEntry.SetValue(rampVal)
+			self.introAlarmEntry.SetSelection(-1, -1)
+			alarmSizer.Add(self.introAlarmEntry)
+			mainSizer.Add(alarmSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
+			self.introToggleCheckBox=wx.CheckBox(self,wx.NewId(),label=_("&Notify when end of introduction is approaching"))
+			self.introToggleCheckBox.SetValue(SPLConfig["IntroOutroAlarms"]["SaySongRamp"])
+			mainSizer.Add(self.introToggleCheckBox,border=10,flag=wx.BOTTOM)
+
+		if level in (0, 3):
+			micAlarm = SPLConfig["MicrophoneAlarm"]["MicAlarm"]
+			micAlarmInterval = SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"]
+			if micAlarm:
+				# Translators: A dialog message to set microphone active alarm (curAlarmSec is the current mic monitoring alarm in seconds).
+				timeMSG = _("Enter microphone alarm time in seconds (currently {curAlarmSec}, 0 disables the alarm)").format(curAlarmSec = micAlarm)
+			else:
+				# Translators: A dialog message when microphone alarm is disabled (set to 0).
+				timeMSG = _("Enter microphone alarm time in seconds (currently disabled, 0 disables the alarm)")
+			alarmSizer = wx.BoxSizer(wx.VERTICAL)
+			alarmMessage = wx.StaticText(self, wx.ID_ANY, label=timeMSG)
+			alarmSizer.Add(alarmMessage)
+			self.micAlarmEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=7200)
+			self.micAlarmEntry.SetValue(micAlarm)
+			self.micAlarmEntry.SetSelection(-1, -1)
+			alarmSizer.Add(self.micAlarmEntry)
+			alarmMessage = wx.StaticText(self, wx.ID_ANY, label=_("Microphone alarm interval"))
+			alarmSizer.Add(alarmMessage)
+			self.micIntervalEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=60)
+			self.micIntervalEntry.SetValue(micAlarmInterval)
+			self.micIntervalEntry.SetSelection(-1, -1)
+			alarmSizer.Add(self.micIntervalEntry)
+			mainSizer.Add(alarmSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
 		mainSizer.AddSizer(self.CreateButtonSizer(wx.OK|wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON,self.onOk,id=wx.ID_OK)
@@ -798,20 +840,35 @@ class SPLAlarmDialog(wx.Dialog):
 		mainSizer.Fit(self)
 		self.SetSizer(mainSizer)
 		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
-		self.alarmEntry.SetFocus()
+		if level in (0, 1): self.outroAlarmEntry.SetFocus()
+		elif level == 2: self.introAlarmEntry.SetFocus()
+		elif level == 3: self.micAlarmEntry.SetFocus()
 
 	def onOk(self, evt):
 		global SPLConfig, _alarmDialogOpened
 		# Optimization: don't bother if Studio is dead and if the same value has been entered.
 		import winUser
 		if winUser.user32.FindWindowA("SPLStudio", None):
-			newVal = self.alarmEntry.GetValue()
-			newToggle = self.toggleCheckBox.GetValue()
-			if SPLConfig["IntroOutroAlarms"][self.setting] != newVal: SPLConfig["IntroOutroAlarms"][self.setting] = newVal
-			elif SPLConfig["IntroOutroAlarms"][self.toggleSetting] != newToggle: SPLConfig["IntroOutroAlarms"][self.toggleSetting] = newToggle
+			# Gather settings to be applied in section/key format.
+			settings = []
+			if self.level in (0, 1):
+				SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] = self.outroAlarmEntry.GetValue()
+				settings.append("IntroOutroAlarms/EndOfTrackTime")
+				SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"] = self.outroToggleCheckBox.GetValue()
+				settings.append("IntroOutroAlarms/SayEndOfTrack")
+			elif self.level == 2:
+				SPLConfig["IntroOutroAlarms"]["SongRampTime"] = self.introAlarmEntry.GetValue()
+				settings.append("IntroOutroAlarms/SongRampTime")
+				SPLConfig["IntroOutroAlarms"]["SaySongRamp"] = self.introToggleCheckBox.GetValue()
+				settings.append("IntroOutroAlarms/SaySongRamp")
+			elif self.level == 3:
+				SPLConfig["MicrophoneAlarm"]["MicAlarm"] = self.micAlarmEntry.GetValue()
+				settings.append("MicrophoneAlarm/MicAlarm")
+				SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] = self.micIntervalEntry.GetValue()
+				settings.append("MicrophoneAlarm/MicAlarmInterval")
 			# Apply alarm settings only.
-			applySections(SPLConfig["ActiveIndex"], "/".join(["IntroOutroAlarms", self.setting]))
-			applySections(SPLConfig["ActiveIndex"], "/".join(["IntroOutroAlarms", self.toggleSetting]))
+			for setting in settings:
+				applySections(SPLConfig["ActiveIndex"], key=setting)
 		self.Destroy()
 		_alarmDialogOpened = False
 
