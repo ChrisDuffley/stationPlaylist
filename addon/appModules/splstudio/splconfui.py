@@ -1402,6 +1402,10 @@ class ResetDialog(wx.Dialog):
 					import globalPlugins.SPLStudioUtils.encoders
 					globalPlugins.SPLStudioUtils.encoders.cleanup()
 			_configDialogOpened = False
+			# Translators: A dialog message shown when settings were reset to defaults.
+			wx.CallAfter(gui.messageBox, _("Successfully applied default add-on settings."),
+			# Translators: Title of the reset config dialog.
+			_("Reset configuration"), wx.OK|wx.ICON_INFORMATION)
 		self.Destroy()
 		parent.Destroy()
 

@@ -107,10 +107,6 @@ def resetAllConfig():
 		resetConfig(_SPLDefaults7, profile)
 		# Convert certain settings to a different format.
 		profile["ColumnAnnouncement"]["IncludedColumns"] = set(_SPLDefaults7["ColumnAnnouncement"]["IncludedColumns"])
-	# Translators: A dialog message shown when settings were reset to defaults.
-	wx.CallAfter(gui.messageBox, _("Successfully applied default add-on settings."),
-	# Translators: Title of the reset config dialog.
-	_("Reset configuration"), wx.OK|wx.ICON_INFORMATION)
 
 # In case one or more profiles had config issues, look up the error message from the following map.
 _configErrors ={
