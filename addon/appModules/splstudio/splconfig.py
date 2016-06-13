@@ -144,6 +144,10 @@ def initConfig():
 	# 7.0: Store the config as a dictionary.
 	# This opens up many possibilities, including config caching, loading specific sections only and others (the latter saves memory).
 	SPLConfig = dict(SPLConfigPool[0])
+	# 7.0 optimization: Store an online backup.
+	# This online backup is used to prolong SSD life (no need to save a config if it is same as this copy).
+	# 8.0: Only cache the normal profile for now, which results in space savings and allows the app module to load faster.
+	_cacheConfig(SPLConfigPool[0])
 	SPLConfig["ActiveIndex"] = 0 # Holds settings from normal profile.
 	# Locate instant profile.
 	if "InstantProfile" in SPLConfig:
@@ -190,6 +194,9 @@ def initConfig():
 		# Translators: Title of the encoder settings error dialog.
 		_("Encoder settings error"))
 
+# A set of new profiles to avoid this flag being recorded inside the cache.
+SPLNewProfiles = set()
+
 # Unlock (load) profiles from files.
 # LTS: Allow new profile settings to be overridden by a parent profile.
 def unlockConfig(path, profileName=None, prefill=False, parent=None):
@@ -199,7 +206,6 @@ def unlockConfig(path, profileName=None, prefill=False, parent=None):
 		SPLConfigCheckpoint = ConfigObj(parent, encoding="UTF-8")
 		SPLConfigCheckpoint.filename = path
 		SPLConfigCheckpoint.name = profileName
-		_cacheConfig(SPLConfigCheckpoint)
 		return SPLConfigCheckpoint
 	# For the rest.
 	global _configLoadStatus # To be mutated only during unlock routine.
@@ -236,9 +242,6 @@ def unlockConfig(path, profileName=None, prefill=False, parent=None):
 			_configLoadStatus[profileName] = "partialReset"
 	_extraInitSteps(SPLConfigCheckpoint, profileName=profileName)
 	SPLConfigCheckpoint.name = profileName
-	# 7.0 optimization: Store an online backup.
-	# This online backup is used to prolong SSD life (no need to save a config if it is same as this copy).
-	_cacheConfig(SPLConfigCheckpoint)
 	return SPLConfigCheckpoint
 
 # Extra initialization steps such as converting value types.
@@ -278,19 +281,8 @@ def _cacheConfig(conf):
 	if _SPLCache is None: _SPLCache = {}
 	key = None if conf.filename == SPLIni else conf.name
 	_SPLCache[key] = {}
-	# Take care of global flags in caching normal profile.
-	# 7.2: If there are any old keys, tell the add-on this config must be saved.
-	pre70count = 0
-	for setting in conf.keys():
-		if isinstance(conf[setting], dict): _SPLCache[key][setting] = dict(conf[setting])
-		else:
-			# 7.2: Remove old-style config, also prevent these keys from being cached and tell config routine these must be gone when saving.
-			if setting != "InstantProfile":
-				del conf[setting]
-				pre70count+=1
-	if pre70count: _SPLCache[key]["___pre70keys___"] = True
-	# Column inclusion only.
-	_SPLCache[key]["ColumnAnnouncement"]["IncludedColumns"] = list(conf["ColumnAnnouncement"]["IncludedColumns"])
+	# 8.0: Caching the dictionary (items) is enough.
+	_SPLCache[key] = dict(conf)
 
 # Record profile triggers.
 # Each record (profile name) consists of seven fields organized as a list:
@@ -549,23 +541,14 @@ def _preSave(conf):
 # For the most part, no setting will be modified.
 def shouldSave(profile):
 	tree = None if profile.filename == SPLIni else profile.name
-	# One downside of caching: new profiles are not recognized as such.
-	# 7.2 only: Also save if pre-7.0 keys were found.
 	# 8.0: Streamline the whole process by comparing values alone instead of walking the entire dictionary.
 	# The old loop will be kept in 7.x/LTS for compatibility and to reduce risks associated with accidental saving/discard.
-	if "___new___" in _SPLCache[tree] or "___pre70keys___" in _SPLCache[tree]: return True
-	for section in profile.keys():
-		if isinstance(profile[section], dict):
-			for key in profile[section]:
-				if profile[section][key] != _SPLCache[tree][section][key]:
-					return True # Setting modified.
-	return False
-
+	return _SPLCache[tree] != profile
 
 # Save configuration database.
 def saveConfig():
 	# Save all config profiles.
-	global SPLConfig, SPLConfigPool, SPLActiveProfile, SPLPrevProfile, SPLSwitchProfile, _SPLCache
+	global SPLConfig, SPLConfigPool, SPLActiveProfile, SPLPrevProfile, SPLSwitchProfile, _SPLCache, SPLNewProfiles
 	# 7.0: Turn off auto update check timer.
 	if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
 	splupdate._SPLUpdateT = None
@@ -583,26 +566,30 @@ def saveConfig():
 	# 7.0: Save normal profile first.
 	# Temporarily merge normal profile.
 	mergeSections(0)
-	# 6.1: Transform column inclusion data structure (for normal profile) now.
-	# 7.0: This will be repeated for broadcast profiles later.
-	SPLConfigPool[0]["ColumnAnnouncement"]["IncludedColumns"] = list(SPLConfigPool[0]["ColumnAnnouncement"]["IncludedColumns"])
 	_preSave(SPLConfigPool[0])
 	# Disk write optimization check please.
 	if shouldSave(SPLConfigPool[0]):
+		# 6.1: Transform column inclusion data structure (for normal profile) now.
+		# 7.0: This will be repeated for broadcast profiles later.
+		# 8.0: Conversion will happen here, as conversion to list is necessary before writing it to disk (if told to do so).
+		SPLConfigPool[0]["ColumnAnnouncement"]["IncludedColumns"] = list(SPLConfigPool[0]["ColumnAnnouncement"]["IncludedColumns"])
 		SPLConfigPool[0].write()
 	del SPLConfigPool[0]
 	# Now save broadcast profiles.
 	for configuration in SPLConfigPool:
 		if configuration is not None:
-			configuration["ColumnAnnouncement"]["IncludedColumns"] = list(configuration["ColumnAnnouncement"]["IncludedColumns"])
 			# 7.0: See if profiles themselves must be saved.
 			# This must be done now, otherwise changes to broadcast profiles (cached) will not be saved as presave removes them.
-			if shouldSave(configuration):
+			# 8.0: Bypass cache check routine if this is a new profile.
+			# Takes advantage of the fact that Python's "or" operator evaluates from left to right, considerably saving time.
+			if configuration.name in SPLNewProfiles or (configuration.name in _SPLCache and shouldSave(configuration)):
+				configuration["ColumnAnnouncement"]["IncludedColumns"] = list(configuration["ColumnAnnouncement"]["IncludedColumns"])
 				_preSave(configuration)
 				configuration.write()
 	SPLConfig.clear()
 	SPLConfig = None
 	SPLConfigPool = None
+	SPLNewProfiles.clear()
 	SPLActiveProfile = None
 	SPLPrevProfile = None
 	SPLSwitchProfile = None
@@ -620,7 +607,7 @@ SPLTriggerProfile = None
 # Allows the add-on to switch between profiles as a result of manual intervention or through profile trigger timer.
 # Instant profile switching is just a special case of this function.
 def switchProfile(prevProfile, newProfile):
-	global SPLConfig, SPLActiveProfile, SPLPrevProfile
+	global SPLConfig, SPLActiveProfile, SPLPrevProfile, _SPLCache
 	from splconfui import _configDialogOpened
 	if _configDialogOpened:
 		# Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
@@ -628,6 +615,9 @@ def switchProfile(prevProfile, newProfile):
 		return
 	mergeSections(newProfile)
 	SPLActiveProfile = SPLConfigPool[newProfile].name
+	# 8.0: Cache other profiles this time.
+	if newProfile != 0 and SPLActiveProfile not in _SPLCache:
+		_cacheConfig(SPLConfigPool[newProfile])
 	SPLConfig["ActiveIndex"] = newProfile
 	if prevProfile is not None:
 		# Translators: Presented when switch to instant switch profile was successful.
