@@ -24,7 +24,7 @@ IMPORTANT: This add-on requires NVDA 2015.3 or later and StationPlaylist Studio 
 * Alt+NVDA+R from Studio window: Steps through library scan announcement settings.
 * Control+Shift+X from Studio window: Steps through braille timer settings.
 * Control+Alt+right/left arrow (while focused on a track): Announce next/previous track column.
-* Control+NVDA+0 from Studio window: Opens the Studio add-on configuration dialog.
+* Control+NVDA+0 or Alt+NVDA+0 from Studio window: Opens the Studio add-on configuration dialog.
 * Control+NVDA+- (hyphen) from Studio window: Send feedback to add-on developer using the default email client.
 
 ## Unassigned commands
@@ -57,7 +57,7 @@ The following commands are available when using Sam or SPL encoders:
 * Control+F11: Toggles background monitoring of the selected encoder.
 * F12: Opens a dialog to enter custom label for the selected encoder or stream.
 * Control+F12: opens a dialog to select the encoder you have deleted (to realign stream labels and encoder settings).
-* Control+NVDA+0: Opens encoder settings dialog to configure options such as stream label.
+* Control+NVDA+0 or Alt+NVDA+0: Opens encoder settings dialog to configure options such as stream label.
 
 In addition, column review commands are available, including:
 
@@ -124,6 +124,7 @@ The available SPL Controller commands are:
 * Press R to hear remaining time for the currently playing track.
 * Press Shift+R to get a report on library scan progress.
 * Press E to get count and labels for encoders being monitored.
+* Press I to obtain listener count.
 * Press F1 to show a help dialog which lists available commands.
 
 ## Track alarms
@@ -160,7 +161,7 @@ By pressing SPL Assistant, 1 through 0 (6 for Studio 5.01 and earlier), you can 
 
 ## Configuration dialog
 
-From studio window, you can press Control+NVDA+0 to open the add-on configuration dialog. Alternatively, go to NVDA's preferences menu and select SPL Studio Settings item. This dialog is also used to manage broadcast profiles.
+From studio window, you can press Control+NVDA+0 or Alt+NVDA+0 to open the add-on configuration dialog. Alternatively, go to NVDA's preferences menu and select SPL Studio Settings item. This dialog is also used to manage broadcast profiles.
 
 ## SPL touch mode
 
@@ -172,6 +173,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * Added a command in SPL Controller to report listener count (I).
 * You can now open SPL add-on settings and encoder settings dialogs by pressing Alt+NVDA+0. You can still use Control+NVDA+0 to open these dialogs (to be removed in add-on 8.0).
 * In Track Tool, you can use Control+Alt+left or right arrow keys to navigate between columns.
+* Contents of various Studio dialogs such as About dialog in Studio 5.1x are now announced.
 * In SPL Encoders, NVDA will silence connection tone if auto-connect is enabled and then turned off from encoder context menu while the selected encoder is connecting.
 * Updated translations.
 
