@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2016-05-16 10:25+0100\n"
+"PO-Revision-Date: 2016-06-15 18:43+0100\n"
 "Last-Translator: Juan C. Buño <oprisniki@gmail.com>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -1447,7 +1447,6 @@ msgstr ""
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
-#, fuzzy
 msgid ""
 "\n"
 "After entering SPL Controller, press:\n"
@@ -1468,7 +1467,7 @@ msgid ""
 "Shift+R: Library scan progress."
 msgstr ""
 "\n"
-"Después de introducir SPL Controller, pulsa:\n"
+"Después de entrar en SPL Controller, pulsa:\n"
 "A: Enciende la automatización.\n"
 "Shift+A: Apaga la automatización.\n"
 "M: Enciende el micrófono.\n"
@@ -1481,6 +1480,7 @@ msgstr ""
 "S: Detener con fade.\n"
 "T: Detener instantáneamente.\n"
 "E: Anuncia si cualquier codificador está siendo monitorizado.\n"
+"I: anuncia el recuento de oyentes.\n"
 "R: Tiempo restante para la pista en reproducción.\n"
 "Shift+R: Progreso del escaneado de la biblioteca."
 
@@ -1523,9 +1523,9 @@ msgstr ""
 "reproduce una pista."
 
 #. Translators: Announces number of stream listeners.
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Listener count: {listenerCount}"
-msgstr "Recuento de oyentes no encontrado"
+msgstr "Recuento de oyentes: {listenerCount}"
 
 #. Translators: Presented when no track is playing in Station Playlist Studio.
 msgid "There is no track playing."
