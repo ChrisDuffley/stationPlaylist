@@ -186,6 +186,7 @@ Version 8.0 supports SPL Studio 5.10 and later, with 7.x designed to provide som
 * In Track Tool, you can obtain information on album and CD code by pressing Control+NVDA+9 and Control+NVDA+0, respectively.
 * Performance improvements when obtaining column information for the first time in Track Tool.
 * 8.0: Added a dialog in add-on settings to configure Columns Explorer slots for Track Tool.
+* You can now configure microphone alarm interval from microphone alarm dialog (Alt+NvDA+4).
 
 ## Changes for 7.2
 
