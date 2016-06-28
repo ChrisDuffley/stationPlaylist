@@ -442,6 +442,11 @@ def saveProfileTriggers():
 
 # Fetch the profile index with a given name.
 def getProfileIndexByName(name):
+	# LTS: Traverse config pool if the name isn't normal profile nor it is the name of the last profile.
+	if name == _("Normal profile"):
+		return 0
+		elif name == SPLConfigPool[-1].name:
+			return -1
 	try:
 		return [profile.name for profile in SPLConfigPool].index(name)
 	except ValueError:
