@@ -1451,7 +1451,7 @@ class AppModule(appModuleHandler.AppModule):
 	SPLScheduled = 7
 
 	# Table of child constants based on versions
-	# These are scattered throughout the screen, so one can use foreground.children[index] to fetch them.
+	# These are scattered throughout the screen, so one can use foreground.getChild(index) to fetch them (getChild tip from Jamie Teh (NV Access)).
 	# Because 5.x (an perhaps future releases) uses different screen layout, look up the needed constant from the table below (row = info needed, column = version).
 	statusObjs={
 		SPLPlayStatus:[5, 6], # Play status, mic, etc.
@@ -1477,7 +1477,7 @@ class AppModule(appModuleHandler.AppModule):
 			else: statusObj = self.statusObjs[infoIndex][1]
 			# 7.0: sometimes (especially when first loaded), OBJID_CLIENT fails, so resort to retrieving focused object instead.
 			if fg is not None and fg.childCount > 1:
-				self._cachedStatusObjs[infoIndex] = fg.children[statusObj]
+				self._cachedStatusObjs[infoIndex] = fg.getChild(statusObj)
 			else: return api.getFocusObject()
 		return self._cachedStatusObjs[infoIndex]
 
@@ -1492,27 +1492,27 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(msg)
 
 	def script_sayAutomationStatus(self, gesture):
-		obj = self.status(self.SPLPlayStatus).children[1]
+		obj = self.status(self.SPLPlayStatus).getChild(1)
 		msg = obj.name if splconfig.SPLConfig["General"]["MessageVerbosity"] == "beginner" else obj.name.split()[-1]
 		ui.message(msg)
 
 	def script_sayMicStatus(self, gesture):
-		obj = self.status(self.SPLPlayStatus).children[2]
+		obj = self.status(self.SPLPlayStatus).getChild(2)
 		msg = obj.name if splconfig.SPLConfig["General"]["MessageVerbosity"] == "beginner" else obj.name.split()[-1]
 		ui.message(msg)
 
 	def script_sayLineInStatus(self, gesture):
-		obj = self.status(self.SPLPlayStatus).children[3]
+		obj = self.status(self.SPLPlayStatus).getChild(3)
 		msg = obj.name if splconfig.SPLConfig["General"]["MessageVerbosity"] == "beginner" else obj.name.split()[-1]
 		ui.message(msg)
 
 	def script_sayRecToFileStatus(self, gesture):
-		obj = self.status(self.SPLPlayStatus).children[4]
+		obj = self.status(self.SPLPlayStatus).getChild(4)
 		msg = obj.name if splconfig.SPLConfig["General"]["MessageVerbosity"] == "beginner" else obj.name.split()[-1]
 		ui.message(msg)
 
 	def script_sayCartEditStatus(self, gesture):
-		obj = self.status(self.SPLPlayStatus).children[5]
+		obj = self.status(self.SPLPlayStatus).getChild(5)
 		msg = obj.name if splconfig.SPLConfig["General"]["MessageVerbosity"] == "beginner" else obj.name.split()[-1]
 		ui.message(msg)
 
@@ -1543,7 +1543,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_sayPlaylistModified(self, gesture):
 		try:
-			obj = self.status(self.SPLSystemStatus).children[5]
+			obj = self.status(self.SPLSystemStatus).getChild(5)
 			ui.message(obj.name)
 		except IndexError:
 			# Translators: Presented when playlist modification is unavailable (for Studio 4.33 and earlier)
@@ -1603,13 +1603,13 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(obj.name)
 
 	def script_sayListenerCount(self, gesture):
-		obj = self.status(self.SPLSystemStatus).children[3]
+		obj = self.status(self.SPLSystemStatus).getChild(3)
 		# Translators: Presented when there is no listener count information.
 		ui.message(obj.name) if obj.name is not None else ui.message(_("Listener count not found"))
 
 	def script_sayTrackPitch(self, gesture):
 		try:
-			obj = self.status(self.SPLSystemStatus).children[4]
+			obj = self.status(self.SPLSystemStatus).getChild(4)
 			ui.message(obj.name)
 		except IndexError:
 			# Translators: Presented when there is no information on song pitch (for Studio 4.33 and earlier).
