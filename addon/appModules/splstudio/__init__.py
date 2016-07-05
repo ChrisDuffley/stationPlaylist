@@ -1766,7 +1766,7 @@ class AppModule(appModuleHandler.AppModule):
 	def script_updateCheck(self, gesture):
 		self.finish()
 		if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
-		splupdate.updateCheck(continuous=splconfig.SPLConfig["Update"]["AutoUpdateCheck"])
+		splupdate.updateCheck(continuous=splconfig.SPLConfig["Update"]["AutoUpdateCheck"], confUpdateInterval=splconfig.SPLConfig["Update"]["UpdateInterval"])
 
 
 	__SPLAssistantGestures={

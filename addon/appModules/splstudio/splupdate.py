@@ -118,7 +118,8 @@ def updateQualify(url): # 7lts: , longterm=False):
 # The update check routine.
 # Auto is whether to respond with UI (manual check only), continuous takes in auto update check variable for restarting the timer.
 # LTS: The "lts" flag is used to obtain update metadata from somewhere else (typically the LTS server).
-def updateCheck(auto=False, continuous=False, lts=False):
+# ConfUpdateInterval comes from add-on config dictionary.
+def updateCheck(auto=False, continuous=False, lts=False, confUpdateInterval=1):
 	# Unlock in 8.0 beta 1.
 	#if _pendingChannelChange:
 		#wx.CallAfter(gui.messageBox, _("Did you recently tell SPL add-on to use a different update channel? If so, please restart NVDA before checking for add-on updates."), _("Update channel changed"), wx.ICON_ERROR)
@@ -127,8 +128,9 @@ def updateCheck(auto=False, continuous=False, lts=False):
 	# Regardless of whether it is an auto check, update the check time.
 	# However, this shouldnt' be done if this is a retry after a failed attempt.
 	if not _retryAfterFailure: SPLAddonCheck = time.time()
+	updateInterval = confUpdateInterval*_updateInterval*1000
 	# Should the timer be set again?
-	if continuous and not _retryAfterFailure: _SPLUpdateT.Start(_updateInterval*1000, True)
+	if continuous and not _retryAfterFailure: _SPLUpdateT.Start(updateInterval, True)
 	# Auto disables UI portion of this function if no updates are pending.
 	if not auto: tones.beep(110, 40)
 	# All the information will be stored in the URL object, so just close it once the headers are downloaded.
@@ -154,7 +156,7 @@ def updateCheck(auto=False, continuous=False, lts=False):
 		SPLAddonCheck = time.time()
 	if url.code != 200:
 		if auto:
-			if continuous: _SPLUpdateT.Start(_updateInterval*1000, True)
+			if continuous: _SPLUpdateT.Start(updateInterval, True)
 			return # No need to interact with the user.
 		# Translators: Text shown when update check fails for some odd reason.
 		checkMessage = _("Add-on update check failed.")
@@ -165,13 +167,13 @@ def updateCheck(auto=False, continuous=False, lts=False):
 		#qualified = updateQualify(url, longterm=SPLUpdateChannel == "lts")
 		if qualified is None:
 			if auto:
-				if continuous: _SPLUpdateT.Start(_updateInterval*1000, True)
+				if continuous: _SPLUpdateT.Start(updateInterval, True)
 				return
 			# Translators: Presented when no add-on update is available.
 			checkMessage = _("No add-on update available.")
 		elif qualified == "":
 			if auto:
-				if continuous: _SPLUpdateT.Start(_updateInterval*1000, True)
+				if continuous: _SPLUpdateT.Start(updateInterval, True)
 				return
 			# Translators: An error text shown when one is using a newer version of the add-on.
 			checkMessage = _("You appear to be running a version newer than the latest released version. Please reinstall the official version to downgrade.")
