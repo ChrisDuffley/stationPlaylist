@@ -82,22 +82,6 @@ def _versionFromURL(url):
 	name = filename.split(".nvda-addon")[0]
 	return name[name.find("-")+1:]
 
-# Run the progress thread from another thread because urllib.urlopen blocks everyone.
-_progressThread = None
-
-def _updateProgress():
-	tones.beep(440, 40)
-
-def updateProgress():
-	global _progressThread
-	_progressThread = wx.PyTimer(updateProgress)
-	_progressThread.Start(1000)
-
-def stopUpdateProgress():
-	global _progressThread
-	_progressThread.Stop()
-	_progressThread = None
-
 def updateQualify(url): # 7lts: , longterm=False):
 	# The add-on version is of the form "major.minor". The "-dev" suffix indicates development release.
 	# Anything after "-dev" indicates a try or a custom build.
@@ -132,10 +116,15 @@ def updateCheck(auto=False, continuous=False, lts=False, confUpdateInterval=1):
 	# Should the timer be set again?
 	if continuous and not _retryAfterFailure: _SPLUpdateT.Start(updateInterval, True)
 	# Auto disables UI portion of this function if no updates are pending.
-	if not auto: tones.beep(110, 40)
-	# All the information will be stored in the URL object, so just close it once the headers are downloaded.
 	if not auto:
-		threading.Thread(target=updateProgress).start()
+		tones.beep(110, 40)
+		# Display the update check progress dialog (inspired by add-on installation dialog in NvDA Core).
+		progressDialog = gui.IndeterminateProgressDialog(gui.mainFrame,
+		# Translators: The title of the dialog presented while checking for add-on updates.
+		_("Add-on update"),
+		# Translators: The message displayed while checking for newer version of Studio add-on.
+		_("Checking for new version of Studio add-on..."))
+	# All the information will be stored in the URL object, so just close it once the headers are downloaded.
 	updateCandidate = False
 	try:
 		url = urllib.urlopen(SPLUpdateURL)
@@ -145,7 +134,8 @@ def updateCheck(auto=False, continuous=False, lts=False, confUpdateInterval=1):
 	except IOError:
 		_retryAfterFailure = True
 		if not auto:
-			stopUpdateProgress()
+			progressDialog.done()
+			del progressDialog
 			# Translators: Error text shown when add-on update check fails.
 			wx.CallAfter(gui.messageBox, _("Error checking for update."), _("Check for add-on update"), wx.ICON_ERROR)
 		if continuous: _SPLUpdateT.Start(600000, True)
@@ -181,7 +171,9 @@ def updateCheck(auto=False, continuous=False, lts=False, confUpdateInterval=1):
 			# Translators: Text shown if an add-on update is available.
 			checkMessage = _("Studio add-on {newVersion} is available. Would you like to update?").format(newVersion = qualified)
 			updateCandidate = True
-	if not auto: stopUpdateProgress()
+	if not auto:
+		progressDialog.done()
+		del progressDialog
 	# Translators: Title of the add-on update check dialog.
 	if not updateCandidate: wx.CallAfter(gui.messageBox, checkMessage, _("Check for add-on update"))
 	else: wx.CallAfter(getUpdateResponse, checkMessage, _("Check for add-on update"), url.info().getheader("Content-Length"))
