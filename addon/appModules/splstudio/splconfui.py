@@ -32,19 +32,14 @@ class SPLConfigDialog(gui.SettingsDialog):
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
 		label = wx.StaticText(self, wx.ID_ANY, label=_("Broadcast &profile:"))
-		# Sort profiles for display purposes (the config pool might not be sorted).
-		sortedProfiles = [profile.name for profile in splconfig.SPLConfigPool]
-		# No need to sort if the only living profile is the normal configuration or there is one other profile besides this.
-		# Optimization: Only sort if config pool itself isn't  - usually after creating, renaming or deleting profile(s).
-		if len(sortedProfiles) > 2 and not splconfig.isConfigPoolSorted():
-			firstProfile = splconfig.SPLConfigPool[0].name
-			sortedProfiles = [firstProfile] + sorted(sortedProfiles[1:])
 		# 7.0: Have a copy of the sorted profiles so the actual combo box items can show profile flags.
-		self.profileNames = list(sortedProfiles)
-		self.profiles = wx.Choice(self, wx.ID_ANY, choices=self.displayProfiles(sortedProfiles))
+		# 8.0: No need to sort as profile names from ConfigHub knows what to do.
+		self.profileNames = list(splconfig.SPLConfig.profileNames)
+		self.profileNames[0] = _("Normal profile")
+		self.profiles = wx.Choice(self, wx.ID_ANY, choices=self.displayProfiles(list(self.profileNames)))
 		self.profiles.Bind(wx.EVT_CHOICE, self.onProfileSelection)
 		try:
-			self.profiles.SetSelection(self.profileNames.index(splconfig.SPLActiveProfile))
+			self.profiles.SetSelection(self.profileNames.index(splconfig.SPLConfig.activeProfile))
 		except:
 			pass
 		sizer.Add(label)
@@ -77,7 +72,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		sizer.Add(item)
 
 		self.switchProfile = splconfig.SPLSwitchProfile
-		self.activeProfile = splconfig.SPLActiveProfile
+		self.activeProfile = splconfig.SPLConfig.activeProfile
 		# Used as sanity check in case switch profile is renamed or deleted.
 		self.switchProfileRenamed = False
 		self.switchProfileDeleted = False
@@ -88,7 +83,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.triggerThreshold.SetValue(long(splconfig.SPLConfig["Advanced"]["ProfileTriggerThreshold"]))
 		self.triggerThreshold.SetSelection(-1, -1)
 		sizer.Add(self.triggerThreshold)
-		if splconfig.SPLConfig["ActiveIndex"] == 0:
+		if self.profiles.GetSelection() == 0:
 			self.renameButton.Disable()
 			self.deleteButton.Disable()
 			self.triggerButton.Disable()
@@ -358,7 +353,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 	def onOk(self, evt):
 		global _configDialogOpened
 		selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
-		profileIndex = splconfig.getProfileIndexByName(selectedProfile)
+		if splconfig.SPLConfig.activeProfile != selectedProfile:
+			splconfig.SPLConfig.swapProfiles(splconfig.SPLConfig.activeProfile, selectedProfile)
 		splconfig.SPLConfig["General"]["BeepAnnounce"] = self.beepAnnounceCheckbox.Value
 		splconfig.SPLConfig["General"]["MessageVerbosity"] = self.verbosityLevels[self.verbosityList.GetSelection()][0]
 		splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"] = self.outroCheckBox.Value
@@ -389,10 +385,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 		splconfig.SPLConfig["Advanced"]["SPLConPassthrough"] = self.splConPassthrough
 		splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] = self.compLayer
 		splconfig.SPLConfig["Update"]["AutoUpdateCheck"] = self.autoUpdateCheck
-		splconfig.SPLConfig["ActiveIndex"] = profileIndex
-		# Reverse of merge: save profile specific sections to individual config dictionaries.
-		splconfig.applySections(profileIndex)
-		splconfig.SPLActiveProfile = selectedProfile
 		splconfig.SPLSwitchProfile = self.switchProfile
 		# Make sure to nullify prev profile if instant switch profile is gone.
 		# 7.0: Don't do the following in the midst of a broadcast.
@@ -406,9 +398,9 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self._profileTriggersConfig.clear()
 		self._profileTriggersConfig = None
 		splconfig.triggerStart(restart=True)
-		# 8.0: Make sure NVDA knows this must be cached.
-		if profileIndex != 0 and selectedProfile not in splconfig._SPLCache:
-			splconfig._cacheConfig(splconfig.SPLConfigPool[profileIndex])
+		# 8.0: Make sure NVDA knows this must be cached (except for normal profile).
+		if selectedProfile != _("Normal profile") and selectedProfile not in splconfig._SPLCache:
+			splconfig._cacheConfig(splconfig.getProfileByName(selectedProfile))
 		super(SPLConfigDialog,  self).onOk(evt)
 
 	def onCancel(self, evt):
@@ -423,14 +415,13 @@ class SPLConfigDialog(gui.SettingsDialog):
 		splconfig.triggerStart(restart=True)
 		# 7.0: No matter what happens, merge appropriate profile.
 		try:
-			prevActive = self.profileNames.index(self.activeProfile)
+			prevActive = self.activeProfile
 		except ValueError:
-			prevActive = 0
-		splconfig.mergeSections(prevActive)
+			prevActive = _("Normal profile")
 		if self.switchProfileRenamed or self.switchProfileDeleted:
 			splconfig.SPLSwitchProfile = self.switchProfile
 		if self.switchProfileDeleted:
-			splconfig.SPLActiveProfile = splconfig.SPLConfigPool[prevActive].name
+			splconfig.SPLConfig.activeProfile = prevActive
 		_configDialogOpened = False
 		super(SPLConfigDialog,  self).onCancel(evt)
 
@@ -523,7 +514,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 		state = oldDisplayName.split(" <")
 		oldName = state[0]
 		index = self.profiles.Selection
-		configPos = splconfig.getProfileIndexByName(oldName)
 		profilePos = self.profileNames.index(oldName)
 		# Translators: The label of a field to enter a new name for a broadcast profile.
 		with wx.TextEntryDialog(self, _("New name:"),
@@ -533,20 +523,14 @@ class SPLConfigDialog(gui.SettingsDialog):
 				return
 			newName = api.filterFileName(d.Value)
 		if oldName == newName: return
-		newNamePath = newName + ".ini"
-		newProfile = os.path.join(SPLProfiles, newNamePath)
-		if oldName.lower() != newName.lower() and os.path.isfile(newProfile):
+		try:
+			splconfig.SPLConfig.renameProfile(oldName, newName)
+		except RuntimeError:
 			# Translators: An error displayed when renaming a configuration profile
 			# and a profile with the new name already exists.
 			gui.messageBox(_("That profile already exists. Please choose a different name."),
 				_("Error"), wx.OK | wx.ICON_ERROR, self)
 			return
-		oldNamePath = oldName + ".ini"
-		oldProfile = os.path.join(SPLProfiles, oldNamePath)
-		try:
-			os.rename(oldProfile, newProfile)
-		except WindowsError:
-			pass
 		if self.switchProfile == oldName:
 			self.switchProfile = newName
 			self.switchProfileRenamed = True
@@ -557,15 +541,9 @@ class SPLConfigDialog(gui.SettingsDialog):
 		if self.activeProfile == oldName:
 			self.activeProfile = newName
 		self.profileNames[profilePos] = newName
-		splconfig.SPLConfigPool[configPos].name = newName
-		splconfig.SPLConfigPool[configPos].filename = newProfile
 		if oldName in splconfig._SPLCache:
 			splconfig._SPLCache[newName] = splconfig._SPLCache[oldName]
 			del splconfig._SPLCache[oldName]
-		# Just in case a new profile has been renamed...
-		if oldName in splconfig.SPLNewProfiles:
-			splconfig.SPLNewProfiles.discard(oldName)
-			splconfig.SPLNewProfiles.add(newName)
 		if len(state) > 1: newName = " <".join([newName, state[1]])
 		self.profiles.SetString(index, newName)
 		self.profiles.Selection = index
@@ -584,7 +562,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 			return
 		index = self.profiles.Selection
 		name = self.profiles.GetStringSelection().split(" <")[0]
-		configPos = splconfig.getProfileIndexByName(name)
 		profilePos = self.profileNames.index(name)
 		if gui.messageBox(
 			# Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
@@ -594,12 +571,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 			wx.YES | wx.NO | wx.ICON_QUESTION, self
 		) == wx.NO:
 			return
-		path = splconfig.SPLConfigPool[configPos].filename
-		del splconfig.SPLConfigPool[configPos]
-		try:
-			os.remove(path)
-		except WindowsError:
-			pass
+		splconfig.SPLConfig.deleteProfile(name)
 		if name == self.switchProfile or name == self.activeProfile:
 			self.switchProfile = None
 			splconfig.SPLPrevProfile = None
@@ -607,7 +579,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.profiles.Delete(index)
 		del self.profileNames[profilePos]
 		if name in splconfig._SPLCache: del splconfig._SPLCache[name]
-		splconfig.SPLNewProfiles.discard(name)
 		if name in self._profileTriggersConfig:
 			del self._profileTriggersConfig[name]
 		# 6.3: Select normal profile if the active profile is gone.
@@ -615,7 +586,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		try:
 			self.profiles.Selection = self.profileNames.index(self.activeProfile)
 		except ValueError:
-			self.activeProfile = splconfig.SPLConfigPool[0].name
+			self.activeProfile = _("Normal profile")
 			self.profiles.Selection = 0
 		self.onProfileSelection(None)
 		self.profiles.SetFocus()
@@ -732,11 +703,11 @@ class NewProfileDialog(wx.Dialog):
 		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
-		profileNames = [profile.name for profile in splconfig.SPLConfigPool]
+		parent = self.Parent
 		name = api.filterFileName(self.profileName.Value)
 		if not name:
 			return
-		if name in profileNames:
+		if name in parent.profileNames:
 			# Translators: An error displayed when the user attempts to create a profile which already exists.
 			gui.messageBox(_("That profile already exists. Please choose a different name."),
 				_("Error"), wx.OK | wx.ICON_ERROR, self)
@@ -750,12 +721,7 @@ class NewProfileDialog(wx.Dialog):
 			baseConfig = splconfig.getProfileByName(self.baseProfiles.GetStringSelection())
 			baseProfile = {sect:key for sect, key in baseConfig.iteritems() if sect in splconfig._mutatableSettings7}
 		else: baseProfile = None
-		splconfig.SPLConfigPool.append(splconfig.unlockConfig(newProfilePath, profileName=name, parent=baseProfile))
-		# Make the cache know this is a new profile.
-		# If nothing happens to this profile, the newly created profile will be saved to disk.
-		# 8.0: The recipient has been changed to the new profiles name set.
-		splconfig.SPLNewProfiles.add(name)
-		parent = self.Parent
+		splconfig.SPLConfig.createProfile(newProfilePath, profileName=name, parent=baseProfile)
 		parent.profileNames.append(name)
 		parent.profiles.Append(name)
 		parent.profiles.Selection = parent.profiles.Count - 1
@@ -1405,10 +1371,7 @@ class ResetDialog(wx.Dialog):
 		# LTS: Only a priveleged thread should do this, otherwise unexpected things may happen.
 		with threading.Lock() as resetting:
 			global _configDialogOpened
-			splconfig.resetAllConfig()
-			splconfig.SPLConfig = dict(splconfig._SPLDefaults7)
-			splconfig.SPLConfig["ActiveIndex"] = 0
-			splconfig.SPLActiveProfile = splconfig.SPLConfigPool[0].name
+			splconfig.SPLConfig.reset()
 			if self.resetInstantProfileCheckbox.Value:
 				if splconfig.SPLSwitchProfile is not None:
 					splconfig.SPLSwitchProfile = None

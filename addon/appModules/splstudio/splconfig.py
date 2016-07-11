@@ -12,6 +12,7 @@ from validate import Validator
 import time
 import datetime
 import cPickle
+import copy
 import globalVars
 import ui
 import api
@@ -19,6 +20,14 @@ import gui
 import wx
 import splupdate
 from splmisc import SPLCountdownTimer, _metadataAnnouncer
+
+# Until NVDA Core uses Python 3 (preferably 3.3 or later), use a backported version of chain map class.
+# Backported by Jonathan Eunice.
+# Python Package Index: https://pypi.python.org/pypi/chainmap/1.0.2
+try:
+	from collections import ChainMap
+except ImportError:
+	from chainmap import ChainMap
 
 # Configuration management
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
@@ -71,13 +80,287 @@ Studio500 = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
 confspec7.newlines = "\r\n"
 SPLConfig = None
-# A pool of broadcast profiles.
-SPLConfigPool = []
 # The following settings can be changed in profiles:
 _mutatableSettings7=("IntroOutroAlarms", "MicrophoneAlarm", "MetadataStreaming", "ColumnAnnouncement")
 # 7.0: Profile-specific confspec (might be removed once a more optimal way to validate sections is found).
 # Dictionary comprehension is better here.
 confspecprofiles = {sect:key for sect, key in confspec7.iteritems() if sect in _mutatableSettings7}
+
+# 8.0: Run-time config storage and management will use ConfigHub data structure, a subclass of chain map.
+# A chain map allows a dictionary to look up predefined mappings to locate a key.
+# When mutating a value, chain map defaults to using the topmost (zeroth) map, which isn't desirable if one wishes to use a specific map.
+# This also introduces a problem whereby new key/value pairs are created (highly undesirable if global settings are modified via scripts).
+# Therefore the ConfigHub subclass modifies item getter/setter to give favorable treatment to the currently active "map" (broadcast profile in use), with a flag indicating the name of the currently active map.
+# Using chain map also simplifies profile switching routine, as all that is needed is move the active map flag around.
+# Finally, because this is a class, additional methods and properties are used, which frees the config dictionary from the burden of carrying global flags such as the name of the instant switch profile and others.
+# To preserve backward compatibility with add-on 7.x, module-level functions formerly used for profile management will call corresponding methods in ConfigHub structure (to be deprecated in 9.0 and will be gone no later than 10.0).
+
+class ConfigHub(ChainMap):
+	"""A hub of broadcast profiles, a subclass of ChainMap.
+	Apart from giving favorable treatments to the active map and adding custom methods and properties, this structure is identical to chain map structure.
+	"""
+
+	def __init__(self):
+		# Create a "fake" map entry, to be replaced by the normal profile later.
+		super(ConfigHub, self).__init__()
+		# For presentational purposes.
+		self.profileNames = []
+		# Translators: The name of the default (normal) profile.
+		self.maps[0] = self._unlockConfig(SPLIni, profileName=_("Normal profile"), prefill=True, validateNow=True)
+		self.profileNames.append(None) # Signifying normal profile.
+		# Always cache normal profile upon startup.
+		self._cacheConfig(self.maps[0])
+		try:
+			profiles = filter(lambda fn: os.path.splitext(fn)[-1] == ".ini", os.listdir(SPLProfiles))
+			for profile in profiles:
+				self.maps.append(self._unlockConfig(os.path.join(SPLProfiles, profile), profileName=os.path.splitext(profile)[0], validateNow=True))
+				self.profileNames.append(self.maps[-1].name)
+		except WindowsError:
+			pass
+	# Runtime flags (profiles and profile switching/triggers flags come from NVDA Core's ConfigManager).
+		self.profiles = self.maps
+		self.activeProfile = self.profiles[0].name
+		self.instantSwitch = self.profiles[0]["InstantProfile"] if "InstantProfile" in self.profiles[0] else None
+		self.timedSwitch = None
+		# Switch history is a stack of previously activated profile(s), replacing prev profile flag from 7.x days.
+		# Initially normal profile will sit in here.
+		self.switchHistory = [self.activeProfile]
+		# Record new profiles if any.
+		self.newProfiles = set()
+		# Reset flag (only engaged if reset did happen).
+		self.resetHappened = False
+
+	# Unlock (load) profiles from files.
+	# LTS: Allow new profile settings to be overridden by a parent profile.
+	# 8.0: Don't validate profiles other than normal profile in the beginning.
+	def _unlockConfig(self, path, profileName=None, prefill=False, parent=None, validateNow=False):
+		# LTS: Suppose this is one of the steps taken when copying settings when instantiating a new profile.
+		# If so, go through same procedure as though config passes validation tests, as all values from parent are in the right format.
+		if parent is not None:
+			SPLConfigCheckpoint = ConfigObj(parent, encoding="UTF-8")
+			SPLConfigCheckpoint.filename = path
+			SPLConfigCheckpoint.name = profileName
+			return SPLConfigCheckpoint
+		# For the rest.
+		global _configLoadStatus # To be mutated only during unlock routine.
+		# Optimization: Profiles other than normal profile contains profile-specific sections only.
+		# This speeds up profile loading routine significantly as there is no need to call a function to strip global settings.
+		# 7.0: What if profiles have parsing errors?
+		# If so, reset everything back to factory defaults.
+		try:
+			SPLConfigCheckpoint = ConfigObj(path, configspec = confspec7 if prefill else confspecprofiles, encoding="UTF-8")
+		except:
+			open(path, "w").close()
+			SPLConfigCheckpoint = ConfigObj(path, configspec = confspec7 if prefill else confspecprofiles, encoding="UTF-8")
+			_configLoadStatus[profileName] = "fileReset"
+		# 5.2 and later: check to make sure all values are correct.
+		# 7.0: Make sure errors are displayed as config keys are now sections and may need to go through subkeys.
+		# 8.0: Don't validate unless told to do so.
+		if validateNow:
+			self._validateConfig(SPLConfigCheckpoint, prefill=prefill)
+		# Until it is brought in here...
+		try:
+			_extraInitSteps(SPLConfigCheckpoint, profileName=profileName)
+		except KeyError:
+			pass
+		SPLConfigCheckpoint.name = profileName
+		return SPLConfigCheckpoint
+
+	# Config validation.
+	# Separated from unlock routine in 8.0.
+	def _validateConfig(self, SPLConfigCheckpoint, prefill=False):
+		global _configLoadStatus
+		configTest = SPLConfigCheckpoint.validate(_val, copy=prefill, preserve_errors=True)
+		if configTest != True:
+			if not configTest:
+				# Case 1: restore settings to defaults when 5.x config validation has failed on all values.
+				# 6.0: In case this is a user profile, apply base configuration.
+				# 8.0: Call copy profile function directly to reduce overhead.
+				copyProfile(_SPLDefaults7, SPLConfigCheckpoint, complete=SPLConfigCheckpoint.filename == SPLIni)
+				_configLoadStatus[profileName] = "completeReset"
+			elif isinstance(configTest, dict):
+				# Case 2: For 5.x and later, attempt to reconstruct the failed values.
+				# 6.0: Cherry-pick global settings only.
+				# 7.0: Go through failed sections.
+				for setting in configTest.keys():
+					if isinstance(configTest[setting], dict):
+						for failedKey in configTest[setting].keys():
+							# 7.0 optimization: just reload from defaults dictionary, as broadcast profiles contain profile-specific settings only.
+							SPLConfigCheckpoint[setting][failedKey] = _SPLDefaults7[setting][failedKey]
+				# 7.0: Disqualified from being cached this time.
+				SPLConfigCheckpoint.write()
+				_configLoadStatus[profileName] = "partialReset"
+
+	# Create profile: public function to access the two private ones above (used when creating a new profile).
+	# Mechanics borrowed from NVDA Core's config.conf with modifications for this add-on.
+	def createProfile(self, path, profileName=None, parent=None):
+		self.maps.append(self._unlockConfig(path, profileName=profileName, parent=parent, validateNow=True))
+		self.profileNames.append(profileName)
+		self.newProfiles.add(profileName)
+
+	# A class version of rename and delete operations.
+	# Mechanics powered by similar routines in NVDA Core's config.conf.
+	def renameProfile(self, oldName, newName):
+		newNamePath = newName + ".ini"
+		newProfile = os.path.join(SPLProfiles, newNamePath)
+		if oldName.lower() != newName.lower() and os.path.isfile(newProfile):
+			raise RuntimeError("New profile path already exists")
+		configPos = self.profileIndexByName(oldName)
+		profilePos = self.profileNames.index(oldName)
+		oldProfile = self.profiles[configPos].filename
+		try:
+			os.rename(oldProfile, newProfile)
+		except WindowsError:
+			pass
+		self.profileNames[profilePos] = newName
+		self.profiles[configPos].name = newName
+		self.profiles[configPos].filename = newProfile
+		# Just in case a new profile has been renamed...
+		if oldName in self.newProfiles:
+			self.newProfiles.discard(oldName)
+			self.newProfiles.add(newName)
+
+	def deleteProfile(self, name):
+		# Bring normal profile to the front if it isn't.
+		# Optimization: Tell the swapper that we need index to the normal profile for this case.
+		configPos = self.swapProfiles(name, _("Normal profile"), showSwitchIndex=True) if self.profiles[0].name == name else self.profileIndexByName(name)
+		profilePos = self.profileNames.index(name)
+		try:
+			os.remove(self.profiles[configPos].filename)
+		except WindowsError:
+			pass
+		del self.profiles[configPos]
+		del self.profileNames[profilePos]
+		self.newProfiles.discard(name)
+
+	def _cacheConfig(self, conf):
+		global _SPLCache
+		if _SPLCache is None: _SPLCache = {}
+		key = None if conf.filename == SPLIni else conf.name
+		_SPLCache[key] = {}
+		# 8.0: Caching the dictionary (items) is enough.
+		# Do not just say dict(conf) because of referencing nature of Python, hence perform a deepcopy (copying everything to a new address).
+		_SPLCache[key] = copy.deepcopy(dict(conf))
+
+	def __setitem__(self, key, value):
+		# Give favorable treatment to the currently active map/profile.
+		pos = 0 if key in _mutatableSettings7 else [profile.name for profile in self.maps].index(_("Normal profile"))
+		self.maps[pos][key] = value
+
+	def __delitem__(self, key):
+		# Consult profile-specific key first before deleting anything.
+		pos = 0 if key in _mutatableSettings7 else [profile.name for profile in self.maps].index(_("Normal Profile"))
+		try:
+			del self.maps[pos][key]
+		except KeyError:
+			raise KeyError('Key not found: {0!r}'.format(key))
+
+	def save(self):
+		# Save all config profiles.
+		# 7.0: Save normal profile first.
+		# Temporarily merge normal profile.
+		# 8.0: Locate the index instead.
+		normalProfile = self.profileIndexByName(_("Normal profile"))
+		_preSave(self.profiles[normalProfile])
+		# Disk write optimization check please.
+		# 8.0: Bypass this if profiles were reset.
+		if self.resetHappened or shouldSave(self.profiles[normalProfile]):
+			# 6.1: Transform column inclusion data structure (for normal profile) now.
+			# 7.0: This will be repeated for broadcast profiles later.
+			# 8.0: Conversion will happen here, as conversion to list is necessary before writing it to disk (if told to do so).
+			self.profiles[normalProfile]["ColumnAnnouncement"]["IncludedColumns"] = list(self.profiles[normalProfile]["ColumnAnnouncement"]["IncludedColumns"])
+			self.profiles[normalProfile].write()
+		del self.profiles[normalProfile]
+		# Now save broadcast profiles.
+		for configuration in self.profiles:
+			if configuration is not None:
+				# 7.0: See if profiles themselves must be saved.
+				# This must be done now, otherwise changes to broadcast profiles (cached) will not be saved as presave removes them.
+				# 8.0: Bypass cache check routine if this is a new profile or if reset happened.
+				# Takes advantage of the fact that Python's "or" operator evaluates from left to right, considerably saving time.
+				if self.resetHappened or configuration.name in self.newProfiles or (configuration.name in _SPLCache and shouldSave(configuration)):
+					configuration["ColumnAnnouncement"]["IncludedColumns"] = list(configuration["ColumnAnnouncement"]["IncludedColumns"])
+					_preSave(configuration)
+					configuration.write()
+		self.newProfiles.clear()
+		self.activeProfile = None
+		self.profileHistory = None
+
+			# Class version of module-level functions.
+
+	# Reset config.
+	# Profile indicates the name of the profile to be reset.
+	def reset(self, profile=None):
+		profilePool = [] if profile is not None else self.profiles
+		if profile is not None:
+			if not self.profileExists(profile):
+				raise ValueError("The specified profile does not exist")
+			else: profilePool.append(self.profileByName(profile))
+		for conf in profilePool:
+			# Retrieve the profile path, as ConfigObj.reset nullifies it.
+			profilePath = conf.filename
+			conf.reset()
+			conf.filename = profilePath
+			resetConfig(_SPLDefaults7, conf)
+			# Convert certain settings to a different format.
+			conf["ColumnAnnouncement"]["IncludedColumns"] = set(_SPLDefaults7["ColumnAnnouncement"]["IncludedColumns"])
+		# Switch back to normal profile via a custom variant of swap routine.
+		if self.profiles[0].name != _("Normal profile"):
+			npIndex = self.profileIndexByName(_("Normal profile"))
+			self.profiles[0], self.profiles[npIndex] = self.profiles[npIndex], self.profiles[0]
+			self.activeProfile = _("Normal profile")
+		# 8.0 optimization: Tell other modules that reset was done in order to postpone disk writes until the end.
+		self.resetHappened = True
+
+	def profileIndexByName(self, name):
+		# 8.0 optimization: Only traverse the profiles list if head (active profile) or tail does not yield profile name in question.
+		if name == self.profiles[0].name:
+			return 0
+		elif name == self.profiles[-1].name:
+			return -1
+		try:
+			return [profile.name for profile in self.profiles].index(name)
+		except ValueError:
+			raise ValueError("The specified profile does not exist")
+
+	def profileByName(self, name):
+		return self.profiles[self.profileIndexByName(name)]
+
+	# Switch between profiles.
+	# This involves promoting and demoting normal profile.
+	def switchProfile(self, prevProfile, newProfile):
+		from splconfui import _configDialogOpened
+		if _configDialogOpened:
+			# Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
+			ui.message(_("Add-on settings dialog is open, cannot switch profiles"))
+			return
+		self.swapProfiles(prevProfile, newProfile)
+		if prevProfile is not None:
+			self.switchHistory.append(newProfile)
+			# Translators: Presented when switch to instant switch profile was successful.
+			ui.message(_("Switching to {newProfileName}").format(newProfileName = self.activeProfile))
+			# Pause automatic update checking.
+			if self["Update"]["AutoUpdateCheck"]:
+				if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning: splupdate._SPLUpdateT.Stop()
+		else:
+			self.switchHistory.pop()
+			# Translators: Presented when switching from instant switch profile to a previous profile.
+			ui.message(_("Returning to {previousProfile}").format(previousProfile = self.activeProfile))
+			# Resume auto update checker if told to do so.
+			if self["Update"]["AutoUpdateCheck"]: updateInit()
+		# Use the module-level metadata reminder method if told to do so now.
+		if self["General"]["MetadataReminder"] in ("startup", "instant"):
+			_metadataAnnouncer(reminder=True)
+
+	# Used from config dialog and other places.
+	# Show switch index is used when deleting profiles so it doesn't have to look up index for old profiles.
+	def swapProfiles(self, prevProfile, newProfile, showSwitchIndex=False):
+		former, current = self.profileIndexByName(prevProfile if prevProfile is not None else self.switchHistory[-1]), self.profileIndexByName(newProfile)
+		self.profiles[current], self.profiles[former] = self.profiles[former], self.profiles[current]
+		self.activeProfile = newProfile
+		if showSwitchIndex: return current
+
+
 
 # Default config spec container.
 # To be moved to a different place in 8.0.
@@ -89,26 +372,16 @@ _SPLDefaults7.validate(_val, copy=True)
 def runConfigErrorDialog(errorText, errorType):
 	wx.CallAfter(gui.messageBox, errorText, errorType, wx.OK|wx.ICON_ERROR)
 
+# For following functions, "Ex" indicates "extended".
+
 # Reset settings to defaults.
 # This will be called when validation fails or when the user asks for it.
 # 6.0: The below function resets a single profile. A sister function will reset all of them.
 # 7.0: This calls copy profile function with default dictionary as the source profile.
+# 8.0: ConfigHub's reset function will be invoked.
 def resetConfig(defaults, activeConfig):
 	# The only time everything should be copied is when resetting normal profile.
 	copyProfile(defaults, activeConfig, complete=activeConfig.filename == SPLIni)
-
-# Reset all profiles upon request.
-def resetAllConfig():
-	for profile in SPLConfigPool:
-		# Retrieve the profile path, as ConfigObj.reset nullifies it.
-		profilePath = profile.filename
-		profile.reset()
-		profile.filename = profilePath
-		# 7.0: Without writing the profile, we end up with inconsistencies between profile cache and actual profile.
-		profile.write()
-		resetConfig(_SPLDefaults7, profile)
-		# Convert certain settings to a different format.
-		profile["ColumnAnnouncement"]["IncludedColumns"] = set(_SPLDefaults7["ColumnAnnouncement"]["IncludedColumns"])
 
 # In case one or more profiles had config issues, look up the error message from the following map.
 _configErrors ={
@@ -130,35 +403,23 @@ trackComments = {}
 
 def initConfig():
 	# Load the default config from a list of profiles.
-	global SPLConfig, SPLConfigPool, _configLoadStatus, SPLActiveProfile, SPLSwitchProfile, trackComments
-	if SPLConfigPool is None: SPLConfigPool = []
-	# Translators: The name of the default (normal) profile.
-	if SPLActiveProfile is None: SPLActiveProfile = _("Normal profile")
-	SPLConfigPool.append(unlockConfig(SPLIni, profileName=SPLActiveProfile, prefill=True))
-	try:
-		profiles = filter(lambda fn: os.path.splitext(fn)[-1] == ".ini", os.listdir(SPLProfiles))
-		for profile in profiles:
-			SPLConfigPool.append(unlockConfig(os.path.join(SPLProfiles, profile), profileName=os.path.splitext(profile)[0]))
-	except WindowsError:
-		pass
+	# 8.0: All this work will be performed when ConfigHub loads.
+	global SPLConfig, _configLoadStatus, SPLSwitchProfile, trackComments
 	# 7.0: Store the config as a dictionary.
 	# This opens up many possibilities, including config caching, loading specific sections only and others (the latter saves memory).
-	SPLConfig = dict(SPLConfigPool[0])
-	# 7.0 optimization: Store an online backup.
-	# This online backup is used to prolong SSD life (no need to save a config if it is same as this copy).
-	# 8.0: Only cache the normal profile for now, which results in space savings and allows the app module to load faster.
-	_cacheConfig(SPLConfigPool[0])
-	SPLConfig["ActiveIndex"] = 0 # Holds settings from normal profile.
+	# 8.0: To be replaced by ConfigHub object.
+	t = time.time()
+	SPLConfig = ConfigHub()
+	print time.time()-t
 	# Locate instant profile.
-	if "InstantProfile" in SPLConfig:
+	if SPLConfig.instantSwitch is not None:
 		try:
-			SPLSwitchProfile = SPLConfigPool[getProfileIndexByName(SPLConfig["InstantProfile"])].name
+			SPLSwitchProfile = SPLConfig.instantSwitch
 		except ValueError:
-			_configLoadStatus[SPLConfigPool[0].name] = "noInstantProfile"
-		# 7.1: The config module knows the fate of the instant profile.
-		del SPLConfig["InstantProfile"]
+			_configLoadStatus[SPLConfig.activeProfile] = "noInstantProfile"
 	# LTS: Load track comments if they exist.
 	# This must be a separate file (another pickle file).
+	# 8.0: Do this much later when a track is first focused.
 	try:
 		trackComments = cPickle.load(file(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"), "r"))
 	except IOError:
@@ -168,10 +429,10 @@ def initConfig():
 		title = _("Studio add-on Configuration error")
 		messages = []
 		# 6.1: Display just the error message if the only corrupt profile is the normal profile.
-		if len(_configLoadStatus) == 1 and SPLActiveProfile in _configLoadStatus:
+		if len(_configLoadStatus) == 1 and SPLConfig.activeProfile in _configLoadStatus:
 			# Translators: Error message shown when add-on configuration had issues.
 			messages.append("Your add-on configuration had following issues:\n\n")
-			messages.append(_configErrors[_configLoadStatus[SPLActiveProfile]])
+			messages.append(_configErrors[_configLoadStatus[SPLConfig.activeProfile]])
 		else:
 			# Translators: Error message shown when add-on configuration had issues.
 			messages.append("One or more broadcast profiles had issues:\n\n")
@@ -193,56 +454,6 @@ def initConfig():
 		runConfigErrorDialog(_("Your encoder settings had errors and were reset to defaults. If you have stream labels configured for various encoders, please add them again."),
 		# Translators: Title of the encoder settings error dialog.
 		_("Encoder settings error"))
-
-# A set of new profiles to avoid this flag being recorded inside the cache.
-SPLNewProfiles = set()
-
-# Unlock (load) profiles from files.
-# LTS: Allow new profile settings to be overridden by a parent profile.
-def unlockConfig(path, profileName=None, prefill=False, parent=None):
-	# LTS: Suppose this is one of the steps taken when copying settings when instantiating a new profile.
-	# If so, go through same procedure as though config passes validation tests, as all values from parent are in the right format.
-	if parent is not None:
-		SPLConfigCheckpoint = ConfigObj(parent, encoding="UTF-8")
-		SPLConfigCheckpoint.filename = path
-		SPLConfigCheckpoint.name = profileName
-		return SPLConfigCheckpoint
-	# For the rest.
-	global _configLoadStatus # To be mutated only during unlock routine.
-	# Optimization: Profiles other than normal profile contains profile-specific sections only.
-	# This speeds up profile loading routine significantly as there is no need to call a function to strip global settings.
-	# 7.0: What if profiles have parsing errors?
-	# If so, reset everything back to factory defaults.
-	try:
-		SPLConfigCheckpoint = ConfigObj(path, configspec = confspec7 if prefill else confspecprofiles, encoding="UTF-8")
-	except:
-		open(path, "w").close()
-		SPLConfigCheckpoint = ConfigObj(path, configspec = confspec7 if prefill else confspecprofiles, encoding="UTF-8")
-		_configLoadStatus[profileName] = "fileReset"
-	# 5.2 and later: check to make sure all values are correct.
-	# 7.0: Make sure errors are displayed as config keys are now sections and may need to go through subkeys.
-	configTest = SPLConfigCheckpoint.validate(_val, copy=prefill, preserve_errors=True)
-	if configTest != True:
-		if not configTest:
-			# Case 1: restore settings to defaults when 5.x config validation has failed on all values.
-			# 6.0: In case this is a user profile, apply base configuration.
-			resetConfig(_SPLDefaults7, SPLConfigCheckpoint)
-			_configLoadStatus[profileName] = "completeReset"
-		elif isinstance(configTest, dict):
-			# Case 2: For 5.x and later, attempt to reconstruct the failed values.
-			# 6.0: Cherry-pick global settings only.
-			# 7.0: Go through failed sections.
-			for setting in configTest.keys():
-				if isinstance(configTest[setting], dict):
-					for failedKey in configTest[setting].keys():
-						# 7.0 optimization: just reload from defaults dictionary, as broadcast profiles contain profile-specific settings only.
-						SPLConfigCheckpoint[setting][failedKey] = _SPLDefaults7[setting][failedKey]
-			# 7.0: Disqualified from being cached this time.
-			SPLConfigCheckpoint.write()
-			_configLoadStatus[profileName] = "partialReset"
-	_extraInitSteps(SPLConfigCheckpoint, profileName=profileName)
-	SPLConfigCheckpoint.name = profileName
-	return SPLConfigCheckpoint
 
 # Extra initialization steps such as converting value types.
 def _extraInitSteps(conf, profileName=None):
@@ -277,12 +488,7 @@ def _extraInitSteps(conf, profileName=None):
 _SPLCache = {}
 
 def _cacheConfig(conf):
-	global _SPLCache
-	if _SPLCache is None: _SPLCache = {}
-	key = None if conf.filename == SPLIni else conf.name
-	_SPLCache[key] = {}
-	# 8.0: Caching the dictionary (items) is enough.
-	_SPLCache[key] = dict(conf)
+	SPLConfig._cacheConfig(conf)
 
 # Record profile triggers.
 # Each record (profile name) consists of seven fields organized as a list:
@@ -433,46 +639,27 @@ def saveProfileTriggers():
 
 # Instant profile switch helpers.
 # A number of helper functions assisting instant switch profile routine and others, including sorting and locating the needed profile upon request.
+# 8.0: These will become attributes of ConfigHub.
+# LTS: Kept for backward compatibility.
 
 # Fetch the profile index with a given name.
 def getProfileIndexByName(name):
 	try:
-		return [profile.name for profile in SPLConfigPool].index(name)
+		return SPLConfig.profileIndexByName(name)
 	except ValueError:
 		raise ValueError("The specified profile does not exist")
 
 # And:
+
 def getProfileByName(name):
-	return SPLConfigPool[getProfileIndexByName(name)]
+	return SPLConfig.profileByName(name)
 
 # Copy settings across profiles.
 # Setting complete flag controls whether profile-specific settings are applied (true otherwise, only set when resetting profiles).
+# 8.0: Simplified thanks to in-place swapping.
 def copyProfile(sourceProfile, targetProfile, complete=False):
 	for section in sourceProfile.keys() if complete else _mutatableSettings7:
 		targetProfile[section] = dict(sourceProfile[section])
-
-# Merge sections when switching profiles.
-# This is also employed by the routine which saves changes to a profile when user selects a different profile from add-on settings dialog.
-# Profiles refer to indecies.
-# Active refers to whether this is a runtime switch (false if saving profiles).
-def mergeSections(profile, active=True):
-	global SPLConfig, SPLConfigPool
-	copyProfile(SPLConfigPool[profile], SPLConfig)
-	if active: SPLConfig["ActiveIndex"] = profile
-
-# A reverse of the above.
-def applySections(profile, key=None):
-	global SPLConfig, SPLConfigPool
-	if key is None:
-		copyProfile(SPLConfig, SPLConfigPool[profile])
-	else:
-		# A slash (/) will denote section/key hierarchy.
-		tree, leaf = key.split("/")
-		if tree in SPLConfig:
-			if leaf == "": # Section only.
-				SPLConfigPool[profile][tree] = dict(SPLConfig[tree])
-			else:
-				SPLConfigPool[profile][tree][leaf] = SPLConfig[tree][leaf]
 
 # Last but not least...
 # Module level version of get profile flags function.
@@ -480,7 +667,7 @@ def applySections(profile, key=None):
 # A crucial kwarg is contained, and if so, profile flags set will be returned.
 def getProfileFlags(name, active=None, instant=None, triggers=None, contained=False):
 	flags = set()
-	if active is None: active = SPLActiveProfile
+	if active is None: active = SPLConfig.activeProfile
 	if instant is None: instant = SPLSwitchProfile
 	if triggers is None: triggers = profileTriggers
 	if name == active:
@@ -495,16 +682,6 @@ def getProfileFlags(name, active=None, instant=None, triggers=None, contained=Fa
 	if not contained:
 		return name if len(flags) == 0 else "{0} <{1}>".format(name, ", ".join(flags))
 	else: return flags
-
-# Is the config pool itself sorted?
-# This check is performed when displaying broadcast profiles.
-def isConfigPoolSorted():
-		profileNames = [profile.name for profile in SPLConfigPool][1:]
-		for pos in xrange(len(profileNames)-1):
-			if profileNames[pos] > profileNames[pos+1]:
-				return False
-		return True
-
 
 # Perform some extra work before writing the config file.
 def _preSave(conf):
@@ -547,8 +724,7 @@ def shouldSave(profile):
 
 # Save configuration database.
 def saveConfig():
-	# Save all config profiles.
-	global SPLConfig, SPLConfigPool, SPLActiveProfile, SPLPrevProfile, SPLSwitchProfile, _SPLCache, SPLNewProfiles
+	global SPLConfig, _SPLCache
 	# 7.0: Turn off auto update check timer.
 	if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
 	splupdate._SPLUpdateT = None
@@ -558,104 +734,56 @@ def saveConfig():
 	cPickle.dump(trackComments, file(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"), "wb"))
 	# Save update check state.
 	splupdate.terminate()
-	# Save profile-specific settings to appropriate dictionary if this is the case.
-	activeIndex = SPLConfig["ActiveIndex"]
-	del SPLConfig["ActiveIndex"]
-	if activeIndex > 0:
-		applySections(activeIndex)
-	# 7.0: Save normal profile first.
-	# Temporarily merge normal profile.
-	mergeSections(0)
-	_preSave(SPLConfigPool[0])
-	# Disk write optimization check please.
-	if shouldSave(SPLConfigPool[0]):
-		# 6.1: Transform column inclusion data structure (for normal profile) now.
-		# 7.0: This will be repeated for broadcast profiles later.
-		# 8.0: Conversion will happen here, as conversion to list is necessary before writing it to disk (if told to do so).
-		SPLConfigPool[0]["ColumnAnnouncement"]["IncludedColumns"] = list(SPLConfigPool[0]["ColumnAnnouncement"]["IncludedColumns"])
-		SPLConfigPool[0].write()
-	del SPLConfigPool[0]
-	# Now save broadcast profiles.
-	for configuration in SPLConfigPool:
-		if configuration is not None:
-			# 7.0: See if profiles themselves must be saved.
-			# This must be done now, otherwise changes to broadcast profiles (cached) will not be saved as presave removes them.
-			# 8.0: Bypass cache check routine if this is a new profile.
-			# Takes advantage of the fact that Python's "or" operator evaluates from left to right, considerably saving time.
-			if configuration.name in SPLNewProfiles or (configuration.name in _SPLCache and shouldSave(configuration)):
-				configuration["ColumnAnnouncement"]["IncludedColumns"] = list(configuration["ColumnAnnouncement"]["IncludedColumns"])
-				_preSave(configuration)
-				configuration.write()
-	SPLConfig.clear()
+	# Now save profiles.
+	# 8.0: Call the save method.
+	SPLConfig.save()
 	SPLConfig = None
-	SPLConfigPool = None
-	SPLNewProfiles.clear()
-	SPLActiveProfile = None
-	SPLPrevProfile = None
-	SPLSwitchProfile = None
 	_SPLCache.clear()
 	_SPLCache = None
 
 
 # Switch between profiles.
-SPLActiveProfile = None
 SPLPrevProfile = None
 SPLSwitchProfile = None
 SPLTriggerProfile = None
 
 # A general-purpose profile switcher.
 # Allows the add-on to switch between profiles as a result of manual intervention or through profile trigger timer.
+# Profiles refer to profile names.
 # Instant profile switching is just a special case of this function.
 def switchProfile(prevProfile, newProfile):
-	global SPLConfig, SPLActiveProfile, SPLPrevProfile, _SPLCache
+	global SPLPrevProfile, _SPLCache
 	from splconfui import _configDialogOpened
 	if _configDialogOpened:
 		# Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
 		ui.message(_("Add-on settings dialog is open, cannot switch profiles"))
 		return
-	mergeSections(newProfile)
-	SPLActiveProfile = SPLConfigPool[newProfile].name
-	# 8.0: Cache other profiles this time.
-	if newProfile != 0 and SPLActiveProfile not in _SPLCache:
-		_cacheConfig(SPLConfigPool[newProfile])
-	SPLConfig["ActiveIndex"] = newProfile
-	if prevProfile is not None:
-		# Translators: Presented when switch to instant switch profile was successful.
-		ui.message(_("Switching to {newProfileName}").format(newProfileName = SPLActiveProfile))
-		# Pause automatic update checking.
-		if SPLConfig["Update"]["AutoUpdateCheck"]:
-			if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning: splupdate._SPLUpdateT.Stop()
-	else:
-		# Translators: Presented when switching from instant switch profile to a previous profile.
-		ui.message(_("Returning to {previousProfile}").format(previousProfile = SPLActiveProfile))
-		# Resume auto update checker if told to do so.
-		if SPLConfig["Update"]["AutoUpdateCheck"]: updateInit()
+	SPLConfig.switchProfile(prevProfile, newProfile)
 	SPLPrevProfile = prevProfile
-	# Use the module-level metadata reminder method if told to do so now.
-	if SPLConfig["General"]["MetadataReminder"] in ("startup", "instant"):
-		_metadataAnnouncer(reminder=True)
+	# 8.0: Cache other profiles this time.
+	if newProfile != _("Normal profile") and newProfile not in _SPLCache:
+		_cacheConfig(getProfileByName(selectedProfile))
 
 # Called from within the app module.
 def instantProfileSwitch():
-	global SPLConfig, SPLActiveProfile
 	if SPLSwitchProfile is None:
 		# Translators: Presented when trying to switch to an instant switch profile when the instant switch profile is not defined.
 		ui.message(_("No instant switch profile is defined"))
 	else:
 		if SPLPrevProfile is None:
-			if SPLActiveProfile == SPLSwitchProfile:
+			if SPLConfig.activeProfile == SPLSwitchProfile:
 				# Translators: Presented when trying to switch to an instant switch profile when one is already using the instant switch profile.
 				ui.message(_("You are already in the instant switch profile"))
 				return
 			# Switch to the given profile.
-			switchProfileIndex = getProfileIndexByName(SPLSwitchProfile)
 			# 6.1: Do to referencing nature of Python, use the profile index function to locate the index for the soon to be deactivated profile.
 			# 7.0: Store the profile name instead in order to prevent profile index mangling if profiles are deleted.
 			# Pass in the prev profile, which will be None for instant profile switch.
 			# 7.0: Now activate "activeProfile" argument which controls the behavior of the function below.
-			switchProfile(SPLActiveProfile, switchProfileIndex)
+			# 8.0: Work directly with profile names.
+			switchProfile(SPLConfig.activeProfile, SPLSwitchProfile)
 		else:
-			switchProfile(None, getProfileIndexByName(SPLPrevProfile))
+			switchProfile(None, SPLPrevProfile)
 
 # The triggers version of the above function.
 _SPLTriggerEndTimer = None
@@ -667,14 +795,11 @@ def triggerProfileSwitch():
 	if SPLTriggerProfile is None and _triggerProfileActive:
 		raise RuntimeError("Trigger profile flag cannot be active when the trigger profile itself isn't defined")
 	if SPLPrevProfile is None:
-		if SPLActiveProfile == SPLTriggerProfile:
+		if SPLConfig.activeProfile == SPLTriggerProfile:
 			# Translators: Presented when trying to switch to an instant switch profile when one is already using the instant switch profile.
 			ui.message(_("A profile trigger is already active"))
 			return
-		# Switch to the given profile.
-		triggerProfileIndex = getProfileIndexByName(SPLTriggerProfile)
-		# Pass in the prev profile, which will be None for instant profile switch.
-		switchProfile(SPLActiveProfile, triggerProfileIndex)
+		switchProfile(SPLConfig.activeProfile, SPLTriggerProfile)
 		# Set the global trigger flag to inform various subsystems such as add-on settings dialog.
 		_triggerProfileActive = True
 		# Set the next trigger date and time.
@@ -686,7 +811,7 @@ def triggerProfileSwitch():
 			_SPLTriggerEndTimer = wx.PyTimer(triggerProfileSwitch)
 			_SPLTriggerEndTimer.Start(triggerSettings[6] * 60 * 1000, True)
 	else:
-		switchProfile(None, getProfileIndexByName(SPLPrevProfile))
+		switchProfile(None, SPLPrevProfile)
 		_triggerProfileActive = False
 		# Stop the ending timer.
 		if _SPLTriggerEndTimer is not None and _SPLTriggerEndTimer.IsRunning():
