@@ -188,6 +188,11 @@ Version 8.0 supports SPL Studio 5.10 and later, with 7.x designed to provide som
 * 8.0: Added a dialog in add-on settings to configure Columns Explorer slots for Track Tool.
 * You can now configure microphone alarm interval from microphone alarm dialog (Alt+NvDA+4).
 
+## Changes for 7.3
+
+* Slight performance improvements when looking up information such as automation via some SPL Assistant commands.
+* Updated translations.
+
 ## Changes for 7.2
 
 * Due to removal of old-style internal configuration format, it is mandatory to install add-on 7.2. Once installed, you cannot go back to an earlier version of the add-on.
