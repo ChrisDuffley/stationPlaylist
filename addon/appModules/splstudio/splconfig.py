@@ -967,10 +967,10 @@ class SPLAlarmDialog(wx.Dialog):
 			if self.level in (0, 1):
 				SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] = self.outroAlarmEntry.GetValue()
 				SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"] = self.outroToggleCheckBox.GetValue()
-			elif self.level == 2:
+			elif self.level in (0, 2):
 				SPLConfig["IntroOutroAlarms"]["SongRampTime"] = self.introAlarmEntry.GetValue()
 				SPLConfig["IntroOutroAlarms"]["SaySongRamp"] = self.introToggleCheckBox.GetValue()
-			elif self.level == 3:
+			elif self.level in (0, 3):
 				SPLConfig["MicrophoneAlarm"]["MicAlarm"] = self.micAlarmEntry.GetValue()
 				SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] = self.micIntervalEntry.GetValue()
 		self.Destroy()
