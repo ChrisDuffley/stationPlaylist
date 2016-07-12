@@ -407,10 +407,8 @@ def initConfig():
 	global SPLConfig, _configLoadStatus, SPLSwitchProfile, trackComments
 	# 7.0: Store the config as a dictionary.
 	# This opens up many possibilities, including config caching, loading specific sections only and others (the latter saves memory).
-	# 8.0: To be replaced by ConfigHub object.
-	t = time.time()
+	# 8.0: Replaced by ConfigHub object.
 	SPLConfig = ConfigHub()
-	print time.time()-t
 	# Locate instant profile.
 	if SPLConfig.instantSwitch is not None:
 		try:
@@ -968,22 +966,13 @@ class SPLAlarmDialog(wx.Dialog):
 			settings = []
 			if self.level in (0, 1):
 				SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] = self.outroAlarmEntry.GetValue()
-				settings.append("IntroOutroAlarms/EndOfTrackTime")
 				SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"] = self.outroToggleCheckBox.GetValue()
-				settings.append("IntroOutroAlarms/SayEndOfTrack")
 			elif self.level == 2:
 				SPLConfig["IntroOutroAlarms"]["SongRampTime"] = self.introAlarmEntry.GetValue()
-				settings.append("IntroOutroAlarms/SongRampTime")
 				SPLConfig["IntroOutroAlarms"]["SaySongRamp"] = self.introToggleCheckBox.GetValue()
-				settings.append("IntroOutroAlarms/SaySongRamp")
 			elif self.level == 3:
 				SPLConfig["MicrophoneAlarm"]["MicAlarm"] = self.micAlarmEntry.GetValue()
-				settings.append("MicrophoneAlarm/MicAlarm")
 				SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] = self.micIntervalEntry.GetValue()
-				settings.append("MicrophoneAlarm/MicAlarmInterval")
-			# Apply alarm settings only.
-			for setting in settings:
-				applySections(SPLConfig["ActiveIndex"], key=setting)
 		self.Destroy()
 		_alarmDialogOpened = False
 
