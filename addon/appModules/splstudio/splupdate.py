@@ -48,7 +48,7 @@ _updatePickle = os.path.join(globalVars.appArgs.configPath, "splupdate.pickle")
 # Come forth, update check routines.
 def initialize():
 	# To be unlocked in 8.0 beta 1.
-	global SPLAddonState, SPLAddonSize, SPLAddonCheck #, _updateNow, SPLUpdateChannel
+	global SPLAddonState, SPLAddonCheck #, _updateNow, SPLUpdateChannel
 	try:
 		SPLAddonState = cPickle.load(file(_updatePickle, "r"))
 		SPLAddonCheck = SPLAddonState["PDT"]
@@ -87,7 +87,7 @@ def updateQualify(url): # 7lts: , longterm=False):
 	# Anything after "-dev" indicates a try or a custom build.
 	# LTS: Support upgrading between LTS releases.
 	# 7.0: Just worry about version label differences (suggested by Jamie Teh from NV Access).
-	curVersion = "7.0" if longterm else SPLAddonVersion
+	curVersion = "7.0" if longterm else curVersion = SPLAddonVersion
 	# LTS: Fool the add-on that it is running 7.0.
 	# To be unlocked in 8.0 beta 1.
 	#curVersion = "7.0" if longterm else SPLAddonVersion
@@ -99,6 +99,8 @@ def updateQualify(url): # 7lts: , longterm=False):
 	else:
 		return ""
 
+_progressDialog = None
+
 # The update check routine.
 # Auto is whether to respond with UI (manual check only), continuous takes in auto update check variable for restarting the timer.
 # LTS: The "lts" flag is used to obtain update metadata from somewhere else (typically the LTS server).
@@ -108,7 +110,7 @@ def updateCheck(auto=False, continuous=False, lts=False, confUpdateInterval=1):
 	#if _pendingChannelChange:
 		#wx.CallAfter(gui.messageBox, _("Did you recently tell SPL add-on to use a different update channel? If so, please restart NVDA before checking for add-on updates."), _("Update channel changed"), wx.ICON_ERROR)
 		#return
-	global _SPLUpdateT, SPLAddonCheck, _retryAfterFailure
+	global _SPLUpdateT, SPLAddonCheck, _retryAfterFailure, _progressDialog
 	# Regardless of whether it is an auto check, update the check time.
 	# However, this shouldnt' be done if this is a retry after a failed attempt.
 	if not _retryAfterFailure: SPLAddonCheck = time.time()
@@ -116,14 +118,6 @@ def updateCheck(auto=False, continuous=False, lts=False, confUpdateInterval=1):
 	# Should the timer be set again?
 	if continuous and not _retryAfterFailure: _SPLUpdateT.Start(updateInterval, True)
 	# Auto disables UI portion of this function if no updates are pending.
-	if not auto:
-		tones.beep(110, 40)
-		# Display the update check progress dialog (inspired by add-on installation dialog in NvDA Core).
-		progressDialog = gui.IndeterminateProgressDialog(gui.mainFrame,
-		# Translators: The title of the dialog presented while checking for add-on updates.
-		_("Add-on update"),
-		# Translators: The message displayed while checking for newer version of Studio add-on.
-		_("Checking for new version of Studio add-on..."))
 	# All the information will be stored in the URL object, so just close it once the headers are downloaded.
 	updateCandidate = False
 	try:
@@ -134,8 +128,8 @@ def updateCheck(auto=False, continuous=False, lts=False, confUpdateInterval=1):
 	except IOError:
 		_retryAfterFailure = True
 		if not auto:
-			progressDialog.done()
-			del progressDialog
+			wx.CallAfter(_progressDialog.done)
+			_progressDialog = None
 			# Translators: Error text shown when add-on update check fails.
 			wx.CallAfter(gui.messageBox, _("Error checking for update."), _("Check for add-on update"), wx.ICON_ERROR)
 		if continuous: _SPLUpdateT.Start(600000, True)
@@ -172,15 +166,13 @@ def updateCheck(auto=False, continuous=False, lts=False, confUpdateInterval=1):
 			checkMessage = _("Studio add-on {newVersion} is available. Would you like to update?").format(newVersion = qualified)
 			updateCandidate = True
 	if not auto:
-		progressDialog.done()
-		del progressDialog
+		wx.CallAfter(_progressDialog.done)
+		_progressDialog = None
 	# Translators: Title of the add-on update check dialog.
 	if not updateCandidate: wx.CallAfter(gui.messageBox, checkMessage, _("Check for add-on update"))
 	else: wx.CallAfter(getUpdateResponse, checkMessage, _("Check for add-on update"), url.info().getheader("Content-Length"))
 
 def getUpdateResponse(message, caption, size):
-	global SPLAddonSize
 	if gui.messageBox(message, caption, wx.YES | wx.NO | wx.CANCEL | wx.CENTER | wx.ICON_QUESTION) == wx.YES:
-		SPLAddonSize = hex(int(size))
 		os.startfile(SPLUpdateURL)
 
