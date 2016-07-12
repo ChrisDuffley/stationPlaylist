@@ -1064,9 +1064,9 @@ Thank you.""")
 		mainSizer.Add(label,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		# Translators: A checkbox to turn off welcome dialog.
-		self.showWelcomeDialog=wx.CheckBox(self,wx.NewId(),label=_("Do not show welcome dialog when I start Studio"))
-		self.showWelcomeDialog.SetValue(not SPLConfig["Startup"]["WelcomeDialog"])
+		# Translators: A checkbox to show welcome dialog.
+		self.showWelcomeDialog=wx.CheckBox(self,wx.NewId(),label=_("Show welcome dialog when I start Studio"))
+		self.showWelcomeDialog.SetValue(SPLConfig["Startup"]["WelcomeDialog"])
 		sizer.Add(self.showWelcomeDialog, border=10,flag=wx.TOP)
 		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
@@ -1079,8 +1079,7 @@ Thank you.""")
 
 	def onOk(self, evt):
 		global SPLConfig
-		if self.showWelcomeDialog.Value:
-			SPLConfig["Startup"]["WelcomeDialog"] = not self.showWelcomeDialog.Value
+		SPLConfig["Startup"]["WelcomeDialog"] = self.showWelcomeDialog.Value
 		self.Destroy()
 
 # Old version reminder.
