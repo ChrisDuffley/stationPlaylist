@@ -242,11 +242,6 @@ class ConfigHub(ChainMap):
 		# Do not just say dict(conf) because of referencing nature of Python, hence perform a deepcopy (copying everything to a new address).
 		_SPLCache[key] = copy.deepcopy(dict(conf))
 
-	def __setitem__(self, key, value):
-		# Give favorable treatment to the currently active map/profile.
-		pos = 0 if key in _mutatableSettings7 else [profile.name for profile in self.maps].index(_("Normal profile"))
-		self.maps[pos][key] = value
-
 	def __delitem__(self, key):
 		# Consult profile-specific key first before deleting anything.
 		pos = 0 if key in _mutatableSettings7 else [profile.name for profile in self.maps].index(_("Normal Profile"))
@@ -690,8 +685,6 @@ def _preSave(conf):
 		# Cache instant profile for later use.
 		if SPLSwitchProfile is not None:
 			conf["InstantProfile"] = SPLSwitchProfile
-			# 7.0: Also update the runtime dictionary.
-			SPLConfig["InstantProfile"] = SPLSwitchProfile
 		else:
 			try:
 				del conf["InstantProfile"]
