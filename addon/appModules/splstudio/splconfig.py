@@ -63,6 +63,7 @@ CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
 ProfileTriggerThreshold = integer(min=5, max=60, default=15)
 [Update]
 AutoUpdateCheck = boolean(default=true)
+UpdateInterval = integer(min=1, max=30, default=7)
 [Startup]
 AudioDuckingReminder = boolean(default=true)
 WelcomeDialog = boolean(default=true)
@@ -715,17 +716,24 @@ def triggerProfileSwitch():
 # Its only job is to call the update check function (splupdate) with the auto check enabled.
 # The update checker will not be engaged if an instant switch profile is active or it is not time to check for it yet (check will be done every 24 hours).
 def autoUpdateCheck():
-	splupdate.updateCheck(auto=True, continuous=SPLConfig["Update"]["AutoUpdateCheck"])
+	splupdate.updateCheck(auto=True, continuous=SPLConfig["Update"]["AutoUpdateCheck"], confUpdateInterval=SPLConfig["Update"]["UpdateInterval"])
 
 # The timer itself.
 # A bit simpler than NVDA Core's auto update checker.
 def updateInit():
+	# LTS: Launch updater if channel change is detected.
+	# To be unlocked in 8.0 beta 1.
+	#if splupdate._updateNow:
+		#splupdate.updateCheck(auto=True, lts=splupdate.SPLUpdateChannel == "lts") # No repeat here.
+		#splupdate._SPLUpdateT = wx.PyTimer(autoUpdateCheck)
+		#splupdate._updateNow = False
+		#return
 	currentTime = time.time()
-	nextCheck = splupdate.SPLAddonCheck+86400.0
+	nextCheck = splupdate.SPLAddonCheck+(SPLConfig["Update"]["UpdateInterval"]* 86400.0)
 	if splupdate.SPLAddonCheck < currentTime < nextCheck:
 		interval = int(nextCheck - currentTime)
 	elif splupdate.SPLAddonCheck < nextCheck < currentTime:
-		interval = 86400
+		interval = SPLConfig["Update"]["UpdateInterval"]* 86400
 		# Call the update check now.
 		splupdate.updateCheck(auto=True) # No repeat here.
 	splupdate._SPLUpdateT = wx.PyTimer(autoUpdateCheck)
