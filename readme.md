@@ -167,6 +167,11 @@ From studio window, you can press Control+NVDA+0 or Alt+NVDA+0 to open the add-o
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Changes for 7.3
+
+* Slight performance improvements when looking up information such as automation via some SPL Assistant commands.
+* Updated translations.
+
 ## Changes for 7.2
 
 * Due to removal of old-style internal configuration format, it is mandatory to install add-on 7.2. Once installed, you cannot go back to an earlier version of the add-on.

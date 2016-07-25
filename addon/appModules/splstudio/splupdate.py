@@ -78,9 +78,9 @@ def terminate():
 
 
 def _versionFromURL(url):
+	# 7.3: Be sure to handle both GitHub and old URL format.
 	filename = url.split("/")[-1]
-	name = filename.split(".nvda-addon")[0]
-	return name[name.find("-")+1:]
+	return filename.split("stationPlaylist-")[1].split(".nvda-addon")[0]
 
 def updateQualify(url):
 	# The add-on version is of the form "major.minor". The "-dev" suffix indicates development release.
