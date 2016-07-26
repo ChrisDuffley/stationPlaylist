@@ -40,8 +40,8 @@ _retryAfterFailure = False
 _updatePickle = os.path.join(globalVars.appArgs.configPath, "splupdate.pickle")
 
 # Remove comment in 8.0 beta 1.
+# Not all update channels are listed. The one not listed here is the default ("stable" for this branch).
 """channels={
-	"stable":"http://addons.nvda-project.org/files/get.php?file=spl",
 	"lts":"http://spl.nvda-kr.org/files/get.php?file=spl-lts7",
 }"""
 
@@ -78,34 +78,25 @@ def terminate():
 
 
 def _versionFromURL(url):
+	# 7.3: Be sure to handle both GitHub and old URL format.
 	filename = url.split("/")[-1]
-	name = filename.split(".nvda-addon")[0]
-	return name[name.find("-")+1:]
+	return filename.split("stationPlaylist-")[1].split(".nvda-addon")[0]
 
-def updateQualify(url): # 7lts: , longterm=False):
+def updateQualify(url):
 	# The add-on version is of the form "major.minor". The "-dev" suffix indicates development release.
 	# Anything after "-dev" indicates a try or a custom build.
 	# LTS: Support upgrading between LTS releases.
 	# 7.0: Just worry about version label differences (suggested by Jamie Teh from NV Access).
 	curVersion = "7.0" if longterm else curVersion = SPLAddonVersion
-	# LTS: Fool the add-on that it is running 7.0.
-	# To be unlocked in 8.0 beta 1.
-	#curVersion = "7.0" if longterm else SPLAddonVersion
 	version = _versionFromURL(url.url)
-	if version == curVersion:
-		return None
-	elif version > curVersion:
-		return version
-	else:
-		return ""
+	return None if version == curVersion else version
 
 _progressDialog = None
 
 # The update check routine.
 # Auto is whether to respond with UI (manual check only), continuous takes in auto update check variable for restarting the timer.
-# LTS: The "lts" flag is used to obtain update metadata from somewhere else (typically the LTS server).
 # ConfUpdateInterval comes from add-on config dictionary.
-def updateCheck(auto=False, continuous=False, lts=False, confUpdateInterval=1):
+def updateCheck(auto=False, continuous=False, confUpdateInterval=1):
 	# Unlock in 8.0 beta 1.
 	#if _pendingChannelChange:
 		#wx.CallAfter(gui.messageBox, _("Did you recently tell SPL add-on to use a different update channel? If so, please restart NVDA before checking for add-on updates."), _("Update channel changed"), wx.ICON_ERROR)
@@ -123,7 +114,8 @@ def updateCheck(auto=False, continuous=False, lts=False, confUpdateInterval=1):
 	try:
 		url = urllib.urlopen(SPLUpdateURL)
 		# Replace in 8.0 beta 1.
-		#url = urllib.urlopen(channels[SPLUpdateChannel])
+		# Look up the channel if different from the default.
+		#url = urllib.urlopen(SPLUpdateURL if SPLUpdateChannel not in channels else channels[SPLUpdateChannel])
 		url.close()
 	except IOError:
 		_retryAfterFailure = True
@@ -147,20 +139,12 @@ def updateCheck(auto=False, continuous=False, lts=False, confUpdateInterval=1):
 	else:
 		# Am I qualified to update?
 		qualified = updateQualify(url)
-		# Replace in 8.0 beta 1.
-		#qualified = updateQualify(url, longterm=SPLUpdateChannel == "lts")
 		if qualified is None:
 			if auto:
 				if continuous: _SPLUpdateT.Start(updateInterval, True)
 				return
 			# Translators: Presented when no add-on update is available.
 			checkMessage = _("No add-on update available.")
-		elif qualified == "":
-			if auto:
-				if continuous: _SPLUpdateT.Start(updateInterval, True)
-				return
-			# Translators: An error text shown when one is using a newer version of the add-on.
-			checkMessage = _("You appear to be running a version newer than the latest released version. Please reinstall the official version to downgrade.")
 		else:
 			# Translators: Text shown if an add-on update is available.
 			checkMessage = _("Studio add-on {newVersion} is available. Would you like to update?").format(newVersion = qualified)

@@ -724,7 +724,7 @@ def updateInit():
 	# LTS: Launch updater if channel change is detected.
 	# To be unlocked in 8.0 beta 1.
 	#if splupdate._updateNow:
-		#splupdate.updateCheck(auto=True, lts=splupdate.SPLUpdateChannel == "lts") # No repeat here.
+		#splupdate.updateCheck(auto=True) # No repeat here.
 		#splupdate._SPLUpdateT = wx.PyTimer(autoUpdateCheck)
 		#splupdate._updateNow = False
 		#return
