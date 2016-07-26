@@ -42,7 +42,7 @@ _updatePickle = os.path.join(globalVars.appArgs.configPath, "splupdate.pickle")
 # Remove comment in 8.0 beta 1.
 # Not all update channels are listed. The one not listed here is the default ("stable" for this branch).
 """channels={
-	"lts":"http://spl.nvda-kr.org/files/get.php?file=spl-lts7",
+	"stable":"http://addons.nvda-project.org/files/get.php?file=spl",
 }"""
 
 # Come forth, update check routines.
