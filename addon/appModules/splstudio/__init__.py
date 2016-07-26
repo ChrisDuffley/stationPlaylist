@@ -581,7 +581,9 @@ class AppModule(appModuleHandler.AppModule):
 		self.noMoreHandle = threading.Event()
 		threading.Thread(target=self._locateSPLHwnd).start()
 		# Check for add-on update if told to do so.
-		if splconfig.SPLConfig["Update"]["AutoUpdateCheck"]:
+		# LTS: Only do this if channel hasn't changed.
+		# To be unlocked in 8.0 beta 1.
+		if splconfig.SPLConfig["Update"]["AutoUpdateCheck"]: # 7lts: or splupdate._updateNow:
 			# 7.0: Have a timer call the update function indirectly.
 			queueHandler.queueFunction(queueHandler.eventQueue, splconfig.updateInit)
 		# Display startup dialogs if any.
@@ -1810,7 +1812,13 @@ class AppModule(appModuleHandler.AppModule):
 	def script_updateCheck(self, gesture):
 		self.finish()
 		if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
-		splupdate.updateCheck(continuous=splconfig.SPLConfig["Update"]["AutoUpdateCheck"])
+		# Display the update check progress dialog (inspired by add-on installation dialog in NvDA Core).
+		splupdate._progressDialog = gui.IndeterminateProgressDialog(gui.mainFrame,
+		# Translators: The title of the dialog presented while checking for add-on updates.
+		_("Add-on update"),
+		# Translators: The message displayed while checking for newer version of Studio add-on.
+		_("Checking for new version of Studio add-on..."))
+		threading.Thread(target=splupdate.updateCheck, kwargs={"continuous":splconfig.SPLConfig["Update"]["AutoUpdateCheck"], "confUpdateInterval":splconfig.SPLConfig["Update"]["UpdateInterval"]}).start()
 
 
 	__SPLAssistantGestures={

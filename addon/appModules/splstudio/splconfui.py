@@ -337,8 +337,12 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.splConPassthrough = splconfig.SPLConfig["Advanced"]["SPLConPassthrough"]
 		self.compLayer = splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]
 		self.autoUpdateCheck = splconfig.SPLConfig["Update"]["AutoUpdateCheck"]
+		self.updateInterval = splconfig.SPLConfig["Update"]["UpdateInterval"]
 		sizer.Add(item)
 		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+		# To be unlocked in 8.0 beta 1.
+		#self.updateChannel = splupdate.SPLUpdateChannel
+		#self.pendingChannelChange = False
 
 		# Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
 		item = resetButton = wx.Button(self, label=_("Reset settings..."))
@@ -385,6 +389,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 		splconfig.SPLConfig["Advanced"]["SPLConPassthrough"] = self.splConPassthrough
 		splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] = self.compLayer
 		splconfig.SPLConfig["Update"]["AutoUpdateCheck"] = self.autoUpdateCheck
+		splconfig.SPLConfig["Update"]["UpdateInterval"] = self.updateInterval
+		# To be unlocked in 8.0 beta 1.
+		#self.pendingChannelChange = splupdate.SPLUpdateChannel != self.updateChannel
+		#splupdate.SPLUpdateChannel = self.updateChannel
 		splconfig.SPLSwitchProfile = self.switchProfile
 		# Make sure to nullify prev profile if instant switch profile is gone.
 		# 7.0: Don't do the following in the midst of a broadcast.
@@ -434,9 +442,17 @@ class SPLConfigDialog(gui.SettingsDialog):
 				dataLo = 0x00010000 if splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"][url] else 0xffff0000
 				user32.SendMessageW(hwnd, 1024, dataLo | url, 36)
 		# Coordinate auto update timer restart routine if told to do so.
-		if not splconfig.SPLConfig["Update"]["AutoUpdateCheck"]:
+		# To be unlocked in 8.0 beta 1.
+		if not splconfig.SPLConfig["Update"]["AutoUpdateCheck"]: # 7lts: or self.pendingChannelChange:
 			if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
 			splupdate._SPLUpdateT = None
+			# To be unlocked in 8.0 beta 1.
+			#if self.pendingChannelChange:
+				#splupdate._pendingChannelChange = True
+				# Translators: A dialog message shown when add-on update channel has changed.
+				#wx.CallAfter(gui.messageBox, _("You have changed the add-on update channel. You must restart NVDA for the change to take effect. Be sure to answer yes when you are asked to install the new version when prompted after restarting NVDA."),
+				# Translators: Title of the update channel dialog.
+				#_("Add-on update channel changed"), wx.OK|wx.ICON_INFORMATION)
 		else:
 			if splupdate._SPLUpdateT is None: splconfig.updateInit()
 
@@ -1265,12 +1281,31 @@ class AdvancedOptionsDialog(wx.Dialog):
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		sizer = wx.BoxSizer(wx.VERTICAL)
 		# Translators: A checkbox to toggle automatic add-on updates.
 		self.autoUpdateCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Automatically check for add-on &updates"))
 		self.autoUpdateCheckbox.SetValue(self.Parent.autoUpdateCheck)
 		sizer.Add(self.autoUpdateCheckbox, border=10,flag=wx.TOP)
+		# Translators: The label for a setting in SPL add-on settings/advanced options to select automatic update interval in days.
+		label = wx.StaticText(self, wx.ID_ANY, label=_("Update &interval in days"))
+		sizer.Add(label)
+		self.updateInterval= wx.SpinCtrl(self, wx.ID_ANY, min=1, max=30)
+		self.updateInterval.SetValue(long(parent.updateInterval))
+		self.updateInterval.SetSelection(-1, -1)
+		sizer.Add(self.updateInterval)
 		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
+		# LTS and 8.x only.
+		# To be unlocked in 8.0 beta 1.
+		#sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: The label for a combo box to select update channel.
+		#label = wx.StaticText(self, wx.ID_ANY, label=_("&Add-on update channel:"))
+		#self.channels= wx.Choice(self, wx.ID_ANY, choices=["stable", "longterm"])
+		#self.updateChannels = ("stable", "lts")
+		#self.channels.SetSelection(self.updateChannels.index(self.Parent.updateChannel))
+		#sizer.Add(label)
+		#sizer.Add(self.channels)
+		#mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
@@ -1308,6 +1343,9 @@ class AdvancedOptionsDialog(wx.Dialog):
 		parent.splConPassthrough = self.splConPassthroughCheckbox.Value
 		parent.compLayer = self.compatibilityLayouts[self.compatibilityList.GetSelection()][0]
 		parent.autoUpdateCheck = self.autoUpdateCheckbox.Value
+		parent.updateInterval = self.updateInterval.Value
+		# To be unlocked in 8.0 beta 1.
+		#parent.updateChannel = ("stable", "lts")[self.channels.GetSelection()]
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()
