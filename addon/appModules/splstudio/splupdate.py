@@ -40,8 +40,8 @@ _retryAfterFailure = False
 _updatePickle = os.path.join(globalVars.appArgs.configPath, "splupdate.pickle")
 
 # Remove comment in 8.0 beta 1.
+# Not all update channels are listed. The one not listed here is the default ("stable" for this branch).
 """channels={
-	"stable":"http://addons.nvda-project.org/files/get.php?file=spl",
 	"lts":"http://spl.nvda-kr.org/files/get.php?file=spl-lts7",
 }"""
 
@@ -114,7 +114,8 @@ def updateCheck(auto=False, continuous=False, confUpdateInterval=1):
 	try:
 		url = urllib.urlopen(SPLUpdateURL)
 		# Replace in 8.0 beta 1.
-		#url = urllib.urlopen(channels[SPLUpdateChannel])
+		# Look up the channel if different from the default.
+		#url = urllib.urlopen(SPLUpdateURL if SPLUpdateChannel not in channels else channels[SPLUpdateChannel])
 		url.close()
 	except IOError:
 		_retryAfterFailure = True
