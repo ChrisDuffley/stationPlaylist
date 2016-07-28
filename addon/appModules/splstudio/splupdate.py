@@ -122,7 +122,7 @@ def updateCheck(auto=False, continuous=False, confUpdateInterval=1):
 			wx.CallAfter(_progressDialog.done)
 			_progressDialog = None
 			# Translators: Error text shown when add-on update check fails.
-			wx.CallAfter(gui.messageBox, _("Error checking for update."), _("Check for add-on update"), wx.ICON_ERROR)
+			wx.CallAfter(gui.messageBox, _("Error checking for update."), _("Studio add-on update"), wx.ICON_ERROR)
 		if continuous: _SPLUpdateT.Start(600000, True)
 		return
 	if _retryAfterFailure:
@@ -152,8 +152,8 @@ def updateCheck(auto=False, continuous=False, confUpdateInterval=1):
 		wx.CallAfter(_progressDialog.done)
 		_progressDialog = None
 	# Translators: Title of the add-on update check dialog.
-	if not updateCandidate: wx.CallAfter(gui.messageBox, checkMessage, _("Check for add-on update"))
-	else: wx.CallAfter(getUpdateResponse, checkMessage, _("Check for add-on update"), url.info().getheader("Content-Length"))
+	if not updateCandidate: wx.CallAfter(gui.messageBox, checkMessage, _("Studio add-on update"))
+	else: wx.CallAfter(getUpdateResponse, checkMessage, _("Studio add-on update"), url.info().getheader("Content-Length"))
 
 def getUpdateResponse(message, caption, size):
 	if gui.messageBox(message, caption, wx.YES | wx.NO | wx.CANCEL | wx.CENTER | wx.ICON_QUESTION) == wx.YES:
