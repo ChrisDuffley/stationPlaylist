@@ -461,4 +461,4 @@ Version 4.0 supports SPL Studio 5.00 and later, with 3.x designed to provide som
 
 [3]: http://spl.nvda-kr.org/files/get.php?file=spl-lts7
 
-[4]: https://bitbucket.org/nvdaaddonteam/stationplaylist/wiki/SPLAddonGuide
+[4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
