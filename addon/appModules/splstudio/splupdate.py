@@ -87,9 +87,8 @@ def updateQualify(url):
 	# Anything after "-dev" indicates a try or a custom build.
 	# LTS: Support upgrading between LTS releases.
 	# 7.0: Just worry about version label differences (suggested by Jamie Teh from NV Access).
-	curVersion = "7.0" if longterm else curVersion = SPLAddonVersion
 	version = _versionFromURL(url.url)
-	return None if version == curVersion else version
+	return None if version == SPLAddonVersion else version
 
 _progressDialog = None
 
