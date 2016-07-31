@@ -1,0 +1,1696 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: stationPlaylist 6.4\n"
+"Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
+"POT-Creation-Date: 2016-03-04 19:00+1000\n"
+"PO-Revision-Date: 2016-07-31 04:40+0200\n"
+"Last-Translator: DanP <dan.punga@gmail.com>\n"
+"Language-Team: \n"
+"Language: ro\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#. Translators: Presented when only Track Tool is running (Track Dial requires Studio to be running as well).
+msgid "Only Track Tool is running, Track Dial is unavailable"
+msgstr "Doar instrumentul de melodii rulează, track Dial este nedisponibil"
+
+#. Translators: Reported when track dial is on.
+msgid "Track Dial on"
+msgstr "Track Dial activat"
+
+#. Translators: Announced when located on a column other than the leftmost column while using track dial.
+#, python-brace-format
+msgid ", located at column {columnHeader}"
+msgstr ", localizat la coloana {columnHeader}"
+
+#. Translators: Reported when track dial is off.
+msgid "Track Dial off"
+msgstr "Track Dial dezactivat"
+
+#. Translators: Spoken when enabling track dial while status message is set to beeps.
+#, python-brace-format
+msgid "Column {columnNumber}"
+msgstr "Coloană {columnNumber}"
+
+#. Translators: Input help mode message for SPL track item.
+msgid "Toggles track dial on and off."
+msgstr "Comută între activarea și dezactivarea Track Dial."
+
+#. Translators: Script category for Station Playlist commands in input gestures dialog.
+msgid "StationPlaylist Studio"
+msgstr "StationPlaylist Studio"
+
+#. Translators: Standard message for announcing column content.
+#, python-brace-format
+msgid "{header}: {content}"
+msgstr "{header}: {content}"
+
+#. Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
+#, python-brace-format
+msgid "{header} not found"
+msgstr "{header} negăsit"
+
+#. Translators: Spoken when column content is blank.
+#, python-brace-format
+msgid "{header}: blank"
+msgstr "{header}: gol"
+
+#. Translators: Brailled to indicate empty column content.
+#, python-brace-format
+msgid "{header}: ()"
+msgstr "{header}: ()"
+
+#. Translators: Presented when trying to perform Track Tool commands when not focused in the track list.
+msgid "Not in tracks list"
+msgstr "Nu există în lista de melodii"
+
+#. Translators: Presented when no tracks are added to Track Tool.
+msgid "No tracks added"
+msgstr "Nicio melodie adăugată"
+
+#. Translators: Presented when artist information is not found for a track in Track Tool.
+msgid "No artist"
+msgstr "Nici un artist"
+
+#. Translators: Presents artist information for a track in Track Tool.
+#, python-brace-format
+msgid "Artist: {artistName}"
+msgstr "Artist: {artistName}"
+
+#. Translators: Presented when intro is not defined for a track in Track Tool.
+msgid "Introduction not set"
+msgstr "Nicio introducere setată"
+
+#. Translators: Presented when microphone has been active for a while.
+msgid "Microphone active"
+msgstr "Microfon activ"
+
+#. Translators: Announced when leftmost column has no text while track dial is active.
+#, python-brace-format
+msgid "{leftmostColumn} not found"
+msgstr "{leftmostColumn} negăsit"
+
+#. Translators: Standard message for announcing column content.
+#, python-brace-format
+msgid "{leftmostColumn}: {leftmostContent}"
+msgstr "{leftmostColumn}: {leftmostContent}"
+
+#. Translators: Presented when no track status is found in Studio 5.10.
+msgid "Status not found"
+msgstr "Stare negăsită"
+
+#. Translators: Status information for a checked track in Studio 5.10.
+#, python-brace-format
+msgid "Status: {name}"
+msgstr "Stare: {name}"
+
+#. Translators: The text of the help command in SPL Assistant layer.
+msgid ""
+"After entering SPL Assistant, press:\n"
+"A: Automation.\n"
+"C: Announce name of the currently playing track.\n"
+"D: Remaining time for the playlist.\n"
+"E: Overall metadata streaming status.\n"
+"Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder "
+"and four additional URL's.\n"
+"H: Duration of trakcs in this hour slot.\n"
+"Shift+H: Duration of remaining trakcs in this hour slot.\n"
+"I: Listener count.\n"
+"K: Move to place marker track.\n"
+"Control+K: Set place marker track.\n"
+"L: Line-in status.\n"
+"M: Microphone status.\n"
+"N: Next track.\n"
+"P: Playback status.\n"
+"Shift+P: Pitch for the current track.\n"
+"R: Record to file.\n"
+"Shift+R: Monitor library scan.\n"
+"S: Scheduled time for the track.\n"
+"Shift+S: Time until the selected track will play.\n"
+"T: Cart edit mode.\n"
+"U: Studio up time.\n"
+"W: Weather and temperature.\n"
+"Y: Playlist modification.\n"
+"1 through 0 (6 for Studio 5.01 and earlier): Announce columns via Columns "
+"Explorer (0 is tenth column slot).\n"
+"F9: Mark current track as start of track time analysis.\n"
+"F10: Perform track time analysis.\n"
+"F12: Switch to an instant switch profile.\n"
+"Shift+F1: Open online user guide."
+msgstr ""
+"După pornirea asistentului SPL, apăsați:\n"
+"A: Automat.\n"
+"C: Anunță numele melodiei curente.\n"
+"D: Timpul rămas pentru playlist.\n"
+"E: Starea globală a metadatelor streamului.\n"
+"Shift+1 până la Shift+4, shift+0: Starea metadata astreamului pentru "
+"encoderul DSP și patru URL-uri adiționale.\n"
+"H: Durata melodiilor în această oră.\n"
+"Shift+H: Durata melodiilor rămase în această oră.\n"
+"I: Numărul de ascultători.\n"
+"K: Mută la locul melodiei marcate.\n"
+"Control+K: Setează locul melodiei marcate.\n"
+"L: Starea line-in.\n"
+"M: Starea microfonului.\n"
+"N: Următoarea melodie.\n"
+"P: Stare playback\n"
+"Shift+P: Înălțimea melodiei curente.\n"
+"R: Înregistrează într-un fișier.\n"
+"Shift+R: Scanare librăriile monitorului.\\ .\n"
+"S: Timpul programat pentru melodie.\n"
+"Shift+S: Timpul până când melodia selectată va fi redată.\n"
+"T: Mod editare  cart.\n"
+"U: Timpul de rulare a studioului.\n"
+"W: Vremea și temperatura.\n"
+"Y: Modificare playlist.\n"
+"de la 1 până la 0 (6 pentru Studio 5.01 și mai vechi): Anunță coloanele "
+"utilizând Columns Explorer (0 este coloana slot).\n"
+"F9: Marchează melodia curentă ca început al analizei de durată a "
+"înregistrării.\n"
+"F10: Efectuează analiza de timp a melodiei.\n"
+"F12: Mută la un profil instant.\n"
+"Shift+F1: Deschide ajutorul online."
+
+#. Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
+msgid ""
+"After entering SPL Assistant, press:\n"
+"A: Automation.\n"
+"C: Toggle cart explorer.\n"
+"Shift+C: Announce name of the currently playing track.\n"
+"E: Overall metadata streaming status.\n"
+"Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder "
+"and four additional URL's.\n"
+"Shift+E: Record to file.\n"
+"F: Track finder.\n"
+"H: Duration of trakcs in this hour slot.\n"
+"Shift+H: Duration of remaining trakcs in this hour slot.\n"
+"K: Move to place marker track.\n"
+"Control+K: Set place marker track.\n"
+"L: Listener count.\n"
+"Shift+L: Line-in status.\n"
+"M: Microphone status.\n"
+"N: Next track.\n"
+"P: Playback status.\n"
+"Shift+P: Pitch for the current track.\n"
+"R: Remaining time for the playlist.\n"
+"Shift+R: Monitor library scan.\n"
+"S: Scheduled time for the track.\n"
+"Shift+S: Time until the selected track will play.\n"
+"T: Cart edit mode.\n"
+"U: Studio up time.\n"
+"W: Weather and temperature.\n"
+"Y: Playlist modification.\n"
+"1 through 0 (6 for Studio 5.01 and earlier): Announce columns via Columns "
+"Explorer (0 is tenth column slot).\n"
+"F9: Mark current track as start of track time analysis.\n"
+"F10: Perform track time analysis.\n"
+"F12: Switch to an instant switch profile.\n"
+"Shift+F1: Open online user guide."
+msgstr ""
+"După pornirea asistentului SPL, apăsați:\n"
+"A: Automat.\n"
+"C: Comută cart explorer-ul.\n"
+"Shift+C: Anunță numele melodiei curente.\n"
+"E:  Starea globală a metadatelor streamului.\n"
+"Shift+1 până la Shift+4, shift+0: Starea metadata pentru encoderele DSP și "
+"patru URL-uri adiționale.\n"
+"Shift+E: Înregistrează într-un fișier.\n"
+"F: Căutare melodii.\n"
+"H: Durata melodiilor în această oră.\n"
+"Shift+H: Durata melodiilor rămase în această oră.\n"
+"K: Mută la locul melodiei marcate.\n"
+"Control+K: Setează  locul marcat pentru melodia curentă.\n"
+"L: Numărul de ascultători.\n"
+"Shift+L: Starea line-in.\n"
+"M: Starea microfonului.\n"
+"N: Următoarea melodie.\n"
+"P: Starea playback.\n"
+"Shift+P: înălțimea melodiei curente.\n"
+"R: Timpul rămas pentru playlist.\n"
+"Shift+R: Scanare librăriile monitorului .\n"
+"S: Timpul programat pentru melodie.\n"
+"Shift+S: timpul până când melodia selectată va fi redată.\n"
+"T: Mod Editare Cart.\n"
+"U: Timpul de rulare a studioului.\n"
+"W: Vremea și temperatură.\n"
+"Y: Modificare playlist.\n"
+"de la 1 până la 0: Anunță coloanele prin Columns Explorer (0 este a zecea "
+"poziție ).\n"
+"F9: Marchează melodia curentă ca început al analizei de durată a "
+"înregistrării.\n"
+"F10: Efectuează analiza de timp a melodiei.\\.\n"
+"F12: Mută la un profil instant de comutare.\n"
+"Shift+F1: Deschide ajutorul online."
+
+#. Translators: The text of the help command in SPL Assistant layer when Window-Eyes layer is active.
+msgid ""
+"After entering SPL Assistant, press:\n"
+"A: Automation.\n"
+"C: Toggle cart explorer.\n"
+"Shift+C: Announce name of the currently playing track.\n"
+"D: Remaining time for the playlist.\n"
+"E: Elapsed time.\n"
+"F: Track finder.\n"
+"R: Remaining time for the currently playing track.\n"
+"G: Overall metadata streaming status.\n"
+"Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder "
+"and four additional URL's.\n"
+"H: Duration of trakcs in this hour slot.\n"
+"Shift+H: Duration of remaining trakcs in this hour slot.\n"
+"K: Move to place marker track.\n"
+"Control+K: Set place marker track.\n"
+"L: Listener count.\n"
+"Shift+L: Line-in status.\n"
+"M: Microphone status.\n"
+"N: Next track.\n"
+"P: Playback status.\n"
+"Shift+P: Pitch for the current track.\n"
+"Shift+E: Record to file.\n"
+"Shift+R: Monitor library scan.\n"
+"S: Scheduled time for the track.\n"
+"Shift+S: Time until the selected track will play.\n"
+"T: Cart edit mode.\n"
+"U: Studio up time.\n"
+"W: Weather and temperature.\n"
+"Y: Playlist modification.\n"
+"1 through 0 (6 for Studio 5.01 and earlier): Announce columns via Columns "
+"Explorer (0 is tenth column slot).\n"
+"F9: Mark current track as start of track time analysis.\n"
+"F10: Perform track time analysis.\n"
+"F12: Switch to an instant switch profile.\n"
+"Shift+F1: Open online user guide."
+msgstr ""
+"După pornirea asistentului SPL, apasă:\n"
+"A: Automat.\n"
+"C: Comută la exploratorul de cart.\n"
+"Shift+C: Anunță numele melodiei curente.\n"
+"D: Timpul rămas pentru playlist.\n"
+"E: Timp scurs.\n"
+"F: Căutare melodii.\n"
+"R: Timp rămas pentru melodia redată curent.\n"
+"G: Starea globală a metadatelor streamului.\n"
+"Shift+1 până la Shift+4, shift+0: Starea metadata pentru encoderele DSP și "
+"patru URL-uri adiționale.\n"
+"H: Durata melodiilor în această oră.\n"
+"Shift+H: Durata melodiilor rămase în această oră.\n"
+"K: Mută la locul melodiei marcate.\n"
+"Control+K: Setează locul melodiei marcate.\n"
+"L: Număr ascultători.\n"
+"Shift+L: Starea line-in.\n"
+"M: Starea microfonului.\n"
+"N: Următoarea melodie.\n"
+"P: Stare playback\n"
+"Shift+P: Înălțimea melodiei curente.\n"
+"Shift+E: Înregistrează într-un fișier.\n"
+"Shift+R: Scanare librăriile monitorului.\n"
+"S: Timpul programat pentru melodie.\n"
+"Shift+S: Timpul până când melodia selectată va fi redată.\n"
+"T: Mod Editare Cart.\n"
+"U: Timpul de rulare a studioului.\n"
+"W: Vremea și temperatura.\n"
+"Y: Modificare playlist.\n"
+"de la 1 până la 0 (6 pentru Studio 5.01 și mai vechi): Anunță coloanele "
+"utilizând Columns Explorer (0 este a zecea poziție).\n"
+"F9: Marchează melodia curentă.\n"
+"F10: Efectuează analiza de timp a melodiei.\n"
+"F12: Mută la un profil instant.\n"
+"Shift+F1: Deschide ajutorul online."
+
+#, python-brace-format
+msgid "Using SPL Studio version {SPLVersion}"
+msgstr "Folosiți SPL Studio, versiunea {SPLVersion}."
+
+msgid "SPL Studio Settings..."
+msgstr "Setări SPL Studio..."
+
+msgid "SPL settings"
+msgstr "Setări SPL"
+
+#. Translators: Presented when library scan is complete.
+#, python-brace-format
+msgid "Scan complete with {scanCount} items"
+msgstr "Scan terminat cu {scanCount} elemente."
+
+#. Translators: Presented when cart edit mode is toggled on while cart explorer is on.
+msgid "Cart explorer is active"
+msgstr "Cart explorer este activat."
+
+#. Translators: Presented when cart edit mode is toggled off while cart explorer is on.
+msgid "Please reenter cart explorer to view updated cart assignments"
+msgstr "Reintrați în Cart explorer pentru a vedea toate actualizările."
+
+#. Translators: Presented when microphone was on for more than a specified time in microphone alarm dialog.
+msgid "Warning: Microphone active"
+msgstr "Atenție: Microfon activ"
+
+#. Translators: Presented when end of introduction is approaching (example output: 5 sec left in track introduction).
+#, python-brace-format
+msgid "Warning: {seconds} sec left in track introduction"
+msgstr "Atenție: {seconds} secunde rămase în introducerea melodiiei."
+
+#. Translators: Presented when end of track is approaching.
+#, python-brace-format
+msgid "Warning: {seconds} sec remaining"
+msgstr "Atenție: {seconds} secunde rămase."
+
+#. Add the human-readable representation also.
+msgid "SPL mode"
+msgstr "Mod SPL"
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Announces the remaining track time."
+msgstr "Anunță timpul rămas din melodiie."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Announces the elapsed time for the currently playing track."
+msgstr "Anunță timpul scurs pentru melodiia curentă."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Announces broadcaster time."
+msgstr "Anunță timpul de emisie."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Announces time including seconds."
+msgstr "Anunță timpul care include secundele."
+
+#. Translators: Presented when the add-on config dialog is opened.
+msgid ""
+"The add-on settings dialog is opened. Please close the settings dialog first."
+msgstr ""
+"Setările add-onului sunt deja deschise. Vă rugăm să le închideți mai întâi."
+
+#. Translators: The title of the message box
+msgid "Error"
+msgstr "Eroare"
+
+#. Translators: The title of end of track alarm dialog.
+msgid "End of track alarm"
+msgstr "Alarma sfârșitului melodiiei."
+
+#. Translators: A dialog message to set end of track alarm (curAlarmSec is the current end of track alarm in seconds).
+#, python-brace-format
+msgid "Enter &end of track alarm time in seconds (currently {curAlarmSec})"
+msgstr "Introdu timpul melod&iei în secunde(la moment {curAlarmSec})."
+
+#. Translators: A check box to toggle notification of end of track alarm.
+#. Check box hiding method comes from Alberto Buffolino's Columns Review add-on.
+#. Translators: Label for a check box in SPL add-on settings to notify when end of track (outro) is approaching.
+msgid "&Notify when end of track is approaching"
+msgstr "&Notifică când sfârșitul melodiei se apropie."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "sets end of track alarm (default is 5 seconds)."
+msgstr "Setează alarma sfârșitului melodiiei (implicit este 5 secunde)."
+
+#. Translators: The title of song intro alarm dialog.
+msgid "Song intro alarm"
+msgstr "Alarma de intrare a melodiiei"
+
+#. Translators: A dialog message to set song ramp alarm (curRampSec is the current intro monitoring alarm in seconds).
+#, python-brace-format
+msgid "Enter song &intro alarm time in seconds (currently {curRampSec})"
+msgstr ""
+"Introdu timpul al&armei de început a melodiei (la moment este {curRampSec})"
+
+#. Translators: A check box to toggle notification of end of intro alarm.
+#. Translators: Label for a check box in SPL add-on settings to notify when end of intro is approaching.
+msgid "&Notify when end of introduction is approaching"
+msgstr "&Notifică la apropierea sfârșitului introducerii."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "sets song intro alarm (default is 5 seconds)."
+msgstr "Setează alarma de început a melodiei (implicit este 5  secunde)."
+
+#. Translators: A dialog message to set microphone active alarm (curAlarmSec is the current mic monitoring alarm in seconds).
+#, python-brace-format
+msgid ""
+"Enter microphone alarm time in seconds (currently {curAlarmSec}, 0 disables "
+"the alarm)"
+msgstr ""
+"introdu timpul alarmei microfonului în secunde (momentan este {curAlarmSec}, "
+"0 dezactivează alarma)"
+
+#. Translators: A dialog message when microphone alarm is disabled (set to 0).
+msgid ""
+"Enter microphone alarm time in seconds (currently disabled, 0 disables the "
+"alarm)"
+msgstr ""
+"Introdu timpul alarmei microfonului în secunde (momentan este dezactivată, 0 "
+"dezactivează alarma"
+
+#. Translators: The title of mic alarm dialog.
+msgid "Microphone alarm"
+msgstr "Alarma microfonului"
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Sets microphone alarm (default is 5 seconds)."
+msgstr "Setează alarma microfonului (implicit este 5 secunde)."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Opens SPL Studio add-on configuration dialog."
+msgstr "Deschide dialogul de configurare al extensiei SPL Studio."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Toggles status announcements between words and beeps."
+msgstr "Comută anunțarea stării între cuvinte și bipuri."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Toggles between various braille timer settings."
+msgstr "Comută între variațiile setărilor cronometrului braille."
+
+#. Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
+msgid "Search string not found."
+msgstr "Fraza căutată nu a fostgăsită."
+
+#. Translators: Standard error title for find error (copy this from main nvda.po).
+msgid "Find error"
+msgstr "Găsește eroare"
+
+#. Translators: Presented when a user attempts to find tracks but is not at the track list.
+msgid "Track finder is available only in track list."
+msgstr "căutarea melodiilor este disponibilă doar în lista de melodii."
+
+#. Translators: Presented when a user attempts to find tracks but is not at the track list.
+msgid "Column search is available only in track list."
+msgstr "Coloana de căutare este disponibilă doar în lista de melodii."
+
+#. Translators: Presented when a user attempts to find tracks but is not at the track list.
+msgid "Time range finder is available only in track list."
+msgstr ""
+"Căutarea în interval de timp este disponibilă doar în lista de melodii."
+
+#. Translators: Presented when a user wishes to find a track but didn't add any tracks.
+msgid "You need to add at least one track to find tracks."
+msgstr "Trebuie să adaugi cel puțin o melodie pentru a căuta melodiile."
+
+#. Translators: Title for track finder dialog.
+msgid "Find track"
+msgstr "Caută melodia"
+
+#. Translators: Title for column search dialog.
+msgid "Column search"
+msgstr "Căutare coloană"
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Finds a track in the track list."
+msgstr "Caută o melodie în lista de melodii."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Finds text in columns."
+msgstr "Caută text în coloane."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Finds the next occurrence of the track with the name in the track list."
+msgstr "găsește următoarea apariție a pistei, cu numele de pe listă."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Finds previous occurrence of the track with the name in the track list."
+msgstr "Caută apariția anterioară a melodiei pe listă."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Locates track with duration within a time range"
+msgstr "găsește o pistă cu durata într-un interval de timp"
+
+#. Translators: Presented when cart explorer cannot be entered.
+msgid "You are not in playlist viewer, cannot enter cart explorer"
+msgstr ""
+"Nu ești în vizualizatorul playlist-ului, nu poți intra în cart explorer."
+
+#. Translators: presented when cart explorer could not be switched on.
+msgid "Some or all carts could not be assigned, cannot enter cart explorer"
+msgstr ""
+"Unele sau toate carturile nu pot fi atribuite. nu poți intra în cart "
+"explorer."
+
+#. Translators: Presented when cart explorer is on.
+msgid "Entering cart explorer"
+msgstr "Intrare în cart explorer..."
+
+#. Translators: Presented when cart explorer is off.
+msgid "Exiting cart explorer"
+msgstr "Ieșire din Cart Explorer..."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Toggles cart explorer to learn cart assignments."
+msgstr "Comută Cart explorer pentru a afla atribuirile cartului."
+
+#. Translators: Presented when cart command is unavailable.
+msgid "Cart command unavailable"
+msgstr "Comandă cart nu este valabilă."
+
+#. Translators: Presented when there is no cart assigned to a cart command.
+msgid "Cart unassigned"
+msgstr "Cart neatribuit."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Toggles library scan progress settings."
+msgstr "Comutare între setările de scanare de biblioteca de progres."
+
+#. Translators: Presented when library scan has started.
+msgid "Scan start"
+msgstr "Start scanare"
+
+#. Translators: Presented when library scanning is finished.
+#, python-brace-format
+msgid "{itemCount} items in the library"
+msgstr "Au fost găsite {itemCount} elemente în librarie."
+
+#. Translators: Presented after library scan is done.
+#, python-brace-format
+msgid "Scan complete with {itemCount} items"
+msgstr "Scanare completă cu {itemCount} elemente."
+
+#. Translators: Presented when library scan is in progress.
+msgid "Scanning"
+msgstr "Scanare..."
+
+#. Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
+#, python-brace-format
+msgid "{itemCount} items scanned"
+msgstr "{itemCount} elemente au fost scanate."
+
+#. Translators: Presented when stremaing dialog cannot be shown.
+msgid "Cannot open metadata streaming dialog"
+msgstr "Imposibil de deschis dialog cu metadate de streaming"
+
+#. Translators: Presented when the add-on config dialog is opened.
+msgid ""
+"The add-on settings dialog or the metadata streaming dialog is opened. "
+"Please close the opened dialog first."
+msgstr ""
+"Setările de add-on sau de metadata streaming sunt deja deschise. Închideți "
+"mai întâi dialogurile deschise."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Opens a dialog to quickly enable or disable metadata streaming."
+msgstr ""
+"Deschide un dialog pentru a activa sau dezactiva rapid metadata streaming."
+
+#. Translators: Presented when track time anlaysis cannot be performed because user is not focused on playlist viewer.
+msgid "Not in playlist viewer, cannot perform track time analysis"
+msgstr ""
+"Nu ești în vizualizatorul de playlisturi, nu se poate începe analizarea "
+"timpului melodiei."
+
+#. Translators: Presented when SPL Assistant cannot be invoked.
+msgid "Failed to locate Studio main window, cannot enter SPL Assistant"
+msgstr ""
+"Localizarea ferestrei principale a Studioului a eșuat, imposibil de deschis "
+"asistentul SPL."
+
+#. Translators: Input help mode message for a layer command in Station Playlist Studio.
+msgid ""
+"The SPL Assistant layer command. See the add-on guide for more information "
+"on available commands."
+msgstr ""
+"Comandă de niveluri pentru asistentul SPL. Vedeți manualul add-on-ului "
+"pentru mai multe informații despre comenzile disponibile."
+
+#. Translators: Presented when playlist modification is unavailable (for Studio 4.33 and earlier)
+msgid "Playlist modification not available"
+msgstr "Modificare playlist nedisponibilă"
+
+#. Translators: Presented when there is no information for the next track.
+msgid "No next track scheduled or no track is playing"
+msgstr "Nicio melodie următoare programată sau nicio melodie nu se redă"
+
+#. Translators: Presented when next track information is unavailable.
+msgid "Cannot find next track information"
+msgstr "Nu se pot găsi informații despre următoarea melodie"
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Announces title of the next track if any"
+msgstr "Anunță titlul următoarei melodi dacă există"
+
+#. Translators: Presented when there is no information for the current track.
+msgid "Cannot locate current track information or no track is playing"
+msgstr ""
+"Nu se poate localiza informația despre melodia curentă sau nicio melodie nu "
+"se redă"
+
+#. Translators: Presented when current track information is unavailable.
+msgid "Cannot find current track information"
+msgstr "Nu se pot găsi informații despre melodia curentă."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Announces title of the currently playing track"
+msgstr "Anunță titlul melodiei curente"
+
+#. Translators: Presented when there is no weather or temperature information.
+msgid "Weather and temperature not configured"
+msgstr "Vremea și Temperatura nu sunt configurate"
+
+#. Translators: Presented when temperature information cannot be found.
+msgid "Weather information not found"
+msgstr "Informațiile despre vreme nu au fost găsite."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Announces temperature and weather information"
+msgstr "Anunță informațiile vremii și ale temperaturii."
+
+#. Translators: Presented when there is no listener count information.
+msgid "Listener count not found"
+msgstr "Numărul de ascultători nu a putut fi identificat."
+
+#. Translators: Presented when there is no information on song pitch (for Studio 4.33 and earlier).
+msgid "Song pitch not available"
+msgstr "Înălțimea melodiei nu este disponibilă"
+
+#. Translators: Presented when attempting to start library scan.
+msgid "Monitoring library scan"
+msgstr "Se monitorizează scanarea librăriei"
+
+#. Translators: Presented when library scan is already in progress.
+msgid "Scanning is in progress"
+msgstr "Scanarea este în curs..."
+
+#. Translators: Presented when track time analysis cannot be activated.
+msgid "No tracks were added, cannot perform track time analysis"
+msgstr ""
+"Nicio melodie adăugată, nu se poate începe analizarea timpul melodiilor"
+
+#. Translators: Presented when track time analysis is turned on.
+msgid "Track time analysis activated"
+msgstr "Analizarea timpului melodiilor este activată"
+
+#. Translators: Presented when track time analysis is turned off.
+msgid "Track time analysis deactivated"
+msgstr "Analizarea timpului melodiilor este dezactivată"
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid "Marks focused track as start marker for track time analysis"
+msgstr ""
+"Marchează melodia focusată ca marcaj de pornire pentru timpul de analizare a "
+"melodiei"
+
+#. Translators: Presented when track time analysis cannot be used because start marker is not set.
+msgid ""
+"No track selected as start of analysis marker, cannot perform time analysis"
+msgstr ""
+"Nicio melodie selectată ca pornire a marcajului de analiză, imposibil de "
+"efectuat analiza timpului."
+
+#. Translators: Presented when time analysis is done for a number of tracks (example output: Tracks: 3, totaling 5:00).
+#, python-brace-format
+msgid "Tracks: {numberOfSelectedTracks}, totaling {totalTime}"
+msgstr "Melodii: {numberOfSelectedTracks}, în total {totalTime}."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid ""
+"Announces total length of tracks between analysis start marker and the "
+"current track"
+msgstr ""
+"Anunță durata totală a melodiilor între marcajul de start al analizei și "
+"melodia curentă."
+
+#. Translators: Presented when place marker cannot be set.
+msgid "No tracks found, cannot set place marker"
+msgstr "Nicio melodie găsită, nu se poate seta marcajul de loc."
+
+#. Translators: Presented when place marker track is set.
+msgid "place marker set"
+msgstr "marcajul de loc a fost setat"
+
+#. Translators: Presented when attempting to place a place marker on an unsupported track.
+msgid "This track cannot be used as a place marker track"
+msgstr ""
+"Această melodie nu poate fi utilizată ca o melodie de marcaj al locului"
+
+#. Translators: Presented when attempting to move to a place marker track when not focused in playlist viewer.
+msgid "You cannot move to a place marker track outside of playlist viewer."
+msgstr ""
+"Nu se poate muta la o melodie marcaj de loc din afara vizualizatorului de "
+"playlisturi."
+
+#. Translators: Presented when no place marker is found.
+msgid "No place marker found"
+msgstr "Niciun marcaj de loc găsit."
+
+#. Translators: Status message for metadata streaming.
+#, python-brace-format
+msgid "Metadata streaming on URL {URLPosition} enabled"
+msgstr "Emisia metadata pe linkul URL {URLPosition} activată."
+
+#. Translators: Status message for metadata streaming.
+msgid "Metadata streaming on DSP encoder enabled"
+msgstr "Emisia metadata pe encoderul DSP activată."
+
+#. Translators: Status message for metadata streaming.
+#, python-brace-format
+msgid "Metadata streaming on URL {URLPosition} disabled"
+msgstr "Emisia metadata pe linkul URL {URLPosition} dezactivată."
+
+#. Translators: Status message for metadata streaming.
+msgid "Metadata streaming on DSP encoder disabled"
+msgstr "Emisia metadata pe encoderul DSP dezactivată."
+
+#. Translators: Presented when attempting to announce specific columns but the focused item isn't a track.
+msgid "Not a track"
+msgstr "Nicio melodie"
+
+#. Translators: Presented when a specific column header is not found.
+#, python-brace-format
+msgid "{headerText} not found"
+msgstr "{headerText} negăsit."
+
+#. Translators: The title for SPL Assistant help dialog.
+msgid "SPL Assistant help"
+msgstr "Ajutor asistent SPL"
+
+#. Translators: The title for SPL Assistant help dialog.
+msgid "SPL Assistant help for JAWS layout"
+msgstr "Ajutor asistent SPL pentru aspectul Jaws."
+
+#. Translators: The title for SPL Assistant help dialog.
+msgid "SPL Assistant help for Window-Eyes layout"
+msgstr "Ajutor asistent SPL pentru aspectul Window-Eyes"
+
+#. Translators: A dialog message shown when settings were reset to defaults.
+msgid "Successfully applied default add-on settings."
+msgstr "Setările implicite ale add-onului s-au aplicat cu succes."
+
+#. Translators: Title of the reset config dialog.
+msgid "Reset configuration"
+msgstr "Resetează configurația"
+
+#. Translators: The name of the default (normal) profile.
+msgid "Normal profile"
+msgstr "Profil normal"
+
+#. Translators: Standard error title for configuration error.
+msgid "Studio add-on Configuration error"
+msgstr "Eroare la configurarea add-onului Studio."
+
+#. Translators: Message displayed if errors were found in encoder configuration file.
+msgid ""
+"Your encoder settings had errors and were reset to defaults. If you have "
+"stream labels configured for various encoders, please add them again."
+msgstr ""
+"Setările encoderului au avut erori, și au fost resetate la implicit. Dacă "
+"aveți configurate etichetele de emisie pentru diverse encodere, vă rugăm să "
+"le adăugați din nou."
+
+#. Translators: Title of the encoder settings error dialog.
+msgid "Encoder settings error"
+msgstr "Eroare setări encoder"
+
+#. Translators: Message presented indicating missing time-based profiles.
+#, python-brace-format
+msgid ""
+"Could not locate the following time-based profile(s):\n"
+"{profiles}"
+msgstr ""
+"Nu se pot localiza următoarele profiluri bazate pe timp:\n"
+"{profiles}"
+
+#. Translators: The title of a dialog shown when some time-based profiles doesn't exist.
+msgid "Time-based profiles missing"
+msgstr "Lipsesc profilurile bazate pe timp"
+
+#. Translators: A flag indicating the currently active broadcast profile.
+msgid "active"
+msgstr "activ"
+
+#. Translators: A flag indicating the broadcast profile is an instant switch profile.
+#. Instant switch flag is set on another profile, so remove the flag first.
+msgid "instant switch"
+msgstr "Comutare instantanee"
+
+#. Translators: A flag indicating the time-based triggers profile.
+#. Calling set profile flags with discard argument is always safe here.
+msgid "time-based"
+msgstr "bazat pe timp"
+
+#. Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
+msgid "Add-on settings dialog is open, cannot switch profiles"
+msgstr ""
+"Dialogul cu setările addonului este deschis, nu se pot comuta profiluri"
+
+#. Translators: Presented when switch to instant switch profile was successful.
+#, python-brace-format
+msgid "Switching to {newProfileName}"
+msgstr "comutare la {newProfileName}"
+
+#. Translators: Presented when switching from instant switch profile to a previous profile.
+#, python-brace-format
+msgid "Returning to {previousProfile}"
+msgstr "Întoarcere la {previousProfile}"
+
+#. Translators: Presented when trying to switch to an instant switch profile when the instant switch profile is not defined.
+msgid "No instant switch profile is defined"
+msgstr "Niciun profil de comutare instantanee definit."
+
+#. Translators: Presented when trying to switch to an instant switch profile when one is already using the instant switch profile.
+msgid "You are already in the instant switch profile"
+msgstr "Ești deja în profilul de comutare instantanee."
+
+#. Translators: Presented when trying to switch to an instant switch profile when one is already using the instant switch profile.
+msgid "A profile trigger is already active"
+msgstr "Un trigger al profilului este deja activ."
+
+#. Translators: Text of the dialog when another alarm dialog is open.
+msgid "Another alarm dialog is open."
+msgstr "Un alt dialog de alertă este deschis."
+
+#. Translators: Title of a dialog displayed when the add-on starts reminding broadcasters to disable audio ducking.
+msgid "SPL Studio and audio ducking"
+msgstr "Studio SPL și adjustarea automată a volumului audio"
+
+#. Translators: A message displayed if audio ducking should be disabled.
+msgid ""
+"NVDA 2016.1 and later allows NVDA to decrease volume of background audio "
+"including that of Studio. In order to not disrupt the listening experience "
+"of your listeners, please disable audio ducking by opening synthesizer "
+"dialog in NVDA and selecting 'no ducking' from audio ducking mode combo box "
+"or press NVDA+Shift+D."
+msgstr ""
+"NVDA 2016.1 și mai nou permite NVDA-ului să micșoreze volumul audio de "
+"fundal. Pentru a nu perturba experiența ascultătorilor tăi, dezactivați "
+"adjustarea automată a volumului, deschizând fereastra dialog a "
+"sintetizatorului NVDA și selectând „fără atenuare” din caseta combinată "
+"pentru atenuare audio, sau apăsând NVDA+Shift+D."
+
+#. Translators: A checkbox to turn off audio ducking reminder message.
+msgid "Do not show this message again"
+msgstr "Nu mai arăta acest mesaj din nou"
+
+#. Translators: Reported when status announcement is set to beeps in SPL Studio.
+msgid "Status announcement beeps"
+msgstr "bipuri de anunțare a stării"
+
+#. Translators: Reported when status announcement is set to beeps in SPL Studio.
+msgid "Beeps"
+msgstr "bipuri"
+
+#. Translators: Reported when status announcement is set to beeps in SPL Studio.
+msgid "Status announcement words"
+msgstr "cuvinte de anunțare a stării"
+
+#. Translators: Reported when status announcement is set to beeps in SPL Studio.
+msgid "Words"
+msgstr "cuvinte"
+
+#. Translators: A setting in braille timer options.
+msgid "Braille timer off"
+msgstr "Cronometrul braille dezacrtivat."
+
+msgid "Off"
+msgstr "dezactivat"
+
+#. Translators: A setting in braille timer options.
+msgid "Braille track endings"
+msgstr "Sfârșitul melodiei în mod braille"
+
+#. Translators: A setting in braille timer options.
+msgid "Outro"
+msgstr "Ieșire"
+
+#. Translators: A setting in braille timer options.
+msgid "Braille intro endings"
+msgstr "Finaluri de intrare în mod braille"
+
+#. Translators: A setting in braille timer options.
+msgid "Intro"
+msgstr "Intrare"
+
+#. Translators: A setting in braille timer options.
+msgid "Braille intro and track endings"
+msgstr "Finaluri de intrare și melodie în mod braille"
+
+#. Translators: A setting in braille timer options.
+msgid "Both"
+msgstr "Ambele"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Do not announce library scans"
+msgstr "Nu mai anunța scanările de librării"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Announce start and end of a library scan"
+msgstr "Anunță începutul și sfârșitul unei scanări de librării"
+
+#. Translators: One of the library scan announcement settings.
+msgid "Start and end only"
+msgstr "Doar început și sfârșit"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Announce the progress of a library scan"
+msgstr "Anunță progresul unei scanări de librării"
+
+#. Translators: One of the library scan announcement settings.
+msgid "Scan progress"
+msgstr "Progres scanare"
+
+#. Translators: A setting in library scan announcement options.
+msgid "Announce progress and item count of a library scan"
+msgstr "Anunță progresul și numărul de elemente ale scanării de librării"
+
+#. Translators: One of the library scan announcement settings.
+msgid "Scan count"
+msgstr "Numărul de scanări"
+
+#. Translators: This is the label for the StationPlaylist Studio configuration dialog.
+msgid "Studio Add-on Settings"
+msgstr "Setările addonului studio"
+
+#. Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
+msgid "Broadcast &profile:"
+msgstr "&Profil de emisie:"
+
+#. Translators: The label of a button to create a new broadcast profile.
+msgid "&New"
+msgstr "&Nou"
+
+#. Translators: The label of a button to copy a broadcast profile.
+msgid "Cop&y"
+msgstr "&Copiază"
+
+#. Translators: The label of a button to rename a broadcast profile.
+msgid "&Rename"
+msgstr "&Redenumește"
+
+#. Translators: The label of a button to delete a broadcast profile.
+msgid "&Delete"
+msgstr "&Șterge"
+
+#. Translators: The label of a button to manage show profile triggers.
+msgid "&Triggers..."
+msgstr "&Comutatoare..."
+
+#. Translators: The label for a setting in SPL Add-on settings to configure countdown seconds before switching profiles.
+msgid "Countdown seconds before switching profiles"
+msgstr "Numărătoare secunde până la comutarea între profiluri"
+
+#. Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
+msgid "&Beep for status announcements"
+msgstr "&Bip pentru anunțurile stării"
+
+#. Translators: The label for a setting in SPL add-on dialog to set message verbosity.
+msgid "Message &verbosity:"
+msgstr "Nivel de&taliu mesaje :"
+
+#. Translators: One of the message verbosity levels.
+msgid "beginner"
+msgstr "Începător"
+
+#. Translators: One of the message verbosity levels.
+msgid "advanced"
+msgstr "Avansat"
+
+#. Translators: The label for a setting in SPL Add-on settings to specify end of track (outro) alarm.
+msgid "&End of track alarm in seconds"
+msgstr "Alarma pentru &sfârșit de melodie în secunde"
+
+#. Translators: The label for a setting in SPL Add-on settings to specify track intro alarm.
+msgid "&Track intro alarm in seconds"
+msgstr "Alarma pentru î&nceput de melodie în secunde"
+
+#. Translators: The label for a setting in SPL add-on dialog to control braille timer.
+msgid "&Braille timer:"
+msgstr "Cronometru &braille:"
+
+#. Translators: One of the braille timer settings.
+msgid "Track ending"
+msgstr "Sfârșitul melodiei"
+
+#. Translators: One of the braille timer settings.
+msgid "Track intro"
+msgstr "Începutul melodiei"
+
+#. Translators: One of the braille timer settings.
+msgid "Track intro and ending"
+msgstr "Începutul și sfârșiutl melodiei"
+
+#. Translators: The label for a setting in SPL Add-on settings to change microphone alarm setting.
+msgid "&Microphone alarm in seconds"
+msgstr "Alarma &microfonului în secunde"
+
+#. Translators: The label for a setting in SPL Add-on settings to specify mic alarm interval.
+msgid "Microphone alarm &interval in seconds"
+msgstr "&Intervalul de alarmă a microfonului în secunde"
+
+#. Translators: The label for a setting in SPL add-on dialog to control alarm announcement type.
+msgid "&Alarm notification:"
+msgstr "Notificare &alarmă:"
+
+#. Translators: One of the alarm notification options.
+msgid "beep"
+msgstr "Bip"
+
+#. Translators: One of the alarm notification options.
+msgid "message"
+msgstr "Mesaj"
+
+#. Translators: One of the alarm notification options.
+msgid "both beep and message"
+msgstr "Ambele, bip și mesaj"
+
+#. Translators: The label for a setting in SPL add-on dialog to control library scan announcement.
+msgid "&Library scan announcement:"
+msgstr "Anunțarea scanării &librăriei:"
+
+#. Translators: the label for a setting in SPL add-on settings to announce time including hours.
+msgid "Include &hours when announcing track or playlist duration"
+msgstr "Include &orele când se anunță durata melodiei sau a playlistului"
+
+#. Translators: the label for a setting in SPL add-on settings to toggle track dial mode on and off.
+msgid "&Track Dial mode"
+msgstr "Modul indica&tor al melodiei"
+
+#. Translators: the label for a setting in SPL add-on settings to toggle category sound announcement.
+msgid "&Beep for different track categories"
+msgstr "&Bip pentru diverse categorii de melodii"
+
+#. Translators: the label for a setting in SPL add-on settings to be notified that metadata streaming is enabled.
+msgid "&Metadata streaming notification and connection"
+msgstr "Notificare și conectare emisie &metadata"
+
+#. Translators: One of the metadata notification settings.
+msgid "When Studio starts"
+msgstr "Când studio pornește"
+
+#. Translators: One of the metadata notification settings.
+msgid "When instant switch profile is active"
+msgstr "Când profilul de comutare instantanee este activ"
+
+#. Translators: The label of a button to manage column announcements.
+msgid "Configure metadata &streaming connection options..."
+msgstr "Configurare opţiuni de conectare emi&sie metadata"
+
+#. Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
+msgid "Announce columns in the &order shown on screen"
+msgstr "Anunţă coloanele în &ordinea arătată pe ecran"
+
+#. Translators: The label of a button to manage column announcements.
+msgid "&Manage track column announcements..."
+msgstr "Gestionează anunţările coloanelor &melodiilor..."
+
+#. Translators: The label of a button to configure columns explorer slots (SPL Assistant, number row keys to announce specific columns).
+msgid "Columns E&xplorer..."
+msgstr "E&xplorer coloane..."
+
+#. Translators: The label of a button to open advanced options such as using SPL Controller command to invoke Assistant layer.
+msgid "&Status announcements..."
+msgstr "Anunţări &stare..."
+
+#. Translators: The label of a button to open advanced options such as using SPL Controller command to invoke Assistant layer.
+msgid "&Advanced options..."
+msgstr "Opţiuni &avansate..."
+
+#. Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
+msgid "Reset settings"
+msgstr "Resetare setări"
+
+#. Translators: The label of a field to enter a new name for a broadcast profile.
+msgid "New name:"
+msgstr "Nume nou:"
+
+#. Translators: The title of the dialog to rename a profile.
+msgid "Rename Profile"
+msgstr "Redenumire profil"
+
+#. Translators: An error displayed when renaming a configuration profile
+#. and a profile with the new name already exists.
+#. Translators: An error displayed when the user attempts to create a profile which already exists.
+msgid "That profile already exists. Please choose a different name."
+msgstr "Acest profil deja există. Alegeți un alt nume de profil."
+
+#. Translators: Message reported when attempting to delete a profile while a profile is triggered.
+msgid ""
+"An instant switch profile might be active or you are in the midst of a "
+"broadcast. If so, please press SPL Assistant, F12 to switch back to a "
+"previously active profile before opening add-on settings to delete a profile."
+msgstr ""
+"Un profil de comutare instantanee poate fi activ sau sunteți în mijlocul "
+"unei emisii. Dacă este aşa, apăsați asistentul SPL, F12 pentru a comuta "
+"înapoi la un profil activ anterior, înainte de a deschide setările addonului "
+"pentru a şterge un profil."
+
+#. Translators: Title of a dialog shown when profile cannot be deleted.
+msgid "Profile delete error"
+msgstr "Eroare la ştergerea profilului"
+
+#. Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
+msgid "Are you sure you want to delete this profile? This cannot be undone."
+msgstr "Sigur doriți să ştergeți acest profil? Acest lucru este ireversibil."
+
+#. Translators: The title of the confirmation dialog for deletion of a profile.
+msgid "Confirm Deletion"
+msgstr "Confirmare ştergere"
+
+#. Translators: A message to warn about resetting SPL config settings to factory defaults.
+msgid "Are you sure you wish to reset SPL add-on settings to defaults?"
+msgstr "Sigur vreți să resetați setările addonului SPL la implicit?"
+
+#. Translators: The title of the warning dialog.
+msgid "Warning"
+msgstr "Atenţie"
+
+#. Translators: Presented when an alarm dialog is opened.
+msgid ""
+"Another add-on settings dialog is open. Please close the previously opened "
+"dialog first."
+msgstr ""
+"Un alt dialog cu setările addonului este deja deschis. Închideți fereastra "
+"deschisă anterior mai întâi."
+
+#. Translators: The title of the dialog to create a new broadcast profile.
+msgid "New Profile"
+msgstr "Profil nou"
+
+#. Translators: The title of the dialog to copy a broadcast profile.
+msgid "Copy Profile"
+msgstr "Copiere profil"
+
+#. Translators: The label of a field to enter the name of a new broadcast profile.
+msgid "Profile name:"
+msgstr "Nume profil:"
+
+#. Translators: The label for a setting in SPL add-on dialog to select a base  profile for copying.
+msgid "&Base profile:"
+msgstr "Profil de &bază:"
+
+#. Translators: The title of the broadcast profile triggers dialog.
+#, python-brace-format
+msgid "Profile triggers for {profileName}"
+msgstr "Declanșatoare de profil pentru {profileName}"
+
+#. Translators: The label of a checkbox to toggle if selected profile is an instant switch profile.
+msgid "This is an &instant switch profile"
+msgstr "Acest profil este un profil de comutare &instantanee"
+
+#. Translators: The label of a checkbox to toggle if selected profile is a time-based profile.
+msgid "This is a &time-based switch profile"
+msgstr "Acest profil este un profil bazat pe comutare în &timp."
+
+msgid "Day"
+msgstr "Zi"
+
+msgid "Time"
+msgstr "Timp"
+
+msgid "Hour"
+msgstr "Oră"
+
+msgid "Minute"
+msgstr "Minut"
+
+msgid "Duration in minutes"
+msgstr "Durată în minute"
+
+#. Translators: Presented if another profile occupies a time slot set by the user.
+msgid ""
+"A profile trigger already exists for the entered time slot. Please choose a "
+"different date or time."
+msgstr ""
+"Un trigger al profilului deja există pentru slotul de timp introdus. "
+"Selectați o oră sau o dată diferite."
+
+#. Er, did you specify a date?
+msgid ""
+"The time-based profile checkbox is checked but no switch dates are given. "
+"Please either specify switch date(s) or uncheck time-based profile checkbox."
+msgstr ""
+"Căsuţa profilului bazat pe timp este  bifată, dar data nu este definită. "
+"Specificați mai întâi o dată sau debifați căsuţa de profil bazat pe timp."
+
+#. Translators: Title of a dialog to configure metadata streaming status for DSP encoder and four additional URL's.
+msgid "Metadata streaming options"
+msgstr "Opţiuni emisie meetadata"
+
+msgid "Select the URL for metadata streaming upon request."
+msgstr "Selectează URL-ul pentru cererea de emisie metadata"
+
+msgid "Check to enable metadata streaming, uncheck to disable."
+msgstr ""
+"Bifează pentru a activa emisia metadata, debifează pentru a o dezactiva."
+
+#. Translators: A checkbox to let metadata streaming status be applied to the currently active broadcast profile.
+msgid "&Apply streaming changes to the selected profile"
+msgstr "&Aplică schimbările de emisie pentru profilul selectat"
+
+#. Translators: Title of a dialog to configure column announcements (order and what columns should be announced).
+msgid "Manage column announcements"
+msgstr "Gestionare anunțările de coloană"
+
+#. Translators: Help text to select columns to be announced.
+msgid ""
+"Select columns to be announced (artist and title are announced by default"
+msgstr ""
+"Selectează coloanele pentru a fi anunțate (artistul și numele melodiei vor "
+"fi anunțate în mod implicit)"
+
+#. Translators: The label for a setting in SPL add-on dialog to select column announcement order.
+msgid "Column &order:"
+msgstr "&Ordinea coloanelor:"
+
+#. Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
+msgid "Move &up"
+msgstr "Mută în &sus"
+
+#. Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
+msgid "Move &down"
+msgstr "Mută în &jos"
+
+#. Translators: The title of Columns Explorer configuration dialog.
+msgid "Columns Explorer"
+msgstr "explorer coloane"
+
+#. Translators: The label for a setting in SPL add-on dialog to select column for this column slot.
+#, python-brace-format
+msgid "Slot {position}"
+msgstr "Slot {position}"
+
+#. Translators: Title of a dialog to configure various status announcements such as announcing listener count.
+msgid "Status announcements"
+msgstr "Anunțările stării"
+
+#. Translators: the label for a setting in SPL add-on settings to announce scheduled time.
+msgid "Announce &scheduled time for the selected track"
+msgstr "Anunță timpul programat pentru melodia &selectată"
+
+#. Translators: the label for a setting in SPL add-on settings to announce listener count.
+msgid "Announce &listener count"
+msgstr "Anunță numărul ascu&ltătorilor"
+
+#. Translators: the label for a setting in SPL add-on settings to announce currently playing cart.
+msgid "&Announce name of the currently playing cart"
+msgstr "&Anunță numele melodiei care cântă la moment"
+
+#. Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
+msgid "&Track name announcement:"
+msgstr "Anunțare nume &melodie:"
+
+#. Translators: One of the track name announcement options.
+msgid "automatic"
+msgstr "Automat"
+
+#. Translators: One of the track name announcement options.
+msgid "while using other programs"
+msgstr "Când se utilizează alte programe"
+
+#. Translators: One of the track name announcement options.
+msgid "off"
+msgstr "Dezactivat"
+
+#. Translators: The title of a dialog to configure advanced SPL add-on options such as update checking.
+msgid "Advanced options"
+msgstr "Opțiuni avansate"
+
+#. Translators: A checkbox to toggle automatic add-on updates.
+msgid "Automatically check for add-on &updates"
+msgstr "Verifică automat pentru act&ualizări addon"
+
+#. Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
+msgid "Allow SPL C&ontroller command to invoke SPL Assistant layer"
+msgstr ""
+"Permite c&ontrolerului SPL pentru a invoca automat aspectul asistentului SPL"
+
+#. Translators: The label for a setting in SPL add-on dialog to set keyboard layout for SPL Assistant.
+msgid "SPL Assistant command &layout:"
+msgstr "Dispoziția comenzi&lor asistentului SPL:"
+
+#. Translators: Text of the dialog when another find dialog is open.
+msgid "Another find dialog is open."
+msgstr "Un alt dialog de căutare este deschis."
+
+msgid "Enter the name or the artist of the track you wish to &search"
+msgstr "Introduceți numele și artistul melodiei pe care vreți să o căutați"
+
+msgid "Enter text to be &searched in a column"
+msgstr "Introduceți textul care să fie &căutat într-o coloană"
+
+#. Translators: The label in track finder to search columns.
+msgid "C&olumn to search:"
+msgstr "C&oloană de căutare:"
+
+#. Translators: The title of a dialog to find tracks with duration within a specified range.
+msgid "Time range finder"
+msgstr "căutare distanță timp"
+
+msgid "Minimum duration"
+msgstr "Durată minimă"
+
+msgid "Second"
+msgstr "Secundă"
+
+msgid "Maximum duration"
+msgstr "Durată maximă"
+
+#. Translators: Message to report wrong value for duration fields.
+msgid "Minimum duration is greater than the maximum duration."
+msgstr "Durata minimă este mai mare decât cea maximă."
+
+#. Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
+msgid "No track with duration between minimum and maximum duration."
+msgstr "Nicio melodie nu a fost găsită între durata minimă și cea maximă."
+
+#. Translators: Standard error title for find error (copy this from main nvda.po).
+msgid "Time range find error"
+msgstr "Eroare la căutarea distanței."
+
+msgid "Countdown started"
+msgstr "Numărătoarea inversă a început!"
+
+msgid "Timer complete"
+msgstr "Cronometru complet."
+
+#. Translators: Status message for metadata streaming.
+msgid "No metadata streaming URL's defined"
+msgstr "Niciun URL de emisie metadata definit"
+
+#. Translators: Status message for metadata streaming.
+msgid "Metadata streaming configured for DSP encoder"
+msgstr "Emisie metadata configurată pe encoderul DSP"
+
+#. Translators: Status message for metadata streaming.
+#, python-brace-format
+msgid "Metadata streaming configured for DSP encoder and URL {URL}"
+msgstr "Emisie metadata configurată pentru encoderul DSP și URL-ul {URL}"
+
+#. Translators: Status message for metadata streaming.
+#, python-brace-format
+msgid "Metadata streaming configured for URL {URL}"
+msgstr "Emisia metadata configurată pentru URL-ul {URL}"
+
+#. Translators: Status message for metadata streaming.
+#, python-brace-format
+msgid "Metadata streaming configured for DSP encoder and URL's {URL}"
+msgstr "Emisia metadata configurată pentru encoderul DSP și URL-ul {URL}"
+
+#. Translators: Status message for metadata streaming.
+#, python-brace-format
+msgid "Metadata streaming configured for URL's {URL}"
+msgstr "Emisia metadata configurată pentru URL-ul {URL}"
+
+#. Translators: Error text shown when add-on update check fails.
+msgid "Error checking for update."
+msgstr "Eroare la verificarea pentru actualizări."
+
+#. Translators: Title of the add-on update check dialog.
+msgid "Check for add-on update"
+msgstr "Verifică actualizări addon"
+
+#. No need to interact with the user.
+#. Translators: Text shown when update check fails for some odd reason.
+msgid "Add-on update check failed."
+msgstr "Verificarea actualizărilor addonului a eșuat."
+
+#. Translators: Presented when no add-on update is available.
+msgid "No add-on update available."
+msgstr "Nicio actualizare disponibilă."
+
+#. Translators: An error text shown when one is using a newer version of the add-on.
+msgid ""
+"You appear to be running a version newer than the latest released version. "
+"Please reinstall the official version to downgrade."
+msgstr ""
+"Se pare că rulați o versiune mai nouă decât ultima lansare oficială. "
+"Reinstalați aplicația pentru reveni la versiunea oficială."
+
+#. Translators: Text shown if an add-on update is available.
+#, python-brace-format
+msgid "Studio add-on {newVersion} is available. Would you like to update?"
+msgstr "Studio add-on {newVersion} este disponibilă. Doriți să o actualizați?"
+
+#. Help message for SPL Controller
+#. Translators: the dialog text for SPL Controller help.
+msgid ""
+"\n"
+"After entering SPL Controller, press:\n"
+"A: Turn automation on.\n"
+"Shift+A: Turn automation off.\n"
+"M: Turn microphone on.\n"
+"Shift+M: Turn microphone off.\n"
+"N: Turn microphone on without fade.\n"
+"L: Turn line in on.\n"
+"Shift+L: Turn line in off.\n"
+"P: Play.\n"
+"U: Pause.\n"
+"S: Stop with fade.\n"
+"T: Instant stop.\n"
+"E: Announce if any encoders are being monitored.\n"
+"I: Announce listener count.\n"
+"R: Remaining time for the playing track.\n"
+"Shift+R: Library scan progress."
+msgstr ""
+"\n"
+"După pornirea controlerului SPL, apasă:\n"
+"A: Pornește automatizarea.\n"
+"Shift+A: Oprește automatizarea.\n"
+"M: Pornește microfonul.\n"
+"Shift+M: Oprește microfonul.\n"
+"N: Pornește microfonul fără adjustarea volumului.\n"
+"L: Pornește line-in-ul.\n"
+"Shift+L: Oprește line in-ul.\n"
+"P: Redă.\n"
+"U: Pauză.\n"
+"S: Oprește cu adjustarea volumui.\n"
+"T: Oprire instantanee.\n"
+"E: Anunță dacă vreun encoder este monitorizat.\n"
+"J: Anunță numărul de ascultători.\n"
+"R: Timpul rămas pentru melodia curentă.\n"
+"Shift+R: Progresul scanării librăriei"
+
+#. Used ANSI version, as Wide char version always returns 0.
+#. Translators: Presented when Station Playlist Studio is not running.
+msgid "SPL Studio is not running."
+msgstr "Studioul SPL nu rulează."
+
+#. Translators: Presented when Studio is minimized to system tray (notification area).
+msgid "SPL minimized to system tray."
+msgstr "SPL-ul a fost minimizat în bara de sarcini."
+
+#. Translators: Input help mode message for a command to switch to Station Playlist Studio from any program.
+msgid "Moves to SPL Studio window from other programs."
+msgstr "Comutare la fereastra studioului SPL de la alte programe."
+
+#. Translators: Presented when NVDA cannot enter SPL Controller layer since SPL Studio is focused.
+msgid ""
+"You are already in SPL Studio window. For status commands, use SPL Assistant "
+"commands."
+msgstr ""
+"Ești deja în fereastra studio-ului SPL. Pentru comenzi de stare, folosește "
+"comenzile asistentului SPL."
+
+#. Translators: The name of a layer command set for Station Playlist Studio.
+#. Hint: it is better to translate it as "SPL Control Panel."
+msgid "SPL Controller"
+msgstr "Controler SPL"
+
+#. Translators: Input help mode message for a layer command in Station Playlist Studio.
+msgid "SPl Controller layer command. See add-on guide for available commands."
+msgstr ""
+"Comandă aspect controler SPL. Citește manualul add-onului pentru a afla "
+"coomenzile disponibile."
+
+#. Translators: Presented when no track is playing in Station Playlist Studio.
+msgid "There is no track playing. Try pausing while a track is playing."
+msgstr ""
+"Nicio melodie nu este redată. Încearcă să pui pauză când o melodie se redă."
+
+#. Translators: Announces number of stream listeners.
+#, python-brace-format
+msgid "Listener count: {listenerCount}"
+msgstr "Număr ascultători: {listenerCount}"
+
+#. Translators: Presented when no track is playing in Station Playlist Studio.
+msgid "There is no track playing."
+msgstr "Nicio melodie nu se redă."
+
+#. Translators: The title for SPL Controller help dialog.
+msgid "SPL Controller help"
+msgstr "Ajutor controler SPL"
+
+#. Translators: Message presented when there are no encoders being monitored.
+msgid "No encoders are being monitored"
+msgstr "Niciun encoder nu este monitorizat."
+
+#. Translators: Announces number of encoders being monitored in the background.
+#, python-brace-format
+msgid "Number of encoders monitored: {numberOfEncoders}: {streamLabels}"
+msgstr "Număr de encodere monitorizate: {numberOfEncoders}: {streamLabels}"
+
+#. Translators: Text of the dialog when another alarm dialog is open.
+msgid "Another encoder settings dialog is open."
+msgstr "Un alt dialog cu setările encoderului este deschis."
+
+#. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
+#, python-brace-format
+msgid "Encoder settings for {name}"
+msgstr "Setări encoder pentru {name}"
+
+#. Translators: An edit field in encoder settings to set stream label for this encoder.
+msgid "Stream &label"
+msgstr "&Etichetă emisie"
+
+#. Translators: A checkbox in encoder settings to set if NvDA should switch focus to Studio window when connected.
+msgid "&Focus to Studio when connected"
+msgstr "&Focusare la studio când este conectat"
+
+#. Translators: A checkbox in encoder settings to set if NvDA should play the next track when connected.
+msgid "&Play first track when connected"
+msgstr "Redă &prima melodie când s-a conectat la server"
+
+#. Translators: A checkbox in encoder settings to set if NvDA should monitor the status of this encoder in the background.
+msgid "Enable background connection &monitoring"
+msgstr "Activează &monitorizarea pe fundal a conectării"
+
+#. Translators: A checkbox in encoder settings to set if NvDA should play connection progress tone.
+msgid "Play connection status &beep while connecting"
+msgstr "Redă &bipul de stare a conexiunii când se conectează"
+
+#. Translators: Status message for encoder monitoring.
+#, python-brace-format
+msgid "{encoder} {encoderNumber}: {status}"
+msgstr "{encoder} {encoderNumber}: {status}"
+
+#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+msgid "Switch to Studio after connecting"
+msgstr "Comutare la studio după conectare"
+
+#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+msgid "Do not switch to Studio after connecting"
+msgstr "Nu comuta la studio după conectare"
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid ""
+"Toggles whether NVDA will switch to Studio when connected to a streaming "
+"server."
+msgstr ""
+"Comută daca NVDA va schimba la Studio după conectarea la un server de "
+"streaming."
+
+#. Translators: Presented when toggling the setting to play selected song when connected to a streaming server.
+msgid "Play first track after connecting"
+msgstr "redă prima melodie după conectare"
+
+#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+msgid "Do not play first track after connecting"
+msgstr "Nu reda prima melodie după conectare"
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid ""
+"Toggles whether Studio will play the first song when connected to a "
+"streaming server."
+msgstr ""
+"Comută dacă aplicația Studio va reda prima melodie după conectare la un "
+"server de streaming."
+
+#. Multiple encoders.
+#. Translators: Presented when toggling the setting to monitor the selected encoder.
+#, python-brace-format
+msgid "Monitoring encoder {encoderNumber}"
+msgstr "Se monitorizează encoderul {encoderNumber}"
+
+#. Translators: Presented when toggling the setting to monitor the selected encoder.
+#, python-brace-format
+msgid "Encoder {encoderNumber} will not be monitored"
+msgstr "Encoderul {encoderNumber} nu va fi monitorizat."
+
+#. Translators: Announced when background encoder monitoring is canceled.
+msgid "Encoder monitoring canceled"
+msgstr "Monitorizarea encoderului a fost anulată."
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid ""
+"Toggles whether NVDA will monitor the selected encoder in the background."
+msgstr "Comută dacă NVDA va monitoriza sau nu pe fundal encoderul selectat."
+
+#. Translators: The title of the stream labeler dialog (example: stream labeler for 1).
+#, python-brace-format
+msgid "Stream labeler for {streamEntry}"
+msgstr "Etichetare emisie pentru {streamEntry}"
+
+#. Translators: The text of the stream labeler dialog.
+msgid "Enter the label for this stream"
+msgstr "Introdu eticheta pentru această emisie"
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid "Opens a dialog to label the selected encoder."
+msgstr "Deschide un dialog pentru a putea eticheta encoderul selectat."
+
+#. Translators: The title of the stream configuration eraser dialog.
+msgid "Stream label and settings eraser"
+msgstr "Etichetare stream și ștergere setări"
+
+#. Translators: The text of the stream configuration eraser dialog.
+msgid "Enter the position of the encoder you wish to delete or will delete"
+msgstr ""
+"Introduceți poziția encoderului pe care doriți să îl ștergeți sau pe care îl "
+"veți șterge"
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid ""
+"Opens a dialog to erase stream labels and settings from an encoder that was "
+"deleted."
+msgstr ""
+"Se deschide un dialog pentru a șterge etichetele de stream și setările unui "
+"encoder care este deja șters."
+
+#. Translators: Input help mode message for a command in Station Playlist Studio.
+msgid ""
+"Shows encoder configuration dialog to configure various encoder settings "
+"such as stream label."
+msgstr ""
+"Arată dialogul de configurare a encoderului pentru a configura diverse "
+"setări ale acestuia, cum ar fi etichete de stream."
+
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on to be shown on installation and add-on information.
+msgid "Station Playlist Studio"
+msgstr "Station Playlist Studio"
+
+#. Translators: Input help mode message for report date and time command.
+msgid ""
+"If pressed once, reports the current time including seconds. If pressed "
+"twice, reports the current date"
+msgstr ""
+"Dacă este apăsat o dată, raportează ora curentă care include secundele. Dacă "
+"este apăsat de două ori, raportează data."
+
+#, python-brace-format
+msgid "Position: {pos}"
+msgstr "Poziție: {pos}"
+
+#, python-brace-format
+msgid "Label: {label}"
+msgstr "Label: {label}"
+
+msgid "No stream label"
+msgstr "Nicio etichetă de emisie"
+
+#. Translators: Presented when an Encoder is trying to connect to a streaming server.
+msgid "Connecting..."
+msgstr "Se conectează..."
+
+#. Translators: Presented when an Encoder is disconnecting from a streaming server.
+msgid "Disconnecting..."
+msgstr "Se deconectează..."
+
+msgid "Connects to a streaming server."
+msgstr "Conectează-te la un streaming server."
+
+#, python-brace-format
+msgid "Encoder Settings: {setting}"
+msgstr "Setări encoder: {setting}"
+
+#, python-brace-format
+msgid "Transfer Rate: {transferRate}"
+msgstr "Frecvență de transfer: {transferRate}"
+
+#. Add-on description
+#. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+msgid ""
+"Enhances support for Station Playlist Studio.\n"
+"In addition, adds global commands for the studio from everywhere."
+msgstr ""
+"Conține suport pentru StationPlaylist Studio.\n"
+"De asemenea, adaugă comenzi globale pentru studio de oriunde."
