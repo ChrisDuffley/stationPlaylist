@@ -311,6 +311,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.updateChannel = splupdate.SPLUpdateChannel
 		self.pendingChannelChange = False
 		settingsSizer.Add(item)
+		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		# Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
 		self.resetConfigButton = wx.Button(self, wx.ID_ANY, label=_("Reset settings"))
