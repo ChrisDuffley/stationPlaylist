@@ -823,12 +823,11 @@ def autoUpdateCheck():
 # A bit simpler than NVDA Core's auto update checker.
 def updateInit():
 	# LTS: Launch updater if channel change is detected.
-	# To be unlocked in 8.0 beta 1.
-	#if splupdate._updateNow:
-		#splupdate.updateCheck(auto=True) # No repeat here.
-		#splupdate._SPLUpdateT = wx.PyTimer(autoUpdateCheck)
-		#splupdate._updateNow = False
-		#return
+	if splupdate._updateNow:
+		splupdate.updateCheck(auto=True) # No repeat here.
+		splupdate._SPLUpdateT = wx.PyTimer(autoUpdateCheck)
+		splupdate._updateNow = False
+		return
 	currentTime = time.time()
 	nextCheck = splupdate.SPLAddonCheck+(SPLConfig["Update"]["UpdateInterval"]* 86400.0)
 	if splupdate.SPLAddonCheck < currentTime < nextCheck:
