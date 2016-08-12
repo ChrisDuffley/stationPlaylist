@@ -94,7 +94,8 @@ def updateCheck(auto=False, continuous=False, confUpdateInterval=1):
 	if _pendingChannelChange:
 		wx.CallAfter(gui.messageBox, _("Did you recently tell SPL add-on to use a different update channel? If so, please restart NVDA before checking for add-on updates."), _("Update channel changed"), wx.ICON_ERROR)
 		return
-	global _SPLUpdateT, SPLAddonCheck, _retryAfterFailure, _progressDialog
+	global _SPLUpdateT, SPLAddonCheck, _retryAfterFailure, _progressDialog, _updateNow
+	if _updateNow: _updateNow = False
 	# Regardless of whether it is an auto check, update the check time.
 	# However, this shouldnt' be done if this is a retry after a failed attempt.
 	if not _retryAfterFailure: SPLAddonCheck = time.time()
