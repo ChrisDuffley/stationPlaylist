@@ -25,11 +25,10 @@ SPLAddonCheck = 0
 # Update metadata storage.
 SPLAddonState = {}
 # Update URL (the only way to change it is installing a different version from a different branch).
-SPLUpdateURL = "http://spl.nvda-kr.org/files/get.php?file=spl-lts7"
-# To be unlocked in 8.0 beta 1.
-#_pendingChannelChange = False
-#_updateNow = False
-#SPLUpdateChannel = "stable"
+SPLUpdateURL = "http://spl.nvda-kr.org/files/get.php?file=spl-lts16"
+_pendingChannelChange = False
+_updateNow = False
+SPLUpdateChannel = "stable"
 # Update check timer.
 _SPLUpdateT = None
 # How long it should wait between automatic checks.
@@ -39,29 +38,26 @@ _retryAfterFailure = False
 # Stores update state.
 _updatePickle = os.path.join(globalVars.appArgs.configPath, "splupdate.pickle")
 
-# Remove comment in 8.0 beta 1.
 # Not all update channels are listed. The one not listed here is the default ("stable" for this branch).
-"""channels={
+channels={
 	"stable":"http://addons.nvda-project.org/files/get.php?file=spl",
-}"""
+}
 
 # Come forth, update check routines.
 def initialize():
-	# To be unlocked in 8.0 beta 1.
-	global SPLAddonState, SPLAddonCheck #, _updateNow, SPLUpdateChannel
+	global SPLAddonState, SPLAddonCheck, _updateNow, SPLUpdateChannel
 	try:
 		SPLAddonState = cPickle.load(file(_updatePickle, "r"))
 		SPLAddonCheck = SPLAddonState["PDT"]
 		if "PSZ" in SPLAddonState: del SPLAddonState["PSZ"]
 		if "PCH" in SPLAddonState: del SPLAddonState["PCH"]
-		# Unlock in 8.0 beta 1.
-		#_updateNow = "pendingChannelChange" in SPLAddonState
-		#if "UpdateChannel" in SPLAddonState:
-			#SPLUpdateChannel = SPLAddonState["UpdateChannel"]
+		_updateNow = "pendingChannelChange" in SPLAddonState
+		if "UpdateChannel" in SPLAddonState:
+			SPLUpdateChannel = SPLAddonState["UpdateChannel"]
 	except IOError:
 		SPLAddonState["PDT"] = 0
-		#_updateNow = False
-		#SPLUpdateChannel = "stable"
+		_updateNow = False
+		SPLUpdateChannel = "stable"
 
 def terminate():
 	global SPLAddonState
@@ -69,10 +65,9 @@ def terminate():
 	stateChanged = SPLAddonState["PDT"] != SPLAddonCheck
 	if stateChanged:
 		SPLAddonState["PDT"] = SPLAddonCheck
-		# To be unlocked in 8.0 beta 1.
-		#SPLAddonState["UpdateChannel"] = SPLUpdateChannel
-		#if _pendingChannelChange:
-			#SPLAddonState["pendingChannelChange"] = True
+		SPLAddonState["UpdateChannel"] = SPLUpdateChannel
+		if _pendingChannelChange:
+			SPLAddonState["pendingChannelChange"] = True
 		cPickle.dump(SPLAddonState, file(_updatePickle, "wb"))
 	SPLAddonState = None
 
@@ -96,11 +91,11 @@ _progressDialog = None
 # Auto is whether to respond with UI (manual check only), continuous takes in auto update check variable for restarting the timer.
 # ConfUpdateInterval comes from add-on config dictionary.
 def updateCheck(auto=False, continuous=False, confUpdateInterval=1):
-	# Unlock in 8.0 beta 1.
-	#if _pendingChannelChange:
-		#wx.CallAfter(gui.messageBox, _("Did you recently tell SPL add-on to use a different update channel? If so, please restart NVDA before checking for add-on updates."), _("Update channel changed"), wx.ICON_ERROR)
-		#return
-	global _SPLUpdateT, SPLAddonCheck, _retryAfterFailure, _progressDialog
+	if _pendingChannelChange:
+		wx.CallAfter(gui.messageBox, _("Did you recently tell SPL add-on to use a different update channel? If so, please restart NVDA before checking for add-on updates."), _("Update channel changed"), wx.ICON_ERROR)
+		return
+	global _SPLUpdateT, SPLAddonCheck, _retryAfterFailure, _progressDialog, _updateNow
+	if _updateNow: _updateNow = False
 	# Regardless of whether it is an auto check, update the check time.
 	# However, this shouldnt' be done if this is a retry after a failed attempt.
 	if not _retryAfterFailure: SPLAddonCheck = time.time()
@@ -111,10 +106,8 @@ def updateCheck(auto=False, continuous=False, confUpdateInterval=1):
 	# All the information will be stored in the URL object, so just close it once the headers are downloaded.
 	updateCandidate = False
 	try:
-		url = urllib.urlopen(SPLUpdateURL)
-		# Replace in 8.0 beta 1.
 		# Look up the channel if different from the default.
-		#url = urllib.urlopen(SPLUpdateURL if SPLUpdateChannel not in channels else channels[SPLUpdateChannel])
+		url = urllib.urlopen(SPLUpdateURL if SPLUpdateChannel not in channels else channels[SPLUpdateChannel])
 		url.close()
 	except IOError:
 		_retryAfterFailure = True
