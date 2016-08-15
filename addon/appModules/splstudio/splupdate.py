@@ -59,7 +59,7 @@ def initialize():
 	except IOError, KeyError:
 		SPLAddonState["PDT"] = 0
 		_updateNow = False
-		SPLUpdateChannel = "stable"
+		SPLUpdateChannel = "dev"
 
 def terminate():
 	global SPLAddonState
