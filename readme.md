@@ -189,6 +189,14 @@ Version 8.0 (also known as 16.10) supports SPL Studio 5.10 and later, with 15.0-
 * 8.0: Added a dialog in add-on settings to configure Columns Explorer slots for Track Tool.
 * You can now configure microphone alarm interval from microphone alarm dialog (Alt+NvDA+4).
 
+## Version 7.4/16.08
+
+Version 7.4 is also known as 16.08 following the year.month version number for stable releases. 7.4 is the last version in the 7.x series and the entire major.minor version numbers.
+
+* It is possible to select add-on update channel, to be removed later in 2017. For 7.4, available channels are beta, stable and long-term.
+* SPL Controller command and the command to focus to Studio will not be available from secure screens.
+* New and updated translations and added localized documentation in various languages.
+
 ## Changes for 7.3
 
 * Slight performance improvements when looking up information such as automation via some SPL Assistant commands.
