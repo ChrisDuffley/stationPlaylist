@@ -1301,8 +1301,8 @@ class AdvancedOptionsDialog(wx.Dialog):
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: The label for a combo box to select update channel.
 		label = wx.StaticText(self, wx.ID_ANY, label=_("&Add-on update channel:"))
-		self.channels= wx.Choice(self, wx.ID_ANY, choices=["stable", "longterm"])
-		self.updateChannels = ("stable", "lts")
+		self.channels= wx.Choice(self, wx.ID_ANY, choices=["beta", "stable", "longterm"])
+		self.updateChannels = ("beta", "stable", "lts")
 		self.channels.SetSelection(self.updateChannels.index(self.Parent.updateChannel))
 		sizer.Add(label)
 		sizer.Add(self.channels)
@@ -1345,7 +1345,7 @@ class AdvancedOptionsDialog(wx.Dialog):
 		parent.compLayer = self.compatibilityLayouts[self.compatibilityList.GetSelection()][0]
 		parent.autoUpdateCheck = self.autoUpdateCheckbox.Value
 		parent.updateInterval = self.updateInterval.Value
-		parent.updateChannel = ("stable", "lts")[self.channels.GetSelection()]
+		parent.updateChannel = ("beta", "stable", "lts")[self.channels.GetSelection()]
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()

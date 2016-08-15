@@ -41,6 +41,8 @@ _updatePickle = os.path.join(globalVars.appArgs.configPath, "splupdate.pickle")
 # Not all update channels are listed. The one not listed here is the default ("stable" for this branch).
 channels={
 	"stable":"http://addons.nvda-project.org/files/get.php?file=spl",
+	"lts":"http://spl.nvda-kr.org/files/get.php?file=spl-lts16",
+	"beta":"http://spl.nvda-kr.org/files/get.php?file=spl-beta",
 }
 
 # Come forth, update check routines.
@@ -52,6 +54,7 @@ def initialize():
 		if "PSZ" in SPLAddonState: del SPLAddonState["PSZ"]
 		if "PCH" in SPLAddonState: del SPLAddonState["PCH"]
 		_updateNow = "pendingChannelChange" in SPLAddonState
+		if "pendingChannelChange" in SPLAddonState: del SPLAddonState["pendingChannelChange"]
 		if "UpdateChannel" in SPLAddonState:
 			SPLUpdateChannel = SPLAddonState["UpdateChannel"]
 	except IOError:
@@ -62,7 +65,7 @@ def initialize():
 def terminate():
 	global SPLAddonState
 	# Store new values if it is absolutely required.
-	stateChanged = SPLAddonState["PDT"] != SPLAddonCheck
+	stateChanged = (SPLAddonState["PDT"] != SPLAddonCheck or SPLAddonState["UpdateChannel"] != SPLUpdateChannel)
 	if stateChanged:
 		SPLAddonState["PDT"] = SPLAddonCheck
 		SPLAddonState["UpdateChannel"] = SPLUpdateChannel

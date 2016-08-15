@@ -985,6 +985,11 @@ def showStartupDialogs():
 		gui.mainFrame.prePopup()
 		WelcomeDialog(gui.mainFrame).Show()
 		gui.mainFrame.postPopup()
+	# 7.4 only: Show branch selection dialog.
+	if os.path.exists(os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "ltsprep")):
+		if gui.messageBox("The next major version of the add-on (15.x) will be the last version to support Studio versions earlier than 5.10, with add-on 15.x being designated as a long-term support version. Would you like to switch to long-term support release?", "Long-Term Support version", wx.YES | wx.NO | wx.CANCEL | wx.CENTER | wx.ICON_QUESTION) == wx.YES:
+			splupdate.SPLUpdateChannel = "lts"
+			os.remove(os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "ltsprep"))
 	try:
 		import audioDucking
 		if SPLConfig["Startup"]["AudioDuckingReminder"] and audioDucking.isAudioDuckingSupported():
