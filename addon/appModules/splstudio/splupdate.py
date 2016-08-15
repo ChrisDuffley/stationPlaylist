@@ -28,7 +28,7 @@ SPLAddonState = {}
 SPLUpdateURL = "http://spl.nvda-kr.org/files/get.php?file=spl-lts16"
 _pendingChannelChange = False
 _updateNow = False
-SPLUpdateChannel = "stable"
+SPLUpdateChannel = "lts"
 # Update check timer.
 _SPLUpdateT = None
 # How long it should wait between automatic checks.
@@ -41,8 +41,6 @@ _updatePickle = os.path.join(globalVars.appArgs.configPath, "splupdate.pickle")
 # Not all update channels are listed. The one not listed here is the default ("stable" for this branch).
 channels={
 	"stable":"http://addons.nvda-project.org/files/get.php?file=spl",
-	"lts":"http://spl.nvda-kr.org/files/get.php?file=spl-lts16",
-	"beta":"http://spl.nvda-kr.org/files/get.php?file=spl-beta",
 }
 
 # Come forth, update check routines.
