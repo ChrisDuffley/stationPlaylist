@@ -193,7 +193,8 @@ Version 8.0 (also known as 16.10) supports SPL Studio 5.10 and later, with 15.0-
 
 Version 7.4 is also known as 16.08 following the year.month version number for stable releases. 7.4 is the last version in the 7.x series and the entire major.minor version numbers.
 
-* It is possible to select add-on update channel from add-on settings/advanced settings, to be removed later in 2017. For 7.4, available channels are beta, stable and long-term.
+* It is possible to select add-on update channel from add-on settings/advanced options, to be removed later in 2017. For 7.4, available channels are beta, stable and long-term.
+* Added a setting in add-on settings/Advanced options to configure update check interval between 1 and 30 days (default is 7 or weekly checks).
 * SPL Controller command and the command to focus to Studio will not be available from secure screens.
 * New and updated translations and added localized documentation in various languages.
 
