@@ -56,7 +56,7 @@ def initialize():
 		del SPLAddonState["pendingChannelChange"]
 		if "UpdateChannel" in SPLAddonState:
 			SPLUpdateChannel = SPLAddonState["UpdateChannel"]
-	except IOError:
+	except IOError, KeyError:
 		SPLAddonState["PDT"] = 0
 		_updateNow = False
 		SPLUpdateChannel = "stable"
