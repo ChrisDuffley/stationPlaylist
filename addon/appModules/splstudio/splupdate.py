@@ -64,7 +64,7 @@ def initialize():
 def terminate():
 	global SPLAddonState
 	# Store new values if it is absolutely required.
-	stateChanged = SPLAddonState["PDT"] != SPLAddonCheck
+	stateChanged = (SPLAddonState["PDT"] != SPLAddonCheck or SPLAddonState["UpdateChannel"] != SPLUpdateChannel)
 	if stateChanged:
 		SPLAddonState["PDT"] = SPLAddonCheck
 		SPLAddonState["UpdateChannel"] = SPLUpdateChannel
