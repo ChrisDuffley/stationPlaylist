@@ -16,3 +16,5 @@ def onInstall():
 			shutil.copytree(profiles, newProfiles)
 		except IOError:
 			pass
+	# 7.4 only: prepare LTS presentation file (an empty text file)
+	open(os.path.join(os.path.dirname(__file__), "ltsprep"), "w").close()

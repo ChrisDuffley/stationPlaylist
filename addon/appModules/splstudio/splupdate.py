@@ -40,7 +40,7 @@ _updatePickle = os.path.join(globalVars.appArgs.configPath, "splupdate.pickle")
 
 # Not all update channels are listed. The one not listed here is the default ("stable" for this branch).
 channels={
-	"lts":"http://spl.nvda-kr.org/files/get.php?file=spl-lts7",
+	"lts":"http://spl.nvda-kr.org/files/get.php?file=spl-lts16",
 }
 
 # Come forth, update check routines.
