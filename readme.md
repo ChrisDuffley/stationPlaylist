@@ -167,6 +167,14 @@ From studio window, you can press Control+NVDA+0 or Alt+NVDA+0 to open the add-o
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 7.4/16.08
+
+Version 7.4 is also known as 16.08 following the year.month version number for stable releases. 7.4 is the last version in the 7.x series and the entire major.minor version numbers.
+
+* It is possible to select add-on update channel, to be removed later in 2017. For 7.4, available channels are beta, stable and long-term.
+* SPL Controller command and the command to focus to Studio will not be available from secure screens.
+* New and updated translations and added localized documentation in various languages.
+
 ## Changes for 7.3
 
 * Slight performance improvements when looking up information such as automation via some SPL Assistant commands.
