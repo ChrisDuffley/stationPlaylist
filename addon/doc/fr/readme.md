@@ -290,6 +290,24 @@ un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
 
+## Version 7.4/16.08
+
+Version 7.4 est également connu comme 16.08 selon le numéro de version
+year.month pour les publications stable. La 7.4 est la dernière version dans
+la série 7.x et tous les numéros de version major.minor.
+
+* Il est possible de sélectionner le canal de mise à jour du module
+  complémentaire depuis les paramètres du module complémentaire/Options
+  avancées pour être supprimé plus tard en 2017. Pour 7.4, les canaux
+  disponibles sont bêta, stable et long-terme.
+* Ajouté un paramètre dans les paramètres du module complémentaire/Options
+  avancées pour configurer l'intervalle de recherche de mise à jour entre 1
+  et 30 jours (par défaut est 7 ou recherches hebdomadaire).
+* La commande pour le Contrôleur SPL et la commande pour la mise en focus de
+  Studio ne sera pas disponibles à partir des écrans sécurisés.
+* Nouvelles et mises à jour des traductions et l'ajout de documentation
+  localisé en plusieurs langues.
+
 ## Changements pour la version 7.3
 
 * Amélioration des performances légère quand on regarde les informations

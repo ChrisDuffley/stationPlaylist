@@ -47,6 +47,8 @@ msgid "Toggles track dial on and off."
 msgstr "Basculer le cadran de piste entre activé/désactivé"
 
 #. Translators: Script category for Station Playlist commands in input gestures dialog.
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on to be shown on installation and add-on information.
 msgid "StationPlaylist Studio"
 msgstr "StationPlaylist Studio"
 
@@ -799,6 +801,15 @@ msgstr "Aide Assistant SPL pour la disposition de JAWS"
 msgid "SPL Assistant help for Window-Eyes layout"
 msgstr "Aide Assistant SPL pour la disposition de Window-Eyes"
 
+#. Translators: The title of the dialog presented while checking for add-on updates.
+#, fuzzy
+msgid "Add-on update check"
+msgstr "Échec lors de la recherche d'une mise à jour du module complémentaire."
+
+#. Translators: The message displayed while checking for newer version of Studio add-on.
+msgid "Checking for new version of Studio add-on..."
+msgstr ""
+
 #. Translators: A dialog message shown when settings were reset to defaults.
 msgid "Successfully applied default add-on settings."
 msgstr ""
@@ -1140,6 +1151,18 @@ msgstr "Options &avancées..."
 msgid "Reset settings"
 msgstr "Réinitialiser les paramètres"
 
+#. Translators: A dialog message shown when add-on update channel has changed.
+msgid ""
+"You have changed the add-on update channel. You must restart NVDA for the "
+"change to take effect. Be sure to answer yes when you are asked to install "
+"the new version when prompted after restarting NVDA."
+msgstr ""
+
+#. Translators: Title of the update channel dialog.
+#, fuzzy
+msgid "Add-on update channel changed"
+msgstr "Échec lors de la recherche d'une mise à jour du module complémentaire."
+
 #. Translators: The label of a field to enter a new name for a broadcast profile.
 msgid "New name:"
 msgstr "Nouveau nom :"
@@ -1345,6 +1368,15 @@ msgstr "Options avancées"
 msgid "Automatically check for add-on &updates"
 msgstr "Rechercher automatiquement une mise à jo&ur du module complémentaire"
 
+#. Translators: The label for a setting in SPL add-on settings/advanced options to select automatic update interval in days.
+msgid "Update &interval in days"
+msgstr ""
+
+#. Translators: The label for a combo box to select update channel.
+#, fuzzy
+msgid "&Add-on update channel:"
+msgstr "Échec lors de la recherche d'une mise à jour du module complémentaire."
+
 #. Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 msgid "Allow SPL C&ontroller command to invoke SPL Assistant layer"
 msgstr "Permettre au Commande C&ontrôleur SPL appeler la couche  Assistant SPL"
@@ -1427,12 +1459,21 @@ msgstr ""
 msgid "Metadata streaming configured for URL's {URL}"
 msgstr "Métadonnées en streaming configuré pour l'URL {URL}"
 
+msgid ""
+"Did you recently tell SPL add-on to use a different update channel? If so, "
+"please restart NVDA before checking for add-on updates."
+msgstr ""
+
+msgid "Update channel changed"
+msgstr ""
+
 #. Translators: Error text shown when add-on update check fails.
 msgid "Error checking for update."
 msgstr "Échec lors de la recherche d'une mise à jour."
 
 #. Translators: Title of the add-on update check dialog.
-msgid "Check for add-on update"
+#, fuzzy
+msgid "Studio add-on update"
 msgstr "Rechercher une mise à jour du module complémentaire"
 
 #. No need to interact with the user.
@@ -1443,14 +1484,6 @@ msgstr "Échec lors de la recherche d'une mise à jour du module complémentaire
 #. Translators: Presented when no add-on update is available.
 msgid "No add-on update available."
 msgstr "Aucune mise à jour disponible du module complémentaire."
-
-#. Translators: An error text shown when one is using a newer version of the add-on.
-msgid ""
-"You appear to be running a version newer than the latest released version. "
-"Please reinstall the official version to downgrade."
-msgstr ""
-"Vous sembler exécuter une version plus récente que la dernière version. S’il "
-"vous plaît réinstaller la version officielle adapter vers le bas."
 
 #. Translators: Text shown if an add-on update is available.
 #, python-brace-format
@@ -1684,8 +1717,6 @@ msgstr ""
 "Affiche le dialogue de configuration de l'encodeur pour configurer "
 "différents paramètres de l’encodeur comme l'étiquette de flux."
 
-#. Add-on summary, usually the user visible name of the addon.
-#. Translators: Summary for this add-on to be shown on installation and add-on information.
 msgid "Station Playlist Studio"
 msgstr "Station Playlist Studio"
 
@@ -1729,12 +1760,20 @@ msgstr "Taux de Transfert : {transferRate}"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+#, fuzzy
 msgid ""
-"Enhances support for Station Playlist Studio.\n"
+"Enhances support for StationPlaylist Studio.\n"
 "In addition, adds global commands for the studio from everywhere."
 msgstr ""
 "Améliore la prise en charge de Station Playlist Studio.\n"
 "En outre, ajoute des commandes globales pour studio où que vous soyez."
+
+#~ msgid ""
+#~ "You appear to be running a version newer than the latest released "
+#~ "version. Please reinstall the official version to downgrade."
+#~ msgstr ""
+#~ "Vous sembler exécuter une version plus récente que la dernière version. "
+#~ "S’il vous plaît réinstaller la version officielle adapter vers le bas."
 
 #~ msgid "Remaining time not available"
 #~ msgstr "Temps restant non disponible"

@@ -46,6 +46,8 @@ msgid "Toggles track dial on and off."
 msgstr "Schaltet die Titelauswahl ein oder aus."
 
 #. Translators: Script category for Station Playlist commands in input gestures dialog.
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on to be shown on installation and add-on information.
 msgid "StationPlaylist Studio"
 msgstr "Station Playlist Studio (SPL)"
 
@@ -782,6 +784,14 @@ msgstr "SPL-Hilfe"
 msgid "SPL Assistant help for Window-Eyes layout"
 msgstr "SPL-Hilfe"
 
+#. Translators: The title of the dialog presented while checking for add-on updates.
+msgid "Add-on update check"
+msgstr ""
+
+#. Translators: The message displayed while checking for newer version of Studio add-on.
+msgid "Checking for new version of Studio add-on..."
+msgstr ""
+
 #. Translators: A dialog message shown when settings were reset to defaults.
 msgid "Successfully applied default add-on settings."
 msgstr ""
@@ -1121,6 +1131,17 @@ msgstr "Erweiterte Optionen..."
 msgid "Reset settings"
 msgstr "Einstellungen zurücksetzen"
 
+#. Translators: A dialog message shown when add-on update channel has changed.
+msgid ""
+"You have changed the add-on update channel. You must restart NVDA for the "
+"change to take effect. Be sure to answer yes when you are asked to install "
+"the new version when prompted after restarting NVDA."
+msgstr ""
+
+#. Translators: Title of the update channel dialog.
+msgid "Add-on update channel changed"
+msgstr ""
+
 #. Translators: The label of a field to enter a new name for a broadcast profile.
 msgid "New name:"
 msgstr "Neuer Name"
@@ -1327,6 +1348,14 @@ msgstr "Erweiterte Optionen"
 msgid "Automatically check for add-on &updates"
 msgstr "Automatisch nach &Aktualisierungen der Erweiterung suchen"
 
+#. Translators: The label for a setting in SPL add-on settings/advanced options to select automatic update interval in days.
+msgid "Update &interval in days"
+msgstr ""
+
+#. Translators: The label for a combo box to select update channel.
+msgid "&Add-on update channel:"
+msgstr ""
+
 #. Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 msgid "Allow SPL C&ontroller command to invoke SPL Assistant layer"
 msgstr ""
@@ -1414,12 +1443,21 @@ msgstr "Metadaten-Streaming für DSP-Encoder und URLs {URL} konfiguriert"
 msgid "Metadata streaming configured for URL's {URL}"
 msgstr "Metadaten für Streaming-URLs {URL} konfiguriert"
 
+msgid ""
+"Did you recently tell SPL add-on to use a different update channel? If so, "
+"please restart NVDA before checking for add-on updates."
+msgstr ""
+
+msgid "Update channel changed"
+msgstr ""
+
 #. Translators: Error text shown when add-on update check fails.
 msgid "Error checking for update."
 msgstr "Fehler beim Suchen nach Aktualisierungen"
 
 #. Translators: Title of the add-on update check dialog.
-msgid "Check for add-on update"
+#, fuzzy
+msgid "Studio add-on update"
 msgstr "nach Erweiterungsaktualisierung suchen"
 
 #. No need to interact with the user.
@@ -1429,12 +1467,6 @@ msgstr ""
 
 #. Translators: Presented when no add-on update is available.
 msgid "No add-on update available."
-msgstr ""
-
-#. Translators: An error text shown when one is using a newer version of the add-on.
-msgid ""
-"You appear to be running a version newer than the latest released version. "
-"Please reinstall the official version to downgrade."
 msgstr ""
 
 #. Translators: Text shown if an add-on update is available.
@@ -1667,8 +1699,6 @@ msgid ""
 "such as stream label."
 msgstr ""
 
-#. Add-on summary, usually the user visible name of the addon.
-#. Translators: Summary for this add-on to be shown on installation and add-on information.
 msgid "Station Playlist Studio"
 msgstr "Station Playlist Studio"
 
@@ -1712,8 +1742,9 @@ msgstr "Übertragungsrate: {transferRate}"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+#, fuzzy
 msgid ""
-"Enhances support for Station Playlist Studio.\n"
+"Enhances support for StationPlaylist Studio.\n"
 "In addition, adds global commands for the studio from everywhere."
 msgstr ""
 "Verbessert die Unterstützung für Station Playlist Studio.\n"
