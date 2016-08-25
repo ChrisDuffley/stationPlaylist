@@ -261,6 +261,14 @@ class SPLTrackItem(IAccessible):
 		else:
 			self.announceColumnContent(self.appModule.SPLColNumber)
 
+	def script_firstColumn(self, gesture):
+		self.appModule.SPLColNumber = 0
+		self._leftmostcol()
+
+	def script_lastColumn(self, gesture):
+		self.appModule.SPLColNumber = self.appModule._columnHeaders.childCount-1
+		self.announceColumnContent(self.appModule.SPLColNumber)
+
 	# Track movement scripts.
 	# Detects top/bottom of a playlist if told to do so.
 
@@ -341,6 +349,8 @@ class SPLTrackItem(IAccessible):
 	__gestures={
 		"kb:control+alt+rightArrow":"nextColumn",
 		"kb:control+alt+leftArrow":"prevColumn",
+		"kb:control+alt+home":"firstColumn",
+		"kb:control+alt+end":"lastColumn",
 		#"kb:control+`":"toggleTrackDial",
 		"kb:downArrow":"nextTrack",
 		"kb:upArrow":"prevTrack",
