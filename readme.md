@@ -180,6 +180,7 @@ Version 8.0 (also known as 16.10) supports SPL Studio 5.10 and later, with 15.0-
 * Changes to various add-on commands, including removal of status announcement toggle (Control+NvDA+1), reassigned end of track alarm to Alt+NVDA+1, Cart Explorer toggle is now Alt+NvDA+3, microphone alarm dialog is Alt+NVDA+4 and add-on/encoder settings dialog is Alt+NvDA+0. This was done to allow Control+NVDA+number row to be assigned to Columns Explorer.
 * 8.0: Relaxed Columns Explorer restriction in place in 7.x so numbers 1 through 6 can be configured to announce Studio 5.1x columns.
 * 8.0: Track Dial toggle command and the corresponding setting in add-on settings are deprecated and will be removed in 9.0. This command will remain available in add-on 7.x.
+* Added Control+Alt+Home/End to move Column Navigator to first or last column in Playlist Viewer.
 * You can now add, view, change or delete track comments (notes). Press Alt+NVDA+C from a track in the playlist viewer to hear track comments if defined, press twice to copy comment to clipboard or three times to open a dialog to edit comments.
 * Added ability to notify if a track comment exists, as well as a setting in add-on settings to control how this should be done.
 * Added a setting in add-on settings dialog to let NVDA notify you if you've reached top or bottom of playlist viewer.
