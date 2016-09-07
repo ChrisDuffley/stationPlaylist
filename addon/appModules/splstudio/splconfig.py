@@ -1083,7 +1083,7 @@ class OldVersionReminder(wx.Dialog):
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 
 		# Translators: A message displayed if using an old Studio version.
-		label = wx.StaticText(self, wx.ID_ANY, label=_("You are using an older version of StationPlaylist Studio. Add-on 8.0 and later will not support Studio versions earlier than 5.10. Studio 5.0x are fully supported in 7.x LTS (long-term support) versions."))
+		label = wx.StaticText(self, wx.ID_ANY, label=_("You are using an older version of StationPlaylist Studio. From 2017 onwards, Studio add-on will not support Studio versions earlier than 5.10. Studio 5.0x are fully supported in 15.x LTS (long-term support) versions."))
 		mainSizer.Add(label,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
