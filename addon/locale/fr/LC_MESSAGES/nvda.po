@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 4.1\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2016-07-13 12:06+0100\n"
+"PO-Revision-Date: 2016-08-19 17:58+0100\n"
 "Last-Translator: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language-Team: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language: fr\n"
@@ -802,13 +802,12 @@ msgid "SPL Assistant help for Window-Eyes layout"
 msgstr "Aide Assistant SPL pour la disposition de Window-Eyes"
 
 #. Translators: The title of the dialog presented while checking for add-on updates.
-#, fuzzy
 msgid "Add-on update check"
-msgstr "Échec lors de la recherche d'une mise à jour du module complémentaire."
+msgstr "Recherches des mises à jour du module complémentaire"
 
 #. Translators: The message displayed while checking for newer version of Studio add-on.
 msgid "Checking for new version of Studio add-on..."
-msgstr ""
+msgstr "Rechercher une nouvelle version du module complémentaire Studio..."
 
 #. Translators: A dialog message shown when settings were reset to defaults.
 msgid "Successfully applied default add-on settings."
@@ -1157,11 +1156,14 @@ msgid ""
 "change to take effect. Be sure to answer yes when you are asked to install "
 "the new version when prompted after restarting NVDA."
 msgstr ""
+"Vous avez modifié le canal de mise à jour du module complémentaire. Vous "
+"devez redémarrer NVDA pour que la modification soit prise en compte. "
+"N'oubliez pas de répondre Oui lorsque vous êtes invité à installer la "
+"nouvelle version, lorsque vous y êtes invité après le redémarrage de NVDA."
 
 #. Translators: Title of the update channel dialog.
-#, fuzzy
 msgid "Add-on update channel changed"
-msgstr "Échec lors de la recherche d'une mise à jour du module complémentaire."
+msgstr "Canal de mise à jour du module complémentaire modifié"
 
 #. Translators: The label of a field to enter a new name for a broadcast profile.
 msgid "New name:"
@@ -1370,12 +1372,11 @@ msgstr "Rechercher automatiquement une mise à jo&ur du module complémentaire"
 
 #. Translators: The label for a setting in SPL add-on settings/advanced options to select automatic update interval in days.
 msgid "Update &interval in days"
-msgstr ""
+msgstr "Mise à jour de l'&intervalle en jours"
 
 #. Translators: The label for a combo box to select update channel.
-#, fuzzy
 msgid "&Add-on update channel:"
-msgstr "Échec lors de la recherche d'une mise à jour du module complémentaire."
+msgstr "&Canal de mise à jour du module complémentaire:"
 
 #. Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 msgid "Allow SPL C&ontroller command to invoke SPL Assistant layer"
@@ -1463,18 +1464,20 @@ msgid ""
 "Did you recently tell SPL add-on to use a different update channel? If so, "
 "please restart NVDA before checking for add-on updates."
 msgstr ""
+"Avez-vous récemment dit au module complémentaire SPL d'utiliser un canal de "
+"mise à jour différent ? Si oui, s’il vous plaît redémarrer NVDA avant de "
+"rechercher les mises à jour pour le module complémentaire."
 
 msgid "Update channel changed"
-msgstr ""
+msgstr "Canal de mise à jour modifié"
 
 #. Translators: Error text shown when add-on update check fails.
 msgid "Error checking for update."
 msgstr "Échec lors de la recherche d'une mise à jour."
 
 #. Translators: Title of the add-on update check dialog.
-#, fuzzy
 msgid "Studio add-on update"
-msgstr "Rechercher une mise à jour du module complémentaire"
+msgstr "Mise à jour du module complémentaire Studio"
 
 #. No need to interact with the user.
 #. Translators: Text shown when update check fails for some odd reason.
@@ -1760,12 +1763,11 @@ msgstr "Taux de Transfert : {transferRate}"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
-#, fuzzy
 msgid ""
 "Enhances support for StationPlaylist Studio.\n"
 "In addition, adds global commands for the studio from everywhere."
 msgstr ""
-"Améliore la prise en charge de Station Playlist Studio.\n"
+"Améliore la prise en charge de StationPlaylist Studio.\n"
 "En outre, ajoute des commandes globales pour studio où que vous soyez."
 
 #~ msgid ""

@@ -1824,11 +1824,13 @@ class AppModule(appModuleHandler.AppModule):
 		self.finish()
 		if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
 		# Display the update check progress dialog (inspired by add-on installation dialog in NvDA Core).
-		splupdate._progressDialog = gui.IndeterminateProgressDialog(gui.mainFrame,
-		# Translators: The title of the dialog presented while checking for add-on updates.
-		_("Add-on update check"),
-		# Translators: The message displayed while checking for newer version of Studio add-on.
-		_("Checking for new version of Studio add-on..."))
+		# #9 (7.5): Do this if and only if update channel hasn't changed, otherwise we're stuck here forever.
+		if not splupdate._pendingChannelChange:
+			splupdate._progressDialog = gui.IndeterminateProgressDialog(gui.mainFrame,
+			# Translators: The title of the dialog presented while checking for add-on updates.
+			_("Add-on update check"),
+			# Translators: The message displayed while checking for newer version of Studio add-on.
+			_("Checking for new version of Studio add-on..."))
 		threading.Thread(target=splupdate.updateCheck, kwargs={"continuous":splconfig.SPLConfig["Update"]["AutoUpdateCheck"], "confUpdateInterval":splconfig.SPLConfig["Update"]["UpdateInterval"]}).start()
 
 

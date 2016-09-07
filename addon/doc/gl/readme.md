@@ -270,21 +270,22 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
-## Version 7.4/16.08
+## Versión 7.4/16.08
 
-Version 7.4 is also known as 16.08 following the year.month version number
-for stable releases. 7.4 is the last version in the 7.x series and the
-entire major.minor version numbers.
+A versión 7.4 tamén se coñece coma 16.08 seguida do ano.mes número de
+versión para as versións estables. A 7.4 é a derradeira versión nas series
+7.x e todos os números de versión maior.menor.
 
-* It is possible to select add-on update channel from add-on
-  settings/advanced options, to be removed later in 2017. For 7.4, available
-  channels are beta, stable and long-term.
-* Added a setting in add-on settings/Advanced options to configure update
-  check interval between 1 and 30 days (default is 7 or weekly checks).
-* SPL Controller command and the command to focus to Studio will not be
-  available from secure screens.
-* New and updated translations and added localized documentation in various
-  languages.
+* É posible selecionar a canle de actualización do complemento dende
+  opcións/opción avanzadas do complemento, para se borrar máis tarde na
+  2017. Para a 7.4, as canles disponibles son beta, stable e long-term.
+* Engadida unha opción nas opción do complemento/Opcións avanzadas para
+  configurar o intervalo da procura da actualización entre 1 e 30 días (o
+  predeterminado é 7 ou procuras semanais).
+* A orde SPL Controller e a orde enfocar ao Studio non estará disponible
+  dende pantallas seguras.
+* Novas traduccións e actualizacións e engadida a localización da
+  documentación en varias linguas.
 
 ## Cambios para 7.3
 
