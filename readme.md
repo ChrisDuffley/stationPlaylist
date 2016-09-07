@@ -190,9 +190,15 @@ Version 8.0 (also known as 16.10) supports SPL Studio 5.10 and later, with 15.0-
 * 8.0: Added a dialog in add-on settings to configure Columns Explorer slots for Track Tool.
 * You can now configure microphone alarm interval from microphone alarm dialog (Alt+NvDA+4).
 
+## Version 7.5/16.09
+
+* NVDA will no longer pop up update progress dialog if add-on update channel has just changed.
+* NVDA will honor the selected update channel when downloading updates.
+* Updated translations.
+
 ## Version 7.4/16.08
 
-Version 7.4 is also known as 16.08 following the year.month version number for stable releases. 7.4 is the last version in the 7.x series and the entire major.minor version numbers.
+Version 7.4 is also known as 16.08 following the year.month version number for stable releases.
 
 * It is possible to select add-on update channel from add-on settings/advanced options, to be removed later in 2017. For 7.4, available channels are beta, stable and long-term.
 * Added a setting in add-on settings/Advanced options to configure update check interval between 1 and 30 days (default is 7 or weekly checks).

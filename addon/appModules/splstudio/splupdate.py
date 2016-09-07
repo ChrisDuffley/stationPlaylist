@@ -107,9 +107,10 @@ def updateCheck(auto=False, continuous=False, confUpdateInterval=1):
 	# Auto disables UI portion of this function if no updates are pending.
 	# All the information will be stored in the URL object, so just close it once the headers are downloaded.
 	updateCandidate = False
+	updateURL = SPLUpdateURL if SPLUpdateChannel not in channels else channels[SPLUpdateChannel]
 	try:
 		# Look up the channel if different from the default.
-		url = urllib.urlopen(SPLUpdateURL if SPLUpdateChannel not in channels else channels[SPLUpdateChannel])
+		url = urllib.urlopen(updateURL)
 		url.close()
 	except IOError:
 		_retryAfterFailure = True
@@ -148,9 +149,9 @@ def updateCheck(auto=False, continuous=False, confUpdateInterval=1):
 		_progressDialog = None
 	# Translators: Title of the add-on update check dialog.
 	if not updateCandidate: wx.CallAfter(gui.messageBox, checkMessage, _("Studio add-on update"))
-	else: wx.CallAfter(getUpdateResponse, checkMessage, _("Studio add-on update"), url.info().getheader("Content-Length"))
+	else: wx.CallAfter(getUpdateResponse, checkMessage, _("Studio add-on update"), updateURL)
 
-def getUpdateResponse(message, caption, size):
+def getUpdateResponse(message, caption, updateURL):
 	if gui.messageBox(message, caption, wx.YES | wx.NO | wx.CANCEL | wx.CENTER | wx.ICON_QUESTION) == wx.YES:
-		os.startfile(SPLUpdateURL)
+		os.startfile(updateURL)
 

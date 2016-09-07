@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2016-06-15 18:43+0100\n"
+"PO-Revision-Date: 2016-08-19 15:53+0100\n"
 "Last-Translator: Juan C. Buño <oprisniki@gmail.com>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -786,13 +786,12 @@ msgid "SPL Assistant help for Window-Eyes layout"
 msgstr "Ayuda de SPL Assistant para distribución Window-eyes"
 
 #. Translators: The title of the dialog presented while checking for add-on updates.
-#, fuzzy
 msgid "Add-on update check"
-msgstr "La búsqueda de actualizaciones del complemento falló."
+msgstr "Buscar actualización del complemento"
 
 #. Translators: The message displayed while checking for newer version of Studio add-on.
 msgid "Checking for new version of Studio add-on..."
-msgstr ""
+msgstr "Buscar nueva versión del complemento Studio..."
 
 #. Translators: A dialog message shown when settings were reset to defaults.
 msgid "Successfully applied default add-on settings."
@@ -1141,11 +1140,14 @@ msgid ""
 "change to take effect. Be sure to answer yes when you are asked to install "
 "the new version when prompted after restarting NVDA."
 msgstr ""
+"Has cambiado el canal de actualización del complemento. Debes reiniciar NVDA "
+"para que los cambios tengan efecto. Asegúrate de responder sí cuando se te "
+"pregunte para instalar la nueva versión al indicársete después del "
+"reiniciado de NVDA."
 
 #. Translators: Title of the update channel dialog.
-#, fuzzy
 msgid "Add-on update channel changed"
-msgstr "La búsqueda de actualizaciones del complemento falló."
+msgstr "Cambió el canal de actualización del complemento"
 
 #. Translators: The label of a field to enter a new name for a broadcast profile.
 msgid "New name:"
@@ -1353,12 +1355,11 @@ msgstr "Buscar automáticamente &actualizaciones para el complemento"
 
 #. Translators: The label for a setting in SPL add-on settings/advanced options to select automatic update interval in days.
 msgid "Update &interval in days"
-msgstr ""
+msgstr "&Intervalo de actualización en días"
 
 #. Translators: The label for a combo box to select update channel.
-#, fuzzy
 msgid "&Add-on update channel:"
-msgstr "La búsqueda de actualizaciones del complemento falló."
+msgstr "Canal de actualización del &complemento:"
 
 #. Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 msgid "Allow SPL C&ontroller command to invoke SPL Assistant layer"
@@ -1449,18 +1450,20 @@ msgid ""
 "Did you recently tell SPL add-on to use a different update channel? If so, "
 "please restart NVDA before checking for add-on updates."
 msgstr ""
+"¿Has dicho recientemente al complemento SPL que utilice un canal de "
+"actualización diferente? Si es así, por favor reinicia NVDA antes de buscar "
+"actualizaciones del complemento."
 
 msgid "Update channel changed"
-msgstr ""
+msgstr "Cambió el canal de actualización"
 
 #. Translators: Error text shown when add-on update check fails.
 msgid "Error checking for update."
 msgstr "Error buscando actualización."
 
 #. Translators: Title of the add-on update check dialog.
-#, fuzzy
 msgid "Studio add-on update"
-msgstr "Buscar actualización del complemento"
+msgstr "Actualización del complemento Studio"
 
 #. No need to interact with the user.
 #. Translators: Text shown when update check fails for some odd reason.
@@ -1746,7 +1749,6 @@ msgstr "Velocidad de Transferencia: {transferRate}"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
-#, fuzzy
 msgid ""
 "Enhances support for StationPlaylist Studio.\n"
 "In addition, adds global commands for the studio from everywhere."
