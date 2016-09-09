@@ -280,11 +280,18 @@ realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
 
+## Versión 7.5/16.09
+
+* NVDA ya no desplegará el diálogo de progreso de la actualización si el
+  canal de actualización del complemento se ha cambiado.
+* NVDA respetará el canal seleccionado de actualización cuando descargue
+  actualizaciones.
+* Traducciones actualizadas.
+
 ## Versión 7.4/16.08
 
 La versión 7.4 también se conoce como 16.08 seguido del año.mes número de
-versión para versiones estables. 7.4 es la última versión en las series 7.x
-y todos los números de versión mayor.menor.
+versión para versiones estables.
 
 * Es posible seleccionar el canal de actualización del complemento desde
   opciones/opciones avanzadas del complemento, para que se elimine más tarde
