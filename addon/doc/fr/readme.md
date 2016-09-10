@@ -290,11 +290,19 @@ un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
 
+## Version 7.5/16.09
+
+* NVDA n'affichera plus la fenêtre de la boîte de dialogue de la progression
+  de la mise à jour si le canal de mise à jour du module complémentaire
+  vient de changer.
+* NVDA honorera le canal de mise à jour sélectionnée lors du téléchargement
+  des mises à jour.
+* Mises à jour des traductions.
+
 ## Version 7.4/16.08
 
 Version 7.4 est également connu comme 16.08 selon le numéro de version
-year.month pour les publications stable. La 7.4 est la dernière version dans
-la série 7.x et tous les numéros de version major.minor.
+year.month pour les publications stable.
 
 * Il est possible de sélectionner le canal de mise à jour du module
   complémentaire depuis les paramètres du module complémentaire/Options

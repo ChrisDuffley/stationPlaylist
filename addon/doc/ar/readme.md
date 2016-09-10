@@ -237,11 +237,17 @@ broadcast profiles.
 استخدم لمسة ب3 أصابع للانتقال لنمط اللمس, ثم استخدم أوامر اللمس المسرودة
 أعلاه لأداء المهام.
 
+## Version 7.5/16.09
+
+* NVDA will no longer pop up update progress dialog if add-on update channel
+  has just changed.
+* NVDA will honor the selected update channel when downloading updates.
+* ترجمة الإضافة لمزيد من اللغات
+
 ## Version 7.4/16.08
 
 Version 7.4 is also known as 16.08 following the year.month version number
-for stable releases. 7.4 is the last version in the 7.x series and the
-entire major.minor version numbers.
+for stable releases.
 
 * It is possible to select add-on update channel from add-on
   settings/advanced options, to be removed later in 2017. For 7.4, available
