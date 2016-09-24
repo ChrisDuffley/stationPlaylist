@@ -170,15 +170,16 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
-## Changes for 8.0-dev/7.x-LTS
+## Changes for 16.10/15.0-LTS
 
-Version 8.0 supports SPL Studio 5.10 and later, with 7.x designed to provide some new features from 8.0 for users using earlier versions of Studio. Unless otherwise noted, entries below apply to both 8.0 and 7.x. A warning dialog will be shown the first time you use add-on 8.0 with Studio 5.0x installed, asking you to use 7.x LTS version.
+Version 16.10 supports SPL Studio 5.10 and later, with 15.x LTS  designed to provide some new features from 16.10 for users using earlier versions of Studio. Unless otherwise noted, entries below apply to both 16.10 and 15.x. A warning dialog will be shown the first time you use add-on 16.10 with Studio 5.0x installed, asking you to use 15.x LTS version.
 
 * Add-on source code is now hosted on GitHub (repository located at https://github.com/josephsl/stationPlaylist).
+* Versioning scheme now follows year.month instead of major.minor.
 * Added a welcome dialog that launches when Studio starts after installing the add-on. A command (Alt+NvDA+F1) has been added to reopen this dialog once dismissed.
 * Changes to various add-on commands, including removal of status announcement toggle (Control+NvDA+1), reassigned end of track alarm to Alt+NVDA+1, Cart Explorer toggle is now Alt+NvDA+3, microphone alarm dialog is Alt+NVDA+4 and add-on/encoder settings dialog is Alt+NvDA+0. This was done to allow Control+NVDA+number row to be assigned to Columns Explorer.
-* 8.0: Relaxed Columns Explorer restriction in place in 7.x so numbers 1 through 6 can be configured to announce Studio 5.1x columns.
-* 8.0: Track Dial toggle command and the corresponding setting in add-on settings are deprecated and will be removed in 9.0. This command will remain available in add-on 7.x.
+* 16.10: Relaxed Columns Explorer restriction in place in 7.x so numbers 1 through 6 can be configured to announce Studio 5.1x columns.
+* 16.10: Track Dial toggle command and the corresponding setting in add-on settings are deprecated and will be removed in 9.0. This command will remain available in add-on 7.x.
 * Added Control+Alt+Home/End to move Column Navigator to first or last column in Playlist Viewer.
 * You can now add, view, change or delete track comments (notes). Press Alt+NVDA+C from a track in the playlist viewer to hear track comments if defined, press twice to copy comment to clipboard or three times to open a dialog to edit comments.
 * Added ability to notify if a track comment exists, as well as a setting in add-on settings to control how this should be done.
