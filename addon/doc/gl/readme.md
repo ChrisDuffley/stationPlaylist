@@ -270,11 +270,18 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
+## Versión 7.5/16.09
+
+* NVDA xa non despregará o diálogo de progreso da actualización se a canle
+  de actualización do complemento cambiou.
+* NVDA respectará a canle de actualización selecionada cando se descarguen
+  actualizacións.
+* Traducións actualizadas.
+
 ## Versión 7.4/16.08
 
-A versión 7.4 tamén se coñece coma 16.08 seguida do ano.mes número de
-versión para as versións estables. A 7.4 é a derradeira versión nas series
-7.x e todos os números de versión maior.menor.
+A versión 7.4 tamén se coñece coma 16.08 seguido do ano.mes número da
+versión para versións estables.
 
 * É posible selecionar a canle de actualización do complemento dende
   opcións/opción avanzadas do complemento, para se borrar máis tarde na
