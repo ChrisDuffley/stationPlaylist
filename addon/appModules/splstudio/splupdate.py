@@ -38,8 +38,9 @@ _retryAfterFailure = False
 # Stores update state.
 _updatePickle = os.path.join(globalVars.appArgs.configPath, "splupdate.pickle")
 
-# Not all update channels are listed. The one not listed here is the default ("stable" for this branch).
+# Not all update channels are listed. The one not listed here is the default ("dev" for this branch).
 channels={
+	"stable":"http://addons.nvda-project.org/files/get.php?file=spl",
 	"lts":"http://spl.nvda-kr.org/files/get.php?file=spl-lts16",
 	"beta":"http://spl.nvda-kr.org/files/get.php?file=spl-beta",
 }
@@ -64,7 +65,8 @@ def initialize():
 def terminate():
 	global SPLAddonState
 	# Store new values if it is absolutely required.
-	stateChanged = (SPLAddonState["PDT"] != SPLAddonCheck or SPLAddonState["UpdateChannel"] != SPLUpdateChannel)
+	# Take care of a case where one might be "downgrading" from try builds.
+	stateChanged = "UpdateChannel" not in SPLAddonState or (SPLAddonState["PDT"] != SPLAddonCheck or SPLAddonState["UpdateChannel"] != SPLUpdateChannel)
 	if stateChanged:
 		SPLAddonState["PDT"] = SPLAddonCheck
 		SPLAddonState["UpdateChannel"] = SPLUpdateChannel
