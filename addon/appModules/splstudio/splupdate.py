@@ -56,7 +56,7 @@ def initialize():
 		if "pendingChannelChange" in SPLAddonState: del SPLAddonState["pendingChannelChange"]
 		if "UpdateChannel" in SPLAddonState:
 			SPLUpdateChannel = SPLAddonState["UpdateChannel"]
-			if SPLUpdateChannel == "beta":
+			if SPLUpdateChannel in ("beta", "lts"):
 				SPLUpdateChannel = "dev"
 	except IOError, KeyError:
 		SPLAddonState["PDT"] = 0
