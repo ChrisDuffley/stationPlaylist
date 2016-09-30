@@ -3,18 +3,24 @@
 * Auteurs: Geoff Shang, Joseph Lee et d'autres contributeurs.
 * Télécharger [version stable][1]
 * Télécharger [la version de développement][2]
+* Télécharger [version prise en charge à long terme][3] - module
+  complémentaire 15.x pour les utilisateurs de Studio 5.0x
 
 Ce module complémentaire améliore l'utilisation de Station Playlist Studio,
 mais il fournit aussi des utilitaires pour contrôler le Studio où que vous
 soyez.
 
-Pour plus d'informations sur le module complémentaire, lisez la
-[documentation du module complémentaire][3].
+Pour plus d’informations sur le module complémentaire, lisez le [guide du
+module complémentaire][4]. Pour les développeurs cherchant à savoir comment
+construire le module complémentaire, voir buildInstructions.txt situé à la
+racine du code source du module complémentaire du référentiel.
 
 IMPORTANT : Ce module complémentaire nécessite NVDA 2015.3 ou plus récent et
 StationPlaylist Studio 5.00 ou version ultérieure. Si vous avez installé
 NVDA 2016.1 ou version ultérieure sur Windows 8 et supérieur désactiver le
-Mode d'atténuation audio.
+Mode d'atténuation audio. En outre,le module complémentaire 8.0/16.10
+nécessite Studio 5.10 et ultérieure, et pour les diffusions utilisant Studio
+5.0x, une version prise en charge à long terme (7.x) est disponible.
 
 ## Raccourcis clavier
 
@@ -26,18 +32,14 @@ Mode d'atténuation audio.
 * NVDA+Maj+F12 (glissement à deux doigts vers le haut en mode tactile SPL)
   depuis la fenêtre de Studio: annonce le temps de diffusion par exemple 5
   minutes à la fin de l'heure.
-* Contrôle+NVDA+1 depuis la fenêtre de Studio : bascule l'annonce de statut
-  des messages (comme l'automatisation et la fin du balayage de la
-  bibliothèque) entre vocale et bips.
-* Contrôle+NVDA+2 (glissement à deux doigts vers la droite en mode tactile
-  SPL) depuis la fenêtre de Studio: Ouvre la boîte de dialogue  paramètre
-  fin de piste.
+* Alt+NVDA+1 (glissement à deux doigts vers la droite en mode SPL) depuis la
+  fenêtre de Studio: Ouvre la boîte de dialogue  paramètre fin de piste.
 * Alt+NVDA+2 (glissement à deux doigts vers la gauche en mode tactile SPL)
   depuis la fenêtre de Studio: Ouvre la boîte de dialogue  paramètre alarme
   chanson intro.
-* Contrôle+NVDA+3 depuis la fenêtre de Studio : Basculer l'explorateur de
-  chariot pour apprendre les assignations de chariot.
-* Contrôle+NVDA+4 depuis la fenêtre de Studio : Ouvre le dialogue alarme
+* Alt+NVDA+3 depuis la fenêtre de Studio : Basculer l'explorateur de chariot
+  pour apprendre les assignations de chariot.
+* Alt+NVDA+4 depuis la fenêtre de Studio : Ouvre le dialogue alarme
   microphone.
 * Contrôle+NVDA+f depuis la fenêtre de Studio : Ouvre un dialogue pour
   chercher une piste en se basant sur l'artiste ou le nom de la
@@ -49,11 +51,16 @@ Mode d'atténuation audio.
   minuteur braille.
 * Contrôle+Alt+flèche droite/gauche (alors que  a été mis en focus sur une
   piste) : Annoncer colonne de piste suivante/précédente.
-* Contrôle+NVDA+0 ou Alt+NVDA+0 depuis la fenêtre de Studio : Ouvre le
-  dialogue de configuration du module complémentaire Studio.
+* Contrôle+NVDA+1 jusqu'à 0 (6 pour Studio 5.0x) : Annoncer le contenu de la
+  colonne pour une colonne spécifiée.
+* Alt+NVDA+C alors que  a été mis en focus sur une piste : annonce les
+  commentaires de piste le cas échéant.
+* Alt+NVDA+0 depuis la fenêtre de Studio : Ouvre le dialogue de
+  configuration du module complémentaire Studio.
 * Contrôle+NVDA+- (tiret) depuis la fenêtre de Studio : Envoyez vos
   commentaires au développeur du module complémentaire en utilisant le
   client de messagerie par défaut.
+* Alt+NVDA+F1: Ouvre le dialogue de bienvenue.
 
 ## Commandes non assignées
 
@@ -99,8 +106,8 @@ de Sam ou de SPL :
 * Contrôle+F12 : Ouvre un dialogue pour sélectionner l'encodeur que vous
   avez supprimé (afin de réaligner les étiquettes de flux et les paramètres
   de l'encodeur).
-* Contrôle+NVDA+0 ou Alt+NVDA+0 : Ouvre la boîte de dialogue paramètres  de
-  l'encodeur pour configurer des options telles que l'étiquette de flux.
+* Alt+NVDA+0 : Ouvre la boîte de dialogue paramètres  de l'encodeur pour
+  configurer des options telles que l'étiquette de flux.
 
 De plus, les commandes pour visualiser la colonne sont disponibles, y
 compris :
@@ -209,8 +216,8 @@ Les commandes disponibles pour le Contrôleur SPL sont:
 
 Par défaut, NVDA jouera un bip si il y'a cinq secondes restantes dans la
 piste (outro) et/ou intro. Pour configurer cette valeur aussi bien quant à
-les activer ou désactiver, appuyer sur Contrôle+NVDA+2 ou Alt+NVDA+2 pour
-ouvrir les boîtes de dialogues fin de piste et la montée de la chanson,
+les activer ou désactiver, appuyer sur Alt+NVDA+1 ou Alt+NVDA+2 pour ouvrir
+les boîtes de dialogues fin de piste et la montée de la chanson,
 respectivement. De plus, Utiliser la boîte de dialogue paramètres du module
 complémentaire Studio pour configurer si vous entendrez un bip, un message
 ou tous les deux lorsque les alarmes sont basculés sur activé.
@@ -218,8 +225,8 @@ ou tous les deux lorsque les alarmes sont basculés sur activé.
 ## Alarme microphone
 
 Vous pouvez demander à NVDA de lire un son lorsque le microphone est actif
-depuis un certain temps. Appuyez sur Contrôle+NVDA+4 pour configurer l'heure
-de l'alarme en secondes (0 désactive celui-ci).
+depuis un certain temps. Appuyez sur Alt+NVDA+4 pour configurer l'heure de
+l'alarme en secondes (0 désactive celui-ci).
 
 ## Chercheur de piste
 
@@ -240,10 +247,10 @@ lecture. NVDA vous permet d'entendre quel chariot ou jingle est assigné à
 ces commandes.
 
 Pour apprendre les assignations de chariot, depuis SPL Studio, appuyez sur
-Contrôle+NVDA+3. Appuyant une fois sur la commande chariot il vous dira à
-quel jingle est assignée à la commande. Appuyant deux fois sur la commande
-il jouera le jingle. appuyez sur Contrôle+NVDA+3 pour quitter l'explorateur
-de chariot. Consultez la documentation du module complémentaire pour plus
+Alt+NVDA+3. Appuyant une fois sur la commande chariot il vous dira à quel
+jingle est assignée à la commande. Appuyant deux fois sur la commande il
+jouera le jingle. appuyez sur Alt+NVDA+3 pour quitter l'explorateur de
+chariot. Consultez la documentation du module complémentaire pour plus
 d'informations sur l'explorateur de chariot.
 
 ## Cadran de Piste
@@ -266,20 +273,21 @@ sélection.
 
 ## Explorateur de Colonnes
 
-En appuyant sur Assistant SPL, 1 jusqu'à 0 (6 pour Studio 5.01 ou version
-antérieure), vous pouvez obtenir le contenu des colonnes spécifiques. Par
-défaut ce sont artiste, titre, durée, intro, catégorie et nom du fichier
-(Studio 5.10 ajoute année, album, genre et heure prévue). Vous pouvez
-configurer les colonnes qui seront explorées via le dialogue Explorateur de
-Colonnes trouvé dans le dialogue Paramètres module complémentaire.
+En appuyant sur Contrôle+NVDA+1 jusqu'à 0 (6 pour Studio 5.0x) ou Assistant
+SPL, 1 jusqu'à 0 (6 pour Studio 5.01 ou version antérieure), vous pouvez
+obtenir le contenu des colonnes spécifiques. Par défaut ce sont artiste,
+titre, durée, intro, catégorie et nom du fichier (Studio 5.10 ajoute année,
+album, genre et heure prévue). Vous pouvez configurer les colonnes qui
+seront explorées via le dialogue Explorateur de Colonnes trouvé dans le
+dialogue Paramètres module complémentaire.
 
 ## Boîte de dialogue configuration
 
-Depuis la fenêtre studio, vous pouvez appuyer sur Contrôle+NVDA+0 ou
-Alt+NVDA+0 pour ouvrir la boîte de dialogue configuration du module
-complémentaire. Sinon, allez dans le menu préférences de NVDA et
-sélectionnez l'élément Paramètres SPL Studio. Cette boîte de dialogue est
-également utilisé pour gérer les profils de diffusion.
+Depuis la fenêtre studio, vous pouvez appuyer sur Alt+NVDA+0 pour ouvrir la
+boîte de dialogue configuration du module complémentaire. Sinon, allez dans
+le menu préférences de NVDA et sélectionnez l'élément Paramètres SPL
+Studio. Cette boîte de dialogue est également utilisé pour gérer les profils
+de diffusion.
 
 ## Mode tactile SPL
 
@@ -289,6 +297,72 @@ ultérieure installé, vous pouvez exécuter certaines commandes Studio depuis
 un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
+
+## Changements pour la version 8.0/16.10/15.0-LTS
+
+La version 8.0 (également connu sous le nom de 16.10) prend en charge la
+version SPL Studio 5.10 et ultérieure, avec la 15.0-LTS (anciennement la
+7.x) conçu pour fournir de nouvelles fonctionnalités depuis la 8.0 pour les
+utilisateurs des versions antérieures de Studio. À moins que dans le cas
+contraire les rubriques ci-dessous s’appliquent à les deux, 8.0 et 7.x. Un
+dialogue d'avertissement apparaît la première fois que vous utilisez le
+module complémentaire 8.0 avec Studio 5.0x installé, vous demandant
+d’utiliser la version  7.x LTS.
+
+* Le Schéma de la version a changé pour refléter la version year.month au
+  lieu de major.minor. Au cours de la période de transition (jusqu'au
+  mi-2017), la version 8.0 est synonyme de la version 16.10, avec la 7.x LTS
+  étant désigné la 15.0 en raison des changements incompatibles.
+* Le code source du module complémentaire est désormais hébergé sur GitHub
+  (référentiel  localisé à https://github.com/josephsl/stationPlaylist).
+* Ajouter un dialogue de Bienvenue qui se lance au démarrage de Studio après
+  l’installation du module complémentaire. Une commande (NVDA+AltF1) a été
+  ajoutée pour rouvrir ce dialogue une fois rejeté.
+* Changements de diverses commandes du module complémentaire, y compris la
+  suppression du basculement des annonces des statut (Contrôle+NVDA+1),
+  réassigné Alarme de fin de piste à Alt+NVDA+1, basculement  de
+  l'Explorateur de Chariot  est maintenant Alt+NVDA+3, le dialogue alarme
+  microphone est Alt+NVDA+4 et le dialogue Paramètres du module
+  complémentaire/encodeur est Alt+NVDA+0. Cela a été fait pour permettre
+  d'être Assigner  à Contrôle+NVDA+rangée de numéro à l'Explorateur de
+  Colonnes.
+* 8.0: Relâché la restriction de l'Explorateur de colonnes à la place dans
+  la  7.x donc les  chiffres 1 jusq'à 6 peuvent être configurés pour
+  annoncer les colonnes dans Studio 5.1x.
+* 8.0: La commande  pour le basculement du Cadran de piste et  les paramètre
+  correspondant dans les paramètres du module complémentaire sont obsolètes
+  et seront supprimées dans la 9.0. Cette commande restent disponible dans
+  le module complémentaire 7.x.
+* Ajouté Contrôle+Alt+début/fin pour déplacer le Navigateur de Colonne à la
+  première ou la dernière colonne dans la Visionneuse de playlist.
+* Vous pouvez maintenant ajouter, afficher, modifier ou supprimer les
+  commentaires (notes) de la piste. Appuyer sur Alt+NVDA+C depuis une piste
+  dans la visionneuse de playlist pour entendre les commentaires si défini,
+  appuyez deux fois pour copier le commentaire dans le presse-papiers  ou
+  trois fois pour ouvrir un dialogue pour modifier les commentaires.
+* Ajoutée la possibilité d'annoncer si un commentaire de piste existe,ainsi
+  que d’un paramètre dans les paramètres du module complémentaire pour
+  contrôler comment cela devrait être fait.
+* Ajouter un nouveau paramètre dans le dialogue paramètres du module
+  complémentaire pour permettre a NVDA de vous notifier si vous avez atteint
+  le haut ou le bas de la visionneuse de playlist.
+* Lors de la réinitialisation des paramètres du module complémentaire, vous
+  pouvez maintenant spécifier quel type de restauration vous souhaitez
+  avoir. Par défaut, les paramètres du module complémentaire seront
+  réinitialisés, avec des cases à cocher pour la réinitialisation des
+  changement de profil immédiat, pofil basé sur l'heure, paramètres de
+  l’encodeur et les commandes pour effacer la piste ajouté pour
+  réinitialiser la boîte de dialogue Paramètres.
+* Dans l'Outil de piste, vous pouvez obtenir des informations sur l'album et
+  le code du CD en appuyant sur Contrôle+NVDA+9 et Contrôle+NVDA+0,
+  respectivement.
+* Amélioration des performances lors de l’obtention des informations de
+  colonne pour la première fois dans l'Outil de Piste.
+* 8.0: Ajouté un dialogue dans les paramètres du module complémentaire pour
+  configurer les tranches de l'Explorateur de Colonnes pour l'Outil de
+  Piste.
+* Vous pouvez maintenant configurer l'intervalle alarme microphone depuis le
+  dialogue Alarme microphone (Alt+NVDA+4).
 
 ## Version 7.5/16.09
 
@@ -944,5 +1018,6 @@ utilisateurs des versions antérieures de Studio.
 
 [2]: http://addons.nvda-project.org/files/get.php?file=spl-dev
 
-[3]: https://bitbucket.org/nvdaaddonteam/stationplaylist/wiki/SPLAddonGuide
+[3]: http://spl.nvda-kr.org/files/get.php?file=spl-lts16
 
+[4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
