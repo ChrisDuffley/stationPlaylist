@@ -38,9 +38,9 @@ _retryAfterFailure = False
 # Stores update state.
 _updatePickle = os.path.join(globalVars.appArgs.configPath, "splupdate.pickle")
 
-# Not all update channels are listed. The one not listed here is the default ("dev" for this branch).
+# Not all update channels are listed. The one not listed here is the default ("stable" for this branch).
 channels={
-	#"lts":"http://spl.nvda-kr.org/files/get.php?file=spl-lts16",
+	"stable":"http://addons.nvda-project.org/files/get.php?file=spl",
 	#"beta":"http://spl.nvda-kr.org/files/get.php?file=spl-beta",
 }
 

@@ -1293,14 +1293,14 @@ class AdvancedOptionsDialog(wx.Dialog):
 
 		# LTS and 8.x only.
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		"""# Translators: The label for a combo box to select update channel.
+		# Translators: The label for a combo box to select update channel.
 		label = wx.StaticText(self, wx.ID_ANY, label=_("&Add-on update channel:"))
-		self.channels= wx.Choice(self, wx.ID_ANY, choices=["stable", "longterm"])
-		self.updateChannels = ("stable", "lts")
+		self.channels= wx.Choice(self, wx.ID_ANY, choices=["development", "stable"])
+		self.updateChannels = ("dev", "stable")
 		self.channels.SetSelection(self.updateChannels.index(self.Parent.updateChannel))
 		sizer.Add(label)
 		sizer.Add(self.channels)
-		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)"""
+		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
@@ -1339,7 +1339,7 @@ class AdvancedOptionsDialog(wx.Dialog):
 		parent.compLayer = self.compatibilityLayouts[self.compatibilityList.GetSelection()][0]
 		parent.autoUpdateCheck = self.autoUpdateCheckbox.Value
 		parent.updateInterval = self.updateInterval.Value
-		#parent.updateChannel = ("stable", "lts")[self.channels.GetSelection()]
+		parent.updateChannel = ("dev", "stable")[self.channels.GetSelection()]
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()
