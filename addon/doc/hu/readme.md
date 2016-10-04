@@ -3,16 +3,23 @@
 * Készítők: Geoff Shang, Joseph Lee, és további közreműködők
 * Letöltés [Stabil verzió][1]
 * Letöltés [Fejlesztői verzió][2]
+* Download [long-term support version][3] - add-on 15.x for Studio 5.0x
+  users
 
 Ez a kiegészítő javítja a Station Playlist Studio nevű online
 rádióadás-vezérlő program használhatóságát, egyúttal egy olyan
 segédprogramot is nyújt, amivel bárhonnan vezérelhető a szoftver.
 
-További információkért olvassa el a [kiegészítő útmutatóját][3].
+For more information about the add-on, read the [add-on guide][4]. For
+developers seeking to know how to build the add-on, see
+buildInstructions.txt located at the root of the add-on source code
+repository.
 
 IMPORTANT: This add-on requires NVDA 2015.3 or later and StationPlaylist
 Studio 5.00 or later. If you have installed NVDA 2016.1 or later on Windows
-8 and later, disable audio ducking mode.
+8 and later, disable audio ducking mode. Also, add-on 8.0/16.10 requires
+Studio 5.10 and later, and for broadcasters using Studio 5.0x, a long-term
+support version (7.x) is available.
 
 ## Gyorsbillentyűk
 
@@ -22,17 +29,13 @@ Studio 5.00 or later. If you have installed NVDA 2016.1 or later on Windows
   lejátszás alatt álló dal hátralévő idejét.
 * NVDA+Shift+F12, vagy kétujjas felfelé pöccintés a Studio ablakában:
   Bemondja a a broadcaster idejét, pl 5 perc az óra végéig.
-* Control+NVDA+1 a Studio ablakában: Váltogatja az üzenetek bejelentésének
-  módját (pl. automatikus lejátszás, gyűjtemény vizsgálat vége), a beszéd és
-  a hangjelzés közt.
-* Control+NVDA+2, vagy kétujjas jobbra pöccintés a Studio ablakában:
-  Megnyitja a zeneszám végi riasztás beállítására szolgáló párbeszédpanelt.
+* Alt+NVDA+1 (two finger flick right in SPL mode) from Studio window: Opens
+  end of track setting dialog.
 * Alt+NVDA+2, vagy kétujjas balra pöccintés a Studio ablakában: Megnyitja a
   zeneszám intró beállítása párbeszédpanelt.
-* Control+NVDA+3 a Studio ablakában: Megnyitja a cart explorert a
-  hozzárendelések megtekintéséhez.
-* Control+NVDA+4 a Studio ablakában: megnyitja a Mikrofon figyelmeztetés
-  párbeszédpanelt.
+* Alt+NVDA+3 from Studio window: Toggles cart explorer to learn cart
+  assignments.
+* Alt+NVDA+4 from Studio window: Opens microphone alarm dialog.
 * Control+NVDA+F a Studio ablakában: Megnyit egy párbeszédablakot, ahol
   előadó, és dalnév szerint kereshetőek dalok. Nyomja meg az NVDA+F3
   billentyűparancsokat előre, vagy az NVDA+Shift+F3 billentyűket hátra
@@ -43,10 +46,14 @@ Studio 5.00 or later. If you have installed NVDA 2016.1 or later on Windows
   beállításait.
 * Control+Alt+right/left arrow (while focused on a track): Announce
   next/previous track column.
-* Control+NVDA+0 or Alt+NVDA+0 from Studio window: Opens the Studio add-on
-  configuration dialog.
+* Control+NVDA+1 through 0 (6 for Studio 5.0x): Announce column content for
+  a specified column.
+* Alt+NVDA+C while focused on a track: announces track comments if any.
+* Alt+NVDA+0 from Studio window: Opens the Studio add-on configuration
+  dialog.
 * Control+NVDA+- (hyphen) from Studio window: Send feedback to add-on
   developer using the default email client.
+* Alt+NVDA+F1: Open welcome dialog.
 
 ## Nem hozzárendelt parancsok
 
@@ -88,8 +95,8 @@ használatához:
   stream.
 * Control+F12: opens a dialog to select the encoder you have deleted (to
   realign stream labels and encoder settings).
-* Control+NVDA+0 or Alt+NVDA+0: Opens encoder settings dialog to configure
-  options such as stream label.
+* Alt+NVDA+0: Opens encoder settings dialog to configure options such as
+  stream label.
 
 In addition, column review commands are available, including:
 
@@ -182,17 +189,15 @@ Az elérhető SPL Vezérlőparancsok a következők:
 
 By default, NvDA will play a beep if five seconds are left in the track
 (outro) and/or intro. To configure this value as well as to enable or
-disable them, press Control+NVDA+2 or Alt+NVDA+2 to open end of track and
-song ramp dialogs, respectively. In addition, use Studio add-on settings
-dialog to configure if you'll hear a beep, a message or both when alarms are
-turned on.
+disable them, press Alt+NVDA+1 or Alt+NVDA+2 to open end of track and song
+ramp dialogs, respectively. In addition, use Studio add-on settings dialog
+to configure if you'll hear a beep, a message or both when alarms are turned
+on.
 
 ## Mikrofon figyelmeztetés
 
-Beállítható figyelmeztető hang arra az esetre, ha a mikrofon egy bizonyos
-ideig be van kapcsolva. A Control+NVDA+4 billentyűparancs segítségével
-megadható az idő másodpercben. 0 érték megadása kikapcsolja a
-figyelmeztetést.
+You can ask NVDA to play a sound when microphone has been active for a
+while. Press Alt+NVDA+4 to configure alarm time in seconds (0 disables it).
 
 ## Dalkereső
 
@@ -211,12 +216,11 @@ A verzió függvényében az SPL Studio 96 cart hozzárendelését teszi lehető
 lejátszáshoz. Az NVDA segítségével hallható hogy milyen cart vagy csengés
 van hozzárendelve ezekhez a parancsokhoz.
 
-A cart hozzárendelések megtekintéséhez használja a control+NVDA+3
-billentyűparancsot az SPL Studio ablakából. A cart parancs egyszeri
-lenyomására bemondásra kerül, hogy melyik csengés van hozzárendelve,
-kétszeri lenyomásra meg is hallgatható a csengés. A control+NVDA+3
-billentyűparanccsal zárja be a Cart Explorert. További információkért
-olvassa el a bővítmény súgóját.
+To learn cart assignments, from SPL Studio, press Alt+NVDA+3. Pressing the
+cart command once will tell you which jingle is assigned to the
+command. Pressing the cart command twice will play the jingle. Press
+Alt+NvDA+3 to exit cart explorer. See the add-on guide for more information
+on cart explorer.
 
 ## Track Dial
 
@@ -235,17 +239,18 @@ reaching end of selection.
 
 ## Columns Explorer
 
-By pressing SPL Assistant, 1 through 0 (6 for Studio 5.01 and earlier), you
-can obtain contents of specific columns. By default, these are artist,
-title, duration, intro, category and filename (Studio 5.10 adds year, album,
-genre and time scheduled). You can configure which columns will be explored
-via columns explorer dialog found in add-on settings dialog.
+By pressing Control+NVDA+1 through 0 (6 for Studio 5.0x) or SPL Assistant, 1
+through 0 (6 for Studio 5.01 and earlier), you can obtain contents of
+specific columns. By default, these are artist, title, duration, intro,
+category and filename (Studio 5.10 adds year, album, genre and time
+scheduled). You can configure which columns will be explored via columns
+explorer dialog found in add-on settings dialog.
 
 ## Beállítások párbeszédpanel
 
-From studio window, you can press Control+NVDA+0 or Alt+NVDA+0 to open the
-add-on configuration dialog. Alternatively, go to NVDA's preferences menu
-and select SPL Studio Settings item. This dialog is also used to manage
+From studio window, you can press Alt+NVDA+0 to open the add-on
+configuration dialog. Alternatively, go to NVDA's preferences menu and
+select SPL Studio Settings item. This dialog is also used to manage
 broadcast profiles.
 
 ## SPL érintőmód
@@ -254,6 +259,58 @@ Amennyiben érintőképernyős számítógépen használja a Studiot Windows 8, 
 újabb verzió alatt, NVDA 2012.3 vagy újabb verzióval, bizonyos Studio
 parancsokat végrehajthat az érintőképernyőn is. Először 3 ujjas koppintással
 váltson SPL módra, és utána már használhatók az alább felsorolt parancsok.
+
+## Changes for 8.0/16.10/15.0-LTS
+
+Version 8.0 (also known as 16.10) supports SPL Studio 5.10 and later, with
+15.0-LTS (formerly 7.x) designed to provide some new features from 8.0 for
+users using earlier versions of Studio. Unless otherwise noted, entries
+below apply to both 8.0 and 7.x. A warning dialog will be shown the first
+time you use add-on 8.0 with Studio 5.0x installed, asking you to use 7.x
+LTS version.
+
+* Version scheme has changed to reflect release year.month instead of
+  major.minor. During transition period (until mid-2017), version 8.0 is
+  synonymous with version 16.10, with 7.x LTS being designated 15.0 due to
+  incompatible changes.
+* Add-on source code is now hosted on GitHub (repository located at
+  https://github.com/josephsl/stationPlaylist).
+* Added a welcome dialog that launches when Studio starts after installing
+  the add-on. A command (Alt+NvDA+F1) has been added to reopen this dialog
+  once dismissed.
+* Changes to various add-on commands, including removal of status
+  announcement toggle (Control+NvDA+1), reassigned end of track alarm to
+  Alt+NVDA+1, Cart Explorer toggle is now Alt+NvDA+3, microphone alarm
+  dialog is Alt+NVDA+4 and add-on/encoder settings dialog is
+  Alt+NvDA+0. This was done to allow Control+NVDA+number row to be assigned
+  to Columns Explorer.
+* 8.0: Relaxed Columns Explorer restriction in place in 7.x so numbers 1
+  through 6 can be configured to announce Studio 5.1x columns.
+* 8.0: Track Dial toggle command and the corresponding setting in add-on
+  settings are deprecated and will be removed in 9.0. This command will
+  remain available in add-on 7.x.
+* Added Control+Alt+Home/End to move Column Navigator to first or last
+  column in Playlist Viewer.
+* You can now add, view, change or delete track comments (notes). Press
+  Alt+NVDA+C from a track in the playlist viewer to hear track comments if
+  defined, press twice to copy comment to clipboard or three times to open a
+  dialog to edit comments.
+* Added ability to notify if a track comment exists, as well as a setting in
+  add-on settings to control how this should be done.
+* Added a setting in add-on settings dialog to let NVDA notify you if you've
+  reached top or bottom of playlist viewer.
+* When resetting add-on settings, you can now specify what gets reset. By
+  default, add-on settings will be reset, with checkboxes for resetting
+  instant switch profile, time-based profile, encoder settings and erasing
+  track comments added to reset settings dialog.
+* In Track Tool, you can obtain information on album and CD code by pressing
+  Control+NVDA+9 and Control+NVDA+0, respectively.
+* Performance improvements when obtaining column information for the first
+  time in Track Tool.
+* 8.0: Added a dialog in add-on settings to configure Columns Explorer slots
+  for Track Tool.
+* You can now configure microphone alarm interval from microphone alarm
+  dialog (Alt+NvDA+4).
 
 ## Version 7.5/16.09
 
@@ -815,5 +872,6 @@ A kiegészítő 4.0 verziója a Studio 5.00 és későbbi kiadásait támogatja.
 
 [2]: http://addons.nvda-project.org/files/get.php?file=spl-dev
 
-[3]: https://bitbucket.org/nvdaaddonteam/stationplaylist/wiki/SPLAddonGuide
+[3]: http://spl.nvda-kr.org/files/get.php?file=spl-lts16
 
+[4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide

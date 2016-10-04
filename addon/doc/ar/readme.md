@@ -3,15 +3,22 @@
 * مطورو الإضافة: Geoff Shang, Joseph Lee وآخرون
 * تحميل [الإصدار النهائي][1]
 * تحميل [الإصدار التجريبي][2]
+* Download [long-term support version][3] - add-on 15.x for Studio 5.0x
+  users
 
 تقوم هذه الإضافة البرمجية بتحسين استخدام الكفيف لتطبيق Station Playlist
 Studio, فضلا عن إضافة أدوات للتحكم في الأستوديو من أي مكان.
 
-للاطلاع على المزيد حول هذه الإضافة, يرجى قراءة [دليل الإضافات البرمجية][3].
+For more information about the add-on, read the [add-on guide][4]. For
+developers seeking to know how to build the add-on, see
+buildInstructions.txt located at the root of the add-on source code
+repository.
 
-ملحوظة هامة: تتطلب هذه الإضافة NVDA2015.3 وما بعده وإصدار spl 5.00 وما
-بعده. إذا قمت بتثبيت nvda2016.1 وما بعده على نظام ويندوز 8 وما بعده, يرجى
-تعطيل دعم خفض الأصوات الأخرى.
+IMPORTANT: This add-on requires NVDA 2015.3 or later and StationPlaylist
+Studio 5.00 or later. If you have installed NVDA 2016.1 or later on Windows
+8 and later, disable audio ducking mode. Also, add-on 8.0/16.10 requires
+Studio 5.10 and later, and for broadcasters using Studio 5.0x, a long-term
+support version (7.x) is available.
 
 ## مفاتيح الاختصار
 
@@ -21,15 +28,13 @@ Studio, فضلا عن إضافة أدوات للتحكم في الأستوديو
   الوقت المتبقي للمسار أو التراك المشغل حاليا.
 * NVDA+Shift+F12 (مسح بإصبعين لأعلى بنمط SPL) من نافذة الاستوديو: للإعلان عن
   وقت المذيع.
-* Control+NVDA+1 من نافذة الاستوديو: التنقل بين كيفية الإعلان عن الرسائل
-  (كرسائل الآلية ورسائل نهاية البحث في المكتبة) بالصفير أو بالكلمات.
-* Control+NVDA+2 (مسح بإصبعين يمين بنمط SPL) من نافذة الاستوديو: لفتح محاورة
-  نهاية المسار أو التراك.
+* Alt+NVDA+1 (two finger flick right in SPL mode) from Studio window: Opens
+  end of track setting dialog.
 * Alt+NVDA+2 (مسح بأصبعين يسار بنمطSPL) من نافذة الاستوديو: لفتح محاورة
   إعدادات التنبيه بمقدمة الأغنية.
-* Control+NVDA+3 من نافذة الاستوديو: لفتح نمط استكشاف التنويهات والمفاتيح
-  المنوطة بكل تنويه أو إعلان
-* Control+NVDA+4 من نافذة الاستوديو: لفتح محاورة تنبيه الميكروفون.
+* Alt+NVDA+3 from Studio window: Toggles cart explorer to learn cart
+  assignments.
+* Alt+NVDA+4 from Studio window: Opens microphone alarm dialog.
 * اضغط ctrl+NVDA+F من نافذة الأستديو لفتح محاورة اختيار المسارات بحسب المطرب
   أو الأغنية. اضغط NVDA+f3 للبحث نحو التالي واضغط Shift+NVDA+f3 للبحث نحو
   السابق. 
@@ -37,10 +42,14 @@ Studio, فضلا عن إضافة أدوات للتحكم في الأستوديو
 * Control+Shift+X من نافذة الاستوديو: لخطوات إعدادات ميقات البرايل.
 * Control+Alt+right/left arrow (while focused on a track): Announce
   next/previous track column.
-* Control+NVDA+0 or Alt+NVDA+0 from Studio window: Opens the Studio add-on
-  configuration dialog.
+* Control+NVDA+1 through 0 (6 for Studio 5.0x): Announce column content for
+  a specified column.
+* Alt+NVDA+C while focused on a track: announces track comments if any.
+* Alt+NVDA+0 from Studio window: Opens the Studio add-on configuration
+  dialog.
 * Control+NVDA+- (hyphen) من نافذة الاستوديو: إرسال الاستفسارات لمطور
   الإضافة باستخدام منظم البريد الافتراضي لديك.
+* Alt+NVDA+F1: Open welcome dialog.
 
 ## الأوامر غير المعينة
 
@@ -79,8 +88,8 @@ Studio, فضلا عن إضافة أدوات للتحكم في الأستوديو
   stream.
 * Control+F12: يفتح محاورة لاختيار التشفير الذي قمت بحذفه (لإعادة ترتيب
   أسماء الفيديوهات التي ستبث وإعدادات التشفير).
-* Control+NVDA+0 or Alt+NVDA+0: Opens encoder settings dialog to configure
-  options such as stream label.
+* Alt+NVDA+0: Opens encoder settings dialog to configure options such as
+  stream label.
 
 فضلا عن ذلك, إتاحة أوامر لمراجعة الأعمدة وتشمل:
 
@@ -170,16 +179,17 @@ PlayList Studio." اضغط أي من الأوامر التي سيلي ذكرها
 
 ## تنبيهات المسار
 
-افتراضيا, سيصدر NVDA صوت صفير قرب نهاية المسار بخمس ثواني (النهاية) أو/و
-المقدمة. لتغيير هذه القيمة من خمس ثواني أو لتعطيل هذا الإعداد, اضغط على
-Control+NVDA+2  أو Alt+NVDA+2 لفتح محاورة نهاية المسار أو نهاية الأغنية على
-التوالي. كما يمكنك استخدام إعدادات الإضافة لإعداد ما إذا كنت ستسمع صفير, أم
-رسالة أو كلاهما عند تشغيل التنبيهات.
+By default, NvDA will play a beep if five seconds are left in the track
+(outro) and/or intro. To configure this value as well as to enable or
+disable them, press Alt+NVDA+1 or Alt+NVDA+2 to open end of track and song
+ramp dialogs, respectively. In addition, use Studio add-on settings dialog
+to configure if you'll hear a beep, a message or both when alarms are turned
+on.
 
 ## تنبيه الميكروفون
 
-يمكنك إعداد NVDA كي يصدر صوت عندما يكون الميكروفون مشغل لفترة. اضغط
-NVDA+control+4 لإعداد وقت إصدار الصوت بالثوان (الرقم 0 يعطل إصدار الصوت).
+You can ask NVDA to play a sound when microphone has been active for a
+while. Press Alt+NVDA+4 to configure alarm time in seconds (0 disables it).
 
 ## الباحث عن المسارات
 
@@ -195,10 +205,11 @@ Control+NVDA+ F. اكتب اسم المطرب أو اسم الأغنية وسو�
 وفقا لإصدار البرنامج, يتيح لك برنامج SPL تعيين مفتاح ل96 تنويه. يتيح لك NVDA
 سماع أي تنويه معين لهذه الأوامر.
 
-لمعرفة المفتاح المنوط بكل تنويه, من نافذة SPL, اضغط Control+NVDA+3. بالضغط
-على هذا الاختصار مرة واحدة سيخبرك بالمفتاح المنوط بالتنويه وبالضغط عليه
-مرتين سيقوم بتشغيل التنويه. اضغط Control+NvDA+3 للخروج من نمط مستكشف
-التنويهات. انظر دليل الإضافة لمعرفة المزيد عن مستكشف التنويهات.
+To learn cart assignments, from SPL Studio, press Alt+NVDA+3. Pressing the
+cart command once will tell you which jingle is assigned to the
+command. Pressing the cart command twice will play the jingle. Press
+Alt+NvDA+3 to exit cart explorer. See the add-on guide for more information
+on cart explorer.
 
 ## طلب المسار
 
@@ -217,17 +228,18 @@ between columns without invoking Track Dial.
 
 ## Columns Explorer
 
-By pressing SPL Assistant, 1 through 0 (6 for Studio 5.01 and earlier), you
-can obtain contents of specific columns. By default, these are artist,
-title, duration, intro, category and filename (Studio 5.10 adds year, album,
-genre and time scheduled). You can configure which columns will be explored
-via columns explorer dialog found in add-on settings dialog.
+By pressing Control+NVDA+1 through 0 (6 for Studio 5.0x) or SPL Assistant, 1
+through 0 (6 for Studio 5.01 and earlier), you can obtain contents of
+specific columns. By default, these are artist, title, duration, intro,
+category and filename (Studio 5.10 adds year, album, genre and time
+scheduled). You can configure which columns will be explored via columns
+explorer dialog found in add-on settings dialog.
 
 ## محاورة الإعدادات
 
-From studio window, you can press Control+NVDA+0 or Alt+NVDA+0 to open the
-add-on configuration dialog. Alternatively, go to NVDA's preferences menu
-and select SPL Studio Settings item. This dialog is also used to manage
+From studio window, you can press Alt+NVDA+0 to open the add-on
+configuration dialog. Alternatively, go to NVDA's preferences menu and
+select SPL Studio Settings item. This dialog is also used to manage
 broadcast profiles.
 
 ## نمط اللمس لتطبيق SPL
@@ -236,6 +248,58 @@ broadcast profiles.
 بعده ولديك NVDA 2012.3 وما بعده, يمكنك أداء بعض الأوامر من شاشة اللمس. أولا
 استخدم لمسة ب3 أصابع للانتقال لنمط اللمس, ثم استخدم أوامر اللمس المسرودة
 أعلاه لأداء المهام.
+
+## Changes for 8.0/16.10/15.0-LTS
+
+Version 8.0 (also known as 16.10) supports SPL Studio 5.10 and later, with
+15.0-LTS (formerly 7.x) designed to provide some new features from 8.0 for
+users using earlier versions of Studio. Unless otherwise noted, entries
+below apply to both 8.0 and 7.x. A warning dialog will be shown the first
+time you use add-on 8.0 with Studio 5.0x installed, asking you to use 7.x
+LTS version.
+
+* Version scheme has changed to reflect release year.month instead of
+  major.minor. During transition period (until mid-2017), version 8.0 is
+  synonymous with version 16.10, with 7.x LTS being designated 15.0 due to
+  incompatible changes.
+* Add-on source code is now hosted on GitHub (repository located at
+  https://github.com/josephsl/stationPlaylist).
+* Added a welcome dialog that launches when Studio starts after installing
+  the add-on. A command (Alt+NvDA+F1) has been added to reopen this dialog
+  once dismissed.
+* Changes to various add-on commands, including removal of status
+  announcement toggle (Control+NvDA+1), reassigned end of track alarm to
+  Alt+NVDA+1, Cart Explorer toggle is now Alt+NvDA+3, microphone alarm
+  dialog is Alt+NVDA+4 and add-on/encoder settings dialog is
+  Alt+NvDA+0. This was done to allow Control+NVDA+number row to be assigned
+  to Columns Explorer.
+* 8.0: Relaxed Columns Explorer restriction in place in 7.x so numbers 1
+  through 6 can be configured to announce Studio 5.1x columns.
+* 8.0: Track Dial toggle command and the corresponding setting in add-on
+  settings are deprecated and will be removed in 9.0. This command will
+  remain available in add-on 7.x.
+* Added Control+Alt+Home/End to move Column Navigator to first or last
+  column in Playlist Viewer.
+* You can now add, view, change or delete track comments (notes). Press
+  Alt+NVDA+C from a track in the playlist viewer to hear track comments if
+  defined, press twice to copy comment to clipboard or three times to open a
+  dialog to edit comments.
+* Added ability to notify if a track comment exists, as well as a setting in
+  add-on settings to control how this should be done.
+* Added a setting in add-on settings dialog to let NVDA notify you if you've
+  reached top or bottom of playlist viewer.
+* When resetting add-on settings, you can now specify what gets reset. By
+  default, add-on settings will be reset, with checkboxes for resetting
+  instant switch profile, time-based profile, encoder settings and erasing
+  track comments added to reset settings dialog.
+* In Track Tool, you can obtain information on album and CD code by pressing
+  Control+NVDA+9 and Control+NVDA+0, respectively.
+* Performance improvements when obtaining column information for the first
+  time in Track Tool.
+* 8.0: Added a dialog in add-on settings to configure Columns Explorer slots
+  for Track Tool.
+* You can now configure microphone alarm interval from microphone alarm
+  dialog (Alt+NvDA+4).
 
 ## Version 7.5/16.09
 
@@ -742,5 +806,6 @@ for stable releases.
 
 [2]: http://addons.nvda-project.org/files/get.php?file=spl-dev [2]: 
 
-[3]: http://addons.nvda-project.org/files/get.php?file=spl-dev [2]: 
+[3]: http://spl.nvda-kr.org/files/get.php?file=spl-lts16
 
+[4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
