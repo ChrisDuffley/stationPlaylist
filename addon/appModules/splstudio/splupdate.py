@@ -25,10 +25,10 @@ SPLAddonCheck = 0
 # Update metadata storage.
 SPLAddonState = {}
 # Update URL (the only way to change it is installing a different version from a different branch).
-SPLUpdateURL = "http://addons.nvda-project.org/files/get.php?file=spl"
+SPLUpdateURL = "http://addons.nvda-project.org/files/get.php?file=spl-dev"
 _pendingChannelChange = False
 _updateNow = False
-SPLUpdateChannel = "stable"
+SPLUpdateChannel = "dev"
 # Update check timer.
 _SPLUpdateT = None
 # How long it should wait between automatic checks.
@@ -40,7 +40,7 @@ _updatePickle = os.path.join(globalVars.appArgs.configPath, "splupdate.pickle")
 
 # Not all update channels are listed. The one not listed here is the default ("stable" for this branch).
 channels={
-	"lts":"http://spl.nvda-kr.org/files/get.php?file=spl-lts16",
+	"stable":"http://addons.nvda-project.org/files/get.php?file=spl",
 	#"beta":"http://spl.nvda-kr.org/files/get.php?file=spl-beta",
 }
 
