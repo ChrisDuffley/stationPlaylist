@@ -116,6 +116,8 @@ class SPLTrackItem(IAccessible):
 	"""Track item for earlier versions of Studio such as 5.00.
 	A base class for providing utility scripts when track entries are focused, such as track dial."""
 
+	announceColumnOnly = False # Controls reportFocus to announce columns only.
+
 	def initOverlayClass(self):
 		if splconfig.SPLConfig["General"]["TrackDial"]:
 			self.bindGesture("kb:rightArrow", "nextColumn")
@@ -282,7 +284,23 @@ class SPLTrackItem(IAccessible):
 		if self.IAccessibleChildID == 1 and splconfig.SPLConfig["General"]["TopBottomAnnounce"]:
 			tones.beep(2000, 100)
 
-	# Overlay class version of Columns Explorer.
+	# Vertical column navigation.
+
+	def script_nextRowColumn(self, gesture):
+		newTrack = self.next
+		if newTrack is None and splconfig.SPLConfig["General"]["TopBottomAnnounce"]:
+			tones.beep(2000, 100)
+		else:
+			newTrack.setFocus(), newTrack.setFocus()
+
+	def script_prevRowColumn(self, gesture):
+		newTrack = self.previous
+		if newTrack is None and splconfig.SPLConfig["General"]["TopBottomAnnounce"]:
+			tones.beep(2000, 100)
+		else:
+			newTrack.setFocus(), newTrack.setFocus()
+
+			# Overlay class version of Columns Explorer.
 
 	def script_columnExplorer(self, gesture):
 		# LTS: Just in case Control+NVDA+number row command is pressed...
@@ -349,6 +367,8 @@ class SPLTrackItem(IAccessible):
 	__gestures={
 		"kb:control+alt+rightArrow":"nextColumn",
 		"kb:control+alt+leftArrow":"prevColumn",
+		"kb:control+alt+downArrow":"nextRowColumn",
+		"kb:control+alt+upArrow":"prevRowColumn",
 		"kb:control+alt+home":"firstColumn",
 		"kb:control+alt+end":"lastColumn",
 		#"kb:control+`":"toggleTrackDial",
