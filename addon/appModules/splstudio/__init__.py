@@ -1055,7 +1055,10 @@ class AppModule(appModuleHandler.AppModule):
 		if track:
 			if self.findText != text: self.findText = text
 			# We need to fire set focus event twice and exit this routine.
+			# 16.10.1/15.2: For 5.10 and later, let NVDA emulate NvDA+ENTER command.)
 			track.setFocus(), track.setFocus()
+			if self.productVersion >= "5.10":
+				track.doAction()"
 		else:
 			wx.CallAfter(gui.messageBox,
 			# Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
