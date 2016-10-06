@@ -130,7 +130,6 @@ class TrackToolItem(IAccessible):
 	def script_columnExplorer(self, gesture):
 		# Just like the main app module, due to the below formula, columns explorer will be restricted to number commands.
 		columnPos = int(gesture.displayName.split("+")[-1])-1
-		print columnPos
 		header = splconfig.SPLConfig["General"]["ExploreColumnsTT"][columnPos]
 		# Several corner cases.
 		# Look up track name if artist is the header name.
@@ -146,7 +145,6 @@ class TrackToolItem(IAccessible):
 			# Translators: Presented when intro is not defined for a track in Track Tool.
 			ui.message(_("Introduction not set"))
 		else:
-			print header
 			try:
 				pos = indexOf(self.appModule.productVersion).index(header)
 				self.announceColumnContent(pos, columnHeader=header)
