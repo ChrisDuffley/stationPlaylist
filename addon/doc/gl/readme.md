@@ -3,23 +3,24 @@
 * Autores: Geoff Shang, Joseph Lee e outros colaboradores
 * Descargar [versión estable][1]
 * Descargar [versión de desenvolvemento][2]
-* Download [long-term support version][3] - add-on 15.x for Studio 5.0x
-  users
+* Descargar [long-term support version][3] - complemento 15.x para usuarios
+  do Studio 5.0x
 
 Este paquete de complementos proporciona unhha utilización mellorada do
 Station Playlist Studio, así como utilidades para controlar o Studio dende
 calquera lugar.
 
-For more information about the add-on, read the [add-on guide][4]. For
-developers seeking to know how to build the add-on, see
-buildInstructions.txt located at the root of the add-on source code
-repository.
+Para máis información acerca do complemento, le a [guía do
+complemento][4]. Para os desenvolvedores que queran saber cómo compilar o
+complemento, consulta buildInstructions.txt localizado na raíz do
+repositorio do código fonte.
 
-IMPORTANT: This add-on requires NVDA 2015.3 or later and StationPlaylist
-Studio 5.00 or later. If you have installed NVDA 2016.1 or later on Windows
-8 and later, disable audio ducking mode. Also, add-on 8.0/16.10 requires
-Studio 5.10 and later, and for broadcasters using Studio 5.0x, a long-term
-support version (7.x) is available.
+IMPORTANTE: este complemento require do NVDA 2015.3 ou posterior e
+StationPlaylist Studio 5.00 ou posterior. Se instalaches NVDA 2016.1 ou
+posterior en Windows 8 e posterior, deshabilita o modo atenuación de
+audio. Tamén, o complemento 8.0/16.10 require do Studio 5.10 e posterior, e
+para emisores que usen o Studio 5.0x, está disponible unha versión long-term
+support (7.x).
 
 ## Teclas de atallo
 
@@ -31,14 +32,14 @@ support version (7.x) is available.
 * NVDA+Shift+F12 (deslizamento con dous dedos cara arriba no modo tactil
   SPL) dende a ventá Studio: anuncia o tempo de emisión como 5 minutos para
   o comezo da hora.
-* Alt+NVDA+1 (two finger flick right in SPL mode) from Studio window: Opens
-  end of track setting dialog.
+* Alt+NVDA+1 (deslizamento con dous dedos cara a dereita no modo tactil SPL)
+  dende a ventá do Studio: Abre o diálogo de opcións do remate da pista.
 * Alt+NVDA+2 (deslizamento con dous dedos cara a esquerda no modo tactil
   SPL) dende a ventá do Studio: Abre o diálogo de configuración da alarma de
   intro da canción.
-* Alt+NVDA+3 from Studio window: Toggles cart explorer to learn cart
-  assignments.
-* Alt+NVDA+4 from Studio window: Opens microphone alarm dialog.
+* Alt+NVDA+3 dende a ventá Studio:  conmuta o explorador de cart para
+  deprender  as asignacións das cart. 
+* Alt+NVDA+4 dende a ventá do Studio: Abre o diálogo de alarma do micrófono.
 * Control+NVDA+f dende a ventá do Studio: Abre un diálogo para procurar unha
   pista baseada no artista ou no nome da canción. Preme NVDA+F3 para
   procurar cara adiante ou NVDA+Shift+F3 para procurar cara atrás.
@@ -48,14 +49,15 @@ support version (7.x) is available.
   temporizador braille.
 * Control+Alt+frechas dereita e esquerda (mentres se enfoca nunha pista):
   anuncia a columna da pista seguinte ou anterior.
-* Control+NVDA+1 through 0 (6 for Studio 5.0x): Announce column content for
-  a specified column.
-* Alt+NVDA+C while focused on a track: announces track comments if any.
-* Alt+NVDA+0 from Studio window: Opens the Studio add-on configuration
-  dialog.
+* Control+NVDA+1 ata 0 (6 para Studio 5.0x): anuncia contidos de columna
+  para una columna especificada.
+* Alt+NVDA+C mentres se enfoca unha pista: anuncia os comentarios da pista
+  se os hai.
+* Alt+NVDA+0 dende a ventá do Studio: Abre o diálogo de configuración do
+  complemento.
 * Control+NVDA+- (guión) dende a ventá Studio: envía retroalimentación ao
   desenvolvedor do complemento usando o cliente predeterminado de correo.
-* Alt+NVDA+F1: Open welcome dialog.
+* Alt+NVDA+F1: abre o diálogo de benvida.
 
 ## Ordes non asignadas
 
@@ -100,8 +102,8 @@ ou SPL:
 * Control+F12: Abre un diálogo para seleccionar o codificador que
   eliminaches(para realiñar  as etiquetas de cadea e as opcións do
   codificador).
-* Alt+NVDA+0: Opens encoder settings dialog to configure options such as
-  stream label.
+* Alt+NVDA+0: abre o diálogo de opcións do codificador para configurar
+  opcións como etiqueta de cadea.
 
 Ademáis, as ordes de revisión de columna están dispoñibles, incluindo:
 
@@ -200,17 +202,18 @@ As ordes dispoñibles para o SPL Controller son:
 
 ## Alarmas de pista
 
-By default, NvDA will play a beep if five seconds are left in the track
-(outro) and/or intro. To configure this value as well as to enable or
-disable them, press Alt+NVDA+1 or Alt+NVDA+2 to open end of track and song
-ramp dialogs, respectively. In addition, use Studio add-on settings dialog
-to configure if you'll hear a beep, a message or both when alarms are turned
-on.
+Por omisión, NvDA reproducirá un pitido se quedan cinco segundos á esquerda
+na pista (outro) e/ou intro. Para configurar este valor así como para
+habilitalos ou deshabilitalos, preme Alt+NVDA+1 ou Alt+NVDA+2 para abrir os
+diálogos remate da pista e rampa de canción, respectivamente. Ademáis, usa o
+diálogo opcións do complemento Studio para configurar se escoitarás un
+pitido, unha mensaxe ou ambos cando as alarmas estean acesas.
 
 ## Alarma do micrófono
 
-You can ask NVDA to play a sound when microphone has been active for a
-while. Press Alt+NVDA+4 to configure alarm time in seconds (0 disables it).
+Podes preguntar ó NVDA para reproducir unha canción cando o micrófono sexa
+activado por un tempo. Preme Alt+NVDA+4 para configurar o tempo da alarma en
+segundos (0 deshabilítao).
 
 ## Track Finder
 
@@ -229,11 +232,11 @@ Depenndendo da edición, SPL Studio permite ate 96 carts para se asignar para
 a reproducción. NVDA permíteche escoitar cal cart, ou jingle se asignou a
 estas ordes.
 
-To learn cart assignments, from SPL Studio, press Alt+NVDA+3. Pressing the
-cart command once will tell you which jingle is assigned to the
-command. Pressing the cart command twice will play the jingle. Press
-Alt+NvDA+3 to exit cart explorer. See the add-on guide for more information
-on cart explorer.
+Para deprender as asignacións de cart, dende o SPL Studio, preme
+Alt+NVDA+3. Premendo a orden do cart unha vez dirache cal jingle se asignou
+á orden. Premendo a orden do cart dúas veces reproduce o jingle. Preme
+Alt+NVDA+3 para saír do explorador de cart. Olla a guía do complemento para
+máis información sobre o explorador de cart.
 
 ## Dial de Pista
 
@@ -253,19 +256,19 @@ preme SPL Assistant, F10 ó chegares ó remate da seleción.
 
 ## Explorador de Columnas
 
-By pressing Control+NVDA+1 through 0 (6 for Studio 5.0x) or SPL Assistant, 1
-through 0 (6 for Studio 5.01 and earlier), you can obtain contents of
-specific columns. By default, these are artist, title, duration, intro,
-category and filename (Studio 5.10 adds year, album, genre and time
-scheduled). You can configure which columns will be explored via columns
-explorer dialog found in add-on settings dialog.
+Premendo Control+NVDA+1 ata 0 (6 para Studio 5.0x) ou SPL Assistant, 1 ata 0
+(6 para Studio 5.01 e anteriores), podes obter contidos das columnas
+especificadas. Por omisión, estas son  artista, título, duración, intro,
+categoría e nome de ficheiro (Studio 5.10 engade ano, álbum, xénero e tempo
+programado). Podes configurar que columnas se explorarán a través do diálogo
+explorador de columnas atopado no diálogo opcións do complemento.
 
 ## Diálogo Configuración
 
-From studio window, you can press Alt+NVDA+0 to open the add-on
-configuration dialog. Alternatively, go to NVDA's preferences menu and
-select SPL Studio Settings item. This dialog is also used to manage
-broadcast profiles.
+Dende a ventá do studio, podes premer Alt+NVDA+0 para abrir o diálogo de
+configuración do complemento. Alternativamente, vai ó menú Preferencias do
+NVDA e seleciona o elemento Opcions do SPL Studio. Este diálogo tamén se usa
+para administrar perfís de emisión.
 
 ## Modo Táctil do SPL
 
@@ -275,57 +278,63 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
-## Changes for 8.0/16.10/15.0-LTS
+## Cambios para 8.0/16.10/15.0-LTS
 
-Version 8.0 (also known as 16.10) supports SPL Studio 5.10 and later, with
-15.0-LTS (formerly 7.x) designed to provide some new features from 8.0 for
-users using earlier versions of Studio. Unless otherwise noted, entries
-below apply to both 8.0 and 7.x. A warning dialog will be shown the first
-time you use add-on 8.0 with Studio 5.0x installed, asking you to use 7.x
-LTS version.
+Versión 8.0 (tamén coñecida coma 16.10) soporta SPL Studio 5.10 e
+posteriores, con 15.0-LTS (anteriormente 7.x) deseñado para proporcionar
+algunas características novas dende 8.0 para usuarios que usen versión
+anteriores do Studio. Ao menos que se sinale doutro xeito, as entradas máis
+abaixo aplícanse a ambas versión 8.0 e 7.x. Amosarase un diálogo de aviso a
+primeira vez que uses o complemento 8.0 co Studio 5.0x instalado,
+preguntándoche se usas a versión 7.x LTS.
 
-* Version scheme has changed to reflect release year.month instead of
-  major.minor. During transition period (until mid-2017), version 8.0 is
-  synonymous with version 16.10, with 7.x LTS being designated 15.0 due to
-  incompatible changes.
-* Add-on source code is now hosted on GitHub (repository located at
-  https://github.com/josephsl/stationPlaylist).
-* Added a welcome dialog that launches when Studio starts after installing
-  the add-on. A command (Alt+NvDA+F1) has been added to reopen this dialog
-  once dismissed.
-* Changes to various add-on commands, including removal of status
-  announcement toggle (Control+NvDA+1), reassigned end of track alarm to
-  Alt+NVDA+1, Cart Explorer toggle is now Alt+NvDA+3, microphone alarm
-  dialog is Alt+NVDA+4 and add-on/encoder settings dialog is
-  Alt+NvDA+0. This was done to allow Control+NVDA+number row to be assigned
-  to Columns Explorer.
-* 8.0: Relaxed Columns Explorer restriction in place in 7.x so numbers 1
-  through 6 can be configured to announce Studio 5.1x columns.
-* 8.0: Track Dial toggle command and the corresponding setting in add-on
-  settings are deprecated and will be removed in 9.0. This command will
-  remain available in add-on 7.x.
-* Added Control+Alt+Home/End to move Column Navigator to first or last
-  column in Playlist Viewer.
-* You can now add, view, change or delete track comments (notes). Press
-  Alt+NVDA+C from a track in the playlist viewer to hear track comments if
-  defined, press twice to copy comment to clipboard or three times to open a
-  dialog to edit comments.
-* Added ability to notify if a track comment exists, as well as a setting in
-  add-on settings to control how this should be done.
-* Added a setting in add-on settings dialog to let NVDA notify you if you've
-  reached top or bottom of playlist viewer.
-* When resetting add-on settings, you can now specify what gets reset. By
-  default, add-on settings will be reset, with checkboxes for resetting
-  instant switch profile, time-based profile, encoder settings and erasing
-  track comments added to reset settings dialog.
-* In Track Tool, you can obtain information on album and CD code by pressing
-  Control+NVDA+9 and Control+NVDA+0, respectively.
-* Performance improvements when obtaining column information for the first
-  time in Track Tool.
-* 8.0: Added a dialog in add-on settings to configure Columns Explorer slots
-  for Track Tool.
-* You can now configure microphone alarm interval from microphone alarm
-  dialog (Alt+NvDA+4).
+* O esquema da versión cambiou para reflectir o ano.mes da versión en lugar
+  de maior.menor. Durante o período de transición (ata mitade  do 2017),
+  versión 8.0 é sinónimo de versión 16.10, co 7.x LTS sendo designado coma
+  15.0 debido a cambios incompatibles.
+* O códigop fonte do complemento agora está hospedado en GitHub (repositorio
+  localizado en https://github.com/josephsl/stationPlaylist).
+* Engadido un diálogo de benvida que se lanza cando o Studio arranca despois
+  de instalar o complemento. Engadiuse una orde (Alt+NVDA+F1) para reabrir
+  este diálogo una vez pechado.
+* Cambios para varias ordes do complemento, incluindo o borrado do conmutado
+  do anunciado de estado (Control+NVDA+1), reasignada alarma de final da
+  pista a Alt+NVDA+1, conmutar Esplorador de Cart agora é Alt+NVDA+3, o
+  diálogo de alarma de micrófono é Alt+NVDA+4 e o diálogo das preferencias
+  do complemento/codificador é Alt+NVDA+0. Esto fíxose para permitir que
+  Control+NVDA+fila de números sexa asignada ao Explorador de Columnas.
+* 8.0: Relaxouse a restrición do Explorador de Columnas en lugar en 7.x así
+  os números 1 ata 6 poden configurarse para anunciar columnas no Studio
+  5.1x.
+* 8.0: a orde conmutar Dial de Pista e the a opción correspondente nas
+  opción do complemento están en desuso e eliminaranse na 9.0. Esta orde
+  permanecerá disponible no complemento 7.x.
+* Engadida Control+Alt+Inicio/Fin para mover o navegador de Columnas á
+  primeira ou á última columna no Visualizador de Lista de Reprodución.
+* Agora podes engadir, ver, cambiar ou borrar comentarios de pista
+  (notas). Preme Alt+NVDA+C dende unha pista no Visualizador de lista de
+  Reprodución para escoitar comentarios de pista se se definiron, preme dúas
+  veces para copiar o comentario ao portapapeis ou tres veces para abrir un
+  diálogo para editar comentarios.
+* Engadida a capacidade para notificar se existe un comentario de pista, así
+  como una opción nas opción do complemento para controlar cómo se debería
+  facer esto.
+* Engadido un axuste no diálogo opción do complemento para permitir ao NVDA
+  notificarche se acadaches a parte superior ou a inferior do visualizador
+  de lista de reprodución.
+* Ao reiniciar as opcións do complemento, agora podes especificar qué se
+  reinicia. Por omisión, reiniciaranse as opción do complemento, cas caixas
+  de verificación para reiniciar o perfil de cambio instantáneo, perfil
+  baseado no tempo, opción do codificador e borrado dos comentarios de pista
+  engadidos ao diálogo reiniciar opcións.
+* Na Ferramenta de Pista, podes obter información do álbum e código do CD
+  premendo Control+NVDA+9 e Control+NVDA+0, respectivamente.
+* Mellórase o rendemento ao obter información da columna para a primeira vez
+  na Ferramenta de Pista.
+* 8.0: engadido un diálogo nas opcións do complemento para configurar os
+  slots no Explorador de Columnas para a Ferramenta de Pista.
+* Agora podes configurar o intervalo da alarma do micrófono dende o diálogo
+  Alarma do micrófono (Alt+NvDA+4).
 
 ## Versión 7.5/16.09
 

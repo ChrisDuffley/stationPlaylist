@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 6.4\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2016-03-04 19:00+1000\n"
-"PO-Revision-Date: 2016-08-21 19:41+0300\n"
+"PO-Revision-Date: 2016-09-30 20:02+0300\n"
 "Last-Translator: Florian Ionașcu <florianionascu@hotmail.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Poedit 1.8.9\n"
 
 #. Translators: Presented when only Track Tool is running (Track Dial requires Studio to be running as well).
 msgid "Only Track Tool is running, Track Dial is unavailable"
@@ -103,24 +103,23 @@ msgid "{leftmostColumn}: {leftmostContent}"
 msgstr "{leftmostColumn}: {leftmostContent}"
 
 msgid "Has comment"
-msgstr ""
+msgstr "Are comentariu"
 
 #. Translators: Presented when track comment has been copied to clipboard.
 msgid "Track comment copied to clipboard"
-msgstr ""
+msgstr "Comentariul melodiei copiat pe planșetă"
 
 #. Translators: Presented when there is no track comment for the focused track.
 msgid "No comment"
-msgstr ""
+msgstr "Nici un comentariu"
 
 #. Translators: Presented when focused on a track other than an actual track (such as hour marker).
 msgid "Comments cannot be added to this kind of track"
-msgstr ""
+msgstr "Comentariile nu pot fi adăugate la acrst tip de melodie"
 
 #. Translators: The title of the track comments dialog.
-#, fuzzy
 msgid "Track comment"
-msgstr "Începutul melodiei"
+msgstr "Comentariul melodiei"
 
 #. Translators: Input help message for track comment announcemnet command in SPL Studio.
 msgid ""
@@ -128,6 +127,9 @@ msgid ""
 "clipboard, and press three times to open a dialog to add, change or remove "
 "track comments"
 msgstr ""
+"Anunță comentariul melodiei dacă există. Apăsați de două ori pentru a copia "
+"această informație pe planșetă, apoi apăsați de trei ori pentru a deschide "
+"un dialog ca să adăugați, modificați sau să ștergeți comentariile melodiei"
 
 #. Translators: Presented when no track status is found in Studio 5.10.
 msgid "Status not found"
@@ -434,9 +436,8 @@ msgid "Opens SPL Studio add-on configuration dialog."
 msgstr "Deschide dialogul de configurare al extensiei SPL Studio."
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
-#, fuzzy
 msgid "Opens SPL Studio add-on welcome dialog."
-msgstr "Deschide dialogul de configurare al extensiei SPL Studio."
+msgstr "Deschide dialogul de bun venital extensiei SPL Studio."
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Toggles between various braille timer settings."
@@ -766,7 +767,6 @@ msgid "Normal profile"
 msgstr "Profil normal"
 
 #. Consult profile-specific key first before deleting anything.
-#, fuzzy
 msgid "Normal Profile"
 msgstr "Profil normal"
 
@@ -848,7 +848,7 @@ msgstr "Un alt dialog de alertă este deschis."
 #. Now the actual alarm dialog code.
 #. 8.0: Apart from level 0 (all settings shown), levels change title.
 msgid "Alarms Center"
-msgstr ""
+msgstr "Centrul de alarme"
 
 msgid "End of track alarm"
 msgstr "Alarma sfârșitului melodiiei."
@@ -894,9 +894,8 @@ msgstr ""
 "Introdu timpul alarmei microfonului în secunde (momentan este dezactivată, 0 "
 "dezactivează alarma"
 
-#, fuzzy
 msgid "Microphone alarm interval"
-msgstr "&Intervalul de alarmă a microfonului în secunde"
+msgstr "Intervalul alarmei  microfonului"
 
 #. Translators: Title of a dialog displayed when the add-on starts reminding broadcasters to disable audio ducking.
 msgid "SPL Studio and audio ducking"
@@ -948,19 +947,40 @@ msgid ""
 "\n"
 "Thank you."
 msgstr ""
+"Bine ați venit la add-on-ul pentru NVDA StationPlaylist Studio,\n"
+"Partenerul dumneavoastră de radiodifuziune cu SPL Studio folosind cititorul "
+"de ecran NVDA.\n"
+"Îmbunătățirile suplimentului includ:\n"
+"* Comenzi Layer pentru obținerea informației stării.\n"
+"* diferite moduri de examinare a coloanelor melodiei.\n"
+"* Diferite moduri de a găsi piese.\n"
+"* Explorator cart pentru a învăța atribuirile cartului.\n"
+"* Setări și documentație.\n"
+"* Căutați automat sau manual actualizări ale add-on-ului.\n"
+"* Complet gratis, open-source și destinat comunității.\n"
+"* Și multe altele.\n"
+"\n"
+"Vizitați www.stationplaylist.com pentru detalii despre StationPlaylist "
+"Studio.\n"
+"Vizitați și pagina de add-on-uri a comunității (addons.nvda-project.org) "
+"pentru mai multe informații despre add-on și pentru a citi documentația.\n"
+"Vreți să vedeți dialogul din nou? Apăsați Alt+NVDA+F1 cât timp utilizați "
+"Studio pentru a reveni la acest dialog.\n"
+"Vreți să ne trimiteți un feedback? Apăsați Control+NVDA+hyphen utilizând "
+"clientul principal de poștă electronică.\n"
+"Vă mulțumim."
 
 #. Translators: Title of a dialog displayed when the add-on starts presenting basic information, similar to NVDA's own welcome dialog.
-#, fuzzy
 msgid "Welcome to StationPlaylist Studio add-on"
-msgstr "StationPlaylist Studio"
+msgstr "Bun venit la extensia StationPlaylist Studio"
 
 #. Translators: A checkbox to show welcome dialog.
 msgid "Show welcome dialog when I start Studio"
-msgstr ""
+msgstr "Arată dialogul de bun venit când pornesc Studio"
 
 #. Translators: Title of a dialog displayed when the add-on starts reminding broadcasters about old Studio releases.
 msgid "Old Studio version detected"
-msgstr ""
+msgstr "A fost detectată o versiune veche a Studio"
 
 #. Translators: A message displayed if using an old Studio version.
 msgid ""
@@ -968,6 +988,9 @@ msgid ""
 "Studio add-on will not support Studio versions earlier than 5.10. Studio "
 "5.0x are fully supported in 15.x LTS (long-term support) versions."
 msgstr ""
+"Folosiți o versiune veche a StationPlaylist Studio. Din 2017 în coace, add-"
+"on-ul Studio nu va suporta versiunile Studio mai devreme de 5.10. Studio "
+"5.0x sunt pe deplin suportate în 15.x LTS (suport pe termen lung) versiuni."
 
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Status announcement beeps"
@@ -1158,23 +1181,22 @@ msgid "&Beep for different track categories"
 msgstr "&Bip pentru diverse categorii de melodii"
 
 #. Translators: the label for a setting in SPL add-on settings to set how track comments are announced.
-#, fuzzy
 msgid "&Track comment announcement:"
-msgstr "Anunțare nume &melodie:"
+msgstr "Anunțarea comentariului &melodiei:"
 
 #. Translators: One of the track comment notification settings.
-#, fuzzy
 msgid "Message"
 msgstr "Mesaj"
 
 #. Translators: One of the track comment notification settings.
-#, fuzzy
 msgid "Beep"
-msgstr "bipuri"
+msgstr "Bip"
 
 #. Translators: the label for a setting in SPL add-on settings to toggle top and bottom notification.
 msgid "Notify when located at &top or bottom of playlist viewer"
 msgstr ""
+"Notifică când e localizat la &începutul sau sfârșitul vizualizatorului "
+"listei de redare"
 
 #. Translators: the label for a setting in SPL add-on settings to be notified that metadata streaming is enabled.
 msgid "&Metadata streaming notification and connection"
@@ -1205,9 +1227,8 @@ msgid "Columns E&xplorer..."
 msgstr "E&xplorer coloane..."
 
 #. Translators: The label of a button to configure columns explorer slots for Track Tool (SPL Assistant, number row keys to announce specific columns).
-#, fuzzy
 msgid "Columns Explorer for &Track Tool..."
-msgstr "E&xplorer coloane..."
+msgstr "Exploratorul de coloane pentru unealta &piesei."
 
 #. Translators: The label of a button to open advanced options such as using SPL Controller command to invoke Assistant layer.
 msgid "&Status announcements..."
@@ -1218,9 +1239,8 @@ msgid "&Advanced options..."
 msgstr "Opţiuni &avansate..."
 
 #. Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
-#, fuzzy
 msgid "Reset settings..."
-msgstr "Resetare setări"
+msgstr "Resetare setări."
 
 #. Translators: A dialog message shown when add-on update channel has changed.
 msgid ""
@@ -1385,9 +1405,8 @@ msgid "Columns Explorer"
 msgstr "explorer coloane"
 
 #. Translators: The title of Columns Explorer configuration dialog.
-#, fuzzy
 msgid "Columns Explorer for Track Tool"
-msgstr "explorer coloane"
+msgstr "Exploratorul de coloane pentru unealta piesei"
 
 #. Translators: The label for a setting in SPL add-on dialog to select column for this column slot.
 #, python-brace-format
@@ -1456,24 +1475,20 @@ msgid "Reset settings"
 msgstr "Resetare setări"
 
 #. Translators: the label for resetting profile triggers.
-#, fuzzy
 msgid "Reset instant switch profile"
-msgstr "Acest profil este un profil de comutare &instantanee"
+msgstr "Resetează comutarea instantanee a profilului"
 
 #. Translators: the label for resetting profile triggers.
-#, fuzzy
 msgid "Delete time-based profile database"
-msgstr "Lipsesc profilurile bazate pe timp"
+msgstr "Ștergeți baza de date a profilului bazat pe timp"
 
 #. Translators: the label for resetting encoder settings.
-#, fuzzy
 msgid "Remove encoder settings"
-msgstr "Eroare setări encoder"
+msgstr "Ștergeți setările encoderului"
 
 #. Translators: the label for resetting track comments.
-#, fuzzy
 msgid "Erase track comments"
-msgstr "Sfârșitul melodiei în mod braille"
+msgstr "Ștergeți comentariile piesei"
 
 #. Translators: A message to warn about resetting SPL config settings to factory defaults.
 msgid "Are you sure you wish to reset SPL add-on settings to defaults?"
