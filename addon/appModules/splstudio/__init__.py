@@ -116,8 +116,6 @@ class SPLTrackItem(IAccessible):
 	"""Track item for earlier versions of Studio such as 5.00.
 	A base class for providing utility scripts when track entries are focused, such as track dial."""
 
-	announceColumnOnly = False # Controls reportFocus to announce columns only.
-
 	def initOverlayClass(self):
 		if splconfig.SPLConfig["General"]["TrackDial"]:
 			self.bindGesture("kb:rightArrow", "nextColumn")
@@ -159,6 +157,7 @@ class SPLTrackItem(IAccessible):
 		if splconfig.SPLConfig["General"]["TrackCommentAnnounce"] != "off":
 			self.announceTrackComment(0)
 		# 6.3: Catch an unusual case where screen order is off yet column order is same as screen order and NvDA is told to announce all columns.
+		# 17.1: Even if vertical column commands are performed, build description pieces for consistency.
 		if splconfig._shouldBuildDescriptionPieces():
 			descriptionPieces = []
 			for header in splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"]:
@@ -172,7 +171,14 @@ class SPLTrackItem(IAccessible):
 					if content:
 						descriptionPieces.append("%s: %s"%(header, content))
 			self.description = ", ".join(descriptionPieces)
-		super(IAccessible, self).reportFocus()
+		if self.appModule._announceColumnOnly is None:
+			super(IAccessible, self).reportFocus()
+		else:
+			self.appModule._announceColumnOnly = None
+			if self.appModule.SPLColNumber == 0:
+				self._leftmostcol()
+			else:
+				self.announceColumnContent(self.appModule.SPLColNumber)
 		# 7.0: Let the app module keep a reference to this track.
 		self.appModule._focusedTrack = self
 
@@ -291,14 +297,16 @@ class SPLTrackItem(IAccessible):
 		if newTrack is None and splconfig.SPLConfig["General"]["TopBottomAnnounce"]:
 			tones.beep(2000, 100)
 		else:
-			newTrack.setFocus(), newTrack.setFocus()
+			self.appModule._announceColumnOnly = True
+			newTrack.doAction()
 
 	def script_prevRowColumn(self, gesture):
 		newTrack = self.previous
 		if newTrack is None and splconfig.SPLConfig["General"]["TopBottomAnnounce"]:
 			tones.beep(2000, 100)
 		else:
-			newTrack.setFocus(), newTrack.setFocus()
+			self.appModule._announceColumnOnly = True
+			newTrack.doAction()
 
 			# Overlay class version of Columns Explorer.
 
@@ -582,6 +590,7 @@ class AppModule(appModuleHandler.AppModule):
 	_columnHeaders = None
 	_columnHeaderNames = None
 	_focusedTrack = None
+	_announceColumnOnly = None # Used only if vertical column navigation commands are used.
 
 	# Prepare the settings dialog among other things.
 	def __init__(self, *args, **kwargs):
