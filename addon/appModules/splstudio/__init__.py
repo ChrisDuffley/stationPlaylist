@@ -113,8 +113,7 @@ _SPLCategoryTones = {
 
 # Routines for track items themselves (prepare for future work).
 class SPLTrackItem(IAccessible):
-	"""Track item for earlier versions of Studio such as 5.00.
-	A base class for providing utility scripts when track entries are focused, such as track dial."""
+	"""A base class for providing utility scripts when track entries are focused, such as track dial."""
 
 	def initOverlayClass(self):
 		#if splconfig.SPLConfig["General"]["TrackDial"]:

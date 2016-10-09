@@ -1149,8 +1149,9 @@ class ColumnsExplorerDialog(wx.Dialog):
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 
 		# 7.0: Studio 5.0x columns.
+		# 17.1: Five by two grid layout as 5.0x is no longer supported.
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		for slot in xrange(6):
+		for slot in xrange(5):
 			# Translators: The label for a setting in SPL add-on dialog to select column for this column slot.
 			label = wx.StaticText(self, wx.ID_ANY, label=_("Slot {position}").format(position = slot+1))
 			columns = wx.Choice(self, wx.ID_ANY, choices=cols)
@@ -1164,7 +1165,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		for slot in xrange(6, 10):
+		for slot in xrange(5, 10):
 			label = wx.StaticText(self, wx.ID_ANY, label=_("Slot {position}").format(position = slot+1))
 			columns = wx.Choice(self, wx.ID_ANY, choices=cols)
 			try:
