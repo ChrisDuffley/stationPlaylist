@@ -300,10 +300,8 @@ class SPLTrackItem(IAccessible):
 		else:
 			self.appModule._announceColumnOnly = True
 			newTrack.setFocus(), newTrack.setFocus()
-			newTrack.doAction()
-			import keyboardHandler
-			spaceKey = keyboardHandler.KeyboardInputGesture.fromName("space")
-			spaceKey.send(), spaceKey.send()
+			statusAPI(-1, 121)
+			statusAPI(newTrack.IAccessibleChildID-1, 121)
 
 	def script_prevRowColumn(self, gesture):
 		newTrack = self.previous
@@ -312,10 +310,8 @@ class SPLTrackItem(IAccessible):
 		else:
 			self.appModule._announceColumnOnly = True
 			newTrack.setFocus(), newTrack.setFocus()
-			newTrack.doAction()
-			import keyboardHandler
-			spaceKey = keyboardHandler.KeyboardInputGesture.fromName("space")
-			spaceKey.send(), spaceKey.send()
+			statusAPI(-1, 121)
+			statusAPI(newTrack.IAccessibleChildID-1, 121)
 
 			# Overlay class version of Columns Explorer.
 
@@ -395,9 +391,6 @@ class SPLTrackItem(IAccessible):
 
 class SPL510TrackItem(SPLTrackItem):
 	"""Track item for Studio 5.10 and later."""
-
-	def doAction(self):
-		statusAPI(self.IAccessibleChildID-1, 121)
 
 	def event_stateChange(self):
 		# Why is it that NVDA keeps announcing "not selected" when track items are scrolled?
