@@ -1054,15 +1054,12 @@ class AppModule(appModuleHandler.AppModule):
 		track = self._trackLocator(text, obj=obj, directionForward=directionForward, columns=column)
 		if track:
 			if self.findText != text: self.findText = text
-			# We need to fire set focus event twice and exit this routine.
-			# 16.10.1/15.2: For 5.10 and later, let NVDA emulate NvDA+ENTER command.)
+			# We need to fire set focus event twice and exit this routine (return if 5.0x).
 			track.setFocus(), track.setFocus()
 			if self.productVersion >= "5.10":
-				track.doAction()
-				# 16.10.1/15.2 LTS: without doing the following, we end up with focus dispute between NvDA and studio.
-				import keyboardHandler
-				spaceKey = keyboardHandler.KeyboardInputGesture.fromName("space")
-				spaceKey.send(), spaceKey.send()
+				# 16.10.1/15.2 LTS: Just select this track in order to prevent a dispute between NVDA and SPL in regards to focused track.
+				statusAPI(-1, 121)
+				statusAPI(track.IAccessibleChildID-1, 121)
 		else:
 			wx.CallAfter(gui.messageBox,
 			# Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
