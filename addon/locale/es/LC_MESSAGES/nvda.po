@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2016-08-19 15:53+0100\n"
+"PO-Revision-Date: 2016-10-03 17:36+0100\n"
 "Last-Translator: Juan C. Buño <oprisniki@gmail.com>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -106,24 +106,23 @@ msgid "{leftmostColumn}: {leftmostContent}"
 msgstr "{leftmostColumn}: {leftmostContent}"
 
 msgid "Has comment"
-msgstr ""
+msgstr "Tiene comentario"
 
 #. Translators: Presented when track comment has been copied to clipboard.
 msgid "Track comment copied to clipboard"
-msgstr ""
+msgstr "Comentario de pista copiado al portapapeles"
 
 #. Translators: Presented when there is no track comment for the focused track.
 msgid "No comment"
-msgstr ""
+msgstr "No hay comentario"
 
 #. Translators: Presented when focused on a track other than an actual track (such as hour marker).
 msgid "Comments cannot be added to this kind of track"
-msgstr ""
+msgstr "No se pudieron añadir comentarios a este tipo de pista"
 
 #. Translators: The title of the track comments dialog.
-#, fuzzy
 msgid "Track comment"
-msgstr "Intro de pista"
+msgstr "Comentario de pista"
 
 #. Translators: Input help message for track comment announcemnet command in SPL Studio.
 msgid ""
@@ -131,6 +130,9 @@ msgid ""
 "clipboard, and press three times to open a dialog to add, change or remove "
 "track comments"
 msgstr ""
+"Anuncia comentarios de pista si los hay. Pulsa dos veces para copiar esta "
+"información al portapapeles, y pulsa tres veces para abrir un diálogo para "
+"añadir, cambiar o eliminar comentarios de pista"
 
 #. Translators: Presented when no track status is found in Studio 5.10.
 msgid "Status not found"
@@ -438,9 +440,8 @@ msgid "Opens SPL Studio add-on configuration dialog."
 msgstr "Abre el diálogo de configuración del complemento SPL Studio."
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
-#, fuzzy
 msgid "Opens SPL Studio add-on welcome dialog."
-msgstr "Abre el diálogo de configuración del complemento SPL Studio."
+msgstr "Abre el diálogo de bienvenida del complemento SPL Studio."
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Toggles between various braille timer settings."
@@ -774,7 +775,6 @@ msgid "Normal profile"
 msgstr "Perfil normal"
 
 #. Consult profile-specific key first before deleting anything.
-#, fuzzy
 msgid "Normal Profile"
 msgstr "Perfil normal"
 
@@ -857,7 +857,7 @@ msgstr "Está abierto otro diálogo de alarma."
 #. Now the actual alarm dialog code.
 #. 8.0: Apart from level 0 (all settings shown), levels change title.
 msgid "Alarms Center"
-msgstr ""
+msgstr "Centro de Alarmas"
 
 msgid "End of track alarm"
 msgstr "Aviso de final de pista"
@@ -906,9 +906,8 @@ msgstr ""
 "Introducir tiempo de alarma de micrófono en segundos (actualmente "
 "deshabilitado, 0 deshabilita la alarma)"
 
-#, fuzzy
 msgid "Microphone alarm interval"
-msgstr "&Intervalo de alarma de &Micrófono en segundos"
+msgstr "Intervalo de alarma de Micrófono"
 
 #. Translators: Title of a dialog displayed when the add-on starts reminding broadcasters to disable audio ducking.
 msgid "SPL Studio and audio ducking"
@@ -960,19 +959,43 @@ msgid ""
 "\n"
 "Thank you."
 msgstr ""
+"Bienvenido al complemento para StationPlaylist Studio para NVDA,\n"
+"tu compañero para la radiodifusión con SPL Studio utilizando el lector de "
+"pantalla NVDA.\n"
+"\n"
+"Lo subrayable del complemento para StationPlaylist Studio incluye:\n"
+"* Capa de órdenes para obtener información de estado.\n"
+"* Varios modos para examinar columnas de pista.\n"
+"* Varios modos para encontrar pistas.\n"
+"* Explorador de Cart para aprender la asignación de los cart.\n"
+"* Opciones integrales y documentación.\n"
+"* Búsqueda de actualizaciones automáticas o manuales del complemento.\n"
+"* Completamente libre, de código abierto e impulsado por la comunidad.\n"
+"* Y mucho más.\n"
+"\n"
+"Visita www.stationplaylist.com para detalles  sobre StationPlaylist Studio.\n"
+"Visita la entrada StationPlaylist en la página de complementos de la "
+"comunidad de NVDA (addons.nvda-project.org) para más información sobre el "
+"complemento y para leer la documentación.\n"
+"¿Quieres consultar de nuevo este diálogo? Sólo pulsa Alt+NVDA+F1 mientras "
+"utilizas Studio para volver a este diálogo.\n"
+"¿Tienes algo que decir acerca del complemento? Pulsa Control+NVDA+guión (-) "
+"para enviar una retroalimentación al desarrollador de este complemento "
+"utilizando tu programa de correo predeterminado.\n"
+"\n"
+"Gracias."
 
 #. Translators: Title of a dialog displayed when the add-on starts presenting basic information, similar to NVDA's own welcome dialog.
-#, fuzzy
 msgid "Welcome to StationPlaylist Studio add-on"
-msgstr "StationPlaylist Studio"
+msgstr "Bienvenido al complemento StationPlaylist Studio"
 
 #. Translators: A checkbox to show welcome dialog.
 msgid "Show welcome dialog when I start Studio"
-msgstr ""
+msgstr "Mostrar el diálogo de bienvenida al iniciar Studio"
 
 #. Translators: Title of a dialog displayed when the add-on starts reminding broadcasters about old Studio releases.
 msgid "Old Studio version detected"
-msgstr ""
+msgstr "Detectada una versión antigua del Studio"
 
 #. Translators: A message displayed if using an old Studio version.
 msgid ""
@@ -980,6 +1003,10 @@ msgid ""
 "Studio add-on will not support Studio versions earlier than 5.10. Studio "
 "5.0x are fully supported in 15.x LTS (long-term support) versions."
 msgstr ""
+"Estás utilizando una versión antigua de StationPlaylist Studio. desde 2017 "
+"en adelante, el complemento de Studio no soportará versiones de Studio "
+"anteriores a 5.10. Studio 5.0x está totalmente soportado en 15.x LTS "
+"versiones (long-term support)."
 
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Status announcement beeps"
@@ -1174,23 +1201,22 @@ msgid "&Beep for different track categories"
 msgstr "&Pitar para diferentes categorías de pistas"
 
 #. Translators: the label for a setting in SPL add-on settings to set how track comments are announced.
-#, fuzzy
 msgid "&Track comment announcement:"
-msgstr "Anunciado de nombre de &pista:"
+msgstr "Anunciado de comentario de &pista:"
 
 #. Translators: One of the track comment notification settings.
-#, fuzzy
 msgid "Message"
 msgstr "mensaje"
 
 #. Translators: One of the track comment notification settings.
-#, fuzzy
 msgid "Beep"
 msgstr "Pitidos"
 
 #. Translators: the label for a setting in SPL add-on settings to toggle top and bottom notification.
 msgid "Notify when located at &top or bottom of playlist viewer"
 msgstr ""
+"Notificar al localizar la parte &superior o inferior del Visualizador de "
+"Lista de reproducción"
 
 #. Translators: the label for a setting in SPL add-on settings to be notified that metadata streaming is enabled.
 msgid "&Metadata streaming notification and connection"
@@ -1221,9 +1247,8 @@ msgid "Columns E&xplorer..."
 msgstr "E&xplorador de Columnas..."
 
 #. Translators: The label of a button to configure columns explorer slots for Track Tool (SPL Assistant, number row keys to announce specific columns).
-#, fuzzy
 msgid "Columns Explorer for &Track Tool..."
-msgstr "E&xplorador de Columnas..."
+msgstr "E&xplorador de Columnas para la Herramienta de &pista..."
 
 #. Translators: The label of a button to open advanced options such as using SPL Controller command to invoke Assistant layer.
 msgid "&Status announcements..."
@@ -1234,9 +1259,8 @@ msgid "&Advanced options..."
 msgstr "Opciones &Avanzadas..."
 
 #. Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
-#, fuzzy
 msgid "Reset settings..."
-msgstr "Reiniciar opciones"
+msgstr "Reiniciar opciones..."
 
 #. Translators: A dialog message shown when add-on update channel has changed.
 msgid ""
@@ -1403,9 +1427,8 @@ msgid "Columns Explorer"
 msgstr "Explorador de Columnas"
 
 #. Translators: The title of Columns Explorer configuration dialog.
-#, fuzzy
 msgid "Columns Explorer for Track Tool"
-msgstr "Explorador de Columnas"
+msgstr "Explorador de Columnas para la Herramienta de Pista"
 
 #. Translators: The label for a setting in SPL add-on dialog to select column for this column slot.
 #, python-brace-format
@@ -1473,24 +1496,20 @@ msgid "Reset settings"
 msgstr "Reiniciar opciones"
 
 #. Translators: the label for resetting profile triggers.
-#, fuzzy
 msgid "Reset instant switch profile"
-msgstr "Este es un perfil cambio instantáneo"
+msgstr "Reiniciar el perfil cambio instantáneo"
 
 #. Translators: the label for resetting profile triggers.
-#, fuzzy
 msgid "Delete time-based profile database"
-msgstr "Faltan perfiles basados en tiempo "
+msgstr "Eliminar la base de datos del perfil basado en tiempo"
 
 #. Translators: the label for resetting encoder settings.
-#, fuzzy
 msgid "Remove encoder settings"
-msgstr "Error de opciones de codificador"
+msgstr "Eliminar opciones de codificador"
 
 #. Translators: the label for resetting track comments.
-#, fuzzy
 msgid "Erase track comments"
-msgstr "Terminaciones braille de pista"
+msgstr "Eliminar comentarios de pista"
 
 #. Translators: A message to warn about resetting SPL config settings to factory defaults.
 msgid "Are you sure you wish to reset SPL add-on settings to defaults?"

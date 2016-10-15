@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 5.5\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2015-09-25 19:00+1000\n"
-"PO-Revision-Date: 2016-09-13 13:57+0300\n"
-"Last-Translator: shmuel <shmuel_naaman@yahoo.com>\n"
+"PO-Revision-Date: 2016-10-02 00:16+0200\n"
+"Last-Translator:  <shmuel_naaman@yahoo.com>\n"
 "Language-Team: \n"
-"Language: \n"
+"Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 1.6.10\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Translators: Presented when only Track Tool is running (Track Dial requires Studio to be running as well).
 msgid "Only Track Tool is running, Track Dial is unavailable"
@@ -103,19 +104,19 @@ msgid "{leftmostColumn}: {leftmostContent}"
 msgstr "{leftmostColumn}: {leftmostContent}"
 
 msgid "Has comment"
-msgstr ""
+msgstr "קיימת הערה"
 
 #. Translators: Presented when track comment has been copied to clipboard.
 msgid "Track comment copied to clipboard"
-msgstr ""
+msgstr "הערת רצועה הועתקה"
 
 #. Translators: Presented when there is no track comment for the focused track.
 msgid "No comment"
-msgstr ""
+msgstr "ללא הערה"
 
 #. Translators: Presented when focused on a track other than an actual track (such as hour marker).
 msgid "Comments cannot be added to this kind of track"
-msgstr ""
+msgstr "לא ניתן להוסיף הערה מסוג זה לרצועה"
 
 #. Translators: The title of the track comments dialog.
 #, fuzzy
@@ -128,6 +129,8 @@ msgid ""
 "clipboard, and press three times to open a dialog to add, change or remove "
 "track comments"
 msgstr ""
+"במידה וקיימת הערה - מקריא אותה. לחץ פעמיים בכדי להעתיק את ההערה. לחץ שלוש "
+"פעמים בכדי לערוך או למחוק את ההערה"
 
 #. Translators: Presented when no track status is found in Studio 5.10.
 msgid "Status not found"
@@ -814,7 +817,7 @@ msgstr "תיבת דו-שיח של התראה כבר פתוחה"
 #. Now the actual alarm dialog code.
 #. 8.0: Apart from level 0 (all settings shown), levels change title.
 msgid "Alarms Center"
-msgstr ""
+msgstr "מרכז ההתראות"
 
 msgid "End of track alarm"
 msgstr "סוף התראת רצועה"
@@ -912,7 +915,7 @@ msgid ""
 "program.\n"
 "\n"
 "Thank you."
-msgstr ""
+msgstr "ברוכים הבאים לתוסף NVDA לStation Playlist."
 
 #. Translators: Title of a dialog displayed when the add-on starts presenting basic information, similar to NVDA's own welcome dialog.
 #, fuzzy
@@ -921,18 +924,18 @@ msgstr "StationPlaylist Studio"
 
 #. Translators: A checkbox to show welcome dialog.
 msgid "Show welcome dialog when I start Studio"
-msgstr ""
+msgstr "הצג חלון דו שיח בהפעלת התוכנה"
 
 #. Translators: Title of a dialog displayed when the add-on starts reminding broadcasters about old Studio releases.
 msgid "Old Studio version detected"
-msgstr ""
+msgstr "נמצאה גירסה ישנה"
 
 #. Translators: A message displayed if using an old Studio version.
 msgid ""
 "You are using an older version of StationPlaylist Studio. From 2017 onwards, "
 "Studio add-on will not support Studio versions earlier than 5.10. Studio "
 "5.0x are fully supported in 15.x LTS (long-term support) versions."
-msgstr ""
+msgstr "אתה עושה שימוש בגירסה ישנה של Station Playlist "
 
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Status announcement beeps"
@@ -1139,7 +1142,7 @@ msgstr "בצלילים"
 
 #. Translators: the label for a setting in SPL add-on settings to toggle top and bottom notification.
 msgid "Notify when located at &top or bottom of playlist viewer"
-msgstr ""
+msgstr "עדכן כאשר מצוי בראשית או בתחתית רשימת ההשמעה"
 
 #. Translators: the label for a setting in SPL add-on settings to be notified that metadata streaming is enabled.
 msgid "&Metadata streaming notification and connection"
