@@ -170,13 +170,17 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
-## Changes for 15.1-LTS
+## Version 15.2-LTS
+
+* You can now interact with the track that was found via Track Finder (Control+NVDA+F) such as checking it for playback.
+
+## Version 15.1-LTS
 
 * NVDA will no longer revert to longterm channel after changing to stable channel.
 
-## Changes for 16.10/15.0-LTS
+## Version 8.0/16.10/15.0-LTS
 
-Version 16.10 supports SPL Studio 5.10 and later, with 15.x LTS  designed to provide some new features from 16.10 for users using earlier versions of Studio. Unless otherwise noted, entries below apply to both 16.10 and 15.x. A warning dialog will be shown the first time you use add-on 16.10 with Studio 5.0x installed, asking you to use 15.x LTS version.
+Version 8.0 (also known as 16.10) supports SPL Studio 5.10 and later, with 15.0-LTS (formerly 7.x) designed to provide some new features from 8.0 for users using earlier versions of Studio. Unless otherwise noted, entries below apply to both 8.0 and 7.x. A warning dialog will be shown the first time you use add-on 8.0 with Studio 5.0x installed, asking you to use 15.x LTS version.
 
 * Add-on source code is now hosted on GitHub (repository located at https://github.com/josephsl/stationPlaylist).
 * Versioning scheme now follows year.month instead of major.minor.
