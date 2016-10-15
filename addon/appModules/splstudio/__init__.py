@@ -1059,6 +1059,10 @@ class AppModule(appModuleHandler.AppModule):
 			track.setFocus(), track.setFocus()
 			if self.productVersion >= "5.10":
 				track.doAction()
+				# 16.10.1/15.2 LTS: without doing the following, we end up with focus dispute between NvDA and studio.
+				import keyboardHandler
+				spaceKey = keyboardHandler.KeyboardInputGesture.fromName("space")
+				spaceKey.send(), spaceKey.send()
 		else:
 			wx.CallAfter(gui.messageBox,
 			# Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
