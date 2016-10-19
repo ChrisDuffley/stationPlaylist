@@ -304,8 +304,7 @@ class SPLTrackItem(IAccessible):
 		else:
 			self.appModule._announceColumnOnly = True
 			newTrack.setFocus(), newTrack.setFocus()
-			statusAPI(-1, 121)
-			statusAPI(newTrack.IAccessibleChildID-1, 121)
+			selectTrack(newTrack.IAccessibleChildID-1)
 
 	def script_prevRowColumn(self, gesture):
 		newTrack = self.previous
@@ -314,8 +313,7 @@ class SPLTrackItem(IAccessible):
 		else:
 			self.appModule._announceColumnOnly = True
 			newTrack.setFocus(), newTrack.setFocus()
-			statusAPI(-1, 121)
-			statusAPI(newTrack.IAccessibleChildID-1, 121)
+			selectTrack(newTrack.IAccessibleChildID-1)
 
 			# Overlay class version of Columns Explorer.
 
