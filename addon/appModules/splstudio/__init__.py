@@ -104,6 +104,11 @@ def statusAPI(arg, command, func=None, ret=False, offset=None):
 	if func:
 		func(val) if not offset else func(val, offset)
 
+# Select a track upon request.
+def selectTrack(trackIndex):
+	statusAPI(-1, 121)
+	statusAPI(trackIndex, 121)
+
 # Category sounds dictionary (key = category, value = tone pitch).
 _SPLCategoryTones = {
 	"Break Note":415,
@@ -1055,11 +1060,11 @@ class AppModule(appModuleHandler.AppModule):
 		if track:
 			if self.findText != text: self.findText = text
 			# We need to fire set focus event twice and exit this routine (return if 5.0x).
-			track.setFocus(), track.setFocus()
+			# 16.10.1/15.2 LTS: Just select this track in order to prevent a dispute between NVDA and SPL in regards to focused track.
+			# 16.11: Call setFocus if it is post-5.01, as SPL API can be used to select the desired track.
+			selectTrack(track.IAccessibleChildID-1)
 			if self.productVersion >= "5.10":
-				# 16.10.1/15.2 LTS: Just select this track in order to prevent a dispute between NVDA and SPL in regards to focused track.
-				statusAPI(-1, 121)
-				statusAPI(track.IAccessibleChildID-1, 121)
+				track.setFocus(), track.setFocus()
 		else:
 			wx.CallAfter(gui.messageBox,
 			# Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
