@@ -158,7 +158,7 @@ class ConfigHub(ChainMap):
 		# 7.0: Make sure errors are displayed as config keys are now sections and may need to go through subkeys.
 		# 8.0: Don't validate unless told to do so.
 		if validateNow:
-			self._validateConfig(SPLConfigCheckpoint, prefill=prefill)
+			self._validateConfig(SPLConfigCheckpoint, profileName=profileName, prefill=prefill)
 		# Until it is brought in here...
 		try:
 			_extraInitSteps(SPLConfigCheckpoint, profileName=profileName)
@@ -169,7 +169,7 @@ class ConfigHub(ChainMap):
 
 	# Config validation.
 	# Separated from unlock routine in 8.0.
-	def _validateConfig(self, SPLConfigCheckpoint, prefill=False):
+	def _validateConfig(self, SPLConfigCheckpoint, profileName=None, prefill=False):
 		global _configLoadStatus
 		configTest = SPLConfigCheckpoint.validate(_val, copy=prefill, preserve_errors=True)
 		if configTest != True:
