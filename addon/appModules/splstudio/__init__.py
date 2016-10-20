@@ -1807,7 +1807,10 @@ class AppModule(appModuleHandler.AppModule):
 			ui.message(_("No place marker found"))
 		else:
 			track = self._trackLocator(self.placeMarker[1], obj=api.getFocusObject().parent.firstChild, columns=[self.placeMarker[0]])
-			track.setFocus(), track.setFocus()
+			# 16.11: Just like Track Finder, use select track function to select the place marker track.
+			selectTrack(track.IAccessibleChildID-1)
+			if self.productVersion >= "5.10":
+				track.setFocus(), track.setFocus()
 
 	def script_metadataStreamingAnnouncer(self, gesture):
 		# 8.0: Call the module-level function directly.

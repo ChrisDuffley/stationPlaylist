@@ -222,8 +222,11 @@ class SPLTimeRangeDialog(wx.Dialog):
 					break
 				obj = obj.next
 			if obj is not None:
-				# This time, set focus once, as doing it twice causes focus problems.
-				obj.setFocus()
+				# This time, set focus once, as doing it twice causes focus problems only if using Studio 5.10 or later.
+				if obj.appModule.SPLCurVersion >= "5.10": obj.setFocus()
+				# 16.11: Select the desired track manually.
+				self.func(-1, 121)
+				self.func(obj.IAccessibleChildID-1, 121)
 			else:
 				wx.CallAfter(gui.messageBox,
 				# Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
