@@ -170,9 +170,14 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
-## Changes for 8.0/16.10/15.0-LTS
+## Version 16.10.1/15.2-LTS
 
-Version 8.0 (also known as 16.10) supports SPL Studio 5.10 and later, with 15.0-LTS (formerly 7.x) designed to provide some new features from 8.0 for users using earlier versions of Studio. Unless otherwise noted, entries below apply to both 8.0 and 7.x. A warning dialog will be shown the first time you use add-on 8.0 with Studio 5.0x installed, asking you to use 7.x LTS version.
+* You can now interact with the track that was found via Track Finder (Control+NVDA+F) such as checking it for playback.
+* Updated translations.
+
+## Version 8.0/16.10/15.0-LTS
+
+Version 8.0 (also known as 16.10) supports SPL Studio 5.10 and later, with 15.0-LTS (formerly 7.x) designed to provide some new features from 8.0 for users using earlier versions of Studio. Unless otherwise noted, entries below apply to both 8.0 and 7.x. A warning dialog will be shown the first time you use add-on 8.0 with Studio 5.0x installed, asking you to use 15.x LTS version.
 
 * Version scheme has changed to reflect release year.month instead of major.minor. During transition period (until mid-2017), version 8.0 is synonymous with version 16.10, with 7.x LTS being designated 15.0 due to incompatible changes.
 * Add-on source code is now hosted on GitHub (repository located at https://github.com/josephsl/stationPlaylist).
