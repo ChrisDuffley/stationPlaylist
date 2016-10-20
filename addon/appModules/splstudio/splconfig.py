@@ -254,7 +254,7 @@ def _extraInitSteps(conf, profileName=None):
 			_configLoadStatus[profileName] = "partialAndColumnOrderReset"
 		else:
 			_configLoadStatus[profileName] = "columnOrderReset"
-	conf["ColumnAnnouncement"]["ColumnOrder"] = fields
+		conf["ColumnAnnouncement"]["ColumnOrder"] = fields
 	conf["ColumnAnnouncement"]["IncludedColumns"] = set(conf["ColumnAnnouncement"]["IncludedColumns"])
 	# Artist and Title must be present at all times (quite redundant, but just in case).
 	conf["ColumnAnnouncement"]["IncludedColumns"].add("Artist")
