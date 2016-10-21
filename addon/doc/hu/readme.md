@@ -260,6 +260,12 @@ Amennyiben érintőképernyős számítógépen használja a Studiot Windows 8, 
 parancsokat végrehajthat az érintőképernyőn is. Először 3 ujjas koppintással
 váltson SPL módra, és utána már használhatók az alább felsorolt parancsok.
 
+## Version 16.10.1/15.2-LTS
+
+* You can now interact with the track that was found via Track Finder
+  (Control+NVDA+F) such as checking it for playback.
+* Fordítások frissítése
+
 ## Changes for 8.0/16.10/15.0-LTS
 
 Version 8.0 (also known as 16.10) supports SPL Studio 5.10 and later, with
