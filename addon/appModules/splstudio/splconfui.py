@@ -243,7 +243,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# Translators: One of the options for vertical column navigation denoting NVDA will announce current column positoin (e.g. second column position from the left).
 		self.verticalColumnsList = wx.Choice(self, wx.ID_ANY, choices=[_("whichever column I am reviewing"), "Status"] + splconfig._SPLDefaults7["ColumnAnnouncement"]["ColumnOrder"])
 		verticalColumn = splconfig.SPLConfig["General"]["VerticalColumnAnnounce"]
-		selection = self.verticalColumnsList.index(verticalColumn)+1 if verticalColumn is not None else 0
+		selection = self.verticalColumnsList.FindString(verticalColumn) if verticalColumn is not None else 0
 		try:
 			self.verticalColumnsList.SetSelection(selection)
 		except:
