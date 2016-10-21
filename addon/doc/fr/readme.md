@@ -298,6 +298,12 @@ un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
 
+## Version 16.10.1/15.2-LTS
+
+* You can now interact with the track that was found via Track Finder
+  (Control+NVDA+F) such as checking it for playback.
+* Mises à jour des traductions.
+
 ## Changements pour la version 8.0/16.10/15.0-LTS
 
 La version 8.0 (également connu sous le nom de 16.10) prend en charge la
