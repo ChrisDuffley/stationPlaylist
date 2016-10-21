@@ -237,6 +237,21 @@ class SPLConfigDialog(gui.SettingsDialog):
 		#self.trackDialCheckbox.SetValue(splconfig.SPLConfig["General"]["TrackDial"])
 		#settingsSizer.Add(self.trackDialCheckbox, border=10,flag=wx.BOTTOM)
 
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		# Translators: The label for a setting in SPL add-on dialog to set vertical column.
+		label = wx.StaticText(self, wx.ID_ANY, label=_("&Vertical column navigation announcement:"))
+		# Translators: One of the options for vertical column navigation denoting NVDA will announce current column positoin (e.g. second column position from the left).
+		self.verticalColumnsList = wx.Choice(self, wx.ID_ANY, choices=[_("whichever column I am reviewing"), "Status"] + splconfig._SPLDefaults7["ColumnAnnouncement"]["ColumnOrder"])
+		verticalColumn = splconfig.SPLConfig["General"]["VerticalColumnAnnounce"]
+		selection = self.verticalColumnsList.index(verticalColumn)+1 if verticalColumn is not None else 0
+		try:
+			self.verticalColumnsList.SetSelection(selection)
+		except:
+			pass
+		sizer.Add(label)
+		sizer.Add(self.verticalColumnsList)
+		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+
 		# Translators: the label for a setting in SPL add-on settings to toggle category sound announcement.
 		self.categorySoundsCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Beep for different track categories"))
 		self.categorySoundsCheckbox.SetValue(splconfig.SPLConfig["General"]["CategorySounds"])
@@ -381,6 +396,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"] = self.includedColumns
 		splconfig.SPLConfig["General"]["ExploreColumns"] = self.exploreColumns
 		splconfig.SPLConfig["General"]["ExploreColumnsTT"] = self.exploreColumnsTT
+		splconfig.SPLConfig["General"]["VerticalColumnAnnounce"] = self.verticalColumnsList.GetStringSelection() if self.verticalColumnsList.GetSelection() != 0 else None
 		splconfig.SPLConfig["SayStatus"]["SayScheduledFor"] = self.scheduledFor
 		splconfig.SPLConfig["SayStatus"]["SayListenerCount"] = self.listenerCount
 		splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"] = self.cartName

@@ -48,6 +48,7 @@ MetadataReminder = option("off", "startup", "instant", default="off")
 TimeHourAnnounce = boolean(default=true)
 ExploreColumns = string_list(default=list("Artist","Title","Duration","Intro","Category","Filename","Year","Album","Genre","Time Scheduled"))
 ExploreColumnsTT = string_list(default=list("Artist","Title","Duration","Cue","Overlap","Intro","Segue","Filename","Album","CD Code"))
+VerticalColumnAnnounce = option(None,"Status","Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled",default=None)
 [IntroOutroAlarms]
 SayEndOfTrack = boolean(default=true)
 EndOfTrackTime = integer(min=1, max=59, default=5)
@@ -475,6 +476,9 @@ def _extraInitSteps(conf, profileName=None):
 		else:
 			_configLoadStatus[profileName] = "metadataReset"
 		conf["MetadataStreaming"]["MetadataEnabled"] = [False, False, False, False, False]
+	# 17.1: If vertical column announcement value is "None", transform this to NULL.
+	if conf["General"]["VerticalColumnAnnounce"] == "None":
+		conf["General"]["VerticalColumnAnnounce"] = None
 
 # Cache a copy of the loaded config.
 # This comes in handy when saving configuration to disk. For the most part, no change occurs to config.
