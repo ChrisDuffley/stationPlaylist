@@ -278,6 +278,12 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
+## Versión 16.10.1/15.2-LTS
+
+* Agora podes interactuar coa pista que se atopou a través Do Buscador de
+  Pistas (Control+NVDA+F) según a procuras para reproducir.
+* Traducións actualizadas.
+
 ## Cambios para 8.0/16.10/15.0-LTS
 
 Versión 8.0 (tamén coñecida coma 16.10) soporta SPL Studio 5.10 e
