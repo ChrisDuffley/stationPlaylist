@@ -108,7 +108,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		("advanced",_("advanced"))]
 		self.verbosityList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.verbosityLevels])
 		currentVerbosity=splconfig.SPLConfig["General"]["MessageVerbosity"]
-		selection = (x for x,y in enumerate(self.verbosityLevels) if y[0]==currentVerbosity).next()  
+		selection = (x for x,y in enumerate(self.verbosityLevels) if y[0]==currentVerbosity).next()
 		try:
 			self.verbosityList.SetSelection(selection)
 		except:
@@ -164,7 +164,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		("both",_("Track intro and ending"))]
 		self.brailleTimerList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.brailleTimerValues])
 		brailleTimerCurValue=splconfig.SPLConfig["General"]["BrailleTimer"]
-		selection = (x for x,y in enumerate(self.brailleTimerValues) if y[0]==brailleTimerCurValue).next()  
+		selection = (x for x,y in enumerate(self.brailleTimerValues) if y[0]==brailleTimerCurValue).next()
 		try:
 			self.brailleTimerList.SetSelection(selection)
 		except:
@@ -202,7 +202,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		("both",_("both beep and message"))]
 		self.alarmAnnounceList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.alarmAnnounceValues])
 		alarmAnnounceCurValue=splconfig.SPLConfig["General"]["AlarmAnnounce"]
-		selection = (x for x,y in enumerate(self.alarmAnnounceValues) if y[0]==alarmAnnounceCurValue).next()  
+		selection = (x for x,y in enumerate(self.alarmAnnounceValues) if y[0]==alarmAnnounceCurValue).next()
 		try:
 			self.alarmAnnounceList.SetSelection(selection)
 		except:
@@ -223,7 +223,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		("numbers",_("Scan count"))]
 		self.libScanList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.libScanValues])
 		libScanCurValue=splconfig.SPLConfig["General"]["LibraryScanAnnounce"]
-		selection = (x for x,y in enumerate(self.libScanValues) if y[0]==libScanCurValue).next()  
+		selection = (x for x,y in enumerate(self.libScanValues) if y[0]==libScanCurValue).next()
 		try:
 			self.libScanList.SetSelection(selection)
 		except:
@@ -259,7 +259,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		("both",_("Both"))]
 		self.trackCommentList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.trackCommentValues])
 		trackCommentCurValue=splconfig.SPLConfig["General"]["TrackCommentAnnounce"]
-		selection = (x for x,y in enumerate(self.trackCommentValues) if y[0]==trackCommentCurValue).next()  
+		selection = (x for x,y in enumerate(self.trackCommentValues) if y[0]==trackCommentCurValue).next()
 		try:
 			self.trackCommentList.SetSelection(selection)
 		except:
@@ -283,7 +283,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		("instant",_("When instant switch profile is active"))]
 		self.metadataList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.metadataValues])
 		metadataCurValue=splconfig.SPLConfig["General"]["MetadataReminder"]
-		selection = (x for x,y in enumerate(self.metadataValues) if y[0]==metadataCurValue).next()  
+		selection = (x for x,y in enumerate(self.metadataValues) if y[0]==metadataCurValue).next()
 		try:
 			self.metadataList.SetSelection(selection)
 		except:
@@ -1239,7 +1239,7 @@ class SayStatusDialog(wx.Dialog):
 		# Translators: One of the track name announcement options.
 		("off",_("off"))]
 		self.trackAnnouncementList= wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.trackAnnouncements])
-		selection = (x for x,y in enumerate(self.trackAnnouncements) if y[0]==parent.playingTrackName).next()  
+		selection = (x for x,y in enumerate(self.trackAnnouncements) if y[0]==parent.playingTrackName).next()
 		try:
 			self.trackAnnouncementList.SetSelection(selection)
 		except:
@@ -1322,7 +1322,7 @@ class AdvancedOptionsDialog(wx.Dialog):
 		("jfw","JAWS for Windows"),
 		("wineyes","Window-Eyes")]
 		self.compatibilityList= wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.compatibilityLayouts])
-		selection = (x for x,y in enumerate(self.compatibilityLayouts) if y[0]==self.Parent.compLayer).next()  
+		selection = (x for x,y in enumerate(self.compatibilityLayouts) if y[0]==self.Parent.compLayer).next()
 		try:
 			self.compatibilityList.SetSelection(selection)
 		except:
