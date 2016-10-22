@@ -183,7 +183,7 @@ class SPLTrackItem(IAccessible):
 			if verticalColumnAnnounce == "Status" or (verticalColumnAnnounce is None and self.appModule.SPLColNumber == 0):
 				self._leftmostcol()
 			else:
-				self.announceColumnContent(self.appModule.SPLColNumber if verticalColumnAnnounce is None else self.indexOf(verticalColumnAnnounce), header=verticalColumnAnnounce, reportStatus=True)
+				self.announceColumnContent(self.appModule.SPLColNumber if verticalColumnAnnounce is None else self.indexOf(verticalColumnAnnounce), header=verticalColumnAnnounce, reportStatus=self.name is not None)
 		# 7.0: Let the app module keep a reference to this track.
 		self.appModule._focusedTrack = self
 
