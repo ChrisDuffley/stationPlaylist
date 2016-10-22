@@ -183,7 +183,7 @@ class SPLTrackItem(IAccessible):
 			if verticalColumnAnnounce == "Status" or (verticalColumnAnnounce is None and self.appModule.SPLColNumber == 0):
 				self._leftmostcol()
 			else:
-				self.announceColumnContent(self.appModule.SPLColNumber if verticalColumnAnnounce is None else self.indexOf(verticalColumnAnnounce))
+				self.announceColumnContent(self.appModule.SPLColNumber if verticalColumnAnnounce is None else self.indexOf(verticalColumnAnnounce), header=verticalColumnAnnounce, reportStatus=True)
 		# 7.0: Let the app module keep a reference to this track.
 		self.appModule._focusedTrack = self
 
@@ -244,17 +244,19 @@ class SPLTrackItem(IAccessible):
 
 	# Announce column content if any.
 	# 7.0: Add an optional header in order to announce correct header information in columns explorer.
-	def announceColumnContent(self, colNumber, header=None):
+	# 17.1: Allow checked status in 5.1x and later to be announced if this is such a case (vertical column navigation).)
+	def announceColumnContent(self, colNumber, header=None, reportStatus=False):
 		columnHeader = header if header is not None else self.appModule._columnHeaderNames[colNumber]
 		columnContent = self._getColumnContent(self.indexOf(columnHeader))
+		status = self.name + " " if reportStatus else ""
 		if columnContent:
 			# Translators: Standard message for announcing column content.
-			ui.message(unicode(_("{header}: {content}")).format(header = columnHeader, content = columnContent))
+			ui.message(unicode(_("{checkStatus}{header}: {content}")).format(checkStatus = status, header = columnHeader, content = columnContent))
 		else:
 			# Translators: Spoken when column content is blank.
-			speech.speakMessage(_("{header}: blank").format(header = columnHeader))
+			speech.speakMessage(_("{checkStatus}{header}: blank").format(checkStatus = status, header = columnHeader))
 			# Translators: Brailled to indicate empty column content.
-			braille.handler.message(_("{header}: ()").format(header = columnHeader))
+			braille.handler.message(_("{checkStatus}{header}: ()").format(checkStatus = status, header = columnHeader))
 
 	# Now the scripts.
 
