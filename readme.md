@@ -170,6 +170,11 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 17.1-dev
+
+* Added ability to press Control+Alt+up or down arrow keys to move between tracks (specifically, track columns) vertically just as one is moving to next or previous row in a table.
+* Added a combo box in add-on settings dialog to set which column should be announced when moving through columns vertically.
+
 ## Version 16.10.1/15.2-LTS
 
 * You can now interact with the track that was found via Track Finder (Control+NVDA+F) such as checking it for playback.
