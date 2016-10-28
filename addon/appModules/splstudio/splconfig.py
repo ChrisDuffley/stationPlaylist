@@ -996,7 +996,6 @@ class SPLAlarmDialog(wx.Dialog):
 		import winUser
 		if winUser.user32.FindWindowA("SPLStudio", None):
 			# Gather settings to be applied in section/key format.
-			settings = []
 			if self.level in (0, 1):
 				SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] = self.outroAlarmEntry.GetValue()
 				SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"] = self.outroToggleCheckBox.GetValue()
