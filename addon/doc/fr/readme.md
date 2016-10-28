@@ -300,8 +300,9 @@ ci-dessus pour exécuter des commandes.
 
 ## Version 16.10.1/15.2-LTS
 
-* You can now interact with the track that was found via Track Finder
-  (Control+NVDA+F) such as checking it for playback.
+* Vous pouvez maintenant interagir avec la piste qui a été trouvé via la
+  Recherche de Piste (Contrôle+NVDA+F) tel que la vérification pour la
+  lecture.
 * Mises à jour des traductions.
 
 ## Changements pour la version 8.0/16.10/15.0-LTS
