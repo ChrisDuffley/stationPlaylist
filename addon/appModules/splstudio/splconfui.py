@@ -699,13 +699,19 @@ class NewProfileDialog(wx.Dialog):
 			dialogTitle = _("Copy Profile")
 		super(NewProfileDialog, self).__init__(parent, title=dialogTitle)
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
+		if splconfig.useGUIHelper:
+			newProfileSizerHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		# Translators: The label of a field to enter the name of a new broadcast profile.
-		sizer.Add(wx.StaticText(self, label=_("Profile name:")))
-		item = self.profileName = wx.TextCtrl(self)
-		sizer.Add(item)
-		mainSizer.Add(sizer)
+		if splconfig.useGUIHelper:
+			self.profileName = newProfileSizerHelper.addLabeledControl(_("Profile name:"), wx.TextCtrl)
+			mainSizer.Add(newProfileSizerHelper.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
+		else:
+			sizer = wx.BoxSizer(wx.HORIZONTAL)
+			# Translators: The label of a field to enter the name of a new broadcast profile.
+			sizer.Add(wx.StaticText(self, label=_("Profile name:")))
+			item = self.profileName = wx.TextCtrl(self)
+			sizer.Add(item)
+			mainSizer.Add(sizer)
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: The label for a setting in SPL add-on dialog to select a base  profile for copying.
@@ -941,24 +947,19 @@ class MetadataStreamingDialog(wx.Dialog):
 
 		# WX's CheckListBox isn't user friendly.
 		# Therefore use checkboxes laid out across the top.
+		# 17.1: instead of two loops, just use one loop, with labels deriving from the below tuple.
+		# Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
+		streamLabels = ("DSP encoder", "URL 1", "URL 2", "URL 3", "URL 4")
 		self.checkedStreams = []
-		# Add the DSP encoder checkbox first before adding other URL's.
-		checkedDSP=wx.CheckBox(self,wx.NewId(),label="DSP encoder")
-		if func:
-			streaming = func(0, 36, ret=True)
-			if streaming == -1: streaming += 1
-			checkedDSP.SetValue(streaming)
-		else: checkedDSP.SetValue(self.Parent.metadataStreams[0])
-		self.checkedStreams.append(checkedDSP)
-		# Now the rest.
-		for url in xrange(1, 5):
-			checkedURL=wx.CheckBox(self,wx.NewId(),label="URL {URL}".format(URL = url))
+		# Add checkboxes for each stream, beginning with the DSP encoder.
+		for stream in xrange(5):
+			checkedStream=wx.CheckBox(self,wx.NewId(),label=streamLabels[stream])
 			if func:
-				streaming = func(url, 36, ret=True)
+				streaming = func(stream, 36, ret=True)
 				if streaming == -1: streaming += 1
-				checkedURL.SetValue(streaming)
-			else: checkedURL.SetValue(self.Parent.metadataStreams[url])
-			self.checkedStreams.append(checkedURL)
+				checkedStream.SetValue(streaming)
+			else: checkedStream.SetValue(self.Parent.metadataStreams[stream])
+			self.checkedStreams.append(checkedStream)
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		if func is None: labelText=_("Select the URL for metadata streaming upon request.")
@@ -966,10 +967,19 @@ class MetadataStreamingDialog(wx.Dialog):
 		label = wx.StaticText(self, wx.ID_ANY, label=labelText)
 		mainSizer.Add(label,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		if splconfig.useGUIHelper:
+			sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
+		else:
+			sizer = wx.BoxSizer(wx.HORIZONTAL)
 		for checkedStream in self.checkedStreams:
-			sizer.Add(checkedStream)
-		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+			if splconfig.useGUIHelper:
+				sizer.addItem(checkedStream)
+			else:
+				sizer.Add(checkedStream)
+		if splconfig.useGUIHelper:
+			mainSizer.Add(sizer.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
+		else:
+			mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		if self.func is not None:
 			# Translators: A checkbox to let metadata streaming status be applied to the currently active broadcast profile.
@@ -1037,7 +1047,6 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 			checkedColumn=wx.CheckBox(self,wx.NewId(),label=column)
 			checkedColumn.SetValue(column in self.Parent.includedColumns)
 			self.checkedColumns3.append(checkedColumn)
-
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		# Translators: Help text to select columns to be announced.
