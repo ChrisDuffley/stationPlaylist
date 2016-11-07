@@ -170,6 +170,12 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 15.3-LTS
+
+* Initial support for StationPlaylist Studio 5.20, including improved responsiveness when obtaining status information such as automation status via SPL Assistant layer.
+* Fixed issues related to searching for tracks and interacting with them, including inability to check or uncheck place marker track or a track found via time range finder dialog.
+* Column announcement order will no longer revert to default order after changing it.
+
 ## Version 15.2-LTS
 
 * You can now interact with the track that was found via Track Finder (Control+NVDA+F) such as checking it for playback.
