@@ -1569,6 +1569,7 @@ class AppModule(appModuleHandler.AppModule):
 	_cachedStatusObjs = {}
 
 	# Called in the layer commands themselves.
+	# 16.11: in Studio 5.20, it is possible to obtain some of these via the API, hence the API method is used.
 	def status(self, infoIndex):
 		# Look up the cached objects first for faster response.
 		if not infoIndex in self._cachedStatusObjs:
@@ -1584,40 +1585,43 @@ class AppModule(appModuleHandler.AppModule):
 			else: return api.getFocusObject()
 		return self._cachedStatusObjs[infoIndex]
 
+	# Status flags for Studio 5.20 API.
+	_statusBarMessages=(
+		("Play status: Stopped","Play status: Playing"),
+		("Automation Off","Automation On"),
+		("Microphone Off","Microphone On"),
+		("Line-In Off","Line-In On"),
+		("Record to file Off","Record to file On"),
+		("Cart Edit Off","Cart Edit On"),
+	)
+
+	# In the layer commands below, sayStatus function is used if screen objects or API must be used (API is for Studio 5.20 and later).
+	def sayStatus(self, index):
+		if self.SPLCurVersion < "5.20":
+			status = self.status(self.SPLPlayStatus).getChild(index).name
+		else:
+			status = self._statusBarMessages[index][statusAPI(index, 39, ret=True)]
+		ui.message(status if splconfig.SPLConfig["General"]["MessageVerbosity"] == "beginner" else status.split()[-1])
+
 	# The layer commands themselves.
 
 	def script_sayPlayStatus(self, gesture):
-		# Please do not translate the following messages.
-		if statusAPI(0, 104, ret=True):
-			msg = "Play status: Playing" if splconfig.SPLConfig["General"]["MessageVerbosity"] == "beginner" else "Playing"
-		else:
-			msg = "Play status: Stopped" if splconfig.SPLConfig["General"]["MessageVerbosity"] == "beginner" else "Stopped"
-		ui.message(msg)
+		self.sayStatus(0)
 
 	def script_sayAutomationStatus(self, gesture):
-		obj = self.status(self.SPLPlayStatus).getChild(1)
-		msg = obj.name if splconfig.SPLConfig["General"]["MessageVerbosity"] == "beginner" else obj.name.split()[-1]
-		ui.message(msg)
+		self.sayStatus(1)
 
 	def script_sayMicStatus(self, gesture):
-		obj = self.status(self.SPLPlayStatus).getChild(2)
-		msg = obj.name if splconfig.SPLConfig["General"]["MessageVerbosity"] == "beginner" else obj.name.split()[-1]
-		ui.message(msg)
+		self.sayStatus(2)
 
 	def script_sayLineInStatus(self, gesture):
-		obj = self.status(self.SPLPlayStatus).getChild(3)
-		msg = obj.name if splconfig.SPLConfig["General"]["MessageVerbosity"] == "beginner" else obj.name.split()[-1]
-		ui.message(msg)
+		self.sayStatus(3)
 
 	def script_sayRecToFileStatus(self, gesture):
-		obj = self.status(self.SPLPlayStatus).getChild(4)
-		msg = obj.name if splconfig.SPLConfig["General"]["MessageVerbosity"] == "beginner" else obj.name.split()[-1]
-		ui.message(msg)
+		self.sayStatus(4)
 
 	def script_sayCartEditStatus(self, gesture):
-		obj = self.status(self.SPLPlayStatus).getChild(5)
-		msg = obj.name if splconfig.SPLConfig["General"]["MessageVerbosity"] == "beginner" else obj.name.split()[-1]
-		ui.message(msg)
+		self.sayStatus(5)
 
 	def script_sayHourTrackDuration(self, gesture):
 		statusAPI(0, 27, self.announceTime)
