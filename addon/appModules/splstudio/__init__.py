@@ -165,9 +165,6 @@ class SPLTrackItem(IAccessible):
 		if splconfig._shouldBuildDescriptionPieces():
 			descriptionPieces = []
 			for header in splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"]:
-				# Artist field should not be included in Studio 5.0x, as the checkbox serves this role.
-				if header == "Artist" and self.appModule.productVersion.startswith("5.0"):
-					continue
 				if header in splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"]:
 					index = self.indexOf(header)
 					if index is None: continue # Header not found, mostly encountered in Studio 5.0x.
@@ -1452,14 +1449,6 @@ class AppModule(appModuleHandler.AppModule):
 	def script_deleteTrack(self, gesture):
 		self.preTrackRemoval()
 		gesture.send()
-		if self.productVersion.startswith("5.0"):
-			if api.getForegroundObject().windowClassName == "TStudioForm":
-				focus = api.getFocusObject()
-				if focus.IAccessibleChildID < focus.parent.childCount:
-					self.deletedFocusObj = True
-					focus.setFocus()
-					self.deletedFocusObj = False
-					focus.setFocus()
 
 	# When Escape is pressed, activate background library scan if conditions are right.
 	def script_escape(self, gesture):
