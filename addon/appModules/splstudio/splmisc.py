@@ -96,8 +96,7 @@ class SPLFindDialog(wx.Dialog):
 			columnSizer = wx.BoxSizer(wx.HORIZONTAL)
 			# Translators: The label in track finder to search columns.
 			label = wx.StaticText(self, wx.ID_ANY, label=_("C&olumn to search:"))
-			section, key, pos = ("ColumnAnnouncement", "ColumnOrder", None) if obj.appModule.productVersion >= "5.10" else ("General", "ExploreColumns", 6)
-			self.columnHeaders = wx.Choice(self, wx.ID_ANY, choices=splconfig._SPLDefaults7[section][key][:pos])
+			self.columnHeaders = wx.Choice(self, wx.ID_ANY, choices=splconfig._SPLDefaults7["ColumnAnnouncement"]["ColumnOrder"])
 			self.columnHeaders.SetSelection(0)
 			columnSizer.Add(label)
 			columnSizer.Add(self.columnHeaders)
@@ -117,8 +116,7 @@ class SPLFindDialog(wx.Dialog):
 		# Studio, are you alive?
 		if user32.FindWindowA("SPLStudio", None) and text:
 			appMod = self.obj.appModule
-			column = [self.columnHeaders.Selection] if self.columnSearch else None
-			if column is not None and appMod.productVersion >= "5.10": column[0]+=1
+			column = [self.columnHeaders.Selection+1] if self.columnSearch else None
 			startObj = self.obj
 			if text == appMod.findText: startObj = startObj.next
 			# If this is called right away, we land on an invisible window.
@@ -223,7 +221,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 				obj = obj.next
 			if obj is not None:
 				# This time, set focus once, as doing it twice causes focus problems only if using Studio 5.10 or later.
-				if obj.appModule.SPLCurVersion >= "5.10": obj.setFocus()
+				obj.setFocus()
 				# 16.11: Select the desired track manually.
 				self.func(-1, 121)
 				self.func(obj.IAccessibleChildID-1, 121)
