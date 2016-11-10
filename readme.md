@@ -175,6 +175,13 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * Added ability to press Control+Alt+up or down arrow keys to move between tracks (specifically, track columns) vertically just as one is moving to next or previous row in a table.
 * Added a combo box in add-on settings dialog to set which column should be announced when moving through columns vertically.
 
+## Version 16.11/15.3-LTS
+
+* Initial support for StationPlaylist Studio 5.20, including improved responsiveness when obtaining status information such as automation status via SPL Assistant layer.
+* Fixed issues related to searching for tracks and interacting with them, including inability to check or uncheck place marker track or a track found via time range finder dialog.
+* Column announcement order will no longer revert to default order after changing it.
+* 16.11: If broadcast profiles have errors, error dialog will no longer fail to show up.
+
 ## Version 16.10.1/15.2-LTS
 
 * You can now interact with the track that was found via Track Finder (Control+NVDA+F) such as checking it for playback.
