@@ -631,7 +631,7 @@ class AppModule(appModuleHandler.AppModule):
 			# 7.0: Have a timer call the update function indirectly.
 			queueHandler.queueFunction(queueHandler.eventQueue, splconfig.updateInit)
 		# Display startup dialogs if any.
-		wx.CallAfter(splconfig.showStartupDialogs, oldVer=self.SPLCurVersion < "5.10")
+		wx.CallAfter(splconfig.showStartupDialogs)
 
 	# Locate the handle for main window for caching purposes.
 	def _locateSPLHwnd(self):
@@ -1090,8 +1090,7 @@ class AppModule(appModuleHandler.AppModule):
 			# 16.10.1/15.2 LTS: Just select this track in order to prevent a dispute between NVDA and SPL in regards to focused track.
 			# 16.11: Call setFocus if it is post-5.01, as SPL API can be used to select the desired track.
 			selectTrack(track.IAccessibleChildID-1)
-			if self.productVersion >= "5.10":
-				track.setFocus(), track.setFocus()
+			track.setFocus(), track.setFocus()
 		else:
 			wx.CallAfter(gui.messageBox,
 			# Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
@@ -1302,8 +1301,7 @@ class AppModule(appModuleHandler.AppModule):
 		global libScanT
 		if libScanT and libScanT.isAlive() and api.getForegroundObject().windowClassName == "TTrackInsertForm":
 			return
-		parem = 0 if self.SPLCurVersion < "5.10" else 1
-		countA = statusAPI(parem, 32, ret=True)
+		countA = statusAPI(1, 32, ret=True)
 		if countA == 0:
 			self.libraryScanning = False
 			return
@@ -1311,15 +1309,15 @@ class AppModule(appModuleHandler.AppModule):
 		if api.getForegroundObject().windowClassName == "TTrackInsertForm" and self.productVersion in noLibScanMonitor:
 			self.libraryScanning = False
 			return
-		countB = statusAPI(parem, 32, ret=True)
+		# Sometimes, a second call is needed to obtain the real scan count in Studio 5.10 and later.
+		countB = statusAPI(1, 32, ret=True)
 		if countA == countB:
 			self.libraryScanning = False
-			if self.SPLCurVersion >= "5.10":
-				countB = statusAPI(0, 32, ret=True)
+			countB = statusAPI(0, 32, ret=True)
 			# Translators: Presented when library scanning is finished.
 			ui.message(_("{itemCount} items in the library").format(itemCount = countB))
 		else:
-			libScanT = threading.Thread(target=self.libraryScanReporter, args=(_SPLWin, countA, countB, parem))
+			libScanT = threading.Thread(target=self.libraryScanReporter, args=(_SPLWin, countA, countB, 1))
 			libScanT.daemon = True
 			libScanT.start()
 
@@ -1715,12 +1713,11 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_libraryScanMonitor(self, gesture):
 		if not self.libraryScanning:
-			if self.productVersion >= "5.10":
-				scanning = statusAPI(1, 32, ret=True)
-				if scanning < 0:
-					items = statusAPI(0, 32, ret=True)
-					ui.message(_("{itemCount} items in the library").format(itemCount = items))
-					return
+			scanning = statusAPI(1, 32, ret=True)
+			if scanning < 0:
+				items = statusAPI(0, 32, ret=True)
+				ui.message(_("{itemCount} items in the library").format(itemCount = items))
+				return
 			self.libraryScanning = True
 			# Translators: Presented when attempting to start library scan.
 			ui.message(_("Monitoring library scan"))
@@ -1805,8 +1802,7 @@ class AppModule(appModuleHandler.AppModule):
 			track = self._trackLocator(self.placeMarker[1], obj=api.getFocusObject().parent.firstChild, columns=[self.placeMarker[0]])
 			# 16.11: Just like Track Finder, use select track function to select the place marker track.
 			selectTrack(track.IAccessibleChildID-1)
-			if self.productVersion >= "5.10":
-				track.setFocus(), track.setFocus()
+			track.setFocus(), track.setFocus()
 
 	def script_metadataStreamingAnnouncer(self, gesture):
 		# 8.0: Call the module-level function directly.
