@@ -1319,20 +1319,28 @@ class AdvancedOptionsDialog(wx.Dialog):
 		super(AdvancedOptionsDialog, self).__init__(parent, title=_("Advanced options"))
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
+		if splconfig.useGUIHelper:
+			contentSizerHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
-		sizer = wx.BoxSizer(wx.VERTICAL)
-		# Translators: A checkbox to toggle automatic add-on updates.
-		self.autoUpdateCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Automatically check for add-on &updates"))
-		self.autoUpdateCheckbox.SetValue(self.Parent.autoUpdateCheck)
-		sizer.Add(self.autoUpdateCheckbox, border=10,flag=wx.TOP)
-		# Translators: The label for a setting in SPL add-on settings/advanced options to select automatic update interval in days.
-		label = wx.StaticText(self, wx.ID_ANY, label=_("Update &interval in days"))
-		sizer.Add(label)
-		self.updateInterval= wx.SpinCtrl(self, wx.ID_ANY, min=1, max=30)
-		self.updateInterval.SetValue(long(parent.updateInterval))
-		self.updateInterval.SetSelection(-1, -1)
-		sizer.Add(self.updateInterval)
-		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+		if splconfig.useGUIHelper:
+			# Translators: A checkbox to toggle automatic add-on updates.
+			self.autoUpdateCheckbox=contentSizerHelper.addItem(wx.CheckBox(self,label=_("Automatically check for add-on &updates")))
+			self.autoUpdateCheckbox.Value = self.Parent.autoUpdateCheck
+			# Translators: The label for a setting in SPL add-on settings/advanced options to select automatic update interval in days.
+			self.updateInterval=contentSizerHelper.addLabeledControl(_("Update &interval in days"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=30, initial=parent.updateInterval)
+			mainSizer.Add(contentSizerHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
+		else:
+			sizer = wx.BoxSizer(wx.VERTICAL)
+			self.autoUpdateCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Automatically check for add-on &updates"))
+			self.autoUpdateCheckbox.SetValue(self.Parent.autoUpdateCheck)
+			sizer.Add(self.autoUpdateCheckbox, border=10,flag=wx.TOP)
+			label = wx.StaticText(self, wx.ID_ANY, label=_("Update &interval in days"))
+			sizer.Add(label)
+			self.updateInterval= wx.SpinCtrl(self, wx.ID_ANY, min=1, max=30)
+			self.updateInterval.SetValue(long(parent.updateInterval))
+			self.updateInterval.SetSelection(-1, -1)
+			sizer.Add(self.updateInterval)
+			mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		# LTS and 8.x only.
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
@@ -1400,26 +1408,32 @@ class ResetDialog(wx.Dialog):
 		super(ResetDialog, self).__init__(parent, title=_("Reset settings"))
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
+		if splconfig.useGUIHelper:
+			contentSizerHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
-		# Translators: the label for resetting profile triggers.
-		self.resetInstantProfileCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Reset instant switch profile"))
-		self.resetInstantProfileCheckbox.SetValue(False)
-		mainSizer.Add(self.resetInstantProfileCheckbox, border=10,flag=wx.BOTTOM)
-
-		# Translators: the label for resetting profile triggers.
-		self.resetTimeProfileCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Delete time-based profile database"))
-		self.resetTimeProfileCheckbox.SetValue(False)
-		mainSizer.Add(self.resetTimeProfileCheckbox, border=10,flag=wx.BOTTOM)
-
-				# Translators: the label for resetting encoder settings.
-		self.resetEncodersCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Remove encoder settings"))
-		self.resetEncodersCheckbox.SetValue(False)
-		mainSizer.Add(self.resetEncodersCheckbox, border=10,flag=wx.BOTTOM)
-
-		# Translators: the label for resetting track comments.
-		self.resetTrackCommentsCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Erase track comments"))
-		self.resetTrackCommentsCheckbox.SetValue(False)
-		mainSizer.Add(self.resetTrackCommentsCheckbox, border=10,flag=wx.BOTTOM)
+		if splconfig.useGUIHelper:
+			# Translators: the label for resetting profile triggers.
+			self.resetInstantProfileCheckbox=contentSizerHelper.addItem(wx.CheckBox(self,label=_("Reset instant switch profile")))
+			# Translators: the label for resetting profile triggers.
+			self.resetTimeProfileCheckbox=contentSizerHelper.addItem(wx.CheckBox(self,label=_("Delete time-based profile database")))
+			# Translators: the label for resetting encoder settings.
+			self.resetEncodersCheckbox=contentSizerHelper.addItem(wx.CheckBox(self,label=_("Remove encoder settings")))
+			# Translators: the label for resetting track comments.
+			self.resetTrackCommentsCheckbox=contentSizerHelper.addItem(wx.CheckBox(self,label=_("Erase track comments")))
+			mainSizer.Add(contentSizerHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
+		else:
+			self.resetInstantProfileCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Reset instant switch profile"))
+			self.resetInstantProfileCheckbox.SetValue(False)
+			mainSizer.Add(self.resetInstantProfileCheckbox, border=10,flag=wx.BOTTOM)
+			self.resetTimeProfileCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Delete time-based profile database"))
+			self.resetTimeProfileCheckbox.SetValue(False)
+			mainSizer.Add(self.resetTimeProfileCheckbox, border=10,flag=wx.BOTTOM)
+			self.resetEncodersCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Remove encoder settings"))
+			self.resetEncodersCheckbox.SetValue(False)
+			mainSizer.Add(self.resetEncodersCheckbox, border=10,flag=wx.BOTTOM)
+			self.resetTrackCommentsCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Erase track comments"))
+			self.resetTrackCommentsCheckbox.SetValue(False)
+			mainSizer.Add(self.resetTrackCommentsCheckbox, border=10,flag=wx.BOTTOM)
 
 		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
