@@ -98,9 +98,9 @@ The available commands are:
 * Shift+P: Pitch of the current track.
 * R (Shift+E in JAWS and Window-Eyes layouts): Record to file enabled/disabled.
 * Shift+R: Monitor library scan in progress.
-* S: Track starts in (scheduled).
-* Shift+S: Time until selected track will play.
-* T: Cart edit mode on/off.
+* S: Track starts (scheduled).
+* Shift+S: Time until selected track will play (track starts in).
+* T: Cart edit/insert mode on/off.
 * U: Studio up time.
 * Control+Shift+U: Check for add-on updates.
 * W: Weather and temperature if configured.
