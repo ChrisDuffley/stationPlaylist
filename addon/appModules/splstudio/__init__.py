@@ -892,22 +892,24 @@ class AppModule(appModuleHandler.AppModule):
 	# Specific to time scripts using Studio API.
 	# 6.0: Split this into two functions: the announcer (below) and formatter.
 	# 7.0: The ms (millisecond) argument will be used when announcing playlist remainder.
-	def announceTime(self, t, offset = None, ms=True):
+	# 16.12: Include hours by default unless told not to do so.
+	def announceTime(self, t, offset = None, ms=True, includeHours=None):
 		if t <= 0:
 			ui.message("00:00")
 		else:
-			ui.message(self._ms2time(t, offset = offset, ms=ms))
+			ui.message(self._ms2time(t, offset = offset, ms=ms, includeHours=includeHours))
 
 	# Formatter: given time in milliseconds, convert it to human-readable format.
 	# 7.0: There will be times when one will deal with time in seconds.
-	def _ms2time(self, t, offset = None, ms=True):
+	# 16.12: For some cases, do not include hour slot when trying to conform to what Studio displays.)
+	def _ms2time(self, t, offset = None, ms=True, includeHours=None):
 		if t <= 0:
 			return "00:00"
 		else:
 			if ms:
 				t = (t/1000) if not offset else (t/1000)+offset
 			mm, ss = divmod(t, 60)
-			if mm > 59 and splconfig.SPLConfig["General"]["TimeHourAnnounce"]:
+			if mm > 59 and (includeHours or (includeHours is None and splconfig.SPLConfig["General"]["TimeHourAnnounce"])):
 				hh, mm = divmod(mm, 60)
 				# Hour value is also filled with leading zero's.
 				# 6.1: Optimize the string builder so it can return just one string.
@@ -1668,13 +1670,27 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_sayScheduledTime(self, gesture):
 		# 7.0: Scheduled is the time originally specified in Studio, scheduled to play is broadcast time based on current time.
-		obj = self.status(self.SPLScheduled).firstChild
-		ui.message(obj.name)
+		# 16.12: use Studio API if using 5.20.
+		if self.productVersion >= "5.20":
+			# Sometimes, hour markers return seconds.999 due to rounding error, hence this must be taken care of here.
+			trackStarts = divmod(statusAPI(3, 27, ret=True), 1000)
+			# For this method, all three components of time display (hour, minute, second) must be present.
+			# In case it is midnight (0.0 but sometimes shown as 86399.999 due to rounding error), just say "midnight".
+			if trackStarts in ((86399, 999), (0, 0)): ui.message("00:00:00")
+			else: self.announceTime(trackStarts[0]+1 if trackStarts[1] == 999 else trackStarts[0], ms=False)
+		else:
+			obj = self.status(self.SPLScheduled).firstChild
+			ui.message(obj.name)
 
 	def script_sayScheduledToPlay(self, gesture):
 		# 7.0: This script announces length of time remaining until the selected track will play.
-		obj = self.status(self.SPLScheduledToPlay).firstChild
-		ui.message(obj.name)
+		# 16.12: Use Studio 5.20 API (faster and more reliable).
+		if self.productVersion >= "5.20":
+			# This is the only time hour announcement should not be used in order to conform to what's displayed on screen.
+			self.announceTime(statusAPI(4, 27, ret=True), includeHours=False)
+		else:
+			obj = self.status(self.SPLScheduledToPlay).firstChild
+			ui.message(obj.name)
 
 	def script_sayListenerCount(self, gesture):
 		obj = self.status(self.SPLSystemStatus).getChild(3)
