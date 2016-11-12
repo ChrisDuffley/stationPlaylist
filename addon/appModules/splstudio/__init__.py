@@ -412,7 +412,7 @@ R: Record to file.
 Shift+R: Monitor library scan.
 S: Scheduled time for the track.
 Shift+S: Time until the selected track will play.
-T: Cart edit mode.
+T: Cart edit/insert mode.
 U: Studio up time.
 W: Weather and temperature.
 Y: Playlist modification.
@@ -444,7 +444,7 @@ R: Remaining time for the playlist.
 Shift+R: Monitor library scan.
 S: Scheduled time for the track.
 Shift+S: Time until the selected track will play.
-T: Cart edit mode.
+T: Cart edit/insert mode.
 U: Studio up time.
 W: Weather and temperature.
 Y: Playlist modification.
@@ -478,7 +478,7 @@ Shift+E: Record to file.
 Shift+R: Monitor library scan.
 S: Scheduled time for the track.
 Shift+S: Time until the selected track will play.
-T: Cart edit mode.
+T: Cart edit/insert mode.
 U: Studio up time.
 W: Weather and temperature.
 Y: Playlist modification.
@@ -1561,7 +1561,6 @@ class AppModule(appModuleHandler.AppModule):
 		("Microphone Off","Microphone On"),
 		("Line-In Off","Line-In On"),
 		("Record to file Off","Record to file On"),
-		("Cart Edit Off","Cart Edit On"),
 	)
 
 	# In the layer commands below, sayStatus function is used if screen objects or API must be used (API is for Studio 5.20 and later).
@@ -1590,7 +1589,15 @@ class AppModule(appModuleHandler.AppModule):
 		self.sayStatus(4)
 
 	def script_sayCartEditStatus(self, gesture):
-		self.sayStatus(5)
+		# 16.12: Because cart edit status also shows cart insert status, verbosity control will not apply.
+		if self.productVersion >= "5.20":
+			cartEdit = statusAPI(5, 39, ret=True)
+			cartInsert = statusAPI(6, 39, ret=True)
+			if cartEdit: ui.message("Cart Edit On")
+			elif not cartEdit and cartInsert: ui.message("Cart Insert On")
+			else: ui.message("Cart Edit Off")
+		else:
+			ui.message(self.status(self.SPLPlayStatus).getChild(5).name)
 
 	def script_sayHourTrackDuration(self, gesture):
 		statusAPI(0, 27, self.announceTime)
