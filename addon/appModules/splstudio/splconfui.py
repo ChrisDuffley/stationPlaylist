@@ -1165,7 +1165,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 		else:
 			# Translators: The title of Columns Explorer configuration dialog.
 			actualTitle = _("Columns Explorer for Track Tool")
-			cols = cols = ("Artist","Title","Duration","Cue","Overlap","Intro","Segue","Filename","Album","CD Code","Outro","Year","URL 1","URL 2","Genre")
+			cols = ("Artist","Title","Duration","Cue","Overlap","Intro","Segue","Filename","Album","CD Code","Outro","Year","URL 1","URL 2","Genre")
 		super(ColumnsExplorerDialog, self).__init__(parent, title=actualTitle)
 
 		# Gather column slots.
@@ -1240,50 +1240,51 @@ class SayStatusDialog(wx.Dialog):
 			# Translators: the label for a setting in SPL add-on settings to announce scheduled time.
 			self.scheduledForCheckbox=contentSizerHelper.addItem(wx.CheckBox(self, label=_("Announce &scheduled time for the selected track")))
 			self.scheduledForCheckbox.Value = parent.scheduledFor
+			# Translators: the label for a setting in SPL add-on settings to announce listener count.
+			self.listenerCountCheckbox=contentSizerHelper.addItem(wx.CheckBox(self, label=_("Announce &listener count")))
+			self.listenerCountCheckbox.Value = parent.listenerCount
+			# Translators: the label for a setting in SPL add-on settings to announce currently playing cart.
+			self.cartNameCheckbox=contentSizerHelper.addItem(wx.CheckBox(self, label=_("&Announce name of the currently playing cart")))
+			self.cartNameCheckbox.Value = parent.cartName
+			# Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
+			labelText = _("&Track name announcement:")
+			# Translators: One of the track name announcement options.
+			self.trackAnnouncements=[("auto",_("automatic")),
+			# Translators: One of the track name announcement options.
+			("background",_("while using other programs")),
+			# Translators: One of the track name announcement options.
+			("off",_("off"))]
+			self.trackAnnouncementList=contentSizerHelper.addLabeledControl(labelText, wx.Choice, choices=[x[1] for x in self.trackAnnouncements])
+			selection = (x for x,y in enumerate(self.trackAnnouncements) if y[0]==parent.playingTrackName).next()
+			try:
+				self.trackAnnouncementList.SetSelection(selection)
+			except:
+				pass
+			mainSizer.Add(contentSizerHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 		else:
 			self.scheduledForCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce &scheduled time for the selected track"))
 			self.scheduledForCheckbox.SetValue(parent.scheduledFor)
 			mainSizer.Add(self.scheduledForCheckbox, border=10,flag=wx.BOTTOM)
-
-		if splconfig.useGUIHelper:
-			# Translators: the label for a setting in SPL add-on settings to announce listener count.
-			self.listenerCountCheckbox=contentSizerHelper.addItem(wx.CheckBox(self, label=_("Announce &listener count")))
-			self.listenerCountCheckbox.Value = parent.listenerCount
-		else:
-			# Translators: the label for a setting in SPL add-on settings to announce listener count.
 			self.listenerCountCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce &listener count"))
 			self.listenerCountCheckbox.SetValue(parent.listenerCount)
 			mainSizer.Add(self.listenerCountCheckbox, border=10,flag=wx.BOTTOM)
-
-		if splconfig.useGUIHelper:
-			# Translators: the label for a setting in SPL add-on settings to announce currently playing cart.
-			self.cartNameCheckbox=contentSizerHelper.addItem(wx.CheckBox(self, label=_("&Announce name of the currently playing cart")))
-			self.cartNameCheckbox.Value = parent.cartName
-		else:
 			self.cartNameCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Announce name of the currently playing cart"))
 			self.cartNameCheckbox.SetValue(parent.cartName)
 			mainSizer.Add(self.cartNameCheckbox, border=10,flag=wx.BOTTOM)
-		if splconfig.useGUIHelper:
-			mainSizer.Add(contentSizerHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
-
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		# Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
-		label = wx.StaticText(self, wx.ID_ANY, label=_("&Track name announcement:"))
-		# Translators: One of the track name announcement options.
-		self.trackAnnouncements=[("auto",_("automatic")),
-		# Translators: One of the track name announcement options.
-		("background",_("while using other programs")),
-		# Translators: One of the track name announcement options.
-		("off",_("off"))]
-		self.trackAnnouncementList= wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.trackAnnouncements])
-		selection = (x for x,y in enumerate(self.trackAnnouncements) if y[0]==parent.playingTrackName).next()
-		try:
-			self.trackAnnouncementList.SetSelection(selection)
-		except:
-			pass
-		sizer.Add(label)
-		sizer.Add(self.trackAnnouncementList)
-		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+			sizer = wx.BoxSizer(wx.HORIZONTAL)
+			label = wx.StaticText(self, wx.ID_ANY, label=_("&Track name announcement:"))
+			self.trackAnnouncements=[("auto",_("automatic")),
+			("background",_("while using other programs")),
+			("off",_("off"))]
+			self.trackAnnouncementList= wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.trackAnnouncements])
+			selection = (x for x,y in enumerate(self.trackAnnouncements) if y[0]==parent.playingTrackName).next()
+			try:
+				self.trackAnnouncementList.SetSelection(selection)
+			except:
+				pass
+			sizer.Add(label)
+			sizer.Add(self.trackAnnouncementList)
+			mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
@@ -1353,28 +1354,44 @@ class AdvancedOptionsDialog(wx.Dialog):
 		sizer.Add(self.channels)
 		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		# Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
-		self.splConPassthroughCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Allow SPL C&ontroller command to invoke SPL Assistant layer"))
-		self.splConPassthroughCheckbox.SetValue(self.Parent.splConPassthrough)
-		sizer.Add(self.splConPassthroughCheckbox, border=10,flag=wx.TOP)
-		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
-
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		# Translators: The label for a setting in SPL add-on dialog to set keyboard layout for SPL Assistant.
-		label = wx.StaticText(self, wx.ID_ANY, label=_("SPL Assistant command &layout:"))
-		self.compatibilityLayouts=[("off","NVDA"),
-		("jfw","JAWS for Windows"),
-		("wineyes","Window-Eyes")]
-		self.compatibilityList= wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.compatibilityLayouts])
-		selection = (x for x,y in enumerate(self.compatibilityLayouts) if y[0]==self.Parent.compLayer).next()
-		try:
-			self.compatibilityList.SetSelection(selection)
-		except:
-			pass
-		sizer.Add(label)
-		sizer.Add(self.compatibilityList)
-		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+		if splconfig.useGUIHelper:
+			contentSizerHelper2 = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
+			# Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
+			self.splConPassthroughCheckbox=contentSizerHelper2.addItem(wx.CheckBox(self, label=_("Allow SPL C&ontroller command to invoke SPL Assistant layer")))
+			self.splConPassthroughCheckbox.Value = self.Parent.splConPassthrough
+			# Translators: The label for a setting in SPL add-on dialog to set keyboard layout for SPL Assistant.
+			labelText = _("SPL Assistant command &layout:")
+			self.compatibilityLayouts=[("off","NVDA"),
+			("jfw","JAWS for Windows"),
+			("wineyes","Window-Eyes")]
+			self.compatibilityList=contentSizerHelper2.addLabeledControl(labelText, wx.Choice, choices=[x[1] for x in self.compatibilityLayouts])
+			selection = (x for x,y in enumerate(self.compatibilityLayouts) if y[0]==self.Parent.compLayer).next()
+			try:
+				self.compatibilityList.SetSelection(selection)
+			except:
+				pass
+			mainSizer.Add(contentSizerHelper2.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
+		else:
+			sizer = wx.BoxSizer(wx.HORIZONTAL)
+			self.splConPassthroughCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Allow SPL C&ontroller command to invoke SPL Assistant layer"))
+			self.splConPassthroughCheckbox.SetValue(self.Parent.splConPassthrough)
+			sizer.Add(self.splConPassthroughCheckbox, border=10,flag=wx.TOP)
+			mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+			sizer = wx.BoxSizer(wx.HORIZONTAL)
+			# Translators: The label for a setting in SPL add-on dialog to set keyboard layout for SPL Assistant.
+			label = wx.StaticText(self, wx.ID_ANY, label=_("SPL Assistant command &layout:"))
+			self.compatibilityLayouts=[("off","NVDA"),
+			("jfw","JAWS for Windows"),
+			("wineyes","Window-Eyes")]
+			self.compatibilityList= wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.compatibilityLayouts])
+			selection = (x for x,y in enumerate(self.compatibilityLayouts) if y[0]==self.Parent.compLayer).next()
+			try:
+				self.compatibilityList.SetSelection(selection)
+			except:
+				pass
+			sizer.Add(label)
+			sizer.Add(self.compatibilityList)
+			mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
