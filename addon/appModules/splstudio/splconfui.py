@@ -1166,41 +1166,61 @@ class ColumnsExplorerDialog(wx.Dialog):
 			# Translators: The title of Columns Explorer configuration dialog.
 			actualTitle = _("Columns Explorer for Track Tool")
 			cols = ("Artist","Title","Duration","Cue","Overlap","Intro","Segue","Filename","Album","CD Code","Outro","Year","URL 1","URL 2","Genre")
-		super(ColumnsExplorerDialog, self).__init__(parent, title=actualTitle)
-
 		# Gather column slots.
 		self.columnSlots = []
 
+		super(ColumnsExplorerDialog, self).__init__(parent, title=actualTitle)
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 
 		# 7.0: Studio 5.0x columns.
 		# 17.1: Five by two grid layout as 5.0x is no longer supported.
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		if splconfig.useGUIHelper:
+			sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
+		else:
+			sizer = wx.BoxSizer(wx.HORIZONTAL)
 		for slot in xrange(5):
+			if splconfig.useGUIHelper:
 			# Translators: The label for a setting in SPL add-on dialog to select column for this column slot.
-			label = wx.StaticText(self, wx.ID_ANY, label=_("Slot {position}").format(position = slot+1))
-			columns = wx.Choice(self, wx.ID_ANY, choices=cols)
+				labelText = _("Slot {position}").format(position = slot+1)
+				columns = sizer.addLabeledControl(labelText, wx.Choice, choices=cols)
+			else:
+				label = wx.StaticText(self, wx.ID_ANY, label=_("Slot {position}").format(position = slot+1))
+				columns = wx.Choice(self, wx.ID_ANY, choices=cols)
+				sizer.Add(label)
+				sizer.Add(columns)
 			try:
 				columns.SetSelection(cols.index(parent.exploreColumns[slot] if not tt else parent.exploreColumnsTT[slot]))
 			except:
 				pass
-			sizer.Add(label)
-			sizer.Add(columns)
 			self.columnSlots.append(columns)
-		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+		if splconfig.useGUIHelper:
+			mainSizer.Add(sizer.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
+		else:
+			mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		if splconfig.useGUIHelper:
+			sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
+		else:
+			sizer = wx.BoxSizer(wx.HORIZONTAL)
 		for slot in xrange(5, 10):
-			label = wx.StaticText(self, wx.ID_ANY, label=_("Slot {position}").format(position = slot+1))
-			columns = wx.Choice(self, wx.ID_ANY, choices=cols)
+			if splconfig.useGUIHelper:
+			# Translators: The label for a setting in SPL add-on dialog to select column for this column slot.
+				labelText = _("Slot {position}").format(position = slot+1)
+				columns = sizer.addLabeledControl(labelText, wx.Choice, choices=cols)
+			else:
+				label = wx.StaticText(self, wx.ID_ANY, label=_("Slot {position}").format(position = slot+1))
+				columns = wx.Choice(self, wx.ID_ANY, choices=cols)
+				sizer.Add(label)
+				sizer.Add(columns)
 			try:
 				columns.SetSelection(cols.index(parent.exploreColumns[slot] if not tt else parent.exploreColumnsTT[slot]))
 			except:
 				pass
-			sizer.Add(label)
-			sizer.Add(columns)
 			self.columnSlots.append(columns)
-		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+		if splconfig.useGUIHelper:
+			mainSizer.Add(sizer.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
+		else:
+			mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
@@ -1329,6 +1349,26 @@ class AdvancedOptionsDialog(wx.Dialog):
 			self.autoUpdateCheckbox.Value = self.Parent.autoUpdateCheck
 			# Translators: The label for a setting in SPL add-on settings/advanced options to select automatic update interval in days.
 			self.updateInterval=contentSizerHelper.addLabeledControl(_("Update &interval in days"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=30, initial=parent.updateInterval)
+			# LTS and 8.x only.
+			# Translators: The label for a combo box to select update channel.
+			labelText = _("&Add-on update channel:")
+			self.channels=contentSizerHelper.addLabeledControl(labelText, wx.Choice, choices=["development", "stable"])
+			self.updateChannels = ("dev", "stable")
+			self.channels.SetSelection(self.updateChannels.index(self.Parent.updateChannel))
+			# Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
+			self.splConPassthroughCheckbox=contentSizerHelper.addItem(wx.CheckBox(self, label=_("Allow SPL C&ontroller command to invoke SPL Assistant layer")))
+			self.splConPassthroughCheckbox.Value = self.Parent.splConPassthrough
+			# Translators: The label for a setting in SPL add-on dialog to set keyboard layout for SPL Assistant.
+			labelText = _("SPL Assistant command &layout:")
+			self.compatibilityLayouts=[("off","NVDA"),
+			("jfw","JAWS for Windows"),
+			("wineyes","Window-Eyes")]
+			self.compatibilityList=contentSizerHelper.addLabeledControl(labelText, wx.Choice, choices=[x[1] for x in self.compatibilityLayouts])
+			selection = (x for x,y in enumerate(self.compatibilityLayouts) if y[0]==self.Parent.compLayer).next()
+			try:
+				self.compatibilityList.SetSelection(selection)
+			except:
+				pass
 			mainSizer.Add(contentSizerHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 		else:
 			sizer = wx.BoxSizer(wx.VERTICAL)
@@ -1342,43 +1382,20 @@ class AdvancedOptionsDialog(wx.Dialog):
 			self.updateInterval.SetSelection(-1, -1)
 			sizer.Add(self.updateInterval)
 			mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
-
-		# LTS and 8.x only.
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		# Translators: The label for a combo box to select update channel.
-		label = wx.StaticText(self, wx.ID_ANY, label=_("&Add-on update channel:"))
-		self.channels= wx.Choice(self, wx.ID_ANY, choices=["development", "stable"])
-		self.updateChannels = ("dev", "stable")
-		self.channels.SetSelection(self.updateChannels.index(self.Parent.updateChannel))
-		sizer.Add(label)
-		sizer.Add(self.channels)
-		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
-
-		if splconfig.useGUIHelper:
-			contentSizerHelper2 = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
-			# Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
-			self.splConPassthroughCheckbox=contentSizerHelper2.addItem(wx.CheckBox(self, label=_("Allow SPL C&ontroller command to invoke SPL Assistant layer")))
-			self.splConPassthroughCheckbox.Value = self.Parent.splConPassthrough
-			# Translators: The label for a setting in SPL add-on dialog to set keyboard layout for SPL Assistant.
-			labelText = _("SPL Assistant command &layout:")
-			self.compatibilityLayouts=[("off","NVDA"),
-			("jfw","JAWS for Windows"),
-			("wineyes","Window-Eyes")]
-			self.compatibilityList=contentSizerHelper2.addLabeledControl(labelText, wx.Choice, choices=[x[1] for x in self.compatibilityLayouts])
-			selection = (x for x,y in enumerate(self.compatibilityLayouts) if y[0]==self.Parent.compLayer).next()
-			try:
-				self.compatibilityList.SetSelection(selection)
-			except:
-				pass
-			mainSizer.Add(contentSizerHelper2.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
-		else:
+			sizer = wx.BoxSizer(wx.HORIZONTAL)
+			label = wx.StaticText(self, wx.ID_ANY, label=_("&Add-on update channel:"))
+			self.channels= wx.Choice(self, wx.ID_ANY, choices=["development", "stable"])
+			self.updateChannels = ("dev", "stable")
+			self.channels.SetSelection(self.updateChannels.index(self.Parent.updateChannel))
+			sizer.Add(label)
+			sizer.Add(self.channels)
+			mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 			sizer = wx.BoxSizer(wx.HORIZONTAL)
 			self.splConPassthroughCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Allow SPL C&ontroller command to invoke SPL Assistant layer"))
 			self.splConPassthroughCheckbox.SetValue(self.Parent.splConPassthrough)
 			sizer.Add(self.splConPassthroughCheckbox, border=10,flag=wx.TOP)
 			mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 			sizer = wx.BoxSizer(wx.HORIZONTAL)
-			# Translators: The label for a setting in SPL add-on dialog to set keyboard layout for SPL Assistant.
 			label = wx.StaticText(self, wx.ID_ANY, label=_("SPL Assistant command &layout:"))
 			self.compatibilityLayouts=[("off","NVDA"),
 			("jfw","JAWS for Windows"),
