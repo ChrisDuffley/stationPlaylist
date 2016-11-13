@@ -56,7 +56,7 @@ def finally_(func, final):
 	return wrap(final)
 
 # Make sure the broadcaster is running a compatible version.
-SPLMinVersion = "5.00"
+SPLMinVersion = "5.10"
 
 # Cache the handle to main Studio window.
 _SPLWin = None
@@ -679,8 +679,6 @@ class AppModule(appModuleHandler.AppModule):
 		windowStyle = obj.windowStyle
 		if obj.windowClassName == "TTntListView.UnicodeClass" and role == controlTypes.ROLE_LISTITEM and abs(windowStyle - 1443991625)%0x100000 == 0:
 			clsList.insert(0, SPL510TrackItem)
-		elif obj.windowClassName == "TListView" and role == controlTypes.ROLE_CHECKBOX and abs(windowStyle - 1442938953)%0x100000 == 0:
-			clsList.insert(0, SPLTrackItem)
 		# 7.2: Recognize known dialogs.
 		elif obj.windowClassName in ("TDemoRegForm", "TOpenPlaylist"):
 			clsList.insert(0, Dialog)
