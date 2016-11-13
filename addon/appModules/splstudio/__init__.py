@@ -1544,13 +1544,13 @@ class AppModule(appModuleHandler.AppModule):
 	# These are scattered throughout the screen, so one can use foreground.getChild(index) to fetch them (getChild tip from Jamie Teh (NV Access)).
 	# Because 5.x (an perhaps future releases) uses different screen layout, look up the needed constant from the table below (row = info needed, column = version).
 	statusObjs={
-		SPLPlayStatus:[5, 6], # Play status, mic, etc.
-		SPLSystemStatus:[-3, -2], # The second status bar containing system status such as up time.
-		SPLScheduledToPlay:[18, 19], # In case the user selects one or more tracks in a given hour.
-		SPLScheduled:[19, 20], # Time when the selected track will begin.
-		SPLNextTrackTitle:[7, 8], # Name and duration of the next track if any.
-		SPLCurrentTrackTitle:[8, 9], # Name of the currently playing track.
-		SPLTemperature:[6, 7], # Temperature for the current city.
+		SPLPlayStatus: 6, # Play status, mic, etc.
+		SPLSystemStatus: -2, # The second status bar containing system status such as up time.
+		SPLScheduledToPlay: 19, # In case the user selects one or more tracks in a given hour.
+		SPLScheduled: 20, # Time when the selected track will begin.
+		SPLNextTrackTitle: 8, # Name and duration of the next track if any.
+		SPLCurrentTrackTitle: 9, # Name of the currently playing track.
+		SPLTemperature: 7, # Temperature for the current city.
 	}
 
 	_cachedStatusObjs = {}
@@ -1564,8 +1564,7 @@ class AppModule(appModuleHandler.AppModule):
 			if fg is not None and fg.windowClassName != "TStudioForm":
 				# 6.1: Allow gesture-based functions to look up status information even if Studio window isn't focused.
 				fg = getNVDAObjectFromEvent(user32.FindWindowA("TStudioForm", None), OBJID_CLIENT, 0)
-			if not self.productVersion >= "5.10": statusObj = self.statusObjs[infoIndex][0]
-			else: statusObj = self.statusObjs[infoIndex][1]
+			statusObj = self.statusObjs[infoIndex]
 			# 7.0: sometimes (especially when first loaded), OBJID_CLIENT fails, so resort to retrieving focused object instead.
 			if fg is not None and fg.childCount > 1:
 				self._cachedStatusObjs[infoIndex] = fg.getChild(statusObj)
