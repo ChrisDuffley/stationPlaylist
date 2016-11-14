@@ -139,7 +139,6 @@ class SPLTrackItem(IAccessible):
 	# But first, find where the requested column lives.
 	# 8.0: Make this a public function.
 	def indexOf(self, columnHeader):
-		# Handle both 5.0x and 5.10 column headers.
 		try:
 			return self._origIndexOf(columnHeader)
 		except ValueError:
@@ -224,15 +223,7 @@ class SPLTrackItem(IAccessible):
 	# Some helper functions to handle corner cases.
 	# Each track item provides its own version.
 	def _leftmostcol(self):
-		if self.appModule._columnHeaders is None:
-			self.appModule._columnHeaders = self.parent.children[-1]
-		leftmost = self.appModule._columnHeaders.firstChild.name
-		if not self.name or self.name == "":
-			# Translators: Announced when leftmost column has no text while track dial is active.
-			ui.message(_("{leftmostColumn} not found").format(leftmostColumn = leftmost))
-		else:
-			# Translators: Standard message for announcing column content.
-			ui.message(_("{leftmostColumn}: {leftmostContent}").format(leftmostColumn = leftmost, leftmostContent = self.name))
+		pass
 
 	# Locate column content.
 	# This is merely the proxy of the module level function defined in the misc module.
@@ -689,7 +680,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Keep an eye on library scans in insert tracks window.
 	libraryScanning = False
 	scanCount = 0
-	# For 5.0X and earlier: prevent NVDA from announcing scheduled time multiple times.
+	# Prevent NVDA from announcing scheduled time multiple times.
 	scheduledTimeCache = ""
 	# Track Dial (A.K.A. enhanced arrow keys)
 	SPLColNumber = 0
