@@ -298,6 +298,20 @@ un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
 
+## Version 16.11/15.3-LTS
+
+* Premier support de StationPlaylist Studio 5.20, y compris une meilleure
+  réactivité lors de l'obtention des informations du statut telles que
+  l’automatisation du statut via la couche de l'Assistant SPL.
+* Correction des problèmes liés à la recherche de pistes et à l'interaction
+  avec celles-ci, y compris l'impossibilité de cocher ou de décocher le
+  marqueur de position de piste ou une piste trouvée via le dialogue
+  Recherche de l'intervalle de temps.
+* L'ordre d'annonce des colonnes ne revient plus à l'ordre par défaut après
+  modification.
+* 16.11: Si les profils de diffusion ont des erreurs, la boîte de dialogue
+  d'erreur ne cessera plus de s'afficher.
+
 ## Version 16.10.1/15.2-LTS
 
 * Vous pouvez maintenant interagir avec la piste qui a été trouvé via la
