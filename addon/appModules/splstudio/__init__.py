@@ -8,7 +8,7 @@
 # Additional work done by Joseph Lee and other contributors.
 # For SPL Studio Controller, focus movement, SAM Encoder support and other utilities, see the global plugin version of this app module.
 
-# Minimum version: SPL 5.00, NvDA 2015.3.
+# Minimum version: SPL 5.10, NvDA 2016.4.
 
 from functools import wraps
 import os
@@ -133,7 +133,7 @@ class SPLTrackItem(IAccessible):
 	# This is response to a situation where columns were rearranged yet testing shows in-memory arrangement remains the same.
 	# Subclasses must provide this function.
 	def _origIndexOf(self, columnHeader):
-		return splconfig._SPLDefaults7["General"]["ExploreColumns"].index(columnHeader)
+		return None
 
 	# Read selected columns.
 	# But first, find where the requested column lives.
@@ -445,7 +445,7 @@ T: Cart edit/insert mode.
 U: Studio up time.
 W: Weather and temperature.
 Y: Playlist modification.
-1 through 0 (6 for Studio 5.01 and earlier): Announce columns via Columns Explorer (0 is tenth column slot).
+1 through 0: Announce columns via Columns Explorer (0 is tenth column slot).
 F9: Mark current track as start of track time analysis.
 F10: Perform track time analysis.
 F12: Switch to an instant switch profile.
@@ -477,7 +477,7 @@ T: Cart edit/insert mode.
 U: Studio up time.
 W: Weather and temperature.
 Y: Playlist modification.
-1 through 0 (6 for Studio 5.01 and earlier): Announce columns via Columns Explorer (0 is tenth column slot).
+1 through 0: Announce columns via Columns Explorer (0 is tenth column slot).
 F9: Mark current track as start of track time analysis.
 F10: Perform track time analysis.
 F12: Switch to an instant switch profile.
@@ -511,7 +511,7 @@ T: Cart edit/insert mode.
 U: Studio up time.
 W: Weather and temperature.
 Y: Playlist modification.
-1 through 0 (6 for Studio 5.01 and earlier): Announce columns via Columns Explorer (0 is tenth column slot).
+1 through 0: Announce columns via Columns Explorer (0 is tenth column slot).
 F9: Mark current track as start of track time analysis.
 F10: Perform track time analysis.
 F12: Switch to an instant switch profile.
@@ -1440,7 +1440,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Some handlers for native commands.
 
-	# In Studio 5.0x, when deleting a track, NVDA announces wrong track item due to focus bouncing.
+	# In Studio 5.0x, when deleting a track, NVDA announces wrong track item due to focus bouncing (not the case in 5.10 and later).
 	# The below hack is sensitive to changes in NVDA core.
 	deletedFocusObj = False
 
