@@ -286,6 +286,19 @@ realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
 
+## Versión 16.11/15.3-LTS
+
+* Soporte inicial para StationPlaylist Studio 5.20, incluyendo la
+  sensibilidad mejorada al obtener información de estado tal como estado de
+  la automatización a través de SPL Assistant layer.
+* Corregidos fallos relativos a la búsqueda de pistas e interactuación con
+  ellas, incluyendo la incapacidad para marcar o desmarcar marcadores de
+  pista o una pista encontrada a través del diálogo buscador de rango.
+* El orden del anunciado de columnas ya no se revertirá al orden
+  predeterminado después de cambiarlo.
+* 16.11: Si los perfiles de transmisión tienen errores, el diálogo error ya
+  no fallará al desplegarse.
+
 ## Versión 16.10.1/15.2-LTS
 
 * Ahora puedes interactuar con la pista que se encontró a través del

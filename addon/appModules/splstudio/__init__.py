@@ -444,7 +444,7 @@ R: Record to file.
 Shift+R: Monitor library scan.
 S: Scheduled time for the track.
 Shift+S: Time until the selected track will play.
-T: Cart edit mode.
+T: Cart edit/insert mode.
 U: Studio up time.
 W: Weather and temperature.
 Y: Playlist modification.
@@ -476,7 +476,7 @@ R: Remaining time for the playlist.
 Shift+R: Monitor library scan.
 S: Scheduled time for the track.
 Shift+S: Time until the selected track will play.
-T: Cart edit mode.
+T: Cart edit/insert mode.
 U: Studio up time.
 W: Weather and temperature.
 Y: Playlist modification.
@@ -510,7 +510,7 @@ Shift+E: Record to file.
 Shift+R: Monitor library scan.
 S: Scheduled time for the track.
 Shift+S: Time until the selected track will play.
-T: Cart edit mode.
+T: Cart edit/insert mode.
 U: Studio up time.
 W: Weather and temperature.
 Y: Playlist modification.
@@ -925,22 +925,24 @@ class AppModule(appModuleHandler.AppModule):
 	# Specific to time scripts using Studio API.
 	# 6.0: Split this into two functions: the announcer (below) and formatter.
 	# 7.0: The ms (millisecond) argument will be used when announcing playlist remainder.
-	def announceTime(self, t, offset = None, ms=True):
+	# 16.12: Include hours by default unless told not to do so.
+	def announceTime(self, t, offset = None, ms=True, includeHours=None):
 		if t <= 0:
 			ui.message("00:00")
 		else:
-			ui.message(self._ms2time(t, offset = offset, ms=ms))
+			ui.message(self._ms2time(t, offset = offset, ms=ms, includeHours=includeHours))
 
 	# Formatter: given time in milliseconds, convert it to human-readable format.
 	# 7.0: There will be times when one will deal with time in seconds.
-	def _ms2time(self, t, offset = None, ms=True):
+	# 16.12: For some cases, do not include hour slot when trying to conform to what Studio displays.)
+	def _ms2time(self, t, offset = None, ms=True, includeHours=None):
 		if t <= 0:
 			return "00:00"
 		else:
 			if ms:
 				t = (t/1000) if not offset else (t/1000)+offset
 			mm, ss = divmod(t, 60)
-			if mm > 59 and splconfig.SPLConfig["General"]["TimeHourAnnounce"]:
+			if mm > 59 and (includeHours or (includeHours is None and splconfig.SPLConfig["General"]["TimeHourAnnounce"])):
 				hh, mm = divmod(mm, 60)
 				# Hour value is also filled with leading zero's.
 				# 6.1: Optimize the string builder so it can return just one string.
@@ -1592,7 +1594,6 @@ class AppModule(appModuleHandler.AppModule):
 		("Microphone Off","Microphone On"),
 		("Line-In Off","Line-In On"),
 		("Record to file Off","Record to file On"),
-		("Cart Edit Off","Cart Edit On"),
 	)
 
 	# In the layer commands below, sayStatus function is used if screen objects or API must be used (API is for Studio 5.20 and later).
@@ -1621,7 +1622,15 @@ class AppModule(appModuleHandler.AppModule):
 		self.sayStatus(4)
 
 	def script_sayCartEditStatus(self, gesture):
-		self.sayStatus(5)
+		# 16.12: Because cart edit status also shows cart insert status, verbosity control will not apply.
+		if self.productVersion >= "5.20":
+			cartEdit = statusAPI(5, 39, ret=True)
+			cartInsert = statusAPI(6, 39, ret=True)
+			if cartEdit: ui.message("Cart Edit On")
+			elif not cartEdit and cartInsert: ui.message("Cart Insert On")
+			else: ui.message("Cart Edit Off")
+		else:
+			ui.message(self.status(self.SPLPlayStatus).getChild(5).name)
 
 	def script_sayHourTrackDuration(self, gesture):
 		statusAPI(0, 27, self.announceTime)
@@ -1701,13 +1710,27 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_sayScheduledTime(self, gesture):
 		# 7.0: Scheduled is the time originally specified in Studio, scheduled to play is broadcast time based on current time.
-		obj = self.status(self.SPLScheduled).firstChild
-		ui.message(obj.name)
+		# 16.12: use Studio API if using 5.20.
+		if self.productVersion >= "5.20":
+			# Sometimes, hour markers return seconds.999 due to rounding error, hence this must be taken care of here.
+			trackStarts = divmod(statusAPI(3, 27, ret=True), 1000)
+			# For this method, all three components of time display (hour, minute, second) must be present.
+			# In case it is midnight (0.0 but sometimes shown as 86399.999 due to rounding error), just say "midnight".
+			if trackStarts in ((86399, 999), (0, 0)): ui.message("00:00:00")
+			else: self.announceTime(trackStarts[0]+1 if trackStarts[1] == 999 else trackStarts[0], ms=False)
+		else:
+			obj = self.status(self.SPLScheduled).firstChild
+			ui.message(obj.name)
 
 	def script_sayScheduledToPlay(self, gesture):
 		# 7.0: This script announces length of time remaining until the selected track will play.
-		obj = self.status(self.SPLScheduledToPlay).firstChild
-		ui.message(obj.name)
+		# 16.12: Use Studio 5.20 API (faster and more reliable).
+		if self.productVersion >= "5.20":
+			# This is the only time hour announcement should not be used in order to conform to what's displayed on screen.
+			self.announceTime(statusAPI(4, 27, ret=True), includeHours=False)
+		else:
+			obj = self.status(self.SPLScheduledToPlay).firstChild
+			ui.message(obj.name)
 
 	def script_sayListenerCount(self, gesture):
 		obj = self.status(self.SPLSystemStatus).getChild(3)

@@ -260,6 +260,19 @@ Amennyiben érintőképernyős számítógépen használja a Studiot Windows 8, 
 parancsokat végrehajthat az érintőképernyőn is. Először 3 ujjas koppintással
 váltson SPL módra, és utána már használhatók az alább felsorolt parancsok.
 
+## Version 16.11/15.3-LTS
+
+* Initial support for StationPlaylist Studio 5.20, including improved
+  responsiveness when obtaining status information such as automation status
+  via SPL Assistant layer.
+* Fixed issues related to searching for tracks and interacting with them,
+  including inability to check or uncheck place marker track or a track
+  found via time range finder dialog.
+* Column announcement order will no longer revert to default order after
+  changing it.
+* 16.11: If broadcast profiles have errors, error dialog will no longer fail
+  to show up.
+
 ## Version 16.10.1/15.2-LTS
 
 * You can now interact with the track that was found via Track Finder
