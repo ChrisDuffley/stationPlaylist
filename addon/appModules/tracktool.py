@@ -22,11 +22,9 @@ addonHandler.initTranslation()
 # Return a tuple of column headers.
 # This is just a thinly disguised indexOf function from Studio's track item class.
 def indexOf(ttVersion):
-	if ttVersion.startswith("5.0"):
-		return ("Artist","Title","Duration","Cue","Overlap","Intro","Segue","Album","CD Code","URL 1","URL 2","Filename")
-	elif ttVersion.startswith("5.1"):
+	if ttVersion < "5.2":
 		return ("Artist","Title","Duration","Cue","Overlap","Intro","Outro","Segue","Year","Album","CD Code","URL 1","URL 2","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Client","Other","Intro Link","Outro Link")
-	elif ttVersion.startswith("5.2"):
+	else:
 		return ("Artist","Title","Duration","Cue","Overlap","Intro","Outro","Segue","Hook Start","Hook Len","Year","Album","CD Code","URL 1","URL 2","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Client","Other","Intro Link","Outro Link","ReplayGain")
 
 class TrackToolItem(IAccessible):
@@ -94,7 +92,7 @@ class TrackToolItem(IAccessible):
 	def announceColumnContent(self, colNumber, columnHeader=None, individualColumns=False):
 		if not columnHeader:
 			columnHeader = self.columnHeaders.children[colNumber].name
-		# LTS: Studio 5.10 data structure change is evident in Track Tool as well, so don't rely on column headers alone.
+			# LTS: Studio 5.10 data structure change is evident in Track Tool as well, so don't rely on column headers alone.
 			internalHeaders = indexOf(self.appModule.productVersion)
 			if internalHeaders[colNumber] != columnHeader:
 				colNumber = internalHeaders.index(columnHeader)
