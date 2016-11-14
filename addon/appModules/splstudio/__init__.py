@@ -1051,14 +1051,6 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Other commands (track finder and others)
 
-	# Toggle whether beeps should be heard instead of toggle announcements.
-	# Deprecated in 8.0, may come back later.
-
-	#def script_toggleBeepAnnounce(self, gesture):
-		#splconfig.SPLConfig["General"]["BeepAnnounce"] = not splconfig.SPLConfig["General"]["BeepAnnounce"]
-		#splconfig.message("BeepAnnounce", splconfig.SPLConfig["General"]["BeepAnnounce"])
-	#script_toggleBeepAnnounce.__doc__=_("Toggles status announcements between words and beeps.")
-
 	# Braille timer.
 	# Announce end of track and other info via braille.
 
