@@ -121,9 +121,6 @@ class SPLTrackItem(IAccessible):
 	"""A base class for providing utility scripts when track entries are focused, such as track dial."""
 
 	def initOverlayClass(self):
-		#if splconfig.SPLConfig["General"]["TrackDial"]:
-			#self.bindGesture("kb:rightArrow", "nextColumn")
-			#self.bindGesture("kb:leftArrow", "prevColumn")
 		# LTS: Take a greater role in assigning enhanced Columns Explorer command at the expense of limiting where this can be invoked.
 		# 8.0: Just assign number row.
 		for i in xrange(10):
@@ -191,34 +188,6 @@ class SPLTrackItem(IAccessible):
 	# This is similar to enhanced arrow keys in other screen readers.
 
 	def script_toggleTrackDial(self, gesture):
-		#if not splconfig.SPLConfig["General"]["TrackDial"]:
-			#splconfig.SPLConfig["General"]["TrackDial"] = True
-			#self.bindGesture("kb:rightArrow", "nextColumn")
-			#self.bindGesture("kb:leftArrow", "prevColumn")
-			# Translators: Reported when track dial is on.
-			#dialText = _("Track Dial on")
-			#if self.appModule.SPLColNumber > 0:
-				# Translators: Announced when located on a column other than the leftmost column while using track dial.
-				#dialText+= _(", located at column {columnHeader}").format(columnHeader = self.appModule.SPLColNumber+1)
-			#dialTone = 780
-		#else:
-			#splconfig.SPLConfig["General"]["TrackDial"] = False
-			#try:
-				#self.removeGestureBinding("kb:rightArrow")
-				#self.removeGestureBinding("kb:leftArrow")
-			#except KeyError:
-				#pass
-			# Translators: Reported when track dial is off.
-			#dialText = _("Track Dial off")
-			#dialTone = 390
-		#if not splconfig.SPLConfig["General"]["BeepAnnounce"]:
-			#ui.message(dialText)
-		#else:
-			#tones.beep(dialTone, 100)
-			#braille.handler.message(dialText)
-			#if splconfig.SPLConfig["General"]["TrackDial"] and self.appModule.SPLColNumber > 0:
-				# Translators: Spoken when enabling track dial while status message is set to beeps.
-				#speech.speakMessage(_("Column {columnNumber}").format(columnNumber = self.appModule.SPLColNumber+1))
 		ui.message("Track Dial is deprecated in 2017, please unassign Track Dial toggle command via Input Gestures dialog")
 	# Translators: Input help mode message for SPL track item.
 	script_toggleTrackDial.__doc__=_("Toggles track dial on and off.")

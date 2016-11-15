@@ -232,11 +232,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.hourAnnounceCheckbox.SetValue(splconfig.SPLConfig["General"]["TimeHourAnnounce"])
 		settingsSizer.Add(self.hourAnnounceCheckbox, border=10,flag=wx.BOTTOM)
 
-		# Translators: the label for a setting in SPL add-on settings to toggle track dial mode on and off.
-		#self.trackDialCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Track Dial mode"))
-		#self.trackDialCheckbox.SetValue(splconfig.SPLConfig["General"]["TrackDial"])
-		#settingsSizer.Add(self.trackDialCheckbox, border=10,flag=wx.BOTTOM)
-
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: The label for a setting in SPL add-on dialog to set vertical column.
 		label = wx.StaticText(self, wx.ID_ANY, label=_("&Vertical column navigation announcement:"))
@@ -385,7 +380,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 		splconfig.SPLConfig["General"]["AlarmAnnounce"] = self.alarmAnnounceValues[self.alarmAnnounceList.GetSelection()][0]
 		splconfig.SPLConfig["General"]["LibraryScanAnnounce"] = self.libScanValues[self.libScanList.GetSelection()][0]
 		splconfig.SPLConfig["General"]["TimeHourAnnounce"] = self.hourAnnounceCheckbox.Value
-		#splconfig.SPLConfig["General"]["TrackDial"] = self.trackDialCheckbox.Value
 		splconfig.SPLConfig["General"]["CategorySounds"] = self.categorySoundsCheckbox.Value
 		splconfig.SPLConfig["General"]["TrackCommentAnnounce"] = self.trackCommentValues[self.trackCommentList.GetSelection()][0]
 		splconfig.SPLConfig["General"]["TopBottomAnnounce"] = self.topBottomCheckbox.Value
