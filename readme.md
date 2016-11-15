@@ -38,7 +38,6 @@ The following commands are not assigned by default; if you wish to assign it, us
 * SPL Controller layer.
 * SPL Assistant layer from SPL Studio.
 * Announce time including seconds from SPL Studio.
-* Toggling track dial on or off (works properly while a track is focused; to assign a command to this, move to a track in Studio, then open NVDA's input gestures dialog.).
 * Announcing temperature.
 * Announcing title of next track if scheduled.
 * Announcing title of the currently playing track.
@@ -174,6 +173,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 * Added ability to press Control+Alt+up or down arrow keys to move between tracks (specifically, track columns) vertically just as one is moving to next or previous row in a table.
 * Added a combo box in add-on settings dialog to set which column should be announced when moving through columns vertically.
+* Removed Track Dial (NVDA's version of enhanced arrow keys), replaced by Columns explorer and Column Navigator/table navigation commands). This affects Studio and Track Tool.
 
 ## Version 16.11/15.3-LTS
 

@@ -38,53 +38,9 @@ class TrackToolItem(IAccessible):
 		super(TrackToolItem, self).reportFocus()
 
 	def initOverlayClass(self):
-		if self.appModule.TTDial:
-			self.bindGesture("kb:rightArrow", "nextColumn")
-			self.bindGesture("kb:leftArrow", "prevColumn")
 		# 8.0: Assign Control+NVDA+number row for Columns Explorer just like the main app module.
 		for i in xrange(10):
 			self.bindGesture("kb:control+nvda+%s"%(i), "columnExplorer")
-		# See if Track Dial toggle for Studio is defined, and if so, pull it in.
-		import inputCore
-		userGestures = inputCore.manager.userGestureMap._map
-		for gesture in userGestures:
-			if userGestures[gesture][0][2] == "toggleTrackDial":
-				self.bindGesture(gesture, "toggleTrackDial")
-
-			# Track Dial for Track Tool.
-
-	def script_toggleTrackDial(self, gesture):
-		if splconfig.SPLConfig is None:
-			# Translators: Presented when only Track Tool is running (Track Dial requires Studio to be running as well).
-			ui.message(_("Only Track Tool is running, Track Dial is unavailable"))
-			return
-		if not self.appModule.TTDial:
-			self.appModule.TTDial = True
-			self.bindGesture("kb:rightArrow", "nextColumn")
-			self.bindGesture("kb:leftArrow", "prevColumn")
-			dialText = _("Track Dial on")
-			if self.appModule.SPLColNumber > 0:
-				dialText+= _(", located at column {columnHeader}").format(columnHeader = self.appModule.SPLColNumber+1)
-			dialTone = 780
-		else:
-			self.appModule.TTDial = False
-			try:
-				self.removeGestureBinding("kb:rightArrow")
-				self.removeGestureBinding("kb:leftArrow")
-			except KeyError:
-				pass
-			dialText = _("Track Dial off")
-			dialTone = 390
-		if not splconfig.SPLConfig["General"]["BeepAnnounce"]:
-			ui.message(dialText)
-		else:
-			tones.beep(dialTone, 100)
-			braille.handler.message(dialText)
-			if self.appModule.TTDial and self.appModule.SPLColNumber > 0:
-				speech.speakMessage(_("Column {columnNumber}").format(columnNumber = self.appModule.SPLColNumber+1))
-	# Translators: Input help mode message for SPL track item.
-	script_toggleTrackDial.__doc__=_("Toggles track dial on and off.")
-	script_toggleTrackDial.category = _("StationPlaylist Studio")
 
 	# Tweak for Track Tool: Announce column header if given.
 	# Also take care of this when specific columns are asked.
@@ -153,7 +109,6 @@ class TrackToolItem(IAccessible):
 				ui.message(_("{headerText} not found").format(headerText = header))
 
 	__gestures={
-		#"kb:control+`":"toggleTrackDial",
 		"kb:control+alt+rightArrow":"nextColumn",
 		"kb:control+alt+leftArrow":"prevColumn",
 	}
@@ -161,7 +116,6 @@ class TrackToolItem(IAccessible):
 
 class AppModule(appModuleHandler.AppModule):
 
-	TTDial = False
 	SPLColNumber = 0
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
