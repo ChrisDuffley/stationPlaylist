@@ -1253,13 +1253,13 @@ class SayStatusDialog(wx.Dialog):
 		if splconfig.useGUIHelper:
 			# Translators: the label for a setting in SPL add-on settings to announce scheduled time.
 			self.scheduledForCheckbox=contentSizerHelper.addItem(wx.CheckBox(self, label=_("Announce &scheduled time for the selected track")))
-			self.scheduledForCheckbox.Value = parent.scheduledFor
+			self.scheduledForCheckbox.SetValue(parent.scheduledFor)
 			# Translators: the label for a setting in SPL add-on settings to announce listener count.
 			self.listenerCountCheckbox=contentSizerHelper.addItem(wx.CheckBox(self, label=_("Announce &listener count")))
-			self.listenerCountCheckbox.Value = parent.listenerCount
+			self.listenerCountCheckbox.SetValue(parent.listenerCount)
 			# Translators: the label for a setting in SPL add-on settings to announce currently playing cart.
 			self.cartNameCheckbox=contentSizerHelper.addItem(wx.CheckBox(self, label=_("&Announce name of the currently playing cart")))
-			self.cartNameCheckbox.Value = parent.cartName
+			self.cartNameCheckbox.SetValue(parent.cartName)
 			# Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
 			labelText = _("&Track name announcement:")
 			# Translators: One of the track name announcement options.
@@ -1340,7 +1340,7 @@ class AdvancedOptionsDialog(wx.Dialog):
 		if splconfig.useGUIHelper:
 			# Translators: A checkbox to toggle automatic add-on updates.
 			self.autoUpdateCheckbox=contentSizerHelper.addItem(wx.CheckBox(self,label=_("Automatically check for add-on &updates")))
-			self.autoUpdateCheckbox.Value = self.Parent.autoUpdateCheck
+			self.autoUpdateCheckbox.SetValue(self.Parent.autoUpdateCheck)
 			# Translators: The label for a setting in SPL add-on settings/advanced options to select automatic update interval in days.
 			self.updateInterval=contentSizerHelper.addLabeledControl(_("Update &interval in days"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=30, initial=parent.updateInterval)
 			# LTS and 8.x only.
@@ -1351,7 +1351,7 @@ class AdvancedOptionsDialog(wx.Dialog):
 			self.channels.SetSelection(self.updateChannels.index(self.Parent.updateChannel))
 			# Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 			self.splConPassthroughCheckbox=contentSizerHelper.addItem(wx.CheckBox(self, label=_("Allow SPL C&ontroller command to invoke SPL Assistant layer")))
-			self.splConPassthroughCheckbox.Value = self.Parent.splConPassthrough
+			self.splConPassthroughCheckbox.SetValue(self.Parent.splConPassthrough)
 			# Translators: The label for a setting in SPL add-on dialog to set keyboard layout for SPL Assistant.
 			labelText = _("SPL Assistant command &layout:")
 			self.compatibilityLayouts=[("off","NVDA"),

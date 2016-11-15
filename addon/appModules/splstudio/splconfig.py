@@ -911,7 +911,7 @@ class SPLAlarmDialog(wx.Dialog):
 			if useGUIHelper:
 				self.outroAlarmEntry = contentSizerHelper.addLabeledControl(alarmLabel, gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=59, initial=timeVal)
 				self.outroToggleCheckBox=contentSizerHelper.addItem(wx.CheckBox(self, label=_("&Notify when end of track is approaching")))
-				self.outroToggleCheckBox.Value = SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"]
+				self.outroToggleCheckBox.SetValue(SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"])
 			else:
 				alarmSizer = wx.BoxSizer(wx.HORIZONTAL)
 				alarmMessage = wx.StaticText(self, wx.ID_ANY, label=alarmLabel)
@@ -931,7 +931,7 @@ class SPLAlarmDialog(wx.Dialog):
 			if useGUIHelper:
 				self.introAlarmEntry = contentSizerHelper.addLabeledControl(alarmLabel, gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=9, initial=rampVal)
 				self.introToggleCheckBox=contentSizerHelper.addItem(wx.CheckBox(self, label=_("&Notify when end of introduction is approaching")))
-				self.introToggleCheckBox.Value = SPLConfig["IntroOutroAlarms"]["SaySongRamp"]
+				self.introToggleCheckBox.SetValue(SPLConfig["IntroOutroAlarms"]["SaySongRamp"])
 			else:
 				alarmSizer = wx.BoxSizer(wx.HORIZONTAL)
 				alarmMessage = wx.StaticText(self, wx.ID_ANY, label=alarmLabel)
