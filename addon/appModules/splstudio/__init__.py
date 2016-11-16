@@ -160,8 +160,9 @@ class SPLTrackItem(IAccessible):
 		# 17.1: Even if vertical column commands are performed, build description pieces for consistency.
 		if splconfig._shouldBuildDescriptionPieces():
 			descriptionPieces = []
+			columnsToInclude = splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"]
 			for header in splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"]:
-				if header in splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"]:
+				if header in columnsToInclude:
 					index = self.indexOf(header)
 					if index is None: continue # Header not found, mostly encountered in Studio 5.0x.
 					content = self._getColumnContent(index)
