@@ -1592,7 +1592,7 @@ class AppModule(appModuleHandler.AppModule):
 			if segue not in (None, "00:00"):
 				hms = [int(seg) for seg in segue.split(":")]
 				totalDuration += (hms[-2]*60) + hms[-1]
-				if len(hms) == 3: duration += hms[0]*3600
+				if len(hms) == 3: totalDuration += hms[0]*3600
 			obj = obj.next
 		self.announceTime(totalDuration, ms=False)
 
