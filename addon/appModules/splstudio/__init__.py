@@ -708,7 +708,7 @@ class AppModule(appModuleHandler.AppModule):
 					self._toggleMessage(obj.name)
 				else:
 					ui.message(obj.name)
-				if self.cartExplorer or int(splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"]):
+				if self.cartExplorer or splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"]:
 					# Activate mic alarm or announce when cart explorer is active.
 					self.doExtraAction(obj.name)
 		# Monitor the end of track and song intro time and announce it.
@@ -1588,9 +1588,11 @@ class AppModule(appModuleHandler.AppModule):
 		totalDuration = 0
 		while obj is not None:
 			segue = obj._getColumnContent(col)
-			if segue is not None:
-				hms = segue.split(":")
-				totalDuration += (int(hms[0])*3600) + (int(hms[1])*60) + int(hms[2]) if len(hms) == 3 else (int(hms[0])*60) + int(hms[1])
+			# 17.1 optimization: list comprehension and data conversion at the same time, then add minute/second (hour also if this is the case), forget it if it is 00:00.
+			if segue not in (None, "00:00"):
+				hms = [int(seg) for seg in segue.split(":")]
+				totalDuration += (hms[-2]*60) + hms[-1]
+				if len(hms) == 3: duration += hms[0]*3600
 			obj = obj.next
 		self.announceTime(totalDuration, ms=False)
 
