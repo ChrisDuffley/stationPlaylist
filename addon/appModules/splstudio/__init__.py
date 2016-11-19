@@ -715,7 +715,8 @@ class AppModule(appModuleHandler.AppModule):
 					if self.libraryScanning: self.libraryScanning = False
 					self.scanCount = 0
 			else:
-				if obj.name.endswith((" On", " Off")):
+				# 16.12: Because cart edit text shows cart insert status, exclude this from toggle state announcement.
+				if obj.name.endswith((" On", " Off")) and not obj.name.startswith("Cart "):
 					self._toggleMessage(obj.name)
 				else:
 					ui.message(obj.name)
