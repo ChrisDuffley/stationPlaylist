@@ -327,7 +327,8 @@ class SPLTrackItem(IAccessible):
 				# Translators: Presented when there is no track comment for the focused track.
 				ui.message(_("No comment"))
 			elif level >= 3:
-				if filename is not None:
+				# 16.12: timed break notes shows an odd value for filename (seconds in integers followed by a colon), potentially confusing users.)
+				if filename and not filename.endswith(":"):
 					self._trackCommentsEntry(filename, "")
 				else:
 					# Translators: Presented when focused on a track other than an actual track (such as hour marker).
