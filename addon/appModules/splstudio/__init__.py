@@ -1588,11 +1588,10 @@ class AppModule(appModuleHandler.AppModule):
 		totalDuration = 0
 		while obj is not None:
 			segue = obj._getColumnContent(col)
-			# 17.1 optimization: list comprehension and data conversion at the same time, then add minute/second (hour also if this is the case), forget it if it is 00:00.
 			if segue not in (None, "00:00"):
-				hms = [int(seg) for seg in segue.split(":")]
-				totalDuration += (hms[-2]*60) + hms[-1]
-				if len(hms) == 3: totalDuration += hms[0]*3600
+				hms = segue.split(":")
+				totalDuration += (int(hms[-2])*60) + int(hms[-1])
+				if len(hms) == 3: totalDuration += int(hms[0])*3600
 			obj = obj.next
 		self.announceTime(totalDuration, ms=False)
 
