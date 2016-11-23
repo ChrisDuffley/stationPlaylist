@@ -1047,35 +1047,70 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 		label = wx.StaticText(self, wx.ID_ANY, label=_("Select columns to be announced (artist and title are announced by default"))
 		mainSizer.Add(label,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		if splconfig.useGUIHelper:
+			sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
+		else:
+			sizer = wx.BoxSizer(wx.HORIZONTAL)
 		for checkedColumn in self.checkedColumns:
-			sizer.Add(checkedColumn)
-		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+			if splconfig.useGUIHelper:
+				sizer.addItem(checkedColumn)
+			else:
+				sizer.Add(checkedColumn)
+		if splconfig.useGUIHelper:
+			mainSizer.Add(sizer.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
+		else:
+			mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		if splconfig.useGUIHelper:
+			sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
+		else:
+			sizer = wx.BoxSizer(wx.HORIZONTAL)
 		for checkedColumn in self.checkedColumns2:
-			sizer.Add(checkedColumn)
-		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+			if splconfig.useGUIHelper:
+				sizer.addItem(checkedColumn)
+			else:
+				sizer.Add(checkedColumn)
+		if splconfig.useGUIHelper:
+			mainSizer.Add(sizer.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
+		else:
+			mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		if splconfig.useGUIHelper:
+			sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
+		else:
+			sizer = wx.BoxSizer(wx.HORIZONTAL)
 		for checkedColumn in self.checkedColumns3:
-			sizer.Add(checkedColumn)
-		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+			if splconfig.useGUIHelper:
+				sizer.addItem(checkedColumn)
+			else:
+				sizer.Add(checkedColumn)
+		if splconfig.useGUIHelper:
+			mainSizer.Add(sizer.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
+		else:
+			mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		# Translators: The label for a setting in SPL add-on dialog to select column announcement order.
-		label = wx.StaticText(self, wx.ID_ANY, label=_("Column &order:"))
-		# WXPython Phoenix contains RearrangeList to allow item orders to be changed automatically.
-		# Because WXPython Classic doesn't include this, work around by using a variant of list box and move up/down buttons.
-		self.trackColumns= wx.ListBox(self, wx.ID_ANY, choices=parent.columnOrder)
-		self.trackColumns.Bind(wx.EVT_LISTBOX,self.onColumnSelection)
-		try:
+		if splconfig.useGUIHelper:
+			sizer= gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
+			# Translators: The label for a setting in SPL add-on dialog to select column announcement order.
+			self.trackColumns = sizer.addLabeledControl(_("Column &order:"), wx.ListBox, choices=parent.columnOrder)
+			self.trackColumns.Bind(wx.EVT_LISTBOX,self.onColumnSelection)
 			self.trackColumns.SetSelection(0)
-		except:
-			pass
-		sizer.Add(label)
-		sizer.Add(self.trackColumns)
-		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+			mainSizer.Add(sizer.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
+		else:
+			sizer = wx.BoxSizer(wx.HORIZONTAL)
+			# Translators: The label for a setting in SPL add-on dialog to select column announcement order.
+			label = wx.StaticText(self, wx.ID_ANY, label=_("Column &order:"))
+			# WXPython Phoenix contains RearrangeList to allow item orders to be changed automatically.
+			# Because WXPython Classic doesn't include this, work around by using a variant of list box and move up/down buttons.
+			self.trackColumns= wx.ListBox(self, wx.ID_ANY, choices=parent.columnOrder)
+			self.trackColumns.Bind(wx.EVT_LISTBOX,self.onColumnSelection)
+			try:
+				self.trackColumns.SetSelection(0)
+			except:
+				pass
+			sizer.Add(label)
+			sizer.Add(self.trackColumns)
+			mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
