@@ -345,11 +345,12 @@ def _metadataAnnouncer(reminder=False, handle=None):
 		for url in xrange(5):
 			dataLo = 0x00010000 if splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"][url] else 0xffff0000
 			sendMessage(handle, 1024, dataLo | url, 36)
-	dsp = 1 if sendMessage(handle, 1024, 0, 36) == 1 else 0
-	streamCount = []
-	for pos in xrange(1, 5):
-		checked = sendMessage(handle, 1024, pos, 36)
-		if checked == 1: streamCount.append(pos)
+	# Gather stream flags.
+	# DSP is treated specially.
+	dsp = sendMessage(handle, 1024, 0, 36)
+	# For others, a simple list.append will do.
+	# 17.1: Use a conditional list comprehension.
+	streamCount = [str(pos) for pos in xrange(1, 5) if sendMessage(handle, 1024, pos, 36)]
 	# Announce streaming status when told to do so.
 	status = None
 	if not len(streamCount):
@@ -363,11 +364,10 @@ def _metadataAnnouncer(reminder=False, handle=None):
 		# Translators: Status message for metadata streaming.
 		else: status = _("Metadata streaming configured for URL {URL}").format(URL = streamCount[0])
 	else:
-		urltext = ", ".join([str(stream) for stream in streamCount])
 		# Translators: Status message for metadata streaming.
-		if dsp: status = _("Metadata streaming configured for DSP encoder and URL's {URL}").format(URL = urltext)
+		if dsp: status = _("Metadata streaming configured for DSP encoder and URL's {URL}").format(URL = ", ".join(streamCount))
 		# Translators: Status message for metadata streaming.
-		else: status = _("Metadata streaming configured for URL's {URL}").format(URL = urltext)
+		else: status = _("Metadata streaming configured for URL's {URL}").format(URL = ", ".join(streamCount))
 	if reminder:
 		time.sleep(2)
 		speech.cancelSpeech()

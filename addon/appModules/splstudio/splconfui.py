@@ -948,10 +948,7 @@ class MetadataStreamingDialog(wx.Dialog):
 		# Add checkboxes for each stream, beginning with the DSP encoder.
 		for stream in xrange(5):
 			checkedStream=wx.CheckBox(self,wx.NewId(),label=streamLabels[stream])
-			if func:
-				streaming = func(stream, 36, ret=True)
-				if streaming == -1: streaming += 1
-				checkedStream.SetValue(streaming)
+			if func: checkedStream.SetValue(func(stream, 36, ret=True))
 			else: checkedStream.SetValue(self.Parent.metadataStreams[stream])
 			self.checkedStreams.append(checkedStream)
 

@@ -1787,8 +1787,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Gesture(s) for the following script cannot be changed by users.
 	def script_metadataEnabled(self, gesture):
 		url = int(gesture.displayName[-1])
-		checked = statusAPI(url, 36, ret=True)
-		if checked == 1:
+		if statusAPI(url, 36, ret=True):
 			# 0 is DSP encoder status, others are servers.
 			if url:
 				# Translators: Status message for metadata streaming.
