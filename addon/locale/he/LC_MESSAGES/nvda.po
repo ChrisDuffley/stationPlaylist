@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 5.5\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2015-09-25 19:00+1000\n"
-"PO-Revision-Date: 2016-10-02 00:16+0200\n"
+"PO-Revision-Date: 2016-11-21 21:09+0200\n"
 "Last-Translator:  <shmuel_naaman@yahoo.com>\n"
 "Language-Team: \n"
 "Language: he\n"
@@ -27,7 +27,6 @@ msgid "Track Dial on"
 msgstr "תפריט הרצועות"
 
 #. Translators: Announced when located on a column other than the leftmost column while using track dial.
-#, python-brace-format
 msgid ", located at column {columnHeader}"
 msgstr ", ממוקם בעמודה {columnHeader}"
 
@@ -36,7 +35,6 @@ msgid "Track Dial off"
 msgstr "תפריט רצועות לא זמין"
 
 #. Translators: Spoken when enabling track dial while status message is set to beeps.
-#, python-brace-format
 msgid "Column {columnNumber}"
 msgstr "עמודה {columnNumber}"
 
@@ -51,22 +49,18 @@ msgid "StationPlaylist Studio"
 msgstr "StationPlaylist Studio"
 
 #. Translators: Standard message for announcing column content.
-#, python-brace-format
 msgid "{header}: {content}"
 msgstr "{header}: {content}"
 
 #. Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
-#, python-brace-format
 msgid "{header} not found"
 msgstr "{header} לא נמצא"
 
 #. Translators: Spoken when column content is blank.
-#, python-brace-format
 msgid "{header}: blank"
 msgstr "{header}  ריק"
 
 #. Translators: Brailled to indicate empty column content.
-#, python-brace-format
 msgid "{header}: ()"
 msgstr "{header}: ()"
 
@@ -75,7 +69,6 @@ msgid "No artist"
 msgstr "אין שם מבצע"
 
 #. Translators: Presents artist information for a track in Track Tool.
-#, python-brace-format
 msgid "Artist: {artistName}"
 msgstr "שם המבצע: {artistName}"
 
@@ -85,7 +78,6 @@ msgstr "הקדימון לא הוגדר"
 
 #. Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
 #. Translators: Presented when a specific column header is not found.
-#, python-brace-format
 msgid "{headerText} not found"
 msgstr "{headerText}  לא נמצא"
 
@@ -94,12 +86,10 @@ msgid "Microphone active"
 msgstr "המיקרופון פעיל"
 
 #. Translators: Announced when leftmost column has no text while track dial is active.
-#, python-brace-format
 msgid "{leftmostColumn} not found"
 msgstr "{leftmostColumn} לא נמצא"
 
 #. Translators: Standard message for announcing column content.
-#, python-brace-format
 msgid "{leftmostColumn}: {leftmostContent}"
 msgstr "{leftmostColumn}: {leftmostContent}"
 
@@ -119,9 +109,8 @@ msgid "Comments cannot be added to this kind of track"
 msgstr "לא ניתן להוסיף הערה מסוג זה לרצועה"
 
 #. Translators: The title of the track comments dialog.
-#, fuzzy
 msgid "Track comment"
-msgstr "קדימון"
+msgstr "כותרת ערוץ"
 
 #. Translators: Input help message for track comment announcemnet command in SPL Studio.
 msgid ""
@@ -137,7 +126,6 @@ msgid "Status not found"
 msgstr "מצב נוכחי לא מזוהה"
 
 #. Translators: Status information for a checked track in Studio 5.10.
-#, python-brace-format
 msgid "Status: {name}"
 msgstr "מצב: {name}"
 
@@ -345,7 +333,6 @@ msgstr ""
 "F12: מעבר מידי לפרופיל אחר.\n"
 "Shift+F1: פתיחת המדריך המקוון"
 
-#, python-brace-format
 msgid "Using SPL Studio version {SPLVersion}"
 msgstr "השימוש בSPL גרסת  {SPLVersion}"
 
@@ -356,7 +343,6 @@ msgid "SPL settings"
 msgstr "הגדרות SPL"
 
 #. Translators: Presented when library scan is complete.
-#, python-brace-format
 msgid "Scan complete with {scanCount} items"
 msgstr "הסריקה הסתיימה עם {scanCount} פריטים"
 
@@ -373,12 +359,10 @@ msgid "Warning: Microphone active"
 msgstr "אזהרה : המיקרופון פעיל"
 
 #. Translators: Presented when end of introduction is approaching (example output: 5 sec left in track introduction).
-#, python-brace-format
 msgid "Warning: {seconds} sec left in track introduction"
 msgstr "אזהרה: {seconds}שניות נותרו  בקדימון של הרצועה"
 
 #. Translators: Presented when end of track is approaching.
-#, python-brace-format
 msgid "Warning: {seconds} sec remaining"
 msgstr "אזהרה: {seconds}שניות נותרו "
 
@@ -428,9 +412,8 @@ msgid "Opens SPL Studio add-on configuration dialog."
 msgstr "פתיחת תיבת דו-שיח ההגדרות של  Studio SPL"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
-#, fuzzy
 msgid "Opens SPL Studio add-on welcome dialog."
-msgstr "פתיחת תיבת דו-שיח ההגדרות של  Studio SPL"
+msgstr "פתיחת תיבת דו-שיח ההגדרות של  Studio SPL."
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Toggles between various braille timer settings."
@@ -525,12 +508,10 @@ msgid "Scan start"
 msgstr "תחילת הסריקה"
 
 #. Translators: Presented when library scanning is finished.
-#, python-brace-format
 msgid "{itemCount} items in the library"
 msgstr "נמצאו {itemCount} פריטים בספרייה"
 
 #. Translators: Presented after library scan is done.
-#, python-brace-format
 msgid "Scan complete with {itemCount} items"
 msgstr "הסריקה הושלמה עם {itemCount} פריטים"
 
@@ -539,7 +520,6 @@ msgid "Scanning"
 msgstr "הסריקה מתבצעת כעת..."
 
 #. Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
-#, python-brace-format
 msgid "{itemCount} items scanned"
 msgstr "{itemCount} פריטים נסקרו עד עכשיו"
 
@@ -651,7 +631,6 @@ msgid ""
 msgstr "אין רצועה מסומנת כנקודת התחלת הניתוח. לא ניתן לבצע את הניתוח."
 
 #. Translators: Presented when time analysis is done for a number of tracks (example output: Tracks: 3, totaling 5:00).
-#, python-brace-format
 msgid "Tracks: {numberOfSelectedTracks}, totaling {totalTime}"
 msgstr "רצועות : {numberOfSelectedTracks}, סיכום {totalTime}"
 
@@ -682,7 +661,6 @@ msgid "No place marker found"
 msgstr "לא נמצאה נקודת תחילת הניתוח."
 
 #. Translators: Status message for metadata streaming.
-#, python-brace-format
 msgid "Metadata streaming on URL {URLPosition} enabled"
 msgstr "זרימת המטאדאטה נקבעה עבור URL {URLPosition}"
 
@@ -691,7 +669,6 @@ msgid "Metadata streaming on DSP encoder enabled"
 msgstr "זרימת המטאדאטה נקבעה עבור מנגנון הקידוד של DSP"
 
 #. Translators: Status message for metadata streaming.
-#, python-brace-format
 msgid "Metadata streaming on URL {URLPosition} disabled"
 msgstr "בוטלה זרימת המטאדאטה עבור URL {URLPosition}"
 
@@ -746,12 +723,10 @@ msgid "Add-on settings dialog is open, cannot switch profiles"
 msgstr "תיבת דו-שיח התוסף פתוחה כרגע. לא ניתן להחליף פרופיל."
 
 #. Translators: Presented when switch to instant switch profile was successful.
-#, python-brace-format
 msgid "Switching to {newProfileName}"
 msgstr "טוען את הפרופיל.. {newProfileName}"
 
 #. Translators: Presented when switching from instant switch profile to a previous profile.
-#, python-brace-format
 msgid "Returning to {previousProfile}"
 msgstr "חזרה ל{previousProfile}"
 
@@ -772,7 +747,6 @@ msgid "Encoder settings error"
 msgstr "שגיות בהגדרות מנגנון הקידוד."
 
 #. Translators: Message presented indicating missing time-based profiles.
-#, python-brace-format
 msgid ""
 "Could not locate the following time-based profile(s):\n"
 "{profiles}"
@@ -828,7 +802,6 @@ msgstr "התראה על סוף קדימון"
 msgid "Microphone alarm"
 msgstr "התראת הקלטה"
 
-#, python-brace-format
 msgid "Enter &end of track alarm time in seconds (currently {curAlarmSec})"
 msgstr ""
 "נא להקיש אורך זמן הה&תראה לפני סוף הרצועה בשניות. ערך נוכחי: {curAlarmSec})"
@@ -838,7 +811,6 @@ msgstr ""
 msgid "&Notify when end of track is approaching"
 msgstr "התראה ברגע שסוף הנגינה מתקרב"
 
-#, python-brace-format
 msgid "Enter song &intro alarm time in seconds (currently {curRampSec})"
 msgstr "נא להקיש אורך &זמן התראת הקדימון בשניות, כרגע {curRampSec}"
 
@@ -847,7 +819,6 @@ msgid "&Notify when end of introduction is approaching"
 msgstr "התראה ברגע שסוף נגינת הקדימון מתקרב"
 
 #. Translators: A dialog message to set microphone active alarm (curAlarmSec is the current mic monitoring alarm in seconds).
-#, python-brace-format
 msgid ""
 "Enter microphone alarm time in seconds (currently {curAlarmSec}, 0 disables "
 "the alarm)"
@@ -1261,7 +1232,6 @@ msgid "&Base profile:"
 msgstr "פרופילמ&בוסס זמן:"
 
 #. Translators: The title of the broadcast profile triggers dialog.
-#, python-brace-format
 msgid "Profile triggers for {profileName}"
 msgstr "פרוצדורותם פרופיל עבור {profileName}"
 
@@ -1351,7 +1321,6 @@ msgid "Columns Explorer for Track Tool"
 msgstr "סייר העמודות"
 
 #. Translators: The label for a setting in SPL add-on dialog to select column for this column slot.
-#, python-brace-format
 msgid "Slot {position}"
 msgstr "Slot {position}"
 
@@ -1505,22 +1474,18 @@ msgid "Metadata streaming configured for DSP encoder"
 msgstr "זרימת המטאדאטה הוגדרה עבור מנגנון הקידוד של DSP"
 
 #. Translators: Status message for metadata streaming.
-#, python-brace-format
 msgid "Metadata streaming configured for DSP encoder and URL {URL}"
 msgstr "זרימת המטאדאטה הוגדרה עבור מנגנון הקידוד של DSP  ועבור הכתובת  {URL}"
 
 #. Translators: Status message for metadata streaming.
-#, python-brace-format
 msgid "Metadata streaming configured for URL {URL}"
 msgstr "זרימת המטאדאטה הוגדרה עבור הכתובת  {URL}"
 
 #. Translators: Status message for metadata streaming.
-#, python-brace-format
 msgid "Metadata streaming configured for DSP encoder and URL's {URL}"
 msgstr "זרימת המטאדאטה הוגדרה עבור מנגנון הקידוד של DSP  ועבור הכתובות  {URL}"
 
 #. Translators: Status message for metadata streaming.
-#, python-brace-format
 msgid "Metadata streaming configured for URL's {URL}"
 msgstr "זרימת המטאדאטה הוגדרה עבור הכתובות  {URL}"
 
@@ -1552,7 +1517,6 @@ msgid "No add-on update available."
 msgstr "אין עדכון זמין עבור תוסף זה."
 
 #. Translators: Text shown if an add-on update is available.
-#, python-brace-format
 msgid "Studio add-on {newVersion} is available. Would you like to update?"
 msgstr "עדכון {newVersion} זמין עבור תוסף הסטודיו. האם ברצנוך להתקין אותו?"
 
@@ -1629,7 +1593,6 @@ msgid "There is no track playing. Try pausing while a track is playing."
 msgstr "אין רצועה בנגינה כעת. השהייה אינה אפשרית במצב זה."
 
 #. Translators: Announces number of stream listeners.
-#, python-brace-format
 msgid "Listener count: {listenerCount}"
 msgstr "מספר מאזינים:  {listenerCount}"
 
@@ -1646,7 +1609,6 @@ msgid "No encoders are being monitored"
 msgstr "אין מנגנוני קידוד תחת שליטה"
 
 #. Translators: Announces number of encoders being monitored in the background.
-#, python-brace-format
 msgid "Number of encoders monitored: {numberOfEncoders}: {streamLabels}"
 msgstr "מספר מנגנוני קידוד תחת שליטה:   {numberOfEncoders}: {streamLabels}"
 
@@ -1655,7 +1617,6 @@ msgid "Another encoder settings dialog is open."
 msgstr "תיבת דו-שיח של מנגנוני קידוד כבר פתוחה."
 
 #. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
-#, python-brace-format
 msgid "Encoder settings for {name}"
 msgstr "הגדרות קידוד עבור  {name}"
 
@@ -1680,7 +1641,6 @@ msgid "Play connection status &beep while connecting"
 msgstr "השמע &צליל מצב בעת התחברות"
 
 #. Translators: Status message for encoder monitoring.
-#, python-brace-format
 msgid "{encoder} {encoderNumber}: {status}"
 msgstr "{encoder} {encoderNumber}: {status}"
 
@@ -1714,12 +1674,10 @@ msgstr "מיתוג נגינת הרצועה הראשונה בעת התחברות 
 
 #. Multiple encoders.
 #. Translators: Presented when toggling the setting to monitor the selected encoder.
-#, python-brace-format
 msgid "Monitoring encoder {encoderNumber}"
 msgstr "שליטה על מנגנון הקידוד   {encoderNumber}"
 
 #. Translators: Presented when toggling the setting to monitor the selected encoder.
-#, python-brace-format
 msgid "Encoder {encoderNumber} will not be monitored"
 msgstr "לא תתבצע שליטה על מנגנון הקידוד   {encoderNumber}"
 
@@ -1733,7 +1691,6 @@ msgid ""
 msgstr "מיתוג שליטת NVDA על מנגנון הקידוד"
 
 #. Translators: The title of the stream labeler dialog (example: stream labeler for 1).
-#, python-brace-format
 msgid "Stream labeler for {streamEntry}"
 msgstr "הגדרת תוית עבור  {streamEntry}"
 
@@ -1775,11 +1732,9 @@ msgid ""
 "twice, reports the current date"
 msgstr "לחיצה פעם אחת : הקראת השעה. לחיצה פעמיים : הקראת התאריך הנוכחי."
 
-#, python-brace-format
 msgid "Position: {pos}"
 msgstr "מיקום: {pos}"
 
-#, python-brace-format
 msgid "Label: {label}"
 msgstr "תוית: {label}"
 
@@ -1797,11 +1752,9 @@ msgstr "מתנתק..."
 msgid "Connects to a streaming server."
 msgstr "מתחבר לשרת זרימה"
 
-#, python-brace-format
 msgid "Encoder Settings: {setting}"
 msgstr "הגדרות מגנון זרימה:  {setting}"
 
-#, python-brace-format
 msgid "Transfer Rate: {transferRate}"
 msgstr "קצב העברה: : {transferRate}"
 
@@ -1813,12 +1766,3 @@ msgid ""
 msgstr ""
 "מנגיש את תוכנת StationPlaylist  Studio  .  \n"
 "בנוסף, מאפשר ביצוע פקודות מכל מקום אחר במחשב."
-
-#~ msgid "Not in tracks list"
-#~ msgstr "לא בתוך רשימת הרצועות"
-
-#~ msgid "No tracks added"
-#~ msgstr "לא נוספה רצועה"
-
-#~ msgid "Toggles status announcements between words and beeps."
-#~ msgstr "מיתוג מצב הודעה בין מלל וצליל"

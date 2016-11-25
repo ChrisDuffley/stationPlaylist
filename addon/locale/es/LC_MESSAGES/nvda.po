@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2016-10-03 17:36+0100\n"
+"PO-Revision-Date: 2016-11-21 07:50-0800\n"
 "Last-Translator: Juan C. Buño <oprisniki@gmail.com>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.6.11\n"
+"X-Generator: Poedit 1.5.7\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Presented when only Track Tool is running (Track Dial requires Studio to be running as well).
@@ -29,7 +29,6 @@ msgid "Track Dial on"
 msgstr "Dial de pista activado"
 
 #. Translators: Announced when located on a column other than the leftmost column while using track dial.
-#, python-brace-format
 msgid ", located at column {columnHeader}"
 msgstr ", colocado en la columna {columnHeader}"
 
@@ -38,7 +37,6 @@ msgid "Track Dial off"
 msgstr "Dial de pista desactivado"
 
 #. Translators: Spoken when enabling track dial while status message is set to beeps.
-#, python-brace-format
 msgid "Column {columnNumber}"
 msgstr "Columna {columnNumber}"
 
@@ -53,22 +51,18 @@ msgid "StationPlaylist Studio"
 msgstr "StationPlaylist Studio"
 
 #. Translators: Standard message for announcing column content.
-#, python-brace-format
 msgid "{header}: {content}"
 msgstr "{header}: {content}"
 
 #. Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
-#, python-brace-format
 msgid "{header} not found"
 msgstr "{header} no enconrado"
 
 #. Translators: Spoken when column content is blank.
-#, python-brace-format
 msgid "{header}: blank"
 msgstr "{header}: en blanco"
 
 #. Translators: Brailled to indicate empty column content.
-#, python-brace-format
 msgid "{header}: ()"
 msgstr "{header}: ()"
 
@@ -77,7 +71,6 @@ msgid "No artist"
 msgstr "No hay artista"
 
 #. Translators: Presents artist information for a track in Track Tool.
-#, python-brace-format
 msgid "Artist: {artistName}"
 msgstr "Artista: {artistName}"
 
@@ -87,7 +80,6 @@ msgstr "No se estableció introducción"
 
 #. Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
 #. Translators: Presented when a specific column header is not found.
-#, python-brace-format
 msgid "{headerText} not found"
 msgstr "{headerText} no encontrado"
 
@@ -96,12 +88,10 @@ msgid "Microphone active"
 msgstr "Micrófono activo"
 
 #. Translators: Announced when leftmost column has no text while track dial is active.
-#, python-brace-format
 msgid "{leftmostColumn} not found"
 msgstr "{leftmostColumn} no encontrado"
 
 #. Translators: Standard message for announcing column content.
-#, python-brace-format
 msgid "{leftmostColumn}: {leftmostContent}"
 msgstr "{leftmostColumn}: {leftmostContent}"
 
@@ -139,7 +129,6 @@ msgid "Status not found"
 msgstr "Estado no encontrado"
 
 #. Translators: Status information for a checked track in Studio 5.10.
-#, python-brace-format
 msgid "Status: {name}"
 msgstr "Estado: {name}"
 
@@ -353,7 +342,6 @@ msgstr ""
 "F12: Cambia a un perfil de cambio instantáeo.\n"
 "Shift+F1: abre una guía de usuario en línea."
 
-#, python-brace-format
 msgid "Using SPL Studio version {SPLVersion}"
 msgstr "Utilizando versión de SPL Studio {SPLVersion}"
 
@@ -364,7 +352,6 @@ msgid "SPL settings"
 msgstr "Opciones de SPL"
 
 #. Translators: Presented when library scan is complete.
-#, python-brace-format
 msgid "Scan complete with {scanCount} items"
 msgstr "Escaneado completado con {scanCount} elementos"
 
@@ -383,12 +370,10 @@ msgid "Warning: Microphone active"
 msgstr "Atención: Micrófono activo"
 
 #. Translators: Presented when end of introduction is approaching (example output: 5 sec left in track introduction).
-#, python-brace-format
 msgid "Warning: {seconds} sec left in track introduction"
 msgstr "Atención: {seconds} seg a la izquierda en la introducción de la pista"
 
 #. Translators: Presented when end of track is approaching.
-#, python-brace-format
 msgid "Warning: {seconds} sec remaining"
 msgstr "Atención: {seconds} seg restantes"
 
@@ -543,12 +528,10 @@ msgid "Scan start"
 msgstr "Comenzar escaneado"
 
 #. Translators: Presented when library scanning is finished.
-#, python-brace-format
 msgid "{itemCount} items in the library"
 msgstr "{itemCount} elementos en la biblioteca"
 
 #. Translators: Presented after library scan is done.
-#, python-brace-format
 msgid "Scan complete with {itemCount} items"
 msgstr "Escaneado completado con {itemCount} elementos"
 
@@ -557,7 +540,6 @@ msgid "Scanning"
 msgstr "Escaneando"
 
 #. Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
-#, python-brace-format
 msgid "{itemCount} items scanned"
 msgstr "{itemCount} elementos escaneados"
 
@@ -685,7 +667,6 @@ msgstr ""
 "llevar a cabo el análisis de tiempo"
 
 #. Translators: Presented when time analysis is done for a number of tracks (example output: Tracks: 3, totaling 5:00).
-#, python-brace-format
 msgid "Tracks: {numberOfSelectedTracks}, totaling {totalTime}"
 msgstr "Pistas: {numberOfSelectedTracks}, totalizando {totalTime}"
 
@@ -720,7 +701,6 @@ msgid "No place marker found"
 msgstr "No se encontró marcador"
 
 #. Translators: Status message for metadata streaming.
-#, python-brace-format
 msgid "Metadata streaming on URL {URLPosition} enabled"
 msgstr "Metadatos de streaming en URL {URLPosition} habilitado"
 
@@ -729,7 +709,6 @@ msgid "Metadata streaming on DSP encoder enabled"
 msgstr "Metadatos de Streaming en codificador DPS habilitado"
 
 #. Translators: Status message for metadata streaming.
-#, python-brace-format
 msgid "Metadata streaming on URL {URLPosition} disabled"
 msgstr "Metadatos de streaming en URL {URLPosition} deshabilitado"
 
@@ -785,12 +764,10 @@ msgstr ""
 "perfil."
 
 #. Translators: Presented when switch to instant switch profile was successful.
-#, python-brace-format
 msgid "Switching to {newProfileName}"
 msgstr "Cambiando a {newProfileName}"
 
 #. Translators: Presented when switching from instant switch profile to a previous profile.
-#, python-brace-format
 msgid "Returning to {previousProfile}"
 msgstr "Regresando a {previousProfile}"
 
@@ -812,7 +789,6 @@ msgid "Encoder settings error"
 msgstr "Error de opciones de codificador"
 
 #. Translators: Message presented indicating missing time-based profiles.
-#, python-brace-format
 msgid ""
 "Could not locate the following time-based profile(s):\n"
 "{profiles}"
@@ -868,7 +844,6 @@ msgstr "Alarma de intro de sonido"
 msgid "Microphone alarm"
 msgstr "Alarma de micrófono"
 
-#, python-brace-format
 msgid "Enter &end of track alarm time in seconds (currently {curAlarmSec})"
 msgstr ""
 "Introducir el tiempo de alarma de &fin de pista en segundos (Actualmente "
@@ -879,7 +854,6 @@ msgstr ""
 msgid "&Notify when end of track is approaching"
 msgstr "&Notificar cuando se acerque el final de la pista"
 
-#, python-brace-format
 msgid "Enter song &intro alarm time in seconds (currently {curRampSec})"
 msgstr ""
 "Introducir tiempo de canción de alarma de &intro en segundos (actualmente "
@@ -890,7 +864,6 @@ msgid "&Notify when end of introduction is approaching"
 msgstr "&Notificar cuando se acerque el final de la introducción"
 
 #. Translators: A dialog message to set microphone active alarm (curAlarmSec is the current mic monitoring alarm in seconds).
-#, python-brace-format
 msgid ""
 "Enter microphone alarm time in seconds (currently {curAlarmSec}, 0 disables "
 "the alarm)"
@@ -1340,7 +1313,6 @@ msgid "&Base profile:"
 msgstr "Perfil &Base:"
 
 #. Translators: The title of the broadcast profile triggers dialog.
-#, python-brace-format
 msgid "Profile triggers for {profileName}"
 msgstr "Disparadores de perfil para {profileName}"
 
@@ -1431,7 +1403,6 @@ msgid "Columns Explorer for Track Tool"
 msgstr "Explorador de Columnas para la Herramienta de Pista"
 
 #. Translators: The label for a setting in SPL add-on dialog to select column for this column slot.
-#, python-brace-format
 msgid "Slot {position}"
 msgstr "Slot {position}"
 
@@ -1583,26 +1554,22 @@ msgid "Metadata streaming configured for DSP encoder"
 msgstr "Los Metadatos del streaming se configuraron para el codificador DSP"
 
 #. Translators: Status message for metadata streaming.
-#, python-brace-format
 msgid "Metadata streaming configured for DSP encoder and URL {URL}"
 msgstr ""
 "Los metadatos del streaming se configuraron para el codificador DSP y la URL "
 "{URL}"
 
 #. Translators: Status message for metadata streaming.
-#, python-brace-format
 msgid "Metadata streaming configured for URL {URL}"
 msgstr "Los metadatos del streaming se configuraron para la URL {URL}"
 
 #. Translators: Status message for metadata streaming.
-#, python-brace-format
 msgid "Metadata streaming configured for DSP encoder and URL's {URL}"
 msgstr ""
 "Los metadatos del streaming se configuraron para el codificador DSP y la URL "
 "{URL}"
 
 #. Translators: Status message for metadata streaming.
-#, python-brace-format
 msgid "Metadata streaming configured for URL's {URL}"
 msgstr "Los metadatos del streaming se configuraron para la URL {URL}"
 
@@ -1635,7 +1602,6 @@ msgid "No add-on update available."
 msgstr "No hay actualizaciones disponibles del complemento."
 
 #. Translators: Text shown if an add-on update is available.
-#, python-brace-format
 msgid "Studio add-on {newVersion} is available. Would you like to update?"
 msgstr ""
 "Está disponible la versión del complemento de Studio {newVersion}. ¿Te "
@@ -1719,7 +1685,6 @@ msgstr ""
 "reproduce una pista."
 
 #. Translators: Announces number of stream listeners.
-#, python-brace-format
 msgid "Listener count: {listenerCount}"
 msgstr "Recuento de oyentes: {listenerCount}"
 
@@ -1736,7 +1701,6 @@ msgid "No encoders are being monitored"
 msgstr "No hay codificadores siendo monitorizados"
 
 #. Translators: Announces number of encoders being monitored in the background.
-#, python-brace-format
 msgid "Number of encoders monitored: {numberOfEncoders}: {streamLabels}"
 msgstr ""
 "Número de codificadores monitorizados: {numberOfEncoders}: {streamLabels}"
@@ -1746,7 +1710,6 @@ msgid "Another encoder settings dialog is open."
 msgstr "Está abierto otro diálogo de opciones del codificador."
 
 #. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
-#, python-brace-format
 msgid "Encoder settings for {name}"
 msgstr "Opciones de codificador para {name}"
 
@@ -1771,7 +1734,6 @@ msgid "Play connection status &beep while connecting"
 msgstr "Reproduce el &pitido de estado de la conexión mientras se conecta"
 
 #. Translators: Status message for encoder monitoring.
-#, python-brace-format
 msgid "{encoder} {encoderNumber}: {status}"
 msgstr "{encoder} {encoderNumber}: {status}"
 
@@ -1809,12 +1771,10 @@ msgstr ""
 
 #. Multiple encoders.
 #. Translators: Presented when toggling the setting to monitor the selected encoder.
-#, python-brace-format
 msgid "Monitoring encoder {encoderNumber}"
 msgstr "Monitorizando codificador {encoderNumber}"
 
 #. Translators: Presented when toggling the setting to monitor the selected encoder.
-#, python-brace-format
 msgid "Encoder {encoderNumber} will not be monitored"
 msgstr "El codificador {encoderNumber} no se monitorizará"
 
@@ -1829,7 +1789,6 @@ msgstr ""
 "Conmuta si NVDA monitorizará el codificador seleccionado en segundo plano."
 
 #. Translators: The title of the stream labeler dialog (example: stream labeler for 1).
-#, python-brace-format
 msgid "Stream labeler for {streamEntry}"
 msgstr "Etiquetador de Stream para {streamEntry}"
 
@@ -1877,11 +1836,9 @@ msgstr ""
 "Si se pulsó una vez, anuncia la hora actual incluyendo segundos. Si se pulsó "
 "dos veces, anuncia la fecha actual."
 
-#, python-brace-format
 msgid "Position: {pos}"
 msgstr "Posición: {pos}"
 
-#, python-brace-format
 msgid "Label: {label}"
 msgstr "Etiqueta: {label}"
 
@@ -1899,11 +1856,9 @@ msgstr "Desconectando..."
 msgid "Connects to a streaming server."
 msgstr "Conecta a un servidor de streaming."
 
-#, python-brace-format
 msgid "Encoder Settings: {setting}"
 msgstr "Opciones de Codificador: {setting}"
 
-#, python-brace-format
 msgid "Transfer Rate: {transferRate}"
 msgstr "Velocidad de Transferencia: {transferRate}"
 
@@ -1915,48 +1870,3 @@ msgid ""
 msgstr ""
 "Mejora el soporte para Station Playlist Studio.\n"
 "Además, agrega comandos globales para el estudio desde cualquier parte."
-
-#~ msgid "Not in tracks list"
-#~ msgstr "No está en lista de pistas"
-
-#~ msgid "No tracks added"
-#~ msgstr "No se añadieron pistas"
-
-#~ msgid "Toggles status announcements between words and beeps."
-#~ msgstr "Conmutar el anunciado de estado entre palabras y pitidos."
-
-#~ msgid ""
-#~ "You appear to be running a version newer than the latest released "
-#~ "version. Please reinstall the official version to downgrade."
-#~ msgstr ""
-#~ "Parece que estés ejecutando una versión más nueva de la última liberada. "
-#~ "Por favor reinstala la versión official para retroceder."
-
-#~ msgid "Remaining time not available"
-#~ msgstr "Tiempo restante no disponible"
-
-#~ msgid "Elapsed time not available"
-#~ msgstr "Tiempo transcurrido no disponible"
-
-#~ msgid "Broadcaster time not available"
-#~ msgstr "Tiempo de emisión no disponible"
-
-#~ msgid "Cannot obtain time in hours, minutes and seconds"
-#~ msgstr "No se pudo obtener el tiempo en horas, minutos y segundos"
-
-#~ msgid "Disable instant profile switching"
-#~ msgstr "Deshabilitar cambio de perfil instantáneo"
-
-#~ msgid ""
-#~ "An alarm dialog is already opened. Please close the alarm dialog first."
-#~ msgstr ""
-#~ "Está todavía abierto un diálogo de alarma. Por favor ciérralo antes."
-
-#~ msgid "Playlist &remainder announcement:"
-#~ msgstr "Anunciado de pista de reproducción &restante:"
-
-#~ msgid "current hour only"
-#~ msgstr "sólo hora actual"
-
-#~ msgid "entire playlist"
-#~ msgstr "lista de reproducción entera"
