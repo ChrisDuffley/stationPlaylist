@@ -21,9 +21,6 @@ import wx
 import splupdate
 from splmisc import SPLCountdownTimer, _metadataAnnouncer
 
-# 17.1: Is GUI Helper (running in 2016.4) available?
-useGUIHelper = hasattr(gui, "guiHelper")
-
 # Until NVDA Core uses Python 3 (preferably 3.3 or later), use a backported version of chain map class.
 # Backported by Jonathan Eunice.
 # Python Package Index: https://pypi.python.org/pypi/chainmap/1.0.2
@@ -900,50 +897,22 @@ class SPLAlarmDialog(wx.Dialog):
 		super(SPLAlarmDialog, self).__init__(parent, wx.ID_ANY, titles[level])
 		self.level = level
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
-		# 17.1: Utilize spin control enhancements from GUI helper (added in NVDA 2016.4).
-		# Only do this if 2016.4 is running, otherwise use classic mode for backward compatibility.)
-		if useGUIHelper:
-			contentSizerHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
+		# 17.1: Utilize various enhancements from GUI helper (added in NVDA 2016.4).
+		contentSizerHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
 		if level in (0, 1):
 			timeVal = SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"]
 			alarmLabel = _("Enter &end of track alarm time in seconds (currently {curAlarmSec})").format(curAlarmSec = timeVal)
-			if useGUIHelper:
-				self.outroAlarmEntry = contentSizerHelper.addLabeledControl(alarmLabel, gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=59, initial=timeVal)
-				self.outroToggleCheckBox=contentSizerHelper.addItem(wx.CheckBox(self, label=_("&Notify when end of track is approaching")))
-				self.outroToggleCheckBox.SetValue(SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"])
-			else:
-				alarmSizer = wx.BoxSizer(wx.HORIZONTAL)
-				alarmMessage = wx.StaticText(self, wx.ID_ANY, label=alarmLabel)
-				alarmSizer.Add(alarmMessage)
-				self.outroAlarmEntry = wx.SpinCtrl(self, wx.ID_ANY, min=1, max=59)
-				self.outroAlarmEntry.SetValue(timeVal)
-				self.outroAlarmEntry.SetSelection(-1, -1)
-				alarmSizer.Add(self.outroAlarmEntry)
-				mainSizer.Add(alarmSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
-				self.outroToggleCheckBox=wx.CheckBox(self,wx.NewId(),label=_("&Notify when end of track is approaching"))
-				self.outroToggleCheckBox.SetValue(SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"])
-				mainSizer.Add(self.outroToggleCheckBox,border=10,flag=wx.BOTTOM)
+			self.outroAlarmEntry = contentSizerHelper.addLabeledControl(alarmLabel, gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=59, initial=timeVal)
+			self.outroToggleCheckBox=contentSizerHelper.addItem(wx.CheckBox(self, label=_("&Notify when end of track is approaching")))
+			self.outroToggleCheckBox.SetValue(SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"])
 
 		if level in (0, 2):
 			rampVal = SPLConfig["IntroOutroAlarms"]["SongRampTime"]
 			alarmLabel = _("Enter song &intro alarm time in seconds (currently {curRampSec})").format(curRampSec = rampVal)
-			if useGUIHelper:
-				self.introAlarmEntry = contentSizerHelper.addLabeledControl(alarmLabel, gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=9, initial=rampVal)
-				self.introToggleCheckBox=contentSizerHelper.addItem(wx.CheckBox(self, label=_("&Notify when end of introduction is approaching")))
-				self.introToggleCheckBox.SetValue(SPLConfig["IntroOutroAlarms"]["SaySongRamp"])
-			else:
-				alarmSizer = wx.BoxSizer(wx.HORIZONTAL)
-				alarmMessage = wx.StaticText(self, wx.ID_ANY, label=alarmLabel)
-				alarmSizer.Add(alarmMessage)
-				self.introAlarmEntry = wx.SpinCtrl(self, wx.ID_ANY, min=1, max=9)
-				self.introAlarmEntry.SetValue(rampVal)
-				self.introAlarmEntry.SetSelection(-1, -1)
-				alarmSizer.Add(self.introAlarmEntry)
-				mainSizer.Add(alarmSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
-				self.introToggleCheckBox=wx.CheckBox(self,wx.NewId(),label=_("&Notify when end of introduction is approaching"))
-				self.introToggleCheckBox.SetValue(SPLConfig["IntroOutroAlarms"]["SaySongRamp"])
-				mainSizer.Add(self.introToggleCheckBox,border=10,flag=wx.BOTTOM)
+			self.introAlarmEntry = contentSizerHelper.addLabeledControl(alarmLabel, gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=9, initial=rampVal)
+			self.introToggleCheckBox=contentSizerHelper.addItem(wx.CheckBox(self, label=_("&Notify when end of introduction is approaching")))
+			self.introToggleCheckBox.SetValue(SPLConfig["IntroOutroAlarms"]["SaySongRamp"])
 
 		if level in (0, 3):
 			micAlarm = SPLConfig["MicrophoneAlarm"]["MicAlarm"]
@@ -955,33 +924,13 @@ class SPLAlarmDialog(wx.Dialog):
 				# Translators: A dialog message when microphone alarm is disabled (set to 0).
 				timeMSG = _("Enter microphone alarm time in seconds (currently disabled, 0 disables the alarm)")
 			micIntervalMSG = _("Microphone alarm interval")
-			if useGUIHelper:
-				self.micAlarmEntry = contentSizerHelper.addLabeledControl(timeMSG, gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=7200, initial=micAlarm)
-				self.micIntervalEntry = contentSizerHelper.addLabeledControl(micIntervalMSG, gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=60, initial=micAlarmInterval)
-			else:
-				alarmSizer = wx.BoxSizer(wx.VERTICAL)
-				alarmMessage = wx.StaticText(self, wx.ID_ANY, label=timeMSG)
-				alarmSizer.Add(alarmMessage)
-				self.micAlarmEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=7200)
-				self.micAlarmEntry.SetValue(micAlarm)
-				self.micAlarmEntry.SetSelection(-1, -1)
-				alarmSizer.Add(self.micAlarmEntry)
-				alarmMessage = wx.StaticText(self, wx.ID_ANY, label=micIntervalMSG)
-				alarmSizer.Add(alarmMessage)
-				self.micIntervalEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=60)
-				self.micIntervalEntry.SetValue(micAlarmInterval)
-				self.micIntervalEntry.SetSelection(-1, -1)
-				alarmSizer.Add(self.micIntervalEntry)
-				mainSizer.Add(alarmSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
+			self.micAlarmEntry = contentSizerHelper.addLabeledControl(timeMSG, gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=7200, initial=micAlarm)
+			self.micIntervalEntry = contentSizerHelper.addLabeledControl(micIntervalMSG, gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=60, initial=micAlarmInterval)
 
-		if useGUIHelper:
-			contentSizerHelper.addItem( self.CreateButtonSizer(wx.OK | wx.CANCEL))
-		else:
-			mainSizer.AddSizer(self.CreateButtonSizer(wx.OK|wx.CANCEL))
-		self.Bind(wx.EVT_BUTTON,self.onOk,id=wx.ID_OK)
-		self.Bind(wx.EVT_BUTTON,self.onCancel,id=wx.ID_CANCEL)
-		if useGUIHelper:
-			mainSizer.Add(contentSizerHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
+		contentSizerHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
+		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
+		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
+		mainSizer.Add(contentSizerHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 		mainSizer.Fit(self)
 		self.SetSizer(mainSizer)
 		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
