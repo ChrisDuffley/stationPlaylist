@@ -3,13 +3,13 @@
 * Authors: Geoff Shang, Joseph Lee and other contributors
 * Download [stable version][1]
 * Download [development version][2]
-* Download [long-term support version][3] - add-on 7.x for Studio 5.0x users
+* Download [long-term support version][3] - add-on 15.x for Studio 5.0x users
 
 This add-on package provides improved usage of StationPlaylist Studio, as well as providing utilities to control the Studio from anywhere.
 
 For more information about the add-on, read the [add-on guide][4]. For developers seeking to know how to build the add-on, see buildInstructions.txt located at the root of the add-on source code repository.
 
-IMPORTANT: This add-on requires NVDA 2015.3 or later and StationPlaylist Studio 5.00 or later. If you have installed NVDA 2016.1 or later on Windows 8 and later, disable audio ducking mode. Also, add-on 8.0/16.10 requires Studio 5.10 and later, and for broadcasters using Studio 5.0x, a long-term support version (7.x) is available.
+IMPORTANT: This add-on requires NVDA 2015.3 or later and StationPlaylist Studio 5.00 or later. If you have installed NVDA 2016.1 or later on Windows 8 and later, disable audio ducking mode. Also, add-on 8.0/16.10 requires Studio 5.10 and later, and for broadcasters using Studio 5.0x, a long-term support version (15.x) is available.
 
 ## Shortcut keys
 
@@ -98,9 +98,9 @@ The available commands are:
 * Shift+P: Pitch of the current track.
 * R (Shift+E in JAWS and Window-Eyes layouts): Record to file enabled/disabled.
 * Shift+R: Monitor library scan in progress.
-* S: Track starts in (scheduled).
-* Shift+S: Time until selected track will play.
-* T: Cart edit mode on/off.
+* S: Track starts (scheduled).
+* Shift+S: Time until selected track will play (track starts in).
+* T: Cart edit/insert mode on/off.
 * U: Studio up time.
 * Control+Shift+U: Check for add-on updates.
 * W: Weather and temperature if configured.
@@ -169,6 +169,13 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 ## SPL touch mode
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
+
+## Version 16.12/15.4-LTS
+
+* More work on supporting Studio 5.20, including announcing cart insert mode status (if turned on) from SPL Assistant layer (T).
+* Cart edit/insert mode toggle is no longer affected by message verbosity nor status announcement type settings (this status will always be announced via speech and/or braille).
+* It is no longer possible to add comments to timed break notes.
+* Support for Track Tool 5.20, including fixed an issue where wrong information is announced when using Columns Explorer commands to announce column information.
 
 ## Version 16.11/15.3-LTS
 
