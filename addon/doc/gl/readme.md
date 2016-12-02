@@ -20,7 +20,7 @@ StationPlaylist Studio 5.00 ou posterior. Se instalaches NVDA 2016.1 ou
 posterior en Windows 8 e posterior, deshabilita o modo atenuación de
 audio. Tamén, o complemento 8.0/16.10 require do Studio 5.10 e posterior, e
 para emisores que usen o Studio 5.0x, está disponible unha versión long-term
-support (7.x).
+support (15.x).
 
 ## Teclas de atallo
 
@@ -156,9 +156,10 @@ As ordes dispoñibles son:
 * R (Shift+E nas distribucións JAWS e Windows-Eye): Grabar en ficheiro
   activado / desactivado.
 * Shift+R: Monitorización  do escaneado da biblioteca en progreso.
-* S: Comezo de pistas en (programado).
-* Shift+S: tempo ata o que se reproducirá a pista selecionada.
-* T: modo Cart edit aceso/apagado.
+* S: Comezos de pistas (programado).
+* Shift+S: tempo ata o que se reproducirá a pista selecionada (comezos de
+  pista).
+* T: modo editar/insertar Cart aceso/apagado.
 * U: Studio up time.
 * Control+Shift+U: procurar actualizacións do complemento.
 * W: Clima e temperatura se se configurou.
@@ -278,6 +279,18 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
+## Versión 16.12/15.4-LTS
+
+* Máis traballo no soporte do Studio 5.20, incluindo o anunciado do estado
+  do modo insertar de cart (se está aceso) dende SPL Assistant layer (T).
+* Conmutar o modo editar/insertar xa non está afectado pola verbosidade das
+  mensaxes nin as opción de anunciado de tipo de estado (este estado
+  anunciarase sempre a través de voz e/ou braille).
+* Xa non é posible engadir comentarios ás notas partidas.
+* Soporte para Track Tool 5.20, incluindo corrección dun problema where onde
+  se anunciaba información errónea ao se usar ordes ddo Explorador de
+  Columnas para anunciar información da columna.
+
 ## Versión 16.11/15.3-LTS
 
 * Soporte inicial para StationPlaylist Studio 5.20, incluindo melloras de
@@ -297,7 +310,7 @@ listadas arriba para realizar ordes.
   Pistas (Control+NVDA+F) según a procuras para reproducir.
 * Traducións actualizadas.
 
-## Cambios para 8.0/16.10/15.0-LTS
+## Versión 8.0/16.10/15.0-LTS
 
 Versión 8.0 (tamén coñecida coma 16.10) soporta SPL Studio 5.10 e
 posteriores, con 15.0-LTS (anteriormente 7.x) deseñado para proporcionar
@@ -305,7 +318,7 @@ algunas características novas dende 8.0 para usuarios que usen versión
 anteriores do Studio. Ao menos que se sinale doutro xeito, as entradas máis
 abaixo aplícanse a ambas versión 8.0 e 7.x. Amosarase un diálogo de aviso a
 primeira vez que uses o complemento 8.0 co Studio 5.0x instalado,
-preguntándoche se usas a versión 7.x LTS.
+preguntándoche se usas a versión 15.x LTS.
 
 * O esquema da versión cambiou para reflectir o ano.mes da versión en lugar
   de maior.menor. Durante o período de transición (ata mitade  do 2017),
