@@ -143,23 +143,22 @@ class SPLConfigDialog(gui.SettingsDialog):
 		except:
 			pass
 
-		self.micSizer = wx.BoxSizer(wx.HORIZONTAL)
+		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: The label for a setting in SPL Add-on settings to change microphone alarm setting.
 		label = wx.StaticText(self, wx.ID_ANY, label=_("&Microphone alarm in seconds"))
-		self.micSizer.Add(label)
+		sizer.Add(label)
 		self.micAlarm = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=7200)
 		self.micAlarm.SetValue(long(splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"]))
 		self.micAlarm.SetSelection(-1, -1)
-		self.micSizer.Add(self.micAlarm)
-
+		sizer.Add(self.micAlarm)
 		# Translators: The label for a setting in SPL Add-on settings to specify mic alarm interval.
-		self.micAlarmIntervalLabel = wx.StaticText(self, wx.ID_ANY, label=_("Microphone alarm &interval in seconds"))
-		self.micSizer.Add(self.micAlarmIntervalLabel)
+		label = wx.StaticText(self, wx.ID_ANY, label=_("Microphone alarm &interval in seconds"))
+		sizer.Add(label)
 		self.micAlarmInterval = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=60)
 		self.micAlarmInterval.SetValue(long(splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"]))
 		self.micAlarmInterval.SetSelection(-1, -1)
-		self.micSizer.Add(self.micAlarmInterval)
-		SPLConfigHelper.addItem(self.micSizer)
+		sizer.Add(self.micAlarmInterval)
+		SPLConfigHelper.addItem(sizer)
 
 		# Translators: One of the alarm notification options.
 		self.alarmAnnounceValues=[("beep",_("beep")),
