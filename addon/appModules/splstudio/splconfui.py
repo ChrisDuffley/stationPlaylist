@@ -143,21 +143,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 		except:
 			pass
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		# Translators: The label for a setting in SPL Add-on settings to change microphone alarm setting.
-		label = wx.StaticText(self, wx.ID_ANY, label=_("&Microphone alarm in seconds"))
-		sizer.Add(label)
-		self.micAlarm = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=7200)
-		self.micAlarm.SetValue(long(splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"]))
-		self.micAlarm.SetSelection(-1, -1)
-		sizer.Add(self.micAlarm)
+		self.micAlarm = sizer.addLabeledControl(_("&Microphone alarm in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=7200, initial=splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"])
 		# Translators: The label for a setting in SPL Add-on settings to specify mic alarm interval.
-		label = wx.StaticText(self, wx.ID_ANY, label=_("Microphone alarm &interval in seconds"))
-		sizer.Add(label)
-		self.micAlarmInterval = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=60)
-		self.micAlarmInterval.SetValue(long(splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"]))
-		self.micAlarmInterval.SetSelection(-1, -1)
-		sizer.Add(self.micAlarmInterval)
+		self.micAlarmInterval = sizer.addLabeledControl(_("Microphone alarm &interval in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=60, initial=splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"])
 		SPLConfigHelper.addItem(sizer)
 
 		# Translators: One of the alarm notification options.
@@ -273,17 +263,15 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.exploreColumnsTT = splconfig.SPLConfig["General"]["ExploreColumnsTT"]
 		SPLConfigHelper.addItem(sizer.sizer)
 
+		sizer = gui.guiHelper.ButtonHelper(wx.HORIZONTAL)
+		# Translators: The label of a button to open status announcement dialog such as announcing listener count.
+		sayStatusButton = sizer.addButton(self, label=_("&Status announcements..."))
+		sayStatusButton.Bind(wx.EVT_BUTTON, self.onStatusAnnouncement)
 		# Say status flags to be picked up by the dialog of this name.
 		self.scheduledFor = splconfig.SPLConfig["SayStatus"]["SayScheduledFor"]
 		self.listenerCount = splconfig.SPLConfig["SayStatus"]["SayListenerCount"]
 		self.cartName = splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"]
 		self.playingTrackName = splconfig.SPLConfig["SayStatus"]["SayPlayingTrackName"]
-
-		sizer = gui.guiHelper.ButtonHelper(wx.HORIZONTAL)
-		# Translators: The label of a button to open advanced options such as using SPL Controller command to invoke Assistant layer.
-		sayStatusButton = sizer.addButton(self, label=_("&Status announcements..."))
-		sayStatusButton.Bind(wx.EVT_BUTTON, self.onStatusAnnouncement)
-
 		# Translators: The label of a button to open advanced options such as using SPL Controller command to invoke Assistant layer.
 		advancedOptButton = sizer.addButton(self, label=_("&Advanced options..."))
 		advancedOptButton.Bind(wx.EVT_BUTTON, self.onAdvancedOptions)
