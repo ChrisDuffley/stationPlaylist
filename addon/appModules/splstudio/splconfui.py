@@ -336,7 +336,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.playingTrackName = splconfig.SPLConfig["SayStatus"]["SayPlayingTrackName"]
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		# Translators: The label of a button to open advanced options such as using SPL Controller command to invoke Assistant layer.
+		# Translators: The label of a button to open status announcement options such as announcing listener count.
 		item = sayStatusButton = wx.Button(self, label=_("&Status announcements..."))
 		item.Bind(wx.EVT_BUTTON, self.onStatusAnnouncement)
 		sizer.Add(item)
@@ -350,7 +350,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.updateInterval = splconfig.SPLConfig["Update"]["UpdateInterval"]
 		self.updateChannel = splupdate.SPLUpdateChannel
 		self.pendingChannelChange = False
-		settingsSizer.Add(item)
+		sizer.Add(item)
 		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		# Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.

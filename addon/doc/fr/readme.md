@@ -15,12 +15,11 @@ module complémentaire][4]. Pour les développeurs cherchant à savoir comment
 construire le module complémentaire, voir buildInstructions.txt situé à la
 racine du code source du module complémentaire du référentiel.
 
-IMPORTANT : Ce module complémentaire nécessite NVDA 2015.3 ou plus récent et
-StationPlaylist Studio 5.00 ou version ultérieure. Si vous avez installé
-NVDA 2016.1 ou version ultérieure sur Windows 8 et supérieur désactiver le
-Mode d'atténuation audio. En outre,le module complémentaire 8.0/16.10
-nécessite Studio 5.10 et ultérieure, et pour les diffusions utilisant Studio
-5.0x, une version prise en charge à long terme (7.x) est disponible.
+IMPORTANT: This add-on requires NVDA 2015.3 or later and StationPlaylist
+Studio 5.00 or later. If you have installed NVDA 2016.1 or later on Windows
+8 and later, disable audio ducking mode. Also, add-on 8.0/16.10 requires
+Studio 5.10 and later, and for broadcasters using Studio 5.0x, a long-term
+support version (15.x) is available.
 
 ## Raccourcis clavier
 
@@ -165,9 +164,9 @@ Les commandes disponibles sont :
 * R (Maj+E dans la disposition  de JAWS et Window-Eyes) : Enregistrer dans
   un fichier activé/désactivé.
 * Maj+R : Contrôle du balayage de la bibliothèque en cours.
-* S : Piste débute dans (planifié).
-* Maj+S : Durée jusqu'à la piste sélectionnée qui va être jouer.
-* T : Mode édition chariot activé/désactivé.
+* S: Track starts (scheduled).
+* Shift+S: Time until selected track will play (track starts in).
+* T: Cart edit/insert mode on/off.
 * U: temps de fonctionnement Studio.
 * Contrôle+Maj+U : Rechercher les mises à jour du module complémentaire.
 * W: Météo et température si configurée.
@@ -298,6 +297,18 @@ un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
 
+## Version 16.12/15.4-LTS
+
+* More work on supporting Studio 5.20, including announcing cart insert mode
+  status (if turned on) from SPL Assistant layer (T).
+* Cart edit/insert mode toggle is no longer affected by message verbosity
+  nor status announcement type settings (this status will always be
+  announced via speech and/or braille).
+* It is no longer possible to add comments to timed break notes.
+* Support for Track Tool 5.20, including fixed an issue where wrong
+  information is announced when using Columns Explorer commands to announce
+  column information.
+
 ## Version 16.11/15.3-LTS
 
 * Premier support de StationPlaylist Studio 5.20, y compris une meilleure
@@ -319,16 +330,14 @@ ci-dessus pour exécuter des commandes.
   lecture.
 * Mises à jour des traductions.
 
-## Changements pour la version 8.0/16.10/15.0-LTS
+## Version 8.0/16.10/15.0-LTS
 
-La version 8.0 (également connu sous le nom de 16.10) prend en charge la
-version SPL Studio 5.10 et ultérieure, avec la 15.0-LTS (anciennement la
-7.x) conçu pour fournir de nouvelles fonctionnalités depuis la 8.0 pour les
-utilisateurs des versions antérieures de Studio. À moins que dans le cas
-contraire les rubriques ci-dessous s’appliquent à les deux, 8.0 et 7.x. Un
-dialogue d'avertissement apparaît la première fois que vous utilisez le
-module complémentaire 8.0 avec Studio 5.0x installé, vous demandant
-d’utiliser la version  7.x LTS.
+Version 8.0 (also known as 16.10) supports SPL Studio 5.10 and later, with
+15.0-LTS (formerly 7.x) designed to provide some new features from 8.0 for
+users using earlier versions of Studio. Unless otherwise noted, entries
+below apply to both 8.0 and 7.x. A warning dialog will be shown the first
+time you use add-on 8.0 with Studio 5.0x installed, asking you to use 15.x
+LTS version.
 
 * Le Schéma de la version a changé pour refléter la version year.month au
   lieu de major.minor. Au cours de la période de transition (jusqu'au

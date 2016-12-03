@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 5.5\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2015-09-25 19:00+1000\n"
-"PO-Revision-Date: 2016-10-02 00:16+0200\n"
+"PO-Revision-Date: 2016-11-21 21:09+0200\n"
 "Last-Translator:  <shmuel_naaman@yahoo.com>\n"
 "Language-Team: \n"
 "Language: he\n"
@@ -119,9 +119,8 @@ msgid "Comments cannot be added to this kind of track"
 msgstr "לא ניתן להוסיף הערה מסוג זה לרצועה"
 
 #. Translators: The title of the track comments dialog.
-#, fuzzy
 msgid "Track comment"
-msgstr "קדימון"
+msgstr "כותרת ערוץ"
 
 #. Translators: Input help message for track comment announcemnet command in SPL Studio.
 msgid ""
@@ -142,6 +141,7 @@ msgid "Status: {name}"
 msgstr "מצב: {name}"
 
 #. Translators: The text of the help command in SPL Assistant layer.
+#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -164,7 +164,7 @@ msgid ""
 "Shift+R: Monitor library scan.\n"
 "S: Scheduled time for the track.\n"
 "Shift+S: Time until the selected track will play.\n"
-"T: Cart edit mode.\n"
+"T: Cart edit/insert mode.\n"
 "U: Studio up time.\n"
 "W: Weather and temperature.\n"
 "Y: Playlist modification.\n"
@@ -208,6 +208,7 @@ msgstr ""
 "Shift+F1: פתיחת המדריך המקוון"
 
 #. Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
+#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -232,7 +233,7 @@ msgid ""
 "Shift+R: Monitor library scan.\n"
 "S: Scheduled time for the track.\n"
 "Shift+S: Time until the selected track will play.\n"
-"T: Cart edit mode.\n"
+"T: Cart edit/insert mode.\n"
 "U: Studio up time.\n"
 "W: Weather and temperature.\n"
 "Y: Playlist modification.\n"
@@ -276,6 +277,7 @@ msgstr ""
 "Shift+F1: פתיחת המדריך המקוון"
 
 #. Translators: The text of the help command in SPL Assistant layer when Window-Eyes layer is active.
+#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -302,7 +304,7 @@ msgid ""
 "Shift+R: Monitor library scan.\n"
 "S: Scheduled time for the track.\n"
 "Shift+S: Time until the selected track will play.\n"
-"T: Cart edit mode.\n"
+"T: Cart edit/insert mode.\n"
 "U: Studio up time.\n"
 "W: Weather and temperature.\n"
 "Y: Playlist modification.\n"
@@ -428,9 +430,8 @@ msgid "Opens SPL Studio add-on configuration dialog."
 msgstr "פתיחת תיבת דו-שיח ההגדרות של  Studio SPL"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
-#, fuzzy
 msgid "Opens SPL Studio add-on welcome dialog."
-msgstr "פתיחת תיבת דו-שיח ההגדרות של  Studio SPL"
+msgstr "פתיחת תיבת דו-שיח ההגדרות של  Studio SPL."
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Toggles between various braille timer settings."
@@ -1813,12 +1814,3 @@ msgid ""
 msgstr ""
 "מנגיש את תוכנת StationPlaylist  Studio  .  \n"
 "בנוסף, מאפשר ביצוע פקודות מכל מקום אחר במחשב."
-
-#~ msgid "Not in tracks list"
-#~ msgstr "לא בתוך רשימת הרצועות"
-
-#~ msgid "No tracks added"
-#~ msgstr "לא נוספה רצועה"
-
-#~ msgid "Toggles status announcements between words and beeps."
-#~ msgstr "מיתוג מצב הודעה בין מלל וצליל"

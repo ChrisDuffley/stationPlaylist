@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2016-10-03 17:36+0100\n"
+"PO-Revision-Date: 2016-11-21 07:50-0800\n"
 "Last-Translator: Juan C. Buño <oprisniki@gmail.com>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.6.11\n"
+"X-Generator: Poedit 1.5.7\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Presented when only Track Tool is running (Track Dial requires Studio to be running as well).
@@ -144,6 +144,7 @@ msgid "Status: {name}"
 msgstr "Estado: {name}"
 
 #. Translators: The text of the help command in SPL Assistant layer.
+#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -166,7 +167,7 @@ msgid ""
 "Shift+R: Monitor library scan.\n"
 "S: Scheduled time for the track.\n"
 "Shift+S: Time until the selected track will play.\n"
-"T: Cart edit mode.\n"
+"T: Cart edit/insert mode.\n"
 "U: Studio up time.\n"
 "W: Weather and temperature.\n"
 "Y: Playlist modification.\n"
@@ -210,6 +211,7 @@ msgstr ""
 "Shift+F1: abre una guía de usuario en línea."
 
 #. Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
+#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -234,7 +236,7 @@ msgid ""
 "Shift+R: Monitor library scan.\n"
 "S: Scheduled time for the track.\n"
 "Shift+S: Time until the selected track will play.\n"
-"T: Cart edit mode.\n"
+"T: Cart edit/insert mode.\n"
 "U: Studio up time.\n"
 "W: Weather and temperature.\n"
 "Y: Playlist modification.\n"
@@ -280,6 +282,7 @@ msgstr ""
 "Shift+F1: abre una guía de usuario en línea."
 
 #. Translators: The text of the help command in SPL Assistant layer when Window-Eyes layer is active.
+#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -306,7 +309,7 @@ msgid ""
 "Shift+R: Monitor library scan.\n"
 "S: Scheduled time for the track.\n"
 "Shift+S: Time until the selected track will play.\n"
-"T: Cart edit mode.\n"
+"T: Cart edit/insert mode.\n"
 "U: Studio up time.\n"
 "W: Weather and temperature.\n"
 "Y: Playlist modification.\n"
@@ -1915,48 +1918,3 @@ msgid ""
 msgstr ""
 "Mejora el soporte para Station Playlist Studio.\n"
 "Además, agrega comandos globales para el estudio desde cualquier parte."
-
-#~ msgid "Not in tracks list"
-#~ msgstr "No está en lista de pistas"
-
-#~ msgid "No tracks added"
-#~ msgstr "No se añadieron pistas"
-
-#~ msgid "Toggles status announcements between words and beeps."
-#~ msgstr "Conmutar el anunciado de estado entre palabras y pitidos."
-
-#~ msgid ""
-#~ "You appear to be running a version newer than the latest released "
-#~ "version. Please reinstall the official version to downgrade."
-#~ msgstr ""
-#~ "Parece que estés ejecutando una versión más nueva de la última liberada. "
-#~ "Por favor reinstala la versión official para retroceder."
-
-#~ msgid "Remaining time not available"
-#~ msgstr "Tiempo restante no disponible"
-
-#~ msgid "Elapsed time not available"
-#~ msgstr "Tiempo transcurrido no disponible"
-
-#~ msgid "Broadcaster time not available"
-#~ msgstr "Tiempo de emisión no disponible"
-
-#~ msgid "Cannot obtain time in hours, minutes and seconds"
-#~ msgstr "No se pudo obtener el tiempo en horas, minutos y segundos"
-
-#~ msgid "Disable instant profile switching"
-#~ msgstr "Deshabilitar cambio de perfil instantáneo"
-
-#~ msgid ""
-#~ "An alarm dialog is already opened. Please close the alarm dialog first."
-#~ msgstr ""
-#~ "Está todavía abierto un diálogo de alarma. Por favor ciérralo antes."
-
-#~ msgid "Playlist &remainder announcement:"
-#~ msgstr "Anunciado de pista de reproducción &restante:"
-
-#~ msgid "current hour only"
-#~ msgstr "sólo hora actual"
-
-#~ msgid "entire playlist"
-#~ msgstr "lista de reproducción entera"

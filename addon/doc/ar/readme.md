@@ -18,7 +18,7 @@ IMPORTANT: This add-on requires NVDA 2015.3 or later and StationPlaylist
 Studio 5.00 or later. If you have installed NVDA 2016.1 or later on Windows
 8 and later, disable audio ducking mode. Also, add-on 8.0/16.10 requires
 Studio 5.10 and later, and for broadcasters using Studio 5.0x, a long-term
-support version (7.x) is available.
+support version (15.x) is available.
 
 ## مفاتيح الاختصار
 
@@ -138,9 +138,9 @@ The available commands are:
 * R (Shift+E in JAWS and Window-Eyes layouts): Record to file
   enabled/disabled.
 * shift+r: مراقبة حالة التقدم في البحث بالمكتبة.
-* s: موعد بداية تشغيل المسار (إذا كان في جدول).
-* Shift+S: Time until selected track will play.
-* T: تعطيل أو تشغيل نمط تعيين مفاتيح للتنويهات.
+* S: Track starts (scheduled).
+* Shift+S: Time until selected track will play (track starts in).
+* T: Cart edit/insert mode on/off.
 * U: وقت الاستوديو
 * Control+Shift+U: Check for add-on updates.
 * W: حالة التقس ودرجة الحرارة إذا كانت معدة.
@@ -249,6 +249,18 @@ broadcast profiles.
 استخدم لمسة ب3 أصابع للانتقال لنمط اللمس, ثم استخدم أوامر اللمس المسرودة
 أعلاه لأداء المهام.
 
+## Version 16.12/15.4-LTS
+
+* More work on supporting Studio 5.20, including announcing cart insert mode
+  status (if turned on) from SPL Assistant layer (T).
+* Cart edit/insert mode toggle is no longer affected by message verbosity
+  nor status announcement type settings (this status will always be
+  announced via speech and/or braille).
+* It is no longer possible to add comments to timed break notes.
+* Support for Track Tool 5.20, including fixed an issue where wrong
+  information is announced when using Columns Explorer commands to announce
+  column information.
+
 ## Version 16.11/15.3-LTS
 
 * Initial support for StationPlaylist Studio 5.20, including improved
@@ -268,13 +280,13 @@ broadcast profiles.
   (Control+NVDA+F) such as checking it for playback.
 * ترجمة الإضافة لمزيد من اللغات
 
-## Changes for 8.0/16.10/15.0-LTS
+## Version 8.0/16.10/15.0-LTS
 
 Version 8.0 (also known as 16.10) supports SPL Studio 5.10 and later, with
 15.0-LTS (formerly 7.x) designed to provide some new features from 8.0 for
 users using earlier versions of Studio. Unless otherwise noted, entries
 below apply to both 8.0 and 7.x. A warning dialog will be shown the first
-time you use add-on 8.0 with Studio 5.0x installed, asking you to use 7.x
+time you use add-on 8.0 with Studio 5.0x installed, asking you to use 15.x
 LTS version.
 
 * Version scheme has changed to reflect release year.month instead of
