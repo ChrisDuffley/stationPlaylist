@@ -27,90 +27,70 @@ class SPLConfigDialog(gui.SettingsDialog):
 	title = _("Studio Add-on Settings")
 
 	def makeSettings(self, settingsSizer):
+		SPLConfigHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
 		# Broadcast profile controls were inspired by Config Profiles dialog in NVDA Core.
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		# Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
-		label = wx.StaticText(self, wx.ID_ANY, label=_("Broadcast &profile:"))
 		# 7.0: Have a copy of the sorted profiles so the actual combo box items can show profile flags.
 		# 8.0: No need to sort as profile names from ConfigHub knows what to do.
 		self.profileNames = list(splconfig.SPLConfig.profileNames)
 		self.profileNames[0] = _("Normal profile")
-		self.profiles = wx.Choice(self, wx.ID_ANY, choices=self.displayProfiles(list(self.profileNames)))
+		# Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
+		self.profiles = SPLConfigHelper.addLabeledControl(_("Broadcast &profile:"), wx.Choice, choices=self.displayProfiles(list(self.profileNames)))
 		self.profiles.Bind(wx.EVT_CHOICE, self.onProfileSelection)
 		try:
 			self.profiles.SetSelection(self.profileNames.index(splconfig.SPLConfig.activeProfile))
 		except:
 			pass
-		sizer.Add(label)
-		sizer.Add(self.profiles)
-		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		# Profile controls code credit: NV Access (except copy button).
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		# Translators: The label of a button to create a new broadcast profile.
-		item = newButton = wx.Button(self, label=_("&New"))
-		item.Bind(wx.EVT_BUTTON, self.onNew)
-		sizer.Add(item)
+		newButton = wx.Button(self, label=_("&New"))
+		newButton.Bind(wx.EVT_BUTTON, self.onNew)
 		# Translators: The label of a button to copy a broadcast profile.
-		item = copyButton = wx.Button(self, label=_("Cop&y"))
-		item.Bind(wx.EVT_BUTTON, self.onCopy)
-		sizer.Add(item)
+		copyButton = wx.Button(self, label=_("Cop&y"))
+		copyButton.Bind(wx.EVT_BUTTON, self.onCopy)
 		# Translators: The label of a button to rename a broadcast profile.
-		item = self.renameButton = wx.Button(self, label=_("&Rename"))
-		item.Bind(wx.EVT_BUTTON, self.onRename)
-		sizer.Add(item)
+		self.renameButton = wx.Button(self, label=_("&Rename"))
+		self.renameButton.Bind(wx.EVT_BUTTON, self.onRename)
 		# Translators: The label of a button to delete a broadcast profile.
-		item = self.deleteButton = wx.Button(self, label=_("&Delete"))
-		item.Bind(wx.EVT_BUTTON, self.onDelete)
-		sizer.Add(item)
+		self.deleteButton = wx.Button(self, label=_("&Delete"))
+		self.deleteButton.Bind(wx.EVT_BUTTON, self.onDelete)
 		# Have a copy of the triggers dictionary.
 		self._profileTriggersConfig = dict(splconfig.profileTriggers)
 		# Translators: The label of a button to manage show profile triggers.
-		item = self.triggerButton = wx.Button(self, label=_("&Triggers..."))
-		item.Bind(wx.EVT_BUTTON, self.onTriggers)
-		sizer.Add(item)
-
+		self.triggerButton = wx.Button(self, label=_("&Triggers..."))
+		self.triggerButton.Bind(wx.EVT_BUTTON, self.onTriggers)
 		self.switchProfile = splconfig.SPLSwitchProfile
 		self.activeProfile = splconfig.SPLConfig.activeProfile
 		# Used as sanity check in case switch profile is renamed or deleted.
 		self.switchProfileRenamed = False
 		self.switchProfileDeleted = False
+		sizer.sizer.AddMany((newButton, copyButton, self.renameButton, self.deleteButton, self.triggerButton))
 		# Translators: The label for a setting in SPL Add-on settings to configure countdown seconds before switching profiles.
-		self.triggerThresholdLabel = wx.StaticText(self, wx.ID_ANY, label=_("Countdown seconds before switching profiles"))
-		sizer.Add(self.triggerThresholdLabel)
-		self.triggerThreshold = wx.SpinCtrl(self, wx.ID_ANY, min=10, max=60)
-		self.triggerThreshold.SetValue(long(splconfig.SPLConfig["Advanced"]["ProfileTriggerThreshold"]))
-		self.triggerThreshold.SetSelection(-1, -1)
-		sizer.Add(self.triggerThreshold)
+		self.triggerThreshold = sizer.addLabeledControl(_("Countdown seconds before switching profiles"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=10, max=60, initial=splconfig.SPLConfig["Advanced"]["ProfileTriggerThreshold"])
 		if self.profiles.GetSelection() == 0:
 			self.renameButton.Disable()
 			self.deleteButton.Disable()
 			self.triggerButton.Disable()
-		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+		SPLConfigHelper.addItem(sizer.sizer)
 
 		# Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
-		self.beepAnnounceCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Beep for status announcements"))
+		self.beepAnnounceCheckbox = SPLConfigHelper.addItem(wx.CheckBox(self, label=_("&Beep for status announcements")))
 		self.beepAnnounceCheckbox.SetValue(splconfig.SPLConfig["General"]["BeepAnnounce"])
-		settingsSizer.Add(self.beepAnnounceCheckbox, border=10,flag=wx.TOP)
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		# Translators: The label for a setting in SPL add-on dialog to set message verbosity.
-		label = wx.StaticText(self, wx.ID_ANY, label=_("Message &verbosity:"))
 		# Translators: One of the message verbosity levels.
 		self.verbosityLevels=[("beginner",_("beginner")),
 		# Translators: One of the message verbosity levels.
 		("advanced",_("advanced"))]
-		self.verbosityList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.verbosityLevels])
+		# Translators: The label for a setting in SPL add-on dialog to set message verbosity.
+		self.verbosityList = SPLConfigHelper.addLabeledControl(_("Message &verbosity:"), wx.Choice, choices=[x[1] for x in self.verbosityLevels])
 		currentVerbosity=splconfig.SPLConfig["General"]["MessageVerbosity"]
 		selection = (x for x,y in enumerate(self.verbosityLevels) if y[0]==currentVerbosity).next()
 		try:
 			self.verbosityList.SetSelection(selection)
 		except:
 			pass
-		sizer.Add(label)
-		sizer.Add(self.verbosityList)
-		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		self.outroSizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Check box hiding method comes from Alberto Buffolino's Columns Review add-on.
@@ -128,7 +108,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.endOfTrackAlarm.SetSelection(-1, -1)
 		self.outroSizer.Add(self.endOfTrackAlarm)
 		self.onOutroCheck(None)
-		settingsSizer.Add(self.outroSizer, border=10, flag=wx.BOTTOM)
+		SPLConfigHelper.addItem(self.outroSizer)
 
 		self.introSizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: Label for a check box in SPL add-on settings to notify when end of intro is approaching.
@@ -145,11 +125,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.songRampAlarm.SetSelection(-1, -1)
 		self.introSizer.Add(self.songRampAlarm)
 		self.onIntroCheck(None)
-		settingsSizer.Add(self.introSizer, border=10, flag=wx.BOTTOM)
+		SPLConfigHelper.addItem(self.introSizer)
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		# Translators: The label for a setting in SPL add-on dialog to control braille timer.
-		label = wx.StaticText(self, wx.ID_ANY, label=_("&Braille timer:"))
 		self.brailleTimerValues=[("off",_("Off")),
 		# Translators: One of the braille timer settings.
 		("outro",_("Track ending")),
@@ -157,16 +134,14 @@ class SPLConfigDialog(gui.SettingsDialog):
 		("intro",_("Track intro")),
 		# Translators: One of the braille timer settings.
 		("both",_("Track intro and ending"))]
-		self.brailleTimerList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.brailleTimerValues])
+		# Translators: The label for a setting in SPL add-on dialog to control braille timer.
+		self.brailleTimerList = SPLConfigHelper.addLabeledControl(_("&Braille timer:"), wx.Choice, choices=[x[1] for x in self.brailleTimerValues])
 		brailleTimerCurValue=splconfig.SPLConfig["General"]["BrailleTimer"]
 		selection = (x for x,y in enumerate(self.brailleTimerValues) if y[0]==brailleTimerCurValue).next()
 		try:
 			self.brailleTimerList.SetSelection(selection)
 		except:
 			pass
-		sizer.Add(label)
-		sizer.Add(self.brailleTimerList)
-		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		self.micSizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: The label for a setting in SPL Add-on settings to change microphone alarm setting.
@@ -184,31 +159,23 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.micAlarmInterval.SetValue(long(splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"]))
 		self.micAlarmInterval.SetSelection(-1, -1)
 		self.micSizer.Add(self.micAlarmInterval)
-		settingsSizer.Add(self.micSizer, border=10, flag=wx.BOTTOM)
+		SPLConfigHelper.addItem(self.micSizer)
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		# Translators: The label for a setting in SPL add-on dialog to control alarm announcement type.
-		label = wx.StaticText(self, wx.ID_ANY, label=_("&Alarm notification:"))
 		# Translators: One of the alarm notification options.
 		self.alarmAnnounceValues=[("beep",_("beep")),
 		# Translators: One of the alarm notification options.
 		("message",_("message")),
 		# Translators: One of the alarm notification options.
 		("both",_("both beep and message"))]
-		self.alarmAnnounceList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.alarmAnnounceValues])
+				# Translators: The label for a setting in SPL add-on dialog to control alarm announcement type.
+		self.alarmAnnounceList = SPLConfigHelper.addLabeledControl(_("&Alarm notification:"), wx.Choice, choices=[x[1] for x in self.alarmAnnounceValues])
 		alarmAnnounceCurValue=splconfig.SPLConfig["General"]["AlarmAnnounce"]
 		selection = (x for x,y in enumerate(self.alarmAnnounceValues) if y[0]==alarmAnnounceCurValue).next()
 		try:
 			self.alarmAnnounceList.SetSelection(selection)
 		except:
 			pass
-		sizer.Add(label)
-		sizer.Add(self.alarmAnnounceList)
-		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		# Translators: The label for a setting in SPL add-on dialog to control library scan announcement.
-		label = wx.StaticText(self, wx.ID_ANY, label=_("&Library scan announcement:"))
 		self.libScanValues=[("off",_("Off")),
 		# Translators: One of the library scan announcement settings.
 		("ending",_("Start and end only")),
@@ -216,45 +183,34 @@ class SPLConfigDialog(gui.SettingsDialog):
 		("progress",_("Scan progress")),
 		# Translators: One of the library scan announcement settings.
 		("numbers",_("Scan count"))]
-		self.libScanList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.libScanValues])
+		# Translators: The label for a setting in SPL add-on dialog to control library scan announcement.
+		self.libScanList = SPLConfigHelper.addLabeledControl(_("&Library scan announcement:"), wx.Choice, choices=[x[1] for x in self.libScanValues])
 		libScanCurValue=splconfig.SPLConfig["General"]["LibraryScanAnnounce"]
 		selection = (x for x,y in enumerate(self.libScanValues) if y[0]==libScanCurValue).next()
 		try:
 			self.libScanList.SetSelection(selection)
 		except:
 			pass
-		sizer.Add(label)
-		sizer.Add(self.libScanList)
-		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		# Translators: the label for a setting in SPL add-on settings to announce time including hours.
-		self.hourAnnounceCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Include &hours when announcing track or playlist duration"))
+		self.hourAnnounceCheckbox = SPLConfigHelper.addItem(wx.CheckBox(self, label=_("Include &hours when announcing track or playlist duration")))
 		self.hourAnnounceCheckbox.SetValue(splconfig.SPLConfig["General"]["TimeHourAnnounce"])
-		settingsSizer.Add(self.hourAnnounceCheckbox, border=10,flag=wx.BOTTOM)
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: The label for a setting in SPL add-on dialog to set vertical column.
-		label = wx.StaticText(self, wx.ID_ANY, label=_("&Vertical column navigation announcement:"))
+		verticalColLabel = _("&Vertical column navigation announcement:")
 		# Translators: One of the options for vertical column navigation denoting NVDA will announce current column positoin (e.g. second column position from the left).
-		self.verticalColumnsList = wx.Choice(self, wx.ID_ANY, choices=[_("whichever column I am reviewing"), "Status"] + splconfig._SPLDefaults7["ColumnAnnouncement"]["ColumnOrder"])
+		self.verticalColumnsList = SPLConfigHelper.addLabeledControl(verticalColLabel, wx.Choice, choices=[_("whichever column I am reviewing"), "Status"] + splconfig._SPLDefaults7["ColumnAnnouncement"]["ColumnOrder"])
 		verticalColumn = splconfig.SPLConfig["General"]["VerticalColumnAnnounce"]
 		selection = self.verticalColumnsList.FindString(verticalColumn) if verticalColumn is not None else 0
 		try:
 			self.verticalColumnsList.SetSelection(selection)
 		except:
 			pass
-		sizer.Add(label)
-		sizer.Add(self.verticalColumnsList)
-		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		# Translators: the label for a setting in SPL add-on settings to toggle category sound announcement.
-		self.categorySoundsCheckbox=wx.CheckBox(self,wx.NewId(),label=_("&Beep for different track categories"))
+		self.categorySoundsCheckbox = SPLConfigHelper.addItem(wx.CheckBox(self, label=_("&Beep for different track categories")))
 		self.categorySoundsCheckbox.SetValue(splconfig.SPLConfig["General"]["CategorySounds"])
-		settingsSizer.Add(self.categorySoundsCheckbox, border=10,flag=wx.BOTTOM)
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		# Translators: the label for a setting in SPL add-on settings to set how track comments are announced.
-		label = wx.StaticText(self, wx.ID_ANY, label=_("&Track comment announcement:"))
 		self.trackCommentValues=[("off",_("Off")),
 		# Translators: One of the track comment notification settings.
 		("message",_("Message")),
@@ -262,72 +218,61 @@ class SPLConfigDialog(gui.SettingsDialog):
 		("beep",_("Beep")),
 		# Translators: One of the track comment notification settings.
 		("both",_("Both"))]
-		self.trackCommentList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.trackCommentValues])
+		# Translators: the label for a setting in SPL add-on settings to set how track comments are announced.
+		self.trackCommentList = SPLConfigHelper.addLabeledControl(_("&Track comment announcement:"), wx.Choice, choices=[x[1] for x in self.trackCommentValues])
 		trackCommentCurValue=splconfig.SPLConfig["General"]["TrackCommentAnnounce"]
 		selection = (x for x,y in enumerate(self.trackCommentValues) if y[0]==trackCommentCurValue).next()
 		try:
 			self.trackCommentList.SetSelection(selection)
 		except:
 			pass
-		sizer.Add(label)
-		sizer.Add(self.trackCommentList)
-		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
 		# Translators: the label for a setting in SPL add-on settings to toggle top and bottom notification.
-		self.topBottomCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Notify when located at &top or bottom of playlist viewer"))
+		self.topBottomCheckbox = SPLConfigHelper.addItem(wx.CheckBox(self, label=_("Notify when located at &top or bottom of playlist viewer")))
 		self.topBottomCheckbox.SetValue(splconfig.SPLConfig["General"]["TopBottomAnnounce"])
-		settingsSizer.Add(self.topBottomCheckbox, border=10,flag=wx.BOTTOM)
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		# Translators: the label for a setting in SPL add-on settings to be notified that metadata streaming is enabled.
-		label = wx.StaticText(self, wx.ID_ANY, label=_("&Metadata streaming notification and connection"))
+		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		self.metadataValues=[("off",_("Off")),
 		# Translators: One of the metadata notification settings.
 		("startup",_("When Studio starts")),
 		# Translators: One of the metadata notification settings.
 		("instant",_("When instant switch profile is active"))]
-		self.metadataList = wx.Choice(self, wx.ID_ANY, choices=[x[1] for x in self.metadataValues])
+		# Translators: the label for a setting in SPL add-on settings to be notified that metadata streaming is enabled.
+		self.metadataList = sizer.addLabeledControl(_("&Metadata streaming notification and connection"), wx.Choice, choices=[x[1] for x in self.metadataValues])
 		metadataCurValue=splconfig.SPLConfig["General"]["MetadataReminder"]
 		selection = (x for x,y in enumerate(self.metadataValues) if y[0]==metadataCurValue).next()
 		try:
 			self.metadataList.SetSelection(selection)
 		except:
 			pass
-		sizer.Add(label)
-		sizer.Add(self.metadataList)
 		self.metadataStreams = list(splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"])
 		# Translators: The label of a button to manage column announcements.
-		item = manageMetadataButton = wx.Button(self, label=_("Configure metadata &streaming connection options..."))
-		item.Bind(wx.EVT_BUTTON, self.onManageMetadata)
-		sizer.Add(item)
-		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+		manageMetadataButton = sizer.addItem(wx.Button(self, label=_("Configure metadata &streaming connection options...")))
+		manageMetadataButton.Bind(wx.EVT_BUTTON, self.onManageMetadata)
+		SPLConfigHelper.addItem(sizer.sizer)
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		# Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
-		self.columnOrderCheckbox=wx.CheckBox(self,wx.NewId(),label=_("Announce columns in the &order shown on screen"))
+		self.columnOrderCheckbox=sizer.addItem(wx.CheckBox(self,wx.NewId(),label=_("Announce columns in the &order shown on screen")))
 		self.columnOrderCheckbox.SetValue(splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"])
 		self.columnOrder = splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"]
 		# Without manual conversion below, it produces a rare bug where clicking cancel after changing column inclusion causes new set to be retained.
 		self.includedColumns = set(splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"])
-		sizer.Add(self.columnOrderCheckbox, border=10,flag=wx.BOTTOM)
 		# Translators: The label of a button to manage column announcements.
-		item = manageColumnsButton = wx.Button(self, label=_("&Manage track column announcements..."))
-		item.Bind(wx.EVT_BUTTON, self.onManageColumns)
-		sizer.Add(item)
-		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+		manageColumnsButton = sizer.addItem(wx.Button(self, label=_("&Manage track column announcements...")))
+		manageColumnsButton.Bind(wx.EVT_BUTTON, self.onManageColumns)
+		SPLConfigHelper.addItem(sizer.sizer)
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
+		sizer = gui.guiHelper.ButtonHelper(wx.HORIZONTAL)
 		# Translators: The label of a button to configure columns explorer slots (SPL Assistant, number row keys to announce specific columns).
-		item = columnsExplorerButton = wx.Button(self, label=_("Columns E&xplorer..."))
-		item.Bind(wx.EVT_BUTTON, self.onColumnsExplorer)
+		columnsExplorerButton = sizer.addButton(self, label=_("Columns E&xplorer..."))
+		columnsExplorerButton.Bind(wx.EVT_BUTTON, self.onColumnsExplorer)
 		self.exploreColumns = splconfig.SPLConfig["General"]["ExploreColumns"]
-		sizer.Add(item)
 		# Translators: The label of a button to configure columns explorer slots for Track Tool (SPL Assistant, number row keys to announce specific columns).
-		item = columnsExplorerButton = wx.Button(self, label=_("Columns Explorer for &Track Tool..."))
-		item.Bind(wx.EVT_BUTTON, self.onColumnsExplorerTT)
+		columnsExplorerTTButton = sizer.addButton(self, label=_("Columns Explorer for &Track Tool..."))
+		columnsExplorerTTButton.Bind(wx.EVT_BUTTON, self.onColumnsExplorerTT)
 		self.exploreColumnsTT = splconfig.SPLConfig["General"]["ExploreColumnsTT"]
-		sizer.Add(item)
-		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+		SPLConfigHelper.addItem(sizer.sizer)
 
 		# Say status flags to be picked up by the dialog of this name.
 		self.scheduledFor = splconfig.SPLConfig["SayStatus"]["SayScheduledFor"]
@@ -335,28 +280,25 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.cartName = splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"]
 		self.playingTrackName = splconfig.SPLConfig["SayStatus"]["SayPlayingTrackName"]
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		# Translators: The label of a button to open status announcement options such as announcing listener count.
-		item = sayStatusButton = wx.Button(self, label=_("&Status announcements..."))
-		item.Bind(wx.EVT_BUTTON, self.onStatusAnnouncement)
-		sizer.Add(item)
+		sizer = gui.guiHelper.ButtonHelper(wx.HORIZONTAL)
+		# Translators: The label of a button to open advanced options such as using SPL Controller command to invoke Assistant layer.
+		sayStatusButton = sizer.addButton(self, label=_("&Status announcements..."))
+		sayStatusButton.Bind(wx.EVT_BUTTON, self.onStatusAnnouncement)
 
 		# Translators: The label of a button to open advanced options such as using SPL Controller command to invoke Assistant layer.
-		item = advancedOptButton = wx.Button(self, label=_("&Advanced options..."))
-		item.Bind(wx.EVT_BUTTON, self.onAdvancedOptions)
+		advancedOptButton = sizer.addButton(self, label=_("&Advanced options..."))
+		advancedOptButton.Bind(wx.EVT_BUTTON, self.onAdvancedOptions)
 		self.splConPassthrough = splconfig.SPLConfig["Advanced"]["SPLConPassthrough"]
 		self.compLayer = splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]
 		self.autoUpdateCheck = splconfig.SPLConfig["Update"]["AutoUpdateCheck"]
 		self.updateInterval = splconfig.SPLConfig["Update"]["UpdateInterval"]
 		self.updateChannel = splupdate.SPLUpdateChannel
 		self.pendingChannelChange = False
-		sizer.Add(item)
-		settingsSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+		SPLConfigHelper.addItem(sizer.sizer)
 
 		# Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
-		item = resetButton = wx.Button(self, label=_("Reset settings..."))
-		item.Bind(wx.EVT_BUTTON,self.onResetConfig)
-		settingsSizer.Add(item)
+		resetButton = SPLConfigHelper.addItem(wx.Button(self, label=_("Reset settings...")))
+		resetButton.Bind(wx.EVT_BUTTON,self.onResetConfig)
 
 	def postInit(self):
 		global _configDialogOpened
