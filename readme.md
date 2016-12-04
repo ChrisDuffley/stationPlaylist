@@ -9,7 +9,7 @@ This add-on package provides improved usage of StationPlaylist Studio, as well a
 
 For more information about the add-on, read the [add-on guide][4]. For developers seeking to know how to build the add-on, see buildInstructions.txt located at the root of the add-on source code repository.
 
-IMPORTANT: This add-on requires NVDA 2015.3 or later and StationPlaylist Studio 5.00 or later. If you have installed NVDA 2016.1 or later on Windows 8 and later, disable audio ducking mode. Also, add-on 8.0/16.10 requires Studio 5.10 and later, and for broadcasters using Studio 5.0x, a long-term support version (15.x) is available.
+IMPORTANT: This add-on requires NVDA 2016.4 or later and StationPlaylist Studio 5.10 or later. If you have installed NVDA 2016.1 or later on Windows 8 and later, disable audio ducking mode. Also, add-on 8.0/16.10 requires Studio 5.10 and later, and for broadcasters using Studio 5.0x, a long-term support version (15.x) is available.
 
 ## Shortcut keys
 
@@ -32,7 +32,7 @@ IMPORTANT: This add-on requires NVDA 2015.3 or later and StationPlaylist Studio 
 
 ## Unassigned commands
 
-The following commands are not assigned by default; if you wish to assign it, use Input Gestures dialog to add custom commands.
+The following commands are not assigned by default; if you wish to assign them, use Input Gestures dialog to add custom commands.
 
 * Switching to SPL Studio window from any program.
 * SPL Controller layer.
@@ -149,10 +149,6 @@ Depending on edition, SPL Studio allows up to 96 carts to be assigned for playba
 
 To learn cart assignments, from SPL Studio, press Alt+NVDA+3. Pressing the cart command once will tell you which jingle is assigned to the command. Pressing the cart command twice will play the jingle. Press Alt+NvDA+3 to exit cart explorer. See the add-on guide for more information on cart explorer.
 
-## Track Dial
-
-You can use arrow keys to review various information about a track. To turn Track Dial on, while a track is focused in the main playlist viewer, press the command you assigned for toggling Track Dial. Then use left and right arrow keys to review information such as artist, duration and so on. Alternatively, press Control+Alt+left or right arrows to navigate between columns without invoking Track Dial.
-
 ## Track time analysis
 
 To obtain length to play selected tracks, mark current track for start of track time analysis (SPL Assistant, F9), then press SPL Assistant, F10 when reaching end of selection.
@@ -169,9 +165,9 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
-<<<<<<< HEAD
 ## Version 17.1-dev
 
+* Improvements to presentation of various add-on dialogs thanks to NVDA 2016.4 features.
 * Added ability to press Control+Alt+up or down arrow keys to move between tracks (specifically, track columns) vertically just as one is moving to next or previous row in a table.
 * Added a combo box in add-on settings dialog to set which column should be announced when moving through columns vertically.
 * Removed Track Dial (NVDA's version of enhanced arrow keys), replaced by Columns explorer and Column Navigator/table navigation commands). This affects Studio and Track Tool.
