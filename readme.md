@@ -172,6 +172,11 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * Added a combo box in add-on settings dialog to set which column should be announced when moving through columns vertically.
 * Removed Track Dial (NVDA's version of enhanced arrow keys), replaced by Columns explorer and Column Navigator/table navigation commands). This affects Studio and Track Tool.
 
+## Version 16.12.1
+
+* Corrected user interface presentation for SPL add-on settings dialog.
+* Updated translations.
+
 ## Version 16.12/15.4-LTS
 
 * More work on supporting Studio 5.20, including announcing cart insert mode status (if turned on) from SPL Assistant layer (T).
