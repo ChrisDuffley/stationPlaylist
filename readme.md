@@ -170,6 +170,11 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 16.12.1
+
+* Corrected user interface presentation for SPL add-on settings dialog.
+* Updated translations.
+
 ## Version 16.12/15.4-LTS
 
 * More work on supporting Studio 5.20, including announcing cart insert mode status (if turned on) from SPL Assistant layer (T).
