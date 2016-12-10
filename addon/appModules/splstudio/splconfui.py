@@ -127,6 +127,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.onIntroCheck(None)
 		SPLConfigHelper.addItem(self.introSizer)
 
+		# Translators: The label of a button to open a dialog to configure various alarms.
+		alarmsCenterButton = SPLConfigHelper.addItem(wx.Button(self, label=_("&Alarms Center...")))
+		alarmsCenterButton.Bind(wx.EVT_BUTTON, self.onAlarmsCenter)
+
 		self.brailleTimerValues=[("off",_("Off")),
 		# Translators: One of the braille timer settings.
 		("outro",_("Track ending")),
@@ -561,7 +565,12 @@ class SPLConfigDialog(gui.SettingsDialog):
 		action(flag)
 		self.profiles.SetString(index, profile if not len(flags) else "{0} <{1}>".format(profile, ", ".join(flags)))
 
-	# Manage metadata streaming.
+	# Alarms Center.
+	def onAlarmsCenter(self, evt):
+		self.Disable()
+		AlarmsCenter(self).Show()
+
+		# Manage metadata streaming.
 	def onManageMetadata(self, evt):
 		self.Disable()
 		MetadataStreamingDialog(self).Show()
@@ -602,7 +611,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 # Open the above dialog upon request.
 def onConfigDialog(evt):
 	# 5.2: Guard against alarm dialogs.
-	if splconfig._alarmDialogOpened or _metadataDialogOpened:
+	if _alarmDialogOpened or _metadataDialogOpened:
 		# Translators: Presented when an alarm dialog is opened.
 		wx.CallAfter(gui.messageBox, _("Another add-on settings dialog is open. Please close the previously opened dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
 	else: gui.mainFrame._popupSettingsDialog(SPLConfigDialog)
@@ -858,26 +867,25 @@ class AlarmsCenter(wx.Dialog):
 		super(AlarmsCenter, self).__init__(parent, wx.ID_ANY, titles[level])
 		self.level = level
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
-		# 17.1: Utilize various enhancements from GUI helper (added in NVDA 2016.4).
-		contentSizerHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
+		alarmsCenterHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
 		if level in (0, 1):
-			timeVal = SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"]
+			timeVal = splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"]
 			alarmLabel = _("Enter &end of track alarm time in seconds (currently {curAlarmSec})").format(curAlarmSec = timeVal)
-			self.outroAlarmEntry = contentSizerHelper.addLabeledControl(alarmLabel, gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=59, initial=timeVal)
-			self.outroToggleCheckBox=contentSizerHelper.addItem(wx.CheckBox(self, label=_("&Notify when end of track is approaching")))
-			self.outroToggleCheckBox.SetValue(SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"])
+			self.outroAlarmEntry = alarmsCenterHelper.addLabeledControl(alarmLabel, gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=59, initial=timeVal)
+			self.outroToggleCheckBox=alarmsCenterHelper.addItem(wx.CheckBox(self, label=_("&Notify when end of track is approaching")))
+			self.outroToggleCheckBox.SetValue(splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"])
 
 		if level in (0, 2):
-			rampVal = SPLConfig["IntroOutroAlarms"]["SongRampTime"]
+			rampVal = splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"]
 			alarmLabel = _("Enter song &intro alarm time in seconds (currently {curRampSec})").format(curRampSec = rampVal)
-			self.introAlarmEntry = contentSizerHelper.addLabeledControl(alarmLabel, gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=9, initial=rampVal)
-			self.introToggleCheckBox=contentSizerHelper.addItem(wx.CheckBox(self, label=_("&Notify when end of introduction is approaching")))
-			self.introToggleCheckBox.SetValue(SPLConfig["IntroOutroAlarms"]["SaySongRamp"])
+			self.introAlarmEntry = alarmsCenterHelper.addLabeledControl(alarmLabel, gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=9, initial=rampVal)
+			self.introToggleCheckBox=alarmsCenterHelper.addItem(wx.CheckBox(self, label=_("&Notify when end of introduction is approaching")))
+			self.introToggleCheckBox.SetValue(splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"])
 
 		if level in (0, 3):
-			micAlarm = SPLConfig["MicrophoneAlarm"]["MicAlarm"]
-			micAlarmInterval = SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"]
+			micAlarm = splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"]
+			micAlarmInterval = splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"]
 			if micAlarm:
 				# Translators: A dialog message to set microphone active alarm (curAlarmSec is the current mic monitoring alarm in seconds).
 				timeMSG = _("Enter microphone alarm time in seconds (currently {curAlarmSec}, 0 disables the alarm)").format(curAlarmSec = micAlarm)
@@ -885,13 +893,13 @@ class AlarmsCenter(wx.Dialog):
 				# Translators: A dialog message when microphone alarm is disabled (set to 0).
 				timeMSG = _("Enter microphone alarm time in seconds (currently disabled, 0 disables the alarm)")
 			micIntervalMSG = _("Microphone alarm interval")
-			self.micAlarmEntry = contentSizerHelper.addLabeledControl(timeMSG, gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=7200, initial=micAlarm)
-			self.micIntervalEntry = contentSizerHelper.addLabeledControl(micIntervalMSG, gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=60, initial=micAlarmInterval)
+			self.micAlarmEntry = alarmsCenterHelper.addLabeledControl(timeMSG, gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=7200, initial=micAlarm)
+			self.micIntervalEntry = alarmsCenterHelper.addLabeledControl(micIntervalMSG, gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=60, initial=micAlarmInterval)
 
-		contentSizerHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
+		alarmsCenterHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
-		mainSizer.Add(contentSizerHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
+		mainSizer.Add(alarmsCenterHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 		mainSizer.Fit(self)
 		self.SetSizer(mainSizer)
 		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
@@ -900,10 +908,9 @@ class AlarmsCenter(wx.Dialog):
 		elif level == 3: self.micAlarmEntry.SetFocus()
 
 	def onOk(self, evt):
-		global SPLConfig, _alarmDialogOpened
+		global _alarmDialogOpened
 		# Optimization: don't bother if Studio is dead and if the same value has been entered.
-		import winUser
-		if winUser.user32.FindWindowA("SPLStudio", None):
+		"""if user32.FindWindowA("SPLStudio", None):
 			# Gather settings to be applied in section/key format.
 			if self.level in (0, 1):
 				SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] = self.outroAlarmEntry.GetValue()
@@ -913,15 +920,19 @@ class AlarmsCenter(wx.Dialog):
 				SPLConfig["IntroOutroAlarms"]["SaySongRamp"] = self.introToggleCheckBox.GetValue()
 			elif self.level in (0, 3):
 				SPLConfig["MicrophoneAlarm"]["MicAlarm"] = self.micAlarmEntry.GetValue()
-				SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] = self.micIntervalEntry.GetValue()
+				SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] = self.micIntervalEntry.GetValue()"""
+		if self.level == 0:
+			self.Parent.profiles.SetFocus()
+			self.Parent.Enable()
 		self.Destroy()
 		_alarmDialogOpened = False
 
 	def onCancel(self, evt):
+		if self.level == 0:
+			self.Parent.Enable()
 		self.Destroy()
 		global _alarmDialogOpened
 		_alarmDialogOpened = False
-
 
 # Metadata reminder controller.
 # Select notification/streaming URL's for metadata streaming.
