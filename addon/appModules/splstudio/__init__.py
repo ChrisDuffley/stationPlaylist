@@ -962,12 +962,12 @@ class AppModule(appModuleHandler.AppModule):
 			wx.CallAfter(gui.messageBox, _("The add-on settings dialog is opened. Please close the settings dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
 			return
 		try:
-			d = splconfig.SPLAlarmDialog(gui.mainFrame, level)
+			d = splconfui.AlarmsCenter(gui.mainFrame, level)
 			gui.mainFrame.prePopup()
 			d.Raise()
 			d.Show()
 			gui.mainFrame.postPopup()
-			splconfig._alarmDialogOpened = True
+			splconfui._alarmDialogOpened = True
 		except RuntimeError:
 			wx.CallAfter(splconfig._alarmError)
 
