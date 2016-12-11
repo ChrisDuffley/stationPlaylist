@@ -195,36 +195,29 @@ class EncoderConfigDialog(wx.Dialog):
 		# Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
 		super(EncoderConfigDialog, self).__init__(parent, wx.ID_ANY, _("Encoder settings for {name}").format(name = title))
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
+		encoderConfigHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: An edit field in encoder settings to set stream label for this encoder.
-		streamLabelPrompt = wx.StaticText(self, wx.ID_ANY, label=_("Stream &label"))
-		sizer.Add(streamLabelPrompt)
-		self.streamLabel = wx.TextCtrl(self, wx.ID_ANY)
+		self.streamLabel = encoderConfigHelper.addLabeledControl(_("Stream &label"), wx.TextCtrl)
 		self.streamLabel.SetValue(self.curStreamLabel if self.curStreamLabel is not None else "")
-		sizer.Add(self.streamLabel)
-		mainSizer.Add(sizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
 		# Translators: A checkbox in encoder settings to set if NvDA should switch focus to Studio window when connected.
-		self.focusToStudio=wx.CheckBox(self,wx.NewId(),label=_("&Focus to Studio when connected"))
+		self.focusToStudio = encoderConfigHelper.addItem(wx.CheckBox(self, label=_("&Focus to Studio when connected")))
 		self.focusToStudio.SetValue(obj.getEncoderId() in SPLFocusToStudio)
-		mainSizer.Add(self.focusToStudio,border=10,flag=wx.BOTTOM)
 		# Translators: A checkbox in encoder settings to set if NvDA should play the next track when connected.
-		self.playAfterConnecting=wx.CheckBox(self,wx.NewId(),label=_("&Play first track when connected"))
+		self.playAfterConnecting = encoderConfigHelper.addItem(wx.CheckBox(self, label=_("&Play first track when connected")))
 		self.playAfterConnecting.SetValue(obj.getEncoderId() in SPLPlayAfterConnecting)
-		mainSizer.Add(self.playAfterConnecting,border=10,flag=wx.BOTTOM)
 		# Translators: A checkbox in encoder settings to set if NvDA should monitor the status of this encoder in the background.
-		self.backgroundMonitor=wx.CheckBox(self,wx.NewId(),label=_("Enable background connection &monitoring"))
+		self.backgroundMonitor = encoderConfigHelper.addItem(wx.CheckBox(self, label=_("Enable background connection &monitoring")))
 		self.backgroundMonitor.SetValue(obj.getEncoderId() in SPLBackgroundMonitor)
-		mainSizer.Add(self.backgroundMonitor,border=10,flag=wx.BOTTOM)
 		# Translators: A checkbox in encoder settings to set if NvDA should play connection progress tone.
-		self.noConnectionTone=wx.CheckBox(self,wx.NewId(),label=_("Play connection status &beep while connecting"))
+		self.noConnectionTone = encoderConfigHelper.addItem(wx.CheckBox(self, label=_("Play connection status &beep while connecting")))
 		self.noConnectionTone.SetValue(obj.getEncoderId() not in SPLNoConnectionTone)
-		mainSizer.Add(self.noConnectionTone,border=10,flag=wx.BOTTOM)
 
-		mainSizer.AddSizer(self.CreateButtonSizer(wx.OK|wx.CANCEL))
+		encoderConfigHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON,self.onOk,id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON,self.onCancel,id=wx.ID_CANCEL)
+		mainSizer.Add(encoderConfigHelper.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 		mainSizer.Fit(self)
 		self.SetSizer(mainSizer)
 		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
