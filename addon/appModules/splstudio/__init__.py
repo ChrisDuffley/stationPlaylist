@@ -1362,22 +1362,24 @@ class AppModule(appModuleHandler.AppModule):
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_manageMetadataStreams.__doc__=_("Opens a dialog to quickly enable or disable metadata streaming.")
 
-	# Track time analysis
+	# Track time analysis/Playlist snapshots
 	# Return total length of the selected tracks upon request.
 	# Analysis command (SPL Assistant) will be assignable.
+	# Also gather various data about the playlist.
 	_analysisMarker = None
 
-	# Trakc time analysis requires main playlist viewer to be the foreground window.
+	# Trakc time analysis and playlist snapshots require main playlist viewer to be the foreground window.
 	def _trackAnalysisAllowed(self):
 		if api.getForegroundObject().windowClassName != "TStudioForm":
 			# Translators: Presented when track time anlaysis cannot be performed because user is not focused on playlist viewer.
-			ui.message(_("Not in playlist viewer, cannot perform track time analysis"))
+			ui.message(_("Not in playlist viewer, cannot perform track time analysis or gather playlist snapshot statistics"))
 			return False
 		return True
 
 	# Return total duration of a range of tracks.
 	# This is used in track time analysis when multiple tracks are selected.
 	# This is also called from playlist duration scripts.
+	# To be replaced by general track duration script, with the difference being start and end location.
 	def totalTime(self, start, end):
 		# Take care of errors such as the following.
 		if start < 0 or end > statusAPI(0, 124, ret=True)-1:
@@ -1392,6 +1394,28 @@ class AppModule(appModuleHandler.AppModule):
 				filename = statusAPI(track, 211, ret=True)
 				totalLength+=statusAPI(filename, 30, ret=True)
 		return totalLength
+
+	# Playlist snapshots
+	# Data to be gathered comes from a set of flags.
+	def playlistSnapshots(self, obj, end, snapshotFlags=None):
+		# Track count and total duration are always included.
+		snapshot = {"TrackCount":statusAPI(0, 124, ret=True)}
+		duration = obj.indexOf("Duration")
+		title = obj.indexOf("Title")
+		totalDuration = 0
+		titleDuration = []
+		while obj not in (None, end):
+			# Technically segue.
+			segue = obj._getColumnContent(duration)
+			trackTitle = obj._getColumnContent(title)
+			titleDuration.append((trackTitle, segue))
+			if segue not in (None, "00:00"):
+				hms = segue.split(":")
+				totalDuration += (int(hms[-2])*60) + int(hms[-1])
+				if len(hms) == 3: totalDuration += int(hms[0])*3600
+			obj = obj.next
+		snapshot["DurationTotal"] = totalDuration
+		return snapshot["DurationTotal"]
 
 	# Some handlers for native commands.
 
@@ -1586,16 +1610,7 @@ class AppModule(appModuleHandler.AppModule):
 		if obj.role == controlTypes.ROLE_LIST:
 			ui.message("00:00")
 			return
-		col = obj.indexOf("Duration")
-		totalDuration = 0
-		while obj is not None:
-			segue = obj._getColumnContent(col)
-			if segue not in (None, "00:00"):
-				hms = segue.split(":")
-				totalDuration += (int(hms[-2])*60) + int(hms[-1])
-				if len(hms) == 3: totalDuration += int(hms[0])*3600
-			obj = obj.next
-		self.announceTime(totalDuration, ms=False)
+		self.announceTime(self.playlistSnapshots(obj, None), ms=False)
 
 	def script_sayPlaylistModified(self, gesture):
 		try:
@@ -1744,6 +1759,16 @@ class AppModule(appModuleHandler.AppModule):
 				ui.message(_("Tracks: {numberOfSelectedTracks}, totaling {totalTime}").format(numberOfSelectedTracks = analysisRange, totalTime = self._ms2time(totalLength)))
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_trackTimeAnalysis.__doc__=_("Announces total length of tracks between analysis start marker and the current track")
+
+	def script_takePlaylistSnapshots(self, gesture):
+		obj = api.getFocusObject() if api.getForegroundObject().windowClassName == "TStudioForm" else self._focusedTrack
+		if obj is None:
+			ui.message("Please return to playlist viewer before invoking this command.")
+			return
+		if obj.role == controlTypes.ROLE_LIST:
+			ui.message("00:00")
+			return
+		self.announceTime(self.playlistSnapshots(obj, None), ms=False)
 
 	def script_switchProfiles(self, gesture):
 		splconfig.triggerProfileSwitch() if splconfig._triggerProfileActive else splconfig.instantProfileSwitch()
