@@ -92,41 +92,12 @@ class SPLConfigDialog(gui.SettingsDialog):
 		except:
 			pass
 
-		self.outroSizer = wx.BoxSizer(wx.HORIZONTAL)
-		# Check box hiding method comes from Alberto Buffolino's Columns Review add-on.
-		# Translators: Label for a check box in SPL add-on settings to notify when end of track (outro) is approaching.
-		self.outroCheckBox=wx.CheckBox(self,wx.NewId(),label=_("&Notify when end of track is approaching"))
-		self.outroCheckBox.SetValue(splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"])
-		self.outroCheckBox.Bind(wx.EVT_CHECKBOX, self.onOutroCheck)
-		self.outroSizer.Add(self.outroCheckBox, border=10,flag=wx.BOTTOM)
-
-		# Translators: The label for a setting in SPL Add-on settings to specify end of track (outro) alarm.
-		self.outroAlarmLabel = wx.StaticText(self, wx.ID_ANY, label=_("&End of track alarm in seconds"))
-		self.outroSizer.Add(self.outroAlarmLabel)
-		self.endOfTrackAlarm = wx.SpinCtrl(self, wx.ID_ANY, min=1, max=59)
-		self.endOfTrackAlarm.SetValue(long(splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"]))
-		self.endOfTrackAlarm.SetSelection(-1, -1)
-		self.outroSizer.Add(self.endOfTrackAlarm)
-		self.onOutroCheck(None)
-		SPLConfigHelper.addItem(self.outroSizer)
-
-		self.introSizer = wx.BoxSizer(wx.HORIZONTAL)
-		# Translators: Label for a check box in SPL add-on settings to notify when end of intro is approaching.
-		self.introCheckBox=wx.CheckBox(self,wx.NewId(),label=_("&Notify when end of introduction is approaching"))
-		self.introCheckBox.SetValue(splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"])
-		self.introCheckBox.Bind(wx.EVT_CHECKBOX, self.onIntroCheck)
-		self.introSizer.Add(self.introCheckBox, border=10,flag=wx.BOTTOM)
-
-		# Translators: The label for a setting in SPL Add-on settings to specify track intro alarm.
-		self.introAlarmLabel = wx.StaticText(self, wx.ID_ANY, label=_("&Track intro alarm in seconds"))
-		self.introSizer.Add(self.introAlarmLabel)
-		self.songRampAlarm = wx.SpinCtrl(self, wx.ID_ANY, min=1, max=9)
-		self.songRampAlarm.SetValue(long(splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"]))
-		self.songRampAlarm.SetSelection(-1, -1)
-		self.introSizer.Add(self.songRampAlarm)
-		self.onIntroCheck(None)
-		SPLConfigHelper.addItem(self.introSizer)
-
+		self.endOfTrackTime = splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"]
+		self.sayEndOfTrack = splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"]
+		self.songRampTime = splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"]
+		self.saySongRamp = splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"]
+		self.micAlarm = splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"]
+		self.micAlarmInterval = splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"]
 		# Translators: The label of a button to open a dialog to configure various alarms.
 		alarmsCenterButton = SPLConfigHelper.addItem(wx.Button(self, label=_("&Alarms Center...")))
 		alarmsCenterButton.Bind(wx.EVT_BUTTON, self.onAlarmsCenter)
@@ -146,13 +117,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 			self.brailleTimerList.SetSelection(selection)
 		except:
 			pass
-
-		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
-		# Translators: The label for a setting in SPL Add-on settings to change microphone alarm setting.
-		self.micAlarm = sizer.addLabeledControl(_("&Microphone alarm in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=7200, initial=splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"])
-		# Translators: The label for a setting in SPL Add-on settings to specify mic alarm interval.
-		self.micAlarmInterval = sizer.addLabeledControl(_("Microphone alarm &interval in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=60, initial=splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"])
-		SPLConfigHelper.addItem(sizer)
 
 		# Translators: One of the alarm notification options.
 		self.alarmAnnounceValues=[("beep",_("beep")),
@@ -303,13 +267,13 @@ class SPLConfigDialog(gui.SettingsDialog):
 			splconfig.SPLConfig.swapProfiles(splconfig.SPLConfig.activeProfile, selectedProfile)
 		splconfig.SPLConfig["General"]["BeepAnnounce"] = self.beepAnnounceCheckbox.Value
 		splconfig.SPLConfig["General"]["MessageVerbosity"] = self.verbosityLevels[self.verbosityList.GetSelection()][0]
-		splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"] = self.outroCheckBox.Value
-		splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] = self.endOfTrackAlarm.Value
-		splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"] = self.introCheckBox.Value
-		splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"] = self.songRampAlarm.Value
+		splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] = self.endOfTrackTime
+		splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"] = self.sayEndOfTrack
+		splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"] = self.songRampTime
+		splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"] = self.saySongRamp
+		splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"] = self.micAlarm
+		splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] = self.micAlarmInterval
 		splconfig.SPLConfig["General"]["BrailleTimer"] = self.brailleTimerValues[self.brailleTimerList.GetSelection()][0]
-		splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"] = self.micAlarm.Value
-		splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] = self.micAlarmInterval.Value
 		splconfig.SPLConfig["General"]["AlarmAnnounce"] = self.alarmAnnounceValues[self.alarmAnnounceList.GetSelection()][0]
 		splconfig.SPLConfig["General"]["LibraryScanAnnounce"] = self.libScanValues[self.libScanList.GetSelection()][0]
 		splconfig.SPLConfig["General"]["TimeHourAnnounce"] = self.hourAnnounceCheckbox.Value
@@ -395,25 +359,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 		else:
 			if splupdate._SPLUpdateT is None: splconfig.updateInit()
 
-	# Check events for outro and intro alarms, respectively.
-	def onOutroCheck(self, evt):
-		if not self.outroCheckBox.IsChecked():
-			self.outroSizer.Hide(self.outroAlarmLabel)
-			self.outroSizer.Hide(self.endOfTrackAlarm)
-		else:
-			self.outroSizer.Show(self.outroAlarmLabel)
-			self.outroSizer.Show(self.endOfTrackAlarm)
-		self.Fit()
-
-	def onIntroCheck(self, evt):
-		if not self.introCheckBox.IsChecked():
-			self.introSizer.Hide(self.introAlarmLabel)
-			self.introSizer.Hide(self.songRampAlarm)
-		else:
-			self.introSizer.Show(self.introAlarmLabel)
-			self.introSizer.Show(self.songRampAlarm)
-		self.Fit()
-
 	# Include profile flags such as instant profile string for display purposes.
 	def displayProfiles(self, profiles):
 		for index in xrange(len(profiles)):
@@ -439,14 +384,12 @@ class SPLConfigDialog(gui.SettingsDialog):
 			self.deleteButton.Enable()
 			self.triggerButton.Enable()
 		curProfile = splconfig.getProfileByName(selectedProfile)
-		self.outroCheckBox.SetValue(curProfile["IntroOutroAlarms"]["SayEndOfTrack"])
-		self.endOfTrackAlarm.SetValue(long(curProfile["IntroOutroAlarms"]["EndOfTrackTime"]))
-		self.onOutroCheck(None)
-		self.introCheckBox.SetValue(curProfile["IntroOutroAlarms"]["SaySongRamp"])
-		self.songRampAlarm.SetValue(long(curProfile["IntroOutroAlarms"]["SongRampTime"]))
-		self.onIntroCheck(None)
-		self.micAlarm.SetValue(long(curProfile["MicrophoneAlarm"]["MicAlarm"]))
-		self.micAlarmInterval.SetValue(long(curProfile["MicrophoneAlarm"]["MicAlarmInterval"]))
+		self.endOfTrackTime = curProfile["IntroOutroAlarms"]["EndOfTrackTime"]
+		self.sayEndOfTrack = curProfile["IntroOutroAlarms"]["SayEndOfTrack"]
+		self.songRampTime = curProfile["IntroOutroAlarms"]["SongRampTime"]
+		self.saySongRamp = curProfile["IntroOutroAlarms"]["SaySongRamp"]
+		self.micAlarm = curProfile["MicrophoneAlarm"]["MicAlarm"]
+		self.micAlarmInterval = curProfile["MicrophoneAlarm"]["MicAlarmInterval"]
 		# 6.1: Take care of profile-specific column and metadata settings.
 		self.metadataStreams = curProfile["MetadataStreaming"]["MetadataEnabled"]
 		self.columnOrderCheckbox.SetValue(curProfile["ColumnAnnouncement"]["UseScreenColumnOrder"])
@@ -870,31 +813,23 @@ class AlarmsCenter(wx.Dialog):
 		alarmsCenterHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
 		if level in (0, 1):
-			timeVal = splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"]
-			alarmLabel = _("Enter &end of track alarm time in seconds (currently {curAlarmSec})").format(curAlarmSec = timeVal)
-			self.outroAlarmEntry = alarmsCenterHelper.addLabeledControl(alarmLabel, gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=59, initial=timeVal)
+			timeVal = parent.endOfTrackTime if level == 0 else splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"]
+			self.outroAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&End of track alarm in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=59, initial=timeVal)
 			self.outroToggleCheckBox=alarmsCenterHelper.addItem(wx.CheckBox(self, label=_("&Notify when end of track is approaching")))
-			self.outroToggleCheckBox.SetValue(splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"])
+			self.outroToggleCheckBox.SetValue(parent.sayEndOfTrack if level == 0 else splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"])
 
 		if level in (0, 2):
-			rampVal = splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"]
-			alarmLabel = _("Enter song &intro alarm time in seconds (currently {curRampSec})").format(curRampSec = rampVal)
-			self.introAlarmEntry = alarmsCenterHelper.addLabeledControl(alarmLabel, gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=9, initial=rampVal)
+			rampVal = parent.songRampTime if level == 0 else splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"]
+			self.introAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&Track intro alarm in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=9, initial=rampVal)
 			self.introToggleCheckBox=alarmsCenterHelper.addItem(wx.CheckBox(self, label=_("&Notify when end of introduction is approaching")))
-			self.introToggleCheckBox.SetValue(splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"])
+			self.introToggleCheckBox.SetValue(parent.saySongRamp if level == 0 else splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"])
 
 		if level in (0, 3):
-			micAlarm = splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"]
-			micAlarmInterval = splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"]
-			if micAlarm:
-				# Translators: A dialog message to set microphone active alarm (curAlarmSec is the current mic monitoring alarm in seconds).
-				timeMSG = _("Enter microphone alarm time in seconds (currently {curAlarmSec}, 0 disables the alarm)").format(curAlarmSec = micAlarm)
-			else:
-				# Translators: A dialog message when microphone alarm is disabled (set to 0).
-				timeMSG = _("Enter microphone alarm time in seconds (currently disabled, 0 disables the alarm)")
-			micIntervalMSG = _("Microphone alarm interval")
-			self.micAlarmEntry = alarmsCenterHelper.addLabeledControl(timeMSG, gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=7200, initial=micAlarm)
-			self.micIntervalEntry = alarmsCenterHelper.addLabeledControl(micIntervalMSG, gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=60, initial=micAlarmInterval)
+			micAlarm = splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"] if level == 3 else parent.micAlarm
+			micAlarmInterval = splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] if level == 3 else parent.micAlarmInterval
+			# Translators: A dialog message to set microphone active alarm.
+			self.micAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&Microphone alarm in seconds (0 disables the alarm)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=7200, initial=micAlarm)
+			self.micIntervalEntry = alarmsCenterHelper.addLabeledControl(_("Microphone alarm &interval in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=60, initial=micAlarmInterval)
 
 		alarmsCenterHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
@@ -909,19 +844,26 @@ class AlarmsCenter(wx.Dialog):
 
 	def onOk(self, evt):
 		global _alarmDialogOpened
-		# Optimization: don't bother if Studio is dead and if the same value has been entered.
-		"""if user32.FindWindowA("SPLStudio", None):
+		# Optimization: don't bother if Studio is dead and if the same value has been entered (only when standalone versions are opened).
+		if self.level > 0 and user32.FindWindowA("SPLStudio", None):
 			# Gather settings to be applied in section/key format.
-			if self.level in (0, 1):
+			if self.level == 1:
 				SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] = self.outroAlarmEntry.GetValue()
 				SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"] = self.outroToggleCheckBox.GetValue()
-			elif self.level in (0, 2):
+			elif self.level == 2:
 				SPLConfig["IntroOutroAlarms"]["SongRampTime"] = self.introAlarmEntry.GetValue()
 				SPLConfig["IntroOutroAlarms"]["SaySongRamp"] = self.introToggleCheckBox.GetValue()
-			elif self.level in (0, 3):
+			elif self.level == 3:
 				SPLConfig["MicrophoneAlarm"]["MicAlarm"] = self.micAlarmEntry.GetValue()
-				SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] = self.micIntervalEntry.GetValue()"""
-		if self.level == 0:
+				SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] = self.micIntervalEntry.GetValue()
+		elif self.level == 0:
+			parent = self.Parent
+			parent.endOfTrackTime = self.outroAlarmEntry.GetValue()
+			parent.sayEndOfTrack = self.outroToggleCheckBox.GetValue()
+			parent.songRampTime = self.introAlarmEntry.GetValue()
+			parent.saySongRamp = self.introToggleCheckBox.GetValue()
+			parent.micAlarm = self.micAlarmEntry.GetValue()
+			parent.micAlarmInterval = self.micIntervalEntry.GetValue()
 			self.Parent.profiles.SetFocus()
 			self.Parent.Enable()
 		self.Destroy()
