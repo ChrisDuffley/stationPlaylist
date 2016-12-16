@@ -287,6 +287,11 @@ realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
 
+## Version 16.12.1
+
+* Corrected user interface presentation for SPL add-on settings dialog.
+* Traducciones actualizadas.
+
 ## Versión 16.12/15.4-LTS
 
 * Más trabajo sobre el soporte de Studio 5.20, incluyendo el anunciado del

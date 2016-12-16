@@ -260,6 +260,11 @@ Amennyiben érintőképernyős számítógépen használja a Studiot Windows 8, 
 parancsokat végrehajthat az érintőképernyőn is. Először 3 ujjas koppintással
 váltson SPL módra, és utána már használhatók az alább felsorolt parancsok.
 
+## Version 16.12.1
+
+* Corrected user interface presentation for SPL add-on settings dialog.
+* Fordítások frissítése
+
 ## Version 16.12/15.4-LTS
 
 * More work on supporting Studio 5.20, including announcing cart insert mode

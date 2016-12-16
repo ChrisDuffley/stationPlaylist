@@ -249,6 +249,11 @@ broadcast profiles.
 استخدم لمسة ب3 أصابع للانتقال لنمط اللمس, ثم استخدم أوامر اللمس المسرودة
 أعلاه لأداء المهام.
 
+## Version 16.12.1
+
+* Corrected user interface presentation for SPL add-on settings dialog.
+* ترجمة الإضافة لمزيد من اللغات
+
 ## Version 16.12/15.4-LTS
 
 * More work on supporting Studio 5.20, including announcing cart insert mode
