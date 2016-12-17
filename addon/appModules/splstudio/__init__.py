@@ -1379,8 +1379,23 @@ class AppModule(appModuleHandler.AppModule):
 	# Return total duration of a range of tracks.
 	# This is used in track time analysis when multiple tracks are selected.
 	# This is also called from playlist duration scripts.
-	# To be replaced by general track duration script, with the difference being start and end location.
-	def totalTime(self, start, end):
+	def playlistDuration(self, start=None, end=None):
+		if start is None: start = api.getFocusObject()
+		duration = start.indexOf("Duration")
+		totalDuration = 0
+		obj = start
+		while obj not in (None, end):
+			# Technically segue.
+			segue = obj._getColumnContent(duration)
+			if segue not in (None, "00:00"):
+				hms = segue.split(":")
+				totalDuration += (int(hms[-2])*60) + int(hms[-1])
+				if len(hms) == 3: totalDuration += int(hms[0])*3600
+			obj = obj.next
+		return totalDuration
+
+	# Segue version of this will be used in some places (the below is the raw duration).)
+	def playlistDurationRaw(self, start, end):
 		# Take care of errors such as the following.
 		if start < 0 or end > statusAPI(0, 124, ret=True)-1:
 			raise ValueError("Track range start or end position out of range")
@@ -1399,23 +1414,73 @@ class AppModule(appModuleHandler.AppModule):
 	# Data to be gathered comes from a set of flags.
 	def playlistSnapshots(self, obj, end, snapshotFlags=None):
 		# Track count and total duration are always included.
-		snapshot = {"TrackCount":statusAPI(0, 124, ret=True)}
+		snapshot = {}
+		if snapshotFlags is None:
+			snapshotFlags = ["PlaylistDurationMinMax", "PlaylistCategoryCount", "PlaylistDurationAverage"]
 		duration = obj.indexOf("Duration")
 		title = obj.indexOf("Title")
+		min, max = None, None
+		minTitle, maxTitle = None, None
+		category = obj.indexOf("Category")
 		totalDuration = 0
-		titleDuration = []
+		categories = []
+		# A specific version of the playlist duration loop is needed in order to gather statistics.
 		while obj not in (None, end):
-			# Technically segue.
 			segue = obj._getColumnContent(duration)
 			trackTitle = obj._getColumnContent(title)
-			titleDuration.append((trackTitle, segue))
+			categories.append(obj._getColumnContent(category))
+			# Shortest and longest tracks.
+			if min is None: min = segue
+			if segue and segue < min:
+				min = segue
+				minTitle = trackTitle
+			if segue and segue > max:
+				max = segue
+				maxTitle = trackTitle
 			if segue not in (None, "00:00"):
 				hms = segue.split(":")
 				totalDuration += (int(hms[-2])*60) + int(hms[-1])
 				if len(hms) == 3: totalDuration += int(hms[0])*3600
 			obj = obj.next
-		snapshot["DurationTotal"] = totalDuration
-		return snapshot["DurationTotal"]
+		if end is None: snapshot["PlaylistTrackCount"] = statusAPI(0, 124, ret=True)
+		snapshot["PlaylistDurationTotal"] = self._ms2time(totalDuration, ms=False)
+		if "PlaylistDurationMinMax" in snapshotFlags:
+			snapshot["PlaylistDurationMin"] = "%s (%s)"%(minTitle, min)
+			snapshot["PlaylistDurationMax"] = "%s (%s)"%(maxTitle, max)
+		if "PlaylistDurationAverage" in snapshotFlags:
+			snapshot["PlaylistDurationAverage"] = self._ms2time(totalDuration/snapshot["PlaylistTrackCount"], ms=False)
+		if "PlaylistCategoryCount" in snapshotFlags:
+			import collections
+			snapshot["PlaylistCategoryCount"] = collections.Counter(categories)
+		return snapshot
+
+# Output formatter for playlist snapshots.
+# Pressed once will speak and/or braille it, pressing twice or more will output this info to an HTML file.
+	def playlistSnapshotOutput(self, snapshot, scriptCount):
+		scriptCount = 1
+		statusInfo = ["Tracks: %s"%snapshot["PlaylistTrackCount"]]
+		statusInfo.append("Duration: %s"%snapshot["PlaylistDurationTotal"])
+		if "PlaylistDurationMin" in snapshot:
+			statusInfo.append("Shortest: %s"%snapshot["PlaylistDurationMin"])
+			statusInfo.append("Longest: %s"%snapshot["PlaylistDurationMax"])
+		if "PlaylistDurationAverage" in snapshot:
+			statusInfo.append("Average: %s"%snapshot["PlaylistDurationAverage"])
+		if "PlaylistCategoryCount" in snapshot:
+			categories = snapshot["PlaylistCategoryCount"].most_common()
+			if scriptCount == 0:
+				statusInfo.append("Top category: %s (%s)"%(categories[0]))
+			else:
+				categoryList = []
+				for item in categories:
+					category, count = item
+					category = category.replace("<", "")
+					category = category.replace(">", "")
+					categoryList.append("<li>%s (%s)</li>"%(category, count))
+				statusInfo.append("".join(["Categories:<ol>", "\n".join(categoryList), "</ol>"]))
+		if scriptCount == 0:
+			ui.message(", ".join(statusInfo))
+		else:
+			ui.browseableMessage("<p>".join(statusInfo),title="Playlist snapshot", isHtml=True)
 
 	# Some handlers for native commands.
 
@@ -1610,7 +1675,7 @@ class AppModule(appModuleHandler.AppModule):
 		if obj.role == controlTypes.ROLE_LIST:
 			ui.message("00:00")
 			return
-		self.announceTime(self.playlistSnapshots(obj, None), ms=False)
+		self.announceTime(self.playlistDuration(start=obj), ms=False)
 
 	def script_sayPlaylistModified(self, gesture):
 		try:
@@ -1751,7 +1816,7 @@ class AppModule(appModuleHandler.AppModule):
 			analysisBegin = min(self._analysisMarker, trackPos)
 			analysisEnd = max(self._analysisMarker, trackPos)
 			analysisRange = analysisEnd-analysisBegin+1
-			totalLength = self.totalTime(analysisBegin, analysisEnd)
+			totalLength = self.playlistDurationRaw(analysisBegin, analysisEnd)
 			if analysisRange == 1:
 				self.announceTime(totalLength)
 			else:
@@ -1766,9 +1831,10 @@ class AppModule(appModuleHandler.AppModule):
 			ui.message("Please return to playlist viewer before invoking this command.")
 			return
 		if obj.role == controlTypes.ROLE_LIST:
-			ui.message("00:00")
+			ui.message(_("You need to add tracks before invoking this command"))
 			return
-		self.announceTime(self.playlistSnapshots(obj, None), ms=False)
+		# Speak and braille on the first press, display a decorated HTML message for subsequent presses.
+		self.playlistSnapshotOutput(self.playlistSnapshots(obj.parent.firstChild, None), scriptHandler.getLastScriptRepeatCount())
 
 	def script_switchProfiles(self, gesture):
 		splconfig.triggerProfileSwitch() if splconfig._triggerProfileActive else splconfig.instantProfileSwitch()
@@ -1886,6 +1952,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:shift+s":"sayScheduledToPlay",
 		"kb:shift+p":"sayTrackPitch",
 		"kb:shift+r":"libraryScanMonitor",
+		"kb:f8":"takePlaylistSnapshots",
 		"kb:f9":"markTrackForAnalysis",
 		"kb:f10":"trackTimeAnalysis",
 		"kb:f12":"switchProfiles",
