@@ -36,6 +36,7 @@ The following commands are not assigned by default; if you wish to assign them, 
 
 * Switching to SPL Studio window from any program.
 * SPL Controller layer.
+* Announcing Studio status such as track playback from other programs.
 * SPL Assistant layer from SPL Studio.
 * Announce time including seconds from SPL Studio.
 * Announcing temperature.
