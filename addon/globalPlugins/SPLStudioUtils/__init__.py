@@ -40,6 +40,7 @@ SPLWin = 0 # A handle to studio window.
 SPLMSG = winUser.WM_USER
 
 # Various SPL IPC tags.
+SPLVersion = 2
 SPLPlay = 12
 SPLStop = 13
 SPLPause = 15
@@ -48,6 +49,7 @@ SPLMic = 17
 SPLLineIn = 18
 SPLLibraryScanCount = 32
 SPLListenerCount = 35
+SPLStatusInfo = 39 #Studio 5.20 and later.
 SPL_TrackPlaybackStatus = 104
 SPLCurTrackPlaybackTime = 105
 
@@ -73,6 +75,7 @@ S: Stop with fade.
 T: Instant stop.
 E: Announce if any encoders are being monitored.
 I: Announce listener count.
+Q: Announce Studio status information.
 R: Remaining time for the playing track.
 Shift+R: Library scan progress.""")
 
@@ -264,6 +267,31 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		encoders.announceNumMonitoringEncoders()
 		self.finish()
 
+	def script_statusInfo(self, gesture):
+		# For consistency reasons (because of the Studio status bar), messages in this method will remain in English.
+		statusInfo = []
+		# 17.1: For Studio 5.10 and up, announce playback and automation status.
+		playingNow = winUser.sendMessage(SPLWin, SPLMSG, 0, SPL_TrackPlaybackStatus)
+		statusInfo.append("Play status: playing" if playingNow else "Play status: stopped")
+		# For automation, Studio 5.11 and earlier does not have an easy way to detect this flag, thus resort to using playback status.
+		if winUser.sendMessage(SPLWin, SPLMSG, 0, SPLVersion) < 520:
+			statusInfo.append("Automation on" if playingNow == 2 else "Automation off")
+		else:
+			statusInfo.append("Automation on" if winUser.sendMessage(SPLWin, SPLMSG, 1, SPLStatusInfo) else "Automation off")
+			# 5.20 and later.
+			statusInfo.append("Microphone on" if winUser.sendMessage(SPLWin, SPLMSG, 2, SPLStatusInfo) else "Microphone off")
+			statusInfo.append("Line-inon" if winUser.sendMessage(SPLWin, SPLMSG, 3, SPLStatusInfo) else "Line-in off")
+			statusInfo.append("Record to file on" if winUser.sendMessage(SPLWin, SPLMSG, 4, SPLStatusInfo) else "Record to file off")
+			cartEdit = winUser.sendMessage(SPLWin, SPLMSG, 5, SPLStatusInfo)
+			cartInsert = winUser.sendMessage(SPLWin, SPLMSG, 6, SPLStatusInfo)
+			if not cartEdit and not cartInsert: statusInfo.append("Cart edit off")
+			elif cartEdit and not cartInsert: statusInfo.append("Cart edit on")
+			elif not cartEdit and cartInsert: statusInfo.append("Cart insert on")
+		ui.message("; ".join(statusInfo))
+		self.finish()
+	# Translators: Input help message for a SPL Controller command.
+	script_statusInfo.__doc__ = _("Announces Studio status such as track playback status from other programs")
+
 	def script_conHelp(self, gesture):
 		# Translators: The title for SPL Controller help dialog.
 		wx.CallAfter(gui.messageBox, SPLConHelp, _("SPL Controller help"))
@@ -286,6 +314,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:r":"remainingTime",
 		"kb:e":"announceNumMonitoringEncoders",
 		"kb:i":"listenerCount",
+		"kb:q":"statusInfo",
 		"kb:f1":"conHelp"
 	}
 

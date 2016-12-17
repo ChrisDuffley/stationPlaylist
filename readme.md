@@ -9,7 +9,7 @@ This add-on package provides improved usage of StationPlaylist Studio, as well a
 
 For more information about the add-on, read the [add-on guide][4]. For developers seeking to know how to build the add-on, see buildInstructions.txt located at the root of the add-on source code repository.
 
-IMPORTANT: This add-on requires NVDA 2016.4 or later and StationPlaylist Studio 5.10 or later. If you have installed NVDA 2016.1 or later on Windows 8 and later, disable audio ducking mode. Also, add-on 8.0/16.10 requires Studio 5.10 and later, and for broadcasters using Studio 5.0x, a long-term support version (15.x) is available.
+IMPORTANT: This add-on requires NVDA 2016.4 or later and StationPlaylist Studio 5.10 or later. If using Windows 8 or later, for best experience, disable audio ducking mode. Also, add-on 8.0/16.10 requires Studio 5.10 and later, and for broadcasters using Studio 5.0x, a long-term support version (15.x) is available.
 
 ## Shortcut keys
 
@@ -36,6 +36,7 @@ The following commands are not assigned by default; if you wish to assign them, 
 
 * Switching to SPL Studio window from any program.
 * SPL Controller layer.
+* Announcing Studio status such as track playback from other programs.
 * SPL Assistant layer from SPL Studio.
 * Announce time including seconds from SPL Studio.
 * Announcing temperature.
@@ -127,6 +128,7 @@ The available SPL Controller commands are:
 * Press Shift+R to get a report on library scan progress.
 * Press E to get count and labels for encoders being monitored.
 * Press I to obtain listener count.
+* Press Q to obtain various status information about Studio including whether a track is playing, microphone is on and others.
 * Press F1 to show a help dialog which lists available commands.
 
 ## Track alarms
@@ -170,7 +172,10 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * Improvements to presentation of various add-on dialogs thanks to NVDA 2016.4 features.
 * Added ability to press Control+Alt+up or down arrow keys to move between tracks (specifically, track columns) vertically just as one is moving to next or previous row in a table.
 * Added a combo box in add-on settings dialog to set which column should be announced when moving through columns vertically.
+* Moved end of track , intro and microphone alarm controls from add-on settings to the new Alarms Center.
+* In Alarms Center, end of track and track intro edit fields are always shown regardless of state of alarm notification checkboxes.
 * Removed Track Dial (NVDA's version of enhanced arrow keys), replaced by Columns explorer and Column Navigator/table navigation commands). This affects Studio and Track Tool.
+* Added a new command in SPL Controller layer to announce Studio status such as track playback and microphone status (Q).
 
 ## Version 16.12.1
 
