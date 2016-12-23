@@ -102,6 +102,21 @@ class SPLConfigDialog(gui.SettingsDialog):
 		alarmsCenterButton = SPLConfigHelper.addItem(wx.Button(self, label=_("&Alarms Center...")))
 		alarmsCenterButton.Bind(wx.EVT_BUTTON, self.onAlarmsCenter)
 
+		# Translators: One of the alarm notification options.
+		self.alarmAnnounceValues=[("beep",_("beep")),
+		# Translators: One of the alarm notification options.
+		("message",_("message")),
+		# Translators: One of the alarm notification options.
+		("both",_("both beep and message"))]
+				# Translators: The label for a setting in SPL add-on dialog to control alarm announcement type.
+		self.alarmAnnounceList = SPLConfigHelper.addLabeledControl(_("&Alarm notification:"), wx.Choice, choices=[x[1] for x in self.alarmAnnounceValues])
+		alarmAnnounceCurValue=splconfig.SPLConfig["General"]["AlarmAnnounce"]
+		selection = (x for x,y in enumerate(self.alarmAnnounceValues) if y[0]==alarmAnnounceCurValue).next()
+		try:
+			self.alarmAnnounceList.SetSelection(selection)
+		except:
+			pass
+
 		self.brailleTimerValues=[("off",_("Off")),
 		# Translators: One of the braille timer settings.
 		("outro",_("Track ending")),
@@ -115,21 +130,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 		selection = (x for x,y in enumerate(self.brailleTimerValues) if y[0]==brailleTimerCurValue).next()
 		try:
 			self.brailleTimerList.SetSelection(selection)
-		except:
-			pass
-
-		# Translators: One of the alarm notification options.
-		self.alarmAnnounceValues=[("beep",_("beep")),
-		# Translators: One of the alarm notification options.
-		("message",_("message")),
-		# Translators: One of the alarm notification options.
-		("both",_("both beep and message"))]
-				# Translators: The label for a setting in SPL add-on dialog to control alarm announcement type.
-		self.alarmAnnounceList = SPLConfigHelper.addLabeledControl(_("&Alarm notification:"), wx.Choice, choices=[x[1] for x in self.alarmAnnounceValues])
-		alarmAnnounceCurValue=splconfig.SPLConfig["General"]["AlarmAnnounce"]
-		selection = (x for x,y in enumerate(self.alarmAnnounceValues) if y[0]==alarmAnnounceCurValue).next()
-		try:
-			self.alarmAnnounceList.SetSelection(selection)
 		except:
 			pass
 
@@ -273,8 +273,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 		splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"] = self.saySongRamp
 		splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"] = self.micAlarm
 		splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] = self.micAlarmInterval
-		splconfig.SPLConfig["General"]["BrailleTimer"] = self.brailleTimerValues[self.brailleTimerList.GetSelection()][0]
 		splconfig.SPLConfig["General"]["AlarmAnnounce"] = self.alarmAnnounceValues[self.alarmAnnounceList.GetSelection()][0]
+		splconfig.SPLConfig["General"]["BrailleTimer"] = self.brailleTimerValues[self.brailleTimerList.GetSelection()][0]
 		splconfig.SPLConfig["General"]["LibraryScanAnnounce"] = self.libScanValues[self.libScanList.GetSelection()][0]
 		splconfig.SPLConfig["General"]["TimeHourAnnounce"] = self.hourAnnounceCheckbox.Value
 		splconfig.SPLConfig["General"]["CategorySounds"] = self.categorySoundsCheckbox.Value
