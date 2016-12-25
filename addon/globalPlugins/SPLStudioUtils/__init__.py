@@ -228,9 +228,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.finish()
 
 	def script_libraryScanProgress(self, gesture):
-		scanned = winUser.sendMessage(SPLWin, SPLMSG, 0, SPLLibraryScanCount)
-		# Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
-		ui.message(_("{itemCount} items scanned").format(itemCount = scanned))
+		scanned = winUser.sendMessage(SPLWin, SPLMSG, 1, SPLLibraryScanCount)
+		if scanned >= 0:
+			# Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
+			ui.message(_("Scan in progress with {itemCount} items scanned").format(itemCount = scanned))
+		else:
+			# Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
+			ui.message(_("Scan complete with {itemCount} items scanned").format(itemCount = winUser.sendMessage(SPLWin, SPLMSG, 0, SPLLibraryScanCount)))
 		self.finish()
 
 	def script_listenerCount(self, gesture):
