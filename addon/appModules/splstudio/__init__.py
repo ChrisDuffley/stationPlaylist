@@ -1256,40 +1256,35 @@ class AppModule(appModuleHandler.AppModule):
 		global libScanT
 		if libScanT and libScanT.isAlive() and api.getForegroundObject().windowClassName == "TTrackInsertForm":
 			return
-		countA = statusAPI(1, 32, ret=True)
-		if countA == 0:
+		if statusAPI(1, 32, ret=True) < 0:
 			self.libraryScanning = False
 			return
 		time.sleep(0.1)
 		if api.getForegroundObject().windowClassName == "TTrackInsertForm" and self.productVersion in noLibScanMonitor:
 			self.libraryScanning = False
 			return
-		# Sometimes, a second call is needed to obtain the real scan count in Studio 5.10 and later.
-		countB = statusAPI(1, 32, ret=True)
-		if countA == countB:
+		# 17.1: Library scan may have finished while this thread was sleeping.
+		if statusAPI(1, 32, ret=True) < 0:
 			self.libraryScanning = False
-			countB = statusAPI(0, 32, ret=True)
 			# Translators: Presented when library scanning is finished.
-			ui.message(_("{itemCount} items in the library").format(itemCount = countB))
+			ui.message(_("{itemCount} items in the library").format(itemCount = statusAPI(0, 32, ret=True)))
 		else:
-			libScanT = threading.Thread(target=self.libraryScanReporter, args=(_SPLWin, countA, countB, 1))
+			libScanT = threading.Thread(target=self.libraryScanReporter)
 			libScanT.daemon = True
 			libScanT.start()
 
-	def libraryScanReporter(self, _SPLWin, countA, countB, parem):
+	def libraryScanReporter(self):
 		scanIter = 0
-		while countA != countB:
+		# 17.1: Use the constant directly, as 5.10 and later provides a convenient method to detect completion of library scans.
+		while statusAPI(1, 32, ret=True) >= 0:
 			if not self.libraryScanning: return
-			countA = countB
 			time.sleep(1)
 			# Do not continue if we're back on insert tracks form or library scan is finished.
 			if api.getForegroundObject().windowClassName == "TTrackInsertForm" or not self.libraryScanning:
 				return
-			countB, scanIter = statusAPI(parem, 32, ret=True), scanIter+1
-			if countB < 0:
-				break
+			scanIter+=1
 			if scanIter%5 == 0 and splconfig.SPLConfig["General"]["LibraryScanAnnounce"] not in ("off", "ending"):
-				self._libraryScanAnnouncer(countB, splconfig.SPLConfig["General"]["LibraryScanAnnounce"])
+				self._libraryScanAnnouncer(statusAPI(1, 32, ret=True), splconfig.SPLConfig["General"]["LibraryScanAnnounce"])
 		self.libraryScanning = False
 		if self.backgroundStatusMonitor: return
 		if splconfig.SPLConfig["General"]["LibraryScanAnnounce"] != "off":
@@ -1297,7 +1292,7 @@ class AppModule(appModuleHandler.AppModule):
 				tones.beep(370, 100)
 			else:
 				# Translators: Presented after library scan is done.
-				ui.message(_("Scan complete with {itemCount} items").format(itemCount = countB))
+				ui.message(_("Scan complete with {itemCount} items").format(itemCount = statusAPI(0, 32, ret=True)))
 
 	# Take care of library scanning announcement.
 	def _libraryScanAnnouncer(self, count, announcementType):
