@@ -1276,15 +1276,20 @@ class AppModule(appModuleHandler.AppModule):
 	def libraryScanReporter(self):
 		scanIter = 0
 		# 17.1: Use the constant directly, as 5.10 and later provides a convenient method to detect completion of library scans.
-		while statusAPI(1, 32, ret=True) >= 0:
+		scanCount = statusAPI(1, 32, ret=True)
+		while scanCount >= 0:
 			if not self.libraryScanning: return
 			time.sleep(1)
 			# Do not continue if we're back on insert tracks form or library scan is finished.
 			if api.getForegroundObject().windowClassName == "TTrackInsertForm" or not self.libraryScanning:
 				return
+			# Scan count may have changed during sleep.
+			scanCount = statusAPI(1, 32, ret=True)
+			if scanCount < 0:
+				break
 			scanIter+=1
 			if scanIter%5 == 0 and splconfig.SPLConfig["General"]["LibraryScanAnnounce"] not in ("off", "ending"):
-				self._libraryScanAnnouncer(statusAPI(1, 32, ret=True), splconfig.SPLConfig["General"]["LibraryScanAnnounce"])
+				self._libraryScanAnnouncer(scanCount, splconfig.SPLConfig["General"]["LibraryScanAnnounce"])
 		self.libraryScanning = False
 		if self.backgroundStatusMonitor: return
 		if splconfig.SPLConfig["General"]["LibraryScanAnnounce"] != "off":
