@@ -1,6 +1,6 @@
 # StationPlaylist Utilities
 # Author: Joseph Lee
-# Copyright 2013-2016, released under GPL.
+# Copyright 2013-2017, released under GPL.
 # Adds a few utility features such as switching focus to the SPL Studio window and some global scripts.
 # For encoder support, see the encoders package.
 

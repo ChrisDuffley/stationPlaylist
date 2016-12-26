@@ -297,6 +297,11 @@ un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
 
+## Version 16.12.1
+
+* Corrected user interface presentation for SPL add-on settings dialog.
+* Mises à jour des traductions.
+
 ## Version 16.12/15.4-LTS
 
 * More work on supporting Studio 5.20, including announcing cart insert mode

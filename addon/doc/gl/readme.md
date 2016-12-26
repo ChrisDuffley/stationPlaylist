@@ -279,6 +279,11 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
+## Version 16.12.1
+
+* Corrected user interface presentation for SPL add-on settings dialog.
+* Traducións actualizadas.
+
 ## Versión 16.12/15.4-LTS
 
 * Máis traballo no soporte do Studio 5.20, incluindo o anunciado do estado
