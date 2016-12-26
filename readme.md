@@ -175,6 +175,10 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * Moved end of track , intro and microphone alarm controls from add-on settings to the new Alarms Center.
 * In Alarms Center, end of track and track intro edit fields are always shown regardless of state of alarm notification checkboxes.
 * Removed Track Dial (NVDA's version of enhanced arrow keys), replaced by Columns explorer and Column Navigator/table navigation commands). This affects Studio and Track Tool.
+* After closing Insert Tracks dialog while a library scan is in progress, it is no longer required to press SPL Assistant, Shift+R to monitor scan progress.
+* Improved accuracy of detecting and reporting completion of library scans in Studio 5.10 and later. This fixes a problem where library scan monitor will end prematurely when there are more tracks to be scanned, necessitating restarting library scan monitor.
+* Improved library scan status reporting via SPL Controller (Shift+R) by announcing scan count if scan is indeed happening.
+* Initial support for StationPlaylist Creator.
 * Added a new command in SPL Controller layer to announce Studio status such as track playback and microphone status (Q).
 
 ## Version 16.12.1

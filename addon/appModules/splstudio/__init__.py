@@ -694,8 +694,7 @@ class AppModule(appModuleHandler.AppModule):
 						if self.scanCount%100 == 0:
 							self._libraryScanAnnouncer(obj.name[1:obj.name.find("]")], splconfig.SPLConfig["General"]["LibraryScanAnnounce"])
 					if not self.libraryScanning:
-						if self.productVersion not in noLibScanMonitor:
-							if not self.backgroundStatusMonitor: self.libraryScanning = True
+						if self.productVersion not in noLibScanMonitor: self.libraryScanning = True
 				elif "match" in obj.name:
 					if splconfig.SPLConfig["General"]["LibraryScanAnnounce"] != "off" and self.libraryScanning:
 						if splconfig.SPLConfig["General"]["BeepAnnounce"]: tones.beep(370, 100)
