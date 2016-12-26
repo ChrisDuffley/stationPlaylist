@@ -7,9 +7,6 @@
 
 import os
 import weakref
-import datetime
-import calendar
-import ui
 import api
 import gui
 import wx
@@ -666,6 +663,7 @@ class TriggersDialog(wx.Dialog):
 
 		daysSizer = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Day")), wx.HORIZONTAL)
 		self.triggerDays = []
+		import calendar
 		for day in xrange(len(calendar.day_name)):
 			triggerDay=wx.CheckBox(self, wx.NewId(),label=calendar.day_name[day])
 			triggerDay.SetValue((64 >> day & self.Parent._profileTriggersConfig[profile][0]) if profile in self.Parent._profileTriggersConfig else 0)
@@ -738,6 +736,7 @@ class TriggersDialog(wx.Dialog):
 				# Otherwise trigger flag will be added each time this is called (either this handler or the add-on settings' flags retriever must retrieve the flags set).
 				if not self.profile in parent._profileTriggersConfig:
 					parent.setProfileFlags(self.selection, "add", _("time-based"))
+				import datetime
 				parent._profileTriggersConfig[self.profile] = splconfig.setNextTimedProfile(self.profile, bit, datetime.time(hour, min))
 				parent._profileTriggersConfig[self.profile][6] = duration
 			else:

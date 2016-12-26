@@ -12,10 +12,8 @@ from validate import Validator
 import time
 import datetime
 import cPickle
-import copy
 import globalVars
 import ui
-import api
 import gui
 import wx
 import splupdate
@@ -236,6 +234,7 @@ class ConfigHub(ChainMap):
 
 	def _cacheConfig(self, conf):
 		global _SPLCache
+		import copy
 		if _SPLCache is None: _SPLCache = {}
 		key = None if conf.filename == SPLIni else conf.name
 		_SPLCache[key] = {}

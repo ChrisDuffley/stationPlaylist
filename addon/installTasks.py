@@ -4,10 +4,8 @@
 # Provides needed routines during add-on installation and removal.
 # Routines are partly based on other add-ons, particularly Place Markers by Noelia Martinez (thanks add-on authors).
 
-import os
-import shutil
-
 def onInstall():
+	import os, shutil
 	profiles = os.path.join(os.path.dirname(__file__), "..", "stationPlaylist", "profiles")
 	# Import old profiles.
 	if os.path.exists(profiles):

@@ -4,14 +4,10 @@
 
 # Provides update check facility, basics borrowed from NVDA Core's update checker class.
 
-import urllib
 import os # Essentially, update download is no different than file downloads.
 import cPickle
-import threading
 import gui
 import wx
-import tones
-import time
 import addonHandler
 import globalVars
 
@@ -101,6 +97,7 @@ def updateCheck(auto=False, continuous=False, confUpdateInterval=1):
 		return
 	global _SPLUpdateT, SPLAddonCheck, _retryAfterFailure, _progressDialog, _updateNow
 	if _updateNow: _updateNow = False
+	import time
 	# Regardless of whether it is an auto check, update the check time.
 	# However, this shouldnt' be done if this is a retry after a failed attempt.
 	if not _retryAfterFailure: SPLAddonCheck = time.time()
@@ -112,6 +109,7 @@ def updateCheck(auto=False, continuous=False, confUpdateInterval=1):
 	updateCandidate = False
 	updateURL = SPLUpdateURL if SPLUpdateChannel not in channels else channels[SPLUpdateChannel]
 	try:
+		import urllib
 		# Look up the channel if different from the default.
 		url = urllib.urlopen(updateURL)
 		url.close()

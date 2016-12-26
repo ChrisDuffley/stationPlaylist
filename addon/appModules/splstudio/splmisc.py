@@ -13,7 +13,6 @@ from csv import reader # For cart explorer.
 import gui
 import wx
 import ui
-from NVDAObjects.IAccessible import sysListView32
 from winUser import user32, sendMessage
 
 # Locate column content.
@@ -23,6 +22,7 @@ from winUser import user32, sendMessage
 # In track finder, this is used when encountering the track item but NVDA says otherwise.
 def _getColumnContent(obj, col):
 	import winKernel
+	from NVDAObjects.IAccessible import sysListView32
 	# Borrowed from SysListView32 implementation.
 	buffer=None
 	processHandle=obj.processHandle

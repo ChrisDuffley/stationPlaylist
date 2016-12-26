@@ -4,18 +4,13 @@
 # Split from main global plugin in 2015.
 
 import threading
-import os
 import time
-import weakref
-from configobj import ConfigObj
 import api
 import ui
 import speech
-import globalVars
 import scriptHandler
 from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent
 import winUser
-import winKernel
 import tones
 import gui
 import wx
@@ -49,7 +44,8 @@ streamLabels = None
 # Load stream labels (and possibly other future goodies) from a file-based database.
 def loadStreamLabels():
 	global streamLabels, SAMStreamLabels, SPLStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone
-	streamLabels = ConfigObj(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
+	import os, configobj, globalVars
+	streamLabels = configobj.ConfigObj(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
 	# Read stream labels.
 	try:
 		SAMStreamLabels = dict(streamLabels["SAMEncoders"])
@@ -188,6 +184,7 @@ class EncoderConfigDialog(wx.Dialog):
 		if inst:
 			return
 		# Use a weakref so the instance can die.
+		import weakref
 		EncoderConfigDialog._instance = weakref.ref(self)
 
 		self.obj = obj
@@ -403,6 +400,7 @@ class Encoder(IAccessible):
 
 	# Announce complete time including seconds (slight change from global commands version).
 	def script_encoderDateTime(self, gesture):
+		import winKernel
 		if scriptHandler.getLastScriptRepeatCount()==0:
 			text=winKernel.GetTimeFormat(winKernel.LOCALE_USER_DEFAULT, 0, None, None)
 		else:

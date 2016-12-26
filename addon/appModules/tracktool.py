@@ -5,11 +5,7 @@
 
 import appModuleHandler
 import addonHandler
-import api
 import tones
-import speech
-import braille
-from controlTypes import ROLE_LISTITEM
 import ui
 from NVDAObjects.IAccessible import IAccessible
 from splstudio import splconfig
@@ -60,6 +56,7 @@ class TrackToolItem(IAccessible):
 				# Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
 				ui.message(_("{header} not found").format(header = columnHeader))
 			else:
+				import speech, braille
 				speech.speakMessage(_("{header}: blank").format(header = columnHeader))
 				braille.handler.message(_("{header}: ()").format(header = columnHeader))
 
@@ -119,6 +116,7 @@ class AppModule(appModuleHandler.AppModule):
 	SPLColNumber = 0
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
-		if obj.windowClassName in ("TListView", "TTntListView.UnicodeClass") and obj.role == ROLE_LISTITEM:
+		import controlTypes
+		if obj.windowClassName in ("TListView", "TTntListView.UnicodeClass") and obj.role == controlTypes.ROLE_LISTITEM:
 			clsList.insert(0, TrackToolItem)
 

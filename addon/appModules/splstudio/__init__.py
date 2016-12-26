@@ -17,10 +17,7 @@ import threading
 import controlTypes
 import appModuleHandler
 import api
-import review
-import eventHandler
 import scriptHandler
-import queueHandler
 import ui
 import nvwave
 import speech
@@ -574,6 +571,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Announce status changes while using other programs.
 		# This requires NVDA core support and will be available in 6.0 and later (cannot be ported to earlier versions).
 		# For now, handle all background events, but in the end, make this configurable.
+		import eventHandler
 		if hasattr(eventHandler, "requestEvents"):
 			eventHandler.requestEvents(eventName="nameChange", processId=self.processID, windowClassName="TStatusBar")
 			eventHandler.requestEvents(eventName="nameChange", processId=self.processID, windowClassName="TStaticText")
@@ -591,6 +589,7 @@ class AppModule(appModuleHandler.AppModule):
 		# LTS: Only do this if channel hasn't changed.
 		if splconfig.SPLConfig["Update"]["AutoUpdateCheck"] or splupdate._updateNow:
 			# 7.0: Have a timer call the update function indirectly.
+			import queueHandler
 			queueHandler.queueFunction(queueHandler.eventQueue, splconfig.updateInit)
 		# Display startup dialogs if any.
 		wx.CallAfter(splconfig.showStartupDialogs)
@@ -628,6 +627,7 @@ class AppModule(appModuleHandler.AppModule):
 			obj.role = controlTypes.ROLE_GROUPING
 		# In certain edit fields and combo boxes, the field name is written to the screen, and there's no way to fetch the object for this text. Thus use review position text.
 		elif obj.windowClassName in ("TEdit", "TComboBox") and not obj.name:
+			import review
 			fieldName, fieldObj  = review.getScreenPosition(obj)
 			fieldName.expand(textInfos.UNIT_LINE)
 			if obj.windowClassName == "TComboBox":

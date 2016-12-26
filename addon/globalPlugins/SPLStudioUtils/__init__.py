@@ -8,15 +8,11 @@ from functools import wraps
 import os
 import globalPluginHandler
 import api
-from controlTypes import ROLE_LISTITEM
 import ui
 import globalVars
 from NVDAObjects.IAccessible import getNVDAObjectFromEvent
 import winUser
-import tones
 import nvwave
-import gui
-import wx
 import addonHandler
 addonHandler.initTranslation()
 
@@ -118,6 +114,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.bindGestures(self.__gestures)
 
 	def script_error(self, gesture):
+		import tones
 		tones.beep(120, 100)
 
 	# Switch focus to SPL Studio window from anywhere.
@@ -297,6 +294,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	script_statusInfo.__doc__ = _("Announces Studio status such as track playback status from other programs")
 
 	def script_conHelp(self, gesture):
+		import gui, wx
 		# Translators: The title for SPL Controller help dialog.
 		wx.CallAfter(gui.messageBox, SPLConHelp, _("SPL Controller help"))
 		self.finish()
@@ -334,10 +332,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		if obj.appModule.appName in ("splengine", "splstreamer"):
-			import encoders
+			import controlTypes, encoders
 			if obj.windowClassName == "TListView":
 				clsList.insert(0, encoders.SAMEncoder)
-			elif obj.windowClassName == "SysListView32":
-				if obj.role == ROLE_LISTITEM:
+			elif obj.windowClassName == "SysListView32" and obj.role == controlTypes.ROLE_LISTITEM:
 					clsList.insert(0, encoders.SPLEncoder)
-
