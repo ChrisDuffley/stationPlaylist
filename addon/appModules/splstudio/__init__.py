@@ -787,14 +787,21 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Perform extra action in specific situations (mic alarm, for example).
 	def doExtraAction(self, status):
-		micAlarm = splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"]
-		if self.cartExplorer:
-			if status == "Cart Edit On":
-				# Translators: Presented when cart edit mode is toggled on while cart explorer is on.
-				ui.message(_("Cart explorer is active"))
-			elif status == "Cart Edit Off":
+		# Be sure to only deal with cart mode changes if Cart Explorer is on.
+		# Optimization: Return early if the below condition is true.
+		if self.cartExplorer and status.startswith("Cart"):
+			# 17.01: Cart Insert mode flag should also be covered.
+			# Workaround: Check if the previous status was "Cart Edit On".
+			if self.cartEdit:
 				# Translators: Presented when cart edit mode is toggled off while cart explorer is on.
 				ui.message(_("Please reenter cart explorer to view updated cart assignments"))
+				self.cartEdit = False
+			else:
+			# Translators: Presented when cart edit mode is toggled on while cart explorer is on.
+				ui.message(_("Cart explorer is active"))
+			return
+		# Microphone alarm and alarm interval if defined.
+		micAlarm = splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"]
 		if micAlarm:
 			# Play an alarm sound (courtesy of Jerry Mader from Mader Radio).
 			global micAlarmT, micAlarmT2
@@ -1440,6 +1447,18 @@ class AppModule(appModuleHandler.AppModule):
 			if not libScanT or (libScanT and not libScanT.isAlive()):
 				self.monitorLibraryScan()
 
+	# Have a handler for Cart Edit toggle command (Control+T) handy.
+	# 17.01: This is needed in order to announce cart edit toggle correctly while Cart Explorer is on (if so, one should reenter this mode).
+	cartEdit = False
+	def script_toggleCartEdit(self, gesture):
+		gesture.send()
+		if api.getForegroundObject().windowClassName == "TStudioForm":
+			# For Studio 5.11 and earlier, the only reliable way is looking at previous status flag.
+			if self.productVersion < "5.2":
+				self.cartEdit = self.status(self.SPLPlayStatus).getChild(5).name != "Cart Edit On"
+			else:
+				self.cartEdit = not statusAPI(5, 39, ret=True)
+
 	# The developer would like to get feedback from you.
 	def script_sendFeedbackEmail(self, gesture):
 		os.startfile("mailto:joseph.lee22590@gmail.com")
@@ -1996,6 +2015,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:Shift+delete":"deleteTrack",
 		"kb:Shift+numpadDelete":"deleteTrack",
 		"kb:escape":"escape",
+		"kb:Control+T":"toggleCartEdit",
 		"kb:control+nvda+-":"sendFeedbackEmail",
 		#"kb:control+nvda+`":"SPLAssistantToggle"
 	}
