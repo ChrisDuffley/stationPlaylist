@@ -857,9 +857,9 @@ class AppModule(appModuleHandler.AppModule):
 		# 6.3: Memory leak results if encoder flag sets and other encoder support maps aren't cleaned up.
 		# This also could have allowed a hacker to modify the flags set (highly unlikely) so NvDA could get confused next time Studio loads.
 		import sys
-		if "globalPlugins.SPLStudioUtils.encoders" in sys.modules:
-			import globalPlugins.SPLStudioUtils.encoders
-			globalPlugins.SPLStudioUtils.encoders.cleanup()
+		if "globalPlugins.splUtils.encoders" in sys.modules:
+			import globalPlugins.splUtils.encoders
+			globalPlugins.splUtils.encoders.cleanup()
 		splconfig.saveConfig()
 		# Delete focused track reference.
 		self._focusedTrack = None
