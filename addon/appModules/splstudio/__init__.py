@@ -1688,10 +1688,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_libraryScanMonitor(self, gesture):
 		if not self.libraryScanning:
-			scanning = statusAPI(1, 32, ret=True)
-			if scanning < 0:
-				items = statusAPI(0, 32, ret=True)
-				ui.message(_("{itemCount} items in the library").format(itemCount = items))
+			if statusAPI(1, 32, ret=True) < 0:
+				ui.message(_("{itemCount} items in the library").format(itemCount = statusAPI(0, 32, ret=True)))
 				return
 			self.libraryScanning = True
 			# Translators: Presented when attempting to start library scan.

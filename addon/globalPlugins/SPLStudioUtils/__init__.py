@@ -49,11 +49,6 @@ SPLStatusInfo = 39 #Studio 5.20 and later.
 SPL_TrackPlaybackStatus = 104
 SPLCurTrackPlaybackTime = 105
 
-
-# On/off toggle wave files.
-onFile = os.path.join(os.path.dirname(__file__), "..", "..", "appModules", "splstudio", "SPL_on.wav")
-offFile = os.path.join(os.path.dirname(__file__), "..", "..", "appModules", "splstudio", "SPL_off.wav")
-
 # Help message for SPL Controller
 # Translators: the dialog text for SPL Controller help.
 SPLConHelp=_("""
@@ -184,12 +179,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def script_micOn(self, gesture):
 		winUser.sendMessage(SPLWin,SPLMSG,1,SPLMic)
-		nvwave.playWaveFile(onFile)
+		nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "..", "..", "appModules", "splstudio", "SPL_on.wav"))
 		self.finish()
 
 	def script_micOff(self, gesture):
 		winUser.sendMessage(SPLWin,SPLMSG,0,SPLMic)
-		nvwave.playWaveFile(offFile)
+		nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "..", "..", "appModules", "splstudio", "SPL_off.wav"))
 		self.finish()
 
 	def script_micNoFade(self, gesture):
@@ -235,9 +230,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.finish()
 
 	def script_listenerCount(self, gesture):
-		count = winUser.sendMessage(SPLWin, SPLMSG, 0, SPLListenerCount)
 		# Translators: Announces number of stream listeners.
-		ui.message(_("Listener count: {listenerCount}").format(listenerCount = count))
+		ui.message(_("Listener count: {listenerCount}").format(listenerCount = winUser.sendMessage(SPLWin, SPLMSG, 0, SPLListenerCount)))
 		self.finish()
 
 	def script_remainingTime(self, gesture):
