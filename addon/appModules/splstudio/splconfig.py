@@ -14,7 +14,6 @@ import datetime
 import cPickle
 import globalVars
 import ui
-import api
 import gui
 import wx
 import splupdate

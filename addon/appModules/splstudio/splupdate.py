@@ -7,10 +7,8 @@
 import urllib
 import os # Essentially, update download is no different than file downloads.
 import cPickle
-import threading
 import gui
 import wx
-import tones
 import time
 import addonHandler
 import globalVars
