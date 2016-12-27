@@ -70,22 +70,6 @@ Q: Announce Studio status information.
 R: Remaining time for the playing track.
 Shift+R: Library scan progress.""")
 
-# Try to see if SPL foreground object can be fetched. This is used for switching to SPL Studio window from anywhere and to switch to Studio window from SAM encoder window.
-
-def fetchSPLForegroundWindow():
-	# Turns out NVDA core does have a method to fetch desktop objects, so use this to find SPL window from among its children.
-	dt = api.getDesktopObject()
-	fg = None
-	fgCount = 0
-	for possibleFG in dt.children:
-		if "splstudio" in possibleFG.appModule.appModuleName:
-			fg = possibleFG
-			fgCount+=1
-	# Just in case the window is really minimized (not to the system tray)
-	if fgCount == 1:
-		fg = getNVDAObjectFromEvent(user32.FindWindowA("TStudioForm", None), winUser.OBJID_CLIENT, 0)
-	return fg
-
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
@@ -120,13 +104,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if "splstudio" in api.getForegroundObject().appModule.appModuleName: return
 		else:
 			SPLHwnd = user32.FindWindowA("SPLStudio", None) # Used ANSI version, as Wide char version always returns 0.
-			if SPLHwnd == 0: ui.message(_("SPL Studio is not running."))
+			if not SPLHwnd: ui.message(_("SPL Studio is not running."))
 			else:
-				SPLFG = fetchSPLForegroundWindow()
-				if SPLFG == None:
-					# Translators: Presented when Studio is minimized to system tray (notification area).
-					ui.message(_("SPL minimized to system tray."))
-				else: SPLFG.setFocus()
+				# 17.01: SetForegroundWindow function is better, as there's no need to traverse top-level windows and allows users to "switch" to SPL window if the window is minimized.
+				user32.SetForegroundWindow(user32.FindWindowA("TStudioForm", None))
 	# Translators: Input help mode message for a command to switch to Station Playlist Studio from any program.
 	script_focusToSPLWindow.__doc__=_("Moves to SPL Studio window from other programs.")
 
