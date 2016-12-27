@@ -788,11 +788,10 @@ class AppModule(appModuleHandler.AppModule):
 		# Optimization: Return early if the below condition is true.
 		if self.cartExplorer and status.startswith("Cart"):
 			# 17.01: Cart Insert mode flag should also be covered.
-			# Workaround: Check if the previous status was "Cart Edit On".
-			if self.cartEdit:
+			# The best way to detect Cart Edit off is consulting file modification time.
+			if splmisc.shouldCartExplorerRefresh(api.getForegroundObject().name):
 				# Translators: Presented when cart edit mode is toggled off while cart explorer is on.
 				ui.message(_("Please reenter cart explorer to view updated cart assignments"))
-				self.cartEdit = False
 			else:
 			# Translators: Presented when cart edit mode is toggled on while cart explorer is on.
 				ui.message(_("Cart explorer is active"))
@@ -1446,18 +1445,6 @@ class AppModule(appModuleHandler.AppModule):
 			if not libScanT or (libScanT and not libScanT.isAlive()):
 				self.monitorLibraryScan()
 
-	# Have a handler for Cart Edit toggle command (Control+T) handy.
-	# 17.01: This is needed in order to announce cart edit toggle correctly while Cart Explorer is on (if so, one should reenter this mode).
-	cartEdit = False
-	def script_toggleCartEdit(self, gesture):
-		gesture.send()
-		if api.getForegroundObject().windowClassName == "TStudioForm":
-			# For Studio 5.11 and earlier, the only reliable way is looking at previous status flag.
-			if self.productVersion < "5.2":
-				self.cartEdit = self.status(self.SPLPlayStatus).getChild(5).name != "Cart Edit On"
-			else:
-				self.cartEdit = not statusAPI(5, 39, ret=True)
-
 	# The developer would like to get feedback from you.
 	def script_sendFeedbackEmail(self, gesture):
 		os.startfile("mailto:joseph.lee22590@gmail.com")
@@ -2014,7 +2001,5 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:Shift+delete":"deleteTrack",
 		"kb:Shift+numpadDelete":"deleteTrack",
 		"kb:escape":"escape",
-		"kb:Control+T":"toggleCartEdit",
 		"kb:control+nvda+-":"sendFeedbackEmail",
-		#"kb:control+nvda+`":"SPLAssistantToggle"
 	}
