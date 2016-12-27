@@ -143,24 +143,6 @@ def cleanup():
 	# 7.0: Destroy threads also.
 	encoderMonCount = {"SAM":0, "SPL":0}
 
-
-# Try to see if SPL foreground object can be fetched. This is used for switching to SPL Studio window from anywhere and to switch to Studio window from SAM encoder window.
-
-def fetchSPLForegroundWindow():
-	# Turns out NVDA core does have a method to fetch desktop objects, so use this to find SPL window from among its children.
-	dt = api.getDesktopObject()
-	fg = None
-	fgCount = 0
-	for possibleFG in dt.children:
-		if "splstudio" in possibleFG.appModule.appModuleName:
-			fg = possibleFG
-			fgCount+=1
-	# Just in case the window is really minimized (not to the system tray)
-	if fgCount == 1:
-		fg = getNVDAObjectFromEvent(user32.FindWindowA("TStudioForm", None), winUser.OBJID_CLIENT, 0)
-	return fg
-
-
 # Encoder configuration dialog.
 _configDialogOpened = False
 
@@ -550,10 +532,7 @@ class SAMEncoder(Encoder):
 				if self.focusToStudio and not encoding:
 					if api.getFocusObject().appModule == "splstudio":
 						continue
-					try:
-						fetchSPLForegroundWindow().setFocus()
-					except AttributeError:
-						pass
+					user32.SetForegroundWindow(user32.FindWindowA("TStudioForm", None))
 				if self.playAfterConnecting and not encoding:
 					# Do not interupt the currently playing track.
 					if winUser.sendMessage(SPLWin, SPLMSG, 0, SPL_TrackPlaybackStatus) == 0:
@@ -749,10 +728,7 @@ class SPLEncoder(Encoder):
 				# We're on air, so exit.
 				if not connected: tones.beep(1000, 150)
 				if self.focusToStudio and not connected:
-					try:
-						fetchSPLForegroundWindow().setFocus()
-					except AttributeError:
-						pass
+					user32.SetForegroundWindow(user32.FindWindowA("TStudioForm", None))
 				if self.playAfterConnecting and not connected:
 					if winUser.sendMessage(SPLWin, SPLMSG, 0, SPL_TrackPlaybackStatus) == 0:
 						winUser.sendMessage(SPLWin, SPLMSG, 0, SPLPlay)
