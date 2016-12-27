@@ -246,7 +246,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def script_statusInfo(self, gesture):
 		# For consistency reasons (because of the Studio status bar), messages in this method will remain in English.
 		statusInfo = []
-		# 17.1: For Studio 5.10 and up, announce playback and automation status.
+		# 17.04: For Studio 5.10 and up, announce playback and automation status.
 		playingNow = winUser.sendMessage(SPLWin, SPLMSG, 0, SPL_TrackPlaybackStatus)
 		statusInfo.append("Play status: playing" if playingNow else "Play status: stopped")
 		# For automation, Studio 5.11 and earlier does not have an easy way to detect this flag, thus resort to using playback status.

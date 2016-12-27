@@ -154,7 +154,7 @@ class SPLTrackItem(IAccessible):
 		if splconfig.SPLConfig["General"]["TrackCommentAnnounce"] != "off":
 			self.announceTrackComment(0)
 		# 6.3: Catch an unusual case where screen order is off yet column order is same as screen order and NvDA is told to announce all columns.
-		# 17.1: Even if vertical column commands are performed, build description pieces for consistency.
+		# 17.04: Even if vertical column commands are performed, build description pieces for consistency.
 		if splconfig._shouldBuildDescriptionPieces():
 			descriptionPieces = []
 			columnsToInclude = splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"]
@@ -199,7 +199,7 @@ class SPLTrackItem(IAccessible):
 
 	# Announce column content if any.
 	# 7.0: Add an optional header in order to announce correct header information in columns explorer.
-	# 17.1: Allow checked status in 5.1x and later to be announced if this is such a case (vertical column navigation).)
+	# 17.04: Allow checked status in 5.1x and later to be announced if this is such a case (vertical column navigation).)
 	def announceColumnContent(self, colNumber, header=None, reportStatus=False):
 		columnHeader = header if header is not None else self.appModule._columnHeaderNames[colNumber]
 		columnContent = self._getColumnContent(self.indexOf(columnHeader))
@@ -1267,7 +1267,7 @@ class AppModule(appModuleHandler.AppModule):
 		if api.getForegroundObject().windowClassName == "TTrackInsertForm" and self.productVersion in noLibScanMonitor:
 			self.libraryScanning = False
 			return
-		# 17.1: Library scan may have finished while this thread was sleeping.
+		# 17.04: Library scan may have finished while this thread was sleeping.
 		if statusAPI(1, 32, ret=True) < 0:
 			self.libraryScanning = False
 			# Translators: Presented when library scanning is finished.
@@ -1279,7 +1279,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def libraryScanReporter(self):
 		scanIter = 0
-		# 17.1: Use the constant directly, as 5.10 and later provides a convenient method to detect completion of library scans.
+		# 17.04: Use the constant directly, as 5.10 and later provides a convenient method to detect completion of library scans.
 		scanCount = statusAPI(1, 32, ret=True)
 		while scanCount >= 0:
 			if not self.libraryScanning: return

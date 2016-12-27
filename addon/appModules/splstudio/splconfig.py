@@ -474,7 +474,7 @@ def _extraInitSteps(conf, profileName=None):
 		else:
 			_configLoadStatus[profileName] = "metadataReset"
 		conf["MetadataStreaming"]["MetadataEnabled"] = [False, False, False, False, False]
-	# 17.1: If vertical column announcement value is "None", transform this to NULL.
+	# 17.04: If vertical column announcement value is "None", transform this to NULL.
 	if conf["General"]["VerticalColumnAnnounce"] == "None":
 		conf["General"]["VerticalColumnAnnounce"] = None
 

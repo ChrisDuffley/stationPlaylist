@@ -373,7 +373,7 @@ def _metadataAnnouncer(reminder=False, handle=None):
 	# DSP is treated specially.
 	dsp = sendMessage(handle, 1024, 0, 36)
 	# For others, a simple list.append will do.
-	# 17.1: Use a conditional list comprehension.
+	# 17.04: Use a conditional list comprehension.
 	streamCount = [str(pos) for pos in xrange(1, 5) if sendMessage(handle, 1024, pos, 36)]
 	# Announce streaming status when told to do so.
 	status = None

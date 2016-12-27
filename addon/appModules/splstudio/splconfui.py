@@ -912,7 +912,7 @@ class MetadataStreamingDialog(wx.Dialog):
 
 		# WX's CheckListBox isn't user friendly.
 		# Therefore use checkboxes laid out across the top.
-		# 17.1: instead of two loops, just use one loop, with labels deriving from the below tuple.
+		# 17.04: instead of two loops, just use one loop, with labels deriving from the below tuple.
 		# Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
 		streamLabels = ("DSP encoder", "URL 1", "URL 2", "URL 3", "URL 4")
 		self.checkedStreams = []
@@ -982,7 +982,7 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 		# Same as metadata dialog (wx.CheckListBox isn't user friendly).
 		# Gather values for checkboxes except artist and title.
 		# 6.1: Split these columns into rows.
-		# 17.1: Gather items into a single list instead of three.
+		# 17.04: Gather items into a single list instead of three.
 		self.checkedColumns = []
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		for column in ("Duration", "Intro", "Category", "Filename"):
@@ -1002,7 +1002,7 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 
 		# WXPython Phoenix contains RearrangeList to allow item orders to be changed automatically.
 		# Because WXPython Classic doesn't include this, work around by using a variant of list box and move up/down buttons.
-		# 17.1: The label for the list below is above the list, so move move up/down buttons to the right of the list box.
+		# 17.04: The label for the list below is above the list, so move move up/down buttons to the right of the list box.
 		# Translators: The label for a setting in SPL add-on dialog to select column announcement order.
 		self.trackColumns = colAnnouncementsHelper.addLabeledControl(_("Column &order:"), wx.ListBox, choices=parent.columnOrder)
 		self.trackColumns.Bind(wx.EVT_LISTBOX,self.onColumnSelection)
@@ -1100,7 +1100,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 		colExplorerHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
 		# 7.0: Studio 5.0x columns.
-		# 17.1: Five by two grid layout as 5.0x is no longer supported.
+		# 17.04: Five by two grid layout as 5.0x is no longer supported.
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		for slot in xrange(5):
 			# Translators: The label for a setting in SPL add-on dialog to select column for this column slot.
