@@ -15,7 +15,6 @@ import cPickle
 import copy
 import globalVars
 import ui
-import api
 import gui
 import wx
 import splupdate

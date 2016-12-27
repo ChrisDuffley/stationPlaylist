@@ -5,7 +5,6 @@
 
 import appModuleHandler
 import addonHandler
-import api
 import tones
 import speech
 import braille
