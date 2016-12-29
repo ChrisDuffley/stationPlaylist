@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 5.1\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2015-07-10 19:00+1000\n"
-"PO-Revision-Date: 2016-02-26 02:14-0800\n"
+"PO-Revision-Date: 2016-12-29 12:36-0800\n"
 "Last-Translator: siddalingeshwar ingalagi <ingalagisiddu@gmail.com>\n"
 "Language-Team: \n"
 "Language: kn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.5\n"
+"X-Generator: Poedit 1.5.7\n"
 
 #. Translators: Presented when only Track Tool is running (Track Dial requires Studio to be running as well).
 msgid "Only Track Tool is running, Track Dial is unavailable"
@@ -26,7 +26,6 @@ msgid "Track Dial on"
 msgstr "ಹಾಡಿನ ಡಯ್ಲ್ ಇರಲಿ"
 
 #. Translators: Announced when located on a column other than the leftmost column while using track dial.
-#, python-brace-format
 msgid ", located at column {columnHeader}"
 msgstr ", {columnHeader} ಯಲ್ಲಿ ಅಂಕಣವಿದೆ"
 
@@ -35,7 +34,6 @@ msgid "Track Dial off"
 msgstr "ಹಾಡಿನ ಡಯ್ಲ್ ಬೇಡ"
 
 #. Translators: Spoken when enabling track dial while status message is set to beeps.
-#, python-brace-format
 msgid "Column {columnNumber}"
 msgstr "ಅಂಕಣ {columnNumber}"
 
@@ -48,22 +46,19 @@ msgid "StationPlaylist Studio"
 msgstr "ಸ್ಟೇಷನ್ ಪ್ಲೇ ಲಿಸ್ಟ್ ಸ್ಟೂಡಿಯೋ"
 
 #. Translators: Standard message for announcing column content.
-#, python-brace-format
 msgid "{header}: {content}"
 msgstr "{header}: {content}"
 
 #. Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
-#, fuzzy, python-brace-format
+#, fuzzy
 msgid "{header} not found"
 msgstr "{header}: {content}"
 
 #. Translators: Spoken when column content is blank.
-#, python-brace-format
 msgid "{header}: blank"
 msgstr "{header}: ಖಾಲಿ"
 
 #. Translators: Brailled to indicate empty column content.
-#, python-brace-format
 msgid "{header}: ()"
 msgstr "{header}: ()"
 
@@ -80,7 +75,6 @@ msgid "No artist"
 msgstr "ಕಲಾವಿದ ಇಲ್ಲ"
 
 #. Translators: Presents artist information for a track in Track Tool.
-#, python-brace-format
 msgid "Artist: {artistName}"
 msgstr "ಕಲಾವಿದ: {artistName}"
 
@@ -94,12 +88,10 @@ msgid "Microphone active"
 msgstr "ಎಚ್ಚರ: Microphone ಸಕ್ರೀಯಗೊಂಡಿದೆ"
 
 #. Translators: Announced when leftmost column has no text while track dial is active.
-#, python-brace-format
 msgid "{leftmostColumn} not found"
 msgstr "{leftmostColumn}  ಪತ್ತೆಯಾಗಿಲ್ಲ"
 
 #. Translators: Standard message for announcing column content.
-#, python-brace-format
 msgid "{leftmostColumn}: {leftmostContent}"
 msgstr "{leftmostColumn}: {leftmostContent}"
 
@@ -108,7 +100,6 @@ msgid "Status not found"
 msgstr "ಸ್ಥಿತಿಯು ಪತ್ತೆಯಾಗಿಲ್ಲ"
 
 #. Translators: Status information for a checked track in Studio 5.10.
-#, python-brace-format
 msgid "Status: {name}"
 msgstr "ಸ್ಥಿತಿ: {name}"
 
@@ -280,7 +271,6 @@ msgstr ""
 "W: ಹವಾಮಾನ  ಮತ್ತು  ತಾಪಮಾನ.\n"
 "Y: ಹಾಡುಪಟ್ಟಿಗಳ ತಿದ್ದುಪಡಿಗೆ."
 
-#, python-brace-format
 msgid "Using SPL Studio version {SPLVersion}"
 msgstr "ಬಳಸುತ್ತಿರುವ spl ಆವೃತ್ತಿ {SPLVersion}"
 
@@ -291,7 +281,7 @@ msgid "SPL settings"
 msgstr "spl ಸಂರಚನೆಗಳು"
 
 #. Translators: Presented when library scan is complete.
-#, fuzzy, python-brace-format
+#, fuzzy
 msgid "Scan complete with {scanCount} items"
 msgstr "{itemCount} ಅಂಶದ ಜೊತೆಯಲ್ಲಿಯೇ ಸ್ಕ್ಯಾನ್ ಪೂರ್ತಿಗೊಂಡಿತು"
 
@@ -310,12 +300,10 @@ msgid "Warning: Microphone active"
 msgstr "ಎಚ್ಚರ: Microphone ಸಕ್ರೀಯಗೊಂಡಿದೆ"
 
 #. Translators: Presented when end of introduction is approaching (example output: 5 sec left in track introduction).
-#, python-brace-format
 msgid "Warning: {seconds} sec left in track introduction"
 msgstr ""
 
 #. Translators: Presented when end of track is approaching.
-#, python-brace-format
 msgid "Warning: {seconds} sec remaining"
 msgstr ""
 
@@ -353,7 +341,6 @@ msgid "End of track alarm"
 msgstr "ಕೊನೆಯ ಹಾಡಿನ ಎಚ್ಚರ"
 
 #. Translators: A dialog message to set end of track alarm (curAlarmSec is the current end of track alarm in seconds).
-#, python-brace-format
 msgid "Enter &end of track alarm time in seconds (currently {curAlarmSec})"
 msgstr ""
 "(currently {curAlarmSec}) ಕೊನೆಗೊಳಿಸಬೇಕಾದ ಹಾಡಿನ ಎಚ್ಚರಿಸುವಿಕೆಯನ್ನು ಸೆಕೆಂಡ್ಸ್ಗಳಲ್ಲಿ "
@@ -374,7 +361,6 @@ msgid "Song intro alarm"
 msgstr "ಹಾಡಿನ ಕುರಿತಾಗಿರುವ ತಿಳಿಸುವಿಕೆ"
 
 #. Translators: A dialog message to set song ramp alarm (curRampSec is the current intro monitoring alarm in seconds).
-#, python-brace-format
 msgid "Enter song &intro alarm time in seconds (currently {curRampSec})"
 msgstr ""
 "ಸೆಕೆಂಡ್ಸ್ಗಳಲ್ಲಿ ಹಾಡಿನ ಪರಿಚಯವನ್ನು ತಿಳಿಸುವ ಸಮಯವನ್ನು & ನಮೂದಿಸಿರಿ (currently "
@@ -390,7 +376,6 @@ msgid "sets song intro alarm (default is 5 seconds)."
 msgstr "ಹಾಡಿನ  ಪರಿಚಯದ ಸಮಯವನ್ನು (default is 5 seconds) ಗೆ ಹೊಂದಿಸುತ್ತದೆ."
 
 #. Translators: A dialog message to set microphone active alarm (curAlarmSec is the current mic monitoring alarm in seconds).
-#, python-brace-format
 msgid ""
 "Enter microphone alarm time in seconds (currently {curAlarmSec}, 0 disables "
 "the alarm)"
@@ -521,12 +506,10 @@ msgid "Scan start"
 msgstr "ಸ್ಕ್ಯಾನ್ನ ಆರಂಭ"
 
 #. Translators: Presented when library scanning is finished.
-#, python-brace-format
 msgid "{itemCount} items in the library"
 msgstr "{itemCount} ಲೈಬ್ರರಿಯಲ್ಲಿನ ಅಂಶಗಳು"
 
 #. Translators: Presented after library scan is done.
-#, python-brace-format
 msgid "Scan complete with {itemCount} items"
 msgstr "{itemCount} ಅಂಶದ ಜೊತೆಯಲ್ಲಿಯೇ ಸ್ಕ್ಯಾನ್ ಪೂರ್ತಿಗೊಂಡಿತು"
 
@@ -535,7 +518,6 @@ msgid "Scanning"
 msgstr "ಸ್ಕ್ಯಾನ್ ಮಾಡಲಾಗುತ್ತಿದೆ"
 
 #. Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
-#, python-brace-format
 msgid "{itemCount} items scanned"
 msgstr "{itemCount} ಅಂಶಗಳು ಸ್ಕ್ಯಾನ್ ಆದವು"
 
@@ -655,7 +637,6 @@ msgid ""
 msgstr ""
 
 #. Translators: Presented when time analysis is done for a number of tracks (example output: Tracks: 3, totaling 5:00).
-#, python-brace-format
 msgid "Tracks: {numberOfSelectedTracks}, totaling {totalTime}"
 msgstr ""
 
@@ -686,7 +667,6 @@ msgid "No place marker found"
 msgstr ""
 
 #. Translators: Status message for metadata streaming.
-#, python-brace-format
 msgid "Metadata streaming on URL {URLPosition} enabled"
 msgstr ""
 
@@ -695,7 +675,6 @@ msgid "Metadata streaming on DSP encoder enabled"
 msgstr ""
 
 #. Translators: Status message for metadata streaming.
-#, python-brace-format
 msgid "Metadata streaming on URL {URLPosition} disabled"
 msgstr ""
 
@@ -709,7 +688,7 @@ msgid "Not a track"
 msgstr "ಹಾಡುಗಳ ಪಟ್ಟಿಯಲ್ಲಿ ಇರದು"
 
 #. Translators: Presented when a specific column header is not found.
-#, fuzzy, python-brace-format
+#, fuzzy
 msgid "{headerText} not found"
 msgstr "{header}: {content}"
 
@@ -754,7 +733,6 @@ msgid "Encoder settings error"
 msgstr ""
 
 #. Translators: Message presented indicating missing time-based profiles.
-#, python-brace-format
 msgid ""
 "Could not locate the following time-based profile(s):\n"
 "{profiles}"
@@ -784,12 +762,10 @@ msgid "Add-on settings dialog is open, cannot switch profiles"
 msgstr "ಹೆಚ್ಚುವರಿ ತಂತ್ರಾಂಶದ ಸಂರಚನಾ ಸಂವಾದವು ತೆರೆದಿದೆ. ದಯವಿಟ್ಟು ಮೊದಲು ಅದನ್ನು ಮುಚ್ಚಿರಿ"
 
 #. Translators: Presented when switch to instant switch profile was successful.
-#, python-brace-format
 msgid "Switching to {newProfileName}"
 msgstr ""
 
 #. Translators: Presented when switching from instant switch profile to a previous profile.
-#, python-brace-format
 msgid "Returning to {previousProfile}"
 msgstr ""
 
@@ -1128,7 +1104,6 @@ msgid "&Base profile:"
 msgstr ""
 
 #. Translators: The title of the broadcast profile triggers dialog.
-#, python-brace-format
 msgid "Profile triggers for {profileName}"
 msgstr ""
 
@@ -1208,7 +1183,6 @@ msgid "Columns Explorer"
 msgstr ""
 
 #. Translators: The label for a setting in SPL add-on dialog to select column for this column slot.
-#, python-brace-format
 msgid "Slot {position}"
 msgstr ""
 
@@ -1320,22 +1294,18 @@ msgid "Metadata streaming configured for DSP encoder"
 msgstr ""
 
 #. Translators: Status message for metadata streaming.
-#, python-brace-format
 msgid "Metadata streaming configured for DSP encoder and URL {URL}"
 msgstr ""
 
 #. Translators: Status message for metadata streaming.
-#, python-brace-format
 msgid "Metadata streaming configured for URL {URL}"
 msgstr ""
 
 #. Translators: Status message for metadata streaming.
-#, python-brace-format
 msgid "Metadata streaming configured for DSP encoder and URL's {URL}"
 msgstr ""
 
 #. Translators: Status message for metadata streaming.
-#, python-brace-format
 msgid "Metadata streaming configured for URL's {URL}"
 msgstr ""
 
@@ -1363,7 +1333,6 @@ msgid ""
 msgstr ""
 
 #. Translators: Text shown if an add-on update is available.
-#, python-brace-format
 msgid "Studio add-on {newVersion} is available. Would you like to update?"
 msgstr ""
 
@@ -1438,7 +1407,7 @@ msgid "There is no track playing. Try pausing while a track is playing."
 msgstr "ಯಾವುದೇ ಹಾಡು ಹಾಡುತ್ತಿಲ್ಲ. ಹಾಡು ಹಾಡುತ್ತಿರುವಾಗ ನಿಲುಗಡೆಗೊಳಿಸಲು ಪ್ರಯತ್ನಿಸಿ."
 
 #. Translators: Announces number of stream listeners.
-#, fuzzy, python-brace-format
+#, fuzzy
 msgid "Listener count: {listenerCount}"
 msgstr "ಕೇಳುಗರ ಎಣಿಕೆಯು ಕಂಡುಬಂದಿಲ್ಲ"
 
@@ -1455,7 +1424,6 @@ msgid "No encoders are being monitored"
 msgstr "ಯಾವುದೇ ಎಂಕೋಡರ್ಗಳನ್ನು ಮೇಲ್ವಿಚಾರಣೆ ಮಾಡಲಾಗಿಲ್ಲ"
 
 #. Translators: Announces number of encoders being monitored in the background.
-#, python-brace-format
 msgid "Number of encoders monitored: {numberOfEncoders}: {streamLabels}"
 msgstr ""
 "ಹಲವು ಎಂಕೋಡರ್ಗಳನ್ನು ಮೇಲ್ವಿಚಾರಣೆಗೆ ಒಳಪಡಿಸಲಾಗಿದೆ: {numberOfEncoders}: "
@@ -1467,7 +1435,6 @@ msgid "Another encoder settings dialog is open."
 msgstr "ಮತ್ತೊಂದು ತಿಳಿಸುವಿಕೆಯ ಸಂವಾದ ತೆರೆದಿದೆ."
 
 #. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
-#, python-brace-format
 msgid "Encoder settings for {name}"
 msgstr ""
 
@@ -1494,7 +1461,6 @@ msgid "Play connection status &beep while connecting"
 msgstr ""
 
 #. Translators: Status message for encoder monitoring.
-#, python-brace-format
 msgid "{encoder} {encoderNumber}: {status}"
 msgstr "{encoder} {encoderNumber}: {status}"
 
@@ -1528,12 +1494,10 @@ msgstr "ಸರ್ವರ್ಗೆ ಸಂಪರ್ಕಗೊಂಡಾಗ ಸ್ಟ�
 
 #. Multiple encoders.
 #. Translators: Presented when toggling the setting to monitor the selected encoder.
-#, python-brace-format
 msgid "Monitoring encoder {encoderNumber}"
 msgstr "ಎಂಕೋಡರ್ ಅನ್ನು ಮೇಲ್ವಿಚಾರಣೆ ಮಾಡಲಾಗುತ್ತಿದೆ  {encoderNumber}"
 
 #. Translators: Presented when toggling the setting to monitor the selected encoder.
-#, python-brace-format
 msgid "Encoder {encoderNumber} will not be monitored"
 msgstr "ಎಂಕೋಡರ್  {encoderNumber} ಮೇಲ್ವಿಚಾರಣೆಯನ್ನು ಮಾಡಲು ಆಗುವುದಿಲ್ಲ"
 
@@ -1548,7 +1512,6 @@ msgstr ""
 "ಹಿನ್ನೆಲೆಯಲ್ಲಿ ಆಯ್ಕೆಗೊಂಡಿರುವ ಎಂಕೋಡರ್ನ ಮೇಲ್ವಿಚಾರಣೆಯನ್ನು ಮಾಡಲು NVDA ವಹಿಸಲು ಬದಲಿಸುತ್ತದೆ."
 
 #. Translators: The title of the stream labeler dialog (example: stream labeler for 1).
-#, python-brace-format
 msgid "Stream labeler for {streamEntry}"
 msgstr "ಹರಿವಿನ ಶೀರ್ಷಿಕೆ {streamEntry}"
 
@@ -1595,11 +1558,9 @@ msgstr ""
 "ಒಮ್ಮೆ ಒತ್ತಿದರೆ ಸೆಕೆಂಡ್ಸ್ಗಳೊಂದಿಗೆ ಸಮಯವನ್ನು  ಹೇಳುತ್ತದೆ.\n"
 "ಎರಡು ಸಲ ತತಕ್ಷಣ ಒತ್ತಿದರೆ, ಪ್ರಸ್ತುತದ ದಿನಾಂಕವನ್ನು ಹೇಳುತ್ತದೆ."
 
-#, python-brace-format
 msgid "Position: {pos}"
 msgstr ""
 
-#, python-brace-format
 msgid "Label: {label}"
 msgstr ""
 
@@ -1617,11 +1578,9 @@ msgstr "ಸಂಪರ್ಕದಿಂದ ಕಳಚಿಕೊಳ್ಳುತ್ತ�
 msgid "Connects to a streaming server."
 msgstr "ಸ್ಟ್ರೀಮಿಂಗ್ ಸರ್ವರ್ಗೆ ಸಂಪರ್ಕಿಸುತ್ತದೆ."
 
-#, python-brace-format
 msgid "Encoder Settings: {setting}"
 msgstr ""
 
-#, python-brace-format
 msgid "Transfer Rate: {transferRate}"
 msgstr ""
 
@@ -1633,23 +1592,3 @@ msgid ""
 msgstr ""
 "ಸ್ಟೇಶನ್ ಪ್ಲೇ ಲಿಸ್ಟ್ಗಾಗಿ ಬೆಂಬಲವನ್ನು ವರ್ಧಿಸುತ್ತದೆ.\n"
 "ಪೂರಕವಾಗಿ, ಎಲ್ಲೆಡೆಯಿಂದ ಸ್ಟೂಡಿಯೋಗಾಗಿ ಗ್ಲೋಬಲ್ ಆದೇಶಗಳನ್ನು ಸೇರಿಸುತ್ತದೆ."
-
-#~ msgid "Remaining time not available"
-#~ msgstr "ಬಾಕಿ ಇರುವ ಸಮಯ ಲಭ್ಯವಿಲ್ಲ"
-
-#~ msgid "Elapsed time not available"
-#~ msgstr "ಮೀರಿದ ಸಮಯ ಲಭ್ಯವಿಲ್ಲ"
-
-#~ msgid "Broadcaster time not available"
-#~ msgstr "Broadcaster ಸಮಯ ಲಭ್ಯವಿಲ್ಲ"
-
-#~ msgid "Cannot obtain time in hours, minutes and seconds"
-#~ msgstr "ಸೆಕೆಂಡ್, ನಿಮಿಷ ಮತ್ತು ಗಂಟೆಗಳಲ್ಲಿ ಸಮಯವನ್ನು ಪಡೆದುಕೊಳ್ಳಲು ಆಗಲಿಲ್ಲ"
-
-#~ msgid ""
-#~ "An alarm dialog is already opened. Please close the alarm dialog first."
-#~ msgstr "ತಿಳಿಸುವಿಕೆಯ ಸಂವಾದ ತೆರೆದಿದೆ, ದಯವಿಟ್ಟು ಮೊದಲು ಅದನ್ನು ಮುಚ್ಚಿರಿ."
-
-#, fuzzy
-#~ msgid "Playlist &remainder announcement:"
-#~ msgstr "ಲೈಬ್ರರಿ ಸ್ಕ್ಯಾನ್ ತಿಳಿಸುವಿಕೆ"

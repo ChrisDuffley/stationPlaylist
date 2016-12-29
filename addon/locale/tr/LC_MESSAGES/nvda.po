@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 3.0\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2014-09-26 19:00+1000\n"
-"PO-Revision-Date: 2015-02-21 11:44+0200\n"
+"PO-Revision-Date: 2016-12-29 12:38-0800\n"
 "Last-Translator: Çağrı Doğan <cagrid@hotmail.com>\n"
 "Language-Team: TR <cagrid@hotmail.com>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.4\n"
+"X-Generator: Poedit 1.5.7\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
@@ -87,7 +87,6 @@ msgid "Announces time including seconds."
 msgstr "süreyi saniyeyle birlikte söyler."
 
 #. Translators: A dialog message to set end of track alarm (curAlarmSec is the current end of track alarm in seconds).
-#, python-brace-format
 msgid "Enter end of track alarm time in seconds (currently {curAlarmSec})"
 msgstr ""
 "Parça sonu alarm zamanını saniye cinsinden girin. (Şu anda {curAlarmSec})"
@@ -101,7 +100,6 @@ msgid "sets end of track alarm (default is 5 seconds)."
 msgstr "Parça sonu alarmını varsayılan olarak 5 saniye olarak ayarlar."
 
 #. Translators: A dialog message to set song ramp alarm (curRampSec is the current intro monitoring alarm in seconds).
-#, python-brace-format
 msgid "Enter song intro alarm time in seconds (currently {curRampSec})"
 msgstr ""
 "Parça introsu alarm zamanını saniye cinsinden girin. (Şu anda {curRampSec})"
@@ -115,7 +113,6 @@ msgid "sets song intro alarm (default is 5 seconds)."
 msgstr "Parça introsu alarmını ayarlar, varsayılan olarak 5 saniyedir."
 
 #. Translators: A dialog message to set microphone active alarm (curAlarmSec is the current mic monitoring alarm in seconds).
-#, python-brace-format
 msgid ""
 "Enter microphone alarm time in seconds (currently {curAlarmSec}, 0 disables "
 "the alarm)"
@@ -263,7 +260,6 @@ msgid "Scan start"
 msgstr "Tarama başladı"
 
 #. Translators: Presented when library scanning is finished.
-#, python-brace-format
 msgid "{itemCount} items in the library"
 msgstr "{itemCount} kütüphanedeki ögeler"
 
@@ -272,12 +268,10 @@ msgid "Scanning"
 msgstr "Taranıyor"
 
 #. Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
-#, python-brace-format
 msgid "{itemCount} items scanned"
 msgstr "{itemCount} taranan öge"
 
 #. Translators: Presented after library scan is done.
-#, python-brace-format
 msgid "Scan complete with {itemCount} items"
 msgstr "Tarama tamamlandı {itemCount} ögeyle"
 
@@ -330,7 +324,6 @@ msgid "Introduction not set"
 msgstr "Giriş ayarlanmadı"
 
 #. Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
-#, python-brace-format
 msgid "{columnInfo} not found"
 msgstr "{columnInfo} bulunamadı"
 
@@ -339,7 +332,6 @@ msgid "No artist"
 msgstr "Sanatçı yok"
 
 #. Translators: Presents artist information for a track in Track Tool.
-#, python-brace-format
 msgid "Artist: {artistName}"
 msgstr "Sanatçı: {artistName}"
 
@@ -448,7 +440,6 @@ msgstr ""
 "çalmaması ile ilgili ayarı değiştirir."
 
 #. Translators: The title of the stream labeler dialog (example: stream labeler for 1).
-#, python-brace-format
 msgid "Stream labeler for {streamEntry}"
 msgstr "{streamEntry} için Akış etiketleyici"
 
@@ -471,6 +462,3 @@ msgid ""
 msgstr ""
 "Station Playlist Studio desteğini geliştirir.\n"
 "Ek olarak, studio için her yerden kullanılabilen global komutlar ekler."
-
-#~ msgid "Disconnects from a streaming server."
-#~ msgstr "Bir akış sunucusundan bağlantıyı keser."
