@@ -789,13 +789,14 @@ class AppModule(appModuleHandler.AppModule):
 	def doExtraAction(self, status):
 		# Be sure to only deal with cart mode changes if Cart Explorer is on.
 		# Optimization: Return early if the below condition is true.
-		if self.cartExplorer and status.startswith("Cart"):
+		if self.cartExplorer and status.startswith("Cart") and status.endswith((" On", " Off")):
 			# 17.01: The best way to detect Cart Edit off is consulting file modification time.
 			# Automatically reload cart information if this is the case.
-			studioTitle = api.getForegroundObject().name
-			if splmisc.shouldCartExplorerRefresh(studioTitle):
-				self.carts = splmisc.cartExplorerInit(studioTitle)
-			# Translators: Presented when cart edit mode is toggled on while cart explorer is on.
+			if status in ("Cart Edit Off", "Cart Insert On"):
+				studioTitle = api.getForegroundObject().name
+				if splmisc.shouldCartExplorerRefresh(studioTitle):
+					self.carts = splmisc.cartExplorerInit(studioTitle)
+			# Translators: Presented when cart modes are toggled while cart explorer is on.
 			ui.message(_("Cart explorer is active"))
 			return
 		# Microphone alarm and alarm interval if defined.
