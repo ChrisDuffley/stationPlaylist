@@ -884,6 +884,8 @@ class AppModule(appModuleHandler.AppModule):
 		# Manually clear the following dictionaries.
 		self.carts.clear()
 		self._cachedStatusObjs.clear()
+		# Don't forget to reset timestamps for cart files.
+		splmisc._cartEditTimestamps = [0, 0, 0, 0]
 		# Just to make sure:
 		global _SPLWin
 		if _SPLWin: _SPLWin = None
