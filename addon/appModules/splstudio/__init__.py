@@ -405,6 +405,7 @@ U: Studio up time.
 W: Weather and temperature.
 Y: Playlist modification.
 1 through 0: Announce columns via Columns Explorer (0 is tenth column slot).
+F8: Take playlist snapshots such as track count, longest track and so on.
 F9: Mark current track as start of track time analysis.
 F10: Perform track time analysis.
 F12: Switch to an instant switch profile.
@@ -437,6 +438,7 @@ U: Studio up time.
 W: Weather and temperature.
 Y: Playlist modification.
 1 through 0: Announce columns via Columns Explorer (0 is tenth column slot).
+F8: Take playlist snapshots such as track count, longest track and so on.
 F9: Mark current track as start of track time analysis.
 F10: Perform track time analysis.
 F12: Switch to an instant switch profile.
@@ -471,6 +473,7 @@ U: Studio up time.
 W: Weather and temperature.
 Y: Playlist modification.
 1 through 0: Announce columns via Columns Explorer (0 is tenth column slot).
+F8: Take playlist snapshots such as track count, longest track and so on.
 F9: Mark current track as start of track time analysis.
 F10: Perform track time analysis.
 F12: Switch to an instant switch profile.
@@ -1990,6 +1993,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:shift+s":"sayScheduledToPlay",
 		"kb:shift+p":"sayTrackPitch",
 		"kb:shift+r":"libraryScanMonitor",
+		"kb:f8":"takePlaylistSnapshots",
 		"kb:f9":"markTrackForAnalysis",
 		"kb:f10":"trackTimeAnalysis",
 		"kb:f12":"switchProfiles",
@@ -2024,6 +2028,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:shift+s":"sayScheduledToPlay",
 		"kb:shift+p":"sayTrackPitch",
 		"kb:shift+r":"libraryScanMonitor",
+		"kb:f8":"takePlaylistSnapshots",
 		"kb:f9":"markTrackForAnalysis",
 		"kb:f10":"trackTimeAnalysis",
 		"kb:f12":"switchProfiles",
