@@ -167,7 +167,7 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
-## Version 17.1-dev
+## Version 17.04-dev
 
 * Improvements to presentation of various add-on dialogs thanks to NVDA 2016.4 features.
 * Added ability to press Control+Alt+up or down arrow keys to move between tracks (specifically, track columns) vertically just as one is moving to next or previous row in a table.
@@ -175,6 +175,10 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * Moved end of track , intro and microphone alarm controls from add-on settings to the new Alarms Center.
 * In Alarms Center, end of track and track intro edit fields are always shown regardless of state of alarm notification checkboxes.
 * Removed Track Dial (NVDA's version of enhanced arrow keys), replaced by Columns explorer and Column Navigator/table navigation commands). This affects Studio and Track Tool.
+* After closing Insert Tracks dialog while a library scan is in progress, it is no longer required to press SPL Assistant, Shift+R to monitor scan progress.
+* Improved accuracy of detecting and reporting completion of library scans in Studio 5.10 and later. This fixes a problem where library scan monitor will end prematurely when there are more tracks to be scanned, necessitating restarting library scan monitor.
+* Improved library scan status reporting via SPL Controller (Shift+R) by announcing scan count if scan is indeed happening.
+* Initial support for StationPlaylist Creator.
 * Added a new command in SPL Controller layer to announce Studio status such as track playback and microphone status (Q).
 
 ## Version 16.12.1

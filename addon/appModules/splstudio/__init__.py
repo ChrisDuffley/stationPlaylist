@@ -1,6 +1,6 @@
 # StationPlaylist Studio
 # An app module and global plugin package for NVDA
-# Copyright 2011, 2013-2016, Geoff Shang, Joseph Lee and others, released under GPL.
+# Copyright 2011, 2013-2017, Geoff Shang, Joseph Lee and others, released under GPL.
 # The primary function of this appModule is to provide meaningful feedback to users of SplStudio
 # by allowing speaking of items which cannot be easily found.
 # Version 0.01 - 7 April 2011:
@@ -17,10 +17,7 @@ import threading
 import controlTypes
 import appModuleHandler
 import api
-import review
-import eventHandler
 import scriptHandler
-import queueHandler
 import ui
 import nvwave
 import speech
@@ -157,7 +154,7 @@ class SPLTrackItem(IAccessible):
 		if splconfig.SPLConfig["General"]["TrackCommentAnnounce"] != "off":
 			self.announceTrackComment(0)
 		# 6.3: Catch an unusual case where screen order is off yet column order is same as screen order and NvDA is told to announce all columns.
-		# 17.1: Even if vertical column commands are performed, build description pieces for consistency.
+		# 17.04: Even if vertical column commands are performed, build description pieces for consistency.
 		if splconfig._shouldBuildDescriptionPieces():
 			descriptionPieces = []
 			columnsToInclude = splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"]
@@ -202,7 +199,7 @@ class SPLTrackItem(IAccessible):
 
 	# Announce column content if any.
 	# 7.0: Add an optional header in order to announce correct header information in columns explorer.
-	# 17.1: Allow checked status in 5.1x and later to be announced if this is such a case (vertical column navigation).)
+	# 17.04: Allow checked status in 5.1x and later to be announced if this is such a case (vertical column navigation).)
 	def announceColumnContent(self, colNumber, header=None, reportStatus=False):
 		columnHeader = header if header is not None else self.appModule._columnHeaderNames[colNumber]
 		columnContent = self._getColumnContent(self.indexOf(columnHeader))
@@ -574,6 +571,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Announce status changes while using other programs.
 		# This requires NVDA core support and will be available in 6.0 and later (cannot be ported to earlier versions).
 		# For now, handle all background events, but in the end, make this configurable.
+		import eventHandler
 		if hasattr(eventHandler, "requestEvents"):
 			eventHandler.requestEvents(eventName="nameChange", processId=self.processID, windowClassName="TStatusBar")
 			eventHandler.requestEvents(eventName="nameChange", processId=self.processID, windowClassName="TStaticText")
@@ -591,6 +589,7 @@ class AppModule(appModuleHandler.AppModule):
 		# LTS: Only do this if channel hasn't changed.
 		if splconfig.SPLConfig["Update"]["AutoUpdateCheck"] or splupdate._updateNow:
 			# 7.0: Have a timer call the update function indirectly.
+			import queueHandler
 			queueHandler.queueFunction(queueHandler.eventQueue, splconfig.updateInit)
 		# Display startup dialogs if any.
 		wx.CallAfter(splconfig.showStartupDialogs)
@@ -628,6 +627,7 @@ class AppModule(appModuleHandler.AppModule):
 			obj.role = controlTypes.ROLE_GROUPING
 		# In certain edit fields and combo boxes, the field name is written to the screen, and there's no way to fetch the object for this text. Thus use review position text.
 		elif obj.windowClassName in ("TEdit", "TComboBox") and not obj.name:
+			import review
 			fieldName, fieldObj  = review.getScreenPosition(obj)
 			fieldName.expand(textInfos.UNIT_LINE)
 			if obj.windowClassName == "TComboBox":
@@ -694,8 +694,7 @@ class AppModule(appModuleHandler.AppModule):
 						if self.scanCount%100 == 0:
 							self._libraryScanAnnouncer(obj.name[1:obj.name.find("]")], splconfig.SPLConfig["General"]["LibraryScanAnnounce"])
 					if not self.libraryScanning:
-						if self.productVersion not in noLibScanMonitor:
-							if not self.backgroundStatusMonitor: self.libraryScanning = True
+						if self.productVersion not in noLibScanMonitor: self.libraryScanning = True
 				elif "match" in obj.name:
 					if splconfig.SPLConfig["General"]["LibraryScanAnnounce"] != "off" and self.libraryScanning:
 						if splconfig.SPLConfig["General"]["BeepAnnounce"]: tones.beep(370, 100)
@@ -773,14 +772,19 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Perform extra action in specific situations (mic alarm, for example).
 	def doExtraAction(self, status):
+		# Be sure to only deal with cart mode changes if Cart Explorer is on.
+		# Optimization: Return early if the below condition is true.
+		if self.cartExplorer and status.startswith("Cart"):
+			# 17.01: The best way to detect Cart Edit off is consulting file modification time.
+			# Automatically reload cart information if this is the case.
+			studioTitle = api.getForegroundObject().name
+			if splmisc.shouldCartExplorerRefresh(studioTitle):
+				self.carts = splmisc.cartExplorerInit(studioTitle)
+			# Translators: Presented when cart edit mode is toggled on while cart explorer is on.
+			ui.message(_("Cart explorer is active"))
+			return
+		# Microphone alarm and alarm interval if defined.
 		micAlarm = splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"]
-		if self.cartExplorer:
-			if status == "Cart Edit On":
-				# Translators: Presented when cart edit mode is toggled on while cart explorer is on.
-				ui.message(_("Cart explorer is active"))
-			elif status == "Cart Edit Off":
-				# Translators: Presented when cart edit mode is toggled off while cart explorer is on.
-				ui.message(_("Please reenter cart explorer to view updated cart assignments"))
 		if micAlarm:
 			# Play an alarm sound (courtesy of Jerry Mader from Mader Radio).
 			global micAlarmT, micAlarmT2
@@ -853,9 +857,9 @@ class AppModule(appModuleHandler.AppModule):
 		# 6.3: Memory leak results if encoder flag sets and other encoder support maps aren't cleaned up.
 		# This also could have allowed a hacker to modify the flags set (highly unlikely) so NvDA could get confused next time Studio loads.
 		import sys
-		if "globalPlugins.SPLStudioUtils.encoders" in sys.modules:
-			import globalPlugins.SPLStudioUtils.encoders
-			globalPlugins.SPLStudioUtils.encoders.cleanup()
+		if "globalPlugins.splUtils.encoders" in sys.modules:
+			import globalPlugins.splUtils.encoders
+			globalPlugins.splUtils.encoders.cleanup()
 		splconfig.saveConfig()
 		# Delete focused track reference.
 		self._focusedTrack = None
@@ -868,6 +872,8 @@ class AppModule(appModuleHandler.AppModule):
 		# Manually clear the following dictionaries.
 		self.carts.clear()
 		self._cachedStatusObjs.clear()
+		# Don't forget to reset timestamps for cart files.
+		splmisc._cartEditTimestamps = [0, 0, 0, 0]
 		# Just to make sure:
 		global _SPLWin
 		if _SPLWin: _SPLWin = None
@@ -1256,40 +1262,40 @@ class AppModule(appModuleHandler.AppModule):
 		global libScanT
 		if libScanT and libScanT.isAlive() and api.getForegroundObject().windowClassName == "TTrackInsertForm":
 			return
-		countA = statusAPI(1, 32, ret=True)
-		if countA == 0:
+		if statusAPI(1, 32, ret=True) < 0:
 			self.libraryScanning = False
 			return
 		time.sleep(0.1)
 		if api.getForegroundObject().windowClassName == "TTrackInsertForm" and self.productVersion in noLibScanMonitor:
 			self.libraryScanning = False
 			return
-		# Sometimes, a second call is needed to obtain the real scan count in Studio 5.10 and later.
-		countB = statusAPI(1, 32, ret=True)
-		if countA == countB:
+		# 17.04: Library scan may have finished while this thread was sleeping.
+		if statusAPI(1, 32, ret=True) < 0:
 			self.libraryScanning = False
-			countB = statusAPI(0, 32, ret=True)
 			# Translators: Presented when library scanning is finished.
-			ui.message(_("{itemCount} items in the library").format(itemCount = countB))
+			ui.message(_("{itemCount} items in the library").format(itemCount = statusAPI(0, 32, ret=True)))
 		else:
-			libScanT = threading.Thread(target=self.libraryScanReporter, args=(_SPLWin, countA, countB, 1))
+			libScanT = threading.Thread(target=self.libraryScanReporter)
 			libScanT.daemon = True
 			libScanT.start()
 
-	def libraryScanReporter(self, _SPLWin, countA, countB, parem):
+	def libraryScanReporter(self):
 		scanIter = 0
-		while countA != countB:
+		# 17.04: Use the constant directly, as 5.10 and later provides a convenient method to detect completion of library scans.
+		scanCount = statusAPI(1, 32, ret=True)
+		while scanCount >= 0:
 			if not self.libraryScanning: return
-			countA = countB
 			time.sleep(1)
 			# Do not continue if we're back on insert tracks form or library scan is finished.
 			if api.getForegroundObject().windowClassName == "TTrackInsertForm" or not self.libraryScanning:
 				return
-			countB, scanIter = statusAPI(parem, 32, ret=True), scanIter+1
-			if countB < 0:
+			# Scan count may have changed during sleep.
+			scanCount = statusAPI(1, 32, ret=True)
+			if scanCount < 0:
 				break
+			scanIter+=1
 			if scanIter%5 == 0 and splconfig.SPLConfig["General"]["LibraryScanAnnounce"] not in ("off", "ending"):
-				self._libraryScanAnnouncer(countB, splconfig.SPLConfig["General"]["LibraryScanAnnounce"])
+				self._libraryScanAnnouncer(scanCount, splconfig.SPLConfig["General"]["LibraryScanAnnounce"])
 		self.libraryScanning = False
 		if self.backgroundStatusMonitor: return
 		if splconfig.SPLConfig["General"]["LibraryScanAnnounce"] != "off":
@@ -1297,7 +1303,7 @@ class AppModule(appModuleHandler.AppModule):
 				tones.beep(370, 100)
 			else:
 				# Translators: Presented after library scan is done.
-				ui.message(_("Scan complete with {itemCount} items").format(itemCount = countB))
+				ui.message(_("Scan complete with {itemCount} items").format(itemCount = statusAPI(0, 32, ret=True)))
 
 	# Take care of library scanning announcement.
 	def _libraryScanAnnouncer(self, count, announcementType):
@@ -1769,10 +1775,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_libraryScanMonitor(self, gesture):
 		if not self.libraryScanning:
-			scanning = statusAPI(1, 32, ret=True)
-			if scanning < 0:
-				items = statusAPI(0, 32, ret=True)
-				ui.message(_("{itemCount} items in the library").format(itemCount = items))
+			if statusAPI(1, 32, ret=True) < 0:
+				ui.message(_("{itemCount} items in the library").format(itemCount = statusAPI(0, 32, ret=True)))
 				return
 			self.libraryScanning = True
 			# Translators: Presented when attempting to start library scan.
@@ -2056,5 +2060,4 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:Shift+numpadDelete":"deleteTrack",
 		"kb:escape":"escape",
 		"kb:control+nvda+-":"sendFeedbackEmail",
-		#"kb:control+nvda+`":"SPLAssistantToggle"
 	}

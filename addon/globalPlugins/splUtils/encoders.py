@@ -1,21 +1,16 @@
 # StationPlaylist encoders support
 # Author: Joseph Lee
-# Copyright 2015-2016, released under GPL.
+# Copyright 2015-2017, released under GPL.
 # Split from main global plugin in 2015.
 
 import threading
-import os
 import time
-import weakref
-from configobj import ConfigObj
 import api
 import ui
 import speech
-import globalVars
 import scriptHandler
 from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent
 import winUser
-import winKernel
 import tones
 import gui
 import wx
@@ -49,7 +44,8 @@ streamLabels = None
 # Load stream labels (and possibly other future goodies) from a file-based database.
 def loadStreamLabels():
 	global streamLabels, SAMStreamLabels, SPLStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone
-	streamLabels = ConfigObj(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
+	import os, configobj, globalVars
+	streamLabels = configobj.ConfigObj(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
 	# Read stream labels.
 	try:
 		SAMStreamLabels = dict(streamLabels["SAMEncoders"])
@@ -143,24 +139,6 @@ def cleanup():
 	# 7.0: Destroy threads also.
 	encoderMonCount = {"SAM":0, "SPL":0}
 
-
-# Try to see if SPL foreground object can be fetched. This is used for switching to SPL Studio window from anywhere and to switch to Studio window from SAM encoder window.
-
-def fetchSPLForegroundWindow():
-	# Turns out NVDA core does have a method to fetch desktop objects, so use this to find SPL window from among its children.
-	dt = api.getDesktopObject()
-	fg = None
-	fgCount = 0
-	for possibleFG in dt.children:
-		if "splstudio" in possibleFG.appModule.appModuleName:
-			fg = possibleFG
-			fgCount+=1
-	# Just in case the window is really minimized (not to the system tray)
-	if fgCount == 1:
-		fg = getNVDAObjectFromEvent(user32.FindWindowA("TStudioForm", None), winUser.OBJID_CLIENT, 0)
-	return fg
-
-
 # Encoder configuration dialog.
 _configDialogOpened = False
 
@@ -188,6 +166,7 @@ class EncoderConfigDialog(wx.Dialog):
 		if inst:
 			return
 		# Use a weakref so the instance can die.
+		import weakref
 		EncoderConfigDialog._instance = weakref.ref(self)
 
 		self.obj = obj
@@ -403,6 +382,7 @@ class Encoder(IAccessible):
 
 	# Announce complete time including seconds (slight change from global commands version).
 	def script_encoderDateTime(self, gesture):
+		import winKernel
 		if scriptHandler.getLastScriptRepeatCount()==0:
 			text=winKernel.GetTimeFormat(winKernel.LOCALE_USER_DEFAULT, 0, None, None)
 		else:
@@ -543,10 +523,7 @@ class SAMEncoder(Encoder):
 				if self.focusToStudio and not encoding:
 					if api.getFocusObject().appModule == "splstudio":
 						continue
-					try:
-						fetchSPLForegroundWindow().setFocus()
-					except AttributeError:
-						pass
+					user32.SetForegroundWindow(user32.FindWindowA("TStudioForm", None))
 				if self.playAfterConnecting and not encoding:
 					# Do not interupt the currently playing track.
 					if winUser.sendMessage(SPLWin, SPLMSG, 0, SPL_TrackPlaybackStatus) == 0:
@@ -742,10 +719,7 @@ class SPLEncoder(Encoder):
 				# We're on air, so exit.
 				if not connected: tones.beep(1000, 150)
 				if self.focusToStudio and not connected:
-					try:
-						fetchSPLForegroundWindow().setFocus()
-					except AttributeError:
-						pass
+					user32.SetForegroundWindow(user32.FindWindowA("TStudioForm", None))
 				if self.playAfterConnecting and not connected:
 					if winUser.sendMessage(SPLWin, SPLMSG, 0, SPL_TrackPlaybackStatus) == 0:
 						winUser.sendMessage(SPLWin, SPLMSG, 0, SPLPlay)

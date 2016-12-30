@@ -1,6 +1,6 @@
 # SPL Studio Configuration Manager
 # An app module and global plugin package for NVDA
-# Copyright 2015-2016 Joseph Lee and others, released under GPL.
+# Copyright 2015-2017 Joseph Lee and others, released under GPL.
 # Provides the configuration management package for SPL Studio app module.
 # For miscellaneous dialogs and tool, see SPLMisc module.
 # For UI surrounding this module, see splconfui module.
@@ -12,10 +12,8 @@ from validate import Validator
 import time
 import datetime
 import cPickle
-import copy
 import globalVars
 import ui
-import api
 import gui
 import wx
 import splupdate
@@ -77,7 +75,6 @@ UpdateInterval = integer(min=1, max=30, default=7)
 [Startup]
 AudioDuckingReminder = boolean(default=true)
 WelcomeDialog = boolean(default=true)
-Studio500 = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
 confspec7.newlines = "\r\n"
 SPLConfig = None
@@ -111,6 +108,12 @@ class ConfigHub(ChainMap):
 		self.profileNames.append(None) # Signifying normal profile.
 		# Always cache normal profile upon startup.
 		self._cacheConfig(self.maps[0])
+		# Remove deprecated keys.
+		# This action must be performed after caching, otherwise the newly modified profile will not be saved.
+		deprecatedKeys = {"General":"TrackDial", "Startup":"Studio500"}
+		for section, key in deprecatedKeys.iteritems():
+			if key in section: del self.maps[0][section][key]
+		# Moving onto broadcast profiles if any.
 		try:
 			profiles = filter(lambda fn: os.path.splitext(fn)[-1] == ".ini", os.listdir(SPLProfiles))
 			for profile in profiles:
@@ -236,6 +239,7 @@ class ConfigHub(ChainMap):
 
 	def _cacheConfig(self, conf):
 		global _SPLCache
+		import copy
 		if _SPLCache is None: _SPLCache = {}
 		key = None if conf.filename == SPLIni else conf.name
 		_SPLCache[key] = {}
@@ -475,7 +479,7 @@ def _extraInitSteps(conf, profileName=None):
 		else:
 			_configLoadStatus[profileName] = "metadataReset"
 		conf["MetadataStreaming"]["MetadataEnabled"] = [False, False, False, False, False]
-	# 17.1: If vertical column announcement value is "None", transform this to NULL.
+	# 17.04: If vertical column announcement value is "None", transform this to NULL.
 	if conf["General"]["VerticalColumnAnnounce"] == "None":
 		conf["General"]["VerticalColumnAnnounce"] = None
 
@@ -944,9 +948,10 @@ Thank you.""")
 		self.Destroy()
 
 # Old version reminder.
-class OldVersionReminder(wx.Dialog):
-	"""A dialog shown when using add-on 8.x under Studio 5.0x.
-	"""
+# Only used when there is a LTS version.
+"""class OldVersionReminder(wx.Dialog):
+	#A dialog shown when using add-on 8.x under Studio 5.0x.
+	#
 
 	def __init__(self, parent):
 		# Translators: Title of a dialog displayed when the add-on starts reminding broadcasters about old Studio releases.
@@ -961,7 +966,7 @@ class OldVersionReminder(wx.Dialog):
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: A checkbox to turn off old version reminder message.
 		self.oldVersionReminder=wx.CheckBox(self,wx.NewId(),label=_("Do not show this message again"))
-		self.oldVersionReminder.SetValue(not SPLConfig["Startup"]["Studio500"])
+		self.oldVersionReminder.SetValue(not SPLConfig["Startup"]["OldSPLVersionReminder"])
 		sizer.Add(self.oldVersionReminder, border=10,flag=wx.TOP)
 		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
@@ -975,15 +980,16 @@ class OldVersionReminder(wx.Dialog):
 	def onOk(self, evt):
 		global SPLConfig
 		if self.oldVersionReminder.Value:
-			SPLConfig["Startup"]["Studio500"] = not self.oldVersionReminder.Value
-		self.Destroy()
+			SPLConfig["Startup"]["OldSPLVersionReminder"] = not self.oldVersionReminder.Value
+		self.Destroy()"""
 
 # And to open the above dialog and any other dialogs.
 def showStartupDialogs(oldVer=False):
-	if oldVer and SPLConfig["Startup"]["Studio500"]:
-		gui.mainFrame.prePopup()
-		OldVersionReminder(gui.mainFrame).Show()
-		gui.mainFrame.postPopup()
+	# Old version reminder if this is such a case.
+	#if oldVer and SPLConfig["Startup"]["OldSPLVersionReminder"]:
+		#gui.mainFrame.prePopup()
+		#OldVersionReminder(gui.mainFrame).Show()
+		#gui.mainFrame.postPopup()
 	if SPLConfig["Startup"]["WelcomeDialog"]:
 		gui.mainFrame.prePopup()
 		WelcomeDialog(gui.mainFrame).Show()
@@ -993,14 +999,11 @@ def showStartupDialogs(oldVer=False):
 		#if gui.messageBox("The next major version of the add-on (15.x) will be the last version to support Studio versions earlier than 5.10, with add-on 15.x being designated as a long-term support version. Would you like to switch to long-term support release?", "Long-Term Support version", wx.YES | wx.NO | wx.CANCEL | wx.CENTER | wx.ICON_QUESTION) == wx.YES:
 			#splupdate.SPLUpdateChannel = "lts"
 			#os.remove(os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "ltsprep"))
-	try:
-		import audioDucking
-		if SPLConfig["Startup"]["AudioDuckingReminder"] and audioDucking.isAudioDuckingSupported():
-			gui.mainFrame.prePopup()
-			AudioDuckingReminder(gui.mainFrame).Show()
-			gui.mainFrame.postPopup()
-	except ImportError:
-		pass
+	import audioDucking
+	if SPLConfig["Startup"]["AudioDuckingReminder"] and audioDucking.isAudioDuckingSupported():
+		gui.mainFrame.prePopup()
+		AudioDuckingReminder(gui.mainFrame).Show()
+		gui.mainFrame.postPopup()
 
 
 # Message verbosity pool.

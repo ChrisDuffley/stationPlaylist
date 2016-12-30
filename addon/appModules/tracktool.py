@@ -1,15 +1,11 @@
 # StationPlaylist Track Tool
 # An app module for NVDA
-# Copyright 2014-2016 Joseph Lee and contributors, released under gPL.
+# Copyright 2014-2017 Joseph Lee and contributors, released under gPL.
 # Functionality is based on JFW scripts for SPL Track Tool by Brian Hartgen.
 
 import appModuleHandler
 import addonHandler
-import api
 import tones
-import speech
-import braille
-from controlTypes import ROLE_LISTITEM
 import ui
 from NVDAObjects.IAccessible import IAccessible
 from splstudio import splconfig
@@ -60,6 +56,7 @@ class TrackToolItem(IAccessible):
 				# Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
 				ui.message(_("{header} not found").format(header = columnHeader))
 			else:
+				import speech, braille
 				speech.speakMessage(_("{header}: blank").format(header = columnHeader))
 				braille.handler.message(_("{header}: ()").format(header = columnHeader))
 
@@ -85,8 +82,7 @@ class TrackToolItem(IAccessible):
 
 	def script_columnExplorer(self, gesture):
 		# Just like the main app module, due to the below formula, columns explorer will be restricted to number commands.
-		columnPos = int(gesture.displayName.split("+")[-1])-1
-		header = splconfig.SPLConfig["General"]["ExploreColumnsTT"][columnPos]
+		header = splconfig.SPLConfig["General"]["ExploreColumnsTT"][int(gesture.displayName.split("+")[-1])-1]
 		# Several corner cases.
 		# Look up track name if artist is the header name.
 		if header == "Artist":
@@ -102,8 +98,7 @@ class TrackToolItem(IAccessible):
 			ui.message(_("Introduction not set"))
 		else:
 			try:
-				pos = indexOf(self.appModule.productVersion).index(header)
-				self.announceColumnContent(pos, columnHeader=header)
+				self.announceColumnContent(indexOf(self.appModule.productVersion).index(header), columnHeader=header)
 			except ValueError:
 				# Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
 				ui.message(_("{headerText} not found").format(headerText = header))
@@ -119,6 +114,6 @@ class AppModule(appModuleHandler.AppModule):
 	SPLColNumber = 0
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
-		if obj.windowClassName in ("TListView", "TTntListView.UnicodeClass") and obj.role == ROLE_LISTITEM:
+		import controlTypes
+		if obj.windowClassName in ("TListView", "TTntListView.UnicodeClass") and obj.role == controlTypes.ROLE_LISTITEM:
 			clsList.insert(0, TrackToolItem)
-

@@ -1,6 +1,6 @@
 # StationPlaylist Utilities
 # Author: Joseph Lee
-# Copyright 2013-2016, released under GPL.
+# Copyright 2013-2017, released under GPL.
 # Adds a few utility features such as switching focus to the SPL Studio window and some global scripts.
 # For encoder support, see the encoders package.
 
@@ -8,15 +8,11 @@ from functools import wraps
 import os
 import globalPluginHandler
 import api
-from controlTypes import ROLE_LISTITEM
 import ui
 import globalVars
 from NVDAObjects.IAccessible import getNVDAObjectFromEvent
 import winUser
-import tones
 import nvwave
-import gui
-import wx
 import addonHandler
 addonHandler.initTranslation()
 
@@ -53,11 +49,6 @@ SPLStatusInfo = 39 #Studio 5.20 and later.
 SPL_TrackPlaybackStatus = 104
 SPLCurTrackPlaybackTime = 105
 
-
-# On/off toggle wave files.
-onFile = os.path.join(os.path.dirname(__file__), "..", "..", "appModules", "splstudio", "SPL_on.wav")
-offFile = os.path.join(os.path.dirname(__file__), "..", "..", "appModules", "splstudio", "SPL_off.wav")
-
 # Help message for SPL Controller
 # Translators: the dialog text for SPL Controller help.
 SPLConHelp=_("""
@@ -78,22 +69,6 @@ I: Announce listener count.
 Q: Announce Studio status information.
 R: Remaining time for the playing track.
 Shift+R: Library scan progress.""")
-
-# Try to see if SPL foreground object can be fetched. This is used for switching to SPL Studio window from anywhere and to switch to Studio window from SAM encoder window.
-
-def fetchSPLForegroundWindow():
-	# Turns out NVDA core does have a method to fetch desktop objects, so use this to find SPL window from among its children.
-	dt = api.getDesktopObject()
-	fg = None
-	fgCount = 0
-	for possibleFG in dt.children:
-		if "splstudio" in possibleFG.appModule.appModuleName:
-			fg = possibleFG
-			fgCount+=1
-	# Just in case the window is really minimized (not to the system tray)
-	if fgCount == 1:
-		fg = getNVDAObjectFromEvent(user32.FindWindowA("TStudioForm", None), winUser.OBJID_CLIENT, 0)
-	return fg
 
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
@@ -118,6 +93,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.bindGestures(self.__gestures)
 
 	def script_error(self, gesture):
+		import tones
 		tones.beep(120, 100)
 
 	# Switch focus to SPL Studio window from anywhere.
@@ -128,13 +104,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if "splstudio" in api.getForegroundObject().appModule.appModuleName: return
 		else:
 			SPLHwnd = user32.FindWindowA("SPLStudio", None) # Used ANSI version, as Wide char version always returns 0.
-			if SPLHwnd == 0: ui.message(_("SPL Studio is not running."))
+			if not SPLHwnd: ui.message(_("SPL Studio is not running."))
 			else:
-				SPLFG = fetchSPLForegroundWindow()
-				if SPLFG == None:
-					# Translators: Presented when Studio is minimized to system tray (notification area).
-					ui.message(_("SPL minimized to system tray."))
-				else: SPLFG.setFocus()
+				# 17.01: SetForegroundWindow function is better, as there's no need to traverse top-level windows and allows users to "switch" to SPL window if the window is minimized.
+				user32.SetForegroundWindow(user32.FindWindowA("TStudioForm", None))
 	# Translators: Input help mode message for a command to switch to Station Playlist Studio from any program.
 	script_focusToSPLWindow.__doc__=_("Moves to SPL Studio window from other programs.")
 
@@ -187,12 +160,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def script_micOn(self, gesture):
 		winUser.sendMessage(SPLWin,SPLMSG,1,SPLMic)
-		nvwave.playWaveFile(onFile)
+		nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "..", "..", "appModules", "splstudio", "SPL_on.wav"))
 		self.finish()
 
 	def script_micOff(self, gesture):
 		winUser.sendMessage(SPLWin,SPLMSG,0,SPLMic)
-		nvwave.playWaveFile(offFile)
+		nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "..", "..", "appModules", "splstudio", "SPL_off.wav"))
 		self.finish()
 
 	def script_micNoFade(self, gesture):
@@ -228,15 +201,18 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.finish()
 
 	def script_libraryScanProgress(self, gesture):
-		scanned = winUser.sendMessage(SPLWin, SPLMSG, 0, SPLLibraryScanCount)
-		# Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
-		ui.message(_("{itemCount} items scanned").format(itemCount = scanned))
+		scanned = winUser.sendMessage(SPLWin, SPLMSG, 1, SPLLibraryScanCount)
+		if scanned >= 0:
+			# Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
+			ui.message(_("Scan in progress with {itemCount} items scanned").format(itemCount = scanned))
+		else:
+			# Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
+			ui.message(_("Scan complete with {itemCount} items scanned").format(itemCount = winUser.sendMessage(SPLWin, SPLMSG, 0, SPLLibraryScanCount)))
 		self.finish()
 
 	def script_listenerCount(self, gesture):
-		count = winUser.sendMessage(SPLWin, SPLMSG, 0, SPLListenerCount)
 		# Translators: Announces number of stream listeners.
-		ui.message(_("Listener count: {listenerCount}").format(listenerCount = count))
+		ui.message(_("Listener count: {listenerCount}").format(listenerCount = winUser.sendMessage(SPLWin, SPLMSG, 0, SPLListenerCount)))
 		self.finish()
 
 	def script_remainingTime(self, gesture):
@@ -270,7 +246,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def script_statusInfo(self, gesture):
 		# For consistency reasons (because of the Studio status bar), messages in this method will remain in English.
 		statusInfo = []
-		# 17.1: For Studio 5.10 and up, announce playback and automation status.
+		# 17.04: For Studio 5.10 and up, announce playback and automation status.
 		playingNow = winUser.sendMessage(SPLWin, SPLMSG, 0, SPL_TrackPlaybackStatus)
 		statusInfo.append("Play status: playing" if playingNow else "Play status: stopped")
 		# For automation, Studio 5.11 and earlier does not have an easy way to detect this flag, thus resort to using playback status.
@@ -293,6 +269,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	script_statusInfo.__doc__ = _("Announces Studio status such as track playback status from other programs")
 
 	def script_conHelp(self, gesture):
+		import gui, wx
 		# Translators: The title for SPL Controller help dialog.
 		wx.CallAfter(gui.messageBox, SPLConHelp, _("SPL Controller help"))
 		self.finish()
@@ -330,10 +307,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		if obj.appModule.appName in ("splengine", "splstreamer"):
-			import encoders
+			import controlTypes, encoders
 			if obj.windowClassName == "TListView":
 				clsList.insert(0, encoders.SAMEncoder)
-			elif obj.windowClassName == "SysListView32":
-				if obj.role == ROLE_LISTITEM:
+			elif obj.windowClassName == "SysListView32" and obj.role == controlTypes.ROLE_LISTITEM:
 					clsList.insert(0, encoders.SPLEncoder)
-

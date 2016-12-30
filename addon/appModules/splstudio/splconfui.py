@@ -1,15 +1,12 @@
 # SPL Studio Configuration user interfaces
 # An app module and global plugin package for NVDA
-# Copyright 2016 Joseph Lee and others, released under GPL.
+# Copyright 2016-2017 Joseph Lee and others, released under GPL.
 # Split from SPL config module in 2016.
 # Provides the configuration management UI package for SPL Studio app module.
 # For code which provides foundation for code in this module, see splconfig module.
 
 import os
 import weakref
-import datetime
-import calendar
-import ui
 import api
 import gui
 import wx
@@ -666,6 +663,7 @@ class TriggersDialog(wx.Dialog):
 
 		daysSizer = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Day")), wx.HORIZONTAL)
 		self.triggerDays = []
+		import calendar
 		for day in xrange(len(calendar.day_name)):
 			triggerDay=wx.CheckBox(self, wx.NewId(),label=calendar.day_name[day])
 			triggerDay.SetValue((64 >> day & self.Parent._profileTriggersConfig[profile][0]) if profile in self.Parent._profileTriggersConfig else 0)
@@ -738,6 +736,7 @@ class TriggersDialog(wx.Dialog):
 				# Otherwise trigger flag will be added each time this is called (either this handler or the add-on settings' flags retriever must retrieve the flags set).
 				if not self.profile in parent._profileTriggersConfig:
 					parent.setProfileFlags(self.selection, "add", _("time-based"))
+				import datetime
 				parent._profileTriggersConfig[self.profile] = splconfig.setNextTimedProfile(self.profile, bit, datetime.time(hour, min))
 				parent._profileTriggersConfig[self.profile][6] = duration
 			else:
@@ -913,7 +912,7 @@ class MetadataStreamingDialog(wx.Dialog):
 
 		# WX's CheckListBox isn't user friendly.
 		# Therefore use checkboxes laid out across the top.
-		# 17.1: instead of two loops, just use one loop, with labels deriving from the below tuple.
+		# 17.04: instead of two loops, just use one loop, with labels deriving from the below tuple.
 		# Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
 		streamLabels = ("DSP encoder", "URL 1", "URL 2", "URL 3", "URL 4")
 		self.checkedStreams = []
@@ -983,7 +982,7 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 		# Same as metadata dialog (wx.CheckListBox isn't user friendly).
 		# Gather values for checkboxes except artist and title.
 		# 6.1: Split these columns into rows.
-		# 17.1: Gather items into a single list instead of three.
+		# 17.04: Gather items into a single list instead of three.
 		self.checkedColumns = []
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		for column in ("Duration", "Intro", "Category", "Filename"):
@@ -1003,7 +1002,7 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 
 		# WXPython Phoenix contains RearrangeList to allow item orders to be changed automatically.
 		# Because WXPython Classic doesn't include this, work around by using a variant of list box and move up/down buttons.
-		# 17.1: The label for the list below is above the list, so move move up/down buttons to the right of the list box.
+		# 17.04: The label for the list below is above the list, so move move up/down buttons to the right of the list box.
 		# Translators: The label for a setting in SPL add-on dialog to select column announcement order.
 		self.trackColumns = colAnnouncementsHelper.addLabeledControl(_("Column &order:"), wx.ListBox, choices=parent.columnOrder)
 		self.trackColumns.Bind(wx.EVT_LISTBOX,self.onColumnSelection)
@@ -1101,7 +1100,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 		colExplorerHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
 		# 7.0: Studio 5.0x columns.
-		# 17.1: Five by two grid layout as 5.0x is no longer supported.
+		# 17.04: Five by two grid layout as 5.0x is no longer supported.
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		for slot in xrange(5):
 			# Translators: The label for a setting in SPL add-on dialog to select column for this column slot.
@@ -1329,9 +1328,9 @@ class ResetDialog(wx.Dialog):
 			if self.resetEncodersCheckbox.Value:
 				if os.path.exists(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini")):
 					os.remove(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
-				if "globalPlugins.SPLStudioUtils.encoders" in sys.modules:
-					import globalPlugins.SPLStudioUtils.encoders
-					globalPlugins.SPLStudioUtils.encoders.cleanup()
+				if "globalPlugins.splUtils.encoders" in sys.modules:
+					import globalPlugins.splUtils.encoders
+					globalPlugins.splUtils.encoders.cleanup()
 			_configDialogOpened = False
 			# Translators: A dialog message shown when settings were reset to defaults.
 			wx.CallAfter(gui.messageBox, _("Successfully applied default add-on settings."),
