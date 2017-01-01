@@ -872,17 +872,18 @@ class AudioDuckingReminder(wx.Dialog):
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 
 		# Translators: A message displayed if audio ducking should be disabled.
-		label = wx.StaticText(self, wx.ID_ANY, label=_("NVDA 2016.1 and later allows NVDA to decrease volume of background audio including that of Studio. In order to not disrupt the listening experience of your listeners, please disable audio ducking by opening synthesizer dialog in NVDA and selecting 'no ducking' from audio ducking mode combo box or press NVDA+Shift+D."))
+		label = wx.StaticText(self, wx.ID_ANY, label=_("""NVDA 2016.1 and later allows NVDA to decrease volume of background audio including that of Studio.
+		In order to not disrupt the listening experience of your listeners, please disable audio ducking either by:
+		* Opening synthesizer dialog in NVDA and selecting 'no ducking' from audio ducking mode combo box.
+		* Press NVDA+Shift+D to set it to 'no ducking'."""))
 		mainSizer.Add(label,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: A checkbox to turn off audio ducking reminder message.
 		self.audioDuckingReminder=wx.CheckBox(self,wx.NewId(),label=_("Do not show this message again"))
 		self.audioDuckingReminder.SetValue(not SPLConfig["Startup"]["AudioDuckingReminder"])
-		sizer.Add(self.audioDuckingReminder, border=10,flag=wx.TOP)
-		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+		mainSizer.Add(self.audioDuckingReminder, border=10,flag=wx.TOP)
 
-		mainSizer.Add(self.CreateButtonSizer(wx.OK))
+		mainSizer.Add(self.CreateButtonSizer(wx.OK), flag=wx.ALIGN_CENTER_HORIZONTAL)
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
@@ -928,14 +929,12 @@ Thank you.""")
 		label = wx.StaticText(self, wx.ID_ANY, label=self.welcomeMessage)
 		mainSizer.Add(label,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: A checkbox to show welcome dialog.
 		self.showWelcomeDialog=wx.CheckBox(self,wx.NewId(),label=_("Show welcome dialog when I start Studio"))
 		self.showWelcomeDialog.SetValue(SPLConfig["Startup"]["WelcomeDialog"])
-		sizer.Add(self.showWelcomeDialog, border=10,flag=wx.TOP)
-		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+		mainSizer.Add(self.showWelcomeDialog, border=10,flag=wx.TOP)
 
-		mainSizer.Add(self.CreateButtonSizer(wx.OK))
+		mainSizer.Add(self.CreateButtonSizer(wx.OK), flag=wx.ALIGN_CENTER_HORIZONTAL)
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
