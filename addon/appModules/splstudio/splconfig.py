@@ -180,7 +180,7 @@ class ConfigHub(ChainMap):
 				# Case 1: restore settings to defaults when 5.x config validation has failed on all values.
 				# 6.0: In case this is a user profile, apply base configuration.
 				# 8.0: Call copy profile function directly to reduce overhead.
-				copyProfile(_SPLDefaults7, SPLConfigCheckpoint, complete=SPLConfigCheckpoint.filename == SPLIni)
+				copyProfile(_SPLDefaults, SPLConfigCheckpoint, complete=SPLConfigCheckpoint.filename == SPLIni)
 				_configLoadStatus[profileName] = "completeReset"
 			elif isinstance(configTest, dict):
 				# Case 2: For 5.x and later, attempt to reconstruct the failed values.
@@ -190,7 +190,7 @@ class ConfigHub(ChainMap):
 					if isinstance(configTest[setting], dict):
 						for failedKey in configTest[setting].keys():
 							# 7.0 optimization: just reload from defaults dictionary, as broadcast profiles contain profile-specific settings only.
-							SPLConfigCheckpoint[setting][failedKey] = _SPLDefaults7[setting][failedKey]
+							SPLConfigCheckpoint[setting][failedKey] = _SPLDefaults[setting][failedKey]
 				# 7.0: Disqualified from being cached this time.
 				SPLConfigCheckpoint.write()
 				_configLoadStatus[profileName] = "partialReset"
@@ -301,9 +301,9 @@ class ConfigHub(ChainMap):
 			profilePath = conf.filename
 			conf.reset()
 			conf.filename = profilePath
-			resetConfig(_SPLDefaults7, conf)
+			resetConfig(_SPLDefaults, conf)
 			# Convert certain settings to a different format.
-			conf["ColumnAnnouncement"]["IncludedColumns"] = set(_SPLDefaults7["ColumnAnnouncement"]["IncludedColumns"])
+			conf["ColumnAnnouncement"]["IncludedColumns"] = set(_SPLDefaults["ColumnAnnouncement"]["IncludedColumns"])
 		# Switch back to normal profile via a custom variant of swap routine.
 		if self.profiles[0].name != _("Normal profile"):
 			npIndex = self.profileIndexByName(_("Normal profile"))
@@ -364,9 +364,9 @@ class ConfigHub(ChainMap):
 
 # Default config spec container.
 # To be moved to a different place in 8.0.
-_SPLDefaults7 = ConfigObj(None, configspec = confspec7, encoding="UTF-8")
+_SPLDefaults = ConfigObj(None, configspec = confspec7, encoding="UTF-8")
 _val = Validator()
-_SPLDefaults7.validate(_val, copy=True)
+_SPLDefaults.validate(_val, copy=True)
 
 # Display an error dialog when configuration validation fails.
 def runConfigErrorDialog(errorText, errorType):
@@ -458,7 +458,7 @@ def _extraInitSteps(conf, profileName=None):
 	global _configLoadStatus
 	columnOrder = conf["ColumnAnnouncement"]["ColumnOrder"]
 	# Catch suttle errors.
-	fields = _SPLDefaults7["ColumnAnnouncement"]["ColumnOrder"]
+	fields = _SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
 	invalidFields = 0
 	for field in fields:
 		if field not in columnOrder: invalidFields+=1
@@ -706,7 +706,7 @@ def _preSave(conf):
 		for setting in conf.keys():
 			for key in conf[setting].keys():
 				try:
-					if conf[setting][key] == _SPLDefaults7[setting][key]:
+					if conf[setting][key] == _SPLDefaults[setting][key]:
 						del conf[setting][key]
 				except KeyError:
 					pass
@@ -851,7 +851,7 @@ def updateInit():
 # To be renamed and used in other places in 7.0.
 def _shouldBuildDescriptionPieces():
 	return (not SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"]
-	and (SPLConfig["ColumnAnnouncement"]["ColumnOrder"] != _SPLDefaults7["ColumnAnnouncement"]["ColumnOrder"]
+	and (SPLConfig["ColumnAnnouncement"]["ColumnOrder"] != _SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
 	or len(SPLConfig["ColumnAnnouncement"]["IncludedColumns"]) != 17))
 
 
