@@ -112,7 +112,7 @@ class ConfigHub(ChainMap):
 		# This action must be performed after caching, otherwise the newly modified profile will not be saved.
 		deprecatedKeys = {"General":"TrackDial", "Startup":"Studio500"}
 		for section, key in deprecatedKeys.iteritems():
-			if key in section: del self.maps[0][section][key]
+			if key in self.maps[0][section]: del self.maps[0][section][key]
 		# Moving onto broadcast profiles if any.
 		try:
 			profiles = filter(lambda fn: os.path.splitext(fn)[-1] == ".ini", os.listdir(SPLProfiles))
