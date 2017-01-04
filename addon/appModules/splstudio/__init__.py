@@ -1422,11 +1422,12 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Playlist snapshots
 	# Data to be gathered comes from a set of flags.
+	# By default, playlist duration (including shortest and average), category summary and other statistics will be gathered.
 	def playlistSnapshots(self, obj, end, snapshotFlags=None):
 		# Track count and total duration are always included.
 		snapshot = {}
 		if snapshotFlags is None:
-			snapshotFlags = ["PlaylistDurationMinMax", "PlaylistCategoryCount", "PlaylistDurationAverage"]
+			snapshotFlags = splconfig.SPLConfig["General"]["PlaylistSnapshots"]
 		duration = obj.indexOf("Duration")
 		title = obj.indexOf("Title")
 		min, max = None, None
@@ -1490,7 +1491,7 @@ class AppModule(appModuleHandler.AppModule):
 		if scriptCount == 0:
 			ui.message(", ".join(statusInfo))
 		else:
-			ui.browseableMessage("<p>".join(statusInfo),title="Playlist snapshot", isHtml=True)
+			ui.browseableMessage("<p>".join(statusInfo),title="Playlist snapshots", isHtml=True)
 
 	# Some handlers for native commands.
 

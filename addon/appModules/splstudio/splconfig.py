@@ -46,6 +46,7 @@ TimeHourAnnounce = boolean(default=true)
 ExploreColumns = string_list(default=list("Artist","Title","Duration","Intro","Category","Filename","Year","Album","Genre","Time Scheduled"))
 ExploreColumnsTT = string_list(default=list("Artist","Title","Duration","Cue","Overlap","Intro","Segue","Filename","Album","CD Code"))
 VerticalColumnAnnounce = option(None,"Status","Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled",default=None)
+PlaylistSnapshots = string_list(default=list("PlaylistDurationMinMax","PlaylistDurationAverage","PlaylistCategoryCount"))
 [IntroOutroAlarms]
 SayEndOfTrack = boolean(default=true)
 EndOfTrackTime = integer(min=1, max=59, default=5)
@@ -268,6 +269,8 @@ class ConfigHub(ChainMap):
 			# 6.1: Transform column inclusion data structure (for normal profile) now.
 			# 7.0: This will be repeated for broadcast profiles later.
 			# 8.0: Conversion will happen here, as conversion to list is necessary before writing it to disk (if told to do so).
+			# 17.04: Playlist snapshots is a global key, so only normal profile will go through list conversion.
+			self.profiles[normalProfile]["General"]["PlaylistSnapshots"] = list(self.profiles[normalProfile]["General"]["PlaylistSnapshots"])
 			self.profiles[normalProfile]["ColumnAnnouncement"]["IncludedColumns"] = list(self.profiles[normalProfile]["ColumnAnnouncement"]["IncludedColumns"])
 			self.profiles[normalProfile].write()
 		del self.profiles[normalProfile]
@@ -482,6 +485,8 @@ def _extraInitSteps(conf, profileName=None):
 	# 17.04: If vertical column announcement value is "None", transform this to NULL.
 	if conf["General"]["VerticalColumnAnnounce"] == "None":
 		conf["General"]["VerticalColumnAnnounce"] = None
+	# 17.04: Convert playlist snapshots list to a proper set.
+	conf["General"]["PlaylistSnapshots"] = set(conf["General"]["PlaylistSnapshots"])
 
 # Cache a copy of the loaded config.
 # This comes in handy when saving configuration to disk. For the most part, no change occurs to config.
