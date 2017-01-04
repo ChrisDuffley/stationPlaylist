@@ -153,7 +153,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# Translators: The label for a setting in SPL add-on dialog to set vertical column.
 		verticalColLabel = _("&Vertical column navigation announcement:")
 		# Translators: One of the options for vertical column navigation denoting NVDA will announce current column positoin (e.g. second column position from the left).
-		self.verticalColumnsList = SPLConfigHelper.addLabeledControl(verticalColLabel, wx.Choice, choices=[_("whichever column I am reviewing"), "Status"] + splconfig._SPLDefaults7["ColumnAnnouncement"]["ColumnOrder"])
+		self.verticalColumnsList = SPLConfigHelper.addLabeledControl(verticalColLabel, wx.Choice, choices=[_("whichever column I am reviewing"), "Status"] + splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])
 		verticalColumn = splconfig.SPLConfig["General"]["VerticalColumnAnnounce"]
 		selection = self.verticalColumnsList.FindString(verticalColumn) if verticalColumn is not None else 0
 		try:
@@ -1087,7 +1087,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 		if not tt:
 			# Translators: The title of Columns Explorer configuration dialog.
 			actualTitle = _("Columns Explorer")
-			cols = splconfig._SPLDefaults7["ColumnAnnouncement"]["ColumnOrder"]
+			cols = splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
 		else:
 			# Translators: The title of Columns Explorer configuration dialog.
 			actualTitle = _("Columns Explorer for Track Tool")

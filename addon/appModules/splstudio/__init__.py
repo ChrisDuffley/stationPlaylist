@@ -365,7 +365,7 @@ class SPL510TrackItem(SPLTrackItem):
 
 	# Studio 5.10 version of original index finder.
 	def _origIndexOf(self, columnHeader):
-		return splconfig._SPLDefaults7["ColumnAnnouncement"]["ColumnOrder"].index(columnHeader)+1
+		return splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"].index(columnHeader)+1
 
 	# Handle track dial for SPL 5.10.
 	def _leftmostcol(self):
