@@ -817,7 +817,6 @@ def triggerProfileSwitch():
 			_SPLTriggerEndTimer.Stop()
 			_SPLTriggerEndTimer = None
 
-
 # Automatic update checker.
 
 # The function below is called as part of the update check timer.
@@ -846,14 +845,12 @@ def updateInit():
 	splupdate._SPLUpdateT = wx.PyTimer(autoUpdateCheck)
 	splupdate._SPLUpdateT.Start(interval * 1000, True)
 
-
 # Let SPL track item know if it needs to build description pieces.
 # To be renamed and used in other places in 7.0.
 def _shouldBuildDescriptionPieces():
 	return (not SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"]
 	and (SPLConfig["ColumnAnnouncement"]["ColumnOrder"] != _SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
 	or len(SPLConfig["ColumnAnnouncement"]["IncludedColumns"]) != 17))
-
 
 # Additional configuration and miscellaneous dialogs
 # See splconfui module for basic configuration dialogs.

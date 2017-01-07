@@ -46,10 +46,8 @@ def initialize():
 	try:
 		SPLAddonState = cPickle.load(file(_updatePickle, "r"))
 		SPLAddonCheck = SPLAddonState["PDT"]
-		if "PSZ" in SPLAddonState: del SPLAddonState["PSZ"]
-		if "PCH" in SPLAddonState: del SPLAddonState["PCH"]
 		_updateNow = "pendingChannelChange" in SPLAddonState
-		if "pendingChannelChange" in SPLAddonState: del SPLAddonState["pendingChannelChange"]
+		if _updateNow: del SPLAddonState["pendingChannelChange"]
 		if "UpdateChannel" in SPLAddonState:
 			SPLUpdateChannel = SPLAddonState["UpdateChannel"]
 			if SPLUpdateChannel in ("beta", "lts"):
@@ -57,7 +55,7 @@ def initialize():
 	except IOError, KeyError:
 		SPLAddonState["PDT"] = 0
 		_updateNow = False
-		SPLUpdateChannel = "stable"
+		SPLUpdateChannel = "dev"
 
 def terminate():
 	global SPLAddonState
@@ -71,7 +69,6 @@ def terminate():
 			SPLAddonState["pendingChannelChange"] = True
 		cPickle.dump(SPLAddonState, file(_updatePickle, "wb"))
 	SPLAddonState = None
-
 
 def _versionFromURL(url):
 	# 7.3: Be sure to handle both GitHub and old URL format.
@@ -155,4 +152,3 @@ def updateCheck(auto=False, continuous=False, confUpdateInterval=1):
 def getUpdateResponse(message, caption, updateURL):
 	if gui.messageBox(message, caption, wx.YES | wx.NO | wx.CANCEL | wx.CENTER | wx.ICON_QUESTION) == wx.YES:
 		os.startfile(updateURL)
-
