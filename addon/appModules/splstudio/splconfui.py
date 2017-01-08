@@ -185,6 +185,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.topBottomCheckbox = SPLConfigHelper.addItem(wx.CheckBox(self, label=_("Notify when located at &top or bottom of playlist viewer")))
 		self.topBottomCheckbox.SetValue(splconfig.SPLConfig["General"]["TopBottomAnnounce"])
 
+		self.playlistSnapshots = set(splconfig.SPLConfig["General"]["PlaylistSnapshots"])
+		# Translators: The label of a button to manage playlist snapshot flags.
+		playlistSnapshotFlagsButton = SPLConfigHelper.addItem(wx.Button(self, label=_("&Playlist snapshots...")))
+		playlistSnapshotFlagsButton.Bind(wx.EVT_BUTTON, self.onPlaylistSnapshotFlags)
+
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		self.metadataValues=[("off",_("Off")),
 		# Translators: One of the metadata notification settings.
@@ -277,6 +282,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		splconfig.SPLConfig["General"]["CategorySounds"] = self.categorySoundsCheckbox.Value
 		splconfig.SPLConfig["General"]["TrackCommentAnnounce"] = self.trackCommentValues[self.trackCommentList.GetSelection()][0]
 		splconfig.SPLConfig["General"]["TopBottomAnnounce"] = self.topBottomCheckbox.Value
+		splconfig.SPLConfig["General"]["PlaylistSnapshots"] = self.playlistSnapshots
 		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
 		splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = self.metadataStreams
 		splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
@@ -510,7 +516,12 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.Disable()
 		AlarmsCenter(self).Show()
 
-		# Manage metadata streaming.
+	# Configure playlist snapshot flags.
+	def onPlaylistSnapshotFlags(self, evt):
+		self.Disable()
+		PlaylistSnapshotsDialog(self).Show()
+
+	# Manage metadata streaming.
 	def onManageMetadata(self, evt):
 		self.Disable()
 		MetadataStreamingDialog(self).Show()
@@ -874,6 +885,57 @@ class AlarmsCenter(wx.Dialog):
 		self.Destroy()
 		global _alarmDialogOpened
 		_alarmDialogOpened = False
+
+# Playlist snapshot flags
+# For things such as checkboxes for average duration and top category count.
+class PlaylistSnapshotsDialog(wx.Dialog):
+
+	def __init__(self, parent):
+		# Translators: Title of a dialog to configure playlist snapshot information.
+		super(PlaylistSnapshotsDialog, self).__init__(parent, title=_("Playlist snapshots"))
+
+		mainSizer = wx.BoxSizer(wx.VERTICAL)
+		playlistSnapshotsHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
+
+		# Translators: Help text for playlist snapshots dialog.
+		labelText = _("""Select information to be included when obtaining playlist snapshots.
+		Track count and total duration are always included.""")
+		playlistSnapshotsHelper.addItem(wx.StaticText(self, label=labelText))
+
+		# Translators: the label for a setting in SPL add-on settings to include shortest and longest track duration in playlist snapshots window.
+		self.playlistDurationMinMaxCheckbox=playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Shortest and longest tracks")))
+		self.playlistDurationMinMaxCheckbox.SetValue("PlaylistDurationMinMax" in parent.playlistSnapshots)
+		# Translators: the label for a setting in SPL add-on settings to include average track duration in playlist snapshots window.
+		self.playlistDurationAverageCheckbox=playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Average track duration")))
+		self.playlistDurationAverageCheckbox.SetValue("PlaylistDurationAverage" in parent.playlistSnapshots)
+		# Translators: the label for a setting in SPL add-on settings to include track category count in playlist snapshots window.
+		self.playlistCategoryCountCheckbox=playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Category count")))
+		self.playlistCategoryCountCheckbox.SetValue("PlaylistCategoryCount" in parent.playlistSnapshots)
+
+		playlistSnapshotsHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
+		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
+		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
+		mainSizer.Add(playlistSnapshotsHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
+		mainSizer.Fit(self)
+		self.Sizer = mainSizer
+		self.playlistDurationMinMaxCheckbox.SetFocus()
+		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+
+	def onOk(self, evt):
+		playlistSnapshots = set()
+		if self.playlistDurationMinMaxCheckbox.Value: playlistSnapshots.add("PlaylistDurationMinMax")
+		if self.playlistDurationAverageCheckbox.Value: playlistSnapshots.add("PlaylistDurationAverage")
+		if self.playlistCategoryCountCheckbox.Value: playlistSnapshots.add("PlaylistCategoryCount")
+		parent = self.Parent
+		parent.playlistSnapshots = playlistSnapshots
+		parent.profiles.SetFocus()
+		parent.Enable()
+		self.Destroy()
+		return
+
+	def onCancel(self, evt):
+		self.Parent.Enable()
+		self.Destroy()
 
 # Metadata reminder controller.
 # Select notification/streaming URL's for metadata streaming.
