@@ -185,7 +185,9 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.topBottomCheckbox = SPLConfigHelper.addItem(wx.CheckBox(self, label=_("Notify when located at &top or bottom of playlist viewer")))
 		self.topBottomCheckbox.SetValue(splconfig.SPLConfig["General"]["TopBottomAnnounce"])
 
-		self.playlistSnapshots = set(splconfig.SPLConfig["General"]["PlaylistSnapshots"])
+		self.playlistDurationMinMax = splconfig.SPLConfig["PlaylistSnapshots"]["PlaylistDurationMinMax"]
+		self.playlistDurationAverage = splconfig.SPLConfig["PlaylistSnapshots"]["PlaylistDurationAverage"]
+		self.playlistCategoryCount = splconfig.SPLConfig["PlaylistSnapshots"]["PlaylistCategoryCount"]
 		# Translators: The label of a button to manage playlist snapshot flags.
 		playlistSnapshotFlagsButton = SPLConfigHelper.addItem(wx.Button(self, label=_("&Playlist snapshots...")))
 		playlistSnapshotFlagsButton.Bind(wx.EVT_BUTTON, self.onPlaylistSnapshotFlags)
@@ -282,7 +284,9 @@ class SPLConfigDialog(gui.SettingsDialog):
 		splconfig.SPLConfig["General"]["CategorySounds"] = self.categorySoundsCheckbox.Value
 		splconfig.SPLConfig["General"]["TrackCommentAnnounce"] = self.trackCommentValues[self.trackCommentList.GetSelection()][0]
 		splconfig.SPLConfig["General"]["TopBottomAnnounce"] = self.topBottomCheckbox.Value
-		splconfig.SPLConfig["General"]["PlaylistSnapshots"] = self.playlistSnapshots
+		splconfig.SPLConfig["PlaylistSnapshots"]["PlaylistDurationMinMax"] = self.playlistDurationMinMax
+		splconfig.SPLConfig["PlaylistSnapshots"]["PlaylistDurationAverage"] = self.playlistDurationAverage
+		splconfig.SPLConfig["PlaylistSnapshots"]["PlaylistCategoryCount"] = self.playlistCategoryCount
 		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
 		splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = self.metadataStreams
 		splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
@@ -904,13 +908,13 @@ class PlaylistSnapshotsDialog(wx.Dialog):
 
 		# Translators: the label for a setting in SPL add-on settings to include shortest and longest track duration in playlist snapshots window.
 		self.playlistDurationMinMaxCheckbox=playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Shortest and longest tracks")))
-		self.playlistDurationMinMaxCheckbox.SetValue("PlaylistDurationMinMax" in parent.playlistSnapshots)
+		self.playlistDurationMinMaxCheckbox.SetValue(parent.playlistDurationMinMax)
 		# Translators: the label for a setting in SPL add-on settings to include average track duration in playlist snapshots window.
 		self.playlistDurationAverageCheckbox=playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Average track duration")))
-		self.playlistDurationAverageCheckbox.SetValue("PlaylistDurationAverage" in parent.playlistSnapshots)
+		self.playlistDurationAverageCheckbox.SetValue(parent.playlistDurationAverage)
 		# Translators: the label for a setting in SPL add-on settings to include track category count in playlist snapshots window.
 		self.playlistCategoryCountCheckbox=playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Category count")))
-		self.playlistCategoryCountCheckbox.SetValue("PlaylistCategoryCount" in parent.playlistSnapshots)
+		self.playlistCategoryCountCheckbox.SetValue(parent.playlistCategoryCount)
 
 		playlistSnapshotsHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
@@ -922,12 +926,10 @@ class PlaylistSnapshotsDialog(wx.Dialog):
 		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
-		playlistSnapshots = set()
-		if self.playlistDurationMinMaxCheckbox.Value: playlistSnapshots.add("PlaylistDurationMinMax")
-		if self.playlistDurationAverageCheckbox.Value: playlistSnapshots.add("PlaylistDurationAverage")
-		if self.playlistCategoryCountCheckbox.Value: playlistSnapshots.add("PlaylistCategoryCount")
 		parent = self.Parent
-		parent.playlistSnapshots = playlistSnapshots
+		parent.playlistDurationMinMax = self.playlistDurationMinMaxCheckbox.Value
+		parent.playlistDurationAverage = self.playlistDurationAverageCheckbox.Value
+		parent.playlistCategoryCount = self.playlistCategoryCountCheckbox.Value
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()

@@ -1427,7 +1427,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Track count and total duration are always included.
 		snapshot = {}
 		if snapshotFlags is None:
-			snapshotFlags = splconfig.SPLConfig["General"]["PlaylistSnapshots"]
+			snapshotFlags = [flag for flag in splconfig.SPLConfig["PlaylistSnapshots"] if splconfig.SPLConfig["PlaylistSnapshots"][flag]]
 		duration = obj.indexOf("Duration")
 		title = obj.indexOf("Title")
 		min, max = None, None
