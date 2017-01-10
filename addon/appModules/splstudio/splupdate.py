@@ -46,10 +46,8 @@ def initialize():
 	try:
 		SPLAddonState = cPickle.load(file(_updatePickle, "r"))
 		SPLAddonCheck = SPLAddonState["PDT"]
-		if "PSZ" in SPLAddonState: del SPLAddonState["PSZ"]
-		if "PCH" in SPLAddonState: del SPLAddonState["PCH"]
 		_updateNow = "pendingChannelChange" in SPLAddonState
-		if "pendingChannelChange" in SPLAddonState: del SPLAddonState["pendingChannelChange"]
+		if _updateNow: del SPLAddonState["pendingChannelChange"]
 		if "UpdateChannel" in SPLAddonState:
 			SPLUpdateChannel = SPLAddonState["UpdateChannel"]
 			if SPLUpdateChannel in ("beta", "lts"):
@@ -57,7 +55,7 @@ def initialize():
 	except IOError, KeyError:
 		SPLAddonState["PDT"] = 0
 		_updateNow = False
-		SPLUpdateChannel = "stable"
+		SPLUpdateChannel = "dev"
 
 def terminate():
 	global SPLAddonState
@@ -72,18 +70,14 @@ def terminate():
 		cPickle.dump(SPLAddonState, file(_updatePickle, "wb"))
 	SPLAddonState = None
 
-
-def _versionFromURL(url):
-	# 7.3: Be sure to handle both GitHub and old URL format.
-	filename = url.split("/")[-1]
-	return filename.split("stationPlaylist-")[1].split(".nvda-addon")[0]
-
 def updateQualify(url):
-	# The add-on version is of the form "major.minor". The "-dev" suffix indicates development release.
+	# The add-on version is of the form "x.y.z". The "-dev" suffix indicates development release.
 	# Anything after "-dev" indicates a try or a custom build.
 	# LTS: Support upgrading between LTS releases.
 	# 7.0: Just worry about version label differences (suggested by Jamie Teh from NV Access).
-	version = _versionFromURL(url.url)
+	# 17.04: Version is of the form year.month.revision, and regular expression will be employed (looks cleaner).
+	import re
+	version = re.search("stationPlaylist-(?P<version>.*).nvda-addon", url.url).groupdict()["version"]
 	return None if version == SPLAddonVersion else version
 
 _progressDialog = None
@@ -155,4 +149,3 @@ def updateCheck(auto=False, continuous=False, confUpdateInterval=1):
 def getUpdateResponse(message, caption, updateURL):
 	if gui.messageBox(message, caption, wx.YES | wx.NO | wx.CANCEL | wx.CENTER | wx.ICON_QUESTION) == wx.YES:
 		os.startfile(updateURL)
-

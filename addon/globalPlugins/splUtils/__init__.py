@@ -5,14 +5,11 @@
 # For encoder support, see the encoders package.
 
 from functools import wraps
-import os
 import globalPluginHandler
 import api
 import ui
 import globalVars
-from NVDAObjects.IAccessible import getNVDAObjectFromEvent
 import winUser
-import nvwave
 import addonHandler
 addonHandler.initTranslation()
 
@@ -160,12 +157,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def script_micOn(self, gesture):
 		winUser.sendMessage(SPLWin,SPLMSG,1,SPLMic)
-		nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "..", "..", "appModules", "splstudio", "SPL_on.wav"))
 		self.finish()
 
 	def script_micOff(self, gesture):
 		winUser.sendMessage(SPLWin,SPLMSG,0,SPLMic)
-		nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "..", "..", "appModules", "splstudio", "SPL_off.wav"))
 		self.finish()
 
 	def script_micNoFade(self, gesture):

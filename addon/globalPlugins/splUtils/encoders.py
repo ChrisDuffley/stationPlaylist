@@ -9,7 +9,7 @@ import api
 import ui
 import speech
 import scriptHandler
-from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent
+from NVDAObjects.IAccessible import IAccessible
 import winUser
 import tones
 import gui
