@@ -239,6 +239,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.finish()
 
 	def script_statusInfo(self, gesture):
+		SPLWin = user32.FindWindowA("SPLStudio", None) # Used ANSI version, as Wide char version always returns 0.
+		if not SPLWin:
+			ui.message(_("SPL Studio is not running."))
+			self.finish()
+			return
 		# For consistency reasons (because of the Studio status bar), messages in this method will remain in English.
 		statusInfo = []
 		# 17.04: For Studio 5.10 and up, announce playback and automation status.
