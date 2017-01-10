@@ -185,9 +185,9 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.topBottomCheckbox = SPLConfigHelper.addItem(wx.CheckBox(self, label=_("Notify when located at &top or bottom of playlist viewer")))
 		self.topBottomCheckbox.SetValue(splconfig.SPLConfig["General"]["TopBottomAnnounce"])
 
-		self.playlistDurationMinMax = splconfig.SPLConfig["PlaylistSnapshots"]["PlaylistDurationMinMax"]
-		self.playlistDurationAverage = splconfig.SPLConfig["PlaylistSnapshots"]["PlaylistDurationAverage"]
-		self.playlistCategoryCount = splconfig.SPLConfig["PlaylistSnapshots"]["PlaylistCategoryCount"]
+		self.playlistDurationMinMax = splconfig.SPLConfig["PlaylistSnapshots"]["DurationMinMax"]
+		self.playlistDurationAverage = splconfig.SPLConfig["PlaylistSnapshots"]["DurationAverage"]
+		self.playlistCategoryCount = splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCount"]
 		# Translators: The label of a button to manage playlist snapshot flags.
 		playlistSnapshotFlagsButton = SPLConfigHelper.addItem(wx.Button(self, label=_("&Playlist snapshots...")))
 		playlistSnapshotFlagsButton.Bind(wx.EVT_BUTTON, self.onPlaylistSnapshotFlags)
@@ -284,9 +284,9 @@ class SPLConfigDialog(gui.SettingsDialog):
 		splconfig.SPLConfig["General"]["CategorySounds"] = self.categorySoundsCheckbox.Value
 		splconfig.SPLConfig["General"]["TrackCommentAnnounce"] = self.trackCommentValues[self.trackCommentList.GetSelection()][0]
 		splconfig.SPLConfig["General"]["TopBottomAnnounce"] = self.topBottomCheckbox.Value
-		splconfig.SPLConfig["PlaylistSnapshots"]["PlaylistDurationMinMax"] = self.playlistDurationMinMax
-		splconfig.SPLConfig["PlaylistSnapshots"]["PlaylistDurationAverage"] = self.playlistDurationAverage
-		splconfig.SPLConfig["PlaylistSnapshots"]["PlaylistCategoryCount"] = self.playlistCategoryCount
+		splconfig.SPLConfig["PlaylistSnapshots"]["DurationMinMax"] = self.playlistDurationMinMax
+		splconfig.SPLConfig["PlaylistSnapshots"]["DurationAverage"] = self.playlistDurationAverage
+		splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCount"] = self.playlistCategoryCount
 		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
 		splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = self.metadataStreams
 		splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value

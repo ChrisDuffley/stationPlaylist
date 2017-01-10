@@ -47,11 +47,11 @@ ExploreColumns = string_list(default=list("Artist","Title","Duration","Intro","C
 ExploreColumnsTT = string_list(default=list("Artist","Title","Duration","Cue","Overlap","Intro","Segue","Filename","Album","CD Code"))
 VerticalColumnAnnounce = option(None,"Status","Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled",default=None)
 [PlaylistSnapshots]
-PlaylistDurationMinMax = boolean(default=true)
-PlaylistDurationAverage = boolean(default=true)
-PlaylistArtistCount = boolean(default=true)
+DurationMinMax = boolean(default=true)
+DurationAverage = boolean(default=true)
+ArtistCount = boolean(default=true)
 ArtistCountLimit = integer(min=0, max=10, default=5)
-PlaylistCategoryCount = boolean(default=true)
+CategoryCount = boolean(default=true)
 CategoryCountLimit = integer(min=0, max=10, default=5)
 [IntroOutroAlarms]
 SayEndOfTrack = boolean(default=true)
@@ -122,6 +122,10 @@ class ConfigHub(ChainMap):
 			if key in self.maps[0][section]: del self.maps[0][section][key]
 		# January 2017 only: playlist snapshots is now its own dedicated section.
 		if "PlaylistSnapshots" in self.maps[0]["General"]: del self.maps[0]["General"]["PlaylistSnapshots"]
+		for key in ("PlaylistDurationMinMax", "PlaylistDurationAverage", "PlaylistCategoryCount"):
+			if key in self.maps[0]["PlaylistSnapshots"]:
+				self.maps[0]["PlaylistSnapshots"][key[8:]] = self.maps[0]["PlaylistSnapshots"][key]
+				del self.maps[0]["PlaylistSnapshots"][key]
 		# Moving onto broadcast profiles if any.
 		try:
 			profiles = filter(lambda fn: os.path.splitext(fn)[-1] == ".ini", os.listdir(SPLProfiles))

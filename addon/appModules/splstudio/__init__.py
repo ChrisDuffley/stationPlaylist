@@ -1458,15 +1458,15 @@ class AppModule(appModuleHandler.AppModule):
 			obj = obj.next
 		if end is None: snapshot["PlaylistTrackCount"] = statusAPI(0, 124, ret=True)
 		snapshot["PlaylistDurationTotal"] = self._ms2time(totalDuration, ms=False)
-		if "PlaylistDurationMinMax" in snapshotFlags:
+		if "DurationMinMax" in snapshotFlags:
 			snapshot["PlaylistDurationMin"] = "%s (%s)"%(minTitle, min)
 			snapshot["PlaylistDurationMax"] = "%s (%s)"%(maxTitle, max)
-		if "PlaylistDurationAverage" in snapshotFlags:
+		if "DurationAverage" in snapshotFlags:
 			snapshot["PlaylistDurationAverage"] = self._ms2time(totalDuration/snapshot["PlaylistTrackCount"], ms=False)
-		if "PlaylistCategoryCount" in snapshotFlags or "PlaylistArtistCount" in snapshotFlags:
+		if "CategoryCount" in snapshotFlags or "ArtistCount" in snapshotFlags:
 			import collections
-			if "PlaylistCategoryCount" in snapshotFlags: snapshot["PlaylistCategoryCount"] = collections.Counter(categories)
-			if "PlaylistArtistCount" in snapshotFlags: snapshot["PlaylistArtistCount"] = collections.Counter(artists)
+			if "CategoryCount" in snapshotFlags: snapshot["PlaylistCategoryCount"] = collections.Counter(categories)
+			if "ArtistCount" in snapshotFlags: snapshot["PlaylistArtistCount"] = collections.Counter(artists)
 		return snapshot
 
 # Output formatter for playlist snapshots.
