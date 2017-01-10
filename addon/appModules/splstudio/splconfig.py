@@ -31,7 +31,7 @@ except ImportError:
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
 SPLProfiles = os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "profiles")
 # New (7.0) style config.
-confspec7 = ConfigObj(StringIO("""
+confspec = ConfigObj(StringIO("""
 [General]
 BeepAnnounce = boolean(default=false)
 MessageVerbosity = option("beginner", "advanced", default="beginner")
@@ -76,13 +76,13 @@ UpdateInterval = integer(min=1, max=30, default=7)
 AudioDuckingReminder = boolean(default=true)
 WelcomeDialog = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
-confspec7.newlines = "\r\n"
+confspec.newlines = "\r\n"
 SPLConfig = None
 # The following settings can be changed in profiles:
-_mutatableSettings7=("IntroOutroAlarms", "MicrophoneAlarm", "MetadataStreaming", "ColumnAnnouncement")
+_mutatableSettings=("IntroOutroAlarms", "MicrophoneAlarm", "MetadataStreaming", "ColumnAnnouncement")
 # 7.0: Profile-specific confspec (might be removed once a more optimal way to validate sections is found).
 # Dictionary comprehension is better here.
-confspecprofiles = {sect:key for sect, key in confspec7.iteritems() if sect in _mutatableSettings7}
+confspecprofiles = {sect:key for sect, key in confspec.iteritems() if sect in _mutatableSettings}
 
 # 8.0: Run-time config storage and management will use ConfigHub data structure, a subclass of chain map.
 # A chain map allows a dictionary to look up predefined mappings to locate a key.
@@ -152,10 +152,10 @@ class ConfigHub(ChainMap):
 		# 7.0: What if profiles have parsing errors?
 		# If so, reset everything back to factory defaults.
 		try:
-			SPLConfigCheckpoint = ConfigObj(path, configspec = confspec7 if prefill else confspecprofiles, encoding="UTF-8")
+			SPLConfigCheckpoint = ConfigObj(path, configspec = confspec if prefill else confspecprofiles, encoding="UTF-8")
 		except:
 			open(path, "w").close()
-			SPLConfigCheckpoint = ConfigObj(path, configspec = confspec7 if prefill else confspecprofiles, encoding="UTF-8")
+			SPLConfigCheckpoint = ConfigObj(path, configspec = confspec if prefill else confspecprofiles, encoding="UTF-8")
 			_configLoadStatus[profileName] = "fileReset"
 		# 5.2 and later: check to make sure all values are correct.
 		# 7.0: Make sure errors are displayed as config keys are now sections and may need to go through subkeys.
@@ -249,7 +249,7 @@ class ConfigHub(ChainMap):
 
 	def __delitem__(self, key):
 		# Consult profile-specific key first before deleting anything.
-		pos = 0 if key in _mutatableSettings7 else [profile.name for profile in self.maps].index(_("Normal Profile"))
+		pos = 0 if key in _mutatableSettings else [profile.name for profile in self.maps].index(_("Normal Profile"))
 		try:
 			del self.maps[pos][key]
 		except KeyError:
@@ -364,7 +364,7 @@ class ConfigHub(ChainMap):
 
 # Default config spec container.
 # To be moved to a different place in 8.0.
-_SPLDefaults = ConfigObj(None, configspec = confspec7, encoding="UTF-8")
+_SPLDefaults = ConfigObj(None, configspec = confspec, encoding="UTF-8")
 _val = Validator()
 _SPLDefaults.validate(_val, copy=True)
 
@@ -659,7 +659,7 @@ def getProfileByName(name):
 # Setting complete flag controls whether profile-specific settings are applied (true otherwise, only set when resetting profiles).
 # 8.0: Simplified thanks to in-place swapping.
 def copyProfile(sourceProfile, targetProfile, complete=False):
-	for section in sourceProfile.keys() if complete else _mutatableSettings7:
+	for section in sourceProfile.keys() if complete else _mutatableSettings:
 		targetProfile[section] = dict(sourceProfile[section])
 
 # Last but not least...

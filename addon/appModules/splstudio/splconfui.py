@@ -610,7 +610,7 @@ class NewProfileDialog(wx.Dialog):
 		# LTS optimization: just build base profile dictionary here if copying a profile.
 		if self.copy:
 			baseConfig = splconfig.getProfileByName(self.baseProfiles.GetStringSelection())
-			baseProfile = {sect:key for sect, key in baseConfig.iteritems() if sect in splconfig._mutatableSettings7}
+			baseProfile = {sect:key for sect, key in baseConfig.iteritems() if sect in splconfig._mutatableSettings}
 		else: baseProfile = None
 		splconfig.SPLConfig.createProfile(newProfilePath, profileName=name, parent=baseProfile)
 		parent.profileNames.append(name)
