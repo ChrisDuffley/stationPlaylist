@@ -70,17 +70,14 @@ def terminate():
 		cPickle.dump(SPLAddonState, file(_updatePickle, "wb"))
 	SPLAddonState = None
 
-def _versionFromURL(url):
-	# 7.3: Be sure to handle both GitHub and old URL format.
-	filename = url.split("/")[-1]
-	return filename.split("stationPlaylist-")[1].split(".nvda-addon")[0]
-
 def updateQualify(url):
-	# The add-on version is of the form "major.minor". The "-dev" suffix indicates development release.
+	# The add-on version is of the form "x.y.z". The "-dev" suffix indicates development release.
 	# Anything after "-dev" indicates a try or a custom build.
 	# LTS: Support upgrading between LTS releases.
 	# 7.0: Just worry about version label differences (suggested by Jamie Teh from NV Access).
-	version = _versionFromURL(url.url)
+	# 17.04: Version is of the form year.month.revision, and regular expression will be employed (looks cleaner).
+	import re
+	version = re.search("stationPlaylist-(?P<version>.*).nvda-addon", url.url).groupdict()["version"]
 	return None if version == SPLAddonVersion else version
 
 _progressDialog = None
