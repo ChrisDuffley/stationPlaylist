@@ -49,7 +49,10 @@ VerticalColumnAnnounce = option(None,"Status","Artist","Title","Duration","Intro
 [PlaylistSnapshots]
 PlaylistDurationMinMax = boolean(default=true)
 PlaylistDurationAverage = boolean(default=true)
+PlaylistArtistCount = boolean(default=true)
+ArtistCountLimit = integer(min=0, max=10, default=5)
 PlaylistCategoryCount = boolean(default=true)
+CategoryCountLimit = integer(min=0, max=10, default=5)
 [IntroOutroAlarms]
 SayEndOfTrack = boolean(default=true)
 EndOfTrackTime = integer(min=1, max=59, default=5)

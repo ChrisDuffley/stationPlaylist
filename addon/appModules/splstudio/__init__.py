@@ -1430,6 +1430,8 @@ class AppModule(appModuleHandler.AppModule):
 			snapshotFlags = [flag for flag in splconfig.SPLConfig["PlaylistSnapshots"] if splconfig.SPLConfig["PlaylistSnapshots"][flag]]
 		duration = obj.indexOf("Duration")
 		title = obj.indexOf("Title")
+		artist = obj.indexOf("Artist")
+		artists = []
 		min, max = None, None
 		minTitle, maxTitle = None, None
 		category = obj.indexOf("Category")
@@ -1440,6 +1442,7 @@ class AppModule(appModuleHandler.AppModule):
 			segue = obj._getColumnContent(duration)
 			trackTitle = obj._getColumnContent(title)
 			categories.append(obj._getColumnContent(category))
+			if categories[-1] != "Hour Marker": artists.append(obj._getColumnContent(artist))
 			# Shortest and longest tracks.
 			if min is None: min = segue
 			if segue and segue < min:
@@ -1460,9 +1463,10 @@ class AppModule(appModuleHandler.AppModule):
 			snapshot["PlaylistDurationMax"] = "%s (%s)"%(maxTitle, max)
 		if "PlaylistDurationAverage" in snapshotFlags:
 			snapshot["PlaylistDurationAverage"] = self._ms2time(totalDuration/snapshot["PlaylistTrackCount"], ms=False)
-		if "PlaylistCategoryCount" in snapshotFlags:
+		if "PlaylistCategoryCount" in snapshotFlags or "PlaylistArtistCount" in snapshotFlags:
 			import collections
-			snapshot["PlaylistCategoryCount"] = collections.Counter(categories)
+			if "PlaylistCategoryCount" in snapshotFlags: snapshot["PlaylistCategoryCount"] = collections.Counter(categories)
+			if "PlaylistArtistCount" in snapshotFlags: snapshot["PlaylistArtistCount"] = collections.Counter(artists)
 		return snapshot
 
 # Output formatter for playlist snapshots.
@@ -1476,6 +1480,21 @@ class AppModule(appModuleHandler.AppModule):
 			statusInfo.append("Longest: %s"%snapshot["PlaylistDurationMax"])
 		if "PlaylistDurationAverage" in snapshot:
 			statusInfo.append("Average: %s"%snapshot["PlaylistDurationAverage"])
+		if "PlaylistArtistCount" in snapshot:
+			artists = snapshot["PlaylistArtistCount"].most_common()
+			if scriptCount == 0:
+				statusInfo.append("Top artist: %s (%s)"%(artists[0]))
+			else:
+				artistList = []
+				for item in artists:
+					artist, count = item
+					try:
+						artist = artist.replace("<", "")
+						artist = artist.replace(">", "")
+						artistList.append("<li>%s (%s)</li>"%(artist, count))
+					except AttributeError:
+						artistList.append("<li> No artist information (%s)</li>"%(count))
+				statusInfo.append("".join(["Top artists:<ol>", "\n".join(artistList), "</ol>"]))
 		if "PlaylistCategoryCount" in snapshot:
 			categories = snapshot["PlaylistCategoryCount"].most_common()
 			if scriptCount == 0:
