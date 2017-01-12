@@ -122,12 +122,6 @@ class ConfigHub(ChainMap):
 		deprecatedKeys = {"General":"TrackDial", "Startup":"Studio500"}
 		for section, key in deprecatedKeys.iteritems():
 			if key in self.maps[0][section]: del self.maps[0][section][key]
-		# January 2017 only: playlist snapshots is now its own dedicated section.
-		if "PlaylistSnapshots" in self.maps[0]["General"]: del self.maps[0]["General"]["PlaylistSnapshots"]
-		for key in ("PlaylistDurationMinMax", "PlaylistDurationAverage", "PlaylistCategoryCount"):
-			if key in self.maps[0]["PlaylistSnapshots"]:
-				self.maps[0]["PlaylistSnapshots"][key[8:]] = self.maps[0]["PlaylistSnapshots"][key]
-				del self.maps[0]["PlaylistSnapshots"][key]
 		# Moving onto broadcast profiles if any.
 		try:
 			profiles = filter(lambda fn: os.path.splitext(fn)[-1] == ".ini", os.listdir(SPLProfiles))
