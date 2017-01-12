@@ -30,7 +30,6 @@ def finally_(func, final):
 # SPL Studio uses WM messages to send and receive data, similar to Winamp (see NVDA sources/appModules/winamp.py for more information).
 user32 = winUser.user32 # user32.dll.
 SPLWin = 0 # A handle to studio window.
-SPLMSG = winUser.WM_USER
 
 # Various SPL IPC tags.
 SPLVersion = 2
@@ -148,70 +147,70 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# The layer commands themselves. Calls user32.SendMessage method for each script.
 
 	def script_automateOn(self, gesture):
-		winUser.sendMessage(SPLWin,SPLMSG,1,SPLAutomate)
+		winUser.sendMessage(SPLWin,1024,1,SPLAutomate)
 		self.finish()
 
 	def script_automateOff(self, gesture):
-		winUser.sendMessage(SPLWin,SPLMSG,0,SPLAutomate)
+		winUser.sendMessage(SPLWin,1024,0,SPLAutomate)
 		self.finish()
 
 	def script_micOn(self, gesture):
-		winUser.sendMessage(SPLWin,SPLMSG,1,SPLMic)
+		winUser.sendMessage(SPLWin,1024,1,SPLMic)
 		self.finish()
 
 	def script_micOff(self, gesture):
-		winUser.sendMessage(SPLWin,SPLMSG,0,SPLMic)
+		winUser.sendMessage(SPLWin,1024,0,SPLMic)
 		self.finish()
 
 	def script_micNoFade(self, gesture):
-		winUser.sendMessage(SPLWin,SPLMSG,2,SPLMic)
+		winUser.sendMessage(SPLWin,1024,2,SPLMic)
 		self.finish()
 
 	def script_lineInOn(self, gesture):
-		winUser.sendMessage(SPLWin,SPLMSG,1,SPLLineIn)
+		winUser.sendMessage(SPLWin,1024,1,SPLLineIn)
 		self.finish()
 
 	def script_lineInOff(self, gesture):
-		winUser.sendMessage(SPLWin,SPLMSG,0,SPLLineIn)
+		winUser.sendMessage(SPLWin,1024,0,SPLLineIn)
 		self.finish()
 
 	def script_stopFade(self, gesture):
-		winUser.sendMessage(SPLWin,SPLMSG,0,SPLStop)
+		winUser.sendMessage(SPLWin,1024,0,SPLStop)
 		self.finish()
 
 	def script_stopInstant(self, gesture):
-		winUser.sendMessage(SPLWin,SPLMSG,1,SPLStop)
+		winUser.sendMessage(SPLWin,1024,1,SPLStop)
 		self.finish()
 
 	def script_play(self, gesture):
-		winUser.sendMessage(SPLWin, SPLMSG, 0, SPLPlay)
+		winUser.sendMessage(SPLWin, 1024, 0, SPLPlay)
 		self.finish()
 
 	def script_pause(self, gesture):
-		playingNow = winUser.sendMessage(SPLWin, SPLMSG, 0, SPL_TrackPlaybackStatus)
+		playingNow = winUser.sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus)
 		# Translators: Presented when no track is playing in Station Playlist Studio.
 		if not playingNow: ui.message(_("There is no track playing. Try pausing while a track is playing."))
-		elif playingNow == 3: winUser.sendMessage(SPLWin, SPLMSG, 0, SPLPause)
-		else: winUser.sendMessage(SPLWin, SPLMSG, 1, SPLPause)
+		elif playingNow == 3: winUser.sendMessage(SPLWin, 1024, 0, SPLPause)
+		else: winUser.sendMessage(SPLWin, 1024, 1, SPLPause)
 		self.finish()
 
 	def script_libraryScanProgress(self, gesture):
-		scanned = winUser.sendMessage(SPLWin, SPLMSG, 1, SPLLibraryScanCount)
+		scanned = winUser.sendMessage(SPLWin, 1024, 1, SPLLibraryScanCount)
 		if scanned >= 0:
 			# Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
 			ui.message(_("Scan in progress with {itemCount} items scanned").format(itemCount = scanned))
 		else:
 			# Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
-			ui.message(_("Scan complete with {itemCount} items scanned").format(itemCount = winUser.sendMessage(SPLWin, SPLMSG, 0, SPLLibraryScanCount)))
+			ui.message(_("Scan complete with {itemCount} items scanned").format(itemCount = winUser.sendMessage(SPLWin, 1024, 0, SPLLibraryScanCount)))
 		self.finish()
 
 	def script_listenerCount(self, gesture):
 		# Translators: Announces number of stream listeners.
-		ui.message(_("Listener count: {listenerCount}").format(listenerCount = winUser.sendMessage(SPLWin, SPLMSG, 0, SPLListenerCount)))
+		ui.message(_("Listener count: {listenerCount}").format(listenerCount = winUser.sendMessage(SPLWin, 1024, 0, SPLListenerCount)))
 		self.finish()
 
 	def script_remainingTime(self, gesture):
-		remainingTime = winUser.sendMessage(SPLWin, SPLMSG, 3, SPLCurTrackPlaybackTime)
+		remainingTime = winUser.sendMessage(SPLWin, 1024, 3, SPLCurTrackPlaybackTime)
 		# Translators: Presented when no track is playing in Station Playlist Studio.
 		if remainingTime < 0: ui.message(_("There is no track playing."))
 		else:
@@ -239,22 +238,27 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.finish()
 
 	def script_statusInfo(self, gesture):
+		SPLWin = user32.FindWindowA("SPLStudio", None) # Used ANSI version, as Wide char version always returns 0.
+		if not SPLWin:
+			ui.message(_("SPL Studio is not running."))
+			self.finish()
+			return
 		# For consistency reasons (because of the Studio status bar), messages in this method will remain in English.
 		statusInfo = []
 		# 17.04: For Studio 5.10 and up, announce playback and automation status.
-		playingNow = winUser.sendMessage(SPLWin, SPLMSG, 0, SPL_TrackPlaybackStatus)
+		playingNow = winUser.sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus)
 		statusInfo.append("Play status: playing" if playingNow else "Play status: stopped")
 		# For automation, Studio 5.11 and earlier does not have an easy way to detect this flag, thus resort to using playback status.
-		if winUser.sendMessage(SPLWin, SPLMSG, 0, SPLVersion) < 520:
+		if winUser.sendMessage(SPLWin, 1024, 0, SPLVersion) < 520:
 			statusInfo.append("Automation on" if playingNow == 2 else "Automation off")
 		else:
-			statusInfo.append("Automation on" if winUser.sendMessage(SPLWin, SPLMSG, 1, SPLStatusInfo) else "Automation off")
+			statusInfo.append("Automation on" if winUser.sendMessage(SPLWin, 1024, 1, SPLStatusInfo) else "Automation off")
 			# 5.20 and later.
-			statusInfo.append("Microphone on" if winUser.sendMessage(SPLWin, SPLMSG, 2, SPLStatusInfo) else "Microphone off")
-			statusInfo.append("Line-inon" if winUser.sendMessage(SPLWin, SPLMSG, 3, SPLStatusInfo) else "Line-in off")
-			statusInfo.append("Record to file on" if winUser.sendMessage(SPLWin, SPLMSG, 4, SPLStatusInfo) else "Record to file off")
-			cartEdit = winUser.sendMessage(SPLWin, SPLMSG, 5, SPLStatusInfo)
-			cartInsert = winUser.sendMessage(SPLWin, SPLMSG, 6, SPLStatusInfo)
+			statusInfo.append("Microphone on" if winUser.sendMessage(SPLWin, 1024, 2, SPLStatusInfo) else "Microphone off")
+			statusInfo.append("Line-inon" if winUser.sendMessage(SPLWin, 1024, 3, SPLStatusInfo) else "Line-in off")
+			statusInfo.append("Record to file on" if winUser.sendMessage(SPLWin, 1024, 4, SPLStatusInfo) else "Record to file off")
+			cartEdit = winUser.sendMessage(SPLWin, 1024, 5, SPLStatusInfo)
+			cartInsert = winUser.sendMessage(SPLWin, 1024, 6, SPLStatusInfo)
 			if cartEdit: statusInfo.append("Cart edit on")
 			elif not cartEdit and cartInsert: statusInfo.append("Cart insert on")
 			else: statusInfo.append("Cart edit off")

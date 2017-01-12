@@ -24,6 +24,7 @@ IMPORTANT: This add-on requires NVDA 2016.4 or later and StationPlaylist Studio 
 * Alt+NVDA+R from Studio window: Steps through library scan announcement settings.
 * Control+Shift+X from Studio window: Steps through braille timer settings.
 * Control+Alt+right/left arrow (while focused on a track): Announce next/previous track column.
+* Control+Alt+down/up arrow (while focused on a track): Move to next or previous track and announce specific columns (unavailable in add-on 15.x).
 * Control+NVDA+1 through 0 (6 for Studio 5.0x): Announce column content for a specified column.
 * Alt+NVDA+C while focused on a track: announces track comments if any.
 * Alt+NVDA+0 from Studio window: Opens the Studio add-on configuration dialog.

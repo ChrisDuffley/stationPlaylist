@@ -90,10 +90,10 @@ def micAlarmManager(micAlarmWav, micAlarmMessage):
 		micAlarmT2 = wx.PyTimer(_micAlarmAnnouncer)
 		micAlarmT2.Start(splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] * 1000)
 
-# Call SPL API to obtain needed values.
+# Use SPL Studio API to obtain needed values.
 # A thin wrapper around user32.SendMessage and calling a callback if defined.
 # Offset is used in some time commands.
-def statusAPI(arg, command, func=None, ret=False, offset=None):
+def studioAPI(arg, command, func=None, ret=False, offset=None):
 	if _SPLWin is None: return
 	val = sendMessage(_SPLWin, 1024, arg, command)
 	if ret:
@@ -103,8 +103,8 @@ def statusAPI(arg, command, func=None, ret=False, offset=None):
 
 # Select a track upon request.
 def selectTrack(trackIndex):
-	statusAPI(-1, 121)
-	statusAPI(trackIndex, 121)
+	studioAPI(-1, 121)
+	studioAPI(trackIndex, 121)
 
 # Category sounds dictionary (key = category, value = tone pitch).
 _SPLCategoryTones = {
@@ -925,12 +925,12 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Scripts which rely on API.
 	def script_sayRemainingTime(self, gesture):
-		statusAPI(3, 105, self.announceTime, offset=1)
+		studioAPI(3, 105, self.announceTime, offset=1)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayRemainingTime.__doc__=_("Announces the remaining track time.")
 
 	def script_sayElapsedTime(self, gesture):
-		statusAPI(0, 105, self.announceTime)
+		studioAPI(0, 105, self.announceTime)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayElapsedTime.__doc__=_("Announces the elapsed time for the currently playing track.")
 
@@ -1147,7 +1147,7 @@ class AppModule(appModuleHandler.AppModule):
 	def script_timeRangeFinder(self, gesture):
 		if self._trackFinderCheck(2):
 			try:
-				d = splmisc.SPLTimeRangeDialog(gui.mainFrame, api.getFocusObject(), statusAPI)
+				d = splmisc.SPLTimeRangeDialog(gui.mainFrame, api.getFocusObject(), studioAPI)
 				gui.mainFrame.prePopup()
 				d.Raise()
 				d.Show()
@@ -1266,7 +1266,7 @@ class AppModule(appModuleHandler.AppModule):
 		global libScanT
 		if libScanT and libScanT.isAlive() and api.getForegroundObject().windowClassName == "TTrackInsertForm":
 			return
-		if statusAPI(1, 32, ret=True) < 0:
+		if studioAPI(1, 32, ret=True) < 0:
 			self.libraryScanning = False
 			return
 		time.sleep(0.1)
@@ -1274,10 +1274,10 @@ class AppModule(appModuleHandler.AppModule):
 			self.libraryScanning = False
 			return
 		# 17.04: Library scan may have finished while this thread was sleeping.
-		if statusAPI(1, 32, ret=True) < 0:
+		if studioAPI(1, 32, ret=True) < 0:
 			self.libraryScanning = False
 			# Translators: Presented when library scanning is finished.
-			ui.message(_("{itemCount} items in the library").format(itemCount = statusAPI(0, 32, ret=True)))
+			ui.message(_("{itemCount} items in the library").format(itemCount = studioAPI(0, 32, ret=True)))
 		else:
 			libScanT = threading.Thread(target=self.libraryScanReporter)
 			libScanT.daemon = True
@@ -1286,7 +1286,7 @@ class AppModule(appModuleHandler.AppModule):
 	def libraryScanReporter(self):
 		scanIter = 0
 		# 17.04: Use the constant directly, as 5.10 and later provides a convenient method to detect completion of library scans.
-		scanCount = statusAPI(1, 32, ret=True)
+		scanCount = studioAPI(1, 32, ret=True)
 		while scanCount >= 0:
 			if not self.libraryScanning: return
 			time.sleep(1)
@@ -1294,7 +1294,7 @@ class AppModule(appModuleHandler.AppModule):
 			if api.getForegroundObject().windowClassName == "TTrackInsertForm" or not self.libraryScanning:
 				return
 			# Scan count may have changed during sleep.
-			scanCount = statusAPI(1, 32, ret=True)
+			scanCount = studioAPI(1, 32, ret=True)
 			if scanCount < 0:
 				break
 			scanIter+=1
@@ -1307,7 +1307,7 @@ class AppModule(appModuleHandler.AppModule):
 				tones.beep(370, 100)
 			else:
 				# Translators: Presented after library scan is done.
-				ui.message(_("Scan complete with {itemCount} items").format(itemCount = statusAPI(0, 32, ret=True)))
+				ui.message(_("Scan complete with {itemCount} items").format(itemCount = studioAPI(0, 32, ret=True)))
 
 	# Take care of library scanning announcement.
 	def _libraryScanAnnouncer(self, count, announcementType):
@@ -1361,7 +1361,7 @@ class AppModule(appModuleHandler.AppModule):
 			return
 		try:
 			# Passing in the function object is enough to change the dialog UI.
-			d = splconfui.MetadataStreamingDialog(gui.mainFrame, func=statusAPI)
+			d = splconfui.MetadataStreamingDialog(gui.mainFrame, func=studioAPI)
 			gui.mainFrame.prePopup()
 			d.Raise()
 			d.Show()
@@ -1407,17 +1407,17 @@ class AppModule(appModuleHandler.AppModule):
 	# Segue version of this will be used in some places (the below is the raw duration).)
 	def playlistDurationRaw(self, start, end):
 		# Take care of errors such as the following.
-		if start < 0 or end > statusAPI(0, 124, ret=True)-1:
+		if start < 0 or end > studioAPI(0, 124, ret=True)-1:
 			raise ValueError("Track range start or end position out of range")
 			return
 		totalLength = 0
 		if start == end:
-			filename = statusAPI(start, 211, ret=True)
-			totalLength = statusAPI(filename, 30, ret=True)
+			filename = studioAPI(start, 211, ret=True)
+			totalLength = studioAPI(filename, 30, ret=True)
 		else:
 			for track in xrange(start, end+1):
-				filename = statusAPI(track, 211, ret=True)
-				totalLength+=statusAPI(filename, 30, ret=True)
+				filename = studioAPI(track, 211, ret=True)
+				totalLength+=studioAPI(filename, 30, ret=True)
 		return totalLength
 
 	# Playlist snapshots
@@ -1659,7 +1659,7 @@ class AppModule(appModuleHandler.AppModule):
 		if self.SPLCurVersion < "5.20":
 			status = self.status(self.SPLPlayStatus).getChild(index).name
 		else:
-			status = self._statusBarMessages[index][statusAPI(index, 39, ret=True)]
+			status = self._statusBarMessages[index][studioAPI(index, 39, ret=True)]
 		ui.message(status if splconfig.SPLConfig["General"]["MessageVerbosity"] == "beginner" else status.split()[-1])
 
 	# The layer commands themselves.
@@ -1682,8 +1682,8 @@ class AppModule(appModuleHandler.AppModule):
 	def script_sayCartEditStatus(self, gesture):
 		# 16.12: Because cart edit status also shows cart insert status, verbosity control will not apply.
 		if self.productVersion >= "5.20":
-			cartEdit = statusAPI(5, 39, ret=True)
-			cartInsert = statusAPI(6, 39, ret=True)
+			cartEdit = studioAPI(5, 39, ret=True)
+			cartInsert = studioAPI(6, 39, ret=True)
 			if cartEdit: ui.message("Cart Edit On")
 			elif not cartEdit and cartInsert: ui.message("Cart Insert On")
 			else: ui.message("Cart Edit Off")
@@ -1691,11 +1691,11 @@ class AppModule(appModuleHandler.AppModule):
 			ui.message(self.status(self.SPLPlayStatus).getChild(5).name)
 
 	def script_sayHourTrackDuration(self, gesture):
-		statusAPI(0, 27, self.announceTime)
+		studioAPI(0, 27, self.announceTime)
 
 	def script_sayHourRemaining(self, gesture):
 		# 7.0: Split from playlist remaining script (formerly the playlist remainder command).
-		statusAPI(1, 27, self.announceTime)
+		studioAPI(1, 27, self.announceTime)
 
 	def script_sayPlaylistRemainingDuration(self, gesture):
 		obj = api.getFocusObject() if api.getForegroundObject().windowClassName == "TStudioForm" else self._focusedTrack
@@ -1763,7 +1763,7 @@ class AppModule(appModuleHandler.AppModule):
 		# 16.12: use Studio API if using 5.20.
 		if self.productVersion >= "5.20":
 			# Sometimes, hour markers return seconds.999 due to rounding error, hence this must be taken care of here.
-			trackStarts = divmod(statusAPI(3, 27, ret=True), 1000)
+			trackStarts = divmod(studioAPI(3, 27, ret=True), 1000)
 			# For this method, all three components of time display (hour, minute, second) must be present.
 			# In case it is midnight (0.0 but sometimes shown as 86399.999 due to rounding error), just say "midnight".
 			if trackStarts in ((86399, 999), (0, 0)): ui.message("00:00:00")
@@ -1777,7 +1777,7 @@ class AppModule(appModuleHandler.AppModule):
 		# 16.12: Use Studio 5.20 API (faster and more reliable).
 		if self.productVersion >= "5.20":
 			# This is the only time hour announcement should not be used in order to conform to what's displayed on screen.
-			self.announceTime(statusAPI(4, 27, ret=True), includeHours=False)
+			self.announceTime(studioAPI(4, 27, ret=True), includeHours=False)
 		else:
 			obj = self.status(self.SPLScheduledToPlay).firstChild
 			ui.message(obj.name)
@@ -1799,8 +1799,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_libraryScanMonitor(self, gesture):
 		if not self.libraryScanning:
-			if statusAPI(1, 32, ret=True) < 0:
-				ui.message(_("{itemCount} items in the library").format(itemCount = statusAPI(0, 32, ret=True)))
+			if studioAPI(1, 32, ret=True) < 0:
+				ui.message(_("{itemCount} items in the library").format(itemCount = studioAPI(0, 32, ret=True)))
 				return
 			self.libraryScanning = True
 			# Translators: Presented when attempting to start library scan.
@@ -1906,7 +1906,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Gesture(s) for the following script cannot be changed by users.
 	def script_metadataEnabled(self, gesture):
 		url = int(gesture.displayName[-1])
-		if statusAPI(url, 36, ret=True):
+		if studioAPI(url, 36, ret=True):
 			# 0 is DSP encoder status, others are servers.
 			if url:
 				# Translators: Status message for metadata streaming.

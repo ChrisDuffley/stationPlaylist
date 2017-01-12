@@ -19,7 +19,6 @@ import wx
 # SPL Studio uses WM messages to send and receive data, similar to Winamp (see NVDA sources/appModules/winamp.py for more information).
 user32 = winUser.user32 # user32.dll.
 SPLWin = 0 # A handle to studio window.
-SPLMSG = winUser.WM_USER
 
 # Various SPL IPC tags.
 SPLPlay = 12
@@ -526,8 +525,8 @@ class SAMEncoder(Encoder):
 					user32.SetForegroundWindow(user32.FindWindowA("TStudioForm", None))
 				if self.playAfterConnecting and not encoding:
 					# Do not interupt the currently playing track.
-					if winUser.sendMessage(SPLWin, SPLMSG, 0, SPL_TrackPlaybackStatus) == 0:
-						winUser.sendMessage(SPLWin, SPLMSG, 0, SPLPlay)
+					if winUser.sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus) == 0:
+						winUser.sendMessage(SPLWin, 1024, 0, SPLPlay)
 				if not encoding: encoding = True
 			else:
 				if alreadyEncoding: alreadyEncoding = False
@@ -721,8 +720,8 @@ class SPLEncoder(Encoder):
 				if self.focusToStudio and not connected:
 					user32.SetForegroundWindow(user32.FindWindowA("TStudioForm", None))
 				if self.playAfterConnecting and not connected:
-					if winUser.sendMessage(SPLWin, SPLMSG, 0, SPL_TrackPlaybackStatus) == 0:
-						winUser.sendMessage(SPLWin, SPLMSG, 0, SPLPlay)
+					if winUser.sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus) == 0:
+						winUser.sendMessage(SPLWin, 1024, 0, SPLPlay)
 				if not connected: connected = True
 			elif "Unable to connect" in messageCache or "Failed" in messageCache or statChild.name == "AutoConnect stopped.":
 				if connected: connected = False
