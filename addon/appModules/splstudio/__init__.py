@@ -1456,7 +1456,7 @@ class AppModule(appModuleHandler.AppModule):
 				totalDuration += (int(hms[-2])*60) + int(hms[-1])
 				if len(hms) == 3: totalDuration += int(hms[0])*3600
 			obj = obj.next
-		if end is None: snapshot["PlaylistTrackCount"] = statusAPI(0, 124, ret=True)
+		if end is None: snapshot["PlaylistTrackCount"] = studioAPI(0, 124, ret=True)
 		snapshot["PlaylistDurationTotal"] = self._ms2time(totalDuration, ms=False)
 		if "DurationMinMax" in snapshotFlags:
 			snapshot["PlaylistDurationMin"] = "%s (%s)"%(minTitle, min)

@@ -185,12 +185,14 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.topBottomCheckbox = SPLConfigHelper.addItem(wx.CheckBox(self, label=_("Notify when located at &top or bottom of playlist viewer")))
 		self.topBottomCheckbox.SetValue(splconfig.SPLConfig["General"]["TopBottomAnnounce"])
 
-		self.playlistDurationMinMax = splconfig.SPLConfig["PlaylistSnapshots"]["DurationMinMax"]
-		self.playlistDurationAverage = splconfig.SPLConfig["PlaylistSnapshots"]["DurationAverage"]
-		self.playlistCategoryCount = splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCount"]
 		# Translators: The label of a button to manage playlist snapshot flags.
 		playlistSnapshotFlagsButton = SPLConfigHelper.addItem(wx.Button(self, label=_("&Playlist snapshots...")))
 		playlistSnapshotFlagsButton.Bind(wx.EVT_BUTTON, self.onPlaylistSnapshotFlags)
+		# Playlist snapshot flags to be manipulated by the configuration dialog.
+		self.playlistDurationMinMax = splconfig.SPLConfig["PlaylistSnapshots"]["DurationMinMax"]
+		self.playlistDurationAverage = splconfig.SPLConfig["PlaylistSnapshots"]["DurationAverage"]
+		self.playlistArtistCount = splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCount"]
+		self.playlistCategoryCount = splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCount"]
 
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		self.metadataValues=[("off",_("Off")),
@@ -286,6 +288,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		splconfig.SPLConfig["General"]["TopBottomAnnounce"] = self.topBottomCheckbox.Value
 		splconfig.SPLConfig["PlaylistSnapshots"]["DurationMinMax"] = self.playlistDurationMinMax
 		splconfig.SPLConfig["PlaylistSnapshots"]["DurationAverage"] = self.playlistDurationAverage
+		splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCount"] = self.playlistArtistCount
 		splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCount"] = self.playlistCategoryCount
 		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
 		splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = self.metadataStreams
@@ -912,6 +915,9 @@ class PlaylistSnapshotsDialog(wx.Dialog):
 		# Translators: the label for a setting in SPL add-on settings to include average track duration in playlist snapshots window.
 		self.playlistDurationAverageCheckbox=playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Average track duration")))
 		self.playlistDurationAverageCheckbox.SetValue(parent.playlistDurationAverage)
+		# Translators: the label for a setting in SPL add-on settings to include track artist count in playlist snapshots window.
+		self.playlistArtistCountCheckbox=playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Artist count")))
+		self.playlistArtistCountCheckbox.SetValue(parent.playlistArtistCount)
 		# Translators: the label for a setting in SPL add-on settings to include track category count in playlist snapshots window.
 		self.playlistCategoryCountCheckbox=playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Category count")))
 		self.playlistCategoryCountCheckbox.SetValue(parent.playlistCategoryCount)
@@ -929,6 +935,7 @@ class PlaylistSnapshotsDialog(wx.Dialog):
 		parent = self.Parent
 		parent.playlistDurationMinMax = self.playlistDurationMinMaxCheckbox.Value
 		parent.playlistDurationAverage = self.playlistDurationAverageCheckbox.Value
+		parent.playlistArtistCount = self.playlistArtistCountCheckbox.Value
 		parent.playlistCategoryCount = self.playlistCategoryCountCheckbox.Value
 		parent.profiles.SetFocus()
 		parent.Enable()
