@@ -193,6 +193,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.playlistDurationAverage = splconfig.SPLConfig["PlaylistSnapshots"]["DurationAverage"]
 		self.playlistArtistCount = splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCount"]
 		self.playlistCategoryCount = splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCount"]
+		self.playlistGenreCount = splconfig.SPLConfig["PlaylistSnapshots"]["GenreCount"]
 
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		self.metadataValues=[("off",_("Off")),
@@ -290,6 +291,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		splconfig.SPLConfig["PlaylistSnapshots"]["DurationAverage"] = self.playlistDurationAverage
 		splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCount"] = self.playlistArtistCount
 		splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCount"] = self.playlistCategoryCount
+		splconfig.SPLConfig["PlaylistSnapshots"]["GenreCount"] = self.playlistGenreCount
 		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
 		splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = self.metadataStreams
 		splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
@@ -921,6 +923,9 @@ class PlaylistSnapshotsDialog(wx.Dialog):
 		# Translators: the label for a setting in SPL add-on settings to include track category count in playlist snapshots window.
 		self.playlistCategoryCountCheckbox=playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Category count")))
 		self.playlistCategoryCountCheckbox.SetValue(parent.playlistCategoryCount)
+		# Translators: the label for a setting in SPL add-on settings to include track genre count in playlist snapshots window.
+		self.playlistGenreCountCheckbox=playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Genre count")))
+		self.playlistGenreCountCheckbox.SetValue(parent.playlistGenreCount)
 
 		playlistSnapshotsHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
@@ -937,6 +942,7 @@ class PlaylistSnapshotsDialog(wx.Dialog):
 		parent.playlistDurationAverage = self.playlistDurationAverageCheckbox.Value
 		parent.playlistArtistCount = self.playlistArtistCountCheckbox.Value
 		parent.playlistCategoryCount = self.playlistCategoryCountCheckbox.Value
+		parent.playlistGenreCount = self.playlistGenreCountCheckbox.Value
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()

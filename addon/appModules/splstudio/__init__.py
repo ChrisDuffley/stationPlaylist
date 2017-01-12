@@ -1434,15 +1434,18 @@ class AppModule(appModuleHandler.AppModule):
 		artists = []
 		min, max = None, None
 		minTitle, maxTitle = None, None
-		category = obj.indexOf("Category")
 		totalDuration = 0
+		category = obj.indexOf("Category")
 		categories = []
+		genre = obj.indexOf("Genre")
+		genres = []
 		# A specific version of the playlist duration loop is needed in order to gather statistics.
 		while obj not in (None, end):
 			segue = obj._getColumnContent(duration)
 			trackTitle = obj._getColumnContent(title)
 			categories.append(obj._getColumnContent(category))
 			if categories[-1] != "Hour Marker": artists.append(obj._getColumnContent(artist))
+			genres.append(obj._getColumnContent(genre))
 			# Shortest and longest tracks.
 			if min is None: min = segue
 			if segue and segue < min:
@@ -1463,10 +1466,11 @@ class AppModule(appModuleHandler.AppModule):
 			snapshot["PlaylistDurationMax"] = "%s (%s)"%(maxTitle, max)
 		if "DurationAverage" in snapshotFlags:
 			snapshot["PlaylistDurationAverage"] = self._ms2time(totalDuration/snapshot["PlaylistTrackCount"], ms=False)
-		if "CategoryCount" in snapshotFlags or "ArtistCount" in snapshotFlags:
+		if "CategoryCount" in snapshotFlags or "ArtistCount" in snapshotFlags or "GenreCount" in snapshotFlags:
 			import collections
 			if "CategoryCount" in snapshotFlags: snapshot["PlaylistCategoryCount"] = collections.Counter(categories)
 			if "ArtistCount" in snapshotFlags: snapshot["PlaylistArtistCount"] = collections.Counter(artists)
+			if "GenreCount" in snapshotFlags: snapshot["PlaylistGenreCount"] = collections.Counter(genres)
 		return snapshot
 
 # Output formatter for playlist snapshots.
@@ -1507,6 +1511,21 @@ class AppModule(appModuleHandler.AppModule):
 					category = category.replace(">", "")
 					categoryList.append("<li>%s (%s)</li>"%(category, count))
 				statusInfo.append("".join(["Categories:<ol>", "\n".join(categoryList), "</ol>"]))
+		if "PlaylistGenreCount" in snapshot:
+			genres = snapshot["PlaylistGenreCount"].most_common()
+			if scriptCount == 0:
+				statusInfo.append("Top genre: %s (%s)"%(genres[0]))
+			else:
+				genreList = []
+				for item in genres:
+					genre, count = item
+					try:
+						genre = genre.replace("<", "")
+						genre = genre.replace(">", "")
+						genreList.append("<li>%s (%s)</li>"%(genre, count))
+					except AttributeError:
+						genreList.append("<li> No genre information (%s)</li>"%(count))
+				statusInfo.append("".join(["Top genres:<ol>", "\n".join(genreList), "</ol>"]))
 		if scriptCount == 0:
 			ui.message(", ".join(statusInfo))
 		else:
