@@ -1485,25 +1485,25 @@ class AppModule(appModuleHandler.AppModule):
 		if "PlaylistDurationAverage" in snapshot:
 			statusInfo.append("Average: %s"%snapshot["PlaylistDurationAverage"])
 		if "PlaylistArtistCount" in snapshot:
-			artists = snapshot["PlaylistArtistCount"].most_common()
 			if scriptCount == 0:
-				statusInfo.append("Top artist: %s (%s)"%(artists[0]))
+				statusInfo.append("Top artist: %s (%s)"%(snapshot["PlaylistArtistCount"][0]))
 			else:
+				artistCount = splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCountLimit"]
+				artists = snapshot["PlaylistArtistCount"].most_common(None if not artistCount else artistCount)
 				artistList = []
 				for item in artists:
 					artist, count = item
-					try:
-						artist = artist.replace("<", "")
-						artist = artist.replace(">", "")
+					if artist is None:
+						artistList.append("<li>No artist information (%s)</li>"%(count))
+					else:
 						artistList.append("<li>%s (%s)</li>"%(artist, count))
-					except AttributeError:
-						artistList.append("<li> No artist information (%s)</li>"%(count))
 				statusInfo.append("".join(["Top artists:<ol>", "\n".join(artistList), "</ol>"]))
 		if "PlaylistCategoryCount" in snapshot:
-			categories = snapshot["PlaylistCategoryCount"].most_common()
 			if scriptCount == 0:
-				statusInfo.append("Top category: %s (%s)"%(categories[0]))
+				statusInfo.append("Top category: %s (%s)"%(snapshot["PlaylistCategoryCount"][0]))
 			else:
+				categoryCount = splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCountLimit"]
+				categories = snapshot["PlaylistCategoryCount"].most_common(None if not categoryCount else categoryCount)
 				categoryList = []
 				for item in categories:
 					category, count = item
@@ -1512,19 +1512,18 @@ class AppModule(appModuleHandler.AppModule):
 					categoryList.append("<li>%s (%s)</li>"%(category, count))
 				statusInfo.append("".join(["Categories:<ol>", "\n".join(categoryList), "</ol>"]))
 		if "PlaylistGenreCount" in snapshot:
-			genres = snapshot["PlaylistGenreCount"].most_common()
 			if scriptCount == 0:
-				statusInfo.append("Top genre: %s (%s)"%(genres[0]))
+				statusInfo.append("Top genre: %s (%s)"%(snapshot["PlaylistGenreCount"][0]))
 			else:
+				genreCount = splconfig.SPLConfig["PlaylistSnapshots"]["GenreCountLimit"]
+				genres = snapshot["PlaylistGenreCount"].most_common(None if not genreCount else genreCount)
 				genreList = []
 				for item in genres:
 					genre, count = item
-					try:
-						genre = genre.replace("<", "")
-						genre = genre.replace(">", "")
+					if genre is None:
+						genreList.append("<li>No genre information (%s)</li>"%(count))
+					else:
 						genreList.append("<li>%s (%s)</li>"%(genre, count))
-					except AttributeError:
-						genreList.append("<li> No genre information (%s)</li>"%(count))
 				statusInfo.append("".join(["Top genres:<ol>", "\n".join(genreList), "</ol>"]))
 		if scriptCount == 0:
 			ui.message(", ".join(statusInfo))
