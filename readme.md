@@ -45,6 +45,7 @@ The following commands are not assigned by default; if you wish to assign them, 
 * Announcing title of the currently playing track.
 * Marking current track for start of track time analysis.
 * Performing track time analysis.
+* Take playlist snapshots.
 * Find text in specific columns.
 * Find tracks with duration that falls within a given range via time range finder.
 * Quickly enable or disable metadata streaming.
@@ -107,6 +108,7 @@ The available commands are:
 * W: Weather and temperature if configured.
 * Y: Playlist modified status.
 * 1 through 0 (6 for Studio 5.0x): Announce column content for a specified column.
+* F8: Take playlist snapshots (number of tracks, longest track, etc.).
 * F9: Mark current track for track time analysis (playlist viewer only).
 * F10: Perform track time analysis (playlist viewer only).
 * F12: Switch between current and a predefined profile.
@@ -160,6 +162,10 @@ To obtain length to play selected tracks, mark current track for start of track 
 
 By pressing Control+NVDA+1 through 0 (6 for Studio 5.0x) or SPL Assistant, 1 through 0 (6 for Studio 5.01 and earlier), you can obtain contents of specific columns. By default, these are artist, title, duration, intro, category and filename (Studio 5.10 adds year, album, genre and time scheduled). You can configure which columns will be explored via columns explorer dialog found in add-on settings dialog.
 
+## Playlist snapshots
+
+You can press SPL Assistant, F8 while focused on a playlist in Studio to obtain various statistics about a playlist, including number of tracks in the playlist, longest track, top artists and so on. After assigning a custom command for this feature, pressing the custom command twice will cause NVDA to present playlist snapshot information as a webpage so you can use browse mode to navigate (press escape to close).
+
 ## Configuration dialog
 
 From studio window, you can press Alt+NVDA+0 to open the add-on configuration dialog. Alternatively, go to NVDA's preferences menu and select SPL Studio Settings item. This dialog is also used to manage broadcast profiles.
@@ -175,6 +181,8 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * Added a combo box in add-on settings dialog to set which column should be announced when moving through columns vertically.
 * Moved end of track , intro and microphone alarm controls from add-on settings to the new Alarms Center.
 * In Alarms Center, end of track and track intro edit fields are always shown regardless of state of alarm notification checkboxes.
+* Added a command in SPL Assistant to obtain playlist snapshots such as number of tracks, longest track, top artists and so on (F8). You can also add a custom command for this feature.
+* Pressing the custom gesture for playlist snapshots command once will let NVDA speak and braile a short snapshot information. Pressing the command twice will cause NVDA to open a webpage containing a fuller playlist snapshot information. Press escape to close this webpage.
 * Removed Track Dial (NVDA's version of enhanced arrow keys), replaced by Columns explorer and Column Navigator/table navigation commands). This affects Studio and Track Tool.
 * After closing Insert Tracks dialog while a library scan is in progress, it is no longer required to press SPL Assistant, Shift+R to monitor scan progress.
 * Improved accuracy of detecting and reporting completion of library scans in Studio 5.10 and later. This fixes a problem where library scan monitor will end prematurely when there are more tracks to be scanned, necessitating restarting library scan monitor.
