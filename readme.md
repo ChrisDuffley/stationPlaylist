@@ -187,6 +187,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * After closing Insert Tracks dialog while a library scan is in progress, it is no longer required to press SPL Assistant, Shift+R to monitor scan progress.
 * Improved accuracy of detecting and reporting completion of library scans in Studio 5.10 and later. This fixes a problem where library scan monitor will end prematurely when there are more tracks to be scanned, necessitating restarting library scan monitor.
 * Improved library scan status reporting via SPL Controller (Shift+R) by announcing scan count if scan is indeed happening.
+* In studio Demo, when registration screen appears when starting Studio, commands such as remaining time for a track will no longer cause NVDA to do nothing, play error tones, or give wrong information. An error message will be announced instead. Commands such as these will require Studio's main window handle to be present.
 * Initial support for StationPlaylist Creator.
 * Added a new command in SPL Controller layer to announce Studio status such as track playback and microphone status (Q).
 

@@ -101,6 +101,15 @@ def studioAPI(arg, command, func=None, ret=False, offset=None):
 	if func:
 		func(val) if not offset else func(val, offset)
 
+# Check if Studio itself is running.
+# This is to make sure custom commands for SPL Assistant comamnds and other app module gestures display appropriate error messages.
+def studioIsRunning():
+	if _SPLWin is None:
+		# Translators: A message informing users that Studio is not running so certain commands will not work.
+		ui.message(_("Studio main window not found"))
+		return False
+	return True
+
 # Select a track upon request.
 def selectTrack(trackIndex):
 	studioAPI(-1, 121)
@@ -925,16 +934,17 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Scripts which rely on API.
 	def script_sayRemainingTime(self, gesture):
-		studioAPI(3, 105, self.announceTime, offset=1)
+		if studioIsRunning(): studioAPI(3, 105, self.announceTime, offset=1)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayRemainingTime.__doc__=_("Announces the remaining track time.")
 
 	def script_sayElapsedTime(self, gesture):
-		studioAPI(0, 105, self.announceTime)
+		if studioIsRunning(): studioAPI(0, 105, self.announceTime)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayElapsedTime.__doc__=_("Announces the elapsed time for the currently playing track.")
 
 	def script_sayBroadcasterTime(self, gesture):
+		if not studioIsRunning(): return
 		# Says things such as "25 minutes to 2" and "5 past 11".
 		# Parse the local time and say it similar to how Studio presents broadcaster time.
 		h, m = time.localtime()[3], time.localtime()[4]
@@ -956,6 +966,7 @@ class AppModule(appModuleHandler.AppModule):
 	script_sayBroadcasterTime.__doc__=_("Announces broadcaster time.")
 
 	def script_sayCompleteTime(self, gesture):
+		if not studioIsRunning(): return
 		import winKernel
 		# Says complete time in hours, minutes and seconds via kernel32's routines.
 		ui.message(winKernel.GetTimeFormat(winKernel.LOCALE_USER_DEFAULT, 0, None, None))
@@ -1083,6 +1094,7 @@ class AppModule(appModuleHandler.AppModule):
 	# But first, check if track finder can be invoked.
 	# Attempt level specifies which track finder to open (0 = Track Finder, 1 = Column Search, 2 = Time range).
 	def _trackFinderCheck(self, attemptLevel):
+		if not studioIsRunning(): return False
 		if api.getForegroundObject().windowClassName != "TStudioForm":
 			if attemptLevel == 0:
 				# Translators: Presented when a user attempts to find tracks but is not at the track list.
@@ -1194,6 +1206,7 @@ class AppModule(appModuleHandler.AppModule):
 			self.bindGestures(self.__gestures)
 
 	def script_toggleCartExplorer(self, gesture):
+		if not studioIsRunning(): return
 		if not self.cartExplorer:
 			# Prevent cart explorer from being engaged outside of playlist viewer.
 			# Todo for 6.0: Let users set cart banks.
@@ -1352,7 +1365,7 @@ class AppModule(appModuleHandler.AppModule):
 	def script_manageMetadataStreams(self, gesture):
 		# Do not even think about opening this dialog if handle to Studio isn't found.
 		if _SPLWin is None:
-			# Translators: Presented when stremaing dialog cannot be shown.
+			# Translators: Presented when streaming dialog cannot be shown.
 			ui.message(_("Cannot open metadata streaming dialog"))
 			return
 		if splconfui._configDialogOpened or splconfui._metadataDialogOpened:
@@ -1380,6 +1393,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Trakc time analysis and playlist snapshots require main playlist viewer to be the foreground window.
 	def _trackAnalysisAllowed(self):
+		if not studioIsRunning():
+			return False
 		if api.getForegroundObject().windowClassName != "TStudioForm":
 			# Translators: Presented when track time anlaysis cannot be performed because user is not focused on playlist viewer.
 			ui.message(_("Not in playlist viewer, cannot perform track time analysis or gather playlist snapshot statistics"))
@@ -1550,7 +1565,6 @@ class AppModule(appModuleHandler.AppModule):
 	def script_sendFeedbackEmail(self, gesture):
 		os.startfile("mailto:joseph.lee22590@gmail.com")
 	script_sendFeedbackEmail.__doc__="Opens the default email client to send an email to the add-on developer"
-
 
 	# SPL Assistant: reports status on playback, operation, etc.
 	# Used layer command approach to save gesture assignments.
@@ -1733,6 +1747,9 @@ class AppModule(appModuleHandler.AppModule):
 			ui.message(_("Playlist modification not available"))
 
 	def script_sayNextTrackTitle(self, gesture):
+		if not studioIsRunning():
+			self.finish()
+			return
 		try:
 			obj = self.status(self.SPLNextTrackTitle).firstChild
 			# Translators: Presented when there is no information for the next track.
@@ -1746,6 +1763,9 @@ class AppModule(appModuleHandler.AppModule):
 	script_sayNextTrackTitle.__doc__=_("Announces title of the next track if any")
 
 	def script_sayCurrentTrackTitle(self, gesture):
+		if not studioIsRunning():
+			self.finish()
+			return
 		try:
 			obj = self.status(self.SPLCurrentTrackTitle).firstChild
 			# Translators: Presented when there is no information for the current track.
@@ -1759,6 +1779,9 @@ class AppModule(appModuleHandler.AppModule):
 	script_sayCurrentTrackTitle.__doc__=_("Announces title of the currently playing track")
 
 	def script_sayTemperature(self, gesture):
+		if not studioIsRunning():
+			self.finish()
+			return
 		try:
 			obj = self.status(self.SPLTemperature).firstChild
 			# Translators: Presented when there is no weather or temperature information.
@@ -1871,6 +1894,9 @@ class AppModule(appModuleHandler.AppModule):
 	script_trackTimeAnalysis.__doc__=_("Announces total length of tracks between analysis start marker and the current track")
 
 	def script_takePlaylistSnapshots(self, gesture):
+		if not studioIsRunning():
+			self.finish()
+			return
 		obj = api.getFocusObject() if api.getForegroundObject().windowClassName == "TStudioForm" else self._focusedTrack
 		if obj is None:
 			ui.message("Please return to playlist viewer before invoking this command.")
