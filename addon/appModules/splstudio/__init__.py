@@ -1476,7 +1476,6 @@ class AppModule(appModuleHandler.AppModule):
 # Output formatter for playlist snapshots.
 # Pressed once will speak and/or braille it, pressing twice or more will output this info to an HTML file.
 	def playlistSnapshotOutput(self, snapshot, scriptCount):
-		scriptCount = 1
 		statusInfo = ["Tracks: %s"%snapshot["PlaylistTrackCount"]]
 		statusInfo.append("Duration: %s"%snapshot["PlaylistDurationTotal"])
 		if "PlaylistDurationMin" in snapshot:
@@ -1485,11 +1484,11 @@ class AppModule(appModuleHandler.AppModule):
 		if "PlaylistDurationAverage" in snapshot:
 			statusInfo.append("Average: %s"%snapshot["PlaylistDurationAverage"])
 		if "PlaylistArtistCount" in snapshot:
+			artistCount = splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCountLimit"]
+			artists = snapshot["PlaylistArtistCount"].most_common(None if not artistCount else artistCount)
 			if scriptCount == 0:
-				statusInfo.append("Top artist: %s (%s)"%(snapshot["PlaylistArtistCount"][0]))
-			else:
-				artistCount = splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCountLimit"]
-				artists = snapshot["PlaylistArtistCount"].most_common(None if not artistCount else artistCount)
+				statusInfo.append("Top artist: %s (%s)"%(artists[0][:]))
+			elif scriptCount == 1:
 				artistList = []
 				for item in artists:
 					artist, count = item
@@ -1499,11 +1498,11 @@ class AppModule(appModuleHandler.AppModule):
 						artistList.append("<li>%s (%s)</li>"%(artist, count))
 				statusInfo.append("".join(["Top artists:<ol>", "\n".join(artistList), "</ol>"]))
 		if "PlaylistCategoryCount" in snapshot:
+			categoryCount = splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCountLimit"]
+			categories = snapshot["PlaylistCategoryCount"].most_common(None if not categoryCount else categoryCount)
 			if scriptCount == 0:
-				statusInfo.append("Top category: %s (%s)"%(snapshot["PlaylistCategoryCount"][0]))
-			else:
-				categoryCount = splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCountLimit"]
-				categories = snapshot["PlaylistCategoryCount"].most_common(None if not categoryCount else categoryCount)
+				statusInfo.append("Top category: %s (%s)"%(categories[0][:]))
+			elif scriptCount == 1:
 				categoryList = []
 				for item in categories:
 					category, count = item
@@ -1512,11 +1511,11 @@ class AppModule(appModuleHandler.AppModule):
 					categoryList.append("<li>%s (%s)</li>"%(category, count))
 				statusInfo.append("".join(["Categories:<ol>", "\n".join(categoryList), "</ol>"]))
 		if "PlaylistGenreCount" in snapshot:
+			genreCount = splconfig.SPLConfig["PlaylistSnapshots"]["GenreCountLimit"]
+			genres = snapshot["PlaylistGenreCount"].most_common(None if not genreCount else genreCount)
 			if scriptCount == 0:
-				statusInfo.append("Top genre: %s (%s)"%(snapshot["PlaylistGenreCount"][0]))
-			else:
-				genreCount = splconfig.SPLConfig["PlaylistSnapshots"]["GenreCountLimit"]
-				genres = snapshot["PlaylistGenreCount"].most_common(None if not genreCount else genreCount)
+				statusInfo.append("Top genre: %s (%s)"%(genres[0][:]))
+			elif scriptCount == 1:
 				genreList = []
 				for item in genres:
 					genre, count = item
@@ -1875,12 +1874,22 @@ class AppModule(appModuleHandler.AppModule):
 		obj = api.getFocusObject() if api.getForegroundObject().windowClassName == "TStudioForm" else self._focusedTrack
 		if obj is None:
 			ui.message("Please return to playlist viewer before invoking this command.")
+			self.finish()
 			return
 		if obj.role == controlTypes.ROLE_LIST:
 			ui.message(_("You need to add tracks before invoking this command"))
+			self.finish()
 			return
-		# Speak and braille on the first press, display a decorated HTML message for subsequent presses.
-		self.playlistSnapshotOutput(self.playlistSnapshots(obj.parent.firstChild, None), scriptHandler.getLastScriptRepeatCount())
+		scriptCount = scriptHandler.getLastScriptRepeatCount()
+		# Never allow this to be invoked more than twice, as it causes performance degredation and multiple HTML windows are opened.
+		if scriptCount >= 2:
+			self.finish()
+			return
+			# Speak and braille on the first press, display a decorated HTML message for subsequent presses.
+		self.playlistSnapshotOutput(self.playlistSnapshots(obj.parent.firstChild, None), scriptCount)
+		self.finish()
+	# Translators: Input help mode message for a command in Station Playlist Studio.
+	script_takePlaylistSnapshots.__doc__=_("Presents playlist snapshot information such as number of tracks and top artists")
 
 	def script_switchProfiles(self, gesture):
 		splconfig.triggerProfileSwitch() if splconfig._triggerProfileActive else splconfig.instantProfileSwitch()
