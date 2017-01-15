@@ -37,6 +37,7 @@ _updatePickle = os.path.join(globalVars.appArgs.configPath, "splupdate.pickle")
 # Not all update channels are listed. The one not listed here is the default ("stable" for this branch).
 channels={
 	"stable":"http://addons.nvda-project.org/files/get.php?file=spl",
+	"lts":"http://josephsl.net/files/nvdaaddons/get.php?file=spl-lts16",
 	#"beta":"http://spl.nvda-kr.org/files/get.php?file=spl-beta",
 }
 
