@@ -1,4 +1,5 @@
-# StationPlaylist Studio #
+
+[[!meta title="StationPlaylist Studio"]]
 
 * Készítők: Geoff Shang, Joseph Lee, és további közreműködők
 * Letöltés [Stabil verzió][1]
@@ -259,6 +260,20 @@ Amennyiben érintőképernyős számítógépen használja a Studiot Windows 8, 
 újabb verzió alatt, NVDA 2012.3 vagy újabb verzióval, bizonyos Studio
 parancsokat végrehajthat az érintőképernyőn is. Először 3 ujjas koppintással
 váltson SPL módra, és utána már használhatók az alább felsorolt parancsok.
+
+## Version 17.01/15.5-LTS
+
+* Improved responsiveness and reliability when using the add-on to switch to
+  Studio, either using focus to Studio command from other programs or when
+  an encoder is connected and NVDA is told to switch to Studio when this
+  happens. If Studio is minimized, Studio window will be shown as
+  unavailable. If so, restore Studio window from system tray.
+* If editing carts while Cart Explorer is active, it is no longer necessary
+  to reenter Cart Explorer to view updated cart assignments when Cart Edit
+  mode is turned off. Consequently, Cart Explorer reentry message is no
+  longer announced.
+* In add-on 15.5-LTS, corrected user interface presentation for SPL add-on
+  settings dialog.
 
 ## Version 16.12.1
 

@@ -1,4 +1,5 @@
-# StationPlaylist Studio #
+
+[[!meta title="StationPlaylist Studio"]]
 
 * مطورو الإضافة: Geoff Shang, Joseph Lee وآخرون
 * تحميل [الإصدار النهائي][1]
@@ -248,6 +249,20 @@ broadcast profiles.
 بعده ولديك NVDA 2012.3 وما بعده, يمكنك أداء بعض الأوامر من شاشة اللمس. أولا
 استخدم لمسة ب3 أصابع للانتقال لنمط اللمس, ثم استخدم أوامر اللمس المسرودة
 أعلاه لأداء المهام.
+
+## Version 17.01/15.5-LTS
+
+* Improved responsiveness and reliability when using the add-on to switch to
+  Studio, either using focus to Studio command from other programs or when
+  an encoder is connected and NVDA is told to switch to Studio when this
+  happens. If Studio is minimized, Studio window will be shown as
+  unavailable. If so, restore Studio window from system tray.
+* If editing carts while Cart Explorer is active, it is no longer necessary
+  to reenter Cart Explorer to view updated cart assignments when Cart Edit
+  mode is turned off. Consequently, Cart Explorer reentry message is no
+  longer announced.
+* In add-on 15.5-LTS, corrected user interface presentation for SPL add-on
+  settings dialog.
 
 ## Version 16.12.1
 
