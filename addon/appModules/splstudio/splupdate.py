@@ -23,7 +23,7 @@ SPLAddonCheck = 0
 # Update metadata storage.
 SPLAddonState = {}
 # Update URL (the only way to change it is installing a different version from a different branch).
-SPLUpdateURL = "http://josephsl.net/files/nvdaaddons/get.php?file=spl-lts16"
+SPLUpdateURL = "http://www.josephsl.net/files/nvdaaddons/get.php?file=spl-lts16"
 _pendingChannelChange = False
 _updateNow = False
 SPLUpdateChannel = "lts"
