@@ -509,6 +509,6 @@ Version 4.0 supports SPL Studio 5.00 and later, with 3.x designed to provide som
 
 [2]: http://addons.nvda-project.org/files/get.php?file=spl-dev
 
-[3]: http://josephsl.net/files/nvdaaddons/get.php?file=spl-lts7
+[3]: http://www.josephsl.net/files/nvdaaddons/get.php?file=spl-lts7
 
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
