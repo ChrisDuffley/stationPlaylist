@@ -3,7 +3,7 @@
 * Authors: Geoff Shang, Joseph Lee and other contributors
 * Download [stable version][1]
 * Download [development version][2]
-* Download [long-term support version][3] - add-on 7.x for Studio 5.0x users
+* Download [long-term support version][3] - add-on 15.x for Studio 5.0x users
 
 This add-on package provides improved usage of StationPlaylist Studio, as well as providing utilities to control the Studio from anywhere.
 
@@ -172,6 +172,9 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Version 15.5-LTS
 
+Note: 15.5A-LTS replaces 15.5 due to changes to location of new add-on files.
+
+* 15.5A-LTS: Changed where updates are downloaded from for long-term support releases. Installing this version is mandatory.
 * Improved responsiveness and reliability when using the add-on to switch to Studio, either using focus to Studio command from other programs or when an encoder is connected and NVDA is told to switch to Studio when this happens. If Studio is minimized, Studio window will be shown as unavailable. If so, restore Studio window from system tray.
 * If editing carts while Cart Explorer is active, it is no longer necessary to reenter Cart Explorer to view updated cart assignments when Cart Edit mode is turned off. Consequently, Cart Explorer reentry message is no longer announced.
 * Corrected user interface presentation for SPL add-on settings dialog.
@@ -503,6 +506,6 @@ Version 4.0 supports SPL Studio 5.00 and later, with 3.x designed to provide som
 
 [2]: http://addons.nvda-project.org/files/get.php?file=spl-dev
 
-[3]: http://spl.nvda-kr.org/files/get.php?file=spl-lts7
+[3]: http://josephsl.net/files/nvdaaddons/get.php?file=spl-lts16
 
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
