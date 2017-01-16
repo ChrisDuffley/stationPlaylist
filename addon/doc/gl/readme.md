@@ -1,4 +1,5 @@
-# StationPlaylist Studio #
+
+[[!meta title="StationPlaylist Studio"]]
 
 * Autores: Geoff Shang, Joseph Lee e outros colaboradores
 * Descargar [versión estable][1]
@@ -279,9 +280,26 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
-## Version 16.12.1
+## Versión 17.01/15.5-LTS
 
-* Corrected user interface presentation for SPL add-on settings dialog.
+* Mellorada a resposta e a fiabilidade ao se usar o complemento para cambiar
+  ao Studio, ou usando o foco para ordes do Studio dende outros programas ou
+  cando un codificador está conectado e se lle pide ao NVDA que cambie ao
+  Studio cando esto ocurra. Se o Studio se minimiza, a ventá do Studio
+  amosarase como non dispoñible. Se é así, restaura a ventá do Studio dende
+  a bandexa do sistema.
+* Se se editan carts mentres o explorador de Cart está activado, xa non é
+  necesario reintroducir o explorador de Cart para ver as asignacións de
+  cart actualizadas cando o modo Edición de Cart se
+  desactive. Consecuentemente, a mensaxe reintroducir explorador de Cart xa
+  non se anuncia.
+* No complemento 15.5-LTS,  correxiuse a presentación da interfaz do usuario
+  para o diálogo de opcións do complemento SPL.
+
+## Versión 16.12.1
+
+* Correxida a presentación da interfaz do usuario para o diálogo de opcións
+  do complemento SPL.
 * Traducións actualizadas.
 
 ## Versión 16.12/15.4-LTS
