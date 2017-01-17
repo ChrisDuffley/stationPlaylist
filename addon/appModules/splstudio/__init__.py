@@ -126,6 +126,9 @@ _SPLCategoryTones = {
 class SPLTrackItem(IAccessible):
 	"""A base class for providing utility scripts when track entries are focused, such as track dial."""
 
+	# Keep a record of which column is being looked at.
+	_curColumnNumber = None
+
 	def initOverlayClass(self):
 		# LTS: Take a greater role in assigning enhanced Columns Explorer command at the expense of limiting where this can be invoked.
 		# 8.0: Just assign number row.
@@ -148,6 +151,8 @@ class SPLTrackItem(IAccessible):
 			return None
 
 	def reportFocus(self):
+		# initialize column navigation tracker.
+		if self.__class__._curColumnNumber is None: self.__class__._curColumnNumber = 0
 		# 7.0: Cache column header data structures if meeting track items for the first time.
 		# It is better to do it while reporting focus, otherwise Python throws recursion limit exceeded error when initOverlayClass does this.
 		if self.appModule._columnHeaders is None:
@@ -180,10 +185,10 @@ class SPLTrackItem(IAccessible):
 		else:
 			self.appModule._announceColumnOnly = None
 			verticalColumnAnnounce = splconfig.SPLConfig["General"]["VerticalColumnAnnounce"]
-			if verticalColumnAnnounce == "Status" or (verticalColumnAnnounce is None and self.appModule.SPLColNumber == 0):
+			if verticalColumnAnnounce == "Status" or (verticalColumnAnnounce is None and self._curColumnNumber == 0):
 				self._leftmostcol()
 			else:
-				self.announceColumnContent(self.appModule.SPLColNumber if verticalColumnAnnounce is None else self.indexOf(verticalColumnAnnounce), header=verticalColumnAnnounce, reportStatus=self.name is not None)
+				self.announceColumnContent(self._curColumnNumber if verticalColumnAnnounce is None else self.indexOf(verticalColumnAnnounce), header=verticalColumnAnnounce, reportStatus=self.name is not None)
 		# 7.0: Let the app module keep a reference to this track.
 		self.appModule._focusedTrack = self
 
@@ -225,29 +230,29 @@ class SPLTrackItem(IAccessible):
 	# Now the scripts.
 
 	def script_nextColumn(self, gesture):
-		if (self.appModule.SPLColNumber+1) == self.appModule._columnHeaders.childCount:
+		if (self._curColumnNumber+1) == self.appModule._columnHeaders.childCount:
 			tones.beep(2000, 100)
 		else:
-			self.appModule.SPLColNumber +=1
-		self.announceColumnContent(self.appModule.SPLColNumber)
+			self.__class__._curColumnNumber +=1
+		self.announceColumnContent(self._curColumnNumber)
 
 	def script_prevColumn(self, gesture):
-		if self.appModule.SPLColNumber <= 0:
+		if self._curColumnNumber <= 0:
 			tones.beep(2000, 100)
 		else:
-			self.appModule.SPLColNumber -=1
-		if self.appModule.SPLColNumber == 0:
+			self.__class__._curColumnNumber -=1
+		if self._curColumnNumber == 0:
 			self._leftmostcol()
 		else:
-			self.announceColumnContent(self.appModule.SPLColNumber)
+			self.announceColumnContent(self._curColumnNumber)
 
 	def script_firstColumn(self, gesture):
-		self.appModule.SPLColNumber = 0
+		self.__class__._curColumnNumber = 0
 		self._leftmostcol()
 
 	def script_lastColumn(self, gesture):
-		self.appModule.SPLColNumber = self.appModule._columnHeaders.childCount-1
-		self.announceColumnContent(self.appModule.SPLColNumber)
+		self.__class__._curColumnNumber = self.appModule._columnHeaders.childCount-1
+		self.announceColumnContent(self._curColumnNumber)
 
 	# Track movement scripts.
 	# Detects top/bottom of a playlist if told to do so.
@@ -270,6 +275,7 @@ class SPLTrackItem(IAccessible):
 			tones.beep(2000, 100)
 		else:
 			self.appModule._announceColumnOnly = True
+			newTrack._curColumnNumber = self._curColumnNumber
 			newTrack.setFocus(), newTrack.setFocus()
 			selectTrack(newTrack.IAccessibleChildID-1)
 
@@ -279,6 +285,7 @@ class SPLTrackItem(IAccessible):
 			tones.beep(2000, 100)
 		else:
 			self.appModule._announceColumnOnly = True
+			newTrack._curColumnNumber = self._curColumnNumber
 			newTrack.setFocus(), newTrack.setFocus()
 			selectTrack(newTrack.IAccessibleChildID-1)
 
@@ -665,8 +672,6 @@ class AppModule(appModuleHandler.AppModule):
 	scanCount = 0
 	# Prevent NVDA from announcing scheduled time multiple times.
 	scheduledTimeCache = ""
-	# Track Dial (A.K.A. enhanced arrow keys)
-	SPLColNumber = 0
 
 	# Automatically announce mic, line in, etc changes
 	# These items are static text items whose name changes.
@@ -874,6 +879,8 @@ class AppModule(appModuleHandler.AppModule):
 			import globalPlugins.splUtils.encoders
 			globalPlugins.splUtils.encoders.cleanup()
 		splconfig.saveConfig()
+		# reset column number for column navigation commands.
+		if self._focusedTrack: self._focusedTrack.__class__._curColumnNumber = None
 		# Delete focused track reference.
 		self._focusedTrack = None
 		try:
