@@ -152,6 +152,6 @@ def updateCheck(auto=False, continuous=False, confUpdateInterval=1):
 	else: wx.CallAfter(getUpdateResponse, checkMessage, _("Studio add-on update"), updateURL)
 
 def getUpdateResponse(message, caption, updateURL):
-	if gui.messageBox(message, caption, wx.YES | wx.NO | wx.CANCEL | wx.CENTER | wx.ICON_QUESTION) == wx.YES:
+	if gui.messageBox(message, caption, wx.YES_NO | wx.NO_DEFAULT | wx.CANCEL | wx.CENTER | wx.ICON_QUESTION) == wx.YES:
 		os.startfile(updateURL)
 
