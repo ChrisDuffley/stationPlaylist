@@ -1,5 +1,4 @@
-
-[[!meta title="StationPlaylist Studio"]]
+# StationPlaylist Studio #
 
 * Autores: Geoff Shang, Joseph Lee y otros colaboradores
 * Descargar [Versión estable][1]
@@ -290,6 +289,12 @@ un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 
 ## Versión 17.01/15.5-LTS
 
+Nota: 17.01.1/15.5A-LTS reemplaza a 17.01 debido a cambios de la
+localización de los ficheros nuevos del complemento.
+
+* 17.01.1/15.5A-LTS: se cambió de dónde se descargan las actualizaciones
+  para las versiones de soporte a largo plazo. Es obligatoria la instalación
+  de esta versión.
 * Mejorada la respuesta y la fiabilidad al utilizar el complemento para
   cambiar a Studio, o utilizando el foco para órdenes de Studio desde otros
   programas o cuando un codificador está conectado y se le pide a NVDA que
@@ -1014,6 +1019,6 @@ utilizando versiones anteriores de Studio.
 
 [2]: http://addons.nvda-project.org/files/get.php?file=spl-dev
 
-[3]: http://spl.nvda-kr.org/files/get.php?file=spl-lts16
+[3]: http://josephsl.net/files/nvdaaddons/get.php?file=spl-lts16
 
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide

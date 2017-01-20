@@ -1,5 +1,4 @@
-
-[[!meta title="StationPlaylist Studio"]]
+# StationPlaylist Studio #
 
 * Autores: Geoff Shang, Joseph Lee e outros colaboradores
 * Descargar [versión estable][1]
@@ -282,6 +281,12 @@ listadas arriba para realizar ordes.
 
 ## Versión 17.01/15.5-LTS
 
+Nota: 17.01.1/15.5A-LTS reemplaza a 17.01 debido aos cambios da localización
+dos ficheiros novos do complemento.
+
+* 17.01.1/15.5A-LTS: cambiouse de onde se descargan as actualizacións para
+  as versións de soporte a longo prazo. É obrigatoria a instalación desta
+  versión.
 * Mellorada a resposta e a fiabilidade ao se usar o complemento para cambiar
   ao Studio, ou usando o foco para ordes do Studio dende outros programas ou
   cando un codificador está conectado e se lle pide ao NVDA que cambie ao
@@ -988,6 +993,6 @@ utilicen versións anteriores de Studio.
 
 [2]: http://addons.nvda-project.org/files/get.php?file=spl-dev
 
-[3]: http://spl.nvda-kr.org/files/get.php?file=spl-lts16
+[3]: http://josephsl.net/files/nvdaaddons/get.php?file=spl-lts16
 
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
