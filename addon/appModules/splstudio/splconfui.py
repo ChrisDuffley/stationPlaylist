@@ -484,7 +484,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 			_("Are you sure you want to delete this profile? This cannot be undone."),
 			# Translators: The title of the confirmation dialog for deletion of a profile.
 			_("Confirm Deletion"),
-			wx.YES | wx.NO | wx.ICON_QUESTION, self
+			wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION, self
 		) == wx.NO:
 			return
 		splconfig.SPLConfig.deleteProfile(name)

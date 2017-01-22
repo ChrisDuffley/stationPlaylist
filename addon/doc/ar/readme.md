@@ -1,5 +1,4 @@
-
-[[!meta title="StationPlaylist Studio"]]
+# StationPlaylist Studio #
 
 * مطورو الإضافة: Geoff Shang, Joseph Lee وآخرون
 * تحميل [الإصدار النهائي][1]
@@ -252,6 +251,11 @@ broadcast profiles.
 
 ## Version 17.01/15.5-LTS
 
+Note: 17.01.1/15.5A-LTS replaces 17.01 due to changes to location of new
+add-on files.
+
+* 17.01.1/15.5A-LTS: Changed where updates are downloaded from for long-term
+  support releases. Installing this version is mandatory.
 * Improved responsiveness and reliability when using the add-on to switch to
   Studio, either using focus to Studio command from other programs or when
   an encoder is connected and NVDA is told to switch to Studio when this
@@ -857,6 +861,6 @@ for stable releases.
 
 [2]: http://addons.nvda-project.org/files/get.php?file=spl-dev [2]: 
 
-[3]: http://spl.nvda-kr.org/files/get.php?file=spl-lts16
+[3]: http://josephsl.net/files/nvdaaddons/get.php?file=spl-lts16
 
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
