@@ -13,8 +13,7 @@ import winUser
 import addonHandler
 addonHandler.initTranslation()
 
-# Layer environment: same as the app module counterpart.
-
+# The finally function for status announcement scripts in this module (source: Tyler Spivey's code).
 def finally_(func, final):
 	"""Calls final after func, even if it fails."""
 	def wrap(f):
@@ -80,7 +79,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			return globalPluginHandler.GlobalPlugin.getScript(self, gesture)
 		script = globalPluginHandler.GlobalPlugin.getScript(self, gesture)
 		if not script:
-			script = finally_(self.script_error, self.finish)
+			script = self.script_error
 		return finally_(script, self.finish)
 
 	def finish(self):
