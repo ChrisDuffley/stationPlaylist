@@ -2004,7 +2004,7 @@ class AppModule(appModuleHandler.AppModule):
 			_("Add-on update check"),
 			# Translators: The message displayed while checking for newer version of Studio add-on.
 			_("Checking for new version of Studio add-on..."))
-		threading.Thread(target=splupdate.updateCheck, kwargs={"continuous":splconfig.SPLConfig["Update"]["AutoUpdateCheck"], "confUpdateInterval":splconfig.SPLConfig["Update"]["UpdateInterval"]}).start()
+		threading.Thread(target=splupdate.updateChecker, kwargs={"continuous":splconfig.SPLConfig["Update"]["AutoUpdateCheck"], "confUpdateInterval":splconfig.SPLConfig["Update"]["UpdateInterval"]}).start()
 
 
 	__SPLAssistantGestures={

@@ -17,7 +17,7 @@ import gui
 import wx
 import addonHandler
 import globalVars
-import updateCheck as coreUpdateCheck
+import updateCheck
 import config
 import winUser
 
@@ -95,7 +95,7 @@ _progressDialog = None
 # The update check routine.
 # Auto is whether to respond with UI (manual check only), continuous takes in auto update check variable for restarting the timer.
 # ConfUpdateInterval comes from add-on config dictionary.
-def updateCheck(auto=False, continuous=False, confUpdateInterval=1):
+def updateChecker(auto=False, continuous=False, confUpdateInterval=1):
 	if _pendingChannelChange:
 		wx.CallAfter(gui.messageBox, _("Did you recently tell SPL add-on to use a different update channel? If so, please restart NVDA before checking for add-on updates."), _("Update channel changed"), wx.ICON_ERROR)
 		return
@@ -211,7 +211,7 @@ def checkForUpdate(auto=False):
 	return info
 
 
-class SPLUpdateDownloader(coreUpdateCheck.UpdateDownloader):
+class SPLUpdateDownloader(updateCheck.UpdateDownloader):
 	"""Overrides NVDA Core's downloader.)
 	No hash checking for now, and URL's and temp file paths are different.
 	"""

@@ -832,14 +832,14 @@ def triggerProfileSwitch():
 # Its only job is to call the update check function (splupdate) with the auto check enabled.
 # The update checker will not be engaged if an instant switch profile is active or it is not time to check for it yet (check will be done every 24 hours).
 def autoUpdateCheck():
-	splupdate.updateCheck(auto=True, continuous=SPLConfig["Update"]["AutoUpdateCheck"], confUpdateInterval=SPLConfig["Update"]["UpdateInterval"])
+	splupdate.updateChecker(auto=True, continuous=SPLConfig["Update"]["AutoUpdateCheck"], confUpdateInterval=SPLConfig["Update"]["UpdateInterval"])
 
 # The timer itself.
 # A bit simpler than NVDA Core's auto update checker.
 def updateInit():
 	# LTS: Launch updater if channel change is detected.
 	if splupdate._updateNow:
-		splupdate.updateCheck(auto=True) # No repeat here.
+		splupdate.updateChecker(auto=True) # No repeat here.
 		splupdate._SPLUpdateT = wx.PyTimer(autoUpdateCheck)
 		splupdate._updateNow = False
 		return
@@ -850,7 +850,7 @@ def updateInit():
 	elif splupdate.SPLAddonCheck < nextCheck < currentTime:
 		interval = SPLConfig["Update"]["UpdateInterval"]* 86400
 		# Call the update check now.
-		splupdate.updateCheck(auto=True) # No repeat here.
+		splupdate.updateChecker(auto=True) # No repeat here.
 	splupdate._SPLUpdateT = wx.PyTimer(autoUpdateCheck)
 	splupdate._SPLUpdateT.Start(interval * 1000, True)
 
