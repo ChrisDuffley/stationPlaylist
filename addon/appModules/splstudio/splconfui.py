@@ -1299,6 +1299,9 @@ class SayStatusDialog(wx.Dialog):
 # 7.0: Auto update check will be configurable from this dialog.
 class AdvancedOptionsDialog(wx.Dialog):
 
+	# Available channels (if there's only one, channel selection list will not be shown).
+	_updateChannels = ("dev", "stable")
+
 	def __init__(self, parent):
 		# Translators: The title of a dialog to configure advanced SPL add-on options such as update checking.
 		super(AdvancedOptionsDialog, self).__init__(parent, title=_("Advanced options"))
@@ -1311,12 +1314,12 @@ class AdvancedOptionsDialog(wx.Dialog):
 		self.autoUpdateCheckbox.SetValue(self.Parent.autoUpdateCheck)
 		# Translators: The label for a setting in SPL add-on settings/advanced options to select automatic update interval in days.
 		self.updateInterval=advOptionsHelper.addLabeledControl(_("Update &interval in days"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=30, initial=parent.updateInterval)
-		# LTS and 8.x only.
-		# Translators: The label for a combo box to select update channel.
-		labelText = _("&Add-on update channel:")
-		self.channels=advOptionsHelper.addLabeledControl(labelText, wx.Choice, choices=["development", "stable"])
-		self.updateChannels = ("dev", "stable")
-		self.channels.SetSelection(self.updateChannels.index(self.Parent.updateChannel))
+		# For releases that support channel switching.
+		if len(self._updateChannels) > 1:
+			# Translators: The label for a combo box to select update channel.
+			labelText = _("&Add-on update channel:")
+			self.channels=advOptionsHelper.addLabeledControl(labelText, wx.Choice, choices=["development", "stable"])
+			self.channels.SetSelection(self._updateChannels.index(self.Parent.updateChannel))
 		# Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 		self.splConPassthroughCheckbox=advOptionsHelper.addItem(wx.CheckBox(self, label=_("Allow SPL C&ontroller command to invoke SPL Assistant layer")))
 		self.splConPassthroughCheckbox.SetValue(self.Parent.splConPassthrough)
@@ -1347,7 +1350,7 @@ class AdvancedOptionsDialog(wx.Dialog):
 		parent.compLayer = self.compatibilityLayouts[self.compatibilityList.GetSelection()][0]
 		parent.autoUpdateCheck = self.autoUpdateCheckbox.Value
 		parent.updateInterval = self.updateInterval.Value
-		parent.updateChannel = ("dev", "stable")[self.channels.GetSelection()]
+		if len(self._updateChannels) > 1: parent.updateChannel = self.updateChannels[self.channels.GetSelection()]
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()
