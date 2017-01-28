@@ -158,7 +158,7 @@ def updateChecker(auto=False, continuous=False, confUpdateInterval=1):
 
 def getUpdateResponse(message, caption, updateURL):
 	if gui.messageBox(message, caption, wx.YES_NO | wx.NO_DEFAULT | wx.CANCEL | wx.CENTER | wx.ICON_QUESTION) == wx.YES:
-		SPLUpdateDownloader([updateURL]).start() if config.isInstalledCopy() else os.startfile(updateURL)
+		SPLUpdateDownloader([updateURL]).start()
 
 # Update downloader (credit: NV Access)
 # Customized for SPL add-on.
@@ -258,15 +258,8 @@ class SPLUpdateDownloader(updateCheck.UpdateDownloader):
 
 	def _downloadSuccess(self):
 		self._stopped()
-		# Translators: The message presented when the update has been successfully downloaded
-		# and is about to be installed.
-		gui.messageBox(_("Add-on update downloaded. It will now be installed."),
-			# Translators: The title of the dialog displayed when the update is about to be installed.
-			_("Install Add-on Update"))
-		# #4475: ensure that the new process shows its first window, by providing SW_SHOWNORMAL
-		shellapi.ShellExecute(None, None,
-			self.destPath.decode("mbcs"),
-			None, None, winUser.SW_SHOWNORMAL)
+		from gui import addonGui
+		wx.CallAfter(addonGui.AddonsDialog.handleRemoteAddonInstall, self.destPath.decode("mbcs"))
 
 
 # These structs are only complete enough to achieve what we need.
