@@ -1350,7 +1350,7 @@ class AdvancedOptionsDialog(wx.Dialog):
 		parent.compLayer = self.compatibilityLayouts[self.compatibilityList.GetSelection()][0]
 		parent.autoUpdateCheck = self.autoUpdateCheckbox.Value
 		parent.updateInterval = self.updateInterval.Value
-		if len(self._updateChannels) > 1: parent.updateChannel = self.updateChannels[self.channels.GetSelection()]
+		if len(self._updateChannels) > 1: parent.updateChannel = self._updateChannels[self.channels.GetSelection()]
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()
