@@ -177,6 +177,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Version 17.04-dev
 
 * Improvements to presentation of various add-on dialogs thanks to NVDA 2016.4 features.
+* NVDA will download add-on updates in the background if you say "yes" when asked to update the add-on. Consequently, file download notifications from web browsers will no longer be shown.
 * Added ability to press Control+Alt+up or down arrow keys to move between tracks (specifically, track columns) vertically just as one is moving to next or previous row in a table.
 * Added a combo box in add-on settings dialog to set which column should be announced when moving through columns vertically.
 * Moved end of track , intro and microphone alarm controls from add-on settings to the new Alarms Center.
