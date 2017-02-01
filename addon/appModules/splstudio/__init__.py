@@ -1456,8 +1456,8 @@ class AppModule(appModuleHandler.AppModule):
 				artists.append(obj._getColumnContent(artist))
 				genres.append(obj._getColumnContent(genre))
 			# Shortest and longest tracks.
-			if min is None: min = segue
-			if segue and segue < min:
+			# #22: assign min to the first segue in order to not forget title of the shortest track.
+			if segue and (min is None or segue < min):
 				min = segue
 				minTitle = trackTitle
 			if segue and segue > max:
