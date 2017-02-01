@@ -1451,8 +1451,10 @@ class AppModule(appModuleHandler.AppModule):
 			segue = obj._getColumnContent(duration)
 			trackTitle = obj._getColumnContent(title)
 			categories.append(obj._getColumnContent(category))
-			if categories[-1] != "Hour Marker": artists.append(obj._getColumnContent(artist))
-			genres.append(obj._getColumnContent(genre))
+			# Don't record artist and genre information for an hour marker (reported by a broadcaster).
+			if categories[-1] != "Hour Marker":
+				artists.append(obj._getColumnContent(artist))
+				genres.append(obj._getColumnContent(genre))
 			# Shortest and longest tracks.
 			if min is None: min = segue
 			if segue and segue < min:
@@ -1466,7 +1468,8 @@ class AppModule(appModuleHandler.AppModule):
 				totalDuration += (int(hms[-2])*60) + int(hms[-1])
 				if len(hms) == 3: totalDuration += int(hms[0])*3600
 			obj = obj.next
-		if end is None: snapshot["PlaylistTrackCount"] = studioAPI(0, 124, ret=True)
+		if end is None: snapshot["PlaylistItemCount"] = studioAPI(0, 124, ret=True)
+		snapshot["PlaylistTrackCount"] = len(artists)
 		snapshot["PlaylistDurationTotal"] = self._ms2time(totalDuration, ms=False)
 		if "DurationMinMax" in snapshotFlags:
 			snapshot["PlaylistDurationMin"] = "%s (%s)"%(minTitle, min)
@@ -1483,7 +1486,8 @@ class AppModule(appModuleHandler.AppModule):
 # Output formatter for playlist snapshots.
 # Pressed once will speak and/or braille it, pressing twice or more will output this info to an HTML file.
 	def playlistSnapshotOutput(self, snapshot, scriptCount):
-		statusInfo = ["Tracks: %s"%snapshot["PlaylistTrackCount"]]
+		statusInfo = ["Items: %s"%snapshot["PlaylistItemCount"]]
+		statusInfo.append("Tracks: %s"%snapshot["PlaylistTrackCount"])
 		statusInfo.append("Duration: %s"%snapshot["PlaylistDurationTotal"])
 		if "PlaylistDurationMin" in snapshot:
 			statusInfo.append("Shortest: %s"%snapshot["PlaylistDurationMin"])
