@@ -31,7 +31,7 @@ SPLAddonCheck = 0
 # Update metadata storage.
 SPLAddonState = {}
 # Update URL (the only way to change it is installing a different version from a different branch).
-SPLUpdateURL = "http://addons.nvda-project.org/files/get.php?file=spl-dev"
+SPLUpdateURL = "https://addons.nvda-project.org/files/get.php?file=spl-dev"
 _pendingChannelChange = False
 _updateNow = False
 SPLUpdateChannel = "dev"
@@ -46,7 +46,7 @@ _updatePickle = os.path.join(globalVars.appArgs.configPath, "splupdate.pickle")
 
 # Not all update channels are listed. The one not listed here is the default ("stable" for this branch).
 channels={
-	"stable":"http://addons.nvda-project.org/files/get.php?file=spl",
+	"stable":"https://addons.nvda-project.org/files/get.php?file=spl",
 	#"beta":"http://spl.nvda-kr.org/files/get.php?file=spl-beta",
 }
 
@@ -289,7 +289,7 @@ def _updateWindowsRootCertificates():
 	crypt = ctypes.windll.crypt32
 	# Get the server certificate.
 	sslCont = ssl._create_unverified_context()
-	u = urllib.urlopen("https://www.nvaccess.org/nvdaUpdateCheck", context=sslCont)
+	u = urllib.urlopen("https://addons.nvda-project.org", context=sslCont)
 	cert = u.fp._sock.getpeercert(True)
 	u.close()
 	# Convert to a form usable by Windows.
