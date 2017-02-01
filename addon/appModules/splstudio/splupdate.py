@@ -80,24 +80,91 @@ def terminate():
 		cPickle.dump(SPLAddonState, file(_updatePickle, "wb"))
 	SPLAddonState = None
 
-def updateQualify(url):
+def checkForAddonUpdate():
+	import urllib
+	updateURL = SPLUpdateURL if SPLUpdateChannel not in channels else channels[SPLUpdateChannel]
+	try:
+		# Look up the channel if different from the default.
+		res = urllib.urlopen(updateURL)
+		res.close()
+	except IOError as e:
+		# NVDA Core 2015.1 and later.
+		if isinstance(e.strerror, ssl.SSLError) and e.strerror.reason == "CERTIFICATE_VERIFY_FAILED":
+			_updateWindowsRootCertificates()
+			res = urllib.urlopen(updateURL)
+		else:
+			raise
+	if res.code != 200:
+		raise RuntimeError("Checking for update failed with code %d" % res.code)
+	# Build emulated add-on update dictionary if there is indeed a new verison.
 	# The add-on version is of the form "x.y.z". The "-dev" suffix indicates development release.
 	# Anything after "-dev" indicates a try or a custom build.
 	# LTS: Support upgrading between LTS releases.
 	# 7.0: Just worry about version label differences (suggested by Jamie Teh from NV Access).
 	# 17.04: Version is of the form year.month.revision, and regular expression will be employed (looks cleaner).
 	import re
-	version = re.search("stationPlaylist-(?P<version>.*).nvda-addon", url.url).groupdict()["version"]
-	return None if version == SPLAddonVersion else version
+	version = re.search("stationPlaylist-(?P<version>.*).nvda-addon", res.url).groupdict()["version"]
+	if version != SPLAddonVersion:
+		return {"curVersion": SPLAddonVersion, "newVersion": version, "path": res.url}
+	return None
 
 _progressDialog = None
+updateDictionary = True
 
 # The update check routine.
 # Auto is whether to respond with UI (manual check only), continuous takes in auto update check variable for restarting the timer.
 # ConfUpdateInterval comes from add-on config dictionary.
+def updateCheckerEx(auto=False, continuous=False, confUpdateInterval=1):
+	global _SPLUpdateT, SPLAddonCheck, _retryAfterFailure, _progressDialog, _updateNow
+	if _updateNow: _updateNow = False
+	import time
+	from logHandler import log
+	# Regardless of whether it is an auto check, update the check time.
+	# However, this shouldnt' be done if this is a retry after a failed attempt.
+	if not _retryAfterFailure: SPLAddonCheck = time.time()
+	updateInterval = confUpdateInterval*_updateInterval*1000
+	# Should the timer be set again?
+	if continuous and not _retryAfterFailure: _SPLUpdateT.Start(updateInterval, True)
+	# Auto disables UI portion of this function if no updates are pending.
+	try:
+		info = checkForAddonUpdate()
+	except:
+		log.debugWarning("Error checking for update", exc_info=True)
+		_retryAfterFailure = True
+		if not auto:
+			wx.CallAfter(_progressDialog.done)
+			_progressDialog = None
+			# Translators: Error text shown when add-on update check fails.
+			wx.CallAfter(gui.messageBox, _("Error checking for update."), _("Studio add-on update"), wx.ICON_ERROR)
+		if continuous: _SPLUpdateT.Start(600000, True)
+		return
+	if _retryAfterFailure:
+		_retryAfterFailure = False
+		# Now is the time to update the check time if this is a retry.
+		SPLAddonCheck = time.time()
+	if info is None:
+		if auto:
+			if continuous: _SPLUpdateT.Start(updateInterval, True)
+			return # No need to interact with the user.
+		# Translators: Presented when no add-on update is available.
+		checkMessage = _("No add-on update available.")
+	else:
+		# Translators: Text shown if an add-on update is available.
+		checkMessage = _("Studio add-on {newVersion} is available. Would you like to update?").format(newVersion = info["newVersion"])
+		updateCandidate = True
+	if not auto:
+		wx.CallAfter(_progressDialog.done)
+		_progressDialog = None
+	# Translators: Title of the add-on update check dialog.
+	if not updateCandidate: wx.CallAfter(gui.messageBox, checkMessage, _("Studio add-on update"))
+	else: wx.CallAfter(getUpdateResponse, checkMessage, _("Studio add-on update"), info["path"])
+
 def updateChecker(auto=False, continuous=False, confUpdateInterval=1):
 	if _pendingChannelChange:
 		wx.CallAfter(gui.messageBox, _("Did you recently tell SPL add-on to use a different update channel? If so, please restart NVDA before checking for add-on updates."), _("Update channel changed"), wx.ICON_ERROR)
+		return
+	if updateDictionary:
+		updateCheckerEx(auto=auto, continuous=continuous, confUpdateInterval=confUpdateInterval)
 		return
 	global _SPLUpdateT, SPLAddonCheck, _retryAfterFailure, _progressDialog, _updateNow
 	if _updateNow: _updateNow = False
@@ -138,8 +205,9 @@ def updateChecker(auto=False, continuous=False, confUpdateInterval=1):
 		checkMessage = _("Add-on update check failed.")
 	else:
 		# Am I qualified to update?
-		qualified = updateQualify(url)
-		if qualified is None:
+		import re
+		version = re.search("stationPlaylist-(?P<version>.*).nvda-addon", res.url).groupdict()["version"]
+		if version == SPLAddonVersion:
 			if auto:
 				if continuous: _SPLUpdateT.Start(updateInterval, True)
 				return
@@ -147,7 +215,7 @@ def updateChecker(auto=False, continuous=False, confUpdateInterval=1):
 			checkMessage = _("No add-on update available.")
 		else:
 			# Translators: Text shown if an add-on update is available.
-			checkMessage = _("Studio add-on {newVersion} is available. Would you like to update?").format(newVersion = qualified)
+			checkMessage = _("Studio add-on {newVersion} is available. Would you like to update?").format(newVersion = version)
 			updateCandidate = True
 	if not auto:
 		wx.CallAfter(_progressDialog.done)
@@ -165,51 +233,6 @@ def getUpdateResponse(message, caption, updateURL):
 
 #: The download block size in bytes.
 DOWNLOAD_BLOCK_SIZE = 8192 # 8 kb
-
-def checkForUpdate(auto=False):
-	"""Check for an updated version of NVDA.
-	This will block, so it generally shouldn't be called from the main thread.
-	@param auto: Whether this is an automatic check for updates.
-	@type auto: bool
-	@return: Information about the update or C{None} if there is no update.
-	@rtype: dict
-	@raise RuntimeError: If there is an error checking for an update.
-	"""
-	params = {
-		"autoCheck": auto,
-		"version": versionInfo.version,
-		"versionType": versionInfo.updateVersionType,
-		"osVersion": winVersion.winVersionText,
-		"x64": os.environ.get("PROCESSOR_ARCHITEW6432") == "AMD64",
-		"language": languageHandler.getLanguage(),
-		"installed": config.isInstalledCopy(),
-	}
-	url = "%s?%s" % (CHECK_URL, urllib.urlencode(params))
-	try:
-		res = urllib.urlopen(url)
-	except IOError as e:
-		if isinstance(e.strerror, ssl.SSLError) and e.strerror.reason == "CERTIFICATE_VERIFY_FAILED":
-			# #4803: Windows fetches trusted root certificates on demand.
-			# Python doesn't trigger this fetch (PythonIssue:20916), so try it ourselves
-			_updateWindowsRootCertificates()
-			# and then retry the update check.
-			res = urllib.urlopen(url)
-		else:
-			raise
-	if res.code != 200:
-		raise RuntimeError("Checking for update failed with code %d" % res.code)
-	info = {}
-	for line in res:
-		line = line.rstrip()
-		try:
-			key, val = line.split(": ", 1)
-		except ValueError:
-			raise RuntimeError("Error in update check output")
-		info[key] = val
-	if not info:
-		return None
-	return info
-
 
 class SPLUpdateDownloader(updateCheck.UpdateDownloader):
 	"""Overrides NVDA Core's downloader.)
