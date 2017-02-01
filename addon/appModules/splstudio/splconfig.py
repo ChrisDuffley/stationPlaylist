@@ -822,9 +822,13 @@ def autoUpdateCheck():
 # A bit simpler than NVDA Core's auto update checker.
 def updateInit():
 	# LTS: Launch updater if channel change is detected.
+	# Use a background thread for this as urllib blocks.
+	import threading
 	if splupdate._updateNow:
-		splupdate.updateCheck(auto=True) # No repeat here.
+		t = threading.Thread(target=splupdate.updateCheck, kwargs={"auto": True}) # No repeat here.
+		t.daemon = True
 		splupdate._SPLUpdateT = wx.PyTimer(autoUpdateCheck)
+		t.start()
 		splupdate._updateNow = False
 		return
 	currentTime = time.time()
@@ -834,7 +838,9 @@ def updateInit():
 	elif splupdate.SPLAddonCheck < nextCheck < currentTime:
 		interval = SPLConfig["Update"]["UpdateInterval"]* 86400
 		# Call the update check now.
-		splupdate.updateCheck(auto=True) # No repeat here.
+		t = threading.Thread(target=splupdate.updateCheck, kwargs={"auto": True}) # No repeat here.
+		t.daemon = True
+		t.start()
 	splupdate._SPLUpdateT = wx.PyTimer(autoUpdateCheck)
 	splupdate._SPLUpdateT.Start(interval * 1000, True)
 
