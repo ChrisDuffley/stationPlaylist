@@ -789,9 +789,7 @@ class AppModule(appModuleHandler.AppModule):
 			# 17.01: The best way to detect Cart Edit off is consulting file modification time.
 			# Automatically reload cart information if this is the case.
 			if status in ("Cart Edit Off", "Cart Insert On"):
-				studioTitle = api.getForegroundObject().name
-				if splmisc.shouldCartExplorerRefresh(studioTitle):
-					self.carts = splmisc.cartExplorerInit(studioTitle)
+				self.carts = splmisc.cartExplorerInit(api.getForegroundObject().name, refresh=True)
 			# Translators: Presented when cart modes are toggled while cart explorer is on.
 			ui.message(_("Cart explorer is active"))
 			return
@@ -1230,6 +1228,7 @@ class AppModule(appModuleHandler.AppModule):
 			self.cartExplorer = False
 			self.cartsBuilder(build=False)
 			self.carts.clear()
+			splmisc._cartEditTimestamps = None
 			# Translators: Presented when cart explorer is off.
 			ui.message(_("Exiting cart explorer"))
 	# Translators: Input help mode message for a command in Station Playlist Studio.

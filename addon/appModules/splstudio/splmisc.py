@@ -14,6 +14,7 @@ import gui
 import wx
 import ui
 from winUser import user32, sendMessage
+from spldebugging import debugOutput
 
 # Locate column content.
 # Given an object and the column number, locate text in the given column.
@@ -263,11 +264,13 @@ def _populateCarts(carts, cartlst, modifier, standardEdition=False):
 		carts[cart] = cartName
 
 # Cart file timestamps.
-_cartEditTimestamps = [0, 0, 0, 0]
+_cartEditTimestamps = None
 		# Initialize Cart Explorer i.e. fetch carts.
 # Cart files list is for future use when custom cart names are used.
-def cartExplorerInit(StudioTitle, cartFiles=None):
+# if told to refresh, timestamps will be checked and updated banks will be reassigned.
+def cartExplorerInit(StudioTitle, cartFiles=None, refresh=False):
 	global _cartEditTimestamps
+	debugOutput("SPL: refreshing Cart Explorer" if refresh else "SPL: preparing cart Explorer")
 	# Use cart files in SPL's data folder to build carts dictionary.
 	# use a combination of SPL user name and static cart location to locate cart bank files.
 	# Once the cart banks are located, use the routines in the populate method above to assign carts.
@@ -284,7 +287,10 @@ def cartExplorerInit(StudioTitle, cartFiles=None):
 		if userNameIndex >= 0:
 			cartFiles = [StudioTitle[userNameIndex+2:]+" "+cartFile for cartFile in cartFiles]
 	faultyCarts = False
+	if not refresh:
+		_cartEditTimestamps = []
 	for f in cartFiles:
+		# Only do this if told to build cart banks from scratch, as refresh flag is set if cart explorer is active in the first place.
 		try:
 			mod = f.split()[-2] # Checking for modifier string such as ctrl.
 			# Todo: Check just in case some SPL flavors doesn't ship with a particular cart file.
@@ -292,35 +298,23 @@ def cartExplorerInit(StudioTitle, cartFiles=None):
 			faultyCarts = True # In a rare event that the broadcaster has saved the cart bank with the name like "carts.cart".
 			continue
 		cartFile = os.path.join(cartsDataPath,f)
-		if not os.path.isfile(cartFile): # Cart explorer will fail if whitespaces are in the beginning or at the end of a user name.
+		# Cart explorer can safely assume that the cart bank exists if refresh flag is set.
+		if not refresh and not os.path.isfile(cartFile): # Cart explorer will fail if whitespaces are in the beginning or at the end of a user name.
 			faultyCarts = True
 			continue
+		debugOutput("SPL: examining carts from file %s"%cartFile)
+		cartTimestamp = os.path.getmtime(cartFile)
+		if refresh and _cartEditTimestamps[cartFiles.index(f)] == cartTimestamp:
+			debugOutput("SPL: no changes to cart bank, skipping")
+			continue
+		_cartEditTimestamps.append(cartTimestamp)
 		with open(cartFile) as cartInfo:
 			cl = [row for row in reader(cartInfo)]
-			# 17.01: Look up file modification date to signal the app module that Cart Explorer reentry should occur.
-			_cartEditTimestamps[cartFiles.index(f)] = os.path.getmtime(cartFile)
 		_populateCarts(carts, cl[1], mod, standardEdition=carts["standardLicense"]) # See the comment for _populate method above.
+		debugOutput("SPL: carts processed so far: %s"%(len(carts)-1))
 	carts["faultyCarts"] = faultyCarts
+	debugOutput("SPL: total carts processed: %s"%(len(carts)-2))
 	return carts
-
-# See if cart files were modified.
-# This is needed in order to announce Cart Explorer reentry command.
-def shouldCartExplorerRefresh(StudioTitle):
-	global _cartEditTimestamps
-	cartsDataPath = os.path.join(os.environ["PROGRAMFILES"],"StationPlaylist","Data") # Provided that Studio was installed using default path.
-	userNameIndex = StudioTitle.find("-")
-	# Until NVDA core moves to Python 3, assume that file names aren't unicode.
-	cartFiles = [u"main carts.cart", u"shift carts.cart", u"ctrl carts.cart", u"alt carts.cart"]
-	if userNameIndex >= 0:
-		cartFiles = [StudioTitle[userNameIndex+2:]+" "+cartFile for cartFile in cartFiles]
-	for f in cartFiles:
-		# No need to check for faulty carts here, as Cart Explorer activation checked it already.
-		timestamp = os.path.getmtime(os.path.join(cartsDataPath,f))
-		# 17.01: Look up file modification date to signal the app module that Cart Explorer reentry should occur.
-		# Optimization: Short-circuit if even one cart file has been modified.
-		if _cartEditTimestamps[cartFiles.index(f)] != timestamp:
-			return True
-	return False
 
 
 # Countdown timer.
