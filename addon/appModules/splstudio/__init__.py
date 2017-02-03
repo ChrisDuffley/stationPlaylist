@@ -789,7 +789,7 @@ class AppModule(appModuleHandler.AppModule):
 			# 17.01: The best way to detect Cart Edit off is consulting file modification time.
 			# Automatically reload cart information if this is the case.
 			if status in ("Cart Edit Off", "Cart Insert On"):
-				self.carts = splmisc.cartExplorerInit(api.getForegroundObject().name, refresh=True)
+				self.carts = splmisc.cartExplorerRefresh(api.getForegroundObject().name, self.carts)
 			# Translators: Presented when cart modes are toggled while cart explorer is on.
 			ui.message(_("Cart explorer is active"))
 			return

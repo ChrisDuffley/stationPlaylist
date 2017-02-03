@@ -242,13 +242,15 @@ class SPLTimeRangeDialog(wx.Dialog):
 
 # Cart Explorer helper.
 
-def _populateCarts(carts, cartlst, modifier, standardEdition=False):
+def _populateCarts(carts, cartlst, modifier, standardEdition=False, refresh=False):
 	# The real cart string parser, a helper for cart explorer for building cart entries.
 	# 5.2: Discard number row if SPL Standard is in use.
 	if standardEdition: cartlst = cartlst[:12]
 	for entry in cartlst:
 		# An unassigned cart is stored with three consecutive commas, so skip it.
-		if ",,," in entry: continue
+		# 17.04: If refresh is on, the cart we're dealing with is the actual carts dictionary that was built previously.
+		noEntry = ",,," in entry
+		if noEntry and not refresh: continue
 		# Pos between 1 and 12 = function carts, 13 through 24 = number row carts, modifiers are checked.
 		pos = cartlst.index(entry)+1
 		# If a cart name has commas or other characters, SPL surrounds the cart name with quotes (""), so parse it as well.
@@ -259,23 +261,27 @@ def _populateCarts(carts, cartlst, modifier, standardEdition=False):
 		elif pos == 22: identifier = "0"
 		elif pos == 23: identifier = "-"
 		else: identifier = "="
-		if modifier == "main": cart = identifier
-		else: cart = "%s+%s"%(modifier, identifier)
-		carts[cart] = cartName
+		cart = identifier if not modifier else "+".join([modifier, identifier])
+		if noEntry and refresh:
+			if cart in carts: del carts[cart]
+		else:
+			carts[cart] = cartName
 
 # Cart file timestamps.
 _cartEditTimestamps = None
 		# Initialize Cart Explorer i.e. fetch carts.
 # Cart files list is for future use when custom cart names are used.
 # if told to refresh, timestamps will be checked and updated banks will be reassigned.
-def cartExplorerInit(StudioTitle, cartFiles=None, refresh=False):
+# Carts dictionary is used if and only if refresh is on, as it'll modify live cats.
+def cartExplorerInit(StudioTitle, cartFiles=None, refresh=False, carts=None):
 	global _cartEditTimestamps
 	debugOutput("SPL: refreshing Cart Explorer" if refresh else "SPL: preparing cart Explorer")
 	# Use cart files in SPL's data folder to build carts dictionary.
 	# use a combination of SPL user name and static cart location to locate cart bank files.
 	# Once the cart banks are located, use the routines in the populate method above to assign carts.
 	# Since sstandard edition does not support number row carts, skip them if told to do so.
-	carts = {"standardLicense":StudioTitle.startswith("StationPlaylist Studio Standard")}
+	if carts is None: carts = {"standardLicense":StudioTitle.startswith("StationPlaylist Studio Standard")}
+	if refresh: carts["modifiedBanks"] = []
 	# Obtain the "real" path for SPL via environment variables and open the cart data folder.
 	cartsDataPath = os.path.join(os.environ["PROGRAMFILES"],"StationPlaylist","Data") # Provided that Studio was installed using default path.
 	if cartFiles is None:
@@ -310,12 +316,19 @@ def cartExplorerInit(StudioTitle, cartFiles=None, refresh=False):
 		_cartEditTimestamps.append(cartTimestamp)
 		with open(cartFile) as cartInfo:
 			cl = [row for row in reader(cartInfo)]
-		_populateCarts(carts, cl[1], mod, standardEdition=carts["standardLicense"]) # See the comment for _populate method above.
-		debugOutput("SPL: carts processed so far: %s"%(len(carts)-1))
+		# 17.04 (optimization): let empty string represent main cart bank to avoid this being partially consulted up to 24 times.
+		# The below method will just check for string length, which is faster than looking for specific substring.
+		_populateCarts(carts, cl[1], mod if mod != "main" else "", standardEdition=carts["standardLicense"], refresh=refresh) # See the comment for _populate method above.
+		if not refresh:
+			debugOutput("SPL: carts processed so far: %s"%(len(carts)-1))
 	carts["faultyCarts"] = faultyCarts
 	debugOutput("SPL: total carts processed: %s"%(len(carts)-2))
 	return carts
 
+# Refresh carts upon request.
+# calls cart explorer init with special (internal) flags.
+def cartExplorerRefresh(studioTitle, currentCarts):
+	return cartExplorerInit(studioTitle, refresh=True, carts=currentCarts)
 
 # Countdown timer.
 # This is utilized by many services, chiefly profile triggers routine.
