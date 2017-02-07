@@ -109,12 +109,14 @@ def checkForAddonUpdate():
 	return None
 
 _progressDialog = None
-updateDictionary = True
 
 # The update check routine.
 # Auto is whether to respond with UI (manual check only), continuous takes in auto update check variable for restarting the timer.
 # ConfUpdateInterval comes from add-on config dictionary.
-def updateCheckerEx(auto=False, continuous=False, confUpdateInterval=1):
+def updateChecker(auto=False, continuous=False, confUpdateInterval=1):
+	if _pendingChannelChange:
+		wx.CallAfter(gui.messageBox, _("Did you recently tell SPL add-on to use a different update channel? If so, please restart NVDA before checking for add-on updates."), _("Update channel changed"), wx.ICON_ERROR)
+		return
 	global _SPLUpdateT, SPLAddonCheck, _retryAfterFailure, _progressDialog, _updateNow
 	if _updateNow: _updateNow = False
 	import time
@@ -158,71 +160,6 @@ def updateCheckerEx(auto=False, continuous=False, confUpdateInterval=1):
 	# Translators: Title of the add-on update check dialog.
 	if not updateCandidate: wx.CallAfter(gui.messageBox, checkMessage, _("Studio add-on update"))
 	else: wx.CallAfter(getUpdateResponse, checkMessage, _("Studio add-on update"), info["path"])
-
-def updateChecker(auto=False, continuous=False, confUpdateInterval=1):
-	if _pendingChannelChange:
-		wx.CallAfter(gui.messageBox, _("Did you recently tell SPL add-on to use a different update channel? If so, please restart NVDA before checking for add-on updates."), _("Update channel changed"), wx.ICON_ERROR)
-		return
-	if updateDictionary:
-		updateCheckerEx(auto=auto, continuous=continuous, confUpdateInterval=confUpdateInterval)
-		return
-	global _SPLUpdateT, SPLAddonCheck, _retryAfterFailure, _progressDialog, _updateNow
-	if _updateNow: _updateNow = False
-	import time
-	# Regardless of whether it is an auto check, update the check time.
-	# However, this shouldnt' be done if this is a retry after a failed attempt.
-	if not _retryAfterFailure: SPLAddonCheck = time.time()
-	updateInterval = confUpdateInterval*_updateInterval*1000
-	# Should the timer be set again?
-	if continuous and not _retryAfterFailure: _SPLUpdateT.Start(updateInterval, True)
-	# Auto disables UI portion of this function if no updates are pending.
-	# All the information will be stored in the URL object, so just close it once the headers are downloaded.
-	updateCandidate = False
-	updateURL = SPLUpdateURL if SPLUpdateChannel not in channels else channels[SPLUpdateChannel]
-	try:
-		import urllib
-		# Look up the channel if different from the default.
-		url = urllib.urlopen(updateURL)
-		url.close()
-	except IOError:
-		_retryAfterFailure = True
-		if not auto:
-			wx.CallAfter(_progressDialog.done)
-			_progressDialog = None
-			# Translators: Error text shown when add-on update check fails.
-			wx.CallAfter(gui.messageBox, _("Error checking for update."), _("Studio add-on update"), wx.ICON_ERROR)
-		if continuous: _SPLUpdateT.Start(600000, True)
-		return
-	if _retryAfterFailure:
-		_retryAfterFailure = False
-		# Now is the time to update the check time if this is a retry.
-		SPLAddonCheck = time.time()
-	if url.code != 200:
-		if auto:
-			if continuous: _SPLUpdateT.Start(updateInterval, True)
-			return # No need to interact with the user.
-		# Translators: Text shown when update check fails for some odd reason.
-		checkMessage = _("Add-on update check failed.")
-	else:
-		# Am I qualified to update?
-		import re
-		version = re.search("stationPlaylist-(?P<version>.*).nvda-addon", res.url).groupdict()["version"]
-		if version == SPLAddonVersion:
-			if auto:
-				if continuous: _SPLUpdateT.Start(updateInterval, True)
-				return
-			# Translators: Presented when no add-on update is available.
-			checkMessage = _("No add-on update available.")
-		else:
-			# Translators: Text shown if an add-on update is available.
-			checkMessage = _("Studio add-on {newVersion} is available. Would you like to update?").format(newVersion = version)
-			updateCandidate = True
-	if not auto:
-		wx.CallAfter(_progressDialog.done)
-		_progressDialog = None
-	# Translators: Title of the add-on update check dialog.
-	if not updateCandidate: wx.CallAfter(gui.messageBox, checkMessage, _("Studio add-on update"))
-	else: wx.CallAfter(getUpdateResponse, checkMessage, _("Studio add-on update"), updateURL)
 
 def getUpdateResponse(message, caption, updateURL):
 	if gui.messageBox(message, caption, wx.YES_NO | wx.NO_DEFAULT | wx.CANCEL | wx.CENTER | wx.ICON_QUESTION) == wx.YES:
