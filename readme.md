@@ -176,8 +176,10 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Version 17.04-dev
 
+* Added a basic add-on debugging support by logging various information while the add-on is active with NVDA set to debug logging (requires NVDA 2017.1 and later). To use this, after installing NVDA 2017.1, from Exit NVDA dialog, choose "restart with debug logging enabled" option.
 * Improvements to presentation of various add-on dialogs thanks to NVDA 2016.4 features.
 * NVDA will download add-on updates in the background if you say "yes" when asked to update the add-on. Consequently, file download notifications from web browsers will no longer be shown.
+* NVDA will no longer appear to freeze when checking for update at startup due to add-on update channel change.
 * Added ability to press Control+Alt+up or down arrow keys to move between tracks (specifically, track columns) vertically just as one is moving to next or previous row in a table.
 * Added a combo box in add-on settings dialog to set which column should be announced when moving through columns vertically.
 * Moved end of track , intro and microphone alarm controls from add-on settings to the new Alarms Center.
