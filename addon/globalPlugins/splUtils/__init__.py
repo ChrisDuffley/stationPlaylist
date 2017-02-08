@@ -258,9 +258,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			statusInfo.append("Record to file on" if winUser.sendMessage(SPLWin, 1024, 4, SPLStatusInfo) else "Record to file off")
 			cartEdit = winUser.sendMessage(SPLWin, 1024, 5, SPLStatusInfo)
 			cartInsert = winUser.sendMessage(SPLWin, 1024, 6, SPLStatusInfo)
-			if cartEdit: statusInfo.append("Cart edit on")
-			elif not cartEdit and cartInsert: statusInfo.append("Cart insert on")
-			else: statusInfo.append("Cart edit off")
+			if cartEdit: statusInfo.append("Cart Edit on")
+			elif not cartEdit and cartInsert: statusInfo.append("Cart Insert on")
+			else: statusInfo.append("Cart Edit off")
 		ui.message("; ".join(statusInfo))
 		self.finish()
 	# Translators: Input help message for a SPL Controller command.
