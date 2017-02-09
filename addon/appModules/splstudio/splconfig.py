@@ -55,6 +55,7 @@ CategoryCount = boolean(default=true)
 CategoryCountLimit = integer(min=0, max=10, default=5)
 GenreCount = boolean(default=true)
 GenreCountLimit = integer(min=0, max=10, default=5)
+ShowResultsWindowOnFirstPress = boolean(default=false)
 [IntroOutroAlarms]
 SayEndOfTrack = boolean(default=true)
 EndOfTrackTime = integer(min=1, max=59, default=5)

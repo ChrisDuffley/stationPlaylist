@@ -197,6 +197,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.playlistCategoryCountLimit = splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCountLimit"]
 		self.playlistGenreCount = splconfig.SPLConfig["PlaylistSnapshots"]["GenreCount"]
 		self.playlistGenreCountLimit = splconfig.SPLConfig["PlaylistSnapshots"]["GenreCountLimit"]
+		self.resultsWindowOnFirstPress = splconfig.SPLConfig["PlaylistSnapshots"]["ShowResultsWindowOnFirstPress"]
 
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		self.metadataValues=[("off",_("Off")),
@@ -298,6 +299,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCountLimit"] = self.playlistCategoryCountLimit
 		splconfig.SPLConfig["PlaylistSnapshots"]["GenreCount"] = self.playlistGenreCount
 		splconfig.SPLConfig["PlaylistSnapshots"]["GenreCountLimit"] = self.playlistGenreCountLimit
+		splconfig.SPLConfig["PlaylistSnapshots"]["ShowResultsWindowOnFirstPress"] = self.resultsWindowOnFirstPress
 		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
 		splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = self.metadataStreams
 		splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
@@ -935,6 +937,9 @@ class PlaylistSnapshotsDialog(wx.Dialog):
 		self.playlistGenreCountCheckbox=playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Genre count")))
 		self.playlistGenreCountCheckbox.SetValue(parent.playlistGenreCount)
 		self.playlistGenreCountLimit=playlistSnapshotsHelper.addLabeledControl(_("Top genre count (0 displays all genres)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=10, initial=parent.playlistGenreCountLimit)
+		# Translators: the label for a setting in SPL add-on settings to show playlist snaphsots window when the snapshots command is pressed once.
+		self.resultsWindowOnFirstPressCheckbox=playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("&Show results window when playlist snapshots command is performed once")))
+		self.resultsWindowOnFirstPressCheckbox.SetValue(parent.resultsWindowOnFirstPress)
 
 		playlistSnapshotsHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
@@ -955,6 +960,7 @@ class PlaylistSnapshotsDialog(wx.Dialog):
 		parent.playlistCategoryCountLimit = self.playlistCategoryCountLimit.GetValue()
 		parent.playlistGenreCount = self.playlistGenreCountCheckbox.Value
 		parent.playlistGenreCountLimit = self.playlistGenreCountLimit.GetValue()
+		parent.resultsWindowOnFirstPress = self.resultsWindowOnFirstPressCheckbox.Value
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()

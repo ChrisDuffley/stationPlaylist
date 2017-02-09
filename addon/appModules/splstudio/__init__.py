@@ -1913,11 +1913,14 @@ class AppModule(appModuleHandler.AppModule):
 			self.finish()
 			return
 		scriptCount = scriptHandler.getLastScriptRepeatCount()
+		# Display the decorated HTML window on the first press if told to do so.
+		if splconfig.SPLConfig["PlaylistSnapshots"]["ShowResultsWindowOnFirstPress"]:
+			scriptCount += 1
 		# Never allow this to be invoked more than twice, as it causes performance degredation and multiple HTML windows are opened.
 		if scriptCount >= 2:
 			self.finish()
 			return
-			# Speak and braille on the first press, display a decorated HTML message for subsequent presses.
+		# Speak and braille on the first press, display a decorated HTML message for subsequent presses.
 		self.playlistSnapshotOutput(self.playlistSnapshots(obj.parent.firstChild, None), scriptCount)
 		self.finish()
 	# Translators: Input help mode message for a command in Station Playlist Studio.
