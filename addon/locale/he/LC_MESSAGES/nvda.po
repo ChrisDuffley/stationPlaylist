@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 5.5\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2015-09-25 19:00+1000\n"
-"PO-Revision-Date: 2016-11-21 21:09+0200\n"
+"PO-Revision-Date: 2017-02-05 01:29+0200\n"
 "Last-Translator:  <shmuel_naaman@yahoo.com>\n"
 "Language-Team: \n"
 "Language: he\n"
@@ -141,7 +141,6 @@ msgid "Status: {name}"
 msgstr "מצב: {name}"
 
 #. Translators: The text of the help command in SPL Assistant layer.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -176,7 +175,7 @@ msgid ""
 "Shift+F1: Open online user guide."
 msgstr ""
 "לאחר הכניסה למסייע של SPL נא להקיש :\n"
-"A: אוטומציה\n"
+" A: אוטומציה\n"
 "C :  מיתוג סייר\n"
 "Shift+C: הקראת שם הרצועה המנגנת כעת\n"
 "D: הזמן הנותר ברשימת הנגינה\n"
@@ -208,7 +207,6 @@ msgstr ""
 "Shift+F1: פתיחת המדריך המקוון"
 
 #. Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -246,7 +244,7 @@ msgid ""
 msgstr ""
 "לאחר הכניסה למסייע של SPL נא להקיש :\n"
 "A: אוטומציה\n"
-"C :  מיתוג סייר\n"
+" C :  מיתוג סייר\n"
 "Shift+C: הקראת שם הרצועה המנגנת כעת\n"
 "D: הזמן הנותר ברשימת הנגינה\n"
 "E: קבלת מידע כולל על זרימת המטאדאטה\n"
@@ -277,7 +275,6 @@ msgstr ""
 "Shift+F1: פתיחת המדריך המקוון"
 
 #. Translators: The text of the help command in SPL Assistant layer when Window-Eyes layer is active.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -317,7 +314,7 @@ msgid ""
 msgstr ""
 "לאחר הכניסה למסייע של SPL נא להקיש :\n"
 "A: אוטומציה\n"
-"C :  מיתוג סייר\n"
+" C :  מיתוג סייר\n"
 "Shift+C: הקראת שם הרצועה המנגנת כעת\n"
 "D: הזמן הנותר ברשימת הנגינה\n"
 "E: קבלת מידע כולל על זרימת המטאדאטה\n"
@@ -738,9 +735,8 @@ msgid "Normal profile"
 msgstr "פרופיל בסיסי"
 
 #. Consult profile-specific key first before deleting anything.
-#, fuzzy
 msgid "Normal Profile"
-msgstr "פרופיל בסיסי"
+msgstr "פרופיל בסיסי "
 
 #. Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
 msgid "Add-on settings dialog is open, cannot switch profiles"
@@ -864,9 +860,8 @@ msgstr ""
 "נא להקיש אורך זמן התראת ההקלטה בשניות (כרגע לא פעיל. ) ערך 0, פירושו ללא "
 "ההתראה."
 
-#, fuzzy
 msgid "Microphone alarm interval"
-msgstr "התראה על ההקלטה ב&פרקי זמן קצובים"
+msgstr "התראה על ההקלטה ב&פרקי זמן קצובים "
 
 #. Translators: Title of a dialog displayed when the add-on starts reminding broadcasters to disable audio ducking.
 msgid "SPL Studio and audio ducking"
@@ -919,9 +914,8 @@ msgid ""
 msgstr "ברוכים הבאים לתוסף NVDA לStation Playlist."
 
 #. Translators: Title of a dialog displayed when the add-on starts presenting basic information, similar to NVDA's own welcome dialog.
-#, fuzzy
 msgid "Welcome to StationPlaylist Studio add-on"
-msgstr "StationPlaylist Studio"
+msgstr "ברוך הבא להרחבת StationPlaylist "
 
 #. Translators: A checkbox to show welcome dialog.
 msgid "Show welcome dialog when I start Studio"
@@ -1127,19 +1121,16 @@ msgid "&Beep for different track categories"
 msgstr "צל&יל שונה עבור סוגים של רצועות"
 
 #. Translators: the label for a setting in SPL add-on settings to set how track comments are announced.
-#, fuzzy
 msgid "&Track comment announcement:"
-msgstr "הקראת שם הר&צועות"
+msgstr "הקראת שם הר&צועות "
 
 #. Translators: One of the track comment notification settings.
-#, fuzzy
 msgid "Message"
-msgstr "במלל"
+msgstr "הודעה"
 
 #. Translators: One of the track comment notification settings.
-#, fuzzy
 msgid "Beep"
-msgstr "בצלילים"
+msgstr "צלילים"
 
 #. Translators: the label for a setting in SPL add-on settings to toggle top and bottom notification.
 msgid "Notify when located at &top or bottom of playlist viewer"
@@ -1174,9 +1165,8 @@ msgid "Columns E&xplorer..."
 msgstr "סייר &הפקודות..."
 
 #. Translators: The label of a button to configure columns explorer slots for Track Tool (SPL Assistant, number row keys to announce specific columns).
-#, fuzzy
 msgid "Columns Explorer for &Track Tool..."
-msgstr "סייר &הפקודות..."
+msgstr "סייר &הפקודות... "
 
 #. Translators: The label of a button to open advanced options such as using SPL Controller command to invoke Assistant layer.
 msgid "&Status announcements..."
@@ -1187,9 +1177,8 @@ msgid "&Advanced options..."
 msgstr "אפשרויות מתק&דמות..."
 
 #. Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
-#, fuzzy
 msgid "Reset settings..."
-msgstr "שחזור הגדרות"
+msgstr "שחזור הגדרות ברירת מחדל"
 
 #. Translators: A dialog message shown when add-on update channel has changed.
 msgid ""
@@ -1347,9 +1336,8 @@ msgid "Columns Explorer"
 msgstr "סייר העמודות"
 
 #. Translators: The title of Columns Explorer configuration dialog.
-#, fuzzy
 msgid "Columns Explorer for Track Tool"
-msgstr "סייר העמודות"
+msgstr "סייר העמודות "
 
 #. Translators: The label for a setting in SPL add-on dialog to select column for this column slot.
 #, python-brace-format
@@ -1417,24 +1405,20 @@ msgid "Reset settings"
 msgstr "שחזור הגדרות"
 
 #. Translators: the label for resetting profile triggers.
-#, fuzzy
 msgid "Reset instant switch profile"
-msgstr "זהו פרופיל ל&החלפה מיידית"
+msgstr "זהו פרופיל ל&החלפה מיידית "
 
 #. Translators: the label for resetting profile triggers.
-#, fuzzy
 msgid "Delete time-based profile database"
-msgstr "פרופילים מבוססי זמן חסרים."
+msgstr "פרופילים מבוססי זמן חסרים. "
 
 #. Translators: the label for resetting encoder settings.
-#, fuzzy
 msgid "Remove encoder settings"
-msgstr "שגיות בהגדרות מנגנון הקידוד."
+msgstr "הסר הגדרות קידוד"
 
 #. Translators: the label for resetting track comments.
-#, fuzzy
 msgid "Erase track comments"
-msgstr "סיום הרצועות בברייל"
+msgstr "מחר רצועת הערה"
 
 #. Translators: A message to warn about resetting SPL config settings to factory defaults.
 msgid "Are you sure you wish to reset SPL add-on settings to defaults?"
