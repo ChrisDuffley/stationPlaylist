@@ -8,18 +8,13 @@ import os # Essentially, update download is no different than file downloads.
 import cPickle
 import threading
 import tempfile
-import hashlib
-import ctypes.wintypes
+import ctypes
 import ssl
-import wx
-import shellapi
 import gui
 import wx
 import addonHandler
 import globalVars
 import updateCheck
-import config
-import winUser
 
 # Add-on manifest routine (credit: various add-on authors including Noelia Martinez).
 # Do not rely on using absolute path to open to manifest, as installation directory may change in a future NVDA Core version (highly unlikely, but...).
@@ -96,7 +91,7 @@ def checkForAddonUpdate():
 			raise
 	if res.code != 200:
 		raise RuntimeError("Checking for update failed with code %d" % res.code)
-	# Build emulated add-on update dictionary if there is indeed a new verison.
+	# Build emulated add-on update dictionary if there is indeed a new version.
 	# The add-on version is of the form "x.y.z". The "-dev" suffix indicates development release.
 	# Anything after "-dev" indicates a try or a custom build.
 	# LTS: Support upgrading between LTS releases.
@@ -167,10 +162,6 @@ def getUpdateResponse(message, caption, updateURL):
 
 # Update downloader (credit: NV Access)
 # Customized for SPL add-on.
-
-#: The download block size in bytes.
-DOWNLOAD_BLOCK_SIZE = 8192 # 8 kb
-
 class SPLUpdateDownloader(updateCheck.UpdateDownloader):
 	"""Overrides NVDA Core's downloader.)
 	No hash checking for now, and URL's and temp file paths are different.
@@ -225,9 +216,9 @@ class SPLUpdateDownloader(updateCheck.UpdateDownloader):
 			try:
 				bundle=addonHandler.AddonBundle(self.destPath.decode("mbcs"))
 			except:
-				log.error("Error opening addon bundle from %s"%addonPath,exc_info=True)
+				log.error("Error opening addon bundle from %s"%self.destPath,exc_info=True)
 				# Translators: The message displayed when an error occurs when opening an add-on package for adding. 
-				gui.messageBox(_("Failed to open add-on package file at %s - missing file or invalid file format")%addonPath,
+				gui.messageBox(_("Failed to open add-on package file at %s - missing file or invalid file format")%self.destPath,
 					# Translators: The title of a dialog presented when an error occurs.
 					_("Error"),
 					wx.OK | wx.ICON_ERROR)
@@ -245,12 +236,12 @@ class SPLUpdateDownloader(updateCheck.UpdateDownloader):
 			try:
 				gui.ExecAndPump(addonHandler.installAddonBundle,bundle)
 			except:
-				log.error("Error installing  addon bundle from %s"%addonPath,exc_info=True)
+				log.error("Error installing  addon bundle from %s"%self.destPath,exc_info=True)
 				if not closeAfter: addonGui.AddonsDialog(gui.mainFrame).refreshAddonsList()
 				progressDialog.done()
 				del progressDialog
 				# Translators: The message displayed when an error occurs when installing an add-on package.
-				gui.messageBox(_("Failed to update add-on  from %s")%addonPath,
+				gui.messageBox(_("Failed to update add-on  from %s")%self.destPath,
 					# Translators: The title of a dialog presented when an error occurs.
 					_("Error"),
 					wx.OK | wx.ICON_ERROR)
@@ -260,33 +251,15 @@ class SPLUpdateDownloader(updateCheck.UpdateDownloader):
 				progressDialog.done()
 				del progressDialog
 		finally:
+			try:
+				os.remove(self.destPath)
+			except OSError:
+				pass
 			if closeAfter:
 				wx.CallLater(1, addonGui.AddonsDialog(gui.mainFrame).Close)
 
 
-# These structs are only complete enough to achieve what we need.
-class CERT_USAGE_MATCH(ctypes.Structure):
-	_fields_ = (
-		("dwType", ctypes.wintypes.DWORD),
-		# CERT_ENHKEY_USAGE struct
-		("cUsageIdentifier", ctypes.wintypes.DWORD),
-		("rgpszUsageIdentifier", ctypes.c_void_p), # LPSTR *
-	)
-
-class CERT_CHAIN_PARA(ctypes.Structure):
-	_fields_ = (
-		("cbSize", ctypes.wintypes.DWORD),
-		("RequestedUsage", CERT_USAGE_MATCH),
-		("RequestedIssuancePolicy", CERT_USAGE_MATCH),
-		("dwUrlRetrievalTimeout", ctypes.wintypes.DWORD),
-		("fCheckRevocationFreshnessTime", ctypes.wintypes.BOOL),
-		("dwRevocationFreshnessTime", ctypes.wintypes.DWORD),
-		("pftCacheResync", ctypes.c_void_p), # LPFILETIME
-		("pStrongSignPara", ctypes.c_void_p), # PCCERT_STRONG_SIGN_PARA
-		("dwStrongSignFlags", ctypes.wintypes.DWORD),
-	)
-
-# Borrowed from NVDA Core (the only difference is the URL).
+# Borrowed from NVDA Core (the only difference is the URL and where structures are coming from).
 def _updateWindowsRootCertificates():
 	crypt = ctypes.windll.crypt32
 	# Get the server certificate.
@@ -302,8 +275,8 @@ def _updateWindowsRootCertificates():
 	# Ask Windows to build a certificate chain, thus triggering a root certificate update.
 	chainCont = ctypes.c_void_p()
 	crypt.CertGetCertificateChain(None, certCont, None, None,
-		ctypes.byref(CERT_CHAIN_PARA(cbSize=ctypes.sizeof(CERT_CHAIN_PARA),
-			RequestedUsage=CERT_USAGE_MATCH())),
+		ctypes.byref(updateCheck.CERT_CHAIN_PARA(cbSize=ctypes.sizeof(updateCheck.CERT_CHAIN_PARA),
+			RequestedUsage=updateCheck.CERT_USAGE_MATCH())),
 		0, None,
 		ctypes.byref(chainCont))
 	crypt.CertFreeCertificateChain(chainCont)
