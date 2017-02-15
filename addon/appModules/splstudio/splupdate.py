@@ -123,6 +123,7 @@ def updateChecker(auto=False, continuous=False, confUpdateInterval=1):
 	# Should the timer be set again?
 	if continuous and not _retryAfterFailure: _SPLUpdateT.Start(updateInterval, True)
 	# Auto disables UI portion of this function if no updates are pending.
+	updateCandidate = False
 	try:
 		info = checkForAddonUpdate()
 	except:
