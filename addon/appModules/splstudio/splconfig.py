@@ -93,6 +93,8 @@ _mutatableSettings=("IntroOutroAlarms", "MicrophoneAlarm", "MetadataStreaming", 
 # 7.0: Profile-specific confspec (might be removed once a more optimal way to validate sections is found).
 # Dictionary comprehension is better here.
 confspecprofiles = {sect:key for sect, key in confspec.iteritems() if sect in _mutatableSettings}
+# Translators: The name of the default (normal) profile.
+defaultProfileName = _("Normal profile")
 
 # 8.0: Run-time config storage and management will use ConfigHub data structure, a subclass of chain map.
 # A chain map allows a dictionary to look up predefined mappings to locate a key.
@@ -113,8 +115,7 @@ class ConfigHub(ChainMap):
 		super(ConfigHub, self).__init__()
 		# For presentational purposes.
 		self.profileNames = []
-		# Translators: The name of the default (normal) profile.
-		self.maps[0] = self._unlockConfig(SPLIni, profileName=_("Normal profile"), prefill=True, validateNow=True)
+		self.maps[0] = self._unlockConfig(SPLIni, profileName=defaultProfileName, prefill=True, validateNow=True)
 		self.profileNames.append(None) # Signifying normal profile.
 		# Always cache normal profile upon startup.
 		self._cacheConfig(self.maps[0])
@@ -237,7 +238,7 @@ class ConfigHub(ChainMap):
 	def deleteProfile(self, name):
 		# Bring normal profile to the front if it isn't.
 		# Optimization: Tell the swapper that we need index to the normal profile for this case.
-		configPos = self.swapProfiles(name, _("Normal profile"), showSwitchIndex=True) if self.profiles[0].name == name else self.profileIndexByName(name)
+		configPos = self.swapProfiles(name, defaultProfileName, showSwitchIndex=True) if self.profiles[0].name == name else self.profileIndexByName(name)
 		profilePos = self.profileNames.index(name)
 		try:
 			os.remove(self.profiles[configPos].filename)
@@ -259,7 +260,7 @@ class ConfigHub(ChainMap):
 
 	def __delitem__(self, key):
 		# Consult profile-specific key first before deleting anything.
-		pos = 0 if key in _mutatableSettings else [profile.name for profile in self.maps].index(_("Normal Profile"))
+		pos = 0 if key in _mutatableSettings else [profile.name for profile in self.maps].index(defaultProfileName)
 		try:
 			del self.maps[pos][key]
 		except KeyError:
@@ -270,7 +271,7 @@ class ConfigHub(ChainMap):
 		# 7.0: Save normal profile first.
 		# Temporarily merge normal profile.
 		# 8.0: Locate the index instead.
-		normalProfile = self.profileIndexByName(_("Normal profile"))
+		normalProfile = self.profileIndexByName(defaultProfileName)
 		_preSave(self.profiles[normalProfile])
 		# Disk write optimization check please.
 		# 8.0: Bypass this if profiles were reset.
@@ -315,10 +316,10 @@ class ConfigHub(ChainMap):
 			# Convert certain settings to a different format.
 			conf["ColumnAnnouncement"]["IncludedColumns"] = set(_SPLDefaults["ColumnAnnouncement"]["IncludedColumns"])
 		# Switch back to normal profile via a custom variant of swap routine.
-		if self.profiles[0].name != _("Normal profile"):
-			npIndex = self.profileIndexByName(_("Normal profile"))
+		if self.profiles[0].name != defaultProfileName:
+			npIndex = self.profileIndexByName(defaultProfileName)
 			self.profiles[0], self.profiles[npIndex] = self.profiles[npIndex], self.profiles[0]
-			self.activeProfile = _("Normal profile")
+			self.activeProfile = defaultProfileName
 		# 8.0 optimization: Tell other modules that reset was done in order to postpone disk writes until the end.
 		self.resetHappened = True
 
@@ -770,7 +771,7 @@ def switchProfile(prevProfile, newProfile):
 	SPLConfig.switchProfile(prevProfile, newProfile)
 	SPLPrevProfile = prevProfile
 	# 8.0: Cache other profiles this time.
-	if newProfile != _("Normal profile") and newProfile not in _SPLCache:
+	if newProfile != defaultProfileName and newProfile not in _SPLCache:
 		_cacheConfig(getProfileByName(selectedProfile))
 
 # Called from within the app module.
