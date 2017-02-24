@@ -1494,59 +1494,65 @@ class AppModule(appModuleHandler.AppModule):
 # Output formatter for playlist snapshots.
 # Pressed once will speak and/or braille it, pressing twice or more will output this info to an HTML file.
 	def playlistSnapshotOutput(self, snapshot, scriptCount):
-		statusInfo = ["Items: %s"%snapshot["PlaylistItemCount"]]
-		statusInfo.append("Tracks: %s"%snapshot["PlaylistTrackCount"])
-		statusInfo.append("Duration: %s"%snapshot["PlaylistDurationTotal"])
+		statusInfo = [_("Items: {playlistItemCount}").format(playlistItemCount = snapshot["PlaylistItemCount"])]
+		statusInfo.append(_("Tracks: {playlistTrackCount}").format(playlistTrackCount = snapshot["PlaylistTrackCount"]))
+		statusInfo.append(_("Duration: {playlistTotalDuration}").format(playlistTotalDuration = snapshot["PlaylistDurationTotal"]))
 		if "PlaylistDurationMin" in snapshot:
-			statusInfo.append("Shortest: %s"%snapshot["PlaylistDurationMin"])
-			statusInfo.append("Longest: %s"%snapshot["PlaylistDurationMax"])
+			statusInfo.append(_("Shortest: {playlistShortestTrack}").format(playlistShortestTrack = snapshot["PlaylistDurationMin"]))
+			statusInfo.append(_("Longest: {playlistLongestTrack}").format(playlistLongestTrack = snapshot["PlaylistDurationMax"]))
 		if "PlaylistDurationAverage" in snapshot:
-			statusInfo.append("Average: %s"%snapshot["PlaylistDurationAverage"])
+			statusInfo.append(_("Average: {playlistAverageDuration}").format(playlistAverageDuration = snapshot["PlaylistDurationAverage"]))
 		if "PlaylistArtistCount" in snapshot:
 			artistCount = splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCountLimit"]
 			artists = snapshot["PlaylistArtistCount"].most_common(None if not artistCount else artistCount)
 			if scriptCount == 0:
-				statusInfo.append("Top artist: %s (%s)"%(artists[0][:]))
+				statusInfo.append(_("Top artist: %s (%s)")%(artists[0][:]))
 			elif scriptCount == 1:
 				artistList = []
+				header = _("Top artists:")
 				for item in artists:
 					artist, count = item
 					if artist is None:
-						artistList.append("<li>No artist information (%s)</li>"%(count))
+						info = _("No artist information ({artistCount})").format(artistCount = count)
 					else:
-						artistList.append("<li>%s (%s)</li>"%(artist, count))
-				statusInfo.append("".join(["Top artists:<ol>", "\n".join(artistList), "</ol>"]))
+						info = _("{artistName} ({artistCount})").format(artistName = artist, artistCount = count)
+					artistList.append("<li>%s</li>"%info)
+				statusInfo.append("".join([header, "<ol>", "\n".join(artistList), "</ol>"]))
 		if "PlaylistCategoryCount" in snapshot:
 			categoryCount = splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCountLimit"]
 			categories = snapshot["PlaylistCategoryCount"].most_common(None if not categoryCount else categoryCount)
 			if scriptCount == 0:
-				statusInfo.append("Top category: %s (%s)"%(categories[0][:]))
+				statusInfo.append(_("Top category: %s (%s)")%(categories[0][:]))
 			elif scriptCount == 1:
 				categoryList = []
+				header = _("Categories:")
 				for item in categories:
 					category, count = item
 					category = category.replace("<", "")
 					category = category.replace(">", "")
-					categoryList.append("<li>%s (%s)</li>"%(category, count))
-				statusInfo.append("".join(["Categories:<ol>", "\n".join(categoryList), "</ol>"]))
+					info = _("{categoryName} ({categoryCount})").format(categoryName = category, categoryCount = count)
+					categoryList.append("<li>%s</li>"%info)
+				statusInfo.append("".join([header, "<ol>", "\n".join(categoryList), "</ol>"]))
 		if "PlaylistGenreCount" in snapshot:
 			genreCount = splconfig.SPLConfig["PlaylistSnapshots"]["GenreCountLimit"]
 			genres = snapshot["PlaylistGenreCount"].most_common(None if not genreCount else genreCount)
 			if scriptCount == 0:
-				statusInfo.append("Top genre: %s (%s)"%(genres[0][:]))
+				statusInfo.append(_("Top genre: %s (%s)")%(genres[0][:]))
 			elif scriptCount == 1:
 				genreList = []
+				header = _("Top genres:")
 				for item in genres:
 					genre, count = item
 					if genre is None:
-						genreList.append("<li>No genre information (%s)</li>"%(count))
+						info = _("No genre information ({genreCount})").format(genreCount = count)
 					else:
-						genreList.append("<li>%s (%s)</li>"%(genre, count))
-				statusInfo.append("".join(["Top genres:<ol>", "\n".join(genreList), "</ol>"]))
+						info = _("{genreName} ({genreCount})").format(genreName = genre, genreCount = count)
+					genreList.append("<li>%s</li>"%info)
+				statusInfo.append("".join([header, "<ol>", "\n".join(genreList), "</ol>"]))
 		if scriptCount == 0:
 			ui.message(", ".join(statusInfo))
 		else:
-			ui.browseableMessage("<p>".join(statusInfo),title="Playlist snapshots", isHtml=True)
+			ui.browseableMessage("<p>".join(statusInfo),title=_("Playlist snapshots"), isHtml=True)
 
 	# Some handlers for native commands.
 
