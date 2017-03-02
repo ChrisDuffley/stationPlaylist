@@ -772,7 +772,7 @@ def switchProfile(prevProfile, newProfile):
 	SPLPrevProfile = prevProfile
 	# 8.0: Cache other profiles this time.
 	if newProfile != defaultProfileName and newProfile not in _SPLCache:
-		_cacheConfig(getProfileByName(selectedProfile))
+		_cacheConfig(getProfileByName(newProfile))
 
 # Called from within the app module.
 def instantProfileSwitch():

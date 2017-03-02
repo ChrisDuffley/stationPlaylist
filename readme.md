@@ -194,6 +194,11 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * Initial support for StationPlaylist Creator.
 * Added a new command in SPL Controller layer to announce Studio status such as track playback and microphone status (Q).
 
+## Version 17.03
+
+* NVDA will no longer appear to do anything or play an error tone when switching to a time-based broadcast profile.
+* Updated translations.
+
 ## Version 17.01/15.5-LTS
 
 Note: 17.01.1/15.5A-LTS replaces 17.01 due to changes to location of new add-on files.
