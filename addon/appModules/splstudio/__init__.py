@@ -184,6 +184,11 @@ class SPLTrackItem(IAccessible):
 		# 7.0: Let the app module keep a reference to this track.
 		self.appModule._focusedTrack = self
 
+	# A friendly way to report track position via location text.
+	def _get_locationText(self):
+		# Translaotrs: location text for a playlist item (example: item 1 of 10).
+		return _("Item {current} of {total}").format(current = self.IAccessibleChildID, total = studioAPI(0, 124, ret=True))
+
 	# Track Dial: using arrow keys to move through columns.
 	# This is similar to enhanced arrow keys in other screen readers.
 
