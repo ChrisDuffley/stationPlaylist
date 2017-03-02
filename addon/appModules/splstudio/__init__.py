@@ -193,7 +193,7 @@ class SPLTrackItem(IAccessible):
 	# This is similar to enhanced arrow keys in other screen readers.
 
 	def script_toggleTrackDial(self, gesture):
-		ui.message("Track Dial is deprecated in 2017, please unassign Track Dial toggle command via Input Gestures dialog")
+		gesture.send()
 	# Translators: Input help mode message for SPL track item.
 	script_toggleTrackDial.__doc__=_("Toggles track dial on and off.")
 	script_toggleTrackDial.category = _("StationPlaylist Studio")
