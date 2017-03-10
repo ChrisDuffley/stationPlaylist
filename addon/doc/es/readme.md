@@ -287,6 +287,12 @@ realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
 
+## Versión 17.03
+
+* NVDA ya no parecerá no hacer nada o no reproducirá un tono de error al
+  cambiar a un perfil de transmisión basado en tiempo.
+* Traducciones actualizadas.
+
 ## Versión 17.01/15.5-LTS
 
 Nota: 17.01.1/15.5A-LTS reemplaza a 17.01 debido a cambios de la
