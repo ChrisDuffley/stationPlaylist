@@ -116,7 +116,7 @@ _SPLCategoryTones = {
 
 # Routines for track items themselves (prepare for future work).
 class SPLTrackItem(IAccessible):
-	"""A base class for providing utility scripts when track entries are focused, such as track dial."""
+	"""A base class for providing utility scripts when track entries are focused, such as location text and column navigation."""
 
 	# Keep a record of which column is being looked at.
 	_curColumnNumber = None
@@ -185,18 +185,9 @@ class SPLTrackItem(IAccessible):
 		self.appModule._focusedTrack = self
 
 	# A friendly way to report track position via location text.
-	def _get_locationText(self):
-		# Translaotrs: location text for a playlist item (example: item 1 of 10).
-		return _("Item {current} of {total}").format(current = self.IAccessibleChildID, total = studioAPI(0, 124, ret=True))
-
-	# Track Dial: using arrow keys to move through columns.
-	# This is similar to enhanced arrow keys in other screen readers.
-
-	def script_toggleTrackDial(self, gesture):
-		gesture.send()
-	# Translators: Input help mode message for SPL track item.
-	script_toggleTrackDial.__doc__=_("Toggles track dial on and off.")
-	script_toggleTrackDial.category = _("StationPlaylist Studio")
+	"""def _get_locationText(self):
+		# Translators: location text for a playlist item (example: item 1 of 10).
+		return _("Item {current} of {total}").format(current = self.IAccessibleChildID, total = studioAPI(0, 124, ret=True))"""
 
 	# Some helper functions to handle corner cases.
 	# Each track item provides its own version.
@@ -380,7 +371,7 @@ class SPL510TrackItem(SPLTrackItem):
 	def _origIndexOf(self, columnHeader):
 		return splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"].index(columnHeader)+1
 
-	# Handle track dial for SPL 5.10.
+	# Handle column announcement for SPL 5.10.
 	def _leftmostcol(self):
 		if not self.name:
 			# Translators: Presented when no track status is found in Studio 5.10.
