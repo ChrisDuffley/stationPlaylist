@@ -992,14 +992,14 @@ class AppModule(appModuleHandler.AppModule):
 	def script_setEndOfTrackTime(self, gesture):
 		self.alarmDialog(1)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
-	script_setEndOfTrackTime.__doc__=_("sets end of track alarm (default is 5 seconds).")
+	script_setEndOfTrackTime.__doc__=_("Sets end of track alarm (default is 5 seconds).")
 
 	# Set song ramp (introduction) time between 1 and 9 seconds.
 
 	def script_setSongRampTime(self, gesture):
 		self.alarmDialog(2)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
-	script_setSongRampTime.__doc__=_("sets song intro alarm (default is 5 seconds).")
+	script_setSongRampTime.__doc__=_("Sets song intro alarm (default is 5 seconds).")
 
 	# Tell NVDA to play a sound when mic was active for a long time, as well as contorl the alarm interval.
 	# 8.0: This dialog will let users configure mic alarm interval as well.
