@@ -13,8 +13,8 @@ from csv import reader # For cart explorer.
 import gui
 import wx
 import ui
-from NVDAObjects.IAccessible import sysListView32
 from winUser import user32, sendMessage
+from spldebugging import debugOutput
 
 # Locate column content.
 # Given an object and the column number, locate text in the given column.
@@ -23,6 +23,7 @@ from winUser import user32, sendMessage
 # In track finder, this is used when encountering the track item but NVDA says otherwise.
 def _getColumnContent(obj, col):
 	import winKernel
+	from NVDAObjects.IAccessible import sysListView32
 	# Borrowed from SysListView32 implementation.
 	buffer=None
 	processHandle=obj.processHandle
@@ -96,8 +97,7 @@ class SPLFindDialog(wx.Dialog):
 			columnSizer = wx.BoxSizer(wx.HORIZONTAL)
 			# Translators: The label in track finder to search columns.
 			label = wx.StaticText(self, wx.ID_ANY, label=_("C&olumn to search:"))
-			section, key, pos = ("ColumnAnnouncement", "ColumnOrder", None) if obj.appModule.productVersion >= "5.10" else ("General", "ExploreColumns", 6)
-			self.columnHeaders = wx.Choice(self, wx.ID_ANY, choices=splconfig._SPLDefaults7[section][key][:pos])
+			self.columnHeaders = wx.Choice(self, wx.ID_ANY, choices=splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])
 			self.columnHeaders.SetSelection(0)
 			columnSizer.Add(label)
 			columnSizer.Add(self.columnHeaders)
@@ -117,8 +117,7 @@ class SPLFindDialog(wx.Dialog):
 		# Studio, are you alive?
 		if user32.FindWindowA("SPLStudio", None) and text:
 			appMod = self.obj.appModule
-			column = [self.columnHeaders.Selection] if self.columnSearch else None
-			if column is not None and appMod.productVersion >= "5.10": column[0]+=1
+			column = [self.columnHeaders.Selection+1] if self.columnSearch else None
 			startObj = self.obj
 			if text == appMod.findText: startObj = startObj.next
 			# If this is called right away, we land on an invisible window.
@@ -223,7 +222,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 				obj = obj.next
 			if obj is not None:
 				# This time, set focus once, as doing it twice causes focus problems only if using Studio 5.10 or later.
-				if obj.appModule.SPLCurVersion >= "5.10": obj.setFocus()
+				obj.setFocus()
 				# 16.11: Select the desired track manually.
 				self.func(-1, 121)
 				self.func(obj.IAccessibleChildID-1, 121)
@@ -243,13 +242,15 @@ class SPLTimeRangeDialog(wx.Dialog):
 
 # Cart Explorer helper.
 
-def _populateCarts(carts, cartlst, modifier, standardEdition=False):
+def _populateCarts(carts, cartlst, modifier, standardEdition=False, refresh=False):
 	# The real cart string parser, a helper for cart explorer for building cart entries.
 	# 5.2: Discard number row if SPL Standard is in use.
 	if standardEdition: cartlst = cartlst[:12]
 	for entry in cartlst:
 		# An unassigned cart is stored with three consecutive commas, so skip it.
-		if ",,," in entry: continue
+		# 17.04: If refresh is on, the cart we're dealing with is the actual carts dictionary that was built previously.
+		noEntry = ",,," in entry
+		if noEntry and not refresh: continue
 		# Pos between 1 and 12 = function carts, 13 through 24 = number row carts, modifiers are checked.
 		pos = cartlst.index(entry)+1
 		# If a cart name has commas or other characters, SPL surrounds the cart name with quotes (""), so parse it as well.
@@ -260,21 +261,27 @@ def _populateCarts(carts, cartlst, modifier, standardEdition=False):
 		elif pos == 22: identifier = "0"
 		elif pos == 23: identifier = "-"
 		else: identifier = "="
-		if modifier == "main": cart = identifier
-		else: cart = "%s+%s"%(modifier, identifier)
-		carts[cart] = cartName
+		cart = identifier if not modifier else "+".join([modifier, identifier])
+		if noEntry and refresh:
+			if cart in carts: del carts[cart]
+		else:
+			carts[cart] = cartName
 
 # Cart file timestamps.
-_cartEditTimestamps = [0, 0, 0, 0]
+_cartEditTimestamps = None
 		# Initialize Cart Explorer i.e. fetch carts.
 # Cart files list is for future use when custom cart names are used.
-def cartExplorerInit(StudioTitle, cartFiles=None):
+# if told to refresh, timestamps will be checked and updated banks will be reassigned.
+# Carts dictionary is used if and only if refresh is on, as it'll modify live cats.
+def cartExplorerInit(StudioTitle, cartFiles=None, refresh=False, carts=None):
 	global _cartEditTimestamps
+	debugOutput("SPL: refreshing Cart Explorer" if refresh else "SPL: preparing cart Explorer")
 	# Use cart files in SPL's data folder to build carts dictionary.
 	# use a combination of SPL user name and static cart location to locate cart bank files.
 	# Once the cart banks are located, use the routines in the populate method above to assign carts.
 	# Since sstandard edition does not support number row carts, skip them if told to do so.
-	carts = {"standardLicense":StudioTitle.startswith("StationPlaylist Studio Standard")}
+	if carts is None: carts = {"standardLicense":StudioTitle.startswith("StationPlaylist Studio Standard")}
+	if refresh: carts["modifiedBanks"] = []
 	# Obtain the "real" path for SPL via environment variables and open the cart data folder.
 	cartsDataPath = os.path.join(os.environ["PROGRAMFILES"],"StationPlaylist","Data") # Provided that Studio was installed using default path.
 	if cartFiles is None:
@@ -286,7 +293,10 @@ def cartExplorerInit(StudioTitle, cartFiles=None):
 		if userNameIndex >= 0:
 			cartFiles = [StudioTitle[userNameIndex+2:]+" "+cartFile for cartFile in cartFiles]
 	faultyCarts = False
+	if not refresh:
+		_cartEditTimestamps = []
 	for f in cartFiles:
+		# Only do this if told to build cart banks from scratch, as refresh flag is set if cart explorer is active in the first place.
 		try:
 			mod = f.split()[-2] # Checking for modifier string such as ctrl.
 			# Todo: Check just in case some SPL flavors doesn't ship with a particular cart file.
@@ -294,36 +304,31 @@ def cartExplorerInit(StudioTitle, cartFiles=None):
 			faultyCarts = True # In a rare event that the broadcaster has saved the cart bank with the name like "carts.cart".
 			continue
 		cartFile = os.path.join(cartsDataPath,f)
-		if not os.path.isfile(cartFile): # Cart explorer will fail if whitespaces are in the beginning or at the end of a user name.
+		# Cart explorer can safely assume that the cart bank exists if refresh flag is set.
+		if not refresh and not os.path.isfile(cartFile): # Cart explorer will fail if whitespaces are in the beginning or at the end of a user name.
 			faultyCarts = True
 			continue
+		debugOutput("SPL: examining carts from file %s"%cartFile)
+		cartTimestamp = os.path.getmtime(cartFile)
+		if refresh and _cartEditTimestamps[cartFiles.index(f)] == cartTimestamp:
+			debugOutput("SPL: no changes to cart bank, skipping")
+			continue
+		_cartEditTimestamps.append(cartTimestamp)
 		with open(cartFile) as cartInfo:
 			cl = [row for row in reader(cartInfo)]
-			# 17.01: Look up file modification date to signal the app module that Cart Explorer reentry should occur.
-			_cartEditTimestamps[cartFiles.index(f)] = os.path.getmtime(cartFile)
-		_populateCarts(carts, cl[1], mod, standardEdition=carts["standardLicense"]) # See the comment for _populate method above.
+		# 17.04 (optimization): let empty string represent main cart bank to avoid this being partially consulted up to 24 times.
+		# The below method will just check for string length, which is faster than looking for specific substring.
+		_populateCarts(carts, cl[1], mod if mod != "main" else "", standardEdition=carts["standardLicense"], refresh=refresh) # See the comment for _populate method above.
+		if not refresh:
+			debugOutput("SPL: carts processed so far: %s"%(len(carts)-1))
 	carts["faultyCarts"] = faultyCarts
+	debugOutput("SPL: total carts processed: %s"%(len(carts)-2))
 	return carts
 
-# See if cart files were modified.
-# This is needed in order to announce Cart Explorer reentry command.
-def shouldCartExplorerRefresh(StudioTitle):
-	global _cartEditTimestamps
-	cartsDataPath = os.path.join(os.environ["PROGRAMFILES"],"StationPlaylist","Data") # Provided that Studio was installed using default path.
-	userNameIndex = StudioTitle.find("-")
-	# Until NVDA core moves to Python 3, assume that file names aren't unicode.
-	cartFiles = [u"main carts.cart", u"shift carts.cart", u"ctrl carts.cart", u"alt carts.cart"]
-	if userNameIndex >= 0:
-		cartFiles = [StudioTitle[userNameIndex+2:]+" "+cartFile for cartFile in cartFiles]
-	for f in cartFiles:
-		# No need to check for faulty carts here, as Cart Explorer activation checked it already.
-		timestamp = os.path.getmtime(os.path.join(cartsDataPath,f))
-		# 17.01: Look up file modification date to signal the app module that Cart Explorer reentry should occur.
-		# Optimization: Short-circuit if even one cart file has been modified.
-		if _cartEditTimestamps[cartFiles.index(f)] != timestamp:
-			return True
-	return False
-
+# Refresh carts upon request.
+# calls cart explorer init with special (internal) flags.
+def cartExplorerRefresh(studioTitle, currentCarts):
+	return cartExplorerInit(studioTitle, refresh=True, carts=currentCarts)
 
 # Countdown timer.
 # This is utilized by many services, chiefly profile triggers routine.
@@ -371,11 +376,12 @@ def _metadataAnnouncer(reminder=False, handle=None):
 		for url in xrange(5):
 			dataLo = 0x00010000 if splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"][url] else 0xffff0000
 			sendMessage(handle, 1024, dataLo | url, 36)
-	dsp = 1 if sendMessage(handle, 1024, 0, 36) == 1 else 0
-	streamCount = []
-	for pos in xrange(1, 5):
-		checked = sendMessage(handle, 1024, pos, 36)
-		if checked == 1: streamCount.append(pos)
+	# Gather stream flags.
+	# DSP is treated specially.
+	dsp = sendMessage(handle, 1024, 0, 36)
+	# For others, a simple list.append will do.
+	# 17.04: Use a conditional list comprehension.
+	streamCount = [str(pos) for pos in xrange(1, 5) if sendMessage(handle, 1024, pos, 36)]
 	# Announce streaming status when told to do so.
 	status = None
 	if not len(streamCount):
@@ -389,11 +395,10 @@ def _metadataAnnouncer(reminder=False, handle=None):
 		# Translators: Status message for metadata streaming.
 		else: status = _("Metadata streaming configured for URL {URL}").format(URL = streamCount[0])
 	else:
-		urltext = ", ".join([str(stream) for stream in streamCount])
 		# Translators: Status message for metadata streaming.
-		if dsp: status = _("Metadata streaming configured for DSP encoder and URL's {URL}").format(URL = urltext)
+		if dsp: status = _("Metadata streaming configured for DSP encoder and URL's {URL}").format(URL = ", ".join(streamCount))
 		# Translators: Status message for metadata streaming.
-		else: status = _("Metadata streaming configured for URL's {URL}").format(URL = urltext)
+		else: status = _("Metadata streaming configured for URL's {URL}").format(URL = ", ".join(streamCount))
 	if reminder:
 		time.sleep(2)
 		speech.cancelSpeech()

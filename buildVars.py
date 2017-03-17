@@ -20,7 +20,7 @@ addon_info = {
 	"addon_description" : _("""Enhances support for StationPlaylist Studio.
 In addition, adds global commands for the studio from everywhere."""),
 	# version
-	"addon_version" : "17.03",
+	"addon_version" : "17.04-dev",
 	# Author(s)
 	"addon_author" : u"Geoff Shang, Joseph Lee and other contributors",
 	# URL for the add-on documentation support
@@ -37,7 +37,7 @@ import os.path
 pythonSources = [os.path.join("addon", "*.py"),
 os.path.join("addon", "appModules", "*.py"),
 os.path.join("addon", "appModules", "splstudio", "*.py"),
-os.path.join("addon", "globalPlugins", "SPLStudioUtils", "*.py")]
+os.path.join("addon", "globalPlugins", "splUtils", "*.py")]
 
 # Files that contain strings for translation. Usually your python sources
 i18nSources = pythonSources + ["buildVars.py"]
