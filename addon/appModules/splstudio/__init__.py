@@ -1490,21 +1490,29 @@ class AppModule(appModuleHandler.AppModule):
 # Output formatter for playlist snapshots.
 # Pressed once will speak and/or braille it, pressing twice or more will output this info to an HTML file.
 	def playlistSnapshotOutput(self, snapshot, scriptCount):
+		# Translators: one of the results for playlist snapshots feature for announcing total number of items in a playlist.
 		statusInfo = [_("Items: {playlistItemCount}").format(playlistItemCount = snapshot["PlaylistItemCount"])]
+		# Translators: one of the results for playlist snapshots feature for announcing total number of tracks in a playlist.
 		statusInfo.append(_("Tracks: {playlistTrackCount}").format(playlistTrackCount = snapshot["PlaylistTrackCount"]))
+		# Translators: one of the results for playlist snapshots feature for announcing total duration of a playlist.
 		statusInfo.append(_("Duration: {playlistTotalDuration}").format(playlistTotalDuration = snapshot["PlaylistDurationTotal"]))
 		if "PlaylistDurationMin" in snapshot:
+			# Translators: one of the results for playlist snapshots feature for announcing shortest track name and duration of a playlist.
 			statusInfo.append(_("Shortest: {playlistShortestTrack}").format(playlistShortestTrack = snapshot["PlaylistDurationMin"]))
+			# Translators: one of the results for playlist snapshots feature for announcing longest track name and duration of a playlist.
 			statusInfo.append(_("Longest: {playlistLongestTrack}").format(playlistLongestTrack = snapshot["PlaylistDurationMax"]))
 		if "PlaylistDurationAverage" in snapshot:
+			# Translators: one of the results for playlist snapshots feature for announcing average duration for tracks in a playlist.
 			statusInfo.append(_("Average: {playlistAverageDuration}").format(playlistAverageDuration = snapshot["PlaylistDurationAverage"]))
 		if "PlaylistArtistCount" in snapshot:
 			artistCount = splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCountLimit"]
 			artists = snapshot["PlaylistArtistCount"].most_common(None if not artistCount else artistCount)
 			if scriptCount == 0:
+				# Translators: one of the results for playlist snapshots feature for announcing top artist in a playlist.
 				statusInfo.append(_("Top artist: %s (%s)")%(artists[0][:]))
 			elif scriptCount == 1:
 				artistList = []
+				# Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 				header = _("Top artists:")
 				for item in artists:
 					artist, count = item
@@ -1518,9 +1526,11 @@ class AppModule(appModuleHandler.AppModule):
 			categoryCount = splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCountLimit"]
 			categories = snapshot["PlaylistCategoryCount"].most_common(None if not categoryCount else categoryCount)
 			if scriptCount == 0:
+				# Translators: one of the results for playlist snapshots feature for announcing top track category in a playlist.
 				statusInfo.append(_("Top category: %s (%s)")%(categories[0][:]))
 			elif scriptCount == 1:
 				categoryList = []
+				# Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 				header = _("Categories:")
 				for item in categories:
 					category, count = item
@@ -1533,9 +1543,11 @@ class AppModule(appModuleHandler.AppModule):
 			genreCount = splconfig.SPLConfig["PlaylistSnapshots"]["GenreCountLimit"]
 			genres = snapshot["PlaylistGenreCount"].most_common(None if not genreCount else genreCount)
 			if scriptCount == 0:
+				# Translators: one of the results for playlist snapshots feature for announcing top genre in a playlist.
 				statusInfo.append(_("Top genre: %s (%s)")%(genres[0][:]))
 			elif scriptCount == 1:
 				genreList = []
+				# Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 				header = _("Top genres:")
 				for item in genres:
 					genre, count = item
@@ -1548,6 +1560,7 @@ class AppModule(appModuleHandler.AppModule):
 		if scriptCount == 0:
 			ui.message(", ".join(statusInfo))
 		else:
+			# Translators: The title of a window for displaying playlist snapshots information.
 			ui.browseableMessage("<p>".join(statusInfo),title=_("Playlist snapshots"), isHtml=True)
 
 	# Some handlers for native commands.
