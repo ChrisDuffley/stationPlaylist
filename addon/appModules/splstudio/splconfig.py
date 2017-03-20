@@ -12,7 +12,6 @@ from validate import Validator
 import time
 import datetime
 import cPickle
-import copy
 import globalVars
 import ui
 import gui
@@ -32,7 +31,7 @@ except ImportError:
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
 SPLProfiles = os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "profiles")
 # New (7.0) style config.
-confspec7 = ConfigObj(StringIO("""
+confspec = ConfigObj(StringIO("""
 [General]
 BeepAnnounce = boolean(default=false)
 MessageVerbosity = option("beginner", "advanced", default="beginner")
@@ -40,13 +39,23 @@ BrailleTimer = option("off", "intro", "outro", "both", default="off")
 AlarmAnnounce = option("beep", "message", "both", default="beep")
 TrackCommentAnnounce = option("off", "beep", "message", "both", default="off")
 LibraryScanAnnounce = option("off", "ending", "progress", "numbers", default="off")
-TrackDial = boolean(default=false)
 CategorySounds = boolean(default=false)
 TopBottomAnnounce = boolean(default=true)
 MetadataReminder = option("off", "startup", "instant", default="off")
 TimeHourAnnounce = boolean(default=true)
 ExploreColumns = string_list(default=list("Artist","Title","Duration","Intro","Category","Filename","Year","Album","Genre","Time Scheduled"))
 ExploreColumnsTT = string_list(default=list("Artist","Title","Duration","Cue","Overlap","Intro","Segue","Filename","Album","CD Code"))
+VerticalColumnAnnounce = option(None,"Status","Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled",default=None)
+[PlaylistSnapshots]
+DurationMinMax = boolean(default=true)
+DurationAverage = boolean(default=true)
+ArtistCount = boolean(default=true)
+ArtistCountLimit = integer(min=0, max=10, default=5)
+CategoryCount = boolean(default=true)
+CategoryCountLimit = integer(min=0, max=10, default=5)
+GenreCount = boolean(default=true)
+GenreCountLimit = integer(min=0, max=10, default=5)
+ShowResultsWindowOnFirstPress = boolean(default=false)
 [IntroOutroAlarms]
 SayEndOfTrack = boolean(default=true)
 EndOfTrackTime = integer(min=1, max=59, default=5)
@@ -76,15 +85,16 @@ UpdateInterval = integer(min=1, max=30, default=7)
 [Startup]
 AudioDuckingReminder = boolean(default=true)
 WelcomeDialog = boolean(default=true)
-Studio500 = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
-confspec7.newlines = "\r\n"
+confspec.newlines = "\r\n"
 SPLConfig = None
 # The following settings can be changed in profiles:
-_mutatableSettings7=("IntroOutroAlarms", "MicrophoneAlarm", "MetadataStreaming", "ColumnAnnouncement")
+_mutatableSettings=("IntroOutroAlarms", "MicrophoneAlarm", "MetadataStreaming", "ColumnAnnouncement")
 # 7.0: Profile-specific confspec (might be removed once a more optimal way to validate sections is found).
 # Dictionary comprehension is better here.
-confspecprofiles = {sect:key for sect, key in confspec7.iteritems() if sect in _mutatableSettings7}
+confspecprofiles = {sect:key for sect, key in confspec.iteritems() if sect in _mutatableSettings}
+# Translators: The name of the default (normal) profile.
+defaultProfileName = _("Normal profile")
 
 # 8.0: Run-time config storage and management will use ConfigHub data structure, a subclass of chain map.
 # A chain map allows a dictionary to look up predefined mappings to locate a key.
@@ -105,11 +115,16 @@ class ConfigHub(ChainMap):
 		super(ConfigHub, self).__init__()
 		# For presentational purposes.
 		self.profileNames = []
-		# Translators: The name of the default (normal) profile.
-		self.maps[0] = self._unlockConfig(SPLIni, profileName=_("Normal profile"), prefill=True, validateNow=True)
+		self.maps[0] = self._unlockConfig(SPLIni, profileName=defaultProfileName, prefill=True, validateNow=True)
 		self.profileNames.append(None) # Signifying normal profile.
 		# Always cache normal profile upon startup.
 		self._cacheConfig(self.maps[0])
+		# Remove deprecated keys.
+		# This action must be performed after caching, otherwise the newly modified profile will not be saved.
+		deprecatedKeys = {"General":"TrackDial", "Startup":"Studio500"}
+		for section, key in deprecatedKeys.iteritems():
+			if key in self.maps[0][section]: del self.maps[0][section][key]
+		# Moving onto broadcast profiles if any.
 		try:
 			profiles = filter(lambda fn: os.path.splitext(fn)[-1] == ".ini", os.listdir(SPLProfiles))
 			for profile in profiles:
@@ -148,10 +163,10 @@ class ConfigHub(ChainMap):
 		# 7.0: What if profiles have parsing errors?
 		# If so, reset everything back to factory defaults.
 		try:
-			SPLConfigCheckpoint = ConfigObj(path, configspec = confspec7 if prefill else confspecprofiles, encoding="UTF-8")
+			SPLConfigCheckpoint = ConfigObj(path, configspec = confspec if prefill else confspecprofiles, encoding="UTF-8")
 		except:
 			open(path, "w").close()
-			SPLConfigCheckpoint = ConfigObj(path, configspec = confspec7 if prefill else confspecprofiles, encoding="UTF-8")
+			SPLConfigCheckpoint = ConfigObj(path, configspec = confspec if prefill else confspecprofiles, encoding="UTF-8")
 			_configLoadStatus[profileName] = "fileReset"
 		# 5.2 and later: check to make sure all values are correct.
 		# 7.0: Make sure errors are displayed as config keys are now sections and may need to go through subkeys.
@@ -176,7 +191,7 @@ class ConfigHub(ChainMap):
 				# Case 1: restore settings to defaults when 5.x config validation has failed on all values.
 				# 6.0: In case this is a user profile, apply base configuration.
 				# 8.0: Call copy profile function directly to reduce overhead.
-				copyProfile(_SPLDefaults7, SPLConfigCheckpoint, complete=SPLConfigCheckpoint.filename == SPLIni)
+				copyProfile(_SPLDefaults, SPLConfigCheckpoint, complete=SPLConfigCheckpoint.filename == SPLIni)
 				_configLoadStatus[profileName] = "completeReset"
 			elif isinstance(configTest, dict):
 				# Case 2: For 5.x and later, attempt to reconstruct the failed values.
@@ -186,7 +201,7 @@ class ConfigHub(ChainMap):
 					if isinstance(configTest[setting], dict):
 						for failedKey in configTest[setting].keys():
 							# 7.0 optimization: just reload from defaults dictionary, as broadcast profiles contain profile-specific settings only.
-							SPLConfigCheckpoint[setting][failedKey] = _SPLDefaults7[setting][failedKey]
+							SPLConfigCheckpoint[setting][failedKey] = _SPLDefaults[setting][failedKey]
 				# 7.0: Disqualified from being cached this time.
 				SPLConfigCheckpoint.write()
 				_configLoadStatus[profileName] = "partialReset"
@@ -223,7 +238,7 @@ class ConfigHub(ChainMap):
 	def deleteProfile(self, name):
 		# Bring normal profile to the front if it isn't.
 		# Optimization: Tell the swapper that we need index to the normal profile for this case.
-		configPos = self.swapProfiles(name, _("Normal profile"), showSwitchIndex=True) if self.profiles[0].name == name else self.profileIndexByName(name)
+		configPos = self.swapProfiles(name, defaultProfileName, showSwitchIndex=True) if self.profiles[0].name == name else self.profileIndexByName(name)
 		profilePos = self.profileNames.index(name)
 		try:
 			os.remove(self.profiles[configPos].filename)
@@ -235,6 +250,7 @@ class ConfigHub(ChainMap):
 
 	def _cacheConfig(self, conf):
 		global _SPLCache
+		import copy
 		if _SPLCache is None: _SPLCache = {}
 		key = None if conf.filename == SPLIni else conf.name
 		_SPLCache[key] = {}
@@ -244,7 +260,7 @@ class ConfigHub(ChainMap):
 
 	def __delitem__(self, key):
 		# Consult profile-specific key first before deleting anything.
-		pos = 0 if key in _mutatableSettings7 else [profile.name for profile in self.maps].index(_("Normal Profile"))
+		pos = 0 if key in _mutatableSettings else [profile.name for profile in self.maps].index(defaultProfileName)
 		try:
 			del self.maps[pos][key]
 		except KeyError:
@@ -255,7 +271,7 @@ class ConfigHub(ChainMap):
 		# 7.0: Save normal profile first.
 		# Temporarily merge normal profile.
 		# 8.0: Locate the index instead.
-		normalProfile = self.profileIndexByName(_("Normal profile"))
+		normalProfile = self.profileIndexByName(defaultProfileName)
 		_preSave(self.profiles[normalProfile])
 		# Disk write optimization check please.
 		# 8.0: Bypass this if profiles were reset.
@@ -296,14 +312,14 @@ class ConfigHub(ChainMap):
 			profilePath = conf.filename
 			conf.reset()
 			conf.filename = profilePath
-			resetConfig(_SPLDefaults7, conf)
+			resetConfig(_SPLDefaults, conf)
 			# Convert certain settings to a different format.
-			conf["ColumnAnnouncement"]["IncludedColumns"] = set(_SPLDefaults7["ColumnAnnouncement"]["IncludedColumns"])
+			conf["ColumnAnnouncement"]["IncludedColumns"] = set(_SPLDefaults["ColumnAnnouncement"]["IncludedColumns"])
 		# Switch back to normal profile via a custom variant of swap routine.
-		if self.profiles[0].name != _("Normal profile"):
-			npIndex = self.profileIndexByName(_("Normal profile"))
+		if self.profiles[0].name != defaultProfileName:
+			npIndex = self.profileIndexByName(defaultProfileName)
 			self.profiles[0], self.profiles[npIndex] = self.profiles[npIndex], self.profiles[0]
-			self.activeProfile = _("Normal profile")
+			self.activeProfile = defaultProfileName
 		# 8.0 optimization: Tell other modules that reset was done in order to postpone disk writes until the end.
 		self.resetHappened = True
 
@@ -359,9 +375,9 @@ class ConfigHub(ChainMap):
 
 # Default config spec container.
 # To be moved to a different place in 8.0.
-_SPLDefaults7 = ConfigObj(None, configspec = confspec7, encoding="UTF-8")
+_SPLDefaults = ConfigObj(None, configspec = confspec, encoding="UTF-8")
 _val = Validator()
-_SPLDefaults7.validate(_val, copy=True)
+_SPLDefaults.validate(_val, copy=True)
 
 # Display an error dialog when configuration validation fails.
 def runConfigErrorDialog(errorText, errorType):
@@ -453,7 +469,7 @@ def _extraInitSteps(conf, profileName=None):
 	global _configLoadStatus
 	columnOrder = conf["ColumnAnnouncement"]["ColumnOrder"]
 	# Catch suttle errors.
-	fields = _SPLDefaults7["ColumnAnnouncement"]["ColumnOrder"]
+	fields = _SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
 	invalidFields = 0
 	for field in fields:
 		if field not in columnOrder: invalidFields+=1
@@ -474,6 +490,9 @@ def _extraInitSteps(conf, profileName=None):
 		else:
 			_configLoadStatus[profileName] = "metadataReset"
 		conf["MetadataStreaming"]["MetadataEnabled"] = [False, False, False, False, False]
+	# 17.04: If vertical column announcement value is "None", transform this to NULL.
+	if conf["General"]["VerticalColumnAnnounce"] == "None":
+		conf["General"]["VerticalColumnAnnounce"] = None
 
 # Cache a copy of the loaded config.
 # This comes in handy when saving configuration to disk. For the most part, no change occurs to config.
@@ -651,7 +670,7 @@ def getProfileByName(name):
 # Setting complete flag controls whether profile-specific settings are applied (true otherwise, only set when resetting profiles).
 # 8.0: Simplified thanks to in-place swapping.
 def copyProfile(sourceProfile, targetProfile, complete=False):
-	for section in sourceProfile.keys() if complete else _mutatableSettings7:
+	for section in sourceProfile.keys() if complete else _mutatableSettings:
 		targetProfile[section] = dict(sourceProfile[section])
 
 # Last but not least...
@@ -698,7 +717,7 @@ def _preSave(conf):
 		for setting in conf.keys():
 			for key in conf[setting].keys():
 				try:
-					if conf[setting][key] == _SPLDefaults7[setting][key]:
+					if conf[setting][key] == _SPLDefaults[setting][key]:
 						del conf[setting][key]
 				except KeyError:
 					pass
@@ -752,7 +771,7 @@ def switchProfile(prevProfile, newProfile):
 	SPLConfig.switchProfile(prevProfile, newProfile)
 	SPLPrevProfile = prevProfile
 	# 8.0: Cache other profiles this time.
-	if newProfile != _("Normal profile") and newProfile not in _SPLCache:
+	if newProfile != defaultProfileName and newProfile not in _SPLCache:
 		_cacheConfig(getProfileByName(newProfile))
 
 # Called from within the app module.
@@ -809,22 +828,25 @@ def triggerProfileSwitch():
 			_SPLTriggerEndTimer.Stop()
 			_SPLTriggerEndTimer = None
 
-
 # Automatic update checker.
 
 # The function below is called as part of the update check timer.
 # Its only job is to call the update check function (splupdate) with the auto check enabled.
 # The update checker will not be engaged if an instant switch profile is active or it is not time to check for it yet (check will be done every 24 hours).
 def autoUpdateCheck():
-	splupdate.updateCheck(auto=True, continuous=SPLConfig["Update"]["AutoUpdateCheck"], confUpdateInterval=SPLConfig["Update"]["UpdateInterval"])
+	splupdate.updateChecker(auto=True, continuous=SPLConfig["Update"]["AutoUpdateCheck"], confUpdateInterval=SPLConfig["Update"]["UpdateInterval"])
 
 # The timer itself.
 # A bit simpler than NVDA Core's auto update checker.
 def updateInit():
 	# LTS: Launch updater if channel change is detected.
+	# Use a background thread for this as urllib blocks.
+	import threading
 	if splupdate._updateNow:
-		splupdate.updateCheck(auto=True) # No repeat here.
+		t = threading.Thread(target=splupdate.updateChecker, kwargs={"auto": True}) # No repeat here.
+		t.daemon = True
 		splupdate._SPLUpdateT = wx.PyTimer(autoUpdateCheck)
+		t.start()
 		splupdate._updateNow = False
 		return
 	currentTime = time.time()
@@ -834,152 +856,21 @@ def updateInit():
 	elif splupdate.SPLAddonCheck < nextCheck < currentTime:
 		interval = SPLConfig["Update"]["UpdateInterval"]* 86400
 		# Call the update check now.
-		splupdate.updateCheck(auto=True) # No repeat here.
+		t = threading.Thread(target=splupdate.updateChecker, kwargs={"auto": True}) # No repeat here.
+		t.daemon = True
+		t.start()
 	splupdate._SPLUpdateT = wx.PyTimer(autoUpdateCheck)
 	splupdate._SPLUpdateT.Start(interval * 1000, True)
-
 
 # Let SPL track item know if it needs to build description pieces.
 # To be renamed and used in other places in 7.0.
 def _shouldBuildDescriptionPieces():
 	return (not SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"]
-	and (SPLConfig["ColumnAnnouncement"]["ColumnOrder"] != _SPLDefaults7["ColumnAnnouncement"]["ColumnOrder"]
+	and (SPLConfig["ColumnAnnouncement"]["ColumnOrder"] != _SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
 	or len(SPLConfig["ColumnAnnouncement"]["IncludedColumns"]) != 17))
 
-
-# Additional configuration dialogs
+# Additional configuration and miscellaneous dialogs
 # See splconfui module for basic configuration dialogs.
-
-# A common alarm dialog
-# Based on NVDA core's find dialog code (implemented by the author of this add-on).
-# Extended in 2016 to handle microphone alarms.
-# Only one instance can be active at a given moment (code borrowed from GUI's exit dialog routine).
-_alarmDialogOpened = False
-
-# A common alarm error dialog.
-def _alarmError():
-	# Translators: Text of the dialog when another alarm dialog is open.
-	gui.messageBox(_("Another alarm dialog is open."),_("Error"),style=wx.OK | wx.ICON_ERROR)
-
-class SPLAlarmDialog(wx.Dialog):
-	"""A dialog providing common alarm settings.
-	This dialog contains a number entry field for alarm duration and a check box to enable or disable the alarm.
-	For one particular case, it consists of two number entry fields.
-	"""
-
-	# The following comes from exit dialog class from GUI package (credit: NV Access and Zahari from Bulgaria).
-	_instance = None
-
-	def __new__(cls, parent, *args, **kwargs):
-		# Make this a singleton and prompt an error dialog if it isn't.
-		if _alarmDialogOpened:
-			raise RuntimeError("An instance of alarm dialog is opened")
-		inst = cls._instance() if cls._instance else None
-		if not inst:
-			return super(cls, cls).__new__(cls, parent, *args, **kwargs)
-		return inst
-
-	def __init__(self, parent, level=0):
-		inst = SPLAlarmDialog._instance() if SPLAlarmDialog._instance else None
-		if inst:
-			return
-		# Use a weakref so the instance can die.
-		import weakref
-		SPLAlarmDialog._instance = weakref.ref(self)
-
-		# Now the actual alarm dialog code.
-		# 8.0: Apart from level 0 (all settings shown), levels change title.
-		titles = (_("Alarms Center"), _("End of track alarm"), _("Song intro alarm"), _("Microphone alarm"))
-		super(SPLAlarmDialog, self).__init__(parent, wx.ID_ANY, titles[level])
-		self.level = level
-		mainSizer = wx.BoxSizer(wx.VERTICAL)
-
-		if level in (0, 1):
-			timeVal = SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"]
-			alarmSizer = wx.BoxSizer(wx.HORIZONTAL)
-			alarmMessage = wx.StaticText(self, wx.ID_ANY, label=_("Enter &end of track alarm time in seconds (currently {curAlarmSec})").format(curAlarmSec = timeVal))
-			alarmSizer.Add(alarmMessage)
-			self.outroAlarmEntry = wx.SpinCtrl(self, wx.ID_ANY, min=1, max=59)
-			self.outroAlarmEntry.SetValue(timeVal)
-			self.outroAlarmEntry.SetSelection(-1, -1)
-			alarmSizer.Add(self.outroAlarmEntry)
-			mainSizer.Add(alarmSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
-			self.outroToggleCheckBox=wx.CheckBox(self,wx.NewId(),label=_("&Notify when end of track is approaching"))
-			self.outroToggleCheckBox.SetValue(SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"])
-			mainSizer.Add(self.outroToggleCheckBox,border=10,flag=wx.BOTTOM)
-
-		if level in (0, 2):
-			rampVal = SPLConfig["IntroOutroAlarms"]["SongRampTime"]
-			alarmSizer = wx.BoxSizer(wx.HORIZONTAL)
-			alarmMessage = wx.StaticText(self, wx.ID_ANY, label=_("Enter song &intro alarm time in seconds (currently {curRampSec})").format(curRampSec = rampVal))
-			alarmSizer.Add(alarmMessage)
-			self.introAlarmEntry = wx.SpinCtrl(self, wx.ID_ANY, min=1, max=9)
-			self.introAlarmEntry.SetValue(rampVal)
-			self.introAlarmEntry.SetSelection(-1, -1)
-			alarmSizer.Add(self.introAlarmEntry)
-			mainSizer.Add(alarmSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
-			self.introToggleCheckBox=wx.CheckBox(self,wx.NewId(),label=_("&Notify when end of introduction is approaching"))
-			self.introToggleCheckBox.SetValue(SPLConfig["IntroOutroAlarms"]["SaySongRamp"])
-			mainSizer.Add(self.introToggleCheckBox,border=10,flag=wx.BOTTOM)
-
-		if level in (0, 3):
-			micAlarm = SPLConfig["MicrophoneAlarm"]["MicAlarm"]
-			micAlarmInterval = SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"]
-			if micAlarm:
-				# Translators: A dialog message to set microphone active alarm (curAlarmSec is the current mic monitoring alarm in seconds).
-				timeMSG = _("Enter microphone alarm time in seconds (currently {curAlarmSec}, 0 disables the alarm)").format(curAlarmSec = micAlarm)
-			else:
-				# Translators: A dialog message when microphone alarm is disabled (set to 0).
-				timeMSG = _("Enter microphone alarm time in seconds (currently disabled, 0 disables the alarm)")
-			alarmSizer = wx.BoxSizer(wx.VERTICAL)
-			alarmMessage = wx.StaticText(self, wx.ID_ANY, label=timeMSG)
-			alarmSizer.Add(alarmMessage)
-			self.micAlarmEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=7200)
-			self.micAlarmEntry.SetValue(micAlarm)
-			self.micAlarmEntry.SetSelection(-1, -1)
-			alarmSizer.Add(self.micAlarmEntry)
-			alarmMessage = wx.StaticText(self, wx.ID_ANY, label=_("Microphone alarm interval"))
-			alarmSizer.Add(alarmMessage)
-			self.micIntervalEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=60)
-			self.micIntervalEntry.SetValue(micAlarmInterval)
-			self.micIntervalEntry.SetSelection(-1, -1)
-			alarmSizer.Add(self.micIntervalEntry)
-			mainSizer.Add(alarmSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
-
-		mainSizer.AddSizer(self.CreateButtonSizer(wx.OK|wx.CANCEL))
-		self.Bind(wx.EVT_BUTTON,self.onOk,id=wx.ID_OK)
-		self.Bind(wx.EVT_BUTTON,self.onCancel,id=wx.ID_CANCEL)
-		mainSizer.Fit(self)
-		self.SetSizer(mainSizer)
-		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
-		if level in (0, 1): self.outroAlarmEntry.SetFocus()
-		elif level == 2: self.introAlarmEntry.SetFocus()
-		elif level == 3: self.micAlarmEntry.SetFocus()
-
-	def onOk(self, evt):
-		global SPLConfig, _alarmDialogOpened
-		# Optimization: don't bother if Studio is dead and if the same value has been entered.
-		import winUser
-		if winUser.user32.FindWindowA("SPLStudio", None):
-			# Gather settings to be applied in section/key format.
-			settings = []
-			if self.level in (0, 1):
-				SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] = self.outroAlarmEntry.GetValue()
-				SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"] = self.outroToggleCheckBox.GetValue()
-			elif self.level in (0, 2):
-				SPLConfig["IntroOutroAlarms"]["SongRampTime"] = self.introAlarmEntry.GetValue()
-				SPLConfig["IntroOutroAlarms"]["SaySongRamp"] = self.introToggleCheckBox.GetValue()
-			elif self.level in (0, 3):
-				SPLConfig["MicrophoneAlarm"]["MicAlarm"] = self.micAlarmEntry.GetValue()
-				SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] = self.micIntervalEntry.GetValue()
-		self.Destroy()
-		_alarmDialogOpened = False
-
-	def onCancel(self, evt):
-		self.Destroy()
-		global _alarmDialogOpened
-		_alarmDialogOpened = False
-
 
 # Startup dialogs.
 
@@ -995,17 +886,18 @@ class AudioDuckingReminder(wx.Dialog):
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 
 		# Translators: A message displayed if audio ducking should be disabled.
-		label = wx.StaticText(self, wx.ID_ANY, label=_("NVDA 2016.1 and later allows NVDA to decrease volume of background audio including that of Studio. In order to not disrupt the listening experience of your listeners, please disable audio ducking by opening synthesizer dialog in NVDA and selecting 'no ducking' from audio ducking mode combo box or press NVDA+Shift+D."))
+		label = wx.StaticText(self, wx.ID_ANY, label=_("""NVDA 2016.1 and later allows NVDA to decrease volume of background audio including that of Studio.
+		In order to not disrupt the listening experience of your listeners, please disable audio ducking either by:
+		* Opening synthesizer dialog in NVDA and selecting 'no ducking' from audio ducking mode combo box.
+		* Press NVDA+Shift+D to set it to 'no ducking'."""))
 		mainSizer.Add(label,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: A checkbox to turn off audio ducking reminder message.
 		self.audioDuckingReminder=wx.CheckBox(self,wx.NewId(),label=_("Do not show this message again"))
 		self.audioDuckingReminder.SetValue(not SPLConfig["Startup"]["AudioDuckingReminder"])
-		sizer.Add(self.audioDuckingReminder, border=10,flag=wx.TOP)
-		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+		mainSizer.Add(self.audioDuckingReminder, border=10,flag=wx.TOP)
 
-		mainSizer.Add(self.CreateButtonSizer(wx.OK))
+		mainSizer.Add(self.CreateButtonSizer(wx.OK), flag=wx.ALIGN_CENTER_HORIZONTAL)
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
@@ -1051,14 +943,12 @@ Thank you.""")
 		label = wx.StaticText(self, wx.ID_ANY, label=self.welcomeMessage)
 		mainSizer.Add(label,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: A checkbox to show welcome dialog.
 		self.showWelcomeDialog=wx.CheckBox(self,wx.NewId(),label=_("Show welcome dialog when I start Studio"))
 		self.showWelcomeDialog.SetValue(SPLConfig["Startup"]["WelcomeDialog"])
-		sizer.Add(self.showWelcomeDialog, border=10,flag=wx.TOP)
-		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
+		mainSizer.Add(self.showWelcomeDialog, border=10,flag=wx.TOP)
 
-		mainSizer.Add(self.CreateButtonSizer(wx.OK))
+		mainSizer.Add(self.CreateButtonSizer(wx.OK), flag=wx.ALIGN_CENTER_HORIZONTAL)
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
@@ -1071,9 +961,10 @@ Thank you.""")
 		self.Destroy()
 
 # Old version reminder.
-class OldVersionReminder(wx.Dialog):
-	"""A dialog shown when using add-on 8.x under Studio 5.0x.
-	"""
+# Only used when there is a LTS version.
+"""class OldVersionReminder(wx.Dialog):
+	#A dialog shown when using add-on 8.x under Studio 5.0x.
+	#
 
 	def __init__(self, parent):
 		# Translators: Title of a dialog displayed when the add-on starts reminding broadcasters about old Studio releases.
@@ -1088,7 +979,7 @@ class OldVersionReminder(wx.Dialog):
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: A checkbox to turn off old version reminder message.
 		self.oldVersionReminder=wx.CheckBox(self,wx.NewId(),label=_("Do not show this message again"))
-		self.oldVersionReminder.SetValue(not SPLConfig["Startup"]["Studio500"])
+		self.oldVersionReminder.SetValue(not SPLConfig["Startup"]["OldSPLVersionReminder"])
 		sizer.Add(self.oldVersionReminder, border=10,flag=wx.TOP)
 		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
@@ -1102,15 +993,16 @@ class OldVersionReminder(wx.Dialog):
 	def onOk(self, evt):
 		global SPLConfig
 		if self.oldVersionReminder.Value:
-			SPLConfig["Startup"]["Studio500"] = not self.oldVersionReminder.Value
-		self.Destroy()
+			SPLConfig["Startup"]["OldSPLVersionReminder"] = not self.oldVersionReminder.Value
+		self.Destroy()"""
 
 # And to open the above dialog and any other dialogs.
 def showStartupDialogs(oldVer=False):
-	if oldVer and SPLConfig["Startup"]["Studio500"]:
-		gui.mainFrame.prePopup()
-		OldVersionReminder(gui.mainFrame).Show()
-		gui.mainFrame.postPopup()
+	# Old version reminder if this is such a case.
+	#if oldVer and SPLConfig["Startup"]["OldSPLVersionReminder"]:
+		#gui.mainFrame.prePopup()
+		#OldVersionReminder(gui.mainFrame).Show()
+		#gui.mainFrame.postPopup()
 	if SPLConfig["Startup"]["WelcomeDialog"]:
 		gui.mainFrame.prePopup()
 		WelcomeDialog(gui.mainFrame).Show()
@@ -1120,14 +1012,11 @@ def showStartupDialogs(oldVer=False):
 		#if gui.messageBox("The next major version of the add-on (15.x) will be the last version to support Studio versions earlier than 5.10, with add-on 15.x being designated as a long-term support version. Would you like to switch to long-term support release?", "Long-Term Support version", wx.YES | wx.NO | wx.CANCEL | wx.CENTER | wx.ICON_QUESTION) == wx.YES:
 			#splupdate.SPLUpdateChannel = "lts"
 			#os.remove(os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "ltsprep"))
-	try:
-		import audioDucking
-		if SPLConfig["Startup"]["AudioDuckingReminder"] and audioDucking.isAudioDuckingSupported():
-			gui.mainFrame.prePopup()
-			AudioDuckingReminder(gui.mainFrame).Show()
-			gui.mainFrame.postPopup()
-	except ImportError:
-		pass
+	import audioDucking
+	if SPLConfig["Startup"]["AudioDuckingReminder"] and audioDucking.isAudioDuckingSupported():
+		gui.mainFrame.prePopup()
+		AudioDuckingReminder(gui.mainFrame).Show()
+		gui.mainFrame.postPopup()
 
 
 # Message verbosity pool.

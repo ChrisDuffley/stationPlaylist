@@ -9,7 +9,7 @@ This add-on package provides improved usage of StationPlaylist Studio, as well a
 
 For more information about the add-on, read the [add-on guide][4]. For developers seeking to know how to build the add-on, see buildInstructions.txt located at the root of the add-on source code repository.
 
-IMPORTANT: This add-on requires NVDA 2015.3 or later and StationPlaylist Studio 5.00 or later. If you have installed NVDA 2016.1 or later on Windows 8 and later, disable audio ducking mode. Also, add-on 8.0/16.10 requires Studio 5.10 and later, and for broadcasters using Studio 5.0x, a long-term support version (15.x) is available.
+IMPORTANT: This add-on requires NVDA 2016.4 or later and StationPlaylist Studio 5.10 or later. If using Windows 8 or later, for best experience, disable audio ducking mode. Also, add-on 8.0/16.10 requires Studio 5.10 and later, and for broadcasters using Studio 5.0x, a long-term support version (15.x) is available.
 
 ## Shortcut keys
 
@@ -24,6 +24,7 @@ IMPORTANT: This add-on requires NVDA 2015.3 or later and StationPlaylist Studio 
 * Alt+NVDA+R from Studio window: Steps through library scan announcement settings.
 * Control+Shift+X from Studio window: Steps through braille timer settings.
 * Control+Alt+right/left arrow (while focused on a track): Announce next/previous track column.
+* Control+Alt+down/up arrow (while focused on a track): Move to next or previous track and announce specific columns (unavailable in add-on 15.x).
 * Control+NVDA+1 through 0 (6 for Studio 5.0x): Announce column content for a specified column.
 * Alt+NVDA+C while focused on a track: announces track comments if any.
 * Alt+NVDA+0 from Studio window: Opens the Studio add-on configuration dialog.
@@ -32,18 +33,19 @@ IMPORTANT: This add-on requires NVDA 2015.3 or later and StationPlaylist Studio 
 
 ## Unassigned commands
 
-The following commands are not assigned by default; if you wish to assign it, use Input Gestures dialog to add custom commands.
+The following commands are not assigned by default; if you wish to assign them, use Input Gestures dialog to add custom commands.
 
 * Switching to SPL Studio window from any program.
 * SPL Controller layer.
+* Announcing Studio status such as track playback from other programs.
 * SPL Assistant layer from SPL Studio.
 * Announce time including seconds from SPL Studio.
-* Toggling track dial on or off (works properly while a track is focused; to assign a command to this, move to a track in Studio, then open NVDA's input gestures dialog.).
 * Announcing temperature.
 * Announcing title of next track if scheduled.
 * Announcing title of the currently playing track.
 * Marking current track for start of track time analysis.
 * Performing track time analysis.
+* Take playlist snapshots.
 * Find text in specific columns.
 * Find tracks with duration that falls within a given range via time range finder.
 * Quickly enable or disable metadata streaming.
@@ -106,6 +108,7 @@ The available commands are:
 * W: Weather and temperature if configured.
 * Y: Playlist modified status.
 * 1 through 0 (6 for Studio 5.0x): Announce column content for a specified column.
+* F8: Take playlist snapshots (number of tracks, longest track, etc.).
 * F9: Mark current track for track time analysis (playlist viewer only).
 * F10: Perform track time analysis (playlist viewer only).
 * F12: Switch between current and a predefined profile.
@@ -128,6 +131,7 @@ The available SPL Controller commands are:
 * Press Shift+R to get a report on library scan progress.
 * Press E to get count and labels for encoders being monitored.
 * Press I to obtain listener count.
+* Press Q to obtain various status information about Studio including whether a track is playing, microphone is on and others.
 * Press F1 to show a help dialog which lists available commands.
 
 ## Track alarms
@@ -150,10 +154,6 @@ Depending on edition, SPL Studio allows up to 96 carts to be assigned for playba
 
 To learn cart assignments, from SPL Studio, press Alt+NVDA+3. Pressing the cart command once will tell you which jingle is assigned to the command. Pressing the cart command twice will play the jingle. Press Alt+NvDA+3 to exit cart explorer. See the add-on guide for more information on cart explorer.
 
-## Track Dial
-
-You can use arrow keys to review various information about a track. To turn Track Dial on, while a track is focused in the main playlist viewer, press the command you assigned for toggling Track Dial. Then use left and right arrow keys to review information such as artist, duration and so on. Alternatively, press Control+Alt+left or right arrows to navigate between columns without invoking Track Dial.
-
 ## Track time analysis
 
 To obtain length to play selected tracks, mark current track for start of track time analysis (SPL Assistant, F9), then press SPL Assistant, F10 when reaching end of selection.
@@ -162,6 +162,10 @@ To obtain length to play selected tracks, mark current track for start of track 
 
 By pressing Control+NVDA+1 through 0 (6 for Studio 5.0x) or SPL Assistant, 1 through 0 (6 for Studio 5.01 and earlier), you can obtain contents of specific columns. By default, these are artist, title, duration, intro, category and filename (Studio 5.10 adds year, album, genre and time scheduled). You can configure which columns will be explored via columns explorer dialog found in add-on settings dialog.
 
+## Playlist snapshots
+
+You can press SPL Assistant, F8 while focused on a playlist in Studio to obtain various statistics about a playlist, including number of tracks in the playlist, longest track, top artists and so on. After assigning a custom command for this feature, pressing the custom command twice will cause NVDA to present playlist snapshot information as a webpage so you can use browse mode to navigate (press escape to close).
+
 ## Configuration dialog
 
 From studio window, you can press Alt+NVDA+0 to open the add-on configuration dialog. Alternatively, go to NVDA's preferences menu and select SPL Studio Settings item. This dialog is also used to manage broadcast profiles.
@@ -169,6 +173,26 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 ## SPL touch mode
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
+
+## Version 17.04
+
+* Added a basic add-on debugging support by logging various information while the add-on is active with NVDA set to debug logging (requires NVDA 2017.1 and later). To use this, after installing NVDA 2017.1, from Exit NVDA dialog, choose "restart with debug logging enabled" option.
+* Improvements to presentation of various add-on dialogs thanks to NVDA 2016.4 features.
+* NVDA will download add-on updates in the background if you say "yes" when asked to update the add-on. Consequently, file download notifications from web browsers will no longer be shown.
+* NVDA will no longer appear to freeze when checking for update at startup due to add-on update channel change.
+* Added ability to press Control+Alt+up or down arrow keys to move between tracks (specifically, track columns) vertically just as one is moving to next or previous row in a table.
+* Added a combo box in add-on settings dialog to set which column should be announced when moving through columns vertically.
+* Moved end of track , intro and microphone alarm controls from add-on settings to the new Alarms Center.
+* In Alarms Center, end of track and track intro edit fields are always shown regardless of state of alarm notification checkboxes.
+* Added a command in SPL Assistant to obtain playlist snapshots such as number of tracks, longest track, top artists and so on (F8). You can also add a custom command for this feature.
+* Pressing the custom gesture for playlist snapshots command once will let NVDA speak and braile a short snapshot information. Pressing the command twice will cause NVDA to open a webpage containing a fuller playlist snapshot information. Press escape to close this webpage.
+* Removed Track Dial (NVDA's version of enhanced arrow keys), replaced by Columns explorer and Column Navigator/table navigation commands). This affects Studio and Track Tool.
+* After closing Insert Tracks dialog while a library scan is in progress, it is no longer required to press SPL Assistant, Shift+R to monitor scan progress.
+* Improved accuracy of detecting and reporting completion of library scans in Studio 5.10 and later. This fixes a problem where library scan monitor will end prematurely when there are more tracks to be scanned, necessitating restarting library scan monitor.
+* Improved library scan status reporting via SPL Controller (Shift+R) by announcing scan count if scan is indeed happening.
+* In studio Demo, when registration screen appears when starting Studio, commands such as remaining time for a track will no longer cause NVDA to do nothing, play error tones, or give wrong information. An error message will be announced instead. Commands such as these will require Studio's main window handle to be present.
+* Initial support for StationPlaylist Creator.
+* Added a new command in SPL Controller layer to announce Studio status such as track playback and microphone status (Q).
 
 ## Version 17.03
 

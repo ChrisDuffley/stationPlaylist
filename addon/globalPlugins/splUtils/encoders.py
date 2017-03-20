@@ -4,18 +4,13 @@
 # Split from main global plugin in 2015.
 
 import threading
-import os
 import time
-import weakref
-from configobj import ConfigObj
 import api
 import ui
 import speech
-import globalVars
 import scriptHandler
-from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent
+from NVDAObjects.IAccessible import IAccessible
 import winUser
-import winKernel
 import tones
 import gui
 import wx
@@ -24,7 +19,6 @@ import wx
 # SPL Studio uses WM messages to send and receive data, similar to Winamp (see NVDA sources/appModules/winamp.py for more information).
 user32 = winUser.user32 # user32.dll.
 SPLWin = 0 # A handle to studio window.
-SPLMSG = winUser.WM_USER
 
 # Various SPL IPC tags.
 SPLPlay = 12
@@ -49,7 +43,8 @@ streamLabels = None
 # Load stream labels (and possibly other future goodies) from a file-based database.
 def loadStreamLabels():
 	global streamLabels, SAMStreamLabels, SPLStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone
-	streamLabels = ConfigObj(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
+	import os, configobj, globalVars
+	streamLabels = configobj.ConfigObj(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
 	# Read stream labels.
 	try:
 		SAMStreamLabels = dict(streamLabels["SAMEncoders"])
@@ -170,6 +165,7 @@ class EncoderConfigDialog(wx.Dialog):
 		if inst:
 			return
 		# Use a weakref so the instance can die.
+		import weakref
 		EncoderConfigDialog._instance = weakref.ref(self)
 
 		self.obj = obj
@@ -177,36 +173,29 @@ class EncoderConfigDialog(wx.Dialog):
 		# Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
 		super(EncoderConfigDialog, self).__init__(parent, wx.ID_ANY, _("Encoder settings for {name}").format(name = title))
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
+		encoderConfigHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: An edit field in encoder settings to set stream label for this encoder.
-		streamLabelPrompt = wx.StaticText(self, wx.ID_ANY, label=_("Stream &label"))
-		sizer.Add(streamLabelPrompt)
-		self.streamLabel = wx.TextCtrl(self, wx.ID_ANY)
+		self.streamLabel = encoderConfigHelper.addLabeledControl(_("Stream &label"), wx.TextCtrl)
 		self.streamLabel.SetValue(self.curStreamLabel if self.curStreamLabel is not None else "")
-		sizer.Add(self.streamLabel)
-		mainSizer.Add(sizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
 		# Translators: A checkbox in encoder settings to set if NvDA should switch focus to Studio window when connected.
-		self.focusToStudio=wx.CheckBox(self,wx.NewId(),label=_("&Focus to Studio when connected"))
+		self.focusToStudio = encoderConfigHelper.addItem(wx.CheckBox(self, label=_("&Focus to Studio when connected")))
 		self.focusToStudio.SetValue(obj.getEncoderId() in SPLFocusToStudio)
-		mainSizer.Add(self.focusToStudio,border=10,flag=wx.BOTTOM)
 		# Translators: A checkbox in encoder settings to set if NvDA should play the next track when connected.
-		self.playAfterConnecting=wx.CheckBox(self,wx.NewId(),label=_("&Play first track when connected"))
+		self.playAfterConnecting = encoderConfigHelper.addItem(wx.CheckBox(self, label=_("&Play first track when connected")))
 		self.playAfterConnecting.SetValue(obj.getEncoderId() in SPLPlayAfterConnecting)
-		mainSizer.Add(self.playAfterConnecting,border=10,flag=wx.BOTTOM)
 		# Translators: A checkbox in encoder settings to set if NvDA should monitor the status of this encoder in the background.
-		self.backgroundMonitor=wx.CheckBox(self,wx.NewId(),label=_("Enable background connection &monitoring"))
+		self.backgroundMonitor = encoderConfigHelper.addItem(wx.CheckBox(self, label=_("Enable background connection &monitoring")))
 		self.backgroundMonitor.SetValue(obj.getEncoderId() in SPLBackgroundMonitor)
-		mainSizer.Add(self.backgroundMonitor,border=10,flag=wx.BOTTOM)
 		# Translators: A checkbox in encoder settings to set if NvDA should play connection progress tone.
-		self.noConnectionTone=wx.CheckBox(self,wx.NewId(),label=_("Play connection status &beep while connecting"))
+		self.noConnectionTone = encoderConfigHelper.addItem(wx.CheckBox(self, label=_("Play connection status &beep while connecting")))
 		self.noConnectionTone.SetValue(obj.getEncoderId() not in SPLNoConnectionTone)
-		mainSizer.Add(self.noConnectionTone,border=10,flag=wx.BOTTOM)
 
-		mainSizer.AddSizer(self.CreateButtonSizer(wx.OK|wx.CANCEL))
+		encoderConfigHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON,self.onOk,id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON,self.onCancel,id=wx.ID_CANCEL)
+		mainSizer.Add(encoderConfigHelper.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 		mainSizer.Fit(self)
 		self.SetSizer(mainSizer)
 		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
@@ -392,6 +381,7 @@ class Encoder(IAccessible):
 
 	# Announce complete time including seconds (slight change from global commands version).
 	def script_encoderDateTime(self, gesture):
+		import winKernel
 		if scriptHandler.getLastScriptRepeatCount()==0:
 			text=winKernel.GetTimeFormat(winKernel.LOCALE_USER_DEFAULT, 0, None, None)
 		else:
@@ -535,8 +525,8 @@ class SAMEncoder(Encoder):
 					user32.SetForegroundWindow(user32.FindWindowA("TStudioForm", None))
 				if self.playAfterConnecting and not encoding:
 					# Do not interupt the currently playing track.
-					if winUser.sendMessage(SPLWin, SPLMSG, 0, SPL_TrackPlaybackStatus) == 0:
-						winUser.sendMessage(SPLWin, SPLMSG, 0, SPLPlay)
+					if winUser.sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus) == 0:
+						winUser.sendMessage(SPLWin, 1024, 0, SPLPlay)
 				if not encoding: encoding = True
 			else:
 				if alreadyEncoding: alreadyEncoding = False
@@ -730,8 +720,8 @@ class SPLEncoder(Encoder):
 				if self.focusToStudio and not connected:
 					user32.SetForegroundWindow(user32.FindWindowA("TStudioForm", None))
 				if self.playAfterConnecting and not connected:
-					if winUser.sendMessage(SPLWin, SPLMSG, 0, SPL_TrackPlaybackStatus) == 0:
-						winUser.sendMessage(SPLWin, SPLMSG, 0, SPLPlay)
+					if winUser.sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus) == 0:
+						winUser.sendMessage(SPLWin, 1024, 0, SPLPlay)
 				if not connected: connected = True
 			elif "Unable to connect" in messageCache or "Failed" in messageCache or statChild.name == "AutoConnect stopped.":
 				if connected: connected = False
