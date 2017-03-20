@@ -39,10 +39,9 @@ _retryAfterFailure = False
 # Stores update state.
 _updatePickle = os.path.join(globalVars.appArgs.configPath, "splupdate.pickle")
 
-# Not all update channels are listed. The one not listed here is the default ("stable" for this branch).
 channels={
 	"stable":"https://addons.nvda-project.org/files/get.php?file=spl",
-	#"beta":"http://spl.nvda-kr.org/files/get.php?file=spl-beta",
+	"try":"http://www.josephsl.net/files/nvdaaddons/get.php?file=spl-try",
 }
 
 # Come forth, update check routines.

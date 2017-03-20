@@ -1306,7 +1306,7 @@ class SayStatusDialog(wx.Dialog):
 class AdvancedOptionsDialog(wx.Dialog):
 
 	# Available channels (if there's only one, channel selection list will not be shown).
-	_updateChannels = ("dev", "stable")
+	_updateChannels = ("try", "dev", "stable")
 
 	def __init__(self, parent):
 		# Translators: The title of a dialog to configure advanced SPL add-on options such as update checking.
@@ -1324,7 +1324,7 @@ class AdvancedOptionsDialog(wx.Dialog):
 		if len(self._updateChannels) > 1:
 			# Translators: The label for a combo box to select update channel.
 			labelText = _("&Add-on update channel:")
-			self.channels=advOptionsHelper.addLabeledControl(labelText, wx.Choice, choices=["development", "stable"])
+			self.channels=advOptionsHelper.addLabeledControl(labelText, wx.Choice, choices=["try", "development", "stable"])
 			self.channels.SetSelection(self._updateChannels.index(self.Parent.updateChannel))
 		# Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 		self.splConPassthroughCheckbox=advOptionsHelper.addItem(wx.CheckBox(self, label=_("Allow SPL C&ontroller command to invoke SPL Assistant layer")))
