@@ -63,7 +63,7 @@ elif GetOption("dev"):
 	import datetime
 	buildDate = datetime.datetime.now()
 	year, month, day = str(buildDate.year), str(buildDate.month), str(buildDate.day)
-	env["addon_version"] = "".join([env["addon_version"], year, month.zfill(2), day.zfill(2)])
+	env["addon_version"] = "".join([year, month.zfill(2), day.zfill(2), "-dev"])
 
 addonFile = env.File("${addon_name}-${addon_version}.nvda-addon")
 
