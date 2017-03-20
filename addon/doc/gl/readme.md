@@ -279,6 +279,12 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
+## Versión 17.03
+
+* NVDA xa non parecerá non facer nada ou non reproducirá un ton de erro ao
+  cambiar a un perfil de transmisión baseado en tempo.
+* Traducións actualizadas.
+
 ## Versión 17.01/15.5-LTS
 
 Nota: 17.01.1/15.5A-LTS reemplaza a 17.01 debido aos cambios da localización

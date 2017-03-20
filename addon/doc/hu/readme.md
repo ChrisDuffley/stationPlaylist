@@ -260,6 +260,12 @@ Amennyiben érintőképernyős számítógépen használja a Studiot Windows 8, 
 parancsokat végrehajthat az érintőképernyőn is. Először 3 ujjas koppintással
 váltson SPL módra, és utána már használhatók az alább felsorolt parancsok.
 
+## Version 17.03
+
+* NVDA will no longer appear to do anything or play an error tone when
+  switching to a time-based broadcast profile.
+* Fordítások frissítése
+
 ## Version 17.01/15.5-LTS
 
 Note: 17.01.1/15.5A-LTS replaces 17.01 due to changes to location of new

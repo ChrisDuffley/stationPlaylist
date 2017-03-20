@@ -249,6 +249,12 @@ broadcast profiles.
 استخدم لمسة ب3 أصابع للانتقال لنمط اللمس, ثم استخدم أوامر اللمس المسرودة
 أعلاه لأداء المهام.
 
+## Version 17.03
+
+* NVDA will no longer appear to do anything or play an error tone when
+  switching to a time-based broadcast profile.
+* ترجمة الإضافة لمزيد من اللغات
+
 ## Version 17.01/15.5-LTS
 
 Note: 17.01.1/15.5A-LTS replaces 17.01 due to changes to location of new

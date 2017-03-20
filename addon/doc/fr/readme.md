@@ -299,6 +299,12 @@ un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
 
+## Version 17.03
+
+* NVDA ne semble plus rien faire ou ne lit plus une tonalité d'erreur
+  lorsque vous basculer à un profil de diffusion basé sur l'heure.
+* Mises à jour des traductions.
+
 ## Version 17.01/15.5-LTS
 
 Remarque: 17.01.1/15.5A-LTS remplace la 17.01 en raison des changements
