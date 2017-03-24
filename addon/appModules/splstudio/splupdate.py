@@ -26,10 +26,10 @@ SPLAddonCheck = 0
 # Update metadata storage.
 SPLAddonState = {}
 # Update URL (the only way to change it is installing a different version from a different branch).
-SPLUpdateURL = "https://addons.nvda-project.org/files/get.php?file=spl"
+SPLUpdateURL = "https://addons.nvda-project.org/files/get.php?file=spl-dev"
 _pendingChannelChange = False
 _updateNow = False
-SPLUpdateChannel = "stable"
+SPLUpdateChannel = "dev"
 # Update check timer.
 _SPLUpdateT = None
 # How long it should wait between automatic checks.
@@ -55,11 +55,11 @@ def initialize():
 		if "UpdateChannel" in SPLAddonState:
 			SPLUpdateChannel = SPLAddonState["UpdateChannel"]
 			if SPLUpdateChannel in ("beta", "preview", "lts"):
-				SPLUpdateChannel = "stable"
+				SPLUpdateChannel = "dev"
 	except IOError, KeyError:
 		SPLAddonState["PDT"] = 0
 		_updateNow = False
-		SPLUpdateChannel = "stable"
+		SPLUpdateChannel = "dev"
 
 def terminate():
 	global SPLAddonState
