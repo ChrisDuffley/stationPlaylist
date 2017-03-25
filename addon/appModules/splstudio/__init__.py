@@ -583,6 +583,8 @@ class AppModule(appModuleHandler.AppModule):
 		if hasattr(eventHandler, "requestEvents"):
 			eventHandler.requestEvents(eventName="nameChange", processId=self.processID, windowClassName="TStatusBar")
 			eventHandler.requestEvents(eventName="nameChange", processId=self.processID, windowClassName="TStaticText")
+			# Also for requests window.
+			eventHandler.requestEvents(eventName="show", processId=self.processID, windowClassName="TRequests")
 			self.backgroundStatusMonitor = True
 		else:
 			self.backgroundStatusMonitor = False
@@ -855,6 +857,13 @@ class AppModule(appModuleHandler.AppModule):
 				del touchHandler.touchModeLabels["spl"]
 			except KeyError:
 				pass
+
+	# React to show events from certain windows.
+
+	def event_show(self, obj, nextHandler):
+		if obj.windowClassName == "TRequests":
+			tones.beep(400, 100)
+		nextHandler()
 
 	# Save configuration when terminating.
 	def terminate(self):
