@@ -862,7 +862,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def event_show(self, obj, nextHandler):
 		if obj.windowClassName == "TRequests":
-			tones.beep(400, 100)
+			nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_Requests.wav"))
 		nextHandler()
 
 	# Save configuration when terminating.
