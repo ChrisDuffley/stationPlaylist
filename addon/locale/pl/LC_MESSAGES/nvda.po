@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2016-12-15 01:26+0100\n"
+"PO-Revision-Date: 2017-04-01 19:32-0800\n"
 "Last-Translator: Patryk <patric3031@wp.pl>\n"
 "Language-Team: Polish <killer@tyflonet.com>\n"
 "Language: pl\n"
@@ -16,23 +16,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.7\n"
-"X-Poedit-Language: Polish\n"
-"X-Poedit-Country: POLAND\n"
 
-#, python-brace-format
 msgid "{header}: {content}"
 msgstr "{header}: {content}"
 
 #. Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
-#, python-brace-format
 msgid "{header} not found"
 msgstr "{header} nie znaleziono"
 
-#, python-brace-format
 msgid "{header}: blank"
 msgstr "{header}: blank"
 
-#, python-brace-format
 msgid "{header}: ()"
 msgstr "{header}: ()"
 
@@ -41,7 +35,6 @@ msgid "No artist"
 msgstr "Brak wykonawcy"
 
 #. Translators: Presents artist information for a track in Track Tool.
-#, python-brace-format
 msgid "Artist: {artistName}"
 msgstr "Wykonawca: {artistName}"
 
@@ -51,7 +44,6 @@ msgstr "Nie ustawiono intra"
 
 #. Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
 #. Translators: Presented when a specific column header is not found.
-#, python-brace-format
 msgid "{headerText} not found"
 msgstr "{headerText} nieznaleziono"
 
@@ -64,17 +56,17 @@ msgid "Studio main window not found"
 msgstr ""
 
 #. Translators: Standard message for announcing column content.
-#, fuzzy, python-brace-format
+#, fuzzy
 msgid "{checkStatus}{header}: {content}"
 msgstr "{header}: {content}"
 
 #. Translators: Spoken when column content is blank.
-#, fuzzy, python-brace-format
+#, fuzzy
 msgid "{checkStatus}{header}: blank"
 msgstr "{header}: blank"
 
 #. Translators: Brailled to indicate empty column content.
-#, fuzzy, python-brace-format
+#, fuzzy
 msgid "{checkStatus}{header}: ()"
 msgstr "{header}: ()"
 
@@ -111,7 +103,6 @@ msgid "Status not found"
 msgstr "Nie znaleziono statusu"
 
 #. Translators: Status information for a checked track in Studio 5.10.
-#, python-brace-format
 msgid "Status: {name}"
 msgstr "Status: {name}"
 
@@ -235,7 +226,6 @@ msgstr ""
 msgid "StationPlaylist Studio"
 msgstr "Station Playlist Studio"
 
-#, python-brace-format
 msgid "Using SPL Studio version {SPLVersion}"
 msgstr "SPL Studio {SPLVersion}"
 
@@ -246,7 +236,6 @@ msgid "SPL settings"
 msgstr "Ustawienia SPL"
 
 #. Translators: Presented when library scan is complete.
-#, python-brace-format
 msgid "Scan complete with {scanCount} items"
 msgstr "Skanowanie zakończone z {scanCount} elementów"
 
@@ -259,12 +248,10 @@ msgid "Warning: Microphone active"
 msgstr "Uwaga: mikrofon aktywny"
 
 #. Translators: Presented when end of introduction is approaching (example output: 5 sec left in track introduction).
-#, python-brace-format
 msgid "Warning: {seconds} sec left in track introduction"
 msgstr "Zostało {seconds} sekund intra"
 
 #. Translators: Presented when end of track is approaching.
-#, python-brace-format
 msgid "Warning: {seconds} sec remaining"
 msgstr "{seconds} sekund pozostało"
 
@@ -416,12 +403,10 @@ msgid "Scan start"
 msgstr "Początek skanowania"
 
 #. Translators: Presented when library scanning is finished.
-#, python-brace-format
 msgid "{itemCount} items in the library"
 msgstr "{itemCount} elementów w bibliotece"
 
 #. Translators: Presented after library scan is done.
-#, python-brace-format
 msgid "Scan complete with {itemCount} items"
 msgstr "Skanowanie zakończone z {itemCount} elementów"
 
@@ -429,7 +414,6 @@ msgstr "Skanowanie zakończone z {itemCount} elementów"
 msgid "Scanning"
 msgstr "Skanowanie"
 
-#, python-brace-format
 msgid "{itemCount} items scanned"
 msgstr "{itemCount} elementów zeskanowano"
 
@@ -457,32 +441,27 @@ msgid ""
 msgstr "Nie w widoku playlisty; Nie mogę analizować lub skanować czasu"
 
 #. Translators: one of the results for playlist snapshots feature for announcing total number of items in a playlist.
-#, python-brace-format
 msgid "Items: {playlistItemCount}"
 msgstr ""
 
 #. Translators: one of the results for playlist snapshots feature for announcing total number of tracks in a playlist.
-#, python-brace-format
 msgid "Tracks: {playlistTrackCount}"
 msgstr ""
 
 #. Translators: one of the results for playlist snapshots feature for announcing total duration of a playlist.
-#, fuzzy, python-brace-format
+#, fuzzy
 msgid "Duration: {playlistTotalDuration}"
 msgstr "Station Playlist Studio"
 
 #. Translators: one of the results for playlist snapshots feature for announcing shortest track name and duration of a playlist.
-#, python-brace-format
 msgid "Shortest: {playlistShortestTrack}"
 msgstr ""
 
 #. Translators: one of the results for playlist snapshots feature for announcing longest track name and duration of a playlist.
-#, python-brace-format
 msgid "Longest: {playlistLongestTrack}"
 msgstr ""
 
 #. Translators: one of the results for playlist snapshots feature for announcing average duration for tracks in a playlist.
-#, python-brace-format
 msgid "Average: {playlistAverageDuration}"
 msgstr ""
 
@@ -496,11 +475,9 @@ msgstr ""
 msgid "Top artists:"
 msgstr "Brak wykonawcy"
 
-#, python-brace-format
 msgid "No artist information ({artistCount})"
 msgstr ""
 
-#, python-brace-format
 msgid "{artistName} ({artistCount})"
 msgstr ""
 
@@ -513,7 +490,6 @@ msgstr ""
 msgid "Categories:"
 msgstr ""
 
-#, python-brace-format
 msgid "{categoryName} ({categoryCount})"
 msgstr ""
 
@@ -526,11 +502,9 @@ msgstr ""
 msgid "Top genres:"
 msgstr ""
 
-#, python-brace-format
 msgid "No genre information ({genreCount})"
 msgstr ""
 
-#, python-brace-format
 msgid "{genreName} ({genreCount})"
 msgstr ""
 
@@ -631,7 +605,6 @@ msgid ""
 msgstr "Nie wybrano utworu startowego, Nie mogę rozpocząć analizy czasu"
 
 #. Translators: Presented when time analysis is done for a number of tracks (example output: Tracks: 3, totaling 5:00).
-#, python-brace-format
 msgid "Tracks: {numberOfSelectedTracks}, totaling {totalTime}"
 msgstr "{numberOfSelectedTracks} tracków, W sumie {totalTime}"
 
@@ -673,7 +646,6 @@ msgid "No place marker found"
 msgstr "Nie ma znaczników"
 
 #. Translators: Status message for metadata streaming.
-#, python-brace-format
 msgid "Metadata streaming on URL {URLPosition} enabled"
 msgstr "Metadane dla {URLPosition} włączone"
 
@@ -682,7 +654,6 @@ msgid "Metadata streaming on DSP encoder enabled"
 msgstr "Metadane dla DSP włączone"
 
 #. Translators: Status message for metadata streaming.
-#, python-brace-format
 msgid "Metadata streaming on URL {URLPosition} disabled"
 msgstr "Metadane dla {URLPosition} wyłączone"
 
@@ -724,12 +695,10 @@ msgid "Add-on settings dialog is open, cannot switch profiles"
 msgstr "Nie mogę przełączyć profilu; Okno dodatku aktywne"
 
 #. Translators: Presented when switch to instant switch profile was successful.
-#, python-brace-format
 msgid "Switching to {newProfileName}"
 msgstr "Uaktywniam:  {newProfileName}"
 
 #. Translators: Presented when switching from instant switch profile to a previous profile.
-#, python-brace-format
 msgid "Returning to {previousProfile}"
 msgstr "Powrót do profilu {previousProfile}"
 
@@ -751,7 +720,6 @@ msgid "Encoder settings error"
 msgstr "Błąd ustawień enkodera"
 
 #. Translators: Message presented indicating missing time-based profiles.
-#, python-brace-format
 msgid ""
 "Could not locate the following time-based profile(s):\n"
 "{profiles}"
@@ -1192,7 +1160,6 @@ msgid "&Base profile:"
 msgstr "Podstawowy profil:"
 
 #. Translators: The title of the broadcast profile triggers dialog.
-#, python-brace-format
 msgid "Profile triggers for {profileName}"
 msgstr "Wyzwalacze profilu dla {profileName}"
 
@@ -1363,7 +1330,6 @@ msgid "Columns Explorer for Track Tool"
 msgstr "Eksplorator kolumn TrackTool'a"
 
 #. Translators: The label for a setting in SPL add-on dialog to select column for this column slot.
-#, python-brace-format
 msgid "Slot {position}"
 msgstr "Slot {position}"
 
@@ -1513,22 +1479,18 @@ msgid "Metadata streaming configured for DSP encoder"
 msgstr "Metadane skonfigurowano dla zewnętrznego DSP"
 
 #. Translators: Status message for metadata streaming.
-#, python-brace-format
 msgid "Metadata streaming configured for DSP encoder and URL {URL}"
 msgstr "Metadane skonfigurowane dla DSP i adresu: {URL}"
 
 #. Translators: Status message for metadata streaming.
-#, python-brace-format
 msgid "Metadata streaming configured for URL {URL}"
 msgstr "Wyświetlanie metadanych skonfigurowane dla: {URL}"
 
 #. Translators: Status message for metadata streaming.
-#, python-brace-format
 msgid "Metadata streaming configured for DSP encoder and URL's {URL}"
 msgstr "Metadane skonfigurowane dla DSP i adresów: {URL}"
 
 #. Translators: Status message for metadata streaming.
-#, python-brace-format
 msgid "Metadata streaming configured for URL's {URL}"
 msgstr "Wyświetlanie metadanych skonfigurowane dla: {URL}"
 
@@ -1556,7 +1518,7 @@ msgid "No add-on update available."
 msgstr "Wygląda, że twoja wersja jest aktualna"
 
 #. Translators: Text shown if an add-on update is available.
-#, fuzzy, python-brace-format
+#, fuzzy
 msgid "Studio add-on {newVersion} is available. Would you like to update?"
 msgstr "Jest nowa wersja dodatku SPL Studio. Uaktualnić?"
 
@@ -1668,17 +1630,16 @@ msgstr ""
 "Żaden utwór nie jest odtwarzany; Spróbuj wykonać pauzę podczas odtwarzania"
 
 #. Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
-#, fuzzy, python-brace-format
+#, fuzzy
 msgid "Scan in progress with {itemCount} items scanned"
 msgstr "Skanowanie zakończone z {itemCount} elementów"
 
 #. Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
-#, fuzzy, python-brace-format
+#, fuzzy
 msgid "Scan complete with {itemCount} items scanned"
 msgstr "Skanowanie zakończone z {itemCount} elementów"
 
 #. Translators: Announces number of stream listeners.
-#, python-brace-format
 msgid "Listener count: {listenerCount}"
 msgstr "Liczba słuchaczy: {listenerCount}"
 
@@ -1700,7 +1661,6 @@ msgid "No encoders are being monitored"
 msgstr "Brak monitorowanych enkoderów"
 
 #. Translators: Announces number of encoders being monitored in the background.
-#, python-brace-format
 msgid "Number of encoders monitored: {numberOfEncoders}: {streamLabels}"
 msgstr "Monitorowane enkodery: {numberOfEncoders}: {streamLabels}"
 
@@ -1709,7 +1669,6 @@ msgid "Another encoder settings dialog is open."
 msgstr "Inne okno właściwości enkodera jest otwarte"
 
 #. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
-#, python-brace-format
 msgid "Encoder settings for {name}"
 msgstr "Właściwości dla {name}"
 
@@ -1734,7 +1693,6 @@ msgid "Play connection status &beep while connecting"
 msgstr "Dźwięk podczas połączenia"
 
 #. Translators: Status message for encoder monitoring.
-#, python-brace-format
 msgid "{encoder} {encoderNumber}: {status}"
 msgstr "{encoder} {encoderNumber}: {status}"
 
@@ -1772,12 +1730,10 @@ msgstr ""
 
 #. Multiple encoders.
 #. Translators: Presented when toggling the setting to monitor the selected encoder.
-#, python-brace-format
 msgid "Monitoring encoder {encoderNumber}"
 msgstr "Monitorowanie enkodera {encoderNumber}"
 
 #. Translators: Presented when toggling the setting to monitor the selected encoder.
-#, python-brace-format
 msgid "Encoder {encoderNumber} will not be monitored"
 msgstr "Enkoder {encoderNumber} nie będzie monitorowany"
 
@@ -1791,7 +1747,6 @@ msgid ""
 msgstr "Przełącza monitorowanie wybranego enkodera w tle"
 
 #. Translators: The title of the stream labeler dialog (example: stream labeler for 1).
-#, python-brace-format
 msgid "Stream labeler for {streamEntry}"
 msgstr "Etykietownik strumienia dla {streamEntry}"
 
@@ -1838,11 +1793,9 @@ msgstr ""
 "Wciśnięty raz, wypowiada aktualny czas z uwzględnieniem sekund. Podwójnie, "
 "aktualną datę."
 
-#, python-brace-format
 msgid "Position: {pos}"
 msgstr "Pozycja: {pos}"
 
-#, python-brace-format
 msgid "Label: {label}"
 msgstr "Etykieta: {label}"
 
@@ -1860,11 +1813,9 @@ msgstr "Rozłączanie..."
 msgid "Connects to a streaming server."
 msgstr "Łączy z serwerem strumieniowania."
 
-#, python-brace-format
 msgid "Encoder Settings: {setting}"
 msgstr "Ustawienie enkodera: {setting}"
 
-#, python-brace-format
 msgid "Transfer Rate: {transferRate}"
 msgstr "Szybkość: {transferRate}"
 
@@ -1876,76 +1827,3 @@ msgid ""
 msgstr ""
 "Poprawia dostępność Station Playlist Studio.\n"
 "Ponadto, dodaje globalne komendy dla studia, dostępne z każdego miejsca."
-
-#~ msgid "Only Track Tool is running, Track Dial is unavailable"
-#~ msgstr "Tylko tracktool jest aktywny, Przegląd kolumn niedostępny"
-
-#~ msgid "Track Dial on"
-#~ msgstr "Przegląd kolumn: Tak"
-
-#~ msgid ", located at column {columnHeader}"
-#~ msgstr ", w kolumnie {columnHeader}"
-
-#~ msgid "Track Dial off"
-#~ msgstr "Przegląd kolumn: Nie"
-
-#~ msgid "Column {columnNumber}"
-#~ msgstr "Kolumna {columnNumber}"
-
-#~ msgid "Toggles track dial on and off."
-#~ msgstr "Przełącza przeglądanie kolumn"
-
-#~ msgid "{leftmostColumn} not found"
-#~ msgstr "{leftmostColumn} Nie znaleziono"
-
-#~ msgid "{leftmostColumn}: {leftmostContent}"
-#~ msgstr "{leftmostColumn}: {leftmostContent}"
-
-#~ msgid "Please reenter cart explorer to view updated cart assignments"
-#~ msgstr ""
-#~ "Proszę uruchom ponownie eksplorator jingli, by przejrzeć nowe przypisania "
-#~ "jinglownic"
-
-#~ msgid "Normal Profile"
-#~ msgstr "Profil standardowy"
-
-#~ msgid "Enter &end of track alarm time in seconds (currently {curAlarmSec})"
-#~ msgstr "Wprowadź alarm outra w sekundach (obecnie {curAlarmSec})"
-
-#~ msgid "Enter song &intro alarm time in seconds (currently {curRampSec})"
-#~ msgstr "Wprowadź alarm intra (obecnie {curRampSec})"
-
-#~ msgid ""
-#~ "Enter microphone alarm time in seconds (currently {curAlarmSec}, 0 "
-#~ "disables the alarm)"
-#~ msgstr ""
-#~ "Wprowadź alarm czasu mikrofonu w sekundach (obecnie {curAlarmSec}, 0 "
-#~ "wyłącza alarm)"
-
-#~ msgid "Microphone alarm interval"
-#~ msgstr "Alarm mikrofonu"
-
-#~ msgid "Old Studio version detected"
-#~ msgstr "Wykryto starą wersję studio."
-
-#~ msgid ""
-#~ "You are using an older version of StationPlaylist Studio. From 2017 "
-#~ "onwards, Studio add-on will not support Studio versions earlier than "
-#~ "5.10. Studio 5.0x are fully supported in 15.x LTS (long-term support) "
-#~ "versions."
-#~ msgstr ""
-#~ "Używasz starszej wersji SPL Studio.Od 2017 roku wspierane będą jedynie "
-#~ "wersje wyższe niż 5.10.Aby używać dodatku w starszej wersji, użyj wersji "
-#~ "LTS."
-
-#~ msgid "&Microphone alarm in seconds"
-#~ msgstr "Alarm mikrofonu w sekundach"
-
-#~ msgid "&Track Dial mode"
-#~ msgstr "Tryb przeglądania kolumn"
-
-#~ msgid "Add-on update check failed."
-#~ msgstr "Nie udało się sprawdzić aktualizacji"
-
-#~ msgid "SPL minimized to system tray."
-#~ msgstr "SPL zminimalizowane do zasobnika"

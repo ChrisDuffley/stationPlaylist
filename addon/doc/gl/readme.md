@@ -15,11 +15,11 @@ complemento][4]. Para os desenvolvedores que queran saber cómo compilar o
 complemento, consulta buildInstructions.txt localizado na raíz do
 repositorio do código fonte.
 
-IMPORTANT: This add-on requires NVDA 2016.4 or later and StationPlaylist
-Studio 5.10 or later. If using Windows 8 or later, for best experience,
-disable audio ducking mode. Also, add-on 8.0/16.10 requires Studio 5.10 and
-later, and for broadcasters using Studio 5.0x, a long-term support version
-(15.x) is available.
+IMPORTANTE: este complemento require do NVDA 2016.4 ou posterior e
+StationPlaylist Studio 5.10 ou posterior. Se estás a usar Windows 8 e
+posterior, deshabilita o modo atenuación de audio. Tamén, o complemento
+8.0/16.10 require do Studio 5.10 e posterior, e para emisores que usen o
+Studio 5.0x, está disponible unha versión long-term support (15.x).
 
 ## Teclas de atallo
 
@@ -48,8 +48,9 @@ later, and for broadcasters using Studio 5.0x, a long-term support version
   temporizador braille.
 * Control+Alt+frechas dereita e esquerda (mentres se enfoca nunha pista):
   anuncia a columna da pista seguinte ou anterior.
-* Control+Alt+down/up arrow (while focused on a track): Move to next or
-  previous track and announce specific columns (unavailable in add-on 15.x).
+* Control+Alt+frecha abaixo/arriba (mentres se enfoque unha pista): Moven á
+  pista seguinte ou anterior e anuncian columnas específicas (non dispoñible
+  no complemento 15.x).
 * Control+NVDA+1 ata 0 (6 para Studio 5.0x): anuncia contidos de columna
   para una columna especificada.
 * Alt+NVDA+C mentres se enfoca unha pista: anuncia os comentarios da pista
@@ -62,12 +63,13 @@ later, and for broadcasters using Studio 5.0x, a long-term support version
 
 ## Ordes non asignadas
 
-The following commands are not assigned by default; if you wish to assign
-them, use Input Gestures dialog to add custom commands.
+As seguintes ordes non son asignadas por defecto; se desexas asignalas, usa
+o diálogo Xestos de Entrada para engadir ordes persoalizadas.
 
 * Cambia á ventá SPL Studio dende calquera programa.
 * Capa SPL Controller.
-* Announcing Studio status such as track playback from other programs.
+* Anunciar o estado do Studio como a reproducción de pista dende outros
+  programas.
 * capa SPL Assistant desde SPL Studio.
 * Anunciar tempo incluíndo segundos dende o SPL Studio.
 * Anunciar temperatura.
@@ -75,7 +77,7 @@ them, use Input Gestures dialog to add custom commands.
 * Anunciando título da pista actualmente en reprodución.
 * Marcar pista actual para comezo da análise de tempo da pista.
 * Realizar análise de tempo da pista.
-* Take playlist snapshots.
+* Tomar instantáneas da listaxe de reprodución.
 * Atopar texto en columnas específicas.
 * Atopar pistas ca duración que caia dentro dun rango dado a través do
   buscador de rango de tempo.
@@ -165,7 +167,8 @@ As ordes dispoñibles son:
 * Y: Estado da lista de reprodución modificada.
 * 1 ata 0 (6 para Studio 5.0x): anuncia contidos de columna para una columna
   especificada.
-* F8: Take playlist snapshots (number of tracks, longest track, etc.).
+* F8: toma instantáneas da listaxe de reprodución (número de pistas, pista
+  máis longa, etc.).
 * F9: marca a pista actual para a análise de tempo da pista (só no
   visualizador de lista de reprodución).
 * F10: realiza análise de tempo da pista (só no visualizador de lista de
@@ -199,8 +202,9 @@ As ordes dispoñibles para o SPL Controller son:
 * Preme E pàra obter contas e etiquetas de codificadores a ser
   monitorizados.
 * Preme I para obter o reconto de oíntes.
-* Press Q to obtain various status information about Studio including
-  whether a track is playing, microphone is on and others.
+* Preme Q para obter información de estado variada acerca do Studio
+  incluindo se unha pista se está a reproducir, se o micrófono está aceso e
+  outra.
 * Preme F1 para amosar un diálogo de axuda que liste as ordes dispoñibles.
 
 ## Alarmas de pista
@@ -256,14 +260,16 @@ categoría e nome de ficheiro (Studio 5.10 engade ano, álbum, xénero e tempo
 programado). Podes configurar que columnas se explorarán a través do diálogo
 explorador de columnas atopado no diálogo opcións do complemento.
 
-## Playlist snapshots
+## Instantáneas da listaxe de reprodución
 
-You can press SPL Assistant, F8 while focused on a playlist in Studio to
-obtain various statistics about a playlist, including number of tracks in
-the playlist, longest track, top artists and so on. After assigning a custom
-command for this feature, pressing the custom command twice will cause NVDA
-to present playlist snapshot information as a webpage so you can use browse
-mode to navigate (press escape to close).
+Podes premer SPL Assistant, F8 mentres se enfoque sobre unha listaxe de
+reprodución no Studio para obter varias estadísticas acerca dunha listaxe de
+reprodución, incluindo o número de pistas na listaxe, a pista máis longa,
+listaxe de artistas e así. Despois de asignar unha orde persoalizada para
+esta característica, premer dúas veces a orde persoalizada fará que o NVDA
+presente a información da instantánea da listaxe de reprodución coma unha
+páxina web para que podas usar o modo exploración para navegar (preme escape
+para pechar).
 
 ## Diálogo Configuración
 
@@ -280,55 +286,63 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
-## Version 17.04
+## Versión 17.04
 
-* Added a basic add-on debugging support by logging various information
-  while the add-on is active with NVDA set to debug logging (requires NVDA
-  2017.1 and later). To use this, after installing NVDA 2017.1, from Exit
-  NVDA dialog, choose "restart with debug logging enabled" option.
-* Improvements to presentation of various add-on dialogs thanks to NVDA
-  2016.4 features.
-* NVDA will download add-on updates in the background if you say "yes" when
-  asked to update the add-on. Consequently, file download notifications from
-  web browsers will no longer be shown.
-* NVDA will no longer appear to freeze when checking for update at startup
-  due to add-on update channel change.
-* Added ability to press Control+Alt+up or down arrow keys to move between
-  tracks (specifically, track columns) vertically just as one is moving to
-  next or previous row in a table.
-* Added a combo box in add-on settings dialog to set which column should be
-  announced when moving through columns vertically.
-* Moved end of track , intro and microphone alarm controls from add-on
-  settings to the new Alarms Center.
-* In Alarms Center, end of track and track intro edit fields are always
-  shown regardless of state of alarm notification checkboxes.
-* Added a command in SPL Assistant to obtain playlist snapshots such as
-  number of tracks, longest track, top artists and so on (F8). You can also
-  add a custom command for this feature.
-* Pressing the custom gesture for playlist snapshots command once will let
-  NVDA speak and braile a short snapshot information. Pressing the command
-  twice will cause NVDA to open a webpage containing a fuller playlist
-  snapshot information. Press escape to close this webpage.
-* Removed Track Dial (NVDA's version of enhanced arrow keys), replaced by
-  Columns explorer and Column Navigator/table navigation commands). This
-  affects Studio and Track Tool.
-* After closing Insert Tracks dialog while a library scan is in progress, it
-  is no longer required to press SPL Assistant, Shift+R to monitor scan
-  progress.
-* Improved accuracy of detecting and reporting completion of library scans
-  in Studio 5.10 and later. This fixes a problem where library scan monitor
-  will end prematurely when there are more tracks to be scanned,
-  necessitating restarting library scan monitor.
-* Improved library scan status reporting via SPL Controller (Shift+R) by
-  announcing scan count if scan is indeed happening.
-* In studio Demo, when registration screen appears when starting Studio,
-  commands such as remaining time for a track will no longer cause NVDA to
-  do nothing, play error tones, or give wrong information. An error message
-  will be announced instead. Commands such as these will require Studio's
-  main window handle to be present.
-* Initial support for StationPlaylist Creator.
-* Added a new command in SPL Controller layer to announce Studio status such
-  as track playback and microphone status (Q).
+* Engadido o soporte básico de depuración do complemento rexistrando
+  información variada mentres o complemento está activo co NVDA configurado
+  para rexistrar a depuración (requírese do NVDA 2017.1 e superior). Para
+  usar esto, antes de instalar o NVDA 2017.1, dende o diálogo Saír do NVDA,
+  escolle a opción "reiniciar co rexistro de depuración habilitado".
+* Melloras para a presentación de varios diálogos do complemento gracias ás
+  características do NVDA 2016.4.
+* NVDA descargará actualizacións para o complemento de fondo se respondiches
+  "si" cando se che preguntou para actualizar o
+  complemento. Consecuentemente, xa non se che amosarán as notificacións de
+  descarga do ficheiro dende os navegadores web.
+* NVDA xa non parecerá colgarse ao procurar unha actualización ao iniciarse
+  debido a que cambie a canle de actualizacións do complemento.
+* Engadida a capacidade de premer Control+Alt+frecha arriba ou abaixo para
+  moverse entre pistas (en especial, columnas de pista) verticalmente só
+  según se move á fila seguinte ou anterior nunha táboa.
+* Engadida unha Caixa de verificación no diálogo opcións do complemento para
+  configurar que columna debería anunciarse ao se mover polas columnas
+  verticalmente.
+* Movidos os controis fin de pista, alarmas de intro e de micrófono dende as
+  opcións do complemento ao novo Centro de Alarmas.
+* No Centro de alarmas, os campos de edición de fin de pista e intro de
+  pista sempre se amosan independientemente do estado das caixas de
+  verificación de notificación de alarma.
+* Engadida unha orde no SPL Assistant para obter instantáneas das listaxes
+  de reprodución coma o número de pista, pista máis longa, artistas
+  principais e así (F8). tamén podes engadir unha orde persoalizada para
+  esta característica.
+* Premendo o xesto persoalizado para instantáneas de listaxe de reprodución
+  unha vez permitirá ao NVDA falar e amosar en braille unha información
+  curta  instantánea. Premendo a orde dúas veces fará que o NVDA abra unha
+  páxina web contendo unha información máis compreta da instantánea da
+  listaxe de reprodución. Preme escape para pechar esta páxina web.
+* Borrado o Dial de Pista (versión mellorada de teclas de frechas do NVDA),
+  reemplazado polas ordes de navegación Explorador de Columnas e navegador
+  de columnas/táboas). Esto afecta ao Studio e ao Track Tool.
+* Despois de pechar o diálogo Insertar Pistas mentres estea en progreso un
+  escaneado da biblioteca, xa non se require premer SPL Assistant, Shift+R
+  para monitorizar o progreso do escaneo.
+* Mellorada a precisión da detección e anunciado do compretado dos
+  escaneados da biblioteca no Studio 5.10 e posterior. Esto corrixe un
+  problema onde o monitoreo do escaneado da biblioteca rematará
+  prematuramente cando hai máis pistas a escanear, necesitando reiniciar o
+  monitoreo do escaneado da biblioteca.
+* Mellorado o anunciado do estado do escaneo da biblioteca a través do SPL
+  Controller (Shift+R) anunciando a conta de escaneo se o escaneado está a
+  ocorrir.
+* Na demo do Studio, cando aparece a ventá de rexistro ao se iniciar o
+  Studio, as ordes coma tempo restante para unha pista xa non causará que o
+  NVDA non faga nada, reproduza tons de erro, ou dé información
+  errónea. Anunciarase unha mensaxe de erro no seu lugar. Ordes coma estas
+  requerirán que a ventá principal do Studio estea presente.
+* Soporte inicial para StationPlaylist Creator.
+* Engadida unha nova orde no SPL Controller layer para anunciar o estado do
+  Studio como a reprodución da pista e o estado do micrófono (Q).
 
 ## Versión 17.03
 
