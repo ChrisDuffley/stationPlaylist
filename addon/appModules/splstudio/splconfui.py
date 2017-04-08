@@ -185,6 +185,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.topBottomCheckbox = SPLConfigHelper.addItem(wx.CheckBox(self, label=_("Notify when located at &top or bottom of playlist viewer")))
 		self.topBottomCheckbox.SetValue(splconfig.SPLConfig["General"]["TopBottomAnnounce"])
 
+		# Translators: the label for a setting in SPL add-on settings to enable requests alert.
+		self.requestsAlertCheckbox = SPLConfigHelper.addItem(wx.CheckBox(self, label=_("Play a sound when listener &requests arrive")))
+		self.requestsAlertCheckbox.SetValue(splconfig.SPLConfig["General"]["RequestsAlert"])
+
 		# Translators: The label of a button to manage playlist snapshot flags.
 		playlistSnapshotFlagsButton = SPLConfigHelper.addItem(wx.Button(self, label=_("&Playlist snapshots...")))
 		playlistSnapshotFlagsButton.Bind(wx.EVT_BUTTON, self.onPlaylistSnapshotFlags)
@@ -291,6 +295,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		splconfig.SPLConfig["General"]["CategorySounds"] = self.categorySoundsCheckbox.Value
 		splconfig.SPLConfig["General"]["TrackCommentAnnounce"] = self.trackCommentValues[self.trackCommentList.GetSelection()][0]
 		splconfig.SPLConfig["General"]["TopBottomAnnounce"] = self.topBottomCheckbox.Value
+		splconfig.SPLConfig["General"]["RequestsAlert"] = self.requestsAlertCheckbox.Value
 		splconfig.SPLConfig["PlaylistSnapshots"]["DurationMinMax"] = self.playlistDurationMinMax
 		splconfig.SPLConfig["PlaylistSnapshots"]["DurationAverage"] = self.playlistDurationAverage
 		splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCount"] = self.playlistArtistCount

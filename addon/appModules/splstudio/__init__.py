@@ -861,7 +861,7 @@ class AppModule(appModuleHandler.AppModule):
 	# React to show events from certain windows.
 
 	def event_show(self, obj, nextHandler):
-		if obj.windowClassName == "TRequests":
+		if obj.windowClassName == "TRequests" and splconfig.SPLConfig["General"]["RequestsAlert"]:
 			nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_Requests.wav"))
 		nextHandler()
 
