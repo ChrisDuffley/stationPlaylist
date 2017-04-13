@@ -516,6 +516,9 @@ triggerTimer = None
 # Prepare the triggers dictionary and other runtime support.
 def initProfileTriggers():
 	global profileTriggers, profileTriggers2, SPLTriggerProfile, triggerTimer
+	# Make sure config hub is ready.
+	if SPLConfig is None:
+		raise RuntimeError("ConfigHub is unavailable, profile triggers manager cannot start")
 	try:
 		profileTriggers = cPickle.load(file(SPLTriggersFile, "r"))
 	except IOError:
@@ -527,7 +530,7 @@ def initProfileTriggers():
 		nonexistent = []
 		for profile in profileTriggers.keys():
 			try:
-				getProfileIndexByName(profile)
+				SPLConfig.profileIndexByName(profile)
 			except ValueError:
 				nonexistent.append(profile)
 				del profileTriggers[profile]
@@ -649,20 +652,6 @@ def saveProfileTriggers():
 		cPickle.dump(profileTriggers, file(SPLTriggersFile, "wb"))
 	profileTriggers = None
 	profileTriggers2 = None
-
-# Instant profile switch helpers.
-# A number of helper functions assisting instant switch profile routine and others, including sorting and locating the needed profile upon request.
-# 8.0: These will become attributes of ConfigHub.
-# LTS: Kept for backward compatibility.
-
-# Fetch the profile index with a given name.
-def getProfileIndexByName(name):
-	try:
-		return SPLConfig.profileIndexByName(name)
-	except ValueError:
-		raise ValueError("The specified profile does not exist")
-
-# And:
 
 def getProfileByName(name):
 	return SPLConfig.profileByName(name)
