@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: StationPlaylist 1.1-dev\n"
+"Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2017-04-04 22:08+0100\n"
+"PO-Revision-Date: 2017-04-09 21:35+0100\n"
 "Last-Translator: Juan C. Buño <oprisniki@gmail.com>\n"
 "Language-Team: Add-ons translation team <oprisniki@gmail.com>\n"
 "Language: gl\n"
@@ -58,19 +58,16 @@ msgid "Studio main window not found"
 msgstr "Ventá principal do Studio non atopada"
 
 #. Translators: Standard message for announcing column content.
-#, fuzzy
 msgid "{checkStatus}{header}: {content}"
-msgstr "{header}: {content}"
+msgstr "{checkStatus}{header}: {content}"
 
 #. Translators: Spoken when column content is blank.
-#, fuzzy
 msgid "{checkStatus}{header}: blank"
-msgstr "{header}: en branco"
+msgstr "{checkStatus}{header}: en blanco"
 
 #. Translators: Brailled to indicate empty column content.
-#, fuzzy
 msgid "{checkStatus}{header}: ()"
-msgstr "{header}: ()"
+msgstr "{checkStatus}{header}: ()"
 
 msgid "Has comment"
 msgstr "Ten comentario"
@@ -110,7 +107,6 @@ msgid "Status: {name}"
 msgstr "Estado: {name}"
 
 #. Translators: The text of the help command in SPL Assistant layer.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -170,15 +166,16 @@ msgstr ""
 "U: Actualización de Studio.\n"
 "W: Tempo e temperatura.\n"
 "Y: Modificación de lista de reprodución.\n"
-"1 ata 0 (6 para Studio 5.01 e anteriores): anuncia columnas a través do "
-"Explorador de Columnas (0 é a décima columna de slot).\n"
+"1 ata 0: anuncia columnas a través do Explorador de Columnas (0 é a décima "
+"columna de slot).\n"
+"F8: toma instantáneas da listaxe de reprodución como conta de pistas, pista "
+"máis longa e así.\n"
 "F9: Marca a pista actual coma  comezo de análise de tempo da pista.\n"
 "F10: Realiza a análise de tempo da pista.\n"
 "F12: Cambia a un perfil de cambio instantáneo.\n"
 "Shift+F1: Abre a guía de usuario en liña."
 
 #. Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -242,15 +239,16 @@ msgstr ""
 "U: Actualización de Studio.\n"
 "W: Tempo e temperatura.\n"
 "Y: Modificación de lista de reprodución.\n"
-"1 ata 0 (6 para Studio 5.01 e anteriores): Anuncia columnas a través do "
-"Explorador de  Columnas (0 é a décima columna do slot).\n"
+"1 ata 0: Anuncia columnas a través do Explorador de  Columnas (0 é a décima "
+"columna do slot).\n"
+"F8: toma instantáneas da listaxe de reprodución como conta de pistas, pista "
+"máis longa e así.\n"
 "F9: Marca a pista actual coma  comezo de análise de tempo da pista.\n"
 "F10: Realiza a análise de tempo da pista.\n"
 "F12: Cambia a un perfil de cambio instantáneo.\n"
 "Shift+F1: Abre a guía de usuario en liña."
 
 #. Translators: The text of the help command in SPL Assistant layer when Window-Eyes layer is active.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -318,8 +316,10 @@ msgstr ""
 "U: Actualización de Studio.\n"
 "W: Tempo e temperatura.\n"
 "Y: Modificación de lista de reprodución.\n"
-"1 ata 0 (6 para Studio 5.01 e anteriores): Anuncia columnas a través do "
-"Explorador de Columnas (0 é a décima columna).\n"
+"1 ata 0: anuncia columnas a través do Explorador de Columnas (0 é a décima "
+"columna).\n"
+"F8: toma instantáneas da listaxe de reproducción como conta de pistas, pista "
+"máis longa e así.\n"
 "F9: Marca a pista actual coma  comezo de análise de tempo da pista.\n"
 "F10: Realiza a análise de tempo da pista.\n"
 "F12: Cambia a un perfil de cambio instantáneo.\n"
@@ -392,12 +392,10 @@ msgid "Error"
 msgstr "Erro"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
-#, fuzzy
 msgid "Sets end of track alarm (default is 5 seconds)."
 msgstr "Pon a alarma de remate da pista (predeterminada é de 5 segundos)."
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
-#, fuzzy
 msgid "Sets song intro alarm (default is 5 seconds)."
 msgstr "Alarma de intro de canción establecida (por defecto é 5 segundos)."
 
@@ -543,13 +541,13 @@ msgstr ""
 "streaming."
 
 #. Translators: Presented when track time anlaysis cannot be performed because user is not focused on playlist viewer.
-#, fuzzy
 msgid ""
 "Not in playlist viewer, cannot perform track time analysis or gather "
 "playlist snapshot statistics"
 msgstr ""
 "Non estás no visualizador de lista de reprodución, non podes realizar a "
-"análise de tempo."
+"análise de tempo ou recopilar estadísticas de instantáneas de listaxes de "
+"reprodución."
 
 #. Translators: one of the results for playlist snapshots feature for announcing total number of items in a playlist.
 msgid "Items: {playlistItemCount}"
@@ -560,9 +558,8 @@ msgid "Tracks: {playlistTrackCount}"
 msgstr "Pistas: {playlistTrackCount}"
 
 #. Translators: one of the results for playlist snapshots feature for announcing total duration of a playlist.
-#, fuzzy
 msgid "Duration: {playlistTotalDuration}"
-msgstr "Station Playlist Studio"
+msgstr "Duración: {playlistTotalDuration}"
 
 #. Translators: one of the results for playlist snapshots feature for announcing shortest track name and duration of a playlist.
 msgid "Shortest: {playlistShortestTrack}"
@@ -582,9 +579,8 @@ msgid "Top artist: %s (%s)"
 msgstr "Artista principal: %s (%s)"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
-#, fuzzy
 msgid "Top artists:"
-msgstr "Non hai artista"
+msgstr "Artistas principais:"
 
 msgid "No artist information ({artistCount})"
 msgstr "Non hai información do artist  ({artistCount})"
@@ -734,13 +730,15 @@ msgstr ""
 "a pista actual"
 
 msgid "You need to add tracks before invoking this command"
-msgstr ""
+msgstr "Necesitas engadir pistas antes de invocar esta orde"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid ""
 "Presents playlist snapshot information such as number of tracks and top "
 "artists"
 msgstr ""
+"Presenta información das instantáneas de listaxes de reprodución como número "
+"de pistas e artistas principais"
 
 #. Translators: Presented when place marker cannot be set.
 msgid "No tracks found, cannot set place marker"
@@ -883,7 +881,6 @@ msgid "SPL Studio and audio ducking"
 msgstr "SPL Studio e atenuación do audio"
 
 #. Translators: A message displayed if audio ducking should be disabled.
-#, fuzzy
 msgid ""
 "NVDA 2016.1 and later allows NVDA to decrease volume of background audio "
 "including that of Studio.\n"
@@ -893,11 +890,13 @@ msgid ""
 "audio ducking mode combo box.\n"
 "\t\t* Press NVDA+Shift+D to set it to 'no ducking'."
 msgstr ""
-"NVDA 2016.1 e posteriores permiten ao NVDA disminuir o volume do audio de "
-"fondo incluindo o do Studio. Para non interrumpir a experiencia de escoita "
-"dos teus o`´oíntes, por favor deshabilita a atenuación do audio abrindo o "
-"diálogo Sintetizador no NVDA e selecionando 'sen atenuación' dende a caixa "
-"combinada Modo de atenuación do audio ou preme NVDA+Shift+D."
+"O NVDA 2016.1 e posteriores permiten ao NVDA diminuir o volume do audio de "
+"fondo incluindo ao Studio.\n"
+"\t\tPara non empeorar a experiencia de escoita dos teus oubintes, por favor "
+"deshabilita a atenuación do audio mediante:\n"
+"\t\t* abrir o diálogo Sintetizador no NVDA e selecionando 'sen atenuación' "
+"da caixa combinada Modo de atenuación de audio\n"
+"\t\t* ou premendo NVDA+Shift+D para configuralo a 'Sen atenuación'."
 
 #. Translators: A checkbox to turn off audio ducking reminder message.
 msgid "Do not show this message again"
@@ -1090,9 +1089,8 @@ msgid "Message &verbosity:"
 msgstr "&verbosidade das mensaxes:"
 
 #. Translators: The label of a button to open a dialog to configure various alarms.
-#, fuzzy
 msgid "&Alarms Center..."
-msgstr "Centro de Alarmas"
+msgstr "Centro de &Alarmas"
 
 #. Translators: One of the alarm notification options.
 msgid "beep"
@@ -1136,13 +1134,12 @@ msgstr ""
 "Inclúe &horas ao anunciar a duración da pista ou da lista de reproducción"
 
 #. Translators: The label for a setting in SPL add-on dialog to set vertical column.
-#, fuzzy
 msgid "&Vertical column navigation announcement:"
-msgstr "Anunciado do comentario da &pista:"
+msgstr "Anunciado da navegación &Vertical da columna:"
 
 #. Translators: One of the options for vertical column navigation denoting NVDA will announce current column positoin (e.g. second column position from the left).
 msgid "whichever column I am reviewing"
-msgstr ""
+msgstr "a columna que estou a revisar"
 
 #. Translators: the label for a setting in SPL add-on settings to toggle category sound announcement.
 msgid "&Beep for different track categories"
@@ -1168,7 +1165,7 @@ msgstr ""
 
 #. Translators: The label of a button to manage playlist snapshot flags.
 msgid "&Playlist snapshots..."
-msgstr ""
+msgstr "Instantáneas das &listaxes de reprodución..."
 
 #. Translators: One of the metadata notification settings.
 msgid "When Studio starts"
@@ -1366,11 +1363,8 @@ msgid "&Notify when end of introduction is approaching"
 msgstr "&Notificar cando se achegue o remate da introducción"
 
 #. Translators: A dialog message to set microphone active alarm.
-#, fuzzy
 msgid "&Microphone alarm in seconds (0 disables the alarm)"
-msgstr ""
-"Introducir tempo de alarma de micrófono en segundos (actualmente "
-"deshabilitado, 0 deshabilita a alarma)"
+msgstr "Alarma de &Micrófono en segundos (0 deshabilita a alarma)"
 
 msgid "Microphone alarm &interval in seconds"
 msgstr "&Intervalo da alarma do &Micrófono en segundos"
@@ -1380,41 +1374,44 @@ msgid ""
 "Select information to be included when obtaining playlist snapshots.\n"
 "\t\tTrack count and total duration are always included."
 msgstr ""
+"Seleciona información para se incluir ao obter instantáneas de listaxess de "
+"reprodución.\n"
+"\t\tSempre se inclúen a conta de pistas e a duración total."
 
 #. Translators: the label for a setting in SPL add-on settings to include shortest and longest track duration in playlist snapshots window.
 msgid "Shortest and longest tracks"
-msgstr ""
+msgstr "Pistas máis curtas e máis longas"
 
 #. Translators: the label for a setting in SPL add-on settings to include average track duration in playlist snapshots window.
-#, fuzzy
 msgid "Average track duration"
-msgstr "Terminacións braille de pista"
+msgstr "Duración media da pista"
 
 #. Translators: the label for a setting in SPL add-on settings to include track artist count in playlist snapshots window.
 msgid "Artist count"
-msgstr ""
+msgstr "Conta de artistas"
 
 msgid "Top artist count (0 displays all artists)"
-msgstr ""
+msgstr "conta de artistas principais (0 amosa todos os artistas)"
 
 #. Translators: the label for a setting in SPL add-on settings to include track category count in playlist snapshots window.
 msgid "Category count"
-msgstr ""
+msgstr "Conta de categorías"
 
 msgid "Top category count (0 displays all categories)"
-msgstr ""
+msgstr "Conta de categorías principais (0 amosa todas as categorías)"
 
 #. Translators: the label for a setting in SPL add-on settings to include track genre count in playlist snapshots window.
-#, fuzzy
 msgid "Genre count"
-msgstr "Escanear conta"
+msgstr "Conta de xéneros"
 
 msgid "Top genre count (0 displays all genres)"
-msgstr ""
+msgstr "Conta de xéneros principais (0 amosa todos os xéneros)"
 
 #. Translators: the label for a setting in SPL add-on settings to show playlist snaphsots window when the snapshots command is pressed once.
 msgid "&Show results window when playlist snapshots command is performed once"
 msgstr ""
+"&Amosar ventá de resultados cando se realice a orde instantáneas de listaxe "
+"de reproducción unha vez"
 
 #. Translators: Title of a dialog to configure metadata streaming status for DSP encoder and four additional URL's.
 msgid "Metadata streaming options"
@@ -1666,19 +1663,16 @@ msgstr ""
 "actualizala?"
 
 #. Translators: The title of the dialog displayed while downloading add-on update.
-#, fuzzy
 msgid "Downloading Add-on Update"
-msgstr "Actualización do complemento Studio"
+msgstr "Descargando a Actualización do Complemento"
 
 #. Translators: The progress message indicating that a connection is being established.
-#, fuzzy
 msgid "Connecting"
-msgstr "Conectando..."
+msgstr "Conectando"
 
 #. Translators: A message indicating that an error occurred while downloading an update to NVDA.
-#, fuzzy
 msgid "Error downloading add-on update."
-msgstr "Erro procurando actualización."
+msgstr "Erro descargando a actualización do complemento."
 
 #. Translators: The message displayed when an error occurs when opening an add-on package for adding.
 #, python-format
@@ -1686,23 +1680,24 @@ msgid ""
 "Failed to open add-on package file at %s - missing file or invalid file "
 "format"
 msgstr ""
+"Fallou ao abrir o ficheiro de paquete do complemento en %s - Falta ficheiro "
+"ou é un formato inválido"
 
 #. Translators: The title of the dialog presented while an Addon is being updated.
 msgid "Updating Add-on"
-msgstr ""
+msgstr "Actualizando Complemento"
 
 #. Translators: The message displayed while an addon is being updated.
 msgid "Please wait while the add-on is being updated."
-msgstr ""
+msgstr "Por favor agarda mentres se está a actualizar o complemento."
 
 #. Translators: The message displayed when an error occurs when installing an add-on package.
 #, python-format
 msgid "Failed to update add-on  from %s"
-msgstr ""
+msgstr "Fallou ao actualizar o complemento dende %s"
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
-#, fuzzy
 msgid ""
 "\n"
 "After entering SPL Controller, press:\n"
@@ -1738,6 +1733,7 @@ msgstr ""
 "T: Deter instantáneamente.\n"
 "E: Anuncia se calquera codificador está a ser monitorizado.\n"
 "I: anuncia o reconto de oíntes.\n"
+"Q: Anuncia información de estado do Studio.\n"
 "R: Tempo restante para a pista en reprodución.\n"
 "Shift+R: Progreso do escaneado da biblioteca."
 
@@ -1776,14 +1772,12 @@ msgstr ""
 "unha pista."
 
 #. Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
-#, fuzzy
 msgid "Scan in progress with {itemCount} items scanned"
-msgstr "Escaneado compretado con {itemCount} elementos"
+msgstr "Escaneado compretado con {itemCount} elementos escaneados"
 
 #. Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
-#, fuzzy
 msgid "Scan complete with {itemCount} items scanned"
-msgstr "Escaneado compretado con {itemCount} elementos"
+msgstr "Escaneado compretado con {itemCount} elementos escaneados"
 
 #. Translators: Announces number of stream listeners.
 msgid "Listener count: {listenerCount}"
@@ -1797,6 +1791,8 @@ msgstr "Non hai pista en reprodución."
 msgid ""
 "Announces Studio status such as track playback status from other programs"
 msgstr ""
+"Anuncia o estado do Studio coma o estado da pista en reprodución dende "
+"outros programas"
 
 #. Translators: The title for SPL Controller help dialog.
 msgid "SPL Controller help"
