@@ -15,7 +15,7 @@ IMPORTANT: This add-on requires NVDA 2016.4 or later and StationPlaylist Studio 
 
 * Alt+Shift+T from Studio window: announce elapsed time for the currently playing trakc.
 * Control+Alt+T (two finger flick down in SPL touch mode) from Studio window: announce remaining time for the currently playing trakc.
-* NVDA+Shift+F12 (two finger flick up in SPL touch mode) from Studio window: announces broadcaster time such as 5 minutes to top of the hour.
+* NVDA+Shift+F12 (two finger flick up in SPL touch mode) from Studio window: announces broadcaster time such as 5 minutes to top of the hour. Pressing this command twice will announce minutes and seconds till top of the hour.
 * Alt+NVDA+1 (two finger flick right in SPL mode) from Studio window: Opens end of track setting dialog.
 * Alt+NVDA+2 (two finger flick left in SPL mode) from Studio window: Opens song intro alarm setting dialog.
 * Alt+NVDA+3 from Studio window: Toggles cart explorer to learn cart assignments.
@@ -177,6 +177,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Version 17.2-dev
 
 * In add-on settings, added a checkbox to let NvDA play a sound when lister requests arrive. To use this fully, requests window must pop up when requests arrive.
+* Pressing broadcaster time command (NVDA+Shift+F12) twice will now cause NVDA to announce minutes and seconds remaining in the current hour.
 
 ## Version 17.04
 
