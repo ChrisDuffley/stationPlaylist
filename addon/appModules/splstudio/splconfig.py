@@ -568,7 +568,12 @@ def shouldSave(profile):
 # Save configuration database.
 def saveConfig():
 	# Save all config profiles.
-	global SPLConfig, SPLConfigPool, SPLActiveProfile, SPLPrevProfile, SPLSwitchProfile, _SPLCache
+	global SPLConfig, SPLConfigPool, SPLActiveProfile, SPLPrevProfile, SPLSwitchProfile, _SPLCache, _SPLTriggerEndTimer, _triggerProfileActive
+	# #30 (15.7): turn off trigger timer if the app module is dying and the trigger timer did not expire yet.
+	if _SPLTriggerEndTimer is not None and _SPLTriggerEndTimer.IsRunning():
+		_triggerProfileActive = False
+		_SPLTriggerEndTimer.Stop()
+		_SPLTriggerEndTimer = None
 	# 7.0: Turn off auto update check timer.
 	if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
 	splupdate._SPLUpdateT = None
