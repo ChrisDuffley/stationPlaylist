@@ -883,7 +883,7 @@ class AppModule(appModuleHandler.AppModule):
 		self._focusedTrack = None
 		try:
 			self.prefsMenu.RemoveItem(self.SPLSettings)
-		except AttributeError, wx.PyDeadObjectError:
+		except (RuntimeError, AttributeError, wx.PyDeadObjectError):
 			pass
 		# Tell the handle finder thread it's time to leave this world.
 		self.noMoreHandle.set()
