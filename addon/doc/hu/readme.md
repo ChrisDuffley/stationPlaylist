@@ -15,11 +15,11 @@ developers seeking to know how to build the add-on, see
 buildInstructions.txt located at the root of the add-on source code
 repository.
 
-IMPORTANT: This add-on requires NVDA 2015.3 or later and StationPlaylist
-Studio 5.00 or later. If you have installed NVDA 2016.1 or later on Windows
-8 and later, disable audio ducking mode. Also, add-on 8.0/16.10 requires
-Studio 5.10 and later, and for broadcasters using Studio 5.0x, a long-term
-support version (15.x) is available.
+IMPORTANT: This add-on requires NVDA 2016.4 or later and StationPlaylist
+Studio 5.10 or later. If using Windows 8 or later, for best experience,
+disable audio ducking mode. Also, add-on 8.0/16.10 requires Studio 5.10 and
+later, and for broadcasters using Studio 5.0x, a long-term support version
+(15.x) is available.
 
 ## Gyorsbillentyűk
 
@@ -46,6 +46,8 @@ support version (15.x) is available.
   beállításait.
 * Control+Alt+right/left arrow (while focused on a track): Announce
   next/previous track column.
+* Control+Alt+down/up arrow (while focused on a track): Move to next or
+  previous track and announce specific columns (unavailable in add-on 15.x).
 * Control+NVDA+1 through 0 (6 for Studio 5.0x): Announce column content for
   a specified column.
 * Alt+NVDA+C while focused on a track: announces track comments if any.
@@ -57,21 +59,20 @@ support version (15.x) is available.
 
 ## Nem hozzárendelt parancsok
 
-Az alábbi parancsok nincsenek billentyűparancshoz rendelve. Ha ezt meg
-szeretné változtatni, használja a Beviteli Parancsok párbeszédpanelt.
+The following commands are not assigned by default; if you wish to assign
+them, use Input Gestures dialog to add custom commands.
 
 * Bármely programból az SPL Studio ablakára vált.
 * SPL Vezérlőréteg
+* Announcing Studio status such as track playback from other programs.
 * SPL segédréteg az SPL Studio-ból.
 * Másodpercre pontosan bejelenti az időt az SPL Studioból.
-* Toggling track dial on or off (works properly while a track is focused; to
-  assign a command to this, move to a track in Studio, then open NVDA's
-  input gestures dialog.).
 * Hőmérséklet bejelentése.
 * A következő zeneszám címének bemondása, amennyiben van ilyen.
 * Announcing title of the currently playing track.
 * Marking current track for start of track time analysis.
 * Performing track time analysis.
+* Take playlist snapshots.
 * Find text in specific columns.
 * Find tracks with duration that falls within a given range via time range
   finder.
@@ -154,6 +155,7 @@ The available commands are:
 * Y: Playlist modified status.
 * 1 through 0 (6 for Studio 5.0x): Announce column content for a specified
   column.
+* F8: Take playlist snapshots (number of tracks, longest track, etc.).
 * F9: Mark current track for track time analysis (playlist viewer only).
 * F10: Perform track time analysis (playlist viewer only).
 * F12: Switch between current and a predefined profile.
@@ -183,6 +185,8 @@ Az elérhető SPL Vezérlőparancsok a következők:
   folyamatának követéséhez.
 * E: Az ellenőrzés alatt álló encoderek száma.
 * Press I to obtain listener count.
+* Press Q to obtain various status information about Studio including
+  whether a track is playing, microphone is on and others.
 * Az F1 billentyűvel listáztathatja az elérhető parancsokat.
 
 ## Track alarms
@@ -222,15 +226,6 @@ command. Pressing the cart command twice will play the jingle. Press
 Alt+NvDA+3 to exit cart explorer. See the add-on guide for more information
 on cart explorer.
 
-## Track Dial
-
-You can use arrow keys to review various information about a track. To turn
-Track Dial on, while a track is focused in the main playlist viewer, press
-the command you assigned for toggling Track Dial. Then use left and right
-arrow keys to review information such as artist, duration and so
-on. Alternatively, press Control+Alt+left or right arrows to navigate
-between columns without invoking Track Dial.
-
 ## Track time analysis
 
 To obtain length to play selected tracks, mark current track for start of
@@ -246,6 +241,15 @@ category and filename (Studio 5.10 adds year, album, genre and time
 scheduled). You can configure which columns will be explored via columns
 explorer dialog found in add-on settings dialog.
 
+## Playlist snapshots
+
+You can press SPL Assistant, F8 while focused on a playlist in Studio to
+obtain various statistics about a playlist, including number of tracks in
+the playlist, longest track, top artists and so on. After assigning a custom
+command for this feature, pressing the custom command twice will cause NVDA
+to present playlist snapshot information as a webpage so you can use browse
+mode to navigate (press escape to close).
+
 ## Beállítások párbeszédpanel
 
 From studio window, you can press Alt+NVDA+0 to open the add-on
@@ -259,6 +263,56 @@ Amennyiben érintőképernyős számítógépen használja a Studiot Windows 8, 
 újabb verzió alatt, NVDA 2012.3 vagy újabb verzióval, bizonyos Studio
 parancsokat végrehajthat az érintőképernyőn is. Először 3 ujjas koppintással
 váltson SPL módra, és utána már használhatók az alább felsorolt parancsok.
+
+## Version 17.04
+
+* Added a basic add-on debugging support by logging various information
+  while the add-on is active with NVDA set to debug logging (requires NVDA
+  2017.1 and later). To use this, after installing NVDA 2017.1, from Exit
+  NVDA dialog, choose "restart with debug logging enabled" option.
+* Improvements to presentation of various add-on dialogs thanks to NVDA
+  2016.4 features.
+* NVDA will download add-on updates in the background if you say "yes" when
+  asked to update the add-on. Consequently, file download notifications from
+  web browsers will no longer be shown.
+* NVDA will no longer appear to freeze when checking for update at startup
+  due to add-on update channel change.
+* Added ability to press Control+Alt+up or down arrow keys to move between
+  tracks (specifically, track columns) vertically just as one is moving to
+  next or previous row in a table.
+* Added a combo box in add-on settings dialog to set which column should be
+  announced when moving through columns vertically.
+* Moved end of track , intro and microphone alarm controls from add-on
+  settings to the new Alarms Center.
+* In Alarms Center, end of track and track intro edit fields are always
+  shown regardless of state of alarm notification checkboxes.
+* Added a command in SPL Assistant to obtain playlist snapshots such as
+  number of tracks, longest track, top artists and so on (F8). You can also
+  add a custom command for this feature.
+* Pressing the custom gesture for playlist snapshots command once will let
+  NVDA speak and braile a short snapshot information. Pressing the command
+  twice will cause NVDA to open a webpage containing a fuller playlist
+  snapshot information. Press escape to close this webpage.
+* Removed Track Dial (NVDA's version of enhanced arrow keys), replaced by
+  Columns explorer and Column Navigator/table navigation commands). This
+  affects Studio and Track Tool.
+* After closing Insert Tracks dialog while a library scan is in progress, it
+  is no longer required to press SPL Assistant, Shift+R to monitor scan
+  progress.
+* Improved accuracy of detecting and reporting completion of library scans
+  in Studio 5.10 and later. This fixes a problem where library scan monitor
+  will end prematurely when there are more tracks to be scanned,
+  necessitating restarting library scan monitor.
+* Improved library scan status reporting via SPL Controller (Shift+R) by
+  announcing scan count if scan is indeed happening.
+* In studio Demo, when registration screen appears when starting Studio,
+  commands such as remaining time for a track will no longer cause NVDA to
+  do nothing, play error tones, or give wrong information. An error message
+  will be announced instead. Commands such as these will require Studio's
+  main window handle to be present.
+* Initial support for StationPlaylist Creator.
+* Added a new command in SPL Controller layer to announce Studio status such
+  as track playback and microphone status (Q).
 
 ## Version 17.03
 
@@ -926,6 +980,14 @@ A kiegészítő 4.0 verziója a Studio 5.00 és későbbi kiadásait támogatja.
 ## Az 1.0 verzió változásai
 
 * Első kiadás
+
+[1]: http://addons.nvda-project.org/files/get.php?file=spl
+
+[2]: http://addons.nvda-project.org/files/get.php?file=spl-dev
+
+[3]: http://www.josephsl.net/files/nvdaaddons/get.php?file=spl-lts7
+
+[4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 
 [[!tag dev stable]]
 

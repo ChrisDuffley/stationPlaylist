@@ -15,11 +15,11 @@ module complémentaire][4]. Pour les développeurs cherchant à savoir comment
 construire le module complémentaire, voir buildInstructions.txt situé à la
 racine du code source du module complémentaire du référentiel.
 
-IMPORTANT : Ce module complémentaire nécessite NVDA 2015.3 ou plus récent et
-StationPlaylist Studio 5.00 ou version ultérieure. Si vous avez installé
-NVDA 2016.1 ou version ultérieure sur Windows 8 et supérieur désactiver le
-Mode d'atténuation audio. En outre,le module complémentaire 8.0/16.10
-nécessite Studio 5.10 et ultérieure, et pour les diffusions utilisant Studio
+IMPORTANT : Ce module complémentaire nécessite NVDA 2016.4 ou plus récent et
+StationPlaylist Studio 5.10 ou version ultérieure. Si vous utilisez Windows
+8 ou une version ultérieure, pour une meilleure expérience, désactiver le
+Mode d'atténuation audio. En outre, le module complémentaire 8.0/16.10
+nécessite Studio 5.10 et ultérieur, et pour les diffusions utilisant Studio
 5.0x, une version prise en charge à long terme (15.x) est disponible.
 
 ## Raccourcis clavier
@@ -51,6 +51,9 @@ nécessite Studio 5.10 et ultérieure, et pour les diffusions utilisant Studio
   minuteur braille.
 * Contrôle+Alt+flèche droite/gauche (alors que  a été mis en focus sur une
   piste) : Annoncer colonne de piste suivante/précédente.
+* Contrôle+Alt+flèche bas/haut (alors que  a été mis en focus sur une piste)
+  : Déplacer vers la piste suivante ou précédente et annoncer des colonnes
+  spécifiques (indisponible dans le module complémentaire 15.x).
 * Contrôle+NVDA+1 jusqu'à 0 (6 pour Studio 5.0x) : Annoncer le contenu de la
   colonne pour une colonne spécifiée.
 * Alt+NVDA+C alors que  a été mis en focus sur une piste : annonce les
@@ -65,22 +68,21 @@ nécessite Studio 5.10 et ultérieure, et pour les diffusions utilisant Studio
 ## Commandes non assignées
 
 Les commandes suivantes ne sont pas assignées par défaut ; si vous souhaitez
-en assigner une, utilisez le dialogue Gestes de commandes pour ajouter des
+les assigner, utilisez le dialogue Gestes de commandes pour ajouter des
 commandes personnalisées.
 
 * Basculement vers la fenêtre SPL Studio depuis n'importe quel programme.
 * Couche Contrôleur SPL.
+* Annonçant le statut de Studio, comme la lecture de pistes à partir
+  d'autres programmes.
 * Couche Assistant SPL depuis SPL Studio.
 * Annoncer le temps y compris les secondes depuis SPL Studio.
-* Basculement du cadran de piste entre activé ou désactivé (fonctionne
-  correctement quand une piste a le focus ; pour assigner une commande pour
-  cela, se déplacer sur une piste en Studio, puis ouvrez le dialogue Gestes
-  de Commandes de NVDA.).
 * Annonce de la température.
 * Annonce du titre de la piste suivante si planifié.
 * Annonçant le titre de la piste en cours de lecture.
 * Marquage de piste en cours pour le début de l'analyse de durée de piste.
 * Effectuer des analyses de durée de piste.
+* Prendre des instantanés de playlist
 * Recherche de texte dans des colonnes spécifiques.
 * Trouver des piste avec une durée qui se situe dans un intervalle donné via
   la recherche de l'intervalle de temps.
@@ -175,6 +177,8 @@ Les commandes disponibles sont :
 * Y: Statut de la modification de la playlist.
 * 1 jusqu'à 0 (6 pour Studio 5.0x) : Annoncer le contenu de la colonne pour
   une colonne spécifiée.
+* F8 : Prendre des instantanés de playlist (nombre de pistes, piste la plus
+  longue, etc.).
 * F9 : Marquer la piste en cours pour l'analyse de durée de piste
   (visionneuse de playlist uniquement).
 * F10 : Effectuer une analyse de durée de piste (visionneuse de playlist
@@ -210,6 +214,9 @@ Les commandes disponibles pour le Contrôleur SPL sont:
 * Appuyez sur E pour obtenir un nombre et des étiquettes pour les encodeurs
   étant contrôlés.
 * Appuyez sur I pour obtenir le nombre d'auditeurs.
+* Appuyer sur Q pour obtenir diverses informations du statut de Studio, y
+  compris si une piste est en cours de lecture, le microphone est activé et
+  d'autres.
 * Appuyez sur F1 pour afficher une boîte de dialogue d'aide qui répertorie
   les commandes disponibles.
 
@@ -254,17 +261,6 @@ jouera le jingle. appuyez sur Alt+NVDA+3 pour quitter l'explorateur de
 chariot. Consultez la documentation du module complémentaire pour plus
 d'informations sur l'explorateur de chariot.
 
-## Cadran de Piste
-
-Vous pouvez utiliser les touches fléchées pour visualiser divers
-informations sur une piste. Pour activer le Cadran de Piste si une piste a
-le focus dans la visionneuse de playlist principale, appuyez sur la commande
-que vous avez assignés vous permettant d'alterner le Cadran de Piste. Puis
-utilisez les touches fléchées gauche et droite pour visualiser les
-informations telles que l'artiste, la durée et ainsi de suite. Sinon appuyer
-sur Contrôle+Alt+flèches gauche ou droite pour naviguer entre les colonnes
-sans invoquer le Cadran de Piste.
-
 ## Analyse de durée de piste
 
 Pour obtenir la longueur pour jouer les pistes sélectionnés, marquer la
@@ -282,6 +278,13 @@ album, genre et heure prévue). Vous pouvez configurer les colonnes qui
 seront explorées via le dialogue Explorateur de Colonnes trouvé dans le
 dialogue Paramètres module complémentaire.
 
+## Instantanés de playlist
+
+Vous pouvez appuyer sur Assistant SPL , F8 étant focalisée sur une playlist
+dans Studio pour obtenir diverses statistiques sur une playlist, y compris
+le nombre de pistes dans la playlist, la piste la plus longue, les meilleurs
+artistes et ainsi de suite.
+
 ## Boîte de dialogue configuration
 
 Depuis la fenêtre studio, vous pouvez appuyer sur Alt+NVDA+0 pour ouvrir la
@@ -298,6 +301,72 @@ ultérieure installé, vous pouvez exécuter certaines commandes Studio depuis
 un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
+
+## Version 17.04
+
+* Ajout d'un support pour le module complémentaire en mode débogage en
+  enregistrant diverses informations alors que le module complémentaire est
+  actif avec NVDA configuré en Niveau de journalisation : débogage (requiert
+  NVDA 2017.1 et versions ultérieures). Pour l'utiliser avec ce module
+  complémentaire, après l'installation de NVDA 2017.1, à partir du dialogue
+  Quitter NVDA, choisissez l'option "Redémarrer avec le journal activé en
+  mode débogage.
+* Améliorations apportées à la présentation de diverses boîtes de dialogue
+  ajoutées grâce aux fonctionnalités NVDA 2016.4.
+* NVDA va télécharger les mises à jour du module complémentaire en
+  arrière-plan si vous dites "oui" lorsqu'on lui demande de mettre à jour le
+  module complémentaire. Par conséquent, les notifications de téléchargement
+  de fichiers depuis les navigateurs Web ne seront plus affichées.
+* NVDA ne se bloquera plus lors de la recherche de la mise à jour au
+  démarrage en raison du changement du  canal de mise à jour du module
+  complémentaire.
+* Ajoutée la possibilité d'appuyer sur Contrôle+Alt+touches flèche haut ou
+  flèche bas  pour se déplacer entre les pistes  (en particulier, les
+  colonnes de piste) verticalement au moment où l'on passe à la rangée
+  suivante ou précédente dans un tableau.
+* Ajoutée une zone de liste déroulante dans le dialogue paramètres du module
+  complémentaire pour définir quelle colonne doit être annoncée lors du
+  déplacement vertical des colonnes.
+* Déplacement des contrôles fin de piste, intro et alarme microphone depuis
+  les paramètres du module complémentaire au nouveau Centre des alarmes.
+* Dans Centre des alarmes, les champs d'édition de fin de piste et Piste
+  intro sont toujours affichés indépendamment des cases à cocher état de
+  notification d'alarme.
+* Ajout d'une commande dans Assistant SPL pour obtenir des instantanés de
+  playlist tels que le nombre de pistes, la piste la plus longue, les
+  meilleurs artistes et ainsi de suite (F8). Vous pouvez également ajouter
+  une commande personnalisée pour cette fonction.
+* En appuyant une fois sur la commande de geste personnalisé pour les
+  instantanés de playlist NVDA peut annoncer et brailler une courte
+  information instantanée. En appuyant deux fois sur la commande, NVDA ouvre
+  une page Web contenant des informations plus complètes sur les instantanés
+  de playlist. Appuyez sur Échap pour fermer cette page Web.
+* Suppression du Cadran de piste (version NVDA des touches fléchées
+  améliorées), remplacée par les commandes Explorateur de colonnes et
+  Navigateur de colonnes/Navigation par tableau). Cela affecte Studio et
+  outil de piste.
+* Après avoir fermé le dialogue Insérer des pistes pendant qu'un balayage de
+  la bibliothèque est en cours, il n'est plus nécessaire d'appuyer sur
+  Assistant SPL, Maj+R pour surveiller la progression du balayage.
+* Amélioration de la précision de la détection et de l'établissement des
+  annonces de la  fin du balayage de la bibliothèque dans Studio 5.10 et
+  versions ultérieures. Cela corrige un problème où le moniteur du balayage
+  de la bibliothèque se terminera prématurément quand il ya plus de pistes à
+  balayer, nécessitant le redémarrage du moniteur du balayage de la
+  bibliothèque.
+* Amélioration des annonces du statut du balayage de la bibliothèque via le
+  contrôleur SPL (Maj+R) en annonçant le comptage de balayage si le balayage
+  se produit réellement.
+* En mode Démo de studio, lorsque l'écran d'enregistrement s'affiche lors du
+  démarrage de Studio, les commandes telles que le temps restant pour une
+  piste ne provoqueront plus que NVDA ne fasse rien, lira les tonalités
+  d'erreur ou donnera des informations erronées. Un message d'erreur sera
+  alors annoncé. Des commandes comme celles-ci nécessiteront que la poignée
+  de la fenêtre principale de Studio soit présente.
+* Premier support de StationPlaylist Creator.
+* Ajout d'une nouvelle commande dans la couche Contrôleur SPL pour annoncer
+  le statut de Studio telles que la lecture des pistes et le statut du
+  microphone (Q).
 
 ## Version 17.03
 
@@ -1084,6 +1153,14 @@ utilisateurs des versions antérieures de Studio.
 ## Changements pour la version 1.0
 
 * Première version.
+
+[1]: http://addons.nvda-project.org/files/get.php?file=spl
+
+[2]: http://addons.nvda-project.org/files/get.php?file=spl-dev
+
+[3]: http://www.josephsl.net/files/nvdaaddons/get.php?file=spl-lts7
+
+[4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 
 [[!tag dev stable]]
 
