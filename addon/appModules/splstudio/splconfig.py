@@ -82,7 +82,7 @@ CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
 ProfileTriggerThreshold = integer(min=5, max=60, default=15)
 [Update]
 AutoUpdateCheck = boolean(default=true)
-UpdateInterval = integer(min=1, max=30, default=7)
+UpdateInterval = integer(min=1, max=180, default=30)
 [Startup]
 AudioDuckingReminder = boolean(default=true)
 WelcomeDialog = boolean(default=true)
@@ -340,13 +340,16 @@ class ConfigHub(ChainMap):
 
 	# Switch between profiles.
 	# This involves promoting and demoting normal profile.
-	def switchProfile(self, prevProfile, newProfile):
-		from splconfui import _configDialogOpened
-		if _configDialogOpened:
-			# Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
-			ui.message(_("Add-on settings dialog is open, cannot switch profiles"))
-			return
+	# 17.05: The appTerminating flag is used to suppress profile switching messages.
+	def switchProfile(self, prevProfile, newProfile, appTerminating=False):
+		if not appTerminating:
+			from splconfui import _configDialogOpened
+			if _configDialogOpened:
+				# Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
+				ui.message(_("Add-on settings dialog is open, cannot switch profiles"))
+				return
 		self.swapProfiles(prevProfile, newProfile)
+		if appTerminating: return
 		if prevProfile is not None:
 			self.switchHistory.append(newProfile)
 			# Translators: Presented when switch to instant switch profile was successful.
@@ -724,7 +727,13 @@ def shouldSave(profile):
 
 # Save configuration database.
 def saveConfig():
-	global SPLConfig, _SPLCache
+	global SPLConfig, _SPLCache, SPLPrevProfile, _SPLTriggerEndTimer, _triggerProfileActive
+	# #30 (17.05): If we come here before a time-based profile expires, the trigger end timer will meet a painful death.
+	if _SPLTriggerEndTimer is not None and _SPLTriggerEndTimer.IsRunning():
+		_SPLTriggerEndTimer.Stop()
+		_SPLTriggerEndTimer = None
+		SPLConfig.switchProfile(None, SPLPrevProfile, appTerminating=True)
+		_triggerProfileActive = False
 	# 7.0: Turn off auto update check timer.
 	if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
 	splupdate._SPLUpdateT = None

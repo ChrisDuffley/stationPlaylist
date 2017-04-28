@@ -950,24 +950,30 @@ class AppModule(appModuleHandler.AppModule):
 	def script_sayBroadcasterTime(self, gesture):
 		if not studioIsRunning(): return
 		# Says things such as "25 minutes to 2" and "5 past 11".
+		# #29: Also announces top of hour timer (mm:ss), the clock next to broadcaster time.
 		# Parse the local time and say it similar to how Studio presents broadcaster time.
-		h, m = time.localtime()[3], time.localtime()[4]
-		if h not in (0, 12):
-			h %= 12
-		if m == 0:
-			if h == 0: h+=12
-			# Messages in this method should not be translated.
-			broadcasterTime = "{hour} o'clock".format(hour = h)
-		elif 1 <= m <= 30:
-			if h == 0: h+=12
-			broadcasterTime = "{minute} min past {hour}".format(minute = m, hour = h)
+		localtime = time.localtime()
+		# For both broadcaster time and top of hour, minute is needed.
+		m = localtime[4]
+		if scriptHandler.getLastScriptRepeatCount() == 0:
+			h = localtime[3]
+			if h not in (0, 12):
+				h %= 12
+			if m == 0:
+				if h == 0: h+=12
+				# Messages in this method should not be translated.
+				ui.message("{hour} o'clock".format(hour = h))
+			elif 1 <= m <= 30:
+				if h == 0: h+=12
+				ui.message("{minute} min past {hour}".format(minute = m, hour = h))
+			else:
+				if h == 12: h = 1
+				m = 60-m
+				ui.message("{minute} min to {hour}".format(minute = m, hour = h+1))
 		else:
-			if h == 12: h = 1
-			m = 60-m
-			broadcasterTime = "{minute} min to {hour}".format(minute = m, hour = h+1)
-		ui.message(broadcasterTime)
+			self.announceTime(3600-(m*60+localtime[5]), ms=False)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
-	script_sayBroadcasterTime.__doc__=_("Announces broadcaster time.")
+	script_sayBroadcasterTime.__doc__=_("Announces broadcaster time. If pressed twice, reports minutes and seconds left to top of the hour.")
 
 	def script_sayCompleteTime(self, gesture):
 		if not studioIsRunning(): return
