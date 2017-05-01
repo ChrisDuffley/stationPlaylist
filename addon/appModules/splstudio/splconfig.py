@@ -518,10 +518,10 @@ triggerTimer = None
 
 # Prepare the triggers dictionary and other runtime support.
 def initProfileTriggers():
-	global profileTriggers, profileTriggers2, SPLTriggerProfile, triggerTimer
 	# Make sure config hub is ready.
 	if SPLConfig is None:
 		raise RuntimeError("ConfigHub is unavailable, profile triggers manager cannot start")
+	global profileTriggers, profileTriggers2
 	try:
 		profileTriggers = cPickle.load(file(SPLTriggersFile, "r"))
 	except IOError:
@@ -622,7 +622,7 @@ def duplicateExists(map, profile, bits, hour, min, duration):
 # Start the trigger timer based on above information.
 # Can be restarted if needed.
 def triggerStart(restart=False):
-	global SPLTriggerProfile, triggerTimer
+	global SPLConfig, triggerTimer
 	# Restart the timer when called from triggers dialog in order to prevent multiple timers from running.
 	if triggerTimer is not None and triggerTimer.IsRunning() and restart:
 		triggerTimer.Stop()
@@ -633,6 +633,8 @@ def triggerStart(restart=False):
 			SPLTriggerProfile = queuedProfile[1]
 		except ValueError:
 			SPLTriggerProfile = None
+		# 17.08: The config hub object will now keep an eye on this.
+		SPLConfig.timedSwitch = SPLTriggerProfile
 		# We are in the midst of a show, so switch now.
 		if queuedProfile[2]:
 			triggerProfileSwitch()
@@ -754,7 +756,6 @@ def saveConfig():
 # Switch between profiles.
 SPLPrevProfile = None
 SPLSwitchProfile = None
-SPLTriggerProfile = None
 
 # A general-purpose profile switcher.
 # Allows the add-on to switch between profiles as a result of manual intervention or through profile trigger timer.
@@ -800,7 +801,8 @@ _SPLTriggerEndTimer = None
 _triggerProfileActive = False
 
 def triggerProfileSwitch():
-	global triggerTimer, _SPLTriggerEndTimer, _triggerProfileActive
+	global SPLConfig, triggerTimer, _SPLTriggerEndTimer, _triggerProfileActive
+	SPLTriggerProfile = SPLConfig.timedSwitch
 	if SPLTriggerProfile is None and _triggerProfileActive:
 		raise RuntimeError("Trigger profile flag cannot be active when the trigger profile itself isn't defined")
 	if SPLPrevProfile is None:
