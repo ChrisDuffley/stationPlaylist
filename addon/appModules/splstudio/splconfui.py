@@ -58,7 +58,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# Translators: The label of a button to manage show profile triggers.
 		self.triggerButton = wx.Button(self, label=_("&Triggers..."))
 		self.triggerButton.Bind(wx.EVT_BUTTON, self.onTriggers)
-		self.switchProfile = splconfig.SPLSwitchProfile
+		self.switchProfile = splconfig.SPLConfig.instantSwitch
 		self.activeProfile = splconfig.SPLConfig.activeProfile
 		# Used as sanity check in case switch profile is renamed or deleted.
 		self.switchProfileRenamed = False
@@ -323,7 +323,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		splconfig.SPLConfig["Update"]["UpdateInterval"] = self.updateInterval
 		self.pendingChannelChange = splupdate.SPLUpdateChannel != self.updateChannel
 		splupdate.SPLUpdateChannel = self.updateChannel
-		splconfig.SPLSwitchProfile = self.switchProfile
+		splconfig.SPLConfig.instantSwitch = self.switchProfile
 		# Make sure to nullify prev profile if instant switch profile is gone.
 		# 7.0: Don't do the following in the midst of a broadcast.
 		if self.switchProfile is None and not splconfig._triggerProfileActive:
@@ -357,7 +357,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		except ValueError:
 			prevActive = _("Normal profile")
 		if self.switchProfileRenamed or self.switchProfileDeleted:
-			splconfig.SPLSwitchProfile = self.switchProfile
+			splconfig.SPLConfig.instantSwitch = self.switchProfile
 		if self.switchProfileDeleted:
 			splconfig.SPLConfig.activeProfile = prevActive
 		_configDialogOpened = False
@@ -1429,8 +1429,8 @@ class ResetDialog(wx.Dialog):
 			global _configDialogOpened
 			splconfig.SPLConfig.reset()
 			if self.resetInstantProfileCheckbox.Value:
-				if splconfig.SPLSwitchProfile is not None:
-					splconfig.SPLSwitchProfile = None
+				if splconfig.SPLConfig.instantSwitch is not None:
+					splconfig.SPLConfig.instantSwitch = None
 					splconfig.SPLPrevProfile = None
 			if self.resetTimeProfileCheckbox.Value:
 				splconfig.profileTriggers.clear()

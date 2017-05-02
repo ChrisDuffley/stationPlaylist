@@ -419,17 +419,15 @@ trackComments = {}
 def initConfig():
 	# Load the default config from a list of profiles.
 	# 8.0: All this work will be performed when ConfigHub loads.
-	global SPLConfig, _configLoadStatus, SPLSwitchProfile, trackComments
+	global SPLConfig, _configLoadStatus, trackComments
 	# 7.0: Store the config as a dictionary.
 	# This opens up many possibilities, including config caching, loading specific sections only and others (the latter saves memory).
 	# 8.0: Replaced by ConfigHub object.
 	SPLConfig = ConfigHub()
-	# Locate instant profile.
-	if SPLConfig.instantSwitch is not None:
-		try:
-			SPLSwitchProfile = SPLConfig.instantSwitch
-		except ValueError:
-			_configLoadStatus[SPLConfig.activeProfile] = "noInstantProfile"
+	# Locate instant profile and do something otherwise.
+	if SPLConfig.instantSwitch is not None and SPLConfig.instantSwitch not in SPLConfig.profileNames:
+		_configLoadStatus[SPLConfig.activeProfile] = "noInstantProfile"
+		SPLConfig.instantSwitch = None
 	# LTS: Load track comments if they exist.
 	# This must be a separate file (another pickle file).
 	# 8.0: Do this much later when a track is first focused.
@@ -675,7 +673,7 @@ def copyProfile(sourceProfile, targetProfile, complete=False):
 def getProfileFlags(name, active=None, instant=None, triggers=None, contained=False):
 	flags = set()
 	if active is None: active = SPLConfig.activeProfile
-	if instant is None: instant = SPLSwitchProfile
+	if instant is None: instant = SPLConfig.instantSwitch
 	if triggers is None: triggers = profileTriggers
 	if name == active:
 		# Translators: A flag indicating the currently active broadcast profile.
@@ -696,6 +694,7 @@ def _preSave(conf):
 	# 7.0: if this is a second pass, index 0 may not be normal profile at all.
 	# Use profile path instead.
 	if conf.filename == SPLIni:
+		SPLSwitchProfile = SPLConfig.instantSwitch
 		# Cache instant profile for later use.
 		if SPLSwitchProfile is not None:
 			conf["InstantProfile"] = SPLSwitchProfile
@@ -755,7 +754,6 @@ def saveConfig():
 
 # Switch between profiles.
 SPLPrevProfile = None
-SPLSwitchProfile = None
 
 # A general-purpose profile switcher.
 # Allows the add-on to switch between profiles as a result of manual intervention or through profile trigger timer.
@@ -776,6 +774,7 @@ def switchProfile(prevProfile, newProfile):
 
 # Called from within the app module.
 def instantProfileSwitch():
+	SPLSwitchProfile = SPLConfig.instantSwitch
 	if SPLSwitchProfile is None:
 		# Translators: Presented when trying to switch to an instant switch profile when the instant switch profile is not defined.
 		ui.message(_("No instant switch profile is defined"))
