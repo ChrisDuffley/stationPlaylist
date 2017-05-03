@@ -176,7 +176,7 @@ class ConfigHub(ChainMap):
 			self._validateConfig(SPLConfigCheckpoint, profileName=profileName, prefill=prefill)
 		# Until it is brought in here...
 		try:
-			_extraInitSteps(SPLConfigCheckpoint, profileName=profileName)
+			self._extraInitSteps(SPLConfigCheckpoint, profileName=profileName)
 		except KeyError:
 			pass
 		SPLConfigCheckpoint.name = profileName
@@ -206,6 +206,36 @@ class ConfigHub(ChainMap):
 				# 7.0: Disqualified from being cached this time.
 				SPLConfigCheckpoint.write()
 				_configLoadStatus[profileName] = "partialReset"
+
+	# Extra initialization steps such as converting value types.
+	def _extraInitSteps(self, conf, profileName=None):
+		global _configLoadStatus
+		columnOrder = conf["ColumnAnnouncement"]["ColumnOrder"]
+		# Catch suttle errors.
+		fields = _SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
+		invalidFields = 0
+		for field in fields:
+			if field not in columnOrder: invalidFields+=1
+		if invalidFields or len(columnOrder) != 17:
+			if profileName in _configLoadStatus and _configLoadStatus[profileName] == "partialReset":
+				_configLoadStatus[profileName] = "partialAndColumnOrderReset"
+			else:
+				_configLoadStatus[profileName] = "columnOrderReset"
+			conf["ColumnAnnouncement"]["ColumnOrder"] = fields
+		conf["ColumnAnnouncement"]["IncludedColumns"] = set(conf["ColumnAnnouncement"]["IncludedColumns"])
+		# Artist and Title must be present at all times (quite redundant, but just in case).
+		conf["ColumnAnnouncement"]["IncludedColumns"].add("Artist")
+		conf["ColumnAnnouncement"]["IncludedColumns"].add("Title")
+		# Perform a similar check for metadata streaming.
+		if len(conf["MetadataStreaming"]["MetadataEnabled"]) != 5:
+			if profileName in _configLoadStatus and _configLoadStatus[profileName] == "partialReset":
+				_configLoadStatus[profileName] = "partialAndMetadataReset"
+			else:
+				_configLoadStatus[profileName] = "metadataReset"
+			conf["MetadataStreaming"]["MetadataEnabled"] = [False, False, False, False, False]
+		# 17.04: If vertical column announcement value is "None", transform this to NULL.
+		if conf["General"]["VerticalColumnAnnounce"] == "None":
+			conf["General"]["VerticalColumnAnnounce"] = None
 
 	# Create profile: public function to access the two private ones above (used when creating a new profile).
 	# Mechanics borrowed from NVDA Core's config.conf with modifications for this add-on.
@@ -465,36 +495,6 @@ def initConfig():
 		runConfigErrorDialog(_("Your encoder settings had errors and were reset to defaults. If you have stream labels configured for various encoders, please add them again."),
 		# Translators: Title of the encoder settings error dialog.
 		_("Encoder settings error"))
-
-# Extra initialization steps such as converting value types.
-def _extraInitSteps(conf, profileName=None):
-	global _configLoadStatus
-	columnOrder = conf["ColumnAnnouncement"]["ColumnOrder"]
-	# Catch suttle errors.
-	fields = _SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
-	invalidFields = 0
-	for field in fields:
-		if field not in columnOrder: invalidFields+=1
-	if invalidFields or len(columnOrder) != 17:
-		if profileName in _configLoadStatus and _configLoadStatus[profileName] == "partialReset":
-			_configLoadStatus[profileName] = "partialAndColumnOrderReset"
-		else:
-			_configLoadStatus[profileName] = "columnOrderReset"
-		conf["ColumnAnnouncement"]["ColumnOrder"] = fields
-	conf["ColumnAnnouncement"]["IncludedColumns"] = set(conf["ColumnAnnouncement"]["IncludedColumns"])
-	# Artist and Title must be present at all times (quite redundant, but just in case).
-	conf["ColumnAnnouncement"]["IncludedColumns"].add("Artist")
-	conf["ColumnAnnouncement"]["IncludedColumns"].add("Title")
-	# Perform a similar check for metadata streaming.
-	if len(conf["MetadataStreaming"]["MetadataEnabled"]) != 5:
-		if profileName in _configLoadStatus and _configLoadStatus[profileName] == "partialReset":
-			_configLoadStatus[profileName] = "partialAndMetadataReset"
-		else:
-			_configLoadStatus[profileName] = "metadataReset"
-		conf["MetadataStreaming"]["MetadataEnabled"] = [False, False, False, False, False]
-	# 17.04: If vertical column announcement value is "None", transform this to NULL.
-	if conf["General"]["VerticalColumnAnnounce"] == "None":
-		conf["General"]["VerticalColumnAnnounce"] = None
 
 # Cache a copy of the loaded config.
 # This comes in handy when saving configuration to disk. For the most part, no change occurs to config.
