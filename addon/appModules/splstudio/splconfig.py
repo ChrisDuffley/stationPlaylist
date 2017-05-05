@@ -656,9 +656,6 @@ def saveProfileTriggers():
 	profileTriggers = None
 	profileTriggers2 = None
 
-def getProfileByName(name):
-	return SPLConfig.profileByName(name)
-
 # Copy settings across profiles.
 # Setting complete flag controls whether profile-specific settings are applied (true otherwise, only set when resetting profiles).
 # 8.0: Simplified thanks to in-place swapping.
@@ -770,7 +767,7 @@ def switchProfile(prevProfile, newProfile):
 	SPLPrevProfile = prevProfile
 	# 8.0: Cache other profiles this time.
 	if newProfile != defaultProfileName and newProfile not in _SPLCache:
-		_cacheConfig(getProfileByName(newProfile))
+		_cacheConfig(SPLConfig.profileByName(newProfile))
 
 # Called from within the app module.
 def instantProfileSwitch():

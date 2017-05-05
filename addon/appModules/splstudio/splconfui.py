@@ -338,7 +338,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		splconfig.triggerStart(restart=True)
 		# 8.0: Make sure NVDA knows this must be cached (except for normal profile).
 		if selectedProfile != _("Normal profile") and selectedProfile not in splconfig._SPLCache:
-			splconfig._cacheConfig(splconfig.getProfileByName(selectedProfile))
+			splconfig._cacheConfig(splconfig.SPLConfig.profileByName(selectedProfile))
 		super(SPLConfigDialog,  self).onOk(evt)
 
 	def onCancel(self, evt):
@@ -408,7 +408,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 			self.renameButton.Enable()
 			self.deleteButton.Enable()
 			self.triggerButton.Enable()
-		curProfile = splconfig.getProfileByName(selectedProfile)
+		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
 		self.endOfTrackTime = curProfile["IntroOutroAlarms"]["EndOfTrackTime"]
 		self.sayEndOfTrack = curProfile["IntroOutroAlarms"]["SayEndOfTrack"]
 		self.songRampTime = curProfile["IntroOutroAlarms"]["SongRampTime"]
@@ -642,7 +642,7 @@ class NewProfileDialog(wx.Dialog):
 		newProfilePath = os.path.join(splconfig.SPLProfiles, namePath)
 		# LTS optimization: just build base profile dictionary here if copying a profile.
 		if self.copy:
-			baseConfig = splconfig.getProfileByName(self.baseProfiles.GetStringSelection())
+			baseConfig = splconfig.SPLConfig.profileByName(self.baseProfiles.GetStringSelection())
 			baseProfile = {sect:key for sect, key in baseConfig.iteritems() if sect in splconfig._mutatableSettings}
 		else: baseProfile = None
 		splconfig.SPLConfig.createProfile(newProfilePath, profileName=name, parent=baseProfile)
