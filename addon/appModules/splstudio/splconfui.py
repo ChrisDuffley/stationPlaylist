@@ -58,7 +58,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# Translators: The label of a button to manage show profile triggers.
 		self.triggerButton = wx.Button(self, label=_("&Triggers..."))
 		self.triggerButton.Bind(wx.EVT_BUTTON, self.onTriggers)
-		self.switchProfile = splconfig.SPLSwitchProfile
+		self.switchProfile = splconfig.SPLConfig.instantSwitch
 		self.activeProfile = splconfig.SPLConfig.activeProfile
 		# Used as sanity check in case switch profile is renamed or deleted.
 		self.switchProfileRenamed = False
@@ -323,7 +323,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		splconfig.SPLConfig["Update"]["UpdateInterval"] = self.updateInterval
 		self.pendingChannelChange = splupdate.SPLUpdateChannel != self.updateChannel
 		splupdate.SPLUpdateChannel = self.updateChannel
-		splconfig.SPLSwitchProfile = self.switchProfile
+		splconfig.SPLConfig.instantSwitch = self.switchProfile
 		# Make sure to nullify prev profile if instant switch profile is gone.
 		# 7.0: Don't do the following in the midst of a broadcast.
 		if self.switchProfile is None and not splconfig._triggerProfileActive:
@@ -338,7 +338,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		splconfig.triggerStart(restart=True)
 		# 8.0: Make sure NVDA knows this must be cached (except for normal profile).
 		if selectedProfile != _("Normal profile") and selectedProfile not in splconfig._SPLCache:
-			splconfig._cacheConfig(splconfig.getProfileByName(selectedProfile))
+			splconfig._cacheConfig(splconfig.SPLConfig.profileByName(selectedProfile))
 		super(SPLConfigDialog,  self).onOk(evt)
 
 	def onCancel(self, evt):
@@ -357,7 +357,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		except ValueError:
 			prevActive = _("Normal profile")
 		if self.switchProfileRenamed or self.switchProfileDeleted:
-			splconfig.SPLSwitchProfile = self.switchProfile
+			splconfig.SPLConfig.instantSwitch = self.switchProfile
 		if self.switchProfileDeleted:
 			splconfig.SPLConfig.activeProfile = prevActive
 		_configDialogOpened = False
@@ -408,7 +408,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 			self.renameButton.Enable()
 			self.deleteButton.Enable()
 			self.triggerButton.Enable()
-		curProfile = splconfig.getProfileByName(selectedProfile)
+		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
 		self.endOfTrackTime = curProfile["IntroOutroAlarms"]["EndOfTrackTime"]
 		self.sayEndOfTrack = curProfile["IntroOutroAlarms"]["SayEndOfTrack"]
 		self.songRampTime = curProfile["IntroOutroAlarms"]["SongRampTime"]
@@ -642,7 +642,7 @@ class NewProfileDialog(wx.Dialog):
 		newProfilePath = os.path.join(splconfig.SPLProfiles, namePath)
 		# LTS optimization: just build base profile dictionary here if copying a profile.
 		if self.copy:
-			baseConfig = splconfig.getProfileByName(self.baseProfiles.GetStringSelection())
+			baseConfig = splconfig.SPLConfig.profileByName(self.baseProfiles.GetStringSelection())
 			baseProfile = {sect:key for sect, key in baseConfig.iteritems() if sect in splconfig._mutatableSettings}
 		else: baseProfile = None
 		splconfig.SPLConfig.createProfile(newProfilePath, profileName=name, parent=baseProfile)
@@ -1429,8 +1429,8 @@ class ResetDialog(wx.Dialog):
 			global _configDialogOpened
 			splconfig.SPLConfig.reset()
 			if self.resetInstantProfileCheckbox.Value:
-				if splconfig.SPLSwitchProfile is not None:
-					splconfig.SPLSwitchProfile = None
+				if splconfig.SPLConfig.instantSwitch is not None:
+					splconfig.SPLConfig.instantSwitch = None
 					splconfig.SPLPrevProfile = None
 			if self.resetTimeProfileCheckbox.Value:
 				splconfig.profileTriggers.clear()

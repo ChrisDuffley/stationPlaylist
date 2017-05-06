@@ -176,7 +176,7 @@ class ConfigHub(ChainMap):
 			self._validateConfig(SPLConfigCheckpoint, profileName=profileName, prefill=prefill)
 		# Until it is brought in here...
 		try:
-			_extraInitSteps(SPLConfigCheckpoint, profileName=profileName)
+			self._extraInitSteps(SPLConfigCheckpoint, profileName=profileName)
 		except KeyError:
 			pass
 		SPLConfigCheckpoint.name = profileName
@@ -206,6 +206,36 @@ class ConfigHub(ChainMap):
 				# 7.0: Disqualified from being cached this time.
 				SPLConfigCheckpoint.write()
 				_configLoadStatus[profileName] = "partialReset"
+
+	# Extra initialization steps such as converting value types.
+	def _extraInitSteps(self, conf, profileName=None):
+		global _configLoadStatus
+		columnOrder = conf["ColumnAnnouncement"]["ColumnOrder"]
+		# Catch suttle errors.
+		fields = _SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
+		invalidFields = 0
+		for field in fields:
+			if field not in columnOrder: invalidFields+=1
+		if invalidFields or len(columnOrder) != 17:
+			if profileName in _configLoadStatus and _configLoadStatus[profileName] == "partialReset":
+				_configLoadStatus[profileName] = "partialAndColumnOrderReset"
+			else:
+				_configLoadStatus[profileName] = "columnOrderReset"
+			conf["ColumnAnnouncement"]["ColumnOrder"] = fields
+		conf["ColumnAnnouncement"]["IncludedColumns"] = set(conf["ColumnAnnouncement"]["IncludedColumns"])
+		# Artist and Title must be present at all times (quite redundant, but just in case).
+		conf["ColumnAnnouncement"]["IncludedColumns"].add("Artist")
+		conf["ColumnAnnouncement"]["IncludedColumns"].add("Title")
+		# Perform a similar check for metadata streaming.
+		if len(conf["MetadataStreaming"]["MetadataEnabled"]) != 5:
+			if profileName in _configLoadStatus and _configLoadStatus[profileName] == "partialReset":
+				_configLoadStatus[profileName] = "partialAndMetadataReset"
+			else:
+				_configLoadStatus[profileName] = "metadataReset"
+			conf["MetadataStreaming"]["MetadataEnabled"] = [False, False, False, False, False]
+		# 17.04: If vertical column announcement value is "None", transform this to NULL.
+		if conf["General"]["VerticalColumnAnnounce"] == "None":
+			conf["General"]["VerticalColumnAnnounce"] = None
 
 	# Create profile: public function to access the two private ones above (used when creating a new profile).
 	# Mechanics borrowed from NVDA Core's config.conf with modifications for this add-on.
@@ -419,17 +449,15 @@ trackComments = {}
 def initConfig():
 	# Load the default config from a list of profiles.
 	# 8.0: All this work will be performed when ConfigHub loads.
-	global SPLConfig, _configLoadStatus, SPLSwitchProfile, trackComments
+	global SPLConfig, _configLoadStatus, trackComments
 	# 7.0: Store the config as a dictionary.
 	# This opens up many possibilities, including config caching, loading specific sections only and others (the latter saves memory).
 	# 8.0: Replaced by ConfigHub object.
 	SPLConfig = ConfigHub()
-	# Locate instant profile.
-	if SPLConfig.instantSwitch is not None:
-		try:
-			SPLSwitchProfile = SPLConfig.instantSwitch
-		except ValueError:
-			_configLoadStatus[SPLConfig.activeProfile] = "noInstantProfile"
+	# Locate instant profile and do something otherwise.
+	if SPLConfig.instantSwitch is not None and SPLConfig.instantSwitch not in SPLConfig.profileNames:
+		_configLoadStatus[SPLConfig.activeProfile] = "noInstantProfile"
+		SPLConfig.instantSwitch = None
 	# LTS: Load track comments if they exist.
 	# This must be a separate file (another pickle file).
 	# 8.0: Do this much later when a track is first focused.
@@ -468,36 +496,6 @@ def initConfig():
 		# Translators: Title of the encoder settings error dialog.
 		_("Encoder settings error"))
 
-# Extra initialization steps such as converting value types.
-def _extraInitSteps(conf, profileName=None):
-	global _configLoadStatus
-	columnOrder = conf["ColumnAnnouncement"]["ColumnOrder"]
-	# Catch suttle errors.
-	fields = _SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
-	invalidFields = 0
-	for field in fields:
-		if field not in columnOrder: invalidFields+=1
-	if invalidFields or len(columnOrder) != 17:
-		if profileName in _configLoadStatus and _configLoadStatus[profileName] == "partialReset":
-			_configLoadStatus[profileName] = "partialAndColumnOrderReset"
-		else:
-			_configLoadStatus[profileName] = "columnOrderReset"
-		conf["ColumnAnnouncement"]["ColumnOrder"] = fields
-	conf["ColumnAnnouncement"]["IncludedColumns"] = set(conf["ColumnAnnouncement"]["IncludedColumns"])
-	# Artist and Title must be present at all times (quite redundant, but just in case).
-	conf["ColumnAnnouncement"]["IncludedColumns"].add("Artist")
-	conf["ColumnAnnouncement"]["IncludedColumns"].add("Title")
-	# Perform a similar check for metadata streaming.
-	if len(conf["MetadataStreaming"]["MetadataEnabled"]) != 5:
-		if profileName in _configLoadStatus and _configLoadStatus[profileName] == "partialReset":
-			_configLoadStatus[profileName] = "partialAndMetadataReset"
-		else:
-			_configLoadStatus[profileName] = "metadataReset"
-		conf["MetadataStreaming"]["MetadataEnabled"] = [False, False, False, False, False]
-	# 17.04: If vertical column announcement value is "None", transform this to NULL.
-	if conf["General"]["VerticalColumnAnnounce"] == "None":
-		conf["General"]["VerticalColumnAnnounce"] = None
-
 # Cache a copy of the loaded config.
 # This comes in handy when saving configuration to disk. For the most part, no change occurs to config.
 # This helps prolong life of a solid-state drive (preventing unnecessary writes).
@@ -518,7 +516,10 @@ triggerTimer = None
 
 # Prepare the triggers dictionary and other runtime support.
 def initProfileTriggers():
-	global profileTriggers, profileTriggers2, SPLTriggerProfile, triggerTimer
+	# Make sure config hub is ready.
+	if SPLConfig is None:
+		raise RuntimeError("ConfigHub is unavailable, profile triggers manager cannot start")
+	global profileTriggers, profileTriggers2
 	try:
 		profileTriggers = cPickle.load(file(SPLTriggersFile, "r"))
 	except IOError:
@@ -530,7 +531,7 @@ def initProfileTriggers():
 		nonexistent = []
 		for profile in profileTriggers.keys():
 			try:
-				getProfileIndexByName(profile)
+				SPLConfig.profileIndexByName(profile)
 			except ValueError:
 				nonexistent.append(profile)
 				del profileTriggers[profile]
@@ -619,7 +620,7 @@ def duplicateExists(map, profile, bits, hour, min, duration):
 # Start the trigger timer based on above information.
 # Can be restarted if needed.
 def triggerStart(restart=False):
-	global SPLTriggerProfile, triggerTimer
+	global SPLConfig, triggerTimer
 	# Restart the timer when called from triggers dialog in order to prevent multiple timers from running.
 	if triggerTimer is not None and triggerTimer.IsRunning() and restart:
 		triggerTimer.Stop()
@@ -630,6 +631,8 @@ def triggerStart(restart=False):
 			SPLTriggerProfile = queuedProfile[1]
 		except ValueError:
 			SPLTriggerProfile = None
+		# 17.08: The config hub object will now keep an eye on this.
+		SPLConfig.timedSwitch = SPLTriggerProfile
 		# We are in the midst of a show, so switch now.
 		if queuedProfile[2]:
 			triggerProfileSwitch()
@@ -653,23 +656,6 @@ def saveProfileTriggers():
 	profileTriggers = None
 	profileTriggers2 = None
 
-# Instant profile switch helpers.
-# A number of helper functions assisting instant switch profile routine and others, including sorting and locating the needed profile upon request.
-# 8.0: These will become attributes of ConfigHub.
-# LTS: Kept for backward compatibility.
-
-# Fetch the profile index with a given name.
-def getProfileIndexByName(name):
-	try:
-		return SPLConfig.profileIndexByName(name)
-	except ValueError:
-		raise ValueError("The specified profile does not exist")
-
-# And:
-
-def getProfileByName(name):
-	return SPLConfig.profileByName(name)
-
 # Copy settings across profiles.
 # Setting complete flag controls whether profile-specific settings are applied (true otherwise, only set when resetting profiles).
 # 8.0: Simplified thanks to in-place swapping.
@@ -684,7 +670,7 @@ def copyProfile(sourceProfile, targetProfile, complete=False):
 def getProfileFlags(name, active=None, instant=None, triggers=None, contained=False):
 	flags = set()
 	if active is None: active = SPLConfig.activeProfile
-	if instant is None: instant = SPLSwitchProfile
+	if instant is None: instant = SPLConfig.instantSwitch
 	if triggers is None: triggers = profileTriggers
 	if name == active:
 		# Translators: A flag indicating the currently active broadcast profile.
@@ -705,6 +691,7 @@ def _preSave(conf):
 	# 7.0: if this is a second pass, index 0 may not be normal profile at all.
 	# Use profile path instead.
 	if conf.filename == SPLIni:
+		SPLSwitchProfile = SPLConfig.instantSwitch
 		# Cache instant profile for later use.
 		if SPLSwitchProfile is not None:
 			conf["InstantProfile"] = SPLSwitchProfile
@@ -764,8 +751,6 @@ def saveConfig():
 
 # Switch between profiles.
 SPLPrevProfile = None
-SPLSwitchProfile = None
-SPLTriggerProfile = None
 
 # A general-purpose profile switcher.
 # Allows the add-on to switch between profiles as a result of manual intervention or through profile trigger timer.
@@ -782,10 +767,11 @@ def switchProfile(prevProfile, newProfile):
 	SPLPrevProfile = prevProfile
 	# 8.0: Cache other profiles this time.
 	if newProfile != defaultProfileName and newProfile not in _SPLCache:
-		_cacheConfig(getProfileByName(newProfile))
+		_cacheConfig(SPLConfig.profileByName(newProfile))
 
 # Called from within the app module.
 def instantProfileSwitch():
+	SPLSwitchProfile = SPLConfig.instantSwitch
 	if SPLSwitchProfile is None:
 		# Translators: Presented when trying to switch to an instant switch profile when the instant switch profile is not defined.
 		ui.message(_("No instant switch profile is defined"))
@@ -811,7 +797,8 @@ _SPLTriggerEndTimer = None
 _triggerProfileActive = False
 
 def triggerProfileSwitch():
-	global triggerTimer, _SPLTriggerEndTimer, _triggerProfileActive
+	global SPLConfig, triggerTimer, _SPLTriggerEndTimer, _triggerProfileActive
+	SPLTriggerProfile = SPLConfig.timedSwitch
 	if SPLTriggerProfile is None and _triggerProfileActive:
 		raise RuntimeError("Trigger profile flag cannot be active when the trigger profile itself isn't defined")
 	if SPLPrevProfile is None:
