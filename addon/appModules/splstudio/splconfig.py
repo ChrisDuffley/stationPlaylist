@@ -406,7 +406,6 @@ class ConfigHub(ChainMap):
 		if showSwitchIndex: return current
 
 
-
 # Default config spec container.
 # To be moved to a different place in 8.0.
 _SPLDefaults = ConfigObj(None, configspec = confspec, encoding="UTF-8")
@@ -747,7 +746,6 @@ def saveConfig():
 	SPLConfig = None
 	_SPLCache.clear()
 	_SPLCache = None
-
 
 # Switch between profiles.
 SPLPrevProfile = None

@@ -826,7 +826,6 @@ class AppModule(appModuleHandler.AppModule):
 				# Translators: Presented when end of track is approaching.
 				ui.message(_("Warning: {seconds} sec remaining").format(seconds = str(alarmTime)))
 
-
 	# Hacks for gain focus events.
 	def event_gainFocus(self, obj, nextHandler):
 		if self.deletedFocusObj or (obj.windowClassName == "TListView" and obj.role == 0):
@@ -1671,7 +1670,6 @@ class AppModule(appModuleHandler.AppModule):
 	# Translators: Input help mode message for a layer command in Station Playlist Studio.
 	script_SPLAssistantToggle.__doc__=_("The SPL Assistant layer command. See the add-on guide for more information on available commands.")
 
-
 	# Status table keys
 	SPLPlayStatus = 0
 	SPLSystemStatus = 1
@@ -2050,7 +2048,6 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: The message displayed while checking for newer version of Studio add-on.
 			_("Checking for new version of Studio add-on..."))
 		threading.Thread(target=splupdate.updateChecker, kwargs={"continuous":splconfig.SPLConfig["Update"]["AutoUpdateCheck"], "confUpdateInterval":splconfig.SPLConfig["Update"]["UpdateInterval"]}).start()
-
 
 	__SPLAssistantGestures={
 		"kb:p":"sayPlayStatus",

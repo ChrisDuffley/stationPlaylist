@@ -15,7 +15,6 @@ import tones
 import gui
 import wx
 
-
 # SPL Studio uses WM messages to send and receive data, similar to Winamp (see NVDA sources/appModules/winamp.py for more information).
 user32 = winUser.user32 # user32.dll.
 SPLWin = 0 # A handle to studio window.
@@ -236,7 +235,6 @@ class Encoder(IAccessible):
 	backgroundMonitor = False # Monitor this encoder for connection status changes.
 	connectionTone = True # Play connection tone while connecting.
 
-
 	# Some helper functions
 
 	# Get the encoder identifier.
@@ -406,7 +404,6 @@ class Encoder(IAccessible):
 		else:
 			ui.message(_("No stream label"))
 
-
 	def initOverlayClass(self):
 		global encoderMonCount
 		# Load stream labels upon request.
@@ -460,7 +457,6 @@ class Encoder(IAccessible):
 				pass
 		super(Encoder, self).reportFocus()
 
-
 	__gestures={
 		"kb:f11":"toggleFocusToStudio",
 		"kb:shift+f11":"togglePlay",
@@ -472,7 +468,6 @@ class Encoder(IAccessible):
 		"kb:control+NVDA+1":"announceEncoderPosition",
 		"kb:control+NVDA+2":"announceEncoderLabel",
 	}
-
 
 class SAMEncoder(Encoder):
 	# Support for Sam Encoders.
@@ -592,7 +587,6 @@ class SAMEncoder(Encoder):
 		speech.speechMode = speechMode
 		speech.cancelSpeech()
 
-
 	# Announce SAM columns: encoder name/type, status and description.
 	def script_announceEncoderFormat(self, gesture):
 		typeIndex = self.description.find(", Status: ")
@@ -607,11 +601,9 @@ class SAMEncoder(Encoder):
 		statusIndex = self.description.find(", Description: ")
 		ui.message(self.description[statusIndex+2:])
 
-
 	def setBackgroundMonitor(self):
 		self._set_Flags(self.getEncoderId(), self.backgroundMonitor, SPLBackgroundMonitor, "BackgroundMonitor")
 		return SAMMonitorThreads
-
 
 	def getStreamLabel(self, getTitle=False):
 		if str(self.IAccessibleChildID) in SAMStreamLabels:
@@ -671,7 +663,6 @@ class SAMEncoder(Encoder):
 		streamLabels["SAMEncoders"] = SAMStreamLabels
 		streamLabels.write()
 
-
 	__gestures={
 		"kb:f9":"connect",
 		"kb:control+f9":"connectAll",
@@ -681,7 +672,6 @@ class SAMEncoder(Encoder):
 		"kb:control+NVDA+4":"announceEncoderStatus",
 		"kb:control+NVDA+5":"announceEncoderStatusDesc"
 	}
-
 
 class SPLEncoder(Encoder):
 	# Support for SPL Encoder window.
@@ -819,11 +809,8 @@ class SPLEncoder(Encoder):
 		streamLabels["SPLEncoders"] = SPLStreamLabels
 		streamLabels.write()
 
-
 	__gestures={
 		"kb:f9":"connect",
 		"kb:control+NVDA+3":"announceEncoderSettings",
 		"kb:control+NVDA+4":"announceEncoderTransfer"
 	}
-
-

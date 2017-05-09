@@ -272,7 +272,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		wx.CallAfter(gui.messageBox, SPLConHelp, _("SPL Controller help"))
 		self.finish()
 
-
 	__SPLControllerGestures={
 		"kb:p":"play",
 		"kb:a":"automateOn",
@@ -292,7 +291,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:q":"statusInfo",
 		"kb:f1":"conHelp"
 	}
-
 
 	__gestures={
 		#"kb:nvda+shift+`":"focusToSPLWindow",
