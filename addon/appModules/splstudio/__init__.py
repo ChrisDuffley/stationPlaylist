@@ -1067,11 +1067,12 @@ class AppModule(appModuleHandler.AppModule):
 
 	def trackFinder(self, text, obj, directionForward=True, column=None):
 		speech.cancelSpeech()
+		# #32 (17.06/15.8 LTS): Update search text even if the track with the search term in columns does not exist.
+		if self.findText != text: self.findText = text
 		if column is None:
 			column = [obj.indexOf("Artist"), obj.indexOf("Title")]
 		track = self._trackLocator(text, obj=obj, directionForward=directionForward, columns=column)
 		if track:
-			if self.findText != text: self.findText = text
 			# We need to fire set focus event twice and exit this routine (return if 5.0x).
 			# 16.10.1/15.2 LTS: Just select this track in order to prevent a dispute between NVDA and SPL in regards to focused track.
 			# 16.11: Call setFocus if it is post-5.01, as SPL API can be used to select the desired track.
