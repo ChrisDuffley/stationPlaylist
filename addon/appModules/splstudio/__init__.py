@@ -926,14 +926,10 @@ class AppModule(appModuleHandler.AppModule):
 				hh, mm = divmod(mm, 60)
 				# Hour value is also filled with leading zero's.
 				# 6.1: Optimize the string builder so it can return just one string.
-				t0 = str(hh).zfill(2)
-				t1 = str(mm).zfill(2)
-				t2 = str(ss).zfill(2)
-				return ":".join([t0, t1, t2])
+				# 17.08: Return the generated string directly.
+				return ":".join([str(hh).zfill(2), str(mm).zfill(2), str(ss).zfill(2)])
 			else:
-				t1 = str(mm).zfill(2)
-				t2 = str(ss).zfill(2)
-				return ":".join([t1, t2])
+				return ":".join([str(mm).zfill(2), str(ss).zfill(2)])
 
 	# Scripts which rely on API.
 	def script_sayRemainingTime(self, gesture):
