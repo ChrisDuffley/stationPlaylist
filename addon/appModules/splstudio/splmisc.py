@@ -83,37 +83,29 @@ class SPLFindDialog(wx.Dialog):
 			findPrompt = _("Enter text to be &searched in a column")
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
+		findSizerHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
-		findSizer = wx.BoxSizer(wx.HORIZONTAL)
-		findMessage = wx.StaticText(self, wx.ID_ANY, label=findPrompt)
-		findSizer.Add(findMessage)
-		self.findEntry = wx.TextCtrl(self, wx.ID_ANY)
-		self.findEntry.SetValue(text)
-		findSizer.Add(self.findEntry)
-		mainSizer.Add(findSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
+		self.findEntry =findSizerHelper.addLabeledControl(findPrompt, wx.TextCtrl)
+		self.findEntry.Value = text
 
 		if columnSearch:
 			import splconfig
-			columnSizer = wx.BoxSizer(wx.HORIZONTAL)
 			# Translators: The label in track finder to search columns.
-			label = wx.StaticText(self, wx.ID_ANY, label=_("C&olumn to search:"))
-			self.columnHeaders = wx.Choice(self, wx.ID_ANY, choices=splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])
+			self.columnHeaders = findSizerHelper.addLabeledControl(_("C&olumn to search:"), wx.Choice, choices=splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])
 			self.columnHeaders.SetSelection(0)
-			columnSizer.Add(label)
-			columnSizer.Add(self.columnHeaders)
-			mainSizer.Add(columnSizer, border=10, flag=wx.BOTTOM)
 
-		mainSizer.AddSizer(self.CreateButtonSizer(wx.OK|wx.CANCEL))
+		findSizerHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON,self.onOk,id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON,self.onCancel,id=wx.ID_CANCEL)
+		mainSizer.Add(findSizerHelper.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 		mainSizer.Fit(self)
-		self.SetSizer(mainSizer)
-		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+		self.Sizer = mainSizer
 		self.findEntry.SetFocus()
+		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
 		global _findDialogOpened
-		text = self.findEntry.GetValue()
+		text = self.findEntry.Value
 		# Studio, are you alive?
 		if user32.FindWindowA("SPLStudio", None) and text:
 			appMod = self.obj.appModule
