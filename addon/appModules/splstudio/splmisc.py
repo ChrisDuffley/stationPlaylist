@@ -78,14 +78,15 @@ class SPLFindDialog(wx.Dialog):
 		self.obj = obj
 		self.columnSearch = columnSearch
 		if not columnSearch:
-			findPrompt = _("Enter the name or the artist of the track you wish to &search")
+			findPrompt = _("Enter or select the name or the artist of the track you wish to &search")
 		else:
-			findPrompt = _("Enter text to be &searched in a column")
+			findPrompt = _("Enter or select text to be &searched in a column")
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		findSizerHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
-		self.findEntry =findSizerHelper.addLabeledControl(findPrompt, wx.TextCtrl)
+		findHistory = obj.appModule.findText if obj.appModule.findText is not None else []
+		self.findEntry = findSizerHelper.addLabeledControl(findPrompt, wx.ComboBox, choices=findHistory)
 		self.findEntry.Value = text
 
 		if columnSearch:
@@ -111,7 +112,9 @@ class SPLFindDialog(wx.Dialog):
 			appMod = self.obj.appModule
 			column = [self.columnHeaders.Selection+1] if self.columnSearch else None
 			startObj = self.obj
-			if text == appMod.findText: startObj = startObj.next
+			if appMod.findText is None or (len(appMod.findText) and text == appMod.findText[0]):
+				startObj = startObj.next
+				if appMod.findText is None: appMod.findText = [text]
 			# If this is called right away, we land on an invisible window.
 			wx.CallLater(100, appMod.trackFinder, text, obj=startObj, column=column)
 		self.Destroy()

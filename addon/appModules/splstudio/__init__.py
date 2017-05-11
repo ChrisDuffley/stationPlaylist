@@ -1063,12 +1063,16 @@ class AppModule(appModuleHandler.AppModule):
 	# Also, find column content for a specific column if requested.
 	# 6.0: Split this routine into two functions, with the while loop moving to a function of its own.
 	# This new function will be used by track finder and place marker locator.
-	findText = ""
+	# 17.08: now it is a list that records search history.
+	findText = None
 
 	def trackFinder(self, text, obj, directionForward=True, column=None):
 		speech.cancelSpeech()
 		# #32 (17.06/15.8 LTS): Update search text even if the track with the search term in columns does not exist.
-		if self.findText != text: self.findText = text
+		# #27 (17.08): especially if the search history is empty.
+		# Thankfully, track finder dialog will populate the first item, but it is better to check a second time for debugging purposes.
+		if self.findText is None: self.findText = []
+		if text not in self.findText: self.findText.insert(0, text)
 		if column is None:
 			column = [obj.indexOf("Artist"), obj.indexOf("Title")]
 		track = self._trackLocator(text, obj=obj, directionForward=directionForward, columns=column)
@@ -1101,7 +1105,7 @@ class AppModule(appModuleHandler.AppModule):
 			obj = getattr(obj, nextTrack)
 		return None
 
-		# Find a specific track based on a searched text.
+	# Find a specific track based on a searched text.
 	# But first, check if track finder can be invoked.
 	# Attempt level specifies which track finder to open (0 = Track Finder, 1 = Column Search, 2 = Time range).
 	def _trackFinderCheck(self, attemptLevel):
@@ -1129,7 +1133,7 @@ class AppModule(appModuleHandler.AppModule):
 			if not columnSearch: title = _("Find track")
 			# Translators: Title for column search dialog.
 			else: title = _("Column search")
-			d = splmisc.SPLFindDialog(gui.mainFrame, api.getFocusObject(), self.findText, title, columnSearch = columnSearch)
+			d = splmisc.SPLFindDialog(gui.mainFrame, api.getFocusObject(), self.findText[0] if self.findText and len(self.findText) else "", title, columnSearch = columnSearch)
 			gui.mainFrame.prePopup()
 			d.Raise()
 			d.Show()
@@ -1152,15 +1156,15 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_findTrackNext(self, gesture):
 		if self._trackFinderCheck(0):
-			if self.findText == "": self.trackFinderGUI()
-			else: self.trackFinder(self.findText, obj=api.getFocusObject().next)
+			if self.findText is None: self.trackFinderGUI()
+			else: self.trackFinder(self.findText[0], obj=api.getFocusObject().next)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_findTrackNext.__doc__=_("Finds the next occurrence of the track with the name in the track list.")
 
 	def script_findTrackPrevious(self, gesture):
 		if self._trackFinderCheck(0):
-			if self.findText == "": self.trackFinderGUI()
-			else: self.trackFinder(self.findText, obj=api.getFocusObject().previous, directionForward=False)
+			if self.findText is None: self.trackFinderGUI()
+			else: self.trackFinder(self.findText[0], obj=api.getFocusObject().previous, directionForward=False)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_findTrackPrevious.__doc__=_("Finds previous occurrence of the track with the name in the track list.")
 
