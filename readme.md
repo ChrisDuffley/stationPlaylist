@@ -174,6 +174,10 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 17.05.1
+
+* NVDA will no longer fail to save changes to alarm settings from various alarm dialogs (for example, Alt+NVDA+1 for end of track alarm).
+
 ## Version 17.05/15.7-LTS
 
 * Update interval can now be set up to 180 days. For default installations, update check interval will be 30 days.
