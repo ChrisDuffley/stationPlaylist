@@ -61,6 +61,11 @@ msgstr "Mikrofon aktivan"
 msgid "Studio main window not found"
 msgstr "Glavni prozor Studija nije pronađen"
 
+#. Translators: location text for a playlist item (example: item 1 of 10).
+#, python-brace-format
+msgid "Item {current} of {total}"
+msgstr ""
+
 #. Translators: Standard message for announcing column content.
 #, python-brace-format
 msgid "{checkStatus}{header}: {content}"
