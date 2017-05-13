@@ -27,6 +27,9 @@ try:
 except ImportError:
 	from chainmap import ChainMap
 
+# Until wx.CENTER_ON_SCREEN returns...
+CENTER_ON_SCREEN = wx.CENTER_ON_SCREEN if hasattr(wx, "CENTER_ON_SCREEN") else 2
+
 # Configuration management
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
 SPLProfiles = os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "profiles")
@@ -899,7 +902,7 @@ class AudioDuckingReminder(wx.Dialog):
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
 		self.audioDuckingReminder.SetFocus()
-		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+		self.Center(wx.BOTH | CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
 		global SPLConfig
@@ -950,7 +953,7 @@ Thank you.""")
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
 		self.showWelcomeDialog.SetFocus()
-		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+		self.Center(wx.BOTH | CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
 		global SPLConfig
@@ -985,7 +988,7 @@ Thank you.""")
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
 		self.oldVersionReminder.SetFocus()
-		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+		self.Center(wx.BOTH | CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
 		global SPLConfig

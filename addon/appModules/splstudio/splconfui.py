@@ -15,6 +15,9 @@ import tones
 import splupdate
 import splconfig
 
+# Until wx.CENTER_ON_SCREEN returns...
+CENTER_ON_SCREEN = wx.CENTER_ON_SCREEN if hasattr(wx, "CENTER_ON_SCREEN") else 2
+
 
 # Configuration dialog.
 _configDialogOpened = False
@@ -624,7 +627,7 @@ class NewProfileDialog(wx.Dialog):
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
 		self.profileName.SetFocus()
-		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+		self.Center(wx.BOTH | CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
 		parent = self.Parent
@@ -734,7 +737,7 @@ class TriggersDialog(wx.Dialog):
 		mainSizer.Add(triggersHelper.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 		mainSizer.Fit(self)
 		self.SetSizer(mainSizer)
-		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+		self.Center(wx.BOTH | CENTER_ON_SCREEN)
 		self.instantSwitchCheckbox.SetFocus()
 
 	def onOk(self, evt):
@@ -869,7 +872,7 @@ class AlarmsCenter(wx.Dialog):
 		mainSizer.Add(alarmsCenterHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 		mainSizer.Fit(self)
 		self.SetSizer(mainSizer)
-		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+		self.Center(wx.BOTH | CENTER_ON_SCREEN)
 		if level in (0, 1): self.outroAlarmEntry.SetFocus()
 		elif level == 2: self.introAlarmEntry.SetFocus()
 		elif level == 3: self.micAlarmEntry.SetFocus()
@@ -953,7 +956,7 @@ class PlaylistSnapshotsDialog(wx.Dialog):
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
 		self.playlistDurationMinMaxCheckbox.SetFocus()
-		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+		self.Center(wx.BOTH | CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
 		parent = self.Parent
@@ -1036,7 +1039,7 @@ class MetadataStreamingDialog(wx.Dialog):
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
 		self.checkedStreams[0].SetFocus()
-		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+		self.Center(wx.BOTH | CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
 		global _metadataDialogOpened
@@ -1127,7 +1130,7 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
 		self.checkedColumns[0].SetFocus()
-		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+		self.Center(wx.BOTH | CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
 		parent = self.Parent
@@ -1229,7 +1232,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
 		self.columnSlots[0].SetFocus()
-		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+		self.Center(wx.BOTH | CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
 		parent = self.Parent
@@ -1287,7 +1290,7 @@ class SayStatusDialog(wx.Dialog):
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
 		self.scheduledForCheckbox.SetFocus()
-		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+		self.Center(wx.BOTH | CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
 		parent = self.Parent
@@ -1353,7 +1356,7 @@ class AdvancedOptionsDialog(wx.Dialog):
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
 		self.autoUpdateCheckbox.SetFocus()
-		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+		self.Center(wx.BOTH | CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
 		# The try (fast ring) builds aren't for the faint of heart.
@@ -1408,7 +1411,7 @@ class ResetDialog(wx.Dialog):
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
 		self.resetInstantProfileCheckbox.SetFocus()
-		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+		self.Center(wx.BOTH | CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
 		parent = self.Parent
