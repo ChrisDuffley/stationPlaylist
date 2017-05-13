@@ -179,6 +179,15 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * In add-on settings, added a checkbox to let NvDA play a sound when lister requests arrive. To use this fully, requests window must pop up when requests arrive.
 * Pressing broadcaster time command (NVDA+Shift+F12) twice will now cause NVDA to announce minutes and seconds remaining in the current hour.
 
+## Version 17.05.1
+
+* NVDA will no longer fail to save changes to alarm settings from various alarm dialogs (for example, Alt+NVDA+1 for end of track alarm).
+
+## Version 17.05/15.7-LTS
+
+* Update interval can now be set up to 180 days. For default installations, update check interval will be 30 days.
+* Fixed an issue where NVDA may play error tone if Studio exits while a time-based profile is active.
+
 ## Version 17.04
 
 * Added a basic add-on debugging support by logging various information while the add-on is active with NVDA set to debug logging (requires NVDA 2017.1 and later). To use this, after installing NVDA 2017.1, from Exit NVDA dialog, choose "restart with debug logging enabled" option.
