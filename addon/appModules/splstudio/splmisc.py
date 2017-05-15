@@ -115,9 +115,13 @@ class SPLFindDialog(wx.Dialog):
 			appMod = self.obj.appModule
 			column = [self.columnHeaders.Selection+1] if self.columnSearch else None
 			startObj = self.obj
-			if appMod.findText is None or (len(appMod.findText) and text == appMod.findText[0]):
+			if appMod.findText is None or (len(appMod.findText) and (text == appMod.findText[0] or text in appMod.findText)):
 				startObj = startObj.next
 				if appMod.findText is None: appMod.findText = [text]
+				# #27: Move the new text to the top of the search history.
+				if text in appMod.findText and text != appMod.findText[0]:
+					oldTextIndex = appMod.findText.index(text)
+					appMod.findText[0], appMod.findText[oldTextIndex] = appMod.findText[oldTextIndex], appMod.findText[0]
 			# If this is called right away, we land on an invisible window.
 			wx.CallLater(100, appMod.trackFinder, text, obj=startObj, column=column)
 		self.Destroy()
