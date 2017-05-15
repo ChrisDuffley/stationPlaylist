@@ -16,6 +16,9 @@ import ui
 from winUser import user32, sendMessage
 from spldebugging import debugOutput
 
+# Until wx.CENTER_ON_SCREEN returns...
+CENTER_ON_SCREEN = wx.CENTER_ON_SCREEN if hasattr(wx, "CENTER_ON_SCREEN") else 2
+
 # Locate column content.
 # Given an object and the column number, locate text in the given column.
 # This is the module level version of column content getter found in the app module.
@@ -101,8 +104,8 @@ class SPLFindDialog(wx.Dialog):
 		mainSizer.Add(findSizerHelper.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
+		self.Center(wx.BOTH | CENTER_ON_SCREEN)
 		self.findEntry.SetFocus()
-		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
 		global _findDialogOpened
@@ -190,7 +193,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 		self.Bind(wx.EVT_BUTTON,self.onCancel,id=wx.ID_CANCEL)
 		mainSizer.Fit(self)
 		self.SetSizer(mainSizer)
-		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+		self.Center(wx.BOTH | CENTER_ON_SCREEN)
 		self.minMinEntry.SetFocus()
 
 	def onOk(self, evt):

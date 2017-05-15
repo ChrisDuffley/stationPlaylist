@@ -15,6 +15,9 @@ import tones
 import gui
 import wx
 
+# Until wx.CENTER_ON_SCREEN returns...
+CENTER_ON_SCREEN = wx.CENTER_ON_SCREEN if hasattr(wx, "CENTER_ON_SCREEN") else 2
+
 
 # SPL Studio uses WM messages to send and receive data, similar to Winamp (see NVDA sources/appModules/winamp.py for more information).
 user32 = winUser.user32 # user32.dll.
@@ -198,7 +201,7 @@ class EncoderConfigDialog(wx.Dialog):
 		mainSizer.Add(encoderConfigHelper.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 		mainSizer.Fit(self)
 		self.SetSizer(mainSizer)
-		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+		self.Center(wx.BOTH | CENTER_ON_SCREEN)
 		self.streamLabel.SetFocus()
 
 	def onOk(self, evt):
