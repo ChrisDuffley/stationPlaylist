@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 5.5\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2015-09-25 19:00+1000\n"
-"PO-Revision-Date: 2017-04-01 19:30-0800\n"
-"Last-Translator:  <shmuel_naaman@yahoo.com>\n"
+"PO-Revision-Date: 2017-05-16 14:05+0300\n"
+"Last-Translator: shmuel_naaman@yahoo.com\n"
 "Language-Team: \n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 2.0.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, python-brace-format
@@ -60,27 +60,27 @@ msgstr "המיקרופון פעיל"
 
 #. Translators: A message informing users that Studio is not running so certain commands will not work.
 msgid "Studio main window not found"
-msgstr ""
+msgstr "לא נמצא חלון ראשי של סטודיו"
 
 #. Translators: location text for a playlist item (example: item 1 of 10).
 #, python-brace-format
 msgid "Item {current} of {total}"
-msgstr ""
+msgstr "פריט {current} מתוך {total}"
 
 #. Translators: Standard message for announcing column content.
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "{checkStatus}{header}: {content}"
-msgstr "{header}: {content}"
+msgstr "{checkStatus}{header}: {content}"
 
 #. Translators: Spoken when column content is blank.
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "{checkStatus}{header}: blank"
-msgstr "{header}  ריק"
+msgstr "{checkStatus}{header}: ריק"
 
 #. Translators: Brailled to indicate empty column content.
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "{checkStatus}{header}: ()"
-msgstr "{header}: ()"
+msgstr "{checkStatus}{header}: ()"
 
 msgid "Has comment"
 msgstr "קיימת הערה"
@@ -120,7 +120,6 @@ msgid "Status: {name}"
 msgstr "מצב: {name}"
 
 #. Translators: The text of the help command in SPL Assistant layer.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -157,12 +156,12 @@ msgid ""
 msgstr ""
 "לאחר הכניסה למסייע של SPL נא להקיש :\n"
 " A: אוטומציה\n"
-"C :  מיתוג סייר\n"
-"Shift+C: הקראת שם הרצועה המנגנת כעת\n"
+"C : הקראת שם הרצועה המנגנת כעת\n"
 "D: הזמן הנותר ברשימת הנגינה\n"
 "E: קבלת מידע כולל על זרימת המטאדאטה\n"
 "Shift+1 עד shift+4, shift+0: -  סטטוס הזרימה של מטאדאטה עבוד מנגון הקידוד של "
 "DSP ועבור כתובות URL נוספות\n"
+"H: אורך הרצועות במשבצת השעה השוטפת\n"
 "Shift+H: אורך הרצועות הנוכחיות הנותרות במשבצת השעה השוטפת\n"
 "I: מספר מאזינים\n"
 "K: מעבר לרצועה מסומנת\n"
@@ -182,6 +181,8 @@ msgstr ""
 "Y: שינוי רשימת הנגינה\n"
 "1 עד 0 (6 עבור Studio 5.01 וגרסאות קודמות): הקראת עמודות בעזרת סייר העמודות  "
 "(0 מסמל את המשבצת בעמודה העשירית).\n"
+"F8:הצגת תמונות של רשימת השמעה כגון מספר הרצועות, הרצועה הארוכה ביותר וכן "
+"הלאה.\n"
 "F9: סימון הרצועה הנוכחית כרצועת ההתחלה של ניתוח אורך הרצועות\n"
 "F10: ביצוע ניתוח של אורח הרצועות.\n"
 "F12: מעבר מידי לפרופיל אחר.\n"
@@ -547,7 +548,6 @@ msgid "Opens a dialog to quickly enable or disable metadata streaming."
 msgstr "פתיחת תיבת דו-שיח המאפשרת שינוי מידי של מצב זרימת המטאדאטה."
 
 #. Translators: Presented when track time anlaysis cannot be performed because user is not focused on playlist viewer.
-#, fuzzy
 msgid ""
 "Not in playlist viewer, cannot perform track time analysis or gather "
 "playlist snapshot statistics"
@@ -556,85 +556,84 @@ msgstr "מציג רשימת הנגינה אינו בפוקוס. לא ניתן ל
 #. Translators: one of the results for playlist snapshots feature for announcing total number of items in a playlist.
 #, python-brace-format
 msgid "Items: {playlistItemCount}"
-msgstr ""
+msgstr "פריטים: {playlistItemCount}"
 
 #. Translators: one of the results for playlist snapshots feature for announcing total number of tracks in a playlist.
 #, python-brace-format
 msgid "Tracks: {playlistTrackCount}"
-msgstr ""
+msgstr "רצועות: {playlistTrackCount}"
 
 #. Translators: one of the results for playlist snapshots feature for announcing total duration of a playlist.
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Duration: {playlistTotalDuration}"
-msgstr "Station Playlist Studio"
+msgstr "משך: {playlistTotalDuration}"
 
 #. Translators: one of the results for playlist snapshots feature for announcing shortest track name and duration of a playlist.
 #, python-brace-format
 msgid "Shortest: {playlistShortestTrack}"
-msgstr ""
+msgstr "הקצר ביותר: {playlistShortestTrack}"
 
 #. Translators: one of the results for playlist snapshots feature for announcing longest track name and duration of a playlist.
 #, python-brace-format
 msgid "Longest: {playlistLongestTrack}"
-msgstr ""
+msgstr "הארוך ביותר: {playlistLongestTrack}"
 
 #. Translators: one of the results for playlist snapshots feature for announcing average duration for tracks in a playlist.
 #, python-brace-format
 msgid "Average: {playlistAverageDuration}"
-msgstr ""
+msgstr "ממוצע: {playlistAverageDuration}"
 
 #. Translators: one of the results for playlist snapshots feature for announcing top artist in a playlist.
 #, python-format
 msgid "Top artist: %s (%s)"
-msgstr ""
+msgstr "אמן מוביל:  %s (%s)"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
-#, fuzzy
 msgid "Top artists:"
-msgstr "אין שם מבצע"
+msgstr "אמנים מובילים:"
 
 #, python-brace-format
 msgid "No artist information ({artistCount})"
-msgstr ""
+msgstr "אין פרטי אמן ({artistCount})"
 
 #, python-brace-format
 msgid "{artistName} ({artistCount})"
-msgstr ""
+msgstr "{artistName} ({artistCount})"
 
 #. Translators: one of the results for playlist snapshots feature for announcing top track category in a playlist.
 #, python-format
 msgid "Top category: %s (%s)"
-msgstr ""
+msgstr "קטגוריה מובילה: %s (%s)"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 msgid "Categories:"
-msgstr ""
+msgstr "קטגוריות:"
 
 #, python-brace-format
 msgid "{categoryName} ({categoryCount})"
-msgstr ""
+msgstr "{categoryName} ({categoryCount})"
 
 #. Translators: one of the results for playlist snapshots feature for announcing top genre in a playlist.
 #, python-format
 msgid "Top genre: %s (%s)"
-msgstr ""
+msgstr "סגנון מוביל: %s (%s)"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 msgid "Top genres:"
-msgstr ""
+msgstr "סגנונות מובילים:"
 
 #, python-brace-format
 msgid "No genre information ({genreCount})"
-msgstr ""
+msgstr "אין מידע על הסגנון ({genreCount})"
 
 #, python-brace-format
 msgid "{genreName} ({genreCount})"
-msgstr ""
+msgstr "{genreName} ({genreCount})"
 
 #. Translators: The title of a window for displaying playlist snapshots information.
 #. Translators: Title of a dialog to configure playlist snapshot information.
 msgid "Playlist snapshots"
-msgstr ""
+msgstr "תמונות של רשימת השמעה"
 
 #. Translators: Presented when SPL Assistant cannot be invoked.
 msgid "Failed to locate Studio main window, cannot enter SPL Assistant"
@@ -735,7 +734,7 @@ msgid ""
 msgstr "הקראת האורך הכולל של הרצועות מנקודת תחילת הניתוח ועד לרצועה הנוכחית."
 
 msgid "You need to add tracks before invoking this command"
-msgstr ""
+msgstr "עליך להוסיף רצועות לפני הפעלת פקודה זו"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid ""
@@ -884,7 +883,6 @@ msgid "SPL Studio and audio ducking"
 msgstr "SPL Studio  והנמכת צלילי השמע"
 
 #. Translators: A message displayed if audio ducking should be disabled.
-#, fuzzy
 msgid ""
 "NVDA 2016.1 and later allows NVDA to decrease volume of background audio "
 "including that of Studio.\n"
@@ -1064,9 +1062,8 @@ msgid "Message &verbosity:"
 msgstr "הודעות ורמת מלל:"
 
 #. Translators: The label of a button to open a dialog to configure various alarms.
-#, fuzzy
 msgid "&Alarms Center..."
-msgstr "מרכז ההתראות"
+msgstr "&מרכז ההתראות"
 
 #. Translators: One of the alarm notification options.
 msgid "beep"
@@ -1109,13 +1106,12 @@ msgid "Include &hours when announcing track or playlist duration"
 msgstr "ציון מספר &שעות בהודעה על אורך הרצועות"
 
 #. Translators: The label for a setting in SPL add-on dialog to set vertical column.
-#, fuzzy
 msgid "&Vertical column navigation announcement:"
 msgstr "הקראת שם הר&צועות "
 
 #. Translators: One of the options for vertical column navigation denoting NVDA will announce current column positoin (e.g. second column position from the left).
 msgid "whichever column I am reviewing"
-msgstr ""
+msgstr "בכל עמודה שאני בודק"
 
 #. Translators: the label for a setting in SPL add-on settings to toggle category sound announcement.
 msgid "&Beep for different track categories"
@@ -1139,7 +1135,7 @@ msgstr "עדכן כאשר מצוי בראשית או בתחתית רשימת ה�
 
 #. Translators: The label of a button to manage playlist snapshot flags.
 msgid "&Playlist snapshots..."
-msgstr ""
+msgstr "&תמונות של רשימת השמעה ..."
 
 #. Translators: One of the metadata notification settings.
 msgid "When Studio starts"
@@ -1344,41 +1340,41 @@ msgid ""
 "Select information to be included when obtaining playlist snapshots.\n"
 "\t\tTrack count and total duration are always included."
 msgstr ""
+"בחר מידע שייכלל בעת קבלת צילומי רשימת השמעה.\n"
+"\t\tמספר רצועות ומשך הזמן הכולל תמיד כלולים."
 
 #. Translators: the label for a setting in SPL add-on settings to include shortest and longest track duration in playlist snapshots window.
 msgid "Shortest and longest tracks"
-msgstr ""
+msgstr "רצועות הכי קצרות והכי ארוכות"
 
 #. Translators: the label for a setting in SPL add-on settings to include average track duration in playlist snapshots window.
-#, fuzzy
 msgid "Average track duration"
-msgstr "סיום הרצועות בברייל"
+msgstr "משך רצועה ממוצעת"
 
 #. Translators: the label for a setting in SPL add-on settings to include track artist count in playlist snapshots window.
 msgid "Artist count"
-msgstr ""
+msgstr "ספירת אמנים"
 
 msgid "Top artist count (0 displays all artists)"
-msgstr ""
+msgstr "ספירת האמן המוביל (0 מציג את כל האמנים)"
 
 #. Translators: the label for a setting in SPL add-on settings to include track category count in playlist snapshots window.
 msgid "Category count"
-msgstr ""
+msgstr "ספירת קטגוריות"
 
 msgid "Top category count (0 displays all categories)"
-msgstr ""
+msgstr "ספירת הקטגוריה המובילה (0 מציג את כל הקטגוריות)"
 
 #. Translators: the label for a setting in SPL add-on settings to include track genre count in playlist snapshots window.
-#, fuzzy
 msgid "Genre count"
-msgstr "מספר פריטים"
+msgstr "מספר סגנונות"
 
 msgid "Top genre count (0 displays all genres)"
-msgstr ""
+msgstr "ספירת הז'אנרים המובילים (0 מציג את כל הז 'אנרים)"
 
 #. Translators: the label for a setting in SPL add-on settings to show playlist snaphsots window when the snapshots command is pressed once.
 msgid "&Show results window when playlist snapshots command is performed once"
-msgstr ""
+msgstr "&הצג חלון תוצאות כאשר פקודת התמונות של רשימת ההשמעה מבוצעת פעם אחת"
 
 #. Translators: Title of a dialog to configure metadata streaming status for DSP encoder and four additional URL's.
 msgid "Metadata streaming options"
@@ -1627,39 +1623,36 @@ msgid "Studio add-on {newVersion} is available. Would you like to update?"
 msgstr "עדכון {newVersion} זמין עבור תוסף הסטודיו. האם ברצנוך להתקין אותו?"
 
 #. Translators: The title of the dialog displayed while downloading add-on update.
-#, fuzzy
 msgid "Downloading Add-on Update"
 msgstr "עדכון תוסף הסטודיו"
 
 #. Translators: The progress message indicating that a connection is being established.
-#, fuzzy
 msgid "Connecting"
-msgstr "מתחבר..."
+msgstr "מתחבר"
 
 #. Translators: A message indicating that an error occurred while downloading an update to NVDA.
-#, fuzzy
 msgid "Error downloading add-on update."
-msgstr "שגיאת בדיקת עדכון"
+msgstr "שגיאה בהורדת עדכון לתוסף"
 
 #. Translators: The message displayed when an error occurs when opening an add-on package for adding.
 #, python-format
 msgid ""
 "Failed to open add-on package file at %s - missing file or invalid file "
 "format"
-msgstr ""
+msgstr "נכשלה פתיחת קובץ חבילת התוספים ב-%s - קובץ חסר או תבנית קובץ לא חוקית"
 
 #. Translators: The title of the dialog presented while an Addon is being updated.
 msgid "Updating Add-on"
-msgstr ""
+msgstr "מעדכן את התוסף"
 
 #. Translators: The message displayed while an addon is being updated.
 msgid "Please wait while the add-on is being updated."
-msgstr ""
+msgstr "המתן בזמן שהתוסף מתעדכן."
 
 #. Translators: The message displayed when an error occurs when installing an add-on package.
 #, python-format
 msgid "Failed to update add-on  from %s"
-msgstr ""
+msgstr "עדכון התוסף מ-%s נכשל"
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
@@ -1753,7 +1746,7 @@ msgstr "אין רצועה בנגינה כעת."
 #. Translators: Input help message for a SPL Controller command.
 msgid ""
 "Announces Studio status such as track playback status from other programs"
-msgstr ""
+msgstr "מכריזה על מצב הסטודיו, כגון מצב השמעת רצועה מתוכניות אחרות"
 
 #. Translators: The title for SPL Controller help dialog.
 msgid "SPL Controller help"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2017-04-09 21:35+0100\n"
+"PO-Revision-Date: 2017-05-15 17:43+0100\n"
 "Last-Translator: Juan C. Buño <oprisniki@gmail.com>\n"
 "Language-Team: Add-ons translation team <oprisniki@gmail.com>\n"
 "Language: gl\n"
@@ -66,7 +66,7 @@ msgstr "Ventá principal do Studio non atopada"
 #. Translators: location text for a playlist item (example: item 1 of 10).
 #, python-brace-format
 msgid "Item {current} of {total}"
-msgstr ""
+msgstr "Elemento {current} de {total}"
 
 #. Translators: Standard message for announcing column content.
 #, python-brace-format
