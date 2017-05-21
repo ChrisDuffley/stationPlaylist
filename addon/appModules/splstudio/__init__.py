@@ -1073,7 +1073,8 @@ class AppModule(appModuleHandler.AppModule):
 		# Thankfully, track finder dialog will populate the first item, but it is better to check a second time for debugging purposes.
 		if self.findText is None: self.findText = []
 		if text not in self.findText: self.findText.insert(0, text)
-		if column is None:
+		# #33 (17.06/15.8-LTS): In case the track is NULL (seen when attempting to perform forward search from the last track and what not), this function should fail instead of raising attribute error.
+		if obj is not None and column is None:
 			column = [obj.indexOf("Artist"), obj.indexOf("Title")]
 		track = self._trackLocator(text, obj=obj, directionForward=directionForward, columns=column)
 		if track:
@@ -1121,7 +1122,8 @@ class AppModule(appModuleHandler.AppModule):
 				# Translators: Presented when a user attempts to find tracks but is not at the track list.
 				ui.message(_("Time range finder is available only in track list."))
 			return False
-		elif api.getForegroundObject().windowClassName == "TStudioForm" and api.getFocusObject().role == controlTypes.ROLE_LIST:
+		# 17.06/15.8-LTS: use Studio API to find out if a playlist is even loaded, otherwise Track Finder will fail to notice a playlist.
+		elif api.getForegroundObject().windowClassName == "TStudioForm" and not studioAPI(0, 124, ret=True):
 			# Translators: Presented when a user wishes to find a track but didn't add any tracks.
 			ui.message(_("You need to add at least one track to find tracks."))
 			return False
@@ -1133,7 +1135,10 @@ class AppModule(appModuleHandler.AppModule):
 			if not columnSearch: title = _("Find track")
 			# Translators: Title for column search dialog.
 			else: title = _("Column search")
-			d = splmisc.SPLFindDialog(gui.mainFrame, api.getFocusObject(), self.findText[0] if self.findText and len(self.findText) else "", title, columnSearch = columnSearch)
+			startObj =  api.getFocusObject()
+			if api.getForegroundObject().windowClassName == "TStudioForm" and startObj.role == controlTypes.ROLE_LIST:
+				startObj = startObj.firstChild
+			d = splmisc.SPLFindDialog(gui.mainFrame, startObj, self.findText[0] if self.findText and len(self.findText) else "", title, columnSearch = columnSearch)
 			gui.mainFrame.prePopup()
 			d.Raise()
 			d.Show()
@@ -1157,14 +1162,22 @@ class AppModule(appModuleHandler.AppModule):
 	def script_findTrackNext(self, gesture):
 		if self._trackFinderCheck(0):
 			if self.findText is None: self.trackFinderGUI()
-			else: self.trackFinder(self.findText[0], obj=api.getFocusObject().next)
+			else:
+				startObj = api.getFocusObject()
+				if api.getForegroundObject().windowClassName == "TStudioForm" and startObj.role == controlTypes.ROLE_LIST:
+					startObj = startObj.firstChild
+				self.trackFinder(self.findText[0], obj=startObj.next)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_findTrackNext.__doc__=_("Finds the next occurrence of the track with the name in the track list.")
 
 	def script_findTrackPrevious(self, gesture):
 		if self._trackFinderCheck(0):
 			if self.findText is None: self.trackFinderGUI()
-			else: self.trackFinder(self.findText[0], obj=api.getFocusObject().previous, directionForward=False)
+			else:
+				startObj = api.getFocusObject()
+				if api.getForegroundObject().windowClassName == "TStudioForm" and startObj.role == controlTypes.ROLE_LIST:
+					startObj = startObj.lastChild
+				self.trackFinder(self.findText[0], obj=startObj.previous, directionForward=False)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_findTrackPrevious.__doc__=_("Finds previous occurrence of the track with the name in the track list.")
 
