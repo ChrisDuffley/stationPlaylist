@@ -144,7 +144,7 @@ You can ask NVDA to play a sound when microphone has been active for a while. Pr
 
 ## Track Finder
 
-If you wish to quickly find a song by an artist or by song name, from track list, press Control+NVDA+F. Type the name of the artist or the song name. NVDA will either place you at the song if found or will display an error if it cannot find the song you're looking for. To find a previously entered song or artist, press NVDA+F3 or NVDA+Shift+F3 to find forward or backward.
+If you wish to quickly find a song by an artist or by song name, from track list, press Control+NVDA+F. Type or choose the name of the artist or the song name. NVDA will either place you at the song if found or will display an error if it cannot find the song you're looking for. To find a previously entered song or artist, press NVDA+F3 or NVDA+Shift+F3 to find forward or backward.
 
 Note: Track Finder is case-sensitive.
 
@@ -178,6 +178,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 * In add-on settings, added a checkbox to let NvDA play a sound when lister requests arrive. To use this fully, requests window must pop up when requests arrive.
 * Pressing broadcaster time command (NVDA+Shift+F12) twice will now cause NVDA to announce minutes and seconds remaining in the current hour.
+* It is now possible to use Track Finder (Control+NVDA+F) to search for names of tracks you've searched before.
 
 ## Version 17.05.1
 
