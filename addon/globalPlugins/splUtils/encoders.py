@@ -18,7 +18,6 @@ import wx
 # Until wx.CENTER_ON_SCREEN returns...
 CENTER_ON_SCREEN = wx.CENTER_ON_SCREEN if hasattr(wx, "CENTER_ON_SCREEN") else 2
 
-
 # SPL Studio uses WM messages to send and receive data, similar to Winamp (see NVDA sources/appModules/winamp.py for more information).
 user32 = winUser.user32 # user32.dll.
 SPLWin = 0 # A handle to studio window.
@@ -184,16 +183,16 @@ class EncoderConfigDialog(wx.Dialog):
 
 		# Translators: A checkbox in encoder settings to set if NvDA should switch focus to Studio window when connected.
 		self.focusToStudio = encoderConfigHelper.addItem(wx.CheckBox(self, label=_("&Focus to Studio when connected")))
-		self.focusToStudio.SetValue(obj.getEncoderId() in SPLFocusToStudio)
+		self.focusToStudio.SetValue(obj.encoderId in SPLFocusToStudio)
 		# Translators: A checkbox in encoder settings to set if NvDA should play the next track when connected.
 		self.playAfterConnecting = encoderConfigHelper.addItem(wx.CheckBox(self, label=_("&Play first track when connected")))
-		self.playAfterConnecting.SetValue(obj.getEncoderId() in SPLPlayAfterConnecting)
+		self.playAfterConnecting.SetValue(obj.encoderId in SPLPlayAfterConnecting)
 		# Translators: A checkbox in encoder settings to set if NvDA should monitor the status of this encoder in the background.
 		self.backgroundMonitor = encoderConfigHelper.addItem(wx.CheckBox(self, label=_("Enable background connection &monitoring")))
-		self.backgroundMonitor.SetValue(obj.getEncoderId() in SPLBackgroundMonitor)
+		self.backgroundMonitor.SetValue(obj.encoderId in SPLBackgroundMonitor)
 		# Translators: A checkbox in encoder settings to set if NvDA should play connection progress tone.
 		self.noConnectionTone = encoderConfigHelper.addItem(wx.CheckBox(self, label=_("Play connection status &beep while connecting")))
-		self.noConnectionTone.SetValue(obj.getEncoderId() not in SPLNoConnectionTone)
+		self.noConnectionTone.SetValue(obj.encoderId not in SPLNoConnectionTone)
 
 		encoderConfigHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON,self.onOk,id=wx.ID_OK)
@@ -205,11 +204,11 @@ class EncoderConfigDialog(wx.Dialog):
 		self.streamLabel.SetFocus()
 
 	def onOk(self, evt):
-		self.obj._set_Flags(self.obj.getEncoderId(), self.focusToStudio.Value, SPLFocusToStudio, "FocusToStudio", save=False)
-		self.obj._set_Flags(self.obj.getEncoderId(), self.playAfterConnecting.Value, SPLPlayAfterConnecting, "PlayAfterConnecting", save=False)
-		self.obj._set_Flags(self.obj.getEncoderId(), self.backgroundMonitor.Value, SPLBackgroundMonitor, "BackgroundMonitor", save=False)
+		self.obj._setFlags(self.obj.encoderId, self.focusToStudio.Value, SPLFocusToStudio, "FocusToStudio", save=False)
+		self.obj._setFlags(self.obj.encoderId, self.playAfterConnecting.Value, SPLPlayAfterConnecting, "PlayAfterConnecting", save=False)
+		self.obj._setFlags(self.obj.encoderId, self.backgroundMonitor.Value, SPLBackgroundMonitor, "BackgroundMonitor", save=False)
 		# Invert the following only.
-		self.obj._set_Flags(self.obj.getEncoderId(), not self.noConnectionTone.Value, SPLNoConnectionTone, "NoConnectionTone", save=False)
+		self.obj._setFlags(self.obj.encoderId, not self.noConnectionTone.Value, SPLNoConnectionTone, "NoConnectionTone", save=False)
 		newStreamLabel = self.streamLabel.Value
 		if newStreamLabel is None: newStreamLabel = ""
 		if newStreamLabel == self.curStreamLabel:
@@ -234,18 +233,46 @@ class Encoder(IAccessible):
 	"""
 
 	# Few useful variables for encoder list:
-	focusToStudio = False # If true, Studio will gain focus after encoder connects.
-	playAfterConnecting = False # When connected, the first track will be played.
+	# 17.08: these are now properties.
 	backgroundMonitor = False # Monitor this encoder for connection status changes.
-	connectionTone = True # Play connection tone while connecting.
-
 
 	# Some helper functions
+	# 17.08: most are properties.
 
 	# Get the encoder identifier.
 	# This consists of two or three letter abbreviations for the encoder and the child ID.
-	def getEncoderId(self):
+	@property
+	def encoderId(self):
 		return " ".join([self.encoderType, str(self.IAccessibleChildID)])
+
+	@property
+	def focusToStudio(self):
+		try:
+			return self.encoderId in SPLFocusToStudio
+		except KeyError:
+			return False
+
+	@property
+	def playAfterConnecting(self):
+		try:
+			return encoderId in SPLPlayAfterConnecting
+		except KeyError:
+			return False
+
+	# Comment this out until background monitor setter is modified.
+	"""@property
+	def backgroundMonitor(self):
+		try:
+			return self.encoderId in SPLBackgroundMonitor
+		except KeyError:
+			return False"""
+
+	@property
+	def connectionTone(self):
+		try:
+			return self.encoderId not in SPLNoConnectionTone
+		except KeyError:
+			return True
 
 	# Format the status message to prepare for monitoring multiple encoders.
 	def encoderStatusMessage(self, message, id):
@@ -260,7 +287,7 @@ class Encoder(IAccessible):
 	# Also take in the flag key for storing it into the settings file.
 	# The flag will then be written to the configuration file.
 	# 7.0: Don't dump flags to disk unless told.
-	def _set_Flags(self, encoderId, flag, flagMap, flagKey, save=True):
+	def _setFlags(self, encoderId, flag, flagMap, flagKey, save=True):
 		if flag and not encoderId in flagMap:
 			flagMap.add(encoderId)
 		elif not flag and encoderId in flagMap:
@@ -275,31 +302,26 @@ class Encoder(IAccessible):
 		if save: streamLabels.write()
 
 	# Now the flag configuration scripts.
-	# Project Rainbow: a new way to configure these will be created.
 
 	def script_toggleFocusToStudio(self, gesture):
 		if not self.focusToStudio:
-			self.focusToStudio = True
 			# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 			ui.message(_("Switch to Studio after connecting"))
 		else:
-			self.focusToStudio = False
 			# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 			ui.message(_("Do not switch to Studio after connecting"))
-		self._set_Flags(self.getEncoderId(), self.focusToStudio, SPLFocusToStudio, "FocusToStudio")
+		self._setFlags(self.encoderId, not self.focusToStudio, SPLFocusToStudio, "FocusToStudio")
 	# Translators: Input help mode message in SAM Encoder window.
 	script_toggleFocusToStudio.__doc__=_("Toggles whether NVDA will switch to Studio when connected to a streaming server.")
 
 	def script_togglePlay(self, gesture):
 		if not self.playAfterConnecting:
-			self.playAfterConnecting = True
 			# Translators: Presented when toggling the setting to play selected song when connected to a streaming server.
 			ui.message(_("Play first track after connecting"))
 		else:
-			self.playAfterConnecting = False
 			# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 			ui.message(_("Do not play first track after connecting"))
-		self._set_Flags(self.getEncoderId(), self.playAfterConnecting, SPLPlayAfterConnecting, "PlayAfterConnecting")
+		self._setFlags(self.encoderId, not self.playAfterConnecting, SPLPlayAfterConnecting, "PlayAfterConnecting")
 	# Translators: Input help mode message in SAM Encoder window.
 	script_togglePlay.__doc__=_("Toggles whether Studio will play the first song when connected to a streaming server.")
 
@@ -409,25 +431,14 @@ class Encoder(IAccessible):
 		else:
 			ui.message(_("No stream label"))
 
-
 	def initOverlayClass(self):
 		global encoderMonCount
 		# Load stream labels upon request.
 		if streamLabels is None: loadStreamLabels()
-		encoderIdentifier = self.getEncoderId()
-		# Can I switch to Studio when connected to a streaming server?
-		try:
-			self.focusToStudio = encoderIdentifier in SPLFocusToStudio
-		except KeyError:
-			pass
-		# Can I play tracks when connected?
-		try:
-			self.playAfterConnecting = encoderIdentifier in SPLPlayAfterConnecting
-		except KeyError:
-			pass
 		# Am I being monitored for connection changes?
+		# Remove this once background monitor functions are modified.
 		try:
-			self.backgroundMonitor = encoderIdentifier in SPLBackgroundMonitor
+			self.backgroundMonitor = self.encoderId in SPLBackgroundMonitor
 		except KeyError:
 			pass
 		# 6.2: Make sure background monitor threads are started if the flag is set.
@@ -444,11 +455,6 @@ class Encoder(IAccessible):
 			statusThread.start()
 			threadPool[self.IAccessibleChildID] = statusThread
 			encoderMonCount[self.encoderType] += 1
-		# Can I play connection beeps?
-		try:
-			self.connectionTone = encoderIdentifier not in SPLNoConnectionTone
-		except KeyError:
-			pass
 
 	def reportFocus(self):
 		try:
@@ -463,7 +469,6 @@ class Encoder(IAccessible):
 				pass
 		super(Encoder, self).reportFocus()
 
-
 	__gestures={
 		"kb:f11":"toggleFocusToStudio",
 		"kb:shift+f11":"togglePlay",
@@ -475,7 +480,6 @@ class Encoder(IAccessible):
 		"kb:control+NVDA+1":"announceEncoderPosition",
 		"kb:control+NVDA+2":"announceEncoderLabel",
 	}
-
 
 class SAMEncoder(Encoder):
 	# Support for Sam Encoders.
@@ -595,7 +599,6 @@ class SAMEncoder(Encoder):
 		speech.speechMode = speechMode
 		speech.cancelSpeech()
 
-
 	# Announce SAM columns: encoder name/type, status and description.
 	def script_announceEncoderFormat(self, gesture):
 		typeIndex = self.description.find(", Status: ")
@@ -610,11 +613,9 @@ class SAMEncoder(Encoder):
 		statusIndex = self.description.find(", Description: ")
 		ui.message(self.description[statusIndex+2:])
 
-
 	def setBackgroundMonitor(self):
-		self._set_Flags(self.getEncoderId(), self.backgroundMonitor, SPLBackgroundMonitor, "BackgroundMonitor")
+		self._setFlags(self.encoderId, self.backgroundMonitor, SPLBackgroundMonitor, "BackgroundMonitor")
 		return SAMMonitorThreads
-
 
 	def getStreamLabel(self, getTitle=False):
 		if str(self.IAccessibleChildID) in SAMStreamLabels:
@@ -674,7 +675,6 @@ class SAMEncoder(Encoder):
 		streamLabels["SAMEncoders"] = SAMStreamLabels
 		streamLabels.write()
 
-
 	__gestures={
 		"kb:f9":"connect",
 		"kb:control+f9":"connectAll",
@@ -684,7 +684,6 @@ class SAMEncoder(Encoder):
 		"kb:control+NVDA+4":"announceEncoderStatus",
 		"kb:control+NVDA+5":"announceEncoderStatusDesc"
 	}
-
 
 class SPLEncoder(Encoder):
 	# Support for SPL Encoder window.
@@ -763,7 +762,7 @@ class SPLEncoder(Encoder):
 		ui.message(_("Transfer Rate: {transferRate}").format(transferRate = self.children[1].name))
 
 	def setBackgroundMonitor(self):
-		self._set_Flags(self.getEncoderId(), self.backgroundMonitor, SPLBackgroundMonitor, "BackgroundMonitor")
+		self._setFlags(self.encoderId, self.backgroundMonitor, SPLBackgroundMonitor, "BackgroundMonitor")
 		return SPLMonitorThreads
 
 	def getStreamLabel(self, getTitle=False):
@@ -822,11 +821,8 @@ class SPLEncoder(Encoder):
 		streamLabels["SPLEncoders"] = SPLStreamLabels
 		streamLabels.write()
 
-
 	__gestures={
 		"kb:f9":"connect",
 		"kb:control+NVDA+3":"announceEncoderSettings",
 		"kb:control+NVDA+4":"announceEncoderTransfer"
 	}
-
-

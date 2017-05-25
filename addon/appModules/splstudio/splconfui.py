@@ -18,7 +18,6 @@ import splconfig
 # Until wx.CENTER_ON_SCREEN returns...
 CENTER_ON_SCREEN = wx.CENTER_ON_SCREEN if hasattr(wx, "CENTER_ON_SCREEN") else 2
 
-
 # Configuration dialog.
 _configDialogOpened = False
 
@@ -392,7 +391,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 		for index in xrange(len(profiles)):
 			profiles[index] = splconfig.getProfileFlags(profiles[index])
 		return profiles
-
 
 	# Load settings from profiles.
 	def onProfileSelection(self, evt):
@@ -1455,7 +1453,6 @@ class ResetDialog(wx.Dialog):
 			_("Reset configuration"), wx.OK|wx.ICON_INFORMATION)
 		self.Destroy()
 		parent.Destroy()
-
 
 	def onCancel(self, evt):
 		self.Parent.Enable()

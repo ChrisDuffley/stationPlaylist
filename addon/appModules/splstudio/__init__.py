@@ -826,7 +826,6 @@ class AppModule(appModuleHandler.AppModule):
 				# Translators: Presented when end of track is approaching.
 				ui.message(_("Warning: {seconds} sec remaining").format(seconds = str(alarmTime)))
 
-
 	# Hacks for gain focus events.
 	def event_gainFocus(self, obj, nextHandler):
 		if self.deletedFocusObj or (obj.windowClassName == "TListView" and obj.role == 0):
@@ -927,14 +926,10 @@ class AppModule(appModuleHandler.AppModule):
 				hh, mm = divmod(mm, 60)
 				# Hour value is also filled with leading zero's.
 				# 6.1: Optimize the string builder so it can return just one string.
-				t0 = str(hh).zfill(2)
-				t1 = str(mm).zfill(2)
-				t2 = str(ss).zfill(2)
-				return ":".join([t0, t1, t2])
+				# 17.08: Return the generated string directly.
+				return ":".join([str(hh).zfill(2), str(mm).zfill(2), str(ss).zfill(2)])
 			else:
-				t1 = str(mm).zfill(2)
-				t2 = str(ss).zfill(2)
-				return ":".join([t1, t2])
+				return ":".join([str(mm).zfill(2), str(ss).zfill(2)])
 
 	# Scripts which rely on API.
 	def script_sayRemainingTime(self, gesture):
@@ -1689,7 +1684,6 @@ class AppModule(appModuleHandler.AppModule):
 	# Translators: Input help mode message for a layer command in Station Playlist Studio.
 	script_SPLAssistantToggle.__doc__=_("The SPL Assistant layer command. See the add-on guide for more information on available commands.")
 
-
 	# Status table keys
 	SPLPlayStatus = 0
 	SPLSystemStatus = 1
@@ -2068,7 +2062,6 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: The message displayed while checking for newer version of Studio add-on.
 			_("Checking for new version of Studio add-on..."))
 		threading.Thread(target=splupdate.updateChecker, kwargs={"continuous":splconfig.SPLConfig["Update"]["AutoUpdateCheck"], "confUpdateInterval":splconfig.SPLConfig["Update"]["UpdateInterval"]}).start()
-
 
 	__SPLAssistantGestures={
 		"kb:p":"sayPlayStatus",
