@@ -174,6 +174,12 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 17.06
+
+* You can now perform Track Finder command (Control+NVDA+F) while a playlist is loaded but the first track isn't focused.
+* NVDA will no longer play error tones or do nothing when searching for a track forward from the last track or backward from the first track, respectively.
+* Pressing NVDA+Numpad Delete (NVDA+Delete in laptop layout) will now announce track position followed by number of items in a playlist.
+
 ## Version 17.05.1
 
 * NVDA will no longer fail to save changes to alarm settings from various alarm dialogs (for example, Alt+NVDA+1 for end of track alarm).
