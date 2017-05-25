@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 4.2\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2015-02-06 19:00+1000\n"
-"PO-Revision-Date: 2017-05-03 20:55+0100\n"
+"PO-Revision-Date: 2017-05-12 16:40+0100\n"
 "Last-Translator: Nikola Jović <wwenikola123@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: sr\n"
@@ -60,6 +60,11 @@ msgstr "Mikrofon aktivan"
 #. Translators: A message informing users that Studio is not running so certain commands will not work.
 msgid "Studio main window not found"
 msgstr "Glavni prozor Studija nije pronađen"
+
+#. Translators: location text for a playlist item (example: item 1 of 10).
+#, python-brace-format
+msgid "Item {current} of {total}"
+msgstr "Stavka{current} od{total}"
 
 #. Translators: Standard message for announcing column content.
 #, python-brace-format
