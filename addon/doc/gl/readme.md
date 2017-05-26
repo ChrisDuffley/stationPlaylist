@@ -286,6 +286,28 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
+## Version 17.06
+
+* You can now perform Track Finder command (Control+NVDA+F) while a playlist
+  is loaded but the first track isn't focused.
+* NVDA will no longer play error tones or do nothing when searching for a
+  track forward from the last track or backward from the first track,
+  respectively.
+* Pressing NVDA+Numpad Delete (NVDA+Delete in laptop layout) will now
+  announce track position followed by number of items in a playlist.
+
+## Version 17.05.1
+
+* NVDA will no longer fail to save changes to alarm settings from various
+  alarm dialogs (for example, Alt+NVDA+1 for end of track alarm).
+
+## Version 17.05/15.7-LTS
+
+* Update interval can now be set up to 180 days. For default installations,
+  update check interval will be 30 days.
+* Fixed an issue where NVDA may play error tone if Studio exits while a
+  time-based profile is active.
+
 ## Versión 17.04
 
 * Engadido o soporte básico de depuración do complemento rexistrando
