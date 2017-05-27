@@ -130,13 +130,14 @@ class ConfigHub(ChainMap):
 			if key in self.maps[0][section]: del self.maps[0][section][key]
 		# Moving onto broadcast profiles if any.
 		try:
-			profiles = filter(lambda fn: os.path.splitext(fn)[-1] == ".ini", os.listdir(SPLProfiles))
-			for profile in profiles:
-				self.maps.append(self._unlockConfig(os.path.join(SPLProfiles, profile), profileName=os.path.splitext(profile)[0], validateNow=True))
-				self.profileNames.append(self.maps[-1].name)
+			for profile in os.listdir(SPLProfiles):
+				name, ext = os.path.splitext(profile)
+				if ext == ".ini":
+					self.maps.append(self._unlockConfig(os.path.join(SPLProfiles, profile), profileName=name, validateNow=True))
+					self.profileNames.append(name)
 		except WindowsError:
 			pass
-	# Runtime flags (profiles and profile switching/triggers flags come from NVDA Core's ConfigManager).
+		# Runtime flags (profiles and profile switching/triggers flags come from NVDA Core's ConfigManager).
 		self.profiles = self.maps
 		self.activeProfile = self.profiles[0].name
 		self.instantSwitch = self.profiles[0]["InstantProfile"] if "InstantProfile" in self.profiles[0] else None
