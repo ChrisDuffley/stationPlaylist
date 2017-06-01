@@ -232,10 +232,6 @@ class Encoder(IAccessible):
 	Lastly, each encoder class must provide a unique identifying string to identify the type of the encoder (e.g. SAM for SAM encoder).
 	"""
 
-	# Few useful variables for encoder list:
-	# 17.08: these are now properties.
-	backgroundMonitor = False # Monitor this encoder for connection status changes.
-
 	# Some helper functions
 	# 17.08: most are properties.
 
@@ -255,17 +251,17 @@ class Encoder(IAccessible):
 	@property
 	def playAfterConnecting(self):
 		try:
-			return encoderId in SPLPlayAfterConnecting
+			return self.encoderId in SPLPlayAfterConnecting
 		except KeyError:
 			return False
 
 	# Comment this out until background monitor setter is modified.
-	"""@property
+	@property
 	def backgroundMonitor(self):
 		try:
 			return self.encoderId in SPLBackgroundMonitor
 		except KeyError:
-			return False"""
+			return False
 
 	@property
 	def connectionTone(self):
@@ -273,6 +269,11 @@ class Encoder(IAccessible):
 			return self.encoderId not in SPLNoConnectionTone
 		except KeyError:
 			return True
+
+	# Handle focusing to Studio and other central routines once an encoder is connected.
+	# Subclasses should be able to override this if the procedure listed is different.
+	def onConnect(self):
+		pass
 
 	# Format the status message to prepare for monitoring multiple encoders.
 	def encoderStatusMessage(self, message, id):
@@ -328,26 +329,24 @@ class Encoder(IAccessible):
 	def script_toggleBackgroundEncoderMonitor(self, gesture):
 		if scriptHandler.getLastScriptRepeatCount()==0:
 			if not self.backgroundMonitor:
-				self.backgroundMonitor = True
 				encoderMonCount[self.encoderType] += 1 # Multiple encoders.
 				# Translators: Presented when toggling the setting to monitor the selected encoder.
 				ui.message(_("Monitoring encoder {encoderNumber}").format(encoderNumber = self.IAccessibleChildID))
 			else:
-				self.backgroundMonitor = False
 				encoderMonCount[self.encoderType] -= 1
 				# Translators: Presented when toggling the setting to monitor the selected encoder.
 				ui.message(_("Encoder {encoderNumber} will not be monitored").format(encoderNumber = self.IAccessibleChildID))
-			threadPool = self.setBackgroundMonitor()
+			self._setFlags(self.encoderId, not self.backgroundMonitor, SPLBackgroundMonitor, "BackgroundMonitor")
 			if self.backgroundMonitor:
 				try:
-					monitoring = threadPool[self.IAccessibleChildID].isAlive()
+					monitoring = self.threadPool[self.IAccessibleChildID].isAlive()
 				except KeyError:
 					monitoring = False
 				if not monitoring:
 					statusThread = threading.Thread(target=self.reportConnectionStatus)
 					statusThread.name = "Connection Status Reporter " + str(self.IAccessibleChildID)
 					statusThread.start()
-					threadPool[self.IAccessibleChildID] = statusThread
+					self.threadPool[self.IAccessibleChildID] = statusThread
 		else:
 			for encoderType in encoderMonCount:
 				encoderMonCount[encoderType] = 0
@@ -435,12 +434,6 @@ class Encoder(IAccessible):
 		global encoderMonCount
 		# Load stream labels upon request.
 		if streamLabels is None: loadStreamLabels()
-		# Am I being monitored for connection changes?
-		# Remove this once background monitor functions are modified.
-		try:
-			self.backgroundMonitor = self.encoderId in SPLBackgroundMonitor
-		except KeyError:
-			pass
 		# 6.2: Make sure background monitor threads are started if the flag is set.
 		if self.backgroundMonitor:
 			if self.encoderType == "SAM": threadPool = SAMMonitorThreads
@@ -543,7 +536,7 @@ class SAMEncoder(Encoder):
 				if toneCounter%250 == 0 and self.connectionTone:
 					tones.beep(500, 50)
 			if connecting: continue
-			if not " ".join([self.encoderType, str(self.IAccessibleChildID)]) in SPLBackgroundMonitor: return
+			if not self.backgroundMonitor: return
 
 	def script_connect(self, gesture):
 		gesture.send()
@@ -613,8 +606,8 @@ class SAMEncoder(Encoder):
 		statusIndex = self.description.find(", Description: ")
 		ui.message(self.description[statusIndex+2:])
 
-	def setBackgroundMonitor(self):
-		self._setFlags(self.encoderId, self.backgroundMonitor, SPLBackgroundMonitor, "BackgroundMonitor")
+	@property
+	def threadPool(self):
 		return SAMMonitorThreads
 
 	def getStreamLabel(self, getTitle=False):
@@ -736,7 +729,7 @@ class SPLEncoder(Encoder):
 						if attempt>= 500 and statChild.name == "Disconnected":
 							tones.beep(250, 250)
 				if connecting: continue
-			if not " ".join([self.encoderType, str(self.IAccessibleChildID)]) in SPLBackgroundMonitor: return
+			if not self.backgroundMonitor: return
 
 	def script_connect(self, gesture):
 		# Same as SAM's connection routine, but this time, keep an eye on self.name and a different connection flag.
@@ -761,8 +754,8 @@ class SPLEncoder(Encoder):
 	def script_announceEncoderTransfer(self, gesture):
 		ui.message(_("Transfer Rate: {transferRate}").format(transferRate = self.children[1].name))
 
-	def setBackgroundMonitor(self):
-		self._setFlags(self.encoderId, self.backgroundMonitor, SPLBackgroundMonitor, "BackgroundMonitor")
+	@property
+	def threadPool(self):
 		return SPLMonitorThreads
 
 	def getStreamLabel(self, getTitle=False):
