@@ -272,8 +272,15 @@ class Encoder(IAccessible):
 
 	# Handle focusing to Studio and other central routines once an encoder is connected.
 	# Subclasses should be able to override this if the procedure listed is different.
-	def onConnect(self):
-		pass
+	def onConnect(self, isEncoding):
+		if self.focusToStudio and not isEncoding:
+			if api.getFocusObject().appModule == "splstudio":
+				raise RuntimeError("SPL Studio already focused")
+			user32.SetForegroundWindow(user32.FindWindowA("TStudioForm", None))
+		if self.playAfterConnecting and not isEncoding:
+			# Do not interupt the currently playing track.
+			if winUser.sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus) == 0:
+				winUser.sendMessage(SPLWin, 1024, 0, SPLPlay)
 
 	# Format the status message to prepare for monitoring multiple encoders.
 	def encoderStatusMessage(self, message, id):
@@ -519,14 +526,10 @@ class SAMEncoder(Encoder):
 				if not encoding:
 					tones.beep(1000, 150)
 					self.encoderStatusMessage(messageCache, self.IAccessibleChildID)
-				if self.focusToStudio and not encoding:
-					if api.getFocusObject().appModule == "splstudio":
-						continue
-					user32.SetForegroundWindow(user32.FindWindowA("TStudioForm", None))
-				if self.playAfterConnecting and not encoding:
-					# Do not interupt the currently playing track.
-					if winUser.sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus) == 0:
-						winUser.sendMessage(SPLWin, 1024, 0, SPLPlay)
+				try:
+					self.onConnect(self, encoding)
+				except RuntimeError:
+					continue
 				if not encoding: encoding = True
 			else:
 				if alreadyEncoding: alreadyEncoding = False
@@ -712,11 +715,10 @@ class SPLEncoder(Encoder):
 				connecting = False
 				# We're on air, so exit.
 				if not connected: tones.beep(1000, 150)
-				if self.focusToStudio and not connected:
-					user32.SetForegroundWindow(user32.FindWindowA("TStudioForm", None))
-				if self.playAfterConnecting and not connected:
-					if winUser.sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus) == 0:
-						winUser.sendMessage(SPLWin, 1024, 0, SPLPlay)
+				try:
+					self.onConnect(self, connected)
+				except RuntimeError:
+					continue
 				if not connected: connected = True
 			elif "Unable to connect" in messageCache or "Failed" in messageCache or statChild.name == "AutoConnect stopped.":
 				if connected: connected = False
