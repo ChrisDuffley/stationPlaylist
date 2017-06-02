@@ -295,27 +295,29 @@ realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
 
-## Version 17.06
+## Versión 17.06
 
-* You can now perform Track Finder command (Control+NVDA+F) while a playlist
-  is loaded but the first track isn't focused.
-* NVDA will no longer play error tones or do nothing when searching for a
-  track forward from the last track or backward from the first track,
-  respectively.
-* Pressing NVDA+Numpad Delete (NVDA+Delete in laptop layout) will now
-  announce track position followed by number of items in a playlist.
+* Ahora puedes realizar la orden Buscador de Pista (Control+NVDA+F) mientras
+  se carga una lista de reproducción pero la primera pista no se enfoca.
+* NVDA ya no reproducirá tonos de error o no hará nada al buscar una pista
+  hacia adelante desde la última pista o hacia atrás desde la primera,
+  respectivamente.
+* Pulsar NVDA+Subrimir del teclado numérico (NVDA+Suprimir en la
+  distribución portátil) ahora anunciará la posición de la pista seguida del
+  número de elementos en una lista de reproducción.
 
-## Version 17.05.1
+## Versión 17.05.1
 
-* NVDA will no longer fail to save changes to alarm settings from various
-  alarm dialogs (for example, Alt+NVDA+1 for end of track alarm).
+* NVDA ya no fallará al guardar cambios para opciones de alarma desde varios
+  diálogos de alarma (por ejemplo, Alt+NVDA+1 para alarma de fin de pista).
 
-## Version 17.05/15.7-LTS
+## Versión 17.05/15.7-LTS
 
-* Update interval can now be set up to 180 days. For default installations,
-  update check interval will be 30 days.
-* Fixed an issue where NVDA may play error tone if Studio exits while a
-  time-based profile is active.
+* El intervalo de actualización ahora puede configurarse a 180 días. Para
+  instalaciones predeterminadas, el intervalo de actualización se buscará
+  cada 30 días.
+* Corregido un fallo donde NVDA podrá reproducir tonos de error si Studio
+  sale mientras está activo un perfil basado en tiempo.
 
 ## Versión 17.04
 

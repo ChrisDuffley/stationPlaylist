@@ -304,25 +304,29 @@ ci-dessus pour exécuter des commandes.
 
 ## Version 17.06
 
-* You can now perform Track Finder command (Control+NVDA+F) while a playlist
-  is loaded but the first track isn't focused.
-* NVDA will no longer play error tones or do nothing when searching for a
-  track forward from the last track or backward from the first track,
-  respectively.
-* Pressing NVDA+Numpad Delete (NVDA+Delete in laptop layout) will now
-  announce track position followed by number of items in a playlist.
+* Vous pouvez maintenant effectuer la commande Recherche de Piste
+  (Contrôle+NVDA+F) alors qu'une playlist est chargée mais la première piste
+  n'a pas le focus.
+* NVDA ne lira plus les tonalités d'erreur ou ne fera rien lors de la
+  recherche d'une piste en avant à partir de la dernière piste ou en arrière
+  à partir de la première piste, respectivement.
+* En appuyant sur NVDA+pavNum Effacement (NVDA+Effacement dans la
+  disposition  d'un ordinateur portable), va maintenant annoncer la position
+  de la piste suivie du nombre d'éléments dans une playlist.
 
 ## Version 17.05.1
 
-* NVDA will no longer fail to save changes to alarm settings from various
-  alarm dialogs (for example, Alt+NVDA+1 for end of track alarm).
+* NVDA ne cessera plus d'enregistrer les modifications apportées aux
+  paramètres d'alarme à partir de diverses boîtes de dialogue d'alarme (par
+  exemple, Alt+NVDA+1 pour l'alarme de fin de piste).
 
 ## Version 17.05/15.7-LTS
 
-* Update interval can now be set up to 180 days. For default installations,
-  update check interval will be 30 days.
-* Fixed an issue where NVDA may play error tone if Studio exits while a
-  time-based profile is active.
+* L'intervalle de mise à jour peut maintenant être configuré jusqu'à 180
+  jours. Pour les installations par défaut, l'intervalle de vérification de
+  la mise à jour sera de 30 jours.
+* Correction d'un problème où NVDA peut jouer une tonalité d'erreur si
+  Studio sort alors qu'un un profil basé sur l'heure est actif.
 
 ## Version 17.04
 
@@ -448,7 +452,7 @@ apportés à l'emplacement des nouveaux fichiers du module complémentaire.
   l’automatisation du statut via la couche de l'Assistant SPL.
 * Correction des problèmes liés à la recherche de pistes et à l'interaction
   avec celles-ci, y compris l'impossibilité de cocher ou de décocher le
-  marqueur de position de piste ou une piste trouvée via le dialogue
+  marqueur de position de piste ou une piste >trouvée via le dialogue
   Recherche de l'intervalle de temps.
 * L'ordre d'annonce des colonnes ne revient plus à l'ordre par défaut après
   modification.

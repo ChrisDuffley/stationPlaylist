@@ -286,27 +286,30 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
-## Version 17.06
+## Versión 17.06
 
-* You can now perform Track Finder command (Control+NVDA+F) while a playlist
-  is loaded but the first track isn't focused.
-* NVDA will no longer play error tones or do nothing when searching for a
-  track forward from the last track or backward from the first track,
-  respectively.
-* Pressing NVDA+Numpad Delete (NVDA+Delete in laptop layout) will now
-  announce track position followed by number of items in a playlist.
+* Agora podes realizar a orde Buscador de Pista (Control+NVDA+F) mentres se
+  carga unha lista de reproducción pero a primeira pista non se enfoca.
+* NVDA xa non reproducirá tons de erro ou non fará nada ao procurar unha
+  pista cara adiante dende a última pista ou cara atrás dende a primeira,
+  respectivamente.
+* Premer NVDA+Subrimir do teclado numérico (NVDA+Suprimir na distribución
+  portátil) agora anunciará a posición da pista seguida do número de
+  elementos nunha lista de reprodución.
 
-## Version 17.05.1
+## Versión 17.05.1
 
-* NVDA will no longer fail to save changes to alarm settings from various
-  alarm dialogs (for example, Alt+NVDA+1 for end of track alarm).
+* NVDA xa non fallará ao gardar cambios para opcións de alarma dende varios
+  diálogos de alarma (por exemplo, Alt+NVDA+1 para alarma de remate da
+  pista).
 
-## Version 17.05/15.7-LTS
+## Versión 17.05/15.7-LTS
 
-* Update interval can now be set up to 180 days. For default installations,
-  update check interval will be 30 days.
-* Fixed an issue where NVDA may play error tone if Studio exits while a
-  time-based profile is active.
+* O intervalo de actualización agora pode configurarse a 180 días. Para
+  instalacións predeterminadas, o intervalo de actualización procurarase
+  cada 30 días.
+* Correxido un fallo onde o NVDA poderá reproducir tons de erro se o Studio
+  sae mentres está activo un perfil baseado en tempo.
 
 ## Versión 17.04
 
