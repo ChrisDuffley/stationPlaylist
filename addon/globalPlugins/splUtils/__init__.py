@@ -237,7 +237,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.finish()
 
 	def script_statusInfo(self, gesture):
-		SPLWin = user32.FindWindowA("SPLStudio", None) # Used ANSI version, as Wide char version always returns 0.
+		# Go through below procedure, as custom commands can be assigned for this script.
+		SPLWin = user32.FindWindowA("SPLStudio", None)
 		if not SPLWin:
 			ui.message(_("SPL Studio is not running."))
 			self.finish()
@@ -248,8 +249,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		playingNow = winUser.sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus)
 		statusInfo.append("Play status: playing" if playingNow else "Play status: stopped")
 		# For automation, Studio 5.11 and earlier does not have an easy way to detect this flag, thus resort to using playback status.
+		# 17.08: relaxed by locating the Studio foreground window and returning status bar messages (same procedure as the app module/SPL Assistant).
 		if winUser.sendMessage(SPLWin, 1024, 0, SPLVersion) < 520:
-			statusInfo.append("Automation on" if playingNow == 2 else "Automation off")
+			from NVDAObjects.IAccessible import getNVDAObjectFromEvent
+			studioAppMod = getNVDAObjectFromEvent(winUser.user32.FindWindowA("TStudioForm", None), winUser.OBJID_CLIENT, 0).appModule
+			statusBar = studioAppMod.status(studioAppMod.SPLPlayStatus)
+			for index in xrange(1, 6):
+				statusInfo.append(statusBar.getChild(index).name)
 		else:
 			statusInfo.append("Automation on" if winUser.sendMessage(SPLWin, 1024, 1, SPLStatusInfo) else "Automation off")
 			# 5.20 and later.
@@ -289,6 +295,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:e":"announceNumMonitoringEncoders",
 		"kb:i":"listenerCount",
 		"kb:q":"statusInfo",
+		#"kb:c":"currentTrackTitle",
 		"kb:f1":"conHelp"
 	}
 
