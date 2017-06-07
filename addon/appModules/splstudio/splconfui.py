@@ -257,6 +257,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.listenerCount = splconfig.SPLConfig["SayStatus"]["SayListenerCount"]
 		self.cartName = splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"]
 		self.playingTrackName = splconfig.SPLConfig["SayStatus"]["SayPlayingTrackName"]
+		self.studioPlayerPosition = splconfig.SPLConfig["SayStatus"]["SayStudioPlayerPosition"]
 		# Translators: The label of a button to open advanced options such as using SPL Controller command to invoke Assistant layer.
 		advancedOptButton = sizer.addButton(self, label=_("&Advanced options..."))
 		advancedOptButton.Bind(wx.EVT_BUTTON, self.onAdvancedOptions)
@@ -319,6 +320,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		splconfig.SPLConfig["SayStatus"]["SayListenerCount"] = self.listenerCount
 		splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"] = self.cartName
 		splconfig.SPLConfig["SayStatus"]["SayPlayingTrackName"] = self.playingTrackName
+		splconfig.SPLConfig["SayStatus"]["SayStudioPlayerPosition"] = self.studioPlayerPosition
 		splconfig.SPLConfig["Advanced"]["SPLConPassthrough"] = self.splConPassthrough
 		splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] = self.compLayer
 		splconfig.SPLConfig["Update"]["AutoUpdateCheck"] = self.autoUpdateCheck
@@ -1280,6 +1282,9 @@ class SayStatusDialog(wx.Dialog):
 			self.trackAnnouncementList.SetSelection(selection)
 		except:
 			pass
+		# Translators: the label for a setting in SPL add-on settings to announce player position for the current and next tracks.
+		self.playerPositionCheckbox=sayStatusHelper.addItem(wx.CheckBox(self, label=_("Include track player &position when announcing current and next track information")))
+		self.playerPositionCheckbox.SetValue(parent.studioPlayerPosition)
 
 		sayStatusHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
@@ -1296,6 +1301,7 @@ class SayStatusDialog(wx.Dialog):
 		parent.listenerCount = self.listenerCountCheckbox.Value
 		parent.cartName = self.cartNameCheckbox.Value
 		parent.playingTrackName = self.trackAnnouncements[self.trackAnnouncementList.GetSelection()][0]
+		parent.studioPlayerPosition = self.playerPositionCheckbox.Value
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()
