@@ -286,6 +286,31 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
+## Versión 17.06
+
+* Agora podes realizar a orde Buscador de Pista (Control+NVDA+F) mentres se
+  carga unha lista de reproducción pero a primeira pista non se enfoca.
+* NVDA xa non reproducirá tons de erro ou non fará nada ao procurar unha
+  pista cara adiante dende a última pista ou cara atrás dende a primeira,
+  respectivamente.
+* Premer NVDA+Subrimir do teclado numérico (NVDA+Suprimir na distribución
+  portátil) agora anunciará a posición da pista seguida do número de
+  elementos nunha lista de reprodución.
+
+## Versión 17.05.1
+
+* NVDA xa non fallará ao gardar cambios para opcións de alarma dende varios
+  diálogos de alarma (por exemplo, Alt+NVDA+1 para alarma de remate da
+  pista).
+
+## Versión 17.05/15.7-LTS
+
+* O intervalo de actualización agora pode configurarse a 180 días. Para
+  instalacións predeterminadas, o intervalo de actualización procurarase
+  cada 30 días.
+* Correxido un fallo onde o NVDA poderá reproducir tons de erro se o Studio
+  sae mentres está activo un perfil baseado en tempo.
+
 ## Versión 17.04
 
 * Engadido o soporte básico de depuración do complemento rexistrando

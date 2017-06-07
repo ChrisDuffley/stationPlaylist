@@ -1326,11 +1326,8 @@ msgid "&Notify when end of introduction is approaching"
 msgstr "התראה ברגע שסוף נגינת הקדימון מתקרב"
 
 #. Translators: A dialog message to set microphone active alarm.
-#, fuzzy
 msgid "&Microphone alarm in seconds (0 disables the alarm)"
-msgstr ""
-"נא להקיש אורך זמן התראת ההקלטה בשניות (כרגע לא פעיל. ) ערך 0, פירושו ללא "
-"ההתראה."
+msgstr "&התראת מיקרופון בשניות (0 משבית את ההתראה)"
 
 msgid "Microphone alarm &interval in seconds"
 msgstr "התראה על ההקלטה ב&פרקי זמן קצובים"
