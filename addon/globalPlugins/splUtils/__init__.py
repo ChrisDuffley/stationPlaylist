@@ -9,6 +9,7 @@ import globalPluginHandler
 import api
 import ui
 import globalVars
+from NVDAObjects.IAccessible import getNVDAObjectFromEvent
 import winUser
 import addonHandler
 addonHandler.initTranslation()
@@ -251,7 +252,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# For automation, Studio 5.11 and earlier does not have an easy way to detect this flag, thus resort to using playback status.
 		# 17.08: relaxed by locating the Studio foreground window and returning status bar messages (same procedure as the app module/SPL Assistant).
 		if winUser.sendMessage(SPLWin, 1024, 0, SPLVersion) < 520:
-			from NVDAObjects.IAccessible import getNVDAObjectFromEvent
 			studioAppMod = getNVDAObjectFromEvent(winUser.user32.FindWindowA("TStudioForm", None), winUser.OBJID_CLIENT, 0).appModule
 			statusBar = studioAppMod.status(studioAppMod.SPLPlayStatus)
 			for index in xrange(1, 6):
@@ -271,6 +271,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.finish()
 	# Translators: Input help message for a SPL Controller command.
 	script_statusInfo.__doc__ = _("Announces Studio status such as track playback status from other programs")
+
+	def script_currentTrackTitle(self, gesture):
+		studioAppMod = getNVDAObjectFromEvent(winUser.user32.FindWindowA("TStudioForm", None), winUser.OBJID_CLIENT, 0).appModule
+		studioAppMod.script_sayCurrentTrackTitle(None)
+		self.finish()
 
 	def script_conHelp(self, gesture):
 		import gui, wx
@@ -295,7 +300,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:e":"announceNumMonitoringEncoders",
 		"kb:i":"listenerCount",
 		"kb:q":"statusInfo",
-		#"kb:c":"currentTrackTitle",
+		"kb:c":"currentTrackTitle",
 		"kb:f1":"conHelp"
 	}
 
