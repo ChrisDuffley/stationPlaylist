@@ -947,9 +947,9 @@ for stable releases.
 
 [[!tag dev stable]]
 
-[1]: http://addons.nvda-project.org/files/get.php?file=spl
+[1]: https://addons.nvda-project.org/files/get.php?file=spl
 
-[2]: http://addons.nvda-project.org/files/get.php?file=spl-dev [2]: 
+[2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
 
 [3]: http://josephsl.net/files/nvdaaddons/get.php?file=spl-lts16
 
