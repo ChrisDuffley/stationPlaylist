@@ -178,7 +178,9 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 * In add-on settings, added a checkbox to let NvDA play a sound when lister requests arrive. To use this fully, requests window must pop up when requests arrive.
 * Pressing broadcaster time command (NVDA+Shift+F12) twice will now cause NVDA to announce minutes and seconds remaining in the current hour.
-* It is now possible to use Track Finder (Control+NVDA+F) to search for names of tracks you've searched before.
+* It is now possible to use Track Finder (Control+NVDA+F) to search for names of tracks you've searched before by selecting a search term from a history of terms.
+* When announcing title of current and next track via SPL Assistant, it is now possible to include information about which Studio internal player will play the track (e.g. player 1).
+* Added a setting in add-on settings under status announcements to include player information when announcing title of the current and the next track.
 
 ## Version 17.06
 
