@@ -1687,11 +1687,13 @@ class AppModule(appModuleHandler.AppModule):
 	# Status table keys
 	SPLPlayStatus = 0
 	SPLSystemStatus = 1
-	SPLScheduledToPlay = 3
-	SPLNextTrackTitle = 4
+	SPLScheduledToPlay = 2
+	SPLNextTrackTitle = 3
+	SPLNextPlayer = 4
 	SPLCurrentTrackTitle = 5
-	SPLTemperature = 6
-	SPLScheduled = 7
+	SPLCurrentPlayer = 6
+	SPLTemperature = 7
+	SPLScheduled = 8
 
 	# Table of child constants based on versions
 	# These are scattered throughout the screen, so one can use foreground.getChild(index) to fetch them (getChild tip from Jamie Teh (NV Access)).
@@ -1702,7 +1704,9 @@ class AppModule(appModuleHandler.AppModule):
 		SPLScheduledToPlay: 19, # In case the user selects one or more tracks in a given hour.
 		SPLScheduled: 20, # Time when the selected track will begin.
 		SPLNextTrackTitle: 8, # Name and duration of the next track if any.
+		SPLNextPlayer: 11, # Name and duration of the next track if any.
 		SPLCurrentTrackTitle: 9, # Name of the currently playing track.
+		SPLCurrentPlayer: 12, # Name of the currently playing track.
 		SPLTemperature: 7, # Temperature for the current city.
 	}
 
@@ -1801,7 +1805,13 @@ class AppModule(appModuleHandler.AppModule):
 		try:
 			obj = self.status(self.SPLNextTrackTitle).firstChild
 			# Translators: Presented when there is no information for the next track.
-			ui.message(_("No next track scheduled or no track is playing")) if obj.name is None else ui.message(obj.name)
+			nextTrack = _("No next track scheduled or no track is playing") if obj.name is None else obj.name
+			# #34 (17.08): normally, player position (name of the internal player in Studio) would not be announced, but might be useful for some broadcasters with mixers.
+			if splconfig.SPLConfig["SayStatus"]["SayStudioPlayerPosition"]:
+				player = self.status(self.SPLNextPlayer).firstChild.name
+				ui.message(", ".join([player, nextTrack]))
+			else:
+				ui.message(nextTrack)
 		except RuntimeError:
 			# Translators: Presented when next track information is unavailable.
 			ui.message(_("Cannot find next track information"))
@@ -1817,7 +1827,13 @@ class AppModule(appModuleHandler.AppModule):
 		try:
 			obj = self.status(self.SPLCurrentTrackTitle).firstChild
 			# Translators: Presented when there is no information for the current track.
-			ui.message(_("Cannot locate current track information or no track is playing")) if obj.name is None else ui.message(obj.name)
+			currentTrack = _("Cannot locate current track information or no track is playing") if obj.name is None else obj.name
+			# #34 (17.08): see the note on next track script above.
+			if splconfig.SPLConfig["SayStatus"]["SayStudioPlayerPosition"]:
+				player = self.status(self.SPLCurrentPlayer).firstChild.name
+				ui.message(", ".join([player, currentTrack]))
+			else:
+				ui.message(currentTrack)
 		except RuntimeError:
 			# Translators: Presented when current track information is unavailable.
 			ui.message(_("Cannot find current track information"))
