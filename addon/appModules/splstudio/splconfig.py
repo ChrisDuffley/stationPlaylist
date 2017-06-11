@@ -140,7 +140,7 @@ class ConfigHub(ChainMap):
 			pass
 		# Runtime flags (profiles and profile switching/triggers flags come from NVDA Core's ConfigManager).
 		self.profiles = self.maps
-		self.activeProfile = self.profiles[0].name
+		# Active profile name is retrieved via the below property function.
 		self.instantSwitch = self.profiles[0]["InstantProfile"] if "InstantProfile" in self.profiles[0] else None
 		self.timedSwitch = None
 		# Switch history is a stack of previously activated profile(s), replacing prev profile flag from 7.x days.
@@ -150,6 +150,11 @@ class ConfigHub(ChainMap):
 		self.newProfiles = set()
 		# Reset flag (only engaged if reset did happen).
 		self.resetHappened = False
+
+	# Various properties
+	@property
+	def activeProfile(self):
+		return self.profiles[0].name
 
 	# Unlock (load) profiles from files.
 	# LTS: Allow new profile settings to be overridden by a parent profile.
@@ -330,7 +335,6 @@ class ConfigHub(ChainMap):
 					_preSave(configuration)
 					configuration.write()
 		self.newProfiles.clear()
-		self.activeProfile = None
 		self.profileHistory = None
 
 			# Class version of module-level functions.
@@ -355,7 +359,6 @@ class ConfigHub(ChainMap):
 		if self.profiles[0].name != defaultProfileName:
 			npIndex = self.profileIndexByName(defaultProfileName)
 			self.profiles[0], self.profiles[npIndex] = self.profiles[npIndex], self.profiles[0]
-			self.activeProfile = defaultProfileName
 		# 8.0 optimization: Tell other modules that reset was done in order to postpone disk writes until the end.
 		self.resetHappened = True
 
@@ -407,7 +410,6 @@ class ConfigHub(ChainMap):
 	def swapProfiles(self, prevProfile, newProfile, showSwitchIndex=False):
 		former, current = self.profileIndexByName(prevProfile if prevProfile is not None else self.switchHistory[-1]), self.profileIndexByName(newProfile)
 		self.profiles[current], self.profiles[former] = self.profiles[former], self.profiles[current]
-		self.activeProfile = newProfile
 		if showSwitchIndex: return current
 
 

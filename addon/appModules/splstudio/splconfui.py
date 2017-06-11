@@ -362,8 +362,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 			prevActive = _("Normal profile")
 		if self.switchProfileRenamed or self.switchProfileDeleted:
 			splconfig.SPLConfig.instantSwitch = self.switchProfile
-		if self.switchProfileDeleted:
-			splconfig.SPLConfig.activeProfile = prevActive
+		#if self.switchProfileDeleted:
+			#splconfig.SPLConfig.activeProfile = prevActive
 		_configDialogOpened = False
 		super(SPLConfigDialog,  self).onCancel(evt)
 
