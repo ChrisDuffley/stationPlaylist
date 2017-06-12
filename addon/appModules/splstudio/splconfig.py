@@ -86,7 +86,7 @@ CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
 ProfileTriggerThreshold = integer(min=5, max=60, default=15)
 [Update]
 AutoUpdateCheck = boolean(default=true)
-UpdateInterval = integer(min=1, max=180, default=30)
+UpdateInterval = integer(min=0, max=180, default=30)
 [Startup]
 AudioDuckingReminder = boolean(default=true)
 WelcomeDialog = boolean(default=true)
