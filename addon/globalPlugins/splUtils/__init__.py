@@ -60,6 +60,7 @@ P: Play.
 U: Pause.
 S: Stop with fade.
 T: Instant stop.
+C: Announce name and duration of the currently playing track.
 E: Announce if any encoders are being monitored.
 I: Announce listener count.
 Q: Announce Studio status information.
