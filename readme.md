@@ -129,6 +129,7 @@ The available SPL Controller commands are:
 * Press L to enable line-in input or Shift+L to disable it.
 * Press R to hear remaining time for the currently playing track.
 * Press Shift+R to get a report on library scan progress.
+* Press C to let NVDA announce name and duration of the currently playing track.
 * Press E to get count and labels for encoders being monitored.
 * Press I to obtain listener count.
 * Press Q to obtain various status information about Studio including whether a track is playing, microphone is on and others.
@@ -176,11 +177,12 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Version 17.2-dev
 
-* In add-on settings, added a checkbox to let NvDA play a sound when lister requests arrive. To use this fully, requests window must pop up when requests arrive.
+* In add-on settings, added a checkbox to let NvDA play a sound when listener requests arrive. To use this fully, requests window must pop up when requests arrive.
 * Pressing broadcaster time command (NVDA+Shift+F12) twice will now cause NVDA to announce minutes and seconds remaining in the current hour.
 * It is now possible to use Track Finder (Control+NVDA+F) to search for names of tracks you've searched before by selecting a search term from a history of terms.
 * When announcing title of current and next track via SPL Assistant, it is now possible to include information about which Studio internal player will play the track (e.g. player 1).
 * Added a setting in add-on settings under status announcements to include player information when announcing title of the current and the next track.
+* Added a command in SPL Controller layer to announce name and duration of the currently playing track (C).
 
 ## Version 17.06
 
