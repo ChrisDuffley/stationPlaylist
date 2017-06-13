@@ -1720,6 +1720,7 @@ class AppModule(appModuleHandler.AppModule):
 			fg = api.getForegroundObject()
 			if fg is not None and fg.windowClassName != "TStudioForm":
 				# 6.1: Allow gesture-based functions to look up status information even if Studio window isn't focused.
+				# 17.08: several SPL Controller commands will use this route.
 				fg = getNVDAObjectFromEvent(user32.FindWindowA("TStudioForm", None), OBJID_CLIENT, 0)
 			statusObj = self.statusObjs[infoIndex]
 			# 7.0: sometimes (especially when first loaded), OBJID_CLIENT fails, so resort to retrieving focused object instead.
