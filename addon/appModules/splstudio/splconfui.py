@@ -237,6 +237,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 		manageColumnsButton.Bind(wx.EVT_BUTTON, self.onManageColumns)
 		SPLConfigHelper.addItem(sizer.sizer)
 
+		# Translators: the label for a setting in SPL add-on settings to toggle whether column headers should be included when announcing track information.
+		self.columnHeadersCheckbox = SPLConfigHelper.addItem(wx.CheckBox(self, label=_("Include column &headers when announcing track information")))
+		self.columnHeadersCheckbox.SetValue(splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"])
+
 		sizer = gui.guiHelper.ButtonHelper(wx.HORIZONTAL)
 		# Translators: The label of a button to configure columns explorer slots (SPL Assistant, number row keys to announce specific columns).
 		columnsExplorerButton = sizer.addButton(self, label=_("Columns E&xplorer..."))
@@ -313,6 +317,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
 		splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"] = self.columnOrder
 		splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"] = self.includedColumns
+		splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.Value
 		splconfig.SPLConfig["General"]["ExploreColumns"] = self.exploreColumns
 		splconfig.SPLConfig["General"]["ExploreColumnsTT"] = self.exploreColumnsTT
 		splconfig.SPLConfig["General"]["VerticalColumnAnnounce"] = self.verticalColumnsList.GetStringSelection() if self.verticalColumnsList.GetSelection() != 0 else None
@@ -424,6 +429,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.columnOrder = curProfile["ColumnAnnouncement"]["ColumnOrder"]
 		# 6.1: Again convert list to set.
 		self.includedColumns = set(curProfile["ColumnAnnouncement"]["IncludedColumns"])
+		self.columnHeadersCheckbox.SetValue(curProfile["ColumnAnnouncement"]["IncludeColumnHeaders"])
 
 	# Profile controls.
 	# Rename and delete events come from GUI/config profiles dialog from NVDA core.
