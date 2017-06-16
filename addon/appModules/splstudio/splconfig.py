@@ -74,6 +74,7 @@ MetadataEnabled = bool_list(default=list(false,false,false,false,false))
 UseScreenColumnOrder = boolean(default=true)
 ColumnOrder = string_list(default=list("Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"))
 IncludedColumns = string_list(default=list("Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"))
+IncludeColumnHeaders = boolean(default=true)
 [SayStatus]
 SayScheduledFor = boolean(default=true)
 SayListenerCount = boolean(default=true)

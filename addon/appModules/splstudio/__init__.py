@@ -164,13 +164,14 @@ class SPLTrackItem(IAccessible):
 		if splconfig._shouldBuildDescriptionPieces():
 			descriptionPieces = []
 			columnsToInclude = splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"]
+			includeColumnHeaders = splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"]
 			for header in splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"]:
 				if header in columnsToInclude:
 					index = self.indexOf(header)
 					if index is None: continue # Header not found, mostly encountered in Studio 5.0x.
 					content = self._getColumnContent(index)
 					if content:
-						descriptionPieces.append("%s: %s"%(header, content))
+						descriptionPieces.append("%s: %s"%(header, content) if includeColumnHeaders else content)
 			self.description = ", ".join(descriptionPieces)
 		if self.appModule._announceColumnOnly is None:
 			super(IAccessible, self).reportFocus()
