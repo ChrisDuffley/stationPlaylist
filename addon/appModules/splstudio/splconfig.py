@@ -845,7 +845,8 @@ def updateInit():
 	# LTS: Launch updater if channel change is detected.
 	# Use a background thread for this as urllib blocks.
 	import threading
-	if splupdate._updateNow:
+	# 17.08: if update interval is zero (check whenever Studio starts), treat it as update now.
+	if splupdate._updateNow or SPLConfig["Update"]["UpdateInterval"] == 0:
 		t = threading.Thread(target=splupdate.updateChecker, kwargs={"auto": True}) # No repeat here.
 		t.daemon = True
 		splupdate._SPLUpdateT = wx.PyTimer(autoUpdateCheck)
