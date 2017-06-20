@@ -554,6 +554,20 @@ class ReversedDialog(Dialog):
 				textList.append(childText)
 		return "\n".join(textList)
 
+# Temporary Cue time pickers does not expose the correct tree.
+# Thankfully, when up or down arrows are pressed, display text changes.
+class SPLTimePicker(IAccessible):
+
+	def script_changeTimePickerValue(self, gesture):
+		gesture.send()
+		from globalCommands import commands
+		commands.script_reportCurrentLine(None)
+
+	__gestures={
+		"kb:upArrow":"changeTimePickerValue",
+		"kb:downArrow":"changeTimePickerValue"
+	}
+
 
 class AppModule(appModuleHandler.AppModule):
 
@@ -659,6 +673,9 @@ class AppModule(appModuleHandler.AppModule):
 		# For About dialog in Studio 5.1x and later.
 		elif obj.windowClassName == "TAboutForm" and self.SPLCurVersion >= "5.1":
 			clsList.insert(0, ReversedDialog)
+		# Temporary cue time picker and friends.
+		elif obj.windowClassName == "TDateTimePicker":
+			clsList.insert(0, SPLTimePicker)
 
 	# Keep an eye on library scans in insert tracks window.
 	libraryScanning = False
