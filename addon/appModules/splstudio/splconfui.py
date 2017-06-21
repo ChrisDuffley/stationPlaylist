@@ -1342,7 +1342,7 @@ class AdvancedOptionsDialog(wx.Dialog):
 		if len(self._updateChannels) > 1:
 			# Translators: The label for a combo box to select update channel.
 			labelText = _("&Add-on update channel:")
-			self.channels=advOptionsHelper.addLabeledControl(labelText, wx.Choice, choices=["try", "development", "stable"])
+			self.channels=advOptionsHelper.addLabeledControl(labelText, wx.Choice, choices=["Test Drive Fast (try)", "Test Drive Slow (development)", "stable"])
 			self.channels.SetSelection(self._updateChannels.index(self.Parent.updateChannel))
 		# Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 		self.splConPassthroughCheckbox=advOptionsHelper.addItem(wx.CheckBox(self, label=_("Allow SPL C&ontroller command to invoke SPL Assistant layer")))
@@ -1374,7 +1374,7 @@ class AdvancedOptionsDialog(wx.Dialog):
 			channel = self._updateChannels[self.channels.GetSelection()]
 			if channel == "try" and gui.messageBox(
 				# Translators: The confirmation prompt displayed when changing to the fastest development channel (with risks involved).
-				_("You are about to switch to the try builds channel, the fastest and most unstable development channel. Please note that the selected channel may come with updates that might be unstable at times and should be used for testing and sending feedback to the add-on developer. If you prefer to use stable rleases, please answer no and switch to a more stable update channel. Are you sure you wish to switch to the fastest development channel?"),
+				_("You are about to switch to the Test Drive Fast (try) builds channel, the fastest and most unstable development channel. Please note that the selected channel may come with updates that might be unstable at times and should be used for testing and sending feedback to the add-on developer. If you prefer to use stable rleases, please answer no and switch to a more stable update channel. Are you sure you wish to switch to the fastest development channel?"),
 				# Translators: The title of the channel switch confirmation dialog.
 				_("Switching to unstable channel"),
 				wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION, self

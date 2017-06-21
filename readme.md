@@ -177,7 +177,8 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Version 17.08-dev
 
-* Update interval can now be set to 0 (zero) days. This allows the add-on to check for updates when NVDA and/or SPL Studio starts.
+* Changes to update channel labels: try build is now Test Drive Fast, development channel is Test Drive Slow. The true "try" builds will be reserved for actual try builds that require users to manually install a test version.
+* Update interval can now be set to 0 (zero) days. This allows the add-on to check for updates when NVDA and/or SPL Studio starts. A confirmation will be required to change update interval to zero days.
 * In add-on settings, added a checkbox to let NvDA play a sound when listener requests arrive. To use this fully, requests window must pop up when requests arrive.
 * Pressing broadcaster time command (NVDA+Shift+F12) twice will now cause NVDA to announce minutes and seconds remaining in the current hour.
 * It is now possible to use Track Finder (Control+NVDA+F) to search for names of tracks you've searched before by selecting a search term from a history of terms.
