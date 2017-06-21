@@ -560,8 +560,17 @@ class SPLTimePicker(IAccessible):
 
 	def script_changeTimePickerValue(self, gesture):
 		gesture.send()
-		from globalCommands import commands
-		commands.script_reportCurrentLine(None)
+		import treeInterceptorHandler
+		obj=api.getFocusObject()
+		treeInterceptor=obj.treeInterceptor
+		if isinstance(treeInterceptor,treeInterceptorHandler.DocumentTreeInterceptor) and not treeInterceptor.passThrough:
+			obj=treeInterceptor
+		try:
+			info=obj.makeTextInfo(textInfos.POSITION_CARET)
+		except (NotImplementedError, RuntimeError):
+			info=obj.makeTextInfo(textInfos.POSITION_FIRST)
+		info.expand(textInfos.UNIT_LINE)
+		speech.speakTextInfo(info,unit=textInfos.UNIT_LINE,reason=controlTypes.REASON_CARET)
 
 	__gestures={
 		"kb:upArrow":"changeTimePickerValue",
