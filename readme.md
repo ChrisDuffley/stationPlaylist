@@ -175,13 +175,17 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
-## Version 17.2-dev
+## Version 17.08-dev
 
+* Update interval can now be set to 0 (zero) days. This allows the add-on to check for updates when NVDA and/or SPL Studio starts.
 * In add-on settings, added a checkbox to let NvDA play a sound when listener requests arrive. To use this fully, requests window must pop up when requests arrive.
 * Pressing broadcaster time command (NVDA+Shift+F12) twice will now cause NVDA to announce minutes and seconds remaining in the current hour.
 * It is now possible to use Track Finder (Control+NVDA+F) to search for names of tracks you've searched before by selecting a search term from a history of terms.
 * When announcing title of current and next track via SPL Assistant, it is now possible to include information about which Studio internal player will play the track (e.g. player 1).
 * Added a setting in add-on settings under status announcements to include player information when announcing title of the current and the next track.
+* Fixed an issue in temporary cue and other dialogs where NVDA would not announce new values when manipulating time pickers.
+* NVDA can suppress announcement of column headers such as Artist and Category when reviewing tracks in playlist viewer. This is a broadcast profile specific setting.
+* Added a checkbox in add-on settings dialog to suppress announcement of column headers when reviewing tracks in playlist viewer.
 * Added a command in SPL Controller layer to announce name and duration of the currently playing track from anywhere (C).
 * When obtaining status information via SPL Controller (Q) while using Studio 5.1x, information such as microphone status, cart edit mode and others will also be announced in addition to playback and automation.
 
