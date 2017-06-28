@@ -170,6 +170,11 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 15.8-LTS
+
+* You can now perform Track Finder command (Control+NVDA+F) while a playlist is loaded but the first track isn't focused.
+* NVDA will no longer play error tones or do nothing when searching for a track forward from the last track or backward from the first track, respectively.
+
 ## Version 15.7-LTS
 
 * Update interval can now be set up to 180 days. For default installations, update check interval will be 30 days.
