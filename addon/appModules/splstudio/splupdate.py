@@ -117,10 +117,12 @@ def updateChecker(auto=False, continuous=False, confUpdateInterval=1):
 	from logHandler import log
 	# Regardless of whether it is an auto check, update the check time.
 	# However, this shouldnt' be done if this is a retry after a failed attempt.
-	if not _retryAfterFailure: SPLAddonCheck = time.time()
-	updateInterval = confUpdateInterval*_updateInterval*1000
-	# Should the timer be set again?
-	if continuous and not _retryAfterFailure: _SPLUpdateT.Start(updateInterval, True)
+	# #36 (17.08): in order to avoid integer overflows, update the check time if it is past the update interval in days.
+	# Also, no need to continue if interval did not pass.
+	currentTime = time.time()
+	shouldCheckForUpdate = currentTime-SPLAddonCheck >= (confUpdateInterval*_updateInterval)
+	if auto and not shouldCheckForUpdate: return
+	if not _retryAfterFailure and shouldCheckForUpdate: SPLAddonCheck = currentTime
 	# Auto disables UI portion of this function if no updates are pending.
 	try:
 		info = checkForAddonUpdate()
@@ -137,7 +139,7 @@ def updateChecker(auto=False, continuous=False, confUpdateInterval=1):
 	if _retryAfterFailure:
 		_retryAfterFailure = False
 		# Now is the time to update the check time if this is a retry.
-		SPLAddonCheck = time.time()
+		SPLAddonCheck = currentTime
 	if not auto:
 		wx.CallAfter(_progressDialog.done)
 		_progressDialog = None
@@ -145,7 +147,7 @@ def updateChecker(auto=False, continuous=False, confUpdateInterval=1):
 	dialogTitle = _("Studio add-on update")
 	if info is None:
 		if auto:
-			if continuous: _SPLUpdateT.Start(updateInterval, True)
+			#if continuous: _SPLUpdateT.Start(updateInterval, True)
 			return # No need to interact with the user.
 		# Translators: Presented when no add-on update is available.
 		wx.CallAfter(gui.messageBox, _("No add-on update available."), dialogTitle)

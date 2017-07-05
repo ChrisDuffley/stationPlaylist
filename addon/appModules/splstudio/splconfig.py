@@ -846,6 +846,7 @@ def updateInit():
 	# Use a background thread for this as urllib blocks.
 	import threading
 	# 17.08: if update interval is zero (check whenever Studio starts), treat it as update now.
+	# #36: only the first part will be used later due to the fact that update checker will check current time versus next check time.
 	if splupdate._updateNow or SPLConfig["Update"]["UpdateInterval"] == 0:
 		t = threading.Thread(target=splupdate.updateChecker, kwargs={"auto": True}) # No repeat here.
 		t.daemon = True
@@ -853,6 +854,7 @@ def updateInit():
 		t.start()
 		splupdate._updateNow = False
 		return
+	# 17.09: Remove this whole thing, for now kept in 17.08 to minimize possible issues.
 	currentTime = time.time()
 	nextCheck = splupdate.SPLAddonCheck+(SPLConfig["Update"]["UpdateInterval"]* 86400.0)
 	if splupdate.SPLAddonCheck < currentTime < nextCheck:
@@ -863,8 +865,8 @@ def updateInit():
 		t = threading.Thread(target=splupdate.updateChecker, kwargs={"auto": True}) # No repeat here.
 		t.daemon = True
 		t.start()
-	splupdate._SPLUpdateT = wx.PyTimer(autoUpdateCheck)
-	splupdate._SPLUpdateT.Start(interval * 1000, True)
+	#splupdate._SPLUpdateT = wx.PyTimer(autoUpdateCheck)
+	#splupdate._SPLUpdateT.Start(interval * 1000, True)
 
 # Let SPL track item know if it needs to build description pieces.
 # To be renamed and used in other places in 7.0.
