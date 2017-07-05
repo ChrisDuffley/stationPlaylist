@@ -847,8 +847,9 @@ def updateInit():
 	import threading
 	# 17.08: if update interval is zero (check whenever Studio starts), treat it as update now.
 	# #36: only the first part will be used later due to the fact that update checker will check current time versus next check time.
-	if splupdate._updateNow or SPLConfig["Update"]["UpdateInterval"] == 0:
-		t = threading.Thread(target=splupdate.updateChecker, kwargs={"auto": True}) # No repeat here.
+	confUpdateInterval = SPLConfig["Update"]["UpdateInterval"]
+	if splupdate._updateNow or confUpdateInterval == 0:
+		t = threading.Thread(target=splupdate.updateChecker, kwargs={"auto": True, "confUpdateInterval": confUpdateInterval}) # No repeat here.
 		t.daemon = True
 		splupdate._SPLUpdateT = wx.PyTimer(autoUpdateCheck)
 		t.start()
@@ -862,7 +863,7 @@ def updateInit():
 	elif splupdate.SPLAddonCheck < nextCheck < currentTime:
 		interval = SPLConfig["Update"]["UpdateInterval"]* 86400
 		# Call the update check now.
-		t = threading.Thread(target=splupdate.updateChecker, kwargs={"auto": True}) # No repeat here.
+		t = threading.Thread(target=splupdate.updateChecker, kwargs={"auto": True, "confUpdateInterval": confUpdateInterval}) # No repeat here.
 		t.daemon = True
 		t.start()
 	#splupdate._SPLUpdateT = wx.PyTimer(autoUpdateCheck)
