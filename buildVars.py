@@ -27,6 +27,8 @@ In addition, adds global commands for the studio from everywhere."""),
 	"addon_url" : "http://addons.nvda-project.org/",
 	# Documentation file name
 	"addon_docFileName" : "readme.html",
+	# Add-on update channel (default is stable)
+	"addon_updateChannel" : None,
 }
 
 
