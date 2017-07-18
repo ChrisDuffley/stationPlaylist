@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 6.4\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2016-03-04 19:00+1000\n"
-"PO-Revision-Date: 2017-05-05 00:07+0300\n"
+"PO-Revision-Date: 2017-07-04 13:27+0300\n"
 "Last-Translator: Florian Ionașcu <florianionascu@hotmail.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -64,7 +64,7 @@ msgstr "Fereastra principală Studio nu a fost găsită"
 #. Translators: location text for a playlist item (example: item 1 of 10).
 #, python-brace-format
 msgid "Item {current} of {total}"
-msgstr ""
+msgstr "Element {current} din {total}"
 
 #. Translators: Standard message for announcing column content.
 #, python-brace-format
@@ -916,7 +916,6 @@ msgid "SPL Studio and audio ducking"
 msgstr "Studio SPL și adjustarea automată a volumului audio"
 
 #. Translators: A message displayed if audio ducking should be disabled.
-#, fuzzy
 msgid ""
 "NVDA 2016.1 and later allows NVDA to decrease volume of background audio "
 "including that of Studio.\n"
@@ -927,8 +926,8 @@ msgid ""
 "\t\t* Press NVDA+Shift+D to set it to 'no ducking'."
 msgstr ""
 "NVDA 2016.1 și mai nou permite NVDA-ului să micșoreze volumul audio de "
-"fundal. Pentru a nu perturba experiența ascultătorilor tăi, dezactivați "
-"adjustarea automată a volumului, deschizând fereastra dialog a "
+"fundal. Pentru a nu perturba experiența ascultătorilor tăi, dezactivează "
+"ajustarea automată a volumului, deschizând fereastra de dialog a "
 "sintetizatorului NVDA și selectând „fără atenuare” din caseta combinată "
 "pentru atenuare audio, sau apăsând NVDA+Shift+D."
 
@@ -1164,7 +1163,7 @@ msgstr "Include &orele când se anunță durata melodiei sau a playlistului"
 
 #. Translators: The label for a setting in SPL add-on dialog to set vertical column.
 msgid "&Vertical column navigation announcement:"
-msgstr ""
+msgstr "&Anunțarea navigării coloanei verticale"
 
 #. Translators: One of the options for vertical column navigation denoting NVDA will announce current column positoin (e.g. second column position from the left).
 msgid "whichever column I am reviewing"
