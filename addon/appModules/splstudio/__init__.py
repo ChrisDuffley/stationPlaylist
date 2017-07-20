@@ -596,7 +596,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Translators: The sign-on message for Studio app module.
 		try:
 			ui.message(_("Using SPL Studio version {SPLVersion}").format(SPLVersion = self.SPLCurVersion))
-		except IOError, AttributeError:
+		except (IOError, AttributeError):
 			pass
 		debugOutput("SPL: loading add-on settings")
 		splconfig.initConfig()
