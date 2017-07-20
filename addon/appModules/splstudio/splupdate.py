@@ -26,10 +26,10 @@ SPLAddonCheck = 0
 # Update metadata storage.
 SPLAddonState = {}
 # Update URL (the only way to change it is installing a different version from a different branch).
-SPLUpdateURL = "https://addons.nvda-project.org/files/get.php?file=spl-dev"
+SPLUpdateURL = "https://addons.nvda-project.org/files/get.php?file=spl"
 _pendingChannelChange = False
 _updateNow = False
-SPLUpdateChannel = "dev"
+SPLUpdateChannel = "stable"
 # Update check timer.
 _SPLUpdateT = None
 # How long it should wait between automatic checks.
@@ -40,7 +40,7 @@ _retryAfterFailure = False
 _updatePickle = os.path.join(globalVars.appArgs.configPath, "splupdate.pickle")
 
 channels={
-	"stable":"https://addons.nvda-project.org/files/get.php?file=spl",
+	"dev":"https://addons.nvda-project.org/files/get.php?file=spl-dev",
 	"try":"http://www.josephsl.net/files/nvdaaddons/getupdate.php?file=spl-try",
 }
 
@@ -55,11 +55,11 @@ def initialize():
 		if "UpdateChannel" in SPLAddonState:
 			SPLUpdateChannel = SPLAddonState["UpdateChannel"]
 			if SPLUpdateChannel in ("beta", "prerelease", "lts"):
-				SPLUpdateChannel = "dev"
+				SPLUpdateChannel = "stable"
 	except IOError, KeyError:
 		SPLAddonState["PDT"] = 0
 		_updateNow = False
-		SPLUpdateChannel = "dev"
+		SPLUpdateChannel = "stable"
 
 def terminate():
 	global SPLAddonState
