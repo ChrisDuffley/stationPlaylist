@@ -146,9 +146,7 @@ def updateChecker(auto=False, continuous=False, confUpdateInterval=1):
 	# Translators: Title of the add-on update check dialog.
 	dialogTitle = _("Studio add-on update")
 	if info is None:
-		if auto:
-			#if continuous: _SPLUpdateT.Start(updateInterval, True)
-			return # No need to interact with the user.
+		if auto: return # No need to interact with the user.
 		# Translators: Presented when no add-on update is available.
 		wx.CallAfter(gui.messageBox, _("No add-on update available."), dialogTitle)
 	else:

@@ -395,7 +395,7 @@ class ConfigHub(ChainMap):
 			ui.message(_("Switching to {newProfileName}").format(newProfileName = self.activeProfile))
 			# Pause automatic update checking.
 			if self["Update"]["AutoUpdateCheck"]:
-				if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning: splupdate._SPLUpdateT.Stop()
+				if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
 		else:
 			self.switchHistory.pop()
 			# Translators: Presented when switching from instant switch profile to a previous profile.
@@ -866,8 +866,6 @@ def updateInit():
 		t = threading.Thread(target=splupdate.updateChecker, kwargs={"auto": True, "confUpdateInterval": confUpdateInterval}) # No repeat here.
 		t.daemon = True
 		t.start()
-	#splupdate._SPLUpdateT = wx.PyTimer(autoUpdateCheck)
-	#splupdate._SPLUpdateT.Start(interval * 1000, True)
 
 # Let SPL track item know if it needs to build description pieces.
 # To be renamed and used in other places in 7.0.
