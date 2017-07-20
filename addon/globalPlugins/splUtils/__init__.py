@@ -258,16 +258,16 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			for index in xrange(1, 6):
 				statusInfo.append(statusBar.getChild(index).name)
 		else:
-			statusInfo.append("Automation on" if winUser.sendMessage(SPLWin, 1024, 1, SPLStatusInfo) else "Automation off")
 			# 5.20 and later.
-			statusInfo.append("Microphone on" if winUser.sendMessage(SPLWin, 1024, 2, SPLStatusInfo) else "Microphone off")
-			statusInfo.append("Line-inon" if winUser.sendMessage(SPLWin, 1024, 3, SPLStatusInfo) else "Line-in off")
-			statusInfo.append("Record to file on" if winUser.sendMessage(SPLWin, 1024, 4, SPLStatusInfo) else "Record to file off")
+			statusInfo.append("Automation On" if winUser.sendMessage(SPLWin, 1024, 1, SPLStatusInfo) else "Automation Off")
+			statusInfo.append("Microphone On" if winUser.sendMessage(SPLWin, 1024, 2, SPLStatusInfo) else "Microphone Off")
+			statusInfo.append("Line-In On" if winUser.sendMessage(SPLWin, 1024, 3, SPLStatusInfo) else "Line-In Off")
+			statusInfo.append("Record to file On" if winUser.sendMessage(SPLWin, 1024, 4, SPLStatusInfo) else "Record to file Off")
 			cartEdit = winUser.sendMessage(SPLWin, 1024, 5, SPLStatusInfo)
 			cartInsert = winUser.sendMessage(SPLWin, 1024, 6, SPLStatusInfo)
-			if cartEdit: statusInfo.append("Cart Edit on")
-			elif not cartEdit and cartInsert: statusInfo.append("Cart Insert on")
-			else: statusInfo.append("Cart Edit off")
+			if cartEdit: statusInfo.append("Cart Edit On")
+			elif not cartEdit and cartInsert: statusInfo.append("Cart Insert On")
+			else: statusInfo.append("Cart Edit Off")
 		ui.message("; ".join(statusInfo))
 		self.finish()
 	# Translators: Input help message for a SPL Controller command.
