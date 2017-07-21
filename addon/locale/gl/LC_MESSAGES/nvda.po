@@ -392,8 +392,10 @@ msgid "Announces the elapsed time for the currently playing track."
 msgstr "Anuncia o tempo transcorrido da pista que se está a reproducir."
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "Announces broadcaster time."
-msgstr "Anuncia o tempo de emisión."
+msgid ""
+"Announces broadcaster time. If pressed twice, reports minutes and seconds "
+"left to top of the hour."
+msgstr ""
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Announces time including seconds."
@@ -1202,6 +1204,10 @@ msgstr ""
 "Notifica cando localizou a parte &superior ou inferior do visualizador do "
 "playlist"
 
+#. Translators: the label for a setting in SPL add-on settings to enable requests alert.
+msgid "Play a sound when listener &requests arrive"
+msgstr ""
+
 #. Translators: The label of a button to manage playlist snapshot flags.
 msgid "&Playlist snapshots..."
 msgstr "Instantáneas das &listaxes de reprodución..."
@@ -1229,6 +1235,12 @@ msgstr "Anuncia columnas na &orde amosada na pantalla"
 #. Translators: The label of a button to manage column announcements.
 msgid "&Manage track column announcements..."
 msgstr "&Administrar anunciado de columna da pista..."
+
+#. Translators: the label for a setting in SPL add-on settings to toggle whether column headers should be included when announcing track information.
+#, fuzzy
+msgid "Include column &headers when announcing track information"
+msgstr ""
+"Inclúe &horas ao anunciar a duración da pista ou da lista de reproducción"
 
 #. Translators: The label of a button to configure columns explorer slots (SPL Assistant, number row keys to announce specific columns).
 msgid "Columns E&xplorer..."
@@ -1540,6 +1552,12 @@ msgstr "mentres se usan outros programas"
 msgid "off"
 msgstr "desativado"
 
+#. Translators: the label for a setting in SPL add-on settings to announce player position for the current and next tracks.
+msgid ""
+"Include track player &position when announcing current and next track "
+"information"
+msgstr ""
+
 #. Translators: The title of a dialog to configure advanced SPL add-on options such as update checking.
 msgid "Advanced options"
 msgstr "Opcións avanzadas"
@@ -1563,6 +1581,32 @@ msgstr "Permite á orde SPL C&ontroller chamar ó SPL Assistant layer"
 #. Translators: The label for a setting in SPL add-on dialog to set keyboard layout for SPL Assistant.
 msgid "SPL Assistant command &layout:"
 msgstr "Orde &distribución de SPL Assistant:"
+
+#. Translators: The confirmation prompt displayed when changing to the fastest development channel (with risks involved).
+msgid ""
+"You are about to switch to the Test Drive Fast (try) builds channel, the "
+"fastest and most unstable development channel. Please note that the selected "
+"channel may come with updates that might be unstable at times and should be "
+"used for testing and sending feedback to the add-on developer. If you prefer "
+"to use stable rleases, please answer no and switch to a more stable update "
+"channel. Are you sure you wish to switch to the fastest development channel?"
+msgstr ""
+
+#. Translators: The title of the channel switch confirmation dialog.
+#, fuzzy
+msgid "Switching to unstable channel"
+msgstr "Cambiando a {newProfileName}"
+
+#. Translators: The confirmation prompt displayed when changing update interval to zero days (updates will be checked every time Studio app module loads).
+msgid ""
+"Update interval has been set to zero days, so updates to the Studio add-on "
+"will be checked every time NVDA and/or Studio starts. Are you sure you wish "
+"to continue?"
+msgstr ""
+
+#. Translators: The title of the update interval dialog.
+msgid "Confirm update interval"
+msgstr ""
 
 #. Translators: Title of the dialog to reset various add-on settings.
 msgid "Reset settings"
@@ -1606,10 +1650,12 @@ msgstr "Reiniciar configuración"
 msgid "Another find dialog is open."
 msgstr "Está aberto outro diálogo de procura."
 
-msgid "Enter the name or the artist of the track you wish to &search"
+#, fuzzy
+msgid "Enter or select the name or the artist of the track you wish to &search"
 msgstr "Introduce o nome ou o artista da pista que desexas procurar."
 
-msgid "Enter text to be &searched in a column"
+#, fuzzy
+msgid "Enter or select text to be &searched in a column"
 msgstr "Introducir o texto a &procurar nunha columna"
 
 #. Translators: The label in track finder to search columns.
@@ -1696,6 +1742,7 @@ msgstr "Erro procurando actualización."
 msgid "Studio add-on update"
 msgstr "Actualización do complemento Studio"
 
+#. if continuous: _SPLUpdateT.Start(updateInterval, True)
 #. No need to interact with the user.
 #. Translators: Presented when no add-on update is available.
 msgid "No add-on update available."
@@ -1744,6 +1791,7 @@ msgstr "Fallou ao actualizar o complemento dende %s"
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
+#, fuzzy
 msgid ""
 "\n"
 "After entering SPL Controller, press:\n"
@@ -1758,6 +1806,7 @@ msgid ""
 "U: Pause.\n"
 "S: Stop with fade.\n"
 "T: Instant stop.\n"
+"C: Announce name and duration of the currently playing track.\n"
 "E: Announce if any encoders are being monitored.\n"
 "I: Announce listener count.\n"
 "Q: Announce Studio status information.\n"
@@ -2031,3 +2080,6 @@ msgid ""
 msgstr ""
 "Mellora o soporte para Station Playlist Studio.\n"
 "Ademáis, engade ordes globais para o estudio dende calquera parte."
+
+#~ msgid "Announces broadcaster time."
+#~ msgstr "Anuncia o tempo de emisión."
