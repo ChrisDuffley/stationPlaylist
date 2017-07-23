@@ -527,7 +527,7 @@ class SAMEncoder(Encoder):
 					tones.beep(1000, 150)
 					self.encoderStatusMessage(messageCache, self.IAccessibleChildID)
 				try:
-					self.onConnect(self, encoding)
+					self.onConnect(encoding)
 				except RuntimeError:
 					continue
 				if not encoding: encoding = True
@@ -716,7 +716,7 @@ class SPLEncoder(Encoder):
 				# We're on air, so exit.
 				if not connected: tones.beep(1000, 150)
 				try:
-					self.onConnect(self, connected)
+					self.onConnect(connected)
 				except RuntimeError:
 					continue
 				if not connected: connected = True
