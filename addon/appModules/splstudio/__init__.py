@@ -2092,7 +2092,7 @@ class AppModule(appModuleHandler.AppModule):
 		wx.CallAfter(gui.messageBox, SPLAssistantHelp[compatibility], title)
 
 	def script_openOnlineDoc(self, gesture):
-		os.startfile("https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide")
+		os.startfile("https://github.com/josephsl/stationplaylist/wiki/SPLDevAddonGuide")
 
 	def script_updateCheck(self, gesture):
 		self.finish()
