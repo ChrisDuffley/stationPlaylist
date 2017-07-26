@@ -4,8 +4,13 @@
 
 # Provides update check facility, basics borrowed from NVDA Core's update checker class.
 
+import sys
+py3 = sys.version.startswith("3")
 import os # Essentially, update download is no different than file downloads.
-import cPickle
+if py3:
+	import pickle
+else:
+	import cPickle as pickle
 import threading
 import tempfile
 import ctypes
@@ -48,7 +53,7 @@ channels={
 def initialize():
 	global SPLAddonState, SPLAddonCheck, _updateNow, SPLUpdateChannel
 	try:
-		SPLAddonState = cPickle.load(file(_updatePickle, "r"))
+		SPLAddonState = pickle.load(file(_updatePickle, "r"))
 		SPLAddonCheck = SPLAddonState["PDT"]
 		_updateNow = "pendingChannelChange" in SPLAddonState
 		if _updateNow: del SPLAddonState["pendingChannelChange"]
@@ -71,7 +76,7 @@ def terminate():
 		SPLAddonState["UpdateChannel"] = SPLUpdateChannel
 		if _pendingChannelChange:
 			SPLAddonState["pendingChannelChange"] = True
-		cPickle.dump(SPLAddonState, file(_updatePickle, "wb"))
+		pickle.dump(SPLAddonState, file(_updatePickle, "wb"))
 	SPLAddonState = None
 
 def checkForAddonUpdate():

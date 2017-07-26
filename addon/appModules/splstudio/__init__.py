@@ -10,6 +10,8 @@
 
 # Minimum version: SPL 5.10, NvDA 2016.4.
 
+import sys
+py3 = sys.version.startswith("3")
 import os
 import time
 import threading
@@ -30,13 +32,22 @@ from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent
 from NVDAObjects.behaviors import Dialog
 import textInfos
 import tones
-import splconfig
-import splconfui
-import splmisc
-import splupdate
+if py3:
+	from . import splconfig
+	from . import splconfui
+	from . import splmisc
+	from . import splupdate
+else:
+	import splconfig
+	import splconfui
+	import splmisc
+	import splupdate
 import addonHandler
 addonHandler.initTranslation()
-from spldebugging import debugOutput
+if py3:
+	from .spldebugging import debugOutput
+else:
+	from spldebugging import debugOutput
 
 # Make sure the broadcaster is running a compatible version.
 SPLMinVersion = "5.10"
@@ -124,7 +135,7 @@ class SPLTrackItem(IAccessible):
 	def initOverlayClass(self):
 		# LTS: Take a greater role in assigning enhanced Columns Explorer command at the expense of limiting where this can be invoked.
 		# 8.0: Just assign number row.
-		for i in xrange(10):
+		for i in range(10) if py3 else xrange(10):
 			self.bindGesture("kb:control+nvda+%s"%(i), "columnExplorer")
 
 	# Locate the real column index for a column header.
@@ -209,7 +220,8 @@ class SPLTrackItem(IAccessible):
 		status = self.name + " " if reportStatus else ""
 		if columnContent:
 			# Translators: Standard message for announcing column content.
-			ui.message(unicode(_("{checkStatus}{header}: {content}")).format(checkStatus = status, header = columnHeader, content = columnContent))
+			if py3: ui.message(str(_("{checkStatus}{header}: {content}")).format(checkStatus = status, header = columnHeader, content = columnContent))
+			else: ui.message(unicode(_("{checkStatus}{header}: {content}")).format(checkStatus = status, header = columnHeader, content = columnContent))
 		else:
 			# Translators: Spoken when column content is blank.
 			speech.speakMessage(_("{checkStatus}{header}: blank").format(checkStatus = status, header = columnHeader))
@@ -503,7 +515,7 @@ class ReversedDialog(Dialog):
 		textList=[]
 		childCount=len(children)
 		# For these dialogs, children are arranged in reverse tab order (very strange indeed).
-		for index in xrange(childCount-1, -1, -1):
+		for index in range(childCount-1, -1, -1) if py3 else xrange(childCount-1, -1, -1):
 			child=children[index]
 			childStates=child.states
 			childRole=child.role
@@ -897,7 +909,6 @@ class AppModule(appModuleHandler.AppModule):
 		debugOutput("SPL: terminating app module")
 		# 6.3: Memory leak results if encoder flag sets and other encoder support maps aren't cleaned up.
 		# This also could have allowed a hacker to modify the flags set (highly unlikely) so NvDA could get confused next time Studio loads.
-		import sys
 		if "globalPlugins.splUtils.encoders" in sys.modules:
 			import globalPlugins.splUtils.encoders
 			globalPlugins.splUtils.encoders.cleanup()
@@ -1228,14 +1239,14 @@ class AppModule(appModuleHandler.AppModule):
 
 	def buildFNCarts(self):
 		# Used xrange, as it is much faster; change this to range if NvDA core decides to use Python 3.
-		for i in xrange(12):
+		for i in range(12) if py3 else xrange(12):
 			self.bindGesture("kb:f%s"%(i+1), "cartExplorer")
 			self.bindGesture("kb:shift+f%s"%(i+1), "cartExplorer")
 			self.bindGesture("kb:control+f%s"%(i+1), "cartExplorer")
 			self.bindGesture("kb:alt+f%s"%(i+1), "cartExplorer")
 
 	def buildNumberCarts(self):
-		for i in xrange(10):
+		for i in range(10) if py3 else xrange(10):
 			self.bindGesture("kb:%s"%(i), "cartExplorer")
 			self.bindGesture("kb:shift+%s"%(i), "cartExplorer")
 			self.bindGesture("kb:control+%s"%(i), "cartExplorer")
@@ -1481,7 +1492,7 @@ class AppModule(appModuleHandler.AppModule):
 			filename = studioAPI(start, 211, ret=True)
 			totalLength = studioAPI(filename, 30, ret=True)
 		else:
-			for track in xrange(start, end+1):
+			for track in range(start, end+1) if py3 else xrange(start, end+1):
 				filename = studioAPI(track, 211, ret=True)
 				totalLength+=studioAPI(filename, 30, ret=True)
 		return totalLength
@@ -1697,10 +1708,10 @@ class AppModule(appModuleHandler.AppModule):
 			elif splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "wineyes": self.bindGestures(self.__SPLAssistantWEGestures)
 			# 7.0: Certain commands involving number row.
 			# 8.0: Also assign encoder status commands in addition to columns explorer.
-			for i in xrange(5):
+			for i in range(5) if py3 else xrange(5):
 				self.bindGesture("kb:%s"%(i), "columnExplorer")
 				self.bindGesture("kb:shift+%s"%(i), "metadataEnabled")
-			for i in xrange(5, 10):
+			for i in range(5, 10) if py3 else xrange(5, 10):
 				self.bindGesture("kb:%s"%(i), "columnExplorer")
 			self.SPLAssistant = True
 			tones.beep(512, 50)

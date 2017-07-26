@@ -5,6 +5,8 @@
 # Provides the configuration management UI package for SPL Studio app module.
 # For code which provides foundation for code in this module, see splconfig module.
 
+import sys
+py3 = sys.version.startswith("3")
 import os
 import weakref
 import api
@@ -12,8 +14,12 @@ import gui
 import wx
 from winUser import user32
 import tones
-import splupdate
-import splconfig
+if py3:
+	from . import splupdate
+	from . import splconfig
+else:
+	import splupdate
+	import splconfig
 
 # Until wx.CENTER_ON_SCREEN returns...
 CENTER_ON_SCREEN = wx.CENTER_ON_SCREEN if hasattr(wx, "CENTER_ON_SCREEN") else 2

@@ -3,6 +3,8 @@
 # Copyright 2014-2017 Joseph Lee and contributors, released under gPL.
 # Functionality is based on JFW scripts for SPL Track Tool by Brian Hartgen.
 
+import sys
+py3 = sys.version.startswith("3")
 import appModuleHandler
 import addonHandler
 import tones
@@ -35,7 +37,7 @@ class TrackToolItem(IAccessible):
 
 	def initOverlayClass(self):
 		# 8.0: Assign Control+NVDA+number row for Columns Explorer just like the main app module.
-		for i in xrange(10):
+		for i in range(10) if py3 else xrange(10):
 			self.bindGesture("kb:control+nvda+%s"%(i), "columnExplorer")
 
 	# Tweak for Track Tool: Announce column header if given.
@@ -50,7 +52,8 @@ class TrackToolItem(IAccessible):
 				colNumber = internalHeaders.index(columnHeader)
 		columnContent = _getColumnContent(self, colNumber)
 		if columnContent:
-			ui.message(unicode(_("{header}: {content}")).format(header = columnHeader, content = columnContent))
+			if py3: ui.message(str(_("{header}: {content}")).format(header = columnHeader, content = columnContent))
+			else: ui.message(unicode(_("{header}: {content}")).format(header = columnHeader, content = columnContent))
 		else:
 			if individualColumns:
 				# Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)

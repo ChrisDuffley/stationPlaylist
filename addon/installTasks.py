@@ -19,8 +19,8 @@ def onInstall():
 	# 17.04 only: Global Plugin module name has changed, so pull in the old gestures if defined.
 	userGestures = inputCore.manager.userGestureMap._map
 	# Is the new module in there?
-	if "globalPlugins.splUtils" not in [script[0][0] for script in userGestures.values()]:
-		for gesture, script in userGestures.iteritems():
+	if "globalPlugins.splUtils" not in [script[0][0] for script in list(userGestures.values())]:
+		for gesture, script in userGestures.items():
 			if script[0][0] == "globalPlugins.SPLStudioUtils":
 				# Prevent repeated gesture assignment.
 				try:

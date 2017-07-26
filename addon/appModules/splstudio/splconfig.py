@@ -5,19 +5,31 @@
 # For miscellaneous dialogs and tool, see SPLMisc module.
 # For UI surrounding this module, see splconfui module.
 
+import sys
+py3 = sys.version.startswith("3")
 import os
-from cStringIO import StringIO
+if py3:
+	from io import StringIO
+else:
+	from cStringIO import StringIO
 from configobj import ConfigObj
 from validate import Validator
 import time
 import datetime
-import cPickle
+if py3:
+	import pickle
+else:
+	import cPickle as pickle
 import globalVars
 import ui
 import gui
 import wx
-import splupdate
-from splmisc import SPLCountdownTimer, _metadataAnnouncer
+if py3:
+	from . import splupdate
+	from .splmisc import SPLCountdownTimer, _metadataAnnouncer
+else:
+	import splupdate
+	from splmisc import SPLCountdownTimer, _metadataAnnouncer
 
 # Until NVDA Core uses Python 3 (preferably 3.3 or later), use a backported version of chain map class.
 # Backported by Jonathan Eunice.
@@ -25,7 +37,7 @@ from splmisc import SPLCountdownTimer, _metadataAnnouncer
 try:
 	from collections import ChainMap
 except ImportError:
-	from chainmap import ChainMap
+	from .chainmap import ChainMap
 
 # Until wx.CENTER_ON_SCREEN returns...
 CENTER_ON_SCREEN = wx.CENTER_ON_SCREEN if hasattr(wx, "CENTER_ON_SCREEN") else 2
@@ -98,7 +110,7 @@ SPLConfig = None
 _mutatableSettings=("IntroOutroAlarms", "MicrophoneAlarm", "MetadataStreaming", "ColumnAnnouncement")
 # 7.0: Profile-specific confspec (might be removed once a more optimal way to validate sections is found).
 # Dictionary comprehension is better here.
-confspecprofiles = {sect:key for sect, key in confspec.iteritems() if sect in _mutatableSettings}
+confspecprofiles = {sect:key for sect, key in confspec.items() if sect in _mutatableSettings}
 # Translators: The name of the default (normal) profile.
 defaultProfileName = _("Normal profile")
 
@@ -128,7 +140,7 @@ class ConfigHub(ChainMap):
 		# Remove deprecated keys.
 		# This action must be performed after caching, otherwise the newly modified profile will not be saved.
 		deprecatedKeys = {"General":"TrackDial", "Startup":"Studio500"}
-		for section, key in deprecatedKeys.iteritems():
+		for section, key in deprecatedKeys.items():
 			if key in self.maps[0][section]: del self.maps[0][section][key]
 		# Moving onto broadcast profiles if any.
 		try:
@@ -209,9 +221,9 @@ class ConfigHub(ChainMap):
 				# Case 2: For 5.x and later, attempt to reconstruct the failed values.
 				# 6.0: Cherry-pick global settings only.
 				# 7.0: Go through failed sections.
-				for setting in configTest.keys():
+				for setting in list(configTest.keys()):
 					if isinstance(configTest[setting], dict):
-						for failedKey in configTest[setting].keys():
+						for failedKey in list(configTest[setting].keys()):
 							# 7.0 optimization: just reload from defaults dictionary, as broadcast profiles contain profile-specific settings only.
 							SPLConfigCheckpoint[setting][failedKey] = _SPLDefaults[setting][failedKey]
 				# 7.0: Disqualified from being cached this time.
@@ -382,7 +394,8 @@ class ConfigHub(ChainMap):
 	# 17.05: The appTerminating flag is used to suppress profile switching messages.
 	def switchProfile(self, prevProfile, newProfile, appTerminating=False):
 		if not appTerminating:
-			from splconfui import _configDialogOpened
+			if py3: from .splconfui import _configDialogOpened
+			else: from splconfui import _configDialogOpened
 			if _configDialogOpened:
 				# Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
 				ui.message(_("Add-on settings dialog is open, cannot switch profiles"))
@@ -469,7 +482,7 @@ def initConfig():
 	# This must be a separate file (another pickle file).
 	# 8.0: Do this much later when a track is first focused.
 	try:
-		trackComments = cPickle.load(file(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"), "r"))
+		trackComments = pickle.load(file(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"), "r"))
 	except IOError:
 		pass
 	if len(_configLoadStatus):
@@ -528,7 +541,7 @@ def initProfileTriggers():
 		raise RuntimeError("ConfigHub is unavailable, profile triggers manager cannot start")
 	global profileTriggers, profileTriggers2
 	try:
-		profileTriggers = cPickle.load(file(SPLTriggersFile, "r"))
+		profileTriggers = pickle.load(file(SPLTriggersFile, "r"))
 	except IOError:
 		profileTriggers = {}
 	# Cache profile triggers, used to compare the runtime dictionary against the cache.
@@ -536,7 +549,7 @@ def initProfileTriggers():
 	# Is the triggers dictionary and the config pool in sync?
 	if len(profileTriggers):
 		nonexistent = []
-		for profile in profileTriggers.keys():
+		for profile in list(profileTriggers.keys()):
 			try:
 				SPLConfig.profileIndexByName(profile)
 			except ValueError:
@@ -556,7 +569,7 @@ def nextTimedProfile(current=None):
 	# No need to proceed if no timed profiles are defined.
 	if not len(profileTriggers): return None
 	possibleTriggers = []
-	for profile in profileTriggers.keys():
+	for profile in list(profileTriggers.keys()):
 		shouldBeSwitched = False
 		entry = list(profileTriggers[profile])
 		# Construct the comparison datetime (see the profile triggers spec).
@@ -597,7 +610,7 @@ def setNextTimedProfile(profile, bits, switchTime, date=None, duration=0):
 				delta = currentDay-nextDay
 			else:
 				triggerBit = -1
-				for bit in xrange(currentDay-1, -1, -1):
+				for bit in range(currentDay-1, -1, -1) if py3 else xrange(currentDay-1, -1, -1):
 					if 2 ** bit & days:
 						triggerBit = bit
 						break
@@ -615,6 +628,7 @@ def duplicateExists(map, profile, bits, hour, min, duration):
 	start1 = (hour*60) + min
 	end1 = start1+duration
 	# A possible duplicate may exist simply because of bits.
+	# 17.09: find a replacement for the below expression that'll work across Python releases.
 	for item in filter(lambda p: p != profile, map.keys()):
 		if map[item][0] == bits:
 			entry = map[item]
@@ -659,15 +673,16 @@ def saveProfileTriggers():
 	# Unless it is a daily show, profile triggers would not have been modified.
 	# This trick is employed in order to reduce unnecessary disk writes.
 	if profileTriggers != profileTriggers2:
-		cPickle.dump(profileTriggers, file(SPLTriggersFile, "wb"))
+		pickle.dump(profileTriggers, file(SPLTriggersFile, "wb"))
 	profileTriggers = None
 	profileTriggers2 = None
 
 # Copy settings across profiles.
 # Setting complete flag controls whether profile-specific settings are applied (true otherwise, only set when resetting profiles).
 # 8.0: Simplified thanks to in-place swapping.
+# 17.10: is this necessary now?
 def copyProfile(sourceProfile, targetProfile, complete=False):
-	for section in sourceProfile.keys() if complete else _mutatableSettings:
+	for section in list(sourceProfile.keys()) if complete else _mutatableSettings:
 		targetProfile[section] = dict(sourceProfile[section])
 
 # Last but not least...
@@ -712,8 +727,8 @@ def _preSave(conf):
 		# 6.1: Make sure column inclusion aren't same as default values.
 		if len(conf["ColumnAnnouncement"]["IncludedColumns"]) == 17:
 			del conf["ColumnAnnouncement"]["IncludedColumns"]
-		for setting in conf.keys():
-			for key in conf[setting].keys():
+		for setting in list(conf.keys()):
+			for key in list(conf[setting].keys()):
 				try:
 					if conf[setting][key] == _SPLDefaults[setting][key]:
 						del conf[setting][key]
@@ -745,7 +760,7 @@ def saveConfig():
 	# Close profile triggers dictionary.
 	saveProfileTriggers()
 	# Dump track comments.
-	cPickle.dump(trackComments, file(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"), "wb"))
+	pickle.dump(trackComments, file(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"), "wb"))
 	# Save update check state.
 	splupdate.terminate()
 	# Now save profiles.
@@ -764,7 +779,8 @@ SPLPrevProfile = None
 # Instant profile switching is just a special case of this function.
 def switchProfile(prevProfile, newProfile):
 	global SPLPrevProfile, _SPLCache
-	from splconfui import _configDialogOpened
+	if py3: from .splconfui import _configDialogOpened
+	else: from splconfui import _configDialogOpened
 	if _configDialogOpened:
 		# Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
 		ui.message(_("Add-on settings dialog is open, cannot switch profiles"))
