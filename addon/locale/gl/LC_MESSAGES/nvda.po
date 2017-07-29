@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2017-05-15 17:43+0100\n"
+"PO-Revision-Date: 2017-07-27 11:35-0700\n"
 "Last-Translator: Juan C. Buño <oprisniki@gmail.com>\n"
 "Language-Team: Add-ons translation team <oprisniki@gmail.com>\n"
 "Language: gl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.6.11\n"
+"X-Generator: Poedit 1.8.9\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #, python-brace-format
@@ -392,8 +392,12 @@ msgid "Announces the elapsed time for the currently playing track."
 msgstr "Anuncia o tempo transcorrido da pista que se está a reproducir."
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "Announces broadcaster time."
-msgstr "Anuncia o tempo de emisión."
+msgid ""
+"Announces broadcaster time. If pressed twice, reports minutes and seconds "
+"left to top of the hour."
+msgstr ""
+"Anuncia o tempo do transmisor. Se se preme dúas veces, anuncia os minutos e "
+"os segundos á esquerda da hora superior."
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Announces time including seconds."
@@ -1202,6 +1206,10 @@ msgstr ""
 "Notifica cando localizou a parte &superior ou inferior do visualizador do "
 "playlist"
 
+#. Translators: the label for a setting in SPL add-on settings to enable requests alert.
+msgid "Play a sound when listener &requests arrive"
+msgstr "Reproducir un son cando cheguen as &peticións do escoitante"
+
 #. Translators: The label of a button to manage playlist snapshot flags.
 msgid "&Playlist snapshots..."
 msgstr "Instantáneas das &listaxes de reprodución..."
@@ -1229,6 +1237,10 @@ msgstr "Anuncia columnas na &orde amosada na pantalla"
 #. Translators: The label of a button to manage column announcements.
 msgid "&Manage track column announcements..."
 msgstr "&Administrar anunciado de columna da pista..."
+
+#. Translators: the label for a setting in SPL add-on settings to toggle whether column headers should be included when announcing track information.
+msgid "Include column &headers when announcing track information"
+msgstr "Incluir &cabeceiras de columna ao se anunciar información de pista"
 
 #. Translators: The label of a button to configure columns explorer slots (SPL Assistant, number row keys to announce specific columns).
 msgid "Columns E&xplorer..."
@@ -1540,6 +1552,14 @@ msgstr "mentres se usan outros programas"
 msgid "off"
 msgstr "desativado"
 
+#. Translators: the label for a setting in SPL add-on settings to announce player position for the current and next tracks.
+msgid ""
+"Include track player &position when announcing current and next track "
+"information"
+msgstr ""
+"Incluir a &posición do reproductor de pistas ao se anunciar a información "
+"das pistas actual e seguinte"
+
 #. Translators: The title of a dialog to configure advanced SPL add-on options such as update checking.
 msgid "Advanced options"
 msgstr "Opcións avanzadas"
@@ -1563,6 +1583,41 @@ msgstr "Permite á orde SPL C&ontroller chamar ó SPL Assistant layer"
 #. Translators: The label for a setting in SPL add-on dialog to set keyboard layout for SPL Assistant.
 msgid "SPL Assistant command &layout:"
 msgstr "Orde &distribución de SPL Assistant:"
+
+#. Translators: The confirmation prompt displayed when changing to the fastest development channel (with risks involved).
+msgid ""
+"You are about to switch to the Test Drive Fast (try) builds channel, the "
+"fastest and most unstable development channel. Please note that the selected "
+"channel may come with updates that might be unstable at times and should be "
+"used for testing and sending feedback to the add-on developer. If you prefer "
+"to use stable rleases, please answer no and switch to a more stable update "
+"channel. Are you sure you wish to switch to the fastest development channel?"
+msgstr ""
+"Estás perto de cambiar á canle de compilación Drive Fast (probas), a canle "
+"de desenvolvemento máis rápida e máis inestable. or favor ten en conta que a "
+"canle selecionada poderá incluir actualizacións que poden seren inestables "
+"ás veces e que deben usarse para probar e enviar comentarios ao "
+"desenvolvedor do complemento. Se prefires usar versións estables, por favor "
+"responde non e cambia a unha canle de actualización máis estable. ¿Estás "
+"seguro de que desexas cambiar á canle de desenvolvedores máis rápida?"
+
+#. Translators: The title of the channel switch confirmation dialog.
+msgid "Switching to unstable channel"
+msgstr "Cambiando á canle inestable"
+
+#. Translators: The confirmation prompt displayed when changing update interval to zero days (updates will be checked every time Studio app module loads).
+msgid ""
+"Update interval has been set to zero days, so updates to the Studio add-on "
+"will be checked every time NVDA and/or Studio starts. Are you sure you wish "
+"to continue?"
+msgstr ""
+"O intervalo de actualización configurouse a cero días, así as actualizacións "
+"para o complemento do Studio procuraranse cada vez que o NVDA e/ou o Studio "
+"arranquen. ¿Estás seguro de que desexas continuar?"
+
+#. Translators: The title of the update interval dialog.
+msgid "Confirm update interval"
+msgstr "Confirmar o intervalo de actualización"
 
 #. Translators: Title of the dialog to reset various add-on settings.
 msgid "Reset settings"
@@ -1606,11 +1661,12 @@ msgstr "Reiniciar configuración"
 msgid "Another find dialog is open."
 msgstr "Está aberto outro diálogo de procura."
 
-msgid "Enter the name or the artist of the track you wish to &search"
-msgstr "Introduce o nome ou o artista da pista que desexas procurar."
+msgid "Enter or select the name or the artist of the track you wish to &search"
+msgstr ""
+"Introduce ou seleciona o nome ou o artista da pista que desexas procurar."
 
-msgid "Enter text to be &searched in a column"
-msgstr "Introducir o texto a &procurar nunha columna"
+msgid "Enter or select text to be &searched in a column"
+msgstr "Introducir ou seleccionar o texto a &procurar nunha columna"
 
 #. Translators: The label in track finder to search columns.
 msgid "C&olumn to search:"
@@ -1696,6 +1752,7 @@ msgstr "Erro procurando actualización."
 msgid "Studio add-on update"
 msgstr "Actualización do complemento Studio"
 
+#. if continuous: _SPLUpdateT.Start(updateInterval, True)
 #. No need to interact with the user.
 #. Translators: Presented when no add-on update is available.
 msgid "No add-on update available."
@@ -1758,6 +1815,7 @@ msgid ""
 "U: Pause.\n"
 "S: Stop with fade.\n"
 "T: Instant stop.\n"
+"C: Announce name and duration of the currently playing track.\n"
 "E: Announce if any encoders are being monitored.\n"
 "I: Announce listener count.\n"
 "Q: Announce Studio status information.\n"
@@ -1777,6 +1835,7 @@ msgstr ""
 "U: Pausar.\n"
 "S: Deter co fade.\n"
 "T: Deter instantáneamente.\n"
+"C: Anuncia o nome e a duración da pista actualmente en reprodución.\n"
 "E: Anuncia se calquera codificador está a ser monitorizado.\n"
 "I: anuncia o reconto de oíntes.\n"
 "Q: Anuncia información de estado do Studio.\n"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 6.4\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2016-03-04 19:00+1000\n"
-"PO-Revision-Date: 2017-07-04 13:27+0300\n"
+"PO-Revision-Date: 2017-07-27 11:47-0700\n"
 "Last-Translator: Florian Ionașcu <florianionascu@hotmail.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -388,8 +388,12 @@ msgid "Announces the elapsed time for the currently playing track."
 msgstr "Anunță timpul scurs pentru melodiia curentă."
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "Announces broadcaster time."
-msgstr "Anunță timpul de emisie."
+msgid ""
+"Announces broadcaster time. If pressed twice, reports minutes and seconds "
+"left to top of the hour."
+msgstr ""
+"Anunță ora radiodifuzorului. Dacă ați apăsat de două ori, rapoartele "
+"minutelor și secundelor rămase în partea de sus a orei."
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Announces time including seconds."
@@ -1167,7 +1171,7 @@ msgstr "&Anunțarea navigării coloanei verticale"
 
 #. Translators: One of the options for vertical column navigation denoting NVDA will announce current column positoin (e.g. second column position from the left).
 msgid "whichever column I am reviewing"
-msgstr ""
+msgstr "Indiferent de coloana pe care o revizuiesc"
 
 #. Translators: the label for a setting in SPL add-on settings to toggle category sound announcement.
 msgid "&Beep for different track categories"
@@ -1190,6 +1194,10 @@ msgid "Notify when located at &top or bottom of playlist viewer"
 msgstr ""
 "Notifică când e localizat la &începutul sau sfârșitul vizualizatorului "
 "listei de redare"
+
+#. Translators: the label for a setting in SPL add-on settings to enable requests alert.
+msgid "Play a sound when listener &requests arrive"
+msgstr "Redați un sunet atunci când &cererile ascultătorului sosesc"
 
 #. Translators: The label of a button to manage playlist snapshot flags.
 msgid "&Playlist snapshots..."
@@ -1218,6 +1226,11 @@ msgstr "Anunţă coloanele în &ordinea arătată pe ecran"
 #. Translators: The label of a button to manage column announcements.
 msgid "&Manage track column announcements..."
 msgstr "Gestionează anunţările coloanelor &melodiilor..."
+
+#. Translators: the label for a setting in SPL add-on settings to toggle whether column headers should be included when announcing track information.
+#, fuzzy
+msgid "Include column &headers when announcing track information"
+msgstr "Include &orele când se anunță durata melodiei sau a playlistului"
 
 #. Translators: The label of a button to configure columns explorer slots (SPL Assistant, number row keys to announce specific columns).
 msgid "Columns E&xplorer..."
@@ -1401,6 +1414,9 @@ msgid ""
 "Select information to be included when obtaining playlist snapshots.\n"
 "\t\tTrack count and total duration are always included."
 msgstr ""
+"Selectați informațiile care trebuie incluse la obținerea instantaneelor de "
+"redare.\n"
+"Numărul de track-uri și durata totală sunt întotdeauna incluse."
 
 #. Translators: the label for a setting in SPL add-on settings to include shortest and longest track duration in playlist snapshots window.
 msgid "Shortest and longest tracks"
@@ -1415,29 +1431,31 @@ msgid "Artist count"
 msgstr "Număr de artiști"
 
 msgid "Top artist count (0 displays all artists)"
-msgstr ""
+msgstr "Top număr de artiști(0 afișează toți artiștii)"
 
 #. Translators: the label for a setting in SPL add-on settings to include track category count in playlist snapshots window.
 msgid "Category count"
 msgstr "Număr de categorii"
 
 msgid "Top category count (0 displays all categories)"
-msgstr ""
+msgstr "Top număr de categorii(0 afișează toate categoriile)"
 
 #. Translators: the label for a setting in SPL add-on settings to include track genre count in playlist snapshots window.
 msgid "Genre count"
 msgstr "Numărul de genuri"
 
 msgid "Top genre count (0 displays all genres)"
-msgstr ""
+msgstr "Top număr de genuri(0 afișează toate genurile)"
 
 #. Translators: the label for a setting in SPL add-on settings to show playlist snaphsots window when the snapshots command is pressed once.
 msgid "&Show results window when playlist snapshots command is performed once"
 msgstr ""
+"&Afișează fereastra rezultatelor când comanda listei de redare instantanee "
+"se efectuează o singură dată"
 
 #. Translators: Title of a dialog to configure metadata streaming status for DSP encoder and four additional URL's.
 msgid "Metadata streaming options"
-msgstr "Opţiuni emisie meetadata"
+msgstr "Opţiuni emisie metadata"
 
 msgid "Select the URL for metadata streaming upon request."
 msgstr "Selectează URL-ul pentru cererea de emisie metadata"
@@ -1521,6 +1539,14 @@ msgstr "Când se utilizează alte programe"
 msgid "off"
 msgstr "Dezactivat"
 
+#. Translators: the label for a setting in SPL add-on settings to announce player position for the current and next tracks.
+msgid ""
+"Include track player &position when announcing current and next track "
+"information"
+msgstr ""
+"Include &poziția piesei de redare atunci când sunt anunțate informații "
+"despre melodiile actuale și viitoare"
+
 #. Translators: The title of a dialog to configure advanced SPL add-on options such as update checking.
 msgid "Advanced options"
 msgstr "Opțiuni avansate"
@@ -1545,6 +1571,43 @@ msgstr ""
 #. Translators: The label for a setting in SPL add-on dialog to set keyboard layout for SPL Assistant.
 msgid "SPL Assistant command &layout:"
 msgstr "Dispoziția comenzi&lor asistentului SPL:"
+
+#. Translators: The confirmation prompt displayed when changing to the fastest development channel (with risks involved).
+msgid ""
+"You are about to switch to the Test Drive Fast (try) builds channel, the "
+"fastest and most unstable development channel. Please note that the selected "
+"channel may come with updates that might be unstable at times and should be "
+"used for testing and sending feedback to the add-on developer. If you prefer "
+"to use stable rleases, please answer no and switch to a more stable update "
+"channel. Are you sure you wish to switch to the fastest development channel?"
+msgstr ""
+"Sunteți pe cale să treceți la Testarea Unității Rapide(încercați) "
+"construcțiile canalului, cel mai rapid și mai instabil canal de dezvoltare. "
+"Vă rugăm să rețineți că canalul selectat poate veni cu actualizări care ar "
+"putea fi uneori instabile și ar trebui să fie utilizate pentru testarea și "
+"trimiterea de feedback dezvoltatorului de extensii. Dacă preferați să "
+"utilizați funcții stabile, răspundeți nu și treceți la un canal de "
+"actualizare mai stabil. Sigur doriți să treceți la cel mai rapid canal de "
+"dezvoltare?"
+
+#. Translators: The title of the channel switch confirmation dialog.
+#, fuzzy
+msgid "Switching to unstable channel"
+msgstr "comutare la {newProfileName}"
+
+#. Translators: The confirmation prompt displayed when changing update interval to zero days (updates will be checked every time Studio app module loads).
+msgid ""
+"Update interval has been set to zero days, so updates to the Studio add-on "
+"will be checked every time NVDA and/or Studio starts. Are you sure you wish "
+"to continue?"
+msgstr ""
+"Intervalul de actualizare a fost setat la zero zile, astfel încât "
+"actualizările pentru add-on-ul Studio vor fi verificate de fiecare dată când "
+"NVDA și / sau Studio pornesc. Sigur doriți să continuați?"
+
+#. Translators: The title of the update interval dialog.
+msgid "Confirm update interval"
+msgstr "Confirmați intervalul de actualizare"
 
 #. Translators: Title of the dialog to reset various add-on settings.
 msgid "Reset settings"
@@ -1586,10 +1649,12 @@ msgstr "Resetează configurația"
 msgid "Another find dialog is open."
 msgstr "Un alt dialog de căutare este deschis."
 
-msgid "Enter the name or the artist of the track you wish to &search"
+#, fuzzy
+msgid "Enter or select the name or the artist of the track you wish to &search"
 msgstr "Introduceți numele și artistul melodiei pe care vreți să o căutați"
 
-msgid "Enter text to be &searched in a column"
+#, fuzzy
+msgid "Enter or select text to be &searched in a column"
 msgstr "Introduceți textul care să fie &căutat într-o coloană"
 
 #. Translators: The label in track finder to search columns.
@@ -1674,6 +1739,7 @@ msgstr "Eroare la verificarea pentru actualizări."
 msgid "Studio add-on update"
 msgstr "Verifică actualizări addon"
 
+#. if continuous: _SPLUpdateT.Start(updateInterval, True)
 #. No need to interact with the user.
 #. Translators: Presented when no add-on update is available.
 msgid "No add-on update available."
@@ -1720,6 +1786,7 @@ msgstr "Eșuare la actualizarea suplimentului de la %s"
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
+#, fuzzy
 msgid ""
 "\n"
 "After entering SPL Controller, press:\n"
@@ -1734,6 +1801,7 @@ msgid ""
 "U: Pause.\n"
 "S: Stop with fade.\n"
 "T: Instant stop.\n"
+"C: Announce name and duration of the currently playing track.\n"
 "E: Announce if any encoders are being monitored.\n"
 "I: Announce listener count.\n"
 "Q: Announce Studio status information.\n"

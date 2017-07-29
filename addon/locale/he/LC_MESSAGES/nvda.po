@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 5.5\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2015-09-25 19:00+1000\n"
-"PO-Revision-Date: 2017-06-29 16:02+0300\n"
+"PO-Revision-Date: 2017-07-27 11:40-0700\n"
 "Last-Translator: shmuel_naaman@yahoo.com\n"
 "Language-Team: \n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.2\n"
+"X-Generator: Poedit 1.8.9\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, python-brace-format
@@ -383,8 +383,10 @@ msgid "Announces the elapsed time for the currently playing track."
 msgstr "הקראת הזמן שעבר בנגינת הרצועה הנוכחית."
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "Announces broadcaster time."
-msgstr "הקראת זמן השידור."
+msgid ""
+"Announces broadcaster time. If pressed twice, reports minutes and seconds "
+"left to top of the hour."
+msgstr ""
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Announces time including seconds."
@@ -1132,6 +1134,10 @@ msgstr "הקראת שם הר&צועות :"
 msgid "Notify when located at &top or bottom of playlist viewer"
 msgstr "עדכן כאשר מצוי בראשית או בתחתית רשימת ההשמעה"
 
+#. Translators: the label for a setting in SPL add-on settings to enable requests alert.
+msgid "Play a sound when listener &requests arrive"
+msgstr ""
+
 #. Translators: The label of a button to manage playlist snapshot flags.
 msgid "&Playlist snapshots..."
 msgstr "&תמונות של רשימת השמעה ..."
@@ -1159,6 +1165,11 @@ msgstr "הקראת העמודות לפי סדרן על המסך"
 #. Translators: The label of a button to manage column announcements.
 msgid "&Manage track column announcements..."
 msgstr "&ניהול הקראת העמודות."
+
+#. Translators: the label for a setting in SPL add-on settings to toggle whether column headers should be included when announcing track information.
+#, fuzzy
+msgid "Include column &headers when announcing track information"
+msgstr "ציון מספר &שעות בהודעה על אורך הרצועות"
 
 #. Translators: The label of a button to configure columns explorer slots (SPL Assistant, number row keys to announce specific columns).
 msgid "Columns E&xplorer..."
@@ -1457,6 +1468,12 @@ msgstr "בעת שימוש בתוכנות אחרות"
 msgid "off"
 msgstr "לא פעיל"
 
+#. Translators: the label for a setting in SPL add-on settings to announce player position for the current and next tracks.
+msgid ""
+"Include track player &position when announcing current and next track "
+"information"
+msgstr ""
+
 #. Translators: The title of a dialog to configure advanced SPL add-on options such as update checking.
 msgid "Advanced options"
 msgstr "אפשרויות מתקדמות"
@@ -1480,6 +1497,32 @@ msgstr "אפשר ל&פקודת השליטה של SPL  להפעיל את המסי
 #. Translators: The label for a setting in SPL add-on dialog to set keyboard layout for SPL Assistant.
 msgid "SPL Assistant command &layout:"
 msgstr "מקלדת הפקודות של המ&סייע של SPL:"
+
+#. Translators: The confirmation prompt displayed when changing to the fastest development channel (with risks involved).
+msgid ""
+"You are about to switch to the Test Drive Fast (try) builds channel, the "
+"fastest and most unstable development channel. Please note that the selected "
+"channel may come with updates that might be unstable at times and should be "
+"used for testing and sending feedback to the add-on developer. If you prefer "
+"to use stable rleases, please answer no and switch to a more stable update "
+"channel. Are you sure you wish to switch to the fastest development channel?"
+msgstr ""
+
+#. Translators: The title of the channel switch confirmation dialog.
+#, fuzzy
+msgid "Switching to unstable channel"
+msgstr "טוען את הפרופיל.. {newProfileName}"
+
+#. Translators: The confirmation prompt displayed when changing update interval to zero days (updates will be checked every time Studio app module loads).
+msgid ""
+"Update interval has been set to zero days, so updates to the Studio add-on "
+"will be checked every time NVDA and/or Studio starts. Are you sure you wish "
+"to continue?"
+msgstr ""
+
+#. Translators: The title of the update interval dialog.
+msgid "Confirm update interval"
+msgstr ""
 
 #. Translators: Title of the dialog to reset various add-on settings.
 msgid "Reset settings"
@@ -1521,10 +1564,12 @@ msgstr "שחזור הגדרות"
 msgid "Another find dialog is open."
 msgstr "תיבת דו-שיח של חיפוש כבר פתוחה."
 
-msgid "Enter the name or the artist of the track you wish to &search"
+#, fuzzy
+msgid "Enter or select the name or the artist of the track you wish to &search"
 msgstr "נא הקש את שם המבצע או הרצועה שברצונך ל&חפש"
 
-msgid "Enter text to be &searched in a column"
+#, fuzzy
+msgid "Enter or select text to be &searched in a column"
 msgstr "נא הקש מחרו&זת לחיפוש בתוך עמודה"
 
 #. Translators: The label in track finder to search columns.
@@ -1608,6 +1653,7 @@ msgstr "שגיאת בדיקת עדכון."
 msgid "Studio add-on update"
 msgstr "עדכון תוסף הסטודיו"
 
+#. if continuous: _SPLUpdateT.Start(updateInterval, True)
 #. No need to interact with the user.
 #. Translators: Presented when no add-on update is available.
 msgid "No add-on update available."
@@ -1652,6 +1698,7 @@ msgstr "עדכון התוסף מ-%s נכשל"
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
+#, fuzzy
 msgid ""
 "\n"
 "After entering SPL Controller, press:\n"
@@ -1666,6 +1713,7 @@ msgid ""
 "U: Pause.\n"
 "S: Stop with fade.\n"
 "T: Instant stop.\n"
+"C: Announce name and duration of the currently playing track.\n"
 "E: Announce if any encoders are being monitored.\n"
 "I: Announce listener count.\n"
 "Q: Announce Studio status information.\n"
