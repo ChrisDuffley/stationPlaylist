@@ -18,6 +18,7 @@ import threading
 import controlTypes
 import appModuleHandler
 import api
+import globalVars
 import scriptHandler
 import ui
 import nvwave
@@ -605,9 +606,11 @@ class AppModule(appModuleHandler.AppModule):
 		super(AppModule, self).__init__(*args, **kwargs)
 		if self.SPLCurVersion < SPLMinVersion:
 			raise RuntimeError("Unsupported version of Studio is running, exiting app module")
-		# Translators: The sign-on message for Studio app module.
+		# 17.09: do this if minimal startup flag is not present.
 		try:
-			ui.message(_("Using SPL Studio version {SPLVersion}").format(SPLVersion = self.SPLCurVersion))
+			if not globalVars.appArgs.minimal:
+				# Translators: The sign-on message for Studio app module.
+				ui.message(_("Using SPL Studio version {SPLVersion}").format(SPLVersion = self.SPLCurVersion))
 		except (IOError, AttributeError):
 			pass
 		debugOutput("SPL: loading add-on settings")
