@@ -270,11 +270,6 @@ class Encoder(IAccessible):
 		except KeyError:
 			return True
 
-	# Handle focusing to Studio and other central routines once an encoder is connected.
-	# Subclasses should be able to override this if the procedure listed is different.
-	def onConnect(self):
-		pass
-
 	# Format the status message to prepare for monitoring multiple encoders.
 	def encoderStatusMessage(self, message, id):
 		if encoderMonCount[self.encoderType] > 1:
@@ -523,6 +518,7 @@ class SAMEncoder(Encoder):
 					if api.getFocusObject().appModule == "splstudio":
 						continue
 					user32.SetForegroundWindow(user32.FindWindowA("TStudioForm", None))
+				# #37 (17.08.1): if run from another function, the message will not be sent, so must be done here.
 				if self.playAfterConnecting and not encoding:
 					# Do not interupt the currently playing track.
 					if winUser.sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus) == 0:
