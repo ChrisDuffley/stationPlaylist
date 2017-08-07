@@ -232,7 +232,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.finish()
 
 	def script_announceNumMonitoringEncoders(self, gesture):
-		import encoders
+		from . import encoders
 		encoders.announceNumMonitoringEncoders()
 		self.finish()
 
@@ -253,7 +253,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if winUser.sendMessage(SPLWin, 1024, 0, SPLVersion) < 520:
 			studioAppMod = getNVDAObjectFromEvent(winUser.user32.FindWindowA("TStudioForm", None), winUser.OBJID_CLIENT, 0).appModule
 			statusBar = studioAppMod.status(studioAppMod.SPLPlayStatus)
-			for index in xrange(1, 6):
+			for index in range(1, 6):
 				statusInfo.append(statusBar.getChild(index).name)
 		else:
 			# 5.20 and later.
@@ -314,7 +314,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		if obj.appModule.appName in ("splengine", "splstreamer"):
-			import controlTypes, encoders
+			import controlTypes
+			from . import encoders
 			if obj.windowClassName == "TListView":
 				clsList.insert(0, encoders.SAMEncoder)
 			elif obj.windowClassName == "SysListView32" and obj.role == controlTypes.ROLE_LISTITEM:
