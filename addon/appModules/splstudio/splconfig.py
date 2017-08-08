@@ -24,12 +24,8 @@ import globalVars
 import ui
 import gui
 import wx
-if py3:
-	from . import splupdate
-	from .splmisc import SPLCountdownTimer, _metadataAnnouncer
-else:
-	import splupdate
-	from splmisc import SPLCountdownTimer, _metadataAnnouncer
+from . import splupdate
+from .splmisc import SPLCountdownTimer, _metadataAnnouncer
 
 # Until NVDA Core uses Python 3 (preferably 3.3 or later), use a backported version of chain map class.
 # Backported by Jonathan Eunice.
@@ -394,8 +390,7 @@ class ConfigHub(ChainMap):
 	# 17.05: The appTerminating flag is used to suppress profile switching messages.
 	def switchProfile(self, prevProfile, newProfile, appTerminating=False):
 		if not appTerminating:
-			if py3: from .splconfui import _configDialogOpened
-			else: from splconfui import _configDialogOpened
+			from .splconfui import _configDialogOpened
 			if _configDialogOpened:
 				# Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
 				ui.message(_("Add-on settings dialog is open, cannot switch profiles"))
@@ -779,8 +774,7 @@ SPLPrevProfile = None
 # Instant profile switching is just a special case of this function.
 def switchProfile(prevProfile, newProfile):
 	global SPLPrevProfile, _SPLCache
-	if py3: from .splconfui import _configDialogOpened
-	else: from splconfui import _configDialogOpened
+	from .splconfui import _configDialogOpened
 	if _configDialogOpened:
 		# Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
 		ui.message(_("Add-on settings dialog is open, cannot switch profiles"))

@@ -14,12 +14,8 @@ import gui
 import wx
 from winUser import user32
 import tones
-if py3:
-	from . import splupdate
-	from . import splconfig
-else:
-	import splupdate
-	import splconfig
+from . import splupdate
+from . import splconfig
 
 # Until wx.CENTER_ON_SCREEN returns...
 CENTER_ON_SCREEN = wx.CENTER_ON_SCREEN if hasattr(wx, "CENTER_ON_SCREEN") else 2

@@ -33,22 +33,13 @@ from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent
 from NVDAObjects.behaviors import Dialog
 import textInfos
 import tones
-if py3:
-	from . import splconfig
-	from . import splconfui
-	from . import splmisc
-	from . import splupdate
-else:
-	import splconfig
-	import splconfui
-	import splmisc
-	import splupdate
+from . import splconfig
+from . import splconfui
+from . import splmisc
+from . import splupdate
 import addonHandler
 addonHandler.initTranslation()
-if py3:
-	from .spldebugging import debugOutput
-else:
-	from spldebugging import debugOutput
+from .spldebugging import debugOutput
 
 # Make sure the broadcaster is running a compatible version.
 SPLMinVersion = "5.10"
