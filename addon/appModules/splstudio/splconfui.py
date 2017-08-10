@@ -76,6 +76,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 			self.triggerButton.Disable()
 		SPLConfigHelper.addItem(sizer.sizer)
 
+		# Translators: The label of a button to open a dialog to configure general add-on settings such as beep announcement and top and bottom notifications.
+		generalSettingsButton = SPLConfigHelper.addItem(wx.Button(self, label=_("&General add-on settings...")))
+		generalSettingsButton.Bind(wx.EVT_BUTTON, self.onGeneralSettings)
+
 		# Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
 		self.beepAnnounceCheckbox = SPLConfigHelper.addItem(wx.CheckBox(self, label=_("&Beep for status announcements")))
 		self.beepAnnounceCheckbox.SetValue(splconfig.SPLConfig["General"]["BeepAnnounce"])
@@ -544,6 +548,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 		action(flag)
 		self.profiles.SetString(index, profile if not len(flags) else "{0} <{1}>".format(profile, ", ".join(flags)))
 
+	# Various general add-on settings.
+	def onGeneralSettings(self, evt):
+		pass
+	
 	# Alarms Center.
 	def onAlarmsCenter(self, evt):
 		self.Disable()
