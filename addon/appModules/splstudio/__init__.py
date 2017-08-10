@@ -577,7 +577,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Translators: The sign-on message for Studio app module.
 		try:
 			ui.message(_("Using SPL Studio version {SPLVersion}").format(SPLVersion = self.SPLCurVersion))
-		except IOError, AttributeError:
+		except (IOError, AttributeError):
 			pass
 		splconfig.initConfig()
 		# Announce status changes while using other programs.
@@ -881,7 +881,7 @@ class AppModule(appModuleHandler.AppModule):
 		self._focusedTrack = None
 		try:
 			self.prefsMenu.RemoveItem(self.SPLSettings)
-		except AttributeError, wx.PyDeadObjectError:
+		except (RuntimeError, AttributeError, wx.PyDeadObjectError):
 			pass
 		# Tell the handle finder thread it's time to leave this world.
 		self.noMoreHandle.set()
