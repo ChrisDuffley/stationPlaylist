@@ -9,8 +9,10 @@ py3 = sys.version.startswith("3")
 import os # Essentially, update download is no different than file downloads.
 if py3:
 	import pickle
+	from urllib.request import urlopen
 else:
 	import cPickle as pickle
+	from urllib import urlopen
 import threading
 import tempfile
 import ctypes
@@ -61,7 +63,7 @@ def initialize():
 			SPLUpdateChannel = SPLAddonState["UpdateChannel"]
 			if SPLUpdateChannel in ("beta", "prerelease", "lts"):
 				SPLUpdateChannel = "dev"
-	except IOError, KeyError:
+	except (IOError, KeyError):
 		SPLAddonState["PDT"] = 0
 		_updateNow = False
 		SPLUpdateChannel = "dev"
@@ -80,17 +82,16 @@ def terminate():
 	SPLAddonState = None
 
 def checkForAddonUpdate():
-	import urllib
 	updateURL = SPLUpdateURL if SPLUpdateChannel not in channels else channels[SPLUpdateChannel]
 	try:
 		# Look up the channel if different from the default.
-		res = urllib.urlopen(updateURL)
+		res = urlopen(updateURL)
 		res.close()
 	except IOError as e:
 		# NVDA Core 2015.1 and later.
 		if isinstance(e.strerror, ssl.SSLError) and e.strerror.reason == "CERTIFICATE_VERIFY_FAILED":
 			_updateWindowsRootCertificates()
-			res = urllib.urlopen(updateURL)
+			res = urlopen(updateURL)
 		else:
 			raise
 	if res.code != 200:
@@ -267,7 +268,7 @@ def _updateWindowsRootCertificates():
 	crypt = ctypes.windll.crypt32
 	# Get the server certificate.
 	sslCont = ssl._create_unverified_context()
-	u = urllib.urlopen("https://addons.nvda-project.org", context=sslCont)
+	u = urlopen("https://addons.nvda-project.org", context=sslCont)
 	cert = u.fp._sock.getpeercert(True)
 	u.close()
 	# Convert to a form usable by Windows.
