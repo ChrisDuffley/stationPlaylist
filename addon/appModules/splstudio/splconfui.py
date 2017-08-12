@@ -1339,7 +1339,7 @@ class AdvancedOptionsDialog(wx.Dialog):
 		self.autoUpdateCheckbox=advOptionsHelper.addItem(wx.CheckBox(self,label=_("Automatically check for add-on &updates")))
 		self.autoUpdateCheckbox.SetValue(self.Parent.autoUpdateCheck)
 		# Translators: The label for a setting in SPL add-on settings/advanced options to select automatic update interval in days.
-		self.updateInterval=advOptionsHelper.addLabeledControl(_("Update &interval in days"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=180, initial=parent.updateInterval)
+		self.updateInterval=advOptionsHelper.addLabeledControl(_("Update &interval in days"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=180, initial=self.Parent.updateInterval)
 		# For releases that support channel switching.
 		if len(self._updateChannels) > 1:
 			# Translators: The label for a combo box to select update channel.
@@ -1374,7 +1374,8 @@ class AdvancedOptionsDialog(wx.Dialog):
 		# The try (fast ring) builds aren't for the faint of heart.
 		if len(self._updateChannels) > 1:
 			channel = self._updateChannels[self.channels.GetSelection()]
-			if channel == "try" and gui.messageBox(
+			# 17.09: present this dialog if and only if switching to fast ring form other rings.
+			if self.Parent.updateChannel != "try" and channel == "try" and gui.messageBox(
 				# Translators: The confirmation prompt displayed when changing to the fastest development channel (with risks involved).
 				_("You are about to switch to the Test Drive Fast (try) builds channel, the fastest and most unstable development channel. Please note that the selected channel may come with updates that might be unstable at times and should be used for testing and sending feedback to the add-on developer. If you prefer to use stable rleases, please answer no and switch to a more stable update channel. Are you sure you wish to switch to the fastest development channel?"),
 				# Translators: The title of the channel switch confirmation dialog.
@@ -1384,7 +1385,7 @@ class AdvancedOptionsDialog(wx.Dialog):
 				return
 		# If update interval is set to zero, update check will happen every time the app module loads, so warn users.
 		updateInterval = self.updateInterval.Value
-		if updateInterval == 0 and gui.messageBox(
+		if self.Parent.updateInterval > 0 and updateInterval == 0 and gui.messageBox(
 			# Translators: The confirmation prompt displayed when changing update interval to zero days (updates will be checked every time Studio app module loads).
 			_("Update interval has been set to zero days, so updates to the Studio add-on will be checked every time NVDA and/or Studio starts. Are you sure you wish to continue?"),
 			# Translators: The title of the update interval dialog.
