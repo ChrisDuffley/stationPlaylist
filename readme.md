@@ -175,6 +175,10 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 17.09
+
+* If a user enters advanced options dialog under add-on settings while the update channel and interval was set to Test Drive Fast and/or zero days, NVDA will no longer present the channel and/or interval warning message when exitting this dialog.
+
 ## Version 17.08.1
 
 * NVDA will no longer fail to cause Studio to play the first track when an encoder is connected.
