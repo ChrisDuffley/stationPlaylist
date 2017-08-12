@@ -959,9 +959,10 @@ class AppModule(appModuleHandler.AppModule):
 				# Hour value is also filled with leading zero's.
 				# 6.1: Optimize the string builder so it can return just one string.
 				# 17.08: Return the generated string directly.
-				return ":".join([str(hh).zfill(2), str(mm).zfill(2), str(ss).zfill(2)])
+				# 17.09: use modulo formatter to reduce instruction count.
+				return "{hh:02d}:{mm:02d}:{ss:02d}".format(hh = hh, mm = mm, ss = ss)
 			else:
-				return ":".join([str(mm).zfill(2), str(ss).zfill(2)])
+				return "{mm:02d}:{ss:02d}".format(mm = mm, ss = ss)
 
 	# Scripts which rely on API.
 	def script_sayRemainingTime(self, gesture):
