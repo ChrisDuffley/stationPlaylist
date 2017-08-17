@@ -14,7 +14,7 @@ developers seeking to know how to build the add-on, see
 buildInstructions.txt located at the root of the add-on source code
 repository.
 
-IMPORTANT: This add-on requires NVDA 2016.4 or later and StationPlaylist
+IMPORTANT: This add-on requires NVDA 2017.1 or later and StationPlaylist
 Studio 5.10 or later. If using Windows 8 or later, for best experience,
 disable audio ducking mode. Also, add-on 8.0/16.10 requires Studio 5.10 and
 later, and for broadcasters using Studio 5.0x, a long-term support version
@@ -26,8 +26,9 @@ later, and for broadcasters using Studio 5.0x, a long-term support version
   المشغل حاليا.
 * Control+Alt+T (مسح بإصبعين لأسفل بنمط SPL) من نافذة الاستوديو: للإعلان عن
   الوقت المتبقي للمسار أو التراك المشغل حاليا.
-* NVDA+Shift+F12 (مسح بإصبعين لأعلى بنمط SPL) من نافذة الاستوديو: للإعلان عن
-  وقت المذيع.
+* NVDA+Shift+F12 (two finger flick up in SPL touch mode) from Studio window:
+  announces broadcaster time such as 5 minutes to top of the hour. Pressing
+  this command twice will announce minutes and seconds till top of the hour.
 * Alt+NVDA+1 (two finger flick right in SPL mode) from Studio window: Opens
   end of track setting dialog.
 * Alt+NVDA+2 (مسح بأصبعين يسار بنمطSPL) من نافذة الاستوديو: لفتح محاورة
@@ -175,6 +176,8 @@ PlayList Studio." اضغط أي من الأوامر التي سيلي ذكرها
 * اضغط L لتفعيل مدخل الصوت واضغط shift+l لتعطيله.
 * Press R to hear remaining time for the currently playing track.
 * اضغط Shift+R للإعلان عن مدى التقدم في البحث في المكتبة.
+* Press C to let NVDA announce name and duration of the currently playing
+  track.
 * اضغط E للحصول على عدد وأسماء التشفيرات الجاري مراقبتها.
 * Press I to obtain listener count.
 * Press Q to obtain various status information about Studio including
@@ -197,10 +200,12 @@ while. Press Alt+NVDA+4 to configure alarm time in seconds (0 disables it).
 
 ## الباحث عن المسارات
 
-إذا أردت البحث عن أغنية باسم المطرب أو باسم الأغنية, من قائمة المسارات, اضغط
-Control+NVDA+ F. اكتب اسم المطرب أو اسم الأغنية وسوف يضعك NVDA عندها إن وجدت
-أو سيظهر رسالة خطأ إن لم يجد الأغنية التي تبحث عنها. وللبحث عن مطرب أو أغنية
-سابقا اضغط NVDA+f3 أو اضغط NVDA+Shift+f3 للبحث في التالي أو السابق. 
+If you wish to quickly find a song by an artist or by song name, from track
+list, press Control+NVDA+F. Type or choose the name of the artist or the
+song name. NVDA will either place you at the song if found or will display
+an error if it cannot find the song you're looking for. To find a previously
+entered song or artist, press NVDA+F3 or NVDA+Shift+F3 to find forward or
+backward.
 
 ملحوظة: الباحث عن المسارات حساس لحالة الأحرف. 
 
@@ -252,6 +257,49 @@ broadcast profiles.
 بعده ولديك NVDA 2012.3 وما بعده, يمكنك أداء بعض الأوامر من شاشة اللمس. أولا
 استخدم لمسة ب3 أصابع للانتقال لنمط اللمس, ثم استخدم أوامر اللمس المسرودة
 أعلاه لأداء المهام.
+
+## Version 17.08.1
+
+* NVDA will no longer fail to cause Studio to play the first track when an
+  encoder is connected.
+
+## Version 17.08
+
+* Changes to update channel labels: try build is now Test Drive Fast,
+  development channel is Test Drive Slow. The true "try" builds will be
+  reserved for actual try builds that require users to manually install a
+  test version.
+* Update interval can now be set to 0 (zero) days. This allows the add-on to
+  check for updates when NVDA and/or SPL Studio starts. A confirmation will
+  be required to change update interval to zero days.
+* NVDA will no longer fail to check for add-on updates if update interval is
+  set to 25 days or longer.
+* In add-on settings, added a checkbox to let NvDA play a sound when
+  listener requests arrive. To use this fully, requests window must pop up
+  when requests arrive.
+* Pressing broadcaster time command (NVDA+Shift+F12) twice will now cause
+  NVDA to announce minutes and seconds remaining in the current hour.
+* It is now possible to use Track Finder (Control+NVDA+F) to search for
+  names of tracks you've searched before by selecting a search term from a
+  history of terms.
+* When announcing title of current and next track via SPL Assistant, it is
+  now possible to include information about which Studio internal player
+  will play the track (e.g. player 1).
+* Added a setting in add-on settings under status announcements to include
+  player information when announcing title of the current and the next
+  track.
+* Fixed an issue in temporary cue and other dialogs where NVDA would not
+  announce new values when manipulating time pickers.
+* NVDA can suppress announcement of column headers such as Artist and
+  Category when reviewing tracks in playlist viewer. This is a broadcast
+  profile specific setting.
+* Added a checkbox in add-on settings dialog to suppress announcement of
+  column headers when reviewing tracks in playlist viewer.
+* Added a command in SPL Controller layer to announce name and duration of
+  the currently playing track from anywhere (C).
+* When obtaining status information via SPL Controller (Q) while using
+  Studio 5.1x, information such as microphone status, cart edit mode and
+  others will also be announced in addition to playback and automation.
 
 ## Version 17.06
 
@@ -936,14 +984,6 @@ for stable releases.
 ## مستجدات الإصدار 1.0
 
 * إصدار أولي
-
-[1]: http://addons.nvda-project.org/files/get.php?file=spl
-
-[2]: http://addons.nvda-project.org/files/get.php?file=spl-dev [2]: 
-
-[3]: http://www.josephsl.net/files/nvdaaddons/get.php?file=spl-lts7
-
-[4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 
 [[!tag dev stable]]
 

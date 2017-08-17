@@ -15,7 +15,7 @@ module complémentaire][4]. Pour les développeurs cherchant à savoir comment
 construire le module complémentaire, voir buildInstructions.txt situé à la
 racine du code source du module complémentaire du référentiel.
 
-IMPORTANT : Ce module complémentaire nécessite NVDA 2016.4 ou plus récent et
+IMPORTANT : Ce module complémentaire nécessite NVDA 2017.1 ou plus récent et
 StationPlaylist Studio 5.10 ou version ultérieure. Si vous utilisez Windows
 8 ou une version ultérieure, pour une meilleure expérience, désactiver le
 Mode d'atténuation audio. En outre, le module complémentaire 8.0/16.10
@@ -30,8 +30,9 @@ nécessite Studio 5.10 et ultérieur, et pour les diffusions utilisant Studio
   depuis la fenêtre de Studio : annoncer le temps restant pour la piste en
   cours de lecture.
 * NVDA+Maj+F12 (glissement à deux doigts vers le haut en mode tactile SPL)
-  depuis la fenêtre de Studio: annonce le temps de diffusion par exemple 5
-  minutes à la fin de l'heure.
+  depuis la fenêtre de Studio: annonce le temps de diffusion tel que 5
+  minutes en haut de l'heure. Appuyez deux fois sur cette commande pour
+  annoncer les minutes et les secondes jusqu'au début de l'heure.
 * Alt+NVDA+1 (glissement à deux doigts vers la droite en mode SPL) depuis la
   fenêtre de Studio: Ouvre la boîte de dialogue  paramètre fin de piste.
 * Alt+NVDA+2 (glissement à deux doigts vers la gauche en mode tactile SPL)
@@ -211,6 +212,8 @@ Les commandes disponibles pour le Contrôleur SPL sont:
   lecture.
 * Appuyez sur Maj+R pour obtenir un rapport sur  l'avancement du balayage de
   la bibliothèque.
+* Appuyez sur C pour laisser NVDA annoncer le nom et la durée de la piste en
+  cours de lecture.
 * Appuyez sur E pour obtenir un nombre et des étiquettes pour les encodeurs
   étant contrôlés.
 * Appuyez sur I pour obtenir le nombre d'auditeurs.
@@ -242,9 +245,9 @@ Si vous souhaitez trouver rapidement une chanson par artiste ou par nom de
 chanson, depuis la liste de piste, appuyez sur Contrôle+NVDA+F. Tapez le nom
 de l'artiste ou le nom de la chanson. NVDA va vous placer soit à la chanson
 Si cell-ci est trouvé ou il affichera une erreur si elle ne trouve pas la
-chanson que vous recherchez. Pour trouver une chanson précédemment entrée ou
-artiste, appuyez sur NVDA+F3 ou NVDA+Maj+F3 Pour trouver en avant ou en
-arrière.
+chanson que vous recherchez. Pour trouver une chanson ou un artiste
+précédemment entrée, appuyez sur NVDA+F3 ou NVDA+Maj+F3 Pour trouver en
+avant ou en arrière.
 
 Remarque: le Chercheur de piste est sensible à la casse.
 
@@ -301,6 +304,58 @@ ultérieure installé, vous pouvez exécuter certaines commandes Studio depuis
 un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
+
+## Version 17.08.1
+
+* NVDA ne sera plus en mesure de laisser Studio jouer la première piste
+  lorsqu'un encodeur est connecté.
+
+## Version 17.08
+
+* Changements apportées à la mise à jour des étiquettes du canal : une build
+  d'essai est maintenant Test Drive Fast, le canal de développement est Test
+  Drive Slow. Les vraies builds "essai" seront réservées aux builds d'essai
+  réelles qui nécessitent que les utilisateurs installent manuellement une
+  version de test.
+* L'intervalle de mise à jour peut maintenant être réglé sur 0 (zéro)
+  jours. Cela permet au module complémentaire de vérifier les mises à jour
+  lorsque NVDA et/ou SPL Studio démarrent. Une confirmation sera nécessaire
+  pour modifier l'intervalle de mise à jour à zéro jours.
+* NVDA ne parviendra plus à vérifier les mises à jour du module
+  complémentaire si l'intervalle de mise à jour est réglé sur 25 jours ou
+  plus.
+* Dans les paramètres du module complémentaires, il a été ajouté une case à
+  cocher pour laisser NVDA jouer un son lorsque les demandes des auditeurs
+  arrivent. Pour l'utiliser complètement, la fenêtre des requêtes doit
+  apparaître lorsque les demandes arrivent.
+* En appuyant sur la commande de temps de diffusion (NVDA+Maj+F12) deux
+  fois, NVDA annoncera les minutes et les secondes restant dans l'heure
+  actuelle.
+* Il est maintenant possible d'utiliser Chercheur de piste (Control + NVDA +
+  F) pour rechercher les noms des pistes que vous avez recherchées avant en
+  sélectionnant un terme de recherche à partir d'un historique de termes.
+* Lors de l'annonce du titre de la piste actuelle et suivante via
+  l'Assistant SPL, il est maintenant possible d'inclure des informations sur
+  le lecteur interne de Studio qui jouera la piste (par exemple, le lecteur
+  1).
+* Ajout d'un paramètre dans les paramètres du module complémentaire sous le
+  statut des annonces pour inclure l'information du lecteur lors de
+  l'annonce du titre de la piste actuelle et suivante.
+* Correction d'un problème dans le caractère indicateur temporaire et
+  d'autres dialogues où NVDA n'indiquerait pas de nouvelles valeurs lors de
+  la manipulation des horodateurs.
+* NVDA peut supprimer l'annonce des titres de colonne tels que l'artiste et
+  la catégorie lors de la révision des pistes dans la visionneuse de
+  playlist. Il s'agit d'un paramètre spécifique au profil de diffusion.
+* Ajouté une case à cocher   dans la boîte de dialogue paramètres du module
+  complémentaire pour supprimer l'annonce des titres de colonnes lors de la
+  révision des pistes dans la visionneuse de playlist.
+* Ajout d'une commande dans la Couche Contrôleur SPL pour annoncer le nom et
+  la durée de la piste en cours de lecture de n'importe où (C).
+* Lorsque vous obtenez des informations du statut via le Contrôleur SPL (Q)
+  pendant l'utilisation de Studio 5.1x, des informations telles que le
+  statut du microphone, mode édition chariot et d'autres seront également
+  annoncées en plus de la lecture et de l'automatisation.
 
 ## Version 17.06
 
@@ -1179,14 +1234,6 @@ utilisateurs des versions antérieures de Studio.
 ## Changements pour la version 1.0
 
 * Première version.
-
-[1]: http://addons.nvda-project.org/files/get.php?file=spl
-
-[2]: http://addons.nvda-project.org/files/get.php?file=spl-dev
-
-[3]: http://www.josephsl.net/files/nvdaaddons/get.php?file=spl-lts7
-
-[4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 
 [[!tag dev stable]]
 
