@@ -15,7 +15,7 @@ complemento][4]. Para los desarrolladores que busquen cómo compilar el
 complemento, consulta buildInstructions.txt localizado en la raíz del
 repositorio del código fuente del complemento.
 
-IMPORTANTE: Este complemento requiere de NVDA 2016.4 o posterior y de
+IMPORTANTE: Este complemento requiere de NVDA 2017.1 o posterior y de
 StationPlaylist Studio 5.10 o posterior. Si estás utilizando Windows 8 y
 posterior, deshabilita el modo de atenuación de audio. También, el
 complemento 8.0/16.10 requiere de Studio 5.10 y posterior, y para
@@ -31,7 +31,8 @@ transmisores que utilicen Studio 5.0x, una versión de soporte long-term
   que se esté reproduciendo.
 * NVDA+Shift+F12 (deslizar  con dos dedos hacia arriba en modo táctil para
   SPL) desde la ventana Studio: anuncia el tiempo de emisión tal como 5
-  minutos para el principio de la hora.
+  minutos para el principio de la hora. Pulsando esta orden dos veces
+  anunciará los minutos y segundos hasta la hora.
 * Alt+NVDA+1 (deslizar dos dedos a la derecha en modo SPL) desde la ventana
   de Studio: abre el diálogo de opciones de fin de pista.
 * Alt+NVDA+2 (deslizar  con dos dedos hacia a la izquierda en modo táctil
@@ -206,6 +207,8 @@ Las órdenes disponibles para el SPL Controller son:
   reproducción.
 * Pulsa Shift+R para obtener un informe sobre el progreso del escaneado de
   la biblioteca.
+* Pulsa C para permitir a NVDA anunciar el nombre y la duración de la pista
+  actualmente en reproducción.
 * Pulsa E para obtener una cuenta y etiquetas de los codificadores que están
   siendo monitorizados.
 * Pulsa I para obtener el recuento de oyentes.
@@ -237,7 +240,7 @@ de la canción, desde la lista de pistas, pulsa Control+NVDA+F. Teclea el
 nombre del artista o el nombre de la canción. NVDA te colocará en la canción
 si la encontró o mostrará un error si no pudo encontrar la canción que estás
 buscando. Para encontrar una canción o artista introducidos anteriormente,
-pulsa NVDA+F3 o NVDA+Shift+F3 para buscarla adelante o atrás.
+pulsa NVDA+Shift+F3 para buscarla hacia adelante o atrás.
 
 Nota: Track Finder es sensible a las mayúsculas.
 
@@ -294,6 +297,54 @@ Windows 8 o posterior y tienes NVDA 2012.3 o posterior instalado, puedes
 realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
+
+## Versión 17.08.1
+
+* NVDA ya no fallará causando que Studio reproduzca la primera pista cuando
+  esté conectado un codificador.
+
+## Versión 17.08
+
+* Cambios para actualizar las etiquetas de canales: try build ahora es Test
+  Drive Fast, development channel es Test Drive Slow. Las compilaciones
+  verdaderas "try" se reservarán para las compilaciones reales try que
+  requieran que los usuarios instalen manualmente una versión test.
+* El intervalo de actualización ahora puede configurarse a 0 (cero)
+  días. Esto permite al complemento buscar actualizaciones cuando NVDA y/o
+  SPL Studio arranquen. Se requerirá de una confirmación para cambiar el
+  intervalo de actualización a cero días.
+* NVDA ya no fallará al buscar actualizaciones del complemento si el
+  intervalo de actualización se configura a 25 días o más.
+* En la configuración del complemento, se añadió una casilla de verificación
+  para permitir a NVDA reproducir un sonido cuando un escuchante solicite
+  entrar. Para utilizar esto completamente, la ventana de peticiones debe
+  desplegarse cuando llegue la petición.
+* Al pulsar dos veces la orden tiempo de transmisión (NVDA+Shift+F12) ahora
+  causará que NVDA anuncie los minutos y segundos restantes en la hora
+  actual.
+* Ahora es posible utilizar Buscador de Pista (Control+NVDA+F) para buscar
+  nombres de pistas que hayas buscado antes seleccionando un término de
+  búsqueda desde un historial de términos.
+* Al anunciar el título de la pista actual o siguiente a través del SPL
+  Assistant, ahora es posible incluir información acerca de qué reproductor
+  interno de Studio reproducirá la pista (ej.: player 1).
+* Añadida una opción en la configuración del complemento en anuncios de
+  estado para incluir información del reproductor al anunciar el título de
+  la pista actual y siguiente .
+* Corregido un problema en la cola temporal y otros diálogos donde NVDA no
+  anunciaría los nuevos valores al manipular temporizadores.
+* NVDA puede suprimir el anunciado de encabezados de columna tales como
+  Artista y Categoría cuando se revisan pistas en el visualizador de listas
+  de reproducción. Esta es una opción específica del perfil de transmisión.
+* Añadida una casilla de verificación en el diálogo de opciones del
+  complemento para suprimir el anunciado  de los encabezados de columna al
+  revisar pistas en el visualizador de listas de reproducción.
+* Añadida una orden a SPL Controller para informar del nombre y la duración
+  de la pista actual en reproducción desde cualquier sitio (c).
+* Al obtener información de estado a través de SPL Controller (Q) mientras
+  se utiliza Studio 5.1x, la información tal como estado del micrófono, modo
+  edición del cart y otra también se anunciará además de reproducción y
+  automatización.
 
 ## Versión 17.06
 
@@ -1109,14 +1160,6 @@ utilizando versiones anteriores de Studio.
 ## Cambios para 1.0
 
 * Versión inicial.
-
-[1]: http://addons.nvda-project.org/files/get.php?file=spl
-
-[2]: http://addons.nvda-project.org/files/get.php?file=spl-dev
-
-[3]: http://www.josephsl.net/files/nvdaaddons/get.php?file=spl-lts7
-
-[4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 
 [[!tag dev stable]]
 
