@@ -34,10 +34,10 @@ from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent
 from NVDAObjects.behaviors import Dialog
 import textInfos
 import tones
-import splconfig
-import splconfui
-import splmisc
-import splupdate
+from . import splconfig
+from . import splconfui
+from . import splmisc
+from . import splupdate
 import addonHandler
 addonHandler.initTranslation()
 

@@ -241,7 +241,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.finish()
 
 	def script_announceNumMonitoringEncoders(self, gesture):
-		import encoders
+		from . import encoders
 		encoders.announceNumMonitoringEncoders()
 		self.finish()
 
@@ -282,7 +282,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		if obj.appModule.appName in ("splengine", "splstreamer"):
-			import encoders
+			from . import encoders
 			if obj.windowClassName == "TListView":
 				clsList.insert(0, encoders.SAMEncoder)
 			elif obj.windowClassName == "SysListView32":

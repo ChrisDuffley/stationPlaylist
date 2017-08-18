@@ -15,8 +15,8 @@ import gui
 import wx
 from winUser import user32
 import tones
-import splupdate
-import splconfig
+from . import splupdate
+from . import splconfig
 
 
 # Configuration dialog.

@@ -92,7 +92,7 @@ class SPLFindDialog(wx.Dialog):
 		mainSizer.Add(findSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
 		if columnSearch:
-			import splconfig
+			from . import splconfig
 			columnSizer = wx.BoxSizer(wx.HORIZONTAL)
 			# Translators: The label in track finder to search columns.
 			label = wx.StaticText(self, wx.ID_ANY, label=_("C&olumn to search:"))
@@ -362,7 +362,8 @@ class SPLCountdownTimer(object):
 # Module-level version of metadata announcer.
 # Moved to this module in 2016 to allow this function to work while Studio window isn't focused.
 def _metadataAnnouncer(reminder=False, handle=None):
-	import time, nvwave, queueHandler, speech, splconfig
+	import time, nvwave, queueHandler, speech
+	from . import splconfig
 	if handle is None: handle = user32.FindWindowA("SPLStudio", None)
 	# If told to remind and connect, metadata streaming will be enabled at this time.
 	# 6.0: Call Studio API twice - once to set, once more to obtain the needed information.

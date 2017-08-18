@@ -16,8 +16,8 @@ import globalVars
 import ui
 import gui
 import wx
-import splupdate
-from splmisc import SPLCountdownTimer, _metadataAnnouncer
+from . import splupdate
+from .splmisc import SPLCountdownTimer, _metadataAnnouncer
 
 # Configuration management
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
@@ -631,7 +631,7 @@ SPLTriggerProfile = None
 # Instant profile switching is just a special case of this function.
 def switchProfile(prevProfile, newProfile):
 	global SPLConfig, SPLActiveProfile, SPLPrevProfile
-	from splconfui import _configDialogOpened
+	from .splconfui import _configDialogOpened
 	if _configDialogOpened:
 		# Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
 		ui.message(_("Add-on settings dialog is open, cannot switch profiles"))
