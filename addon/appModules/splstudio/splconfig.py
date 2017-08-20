@@ -735,6 +735,7 @@ def updateInit():
 		t.start()
 		splupdate._updateNow = False
 		return
+	# 15.9: the interval assignment and update checker in the end are hereby deprecated in order to get around interval overflow problem (as seen in 17.08 stable).
 	currentTime = time.time()
 	nextCheck = splupdate.SPLAddonCheck+(SPLConfig["Update"]["UpdateInterval"]* 86400.0)
 	if splupdate.SPLAddonCheck < currentTime < nextCheck:
@@ -745,8 +746,8 @@ def updateInit():
 		t = threading.Thread(target=splupdate.updateCheck, kwargs={"auto": True}) # No repeat here.
 		t.daemon = True
 		t.start()
-	splupdate._SPLUpdateT = wx.PyTimer(autoUpdateCheck)
-	splupdate._SPLUpdateT.Start(interval * 1000, True)
+	#splupdate._SPLUpdateT = wx.PyTimer(autoUpdateCheck)
+	#splupdate._SPLUpdateT.Start(interval * 1000, True)
 
 
 # Let SPL track item know if it needs to build description pieces.

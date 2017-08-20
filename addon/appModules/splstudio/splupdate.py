@@ -103,7 +103,8 @@ def updateCheck(auto=False, continuous=False, confUpdateInterval=1):
 	if not _retryAfterFailure: SPLAddonCheck = time.time()
 	updateInterval = confUpdateInterval*_updateInterval*1000
 	# Should the timer be set again?
-	if continuous and not _retryAfterFailure: _SPLUpdateT.Start(updateInterval, True)
+	# 15.9: Deprecated due to possible overflow error.
+	#if continuous and not _retryAfterFailure: _SPLUpdateT.Start(updateInterval, True)
 	# Auto disables UI portion of this function if no updates are pending.
 	# All the information will be stored in the URL object, so just close it once the headers are downloaded.
 	updateCandidate = False
