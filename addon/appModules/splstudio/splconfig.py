@@ -159,11 +159,17 @@ class ConfigHub(ChainMap):
 		self.newProfiles = set()
 		# Reset flag (only engaged if reset did happen).
 		self.resetHappened = False
+		# 17.09 only: a private variable to be set when config must become volatile.
+		self._volatileConfig = False
 
 	# Various properties
 	@property
 	def activeProfile(self):
 		return self.profiles[0].name
+
+	@property
+	def volatileConfig(self):
+		return self._volatileConfig
 
 	# Unlock (load) profiles from files.
 	# LTS: Allow new profile settings to be overridden by a parent profile.
@@ -318,6 +324,8 @@ class ConfigHub(ChainMap):
 
 	def save(self):
 		# Save all config profiles.
+		# 17.09: but not when they are volatile.
+		if self.volatileConfig: return
 		# 7.0: Save normal profile first.
 		# Temporarily merge normal profile.
 		# 8.0: Locate the index instead.
@@ -348,6 +356,9 @@ class ConfigHub(ChainMap):
 
 	def _saveVolatile(self):
 		# Similar to save function except keeps the config hub alive, useful for testing new options or troubleshooting settings.
+		if self.configVolatile:
+			raise RuntimeError("SPL config is already volatile")
+		self._volatileConfig = True
 		normalProfile = self.profileIndexByName(defaultProfileName)
 		_preSave(self.profiles[normalProfile])
 		if self.resetHappened or shouldSave(self.profiles[normalProfile]):
