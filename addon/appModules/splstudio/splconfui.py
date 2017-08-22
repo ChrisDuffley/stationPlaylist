@@ -76,6 +76,17 @@ class SPLConfigDialog(gui.SettingsDialog):
 			self.triggerButton.Disable()
 		SPLConfigHelper.addItem(sizer.sizer)
 
+		self.beepAnnounce = splconfig.SPLConfig["General"]["BeepAnnounce"]
+		self.messageVerbosity = splconfig.SPLConfig["General"]["MessageVerbosity"]
+		self.brailleTimer = splconfig.SPLConfig["General"]["BrailleTimer"]
+		self.libScan = splconfig.SPLConfig["General"]["LibraryScanAnnounce"]
+		self.hourAnnounce = splconfig.SPLConfig["General"]["TimeHourAnnounce"]
+		self.verticalColumn = splconfig.SPLConfig["General"]["VerticalColumnAnnounce"]
+		self.categorySounds = splconfig.SPLConfig["General"]["CategorySounds"]
+		self.trackComments = splconfig.SPLConfig["General"]["TrackCommentAnnounce"]
+		self.topBottom = splconfig.SPLConfig["General"]["TopBottomAnnounce"]
+		self.requestsAlert = splconfig.SPLConfig["General"]["RequestsAlert"]
+
 		# Translators: The label of a button to open a dialog to configure general add-on settings such as beep announcement and top and bottom notifications.
 		generalSettingsButton = SPLConfigHelper.addItem(wx.Button(self, label=_("&General add-on settings...")))
 		generalSettingsButton.Bind(wx.EVT_BUTTON, self.onGeneralSettings)
@@ -930,16 +941,16 @@ class GeneralSettingsDialog(wx.Dialog):
 
 	def onOk(self, evt):
 		parent = self.Parent
-		parent.beepAnnounceCheckbox.SetValue(self.beepAnnounceCheckbox.Value)
-		parent.verbosityList.SetSelection(self.verbosityList.GetSelection())
-		parent.brailleTimerList.SetSelection(self.brailleTimerList.GetSelection())
-		parent.libScanList.SetSelection(self.libScanList.GetSelection())
-		parent.hourAnnounceCheckbox.SetValue(self.hourAnnounceCheckbox.Value)
-		parent.verticalColumnsList.SetSelection(self.verticalColumnsList.GetSelection())
-		parent.categorySoundsCheckbox.SetValue(self.categorySoundsCheckbox.Value)
-		parent.trackCommentList.SetSelection(self.trackCommentList.GetSelection())
-		parent.topBottomCheckbox.SetValue(self.topBottomCheckbox.Value)
-		parent.requestsAlertCheckbox.SetValue(self.requestsAlertCheckbox.Value)
+		parent.beepAnnounce = self.beepAnnounceCheckbox.Value
+		parent.messageVerbosity = self.verbosityLevels[self.verbosityList.GetSelection()][0]
+		parent.brailleTimer = self.brailleTimerValues[self.brailleTimerList.GetSelection()][0]
+		parent.libScan = self.libScanValues[self.libScanList.GetSelection()][0]
+		parent.hourAnnounce = self.hourAnnounceCheckbox.Value
+		parent.verticalColumn = self.verticalColumnsList.GetStringSelection() if self.verticalColumnsList.GetSelection() != 0 else None
+		parent.categorySounds = self.categorySoundsCheckbox.Value
+		parent.trackComments = self.trackCommentValues[self.trackCommentList.GetSelection()][0]
+		parent.topBottom = self.topBottomCheckbox.Value
+		parent.requestsAlert = self.requestsAlertCheckbox.Value
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()
