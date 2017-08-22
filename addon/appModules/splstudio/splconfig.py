@@ -159,11 +159,17 @@ class ConfigHub(ChainMap):
 		self.newProfiles = set()
 		# Reset flag (only engaged if reset did happen).
 		self.resetHappened = False
+		# 17.09 only: a private variable to be set when config must become volatile.
+		self._volatileConfig = False
 
 	# Various properties
 	@property
 	def activeProfile(self):
 		return self.profiles[0].name
+
+	@property
+	def volatileConfig(self):
+		return self._volatileConfig
 
 	# Unlock (load) profiles from files.
 	# LTS: Allow new profile settings to be overridden by a parent profile.
@@ -318,6 +324,8 @@ class ConfigHub(ChainMap):
 
 	def save(self):
 		# Save all config profiles.
+		# 17.09: but not when they are volatile.
+		if self.volatileConfig: return
 		# 7.0: Save normal profile first.
 		# Temporarily merge normal profile.
 		# 8.0: Locate the index instead.
@@ -346,7 +354,35 @@ class ConfigHub(ChainMap):
 		self.newProfiles.clear()
 		self.profileHistory = None
 
-			# Class version of module-level functions.
+	def _saveVolatile(self):
+		# Similar to save function except keeps the config hub alive, useful for testing new options or troubleshooting settings.
+		if self.configVolatile:
+			raise RuntimeError("SPL config is already volatile")
+		self._volatileConfig = True
+		normalProfile = self.profileIndexByName(defaultProfileName)
+		_preSave(self.profiles[normalProfile])
+		if self.resetHappened or shouldSave(self.profiles[normalProfile]):
+			# 17.09: temporarily save a copy of the current column headers set.
+			includedColumnsTemp = set(self.profiles[normalProfile]["ColumnAnnouncement"]["IncludedColumns"])
+			self.profiles[normalProfile]["ColumnAnnouncement"]["IncludedColumns"] = list(self.profiles[normalProfile]["ColumnAnnouncement"]["IncludedColumns"])
+			self.profiles[normalProfile].write()
+			self.profiles[normalProfile]["ColumnAnnouncement"]["IncludedColumns"] = includedColumnsTemp
+		for configuration in self.profiles:
+			# Normal profile is done.
+			if configuration.name == defaultProfileName: continue
+			if configuration is not None:
+				# 7.0: See if profiles themselves must be saved.
+				# This must be done now, otherwise changes to broadcast profiles (cached) will not be saved as presave removes them.
+				# 8.0: Bypass cache check routine if this is a new profile or if reset happened.
+				# Takes advantage of the fact that Python's "or" operator evaluates from left to right, considerably saving time.
+				if self.resetHappened or configuration.name in self.newProfiles or (configuration.name in _SPLCache and shouldSave(configuration)):
+					columnHeadersTemp2 = set(configuration["ColumnAnnouncement"]["IncludedColumns"])
+					configuration["ColumnAnnouncement"]["IncludedColumns"] = list(configuration["ColumnAnnouncement"]["IncludedColumns"])
+					_preSave(configuration)
+					configuration.write()
+					configuration["ColumnAnnouncement"]["IncludedColumns"] = set(columnHeadersTemp2)
+
+	# Class version of module-level functions.
 
 	# Reset config.
 	# Profile indicates the name of the profile to be reset.
