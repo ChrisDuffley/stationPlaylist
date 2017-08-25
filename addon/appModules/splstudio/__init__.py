@@ -1636,8 +1636,13 @@ class AppModule(appModuleHandler.AppModule):
 			ui.message("Please return to playlist viewer before invoking this command.")
 			return
 		if obj.role == controlTypes.ROLE_LIST:
-			ui.message("00:00")
-			return
+			# 17.09/15.9-LTS: report if no playlist has been loaded.
+			if not studioAPI(0, 124, ret=True):
+				# Translators: reported when no playlist has been loaded when trying to obtain remaining time for a playlist.
+				ui.message(_("No playlist has been loaded."))
+				return
+			else:
+				obj = obj.firstChild
 		col = obj.indexOf("Duration")
 		totalDuration = 0
 		while obj is not None:
