@@ -1453,8 +1453,8 @@ class AppModule(appModuleHandler.AppModule):
 		if not studioIsRunning():
 			return False
 		if api.getForegroundObject().windowClassName != "TStudioForm":
-			# Translators: Presented when track time anlaysis cannot be performed because user is not focused on playlist viewer.
-			ui.message(_("Not in playlist viewer, cannot perform track time analysis or gather playlist snapshot statistics"))
+			# Translators: Presented when track time analysis and/or playlist snapshot gathering cannot be performed because user is not focused on playlist viewer.
+			ui.message(_("Not in playlist viewer, cannot perform track time analysis or gather playlist snapshot statistics."))
 			return False
 		return True
 
@@ -1958,9 +1958,14 @@ class AppModule(appModuleHandler.AppModule):
 		if self._trackAnalysisAllowed():
 			focus = api.getFocusObject()
 			if focus.role == controlTypes.ROLE_LIST:
-				# Translators: Presented when track time analysis cannot be activated.
-				ui.message(_("No tracks were added, cannot perform track time analysis"))
-				return
+				if not studioAPI(0, 124, ret=True):
+					# Translators: reported when no playlist has been loaded when trying to perform track time analysis.
+					ui.message(_("No playlist has been loaded, cannot perform track time analysis."))
+					return
+				else:
+					# Translators: Presented when track time analysis cannot be activated.
+					ui.message(_("No tracks are selected, cannot perform track time analysis."))
+					return
 			if scriptHandler.getLastScriptRepeatCount() == 0:
 				self._analysisMarker = focus.IAccessibleChildID-1
 				# Translators: Presented when track time analysis is turned on.
