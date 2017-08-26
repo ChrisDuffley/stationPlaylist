@@ -1453,7 +1453,7 @@ class AppModule(appModuleHandler.AppModule):
 		if not studioIsRunning():
 			return False
 		if api.getForegroundObject().windowClassName != "TStudioForm":
-			# Translators: Presented when track time anlaysis cannot be performed because user is not focused on playlist viewer.
+			# Translators: Presented when track time analysis and/or playlist snapshot gathering cannot be performed because user is not focused on playlist viewer.
 			ui.message(_("Not in playlist viewer, cannot perform track time analysis or gather playlist snapshot statistics."))
 			return False
 		return True

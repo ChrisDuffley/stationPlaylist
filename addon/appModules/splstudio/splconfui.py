@@ -109,7 +109,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		("message",_("message")),
 		# Translators: One of the alarm notification options.
 		("both",_("both beep and message"))]
-				# Translators: The label for a setting in SPL add-on dialog to control alarm announcement type.
+		# Translators: The label for a setting in SPL add-on dialog to control alarm announcement type.
 		self.alarmAnnounceList = SPLConfigHelper.addLabeledControl(_("&Alarm notification:"), wx.Choice, choices=[x[1] for x in self.alarmAnnounceValues])
 		alarmAnnounceCurValue=splconfig.SPLConfig["General"]["AlarmAnnounce"]
 		selection = (x for x,y in enumerate(self.alarmAnnounceValues) if y[0]==alarmAnnounceCurValue).next()
