@@ -342,6 +342,7 @@ msgstr ""
 msgid "StationPlaylist Studio"
 msgstr "StationPlaylist Studio"
 
+#. Translators: The sign-on message for Studio app module.
 #, python-brace-format
 msgid "Using SPL Studio version {SPLVersion}"
 msgstr "Folosiți SPL Studio, versiunea {SPLVersion}."
@@ -561,10 +562,10 @@ msgid "Opens a dialog to quickly enable or disable metadata streaming."
 msgstr ""
 "Deschide un dialog pentru a activa sau dezactiva rapid metadata streaming."
 
-#. Translators: Presented when track time anlaysis cannot be performed because user is not focused on playlist viewer.
+#. Translators: Presented when track time analysis and/or playlist snapshot gathering cannot be performed because user is not focused on playlist viewer.
 msgid ""
 "Not in playlist viewer, cannot perform track time analysis or gather "
-"playlist snapshot statistics"
+"playlist snapshot statistics."
 msgstr ""
 
 #. Translators: one of the results for playlist snapshots feature for announcing total number of items in a playlist.
@@ -663,6 +664,10 @@ msgstr ""
 "Comandă de niveluri pentru asistentul SPL. Vedeți manualul add-on-ului "
 "pentru mai multe informații despre comenzile disponibile."
 
+#. Translators: reported when no playlist has been loaded when trying to obtain remaining time for a playlist.
+msgid "No playlist has been loaded."
+msgstr ""
+
 #. Translators: Presented when playlist modification is unavailable (for Studio 4.33 and earlier)
 msgid "Playlist modification not available"
 msgstr "Modificare playlist nedisponibilă"
@@ -721,8 +726,15 @@ msgstr "Se monitorizează scanarea librăriei"
 msgid "Scanning is in progress"
 msgstr "Scanarea este în curs..."
 
+#. Translators: reported when no playlist has been loaded when trying to perform track time analysis.
+#, fuzzy
+msgid "No playlist has been loaded, cannot perform track time analysis."
+msgstr ""
+"Nicio melodie adăugată, nu se poate începe analizarea timpul melodiilor"
+
 #. Translators: Presented when track time analysis cannot be activated.
-msgid "No tracks were added, cannot perform track time analysis"
+#, fuzzy
+msgid "No tracks are selected, cannot perform track time analysis."
 msgstr ""
 "Nicio melodie adăugată, nu se poate începe analizarea timpul melodiilor"
 
@@ -739,6 +751,10 @@ msgid "Marks focused track as start marker for track time analysis"
 msgstr ""
 "Marchează melodia focusată ca marcaj de pornire pentru timpul de analizare a "
 "melodiei"
+
+msgid "No tracks were added, cannot perform track time analysis"
+msgstr ""
+"Nicio melodie adăugată, nu se poate începe analizarea timpul melodiilor"
 
 #. Translators: Presented when track time analysis cannot be used because start marker is not set.
 msgid ""
@@ -1734,7 +1750,6 @@ msgstr "Eroare la verificarea pentru actualizări."
 msgid "Studio add-on update"
 msgstr "Verifică actualizări addon"
 
-#. if continuous: _SPLUpdateT.Start(updateInterval, True)
 #. No need to interact with the user.
 #. Translators: Presented when no add-on update is available.
 msgid "No add-on update available."

@@ -346,6 +346,7 @@ msgstr ""
 msgid "StationPlaylist Studio"
 msgstr "StationPlaylist Studio"
 
+#. Translators: The sign-on message for Studio app module.
 #, python-brace-format
 msgid "Using SPL Studio version {SPLVersion}"
 msgstr "Utilizando versión de SPL Studio {SPLVersion}"
@@ -566,10 +567,11 @@ msgstr ""
 "Abre un diálogo para habilitar ou deshabilitar rápidamente os metadatos do "
 "streaming."
 
-#. Translators: Presented when track time anlaysis cannot be performed because user is not focused on playlist viewer.
+#. Translators: Presented when track time analysis and/or playlist snapshot gathering cannot be performed because user is not focused on playlist viewer.
+#, fuzzy
 msgid ""
 "Not in playlist viewer, cannot perform track time analysis or gather "
-"playlist snapshot statistics"
+"playlist snapshot statistics."
 msgstr ""
 "Non estás no visualizador de lista de reprodución, non podes realizar a "
 "análise de tempo ou recopilar estadísticas de instantáneas de listaxes de "
@@ -671,6 +673,10 @@ msgstr ""
 "A orde SPL Assistant layer. Consulta a guía do complemento para obter máis "
 "información sobre as ordes dispoñibles."
 
+#. Translators: reported when no playlist has been loaded when trying to obtain remaining time for a playlist.
+msgid "No playlist has been loaded."
+msgstr ""
+
 #. Translators: Presented when playlist modification is unavailable (for Studio 4.33 and earlier)
 msgid "Playlist modification not available"
 msgstr "Modificación de lista de reprodución non dispoñible"
@@ -729,8 +735,15 @@ msgstr "Monitorizando escaneo de biblioteca"
 msgid "Scanning is in progress"
 msgstr "O escaneado está en progreso"
 
+#. Translators: reported when no playlist has been loaded when trying to perform track time analysis.
+#, fuzzy
+msgid "No playlist has been loaded, cannot perform track time analysis."
+msgstr ""
+"Non se engadiron pistas, non se puido realizar a análise do tempo da pista"
+
 #. Translators: Presented when track time analysis cannot be activated.
-msgid "No tracks were added, cannot perform track time analysis"
+#, fuzzy
+msgid "No tracks are selected, cannot perform track time analysis."
 msgstr ""
 "Non se engadiron pistas, non se puido realizar a análise do tempo da pista"
 
@@ -746,6 +759,10 @@ msgstr "Desactivada a análise do tempo da pista"
 msgid "Marks focused track as start marker for track time analysis"
 msgstr ""
 "Marca a pista enfocada como marca de comezo para a análise do tempo da pista"
+
+msgid "No tracks were added, cannot perform track time analysis"
+msgstr ""
+"Non se engadiron pistas, non se puido realizar a análise do tempo da pista"
 
 #. Translators: Presented when track time analysis cannot be used because start marker is not set.
 msgid ""
@@ -1752,7 +1769,6 @@ msgstr "Erro procurando actualización."
 msgid "Studio add-on update"
 msgstr "Actualización do complemento Studio"
 
-#. if continuous: _SPLUpdateT.Start(updateInterval, True)
 #. No need to interact with the user.
 #. Translators: Presented when no add-on update is available.
 msgid "No add-on update available."

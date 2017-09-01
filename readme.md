@@ -3,7 +3,6 @@
 * Authors: Geoff Shang, Joseph Lee and other contributors
 * Download [stable version][1]
 * Download [development version][2]
-* Download [long-term support version][3] - add-on 15.x for Studio 5.0x users
 
 This add-on package provides improved usage of StationPlaylist Studio, as well as providing utilities to control the Studio from anywhere.
 
@@ -178,6 +177,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Version 17.09
 
 * If a user enters advanced options dialog under add-on settings while the update channel and interval was set to Test Drive Fast and/or zero days, NVDA will no longer present the channel and/or interval warning message when exitting this dialog.
+* Playlist remainder and trakc time analysis commands will now require that a playlist be loaded, and a more accurate error message will be presented otherwise.
 
 ## Version 17.08.1
 
@@ -577,7 +577,5 @@ Version 4.0 supports SPL Studio 5.00 and later, with 3.x designed to provide som
 [1]: http://addons.nvda-project.org/files/get.php?file=spl
 
 [2]: http://addons.nvda-project.org/files/get.php?file=spl-dev
-
-[3]: http://www.josephsl.net/files/nvdaaddons/get.php?file=spl-lts7
 
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
