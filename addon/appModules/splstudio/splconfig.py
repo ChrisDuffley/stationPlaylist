@@ -129,6 +129,7 @@ class ConfigHub(ChainMap):
 		super(ConfigHub, self).__init__()
 		# 17.09 only: a private variable to be set when config must become volatile.
 		self._volatileConfig = configIsVolatile
+		self._normalProfileOnly = normalProfileOnly
 		# For presentational purposes.
 		self.profileNames = []
 		self.maps[0] = self._unlockConfig(SPLIni, profileName=defaultProfileName, prefill=True, validateNow=True)
@@ -143,18 +144,20 @@ class ConfigHub(ChainMap):
 			for section, key in deprecatedKeys.items():
 				if key in self.maps[0][section]: del self.maps[0][section][key]
 		# Moving onto broadcast profiles if any.
-		try:
-			for profile in os.listdir(SPLProfiles):
-				name, ext = os.path.splitext(profile)
-				if ext == ".ini":
-					self.maps.append(self._unlockConfig(os.path.join(SPLProfiles, profile), profileName=name, validateNow=True))
-					self.profileNames.append(name)
-		except WindowsError:
-			pass
+		# 17.10: but not when only normal profile should be used.
+		if not self.normalProfileOnly:
+			try:
+				for profile in os.listdir(SPLProfiles):
+					name, ext = os.path.splitext(profile)
+					if ext == ".ini":
+						self.maps.append(self._unlockConfig(os.path.join(SPLProfiles, profile), profileName=name, validateNow=True))
+						self.profileNames.append(name)
+			except WindowsError:
+				pass
 		# Runtime flags (profiles and profile switching/triggers flags come from NVDA Core's ConfigManager).
 		self.profiles = self.maps
 		# Active profile name is retrieved via the below property function.
-		self.instantSwitch = self.profiles[0]["InstantProfile"] if "InstantProfile" in self.profiles[0] else None
+		self.instantSwitch = self.profiles[0]["InstantProfile"] if ("InstantProfile" in self.profiles[0] and not self.normalProfileOnly) else None
 		self.timedSwitch = None
 		# Switch history is a stack of previously activated profile(s), replacing prev profile flag from 7.x days.
 		# Initially normal profile will sit in here.
@@ -172,6 +175,10 @@ class ConfigHub(ChainMap):
 	@property
 	def volatileConfig(self):
 		return self._volatileConfig
+
+	@property
+	def normalProfileOnly(self):
+		return self._normalProfileOnly
 
 	# Unlock (load) profiles from files.
 	# LTS: Allow new profile settings to be overridden by a parent profile.
@@ -502,6 +509,8 @@ _configLoadStatus = {} # Key = filename, value is pass or no pass.
 trackComments = {}
 # Whether config should be volatile or not.
 configIsVolatile = False
+# Only use normal profile.
+normalProfileOnly = False
 
 def initConfig():
 	# Load the default config from a list of profiles.
@@ -540,7 +549,8 @@ def initConfig():
 		_configLoadStatus.clear()
 		runConfigErrorDialog("\n".join(messages), title)
 	# Fire up profile triggers.
-	initProfileTriggers()
+	# 17.10: except when normal profile only flag is specified.
+	if not SPLConfig.normalProfileOnly: initProfileTriggers()
 	# Let the update check begin.
 	splupdate.initialize()
 	# 7.1: Make sure encoder settings map isn't corrupted.
@@ -795,7 +805,8 @@ def saveConfig():
 	if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
 	splupdate._SPLUpdateT = None
 	# Close profile triggers dictionary.
-	saveProfileTriggers()
+	# 17.10: but if only the normal profile is in use, it won't do anything.
+	if not SPLConfig.normalProfileOnly: saveProfileTriggers()
 	# Dump track comments.
 	pickle.dump(trackComments, file(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"), "wb"))
 	# Save update check state.
