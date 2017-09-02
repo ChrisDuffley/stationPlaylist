@@ -127,17 +127,21 @@ class ConfigHub(ChainMap):
 	def __init__(self):
 		# Create a "fake" map entry, to be replaced by the normal profile later.
 		super(ConfigHub, self).__init__()
+		# 17.09 only: a private variable to be set when config must become volatile.
+		self._volatileConfig = configIsVolatile
 		# For presentational purposes.
 		self.profileNames = []
 		self.maps[0] = self._unlockConfig(SPLIni, profileName=defaultProfileName, prefill=True, validateNow=True)
 		self.profileNames.append(None) # Signifying normal profile.
 		# Always cache normal profile upon startup.
-		self._cacheConfig(self.maps[0])
-		# Remove deprecated keys.
-		# This action must be performed after caching, otherwise the newly modified profile will not be saved.
-		deprecatedKeys = {"General":"TrackDial", "Startup":"Studio500"}
-		for section, key in deprecatedKeys.items():
-			if key in self.maps[0][section]: del self.maps[0][section][key]
+		# 17.10: and no, not when config is volatile.
+		if not self.volatileConfig:
+			self._cacheConfig(self.maps[0])
+			# Remove deprecated keys.
+			# This action must be performed after caching, otherwise the newly modified profile will not be saved.
+			deprecatedKeys = {"General":"TrackDial", "Startup":"Studio500"}
+			for section, key in deprecatedKeys.items():
+				if key in self.maps[0][section]: del self.maps[0][section][key]
 		# Moving onto broadcast profiles if any.
 		try:
 			for profile in os.listdir(SPLProfiles):
@@ -159,8 +163,6 @@ class ConfigHub(ChainMap):
 		self.newProfiles = set()
 		# Reset flag (only engaged if reset did happen).
 		self.resetHappened = False
-		# 17.09 only: a private variable to be set when config must become volatile.
-		self._volatileConfig = False
 
 	# Various properties
 	@property
@@ -305,6 +307,8 @@ class ConfigHub(ChainMap):
 		self.newProfiles.discard(name)
 
 	def _cacheConfig(self, conf):
+		# 17.10: although normal profile is taken care of when the ConfigHub loads, broadcast profiles may not know about volatile config flag.
+		if self.volatileConfig: return
 		global _SPLCache
 		import copy
 		if _SPLCache is None: _SPLCache = {}
@@ -496,6 +500,8 @@ _configErrors ={
 _configLoadStatus = {} # Key = filename, value is pass or no pass.
 # Track comments map.
 trackComments = {}
+# Whether config should be volatile or not.
+configIsVolatile = False
 
 def initConfig():
 	# Load the default config from a list of profiles.
