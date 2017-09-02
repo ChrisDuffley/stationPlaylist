@@ -1372,10 +1372,10 @@ class AdvancedOptionsDialog(wx.Dialog):
 		# The try (fast ring) builds aren't for the faint of heart.
 		if len(self._updateChannels) > 1:
 			channel = self._updateChannels[self.channels.GetSelection()]
-			# 17.09: present this dialog if and only if switching to fast ring form other rings.
+			# 17.09: present this dialog if and only if switching to fast ring from other rings.
 			if self.Parent.updateChannel != "try" and channel == "try" and gui.messageBox(
 				# Translators: The confirmation prompt displayed when changing to the fastest development channel (with risks involved).
-				_("You are about to switch to the Test Drive Fast (try) builds channel, the fastest and most unstable development channel. Please note that the selected channel may come with updates that might be unstable at times and should be used for testing and sending feedback to the add-on developer. If you prefer to use stable rleases, please answer no and switch to a more stable update channel. Are you sure you wish to switch to the fastest development channel?"),
+				_("You are about to switch to the Test Drive Fast (try) builds channel, the fastest and most unstable development channel. Please note that the selected channel may come with updates that might be unstable at times and should be used for testing and sending feedback to the add-on developer. If you prefer to use stable releases, please answer no and switch to a more stable update channel. Are you sure you wish to switch to Test Drive Fast channel?"),
 				# Translators: The title of the channel switch confirmation dialog.
 				_("Switching to unstable channel"),
 				wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION, self
