@@ -3,8 +3,6 @@
 * Készítők: Geoff Shang, Joseph Lee, és további közreműködők
 * Letöltés [Stabil verzió][1]
 * Letöltés [Fejlesztői verzió][2]
-* Download [long-term support version][3] - add-on 15.x for Studio 5.0x
-  users
 
 Ez a kiegészítő javítja a Station Playlist Studio nevű online
 rádióadás-vezérlő program használhatóságát, egyúttal egy olyan
@@ -266,6 +264,16 @@ Amennyiben érintőképernyős számítógépen használja a Studiot Windows 8, 
 újabb verzió alatt, NVDA 2012.3 vagy újabb verzióval, bizonyos Studio
 parancsokat végrehajthat az érintőképernyőn is. Először 3 ujjas koppintással
 váltson SPL módra, és utána már használhatók az alább felsorolt parancsok.
+
+## Version 17.09
+
+* If a user enters advanced options dialog under add-on settings while the
+  update channel and interval was set to Test Drive Fast and/or zero days,
+  NVDA will no longer present the channel and/or interval warning message
+  when exitting this dialog.
+* Playlist remainder and trakc time analysis commands will now require that
+  a playlist be loaded, and a more accurate error message will be presented
+  otherwise.
 
 ## Version 17.08.1
 

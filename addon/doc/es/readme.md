@@ -3,8 +3,6 @@
 * Autores: Geoff Shang, Joseph Lee y otros colaboradores
 * Descargar [Versión estable][1]
 * Descargar [versión de desarrollo][2]
-* Descargar [versión long-term support][3] - complemento 15.x para usuarios
-  de Studio 5.0x
 
 Este paquete de complementos proporciona una utilización mejorada de Station
 Playlist Studio, así como utilidades para controlar el Studio desde
@@ -297,6 +295,16 @@ Windows 8 o posterior y tienes NVDA 2012.3 o posterior instalado, puedes
 realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
+
+## Versión 17.09
+
+* Si un usuario entra en el diálogo opciones avanzadas en opciones del
+  complemento mientras el canal de actualizaciones y el intervalo se
+  configuró a Unidad Rápida de Pruebas y/o cero días, NVDA ya no presentará
+  el mensaje de aviso de canal y/o de intervalo al salir de este diálogo.
+* Las órdenes de lista de reproducción restante y análisis de tiempo de
+  pista ahora requerirán que se cargue una lista de reproducción, y de lo
+  contrario se mostrará un mensaje de error más preciso.
 
 ## Versión 17.08.1
 

@@ -5,17 +5,17 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: StationPlaylist 17.04\n"
+"Project-Id-Version: StationPlaylist 17.09\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2017-07-27 11:34-0700\n"
+"PO-Revision-Date: 2017-09-02 12:35+0200\n"
 "Last-Translator: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language-Team: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 1.8.12\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #, python-brace-format
@@ -585,14 +585,13 @@ msgstr ""
 "streaming."
 
 #. Translators: Presented when track time analysis and/or playlist snapshot gathering cannot be performed because user is not focused on playlist viewer.
-#, fuzzy
 msgid ""
 "Not in playlist viewer, cannot perform track time analysis or gather "
 "playlist snapshot statistics."
 msgstr ""
 "Vous n'êtes pas dans la visionneuse de playlist, impossible d'effectuer "
 "l'analyse de la durée de piste ou rassembler les statistiques sur les "
-"instantanés de playlist"
+"instantanés de playlist."
 
 #. Translators: one of the results for playlist snapshots feature for announcing total number of items in a playlist.
 #, python-brace-format
@@ -692,7 +691,7 @@ msgstr ""
 
 #. Translators: reported when no playlist has been loaded when trying to obtain remaining time for a playlist.
 msgid "No playlist has been loaded."
-msgstr ""
+msgstr "Aucune playlist n'a été chargée."
 
 #. Translators: Presented when playlist modification is unavailable (for Studio 4.33 and earlier)
 msgid "Playlist modification not available"
@@ -753,18 +752,16 @@ msgid "Scanning is in progress"
 msgstr "Le balayage est en cours"
 
 #. Translators: reported when no playlist has been loaded when trying to perform track time analysis.
-#, fuzzy
 msgid "No playlist has been loaded, cannot perform track time analysis."
 msgstr ""
-"Aucune des pistes ont été ajoutées, Impossible d'effectuer l'analyse pour la "
-"durée de piste"
+"Aucune playlist n'a été chargée, Impossible d'effectuer l'analyse pour la "
+"durée de piste."
 
 #. Translators: Presented when track time analysis cannot be activated.
-#, fuzzy
 msgid "No tracks are selected, cannot perform track time analysis."
 msgstr ""
-"Aucune des pistes ont été ajoutées, Impossible d'effectuer l'analyse pour la "
-"durée de piste"
+"Aucune des pistes ont été sélectionnées, Impossible d'effectuer l'analyse "
+"pour la durée de piste."
 
 #. Translators: Presented when track time analysis is turned on.
 msgid "Track time analysis activated"
@@ -1630,13 +1627,14 @@ msgid "SPL Assistant command &layout:"
 msgstr "Disposition de &la commande Assistant SPL :"
 
 #. Translators: The confirmation prompt displayed when changing to the fastest development channel (with risks involved).
+#, fuzzy
 msgid ""
 "You are about to switch to the Test Drive Fast (try) builds channel, the "
 "fastest and most unstable development channel. Please note that the selected "
 "channel may come with updates that might be unstable at times and should be "
 "used for testing and sending feedback to the add-on developer. If you prefer "
-"to use stable rleases, please answer no and switch to a more stable update "
-"channel. Are you sure you wish to switch to the fastest development channel?"
+"to use stable releases, please answer no and switch to a more stable update "
+"channel. Are you sure you wish to switch to Test Drive Fast channel?"
 msgstr ""
 "Vous êtes sur le point de basculer vers le Test Drive Fast (essai), build du "
 "canal, le canal de développement le plus rapide et le plus instable. Notez "
