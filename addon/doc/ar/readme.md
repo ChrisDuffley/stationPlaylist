@@ -3,8 +3,6 @@
 * مطورو الإضافة: Geoff Shang, Joseph Lee وآخرون
 * تحميل [الإصدار النهائي][1]
 * تحميل [الإصدار التجريبي][2]
-* Download [long-term support version][3] - add-on 15.x for Studio 5.0x
-  users
 
 تقوم هذه الإضافة البرمجية بتحسين استخدام الكفيف لتطبيق Station Playlist
 Studio, فضلا عن إضافة أدوات للتحكم في الأستوديو من أي مكان.
@@ -257,6 +255,16 @@ broadcast profiles.
 بعده ولديك NVDA 2012.3 وما بعده, يمكنك أداء بعض الأوامر من شاشة اللمس. أولا
 استخدم لمسة ب3 أصابع للانتقال لنمط اللمس, ثم استخدم أوامر اللمس المسرودة
 أعلاه لأداء المهام.
+
+## Version 17.09
+
+* If a user enters advanced options dialog under add-on settings while the
+  update channel and interval was set to Test Drive Fast and/or zero days,
+  NVDA will no longer present the channel and/or interval warning message
+  when exitting this dialog.
+* Playlist remainder and trakc time analysis commands will now require that
+  a playlist be loaded, and a more accurate error message will be presented
+  otherwise.
 
 ## Version 17.08.1
 

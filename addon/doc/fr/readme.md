@@ -3,8 +3,6 @@
 * Auteurs: Geoff Shang, Joseph Lee et d'autres contributeurs.
 * Télécharger [version stable][1]
 * Télécharger [la version de développement][2]
-* Télécharger [version prise en charge à long terme][3] - module
-  complémentaire 15.x pour les utilisateurs de Studio 5.0x
 
 Ce module complémentaire améliore l'utilisation de Station Playlist Studio,
 mais il fournit aussi des utilitaires pour contrôler le Studio où que vous
@@ -304,6 +302,17 @@ ultérieure installé, vous pouvez exécuter certaines commandes Studio depuis
 un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
+
+## Version 17.09
+
+* Si un utilisateur entre dans le dialogue des options avancées dans les
+  paramètres du module complémentaire, le canal et l'intervalle de mise à
+  jour ont été définis sur Test Drive Fast et/ou zéro jours, NVDA ne
+  présentera plus le message d'avertissement de canal et/ou d'intervalle en
+  sortant de ce dialogue.
+* Les commandes playlist restante et l'analyse de la durée de piste
+  exigeront maintenant le chargement d'une playlist et un message d'erreur
+  plus précis sera présenté autrement.
 
 ## Version 17.08.1
 
