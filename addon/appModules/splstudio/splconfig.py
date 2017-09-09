@@ -125,14 +125,26 @@ class ConfigHub(ChainMap):
 	"""
 
 	def __init__(self):
+		import time
+		t = time.time()
 		# Create a "fake" map entry, to be replaced by the normal profile later.
 		super(ConfigHub, self).__init__()
 		# 17.09 only: a private variable to be set when config must become volatile.
 		self._volatileConfig = configIsVolatile
+		self._configInMemory = configInMemory
 		self._normalProfileOnly = normalProfileOnly
+		if self.configInMemory: self._normalProfileOnly = True
 		# For presentational purposes.
 		self.profileNames = []
-		self.maps[0] = self._unlockConfig(SPLIni, profileName=defaultProfileName, prefill=True, validateNow=True)
+		# 17.10: if config will be stored on RAM, this step is skipped, resulting is faster startup.
+		# But data conversion must take place.
+		if not self.configInMemory: self.maps[0] = self._unlockConfig(SPLIni, profileName=defaultProfileName, prefill=True, validateNow=True)
+		else:
+			self.maps[0] = ConfigObj(None, configspec = confspec, encoding="UTF-8")
+			copyProfile(_SPLDefaults, self.maps[0], complete=True)
+			self.maps[0].name = defaultProfileName
+			self.maps[0]["ColumnAnnouncement"]["IncludedColumns"] = set(self.maps[0]["ColumnAnnouncement"]["IncludedColumns"])
+			self.maps[0]["General"]["VerticalColumnAnnounce"] = None
 		self.profileNames.append(None) # Signifying normal profile.
 		# Always cache normal profile upon startup.
 		# 17.10: and no, not when config is volatile.
@@ -166,6 +178,7 @@ class ConfigHub(ChainMap):
 		self.newProfiles = set()
 		# Reset flag (only engaged if reset did happen).
 		self.resetHappened = False
+		print time.time()-t
 
 	# Various properties
 	@property
@@ -179,6 +192,10 @@ class ConfigHub(ChainMap):
 	@property
 	def normalProfileOnly(self):
 		return self._normalProfileOnly
+
+	@property
+	def configInMemory(self):
+		return self._configInMemory
 
 	# Unlock (load) profiles from files.
 	# LTS: Allow new profile settings to be overridden by a parent profile.
@@ -336,7 +353,8 @@ class ConfigHub(ChainMap):
 	def save(self):
 		# Save all config profiles.
 		# 17.09: but not when they are volatile.
-		if self.volatileConfig: return
+		# 17.10: and if in-memory config flag is set.
+		if (self.volatileConfig or self.configInMemory): return
 		# 7.0: Save normal profile first.
 		# Temporarily merge normal profile.
 		# 8.0: Locate the index instead.
@@ -511,6 +529,8 @@ trackComments = {}
 configIsVolatile = False
 # Only use normal profile.
 normalProfileOnly = False
+# In-memory copy of config is requested, implying use of default settings.
+configInMemory = False
 
 def initConfig():
 	# Load the default config from a list of profiles.
