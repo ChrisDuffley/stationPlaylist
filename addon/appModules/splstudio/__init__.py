@@ -633,7 +633,8 @@ class AppModule(appModuleHandler.AppModule):
 			import queueHandler
 			queueHandler.queueFunction(queueHandler.eventQueue, splconfig.updateInit)
 		# Display startup dialogs if any.
-		wx.CallAfter(splconfig.showStartupDialogs)
+		# 17.10: not when minimal startup flag is set.
+		if not globalVars.appArgs.minimal: wx.CallAfter(splconfig.showStartupDialogs)
 
 	# Locate the handle for main window for caching purposes.
 	def _locateSPLHwnd(self):
