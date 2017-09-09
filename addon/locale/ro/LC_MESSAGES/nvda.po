@@ -1585,13 +1585,14 @@ msgid "SPL Assistant command &layout:"
 msgstr "Dispoziția comenzi&lor asistentului SPL:"
 
 #. Translators: The confirmation prompt displayed when changing to the fastest development channel (with risks involved).
+#, fuzzy
 msgid ""
 "You are about to switch to the Test Drive Fast (try) builds channel, the "
 "fastest and most unstable development channel. Please note that the selected "
 "channel may come with updates that might be unstable at times and should be "
 "used for testing and sending feedback to the add-on developer. If you prefer "
-"to use stable rleases, please answer no and switch to a more stable update "
-"channel. Are you sure you wish to switch to the fastest development channel?"
+"to use stable releases, please answer no and switch to a more stable update "
+"channel. Are you sure you wish to switch to Test Drive Fast channel?"
 msgstr ""
 "Sunteți pe cale să treceți la Testarea Unității Rapide(încercați) "
 "construcțiile canalului, cel mai rapid și mai instabil canal de dezvoltare. "

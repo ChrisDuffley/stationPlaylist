@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 4.2\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2015-02-06 19:00+1000\n"
-"PO-Revision-Date: 2017-07-29 15:16+0100\n"
-"Last-Translator: Nikola Jović <wwenikola123@gmail.com>\n"
+"PO-Revision-Date: 2017-09-01 11:33+0100\n"
+"Last-Translator: Nikola Jovic <wwenikola123@gmail.com>\n"
 "Language-Team: \n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
@@ -556,13 +556,12 @@ msgid "Opens a dialog to quickly enable or disable metadata streaming."
 msgstr "Otvara dijalog za brzo uključivanje ili isključivanje metadata strima"
 
 #. Translators: Presented when track time analysis and/or playlist snapshot gathering cannot be performed because user is not focused on playlist viewer.
-#, fuzzy
 msgid ""
 "Not in playlist viewer, cannot perform track time analysis or gather "
 "playlist snapshot statistics."
 msgstr ""
 "Niste u pregledu liste za reprodukciju, nemoguće koristiti analizu vremena "
-"zapisa ili druge statističke analize"
+"zapisa ili druge statističke analize liste za reprodukciju."
 
 #. Translators: one of the results for playlist snapshots feature for announcing total number of items in a playlist.
 #, python-brace-format
@@ -659,7 +658,7 @@ msgstr "SPL asistent prečica. Pogledajte uputstvo dodatka za dostupne komande"
 
 #. Translators: reported when no playlist has been loaded when trying to obtain remaining time for a playlist.
 msgid "No playlist has been loaded."
-msgstr ""
+msgstr "Nijedna lista za reprodukciju nije učitana"
 
 #. Translators: Presented when playlist modification is unavailable (for Studio 4.33 and earlier)
 msgid "Playlist modification not available"
@@ -720,14 +719,14 @@ msgid "Scanning is in progress"
 msgstr "Skeniranje je u toku"
 
 #. Translators: reported when no playlist has been loaded when trying to perform track time analysis.
-#, fuzzy
 msgid "No playlist has been loaded, cannot perform track time analysis."
-msgstr "Zapisi nisu dodati, nemoguće izvršiti vremensku analizu zapisa"
+msgstr ""
+"Nijedna lista za reprodukciju nije učitana, nemoguće izvršiti vremensku "
+"analizu zapisa"
 
 #. Translators: Presented when track time analysis cannot be activated.
-#, fuzzy
 msgid "No tracks are selected, cannot perform track time analysis."
-msgstr "Zapisi nisu dodati, nemoguće izvršiti vremensku analizu zapisa"
+msgstr "Nijedan zapis nije izabran, nemoguće izvršiti vremensku analizu zapisa"
 
 #. Translators: Presented when track time analysis is turned on.
 msgid "Track time analysis activated"
@@ -1573,13 +1572,14 @@ msgid "SPL Assistant command &layout:"
 msgstr "SPL asistent raspored komandi:"
 
 #. Translators: The confirmation prompt displayed when changing to the fastest development channel (with risks involved).
+#, fuzzy
 msgid ""
 "You are about to switch to the Test Drive Fast (try) builds channel, the "
 "fastest and most unstable development channel. Please note that the selected "
 "channel may come with updates that might be unstable at times and should be "
 "used for testing and sending feedback to the add-on developer. If you prefer "
-"to use stable rleases, please answer no and switch to a more stable update "
-"channel. Are you sure you wish to switch to the fastest development channel?"
+"to use stable releases, please answer no and switch to a more stable update "
+"channel. Are you sure you wish to switch to Test Drive Fast channel?"
 msgstr ""
 "Upravo prelazite na Test Drive brz (try) kanal ažuriranja dodatka, najbrži i "
 "naj nestabilniji kanal ažuriranja dodatka. Molimo imajte na umu da ovaj "

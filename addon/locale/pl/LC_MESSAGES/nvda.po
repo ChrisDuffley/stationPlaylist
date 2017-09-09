@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2017-07-27 11:46-0700\n"
+"PO-Revision-Date: 2017-09-05 03:37+0100\n"
 "Last-Translator: Patryk <patric3031@wp.pl>\n"
 "Language-Team: Polish <killer@tyflonet.com>\n"
 "Language: pl\n"
@@ -391,6 +391,8 @@ msgid ""
 "Announces broadcaster time. If pressed twice, reports minutes and seconds "
 "left to top of the hour."
 msgstr ""
+"Oznajmia czas wewnątrz audycji; przyciśnięty dwukrotnie oznajmia czas "
+"pozostały do początku nowej godziny"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Announces time including seconds."
@@ -659,7 +661,7 @@ msgstr ""
 
 #. Translators: reported when no playlist has been loaded when trying to obtain remaining time for a playlist.
 msgid "No playlist has been loaded."
-msgstr ""
+msgstr "Nie załadowano playlisty"
 
 #. Translators: Presented when playlist modification is unavailable (for Studio 4.33 and earlier)
 msgid "Playlist modification not available"
@@ -1190,7 +1192,7 @@ msgstr "Powiadamianie o końcu bądź początku playlisty"
 
 #. Translators: the label for a setting in SPL add-on settings to enable requests alert.
 msgid "Play a sound when listener &requests arrive"
-msgstr ""
+msgstr "Odtwarzaj dźwięk przy piosence na życzenie"
 
 #. Translators: The label of a button to manage playlist snapshot flags.
 msgid "&Playlist snapshots..."
@@ -1555,19 +1557,25 @@ msgid "SPL Assistant command &layout:"
 msgstr "Warstwa poleceń asystenta SPL"
 
 #. Translators: The confirmation prompt displayed when changing to the fastest development channel (with risks involved).
+#, fuzzy
 msgid ""
 "You are about to switch to the Test Drive Fast (try) builds channel, the "
 "fastest and most unstable development channel. Please note that the selected "
 "channel may come with updates that might be unstable at times and should be "
 "used for testing and sending feedback to the add-on developer. If you prefer "
-"to use stable rleases, please answer no and switch to a more stable update "
-"channel. Are you sure you wish to switch to the fastest development channel?"
+"to use stable releases, please answer no and switch to a more stable update "
+"channel. Are you sure you wish to switch to Test Drive Fast channel?"
 msgstr ""
+"Zamierzasz właśnie zrobić krok w stronę poznania nowych, testowych funkcji "
+"dodatku SPL studio. \n"
+" Pamiętaj, że grozić to może destrukcją całej konfiguracji dodatku lub w "
+"najlepszym wypadkum utratą stabilności systemu emisji. Jeśli nie masz "
+"pewności, czy gra jest warta świeczki, grzecznie odpowiedz: Nie, aby "
+"powrócić do stabilnego kanału dostarczania aktualizacji."
 
 #. Translators: The title of the channel switch confirmation dialog.
-#, fuzzy
 msgid "Switching to unstable channel"
-msgstr "Uaktywniam:  {newProfileName}"
+msgstr "Przełączam na: Kanał rozwojowy"
 
 #. Translators: The confirmation prompt displayed when changing update interval to zero days (updates will be checked every time Studio app module loads).
 msgid ""
@@ -1575,10 +1583,13 @@ msgid ""
 "will be checked every time NVDA and/or Studio starts. Are you sure you wish "
 "to continue?"
 msgstr ""
+"Czas sprawdzania uaktualnień ustawiono na 0. Oznacza to, że aktualizacje "
+"będą sprawdzane za każdym uruchomieniem SPL'a lub NVDA. Czy chcesz "
+"kontynuoać?"
 
 #. Translators: The title of the update interval dialog.
 msgid "Confirm update interval"
-msgstr ""
+msgstr "Potwierdź czas sprawdzania aktualizacji"
 
 #. Translators: Title of the dialog to reset various add-on settings.
 msgid "Reset settings"
@@ -1620,13 +1631,11 @@ msgstr "Wyzeruj konfigurację"
 msgid "Another find dialog is open."
 msgstr "Okno wyszukiwania jest już tgdzieś otwarte"
 
-#, fuzzy
 msgid "Enter or select the name or the artist of the track you wish to &search"
 msgstr "Podaj wykonawcę lub tytuł utworu do  wyszukania."
 
-#, fuzzy
 msgid "Enter or select text to be &searched in a column"
-msgstr "Wprowadź tekst do wyszukiwania"
+msgstr "Wprowadź lub wybierz tekst do wyszukania w kolumnie"
 
 #. Translators: The label in track finder to search columns.
 msgid "C&olumn to search:"
