@@ -1014,7 +1014,7 @@ Thank you.""")
 
 # Old version reminder.
 # Only used when there is a LTS version.
-"""class OldVersionReminder(wx.Dialog):
+class OldVersionReminder(wx.Dialog):
 	#A dialog shown when using add-on 8.x under Studio 5.0x.
 	#
 
@@ -1025,7 +1025,7 @@ Thank you.""")
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 
 		# Translators: A message displayed if using an old Studio or Windows version.
-		label = wx.StaticText(self, wx.ID_ANY, label=_("You are using an older version of Windows. From mid-2018 onwards, Studio add-on will not support versions earlier than Windows 7 Service Pack 1. Add-on 18.x.y LTS (long-term support) versions will support Windows versions such as Windows XP."))
+		label = wx.StaticText(self, wx.ID_ANY, label=_("You are using an older version of Windows. From 2018 onwards, Studio add-on will not support versions earlier than Windows 7 Service Pack 1. Add-on 15.x LTS (long-term support) versions will support Windows versions such as Windows XP until mid-2018."))
 		mainSizer.Add(label,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
@@ -1046,7 +1046,7 @@ Thank you.""")
 		global SPLConfig
 		if self.oldVersionReminder.Value:
 			SPLConfig["Startup"]["OldVersionReminder"] = not self.oldVersionReminder.Value
-		self.Destroy()"""
+		self.Destroy()
 
 # And to open the above dialog and any other dialogs.
 # LTS18: return immediately after opening old ver dialog if minimal flag is set.
