@@ -213,6 +213,9 @@ def unlockConfig(path, profileName=None, prefill=False, parent=None):
 		_configLoadStatus[profileName] = "fileReset"
 	# 5.2 and later: check to make sure all values are correct.
 	# 7.0: Make sure errors are displayed as config keys are now sections and may need to go through subkeys.
+	# 15.9: update interval could be zero days (update immediately), a value unsupported in this version, so change to 1.
+	if "Update" in SPLConfigCheckpoint and SPLConfigCheckpoint["Update"]["UpdateInterval"] == "0":
+		SPLConfigCheckpoint["Update"]["UpdateInterval"] = "1"
 	configTest = SPLConfigCheckpoint.validate(_val, copy=prefill, preserve_errors=True)
 	if configTest != True:
 		if not configTest:
