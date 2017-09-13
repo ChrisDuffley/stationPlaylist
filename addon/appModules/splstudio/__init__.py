@@ -634,6 +634,8 @@ class AppModule(appModuleHandler.AppModule):
 			queueHandler.queueFunction(queueHandler.eventQueue, splconfig.updateInit)
 		# Display startup dialogs if any.
 		# 17.10: not when minimal startup flag is set.
+		# 17.10 only: and force the old version dialog to appear if using Windows XP or Vista.
+		wx.CallAfter(splconfig.showStartupDialogs, oldVer=sys.getwindowsversion().build < 7601, oldVerReturn = True)
 		if not globalVars.appArgs.minimal: wx.CallAfter(splconfig.showStartupDialogs)
 
 	# Locate the handle for main window for caching purposes.

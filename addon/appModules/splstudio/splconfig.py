@@ -99,6 +99,7 @@ UpdateInterval = integer(min=0, max=180, default=30)
 [Startup]
 AudioDuckingReminder = boolean(default=true)
 WelcomeDialog = boolean(default=true)
+OldVersionReminder = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
 SPLConfig = None
@@ -1050,24 +1051,24 @@ Thank you.""")
 
 # Old version reminder.
 # Only used when there is a LTS version.
-"""class OldVersionReminder(wx.Dialog):
+class OldVersionReminder(wx.Dialog):
 	#A dialog shown when using add-on 8.x under Studio 5.0x.
 	#
 
 	def __init__(self, parent):
 		# Translators: Title of a dialog displayed when the add-on starts reminding broadcasters about old Studio releases.
-		super(OldVersionReminder, self).__init__(parent, title=_("Old Studio version detected"))
+		super(OldVersionReminder, self).__init__(parent, title=_("Old Windows version detected"))
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 
-		# Translators: A message displayed if using an old Studio version.
-		label = wx.StaticText(self, wx.ID_ANY, label=_("You are using an older version of StationPlaylist Studio. From 2017 onwards, Studio add-on will not support Studio versions earlier than 5.10. Studio 5.0x are fully supported in 15.x LTS (long-term support) versions."))
+		# Translators: A message displayed if using an old Studio or Windows version.
+		label = wx.StaticText(self, wx.ID_ANY, label=_("You are using an older version of Windows. From 2018 onwards, Studio add-on will not support versions earlier than Windows 7 Service Pack 1. Add-on 15.x LTS (long-term support) versions will support Windows versions such as Windows XP until mid-2018."))
 		mainSizer.Add(label,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
 		# Translators: A checkbox to turn off old version reminder message.
 		self.oldVersionReminder=wx.CheckBox(self,wx.NewId(),label=_("Do not show this message again"))
-		self.oldVersionReminder.SetValue(not SPLConfig["Startup"]["OldSPLVersionReminder"])
+		self.oldVersionReminder.SetValue(not SPLConfig["Startup"]["OldVersionReminder"])
 		sizer.Add(self.oldVersionReminder, border=10,flag=wx.TOP)
 		mainSizer.Add(sizer, border=10, flag=wx.BOTTOM)
 
@@ -1081,16 +1082,18 @@ Thank you.""")
 	def onOk(self, evt):
 		global SPLConfig
 		if self.oldVersionReminder.Value:
-			SPLConfig["Startup"]["OldSPLVersionReminder"] = not self.oldVersionReminder.Value
-		self.Destroy()"""
+			SPLConfig["Startup"]["OldVersionReminder"] = not self.oldVersionReminder.Value
+		self.Destroy()
 
 # And to open the above dialog and any other dialogs.
-def showStartupDialogs(oldVer=False):
+# LTS18: return immediately after opening old ver dialog if minimal flag is set.
+def showStartupDialogs(oldVer=False, oldVerReturn=False):
 	# Old version reminder if this is such a case.
-	#if oldVer and SPLConfig["Startup"]["OldSPLVersionReminder"]:
-		#gui.mainFrame.prePopup()
-		#OldVersionReminder(gui.mainFrame).Show()
-		#gui.mainFrame.postPopup()
+	if oldVer and SPLConfig["Startup"]["OldVersionReminder"]:
+		gui.mainFrame.prePopup()
+		OldVersionReminder(gui.mainFrame).Show()
+		gui.mainFrame.postPopup()
+		if oldVerReturn: return
 	if SPLConfig["Startup"]["WelcomeDialog"]:
 		gui.mainFrame.prePopup()
 		WelcomeDialog(gui.mainFrame).Show()
