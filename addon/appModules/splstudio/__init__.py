@@ -605,7 +605,8 @@ class AppModule(appModuleHandler.AppModule):
 			# 7.0: Have a timer call the update function indirectly.
 			queueHandler.queueFunction(queueHandler.eventQueue, splconfig.updateInit)
 		# Display startup dialogs if any.
-		wx.CallAfter(splconfig.showStartupDialogs)
+		# Minimal flag also applies to startup dialogs.
+		if not globalVars.appArgs.minimal: wx.CallAfter(splconfig.showStartupDialogs)
 		# Cache start and end range for column exploration.
 		# LTS: This is also used for enhanced Columns Explorer (Control+NVDA+number row).
 		splconfig.SPLConfig["ColumnExpRange"] = (1, 7) if self.SPLCurVersion < "5.1" else (0, 10)
