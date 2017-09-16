@@ -170,6 +170,13 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 15.9-LTS
+
+* In addition to supporting Studio 5.0x, add-on 15.x-LTS will support Windows XP and Vista as NVDA 2017.4 will drop support for old Windows releases.
+* NVDA will no longer fail to check for add-on updates if update interval is set to 25 days or longer.
+* Playlist remainder and trakc time analysis commands will now require that a playlist be loaded, and a more accurate error message will be presented otherwise.
+* NVDA will no longer display startup dialogs and/or announce Studio version if started with minimal (nvda -rm) flag set.
+
 ## Version 15.8-LTS
 
 * You can now perform Track Finder command (Control+NVDA+F) while a playlist is loaded but the first track isn't focused.
