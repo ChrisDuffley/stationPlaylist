@@ -126,8 +126,6 @@ class ConfigHub(ChainMap):
 	"""
 
 	def __init__(self):
-		import time
-		t = time.time()
 		# Create a "fake" map entry, to be replaced by the normal profile later.
 		super(ConfigHub, self).__init__()
 		# 17.09 only: a private variable to be set when config must become volatile.
@@ -179,7 +177,6 @@ class ConfigHub(ChainMap):
 		self.newProfiles = set()
 		# Reset flag (only engaged if reset did happen).
 		self.resetHappened = False
-		print time.time()-t
 
 	# Various properties
 	@property
@@ -197,6 +194,10 @@ class ConfigHub(ChainMap):
 	@property
 	def configInMemory(self):
 		return self._configInMemory
+
+	@property
+	def configRestricted(self):
+		return self.volatileConfig or self.normalProfileOnly or self.configInMemory
 
 	# Unlock (load) profiles from files.
 	# LTS: Allow new profile settings to be overridden by a parent profile.
@@ -292,6 +293,9 @@ class ConfigHub(ChainMap):
 	# Create profile: public function to access the two private ones above (used when creating a new profile).
 	# Mechanics borrowed from NVDA Core's config.conf with modifications for this add-on.
 	def createProfile(self, path, profileName=None, parent=None):
+		# 17.10: No, not when restrictions are applied.
+		if self.configRestricted:
+			raise RuntimeError("Broadcast profiles are volatile, only normal profile is in use, or config was loaded from memory")
 		self.maps.append(self._unlockConfig(path, profileName=profileName, parent=parent, validateNow=True))
 		self.profileNames.append(profileName)
 		self.newProfiles.add(profileName)
@@ -299,6 +303,9 @@ class ConfigHub(ChainMap):
 	# A class version of rename and delete operations.
 	# Mechanics powered by similar routines in NVDA Core's config.conf.
 	def renameProfile(self, oldName, newName):
+		# 17.10: No, not when restrictions are applied.
+		if self.configRestricted:
+			raise RuntimeError("Broadcast profiles are volatile, only normal profile is in use, or config was loaded from memory")
 		newNamePath = newName + ".ini"
 		newProfile = os.path.join(SPLProfiles, newNamePath)
 		if oldName.lower() != newName.lower() and os.path.isfile(newProfile):
@@ -319,6 +326,9 @@ class ConfigHub(ChainMap):
 			self.newProfiles.add(newName)
 
 	def deleteProfile(self, name):
+		# 17.10: No, not when restrictions are applied.
+		if self.configRestricted:
+			raise RuntimeError("Broadcast profiles are volatile, only normal profile is in use, or config was loaded from memory")
 		# Bring normal profile to the front if it isn't.
 		# Optimization: Tell the swapper that we need index to the normal profile for this case.
 		configPos = self.swapProfiles(name, defaultProfileName, showSwitchIndex=True) if self.profiles[0].name == name else self.profileIndexByName(name)
@@ -454,7 +464,10 @@ class ConfigHub(ChainMap):
 	# Switch between profiles.
 	# This involves promoting and demoting normal profile.
 	# 17.05: The appTerminating flag is used to suppress profile switching messages.
+	# 17.10: this will never be invoked if only normal profile is in use or if config was loaded from memory alone.
 	def switchProfile(self, prevProfile, newProfile, appTerminating=False):
+		if self.normalProfileOnly or self.configInMemory:
+			raise RuntimeError("Only normal profile is in use or config was loaded from memory, cannot switch profiles")
 		if not appTerminating:
 			from .splconfui import _configDialogOpened
 			if _configDialogOpened:
