@@ -128,30 +128,47 @@ class ConfigHub(ChainMap):
 	def __init__(self):
 		# Create a "fake" map entry, to be replaced by the normal profile later.
 		super(ConfigHub, self).__init__()
+		# 17.09 only: a private variable to be set when config must become volatile.
+		self._volatileConfig = configIsVolatile
+		self._configInMemory = configInMemory
+		self._normalProfileOnly = normalProfileOnly
+		if self.configInMemory: self._normalProfileOnly = True
 		# For presentational purposes.
 		self.profileNames = []
-		self.maps[0] = self._unlockConfig(SPLIni, profileName=defaultProfileName, prefill=True, validateNow=True)
+		# 17.10: if config will be stored on RAM, this step is skipped, resulting is faster startup.
+		# But data conversion must take place.
+		if not self.configInMemory: self.maps[0] = self._unlockConfig(SPLIni, profileName=defaultProfileName, prefill=True, validateNow=True)
+		else:
+			self.maps[0] = ConfigObj(None, configspec = confspec, encoding="UTF-8")
+			copyProfile(_SPLDefaults, self.maps[0], complete=True)
+			self.maps[0].name = defaultProfileName
+			self.maps[0]["ColumnAnnouncement"]["IncludedColumns"] = set(self.maps[0]["ColumnAnnouncement"]["IncludedColumns"])
+			self.maps[0]["General"]["VerticalColumnAnnounce"] = None
 		self.profileNames.append(None) # Signifying normal profile.
 		# Always cache normal profile upon startup.
-		self._cacheConfig(self.maps[0])
-		# Remove deprecated keys.
-		# This action must be performed after caching, otherwise the newly modified profile will not be saved.
-		deprecatedKeys = {"General":"TrackDial", "Startup":"Studio500"}
-		for section, key in deprecatedKeys.items():
-			if key in self.maps[0][section]: del self.maps[0][section][key]
+		# 17.10: and no, not when config is volatile.
+		if not self.volatileConfig:
+			self._cacheConfig(self.maps[0])
+			# Remove deprecated keys.
+			# This action must be performed after caching, otherwise the newly modified profile will not be saved.
+			deprecatedKeys = {"General":"TrackDial", "Startup":"Studio500"}
+			for section, key in deprecatedKeys.items():
+				if key in self.maps[0][section]: del self.maps[0][section][key]
 		# Moving onto broadcast profiles if any.
-		try:
-			for profile in os.listdir(SPLProfiles):
-				name, ext = os.path.splitext(profile)
-				if ext == ".ini":
-					self.maps.append(self._unlockConfig(os.path.join(SPLProfiles, profile), profileName=name, validateNow=True))
-					self.profileNames.append(name)
-		except WindowsError:
-			pass
+		# 17.10: but not when only normal profile should be used.
+		if not self.normalProfileOnly:
+			try:
+				for profile in os.listdir(SPLProfiles):
+					name, ext = os.path.splitext(profile)
+					if ext == ".ini":
+						self.maps.append(self._unlockConfig(os.path.join(SPLProfiles, profile), profileName=name, validateNow=True))
+						self.profileNames.append(name)
+			except WindowsError:
+				pass
 		# Runtime flags (profiles and profile switching/triggers flags come from NVDA Core's ConfigManager).
 		self.profiles = self.maps
 		# Active profile name is retrieved via the below property function.
-		self.instantSwitch = self.profiles[0]["InstantProfile"] if "InstantProfile" in self.profiles[0] else None
+		self.instantSwitch = self.profiles[0]["InstantProfile"] if ("InstantProfile" in self.profiles[0] and not self.normalProfileOnly) else None
 		self.timedSwitch = None
 		# Switch history is a stack of previously activated profile(s), replacing prev profile flag from 7.x days.
 		# Initially normal profile will sit in here.
@@ -160,8 +177,6 @@ class ConfigHub(ChainMap):
 		self.newProfiles = set()
 		# Reset flag (only engaged if reset did happen).
 		self.resetHappened = False
-		# 17.09 only: a private variable to be set when config must become volatile.
-		self._volatileConfig = False
 
 	# Various properties
 	@property
@@ -171,6 +186,18 @@ class ConfigHub(ChainMap):
 	@property
 	def volatileConfig(self):
 		return self._volatileConfig
+
+	@property
+	def normalProfileOnly(self):
+		return self._normalProfileOnly
+
+	@property
+	def configInMemory(self):
+		return self._configInMemory
+
+	@property
+	def configRestricted(self):
+		return self.volatileConfig or self.normalProfileOnly or self.configInMemory
 
 	# Unlock (load) profiles from files.
 	# LTS: Allow new profile settings to be overridden by a parent profile.
@@ -266,6 +293,9 @@ class ConfigHub(ChainMap):
 	# Create profile: public function to access the two private ones above (used when creating a new profile).
 	# Mechanics borrowed from NVDA Core's config.conf with modifications for this add-on.
 	def createProfile(self, path, profileName=None, parent=None):
+		# 17.10: No, not when restrictions are applied.
+		if self.configRestricted:
+			raise RuntimeError("Broadcast profiles are volatile, only normal profile is in use, or config was loaded from memory")
 		self.maps.append(self._unlockConfig(path, profileName=profileName, parent=parent, validateNow=True))
 		self.profileNames.append(profileName)
 		self.newProfiles.add(profileName)
@@ -273,6 +303,9 @@ class ConfigHub(ChainMap):
 	# A class version of rename and delete operations.
 	# Mechanics powered by similar routines in NVDA Core's config.conf.
 	def renameProfile(self, oldName, newName):
+		# 17.10: No, not when restrictions are applied.
+		if self.configRestricted:
+			raise RuntimeError("Broadcast profiles are volatile, only normal profile is in use, or config was loaded from memory")
 		newNamePath = newName + ".ini"
 		newProfile = os.path.join(SPLProfiles, newNamePath)
 		if oldName.lower() != newName.lower() and os.path.isfile(newProfile):
@@ -293,6 +326,9 @@ class ConfigHub(ChainMap):
 			self.newProfiles.add(newName)
 
 	def deleteProfile(self, name):
+		# 17.10: No, not when restrictions are applied.
+		if self.configRestricted:
+			raise RuntimeError("Broadcast profiles are volatile, only normal profile is in use, or config was loaded from memory")
 		# Bring normal profile to the front if it isn't.
 		# Optimization: Tell the swapper that we need index to the normal profile for this case.
 		configPos = self.swapProfiles(name, defaultProfileName, showSwitchIndex=True) if self.profiles[0].name == name else self.profileIndexByName(name)
@@ -306,6 +342,8 @@ class ConfigHub(ChainMap):
 		self.newProfiles.discard(name)
 
 	def _cacheConfig(self, conf):
+		# 17.10: although normal profile is taken care of when the ConfigHub loads, broadcast profiles may not know about volatile config flag.
+		if self.volatileConfig: return
 		global _SPLCache
 		import copy
 		if _SPLCache is None: _SPLCache = {}
@@ -326,7 +364,8 @@ class ConfigHub(ChainMap):
 	def save(self):
 		# Save all config profiles.
 		# 17.09: but not when they are volatile.
-		if self.volatileConfig: return
+		# 17.10: and if in-memory config flag is set.
+		if (self.volatileConfig or self.configInMemory): return
 		# 7.0: Save normal profile first.
 		# Temporarily merge normal profile.
 		# 8.0: Locate the index instead.
@@ -425,7 +464,10 @@ class ConfigHub(ChainMap):
 	# Switch between profiles.
 	# This involves promoting and demoting normal profile.
 	# 17.05: The appTerminating flag is used to suppress profile switching messages.
+	# 17.10: this will never be invoked if only normal profile is in use or if config was loaded from memory alone.
 	def switchProfile(self, prevProfile, newProfile, appTerminating=False):
+		if self.normalProfileOnly or self.configInMemory:
+			raise RuntimeError("Only normal profile is in use or config was loaded from memory, cannot switch profiles")
 		if not appTerminating:
 			from .splconfui import _configDialogOpened
 			if _configDialogOpened:
@@ -497,6 +539,12 @@ _configErrors ={
 _configLoadStatus = {} # Key = filename, value is pass or no pass.
 # Track comments map.
 trackComments = {}
+# Whether config should be volatile or not.
+configIsVolatile = False
+# Only use normal profile.
+normalProfileOnly = False
+# In-memory copy of config is requested, implying use of default settings.
+configInMemory = False
 
 def initConfig():
 	# Load the default config from a list of profiles.
@@ -535,7 +583,8 @@ def initConfig():
 		_configLoadStatus.clear()
 		runConfigErrorDialog("\n".join(messages), title)
 	# Fire up profile triggers.
-	initProfileTriggers()
+	# 17.10: except when normal profile only flag is specified.
+	if not SPLConfig.normalProfileOnly: initProfileTriggers()
 	# Let the update check begin.
 	splupdate.initialize()
 	# 7.1: Make sure encoder settings map isn't corrupted.
@@ -790,7 +839,8 @@ def saveConfig():
 	if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
 	splupdate._SPLUpdateT = None
 	# Close profile triggers dictionary.
-	saveProfileTriggers()
+	# 17.10: but if only the normal profile is in use, it won't do anything.
+	if not SPLConfig.normalProfileOnly: saveProfileTriggers()
 	# Dump track comments.
 	pickle.dump(trackComments, file(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"), "wb"))
 	# Save update check state.
@@ -1014,7 +1064,7 @@ Thank you.""")
 
 # Old version reminder.
 # Only used when there is a LTS version.
-"""class OldVersionReminder(wx.Dialog):
+class OldVersionReminder(wx.Dialog):
 	#A dialog shown when using add-on 8.x under Studio 5.0x.
 	#
 
@@ -1025,7 +1075,7 @@ Thank you.""")
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 
 		# Translators: A message displayed if using an old Studio or Windows version.
-		label = wx.StaticText(self, wx.ID_ANY, label=_("You are using an older version of Windows. From mid-2018 onwards, Studio add-on will not support versions earlier than Windows 7 Service Pack 1. Add-on 18.x.y LTS (long-term support) versions will support Windows versions such as Windows XP."))
+		label = wx.StaticText(self, wx.ID_ANY, label=_("You are using an older version of Windows. From 2018 onwards, Studio add-on will not support versions earlier than Windows 7 Service Pack 1. Add-on 15.x LTS (long-term support) versions will support Windows versions such as Windows XP until mid-2018."))
 		mainSizer.Add(label,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
@@ -1046,7 +1096,7 @@ Thank you.""")
 		global SPLConfig
 		if self.oldVersionReminder.Value:
 			SPLConfig["Startup"]["OldVersionReminder"] = not self.oldVersionReminder.Value
-		self.Destroy()"""
+		self.Destroy()
 
 # And to open the above dialog and any other dialogs.
 # LTS18: return immediately after opening old ver dialog if minimal flag is set.

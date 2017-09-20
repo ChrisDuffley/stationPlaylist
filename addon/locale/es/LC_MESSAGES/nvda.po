@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2017-09-03 13:02+0100\n"
+"PO-Revision-Date: 2017-09-10 18:24+0100\n"
 "Last-Translator: Juan C. Buño <oprisniki@gmail.com>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -965,6 +965,7 @@ msgstr ""
 "\t\t* o pulsando NVDA+Shift+D para configurarlo a 'Sin atenuación'."
 
 #. Translators: A checkbox to turn off audio ducking reminder message.
+#. Translators: A checkbox to turn off old version reminder message.
 msgid "Do not show this message again"
 msgstr "No mostrar este mensaje otra vez"
 
@@ -1028,6 +1029,18 @@ msgstr "Bienvenido al complemento StationPlaylist Studio"
 #. Translators: A checkbox to show welcome dialog.
 msgid "Show welcome dialog when I start Studio"
 msgstr "Mostrar el diálogo de bienvenida al iniciar Studio"
+
+#. Translators: Title of a dialog displayed when the add-on starts reminding broadcasters about old Studio releases.
+msgid "Old Windows version detected"
+msgstr ""
+
+#. Translators: A message displayed if using an old Studio or Windows version.
+msgid ""
+"You are using an older version of Windows. From 2018 onwards, Studio add-on "
+"will not support versions earlier than Windows 7 Service Pack 1. Add-on 15.x "
+"LTS (long-term support) versions will support Windows versions such as "
+"Windows XP until mid-2018."
+msgstr ""
 
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Status announcement beeps"
@@ -1609,7 +1622,6 @@ msgid "SPL Assistant command &layout:"
 msgstr "Orden &distribución de SPL Assistant:"
 
 #. Translators: The confirmation prompt displayed when changing to the fastest development channel (with risks involved).
-#, fuzzy
 msgid ""
 "You are about to switch to the Test Drive Fast (try) builds channel, the "
 "fastest and most unstable development channel. Please note that the selected "
@@ -1618,13 +1630,13 @@ msgid ""
 "to use stable releases, please answer no and switch to a more stable update "
 "channel. Are you sure you wish to switch to Test Drive Fast channel?"
 msgstr ""
-"Estás a punto de cambiar al canal de compilación Drive Fast (pruebas), el "
-"canal de desarrollo más rápido y más inestable. or favor ten en cuenta que "
-"el canal seleccionado podrá incluir actualizaciones que pueden ser "
+"Estás a punto de cambiar al canal de compilación Test Drive Fast (probar), "
+"el canal de desarrollo más rápido y más inestable. por favor ten en cuenta "
+"que el canal seleccionado podrá incluir actualizaciones que pueden ser "
 "inestables a veces y que deben utilizarse para probar y enviar comentarios "
 "al desarrollador del complemento. Si prefieres utilizar versiones estables, "
 "por favor responde no y cambia a un canal de actualización más estable. "
-"¿Estás seguro de que deseas cambiar al canal de desarrolladores más rápido?"
+"¿Estás seguro de que deseas cambiar al canal Test Drive Fast?"
 
 #. Translators: The title of the channel switch confirmation dialog.
 msgid "Switching to unstable channel"

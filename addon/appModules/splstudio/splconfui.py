@@ -33,48 +33,52 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# Broadcast profile controls were inspired by Config Profiles dialog in NVDA Core.
 		# 7.0: Have a copy of the sorted profiles so the actual combo box items can show profile flags.
 		# 8.0: No need to sort as profile names from ConfigHub knows what to do.
-		self.profileNames = list(splconfig.SPLConfig.profileNames)
-		self.profileNames[0] = _("Normal profile")
-		# Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
-		self.profiles = SPLConfigHelper.addLabeledControl(_("Broadcast &profile:"), wx.Choice, choices=self.displayProfiles(list(self.profileNames)))
-		self.profiles.Bind(wx.EVT_CHOICE, self.onProfileSelection)
-		try:
-			self.profiles.SetSelection(self.profileNames.index(splconfig.SPLConfig.activeProfile))
-		except:
-			pass
+		# 17.10: skip this if only normal profile is in use.
+		if not (splconfig.SPLConfig.configInMemory or splconfig.SPLConfig.normalProfileOnly):
+			self.profileNames = list(splconfig.SPLConfig.profileNames)
+			self.profileNames[0] = _("Normal profile")
+			# Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
+			self.profiles = SPLConfigHelper.addLabeledControl(_("Broadcast &profile:"), wx.Choice, choices=self.displayProfiles(list(self.profileNames)))
+			self.profiles.Bind(wx.EVT_CHOICE, self.onProfileSelection)
+			try:
+				self.profiles.SetSelection(self.profileNames.index(splconfig.SPLConfig.activeProfile))
+			except:
+				pass
 
 		# Profile controls code credit: NV Access (except copy button).
-		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
-		# Translators: The label of a button to create a new broadcast profile.
-		newButton = wx.Button(self, label=_("&New"))
-		newButton.Bind(wx.EVT_BUTTON, self.onNew)
-		# Translators: The label of a button to copy a broadcast profile.
-		copyButton = wx.Button(self, label=_("Cop&y"))
-		copyButton.Bind(wx.EVT_BUTTON, self.onCopy)
-		# Translators: The label of a button to rename a broadcast profile.
-		self.renameButton = wx.Button(self, label=_("&Rename"))
-		self.renameButton.Bind(wx.EVT_BUTTON, self.onRename)
-		# Translators: The label of a button to delete a broadcast profile.
-		self.deleteButton = wx.Button(self, label=_("&Delete"))
-		self.deleteButton.Bind(wx.EVT_BUTTON, self.onDelete)
-		# Have a copy of the triggers dictionary.
-		self._profileTriggersConfig = dict(splconfig.profileTriggers)
-		# Translators: The label of a button to manage show profile triggers.
-		self.triggerButton = wx.Button(self, label=_("&Triggers..."))
-		self.triggerButton.Bind(wx.EVT_BUTTON, self.onTriggers)
+		# 17.10: if restrictions such as volatile config are applied, disable this area entirely.
+		if not (splconfig.SPLConfig.volatileConfig or splconfig.SPLConfig.normalProfileOnly or splconfig.SPLConfig.configInMemory):
+			sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
+			# Translators: The label of a button to create a new broadcast profile.
+			newButton = wx.Button(self, label=_("&New"))
+			newButton.Bind(wx.EVT_BUTTON, self.onNew)
+			# Translators: The label of a button to copy a broadcast profile.
+			copyButton = wx.Button(self, label=_("Cop&y"))
+			copyButton.Bind(wx.EVT_BUTTON, self.onCopy)
+			# Translators: The label of a button to rename a broadcast profile.
+			self.renameButton = wx.Button(self, label=_("&Rename"))
+			self.renameButton.Bind(wx.EVT_BUTTON, self.onRename)
+			# Translators: The label of a button to delete a broadcast profile.
+			self.deleteButton = wx.Button(self, label=_("&Delete"))
+			self.deleteButton.Bind(wx.EVT_BUTTON, self.onDelete)
+			# Have a copy of the triggers dictionary.
+			self._profileTriggersConfig = dict(splconfig.profileTriggers)
+			# Translators: The label of a button to manage show profile triggers.
+			self.triggerButton = wx.Button(self, label=_("&Triggers..."))
+			self.triggerButton.Bind(wx.EVT_BUTTON, self.onTriggers)
+			sizer.sizer.AddMany((newButton, copyButton, self.renameButton, self.deleteButton, self.triggerButton))
+			# Translators: The label for a setting in SPL Add-on settings to configure countdown seconds before switching profiles.
+			self.triggerThreshold = sizer.addLabeledControl(_("Countdown seconds before switching profiles"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=10, max=60, initial=splconfig.SPLConfig["Advanced"]["ProfileTriggerThreshold"])
+			if self.profiles.GetSelection() == 0:
+				self.renameButton.Disable()
+				self.deleteButton.Disable()
+				self.triggerButton.Disable()
+			SPLConfigHelper.addItem(sizer.sizer)
 		self.switchProfile = splconfig.SPLConfig.instantSwitch
 		self.activeProfile = splconfig.SPLConfig.activeProfile
 		# Used as sanity check in case switch profile is renamed or deleted.
 		self.switchProfileRenamed = False
 		self.switchProfileDeleted = False
-		sizer.sizer.AddMany((newButton, copyButton, self.renameButton, self.deleteButton, self.triggerButton))
-		# Translators: The label for a setting in SPL Add-on settings to configure countdown seconds before switching profiles.
-		self.triggerThreshold = sizer.addLabeledControl(_("Countdown seconds before switching profiles"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=10, max=60, initial=splconfig.SPLConfig["Advanced"]["ProfileTriggerThreshold"])
-		if self.profiles.GetSelection() == 0:
-			self.renameButton.Disable()
-			self.deleteButton.Disable()
-			self.triggerButton.Disable()
-		SPLConfigHelper.addItem(sizer.sizer)
 
 		self.beepAnnounce = splconfig.SPLConfig["General"]["BeepAnnounce"]
 		self.messageVerbosity = splconfig.SPLConfig["General"]["MessageVerbosity"]
@@ -87,8 +91,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.topBottom = splconfig.SPLConfig["General"]["TopBottomAnnounce"]
 		self.requestsAlert = splconfig.SPLConfig["General"]["RequestsAlert"]
 		# Translators: The label of a button to open a dialog to configure general add-on settings such as beep announcement and top and bottom notifications.
-		generalSettingsButton = SPLConfigHelper.addItem(wx.Button(self, label=_("&General add-on settings...")))
-		generalSettingsButton.Bind(wx.EVT_BUTTON, self.onGeneralSettings)
+		self.generalSettingsButton = SPLConfigHelper.addItem(wx.Button(self, label=_("&General add-on settings...")))
+		self.generalSettingsButton.Bind(wx.EVT_BUTTON, self.onGeneralSettings)
 
 		self.endOfTrackTime = splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"]
 		self.sayEndOfTrack = splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"]
@@ -204,13 +208,14 @@ class SPLConfigDialog(gui.SettingsDialog):
 	def postInit(self):
 		global _configDialogOpened
 		_configDialogOpened = True
-		self.profiles.SetFocus()
+		self.profiles.SetFocus() if hasattr(self, "profiles") else self.generalSettingsButton.SetFocus()
 
 	def onOk(self, evt):
 		global _configDialogOpened
-		selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
-		if splconfig.SPLConfig.activeProfile != selectedProfile:
-			splconfig.SPLConfig.swapProfiles(splconfig.SPLConfig.activeProfile, selectedProfile)
+		if hasattr(self, "profiles"):
+			selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
+			if splconfig.SPLConfig.activeProfile != selectedProfile:
+				splconfig.SPLConfig.swapProfiles(splconfig.SPLConfig.activeProfile, selectedProfile)
 		splconfig.SPLConfig["General"]["BeepAnnounce"] = self.beepAnnounce
 		splconfig.SPLConfig["General"]["MessageVerbosity"] = self.messageVerbosity
 		splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] = self.endOfTrackTime
@@ -270,8 +275,12 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self._profileTriggersConfig = None
 		splconfig.triggerStart(restart=True)
 		# 8.0: Make sure NVDA knows this must be cached (except for normal profile).
-		if selectedProfile != _("Normal profile") and selectedProfile not in splconfig._SPLCache:
-			splconfig._cacheConfig(splconfig.SPLConfig.profileByName(selectedProfile))
+		# 17.10: but not when config is volatile.
+		try:
+			if selectedProfile != _("Normal profile") and selectedProfile not in splconfig._SPLCache:
+				splconfig._cacheConfig(splconfig.SPLConfig.profileByName(selectedProfile))
+		except NameError:
+			pass
 		super(SPLConfigDialog,  self).onOk(evt)
 
 	def onCancel(self, evt):
@@ -280,9 +289,12 @@ class SPLConfigDialog(gui.SettingsDialog):
 		if self.includedColumns is not None: self.includedColumns.clear()
 		self.includedColumns = None
 		# Apply profile trigger changes if any.
-		splconfig.profileTriggers = dict(self._profileTriggersConfig)
-		self._profileTriggersConfig.clear()
-		self._profileTriggersConfig = None
+		try:
+			splconfig.profileTriggers = dict(self._profileTriggersConfig)
+			self._profileTriggersConfig.clear()
+			self._profileTriggersConfig = None
+		except AttributeError:
+			pass
 		splconfig.triggerStart(restart=True)
 		# 7.0: No matter what happens, merge appropriate profile.
 		try:
@@ -1401,7 +1413,10 @@ class AdvancedOptionsDialog(wx.Dialog):
 		if len(self._updateChannels) > 1:
 			# Translators: The label for a combo box to select update channel.
 			labelText = _("&Add-on update channel:")
-			self.channels=advOptionsHelper.addLabeledControl(labelText, wx.Choice, choices=["Test Drive Fast (try)", "Test Drive Slow (development)", "stable"])
+			if sys.getwindowsversion().build >= 7601: self.channels=advOptionsHelper.addLabeledControl(labelText, wx.Choice, choices=["Test Drive Fast (try)", "Test Drive Slow (development)", "stable"])
+			else:
+				self.channels=advOptionsHelper.addLabeledControl(labelText, wx.Choice, choices=["Test Drive Fast (try)", "Test Drive Slow (development)", "stable", "longterm"])
+				self._updateChannels = ("try", "dev", "stable", "lts")
 			self.channels.SetSelection(self._updateChannels.index(self.Parent.updateChannel))
 		# Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 		self.splConPassthroughCheckbox=advOptionsHelper.addItem(wx.CheckBox(self, label=_("Allow SPL C&ontroller command to invoke SPL Assistant layer")))
