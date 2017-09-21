@@ -129,9 +129,10 @@ class ConfigHub(ChainMap):
 		# Create a "fake" map entry, to be replaced by the normal profile later.
 		super(ConfigHub, self).__init__()
 		# 17.09 only: a private variable to be set when config must become volatile.
-		self._volatileConfig = configIsVolatile
-		self._configInMemory = configInMemory
-		self._normalProfileOnly = normalProfileOnly
+		# 17.10: now pull it in from command line.
+		self._volatileConfig = "--spl-volatileconfig" in globalVars.appArgsExtra
+		self._configInMemory = "--spl-configinmemory" in globalVars.appArgsExtra
+		self._normalProfileOnly = "--spl-normalprofileonly" in globalVars.appArgsExtra
 		if self.configInMemory: self._normalProfileOnly = True
 		# For presentational purposes.
 		self.profileNames = []
@@ -539,12 +540,6 @@ _configErrors ={
 _configLoadStatus = {} # Key = filename, value is pass or no pass.
 # Track comments map.
 trackComments = {}
-# Whether config should be volatile or not.
-configIsVolatile = False
-# Only use normal profile.
-normalProfileOnly = False
-# In-memory copy of config is requested, implying use of default settings.
-configInMemory = False
 
 def initConfig():
 	# Load the default config from a list of profiles.
