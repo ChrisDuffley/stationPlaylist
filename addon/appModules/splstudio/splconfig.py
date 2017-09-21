@@ -136,7 +136,7 @@ class ConfigHub(ChainMap):
 		if self.configInMemory: self._normalProfileOnly = True
 		# For presentational purposes.
 		self.profileNames = []
-		# 17.10: if config will be stored on RAM, this step is skipped, resulting is faster startup.
+		# 17.10: if config will be stored on RAM, this step is skipped, resulting in faster startup.
 		# But data conversion must take place.
 		if not self.configInMemory: self.maps[0] = self._unlockConfig(SPLIni, profileName=defaultProfileName, prefill=True, validateNow=True)
 		else:
@@ -1101,7 +1101,7 @@ def showStartupDialogs(oldVer=False, oldVerReturn=False):
 		gui.mainFrame.prePopup()
 		OldVersionReminder(gui.mainFrame).Show()
 		gui.mainFrame.postPopup()
-		if oldVerReturn: return
+	if oldVerReturn: return
 	if SPLConfig["Startup"]["WelcomeDialog"]:
 		gui.mainFrame.prePopup()
 		WelcomeDialog(gui.mainFrame).Show()
