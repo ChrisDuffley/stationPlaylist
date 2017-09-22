@@ -303,6 +303,19 @@ un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
 
+## Version 17.09.1
+
+* À la suite de l'annonce de NV Access, NVDA 2017.3 sera la dernière version
+  compatible avec les versions de Windows avant Windows 7 Service Pack 1, le
+  module complémentaire Studio présentera un message de rappel à propos de
+  cela si vous exécutez à partir d'anciennes versions de Windows. La fin de
+  la prise en charge des anciennes versions de Windows de ce module
+  complémentaire est prévue pour avril 2018.
+* NVDA n'affichera plus de dialogue de démarrage et/ou n'annoncera plus la
+  version de Studio si elle a débuté avec un ensemble d'indicateurs minimal
+  (nvda -rm). La seule exception est l'ancien dialogue de rappel de version
+  de Windows.
+
 ## Version 17.09
 
 * Si un utilisateur entre dans le dialogue des options avancées dans les

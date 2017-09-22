@@ -265,6 +265,17 @@ Amennyiben érintőképernyős számítógépen használja a Studiot Windows 8, 
 parancsokat végrehajthat az érintőképernyőn is. Először 3 ujjas koppintással
 váltson SPL módra, és utána már használhatók az alább felsorolt parancsok.
 
+## Version 17.09.1
+
+* As a result of announcement from NV Access that NvDA 2017.3 will be the
+  last version to support Windows versions prior to windows 7 Service Pack
+  1, Studio add-on will present a reminder message about this if running
+  from old Windows releases. End of support for old Windows releases from
+  this add-on is scheduled for April 2018.
+* NVDA will no longer display startup dialogs and/or announce Studio version
+  if started with minimal (nvda -rm) flag set. The sole exception is the old
+  Windows release reminder dialog.
+
 ## Version 17.09
 
 * If a user enters advanced options dialog under add-on settings while the
