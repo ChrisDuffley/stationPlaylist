@@ -174,6 +174,13 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 17.10
+
+* Several general settings such as status announcement beeps, top and bottom of playlist notification and others are now located in the new general add-on settings dialog (accessed from a new button in add-on settings).
+* It is now possible to make add-on options read-only, use only the normal profile, or not load settings from disk when Studio starts. These are controlled by new command-line switches specific to this add-on.
+* When running NVDA from Run dialog (Windows+R), you can now pass in additional command-line switches to change how the add-on works. These include "--spl-configvolatile" (read-only settings), "--spl-configinmemory" (do not load settings from disk), and "--spl-normalprofileonly" (only use normal profile).
+* If using Windows releases prior to Windows 7 Service Pack 1, you cannot switch to Test Drive Fast update channel. A future release of this add-on will move users of old Windows versions to a dedicated support channel.
+
 ## Version 17.09.1
 
 * As a result of announcement from NV Access that NvDA 2017.3 will be the last version to support Windows versions prior to windows 7 Service Pack 1, Studio add-on will present a reminder message about this if running from old Windows releases. End of support for old Windows releases from this add-on is scheduled for April 2018.
