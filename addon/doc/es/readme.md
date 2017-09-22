@@ -296,6 +296,17 @@ realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
 
+## Version 17.09.1
+
+* As a result of announcement from NV Access that NvDA 2017.3 will be the
+  last version to support Windows versions prior to windows 7 Service Pack
+  1, Studio add-on will present a reminder message about this if running
+  from old Windows releases. End of support for old Windows releases from
+  this add-on is scheduled for April 2018.
+* NVDA will no longer display startup dialogs and/or announce Studio version
+  if started with minimal (nvda -rm) flag set. The sole exception is the old
+  Windows release reminder dialog.
+
 ## Versión 17.09
 
 * Si un usuario entra en el diálogo opciones avanzadas en opciones del
