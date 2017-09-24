@@ -869,6 +869,11 @@ def switchProfile(prevProfile, newProfile):
 
 # Called from within the app module.
 def instantProfileSwitch():
+	# 17.10: What if only normal profile is in use?
+	if SPLConfig.normalProfileOnly:
+		# Translators: announced when only normal profile is in use.
+		ui.message(_("Only normal profile is in use"))
+		return
 	SPLSwitchProfile = SPLConfig.instantSwitch
 	if SPLSwitchProfile is None:
 		# Translators: Presented when trying to switch to an instant switch profile when the instant switch profile is not defined.
