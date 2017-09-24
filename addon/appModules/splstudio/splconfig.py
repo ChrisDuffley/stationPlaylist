@@ -129,13 +129,14 @@ class ConfigHub(ChainMap):
 		# Create a "fake" map entry, to be replaced by the normal profile later.
 		super(ConfigHub, self).__init__()
 		# 17.09 only: a private variable to be set when config must become volatile.
-		self._volatileConfig = configIsVolatile
-		self._configInMemory = configInMemory
-		self._normalProfileOnly = normalProfileOnly
+		# 17.10: now pull it in from command line.
+		self._volatileConfig = "--spl-volatileconfig" in globalVars.appArgsExtra
+		self._configInMemory = "--spl-configinmemory" in globalVars.appArgsExtra
+		self._normalProfileOnly = "--spl-normalprofileonly" in globalVars.appArgsExtra
 		if self.configInMemory: self._normalProfileOnly = True
 		# For presentational purposes.
 		self.profileNames = []
-		# 17.10: if config will be stored on RAM, this step is skipped, resulting is faster startup.
+		# 17.10: if config will be stored on RAM, this step is skipped, resulting in faster startup.
 		# But data conversion must take place.
 		if not self.configInMemory: self.maps[0] = self._unlockConfig(SPLIni, profileName=defaultProfileName, prefill=True, validateNow=True)
 		else:
@@ -539,12 +540,6 @@ _configErrors ={
 _configLoadStatus = {} # Key = filename, value is pass or no pass.
 # Track comments map.
 trackComments = {}
-# Whether config should be volatile or not.
-configIsVolatile = False
-# Only use normal profile.
-normalProfileOnly = False
-# In-memory copy of config is requested, implying use of default settings.
-configInMemory = False
 
 def initConfig():
 	# Load the default config from a list of profiles.
@@ -851,6 +846,7 @@ def saveConfig():
 	SPLConfig = None
 	_SPLCache.clear()
 	_SPLCache = None
+	SPLPrevProfile = None
 
 # Switch between profiles.
 SPLPrevProfile = None
@@ -874,6 +870,11 @@ def switchProfile(prevProfile, newProfile):
 
 # Called from within the app module.
 def instantProfileSwitch():
+	# 17.10: What if only normal profile is in use?
+	if SPLConfig.normalProfileOnly:
+		# Translators: announced when only normal profile is in use.
+		ui.message(_("Only normal profile is in use"))
+		return
 	SPLSwitchProfile = SPLConfig.instantSwitch
 	if SPLSwitchProfile is None:
 		# Translators: Presented when trying to switch to an instant switch profile when the instant switch profile is not defined.
@@ -1106,7 +1107,7 @@ def showStartupDialogs(oldVer=False, oldVerReturn=False):
 		gui.mainFrame.prePopup()
 		OldVersionReminder(gui.mainFrame).Show()
 		gui.mainFrame.postPopup()
-		if oldVerReturn: return
+	if oldVerReturn: return
 	if SPLConfig["Startup"]["WelcomeDialog"]:
 		gui.mainFrame.prePopup()
 		WelcomeDialog(gui.mainFrame).Show()

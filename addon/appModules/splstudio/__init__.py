@@ -929,6 +929,10 @@ class AppModule(appModuleHandler.AppModule):
 		# Just to make sure:
 		global _SPLWin
 		if _SPLWin: _SPLWin = None
+		# 17.10: remove add-on specific command-line switches.
+		# This is necessary in order to restore full config functionality when NVDA restarts.
+		for cmdSwitch in globalVars.appArgsExtra:
+			if cmdSwitch.startswith("--spl-"): globalVars.appArgsExtra.remove(cmdSwitch)
 
 	# Script sections (for ease of maintenance):
 	# Time-related: elapsed time, end of track alarm, etc.

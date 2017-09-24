@@ -8,7 +8,7 @@ This add-on package provides improved usage of StationPlaylist Studio, as well a
 
 For more information about the add-on, read the [add-on guide][4]. For developers seeking to know how to build the add-on, see buildInstructions.txt located at the root of the add-on source code repository.
 
-IMPORTANT: This add-on requires NVDA 2017.1 or later and StationPlaylist Studio 5.10 or later. If using Windows 8 or later, for best experience, disable audio ducking mode. Also, add-on 8.0/16.10 requires Studio 5.10 and later, and for broadcasters using Studio 5.0x, a long-term support version (15.x) is available.
+IMPORTANT: This add-on requires NVDA 2017.1 or later and StationPlaylist Studio 5.10 or later. If using Windows 8 or later, for best experience, disable audio ducking mode. Also, add-on 8.0/16.10 requires Studio 5.10 and later, and for broadcasters using Studio 5.0x and/or Windows XP, Vista or 7 without Service Pack 1, a long-term support version (15.x) is available.
 
 ## Shortcut keys
 
@@ -174,9 +174,16 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 17.10
+
+* If using Windows releases prior to Windows 7 Service Pack 1, you cannot switch to Test Drive Fast update channel. A future release of this add-on will move users of old Windows versions to a dedicated support channel.
+* Several general settings such as status announcement beeps, top and bottom of playlist notification and others are now located in the new general add-on settings dialog (accessed from a new button in add-on settings).
+* It is now possible to make add-on options read-only, use only the normal profile, or not load settings from disk when Studio starts. These are controlled by new command-line switches specific to this add-on.
+* When running NVDA from Run dialog (Windows+R), you can now pass in additional command-line switches to change how the add-on works. These include "--spl-configvolatile" (read-only settings), "--spl-configinmemory" (do not load settings from disk), and "--spl-normalprofileonly" (only use normal profile).
+
 ## Version 17.09.1
 
-* As a result of announcement from NV Access that NvDA 2017.3 will be the last version to support Windows versions prior to windows 7 Service Pack 1, Studio add-on will present a reminder message about this if running from old Windows releases. End of support for old Windows releases from this add-on is scheduled for April 2018.
+* As a result of announcement from NV Access that NVDA 2017.3 will be the last version to support Windows versions prior to windows 7 Service Pack 1, Studio add-on will present a reminder message about this if running from old Windows releases. End of support for old Windows releases from this add-on is scheduled for April 2018.
 * NVDA will no longer display startup dialogs and/or announce Studio version if started with minimal (nvda -rm) flag set. The sole exception is the old Windows release reminder dialog.
 
 ## Version 17.09

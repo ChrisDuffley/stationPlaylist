@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.09\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2017-09-10 14:24+0200\n"
+"PO-Revision-Date: 2017-09-15 13:42+0200\n"
 "Last-Translator: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language-Team: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language: fr\n"
@@ -1049,7 +1049,7 @@ msgstr "Afficher  le  dialogue bienvenue lorsque je démarre Studio"
 
 #. Translators: Title of a dialog displayed when the add-on starts reminding broadcasters about old Studio releases.
 msgid "Old Windows version detected"
-msgstr ""
+msgstr "Ancienne version de Windows détectée"
 
 #. Translators: A message displayed if using an old Studio or Windows version.
 msgid ""
@@ -1058,6 +1058,11 @@ msgid ""
 "LTS (long-term support) versions will support Windows versions such as "
 "Windows XP until mid-2018."
 msgstr ""
+"Vous utilisez une ancienne version de Windows. À partir de 2018, le module "
+"complémentaire Studio ne prend pas en charge les versions antérieures à "
+"Windows 7 Service Pack 1. Les versions 15.x LTS (long-term support) du "
+"module complémentaire supportent les versions Windows telles que Windows XP "
+"jusqu'à mi-2018."
 
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Status announcement beeps"
