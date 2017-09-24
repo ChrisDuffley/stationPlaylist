@@ -846,6 +846,7 @@ def saveConfig():
 	SPLConfig = None
 	_SPLCache.clear()
 	_SPLCache = None
+	SPLPrevProfile = None
 
 # Switch between profiles.
 SPLPrevProfile = None
