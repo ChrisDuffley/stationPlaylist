@@ -1103,20 +1103,16 @@ class OldVersionReminder(wx.Dialog):
 # LTS18: return immediately after opening old ver dialog if minimal flag is set.
 def showStartupDialogs(oldVer=False, oldVerReturn=False):
 	# Old version reminder if this is such a case.
-	if oldVer and SPLConfig["Startup"]["OldVersionReminder"]:
-		gui.mainFrame.prePopup()
-		OldVersionReminder(gui.mainFrame).Show()
-		gui.mainFrame.postPopup()
+	# 17.10: and also used to give people a chance to switch to LTS.
+	if oldVer and os.path.exists(os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "ltsprep")):
+		if gui.messageBox("You are using an older version of Windows. From 2018 onwards, Studio add-on will not support versions earlier than Windows 7 Service Pack 1. Add-on 15.x LTS (long-term support) versions will support Windows versions such as Windows XP until mid-2018. Would you like to switch to long-term support release?", "Long-Term Support version", wx.YES | wx.NO | wx.CANCEL | wx.CENTER | wx.ICON_QUESTION) == wx.YES:
+			splupdate.SPLUpdateChannel = "lts"
+			os.remove(os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "ltsprep"))
 	if oldVerReturn: return
 	if SPLConfig["Startup"]["WelcomeDialog"]:
 		gui.mainFrame.prePopup()
 		WelcomeDialog(gui.mainFrame).Show()
 		gui.mainFrame.postPopup()
-	# 7.4 only: Show branch selection dialog.
-	#if os.path.exists(os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "ltsprep")):
-		#if gui.messageBox("The next major version of the add-on (15.x) will be the last version to support Studio versions earlier than 5.10, with add-on 15.x being designated as a long-term support version. Would you like to switch to long-term support release?", "Long-Term Support version", wx.YES | wx.NO | wx.CANCEL | wx.CENTER | wx.ICON_QUESTION) == wx.YES:
-			#splupdate.SPLUpdateChannel = "lts"
-			#os.remove(os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "ltsprep"))
 	import audioDucking
 	if SPLConfig["Startup"]["AudioDuckingReminder"] and audioDucking.isAudioDuckingSupported():
 		gui.mainFrame.prePopup()
