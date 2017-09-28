@@ -38,6 +38,13 @@ except ImportError:
 # Until wx.CENTER_ON_SCREEN returns...
 CENTER_ON_SCREEN = wx.CENTER_ON_SCREEN if hasattr(wx, "CENTER_ON_SCREEN") else 2
 
+# Do not unlock the full power of action extension point until 2018.
+try:
+	import extensionPoints
+	actionsAvailable = True
+except ImportError:
+	actionsAvailable = False
+
 # Configuration management
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
 SPLProfiles = os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "profiles")
