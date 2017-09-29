@@ -18,7 +18,8 @@ StationPlaylist Studio 5.10 ou version ultérieure. Si vous utilisez Windows
 8 ou une version ultérieure, pour une meilleure expérience, désactiver le
 Mode d'atténuation audio. En outre, le module complémentaire 8.0/16.10
 nécessite Studio 5.10 et ultérieur, et pour les diffusions utilisant Studio
-5.0x, une version prise en charge à long terme (15.x) est disponible.
+5.0x et/ou Windows XP, Vista ou 7 sans le Service Pack 1, une version prise
+en charge à long terme (15.x) est disponible.
 
 ## Raccourcis clavier
 
@@ -303,14 +304,43 @@ un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
 
+## Version 17.10
+
+* Si vous utiliser les versions de Windows antérieures à Windows 7 Service
+  Pack 1, vous ne pouvez pas basculer au canal de mise à jour de Test Drive
+  Fast. Une version future de ce module complémentaire déplacera les
+  utilisateurs des anciennes versions de Windows vers un canal de prise en
+  charge dédié.
+* Plusieurs paramètres généraux tels que le statut de l'annonce du bips, en
+  haut et en bas de la notification de playlist et d'autres se trouvent
+  maintenant situés dans le nouveau dialogue paramètres généraux du module
+  complémentaire (accessible à partir d'un nouveau bouton dans les
+  paramètres du module complémentaire).
+* Il est maintenant possible de faire que les options du module
+  complémentaire en lecture seule, utilisez uniquement le profil normal, ou
+  pas charger les paramètres à partir du disque lorsque Studio
+  démarre. Ceux-ci sont contrôlés par de nouveaux commutateurs en ligne de
+  commande spécifiques à ce module complémentaire.
+* Lors de l'exécution de NVDA depuis le dialogue Exécuter (Windows+R), vous
+  pouvez maintenant passer en ligne de commande supplémentaires les
+  commutateurs pour modifier la façon dont le module complémentaire
+  fonctionne. Ces derniers comprennent "--spl-configvolatile" (paramètres en
+  lecture seule), "--spl-configinmemory" (ne pas charger les paramètres du
+  disque), et "--spl-normalprofileonly" (utiliser uniquement le profil
+  normal).
+* Si en sortant de Studio (pas de NVDA) pendant que le changement de profil
+  immédiat est actif, NVDA ne donne plus d'annonces trompeurs lors du
+  basculement à un changement de profil immédiat lors de l'utilisation de
+  Studio à nouveau.
+
 ## Version 17.09.1
 
 * À la suite de l'annonce de NV Access, NVDA 2017.3 sera la dernière version
-  compatible avec les versions de Windows avant Windows 7 Service Pack 1, le
-  module complémentaire Studio présentera un message de rappel à propos de
-  cela si vous exécutez à partir d'anciennes versions de Windows. La fin de
-  la prise en charge des anciennes versions de Windows de ce module
-  complémentaire est prévue pour avril 2018.
+  prise en charge avec les versions de Windows antérieures à  Windows 7
+  Service Pack 1, le module complémentaire Studio présentera un message de
+  rappel à propos de ça si vous exécuter à partir d'anciennes versions de
+  Windows. La fin de la prise en charge des anciennes versions de Windows
+  pour ce module complémentaire est prévue pour Avril 2018.
 * NVDA n'affichera plus de dialogue de démarrage et/ou n'annoncera plus la
   version de Studio si elle a débuté avec un ensemble d'indicateurs minimal
   (nvda -rm). La seule exception est l'ancien dialogue de rappel de version

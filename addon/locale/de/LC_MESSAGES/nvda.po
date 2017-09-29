@@ -858,7 +858,6 @@ msgid "Checking for new version of Studio add-on..."
 msgstr "Überprüfen auf neue Versionen der Studio-Erweiterung..."
 
 #. Translators: The name of the default (normal) profile.
-#. 8.0: Make sure NVDA knows this must be cached (except for normal profile).
 msgid "Normal profile"
 msgstr "Normales profil"
 
@@ -919,6 +918,11 @@ msgstr "Schnelle Umschaltung zwischen Profilen aktivierten"
 #. Calling set profile flags with discard argument is always safe here.
 msgid "time-based"
 msgstr "Zeit-basiert"
+
+#. Translators: announced when only normal profile is in use.
+#, fuzzy
+msgid "Only normal profile is in use"
+msgstr "Normales profil"
 
 #. Translators: Presented when trying to switch to an instant switch profile when the instant switch profile is not defined.
 #, fuzzy
@@ -1113,21 +1117,10 @@ msgstr "&Auslöser..."
 msgid "Countdown seconds before switching profiles"
 msgstr ""
 
-#. Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
-msgid "&Beep for status announcements"
-msgstr "&Signaltöne für Status-Ankündigungen"
-
-#. Translators: One of the message verbosity levels.
-msgid "beginner"
-msgstr "Anfänger"
-
-#. Translators: One of the message verbosity levels.
-msgid "advanced"
-msgstr "Advanced"
-
-#. Translators: The label for a setting in SPL add-on dialog to set message verbosity.
-msgid "Message &verbosity:"
-msgstr "Ausführlichkeit für &Meldungen:"
+#. Translators: The label of a button to open a dialog to configure general add-on settings such as beep announcement and top and bottom notifications.
+#, fuzzy
+msgid "&General add-on settings..."
+msgstr "Einstellungen zurücksetzen"
 
 #. Translators: The label of a button to open a dialog to configure various alarms.
 msgid "&Alarms Center..."
@@ -1148,65 +1141,6 @@ msgstr "Signaltöne und Meldungen"
 #. Translators: The label for a setting in SPL add-on dialog to control alarm announcement type.
 msgid "&Alarm notification:"
 msgstr "&Alarmmeldung:"
-
-#. Translators: One of the braille timer settings.
-msgid "Track ending"
-msgstr "Titelende"
-
-#. Translators: One of the braille timer settings.
-msgid "Track intro"
-msgstr "Vorspiel von Titeln"
-
-#. Translators: One of the braille timer settings.
-msgid "Track intro and ending"
-msgstr "Vorspiel und Ende von Titeln"
-
-#. Translators: The label for a setting in SPL add-on dialog to control braille timer.
-msgid "&Braille timer:"
-msgstr "&Braille-Timer:"
-
-#. Translators: The label for a setting in SPL add-on dialog to control library scan announcement.
-msgid "&Library scan announcement:"
-msgstr "&Meldung beim Durchsuchen der Bibliothek"
-
-#. Translators: the label for a setting in SPL add-on settings to announce time including hours.
-msgid "Include &hours when announcing track or playlist duration"
-msgstr ""
-
-#. Translators: The label for a setting in SPL add-on dialog to set vertical column.
-#, fuzzy
-msgid "&Vertical column navigation announcement:"
-msgstr "&Meldung beim Durchsuchen der Bibliothek"
-
-#. Translators: One of the options for vertical column navigation denoting NVDA will announce current column positoin (e.g. second column position from the left).
-msgid "whichever column I am reviewing"
-msgstr ""
-
-#. Translators: the label for a setting in SPL add-on settings to toggle category sound announcement.
-msgid "&Beep for different track categories"
-msgstr ""
-
-#. Translators: One of the track comment notification settings.
-#, fuzzy
-msgid "Message"
-msgstr "meldungen"
-
-#. Translators: One of the track comment notification settings.
-msgid "Beep"
-msgstr "Signalton"
-
-#. Translators: the label for a setting in SPL add-on settings to set how track comments are announced.
-#, fuzzy
-msgid "&Track comment announcement:"
-msgstr "&Meldung beim Durchsuchen der Bibliothek"
-
-#. Translators: the label for a setting in SPL add-on settings to toggle top and bottom notification.
-msgid "Notify when located at &top or bottom of playlist viewer"
-msgstr ""
-
-#. Translators: the label for a setting in SPL add-on settings to enable requests alert.
-msgid "Play a sound when listener &requests arrive"
-msgstr ""
 
 #. Translators: The label of a button to manage playlist snapshot flags.
 msgid "&Playlist snapshots..."
@@ -1376,6 +1310,86 @@ msgstr ""
 msgid ""
 "The time-based profile checkbox is checked but no switch dates are given. "
 "Please either specify switch date(s) or uncheck time-based profile checkbox."
+msgstr ""
+
+#. Translators: Title of a dialog to configure various status announcements such as announcing listener count.
+#, fuzzy
+msgid "General add-on settings"
+msgstr "Einstellungen zur Studio-Erweiterung"
+
+#. Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
+msgid "&Beep for status announcements"
+msgstr "&Signaltöne für Status-Ankündigungen"
+
+#. Translators: One of the message verbosity levels.
+msgid "beginner"
+msgstr "Anfänger"
+
+#. Translators: One of the message verbosity levels.
+msgid "advanced"
+msgstr "Advanced"
+
+#. Translators: The label for a setting in SPL add-on dialog to set message verbosity.
+msgid "Message &verbosity:"
+msgstr "Ausführlichkeit für &Meldungen:"
+
+#. Translators: One of the braille timer settings.
+msgid "Track ending"
+msgstr "Titelende"
+
+#. Translators: One of the braille timer settings.
+msgid "Track intro"
+msgstr "Vorspiel von Titeln"
+
+#. Translators: One of the braille timer settings.
+msgid "Track intro and ending"
+msgstr "Vorspiel und Ende von Titeln"
+
+#. Translators: The label for a setting in SPL add-on dialog to control braille timer.
+msgid "&Braille timer:"
+msgstr "&Braille-Timer:"
+
+#. Translators: The label for a setting in SPL add-on dialog to control library scan announcement.
+msgid "&Library scan announcement:"
+msgstr "&Meldung beim Durchsuchen der Bibliothek"
+
+#. Translators: the label for a setting in SPL add-on settings to announce time including hours.
+msgid "Include &hours when announcing track or playlist duration"
+msgstr ""
+
+#. Translators: The label for a setting in SPL add-on dialog to set vertical column.
+#, fuzzy
+msgid "&Vertical column navigation announcement:"
+msgstr "&Meldung beim Durchsuchen der Bibliothek"
+
+#. Translators: One of the options for vertical column navigation denoting NVDA will announce current column positoin (e.g. second column position from the left).
+msgid "whichever column I am reviewing"
+msgstr ""
+
+#. Translators: the label for a setting in SPL add-on settings to toggle category sound announcement.
+msgid "&Beep for different track categories"
+msgstr ""
+
+#. Translators: One of the track comment notification settings.
+#, fuzzy
+msgid "Message"
+msgstr "meldungen"
+
+#. Translators: One of the track comment notification settings.
+msgid "Beep"
+msgstr "Signalton"
+
+#. Translators: the label for a setting in SPL add-on settings to set how track comments are announced.
+#, fuzzy
+msgid "&Track comment announcement:"
+msgstr "&Meldung beim Durchsuchen der Bibliothek"
+
+#. Translators: the label for a setting in SPL add-on settings to toggle top and bottom notification.
+msgid "Notify when located at &top or bottom of playlist viewer"
+msgstr ""
+
+#. Translators: the label for a setting in SPL add-on settings to enable requests alert.
+msgid "Play a sound when listener &requests arrive"
 msgstr ""
 
 #. Translators: Text of the dialog when another alarm dialog is open.
@@ -1583,6 +1597,17 @@ msgstr ""
 msgid "SPL Assistant command &layout:"
 msgstr "SPL-Hilfe"
 
+#. Translators: A message displayed when trying to switch to fast channel on old Windows releases.
+msgid ""
+"It appears you are using Windows versions earlier than Windows 7 Service "
+"Pack 1, thus you cannot change to Test Drive Fast channel."
+msgstr ""
+
+#. Translators: The title of the channel switch confirmation dialog.
+#, fuzzy
+msgid "Switching to unstable channel"
+msgstr "Profile werden umgeschaltet."
+
 #. Translators: The confirmation prompt displayed when changing to the fastest development channel (with risks involved).
 msgid ""
 "You are about to switch to the Test Drive Fast (try) builds channel, the "
@@ -1592,11 +1617,6 @@ msgid ""
 "to use stable releases, please answer no and switch to a more stable update "
 "channel. Are you sure you wish to switch to Test Drive Fast channel?"
 msgstr ""
-
-#. Translators: The title of the channel switch confirmation dialog.
-#, fuzzy
-msgid "Switching to unstable channel"
-msgstr "Profile werden umgeschaltet."
 
 #. Translators: The confirmation prompt displayed when changing update interval to zero days (updates will be checked every time Studio app module loads).
 msgid ""
