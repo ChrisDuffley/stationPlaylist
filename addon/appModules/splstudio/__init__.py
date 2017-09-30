@@ -804,10 +804,16 @@ class AppModule(appModuleHandler.AppModule):
 			ui.message(_("Cart explorer is active"))
 			return
 		# Microphone alarm and alarm interval if defined.
+		global micAlarmT, micAlarmT2
 		micAlarm = splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"]
-		if micAlarm:
+		# #38 (17.11/15.10-lts): only enter microphone alarm area if alarm should be turned on.
+		if not micAlarm:
+			if micAlarmT is not None: micAlarmT.cancel()
+			micAlarmT = None
+			if micAlarmT2 is not None: micAlarmT2.Stop()
+			micAlarmT2 = None
+		else:
 			# Play an alarm sound (courtesy of Jerry Mader from Mader Radio).
-			global micAlarmT, micAlarmT2
 			micAlarmWav = os.path.join(os.path.dirname(__file__), "SPL_MicAlarm.wav")
 			# Translators: Presented when microphone was on for more than a specified time in microphone alarm dialog.
 			micAlarmMessage = _("Warning: Microphone active")
