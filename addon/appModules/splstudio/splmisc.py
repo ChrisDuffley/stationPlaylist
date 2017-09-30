@@ -402,3 +402,12 @@ def _metadataAnnouncer(reminder=False, handle=None):
 		nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_Metadata.wav"))
 	else: ui.message(status)
 
+# Microphone alarm checker.
+# Restart the microphone alarm timer if profile is switched and contains different mic alarm values.
+def _restartMicTimer():
+	# The only use of window handle is checking if Studio is running, especially if this function is invoked while demo reminder screen is active.
+	if not user32.FindWindowA("SPLStudio", None): return
+	from winUser import OBJID_CLIENT
+	from NVDAObjects.IAccessible import getNVDAObjectFromEvent
+	studioWindow = getNVDAObjectFromEvent(user32.FindWindowA("TStudioForm", None), OBJID_CLIENT, 0)
+	studioWindow.appModule.profileSwitched()
