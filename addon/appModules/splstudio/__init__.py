@@ -825,6 +825,11 @@ class AppModule(appModuleHandler.AppModule):
 				if micAlarmT2 is not None: micAlarmT2.Stop()
 				micAlarmT2 = None
 
+	# Respond to profile switches if asked.
+	def profileSwitched(self):
+		# #38 (17.11/15.10-LTS): obtain microhone alarm status.
+		self.doExtraAction(self.sayStatus(2, statusText=True))
+
 	# Alarm announcement: Alarm notification via beeps, speech or both.
 	def alarmAnnounce(self, timeText, tone, duration, intro=False):
 		if splconfig.SPLConfig["General"]["AlarmAnnounce"] in ("beep", "both"):
@@ -1592,11 +1597,13 @@ class AppModule(appModuleHandler.AppModule):
 	)
 
 	# In the layer commands below, sayStatus function is used if screen objects or API must be used (API is for Studio 5.20 and later).
-	def sayStatus(self, index):
+	def sayStatus(self, index, statusText=False):
 		if self.SPLCurVersion < "5.20":
 			status = self.status(self.SPLPlayStatus).getChild(index).name
 		else:
 			status = self._statusBarMessages[index][statusAPI(index, 39, ret=True)]
+		# #38 (17.11/15.10-LTS): return status text if asked.
+		if statusText: return status
 		ui.message(status if splconfig.SPLConfig["General"]["MessageVerbosity"] == "beginner" else status.split()[-1])
 
 	# The layer commands themselves.
