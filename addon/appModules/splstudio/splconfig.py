@@ -25,7 +25,7 @@ import ui
 import gui
 import wx
 from . import splupdate
-from .splmisc import SPLCountdownTimer, _metadataAnnouncer
+from .splmisc import SPLCountdownTimer, _metadataAnnouncer, _restartMicTimer
 
 # Until NVDA Core uses Python 3 (preferably 3.3 or later), use a backported version of chain map class.
 # Backported by Jonathan Eunice.
@@ -497,7 +497,9 @@ class ConfigHub(ChainMap):
 			ui.message(_("Returning to {previousProfile}").format(previousProfile = self.activeProfile))
 			# Resume auto update checker if told to do so.
 			if self["Update"]["AutoUpdateCheck"]: updateInit()
-		# Use the module-level metadata reminder method if told to do so now.
+		# Use the module-level metadata and microphone status reminder methods if told to do so now.
+		# #38 (17.11/15.10-LTS): can't wait two seconds for microphone alarm to stop.
+		_restartMicTimer()
 		if self["General"]["MetadataReminder"] in ("startup", "instant"):
 			_metadataAnnouncer(reminder=True)
 
