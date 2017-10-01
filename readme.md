@@ -174,6 +174,11 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 17.11
+
+* If microphone alarm and/or interval timer is turned on and if Studio exits while microphone is on, NVDA will no longer play microphone alarm tone from everywhere.
+* When deleting broadcast profiles and if another profile happens to be an instant switch profile, instant switch flag won't be removed from the switch profile.
+
 ## Version 17.10
 
 * If using Windows releases prior to Windows 7 Service Pack 1, you cannot switch to Test Drive Fast update channel. A future release of this add-on will move users of old Windows versions to a dedicated support channel.
