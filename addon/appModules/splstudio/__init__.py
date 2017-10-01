@@ -891,6 +891,11 @@ class AppModule(appModuleHandler.AppModule):
 		if "globalPlugins.SPLStudioUtils.encoders" in sys.modules:
 			import globalPlugins.SPLStudioUtils.encoders
 			globalPlugins.SPLStudioUtils.encoders.cleanup()
+		# #39 (17.11/15.10-lts): terminate microphone alarm/interval threads, otherwise errors are seen.
+		if micAlarmT is not None: micAlarmT.cancel()
+		micAlarmT = None
+		if micAlarmT2 is not None: micAlarmT2.Stop()
+		micAlarmT2 = None
 		splconfig.saveConfig()
 		# Delete focused track reference.
 		self._focusedTrack = None
