@@ -37,6 +37,7 @@ from . import splconfig
 from . import splconfui
 from . import splmisc
 from . import splupdate
+from . import splactions
 import addonHandler
 addonHandler.initTranslation()
 from .spldebugging import debugOutput
@@ -604,6 +605,9 @@ class AppModule(appModuleHandler.AppModule):
 				ui.message(_("Using SPL Studio version {SPLVersion}").format(SPLVersion = self.SPLCurVersion))
 		except (IOError, AttributeError):
 			pass
+		# #40 (17.12): react to profile switches.
+		if splactions.actionsAvailable:
+			splactions.SPLActionProfileSwitched.register(self.actionProfileSwitched)
 		debugOutput("SPL: loading add-on settings")
 		splconfig.initConfig()
 		# Announce status changes while using other programs.
@@ -856,7 +860,7 @@ class AppModule(appModuleHandler.AppModule):
 				micAlarmT2 = None
 
 	# Respond to profile switches if asked.
-	def profileSwitched(self):
+	def actionProfileSwitched(self):
 		# #38 (17.11/15.10-LTS): obtain microhone alarm status.
 		self.doExtraAction(self.sayStatus(2, statusText=True))
 
@@ -921,6 +925,10 @@ class AppModule(appModuleHandler.AppModule):
 			import globalPlugins.splUtils.encoders
 			globalPlugins.splUtils.encoders.cleanup()
 		# #39 (17.11/15.10-lts): terminate microphone alarm/interval threads, otherwise errors are seen.
+		# #40 (17.12): replace this with a handler that responds to app module exit signal.
+		# Also allows profile switch handler to unregister itself as well.
+		if splactions.actionsAvailable:
+			splactions.SPLActionProfileSwitched.unregister(self.actionProfileSwitched)
 		debugOutput("SPL: closing microphone alarm/interval thread")
 		global micAlarmT, micAlarmT2
 		if micAlarmT is not None: micAlarmT.cancel()

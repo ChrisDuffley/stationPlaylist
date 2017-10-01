@@ -428,4 +428,4 @@ def _restartMicTimer():
 	from winUser import OBJID_CLIENT
 	from NVDAObjects.IAccessible import getNVDAObjectFromEvent
 	studioWindow = getNVDAObjectFromEvent(user32.FindWindowA("TStudioForm", None), OBJID_CLIENT, 0)
-	studioWindow.appModule.profileSwitched()
+	studioWindow.appModule.actionProfileSwitched()
