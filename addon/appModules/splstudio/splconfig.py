@@ -17,7 +17,7 @@ import ui
 import gui
 import wx
 from . import splupdate
-from .splmisc import SPLCountdownTimer, _metadataAnnouncer
+from .splmisc import SPLCountdownTimer, _metadataAnnouncer, _restartMicTimer
 
 # Configuration management
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
@@ -654,7 +654,9 @@ def switchProfile(prevProfile, newProfile):
 		# Resume auto update checker if told to do so.
 		if SPLConfig["Update"]["AutoUpdateCheck"]: updateInit()
 	SPLPrevProfile = prevProfile
-	# Use the module-level metadata reminder method if told to do so now.
+	# Use the module-level metadata and microphone status reminder methods if told to do so now.
+	# #38 (17.11/15.10-LTS): can't wait two seconds for microphone alarm to stop.
+	_restartMicTimer()
 	if SPLConfig["General"]["MetadataReminder"] in ("startup", "instant"):
 		_metadataAnnouncer(reminder=True)
 
