@@ -920,12 +920,13 @@ class AppModule(appModuleHandler.AppModule):
 		if "globalPlugins.splUtils.encoders" in sys.modules:
 			import globalPlugins.splUtils.encoders
 			globalPlugins.splUtils.encoders.cleanup()
-		debugOutput("SPL: saving add-on settings")
 		# #39 (17.11/15.10-lts): terminate microphone alarm/interval threads, otherwise errors are seen.
+		debugOutput("SPL: closing microphone alarm/interval thread")
 		if micAlarmT is not None: micAlarmT.cancel()
 		micAlarmT = None
 		if micAlarmT2 is not None: micAlarmT2.Stop()
 		micAlarmT2 = None
+		debugOutput("SPL: saving add-on settings")
 		splconfig.saveConfig()
 		# reset column number for column navigation commands.
 		if self._focusedTrack: self._focusedTrack.__class__._curColumnNumber = None
