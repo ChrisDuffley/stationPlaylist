@@ -922,6 +922,7 @@ class AppModule(appModuleHandler.AppModule):
 			globalPlugins.splUtils.encoders.cleanup()
 		# #39 (17.11/15.10-lts): terminate microphone alarm/interval threads, otherwise errors are seen.
 		debugOutput("SPL: closing microphone alarm/interval thread")
+		global micAlarmT, micAlarmT2
 		if micAlarmT is not None: micAlarmT.cancel()
 		micAlarmT = None
 		if micAlarmT2 is not None: micAlarmT2.Stop()
