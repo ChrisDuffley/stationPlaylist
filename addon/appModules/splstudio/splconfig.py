@@ -26,6 +26,7 @@ import gui
 import wx
 from . import splupdate
 from .splmisc import SPLCountdownTimer, _metadataAnnouncer
+from . import splactions
 
 # Until NVDA Core uses Python 3 (preferably 3.3 or later), use a backported version of chain map class.
 # Backported by Jonathan Eunice.
@@ -37,13 +38,6 @@ except ImportError:
 
 # Until wx.CENTER_ON_SCREEN returns...
 CENTER_ON_SCREEN = wx.CENTER_ON_SCREEN if hasattr(wx, "CENTER_ON_SCREEN") else 2
-
-# Do not unlock the full power of action extension point until 2018.
-try:
-	import extensionPoints
-	actionsAvailable = True
-except ImportError:
-	actionsAvailable = False
 
 # Configuration management
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
@@ -498,8 +492,11 @@ class ConfigHub(ChainMap):
 			# Resume auto update checker if told to do so.
 			if self["Update"]["AutoUpdateCheck"]: updateInit()
 		# Use the module-level metadata reminder method if told to do so now.
-		if self["General"]["MetadataReminder"] in ("startup", "instant"):
-			_metadataAnnouncer(reminder=True)
+		# #40 (17.12): all taken care of by profile switched notification.
+		if splactions.actionsAvailable: splactions.SPLActionProfileSwitched.notify()
+		else:
+			if self["General"]["MetadataReminder"] in ("startup", "instant"):
+				_metadataAnnouncer(reminder=True)
 
 	# Used from config dialog and other places.
 	# Show switch index is used when deleting profiles so it doesn't have to look up index for old profiles.

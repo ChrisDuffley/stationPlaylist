@@ -15,6 +15,7 @@ import wx
 import ui
 from winUser import user32, sendMessage
 from .spldebugging import debugOutput
+from . import splactions
 
 # Until wx.CENTER_ON_SCREEN returns...
 CENTER_ON_SCREEN = wx.CENTER_ON_SCREEN if hasattr(wx, "CENTER_ON_SCREEN") else 2
@@ -408,6 +409,16 @@ def _metadataAnnouncer(reminder=False, handle=None):
 		queueHandler.queueFunction(queueHandler.eventQueue, ui.message, status)
 		nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_Metadata.wav"))
 	else: ui.message(status)
+
+# Connect and/or announce metadata status when broadcast profile switching occurs.
+def metadata_actionProfileSwitched():
+	import splconfig
+	# Ordinarily, errors would have been dealt with, but Action.notify will catch errors and log messages.
+	if splconfig.SPLConfig["General"]["MetadataReminder"] in ("startup", "instant"):
+		_metadataAnnouncer(reminder=True)
+
+if splactions.actionsAvailable:
+	splactions.SPLActionProfileSwitched.register(metadata_actionProfileSwitched)
 
 # Microphone alarm checker.
 # Restart the microphone alarm timer if profile is switched and contains different mic alarm values.
