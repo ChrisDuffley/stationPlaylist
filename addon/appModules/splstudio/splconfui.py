@@ -595,8 +595,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 		except WindowsError:
 			pass
 		if name == self.switchProfile or name == self.activeProfile:
-			self.switchProfile = None
-			splconfig.SPLPrevProfile = None
+			# 17.11/15.10-LTS: go through the below path if and only if instant siwtch profile is gone.
+			if name == self.switchProfile:
+				self.switchProfile = None
+				splconfig.SPLPrevProfile = None
 			self.switchProfileDeleted = True
 		self.profiles.Delete(index)
 		del self.profileNames[profilePos]
