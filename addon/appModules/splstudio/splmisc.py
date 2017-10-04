@@ -413,38 +413,14 @@ def metadataStatus(handle=None):
 # To preserve backward compatibility, let the announcer call individual functions above for a while.
 def _metadataAnnouncer(reminder=False, handle=None):
 	import time, nvwave, queueHandler, speech
-	from . import splconfig
 	if handle is None: handle = user32.FindWindowA("SPLStudio", None)
 	# If told to remind and connect, metadata streaming will be enabled at this time.
 	# 6.0: Call Studio API twice - once to set, once more to obtain the needed information.
 	# 6.2/7.0: When Studio API is called, add the value into the stream count list also.
-	if reminder:
-		for url in xrange(5):
-			dataLo = 0x00010000 if splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"][url] else 0xffff0000
-			sendMessage(handle, 1024, dataLo | url, 36)
+	# 17.11: call the connector.
+	if reminder: metadataConnector(handle=handle)
 	# Gather stream flags.
-	# DSP is treated specially.
-	dsp = sendMessage(handle, 1024, 0, 36)
-	# For others, a simple list.append will do.
-	# 17.04: Use a conditional list comprehension.
-	streamCount = [str(pos) for pos in xrange(1, 5) if sendMessage(handle, 1024, pos, 36)]
-	# Announce streaming status when told to do so.
-	status = None
-	if not len(streamCount):
-		# Translators: Status message for metadata streaming.
-		if not dsp: status = _("No metadata streaming URL's defined")
-		# Translators: Status message for metadata streaming.
-		else: status = _("Metadata streaming configured for DSP encoder")
-	elif len(streamCount) == 1:
-		# Translators: Status message for metadata streaming.
-		if dsp: status = _("Metadata streaming configured for DSP encoder and URL {URL}").format(URL = streamCount[0])
-		# Translators: Status message for metadata streaming.
-		else: status = _("Metadata streaming configured for URL {URL}").format(URL = streamCount[0])
-	else:
-		# Translators: Status message for metadata streaming.
-		if dsp: status = _("Metadata streaming configured for DSP encoder and URL's {URL}").format(URL = ", ".join(streamCount))
-		# Translators: Status message for metadata streaming.
-		else: status = _("Metadata streaming configured for URL's {URL}").format(URL = ", ".join(streamCount))
+	status = metadataStatus(handle=handle)
 	if reminder:
 		time.sleep(2)
 		speech.cancelSpeech()
