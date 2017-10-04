@@ -366,8 +366,51 @@ class SPLCountdownTimer(object):
 			ui.message(str(self.duration))
 
 
-# Module-level version of metadata announcer.
+# Metadata and encoders management, including connection, announcement and so on.
+
+# Metadata server connector, to be utilized from many modules.
+# Servers refer to a list of connection flags to pass to Studio API, and if not present, will be pulled from add-on settings.
+def metadataConnector(handle=None, servers=None):
+	if servers is None:
+		from . import splconfig
+		servers = splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"]
+	if handle is None: handle = user32.FindWindowA("SPLStudio", None)
+	for url in xrange(5):
+		dataLo = 0x00010000 if servers[url] else 0xffff0000
+		sendMessage(handle, 1024, dataLo | url, 36)
+
+# Metadata status formatter.
+def metadataStatus(handle=None):
+	if handle is None: handle = user32.FindWindowA("SPLStudio", None)
+	# Gather stream flags.
+	# DSP is treated specially.
+	dsp = sendMessage(handle, 1024, 0, 36)
+	# For others, a simple list.append will do.
+	# 17.04: Use a conditional list comprehension.
+	streamCount = [str(pos) for pos in xrange(1, 5) if sendMessage(handle, 1024, pos, 36)]
+	# Announce streaming status when told to do so.
+	status = None
+	if not len(streamCount):
+		# Translators: Status message for metadata streaming.
+		if not dsp: status = _("No metadata streaming URL's defined")
+		# Translators: Status message for metadata streaming.
+		else: status = _("Metadata streaming configured for DSP encoder")
+	elif len(streamCount) == 1:
+		# Translators: Status message for metadata streaming.
+		if dsp: status = _("Metadata streaming configured for DSP encoder and URL {URL}").format(URL = streamCount[0])
+		# Translators: Status message for metadata streaming.
+		else: status = _("Metadata streaming configured for URL {URL}").format(URL = streamCount[0])
+	else:
+		# Translators: Status message for metadata streaming.
+		if dsp: status = _("Metadata streaming configured for DSP encoder and URL's {URL}").format(URL = ", ".join(streamCount))
+		# Translators: Status message for metadata streaming.
+		else: status = _("Metadata streaming configured for URL's {URL}").format(URL = ", ".join(streamCount))
+	return status
+
+# Module-level version of metadata announcer
 # Moved to this module in 2016 to allow this function to work while Studio window isn't focused.
+# Split into several functions in 2017.
+# To preserve backward compatibility, let the announcer call individual functions above for a while.
 def _metadataAnnouncer(reminder=False, handle=None):
 	import time, nvwave, queueHandler, speech
 	from . import splconfig
