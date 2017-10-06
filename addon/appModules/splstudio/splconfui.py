@@ -309,11 +309,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 	# Perform extra action when closing this dialog such as restarting update timer.
 	def onCloseExtraAction(self):
 		# Change metadata streaming.
+		# 17.11: call the metadata connector directly, reducing code duplication from previous releases.
 		hwnd = user32.FindWindowA("SPLStudio", None)
 		if hwnd:
-			for url in xrange(5):
-				dataLo = 0x00010000 if splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"][url] else 0xffff0000
-				user32.SendMessageW(hwnd, 1024, dataLo | url, 36)
+			import splmisc
+			splmisc.metadataConnector(handle=hwnd, servers=splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"])
 		# Coordinate auto update timer restart routine if told to do so.
 		if not splconfig.SPLConfig["Update"]["AutoUpdateCheck"] or self.pendingChannelChange:
 			if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
