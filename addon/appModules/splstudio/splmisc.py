@@ -371,10 +371,11 @@ class SPLCountdownTimer(object):
 # Metadata server connector, to be utilized from many modules.
 # Servers refer to a list of connection flags to pass to Studio API, and if not present, will be pulled from add-on settings.
 def metadataConnector(handle=None, servers=None):
+	if handle is None: handle = user32.FindWindowA("SPLStudio", None)
+	if not handle: return
 	if servers is None:
 		from . import splconfig
 		servers = splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"]
-	if handle is None: handle = user32.FindWindowA("SPLStudio", None)
 	for url in xrange(5):
 		dataLo = 0x00010000 if servers[url] else 0xffff0000
 		sendMessage(handle, 1024, dataLo | url, 36)
