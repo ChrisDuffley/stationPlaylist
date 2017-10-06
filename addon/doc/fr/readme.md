@@ -311,9 +311,9 @@ ci-dessus pour exécuter des commandes.
   Fast. Une version future de ce module complémentaire déplacera les
   utilisateurs des anciennes versions de Windows vers un canal de prise en
   charge dédié.
-* Plusieurs paramètres généraux tels que le statut de l'annonce du bips, en
+* Plusieurs paramètres généraux tels que le statut de l'annonce en bips, en
   haut et en bas de la notification de playlist et d'autres se trouvent
-  maintenant situés dans le nouveau dialogue paramètres généraux du module
+  maintenant situés dans le nouveau dialogue Paramètres généraux du module
   complémentaire (accessible à partir d'un nouveau bouton dans les
   paramètres du module complémentaire).
 * Il est maintenant possible de faire que les options du module
