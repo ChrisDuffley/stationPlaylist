@@ -308,10 +308,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	# Perform extra action when closing this dialog such as restarting update timer.
 	def onCloseExtraAction(self):
-		# Change metadata streaming.
-		# 17.11: call the metadata connector directly, reducing code duplication from previous releases.
-		import splmisc
-		splmisc.metadataConnector(servers=splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"])
 		# Coordinate auto update timer restart routine if told to do so.
 		if not splconfig.SPLConfig["Update"]["AutoUpdateCheck"] or self.pendingChannelChange:
 			if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
@@ -324,6 +320,12 @@ class SPLConfigDialog(gui.SettingsDialog):
 				_("Add-on update channel changed"), wx.OK|wx.ICON_INFORMATION)
 		else:
 			if splupdate._SPLUpdateT is None: splconfig.updateInit()
+		# Change metadata streaming.
+		# 17.11: call the metadata connector directly, reducing code duplication from previous releases.
+		import splmisc
+		splmisc.metadataConnector(servers=splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"])
+		# Also restart microphone timer.
+		splmisc._restartMicTimer()
 
 	# Include profile flags such as instant profile string for display purposes.
 	def displayProfiles(self, profiles):
