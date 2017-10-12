@@ -155,7 +155,7 @@ def initConfig():
 	# This must be a separate file (another pickle file).
 	try:
 		trackComments = cPickle.load(file(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"), "r"))
-	except IOError:
+	except (IOError, EOFError):
 		pass
 	if len(_configLoadStatus):
 		# Translators: Standard error title for configuration error.
