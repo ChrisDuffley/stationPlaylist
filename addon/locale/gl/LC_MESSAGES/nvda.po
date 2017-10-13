@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2017-09-24 13:42+0100\n"
+"PO-Revision-Date: 2017-10-09 20:46+0100\n"
 "Last-Translator: Juan C. Buño <oprisniki@gmail.com>\n"
 "Language-Team: Add-ons translation team <oprisniki@gmail.com>\n"
 "Language: gl\n"
@@ -921,9 +921,8 @@ msgid "time-based"
 msgstr "baseado en tempo"
 
 #. Translators: announced when only normal profile is in use.
-#, fuzzy
 msgid "Only normal profile is in use"
-msgstr "Perfil normal"
+msgstr "Só o perfil normal está en uso"
 
 #. Translators: Presented when trying to switch to an instant switch profile when the instant switch profile is not defined.
 msgid "No instant switch profile is defined"
@@ -1151,9 +1150,8 @@ msgid "Countdown seconds before switching profiles"
 msgstr "Segundos da conta atrás antes de cambiar perfiles"
 
 #. Translators: The label of a button to open a dialog to configure general add-on settings such as beep announcement and top and bottom notifications.
-#, fuzzy
 msgid "&General add-on settings..."
-msgstr "Reiniciar opción..."
+msgstr "Opcións &Xerais do Complemento..."
 
 #. Translators: The label of a button to open a dialog to configure various alarms.
 msgid "&Alarms Center..."
@@ -1350,9 +1348,8 @@ msgstr ""
 "baseado en tempo."
 
 #. Translators: Title of a dialog to configure various status announcements such as announcing listener count.
-#, fuzzy
 msgid "General add-on settings"
-msgstr "Opcións do complemento Studio"
+msgstr "Opcións xerais do complemento"
 
 #. Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
 msgid "&Beep for status announcements"
@@ -1634,6 +1631,8 @@ msgid ""
 "It appears you are using Windows versions earlier than Windows 7 Service "
 "Pack 1, thus you cannot change to Test Drive Fast channel."
 msgstr ""
+"Parece que estás a usar versións do Windows anteriores ao Windows 7 Service "
+"Pack 1, polo que non podes cambiar á canle Test Drive Fast."
 
 #. Translators: The title of the channel switch confirmation dialog.
 msgid "Switching to unstable channel"
