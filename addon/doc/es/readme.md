@@ -13,11 +13,13 @@ complemento][4]. Para los desarrolladores que busquen cómo compilar el
 complemento, consulta buildInstructions.txt localizado en la raíz del
 repositorio del código fuente del complemento.
 
-IMPORTANT: This add-on requires NVDA 2017.1 or later and StationPlaylist
-Studio 5.10 or later. If using Windows 8 or later, for best experience,
-disable audio ducking mode. Also, add-on 8.0/16.10 requires Studio 5.10 and
-later, and for broadcasters using Studio 5.0x and/or Windows XP, Vista or 7
-without Service Pack 1, a long-term support version (15.x) is available.
+IMPORTANTE: Este complemento requiere de NVDA 2017.1 o posterior y de
+StationPlaylist Studio 5.10 o posterior. Si estás utilizando Windows 8 y
+posterior, para una mejor experiencia, deshabilita el modo de atenuación de
+audio. También, el complemento 8.0/16.10 requiere de Studio 5.10 y
+posterior, y para transmisores que utilicen Studio 5.0x, y/o Windows XP,
+Vista o 7 sin Service Pack 1, una versión de soporte long-term (15.x) está
+disponible.
 
 ## Teclas de atajo
 
@@ -295,33 +297,38 @@ realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
 
-## Version 17.10
+## Versión 17.10
 
-* If using Windows releases prior to Windows 7 Service Pack 1, you cannot
-  switch to Test Drive Fast update channel. A future release of this add-on
-  will move users of old Windows versions to a dedicated support channel.
-* Several general settings such as status announcement beeps, top and bottom
-  of playlist notification and others are now located in the new general
-  add-on settings dialog (accessed from a new button in add-on settings).
-* It is now possible to make add-on options read-only, use only the normal
-  profile, or not load settings from disk when Studio starts. These are
-  controlled by new command-line switches specific to this add-on.
-* When running NVDA from Run dialog (Windows+R), you can now pass in
-  additional command-line switches to change how the add-on works. These
-  include "--spl-configvolatile" (read-only settings),
-  "--spl-configinmemory" (do not load settings from disk), and
-  "--spl-normalprofileonly" (only use normal profile).
-* If exitting Studio (not NVDA) while an instant switch profile is active,
-  NVDA will no longer give misleading announcement when switching to an
-  instant switch profile when using Studio again.
+* Si se utilizan versiones de Windows anteriores a Windows 7 Service Pack 1,
+  no puedes cambiarf al canal de actualizaciones Test Drive Fast. Una
+  versión futura de este complemento moverá al usuario de versiones antiguas
+  de Windows a un canal de soporte dedicado.
+* Varias configuraciones generales tales como pitidos de anunciado de
+  estado, notificación de inicio y de fin de la lista de reproducción y
+  otras  ahora se colocan en el nuevo diálogo opciones generales del
+  complemento (accesible desde un botón nuevo en las opciones del
+  complemento).
+* Ahora es posible hacer las opciones del complemento de sólo lectura,
+  utilizar sólo el perfil normal, o no cargar opciones desde disco cuando
+  Studio arranque. Estas se controlan por nuevos parámetros de órdenes de
+  línea específicos para este complemento.
+* Al ejecutar NVDA desde el diálogo Ejecutar (Windows+R), ahora puedes pasar
+  unos parámetros adicionales de línea de órdenes para cambiar cómo funciona
+  el complemento. Estos incluyen "--spl-configvolatile" (opciones de sólo
+  lectura), "--spl-configinmemory" (No cargar opciones desde disco), y
+  "--spl-normalprofileonly" (utilizar sólo el perfil normal).
+* Si se sale de Studio (no de NVDA) mientras un perfil de cambio instantáneo
+  está activo, NVDA ya no dará un anuncio engañoso al cambiar a un perfil de
+  cambio instantáneo cuando se utilice Studio de nuevo.
 
 ## Versión 17.09.1
 
-* As a result of announcement from NV Access that NVDA 2017.3 will be the
-  last version to support Windows versions prior to windows 7 Service Pack
-  1, Studio add-on will present a reminder message about this if running
-  from old Windows releases. End of support for old Windows releases from
-  this add-on is scheduled for April 2018.
+* Como resultado del anuncio de NV Access en que NVDA 2017.3 será la última
+  versión que soporte versiones de Windows anteriores a windows 7 Service
+  Pack 1, el complemento Studio presentará un mensaje recordatorio acerca de
+  esto si se ejecutan versiones antiguas de Windows. El fin del soporte para
+  versiones antiguas de Windows de este complemento se programó para abril
+  de 2018.
 * NVDA ya no muestra diálogos de inicio y/o anuncia la versión de Studio si
   se inició con la bandera mínimo ajustada a (nvda -rm). la única excepción
   es el diálogo recordatorio de versión antigua de Windows.
