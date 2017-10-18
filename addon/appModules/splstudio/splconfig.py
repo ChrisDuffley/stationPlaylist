@@ -564,7 +564,7 @@ def initConfig():
 	# 8.0: Do this much later when a track is first focused.
 	try:
 		trackComments = pickle.load(file(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"), "r"))
-	except IOError:
+	except (IOError, EOFError):
 		pass
 	if len(_configLoadStatus):
 		# Translators: Standard error title for configuration error.

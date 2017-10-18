@@ -178,6 +178,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 * If microphone alarm and/or interval timer is turned on and if Studio exits while microphone is on, NVDA will no longer play microphone alarm tone from everywhere.
 * When deleting broadcast profiles and if another profile happens to be an instant switch profile, instant switch flag won't be removed from the switch profile.
+* NVDA will apply correct settings for microphone alarm settings when switching profiles via add-on settings dialog.
 
 ## Version 17.10
 
