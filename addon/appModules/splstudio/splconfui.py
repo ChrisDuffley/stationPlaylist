@@ -576,9 +576,19 @@ class SPLConfigDialog(gui.SettingsDialog):
 				# Translators: Title of a dialog shown when profile cannot be deleted.
 				_("Profile delete error"), wx.OK | wx.ICON_ERROR, self)
 			return
-		index = self.profiles.Selection
 		name = self.profiles.GetStringSelection().split(" <")[0]
+		# 17.11/15.10-lts: ask once more if deleting an active profile.
+		if name == self.activeProfile:
+			if gui.messageBox(
+				# Translators: The confirmation prompt displayed when the user requests to delete the active broadcast profile.
+				_("You are about to delete the currently active profile. Select yes if you wish to proceed."),
+				# Translators: The title of the confirmation dialog for deletion of a profile.
+				_("Delete active profile"),
+				wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION, self
+			) == wx.NO:
+				return
 		configPos = splconfig.getProfileIndexByName(name)
+		index = self.profiles.Selection
 		profilePos = self.profileNames.index(name)
 		if gui.messageBox(
 			# Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
@@ -595,7 +605,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		except WindowsError:
 			pass
 		if name == self.switchProfile or name == self.activeProfile:
-			# 17.11/15.10-LTS: go through the below path if and only if instant siwtch profile is gone.
+			# 17.11/15.10-LTS: go through the below path if and only if instant switch profile is gone.
 			if name == self.switchProfile:
 				self.switchProfile = None
 				splconfig.SPLPrevProfile = None
