@@ -448,6 +448,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 		) == wx.NO:
 			return
 		splconfig.SPLConfig.deleteProfile(name)
+		# 17.11: make sure to connect to the right set of metadata servers and enable/disable microphone alarm if appropriate.
+		import splmisc
+		splmisc.metadataConnector(servers=splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"])
+		splmisc._restartMicTimer()
 		if name == self.switchProfile or name == self.activeProfile:
 			# 17.11/15.10-LTS: go through the below path if and only if instant switch profile is gone.
 			if name == self.switchProfile:
