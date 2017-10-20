@@ -861,8 +861,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Respond to profile switches if asked.
 	def actionProfileSwitched(self):
-		# #38 (17.11/15.10-LTS): obtain microhone alarm status.
-		self.doExtraAction(self.sayStatus(2, statusText=True))
+		# #38 (17.11/15.10-LTS): obtain microphone alarm status.
+		if _SPLWin is not None: self.doExtraAction(self.sayStatus(2, statusText=True))
 
 	# Alarm announcement: Alarm notification via beeps, speech or both.
 	def alarmAnnounce(self, timeText, tone, duration, intro=False):
