@@ -366,19 +366,23 @@ class SPLCountdownTimer(object):
 			ui.message(str(self.duration))
 
 
-# Module-level version of metadata announcer.
-# Moved to this module in 2016 to allow this function to work while Studio window isn't focused.
-def _metadataAnnouncer(reminder=False, handle=None):
-	import time, nvwave, queueHandler, speech
-	from . import splconfig
+# Metadata and encoders management, including connection, announcement and so on.
+
+# Metadata server connector, to be utilized from many modules.
+# Servers refer to a list of connection flags to pass to Studio API, and if not present, will be pulled from add-on settings.
+def metadataConnector(handle=None, servers=None):
 	if handle is None: handle = user32.FindWindowA("SPLStudio", None)
-	# If told to remind and connect, metadata streaming will be enabled at this time.
-	# 6.0: Call Studio API twice - once to set, once more to obtain the needed information.
-	# 6.2/7.0: When Studio API is called, add the value into the stream count list also.
-	if reminder:
-		for url in xrange(5):
-			dataLo = 0x00010000 if splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"][url] else 0xffff0000
-			sendMessage(handle, 1024, dataLo | url, 36)
+	if not handle: return
+	if servers is None:
+		from . import splconfig
+		servers = splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"]
+	for url in xrange(5):
+		dataLo = 0x00010000 if servers[url] else 0xffff0000
+		sendMessage(handle, 1024, dataLo | url, 36)
+
+# Metadata status formatter.
+def metadataStatus(handle=None):
+	if handle is None: handle = user32.FindWindowA("SPLStudio", None)
 	# Gather stream flags.
 	# DSP is treated specially.
 	dsp = sendMessage(handle, 1024, 0, 36)
@@ -402,6 +406,22 @@ def _metadataAnnouncer(reminder=False, handle=None):
 		if dsp: status = _("Metadata streaming configured for DSP encoder and URL's {URL}").format(URL = ", ".join(streamCount))
 		# Translators: Status message for metadata streaming.
 		else: status = _("Metadata streaming configured for URL's {URL}").format(URL = ", ".join(streamCount))
+	return status
+
+# Module-level version of metadata announcer
+# Moved to this module in 2016 to allow this function to work while Studio window isn't focused.
+# Split into several functions in 2017.
+# To preserve backward compatibility, let the announcer call individual functions above for a while.
+def _metadataAnnouncer(reminder=False, handle=None):
+	import time, nvwave, queueHandler, speech
+	if handle is None: handle = user32.FindWindowA("SPLStudio", None)
+	# If told to remind and connect, metadata streaming will be enabled at this time.
+	# 6.0: Call Studio API twice - once to set, once more to obtain the needed information.
+	# 6.2/7.0: When Studio API is called, add the value into the stream count list also.
+	# 17.11: call the connector.
+	if reminder: metadataConnector(handle=handle)
+	# Gather stream flags.
+	status = metadataStatus(handle=handle)
 	if reminder:
 		time.sleep(2)
 		speech.cancelSpeech()
@@ -409,3 +429,12 @@ def _metadataAnnouncer(reminder=False, handle=None):
 		nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_Metadata.wav"))
 	else: ui.message(status)
 
+# Microphone alarm checker.
+# Restart the microphone alarm timer if profile is switched and contains different mic alarm values.
+def _restartMicTimer():
+	# The only use of window handle is checking if Studio is running, especially if this function is invoked while demo reminder screen is active.
+	if not user32.FindWindowA("SPLStudio", None): return
+	from winUser import OBJID_CLIENT
+	from NVDAObjects.IAccessible import getNVDAObjectFromEvent
+	studioWindow = getNVDAObjectFromEvent(user32.FindWindowA("TStudioForm", None), OBJID_CLIENT, 0)
+	studioWindow.appModule.profileSwitched()

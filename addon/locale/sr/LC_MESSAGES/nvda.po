@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 4.2\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2015-02-06 19:00+1000\n"
-"PO-Revision-Date: 2017-09-08 21:03+0100\n"
+"PO-Revision-Date: 2017-09-21 17:51+0100\n"
 "Last-Translator: Nikola Jovic <wwenikola123@gmail.com>\n"
 "Language-Team: \n"
 "Language: sr\n"
@@ -836,7 +836,6 @@ msgid "Checking for new version of Studio add-on..."
 msgstr "Provera nove verzije Studio dodatka"
 
 #. Translators: The name of the default (normal) profile.
-#. 8.0: Make sure NVDA knows this must be cached (except for normal profile).
 msgid "Normal profile"
 msgstr "Standardan profil"
 
@@ -897,6 +896,11 @@ msgstr "Trenutna promena"
 #. Calling set profile flags with discard argument is always safe here.
 msgid "time-based"
 msgstr "Vremenski"
+
+#. Translators: announced when only normal profile is in use.
+#, fuzzy
+msgid "Only normal profile is in use"
+msgstr "Standardan profil"
 
 #. Translators: Presented when trying to switch to an instant switch profile when the instant switch profile is not defined.
 msgid "No instant switch profile is defined"
@@ -1002,7 +1006,7 @@ msgstr "Prikaži dijalog dobrodošlice kada pokrenem Studio"
 
 #. Translators: Title of a dialog displayed when the add-on starts reminding broadcasters about old Studio releases.
 msgid "Old Windows version detected"
-msgstr ""
+msgstr "Otkrivena je starija verzija Windowsa"
 
 #. Translators: A message displayed if using an old Studio or Windows version.
 msgid ""
@@ -1011,6 +1015,10 @@ msgid ""
 "LTS (long-term support) versions will support Windows versions such as "
 "Windows XP until mid-2018."
 msgstr ""
+"Koristite stariju verziju Windowsa. Od 2018 godine, Studio dodatak neće "
+"podržavati verzije Windowsa starije od Windowsa 7 Service Pack 1. Verzije "
+"dodatka 15.x LTS (long-term support) će idalje podržavati verzije Windowsa "
+"kao što je Windows XP do sredine 2018 godine."
 
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Status announcement beeps"
@@ -1120,21 +1128,10 @@ msgstr "&Aktivatori"
 msgid "Countdown seconds before switching profiles"
 msgstr "Odbrojavanje pre promene profila"
 
-#. Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
-msgid "&Beep for status announcements"
-msgstr "&Pištanje za izgovor statusa"
-
-#. Translators: One of the message verbosity levels.
-msgid "beginner"
-msgstr "Početnik"
-
-#. Translators: One of the message verbosity levels.
-msgid "advanced"
-msgstr "Napredan"
-
-#. Translators: The label for a setting in SPL add-on dialog to set message verbosity.
-msgid "Message &verbosity:"
-msgstr "Pričljivost &poruka"
+#. Translators: The label of a button to open a dialog to configure general add-on settings such as beep announcement and top and bottom notifications.
+#, fuzzy
+msgid "&General add-on settings..."
+msgstr "&Vrati podešavanja..."
 
 #. Translators: The label of a button to open a dialog to configure various alarms.
 msgid "&Alarms Center..."
@@ -1155,63 +1152,6 @@ msgstr "Pištanje i poruka"
 #. Translators: The label for a setting in SPL add-on dialog to control alarm announcement type.
 msgid "&Alarm notification:"
 msgstr "&Obaveštenje alarma:"
-
-#. Translators: One of the braille timer settings.
-msgid "Track ending"
-msgstr "Kraj zapisa"
-
-#. Translators: One of the braille timer settings.
-msgid "Track intro"
-msgstr "Uvodni zapis"
-
-#. Translators: One of the braille timer settings.
-msgid "Track intro and ending"
-msgstr "Uvodni zapis i kraj"
-
-#. Translators: The label for a setting in SPL add-on dialog to control braille timer.
-msgid "&Braille timer:"
-msgstr "&Brajev tajmer"
-
-#. Translators: The label for a setting in SPL add-on dialog to control library scan announcement.
-msgid "&Library scan announcement:"
-msgstr "&Izgovor skeniranja biblioteke"
-
-#. Translators: the label for a setting in SPL add-on settings to announce time including hours.
-msgid "Include &hours when announcing track or playlist duration"
-msgstr "&Uključi sate u izgovoru trajanja liste za reprodukciju ili zapisa"
-
-#. Translators: The label for a setting in SPL add-on dialog to set vertical column.
-msgid "&Vertical column navigation announcement:"
-msgstr "&Izgovor uspravne navigacije kolona"
-
-#. Translators: One of the options for vertical column navigation denoting NVDA will announce current column positoin (e.g. second column position from the left).
-msgid "whichever column I am reviewing"
-msgstr "Koju god kolonu pregledam"
-
-#. Translators: the label for a setting in SPL add-on settings to toggle category sound announcement.
-msgid "&Beep for different track categories"
-msgstr "&Pišti za različite kategorije zapisa"
-
-#. Translators: One of the track comment notification settings.
-msgid "Message"
-msgstr "Poruka"
-
-#. Translators: One of the track comment notification settings.
-msgid "Beep"
-msgstr "Pištanje"
-
-#. Translators: the label for a setting in SPL add-on settings to set how track comments are announced.
-msgid "&Track comment announcement:"
-msgstr "&Izgovor komentara zapisa:"
-
-#. Translators: the label for a setting in SPL add-on settings to toggle top and bottom notification.
-msgid "Notify when located at &top or bottom of playlist viewer"
-msgstr ""
-"&Obavesti kada se nalazim na vrhu ili dnu prikaza liste za reprodukciju"
-
-#. Translators: the label for a setting in SPL add-on settings to enable requests alert.
-msgid "Play a sound when listener &requests arrive"
-msgstr "&Reprodukuj zvukove kada stignu zahtevi slušaoca"
 
 #. Translators: The label of a button to manage playlist snapshot flags.
 msgid "&Playlist snapshots..."
@@ -1383,6 +1323,84 @@ msgstr ""
 "Izborno polje za vremenski profil je označeno ali niste izabrali datum i "
 "vreme. Molimo izaberite datum ili nemojte označiti izborno polje vremenski "
 "profil"
+
+#. Translators: Title of a dialog to configure various status announcements such as announcing listener count.
+#, fuzzy
+msgid "General add-on settings"
+msgstr "Podešavanja Studio dodatka"
+
+#. Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
+msgid "&Beep for status announcements"
+msgstr "&Pištanje za izgovor statusa"
+
+#. Translators: One of the message verbosity levels.
+msgid "beginner"
+msgstr "Početnik"
+
+#. Translators: One of the message verbosity levels.
+msgid "advanced"
+msgstr "Napredan"
+
+#. Translators: The label for a setting in SPL add-on dialog to set message verbosity.
+msgid "Message &verbosity:"
+msgstr "Pričljivost &poruka"
+
+#. Translators: One of the braille timer settings.
+msgid "Track ending"
+msgstr "Kraj zapisa"
+
+#. Translators: One of the braille timer settings.
+msgid "Track intro"
+msgstr "Uvodni zapis"
+
+#. Translators: One of the braille timer settings.
+msgid "Track intro and ending"
+msgstr "Uvodni zapis i kraj"
+
+#. Translators: The label for a setting in SPL add-on dialog to control braille timer.
+msgid "&Braille timer:"
+msgstr "&Brajev tajmer"
+
+#. Translators: The label for a setting in SPL add-on dialog to control library scan announcement.
+msgid "&Library scan announcement:"
+msgstr "&Izgovor skeniranja biblioteke"
+
+#. Translators: the label for a setting in SPL add-on settings to announce time including hours.
+msgid "Include &hours when announcing track or playlist duration"
+msgstr "&Uključi sate u izgovoru trajanja liste za reprodukciju ili zapisa"
+
+#. Translators: The label for a setting in SPL add-on dialog to set vertical column.
+msgid "&Vertical column navigation announcement:"
+msgstr "&Izgovor uspravne navigacije kolona"
+
+#. Translators: One of the options for vertical column navigation denoting NVDA will announce current column positoin (e.g. second column position from the left).
+msgid "whichever column I am reviewing"
+msgstr "Koju god kolonu pregledam"
+
+#. Translators: the label for a setting in SPL add-on settings to toggle category sound announcement.
+msgid "&Beep for different track categories"
+msgstr "&Pišti za različite kategorije zapisa"
+
+#. Translators: One of the track comment notification settings.
+msgid "Message"
+msgstr "Poruka"
+
+#. Translators: One of the track comment notification settings.
+msgid "Beep"
+msgstr "Pištanje"
+
+#. Translators: the label for a setting in SPL add-on settings to set how track comments are announced.
+msgid "&Track comment announcement:"
+msgstr "&Izgovor komentara zapisa:"
+
+#. Translators: the label for a setting in SPL add-on settings to toggle top and bottom notification.
+msgid "Notify when located at &top or bottom of playlist viewer"
+msgstr ""
+"&Obavesti kada se nalazim na vrhu ili dnu prikaza liste za reprodukciju"
+
+#. Translators: the label for a setting in SPL add-on settings to enable requests alert.
+msgid "Play a sound when listener &requests arrive"
+msgstr "&Reprodukuj zvukove kada stignu zahtevi slušaoca"
 
 #. Translators: Text of the dialog when another alarm dialog is open.
 msgid "Another alarm dialog is open."
@@ -1584,6 +1602,16 @@ msgstr "&Dozvoli SPL kontroler komandi da aktivira SPL asistent"
 msgid "SPL Assistant command &layout:"
 msgstr "SPL asistent raspored komandi:"
 
+#. Translators: A message displayed when trying to switch to fast channel on old Windows releases.
+msgid ""
+"It appears you are using Windows versions earlier than Windows 7 Service "
+"Pack 1, thus you cannot change to Test Drive Fast channel."
+msgstr ""
+
+#. Translators: The title of the channel switch confirmation dialog.
+msgid "Switching to unstable channel"
+msgstr "Prebacivanje na nestabilni kanal"
+
 #. Translators: The confirmation prompt displayed when changing to the fastest development channel (with risks involved).
 msgid ""
 "You are about to switch to the Test Drive Fast (try) builds channel, the "
@@ -1593,16 +1621,12 @@ msgid ""
 "to use stable releases, please answer no and switch to a more stable update "
 "channel. Are you sure you wish to switch to Test Drive Fast channel?"
 msgstr ""
-"Upravo prelazite na Test Drive brz (try) kanal ažuriranja dodatka, najbrži i "
-"naj nestabilniji kanal ažuriranja dodatka. Molimo imajte na umu da ovaj "
-"kanal može doneti ažuriranja koja su nestabilna i koristi se samo za "
-"pružanje informacija autoru dodatka. Ako želite da koristite stabilne "
-"verzije, aktivirajte dugme ne i prebacite se na stabilniji kanal ažuriranja. "
-"Da li ste sigurni da želite da se prebacite na najbrži kanal razvoja dodatka?"
-
-#. Translators: The title of the channel switch confirmation dialog.
-msgid "Switching to unstable channel"
-msgstr "Prebacivanje na nestabilni kanal"
+"You are about to switch to the Test Drive Fast (try) builds channel, the "
+"fastest and most unstable development channel. Please note that the selected "
+"channel may come with updates that might be unstable at times and should be "
+"used for testing and sending feedback to the add-on developer. If you prefer "
+"to use stable releases, please answer no and switch to a more stable update "
+"channel. Are you sure you wish to switch to Test Drive Fast channel?"
 
 #. Translators: The confirmation prompt displayed when changing update interval to zero days (updates will be checked every time Studio app module loads).
 msgid ""

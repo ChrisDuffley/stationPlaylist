@@ -828,10 +828,16 @@ class AppModule(appModuleHandler.AppModule):
 			ui.message(_("Cart explorer is active"))
 			return
 		# Microphone alarm and alarm interval if defined.
+		global micAlarmT, micAlarmT2
 		micAlarm = splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"]
-		if micAlarm:
+		# #38 (17.11/15.10-lts): only enter microphone alarm area if alarm should be turned on.
+		if not micAlarm:
+			if micAlarmT is not None: micAlarmT.cancel()
+			micAlarmT = None
+			if micAlarmT2 is not None: micAlarmT2.Stop()
+			micAlarmT2 = None
+		else:
 			# Play an alarm sound (courtesy of Jerry Mader from Mader Radio).
-			global micAlarmT, micAlarmT2
 			micAlarmWav = os.path.join(os.path.dirname(__file__), "SPL_MicAlarm.wav")
 			# Translators: Presented when microphone was on for more than a specified time in microphone alarm dialog.
 			micAlarmMessage = _("Warning: Microphone active")
@@ -848,6 +854,11 @@ class AppModule(appModuleHandler.AppModule):
 				micAlarmT = None
 				if micAlarmT2 is not None: micAlarmT2.Stop()
 				micAlarmT2 = None
+
+	# Respond to profile switches if asked.
+	def profileSwitched(self):
+		# #38 (17.11/15.10-LTS): obtain microhone alarm status.
+		self.doExtraAction(self.sayStatus(2, statusText=True))
 
 	# Alarm announcement: Alarm notification via beeps, speech or both.
 	def alarmAnnounce(self, timeText, tone, duration, intro=False):
@@ -909,6 +920,13 @@ class AppModule(appModuleHandler.AppModule):
 		if "globalPlugins.splUtils.encoders" in sys.modules:
 			import globalPlugins.splUtils.encoders
 			globalPlugins.splUtils.encoders.cleanup()
+		# #39 (17.11/15.10-lts): terminate microphone alarm/interval threads, otherwise errors are seen.
+		debugOutput("SPL: closing microphone alarm/interval thread")
+		global micAlarmT, micAlarmT2
+		if micAlarmT is not None: micAlarmT.cancel()
+		micAlarmT = None
+		if micAlarmT2 is not None: micAlarmT2.Stop()
+		micAlarmT2 = None
 		debugOutput("SPL: saving add-on settings")
 		splconfig.saveConfig()
 		# reset column number for column navigation commands.
@@ -1779,11 +1797,13 @@ class AppModule(appModuleHandler.AppModule):
 	)
 
 	# In the layer commands below, sayStatus function is used if screen objects or API must be used (API is for Studio 5.20 and later).
-	def sayStatus(self, index):
+	def sayStatus(self, index, statusText=False):
 		if self.SPLCurVersion < "5.20":
 			status = self.status(self.SPLPlayStatus).getChild(index).name
 		else:
 			status = self._statusBarMessages[index][studioAPI(index, 39, ret=True)]
+		# #38 (17.11/15.10-LTS): return status text if asked.
+		if statusText: return status
 		ui.message(status if splconfig.SPLConfig["General"]["MessageVerbosity"] == "beginner" else status.split()[-1])
 
 	# The layer commands themselves.

@@ -15,9 +15,10 @@ repositorio do código fonte.
 
 IMPORTANTE: este complemento require do NVDA 2017.1 ou posterior e
 StationPlaylist Studio 5.10 ou posterior. Se estás a usar Windows 8 e
-posterior, deshabilita o modo atenuación de audio. Tamén, o complemento
-8.0/16.10 require do Studio 5.10 e posterior, e para emisores que usen o
-Studio 5.0x, está disponible unha versión long-term support (15.x).
+posterior, para una mellor experiencia, deshabilita o modo atenuación de
+audio. Tamén, o complemento 8.0/16.10 require do Studio 5.10 e posterior, e
+para emisores que usen o Studio 5.0x, e/ou Windows XP, Vista ou 7 sen
+Service Pack 1, está dispoñible unha versión long-term support (15.x).
 
 ## Teclas de atallo
 
@@ -287,16 +288,40 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
-## Version 17.09.1
+## Versión 17.10
 
-* As a result of announcement from NV Access that NvDA 2017.3 will be the
-  last version to support Windows versions prior to windows 7 Service Pack
-  1, Studio add-on will present a reminder message about this if running
-  from old Windows releases. End of support for old Windows releases from
-  this add-on is scheduled for April 2018.
-* NVDA will no longer display startup dialogs and/or announce Studio version
-  if started with minimal (nvda -rm) flag set. The sole exception is the old
-  Windows release reminder dialog.
+* Se se usan versións de Windows anteriores ao Windows 7 Service Pack 1, non
+  podes cambiarf á canle de actualizacións Test Drive Fast. Unha versión
+  futura deste complemento moverá ao usuario de versións vellas de Windows a
+  unha canle de soporte dedicada.
+* Varias configuracións xerais coma pitidos de anunciado de estado,
+  notificación de comezo e de fin da listaxe de reprodución e outras  agora
+  colócanse no novo diálogo opcións xerais do complemento (accesible dende
+  un botón novo nas opcións do complemento).
+* Agora é posible facer as opcións do complemento de só lectura, usar só o
+  perfil normal, ou non cargar opcións dende disco cando Studio
+  arranque. Estas contrólanse por novos parámetros de ordes de liña
+  específicos para este complemento.
+* Ao se executar o NVDA dende o diálogo Executar (Windows+R), agora podes
+  pasar uns parámetros adicionais de liña de ordes para cambiar como
+  funciona o complemento. Estos inclúen "--spl-configvolatile" (opcións de
+  só lectura), "--spl-configinmemory" (Non cargar opcións dende disco), e
+  "--spl-normalprofileonly" (usar só o perfil normal).
+* Se se sae do Studio (non do NVDA) mentres un perfil de cambio instantáneo
+  está activo, o NVDA xa non dará un anunciado enganoso ao cambiar a un
+  perfil de cambio instantáneo cando se use o Studio de novo.
+
+## Versión 17.09.1
+
+* Como o resultado do anunciado de NV Access en que o NVDA 2017.3 será a
+  derradeira versión que soporte versións de Windows anteriores ao windows 7
+  Service Pack 1, o complemento Studio presentará unha mensaxe lembrándote
+  acerca de esto se se executan versións vellas de Windows. O final do
+  soporte para versións vellas de Windows deste complemento programouse para
+  abril do 2018.
+* O NVDA xa non amosa diálogos de inicio e/ou anuncia a versión do Studio se
+  se iniciou coa bandeira mínimo axustada a (nvda -rm). a única excepción é
+  o diálogo que lembra a versión vella de Windows.
 
 ## Versión 17.09
 

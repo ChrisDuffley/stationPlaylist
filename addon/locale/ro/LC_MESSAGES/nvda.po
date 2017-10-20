@@ -852,7 +852,6 @@ msgid "Checking for new version of Studio add-on..."
 msgstr "Se caută versiune nouă la extensia add-on Studio..."
 
 #. Translators: The name of the default (normal) profile.
-#. 8.0: Make sure NVDA knows this must be cached (except for normal profile).
 msgid "Normal profile"
 msgstr "Profil normal"
 
@@ -914,6 +913,11 @@ msgstr "Comutare instantanee"
 #. Calling set profile flags with discard argument is always safe here.
 msgid "time-based"
 msgstr "bazat pe timp"
+
+#. Translators: announced when only normal profile is in use.
+#, fuzzy
+msgid "Only normal profile is in use"
+msgstr "Profil normal"
 
 #. Translators: Presented when trying to switch to an instant switch profile when the instant switch profile is not defined.
 msgid "No instant switch profile is defined"
@@ -1134,21 +1138,10 @@ msgstr "&Comutatoare..."
 msgid "Countdown seconds before switching profiles"
 msgstr "Numărătoare secunde până la comutarea între profiluri"
 
-#. Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
-msgid "&Beep for status announcements"
-msgstr "&Bip pentru anunțurile stării"
-
-#. Translators: One of the message verbosity levels.
-msgid "beginner"
-msgstr "Începător"
-
-#. Translators: One of the message verbosity levels.
-msgid "advanced"
-msgstr "Avansat"
-
-#. Translators: The label for a setting in SPL add-on dialog to set message verbosity.
-msgid "Message &verbosity:"
-msgstr "Nivel de&taliu mesaje :"
+#. Translators: The label of a button to open a dialog to configure general add-on settings such as beep announcement and top and bottom notifications.
+#, fuzzy
+msgid "&General add-on settings..."
+msgstr "Resetare setări."
 
 #. Translators: The label of a button to open a dialog to configure various alarms.
 msgid "&Alarms Center..."
@@ -1169,64 +1162,6 @@ msgstr "Ambele, bip și mesaj"
 #. Translators: The label for a setting in SPL add-on dialog to control alarm announcement type.
 msgid "&Alarm notification:"
 msgstr "Notificare &alarmă:"
-
-#. Translators: One of the braille timer settings.
-msgid "Track ending"
-msgstr "Sfârșitul melodiei"
-
-#. Translators: One of the braille timer settings.
-msgid "Track intro"
-msgstr "Începutul melodiei"
-
-#. Translators: One of the braille timer settings.
-msgid "Track intro and ending"
-msgstr "Începutul și sfârșiutl melodiei"
-
-#. Translators: The label for a setting in SPL add-on dialog to control braille timer.
-msgid "&Braille timer:"
-msgstr "Cronometru &braille:"
-
-#. Translators: The label for a setting in SPL add-on dialog to control library scan announcement.
-msgid "&Library scan announcement:"
-msgstr "Anunțarea scanării &librăriei:"
-
-#. Translators: the label for a setting in SPL add-on settings to announce time including hours.
-msgid "Include &hours when announcing track or playlist duration"
-msgstr "Include &orele când se anunță durata melodiei sau a playlistului"
-
-#. Translators: The label for a setting in SPL add-on dialog to set vertical column.
-msgid "&Vertical column navigation announcement:"
-msgstr "&Anunțarea navigării coloanei verticale"
-
-#. Translators: One of the options for vertical column navigation denoting NVDA will announce current column positoin (e.g. second column position from the left).
-msgid "whichever column I am reviewing"
-msgstr "Indiferent de coloana pe care o revizuiesc"
-
-#. Translators: the label for a setting in SPL add-on settings to toggle category sound announcement.
-msgid "&Beep for different track categories"
-msgstr "&Bip pentru diverse categorii de melodii"
-
-#. Translators: One of the track comment notification settings.
-msgid "Message"
-msgstr "Mesaj"
-
-#. Translators: One of the track comment notification settings.
-msgid "Beep"
-msgstr "Bip"
-
-#. Translators: the label for a setting in SPL add-on settings to set how track comments are announced.
-msgid "&Track comment announcement:"
-msgstr "Anunțarea comentariului &melodiei:"
-
-#. Translators: the label for a setting in SPL add-on settings to toggle top and bottom notification.
-msgid "Notify when located at &top or bottom of playlist viewer"
-msgstr ""
-"Notifică când e localizat la &începutul sau sfârșitul vizualizatorului "
-"listei de redare"
-
-#. Translators: the label for a setting in SPL add-on settings to enable requests alert.
-msgid "Play a sound when listener &requests arrive"
-msgstr "Redați un sunet atunci când &cererile ascultătorului sosesc"
 
 #. Translators: The label of a button to manage playlist snapshot flags.
 msgid "&Playlist snapshots..."
@@ -1399,6 +1334,85 @@ msgid ""
 msgstr ""
 "Căsuţa profilului bazat pe timp este  bifată, dar data nu este definită. "
 "Specificați mai întâi o dată sau debifați căsuţa de profil bazat pe timp."
+
+#. Translators: Title of a dialog to configure various status announcements such as announcing listener count.
+#, fuzzy
+msgid "General add-on settings"
+msgstr "Setările addonului studio"
+
+#. Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
+msgid "&Beep for status announcements"
+msgstr "&Bip pentru anunțurile stării"
+
+#. Translators: One of the message verbosity levels.
+msgid "beginner"
+msgstr "Începător"
+
+#. Translators: One of the message verbosity levels.
+msgid "advanced"
+msgstr "Avansat"
+
+#. Translators: The label for a setting in SPL add-on dialog to set message verbosity.
+msgid "Message &verbosity:"
+msgstr "Nivel de&taliu mesaje :"
+
+#. Translators: One of the braille timer settings.
+msgid "Track ending"
+msgstr "Sfârșitul melodiei"
+
+#. Translators: One of the braille timer settings.
+msgid "Track intro"
+msgstr "Începutul melodiei"
+
+#. Translators: One of the braille timer settings.
+msgid "Track intro and ending"
+msgstr "Începutul și sfârșiutl melodiei"
+
+#. Translators: The label for a setting in SPL add-on dialog to control braille timer.
+msgid "&Braille timer:"
+msgstr "Cronometru &braille:"
+
+#. Translators: The label for a setting in SPL add-on dialog to control library scan announcement.
+msgid "&Library scan announcement:"
+msgstr "Anunțarea scanării &librăriei:"
+
+#. Translators: the label for a setting in SPL add-on settings to announce time including hours.
+msgid "Include &hours when announcing track or playlist duration"
+msgstr "Include &orele când se anunță durata melodiei sau a playlistului"
+
+#. Translators: The label for a setting in SPL add-on dialog to set vertical column.
+msgid "&Vertical column navigation announcement:"
+msgstr "&Anunțarea navigării coloanei verticale"
+
+#. Translators: One of the options for vertical column navigation denoting NVDA will announce current column positoin (e.g. second column position from the left).
+msgid "whichever column I am reviewing"
+msgstr "Indiferent de coloana pe care o revizuiesc"
+
+#. Translators: the label for a setting in SPL add-on settings to toggle category sound announcement.
+msgid "&Beep for different track categories"
+msgstr "&Bip pentru diverse categorii de melodii"
+
+#. Translators: One of the track comment notification settings.
+msgid "Message"
+msgstr "Mesaj"
+
+#. Translators: One of the track comment notification settings.
+msgid "Beep"
+msgstr "Bip"
+
+#. Translators: the label for a setting in SPL add-on settings to set how track comments are announced.
+msgid "&Track comment announcement:"
+msgstr "Anunțarea comentariului &melodiei:"
+
+#. Translators: the label for a setting in SPL add-on settings to toggle top and bottom notification.
+msgid "Notify when located at &top or bottom of playlist viewer"
+msgstr ""
+"Notifică când e localizat la &începutul sau sfârșitul vizualizatorului "
+"listei de redare"
+
+#. Translators: the label for a setting in SPL add-on settings to enable requests alert.
+msgid "Play a sound when listener &requests arrive"
+msgstr "Redați un sunet atunci când &cererile ascultătorului sosesc"
 
 #. Translators: Text of the dialog when another alarm dialog is open.
 msgid "Another alarm dialog is open."
@@ -1600,6 +1614,16 @@ msgstr ""
 msgid "SPL Assistant command &layout:"
 msgstr "Dispoziția comenzi&lor asistentului SPL:"
 
+#. Translators: A message displayed when trying to switch to fast channel on old Windows releases.
+msgid ""
+"It appears you are using Windows versions earlier than Windows 7 Service "
+"Pack 1, thus you cannot change to Test Drive Fast channel."
+msgstr ""
+
+#. Translators: The title of the channel switch confirmation dialog.
+msgid "Switching to unstable channel"
+msgstr "Comutare la canalul instabil"
+
 #. Translators: The confirmation prompt displayed when changing to the fastest development channel (with risks involved).
 msgid ""
 "You are about to switch to the Test Drive Fast (try) builds channel, the "
@@ -1617,10 +1641,6 @@ msgstr ""
 "utilizați funcții stabile, răspundeți nu și treceți la un canal de "
 "actualizare mai stabil. Sigur doriți să treceți la cel mai rapid canal de "
 "dezvoltare?"
-
-#. Translators: The title of the channel switch confirmation dialog.
-msgid "Switching to unstable channel"
-msgstr "Comutare la canalul instabil"
 
 #. Translators: The confirmation prompt displayed when changing update interval to zero days (updates will be checked every time Studio app module loads).
 msgid ""

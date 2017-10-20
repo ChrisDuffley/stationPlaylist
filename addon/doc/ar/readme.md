@@ -15,8 +15,8 @@ repository.
 IMPORTANT: This add-on requires NVDA 2017.1 or later and StationPlaylist
 Studio 5.10 or later. If using Windows 8 or later, for best experience,
 disable audio ducking mode. Also, add-on 8.0/16.10 requires Studio 5.10 and
-later, and for broadcasters using Studio 5.0x, a long-term support version
-(15.x) is available.
+later, and for broadcasters using Studio 5.0x and/or Windows XP, Vista or 7
+without Service Pack 1, a long-term support version (15.x) is available.
 
 ## مفاتيح الاختصار
 
@@ -256,9 +256,29 @@ broadcast profiles.
 استخدم لمسة ب3 أصابع للانتقال لنمط اللمس, ثم استخدم أوامر اللمس المسرودة
 أعلاه لأداء المهام.
 
+## Version 17.10
+
+* If using Windows releases prior to Windows 7 Service Pack 1, you cannot
+  switch to Test Drive Fast update channel. A future release of this add-on
+  will move users of old Windows versions to a dedicated support channel.
+* Several general settings such as status announcement beeps, top and bottom
+  of playlist notification and others are now located in the new general
+  add-on settings dialog (accessed from a new button in add-on settings).
+* It is now possible to make add-on options read-only, use only the normal
+  profile, or not load settings from disk when Studio starts. These are
+  controlled by new command-line switches specific to this add-on.
+* When running NVDA from Run dialog (Windows+R), you can now pass in
+  additional command-line switches to change how the add-on works. These
+  include "--spl-configvolatile" (read-only settings),
+  "--spl-configinmemory" (do not load settings from disk), and
+  "--spl-normalprofileonly" (only use normal profile).
+* If exitting Studio (not NVDA) while an instant switch profile is active,
+  NVDA will no longer give misleading announcement when switching to an
+  instant switch profile when using Studio again.
+
 ## Version 17.09.1
 
-* As a result of announcement from NV Access that NvDA 2017.3 will be the
+* As a result of announcement from NV Access that NVDA 2017.3 will be the
   last version to support Windows versions prior to windows 7 Service Pack
   1, Studio add-on will present a reminder message about this if running
   from old Windows releases. End of support for old Windows releases from

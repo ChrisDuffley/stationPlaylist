@@ -308,12 +308,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	# Perform extra action when closing this dialog such as restarting update timer.
 	def onCloseExtraAction(self):
-		# Change metadata streaming.
-		hwnd = user32.FindWindowA("SPLStudio", None)
-		if hwnd:
-			for url in xrange(5):
-				dataLo = 0x00010000 if splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"][url] else 0xffff0000
-				user32.SendMessageW(hwnd, 1024, dataLo | url, 36)
 		# Coordinate auto update timer restart routine if told to do so.
 		if not splconfig.SPLConfig["Update"]["AutoUpdateCheck"] or self.pendingChannelChange:
 			if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
@@ -326,6 +320,12 @@ class SPLConfigDialog(gui.SettingsDialog):
 				_("Add-on update channel changed"), wx.OK|wx.ICON_INFORMATION)
 		else:
 			if splupdate._SPLUpdateT is None: splconfig.updateInit()
+		# Change metadata streaming.
+		# 17.11: call the metadata connector directly, reducing code duplication from previous releases.
+		import splmisc
+		splmisc.metadataConnector(servers=splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"])
+		# Also restart microphone timer.
+		splmisc._restartMicTimer()
 
 	# Include profile flags such as instant profile string for display purposes.
 	def displayProfiles(self, profiles):
@@ -426,8 +426,18 @@ class SPLConfigDialog(gui.SettingsDialog):
 				# Translators: Title of a dialog shown when profile cannot be deleted.
 				_("Profile delete error"), wx.OK | wx.ICON_ERROR, self)
 			return
-		index = self.profiles.Selection
 		name = self.profiles.GetStringSelection().split(" <")[0]
+		# 17.11/15.10-lts: ask once more if deleting an active profile.
+		if name == self.activeProfile:
+			if gui.messageBox(
+				# Translators: The confirmation prompt displayed when the user requests to delete the active broadcast profile.
+				_("You are about to delete the currently active profile. Select yes if you wish to proceed."),
+				# Translators: The title of the confirmation dialog for deletion of a profile.
+				_("Delete active profile"),
+				wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION, self
+			) == wx.NO:
+				return
+		index = self.profiles.Selection
 		profilePos = self.profileNames.index(name)
 		if gui.messageBox(
 			# Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
@@ -438,9 +448,15 @@ class SPLConfigDialog(gui.SettingsDialog):
 		) == wx.NO:
 			return
 		splconfig.SPLConfig.deleteProfile(name)
+		# 17.11: make sure to connect to the right set of metadata servers and enable/disable microphone alarm if appropriate.
+		import splmisc
+		splmisc.metadataConnector(servers=splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"])
+		splmisc._restartMicTimer()
 		if name == self.switchProfile or name == self.activeProfile:
-			self.switchProfile = None
-			splconfig.SPLPrevProfile = None
+			# 17.11/15.10-LTS: go through the below path if and only if instant switch profile is gone.
+			if name == self.switchProfile:
+				self.switchProfile = None
+				splconfig.SPLPrevProfile = None
 			self.switchProfileDeleted = True
 		self.profiles.Delete(index)
 		del self.profileNames[profilePos]
@@ -759,7 +775,7 @@ class GeneralSettingsDialog(wx.Dialog):
 
 		# Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
 		self.beepAnnounceCheckbox = generalSettingsHelper.addItem(wx.CheckBox(self, label=_("&Beep for status announcements")))
-		self.beepAnnounceCheckbox.SetValue(splconfig.SPLConfig["General"]["BeepAnnounce"])
+		self.beepAnnounceCheckbox.SetValue(parent.beepAnnounce)
 
 		# Translators: One of the message verbosity levels.
 		self.verbosityLevels=[("beginner",_("beginner")),
@@ -767,7 +783,7 @@ class GeneralSettingsDialog(wx.Dialog):
 		("advanced",_("advanced"))]
 		# Translators: The label for a setting in SPL add-on dialog to set message verbosity.
 		self.verbosityList = generalSettingsHelper.addLabeledControl(_("Message &verbosity:"), wx.Choice, choices=[x[1] for x in self.verbosityLevels])
-		currentVerbosity=splconfig.SPLConfig["General"]["MessageVerbosity"]
+		currentVerbosity=parent.messageVerbosity
 		selection = (x for x,y in enumerate(self.verbosityLevels) if y[0]==currentVerbosity).next()
 		try:
 			self.verbosityList.SetSelection(selection)
@@ -783,7 +799,7 @@ class GeneralSettingsDialog(wx.Dialog):
 		("both",_("Track intro and ending"))]
 		# Translators: The label for a setting in SPL add-on dialog to control braille timer.
 		self.brailleTimerList = generalSettingsHelper.addLabeledControl(_("&Braille timer:"), wx.Choice, choices=[x[1] for x in self.brailleTimerValues])
-		brailleTimerCurValue=splconfig.SPLConfig["General"]["BrailleTimer"]
+		brailleTimerCurValue=parent.brailleTimer
 		selection = (x for x,y in enumerate(self.brailleTimerValues) if y[0]==brailleTimerCurValue).next()
 		try:
 			self.brailleTimerList.SetSelection(selection)
@@ -799,7 +815,7 @@ class GeneralSettingsDialog(wx.Dialog):
 		("numbers",_("Scan count"))]
 		# Translators: The label for a setting in SPL add-on dialog to control library scan announcement.
 		self.libScanList = generalSettingsHelper.addLabeledControl(_("&Library scan announcement:"), wx.Choice, choices=[x[1] for x in self.libScanValues])
-		libScanCurValue=splconfig.SPLConfig["General"]["LibraryScanAnnounce"]
+		libScanCurValue=parent.libScan
 		selection = (x for x,y in enumerate(self.libScanValues) if y[0]==libScanCurValue).next()
 		try:
 			self.libScanList.SetSelection(selection)
@@ -808,13 +824,13 @@ class GeneralSettingsDialog(wx.Dialog):
 
 		# Translators: the label for a setting in SPL add-on settings to announce time including hours.
 		self.hourAnnounceCheckbox = generalSettingsHelper.addItem(wx.CheckBox(self, label=_("Include &hours when announcing track or playlist duration")))
-		self.hourAnnounceCheckbox.SetValue(splconfig.SPLConfig["General"]["TimeHourAnnounce"])
+		self.hourAnnounceCheckbox.SetValue(parent.hourAnnounce)
 
 		# Translators: The label for a setting in SPL add-on dialog to set vertical column.
 		verticalColLabel = _("&Vertical column navigation announcement:")
 		# Translators: One of the options for vertical column navigation denoting NVDA will announce current column positoin (e.g. second column position from the left).
 		self.verticalColumnsList = generalSettingsHelper.addLabeledControl(verticalColLabel, wx.Choice, choices=[_("whichever column I am reviewing"), "Status"] + splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])
-		verticalColumn = splconfig.SPLConfig["General"]["VerticalColumnAnnounce"]
+		verticalColumn = parent.verticalColumn
 		selection = self.verticalColumnsList.FindString(verticalColumn) if verticalColumn is not None else 0
 		try:
 			self.verticalColumnsList.SetSelection(selection)
@@ -823,7 +839,7 @@ class GeneralSettingsDialog(wx.Dialog):
 
 		# Translators: the label for a setting in SPL add-on settings to toggle category sound announcement.
 		self.categorySoundsCheckbox = generalSettingsHelper.addItem(wx.CheckBox(self, label=_("&Beep for different track categories")))
-		self.categorySoundsCheckbox.SetValue(splconfig.SPLConfig["General"]["CategorySounds"])
+		self.categorySoundsCheckbox.SetValue(parent.categorySounds)
 
 		self.trackCommentValues=[("off",_("Off")),
 		# Translators: One of the track comment notification settings.
@@ -834,7 +850,7 @@ class GeneralSettingsDialog(wx.Dialog):
 		("both",_("Both"))]
 		# Translators: the label for a setting in SPL add-on settings to set how track comments are announced.
 		self.trackCommentList = generalSettingsHelper.addLabeledControl(_("&Track comment announcement:"), wx.Choice, choices=[x[1] for x in self.trackCommentValues])
-		trackCommentCurValue=splconfig.SPLConfig["General"]["TrackCommentAnnounce"]
+		trackCommentCurValue=parent.trackComments
 		selection = (x for x,y in enumerate(self.trackCommentValues) if y[0]==trackCommentCurValue).next()
 		try:
 			self.trackCommentList.SetSelection(selection)
@@ -843,11 +859,11 @@ class GeneralSettingsDialog(wx.Dialog):
 
 		# Translators: the label for a setting in SPL add-on settings to toggle top and bottom notification.
 		self.topBottomCheckbox = generalSettingsHelper.addItem(wx.CheckBox(self, label=_("Notify when located at &top or bottom of playlist viewer")))
-		self.topBottomCheckbox.SetValue(splconfig.SPLConfig["General"]["TopBottomAnnounce"])
+		self.topBottomCheckbox.SetValue(parent.topBottom)
 
 		# Translators: the label for a setting in SPL add-on settings to enable requests alert.
 		self.requestsAlertCheckbox = generalSettingsHelper.addItem(wx.CheckBox(self, label=_("Play a sound when listener &requests arrive")))
-		self.requestsAlertCheckbox.SetValue(splconfig.SPLConfig["General"]["RequestsAlert"])
+		self.requestsAlertCheckbox.SetValue(parent.requestsAlert)
 
 		generalSettingsHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
@@ -1413,10 +1429,10 @@ class AdvancedOptionsDialog(wx.Dialog):
 		if len(self._updateChannels) > 1:
 			# Translators: The label for a combo box to select update channel.
 			labelText = _("&Add-on update channel:")
-			if sys.getwindowsversion().build >= 7601: self.channels=advOptionsHelper.addLabeledControl(labelText, wx.Choice, choices=["Test Drive Fast (try)", "Test Drive Slow (development)", "stable"])
+			if sys.getwindowsversion().build >= 7601: self.channels=advOptionsHelper.addLabeledControl(labelText, wx.Choice, choices=["Test Drive Fast", "Test Drive Slow", "stable"])
 			else:
-				self.channels=advOptionsHelper.addLabeledControl(labelText, wx.Choice, choices=["Test Drive Fast (try)", "Test Drive Slow (development)", "stable", "longterm"])
-				self._updateChannels = ("try", "dev", "stable", "lts")
+				self.channels=advOptionsHelper.addLabeledControl(labelText, wx.Choice, choices=["Test Drive Slow", "stable", "longterm"])
+				self._updateChannels = ("dev", "stable", "lts")
 			self.channels.SetSelection(self._updateChannels.index(self.Parent.updateChannel))
 		# Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 		self.splConPassthroughCheckbox=advOptionsHelper.addItem(wx.CheckBox(self, label=_("Allow SPL C&ontroller command to invoke SPL Assistant layer")))
