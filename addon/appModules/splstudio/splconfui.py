@@ -322,10 +322,14 @@ class SPLConfigDialog(gui.SettingsDialog):
 			if splupdate._SPLUpdateT is None: splconfig.updateInit()
 		# Change metadata streaming.
 		# 17.11: call the metadata connector directly, reducing code duplication from previous releases.
-		import splmisc
-		splmisc.metadataConnector(servers=splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"])
-		# Also restart microphone timer.
-		splmisc._restartMicTimer()
+		# 17.12: replaced by an action, with config UI active flag set.
+		import splmisc, splactions
+		if splactions.actionsAvailable:
+			splactions.SPLActionProfileSwitched.notify(configDialogActive=True)
+		else:
+			splmisc.metadataConnector(servers=splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"])
+			# Also restart microphone timer.
+			splmisc._restartMicTimer()
 
 	# Include profile flags such as instant profile string for display purposes.
 	def displayProfiles(self, profiles):
@@ -449,9 +453,12 @@ class SPLConfigDialog(gui.SettingsDialog):
 			return
 		splconfig.SPLConfig.deleteProfile(name)
 		# 17.11: make sure to connect to the right set of metadata servers and enable/disable microphone alarm if appropriate.
-		import splmisc
-		splmisc.metadataConnector(servers=splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"])
-		splmisc._restartMicTimer()
+		import splmisc, splactions
+		if splactions.actionsAvailable:
+			splactions.SPLActionProfileSwitched.notify(configDialogActive=True)
+		else:
+			splmisc.metadataConnector(servers=splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"])
+			splmisc._restartMicTimer()
 		if name == self.switchProfile or name == self.activeProfile:
 			# 17.11/15.10-LTS: go through the below path if and only if instant switch profile is gone.
 			if name == self.switchProfile:
