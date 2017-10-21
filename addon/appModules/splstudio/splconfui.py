@@ -604,6 +604,19 @@ class SPLConfigDialog(gui.SettingsDialog):
 			os.remove(path)
 		except WindowsError:
 			pass
+		# #38 (15.10-LTS): merge and connect to new metadata servers and restart microphone alarm.
+		# Because profile pool is in use, manually merge normal profile here.
+		if name == self.activeProfile:
+			import splmisc
+			splconfig.mergeSections(0)
+			splconfig.SPLActiveProfile = splconfig.SPLConfigPool[0].name
+			splconfig.SPLConfig["ActiveIndex"] = splconfig.SPLConfigPool[0].name
+			splmisc._restartMicTimer()
+			hwnd = user32.FindWindowA("SPLStudio", None)
+			if hwnd:
+				for url in xrange(5):
+					dataLo = 0x00010000 if splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"][url] else 0xffff0000
+					user32.SendMessageW(hwnd, 1024, dataLo | url, 36)
 		if name == self.switchProfile or name == self.activeProfile:
 			# 17.11/15.10-LTS: go through the below path if and only if instant switch profile is gone.
 			if name == self.switchProfile:
