@@ -429,6 +429,9 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	# Perform extra action when closing this dialog such as restarting update timer.
 	def onCloseExtraAction(self):
+		# Restart microphone alarm timer.
+		import splmisc
+		splmisc._restartMicTimer()
 		# Change metadata streaming.
 		hwnd = user32.FindWindowA("SPLStudio", None)
 		if hwnd:
