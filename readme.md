@@ -170,6 +170,15 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 15.10-LTS
+
+* Initial support for StationPlaylist Studio 5.30.
+* If microphone alarm and/or interval timer is turned on and if Studio exits while microphone is on, NVDA will no longer play microphone alarm tone from everywhere.
+* When deleting broadcast profiles and if another profile happens to be an instant switch profile, instant switch flag won't be removed from the switch profile.
+* If deleting an active profile that is not an instant switch or a time-based profile, NVDA will ask once more for confirmation before proceeding.
+* NVDA will apply correct settings for microphone alarm settings when switching profiles via add-on settings dialog.
+* You can now press SPL Controller, H to obtain help for SPL Controller layer.
+
 ## Version 15.9-LTS
 
 * In addition to supporting Studio 5.0x, add-on 15.x-LTS will support Windows XP and Vista as NVDA 2017.4 will drop support for old Windows releases.
