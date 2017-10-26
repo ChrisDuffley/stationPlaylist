@@ -300,7 +300,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:i":"listenerCount",
 		"kb:q":"statusInfo",
 		"kb:c":"currentTrackTitle",
-		"kb:f1":"conHelp"
+		"kb:f1":"conHelp",
+		"kb:h":"conHelp"
 	}
 
 	__gestures={
