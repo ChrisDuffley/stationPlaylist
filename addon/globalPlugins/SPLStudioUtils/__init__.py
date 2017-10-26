@@ -267,7 +267,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:r":"remainingTime",
 		"kb:e":"announceNumMonitoringEncoders",
 		"kb:i":"listenerCount",
-		"kb:f1":"conHelp"
+		"kb:f1":"conHelp",
+		"kb:h":"conHelp"
 	}
 
 
