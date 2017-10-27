@@ -1259,6 +1259,17 @@ msgstr ""
 msgid "Profile delete error"
 msgstr "Eroare la ştergerea profilului"
 
+#. Translators: The confirmation prompt displayed when the user requests to delete the active broadcast profile.
+msgid ""
+"You are about to delete the currently active profile. Select yes if you wish "
+"to proceed."
+msgstr ""
+
+#. Translators: The title of the confirmation dialog for deletion of a profile.
+#, fuzzy
+msgid "Delete active profile"
+msgstr "Ștergeți baza de date a profilului bazat pe timp"
+
 #. Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
 msgid "Are you sure you want to delete this profile? This cannot be undone."
 msgstr "Sigur doriți să ştergeți acest profil? Acest lucru este ireversibil."
