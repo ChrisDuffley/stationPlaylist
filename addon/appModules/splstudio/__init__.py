@@ -1274,16 +1274,12 @@ class AppModule(appModuleHandler.AppModule):
 			self.bindGesture("kb:alt+f%s"%(i+1), "cartExplorer")
 
 	def buildNumberCarts(self):
-		for i in range(10) if py3 else xrange(10):
+		# It is much faster to work directly with number row keys.
+		for i in "1234567890-=":
 			self.bindGesture("kb:%s"%(i), "cartExplorer")
 			self.bindGesture("kb:shift+%s"%(i), "cartExplorer")
 			self.bindGesture("kb:control+%s"%(i), "cartExplorer")
 			self.bindGesture("kb:alt+%s"%(i), "cartExplorer")
-		# Take care of dash and equals.
-		self.bindGesture("kb:-", "cartExplorer"), self.bindGesture("kb:=", "cartExplorer")
-		self.bindGesture("kb:shift+-", "cartExplorer"), self.bindGesture("kb:shift+=", "cartExplorer")
-		self.bindGesture("kb:control+-", "cartExplorer"), self.bindGesture("kb:control+=", "cartExplorer")
-		self.bindGesture("kb:alt+-", "cartExplorer"), self.bindGesture("kb:alt+=", "cartExplorer")
 
 	def cartsBuilder(self, build=True):
 		# A function to build and return cart commands.

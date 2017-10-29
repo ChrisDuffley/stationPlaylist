@@ -288,6 +288,27 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
+## Version 17.11/15.10-LTS
+
+This is the last version to support Windows XP, Vista and 7 without Service
+Pack 1. To use this add-on in those Windows releases, please use version
+17.10.
+
+* Initial support for StationPlaylist Studio 5.30.
+* If microphone alarm and/or interval timer is turned on and if Studio exits
+  while microphone is on, NVDA will no longer play microphone alarm tone
+  from everywhere.
+* When deleting broadcast profiles and if another profile happens to be an
+  instant switch profile, instant switch flag won't be removed from the
+  switch profile.
+* If deleting an active profile that is not an instant switch or a
+  time-based profile, NVDA will ask once more for confirmation before
+  proceeding.
+* NVDA will apply correct settings for microphone alarm settings when
+  switching profiles via add-on settings dialog.
+* You can now press SPL Controller, H to obtain help for SPL Controller
+  layer.
+
 ## Versión 17.10
 
 * Se se usan versións de Windows anteriores ao Windows 7 Service Pack 1, non

@@ -23,7 +23,7 @@ def indexOf(ttVersion):
 	if ttVersion < "5.2":
 		return ("Artist","Title","Duration","Cue","Overlap","Intro","Outro","Segue","Year","Album","CD Code","URL 1","URL 2","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Client","Other","Intro Link","Outro Link")
 	else:
-		return ("Artist","Title","Duration","Cue","Overlap","Intro","Outro","Segue","Hook Start","Hook Len","Year","Album","CD Code","URL 1","URL 2","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Client","Other","Intro Link","Outro Link","ReplayGain")
+		return ("Artist", "Title", "Duration", "Cue", "Overlap", "Intro", "Outro", "Segue", "Hook Start", "Hook Len", "Year", "Album", "CD Code", "URL 1", "URL 2", "Genre", "Mood", "Energy", "Tempo", "BPM", "Gender", "Rating", "Filename", "Client", "Other", "Intro Link", "Outro Link", "ReplayGain", "Record Label", "ISRC")
 
 class TrackToolItem(IAccessible):
 	"""An entry in Track Tool, used to implement some exciting features.
