@@ -16,6 +16,7 @@ from winUser import user32
 import tones
 from . import splupdate
 from . import splconfig
+from . import splactions
 
 # Until wx.CENTER_ON_SCREEN returns...
 CENTER_ON_SCREEN = wx.CENTER_ON_SCREEN if hasattr(wx, "CENTER_ON_SCREEN") else 2
@@ -28,6 +29,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 	title = _("Studio Add-on Settings")
 
 	def makeSettings(self, settingsSizer):
+		if splactions.actionsAvailable: splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 		SPLConfigHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
 		# Broadcast profile controls were inspired by Config Profiles dialog in NVDA Core.
@@ -330,6 +332,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 			splmisc.metadataConnector(servers=splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"])
 			# Also restart microphone timer.
 			splmisc._restartMicTimer()
+
+	def onAppTerminate(self):
+		# Call cancel function when the app terminates so the dialog can be closed.
+		self.onCancel(None)
 
 	# Include profile flags such as instant profile string for display purposes.
 	def displayProfiles(self, profiles):

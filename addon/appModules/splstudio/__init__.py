@@ -927,8 +927,10 @@ class AppModule(appModuleHandler.AppModule):
 		# #39 (17.11/15.10-lts): terminate microphone alarm/interval threads, otherwise errors are seen.
 		# #40 (17.12): replace this with a handler that responds to app module exit signal.
 		# Also allows profile switch handler to unregister itself as well.
+		# At the same time, close any opened SPL add-on dialogs.
 		if splactions.actionsAvailable:
 			splactions.SPLActionProfileSwitched.unregister(self.actionProfileSwitched)
+			splactions.SPLActionAppTerminating.notify()
 		debugOutput("SPL: closing microphone alarm/interval thread")
 		global micAlarmT, micAlarmT2
 		if micAlarmT is not None: micAlarmT.cancel()
