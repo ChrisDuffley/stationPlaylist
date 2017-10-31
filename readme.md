@@ -174,6 +174,10 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 17.11.1/15.11-LTS
+
+* NVDA will no longer play error tones or appear to do nothing when using Control+Alt+left or right arrow keys to navigate columns in Track Tool 5.20 with a track loaded. Because of this change, when using Studio 5.20, build 48 or later is required.
+
 ## Version 17.11/15.10-LTS
 
 This is the last version to support Windows XP, Vista and 7 without Service Pack 1. To use this add-on in those Windows releases, please use version 17.10.
