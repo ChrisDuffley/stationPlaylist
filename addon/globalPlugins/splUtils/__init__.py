@@ -276,6 +276,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		studioAppMod.script_sayCurrentTrackTitle(None)
 		self.finish()
 
+	def script_nextTrackTitle(self, gesture):
+		studioAppMod = getNVDAObjectFromEvent(winUser.user32.FindWindowA("TStudioForm", None), winUser.OBJID_CLIENT, 0).appModule
+		studioAppMod.script_sayNextTrackTitle(None)
+		self.finish()
+
 	def script_conHelp(self, gesture):
 		import gui, wx
 		# Translators: The title for SPL Controller help dialog.
@@ -300,6 +305,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:i":"listenerCount",
 		"kb:q":"statusInfo",
 		"kb:c":"currentTrackTitle",
+		"kb:shift+c":"nextTrackTitle",
 		"kb:f1":"conHelp",
 		"kb:h":"conHelp"
 	}
