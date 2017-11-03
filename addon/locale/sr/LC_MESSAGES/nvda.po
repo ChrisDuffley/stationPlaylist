@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 4.2\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2015-02-06 19:00+1000\n"
-"PO-Revision-Date: 2017-09-21 17:51+0100\n"
-"Last-Translator: Nikola Jovic <wwenikola123@gmail.com>\n"
+"PO-Revision-Date: 2017-10-27 11:29+0100\n"
+"Last-Translator: Nikola Jović <wwenikola123@gmail.com>\n"
 "Language-Team: \n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
@@ -898,9 +898,8 @@ msgid "time-based"
 msgstr "Vremenski"
 
 #. Translators: announced when only normal profile is in use.
-#, fuzzy
 msgid "Only normal profile is in use"
-msgstr "Standardan profil"
+msgstr "Samo standardan profil se koristi"
 
 #. Translators: Presented when trying to switch to an instant switch profile when the instant switch profile is not defined.
 msgid "No instant switch profile is defined"
@@ -1129,9 +1128,8 @@ msgid "Countdown seconds before switching profiles"
 msgstr "Odbrojavanje pre promene profila"
 
 #. Translators: The label of a button to open a dialog to configure general add-on settings such as beep announcement and top and bottom notifications.
-#, fuzzy
 msgid "&General add-on settings..."
-msgstr "&Vrati podešavanja..."
+msgstr "&Opšta podešavanja dodatka"
 
 #. Translators: The label of a button to open a dialog to configure various alarms.
 msgid "&Alarms Center..."
@@ -1251,11 +1249,12 @@ msgid ""
 "You are about to delete the currently active profile. Select yes if you wish "
 "to proceed."
 msgstr ""
+"Upravo ćete obrisati trenutno aktivan profil. Aktivirajte dugme da kako "
+"biste potvrdili."
 
 #. Translators: The title of the confirmation dialog for deletion of a profile.
-#, fuzzy
 msgid "Delete active profile"
-msgstr "Obriši bazu podataka vremenskih profila"
+msgstr "Obriši aktivan profil"
 
 #. Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
 msgid "Are you sure you want to delete this profile? This cannot be undone."
@@ -1336,9 +1335,8 @@ msgstr ""
 "profil"
 
 #. Translators: Title of a dialog to configure various status announcements such as announcing listener count.
-#, fuzzy
 msgid "General add-on settings"
-msgstr "Podešavanja Studio dodatka"
+msgstr "Opšta podešavanja dodatka"
 
 #. Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
 msgid "&Beep for status announcements"
@@ -1618,6 +1616,8 @@ msgid ""
 "It appears you are using Windows versions earlier than Windows 7 Service "
 "Pack 1, thus you cannot change to Test Drive Fast channel."
 msgstr ""
+"Izgleda da koristite Windows verziju koja je starija od Windowsa 7 sa "
+"service packom 1, zbog toga se ne možete prebaciti na kanal za testiranje."
 
 #. Translators: The title of the channel switch confirmation dialog.
 msgid "Switching to unstable channel"

@@ -288,26 +288,27 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
-## Version 17.11/15.10-LTS
+## Versión 17.11/15.10-LTS
 
-This is the last version to support Windows XP, Vista and 7 without Service
-Pack 1. To use this add-on in those Windows releases, please use version
-17.10.
+Esta é a derradeira versión que soporta o Windows XP, Vista e 7 sen oService
+Pack 1. Para usar este complemento nesas versións de Windows, por favor usa
+a versión 17.10.
 
-* Initial support for StationPlaylist Studio 5.30.
-* If microphone alarm and/or interval timer is turned on and if Studio exits
-  while microphone is on, NVDA will no longer play microphone alarm tone
-  from everywhere.
-* When deleting broadcast profiles and if another profile happens to be an
-  instant switch profile, instant switch flag won't be removed from the
-  switch profile.
-* If deleting an active profile that is not an instant switch or a
-  time-based profile, NVDA will ask once more for confirmation before
-  proceeding.
-* NVDA will apply correct settings for microphone alarm settings when
-  switching profiles via add-on settings dialog.
-* You can now press SPL Controller, H to obtain help for SPL Controller
-  layer.
+* Soporte inicial para StationPlaylist Studio 5.30.
+* Se a alarma de micrófono e/ou o temporizador de intervalos están acesos e
+  se se sae do Studio mentres o micrófono está aceso, o NVDA xa non
+  reproducirá os tons de alarma de micrófono dende ningún sitio.
+* Ao se borrar os perfís de retransmisión e ocorre outro perfil para seren
+  un perfil de cambio instantáneo, a bandeira de cambio instantáneo non se
+  debería borrar do perfil de cambio.
+* Se borrando un perfil activo que non é un cambio instantáneo ou un perfil
+  baseado en tempo, o NVDA pedirá confirmación unha vez máis antes de
+  proceder.
+* O NVDA aplicará as configuracións correctas para as opcións de alarma de
+  micrófono cando os perfís de cambio a través do diálogo opcións do
+  complemento.
+* Agora podes premer SPL Controller, H para obter axuda para o SPL
+  Controller layer.
 
 ## Versión 17.10
 

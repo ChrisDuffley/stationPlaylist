@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: StationPlaylist 17.09\n"
+"Project-Id-Version: StationPlaylist 17.10\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2017-09-29 22:54+0200\n"
+"PO-Revision-Date: 2017-10-28 00:04+0200\n"
 "Last-Translator: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language-Team: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language: fr\n"
@@ -1304,11 +1304,12 @@ msgid ""
 "You are about to delete the currently active profile. Select yes if you wish "
 "to proceed."
 msgstr ""
+"Vous êtes sur le point de supprimer le profil actuellement actif. "
+"Sélectionnez oui si vous souhaitez continuer."
 
 #. Translators: The title of the confirmation dialog for deletion of a profile.
-#, fuzzy
 msgid "Delete active profile"
-msgstr "Supprimer la base de données du profils basé sur l'heure"
+msgstr "Supprimer le profil actif"
 
 #. Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
 msgid "Are you sure you want to delete this profile? This cannot be undone."
