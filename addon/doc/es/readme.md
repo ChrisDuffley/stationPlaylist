@@ -297,26 +297,27 @@ realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
 
-## Version 17.11/15.10-LTS
+## Versión 17.11/15.10-LTS
 
-This is the last version to support Windows XP, Vista and 7 without Service
-Pack 1. To use this add-on in those Windows releases, please use version
-17.10.
+Esta es la última versión que soporta Windows XP, Vista y 7 sin el Service
+Pack 1. Para utilizar este complemento en esas versiones de Windows, por
+favor utiliza la versión 17.10.
 
-* Initial support for StationPlaylist Studio 5.30.
-* If microphone alarm and/or interval timer is turned on and if Studio exits
-  while microphone is on, NVDA will no longer play microphone alarm tone
-  from everywhere.
-* When deleting broadcast profiles and if another profile happens to be an
-  instant switch profile, instant switch flag won't be removed from the
-  switch profile.
-* If deleting an active profile that is not an instant switch or a
-  time-based profile, NVDA will ask once more for confirmation before
-  proceeding.
-* NVDA will apply correct settings for microphone alarm settings when
-  switching profiles via add-on settings dialog.
-* You can now press SPL Controller, H to obtain help for SPL Controller
-  layer.
+* Soporte inicial para StationPlaylist Studio 5.30.
+* Si la alarma de micrófono y/o el temporizador de intervalos están
+  activados y si se sale de Studio mientras el micrófono está encendido,
+  NVDA ya no reproducirá los tonos de alarma de micrófono desde ningún
+  sitio.
+* Al eliminar los perfiles de retransmisión y ocurre otro perfil para ser un
+  perfil de cambio instantáneo, la bandera de cambio instantáneo no se
+  debería borrar del perfil de cambio.
+* Si eliminando un perfil activo que no es un cambio instantáneo o un perfil
+  basado en tiempo, NVDA pedirá confirmación una vez más antes de proceder.
+* NVDA aplicará las configuraciones correctas para las opciones de alarma de
+  micrófono cuando los perfiles de cambio a través del diálogo opciones del
+  complemento.
+* Ahora puedes pulsar SPL Controller, H para obtener ayuda para el SPL
+  Controller layer.
 
 ## Versión 17.10
 
