@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 6.4\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2016-03-04 19:00+1000\n"
-"PO-Revision-Date: 2017-09-15 13:14+0200\n"
+"PO-Revision-Date: 2017-10-28 13:58+0200\n"
 "Last-Translator: Florian Ionașcu <florianionascu@hotmail.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -188,7 +188,6 @@ msgstr ""
 "Shift+F1: Deschide ajutorul online."
 
 #. Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -226,14 +225,14 @@ msgid ""
 "Shift+F1: Open online user guide."
 msgstr ""
 "După pornirea asistentului SPL, apăsați:\n"
-"A: Automat.\n"
+"A: Automatizare.\n"
 "C: Comută cart explorer-ul.\n"
-"Shift+C: Anunță numele melodiei curente.\n"
+"Shift+C: Anunță numele melodiei curente în redare.\n"
 "E:  Starea globală a metadatelor streamului.\n"
 "Shift+1 până la Shift+4, shift+0: Starea metadata pentru encoderele DSP și "
 "patru URL-uri adiționale.\n"
 "Shift+E: Înregistrează într-un fișier.\n"
-"F: Căutare melodii.\n"
+"F: Căutătorul d melodii.\n"
 "H: Durata melodiilor în această oră.\n"
 "Shift+H: Durata melodiilor rămase în această oră.\n"
 "K: Mută la locul melodiei marcate.\n"
@@ -254,6 +253,8 @@ msgstr ""
 "Y: Modificare playlist.\n"
 "de la 1 până la 0: Anunță coloanele prin Columns Explorer (0 este a zecea "
 "poziție ).\n"
+"F8: ia listele de redare instantanee, cum ar fi numărul de piese, cea mai "
+"lungă piesă și așa mai departe.\n"
 "F9: Marchează melodia curentă ca început al analizei de durată a "
 "înregistrării.\n"
 "F10: Efectuează analiza de timp a melodiei.\\.\n"
@@ -261,7 +262,6 @@ msgstr ""
 "Shift+F1: Deschide ajutorul online."
 
 #. Translators: The text of the help command in SPL Assistant layer when Window-Eyes layer is active.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -301,12 +301,12 @@ msgid ""
 "Shift+F1: Open online user guide."
 msgstr ""
 "După pornirea asistentului SPL, apasă:\n"
-"A: Automat.\n"
+"A: Automatizare.\n"
 "C: Comută la exploratorul de cart.\n"
 "Shift+C: Anunță numele melodiei curente.\n"
 "D: Timpul rămas pentru playlist.\n"
 "E: Timp scurs.\n"
-"F: Căutare melodii.\n"
+"F: Căutătorul de melodii.\n"
 "R: Timp rămas pentru melodia redată curent.\n"
 "G: Starea globală a metadatelor streamului.\n"
 "Shift+1 până la Shift+4, shift+0: Starea metadata pentru encoderele DSP și "
@@ -567,6 +567,9 @@ msgid ""
 "Not in playlist viewer, cannot perform track time analysis or gather "
 "playlist snapshot statistics."
 msgstr ""
+"Nu există în vizualizatorul listei de redare, nu poate efectua analiza "
+"timpului piesei sau nu a adunat statistici pentru instantanee în lista de "
+"redare."
 
 #. Translators: one of the results for playlist snapshots feature for announcing total number of items in a playlist.
 #, python-brace-format
@@ -915,9 +918,8 @@ msgid "time-based"
 msgstr "bazat pe timp"
 
 #. Translators: announced when only normal profile is in use.
-#, fuzzy
 msgid "Only normal profile is in use"
-msgstr "Profil normal"
+msgstr "Doar profilul normal e în uz"
 
 #. Translators: Presented when trying to switch to an instant switch profile when the instant switch profile is not defined.
 msgid "No instant switch profile is defined"
@@ -1139,9 +1141,8 @@ msgid "Countdown seconds before switching profiles"
 msgstr "Numărătoare secunde până la comutarea între profiluri"
 
 #. Translators: The label of a button to open a dialog to configure general add-on settings such as beep announcement and top and bottom notifications.
-#, fuzzy
 msgid "&General add-on settings..."
-msgstr "Resetare setări."
+msgstr "&Setări grnerale..."
 
 #. Translators: The label of a button to open a dialog to configure various alarms.
 msgid "&Alarms Center..."
@@ -1193,7 +1194,7 @@ msgstr "Gestionează anunţările coloanelor &melodiilor..."
 
 #. Translators: the label for a setting in SPL add-on settings to toggle whether column headers should be included when announcing track information.
 msgid "Include column &headers when announcing track information"
-msgstr ""
+msgstr "&Include antete de coloană la anunțarea informațiilor melodiei"
 
 #. Translators: The label of a button to configure columns explorer slots (SPL Assistant, number row keys to announce specific columns).
 msgid "Columns E&xplorer..."
@@ -1264,11 +1265,12 @@ msgid ""
 "You are about to delete the currently active profile. Select yes if you wish "
 "to proceed."
 msgstr ""
+"Sunteți pe punctul de a șterge profilul activ. Selectați da dacă doriți să "
+"continuați."
 
 #. Translators: The title of the confirmation dialog for deletion of a profile.
-#, fuzzy
 msgid "Delete active profile"
-msgstr "Ștergeți baza de date a profilului bazat pe timp"
+msgstr "Ștergeți profilul activ"
 
 #. Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
 msgid "Are you sure you want to delete this profile? This cannot be undone."
@@ -1347,9 +1349,8 @@ msgstr ""
 "Specificați mai întâi o dată sau debifați căsuţa de profil bazat pe timp."
 
 #. Translators: Title of a dialog to configure various status announcements such as announcing listener count.
-#, fuzzy
 msgid "General add-on settings"
-msgstr "Setările addonului studio"
+msgstr "Setările generale ale suplimentului"
 
 #. Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
 msgid "&Beep for status announcements"
@@ -1630,6 +1631,8 @@ msgid ""
 "It appears you are using Windows versions earlier than Windows 7 Service "
 "Pack 1, thus you cannot change to Test Drive Fast channel."
 msgstr ""
+"Se pare că folosiți o versiune de Windows mai veche decât Windows 7 Service "
+"Pack 1, astfel că nu puteți trece la canalul de testare rapidă."
 
 #. Translators: The title of the channel switch confirmation dialog.
 msgid "Switching to unstable channel"
@@ -1843,7 +1846,6 @@ msgstr "Eșuare la actualizarea suplimentului de la %s"
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
-#, fuzzy
 msgid ""
 "\n"
 "After entering SPL Controller, press:\n"
@@ -1871,15 +1873,17 @@ msgstr ""
 "Shift+A: Oprește automatizarea.\n"
 "M: Pornește microfonul.\n"
 "Shift+M: Oprește microfonul.\n"
-"N: Pornește microfonul fără adjustarea volumului.\n"
+"N: Pornește microfonul fără ajustarea volumului.\n"
 "L: Pornește line-in-ul.\n"
 "Shift+L: Oprește line in-ul.\n"
 "P: Redă.\n"
 "U: Pauză.\n"
-"S: Oprește cu ajustarea volumui.\n"
+"S: Oprește cu ajustarea volumului.\n"
 "T: Oprire instantanee.\n"
+"C: Anunță numele și durata piesei curente în redare.\n"
 "E: Anunță dacă vreun encoder este monitorizat.\n"
 "I: Anunță numărul de ascultători.\n"
+"Q: Anunță starea informației Studio.\n"
 "R: Timpul rămas pentru melodia curentă.\n"
 "Shift+R: Progresul scanării librăriei"
 
