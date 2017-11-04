@@ -62,7 +62,7 @@ def initialize():
 		if _updateNow: del SPLAddonState["pendingChannelChange"]
 		if "UpdateChannel" in SPLAddonState:
 			SPLUpdateChannel = SPLAddonState["UpdateChannel"]
-			if SPLUpdateChannel in ("beta", "prerelease") or (SPLUpdateChannel == "lts" and sys.getwindowsversion().build >= 7601) or (SPLUpdateChannel == "try" and sys.getwindowsversion().build < 7601):
+			if SPLUpdateChannel in ("beta", "prerelease") or (SPLUpdateChannel == "lts" and sys.getwindowsversion().build >= 7601) or (SPLUpdateChannel in ("try", "dev") and sys.getwindowsversion().build < 7601):
 				# 17.10 to 17.12: do not touch LTS channel if Windows XP or Vista is in use.
 				SPLUpdateChannel = "dev"
 	except (IOError, KeyError):

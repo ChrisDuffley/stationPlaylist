@@ -1431,8 +1431,8 @@ class AdvancedOptionsDialog(wx.Dialog):
 			labelText = _("&Add-on update channel:")
 			if sys.getwindowsversion().build >= 7601: self.channels=advOptionsHelper.addLabeledControl(labelText, wx.Choice, choices=["Test Drive Fast", "Test Drive Slow", "stable"])
 			else:
-				self.channels=advOptionsHelper.addLabeledControl(labelText, wx.Choice, choices=["Test Drive Slow", "stable", "longterm"])
-				self._updateChannels = ("dev", "stable", "lts")
+				self.channels=advOptionsHelper.addLabeledControl(labelText, wx.Choice, choices=["stable", "longterm"])
+				self._updateChannels = ("stable", "lts")
 			self.channels.SetSelection(self._updateChannels.index(self.Parent.updateChannel))
 		# Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 		self.splConPassthroughCheckbox=advOptionsHelper.addItem(wx.CheckBox(self, label=_("Allow SPL C&ontroller command to invoke SPL Assistant layer")))
