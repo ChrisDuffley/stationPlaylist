@@ -63,11 +63,11 @@ def messageSound(wavFile, message):
 
 # A special version for microphone alarm (continuous or not).
 def _micAlarmAnnouncer():
-		if splconfig.SPLConfig["General"]["AlarmAnnounce"] in ("beep", "both"):
-			nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_MicAlarm.wav"))
-		if splconfig.SPLConfig["General"]["AlarmAnnounce"] in ("message", "both"):
-			# Translators: Presented when microphone has been active for a while.
-			ui.message(_("Microphone active"))
+	if splconfig.SPLConfig["General"]["AlarmAnnounce"] in ("beep", "both"):
+		nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_MicAlarm.wav"))
+	if splconfig.SPLConfig["General"]["AlarmAnnounce"] in ("message", "both"):
+		# Translators: Presented when microphone has been active for a while.
+		ui.message(_("Microphone active"))
 
 # Manage microphone alarm announcement.
 def micAlarmManager(micAlarmWav, micAlarmMessage):
