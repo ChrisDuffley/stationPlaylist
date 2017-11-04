@@ -129,10 +129,11 @@ The available SPL Controller commands are:
 * Press R to hear remaining time for the currently playing track.
 * Press Shift+R to get a report on library scan progress.
 * Press C to let NVDA announce name and duration of the currently playing track.
+* Press Shift+C to let NVDA announce name and duration of the upcoming track if any.
 * Press E to get count and labels for encoders being monitored.
 * Press I to obtain listener count.
 * Press Q to obtain various status information about Studio including whether a track is playing, microphone is on and others.
-* Press F1 to show a help dialog which lists available commands.
+* Press F1 or H to show a help dialog which lists available commands.
 
 ## Track alarms
 
@@ -173,6 +174,13 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 ## SPL touch mode
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
+
+## Version 17.12
+
+* Windows 7 Service Pack 1 or later is required.
+* Several add-on features were enhanced with extension points. This allows microphone alarm and metadata streaming feature to respond to changes in broadcast profiles. This requires NvDA 2017.4.
+* When Studio exits, various add-on dialogs such as add-on settings, alarm dialogs and others will close automatically. This requires NVDA 2017.4.
+* Added a new command in SPL Controller layer to announce name of the upcoming track if any (Shift+C).
 
 ## Version 17.11.1/15.11-LTS
 
