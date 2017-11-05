@@ -614,14 +614,11 @@ class AppModule(appModuleHandler.AppModule):
 		# This requires NVDA core support and will be available in 6.0 and later (cannot be ported to earlier versions).
 		# For now, handle all background events, but in the end, make this configurable.
 		import eventHandler
-		if hasattr(eventHandler, "requestEvents"):
-			eventHandler.requestEvents(eventName="nameChange", processId=self.processID, windowClassName="TStatusBar")
-			eventHandler.requestEvents(eventName="nameChange", processId=self.processID, windowClassName="TStaticText")
-			# Also for requests window.
-			eventHandler.requestEvents(eventName="show", processId=self.processID, windowClassName="TRequests")
-			self.backgroundStatusMonitor = True
-		else:
-			self.backgroundStatusMonitor = False
+		eventHandler.requestEvents(eventName="nameChange", processId=self.processID, windowClassName="TStatusBar")
+		eventHandler.requestEvents(eventName="nameChange", processId=self.processID, windowClassName="TStaticText")
+		# Also for requests window.
+		eventHandler.requestEvents(eventName="show", processId=self.processID, windowClassName="TRequests")
+		self.backgroundStatusMonitor = True
 		self.prefsMenu = gui.mainFrame.sysTrayIcon.preferencesMenu
 		self.SPLSettings = self.prefsMenu.Append(wx.ID_ANY, _("SPL Studio Settings..."), _("SPL settings"))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, splconfui.onConfigDialog, self.SPLSettings)
@@ -638,8 +635,6 @@ class AppModule(appModuleHandler.AppModule):
 			queueHandler.queueFunction(queueHandler.eventQueue, splconfig.updateInit)
 		# Display startup dialogs if any.
 		# 17.10: not when minimal startup flag is set.
-		# 17.10 only: and force the old version dialog to appear if using Windows XP or Vista.
-		wx.CallAfter(splconfig.showStartupDialogs, oldVer=sys.getwindowsversion().build < 7601, oldVerReturn = True)
 		if not globalVars.appArgs.minimal: wx.CallAfter(splconfig.showStartupDialogs)
 
 	# Locate the handle for main window for caching purposes.
