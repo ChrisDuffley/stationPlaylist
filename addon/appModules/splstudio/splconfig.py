@@ -539,14 +539,13 @@ _configErrors ={
 }
 
 # To be run in app module constructor.
-# With the load function below, load the config upon request.
-# The below init function is really a vehicle that traverses through config profiles in a loop.
+# With the load function below, prepare config and other things upon request.
 # Prompt the config error dialog only once.
 _configLoadStatus = {} # Key = filename, value is pass or no pass.
 # Track comments map.
 trackComments = {}
 
-def initConfig():
+def initialize():
 	# Load the default config from a list of profiles.
 	# 8.0: All this work will be performed when ConfigHub loads.
 	global SPLConfig, _configLoadStatus, trackComments
@@ -826,8 +825,8 @@ def shouldSave(profile):
 	# The old loop will be kept in 7.x/LTS for compatibility and to reduce risks associated with accidental saving/discard.
 	return _SPLCache[tree] != profile
 
-# Save configuration database.
-def saveConfig():
+# Terminate the config and related subsystems.
+def terminate():
 	global SPLConfig, _SPLCache, SPLPrevProfile, _SPLTriggerEndTimer, _triggerProfileActive
 	# #30 (17.05): If we come here before a time-based profile expires, the trigger end timer will meet a painful death.
 	if _SPLTriggerEndTimer is not None and _SPLTriggerEndTimer.IsRunning():

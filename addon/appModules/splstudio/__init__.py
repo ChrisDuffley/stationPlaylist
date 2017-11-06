@@ -609,7 +609,7 @@ class AppModule(appModuleHandler.AppModule):
 		if splactions.actionsAvailable:
 			splactions.SPLActionProfileSwitched.register(self.actionProfileSwitched)
 		debugOutput("SPL: loading add-on settings")
-		splconfig.initConfig()
+		splconfig.initialize()
 		# Announce status changes while using other programs.
 		# This requires NVDA core support and will be available in 6.0 and later (cannot be ported to earlier versions).
 		# For now, handle all background events, but in the end, make this configurable.
@@ -933,7 +933,7 @@ class AppModule(appModuleHandler.AppModule):
 		if micAlarmT2 is not None: micAlarmT2.Stop()
 		micAlarmT2 = None
 		debugOutput("SPL: saving add-on settings")
-		splconfig.saveConfig()
+		splconfig.terminate()
 		# reset column number for column navigation commands.
 		if self._focusedTrack: self._focusedTrack.__class__._curColumnNumber = None
 		# Delete focused track reference.
