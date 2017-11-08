@@ -39,6 +39,7 @@ SPLPause = 15
 SPLAutomate = 16
 SPLMic = 17
 SPLLineIn = 18
+SPLCartPlayer = 19
 SPLLibraryScanCount = 32
 SPLListenerCount = 35
 SPLStatusInfo = 39 #Studio 5.20 and later.
@@ -75,6 +76,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	#Global layer environment (see the app module for more information).
 	SPLController = False # Control SPL from anywhere.
+	# Manual definitions of cart keys.
+	fnCartKeys = ("f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11", "f12")
+	numCartKeys = ("1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=")
 
 	def getScript(self, gesture):
 		if not self.SPLController:
@@ -135,6 +139,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# No errors, so continue.
 		if not self.SPLController:
 			self.bindGestures(self.__SPLControllerGestures)
+			# 17.12: also bind cart keys.
+			for cart in self.fnCartKeys+self.numCartKeys:
+				self.bindGesture("kb:%s"%cart, "cartsWithoutBorders")
+				self.bindGesture("kb:shift+%s"%cart, "cartsWithoutBorders")
+				self.bindGesture("kb:control+%s"%cart, "cartsWithoutBorders")
+				self.bindGesture("kb:alt+%s"%cart, "cartsWithoutBorders")
 			self.SPLController = True
 			# Translators: The name of a layer command set for Station Playlist Studio.
 			# Hint: it is better to translate it as "SPL Control Panel."
@@ -279,6 +289,19 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def script_nextTrackTitle(self, gesture):
 		studioAppMod = getNVDAObjectFromEvent(winUser.user32.FindWindowA("TStudioForm", None), winUser.OBJID_CLIENT, 0).appModule
 		studioAppMod.script_sayNextTrackTitle(None)
+		self.finish()
+
+	def script_cartsWithoutBorders(self, gesture):
+		try:
+			modifier, cart = gesture.displayName.split("+")
+		except ValueError:
+			modifier, cart = None, gesture.displayName
+		# Pull in modifier values from the following list.
+		modifier = (None, "shift", "ctrl", "alt").index(modifier)+1
+		# Until a more elegant way is found, combine cart key assignments.
+		# Because just shifting bits won't work, multiply by 64K+1.
+		cart = ((self.fnCartKeys+self.numCartKeys).index(cart)+1) * 0x00010000
+		winUser.sendMessage(SPLWin,1024,cart | modifier,SPLCartPlayer)
 		self.finish()
 
 	def script_conHelp(self, gesture):
