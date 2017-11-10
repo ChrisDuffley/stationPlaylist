@@ -256,6 +256,13 @@ broadcast profiles.
 استخدم لمسة ب3 أصابع للانتقال لنمط اللمس, ثم استخدم أوامر اللمس المسرودة
 أعلاه لأداء المهام.
 
+## Version 17.11.1/15.11-LTS
+
+* NVDA will no longer play error tones or appear to do nothing when using
+  Control+Alt+left or right arrow keys to navigate columns in Track Tool
+  5.20 with a track loaded. Because of this change, when using Studio 5.20,
+  build 48 or later is required.
+
 ## Version 17.11/15.10-LTS
 
 This is the last version to support Windows XP, Vista and 7 without Service
