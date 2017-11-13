@@ -304,6 +304,13 @@ un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
 
+## Version 17.11.1/15.11-LTS
+
+* NVDA will no longer play error tones or appear to do nothing when using
+  Control+Alt+left or right arrow keys to navigate columns in Track Tool
+  5.20 with a track loaded. Because of this change, when using Studio 5.20,
+  build 48 or later is required.
+
 ## Version 17.11/15.10-LTS
 
 Ceci est la dernière version à prendre en charge Windows XP, Vista et 7 sans

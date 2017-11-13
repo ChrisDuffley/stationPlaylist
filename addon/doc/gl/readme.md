@@ -288,6 +288,13 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
+## Version 17.11.1/15.11-LTS
+
+* NVDA will no longer play error tones or appear to do nothing when using
+  Control+Alt+left or right arrow keys to navigate columns in Track Tool
+  5.20 with a track loaded. Because of this change, when using Studio 5.20,
+  build 48 or later is required.
+
 ## Versión 17.11/15.10-LTS
 
 Esta é a derradeira versión que soporta o Windows XP, Vista e 7 sen oService
