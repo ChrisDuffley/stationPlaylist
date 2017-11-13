@@ -8,7 +8,12 @@ This add-on package provides improved usage of StationPlaylist Studio, as well a
 
 For more information about the add-on, read the [add-on guide][4]. For developers seeking to know how to build the add-on, see buildInstructions.txt located at the root of the add-on source code repository.
 
-IMPORTANT: This add-on requires NVDA 2017.1 or later and StationPlaylist Studio 5.10 or later. If using Windows 8 or later, for best experience, disable audio ducking mode. Also, add-on 8.0/16.10 requires Studio 5.10 and later, and for broadcasters using Studio 5.0x and/or Windows XP, Vista or 7 without Service Pack 1, a long-term support version (15.x) is available.
+IMPORTANT NOTES:
+
+* This add-on requires NVDA 2017.1 or later and StationPlaylist Studio 5.10 or later.
+* If using Windows 8 or later, for best experience, disable audio ducking mode.
+* add-on 8.0/16.10 requires Studio 5.10 or later. For broadcasters using Studio 5.0x and/or Windows XP, Vista or 7 without Service Pack 1, a long-term support version (15.x) is available. The last stable version to support Windows releases prior to 7 Service Pack 1 is 17.11.2.
+* Starting from 2018, changelogs for old add-on releases will be found on GitHub. This add-on readme will list changes from version 5.0 (2015 onwards).
 
 ## Shortcut keys
 
@@ -132,7 +137,7 @@ The available SPL Controller commands are:
 * Press E to get count and labels for encoders being monitored.
 * Press I to obtain listener count.
 * Press Q to obtain various status information about Studio including whether a track is playing, microphone is on and others.
-* Press F1 to show a help dialog which lists available commands.
+* Press F1 or H to show a help dialog which lists available commands.
 
 ## Track alarms
 
@@ -174,13 +179,17 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 17.11.2
+
+This is the last stable version to support Windows XP, Vista and 7 without Service Pack 1. The next stable version for these Windows releases will be a 15.x LTS release.
+
+* If using Windows releases prior to Windows 7 Service Pack 1, you cannot switch to development channels.
+
 ## Version 17.11.1/15.11-LTS
 
 * NVDA will no longer play error tones or appear to do nothing when using Control+Alt+left or right arrow keys to navigate columns in Track Tool 5.20 with a track loaded. Because of this change, when using Studio 5.20, build 48 or later is required.
 
 ## Version 17.11/15.10-LTS
-
-This is the last version to support Windows XP, Vista and 7 without Service Pack 1. To use this add-on in those Windows releases, please use version 17.10.
 
 * Initial support for StationPlaylist Studio 5.30.
 * If microphone alarm and/or interval timer is turned on and if Studio exits while microphone is on, NVDA will no longer play microphone alarm tone from everywhere.
@@ -199,7 +208,7 @@ This is the last version to support Windows XP, Vista and 7 without Service Pack
 
 ## Version 17.09.1
 
-* As a result of announcement from NV Access that NVDA 2017.3 will be the last version to support Windows versions prior to windows 7 Service Pack 1, Studio add-on will present a reminder message about this if running from old Windows releases. End of support for old Windows releases from this add-on is scheduled for April 2018.
+* As a result of announcement from NV Access that NVDA 2017.3 will be the last version to support Windows versions prior to windows 7 Service Pack 1, Studio add-on will present a reminder message about this if running from old Windows releases. End of support for old Windows releases from this add-on (via long-term support release) is scheduled for April 2018.
 * NVDA will no longer display startup dialogs and/or announce Studio version if started with minimal (nvda -rm) flag set. The sole exception is the old Windows release reminder dialog.
 
 ## Version 17.09
