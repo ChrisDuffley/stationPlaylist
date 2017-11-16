@@ -278,7 +278,7 @@ _cartEditTimestamps = None
 # Carts dictionary is used if and only if refresh is on, as it'll modify live cats.
 def cartExplorerInit(StudioTitle, cartFiles=None, refresh=False, carts=None):
 	global _cartEditTimestamps
-	debugOutput("SPL: refreshing Cart Explorer" if refresh else "SPL: preparing cart Explorer")
+	debugOutput("refreshing Cart Explorer" if refresh else "SPL: preparing cart Explorer")
 	# Use cart files in SPL's data folder to build carts dictionary.
 	# use a combination of SPL user name and static cart location to locate cart bank files.
 	# Once the cart banks are located, use the routines in the populate method above to assign carts.
@@ -311,10 +311,10 @@ def cartExplorerInit(StudioTitle, cartFiles=None, refresh=False, carts=None):
 		if not refresh and not os.path.isfile(cartFile): # Cart explorer will fail if whitespaces are in the beginning or at the end of a user name.
 			faultyCarts = True
 			continue
-		debugOutput("SPL: examining carts from file %s"%cartFile)
+		debugOutput("examining carts from file %s"%cartFile)
 		cartTimestamp = os.path.getmtime(cartFile)
 		if refresh and _cartEditTimestamps[cartFiles.index(f)] == cartTimestamp:
-			debugOutput("SPL: no changes to cart bank, skipping")
+			debugOutput("no changes to cart bank, skipping")
 			continue
 		_cartEditTimestamps.append(cartTimestamp)
 		with open(cartFile) as cartInfo:
@@ -323,9 +323,9 @@ def cartExplorerInit(StudioTitle, cartFiles=None, refresh=False, carts=None):
 		# The below method will just check for string length, which is faster than looking for specific substring.
 		_populateCarts(carts, cl[1], mod if mod != "main" else "", standardEdition=carts["standardLicense"], refresh=refresh) # See the comment for _populate method above.
 		if not refresh:
-			debugOutput("SPL: carts processed so far: %s"%(len(carts)-1))
+			debugOutput("carts processed so far: %s"%(len(carts)-1))
 	carts["faultyCarts"] = faultyCarts
-	debugOutput("SPL: total carts processed: %s"%(len(carts)-2))
+	debugOutput("total carts processed: %s"%(len(carts)-2))
 	return carts
 
 # Refresh carts upon request.

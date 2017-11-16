@@ -86,11 +86,11 @@ def micAlarmManager(micAlarmWav, micAlarmMessage):
 # If debugging framework is on, print arg, command and other values.
 def studioAPI(arg, command, func=None, ret=False, offset=None):
 	if _SPLWin is None:
-		debugOutput("SPL: Studio handle not found")
+		debugOutput("Studio handle not found")
 		return
-	debugOutput("SPL: Studio API wParem is %s, lParem is %s"%(arg, command))
+	debugOutput("Studio API wParem is %s, lParem is %s"%(arg, command))
 	val = sendMessage(_SPLWin, 1024, arg, command)
-	debugOutput("SPL: Studio API result is %s"%val)
+	debugOutput("Studio API result is %s"%val)
 	if ret:
 		return val
 	if func:
@@ -100,7 +100,7 @@ def studioAPI(arg, command, func=None, ret=False, offset=None):
 # This is to make sure custom commands for SPL Assistant comamnds and other app module gestures display appropriate error messages.
 def studioIsRunning():
 	if _SPLWin is None:
-		debugOutput("SPL: Studio handle not found")
+		debugOutput("Studio handle not found")
 		# Translators: A message informing users that Studio is not running so certain commands will not work.
 		ui.message(_("Studio main window not found"))
 		return False
@@ -608,7 +608,7 @@ class AppModule(appModuleHandler.AppModule):
 		# #40 (17.12): react to profile switches.
 		if splactions.actionsAvailable:
 			splactions.SPLActionProfileSwitched.register(self.actionProfileSwitched)
-		debugOutput("SPL: loading add-on settings")
+		debugOutput("loading add-on settings")
 		splconfig.initialize()
 		# Announce status changes while using other programs.
 		# This requires NVDA core support and will be available in 6.0 and later (cannot be ported to earlier versions).
@@ -629,7 +629,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Check for add-on update if told to do so.
 		# LTS: Only do this if channel hasn't changed.
 		if splconfig.SPLConfig["Update"]["AutoUpdateCheck"] or splupdate._updateNow:
-			debugOutput("SPL: checking for add-on updates from %s channel"%splupdate.SPLUpdateChannel)
+			debugOutput("checking for add-on updates from %s channel"%splupdate.SPLUpdateChannel)
 			# 7.0: Have a timer call the update function indirectly.
 			import queueHandler
 			queueHandler.queueFunction(queueHandler.eventQueue, splconfig.updateInit)
@@ -913,7 +913,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Save configuration when terminating.
 	def terminate(self):
 		super(AppModule, self).terminate()
-		debugOutput("SPL: terminating app module")
+		debugOutput("terminating app module")
 		# 6.3: Memory leak results if encoder flag sets and other encoder support maps aren't cleaned up.
 		# This also could have allowed a hacker to modify the flags set (highly unlikely) so NvDA could get confused next time Studio loads.
 		if "globalPlugins.splUtils.encoders" in sys.modules:
@@ -926,13 +926,13 @@ class AppModule(appModuleHandler.AppModule):
 		if splactions.actionsAvailable:
 			splactions.SPLActionProfileSwitched.unregister(self.actionProfileSwitched)
 			splactions.SPLActionAppTerminating.notify()
-		debugOutput("SPL: closing microphone alarm/interval thread")
+		debugOutput("closing microphone alarm/interval thread")
 		global micAlarmT, micAlarmT2
 		if micAlarmT is not None: micAlarmT.cancel()
 		micAlarmT = None
 		if micAlarmT2 is not None: micAlarmT2.Stop()
 		micAlarmT2 = None
-		debugOutput("SPL: saving add-on settings")
+		debugOutput("saving add-on settings")
 		splconfig.terminate()
 		# reset column number for column navigation commands.
 		if self._focusedTrack: self._focusedTrack.__class__._curColumnNumber = None
