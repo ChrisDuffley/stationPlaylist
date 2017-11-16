@@ -97,7 +97,7 @@ def studioAPI(arg, command, func=None, ret=False, offset=None):
 		func(val) if not offset else func(val, offset)
 
 # Check if Studio itself is running.
-# This is to make sure custom commands for SPL Assistant comamnds and other app module gestures display appropriate error messages.
+# This is to make sure custom commands for SPL Assistant commands and other app module gestures display appropriate error messages.
 def studioIsRunning():
 	if _SPLWin is None:
 		debugOutput("Studio handle not found")
@@ -109,6 +109,7 @@ def studioIsRunning():
 # Select a track upon request.
 def selectTrack(trackIndex):
 	studioAPI(-1, 121)
+	debugOutput("selecting track index %s"%trackIndex)
 	studioAPI(trackIndex, 121)
 
 # Category sounds dictionary (key = category, value = tone pitch).
@@ -283,7 +284,7 @@ class SPLTrackItem(IAccessible):
 			newTrack.setFocus(), newTrack.setFocus()
 			selectTrack(newTrack.IAccessibleChildID-1)
 
-			# Overlay class version of Columns Explorer.
+	# Overlay class version of Columns Explorer.
 
 	def script_columnExplorer(self, gesture):
 		# LTS: Just in case Control+NVDA+number row command is pressed...
@@ -297,7 +298,7 @@ class SPLTrackItem(IAccessible):
 			# Translators: Presented when a specific column header is not found.
 			ui.message(_("{headerText} not found").format(headerText = header))
 
-# Track comments.
+	# Track comments.
 
 	# Track comment announcer.
 	# Levels indicate what should be done.
@@ -619,12 +620,14 @@ class AppModule(appModuleHandler.AppModule):
 		# Also for requests window.
 		eventHandler.requestEvents(eventName="show", processId=self.processID, windowClassName="TRequests")
 		self.backgroundStatusMonitor = True
+		debugOutput("preparing GUI subsystem")
 		self.prefsMenu = gui.mainFrame.sysTrayIcon.preferencesMenu
 		self.SPLSettings = self.prefsMenu.Append(wx.ID_ANY, _("SPL Studio Settings..."), _("SPL settings"))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, splconfui.onConfigDialog, self.SPLSettings)
 		# Let me know the Studio window handle.
 		# 6.1: Do not allow this thread to run forever (seen when evaluation times out and the app module starts).
 		self.noMoreHandle = threading.Event()
+		debugOutput("locating Studio window handle")
 		threading.Thread(target=self._locateSPLHwnd).start()
 		# Check for add-on update if told to do so.
 		# LTS: Only do this if channel hasn't changed.
@@ -653,6 +656,7 @@ class AppModule(appModuleHandler.AppModule):
 		with threading.Lock() as hwndNotifier:
 			global _SPLWin
 			_SPLWin = hwnd
+			debugOutput("Studio handle is %s"%hwnd)
 		# Remind me to broadcast metadata information.
 		if splconfig.SPLConfig["General"]["MetadataReminder"] == "startup":
 			self._metadataAnnouncer(reminder=True)
@@ -910,7 +914,7 @@ class AppModule(appModuleHandler.AppModule):
 			nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_Requests.wav"))
 		nextHandler()
 
-	# Save configuration when terminating.
+	# Save configuration and perform other tasks when terminating.
 	def terminate(self):
 		super(AppModule, self).terminate()
 		debugOutput("terminating app module")
