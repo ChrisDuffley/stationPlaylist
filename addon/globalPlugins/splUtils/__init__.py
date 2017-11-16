@@ -329,7 +329,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:q":"statusInfo",
 		"kb:c":"currentTrackTitle",
 		"kb:shift+c":"nextTrackTitle",
-		"kb:f1":"conHelp",
 		"kb:h":"conHelp"
 	}
 
