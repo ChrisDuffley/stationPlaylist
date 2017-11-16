@@ -5,13 +5,10 @@
 
 from logHandler import log
 
-try:
-	import globalVars
-	SPLDebuggingFramework = globalVars.appArgs.debugLogging
-except AttributeError:
-	SPLDebuggingFramework = None
+import globalVars
+SPLDebuggingFramework = globalVars.appArgs.debugLogging
 
 def debugOutput(message):
 	if SPLDebuggingFramework:
-		log.debug(message)
+		log.debug("SPL: %s"%message)
 
