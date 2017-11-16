@@ -169,6 +169,9 @@ class EncoderConfigDialog(wx.Dialog):
 		# Use a weakref so the instance can die.
 		import weakref
 		EncoderConfigDialog._instance = weakref.ref(self)
+		# And to close this automatically when Studio dies.
+		from appModules.splstudio import splactions
+		if splactions.actionsAvailable: splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 
 		self.obj = obj
 		self.curStreamLabel, title = obj.getStreamLabel(getTitle=True)
@@ -218,6 +221,9 @@ class EncoderConfigDialog(wx.Dialog):
 
 	def onCancel(self, evt):
 		self.Destroy()
+
+	def onAppTerminate(self):
+		self.onCancel(None)
 
 
 # Support for various encoders.
