@@ -1594,16 +1594,6 @@ msgstr "Zezwól komendom kontrolera na wywoływanie asystenta SPL"
 msgid "SPL Assistant command &layout:"
 msgstr "Warstwa poleceń asystenta SPL"
 
-#. Translators: A message displayed when trying to switch to fast channel on old Windows releases.
-msgid ""
-"It appears you are using Windows versions earlier than Windows 7 Service "
-"Pack 1, thus you cannot change to Test Drive Fast channel."
-msgstr ""
-
-#. Translators: The title of the channel switch confirmation dialog.
-msgid "Switching to unstable channel"
-msgstr "Przełączam na: Kanał rozwojowy"
-
 #. Translators: The confirmation prompt displayed when changing to the fastest development channel (with risks involved).
 #, fuzzy
 msgid ""
@@ -1620,6 +1610,10 @@ msgstr ""
 "najlepszym wypadkum utratą stabilności systemu emisji. Jeśli nie masz "
 "pewności, czy gra jest warta świeczki, grzecznie odpowiedz: Nie, aby "
 "powrócić do stabilnego kanału dostarczania aktualizacji."
+
+#. Translators: The title of the channel switch confirmation dialog.
+msgid "Switching to unstable channel"
+msgstr "Przełączam na: Kanał rozwojowy"
 
 #. Translators: The confirmation prompt displayed when changing update interval to zero days (updates will be checked every time Studio app module loads).
 msgid ""

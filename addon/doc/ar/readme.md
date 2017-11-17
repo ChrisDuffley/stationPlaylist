@@ -12,11 +12,19 @@ developers seeking to know how to build the add-on, see
 buildInstructions.txt located at the root of the add-on source code
 repository.
 
-IMPORTANT: This add-on requires NVDA 2017.1 or later and StationPlaylist
-Studio 5.10 or later. If using Windows 8 or later, for best experience,
-disable audio ducking mode. Also, add-on 8.0/16.10 requires Studio 5.10 and
-later, and for broadcasters using Studio 5.0x and/or Windows XP, Vista or 7
-without Service Pack 1, a long-term support version (15.x) is available.
+IMPORTANT NOTES:
+
+* This add-on requires NVDA 2017.1 or later and StationPlaylist Studio 5.10
+  or later.
+* If using Windows 8 or later, for best experience, disable audio ducking
+  mode.
+* add-on 8.0/16.10 requires Studio 5.10 or later. For broadcasters using
+  Studio 5.0x and/or Windows XP, Vista or 7 without Service Pack 1, a
+  long-term support version (15.x) is available. The last stable version to
+  support Windows releases prior to 7 Service Pack 1 is 17.11.2.
+* Starting from 2018, changelogs for old add-on releases will be found on
+  GitHub. This add-on readme will list changes from version 5.0 (2015
+  onwards).
 
 ## مفاتيح الاختصار
 
@@ -176,11 +184,13 @@ PlayList Studio." اضغط أي من الأوامر التي سيلي ذكرها
 * اضغط Shift+R للإعلان عن مدى التقدم في البحث في المكتبة.
 * Press C to let NVDA announce name and duration of the currently playing
   track.
+* Press Shift+C to let NVDA announce name and duration of the upcoming track
+  if any.
 * اضغط E للحصول على عدد وأسماء التشفيرات الجاري مراقبتها.
 * Press I to obtain listener count.
 * Press Q to obtain various status information about Studio including
   whether a track is playing, microphone is on and others.
-* اضغط f1 لإظهار محاورة مساعدة بقائمة بالأوامر المتاحة.
+* Press F1 or H to show a help dialog which lists available commands.
 
 ## تنبيهات المسار
 
@@ -256,6 +266,15 @@ broadcast profiles.
 استخدم لمسة ب3 أصابع للانتقال لنمط اللمس, ثم استخدم أوامر اللمس المسرودة
 أعلاه لأداء المهام.
 
+## Version 17.11.2
+
+This is the last stable version to support Windows XP, Vista and 7 without
+Service Pack 1. The next stable version for these Windows releases will be a
+15.x LTS release.
+
+* If using Windows releases prior to Windows 7 Service Pack 1, you cannot
+  switch to development channels.
+
 ## Version 17.11.1/15.11-LTS
 
 * NVDA will no longer play error tones or appear to do nothing when using
@@ -264,10 +283,6 @@ broadcast profiles.
   build 48 or later is required.
 
 ## Version 17.11/15.10-LTS
-
-This is the last version to support Windows XP, Vista and 7 without Service
-Pack 1. To use this add-on in those Windows releases, please use version
-17.10.
 
 * Initial support for StationPlaylist Studio 5.30.
 * If microphone alarm and/or interval timer is turned on and if Studio exits
@@ -310,7 +325,7 @@ Pack 1. To use this add-on in those Windows releases, please use version
   last version to support Windows versions prior to windows 7 Service Pack
   1, Studio add-on will present a reminder message about this if running
   from old Windows releases. End of support for old Windows releases from
-  this add-on is scheduled for April 2018.
+  this add-on (via long-term support release) is scheduled for April 2018.
 * NVDA will no longer display startup dialogs and/or announce Studio version
   if started with minimal (nvda -rm) flag set. The sole exception is the old
   Windows release reminder dialog.

@@ -13,13 +13,20 @@ module complémentaire][4]. Pour les développeurs cherchant à savoir comment
 construire le module complémentaire, voir buildInstructions.txt situé à la
 racine du code source du module complémentaire du référentiel.
 
-IMPORTANT : Ce module complémentaire nécessite NVDA 2017.1 ou plus récent et
-StationPlaylist Studio 5.10 ou version ultérieure. Si vous utilisez Windows
-8 ou une version ultérieure, pour une meilleure expérience, désactiver le
-Mode d'atténuation audio. En outre, le module complémentaire 8.0/16.10
-nécessite Studio 5.10 et ultérieur, et pour les diffusions utilisant Studio
-5.0x et/ou Windows XP, Vista ou 7 sans le Service Pack 1, une version prise
-en charge à long terme (15.x) est disponible.
+NOTES IMPORTANTES :
+
+* Ce module complémentaire nécessite NVDA 2017.1 ou version ultérieure et
+  StationPlaylist Studio 5.10 ou version ultérieure.
+* Si vous utilisez Windows 8 ou ultérieur, pour une meilleure expérience,
+  désactiver le Mode d'atténuation audio.
+* le module complémentaire 8.0/16.10 requiert Studio 5.10 ou une version
+  ultérieure. Pour les diffusions utilisant Studio 5.0x et/ou Windows XP,
+  Vista ou 7 sans Service Pack 1, une version prenant en charge le long-term
+  (15.x) est disponible. La dernière version stable prenant en charge les
+  versions de Windows antérieures à la 7 Service Pack 1 est la 17.11.2.
+* À partir de 2018, les journal des changements des anciennes versions du
+  module complémentaire seront trouvés sur GitHub. Ce fichier readme
+  ajoutera les changements depuis la version 5.0 (à partir de 2015).
 
 ## Raccourcis clavier
 
@@ -213,14 +220,16 @@ Les commandes disponibles pour le Contrôleur SPL sont:
   la bibliothèque.
 * Appuyez sur C pour laisser NVDA annoncer le nom et la durée de la piste en
   cours de lecture.
+* Appuyez sur Maj+C pour laisser NVDA annoncer le nom et la durée de la
+  prochaine piste, le cas échéant.
 * Appuyez sur E pour obtenir un nombre et des étiquettes pour les encodeurs
   étant contrôlés.
 * Appuyez sur I pour obtenir le nombre d'auditeurs.
 * Appuyer sur Q pour obtenir diverses informations du statut de Studio, y
   compris si une piste est en cours de lecture, le microphone est activé et
   d'autres.
-* Appuyez sur F1 pour afficher une boîte de dialogue d'aide qui répertorie
-  les commandes disponibles.
+* Appuyez sur F1 ou H pour afficher une boîte de dialogue d'aide
+  répertoriant les commandes disponibles.
 
 ## Alarmes de la piste
 
@@ -304,18 +313,24 @@ un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
 
+## Version 17.11.2
+
+Ceci est la dernière version stable à prendre en charge Windows XP, Vista et
+7 sans Service Pack 1. La prochaine version stable pour ces versions de
+Windows sera une version 15.x LTS.
+
+* Si vous utiliser les versions de Windows antérieures à Windows 7 Service
+  Pack 1, vous ne pouvez pas basculer vers les canaux de développement.
+
 ## Version 17.11.1/15.11-LTS
 
-* NVDA will no longer play error tones or appear to do nothing when using
-  Control+Alt+left or right arrow keys to navigate columns in Track Tool
-  5.20 with a track loaded. Because of this change, when using Studio 5.20,
-  build 48 or later is required.
+* NVDA ne lira plus les tonalités d'erreur ou ne semblera rien faire lors de
+  l'utilisation des touches  Contrôle+Alt+flèches gauche ou droite pour
+  naviguer dans les colonnes de l'Outil de Piste 5.20 avec une piste
+  chargée. En raison de cette modification, lorsque vous utilisez Studio
+  5.20, la version 48 ou ultérieure est requise.
 
 ## Version 17.11/15.10-LTS
-
-Ceci est la dernière version à prendre en charge Windows XP, Vista et 7 sans
-Service Pack 1. Pour utiliser ce module complémentaire dans ces versions de
-Windows, veuillez utiliser la version 17.10.
 
 * Premier support de StationPlaylist Studio 5.30.
 * Si l'alarme microphone et/ou la minuterie d'intervalle est activée et si
@@ -369,7 +384,8 @@ Windows, veuillez utiliser la version 17.10.
   Service Pack 1, le module complémentaire Studio présentera un message de
   rappel à propos de ça si vous exécuter à partir d'anciennes versions de
   Windows. La fin de la prise en charge des anciennes versions de Windows
-  pour ce module complémentaire est prévue pour Avril 2018.
+  pour ce module complémentaire (via une prise en charge de la version
+  long-term) est prévue pour Avril 2018.
 * NVDA n'affichera plus de dialogue de démarrage et/ou n'annoncera plus la
   version de Studio si elle a débuté avec un ensemble d'indicateurs minimal
   (nvda -rm). La seule exception est l'ancien dialogue de rappel de version
