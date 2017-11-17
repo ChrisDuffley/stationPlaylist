@@ -138,7 +138,8 @@ The available SPL Controller commands are:
 * Press E to get count and labels for encoders being monitored.
 * Press I to obtain listener count.
 * Press Q to obtain various status information about Studio including whether a track is playing, microphone is on and others.
-* Press F1 or H to show a help dialog which lists available commands.
+* Press cart keys (F1, Control+1, for example) to play assigned carts from anywhere.
+* Press H to show a help dialog which lists available commands.
 
 ## Track alarms
 
@@ -186,6 +187,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * Several add-on features were enhanced with extension points. This allows microphone alarm and metadata streaming feature to respond to changes in broadcast profiles. This requires NvDA 2017.4.
 * When Studio exits, various add-on dialogs such as add-on settings, alarm dialogs and others will close automatically. This requires NVDA 2017.4.
 * Added a new command in SPL Controller layer to announce name of the upcoming track if any (Shift+C).
+* You can now press cart keys (F1, for example) after entering SPl Controller layer to play assigned carts from anywhere.
 
 ## Version 17.11.2
 
