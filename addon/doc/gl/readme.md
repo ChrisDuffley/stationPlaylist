@@ -13,12 +13,19 @@ complemento][4]. Para os desenvolvedores que queran saber cómo compilar o
 complemento, consulta buildInstructions.txt localizado na raíz do
 repositorio do código fonte.
 
-IMPORTANTE: este complemento require do NVDA 2017.1 ou posterior e
-StationPlaylist Studio 5.10 ou posterior. Se estás a usar Windows 8 e
-posterior, para una mellor experiencia, deshabilita o modo atenuación de
-audio. Tamén, o complemento 8.0/16.10 require do Studio 5.10 e posterior, e
-para emisores que usen o Studio 5.0x, e/ou Windows XP, Vista ou 7 sen
-Service Pack 1, está dispoñible unha versión long-term support (15.x).
+IMPORTANT NOTES:
+
+* This add-on requires NVDA 2017.1 or later and StationPlaylist Studio 5.10
+  or later.
+* If using Windows 8 or later, for best experience, disable audio ducking
+  mode.
+* add-on 8.0/16.10 requires Studio 5.10 or later. For broadcasters using
+  Studio 5.0x and/or Windows XP, Vista or 7 without Service Pack 1, a
+  long-term support version (15.x) is available. The last stable version to
+  support Windows releases prior to 7 Service Pack 1 is 17.11.2.
+* Starting from 2018, changelogs for old add-on releases will be found on
+  GitHub. This add-on readme will list changes from version 5.0 (2015
+  onwards).
 
 ## Teclas de atallo
 
@@ -201,13 +208,15 @@ As ordes dispoñibles para o SPL Controller son:
   biblioteca.
 * Preme C para permitir ao NVDA anunciar o nome e a duración da pista
   actualmente en reprodución.
+* Press Shift+C to let NVDA announce name and duration of the upcoming track
+  if any.
 * Preme E pàra obter contas e etiquetas de codificadores a ser
   monitorizados.
 * Preme I para obter o reconto de oíntes.
 * Preme Q para obter información de estado variada acerca do Studio
   incluindo se unha pista se está a reproducir, se o micrófono está aceso e
   outra.
-* Preme F1 para amosar un diálogo de axuda que liste as ordes dispoñibles.
+* Press F1 or H to show a help dialog which lists available commands.
 
 ## Alarmas de pista
 
@@ -288,18 +297,23 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
-## Version 17.11.1/15.11-LTS
+## Version 17.11.2
 
-* NVDA will no longer play error tones or appear to do nothing when using
-  Control+Alt+left or right arrow keys to navigate columns in Track Tool
-  5.20 with a track loaded. Because of this change, when using Studio 5.20,
-  build 48 or later is required.
+This is the last stable version to support Windows XP, Vista and 7 without
+Service Pack 1. The next stable version for these Windows releases will be a
+15.x LTS release.
+
+* If using Windows releases prior to Windows 7 Service Pack 1, you cannot
+  switch to development channels.
+
+## Versión 17.11.1/15.11-LTS
+
+* O NVDA xa non reproducirá tons de erro ou xa non parecerá non facer nada
+  ao se usar Control+Alt+teclas de frecha esquerda ou dereita para navegar
+  por columnas en Track Tool 5.20 cunha pista cargada. Debido a este cambio,
+  ao se usar o Studio 5.20, requírese da compilación 48 ou posterior.
 
 ## Versión 17.11/15.10-LTS
-
-Esta é a derradeira versión que soporta o Windows XP, Vista e 7 sen oService
-Pack 1. Para usar este complemento nesas versións de Windows, por favor usa
-a versión 17.10.
 
 * Soporte inicial para StationPlaylist Studio 5.30.
 * Se a alarma de micrófono e/ou o temporizador de intervalos están acesos e
@@ -342,12 +356,11 @@ a versión 17.10.
 
 ## Versión 17.09.1
 
-* Como o resultado do anunciado de NV Access en que o NVDA 2017.3 será a
-  derradeira versión que soporte versións de Windows anteriores ao windows 7
-  Service Pack 1, o complemento Studio presentará unha mensaxe lembrándote
-  acerca de esto se se executan versións vellas de Windows. O final do
-  soporte para versións vellas de Windows deste complemento programouse para
-  abril do 2018.
+* As a result of announcement from NV Access that NVDA 2017.3 will be the
+  last version to support Windows versions prior to windows 7 Service Pack
+  1, Studio add-on will present a reminder message about this if running
+  from old Windows releases. End of support for old Windows releases from
+  this add-on (via long-term support release) is scheduled for April 2018.
 * O NVDA xa non amosa diálogos de inicio e/ou anuncia a versión do Studio se
   se iniciou coa bandeira mínimo axustada a (nvda -rm). a única excepción é
   o diálogo que lembra a versión vella de Windows.

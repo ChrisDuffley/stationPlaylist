@@ -1607,16 +1607,6 @@ msgstr "&Dozvoli SPL kontroler komandi da aktivira SPL Asistent"
 msgid "SPL Assistant command &layout:"
 msgstr "&SPL Asistent raspored komandi"
 
-#. Translators: A message displayed when trying to switch to fast channel on old Windows releases.
-msgid ""
-"It appears you are using Windows versions earlier than Windows 7 Service "
-"Pack 1, thus you cannot change to Test Drive Fast channel."
-msgstr ""
-
-#. Translators: The title of the channel switch confirmation dialog.
-msgid "Switching to unstable channel"
-msgstr "Prebacivanje na nestabilni kanal"
-
 #. Translators: The confirmation prompt displayed when changing to the fastest development channel (with risks involved).
 msgid ""
 "You are about to switch to the Test Drive Fast (try) builds channel, the "
@@ -1630,6 +1620,10 @@ msgstr ""
 "najnestabilniji kanal ažuriranja dodatka. Moimo, imajte na umu da ovaj kanal "
 "može donijeti ažuriranja koja su nestabilna i koristi se samo za pružanje "
 "informacija autoru dodatka."
+
+#. Translators: The title of the channel switch confirmation dialog.
+msgid "Switching to unstable channel"
+msgstr "Prebacivanje na nestabilni kanal"
 
 #. Translators: The confirmation prompt displayed when changing update interval to zero days (updates will be checked every time Studio app module loads).
 msgid ""

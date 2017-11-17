@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 5.5\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2015-09-25 19:00+1000\n"
-"PO-Revision-Date: 2017-08-13 11:22+0300\n"
+"PO-Revision-Date: 2017-11-15 13:36+0200\n"
 "Last-Translator: shmuel_naaman@yahoo.com\n"
 "Language-Team: \n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.3\n"
+"X-Generator: Poedit 2.0.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #, python-brace-format
@@ -551,11 +551,10 @@ msgid "Opens a dialog to quickly enable or disable metadata streaming."
 msgstr "פתיחת תיבת דו-שיח המאפשרת שינוי מידי של מצב זרימת המטאדאטה."
 
 #. Translators: Presented when track time analysis and/or playlist snapshot gathering cannot be performed because user is not focused on playlist viewer.
-#, fuzzy
 msgid ""
 "Not in playlist viewer, cannot perform track time analysis or gather "
 "playlist snapshot statistics."
-msgstr "מציג רשימת הנגינה אינו בפוקוס. לא ניתן לבצע ניתוח אורך זמן הנגינה"
+msgstr "מציג רשימת הנגינה אינו בפוקוס. לא ניתן לבצע ניתוח אורך זמן הנגינה."
 
 #. Translators: one of the results for playlist snapshots feature for announcing total number of items in a playlist.
 #, python-brace-format
@@ -651,7 +650,7 @@ msgstr "חלונית הפקודות של SPL  Studio. עיין במדריך הת
 
 #. Translators: reported when no playlist has been loaded when trying to obtain remaining time for a playlist.
 msgid "No playlist has been loaded."
-msgstr ""
+msgstr "רשימת השמעה לא הוטענה"
 
 #. Translators: Presented when playlist modification is unavailable (for Studio 4.33 and earlier)
 msgid "Playlist modification not available"
@@ -710,14 +709,12 @@ msgid "Scanning is in progress"
 msgstr "הסריקה מתבצעת"
 
 #. Translators: reported when no playlist has been loaded when trying to perform track time analysis.
-#, fuzzy
 msgid "No playlist has been loaded, cannot perform track time analysis."
-msgstr "לא נוספה שום רצועה. לא ניתן לבצע ניתוח אורך הנגינה"
+msgstr "לא נוספה שום רצועה. לא ניתן לבצע ניתוח אורך הנגינה."
 
 #. Translators: Presented when track time analysis cannot be activated.
-#, fuzzy
 msgid "No tracks are selected, cannot perform track time analysis."
-msgstr "לא נוספה שום רצועה. לא ניתן לבצע ניתוח אורך הנגינה"
+msgstr "לא נוספה שום רצועה. לא ניתן לבצע ניתוח אורך הנגינה."
 
 #. Translators: Presented when track time analysis is turned on.
 msgid "Track time analysis activated"
@@ -883,7 +880,6 @@ msgid "time-based"
 msgstr "מבוסס זמן"
 
 #. Translators: announced when only normal profile is in use.
-#, fuzzy
 msgid "Only normal profile is in use"
 msgstr "פרופיל בסיסי"
 
@@ -961,7 +957,7 @@ msgstr "הצג חלון דו שיח בהפעלת התוכנה"
 
 #. Translators: Title of a dialog displayed when the add-on starts reminding broadcasters about old Studio releases.
 msgid "Old Windows version detected"
-msgstr ""
+msgstr "התגלתה גרסת ווינדוס ישנה"
 
 #. Translators: A message displayed if using an old Studio or Windows version.
 msgid ""
@@ -969,7 +965,7 @@ msgid ""
 "will not support versions earlier than Windows 7 Service Pack 1. Add-on 15.x "
 "LTS (long-term support) versions will support Windows versions such as "
 "Windows XP until mid-2018."
-msgstr ""
+msgstr "אתה משתמש בגרסה ישנה של ווינדוס. "
 
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Status announcement beeps"
@@ -1080,9 +1076,8 @@ msgid "Countdown seconds before switching profiles"
 msgstr "ספירה לאחור עד להחלפת הפרופיל"
 
 #. Translators: The label of a button to open a dialog to configure general add-on settings such as beep announcement and top and bottom notifications.
-#, fuzzy
 msgid "&General add-on settings..."
-msgstr "שחזור הגדרות ברירת מחדל."
+msgstr "שחזור הגדרות ברירת מחדל..."
 
 #. Translators: The label of a button to open a dialog to configure various alarms.
 msgid "&Alarms Center..."
@@ -1200,10 +1195,9 @@ msgstr "שגיאה בעת מחיקת פרופיל"
 msgid ""
 "You are about to delete the currently active profile. Select yes if you wish "
 "to proceed."
-msgstr ""
+msgstr "אתה עומד למחוק את הפרופיל בחר כן אם תרצה בכך."
 
 #. Translators: The title of the confirmation dialog for deletion of a profile.
-#, fuzzy
 msgid "Delete active profile"
 msgstr "פרופילים מבוססי זמן חסרים"
 
@@ -1282,7 +1276,6 @@ msgstr ""
 "תאריך אחד לפחות או לבטל את סימון פרופיל מבוסס הזמן."
 
 #. Translators: Title of a dialog to configure various status announcements such as announcing listener count.
-#, fuzzy
 msgid "General add-on settings"
 msgstr "הגדרות תוסף הסטודיו"
 
@@ -1556,13 +1549,14 @@ msgid ""
 "It appears you are using Windows versions earlier than Windows 7 Service "
 "Pack 1, thus you cannot change to Test Drive Fast channel."
 msgstr ""
+"נראה שאתה משתמש בגרסת ווינדוס קודמת מחבילת שירות 1 של ווינדוס 7, ולכן אתה לא "
+"יכול לשנות את מבחן כונן מהיר."
 
 #. Translators: The title of the channel switch confirmation dialog.
 msgid "Switching to unstable channel"
 msgstr "שנה לגרסה לא יציבה"
 
 #. Translators: The confirmation prompt displayed when changing to the fastest development channel (with risks involved).
-#, fuzzy
 msgid ""
 "You are about to switch to the Test Drive Fast (try) builds channel, the "
 "fastest and most unstable development channel. Please note that the selected "
