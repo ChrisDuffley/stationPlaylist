@@ -88,6 +88,7 @@ class SPLFindDialog(wx.Dialog):
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		findSizerHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
+		if splactions.actionsAvailable: splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 
 		findHistory = obj.appModule.findText if obj.appModule.findText is not None else []
 		self.findEntry = findSizerHelper.addLabeledControl(findPrompt, wx.ComboBox, choices=findHistory)
@@ -133,6 +134,10 @@ class SPLFindDialog(wx.Dialog):
 		global _findDialogOpened
 		_findDialogOpened = False
 
+	def onAppTerminate(self):
+		# Call cancel function when the app terminates so the dialog can be closed.
+		self.onCancel(None)
+
 
 # Time range finder: a variation on track finder.
 # Similar to track finder, locate tracks with duration that falls between min and max.
@@ -162,6 +167,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 		self.func = func
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
+		if splactions.actionsAvailable: splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 
 		minSizer = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Minimum duration")), wx.HORIZONTAL)
 		prompt = wx.StaticText(self, wx.ID_ANY, label=_("Minute"))
@@ -241,6 +247,10 @@ class SPLTimeRangeDialog(wx.Dialog):
 		self.Destroy()
 		global _findDialogOpened
 		_findDialogOpened = False
+
+	def onAppTerminate(self):
+		# Call cancel function when the app terminates so the dialog can be closed.
+		self.onCancel(None)
 
 
 # Cart Explorer helper.
