@@ -143,7 +143,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			# Exclude number row if Studio Standard is running.
 			cartKeys = self.fnCartKeys
 			if not getNVDAObjectFromEvent(winUser.user32.FindWindowA("TStudioForm", None), winUser.OBJID_CLIENT, 0).name.startswith("StationPlaylist Studio Standard"):
-				cartKeys+=self.numCartKeys:
+				cartKeys+=self.numCartKeys
 			for cart in cartKeys:
 				self.bindGesture("kb:%s"%cart, "cartsWithoutBorders")
 				self.bindGesture("kb:shift+%s"%cart, "cartsWithoutBorders")
