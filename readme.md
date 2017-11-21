@@ -188,6 +188,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * When Studio exits, various add-on dialogs such as add-on settings, alarm dialogs and others will close automatically. This requires NVDA 2017.4.
 * Added a new command in SPL Controller layer to announce name of the upcoming track if any (Shift+C).
 * You can now press cart keys (F1, for example) after entering SPl Controller layer to play assigned carts from anywhere.
+* Due to changes introduced in wxPython 4 GUI toolkit, stream label eraser dialog is now a combo box instead of a number entry field.
 
 ## Version 17.11.2
 

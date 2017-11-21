@@ -381,11 +381,12 @@ class Encoder(IAccessible):
 		streamEraserTitle = _("Stream label and settings eraser")
 		# Translators: The text of the stream configuration eraser dialog.
 		streamEraserText = _("Enter the position of the encoder you wish to delete or will delete")
-		dlg = wx.NumberEntryDialog(gui.mainFrame,
-		streamEraserText, "", streamEraserTitle, self.IAccessibleChildID, 1, self.simpleParent.childCount)
+		# 17.12: wxPython 4 does not have number entry dialog, so replace it with a combo box dialog.
+		dlg = wx.SingleChoiceDialog(gui.mainFrame,
+		streamEraserText, "", streamEraserTitle, choices=[str(pos) for pos in xrange(1, self.simpleParent.childCount+1)]).SetSelection(self.IAccessibleChildID-1)
 		def callback(result):
 			if result == wx.ID_OK:
-				self.removeStreamConfig(str(dlg.GetValue()))
+				self.removeStreamConfig(dlg.GetStringSelection())
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message in SAM Encoder window.
 	script_streamLabelEraser.__doc__=_("Opens a dialog to erase stream labels and settings from an encoder that was deleted.")
