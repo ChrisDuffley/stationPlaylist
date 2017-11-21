@@ -140,7 +140,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if not self.SPLController:
 			self.bindGestures(self.__SPLControllerGestures)
 			# 17.12: also bind cart keys.
-			for cart in self.fnCartKeys+self.numCartKeys:
+			# Exclude number row if Studio Standard is running.
+			cartKeys = self.fnCartKeys
+			if not getNVDAObjectFromEvent(winUser.user32.FindWindowA("TStudioForm", None), winUser.OBJID_CLIENT, 0).name.startswith("StationPlaylist Studio Standard"):
+				cartKeys+=self.numCartKeys:
+			for cart in cartKeys:
 				self.bindGesture("kb:%s"%cart, "cartsWithoutBorders")
 				self.bindGesture("kb:shift+%s"%cart, "cartsWithoutBorders")
 				self.bindGesture("kb:control+%s"%cart, "cartsWithoutBorders")
