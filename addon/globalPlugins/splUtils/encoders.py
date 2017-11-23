@@ -383,7 +383,8 @@ class Encoder(IAccessible):
 		streamEraserText = _("Enter the position of the encoder you wish to delete or will delete")
 		# 17.12: wxPython 4 does not have number entry dialog, so replace it with a combo box dialog.
 		dlg = wx.SingleChoiceDialog(gui.mainFrame,
-		streamEraserText, "", streamEraserTitle, choices=[str(pos) for pos in xrange(1, self.simpleParent.childCount+1)]).SetSelection(self.IAccessibleChildID-1)
+		streamEraserText, streamEraserTitle, choices=[str(pos) for pos in xrange(1, self.simpleParent.childCount)])
+		dlg.SetSelection(self.IAccessibleChildID-1)
 		def callback(result):
 			if result == wx.ID_OK:
 				self.removeStreamConfig(dlg.GetStringSelection())
