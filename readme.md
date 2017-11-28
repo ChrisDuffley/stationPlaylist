@@ -27,8 +27,8 @@ IMPORTANT NOTES:
 * Control+NVDA+f from Studio window: Opens a dialog to find a track based on artist or song name. Press NvDA+F3 to find forward or NVDA+Shift+F3 to find backward.
 * Alt+NVDA+R from Studio window: Steps through library scan announcement settings.
 * Control+Shift+X from Studio window: Steps through braille timer settings.
-* Control+Alt+right/left arrow (while focused on a track): Announce next/previous track column.
-* Control+Alt+down/up arrow (while focused on a track): Move to next or previous track and announce specific columns (unavailable in add-on 15.x).
+* Control+Alt+left/right arrow (while focused on a track): Announce previous/next track column.
+* Control+Alt+up/down arrow (while focused on a track): Move to previous or next track and announce specific columns (unavailable in add-on 15.x).
 * Control+NVDA+1 through 0 (6 for Studio 5.0x): Announce column content for a specified column.
 * Alt+NVDA+C while focused on a track: announces track comments if any.
 * Alt+NVDA+0 from Studio window: Opens the Studio add-on configuration dialog.
