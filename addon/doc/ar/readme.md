@@ -47,10 +47,10 @@ IMPORTANT NOTES:
   السابق. 
 * Alt+NVDA+R من نافذة الاستوديو: لخطوات إعدادات الإعلان عن البحث في المكتبة
 * Control+Shift+X من نافذة الاستوديو: لخطوات إعدادات ميقات البرايل.
-* Control+Alt+right/left arrow (while focused on a track): Announce
-  next/previous track column.
-* Control+Alt+down/up arrow (while focused on a track): Move to next or
-  previous track and announce specific columns (unavailable in add-on 15.x).
+* Control+Alt+left/right arrow (while focused on a track): Announce
+  previous/next track column.
+* Control+Alt+up/down arrow (while focused on a track): Move to previous or
+  next track and announce specific columns (unavailable in add-on 15.x).
 * Control+NVDA+1 through 0 (6 for Studio 5.0x): Announce column content for
   a specified column.
 * Alt+NVDA+C while focused on a track: announces track comments if any.
@@ -190,7 +190,9 @@ PlayList Studio." اضغط أي من الأوامر التي سيلي ذكرها
 * Press I to obtain listener count.
 * Press Q to obtain various status information about Studio including
   whether a track is playing, microphone is on and others.
-* Press F1 or H to show a help dialog which lists available commands.
+* Press cart keys (F1, Control+1, for example) to play assigned carts from
+  anywhere.
+* Press H to show a help dialog which lists available commands.
 
 ## تنبيهات المسار
 
@@ -265,6 +267,21 @@ broadcast profiles.
 بعده ولديك NVDA 2012.3 وما بعده, يمكنك أداء بعض الأوامر من شاشة اللمس. أولا
 استخدم لمسة ب3 أصابع للانتقال لنمط اللمس, ثم استخدم أوامر اللمس المسرودة
 أعلاه لأداء المهام.
+
+## Version 17.12
+
+* Windows 7 Service Pack 1 or later is required.
+* Several add-on features were enhanced with extension points. This allows
+  microphone alarm and metadata streaming feature to respond to changes in
+  broadcast profiles. This requires NvDA 2017.4.
+* When Studio exits, various add-on dialogs such as add-on settings, alarm
+  dialogs and others will close automatically. This requires NVDA 2017.4.
+* Added a new command in SPL Controller layer to announce name of the
+  upcoming track if any (Shift+C).
+* You can now press cart keys (F1, for example) after entering SPl
+  Controller layer to play assigned carts from anywhere.
+* Due to changes introduced in wxPython 4 GUI toolkit, stream label eraser
+  dialog is now a combo box instead of a number entry field.
 
 ## Version 17.11.2
 

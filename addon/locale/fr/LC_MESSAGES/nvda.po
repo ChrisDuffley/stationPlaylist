@@ -18,6 +18,17 @@ msgstr ""
 "X-Generator: Poedit 1.8.12\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
+#. Translators: Presented when attempting to install Studio add-on on unsupported Windows releases.
+msgid ""
+"You are using an older version of Windows. This add-on requires Windows 7 "
+"Service Pack 1 or later."
+msgstr ""
+
+#. Translators: Title of a dialog shown when installing Studio add-on on old Windows releases.
+#, fuzzy
+msgid "Old Windows version"
+msgstr "Ancienne version de Windows détectée"
+
 #, python-brace-format
 msgid "{header}: {content}"
 msgstr "{header} : {content}"
@@ -981,7 +992,6 @@ msgstr ""
 "\t\t* Appuyer sur  NVDA+maj+D Pour le définir à 'Ne jamais atténuer'."
 
 #. Translators: A checkbox to turn off audio ducking reminder message.
-#. Translators: A checkbox to turn off old version reminder message.
 msgid "Do not show this message again"
 msgstr "Ne plus afficher ce message"
 
@@ -1049,23 +1059,6 @@ msgstr "Bienvenue sur le module complémentaire StationPlaylist Studio"
 #. Translators: A checkbox to show welcome dialog.
 msgid "Show welcome dialog when I start Studio"
 msgstr "Afficher  le  dialogue bienvenue lorsque je démarre Studio"
-
-#. Translators: Title of a dialog displayed when the add-on starts reminding broadcasters about old Studio releases.
-msgid "Old Windows version detected"
-msgstr "Ancienne version de Windows détectée"
-
-#. Translators: A message displayed if using an old Studio or Windows version.
-msgid ""
-"You are using an older version of Windows. From 2018 onwards, Studio add-on "
-"will not support versions earlier than Windows 7 Service Pack 1. Add-on 15.x "
-"LTS (long-term support) versions will support Windows versions such as "
-"Windows XP until mid-2018."
-msgstr ""
-"Vous utilisez une ancienne version de Windows. À partir de 2018, le module "
-"complémentaire Studio ne prend pas en charge les versions antérieures à "
-"Windows 7 Service Pack 1. Les versions 15.x LTS (long-term support) du "
-"module complémentaire supportent les versions Windows telles que Windows XP "
-"jusqu'à mi-2018."
 
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Status announcement beeps"
@@ -1667,19 +1660,6 @@ msgstr "Permettre au Commande C&ontrôleur SPL appeler la couche  Assistant SPL"
 msgid "SPL Assistant command &layout:"
 msgstr "Disposition de &la commande Assistant SPL :"
 
-#. Translators: A message displayed when trying to switch to fast channel on old Windows releases.
-msgid ""
-"It appears you are using Windows versions earlier than Windows 7 Service "
-"Pack 1, thus you cannot change to Test Drive Fast channel."
-msgstr ""
-"Il semble que vous utiliser les versions de Windows antérieures à Windows 7 "
-"Service Pack 1, vous ne pouvez donc pas basculer vers le canal Test Drive "
-"Fast."
-
-#. Translators: The title of the channel switch confirmation dialog.
-msgid "Switching to unstable channel"
-msgstr "Basculer vers le canal instable"
-
 #. Translators: The confirmation prompt displayed when changing to the fastest development channel (with risks involved).
 msgid ""
 "You are about to switch to the Test Drive Fast (try) builds channel, the "
@@ -1697,6 +1677,10 @@ msgstr ""
 "utiliser des versions stables, répondez non et basculer vers un canal de "
 "mise à jour plus stable. Êtes-vous sûr de vouloir basculer vers le canal de "
 "développement le plus rapide ?"
+
+#. Translators: The title of the channel switch confirmation dialog.
+msgid "Switching to unstable channel"
+msgstr "Basculer vers le canal instable"
 
 #. Translators: The confirmation prompt displayed when changing update interval to zero days (updates will be checked every time Studio app module loads).
 msgid ""
@@ -2184,3 +2168,23 @@ msgid ""
 msgstr ""
 "Améliore la prise en charge de StationPlaylist Studio.\n"
 "En outre, ajoute des commandes globales pour studio où que vous soyez."
+
+#~ msgid ""
+#~ "You are using an older version of Windows. From 2018 onwards, Studio add-"
+#~ "on will not support versions earlier than Windows 7 Service Pack 1. Add-"
+#~ "on 15.x LTS (long-term support) versions will support Windows versions "
+#~ "such as Windows XP until mid-2018."
+#~ msgstr ""
+#~ "Vous utilisez une ancienne version de Windows. À partir de 2018, le "
+#~ "module complémentaire Studio ne prend pas en charge les versions "
+#~ "antérieures à Windows 7 Service Pack 1. Les versions 15.x LTS (long-term "
+#~ "support) du module complémentaire supportent les versions Windows telles "
+#~ "que Windows XP jusqu'à mi-2018."
+
+#~ msgid ""
+#~ "It appears you are using Windows versions earlier than Windows 7 Service "
+#~ "Pack 1, thus you cannot change to Test Drive Fast channel."
+#~ msgstr ""
+#~ "Il semble que vous utiliser les versions de Windows antérieures à Windows "
+#~ "7 Service Pack 1, vous ne pouvez donc pas basculer vers le canal Test "
+#~ "Drive Fast."

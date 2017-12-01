@@ -217,8 +217,9 @@ As ordes dispoñibles para o SPL Controller son:
 * Preme Q para obter información de estado variada acerca do Studio
   incluindo se unha pista se está a reproducir, se o micrófono está aceso e
   outra.
-* Preme F1 ou H para amosar un diálogo de axuda que liste as ordes
-  dispoñibles.
+* Preme as teclas de cart (F1, Control+1, por exemplo) para reproducir carts
+  asignados dende calquer lado.
+* Preme H para amosar un diálogo de axuda que liste as ordes dispoñibles.
 
 ## Alarmas de pista
 
@@ -298,6 +299,25 @@ Windows 8 ou posterior e tes NVDA 2012.3 ou posterior instalado, podes
 realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
+
+## Versión 17.12
+
+* Requírese do indows 7 Service Pack 1 ouposterior.
+* Melloráronse varias características do complemento con pontos de
+  extensión. Esto permite que as características alarma do micrófono e
+  streaming de metadatos respondan a cambios en perfís de
+  retransmisión. Esto require do NVDA 2017.4.
+* Cando se saia do Studio, varios diálogos do complemento coma Opcións de
+  complemento, diálogos de alarma e outros pecharanse automáticamente. Esto
+  require do NVDA 2017.4.
+* Engadida unha orde ao SPL Controller para informar do nome da pista actual
+  en reprodución dende calquera sitio (c).
+* Agora poedes premer as teclas de cart (F1, por exemplo) despois de
+  introducir SPl Controller layer para reproducir carts asignados dende
+  calquera lado.
+* Debido a cambios introducidos en wxPython 4 GUI toolkit, o diálogo
+  Eliminar etiqueta de stream agora é unha caixa combinada en lugar de un
+  campo de entrada numérica.
 
 ## Versión 17.11.2
 

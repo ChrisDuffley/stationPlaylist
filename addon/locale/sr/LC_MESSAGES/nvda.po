@@ -17,6 +17,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.6.10\n"
 
+#. Translators: Presented when attempting to install Studio add-on on unsupported Windows releases.
+msgid ""
+"You are using an older version of Windows. This add-on requires Windows 7 "
+"Service Pack 1 or later."
+msgstr ""
+
+#. Translators: Title of a dialog shown when installing Studio add-on on old Windows releases.
+#, fuzzy
+msgid "Old Windows version"
+msgstr "Otkrivena je starija verzija Windowsa"
+
 #, python-brace-format
 msgid "{header}: {content}"
 msgstr "{header}: {content}"
@@ -937,7 +948,6 @@ msgstr ""
 "pozadinskih zvukova'"
 
 #. Translators: A checkbox to turn off audio ducking reminder message.
-#. Translators: A checkbox to turn off old version reminder message.
 msgid "Do not show this message again"
 msgstr "Ne prikazuj ovu poruku ponovo"
 
@@ -1002,22 +1012,6 @@ msgstr "Dobrodošli u dodatak Station Playlist Studio"
 #. Translators: A checkbox to show welcome dialog.
 msgid "Show welcome dialog when I start Studio"
 msgstr "Prikaži dijalog dobrodošlice kada pokrenem Studio"
-
-#. Translators: Title of a dialog displayed when the add-on starts reminding broadcasters about old Studio releases.
-msgid "Old Windows version detected"
-msgstr "Otkrivena je starija verzija Windowsa"
-
-#. Translators: A message displayed if using an old Studio or Windows version.
-msgid ""
-"You are using an older version of Windows. From 2018 onwards, Studio add-on "
-"will not support versions earlier than Windows 7 Service Pack 1. Add-on 15.x "
-"LTS (long-term support) versions will support Windows versions such as "
-"Windows XP until mid-2018."
-msgstr ""
-"Koristite stariju verziju Windowsa. Od 2018 godine, Studio dodatak neće "
-"podržavati verzije Windowsa starije od Windowsa 7 Service Pack 1. Verzije "
-"dodatka 15.x LTS (long-term support) će idalje podržavati verzije Windowsa "
-"kao što je Windows XP do sredine 2018 godine."
 
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Status announcement beeps"
@@ -1611,18 +1605,6 @@ msgstr "&Dozvoli SPL kontroler komandi da aktivira SPL asistent"
 msgid "SPL Assistant command &layout:"
 msgstr "SPL asistent raspored komandi:"
 
-#. Translators: A message displayed when trying to switch to fast channel on old Windows releases.
-msgid ""
-"It appears you are using Windows versions earlier than Windows 7 Service "
-"Pack 1, thus you cannot change to Test Drive Fast channel."
-msgstr ""
-"Izgleda da koristite Windows verziju koja je starija od Windowsa 7 sa "
-"service packom 1, zbog toga se ne možete prebaciti na kanal za testiranje."
-
-#. Translators: The title of the channel switch confirmation dialog.
-msgid "Switching to unstable channel"
-msgstr "Prebacivanje na nestabilni kanal"
-
 #. Translators: The confirmation prompt displayed when changing to the fastest development channel (with risks involved).
 msgid ""
 "You are about to switch to the Test Drive Fast (try) builds channel, the "
@@ -1638,6 +1620,10 @@ msgstr ""
 "used for testing and sending feedback to the add-on developer. If you prefer "
 "to use stable releases, please answer no and switch to a more stable update "
 "channel. Are you sure you wish to switch to Test Drive Fast channel?"
+
+#. Translators: The title of the channel switch confirmation dialog.
+msgid "Switching to unstable channel"
+msgstr "Prebacivanje na nestabilni kanal"
 
 #. Translators: The confirmation prompt displayed when changing update interval to zero days (updates will be checked every time Studio app module loads).
 msgid ""
@@ -2111,3 +2097,21 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist Studio.\n"
 "Takođe, dodaje globalne komande za studio bilo gde."
+
+#~ msgid ""
+#~ "You are using an older version of Windows. From 2018 onwards, Studio add-"
+#~ "on will not support versions earlier than Windows 7 Service Pack 1. Add-"
+#~ "on 15.x LTS (long-term support) versions will support Windows versions "
+#~ "such as Windows XP until mid-2018."
+#~ msgstr ""
+#~ "Koristite stariju verziju Windowsa. Od 2018 godine, Studio dodatak neće "
+#~ "podržavati verzije Windowsa starije od Windowsa 7 Service Pack 1. Verzije "
+#~ "dodatka 15.x LTS (long-term support) će idalje podržavati verzije "
+#~ "Windowsa kao što je Windows XP do sredine 2018 godine."
+
+#~ msgid ""
+#~ "It appears you are using Windows versions earlier than Windows 7 Service "
+#~ "Pack 1, thus you cannot change to Test Drive Fast channel."
+#~ msgstr ""
+#~ "Izgleda da koristite Windows verziju koja je starija od Windowsa 7 sa "
+#~ "service packom 1, zbog toga se ne možete prebaciti na kanal za testiranje."

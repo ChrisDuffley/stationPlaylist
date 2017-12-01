@@ -18,6 +18,17 @@ msgstr ""
 "X-Generator: Poedit 2.0.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#. Translators: Presented when attempting to install Studio add-on on unsupported Windows releases.
+msgid ""
+"You are using an older version of Windows. This add-on requires Windows 7 "
+"Service Pack 1 or later."
+msgstr ""
+
+#. Translators: Title of a dialog shown when installing Studio add-on on old Windows releases.
+#, fuzzy
+msgid "Old Windows version"
+msgstr "התגלתה גרסת ווינדוס ישנה"
+
 #, python-brace-format
 msgid "{header}: {content}"
 msgstr "{header}: {content}"
@@ -915,7 +926,6 @@ msgstr ""
 "השמע\" או לחץ על הצירוף  NVDA+Shift+D."
 
 #. Translators: A checkbox to turn off audio ducking reminder message.
-#. Translators: A checkbox to turn off old version reminder message.
 msgid "Do not show this message again"
 msgstr "אל תציג הודעה זו שוב"
 
@@ -954,18 +964,6 @@ msgstr "ברוך הבא להרחבת StationPlaylist"
 #. Translators: A checkbox to show welcome dialog.
 msgid "Show welcome dialog when I start Studio"
 msgstr "הצג חלון דו שיח בהפעלת התוכנה"
-
-#. Translators: Title of a dialog displayed when the add-on starts reminding broadcasters about old Studio releases.
-msgid "Old Windows version detected"
-msgstr "התגלתה גרסת ווינדוס ישנה"
-
-#. Translators: A message displayed if using an old Studio or Windows version.
-msgid ""
-"You are using an older version of Windows. From 2018 onwards, Studio add-on "
-"will not support versions earlier than Windows 7 Service Pack 1. Add-on 15.x "
-"LTS (long-term support) versions will support Windows versions such as "
-"Windows XP until mid-2018."
-msgstr "אתה משתמש בגרסה ישנה של ווינדוס. "
 
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Status announcement beeps"
@@ -1544,18 +1542,6 @@ msgstr "אפשר ל&פקודת השליטה של SPL  להפעיל את המסי
 msgid "SPL Assistant command &layout:"
 msgstr "מקלדת הפקודות של המ&סייע של SPL:"
 
-#. Translators: A message displayed when trying to switch to fast channel on old Windows releases.
-msgid ""
-"It appears you are using Windows versions earlier than Windows 7 Service "
-"Pack 1, thus you cannot change to Test Drive Fast channel."
-msgstr ""
-"נראה שאתה משתמש בגרסת ווינדוס קודמת מחבילת שירות 1 של ווינדוס 7, ולכן אתה לא "
-"יכול לשנות את מבחן כונן מהיר."
-
-#. Translators: The title of the channel switch confirmation dialog.
-msgid "Switching to unstable channel"
-msgstr "שנה לגרסה לא יציבה"
-
 #. Translators: The confirmation prompt displayed when changing to the fastest development channel (with risks involved).
 msgid ""
 "You are about to switch to the Test Drive Fast (try) builds channel, the "
@@ -1570,6 +1556,10 @@ msgstr ""
 "יציבים בזמנים ויש להשתמש בהם לבדיקה ולשליחת משוב למפתח התוספים. אם אתה מעדיף "
 "להשתמש בערוצים יציבים, השב לא ועבור לערוץ עדכון יציב יותר. האם אתה בטוח "
 "שברצונך לעבור לערוץ הפיתוח המהיר ביותר?"
+
+#. Translators: The title of the channel switch confirmation dialog.
+msgid "Switching to unstable channel"
+msgstr "שנה לגרסה לא יציבה"
 
 #. Translators: The confirmation prompt displayed when changing update interval to zero days (updates will be checked every time Studio app module loads).
 msgid ""
@@ -2023,3 +2013,17 @@ msgid ""
 msgstr ""
 "מנגיש את תוכנת StationPlaylist  Studio  .  \n"
 "בנוסף, מאפשר ביצוע פקודות מכל מקום אחר במחשב."
+
+#~ msgid ""
+#~ "You are using an older version of Windows. From 2018 onwards, Studio add-"
+#~ "on will not support versions earlier than Windows 7 Service Pack 1. Add-"
+#~ "on 15.x LTS (long-term support) versions will support Windows versions "
+#~ "such as Windows XP until mid-2018."
+#~ msgstr "אתה משתמש בגרסה ישנה של ווינדוס. "
+
+#~ msgid ""
+#~ "It appears you are using Windows versions earlier than Windows 7 Service "
+#~ "Pack 1, thus you cannot change to Test Drive Fast channel."
+#~ msgstr ""
+#~ "נראה שאתה משתמש בגרסת ווינדוס קודמת מחבילת שירות 1 של ווינדוס 7, ולכן אתה "
+#~ "לא יכול לשנות את מבחן כונן מהיר."

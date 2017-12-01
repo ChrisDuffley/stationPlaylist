@@ -56,10 +56,10 @@ NOTES IMPORTANTES :
   du balayage dans la bibliothèque.
 * Contrôle+Maj+X depuis la fenêtre de Studio : Parcourt les paramètres du
   minuteur braille.
-* Contrôle+Alt+flèche droite/gauche (alors que  a été mis en focus sur une
-  piste) : Annoncer colonne de piste suivante/précédente.
-* Contrôle+Alt+flèche bas/haut (alors que  a été mis en focus sur une piste)
-  : Déplacer vers la piste suivante ou précédente et annoncer des colonnes
+* Contrôle+Alt+flèche gauche/droite (alors que  a été mis en focus sur une
+  piste) : Annoncer colonne de piste précédente/suivante.
+* Contrôle+Alt+flèche haut/bas (alors que  a été mis en focus sur une piste)
+  : Déplacer vers la piste précédente ou suivante et annoncer des colonnes
   spécifiques (indisponible dans le module complémentaire 15.x).
 * Contrôle+NVDA+1 jusqu'à 0 (6 pour Studio 5.0x) : Annoncer le contenu de la
   colonne pour une colonne spécifiée.
@@ -228,8 +228,10 @@ Les commandes disponibles pour le Contrôleur SPL sont:
 * Appuyer sur Q pour obtenir diverses informations du statut de Studio, y
   compris si une piste est en cours de lecture, le microphone est activé et
   d'autres.
-* Appuyez sur F1 ou H pour afficher une boîte de dialogue d'aide
-  répertoriant les commandes disponibles.
+* Appuyez sur les touches de chariot (F1, Contrôle+1, par exemple) pour lire
+  les chariots assignés à partir de n'importe où.
+* Appuyez sur H pour afficher un dialogue d'aide répertoriant les commandes
+  disponibles.
 
 ## Alarmes de la piste
 
@@ -312,6 +314,25 @@ ultérieure installé, vous pouvez exécuter certaines commandes Studio depuis
 un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
+
+## Version 17.12
+
+* Windows 7 Service Pack 1 ou ultérieur est requis.
+* Plusieurs fonctionnalités du module complémentaire ont été améliorées avec
+  des points d'extension. Cela permet au microphone alarm et à la
+  fonctionnalité des métadonnées en streaming de répondre aux changements
+  dans les profils de diffusion. Cela nécessite NVDA 2017.4.
+* Lorsque Studio se ferme, divers dialogues du module complémentaire tels
+  que les paramètres du module complémentaire, les dialogues d'alarme et
+  autres se ferment automatiquement. Cela nécessite NVDA 2017.4.
+* Ajout d'une nouvelle commande dans la Couche Contrôleur SPL pour annoncer
+  le nom de la prochaine piste, le cas échéant (Maj+C).
+* Vous pouvez maintenant appuyer sur les touches du chariot (F1, par
+  exemple) après avoir entrée la Couche Contrôleur SPL pour lire les
+  chariots assignés de n'importe où.
+* En raison des changements introduits dans la boîte à outils GUI de
+  wxPython 4, le dialogue pour effacer les étiquettes de flux est maintenant
+  une zone de liste déroulante au lieu d'un champ d'entrée de nombre.
 
 ## Version 17.11.2
 
