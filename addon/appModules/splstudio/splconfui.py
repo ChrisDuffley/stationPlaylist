@@ -32,7 +32,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfigHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 		# #40 (17.12): respond to app terminate notification by closing this dialog.
 		# All top-level dialogs will be affected by this, and apart from this one, others will check for flags also.
-		if splactions.actionsAvailable: splactions.SPLActionAppTerminating.register(self.onAppTerminate)
+		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 
 		# Broadcast profile controls were inspired by Config Profiles dialog in NVDA Core.
 		# 7.0: Have a copy of the sorted profiles so the actual combo box items can show profile flags.
@@ -954,7 +954,7 @@ class AlarmsCenter(wx.Dialog):
 		self.level = level
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		alarmsCenterHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
-		if splactions.actionsAvailable: splactions.SPLActionAppTerminating.register(self.onAppTerminate)
+		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 
 		if level in (0, 1):
 			timeVal = parent.endOfTrackTime if level == 0 else splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"]
@@ -1120,7 +1120,7 @@ class MetadataStreamingDialog(wx.Dialog):
 		self.func = func
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		metadataSizerHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
-		if splactions.actionsAvailable: splactions.SPLActionAppTerminating.register(self.onAppTerminate)
+		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 
 		if func is None: labelText=_("Select the URL for metadata streaming upon request.")
 		else: labelText=_("Check to enable metadata streaming, uncheck to disable.")
