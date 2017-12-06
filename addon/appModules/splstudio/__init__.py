@@ -1986,6 +1986,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:shift+0":"metadataEnabled",
 		"kb:f1":"layerHelp",
 		"kb:shift+f1":"openOnlineDoc",
+		"kb:control+shift+u":"updateCheck",
 	}
 
 	__SPLAssistantWEGestures={
