@@ -226,9 +226,6 @@ class EncoderConfigDialog(wx.Dialog):
 		self.onCancel(None)
 
 
-# Support for various encoders.
-# Each encoder must support connection routines.
-
 class Encoder(IAccessible):
 	"""Represents an encoder from within StationPlaylist Studio or Streamer.
 	This base encoder provides scripts for all encoders such as stream labeler and toggling focusing to Studio when connected.
@@ -261,7 +258,6 @@ class Encoder(IAccessible):
 		except KeyError:
 			return False
 
-	# Comment this out until background monitor setter is modified.
 	@property
 	def backgroundMonitor(self):
 		try:
