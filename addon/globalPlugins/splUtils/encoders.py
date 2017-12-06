@@ -435,8 +435,7 @@ class Encoder(IAccessible):
 		if streamLabels is None: loadStreamLabels()
 		# 6.2: Make sure background monitor threads are started if the flag is set.
 		if self.backgroundMonitor:
-			if self.encoderType == "SAM": threadPool = SAMMonitorThreads
-			elif self.encoderType == "SPL": threadPool = SPLMonitorThreads
+			threadPool = self.threadPool
 			if self.IAccessibleChildID in threadPool:
 				if not threadPool[self.IAccessibleChildID].is_alive():
 					del threadPool[self.IAccessibleChildID]
