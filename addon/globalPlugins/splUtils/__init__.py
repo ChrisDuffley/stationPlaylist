@@ -336,10 +336,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:h":"conHelp"
 	}
 
-	__gestures={
-		#"kb:nvda+shift+`":"focusToSPLWindow",
-		#"kb:nvda+`":"SPLControllerPrefix"
-	}
+	__gestures={}
 
 	# Support for Encoders
 	# Each encoder is an overlay class, thus makes it easier to add encoders in the future by implementing overlay objects.
