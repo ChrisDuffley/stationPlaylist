@@ -280,6 +280,12 @@ class Encoder(IAccessible):
 		else:
 			ui.message(message)
 
+	# Encoder connection reporter thread.
+	def connectStart(self):
+		statusThread = threading.Thread(target=self.reportConnectionStatus)
+		statusThread.start()
+		self.threadPool[self.IAccessibleChildID] = statusThread
+
 	# A master flag setter.
 	# Set or clear a given flag for the encoder given its ID, flag and flag container (currently a feature set).
 	# Also take in the flag key for storing it into the settings file.
@@ -339,11 +345,7 @@ class Encoder(IAccessible):
 					monitoring = self.threadPool[self.IAccessibleChildID].isAlive()
 				except KeyError:
 					monitoring = False
-				if not monitoring:
-					statusThread = threading.Thread(target=self.reportConnectionStatus)
-					statusThread.name = "Connection Status Reporter " + str(self.IAccessibleChildID)
-					statusThread.start()
-					self.threadPool[self.IAccessibleChildID] = statusThread
+				if not monitoring: self.connectStart()
 		else:
 			for encoderType in encoderMonCount:
 				encoderMonCount[encoderType] = 0
@@ -441,10 +443,7 @@ class Encoder(IAccessible):
 					del threadPool[self.IAccessibleChildID]
 				# If it is indeed alive... Otherwise another thread will be created to keep an eye on this encoder (undesirable).
 				else: return
-			statusThread = threading.Thread(target=self.reportConnectionStatus)
-			statusThread.name = "Connection Status Reporter " + str(self.IAccessibleChildID)
-			statusThread.start()
-			threadPool[self.IAccessibleChildID] = statusThread
+			self.connectStart()
 			encoderMonCount[self.encoderType] += 1
 
 	def reportFocus(self):
@@ -543,11 +542,7 @@ class SAMEncoder(Encoder):
 		ui.message(_("Connecting..."))
 		# Oi, status thread, can you keep an eye on the connection status for me?
 		# To be packaged into a new function in 7.0.
-		if not self.backgroundMonitor:
-			statusThread = threading.Thread(target=self.reportConnectionStatus, kwargs=dict(connecting=True))
-			statusThread.name = "Connection Status Reporter " + str(self.IAccessibleChildID)
-			statusThread.start()
-			SAMMonitorThreads[self.IAccessibleChildID] = statusThread
+		if not self.backgroundMonitor: self.connectStart()
 
 	def script_disconnect(self, gesture):
 		gesture.send()
@@ -575,11 +570,7 @@ class SAMEncoder(Encoder):
 		speech.speechMode = 0
 		wx.CallAfter(self._samContextMenu, 7)
 		# Oi, status thread, can you keep an eye on the connection status for me?
-		if not self.backgroundMonitor:
-			statusThread = threading.Thread(target=self.reportConnectionStatus, kwargs=dict(connecting=True))
-			statusThread.name = "Connection Status Reporter " + str(self.IAccessibleChildID)
-			statusThread.start()
-			SAMMonitorThreads[self.IAccessibleChildID] = statusThread
+		if not self.backgroundMonitor: self.connectStart()
 		speech.speechMode = speechMode
 
 	def script_disconnectAll(self, gesture):
@@ -739,11 +730,7 @@ class SPLEncoder(Encoder):
 		connectButton.doAction()
 		self.setFocus()
 		# Same as SAM encoders.
-		if not self.backgroundMonitor:
-			statusThread = threading.Thread(target=self.reportConnectionStatus, kwargs=dict(connecting=True))
-			statusThread.name = "Connection Status Reporter"
-			statusThread.start()
-			SPLMonitorThreads[self.IAccessibleChildID] = statusThread
+		if not self.backgroundMonitor: self.connectStart()
 	script_connect.__doc__=_("Connects to a streaming server.")
 
 	# Announce SPL Encoder columns: encoder settings and transfer rate.
