@@ -2217,6 +2217,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:e":"metadataStreamingAnnouncer",
 		"kb:f1":"layerHelp",
 		"kb:shift+f1":"openOnlineDoc",
+		"kb:control+shift+u":"updateCheck",
 	}
 
 	__SPLAssistantWEGestures={
