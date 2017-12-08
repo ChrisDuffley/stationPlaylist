@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2017-10-30 15:59+0100\n"
+"PO-Revision-Date: 2017-12-05 15:43+0100\n"
 "Last-Translator: Juan C. Buño <oprisniki@gmail.com>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -24,11 +24,12 @@ msgid ""
 "You are using an older version of Windows. This add-on requires Windows 7 "
 "Service Pack 1 or later."
 msgstr ""
+"Estás utilizando una versión antigua de Windows. Este complemento requiere "
+"de Windows 7 Service Pack 1 o posterior."
 
 #. Translators: Title of a dialog shown when installing Studio add-on on old Windows releases.
-#, fuzzy
 msgid "Old Windows version"
-msgstr "Se detectó una versión antigua de Windows"
+msgstr "versión antigua de Windows"
 
 #, python-brace-format
 msgid "{header}: {content}"
