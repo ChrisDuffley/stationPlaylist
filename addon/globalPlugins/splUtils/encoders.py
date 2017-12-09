@@ -281,8 +281,8 @@ class Encoder(IAccessible):
 			ui.message(message)
 
 	# Encoder connection reporter thread.
-	def connectStart(self):
-		statusThread = threading.Thread(target=self.reportConnectionStatus)
+	def connectStart(self, connecting=False):
+		statusThread = threading.Thread(target=self.reportConnectionStatus, kwargs=dict(connecting=connecting))
 		statusThread.start()
 		self.threadPool[self.IAccessibleChildID] = statusThread
 
@@ -542,7 +542,7 @@ class SAMEncoder(Encoder):
 		ui.message(_("Connecting..."))
 		# Oi, status thread, can you keep an eye on the connection status for me?
 		# To be packaged into a new function in 7.0.
-		if not self.backgroundMonitor: self.connectStart()
+		if not self.backgroundMonitor: self.connectStart(connecting=True)
 
 	def script_disconnect(self, gesture):
 		gesture.send()
@@ -570,7 +570,7 @@ class SAMEncoder(Encoder):
 		speech.speechMode = 0
 		wx.CallAfter(self._samContextMenu, 7)
 		# Oi, status thread, can you keep an eye on the connection status for me?
-		if not self.backgroundMonitor: self.connectStart()
+		if not self.backgroundMonitor: self.connectStart(connecting=True)
 		speech.speechMode = speechMode
 
 	def script_disconnectAll(self, gesture):
@@ -730,7 +730,7 @@ class SPLEncoder(Encoder):
 		connectButton.doAction()
 		self.setFocus()
 		# Same as SAM encoders.
-		if not self.backgroundMonitor: self.connectStart()
+		if not self.backgroundMonitor: self.connectStart(connecting=True)
 	script_connect.__doc__=_("Connects to a streaming server.")
 
 	# Announce SPL Encoder columns: encoder settings and transfer rate.
