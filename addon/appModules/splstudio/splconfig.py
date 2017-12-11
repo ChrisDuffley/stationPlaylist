@@ -897,6 +897,9 @@ class SPLAlarmDialog(wx.Dialog):
 			# Apply alarm settings only.
 			for setting in settings:
 				applySections(SPLConfig["ActiveIndex"], key=setting)
+		# #42 (18.01/15.12-LTS): don't forget to restart microphone alarm timer.
+		# LTS: only when microphone alarm dialog (level 3) is active.
+		if self.level == 3: _restartMicTimer()
 		self.Destroy()
 		_alarmDialogOpened = False
 
