@@ -374,6 +374,47 @@ class Encoder(IAccessible):
 	# Translators: Input help mode message in SAM Encoder window.
 	script_streamLabeler.__doc__=_("Opens a dialog to label the selected encoder.")
 
+	def removeStreamConfig(self, pos):
+		# An application of map successor algorithm.
+		global _encoderConfigRemoved
+		_removeEncoderID(self.encoderType, pos)
+		streamLabelsMap = self.streamLabelsMap
+		labelLength = len(streamLabelsMap)
+		if not labelLength or pos > max(streamLabelsMap.keys()):
+			if _encoderConfigRemoved is not None:
+				streamLabels.write()
+				_encoderConfigRemoved = None
+			return
+		elif labelLength  == 1:
+			if not pos in streamLabelsMap:
+				pos = list(streamLabelsMap.keys())[0]
+				oldPosition = int(pos)
+				streamLabelsMap[str(oldPosition-1)] = streamLabelsMap[pos]
+			del streamLabelsMap[pos]
+		else:
+			encoderPositions = sorted(streamLabelsMap.keys())
+			# What if the position happens to be the last stream label position?
+			if pos == max(encoderPositions): del streamLabelsMap[pos]
+			else:
+				# Find the exact or closest successor.
+				startPosition = 0
+				if pos == min(encoderPositions):
+					del streamLabelsMap[pos]
+					startPosition = 1
+				elif pos > min(encoderPositions):
+					for candidate in encoderPositions:
+						if candidate >= pos:
+							startPositionCandidate = encoderPositions.index(candidate)
+							startPosition = startPositionCandidate+1 if candidate == pos else startPositionCandidate
+							break
+				# Now move them forward.
+				for position in encoderPositions[startPosition:]:
+					oldPosition = int(position)
+					streamLabelsMap[str(oldPosition-1)] = streamLabelsMap[position]
+					del streamLabelsMap[position]
+		streamLabels[self.encoderType + "Encoders"] = streamLabelsMap
+		streamLabels.write()
+
 	def script_streamLabelEraser(self, gesture):
 		# Translators: The title of the stream configuration eraser dialog.
 		streamEraserTitle = _("Stream label and settings eraser")
@@ -600,6 +641,10 @@ class SAMEncoder(Encoder):
 	def threadPool(self):
 		return SAMMonitorThreads
 
+	@property
+	def streamLabelsMap(self):
+		return SAMStreamLabels
+
 	def getStreamLabel(self, getTitle=False):
 		if str(self.IAccessibleChildID) in SAMStreamLabels:
 			streamLabel = SAMStreamLabels[str(self.IAccessibleChildID)]
@@ -614,47 +659,6 @@ class SAMEncoder(Encoder):
 				del SAMStreamLabels[str(self.IAccessibleChildID)]
 			except KeyError:
 				pass
-		streamLabels["SAMEncoders"] = SAMStreamLabels
-		streamLabels.write()
-
-	def removeStreamConfig(self, pos):
-		# An application of map successor algorithm.
-		global _encoderConfigRemoved
-		# Manipulate SAM encoder settings and labels.
-		_removeEncoderID("SAM", pos)
-		labelLength = len(SAMStreamLabels)
-		if not labelLength or pos > max(SAMStreamLabels.keys()):
-			if _encoderConfigRemoved is not None:
-				streamLabels.write()
-				_encoderConfigRemoved = None
-			return
-		elif labelLength  == 1:
-			if not pos in SAMStreamLabels:
-				pos = list(SAMStreamLabels.keys())[0]
-				oldPosition = int(pos)
-				SAMStreamLabels[str(oldPosition-1)] = SAMStreamLabels[pos]
-			del SAMStreamLabels[pos]
-		else:
-			encoderPositions = sorted(SAMStreamLabels.keys())
-			# What if the position happens to be the last stream label position?
-			if pos == max(encoderPositions): del SAMStreamLabels[pos]
-			else:
-				# Find the exact or closest successor.
-				startPosition = 0
-				if pos == min(encoderPositions):
-					del SAMStreamLabels[pos]
-					startPosition = 1
-				elif pos > min(encoderPositions):
-					for candidate in encoderPositions:
-						if candidate >= pos:
-							startPositionCandidate = encoderPositions.index(candidate)
-							startPosition = startPositionCandidate+1 if candidate == pos else startPositionCandidate
-							break
-				# Now move them forward.
-				for position in encoderPositions[startPosition:]:
-					oldPosition = int(position)
-					SAMStreamLabels[str(oldPosition-1)] = SAMStreamLabels[position]
-					del SAMStreamLabels[position]
 		streamLabels["SAMEncoders"] = SAMStreamLabels
 		streamLabels.write()
 
@@ -744,6 +748,10 @@ class SPLEncoder(Encoder):
 	def threadPool(self):
 		return SPLMonitorThreads
 
+	@property
+	def streamLabelsMap(self):
+		return SPLStreamLabels
+
 	def getStreamLabel(self, getTitle=False):
 		if str(self.IAccessibleChildID) in SPLStreamLabels:
 			streamLabel = SPLStreamLabels[str(self.IAccessibleChildID)]
@@ -758,45 +766,6 @@ class SPLEncoder(Encoder):
 				del SPLStreamLabels[str(self.IAccessibleChildID)]
 			except KeyError:
 				pass
-		streamLabels["SPLEncoders"] = SPLStreamLabels
-		streamLabels.write()
-
-	def removeStreamConfig(self, pos):
-		global _encoderConfigRemoved
-		# This time, manipulate SPL ID entries.
-		_removeEncoderID("SPL", pos)
-		labelLength = len(SPLStreamLabels)
-		if not labelLength or pos > max(SPLStreamLabels.keys()):
-			if _encoderConfigRemoved is not None:
-				streamLabels.write()
-				_encoderConfigRemoved = None
-			return
-		elif labelLength  == 1:
-			if not pos in SPLStreamLabels:
-				pos = list(SPLStreamLabels.keys())[0]
-				oldPosition = int(pos)
-				SPLStreamLabels[str(oldPosition-1)] = SPLStreamLabels[pos]
-			del SPLStreamLabels[pos]
-		else:
-			encoderPositions = sorted(SPLStreamLabels.keys())
-			if pos == max(encoderPositions): del SPLStreamLabels[pos]
-			else:
-				# Find the exact or closest successor.
-				startPosition = 0
-				if pos == min(encoderPositions):
-					del SPLStreamLabels[pos]
-					startPosition = 1
-				elif pos > min(encoderPositions):
-					for candidate in encoderPositions:
-						if candidate >= pos:
-							startPositionCandidate = encoderPositions.index(candidate)
-							startPosition = startPositionCandidate+1 if candidate == pos else startPositionCandidate
-							break
-				# Now move them forward.
-				for position in encoderPositions[startPosition:]:
-					oldPosition = int(position)
-					SPLStreamLabels[str(oldPosition-1)] = SPLStreamLabels[position]
-					del SPLStreamLabels[position]
 		streamLabels["SPLEncoders"] = SPLStreamLabels
 		streamLabels.write()
 
