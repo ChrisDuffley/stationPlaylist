@@ -226,9 +226,6 @@ class EncoderConfigDialog(wx.Dialog):
 		self.onCancel(None)
 
 
-# Support for various encoders.
-# Each encoder must support connection routines.
-
 class Encoder(IAccessible):
 	"""Represents an encoder from within StationPlaylist Studio or Streamer.
 	This base encoder provides scripts for all encoders such as stream labeler and toggling focusing to Studio when connected.
@@ -261,7 +258,6 @@ class Encoder(IAccessible):
 		except KeyError:
 			return False
 
-	# Comment this out until background monitor setter is modified.
 	@property
 	def backgroundMonitor(self):
 		try:
@@ -283,6 +279,12 @@ class Encoder(IAccessible):
 			ui.message(_("{encoder} {encoderNumber}: {status}").format(encoder = self.encoderType, encoderNumber = id, status = message))
 		else:
 			ui.message(message)
+
+	# Encoder connection reporter thread.
+	def connectStart(self, connecting=False):
+		statusThread = threading.Thread(target=self.reportConnectionStatus, kwargs=dict(connecting=connecting))
+		statusThread.start()
+		self.threadPool[self.IAccessibleChildID] = statusThread
 
 	# A master flag setter.
 	# Set or clear a given flag for the encoder given its ID, flag and flag container (currently a feature set).
@@ -343,11 +345,7 @@ class Encoder(IAccessible):
 					monitoring = self.threadPool[self.IAccessibleChildID].isAlive()
 				except KeyError:
 					monitoring = False
-				if not monitoring:
-					statusThread = threading.Thread(target=self.reportConnectionStatus)
-					statusThread.name = "Connection Status Reporter " + str(self.IAccessibleChildID)
-					statusThread.start()
-					self.threadPool[self.IAccessibleChildID] = statusThread
+				if not monitoring: self.connectStart()
 		else:
 			for encoderType in encoderMonCount:
 				encoderMonCount[encoderType] = 0
@@ -375,6 +373,47 @@ class Encoder(IAccessible):
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message in SAM Encoder window.
 	script_streamLabeler.__doc__=_("Opens a dialog to label the selected encoder.")
+
+	def removeStreamConfig(self, pos):
+		# An application of map successor algorithm.
+		global _encoderConfigRemoved
+		_removeEncoderID(self.encoderType, pos)
+		streamLabelsMap = self.streamLabelsMap
+		labelLength = len(streamLabelsMap)
+		if not labelLength or pos > max(streamLabelsMap.keys()):
+			if _encoderConfigRemoved is not None:
+				streamLabels.write()
+				_encoderConfigRemoved = None
+			return
+		elif labelLength  == 1:
+			if not pos in streamLabelsMap:
+				pos = list(streamLabelsMap.keys())[0]
+				oldPosition = int(pos)
+				streamLabelsMap[str(oldPosition-1)] = streamLabelsMap[pos]
+			del streamLabelsMap[pos]
+		else:
+			encoderPositions = sorted(streamLabelsMap.keys())
+			# What if the position happens to be the last stream label position?
+			if pos == max(encoderPositions): del streamLabelsMap[pos]
+			else:
+				# Find the exact or closest successor.
+				startPosition = 0
+				if pos == min(encoderPositions):
+					del streamLabelsMap[pos]
+					startPosition = 1
+				elif pos > min(encoderPositions):
+					for candidate in encoderPositions:
+						if candidate >= pos:
+							startPositionCandidate = encoderPositions.index(candidate)
+							startPosition = startPositionCandidate+1 if candidate == pos else startPositionCandidate
+							break
+				# Now move them forward.
+				for position in encoderPositions[startPosition:]:
+					oldPosition = int(position)
+					streamLabelsMap[str(oldPosition-1)] = streamLabelsMap[position]
+					del streamLabelsMap[position]
+		streamLabels[self.encoderType + "Encoders"] = streamLabelsMap
+		streamLabels.write()
 
 	def script_streamLabelEraser(self, gesture):
 		# Translators: The title of the stream configuration eraser dialog.
@@ -439,17 +478,13 @@ class Encoder(IAccessible):
 		if streamLabels is None: loadStreamLabels()
 		# 6.2: Make sure background monitor threads are started if the flag is set.
 		if self.backgroundMonitor:
-			if self.encoderType == "SAM": threadPool = SAMMonitorThreads
-			elif self.encoderType == "SPL": threadPool = SPLMonitorThreads
+			threadPool = self.threadPool
 			if self.IAccessibleChildID in threadPool:
 				if not threadPool[self.IAccessibleChildID].is_alive():
 					del threadPool[self.IAccessibleChildID]
 				# If it is indeed alive... Otherwise another thread will be created to keep an eye on this encoder (undesirable).
 				else: return
-			statusThread = threading.Thread(target=self.reportConnectionStatus)
-			statusThread.name = "Connection Status Reporter " + str(self.IAccessibleChildID)
-			statusThread.start()
-			threadPool[self.IAccessibleChildID] = statusThread
+			self.connectStart()
 			encoderMonCount[self.encoderType] += 1
 
 	def reportFocus(self):
@@ -548,11 +583,7 @@ class SAMEncoder(Encoder):
 		ui.message(_("Connecting..."))
 		# Oi, status thread, can you keep an eye on the connection status for me?
 		# To be packaged into a new function in 7.0.
-		if not self.backgroundMonitor:
-			statusThread = threading.Thread(target=self.reportConnectionStatus, kwargs=dict(connecting=True))
-			statusThread.name = "Connection Status Reporter " + str(self.IAccessibleChildID)
-			statusThread.start()
-			SAMMonitorThreads[self.IAccessibleChildID] = statusThread
+		if not self.backgroundMonitor: self.connectStart(connecting=True)
 
 	def script_disconnect(self, gesture):
 		gesture.send()
@@ -580,11 +611,7 @@ class SAMEncoder(Encoder):
 		speech.speechMode = 0
 		wx.CallAfter(self._samContextMenu, 7)
 		# Oi, status thread, can you keep an eye on the connection status for me?
-		if not self.backgroundMonitor:
-			statusThread = threading.Thread(target=self.reportConnectionStatus, kwargs=dict(connecting=True))
-			statusThread.name = "Connection Status Reporter " + str(self.IAccessibleChildID)
-			statusThread.start()
-			SAMMonitorThreads[self.IAccessibleChildID] = statusThread
+		if not self.backgroundMonitor: self.connectStart(connecting=True)
 		speech.speechMode = speechMode
 
 	def script_disconnectAll(self, gesture):
@@ -614,6 +641,10 @@ class SAMEncoder(Encoder):
 	def threadPool(self):
 		return SAMMonitorThreads
 
+	@property
+	def streamLabelsMap(self):
+		return SAMStreamLabels
+
 	def getStreamLabel(self, getTitle=False):
 		if str(self.IAccessibleChildID) in SAMStreamLabels:
 			streamLabel = SAMStreamLabels[str(self.IAccessibleChildID)]
@@ -628,47 +659,6 @@ class SAMEncoder(Encoder):
 				del SAMStreamLabels[str(self.IAccessibleChildID)]
 			except KeyError:
 				pass
-		streamLabels["SAMEncoders"] = SAMStreamLabels
-		streamLabels.write()
-
-	def removeStreamConfig(self, pos):
-		# An application of map successor algorithm.
-		global _encoderConfigRemoved
-		# Manipulate SAM encoder settings and labels.
-		_removeEncoderID("SAM", pos)
-		labelLength = len(SAMStreamLabels)
-		if not labelLength or pos > max(SAMStreamLabels.keys()):
-			if _encoderConfigRemoved is not None:
-				streamLabels.write()
-				_encoderConfigRemoved = None
-			return
-		elif labelLength  == 1:
-			if not pos in SAMStreamLabels:
-				pos = list(SAMStreamLabels.keys())[0]
-				oldPosition = int(pos)
-				SAMStreamLabels[str(oldPosition-1)] = SAMStreamLabels[pos]
-			del SAMStreamLabels[pos]
-		else:
-			encoderPositions = sorted(SAMStreamLabels.keys())
-			# What if the position happens to be the last stream label position?
-			if pos == max(encoderPositions): del SAMStreamLabels[pos]
-			else:
-				# Find the exact or closest successor.
-				startPosition = 0
-				if pos == min(encoderPositions):
-					del SAMStreamLabels[pos]
-					startPosition = 1
-				elif pos > min(encoderPositions):
-					for candidate in encoderPositions:
-						if candidate >= pos:
-							startPositionCandidate = encoderPositions.index(candidate)
-							startPosition = startPositionCandidate+1 if candidate == pos else startPositionCandidate
-							break
-				# Now move them forward.
-				for position in encoderPositions[startPosition:]:
-					oldPosition = int(position)
-					SAMStreamLabels[str(oldPosition-1)] = SAMStreamLabels[position]
-					del SAMStreamLabels[position]
 		streamLabels["SAMEncoders"] = SAMStreamLabels
 		streamLabels.write()
 
@@ -744,11 +734,7 @@ class SPLEncoder(Encoder):
 		connectButton.doAction()
 		self.setFocus()
 		# Same as SAM encoders.
-		if not self.backgroundMonitor:
-			statusThread = threading.Thread(target=self.reportConnectionStatus, kwargs=dict(connecting=True))
-			statusThread.name = "Connection Status Reporter"
-			statusThread.start()
-			SPLMonitorThreads[self.IAccessibleChildID] = statusThread
+		if not self.backgroundMonitor: self.connectStart(connecting=True)
 	script_connect.__doc__=_("Connects to a streaming server.")
 
 	# Announce SPL Encoder columns: encoder settings and transfer rate.
@@ -761,6 +747,10 @@ class SPLEncoder(Encoder):
 	@property
 	def threadPool(self):
 		return SPLMonitorThreads
+
+	@property
+	def streamLabelsMap(self):
+		return SPLStreamLabels
 
 	def getStreamLabel(self, getTitle=False):
 		if str(self.IAccessibleChildID) in SPLStreamLabels:
@@ -776,45 +766,6 @@ class SPLEncoder(Encoder):
 				del SPLStreamLabels[str(self.IAccessibleChildID)]
 			except KeyError:
 				pass
-		streamLabels["SPLEncoders"] = SPLStreamLabels
-		streamLabels.write()
-
-	def removeStreamConfig(self, pos):
-		global _encoderConfigRemoved
-		# This time, manipulate SPL ID entries.
-		_removeEncoderID("SPL", pos)
-		labelLength = len(SPLStreamLabels)
-		if not labelLength or pos > max(SPLStreamLabels.keys()):
-			if _encoderConfigRemoved is not None:
-				streamLabels.write()
-				_encoderConfigRemoved = None
-			return
-		elif labelLength  == 1:
-			if not pos in SPLStreamLabels:
-				pos = list(SPLStreamLabels.keys())[0]
-				oldPosition = int(pos)
-				SPLStreamLabels[str(oldPosition-1)] = SPLStreamLabels[pos]
-			del SPLStreamLabels[pos]
-		else:
-			encoderPositions = sorted(SPLStreamLabels.keys())
-			if pos == max(encoderPositions): del SPLStreamLabels[pos]
-			else:
-				# Find the exact or closest successor.
-				startPosition = 0
-				if pos == min(encoderPositions):
-					del SPLStreamLabels[pos]
-					startPosition = 1
-				elif pos > min(encoderPositions):
-					for candidate in encoderPositions:
-						if candidate >= pos:
-							startPositionCandidate = encoderPositions.index(candidate)
-							startPosition = startPositionCandidate+1 if candidate == pos else startPositionCandidate
-							break
-				# Now move them forward.
-				for position in encoderPositions[startPosition:]:
-					oldPosition = int(position)
-					SPLStreamLabels[str(oldPosition-1)] = SPLStreamLabels[position]
-					del SPLStreamLabels[position]
 		streamLabels["SPLEncoders"] = SPLStreamLabels
 		streamLabels.write()
 

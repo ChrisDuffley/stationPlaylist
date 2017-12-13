@@ -989,6 +989,9 @@ class AlarmsCenter(wx.Dialog):
 			elif self.level == 3:
 				splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"] = self.micAlarmEntry.GetValue()
 				splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] = self.micIntervalEntry.GetValue()
+				# #42 (18.01/15.12-LTS): don't forget to restart microphone alarm timer.
+				import splmisc
+				splmisc._restartMicTimer()
 		elif self.level == 0:
 			parent = self.Parent
 			parent.endOfTrackTime = self.outroAlarmEntry.GetValue()
