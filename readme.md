@@ -184,6 +184,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Version 18.01
 
 * When using JAWS layout for SPL Assistant, update check command (Control+Shift+U) now works correctly.
+* When changing microphone alarm settings via the alarm dialog (Alt+NVDA+4), changes such as enabling alarm and changes to microphone alarm interval are applied when closing the dialog.
 
 ## Version 17.12
 
