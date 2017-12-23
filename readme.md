@@ -12,8 +12,8 @@ IMPORTANT NOTES:
 
 * This add-on requires NVDA 2017.1 or later and StationPlaylist Studio 5.10 or later.
 * If using Windows 8 or later, for best experience, disable audio ducking mode.
-* add-on 8.0/16.10 requires Studio 5.10 or later. For broadcasters using Studio 5.0x and/or Windows XP, Vista or 7 without Service Pack 1, a long-term support version (15.x) is available. The last stable version to support Windows releases prior to 7 Service Pack 1 is 17.11.2.
-* Starting from 2018, changelogs for old add-on releases will be found on GitHub. This add-on readme will list changes from version 5.0 (2015 onwards).
+* add-on 8.0/16.10 requires Studio 5.10 or later. For broadcasters using Studio 5.0x and/or Windows XP, Vista or 7 without Service Pack 1, a [long-term support version][3] (15.x) is available. The last stable version to support Windows releases prior to 7 Service Pack 1 is 17.11.2.
+* Starting from 2018, [changelogs for old add-on releases][5] will be found on GitHub. This add-on readme will list changes from version 5.0 (2015 onwards).
 
 ## Shortcut keys
 
@@ -627,8 +627,12 @@ Version 4.0 supports SPL Studio 5.00 and later, with 3.x designed to provide som
 
 * Initial release.
 
-[1]: http://addons.nvda-project.org/files/get.php?file=spl
+[1]: https://addons.nvda-project.org/files/get.php?file=spl
 
-[2]: http://addons.nvda-project.org/files/get.php?file=spl-dev
+[2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
+
+[3]: http://www.josephsl.net/files/nvdaaddons/getupdate.php?file=spl-lts16
 
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
+
+[5]: https://github.com/josephsl/stationplaylist/wiki/splchangelog
