@@ -9,7 +9,7 @@ This add-on package provides improved usage of StationPlaylist Studio, as well a
 
 For more information about the add-on, read the [add-on guide][4]. For developers seeking to know how to build the add-on, see buildInstructions.txt located at the root of the add-on source code repository.
 
-IMPORTANT: This add-on requires NVDA 2015.3 or later and StationPlaylist Studio 5.00 or later. If you have installed NVDA 2016.1 or later on Windows 8 and later, disable audio ducking mode. Also, add-on 8.0 requires Studio 5.10 and later, and for broadcasters using Studio 5.0x, a long-term support version (7.x) is available.
+IMPORTANT: This add-on requires NVDA 2015.3 or later and StationPlaylist Studio 5.00 or later. If you have installed NVDA 2016.1 or later on Windows 8 and later, disable audio ducking mode. Also, add-on 8.0 requires Studio 5.10 and later, and for broadcasters using Studio 5.0x and/or Windows XP, Vista or 7 without Service Pack 1, a long-term support version (15.x) is available.
 
 ## Shortcut keys
 
@@ -169,6 +169,11 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 ## SPL touch mode
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
+
+## Version 15.12-LTS
+
+* When using JAWS layout for SPL Assistant, update check command (Control+Shift+U) now works correctly.
+* When changing microphone alarm settings via the alarm dialog (Alt+NVDA+4), changes such as enabling alarm and changes to microphone alarm interval are applied when closing the dialog.
 
 ## Version 15.11-LTS
 
@@ -540,6 +545,6 @@ Version 4.0 supports SPL Studio 5.00 and later, with 3.x designed to provide som
 
 [2]: http://addons.nvda-project.org/files/get.php?file=spl-dev
 
-[3]: http://www.josephsl.net/files/nvdaaddons/get.php?file=spl-lts16
+[3]: http://www.josephsl.net/files/nvdaaddons/getupdate.php?file=spl-lts16
 
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
