@@ -10,7 +10,7 @@ For more information about the add-on, read the [add-on guide][4]. For developer
 
 IMPORTANT NOTES:
 
-* This add-on requires NVDA 2017.1 or later and StationPlaylist Studio 5.10 or later.
+* This add-on requires NVDA 2017.4 or later and StationPlaylist Studio 5.10 or later.
 * If using Windows 8 or later, for best experience, disable audio ducking mode.
 * add-on 8.0/16.10 requires Studio 5.10 or later. For broadcasters using Studio 5.0x and/or Windows XP, Vista or 7 without Service Pack 1, a [long-term support version][3] (15.x) is available. The last stable version to support Windows releases prior to 7 Service Pack 1 is 17.11.2.
 * Starting from 2018, [changelogs for old add-on releases][5] will be found on GitHub. This add-on readme will list changes from version 5.0 (2015 onwards).
