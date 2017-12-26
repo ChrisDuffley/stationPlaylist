@@ -171,7 +171,7 @@ class EncoderConfigDialog(wx.Dialog):
 		EncoderConfigDialog._instance = weakref.ref(self)
 		# And to close this automatically when Studio dies.
 		from appModules.splstudio import splactions
-		if splactions.actionsAvailable: splactions.SPLActionAppTerminating.register(self.onAppTerminate)
+		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 
 		self.obj = obj
 		self.curStreamLabel, title = obj.getStreamLabel(getTitle=True)

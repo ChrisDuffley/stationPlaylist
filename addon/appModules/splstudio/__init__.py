@@ -607,8 +607,7 @@ class AppModule(appModuleHandler.AppModule):
 		except (IOError, AttributeError):
 			pass
 		# #40 (17.12): react to profile switches.
-		if splactions.actionsAvailable:
-			splactions.SPLActionProfileSwitched.register(self.actionProfileSwitched)
+		splactions.SPLActionProfileSwitched.register(self.actionProfileSwitched)
 		debugOutput("loading add-on settings")
 		splconfig.initialize()
 		# Announce status changes while using other programs.
@@ -927,9 +926,8 @@ class AppModule(appModuleHandler.AppModule):
 		# #40 (17.12): replace this with a handler that responds to app module exit signal.
 		# Also allows profile switch handler to unregister itself as well.
 		# At the same time, close any opened SPL add-on dialogs.
-		if splactions.actionsAvailable:
-			splactions.SPLActionProfileSwitched.unregister(self.actionProfileSwitched)
-			splactions.SPLActionAppTerminating.notify()
+		splactions.SPLActionProfileSwitched.unregister(self.actionProfileSwitched)
+		splactions.SPLActionAppTerminating.notify()
 		debugOutput("closing microphone alarm/interval thread")
 		global micAlarmT, micAlarmT2
 		if micAlarmT is not None: micAlarmT.cancel()

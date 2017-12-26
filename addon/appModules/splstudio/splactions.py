@@ -12,21 +12,16 @@ import sys
 py3 = sys.version.startswith("3")
 
 # Do not unlock the full power of action extension point until 2018.
-try:
-	import extensionPoints
-	actionsAvailable = True
-except ImportError:
-	actionsAvailable = False
+import extensionPoints
 
 # 40 (17.12): unconditionally define actions, but not until 2018.
-if actionsAvailable:
-	# Studio handle found, app module is fully ready.
-	SPLActionAppReady = extensionPoints.Action()
-	# Add-on settings were loaded.
-	SPLActionSettingsLoaded = extensionPoints.Action()
-	# Switching broadcast profiles.
-	SPLActionProfileSwitched = extensionPoints.Action()
-	# Settings are being saved.
-	SPLActionSettingsSaved = extensionPoints.Action()
-	# Studio is terminating.
-	SPLActionAppTerminating = extensionPoints.Action()
+# Studio handle found, app module is fully ready.
+SPLActionAppReady = extensionPoints.Action()
+# Add-on settings were loaded.
+SPLActionSettingsLoaded = extensionPoints.Action()
+# Switching broadcast profiles.
+SPLActionProfileSwitched = extensionPoints.Action()
+# Settings are being saved.
+SPLActionSettingsSaved = extensionPoints.Action()
+# Studio is terminating.
+SPLActionAppTerminating = extensionPoints.Action()

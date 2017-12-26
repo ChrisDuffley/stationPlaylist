@@ -493,11 +493,7 @@ class ConfigHub(ChainMap):
 		# #38 (17.11/15.10-LTS): can't wait two seconds for microphone alarm to stop.
 		# #40 (17.12): all taken care of by profile switched notification.
 		_restartMicTimer()
-		if splactions.actionsAvailable: splactions.SPLActionProfileSwitched.notify()
-		else:
-			# Use the module-level metadata and microphone status reminder methods if told to do so now.
-			if self["General"]["MetadataReminder"] in ("startup", "instant"):
-				_metadataAnnouncer(reminder=True)
+		splactions.SPLActionProfileSwitched.notify()
 
 	# Used from config dialog and other places.
 	# Show switch index is used when deleting profiles so it doesn't have to look up index for old profiles.

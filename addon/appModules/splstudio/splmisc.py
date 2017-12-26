@@ -88,7 +88,7 @@ class SPLFindDialog(wx.Dialog):
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		findSizerHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
-		if splactions.actionsAvailable: splactions.SPLActionAppTerminating.register(self.onAppTerminate)
+		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 
 		findHistory = obj.appModule.findText if obj.appModule.findText is not None else []
 		self.findEntry = findSizerHelper.addLabeledControl(findPrompt, wx.ComboBox, choices=findHistory)
@@ -167,7 +167,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 		self.func = func
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
-		if splactions.actionsAvailable: splactions.SPLActionAppTerminating.register(self.onAppTerminate)
+		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 
 		minSizer = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Minimum duration")), wx.HORIZONTAL)
 		prompt = wx.StaticText(self, wx.ID_ANY, label=_("Minute"))
@@ -452,8 +452,7 @@ def metadata_actionProfileSwitched(configDialogActive=False):
 	if splconfig.SPLConfig["General"]["MetadataReminder"] in ("startup", "instant"):
 		_metadataAnnouncer(reminder=True)
 
-if splactions.actionsAvailable:
-	splactions.SPLActionProfileSwitched.register(metadata_actionProfileSwitched)
+splactions.SPLActionProfileSwitched.register(metadata_actionProfileSwitched)
 
 # Microphone alarm checker.
 # Restart the microphone alarm timer if profile is switched and contains different mic alarm values.
