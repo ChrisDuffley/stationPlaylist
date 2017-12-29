@@ -21,11 +21,12 @@ NOTES IMPORTANTES :
   désactiver le Mode d'atténuation audio.
 * le module complémentaire 8.0/16.10 requiert Studio 5.10 ou une version
   ultérieure. Pour les diffusions utilisant Studio 5.0x et/ou Windows XP,
-  Vista ou 7 sans Service Pack 1, une version prenant en charge le long-term
-  (15.x) est disponible. La dernière version stable prenant en charge les
-  versions de Windows antérieures à la 7 Service Pack 1 est la 17.11.2.
-* À partir de 2018, les journal des changements des anciennes versions du
-  module complémentaire seront trouvés sur GitHub. Ce fichier readme
+  Vista ou 7 sans Service Pack 1, une [version prenant en charge le
+  long-term][3] (15.x) est disponible. La dernière version stable prenant en
+  charge les versions de Windows antérieures à la 7 Service Pack 1 est la
+  17.11.2.
+* À partir de 2018, [les journal des changements des anciennes versions du
+  module complémentaire][5] seront trouvés sur GitHub. Ce fichier readme
   ajoutera les changements depuis la version 5.0 (à partir de 2015).
 
 ## Raccourcis clavier
@@ -314,6 +315,14 @@ ultérieure installé, vous pouvez exécuter certaines commandes Studio depuis
 un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
+
+## Version 18.01/15.12-LTS
+
+* When using JAWS layout for SPL Assistant, update check command
+  (Control+Shift+U) now works correctly.
+* When changing microphone alarm settings via the alarm dialog (Alt+NVDA+4),
+  changes such as enabling alarm and changes to microphone alarm interval
+  are applied when closing the dialog.
 
 ## Version 17.12
 
@@ -1127,231 +1136,9 @@ year.month pour les publications stable.
   les étiquettes de flux, appuyez sur Contrôle+F12, puis sélectionnez la
   position de l'encodeur, que vous avez supprimé).
 
-## Changements pour les versions 4.4/3.9
+## Older releases
 
-* La fonction du balayage de la bibliothèque fonctionne désormais dans
-  Studio 5.10 (il nécessite la dernière version de Studio 5.10).
-
-## Changements pour les versions 4.3/3.8
-
-* Lors du basculement vers une autre partie du Studio tel que la boîte de
-  dialogue insérer des pistes pendant que l'explorateur de chariot est
-  active, NVDA n'annoncera plus le messages du chariot lorsque on appuie sur
-  les touches chariot (par exemple, lors de la localisation d'une piste
-  depuis la boîte de dialogue insérer des pistes).
-* Nouvelles touches Assistant SPL, y compris le basculement de l'anonce du
-  temps planifier  et le nombre d'auditeurs (Maj+S et Maj+I, respectivement,
-  pas enregistré entre les sessions).
-* En quittant Studio alors que les différentes boîtes de dialogue des alarme
-  sont ouverts, NVDA détectera que Studio a été quitté et ne sauvera pas les
-  valeurs des alarme récemment modifiée.
-* Mises à jour des traductions.
-
-## Changements pour les versions 4.2/3.7
-
-* NVDA n'oubliera plus de conserver les nouvelles étiquettes et modifiés
-  l'encodeur lorsqu'un utilisateur se déconnecte ou redémarre un ordinateur.
-* Lorsque la configuration du module complémentaire devient corrompue au
-  démarrage de NVDA, NVDA restaurera la configuration par défaut et affiche
-  un message pour informer l'utilisateur de ce fait.
-* Dans le module complémentaire 3.7, problème de focus vu lors de la
-  suppression des pistes dans Studio 4.33 a été corrigée (même correctif est
-  disponible pour les utilisateurs de Studio 5.0x dans le module
-  complémentaire 4.1).
-
-## Changements pour la version 4.1
-
-* Dans Studio 5.0x, lors de la suppression d'une piste depuis la visionneuse
-  de la playlist principale il ne provoque plus que NVDA annonce la piste en
-  dessous de la piste récemment focalisée (plus perceptible si la deuxième à
-  la dernière piste a été supprimée, auquel cas NVDA dit "inconnu").
-* Correction de plusieurs problèmes de balayage de la bibliothèque dans
-  Studio 5.10, y compris annonçant le nombre total d'éléments dans la
-  bibliothèque lors de la tabulation à travers  de la boîte de dialogue
-  Insérer des pistes et la verbalisation "balayage est en cours" lorsque
-  vous essayer de contrôler les balayages de la bibliothèque via l'Assistant
-  SPL.
-* Lorsque vous utilisez un terminal braille avec Studio 5.10 et si une piste
-  est coché, en appuyant sur espace pour cocher une piste ci-dessous le
-  braille   il ne provoque plus et ne va pas renvoyer l'état récemment
-  coché.
-
-## Changements pour les versions 4.0/3.6
-
-Version 4.0 supporte SPL Studio 5.00 et ultérieure , avec la 3.x est conçu
-pour fournir de nouvelles fonctionnalités depuis la 4.0 pour les
-utilisateurs des versions antérieures de Studio.
-
-* Nouvelles touches Assistant SPL, y compris le temps planifier pour la
-  piste (S), durée restante pour la playlist (D) et la température (W si
-  configuré). En outre, pour Studio 5.x, ajouté modification playlist (Y) et
-  hauteur de la piste (Maj+P).
-* Nouvelles commandes Contrôleur SPL, y compris l'avancement  des balayages
-  de la bibliothèque (Maj+R) et l'activation du microphone sans fondu
-  (N). En outre, en appuyant sur F1 il apparaît une boîte de dialogue des
-  commandes disponibles.
-* Lors de l'activation ou la désactivation du microphone via le Contrôleur
-  SPL, des bips seront joué pour indiquer si le statut est activé/désactivé.
-* Les paramètres tels que le temps pour la fin de piste sont enregistrées
-  dans un fichier de configuration dédié dans votre répertoire de
-  configuration utilisateur et sont conservés au cours d'une mises à niveau
-  du module complémentaire (version 4.0 et versions ultérieure).
-* Ajout d'une commande (Alt+NVDA+2) pour définir l'heure de l'allarme
-  chanson intro entre 1 et 9 secondes.
-* Dans les boîtes de dialogue fin de piste et alarme intro, vous pouvez
-  utiliser les flèches haut et bas pour changer les paramètres de
-  l'alarme. Si vous saisissez une valeur erronée, la valeur pour l'alarme
-  est définie à la valeur maximale.
-* Ajout d'une commande (Contrôle+NVDA+4) pour définir une heure lorsque NVDA
-  jouera un son lorsque le microphone est actif depuis un certain temps.
-* Ajouté une fonctionnalité pour annoncer le temps en heures, minutes et
-  secondes (commande non assigné).
-* Il est maintenant possible de suivre le balayage de la bibliothèque depuis
-  la boîte de dialogue Insérer des pistes ou depuis n'importe où et une
-  commande dédiée (NVDA+Alt+R) pour activer/désactiver des options pour
-  l'annonce du balayage de la bibliothèque.
-* Support pour l'Outil de Piste, incluant la lecture d'un bip si une piste
-  intro a été définie et les commandes pour annoncer des informations sur
-  une piste comme la durée et le repère de position.
-* Support pour l'Encodeur StationPlaylist (Studio 5.00 et ultérieure),
-  offrant le même niveau de support comme trouvé dans le support pour
-  l'Encodeur SAM.
-* Dans les fenêtres de l'encodeur, NVDA ne lit plus les tonalités d'erreur
-  lorsque NVDA on lui dit de basculer vers Studio dès la connexion à un
-  serveur de streaming alors que la fenêtre Studio est minimisé.
-* Les erreurs n'on sont plus entendu après la suppression d'un flux avec
-  une étiquette de flux défini sur celui-ci.
-* Il est maintenant possible de contrôler l'introduction et fin de piste via
-  le braille en utilisant les options du minuteur braille (Contrôle+Maj+X).
-* Correction d'un problème où la tentative de basculement vers la fenêtre
-  Studio depuis n'importe quel programme, après que toutes les fenêtres ont
-  été minimisées causé quelque chose d'autre visiblement.
-* Lorsque vous utilisez Studio 5.01 et antérieure, NVDA n'annoncera  pas
-  certaines informations du statut telles que le temps planifié plusieurs
-  fois.
-
-## Changements pour la version 3.5
-
-* Lorsque NVDA démarre ou redémarre alors que la fenêtre principal de la
-  playlist de Studio 5.10 est mis en focus, NVDA ne lira plus les tonalités
-  d'erreur et/ou il ne vas pas annoncer les pistes précédentes et suivantes
-  lorsque vous utiliser les touches fléché à travers les pistes.
-* Correction d'un problème en essayant d'obtenir le temps restant et le
-  temps écoulé pour une piste dans les versions ultérieures  de Studio 5.10.
-* Mises à jour des traductions.
-
-## Changements pour la version 3.4
-
-* Dans l'explorateur de chariot, les chariots impliquant la touche contrôle
-  (par exemple Ctrl+F1) sont maintenant gérées correctement.
-* Mises à jour des traductions.
-
-## Changements pour la version 3.3
-
-* Lors de la connexion à un serveur de streaming en utilisant l'encodeur
-  SAM, il n'est plus nécessaire de rester dans la fenêtre de l'encodeur,
-  jusqu'à ce que la connexion est établie.
-* Correction d'un problème où les commandes de l'encodeur (par exemple,
-  l'étiqueteuse de flux) pourrait ne plus fonctionner lors du passage à la
-  fenêtre SAM provenant d'autres programmes.
-
-## Changements pour la version 3.2
-
-* Ajout d'une commande dans le Contrôleur SPL pour annoncer le temps restant
-  pour la piste en cours de lecture (R).
-* Dans la fenêtre de l'Encodeur SAM, le message lorsque vous êtes en mode
-  aide à la saisie pour la commande Maj+F11 a été corrigée
-* Dans l'Explorateur de Chariot, Si Studio Standard est utilisé, NVDA
-  avertira que les commandes numéros de ligne ne sont pas disponibles pour
-  les assignations de chariot.
-* Dans le Studio 5.10, le chercheur de piste ne lit plus les tonalités
-  d'erreur lors de la recherche à travers les pistes.
-* Traductions nouvelles et mises à jour.
-
-## Changements pour la version 3.1
-
-* Dans la fenêtre de l'Encodeur SAM, ajout d'une commande (Maj+F11) pour
-  dire si Studio lit la première piste lorsqu'il est connecté.
-* Correction de nombreux bugs lors de la connexion à un serveur dans
-  l'Encodeur SAM, dont l'incapacité d'exécuter des commandes NVDA, NVDA
-  n'annonçant pas lorsque la connexion a été établie et des tonalités
-  d'erreur au lieu de bip de connexion étant lu lorsqu'il est connecté.
-
-## Changements pour la version 3.0
-
-* Ajout Explorateur de Chariot pour apprendre les assignations de chariot
-  (jusqu'à 96 chariots peut être assigné).
-* Ajout de nouvelles commandes, y compris le Temps de diffusion
-  (NVDA+Maj+F12) et le Nombre d'auditeurs (i) et le suivant titre de la
-  piste (n) dans l'Assistant SPL.
-* Basculer entre activer/désactiver les messages tels que l'automatisation
-  sont maintenant affichées en braille quelle que soit le paramètre de
-  l'annonce de la bascule.
-* Lorsque la fenêtre de StationPlaylist est minimisé dans la barre d'état
-  système (zone de notification), NVDA annoncera cette action en essayant de
-  basculer vers SPL provenant d'autres programmes.
-* Tonalités d'erreur ils ne sont plus entendue lorsque l'annonce de bascule
-  est défini pour les bips et le statut des messages autre que la bascule
-  entre activer/désactiver sont annoncés (exemple: jouer les chariots).
-* Tonalités d'erreur ils ne sont plus entendue lorsque en essayant d'obtenir
-  des informations telles que le temps restant tandis que l'autre fenêtre de
-  Studio autre que la liste de pistes (par exemple la boîte de dialogue
-  Options) est mis en focus. Si l'information n'est pas trouvée, NVDA
-  annonce cette action.
-* Il est maintenant possible de rechercher une piste par nom
-  d'artiste. Auparavant vous pouvez rechercher par titre de la piste.
-* Support pour l'Encodeur SAM , y compris la possibilité d'étiqueter
-  l'encodeur et une commande de bascule pour commuter au Studio lorsque
-  l'encodeur sélectionné est connecté.
-* L'aide du module complémentaire est disponible à partir du Gestionnaire de
-  modules complémentaires.
-
-## Changements pour la version 2.1
-
-* Correction d'un problème où l'utilisateur était incapable d'obtenir des
-  informations du statut telles que le statut de l'automatisation lorsque
-  SPL 5.x a été lancée pendant l'exécution de NVDA.
-
-## Changements pour la version 2.0
-
-* Certains raccourcis clavier global  et app spécifiques ont été supprimé
-  donc, vous pouvez assigner une commande personnalisée dans la boîte de
-  dialogue Gestes de commandes (module complémentaire version 2.0 requiert
-  NVDA 2013.3 ou version ultérieure).
-* Ajout de plusieurs commandes dans Assistant SPL tels que le statut du mode
-  édition chariot.
-* Vous pouvez maintenant basculer vers SPL Studio même avec toutes les
-  fenêtres minimisées (peut ne pas fonctionner dans certains cas).
-* Augmenté Alarme fin de piste limiter à 59 secondes.
-* Vous pouvez maintenant rechercher une piste dans une playlist
-  (NVDA+Contrôle+F pour trouver, NVDA+F3 ou NVDA+Maj+F3 pour trouver en
-  avant ou en arrière, respectivement).
-* Les noms exacts des zones de liste déroulante sont maintenant annoncés par
-  NVDA (par exemple, boîte de dialogue Options et écrans de configuration
-  initiales SPL).
-* Correction d'un problème où NVDA annonçait des informations erronées en
-  essayant d'obtenir le temps restant pour une piste dans SPL Studio 5.
-
-## Changements pour la version 1.2
-
-* Lorsque Station Playlist 4.x est installé sur certains ordinateurs Windows
-  8/8.1, c'est encore possible d'entendre le temps écoulé et restant pour
-  une piste.
-* Mises à jour des traductions.
-
-## Changements pour la version 1.1
-
-* Ajout d'une commande (contrôle+NVDA+2) pour définir l'heure de l'alarme
-  pour la fin de piste.
-* Correction d'un bug dans le noms du champ pour certains des champs
-  d'édition les quells n'étaient pas annoncé (en particulier les champs
-  d'édition dans la boîte de dialogue Options).
-* Ajout de différentes traductions.
-
-
-## Changements pour la version 1.0
-
-* Première version.
+Please see changelog link for release notes for old add-on releases.
 
 [[!tag dev stable]]
 
@@ -1359,6 +1146,8 @@ utilisateurs des versions antérieures de Studio.
 
 [2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
 
-[3]: http://josephsl.net/files/nvdaaddons/get.php?file=spl-lts16
+[3]: http://www.josephsl.net/files/nvdaaddons/getupdate.php?file=spl-lts16
 
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
+
+[5]: https://github.com/josephsl/stationplaylist/wiki/splchangelog
