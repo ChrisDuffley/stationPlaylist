@@ -20,7 +20,7 @@ NOTAS IMPORTANTES:
 * Si utilizas Windows 8 o posterior, para una mejor experiencia, deshabilita
   el modo atenuación de audio.
 * El complemento 8.0/16.10 requiere de Studio 5.10 o posterior. Para
-  transmisores que utilicen Studio 5.0x y/o Windows XP, Vista o 7 sin
+  retransmisores que utilicen Studio 5.0x y/o Windows XP, Vista o 7 sin
   Service Pack 1, está disponible una versión de soporte extendido
   (15.x). La última versión estable para soportar versiones de Windows
   anteriores a 7 Service Pack 1 es 17.11.2.
@@ -307,6 +307,14 @@ Windows 8 o posterior y tienes NVDA 2012.3 o posterior instalado, puedes
 realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
+
+## Version 18.01/15.12-LTS
+
+* When using JAWS layout for SPL Assistant, update check command
+  (Control+Shift+U) now works correctly.
+* When changing microphone alarm settings via the alarm dialog (Alt+NVDA+4),
+  changes such as enabling alarm and changes to microphone alarm interval
+  are applied when closing the dialog.
 
 ## Versión 17.12
 
@@ -1050,225 +1058,9 @@ versión para versiones estables.
   de cadena, pulsa Control+F12, después selecciona la posición del
   codificador que has eliminado).
 
-## Cambios para 4.4/3.9
+## Older releases
 
-* La función Library scan ahora funciona en Studio 5.10 (requiere la última
-  compilación de Studio 5.10).
-
-## Cambios para 4.3/3.8
-
-* Cuando se cambia a otra parte de Studio tal como el diálogo insertar
-  pistas mientras el explorador de cart está activo, NVDA ya no anunciará
-  mensajes de cart cuando se presionan las teclas de cart (por ejemplo,
-  localizar una pista desde el diálogo insertar pistas.).
-* Nuevas teclas de SPL Assistant, incluyendo el comnutado del anunciado de
-  la hora programada y recuento de oyentes (Shift+S y Shift+I,
-  respectivamente, no guardadas a través de sesiones).
-* Cuando se sale de Studio mientras  varios diálogos de alarma están
-  abiertos, NVDA detectará que Studio ha sido cerrado y no guardará los
-  valores de alarma modificados recientemente.
-* Traducciones actualizadas.
-
-## Cambios para 4.2/3.7
-
-* NVDA ya no se olvidará de retener las etiquetas nuevas y cambiadas del
-  codificador cuando un usuario cierre la sesión o reinicie el ordenador.
-* Cuando la configuración del complemento se corrompe al iniciarse NVDA,
-  éste restaurará la configuración predeterminada y mostrará un mensaje para
-  informar al usuario de este hecho.
-* En el complemento 3.7, el problema del foco visto al eliminar pistas en
-  Studio 4.33 se ha corregido (La misma corrección está disponible para los
-  usuarios de Studio 5.0x en el complemento 4.1).
-
-## Cambios para 4.1
-
-* En Studio 5.0x, al eliminar una pista desde el visualizador principal de
-  lista de reproducción ya no causará que NVDA anuncie la pista debajo de la
-  enfocada recientemente (más notable si la segunda fue eliminada, en cuyo
-  caso NVDA dice "desconocido").
-* Corregidos varios problemas con el escaneado de la biblioteca en Studio
-  5.10, incluyendo el anunciado del número total de elementos en la
-  biblioteca mientras se tabula por el diálogo insertar pistas y diciendo
-  "el escaneado está en progreso" cuando se intenta monitorizar los
-  escaneados de la biblioteca a través del SPL Assistant.
-* Cuando se utiliza una pantalla braille con Studio 5.10 y si  se marca una
-  pista, pulsando ESPACIO para marcar una pista anterior ya no se causa que
-  el braille no refleje el nuevo estado marcado.
-
-## Cambios para  4.0/3.6
-
-La versión 4.0 soporta SPL Studio 5.00 y posteriores, con 3.x diseñado para
-proporcionar algunas características nuevas desde 4.0 para los usuarios
-utilizando versiones anteriores de Studio.
-
-* Nuevas teclas para el SPL Assistant, incluyendo el tiempo programado para
-  la pista (S), duración restante para la lista de reproducción (D) y
-  temperatura (W si se configuró). además, para Studio 5.x, se añadió
-  modificación de la lista de reproducción (Y) y tono de la pista (Shift+P).
-* Nuevas órdenes del SPL Controller, incluyendo progreso de los escaneados
-  de la biblioteca (Shift+R) y habilitación del micrófono sin fade
-  (N). También, pulsando F1 se despliega un diálogo mostrando las órdenes
-  disponibles.
-* Cuando se habilita o deshabilita el micrófono a través de SPL Controller,
-  se reproducirán pitidos para indicar el estado activo/desactivo.
-* Las opciones tales como tiempo de fin de la pista se guardan en un fichero
-  dedicado para la configuración en tu directorio de configuración del
-  usuario y se conservan durante las actualizaciones de los complementos
-  (versión 4.0 y posteriores).
-* Añadida una orden (Alt+NVDA+2) para ajustar el tiempo de alarma de intro
-  de la canción entre 1 y 9 segundos.
-* En los diálogos de alarma de final y de intro de pista, puedes utilizar
-  flechas arriba y abajo para cambiar las opciones de alarma. Si se
-  introduce un valor erróneo, el valor de la alarma se pone en el valor
-  máximo.
-* Añadida una orden (Control+NVDA+4) para configurar un tiempo en el que
-  NVDA reproducirá sonido cuando el micrófono se haya activado por un rato.
-* Añadida una característica para anunciar el tiempo en horas, minutos y
-  segundos (orden no asignada).
-* Ahora es posible seguir los escaneados de la biblioteca desde el diálogo
-  Insert Tracks o desde cualquier lugar, y una orden dedicada (Alt+NVDA+R)
-  para conmutar el anunciado de las opciones del escaneado de la biblioteca.
-* Soporte para Track Tool, incluyendo la reproducción de un pitido si una
-  pista tiene una intro definida y órdenes para anunciar información sobre
-  una pista tal como duración y posición en la cola.
-* Soporte para codificador StationPlaylist (Studio 5.00 y posteriores),
-  proporcionando el mismo nivel de soporte que el encontrado en el soporte
-  al codificador SAM.
-* En las ventanas del codificador, NVDA ya no reproduce tonos de error
-  cuando se le dijo a NVDA que cambiase Studio al conectarse a un servidor
-  de streaming mientras la ventana de Studio estaba minimizada.
-* Los errores ya no se escuchan después de eliminar un stream con una
-  etiqueta stream fijada allí.
-* Ahora es posible monitorizar la introducción y el final de la pista a
-  través del braille utilizando las opciones del temporizador braille
-  (Control+Shift+X).
-* Corregido un fallo donde se intentaba cambiar a la ventana del Studio
-  desde cualquier programa después de que todas las ventanas fueran
-  minimizadas causando que apareciera alguna otra cosa.
-* Cuando se utiliza Studio 5.01 y posteriores, NVDA ya no anunciará cierta
-  información de estado tal como el tiempo programado varias veces.
-
-## Cambios para 3.5
-
-* Cuando NVDA se inicia o se reinicia mientras la ventana principal de la
-  lista de reproducción de Studio 5.10 está enfocada, NVDA ya no reproducirá
-  tonos de error y/o no anunciará las pistas siguiente o anterior cuando se
-  navegue por las pistas.
-* Corregido un problema al intentar obtener el tiempo restante y el tiempo
-  transcurrido para una pista en las compilaciones más recientes de Studio
-  5.10.
-* Traducciones actualizadas.
-
-## Cambios para 3.4
-
-* En el explorador de cart, los carts involucrados con la tecla control
-  (tales como Ctrl+F1) ahora se manejan correctamente.
-* Traducciones actualizadas.
-
-## Cambios para 3.3
-
-* Cuando se conecte a un servidor de streaming utilizando el codificador
-  SAM, ya no se requiere permanecer en la ventana del codificador hasta que
-  la conexión se establezca.
-* Corregido un fallo donde las órdenes  del codificador (por ejemplo, stream
-  labeler) ya no funcionarían al cambiar a la ventana SAM desde otros
-  programas.
-
-## Cambios para 3.2
-
-* Añadida una orden a SPL Controller para informar del tiempo restante para
-  la pista actual en reproducción (R).
-* En la ventana del codificador SAM, ha sido corregido el mensaje del modo
-  ayuda de entrada para la orden Shift+F11
-* En el explorador de cart, si el Studio Standard está en uso, NVDA alertará
-  que un número de órdenes de fila no estarán disponibles para asignaciones
-  de cart.
-* En Studio 5.10, el buscador de pistas ya no reproduce tonos de error al
-  buscar por las pistas.
-* Traducciones nuevas y actualizadas.
-
-## Cambios para 3.1
-
-* En la ventana de SAM Encoder, se añadió una orden (Shift+F11) para decir a
-  Studio que reproduzca la primera pista cuando se conecte.
-* Corregidos numerosos errores cuando se conecta a un servidor en Encoder
-  SAM , incluyendo la incapacidad para llevar a cabo las órdenes de NVDA ,
-  NVDA no anuncia cuando la conexión ha sido establecida y emite tonos de
-  error en lugar del pitido de conexión que se reproduce cuando se conecta .
-
-## Cambios para 3.0
-
-* Añadido explorador de Carts para aprender las asignaciones de cart (pueden
-  asignarse más de 96 carts).
-* Añadidas nuevas órdenes, incluyendo tiempo de emisión (NVDA+Shift+F12) y
-  recuento de oyentes (i) y título de siguiente pista (n) en SPL Assistant.
-* Ahora conmutar mensajes tales como la automatización se muestra en braille
-  independientemente de la opción toggle announcement.
-* Cuando la ventana StationPlaylist está minimizada en la bandeja del
-  sistema (área de notificaciones), NVDA anunciará este hecho cuando se
-  trate de cambiar a SPL desde otros programas.
-* Los tonos de error ya no se escuchan cuando conmutar anunciado esté
-  ajustado a pitidos y los mensajes de estado diferentes de
-  activado/desactivado se anuncian (ejemplo: la reproducción de carts).
-*  Los tonos de error ya no se escuchan cuando se intenta obtener
-  información tal como tiempo restante mientras otra ventana de Studio
-  diferente a  la lista de pistas (tal como el diálogo Options) esté
-  enfocada. Si la información necesaria no se encuentra, NVDA anunciará este
-  hecho.
-* Ahora es posible buscar una pista por  nombre de artista. Anteriormente
-  podías buscar por título de pista.
-* Soporte para el SAM Encoder, incluyendo la capacidad para etiquetar el
-  codificador y una orden conmutable para cambiar a Studio cuando el
-  codificador seleccionado está conectado.
-* La ayuda para el complemento está disponible desde el Administrador de
-  Complementos.
-
-## Cambios para 2.1
-
-* Solucionado un fallo donde el usuario no podía obtener información de
-  estado tal como estado de automatización cuando SPL 5.x se lanzó antes de
-  que NVDA estuviera en ejecución.
-
-## Cambios para 2.0
-
-* Algunos atajos de teclado globales y de aplicaciones específicas se
-  quitaron por lo que puedes asignar una orden personalizada en el diálogo
-  Gestos de entrada (el complemento en su versión 2.0 requiere de NVDA
-  2013.3 o posterior).
-* Añadidas más órdenes del asistente de SPL tales como el estado del modo
-  cart edit.
-* Ahora puedes cambiar a SPL Studio incluso con todas las ventanas
-  minimizadas (podrá no funcionar en algunos casos).
-* Extendido el rango de la alarma de fin de pista a 59 segundos.
-* Ahora puedes buscar una pista en una lista de reproducción(Control+NVDA+F
-  para encontrar, NVDA+F3 o NVDA+Shift+F3 encontrar hacia delante o hacia
-  atrás, respectivamente).
-* Se anuncian los nombres correctos de los cuadros combinados por NVDA(por
-  ejemplo el diálogo Opciones de configuración y las pantallas iniciales de
-  SPL).
-* Solucionado un fallo donde  NVDA anunciaba información incorrecta cuando
-  trataba de obtener el tiempo restante para una pista en SPL Studio 5.
-
-## Cambios para 1.2
-
-* Cuando Station Playlist 4.x está instalado en ciertos ordenadores con
-  Windows 8/8.1, es posible escuchar de nuevo los tiempos transcurridos y
-  restantes de una pista.
-* Traducciones actualizadas.
-
-## Cambios para 1.1
-
-* Añadida una orden (Control+NVDA+2) para establecer una alarma al final de
-  la pista.
-* Corregido un error en el que los nombres de campos para ciertos campos de
-  edición no se anunciaban (particularmente campos de edición en el diálogo
-  de opciones).
-* Añadidas varias traducciones.
-
-
-## Cambios para 1.0
-
-* Versión inicial.
+Please see changelog link for release notes for old add-on releases.
 
 [[!tag dev stable]]
 
@@ -1277,5 +1069,7 @@ utilizando versiones anteriores de Studio.
 [2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
 
 [3]: http://josephsl.net/files/nvdaaddons/get.php?file=spl-lts16
+
+[4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide

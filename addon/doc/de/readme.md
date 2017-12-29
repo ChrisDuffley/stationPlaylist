@@ -20,14 +20,13 @@ WICHTIGE HINWEISE:
 * Wenn Sie Windows 8 oder höher verwenden, setzen Sie die Reduzierung der
   Lautstärke anderer Audioquellen auf "nie" im Dialog Sprachausgabe im
   NVDA-Einstellungsmenü.
-* Erweiterungsversion 8.0/16.10 erfordert Studio 5.10 oder höher. Für
-  Broadcaster, die Studio 5.0x und/oder Windows XP, Vista oder 7 ohne
-  Service Pack 1 verwenden, steht eine Langzeit-Support-Version (15.x) zur
-  Verfügung. Die letzte stabile Version, die Windows-Versionen vor 7 Service
-  Pack 1 unterstützt, ist 17.11.2.
-* Ab 2018 werden Änderungsnotizen für veraltete Erweiterungsversionen auf
-  GitHub zu finden sein. Die Readme dieser Erweiterung listet Änderungen ab
-  Version 5.0 (2015) auf.
+* add-on 8.0/16.10 requires Studio 5.10 or later. For broadcasters using
+  Studio 5.0x and/or Windows XP, Vista or 7 without Service Pack 1, a
+  [long-term support version][3] (15.x) is available. The last stable
+  version to support Windows releases prior to 7 Service Pack 1 is 17.11.2.
+* Starting from 2018, [changelogs for old add-on releases][5] will be found
+  on GitHub. This add-on readme will list changes from version 5.0 (2015
+  onwards).
 
 ## Tastenkürzel
 
@@ -288,6 +287,14 @@ If you are using Studio on a touchscreen computer running Windows 8 or later
 and have NVDA 2012.3 or later installed, you can perform some Studio
 commands from the touchscreen. First use three finger tap to switch to SPL
 mode, then use the touch commands listed above to perform commands.
+
+## Version 18.01/15.12-LTS
+
+* When using JAWS layout for SPL Assistant, update check command
+  (Control+Shift+U) now works correctly.
+* When changing microphone alarm settings via the alarm dialog (Alt+NVDA+4),
+  changes such as enabling alarm and changes to microphone alarm interval
+  are applied when closing the dialog.
 
 ## Version 17.12
 
@@ -1035,226 +1042,9 @@ für stabile Versionen.
   Streabezeichnungen neu zuzuordnen, drücken Sie STRG+F12 und wählen Sie
   dann die Position des Encoders, den Sie entfernt haben.
 
-## Änderungen in 4.4/3.9
+## Older releases
 
-* Die Funktion des Bibliotheks-Scans kann jetzt auch in Studio 5.10
-  verwendet werden (benötigt die neueste Version von Studio 5.10).
-
-## Änderungen in 4.3/3.8
-
-* Wenn Sie bei aktivem Kartenexplorer zu einem anderen Teil von Studio
-  wechseln, wie z.B. in den Dialog Titel einfügen, wird NVDA keine
-  Kartenbenachrichtigungen mehr ansagen, wenn Kartenbefehele gedrückt werden
-  (z.B. beim Finden eines Titels aus dem Dialog Titel einfügen).
-* Neue Tastenbefehle für den SPL-Assistenten, einschließlich der Umschaltung
-  der geplanten Zeitansage und der Anzahl der Zuhörer (Umschalt+S und
-  Umschalt+I). Diese Einstellungen werden nicht sitzungsübergreifend
-  gespeichert.
-* Beim Beenden von Studio, während verschiedene Alarmdialoge geöffnet
-  werden, wird dass Beenden von Studio von NVDA erkannt. NVDA speichert nun
-  keine kürzlich geänderten Alarmwerte ab.
-* Übersetzungen aktualisiert
-
-## Änderungen in 4.2/3.7
-
-* NVDA merkt sich nun neue und geänderte Encoder-Labels, wenn sich ein
-  Benutzer abmeldet oder einen Computer neu startet.
-* Wenn die Erweiterungskonfiguration beim Start von NVDA beschädigt wird,
-  stellt NVDA die Standardkonfiguration wieder her und zeigt eine
-  entsprechende Meldung an.
-* In der Erweiterungsversion 3.7 wurde das Fokusproblem beim Löschen von
-  Titeln in Studio 4.33 behoben. Dieselbe Korrektur ist für Studio
-  5.0x-Benutzer in der Erweiterungsversion 4.1 verfügbar.
-
-## Änderungen in 4.1
-
-* In Studio 5.0x wird das Löschen eines Titels aus dem Haupt-Playlist-Viewer
-  nicht mehr dazu führen, dass NVDA den Titel unterhalb des neu fokussierten
-  Titels ansagt. Dies war auffälliger, wenn der vorletzte Titel gelöscht
-  wurde. In diesem Fall sagte NVDA "unbekannt" an.
-* In Studio 5.10 wurden mehrere Probleme beim Überwachen der
-  Bibliotheks-Scans mit dem SPL-Assistenten behoben, einschließlich der
-  Ankündigung der Gesamtzahl der Elemente in der Bibliothek, während man im
-  Dialogfeld "Titel einfügen" die Registerkarten durchsucht und die Meldung
-  "Scan wird durchgeführt" ausgegeben wird.
-* Wenn Sie eine Braillezeile mit Studio 5.10 zum Auswählen eines Titels
-  unterhalb des aktuellen titels verwenden, wird nun beim Drücken von
-  LEERTASTE der vorherige Auswahlstatus richtig angezeigt.
-
-## Änderungen in 4.0/3.6
-
-Version 4.0 unterstützt SPL Studio 5.00 und höher, wobei 3.x einige neue
-Funktionen von 4.0 für Benutzer früherer Versionen von Studio bereitstellt.
-
-* Neue Tastenbefehle im SPL-Assistenten, einschließlich geplante Dauer für
-  den Titel (S), Restdauer für die Wiedergabeliste (D) und Temperatur (W,
-  falls konfiguriert). Zusätzlich wurden für Studio 5.x Playlist-Änderungen
-  (Y) und Titelhöhe (Shift+P) hinzugefügt.
-* Neue Befehle für den SPL-Controller, einschließlich des Fortschritts der
-  Bibliotheks-Scans (Umschalt+R) und der Aktivierung des Mikrofons ohne
-  Überblendung (N). Wenn Sie F1 drücken, öffnet sich ein Dialog mit einer
-  kompletten Befehlsliste.
-* Beim Aktivieren oder Deaktivieren des Mikrofons über den SPL-Controller
-  wird ein Piepton ausgegeben, der den Ein/Aus-Status anzeigt.
-* Einstellungen, wie z.B. das Ende der Titeldauer, werden in einer
-  speziellen Konfigurationsdatei in Ihrem Benutzer-Konfigurationsverzeichnis
-  gespeichert und bleiben bei Erweiterungsaktualisierungen (ab Version 4.0)
-  erhalten.
-* Es wurde ein Befehl (Alt+NvDA+2) hinzugefügt, mit dem die Alarmzeit für
-  das Intro eines Songs zwischen 1 und 9 Sekunden eingestellt werden kann.
-* Am Ende der Dialoge für Titel- und Intro-Benachrichtigungen können Sie mit
-  den Pfeiltasten nach oben und unten die Alarmeinstellungen ändern. Wird
-  ein falscher Wert eingegeben, wird der Alarmwert auf den Maximalwert
-  gesetzt.
-* Es wurde ein Befehl für die Zeiteinstellung hinzugefügt (STRG+NVDA+4), zu
-  der NVDA einen Ton wiedergibt, wenn das Mikrofon eine Weile aktiv war.
-* Es wurde eine Funktion für die Ansage der Zeit in Stunden, Minuten und
-  Sekunden hinzugefügt (Tastaturbefehl ist nicht zugewiesen).
-* Es ist nun möglich, Bibliotheks-Scans aus dem Dialogfeld"Titel einfügen"
-  oder von überall her zu verfolgen und mit einem speziellen Befehl
-  (Alt+NVDA+R) die Ansageoptionen für Bibliotheks-Scans umzuschalten.
-* Unterstützung für Titelwerkzeuge, einschließlich der Wiedergabe eines
-  Pieptons, wenn ein Titel ein Intro definiert hat. Unterstützung für
-  Befehle, um Informationen zu einem Titel abzurufen, wie z.B. Dauer und
-  Position in der Warteschlange.
-* Unterstützung für den StationPlaylist-Encoder (Studio 5.00 und höher), der
-  die gleiche Unterstützung bietet wie SAM-Encoder.
-* In Encoder-Fenstern gibt NVDA beim Minimieren des Studio-Fensters keine
-  Fehlertöne mehr aus, wenn NVDA aufgefordert wird, während der Verbindung
-  mit einem Streaming-Server auf Studio umzuschalten.
-* Fehler werden nach dem Löschen eines Streams mit einer Streambezeichnung
-  nicht mehr angesagt.
-* Mit Hilfe der Braille-Timer-Optionen (STRG+Umschalt+X) ist es nun möglich,
-  die Einleitung und das Ende des Titels per Braille-Schrift zu überwachen.
-* Es wurde ein Problem behoben, das beim Wechseln mit minimierten Fenstern
-  von einem beliebigen Programm aus zum Studio-Fenster auftrat. Dies führte
-  dazu, dass etwas anderes angezeigt wurde.
-* Wenn Sie Studio 5.01 und früher verwenden, wird NVDA bestimmte
-  Statusinformationen, wie z.B. die geplante Zeit, nicht mehr wiederholt
-  ankündigen.
-
-## Änderungen in 3.5
-
-* Wenn NVDA gestartet oder neu gestartet wird, während das Hauptfenster der
-  Wiedergabeliste von Studio 5.10 fokussiert ist, wird NVDA keine Fehlertöne
-  mehr abspielen. Beim Durchblättern von Titeln sagt NVDA nun die nächsten
-  und vorherigen Titel immer an.
-* Es wurde ein Problem behoben, das beim Ermittlungsversuch der
-  verbleibenden und verstrichenen Zeit für einen Titel in späteren Builds
-  von Studio 5.10 auftrat.
-* Übersetzungen aktualisiert
-
-## Änderungen in 3.4
-
-* Im Kartenexplorer werden Karten mit STRG (z.B. Strg+F1) nun korrekt
-  behandelt.
-* Übersetzungen aktualisiert
-
-## Änderungen in 3.3
-
-* Bei der Verbindung zu einem Streaming-Server mit SAM-Encoder ist es nicht
-  mehr erforderlich im Encoder-Fenster zu bleiben, bis die Verbindung
-  hergestellt ist.
-* Es wurde ein Problem behoben, bei dem Encoderbefehle
-  (z.B. Streambezeichner) nicht mehr funktionierten, wenn von anderen
-  Programmen auf SAM-Fenster umgeschaltet wurde.
-
-## Änderungen in 3.2
-
-* Im SPL-Controller wurde ein Befehl hinzugefügt, um die verbleibende Zeit
-  für den aktuell wiedergegebenen Titel (R) zu melden.
-* Im SAM-Encoder-Fenster wurde die Meldung des Modus der Eingabehilfe für
-  den Befehl Shift+F11 korrigiert.
-* Im Kartenexplorer wird NVDA beim Verwenden von Studio-Standard melden,
-  dass die Zahlreihenbefehle für die Zuweisung von Karten nicht verfügbar
-  sind.
-* In Studio 5.10 spielt der Titelfinder beim Durchsuchen von Titeln keine
-  Fehlertöne mehr ab.
-* neue und aktualisierte Übersetzungen.
-
-## Änderungen in 3.1
-
-* Im SAM Encoder-Fenster wurde ein Befehl (Shift+F11) hinzugefügt, um Studio
-  anzuweisen den ersten Titel bei erfolgreicher Verbindung abzuspielen.
-* Es wurden zahlreiche Fehler bei der Verbindung zu einem Server in SAM
-  Encoder behoben. Darunter z.B. die Probleme der fehlenden Ansage über den
-  Verbindungsstatus beim Ausführen von NVDA-Befehlen, wobei Fehlertöne
-  anstelle von Verbindungstönen bei erfolgreicher Verbindung ausgegeben
-  wurden.
-
-## Änderungen in 3.0
-
-* Der Karten-Explorer wurde hinzugefügt, um die Zuordnung von Karten zu
-  lernen (bis zu 96 Karten können zugewiesen werden).
-* Neue Befehle wurden im SPL-Assistenten hinzugefügt. Darunter sind
-  z.B. Sendezeit (NVDA+Shift+F12), Anzahl der Zuhörer (i) und nächste
-  Titelbezeichnung (n).
-* Meldungen wie z.B. Automatisierung werden nun in Brailleschrift angezeigt,
-  unabhängig von der Einstellung der Ansage.
-* Wenn das StationPlaylist-Fenster im Infobereich oder in der Taskleiste
-  minimiert ist, wird NVDA dies ansagen. Das gilt nur beim Versuch anderer
-  Programme auf SPL umzuschalten.
-* Fehlertöne werden nicht mehr ausgegeben, wenn unterschiedliche Ansagen von
-  Schaltern auf Pieptöne eingestellt sind bzw. andere Statusmeldungen als
-  ein / aus angesagt werden (Beispiel: Karten abspielen).
-* Fehlertöne werden nicht mehr ausgegeben, wenn während beim Versuch
-  Informationen wie die verbleibende Zeit abzurufen ein anderes
-  Studio-Fenster als die Titelliste (z.B. Einstellungsdialog) fokussiert
-  ist. Wenn die benötigten Informationen nicht gefunden werden, wird NVDA
-  dies ansagen.
-* Sie können jetzt einen Titel nach Künstlernamen suchen. Vorher konnte nach
-  Bezeichnungen gesucht werden.
-* Unterstützung für SAM Encoder, einschließlich der Möglichkeit, den Encoder
-  zu beschriften. Unterstützung eines Befehls zum Umschalten auf Studio,
-  wenn der ausgewählte Encoder angeschlossen ist.
-* Hilfe zur Erweiterung ist über den Dialog Erweiterungen verwalten
-  verfügbar.
-
-## Änderungen in 2.1
-
-* Es wurde ein Problem behoben, bei dem ein Benutzer Probleme beim abrufen
-  der Statusinformationen wie den Automatisierungsstatus hatte, wenn SPL 5.x
-  mit laufendem NVDA zum ersten Mal gestartet wurde.
-
-## Änderungen in 2.0
-
-* Einige globale und Anwendungsspezifische Tastenkombinationen wurden
-  entfernt, so dass Sie einen benutzerdefinierten Befehl aus dem Dialogfeld
-  Eingaben zuweisen können (Erweiterungsversion 2.0 erfordert NVDA 2013.3
-  oder höher).
-* Es wurden weitere Befehle des SPL-Assistenten hinzugefügt, wie z.B. der
-  Status im Kartenbearbeitungsmodus.
-* Sie können jetzt zu SPL Studio wechseln, auch wenn alle Fenster minimiert
-  sind. Dies funktioniert möglicherweise nicht in  allen Fällen.
-* Der Bereich für das Ende des Titel-Alarms wurde auf 59 Sekunden erhöht.
-* Sie können nun in einer Playlist nach einem Titel suchen (STRG+NVDA+F zum
-  Suchen, NVDA+F3 bzw. NVDA+Umschalt+F3 zum Suchen vorwärts oder rückwärts).
-* Kombinationsfelder werden von NVDA Genauer Bezeichnet (z.B. im Dialogfeld
-  "Einstellungen der Studio-Erweiterung" und in ersten SPL
-  Einstellungs-Dialogen).
-* Es wurde ein Problem behoben, wo NVDA falsche Informationen beim Abrufen
-  der verbleibenden Zeit für einen Titel in SPL Studio 5 angesagt hat.
-
-## Änderungen in 1.2
-
-* Es ist wieder möglich die verstrichene und verbleibende Zeit für einen
-  Titel abzurufen, wenn Station Playlist 4.x auf bestimmten PCs mit Windows
-  8/8.1 installiert ist.
-* Übersetzungen aktualisiert
-
-## Änderungen in 1.1
-
-* Einen neuen Befehl wurde hinzugefügt (STRG + NVDA + 2), um die Länge des
-  Alarms für die verbleibende Abspielzeit eines Titels festzulegen.
-* Es wurde ein Fehler behoben, bei dem Feldnamen für bestimmte Eingabefelder
-  nicht angesagt wurden (insbesondere Eingabefelder im Dialog für die
-  Einstellungen der Studio-Erweiterung).
-* Verschiedene Übersetzungen hinzugefügt.
-
-
-## Änderungen in 1.0
-
-* Ehrstveröffentlichung
+Please see changelog link for release notes for old add-on releases.
 
 [[!tag dev stable]]
 
@@ -1262,6 +1052,8 @@ Funktionen von 4.0 für Benutzer früherer Versionen von Studio bereitstellt.
 
 [2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
 
-[3]: http://josephsl.net/files/nvdaaddons/get.php?file=spl-lts16
+[3]: http://www.josephsl.net/files/nvdaaddons/getupdate.php?file=spl-lts16
 
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
+
+[5]: https://github.com/josephsl/stationplaylist/wiki/splchangelog
