@@ -1,6 +1,6 @@
 # SPL Studio Miscellaneous User Interfaces and internal services
 # An app module and global plugin package for NVDA
-# Copyright 2015-2017 Joseph Lee and others, released under GPL.
+# Copyright 2015-2018 Joseph Lee and others, released under GPL.
 # Miscellaneous functions and user interfaces
 # Split from config module in 2015.
 
