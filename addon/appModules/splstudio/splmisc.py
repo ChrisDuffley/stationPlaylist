@@ -379,6 +379,11 @@ class SPLCountdownTimer(object):
 
 # Metadata and encoders management, including connection, announcement and so on.
 
+# Gather streaming flags into a list.
+def metadataList(handle=None):
+	if handle is None: handle = user32.FindWindowA("SPLStudio", None)
+	return [sendMessage(handle, 1024, pos, 36) for pos in xrange(5)]
+
 # Metadata server connector, to be utilized from many modules.
 # Servers refer to a list of connection flags to pass to Studio API, and if not present, will be pulled from add-on settings.
 def metadataConnector(handle=None, servers=None):
@@ -394,12 +399,13 @@ def metadataConnector(handle=None, servers=None):
 # Metadata status formatter.
 def metadataStatus(handle=None):
 	if handle is None: handle = user32.FindWindowA("SPLStudio", None)
-	# Gather stream flags.
+	streams = metadataList(handle=handle)
 	# DSP is treated specially.
-	dsp = sendMessage(handle, 1024, 0, 36)
+	dsp = streams[0]
 	# For others, a simple list.append will do.
 	# 17.04: Use a conditional list comprehension.
-	streamCount = [str(pos) for pos in xrange(1, 5) if sendMessage(handle, 1024, pos, 36)]
+	# 18.02: comprehend based on streams list from above.
+	streamCount = [str(pos) for pos in xrange(1, 5) if streams[pos]]
 	# Announce streaming status when told to do so.
 	status = None
 	if not len(streamCount):

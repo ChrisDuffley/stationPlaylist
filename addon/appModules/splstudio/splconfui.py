@@ -1100,7 +1100,7 @@ class MetadataStreamingDialog(wx.Dialog):
 			return super(cls, cls).__new__(cls, parent, *args, **kwargs)
 		return inst
 
-	def __init__(self, parent, func=None):
+	def __init__(self, parent, configDialogActive=True):
 		inst = MetadataStreamingDialog._instance() if MetadataStreamingDialog._instance else None
 		if inst:
 			return
@@ -1109,12 +1109,13 @@ class MetadataStreamingDialog(wx.Dialog):
 
 		# Translators: Title of a dialog to configure metadata streaming status for DSP encoder and four additional URL's.
 		super(MetadataStreamingDialog, self).__init__(parent, title=_("Metadata streaming options"))
-		self.func = func
+		# #44 (18.02): Config dialog flag controls how stream value will be gathered and set (if true, this is part of add-on settings, otherwise use Studio API).
+		self.configDialogActive = configDialogActive
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		metadataSizerHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 
-		if func is None: labelText=_("Select the URL for metadata streaming upon request.")
+		if configDialogActive: labelText=_("Select the URL for metadata streaming upon request.")
 		else: labelText=_("Check to enable metadata streaming, uncheck to disable.")
 		metadataSizerHelper.addItem(wx.StaticText(self, label=labelText))
 
@@ -1126,13 +1127,15 @@ class MetadataStreamingDialog(wx.Dialog):
 		self.checkedStreams = []
 		# Add checkboxes for each stream, beginning with the DSP encoder.
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
+		import splmisc
+		streams = splmisc.metadataList()
 		for stream in xrange(5):
 			self.checkedStreams.append(sizer.addItem(wx.CheckBox(self, label=streamLabels[stream])))
-			if func: self.checkedStreams[-1].SetValue(func(stream, 36, ret=True))
+			if not configDialogActive: self.checkedStreams[-1].SetValue(streams[stream])
 			else: self.checkedStreams[-1].SetValue(self.Parent.metadataStreams[stream])
 		metadataSizerHelper.addItem(sizer.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 
-		if self.func is not None:
+		if not configDialogActive:
 			# Translators: A checkbox to let metadata streaming status be applied to the currently active broadcast profile.
 			self.applyCheckbox = metadataSizerHelper.addItem(wx.CheckBox(self, label=_("&Apply streaming changes to the selected profile")))
 			self.applyCheckbox.SetValue(True)
@@ -1148,27 +1151,24 @@ class MetadataStreamingDialog(wx.Dialog):
 
 	def onOk(self, evt):
 		global _metadataDialogOpened
-		if self.func is None: parent = self.Parent
-		metadataEnabled = []
-		for url in xrange(5):
-			if self.func is None: parent.metadataStreams[url] = self.checkedStreams[url].Value
-			else:
-				dataLo = 0x00010000 if self.checkedStreams[url].Value else 0xffff0000
-				self.func(dataLo | url, 36)
-				if self.applyCheckbox.Value: metadataEnabled.append(self.checkedStreams[url].Value)
-		if self.func is None:
+		# Prepare checkbox values first for various reasons.
+		metadataEnabled = [self.checkedStreams[url].Value for url in xrange(5)]
+		if self.configDialogActive:
+			parent = self.Parent
+			parent.metadataStreams = metadataEnabled
 			parent.profiles.SetFocus()
 			parent.Enable()
 		else:
+			import splmisc
+			splmisc.metadataConnector(servers=metadataEnabled):
 			# 6.1: Store just toggled settings to profile if told to do so.
-			if len(metadataEnabled): splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = metadataEnabled
+			if self.applyCheckbox.Value: splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = metadataEnabled
 		self.Destroy()
 		_metadataDialogOpened = False
-		return
 
 	def onCancel(self, evt):
 		global _metadataDialogOpened
-		if self.func is None: self.Parent.Enable()
+		if self.configDialogActive: self.Parent.Enable()
 		self.Destroy()
 		_metadataDialogOpened = False
 

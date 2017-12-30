@@ -1458,8 +1458,9 @@ class AppModule(appModuleHandler.AppModule):
 			wx.CallAfter(gui.messageBox, _("The add-on settings dialog or the metadata streaming dialog is opened. Please close the opened dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
 			return
 		try:
-			# Passing in the function object is enough to change the dialog UI.
-			d = splconfui.MetadataStreamingDialog(gui.mainFrame, func=studioAPI)
+			# #44 (18.02): do not rely on Studio API function object as its workings (including arguments) may change.
+			# Use a flag to tell the streaming dialog that this is invoked from somewhere other than add-on settings dialog.
+			d = splconfui.MetadataStreamingDialog(gui.mainFrame, configDialogActive=False)
 			gui.mainFrame.prePopup()
 			d.Raise()
 			d.Show()
