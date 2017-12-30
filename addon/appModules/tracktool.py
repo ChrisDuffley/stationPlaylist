@@ -14,6 +14,9 @@ from splstudio import splconfig
 from splstudio.splmisc import _getColumnContent
 addonHandler.initTranslation()
 
+# Python 3 preparation (a compatibility layer until Six module is included).
+rangeGen = range if py3 else xrange
+
 # Track Tool allows a broadcaster to manage track intros, cues and so forth. Each track is a list item with descriptions such as title, file name, intro time and so forth.
 # One can press TAB to move along the controls for Track Tool.
 
@@ -37,7 +40,7 @@ class TrackToolItem(IAccessible):
 
 	def initOverlayClass(self):
 		# 8.0: Assign Control+NVDA+number row for Columns Explorer just like the main app module.
-		for i in range(10) if py3 else xrange(10):
+		for i in rangeGen(10):
 			self.bindGesture("kb:control+nvda+%s"%(i), "columnExplorer")
 
 	# Tweak for Track Tool: Announce column header if given.

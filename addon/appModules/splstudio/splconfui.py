@@ -18,6 +18,9 @@ from . import splupdate
 from . import splconfig
 from . import splactions
 
+# Python 3 preparation (a compatibility layer until Six module is included).
+rangeGen = range if py3 else xrange
+
 # Until wx.CENTER_ON_SCREEN returns...
 CENTER_ON_SCREEN = wx.CENTER_ON_SCREEN if hasattr(wx, "CENTER_ON_SCREEN") else 2
 
@@ -335,7 +338,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	# Include profile flags such as instant profile string for display purposes.
 	def displayProfiles(self, profiles):
-		for index in xrange(len(profiles)):
+		for index in rangeGen(len(profiles)):
 			profiles[index] = splconfig.getProfileFlags(profiles[index])
 		return profiles
 
@@ -665,7 +668,7 @@ class TriggersDialog(wx.Dialog):
 		daysSizer = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Day")), wx.HORIZONTAL)
 		self.triggerDays = []
 		import calendar
-		for day in xrange(len(calendar.day_name)):
+		for day in rangeGen(len(calendar.day_name)):
 			triggerDay=wx.CheckBox(self, wx.NewId(),label=calendar.day_name[day])
 			triggerDay.SetValue((64 >> day & self.Parent._profileTriggersConfig[profile][0]) if profile in self.Parent._profileTriggersConfig else 0)
 			if not self.timeSwitchCheckbox.IsChecked(): triggerDay.Disable()
@@ -1129,7 +1132,7 @@ class MetadataStreamingDialog(wx.Dialog):
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		import splmisc
 		streams = splmisc.metadataList()
-		for stream in xrange(5):
+		for stream in rangeGen(5):
 			self.checkedStreams.append(sizer.addItem(wx.CheckBox(self, label=streamLabels[stream])))
 			if not configDialogActive: self.checkedStreams[-1].SetValue(streams[stream])
 			else: self.checkedStreams[-1].SetValue(self.Parent.metadataStreams[stream])
@@ -1152,7 +1155,7 @@ class MetadataStreamingDialog(wx.Dialog):
 	def onOk(self, evt):
 		global _metadataDialogOpened
 		# Prepare checkbox values first for various reasons.
-		metadataEnabled = [self.checkedStreams[url].Value for url in xrange(5)]
+		metadataEnabled = [self.checkedStreams[url].Value for url in rangeGen(5)]
 		if self.configDialogActive:
 			parent = self.Parent
 			parent.metadataStreams = metadataEnabled
@@ -1160,7 +1163,7 @@ class MetadataStreamingDialog(wx.Dialog):
 			parent.Enable()
 		else:
 			import splmisc
-			splmisc.metadataConnector(servers=metadataEnabled):
+			splmisc.metadataConnector(servers=metadataEnabled)
 			# 6.1: Store just toggled settings to profile if told to do so.
 			if self.applyCheckbox.Value: splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = metadataEnabled
 		self.Destroy()
@@ -1313,7 +1316,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 		# 7.0: Studio 5.0x columns.
 		# 17.04: Five by two grid layout as 5.0x is no longer supported.
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
-		for slot in xrange(5):
+		for slot in rangeGen(5):
 			# Translators: The label for a setting in SPL add-on dialog to select column for this column slot.
 			columns = sizer.addLabeledControl(_("Slot {position}").format(position = slot+1), wx.Choice, choices=cols)
 			try:
@@ -1324,7 +1327,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 		colExplorerHelper.addItem(sizer.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
-		for slot in xrange(5, 10):
+		for slot in rangeGen(5, 10):
 			columns = sizer.addLabeledControl(_("Slot {position}").format(position = slot+1), wx.Choice, choices=cols)
 			try:
 				columns.SetSelection(cols.index(parent.exploreColumns[slot] if not tt else parent.exploreColumnsTT[slot]))
@@ -1345,7 +1348,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 	def onOk(self, evt):
 		parent = self.Parent
 		slots = parent.exploreColumns if not self.trackTool else parent.exploreColumnsTT
-		for slot in xrange(len(self.columnSlots)):
+		for slot in rangeGen(len(self.columnSlots)):
 			slots[slot] = self.columnSlots[slot].GetStringSelection()
 		parent.profiles.SetFocus()
 		parent.Enable()

@@ -42,6 +42,9 @@ import addonHandler
 addonHandler.initTranslation()
 from .spldebugging import debugOutput
 
+# Python 3 preparation (a compatibility layer until Six module is included).
+rangeGen = range if py3 else xrange
+
 # Make sure the broadcaster is running a compatible version.
 SPLMinVersion = "5.10"
 
@@ -129,7 +132,7 @@ class SPLTrackItem(IAccessible):
 	def initOverlayClass(self):
 		# LTS: Take a greater role in assigning enhanced Columns Explorer command at the expense of limiting where this can be invoked.
 		# 8.0: Just assign number row.
-		for i in range(10) if py3 else xrange(10):
+		for i in rangeGen(10):
 			self.bindGesture("kb:control+nvda+%s"%(i), "columnExplorer")
 
 	# Locate the real column index for a column header.
@@ -509,7 +512,7 @@ class ReversedDialog(Dialog):
 		textList=[]
 		childCount=len(children)
 		# For these dialogs, children are arranged in reverse tab order (very strange indeed).
-		for index in range(childCount-1, -1, -1) if py3 else xrange(childCount-1, -1, -1):
+		for index in rangeGen(childCount-1, -1, -1):
 			child=children[index]
 			childStates=child.states
 			childRole=child.role
@@ -1266,7 +1269,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	def buildFNCarts(self):
 		# Used xrange, as it is much faster; change this to range if NvDA core decides to use Python 3.
-		for i in range(12) if py3 else xrange(12):
+		# 18.02: use rangeGen that'll be assigned to range or xrange depending on Python version for now.
+		for i in rangeGen(12):
 			self.bindGesture("kb:f%s"%(i+1), "cartExplorer")
 			self.bindGesture("kb:shift+f%s"%(i+1), "cartExplorer")
 			self.bindGesture("kb:control+f%s"%(i+1), "cartExplorer")
@@ -1516,7 +1520,7 @@ class AppModule(appModuleHandler.AppModule):
 			filename = studioAPI(start, 211, ret=True)
 			totalLength = studioAPI(filename, 30, ret=True)
 		else:
-			for track in range(start, end+1) if py3 else xrange(start, end+1):
+			for track in rangeGen(start, end+1):
 				filename = studioAPI(track, 211, ret=True)
 				totalLength+=studioAPI(filename, 30, ret=True)
 		return totalLength
@@ -1732,10 +1736,10 @@ class AppModule(appModuleHandler.AppModule):
 			elif splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "wineyes": self.bindGestures(self.__SPLAssistantWEGestures)
 			# 7.0: Certain commands involving number row.
 			# 8.0: Also assign encoder status commands in addition to columns explorer.
-			for i in range(5) if py3 else xrange(5):
+			for i in rangeGen(5):
 				self.bindGesture("kb:%s"%(i), "columnExplorer")
 				self.bindGesture("kb:shift+%s"%(i), "metadataEnabled")
-			for i in range(5, 10) if py3 else xrange(5, 10):
+			for i in rangeGen(5, 10):
 				self.bindGesture("kb:%s"%(i), "columnExplorer")
 			self.SPLAssistant = True
 			tones.beep(512, 50)

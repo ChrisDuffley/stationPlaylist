@@ -6,6 +6,8 @@
 
 # JL's disclaimer: Apart from CSV module, others in this folder are my modules. CSV is part of Python distribution (Copyright Python Software Foundation).
 
+import sys
+py3 = sys.version.startswith("3")
 import ctypes
 import weakref
 import os
@@ -16,6 +18,9 @@ import ui
 from winUser import user32, sendMessage
 from .spldebugging import debugOutput
 from . import splactions
+
+# Python 3 preparation (a compatibility layer until Six module is included).
+rangeGen = range if py3 else xrange
 
 # Until wx.CENTER_ON_SCREEN returns...
 CENTER_ON_SCREEN = wx.CENTER_ON_SCREEN if hasattr(wx, "CENTER_ON_SCREEN") else 2
@@ -382,7 +387,7 @@ class SPLCountdownTimer(object):
 # Gather streaming flags into a list.
 def metadataList(handle=None):
 	if handle is None: handle = user32.FindWindowA("SPLStudio", None)
-	return [sendMessage(handle, 1024, pos, 36) for pos in xrange(5)]
+	return [sendMessage(handle, 1024, pos, 36) for pos in rangeGen(5)]
 
 # Metadata server connector, to be utilized from many modules.
 # Servers refer to a list of connection flags to pass to Studio API, and if not present, will be pulled from add-on settings.
@@ -392,7 +397,7 @@ def metadataConnector(handle=None, servers=None):
 	if servers is None:
 		from . import splconfig
 		servers = splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"]
-	for url in xrange(5):
+	for url in rangeGen(5):
 		dataLo = 0x00010000 if servers[url] else 0xffff0000
 		sendMessage(handle, 1024, dataLo | url, 36)
 
@@ -405,7 +410,7 @@ def metadataStatus(handle=None):
 	# For others, a simple list.append will do.
 	# 17.04: Use a conditional list comprehension.
 	# 18.02: comprehend based on streams list from above.
-	streamCount = [str(pos) for pos in xrange(1, 5) if streams[pos]]
+	streamCount = [str(pos) for pos in rangeGen(1, 5) if streams[pos]]
 	# Announce streaming status when told to do so.
 	status = None
 	if not len(streamCount):

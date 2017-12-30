@@ -416,13 +416,16 @@ class Encoder(IAccessible):
 		streamLabels.write()
 
 	def script_streamLabelEraser(self, gesture):
+		# Unfortunately, py3 flag must be checked here.
+		import sys
+		choices = [str(pos) for pos in range(1, self.simpleParent.childCount)] if sys.version.startswith("3") else [str(pos) for pos in xrange(1, self.simpleParent.childCount)]
 		# Translators: The title of the stream configuration eraser dialog.
 		streamEraserTitle = _("Stream label and settings eraser")
 		# Translators: The text of the stream configuration eraser dialog.
 		streamEraserText = _("Enter the position of the encoder you wish to delete or will delete")
-		# 17.12: wxPython 4 does not have number entry dialog, so replace it with a combo box dialog.
+		# 17.12: wxPython 4 does not have number entry dialog, so replace it with a combo box.
 		dlg = wx.SingleChoiceDialog(gui.mainFrame,
-		streamEraserText, streamEraserTitle, choices=[str(pos) for pos in xrange(1, self.simpleParent.childCount)])
+		streamEraserText, streamEraserTitle, choices=choices)
 		dlg.SetSelection(self.IAccessibleChildID-1)
 		def callback(result):
 			if result == wx.ID_OK:
