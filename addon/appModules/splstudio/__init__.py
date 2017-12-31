@@ -94,8 +94,7 @@ def studioAPI(arg, command, ret=False):
 	debugOutput("Studio API wParem is %s, lParem is %s"%(arg, command))
 	val = sendMessage(_SPLWin, 1024, arg, command)
 	debugOutput("Studio API result is %s"%val)
-	if ret:
-		return val
+	return val
 
 # Check if Studio itself is running.
 # This is to make sure custom commands for SPL Assistant commands and other app module gestures display appropriate error messages.
