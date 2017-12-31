@@ -84,10 +84,10 @@ def micAlarmManager(micAlarmWav, micAlarmMessage):
 		micAlarmT2.Start(splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] * 1000)
 
 # Use SPL Studio API to obtain needed values.
-# A thin wrapper around user32.SendMessage and calling a callback if defined.
-# Offset is used in some time commands.
+# A thin wrapper around user32.SendMessage function with Studio handle and WM_USER supplied.
+# #45 (18.02): returns whatever result SendMessage function says.
 # If debugging framework is on, print arg, command and other values.
-def studioAPI(arg, command, func=None, ret=False, offset=None):
+def studioAPI(arg, command, ret=False):
 	if _SPLWin is None:
 		debugOutput("Studio handle not found")
 		return
@@ -96,8 +96,6 @@ def studioAPI(arg, command, func=None, ret=False, offset=None):
 	debugOutput("Studio API result is %s"%val)
 	if ret:
 		return val
-	if func:
-		func(val) if not offset else func(val, offset)
 
 # Check if Studio itself is running.
 # This is to make sure custom commands for SPL Assistant commands and other app module gestures display appropriate error messages.
