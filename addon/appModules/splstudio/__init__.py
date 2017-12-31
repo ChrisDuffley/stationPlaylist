@@ -1001,12 +1001,12 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Scripts which rely on API.
 	def script_sayRemainingTime(self, gesture):
-		if studioIsRunning(): studioAPI(3, 105, self.announceTime, offset=1)
+		if studioIsRunning(): self.announceTime(studioAPI(3, 105, ret=True), offset=1)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayRemainingTime.__doc__=_("Announces the remaining track time.")
 
 	def script_sayElapsedTime(self, gesture):
-		if studioIsRunning(): studioAPI(0, 105, self.announceTime)
+		if studioIsRunning(): self.announceTime(studioAPI(0, 105, ret=True))
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayElapsedTime.__doc__=_("Announces the elapsed time for the currently playing track.")
 
@@ -1843,11 +1843,11 @@ class AppModule(appModuleHandler.AppModule):
 			ui.message(self.status(self.SPLPlayStatus).getChild(5).name)
 
 	def script_sayHourTrackDuration(self, gesture):
-		studioAPI(0, 27, self.announceTime)
+		self.announceTime(studioAPI(0, 27, ret=True))
 
 	def script_sayHourRemaining(self, gesture):
 		# 7.0: Split from playlist remaining script (formerly the playlist remainder command).
-		studioAPI(1, 27, self.announceTime)
+		self.announceTime(studioAPI(1, 27, ret=True))
 
 	def script_sayPlaylistRemainingDuration(self, gesture):
 		obj = api.getFocusObject() if api.getForegroundObject().windowClassName == "TStudioForm" else self._focusedTrack
