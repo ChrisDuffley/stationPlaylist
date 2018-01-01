@@ -1,6 +1,6 @@
 # StationPlaylist Studio update checker
 # A support module for SPL add-on
-# Copyright 2015-2017 Joseph Lee, released under GPL.
+# Copyright 2015-2018 Joseph Lee, released under GPL.
 
 # Provides update check facility, basics borrowed from NVDA Core's update checker class.
 
