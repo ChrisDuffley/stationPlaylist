@@ -86,9 +86,9 @@ def terminate():
 def checkForAddonUpdate():
 	updateURL = SPLUpdateURL if SPLUpdateChannel not in channels else channels[SPLUpdateChannel]
 	# Skip ahead:
-	import versionInfo
-	if SPLUpdateChannel == "try" and (versionInfo.version_year, versionInfo.version_major) >= (2017, 4):
-		updateURL = "http://www.josephsl.net/files/nvdaaddons/getupdate.php?file=spl-tryahead"
+	#import versionInfo
+	#if SPLUpdateChannel == "try" and (versionInfo.version_year, versionInfo.version_major) >= (2017, 4):
+		#updateURL = "http://www.josephsl.net/files/nvdaaddons/getupdate.php?file=spl-tryahead"
 	# Skip ahead end
 	try:
 		# Look up the channel if different from the default.
