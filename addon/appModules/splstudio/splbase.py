@@ -33,3 +33,9 @@ def studioIsRunning():
 		ui.message(_("Studio main window not found"))
 		return False
 	return True
+
+# Select a track upon request.
+def selectTrack(trackIndex):
+	studioAPI(-1, 121)
+	debugOutput("selecting track index %s"%trackIndex)
+	studioAPI(trackIndex, 121)
