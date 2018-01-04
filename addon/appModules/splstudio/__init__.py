@@ -1219,7 +1219,7 @@ class AppModule(appModuleHandler.AppModule):
 	def script_timeRangeFinder(self, gesture):
 		if self._trackFinderCheck(2):
 			try:
-				d = splmisc.SPLTimeRangeDialog(gui.mainFrame, api.getFocusObject(), studioAPI)
+				d = splmisc.SPLTimeRangeDialog(gui.mainFrame, api.getFocusObject())
 				gui.mainFrame.prePopup()
 				d.Raise()
 				d.Show()

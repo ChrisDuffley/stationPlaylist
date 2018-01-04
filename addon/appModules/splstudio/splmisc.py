@@ -16,6 +16,7 @@ import gui
 import wx
 import ui
 from winUser import user32, sendMessage
+from . import splbase
 from .spldebugging import debugOutput
 from . import splactions
 
@@ -159,7 +160,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 			return super(cls, cls).__new__(cls, parent, *args, **kwargs)
 		return inst
 
-	def __init__(self, parent, obj, func):
+	def __init__(self, parent, obj):
 		inst = SPLTimeRangeDialog._instance() if SPLTimeRangeDialog._instance else None
 		if inst:
 			return
@@ -169,7 +170,6 @@ class SPLTimeRangeDialog(wx.Dialog):
 		# Translators: The title of a dialog to find tracks with duration within a specified range.
 		super(SPLTimeRangeDialog, self).__init__(parent, wx.ID_ANY, _("Time range finder"))
 		self.obj = obj
-		self.func = func
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
@@ -230,16 +230,16 @@ class SPLTimeRangeDialog(wx.Dialog):
 			obj = self.obj.next
 			# Manually locate tracks here.
 			while obj is not None:
-				filename = self.func(obj.IAccessibleChildID-1, 211)
-				if minDuration <= self.func(filename, 30) <= maxDuration:
+				filename = splbase.studioAPI(obj.IAccessibleChildID-1, 211)
+				if minDuration <= splbase.studioAPI(filename, 30) <= maxDuration:
 					break
 				obj = obj.next
 			if obj is not None:
 				# This time, set focus once, as doing it twice causes focus problems only if using Studio 5.10 or later.
 				obj.setFocus()
 				# 16.11: Select the desired track manually.
-				self.func(-1, 121)
-				self.func(obj.IAccessibleChildID-1, 121)
+				# #45 (18.02): call select track function in splbase module.
+				splbase.selectTrack(obj.IAccessibleChildID-1)
 			else:
 				wx.CallAfter(gui.messageBox,
 				# Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
