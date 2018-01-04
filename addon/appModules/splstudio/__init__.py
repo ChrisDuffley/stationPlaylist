@@ -49,9 +49,6 @@ rangeGen = range if py3 else xrange
 # Make sure the broadcaster is running a compatible version.
 SPLMinVersion = "5.10"
 
-# Cache the handle to main Studio window.
-_SPLWin = None
-
 # Threads pool.
 micAlarmT = None
 micAlarmT2 = None
@@ -625,8 +622,7 @@ class AppModule(appModuleHandler.AppModule):
 			hwnd = user32.FindWindowA("SPLStudio", None)
 		# Only this thread will have privilege of notifying handle's existence.
 		with threading.Lock() as hwndNotifier:
-			global _SPLWin
-			_SPLWin = hwnd
+			splbase._SPLWin = hwnd
 			debugOutput("Studio handle is %s"%hwnd)
 		# Remind me to broadcast metadata information.
 		if splconfig.SPLConfig["General"]["MetadataReminder"] == "startup":
@@ -832,7 +828,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Respond to profile switches if asked.
 	def actionProfileSwitched(self):
 		# #38 (17.11/15.10-LTS): obtain microphone alarm status.
-		if _SPLWin is not None: self.doExtraAction(self.sayStatus(2, statusText=True))
+		if splbase._SPLWin is not None: self.doExtraAction(self.sayStatus(2, statusText=True))
 
 	# Alarm announcement: Alarm notification via beeps, speech or both.
 	def alarmAnnounce(self, timeText, tone, duration, intro=False):
@@ -924,8 +920,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Don't forget to reset timestamps for cart files.
 		splmisc._cartEditTimestamps = [0, 0, 0, 0]
 		# Just to make sure:
-		global _SPLWin
-		if _SPLWin: _SPLWin = None
+		if splbase._SPLWin: splbase._SPLWin = None
 		# 17.10: remove add-on specific command-line switches.
 		# This is necessary in order to restore full config functionality when NVDA restarts.
 		for cmdSwitch in globalVars.appArgsExtra:
@@ -1417,12 +1412,12 @@ class AppModule(appModuleHandler.AppModule):
 	# First, the reminder function.
 	# 7.0: Calls the module-level version.
 	def _metadataAnnouncer(self, reminder=False):
-		splmisc._metadataAnnouncer(reminder=reminder, handle=_SPLWin)
+		splmisc._metadataAnnouncer(reminder=reminder, handle=splbase._SPLWin)
 
 	# The script version to open the manage metadata URL's dialog.
 	def script_manageMetadataStreams(self, gesture):
 		# Do not even think about opening this dialog if handle to Studio isn't found.
-		if _SPLWin is None:
+		if splbase._SPLWin is None:
 			# Translators: Presented when streaming dialog cannot be shown.
 			ui.message(_("Cannot open metadata streaming dialog"))
 			return
@@ -1690,7 +1685,7 @@ class AppModule(appModuleHandler.AppModule):
 			return
 		try:
 			# 7.0: Don't bother if handle to Studio isn't found.
-			if _SPLWin is None:
+			if splbase._SPLWin is None:
 				# Translators: Presented when SPL Assistant cannot be invoked.
 				ui.message(_("Failed to locate Studio main window, cannot enter SPL Assistant"))
 				return
