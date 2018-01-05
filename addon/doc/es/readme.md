@@ -308,13 +308,13 @@ realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
 
-## Version 18.01/15.12-LTS
+## Versión 18.01/15.12-LTS
 
-* When using JAWS layout for SPL Assistant, update check command
-  (Control+Shift+U) now works correctly.
-* When changing microphone alarm settings via the alarm dialog (Alt+NVDA+4),
-  changes such as enabling alarm and changes to microphone alarm interval
-  are applied when closing the dialog.
+* Al utilizar la distribución de JAWS para SPL Assistant, la orden buscar
+  actualizaciones (Control+Shift+U) ahora funciona correctamente.
+* Al cambiar las opciones de alarma de micrófono a través del diálogo alarma
+  (Alt+NVDA+4), cambios tales como habilitar alarma y cambios al intervalo
+  de alarma de micrófono se aplican cuando se cierre el diálogo.
 
 ## Versión 17.12
 
@@ -1058,9 +1058,10 @@ versión para versiones estables.
   de cadena, pulsa Control+F12, después selecciona la posición del
   codificador que has eliminado).
 
-## Older releases
+## Versiones antiguas
 
-Please see changelog link for release notes for old add-on releases.
+Por favor consulta el enlace changelog para notas de la versión para
+versiones antiguas del complemento.
 
 [[!tag dev stable]]
 
