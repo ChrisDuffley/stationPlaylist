@@ -318,11 +318,13 @@ ci-dessus pour exécuter des commandes.
 
 ## Version 18.01/15.12-LTS
 
-* When using JAWS layout for SPL Assistant, update check command
-  (Control+Shift+U) now works correctly.
-* When changing microphone alarm settings via the alarm dialog (Alt+NVDA+4),
-  changes such as enabling alarm and changes to microphone alarm interval
-  are applied when closing the dialog.
+* Lors de l'utilisation de la disposition de JAWS pour l'Assistant SPL, la
+  commande pour rechercher les mises à jour (Contrôle+Maj+U) fonctionne
+  désormais correctement.
+* Lorsque vous modifiez les paramètres alarme microphone via le dialogue
+  alarme (Alt+NVDA+4), des modifications telles que l'activation de l'alarme
+  et la modification de l'intervalle d'alarme sont appliquées à la fermeture
+  du dialogue.
 
 ## Version 17.12
 
@@ -1136,9 +1138,10 @@ year.month pour les publications stable.
   les étiquettes de flux, appuyez sur Contrôle+F12, puis sélectionnez la
   position de l'encodeur, que vous avez supprimé).
 
-## Older releases
+## Anciennes versions
 
-Please see changelog link for release notes for old add-on releases.
+S'il vous plaît voir le lien changelog pour les notes de version  pour les
+anciennes versions du modules complémentaire.
 
 [[!tag dev stable]]
 
