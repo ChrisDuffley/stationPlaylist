@@ -430,12 +430,20 @@ def metadataStatus(handle=None):
 		else: status = _("Metadata streaming configured for URL's {URL}").format(URL = ", ".join(streamCount))
 	return status
 
+# Internal metadata status announcer.
+# The idea is to pause for a while and announce the status message and playing the accompanying wave file.
+# This is necessary in order to allow extension points to work correctly and to not hold up other registered action handlers.
+def _metadataAnnouncerInternal(status):
+	import nvwave, queueHandler, speech
+	speech.cancelSpeech()
+	queueHandler.queueFunction(queueHandler.eventQueue, ui.message, status)
+	nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_Metadata.wav"))
+
 # Module-level version of metadata announcer
 # Moved to this module in 2016 to allow this function to work while Studio window isn't focused.
 # Split into several functions in 2017.
 # To preserve backward compatibility, let the announcer call individual functions above for a while.
 def _metadataAnnouncer(reminder=False, handle=None):
-	import time, nvwave, queueHandler, speech
 	if handle is None: handle = user32.FindWindowA("SPLStudio", None)
 	# If told to remind and connect, metadata streaming will be enabled at this time.
 	# 6.0: Call Studio API twice - once to set, once more to obtain the needed information.
@@ -444,11 +452,8 @@ def _metadataAnnouncer(reminder=False, handle=None):
 	if reminder: metadataConnector(handle=handle)
 	# Gather stream flags.
 	status = metadataStatus(handle=handle)
-	if reminder:
-		time.sleep(2)
-		speech.cancelSpeech()
-		queueHandler.queueFunction(queueHandler.eventQueue, ui.message, status)
-		nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_Metadata.wav"))
+	# #40 (18.02): call the internal announcer in order to not hold up action handler queue.
+	if reminder: wx.CallLater(2000, _metadataAnnouncerInternal, status)
 	else: ui.message(status)
 
 # Connect and/or announce metadata status when broadcast profile switching occurs.
@@ -460,8 +465,17 @@ def metadata_actionProfileSwitched(configDialogActive=False):
 		metadataConnector(servers=splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"])
 		return
 	# Ordinarily, errors would have been dealt with, but Action.notify will catch errors and log messages.
+	# #40 (18.02): the only possible error is if Studio handle is invalid, which won't be the case, otherwise no point handling this action.
 	if splconfig.SPLConfig["General"]["MetadataReminder"] in ("startup", "instant"):
-		_metadataAnnouncer(reminder=True)
+		# If told to remind and connect, metadata streaming will be enabled at this time.
+		# 6.0: Call Studio API twice - once to set, once more to obtain the needed information.
+		# 6.2/7.0: When Studio API is called, add the value into the stream count list also.
+		# 17.11: call the connector.
+		# 18.02: transfered to the action handler and greatly simplified.
+		handle = user32.FindWindowA("SPLStudio", None)
+		metadataConnector(handle=handle)
+		# #40 (18.02): call the internal announcer in order to not hold up action handler queue.
+		wx.CallLater(2000, _metadataAnnouncerInternal, metadataStatus(handle=handle))
 
 splactions.SPLActionProfileSwitched.register(metadata_actionProfileSwitched)
 
