@@ -478,13 +478,3 @@ def metadata_actionProfileSwitched(configDialogActive=False):
 		wx.CallLater(2000, _metadataAnnouncerInternal, metadataStatus(handle=handle))
 
 splactions.SPLActionProfileSwitched.register(metadata_actionProfileSwitched)
-
-# Microphone alarm checker.
-# Restart the microphone alarm timer if profile is switched and contains different mic alarm values.
-def _restartMicTimer():
-	# The only use of window handle is checking if Studio is running, especially if this function is invoked while demo reminder screen is active.
-	if not user32.FindWindowA("SPLStudio", None): return
-	from winUser import OBJID_CLIENT
-	from NVDAObjects.IAccessible import getNVDAObjectFromEvent
-	studioWindow = getNVDAObjectFromEvent(user32.FindWindowA("TStudioForm", None), OBJID_CLIENT, 0)
-	studioWindow.appModule.actionProfileSwitched()

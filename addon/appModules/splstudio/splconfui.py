@@ -993,8 +993,12 @@ class AlarmsCenter(wx.Dialog):
 				splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"] = self.micAlarmEntry.GetValue()
 				splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] = self.micIntervalEntry.GetValue()
 				# #42 (18.01/15.12-LTS): don't forget to restart microphone alarm timer.
-				import splmisc
-				splmisc._restartMicTimer()
+				# 18.02: do it here at once.
+				# It is fine to import something from winUser again as this will be traversed if and only if microphone alarm dialog is open with Studio active.
+				from winUser import OBJID_CLIENT
+				from NVDAObjects.IAccessible import getNVDAObjectFromEvent
+				studioWindow = getNVDAObjectFromEvent(user32.FindWindowA("TStudioForm", None), OBJID_CLIENT, 0)
+				studioWindow.appModule.actionProfileSwitched()
 		elif self.level == 0:
 			parent = self.Parent
 			parent.endOfTrackTime = self.outroAlarmEntry.GetValue()

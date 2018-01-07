@@ -23,7 +23,7 @@ import ui
 import gui
 import wx
 from . import splupdate
-from .splmisc import SPLCountdownTimer, _metadataAnnouncer, _restartMicTimer
+from .splmisc import SPLCountdownTimer, _metadataAnnouncer
 from . import splactions
 
 # Python 3 preparation (a compatibility layer until Six module is included).
@@ -493,7 +493,6 @@ class ConfigHub(ChainMap):
 			if self["Update"]["AutoUpdateCheck"]: updateInit()
 		# #38 (17.11/15.10-LTS): can't wait two seconds for microphone alarm to stop.
 		# #40 (17.12): all taken care of by profile switched notification.
-		_restartMicTimer()
 		splactions.SPLActionProfileSwitched.notify()
 
 	# Used from config dialog and other places.
