@@ -362,7 +362,12 @@ class SPLCountdownTimer(object):
 # Module-level version of metadata announcer.
 # Moved to this module in 2016 to allow this function to work while Studio window isn't focused.
 def _metadataAnnouncer(reminder=False, handle=None):
-	import time, nvwave, queueHandler, speech
+	# #47 (15.13-LTS): a closure to allow metadata streaming nanouncer to do its job without holding up others in the queue.
+	def _metadataAnnouncerInternal(status):
+		import nvwave, queueHandler, speech
+		speech.cancelSpeech()
+		queueHandler.queueFunction(queueHandler.eventQueue, ui.message, status)
+		nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_Metadata.wav"))
 	from . import splconfig
 	if handle is None: handle = user32.FindWindowA("SPLStudio", None)
 	# If told to remind and connect, metadata streaming will be enabled at this time.
@@ -395,11 +400,8 @@ def _metadataAnnouncer(reminder=False, handle=None):
 		if dsp: status = _("Metadata streaming configured for DSP encoder and URL's {URL}").format(URL = urltext)
 		# Translators: Status message for metadata streaming.
 		else: status = _("Metadata streaming configured for URL's {URL}").format(URL = urltext)
-	if reminder:
-		time.sleep(2)
-		speech.cancelSpeech()
-		queueHandler.queueFunction(queueHandler.eventQueue, ui.message, status)
-		nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_Metadata.wav"))
+	# #47 (15.13-LTS): call announcer via wx.CallLater.
+	if reminder: wx.CallLater(2000, _metadataAnnouncerInternal, status)
 	else: ui.message(status)
 
 # Microphone alarm checker.
