@@ -474,7 +474,7 @@ def metadata_actionProfileSwitched(configDialogActive=False):
 		# 18.02: transfered to the action handler and greatly simplified.
 		handle = user32.FindWindowA("SPLStudio", None)
 		metadataConnector(handle=handle)
-		# #40 (18.02): call the internal announcer in order to not hold up action handler queue.
+		# #47 (18.02/15.13-LTS): call the internal announcer via wx.CallLater in order to not hold up action handler queue.
 		wx.CallLater(2000, _metadataAnnouncerInternal, metadataStatus(handle=handle))
 
 splactions.SPLActionProfileSwitched.register(metadata_actionProfileSwitched)
