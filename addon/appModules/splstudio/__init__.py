@@ -965,17 +965,17 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Scripts which rely on API.
 	def script_sayRemainingTime(self, gesture):
-		if studioIsRunning(): self.announceTime(splbase.studioAPI(3, 105), offset=1)
+		if splbase.studioIsRunning(): self.announceTime(splbase.studioAPI(3, 105), offset=1)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayRemainingTime.__doc__=_("Announces the remaining track time.")
 
 	def script_sayElapsedTime(self, gesture):
-		if studioIsRunning(): self.announceTime(splbase.studioAPI(0, 105))
+		if splbase.studioIsRunning(): self.announceTime(splbase.studioAPI(0, 105))
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_sayElapsedTime.__doc__=_("Announces the elapsed time for the currently playing track.")
 
 	def script_sayBroadcasterTime(self, gesture):
-		if not studioIsRunning(): return
+		if not splbase.studioIsRunning(): return
 		# Says things such as "25 minutes to 2" and "5 past 11".
 		# #29: Also announces top of hour timer (mm:ss), the clock next to broadcaster time.
 		# Parse the local time and say it similar to how Studio presents broadcaster time.
@@ -1003,7 +1003,7 @@ class AppModule(appModuleHandler.AppModule):
 	script_sayBroadcasterTime.__doc__=_("Announces broadcaster time. If pressed twice, reports minutes and seconds left to top of the hour.")
 
 	def script_sayCompleteTime(self, gesture):
-		if not studioIsRunning(): return
+		if not splbase.studioIsRunning(): return
 		import winKernel
 		# Says complete time in hours, minutes and seconds via kernel32's routines.
 		ui.message(winKernel.GetTimeFormat(winKernel.LOCALE_USER_DEFAULT, 0, None, None))
@@ -1137,7 +1137,7 @@ class AppModule(appModuleHandler.AppModule):
 	# But first, check if track finder can be invoked.
 	# Attempt level specifies which track finder to open (0 = Track Finder, 1 = Column Search, 2 = Time range).
 	def _trackFinderCheck(self, attemptLevel):
-		if not studioIsRunning(): return False
+		if not splbase.studioIsRunning(): return False
 		if api.getForegroundObject().windowClassName != "TStudioForm":
 			if attemptLevel == 0:
 				# Translators: Presented when a user attempts to find tracks but is not at the track list.
@@ -1258,7 +1258,7 @@ class AppModule(appModuleHandler.AppModule):
 			self.bindGestures(self.__gestures)
 
 	def script_toggleCartExplorer(self, gesture):
-		if not studioIsRunning(): return
+		if not splbase.studioIsRunning(): return
 		if not self.cartExplorer:
 			# Prevent cart explorer from being engaged outside of playlist viewer.
 			# Todo for 6.0: Let users set cart banks.
@@ -1447,7 +1447,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Trakc time analysis and playlist snapshots require main playlist viewer to be the foreground window.
 	def _trackAnalysisAllowed(self):
-		if not studioIsRunning():
+		if not splbase.studioIsRunning():
 			return False
 		if api.getForegroundObject().windowClassName != "TStudioForm":
 			# Translators: Presented when track time analysis and/or playlist snapshot gathering cannot be performed because user is not focused on playlist viewer.
@@ -1837,7 +1837,7 @@ class AppModule(appModuleHandler.AppModule):
 			ui.message(_("Playlist modification not available"))
 
 	def script_sayNextTrackTitle(self, gesture):
-		if not studioIsRunning():
+		if not splbase.studioIsRunning():
 			self.finish()
 			return
 		try:
@@ -1859,7 +1859,7 @@ class AppModule(appModuleHandler.AppModule):
 	script_sayNextTrackTitle.__doc__=_("Announces title of the next track if any")
 
 	def script_sayCurrentTrackTitle(self, gesture):
-		if not studioIsRunning():
+		if not splbase.studioIsRunning():
 			self.finish()
 			return
 		try:
@@ -1881,7 +1881,7 @@ class AppModule(appModuleHandler.AppModule):
 	script_sayCurrentTrackTitle.__doc__=_("Announces title of the currently playing track")
 
 	def script_sayTemperature(self, gesture):
-		if not studioIsRunning():
+		if not splbase.studioIsRunning():
 			self.finish()
 			return
 		try:
@@ -2001,7 +2001,7 @@ class AppModule(appModuleHandler.AppModule):
 	script_trackTimeAnalysis.__doc__=_("Announces total length of tracks between analysis start marker and the current track")
 
 	def script_takePlaylistSnapshots(self, gesture):
-		if not studioIsRunning():
+		if not splbase.studioIsRunning():
 			self.finish()
 			return
 		obj = api.getFocusObject() if api.getForegroundObject().windowClassName == "TStudioForm" else self._focusedTrack
