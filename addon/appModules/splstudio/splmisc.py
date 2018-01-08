@@ -459,7 +459,7 @@ def _metadataAnnouncer(reminder=False, handle=None):
 # Connect and/or announce metadata status when broadcast profile switching occurs.
 # The config dialog active flag is only invoked when being notified while add-on settings dialog is focused.
 def metadata_actionProfileSwitched(configDialogActive=False):
-	import splconfig
+	from . import splconfig
 	# Only connect if add-on settings is active in order to avoid wasting thread running time.
 	if configDialogActive:
 		metadataConnector(servers=splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"])

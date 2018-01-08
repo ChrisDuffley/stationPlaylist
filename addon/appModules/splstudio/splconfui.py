@@ -1134,7 +1134,7 @@ class MetadataStreamingDialog(wx.Dialog):
 		self.checkedStreams = []
 		# Add checkboxes for each stream, beginning with the DSP encoder.
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
-		import splmisc
+		from . import splmisc
 		streams = splmisc.metadataList()
 		for stream in rangeGen(5):
 			self.checkedStreams.append(sizer.addItem(wx.CheckBox(self, label=streamLabels[stream])))
@@ -1166,7 +1166,7 @@ class MetadataStreamingDialog(wx.Dialog):
 			parent.profiles.SetFocus()
 			parent.Enable()
 		else:
-			import splmisc
+			from . import splmisc
 			splmisc.metadataConnector(servers=metadataEnabled)
 			# 6.1: Store just toggled settings to profile if told to do so.
 			if self.applyCheckbox.Value: splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = metadataEnabled
