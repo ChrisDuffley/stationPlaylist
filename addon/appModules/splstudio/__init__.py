@@ -600,7 +600,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Check for add-on update if told to do so.
 		# LTS: Only do this if channel hasn't changed.
 		splupdate.initialize()
-		if splupdate.canUpdate and (splconfig.SPLConfig["Update"]["AutoUpdateCheck"] or splupdate._updateNow):
+		if splupdate.canUpdate() and (splconfig.SPLConfig["Update"]["AutoUpdateCheck"] or splupdate._updateNow):
 			debugOutput("checking for add-on updates from %s channel"%splupdate.SPLUpdateChannel)
 			# 7.0: Have a timer call the update function indirectly.
 			import queueHandler

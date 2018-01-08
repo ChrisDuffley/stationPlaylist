@@ -24,9 +24,8 @@ import globalVars
 # There are times when update check should not be supported.
 try:
 	import updateCheck
-	canUpdate = True
 except RuntimeError:
-	canUpdate = False
+	pass
 
 # Add-on manifest routine (credit: various add-on authors including Noelia Martinez).
 # Do not rely on using absolute path to open to manifest, as installation directory may change in a future NVDA Core version (highly unlikely, but...).
@@ -87,6 +86,56 @@ def terminate():
 			SPLAddonState["pendingChannelChange"] = True
 		pickle.dump(SPLAddonState, file(_updatePickle, "wb"))
 	SPLAddonState = None
+
+SPLUpdateErrorNone = 0
+SPLUpdateErrorGeneric = 1
+SPLUpdateErrorSecureMode = 2
+SPLUpdateErrorTryBuild = 3
+SPLUpdateErrorSource = 4
+SPLUpdateErrorAppx = 5
+SPLUpdateErrorAddonsManagerUpdate = 6
+SPLUpdateErrorNoNetConnection = 7
+
+# These conditions are set when NVDA starts and cannot be changed at runtime, hence major errors.
+# This means no update channel selection, no retrys, etc.
+SPLUpdateMajorErrors = (SPLUpdateErrorSecureMode, SPLUpdateErrorTryBuild, SPLUpdateErrorSource, SPLUpdateErrorAppx, SPLUpdateErrorAddonsManagerUpdate)
+
+updateErrorMessages={
+	SPLUpdateErrorGeneric: _("An unexpected error occured. Please check NVDA log for details."),
+	SPLUpdateErrorSecureMode: _("NVDA is in secure mode. Please restart with secure mode disabled before checking for add-on updates."),
+	SPLUpdateErrorTryBuild: _("This is a try build of StationPlaylist Studio add-on. Please install the latest stable release to receive updates again."),
+	SPLUpdateErrorSource: _("Update checking not supported while running NVDA from source. Please run this add-on from an installed or a portable version of NVDA."),
+	SPLUpdateErrorAppx: _("This is a Windows Store version of NVDA. Add-on updating is supported on desktop version of NVDA."),
+	SPLUpdateErrorAddonsManagerUpdate: _("Cannot update add-on directly. Please check for add-on updates by going to add-ons manager."),
+	SPLUpdateErrorNoNetConnection: _("No internet connection. Please connect to the internet before checking for add-on update."),
+}
+
+# Only applicable for custom try builds.
+_customTryBuild = False
+
+# Check to really make sure add-on updating is supported.
+# Contrary to its name, 0 means yes, otherwise no.
+# For most cases, it'll return no errors except for scenarios outlined below.
+# The generic error (1) is meant to catch all errors not listed here, and for now, not used.
+def isAddonUpdatingSupported():
+	if globalVars.appArgs.secure:
+		return SPLUpdateErrorSecureMode
+	if _customTryBuild:
+		return SPLUpdateErrorTryBuild
+	import versionInfo
+	if not versionInfo.updateVersionType:
+		return SPLUpdateErrorSource
+	# NVDA 2018.1 and later.
+	import config
+	if hasattr(config, "isAppX") and config.isAppX:
+		return SPLUpdateErrorAppx
+	# Provided that NVDA issue 3208 is implemented.
+	if hasattr(addonHandler, "checkForAddonUpdate"):
+		return SPLUpdateErrorAddonsManagerUpdate
+	return SPLUpdateErrorNone
+
+def canUpdate():
+	return isAddonUpdatingSupported() == SPLUpdateErrorNone
 
 def checkForAddonUpdate():
 	updateURL = SPLUpdateURL if SPLUpdateChannel not in channels else channels[SPLUpdateChannel]
