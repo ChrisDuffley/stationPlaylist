@@ -21,7 +21,12 @@ import gui
 import wx
 import addonHandler
 import globalVars
-import updateCheck
+# There are times when update check should not be supported.
+try:
+	import updateCheck
+	canUpdate = True
+except RuntimeError:
+	canUpdate = False
 
 # Add-on manifest routine (credit: various add-on authors including Noelia Martinez).
 # Do not rely on using absolute path to open to manifest, as installation directory may change in a future NVDA Core version (highly unlikely, but...).
