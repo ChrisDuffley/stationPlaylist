@@ -580,8 +580,6 @@ def initialize():
 	# Fire up profile triggers.
 	# 17.10: except when normal profile only flag is specified.
 	if not SPLConfig.normalProfileOnly: initProfileTriggers()
-	# Let the update check begin.
-	splupdate.initialize()
 	# 7.1: Make sure encoder settings map isn't corrupted.
 	try:
 		streamLabels = ConfigObj(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
