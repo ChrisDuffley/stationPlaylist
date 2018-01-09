@@ -2112,6 +2112,12 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_updateCheck(self, gesture):
 		self.finish()
+		# #46 and others (18.02): there are times when update checking isn't supported such as when running inside Windows Store version of NVDA.
+		# Detect various errors and present appropriate messages and quit immediately.
+		updateBlocker = splupdate.isAddonUpdatingSupported()
+		if updateBlocker != splupdate.SPLUpdateErrorNone:
+			wx.CallAfter(gui.messageBox, splupdate.updateErrorMessages[updateBlocker], _("Studio add-on update"), wx.ICON_ERROR)
+			return
 		if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
 		# Display the update check progress dialog (inspired by add-on installation dialog in NvDA Core).
 		# #9 (7.5): Do this if and only if update channel hasn't changed, otherwise we're stuck here forever.
