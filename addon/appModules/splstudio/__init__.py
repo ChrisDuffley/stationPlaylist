@@ -1902,6 +1902,10 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_updateCheck(self, gesture):
 		self.finish()
+		# 15.13-LTS: no, never update if secure mode flag is on.
+		if globalVars.appArgs.secure:
+			wx.CallAfter(gui.messageBox, _("NVDA is in secure mode. Please restart with secure mode disabled before checking for add-on updates."), _("Studio add-on update"), wx.ICON_ERROR)
+			return
 		if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
 		# Display the update check progress dialog (inspired by add-on installation dialog in NvDA Core).
 		# #9 (7.5): Do this if and only if update channel hasn't changed, otherwise we're stuck here forever.
