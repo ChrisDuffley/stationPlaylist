@@ -723,13 +723,16 @@ def triggerProfileSwitch():
 
 # The function below is called as part of the update check timer.
 # Its only job is to call the update check function (splupdate) with the auto check enabled.
-# The update checker will not be engaged if an instant switch profile is active or it is not time to check for it yet (check will be done every 24 hours).
+# The update checker will not be engaged if secure mode flag is on, an instant switch profile is active, or it is not time to check for it yet (check will be done every 24 hours).
 def autoUpdateCheck():
+	if globalVars.appArgs.secure: return
 	splupdate.updateCheck(auto=True, continuous=SPLConfig["Update"]["AutoUpdateCheck"], confUpdateInterval=SPLConfig["Update"]["UpdateInterval"])
 
 # The timer itself.
 # A bit simpler than NVDA Core's auto update checker.
 def updateInit():
+	# #48 (18.02/15.13-LTS): no, not when secure mode flag is on.
+	if globalVars.appArgs.secure: return
 	# LTS: Launch updater if channel change is detected.
 	# Use a background thread for this as urllib blocks.
 	import threading
