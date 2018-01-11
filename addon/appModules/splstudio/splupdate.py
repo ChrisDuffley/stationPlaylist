@@ -101,7 +101,7 @@ SPLUpdateErrorNoNetConnection = 7
 SPLUpdateMajorErrors = (SPLUpdateErrorSecureMode, SPLUpdateErrorTryBuild, SPLUpdateErrorSource, SPLUpdateErrorAppx, SPLUpdateErrorAddonsManagerUpdate)
 
 updateErrorMessages={
-	SPLUpdateErrorGeneric: _("An unexpected error occured. Please check NVDA log for details."),
+	SPLUpdateErrorGeneric: _("An error occured while checking for add-on update. Please check NVDA log for details."),
 	SPLUpdateErrorSecureMode: _("NVDA is in secure mode. Please restart with secure mode disabled before checking for add-on updates."),
 	SPLUpdateErrorTryBuild: _("This is a try build of StationPlaylist Studio add-on. Please install the latest stable release to receive updates again."),
 	SPLUpdateErrorSource: _("Update checking not supported while running NVDA from source. Please run this add-on from an installed or a portable version of NVDA."),
@@ -194,13 +194,12 @@ def updateChecker(auto=False, continuous=False, confUpdateInterval=1):
 	try:
 		info = checkForAddonUpdate()
 	except:
-		log.debugWarning("Error checking for update", exc_info=True)
+		log.error("Error checking for update", exc_info=True)
 		_retryAfterFailure = True
 		if not auto:
 			wx.CallAfter(_progressDialog.done)
 			_progressDialog = None
-			# Translators: Error text shown when add-on update check fails.
-			wx.CallAfter(gui.messageBox, _("Error checking for update."), _("Studio add-on update"), wx.ICON_ERROR)
+			wx.CallAfter(gui.messageBox, updateErrorMessages[SPLUpdateErrorGeneric], _("Studio add-on update"), wx.ICON_ERROR)
 		if continuous: _SPLUpdateT.Start(600000, True)
 		return
 	if _retryAfterFailure:
