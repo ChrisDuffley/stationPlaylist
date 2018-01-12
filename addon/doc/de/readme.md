@@ -67,7 +67,7 @@ WICHTIGE HINWEISE:
   developer using the default email client.
 * Alt+NVDA+F1: öffnet das Willkommensdialog.
 
-## nicht belegte Befehle
+## nicht zugewiesene Befehle
 
 The following commands are not assigned by default; if you wish to assign
 them, use Input Gestures dialog to add custom commands.
@@ -83,7 +83,7 @@ them, use Input Gestures dialog to add custom commands.
 * Announcing title of the currently playing track.
 * Marking current track for start of track time analysis.
 * Performing track time analysis.
-* Macht Schnappschüsse aus der Playlist.
+* nimmt Schnappschüsse aus der Playlist auf.
 * Find text in specific columns.
 * Find tracks with duration that falls within a given range via time range
   finder.
@@ -133,7 +133,7 @@ The available commands are:
 * A: Automatisierung.
 * C (Shift+C in JAWS and Window-Eyes layouts): Title for the currently
   playing track.
-* C (JAWS- und Window-Eyes-Darstellungen): Wechselt den Cart-Explorer (nur
+* C (JAWS- und Window-Eyes-Darstellungen): Wechselt die Cart-Übersicht (nur
   im Playlist-Viewer).
 * D (R in der JAWS-Darstellung): Restdauer der Playlist (wenn eine
   Fehlermeldung angezeigt wird, wechseln Sie zum Playlist-Viewer und geben
@@ -301,8 +301,7 @@ mode, then use the touch commands listed above to perform commands.
 * Windows 7 Service Pack 1 oder höher ist erforderlich.
 * Mehrere Zusatzfunktionen wurden erweitert. Dadurch können
   Mikrofonbenachrichtigung und Metadaten-Streaming auf Änderungen in
-  Broadcast-Konfigurationsprofilen reagieren. Dies erfordert NVDA
-  2017.4.Übersetzt mit www.DeepL.com/Translator
+  Broadcast-Konfigurationsprofilen reagieren. Dies erfordert NVDA 2017.4.
 * Beim Beenden des Studio schließen sich verschiedene Erweiterungsdialoge
   wie Einstellungen, Benachrichtigungsdialoge und andere automatisch. Dies
   erfordert NVDA 2017.4.
@@ -338,10 +337,10 @@ Windows-Versionen wird eine 15.x LTS-Version sein.
   eingeschaltet ist, gibt NVDA den Ton für die Mikrofonbenachrichtigung
   nicht mehr von überall her wieder.
 * Die Instant-Switch-Flag wird nicht aus dem Switch-Profil entfernt, wenn
-  Broadcast-Profile gelöscht werden und wenn ein anderes Profil ein
+  Sende-Profile gelöscht werden und wenn ein anderes Profil ein
   Instant-Switch-Profil ist.
-* Wenn Sie ein aktives Profil löschen, das kein Instant-Switch oder wenn das
-  profil ein zeitbasiertes Profil ist, fragt NVDA noch einmal nach einer
+* Wenn Sie ein aktives Profil löschen, das kein Instant-Switch-  oder wenn
+  das profil ein temporäres Profil ist, fragt NVDA noch einmal nach einer
   Bestätigung, bevor Sie fortfahren.
 * NVDA wendet die korrekten Einstellungen für die Einstellungen der
   Mikrofonbenachrichtigung an, wenn Profile über den Dialog für die
@@ -438,7 +437,7 @@ Windows-Versionen wird eine 15.x LTS-Version sein.
   Zeitschaltern ansagte.
 * NVDA kann die Ankündigung von Spaltenüberschriften wie Interpret und
   Kathegorie unterdrücken, wenn Titelim Playlist-Viewer betrachtet
-  werden. Dies ist eine Broadcast-Profil-spezifische Einstellung.
+  werden. Dies ist eine Sende-Profil-spezifische Einstellung.
 * Added a checkbox in add-on settings dialog to suppress announcement of
   column headers when reviewing tracks in playlist viewer.
 * Added a command in SPL Controller layer to announce name and duration of
@@ -454,8 +453,8 @@ Windows-Versionen wird eine 15.x LTS-Version sein.
   eine Playlist geladen ist. Dies gilt, auch wenn der erste Titel nicht
   fokussiert ist.
 * NVDA wird keine Fehlertöne mehr abspielen und entsprechend reagieren, wenn
-  nach einem Titel vorwärts vom letzten Titel bzw. rückwärts vom ersten
-  Titel gesucht wird.
+  vorwärts vom letzten Titel bzw. rückwärts vom ersten Titel nach einem
+  bestimmten Titel gesucht wird.
 * Drücken von NVDA+Nummernblock-Entfernen (NVDA+Entfernen im Laptop-Layout)
   wird nun die Titelposition und die Anzahl der Elemente in einer Playlist
   ausgeben.
@@ -472,7 +471,7 @@ Windows-Versionen wird eine 15.x LTS-Version sein.
   werden. Bei Standardinstallationen beträgt das Prüfintervall für
   Aktualisierungen 30 Tage.
 * Es wurde ein Problem behoben, bei dem NVDA manchmal einen Fehlerton
-  ausgab, wenn Studio beendet wurde. Dies trat auf, wenn ein zeitbasiertes
+  ausgab, wenn Studio beendet wurde. Dies trat auf, wenn ein temporäres
   Profil aktiv war.
 
 ## Version 17.04
@@ -513,7 +512,7 @@ Windows-Versionen wird eine 15.x LTS-Version sein.
   enthält. Drücken Sie Escape, um diese Webseite zu schließen.
 * Titeleingabe (Die Art der erweiterten Pfeiltasten in NVDA) wurde entfernt
   und durch Spaltenexplorer und Spaltennavigator/Befehele der
-  Tabellennavigation ersetzt. Dies betrifft Studio und Titelwerkzeuge.
+  Tabellennavigation ersetzt. Dies betrifft Studio und Tracktool.
 * Nach dem Schließen des Dialogs "Titel einfügen" während eines
   Suchduurchlaufs in der Bibliothek ist es nicht mehr erforderlich, im
   SPL-Assistenten Umschalt+R zu drücken, um den Scanfortschritt zu
@@ -530,7 +529,7 @@ Windows-Versionen wird eine 15.x LTS-Version sein.
   Studio erscheint, führen Befehle wie die verbleibende Zeit für einen Titel
   nicht mehr zur Ausgabe von Fehlertönen oder falscher Informationsangaben
   durch NVDA. Stattdessen wird eine Fehlermeldung ausgegeben. Für solche
-  Befehle ist es erforderlich, dass das Hauptfenster von Studio vorhanden
+  Befehle ist es erforderlich, dass das Hauptfenster von Studio maximiert
   ist.
 * Erstmalige  Unterstützung für StationPlaylist-Creator.
 * Added a new command in SPL Controller layer to announce Studio status such
@@ -539,8 +538,8 @@ Windows-Versionen wird eine 15.x LTS-Version sein.
 ## Version 17.03
 
 * NVDA wird keine irreführenden Aktionen  mehr ausführen und auch keine
-  Fehlerton mehr abspielen, wennauf  ein zeitbasiertes Sendeprofil
-  gewechselt wird.
+  Fehlerton mehr abspielen, wenn auf  ein temporäres Sendeprofil gewechselt
+  wird.
 * Übersetzungen aktualisiert
 
 ## Version 17.01/15.5-LTS
@@ -558,8 +557,8 @@ Speicherort neuer Erweiterungsdateien.
   Studio minimiert ist, wird das Studio-Fenster als nicht verfügbar
   angezeigt. Bitte stellen Sie in diesem Fall das Studio-Fenster aus der
   Taskleiste wieder her.
-* Beim Bearbeiten von Carts während der Cart-Explorer aktiv ist, ist es
-  nicht mehr notwendig den Cart-Explorer erneut zu öffnen, um aktualisierte
+* Beim Bearbeiten von Carts während die Cart-Übersicht aktiv ist, ist es
+  nicht mehr notwendig die Cart-Übersicht erneut zu öffnen, um aktualisierte
   Cart-Zuweisungen anzuzeigen. Dies gilt, wenn der Cart-Bearbeitungsmodus
   deaktiviert ist. Folglich, die Meldung "Cart-Explorer reentry" wird nicht
   mehr angezeigt.
@@ -581,8 +580,8 @@ Speicherort neuer Erweiterungsdateien.
   nicht mehr durch die Einstellungen für die Sprachausführlichkeit und die
   Art der Statusansage beeinflusst (dieser Status wird immer über Sprache
   und/oder Braille angezeigt).
-* Das Hinzufügen von Kommentaren zu zeitgesteuerten Pausennotizen ist nicht
-  mehr möglich.
+* Das Hinzufügen von Kommentaren zu zeitgesteuerten Pausen ist nicht mehr
+  möglich.
 * Unterstützung für Track Tool 5.20. Ein Problem wurde behoben, bei dem
   falsche Informationen angesagt werden, wenn mit den Befehlen des
   Spaltenexplorers Spalteninformationen abgerufen werden.
@@ -629,8 +628,8 @@ verwenden.
   wurde hinzugefügt, um diesen Dialog nach dem Schließen wieder zu öffnen.
 * Änderungen an verschiedenen Tastaturbefehlen. Dazu gehören die Entfernung
   des Wechselns der Statusansage (STRG+NvDA+1), die Zuweisung der
-  Benachrichtigung zum Ende des Titels an Alt+NVDA+1, der Schalter für den
-  Cart-Explorer ist jetzt Alt+NvDA+3, der Mikrofon-Alarm-Dialog ist
+  Benachrichtigung zum Ende des Titels an Alt+NVDA+1, der Schalter für die
+  Cart-Übersicht ist jetzt Alt+NvDA+3, der Mikrofon-Alarm-Dialog ist
   Alt+NVDA+4 und der Einstellundsdialog der Erweiterung / des Encoders ist
   Alt+NvDA+0. Dies wurde geändert, damit STRG+NVDA+Zajlenreihe dem
   Spaltenexplorer zugewiesen werden kann.
@@ -655,9 +654,9 @@ verwenden.
 * Beim Zurücksetzen der Einstellungen für die Studio-Erweiterung können Sie
   nun festlegen, was zurückgesetzt werden soll. Standardmäßig werden die
   Einstellungen der Erweiterung zurückgesetzt, wobei die Kontrollkästchen
-  für das Zurücksetzen des Instant-Switch-Profils, des zeitbasierten
-  Profils, der Encoder-Einstellungen und des Löschens von Titelkommentaren
-  im Einstellungsdialog hinzugefügt wurden.
+  für das Zurücksetzen des Instant-Switch-Profils, des temporären Profils,
+  der Encoder-Einstellungen und des Löschens von Titelkommentaren im
+  Einstellungsdialog hinzugefügt wurden.
 * Im Track Tool können Sie Informationen über Album und CD-Code erhalten,
   indem Sie STRG+NVDA+9 bzw. STRG+NVDA+0 drücken.
 * Performance-Verbesserungen beim erstmaligen Abrufen von
@@ -702,13 +701,13 @@ für stabile Versionen.
 ## Änderungen in7.2
 
 * Aufgrund der Entfernung des alten internen Konfigurationsformats ist es
-  zwingend erforderlich, das Add-on 7.2 zu installieren. Nach der
+  zwingend erforderlich das Add-on 7.2 zu installieren. Nach der
   Installation können Sie nicht mehr auf eine frühere Version des Add-ons
   zurückgreifen.
 * Added a command in SPL Controller to report listener count (I).
 * Mit Alt+NVDA+0 können Sie nun die Einstellungen zur Studio-Erweiterung und
   die Dialoge für die Encoder-Einstellungen öffnen. Sie können diese Dialoge
-  auch weiterhin mit Control+NVDA+0 öffnen (in der Version 8.0 nur
+  auch weiterhin mit Control+NVDA+0 öffnen (in der Version 8.0 nur noch
   Alt+NVDA+0 verfügbar).
 * Im Track Tool können Sie mit Strg+Alt+Links oder Rechtspfeil zwischen den
   Spalten navigieren.
@@ -725,7 +724,7 @@ für stabile Versionen.
   aufgetreten sind.
 * Wenn Sie beim Zurücksetzen der Einstellungen mit "nein" antworten, werden
   Sie zum Dialogfeld "Einstellungen zur Studio-Erweiterung" zurückgeleitet
-  und NVDA merkt sich die sofortige Einstellung des Switch-Profils.
+  und NVDA merkt sich die Einstellungen des Instant-Switch-Profils.
 * NVDA wird Sie auffordern Streambezeichnungen und andere Encoder-Optionen
   neu zu konfigurieren, wenn die Encoder-Konfigurationsdatei beschädigt ist.
 
@@ -766,14 +765,14 @@ für stabile Versionen.
 * NVDA kann so konfiguriert werden, dass es zu einem bestimmten Sendeprofil
   an einem bestimmten Tag und zu einer bestimmten Uhrzeit
   wechselt. Verwenden Sie den neuen Triggerdialog in den Einstellungen zur
-  Studio-Erweiterung, um dies zu einzustellen.
+  Studio-Erweiterung, um dies einzustellen.
 * NVDA meldet den Namen des Profils, zu dem über den Instant-Switch-Schalter
-  (F12 im SPL-Assistenten) gewechselt wurde, oder als Folge der Aktivierung
-  des zeitbasierten Profils.
+  (F12 im SPL-Assistenten) gewechselt wurde, oder auch beim Aktivieren des
+  temporären Profils.
 * Der Schalter für den Instant-Switch (jetzt ein Kontrollkästchen) wurde in
   den neuen Triggerdialog verschoben.
 * Einträge in der Ausklappliste für die Profile in den Einstellungen zur
-  Erweiterung zeigen nun Profil-Flags, wie z.B. aktiv, ob es sich um ein
+  Erweiterung beinhalten nun Profil-Flags, wie z.B. aktiv, ob es sich um ein
   Instant-Switch-Profil handelt und so weiter.
 * Wenn ein ernsthaftes Problem mit dem Lesen von Sendeprofildateien gefunden
   wird, zeigt NVDA einen Fehlerdialog an, setzt die Einstellungen auf die
@@ -794,7 +793,7 @@ für stabile Versionen.
 * Der Versuch, die Metadaten-Konfigurationseinstellung im Einstellungsdialog
   zur Erweiterung zu öffnen, während der schnelle Metadaten-Streaming-Dialog
   geöffnet ist, führt nicht mehr zu einem Fehlerton. NVDA fordert Sie nun
-  auf, den Metadaten-Streaming-Dialog zu schließen, bevor Sie die
+  auf, den Dialog Metadaten-Streaming zu schließen, bevor Sie die
   Einstellungen öffnen können.
 * Bei der Ansage der Zeit, wie z.B. der Restdauer für den laufenden Titel,
   werden auch die Stunden angesagt. Daher ist die Einstellung der
@@ -821,7 +820,7 @@ für stabile Versionen.
 * Verbesserungen der internen Sicherheit.
 * Wenn Version 6.3 oder höher auf einem Computer mit Windows 8 oder höher
   mit NVDA 2016.1 oder höher gestartet wird, wird ein Warndialog angezeigt,
-  in dem Sie aufgefordert werden, die Reduzierung der Lautstärke anderer
+  in dem Sie aufgefordert werden die Reduzierung der Lautstärke anderer
   Anwendungen (NVDA+Umschalt+D) zu deaktivieren. Markieren Sie das
   Kontrollkästchen, um diesen Dialog in Zukunft zu unterdrücken.
 * Es wurde ein Befehl hinzugefügt, um Fehlerberichte, Funktionsvorschläge
@@ -831,7 +830,7 @@ für stabile Versionen.
 
 ## Änderungen in6.2
 
-* Im SPL-Assistenten wurde ein Problem mit dem Befehl "Playlist Restbestand"
+* Im SPL-Assistenten wurde ein Problem mit dem Befehl "Playlist Restdauer"
   (D) (R, wenn Kompatibilitätsmodus eingeschaltet ist) behoben, bei dem die
   Dauer für die aktuelle Stunde statt der gesamten Playlist angesagt
   wurde. Das Verhalten dieses Befehls kann über die erweiterten
@@ -867,7 +866,7 @@ für stabile Versionen.
 * Wenn Sie einen SPL-Assistenten-Befehl mit einer benutzerdefinierten
   Tastaturkombination verwenden (z. B. Befehl für den nächsten Titel), ist
   es nicht mehr erforderlich, im Playlist-Viewer des Studios zu bleiben. Die
-  Befehle können nun von anderen Studio-Fenstern aus ausgeführt werden.
+  Befehle können nun aus anderen Studio-Fenstern ausgeführt werden.
 
 ## Änderungen in6.0
 
@@ -893,106 +892,127 @@ für stabile Versionen.
 * Added a time range finder dialog (command unassigned) to find a track with
   duration that falls within a specified range, useful if wishing to find a
   track to fill an hour slot.
-* Added ability to reorder track column announcement and to suppress
-  announcement of specific columns if "use screen order" is unchecked from
-  add-on settings dialog. Use "manage column announcement" dialog to reorder
-  columns.
-* Added a dialog (command unassigned) to quickly toggle metadata streaming.
-* Added a setting in add-on settings dialog to configure when metadata
-  streaming status should be announced and to enable metadata streaming.
-* Added ability to mark a track as a place marker to return to it later (SPL
-  Assistant, Control+K to set, SPL Assistant, K to move to the marked
-  track).
-* Improved performance when searching for next or previous track text
-  containing the searched text.
-* Added a setting in add-on settings dialog to configure alarm notification
-  (beep, message or both).
-* It is now possible to configure microphone alarm between 0 (disabled) and
-  two hours (7200 seconds) and to use up and down arrow keys to configure
-  this setting.
-* Added a setting in add-on settings dialog to allow microphone active
-  notification to be given periodically.
-* You can now use Track Dial toggle command in Studio to toggle Track Dial
-  in Track Tool provided that you didn't assign a command to toggle Track
-  Dial in Track Tool.
-* Added ability to use SPL Controller layer command to invoke SPL Assistant
-  layer (configurable from advanced Settings dialog found in add-on settings
-  dialog).
-* Added ability for NvDA to use certain SPL Assistant commands used by other
-  screen readers. To configure this, go to add-on settings, select Advanced
-  Settings and check screen reader compatibility mode checkbox.
-* In encoders, settings such as focusing to Studio when connected are now
-  remembered.
-* It is now possible to view various columns from encoder window (such as
-  encoder connection status) via Control+NVDA+number command; consult the
-  encoder commands above.
-* Fixed a rare bug where switching to Studio or closing an NVDA dialog
-  (including Studio add-on dialogs) prevented track commands (such as
-  toggling Track Dial) from working as expected.
+* Die Ansage von Titelspalten kann jetzt neu angeordnet und die Ansage
+  bestimmter Spalten kann nun unterdrückt werden. Dies gilt nur, wenn das
+  Kontrollkästchen "Bildschirmreihenfolge verwenden" im Dialogfeld
+  "Einstellungen zur Erweiterung" deaktiviert ist. Verwenden Sie den Dialog
+  "Spaltenansagen verwalten", um Spalten neu anzuordnen.
+* Es wurde ein Dialog hinzugefügt, um schnell und einfach
+  Metadaten-Streaming umzuschalten. Ein Tastaturbefehl wurde noch nicht
+  zugewiesen.
+* Im Dialogfeld "Einstellungen zur Erweiterung" kann jetzt konfiguriert
+  werden, wann der Status des Metadaten-Streaming angekündigt werden
+  soll. Das Streaming von Metadaten kann in diesem Dialog auch aktiviert
+  werden.
+* Es wurde die Möglichkeit hinzugefügt, einen Titel im SPL-Assistenten als
+  Lesezeichen zu setzen, um später zu ihm zurückzukehren. STRG+K zum
+  Einstellen, K zum Bewegen zum markierten Titel.
+* Die Performance bei der Suche nach dem nächsten oder vorherigen Titeltext,
+  der den gesuchten Text enthält, wurde verbessert.
+* Die Alarmbenachrichtigung kann jetzt als Piepton, Nachricht oder beides
+  konfiguriert werden.
+* Die periodische Mikrofonbenachrichtigung kann jeztt  zwischen 0
+  (deaktiviert) und zwei Stunden (7200 Sekunden) konfiguriert werden. Diese
+  Einstellung kann mit den Pfeiltasten nach oben und unten angepasst werden.
+* Es wurde eine Einstellung im Dialogfeld "Einstellungen zur Erweiterung"
+  hinzugefügt, die eine periodische Benachrichtigung über aktive Mikrofone
+  erlaubt.
+* Sie können jetzt die Befehlsschicht für das Umschalten der Titelnavigation
+  im Studio verwenden, um die Titelnavigation auch in Tracktool
+  umzuschalten, sofern Sie keinen Befehl zum Umschalten der Titelnavigation
+  im Tracktootl bereits zugewiesen haben.
+* Es wurde die Möglichkeit zugefügt, die Befehlsschicht für den
+  SPL-Controller zum Aufrufen der Ebene des SPL-Assistenten zu verwenden
+  (konfigurierbar über den Dialog "Erweiterte Einstellungen" im Dialogfeld
+  "Einstellungen zur Erweiterung").
+* NVDA kann nun bestimmte Befehle für den SPL-Assistenten von anderen
+  Screenreadern verarbeiten. Um dies zu konfigurieren, gehen Sie zu den
+  Einstellungen zur Erweiterung, wählen Sie Erweiterte Einstellungen und
+  aktivieren Sie das Kontrollkästchen  Kompatilibilitätsmodus mit anderen
+  Screenreadern.
+* Einstellungen wie Fokus auf Studio, wenn Encoder verbunden ist, werden
+  jetzt dauerhaft gespeichert.
+* Es ist nun möglich verschiedene Spalten aus Encoder-Fenstern
+  (z.B. Verbindungsstatus) über STRG+NVDA+Zahlen aus der Zahlenreihe
+  abzulesen. Siehe die Befehle für den Encoder weiter oben.
+* Ein seltener Fehler wurde behoben, bei dem bestimmte Titelbefehle
+  (z.B. hinsichtlich der Titelnavigation) nicht wie erwartet
+  funktionierten. Dies trat auf, wenn zum Studio-Fenster umgeschaltet oder
+  ein NVDA Dialog (einschließlich der Erweiterungsdialoge) geschlossen
+  wurde.
 
 ## Änderungen in 5.6
 
-* In Studio 5.10 and later, NVDA no longer announces "not selected" when the
-  selected track is playing.
-* Due to an issue with Studio itself, NVDA will now announce name of the
-  currently playing track automatically. An option to toggle this behavior
-  has been added in studio add-on settings dialog.
+* In Studio 5.10 und höher sagt NVDA nicht mehr "nicht ausgewählt", wenn der
+  ausgewählte Titel abgespielt wird.
+* Aufgrund eines Problems mit Studio selbst wird NVDA den Namen des aktuell
+  abgespielten Titels jetzt automatisch ankündigen. Eine Option, um dieses
+  Verhalten zu ändern, wurde im Dialog für die Einstellungen der
+  Studio-Erweiterung hinzugefügt.
 
 ## Änderungen in 5.5
 
-* Play after connecting setting will be remembered when moving away from the
-  encoder window.
+* Die Einstellung für die automatische Wiedergabe nach dem Verbindungsaufbau
+  eines Encoders wird gespeichert, auch wenn das Encoder-Fenster verlassen
+  wird.
 
 ## Änderungen in 5.4
 
-* Performing library scan from Insert Tracks dialog no longer causes NVDA to
-  not announce scan status or play error tones if NVDA is configured to
-  announce library scan progress or scan count.
+* Beim Durchführen von  Bibliothek-Scans Aus dem Dialog Titelfinder zeigt
+  NVDA keine Fehler mehr an. NVDA sagt nun den Scan-Status an, wenn NVDA so
+  konfiguriert ist, dass der Scanfortschritt oder Anzahl der Suchläufe
+  angekündigt werden sollen.
 * Übersetzungen aktualisiert
 
 ## Änderungen in 5.3
 
-* The fix for SAM Encoder (not playing the next track if a track is playing
-  and when the encoder connects) is now available for SPL Encoder users.
-* NVDA no longer plays errors or does not do anything when SPL Assistant, F1
-  (Assistant help dialog) is pressed.
+* Die Fehlerbehebung für SAM Encoder steht jetzt für Benutzer von
+  SPL-Encodern zur Verfügung.
+* Beim Drücken von f1 für die Hilfe im SPL-Assistenten zeigt NVDA keine
+  Fehler mehr an und reagiert entsprechend.
 
 ## Änderungen in 5.2
 
-* NVDA will no longer allow both settings and alarm dialogs to be opened. A
-  warning will be shown asking you to close the previously opened dialog
-  before opening another dialog.
-* When monitoring one or more encoders, pressing SPL Controller, E will now
-  announce encoder count, encoder ID and stream label(s) if any.
-* NVDA supports connect/disconnect all commands (Control+F9/Control+F10) in
-  SAM encoders.
-* NVDA will no longer play the next track if an encoder connects while
-  Studio is playing a track and Studio is told to play tracks when an
-  encoder is connected.
+* NVDA erlaubt nicht mehr das Einstellungs- und Benachrichtigungsdialog
+  gleichzeitig zu öffnen. Eine Warnung wird angezeigt, welche das Schließen
+  des zuvor geöffneten Dialogs vor dem Öffnen eines weiteren Dialogs
+  fordert.
+* Bei der Überwachung einer oder mehrerer Encoder wird nun durch Drücken von
+  e in der SPL-Steuerung die Anzahl der Encoder, Encoder-ID und
+  Streambezeichnungen angesagt, falls vorhanden.
+* NVDA unterstützt die Befehle Strg   F9 / Strg   F10 zum Verbinden /
+  Trennen aller Befehle in SAM-Encodern.
+* NVDA wird den nächsten Titel während dem Verbindungsaufbau mit einem
+  Encoder nicht mehr abspielen, während Studio einen Titel abspielt. Dies
+  gilt, wenn Studio so eingestellt wird, dass Titel nur bei verbundenem
+  Encoder abgespielt werden sollen.
 * Übersetzungen aktualisiert
 
 ## Änderungen in 5.1
 
-* It is now possible to review individual columns in Track Tool via Track
-  Dial (toggle key unassigned). Note that Studio must be active before using
-  this mode.
-* Added a check box in Studio add-on settings dialog to toggle announcement
-  of name of the currently playing cart.
-* Toggling microphone on and off via SPL Controller no longer causes error
-  tones to be played or toggle sound to not be played.
-* If a custom command is assigned for an SPL Assistant layer command and
-  this command is pressed right after entering SPL Assistant, NvDA will now
-  promptly exit SPL Assistant.
+* Es ist nun möglich, einzelne Spalten im Tracktool durch Titelnavigation
+  abzulesen (Befehl noch nicht zugewiesen). Beachten Sie: das Studio-Fenster
+  muss vor der Verwendung dieser Funktion aktiv sein.
+* Ein Kontrollkästchen wurde im Einstellungsdialog der Studio-Erweiterung
+  hinzugefügt, welches die Ansage des Namens des aktuell aktiven Carts
+  ermöglicht.
+* Beim Ein- und Ausschalten des Mikrofons werden nun keine Fehlertöne mehr
+  abgespielt. Die richtigen Töne werden stattdessen ausgegeben.
+* NVDA wird den SPL-Assistenten beenden, wenn ein benutzerdefinierter Befehl
+  für einen SPL-Assistent-Layer zugewiesen und dieser Befehl direkt nach dem
+  Start des SPL Assistenten gedrückt wird.
 
 ## Änderungen in 5.0
 
-* A dedicated settings dialog for SPL add-on has been added, accessible from
-  NVDA's preferences menu or by pressing Control+NVDA+0 from SPL window.
-* Added ability to reset all settings to defaults via configuration dialog.
-* If some of the settings have errors, only the affected settings will be
-  reset to factory defaults.
-* Added a dedicated SPL touchscreen mode and touch commands to perform
-  various Studio commands.
+* Ein dediziertes Einstellungsdialog für die SPL-Erweiterung wurde
+  hinzugefügt. Das Dialog kann aus  dem NVDA-Einstellungsmenü oder durch
+  Drücken von STRG+NVDA+0 aus dem SPL-Fenster aufgerufen werden.
+* Möglichkeit hinzugefüt, um alle Einstellungen auf die Standardwerte über
+  den Konfigurationsdialog zurückzusetzen.
+* Wenn einige der Einstellungen Fehler aufweisen, dann werden nur die
+  betroffenen Einstellungen auf die Werkseinstellungen zurückgesetzt.
+* Eine dedizierte SPL Touchscreen-Unterstützung wurde hinzugefügt, um
+  Touch-Befehle für verschiedene Studio-Funktionen nutzen zu können.
 * Zu den Änderungen in der Ebene des SPL-Assistenten gehören der neue Befehl
   für die Befehlshilfe (F1) und das Entfernen von Befehlen zum Umschalten
   der Anzahl der Zuhörer (Umschalt+I) sowie die geplante Zeitansage
@@ -1017,13 +1037,13 @@ für stabile Versionen.
   auch über die Einstellungen für die Studio-Erweiterung konfiguriert
   werden.
 * Es wurde ein Problem behoben, bei dem das Ausführen von Befehlen für den
-  Alarmdialog oder den Titelfinder eine andere Instanz desselben Dialogs
-  anzeigte, während ein anderer Alarm- oder Suchdialog geöffnet wurde. NVDA
-  öffnet nun eine Meldung, in der Sie aufgefordert werden, den zuvor
-  geöffneten Dialog zu schließen.
-* Änderungen und Korrekturen für den Cartenexplorer, einschließlich beim
-  Blättern durch fehlerhafte Kartenstapel, wenn der Benutzer nicht den
-  Playlist-Viewer fokussiert. Der Kartenexplorer überprüft nun, ob der
+  Benachrichtigungsdialog oder den Titelfinder eine andere Instanz desselben
+  Dialogs anzeigte, während ein anderer Benachrichtigungs- oder Suchdialog
+  geöffnet wurde. NVDA öffnet nun eine Meldung, in der Sie aufgefordert
+  werden, den zuvor geöffneten Dialog zu schließen.
+* Änderungen und Korrekturen für die Cart-Übersicht, einschließlich beim
+  Blättern durch fehlerhafte Cart-Stapel, wenn der Benutzer nicht den
+  Playlist-Viewer fokussiert. Die Cart-Übersicht überprüft nun, ob der
   Nutzer sich im Playlist-Viewer befindet.
 * Es wurde die Möglichkeit hinzugefügt, den Befehl für den Layer des
   SPL-Controllers zu verwenden, um den SPL-Assistenten aufzurufen
@@ -1042,7 +1062,7 @@ für stabile Versionen.
   Streabezeichnungen neu zuzuordnen, drücken Sie STRG+F12 und wählen Sie
   dann die Position des Encoders, den Sie entfernt haben.
 
-## Older releases
+## Ältere Versionen
 
 Please see changelog link for release notes for old add-on releases.
 
