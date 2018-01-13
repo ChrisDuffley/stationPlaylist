@@ -1433,7 +1433,8 @@ class SayStatusDialog(wx.Dialog):
 class AdvancedOptionsDialog(wx.Dialog):
 
 	# Available channels (if there's only one, channel selection list will not be shown).
-	_updateChannels = ("try", "dev", "stable")
+	# Prepare for a day when channels list is NULL.
+	_updateChannels = ["try", "dev", "stable"]
 
 	def __init__(self, parent):
 		# Translators: The title of a dialog to configure advanced SPL add-on options such as update checking.
@@ -1442,11 +1443,14 @@ class AdvancedOptionsDialog(wx.Dialog):
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		advOptionsHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
-		# Translators: A checkbox to toggle automatic add-on updates.
-		self.autoUpdateCheckbox=advOptionsHelper.addItem(wx.CheckBox(self,label=_("Automatically check for add-on &updates")))
-		self.autoUpdateCheckbox.SetValue(self.Parent.autoUpdateCheck)
-		# Translators: The label for a setting in SPL add-on settings/advanced options to select automatic update interval in days.
-		self.updateInterval=advOptionsHelper.addLabeledControl(_("Update &interval in days"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=180, initial=self.Parent.updateInterval)
+		# #48 (18.02): do not show auto-update checkbox and interval options if not needed.
+		if splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone:
+			self._updateChannels = [None]
+			# Translators: A checkbox to toggle automatic add-on updates.
+			self.autoUpdateCheckbox=advOptionsHelper.addItem(wx.CheckBox(self,label=_("Automatically check for add-on &updates")))
+			self.autoUpdateCheckbox.SetValue(self.Parent.autoUpdateCheck)
+			# Translators: The label for a setting in SPL add-on settings/advanced options to select automatic update interval in days.
+			self.updateInterval=advOptionsHelper.addLabeledControl(_("Update &interval in days"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=180, initial=self.Parent.updateInterval)
 		# For releases that support channel switching.
 		if len(self._updateChannels) > 1:
 			# Translators: The label for a combo box to select update channel.
@@ -1474,10 +1478,14 @@ class AdvancedOptionsDialog(wx.Dialog):
 		mainSizer.Add(advOptionsHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
-		self.autoUpdateCheckbox.SetFocus()
+		try:
+			self.autoUpdateCheckbox.SetFocus()
+		except AttributeError:
+			self.splConPassthroughCheckbox.SetFocus()
 		self.Center(wx.BOTH | CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
+		addonUpdatingSupported = splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone
 		# The try (fast ring) builds aren't for the faint of heart.
 		# 17.10: nor for old Windows releases anymore.
 		if len(self._updateChannels) > 1:
@@ -1492,21 +1500,23 @@ class AdvancedOptionsDialog(wx.Dialog):
 					wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION, self
 				) == wx.NO:
 					return
-		# If update interval is set to zero, update check will happen every time the app module loads, so warn users.
-		updateInterval = self.updateInterval.Value
-		if self.Parent.updateInterval > 0 and updateInterval == 0 and gui.messageBox(
-			# Translators: The confirmation prompt displayed when changing update interval to zero days (updates will be checked every time Studio app module loads).
-			_("Update interval has been set to zero days, so updates to the Studio add-on will be checked every time NVDA and/or Studio starts. Are you sure you wish to continue?"),
-			# Translators: The title of the update interval dialog.
-			_("Confirm update interval"),
-			wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION, self
-		) == wx.NO:
-			return
+		if addonUpdatingSupported:
+			# If update interval is set to zero, update check will happen every time the app module loads, so warn users.
+			updateInterval = self.updateInterval.Value
+			if self.Parent.updateInterval > 0 and updateInterval == 0 and gui.messageBox(
+				# Translators: The confirmation prompt displayed when changing update interval to zero days (updates will be checked every time Studio app module loads).
+				_("Update interval has been set to zero days, so updates to the Studio add-on will be checked every time NVDA and/or Studio starts. Are you sure you wish to continue?"),
+				# Translators: The title of the update interval dialog.
+				_("Confirm update interval"),
+				wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION, self
+			) == wx.NO:
+				return
 		parent = self.Parent
 		parent.splConPassthrough = self.splConPassthroughCheckbox.Value
 		parent.compLayer = self.compatibilityLayouts[self.compatibilityList.GetSelection()][0]
-		parent.autoUpdateCheck = self.autoUpdateCheckbox.Value
-		parent.updateInterval = updateInterval
+		if addonUpdatingSupported:
+			parent.autoUpdateCheck = self.autoUpdateCheckbox.Value
+			parent.updateInterval = updateInterval
 		if len(self._updateChannels) > 1: parent.updateChannel = self._updateChannels[self.channels.GetSelection()]
 		parent.profiles.SetFocus()
 		parent.Enable()
