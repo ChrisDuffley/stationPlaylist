@@ -1444,13 +1444,14 @@ class AdvancedOptionsDialog(wx.Dialog):
 		advOptionsHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
 		# #48 (18.02): do not show auto-update checkbox and interval options if not needed.
+		# The exception will be custom try builds.
 		if splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone:
-			self._updateChannels = [None]
 			# Translators: A checkbox to toggle automatic add-on updates.
 			self.autoUpdateCheckbox=advOptionsHelper.addItem(wx.CheckBox(self,label=_("Automatically check for add-on &updates")))
 			self.autoUpdateCheckbox.SetValue(self.Parent.autoUpdateCheck)
 			# Translators: The label for a setting in SPL add-on settings/advanced options to select automatic update interval in days.
 			self.updateInterval=advOptionsHelper.addLabeledControl(_("Update &interval in days"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=180, initial=self.Parent.updateInterval)
+		else: self._updateChannels = [None]
 		# For releases that support channel switching.
 		if len(self._updateChannels) > 1:
 			# Translators: The label for a combo box to select update channel.
