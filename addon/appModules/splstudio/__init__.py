@@ -241,7 +241,7 @@ class SPLTrackItem(IAccessible):
 			self.appModule._announceColumnOnly = True
 			newTrack._curColumnNumber = self._curColumnNumber
 			newTrack.setFocus(), newTrack.setFocus()
-			selectTrack(newTrack.IAccessibleChildID-1)
+			splbase.selectTrack(newTrack.IAccessibleChildID-1)
 
 	def script_prevRowColumn(self, gesture):
 		newTrack = self.previous
@@ -251,7 +251,7 @@ class SPLTrackItem(IAccessible):
 			self.appModule._announceColumnOnly = True
 			newTrack._curColumnNumber = self._curColumnNumber
 			newTrack.setFocus(), newTrack.setFocus()
-			selectTrack(newTrack.IAccessibleChildID-1)
+			splbase.selectTrack(newTrack.IAccessibleChildID-1)
 
 	# Overlay class version of Columns Explorer.
 
@@ -1109,7 +1109,7 @@ class AppModule(appModuleHandler.AppModule):
 			# We need to fire set focus event twice and exit this routine (return if 5.0x).
 			# 16.10.1/15.2 LTS: Just select this track in order to prevent a dispute between NVDA and SPL in regards to focused track.
 			# 16.11: Call setFocus if it is post-5.01, as SPL API can be used to select the desired track.
-			selectTrack(track.IAccessibleChildID-1)
+			splbase.selectTrack(track.IAccessibleChildID-1)
 			track.setFocus(), track.setFocus()
 		else:
 			wx.CallAfter(gui.messageBox,
@@ -2060,7 +2060,7 @@ class AppModule(appModuleHandler.AppModule):
 		else:
 			track = self._trackLocator(self.placeMarker[1], obj=api.getFocusObject().parent.firstChild, columns=[self.placeMarker[0]])
 			# 16.11: Just like Track Finder, use select track function to select the place marker track.
-			selectTrack(track.IAccessibleChildID-1)
+			splbase.selectTrack(track.IAccessibleChildID-1)
 			track.setFocus(), track.setFocus()
 
 	def script_metadataStreamingAnnouncer(self, gesture):
