@@ -14,6 +14,8 @@ IMPORTANT NOTES:
 * If using Windows 8 or later, for best experience, disable audio ducking mode.
 * add-on 8.0/16.10 requires Studio 5.10 or later. For broadcasters using Studio 5.0x and/or Windows XP, Vista or 7 without Service Pack 1, a [long-term support version][3] (15.x) is available. The last stable version to support Windows releases prior to 7 Service Pack 1 is 17.11.2.
 * Starting from 2018, [changelogs for old add-on releases][5] will be found on GitHub. This add-on readme will list changes from version 5.0 (2015 onwards).
+* Certain add-on features (notably add-on updating) won't work under some conditions, including running NVDA in secure mode.
+* Due to tecnical limitations, you cannot install or use this add-on on Windows Store version of NVDA.
 
 ## Shortcut keys
 
@@ -184,6 +186,9 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Version 18.02
 
 * Due to internal changes made to support extension points and other features, NVDA 2017.4 is required.
+* Add-on updating won't be possible under some cases. These include running NVDA from source code or with secure mode turned on.
+* If errors occur while checking for updates, these will be logged and NVDA will advise you to read the NVDA log for details.
+* In add-on settings, various update settings in advanced settings section such as update interval will not be displayed if add-on updating is not supported.
 * NVDA will no longer appear to freeze or do nothing when switching to an instant switch profile or a time-based profile and NVDA is configured to announce metadata streaming status.
 
 ## Version 18.01/15.12-LTS
