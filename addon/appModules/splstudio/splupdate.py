@@ -73,6 +73,13 @@ def initialize():
 		SPLAddonState["PDT"] = 0
 		_updateNow = False
 		SPLUpdateChannel = "dev"
+	# Check for add-on update if told to do so.
+	from . import splconfig, spldebugging
+	if canUpdate() and (splconfig.SPLConfig["Update"]["AutoUpdateCheck"] or _updateNow):
+		spldebugging.debugOutput("checking for add-on updates from %s channel"%SPLUpdateChannel)
+		# 7.0: Have a timer call the update function indirectly.
+		import queueHandler
+		queueHandler.queueFunction(queueHandler.eventQueue, splconfig.updateInit)
 
 def terminate():
 	global SPLAddonState

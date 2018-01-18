@@ -597,14 +597,10 @@ class AppModule(appModuleHandler.AppModule):
 		self.noMoreHandle = threading.Event()
 		debugOutput("locating Studio window handle")
 		threading.Thread(target=self._locateSPLHwnd).start()
-		# Check for add-on update if told to do so.
-		# LTS: Only do this if channel hasn't changed.
+		# Let's start checking for add-on updates unless blocked for some reason.
+		# #46 (18.02): the below function will check for updates at startup as well, similar to NVDA Core's behavior.
+		debugOutput("starting update check")
 		splupdate.initialize()
-		if splupdate.canUpdate() and (splconfig.SPLConfig["Update"]["AutoUpdateCheck"] or splupdate._updateNow):
-			debugOutput("checking for add-on updates from %s channel"%splupdate.SPLUpdateChannel)
-			# 7.0: Have a timer call the update function indirectly.
-			import queueHandler
-			queueHandler.queueFunction(queueHandler.eventQueue, splconfig.updateInit)
 		# Display startup dialogs if any.
 		# 17.10: not when minimal startup flag is set.
 		if not globalVars.appArgs.minimal: wx.CallAfter(splconfig.showStartupDialogs)
