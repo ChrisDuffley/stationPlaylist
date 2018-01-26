@@ -17,6 +17,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.6.10\n"
 
+#. Translators: Presented when attempting to install Studio add-on on unsupported Windows releases.
+msgid ""
+"You are using an older version of Windows. This add-on requires Windows 7 "
+"Service Pack 1 or later."
+msgstr ""
+
+#. Translators: Title of a dialog shown when installing Studio add-on on old Windows releases.
+msgid "Old Windows version"
+msgstr ""
+
 #, python-brace-format
 msgid "{header}: {content}"
 msgstr "{header}: {content}"
@@ -56,10 +66,6 @@ msgstr "{headerText} nije pronađen"
 #. Translators: Presented when microphone has been active for a while.
 msgid "Microphone active"
 msgstr "Mikrofon je uključen "
-
-#. Translators: A message informing users that Studio is not running so certain commands will not work.
-msgid "Studio main window not found"
-msgstr "Glavni prozor studija nije pronađen"
 
 #. Translators: location text for a playlist item (example: item 1 of 10).
 #, python-brace-format
@@ -829,6 +835,10 @@ msgstr "SPL Assistant pomoć za JAWS raspored"
 msgid "SPL Assistant help for Window-Eyes layout"
 msgstr "SPL Assistant pomoć za Window-Eyes raspored "
 
+#. Translators: Title of the add-on update check dialog.
+msgid "Studio add-on update"
+msgstr "Ažuriranje Studio dodatka"
+
 #. Translators: The title of the dialog presented while checking for add-on updates.
 msgid "Add-on update check"
 msgstr "Provjera ažuriranja dodatka "
@@ -836,6 +846,10 @@ msgstr "Provjera ažuriranja dodatka "
 #. Translators: The message displayed while checking for newer version of Studio add-on.
 msgid "Checking for new version of Studio add-on..."
 msgstr "Provjera nove verzije Studio dodatka"
+
+#. Translators: A message informing users that Studio is not running so certain commands will not work.
+msgid "Studio main window not found"
+msgstr "Glavni prozor studija nije pronađen"
 
 #. Translators: The name of the default (normal) profile.
 msgid "Normal profile"
@@ -940,7 +954,6 @@ msgstr ""
 "pozadinskih zvukova'"
 
 #. Translators: A checkbox to turn off audio ducking reminder message.
-#. Translators: A checkbox to turn off old version reminder message.
 msgid "Do not show this message again"
 msgstr "Ne prikazuj više ovu poruku"
 
@@ -1005,18 +1018,6 @@ msgstr "Dobrodošli u StationPlaylist Studio dodatak "
 #. Translators: A checkbox to show welcome dialog.
 msgid "Show welcome dialog when I start Studio"
 msgstr "Prikaži dijaloški okvir dobrodošlice kad pokrenem Studio"
-
-#. Translators: Title of a dialog displayed when the add-on starts reminding broadcasters about old Studio releases.
-msgid "Old Windows version detected"
-msgstr ""
-
-#. Translators: A message displayed if using an old Studio or Windows version.
-msgid ""
-"You are using an older version of Windows. From 2018 onwards, Studio add-on "
-"will not support versions earlier than Windows 7 Service Pack 1. Add-on 15.x "
-"LTS (long-term support) versions will support Windows versions such as "
-"Windows XP until mid-2018."
-msgstr ""
 
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Status announcement beeps"
@@ -1749,6 +1750,41 @@ msgid "Metadata streaming configured for URL's {URL}"
 msgstr "Metadata strimovanje konfigurirano za adrese {URL}"
 
 msgid ""
+"An error occured while checking for add-on update. Please check NVDA log for "
+"details."
+msgstr ""
+
+msgid ""
+"NVDA is in secure mode. Please restart with secure mode disabled before "
+"checking for add-on updates."
+msgstr ""
+
+msgid ""
+"This is a try build of StationPlaylist Studio add-on. Please install the "
+"latest stable release to receive updates again."
+msgstr ""
+
+msgid ""
+"Update checking not supported while running NVDA from source. Please run "
+"this add-on from an installed or a portable version of NVDA."
+msgstr ""
+
+msgid ""
+"This is a Windows Store version of NVDA. Add-on updating is supported on "
+"desktop version of NVDA."
+msgstr ""
+
+msgid ""
+"Cannot update add-on directly. Please check for add-on updates by going to "
+"add-ons manager."
+msgstr ""
+
+msgid ""
+"No internet connection. Please connect to the internet before checking for "
+"add-on update."
+msgstr ""
+
+msgid ""
 "Did you recently tell SPL add-on to use a different update channel? If so, "
 "please restart NVDA before checking for add-on updates."
 msgstr ""
@@ -1757,14 +1793,6 @@ msgstr ""
 
 msgid "Update channel changed"
 msgstr "Kanal ažuriranja promijenjen"
-
-#. Translators: Error text shown when add-on update check fails.
-msgid "Error checking for update."
-msgstr "Greška prilikom provjere ažuriranja"
-
-#. Translators: Title of the add-on update check dialog.
-msgid "Studio add-on update"
-msgstr "Ažuriranje Studio dodatka"
 
 #. No need to interact with the user.
 #. Translators: Presented when no add-on update is available.
@@ -2098,3 +2126,6 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist Studio.\n"
 "Također, dodaje komande za studio bilo gdje."
+
+#~ msgid "Error checking for update."
+#~ msgstr "Greška prilikom provjere ažuriranja"

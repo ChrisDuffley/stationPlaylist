@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 3.2\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2014-11-14 19:00+1000\n"
-"PO-Revision-Date: 2017-12-13 23:36+0000\n"
+"PO-Revision-Date: 2018-01-25 21:39+0000\n"
 "Last-Translator: Ângelo Miguel Abrantes <ampa4374@gmail.com>\n"
 "Language-Team: Equipa Portuguesa do NVDA <angelomiguelabrantes@gmail.com; "
 "rui.fontes@tiflotecnia.com>\n"
@@ -70,10 +70,6 @@ msgstr "{headerText} não encontrado"
 #. Translators: Presented when microphone has been active for a while.
 msgid "Microphone active"
 msgstr "Microfone activo"
-
-#. Translators: A message informing users that Studio is not running so certain commands will not work.
-msgid "Studio main window not found"
-msgstr "Janela principal do estúdio não encontrada"
 
 #. Translators: location text for a playlist item (example: item 1 of 10).
 #, python-brace-format
@@ -861,6 +857,10 @@ msgstr "Ajuda do Assistente SPL para o layout JAWS"
 msgid "SPL Assistant help for Window-Eyes layout"
 msgstr "Ajuda do assistente SPL para o layout Window-Eyes"
 
+#. Translators: Title of the add-on update check dialog.
+msgid "Studio add-on update"
+msgstr "Actualização do Studio"
+
 #. Translators: The title of the dialog presented while checking for add-on updates.
 msgid "Add-on update check"
 msgstr "Verificação de atualização do complemento"
@@ -868,6 +868,10 @@ msgstr "Verificação de atualização do complemento"
 #. Translators: The message displayed while checking for newer version of Studio add-on.
 msgid "Checking for new version of Studio add-on..."
 msgstr "Verificando a nova versão do Studio add-on ..."
+
+#. Translators: A message informing users that Studio is not running so certain commands will not work.
+msgid "Studio main window not found"
+msgstr "Janela principal do estúdio não encontrada"
 
 #. Translators: The name of the default (normal) profile.
 msgid "Normal profile"
@@ -1784,6 +1788,56 @@ msgid "Metadata streaming configured for URL's {URL}"
 msgstr "Transmissão de metadados configurada para URL {URL}"
 
 msgid ""
+"An error occured while checking for add-on update. Please check NVDA log for "
+"details."
+msgstr ""
+"Ocorreu um erro ao verificar a actualização do extra. Consulte o log do NVDA "
+"para obter detalhes."
+
+msgid ""
+"NVDA is in secure mode. Please restart with secure mode disabled before "
+"checking for add-on updates."
+msgstr ""
+"O NVDA está no modo seguro. Reinicie-o com o modo seguro desactivado antes "
+"de verificar as actualizações do Add-on."
+
+msgid ""
+"This is a try build of StationPlaylist Studio add-on. Please install the "
+"latest stable release to receive updates again."
+msgstr ""
+"Esta é uma tentativa de compilação do complemento StationPlaylist Studio. "
+"Instale a última versão estável para receber novamente as actualizações."
+
+msgid ""
+"Update checking not supported while running NVDA from source. Please run "
+"this add-on from an installed or a portable version of NVDA."
+msgstr ""
+"Verificação de atualização não suportada ao executar o NVDA a partir da "
+"fonte. Execute este extra a partir de uma versão instalada ou portátil do "
+"NVDA."
+
+msgid ""
+"This is a Windows Store version of NVDA. Add-on updating is supported on "
+"desktop version of NVDA."
+msgstr ""
+"Esta é uma versão do NVDA da Windows Store. A atualização do complemento é "
+"suportada na versão desktop do NVDA."
+
+msgid ""
+"Cannot update add-on directly. Please check for add-on updates by going to "
+"add-ons manager."
+msgstr ""
+"Não é possível actualizar o extra directamente. Verifique as atualizações do "
+"extra , através  do gestor de extras."
+
+msgid ""
+"No internet connection. Please connect to the internet before checking for "
+"add-on update."
+msgstr ""
+"Sem ligação à internet. ligue-se à internet antes de verificar a "
+"actualização do extra."
+
+msgid ""
 "Did you recently tell SPL add-on to use a different update channel? If so, "
 "please restart NVDA before checking for add-on updates."
 msgstr ""
@@ -1793,14 +1847,6 @@ msgstr ""
 
 msgid "Update channel changed"
 msgstr "Canal de actualizações alterado"
-
-#. Translators: Error text shown when add-on update check fails.
-msgid "Error checking for update."
-msgstr "Erro ao procurar por actualizações"
-
-#. Translators: Title of the add-on update check dialog.
-msgid "Studio add-on update"
-msgstr "Actualização do Studio"
 
 #. No need to interact with the user.
 #. Translators: Presented when no add-on update is available.
@@ -2137,3 +2183,6 @@ msgid ""
 msgstr ""
 "Melhora o suporte para StationPlaylist Studio.\n"
 "Além disso, adiciona comandos globais para o estúdio em todos os lugares."
+
+#~ msgid "Error checking for update."
+#~ msgstr "Erro ao procurar por actualizações"

@@ -17,6 +17,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.6.10\n"
 
+#. Translators: Presented when attempting to install Studio add-on on unsupported Windows releases.
+msgid ""
+"You are using an older version of Windows. This add-on requires Windows 7 "
+"Service Pack 1 or later."
+msgstr ""
+
+#. Translators: Title of a dialog shown when installing Studio add-on on old Windows releases.
+#, fuzzy
+msgid "Old Windows version"
+msgstr "A fost detectată o versiune veche de Windows"
+
 #, python-brace-format
 msgid "{header}: {content}"
 msgstr "{header}: {content}"
@@ -56,10 +67,6 @@ msgstr "{headerText} negăsit."
 #. Translators: Presented when microphone has been active for a while.
 msgid "Microphone active"
 msgstr "Microfon activ"
-
-#. Translators: A message informing users that Studio is not running so certain commands will not work.
-msgid "Studio main window not found"
-msgstr "Fereastra principală Studio nu a fost găsită"
 
 #. Translators: location text for a playlist item (example: item 1 of 10).
 #, python-brace-format
@@ -846,6 +853,10 @@ msgstr "Ajutor asistent SPL pentru aspectul Jaws."
 msgid "SPL Assistant help for Window-Eyes layout"
 msgstr "Ajutor asistent SPL pentru aspectul Window-Eyes"
 
+#. Translators: Title of the add-on update check dialog.
+msgid "Studio add-on update"
+msgstr "Verifică actualizări addon"
+
 #. Translators: The title of the dialog presented while checking for add-on updates.
 msgid "Add-on update check"
 msgstr "Actualizarea extensiei add-on se caută"
@@ -853,6 +864,10 @@ msgstr "Actualizarea extensiei add-on se caută"
 #. Translators: The message displayed while checking for newer version of Studio add-on.
 msgid "Checking for new version of Studio add-on..."
 msgstr "Se caută versiune nouă la extensia add-on Studio..."
+
+#. Translators: A message informing users that Studio is not running so certain commands will not work.
+msgid "Studio main window not found"
+msgstr "Fereastra principală Studio nu a fost găsită"
 
 #. Translators: The name of the default (normal) profile.
 msgid "Normal profile"
@@ -954,7 +969,6 @@ msgstr ""
 "pentru atenuare audio, sau apăsând NVDA+Shift+D."
 
 #. Translators: A checkbox to turn off audio ducking reminder message.
-#. Translators: A checkbox to turn off old version reminder message.
 msgid "Do not show this message again"
 msgstr "Nu mai arăta acest mesaj din nou"
 
@@ -1015,22 +1029,6 @@ msgstr "Bun venit la extensia StationPlaylist Studio"
 #. Translators: A checkbox to show welcome dialog.
 msgid "Show welcome dialog when I start Studio"
 msgstr "Arată dialogul de bun venit când pornesc Studio"
-
-#. Translators: Title of a dialog displayed when the add-on starts reminding broadcasters about old Studio releases.
-msgid "Old Windows version detected"
-msgstr "A fost detectată o versiune veche de Windows"
-
-#. Translators: A message displayed if using an old Studio or Windows version.
-msgid ""
-"You are using an older version of Windows. From 2018 onwards, Studio add-on "
-"will not support versions earlier than Windows 7 Service Pack 1. Add-on 15.x "
-"LTS (long-term support) versions will support Windows versions such as "
-"Windows XP until mid-2018."
-msgstr ""
-"Folosiți o versiune veche de Windows. Din 2018, suplimentul Studio nu va "
-"suporta versiuni  mai vechi decât Windows 7 Service Pack 1. Versiunile 15.x "
-"LTS (suport îndelungat) vor suporta versiuni de Windows, cum ar fi Windows "
-"XP, până la mijlocul anului 2018."
 
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Status announcement beeps"
@@ -1626,18 +1624,6 @@ msgstr ""
 msgid "SPL Assistant command &layout:"
 msgstr "Dispoziția comenzi&lor asistentului SPL:"
 
-#. Translators: A message displayed when trying to switch to fast channel on old Windows releases.
-msgid ""
-"It appears you are using Windows versions earlier than Windows 7 Service "
-"Pack 1, thus you cannot change to Test Drive Fast channel."
-msgstr ""
-"Se pare că folosiți o versiune de Windows mai veche decât Windows 7 Service "
-"Pack 1, astfel că nu puteți trece la canalul de testare rapidă."
-
-#. Translators: The title of the channel switch confirmation dialog.
-msgid "Switching to unstable channel"
-msgstr "Comutare la canalul instabil"
-
 #. Translators: The confirmation prompt displayed when changing to the fastest development channel (with risks involved).
 msgid ""
 "You are about to switch to the Test Drive Fast (try) builds channel, the "
@@ -1655,6 +1641,10 @@ msgstr ""
 "utilizați funcții stabile, răspundeți nu și treceți la un canal de "
 "actualizare mai stabil. Sigur doriți să treceți la cel mai rapid canal de "
 "dezvoltare?"
+
+#. Translators: The title of the channel switch confirmation dialog.
+msgid "Switching to unstable channel"
+msgstr "Comutare la canalul instabil"
 
 #. Translators: The confirmation prompt displayed when changing update interval to zero days (updates will be checked every time Studio app module loads).
 msgid ""
@@ -1782,6 +1772,41 @@ msgid "Metadata streaming configured for URL's {URL}"
 msgstr "Emisia metadata configurată pentru URL-ul {URL}"
 
 msgid ""
+"An error occured while checking for add-on update. Please check NVDA log for "
+"details."
+msgstr ""
+
+msgid ""
+"NVDA is in secure mode. Please restart with secure mode disabled before "
+"checking for add-on updates."
+msgstr ""
+
+msgid ""
+"This is a try build of StationPlaylist Studio add-on. Please install the "
+"latest stable release to receive updates again."
+msgstr ""
+
+msgid ""
+"Update checking not supported while running NVDA from source. Please run "
+"this add-on from an installed or a portable version of NVDA."
+msgstr ""
+
+msgid ""
+"This is a Windows Store version of NVDA. Add-on updating is supported on "
+"desktop version of NVDA."
+msgstr ""
+
+msgid ""
+"Cannot update add-on directly. Please check for add-on updates by going to "
+"add-ons manager."
+msgstr ""
+
+msgid ""
+"No internet connection. Please connect to the internet before checking for "
+"add-on update."
+msgstr ""
+
+msgid ""
 "Did you recently tell SPL add-on to use a different update channel? If so, "
 "please restart NVDA before checking for add-on updates."
 msgstr ""
@@ -1791,14 +1816,6 @@ msgstr ""
 
 msgid "Update channel changed"
 msgstr "Canalul actualizărilor a fost modificat"
-
-#. Translators: Error text shown when add-on update check fails.
-msgid "Error checking for update."
-msgstr "Eroare la verificarea pentru actualizări."
-
-#. Translators: Title of the add-on update check dialog.
-msgid "Studio add-on update"
-msgstr "Verifică actualizări addon"
 
 #. No need to interact with the user.
 #. Translators: Presented when no add-on update is available.
@@ -2132,3 +2149,24 @@ msgid ""
 msgstr ""
 "Conține suport pentru StationPlaylist Studio.\n"
 "De asemenea, adaugă comenzi globale pentru studio de oriunde."
+
+#~ msgid ""
+#~ "You are using an older version of Windows. From 2018 onwards, Studio add-"
+#~ "on will not support versions earlier than Windows 7 Service Pack 1. Add-"
+#~ "on 15.x LTS (long-term support) versions will support Windows versions "
+#~ "such as Windows XP until mid-2018."
+#~ msgstr ""
+#~ "Folosiți o versiune veche de Windows. Din 2018, suplimentul Studio nu va "
+#~ "suporta versiuni  mai vechi decât Windows 7 Service Pack 1. Versiunile 15."
+#~ "x LTS (suport îndelungat) vor suporta versiuni de Windows, cum ar fi "
+#~ "Windows XP, până la mijlocul anului 2018."
+
+#~ msgid ""
+#~ "It appears you are using Windows versions earlier than Windows 7 Service "
+#~ "Pack 1, thus you cannot change to Test Drive Fast channel."
+#~ msgstr ""
+#~ "Se pare că folosiți o versiune de Windows mai veche decât Windows 7 "
+#~ "Service Pack 1, astfel că nu puteți trece la canalul de testare rapidă."
+
+#~ msgid "Error checking for update."
+#~ msgstr "Eroare la verificarea pentru actualizări."

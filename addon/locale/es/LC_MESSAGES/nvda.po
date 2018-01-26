@@ -71,10 +71,6 @@ msgstr "{headerText} no encontrado"
 msgid "Microphone active"
 msgstr "Micrófono activo"
 
-#. Translators: A message informing users that Studio is not running so certain commands will not work.
-msgid "Studio main window not found"
-msgstr "Ventana principal de Studio no encontrada"
-
 #. Translators: location text for a playlist item (example: item 1 of 10).
 #, python-brace-format
 msgid "Item {current} of {total}"
@@ -869,6 +865,10 @@ msgstr "Ayuda de SPL Assistant para distribución JAWS"
 msgid "SPL Assistant help for Window-Eyes layout"
 msgstr "Ayuda de SPL Assistant para distribución Window-eyes"
 
+#. Translators: Title of the add-on update check dialog.
+msgid "Studio add-on update"
+msgstr "Actualización del complemento Studio"
+
 #. Translators: The title of the dialog presented while checking for add-on updates.
 msgid "Add-on update check"
 msgstr "Buscar actualización del complemento"
@@ -876,6 +876,10 @@ msgstr "Buscar actualización del complemento"
 #. Translators: The message displayed while checking for newer version of Studio add-on.
 msgid "Checking for new version of Studio add-on..."
 msgstr "Buscar nueva versión del complemento Studio..."
+
+#. Translators: A message informing users that Studio is not running so certain commands will not work.
+msgid "Studio main window not found"
+msgstr "Ventana principal de Studio no encontrada"
 
 #. Translators: The name of the default (normal) profile.
 msgid "Normal profile"
@@ -1795,6 +1799,41 @@ msgid "Metadata streaming configured for URL's {URL}"
 msgstr "Los metadatos del streaming se configuraron para la URL {URL}"
 
 msgid ""
+"An error occured while checking for add-on update. Please check NVDA log for "
+"details."
+msgstr ""
+
+msgid ""
+"NVDA is in secure mode. Please restart with secure mode disabled before "
+"checking for add-on updates."
+msgstr ""
+
+msgid ""
+"This is a try build of StationPlaylist Studio add-on. Please install the "
+"latest stable release to receive updates again."
+msgstr ""
+
+msgid ""
+"Update checking not supported while running NVDA from source. Please run "
+"this add-on from an installed or a portable version of NVDA."
+msgstr ""
+
+msgid ""
+"This is a Windows Store version of NVDA. Add-on updating is supported on "
+"desktop version of NVDA."
+msgstr ""
+
+msgid ""
+"Cannot update add-on directly. Please check for add-on updates by going to "
+"add-ons manager."
+msgstr ""
+
+msgid ""
+"No internet connection. Please connect to the internet before checking for "
+"add-on update."
+msgstr ""
+
+msgid ""
 "Did you recently tell SPL add-on to use a different update channel? If so, "
 "please restart NVDA before checking for add-on updates."
 msgstr ""
@@ -1804,14 +1843,6 @@ msgstr ""
 
 msgid "Update channel changed"
 msgstr "Cambió el canal de actualización"
-
-#. Translators: Error text shown when add-on update check fails.
-msgid "Error checking for update."
-msgstr "Error buscando actualización."
-
-#. Translators: Title of the add-on update check dialog.
-msgid "Studio add-on update"
-msgstr "Actualización del complemento Studio"
 
 #. No need to interact with the user.
 #. Translators: Presented when no add-on update is available.
@@ -2150,3 +2181,6 @@ msgid ""
 msgstr ""
 "Mejora el soporte para Station Playlist Studio.\n"
 "Además, agrega comandos globales para el estudio desde cualquier parte."
+
+#~ msgid "Error checking for update."
+#~ msgstr "Error buscando actualización."
