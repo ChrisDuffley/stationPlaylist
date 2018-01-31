@@ -173,6 +173,8 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Version 15.13-LTS
 
 * NVDA will no longer appear to freeze or do nothing when switching to an instant switch profile or a time-based profile and NVDA is configured to announce metadata streaming status.
+* If NVDA is running with secure mode turned on, add-on update functionality will be turned off.
+* If errors occur when trying to check for add-on update, error messages will be logged and NVDA will advise you to open the log viewer for details.
 
 ## Version 15.12-LTS
 
