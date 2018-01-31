@@ -183,10 +183,10 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
-## Version 18.02
+## Version 18.02/15.13-LTS
 
-* Due to internal changes made to support extension points and other features, NVDA 2017.4 is required.
-* Add-on updating won't be possible under some cases. These include running NVDA from source code or with secure mode turned on.
+* 18.02: Due to internal changes made to support extension points and other features, NVDA 2017.4 is required.
+* Add-on updating won't be possible under some cases. These include running NVDA from source code or with secure mode turned on. Secure mode check is applicable to 15.13-LTS as well.
 * If errors occur while checking for updates, these will be logged and NVDA will advise you to read the NVDA log for details.
 * In add-on settings, various update settings in advanced settings section such as update interval will not be displayed if add-on updating is not supported.
 * NVDA will no longer appear to freeze or do nothing when switching to an instant switch profile or a time-based profile and NVDA is configured to announce metadata streaming status.
