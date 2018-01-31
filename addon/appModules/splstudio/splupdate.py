@@ -108,12 +108,19 @@ SPLUpdateErrorNoNetConnection = 7
 SPLUpdateMajorErrors = (SPLUpdateErrorSecureMode, SPLUpdateErrorTryBuild, SPLUpdateErrorSource, SPLUpdateErrorAppx, SPLUpdateErrorAddonsManagerUpdate)
 
 updateErrorMessages={
+	# Translators: one of the error messages when trying to update the add-on.
 	SPLUpdateErrorGeneric: _("An error occured while checking for add-on update. Please check NVDA log for details."),
+	# Translators: one of the error messages when trying to update the add-on.
 	SPLUpdateErrorSecureMode: _("NVDA is in secure mode. Please restart with secure mode disabled before checking for add-on updates."),
+	# Translators: one of the error messages when trying to update the add-on.
 	SPLUpdateErrorTryBuild: _("This is a try build of StationPlaylist Studio add-on. Please install the latest stable release to receive updates again."),
+	# Translators: one of the error messages when trying to update the add-on.
 	SPLUpdateErrorSource: _("Update checking not supported while running NVDA from source. Please run this add-on from an installed or a portable version of NVDA."),
+	# Translators: one of the error messages when trying to update the add-on.
 	SPLUpdateErrorAppx: _("This is a Windows Store version of NVDA. Add-on updating is supported on desktop version of NVDA."),
+	# Translators: one of the error messages when trying to update the add-on.
 	SPLUpdateErrorAddonsManagerUpdate: _("Cannot update add-on directly. Please check for add-on updates by going to add-ons manager."),
+	# Translators: one of the error messages when trying to update the add-on.
 	SPLUpdateErrorNoNetConnection: _("No internet connection. Please connect to the internet before checking for add-on update."),
 }
 
