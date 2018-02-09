@@ -15,8 +15,8 @@ repositorio del código fuente del complemento.
 
 NOTAS IMPORTANTES:
 
-* Este complemento requiere de NVDA 2017.1 o posterior y StationPlaylist
-  Studio 5.10 o posterior.
+* This add-on requires NVDA 2017.4 or later and StationPlaylist Studio 5.10
+  or later.
 * Si utilizas Windows 8 o posterior, para una mejor experiencia, deshabilita
   el modo atenuación de audio.
 * El complemento 8.0/16.10 requiere de Studio 5.10 o posterior. Para
@@ -27,6 +27,10 @@ NOTAS IMPORTANTES:
 * A partir de 2018, los registros de cambios para versiones antiguas se
   encontrarán en GitHub. Este readme del complemento listará cambios desde
   la versión 5.0 (2015 onwards).
+* Certain add-on features (notably add-on updating) won't work under some
+  conditions, including running NVDA in secure mode.
+* Due to tecnical limitations, you cannot install or use this add-on on
+  Windows Store version of NVDA.
 
 ## Teclas de atajo
 
@@ -307,6 +311,22 @@ Windows 8 o posterior y tienes NVDA 2012.3 o posterior instalado, puedes
 realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
+
+## Version 18.02/15.13-LTS
+
+* 18.02: Due to internal changes made to support extension points and other
+  features, NVDA 2017.4 is required.
+* Add-on updating won't be possible under some cases. These include running
+  NVDA from source code or with secure mode turned on. Secure mode check is
+  applicable to 15.13-LTS as well.
+* If errors occur while checking for updates, these will be logged and NVDA
+  will advise you to read the NVDA log for details.
+* In add-on settings, various update settings in advanced settings section
+  such as update interval will not be displayed if add-on updating is not
+  supported.
+* NVDA will no longer appear to freeze or do nothing when switching to an
+  instant switch profile or a time-based profile and NVDA is configured to
+  announce metadata streaming status.
 
 ## Versión 18.01/15.12-LTS
 

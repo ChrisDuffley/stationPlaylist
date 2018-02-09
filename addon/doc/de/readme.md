@@ -15,8 +15,8 @@ Quellcodeverzeichnis der Erweiterung auf Github.
 
 WICHTIGE HINWEISE:
 
-* Diese Erweiterung erfordert NVDA 2017.1 oder höher und StationPlaylist
-  Studio 5.10 oder höher.
+* This add-on requires NVDA 2017.4 or later and StationPlaylist Studio 5.10
+  or later.
 * Wenn Sie Windows 8 oder höher verwenden, setzen Sie die Reduzierung der
   Lautstärke anderer Audioquellen auf "nie" im Dialog Sprachausgabe im
   NVDA-Einstellungsmenü.
@@ -27,6 +27,10 @@ WICHTIGE HINWEISE:
 * Starting from 2018, [changelogs for old add-on releases][5] will be found
   on GitHub. This add-on readme will list changes from version 5.0 (2015
   onwards).
+* Certain add-on features (notably add-on updating) won't work under some
+  conditions, including running NVDA in secure mode.
+* Due to tecnical limitations, you cannot install or use this add-on on
+  Windows Store version of NVDA.
 
 ## Tastenkürzel
 
@@ -287,6 +291,22 @@ If you are using Studio on a touchscreen computer running Windows 8 or later
 and have NVDA 2012.3 or later installed, you can perform some Studio
 commands from the touchscreen. First use three finger tap to switch to SPL
 mode, then use the touch commands listed above to perform commands.
+
+## Version 18.02/15.13-LTS
+
+* 18.02: Due to internal changes made to support extension points and other
+  features, NVDA 2017.4 is required.
+* Add-on updating won't be possible under some cases. These include running
+  NVDA from source code or with secure mode turned on. Secure mode check is
+  applicable to 15.13-LTS as well.
+* If errors occur while checking for updates, these will be logged and NVDA
+  will advise you to read the NVDA log for details.
+* In add-on settings, various update settings in advanced settings section
+  such as update interval will not be displayed if add-on updating is not
+  supported.
+* NVDA will no longer appear to freeze or do nothing when switching to an
+  instant switch profile or a time-based profile and NVDA is configured to
+  announce metadata streaming status.
 
 ## Version 18.01/15.12-LTS
 

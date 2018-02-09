@@ -15,7 +15,7 @@ racine du code source du module complémentaire du référentiel.
 
 NOTES IMPORTANTES :
 
-* Ce module complémentaire nécessite NVDA 2017.1 ou version ultérieure et
+* Ce module complémentaire nécessite NVDA 2017.4 ou version ultérieure et
   StationPlaylist Studio 5.10 ou version ultérieure.
 * Si vous utilisez Windows 8 ou ultérieur, pour une meilleure expérience,
   désactiver le Mode d'atténuation audio.
@@ -28,6 +28,11 @@ NOTES IMPORTANTES :
 * À partir de 2018, [les journal des changements des anciennes versions du
   module complémentaire][5] seront trouvés sur GitHub. Ce fichier readme
   ajoutera les changements depuis la version 5.0 (à partir de 2015).
+* Certaines fonctionnalités du module complémentaire (notamment la mise à
+  jour de modules complémentaires) ne fonctionneront pas dans certaines
+  conditions, notamment l'exécution de NVDA en mode sécurisé.
+* En raison de limitations techniques, vous ne pouvez pas installer ou
+  utiliser ce module complémentaire sur la version Windows Store de NVDA.
 
 ## Raccourcis clavier
 
@@ -315,6 +320,26 @@ ultérieure installé, vous pouvez exécuter certaines commandes Studio depuis
 un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
+
+## Version 18.02/15.13-LTS
+
+* 18.02 : En raison de modifications internes apportées pour prendre en
+  charge les points d'extension et d'autres fonctionnalités, NVDA 2017.4 est
+  requis.
+* La mise à jour du module complémentaire ne sera pas possible dans certains
+  cas. Cela inclut l'exécution de NVDA à partir du code source ou avec le
+  mode sécurisé activé. La vérification du mode sécurisé s'applique
+  également à la 15.13-LTS.
+* Si des erreurs se produisent lors de la vérification des mises à jour,
+  celles-ci seront sauvegardées et NVDA vous conseillera de lire le journal
+  (log) de NVDA pour plus de détails.
+* Dans les paramètres du module complémentaire, divers paramètres de mise à
+  jour dans la section des paramètres avancés, tels que l'intervalle de mise
+  à jour, ne seront pas affichés si la mise à jour des modules
+  complémentaires n'est pas prise en charge.
+* NVDA ne semblera plus se bloquer ou ne fera plus rien lors du basculement
+  à un changement de profil immédiat ou à un profil basé sur l'heure et NVDA
+  est configuré pour annoncer l'état de diffusion des métadonnées.
 
 ## Version 18.01/15.12-LTS
 
