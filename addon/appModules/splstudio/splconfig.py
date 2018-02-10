@@ -173,6 +173,8 @@ class ConfigHub(ChainMap):
 		self.instantSwitch = self.profiles[0]["InstantProfile"] if ("InstantProfile" in self.profiles[0] and not self.normalProfileOnly) else None
 		self.timedSwitch = None
 		self.prevProfile = None
+		# A bit vector used to store profile switching flags.
+		self._switchProfileFlags = 0
 		# Switch history is a stack of previously activated profile(s), replacing prev profile flag from 7.x days.
 		# Initially normal profile will sit in here.
 		self.switchHistory = [self.activeProfile]
@@ -201,6 +203,21 @@ class ConfigHub(ChainMap):
 	@property
 	def configRestricted(self):
 		return self.volatileConfig or self.normalProfileOnly or self.configInMemory
+
+	# Profile switching flags.
+	_profileSwitchingFlags = {"instant": 0x1, "timed": 0x2}
+
+	@property
+	def switchProfileFlags(self):
+		return self._switchProfileFlags
+
+	@property
+	def instantSwitchProfileActive(self):
+		return bool(self._switchProfileFlags & self._profileSwitchFlags["instant"])
+
+	@property
+	def timedSwitchProfileActive(self):
+		return bool(self._switchProfileFlags & self._profileSwitchFlags["timed"])
 
 	# Unlock (load) profiles from files.
 	# LTS: Allow new profile settings to be overridden by a parent profile.
@@ -468,9 +485,12 @@ class ConfigHub(ChainMap):
 	# This involves promoting and demoting normal profile.
 	# 17.05: The appTerminating flag is used to suppress profile switching messages.
 	# 17.10: this will never be invoked if only normal profile is in use or if config was loaded from memory alone.
-	def switchProfile(self, prevProfile, newProfile, appTerminating=False):
+	def switchProfile(self, prevProfile, newProfile, appTerminating=False, switchFlags=None):
 		if self.normalProfileOnly or self.configInMemory:
 			raise RuntimeError("Only normal profile is in use or config was loaded from memory, cannot switch profiles")
+		# There are two switch flags in use, so make sure to check the highest bit.
+		if switchFlags is not None and not 0 <= switchFlags < 0x4:
+			raise RuntimeError("Profile switch flag out of range")
 		if not appTerminating:
 			from .splconfui import _configDialogOpened
 			if _configDialogOpened:
@@ -481,6 +501,8 @@ class ConfigHub(ChainMap):
 		if appTerminating: return
 		# Set the prev flag manually.
 		self.prevProfile = prevProfile
+		# Manipulated only by profile switch start/end functions.
+		self._switchProfileFlags = switchFlags
 		if prevProfile is not None:
 			self.switchHistory.append(newProfile)
 			# Translators: Presented when switch to instant switch profile was successful.
@@ -497,6 +519,27 @@ class ConfigHub(ChainMap):
 		# #38 (17.11/15.10-LTS): can't wait two seconds for microphone alarm to stop.
 		# #40 (17.12): all taken care of by profile switched notification.
 		splactions.SPLActionProfileSwitched.notify()
+
+	# Switch start/end functions.
+	# To be called from the module when starting or ending a profile switch.
+	# The only difference is the switch type, which will then set appropriate flag to be passed to switchProfile method above, with xor used to set the flags.
+	def switchProfileStart(self, prevProfile, newProfile, switchType):
+		if switchType not in ("instant", "timed"):
+			raise RuntimeError("Incorrect profile switch type specified")
+		if switchType == "instant" and self.instantSwitchProfileActive:
+			raise RuntimeError("Instant switch flag is already on")
+		elif switchType == "timed" and self.timedSwitchProfileActive:
+			raise RuntimeError("Timed switch flag is already on")
+		self.switchProfile(prevProfile, newProfile, switchFlags=self._switchProfileFlags ^ self._profileSwitchingFlags[switchType])
+
+	def switchProfileEnd(self, prevProfile, newProfile, switchType):
+		if switchType not in ("instant", "timed"):
+			raise RuntimeError("Incorrect profile switch type specified")
+		if switchType == "instant" and not self.instantSwitchProfileActive:
+			raise RuntimeError("Instant switch flag is already off")
+		elif switchType == "timed" and not self.timedSwitchProfileActive:
+			raise RuntimeError("Timed switch flag is already off")
+		self.switchProfile(prevProfile, newProfile, switchFlags=self._switchProfileFlags ^ self._profileSwitchingFlags[switchType])
 
 	# Used from config dialog and other places.
 	# Show switch index is used when deleting profiles so it doesn't have to look up index for old profiles.
@@ -853,14 +896,15 @@ def terminate():
 # Allows the add-on to switch between profiles as a result of manual intervention or through profile trigger timer.
 # Profiles refer to profile names.
 # Instant profile switching is just a special case of this function.
-def switchProfile(prevProfile, newProfile):
+# 18.04: also deal with switch flags/types.
+def switchProfile(prevProfile, newProfile, switchType):
 	global _SPLCache
 	from .splconfui import _configDialogOpened
 	if _configDialogOpened:
 		# Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
 		ui.message(_("Add-on settings dialog is open, cannot switch profiles"))
 		return
-	SPLConfig.switchProfile(prevProfile, newProfile)
+	SPLConfig.switchProfile(prevProfile, newProfile, )
 	# 8.0: Cache other profiles this time.
 	if newProfile != defaultProfileName and newProfile not in _SPLCache:
 		_cacheConfig(SPLConfig.profileByName(newProfile))
@@ -888,9 +932,9 @@ def instantProfileSwitch():
 			# Pass in the prev profile, which will be None for instant profile switch.
 			# 7.0: Now activate "activeProfile" argument which controls the behavior of the function below.
 			# 8.0: Work directly with profile names.
-			switchProfile(SPLConfig.activeProfile, SPLSwitchProfile)
+			switchProfile(SPLConfig.activeProfile, SPLSwitchProfile, "instant")
 		else:
-			switchProfile(None, SPLConfig.prevProfile)
+			switchProfile(None, SPLConfig.prevProfile, "instant")
 
 # The triggers version of the above function.
 _SPLTriggerEndTimer = None
