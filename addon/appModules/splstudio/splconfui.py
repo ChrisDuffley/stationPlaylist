@@ -272,7 +272,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# Make sure to nullify prev profile if instant switch profile is gone.
 		# 7.0: Don't do the following in the midst of a broadcast.
 		if self.switchProfile is None and not splconfig._triggerProfileActive:
-			splconfig.SPLPrevProfile = None
+			splconfig.SPLConfig.prevProfile = None
 		_configDialogOpened = False
 		# 7.0: Perform extra action such as restarting auto update timer.
 		self.onCloseExtraAction()
@@ -429,7 +429,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# 6.4: This was seen after deleting a profile one position before the previously active profile.
 		# 7.0: One should never delete the currently active time-based profile.
 		# 7.1: Find a way to safely proceed via two-step verification if trying to delete currently active time-based profile.
-		if (splconfig._SPLTriggerEndTimer is not None and splconfig._SPLTriggerEndTimer.IsRunning()) or splconfig._triggerProfileActive or splconfig.SPLPrevProfile is not None:
+		if (splconfig._SPLTriggerEndTimer is not None and splconfig._SPLTriggerEndTimer.IsRunning()) or splconfig._triggerProfileActive or splconfig.SPLConfig.prevProfile is not None:
 			# Translators: Message reported when attempting to delete a profile while a profile is triggered.
 			gui.messageBox(_("An instant switch profile might be active or you are in the midst of a broadcast. If so, please press SPL Assistant, F12 to switch back to a previously active profile before opening add-on settings to delete a profile."),
 				# Translators: Title of a dialog shown when profile cannot be deleted.
@@ -463,7 +463,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 			# 17.11/15.10-LTS: go through the below path if and only if instant switch profile is gone.
 			if name == self.switchProfile:
 				self.switchProfile = None
-				splconfig.SPLPrevProfile = None
+				splconfig.SPLConfig.prevProfile = None
 			self.switchProfileDeleted = True
 		self.profiles.Delete(index)
 		del self.profileNames[profilePos]
@@ -1577,7 +1577,7 @@ class ResetDialog(wx.Dialog):
 			if self.resetInstantProfileCheckbox.Value:
 				if splconfig.SPLConfig.instantSwitch is not None:
 					splconfig.SPLConfig.instantSwitch = None
-					splconfig.SPLPrevProfile = None
+					splconfig.SPLConfig.prevProfile = None
 			if self.resetTimeProfileCheckbox.Value:
 				splconfig.profileTriggers.clear()
 				if splconfig.triggerTimer is not None and splconfig.triggerTimer.IsRunning():

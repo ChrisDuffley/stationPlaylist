@@ -172,6 +172,7 @@ class ConfigHub(ChainMap):
 		# Active profile name is retrieved via the below property function.
 		self.instantSwitch = self.profiles[0]["InstantProfile"] if ("InstantProfile" in self.profiles[0] and not self.normalProfileOnly) else None
 		self.timedSwitch = None
+		self.prevProfile = None
 		# Switch history is a stack of previously activated profile(s), replacing prev profile flag from 7.x days.
 		# Initially normal profile will sit in here.
 		self.switchHistory = [self.activeProfile]
@@ -478,6 +479,8 @@ class ConfigHub(ChainMap):
 				return
 		self.swapProfiles(prevProfile, newProfile)
 		if appTerminating: return
+		# Set the prev flag manually.
+		self.prevProfile = prevProfile
 		if prevProfile is not None:
 			self.switchHistory.append(newProfile)
 			# Translators: Presented when switch to instant switch profile was successful.
@@ -821,12 +824,12 @@ def shouldSave(profile):
 
 # Terminate the config and related subsystems.
 def terminate():
-	global SPLConfig, _SPLCache, SPLPrevProfile, _SPLTriggerEndTimer, _triggerProfileActive
+	global SPLConfig, _SPLCache, _SPLTriggerEndTimer, _triggerProfileActive
 	# #30 (17.05): If we come here before a time-based profile expires, the trigger end timer will meet a painful death.
 	if _SPLTriggerEndTimer is not None and _SPLTriggerEndTimer.IsRunning():
 		_SPLTriggerEndTimer.Stop()
 		_SPLTriggerEndTimer = None
-		SPLConfig.switchProfile(None, SPLPrevProfile, appTerminating=True)
+		SPLConfig.switchProfile(None, SPLConfig.prevProfile, appTerminating=True)
 		_triggerProfileActive = False
 	# 7.0: Turn off auto update check timer.
 	if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
@@ -844,24 +847,20 @@ def terminate():
 	SPLConfig = None
 	_SPLCache.clear()
 	_SPLCache = None
-	SPLPrevProfile = None
 
 # Switch between profiles.
-SPLPrevProfile = None
-
 # A general-purpose profile switcher.
 # Allows the add-on to switch between profiles as a result of manual intervention or through profile trigger timer.
 # Profiles refer to profile names.
 # Instant profile switching is just a special case of this function.
 def switchProfile(prevProfile, newProfile):
-	global SPLPrevProfile, _SPLCache
+	global _SPLCache
 	from .splconfui import _configDialogOpened
 	if _configDialogOpened:
 		# Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
 		ui.message(_("Add-on settings dialog is open, cannot switch profiles"))
 		return
 	SPLConfig.switchProfile(prevProfile, newProfile)
-	SPLPrevProfile = prevProfile
 	# 8.0: Cache other profiles this time.
 	if newProfile != defaultProfileName and newProfile not in _SPLCache:
 		_cacheConfig(SPLConfig.profileByName(newProfile))
@@ -878,7 +877,7 @@ def instantProfileSwitch():
 		# Translators: Presented when trying to switch to an instant switch profile when the instant switch profile is not defined.
 		ui.message(_("No instant switch profile is defined"))
 	else:
-		if SPLPrevProfile is None:
+		if SPLConfig.prevProfile is None:
 			if SPLConfig.activeProfile == SPLSwitchProfile:
 				# Translators: Presented when trying to switch to an instant switch profile when one is already using the instant switch profile.
 				ui.message(_("You are already in the instant switch profile"))
@@ -891,7 +890,7 @@ def instantProfileSwitch():
 			# 8.0: Work directly with profile names.
 			switchProfile(SPLConfig.activeProfile, SPLSwitchProfile)
 		else:
-			switchProfile(None, SPLPrevProfile)
+			switchProfile(None, SPLConfig.prevProfile)
 
 # The triggers version of the above function.
 _SPLTriggerEndTimer = None
@@ -903,7 +902,7 @@ def triggerProfileSwitch():
 	SPLTriggerProfile = SPLConfig.timedSwitch
 	if SPLTriggerProfile is None and _triggerProfileActive:
 		raise RuntimeError("Trigger profile flag cannot be active when the trigger profile itself isn't defined")
-	if SPLPrevProfile is None:
+	if SPLConfig.prevProfile is None:
 		if SPLConfig.activeProfile == SPLTriggerProfile:
 			# Translators: Presented when trying to switch to an instant switch profile when one is already using the instant switch profile.
 			ui.message(_("A profile trigger is already active"))
@@ -920,7 +919,7 @@ def triggerProfileSwitch():
 			_SPLTriggerEndTimer = wx.PyTimer(triggerProfileSwitch)
 			_SPLTriggerEndTimer.Start(triggerSettings[6] * 60 * 1000, True)
 	else:
-		switchProfile(None, SPLPrevProfile)
+		switchProfile(None, SPLConfig.prevProfile)
 		_triggerProfileActive = False
 		# Stop the ending timer.
 		if _SPLTriggerEndTimer is not None and _SPLTriggerEndTimer.IsRunning():
