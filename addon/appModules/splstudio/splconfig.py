@@ -205,7 +205,7 @@ class ConfigHub(ChainMap):
 		return self.volatileConfig or self.normalProfileOnly or self.configInMemory
 
 	# Profile switching flags.
-	_profileSwitchingFlags = {"instant": 0x1, "timed": 0x2}
+	_profileSwitchFlags = {"instant": 0x1, "timed": 0x2}
 
 	@property
 	def switchProfileFlags(self):
@@ -530,7 +530,7 @@ class ConfigHub(ChainMap):
 			raise RuntimeError("Instant switch flag is already on")
 		elif switchType == "timed" and self.timedSwitchProfileActive:
 			raise RuntimeError("Timed switch flag is already on")
-		self.switchProfile(prevProfile, newProfile, switchFlags=self._switchProfileFlags ^ self._profileSwitchingFlags[switchType])
+		self.switchProfile(prevProfile, newProfile, switchFlags=self._switchProfileFlags ^ self._profileSwitchFlags[switchType])
 
 	def switchProfileEnd(self, prevProfile, newProfile, switchType):
 		if switchType not in ("instant", "timed"):
@@ -539,7 +539,7 @@ class ConfigHub(ChainMap):
 			raise RuntimeError("Instant switch flag is already off")
 		elif switchType == "timed" and not self.timedSwitchProfileActive:
 			raise RuntimeError("Timed switch flag is already off")
-		self.switchProfile(prevProfile, newProfile, switchFlags=self._switchProfileFlags ^ self._profileSwitchingFlags[switchType])
+		self.switchProfile(prevProfile, newProfile, switchFlags=self._switchProfileFlags ^ self._profileSwitchFlags[switchType])
 
 	# Used from config dialog and other places.
 	# Show switch index is used when deleting profiles so it doesn't have to look up index for old profiles.
