@@ -896,8 +896,8 @@ def terminate():
 # Allows the add-on to switch between profiles as a result of manual intervention or through profile trigger timer.
 # Profiles refer to profile names.
 # Instant profile switching is just a special case of this function.
-# 18.04: also deal with switch flags/types.
-def switchProfile(prevProfile, newProfile, switchType):
+# 18.04: kept for compatibility for a while.
+def switchProfile(prevProfile, newProfile):
 	global _SPLCache
 	from .splconfui import _configDialogOpened
 	if _configDialogOpened:
@@ -932,9 +932,11 @@ def instantProfileSwitch():
 			# Pass in the prev profile, which will be None for instant profile switch.
 			# 7.0: Now activate "activeProfile" argument which controls the behavior of the function below.
 			# 8.0: Work directly with profile names.
-			switchProfile(SPLConfig.activeProfile, SPLSwitchProfile, "instant")
+			# 18.04: call switch profile start method directly.
+			# To the outside, a profile switch took place.
+			SPLConfig.switchProfileStart(SPLConfig.activeProfile, SPLSwitchProfile, "instant")
 		else:
-			switchProfile(None, SPLConfig.prevProfile, "instant")
+			SPLConfig.switchProfileEnd(None, SPLConfig.prevProfile, "instant")
 
 # The triggers version of the above function.
 _SPLTriggerEndTimer = None
@@ -951,7 +953,7 @@ def triggerProfileSwitch():
 			# Translators: Presented when trying to switch to an instant switch profile when one is already using the instant switch profile.
 			ui.message(_("A profile trigger is already active"))
 			return
-		switchProfile(SPLConfig.activeProfile, SPLTriggerProfile)
+		SPLConfig.switchProfileStart(SPLConfig.activeProfile, SPLTriggerProfile, "timed")
 		# Set the global trigger flag to inform various subsystems such as add-on settings dialog.
 		_triggerProfileActive = True
 		# Set the next trigger date and time.
@@ -963,7 +965,7 @@ def triggerProfileSwitch():
 			_SPLTriggerEndTimer = wx.PyTimer(triggerProfileSwitch)
 			_SPLTriggerEndTimer.Start(triggerSettings[6] * 60 * 1000, True)
 	else:
-		switchProfile(None, SPLConfig.prevProfile)
+		SPLConfig.switchProfileEnd(None, SPLConfig.prevProfile, "timed")
 		_triggerProfileActive = False
 		# Stop the ending timer.
 		if _SPLTriggerEndTimer is not None and _SPLTriggerEndTimer.IsRunning():
