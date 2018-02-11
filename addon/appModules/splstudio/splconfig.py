@@ -904,7 +904,7 @@ def switchProfile(prevProfile, newProfile):
 		# Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
 		ui.message(_("Add-on settings dialog is open, cannot switch profiles"))
 		return
-	SPLConfig.switchProfile(prevProfile, newProfile, )
+	SPLConfig.switchProfile(prevProfile, newProfile)
 	# 8.0: Cache other profiles this time.
 	if newProfile != defaultProfileName and newProfile not in _SPLCache:
 		_cacheConfig(SPLConfig.profileByName(newProfile))
