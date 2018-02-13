@@ -466,7 +466,8 @@ def metadata_actionProfileSwitched(configDialogActive=False):
 		return
 	# Ordinarily, errors would have been dealt with, but Action.notify will catch errors and log messages.
 	# #40 (18.02): the only possible error is if Studio handle is invalid, which won't be the case, otherwise no point handling this action.
-	if splconfig.SPLConfig["General"]["MetadataReminder"] in ("startup", "instant"):
+	# #49 (18.03): no, don't announce this if the app module is told to announce metadata status at startup only.
+	if splconfig.SPLConfig["General"]["MetadataReminder"] == "instant":
 		# If told to remind and connect, metadata streaming will be enabled at this time.
 		# 6.0: Call Studio API twice - once to set, once more to obtain the needed information.
 		# 6.2/7.0: When Studio API is called, add the value into the stream count list also.
