@@ -21,6 +21,7 @@ import gui
 import wx
 import addonHandler
 import globalVars
+from . import splactions
 # There are times when update check should not be supported.
 try:
 	import updateCheck
@@ -73,9 +74,12 @@ def initialize():
 		SPLAddonState["PDT"] = 0
 		_updateNow = False
 		SPLUpdateChannel = "dev"
+	# Handle profile switches.
+	splactions.SPLActionProfileSwitched.register(splupdate_actionProfileSwitched)
 	# Check for add-on update if told to do so.
+	# In case a time-based profile is active or other switch flags are on, give up, as update check will happen after a possible trigger is set.
 	from . import splconfig, spldebugging
-	if canUpdate() and (splconfig.SPLConfig["Update"]["AutoUpdateCheck"] or _updateNow):
+	if canUpdate() and splconfig.SPLConfig.switchProfileFlags == 0 and (splconfig.SPLConfig["Update"]["AutoUpdateCheck"] or _updateNow):
 		spldebugging.debugOutput("checking for add-on updates from %s channel"%SPLUpdateChannel)
 		# 7.0: Have a timer call the update function indirectly.
 		import queueHandler
@@ -83,6 +87,7 @@ def initialize():
 
 def terminate():
 	global SPLAddonState
+	splactions.SPLActionProfileSwitched.unregister(splupdate_actionProfileSwitched)
 	# Store new values if it is absolutely required.
 	# Take care of a case where one might be "downgrading" from try builds.
 	stateChanged = "UpdateChannel" not in SPLAddonState or (SPLAddonState["PDT"] != SPLAddonCheck or SPLAddonState["UpdateChannel"] != SPLUpdateChannel)
@@ -94,6 +99,13 @@ def terminate():
 		pickle.dump(SPLAddonState, file(_updatePickle, "wb"))
 	SPLAddonState = None
 
+# Enable or disable update checking facility if told by config changes action.
+def splupdate_actionProfileSwitched():
+	pass
+
+splactions.SPLActionProfileSwitched.register(splupdate_actionProfileSwitched)
+
+# Handle several cases that disables update feature completely (or partially).
 SPLUpdateErrorNone = 0
 SPLUpdateErrorGeneric = 1
 SPLUpdateErrorSecureMode = 2
