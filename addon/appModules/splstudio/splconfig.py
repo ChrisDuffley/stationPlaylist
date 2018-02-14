@@ -1162,17 +1162,17 @@ messagePool={
 		"outro":
 			# Translators: A setting in braille timer options.
 			(_("Braille track endings"),
-						# Translators: A setting in braille timer options.
+			# Translators: A setting in braille timer options.
 			_("Outro")),
 		"intro":
 			# Translators: A setting in braille timer options.
 			(_("Braille intro endings"),
-						# Translators: A setting in braille timer options.
+			# Translators: A setting in braille timer options.
 			_("Intro")),
 		"both":
 			# Translators: A setting in braille timer options.
 			(_("Braille intro and track endings"),
-						# Translators: A setting in braille timer options.
+			# Translators: A setting in braille timer options.
 			_("Both"))},
 	"LibraryScanAnnounce":
 		{"off":
