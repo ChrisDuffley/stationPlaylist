@@ -11,13 +11,15 @@ try:
 	import updateCheck
 except RuntimeError:
 	raise RuntimeError("NVDA itself cannot check for updates")
-# Only applicable for custom try builds.
-_customTryBuild = False
-if _customTryBuild:
-	raise RuntimeError("Custom add-on try build detected, no add-on update possible")
 import globalVars
 if globalVars.appArgs.secure:
 	raise RuntimeError("NVDA in secure mode, cannot check for add-on update")
+# Only applicable for custom try builds.
+_customTryBuild = False
+if _customTryBuild:
+	# Communicate this flag with others.
+	if not "--spl-customtrybuild" in globalVars.appArgsExtra: globalVars.appArgsExtra.append("--spl-customtrybuild")
+	raise RuntimeError("Custom add-on try build detected, no add-on update possible")
 import versionInfo
 if not versionInfo.updateVersionType:
 	raise RuntimeError("NVDA is running from source code, add-on update check is not supported")
