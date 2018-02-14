@@ -2,7 +2,30 @@
 # A support module for SPL add-on
 # Copyright 2015-2018 Joseph Lee, released under GPL.
 
-# Provides update check facility, basics borrowed from NVDA Core's update checker class.
+# Provides update check facility, basics borrowed from NVDA Core's update checker class and other support modules.
+# This module won't be available if add-on update feature isn't supported.
+
+# #50 (18.03): raise exceptions when update check isn't supported.
+
+# Only applicable for custom try builds.
+_customTryBuild = False
+
+if _customTryBuild:
+	raise RuntimeError("Custom add-on try build detected, no add-on update possible")
+import globalVars
+if globalVars.appArgs.secure:
+	raise RuntimeError("NVDA in secure mode, cannot check for add-on update")
+import versionInfo
+if not versionInfo.updateVersionType:
+	raise RuntimeError("NVDA is running from source code, add-on update check is not supported")
+# NVDA 2018.1 and later.
+import config
+if hasattr(config, "isAppX") and config.isAppX:
+	raise RuntimeError("This is NVDA Windows Store edition")
+import addonHandler
+# Provided that NVDA issue 3208 is implemented.
+if hasattr(addonHandler, "checkForAddonUpdate"):
+	raise RuntimeError("NVDA itself will check for add-on updates")
 
 import sys
 py3 = sys.version.startswith("3")
@@ -19,8 +42,6 @@ import ctypes
 import ssl
 import gui
 import wx
-import addonHandler
-import globalVars
 from . import splactions
 # There are times when update check should not be supported.
 try:
@@ -135,9 +156,6 @@ updateErrorMessages={
 	# Translators: one of the error messages when trying to update the add-on.
 	SPLUpdateErrorNoNetConnection: _("No internet connection. Please connect to the internet before checking for add-on update."),
 }
-
-# Only applicable for custom try builds.
-_customTryBuild = False
 
 # Check to really make sure add-on updating is supported.
 # Contrary to its name, 0 means yes, otherwise no.
