@@ -14,7 +14,10 @@ import gui
 import wx
 from winUser import user32
 import tones
-from . import splupdate
+try:
+	from . import splupdate
+except RuntimeError:
+	splupdate = None
 from . import splconfig
 from . import splactions
 
