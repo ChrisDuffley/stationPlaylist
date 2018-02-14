@@ -5,11 +5,14 @@
 # Provides update check facility, basics borrowed from NVDA Core's update checker class and other support modules.
 # This module won't be available if add-on update feature isn't supported.
 
-# #50 (18.03): raise exceptions when update check isn't supported.
-
+# #50 (18.03): there are times when update check should not be supported.
+# Raise runtime exceptions if this is the case.
+try:
+	import updateCheck
+except RuntimeError:
+	raise RuntimeError("NVDA itself cannot check for updates")
 # Only applicable for custom try builds.
 _customTryBuild = False
-
 if _customTryBuild:
 	raise RuntimeError("Custom add-on try build detected, no add-on update possible")
 import globalVars
@@ -43,11 +46,6 @@ import ssl
 import gui
 import wx
 from . import splactions
-# There are times when update check should not be supported.
-try:
-	import updateCheck
-except RuntimeError:
-	pass
 
 # Add-on manifest routine (credit: various add-on authors including Noelia Martinez).
 # Do not rely on using absolute path to open to manifest, as installation directory may change in a future NVDA Core version (highly unlikely, but...).
