@@ -657,7 +657,8 @@ def switchProfile(prevProfile, newProfile):
 	# Use the module-level metadata and microphone status reminder methods if told to do so now.
 	# #38 (17.11/15.10-LTS): can't wait two seconds for microphone alarm to stop.
 	_restartMicTimer()
-	if SPLConfig["General"]["MetadataReminder"] in ("startup", "instant"):
+	# #49 (15.14-LTS): no, do not announce metadata status if told to announce this at startup.
+	if SPLConfig["General"]["MetadataReminder"] == "instant":
 		_metadataAnnouncer(reminder=True)
 
 # Called from within the app module.
