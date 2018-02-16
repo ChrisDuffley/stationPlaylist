@@ -15,8 +15,8 @@ repositorio del código fuente del complemento.
 
 NOTAS IMPORTANTES:
 
-* This add-on requires NVDA 2017.4 or later and StationPlaylist Studio 5.10
-  or later.
+* Este complemento requiere de NVDA 2017.4 o posterior y StationPlaylist
+  Studio 5.10 o posterior.
 * Si utilizas Windows 8 o posterior, para una mejor experiencia, deshabilita
   el modo atenuación de audio.
 * El complemento 8.0/16.10 requiere de Studio 5.10 o posterior. Para
@@ -27,10 +27,11 @@ NOTAS IMPORTANTES:
 * A partir de 2018, los registros de cambios para versiones antiguas se
   encontrarán en GitHub. Este readme del complemento listará cambios desde
   la versión 5.0 (2015 onwards).
-* Certain add-on features (notably add-on updating) won't work under some
-  conditions, including running NVDA in secure mode.
-* Due to tecnical limitations, you cannot install or use this add-on on
-  Windows Store version of NVDA.
+* Ciertas características del complemento (especialmente la actualización)
+  no funcionarán bajo algunas condiciones, incluyendo la ejecución de NVDA
+  en modo seguro.
+* Debido a limitaciones técnicas, no puedes instalar ni utilizar este
+  complemento en la versión de Windows Store de NVDA.
 
 ## Teclas de atajo
 
@@ -312,21 +313,22 @@ realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
 
-## Version 18.02/15.13-LTS
+## Versión 18.02/15.13-LTS
 
-* 18.02: Due to internal changes made to support extension points and other
-  features, NVDA 2017.4 is required.
-* Add-on updating won't be possible under some cases. These include running
-  NVDA from source code or with secure mode turned on. Secure mode check is
-  applicable to 15.13-LTS as well.
-* If errors occur while checking for updates, these will be logged and NVDA
-  will advise you to read the NVDA log for details.
-* In add-on settings, various update settings in advanced settings section
-  such as update interval will not be displayed if add-on updating is not
-  supported.
-* NVDA will no longer appear to freeze or do nothing when switching to an
-  instant switch profile or a time-based profile and NVDA is configured to
-  announce metadata streaming status.
+* 18.02: debido a los cambios internos realizados para soportar puntos de
+  extensión y otras características, se requiere de NVDA 2017.4.
+* La actualización adicional no será posible en algunos casos. Esto incluye
+  ejecutar NVDA desde código fuente o con el modo seguro activado. La
+  comprobación de modo seguro también es aplicable a 15.13-LTS.
+* Si se producen errores durante la comprobación de las actualizaciones,
+  éstos se registrarán y NVDA te aconsejará que leas el registro de NVDA
+  para obtener más detalles.
+* En las opciones del complemento, no se mostrarán varios ajustes de
+  actualización en la sección de parámetros avanzados, como el intervalo de
+  actualización, si no se admite la actualización de complementos.
+* NVDA ya no parecerá congelarse o no hacer nada al cambiar a un perfil de
+  cambio instantáneo o a un perfil basado en el tiempo y NVDA está
+  configurado para anunciar el estado de la transmisión de metadatos.
 
 ## Versión 18.01/15.12-LTS
 
