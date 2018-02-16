@@ -207,7 +207,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.compLayer = splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]
 		self.autoUpdateCheck = splconfig.SPLConfig["Update"]["AutoUpdateCheck"]
 		self.updateInterval = splconfig.SPLConfig["Update"]["UpdateInterval"]
-		self.updateChannel = splupdate.SPLUpdateChannel
+		if splupdate: self.updateChannel = splupdate.SPLUpdateChannel
 		self.pendingChannelChange = False
 		SPLConfigHelper.addItem(sizer.sizer)
 
@@ -269,8 +269,9 @@ class SPLConfigDialog(gui.SettingsDialog):
 		splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] = self.compLayer
 		splconfig.SPLConfig["Update"]["AutoUpdateCheck"] = self.autoUpdateCheck
 		splconfig.SPLConfig["Update"]["UpdateInterval"] = self.updateInterval
-		self.pendingChannelChange = splupdate.SPLUpdateChannel != self.updateChannel
-		splupdate.SPLUpdateChannel = self.updateChannel
+		if splupdate:
+			self.pendingChannelChange = splupdate.SPLUpdateChannel != self.updateChannel
+			splupdate.SPLUpdateChannel = self.updateChannel
 		splconfig.SPLConfig.instantSwitch = self.switchProfile
 		# Make sure to nullify prev profile if instant switch profile is gone.
 		# 7.0: Don't do the following in the midst of a broadcast.
@@ -319,17 +320,19 @@ class SPLConfigDialog(gui.SettingsDialog):
 	# Perform extra action when closing this dialog such as restarting update timer.
 	def onCloseExtraAction(self):
 		# Coordinate auto update timer restart routine if told to do so.
-		if not splconfig.SPLConfig["Update"]["AutoUpdateCheck"] or self.pendingChannelChange:
-			if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
-			splupdate._SPLUpdateT = None
-			if self.pendingChannelChange:
-				splupdate._pendingChannelChange = True
-				# Translators: A dialog message shown when add-on update channel has changed.
-				wx.CallAfter(gui.messageBox, _("You have changed the add-on update channel. You must restart NVDA for the change to take effect. Be sure to answer yes when you are asked to install the new version when prompted after restarting NVDA."),
-				# Translators: Title of the update channel dialog.
-				_("Add-on update channel changed"), wx.OK|wx.ICON_INFORMATION)
-		else:
-			if splupdate._SPLUpdateT is None: splconfig.updateInit()
+		# #50 (18.03): but only if add-on update facility is alive.
+		if splupdate:
+			if not splconfig.SPLConfig["Update"]["AutoUpdateCheck"] or self.pendingChannelChange:
+				if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
+				splupdate._SPLUpdateT = None
+				if self.pendingChannelChange:
+					splupdate._pendingChannelChange = True
+					# Translators: A dialog message shown when add-on update channel has changed.
+					wx.CallAfter(gui.messageBox, _("You have changed the add-on update channel. You must restart NVDA for the change to take effect. Be sure to answer yes when you are asked to install the new version when prompted after restarting NVDA."),
+					# Translators: Title of the update channel dialog.
+					_("Add-on update channel changed"), wx.OK|wx.ICON_INFORMATION)
+			else:
+				if splupdate._SPLUpdateT is None: splconfig.updateInit()
 		# Change metadata streaming.
 		# 17.11: call the metadata connector directly, reducing code duplication from previous releases.
 		# 17.12: replaced by an action, with config UI active flag set.
@@ -1448,7 +1451,8 @@ class AdvancedOptionsDialog(wx.Dialog):
 
 		# #48 (18.02): do not show auto-update checkbox and interval options if not needed.
 		# The exception will be custom try builds.
-		if splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone:
+		# #50 (18.03): made simpler because the update module won't be present if updating isn't supported.
+		if splupdate and splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone:
 			# Translators: A checkbox to toggle automatic add-on updates.
 			self.autoUpdateCheckbox=advOptionsHelper.addItem(wx.CheckBox(self,label=_("Automatically check for add-on &updates")))
 			self.autoUpdateCheckbox.SetValue(self.Parent.autoUpdateCheck)
@@ -1489,7 +1493,7 @@ class AdvancedOptionsDialog(wx.Dialog):
 		self.Center(wx.BOTH | CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
-		addonUpdatingSupported = splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone
+		addonUpdatingSupported = splupdate and splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone
 		# The try (fast ring) builds aren't for the faint of heart.
 		# 17.10: nor for old Windows releases anymore.
 		if len(self._updateChannels) > 1:
