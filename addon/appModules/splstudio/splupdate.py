@@ -120,6 +120,12 @@ def terminate():
 		pickle.dump(SPLAddonState, file(_updatePickle, "wb"))
 	SPLAddonState = None
 
+# Turn off update check timer.
+def updateCheckTimerEnd():
+	global _SPLUpdateT
+	if _SPLUpdateT is not None and _SPLUpdateT.IsRunning(): _SPLUpdateT.Stop()
+	_SPLUpdateT = None
+
 # Enable or disable update checking facility if told by config changes action.
 def splupdate_actionProfileSwitched():
 	pass

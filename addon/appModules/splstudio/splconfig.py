@@ -513,7 +513,7 @@ class ConfigHub(ChainMap):
 			ui.message(_("Switching to {newProfileName}").format(newProfileName = self.activeProfile))
 			# Pause automatic update checking.
 			if self["Update"]["AutoUpdateCheck"]:
-				if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
+				if splupdate: splupdate.updateCheckTimerEnd()
 		else:
 			self.switchHistory.pop()
 			# Translators: Presented when switching from instant switch profile to a previous profile.
@@ -879,15 +879,14 @@ def terminate():
 		SPLConfig.switchProfile(None, SPLConfig.prevProfile, appTerminating=True)
 		_triggerProfileActive = False
 	# 7.0: Turn off auto update check timer.
-	if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
-	splupdate._SPLUpdateT = None
+	if splupdate: splupdate.updateCheckTimerEnd()
 	# Close profile triggers dictionary.
 	# 17.10: but if only the normal profile is in use, it won't do anything.
 	if not SPLConfig.normalProfileOnly: saveProfileTriggers()
 	# Dump track comments.
 	pickle.dump(trackComments, file(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"), "wb"))
 	# Save update check state.
-	splupdate.terminate()
+	if splupdate: splupdate.terminate()
 	# Now save profiles.
 	# 8.0: Call the save method.
 	SPLConfig.save()
@@ -982,14 +981,14 @@ def triggerProfileSwitch():
 # Its only job is to call the update check function (splupdate) with the auto check enabled.
 # The update checker will not be engaged if secure mode flag is on, an instant switch profile is active, or it is not time to check for it yet (check will be done every 24 hours).
 def autoUpdateCheck():
-	if globalVars.appArgs.secure: return
+	if splupdate is None or globalVars.appArgs.secure: return
 	splupdate.updateChecker(auto=True, continuous=SPLConfig["Update"]["AutoUpdateCheck"], confUpdateInterval=SPLConfig["Update"]["UpdateInterval"])
 
 # The timer itself.
 # A bit simpler than NVDA Core's auto update checker.
 def updateInit():
 	# #48 (18.02/15.13-LTS): no, not when secure mode flag is on.
-	if globalVars.appArgs.secure: return
+	if splupdate is None or globalVars.appArgs.secure: return
 	# LTS: Launch updater if channel change is detected.
 	# Use a background thread for this as urllib blocks.
 	import threading
