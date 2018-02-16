@@ -9,6 +9,7 @@
 import ctypes
 import weakref
 import os
+import threading
 from csv import reader # For cart explorer.
 import gui
 import wx
@@ -359,15 +360,21 @@ class SPLCountdownTimer(object):
 			ui.message(str(self.duration))
 
 
+# An internal time used to control metadata streaming status announcement (in order to avoid repeats).
+_earlyMetadataAnnouncer = None
+
 # Module-level version of metadata announcer.
 # Moved to this module in 2016 to allow this function to work while Studio window isn't focused.
 def _metadataAnnouncer(reminder=False, handle=None):
-	# #47 (15.13-LTS): a closure to allow metadata streaming nanouncer to do its job without holding up others in the queue.
+	# #47 (15.13-LTS): a closure to allow metadata streaming announcer to do its job without holding up others in the queue.
 	def _metadataAnnouncerInternal(status):
 		import nvwave, queueHandler, speech
 		speech.cancelSpeech()
 		queueHandler.queueFunction(queueHandler.eventQueue, ui.message, status)
 		nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_Metadata.wav"))
+		# #51 (15.14-LTS): nullify internal timer.
+		global _earlyMetadataAnnouncer
+		_earlyMetadataAnnouncer = None
 	from . import splconfig
 	if handle is None: handle = user32.FindWindowA("SPLStudio", None)
 	# If told to remind and connect, metadata streaming will be enabled at this time.
@@ -401,7 +408,14 @@ def _metadataAnnouncer(reminder=False, handle=None):
 		# Translators: Status message for metadata streaming.
 		else: status = _("Metadata streaming configured for URL's {URL}").format(URL = urltext)
 	# #47 (15.13-LTS): call announcer via wx.CallLater.
-	if reminder: wx.CallLater(2000, _metadataAnnouncerInternal, status)
+	# #51 (15.14-LTS): use a timer instead.
+	if reminder:
+		global _earlyMetadataAnnouncer
+		if _earlyMetadataAnnouncer is not None:
+			_earlyMetadataAnnouncer.cancel()
+			_earlyMetadataAnnouncer = None
+		_earlyMetadataAnnouncer = threading.Timer(2, _metadataAnnouncerInternal, args=[status])
+		_earlyMetadataAnnouncer.start()
 	else: ui.message(status)
 
 # Microphone alarm checker.
