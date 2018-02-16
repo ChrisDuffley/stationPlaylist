@@ -11,6 +11,7 @@ py3 = sys.version.startswith("3")
 import ctypes
 import weakref
 import os
+import threading
 from .csv import reader # For cart explorer.
 import gui
 import wx
@@ -438,6 +439,20 @@ def _metadataAnnouncerInternal(status):
 	speech.cancelSpeech()
 	queueHandler.queueFunction(queueHandler.eventQueue, ui.message, status)
 	nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_Metadata.wav"))
+	# #51 (18.03/15.14-LTS): close link to metadata announcer thread when finished.
+	global _earlyMetadataAnnouncer
+	_earlyMetadataAnnouncer = None
+
+# Handle a case where instant profile ssitch occurs twice within the switch time-out.
+_earlyMetadataAnnouncer = None
+
+def _earlyMetadataAnnouncerInternal(status):
+	global _earlyMetadataAnnouncer
+	if _earlyMetadataAnnouncer is not None:
+		_earlyMetadataAnnouncer.cancel()
+		_earlyMetadataAnnouncer = None
+	_earlyMetadataAnnouncer = threading.Timer(2, _metadataAnnouncerInternal, args=[status])
+	_earlyMetadataAnnouncer.start()
 
 # Module-level version of metadata announcer
 # Moved to this module in 2016 to allow this function to work while Studio window isn't focused.
@@ -453,7 +468,8 @@ def _metadataAnnouncer(reminder=False, handle=None):
 	# Gather stream flags.
 	status = metadataStatus(handle=handle)
 	# #40 (18.02): call the internal announcer in order to not hold up action handler queue.
-	if reminder: wx.CallLater(2000, _metadataAnnouncerInternal, status)
+	# #51 (18.03/15.14-LTS): if this is called within two seconds (status time-out), stuats will be announced multiple times.
+	if reminder: _earlyMetadataAnnouncerInternal(status)
 	else: ui.message(status)
 
 # Connect and/or announce metadata status when broadcast profile switching occurs.
@@ -475,7 +491,7 @@ def metadata_actionProfileSwitched(configDialogActive=False):
 		# 18.02: transfered to the action handler and greatly simplified.
 		handle = user32.FindWindowA("SPLStudio", None)
 		metadataConnector(handle=handle)
-		# #47 (18.02/15.13-LTS): call the internal announcer via wx.CallLater in order to not hold up action handler queue.
-		wx.CallLater(2000, _metadataAnnouncerInternal, metadataStatus(handle=handle))
+		# #51 (18.03/15.14-LTS): wx.CallLater isn't enough - there must be ability to cancel it.# #47 (18.02/15.13-LTS): call the internal announcer via wx.CallLater in order to not hold up action handler queue.
+		_earlyMetadataAnnouncerInternal(metadataStatus(handle=handle))
 
 splactions.SPLActionProfileSwitched.register(metadata_actionProfileSwitched)
