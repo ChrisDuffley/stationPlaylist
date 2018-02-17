@@ -23,7 +23,6 @@ import ui
 import gui
 import wx
 from . import splupdate
-from .splmisc import SPLCountdownTimer, _metadataAnnouncer
 from . import splactions
 
 # Python 3 preparation (a compatibility layer until Six module is included).
@@ -781,6 +780,7 @@ def triggerStart(restart=False):
 			switchAfter = (queuedProfile[0] - datetime.datetime.now())
 			if switchAfter.days == 0 and switchAfter.seconds <= 3600:
 				time.sleep((switchAfter.microseconds+1000) / 1000000.0)
+				from .splmisc import SPLCountdownTimer
 				triggerTimer = SPLCountdownTimer(switchAfter.seconds, triggerProfileSwitch, SPLConfig["Advanced"]["ProfileTriggerThreshold"])
 				triggerTimer.Start()
 
