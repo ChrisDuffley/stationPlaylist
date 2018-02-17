@@ -2061,7 +2061,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_metadataStreamingAnnouncer(self, gesture):
 		# 8.0: Call the module-level function directly.
-		self._metadataAnnouncer()
+		# 18.04: obtain results via the misc module.
+		ui.message(splmisc.metadataStatus(handle=splbase._SPLWin))
 
 	# Gesture(s) for the following script cannot be changed by users.
 	def script_metadataEnabled(self, gesture):
