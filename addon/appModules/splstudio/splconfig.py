@@ -25,6 +25,7 @@ import wx
 from . import splupdate
 from .splmisc import SPLCountdownTimer, _metadataAnnouncer
 from . import splactions
+from . import spldebugging
 
 # Python 3 preparation (a compatibility layer until Six module is included).
 rangeGen = range if py3 else xrange
@@ -530,6 +531,7 @@ class ConfigHub(ChainMap):
 			raise RuntimeError("Instant switch flag is already on")
 		elif switchType == "timed" and self.timedSwitchProfileActive:
 			raise RuntimeError("Timed switch flag is already on")
+		spldebugging.debugOutput("Profile switching start: type = %s, previous profile is %s, new profile is %s"%(switchType, prevProfile, newProfile))
 		self.switchProfile(prevProfile, newProfile, switchFlags=self._switchProfileFlags ^ self._profileSwitchFlags[switchType])
 
 	def switchProfileEnd(self, prevProfile, newProfile, switchType):
@@ -539,6 +541,7 @@ class ConfigHub(ChainMap):
 			raise RuntimeError("Instant switch flag is already off")
 		elif switchType == "timed" and not self.timedSwitchProfileActive:
 			raise RuntimeError("Timed switch flag is already off")
+		spldebugging.debugOutput("Profile switching end: type = %s, previous profile is %s, new profile is %s"%(switchType, prevProfile, newProfile))
 		self.switchProfile(prevProfile, newProfile, switchFlags=self._switchProfileFlags ^ self._profileSwitchFlags[switchType])
 
 	# Used from config dialog and other places.
@@ -597,6 +600,7 @@ def initialize():
 	SPLConfig = ConfigHub()
 	# Locate instant profile and do something otherwise.
 	if SPLConfig.instantSwitch is not None and SPLConfig.instantSwitch not in SPLConfig.profileNames:
+		spldebugging.debugOutput("Failed to locate instant switch profile")
 		_configLoadStatus[SPLConfig.activeProfile] = "noInstantProfile"
 		SPLConfig.instantSwitch = None
 	# LTS: Load track comments if they exist.
@@ -668,11 +672,13 @@ def initProfileTriggers():
 	profileTriggers2 = dict(profileTriggers)
 	# Is the triggers dictionary and the config pool in sync?
 	if len(profileTriggers):
+		spldebugging.debugOutput("trigger profiles found, verifying existence of profiles")
 		nonexistent = []
 		for profile in list(profileTriggers.keys()):
 			try:
 				SPLConfig.profileIndexByName(profile)
 			except ValueError:
+				spldebugging.debugOutput("profile %s does not exist"%profile)
 				nonexistent.append(profile)
 				del profileTriggers[profile]
 		if len(nonexistent):
@@ -932,7 +938,7 @@ def instantProfileSwitch():
 			# Pass in the prev profile, which will be None for instant profile switch.
 			# 7.0: Now activate "activeProfile" argument which controls the behavior of the function below.
 			# 8.0: Work directly with profile names.
-			# 18.04: call switch profile start method directly.
+			# 18.03: call switch profile start method directly.
 			# To the outside, a profile switch took place.
 			SPLConfig.switchProfileStart(SPLConfig.activeProfile, SPLSwitchProfile, "instant")
 		else:
