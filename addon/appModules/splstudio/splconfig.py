@@ -422,7 +422,7 @@ def triggerStart(restart=False):
 			SPLTriggerProfile = None
 		# We are in the midst of a show, so switch now.
 		if queuedProfile[2]:
-			triggerProfileSwitch()
+			triggerProfileSwitch(durationDelta = queuedProfile[3])
 		else:
 			switchAfter = (queuedProfile[0] - datetime.datetime.now())
 			if switchAfter.days == 0 and switchAfter.seconds <= 3600:
@@ -691,7 +691,8 @@ _SPLTriggerEndTimer = None
 # Record if time-based profile is active or not.
 _triggerProfileActive = False
 
-def triggerProfileSwitch():
+# Duration delta refers to update profile switch duration (in seconds) while switching in the middle of a show.
+def triggerProfileSwitch(durationDelta=None):
 	global triggerTimer, _SPLTriggerEndTimer, _triggerProfileActive
 	if SPLTriggerProfile is None and _triggerProfileActive:
 		raise RuntimeError("Trigger profile flag cannot be active when the trigger profile itself isn't defined")
@@ -713,7 +714,7 @@ def triggerProfileSwitch():
 			profileTriggers[SPLTriggerProfile] = setNextTimedProfile(SPLTriggerProfile, triggerSettings[0], datetime.time(triggerSettings[4], triggerSettings[5]))
 		else:
 			_SPLTriggerEndTimer = wx.PyTimer(triggerProfileSwitch)
-			_SPLTriggerEndTimer.Start(triggerSettings[6] * 60 * 1000, True)
+			_SPLTriggerEndTimer.Start(triggerSettings[6] * 60 * 1000 if durationDelta is None else durationDelta * 1000, True)
 	else:
 		switchProfile(None, getProfileIndexByName(SPLPrevProfile))
 		_triggerProfileActive = False
