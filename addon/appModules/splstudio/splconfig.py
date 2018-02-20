@@ -785,7 +785,16 @@ def triggerStart(restart=False):
 		SPLConfig.timedSwitch = SPLTriggerProfile
 		# We are in the midst of a show, so switch now.
 		if queuedProfile[2]:
-			triggerProfileSwitch(durationDelta = queuedProfile[3])
+			# Only come here if this is the first time this function is run (startup).
+			if not restart: triggerProfileSwitch(durationDelta = queuedProfile[3])
+			else:
+				# restart the timer if required.
+				global _SPLTriggerEndTimer
+				if _SPLTriggerEndTimer is not None and _SPLTriggerEndTimer.IsRunning():
+					_SPLTriggerEndTimer.Stop()
+					_SPLTriggerEndTimer = wx.PyTimer(triggerProfileSwitch)
+					_SPLTriggerEndTimer.Start(queuedProfile[3] * 1000, True)
+				else: triggerProfileSwitch(durationDelta = queuedProfile[3])
 		else:
 			switchAfter = (queuedProfile[0] - datetime.datetime.now())
 			if switchAfter.days == 0 and switchAfter.seconds <= 3600:
