@@ -406,14 +406,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	def onCancel(self, evt):
 		global _configDialogOpened
+		_configDialogOpened = False
 		# 6.1: Discard changes to included columns set.
 		if self.includedColumns is not None: self.includedColumns.clear()
 		self.includedColumns = None
-		# Apply profile trigger changes if any.
-		splconfig.profileTriggers = dict(self._profileTriggersConfig)
-		self._profileTriggersConfig.clear()
-		self._profileTriggersConfig = None
-		splconfig.triggerStart(restart=True)
 		# 7.0: No matter what happens, merge appropriate profile.
 		try:
 			prevActive = self.profileNames.index(self.activeProfile)
@@ -424,7 +420,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 			splconfig.SPLSwitchProfile = self.switchProfile
 		if self.switchProfileDeleted:
 			splconfig.SPLActiveProfile = splconfig.SPLConfigPool[prevActive].name
-		_configDialogOpened = False
+		# Apply profile trigger changes if any.
+		splconfig.profileTriggers = dict(self._profileTriggersConfig)
+		self._profileTriggersConfig.clear()
+		self._profileTriggersConfig = None
+		splconfig.triggerStart(restart=True)
 		super(SPLConfigDialog,  self).onCancel(evt)
 
 	# Perform extra action when closing this dialog such as restarting update timer.
