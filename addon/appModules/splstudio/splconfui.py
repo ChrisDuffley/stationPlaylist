@@ -643,6 +643,13 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	def onTriggers(self, evt):
 		self.Disable()
+		if splconfig._triggerProfileActive:
+					# Translators: Message reported when attempting to change profile switch trigger while broadcasting.
+			gui.messageBox(_("You cannot change profile switch triggers in the midst of a broadcast."),
+				# Translators: Title of a dialog shown when profile trigger cannot e changd.
+				_("Profile triggers"), wx.OK | wx.ICON_ERROR, self)
+			self.Enable()
+			return
 		TriggersDialog(self, self.profileNames[self.profiles.Selection]).Show()
 
 	# Obtain profile flags for a given profile.
