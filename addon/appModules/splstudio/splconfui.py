@@ -292,6 +292,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	def onCancel(self, evt):
 		global _configDialogOpened
+		_configDialogOpened = False
 		# 6.1: Discard changes to included columns set.
 		if self.includedColumns is not None: self.includedColumns.clear()
 		self.includedColumns = None
@@ -310,7 +311,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 			prevActive = _("Normal profile")
 		if self.switchProfileRenamed or self.switchProfileDeleted:
 			splconfig.SPLConfig.instantSwitch = self.switchProfile
-		_configDialogOpened = False
 		super(SPLConfigDialog,  self).onCancel(evt)
 
 	# Perform extra action when closing this dialog such as restarting update timer.
