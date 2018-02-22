@@ -187,6 +187,9 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 * If NVDA is configured to announce metadata streaming status when Studio starts, NVDA will honor this setting and no longer announce streaming status when switching to and from instant switch profiles.
 * If switching to and from an instant switch profile and NVDA is configured to announce metadata streaming status whenever this happens, NVDA will no longer announce this information multiple times when switching profiles quickly.
+* NVDA will remember to switch to the appropriate time-based profile (if defined for a show) after NVDA restarts multiple times during broadcasts.
+* If a time-based profile with profile duration set is active and when add-on settings dialog is opened and closed, NVDA will still switch back to the original profile once the time-based profile is finished.
+* If a time-based profile is active (particularly during broadcasts), changing broadcast profile triggers via add-on settings dialog will not be possible.
 
 ## Version 18.02/15.13-LTS
 
