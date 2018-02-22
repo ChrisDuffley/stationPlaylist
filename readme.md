@@ -183,6 +183,11 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 18.03/15.14-LTS
+
+* If NVDA is configured to announce metadata streaming status when Studio starts, NVDA will honor this setting and no longer announce streaming status when switching to and from instant switch profiles.
+* If switching to and from an instant switch profile and NVDA is configured to announce metadata streaming status whenever this happens, NVDA will no longer announce this information multiple times when switching profiles quickly.
+
 ## Version 18.02/15.13-LTS
 
 * 18.02: Due to internal changes made to support extension points and other features, NVDA 2017.4 is required.
