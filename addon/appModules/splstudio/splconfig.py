@@ -537,6 +537,11 @@ class ConfigHub(ChainMap):
 			raise RuntimeError("Timed switch flag is already on")
 		spldebugging.debugOutput("Profile switching start: type = %s, previous profile is %s, new profile is %s"%(switchType, prevProfile, newProfile))
 		self.switchProfile(prevProfile, newProfile, switchFlags=self._switchProfileFlags ^ self._profileSwitchFlags[switchType])
+		# 8.0: Cache the new profile.
+		global _SPLCache
+		# 18.03: be sure to check if config cache is even online.
+		if _SPLCache is not None and newProfile != defaultProfileName and newProfile not in _SPLCache:
+			self._cacheConfig(self.profileByName(newProfile))
 
 	def switchProfileEnd(self, prevProfile, newProfile, switchType):
 		if switchType not in ("instant", "timed"):
