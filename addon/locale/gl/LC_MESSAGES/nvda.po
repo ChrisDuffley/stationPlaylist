@@ -1289,6 +1289,15 @@ msgstr ""
 msgid "Confirm Deletion"
 msgstr "Confirmar Eliminación"
 
+#. Translators: Message reported when attempting to change profile switch trigger while broadcasting.
+msgid "You cannot change profile switch triggers in the midst of a broadcast."
+msgstr ""
+
+#. Translators: Title of a dialog shown when profile trigger cannot e changd.
+#, fuzzy
+msgid "Profile triggers"
+msgstr "Disparadores de perfil para {profileName}"
+
 #. Translators: Presented when an alarm dialog is opened.
 msgid ""
 "Another add-on settings dialog is open. Please close the previously opened "
@@ -1786,6 +1795,7 @@ msgstr ""
 msgid "Metadata streaming configured for URL's {URL}"
 msgstr "Os metadatos do streaming configuráronse para a URL {URL}"
 
+#. Translators: one of the error messages when trying to update the add-on.
 msgid ""
 "An error occured while checking for add-on update. Please check NVDA log for "
 "details."
@@ -1793,6 +1803,7 @@ msgstr ""
 "Ocorreu un erro mentres se procuraba unha actualización para o complemento. "
 "Por favor comproba o rexistro do NVDA para detalles."
 
+#. Translators: one of the error messages when trying to update the add-on.
 msgid ""
 "NVDA is in secure mode. Please restart with secure mode disabled before "
 "checking for add-on updates."
@@ -1800,6 +1811,7 @@ msgstr ""
 "O NVDA está en modo seguro. Por favor reinicia co modo seguro deshabilitado "
 "antes de procurar actualizacións do complemento."
 
+#. Translators: one of the error messages when trying to update the add-on.
 msgid ""
 "This is a try build of StationPlaylist Studio add-on. Please install the "
 "latest stable release to receive updates again."
@@ -1807,6 +1819,7 @@ msgstr ""
 "Esta é unha compilación de proba do complemento StationPlaylist Studio. Por "
 "favor instala a última versión estable para recebir actualizacións de novo."
 
+#. Translators: one of the error messages when trying to update the add-on.
 msgid ""
 "Update checking not supported while running NVDA from source. Please run "
 "this add-on from an installed or a portable version of NVDA."
@@ -1815,6 +1828,7 @@ msgstr ""
 "código fonte. Por favor executa o complemento dende unha versión instalada "
 "ou portable do NVDA."
 
+#. Translators: one of the error messages when trying to update the add-on.
 msgid ""
 "This is a Windows Store version of NVDA. Add-on updating is supported on "
 "desktop version of NVDA."
@@ -1822,6 +1836,7 @@ msgstr ""
 "Esta é unha versión Windows Store do NVDA. A actualización do complemento "
 "sopórtase en versións de escritorio do NVDA."
 
+#. Translators: one of the error messages when trying to update the add-on.
 msgid ""
 "Cannot update add-on directly. Please check for add-on updates by going to "
 "add-ons manager."
@@ -1829,6 +1844,7 @@ msgstr ""
 "Non se pode actualizar o complemento directamente. Por favor procura "
 "actualizacións do complemento indo ao administrador de complementos."
 
+#. Translators: one of the error messages when trying to update the add-on.
 msgid ""
 "No internet connection. Please connect to the internet before checking for "
 "add-on update."
