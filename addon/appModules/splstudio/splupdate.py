@@ -2,7 +2,35 @@
 # A support module for SPL add-on
 # Copyright 2015-2018 Joseph Lee, released under GPL.
 
-# Provides update check facility, basics borrowed from NVDA Core's update checker class.
+# Provides update check facility, basics borrowed from NVDA Core's update checker class and other support modules.
+# This module won't be available if add-on update feature isn't supported.
+
+# #50 (18.03): there are times when update check should not be supported.
+# Raise runtime exceptions if this is the case.
+try:
+	import updateCheck
+except RuntimeError:
+	raise RuntimeError("NVDA itself cannot check for updates")
+import globalVars
+if globalVars.appArgs.secure:
+	raise RuntimeError("NVDA in secure mode, cannot check for add-on update")
+# Only applicable for custom try builds.
+_customTryBuild = False
+if _customTryBuild:
+	# Communicate this flag with others.
+	if not "--spl-customtrybuild" in globalVars.appArgsExtra: globalVars.appArgsExtra.append("--spl-customtrybuild")
+	raise RuntimeError("Custom add-on try build detected, no add-on update possible")
+import versionInfo
+if not versionInfo.updateVersionType:
+	raise RuntimeError("NVDA is running from source code, add-on update check is not supported")
+# NVDA 2018.1 and later.
+import config
+if hasattr(config, "isAppX") and config.isAppX:
+	raise RuntimeError("This is NVDA Windows Store edition")
+import addonHandler
+# Provided that NVDA issue 3208 is implemented.
+if hasattr(addonHandler, "checkForAddonUpdate"):
+	raise RuntimeError("NVDA itself will check for add-on updates")
 
 import sys
 py3 = sys.version.startswith("3")
@@ -19,13 +47,7 @@ import ctypes
 import ssl
 import gui
 import wx
-import addonHandler
-import globalVars
-# There are times when update check should not be supported.
-try:
-	import updateCheck
-except RuntimeError:
-	pass
+from . import splactions
 
 # Add-on manifest routine (credit: various add-on authors including Noelia Martinez).
 # Do not rely on using absolute path to open to manifest, as installation directory may change in a future NVDA Core version (highly unlikely, but...).
@@ -73,9 +95,12 @@ def initialize():
 		SPLAddonState["PDT"] = 0
 		_updateNow = False
 		SPLUpdateChannel = "dev"
+	# Handle profile switches.
+	splactions.SPLActionProfileSwitched.register(splupdate_actionProfileSwitched)
 	# Check for add-on update if told to do so.
+	# In case a time-based profile is active or other switch flags are on, give up, as update check will happen after a possible trigger is set.
 	from . import splconfig, spldebugging
-	if canUpdate() and (splconfig.SPLConfig["Update"]["AutoUpdateCheck"] or _updateNow):
+	if canUpdate() and splconfig.SPLConfig.switchProfileFlags == 0 and (splconfig.SPLConfig["Update"]["AutoUpdateCheck"] or _updateNow):
 		spldebugging.debugOutput("checking for add-on updates from %s channel"%SPLUpdateChannel)
 		# 7.0: Have a timer call the update function indirectly.
 		import queueHandler
@@ -83,6 +108,7 @@ def initialize():
 
 def terminate():
 	global SPLAddonState
+	splactions.SPLActionProfileSwitched.unregister(splupdate_actionProfileSwitched)
 	# Store new values if it is absolutely required.
 	# Take care of a case where one might be "downgrading" from try builds.
 	stateChanged = "UpdateChannel" not in SPLAddonState or (SPLAddonState["PDT"] != SPLAddonCheck or SPLAddonState["UpdateChannel"] != SPLUpdateChannel)
@@ -94,6 +120,19 @@ def terminate():
 		pickle.dump(SPLAddonState, file(_updatePickle, "wb"))
 	SPLAddonState = None
 
+# Turn off update check timer.
+def updateCheckTimerEnd():
+	global _SPLUpdateT
+	if _SPLUpdateT is not None and _SPLUpdateT.IsRunning(): _SPLUpdateT.Stop()
+	_SPLUpdateT = None
+
+# Enable or disable update checking facility if told by config changes action.
+def splupdate_actionProfileSwitched():
+	pass
+
+splactions.SPLActionProfileSwitched.register(splupdate_actionProfileSwitched)
+
+# Handle several cases that disables update feature completely (or partially).
 SPLUpdateErrorNone = 0
 SPLUpdateErrorGeneric = 1
 SPLUpdateErrorSecureMode = 2
@@ -123,9 +162,6 @@ updateErrorMessages={
 	# Translators: one of the error messages when trying to update the add-on.
 	SPLUpdateErrorNoNetConnection: _("No internet connection. Please connect to the internet before checking for add-on update."),
 }
-
-# Only applicable for custom try builds.
-_customTryBuild = False
 
 # Check to really make sure add-on updating is supported.
 # Contrary to its name, 0 means yes, otherwise no.

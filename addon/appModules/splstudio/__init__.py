@@ -37,7 +37,6 @@ from . import splbase
 from . import splconfig
 from . import splconfui
 from . import splmisc
-from . import splupdate
 from . import splactions
 import addonHandler
 addonHandler.initTranslation()
@@ -599,8 +598,14 @@ class AppModule(appModuleHandler.AppModule):
 		threading.Thread(target=self._locateSPLHwnd).start()
 		# Let's start checking for add-on updates unless blocked for some reason.
 		# #46 (18.02): the below function will check for updates at startup as well, similar to NVDA Core's behavior.
-		debugOutput("starting update check")
-		splupdate.initialize()
+		# #50 (18.03): is add-on update check even possible?
+		try:
+			from . import splupdate
+		except RuntimeError:
+			debugOutput("add-on update check not possible")
+		else:
+			debugOutput("starting update check")
+			splupdate.initialize()
 		# Display startup dialogs if any.
 		# 17.10: not when minimal startup flag is set.
 		if not globalVars.appArgs.minimal: wx.CallAfter(splconfig.showStartupDialogs)
@@ -2111,10 +2116,15 @@ class AppModule(appModuleHandler.AppModule):
 		self.finish()
 		# #46 and others (18.02): there are times when update checking isn't supported such as when running inside Windows Store version of NVDA.
 		# Detect various errors and present appropriate messages and quit immediately.
-		updateBlocker = splupdate.isAddonUpdatingSupported()
-		if updateBlocker != splupdate.SPLUpdateErrorNone:
-			wx.CallAfter(gui.messageBox, splupdate.updateErrorMessages[updateBlocker], _("Studio add-on update"), wx.ICON_ERROR)
-			return
+		# #50 (18.03): if import fails, treat it as failure and display a message.
+		try:
+			from . import splupdate
+		except RuntimeError:
+			# Messages will be retrieved from config module.
+			updateBlocker = splconfig.isAddonUpdatingSupported()
+			if updateBlocker != splconfig.SPLUpdateErrorNone:
+				wx.CallAfter(gui.messageBox, splconfig.updateErrorMessages[updateBlocker], _("Studio add-on update"), wx.ICON_ERROR)
+				return
 		if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
 		# Display the update check progress dialog (inspired by add-on installation dialog in NvDA Core).
 		# #9 (7.5): Do this if and only if update channel hasn't changed, otherwise we're stuck here forever.

@@ -22,8 +22,13 @@ import globalVars
 import ui
 import gui
 import wx
-from . import splupdate
+# #50 (18.03): keep an eye on update check facility.
+try:
+	from . import splupdate
+except RuntimeError:
+	splupdate = None
 from . import splactions
+from . import spldebugging
 
 # Python 3 preparation (a compatibility layer until Six module is included).
 rangeGen = range if py3 else xrange
@@ -508,7 +513,7 @@ class ConfigHub(ChainMap):
 			ui.message(_("Switching to {newProfileName}").format(newProfileName = self.activeProfile))
 			# Pause automatic update checking.
 			if self["Update"]["AutoUpdateCheck"]:
-				if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
+				if splupdate: splupdate.updateCheckTimerEnd()
 		else:
 			self.switchHistory.pop()
 			# Translators: Presented when switching from instant switch profile to a previous profile.
@@ -529,7 +534,13 @@ class ConfigHub(ChainMap):
 			raise RuntimeError("Instant switch flag is already on")
 		elif switchType == "timed" and self.timedSwitchProfileActive:
 			raise RuntimeError("Timed switch flag is already on")
+		spldebugging.debugOutput("Profile switching start: type = %s, previous profile is %s, new profile is %s"%(switchType, prevProfile, newProfile))
 		self.switchProfile(prevProfile, newProfile, switchFlags=self._switchProfileFlags ^ self._profileSwitchFlags[switchType])
+		# 8.0: Cache the new profile.
+		global _SPLCache
+		# 18.03: be sure to check if config cache is even online.
+		if _SPLCache is not None and newProfile != defaultProfileName and newProfile not in _SPLCache:
+			self._cacheConfig(self.profileByName(newProfile))
 
 	def switchProfileEnd(self, prevProfile, newProfile, switchType):
 		if switchType not in ("instant", "timed"):
@@ -538,6 +549,7 @@ class ConfigHub(ChainMap):
 			raise RuntimeError("Instant switch flag is already off")
 		elif switchType == "timed" and not self.timedSwitchProfileActive:
 			raise RuntimeError("Timed switch flag is already off")
+		spldebugging.debugOutput("Profile switching end: type = %s, previous profile is %s, new profile is %s"%(switchType, prevProfile, newProfile))
 		self.switchProfile(prevProfile, newProfile, switchFlags=self._switchProfileFlags ^ self._profileSwitchFlags[switchType])
 
 	# Used from config dialog and other places.
@@ -596,6 +608,7 @@ def initialize():
 	SPLConfig = ConfigHub()
 	# Locate instant profile and do something otherwise.
 	if SPLConfig.instantSwitch is not None and SPLConfig.instantSwitch not in SPLConfig.profileNames:
+		spldebugging.debugOutput("Failed to locate instant switch profile")
 		_configLoadStatus[SPLConfig.activeProfile] = "noInstantProfile"
 		SPLConfig.instantSwitch = None
 	# LTS: Load track comments if they exist.
@@ -667,11 +680,13 @@ def initProfileTriggers():
 	profileTriggers2 = dict(profileTriggers)
 	# Is the triggers dictionary and the config pool in sync?
 	if len(profileTriggers):
+		spldebugging.debugOutput("trigger profiles found, verifying existence of profiles")
 		nonexistent = []
 		for profile in list(profileTriggers.keys()):
 			try:
 				SPLConfig.profileIndexByName(profile)
 			except ValueError:
+				spldebugging.debugOutput("profile %s does not exist"%profile)
 				nonexistent.append(profile)
 				del profileTriggers[profile]
 		if len(nonexistent):
@@ -682,7 +697,7 @@ def initProfileTriggers():
 	triggerStart()
 
 # Locate time-based profiles if any.
-# A 3-tuple will be returned, containing the next trigger time (for time delta calculation), the profile name for this trigger time and whether an immediate switch is necessary.
+# A 4-tuple will be returned, containing the next trigger time (for time delta calculation), the profile name for this trigger time, whether an immediate switch is necessary, and if so, the duration delta for profiles with duration entry specified.
 def nextTimedProfile(current=None):
 	if current is None: current = datetime.datetime.now()
 	# No need to proceed if no timed profiles are defined.
@@ -695,10 +710,13 @@ def nextTimedProfile(current=None):
 		triggerTime = datetime.datetime(entry[1], entry[2], entry[3], entry[4], entry[5])
 		# Hopefully the trigger should be ready before the show, but sometimes it isn't.
 		if current > triggerTime:
-			profileTriggers[profile] = setNextTimedProfile(profile, entry[0], datetime.time(entry[4], entry[5]), date=current, duration=entry[6])
-			if (current-triggerTime).seconds < entry[6]*60:
-				shouldBeSwitched = True
-		possibleTriggers.append((triggerTime, profile, shouldBeSwitched))
+			# #52 (18.03/15.14-LTS): check the duration field first.
+			durationDelta = (current-triggerTime).seconds
+			if durationDelta < (entry[6]*60):
+				# Return the tuple immediately, as the show is more important.
+				return (triggerTime, profile, True, (entry[6]*60) - durationDelta)
+			else: profileTriggers[profile] = setNextTimedProfile(profile, entry[0], datetime.time(entry[4], entry[5]), date=current, duration=entry[6])
+		possibleTriggers.append((triggerTime, profile, shouldBeSwitched, None))
 	return min(possibleTriggers) if len(possibleTriggers) else None
 
 # Some helpers used in locating next air date/time.
@@ -775,7 +793,16 @@ def triggerStart(restart=False):
 		SPLConfig.timedSwitch = SPLTriggerProfile
 		# We are in the midst of a show, so switch now.
 		if queuedProfile[2]:
-			triggerProfileSwitch()
+			# Only come here if this is the first time this function is run (startup).
+			if not restart: triggerProfileSwitch(durationDelta = queuedProfile[3])
+			else:
+				# restart the timer if required.
+				global _SPLTriggerEndTimer
+				if _SPLTriggerEndTimer is not None and _SPLTriggerEndTimer.IsRunning():
+					_SPLTriggerEndTimer.Stop()
+					_SPLTriggerEndTimer = wx.PyTimer(triggerProfileSwitch)
+					_SPLTriggerEndTimer.Start(queuedProfile[3] * 1000, True)
+				else: triggerProfileSwitch(durationDelta = queuedProfile[3])
 		else:
 			switchAfter = (queuedProfile[0] - datetime.datetime.now())
 			if switchAfter.days == 0 and switchAfter.seconds <= 3600:
@@ -875,15 +902,14 @@ def terminate():
 		SPLConfig.switchProfile(None, SPLConfig.prevProfile, appTerminating=True)
 		_triggerProfileActive = False
 	# 7.0: Turn off auto update check timer.
-	if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
-	splupdate._SPLUpdateT = None
+	if splupdate: splupdate.updateCheckTimerEnd()
 	# Close profile triggers dictionary.
 	# 17.10: but if only the normal profile is in use, it won't do anything.
 	if not SPLConfig.normalProfileOnly: saveProfileTriggers()
 	# Dump track comments.
 	pickle.dump(trackComments, file(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"), "wb"))
 	# Save update check state.
-	splupdate.terminate()
+	if splupdate: splupdate.terminate()
 	# Now save profiles.
 	# 8.0: Call the save method.
 	SPLConfig.save()
@@ -932,7 +958,7 @@ def instantProfileSwitch():
 			# Pass in the prev profile, which will be None for instant profile switch.
 			# 7.0: Now activate "activeProfile" argument which controls the behavior of the function below.
 			# 8.0: Work directly with profile names.
-			# 18.04: call switch profile start method directly.
+			# 18.03: call switch profile start method directly.
 			# To the outside, a profile switch took place.
 			SPLConfig.switchProfileStart(SPLConfig.activeProfile, SPLSwitchProfile, "instant")
 		else:
@@ -943,7 +969,8 @@ _SPLTriggerEndTimer = None
 # Record if time-based profile is active or not.
 _triggerProfileActive = False
 
-def triggerProfileSwitch():
+# Duration delta refers to update profile switch duration (in seconds) while switching in the middle of a show.
+def triggerProfileSwitch(durationDelta=None):
 	global SPLConfig, triggerTimer, _SPLTriggerEndTimer, _triggerProfileActive
 	SPLTriggerProfile = SPLConfig.timedSwitch
 	if SPLTriggerProfile is None and _triggerProfileActive:
@@ -963,7 +990,7 @@ def triggerProfileSwitch():
 			profileTriggers[SPLTriggerProfile] = setNextTimedProfile(SPLTriggerProfile, triggerSettings[0], datetime.time(triggerSettings[4], triggerSettings[5]))
 		else:
 			_SPLTriggerEndTimer = wx.PyTimer(triggerProfileSwitch)
-			_SPLTriggerEndTimer.Start(triggerSettings[6] * 60 * 1000, True)
+			_SPLTriggerEndTimer.Start(triggerSettings[6] * 60 * 1000 if durationDelta is None else durationDelta * 1000, True)
 	else:
 		SPLConfig.switchProfileEnd(None, SPLConfig.prevProfile, "timed")
 		_triggerProfileActive = False
@@ -978,14 +1005,14 @@ def triggerProfileSwitch():
 # Its only job is to call the update check function (splupdate) with the auto check enabled.
 # The update checker will not be engaged if secure mode flag is on, an instant switch profile is active, or it is not time to check for it yet (check will be done every 24 hours).
 def autoUpdateCheck():
-	if globalVars.appArgs.secure: return
+	if splupdate is None or globalVars.appArgs.secure: return
 	splupdate.updateChecker(auto=True, continuous=SPLConfig["Update"]["AutoUpdateCheck"], confUpdateInterval=SPLConfig["Update"]["UpdateInterval"])
 
 # The timer itself.
 # A bit simpler than NVDA Core's auto update checker.
 def updateInit():
 	# #48 (18.02/15.13-LTS): no, not when secure mode flag is on.
-	if globalVars.appArgs.secure: return
+	if splupdate is None or globalVars.appArgs.secure: return
 	# LTS: Launch updater if channel change is detected.
 	# Use a background thread for this as urllib blocks.
 	import threading
@@ -1186,3 +1213,59 @@ messagePool={
 			# Translators: A setting in library scan announcement options.
 			(_("Announce progress and item count of a library scan"),
 			_("Scan count"))}}
+
+# Handle several cases that disables update feature completely (or partially).
+SPLUpdateErrorNone = 0
+SPLUpdateErrorGeneric = 1
+SPLUpdateErrorSecureMode = 2
+SPLUpdateErrorTryBuild = 3
+SPLUpdateErrorSource = 4
+SPLUpdateErrorAppx = 5
+SPLUpdateErrorAddonsManagerUpdate = 6
+SPLUpdateErrorNoNetConnection = 7
+
+# These conditions are set when NVDA starts and cannot be changed at runtime, hence major errors.
+# This means no update channel selection, no retrys, etc.
+SPLUpdateMajorErrors = (SPLUpdateErrorSecureMode, SPLUpdateErrorTryBuild, SPLUpdateErrorSource, SPLUpdateErrorAppx, SPLUpdateErrorAddonsManagerUpdate)
+
+updateErrorMessages={
+	# Translators: one of the error messages when trying to update the add-on.
+	SPLUpdateErrorGeneric: _("An error occured while checking for add-on update. Please check NVDA log for details."),
+	# Translators: one of the error messages when trying to update the add-on.
+	SPLUpdateErrorSecureMode: _("NVDA is in secure mode. Please restart with secure mode disabled before checking for add-on updates."),
+	# Translators: one of the error messages when trying to update the add-on.
+	SPLUpdateErrorTryBuild: _("This is a try build of StationPlaylist Studio add-on. Please install the latest stable release to receive updates again."),
+	# Translators: one of the error messages when trying to update the add-on.
+	SPLUpdateErrorSource: _("Update checking not supported while running NVDA from source. Please run this add-on from an installed or a portable version of NVDA."),
+	# Translators: one of the error messages when trying to update the add-on.
+	SPLUpdateErrorAppx: _("This is a Windows Store version of NVDA. Add-on updating is supported on desktop version of NVDA."),
+	# Translators: one of the error messages when trying to update the add-on.
+	SPLUpdateErrorAddonsManagerUpdate: _("Cannot update add-on directly. Please check for add-on updates by going to add-ons manager."),
+	# Translators: one of the error messages when trying to update the add-on.
+	SPLUpdateErrorNoNetConnection: _("No internet connection. Please connect to the internet before checking for add-on update."),
+}
+
+# Check to really make sure add-on updating is supported.
+# Contrary to its name, 0 means yes, otherwise no.
+# For most cases, it'll return no errors except for scenarios outlined below.
+# The generic error (1) is meant to catch all errors not listed here, and for now, not used.
+def isAddonUpdatingSupported():
+	if globalVars.appArgs.secure:
+		return SPLUpdateErrorSecureMode
+	if "--spl-customtrybuild" in globalVars.appArgsExtra:
+		return SPLUpdateErrorTryBuild
+	import versionInfo
+	if not versionInfo.updateVersionType:
+		return SPLUpdateErrorSource
+	# NVDA 2018.1 and later.
+	import config
+	if hasattr(config, "isAppX") and config.isAppX:
+		return SPLUpdateErrorAppx
+	# Provided that NVDA issue 3208 is implemented.
+	if hasattr(addonHandler, "checkForAddonUpdate"):
+		return SPLUpdateErrorAddonsManagerUpdate
+	return SPLUpdateErrorNone
+
+def canUpdate():
+	return isAddonUpdatingSupported() == SPLUpdateErrorNone
+
