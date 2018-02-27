@@ -468,7 +468,7 @@ def _metadataAnnouncer(reminder=False, handle=None):
 	# Gather stream flags.
 	status = metadataStatus(handle=handle)
 	# #40 (18.02): call the internal announcer in order to not hold up action handler queue.
-	# #51 (18.03/15.14-LTS): if this is called within two seconds (status time-out), stuats will be announced multiple times.
+	# #51 (18.03/15.14-LTS): if this is called within two seconds (status time-out), status will be announced multiple times.
 	if reminder: _earlyMetadataAnnouncerInternal(status)
 	else: ui.message(status)
 
@@ -491,7 +491,8 @@ def metadata_actionProfileSwitched(configDialogActive=False):
 		# 18.02: transfered to the action handler and greatly simplified.
 		handle = user32.FindWindowA("SPLStudio", None)
 		metadataConnector(handle=handle)
-		# #51 (18.03/15.14-LTS): wx.CallLater isn't enough - there must be ability to cancel it.# #47 (18.02/15.13-LTS): call the internal announcer via wx.CallLater in order to not hold up action handler queue.
+		# #47 (18.02/15.13-LTS): call the internal announcer via wx.CallLater in order to not hold up action handler queue.
+		# #51 (18.03/15.14-LTS): wx.CallLater isn't enough - there must be ability to cancel it.
 		_earlyMetadataAnnouncerInternal(metadataStatus(handle=handle))
 
 splactions.SPLActionProfileSwitched.register(metadata_actionProfileSwitched)
