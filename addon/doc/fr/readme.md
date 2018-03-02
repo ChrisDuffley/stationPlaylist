@@ -321,6 +321,27 @@ un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
 
+## Version 18.03/15.14-LTS
+
+* Si NVDA est configuré pour annoncer l'état de la diffusion des métadonnées
+  au démarrage de Studio, NVDA respectera ce paramètre et n'annoncera plus
+  l'état de diffusion lors du basculement vers et à partir du changement de
+  profil immédiat.
+* Si le basculement vers et à partir d'un changement de profil immédiat et
+  NVDA est configuré pour annoncer l'état de la diffusion des métadonnées à
+  chaque fois que cela se produit, NVDA n'annoncera plus ces informations
+  plusieurs fois lors du basculement rapide des profils.
+* NVDA se rappellera de basculer au profil basé sur l'heure approprié (si
+  défini pour un affichage) après que NVDA redémarre plusieurs fois pendant
+  les diffusions.
+* Si un profil basé sur l'heure avec la durée du profil est activé et que le
+  dialogue paramètres du module complémentaire est ouvert et fermé, NVDA
+  retournera au profil d'origine une fois le profil basé sur l'heure
+  terminée.
+* Si un profil basé sur l'heure est actif (en particulier pendant les
+  diffusions), il ne sera pas possible de modifier les déclencheurs de
+  profil de diffusion via le dialogue Paramètres du module complémentaire.
+
 ## Version 18.02/15.13-LTS
 
 * 18.02 : En raison de modifications internes apportées pour prendre en

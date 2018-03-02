@@ -313,6 +313,24 @@ realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
 
+## Version 18.03/15.14-LTS
+
+* If NVDA is configured to announce metadata streaming status when Studio
+  starts, NVDA will honor this setting and no longer announce streaming
+  status when switching to and from instant switch profiles.
+* If switching to and from an instant switch profile and NVDA is configured
+  to announce metadata streaming status whenever this happens, NVDA will no
+  longer announce this information multiple times when switching profiles
+  quickly.
+* NVDA will remember to switch to the appropriate time-based profile (if
+  defined for a show) after NVDA restarts multiple times during broadcasts.
+* If a time-based profile with profile duration set is active and when
+  add-on settings dialog is opened and closed, NVDA will still switch back
+  to the original profile once the time-based profile is finished.
+* If a time-based profile is active (particularly during broadcasts),
+  changing broadcast profile triggers via add-on settings dialog will not be
+  possible.
+
 ## Versión 18.02/15.13-LTS
 
 * 18.02: debido a los cambios internos realizados para soportar puntos de

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 3.2\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2014-11-14 19:00+1000\n"
-"PO-Revision-Date: 2018-01-25 21:39+0000\n"
+"PO-Revision-Date: 2018-02-23 10:22+0000\n"
 "Last-Translator: Ângelo Miguel Abrantes <ampa4374@gmail.com>\n"
 "Language-Team: Equipa Portuguesa do NVDA <angelomiguelabrantes@gmail.com; "
 "rui.fontes@tiflotecnia.com>\n"
@@ -1295,11 +1295,12 @@ msgstr "Confirmar o apagamento"
 #. Translators: Message reported when attempting to change profile switch trigger while broadcasting.
 msgid "You cannot change profile switch triggers in the midst of a broadcast."
 msgstr ""
+"Não pode alterar os disparadores de mudança de perfil no meio de uma "
+"transmissão."
 
 #. Translators: Title of a dialog shown when profile trigger cannot e changd.
-#, fuzzy
 msgid "Profile triggers"
-msgstr "O perfil dispara para {profileName}"
+msgstr "Disparadores de perfil"
 
 #. Translators: Presented when an alarm dialog is opened.
 msgid ""

@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# FIRST AUTHOR <EMAIL@ADDREss>, YEAR.
 #
 msgid ""
 msgstr ""
@@ -9,9 +9,9 @@ msgstr ""
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: 2017-12-17 12:58+0100\n"
-"Last-Translator: Adriani Botez <adriani.botez@gmail.com>\n"
-"Language-Team: Deutsch <bernd_dorer@yahoo.de>\n"
-"Language: de\n"
+"Last-Translator: Robert Hänggi, <aarjay.robert@gmail.com\n"
+"Language-Team: \n"
+"Language: de_CH\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -412,14 +412,14 @@ msgstr ""
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Announces time including seconds."
-msgstr "Gibt die Zeit einschließlich Sekunden aus."
+msgstr "Gibt die Zeit einschliesslich Sekunden aus."
 
 #. Translators: Presented when the add-on config dialog is opened.
 msgid ""
 "The add-on settings dialog is opened. Please close the settings dialog first."
 msgstr ""
 "Der Einstellungsdialog für die Erweiterung ist noch geöffnet. Bitte "
-"schließen Sie den Einstellungsdialog."
+"schliessen Sie den Einstellungsdialog."
 
 #. Translators: The title of the message box
 #. Translators: The title of a dialog presented when an error occurs.
@@ -581,7 +581,7 @@ msgid ""
 "Please close the opened dialog first."
 msgstr ""
 "der Dialog für die Einstellungen zur Studio-Erweiterung oder der Metadaten-"
-"Streaming-Dialog ist geöffnet. Bitte schließen Sie den geöffneten Dialog "
+"Streaming-Dialog ist geöffnet. Bitte schliessen Sie den geöffneten Dialog "
 "zuerst."
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
@@ -831,7 +831,7 @@ msgstr "Dieser Titel kann nicht als Markierung verwendet werden."
 #. Translators: Presented when attempting to move to a place marker track when not focused in playlist viewer.
 msgid "You cannot move to a place marker track outside of playlist viewer."
 msgstr ""
-"Außerhalb des Playlist-Viewers können Sie nicht zu einem Lesezeichen "
+"Ausserhalb des Playlist-Viewers können Sie nicht zu einem Lesezeichen "
 "wechseln."
 
 #. Translators: Presented when no place marker is found.
@@ -983,7 +983,7 @@ msgid ""
 "\t\t* Press NVDA+Shift+D to set it to 'no ducking'."
 msgstr ""
 "NVDA 2016.1 und höher ermöglicht es NVDA, die Lautstärke der "
-"Hintergrundsounds zu verringern, einschließlich der Lautstärke von Studio.\n"
+"Hintergrundsounds zu verringern, einschliesslich der Lautstärke von Studio.\n"
 "\t\tUm das Hörerlebnis Ihrer Zuhörer nicht zu stören, deaktivieren Sie bitte "
 "das Audio-Ducking entweder durch:\n"
 "\t\t* Öffnen des Sprachausgabendialogs in NVDA und Auswählen von\"Lautstärke "
@@ -1326,7 +1326,7 @@ msgid ""
 "dialog first."
 msgstr ""
 "Der Einstellungsdialog für die Erweiterung ist noch geöffnet. Bitte "
-"schließen Sie den Einstellungsdialog."
+"schliessen Sie den Einstellungsdialog."
 
 #. Translators: The title of the dialog to create a new broadcast profile.
 msgid "New Profile"
@@ -1513,7 +1513,7 @@ msgid ""
 msgstr ""
 "Whälen Sie die Informationen aus, die bei der Erstellung von Playlist-"
 "Statistiken berücksichtigt werden sollen.\n"
-"\t\tAnzahl der Titel und Gesamtdauer sind standardmäßig eingeschlossen."
+"\t\tAnzahl der Titel und Gesamtdauer sind standardmässig eingeschlossen."
 
 #. Translators: the label for a setting in SPL add-on settings to include shortest and longest track duration in playlist snapshots window.
 msgid "Shortest and longest tracks"
@@ -1575,7 +1575,7 @@ msgid ""
 "Select columns to be announced (artist and title are announced by default"
 msgstr ""
 "Wählen Sie die Spalten, die angezeigt werden sollen (Interpret und Titel "
-"werden standardmäßig angezeigt)"
+"werden standardmässig angezeigt)"
 
 #. WXPython Phoenix contains RearrangeList to allow item orders to be changed automatically.
 #. Because WXPython Classic doesn't include this, work around by using a variant of list box and move up/down buttons.
@@ -1780,7 +1780,7 @@ msgstr "Maximale Dauer"
 
 #. Translators: Message to report wrong value for duration fields.
 msgid "Minimum duration is greater than the maximum duration."
-msgstr "Mindestlaufzeit ist größer als die maximale Dauer."
+msgstr "Mindestlaufzeit ist grösser als die maximale Dauer."
 
 #. Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
 msgid "No track with duration between minimum and maximum duration."
@@ -2175,7 +2175,7 @@ msgid ""
 "twice, reports the current date"
 msgstr ""
 "Bei ein Mal drücken der Tastenkombination wird die aktuelle Uhrzeit "
-"einschließlich Sekunden und bei zwei Mal drücken das aktuelle Datum angesagt."
+"einschliesslich Sekunden und bei zwei Mal drücken das aktuelle Datum angesagt."
 
 #, python-brace-format
 msgid "Position: {pos}"
