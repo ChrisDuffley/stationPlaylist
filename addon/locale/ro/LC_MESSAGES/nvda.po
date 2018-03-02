@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 6.4\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2016-03-04 19:00+1000\n"
-"PO-Revision-Date: 2018-01-27 11:15+0200\n"
+"PO-Revision-Date: 2018-02-23 20:59+0200\n"
 "Last-Translator: Florian Ionașcu <florianionascu@hotmail.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -1281,12 +1281,11 @@ msgstr "Confirmare ştergere"
 
 #. Translators: Message reported when attempting to change profile switch trigger while broadcasting.
 msgid "You cannot change profile switch triggers in the midst of a broadcast."
-msgstr ""
+msgstr "Nu puteți modifica declanșatoarele de profil în timpul unei emisiuni."
 
 #. Translators: Title of a dialog shown when profile trigger cannot e changd.
-#, fuzzy
 msgid "Profile triggers"
-msgstr "Declanșatoare de profil pentru {profileName}"
+msgstr "Declanșatoare de profil"
 
 #. Translators: Presented when an alarm dialog is opened.
 msgid ""
