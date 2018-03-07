@@ -628,7 +628,7 @@ class AppModule(appModuleHandler.AppModule):
 			debugOutput("Studio handle is %s"%hwnd)
 		# Remind me to broadcast metadata information.
 		if splconfig.SPLConfig["General"]["MetadataReminder"] == "startup":
-			self._metadataAnnouncer(reminder=True)
+			splmisc._metadataAnnouncer(reminder=True, handle=hwnd)
 
 	# Let the global plugin know if SPLController passthrough is allowed.
 	def SPLConPassthrough(self):
@@ -1410,11 +1410,6 @@ class AppModule(appModuleHandler.AppModule):
 	# Metadata streaming manager
 	# Obtains information on metadata streaming for each URL, notifying the broadcaster if told to do so upon startup.
 	# Also allows broadcasters to toggle metadata streaming.
-
-	# First, the reminder function.
-	# 7.0: Calls the module-level version.
-	def _metadataAnnouncer(self, reminder=False):
-		splmisc._metadataAnnouncer(reminder=reminder, handle=splbase._SPLWin)
 
 	# The script version to open the manage metadata URL's dialog.
 	def script_manageMetadataStreams(self, gesture):
