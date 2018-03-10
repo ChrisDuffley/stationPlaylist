@@ -627,7 +627,8 @@ class AppModule(appModuleHandler.AppModule):
 			splbase._SPLWin = hwnd
 			debugOutput("Studio handle is %s"%hwnd)
 		# Remind me to broadcast metadata information.
-		if splconfig.SPLConfig["General"]["MetadataReminder"] == "startup":
+		# 18.04: also when delayed action is needed because metadata action handler couldn't locate Studio handle itself.
+		if splconfig.SPLConfig["General"]["MetadataReminder"] == "startup" or splmisc._delayMetadataAction:
 			splmisc._metadataAnnouncer(reminder=True, handle=hwnd)
 
 	# Let the global plugin know if SPLController passthrough is allowed.

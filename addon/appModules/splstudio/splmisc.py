@@ -467,13 +467,16 @@ def _earlyMetadataAnnouncerInternal(status):
 # To preserve backward compatibility, let the announcer call individual functions above for a while.
 def _metadataAnnouncer(reminder=False, handle=None):
 	if handle is None: handle = user32.FindWindowA("SPLStudio", None)
+	global _delayMetadataAction
+	_delayMetadataAction = False
 	# If told to remind and connect, metadata streaming will be enabled at this time.
 	# 6.0: Call Studio API twice - once to set, once more to obtain the needed information.
 	# 6.2/7.0: When Studio API is called, add the value into the stream count list also.
 	# 17.11: call the connector.
 	if reminder: metadataConnector()
 	# Gather stream flags.
-	status = metadataStatus(handle=handle)
+	# 18.04: hopefully the error message won't be shown as this is supposed to run right after locating Studio handle.
+	status = metadataStatus()
 	# #40 (18.02): call the internal announcer in order to not hold up action handler queue.
 	# #51 (18.03/15.14-LTS): if this is called within two seconds (status time-out), status will be announced multiple times.
 	if reminder: _earlyMetadataAnnouncerInternal(status)
@@ -509,6 +512,6 @@ def metadata_actionProfileSwitched(configDialogActive=False):
 		metadataConnector()
 		# #47 (18.02/15.13-LTS): call the internal announcer via wx.CallLater in order to not hold up action handler queue.
 		# #51 (18.03/15.14-LTS): wx.CallLater isn't enough - there must be ability to cancel it.
-		_earlyMetadataAnnouncerInternal(metadataStatus(handle=handle))
+		_earlyMetadataAnnouncerInternal(metadataStatus())
 
 splactions.SPLActionProfileSwitched.register(metadata_actionProfileSwitched)
