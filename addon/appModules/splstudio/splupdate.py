@@ -130,8 +130,6 @@ def updateCheckTimerEnd():
 def splupdate_actionProfileSwitched():
 	pass
 
-splactions.SPLActionProfileSwitched.register(splupdate_actionProfileSwitched)
-
 # Handle several cases that disables update feature completely (or partially).
 SPLUpdateErrorNone = 0
 SPLUpdateErrorGeneric = 1
