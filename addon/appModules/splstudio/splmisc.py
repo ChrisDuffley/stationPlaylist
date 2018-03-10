@@ -386,9 +386,12 @@ class SPLCountdownTimer(object):
 # Metadata and encoders management, including connection, announcement and so on.
 
 # Gather streaming flags into a list.
-def metadataList(handle=None):
-	if handle is None: handle = user32.FindWindowA("SPLStudio", None)
-	return [sendMessage(handle, 1024, pos, 36) for pos in rangeGen(5)]
+# 18.04: raise runtime error if list is nothing (thankfully the splbase's StudioAPI will return None if Studio handle is not found).
+def metadataList():
+	metadata = [splbase.studioAPI(pos, 36) for pos in rangeGen(5)]
+	if metadata == [None, None, None, None, None]:
+		raise RuntimeError("Studio handle not found, no metadata list to return")
+	return metadata
 
 # Metadata server connector, to be utilized from many modules.
 # Servers refer to a list of connection flags to pass to Studio API, and if not present, will be pulled from add-on settings.
@@ -403,9 +406,13 @@ def metadataConnector(handle=None, servers=None):
 		sendMessage(handle, 1024, dataLo | url, 36)
 
 # Metadata status formatter.
-def metadataStatus(handle=None):
-	if handle is None: handle = user32.FindWindowA("SPLStudio", None)
-	streams = metadataList(handle=handle)
+# 18.04: say something if Studio handle is not found.
+def metadataStatus():
+	try:
+		streams = metadataList()
+	except RuntimeError:
+		# Translators: presented when metadata streaming status cannot be obtained.
+		return _("Cannot obtain metadata streaming status information")
 	# DSP is treated specially.
 	dsp = streams[0]
 	# For others, a simple list.append will do.
