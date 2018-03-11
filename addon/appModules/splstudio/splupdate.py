@@ -75,7 +75,7 @@ _updatePickle = os.path.join(globalVars.appArgs.configPath, "splupdate.pickle")
 channels={
 	"stable":"https://addons.nvda-project.org/files/get.php?file=spl",
 	"try":"http://www.josephsl.net/files/nvdaaddons/getupdate.php?file=spl-try",
-	"lts":"http://www.josephsl.net/files/nvdaaddons/getupdate.php?file=spl-ltsxp",
+	#"lts":"http://www.josephsl.net/files/nvdaaddons/getupdate.php?file=spl-ltsxp",
 }
 
 # Come forth, update check routines.
@@ -88,9 +88,9 @@ def initialize():
 		if _updateNow: del SPLAddonState["pendingChannelChange"]
 		if "UpdateChannel" in SPLAddonState:
 			SPLUpdateChannel = SPLAddonState["UpdateChannel"]
-			if SPLUpdateChannel in ("beta", "prerelease") or (SPLUpdateChannel == "lts" and sys.getwindowsversion().build >= 7601) or (SPLUpdateChannel in ("try", "dev") and sys.getwindowsversion().build < 7601):
+			"""if SPLUpdateChannel in ("beta", "prerelease") or (SPLUpdateChannel == "lts" and sys.getwindowsversion().build >= 7601) or (SPLUpdateChannel in ("try", "dev") and sys.getwindowsversion().build < 7601):
 				# 17.10 to 17.12: do not touch LTS channel if Windows XP or Vista is in use.
-				SPLUpdateChannel = "dev"
+				SPLUpdateChannel = "dev""""
 	except (IOError, KeyError):
 		SPLAddonState["PDT"] = 0
 		_updateNow = False

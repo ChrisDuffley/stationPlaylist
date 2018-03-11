@@ -1458,7 +1458,7 @@ class AdvancedOptionsDialog(wx.Dialog):
 
 		# #48 (18.02): do not show auto-update checkbox and interval options if not needed.
 		# The exception will be custom try builds.
-		# #50 (18.03): made simpler because the update module won't be present if updating isn't supported.
+		# #50 (18.04): made simpler because the update module won't be present if updating isn't supported.
 		if splupdate and splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone:
 			# Translators: A checkbox to toggle automatic add-on updates.
 			self.autoUpdateCheckbox=advOptionsHelper.addItem(wx.CheckBox(self,label=_("Automatically check for add-on &updates")))
