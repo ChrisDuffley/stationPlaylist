@@ -1001,16 +1001,8 @@ def triggerProfileSwitch(durationDelta=None):
 
 # Automatic update checker.
 
-# The function below is called as part of the update check timer.
-# Its only job is to call the update check function (splupdate) with the auto check enabled.
-# The update checker will not be engaged if secure mode flag is on, an instant switch profile is active, or it is not time to check for it yet (check will be done every 24 hours).
-def autoUpdateCheck():
-	if splupdate is None or globalVars.appArgs.secure: return
-	splupdate.updateChecker(auto=True, continuous=SPLConfig["Update"]["AutoUpdateCheck"], confUpdateInterval=SPLConfig["Update"]["UpdateInterval"])
-
-# The timer itself.
 # A bit simpler than NVDA Core's auto update checker.
-# #52 (18.04): just call splupdate version for backward compatibility.
+# #53 (18.04): just call splupdate version for backward compatibility.
 def updateInit():
 	if splupdate: splupdate.updateInit()
 

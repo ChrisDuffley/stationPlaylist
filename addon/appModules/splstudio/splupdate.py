@@ -35,6 +35,7 @@ if hasattr(addonHandler, "checkForAddonUpdate"):
 import sys
 py3 = sys.version.startswith("3")
 import os # Essentially, update download is no different than file downloads.
+import time
 if py3:
 	import pickle
 	from urllib.request import urlopen
@@ -90,7 +91,8 @@ def initialize():
 			SPLUpdateChannel = SPLAddonState["UpdateChannel"]
 			"""if SPLUpdateChannel in ("beta", "prerelease") or (SPLUpdateChannel == "lts" and sys.getwindowsversion().build >= 7601) or (SPLUpdateChannel in ("try", "dev") and sys.getwindowsversion().build < 7601):
 				# 17.10 to 17.12: do not touch LTS channel if Windows XP or Vista is in use.
-				SPLUpdateChannel = "dev""""
+				SPLUpdateChannel = "dev"
+				"""
 	except (IOError, KeyError):
 		SPLAddonState["PDT"] = 0
 		_updateNow = False
@@ -104,7 +106,7 @@ def initialize():
 		spldebugging.debugOutput("checking for add-on updates from %s channel"%SPLUpdateChannel)
 		# 7.0: Have a timer call the update function indirectly.
 		import queueHandler
-		queueHandler.queueFunction(queueHandler.eventQueue, splconfig.updateInit)
+		queueHandler.queueFunction(queueHandler.eventQueue, updateInit)
 
 def terminate():
 	global SPLAddonState
@@ -186,22 +188,38 @@ def canUpdate():
 	return isAddonUpdatingSupported() == SPLUpdateErrorNone
 
 def updateInit():
+	autoUpdateCheck()
+
+def autoUpdateCheck():
 	# #48 (18.02/15.13-LTS): no, not when secure mode flag is on.
 	if globalVars.appArgs.secure: return
 	# LTS: Launch updater if channel change is detected.
+	# #53 (18.04): also if last update check time is way in the past.
 	# Use a background thread for this as urllib blocks.
 	# 17.08: if update interval is zero (check whenever Studio starts), treat it as update now.
 	# #36: only the first part will be used later due to the fact that update checker will check current time versus next check time.
 	from . import splconfig
-	global _SPLUpdateT, _updateNow
-	confUpdateInterval = splconfig.SPLConfig["Update"]["UpdateInterval"]
-	if _updateNow or confUpdateInterval == 0:
-		t = threading.Thread(target=updateChecker, kwargs={"auto": True, "confUpdateInterval": confUpdateInterval}) # No repeat here.
+	global _updateNow
+	currentTime = time.time()
+	updateInterval = splconfig.SPLConfig["Update"]["UpdateInterval"]
+	if not _updateNow: _updateNow = currentTime >= SPLAddonCheck or updateInterval == 0
+	if _updateNow:
+		t = threading.Thread(target=updateChecker, kwargs={"auto": True, "confUpdateInterval": updateInterval}) # No repeat here.
 		t.daemon = True
-		_SPLUpdateT = wx.PyTimer(autoUpdateCheck)
 		t.start()
 		_updateNow = False
-		return
+	else: startAutoUpdateCheck(interval=divmod((SPLAddonCheck-currentTime), _updateInterval)[-1])
+
+def startAutoUpdateCheck(interval=None):
+	if globalVars.appArgs.secure: return
+	from . import splconfig
+	if not splconfig.SPLConfig["Update"]["UpdateInterval"]: return
+	global _SPLUpdateT
+	if _SPLUpdateT is not None:
+		wx.CallAfter(_SPLUpdateT.Stop)
+	_SPLUpdateT = wx.PyTimer(autoUpdateCheck)
+	wx.CallAfter(_SPLUpdateT.Start, (addonUpdateCheckInterval if interval is None else interval) * 1000, True)
+	#updateChecker(auto=True, continuous=SPLConfig["Update"]["AutoUpdateCheck"], confUpdateInterval=SPLConfig["Update"]["UpdateInterval"])
 
 def checkForAddonUpdate():
 	updateURL = SPLUpdateURL if SPLUpdateChannel not in channels else channels[SPLUpdateChannel]
@@ -246,12 +264,12 @@ def updateChecker(auto=False, continuous=False, confUpdateInterval=1):
 		return
 	global _SPLUpdateT, SPLAddonCheck, _retryAfterFailure, _progressDialog, _updateNow
 	if _updateNow: _updateNow = False
-	import time
 	from logHandler import log
 	# Regardless of whether it is an auto check, update the check time.
 	# However, this shouldnt' be done if this is a retry after a failed attempt.
 	# #36 (17.08): in order to avoid integer overflows, update the check time if it is past the update interval in days.
 	# Also, no need to continue if interval did not pass.
+	# #53 (18.05): legacy code now, as auto update check starter will take care of this and because we'll come here every day.
 	currentTime = time.time()
 	shouldCheckForUpdate = currentTime-SPLAddonCheck >= (confUpdateInterval*_updateInterval)
 	if auto and not shouldCheckForUpdate: return
