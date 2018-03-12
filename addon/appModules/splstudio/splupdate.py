@@ -185,6 +185,24 @@ def isAddonUpdatingSupported():
 def canUpdate():
 	return isAddonUpdatingSupported() == SPLUpdateErrorNone
 
+def updateInit():
+	# #48 (18.02/15.13-LTS): no, not when secure mode flag is on.
+	if globalVars.appArgs.secure: return
+	# LTS: Launch updater if channel change is detected.
+	# Use a background thread for this as urllib blocks.
+	# 17.08: if update interval is zero (check whenever Studio starts), treat it as update now.
+	# #36: only the first part will be used later due to the fact that update checker will check current time versus next check time.
+	from . import splconfig
+	global _SPLUpdateT, _updateNow
+	confUpdateInterval = splconfig.SPLConfig["Update"]["UpdateInterval"]
+	if _updateNow or confUpdateInterval == 0:
+		t = threading.Thread(target=updateChecker, kwargs={"auto": True, "confUpdateInterval": confUpdateInterval}) # No repeat here.
+		t.daemon = True
+		_SPLUpdateT = wx.PyTimer(autoUpdateCheck)
+		t.start()
+		_updateNow = False
+		return
+
 def checkForAddonUpdate():
 	updateURL = SPLUpdateURL if SPLUpdateChannel not in channels else channels[SPLUpdateChannel]
 	# Skip ahead:

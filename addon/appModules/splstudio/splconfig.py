@@ -1010,33 +1010,9 @@ def autoUpdateCheck():
 
 # The timer itself.
 # A bit simpler than NVDA Core's auto update checker.
+# #52 (18.04): just call splupdate version for backward compatibility.
 def updateInit():
-	# #48 (18.02/15.13-LTS): no, not when secure mode flag is on.
-	if splupdate is None or globalVars.appArgs.secure: return
-	# LTS: Launch updater if channel change is detected.
-	# Use a background thread for this as urllib blocks.
-	import threading
-	# 17.08: if update interval is zero (check whenever Studio starts), treat it as update now.
-	# #36: only the first part will be used later due to the fact that update checker will check current time versus next check time.
-	confUpdateInterval = SPLConfig["Update"]["UpdateInterval"]
-	if splupdate._updateNow or confUpdateInterval == 0:
-		t = threading.Thread(target=splupdate.updateChecker, kwargs={"auto": True, "confUpdateInterval": confUpdateInterval}) # No repeat here.
-		t.daemon = True
-		splupdate._SPLUpdateT = wx.PyTimer(autoUpdateCheck)
-		t.start()
-		splupdate._updateNow = False
-		return
-	# 17.09: Remove this whole thing, for now kept in 17.08 to minimize possible issues.
-	currentTime = time.time()
-	nextCheck = splupdate.SPLAddonCheck+(SPLConfig["Update"]["UpdateInterval"]* 86400.0)
-	if splupdate.SPLAddonCheck < currentTime < nextCheck:
-		interval = int(nextCheck - currentTime)
-	elif splupdate.SPLAddonCheck < nextCheck < currentTime:
-		interval = SPLConfig["Update"]["UpdateInterval"]* 86400
-		# Call the update check now.
-		t = threading.Thread(target=splupdate.updateChecker, kwargs={"auto": True, "confUpdateInterval": confUpdateInterval}) # No repeat here.
-		t.daemon = True
-		t.start()
+	if splupdate: splupdate.updateInit()
 
 # Let SPL track item know if it needs to build description pieces.
 # To be renamed and used in other places in 7.0.
