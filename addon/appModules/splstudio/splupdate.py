@@ -198,11 +198,12 @@ def autoUpdateCheck():
 	# Use a background thread for this as urllib blocks.
 	# 17.08: if update interval is zero (check whenever Studio starts), treat it as update now.
 	# #36: only the first part will be used later due to the fact that update checker will check current time versus next check time.
+	# #53 (18.04): vastly changed.
 	from . import splconfig
 	global _updateNow
 	currentTime = time.time()
 	updateInterval = splconfig.SPLConfig["Update"]["UpdateInterval"]
-	if not _updateNow: _updateNow = currentTime >= SPLAddonCheck or updateInterval == 0
+	if not _updateNow: _updateNow = (currentTime-SPLAddonCheck >= _updateInterval * updateInterval) or updateInterval == 0
 	if _updateNow:
 		t = threading.Thread(target=updateChecker, kwargs={"auto": True, "confUpdateInterval": updateInterval}) # No repeat here.
 		t.daemon = True
@@ -218,7 +219,7 @@ def startAutoUpdateCheck(interval=None):
 	if _SPLUpdateT is not None:
 		wx.CallAfter(_SPLUpdateT.Stop)
 	_SPLUpdateT = wx.PyTimer(autoUpdateCheck)
-	wx.CallAfter(_SPLUpdateT.Start, (addonUpdateCheckInterval if interval is None else interval) * 1000, True)
+	wx.CallAfter(_SPLUpdateT.Start, (_updateInterval if interval is None else interval) * 1000, True)
 	#updateChecker(auto=True, continuous=SPLConfig["Update"]["AutoUpdateCheck"], confUpdateInterval=SPLConfig["Update"]["UpdateInterval"])
 
 def checkForAddonUpdate():
@@ -254,7 +255,6 @@ def checkForAddonUpdate():
 	return None
 
 _progressDialog = None
-
 # The update check routine.
 # Auto is whether to respond with UI (manual check only), continuous takes in auto update check variable for restarting the timer.
 # ConfUpdateInterval comes from add-on config dictionary.
@@ -272,7 +272,7 @@ def updateChecker(auto=False, continuous=False, confUpdateInterval=1):
 	# #53 (18.05): legacy code now, as auto update check starter will take care of this and because we'll come here every day.
 	currentTime = time.time()
 	shouldCheckForUpdate = currentTime-SPLAddonCheck >= (confUpdateInterval*_updateInterval)
-	if auto and not shouldCheckForUpdate: return
+	#if auto and not shouldCheckForUpdate: return
 	if not _retryAfterFailure and shouldCheckForUpdate: SPLAddonCheck = currentTime
 	# Auto disables UI portion of this function if no updates are pending.
 	try:
@@ -296,13 +296,16 @@ def updateChecker(auto=False, continuous=False, confUpdateInterval=1):
 	# Translators: Title of the add-on update check dialog.
 	dialogTitle = _("Studio add-on update")
 	if info is None:
-		if auto: return # No need to interact with the user.
+		if auto:
+			startAutoUpdateCheck()
+			return # No need to interact with the user.
 		# Translators: Presented when no add-on update is available.
 		wx.CallAfter(gui.messageBox, _("No add-on update available."), dialogTitle)
 	else:
 		# Translators: Text shown if an add-on update is available.
 		checkMessage = _("Studio add-on {newVersion} is available. Would you like to update?").format(newVersion = info["newVersion"])
 		wx.CallAfter(getUpdateResponse, checkMessage, dialogTitle, info["path"])
+		if auto: startAutoUpdateCheck()
 
 def getUpdateResponse(message, caption, updateURL):
 	if gui.messageBox(message, caption, wx.YES_NO | wx.NO_DEFAULT | wx.CANCEL | wx.CENTER | wx.ICON_QUESTION) == wx.YES:
