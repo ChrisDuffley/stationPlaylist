@@ -1327,7 +1327,7 @@ class AppModule(appModuleHandler.AppModule):
 		fg = api.getForegroundObject()
 		if fg.windowClassName == "TTrackInsertForm":
 			# Translators: Presented when library scan has started.
-			ui.message(_("Scan start"))
+			ui.message(_("Scan start")) if not splconfig.SPLConfig["General"]["BeepAnnounce"] else tones.beep(740, 100)
 			if self.productVersion not in noLibScanMonitor: self.libraryScanning = True
 
 	# Report library scan (number of items scanned) in the background.
@@ -1944,7 +1944,7 @@ class AppModule(appModuleHandler.AppModule):
 				return
 			self.libraryScanning = True
 			# Translators: Presented when attempting to start library scan.
-			ui.message(_("Monitoring library scan"))
+			ui.message(_("Monitoring library scan")) if not splconfig.SPLConfig["General"]["BeepAnnounce"] else tones.beep(740, 100)
 			self.monitorLibraryScan()
 		else:
 			# Translators: Presented when library scan is already in progress.
