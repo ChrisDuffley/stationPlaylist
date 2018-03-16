@@ -305,23 +305,24 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
-## Version 18.03/15.14-LTS
+## Versión 18.03/15.14-LTS
 
-* If NVDA is configured to announce metadata streaming status when Studio
-  starts, NVDA will honor this setting and no longer announce streaming
-  status when switching to and from instant switch profiles.
-* If switching to and from an instant switch profile and NVDA is configured
-  to announce metadata streaming status whenever this happens, NVDA will no
-  longer announce this information multiple times when switching profiles
-  quickly.
-* NVDA will remember to switch to the appropriate time-based profile (if
-  defined for a show) after NVDA restarts multiple times during broadcasts.
-* If a time-based profile with profile duration set is active and when
-  add-on settings dialog is opened and closed, NVDA will still switch back
-  to the original profile once the time-based profile is finished.
-* If a time-based profile is active (particularly during broadcasts),
-  changing broadcast profile triggers via add-on settings dialog will not be
-  possible.
+* Se NVDA está configurado para anunciar o estado de emisión de metadatos
+  cando Studio se inicia, NVDA atenderá a esta configuración e xa non
+  anunciará o estado de emisión ao alternar dende e cara perfiles de cambio
+  instantáneo.
+* Se se cambia dende ou cara un perfil de cambio instantáneo e NVDA está
+  configurado para anunciar o estado de emisión de metadatos cando isto
+  ocorra, non se anunciará a información varias veces cando se alternen
+  perfiles rapidamente.
+* NVDA lembrará cambiar ao perfil basado en horario (se se definió para un
+  evento) aínda que se reinicie NVDA varias veces durante a emisión.
+* Se está activo un perfil basado en horario coa duración de perfil
+  establecida, NVDA retornará ao perfil orixinal cando o perfil acabe aínda
+  que se abra e se peche o diálogo de configuración.
+* Se está activo un perfil basado en horario (particularmente durante a
+  transmisión), non será posible cambiar os disparadores do perfil de
+  emisión mediante o diálogo de configuración do complemento.
 
 ## Versión 18.02/15.13-LTS
 
