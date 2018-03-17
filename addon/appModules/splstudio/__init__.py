@@ -8,7 +8,7 @@
 # Additional work done by Joseph Lee and other contributors.
 # For SPL Studio Controller, focus movement, SAM Encoder support and other utilities, see the global plugin version of this app module.
 
-# Minimum version: SPL 5.10, NvDA 2016.4.
+# Minimum version: SPL 5.10, NvDA 2017.4.
 
 import sys
 py3 = sys.version.startswith("3")
@@ -1544,8 +1544,9 @@ class AppModule(appModuleHandler.AppModule):
 			if "GenreCount" in snapshotFlags: snapshot["PlaylistGenreCount"] = collections.Counter(genres)
 		return snapshot
 
-# Output formatter for playlist snapshots.
-# Pressed once will speak and/or braille it, pressing twice or more will output this info to an HTML file.
+	# Output formatter for playlist snapshots.
+	# Pressed once will speak and/or braille it, pressing twice or more will output this info to an HTML file.
+
 	def playlistSnapshotOutput(self, snapshot, scriptCount):
 		# Translators: one of the results for playlist snapshots feature for announcing total number of items in a playlist.
 		statusInfo = [_("Items: {playlistItemCount}").format(playlistItemCount = snapshot["PlaylistItemCount"])]
