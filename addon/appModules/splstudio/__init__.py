@@ -561,7 +561,7 @@ class AppModule(appModuleHandler.AppModule):
 	_columnHeaderNames = None
 	_focusedTrack = None
 	_announceColumnOnly = None # Used only if vertical column navigation commands are used.
-	_SPLHandleMonitor = None # Monitor Studio API routines.
+	_SPLStudioMonitor = None # Monitor Studio API routines.
 
 	# Prepare the settings dialog among other things.
 	def __init__(self, *args, **kwargs):
@@ -628,8 +628,8 @@ class AppModule(appModuleHandler.AppModule):
 			splbase._SPLWin = hwnd
 			debugOutput("Studio handle is %s"%hwnd)
 		# #41 (18.04): start background monitor.
-		self._SPLHandleMonitor = wx.PyTimer(self.studioAPIMonitor)
-		wx.CallAfter(self._SPLHandleMonitor.Start, 1000)
+		self._SPLStudioMonitor = wx.PyTimer(self.studioAPIMonitor)
+		wx.CallAfter(self._SPLStudioMonitor.Start, 1000)
 		# Remind me to broadcast metadata information.
 		# 18.04: also when delayed action is needed because metadata action handler couldn't locate Studio handle itself.
 		if splconfig.SPLConfig["General"]["MetadataReminder"] == "startup" or splmisc._delayMetadataAction:
@@ -924,6 +924,10 @@ class AppModule(appModuleHandler.AppModule):
 		if self._focusedTrack: self._focusedTrack.__class__._curColumnNumber = None
 		# Delete focused track reference.
 		self._focusedTrack = None
+		# #41: We're done monitoring Studio API.
+		if self._SPLStudioMonitor is not None:
+			self._SPLStudioMonitor.Stop()
+			self._SPLStudioMonitor = None
 		# #54 (18.04): no more PyDeadObjectError in wxPython 4, so catch ALL exceptions until NVDA stable release with wxPython 4 is out.
 		try:
 			self.prefsMenu.RemoveItem(self.SPLSettings)
