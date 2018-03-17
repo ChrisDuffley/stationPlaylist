@@ -323,8 +323,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# #50 (18.03): but only if add-on update facility is alive.
 		if splupdate:
 			if not splconfig.SPLConfig["Update"]["AutoUpdateCheck"] or self.pendingChannelChange:
-				if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
-				splupdate._SPLUpdateT = None
+				splupdate.updateCheckTimerEnd()
 				if self.pendingChannelChange:
 					splupdate._pendingChannelChange = True
 					# Translators: A dialog message shown when add-on update channel has changed.
@@ -332,7 +331,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 					# Translators: Title of the update channel dialog.
 					_("Add-on update channel changed"), wx.OK|wx.ICON_INFORMATION)
 			else:
-				if splupdate._SPLUpdateT is None: splconfig.updateInit()
+				if splupdate._SPLUpdateT is None: splupdate.updateInit()
 		# Change metadata streaming.
 		# 17.11: call the metadata connector directly, reducing code duplication from previous releases.
 		# 17.12: replaced by an action, with config UI active flag set.
