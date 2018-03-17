@@ -911,9 +911,10 @@ class AppModule(appModuleHandler.AppModule):
 		if self._focusedTrack: self._focusedTrack.__class__._curColumnNumber = None
 		# Delete focused track reference.
 		self._focusedTrack = None
+		# #54 (18.04): no more PyDeadObjectError in wxPython 4, so catch ALL exceptions until NVDA stable release with wxPython 4 is out.
 		try:
 			self.prefsMenu.RemoveItem(self.SPLSettings)
-		except (RuntimeError, AttributeError, wx.PyDeadObjectError):
+		except: #(RuntimeError, AttributeError):
 			pass
 		# Tell the handle finder thread it's time to leave this world.
 		self.noMoreHandle.set()
