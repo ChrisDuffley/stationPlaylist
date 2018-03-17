@@ -111,6 +111,8 @@ def initialize():
 def terminate():
 	global SPLAddonState
 	splactions.SPLActionProfileSwitched.unregister(splupdate_actionProfileSwitched)
+	# 7.0: Turn off auto update check timer.
+	updateCheckTimerEnd()
 	# Store new values if it is absolutely required.
 	# Take care of a case where one might be "downgrading" from try builds.
 	stateChanged = "UpdateChannel" not in SPLAddonState or (SPLAddonState["PDT"] != SPLAddonCheck or SPLAddonState["UpdateChannel"] != SPLUpdateChannel)

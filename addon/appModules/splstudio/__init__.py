@@ -888,6 +888,15 @@ class AppModule(appModuleHandler.AppModule):
 	def terminate(self):
 		super(AppModule, self).terminate()
 		debugOutput("terminating app module")
+		# Save update check state.
+		# 18.04: do it from the app module to enforce separation of concerns.
+		try:
+			from . import splupdate
+		except RuntimeError:
+			pass
+		else:
+			debugOutput("terminating update check")
+			splupdate.terminate()
 		# 6.3: Memory leak results if encoder flag sets and other encoder support maps aren't cleaned up.
 		# This also could have allowed a hacker to modify the flags set (highly unlikely) so NvDA could get confused next time Studio loads.
 		if "globalPlugins.splUtils.encoders" in sys.modules:

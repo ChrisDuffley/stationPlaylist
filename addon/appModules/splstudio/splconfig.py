@@ -519,7 +519,8 @@ class ConfigHub(ChainMap):
 			# Translators: Presented when switching from instant switch profile to a previous profile.
 			ui.message(_("Returning to {previousProfile}").format(previousProfile = self.activeProfile))
 			# Resume auto update checker if told to do so.
-			if self["Update"]["AutoUpdateCheck"]: updateInit()
+			if self["Update"]["AutoUpdateCheck"]:
+				if splupdate: splupdate.updateInit()
 		# #38 (17.11/15.10-LTS): can't wait two seconds for microphone alarm to stop.
 		# #40 (17.12): all taken care of by profile switched notification.
 		splactions.SPLActionProfileSwitched.notify()
@@ -901,15 +902,11 @@ def terminate():
 		_SPLTriggerEndTimer = None
 		SPLConfig.switchProfile(None, SPLConfig.prevProfile, appTerminating=True)
 		_triggerProfileActive = False
-	# 7.0: Turn off auto update check timer.
-	if splupdate: splupdate.updateCheckTimerEnd()
 	# Close profile triggers dictionary.
 	# 17.10: but if only the normal profile is in use, it won't do anything.
 	if not SPLConfig.normalProfileOnly: saveProfileTriggers()
 	# Dump track comments.
 	pickle.dump(trackComments, file(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"), "wb"))
-	# Save update check state.
-	if splupdate: splupdate.terminate()
 	# Now save profiles.
 	# 8.0: Call the save method.
 	SPLConfig.save()
