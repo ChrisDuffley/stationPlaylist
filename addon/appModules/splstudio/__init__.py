@@ -561,6 +561,7 @@ class AppModule(appModuleHandler.AppModule):
 	_columnHeaderNames = None
 	_focusedTrack = None
 	_announceColumnOnly = None # Used only if vertical column navigation commands are used.
+	_SPLHandleMonitor = None # Monitor Studio API routines.
 
 	# Prepare the settings dialog among other things.
 	def __init__(self, *args, **kwargs):
@@ -626,10 +627,22 @@ class AppModule(appModuleHandler.AppModule):
 		with threading.Lock() as hwndNotifier:
 			splbase._SPLWin = hwnd
 			debugOutput("Studio handle is %s"%hwnd)
+		# #41 (18.04): start background monitor.
+		self._SPLHandleMonitor = wx.PyTimer(self.studioAPIMonitor)
+		wx.CallAfter(self._SPLHandleMonitor.Start, 1000)
 		# Remind me to broadcast metadata information.
 		# 18.04: also when delayed action is needed because metadata action handler couldn't locate Studio handle itself.
 		if splconfig.SPLConfig["General"]["MetadataReminder"] == "startup" or splmisc._delayMetadataAction:
 			splmisc._metadataAnnouncer(reminder=True, handle=hwnd)
+
+	# Studio API heartbeat.
+	# Although useful for library scan detection, it can be extended to cover other features.
+
+	def studioAPIMonitor(self):
+		# #41 (18.04): background library scan detection.
+		# Thankfully, current lib scan reporter function will not proceed when library scan is happening via Insert Tracks dialog.
+		if splbase.studioAPI(1, 32) >= 0:
+			if not self.libraryScanning: self.script_libraryScanMonitor(None)
 
 	# Let the global plugin know if SPLController passthrough is allowed.
 	def SPLConPassthrough(self):
