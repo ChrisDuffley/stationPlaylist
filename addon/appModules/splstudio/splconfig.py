@@ -996,13 +996,6 @@ def triggerProfileSwitch(durationDelta=None):
 			_SPLTriggerEndTimer.Stop()
 			_SPLTriggerEndTimer = None
 
-# Automatic update checker.
-
-# A bit simpler than NVDA Core's auto update checker.
-# #53 (18.04): just call splupdate version for backward compatibility.
-def updateInit():
-	if splupdate: splupdate.updateInit()
-
 # Let SPL track item know if it needs to build description pieces.
 # To be renamed and used in other places in 7.0.
 def _shouldBuildDescriptionPieces():
