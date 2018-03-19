@@ -163,6 +163,11 @@ class SPLTrackItem(IAccessible):
 		# Translators: location text for a playlist item (example: item 1 of 10).
 		return _("Item {current} of {total}").format(current = self.IAccessibleChildID, total = splbase.studioAPI(0, 124))
 
+	# #12 (18.04): select and set focus to this track.
+	def doAction(self, index=None):
+		splbase.selectTrack(self.IAccessibleChildID-1)
+		self.setFocus(), self.setFocus()
+
 	# Some helper functions to handle corner cases.
 	# Each track item provides its own version.
 	def _leftmostcol(self):
