@@ -188,6 +188,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * Changes were made to make add-on update check feature more reliable, particularly if automatic add-on update check is enabled.
 * NVDA will play a tone to indicate start of library scan when it is configured to play beeps for various announcements.
 * NVDA will start library scan in the background if library scan is started from Studio's Options dialog or at startup.
+* Double-tapping on a track on a touchscreen computer or performing default action command will now select the track and move system focus to it.
 
 ## Version 18.03/15.14-LTS
 
