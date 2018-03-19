@@ -644,6 +644,12 @@ class AppModule(appModuleHandler.AppModule):
 	# Although useful for library scan detection, it can be extended to cover other features.
 
 	def studioAPIMonitor(self):
+		# Only proceed if Studio handle is valid.
+		if not user32.FindWindowA("SPLStudio", None):
+			if self._SPLStudioMonitor is not None:
+				self._SPLStudioMonitor.Stop()
+				self._SPLStudioMonitor = None
+				return
 		# #41 (18.04): background library scan detection.
 		# Thankfully, current lib scan reporter function will not proceed when library scan is happening via Insert Tracks dialog.
 		if splbase.studioAPI(1, 32) >= 0:
@@ -1402,7 +1408,6 @@ class AppModule(appModuleHandler.AppModule):
 			if scanIter%5 == 0 and splconfig.SPLConfig["General"]["LibraryScanAnnounce"] not in ("off", "ending"):
 				self._libraryScanAnnouncer(scanCount, splconfig.SPLConfig["General"]["LibraryScanAnnounce"])
 		self.libraryScanning = False
-		if self.backgroundStatusMonitor: return
 		if splconfig.SPLConfig["General"]["LibraryScanAnnounce"] != "off":
 			if splconfig.SPLConfig["General"]["BeepAnnounce"]:
 				tones.beep(370, 100)
