@@ -1572,7 +1572,11 @@ class AppModule(appModuleHandler.AppModule):
 			snapshot["PlaylistDurationMin"] = "%s (%s)"%(minTitle, min)
 			snapshot["PlaylistDurationMax"] = "%s (%s)"%(maxTitle, max)
 		if "DurationAverage" in snapshotFlags:
-			snapshot["PlaylistDurationAverage"] = self._ms2time(totalDuration/snapshot["PlaylistTrackCount"], ms=False)
+			# #57 (18.04): zero division error may occur if the playlist consists of hour markers only.
+			try:
+				snapshot["PlaylistDurationAverage"] = self._ms2time(totalDuration/snapshot["PlaylistTrackCount"], ms=False)
+			except ZeroDivisionError:
+				snapshot["PlaylistDurationAverage"] = "00:00"
 		if "CategoryCount" in snapshotFlags or "ArtistCount" in snapshotFlags or "GenreCount" in snapshotFlags:
 			import collections
 			if "CategoryCount" in snapshotFlags: snapshot["PlaylistCategoryCount"] = collections.Counter(categories)
@@ -1602,8 +1606,11 @@ class AppModule(appModuleHandler.AppModule):
 			artistCount = splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCountLimit"]
 			artists = snapshot["PlaylistArtistCount"].most_common(None if not artistCount else artistCount)
 			if scriptCount == 0:
-				# Translators: one of the results for playlist snapshots feature for announcing top artist in a playlist.
-				statusInfo.append(_("Top artist: %s (%s)")%(artists[0][:]))
+				try:
+					# Translators: one of the results for playlist snapshots feature for announcing top artist in a playlist.
+					statusInfo.append(_("Top artist: %s (%s)")%(artists[0][:]))
+				except IndexError:
+					statusInfo.append(_("Top artist: none"))
 			elif scriptCount == 1:
 				artistList = []
 				# Translators: one of the results for playlist snapshots feature, a heading for a group of items.
@@ -1637,8 +1644,11 @@ class AppModule(appModuleHandler.AppModule):
 			genreCount = splconfig.SPLConfig["PlaylistSnapshots"]["GenreCountLimit"]
 			genres = snapshot["PlaylistGenreCount"].most_common(None if not genreCount else genreCount)
 			if scriptCount == 0:
-				# Translators: one of the results for playlist snapshots feature for announcing top genre in a playlist.
-				statusInfo.append(_("Top genre: %s (%s)")%(genres[0][:]))
+				try:
+					# Translators: one of the results for playlist snapshots feature for announcing top genre in a playlist.
+					statusInfo.append(_("Top genre: %s (%s)")%(genres[0][:]))
+				except IndexError:
+					statusInfo.append(_("Top genre: none"))
 			elif scriptCount == 1:
 				genreList = []
 				# Translators: one of the results for playlist snapshots feature, a heading for a group of items.
