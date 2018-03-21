@@ -1408,7 +1408,8 @@ class AppModule(appModuleHandler.AppModule):
 			if scanIter%5 == 0 and splconfig.SPLConfig["General"]["LibraryScanAnnounce"] not in ("off", "ending"):
 				self._libraryScanAnnouncer(scanCount, splconfig.SPLConfig["General"]["LibraryScanAnnounce"])
 		self.libraryScanning = False
-		if splconfig.SPLConfig["General"]["LibraryScanAnnounce"] != "off":
+		# 18.04: what if config database died?
+		if splconfig.SPLConfig and splconfig.SPLConfig["General"]["LibraryScanAnnounce"] != "off":
 			if splconfig.SPLConfig["General"]["BeepAnnounce"]:
 				tones.beep(370, 100)
 			else:
