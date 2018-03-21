@@ -1585,7 +1585,7 @@ class AppModule(appModuleHandler.AppModule):
 		return snapshot
 
 	# Output formatter for playlist snapshots.
-	# Pressed once will speak and/or braille it, pressing twice or more will output this info to an HTML file.
+	# Pressing once will speak and/or braille it, pressing twice or more will output this info to an HTML file.
 
 	def playlistSnapshotOutput(self, snapshot, scriptCount):
 		# Translators: one of the results for playlist snapshots feature for announcing total number of items in a playlist.
