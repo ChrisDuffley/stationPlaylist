@@ -1529,6 +1529,8 @@ class AppModule(appModuleHandler.AppModule):
 	# Data to be gathered comes from a set of flags.
 	# By default, playlist duration (including shortest and average), category summary and other statistics will be gathered.
 	def playlistSnapshots(self, obj, end, snapshotFlags=None):
+		# #55 (18.05): is this a complete snapshot?
+		completePlaylistSnapshot = obj.IAccessibleChildID == 1 and end is None
 		# Track count and total duration are always included.
 		snapshot = {}
 		if snapshotFlags is None:
@@ -1567,7 +1569,7 @@ class AppModule(appModuleHandler.AppModule):
 				if len(hms) == 3: totalDuration += int(hms[0])*3600
 			obj = obj.next
 		# #55 (18.05): use total track count if it is an entire playlist, if not, resort to categories count.
-		if end is None: snapshot["PlaylistItemCount"] = splbase.studioAPI(0, 124)
+		if completePlaylistSnapshot: snapshot["PlaylistItemCount"] = splbase.studioAPI(0, 124)
 		else: snapshot["PlaylistItemCount"] = len(categories)
 		snapshot["PlaylistTrackCount"] = len(artists)
 		snapshot["PlaylistDurationTotal"] = self._ms2time(totalDuration, ms=False)
