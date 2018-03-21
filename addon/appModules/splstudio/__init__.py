@@ -1395,7 +1395,7 @@ class AppModule(appModuleHandler.AppModule):
 		# 17.04: Use the constant directly, as 5.10 and later provides a convenient method to detect completion of library scans.
 		scanCount = splbase.studioAPI(1, 32)
 		while scanCount >= 0:
-			if not self.libraryScanning: return
+			if not self.libraryScanning or not user32.FindWindowA("SPLStudio", None): return
 			time.sleep(1)
 			# Do not continue if we're back on insert tracks form or library scan is finished.
 			if api.getForegroundObject().windowClassName == "TTrackInsertForm" or not self.libraryScanning:
