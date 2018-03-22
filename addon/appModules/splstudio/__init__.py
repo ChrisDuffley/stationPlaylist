@@ -182,7 +182,7 @@ class SPLTrackItem(IAccessible):
 	# A convenience method that calls column content getter for a list of columns.
 	def _getColumnContents(self, columns=None):
 		if columns is None:
-			columns = list(xrange(18))
+			columns = list(rangeGen(18))
 		return [splmisc._getColumnContent(self, col) for col in columns]
 
 	# Announce column content if any.
