@@ -180,10 +180,15 @@ class SPLTrackItem(IAccessible):
 
 	# Obtain column contents for all columns for this track.
 	# A convenience method that calls column content getter for a list of columns.
-	def _getColumnContents(self, columns=None):
+	# Readable flag will transform None into an empty string, suitable for output.
+	def _getColumnContents(self, columns=None, readable=False):
 		if columns is None:
 			columns = list(rangeGen(18))
-		return [splmisc._getColumnContent(self, col) for col in columns]
+		columnContents = [splmisc._getColumnContent(self, col) for col in columns]
+		if readable:
+			for pos in rangeGen(len(columnContents)):
+				if columnContents[pos] is None: columnContents[pos] = ""
+		return columnContents
 
 	# Announce column content if any.
 	# 7.0: Add an optional header in order to announce correct header information in columns explorer.
