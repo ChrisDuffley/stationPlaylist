@@ -178,6 +178,13 @@ class SPLTrackItem(IAccessible):
 	def _getColumnContent(self, col):
 		return splmisc._getColumnContent(self, col)
 
+	# Obtain column contents for all columns for this track.
+	# A convenience method that calls column content getter for a list of columns.
+	def _getColumnContents(self, columns=None):
+		if columns is None:
+			columns = list(xrange(18))
+		return [splmisc._getColumnContent(self, col) for col in columns]
+
 	# Announce column content if any.
 	# 7.0: Add an optional header in order to announce correct header information in columns explorer.
 	# 17.04: Allow checked status in 5.1x and later to be announced if this is such a case (vertical column navigation).)
