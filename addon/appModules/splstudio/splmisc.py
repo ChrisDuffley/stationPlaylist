@@ -540,7 +540,17 @@ SPLPlaylistTranscriptFormats.append(("ini", playlist2ini, "traditional ini file"
 def playlist2ini2(): pass
 SPLPlaylistTranscriptFormats.append(("ini2", playlist2ini2, "Ini file with sections"))
 
-def playlist2htmlTable(): pass
+def playlist2htmlTable(start, end):
+	playlistTranscripts = ["Playlist Transcripts (experimental) - use table navigation commands to review track information"]
+	from . import splconfig
+	playlistTranscripts.append("<table><tr><th>Status<th>{columnHeaders}</tr>".format(columnHeaders = "<th>".join(splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])))
+	obj = start
+	while obj not in (None, end):
+		columnContents = obj._getColumnContents(readable=True)
+		playlistTranscripts.append("<tr><td>{trackContents}</tr>".format(trackContents = "<td>".join(columnContents)))
+		obj = obj.next
+	playlistTranscripts.append("</table>")
+	ui.browseableMessage("\n".join(playlistTranscripts),title=_("Playlist Transcripts (experimental)"), isHtml=True)
 SPLPlaylistTranscriptFormats.append(("htmltable", playlist2htmlTable, "Table in HTML format"))
 
 def playlist2htmlList(): pass
