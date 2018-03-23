@@ -115,7 +115,7 @@ The available commands are:
 * Y: Playlist modified status.
 * 1 through 0 (6 for Studio 5.0x): Announce column content for a specified column.
 * F8: Take playlist snapshots (number of tracks, longest track, etc.).
-* F9: Mark current track for track time analysis (playlist viewer only).
+* F9: Mark current track for start of playlist analysis (playlist viewer only).
 * F10: Perform track time analysis (playlist viewer only).
 * F12: Switch between current and a predefined profile.
 * F1: Layer help.
@@ -182,6 +182,11 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 ## SPL touch mode
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
+
+## Version 18.05
+
+* Added ability to take partial playlist snapshots. This can be done by defining analysis range (SPL Assistant, F9 at the start of the analysis range) and moving to another item and performing playlist snapshots command.
+* Various playlist analysis features such as track time analysis and playlist snapshots are now grouped under the theme of "Playlist Analyzer".
 
 ## Version 18.04
 
