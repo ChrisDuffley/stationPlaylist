@@ -12,6 +12,7 @@ import ctypes
 import weakref
 import os
 import threading
+import collections # Playlist transcript formats tuple
 from .csv import reader # For cart explorer.
 import gui
 import wx
@@ -515,3 +516,38 @@ def metadata_actionProfileSwitched(configDialogActive=False):
 		_earlyMetadataAnnouncerInternal(metadataStatus())
 
 splactions.SPLActionProfileSwitched.register(metadata_actionProfileSwitched)
+
+# Playlist transcript processor
+# Takes a snapshot of the active playlist (a 2-D array) and transforms it into various formats.
+# To account for expansions, let a master function call different formatters based on output format.
+SPLPlaylistTranscriptFormats = []
+
+def playlist2clipboard(): pass
+SPLPlaylistTranscriptFormats.append(("clipboard", playlist2clipboard, "Copy to clipboard"))
+
+def playlist2txt(): pass
+SPLPlaylistTranscriptFormats.append(("txt", playlist2txt, "text file with one line per entry"))
+
+def playlist2txt2(): pass
+SPLPlaylistTranscriptFormats.append(("txt2", playlist2txt2, "text file with column list for entries"))
+
+def playlist2csv(): pass
+SPLPlaylistTranscriptFormats.append(("csv", playlist2csv, "Comma-separated values"))
+
+def playlist2ini(): pass
+SPLPlaylistTranscriptFormats.append(("ini", playlist2ini, "traditional ini file"))
+
+def playlist2ini2(): pass
+SPLPlaylistTranscriptFormats.append(("ini2", playlist2ini2, "Ini file with sections"))
+
+def playlist2htmlTable(): pass
+SPLPlaylistTranscriptFormats.append(("htmltable", playlist2htmlTable, "Table in HTML format"))
+
+def playlist2htmlList(): pass
+SPLPlaylistTranscriptFormats.append(("htmllist", playlist2htmlList, "Data list in HTML format"))
+
+def playlist2htmlList2(): pass
+SPLPlaylistTranscriptFormats.append(("htmllist2", playlist2htmlList2, "Multiple HTML lists, one per entry"))
+
+def playlist2mdTable(): pass
+SPLPlaylistTranscriptFormats.append(("mdtable", playlist2mdTable, "Table in Markdown format"))
