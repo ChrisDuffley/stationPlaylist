@@ -305,6 +305,20 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
+## Version 18.04
+
+* Changes were made to make add-on update check feature more reliable,
+  particularly if automatic add-on update check is enabled.
+* NVDA will play a tone to indicate start of library scan when it is
+  configured to play beeps for various announcements.
+* NVDA will start library scan in the background if library scan is started
+  from Studio's Options dialog or at startup.
+* Double-tapping on a track on a touchscreen computer or performing default
+  action command will now select the track and move system focus to it.
+* When taking playlist snapshots (SPL Assistant, F8), if a playlist consists
+  of hour markers only, resolves several issues where NVDA appeared to not
+  take snapshots.
+
 ## Versión 18.03/15.14-LTS
 
 * Se NVDA está configurado para anunciar o estado de emisión de metadatos

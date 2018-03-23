@@ -624,6 +624,10 @@ msgstr "Promedio: {playlistAverageDuration}"
 msgid "Top artist: %s (%s)"
 msgstr "Artista principal: %s (%s)"
 
+#, fuzzy
+msgid "Top artist: none"
+msgstr "Artistas principales:"
+
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 msgid "Top artists:"
 msgstr "Artistas principales:"
@@ -653,6 +657,10 @@ msgstr "{categoryName} ({categoryCount})"
 #, python-format
 msgid "Top genre: %s (%s)"
 msgstr "Género principal: %s (%s)"
+
+#, fuzzy
+msgid "Top genre: none"
+msgstr "Géneros principales:"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 msgid "Top genres:"
@@ -1125,6 +1133,64 @@ msgstr ""
 #. Translators: One of the library scan announcement settings.
 msgid "Scan count"
 msgstr "Escanear cuenta"
+
+#. Translators: one of the error messages when trying to update the add-on.
+msgid ""
+"An error occured while checking for add-on update. Please check NVDA log for "
+"details."
+msgstr ""
+"Ocurrió un error mientras se buscaba una actualización para el complemento. "
+"Por favor comprueba el registro de NVDA para detalles."
+
+#. Translators: one of the error messages when trying to update the add-on.
+msgid ""
+"NVDA is in secure mode. Please restart with secure mode disabled before "
+"checking for add-on updates."
+msgstr ""
+"NVDA está en modo seguro. Por favor reinicia con el modo seguro "
+"deshabilitado antes de buscar actualizaciones del complemento."
+
+#. Translators: one of the error messages when trying to update the add-on.
+msgid ""
+"This is a try build of StationPlaylist Studio add-on. Please install the "
+"latest stable release to receive updates again."
+msgstr ""
+"Esta es una compilación de prueba del complemento StationPlaylist Studio. "
+"Por favor instala la última versión estable para recibir actualizaciones de "
+"nuevo."
+
+#. Translators: one of the error messages when trying to update the add-on.
+msgid ""
+"Update checking not supported while running NVDA from source. Please run "
+"this add-on from an installed or a portable version of NVDA."
+msgstr ""
+"No se soporta la búsqueda de actualizaciones mientras se ejecuta NVDA desde "
+"el código fuente. Por favor ejecuta el complemento desde una versión "
+"instalada o portable de NVDA."
+
+#. Translators: one of the error messages when trying to update the add-on.
+msgid ""
+"This is a Windows Store version of NVDA. Add-on updating is supported on "
+"desktop version of NVDA."
+msgstr ""
+"Esta es una versión Windows Store de NVDA. La actualización del complemento "
+"se soporta en versiones de escritorio de NVDA."
+
+#. Translators: one of the error messages when trying to update the add-on.
+msgid ""
+"Cannot update add-on directly. Please check for add-on updates by going to "
+"add-ons manager."
+msgstr ""
+"No se puede actualizar el complemento directamente. Por favor busca "
+"actualizaciones del complemento yendo al administrador de complementos."
+
+#. Translators: one of the error messages when trying to update the add-on.
+msgid ""
+"No internet connection. Please connect to the internet before checking for "
+"add-on update."
+msgstr ""
+"No hay conexión a internet. Por favor conéctate a internet antes de buscar "
+"la actualización del complemento."
 
 #. Translators: This is the label for the StationPlaylist Studio configuration dialog.
 msgid "Studio Add-on Settings"
@@ -1776,6 +1842,11 @@ msgstr "Cuenta atrás iniciada"
 msgid "Timer complete"
 msgstr "Temporizador completado"
 
+#. Translators: presented when metadata streaming status cannot be obtained.
+#, fuzzy
+msgid "Cannot obtain metadata streaming status information"
+msgstr "No se pudieron abrir los metadatos del diálogo streaming"
+
 #. Translators: Status message for metadata streaming.
 msgid "No metadata streaming URL's defined"
 msgstr "No se definieron URLs para los metadatos del streaming"
@@ -1807,64 +1878,6 @@ msgstr ""
 #, python-brace-format
 msgid "Metadata streaming configured for URL's {URL}"
 msgstr "Los metadatos del streaming se configuraron para la URL {URL}"
-
-#. Translators: one of the error messages when trying to update the add-on.
-msgid ""
-"An error occured while checking for add-on update. Please check NVDA log for "
-"details."
-msgstr ""
-"Ocurrió un error mientras se buscaba una actualización para el complemento. "
-"Por favor comprueba el registro de NVDA para detalles."
-
-#. Translators: one of the error messages when trying to update the add-on.
-msgid ""
-"NVDA is in secure mode. Please restart with secure mode disabled before "
-"checking for add-on updates."
-msgstr ""
-"NVDA está en modo seguro. Por favor reinicia con el modo seguro "
-"deshabilitado antes de buscar actualizaciones del complemento."
-
-#. Translators: one of the error messages when trying to update the add-on.
-msgid ""
-"This is a try build of StationPlaylist Studio add-on. Please install the "
-"latest stable release to receive updates again."
-msgstr ""
-"Esta es una compilación de prueba del complemento StationPlaylist Studio. "
-"Por favor instala la última versión estable para recibir actualizaciones de "
-"nuevo."
-
-#. Translators: one of the error messages when trying to update the add-on.
-msgid ""
-"Update checking not supported while running NVDA from source. Please run "
-"this add-on from an installed or a portable version of NVDA."
-msgstr ""
-"No se soporta la búsqueda de actualizaciones mientras se ejecuta NVDA desde "
-"el código fuente. Por favor ejecuta el complemento desde una versión "
-"instalada o portable de NVDA."
-
-#. Translators: one of the error messages when trying to update the add-on.
-msgid ""
-"This is a Windows Store version of NVDA. Add-on updating is supported on "
-"desktop version of NVDA."
-msgstr ""
-"Esta es una versión Windows Store de NVDA. La actualización del complemento "
-"se soporta en versiones de escritorio de NVDA."
-
-#. Translators: one of the error messages when trying to update the add-on.
-msgid ""
-"Cannot update add-on directly. Please check for add-on updates by going to "
-"add-ons manager."
-msgstr ""
-"No se puede actualizar el complemento directamente. Por favor busca "
-"actualizaciones del complemento yendo al administrador de complementos."
-
-#. Translators: one of the error messages when trying to update the add-on.
-msgid ""
-"No internet connection. Please connect to the internet before checking for "
-"add-on update."
-msgstr ""
-"No hay conexión a internet. Por favor conéctate a internet antes de buscar "
-"la actualización del complemento."
 
 msgid ""
 "Did you recently tell SPL add-on to use a different update channel? If so, "
