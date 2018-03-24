@@ -524,6 +524,8 @@ SPLPlaylistTranscriptFormats = []
 # For clipboard and text file 1, it expects playlist data in the format presented by MSAA.
 def playlist2msaa(start, end):
 	playlistTranscripts = ["Playlist Transcripts (experimental)"]
+	# Add a blank line for presentational purposes.
+	playlistTranscripts.append("\r\n")
 	from . import splconfig
 	columnHeaders = splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
 	obj = start
@@ -543,6 +545,7 @@ def playlist2clipboard(start, end):
 	import api
 	playlistTranscripts = playlist2msaa(start, end)
 	api.copyToClip("\r\n".join(playlistTranscripts))
+	ui.message(_("Playlist data copied to clipboard"))
 SPLPlaylistTranscriptFormats.append(("clipboard", playlist2clipboard, "Copy to clipboard"))
 
 def playlist2txt(): pass
