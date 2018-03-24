@@ -365,7 +365,8 @@ class SPLCountdownTimer(object):
 	def Start(self):
 		self.timer = wx.PyTimer(self.countdown)
 		ui.message(_("Countdown started"))
-		self.timer.Start(1000)
+		# #58 (18.04.1): timers must be started from main thread.
+		wx.CallAfter(self.timer.Start, 1000)
 
 	def Stop(self):
 		self.timer.Stop()
