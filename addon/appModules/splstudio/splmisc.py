@@ -524,7 +524,6 @@ SPLPlaylistTranscriptFormats = []
 
 # Several converters rely on assistants for their work.
 # For clipboard and text file 1, it expects playlist data in the format presented by MSAA.
-
 def playlist2msaa(start, end):
 	playlistTranscripts = ["Playlist Transcripts (experimental)"]
 	from . import splconfig
@@ -549,19 +548,19 @@ def playlist2clipboard(start, end):
 SPLPlaylistTranscriptFormats.append(("clipboard", playlist2clipboard, "Copy to clipboard"))
 
 def playlist2txt(): pass
-SPLPlaylistTranscriptFormats.append(("txt", playlist2txt, "text file with one line per entry"))
+#SPLPlaylistTranscriptFormats.append(("txt", playlist2txt, "text file with one line per entry"))
 
 def playlist2txt2(): pass
-SPLPlaylistTranscriptFormats.append(("txt2", playlist2txt2, "text file with column list for entries"))
+#SPLPlaylistTranscriptFormats.append(("txt2", playlist2txt2, "text file with column list for entries"))
 
 def playlist2csv(): pass
-SPLPlaylistTranscriptFormats.append(("csv", playlist2csv, "Comma-separated values"))
+#SPLPlaylistTranscriptFormats.append(("csv", playlist2csv, "Comma-separated values"))
 
 def playlist2ini(): pass
-SPLPlaylistTranscriptFormats.append(("ini", playlist2ini, "traditional ini file"))
+#SPLPlaylistTranscriptFormats.append(("ini", playlist2ini, "traditional ini file"))
 
 def playlist2ini2(): pass
-SPLPlaylistTranscriptFormats.append(("ini2", playlist2ini2, "Ini file with sections"))
+#SPLPlaylistTranscriptFormats.append(("ini2", playlist2ini2, "Ini file with sections"))
 
 def playlist2htmlTable(start, end):
 	playlistTranscripts = ["Playlist Transcripts (experimental) - use table navigation commands to review track information"]
@@ -577,13 +576,13 @@ def playlist2htmlTable(start, end):
 SPLPlaylistTranscriptFormats.append(("htmltable", playlist2htmlTable, "Table in HTML format"))
 
 def playlist2htmlList(): pass
-SPLPlaylistTranscriptFormats.append(("htmllist", playlist2htmlList, "Data list in HTML format"))
+#SPLPlaylistTranscriptFormats.append(("htmllist", playlist2htmlList, "Data list in HTML format"))
 
 def playlist2htmlList2(): pass
-SPLPlaylistTranscriptFormats.append(("htmllist2", playlist2htmlList2, "Multiple HTML lists, one per entry"))
+#SPLPlaylistTranscriptFormats.append(("htmllist2", playlist2htmlList2, "Multiple HTML lists, one per entry"))
 
 def playlist2mdTable(): pass
-SPLPlaylistTranscriptFormats.append(("mdtable", playlist2mdTable, "Table in Markdown format"))
+#SPLPlaylistTranscriptFormats.append(("mdtable", playlist2mdTable, "Table in Markdown format"))
 
 # Playlist transcripts help desk
 _plTranscriptsDialogOpened = False
@@ -634,6 +633,7 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 
 	def onOk(self, evt):
 		global _plTranscriptsDialogOpened
+		wx.CallLater(200, SPLPlaylistTranscriptFormats[self.transcriptFormat.Selection][1], self.obj.parent.firstChild, None)
 		self.Destroy()
 		_plTranscriptsDialogOpened = False
 
