@@ -2101,6 +2101,23 @@ class AppModule(appModuleHandler.AppModule):
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_takePlaylistSnapshots.__doc__=_("Presents playlist snapshot information such as number of tracks and top artists")
 
+	def script_playlistTranscripts(self, gesture):
+		if not splbase.studioIsRunning():
+			self.finish()
+			return
+		obj = api.getFocusObject() if api.getForegroundObject().windowClassName == "TStudioForm" else self._focusedTrack
+		if obj is None:
+			ui.message("Please return to playlist viewer before invoking this command.")
+			self.finish()
+			return
+		if obj.role == controlTypes.ROLE_LIST:
+			ui.message(_("You need to add tracks before invoking this command"))
+			self.finish()
+			return
+		# Present an HTML table (really shows the power of playlist transcripts).
+		splmisc.playlist2htmlTable(obj.parent.firstChild, None)
+		self.finish()
+
 	def script_switchProfiles(self, gesture):
 		splconfig.triggerProfileSwitch() if splconfig._triggerProfileActive else splconfig.instantProfileSwitch()
 
@@ -2229,6 +2246,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:shift+p":"sayTrackPitch",
 		"kb:shift+r":"libraryScanMonitor",
 		"kb:f8":"takePlaylistSnapshots",
+		"kb:shift+f8":"playlistTranscripts",
 		"kb:f9":"markTrackForAnalysis",
 		"kb:f10":"trackTimeAnalysis",
 		"kb:f12":"switchProfiles",
@@ -2263,6 +2281,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:shift+p":"sayTrackPitch",
 		"kb:shift+r":"libraryScanMonitor",
 		"kb:f8":"takePlaylistSnapshots",
+		"kb:shift+f8":"playlistTranscripts",
 		"kb:f9":"markTrackForAnalysis",
 		"kb:f10":"trackTimeAnalysis",
 		"kb:f12":"switchProfiles",
@@ -2299,6 +2318,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:shift+p":"sayTrackPitch",
 		"kb:shift+r":"libraryScanMonitor",
 		"kb:f8":"takePlaylistSnapshots",
+		"kb:shift+f8":"playlistTranscripts",
 		"kb:f9":"markTrackForAnalysis",
 		"kb:f10":"trackTimeAnalysis",
 		"kb:f12":"switchProfiles",
