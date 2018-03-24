@@ -522,7 +522,30 @@ splactions.SPLActionProfileSwitched.register(metadata_actionProfileSwitched)
 # To account for expansions, let a master function call different formatters based on output format.
 SPLPlaylistTranscriptFormats = []
 
-def playlist2clipboard(): pass
+# Several converters rely on assistants for their work.
+# For clipboard and text file 1, it expects playlist data in the format presented by MSAA.
+
+def playlist2msaa(start, end):
+	playlistTranscripts = ["Playlist Transcripts (experimental)"]
+	from . import splconfig
+	columnHeaders = splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
+	obj = start
+	while obj not in (None, end):
+		# Exclude status column, and no need to make this readable.
+		columnContents = obj._getColumnContents(columns=list(rangeGen(1, 18)))
+		# Filter empty columns.
+		filteredContent = []
+		for column in rangeGen(17):
+			if columnContents[column] is not None:
+				filteredContent.append("%s: %s"%(columnHeaders[column], columnContents[column]))
+		playlistTranscripts.append("; ".join(filteredContent))
+		obj = obj.next
+	return playlistTranscripts
+
+def playlist2clipboard(start, end):
+	import api
+	playlistTranscripts = playlist2msaa(start, end)
+	api.copyToClip("\r\n".join(playlistTranscripts))
 SPLPlaylistTranscriptFormats.append(("clipboard", playlist2clipboard, "Copy to clipboard"))
 
 def playlist2txt(): pass
