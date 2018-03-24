@@ -650,7 +650,8 @@ class AppModule(appModuleHandler.AppModule):
 		# Remind me to broadcast metadata information.
 		# 18.04: also when delayed action is needed because metadata action handler couldn't locate Studio handle itself.
 		if splconfig.SPLConfig["General"]["MetadataReminder"] == "startup" or splmisc._delayMetadataAction:
-			splmisc._metadataAnnouncer(reminder=True, handle=hwnd)
+			# 18.05: finally move the function body to the app module, as this will be done only from here.
+			splmisc._metadataAnnouncer()
 
 	# Studio API heartbeat.
 	# Although useful for library scan detection, it can be extended to cover other features.
@@ -2166,7 +2167,7 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: Presented when attempting to announce specific columns but the focused item isn't a track.
 			ui.message(_("Not a track"))
 		else:
-					# LTS: Call the overlay class version.
+			# LTS: Call the overlay class version.
 			focus.script_columnExplorer(gesture)
 		self.finish()
 
