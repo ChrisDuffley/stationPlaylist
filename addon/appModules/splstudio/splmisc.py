@@ -523,7 +523,8 @@ SPLPlaylistTranscriptFormats = []
 # Several converters rely on assistants for their work.
 # For clipboard, text file 1 and HTML list 1, it expects playlist data in the format presented by MSAA.
 # Header will not be included if additional decorations will be done (mostly for HTML and others).
-def playlist2msaa(start, end, additionalDecorations=False):
+# Prefix and suffix denote text to be added around entries (useful for various additional decoration rules).
+def playlist2msaa(start, end, additionalDecorations=False, prefix="", suffix=""):
 	playlistTranscripts = []
 	#Just pure text, ready for the clipboard or writing to a txt file.
 	if not additionalDecorations:
@@ -541,7 +542,7 @@ def playlist2msaa(start, end, additionalDecorations=False):
 		for column in rangeGen(17):
 			if columnContents[column] is not None:
 				filteredContent.append("%s: %s"%(columnHeaders[column], columnContents[column]))
-		playlistTranscripts.append("; ".join(filteredContent))
+		playlistTranscripts.append("{0}{1}{2}.format(prefix, "; ".join(filteredContent), suffix))
 		obj = obj.next
 	return playlistTranscripts
 
