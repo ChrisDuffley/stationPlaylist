@@ -521,11 +521,15 @@ splactions.SPLActionProfileSwitched.register(metadata_actionProfileSwitched)
 SPLPlaylistTranscriptFormats = []
 
 # Several converters rely on assistants for their work.
-# For clipboard and text file 1, it expects playlist data in the format presented by MSAA.
-def playlist2msaa(start, end):
-	playlistTranscripts = ["Playlist Transcripts (experimental)"]
-	# Add a blank line for presentational purposes.
-	playlistTranscripts.append("\r\n")
+# For clipboard, text file 1 and HTML list 1, it expects playlist data in the format presented by MSAA.
+# Header will not be included if additional decorations will be done (mostly for HTML and others).
+def playlist2msaa(start, end, additionalDecorations=False):
+	playlistTranscripts = []
+	#Just pure text, ready for the clipboard or writing to a txt file.
+	if not additionalDecorations:
+		playlistTranscripts = ["Playlist Transcripts (experimental)"]
+		# Add a blank line for presentational purposes.
+		playlistTranscripts.append("\r\n")
 	from . import splconfig
 	columnHeaders = splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
 	obj = start
