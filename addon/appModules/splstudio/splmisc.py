@@ -288,13 +288,13 @@ def _populateCarts(carts, cartlst, modifier, standardEdition=False, refresh=Fals
 
 # Cart file timestamps.
 _cartEditTimestamps = None
-		# Initialize Cart Explorer i.e. fetch carts.
+# Initialize Cart Explorer i.e. fetch carts.
 # Cart files list is for future use when custom cart names are used.
 # if told to refresh, timestamps will be checked and updated banks will be reassigned.
-# Carts dictionary is used if and only if refresh is on, as it'll modify live cats.
+# Carts dictionary is used if and only if refresh is on, as it'll modify live carts.
 def cartExplorerInit(StudioTitle, cartFiles=None, refresh=False, carts=None):
 	global _cartEditTimestamps
-	debugOutput("refreshing Cart Explorer" if refresh else "SPL: preparing cart Explorer")
+	debugOutput("refreshing Cart Explorer" if refresh else "preparing cart Explorer")
 	# Use cart files in SPL's data folder to build carts dictionary.
 	# use a combination of SPL user name and static cart location to locate cart bank files.
 	# Once the cart banks are located, use the routines in the populate method above to assign carts.

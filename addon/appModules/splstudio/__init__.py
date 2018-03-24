@@ -2154,7 +2154,7 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: Presented when attempting to announce specific columns but the focused item isn't a track.
 			ui.message(_("Not a track"))
 		else:
-					# LTS: Call the overlay class version.
+			# LTS: Call the overlay class version.
 			focus.script_columnExplorer(gesture)
 		self.finish()
 
