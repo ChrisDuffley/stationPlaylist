@@ -565,6 +565,7 @@ def playlist2ini2(): pass
 
 def playlist2htmlTable(start, end):
 	playlistTranscripts = ["Playlist Transcripts (experimental) - use table navigation commands to review track information"]
+	playlistTranscripts.append("<p>")
 	from . import splconfig
 	playlistTranscripts.append("<table><tr><th>Status<th>{columnHeaders}</tr>".format(columnHeaders = "<th>".join(splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])))
 	obj = start
