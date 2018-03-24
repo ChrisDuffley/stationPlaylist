@@ -584,3 +584,65 @@ SPLPlaylistTranscriptFormats.append(("htmllist2", playlist2htmlList2, "Multiple 
 
 def playlist2mdTable(): pass
 SPLPlaylistTranscriptFormats.append(("mdtable", playlist2mdTable, "Table in Markdown format"))
+
+# Playlist transcripts help desk
+_plTranscriptsDialogOpened = False
+
+def plTranscriptsDialogError():
+	# Translators: Text of the dialog when another playlist transcripts dialog is open.
+	gui.messageBox(_("Another playlist transcripts dialog is open."),_("Error"),style=wx.OK | wx.ICON_ERROR)
+
+class SPLPlaylistTranscriptsDialog(wx.Dialog):
+
+	_instance = None
+
+	def __new__(cls, parent, *args, **kwargs):
+		# Make this a singleton and prompt an error dialog if it isn't.
+		if _plTranscriptsDialogOpened:
+			raise RuntimeError("An instance of playlist transcripts dialog is opened")
+		inst = cls._instance() if cls._instance else None
+		if not inst:
+			return super(cls, cls).__new__(cls, parent, *args, **kwargs)
+		return inst
+
+	def __init__(self, parent, obj):
+		inst = SPLPlaylistTranscriptsDialog._instance() if SPLPlaylistTranscriptsDialog._instance else None
+		if inst:
+			return
+		# Use a weakref so the instance can die.
+		SPLPlaylistTranscriptsDialog._instance = weakref.ref(self)
+
+		super(SPLPlaylistTranscriptsDialog, self).__init__(parent, wx.ID_ANY, "Playlist Transcripts")
+		self.obj = obj
+
+		mainSizer = wx.BoxSizer(wx.VERTICAL)
+		plTranscriptsSizerHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
+		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
+
+		# Translators: The label in playlist transcripts dialog to select transcript output format.
+		self.transcriptFormat = plTranscriptsSizerHelper.addLabeledControl(_("Transcript format:"), wx.Choice, choices=[output[2] for output in SPLPlaylistTranscriptFormats])
+		self.transcriptFormat.SetSelection(0)
+
+		plTranscriptsSizerHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
+		self.Bind(wx.EVT_BUTTON,self.onOk,id=wx.ID_OK)
+		self.Bind(wx.EVT_BUTTON,self.onCancel,id=wx.ID_CANCEL)
+		mainSizer.Add(plTranscriptsSizerHelper.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
+		mainSizer.Fit(self)
+		self.Sizer = mainSizer
+		self.Center(wx.BOTH | CENTER_ON_SCREEN)
+		self.transcriptFormat.SetFocus()
+
+	def onOk(self, evt):
+		global _plTranscriptsDialogOpened
+		self.Destroy()
+		_plTranscriptsDialogOpened = False
+
+	def onCancel(self, evt):
+		self.Destroy()
+		global _plTranscriptsDialogOpened
+		_plTranscriptsDialogOpened = False
+
+	def onAppTerminate(self):
+		# Call cancel function when the app terminates so the dialog can be closed.
+		self.onCancel(None)
+
