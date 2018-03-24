@@ -582,8 +582,13 @@ def playlist2htmlTable(start, end):
 	ui.browseableMessage("\n".join(playlistTranscripts),title=_("Playlist Transcripts (experimental)"), isHtml=True)
 SPLPlaylistTranscriptFormats.append(("htmltable", playlist2htmlTable, "Table in HTML format"))
 
-def playlist2htmlList(): pass
-#SPLPlaylistTranscriptFormats.append(("htmllist", playlist2htmlList, "Data list in HTML format"))
+def playlist2htmlList(start, end):
+	playlistTranscripts = ["Playlist Transcripts (experimental) - use list navigation commands to review track information"]
+	playlistTranscripts.append("<p><ol>")
+	playlistTranscripts += playlist2msaa(start, end, additionalDecorations=True, prefix="<li>")
+	playlistTranscripts.append("</ol>")
+	ui.browseableMessage("\n".join(playlistTranscripts),title=_("Playlist Transcripts (experimental)"), isHtml=True)
+SPLPlaylistTranscriptFormats.append(("htmllist", playlist2htmlList, "Data list in HTML format"))
 
 def playlist2htmlList2(): pass
 #SPLPlaylistTranscriptFormats.append(("htmllist2", playlist2htmlList2, "Multiple HTML lists, one per entry"))
