@@ -2114,8 +2114,16 @@ class AppModule(appModuleHandler.AppModule):
 			ui.message(_("You need to add tracks before invoking this command"))
 			self.finish()
 			return
-		# Present an HTML table (really shows the power of playlist transcripts).
-		splmisc.playlist2htmlTable(obj.parent.firstChild, None)
+		try:
+			startObj =  api.getFocusObject()
+			d = splmisc.SPLPlaylistTranscriptsDialog(gui.mainFrame, api.getFocusObject())
+			gui.mainFrame.prePopup()
+			d.Raise()
+			d.Show()
+			gui.mainFrame.postPopup()
+			splmisc._plTranscriptsDialogOpened = True
+		except RuntimeError:
+			wx.CallAfter(splmisc.plTranscriptsDialogError)
 		self.finish()
 
 	def script_switchProfiles(self, gesture):
