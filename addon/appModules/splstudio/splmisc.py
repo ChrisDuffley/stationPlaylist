@@ -556,7 +556,7 @@ def playlist2clipboard(start, end):
 	ui.message(_("Playlist data copied to clipboard"))
 #SPLPlaylistTranscriptFormats.append(("clipboard", playlist2clipboard, "Copy to clipboard"))
 
-def playlist2txt(start, end)
+def playlist2txt(start, end):
 	playlistTranscripts = playlist2msaa(start, end)
 	displayPlaylistTranscripts(playlistTranscripts)
 SPLPlaylistTranscriptFormats.append(("txt", playlist2txt, "plain text with one line per entry"))
