@@ -520,6 +520,9 @@ splactions.SPLActionProfileSwitched.register(metadata_actionProfileSwitched)
 # To account for expansions, let a master function call different formatters based on output format.
 SPLPlaylistTranscriptFormats = []
 
+def displayPlaylistTranscripts(transcript, HTMLDecoration=False):
+	ui.browseableMessage("\n".join(transcript),title=_("Playlist Transcripts (experimental)"), isHtml=HTMLDecoration)
+
 # Several converters rely on assistants for their work.
 # For text file 1 and HTML list 1, it expects playlist data in the format presented by MSAA.
 # Header will not be included if additional decorations will be done (mostly for HTML and others).
@@ -555,7 +558,7 @@ def playlist2clipboard(start, end):
 
 def playlist2txt(start, end)
 	playlistTranscripts = playlist2msaa(start, end)
-	ui.browseableMessage("\n".join(playlistTranscripts),title=_("Playlist Transcripts (experimental)"))
+	displayPlaylistTranscripts(playlistTranscripts)
 SPLPlaylistTranscriptFormats.append(("txt", playlist2txt, "plain text with one line per entry"))
 
 def playlist2txt2(): pass
@@ -581,7 +584,7 @@ def playlist2htmlTable(start, end):
 		playlistTranscripts.append("<tr><td>{trackContents}</tr>".format(trackContents = "<td>".join(columnContents)))
 		obj = obj.next
 	playlistTranscripts.append("</table>")
-	ui.browseableMessage("\n".join(playlistTranscripts),title=_("Playlist Transcripts (experimental)"), isHtml=True)
+	displayPlaylistTranscripts(playlistTranscripts, HTMLDecoration=True)
 SPLPlaylistTranscriptFormats.append(("htmltable", playlist2htmlTable, "Table in HTML format"))
 
 def playlist2htmlList(start, end):
@@ -589,7 +592,7 @@ def playlist2htmlList(start, end):
 	playlistTranscripts.append("<p><ol>")
 	playlistTranscripts += playlist2msaa(start, end, additionalDecorations=True, prefix="<li>")
 	playlistTranscripts.append("</ol>")
-	ui.browseableMessage("\n".join(playlistTranscripts),title=_("Playlist Transcripts (experimental)"), isHtml=True)
+	displayPlaylistTranscripts(playlistTranscripts, HTMLDecoration=True)
 SPLPlaylistTranscriptFormats.append(("htmllist", playlist2htmlList, "Data list in HTML format"))
 
 def playlist2htmlList2(): pass
