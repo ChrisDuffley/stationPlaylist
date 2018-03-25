@@ -521,7 +521,7 @@ splactions.SPLActionProfileSwitched.register(metadata_actionProfileSwitched)
 SPLPlaylistTranscriptFormats = []
 
 # Several converters rely on assistants for their work.
-# For clipboard, text file 1 and HTML list 1, it expects playlist data in the format presented by MSAA.
+# For text file 1 and HTML list 1, it expects playlist data in the format presented by MSAA.
 # Header will not be included if additional decorations will be done (mostly for HTML and others).
 # Prefix and suffix denote text to be added around entries (useful for various additional decoration rules).
 def playlist2msaa(start, end, additionalDecorations=False, prefix="", suffix=""):
@@ -551,10 +551,12 @@ def playlist2clipboard(start, end):
 	playlistTranscripts = playlist2msaa(start, end)
 	api.copyToClip("\r\n".join(playlistTranscripts))
 	ui.message(_("Playlist data copied to clipboard"))
-SPLPlaylistTranscriptFormats.append(("clipboard", playlist2clipboard, "Copy to clipboard"))
+#SPLPlaylistTranscriptFormats.append(("clipboard", playlist2clipboard, "Copy to clipboard"))
 
-def playlist2txt(): pass
-#SPLPlaylistTranscriptFormats.append(("txt", playlist2txt, "text file with one line per entry"))
+def playlist2txt(start, end)
+	playlistTranscripts = playlist2msaa(start, end)
+	ui.browseableMessage("\n".join(playlistTranscripts),title=_("Playlist Transcripts (experimental)"))
+SPLPlaylistTranscriptFormats.append(("txt", playlist2txt, "plain text with one line per entry"))
 
 def playlist2txt2(): pass
 #SPLPlaylistTranscriptFormats.append(("txt2", playlist2txt2, "text file with column list for entries"))
