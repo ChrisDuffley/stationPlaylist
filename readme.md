@@ -183,6 +183,10 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 18.04.1
+
+* NVDA will no longer fail to start countdown timer for time-based broadcast profiles if NVDA with wxPython 4 toolkit installed is in use.
+
 ## Version 18.04
 
 * Changes were made to make add-on update check feature more reliable, particularly if automatic add-on update check is enabled.
