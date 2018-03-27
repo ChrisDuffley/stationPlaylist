@@ -635,6 +635,16 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 		plTranscriptsSizerHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 
+		self.transcriptRanges = (
+			"entire playlist",
+			"start to current item",
+			"current item to the end",
+		)
+
+		# Translators: The label in playlist transcripts dialog to select playlist transcript range.
+		self.transcriptRange = plTranscriptsSizerHelper.addLabeledControl(_("Transcript range:"), wx.Choice, choices=self.transcriptRanges)
+		self.transcriptRange.SetSelection(0)
+
 		# Translators: The label in playlist transcripts dialog to select transcript output format.
 		self.transcriptFormat = plTranscriptsSizerHelper.addLabeledControl(_("Transcript format:"), wx.Choice, choices=[output[2] for output in SPLPlaylistTranscriptFormats])
 		self.transcriptFormat.SetSelection(0)
@@ -646,11 +656,20 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
 		self.Center(wx.BOTH | CENTER_ON_SCREEN)
-		self.transcriptFormat.SetFocus()
+		self.transcriptRange.SetFocus()
 
 	def onOk(self, evt):
 		global _plTranscriptsDialogOpened
-		wx.CallLater(200, SPLPlaylistTranscriptFormats[self.transcriptFormat.Selection][1], self.obj.parent.firstChild, None)
+		start = None
+		end = None
+		transcriptRange = self.transcriptRange.Selection
+		if transcriptRange in (0, 1):
+			start = self.obj.parent.firstChild
+		if transcriptRange == 1:
+			end = self.obj.next
+		if transcriptRange == 2:
+			start = self.obj
+		wx.CallLater(200, SPLPlaylistTranscriptFormats[self.transcriptFormat.Selection][1], start, end)
 		self.Destroy()
 		_plTranscriptsDialogOpened = False
 
