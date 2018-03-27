@@ -188,6 +188,10 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * Added ability to take partial playlist snapshots. This can be done by defining analysis range (SPL Assistant, F9 at the start of the analysis range) and moving to another item and performing playlist snapshots command.
 * Various playlist analysis features such as track time analysis and playlist snapshots are now grouped under the theme of "Playlist Analyzer".
 
+## Version 18.04.1
+
+* NVDA will no longer fail to start countdown timer for time-based broadcast profiles if NVDA with wxPython 4 toolkit installed is in use.
+
 ## Version 18.04
 
 * Changes were made to make add-on update check feature more reliable, particularly if automatic add-on update check is enabled.
