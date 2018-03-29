@@ -519,7 +519,7 @@ splactions.SPLActionProfileSwitched.register(metadata_actionProfileSwitched)
 SPLPlaylistTranscriptFormats = []
 
 def displayPlaylistTranscripts(transcript, HTMLDecoration=False):
-	ui.browseableMessage("\n".join(transcript),title=_("Playlist Transcripts (experimental)"), isHtml=HTMLDecoration)
+	ui.browseableMessage("\n".join(transcript),title=_("Playlist Transcripts"), isHtml=HTMLDecoration)
 
 # Several converters rely on assistants for their work.
 # For text file 1 and HTML list 1, it expects playlist data in the format presented by MSAA.
@@ -529,7 +529,7 @@ def playlist2msaa(start, end, additionalDecorations=False, prefix="", suffix="")
 	playlistTranscripts = []
 	#Just pure text, ready for the clipboard or writing to a txt file.
 	if not additionalDecorations:
-		playlistTranscripts = ["Playlist Transcripts (experimental)"]
+		playlistTranscripts = ["Playlist Transcripts"]
 		# Add a blank line for presentational purposes.
 		playlistTranscripts.append("\r\n")
 	from . import splconfig
@@ -572,7 +572,7 @@ def playlist2ini2(): pass
 #SPLPlaylistTranscriptFormats.append(("ini2", playlist2ini2, "Ini file with sections"))
 
 def playlist2htmlTable(start, end):
-	playlistTranscripts = ["Playlist Transcripts (experimental) - use table navigation commands to review track information"]
+	playlistTranscripts = ["Playlist Transcripts - use table navigation commands to review track information"]
 	playlistTranscripts.append("<p>")
 	from . import splconfig
 	playlistTranscripts.append("<table><tr><th>Status<th>{columnHeaders}</tr>".format(columnHeaders = "<th>".join(splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])))
@@ -586,7 +586,7 @@ def playlist2htmlTable(start, end):
 SPLPlaylistTranscriptFormats.append(("htmltable", playlist2htmlTable, "Table in HTML format"))
 
 def playlist2htmlList(start, end):
-	playlistTranscripts = ["Playlist Transcripts (experimental) - use list navigation commands to review track information"]
+	playlistTranscripts = ["Playlist Transcripts - use list navigation commands to review track information"]
 	playlistTranscripts.append("<p><ol>")
 	playlistTranscripts += playlist2msaa(start, end, additionalDecorations=True, prefix="<li>")
 	playlistTranscripts.append("</ol>")
