@@ -397,15 +397,13 @@ def metadataList():
 
 # Metadata server connector, to be utilized from many modules.
 # Servers refer to a list of connection flags to pass to Studio API, and if not present, will be pulled from add-on settings.
-def metadataConnector(handle=None, servers=None):
-	if handle is None: handle = user32.FindWindowA("SPLStudio", None)
-	if not handle: return
+def metadataConnector(servers=None):
 	if servers is None:
 		from . import splconfig
 		servers = splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"]
 	for url in rangeGen(5):
 		dataLo = 0x00010000 if servers[url] else 0xffff0000
-		sendMessage(handle, 1024, dataLo | url, 36)
+		splbase.studioAPI(dataLo | url, 36)
 
 # Metadata status formatter.
 # 18.04: say something if Studio handle is not found.
