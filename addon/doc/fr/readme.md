@@ -321,19 +321,31 @@ un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
 
+## Version 18.04.1
+
+* NVDA ne cessera plus de démarrer le compte à rebours pour les profils de
+  diffusion basés sur l'heure si NVDA avec wxPython 4 toolkit installé est
+  en cours d'utilisation.
+
 ## Version 18.04
 
-* Changes were made to make add-on update check feature more reliable,
-  particularly if automatic add-on update check is enabled.
-* NVDA will play a tone to indicate start of library scan when it is
-  configured to play beeps for various announcements.
-* NVDA will start library scan in the background if library scan is started
-  from Studio's Options dialog or at startup.
-* Double-tapping on a track on a touchscreen computer or performing default
-  action command will now select the track and move system focus to it.
-* When taking playlist snapshots (SPL Assistant, F8), if a playlist consists
-  of hour markers only, resolves several issues where NVDA appeared to not
-  take snapshots.
+* Des modifications ont été apportées pour rendre la fonction de
+  vérification des mises à jour du module complémentaire plus fiable, en
+  particulier si la vérification automatique des mises à jour du module
+  complémentaire est activée.
+* NVDA émet une tonalité pour indiquer le début du balayage de la
+  bibliothèque lorsqu'il est configuré pour lire des bips pour diverses
+  annonces.
+* NVDA démarre l'analyse de la bibliothèque en arrière-plan si l'analyse de
+  la bibliothèque est démarrée à partir du dialogue Options de Studio ou au
+  démarrage.
+* Tapoter deux fois sur une piste sur un ordinateur à écran tactile ou si
+  vous exécutez une commande d'action par défaut, la piste sera sélectionnée
+  et va déplacer le focus système sur celle-ci.
+* Lorsque vous prenez des instantanés de playlist (Assistant SPL, F8), si
+  une playlist contient uniquement des marqueurs d'heure, elle résout
+  plusieurs problèmes pour lesquels NVDA ne semblait pas prendre
+  d'instantanés.
 
 ## Version 18.03/15.14-LTS
 

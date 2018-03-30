@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 3.2\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2014-11-14 19:00+1000\n"
-"PO-Revision-Date: 2018-02-23 10:22+0000\n"
+"PO-Revision-Date: 2018-03-23 10:43+0000\n"
 "Last-Translator: Ângelo Miguel Abrantes <ampa4374@gmail.com>\n"
 "Language-Team: Equipa Portuguesa do NVDA <angelomiguelabrantes@gmail.com; "
 "rui.fontes@tiflotecnia.com>\n"
@@ -618,9 +618,8 @@ msgstr "Média: {playlistAverageDuration}"
 msgid "Top artist: %s (%s)"
 msgstr "Primeiro intérprete: %s (%s)"
 
-#, fuzzy
 msgid "Top artist: none"
-msgstr "Primeiros Intérpretes"
+msgstr "Primeiros Intérpretes."
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 msgid "Top artists:"
@@ -652,9 +651,8 @@ msgstr "{categoryName} ({categoryCount})"
 msgid "Top genre: %s (%s)"
 msgstr "primeiro género: %s (%s)"
 
-#, fuzzy
 msgid "Top genre: none"
-msgstr "Principais géneros:"
+msgstr "Géneros principais:"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 msgid "Top genres:"
@@ -1835,9 +1833,8 @@ msgid "Timer complete"
 msgstr "Temporizador completo"
 
 #. Translators: presented when metadata streaming status cannot be obtained.
-#, fuzzy
 msgid "Cannot obtain metadata streaming status information"
-msgstr "Não é possível abrir o diálogo de transmissão de metadados"
+msgstr "Não é possível abrir o diálogo de transmissão de metadados."
 
 #. Translators: Status message for metadata streaming.
 msgid "No metadata streaming URL's defined"
