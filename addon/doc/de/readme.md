@@ -321,19 +321,29 @@ Studio-Befehle über den Touchscreen ausführen. Tippen Sie zunächst einmal
 mit drei Fingern, um in den SPL-Touchmodus zu wechseln. Verwenden Sie dann
 die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
 
+## Version 18.04.1
+
+* NVDA will no longer fail to start countdown timer for time-based broadcast
+  profiles if NVDA with wxPython 4 toolkit installed is in use.
+
 ## Version 18.04
 
-* Changes were made to make add-on update check feature more reliable,
-  particularly if automatic add-on update check is enabled.
-* NVDA will play a tone to indicate start of library scan when it is
-  configured to play beeps for various announcements.
-* NVDA will start library scan in the background if library scan is started
-  from Studio's Options dialog or at startup.
-* Double-tapping on a track on a touchscreen computer or performing default
-  action command will now select the track and move system focus to it.
-* When taking playlist snapshots (SPL Assistant, F8), if a playlist consists
-  of hour markers only, resolves several issues where NVDA appeared to not
-  take snapshots.
+* Die Suche nach Updates ist nun zuverlässiger, vor allem wenn automatisch
+  nach Updates gesucht wird.
+* Wenn im Einstellungsmenü der SPL-Erweiterung die Töne für bestimmte
+  Ereignisse aktiviert sind, dann wird NVDA beim Starten des
+  Bibliothek-Scans einen Ton abspielen.
+* NVDA wird den Bibliothek-Scan im Hintergrund ausführen, wenn der
+  Suchdurchlauf im Einstellungsdialog des Studio ausgewählt wird oder wenn
+  der Bibliothek-Scan beim Starten des Programms automatisch ausgeführt
+  werden soll.
+* Der Systemfokus wird nun zum entsprechenden Titel bewegt und der Titel
+  wird ausgewählt, wenn ein Doppeltippen auf einem Titel im
+  Touch-Screen-Modus ausgeführt wird. Dies gilt auch beim Ausführen des
+  Standard-Aktionsbefehls.
+* Es wurden einige Probleme behoben, die dazu führten, dass NVDA in manchen
+  Fällen beim Drücken von F8 im SPL-Assistenten keine Playlist-Statistiken
+  aufnahm. Dies gilt für Playlisten, die nur Stunden-Marker beinhalten.
 
 ## Version 18.03/15.14-LTS
 
