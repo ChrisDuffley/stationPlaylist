@@ -34,6 +34,13 @@ class SPLConfigDialog(gui.SettingsDialog):
 	# Translators: This is the label for the StationPlaylist Studio configuration dialog.
 	title = _("Studio Add-on Settings")
 
+	def __init__(self, parent):
+		# #59 (18.05): backward compatibility.
+		if hasattr(gui, "SettingsPanel"):
+			super(SPLConfigDialog, self).__init__(parent, hasApplyButton=True)
+		else:
+			super(SPLConfigDialog, self).__init__(parent)
+
 	def makeSettings(self, settingsSizer):
 		SPLConfigHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 		# #40 (17.12): respond to app terminate notification by closing this dialog.
