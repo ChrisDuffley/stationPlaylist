@@ -1027,7 +1027,7 @@ class AudioDuckingReminder(wx.Dialog):
 		mainSizer.Add(label,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
 		# Translators: A checkbox to turn off audio ducking reminder message.
-		self.audioDuckingReminder=wx.CheckBox(self,wx.NewId(),label=_("Do not show this message again"))
+		self.audioDuckingReminder=wx.CheckBox(self,wx.ID_ANY,label=_("Do not show this message again"))
 		self.audioDuckingReminder.SetValue(not SPLConfig["Startup"]["AudioDuckingReminder"])
 		mainSizer.Add(self.audioDuckingReminder, border=10,flag=wx.TOP)
 
@@ -1078,7 +1078,7 @@ Thank you.""")
 		mainSizer.Add(label,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
 		# Translators: A checkbox to show welcome dialog.
-		self.showWelcomeDialog=wx.CheckBox(self,wx.NewId(),label=_("Show welcome dialog when I start Studio"))
+		self.showWelcomeDialog=wx.CheckBox(self,wx.ID_ANY,label=_("Show welcome dialog when I start Studio"))
 		self.showWelcomeDialog.SetValue(SPLConfig["Startup"]["WelcomeDialog"])
 		mainSizer.Add(self.showWelcomeDialog, border=10,flag=wx.TOP)
 

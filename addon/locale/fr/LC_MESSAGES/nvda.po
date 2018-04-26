@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: StationPlaylist 17.12\n"
+"Project-Id-Version: StationPlaylist 18.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-02-23 14:19+0100\n"
+"PO-Revision-Date: 2018-03-23 20:26+0100\n"
 "Last-Translator: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language-Team: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language: fr\n"
@@ -636,9 +636,8 @@ msgstr "Moyenne : {playlistAverageDuration}"
 msgid "Top artist: %s (%s)"
 msgstr "Les meilleurs artistes : %s (%s)"
 
-#, fuzzy
 msgid "Top artist: none"
-msgstr "Les meilleurs artistes :"
+msgstr "Les meilleurs artistes : aucun"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 msgid "Top artists:"
@@ -670,9 +669,8 @@ msgstr "{categoryName} ({categoryCount})"
 msgid "Top genre: %s (%s)"
 msgstr "Le meilleur genre : %s (%s)"
 
-#, fuzzy
 msgid "Top genre: none"
-msgstr "Les meilleurs genres :"
+msgstr "Les meilleurs genres : aucun"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 msgid "Top genres:"
@@ -1865,10 +1863,10 @@ msgid "Timer complete"
 msgstr "Minuteur complet"
 
 #. Translators: presented when metadata streaming status cannot be obtained.
-#, fuzzy
 msgid "Cannot obtain metadata streaming status information"
 msgstr ""
-"Impossible d'ouvrir la boîte de dialogue pour les métadonnées en streaming"
+"Impossible d'obtenir le statut des informations pour les métadonnées en "
+"streaming"
 
 #. Translators: Status message for metadata streaming.
 msgid "No metadata streaming URL's defined"

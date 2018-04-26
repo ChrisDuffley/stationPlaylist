@@ -313,19 +313,28 @@ realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
 
-## Version 18.04
+## Versión 18.04.1
 
-* Changes were made to make add-on update check feature more reliable,
-  particularly if automatic add-on update check is enabled.
-* NVDA will play a tone to indicate start of library scan when it is
-  configured to play beeps for various announcements.
-* NVDA will start library scan in the background if library scan is started
-  from Studio's Options dialog or at startup.
-* Double-tapping on a track on a touchscreen computer or performing default
-  action command will now select the track and move system focus to it.
-* When taking playlist snapshots (SPL Assistant, F8), if a playlist consists
-  of hour markers only, resolves several issues where NVDA appeared to not
-  take snapshots.
+* NVDA ya no fallará al comenzar el temporizador de cuenta atrás para
+  perfiles de retransmisión basados en tiempo si se está utilizando NVDA con
+  el wxPython 4 toolkit instalado.
+
+## Versión 18.04
+
+* Se han realizado cambios para hacer la característica de verificar
+  actualizaciones más fiable, especialmente si la verificación automática de
+  actualizaciones del complemento está activada.
+* NVDA reproducirá un tono para indicar el comienzo del escaneo de
+  biblioteca cuando esté configurado para reproducir pitidos para anuncios
+  diversos.
+* NVDA comenzará a escanear la biblioteca en segundo plano si el escaneo se
+  invoca desde el diálogo de opciones de Studio o automáticamente al
+  arrancar.
+* Tocar dos veces sobre una pista en la pantalla táctil o realizando el
+  comando de acción por defecto seleccionará la pista y moverá el foco del
+  sistema a ella.
+* Se han resuelto varios errores cuando se toman capturas de listas de
+  reproducción (asistente SPL, F8) que solo tienen marcadores horarios.
 
 ## Versión 18.03/15.14-LTS
 

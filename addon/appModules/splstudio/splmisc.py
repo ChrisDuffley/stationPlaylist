@@ -12,6 +12,7 @@ import ctypes
 import weakref
 import os
 import threading
+import collections # Playlist transcript formats tuple
 from .csv import reader # For cart explorer.
 import gui
 import wx
@@ -288,13 +289,13 @@ def _populateCarts(carts, cartlst, modifier, standardEdition=False, refresh=Fals
 
 # Cart file timestamps.
 _cartEditTimestamps = None
-		# Initialize Cart Explorer i.e. fetch carts.
+# Initialize Cart Explorer i.e. fetch carts.
 # Cart files list is for future use when custom cart names are used.
 # if told to refresh, timestamps will be checked and updated banks will be reassigned.
-# Carts dictionary is used if and only if refresh is on, as it'll modify live cats.
+# Carts dictionary is used if and only if refresh is on, as it'll modify live carts.
 def cartExplorerInit(StudioTitle, cartFiles=None, refresh=False, carts=None):
 	global _cartEditTimestamps
-	debugOutput("refreshing Cart Explorer" if refresh else "SPL: preparing cart Explorer")
+	debugOutput("refreshing Cart Explorer" if refresh else "preparing cart Explorer")
 	# Use cart files in SPL's data folder to build carts dictionary.
 	# use a combination of SPL user name and static cart location to locate cart bank files.
 	# Once the cart banks are located, use the routines in the populate method above to assign carts.
@@ -396,15 +397,13 @@ def metadataList():
 
 # Metadata server connector, to be utilized from many modules.
 # Servers refer to a list of connection flags to pass to Studio API, and if not present, will be pulled from add-on settings.
-def metadataConnector(handle=None, servers=None):
-	if handle is None: handle = user32.FindWindowA("SPLStudio", None)
-	if not handle: return
+def metadataConnector(servers=None):
 	if servers is None:
 		from . import splconfig
 		servers = splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"]
 	for url in rangeGen(5):
 		dataLo = 0x00010000 if servers[url] else 0xffff0000
-		sendMessage(handle, 1024, dataLo | url, 36)
+		splbase.studioAPI(dataLo | url, 36)
 
 # Metadata status formatter.
 # 18.04: say something if Studio handle is not found.
@@ -466,22 +465,19 @@ def _earlyMetadataAnnouncerInternal(status):
 # Moved to this module in 2016 to allow this function to work while Studio window isn't focused.
 # Split into several functions in 2017.
 # To preserve backward compatibility, let the announcer call individual functions above for a while.
-def _metadataAnnouncer(reminder=False, handle=None):
-	if handle is None: handle = user32.FindWindowA("SPLStudio", None)
+# 18.05: remove the function altogether.
+def _metadataAnnouncer():
 	global _delayMetadataAction
 	_delayMetadataAction = False
 	# If told to remind and connect, metadata streaming will be enabled at this time.
 	# 6.0: Call Studio API twice - once to set, once more to obtain the needed information.
 	# 6.2/7.0: When Studio API is called, add the value into the stream count list also.
 	# 17.11: call the connector.
-	if reminder: metadataConnector()
-	# Gather stream flags.
-	# 18.04: hopefully the error message won't be shown as this is supposed to run right after locating Studio handle.
-	status = metadataStatus()
+	metadataConnector()
 	# #40 (18.02): call the internal announcer in order to not hold up action handler queue.
 	# #51 (18.03/15.14-LTS): if this is called within two seconds (status time-out), status will be announced multiple times.
-	if reminder: _earlyMetadataAnnouncerInternal(status)
-	else: ui.message(status)
+	# 18.04: hopefully the error message won't be shown as this is supposed to run right after locating Studio handle.
+	_earlyMetadataAnnouncerInternal(metadataStatus())
 
 # Delay the action handler if Studio handle is not found.
 _delayMetadataAction = False
@@ -516,3 +512,171 @@ def metadata_actionProfileSwitched(configDialogActive=False):
 		_earlyMetadataAnnouncerInternal(metadataStatus())
 
 splactions.SPLActionProfileSwitched.register(metadata_actionProfileSwitched)
+
+# Playlist transcript processor
+# Takes a snapshot of the active playlist (a 2-D array) and transforms it into various formats.
+# To account for expansions, let a master function call different formatters based on output format.
+SPLPlaylistTranscriptFormats = []
+
+def displayPlaylistTranscripts(transcript, HTMLDecoration=False):
+	ui.browseableMessage("\n".join(transcript),title=_("Playlist Transcripts"), isHtml=HTMLDecoration)
+
+# Several converters rely on assistants for their work.
+# For text file 1 and HTML list 1, it expects playlist data in the format presented by MSAA.
+# Header will not be included if additional decorations will be done (mostly for HTML and others).
+# Prefix and suffix denote text to be added around entries (useful for various additional decoration rules).
+def playlist2msaa(start, end, additionalDecorations=False, prefix="", suffix=""):
+	playlistTranscripts = []
+	#Just pure text, ready for the clipboard or writing to a txt file.
+	if not additionalDecorations:
+		playlistTranscripts = ["Playlist Transcripts"]
+		# Add a blank line for presentational purposes.
+		playlistTranscripts.append("\r\n")
+	from . import splconfig
+	columnHeaders = splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
+	obj = start
+	while obj not in (None, end):
+		# Exclude status column, and no need to make this readable.
+		columnContents = obj._getColumnContents(columns=list(rangeGen(1, 18)))
+		# Filter empty columns.
+		filteredContent = []
+		for column in rangeGen(17):
+			if columnContents[column] is not None:
+				filteredContent.append("%s: %s"%(columnHeaders[column], columnContents[column]))
+		playlistTranscripts.append("{0}{1}{2}".format(prefix, "; ".join(filteredContent), suffix))
+		obj = obj.next
+	return playlistTranscripts
+
+def playlist2clipboard(start, end):
+	import api
+	playlistTranscripts = playlist2msaa(start, end)
+	api.copyToClip("\r\n".join(playlistTranscripts))
+	ui.message(_("Playlist data copied to clipboard"))
+#SPLPlaylistTranscriptFormats.append(("clipboard", playlist2clipboard, "Copy to clipboard"))
+
+def playlist2txt(start, end):
+	playlistTranscripts = playlist2msaa(start, end)
+	displayPlaylistTranscripts(playlistTranscripts)
+SPLPlaylistTranscriptFormats.append(("txt", playlist2txt, "plain text with one line per entry"))
+
+def playlist2txt2(): pass
+#SPLPlaylistTranscriptFormats.append(("txt2", playlist2txt2, "text file with column list for entries"))
+
+def playlist2csv(): pass
+#SPLPlaylistTranscriptFormats.append(("csv", playlist2csv, "Comma-separated values"))
+
+def playlist2ini(): pass
+#SPLPlaylistTranscriptFormats.append(("ini", playlist2ini, "traditional ini file"))
+
+def playlist2ini2(): pass
+#SPLPlaylistTranscriptFormats.append(("ini2", playlist2ini2, "Ini file with sections"))
+
+def playlist2htmlTable(start, end):
+	playlistTranscripts = ["Playlist Transcripts - use table navigation commands to review track information"]
+	playlistTranscripts.append("<p>")
+	from . import splconfig
+	playlistTranscripts.append("<table><tr><th>Status<th>{columnHeaders}</tr>".format(columnHeaders = "<th>".join(splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])))
+	obj = start
+	while obj not in (None, end):
+		columnContents = obj._getColumnContents(readable=True)
+		playlistTranscripts.append("<tr><td>{trackContents}</tr>".format(trackContents = "<td>".join(columnContents)))
+		obj = obj.next
+	playlistTranscripts.append("</table>")
+	displayPlaylistTranscripts(playlistTranscripts, HTMLDecoration=True)
+SPLPlaylistTranscriptFormats.append(("htmltable", playlist2htmlTable, "Table in HTML format"))
+
+def playlist2htmlList(start, end):
+	playlistTranscripts = ["Playlist Transcripts - use list navigation commands to review track information"]
+	playlistTranscripts.append("<p><ol>")
+	playlistTranscripts += playlist2msaa(start, end, additionalDecorations=True, prefix="<li>")
+	playlistTranscripts.append("</ol>")
+	displayPlaylistTranscripts(playlistTranscripts, HTMLDecoration=True)
+SPLPlaylistTranscriptFormats.append(("htmllist", playlist2htmlList, "Data list in HTML format"))
+
+def playlist2htmlList2(): pass
+#SPLPlaylistTranscriptFormats.append(("htmllist2", playlist2htmlList2, "Multiple HTML lists, one per entry"))
+
+def playlist2mdTable(): pass
+#SPLPlaylistTranscriptFormats.append(("mdtable", playlist2mdTable, "Table in Markdown format"))
+
+# Playlist transcripts help desk
+_plTranscriptsDialogOpened = False
+
+def plTranscriptsDialogError():
+	# Translators: Text of the dialog when another playlist transcripts dialog is open.
+	gui.messageBox(_("Another playlist transcripts dialog is open."),_("Error"),style=wx.OK | wx.ICON_ERROR)
+
+class SPLPlaylistTranscriptsDialog(wx.Dialog):
+
+	_instance = None
+
+	def __new__(cls, parent, *args, **kwargs):
+		# Make this a singleton and prompt an error dialog if it isn't.
+		if _plTranscriptsDialogOpened:
+			raise RuntimeError("An instance of playlist transcripts dialog is opened")
+		inst = cls._instance() if cls._instance else None
+		if not inst:
+			return super(cls, cls).__new__(cls, parent, *args, **kwargs)
+		return inst
+
+	def __init__(self, parent, obj):
+		inst = SPLPlaylistTranscriptsDialog._instance() if SPLPlaylistTranscriptsDialog._instance else None
+		if inst:
+			return
+		# Use a weakref so the instance can die.
+		SPLPlaylistTranscriptsDialog._instance = weakref.ref(self)
+
+		super(SPLPlaylistTranscriptsDialog, self).__init__(parent, wx.ID_ANY, "Playlist Transcripts")
+		self.obj = obj
+
+		mainSizer = wx.BoxSizer(wx.VERTICAL)
+		plTranscriptsSizerHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
+		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
+
+		self.transcriptRanges = (
+			"entire playlist",
+			"start to current item",
+			"current item to the end",
+		)
+
+		# Translators: The label in playlist transcripts dialog to select playlist transcript range.
+		self.transcriptRange = plTranscriptsSizerHelper.addLabeledControl(_("Transcript range:"), wx.Choice, choices=self.transcriptRanges)
+		self.transcriptRange.SetSelection(0)
+
+		# Translators: The label in playlist transcripts dialog to select transcript output format.
+		self.transcriptFormat = plTranscriptsSizerHelper.addLabeledControl(_("Transcript format:"), wx.Choice, choices=[output[2] for output in SPLPlaylistTranscriptFormats])
+		self.transcriptFormat.SetSelection(0)
+
+		plTranscriptsSizerHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
+		self.Bind(wx.EVT_BUTTON,self.onOk,id=wx.ID_OK)
+		self.Bind(wx.EVT_BUTTON,self.onCancel,id=wx.ID_CANCEL)
+		mainSizer.Add(plTranscriptsSizerHelper.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
+		mainSizer.Fit(self)
+		self.Sizer = mainSizer
+		self.Center(wx.BOTH | CENTER_ON_SCREEN)
+		self.transcriptRange.SetFocus()
+
+	def onOk(self, evt):
+		global _plTranscriptsDialogOpened
+		start = None
+		end = None
+		transcriptRange = self.transcriptRange.Selection
+		if transcriptRange in (0, 1):
+			start = self.obj.parent.firstChild
+		if transcriptRange == 1:
+			end = self.obj.next
+		if transcriptRange == 2:
+			start = self.obj
+		wx.CallLater(200, SPLPlaylistTranscriptFormats[self.transcriptFormat.Selection][1], start, end)
+		self.Destroy()
+		_plTranscriptsDialogOpened = False
+
+	def onCancel(self, evt):
+		self.Destroy()
+		global _plTranscriptsDialogOpened
+		_plTranscriptsDialogOpened = False
+
+	def onAppTerminate(self):
+		# Call cancel function when the app terminates so the dialog can be closed.
+		self.onCancel(None)
+

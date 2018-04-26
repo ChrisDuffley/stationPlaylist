@@ -178,6 +178,18 @@ class SPLTrackItem(IAccessible):
 	def _getColumnContent(self, col):
 		return splmisc._getColumnContent(self, col)
 
+	# Obtain column contents for all columns for this track.
+	# A convenience method that calls column content getter for a list of columns.
+	# Readable flag will transform None into an empty string, suitable for output.
+	def _getColumnContents(self, columns=None, readable=False):
+		if columns is None:
+			columns = list(rangeGen(18))
+		columnContents = [splmisc._getColumnContent(self, col) for col in columns]
+		if readable:
+			for pos in rangeGen(len(columnContents)):
+				if columnContents[pos] is None: columnContents[pos] = ""
+		return columnContents
+
 	# Announce column content if any.
 	# 7.0: Add an optional header in order to announce correct header information in columns explorer.
 	# 17.04: Allow checked status in 5.1x and later to be announced if this is such a case (vertical column navigation).)
@@ -638,7 +650,8 @@ class AppModule(appModuleHandler.AppModule):
 		# Remind me to broadcast metadata information.
 		# 18.04: also when delayed action is needed because metadata action handler couldn't locate Studio handle itself.
 		if splconfig.SPLConfig["General"]["MetadataReminder"] == "startup" or splmisc._delayMetadataAction:
-			splmisc._metadataAnnouncer(reminder=True, handle=hwnd)
+			# 18.05: finally move the function body to the app module, as this will be done only from here.
+			splmisc._metadataAnnouncer()
 
 	# Studio API heartbeat.
 	# Although useful for library scan detection, it can be extended to cover other features.
@@ -1529,6 +1542,8 @@ class AppModule(appModuleHandler.AppModule):
 	# Data to be gathered comes from a set of flags.
 	# By default, playlist duration (including shortest and average), category summary and other statistics will be gathered.
 	def playlistSnapshots(self, obj, end, snapshotFlags=None):
+		# #55 (18.05): is this a complete snapshot?
+		completePlaylistSnapshot = obj.IAccessibleChildID == 1 and end is None
 		# Track count and total duration are always included.
 		snapshot = {}
 		if snapshotFlags is None:
@@ -1566,7 +1581,9 @@ class AppModule(appModuleHandler.AppModule):
 				totalDuration += (int(hms[-2])*60) + int(hms[-1])
 				if len(hms) == 3: totalDuration += int(hms[0])*3600
 			obj = obj.next
-		if end is None: snapshot["PlaylistItemCount"] = splbase.studioAPI(0, 124)
+		# #55 (18.05): use total track count if it is an entire playlist, if not, resort to categories count.
+		if completePlaylistSnapshot: snapshot["PlaylistItemCount"] = splbase.studioAPI(0, 124)
+		else: snapshot["PlaylistItemCount"] = len(categories)
 		snapshot["PlaylistTrackCount"] = len(artists)
 		snapshot["PlaylistDurationTotal"] = self._ms2time(totalDuration, ms=False)
 		if "DurationMinMax" in snapshotFlags:
@@ -2005,23 +2022,23 @@ class AppModule(appModuleHandler.AppModule):
 			focus = api.getFocusObject()
 			if focus.role == controlTypes.ROLE_LIST:
 				if not splbase.studioAPI(0, 124):
-					# Translators: reported when no playlist has been loaded when trying to perform track time analysis.
-					ui.message(_("No playlist has been loaded, cannot perform track time analysis."))
+					# Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
+					ui.message(_("No playlist has been loaded, cannot perform playlist analysis."))
 					return
 				else:
-					# Translators: Presented when track time analysis cannot be activated.
-					ui.message(_("No tracks are selected, cannot perform track time analysis."))
+					# Translators: Presented when playlist analysis cannot be activated.
+					ui.message(_("No tracks are selected, cannot perform playlist analysis."))
 					return
 			if scriptHandler.getLastScriptRepeatCount() == 0:
 				self._analysisMarker = focus.IAccessibleChildID-1
 				# Translators: Presented when track time analysis is turned on.
-				ui.message(_("Track time analysis activated"))
+				ui.message(_("Playlist analysis activated"))
 			else:
 				self._analysisMarker = None
 				# Translators: Presented when track time analysis is turned off.
-				ui.message(_("Track time analysis deactivated"))
+				ui.message(_("Playlist analysis deactivated"))
 	# Translators: Input help mode message for a command in Station Playlist Studio.
-	script_markTrackForAnalysis.__doc__=_("Marks focused track as start marker for track time analysis")
+	script_markTrackForAnalysis.__doc__=_("Marks focused track as start marker for various playlist analysis commands")
 
 	def script_trackTimeAnalysis(self, gesture):
 		self.finish()
@@ -2068,11 +2085,46 @@ class AppModule(appModuleHandler.AppModule):
 		if scriptCount >= 2:
 			self.finish()
 			return
+		# #55 (18.04): partial playlist snapshots require start and end range.
+		# Analysis marker is an integer, so locate the correct track.
+		start = obj.parent.firstChild if self._analysisMarker is None else None
+		end = None
+		if self._analysisMarker is not None:
+			trackPos = obj.IAccessibleChildID-1
+			analysisBegin = min(self._analysisMarker, trackPos)
+			analysisEnd = max(self._analysisMarker, trackPos)
+			start = obj.parent.getChild(analysisBegin)
+			end = obj.parent.getChild(analysisEnd).next
 		# Speak and braille on the first press, display a decorated HTML message for subsequent presses.
-		self.playlistSnapshotOutput(self.playlistSnapshots(obj.parent.firstChild, None), scriptCount)
+		self.playlistSnapshotOutput(self.playlistSnapshots(start, end), scriptCount)
 		self.finish()
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_takePlaylistSnapshots.__doc__=_("Presents playlist snapshot information such as number of tracks and top artists")
+
+	def script_playlistTranscripts(self, gesture):
+		if not splbase.studioIsRunning():
+			self.finish()
+			return
+		obj = api.getFocusObject() if api.getForegroundObject().windowClassName == "TStudioForm" else self._focusedTrack
+		if obj is None:
+			ui.message("Please return to playlist viewer before invoking this command.")
+			self.finish()
+			return
+		if obj.role == controlTypes.ROLE_LIST:
+			ui.message(_("You need to add tracks before invoking this command"))
+			self.finish()
+			return
+		try:
+			startObj =  api.getFocusObject()
+			d = splmisc.SPLPlaylistTranscriptsDialog(gui.mainFrame, api.getFocusObject())
+			gui.mainFrame.prePopup()
+			d.Raise()
+			d.Show()
+			gui.mainFrame.postPopup()
+			splmisc._plTranscriptsDialogOpened = True
+		except RuntimeError:
+			wx.CallAfter(splmisc.plTranscriptsDialogError)
+		self.finish()
 
 	def script_switchProfiles(self, gesture):
 		splconfig.triggerProfileSwitch() if splconfig._triggerProfileActive else splconfig.instantProfileSwitch()
@@ -2140,7 +2192,7 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: Presented when attempting to announce specific columns but the focused item isn't a track.
 			ui.message(_("Not a track"))
 		else:
-					# LTS: Call the overlay class version.
+			# LTS: Call the overlay class version.
 			focus.script_columnExplorer(gesture)
 		self.finish()
 
@@ -2202,6 +2254,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:shift+p":"sayTrackPitch",
 		"kb:shift+r":"libraryScanMonitor",
 		"kb:f8":"takePlaylistSnapshots",
+		"kb:shift+f8":"playlistTranscripts",
 		"kb:f9":"markTrackForAnalysis",
 		"kb:f10":"trackTimeAnalysis",
 		"kb:f12":"switchProfiles",
@@ -2236,6 +2289,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:shift+p":"sayTrackPitch",
 		"kb:shift+r":"libraryScanMonitor",
 		"kb:f8":"takePlaylistSnapshots",
+		"kb:shift+f8":"playlistTranscripts",
 		"kb:f9":"markTrackForAnalysis",
 		"kb:f10":"trackTimeAnalysis",
 		"kb:f12":"switchProfiles",
@@ -2272,6 +2326,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:shift+p":"sayTrackPitch",
 		"kb:shift+r":"libraryScanMonitor",
 		"kb:f8":"takePlaylistSnapshots",
+		"kb:shift+f8":"playlistTranscripts",
 		"kb:f9":"markTrackForAnalysis",
 		"kb:f10":"trackTimeAnalysis",
 		"kb:f12":"switchProfiles",

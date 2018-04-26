@@ -165,7 +165,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		# Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
-		self.columnOrderCheckbox=sizer.addItem(wx.CheckBox(self,wx.NewId(),label=_("Announce columns in the &order shown on screen")))
+		self.columnOrderCheckbox=sizer.addItem(wx.CheckBox(self,wx.ID_ANY,label=_("Announce columns in the &order shown on screen")))
 		self.columnOrderCheckbox.SetValue(splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"])
 		self.columnOrder = splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"]
 		# Without manual conversion below, it produces a rare bug where clicking cancel after changing column inclusion causes new set to be retained.
@@ -681,7 +681,7 @@ class TriggersDialog(wx.Dialog):
 		self.triggerDays = []
 		import calendar
 		for day in rangeGen(len(calendar.day_name)):
-			triggerDay=wx.CheckBox(self, wx.NewId(),label=calendar.day_name[day])
+			triggerDay=wx.CheckBox(self, wx.ID_ANY,label=calendar.day_name[day])
 			triggerDay.SetValue((64 >> day & self.Parent._profileTriggersConfig[profile][0]) if profile in self.Parent._profileTriggersConfig else 0)
 			if not self.timeSwitchCheckbox.IsChecked(): triggerDay.Disable()
 			self.triggerDays.append(triggerDay)

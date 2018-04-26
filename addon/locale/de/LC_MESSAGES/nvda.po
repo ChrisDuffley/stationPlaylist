@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-03-04 16:05+0100\n"
-"Last-Translator: Adriani Botez <adriani.botez@gmail.com>\n"
+"PO-Revision-Date: 2018-03-24 16:57+0100\n"
+"Last-Translator: Karl Eick <hozosch@web.de>\n"
 "Language-Team: Deutsch <bernd_dorer@yahoo.de>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 2.0.6\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
@@ -632,9 +632,8 @@ msgstr "Durchschnitt: {playlistAverageDuration}"
 msgid "Top artist: %s (%s)"
 msgstr "Top Interpret: %s (%s)"
 
-#, fuzzy
 msgid "Top artist: none"
-msgstr "Top Künstler"
+msgstr "Top Künstler: keine"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 msgid "Top artists:"
@@ -666,9 +665,8 @@ msgstr "{categoryName} ({categoryCount})"
 msgid "Top genre: %s (%s)"
 msgstr "Top genre: %s (%s)"
 
-#, fuzzy
 msgid "Top genre: none"
-msgstr "Top genres:"
+msgstr "Top genre: Keine"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 msgid "Top genres:"
@@ -1863,9 +1861,9 @@ msgid "Timer complete"
 msgstr "Timer fertig."
 
 #. Translators: presented when metadata streaming status cannot be obtained.
-#, fuzzy
 msgid "Cannot obtain metadata streaming status information"
-msgstr "Der Dialog für Metadaten-Streaming konnte nicht geöffnet werden."
+msgstr ""
+"Statusinformationen zum Metadaten-Streaming können nicht abgerufen werden"
 
 #. Translators: Status message for metadata streaming.
 msgid "No metadata streaming URL's defined"

@@ -5,7 +5,7 @@
 # Base services for Studio app module and support modules
 
 import ui
-from winUser import sendMessage
+from winUser import sendMessage, user32
 from .spldebugging import debugOutput
 
 # Cache the handle to main Studio window.
@@ -15,10 +15,12 @@ _SPLWin = None
 # A thin wrapper around user32.SendMessage function with Studio handle and WM_USER supplied.
 # #45 (18.02): returns whatever result SendMessage function says.
 # If debugging framework is on, print arg, command and other values.
+# 18.05: strengthen this by checking for the handle once more.
 def studioAPI(arg, command):
 	if _SPLWin is None:
-		debugOutput("Studio handle not found")
-		return
+		if not user32.FindWindowA("SPLStudio", None):
+			debugOutput("Studio handle not found")
+			return
 	debugOutput("Studio API wParem is %s, lParem is %s"%(arg, command))
 	val = sendMessage(_SPLWin, 1024, arg, command)
 	debugOutput("Studio API result is %s"%val)
