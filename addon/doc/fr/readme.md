@@ -192,7 +192,8 @@ Les commandes disponibles sont :
   une colonne spécifiée.
 * F8 : Prendre des instantanés de playlist (nombre de pistes, piste la plus
   longue, etc.).
-* F9 : Marquer la piste en cours pour l'analyse de durée de piste
+* Maj+F8 : Demander des transcriptions de playlist dans de nombreux formats.
+* F9 : Marquer la piste en cours pour le début de l'analyse de playlist
   (visionneuse de playlist uniquement).
 * F10 : Effectuer une analyse de durée de piste (visionneuse de playlist
   uniquement).
@@ -304,6 +305,13 @@ dans Studio pour obtenir diverses statistiques sur une playlist, y compris
 le nombre de pistes dans la playlist, la piste la plus longue, les meilleurs
 artistes et ainsi de suite.
 
+## Transcriptions de Playlist
+
+En appuyant sur Assistant SPL, Maj+F8 présentera une boîte de dialogue pour
+vous permettre de demander des transcriptions de playlist dans de nombreux
+formats, y compris dans un format de texte brut, un tableau HTML ou une
+liste.
+
 ## Boîte de dialogue configuration
 
 Depuis la fenêtre studio, vous pouvez appuyer sur Alt+NVDA+0 pour ouvrir la
@@ -320,6 +328,20 @@ ultérieure installé, vous pouvez exécuter certaines commandes Studio depuis
 un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
+
+## Version 18.05
+
+* Ajout de la possibilité de prendre des instantanés partiels de
+  playlist. Cela peut être fait en définissant la plage d'analyse (Assistant
+  SPL, F9 au début de la plage d'analyse) et en déplaçant vers un autre
+  élément et en exécutant la commande instantanés de playlist.
+* Ajout d'une nouvelle commande dans l'Assistant SPL pour demander des
+  transcriptions de playlist dans un certain nombre de formats
+  (Maj+F8). Ceux-ci incluent du texte brut, un tableau HTML ou une liste
+  HTML.
+* Diverses fonctions d'analyse des playlist, telles que l'analyse de durée
+  de piste et les instantanés de playlist, sont désormais regroupées sous le
+  thème "Analyseur de Playlist".
 
 ## Version 18.04.1
 

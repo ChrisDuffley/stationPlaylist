@@ -187,8 +187,9 @@ Folgende Befehle stehen zur Verfügung:
   Spalte an.
 * F8: nimmt Schnappschüsse von Playlisten auf (Anzahl der Titel, längster
   Titel, etc.).
-* F9: markiert den aktuellen Titel für die Titel-zeitanalyse (nur im
-  Playlist-Viewer).
+* Shift+F8: Request playlist transcripts in numerous formats.
+* F9: Mark current track for start of playlist analysis (playlist viewer
+  only).
 * F10: führt die Titel-zeitanalyse durch (nur im Playlist-Viewer).
 * F12: schaltet zwischen aktuellen und einem vordefinierten Profil um.
 * F1: Hilfe für die Befehlsschicht.
@@ -305,6 +306,12 @@ dass NVDA die Schnappschuss-Informationen der Wiedergabeliste als Webseite
 anzeigt, so dass Sie den Lesemodus zum Navigieren verwenden können. Drücken
 Sie die Escape-Taste zum Schließen.
 
+## Playlist Transcripts
+
+Pressing SPL Assistant, Shift+F8 will present a dialog to let you request
+playlist transcripts in numerous formats, including in a plain text format,
+an HTML table or a list.
+
 ## Konfigurationsdialog
 
 Aus dem Studio-Fenster können Sie Alt+NVDA+0 drücken, um den
@@ -320,6 +327,18 @@ verwenden und NVDA 2012.3 oder höher installiert haben, können Sie einige
 Studio-Befehle über den Touchscreen ausführen. Tippen Sie zunächst einmal
 mit drei Fingern, um in den SPL-Touchmodus zu wechseln. Verwenden Sie dann
 die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
+
+## Version 18.05
+
+* Added ability to take partial playlist snapshots. This can be done by
+  defining analysis range (SPL Assistant, F9 at the start of the analysis
+  range) and moving to another item and performing playlist snapshots
+  command.
+* Added a new command in SPL Assistant to request playlist transcripts in a
+  number of formats (Shift+F8). These include plain text, an HTML table, or
+  an HTML list.
+* Various playlist analysis features such as track time analysis and
+  playlist snapshots are now grouped under the theme of "Playlist Analyzer".
 
 ## Version 18.04.1
 

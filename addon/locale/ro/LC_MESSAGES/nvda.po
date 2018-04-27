@@ -745,27 +745,33 @@ msgstr "Se monitorizează scanarea librăriei"
 msgid "Scanning is in progress"
 msgstr "Scanarea este în curs..."
 
-#. Translators: reported when no playlist has been loaded when trying to perform track time analysis.
-msgid "No playlist has been loaded, cannot perform track time analysis."
+#. Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
+#, fuzzy
+msgid "No playlist has been loaded, cannot perform playlist analysis."
 msgstr ""
 "Nicio listă de redare nu a fost încărcată, nu se poate începe analizarea "
 "timpul melodiilor"
 
-#. Translators: Presented when track time analysis cannot be activated.
-msgid "No tracks are selected, cannot perform track time analysis."
+#. Translators: Presented when playlist analysis cannot be activated.
+#, fuzzy
+msgid "No tracks are selected, cannot perform playlist analysis."
 msgstr ""
 "Nicio melodie nu e selectată, nu se poate începe analizarea timpul melodiilor"
 
 #. Translators: Presented when track time analysis is turned on.
-msgid "Track time analysis activated"
+#, fuzzy
+msgid "Playlist analysis activated"
 msgstr "Analizarea timpului melodiilor este activată"
 
 #. Translators: Presented when track time analysis is turned off.
-msgid "Track time analysis deactivated"
+#, fuzzy
+msgid "Playlist analysis deactivated"
 msgstr "Analizarea timpului melodiilor este dezactivată"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "Marks focused track as start marker for track time analysis"
+#, fuzzy
+msgid ""
+"Marks focused track as start marker for various playlist analysis commands"
 msgstr ""
 "Marchează melodia focusată ca marcaj de pornire pentru timpul de analizare a "
 "melodiei"
@@ -1850,6 +1856,27 @@ msgstr "Emisia metadata configurată pentru encoderul DSP și URL-ul {URL}"
 #, python-brace-format
 msgid "Metadata streaming configured for URL's {URL}"
 msgstr "Emisia metadata configurată pentru URL-ul {URL}"
+
+#, fuzzy
+msgid "Playlist Transcripts"
+msgstr "Listă de redare instantanee"
+
+#, fuzzy
+msgid "Playlist data copied to clipboard"
+msgstr "Comentariul melodiei copiat pe planșetă"
+
+#. Translators: Text of the dialog when another playlist transcripts dialog is open.
+#, fuzzy
+msgid "Another playlist transcripts dialog is open."
+msgstr "Un alt dialog de alertă este deschis."
+
+#. Translators: The label in playlist transcripts dialog to select playlist transcript range.
+msgid "Transcript range:"
+msgstr ""
+
+#. Translators: The label in playlist transcripts dialog to select transcript output format.
+msgid "Transcript format:"
+msgstr ""
 
 msgid ""
 "Did you recently tell SPL add-on to use a different update channel? If so, "

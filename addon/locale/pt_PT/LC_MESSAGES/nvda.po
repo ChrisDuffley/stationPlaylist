@@ -747,28 +747,34 @@ msgstr "A monitorizar o varrimento da biblioteca"
 msgid "Scanning is in progress"
 msgstr "O varrimento está em progresso..."
 
-#. Translators: reported when no playlist has been loaded when trying to perform track time analysis.
-msgid "No playlist has been loaded, cannot perform track time analysis."
+#. Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
+#, fuzzy
+msgid "No playlist has been loaded, cannot perform playlist analysis."
 msgstr ""
 "Não se abriu Nenhuma lista de reprodução, não se pode realizar análise de "
 "tempo de pista."
 
-#. Translators: Presented when track time analysis cannot be activated.
-msgid "No tracks are selected, cannot perform track time analysis."
+#. Translators: Presented when playlist analysis cannot be activated.
+#, fuzzy
+msgid "No tracks are selected, cannot perform playlist analysis."
 msgstr ""
 "Não se encontra seleccionada qualquer pista, não se pode realizar análise de "
 "tempo de pista."
 
 #. Translators: Presented when track time analysis is turned on.
-msgid "Track time analysis activated"
+#, fuzzy
+msgid "Playlist analysis activated"
 msgstr "Análise de tempo de pista activada"
 
 #. Translators: Presented when track time analysis is turned off.
-msgid "Track time analysis deactivated"
+#, fuzzy
+msgid "Playlist analysis deactivated"
 msgstr "Análise de tempo de pista desactivada"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "Marks focused track as start marker for track time analysis"
+#, fuzzy
+msgid ""
+"Marks focused track as start marker for various playlist analysis commands"
 msgstr ""
 "Marca pista focada como marcador de partida para análise de tempo de pista"
 
@@ -1863,6 +1869,27 @@ msgstr "Transmissão de metadados configurada para codificador DSP e URL {URL}"
 #, python-brace-format
 msgid "Metadata streaming configured for URL's {URL}"
 msgstr "Transmissão de metadados configurada para URL {URL}"
+
+#, fuzzy
+msgid "Playlist Transcripts"
+msgstr "Instantâneos da lista de reprodução"
+
+#, fuzzy
+msgid "Playlist data copied to clipboard"
+msgstr "Comentário da pista copiado para a área de transferência"
+
+#. Translators: Text of the dialog when another playlist transcripts dialog is open.
+#, fuzzy
+msgid "Another playlist transcripts dialog is open."
+msgstr "Está aberto outro diálogo de alarme"
+
+#. Translators: The label in playlist transcripts dialog to select playlist transcript range.
+msgid "Transcript range:"
+msgstr ""
+
+#. Translators: The label in playlist transcripts dialog to select transcript output format.
+msgid "Transcript format:"
+msgstr ""
 
 msgid ""
 "Did you recently tell SPL add-on to use a different update channel? If so, "
