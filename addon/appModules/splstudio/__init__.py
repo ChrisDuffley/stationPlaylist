@@ -650,7 +650,6 @@ class AppModule(appModuleHandler.AppModule):
 		# Remind me to broadcast metadata information.
 		# 18.04: also when delayed action is needed because metadata action handler couldn't locate Studio handle itself.
 		if splconfig.SPLConfig["General"]["MetadataReminder"] == "startup" or splmisc._delayMetadataAction:
-			# 18.05: finally move the function body to the app module, as this will be done only from here.
 			splmisc._delayMetadataAction = False
 			# If told to remind and connect, metadata streaming will be enabled at this time.
 			# 6.0: Call Studio API twice - once to set, once more to obtain the needed information.
