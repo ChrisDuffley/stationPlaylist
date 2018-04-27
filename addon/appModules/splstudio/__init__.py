@@ -651,7 +651,16 @@ class AppModule(appModuleHandler.AppModule):
 		# 18.04: also when delayed action is needed because metadata action handler couldn't locate Studio handle itself.
 		if splconfig.SPLConfig["General"]["MetadataReminder"] == "startup" or splmisc._delayMetadataAction:
 			# 18.05: finally move the function body to the app module, as this will be done only from here.
-			splmisc._metadataAnnouncer()
+			splmisc._delayMetadataAction = False
+			# If told to remind and connect, metadata streaming will be enabled at this time.
+			# 6.0: Call Studio API twice - once to set, once more to obtain the needed information.
+			# 6.2/7.0: When Studio API is called, add the value into the stream count list also.
+			# 17.11: call the connector.
+			splmisc.metadataConnector()
+			# #40 (18.02): call the internal announcer in order to not hold up action handler queue.
+			# #51 (18.03/15.14-LTS): if this is called within two seconds (status time-out), status will be announced multiple times.
+			# 18.04: hopefully the error message won't be shown as this is supposed to run right after locating Studio handle.
+			splmisc._earlyMetadataAnnouncerInternal(metadataStatus())
 
 	# Studio API heartbeat.
 	# Although useful for library scan detection, it can be extended to cover other features.

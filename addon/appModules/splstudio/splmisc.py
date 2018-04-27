@@ -461,24 +461,6 @@ def _earlyMetadataAnnouncerInternal(status):
 	_earlyMetadataAnnouncer = threading.Timer(2, _metadataAnnouncerInternal, args=[status])
 	_earlyMetadataAnnouncer.start()
 
-# Module-level version of metadata announcer
-# Moved to this module in 2016 to allow this function to work while Studio window isn't focused.
-# Split into several functions in 2017.
-# To preserve backward compatibility, let the announcer call individual functions above for a while.
-# 18.05: remove the function altogether.
-def _metadataAnnouncer():
-	global _delayMetadataAction
-	_delayMetadataAction = False
-	# If told to remind and connect, metadata streaming will be enabled at this time.
-	# 6.0: Call Studio API twice - once to set, once more to obtain the needed information.
-	# 6.2/7.0: When Studio API is called, add the value into the stream count list also.
-	# 17.11: call the connector.
-	metadataConnector()
-	# #40 (18.02): call the internal announcer in order to not hold up action handler queue.
-	# #51 (18.03/15.14-LTS): if this is called within two seconds (status time-out), status will be announced multiple times.
-	# 18.04: hopefully the error message won't be shown as this is supposed to run right after locating Studio handle.
-	_earlyMetadataAnnouncerInternal(metadataStatus())
-
 # Delay the action handler if Studio handle is not found.
 _delayMetadataAction = False
 
