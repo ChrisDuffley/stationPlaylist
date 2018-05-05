@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 3.2\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2014-11-14 19:00+1000\n"
-"PO-Revision-Date: 2018-03-23 10:43+0000\n"
+"PO-Revision-Date: 2018-04-27 15:36+0100\n"
 "Last-Translator: Ângelo Miguel Abrantes <ampa4374@gmail.com>\n"
 "Language-Team: Equipa Portuguesa do NVDA <angelomiguelabrantes@gmail.com; "
 "rui.fontes@tiflotecnia.com>\n"
@@ -748,35 +748,30 @@ msgid "Scanning is in progress"
 msgstr "O varrimento está em progresso..."
 
 #. Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
-#, fuzzy
 msgid "No playlist has been loaded, cannot perform playlist analysis."
 msgstr ""
-"Não se abriu Nenhuma lista de reprodução, não se pode realizar análise de "
-"tempo de pista."
+"Não se abriu Nenhuma lista de reprodução, não se pode realizar a sua análise."
 
 #. Translators: Presented when playlist analysis cannot be activated.
-#, fuzzy
 msgid "No tracks are selected, cannot perform playlist analysis."
 msgstr ""
-"Não se encontra seleccionada qualquer pista, não se pode realizar análise de "
-"tempo de pista."
+"Não se encontra seleccionada qualquer pista, não se pode realizar a análise "
+"da lista de reprodução."
 
 #. Translators: Presented when track time analysis is turned on.
-#, fuzzy
 msgid "Playlist analysis activated"
-msgstr "Análise de tempo de pista activada"
+msgstr "Análise da lista de reprodução activada"
 
 #. Translators: Presented when track time analysis is turned off.
-#, fuzzy
 msgid "Playlist analysis deactivated"
-msgstr "Análise de tempo de pista desactivada"
+msgstr "Análise da lista de reprodução desactivada"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
-#, fuzzy
 msgid ""
 "Marks focused track as start marker for various playlist analysis commands"
 msgstr ""
-"Marca pista focada como marcador de partida para análise de tempo de pista"
+"Marca a pista focada como marcador inicial para vários comandos de análise "
+"de listas de reprodução"
 
 msgid "No tracks were added, cannot perform track time analysis"
 msgstr ""
@@ -959,7 +954,7 @@ msgstr "Nenhum perfil de switch instantâneo está definido"
 
 #. Translators: Presented when trying to switch to an instant switch profile when one is already using the instant switch profile.
 msgid "You are already in the instant switch profile"
-msgstr "Você já está no perfil de troca instantânea"
+msgstr "Já está no perfil de troca instantânea"
 
 #. Translators: Presented when trying to switch to an instant switch profile when one is already using the instant switch profile.
 msgid "A profile trigger is already active"
@@ -1870,26 +1865,23 @@ msgstr "Transmissão de metadados configurada para codificador DSP e URL {URL}"
 msgid "Metadata streaming configured for URL's {URL}"
 msgstr "Transmissão de metadados configurada para URL {URL}"
 
-#, fuzzy
 msgid "Playlist Transcripts"
-msgstr "Instantâneos da lista de reprodução"
+msgstr "Instantâneos da lista de Reprodução"
 
-#, fuzzy
 msgid "Playlist data copied to clipboard"
-msgstr "Comentário da pista copiado para a área de transferência"
+msgstr "dados da lista de reprodução copiados para a área de transferência"
 
 #. Translators: Text of the dialog when another playlist transcripts dialog is open.
-#, fuzzy
 msgid "Another playlist transcripts dialog is open."
-msgstr "Está aberto outro diálogo de alarme"
+msgstr "Está aberto outro diálogo de instantâneos da lista de reprodução"
 
 #. Translators: The label in playlist transcripts dialog to select playlist transcript range.
 msgid "Transcript range:"
-msgstr ""
+msgstr "Pista de instantâneos."
 
 #. Translators: The label in playlist transcripts dialog to select transcript output format.
 msgid "Transcript format:"
-msgstr ""
+msgstr "Formato de instantâneo"
 
 msgid ""
 "Did you recently tell SPL add-on to use a different update channel? If so, "

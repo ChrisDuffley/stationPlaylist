@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 6.4\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2016-03-04 19:00+1000\n"
-"PO-Revision-Date: 2018-02-23 20:59+0200\n"
+"PO-Revision-Date: 2018-04-28 21:00+0300\n"
 "Last-Translator: Florian Ionașcu <florianionascu@hotmail.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.10\n"
+"X-Generator: Poedit 2.0.6\n"
 
 #. Translators: Presented when attempting to install Studio add-on on unsupported Windows releases.
 msgid ""
@@ -614,9 +614,8 @@ msgstr "Medie: {playlistAverageDuration}"
 msgid "Top artist: %s (%s)"
 msgstr "Artiști de top: %s (%s)"
 
-#, fuzzy
 msgid "Top artist: none"
-msgstr "Top artiști"
+msgstr "Artiști de top: fără"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 msgid "Top artists:"
@@ -648,9 +647,8 @@ msgstr "{categoryName} ({categoryCount})"
 msgid "Top genre: %s (%s)"
 msgstr "Genuri de top: %s (%s)"
 
-#, fuzzy
 msgid "Top genre: none"
-msgstr "Genuri de top"
+msgstr "Genuri de top: fără"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 msgid "Top genres:"
@@ -746,35 +744,27 @@ msgid "Scanning is in progress"
 msgstr "Scanarea este în curs..."
 
 #. Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
-#, fuzzy
 msgid "No playlist has been loaded, cannot perform playlist analysis."
 msgstr ""
-"Nicio listă de redare nu a fost încărcată, nu se poate începe analizarea "
-"timpul melodiilor"
+"Nicio listă de redare nu a fost încărcată, nu se poate efectua analiza "
+"vreuneia."
 
 #. Translators: Presented when playlist analysis cannot be activated.
-#, fuzzy
 msgid "No tracks are selected, cannot perform playlist analysis."
-msgstr ""
-"Nicio melodie nu e selectată, nu se poate începe analizarea timpul melodiilor"
+msgstr "Nicio melodie nu e selectată, nu se poate efectua analiza vreuneia."
 
 #. Translators: Presented when track time analysis is turned on.
-#, fuzzy
 msgid "Playlist analysis activated"
-msgstr "Analizarea timpului melodiilor este activată"
+msgstr "Analiza listei de redare este activată"
 
 #. Translators: Presented when track time analysis is turned off.
-#, fuzzy
 msgid "Playlist analysis deactivated"
-msgstr "Analizarea timpului melodiilor este dezactivată"
+msgstr "Analiza listei de redare este dezactivată"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
-#, fuzzy
 msgid ""
 "Marks focused track as start marker for various playlist analysis commands"
 msgstr ""
-"Marchează melodia focusată ca marcaj de pornire pentru timpul de analizare a "
-"melodiei"
 
 msgid "No tracks were added, cannot perform track time analysis"
 msgstr ""
@@ -1825,9 +1815,8 @@ msgid "Timer complete"
 msgstr "Cronometru complet."
 
 #. Translators: presented when metadata streaming status cannot be obtained.
-#, fuzzy
 msgid "Cannot obtain metadata streaming status information"
-msgstr "Imposibil de deschis dialog cu metadate de streaming"
+msgstr ""
 
 #. Translators: Status message for metadata streaming.
 msgid "No metadata streaming URL's defined"
@@ -1857,18 +1846,15 @@ msgstr "Emisia metadata configurată pentru encoderul DSP și URL-ul {URL}"
 msgid "Metadata streaming configured for URL's {URL}"
 msgstr "Emisia metadata configurată pentru URL-ul {URL}"
 
-#, fuzzy
 msgid "Playlist Transcripts"
-msgstr "Listă de redare instantanee"
+msgstr ""
 
-#, fuzzy
 msgid "Playlist data copied to clipboard"
-msgstr "Comentariul melodiei copiat pe planșetă"
+msgstr ""
 
 #. Translators: Text of the dialog when another playlist transcripts dialog is open.
-#, fuzzy
 msgid "Another playlist transcripts dialog is open."
-msgstr "Un alt dialog de alertă este deschis."
+msgstr ""
 
 #. Translators: The label in playlist transcripts dialog to select playlist transcript range.
 msgid "Transcript range:"

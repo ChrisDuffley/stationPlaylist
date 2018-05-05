@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: StationPlaylist 18.04\n"
+"Project-Id-Version: StationPlaylist 18.05\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-03-23 20:26+0100\n"
+"PO-Revision-Date: 2018-04-27 15:52+0200\n"
 "Last-Translator: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language-Team: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language: fr\n"
@@ -766,36 +766,31 @@ msgid "Scanning is in progress"
 msgstr "Le balayage est en cours"
 
 #. Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
-#, fuzzy
 msgid "No playlist has been loaded, cannot perform playlist analysis."
 msgstr ""
-"Aucune playlist n'a été chargée, Impossible d'effectuer l'analyse pour la "
-"durée de piste."
+"Aucune playlist n'a été chargée, impossible d'effectuer l'analyse de "
+"playlist."
 
 #. Translators: Presented when playlist analysis cannot be activated.
-#, fuzzy
 msgid "No tracks are selected, cannot perform playlist analysis."
 msgstr ""
-"Aucune des pistes ont été sélectionnées, Impossible d'effectuer l'analyse "
-"pour la durée de piste."
+"Aucune des pistes ont été sélectionnées, impossible d'effectuer l'analyse de "
+"playlist."
 
 #. Translators: Presented when track time analysis is turned on.
-#, fuzzy
 msgid "Playlist analysis activated"
-msgstr "Analyse de la durée de piste activé"
+msgstr "Analyse de playlist activé"
 
 #. Translators: Presented when track time analysis is turned off.
-#, fuzzy
 msgid "Playlist analysis deactivated"
-msgstr "Analyse de la durée de piste désactivé"
+msgstr "Analyse de playlist désactivé"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
-#, fuzzy
 msgid ""
 "Marks focused track as start marker for various playlist analysis commands"
 msgstr ""
-"Marquer la piste mises en focus comme marqueur de début pour l'analyse de "
-"durée de piste"
+"Marquer la piste mises en focus comme marqueur de début pour différentes "
+"commandes d'analyse de playlist"
 
 msgid "No tracks were added, cannot perform track time analysis"
 msgstr ""
@@ -1903,26 +1898,23 @@ msgstr ""
 msgid "Metadata streaming configured for URL's {URL}"
 msgstr "Métadonnées en streaming configuré pour l'URL {URL}"
 
-#, fuzzy
 msgid "Playlist Transcripts"
-msgstr "Instantanés de playlist"
+msgstr "Transcriptions de Playlist"
 
-#, fuzzy
 msgid "Playlist data copied to clipboard"
-msgstr "Commentaire de piste copiée dans le presse-papiers"
+msgstr "Données de la playlist copiées dans le presse-papiers"
 
 #. Translators: Text of the dialog when another playlist transcripts dialog is open.
-#, fuzzy
 msgid "Another playlist transcripts dialog is open."
-msgstr "Un autre dialogue d'alarme est ouvert."
+msgstr "Un autre dialogue de transcriptions de playlist est ouverte."
 
 #. Translators: The label in playlist transcripts dialog to select playlist transcript range.
 msgid "Transcript range:"
-msgstr ""
+msgstr "Plage de transcription :"
 
 #. Translators: The label in playlist transcripts dialog to select transcript output format.
 msgid "Transcript format:"
-msgstr ""
+msgstr "Format de transcription :"
 
 msgid ""
 "Did you recently tell SPL add-on to use a different update channel? If so, "
