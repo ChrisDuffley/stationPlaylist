@@ -578,8 +578,17 @@ SPLPlaylistTranscriptFormats.append(("htmllist", playlist2htmlList, "Data list i
 def playlist2htmlList2(): pass
 #SPLPlaylistTranscriptFormats.append(("htmllist2", playlist2htmlList2, "Multiple HTML lists, one per entry"))
 
-def playlist2mdTable(): pass
-#SPLPlaylistTranscriptFormats.append(("mdtable", playlist2mdTable, "Table in Markdown format"))
+def playlist2mdTable(start, end):
+	playlistTranscripts = []
+	from . import splconfig
+	playlistTranscripts.append("| Status | {columnHeaders} |\n".format(columnHeaders = " | ".join(splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])))
+	obj = start
+	while obj not in (None, end):
+		columnContents = obj._getColumnContents(readable=True)
+		playlistTranscripts.append("| {trackContents} |\n".format(trackContents = " | ".join(columnContents)))
+		obj = obj.next
+	displayPlaylistTranscripts(playlistTranscripts)
+SPLPlaylistTranscriptFormats.append(("mdtable", playlist2mdTable, "Table in Markdown format"))
 
 # Playlist transcripts help desk
 _plTranscriptsDialogOpened = False
