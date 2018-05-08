@@ -182,8 +182,9 @@ As ordes dispoñibles son:
   especificada.
 * F8: toma instantáneas da listaxe de reprodución (número de pistas, pista
   máis longa, etc.).
-* F9: marca a pista actual para a análise de tempo da pista (só no
-  visualizador de lista de reprodución).
+* Shift+F8: Request playlist transcripts in numerous formats.
+* F9: Mark current track for start of playlist analysis (playlist viewer
+  only).
 * F10: realiza análise de tempo da pista (só no visualizador de lista de
   reprodución).
 * F12: cambia entre un perfil actual e un predefinido.
@@ -290,6 +291,12 @@ presente a información da instantánea da listaxe de reprodución coma unha
 páxina web para que podas usar o modo exploración para navegar (preme escape
 para pechar).
 
+## Playlist Transcripts
+
+Pressing SPL Assistant, Shift+F8 will present a dialog to let you request
+playlist transcripts in numerous formats, including in a plain text format,
+an HTML table or a list.
+
 ## Diálogo Configuración
 
 Dende a ventá do studio, podes premer Alt+NVDA+0 para abrir o diálogo de
@@ -304,6 +311,18 @@ Windows 8 ou posterior e tes NVDA 2012.3 ou posterior instalado, podes
 realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
+
+## Version 18.05
+
+* Added ability to take partial playlist snapshots. This can be done by
+  defining analysis range (SPL Assistant, F9 at the start of the analysis
+  range) and moving to another item and performing playlist snapshots
+  command.
+* Added a new command in SPL Assistant to request playlist transcripts in a
+  number of formats (Shift+F8). These include plain text, an HTML table, or
+  an HTML list.
+* Various playlist analysis features such as track time analysis and
+  playlist snapshots are now grouped under the theme of "Playlist Analyzer".
 
 ## Versión 18.04.1
 

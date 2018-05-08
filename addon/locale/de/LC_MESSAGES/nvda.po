@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-03-24 16:57+0100\n"
-"Last-Translator: Karl Eick <hozosch@web.de>\n"
+"PO-Revision-Date: 2018-04-30 21:38+0200\n"
+"Last-Translator: René Linke <rene.linke@hamburg.de>\n"
 "Language-Team: Deutsch <bernd_dorer@yahoo.de>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.0.7\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
@@ -42,7 +42,7 @@ msgstr "{header} nicht gefunden"
 
 #, python-brace-format
 msgid "{header}: blank"
-msgstr "{header}: Kein"
+msgstr "{header}: Leer"
 
 #, python-brace-format
 msgid "{header}: ()"
@@ -763,28 +763,32 @@ msgstr "Scanvorgang der Bibliothek beobachten"
 msgid "Scanning is in progress"
 msgstr "Der Scanvorgang läuft im Moment."
 
-#. Translators: reported when no playlist has been loaded when trying to perform track time analysis.
-msgid "No playlist has been loaded, cannot perform track time analysis."
+#. Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
+#, fuzzy
+msgid "No playlist has been loaded, cannot perform playlist analysis."
 msgstr ""
 "Die Zeitanalyse kann nicht durchgeführt werden, weil noch keine Playlist "
 "geladen ist."
 
-#. Translators: Presented when track time analysis cannot be activated.
-msgid "No tracks are selected, cannot perform track time analysis."
+#. Translators: Presented when playlist analysis cannot be activated.
+#, fuzzy
+msgid "No tracks are selected, cannot perform playlist analysis."
 msgstr ""
 "Die Zeitanalyse kann nicht durchgeführt werden, weil Sie noch keine Titel "
 "ausgewählt haben."
 
 #. Translators: Presented when track time analysis is turned on.
-msgid "Track time analysis activated"
-msgstr "Zeitanalyse aktiviert"
+msgid "Playlist analysis activated"
+msgstr "Analyse der Wiedergabeliste eingeschaltet"
 
 #. Translators: Presented when track time analysis is turned off.
-msgid "Track time analysis deactivated"
-msgstr "Zeitanalyse deaktiviert"
+msgid "Playlist analysis deactivated"
+msgstr "Analyse der Wiedergabeliste ausgeschaltet"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "Marks focused track as start marker for track time analysis"
+#, fuzzy
+msgid ""
+"Marks focused track as start marker for various playlist analysis commands"
 msgstr "markiert den aktuellen Titel als Beginn der Zeitanalyse"
 
 msgid "No tracks were added, cannot perform track time analysis"
@@ -1892,6 +1896,25 @@ msgstr "Metadaten-Streaming für DSP-Encoder und URLs {URL} konfiguriert"
 #, python-brace-format
 msgid "Metadata streaming configured for URL's {URL}"
 msgstr "Metadaten für Streaming-URLs {URL} konfiguriert"
+
+msgid "Playlist Transcripts"
+msgstr "Transkript-Wiedergabelisten"
+
+msgid "Playlist data copied to clipboard"
+msgstr "Daten der Wiedergabenliste in die Zwischenablage kopiert."
+
+#. Translators: Text of the dialog when another playlist transcripts dialog is open.
+#, fuzzy
+msgid "Another playlist transcripts dialog is open."
+msgstr "Ein anderer Benachrichtigungsdialog ist offen."
+
+#. Translators: The label in playlist transcripts dialog to select playlist transcript range.
+msgid "Transcript range:"
+msgstr "Transkript-Bereich:"
+
+#. Translators: The label in playlist transcripts dialog to select transcript output format.
+msgid "Transcript format:"
+msgstr "Transkript-Format:"
 
 msgid ""
 "Did you recently tell SPL add-on to use a different update channel? If so, "

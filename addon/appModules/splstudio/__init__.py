@@ -650,8 +650,16 @@ class AppModule(appModuleHandler.AppModule):
 		# Remind me to broadcast metadata information.
 		# 18.04: also when delayed action is needed because metadata action handler couldn't locate Studio handle itself.
 		if splconfig.SPLConfig["General"]["MetadataReminder"] == "startup" or splmisc._delayMetadataAction:
-			# 18.05: finally move the function body to the app module, as this will be done only from here.
-			splmisc._metadataAnnouncer()
+			splmisc._delayMetadataAction = False
+			# If told to remind and connect, metadata streaming will be enabled at this time.
+			# 6.0: Call Studio API twice - once to set, once more to obtain the needed information.
+			# 6.2/7.0: When Studio API is called, add the value into the stream count list also.
+			# 17.11: call the connector.
+			splmisc.metadataConnector()
+			# #40 (18.02): call the internal announcer in order to not hold up action handler queue.
+			# #51 (18.03/15.14-LTS): if this is called within two seconds (status time-out), status will be announced multiple times.
+			# 18.04: hopefully the error message won't be shown as this is supposed to run right after locating Studio handle.
+			splmisc._earlyMetadataAnnouncerInternal(metadataStatus())
 
 	# Studio API heartbeat.
 	# Although useful for library scan detection, it can be extended to cover other features.
@@ -1792,6 +1800,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Table of child constants based on versions
 	# These are scattered throughout the screen, so one can use foreground.getChild(index) to fetch them (getChild tip from Jamie Teh (NV Access)).
 	# Because 5.x (an perhaps future releases) uses different screen layout, look up the needed constant from the table below (row = info needed, column = version).
+	# As of 18.05, the below table is based on Studio 5.10.
 	statusObjs={
 		SPLPlayStatus: 6, # Play status, mic, etc.
 		SPLSystemStatus: -2, # The second status bar containing system status such as up time.

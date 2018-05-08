@@ -733,26 +733,32 @@ msgstr "Gledanje skeniranje biblioteke"
 msgid "Scanning is in progress"
 msgstr "Skeniranje je u toku"
 
-#. Translators: reported when no playlist has been loaded when trying to perform track time analysis.
-msgid "No playlist has been loaded, cannot perform track time analysis."
+#. Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
+#, fuzzy
+msgid "No playlist has been loaded, cannot perform playlist analysis."
 msgstr ""
 "Nijedna lista za reprodukciju nije učitana, nemoguće izvršiti vremensku "
 "analizu zapisa"
 
-#. Translators: Presented when track time analysis cannot be activated.
-msgid "No tracks are selected, cannot perform track time analysis."
+#. Translators: Presented when playlist analysis cannot be activated.
+#, fuzzy
+msgid "No tracks are selected, cannot perform playlist analysis."
 msgstr "Nijedan zapis nije izabran, nemoguće izvršiti vremensku analizu zapisa"
 
 #. Translators: Presented when track time analysis is turned on.
-msgid "Track time analysis activated"
+#, fuzzy
+msgid "Playlist analysis activated"
 msgstr "Vremenska analiza zapisa aktivirana"
 
 #. Translators: Presented when track time analysis is turned off.
-msgid "Track time analysis deactivated"
+#, fuzzy
+msgid "Playlist analysis deactivated"
 msgstr "Vremenska analiza zapisa deaktivirana"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "Marks focused track as start marker for track time analysis"
+#, fuzzy
+msgid ""
+"Marks focused track as start marker for various playlist analysis commands"
 msgstr "Označava trenutno fokusiran zapis kao početak vremenske analize zapisa"
 
 msgid "No tracks were added, cannot perform track time analysis"
@@ -1817,6 +1823,27 @@ msgstr "Metadata strimovanje podešeno za DSP enkoder i adrese{URL}"
 #, python-brace-format
 msgid "Metadata streaming configured for URL's {URL}"
 msgstr "Metadata strimovanje podešeno za adrese{URL}"
+
+#, fuzzy
+msgid "Playlist Transcripts"
+msgstr "Statistike liste zareprodukciju"
+
+#, fuzzy
+msgid "Playlist data copied to clipboard"
+msgstr "Komentar zapisa kopiran u privremenu memoriju"
+
+#. Translators: Text of the dialog when another playlist transcripts dialog is open.
+#, fuzzy
+msgid "Another playlist transcripts dialog is open."
+msgstr "Drugi dijalog alarma je otvoren"
+
+#. Translators: The label in playlist transcripts dialog to select playlist transcript range.
+msgid "Transcript range:"
+msgstr ""
+
+#. Translators: The label in playlist transcripts dialog to select transcript output format.
+msgid "Transcript format:"
+msgstr ""
 
 msgid ""
 "Did you recently tell SPL add-on to use a different update channel? If so, "
