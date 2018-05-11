@@ -187,9 +187,9 @@ Folgende Befehle stehen zur Verfügung:
   Spalte an.
 * F8: nimmt Schnappschüsse von Playlisten auf (Anzahl der Titel, längster
   Titel, etc.).
-* Shift+F8: Request playlist transcripts in numerous formats.
-* F9: Mark current track for start of playlist analysis (playlist viewer
-  only).
+* Umschalt+F8: Playlist-Protokolle in verschiednen Formaten anfordern.
+* F9: markiert den aktuellen Titel als Beginn der Playlist-Analyse (nur im
+  Playlist-Viewer).
 * F10: führt die Titel-zeitanalyse durch (nur im Playlist-Viewer).
 * F12: schaltet zwischen aktuellen und einem vordefinierten Profil um.
 * F1: Hilfe für die Befehlsschicht.
@@ -306,11 +306,11 @@ dass NVDA die Schnappschuss-Informationen der Wiedergabeliste als Webseite
 anzeigt, so dass Sie den Lesemodus zum Navigieren verwenden können. Drücken
 Sie die Escape-Taste zum Schließen.
 
-## Playlist Transcripts
+## Playlist-Protokolle
 
-Pressing SPL Assistant, Shift+F8 will present a dialog to let you request
-playlist transcripts in numerous formats, including in a plain text format,
-an HTML table or a list.
+Umschalt+F8 im SPL-Assistenten ruft ein Dialogfeld auf, in dem Sie
+Playlist-Protokolle in verschiedenen Formaten öffnen können (z.B. einfaches
+Textformat, eine HTML-Tabelle oder eine Liste).
 
 ## Konfigurationsdialog
 
@@ -330,20 +330,22 @@ die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
 
 ## Version 18.05
 
-* Added ability to take partial playlist snapshots. This can be done by
-  defining analysis range (SPL Assistant, F9 at the start of the analysis
-  range) and moving to another item and performing playlist snapshots
-  command.
-* Added a new command in SPL Assistant to request playlist transcripts in a
-  number of formats (Shift+F8). These include plain text, an HTML table, or
-  an HTML list.
-* Various playlist analysis features such as track time analysis and
-  playlist snapshots are now grouped under the theme of "Playlist Analyzer".
+* Es wurde die Möglichkeit hinzugefügt, partielle Playlist-Statistiken
+  anzuzeigen (im SPL-Assistenten: F9). Dies kann durch Definieren des
+  Analysebereichs am Anfang der Analyse und durch das Navigieren zu einem
+  anderen Element und Ausführen des Befehls für die Anzeige der
+  Playlist-Statistiken erfolgen.
+* Ein neuer Befehl (Umschalt+f8) wurde hinzugefügt. Im SPL-Assistenten kann
+  man damit Playlist-Protokolle in verschiedenen Formaten aufrufen. Dazu
+  gehören Textformat, eine HTML-Tabelle oder eine HTML-Liste.
+* Verschiedene Funktionen der Playlist-Analyse wie z.B. Titel-Zeitanalyse
+  und Playlist-Statistiken sind nun unter der Kathegorie "Playlist-Analyzer"
+  zusammengefasst.
 
 ## Version 18.04.1
 
-* NVDA will no longer fail to start countdown timer for time-based broadcast
-  profiles if NVDA with wxPython 4 toolkit installed is in use.
+* NVDA startet nun problemlos den Countdown-Timer für zeitbasierte
+  Sendeprofile, wenn NVDA mit wxPython 4 verwendet wird.
 
 ## Version 18.04
 
