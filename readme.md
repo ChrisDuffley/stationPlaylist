@@ -188,6 +188,11 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 18.06
+
+* In add-on settings, added "Apply" button so changes to settings can be applied to the currently selected and/or active profile without closing the dialog first. This feature is available for NVDA 2018.2 users.
+* Added Markdown table format as a playlist transcripts format.
+
 ## Version 18.05
 
 * Added ability to take partial playlist snapshots. This can be done by defining analysis range (SPL Assistant, F9 at the start of the analysis range) and moving to another item and performing playlist snapshots command.
