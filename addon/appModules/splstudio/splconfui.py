@@ -34,6 +34,13 @@ class SPLConfigDialog(gui.SettingsDialog):
 	# Translators: This is the label for the StationPlaylist Studio configuration dialog.
 	title = _("Studio Add-on Settings")
 
+	def __init__(self, parent):
+		# #59 (18.05): backward compatibility.
+		if hasattr(gui, "SettingsPanel"):
+			super(SPLConfigDialog, self).__init__(parent, hasApplyButton=True)
+		else:
+			super(SPLConfigDialog, self).__init__(parent)
+
 	def makeSettings(self, settingsSizer):
 		SPLConfigHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 		# #40 (17.12): respond to app terminate notification by closing this dialog.
@@ -316,6 +323,90 @@ class SPLConfigDialog(gui.SettingsDialog):
 		if self.switchProfileRenamed or self.switchProfileDeleted:
 			splconfig.SPLConfig.instantSwitch = self.switchProfile
 		super(SPLConfigDialog,  self).onCancel(evt)
+
+	def onApply(self, evt):
+		applicableProfile = None
+		if hasattr(self, "profiles"):
+			selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
+			if splconfig.SPLConfig.activeProfile != selectedProfile:
+				gui.messageBox(_("The selected profile is different from currently active broadcast profile. Settings will be applied to the selected profile instead."),
+					_("Apply settings"), wx.OK | wx.ICON_INFORMATION, self)
+				applicableProfile = splconfig.SPLConfig.profileByName(selectedProfile)
+		# Apply global settings first, then save settings to appropriate profile.
+		splconfig.SPLConfig["General"]["BeepAnnounce"] = self.beepAnnounce
+		splconfig.SPLConfig["General"]["MessageVerbosity"] = self.messageVerbosity
+		splconfig.SPLConfig["General"]["AlarmAnnounce"] = self.alarmAnnounceValues[self.alarmAnnounceList.GetSelection()][0]
+		splconfig.SPLConfig["General"]["BrailleTimer"] = self.brailleTimer
+		splconfig.SPLConfig["General"]["LibraryScanAnnounce"] = self.libScan
+		splconfig.SPLConfig["General"]["TimeHourAnnounce"] = self.hourAnnounce
+		splconfig.SPLConfig["General"]["CategorySounds"] = self.categorySounds
+		splconfig.SPLConfig["General"]["TrackCommentAnnounce"] = self.trackComments
+		splconfig.SPLConfig["General"]["TopBottomAnnounce"] = self.topBottom
+		splconfig.SPLConfig["General"]["RequestsAlert"] = self.requestsAlert
+		splconfig.SPLConfig["PlaylistSnapshots"]["DurationMinMax"] = self.playlistDurationMinMax
+		splconfig.SPLConfig["PlaylistSnapshots"]["DurationAverage"] = self.playlistDurationAverage
+		splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCount"] = self.playlistArtistCount
+		splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCountLimit"] = self.playlistArtistCountLimit
+		splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCount"] = self.playlistCategoryCount
+		splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCountLimit"] = self.playlistCategoryCountLimit
+		splconfig.SPLConfig["PlaylistSnapshots"]["GenreCount"] = self.playlistGenreCount
+		splconfig.SPLConfig["PlaylistSnapshots"]["GenreCountLimit"] = self.playlistGenreCountLimit
+		splconfig.SPLConfig["PlaylistSnapshots"]["ShowResultsWindowOnFirstPress"] = self.resultsWindowOnFirstPress
+		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
+		splconfig.SPLConfig["General"]["ExploreColumns"] = self.exploreColumns
+		splconfig.SPLConfig["General"]["ExploreColumnsTT"] = self.exploreColumnsTT
+		splconfig.SPLConfig["General"]["VerticalColumnAnnounce"] = self.verticalColumn
+		splconfig.SPLConfig["SayStatus"]["SayScheduledFor"] = self.scheduledFor
+		splconfig.SPLConfig["SayStatus"]["SayListenerCount"] = self.listenerCount
+		splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"] = self.cartName
+		splconfig.SPLConfig["SayStatus"]["SayPlayingTrackName"] = self.playingTrackName
+		splconfig.SPLConfig["SayStatus"]["SayStudioPlayerPosition"] = self.studioPlayerPosition
+		splconfig.SPLConfig["Advanced"]["SPLConPassthrough"] = self.splConPassthrough
+		splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] = self.compLayer
+		splconfig.SPLConfig["Update"]["AutoUpdateCheck"] = self.autoUpdateCheck
+		splconfig.SPLConfig["Update"]["UpdateInterval"] = self.updateInterval
+		if splupdate:
+			self.pendingChannelChange = splupdate.SPLUpdateChannel != self.updateChannel
+			splupdate.SPLUpdateChannel = self.updateChannel
+		if applicableProfile is None:
+			splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] = self.endOfTrackTime
+			splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"] = self.sayEndOfTrack
+			splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"] = self.songRampTime
+			splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"] = self.saySongRamp
+			splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"] = self.micAlarm
+			splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] = self.micAlarmInterval
+			splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = self.metadataStreams
+			splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
+			splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"] = self.columnOrder
+			splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"] = self.includedColumns
+			splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.Value
+		else:
+			applicableProfile["IntroOutroAlarms"]["EndOfTrackTime"] = self.endOfTrackTime
+			applicableProfile["IntroOutroAlarms"]["SayEndOfTrack"] = self.sayEndOfTrack
+			applicableProfile["IntroOutroAlarms"]["SongRampTime"] = self.songRampTime
+			applicableProfile["IntroOutroAlarms"]["SaySongRamp"] = self.saySongRamp
+			applicableProfile["MicrophoneAlarm"]["MicAlarm"] = self.micAlarm
+			applicableProfile["MicrophoneAlarm"]["MicAlarmInterval"] = self.micAlarmInterval
+			applicableProfile["MetadataStreaming"]["MetadataEnabled"] = self.metadataStreams
+			applicableProfile["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
+			applicableProfile["ColumnAnnouncement"]["ColumnOrder"] = self.columnOrder
+			applicableProfile["ColumnAnnouncement"]["IncludedColumns"] = self.includedColumns
+			applicableProfile["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.Value
+		splconfig.SPLConfig.instantSwitch = self.switchProfile
+		# Make sure to nullify prev profile if instant switch profile is gone.
+		# 7.0: Don't do the following in the midst of a broadcast.
+		if self.switchProfile is None and not splconfig._triggerProfileActive:
+			splconfig.SPLConfig.prevProfile = None
+		# 8.0: Make sure NVDA knows this must be cached (except for normal profile).
+		# 17.10: but not when config is volatile.
+		try:
+			if selectedProfile != _("Normal profile") and selectedProfile not in splconfig._SPLCache:
+				splconfig._cacheConfig(splconfig.SPLConfig.profileByName(selectedProfile))
+		except NameError:
+			pass
+		# Notify various modules of settings changes.
+		splactions.SPLActionProfileSwitched.notify(configDialogActive=True)
+		super(SPLConfigDialog,  self).onApply(evt)
 
 	# Perform extra action when closing this dialog such as restarting update timer.
 	def onCloseExtraAction(self):
