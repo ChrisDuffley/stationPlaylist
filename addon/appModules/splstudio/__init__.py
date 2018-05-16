@@ -278,7 +278,16 @@ class SPLTrackItem(IAccessible):
 		header = splconfig.SPLConfig["General"]["ExploreColumns"][columnPos]
 		column = self.indexOf(header)
 		if column is not None:
-			self.announceColumnContent(column, header=header)
+			# #61 (18.06): pressed once will announce column data, twice will present it in a browse mode window.
+			if scriptHandler.getLastScriptRepeatCount() == 0: self.announceColumnContent(column, header=header)
+			else:
+				columnContent = self._getColumnContent(column)
+				if columnContent is None:
+					# Translators: presented when column information for a track is empty.
+					columnContent = _("blank")
+				ui.browseableMessage("{0}: {1}".format(header, columnContent),
+					# Translators: Title of the column data window.
+					title=_("Track data"))
 		else:
 			# Translators: Presented when a specific column header is not found.
 			ui.message(_("{headerText} not found").format(headerText = header))
