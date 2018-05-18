@@ -182,7 +182,8 @@ As ordes dispoñibles son:
   especificada.
 * F8: toma instantáneas da listaxe de reprodución (número de pistas, pista
   máis longa, etc.).
-* Shift+F8: Request playlist transcripts in numerous formats.
+* Shift+F8: Solicita transcripcións da listaxe de reprodución en varios
+  formatos.
 * F9: Mark current track for start of playlist analysis (playlist viewer
   only).
 * F10: realiza análise de tempo da pista (só no visualizador de lista de
@@ -293,9 +294,10 @@ para pechar).
 
 ## Playlist Transcripts
 
-Pressing SPL Assistant, Shift+F8 will present a dialog to let you request
-playlist transcripts in numerous formats, including in a plain text format,
-an HTML table or a list.
+Premendo en SPL Assistant, Shift+F8 presentará una Caixa de diálogo para
+permitirche solicitar transcripcións de listaxe de reproducción en varios
+formatos, incluindo nun formato de texto plano, e táboa HTML ou unha
+listaxe.
 
 ## Diálogo Configuración
 
