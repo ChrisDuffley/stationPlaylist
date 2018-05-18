@@ -187,8 +187,10 @@ Las órdenes disponibles son:
   una columna específica.
 * F8: toma instantáneas de la lista de reproducción (número de pistas, pista
   más larga, etc.).
-* F9: Marca la pista actual para el análisis de tiempo de la pista (sólo
-  visualizador de lista de reproducción).
+* Shift+F8: Solicita transcripciones de la lista de reproducción en varios
+  formatos.
+* F9: Mark current track for start of playlist analysis (playlist viewer
+  only).
 * F10: realiza el análisis de tiempo de la pista (sólo visualizador de lista
   de reproducción).
 * F12: cambia entre el perfil actual y uno predefinido.
@@ -298,6 +300,12 @@ NVDA presente la información de la instantánea de la lista de reproducción
 como una página web tal que puedas utilizar el modo exploración para navegar
 (pulsa escape para cerrar).
 
+## Playlist Transcripts
+
+Pulsando en SPL Assistant, Shift+F8 presentará un cuadro de diálogo para
+permitirte solicitar transcripciones de lista de reproducción en varios
+formatos, incluyendo en un formato de texto plano, y tabla HTML o una lista.
+
 ## Diálogo de configuración
 
 Desde la ventana de studio, puedes pulsar Alt+NVDA+0 para abrir el diálogo
@@ -312,6 +320,18 @@ Windows 8 o posterior y tienes NVDA 2012.3 o posterior instalado, puedes
 realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
+
+## Version 18.05
+
+* Added ability to take partial playlist snapshots. This can be done by
+  defining analysis range (SPL Assistant, F9 at the start of the analysis
+  range) and moving to another item and performing playlist snapshots
+  command.
+* Added a new command in SPL Assistant to request playlist transcripts in a
+  number of formats (Shift+F8). These include plain text, an HTML table, or
+  an HTML list.
+* Various playlist analysis features such as track time analysis and
+  playlist snapshots are now grouped under the theme of "Playlist Analyzer".
 
 ## Versión 18.04.1
 

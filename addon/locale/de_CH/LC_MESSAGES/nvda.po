@@ -765,28 +765,34 @@ msgstr "Scanvorgang der Bibliothek beobachten"
 msgid "Scanning is in progress"
 msgstr "Der Scanvorgang läuft im Moment."
 
-#. Translators: reported when no playlist has been loaded when trying to perform track time analysis.
-msgid "No playlist has been loaded, cannot perform track time analysis."
+#. Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
+#, fuzzy
+msgid "No playlist has been loaded, cannot perform playlist analysis."
 msgstr ""
 "Die Zeitanalyse kann nicht durchgeführt werden, weil noch keine Playlist "
 "geladen ist."
 
-#. Translators: Presented when track time analysis cannot be activated.
-msgid "No tracks are selected, cannot perform track time analysis."
+#. Translators: Presented when playlist analysis cannot be activated.
+#, fuzzy
+msgid "No tracks are selected, cannot perform playlist analysis."
 msgstr ""
 "Die Zeitanalyse kann nicht durchgeführt werden, weil Sie noch keine Titel "
 "ausgewählt haben."
 
 #. Translators: Presented when track time analysis is turned on.
-msgid "Track time analysis activated"
+#, fuzzy
+msgid "Playlist analysis activated"
 msgstr "Zeitanalyse aktiviert"
 
 #. Translators: Presented when track time analysis is turned off.
-msgid "Track time analysis deactivated"
+#, fuzzy
+msgid "Playlist analysis deactivated"
 msgstr "Zeitanalyse deaktiviert"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
-msgid "Marks focused track as start marker for track time analysis"
+#, fuzzy
+msgid ""
+"Marks focused track as start marker for various playlist analysis commands"
 msgstr "markiert den aktuellen Titel als Beginn der Zeitanalyse"
 
 msgid "No tracks were added, cannot perform track time analysis"
@@ -1878,6 +1884,27 @@ msgstr "Metadaten-Streaming für DSP-Encoder und URLs {URL} konfiguriert"
 #, python-brace-format
 msgid "Metadata streaming configured for URL's {URL}"
 msgstr "Metadaten für Streaming-URLs {URL} konfiguriert"
+
+#, fuzzy
+msgid "Playlist Transcripts"
+msgstr "Playlist-Statistiken"
+
+#, fuzzy
+msgid "Playlist data copied to clipboard"
+msgstr "Titel-Kommentar wurde in die Zwischenablage kopiert."
+
+#. Translators: Text of the dialog when another playlist transcripts dialog is open.
+#, fuzzy
+msgid "Another playlist transcripts dialog is open."
+msgstr "Ein anderer Benachrichtigungsdialog ist offen."
+
+#. Translators: The label in playlist transcripts dialog to select playlist transcript range.
+msgid "Transcript range:"
+msgstr ""
+
+#. Translators: The label in playlist transcripts dialog to select transcript output format.
+msgid "Transcript format:"
+msgstr ""
 
 msgid ""
 "Did you recently tell SPL add-on to use a different update channel? If so, "

@@ -187,7 +187,8 @@ Folgende Befehle stehen zur Verfügung:
   Spalte an.
 * F8: nimmt Schnappschüsse von Playlisten auf (Anzahl der Titel, längster
   Titel, etc.).
-* F9: markiert den aktuellen Titel für die Titel-zeitanalyse (nur im
+* Umschalt+F8: Playlist-Protokolle in verschiednen Formaten anfordern.
+* F9: markiert den aktuellen Titel als Beginn der Playlist-Analyse (nur im
   Playlist-Viewer).
 * F10: führt die Titel-zeitanalyse durch (nur im Playlist-Viewer).
 * F12: schaltet zwischen aktuellen und einem vordefinierten Profil um.
@@ -305,6 +306,12 @@ dass NVDA die Schnappschuss-Informationen der Wiedergabeliste als Webseite
 anzeigt, so dass Sie den Lesemodus zum Navigieren verwenden können. Drücken
 Sie die Escape-Taste zum Schließen.
 
+## Playlist-Protokolle
+
+Umschalt+F8 im SPL-Assistenten ruft ein Dialogfeld auf, in dem Sie
+Playlist-Protokolle in verschiedenen Formaten öffnen können (z.B. einfaches
+Textformat, eine HTML-Tabelle oder eine Liste).
+
 ## Konfigurationsdialog
 
 Aus dem Studio-Fenster können Sie Alt+NVDA+0 drücken, um den
@@ -321,10 +328,24 @@ Studio-Befehle über den Touchscreen ausführen. Tippen Sie zunächst einmal
 mit drei Fingern, um in den SPL-Touchmodus zu wechseln. Verwenden Sie dann
 die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
 
+## Version 18.05
+
+* Es wurde die Möglichkeit hinzugefügt, partielle Playlist-Statistiken
+  anzuzeigen (im SPL-Assistenten: F9). Dies kann durch Definieren des
+  Analysebereichs am Anfang der Analyse und durch das Navigieren zu einem
+  anderen Element und Ausführen des Befehls für die Anzeige der
+  Playlist-Statistiken erfolgen.
+* Ein neuer Befehl (Umschalt+f8) wurde hinzugefügt. Im SPL-Assistenten kann
+  man damit Playlist-Protokolle in verschiedenen Formaten aufrufen. Dazu
+  gehören Textformat, eine HTML-Tabelle oder eine HTML-Liste.
+* Verschiedene Funktionen der Playlist-Analyse wie z.B. Titel-Zeitanalyse
+  und Playlist-Statistiken sind nun unter der Kathegorie "Playlist-Analyzer"
+  zusammengefasst.
+
 ## Version 18.04.1
 
-* NVDA will no longer fail to start countdown timer for time-based broadcast
-  profiles if NVDA with wxPython 4 toolkit installed is in use.
+* NVDA startet nun problemlos den Countdown-Timer für zeitbasierte
+  Sendeprofile, wenn NVDA mit wxPython 4 verwendet wird.
 
 ## Version 18.04
 
