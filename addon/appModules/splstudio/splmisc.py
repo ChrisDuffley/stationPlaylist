@@ -632,6 +632,8 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 			_("start to current item"),
 			# Translators: one of the playlist transcripts range options.
 			_("current item to the end"),
+			# Translators: one of the playlist transcripts range options.
+			_("current hour"),
 		)
 
 		# Translators: The label in playlist transcripts dialog to select playlist transcript range.
@@ -662,6 +664,13 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 			end = self.obj.next
 		if transcriptRange == 2:
 			start = self.obj
+		if transcriptRange == 3:
+			# Try to locate boundaries for current hour slot.
+			start = self.obj.appModule._trackLocator("Hour Marker", obj=self.obj, directionForward=False, columns=[self.obj.indexOf("Category")])
+			end = self.obj.appModule._trackLocator("Hour Marker", obj=self.obj, columns=[self.obj.indexOf("Category")])
+			# What if current track is indeed an hour marker?
+			if end == self.obj:
+				end = self.obj.appModule._trackLocator("Hour Marker", obj=self.obj.next, columns=[self.obj.indexOf("Category")])
 		wx.CallLater(200, SPLPlaylistTranscriptFormats[self.transcriptFormat.Selection][1], start, end)
 		self.Destroy()
 		_plTranscriptsDialogOpened = False
