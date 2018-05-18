@@ -617,7 +617,8 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 		# Use a weakref so the instance can die.
 		SPLPlaylistTranscriptsDialog._instance = weakref.ref(self)
 
-		super(SPLPlaylistTranscriptsDialog, self).__init__(parent, wx.ID_ANY, "Playlist Transcripts")
+		# Translators: the playlsit transcripts dialog title.
+		super(SPLPlaylistTranscriptsDialog, self).__init__(parent, wx.ID_ANY, _("Playlist Transcripts"))
 		self.obj = obj
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
@@ -625,9 +626,12 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 
 		self.transcriptRanges = (
-			"entire playlist",
-			"start to current item",
-			"current item to the end",
+			# Translators: one of the playlist transcripts range options.
+			_("entire playlist"),
+			# Translators: one of the playlist transcripts range options.
+			_("start to current item"),
+			# Translators: one of the playlist transcripts range options.
+			_("current item to the end"),
 		)
 
 		# Translators: The label in playlist transcripts dialog to select playlist transcript range.
