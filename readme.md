@@ -34,7 +34,7 @@ IMPORTANT NOTES:
 * Control+NVDA+1 through 0 (6 for Studio 5.0x): Announce column content for a specified column.
 * Alt+NVDA+C while focused on a track: announces track comments if any.
 * Alt+NVDA+0 from Studio window: Opens the Studio add-on configuration dialog.
-* Control+NVDA+- (hyphen) from Studio window: Send feedback to add-on developer using the default email client.
+* Alt+NVDA+- (hyphen) from Studio window: Send feedback to add-on developer using the default email client.
 * Alt+NVDA+F1: Open welcome dialog.
 
 ## Unassigned commands
@@ -192,6 +192,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 * In add-on settings, added "Apply" button so changes to settings can be applied to the currently selected and/or active profile without closing the dialog first. This feature is available for NVDA 2018.2 users.
 * Added Markdown table format as a playlist transcripts format.
+* The developer feedback email command has changed from Control+NVDA+dash to Alt+NVDA+dash.
 
 ## Version 18.05
 

@@ -2380,5 +2380,5 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:Shift+delete":"deleteTrack",
 		"kb:Shift+numpadDelete":"deleteTrack",
 		"kb:escape":"escape",
-		"kb:control+nvda+-":"sendFeedbackEmail",
+		"kb:alt+nvda+-":"sendFeedbackEmail",
 	}
