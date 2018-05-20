@@ -701,7 +701,7 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 		self.upButton.Bind(wx.EVT_BUTTON,self.onMoveUp)
 		self.upButton.Disable()
 		sizer.Add(self.upButton)
-				# Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
+		# Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
 		self.dnButton = wx.Button(self, wx.ID_ANY, label=_("Move &down"))
 		self.dnButton.Bind(wx.EVT_BUTTON,self.onMoveDown)
 		sizer.Add(self.dnButton)
@@ -1626,7 +1626,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 	def onTriggers(self, evt):
 		self.Disable()
 		if splconfig._triggerProfileActive:
-					# Translators: Message reported when attempting to change profile switch trigger while broadcasting.
+			# Translators: Message reported when attempting to change profile switch trigger while broadcasting.
 			gui.messageBox(_("You cannot change profile switch triggers in the midst of a broadcast."),
 				# Translators: Title of a dialog shown when profile trigger cannot e changd.
 				_("Profile triggers"), wx.OK | wx.ICON_ERROR, self)
@@ -1684,7 +1684,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self.Disable()
 		ColumnsExplorerDialog(self, tt=True).Show()
 
-		# Status announcement dialog.
+	# Status announcement dialog.
 	def onStatusAnnouncement(self, evt):
 		self.Disable()
 		SayStatusDialog(self).Show()
