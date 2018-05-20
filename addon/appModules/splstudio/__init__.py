@@ -291,6 +291,8 @@ class SPLTrackItem(IAccessible):
 		else:
 			# Translators: Presented when a specific column header is not found.
 			ui.message(_("{headerText} not found").format(headerText = header))
+	# Translators: input help mode message for column explorer commands.
+	script_columnExplorer.__doc__ = _("Pressing once announces data for a track column, pressing twice will present column data in a browse mode window")
 
 	# Track comments.
 
