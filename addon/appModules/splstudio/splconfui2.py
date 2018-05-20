@@ -1,9 +1,12 @@
-# SPL Studio Configuration user interfaces
+# SPL Studio Configuration user interfaces, version 2
 # An app module and global plugin package for NVDA
 # Copyright 2016-2018 Joseph Lee and others, released under GPL.
 # Split from SPL config module in 2016.
 # Provides the configuration management UI package for SPL Studio app module.
 # For code which provides foundation for code in this module, see splconfig module.
+
+# A copy of config UI module, implementing multi-category add-on settings screen.
+# Requires NVDA 2018.2 and later.
 
 import sys
 py3 = sys.version.startswith("3")
@@ -30,16 +33,21 @@ CENTER_ON_SCREEN = wx.CENTER_ON_SCREEN if hasattr(wx, "CENTER_ON_SCREEN") else 2
 # Configuration dialog.
 _configDialogOpened = False
 
-class SPLConfigDialog(gui.SettingsDialog):
+class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 	# Translators: This is the label for the StationPlaylist Studio configuration dialog.
 	title = _("Studio Add-on Settings")
-
-	def __init__(self, parent):
-		# #59 (18.05): backward compatibility.
-		if hasattr(gui, "SettingsPanel"):
-			super(SPLConfigDialog, self).__init__(parent, hasApplyButton=True)
-		else:
-			super(SPLConfigDialog, self).__init__(parent)
+	categoryClasses=[
+		BroadcastProfilesPanel,
+		GeneralSettingsPanel,
+		AlarmsPanel,
+		PlaylistSnapshotsPanel,
+		MetadataStreamingPanel,
+		ColumnAnnouncementPanel,
+		ColumnsExplorerPanel,
+		SayStatusPanel,
+		AdvancedOptionsPanel,
+		ResetSettingsPanel,
+	]
 
 	def makeSettings(self, settingsSizer):
 		SPLConfigHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
