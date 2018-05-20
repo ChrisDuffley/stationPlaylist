@@ -181,6 +181,7 @@ class SPLTrackItem(IAccessible):
 	# Obtain column contents for all columns for this track.
 	# A convenience method that calls column content getter for a list of columns.
 	# Readable flag will transform None into an empty string, suitable for output.
+	# #61 (18.07): readable flag will become a string parameter to be used in columns viewer.
 	def _getColumnContents(self, columns=None, readable=False):
 		if columns is None:
 			columns = list(rangeGen(18))
@@ -294,6 +295,22 @@ class SPLTrackItem(IAccessible):
 	# Translators: input help mode message for column explorer commands.
 	script_columnExplorer.__doc__ = _("Pressing once announces data for a track column, pressing twice will present column data in a browse mode window")
 
+	def script_trackColumnsViewer(self, gesture):
+		# #61 (18.06): a direct copy of column data gatherer from playlist transcripts.
+		# 18.07: just call the gatherer function with "blank" as the readable string and add column header afterwards.
+		columns = list(rangeGen(18))
+		columnContents = [splmisc._getColumnContent(self, col) for col in columns]
+		columnHeaders = ["Status"] + splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
+		for pos in rangeGen(len(columnContents)):
+			if columnContents[pos] is None: columnContents[pos] = "blank"
+			# Manually add header text until column gatherer adds headers support.
+			columnContents[pos] = ": ".join([columnHeaders[pos], columnContents[pos]])
+		ui.browseableMessage("\n".join(columnContents),
+					# Translators: Title of the column data window.
+					title=_("Track data"))
+	# Translators: input help mode message for columns viewer command.
+	script_trackColumnsViewer.__doc__ = _("Presents data for all columns in the currently selected track")
+
 	# Track comments.
 
 	# Track comment announcer.
@@ -354,6 +371,7 @@ class SPLTrackItem(IAccessible):
 		"kb:control+alt+end":"lastColumn",
 		"kb:downArrow":"nextTrack",
 		"kb:upArrow":"prevTrack",
+		"kb:control+NVDA+-":"trackColumnsViewer",
 		"kb:Alt+NVDA+C":"announceTrackComment"
 	}
 
