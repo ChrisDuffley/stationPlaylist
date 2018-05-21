@@ -501,18 +501,17 @@ class TriggersDialog(wx.Dialog):
 		self.Fit()
 
 # A collection of general settings for the add-on.
-class GeneralSettingsDialog(wx.Dialog):
+class GeneralSettingsPanel(gui.SettingsPanel):
 
-	def __init__(self, parent):
-		# Translators: Title of a dialog to configure various status announcements such as announcing listener count.
-		super(GeneralSettingsDialog, self).__init__(parent, title=_("General add-on settings"))
+	# Translators: Title of a dialog to configure various general add-on settings such as announcing listener count.
+	title = _("General")
 
-		mainSizer = wx.BoxSizer(wx.VERTICAL)
-		generalSettingsHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
+	def makeSettings(self, settingsSizer):
+		generalSettingsHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
 		# Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
 		self.beepAnnounceCheckbox = generalSettingsHelper.addItem(wx.CheckBox(self, label=_("&Beep for status announcements")))
-		self.beepAnnounceCheckbox.SetValue(parent.beepAnnounce)
+		self.beepAnnounceCheckbox.SetValue(splconfig.SPLConfig["General"]["BeepAnnounce"])
 
 		# Translators: One of the message verbosity levels.
 		self.verbosityLevels=[("beginner",_("beginner")),
@@ -520,7 +519,7 @@ class GeneralSettingsDialog(wx.Dialog):
 		("advanced",_("advanced"))]
 		# Translators: The label for a setting in SPL add-on dialog to set message verbosity.
 		self.verbosityList = generalSettingsHelper.addLabeledControl(_("Message &verbosity:"), wx.Choice, choices=[x[1] for x in self.verbosityLevels])
-		currentVerbosity=parent.messageVerbosity
+		currentVerbosity=splconfig.SPLConfig["General"]["MessageVerbosity"]
 		selection = (x for x,y in enumerate(self.verbosityLevels) if y[0]==currentVerbosity).next()
 		try:
 			self.verbosityList.SetSelection(selection)
@@ -536,7 +535,7 @@ class GeneralSettingsDialog(wx.Dialog):
 		("both",_("Track intro and ending"))]
 		# Translators: The label for a setting in SPL add-on dialog to control braille timer.
 		self.brailleTimerList = generalSettingsHelper.addLabeledControl(_("&Braille timer:"), wx.Choice, choices=[x[1] for x in self.brailleTimerValues])
-		brailleTimerCurValue=parent.brailleTimer
+		brailleTimerCurValue=splconfig.SPLConfig["General"]["BrailleTimer"]
 		selection = (x for x,y in enumerate(self.brailleTimerValues) if y[0]==brailleTimerCurValue).next()
 		try:
 			self.brailleTimerList.SetSelection(selection)
@@ -552,7 +551,7 @@ class GeneralSettingsDialog(wx.Dialog):
 		("numbers",_("Scan count"))]
 		# Translators: The label for a setting in SPL add-on dialog to control library scan announcement.
 		self.libScanList = generalSettingsHelper.addLabeledControl(_("&Library scan announcement:"), wx.Choice, choices=[x[1] for x in self.libScanValues])
-		libScanCurValue=parent.libScan
+		libScanCurValue=splconfig.SPLConfig["General"]["LibraryScanAnnounce"]
 		selection = (x for x,y in enumerate(self.libScanValues) if y[0]==libScanCurValue).next()
 		try:
 			self.libScanList.SetSelection(selection)
@@ -561,13 +560,13 @@ class GeneralSettingsDialog(wx.Dialog):
 
 		# Translators: the label for a setting in SPL add-on settings to announce time including hours.
 		self.hourAnnounceCheckbox = generalSettingsHelper.addItem(wx.CheckBox(self, label=_("Include &hours when announcing track or playlist duration")))
-		self.hourAnnounceCheckbox.SetValue(parent.hourAnnounce)
+		self.hourAnnounceCheckbox.SetValue(splconfig.SPLConfig["General"]["TimeHourAnnounce"])
 
 		# Translators: The label for a setting in SPL add-on dialog to set vertical column.
 		verticalColLabel = _("&Vertical column navigation announcement:")
 		# Translators: One of the options for vertical column navigation denoting NVDA will announce current column positoin (e.g. second column position from the left).
 		self.verticalColumnsList = generalSettingsHelper.addLabeledControl(verticalColLabel, wx.Choice, choices=[_("whichever column I am reviewing"), "Status"] + splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])
-		verticalColumn = parent.verticalColumn
+		verticalColumn = splconfig.SPLConfig["General"]["VerticalColumnAnnounce"]
 		selection = self.verticalColumnsList.FindString(verticalColumn) if verticalColumn is not None else 0
 		try:
 			self.verticalColumnsList.SetSelection(selection)
@@ -576,7 +575,7 @@ class GeneralSettingsDialog(wx.Dialog):
 
 		# Translators: the label for a setting in SPL add-on settings to toggle category sound announcement.
 		self.categorySoundsCheckbox = generalSettingsHelper.addItem(wx.CheckBox(self, label=_("&Beep for different track categories")))
-		self.categorySoundsCheckbox.SetValue(parent.categorySounds)
+		self.categorySoundsCheckbox.SetValue(splconfig.SPLConfig["General"]["CategorySounds"])
 
 		self.trackCommentValues=[("off",_("Off")),
 		# Translators: One of the track comment notification settings.
@@ -587,7 +586,7 @@ class GeneralSettingsDialog(wx.Dialog):
 		("both",_("Both"))]
 		# Translators: the label for a setting in SPL add-on settings to set how track comments are announced.
 		self.trackCommentList = generalSettingsHelper.addLabeledControl(_("&Track comment announcement:"), wx.Choice, choices=[x[1] for x in self.trackCommentValues])
-		trackCommentCurValue=parent.trackComments
+		trackCommentCurValue=splconfig.SPLConfig["General"]["TrackCommentAnnounce"]
 		selection = (x for x,y in enumerate(self.trackCommentValues) if y[0]==trackCommentCurValue).next()
 		try:
 			self.trackCommentList.SetSelection(selection)
@@ -596,41 +595,23 @@ class GeneralSettingsDialog(wx.Dialog):
 
 		# Translators: the label for a setting in SPL add-on settings to toggle top and bottom notification.
 		self.topBottomCheckbox = generalSettingsHelper.addItem(wx.CheckBox(self, label=_("Notify when located at &top or bottom of playlist viewer")))
-		self.topBottomCheckbox.SetValue(parent.topBottom)
+		self.topBottomCheckbox.SetValue(splconfig.SPLConfig["General"]["TopBottomAnnounce"])
 
 		# Translators: the label for a setting in SPL add-on settings to enable requests alert.
 		self.requestsAlertCheckbox = generalSettingsHelper.addItem(wx.CheckBox(self, label=_("Play a sound when listener &requests arrive")))
-		self.requestsAlertCheckbox.SetValue(parent.requestsAlert)
+		self.requestsAlertCheckbox.SetValue(splconfig.SPLConfig["General"]["RequestsAlert"])
 
-		generalSettingsHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
-		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
-		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
-		mainSizer.Add(generalSettingsHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
-		mainSizer.Fit(self)
-		self.Sizer = mainSizer
-		self.beepAnnounceCheckbox.SetFocus()
-		self.Center(wx.BOTH | CENTER_ON_SCREEN)
-
-	def onOk(self, evt):
-		parent = self.Parent
-		parent.beepAnnounce = self.beepAnnounceCheckbox.Value
-		parent.messageVerbosity = self.verbosityLevels[self.verbosityList.GetSelection()][0]
-		parent.brailleTimer = self.brailleTimerValues[self.brailleTimerList.GetSelection()][0]
-		parent.libScan = self.libScanValues[self.libScanList.GetSelection()][0]
-		parent.hourAnnounce = self.hourAnnounceCheckbox.Value
-		parent.verticalColumn = self.verticalColumnsList.GetStringSelection() if self.verticalColumnsList.GetSelection() != 0 else None
-		parent.categorySounds = self.categorySoundsCheckbox.Value
-		parent.trackComments = self.trackCommentValues[self.trackCommentList.GetSelection()][0]
-		parent.topBottom = self.topBottomCheckbox.Value
-		parent.requestsAlert = self.requestsAlertCheckbox.Value
-		parent.profiles.SetFocus()
-		parent.Enable()
-		self.Destroy()
-		return
-
-	def onCancel(self, evt):
-		self.Parent.Enable()
-		self.Destroy()
+	def onSave(self):
+		splconfig.SPLConfig["General"]["BeepAnnounce"] = self.beepAnnounceCheckbox.Value
+		splconfig.SPLConfig["General"]["MessageVerbosity"] = self.verbosityLevels[self.verbosityList.GetSelection()][0]
+		splconfig.SPLConfig["General"]["BrailleTimer"] = self.brailleTimerValues[self.brailleTimerList.GetSelection()][0]
+		splconfig.SPLConfig["General"]["LibraryScanAnnounce"] = self.libScanValues[self.libScanList.GetSelection()][0]
+		splconfig.SPLConfig["General"]["TimeHourAnnounce"] = self.hourAnnounceCheckbox.Value
+		splconfig.SPLConfig["General"]["VerticalColumnAnnounce"] = self.verticalColumnsList.GetStringSelection() if self.verticalColumnsList.GetSelection() != 0 else None
+		splconfig.SPLConfig["General"]["CategorySounds"] = self.categorySoundsCheckbox.Value
+		splconfig.SPLConfig["General"]["TrackCommentAnnounce"] = self.trackCommentValues[self.trackCommentList.GetSelection()][0]
+		splconfig.SPLConfig["General"]["TopBottomAnnounce"] = self.topBottomCheckbox.Value
+		splconfig.SPLConfig["General"]["RequestsAlert"] = self.requestsAlertCheckbox.Value
 
 # A common alarm dialog (Alarms Center)
 # Based on NVDA core's find dialog code (implemented by the author of this add-on).
@@ -1342,8 +1323,8 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 	# Translators: This is the label for the StationPlaylist Studio configuration dialog.
 	title = _("Studio Add-on Settings V4")
 	categoryClasses=[
-		BroadcastProfilesPanel]
-		#GeneralSettingsPanel,
+		BroadcastProfilesPanel,
+		GeneralSettingsPanel,
 		#AlarmsPanel,
 		#PlaylistSnapshotsPanel,
 		#MetadataStreamingPanel,
@@ -1352,7 +1333,7 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		#SayStatusPanel,
 		#AdvancedOptionsPanel,
 		#ResetSettingsPanel,
-	#]
+	]
 
 	def onOk(self, evt):
 		global _configDialogOpened
@@ -1360,8 +1341,6 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 			selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
 			if splconfig.SPLConfig.activeProfile != selectedProfile:
 				splconfig.SPLConfig.swapProfiles(splconfig.SPLConfig.activeProfile, selectedProfile)
-		splconfig.SPLConfig["General"]["BeepAnnounce"] = self.beepAnnounce
-		splconfig.SPLConfig["General"]["MessageVerbosity"] = self.messageVerbosity
 		splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] = self.endOfTrackTime
 		splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"] = self.sayEndOfTrack
 		splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"] = self.songRampTime
@@ -1369,13 +1348,6 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"] = self.micAlarm
 		splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] = self.micAlarmInterval
 		splconfig.SPLConfig["General"]["AlarmAnnounce"] = self.alarmAnnounceValues[self.alarmAnnounceList.GetSelection()][0]
-		splconfig.SPLConfig["General"]["BrailleTimer"] = self.brailleTimer
-		splconfig.SPLConfig["General"]["LibraryScanAnnounce"] = self.libScan
-		splconfig.SPLConfig["General"]["TimeHourAnnounce"] = self.hourAnnounce
-		splconfig.SPLConfig["General"]["CategorySounds"] = self.categorySounds
-		splconfig.SPLConfig["General"]["TrackCommentAnnounce"] = self.trackComments
-		splconfig.SPLConfig["General"]["TopBottomAnnounce"] = self.topBottom
-		splconfig.SPLConfig["General"]["RequestsAlert"] = self.requestsAlert
 		splconfig.SPLConfig["PlaylistSnapshots"]["DurationMinMax"] = self.playlistDurationMinMax
 		splconfig.SPLConfig["PlaylistSnapshots"]["DurationAverage"] = self.playlistDurationAverage
 		splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCount"] = self.playlistArtistCount
@@ -1393,7 +1365,6 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.Value
 		splconfig.SPLConfig["General"]["ExploreColumns"] = self.exploreColumns
 		splconfig.SPLConfig["General"]["ExploreColumnsTT"] = self.exploreColumnsTT
-		splconfig.SPLConfig["General"]["VerticalColumnAnnounce"] = self.verticalColumn
 		splconfig.SPLConfig["SayStatus"]["SayScheduledFor"] = self.scheduledFor
 		splconfig.SPLConfig["SayStatus"]["SayListenerCount"] = self.listenerCount
 		splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"] = self.cartName
@@ -1460,16 +1431,7 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 					_("Apply settings"), wx.OK | wx.ICON_INFORMATION, self)
 				applicableProfile = splconfig.SPLConfig.profileByName(selectedProfile)
 		# Apply global settings first, then save settings to appropriate profile.
-		splconfig.SPLConfig["General"]["BeepAnnounce"] = self.beepAnnounce
-		splconfig.SPLConfig["General"]["MessageVerbosity"] = self.messageVerbosity
 		splconfig.SPLConfig["General"]["AlarmAnnounce"] = self.alarmAnnounceValues[self.alarmAnnounceList.GetSelection()][0]
-		splconfig.SPLConfig["General"]["BrailleTimer"] = self.brailleTimer
-		splconfig.SPLConfig["General"]["LibraryScanAnnounce"] = self.libScan
-		splconfig.SPLConfig["General"]["TimeHourAnnounce"] = self.hourAnnounce
-		splconfig.SPLConfig["General"]["CategorySounds"] = self.categorySounds
-		splconfig.SPLConfig["General"]["TrackCommentAnnounce"] = self.trackComments
-		splconfig.SPLConfig["General"]["TopBottomAnnounce"] = self.topBottom
-		splconfig.SPLConfig["General"]["RequestsAlert"] = self.requestsAlert
 		splconfig.SPLConfig["PlaylistSnapshots"]["DurationMinMax"] = self.playlistDurationMinMax
 		splconfig.SPLConfig["PlaylistSnapshots"]["DurationAverage"] = self.playlistDurationAverage
 		splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCount"] = self.playlistArtistCount
@@ -1482,7 +1444,6 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
 		splconfig.SPLConfig["General"]["ExploreColumns"] = self.exploreColumns
 		splconfig.SPLConfig["General"]["ExploreColumnsTT"] = self.exploreColumnsTT
-		splconfig.SPLConfig["General"]["VerticalColumnAnnounce"] = self.verticalColumn
 		splconfig.SPLConfig["SayStatus"]["SayScheduledFor"] = self.scheduledFor
 		splconfig.SPLConfig["SayStatus"]["SayListenerCount"] = self.listenerCount
 		splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"] = self.cartName
