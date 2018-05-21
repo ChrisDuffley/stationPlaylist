@@ -31,7 +31,8 @@ IMPORTANT NOTES:
 * Control+Shift+X from Studio window: Steps through braille timer settings.
 * Control+Alt+left/right arrow (while focused on a track): Announce previous/next track column.
 * Control+Alt+up/down arrow (while focused on a track): Move to previous or next track and announce specific columns (unavailable in add-on 15.x).
-* Control+NVDA+1 through 0 (6 for Studio 5.0x): Announce column content for a specified column.
+* Control+NVDA+1 through 0: Announce column content for a specified column. Pressing twice will display column information on a browse mode window.
+* Control+NVDA+- (hyphen): display data for all columns in a track on a browse mode window.
 * Alt+NVDA+C while focused on a track: announces track comments if any.
 * Alt+NVDA+0 from Studio window: Opens the Studio add-on configuration dialog.
 * Alt+NVDA+- (hyphen) from Studio window: Send feedback to add-on developer using the default email client.
@@ -170,7 +171,7 @@ To obtain length to play selected tracks, mark current track for start of track 
 
 ## Columns Explorer
 
-By pressing Control+NVDA+1 through 0 (6 for Studio 5.0x) or SPL Assistant, 1 through 0 (6 for Studio 5.01 and earlier), you can obtain contents of specific columns. By default, these are artist, title, duration, intro, category and filename (Studio 5.10 adds year, album, genre and time scheduled). You can configure which columns will be explored via columns explorer dialog found in add-on settings dialog.
+By pressing Control+NVDA+1 through 0 or SPL Assistant, 1 through 0, you can obtain contents of specific columns. By default, these are artist, title, duration, intro, category, filename, year, album, genre and time scheduled. You can configure which columns will be explored via columns explorer dialog found in add-on settings dialog.
 
 ## Playlist snapshots
 
@@ -191,6 +192,8 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Version 18.06
 
 * In add-on settings, added "Apply" button so changes to settings can be applied to the currently selected and/or active profile without closing the dialog first. This feature is available for NVDA 2018.2 users.
+* When pressing Control+NVDA+number row twice while focused on a track, NVDA will display column information for a specific column on a browse mode window.
+* While focused on a track, pressing Control+NVDA+Dash will display data for all columns on a browse mode window.
 * Added Markdown table format as a playlist transcripts format.
 * The developer feedback email command has changed from Control+NVDA+dash to Alt+NVDA+dash.
 
