@@ -1520,11 +1520,6 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		# Call cancel function when the app terminates so the dialog can be closed.
 		self.onCancel(None)
 
-	# Various general add-on settings.
-	def onGeneralSettings(self, evt):
-		self.Disable()
-		GeneralSettingsDialog(self).Show()
-
 	# Alarms Center.
 	def onAlarmsCenter(self, evt):
 		self.Disable()
