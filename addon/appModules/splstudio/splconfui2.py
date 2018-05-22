@@ -1314,7 +1314,7 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		BroadcastProfilesPanel,
 		GeneralSettingsPanel,
 		#AlarmsPanel,
-		#PlaylistSnapshotsPanel,
+		PlaylistSnapshotsPanel,
 		#MetadataStreamingPanel,
 		#ColumnAnnouncementPanel,
 		#ColumnsExplorerPanel,
