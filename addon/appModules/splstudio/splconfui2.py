@@ -117,8 +117,6 @@ class BroadcastProfilesPanel(gui.SettingsPanel):
 		self._profileTriggersConfig = None
 
 	def onDiscard(self):
-		# 6.1: Discard changes to included columns set.
-		self.includedColumns = None
 		# Apply profile trigger changes if any.
 		try:
 			splconfig.profileTriggers = dict(self._profileTriggersConfig)
