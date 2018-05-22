@@ -1466,11 +1466,6 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		self.Disable()
 		AlarmsCenter(self).Show()
 
-	# Configure playlist snapshot flags.
-	def onPlaylistSnapshotFlags(self, evt):
-		self.Disable()
-		PlaylistSnapshotsDialog(self).Show()
-
 	# Manage metadata streaming.
 	def onManageMetadata(self, evt):
 		self.Disable()
@@ -1490,11 +1485,6 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 	def onColumnsExplorerTT(self, evt):
 		self.Disable()
 		ColumnsExplorerDialog(self, tt=True).Show()
-
-		# Status announcement dialog.
-	def onStatusAnnouncement(self, evt):
-		self.Disable()
-		SayStatusDialog(self).Show()
 
 	# Advanced options.
 	# See advanced options class for more details.
