@@ -1062,26 +1062,25 @@ class ColumnsExplorerDialog(wx.Dialog):
 		self.Parent.Enable()
 		self.Destroy()
 
-# Say status dialog.
+# Say status panel.
 # Houses options such as announcing cart names.
-class SayStatusDialog(wx.Dialog):
+class SayStatusPanel(gui.SettingsPanel):
 
-	def __init__(self, parent):
-		# Translators: Title of a dialog to configure various status announcements such as announcing listener count.
-		super(SayStatusDialog, self).__init__(parent, title=_("Status announcements"))
+	# Translators: Title of a dialog to configure various status announcements such as announcing listener count.
+	title = _("Status announcements")
 
-		mainSizer = wx.BoxSizer(wx.VERTICAL)
-		sayStatusHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
+	def makeSettings(self, settingsSizer):
+		sayStatusHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
 		# Translators: the label for a setting in SPL add-on settings to announce scheduled time.
 		self.scheduledForCheckbox=sayStatusHelper.addItem(wx.CheckBox(self, label=_("Announce &scheduled time for the selected track")))
-		self.scheduledForCheckbox.SetValue(parent.scheduledFor)
+		self.scheduledForCheckbox.SetValue(splconfig.SPLConfig["SayStatus"]["SayScheduledFor"])
 		# Translators: the label for a setting in SPL add-on settings to announce listener count.
 		self.listenerCountCheckbox=sayStatusHelper.addItem(wx.CheckBox(self, label=_("Announce &listener count")))
-		self.listenerCountCheckbox.SetValue(parent.listenerCount)
+		self.listenerCountCheckbox.SetValue(splconfig.SPLConfig["SayStatus"]["SayListenerCount"])
 		# Translators: the label for a setting in SPL add-on settings to announce currently playing cart.
 		self.cartNameCheckbox=sayStatusHelper.addItem(wx.CheckBox(self, label=_("&Announce name of the currently playing cart")))
-		self.cartNameCheckbox.SetValue(parent.cartName)
+		self.cartNameCheckbox.SetValue(splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"])
 		# Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
 		labelText = _("&Track name announcement:")
 		# Translators: One of the track name announcement options.
@@ -1091,39 +1090,21 @@ class SayStatusDialog(wx.Dialog):
 		# Translators: One of the track name announcement options.
 		("off",_("off"))]
 		self.trackAnnouncementList=sayStatusHelper.addLabeledControl(labelText, wx.Choice, choices=[x[1] for x in self.trackAnnouncements])
-		selection = (x for x,y in enumerate(self.trackAnnouncements) if y[0]==parent.playingTrackName).next()
+		selection = (x for x,y in enumerate(self.trackAnnouncements) if y[0]==splconfig.SPLConfig["SayStatus"]["SayPlayingTrackName"]).next()
 		try:
 			self.trackAnnouncementList.SetSelection(selection)
 		except:
 			pass
 		# Translators: the label for a setting in SPL add-on settings to announce player position for the current and next tracks.
 		self.playerPositionCheckbox=sayStatusHelper.addItem(wx.CheckBox(self, label=_("Include track player &position when announcing current and next track information")))
-		self.playerPositionCheckbox.SetValue(parent.studioPlayerPosition)
+		self.playerPositionCheckbox.SetValue(splconfig.SPLConfig["SayStatus"]["SayStudioPlayerPosition"])
 
-		sayStatusHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
-		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
-		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
-		mainSizer.Add(sayStatusHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
-		mainSizer.Fit(self)
-		self.Sizer = mainSizer
-		self.scheduledForCheckbox.SetFocus()
-		self.Center(wx.BOTH | CENTER_ON_SCREEN)
-
-	def onOk(self, evt):
-		parent = self.Parent
-		parent.scheduledFor = self.scheduledForCheckbox.Value
-		parent.listenerCount = self.listenerCountCheckbox.Value
-		parent.cartName = self.cartNameCheckbox.Value
-		parent.playingTrackName = self.trackAnnouncements[self.trackAnnouncementList.GetSelection()][0]
-		parent.studioPlayerPosition = self.playerPositionCheckbox.Value
-		parent.profiles.SetFocus()
-		parent.Enable()
-		self.Destroy()
-		return
-
-	def onCancel(self, evt):
-		self.Parent.Enable()
-		self.Destroy()
+	def onSave(self):
+		splconfig.SPLConfig["SayStatus"]["SayScheduledFor"] = self.scheduledForCheckbox.Value
+		splconfig.SPLConfig["SayStatus"]["SayListenerCount"] = self.listenerCountCheckbox.Value
+		splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"] = self.cartNameCheckbox.Value
+		splconfig.SPLConfig["SayStatus"]["SayPlayingTrackName"] = self.trackAnnouncements[self.trackAnnouncementList.GetSelection()][0]
+		splconfig.SPLConfig["SayStatus"]["SayStudioPlayerPosition"] = self.playerPositionCheckbox.Value
 
 # Advanced options
 # This dialog houses advanced options such as using SPL Controller command to invoke SPL Assistant.
@@ -1318,7 +1299,7 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		#MetadataStreamingPanel,
 		#ColumnAnnouncementPanel,
 		#ColumnsExplorerPanel,
-		#SayStatusPanel,
+		SayStatusPanel,
 		#AdvancedOptionsPanel,
 		#ResetSettingsPanel,
 	]
@@ -1344,11 +1325,6 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.Value
 		splconfig.SPLConfig["General"]["ExploreColumns"] = self.exploreColumns
 		splconfig.SPLConfig["General"]["ExploreColumnsTT"] = self.exploreColumnsTT
-		splconfig.SPLConfig["SayStatus"]["SayScheduledFor"] = self.scheduledFor
-		splconfig.SPLConfig["SayStatus"]["SayListenerCount"] = self.listenerCount
-		splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"] = self.cartName
-		splconfig.SPLConfig["SayStatus"]["SayPlayingTrackName"] = self.playingTrackName
-		splconfig.SPLConfig["SayStatus"]["SayStudioPlayerPosition"] = self.studioPlayerPosition
 		splconfig.SPLConfig["Advanced"]["SPLConPassthrough"] = self.splConPassthrough
 		splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] = self.compLayer
 		splconfig.SPLConfig["Update"]["AutoUpdateCheck"] = self.autoUpdateCheck
@@ -1414,11 +1390,6 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
 		splconfig.SPLConfig["General"]["ExploreColumns"] = self.exploreColumns
 		splconfig.SPLConfig["General"]["ExploreColumnsTT"] = self.exploreColumnsTT
-		splconfig.SPLConfig["SayStatus"]["SayScheduledFor"] = self.scheduledFor
-		splconfig.SPLConfig["SayStatus"]["SayListenerCount"] = self.listenerCount
-		splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"] = self.cartName
-		splconfig.SPLConfig["SayStatus"]["SayPlayingTrackName"] = self.playingTrackName
-		splconfig.SPLConfig["SayStatus"]["SayStudioPlayerPosition"] = self.studioPlayerPosition
 		splconfig.SPLConfig["Advanced"]["SPLConPassthrough"] = self.splConPassthrough
 		splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] = self.compLayer
 		splconfig.SPLConfig["Update"]["AutoUpdateCheck"] = self.autoUpdateCheck
