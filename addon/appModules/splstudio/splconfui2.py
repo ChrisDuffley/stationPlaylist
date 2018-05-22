@@ -735,14 +735,17 @@ class AlarmsCenter(wx.Dialog):
 
 # Playlist snapshot flags
 # For things such as checkboxes for average duration and top category count.
-class PlaylistSnapshotsDialog(wx.Dialog):
 
-	def __init__(self, parent):
-		# Translators: Title of a dialog to configure playlist snapshot information.
-		super(PlaylistSnapshotsDialog, self).__init__(parent, title=_("Playlist snapshots"))
 
-		mainSizer = wx.BoxSizer(wx.VERTICAL)
-		playlistSnapshotsHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
+# Playlist snapshot flags
+# For things such as checkboxes for average duration and top category count.
+class PlaylistSnapshotsPanel(gui.SettingsPanel):
+
+	# Translators: Title of a dialog to configure playlist snapshot information.
+	title = _("Playlist snapshots")
+
+	def makeSettings(self, settingsSizer):
+		playlistSnapshotsHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
 		# Translators: Help text for playlist snapshots dialog.
 		labelText = _("""Select information to be included when obtaining playlist snapshots.
@@ -751,54 +754,36 @@ class PlaylistSnapshotsDialog(wx.Dialog):
 
 		# Translators: the label for a setting in SPL add-on settings to include shortest and longest track duration in playlist snapshots window.
 		self.playlistDurationMinMaxCheckbox=playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Shortest and longest tracks")))
-		self.playlistDurationMinMaxCheckbox.SetValue(parent.playlistDurationMinMax)
+		self.playlistDurationMinMaxCheckbox.SetValue(splconfig.SPLConfig["PlaylistSnapshots"]["DurationMinMax"])
 		# Translators: the label for a setting in SPL add-on settings to include average track duration in playlist snapshots window.
 		self.playlistDurationAverageCheckbox=playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Average track duration")))
-		self.playlistDurationAverageCheckbox.SetValue(parent.playlistDurationAverage)
+		self.playlistDurationAverageCheckbox.SetValue(splconfig.SPLConfig["PlaylistSnapshots"]["DurationAverage"])
 		# Translators: the label for a setting in SPL add-on settings to include track artist count in playlist snapshots window.
 		self.playlistArtistCountCheckbox=playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Artist count")))
-		self.playlistArtistCountCheckbox.SetValue(parent.playlistArtistCount)
-		self.playlistArtistCountLimit=playlistSnapshotsHelper.addLabeledControl(_("Top artist count (0 displays all artists)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=10, initial=parent.playlistArtistCountLimit)
+		self.playlistArtistCountCheckbox.SetValue(splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCount"])
+		self.playlistArtistCountLimit=playlistSnapshotsHelper.addLabeledControl(_("Top artist count (0 displays all artists)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=10, initial=splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCountLimit"])
 		# Translators: the label for a setting in SPL add-on settings to include track category count in playlist snapshots window.
 		self.playlistCategoryCountCheckbox=playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Category count")))
-		self.playlistCategoryCountCheckbox.SetValue(parent.playlistCategoryCount)
-		self.playlistCategoryCountLimit=playlistSnapshotsHelper.addLabeledControl(_("Top category count (0 displays all categories)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=10, initial=parent.playlistCategoryCountLimit)
+		self.playlistCategoryCountCheckbox.SetValue(splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCount"])
+		self.playlistCategoryCountLimit=playlistSnapshotsHelper.addLabeledControl(_("Top category count (0 displays all categories)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=10, initial=splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCountLimit"])
 		# Translators: the label for a setting in SPL add-on settings to include track genre count in playlist snapshots window.
 		self.playlistGenreCountCheckbox=playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Genre count")))
-		self.playlistGenreCountCheckbox.SetValue(parent.playlistGenreCount)
-		self.playlistGenreCountLimit=playlistSnapshotsHelper.addLabeledControl(_("Top genre count (0 displays all genres)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=10, initial=parent.playlistGenreCountLimit)
+		self.playlistGenreCountCheckbox.SetValue(splconfig.SPLConfig["PlaylistSnapshots"]["GenreCount"])
+		self.playlistGenreCountLimit=playlistSnapshotsHelper.addLabeledControl(_("Top genre count (0 displays all genres)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=10, initial=splconfig.SPLConfig["PlaylistSnapshots"]["GenreCountLimit"])
 		# Translators: the label for a setting in SPL add-on settings to show playlist snaphsots window when the snapshots command is pressed once.
 		self.resultsWindowOnFirstPressCheckbox=playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("&Show results window when playlist snapshots command is performed once")))
-		self.resultsWindowOnFirstPressCheckbox.SetValue(parent.resultsWindowOnFirstPress)
+		self.resultsWindowOnFirstPressCheckbox.SetValue(splconfig.SPLConfig["PlaylistSnapshots"]["ShowResultsWindowOnFirstPress"])
 
-		playlistSnapshotsHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
-		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
-		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
-		mainSizer.Add(playlistSnapshotsHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
-		mainSizer.Fit(self)
-		self.Sizer = mainSizer
-		self.playlistDurationMinMaxCheckbox.SetFocus()
-		self.Center(wx.BOTH | CENTER_ON_SCREEN)
-
-	def onOk(self, evt):
-		parent = self.Parent
-		parent.playlistDurationMinMax = self.playlistDurationMinMaxCheckbox.Value
-		parent.playlistDurationAverage = self.playlistDurationAverageCheckbox.Value
-		parent.playlistArtistCount = self.playlistArtistCountCheckbox.Value
-		parent.playlistArtistCountLimit = self.playlistArtistCountLimit.GetValue()
-		parent.playlistCategoryCount = self.playlistCategoryCountCheckbox.Value
-		parent.playlistCategoryCountLimit = self.playlistCategoryCountLimit.GetValue()
-		parent.playlistGenreCount = self.playlistGenreCountCheckbox.Value
-		parent.playlistGenreCountLimit = self.playlistGenreCountLimit.GetValue()
-		parent.resultsWindowOnFirstPress = self.resultsWindowOnFirstPressCheckbox.Value
-		parent.profiles.SetFocus()
-		parent.Enable()
-		self.Destroy()
-		return
-
-	def onCancel(self, evt):
-		self.Parent.Enable()
-		self.Destroy()
+	def onSave(self):
+		splconfig.SPLConfig["PlaylistSnapshots"]["DurationMinMax"] = self.playlistDurationMinMaxCheckbox.Value
+		splconfig.SPLConfig["PlaylistSnapshots"]["DurationAverage"] = self.playlistDurationAverageCheckbox.Value
+		splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCount"] = self.playlistArtistCountCheckbox.Value
+		splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCountLimit"] = self.playlistArtistCountLimit.GetValue()
+		splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCount"] = self.playlistCategoryCountCheckbox.Value
+		splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCountLimit"] = self.playlistCategoryCountLimit.GetValue()
+		splconfig.SPLConfig["PlaylistSnapshots"]["GenreCount"] = self.playlistGenreCountCheckbox.Value
+		splconfig.SPLConfig["PlaylistSnapshots"]["GenreCountLimit"] = self.playlistGenreCountLimit.GetValue()
+		splconfig.SPLConfig["PlaylistSnapshots"]["ShowResultsWindowOnFirstPress"] = self.resultsWindowOnFirstPressCheckbox.Value
 
 # Metadata reminder controller.
 # Select notification/streaming URL's for metadata streaming.
@@ -1348,15 +1333,6 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"] = self.micAlarm
 		splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] = self.micAlarmInterval
 		splconfig.SPLConfig["General"]["AlarmAnnounce"] = self.alarmAnnounceValues[self.alarmAnnounceList.GetSelection()][0]
-		splconfig.SPLConfig["PlaylistSnapshots"]["DurationMinMax"] = self.playlistDurationMinMax
-		splconfig.SPLConfig["PlaylistSnapshots"]["DurationAverage"] = self.playlistDurationAverage
-		splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCount"] = self.playlistArtistCount
-		splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCountLimit"] = self.playlistArtistCountLimit
-		splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCount"] = self.playlistCategoryCount
-		splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCountLimit"] = self.playlistCategoryCountLimit
-		splconfig.SPLConfig["PlaylistSnapshots"]["GenreCount"] = self.playlistGenreCount
-		splconfig.SPLConfig["PlaylistSnapshots"]["GenreCountLimit"] = self.playlistGenreCountLimit
-		splconfig.SPLConfig["PlaylistSnapshots"]["ShowResultsWindowOnFirstPress"] = self.resultsWindowOnFirstPress
 		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
 		splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = self.metadataStreams
 		splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
@@ -1432,15 +1408,6 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 				applicableProfile = splconfig.SPLConfig.profileByName(selectedProfile)
 		# Apply global settings first, then save settings to appropriate profile.
 		splconfig.SPLConfig["General"]["AlarmAnnounce"] = self.alarmAnnounceValues[self.alarmAnnounceList.GetSelection()][0]
-		splconfig.SPLConfig["PlaylistSnapshots"]["DurationMinMax"] = self.playlistDurationMinMax
-		splconfig.SPLConfig["PlaylistSnapshots"]["DurationAverage"] = self.playlistDurationAverage
-		splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCount"] = self.playlistArtistCount
-		splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCountLimit"] = self.playlistArtistCountLimit
-		splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCount"] = self.playlistCategoryCount
-		splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCountLimit"] = self.playlistCategoryCountLimit
-		splconfig.SPLConfig["PlaylistSnapshots"]["GenreCount"] = self.playlistGenreCount
-		splconfig.SPLConfig["PlaylistSnapshots"]["GenreCountLimit"] = self.playlistGenreCountLimit
-		splconfig.SPLConfig["PlaylistSnapshots"]["ShowResultsWindowOnFirstPress"] = self.resultsWindowOnFirstPress
 		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
 		splconfig.SPLConfig["General"]["ExploreColumns"] = self.exploreColumns
 		splconfig.SPLConfig["General"]["ExploreColumnsTT"] = self.exploreColumnsTT
