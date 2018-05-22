@@ -516,14 +516,17 @@ class PlaylistSnapshotsDialog(wx.Dialog):
 		# Translators: the label for a setting in SPL add-on settings to include track artist count in playlist snapshots window.
 		self.playlistArtistCountCheckbox=playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Artist count")))
 		self.playlistArtistCountCheckbox.SetValue(parent.playlistArtistCount)
+		# Translators: the label for a setting in SPL add-on settings to set top artist count limit in playlist snapshots window.
 		self.playlistArtistCountLimit=playlistSnapshotsHelper.addLabeledControl(_("Top artist count (0 displays all artists)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=10, initial=parent.playlistArtistCountLimit)
 		# Translators: the label for a setting in SPL add-on settings to include track category count in playlist snapshots window.
 		self.playlistCategoryCountCheckbox=playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Category count")))
 		self.playlistCategoryCountCheckbox.SetValue(parent.playlistCategoryCount)
+		# Translators: the label for a setting in SPL add-on settings to set top track category count limit in playlist snapshots window.
 		self.playlistCategoryCountLimit=playlistSnapshotsHelper.addLabeledControl(_("Top category count (0 displays all categories)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=10, initial=parent.playlistCategoryCountLimit)
 		# Translators: the label for a setting in SPL add-on settings to include track genre count in playlist snapshots window.
 		self.playlistGenreCountCheckbox=playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Genre count")))
 		self.playlistGenreCountCheckbox.SetValue(parent.playlistGenreCount)
+		# Translators: the label for a setting in SPL add-on settings to set top track genre limit in playlist snapshots window.
 		self.playlistGenreCountLimit=playlistSnapshotsHelper.addLabeledControl(_("Top genre count (0 displays all genres)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=10, initial=parent.playlistGenreCountLimit)
 		# Translators: the label for a setting in SPL add-on settings to show playlist snaphsots window when the snapshots command is pressed once.
 		self.resultsWindowOnFirstPressCheckbox=playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("&Show results window when playlist snapshots command is performed once")))
