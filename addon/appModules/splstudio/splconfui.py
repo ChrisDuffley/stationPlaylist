@@ -823,9 +823,12 @@ class ColumnsExplorerDialog(wx.Dialog):
 
 	def onOk(self, evt):
 		parent = self.Parent
-		slots = parent.exploreColumns if not self.trackTool else parent.exploreColumnsTT
+		# #62 (18.06): manually build a list so changes won't be retained when Cancel button is clicked from main settings, caused by reference problem.
+		slots = []
 		for slot in rangeGen(len(self.columnSlots)):
-			slots[slot] = self.columnSlots[slot].GetStringSelection()
+			slots.append(self.columnSlots[slot].GetStringSelection())
+		if not self.trackTool: parent.exploreColumns = slots
+		else: parent.exploreColumnsTT = slots
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()
