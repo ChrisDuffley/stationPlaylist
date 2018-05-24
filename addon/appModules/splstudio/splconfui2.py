@@ -995,6 +995,39 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 
 # Columns Explorer for both Studio and Track Tool
 # Configure which column will be announced when Control+NVDA+number row keys are pressed.
+# In 2018, the panel will house Columns Explorer buttons, but eventually columns combo boxes should be part of main settings interface.
+class ColumnsExplorerPanel(gui.SettingsPanel):
+
+	# Translators: Title of a dialog to configure various general add-on settings such as announcing listener count.
+	title = _("Columns explorer")
+
+	def makeSettings(self, settingsSizer):
+		colExplorerHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
+
+		# Translators: The label of a button to configure columns explorer slots (SPL Assistant, number row keys to announce specific columns).
+		columnsExplorerButton = wx.Button(self, label=_("Columns E&xplorer..."))
+		columnsExplorerButton.Bind(wx.EVT_BUTTON, self.onColumnsExplorer)
+		self.exploreColumns = splconfig.SPLConfig["General"]["ExploreColumns"]
+		# Translators: The label of a button to configure columns explorer slots for Track Tool (SPL Assistant, number row keys to announce specific columns).
+		columnsExplorerTTButton = wx.Button(self, label=_("Columns Explorer for &Track Tool..."))
+		columnsExplorerTTButton.Bind(wx.EVT_BUTTON, self.onColumnsExplorerTT)
+		self.exploreColumnsTT = splconfig.SPLConfig["General"]["ExploreColumnsTT"]
+		colExplorerHelper.sizer.AddMany((columnsExplorerButton, columnsExplorerTTButton))
+
+	def onSave(self):
+		splconfig.SPLConfig["General"]["ExploreColumns"] = self.exploreColumns
+		splconfig.SPLConfig["General"]["ExploreColumnsTT"] = self.exploreColumnsTT
+
+	# Columns Explorer configuration.
+	def onColumnsExplorer(self, evt):
+		self.Disable()
+		ColumnsExplorerDialog(self).Show()
+
+	# Track Tool Columns Explorer configuration.
+	def onColumnsExplorerTT(self, evt):
+		self.Disable()
+		ColumnsExplorerDialog(self, tt=True).Show()
+
 class ColumnsExplorerDialog(wx.Dialog):
 
 	def __init__(self, parent, tt=False):
@@ -1048,10 +1081,12 @@ class ColumnsExplorerDialog(wx.Dialog):
 
 	def onOk(self, evt):
 		parent = self.Parent
-		slots = parent.exploreColumns if not self.trackTool else parent.exploreColumnsTT
+		# #62 (18.06): manually build a list so changes won't be retained when Cancel button is clicked from main settings, caused by reference problem.
+		slots = []
 		for slot in rangeGen(len(self.columnSlots)):
-			slots[slot] = self.columnSlots[slot].GetStringSelection()
-		parent.profiles.SetFocus()
+			slots.append(self.columnSlots[slot].GetStringSelection())
+		if not self.trackTool: parent.exploreColumns = slots
+		else: parent.exploreColumnsTT = slots
 		parent.Enable()
 		self.Destroy()
 		return
@@ -1296,7 +1331,7 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		PlaylistSnapshotsPanel,
 		#MetadataStreamingPanel,
 		#ColumnAnnouncementPanel,
-		#ColumnsExplorerPanel,
+		ColumnsExplorerPanel,
 		SayStatusPanel,
 		#AdvancedOptionsPanel,
 		#ResetSettingsPanel,
@@ -1411,16 +1446,6 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 	def onManageColumns(self, evt):
 		self.Disable()
 		ColumnAnnouncementsDialog(self).Show()
-
-	# Columns Explorer configuration.
-	def onColumnsExplorer(self, evt):
-		self.Disable()
-		ColumnsExplorerDialog(self).Show()
-
-	# Track Tool Columns Explorer configuration.
-	def onColumnsExplorerTT(self, evt):
-		self.Disable()
-		ColumnsExplorerDialog(self, tt=True).Show()
 
 	# Advanced options.
 	# See advanced options class for more details.
