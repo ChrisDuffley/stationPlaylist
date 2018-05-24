@@ -1288,9 +1288,9 @@ _configDialogOpened = False
 
 class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 	# Translators: This is the label for the StationPlaylist Studio configuration dialog.
-	title = _("Studio Add-on Settings V4")
+	title = _("Studio Add-on Settings V2")
 	categoryClasses=[
-		BroadcastProfilesPanel,
+		#BroadcastProfilesPanel,
 		GeneralSettingsPanel,
 		#AlarmsPanel,
 		PlaylistSnapshotsPanel,
@@ -1303,77 +1303,15 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 	]
 
 	def onOk(self, evt):
-		global _configDialogOpened
-		if hasattr(self, "profiles"):
-			selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
-			if splconfig.SPLConfig.activeProfile != selectedProfile:
-				splconfig.SPLConfig.swapProfiles(splconfig.SPLConfig.activeProfile, selectedProfile)
-		splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] = self.endOfTrackTime
-		splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"] = self.sayEndOfTrack
-		splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"] = self.songRampTime
-		splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"] = self.saySongRamp
-		splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"] = self.micAlarm
-		splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] = self.micAlarmInterval
-		splconfig.SPLConfig["General"]["AlarmAnnounce"] = self.alarmAnnounceValues[self.alarmAnnounceList.GetSelection()][0]
-		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
-		splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = self.metadataStreams
-		splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
-		splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"] = self.columnOrder
-		splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"] = self.includedColumns
-		splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.Value
-		splconfig.SPLConfig["General"]["ExploreColumns"] = self.exploreColumns
-		splconfig.SPLConfig["General"]["ExploreColumnsTT"] = self.exploreColumnsTT
-		splconfig.SPLConfig["Advanced"]["SPLConPassthrough"] = self.splConPassthrough
-		splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] = self.compLayer
-		splconfig.SPLConfig["Update"]["AutoUpdateCheck"] = self.autoUpdateCheck
-		splconfig.SPLConfig["Update"]["UpdateInterval"] = self.updateInterval
-		if splupdate:
-			self.pendingChannelChange = splupdate.SPLUpdateChannel != self.updateChannel
-			splupdate.SPLUpdateChannel = self.updateChannel
-		splconfig.SPLConfig.instantSwitch = self.switchProfile
-		# Make sure to nullify prev profile if instant switch profile is gone.
-		# 7.0: Don't do the following in the midst of a broadcast.
-		if self.switchProfile is None and not splconfig._triggerProfileActive:
-			splconfig.SPLConfig.prevProfile = None
-		_configDialogOpened = False
-		# 7.0: Perform extra action such as restarting auto update timer.
-		self.onCloseExtraAction()
-		# Apply changes to profile triggers.
-		splconfig.profileTriggers = dict(self._profileTriggersConfig)
-		self._profileTriggersConfig.clear()
-		self._profileTriggersConfig = None
-		splconfig.triggerStart(restart=True)
-		# 8.0: Make sure NVDA knows this must be cached (except for normal profile).
-		# 17.10: but not when config is volatile.
-		try:
-			if selectedProfile != _("Normal profile") and selectedProfile not in splconfig._SPLCache:
-				splconfig._cacheConfig(splconfig.SPLConfig.profileByName(selectedProfile))
-		except NameError:
-			pass
 		super(SPLConfigDialog,  self).onOk(evt)
+		# But because of issues encountered while saving some settings, settings dialog might still be active.
+		global _configDialogOpened
+		_configDialogOpened = False
 
 	def onCancel(self, evt):
+		super(SPLConfigDialog,  self).onCancel(evt)
 		global _configDialogOpened
 		_configDialogOpened = False
-		# 6.1: Discard changes to included columns set.
-		if self.includedColumns is not None: self.includedColumns.clear()
-		self.includedColumns = None
-		# Apply profile trigger changes if any.
-		try:
-			splconfig.profileTriggers = dict(self._profileTriggersConfig)
-			self._profileTriggersConfig.clear()
-			self._profileTriggersConfig = None
-		except AttributeError:
-			pass
-		splconfig.triggerStart(restart=True)
-		# 7.0: No matter what happens, merge appropriate profile.
-		try:
-			prevActive = self.activeProfile
-		except ValueError:
-			prevActive = _("Normal profile")
-		if self.switchProfileRenamed or self.switchProfileDeleted:
-			splconfig.SPLConfig.instantSwitch = self.switchProfile
-		super(SPLConfigDialog,  self).onCancel(evt)
 
 	def onApply(self, evt):
 		applicableProfile = None
