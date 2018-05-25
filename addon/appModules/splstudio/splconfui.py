@@ -824,9 +824,8 @@ class ColumnsExplorerDialog(wx.Dialog):
 	def onOk(self, evt):
 		parent = self.Parent
 		# #62 (18.06): manually build a list so changes won't be retained when Cancel button is clicked from main settings, caused by reference problem.
-		slots = []
-		for slot in rangeGen(len(self.columnSlots)):
-			slots.append(self.columnSlots[slot].GetStringSelection())
+		# Note that item count is based on how many column combo boxes are present in this dialog.
+		slots = [self.columnSlots[slot].GetStringSelection() for slot in rangeGen(10)]
 		if not self.trackTool: parent.exploreColumns = slots
 		else: parent.exploreColumnsTT = slots
 		parent.profiles.SetFocus()
