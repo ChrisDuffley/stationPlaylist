@@ -733,10 +733,6 @@ class AlarmsCenter(wx.Dialog):
 
 # Playlist snapshot flags
 # For things such as checkboxes for average duration and top category count.
-
-
-# Playlist snapshot flags
-# For things such as checkboxes for average duration and top category count.
 class PlaylistSnapshotsPanel(gui.SettingsPanel):
 
 	# Translators: Title of a dialog to configure playlist snapshot information.
