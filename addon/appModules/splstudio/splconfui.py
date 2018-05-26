@@ -690,8 +690,8 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 			self.checkedColumns[-1].SetValue(column in self.Parent.includedColumns)
 		colAnnouncementsHelper.addItem(sizer.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 
-		# WXPython Phoenix contains RearrangeList to allow item orders to be changed automatically.
-		# Because WXPython Classic doesn't include this, work around by using a variant of list box and move up/down buttons.
+		# wxPython 4 contains RearrangeList to allow item orders to be changed automatically.
+		# Because wxPython 3 doesn't include this, work around by using a variant of list box and move up/down buttons.
 		# 17.04: The label for the list below is above the list, so move move up/down buttons to the right of the list box.
 		# Translators: The label for a setting in SPL add-on dialog to select column announcement order.
 		self.trackColumns = colAnnouncementsHelper.addLabeledControl(_("Column &order:"), wx.ListBox, choices=parent.columnOrder)
