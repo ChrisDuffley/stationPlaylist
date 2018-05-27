@@ -1334,8 +1334,6 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		# Apply global settings first, then save settings to appropriate profile.
 		splconfig.SPLConfig["General"]["AlarmAnnounce"] = self.alarmAnnounceValues[self.alarmAnnounceList.GetSelection()][0]
 		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
-		splconfig.SPLConfig["General"]["ExploreColumns"] = self.exploreColumns
-		splconfig.SPLConfig["General"]["ExploreColumnsTT"] = self.exploreColumnsTT
 		if applicableProfile is None:
 			splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] = self.endOfTrackTime
 			splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"] = self.sayEndOfTrack
