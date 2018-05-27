@@ -1135,21 +1135,21 @@ class SayStatusPanel(gui.SettingsPanel):
 		splconfig.SPLConfig["SayStatus"]["SayStudioPlayerPosition"] = self.playerPositionCheckbox.Value
 
 # Advanced options
-# This dialog houses advanced options such as using SPL Controller command to invoke SPL Assistant.
+# This panel houses advanced options such as using SPL Controller command to invoke SPL Assistant.
 # More options will be added in 7.0.
-# 7.0: Auto update check will be configurable from this dialog.
-class AdvancedOptionsDialog(wx.Dialog):
+# 7.0: Auto update check will be configurable from this panel.
+# #6: this is one of a few panels that will make sure changes are okay to be saved (preSave).
+# It is also the only panel that will perform extra actions if OK or Apply is clicked from add-on settings dialog (postSave).
+class AdvancedOptionsPanel(gui.SettingsPanel):
 
+	# Translators: The title of a dialog to configure advanced SPL add-on options such as update checking.
+	title = _("Advanced options"))
 	# Available channels (if there's only one, channel selection list will not be shown).
 	# Prepare for a day when channels list is NULL.
 	_updateChannels = ["try", "dev", "stable"]
 
-	def __init__(self, parent):
-		# Translators: The title of a dialog to configure advanced SPL add-on options such as update checking.
-		super(AdvancedOptionsDialog, self).__init__(parent, title=_("Advanced options"))
-
-		mainSizer = wx.BoxSizer(wx.VERTICAL)
-		advOptionsHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
+	def makeSettings(self, settingsSizer):
+		advOptionsHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
 		# #48 (18.02): do not show auto-update checkbox and interval options if not needed.
 		# The exception will be custom try builds.
@@ -1157,51 +1157,41 @@ class AdvancedOptionsDialog(wx.Dialog):
 		if splupdate and splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone:
 			# Translators: A checkbox to toggle automatic add-on updates.
 			self.autoUpdateCheckbox=advOptionsHelper.addItem(wx.CheckBox(self,label=_("Automatically check for add-on &updates")))
-			self.autoUpdateCheckbox.SetValue(self.Parent.autoUpdateCheck)
+			self.autoUpdateCheckbox.SetValue(splconfig.SPLConfig["Update"]["AutoUpdateCheck"])
 			# Translators: The label for a setting in SPL add-on settings/advanced options to select automatic update interval in days.
-			self.updateInterval=advOptionsHelper.addLabeledControl(_("Update &interval in days"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=180, initial=self.Parent.updateInterval)
+			self.updateInterval=advOptionsHelper.addLabeledControl(_("Update &interval in days"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=180, initial=splconfig.SPLConfig["Update"]["UpdateInterval"])
 		else: self._updateChannels = [None]
 		# For releases that support channel switching.
 		if len(self._updateChannels) > 1:
 			# Translators: The label for a combo box to select update channel.
 			labelText = _("&Add-on update channel:")
 			self.channels=advOptionsHelper.addLabeledControl(labelText, wx.Choice, choices=["Test Drive Fast", "Test Drive Slow", "stable"])
-			self.channels.SetSelection(self._updateChannels.index(self.Parent.updateChannel))
+			self.channels.SetSelection(self._updateChannels.index(splupdate.SPLUpdateChannel))
 		# Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 		self.splConPassthroughCheckbox=advOptionsHelper.addItem(wx.CheckBox(self, label=_("Allow SPL C&ontroller command to invoke SPL Assistant layer")))
-		self.splConPassthroughCheckbox.SetValue(self.Parent.splConPassthrough)
+		self.splConPassthroughCheckbox.SetValue(splconfig.SPLConfig["Advanced"]["SPLConPassthrough"])
 		# Translators: The label for a setting in SPL add-on dialog to set keyboard layout for SPL Assistant.
 		labelText = _("SPL Assistant command &layout:")
 		self.compatibilityLayouts=[("off","NVDA"),
 		("jfw","JAWS for Windows"),
 		("wineyes","Window-Eyes")]
 		self.compatibilityList=advOptionsHelper.addLabeledControl(labelText, wx.Choice, choices=[x[1] for x in self.compatibilityLayouts])
-		selection = (x for x,y in enumerate(self.compatibilityLayouts) if y[0]==self.Parent.compLayer).next()
+		selection = (x for x,y in enumerate(self.compatibilityLayouts) if y[0]==splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]).next()
 		try:
 			self.compatibilityList.SetSelection(selection)
 		except:
 			pass
 
-		advOptionsHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
-		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
-		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
-		mainSizer.Add(advOptionsHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
-		mainSizer.Fit(self)
-		self.Sizer = mainSizer
-		try:
-			self.autoUpdateCheckbox.SetFocus()
-		except AttributeError:
-			self.splConPassthroughCheckbox.SetFocus()
-		self.Center(wx.BOTH | CENTER_ON_SCREEN)
-
-	def onOk(self, evt):
+	# Check update channel and interval here.
+	# The onSave method will just assume that it is okay to apply update channel switches and other advanced options.
+	def preSave(self):
 		addonUpdatingSupported = splupdate and splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone
 		# The try (fast ring) builds aren't for the faint of heart.
 		# 17.10: nor for old Windows releases anymore.
 		if len(self._updateChannels) > 1:
 			channel = self._updateChannels[self.channels.GetSelection()]
 			# 17.09: present this dialog if and only if switching to fast ring from other rings.
-			if self.Parent.updateChannel != "try" and channel == "try":
+			if splupdate and splupdate.SPLUpdateChannel != "try" and channel == "try":
 				if gui.messageBox(
 					# Translators: The confirmation prompt displayed when changing to the fastest development channel (with risks involved).
 					_("You are about to switch to the Test Drive Fast (try) builds channel, the fastest and most unstable development channel. Please note that the selected channel may come with updates that might be unstable at times and should be used for testing and sending feedback to the add-on developer. If you prefer to use stable releases, please answer no and switch to a more stable update channel. Are you sure you wish to switch to Test Drive Fast channel?"),
@@ -1209,33 +1199,28 @@ class AdvancedOptionsDialog(wx.Dialog):
 					_("Switching to unstable channel"),
 					wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION, self
 				) == wx.NO:
-					return
+					return False
 		if addonUpdatingSupported:
 			# If update interval is set to zero, update check will happen every time the app module loads, so warn users.
 			updateInterval = self.updateInterval.Value
-			if self.Parent.updateInterval > 0 and updateInterval == 0 and gui.messageBox(
+			if splconfig.SPLConfig["Update"]["UpdateInterval"] > 0 and updateInterval == 0 and gui.messageBox(
 				# Translators: The confirmation prompt displayed when changing update interval to zero days (updates will be checked every time Studio app module loads).
 				_("Update interval has been set to zero days, so updates to the Studio add-on will be checked every time NVDA and/or Studio starts. Are you sure you wish to continue?"),
 				# Translators: The title of the update interval dialog.
 				_("Confirm update interval"),
 				wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION, self
 			) == wx.NO:
-				return
-		parent = self.Parent
-		parent.splConPassthrough = self.splConPassthroughCheckbox.Value
-		parent.compLayer = self.compatibilityLayouts[self.compatibilityList.GetSelection()][0]
-		if addonUpdatingSupported:
-			parent.autoUpdateCheck = self.autoUpdateCheckbox.Value
-			parent.updateInterval = updateInterval
-		if len(self._updateChannels) > 1: parent.updateChannel = self._updateChannels[self.channels.GetSelection()]
-		parent.profiles.SetFocus()
-		parent.Enable()
-		self.Destroy()
-		return
+				return False
+		return True
 
-	def onCancel(self, evt):
-		self.Parent.Enable()
-		self.Destroy()
+	def onSave(self):
+		splconfig.SPLConfig["Advanced"]["SPLConPassthrough"] = self.splConPassthroughCheckbox.Value
+		splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] = self.compatibilityLayouts[self.compatibilityList.GetSelection()][0]
+		if splupdate:
+			if splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone:
+				splconfig.SPLConfig["Update"]["AutoUpdateCheck"] = self.autoUpdateCheckbox.Value
+				splconfig.SPLConfig["Update"]["UpdateInterval"] = self.updateInterval.Value
+			if len(self._updateChannels) > 1: splupdate.SPLUpdateChannel = self._updateChannels[self.channels.GetSelection()]
 
 # A dialog to reset add-on config including encoder settings and others.
 class ResetDialog(wx.Dialog):
