@@ -1185,41 +1185,36 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 	# Check update channel and interval here.
 	# The onSave method will just assume that it is okay to apply update channel switches and other advanced options.
 	def preSave(self):
-		addonUpdatingSupported = splupdate and splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone
-		# The try (fast ring) builds aren't for the faint of heart.
-		# 17.10: nor for old Windows releases anymore.
-		if len(self._updateChannels) > 1:
-			channel = self._updateChannels[self.channels.GetSelection()]
-			# 17.09: present this dialog if and only if switching to fast ring from other rings.
-			if splupdate and splupdate.SPLUpdateChannel != "try" and channel == "try":
-				if gui.messageBox(
+		if splupdate and splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone:
+			# The try (fast ring) builds aren't for the faint of heart.
+			# 17.10: nor for old Windows releases anymore.
+			if len(self._updateChannels) > 1:
+				# 17.09: present this dialog if and only if switching to fast ring from other rings.
+				if (splupdate.SPLUpdateChannel != "try" and self._updateChannels[self.channels.GetSelection()] == "try" and gui.messageBox(
 					# Translators: The confirmation prompt displayed when changing to the fastest development channel (with risks involved).
 					_("You are about to switch to the Test Drive Fast (try) builds channel, the fastest and most unstable development channel. Please note that the selected channel may come with updates that might be unstable at times and should be used for testing and sending feedback to the add-on developer. If you prefer to use stable releases, please answer no and switch to a more stable update channel. Are you sure you wish to switch to Test Drive Fast channel?"),
 					# Translators: The title of the channel switch confirmation dialog.
 					_("Switching to unstable channel"),
 					wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION, self
-				) == wx.NO:
+				) == wx.NO):
 					return False
-		if addonUpdatingSupported:
 			# If update interval is set to zero, update check will happen every time the app module loads, so warn users.
-			updateInterval = self.updateInterval.Value
-			if splconfig.SPLConfig["Update"]["UpdateInterval"] > 0 and updateInterval == 0 and gui.messageBox(
+			if (splconfig.SPLConfig["Update"]["UpdateInterval"] > 0 and self.updateInterval.Value == 0 and gui.messageBox(
 				# Translators: The confirmation prompt displayed when changing update interval to zero days (updates will be checked every time Studio app module loads).
 				_("Update interval has been set to zero days, so updates to the Studio add-on will be checked every time NVDA and/or Studio starts. Are you sure you wish to continue?"),
 				# Translators: The title of the update interval dialog.
 				_("Confirm update interval"),
 				wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION, self
-			) == wx.NO:
+			) == wx.NO):
 				return False
 		return True
 
 	def onSave(self):
 		splconfig.SPLConfig["Advanced"]["SPLConPassthrough"] = self.splConPassthroughCheckbox.Value
 		splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] = self.compatibilityLayouts[self.compatibilityList.GetSelection()][0]
-		if splupdate:
-			if splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone:
-				splconfig.SPLConfig["Update"]["AutoUpdateCheck"] = self.autoUpdateCheckbox.Value
-				splconfig.SPLConfig["Update"]["UpdateInterval"] = self.updateInterval.Value
+		if splupdate and splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone:
+			splconfig.SPLConfig["Update"]["AutoUpdateCheck"] = self.autoUpdateCheckbox.Value
+			splconfig.SPLConfig["Update"]["UpdateInterval"] = self.updateInterval.Value
 			if len(self._updateChannels) > 1: splupdate.SPLUpdateChannel = self._updateChannels[self.channels.GetSelection()]
 
 # A dialog to reset add-on config including encoder settings and others.
