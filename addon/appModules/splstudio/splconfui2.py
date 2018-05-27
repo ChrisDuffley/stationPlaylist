@@ -1143,7 +1143,7 @@ class SayStatusPanel(gui.SettingsPanel):
 class AdvancedOptionsPanel(gui.SettingsPanel):
 
 	# Translators: The title of a dialog to configure advanced SPL add-on options such as update checking.
-	title = _("Advanced options"))
+	title = _("Advanced options")
 	# Available channels (if there's only one, channel selection list will not be shown).
 	# Prepare for a day when channels list is NULL.
 	_updateChannels = ["try", "dev", "stable"]
