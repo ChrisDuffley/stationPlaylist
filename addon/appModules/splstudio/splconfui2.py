@@ -1308,7 +1308,7 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		#ColumnAnnouncementPanel,
 		ColumnsExplorerPanel,
 		SayStatusPanel,
-		#AdvancedOptionsPanel,
+		AdvancedOptionsPanel,
 		#ResetSettingsPanel,
 	]
 
@@ -1336,13 +1336,6 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
 		splconfig.SPLConfig["General"]["ExploreColumns"] = self.exploreColumns
 		splconfig.SPLConfig["General"]["ExploreColumnsTT"] = self.exploreColumnsTT
-		splconfig.SPLConfig["Advanced"]["SPLConPassthrough"] = self.splConPassthrough
-		splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] = self.compLayer
-		splconfig.SPLConfig["Update"]["AutoUpdateCheck"] = self.autoUpdateCheck
-		splconfig.SPLConfig["Update"]["UpdateInterval"] = self.updateInterval
-		if splupdate:
-			self.pendingChannelChange = splupdate.SPLUpdateChannel != self.updateChannel
-			splupdate.SPLUpdateChannel = self.updateChannel
 		if applicableProfile is None:
 			splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] = self.endOfTrackTime
 			splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"] = self.sayEndOfTrack
@@ -1421,12 +1414,6 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 	def onManageColumns(self, evt):
 		self.Disable()
 		ColumnAnnouncementsDialog(self).Show()
-
-	# Advanced options.
-	# See advanced options class for more details.
-	def onAdvancedOptions(self, evt):
-		self.Disable()
-		AdvancedOptionsDialog(self).Show()
 
 	# Reset settings to defaults.
 	# This affects the currently selected profile.
