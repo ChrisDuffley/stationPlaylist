@@ -12,7 +12,7 @@ IMPORTANT NOTES:
 
 * This add-on requires NVDA 2017.4 or later and StationPlaylist Studio 5.10 or later.
 * If using Windows 8 or later, for best experience, disable audio ducking mode.
-* add-on 8.0/16.10 requires Studio 5.10 or later. For broadcasters using Studio 5.0x and/or Windows XP, Vista or 7 without Service Pack 1, a [long-term support version][3] (15.x) is available. The last stable version to support Windows releases prior to 7 Service Pack 1 is 17.11.2.
+* add-on 8.0/16.10 requires Studio 5.10 or later.
 * Starting from 2018, [changelogs for old add-on releases][5] will be found on GitHub. This add-on readme will list changes from version 5.0 (2015 onwards).
 * Certain add-on features (notably add-on updating) won't work under some conditions, including running NVDA in secure mode.
 * Due to tecnical limitations, you cannot install or use this add-on on Windows Store version of NVDA.
@@ -192,6 +192,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Version 18.06
 
 * In add-on settings, added "Apply" button so changes to settings can be applied to the currently selected and/or active profile without closing the dialog first. This feature is available for NVDA 2018.2 users.
+* Resolved an issue where NVDA would apply changes to Columns Explorer settings despite pressing Cancel button from add-on settings dialog.
 * When pressing Control+NVDA+number row twice while focused on a track, NVDA will display column information for a specific column on a browse mode window.
 * While focused on a track, pressing Control+NVDA+Dash will display data for all columns on a browse mode window.
 * Added Markdown table format as a playlist transcripts format.
@@ -569,8 +570,6 @@ Please see changelog link for release notes for old add-on releases.
 [1]: https://addons.nvda-project.org/files/get.php?file=spl
 
 [2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
-
-[3]: http://www.josephsl.net/files/nvdaaddons/getupdate.php?file=spl-lts16
 
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 
