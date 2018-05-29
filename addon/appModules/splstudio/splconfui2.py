@@ -903,17 +903,17 @@ class ColumnAnnouncementsPanel(gui.SettingsPanel):
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		for column in ("Duration", "Intro", "Category", "Filename"):
 			self.checkedColumns.append(sizer.addItem(wx.CheckBox(self, label=column)))
-			self.checkedColumns[-1].SetValue(column in self.self.includedColumns)
+			self.checkedColumns[-1].SetValue(column in self.includedColumns)
 		colAnnouncementsHelper.addItem(sizer.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		for column in ("Outro","Year","Album","Genre","Mood","Energy"):
 			self.checkedColumns.append(sizer.addItem(wx.CheckBox(self, label=column)))
-			self.checkedColumns[-1].SetValue(column in self.self.includedColumns)
+			self.checkedColumns[-1].SetValue(column in self.includedColumns)
 		colAnnouncementsHelper.addItem(sizer.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		for column in ("Tempo","BPM","Gender","Rating","Time Scheduled"):
 			self.checkedColumns.append(sizer.addItem(wx.CheckBox(self, label=column)))
-			self.checkedColumns[-1].SetValue(column in self.self.includedColumns)
+			self.checkedColumns[-1].SetValue(column in self.includedColumns)
 		colAnnouncementsHelper.addItem(sizer.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 
 		# wxPython 4 contains RearrangeList to allow item orders to be changed automatically.
@@ -941,7 +941,6 @@ class ColumnAnnouncementsPanel(gui.SettingsPanel):
 		self.columnHeadersCheckbox.SetValue(splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"])
 
 	def onSave(self, applyOnly=False):
-		parent = self.Parent
 		splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
 		splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"] = self.trackColumns.GetItems()
 		# Make sure artist and title are always included.
