@@ -943,13 +943,14 @@ class ColumnAnnouncementsPanel(gui.SettingsPanel):
 	def onSave(self, applyOnly=False):
 		parent = self.Parent
 		splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
-		parent.columnOrder = self.trackColumns.GetItems()
+		splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"] = self.trackColumns.GetItems()
 		# Make sure artist and title are always included.
-		parent.includedColumns.add("Artist")
-		parent.includedColumns.add("Title")
+		self.includedColumns.add("Artist")
+		self.includedColumns.add("Title")
 		for checkbox in self.checkedColumns:
-			action = parent.includedColumns.add if checkbox.Value else parent.includedColumns.discard
+			action = self.includedColumns.add if checkbox.Value else self.includedColumns.discard
 			action(checkbox.Label)
+		splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"] = self.includedColumns
 		splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.Value
 
 	def onCancel(self, evt):
