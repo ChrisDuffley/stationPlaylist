@@ -1332,6 +1332,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.Value
 		splconfig.SPLConfig["General"]["ExploreColumns"] = self.exploreColumns
 		splconfig.SPLConfig["General"]["ExploreColumnsTT"] = self.exploreColumnsTT
+		splconfig.SPLConfig["General"]["ExploreColumnsCreator"] = self.exploreColumnsCreator
 		splconfig.SPLConfig["General"]["VerticalColumnAnnounce"] = self.verticalColumn
 		splconfig.SPLConfig["SayStatus"]["SayScheduledFor"] = self.scheduledFor
 		splconfig.SPLConfig["SayStatus"]["SayListenerCount"] = self.listenerCount
@@ -1421,6 +1422,7 @@ class SPLConfigDialog(gui.SettingsDialog):
 		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
 		splconfig.SPLConfig["General"]["ExploreColumns"] = self.exploreColumns
 		splconfig.SPLConfig["General"]["ExploreColumnsTT"] = self.exploreColumnsTT
+		splconfig.SPLConfig["General"]["ExploreColumnsCreator"] = self.exploreColumnsCreator
 		splconfig.SPLConfig["General"]["VerticalColumnAnnounce"] = self.verticalColumn
 		splconfig.SPLConfig["SayStatus"]["SayScheduledFor"] = self.scheduledFor
 		splconfig.SPLConfig["SayStatus"]["SayListenerCount"] = self.listenerCount
@@ -1701,7 +1703,12 @@ class SPLConfigDialog(gui.SettingsDialog):
 	# Track Tool Columns Explorer configuration.
 	def onColumnsExplorerTT(self, evt):
 		self.Disable()
-		ColumnsExplorerDialog(self, tt=True).Show()
+		ColumnsExplorerDialog(self, level=1).Show()
+
+	# SPL Creator Columns Explorer configuration.
+	def onColumnsExplorerCreator(self, evt):
+		self.Disable()
+		ColumnsExplorerDialog(self, level=2).Show()
 
 	# Status announcement dialog.
 	def onStatusAnnouncement(self, evt):
