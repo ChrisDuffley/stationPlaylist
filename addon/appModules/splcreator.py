@@ -38,7 +38,7 @@ class SPLCreatorItem(IAccessible):
 	def announceColumnContent(self, colNumber, columnHeader=None, individualColumns=False):
 		if not columnHeader:
 			columnHeader = self.columnHeaders.children[colNumber].name
-			# LTS: Studio 5.10 data structure change is evident in Track Tool as well, so don't rely on column headers alone.
+			# LTS: Studio 5.10 data structure change is also seen in Creator, so don't rely on column headers alone.
 			internalHeaders = indexOf(self.appModule.productVersion)
 			if internalHeaders[colNumber] != columnHeader:
 				colNumber = internalHeaders.index(columnHeader)
@@ -77,12 +77,12 @@ class SPLCreatorItem(IAccessible):
 
 	def script_columnExplorer(self, gesture):
 		# Just like the main app module, due to the below formula, columns explorer will be restricted to number commands.
-		header = splconfig.SPLConfig["General"]["ExploreColumnsTT"][int(gesture.displayName.split("+")[-1])-1]
+		header = splconfig.SPLConfig["General"]["ExploreColumnsCreator"][int(gesture.displayName.split("+")[-1])-1]
 		# Several corner cases.
 		# Look up track name if artist is the header name.
 		if header == "Artist":
 			if self.name is None:
-				# Translators: Presented when artist information is not found for a track in Track Tool.
+				# Translators: Presented when artist information is not found for a track in StationPlaylist Creator.
 				ui.message(_("No artist"))
 			else:
 				# Translators: Presents artist information for a track in Track Tool.
