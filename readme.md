@@ -31,8 +31,8 @@ IMPORTANT NOTES:
 * Control+Shift+X from Studio window: Steps through braille timer settings.
 * Control+Alt+left/right arrow (while focused on a track): Announce previous/next track column.
 * Control+Alt+up/down arrow (while focused on a track): Move to previous or next track and announce specific columns (unavailable in add-on 15.x).
-* Control+NVDA+1 through 0: Announce column content for a specified column. Pressing twice will display column information on a browse mode window.
-* Control+NVDA+- (hyphen): display data for all columns in a track on a browse mode window.
+* Control+NVDA+1 through 0: Announce column content for a specified column. In Studio, pressing this command twice will display column information on a browse mode window.
+* Control+NVDA+- (hyphen in Studio): display data for all columns in a track on a browse mode window.
 * Alt+NVDA+C while focused on a track: announces track comments if any.
 * Alt+NVDA+0 from Studio window: Opens the Studio add-on configuration dialog.
 * Alt+NVDA+- (hyphen) from Studio window: Send feedback to add-on developer using the default email client.
@@ -193,8 +193,10 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 * In add-on settings, added "Apply" button so changes to settings can be applied to the currently selected and/or active profile without closing the dialog first. This feature is available for NVDA 2018.2 users.
 * Resolved an issue where NVDA would apply changes to Columns Explorer settings despite pressing Cancel button from add-on settings dialog.
-* When pressing Control+NVDA+number row twice while focused on a track, NVDA will display column information for a specific column on a browse mode window.
-* While focused on a track, pressing Control+NVDA+Dash will display data for all columns on a browse mode window.
+* In Studio, when pressing Control+NVDA+number row twice while focused on a track, NVDA will display column information for a specific column on a browse mode window.
+* While focused on a track in Studio, pressing Control+NVDA+Dash will display data for all columns on a browse mode window.
+* In StationPlaylist Creator, when focused on a track, pressing Control+NVDA+number row will announce data in specific column.
+* Added a button in Studio add-on settings to configure Columns Explorer for SPL Creator.
 * Added Markdown table format as a playlist transcripts format.
 * The developer feedback email command has changed from Control+NVDA+dash to Alt+NVDA+dash.
 
