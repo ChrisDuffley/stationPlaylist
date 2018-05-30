@@ -63,6 +63,7 @@ MetadataReminder = option("off", "startup", "instant", default="off")
 TimeHourAnnounce = boolean(default=true)
 ExploreColumns = string_list(default=list("Artist","Title","Duration","Intro","Category","Filename","Year","Album","Genre","Time Scheduled"))
 ExploreColumnsTT = string_list(default=list("Artist","Title","Duration","Cue","Overlap","Intro","Segue","Filename","Album","CD Code"))
+ExploreColumnsCreator = string_list(default=list("Artist","Title","Position","Cue","Intro","Segue","Duration","Last Scheduled","7 Days","Date Restriction"))
 VerticalColumnAnnounce = option(None,"Status","Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled",default=None)
 [PlaylistSnapshots]
 DurationMinMax = boolean(default=true)
