@@ -1025,16 +1025,23 @@ class ColumnsExplorerPanel(gui.SettingsPanel):
 
 class ColumnsExplorerDialog(wx.Dialog):
 
-	def __init__(self, parent, tt=False):
-		self.trackTool = tt
-		if not tt:
+	def __init__(self, parent, level=0):
+		self.level = level
+		if level == 0:
 			# Translators: The title of Columns Explorer configuration dialog.
 			actualTitle = _("Columns Explorer")
 			cols = splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
-		else:
+			slots = parent.exploreColumns
+		elif level == 1:
 			# Translators: The title of Columns Explorer configuration dialog.
 			actualTitle = _("Columns Explorer for Track Tool")
 			cols = ("Artist","Title","Duration","Cue","Overlap","Intro","Segue","Filename","Album","CD Code","Outro","Year","URL 1","URL 2","Genre")
+			slots = parent.exploreColumnsTT
+		elif level == 2:
+			# Translators: The title of Columns Explorer configuration dialog.
+			actualTitle = _("Columns Explorer for SPL Creator")
+			cols = ("Artist", "Title", "Position", "Cue", "Intro", "Outro", "Segue", "Duration", "Last Scheduled", "7 Days", "Date Restriction", "Year", "Album", "Genre", "Mood", "Energy", "Tempo", "BPM", "Gender", "Rating", "File Created", "Filename", "Client", "Other", "Intro Link", "Outro Link")
+			slots = parent.exploreColumnsCreator
 		# Gather column slots.
 		self.columnSlots = []
 
@@ -1049,7 +1056,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 			# Translators: The label for a setting in SPL add-on dialog to select column for this column slot.
 			columns = sizer.addLabeledControl(_("Slot {position}").format(position = slot+1), wx.Choice, choices=cols)
 			try:
-				columns.SetSelection(cols.index(parent.exploreColumns[slot] if not tt else parent.exploreColumnsTT[slot]))
+				columns.SetSelection(cols.index(slots[slot]))
 			except:
 				pass
 			self.columnSlots.append(columns)
@@ -1059,7 +1066,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 		for slot in rangeGen(5, 10):
 			columns = sizer.addLabeledControl(_("Slot {position}").format(position = slot+1), wx.Choice, choices=cols)
 			try:
-				columns.SetSelection(cols.index(parent.exploreColumns[slot] if not tt else parent.exploreColumnsTT[slot]))
+				columns.SetSelection(cols.index(slots[slot]))
 			except:
 				pass
 			self.columnSlots.append(columns)
@@ -1078,9 +1085,12 @@ class ColumnsExplorerDialog(wx.Dialog):
 		parent = self.Parent
 		# #62 (18.06): manually build a list so changes won't be retained when Cancel button is clicked from main settings, caused by reference problem.
 		# Note that item count is based on how many column combo boxes are present in this dialog.
+		# #63 (18.06): use levels instead due to introduction of Columns Explorer for SPL Creator.
 		slots = [self.columnSlots[slot].GetStringSelection() for slot in rangeGen(10)]
-		if not self.trackTool: parent.exploreColumns = slots
-		else: parent.exploreColumnsTT = slots
+		if self.level == 0: parent.exploreColumns = slots
+		elif self.level == 1: parent.exploreColumnsTT = slots
+		elif self.level == 2: parent.exploreColumnsCreator = slots
+		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()
 		return
