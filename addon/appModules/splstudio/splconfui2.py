@@ -1007,11 +1007,16 @@ class ColumnsExplorerPanel(gui.SettingsPanel):
 		columnsExplorerTTButton = wx.Button(self, label=_("Columns Explorer for &Track Tool..."))
 		columnsExplorerTTButton.Bind(wx.EVT_BUTTON, self.onColumnsExplorerTT)
 		self.exploreColumnsTT = splconfig.SPLConfig["General"]["ExploreColumnsTT"]
-		colExplorerHelper.sizer.AddMany((columnsExplorerButton, columnsExplorerTTButton))
+		# Translators: The label of a button to configure columns explorer slots (SPL Assistant, number row keys to announce specific columns).
+		columnsExplorerCreatorButton = wx.Button(self, label=_("Columns Explorer for &SPL Creator..."))
+		columnsExplorerCreatorButton.Bind(wx.EVT_BUTTON, self.onColumnsExplorerCreator)
+		self.exploreColumnsCreator = splconfig.SPLConfig["General"]["ExploreColumnsCreator"]
+		colExplorerHelper.sizer.AddMany((columnsExplorerButton, columnsExplorerTTButton, columnsExplorerCreatorButton))
 
 	def onSave(self):
 		splconfig.SPLConfig["General"]["ExploreColumns"] = self.exploreColumns
 		splconfig.SPLConfig["General"]["ExploreColumnsTT"] = self.exploreColumnsTT
+		splconfig.SPLConfig["General"]["ExploreColumnsCreator"] = self.exploreColumnsCreator
 
 	# Columns Explorer configuration.
 	def onColumnsExplorer(self, evt):
@@ -1021,7 +1026,12 @@ class ColumnsExplorerPanel(gui.SettingsPanel):
 	# Track Tool Columns Explorer configuration.
 	def onColumnsExplorerTT(self, evt):
 		self.Disable()
-		ColumnsExplorerDialog(self, tt=True).Show()
+		ColumnsExplorerDialog(self, level=1).Show()
+
+	# SPL CreatorColumns Explorer configuration.
+	def onColumnsExplorerTT(self, evt):
+		self.Disable()
+		ColumnsExplorerDialog(self, level=2).Show()
 
 class ColumnsExplorerDialog(wx.Dialog):
 
