@@ -1157,8 +1157,8 @@ class SayStatusPanel(gui.SettingsPanel):
 # This panel houses advanced options such as using SPL Controller command to invoke SPL Assistant.
 # More options will be added in 7.0.
 # 7.0: Auto update check will be configurable from this panel.
-# #6: this is one of a few panels that will make sure changes are okay to be saved (preSave).
-# It is also the only panel that will perform extra actions if OK or Apply is clicked from add-on settings dialog (postSave).
+# #6: this is one of a few panels that will make sure changes are okay to be saved (isValid).
+# It is also one of two panels (the other one being broadcast profiles) that will perform extra actions if OK or Apply is clicked from add-on settings dialog (postSave).
 class AdvancedOptionsPanel(gui.SettingsPanel):
 
 	# Translators: The title of a dialog to configure advanced SPL add-on options such as update checking.
@@ -1203,7 +1203,7 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 
 	# Check update channel and interval here.
 	# The onSave method will just assume that it is okay to apply update channel switches and other advanced options.
-	def preSave(self):
+	def isValid(self):
 		if splupdate and splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone:
 			# The try (fast ring) builds aren't for the faint of heart.
 			# 17.10: nor for old Windows releases anymore.
