@@ -89,25 +89,25 @@ class TrackToolItem(IAccessible):
 	def script_columnExplorer(self, gesture):
 		# Just like the main app module, due to the below formula, columns explorer will be restricted to number commands.
 		header = splconfig.SPLConfig["General"]["ExploreColumnsTT"][int(gesture.displayName.split("+")[-1])-1]
-		# Several corner cases.
-		# Look up track name if artist is the header name.
-		if header == "Artist":
-			if self.name is None:
-				# Translators: Presented when artist information is not found for a track in Track Tool.
-				ui.message(_("No artist"))
-			else:
-				# Translators: Presents artist information for a track in Track Tool.
-				ui.message(_("Artist: {artistName}").format(artistName = self.name))
-		# Special case for intro to make it compatible with old add-on releases.
-		elif header == "Intro" and "Intro:" not in self.description:
-			# Translators: Presented when intro is not defined for a track in Track Tool.
-			ui.message(_("Introduction not set"))
+		try:
+			colNumber = indexOf(self.appModule.productVersion).index(header)
+		except ValueError:
+			# Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
+			ui.message(_("{headerText} not found").format(headerText = header))
+			return
+		if scriptHandler.getLastScriptRepeatCount() == 0: self.announceColumnContent(colNumber, columnHeader=header)
 		else:
-			try:
-				self.announceColumnContent(indexOf(self.appModule.productVersion).index(header), columnHeader=header)
-			except ValueError:
-				# Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
-				ui.message(_("{headerText} not found").format(headerText = header))
+			# 18.07: an exact copy of column announcement method with changes.
+			internalHeaders = indexOf(self.appModule.productVersion)
+			if internalHeaders[colNumber] != header:
+				colNumber = internalHeaders.index(header)
+			columnContent = _getColumnContent(self, colNumber)
+			if columnContent is None:
+				# Translators: presented when column information for a track is empty.
+				columnContent = _("blank")
+			ui.browseableMessage("{0}: {1}".format(header, columnContent),
+				# Translators: Title of the column data window.
+				title=_("Track data"))
 
 	__gestures={
 		"kb:control+alt+rightArrow":"nextColumn",
