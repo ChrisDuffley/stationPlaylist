@@ -9,6 +9,7 @@ import appModuleHandler
 import addonHandler
 import tones
 import ui
+import scriptHandler
 from NVDAObjects.IAccessible import IAccessible
 from splstudio import splconfig
 from splstudio.splmisc import _getColumnContent
