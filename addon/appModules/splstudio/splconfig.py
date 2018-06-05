@@ -116,6 +116,8 @@ _mutatableSettings=("IntroOutroAlarms", "MicrophoneAlarm", "MetadataStreaming", 
 confspecprofiles = {sect:key for sect, key in confspec.items() if sect in _mutatableSettings}
 # Translators: The name of the default (normal) profile.
 defaultProfileName = _("Normal profile")
+# StationPlaylist components.
+_SPLComponents_ = ("splstudio", "splcreator", "tracktool")
 
 # 8.0: Run-time config storage and management will use ConfigHub data structure, a subclass of chain map.
 # A chain map allows a dictionary to look up predefined mappings to locate a key.
@@ -135,11 +137,14 @@ class ConfigHub(ChainMap):
 	"""
 
 	def __init__(self, splComponent=None):
+		# Check SPL components to make sure malicious actors don't tamper with it.
+		if splComponent is None: splComponent = "splstudio"
+		if splComponent not in _SPLComponents_:
+			raise RuntimeError("Not a StationPlaylist component, cannot create SPL add-on Config Hub database")
 		# Create a "fake" map entry, to be replaced by the normal profile later.
 		super(ConfigHub, self).__init__()
 		# #64 (18.07): keep an eye on which SPL component opened this map.
 		self.splComponents = set()
-		if splComponent is None: splComponent = "splstudio"
 		self.splComponents.add(splComponent)
 		# 17.09 only: a private variable to be set when config must become volatile.
 		# 17.10: now pull it in from command line.
