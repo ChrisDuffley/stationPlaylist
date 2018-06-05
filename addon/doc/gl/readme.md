@@ -184,8 +184,8 @@ As ordes dispoñibles son:
   máis longa, etc.).
 * Shift+F8: Solicita transcripcións da listaxe de reprodución en varios
   formatos.
-* F9: Mark current track for start of playlist analysis (playlist viewer
-  only).
+* F9: marca a pista actual como inicio da análise de lista de reprodución
+  (só no visualizador de lista de reprodución).
 * F10: realiza análise de tempo da pista (só no visualizador de lista de
   reprodución).
 * F12: cambia entre un perfil actual e un predefinido.
@@ -292,7 +292,7 @@ presente a información da instantánea da listaxe de reprodución coma unha
 páxina web para que podas usar o modo exploración para navegar (preme escape
 para pechar).
 
-## Playlist Transcripts
+## Transcripcións da listaxe de reprodución
 
 Premendo en SPL Assistant, Shift+F8 presentará una Caixa de diálogo para
 permitirche solicitar transcripcións de listaxe de reproducción en varios
@@ -314,17 +314,18 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
-## Version 18.05
+## Versión 18.05
 
-* Added ability to take partial playlist snapshots. This can be done by
-  defining analysis range (SPL Assistant, F9 at the start of the analysis
-  range) and moving to another item and performing playlist snapshots
-  command.
-* Added a new command in SPL Assistant to request playlist transcripts in a
-  number of formats (Shift+F8). These include plain text, an HTML table, or
-  an HTML list.
-* Various playlist analysis features such as track time analysis and
-  playlist snapshots are now grouped under the theme of "Playlist Analyzer".
+* Engadida a posibilidade de tomar capturas parciais da lista de
+  reprodución. Pódese facer definindo un rango de análise (asistente SPL, F9
+  ao comezo do rango de análise) e movéndose a outro elemento, e executando
+  o comando de capturas de lista de reprodución. 
+* Engadido un novo comando no asistente SPL para solicitar transcricións da
+  lista de reprodución nun número de formatos (shift+F8). Éstes inclúen
+  texto plano, unha táboa HTML ou unha listaxe HTML.
+* Varias características para análise de listas de reprodución, como a
+  análise do tempo de pista e capturas de lista de reprodución están agora
+  agrupadas baixo o título "Analizador de lista de reprodución".
 
 ## Versión 18.04.1
 

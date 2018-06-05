@@ -27,641 +27,7 @@ rangeGen = range if py3 else xrange
 # Until wx.CENTER_ON_SCREEN returns...
 CENTER_ON_SCREEN = wx.CENTER_ON_SCREEN if hasattr(wx, "CENTER_ON_SCREEN") else 2
 
-# Configuration dialog.
-_configDialogOpened = False
-
-class SPLConfigDialog(gui.SettingsDialog):
-	# Translators: This is the label for the StationPlaylist Studio configuration dialog.
-	title = _("Studio Add-on Settings")
-
-	def __init__(self, parent):
-		# #59 (18.05): backward compatibility.
-		if hasattr(gui, "SettingsPanel"):
-			super(SPLConfigDialog, self).__init__(parent, hasApplyButton=True)
-		else:
-			super(SPLConfigDialog, self).__init__(parent)
-
-	def makeSettings(self, settingsSizer):
-		SPLConfigHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
-		# #40 (17.12): respond to app terminate notification by closing this dialog.
-		# All top-level dialogs will be affected by this, and apart from this one, others will check for flags also.
-		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
-
-		# Broadcast profile controls were inspired by Config Profiles dialog in NVDA Core.
-		# 7.0: Have a copy of the sorted profiles so the actual combo box items can show profile flags.
-		# 8.0: No need to sort as profile names from ConfigHub knows what to do.
-		# 17.10: skip this if only normal profile is in use.
-		if not (splconfig.SPLConfig.configInMemory or splconfig.SPLConfig.normalProfileOnly):
-			self.profileNames = list(splconfig.SPLConfig.profileNames)
-			self.profileNames[0] = _("Normal profile")
-			# Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
-			self.profiles = SPLConfigHelper.addLabeledControl(_("Broadcast &profile:"), wx.Choice, choices=self.displayProfiles(list(self.profileNames)))
-			self.profiles.Bind(wx.EVT_CHOICE, self.onProfileSelection)
-			try:
-				self.profiles.SetSelection(self.profileNames.index(splconfig.SPLConfig.activeProfile))
-			except:
-				pass
-
-		# Profile controls code credit: NV Access (except copy button).
-		# 17.10: if restrictions such as volatile config are applied, disable this area entirely.
-		if not (splconfig.SPLConfig.volatileConfig or splconfig.SPLConfig.normalProfileOnly or splconfig.SPLConfig.configInMemory):
-			sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
-			# Translators: The label of a button to create a new broadcast profile.
-			newButton = wx.Button(self, label=_("&New"))
-			newButton.Bind(wx.EVT_BUTTON, self.onNew)
-			# Translators: The label of a button to copy a broadcast profile.
-			copyButton = wx.Button(self, label=_("Cop&y"))
-			copyButton.Bind(wx.EVT_BUTTON, self.onCopy)
-			# Translators: The label of a button to rename a broadcast profile.
-			self.renameButton = wx.Button(self, label=_("&Rename"))
-			self.renameButton.Bind(wx.EVT_BUTTON, self.onRename)
-			# Translators: The label of a button to delete a broadcast profile.
-			self.deleteButton = wx.Button(self, label=_("&Delete"))
-			self.deleteButton.Bind(wx.EVT_BUTTON, self.onDelete)
-			# Have a copy of the triggers dictionary.
-			self._profileTriggersConfig = dict(splconfig.profileTriggers)
-			# Translators: The label of a button to manage show profile triggers.
-			self.triggerButton = wx.Button(self, label=_("&Triggers..."))
-			self.triggerButton.Bind(wx.EVT_BUTTON, self.onTriggers)
-			sizer.sizer.AddMany((newButton, copyButton, self.renameButton, self.deleteButton, self.triggerButton))
-			# Translators: The label for a setting in SPL Add-on settings to configure countdown seconds before switching profiles.
-			self.triggerThreshold = sizer.addLabeledControl(_("Countdown seconds before switching profiles"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=10, max=60, initial=splconfig.SPLConfig["Advanced"]["ProfileTriggerThreshold"])
-			if self.profiles.GetSelection() == 0:
-				self.renameButton.Disable()
-				self.deleteButton.Disable()
-				self.triggerButton.Disable()
-			SPLConfigHelper.addItem(sizer.sizer)
-		self.switchProfile = splconfig.SPLConfig.instantSwitch
-		self.activeProfile = splconfig.SPLConfig.activeProfile
-		# Used as sanity check in case switch profile is renamed or deleted.
-		self.switchProfileRenamed = False
-		self.switchProfileDeleted = False
-
-		self.beepAnnounce = splconfig.SPLConfig["General"]["BeepAnnounce"]
-		self.messageVerbosity = splconfig.SPLConfig["General"]["MessageVerbosity"]
-		self.brailleTimer = splconfig.SPLConfig["General"]["BrailleTimer"]
-		self.libScan = splconfig.SPLConfig["General"]["LibraryScanAnnounce"]
-		self.hourAnnounce = splconfig.SPLConfig["General"]["TimeHourAnnounce"]
-		self.verticalColumn = splconfig.SPLConfig["General"]["VerticalColumnAnnounce"]
-		self.categorySounds = splconfig.SPLConfig["General"]["CategorySounds"]
-		self.trackComments = splconfig.SPLConfig["General"]["TrackCommentAnnounce"]
-		self.topBottom = splconfig.SPLConfig["General"]["TopBottomAnnounce"]
-		self.requestsAlert = splconfig.SPLConfig["General"]["RequestsAlert"]
-		# Translators: The label of a button to open a dialog to configure general add-on settings such as beep announcement and top and bottom notifications.
-		self.generalSettingsButton = SPLConfigHelper.addItem(wx.Button(self, label=_("&General add-on settings...")))
-		self.generalSettingsButton.Bind(wx.EVT_BUTTON, self.onGeneralSettings)
-
-		self.endOfTrackTime = splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"]
-		self.sayEndOfTrack = splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"]
-		self.songRampTime = splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"]
-		self.saySongRamp = splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"]
-		self.micAlarm = splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"]
-		self.micAlarmInterval = splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"]
-		# Translators: The label of a button to open a dialog to configure various alarms.
-		alarmsCenterButton = SPLConfigHelper.addItem(wx.Button(self, label=_("&Alarms Center...")))
-		alarmsCenterButton.Bind(wx.EVT_BUTTON, self.onAlarmsCenter)
-
-		# Translators: One of the alarm notification options.
-		self.alarmAnnounceValues=[("beep",_("beep")),
-		# Translators: One of the alarm notification options.
-		("message",_("message")),
-		# Translators: One of the alarm notification options.
-		("both",_("both beep and message"))]
-		# Translators: The label for a setting in SPL add-on dialog to control alarm announcement type.
-		self.alarmAnnounceList = SPLConfigHelper.addLabeledControl(_("&Alarm notification:"), wx.Choice, choices=[x[1] for x in self.alarmAnnounceValues])
-		alarmAnnounceCurValue=splconfig.SPLConfig["General"]["AlarmAnnounce"]
-		selection = (x for x,y in enumerate(self.alarmAnnounceValues) if y[0]==alarmAnnounceCurValue).next()
-		try:
-			self.alarmAnnounceList.SetSelection(selection)
-		except:
-			pass
-
-		# Translators: The label of a button to manage playlist snapshot flags.
-		playlistSnapshotFlagsButton = SPLConfigHelper.addItem(wx.Button(self, label=_("&Playlist snapshots...")))
-		playlistSnapshotFlagsButton.Bind(wx.EVT_BUTTON, self.onPlaylistSnapshotFlags)
-		# Playlist snapshot flags to be manipulated by the configuration dialog.
-		self.playlistDurationMinMax = splconfig.SPLConfig["PlaylistSnapshots"]["DurationMinMax"]
-		self.playlistDurationAverage = splconfig.SPLConfig["PlaylistSnapshots"]["DurationAverage"]
-		self.playlistArtistCount = splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCount"]
-		self.playlistArtistCountLimit = splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCountLimit"]
-		self.playlistCategoryCount = splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCount"]
-		self.playlistCategoryCountLimit = splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCountLimit"]
-		self.playlistGenreCount = splconfig.SPLConfig["PlaylistSnapshots"]["GenreCount"]
-		self.playlistGenreCountLimit = splconfig.SPLConfig["PlaylistSnapshots"]["GenreCountLimit"]
-		self.resultsWindowOnFirstPress = splconfig.SPLConfig["PlaylistSnapshots"]["ShowResultsWindowOnFirstPress"]
-
-		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
-		self.metadataValues=[("off",_("Off")),
-		# Translators: One of the metadata notification settings.
-		("startup",_("When Studio starts")),
-		# Translators: One of the metadata notification settings.
-		("instant",_("When instant switch profile is active"))]
-		# Translators: the label for a setting in SPL add-on settings to be notified that metadata streaming is enabled.
-		self.metadataList = sizer.addLabeledControl(_("&Metadata streaming notification and connection"), wx.Choice, choices=[x[1] for x in self.metadataValues])
-		metadataCurValue=splconfig.SPLConfig["General"]["MetadataReminder"]
-		selection = (x for x,y in enumerate(self.metadataValues) if y[0]==metadataCurValue).next()
-		try:
-			self.metadataList.SetSelection(selection)
-		except:
-			pass
-		self.metadataStreams = list(splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"])
-		# Translators: The label of a button to manage column announcements.
-		manageMetadataButton = sizer.addItem(wx.Button(self, label=_("Configure metadata &streaming connection options...")))
-		manageMetadataButton.Bind(wx.EVT_BUTTON, self.onManageMetadata)
-		SPLConfigHelper.addItem(sizer.sizer)
-
-		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
-		# Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
-		self.columnOrderCheckbox=sizer.addItem(wx.CheckBox(self,wx.ID_ANY,label=_("Announce columns in the &order shown on screen")))
-		self.columnOrderCheckbox.SetValue(splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"])
-		self.columnOrder = splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"]
-		# Without manual conversion below, it produces a rare bug where clicking cancel after changing column inclusion causes new set to be retained.
-		self.includedColumns = set(splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"])
-		# Translators: The label of a button to manage column announcements.
-		manageColumnsButton = sizer.addItem(wx.Button(self, label=_("&Manage track column announcements...")))
-		manageColumnsButton.Bind(wx.EVT_BUTTON, self.onManageColumns)
-		SPLConfigHelper.addItem(sizer.sizer)
-
-		# Translators: the label for a setting in SPL add-on settings to toggle whether column headers should be included when announcing track information.
-		self.columnHeadersCheckbox = SPLConfigHelper.addItem(wx.CheckBox(self, label=_("Include column &headers when announcing track information")))
-		self.columnHeadersCheckbox.SetValue(splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"])
-
-		sizer = gui.guiHelper.ButtonHelper(wx.HORIZONTAL)
-		# Translators: The label of a button to configure columns explorer slots (SPL Assistant, number row keys to announce specific columns).
-		columnsExplorerButton = sizer.addButton(self, label=_("Columns E&xplorer..."))
-		columnsExplorerButton.Bind(wx.EVT_BUTTON, self.onColumnsExplorer)
-		self.exploreColumns = splconfig.SPLConfig["General"]["ExploreColumns"]
-		# Translators: The label of a button to configure columns explorer slots for Track Tool (SPL Assistant, number row keys to announce specific columns).
-		columnsExplorerTTButton = sizer.addButton(self, label=_("Columns Explorer for &Track Tool..."))
-		columnsExplorerTTButton.Bind(wx.EVT_BUTTON, self.onColumnsExplorerTT)
-		self.exploreColumnsTT = splconfig.SPLConfig["General"]["ExploreColumnsTT"]
-		SPLConfigHelper.addItem(sizer.sizer)
-
-		sizer = gui.guiHelper.ButtonHelper(wx.HORIZONTAL)
-		# Translators: The label of a button to open status announcement dialog such as announcing listener count.
-		sayStatusButton = sizer.addButton(self, label=_("&Status announcements..."))
-		sayStatusButton.Bind(wx.EVT_BUTTON, self.onStatusAnnouncement)
-		# Say status flags to be picked up by the dialog of this name.
-		self.scheduledFor = splconfig.SPLConfig["SayStatus"]["SayScheduledFor"]
-		self.listenerCount = splconfig.SPLConfig["SayStatus"]["SayListenerCount"]
-		self.cartName = splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"]
-		self.playingTrackName = splconfig.SPLConfig["SayStatus"]["SayPlayingTrackName"]
-		self.studioPlayerPosition = splconfig.SPLConfig["SayStatus"]["SayStudioPlayerPosition"]
-		# Translators: The label of a button to open advanced options such as using SPL Controller command to invoke Assistant layer.
-		advancedOptButton = sizer.addButton(self, label=_("&Advanced options..."))
-		advancedOptButton.Bind(wx.EVT_BUTTON, self.onAdvancedOptions)
-		self.splConPassthrough = splconfig.SPLConfig["Advanced"]["SPLConPassthrough"]
-		self.compLayer = splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]
-		self.autoUpdateCheck = splconfig.SPLConfig["Update"]["AutoUpdateCheck"]
-		self.updateInterval = splconfig.SPLConfig["Update"]["UpdateInterval"]
-		if splupdate: self.updateChannel = splupdate.SPLUpdateChannel
-		self.pendingChannelChange = False
-		SPLConfigHelper.addItem(sizer.sizer)
-
-		# Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
-		resetButton = SPLConfigHelper.addItem(wx.Button(self, label=_("Reset settings...")))
-		resetButton.Bind(wx.EVT_BUTTON,self.onResetConfig)
-
-	def postInit(self):
-		global _configDialogOpened
-		_configDialogOpened = True
-		self.profiles.SetFocus() if hasattr(self, "profiles") else self.generalSettingsButton.SetFocus()
-
-	def onOk(self, evt):
-		global _configDialogOpened
-		if hasattr(self, "profiles"):
-			selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
-			if splconfig.SPLConfig.activeProfile != selectedProfile:
-				splconfig.SPLConfig.swapProfiles(splconfig.SPLConfig.activeProfile, selectedProfile)
-		splconfig.SPLConfig["General"]["BeepAnnounce"] = self.beepAnnounce
-		splconfig.SPLConfig["General"]["MessageVerbosity"] = self.messageVerbosity
-		splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] = self.endOfTrackTime
-		splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"] = self.sayEndOfTrack
-		splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"] = self.songRampTime
-		splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"] = self.saySongRamp
-		splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"] = self.micAlarm
-		splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] = self.micAlarmInterval
-		splconfig.SPLConfig["General"]["AlarmAnnounce"] = self.alarmAnnounceValues[self.alarmAnnounceList.GetSelection()][0]
-		splconfig.SPLConfig["General"]["BrailleTimer"] = self.brailleTimer
-		splconfig.SPLConfig["General"]["LibraryScanAnnounce"] = self.libScan
-		splconfig.SPLConfig["General"]["TimeHourAnnounce"] = self.hourAnnounce
-		splconfig.SPLConfig["General"]["CategorySounds"] = self.categorySounds
-		splconfig.SPLConfig["General"]["TrackCommentAnnounce"] = self.trackComments
-		splconfig.SPLConfig["General"]["TopBottomAnnounce"] = self.topBottom
-		splconfig.SPLConfig["General"]["RequestsAlert"] = self.requestsAlert
-		splconfig.SPLConfig["PlaylistSnapshots"]["DurationMinMax"] = self.playlistDurationMinMax
-		splconfig.SPLConfig["PlaylistSnapshots"]["DurationAverage"] = self.playlistDurationAverage
-		splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCount"] = self.playlistArtistCount
-		splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCountLimit"] = self.playlistArtistCountLimit
-		splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCount"] = self.playlistCategoryCount
-		splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCountLimit"] = self.playlistCategoryCountLimit
-		splconfig.SPLConfig["PlaylistSnapshots"]["GenreCount"] = self.playlistGenreCount
-		splconfig.SPLConfig["PlaylistSnapshots"]["GenreCountLimit"] = self.playlistGenreCountLimit
-		splconfig.SPLConfig["PlaylistSnapshots"]["ShowResultsWindowOnFirstPress"] = self.resultsWindowOnFirstPress
-		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
-		splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = self.metadataStreams
-		splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
-		splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"] = self.columnOrder
-		splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"] = self.includedColumns
-		splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.Value
-		splconfig.SPLConfig["General"]["ExploreColumns"] = self.exploreColumns
-		splconfig.SPLConfig["General"]["ExploreColumnsTT"] = self.exploreColumnsTT
-		splconfig.SPLConfig["General"]["VerticalColumnAnnounce"] = self.verticalColumn
-		splconfig.SPLConfig["SayStatus"]["SayScheduledFor"] = self.scheduledFor
-		splconfig.SPLConfig["SayStatus"]["SayListenerCount"] = self.listenerCount
-		splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"] = self.cartName
-		splconfig.SPLConfig["SayStatus"]["SayPlayingTrackName"] = self.playingTrackName
-		splconfig.SPLConfig["SayStatus"]["SayStudioPlayerPosition"] = self.studioPlayerPosition
-		splconfig.SPLConfig["Advanced"]["SPLConPassthrough"] = self.splConPassthrough
-		splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] = self.compLayer
-		splconfig.SPLConfig["Update"]["AutoUpdateCheck"] = self.autoUpdateCheck
-		splconfig.SPLConfig["Update"]["UpdateInterval"] = self.updateInterval
-		if splupdate:
-			self.pendingChannelChange = splupdate.SPLUpdateChannel != self.updateChannel
-			splupdate.SPLUpdateChannel = self.updateChannel
-		splconfig.SPLConfig.instantSwitch = self.switchProfile
-		# Make sure to nullify prev profile if instant switch profile is gone.
-		# 7.0: Don't do the following in the midst of a broadcast.
-		if self.switchProfile is None and not splconfig._triggerProfileActive:
-			splconfig.SPLConfig.prevProfile = None
-		_configDialogOpened = False
-		# 7.0: Perform extra action such as restarting auto update timer.
-		self.onCloseExtraAction()
-		# Apply changes to profile triggers.
-		splconfig.profileTriggers = dict(self._profileTriggersConfig)
-		self._profileTriggersConfig.clear()
-		self._profileTriggersConfig = None
-		splconfig.triggerStart(restart=True)
-		# 8.0: Make sure NVDA knows this must be cached (except for normal profile).
-		# 17.10: but not when config is volatile.
-		try:
-			if selectedProfile != _("Normal profile") and selectedProfile not in splconfig._SPLCache:
-				splconfig._cacheConfig(splconfig.SPLConfig.profileByName(selectedProfile))
-		except NameError:
-			pass
-		super(SPLConfigDialog,  self).onOk(evt)
-
-	def onCancel(self, evt):
-		global _configDialogOpened
-		_configDialogOpened = False
-		# 6.1: Discard changes to included columns set.
-		if self.includedColumns is not None: self.includedColumns.clear()
-		self.includedColumns = None
-		# Apply profile trigger changes if any.
-		try:
-			splconfig.profileTriggers = dict(self._profileTriggersConfig)
-			self._profileTriggersConfig.clear()
-			self._profileTriggersConfig = None
-		except AttributeError:
-			pass
-		splconfig.triggerStart(restart=True)
-		# 7.0: No matter what happens, merge appropriate profile.
-		try:
-			prevActive = self.activeProfile
-		except ValueError:
-			prevActive = _("Normal profile")
-		if self.switchProfileRenamed or self.switchProfileDeleted:
-			splconfig.SPLConfig.instantSwitch = self.switchProfile
-		super(SPLConfigDialog,  self).onCancel(evt)
-
-	def onApply(self, evt):
-		applicableProfile = None
-		if hasattr(self, "profiles"):
-			selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
-			if splconfig.SPLConfig.activeProfile != selectedProfile:
-				gui.messageBox(_("The selected profile is different from currently active broadcast profile. Settings will be applied to the selected profile instead."),
-					_("Apply settings"), wx.OK | wx.ICON_INFORMATION, self)
-				applicableProfile = splconfig.SPLConfig.profileByName(selectedProfile)
-		# Apply global settings first, then save settings to appropriate profile.
-		splconfig.SPLConfig["General"]["BeepAnnounce"] = self.beepAnnounce
-		splconfig.SPLConfig["General"]["MessageVerbosity"] = self.messageVerbosity
-		splconfig.SPLConfig["General"]["AlarmAnnounce"] = self.alarmAnnounceValues[self.alarmAnnounceList.GetSelection()][0]
-		splconfig.SPLConfig["General"]["BrailleTimer"] = self.brailleTimer
-		splconfig.SPLConfig["General"]["LibraryScanAnnounce"] = self.libScan
-		splconfig.SPLConfig["General"]["TimeHourAnnounce"] = self.hourAnnounce
-		splconfig.SPLConfig["General"]["CategorySounds"] = self.categorySounds
-		splconfig.SPLConfig["General"]["TrackCommentAnnounce"] = self.trackComments
-		splconfig.SPLConfig["General"]["TopBottomAnnounce"] = self.topBottom
-		splconfig.SPLConfig["General"]["RequestsAlert"] = self.requestsAlert
-		splconfig.SPLConfig["PlaylistSnapshots"]["DurationMinMax"] = self.playlistDurationMinMax
-		splconfig.SPLConfig["PlaylistSnapshots"]["DurationAverage"] = self.playlistDurationAverage
-		splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCount"] = self.playlistArtistCount
-		splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCountLimit"] = self.playlistArtistCountLimit
-		splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCount"] = self.playlistCategoryCount
-		splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCountLimit"] = self.playlistCategoryCountLimit
-		splconfig.SPLConfig["PlaylistSnapshots"]["GenreCount"] = self.playlistGenreCount
-		splconfig.SPLConfig["PlaylistSnapshots"]["GenreCountLimit"] = self.playlistGenreCountLimit
-		splconfig.SPLConfig["PlaylistSnapshots"]["ShowResultsWindowOnFirstPress"] = self.resultsWindowOnFirstPress
-		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
-		splconfig.SPLConfig["General"]["ExploreColumns"] = self.exploreColumns
-		splconfig.SPLConfig["General"]["ExploreColumnsTT"] = self.exploreColumnsTT
-		splconfig.SPLConfig["General"]["VerticalColumnAnnounce"] = self.verticalColumn
-		splconfig.SPLConfig["SayStatus"]["SayScheduledFor"] = self.scheduledFor
-		splconfig.SPLConfig["SayStatus"]["SayListenerCount"] = self.listenerCount
-		splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"] = self.cartName
-		splconfig.SPLConfig["SayStatus"]["SayPlayingTrackName"] = self.playingTrackName
-		splconfig.SPLConfig["SayStatus"]["SayStudioPlayerPosition"] = self.studioPlayerPosition
-		splconfig.SPLConfig["Advanced"]["SPLConPassthrough"] = self.splConPassthrough
-		splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] = self.compLayer
-		splconfig.SPLConfig["Update"]["AutoUpdateCheck"] = self.autoUpdateCheck
-		splconfig.SPLConfig["Update"]["UpdateInterval"] = self.updateInterval
-		if splupdate:
-			self.pendingChannelChange = splupdate.SPLUpdateChannel != self.updateChannel
-			splupdate.SPLUpdateChannel = self.updateChannel
-		if applicableProfile is None:
-			splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] = self.endOfTrackTime
-			splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"] = self.sayEndOfTrack
-			splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"] = self.songRampTime
-			splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"] = self.saySongRamp
-			splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"] = self.micAlarm
-			splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] = self.micAlarmInterval
-			splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = self.metadataStreams
-			splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
-			splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"] = self.columnOrder
-			splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"] = self.includedColumns
-			splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.Value
-		else:
-			applicableProfile["IntroOutroAlarms"]["EndOfTrackTime"] = self.endOfTrackTime
-			applicableProfile["IntroOutroAlarms"]["SayEndOfTrack"] = self.sayEndOfTrack
-			applicableProfile["IntroOutroAlarms"]["SongRampTime"] = self.songRampTime
-			applicableProfile["IntroOutroAlarms"]["SaySongRamp"] = self.saySongRamp
-			applicableProfile["MicrophoneAlarm"]["MicAlarm"] = self.micAlarm
-			applicableProfile["MicrophoneAlarm"]["MicAlarmInterval"] = self.micAlarmInterval
-			applicableProfile["MetadataStreaming"]["MetadataEnabled"] = self.metadataStreams
-			applicableProfile["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
-			applicableProfile["ColumnAnnouncement"]["ColumnOrder"] = self.columnOrder
-			applicableProfile["ColumnAnnouncement"]["IncludedColumns"] = self.includedColumns
-			applicableProfile["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.Value
-		splconfig.SPLConfig.instantSwitch = self.switchProfile
-		# Make sure to nullify prev profile if instant switch profile is gone.
-		# 7.0: Don't do the following in the midst of a broadcast.
-		if self.switchProfile is None and not splconfig._triggerProfileActive:
-			splconfig.SPLConfig.prevProfile = None
-		# 8.0: Make sure NVDA knows this must be cached (except for normal profile).
-		# 17.10: but not when config is volatile.
-		try:
-			if selectedProfile != _("Normal profile") and selectedProfile not in splconfig._SPLCache:
-				splconfig._cacheConfig(splconfig.SPLConfig.profileByName(selectedProfile))
-		except NameError:
-			pass
-		# Notify various modules of settings changes.
-		splactions.SPLActionProfileSwitched.notify(configDialogActive=True)
-		super(SPLConfigDialog,  self).onApply(evt)
-
-	# Perform extra action when closing this dialog such as restarting update timer.
-	def onCloseExtraAction(self):
-		# Coordinate auto update timer restart routine if told to do so.
-		# #50 (18.03): but only if add-on update facility is alive.
-		if splupdate:
-			if not splconfig.SPLConfig["Update"]["AutoUpdateCheck"] or self.pendingChannelChange:
-				splupdate.updateCheckTimerEnd()
-				if self.pendingChannelChange:
-					splupdate._pendingChannelChange = True
-					# Translators: A dialog message shown when add-on update channel has changed.
-					wx.CallAfter(gui.messageBox, _("You have changed the add-on update channel. You must restart NVDA for the change to take effect. Be sure to answer yes when you are asked to install the new version when prompted after restarting NVDA."),
-					# Translators: Title of the update channel dialog.
-					_("Add-on update channel changed"), wx.OK|wx.ICON_INFORMATION)
-			else:
-				if splupdate._SPLUpdateT is None: splupdate.updateInit()
-		# Change metadata streaming.
-		# 17.11: call the metadata connector directly, reducing code duplication from previous releases.
-		# 17.12: replaced by an action, with config UI active flag set.
-		splactions.SPLActionProfileSwitched.notify(configDialogActive=True)
-
-	def onAppTerminate(self):
-		# Call cancel function when the app terminates so the dialog can be closed.
-		self.onCancel(None)
-
-	# Include profile flags such as instant profile string for display purposes.
-	def displayProfiles(self, profiles):
-		for index in rangeGen(len(profiles)):
-			profiles[index] = splconfig.getProfileFlags(profiles[index])
-		return profiles
-
-	# Load settings from profiles.
-	def onProfileSelection(self, evt):
-		# Don't rely on SPLConfig here, as we don't want to interupt the show.
-		selection = self.profiles.GetSelection()
-		# No need to look at the profile flag.
-		selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
-		# Play a tone to indicate active profile.
-		if self.activeProfile == selectedProfile:
-			tones.beep(512, 40)
-		if selection == 0:
-			self.renameButton.Disable()
-			self.deleteButton.Disable()
-			self.triggerButton.Disable()
-		else:
-			self.renameButton.Enable()
-			self.deleteButton.Enable()
-			self.triggerButton.Enable()
-		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
-		self.endOfTrackTime = curProfile["IntroOutroAlarms"]["EndOfTrackTime"]
-		self.sayEndOfTrack = curProfile["IntroOutroAlarms"]["SayEndOfTrack"]
-		self.songRampTime = curProfile["IntroOutroAlarms"]["SongRampTime"]
-		self.saySongRamp = curProfile["IntroOutroAlarms"]["SaySongRamp"]
-		self.micAlarm = curProfile["MicrophoneAlarm"]["MicAlarm"]
-		self.micAlarmInterval = curProfile["MicrophoneAlarm"]["MicAlarmInterval"]
-		# 6.1: Take care of profile-specific column and metadata settings.
-		self.metadataStreams = curProfile["MetadataStreaming"]["MetadataEnabled"]
-		self.columnOrderCheckbox.SetValue(curProfile["ColumnAnnouncement"]["UseScreenColumnOrder"])
-		self.columnOrder = curProfile["ColumnAnnouncement"]["ColumnOrder"]
-		# 6.1: Again convert list to set.
-		self.includedColumns = set(curProfile["ColumnAnnouncement"]["IncludedColumns"])
-		self.columnHeadersCheckbox.SetValue(curProfile["ColumnAnnouncement"]["IncludeColumnHeaders"])
-
-	# Profile controls.
-	# Rename and delete events come from GUI/config profiles dialog from NVDA core.
-	def onNew(self, evt):
-		self.Disable()
-		NewProfileDialog(self).Show()
-
-	def onCopy(self, evt):
-		self.Disable()
-		NewProfileDialog(self, copy=True).Show()
-
-	def onRename(self, evt):
-		oldDisplayName = self.profiles.GetStringSelection()
-		state = oldDisplayName.split(" <")
-		oldName = state[0]
-		index = self.profiles.Selection
-		profilePos = self.profileNames.index(oldName)
-		# Translators: The label of a field to enter a new name for a broadcast profile.
-		with wx.TextEntryDialog(self, _("New name:"),
-				# Translators: The title of the dialog to rename a profile.
-				_("Rename Profile"), defaultValue=oldName) as d:
-			if d.ShowModal() == wx.ID_CANCEL:
-				return
-			newName = api.filterFileName(d.Value)
-		if oldName == newName: return
-		try:
-			splconfig.SPLConfig.renameProfile(oldName, newName)
-		except RuntimeError:
-			# Translators: An error displayed when renaming a configuration profile
-			# and a profile with the new name already exists.
-			gui.messageBox(_("That profile already exists. Please choose a different name."),
-				_("Error"), wx.OK | wx.ICON_ERROR, self)
-			return
-		if self.switchProfile == oldName:
-			self.switchProfile = newName
-			self.switchProfileRenamed = True
-		# Be sure to update profile triggers.
-		if oldName in self._profileTriggersConfig:
-			self._profileTriggersConfig[newName] = self._profileTriggersConfig[oldName]
-			del self._profileTriggersConfig[oldName]
-		if self.activeProfile == oldName:
-			self.activeProfile = newName
-		self.profileNames[profilePos] = newName
-		if oldName in splconfig._SPLCache:
-			splconfig._SPLCache[newName] = splconfig._SPLCache[oldName]
-			del splconfig._SPLCache[oldName]
-		if len(state) > 1: newName = " <".join([newName, state[1]])
-		self.profiles.SetString(index, newName)
-		self.profiles.Selection = index
-		self.profiles.SetFocus()
-
-	def onDelete(self, evt):
-		# Prevent profile deletion while a trigger is active (in the midst of a broadcast), otherwise flags such as instant switch and time-based profiles become inconsistent.
-		# 6.4: This was seen after deleting a profile one position before the previously active profile.
-		# 7.0: One should never delete the currently active time-based profile.
-		# 7.1: Find a way to safely proceed via two-step verification if trying to delete currently active time-based profile.
-		if (splconfig._SPLTriggerEndTimer is not None and splconfig._SPLTriggerEndTimer.IsRunning()) or splconfig._triggerProfileActive or splconfig.SPLConfig.prevProfile is not None:
-			# Translators: Message reported when attempting to delete a profile while a profile is triggered.
-			gui.messageBox(_("An instant switch profile might be active or you are in the midst of a broadcast. If so, please press SPL Assistant, F12 to switch back to a previously active profile before opening add-on settings to delete a profile."),
-				# Translators: Title of a dialog shown when profile cannot be deleted.
-				_("Profile delete error"), wx.OK | wx.ICON_ERROR, self)
-			return
-		name = self.profiles.GetStringSelection().split(" <")[0]
-		# 17.11/15.10-lts: ask once more if deleting an active profile.
-		if name == self.activeProfile:
-			if gui.messageBox(
-				# Translators: The confirmation prompt displayed when the user requests to delete the active broadcast profile.
-				_("You are about to delete the currently active profile. Select yes if you wish to proceed."),
-				# Translators: The title of the confirmation dialog for deletion of a profile.
-				_("Delete active profile"),
-				wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION, self
-			) == wx.NO:
-				return
-		index = self.profiles.Selection
-		profilePos = self.profileNames.index(name)
-		if gui.messageBox(
-			# Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
-			_("Are you sure you want to delete this profile? This cannot be undone."),
-			# Translators: The title of the confirmation dialog for deletion of a profile.
-			_("Confirm Deletion"),
-			wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION, self
-		) == wx.NO:
-			return
-		splconfig.SPLConfig.deleteProfile(name)
-		# 17.11: make sure to connect to the right set of metadata servers and enable/disable microphone alarm if appropriate.
-		splactions.SPLActionProfileSwitched.notify(configDialogActive=True)
-		if name == self.switchProfile or name == self.activeProfile:
-			# 17.11/15.10-LTS: go through the below path if and only if instant switch profile is gone.
-			if name == self.switchProfile:
-				self.switchProfile = None
-				splconfig.SPLConfig.prevProfile = None
-			self.switchProfileDeleted = True
-		self.profiles.Delete(index)
-		del self.profileNames[profilePos]
-		if name in splconfig._SPLCache: del splconfig._SPLCache[name]
-		if name in self._profileTriggersConfig:
-			del self._profileTriggersConfig[name]
-		# 6.3: Select normal profile if the active profile is gone.
-		# 7.0: Consult profile names instead.
-		try:
-			self.profiles.Selection = self.profileNames.index(self.activeProfile)
-		except ValueError:
-			self.activeProfile = _("Normal profile")
-			self.profiles.Selection = 0
-		self.onProfileSelection(None)
-		self.profiles.SetFocus()
-
-	def onTriggers(self, evt):
-		self.Disable()
-		if splconfig._triggerProfileActive:
-					# Translators: Message reported when attempting to change profile switch trigger while broadcasting.
-			gui.messageBox(_("You cannot change profile switch triggers in the midst of a broadcast."),
-				# Translators: Title of a dialog shown when profile trigger cannot e changd.
-				_("Profile triggers"), wx.OK | wx.ICON_ERROR, self)
-			self.Enable()
-			return
-		TriggersDialog(self, self.profileNames[self.profiles.Selection]).Show()
-
-	# Obtain profile flags for a given profile.
-	# This is a proxy to the splconfig module level profile flag retriever with custom strings/maps as arguments.
-	def getProfileFlags(self, name):
-		return splconfig.getProfileFlags(name, active=self.activeProfile, instant=self.switchProfile, triggers=self._profileTriggersConfig, contained=True)
-
-	# Handle flag modifications such as when toggling instant switch.
-	# Unless given, flags will be queried.
-	# This is a sister function to profile flags retriever.
-	def setProfileFlags(self, index, action, flag, flags=None):
-		profile = self.profileNames[index]
-		if flags is None: flags = self.getProfileFlags(profile)
-		action = getattr(flags, action)
-		action(flag)
-		self.profiles.SetString(index, profile if not len(flags) else "{0} <{1}>".format(profile, ", ".join(flags)))
-
-	# Various general add-on settings.
-	def onGeneralSettings(self, evt):
-		self.Disable()
-		GeneralSettingsDialog(self).Show()
-
-	# Alarms Center.
-	def onAlarmsCenter(self, evt):
-		self.Disable()
-		AlarmsCenter(self).Show()
-
-	# Configure playlist snapshot flags.
-	def onPlaylistSnapshotFlags(self, evt):
-		self.Disable()
-		PlaylistSnapshotsDialog(self).Show()
-
-	# Manage metadata streaming.
-	def onManageMetadata(self, evt):
-		self.Disable()
-		MetadataStreamingDialog(self).Show()
-
-	# Manage column announcements.
-	def onManageColumns(self, evt):
-		self.Disable()
-		ColumnAnnouncementsDialog(self).Show()
-
-	# Columns Explorer configuration.
-	def onColumnsExplorer(self, evt):
-		self.Disable()
-		ColumnsExplorerDialog(self).Show()
-
-	# Track Tool Columns Explorer configuration.
-	def onColumnsExplorerTT(self, evt):
-		self.Disable()
-		ColumnsExplorerDialog(self, tt=True).Show()
-
-		# Status announcement dialog.
-	def onStatusAnnouncement(self, evt):
-		self.Disable()
-		SayStatusDialog(self).Show()
-
-	# Advanced options.
-	# See advanced options class for more details.
-	def onAdvancedOptions(self, evt):
-		self.Disable()
-		AdvancedOptionsDialog(self).Show()
-
-	# Reset settings to defaults.
-	# This affects the currently selected profile.
-	def onResetConfig(self, evt):
-		self.Disable()
-		ResetDialog(self).Show()
-
-
-# Open the above dialog upon request.
-def onConfigDialog(evt):
-	# 5.2: Guard against alarm dialogs.
-	if _alarmDialogOpened or _metadataDialogOpened:
-		# Translators: Presented when an alarm dialog is opened.
-		wx.CallAfter(gui.messageBox, _("Another add-on settings dialog is open. Please close the previously opened dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
-	else: gui.mainFrame._popupSettingsDialog(SPLConfigDialog)
+# Due to syntax/variable name issues, the actual add-on settings class can be found at the end of this module.
 
 # Helper dialogs for add-on settings dialog.
 
@@ -1150,14 +516,17 @@ class PlaylistSnapshotsDialog(wx.Dialog):
 		# Translators: the label for a setting in SPL add-on settings to include track artist count in playlist snapshots window.
 		self.playlistArtistCountCheckbox=playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Artist count")))
 		self.playlistArtistCountCheckbox.SetValue(parent.playlistArtistCount)
+		# Translators: the label for a setting in SPL add-on settings to set top artist count limit in playlist snapshots window.
 		self.playlistArtistCountLimit=playlistSnapshotsHelper.addLabeledControl(_("Top artist count (0 displays all artists)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=10, initial=parent.playlistArtistCountLimit)
 		# Translators: the label for a setting in SPL add-on settings to include track category count in playlist snapshots window.
 		self.playlistCategoryCountCheckbox=playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Category count")))
 		self.playlistCategoryCountCheckbox.SetValue(parent.playlistCategoryCount)
+		# Translators: the label for a setting in SPL add-on settings to set top track category count limit in playlist snapshots window.
 		self.playlistCategoryCountLimit=playlistSnapshotsHelper.addLabeledControl(_("Top category count (0 displays all categories)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=10, initial=parent.playlistCategoryCountLimit)
 		# Translators: the label for a setting in SPL add-on settings to include track genre count in playlist snapshots window.
 		self.playlistGenreCountCheckbox=playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Genre count")))
 		self.playlistGenreCountCheckbox.SetValue(parent.playlistGenreCount)
+		# Translators: the label for a setting in SPL add-on settings to set top track genre limit in playlist snapshots window.
 		self.playlistGenreCountLimit=playlistSnapshotsHelper.addLabeledControl(_("Top genre count (0 displays all genres)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=10, initial=parent.playlistGenreCountLimit)
 		# Translators: the label for a setting in SPL add-on settings to show playlist snaphsots window when the snapshots command is pressed once.
 		self.resultsWindowOnFirstPressCheckbox=playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("&Show results window when playlist snapshots command is performed once")))
@@ -1321,8 +690,8 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 			self.checkedColumns[-1].SetValue(column in self.Parent.includedColumns)
 		colAnnouncementsHelper.addItem(sizer.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 
-		# WXPython Phoenix contains RearrangeList to allow item orders to be changed automatically.
-		# Because WXPython Classic doesn't include this, work around by using a variant of list box and move up/down buttons.
+		# wxPython 4 contains RearrangeList to allow item orders to be changed automatically.
+		# Because wxPython 3 doesn't include this, work around by using a variant of list box and move up/down buttons.
 		# 17.04: The label for the list below is above the list, so move move up/down buttons to the right of the list box.
 		# Translators: The label for a setting in SPL add-on dialog to select column announcement order.
 		self.trackColumns = colAnnouncementsHelper.addLabeledControl(_("Column &order:"), wx.ListBox, choices=parent.columnOrder)
@@ -1335,7 +704,7 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 		self.upButton.Bind(wx.EVT_BUTTON,self.onMoveUp)
 		self.upButton.Disable()
 		sizer.Add(self.upButton)
-				# Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
+		# Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
 		self.dnButton = wx.Button(self, wx.ID_ANY, label=_("Move &down"))
 		self.dnButton.Bind(wx.EVT_BUTTON,self.onMoveDown)
 		sizer.Add(self.dnButton)
@@ -1399,20 +768,28 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 			if self.FindFocus().GetId() == wx.ID_OK:
 				self.upButton.SetFocus()
 
-# Columns Explorer for both Studio and Track Tool
+# Columns Explorer for Studio, Track Tool and Creator
 # Configure which column will be announced when Control+NVDA+number row keys are pressed.
+# Similar to Alarms Center, levels indicate which columns to display (0 = Studio, 1 = Track Tool, 2 = Creator).
 class ColumnsExplorerDialog(wx.Dialog):
 
-	def __init__(self, parent, tt=False):
-		self.trackTool = tt
-		if not tt:
+	def __init__(self, parent, level=0):
+		self.level = level
+		if level == 0:
 			# Translators: The title of Columns Explorer configuration dialog.
 			actualTitle = _("Columns Explorer")
 			cols = splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
-		else:
+			slots = parent.exploreColumns
+		elif level == 1:
 			# Translators: The title of Columns Explorer configuration dialog.
 			actualTitle = _("Columns Explorer for Track Tool")
 			cols = ("Artist","Title","Duration","Cue","Overlap","Intro","Segue","Filename","Album","CD Code","Outro","Year","URL 1","URL 2","Genre")
+			slots = parent.exploreColumnsTT
+		elif level == 2:
+			# Translators: The title of Columns Explorer configuration dialog.
+			actualTitle = _("Columns Explorer for SPL Creator")
+			cols = ("Artist", "Title", "Position", "Cue", "Intro", "Outro", "Segue", "Duration", "Last Scheduled", "7 Days", "Date Restriction", "Year", "Album", "Genre", "Mood", "Energy", "Tempo", "BPM", "Gender", "Rating", "File Created", "Filename", "Client", "Other", "Intro Link", "Outro Link")
+			slots = parent.exploreColumnsCreator
 		# Gather column slots.
 		self.columnSlots = []
 
@@ -1427,7 +804,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 			# Translators: The label for a setting in SPL add-on dialog to select column for this column slot.
 			columns = sizer.addLabeledControl(_("Slot {position}").format(position = slot+1), wx.Choice, choices=cols)
 			try:
-				columns.SetSelection(cols.index(parent.exploreColumns[slot] if not tt else parent.exploreColumnsTT[slot]))
+				columns.SetSelection(cols.index(slots[slot]))
 			except:
 				pass
 			self.columnSlots.append(columns)
@@ -1437,7 +814,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 		for slot in rangeGen(5, 10):
 			columns = sizer.addLabeledControl(_("Slot {position}").format(position = slot+1), wx.Choice, choices=cols)
 			try:
-				columns.SetSelection(cols.index(parent.exploreColumns[slot] if not tt else parent.exploreColumnsTT[slot]))
+				columns.SetSelection(cols.index(slots[slot]))
 			except:
 				pass
 			self.columnSlots.append(columns)
@@ -1454,9 +831,13 @@ class ColumnsExplorerDialog(wx.Dialog):
 
 	def onOk(self, evt):
 		parent = self.Parent
-		slots = parent.exploreColumns if not self.trackTool else parent.exploreColumnsTT
-		for slot in rangeGen(len(self.columnSlots)):
-			slots[slot] = self.columnSlots[slot].GetStringSelection()
+		# #62 (18.06): manually build a list so changes won't be retained when Cancel button is clicked from main settings, caused by reference problem.
+		# Note that item count is based on how many column combo boxes are present in this dialog.
+		# #63 (18.06): use levels instead due to introduction of Columns Explorer for SPL Creator.
+		slots = [self.columnSlots[slot].GetStringSelection() for slot in rangeGen(10)]
+		if self.level == 0: parent.exploreColumns = slots
+		elif self.level == 1: parent.exploreColumnsTT = slots
+		elif self.level == 2: parent.exploreColumnsCreator = slots
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()
@@ -1706,3 +1087,651 @@ class ResetDialog(wx.Dialog):
 	def onCancel(self, evt):
 		self.Parent.Enable()
 		self.Destroy()
+
+
+# Configuration dialog.
+_configDialogOpened = False
+
+class SPLConfigDialog(gui.SettingsDialog):
+	# Translators: This is the label for the StationPlaylist Studio configuration dialog.
+	title = _("Studio Add-on Settings")
+
+	def __init__(self, parent):
+		# #59 (18.05): backward compatibility.
+		if hasattr(gui, "SettingsPanel"):
+			super(SPLConfigDialog, self).__init__(parent, hasApplyButton=True)
+		else:
+			super(SPLConfigDialog, self).__init__(parent)
+
+	def makeSettings(self, settingsSizer):
+		SPLConfigHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
+		# #40 (17.12): respond to app terminate notification by closing this dialog.
+		# All top-level dialogs will be affected by this, and apart from this one, others will check for flags also.
+		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
+
+		# Broadcast profile controls were inspired by Config Profiles dialog in NVDA Core.
+		# 7.0: Have a copy of the sorted profiles so the actual combo box items can show profile flags.
+		# 8.0: No need to sort as profile names from ConfigHub knows what to do.
+		# 17.10: skip this if only normal profile is in use.
+		if not (splconfig.SPLConfig.configInMemory or splconfig.SPLConfig.normalProfileOnly):
+			self.profileNames = list(splconfig.SPLConfig.profileNames)
+			self.profileNames[0] = _("Normal profile")
+			# Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
+			self.profiles = SPLConfigHelper.addLabeledControl(_("Broadcast &profile:"), wx.Choice, choices=self.displayProfiles(list(self.profileNames)))
+			self.profiles.Bind(wx.EVT_CHOICE, self.onProfileSelection)
+			try:
+				self.profiles.SetSelection(self.profileNames.index(splconfig.SPLConfig.activeProfile))
+			except:
+				pass
+
+		# Profile controls code credit: NV Access (except copy button).
+		# 17.10: if restrictions such as volatile config are applied, disable this area entirely.
+		if not (splconfig.SPLConfig.volatileConfig or splconfig.SPLConfig.normalProfileOnly or splconfig.SPLConfig.configInMemory):
+			sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
+			# Translators: The label of a button to create a new broadcast profile.
+			newButton = wx.Button(self, label=_("&New"))
+			newButton.Bind(wx.EVT_BUTTON, self.onNew)
+			# Translators: The label of a button to copy a broadcast profile.
+			copyButton = wx.Button(self, label=_("Cop&y"))
+			copyButton.Bind(wx.EVT_BUTTON, self.onCopy)
+			# Translators: The label of a button to rename a broadcast profile.
+			self.renameButton = wx.Button(self, label=_("&Rename"))
+			self.renameButton.Bind(wx.EVT_BUTTON, self.onRename)
+			# Translators: The label of a button to delete a broadcast profile.
+			self.deleteButton = wx.Button(self, label=_("&Delete"))
+			self.deleteButton.Bind(wx.EVT_BUTTON, self.onDelete)
+			# Have a copy of the triggers dictionary.
+			self._profileTriggersConfig = dict(splconfig.profileTriggers)
+			# Translators: The label of a button to manage show profile triggers.
+			self.triggerButton = wx.Button(self, label=_("&Triggers..."))
+			self.triggerButton.Bind(wx.EVT_BUTTON, self.onTriggers)
+			sizer.sizer.AddMany((newButton, copyButton, self.renameButton, self.deleteButton, self.triggerButton))
+			# Translators: The label for a setting in SPL Add-on settings to configure countdown seconds before switching profiles.
+			self.triggerThreshold = sizer.addLabeledControl(_("Countdown seconds before switching profiles"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=10, max=60, initial=splconfig.SPLConfig["Advanced"]["ProfileTriggerThreshold"])
+			if self.profiles.GetSelection() == 0:
+				self.renameButton.Disable()
+				self.deleteButton.Disable()
+				self.triggerButton.Disable()
+			SPLConfigHelper.addItem(sizer.sizer)
+		self.switchProfile = splconfig.SPLConfig.instantSwitch
+		self.activeProfile = splconfig.SPLConfig.activeProfile
+		# Used as sanity check in case switch profile is renamed or deleted.
+		self.switchProfileRenamed = False
+		self.switchProfileDeleted = False
+
+		self.beepAnnounce = splconfig.SPLConfig["General"]["BeepAnnounce"]
+		self.messageVerbosity = splconfig.SPLConfig["General"]["MessageVerbosity"]
+		self.brailleTimer = splconfig.SPLConfig["General"]["BrailleTimer"]
+		self.libScan = splconfig.SPLConfig["General"]["LibraryScanAnnounce"]
+		self.hourAnnounce = splconfig.SPLConfig["General"]["TimeHourAnnounce"]
+		self.verticalColumn = splconfig.SPLConfig["General"]["VerticalColumnAnnounce"]
+		self.categorySounds = splconfig.SPLConfig["General"]["CategorySounds"]
+		self.trackComments = splconfig.SPLConfig["General"]["TrackCommentAnnounce"]
+		self.topBottom = splconfig.SPLConfig["General"]["TopBottomAnnounce"]
+		self.requestsAlert = splconfig.SPLConfig["General"]["RequestsAlert"]
+		# Translators: The label of a button to open a dialog to configure general add-on settings such as beep announcement and top and bottom notifications.
+		self.generalSettingsButton = SPLConfigHelper.addItem(wx.Button(self, label=_("&General add-on settings...")))
+		self.generalSettingsButton.Bind(wx.EVT_BUTTON, self.onGeneralSettings)
+
+		self.endOfTrackTime = splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"]
+		self.sayEndOfTrack = splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"]
+		self.songRampTime = splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"]
+		self.saySongRamp = splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"]
+		self.micAlarm = splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"]
+		self.micAlarmInterval = splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"]
+		# Translators: The label of a button to open a dialog to configure various alarms.
+		alarmsCenterButton = SPLConfigHelper.addItem(wx.Button(self, label=_("&Alarms Center...")))
+		alarmsCenterButton.Bind(wx.EVT_BUTTON, self.onAlarmsCenter)
+
+		# Translators: One of the alarm notification options.
+		self.alarmAnnounceValues=[("beep",_("beep")),
+		# Translators: One of the alarm notification options.
+		("message",_("message")),
+		# Translators: One of the alarm notification options.
+		("both",_("both beep and message"))]
+		# Translators: The label for a setting in SPL add-on dialog to control alarm announcement type.
+		self.alarmAnnounceList = SPLConfigHelper.addLabeledControl(_("&Alarm notification:"), wx.Choice, choices=[x[1] for x in self.alarmAnnounceValues])
+		alarmAnnounceCurValue=splconfig.SPLConfig["General"]["AlarmAnnounce"]
+		selection = (x for x,y in enumerate(self.alarmAnnounceValues) if y[0]==alarmAnnounceCurValue).next()
+		try:
+			self.alarmAnnounceList.SetSelection(selection)
+		except:
+			pass
+
+		# Translators: The label of a button to manage playlist snapshot flags.
+		playlistSnapshotFlagsButton = SPLConfigHelper.addItem(wx.Button(self, label=_("&Playlist snapshots...")))
+		playlistSnapshotFlagsButton.Bind(wx.EVT_BUTTON, self.onPlaylistSnapshotFlags)
+		# Playlist snapshot flags to be manipulated by the configuration dialog.
+		self.playlistDurationMinMax = splconfig.SPLConfig["PlaylistSnapshots"]["DurationMinMax"]
+		self.playlistDurationAverage = splconfig.SPLConfig["PlaylistSnapshots"]["DurationAverage"]
+		self.playlistArtistCount = splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCount"]
+		self.playlistArtistCountLimit = splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCountLimit"]
+		self.playlistCategoryCount = splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCount"]
+		self.playlistCategoryCountLimit = splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCountLimit"]
+		self.playlistGenreCount = splconfig.SPLConfig["PlaylistSnapshots"]["GenreCount"]
+		self.playlistGenreCountLimit = splconfig.SPLConfig["PlaylistSnapshots"]["GenreCountLimit"]
+		self.resultsWindowOnFirstPress = splconfig.SPLConfig["PlaylistSnapshots"]["ShowResultsWindowOnFirstPress"]
+
+		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
+		self.metadataValues=[("off",_("Off")),
+		# Translators: One of the metadata notification settings.
+		("startup",_("When Studio starts")),
+		# Translators: One of the metadata notification settings.
+		("instant",_("When instant switch profile is active"))]
+		# Translators: the label for a setting in SPL add-on settings to be notified that metadata streaming is enabled.
+		self.metadataList = sizer.addLabeledControl(_("&Metadata streaming notification and connection"), wx.Choice, choices=[x[1] for x in self.metadataValues])
+		metadataCurValue=splconfig.SPLConfig["General"]["MetadataReminder"]
+		selection = (x for x,y in enumerate(self.metadataValues) if y[0]==metadataCurValue).next()
+		try:
+			self.metadataList.SetSelection(selection)
+		except:
+			pass
+		self.metadataStreams = list(splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"])
+		# Translators: The label of a button to manage column announcements.
+		manageMetadataButton = sizer.addItem(wx.Button(self, label=_("Configure metadata &streaming connection options...")))
+		manageMetadataButton.Bind(wx.EVT_BUTTON, self.onManageMetadata)
+		SPLConfigHelper.addItem(sizer.sizer)
+
+		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
+		# Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
+		self.columnOrderCheckbox=sizer.addItem(wx.CheckBox(self,wx.ID_ANY,label=_("Announce columns in the &order shown on screen")))
+		self.columnOrderCheckbox.SetValue(splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"])
+		self.columnOrder = splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"]
+		# Without manual conversion below, it produces a rare bug where clicking cancel after changing column inclusion causes new set to be retained.
+		self.includedColumns = set(splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"])
+		# Translators: The label of a button to manage column announcements.
+		manageColumnsButton = sizer.addItem(wx.Button(self, label=_("&Manage track column announcements...")))
+		manageColumnsButton.Bind(wx.EVT_BUTTON, self.onManageColumns)
+		SPLConfigHelper.addItem(sizer.sizer)
+
+		# Translators: the label for a setting in SPL add-on settings to toggle whether column headers should be included when announcing track information.
+		self.columnHeadersCheckbox = SPLConfigHelper.addItem(wx.CheckBox(self, label=_("Include column &headers when announcing track information")))
+		self.columnHeadersCheckbox.SetValue(splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"])
+
+		sizer = gui.guiHelper.ButtonHelper(wx.HORIZONTAL)
+		# Translators: The label of a button to configure columns explorer slots (SPL Assistant, number row keys to announce specific columns).
+		columnsExplorerButton = sizer.addButton(self, label=_("Columns E&xplorer..."))
+		columnsExplorerButton.Bind(wx.EVT_BUTTON, self.onColumnsExplorer)
+		self.exploreColumns = splconfig.SPLConfig["General"]["ExploreColumns"]
+		# Translators: The label of a button to configure columns explorer slots for Track Tool (SPL Assistant, number row keys to announce specific columns).
+		columnsExplorerTTButton = sizer.addButton(self, label=_("Columns Explorer for &Track Tool..."))
+		columnsExplorerTTButton.Bind(wx.EVT_BUTTON, self.onColumnsExplorerTT)
+		self.exploreColumnsTT = splconfig.SPLConfig["General"]["ExploreColumnsTT"]
+		# Translators: The label of a button to configure columns explorer slots for SPL Creator (SPL Assistant, number row keys to announce specific columns).
+		columnsExplorerCreatorButton = sizer.addButton(self, label=_("Columns Explorer for &SPL Creator..."))
+		columnsExplorerCreatorButton.Bind(wx.EVT_BUTTON, self.onColumnsExplorerCreator)
+		self.exploreColumnsCreator = splconfig.SPLConfig["General"]["ExploreColumnsCreator"]
+		SPLConfigHelper.addItem(sizer.sizer)
+
+		sizer = gui.guiHelper.ButtonHelper(wx.HORIZONTAL)
+		# Translators: The label of a button to open status announcement dialog such as announcing listener count.
+		sayStatusButton = sizer.addButton(self, label=_("&Status announcements..."))
+		sayStatusButton.Bind(wx.EVT_BUTTON, self.onStatusAnnouncement)
+		# Say status flags to be picked up by the dialog of this name.
+		self.scheduledFor = splconfig.SPLConfig["SayStatus"]["SayScheduledFor"]
+		self.listenerCount = splconfig.SPLConfig["SayStatus"]["SayListenerCount"]
+		self.cartName = splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"]
+		self.playingTrackName = splconfig.SPLConfig["SayStatus"]["SayPlayingTrackName"]
+		self.studioPlayerPosition = splconfig.SPLConfig["SayStatus"]["SayStudioPlayerPosition"]
+		# Translators: The label of a button to open advanced options such as using SPL Controller command to invoke Assistant layer.
+		advancedOptButton = sizer.addButton(self, label=_("&Advanced options..."))
+		advancedOptButton.Bind(wx.EVT_BUTTON, self.onAdvancedOptions)
+		self.splConPassthrough = splconfig.SPLConfig["Advanced"]["SPLConPassthrough"]
+		self.compLayer = splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]
+		self.autoUpdateCheck = splconfig.SPLConfig["Update"]["AutoUpdateCheck"]
+		self.updateInterval = splconfig.SPLConfig["Update"]["UpdateInterval"]
+		if splupdate: self.updateChannel = splupdate.SPLUpdateChannel
+		self.pendingChannelChange = False
+		SPLConfigHelper.addItem(sizer.sizer)
+
+		# Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
+		resetButton = SPLConfigHelper.addItem(wx.Button(self, label=_("Reset settings...")))
+		resetButton.Bind(wx.EVT_BUTTON,self.onResetConfig)
+
+	def postInit(self):
+		global _configDialogOpened
+		_configDialogOpened = True
+		self.profiles.SetFocus() if hasattr(self, "profiles") else self.generalSettingsButton.SetFocus()
+
+	def onOk(self, evt):
+		global _configDialogOpened
+		if hasattr(self, "profiles"):
+			selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
+			if splconfig.SPLConfig.activeProfile != selectedProfile:
+				splconfig.SPLConfig.swapProfiles(splconfig.SPLConfig.activeProfile, selectedProfile)
+		splconfig.SPLConfig["General"]["BeepAnnounce"] = self.beepAnnounce
+		splconfig.SPLConfig["General"]["MessageVerbosity"] = self.messageVerbosity
+		splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] = self.endOfTrackTime
+		splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"] = self.sayEndOfTrack
+		splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"] = self.songRampTime
+		splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"] = self.saySongRamp
+		splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"] = self.micAlarm
+		splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] = self.micAlarmInterval
+		splconfig.SPLConfig["General"]["AlarmAnnounce"] = self.alarmAnnounceValues[self.alarmAnnounceList.GetSelection()][0]
+		splconfig.SPLConfig["General"]["BrailleTimer"] = self.brailleTimer
+		splconfig.SPLConfig["General"]["LibraryScanAnnounce"] = self.libScan
+		splconfig.SPLConfig["General"]["TimeHourAnnounce"] = self.hourAnnounce
+		splconfig.SPLConfig["General"]["CategorySounds"] = self.categorySounds
+		splconfig.SPLConfig["General"]["TrackCommentAnnounce"] = self.trackComments
+		splconfig.SPLConfig["General"]["TopBottomAnnounce"] = self.topBottom
+		splconfig.SPLConfig["General"]["RequestsAlert"] = self.requestsAlert
+		splconfig.SPLConfig["PlaylistSnapshots"]["DurationMinMax"] = self.playlistDurationMinMax
+		splconfig.SPLConfig["PlaylistSnapshots"]["DurationAverage"] = self.playlistDurationAverage
+		splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCount"] = self.playlistArtistCount
+		splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCountLimit"] = self.playlistArtistCountLimit
+		splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCount"] = self.playlistCategoryCount
+		splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCountLimit"] = self.playlistCategoryCountLimit
+		splconfig.SPLConfig["PlaylistSnapshots"]["GenreCount"] = self.playlistGenreCount
+		splconfig.SPLConfig["PlaylistSnapshots"]["GenreCountLimit"] = self.playlistGenreCountLimit
+		splconfig.SPLConfig["PlaylistSnapshots"]["ShowResultsWindowOnFirstPress"] = self.resultsWindowOnFirstPress
+		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
+		splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = self.metadataStreams
+		splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
+		splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"] = self.columnOrder
+		splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"] = self.includedColumns
+		splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.Value
+		splconfig.SPLConfig["General"]["ExploreColumns"] = self.exploreColumns
+		splconfig.SPLConfig["General"]["ExploreColumnsTT"] = self.exploreColumnsTT
+		splconfig.SPLConfig["General"]["ExploreColumnsCreator"] = self.exploreColumnsCreator
+		splconfig.SPLConfig["General"]["VerticalColumnAnnounce"] = self.verticalColumn
+		splconfig.SPLConfig["SayStatus"]["SayScheduledFor"] = self.scheduledFor
+		splconfig.SPLConfig["SayStatus"]["SayListenerCount"] = self.listenerCount
+		splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"] = self.cartName
+		splconfig.SPLConfig["SayStatus"]["SayPlayingTrackName"] = self.playingTrackName
+		splconfig.SPLConfig["SayStatus"]["SayStudioPlayerPosition"] = self.studioPlayerPosition
+		splconfig.SPLConfig["Advanced"]["SPLConPassthrough"] = self.splConPassthrough
+		splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] = self.compLayer
+		splconfig.SPLConfig["Update"]["AutoUpdateCheck"] = self.autoUpdateCheck
+		splconfig.SPLConfig["Update"]["UpdateInterval"] = self.updateInterval
+		if splupdate:
+			self.pendingChannelChange = splupdate.SPLUpdateChannel != self.updateChannel
+			splupdate.SPLUpdateChannel = self.updateChannel
+		splconfig.SPLConfig.instantSwitch = self.switchProfile
+		# Make sure to nullify prev profile if instant switch profile is gone.
+		# 7.0: Don't do the following in the midst of a broadcast.
+		if self.switchProfile is None and not splconfig._triggerProfileActive:
+			splconfig.SPLConfig.prevProfile = None
+		_configDialogOpened = False
+		# 7.0: Perform extra action such as restarting auto update timer.
+		self.onCloseExtraAction()
+		# Apply changes to profile triggers.
+		splconfig.profileTriggers = dict(self._profileTriggersConfig)
+		self._profileTriggersConfig.clear()
+		self._profileTriggersConfig = None
+		splconfig.triggerStart(restart=True)
+		# 8.0: Make sure NVDA knows this must be cached (except for normal profile).
+		# 17.10: but not when config is volatile.
+		try:
+			if selectedProfile != _("Normal profile") and selectedProfile not in splconfig._SPLCache:
+				splconfig._cacheConfig(splconfig.SPLConfig.profileByName(selectedProfile))
+		except NameError:
+			pass
+		super(SPLConfigDialog,  self).onOk(evt)
+
+	def onCancel(self, evt):
+		global _configDialogOpened
+		_configDialogOpened = False
+		# 6.1: Discard changes to included columns set.
+		if self.includedColumns is not None: self.includedColumns.clear()
+		self.includedColumns = None
+		# Apply profile trigger changes if any.
+		try:
+			splconfig.profileTriggers = dict(self._profileTriggersConfig)
+			self._profileTriggersConfig.clear()
+			self._profileTriggersConfig = None
+		except AttributeError:
+			pass
+		splconfig.triggerStart(restart=True)
+		# 7.0: No matter what happens, merge appropriate profile.
+		try:
+			prevActive = self.activeProfile
+		except ValueError:
+			prevActive = _("Normal profile")
+		if self.switchProfileRenamed or self.switchProfileDeleted:
+			splconfig.SPLConfig.instantSwitch = self.switchProfile
+		super(SPLConfigDialog,  self).onCancel(evt)
+
+	def onApply(self, evt):
+		applicableProfile = None
+		if hasattr(self, "profiles"):
+			selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
+			if splconfig.SPLConfig.activeProfile != selectedProfile:
+				gui.messageBox(_("The selected profile is different from currently active broadcast profile. Settings will be applied to the selected profile instead."),
+					_("Apply settings"), wx.OK | wx.ICON_INFORMATION, self)
+				applicableProfile = splconfig.SPLConfig.profileByName(selectedProfile)
+		# Apply global settings first, then save settings to appropriate profile.
+		splconfig.SPLConfig["General"]["BeepAnnounce"] = self.beepAnnounce
+		splconfig.SPLConfig["General"]["MessageVerbosity"] = self.messageVerbosity
+		splconfig.SPLConfig["General"]["AlarmAnnounce"] = self.alarmAnnounceValues[self.alarmAnnounceList.GetSelection()][0]
+		splconfig.SPLConfig["General"]["BrailleTimer"] = self.brailleTimer
+		splconfig.SPLConfig["General"]["LibraryScanAnnounce"] = self.libScan
+		splconfig.SPLConfig["General"]["TimeHourAnnounce"] = self.hourAnnounce
+		splconfig.SPLConfig["General"]["CategorySounds"] = self.categorySounds
+		splconfig.SPLConfig["General"]["TrackCommentAnnounce"] = self.trackComments
+		splconfig.SPLConfig["General"]["TopBottomAnnounce"] = self.topBottom
+		splconfig.SPLConfig["General"]["RequestsAlert"] = self.requestsAlert
+		splconfig.SPLConfig["PlaylistSnapshots"]["DurationMinMax"] = self.playlistDurationMinMax
+		splconfig.SPLConfig["PlaylistSnapshots"]["DurationAverage"] = self.playlistDurationAverage
+		splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCount"] = self.playlistArtistCount
+		splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCountLimit"] = self.playlistArtistCountLimit
+		splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCount"] = self.playlistCategoryCount
+		splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCountLimit"] = self.playlistCategoryCountLimit
+		splconfig.SPLConfig["PlaylistSnapshots"]["GenreCount"] = self.playlistGenreCount
+		splconfig.SPLConfig["PlaylistSnapshots"]["GenreCountLimit"] = self.playlistGenreCountLimit
+		splconfig.SPLConfig["PlaylistSnapshots"]["ShowResultsWindowOnFirstPress"] = self.resultsWindowOnFirstPress
+		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
+		splconfig.SPLConfig["General"]["ExploreColumns"] = self.exploreColumns
+		splconfig.SPLConfig["General"]["ExploreColumnsTT"] = self.exploreColumnsTT
+		splconfig.SPLConfig["General"]["ExploreColumnsCreator"] = self.exploreColumnsCreator
+		splconfig.SPLConfig["General"]["VerticalColumnAnnounce"] = self.verticalColumn
+		splconfig.SPLConfig["SayStatus"]["SayScheduledFor"] = self.scheduledFor
+		splconfig.SPLConfig["SayStatus"]["SayListenerCount"] = self.listenerCount
+		splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"] = self.cartName
+		splconfig.SPLConfig["SayStatus"]["SayPlayingTrackName"] = self.playingTrackName
+		splconfig.SPLConfig["SayStatus"]["SayStudioPlayerPosition"] = self.studioPlayerPosition
+		splconfig.SPLConfig["Advanced"]["SPLConPassthrough"] = self.splConPassthrough
+		splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] = self.compLayer
+		splconfig.SPLConfig["Update"]["AutoUpdateCheck"] = self.autoUpdateCheck
+		splconfig.SPLConfig["Update"]["UpdateInterval"] = self.updateInterval
+		if splupdate:
+			self.pendingChannelChange = splupdate.SPLUpdateChannel != self.updateChannel
+			splupdate.SPLUpdateChannel = self.updateChannel
+		if applicableProfile is None:
+			splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] = self.endOfTrackTime
+			splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"] = self.sayEndOfTrack
+			splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"] = self.songRampTime
+			splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"] = self.saySongRamp
+			splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"] = self.micAlarm
+			splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] = self.micAlarmInterval
+			splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = self.metadataStreams
+			splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
+			splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"] = self.columnOrder
+			splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"] = self.includedColumns
+			splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.Value
+		else:
+			applicableProfile["IntroOutroAlarms"]["EndOfTrackTime"] = self.endOfTrackTime
+			applicableProfile["IntroOutroAlarms"]["SayEndOfTrack"] = self.sayEndOfTrack
+			applicableProfile["IntroOutroAlarms"]["SongRampTime"] = self.songRampTime
+			applicableProfile["IntroOutroAlarms"]["SaySongRamp"] = self.saySongRamp
+			applicableProfile["MicrophoneAlarm"]["MicAlarm"] = self.micAlarm
+			applicableProfile["MicrophoneAlarm"]["MicAlarmInterval"] = self.micAlarmInterval
+			applicableProfile["MetadataStreaming"]["MetadataEnabled"] = self.metadataStreams
+			applicableProfile["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
+			applicableProfile["ColumnAnnouncement"]["ColumnOrder"] = self.columnOrder
+			applicableProfile["ColumnAnnouncement"]["IncludedColumns"] = self.includedColumns
+			applicableProfile["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.Value
+		splconfig.SPLConfig.instantSwitch = self.switchProfile
+		# Make sure to nullify prev profile if instant switch profile is gone.
+		# 7.0: Don't do the following in the midst of a broadcast.
+		if self.switchProfile is None and not splconfig._triggerProfileActive:
+			splconfig.SPLConfig.prevProfile = None
+		# 8.0: Make sure NVDA knows this must be cached (except for normal profile).
+		# 17.10: but not when config is volatile.
+		try:
+			if selectedProfile != _("Normal profile") and selectedProfile not in splconfig._SPLCache:
+				splconfig._cacheConfig(splconfig.SPLConfig.profileByName(selectedProfile))
+		except NameError:
+			pass
+		# Notify various modules of settings changes.
+		splactions.SPLActionProfileSwitched.notify(configDialogActive=True)
+		super(SPLConfigDialog,  self).onApply(evt)
+
+	# Perform extra action when closing this dialog such as restarting update timer.
+	def onCloseExtraAction(self):
+		# Coordinate auto update timer restart routine if told to do so.
+		# #50 (18.03): but only if add-on update facility is alive.
+		if splupdate:
+			if not splconfig.SPLConfig["Update"]["AutoUpdateCheck"] or self.pendingChannelChange:
+				splupdate.updateCheckTimerEnd()
+				if self.pendingChannelChange:
+					splupdate._pendingChannelChange = True
+					# Translators: A dialog message shown when add-on update channel has changed.
+					wx.CallAfter(gui.messageBox, _("You have changed the add-on update channel. You must restart NVDA for the change to take effect. Be sure to answer yes when you are asked to install the new version when prompted after restarting NVDA."),
+					# Translators: Title of the update channel dialog.
+					_("Add-on update channel changed"), wx.OK|wx.ICON_INFORMATION)
+			else:
+				if splupdate._SPLUpdateT is None: splupdate.updateInit()
+		# Change metadata streaming.
+		# 17.11: call the metadata connector directly, reducing code duplication from previous releases.
+		# 17.12: replaced by an action, with config UI active flag set.
+		splactions.SPLActionProfileSwitched.notify(configDialogActive=True)
+
+	def onAppTerminate(self):
+		# Call cancel function when the app terminates so the dialog can be closed.
+		self.onCancel(None)
+
+	# Include profile flags such as instant profile string for display purposes.
+	def displayProfiles(self, profiles):
+		for index in rangeGen(len(profiles)):
+			profiles[index] = splconfig.getProfileFlags(profiles[index])
+		return profiles
+
+	# Load settings from profiles.
+	def onProfileSelection(self, evt):
+		# Don't rely on SPLConfig here, as we don't want to interupt the show.
+		selection = self.profiles.GetSelection()
+		# No need to look at the profile flag.
+		selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
+		# Play a tone to indicate active profile.
+		if self.activeProfile == selectedProfile:
+			tones.beep(512, 40)
+		if selection == 0:
+			self.renameButton.Disable()
+			self.deleteButton.Disable()
+			self.triggerButton.Disable()
+		else:
+			self.renameButton.Enable()
+			self.deleteButton.Enable()
+			self.triggerButton.Enable()
+		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
+		self.endOfTrackTime = curProfile["IntroOutroAlarms"]["EndOfTrackTime"]
+		self.sayEndOfTrack = curProfile["IntroOutroAlarms"]["SayEndOfTrack"]
+		self.songRampTime = curProfile["IntroOutroAlarms"]["SongRampTime"]
+		self.saySongRamp = curProfile["IntroOutroAlarms"]["SaySongRamp"]
+		self.micAlarm = curProfile["MicrophoneAlarm"]["MicAlarm"]
+		self.micAlarmInterval = curProfile["MicrophoneAlarm"]["MicAlarmInterval"]
+		# 6.1: Take care of profile-specific column and metadata settings.
+		self.metadataStreams = curProfile["MetadataStreaming"]["MetadataEnabled"]
+		self.columnOrderCheckbox.SetValue(curProfile["ColumnAnnouncement"]["UseScreenColumnOrder"])
+		self.columnOrder = curProfile["ColumnAnnouncement"]["ColumnOrder"]
+		# 6.1: Again convert list to set.
+		self.includedColumns = set(curProfile["ColumnAnnouncement"]["IncludedColumns"])
+		self.columnHeadersCheckbox.SetValue(curProfile["ColumnAnnouncement"]["IncludeColumnHeaders"])
+
+	# Profile controls.
+	# Rename and delete events come from GUI/config profiles dialog from NVDA core.
+	def onNew(self, evt):
+		self.Disable()
+		NewProfileDialog(self).Show()
+
+	def onCopy(self, evt):
+		self.Disable()
+		NewProfileDialog(self, copy=True).Show()
+
+	def onRename(self, evt):
+		oldDisplayName = self.profiles.GetStringSelection()
+		state = oldDisplayName.split(" <")
+		oldName = state[0]
+		index = self.profiles.Selection
+		profilePos = self.profileNames.index(oldName)
+		# Translators: The label of a field to enter a new name for a broadcast profile.
+		with wx.TextEntryDialog(self, _("New name:"),
+				# Translators: The title of the dialog to rename a profile.
+				_("Rename Profile"), defaultValue=oldName) as d:
+			if d.ShowModal() == wx.ID_CANCEL:
+				return
+			newName = api.filterFileName(d.Value)
+		if oldName == newName: return
+		try:
+			splconfig.SPLConfig.renameProfile(oldName, newName)
+		except RuntimeError:
+			# Translators: An error displayed when renaming a configuration profile
+			# and a profile with the new name already exists.
+			gui.messageBox(_("That profile already exists. Please choose a different name."),
+				_("Error"), wx.OK | wx.ICON_ERROR, self)
+			return
+		if self.switchProfile == oldName:
+			self.switchProfile = newName
+			self.switchProfileRenamed = True
+		# Be sure to update profile triggers.
+		if oldName in self._profileTriggersConfig:
+			self._profileTriggersConfig[newName] = self._profileTriggersConfig[oldName]
+			del self._profileTriggersConfig[oldName]
+		if self.activeProfile == oldName:
+			self.activeProfile = newName
+		self.profileNames[profilePos] = newName
+		if oldName in splconfig._SPLCache:
+			splconfig._SPLCache[newName] = splconfig._SPLCache[oldName]
+			del splconfig._SPLCache[oldName]
+		if len(state) > 1: newName = " <".join([newName, state[1]])
+		self.profiles.SetString(index, newName)
+		self.profiles.Selection = index
+		self.profiles.SetFocus()
+
+	def onDelete(self, evt):
+		# Prevent profile deletion while a trigger is active (in the midst of a broadcast), otherwise flags such as instant switch and time-based profiles become inconsistent.
+		# 6.4: This was seen after deleting a profile one position before the previously active profile.
+		# 7.0: One should never delete the currently active time-based profile.
+		# 7.1: Find a way to safely proceed via two-step verification if trying to delete currently active time-based profile.
+		if (splconfig._SPLTriggerEndTimer is not None and splconfig._SPLTriggerEndTimer.IsRunning()) or splconfig._triggerProfileActive or splconfig.SPLConfig.prevProfile is not None:
+			# Translators: Message reported when attempting to delete a profile while a profile is triggered.
+			gui.messageBox(_("An instant switch profile might be active or you are in the midst of a broadcast. If so, please press SPL Assistant, F12 to switch back to a previously active profile before opening add-on settings to delete a profile."),
+				# Translators: Title of a dialog shown when profile cannot be deleted.
+				_("Profile delete error"), wx.OK | wx.ICON_ERROR, self)
+			return
+		name = self.profiles.GetStringSelection().split(" <")[0]
+		# 17.11/15.10-lts: ask once more if deleting an active profile.
+		if name == self.activeProfile:
+			if gui.messageBox(
+				# Translators: The confirmation prompt displayed when the user requests to delete the active broadcast profile.
+				_("You are about to delete the currently active profile. Select yes if you wish to proceed."),
+				# Translators: The title of the confirmation dialog for deletion of a profile.
+				_("Delete active profile"),
+				wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION, self
+			) == wx.NO:
+				return
+		index = self.profiles.Selection
+		profilePos = self.profileNames.index(name)
+		if gui.messageBox(
+			# Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
+			_("Are you sure you want to delete this profile? This cannot be undone."),
+			# Translators: The title of the confirmation dialog for deletion of a profile.
+			_("Confirm Deletion"),
+			wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION, self
+		) == wx.NO:
+			return
+		splconfig.SPLConfig.deleteProfile(name)
+		# 17.11: make sure to connect to the right set of metadata servers and enable/disable microphone alarm if appropriate.
+		splactions.SPLActionProfileSwitched.notify(configDialogActive=True)
+		if name == self.switchProfile or name == self.activeProfile:
+			# 17.11/15.10-LTS: go through the below path if and only if instant switch profile is gone.
+			if name == self.switchProfile:
+				self.switchProfile = None
+				splconfig.SPLConfig.prevProfile = None
+			self.switchProfileDeleted = True
+		self.profiles.Delete(index)
+		del self.profileNames[profilePos]
+		if name in splconfig._SPLCache: del splconfig._SPLCache[name]
+		if name in self._profileTriggersConfig:
+			del self._profileTriggersConfig[name]
+		# 6.3: Select normal profile if the active profile is gone.
+		# 7.0: Consult profile names instead.
+		try:
+			self.profiles.Selection = self.profileNames.index(self.activeProfile)
+		except ValueError:
+			self.activeProfile = _("Normal profile")
+			self.profiles.Selection = 0
+		self.onProfileSelection(None)
+		self.profiles.SetFocus()
+
+	def onTriggers(self, evt):
+		self.Disable()
+		if splconfig._triggerProfileActive:
+			# Translators: Message reported when attempting to change profile switch trigger while broadcasting.
+			gui.messageBox(_("You cannot change profile switch triggers in the midst of a broadcast."),
+				# Translators: Title of a dialog shown when profile trigger cannot e changd.
+				_("Profile triggers"), wx.OK | wx.ICON_ERROR, self)
+			self.Enable()
+			return
+		TriggersDialog(self, self.profileNames[self.profiles.Selection]).Show()
+
+	# Obtain profile flags for a given profile.
+	# This is a proxy to the splconfig module level profile flag retriever with custom strings/maps as arguments.
+	def getProfileFlags(self, name):
+		return splconfig.getProfileFlags(name, active=self.activeProfile, instant=self.switchProfile, triggers=self._profileTriggersConfig, contained=True)
+
+	# Handle flag modifications such as when toggling instant switch.
+	# Unless given, flags will be queried.
+	# This is a sister function to profile flags retriever.
+	def setProfileFlags(self, index, action, flag, flags=None):
+		profile = self.profileNames[index]
+		if flags is None: flags = self.getProfileFlags(profile)
+		action = getattr(flags, action)
+		action(flag)
+		self.profiles.SetString(index, profile if not len(flags) else "{0} <{1}>".format(profile, ", ".join(flags)))
+
+	# Various general add-on settings.
+	def onGeneralSettings(self, evt):
+		self.Disable()
+		GeneralSettingsDialog(self).Show()
+
+	# Alarms Center.
+	def onAlarmsCenter(self, evt):
+		self.Disable()
+		AlarmsCenter(self).Show()
+
+	# Configure playlist snapshot flags.
+	def onPlaylistSnapshotFlags(self, evt):
+		self.Disable()
+		PlaylistSnapshotsDialog(self).Show()
+
+	# Manage metadata streaming.
+	def onManageMetadata(self, evt):
+		self.Disable()
+		MetadataStreamingDialog(self).Show()
+
+	# Manage column announcements.
+	def onManageColumns(self, evt):
+		self.Disable()
+		ColumnAnnouncementsDialog(self).Show()
+
+	# Columns Explorer configuration.
+	def onColumnsExplorer(self, evt):
+		self.Disable()
+		ColumnsExplorerDialog(self).Show()
+
+	# Track Tool Columns Explorer configuration.
+	def onColumnsExplorerTT(self, evt):
+		self.Disable()
+		ColumnsExplorerDialog(self, level=1).Show()
+
+	# SPL Creator Columns Explorer configuration.
+	def onColumnsExplorerCreator(self, evt):
+		self.Disable()
+		ColumnsExplorerDialog(self, level=2).Show()
+
+	# Status announcement dialog.
+	def onStatusAnnouncement(self, evt):
+		self.Disable()
+		SayStatusDialog(self).Show()
+
+	# Advanced options.
+	# See advanced options class for more details.
+	def onAdvancedOptions(self, evt):
+		self.Disable()
+		AdvancedOptionsDialog(self).Show()
+
+	# Reset settings to defaults.
+	# This affects the currently selected profile.
+	def onResetConfig(self, evt):
+		self.Disable()
+		ResetDialog(self).Show()
+
+
+# Open the above dialog upon request.
+def onConfigDialog(evt):
+	# 5.2: Guard against alarm dialogs.
+	if _alarmDialogOpened or _metadataDialogOpened:
+		# Translators: Presented when an alarm dialog is opened.
+		wx.CallAfter(gui.messageBox, _("Another add-on settings dialog is open. Please close the previously opened dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
+	else: gui.mainFrame._popupSettingsDialog(SPLConfigDialog)

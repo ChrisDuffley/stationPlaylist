@@ -48,6 +48,7 @@ msgstr "{header}: en blanco"
 msgid "{header}: ()"
 msgstr "{header}: ()"
 
+#. Translators: Presented when artist information is not found for a track in StationPlaylist Creator.
 #. Translators: Presented when artist information is not found for a track in Track Tool.
 msgid "No artist"
 msgstr "No hay artista"
@@ -90,6 +91,25 @@ msgstr "{checkStatus}{header}: en branco"
 #, python-brace-format
 msgid "{checkStatus}{header}: ()"
 msgstr "{checkStatus}{header}: ()"
+
+#. Translators: presented when column information for a track is empty.
+msgid "blank"
+msgstr ""
+
+#. Translators: Title of the column data window.
+#, fuzzy
+msgid "Track data"
+msgstr "Intro de pista"
+
+#. Translators: input help mode message for column explorer commands.
+msgid ""
+"Pressing once announces data for a track column, pressing twice will present "
+"column data in a browse mode window"
+msgstr ""
+
+#. Translators: input help mode message for columns viewer command.
+msgid "Presents data for all columns in the currently selected track"
+msgstr ""
 
 msgid "Has comment"
 msgstr "Tiene comentario"
@@ -1191,197 +1211,6 @@ msgstr ""
 "No hay conexión a internet. Por favor conéctate a internet antes de buscar "
 "la actualización del complemento."
 
-#. Translators: This is the label for the StationPlaylist Studio configuration dialog.
-msgid "Studio Add-on Settings"
-msgstr "Opciones del complemento Studio"
-
-#. Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
-msgid "Broadcast &profile:"
-msgstr "&Perfil emisión:"
-
-#. Translators: The label of a button to create a new broadcast profile.
-msgid "&New"
-msgstr "&Nuevo"
-
-#. Translators: The label of a button to copy a broadcast profile.
-msgid "Cop&y"
-msgstr "Cop&iar"
-
-#. Translators: The label of a button to rename a broadcast profile.
-msgid "&Rename"
-msgstr "&Renombrar"
-
-#. Translators: The label of a button to delete a broadcast profile.
-msgid "&Delete"
-msgstr "&Eliminar"
-
-#. Translators: The label of a button to manage show profile triggers.
-msgid "&Triggers..."
-msgstr "&Disparadores..."
-
-#. Translators: The label for a setting in SPL Add-on settings to configure countdown seconds before switching profiles.
-msgid "Countdown seconds before switching profiles"
-msgstr "Cuenta atrás en segundos antes de cambiar perfiles"
-
-#. Translators: The label of a button to open a dialog to configure general add-on settings such as beep announcement and top and bottom notifications.
-msgid "&General add-on settings..."
-msgstr "Opciones &Generales del Complemento..."
-
-#. Translators: The label of a button to open a dialog to configure various alarms.
-msgid "&Alarms Center..."
-msgstr "Centro de &Alarmas"
-
-#. Translators: One of the alarm notification options.
-msgid "beep"
-msgstr "pitido"
-
-#. Translators: One of the alarm notification options.
-msgid "message"
-msgstr "mensaje"
-
-#. Translators: One of the alarm notification options.
-msgid "both beep and message"
-msgstr "pitido y mensaje"
-
-#. Translators: The label for a setting in SPL add-on dialog to control alarm announcement type.
-msgid "&Alarm notification:"
-msgstr "Notificación de &Alarma"
-
-#. Translators: The label of a button to manage playlist snapshot flags.
-msgid "&Playlist snapshots..."
-msgstr "Instantáneas de las &listas de reproducción..."
-
-#. Translators: One of the metadata notification settings.
-msgid "When Studio starts"
-msgstr "Cuando arranca Studio"
-
-#. Translators: One of the metadata notification settings.
-msgid "When instant switch profile is active"
-msgstr "Cuando el perfil cambio instantáneo está activo"
-
-#. Translators: the label for a setting in SPL add-on settings to be notified that metadata streaming is enabled.
-msgid "&Metadata streaming notification and connection"
-msgstr "Notificación y conexión de &Metadatos de streaming"
-
-#. Translators: The label of a button to manage column announcements.
-msgid "Configure metadata &streaming connection options..."
-msgstr "Configurar opciones de metadatos de conexión de &streaming..."
-
-#. Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
-msgid "Announce columns in the &order shown on screen"
-msgstr "Anuncia columnas en el &orden mostrado en la pantalla"
-
-#. Translators: The label of a button to manage column announcements.
-msgid "&Manage track column announcements..."
-msgstr "&Administrar anunciado de columna de la pista..."
-
-#. Translators: the label for a setting in SPL add-on settings to toggle whether column headers should be included when announcing track information.
-msgid "Include column &headers when announcing track information"
-msgstr "Incluir &encabezados de columna al anunciar información de pista"
-
-#. Translators: The label of a button to configure columns explorer slots (SPL Assistant, number row keys to announce specific columns).
-msgid "Columns E&xplorer..."
-msgstr "E&xplorador de Columnas..."
-
-#. Translators: The label of a button to configure columns explorer slots for Track Tool (SPL Assistant, number row keys to announce specific columns).
-msgid "Columns Explorer for &Track Tool..."
-msgstr "E&xplorador de Columnas para la Herramienta de &pista..."
-
-#. Translators: The label of a button to open status announcement dialog such as announcing listener count.
-msgid "&Status announcements..."
-msgstr "Anunciado de e&Stado..."
-
-#. Translators: The label of a button to open advanced options such as using SPL Controller command to invoke Assistant layer.
-msgid "&Advanced options..."
-msgstr "Opciones &Avanzadas..."
-
-#. Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
-msgid "Reset settings..."
-msgstr "Reiniciar opciones..."
-
-#. Translators: A dialog message shown when add-on update channel has changed.
-msgid ""
-"You have changed the add-on update channel. You must restart NVDA for the "
-"change to take effect. Be sure to answer yes when you are asked to install "
-"the new version when prompted after restarting NVDA."
-msgstr ""
-"Has cambiado el canal de actualización del complemento. Debes reiniciar NVDA "
-"para que los cambios tengan efecto. Asegúrate de responder sí cuando se te "
-"pregunte para instalar la nueva versión al indicársete después del "
-"reiniciado de NVDA."
-
-#. Translators: Title of the update channel dialog.
-msgid "Add-on update channel changed"
-msgstr "Cambió el canal de actualización del complemento"
-
-#. Translators: The label of a field to enter a new name for a broadcast profile.
-msgid "New name:"
-msgstr "Nombre nuevo:"
-
-#. Translators: The title of the dialog to rename a profile.
-msgid "Rename Profile"
-msgstr "Renombrar Perfil"
-
-#. Translators: An error displayed when renaming a configuration profile
-#. and a profile with the new name already exists.
-#. Translators: An error displayed when the user attempts to create a profile which already exists.
-msgid "That profile already exists. Please choose a different name."
-msgstr "Ese perfil ya existe. Por favor elige un nombre diferente."
-
-#. Translators: Message reported when attempting to delete a profile while a profile is triggered.
-msgid ""
-"An instant switch profile might be active or you are in the midst of a "
-"broadcast. If so, please press SPL Assistant, F12 to switch back to a "
-"previously active profile before opening add-on settings to delete a profile."
-msgstr ""
-"Un perfil de cambio instantáneo podría estár activado o estás en medio de "
-"una emisión. Si es así, por favor pulsa SPL Assistant, F12 para regresar a "
-"un perfil previamente activado antes de abrir las opciones del complemento "
-"para borrar un perfil."
-
-#. Translators: Title of a dialog shown when profile cannot be deleted.
-msgid "Profile delete error"
-msgstr "Error de borrado de perfil"
-
-#. Translators: The confirmation prompt displayed when the user requests to delete the active broadcast profile.
-msgid ""
-"You are about to delete the currently active profile. Select yes if you wish "
-"to proceed."
-msgstr ""
-"Estás a punto de eliminar el perfil activo actualmente. Selecciona sí si "
-"deseas proceder."
-
-#. Translators: The title of the confirmation dialog for deletion of a profile.
-msgid "Delete active profile"
-msgstr "Eliminar perfil activo"
-
-#. Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
-msgid "Are you sure you want to delete this profile? This cannot be undone."
-msgstr ""
-"¿Estás seguro de querer eliminar este perfil? Esto no se puede deshacer."
-
-#. Translators: The title of the confirmation dialog for deletion of a profile.
-msgid "Confirm Deletion"
-msgstr "Confirmar Eliminación"
-
-#. Translators: Message reported when attempting to change profile switch trigger while broadcasting.
-msgid "You cannot change profile switch triggers in the midst of a broadcast."
-msgstr ""
-"No puedes cambiar los disparadores de cambio de perfil en medio de una "
-"transmisión."
-
-#. Translators: Title of a dialog shown when profile trigger cannot e changd.
-msgid "Profile triggers"
-msgstr "Disparadores de perfil"
-
-#. Translators: Presented when an alarm dialog is opened.
-msgid ""
-"Another add-on settings dialog is open. Please close the previously opened "
-"dialog first."
-msgstr ""
-"Otro diálogo de opciones del complemento está abierto. Por favor cierra el "
-"diálogo abierto antes."
-
 #. Translators: The title of the dialog to create a new broadcast profile.
 msgid "New Profile"
 msgstr "Nuevo Perfil"
@@ -1397,6 +1226,12 @@ msgstr "Nombre de Perfil:"
 #. Translators: The label for a setting in SPL add-on dialog to select a base  profile for copying.
 msgid "&Base profile:"
 msgstr "Perfil &Base:"
+
+#. Translators: An error displayed when the user attempts to create a profile which already exists.
+#. Translators: An error displayed when renaming a configuration profile
+#. and a profile with the new name already exists.
+msgid "That profile already exists. Please choose a different name."
+msgstr "Ese perfil ya existe. Por favor elige un nombre diferente."
 
 #. Translators: The title of the broadcast profile triggers dialog.
 #, python-brace-format
@@ -1581,6 +1416,7 @@ msgstr "Duración media de la pista"
 msgid "Artist count"
 msgstr "cuenta de artistas"
 
+#. Translators: the label for a setting in SPL add-on settings to set top artist count limit in playlist snapshots window.
 msgid "Top artist count (0 displays all artists)"
 msgstr "cuenta de artistas principales (0 muestra todos los artistas)"
 
@@ -1588,6 +1424,7 @@ msgstr "cuenta de artistas principales (0 muestra todos los artistas)"
 msgid "Category count"
 msgstr "Cuenta de categorías"
 
+#. Translators: the label for a setting in SPL add-on settings to set top track category count limit in playlist snapshots window.
 msgid "Top category count (0 displays all categories)"
 msgstr "Cuenta de categorías principales (0 muestra todas las categorías)"
 
@@ -1595,6 +1432,7 @@ msgstr "Cuenta de categorías principales (0 muestra todas las categorías)"
 msgid "Genre count"
 msgstr "Cuenta de géneros"
 
+#. Translators: the label for a setting in SPL add-on settings to set top track genre limit in playlist snapshots window.
 msgid "Top genre count (0 displays all genres)"
 msgstr "Cuenta de géneros principales (0 muestra todos los géneros)"
 
@@ -1630,8 +1468,8 @@ msgstr ""
 "Selecciona las columnas a ser anunciadas (artista y título se anuncian "
 "predeterminadamente"
 
-#. WXPython Phoenix contains RearrangeList to allow item orders to be changed automatically.
-#. Because WXPython Classic doesn't include this, work around by using a variant of list box and move up/down buttons.
+#. wxPython 4 contains RearrangeList to allow item orders to be changed automatically.
+#. Because wxPython 3 doesn't include this, work around by using a variant of list box and move up/down buttons.
 #. 17.04: The label for the list below is above the list, so move move up/down buttons to the right of the list box.
 #. Translators: The label for a setting in SPL add-on dialog to select column announcement order.
 msgid "Column &order:"
@@ -1651,6 +1489,11 @@ msgstr "Explorador de Columnas"
 
 #. Translators: The title of Columns Explorer configuration dialog.
 msgid "Columns Explorer for Track Tool"
+msgstr "Explorador de Columnas para la Herramienta de Pista"
+
+#. Translators: The title of Columns Explorer configuration dialog.
+#, fuzzy
+msgid "Columns Explorer for SPL Creator"
 msgstr "Explorador de Columnas para la Herramienta de Pista"
 
 #. Translators: The label for a setting in SPL add-on dialog to select column for this column slot.
@@ -1794,6 +1637,205 @@ msgstr "Se aplicaron con éxito las opciones predeterminadas del complemento."
 #. Translators: Title of the reset config dialog.
 msgid "Reset configuration"
 msgstr "Reiniciar configuración"
+
+#. Translators: This is the label for the StationPlaylist Studio configuration dialog.
+msgid "Studio Add-on Settings"
+msgstr "Opciones del complemento Studio"
+
+#. Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
+msgid "Broadcast &profile:"
+msgstr "&Perfil emisión:"
+
+#. Translators: The label of a button to create a new broadcast profile.
+msgid "&New"
+msgstr "&Nuevo"
+
+#. Translators: The label of a button to copy a broadcast profile.
+msgid "Cop&y"
+msgstr "Cop&iar"
+
+#. Translators: The label of a button to rename a broadcast profile.
+msgid "&Rename"
+msgstr "&Renombrar"
+
+#. Translators: The label of a button to delete a broadcast profile.
+msgid "&Delete"
+msgstr "&Eliminar"
+
+#. Translators: The label of a button to manage show profile triggers.
+msgid "&Triggers..."
+msgstr "&Disparadores..."
+
+#. Translators: The label for a setting in SPL Add-on settings to configure countdown seconds before switching profiles.
+msgid "Countdown seconds before switching profiles"
+msgstr "Cuenta atrás en segundos antes de cambiar perfiles"
+
+#. Translators: The label of a button to open a dialog to configure general add-on settings such as beep announcement and top and bottom notifications.
+msgid "&General add-on settings..."
+msgstr "Opciones &Generales del Complemento..."
+
+#. Translators: The label of a button to open a dialog to configure various alarms.
+msgid "&Alarms Center..."
+msgstr "Centro de &Alarmas"
+
+#. Translators: One of the alarm notification options.
+msgid "beep"
+msgstr "pitido"
+
+#. Translators: One of the alarm notification options.
+msgid "message"
+msgstr "mensaje"
+
+#. Translators: One of the alarm notification options.
+msgid "both beep and message"
+msgstr "pitido y mensaje"
+
+#. Translators: The label for a setting in SPL add-on dialog to control alarm announcement type.
+msgid "&Alarm notification:"
+msgstr "Notificación de &Alarma"
+
+#. Translators: The label of a button to manage playlist snapshot flags.
+msgid "&Playlist snapshots..."
+msgstr "Instantáneas de las &listas de reproducción..."
+
+#. Translators: One of the metadata notification settings.
+msgid "When Studio starts"
+msgstr "Cuando arranca Studio"
+
+#. Translators: One of the metadata notification settings.
+msgid "When instant switch profile is active"
+msgstr "Cuando el perfil cambio instantáneo está activo"
+
+#. Translators: the label for a setting in SPL add-on settings to be notified that metadata streaming is enabled.
+msgid "&Metadata streaming notification and connection"
+msgstr "Notificación y conexión de &Metadatos de streaming"
+
+#. Translators: The label of a button to manage column announcements.
+msgid "Configure metadata &streaming connection options..."
+msgstr "Configurar opciones de metadatos de conexión de &streaming..."
+
+#. Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
+msgid "Announce columns in the &order shown on screen"
+msgstr "Anuncia columnas en el &orden mostrado en la pantalla"
+
+#. Translators: The label of a button to manage column announcements.
+msgid "&Manage track column announcements..."
+msgstr "&Administrar anunciado de columna de la pista..."
+
+#. Translators: the label for a setting in SPL add-on settings to toggle whether column headers should be included when announcing track information.
+msgid "Include column &headers when announcing track information"
+msgstr "Incluir &encabezados de columna al anunciar información de pista"
+
+#. Translators: The label of a button to configure columns explorer slots (SPL Assistant, number row keys to announce specific columns).
+msgid "Columns E&xplorer..."
+msgstr "E&xplorador de Columnas..."
+
+#. Translators: The label of a button to configure columns explorer slots for Track Tool (SPL Assistant, number row keys to announce specific columns).
+msgid "Columns Explorer for &Track Tool..."
+msgstr "E&xplorador de Columnas para la Herramienta de &pista..."
+
+#. Translators: The label of a button to configure columns explorer slots for SPL Creator (SPL Assistant, number row keys to announce specific columns).
+#, fuzzy
+msgid "Columns Explorer for &SPL Creator..."
+msgstr "E&xplorador de Columnas para la Herramienta de &pista..."
+
+#. Translators: The label of a button to open status announcement dialog such as announcing listener count.
+msgid "&Status announcements..."
+msgstr "Anunciado de e&Stado..."
+
+#. Translators: The label of a button to open advanced options such as using SPL Controller command to invoke Assistant layer.
+msgid "&Advanced options..."
+msgstr "Opciones &Avanzadas..."
+
+#. Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
+msgid "Reset settings..."
+msgstr "Reiniciar opciones..."
+
+msgid ""
+"The selected profile is different from currently active broadcast profile. "
+"Settings will be applied to the selected profile instead."
+msgstr ""
+
+#, fuzzy
+msgid "Apply settings"
+msgstr "Opciones de SPL"
+
+#. Translators: A dialog message shown when add-on update channel has changed.
+msgid ""
+"You have changed the add-on update channel. You must restart NVDA for the "
+"change to take effect. Be sure to answer yes when you are asked to install "
+"the new version when prompted after restarting NVDA."
+msgstr ""
+"Has cambiado el canal de actualización del complemento. Debes reiniciar NVDA "
+"para que los cambios tengan efecto. Asegúrate de responder sí cuando se te "
+"pregunte para instalar la nueva versión al indicársete después del "
+"reiniciado de NVDA."
+
+#. Translators: Title of the update channel dialog.
+msgid "Add-on update channel changed"
+msgstr "Cambió el canal de actualización del complemento"
+
+#. Translators: The label of a field to enter a new name for a broadcast profile.
+msgid "New name:"
+msgstr "Nombre nuevo:"
+
+#. Translators: The title of the dialog to rename a profile.
+msgid "Rename Profile"
+msgstr "Renombrar Perfil"
+
+#. Translators: Message reported when attempting to delete a profile while a profile is triggered.
+msgid ""
+"An instant switch profile might be active or you are in the midst of a "
+"broadcast. If so, please press SPL Assistant, F12 to switch back to a "
+"previously active profile before opening add-on settings to delete a profile."
+msgstr ""
+"Un perfil de cambio instantáneo podría estár activado o estás en medio de "
+"una emisión. Si es así, por favor pulsa SPL Assistant, F12 para regresar a "
+"un perfil previamente activado antes de abrir las opciones del complemento "
+"para borrar un perfil."
+
+#. Translators: Title of a dialog shown when profile cannot be deleted.
+msgid "Profile delete error"
+msgstr "Error de borrado de perfil"
+
+#. Translators: The confirmation prompt displayed when the user requests to delete the active broadcast profile.
+msgid ""
+"You are about to delete the currently active profile. Select yes if you wish "
+"to proceed."
+msgstr ""
+"Estás a punto de eliminar el perfil activo actualmente. Selecciona sí si "
+"deseas proceder."
+
+#. Translators: The title of the confirmation dialog for deletion of a profile.
+msgid "Delete active profile"
+msgstr "Eliminar perfil activo"
+
+#. Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
+msgid "Are you sure you want to delete this profile? This cannot be undone."
+msgstr ""
+"¿Estás seguro de querer eliminar este perfil? Esto no se puede deshacer."
+
+#. Translators: The title of the confirmation dialog for deletion of a profile.
+msgid "Confirm Deletion"
+msgstr "Confirmar Eliminación"
+
+#. Translators: Message reported when attempting to change profile switch trigger while broadcasting.
+msgid "You cannot change profile switch triggers in the midst of a broadcast."
+msgstr ""
+"No puedes cambiar los disparadores de cambio de perfil en medio de una "
+"transmisión."
+
+#. Translators: Title of a dialog shown when profile trigger cannot e changd.
+msgid "Profile triggers"
+msgstr "Disparadores de perfil"
+
+#. Translators: Presented when an alarm dialog is opened.
+msgid ""
+"Another add-on settings dialog is open. Please close the previously opened "
+"dialog first."
+msgstr ""
+"Otro diálogo de opciones del complemento está abierto. Por favor cierra el "
+"diálogo abierto antes."
 
 #. Translators: Text of the dialog when another find dialog is open.
 msgid "Another find dialog is open."
