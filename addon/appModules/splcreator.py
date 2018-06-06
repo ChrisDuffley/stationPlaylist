@@ -25,7 +25,7 @@ def indexOf(ttVersion):
 	return ("Artist", "Title", "Position", "Cue", "Intro", "Outro", "Segue", "Duration", "Last Scheduled", "7 Days", "Date Restriction", "Year", "Album", "Genre", "Mood", "Energy", "Tempo", "BPM", "Gender", "Rating", "File Created", "Filename", "Client", "Other", "Intro Link", "Outro Link")
 
 class SPLCreatorItem(IAccessible):
-	"""An entry in SPL Creator (mostly tracks), used to implement some exciting features.
+	"""An entry in SPL Creator (mostly tracks).
 	"""
 
 	def initOverlayClass(self):
@@ -33,7 +33,7 @@ class SPLCreatorItem(IAccessible):
 		for i in rangeGen(10):
 			self.bindGesture("kb:control+nvda+%s"%(i), "columnExplorer")
 
-	# Tweak for Track Tool: Announce column header if given.
+	# Another tweak for SPL Creator: Announce column header if given.
 	# Also take care of this when specific columns are asked.
 	# This also allows display order to be checked (Studio 5.10 and later).
 	def announceColumnContent(self, colNumber, columnHeader=None, individualColumns=False):
