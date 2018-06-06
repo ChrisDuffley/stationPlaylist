@@ -92,7 +92,7 @@ _SPLCategoryTones = {
 class SPLTrackItem(IAccessible):
 	"""An abstract class representing track items across SPL suite of applications such as Studio, Creator and Track Tool.
 	This class provides basic properties, scripts and methods such as Columns Explorer and others.
-	Subclasses should provide custom routines for various attributes, including global ones to suite their needs.
+	Subclasses should provide custom routines for various attributes, including global ones to suit their needs.
 
 	Each subclass is named after the app module name where tracks are encountered, such as SPLStudioTrackItem for Studio.
 	Subclasses of module-specific subclasses are named after SPL version, for example SPL510TrackItem for studio 5.10.
