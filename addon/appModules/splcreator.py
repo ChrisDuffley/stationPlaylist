@@ -112,8 +112,7 @@ class AppModule(appModuleHandler.AppModule):
 	def __init__(self, *args, **kwargs):
 		super(AppModule, self).__init__(*args, **kwargs)
 		# #64 (18.07): load config database if not done already.
-		if splconfig.SPLConfig is None: splconfig.SPLConfig = splconfig.ConfigHub(splComponent="splcreator")
-		else: splconfig.SPLConfig.splComponents.add("splcreator")
+		splconfig.openConfig("splcreator")
 
 	def terminate(self):
 		super(AppModule, self).terminate()
