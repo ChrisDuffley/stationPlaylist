@@ -499,8 +499,18 @@ splactions.SPLActionProfileSwitched.register(metadata_actionProfileSwitched)
 # To account for expansions, let a master function call different formatters based on output format.
 SPLPlaylistTranscriptFormats = []
 
+# Various post-transcript actions.
+# For each converter, after transcribing the playlist, additional actions will be performed.
+# Actions can include viewing the transcript, copying to clipboard (text style format only), and saving to a file.
+
 def displayPlaylistTranscripts(transcript, HTMLDecoration=False):
 	ui.browseableMessage("\n".join(transcript),title=_("Playlist Transcripts"), isHtml=HTMLDecoration)
+
+def copyPlaylistTranscriptsToClipboard(playlistTranscripts):
+	# Only text style transcript such as pure text and Markdown supports copying contents to clipboard.
+	import api
+	api.copyToClip(u"\r\n".join(playlistTranscripts))
+	ui.message(_("Playlist data copied to clipboard"))
 
 # Several converters rely on assistants for their work.
 # For text file 1 and HTML list 1, it expects playlist data in the format presented by MSAA.
@@ -528,17 +538,10 @@ def playlist2msaa(start, end, additionalDecorations=False, prefix="", suffix="")
 		obj = obj.next
 	return playlistTranscripts
 
-# For each converter, after transcribing the playlist, additional actions will be performed.
-# Actions can include viewing the transcript, copying to clipboard (text only), and saving to a file.
-
 def playlist2txt(start, end, transcriptAction):
 	playlistTranscripts = playlist2msaa(start, end)
 	if transcriptAction == 0: displayPlaylistTranscripts(playlistTranscripts)
-	elif transcriptAction == 1:
-		# Only text transcript supports copying contents to clipboard.
-		import api
-		api.copyToClip(u"\r\n".join(playlistTranscripts))
-		ui.message(_("Playlist data copied to clipboard"))
+	elif transcriptAction == 1: copyPlaylistTranscriptsToClipboard(playlistTranscripts)
 SPLPlaylistTranscriptFormats.append(("txt", playlist2txt, "plain text with one line per entry"))
 
 def playlist2txt2(): pass
