@@ -512,6 +512,21 @@ def copyPlaylistTranscriptsToClipboard(playlistTranscripts):
 	api.copyToClip(u"\r\n".join(playlistTranscripts))
 	ui.message(_("Playlist data copied to clipboard"))
 
+def savePlaylistTranscriptsToFile(playlistTranscripts, extension, location=None):
+	# By default playlist transcripts will be saved to a subfolder in user's Documents folder named "nvdasplPlaylistTranscripts".
+	# Each transcript file will be named yyyymmdd-hhmmss-splPlaylistTranscript.ext.
+	transcriptFileLocation = os.path.join(os.environ["userprofile"], "Documents", "nvdasplPlaylistTranscripts")
+	if not os.path.exists(transcriptFileLocation):
+		os.mkdir(transcriptFileLocation)
+	import datetime
+	transcriptTimestamp = datetime.datetime.now()
+	transcriptFilename = "{0}{1:02d}{2:02d}-{3:02d}{4:02d}{5:02d}-splPlaylistTranscript.{6}".format(
+		transcriptTimestamp.year, transcriptTimestamp.month, transcriptTimestamp.day, transcriptTimestamp.hour, transcriptTimestamp.minute, transcriptTimestamp.second, extension)
+	transcriptPath = os.path.join(transcriptFileLocation, transcriptFilename)
+	with open(transcriptPath, "w") as transcript:
+		transcript.writelines(playlistTranscripts)
+	ui.message("Playlist transcripts saved at {location}".format(location = transcriptPath))
+
 # Several converters rely on assistants for their work.
 # For text file 1 and HTML list 1, it expects playlist data in the format presented by MSAA.
 # Header will not be included if additional decorations will be done (mostly for HTML and others).
@@ -542,6 +557,7 @@ def playlist2txt(start, end, transcriptAction):
 	playlistTranscripts = playlist2msaa(start, end)
 	if transcriptAction == 0: displayPlaylistTranscripts(playlistTranscripts)
 	elif transcriptAction == 1: copyPlaylistTranscriptsToClipboard(playlistTranscripts)
+	elif transcriptAction == 2: savePlaylistTranscriptsToFile(playlistTranscripts, "txt")
 SPLPlaylistTranscriptFormats.append(("txt", playlist2txt, "plain text with one line per entry"))
 
 def playlist2txt2(): pass
@@ -711,4 +727,3 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 	def onAppTerminate(self):
 		# Call cancel function when the app terminates so the dialog can be closed.
 		self.onCancel(None)
-
