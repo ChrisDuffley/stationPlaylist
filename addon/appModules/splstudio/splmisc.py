@@ -12,7 +12,6 @@ import ctypes
 import weakref
 import os
 import threading
-import collections # Playlist transcript formats tuple
 from .csv import reader # For cart explorer.
 import gui
 import wx
@@ -529,16 +528,17 @@ def playlist2msaa(start, end, additionalDecorations=False, prefix="", suffix="")
 		obj = obj.next
 	return playlistTranscripts
 
-def playlist2clipboard(start, end):
-	import api
-	playlistTranscripts = playlist2msaa(start, end)
-	api.copyToClip("\r\n".join(playlistTranscripts))
-	ui.message(_("Playlist data copied to clipboard"))
-#SPLPlaylistTranscriptFormats.append(("clipboard", playlist2clipboard, "Copy to clipboard"))
+# For each converter, after transcribing the playlist, additional actions will be performed.
+# Actions can include viewing the transcript, copying to clipboard (text only), and saving to a file.
 
-def playlist2txt(start, end):
+def playlist2txt(start, end, transcriptAction):
 	playlistTranscripts = playlist2msaa(start, end)
-	displayPlaylistTranscripts(playlistTranscripts)
+	if transcriptAction == 0: displayPlaylistTranscripts(playlistTranscripts)
+	elif transcriptAction == 1:
+		# Only text transcript supports copying contents to clipboard.
+		import api
+		api.copyToClip(u"\r\n".join(playlistTranscripts))
+		ui.message(_("Playlist data copied to clipboard"))
 SPLPlaylistTranscriptFormats.append(("txt", playlist2txt, "plain text with one line per entry"))
 
 def playlist2txt2(): pass
@@ -553,7 +553,7 @@ def playlist2ini(): pass
 def playlist2ini2(): pass
 #SPLPlaylistTranscriptFormats.append(("ini2", playlist2ini2, "Ini file with sections"))
 
-def playlist2htmlTable(start, end):
+def playlist2htmlTable(start, end, transcriptAction):
 	playlistTranscripts = ["Playlist Transcripts - use table navigation commands to review track information"]
 	playlistTranscripts.append("<p>")
 	from . import splconfig
@@ -567,7 +567,7 @@ def playlist2htmlTable(start, end):
 	displayPlaylistTranscripts(playlistTranscripts, HTMLDecoration=True)
 SPLPlaylistTranscriptFormats.append(("htmltable", playlist2htmlTable, "Table in HTML format"))
 
-def playlist2htmlList(start, end):
+def playlist2htmlList(start, end, transcriptAction):
 	playlistTranscripts = ["Playlist Transcripts - use list navigation commands to review track information"]
 	playlistTranscripts.append("<p><ol>")
 	playlistTranscripts += playlist2msaa(start, end, additionalDecorations=True, prefix="<li>")
@@ -578,7 +578,7 @@ SPLPlaylistTranscriptFormats.append(("htmllist", playlist2htmlList, "Data list i
 def playlist2htmlList2(): pass
 #SPLPlaylistTranscriptFormats.append(("htmllist2", playlist2htmlList2, "Multiple HTML lists, one per entry"))
 
-def playlist2mdTable(start, end):
+def playlist2mdTable(start, end, transcriptAction):
 	playlistTranscripts = []
 	from . import splconfig
 	playlistTranscripts.append("| Status | {columnHeaders} |\n".format(columnHeaders = " | ".join(splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])))
@@ -642,7 +642,22 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 
 		# Translators: The label in playlist transcripts dialog to select transcript output format.
 		self.transcriptFormat = plTranscriptsSizerHelper.addLabeledControl(_("Transcript format:"), wx.Choice, choices=[output[2] for output in SPLPlaylistTranscriptFormats])
+		self.transcriptFormat.Bind(wx.EVT_CHOICE, self.onTranscriptFormatSelection)
 		self.transcriptFormat.SetSelection(0)
+
+		self.transcriptActions = (
+			# Translators: one of the playlist transcript actions.
+			_("view transcript"),
+			# Translators: one of the playlist transcript actions.
+			_("copy to clipboard"),
+			# Translators: one of the playlist transcript actions.
+			_("save to file"),
+		)
+		self.copy2clipPossible = [0]
+
+		# Translators: The label in playlist transcripts dialog to select transcript action.
+		self.transcriptAction = plTranscriptsSizerHelper.addLabeledControl(_("Transcript action:"), wx.Choice, choices=self.transcriptActions)
+		self.transcriptAction.SetSelection(0)
 
 		plTranscriptsSizerHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON,self.onOk,id=wx.ID_OK)
@@ -652,6 +667,16 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 		self.Sizer = mainSizer
 		self.Center(wx.BOTH | CENTER_ON_SCREEN)
 		self.transcriptRange.SetFocus()
+
+	def onTranscriptFormatSelection(self, evt):
+		# Not all formats support all actions (for example, HTML table does not support copying to clipboard unless formatting is provided).
+		action = self.transcriptFormat.GetSelection()
+		self.transcriptAction.Clear()
+		if action in self.copy2clipPossible:
+			self.transcriptAction.SetItems(self.transcriptActions)
+		else:
+			self.transcriptAction.SetItems(["view transcript", "save to file"])
+		self.transcriptAction.SetSelection(0)
 
 	def onOk(self, evt):
 		global _plTranscriptsDialogOpened
@@ -671,7 +696,7 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 			# What if current track is indeed an hour marker?
 			if end == self.obj:
 				end = self.obj.appModule._trackLocator("Hour Marker", obj=self.obj.next, columns=[self.obj.indexOf("Category")])
-		wx.CallLater(200, SPLPlaylistTranscriptFormats[self.transcriptFormat.Selection][1], start, end)
+		wx.CallLater(200, SPLPlaylistTranscriptFormats[self.transcriptFormat.Selection][1], start, end, self.transcriptAction.Selection)
 		self.Destroy()
 		_plTranscriptsDialogOpened = False
 
