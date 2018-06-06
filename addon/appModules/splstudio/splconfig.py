@@ -612,6 +612,13 @@ _configLoadStatus = {} # Key = filename, value is pass or no pass.
 # Track comments map.
 trackComments = {}
 
+# Open config database, used mostly from modules other than Studio.
+def openConfig(splComponent):
+	global SPLConfig
+	# #64 (18.07): skip this step if another SPL component (such as Creator) opened this.
+	if SPLConfig is None: SPLConfig = ConfigHub(splComponent=splComponent)
+	else: SPLConfig.splComponents.add(splComponent)
+
 def initialize():
 	# Load the default config from a list of profiles.
 	# 8.0: All this work will be performed when ConfigHub loads.
@@ -619,8 +626,8 @@ def initialize():
 	# 7.0: Store the config as a dictionary.
 	# This opens up many possibilities, including config caching, loading specific sections only and others (the latter saves memory).
 	# 8.0: Replaced by ConfigHub object.
-	# #64 (18.07): skip this step if another SPL component (such as Creator) opened this.
-	if SPLConfig is None: SPLConfig = ConfigHub()
+	# #64 (18.07): perfomed by openConfig function.
+	openConfig("splstudio")
 	# Locate instant profile and do something otherwise.
 	if SPLConfig.instantSwitch is not None and SPLConfig.instantSwitch not in SPLConfig.profileNames:
 		spldebugging.debugOutput("Failed to locate instant switch profile")
