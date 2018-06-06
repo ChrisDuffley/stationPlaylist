@@ -120,6 +120,15 @@ class AppModule(appModuleHandler.AppModule):
 
 	SPLColNumber = 0
 
+	def __init__(self, *args, **kwargs):
+		super(AppModule, self).__init__(*args, **kwargs)
+		# #64 (18.07): load config database if not done already.
+		splconfig.openConfig("tracktool")
+
+	def terminate(self):
+		super(AppModule, self).terminate()
+		splconfig.closeConfig("tracktool")
+
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		import controlTypes
 		if obj.windowClassName in ("TListView", "TTntListView.UnicodeClass") and obj.role == controlTypes.ROLE_LISTITEM:
