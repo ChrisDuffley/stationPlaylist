@@ -88,8 +88,19 @@ _SPLCategoryTones = {
 }
 
 # Routines for track items themselves (prepare for future work).
+# #65 (18.07): this base class represents trakc items across StationPlaylist suites such as Studio, Creator and Track Tool.
 class SPLTrackItem(IAccessible):
-	"""A base class for providing utility scripts when track entries are focused, such as location text and column navigation."""
+	"""An abstract class representing track items across SPL suite of applications such as Studio, Creator and Track Tool.
+	This class provides basic properties, scripts and methods such as Columns Explorer and others.
+	Subclasses should provide custom routines for various attributes, including global ones to suite their needs.
+
+	Each subclass is named after the app module name where tracks are encountered, such as SPLStudioTrackItem for Studio.
+	Subclasses of module-specific subclasses are named after SPL version, for example SPL510TrackItem for studio 5.10.
+	"""
+	pass
+
+class SPLStudioTrackItem(SPLTrackItem):
+	"""A base class for providing utility scripts when SPL Studio track entries are focused, such as location text and column navigation."""
 
 	# Keep a record of which column is being looked at.
 	_curColumnNumber = None
@@ -375,7 +386,7 @@ class SPLTrackItem(IAccessible):
 		"kb:Alt+NVDA+C":"announceTrackComment"
 	}
 
-class SPL510TrackItem(SPLTrackItem):
+class SPL510TrackItem(SPLStudioTrackItem):
 	"""Track item for Studio 5.10 and later."""
 
 	def event_stateChange(self):
