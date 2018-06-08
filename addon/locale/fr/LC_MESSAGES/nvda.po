@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: StationPlaylist 18.05\n"
+"Project-Id-Version: StationPlaylist 18.06\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-04-27 15:52+0200\n"
+"PO-Revision-Date: 2018-06-02 14:54+0200\n"
 "Last-Translator: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language-Team: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language: fr\n"
@@ -93,22 +93,24 @@ msgstr "{checkStatus}{header} : ()"
 
 #. Translators: presented when column information for a track is empty.
 msgid "blank"
-msgstr ""
+msgstr "vide"
 
 #. Translators: Title of the column data window.
-#, fuzzy
 msgid "Track data"
-msgstr "Piste intro"
+msgstr "Données de piste"
 
 #. Translators: input help mode message for column explorer commands.
 msgid ""
 "Pressing once announces data for a track column, pressing twice will present "
 "column data in a browse mode window"
 msgstr ""
+"Si vous appuyez une fois sur les données d'une colonne de piste, appuyez "
+"deux fois pour afficher les données de colonne dans une fenêtre de "
+"navigation."
 
 #. Translators: input help mode message for columns viewer command.
 msgid "Presents data for all columns in the currently selected track"
-msgstr ""
+msgstr "Présente des données pour toutes les colonnes de la piste sélectionnée"
 
 msgid "Has comment"
 msgstr "A commentaire"
@@ -1509,9 +1511,8 @@ msgid "Columns Explorer for Track Tool"
 msgstr "Explorateur de Colonnes pour l'Outil de piste"
 
 #. Translators: The title of Columns Explorer configuration dialog.
-#, fuzzy
 msgid "Columns Explorer for SPL Creator"
-msgstr "Explorateur de Colonnes pour l'Outil de piste"
+msgstr "Explorateur de Colonnes pour SPL Creator"
 
 #. Translators: The label for a setting in SPL add-on dialog to select column for this column slot.
 #, python-brace-format
@@ -1756,9 +1757,8 @@ msgid "Columns Explorer for &Track Tool..."
 msgstr "Explorateur de colonnes pour l'Ou&til de piste..."
 
 #. Translators: The label of a button to configure columns explorer slots for SPL Creator (SPL Assistant, number row keys to announce specific columns).
-#, fuzzy
 msgid "Columns Explorer for &SPL Creator..."
-msgstr "Explorateur de colonnes pour l'Ou&til de piste..."
+msgstr "Explorateur de colonnes pour &SPL Creator..."
 
 #. Translators: The label of a button to open status announcement dialog such as announcing listener count.
 msgid "&Status announcements..."
@@ -1776,10 +1776,11 @@ msgid ""
 "The selected profile is different from currently active broadcast profile. "
 "Settings will be applied to the selected profile instead."
 msgstr ""
+"Le profil sélectionné est différent du profil de diffusion actuellement "
+"actif. Les paramètres seront appliqués au profil sélectionné à la place."
 
-#, fuzzy
 msgid "Apply settings"
-msgstr "Paramètres SPL"
+msgstr "Appliquer les paramètres"
 
 #. Translators: A dialog message shown when add-on update channel has changed.
 msgid ""
