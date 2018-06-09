@@ -605,7 +605,7 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 		# Use a weakref so the instance can die.
 		SPLPlaylistTranscriptsDialog._instance = weakref.ref(self)
 
-		# Translators: the playlsit transcripts dialog title.
+		# Translators: the Playlist transcripts dialog title.
 		super(SPLPlaylistTranscriptsDialog, self).__init__(parent, wx.ID_ANY, _("Playlist Transcripts"))
 		self.obj = obj
 
