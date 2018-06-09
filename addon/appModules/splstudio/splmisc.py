@@ -541,17 +541,8 @@ def playlist2txt(start, end, transcriptAction):
 		ui.message(_("Playlist data copied to clipboard"))
 SPLPlaylistTranscriptFormats.append(("txt", playlist2txt, "plain text with one line per entry"))
 
-def playlist2txt2(): pass
-#SPLPlaylistTranscriptFormats.append(("txt2", playlist2txt2, "text file with column list for entries"))
-
 def playlist2csv(): pass
 #SPLPlaylistTranscriptFormats.append(("csv", playlist2csv, "Comma-separated values"))
-
-def playlist2ini(): pass
-#SPLPlaylistTranscriptFormats.append(("ini", playlist2ini, "traditional ini file"))
-
-def playlist2ini2(): pass
-#SPLPlaylistTranscriptFormats.append(("ini2", playlist2ini2, "Ini file with sections"))
 
 def playlist2htmlTable(start, end, transcriptAction):
 	playlistTranscripts = ["Playlist Transcripts - use table navigation commands to review track information"]
@@ -574,9 +565,6 @@ def playlist2htmlList(start, end, transcriptAction):
 	playlistTranscripts.append("</ol>")
 	displayPlaylistTranscripts(playlistTranscripts, HTMLDecoration=True)
 SPLPlaylistTranscriptFormats.append(("htmllist", playlist2htmlList, "Data list in HTML format"))
-
-def playlist2htmlList2(): pass
-#SPLPlaylistTranscriptFormats.append(("htmllist2", playlist2htmlList2, "Multiple HTML lists, one per entry"))
 
 def playlist2mdTable(start, end, transcriptAction):
 	playlistTranscripts = []
