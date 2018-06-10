@@ -169,9 +169,6 @@ class EncoderConfigDialog(wx.Dialog):
 		# Use a weakref so the instance can die.
 		import weakref
 		EncoderConfigDialog._instance = weakref.ref(self)
-		# And to close this automatically when Studio dies.
-		from appModules.splstudio import splactions
-		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 
 		self.obj = obj
 		self.curStreamLabel, title = obj.getStreamLabel(getTitle=True)
@@ -179,6 +176,9 @@ class EncoderConfigDialog(wx.Dialog):
 		super(EncoderConfigDialog, self).__init__(parent, wx.ID_ANY, _("Encoder settings for {name}").format(name = title))
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		encoderConfigHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
+		# And to close this automatically when Studio dies.
+		from appModules.splstudio import splactions
+		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 
 		# Translators: An edit field in encoder settings to set stream label for this encoder.
 		self.streamLabel = encoderConfigHelper.addLabeledControl(_("Stream &label"), wx.TextCtrl)
