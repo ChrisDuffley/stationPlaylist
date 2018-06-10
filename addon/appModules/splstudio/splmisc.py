@@ -57,6 +57,10 @@ def _getColumnContent(obj, col):
 		winKernel.virtualFreeEx(processHandle,internalItem,0,winKernel.MEM_RELEASE)
 	return buffer.value if buffer else None
 
+# A custom combo box for cases where combo boxes are not choice controls.
+class CustomComboBox(wx.ComboBox, wx.Choice):
+	pass
+
 # A common dialog for Track Finder
 _findDialogOpened = False
 
@@ -99,7 +103,11 @@ class SPLFindDialog(wx.Dialog):
 		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 
 		findHistory = obj.appModule.findText if obj.appModule.findText is not None else []
-		self.findEntry = findSizerHelper.addLabeledControl(findPrompt, wx.ComboBox, choices=findHistory)
+		# #68: use a custom combo box if this is wxPython 4.
+		if isinstance(wx.ComboBox, wx.Choice):
+			self.findEntry = findSizerHelper.addLabeledControl(findPrompt, wx.ComboBox, choices=findHistory)
+		else:
+			self.findEntry = findSizerHelper.addLabeledControl(findPrompt, CustomComboBox, choices=findHistory)
 		self.findEntry.Value = text
 
 		if columnSearch:
@@ -145,7 +153,6 @@ class SPLFindDialog(wx.Dialog):
 	def onAppTerminate(self):
 		# Call cancel function when the app terminates so the dialog can be closed.
 		self.onCancel(None)
-
 
 # Time range finder: a variation on track finder.
 # Similar to track finder, locate tracks with duration that falls between min and max.
