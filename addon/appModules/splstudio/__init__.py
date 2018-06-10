@@ -181,6 +181,7 @@ class SPLTrackItem(IAccessible):
 	# Obtain column contents for all columns for this track.
 	# A convenience method that calls column content getter for a list of columns.
 	# Readable flag will transform None into an empty string, suitable for output.
+	# #61 (18.07): readable flag will become a string parameter to be used in columns viewer.
 	def _getColumnContents(self, columns=None, readable=False):
 		if columns is None:
 			columns = list(rangeGen(18))
@@ -278,10 +279,37 @@ class SPLTrackItem(IAccessible):
 		header = splconfig.SPLConfig["General"]["ExploreColumns"][columnPos]
 		column = self.indexOf(header)
 		if column is not None:
-			self.announceColumnContent(column, header=header)
+			# #61 (18.06): pressed once will announce column data, twice will present it in a browse mode window.
+			if scriptHandler.getLastScriptRepeatCount() == 0: self.announceColumnContent(column, header=header)
+			else:
+				columnContent = self._getColumnContent(column)
+				if columnContent is None:
+					# Translators: presented when column information for a track is empty.
+					columnContent = _("blank")
+				ui.browseableMessage("{0}: {1}".format(header, columnContent),
+					# Translators: Title of the column data window.
+					title=_("Track data"))
 		else:
 			# Translators: Presented when a specific column header is not found.
 			ui.message(_("{headerText} not found").format(headerText = header))
+	# Translators: input help mode message for column explorer commands.
+	script_columnExplorer.__doc__ = _("Pressing once announces data for a track column, pressing twice will present column data in a browse mode window")
+
+	def script_trackColumnsViewer(self, gesture):
+		# #61 (18.06): a direct copy of column data gatherer from playlist transcripts.
+		# 18.07: just call the gatherer function with "blank" as the readable string and add column header afterwards.
+		columns = list(rangeGen(18))
+		columnContents = [splmisc._getColumnContent(self, col) for col in columns]
+		columnHeaders = ["Status"] + splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
+		for pos in rangeGen(len(columnContents)):
+			if columnContents[pos] is None: columnContents[pos] = "blank"
+			# Manually add header text until column gatherer adds headers support.
+			columnContents[pos] = ": ".join([columnHeaders[pos], columnContents[pos]])
+		ui.browseableMessage("\n".join(columnContents),
+					# Translators: Title of the column data window.
+					title=_("Track data"))
+	# Translators: input help mode message for columns viewer command.
+	script_trackColumnsViewer.__doc__ = _("Presents data for all columns in the currently selected track")
 
 	# Track comments.
 
@@ -343,6 +371,7 @@ class SPLTrackItem(IAccessible):
 		"kb:control+alt+end":"lastColumn",
 		"kb:downArrow":"nextTrack",
 		"kb:upArrow":"prevTrack",
+		"kb:control+NVDA+-":"trackColumnsViewer",
 		"kb:Alt+NVDA+C":"announceTrackComment"
 	}
 
@@ -650,8 +679,16 @@ class AppModule(appModuleHandler.AppModule):
 		# Remind me to broadcast metadata information.
 		# 18.04: also when delayed action is needed because metadata action handler couldn't locate Studio handle itself.
 		if splconfig.SPLConfig["General"]["MetadataReminder"] == "startup" or splmisc._delayMetadataAction:
-			# 18.05: finally move the function body to the app module, as this will be done only from here.
-			splmisc._metadataAnnouncer()
+			splmisc._delayMetadataAction = False
+			# If told to remind and connect, metadata streaming will be enabled at this time.
+			# 6.0: Call Studio API twice - once to set, once more to obtain the needed information.
+			# 6.2/7.0: When Studio API is called, add the value into the stream count list also.
+			# 17.11: call the connector.
+			splmisc.metadataConnector()
+			# #40 (18.02): call the internal announcer in order to not hold up action handler queue.
+			# #51 (18.03/15.14-LTS): if this is called within two seconds (status time-out), status will be announced multiple times.
+			# 18.04: hopefully the error message won't be shown as this is supposed to run right after locating Studio handle.
+			splmisc._earlyMetadataAnnouncerInternal(metadataStatus())
 
 	# Studio API heartbeat.
 	# Although useful for library scan detection, it can be extended to cover other features.
@@ -1792,6 +1829,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Table of child constants based on versions
 	# These are scattered throughout the screen, so one can use foreground.getChild(index) to fetch them (getChild tip from Jamie Teh (NV Access)).
 	# Because 5.x (an perhaps future releases) uses different screen layout, look up the needed constant from the table below (row = info needed, column = version).
+	# As of 18.05, the below table is based on Studio 5.10.
 	statusObjs={
 		SPLPlayStatus: 6, # Play status, mic, etc.
 		SPLSystemStatus: -2, # The second status bar containing system status such as up time.
@@ -2362,5 +2400,5 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:Shift+delete":"deleteTrack",
 		"kb:Shift+numpadDelete":"deleteTrack",
 		"kb:escape":"escape",
-		"kb:control+nvda+-":"sendFeedbackEmail",
+		"kb:alt+nvda+-":"sendFeedbackEmail",
 	}

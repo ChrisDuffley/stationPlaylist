@@ -57,14 +57,23 @@ def _getColumnContent(obj, col):
 		winKernel.virtualFreeEx(processHandle,internalItem,0,winKernel.MEM_RELEASE)
 	return buffer.value if buffer else None
 
+# A custom combo box for cases where combo boxes are not choice controls.
+class CustomComboBox(wx.ComboBox, wx.Choice):
+	pass
+
 # A common dialog for Track Finder
 _findDialogOpened = False
 
 # Track Finder error dialog.
 # This will be refactored into something else.
 def _finderError():
-	# Translators: Text of the dialog when another find dialog is open.
-	gui.messageBox(_("Another find dialog is open."),_("Error"),style=wx.OK | wx.ICON_ERROR)
+	global _findDialogOpened
+	if _findDialogOpened:
+		# Translators: Text of the dialog when another find dialog is open.
+		gui.messageBox(_("Another find dialog is open."),_("Error"),style=wx.OK | wx.ICON_ERROR)
+	else:
+		# Translators: Text of the dialog when a generic error has occured.
+		gui.messageBox(_("An unexpected error has occured when trying to open find dialog."),_("Error"),style=wx.OK | wx.ICON_ERROR)
 
 class SPLFindDialog(wx.Dialog):
 
@@ -99,7 +108,11 @@ class SPLFindDialog(wx.Dialog):
 		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 
 		findHistory = obj.appModule.findText if obj.appModule.findText is not None else []
-		self.findEntry = findSizerHelper.addLabeledControl(findPrompt, wx.ComboBox, choices=findHistory)
+		# #68: use a custom combo box if this is wxPython 4.
+		if isinstance(wx.ComboBox, wx.Choice):
+			self.findEntry = findSizerHelper.addLabeledControl(findPrompt, wx.ComboBox, choices=findHistory)
+		else:
+			self.findEntry = findSizerHelper.addLabeledControl(findPrompt, CustomComboBox, choices=findHistory)
 		self.findEntry.Value = text
 
 		if columnSearch:
@@ -145,7 +158,6 @@ class SPLFindDialog(wx.Dialog):
 	def onAppTerminate(self):
 		# Call cancel function when the app terminates so the dialog can be closed.
 		self.onCancel(None)
-
 
 # Time range finder: a variation on track finder.
 # Similar to track finder, locate tracks with duration that falls between min and max.
@@ -206,7 +218,11 @@ class SPLTimeRangeDialog(wx.Dialog):
 		maxSizer.Add(self.maxSecEntry)
 		mainSizer.Add(maxSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
-		mainSizer.AddSizer(self.CreateButtonSizer(wx.OK|wx.CANCEL))
+		# #68: wx.BoxSizer.AddSizer no longer exists in wxPython 4.
+		if wx.version().startswith("4"):
+			mainSizer.Add(self.CreateButtonSizer(wx.OK|wx.CANCEL))
+		else:
+			mainSizer.AddSizer(self.CreateButtonSizer(wx.OK|wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON,self.onOk,id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON,self.onCancel,id=wx.ID_CANCEL)
 		mainSizer.Fit(self)
@@ -461,24 +477,6 @@ def _earlyMetadataAnnouncerInternal(status):
 	_earlyMetadataAnnouncer = threading.Timer(2, _metadataAnnouncerInternal, args=[status])
 	_earlyMetadataAnnouncer.start()
 
-# Module-level version of metadata announcer
-# Moved to this module in 2016 to allow this function to work while Studio window isn't focused.
-# Split into several functions in 2017.
-# To preserve backward compatibility, let the announcer call individual functions above for a while.
-# 18.05: remove the function altogether.
-def _metadataAnnouncer():
-	global _delayMetadataAction
-	_delayMetadataAction = False
-	# If told to remind and connect, metadata streaming will be enabled at this time.
-	# 6.0: Call Studio API twice - once to set, once more to obtain the needed information.
-	# 6.2/7.0: When Studio API is called, add the value into the stream count list also.
-	# 17.11: call the connector.
-	metadataConnector()
-	# #40 (18.02): call the internal announcer in order to not hold up action handler queue.
-	# #51 (18.03/15.14-LTS): if this is called within two seconds (status time-out), status will be announced multiple times.
-	# 18.04: hopefully the error message won't be shown as this is supposed to run right after locating Studio handle.
-	_earlyMetadataAnnouncerInternal(metadataStatus())
-
 # Delay the action handler if Studio handle is not found.
 _delayMetadataAction = False
 
@@ -596,8 +594,17 @@ SPLPlaylistTranscriptFormats.append(("htmllist", playlist2htmlList, "Data list i
 def playlist2htmlList2(): pass
 #SPLPlaylistTranscriptFormats.append(("htmllist2", playlist2htmlList2, "Multiple HTML lists, one per entry"))
 
-def playlist2mdTable(): pass
-#SPLPlaylistTranscriptFormats.append(("mdtable", playlist2mdTable, "Table in Markdown format"))
+def playlist2mdTable(start, end):
+	playlistTranscripts = []
+	from . import splconfig
+	playlistTranscripts.append("| Status | {columnHeaders} |\n".format(columnHeaders = " | ".join(splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])))
+	obj = start
+	while obj not in (None, end):
+		columnContents = obj._getColumnContents(readable=True)
+		playlistTranscripts.append("| {trackContents} |\n".format(trackContents = " | ".join(columnContents)))
+		obj = obj.next
+	displayPlaylistTranscripts(playlistTranscripts)
+SPLPlaylistTranscriptFormats.append(("mdtable", playlist2mdTable, "Table in Markdown format"))
 
 # Playlist transcripts help desk
 _plTranscriptsDialogOpened = False

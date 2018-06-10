@@ -189,8 +189,8 @@ Las órdenes disponibles son:
   más larga, etc.).
 * Shift+F8: Solicita transcripciones de la lista de reproducción en varios
   formatos.
-* F9: Mark current track for start of playlist analysis (playlist viewer
-  only).
+* F9: Marca la pista actual como inicio del análisis de lista de
+  reproducción (sólo visualizador de lista de reproducción).
 * F10: realiza el análisis de tiempo de la pista (sólo visualizador de lista
   de reproducción).
 * F12: cambia entre el perfil actual y uno predefinido.
@@ -300,7 +300,7 @@ NVDA presente la información de la instantánea de la lista de reproducción
 como una página web tal que puedas utilizar el modo exploración para navegar
 (pulsa escape para cerrar).
 
-## Playlist Transcripts
+## Transcripciones de lista de reproducción
 
 Pulsando en SPL Assistant, Shift+F8 presentará un cuadro de diálogo para
 permitirte solicitar transcripciones de lista de reproducción en varios
@@ -321,17 +321,18 @@ realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
 
-## Version 18.05
+## Versión 18.05
 
-* Added ability to take partial playlist snapshots. This can be done by
-  defining analysis range (SPL Assistant, F9 at the start of the analysis
-  range) and moving to another item and performing playlist snapshots
-  command.
-* Added a new command in SPL Assistant to request playlist transcripts in a
-  number of formats (Shift+F8). These include plain text, an HTML table, or
-  an HTML list.
-* Various playlist analysis features such as track time analysis and
-  playlist snapshots are now grouped under the theme of "Playlist Analyzer".
+* Añadido soporte para capturas parciales de la lista de reproducción. Esto
+  se puede hacer definiendo rango de análisis (asistente SPL, F9 al inicio
+  del rango de análisis) y moviéndose a otro elemento, y pulsando el comando
+  de Capturas de lista de reproducción.
+* Añadido un nuevo comando en el asistente SPL para solicitar
+  transcripciones de la lista de reproducción en un número de formatos
+  (shift+F8). Éstos incluyen texto plano, tabla HTML y lista HTML.
+* Varias características de análisis de lista de reproducción, como el
+  análisis de tiempo de pista y capturas de lista de reproducción están
+  ahora agrupadas bajo el título "Analizador de lista de reproducción"
 
 ## Versión 18.04.1
 
