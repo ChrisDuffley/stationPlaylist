@@ -56,14 +56,23 @@ def _getColumnContent(obj, col):
 		winKernel.virtualFreeEx(processHandle,internalItem,0,winKernel.MEM_RELEASE)
 	return buffer.value if buffer else None
 
+# A custom combo box for cases where combo boxes are not choice controls.
+class CustomComboBox(wx.ComboBox, wx.Choice):
+	pass
+
 # A common dialog for Track Finder
 _findDialogOpened = False
 
 # Track Finder error dialog.
 # This will be refactored into something else.
 def _finderError():
-	# Translators: Text of the dialog when another find dialog is open.
-	gui.messageBox(_("Another find dialog is open."),_("Error"),style=wx.OK | wx.ICON_ERROR)
+	global _findDialogOpened
+	if _findDialogOpened:
+		# Translators: Text of the dialog when another find dialog is open.
+		gui.messageBox(_("Another find dialog is open."),_("Error"),style=wx.OK | wx.ICON_ERROR)
+	else:
+		# Translators: Text of the dialog when a generic error has occured.
+		gui.messageBox(_("An unexpected error has occured when trying to open find dialog."),_("Error"),style=wx.OK | wx.ICON_ERROR)
 
 class SPLFindDialog(wx.Dialog):
 
@@ -98,7 +107,11 @@ class SPLFindDialog(wx.Dialog):
 		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 
 		findHistory = obj.appModule.findText if obj.appModule.findText is not None else []
-		self.findEntry = findSizerHelper.addLabeledControl(findPrompt, wx.ComboBox, choices=findHistory)
+		# #68: use a custom combo box if this is wxPython 4.
+		if isinstance(wx.ComboBox, wx.Choice):
+			self.findEntry = findSizerHelper.addLabeledControl(findPrompt, wx.ComboBox, choices=findHistory)
+		else:
+			self.findEntry = findSizerHelper.addLabeledControl(findPrompt, CustomComboBox, choices=findHistory)
 		self.findEntry.Value = text
 
 		if columnSearch:
@@ -144,7 +157,6 @@ class SPLFindDialog(wx.Dialog):
 	def onAppTerminate(self):
 		# Call cancel function when the app terminates so the dialog can be closed.
 		self.onCancel(None)
-
 
 # Time range finder: a variation on track finder.
 # Similar to track finder, locate tracks with duration that falls between min and max.
@@ -205,7 +217,11 @@ class SPLTimeRangeDialog(wx.Dialog):
 		maxSizer.Add(self.maxSecEntry)
 		mainSizer.Add(maxSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
-		mainSizer.AddSizer(self.CreateButtonSizer(wx.OK|wx.CANCEL))
+		# #68: wx.BoxSizer.AddSizer no longer exists in wxPython 4.
+		if wx.version().startswith("4"):
+			mainSizer.Add(self.CreateButtonSizer(wx.OK|wx.CANCEL))
+		else:
+			mainSizer.AddSizer(self.CreateButtonSizer(wx.OK|wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON,self.onOk,id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON,self.onCancel,id=wx.ID_CANCEL)
 		mainSizer.Fit(self)

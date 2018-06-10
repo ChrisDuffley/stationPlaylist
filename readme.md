@@ -198,6 +198,11 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * Added an option in Playlist Transcripts dialog to have transcripts saved to a file or copied to the clipboard (text format only) in addition to viewing transcripts on screen. When transcripts are saved, they are saved to user's Documents folder under "nvdasplPlaylistTranscripts" subfolder.
 * When focused on a track in Creator and Track Tool, pressing Control+NVDA+number row twice will present column information on a browse mode window.
 
+## Version 18.06.1
+
+* Fixed several compatibility issues with wxPython 4, including inability to open track finder (Control+NVDA+F), column search and time ranger finder dialogs in Studio and stream labeler dialog (F12) from encoders window.
+* While opening a find dialog from Studio and an unexpected error occurs, NVDA will present more appropriate message instead of saying that another find dialog is open.
+* In encoders window, NVDA will no longer play error tones or appear to do nothing when attempting to open encoder settings dialog (Alt+NVDA+0).
 
 ## Version 18.06
 
