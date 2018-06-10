@@ -213,7 +213,11 @@ class SPLTimeRangeDialog(wx.Dialog):
 		maxSizer.Add(self.maxSecEntry)
 		mainSizer.Add(maxSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
-		mainSizer.AddSizer(self.CreateButtonSizer(wx.OK|wx.CANCEL))
+		# #68: wx.BoxSizer.AddSizer no longer exists in wxPython 4.
+		if wx.version().startswith("4"):
+			mainSizer.Add(self.CreateButtonSizer(wx.OK|wx.CANCEL))
+		else:
+			mainSizer.AddSizer(self.CreateButtonSizer(wx.OK|wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON,self.onOk,id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON,self.onCancel,id=wx.ID_CANCEL)
 		mainSizer.Fit(self)
