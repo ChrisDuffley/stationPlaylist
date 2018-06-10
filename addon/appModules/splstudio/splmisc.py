@@ -67,8 +67,13 @@ _findDialogOpened = False
 # Track Finder error dialog.
 # This will be refactored into something else.
 def _finderError():
-	# Translators: Text of the dialog when another find dialog is open.
-	gui.messageBox(_("Another find dialog is open."),_("Error"),style=wx.OK | wx.ICON_ERROR)
+	global _findDialogOpened
+	if _findDialogOpened:
+		# Translators: Text of the dialog when another find dialog is open.
+		gui.messageBox(_("Another find dialog is open."),_("Error"),style=wx.OK | wx.ICON_ERROR)
+	else:
+		# Translators: Text of the dialog when a generic error has occured.
+		gui.messageBox(_("An unexpected error has occured when trying to open find dialog."),_("Error"),style=wx.OK | wx.ICON_ERROR)
 
 class SPLFindDialog(wx.Dialog):
 
