@@ -129,6 +129,7 @@ class AppModule(appModuleHandler.AppModule):
 	def terminate(self):
 		super(AppModule, self).terminate()
 		splconfig.closeConfig("tracktool")
+		TrackToolItem._curColumnNumber = 0
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		import controlTypes
