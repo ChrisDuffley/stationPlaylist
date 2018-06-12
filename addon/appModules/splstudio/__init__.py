@@ -98,19 +98,41 @@ class SPLTrackItem(IAccessible):
 	Each subclass is named after the app module name where tracks are encountered, such as SPLStudioTrackItem for Studio.
 	Subclasses of module-specific subclasses are named after SPL version, for example SPL510TrackItem for studio 5.10.
 	"""
-	pass
-
-class SPLStudioTrackItem(SPLTrackItem):
-	"""A base class for providing utility scripts when SPL Studio track entries are focused, such as location text and column navigation."""
-
-	# Keep a record of which column is being looked at.
-	_curColumnNumber = None
 
 	def initOverlayClass(self):
 		# LTS: Take a greater role in assigning enhanced Columns Explorer command at the expense of limiting where this can be invoked.
 		# 8.0: Just assign number row.
 		for i in rangeGen(10):
 			self.bindGesture("kb:control+nvda+%s"%(i), "columnExplorer")
+
+	def script_columnExplorer(self, gesture):
+		# LTS: Just in case Control+NVDA+number row command is pressed...
+		# Due to the below formula, columns explorer will be restricted to number commands.
+		columnPos = int(gesture.displayName.split("+")[-1])-1
+		header = self.exploreColumns[columnPos]
+		column = self.indexOf(header)
+		if column is not None:
+			# #61 (18.06): pressed once will announce column data, twice will present it in a browse mode window.
+			if scriptHandler.getLastScriptRepeatCount() == 0: self.announceColumnContent(column, header=header)
+			else:
+				columnContent = self._getColumnContent(column)
+				if columnContent is None:
+					# Translators: presented when column information for a track is empty.
+					columnContent = _("blank")
+				ui.browseableMessage("{0}: {1}".format(header, columnContent),
+					# Translators: Title of the column data window.
+					title=_("Track data"))
+		else:
+			# Translators: Presented when a specific column header is not found.
+			ui.message(_("{headerText} not found").format(headerText = header))
+	# Translators: input help mode message for column explorer commands.
+	script_columnExplorer.__doc__ = _("Pressing once announces data for a track column, pressing twice will present column data in a browse mode window")
+
+class SPLStudioTrackItem(SPLTrackItem):
+	"""A base class for providing utility scripts when SPL Studio track entries are focused, such as location text and column navigation."""
+
+	# Keep a record of which column is being looked at.
+	_curColumnNumber = None
 
 	# Locate the real column index for a column header.
 	# This is response to a situation where columns were rearranged yet testing shows in-memory arrangement remains the same.
@@ -284,28 +306,9 @@ class SPLStudioTrackItem(SPLTrackItem):
 
 	# Overlay class version of Columns Explorer.
 
-	def script_columnExplorer(self, gesture):
-		# LTS: Just in case Control+NVDA+number row command is pressed...
-		# Due to the below formula, columns explorer will be restricted to number commands.
-		columnPos = int(gesture.displayName.split("+")[-1])-1
-		header = splconfig.SPLConfig["General"]["ExploreColumns"][columnPos]
-		column = self.indexOf(header)
-		if column is not None:
-			# #61 (18.06): pressed once will announce column data, twice will present it in a browse mode window.
-			if scriptHandler.getLastScriptRepeatCount() == 0: self.announceColumnContent(column, header=header)
-			else:
-				columnContent = self._getColumnContent(column)
-				if columnContent is None:
-					# Translators: presented when column information for a track is empty.
-					columnContent = _("blank")
-				ui.browseableMessage("{0}: {1}".format(header, columnContent),
-					# Translators: Title of the column data window.
-					title=_("Track data"))
-		else:
-			# Translators: Presented when a specific column header is not found.
-			ui.message(_("{headerText} not found").format(headerText = header))
-	# Translators: input help mode message for column explorer commands.
-	script_columnExplorer.__doc__ = _("Pressing once announces data for a track column, pressing twice will present column data in a browse mode window")
+	@property
+	def exploreColumns(self):
+		return splconfig.SPLConfig["General"]["ExploreColumns"]
 
 	def script_trackColumnsViewer(self, gesture):
 		# #61 (18.06): a direct copy of column data gatherer from playlist transcripts.

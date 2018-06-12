@@ -11,12 +11,9 @@ import tones
 import ui
 import scriptHandler
 from NVDAObjects.IAccessible import IAccessible
-from splstudio import splconfig
+from splstudio import splconfig, SPLTrackItem
 from splstudio.splmisc import _getColumnContent
 addonHandler.initTranslation()
-
-# Python 3 preparation (a compatibility layer until Six module is included).
-rangeGen = range if py3 else xrange
 
 # Track Tool allows a broadcaster to manage track intros, cues and so forth. Each track is a list item with descriptions such as title, file name, intro time and so forth.
 # One can press TAB to move along the controls for Track Tool.
@@ -29,7 +26,7 @@ def indexOf(ttVersion):
 	else:
 		return ("Artist", "Title", "Duration", "Cue", "Overlap", "Intro", "Outro", "Segue", "Hook Start", "Hook Len", "Year", "Album", "CD Code", "URL 1", "URL 2", "Genre", "Mood", "Energy", "Tempo", "BPM", "Gender", "Rating", "Filename", "Client", "Other", "Intro Link", "Outro Link", "ReplayGain", "Record Label", "ISRC")
 
-class TrackToolItem(IAccessible):
+class TrackToolItem(SPLTrackItem):
 	"""An entry in Track Tool, used to implement some exciting features.
 	"""
 
@@ -42,33 +39,34 @@ class TrackToolItem(IAccessible):
 			tones.beep(550, 100)
 		super(TrackToolItem, self).reportFocus()
 
-	def initOverlayClass(self):
-		# 8.0: Assign Control+NVDA+number row for Columns Explorer just like the main app module.
-		for i in rangeGen(10):
-			self.bindGesture("kb:control+nvda+%s"%(i), "columnExplorer")
-
 	# Tweak for Track Tool: Announce column header if given.
 	# Also take care of this when specific columns are asked.
 	# This also allows display order to be checked (Studio 5.10 and later).
-	def announceColumnContent(self, colNumber, columnHeader=None, individualColumns=False):
-		if not columnHeader:
-			columnHeader = self.columnHeaders.children[colNumber].name
+	def announceColumnContent(self, colNumber, header=None, individualColumns=False):
+		if not header:
+			header = self.columnHeaders.children[colNumber].name
 			# LTS: Studio 5.10 data structure change is evident in Track Tool as well, so don't rely on column headers alone.
 			internalHeaders = indexOf(self.appModule.productVersion)
-			if internalHeaders[colNumber] != columnHeader:
-				colNumber = internalHeaders.index(columnHeader)
+			if internalHeaders[colNumber] != header:
+				colNumber = internalHeaders.index(header)
 		columnContent = _getColumnContent(self, colNumber)
 		if columnContent:
-			if py3: ui.message(str(_("{header}: {content}")).format(header = columnHeader, content = columnContent))
-			else: ui.message(unicode(_("{header}: {content}")).format(header = columnHeader, content = columnContent))
+			if py3: ui.message(str(_("{header}: {content}")).format(header = header, content = columnContent))
+			else: ui.message(unicode(_("{header}: {content}")).format(header = header, content = columnContent))
 		else:
 			if individualColumns:
 				# Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
-				ui.message(_("{header} not found").format(header = columnHeader))
+				ui.message(_("{header} not found").format(header = header))
 			else:
 				import speech, braille
-				speech.speakMessage(_("{header}: blank").format(header = columnHeader))
-				braille.handler.message(_("{header}: ()").format(header = columnHeader))
+				speech.speakMessage(_("{header}: blank").format(header = header))
+				braille.handler.message(_("{header}: ()").format(header = header))
+
+	def indexOf(self, header):
+		try:
+			return indexOf(self.appModule.productVersion).index(header)
+		except ValueError:
+			return None
 
 	# Now the scripts.
 
@@ -90,28 +88,9 @@ class TrackToolItem(IAccessible):
 
 	# Special script for Columns Explorer.
 
-	def script_columnExplorer(self, gesture):
-		# Just like the main app module, due to the below formula, columns explorer will be restricted to number commands.
-		header = splconfig.SPLConfig["General"]["ExploreColumnsTT"][int(gesture.displayName.split("+")[-1])-1]
-		try:
-			colNumber = indexOf(self.appModule.productVersion).index(header)
-		except ValueError:
-			# Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
-			ui.message(_("{headerText} not found").format(headerText = header))
-			return
-		if scriptHandler.getLastScriptRepeatCount() == 0: self.announceColumnContent(colNumber, columnHeader=header)
-		else:
-			# 18.07: an exact copy of column announcement method with changes.
-			internalHeaders = indexOf(self.appModule.productVersion)
-			if internalHeaders[colNumber] != header:
-				colNumber = internalHeaders.index(header)
-			columnContent = _getColumnContent(self, colNumber)
-			if columnContent is None:
-				# Translators: presented when column information for a track is empty.
-				columnContent = _("blank")
-			ui.browseableMessage("{0}: {1}".format(header, columnContent),
-				# Translators: Title of the column data window.
-				title=_("Track data"))
+	@property
+	def exploreColumns(self):
+		return splconfig.SPLConfig["General"]["ExploreColumnsTT"]
 
 	__gestures={
 		"kb:control+alt+rightArrow":"nextColumn",
