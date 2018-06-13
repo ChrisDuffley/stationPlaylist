@@ -580,7 +580,11 @@ def playlist2csv(): pass
 #SPLPlaylistTranscriptFormats.append(("csv", playlist2csv, "Comma-separated values"))
 
 def playlist2htmlTable(start, end, transcriptAction):
-	playlistTranscripts = ["Playlist Transcripts - use table navigation commands to review track information"]
+	if transcriptAction == 1:
+		playlistTranscripts = ["<html><head><title>Playlist Transcripts</title></head>"]
+		playlistTranscripts.append("<body>")
+		playlistTranscripts.append("Playlist Transcripts - use table navigation commands to review track information")
+	else: playlistTranscripts = ["Playlist Transcripts - use table navigation commands to review track information"]
 	playlistTranscripts.append("<p>")
 	from . import splconfig
 	playlistTranscripts.append("<table><tr><th>Status<th>{columnHeaders}</tr>".format(columnHeaders = "<th>".join(splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])))
@@ -590,15 +594,25 @@ def playlist2htmlTable(start, end, transcriptAction):
 		playlistTranscripts.append("<tr><td>{trackContents}</tr>".format(trackContents = "<td>".join(columnContents)))
 		obj = obj.next
 	playlistTranscripts.append("</table>")
-	displayPlaylistTranscripts(playlistTranscripts, HTMLDecoration=True)
+	if transcriptAction == 0: displayPlaylistTranscripts(playlistTranscripts, HTMLDecoration=True)
+	elif transcriptAction == 1:
+		playlistTranscripts.append("</body></html>")
+		savePlaylistTranscriptsToFile(playlistTranscripts, "htm")
 SPLPlaylistTranscriptFormats.append(("htmltable", playlist2htmlTable, "Table in HTML format"))
 
 def playlist2htmlList(start, end, transcriptAction):
-	playlistTranscripts = ["Playlist Transcripts - use list navigation commands to review track information"]
+	if transcriptAction == 1:
+		playlistTranscripts = ["<html><head><title>Playlist Transcripts</title></head>"]
+		playlistTranscripts.append("<body>")
+		playlistTranscripts.append("Playlist Transcripts - use list navigation commands to review track information")
+	else: playlistTranscripts = ["Playlist Transcripts - use list navigation commands to review track information"]
 	playlistTranscripts.append("<p><ol>")
 	playlistTranscripts += playlist2msaa(start, end, additionalDecorations=True, prefix="<li>")
 	playlistTranscripts.append("</ol>")
-	displayPlaylistTranscripts(playlistTranscripts, HTMLDecoration=True)
+	if transcriptAction == 0: displayPlaylistTranscripts(playlistTranscripts, HTMLDecoration=True)
+	elif transcriptAction == 1:
+		playlistTranscripts.append("</body></html>")
+		savePlaylistTranscriptsToFile(playlistTranscripts, "htm")
 SPLPlaylistTranscriptFormats.append(("htmllist", playlist2htmlList, "Data list in HTML format"))
 
 def playlist2mdTable(start, end, transcriptAction):
