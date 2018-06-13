@@ -8,12 +8,14 @@
 # A copy of config UI module, implementing multi-category add-on settings screen.
 # Requires NVDA 2018.2 and later.
 
+import gui
+if not hasattr(gui, "MultiCategorySettingsDialog"):
+	raise RuntimeError("no multi-category settings dialog")
 import sys
 py3 = sys.version.startswith("3")
 import os
 import weakref
 import api
-import gui
 import wx
 from winUser import user32
 import tones

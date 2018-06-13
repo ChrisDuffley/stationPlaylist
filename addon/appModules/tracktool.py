@@ -33,6 +33,9 @@ class TrackToolItem(IAccessible):
 	"""An entry in Track Tool, used to implement some exciting features.
 	"""
 
+	# Keep a record of which column is being looked at.
+	_curColumnNumber = 0
+
 	def reportFocus(self):
 		# Play a beep when intro exists.
 		if ", Intro:" in self.description:
@@ -71,19 +74,19 @@ class TrackToolItem(IAccessible):
 
 	def script_nextColumn(self, gesture):
 		self.columnHeaders = self.parent.children[-1]
-		if (self.appModule.SPLColNumber+1) == self.columnHeaders.childCount:
+		if (self._curColumnNumber+1) == self.columnHeaders.childCount:
 			tones.beep(2000, 100)
 		else:
-			self.appModule.SPLColNumber +=1
-		self.announceColumnContent(self.appModule.SPLColNumber)
+			self.__class__._curColumnNumber +=1
+		self.announceColumnContent(self._curColumnNumber)
 
 	def script_prevColumn(self, gesture):
 		self.columnHeaders = self.parent.children[-1]
-		if self.appModule.SPLColNumber <= 0:
+		if self._curColumnNumber <= 0:
 			tones.beep(2000, 100)
 		else:
-			self.appModule.SPLColNumber -=1
-		self.announceColumnContent(self.appModule.SPLColNumber)
+			self.__class__._curColumnNumber -=1
+		self.announceColumnContent(self._curColumnNumber)
 
 	# Special script for Columns Explorer.
 
@@ -117,8 +120,6 @@ class TrackToolItem(IAccessible):
 
 
 class AppModule(appModuleHandler.AppModule):
-
-	SPLColNumber = 0
 
 	def __init__(self, *args, **kwargs):
 		super(AppModule, self).__init__(*args, **kwargs)

@@ -36,7 +36,10 @@ import tones
 from . import splbase
 from . import splconfig
 from . import splconfui
-from . import splconfui2
+try:
+	from . import splconfui2
+except RuntimeError:
+	splconfui2 = None
 from . import splmisc
 from . import splactions
 import addonHandler
@@ -647,9 +650,13 @@ class AppModule(appModuleHandler.AppModule):
 		eventHandler.requestEvents(eventName="show", processId=self.processID, windowClassName="TRequests")
 		self.backgroundStatusMonitor = True
 		debugOutput("preparing GUI subsystem")
-		self.prefsMenu = gui.mainFrame.sysTrayIcon.preferencesMenu
-		self.SPLSettings = self.prefsMenu.Append(wx.ID_ANY, _("SPL Studio Settings..."), _("SPL settings"))
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, splconfui.onConfigDialog, self.SPLSettings)
+		try:
+			self.prefsMenu = gui.mainFrame.sysTrayIcon.preferencesMenu
+			self.SPLSettings = self.prefsMenu.Append(wx.ID_ANY, _("SPL Studio Settings..."), _("SPL settings"))
+			gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, splconfui.onConfigDialog, self.SPLSettings)
+		except AttributeError:
+			debugOutput("failed to initialize GUI subsystem")
+			self.prefsMenu = None
 		# Let me know the Studio window handle.
 		# 6.1: Do not allow this thread to run forever (seen when evaluation times out and the app module starts).
 		self.noMoreHandle = threading.Event()
@@ -1165,6 +1172,9 @@ class AppModule(appModuleHandler.AppModule):
 	@_confui2.setter
 	def _confui2(self, flag):
 		# Tru/false
+		# This should not be set if the newer config UI isn't present.
+		if splconfui2 is None:
+			raise RuntimeError("cannot set new-style settings flag")
 		if not isinstance(flag, bool):
 			raise ValueError("this is a binary flag")
 		# No multi-category settings

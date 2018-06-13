@@ -28,6 +28,9 @@ class SPLCreatorItem(IAccessible):
 	"""An entry in SPL Creator (mostly tracks).
 	"""
 
+	# Keep a record of which column is being looked at.
+	_curColumnNumber = 0
+
 	def initOverlayClass(self):
 		# 8.0: Assign Control+NVDA+number row for Columns Explorer just like the main app module.
 		for i in rangeGen(10):
@@ -60,19 +63,19 @@ class SPLCreatorItem(IAccessible):
 
 	def script_nextColumn(self, gesture):
 		self.columnHeaders = self.parent.children[-1]
-		if (self.appModule.SPLColNumber+1) == self.columnHeaders.childCount:
+		if (self._curColumnNumber+1) == self.columnHeaders.childCount:
 			tones.beep(2000, 100)
 		else:
-			self.appModule.SPLColNumber +=1
-		self.announceColumnContent(self.appModule.SPLColNumber)
+			self.__class__._curColumnNumber +=1
+		self.announceColumnContent(self._curColumnNumber)
 
 	def script_prevColumn(self, gesture):
 		self.columnHeaders = self.parent.children[-1]
-		if self.appModule.SPLColNumber <= 0:
+		if self._curColumnNumber <= 0:
 			tones.beep(2000, 100)
 		else:
-			self.appModule.SPLColNumber -=1
-		self.announceColumnContent(self.appModule.SPLColNumber)
+			self.__class__._curColumnNumber -=1
+		self.announceColumnContent(self._curColumnNumber)
 
 	# Special script for Columns Explorer.
 
@@ -106,8 +109,6 @@ class SPLCreatorItem(IAccessible):
 
 
 class AppModule(appModuleHandler.AppModule):
-
-	SPLColNumber = 0
 
 	def __init__(self, *args, **kwargs):
 		super(AppModule, self).__init__(*args, **kwargs)
