@@ -610,7 +610,9 @@ def playlist2mdTable(start, end, transcriptAction):
 		columnContents = obj._getColumnContents(readable=True)
 		playlistTranscripts.append("| {trackContents} |\n".format(trackContents = " | ".join(columnContents)))
 		obj = obj.next
-	displayPlaylistTranscripts(playlistTranscripts)
+	if transcriptAction == 0: displayPlaylistTranscripts(playlistTranscripts)
+	elif transcriptAction == 1: copyPlaylistTranscriptsToClipboard(playlistTranscripts)
+	elif transcriptAction == 2: savePlaylistTranscriptsToFile(playlistTranscripts, "md")
 SPLPlaylistTranscriptFormats.append(("mdtable", playlist2mdTable, "Table in Markdown format"))
 
 # Playlist transcripts help desk
@@ -676,7 +678,7 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 			# Translators: one of the playlist transcript actions.
 			_("save to file"),
 		)
-		self.copy2clipPossible = [0]
+		self.copy2clipPossible = [0, 3]
 
 		# Translators: The label in playlist transcripts dialog to select transcript action.
 		self.transcriptAction = plTranscriptsSizerHelper.addLabeledControl(_("Transcript action:"), wx.Choice, choices=self.transcriptActions)
