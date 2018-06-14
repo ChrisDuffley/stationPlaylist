@@ -36,7 +36,10 @@ import tones
 from . import splbase
 from . import splconfig
 from . import splconfui
-from . import splconfui2
+try:
+	from . import splconfui2
+except RuntimeError:
+	splconfui2 = None
 from . import splmisc
 from . import splactions
 import addonHandler
@@ -1172,6 +1175,9 @@ class AppModule(appModuleHandler.AppModule):
 	@_confui2.setter
 	def _confui2(self, flag):
 		# Tru/false
+		# This should not be set if the newer config UI isn't present.
+		if splconfui2 is None:
+			raise RuntimeError("cannot set new-style settings flag")
 		if not isinstance(flag, bool):
 			raise ValueError("this is a binary flag")
 		# No multi-category settings

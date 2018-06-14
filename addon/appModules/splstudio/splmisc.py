@@ -515,8 +515,33 @@ splactions.SPLActionProfileSwitched.register(metadata_actionProfileSwitched)
 # To account for expansions, let a master function call different formatters based on output format.
 SPLPlaylistTranscriptFormats = []
 
+# Various post-transcript actions.
+# For each converter, after transcribing the playlist, additional actions will be performed.
+# Actions can include viewing the transcript, copying to clipboard (text style format only), and saving to a file.
+
 def displayPlaylistTranscripts(transcript, HTMLDecoration=False):
 	ui.browseableMessage("\n".join(transcript),title=_("Playlist Transcripts"), isHtml=HTMLDecoration)
+
+def copyPlaylistTranscriptsToClipboard(playlistTranscripts):
+	# Only text style transcript such as pure text and Markdown supports copying contents to clipboard.
+	import api
+	api.copyToClip(u"\r\n".join(playlistTranscripts))
+	ui.message(_("Playlist data copied to clipboard"))
+
+def savePlaylistTranscriptsToFile(playlistTranscripts, extension, location=None):
+	# By default playlist transcripts will be saved to a subfolder in user's Documents folder named "nvdasplPlaylistTranscripts".
+	# Each transcript file will be named yyyymmdd-hhmmss-splPlaylistTranscript.ext.
+	transcriptFileLocation = os.path.join(os.environ["userprofile"], "Documents", "nvdasplPlaylistTranscripts")
+	if not os.path.exists(transcriptFileLocation):
+		os.mkdir(transcriptFileLocation)
+	import datetime
+	transcriptTimestamp = datetime.datetime.now()
+	transcriptFilename = "{0}{1:02d}{2:02d}-{3:02d}{4:02d}{5:02d}-splPlaylistTranscript.{6}".format(
+		transcriptTimestamp.year, transcriptTimestamp.month, transcriptTimestamp.day, transcriptTimestamp.hour, transcriptTimestamp.minute, transcriptTimestamp.second, extension)
+	transcriptPath = os.path.join(transcriptFileLocation, transcriptFilename)
+	with open(transcriptPath, "w") as transcript:
+		transcript.writelines(playlistTranscripts)
+	ui.message("Playlist transcripts saved at {location}".format(location = transcriptPath))
 
 # Several converters rely on assistants for their work.
 # For text file 1 and HTML list 1, it expects playlist data in the format presented by MSAA.
@@ -544,24 +569,22 @@ def playlist2msaa(start, end, additionalDecorations=False, prefix="", suffix="")
 		obj = obj.next
 	return playlistTranscripts
 
-# For each converter, after transcribing the playlist, additional actions will be performed.
-# Actions can include viewing the transcript, copying to clipboard (text only), and saving to a file.
-
 def playlist2txt(start, end, transcriptAction):
 	playlistTranscripts = playlist2msaa(start, end)
 	if transcriptAction == 0: displayPlaylistTranscripts(playlistTranscripts)
-	elif transcriptAction == 1:
-		# Only text transcript supports copying contents to clipboard.
-		import api
-		api.copyToClip(u"\r\n".join(playlistTranscripts))
-		ui.message(_("Playlist data copied to clipboard"))
+	elif transcriptAction == 1: copyPlaylistTranscriptsToClipboard(playlistTranscripts)
+	elif transcriptAction == 2: savePlaylistTranscriptsToFile(playlistTranscripts, "txt")
 SPLPlaylistTranscriptFormats.append(("txt", playlist2txt, "plain text with one line per entry"))
 
 def playlist2csv(): pass
 #SPLPlaylistTranscriptFormats.append(("csv", playlist2csv, "Comma-separated values"))
 
 def playlist2htmlTable(start, end, transcriptAction):
-	playlistTranscripts = ["Playlist Transcripts - use table navigation commands to review track information"]
+	if transcriptAction == 1:
+		playlistTranscripts = ["<html><head><title>Playlist Transcripts</title></head>"]
+		playlistTranscripts.append("<body>")
+		playlistTranscripts.append("Playlist Transcripts - use table navigation commands to review track information")
+	else: playlistTranscripts = ["Playlist Transcripts - use table navigation commands to review track information"]
 	playlistTranscripts.append("<p>")
 	from . import splconfig
 	playlistTranscripts.append("<table><tr><th>Status<th>{columnHeaders}</tr>".format(columnHeaders = "<th>".join(splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])))
@@ -571,15 +594,25 @@ def playlist2htmlTable(start, end, transcriptAction):
 		playlistTranscripts.append("<tr><td>{trackContents}</tr>".format(trackContents = "<td>".join(columnContents)))
 		obj = obj.next
 	playlistTranscripts.append("</table>")
-	displayPlaylistTranscripts(playlistTranscripts, HTMLDecoration=True)
+	if transcriptAction == 0: displayPlaylistTranscripts(playlistTranscripts, HTMLDecoration=True)
+	elif transcriptAction == 1:
+		playlistTranscripts.append("</body></html>")
+		savePlaylistTranscriptsToFile(playlistTranscripts, "htm")
 SPLPlaylistTranscriptFormats.append(("htmltable", playlist2htmlTable, "Table in HTML format"))
 
 def playlist2htmlList(start, end, transcriptAction):
-	playlistTranscripts = ["Playlist Transcripts - use list navigation commands to review track information"]
+	if transcriptAction == 1:
+		playlistTranscripts = ["<html><head><title>Playlist Transcripts</title></head>"]
+		playlistTranscripts.append("<body>")
+		playlistTranscripts.append("Playlist Transcripts - use list navigation commands to review track information")
+	else: playlistTranscripts = ["Playlist Transcripts - use list navigation commands to review track information"]
 	playlistTranscripts.append("<p><ol>")
 	playlistTranscripts += playlist2msaa(start, end, additionalDecorations=True, prefix="<li>")
 	playlistTranscripts.append("</ol>")
-	displayPlaylistTranscripts(playlistTranscripts, HTMLDecoration=True)
+	if transcriptAction == 0: displayPlaylistTranscripts(playlistTranscripts, HTMLDecoration=True)
+	elif transcriptAction == 1:
+		playlistTranscripts.append("</body></html>")
+		savePlaylistTranscriptsToFile(playlistTranscripts, "htm")
 SPLPlaylistTranscriptFormats.append(("htmllist", playlist2htmlList, "Data list in HTML format"))
 
 def playlist2mdTable(start, end, transcriptAction):
@@ -591,7 +624,9 @@ def playlist2mdTable(start, end, transcriptAction):
 		columnContents = obj._getColumnContents(readable=True)
 		playlistTranscripts.append("| {trackContents} |\n".format(trackContents = " | ".join(columnContents)))
 		obj = obj.next
-	displayPlaylistTranscripts(playlistTranscripts)
+	if transcriptAction == 0: displayPlaylistTranscripts(playlistTranscripts)
+	elif transcriptAction == 1: copyPlaylistTranscriptsToClipboard(playlistTranscripts)
+	elif transcriptAction == 2: savePlaylistTranscriptsToFile(playlistTranscripts, "md")
 SPLPlaylistTranscriptFormats.append(("mdtable", playlist2mdTable, "Table in Markdown format"))
 
 # Playlist transcripts help desk
@@ -657,7 +692,7 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 			# Translators: one of the playlist transcript actions.
 			_("save to file"),
 		)
-		self.copy2clipPossible = [0]
+		self.copy2clipPossible = [0, 3]
 
 		# Translators: The label in playlist transcripts dialog to select transcript action.
 		self.transcriptAction = plTranscriptsSizerHelper.addLabeledControl(_("Transcript action:"), wx.Choice, choices=self.transcriptActions)
@@ -712,4 +747,3 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 	def onAppTerminate(self):
 		# Call cancel function when the app terminates so the dialog can be closed.
 		self.onCancel(None)
-
