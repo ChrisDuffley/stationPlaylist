@@ -699,12 +699,12 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 		self.trackColumns.SetSelection(0)
 
 		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		# Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
+		# Translators: The label for a button in column announcement dialog to change column position for the selected column.
 		self.upButton = wx.Button(self, wx.ID_ANY, label=_("Move &up"))
 		self.upButton.Bind(wx.EVT_BUTTON,self.onMoveUp)
 		self.upButton.Disable()
 		sizer.Add(self.upButton)
-		# Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
+		# Translators: The label for a button in column announcement dialog to change column position for the selected column.
 		self.dnButton = wx.Button(self, wx.ID_ANY, label=_("Move &down"))
 		self.dnButton.Bind(wx.EVT_BUTTON,self.onMoveDown)
 		sizer.Add(self.dnButton)
