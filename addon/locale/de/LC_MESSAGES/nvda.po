@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-05-06 02:50+0100\n"
+"PO-Revision-Date: 2018-06-12 17:18+0100\n"
 "Last-Translator: Adriani Botez <adriani.botez@gmail.com>\n"
 "Language-Team: Deutsch <bernd_dorer@yahoo.de>\n"
 "Language: de\n"
@@ -94,22 +94,23 @@ msgstr "{checkStatus}{header}: ()"
 
 #. Translators: presented when column information for a track is empty.
 msgid "blank"
-msgstr ""
+msgstr "Leer"
 
 #. Translators: Title of the column data window.
-#, fuzzy
 msgid "Track data"
-msgstr "Vorspiel von Titeln"
+msgstr "Titeldaten"
 
 #. Translators: input help mode message for column explorer commands.
 msgid ""
 "Pressing once announces data for a track column, pressing twice will present "
 "column data in a browse mode window"
 msgstr ""
+"Einmaliges Drücken meldet die Daten für eine Titelspalte. Zweimaliges "
+"Drücken zeigt die Daten in einem virtuellen Fenster an."
 
 #. Translators: input help mode message for columns viewer command.
 msgid "Presents data for all columns in the currently selected track"
-msgstr ""
+msgstr "Zeigt Daten für alle Spalten des ausgewählten Titels an"
 
 msgid "Has comment"
 msgstr "Hat Kommentar"
@@ -1502,9 +1503,8 @@ msgid "Columns Explorer for Track Tool"
 msgstr "Spaltenexplorer für das Track-Tool"
 
 #. Translators: The title of Columns Explorer configuration dialog.
-#, fuzzy
 msgid "Columns Explorer for SPL Creator"
-msgstr "Spaltenexplorer für das Track-Tool"
+msgstr "Spaltenexplorer für SPL-Kreator"
 
 #. Translators: The label for a setting in SPL add-on dialog to select column for this column slot.
 #, python-brace-format
@@ -1752,9 +1752,8 @@ msgid "Columns Explorer for &Track Tool..."
 msgstr "Spaltenexplorer für &Track-Tool..."
 
 #. Translators: The label of a button to configure columns explorer slots for SPL Creator (SPL Assistant, number row keys to announce specific columns).
-#, fuzzy
 msgid "Columns Explorer for &SPL Creator..."
-msgstr "Spaltenexplorer für &Track-Tool..."
+msgstr "Spaltenexplorer für &SPL-Kreator..."
 
 #. Translators: The label of a button to open status announcement dialog such as announcing listener count.
 msgid "&Status announcements..."
@@ -1772,10 +1771,11 @@ msgid ""
 "The selected profile is different from currently active broadcast profile. "
 "Settings will be applied to the selected profile instead."
 msgstr ""
+"Das ausgewählte Profil ist nicht das aktive Sendeprofil. Die Einstellungen "
+"werden stattdessen für das ausgewählte Profil angewendet"
 
-#, fuzzy
 msgid "Apply settings"
-msgstr "SPL-Einstellungen"
+msgstr "Einstellungen übernehmen"
 
 #. Translators: A dialog message shown when add-on update channel has changed.
 msgid ""
@@ -1857,6 +1857,10 @@ msgstr ""
 #. Translators: Text of the dialog when another find dialog is open.
 msgid "Another find dialog is open."
 msgstr "Ein weiteres Suchdialog ist geöffnet."
+
+#. Translators: Text of the dialog when a generic error has occured.
+msgid "An unexpected error has occured when trying to open find dialog."
+msgstr ""
 
 msgid "Enter or select the name or the artist of the track you wish to &search"
 msgstr ""
