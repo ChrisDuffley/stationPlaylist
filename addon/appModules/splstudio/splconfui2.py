@@ -1031,7 +1031,7 @@ class ColumnsExplorerPanel(gui.SettingsPanel):
 		ColumnsExplorerDialog(self, level=1).Show()
 
 	# SPL CreatorColumns Explorer configuration.
-	def onColumnsExplorerTT(self, evt):
+	def onColumnsExplorerCreator(self, evt):
 		self.Disable()
 		ColumnsExplorerDialog(self, level=2).Show()
 
