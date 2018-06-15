@@ -787,6 +787,7 @@ class PlaylistSnapshotsPanel(gui.SettingsPanel):
 # Metadata reminder controller.
 # Select notification/streaming URL's for metadata streaming.
 _metadataDialogOpened = False
+metadataStreamLabels = ("DSP encoder", "URL 1", "URL 2", "URL 3", "URL 4")
 
 class MetadataStreamingDialog(wx.Dialog):
 	"""A dialog to toggle metadata streaming quickly and from add-on settings dialog.
@@ -823,16 +824,15 @@ class MetadataStreamingDialog(wx.Dialog):
 
 		# WX's CheckListBox isn't user friendly.
 		# Therefore use checkboxes laid out across the top.
-		# 17.04: instead of two loops, just use one loop, with labels deriving from the below tuple.
+		# 17.04: instead of two loops, just use one loop, with labels deriving from a stream labels tuple.
 		# Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
-		streamLabels = ("DSP encoder", "URL 1", "URL 2", "URL 3", "URL 4")
 		self.checkedStreams = []
 		# Add checkboxes for each stream, beginning with the DSP encoder.
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		from . import splmisc
 		streams = splmisc.metadataList()
 		for stream in rangeGen(5):
-			self.checkedStreams.append(sizer.addItem(wx.CheckBox(self, label=streamLabels[stream])))
+			self.checkedStreams.append(sizer.addItem(wx.CheckBox(self, label=metadataStreamLabels[stream])))
 			if not configDialogActive: self.checkedStreams[-1].SetValue(streams[stream])
 			else: self.checkedStreams[-1].SetValue(self.Parent.metadataStreams[stream])
 		metadataSizerHelper.addItem(sizer.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
@@ -876,6 +876,30 @@ class MetadataStreamingDialog(wx.Dialog):
 
 	def onAppTerminate(self):
 		self.onCancel(None)
+
+class MetadataStreamingPanel(gui.SettingsPanel):
+
+	# Translators: Title of a dialog to configure metadata streaming status for DSP encoder and four additional URL's.
+	title = _("Metadata streaming")
+
+	def makeSettings(self, settingsSizer):
+		metadataSizerHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
+		metadataSizerHelper.addItem(wx.StaticText(self, label=_("Select the URL for metadata streaming upon request.")))
+
+		# WX's CheckListBox isn't user friendly.
+		# Therefore use checkboxes laid out across the top.
+		# 17.04: instead of two loops, just use one loop, with labels deriving from a stream labels tuple.
+		# Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
+		self.checkedStreams = []
+		# Add checkboxes for each stream, beginning with the DSP encoder.
+		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
+		for stream in rangeGen(5):
+			self.checkedStreams.append(sizer.addItem(wx.CheckBox(self, label=metadataStreamLabels[stream])))
+			self.checkedStreams[-1].SetValue(splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"][stream])
+		metadataSizerHelper.addItem(sizer.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
+
+	def onSave(self, applyOnly=False):
+		splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = [self.checkedStreams[url].Value for url in rangeGen(5)]
 
 # Column announcement manager.
 # Select which track columns should be announced and in which order.
@@ -1348,11 +1372,6 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 	def onAlarmsCenter(self, evt):
 		self.Disable()
 		AlarmsCenter(self).Show()
-
-	# Manage metadata streaming.
-	def onManageMetadata(self, evt):
-		self.Disable()
-		MetadataStreamingDialog(self).Show()
 
 	# Manage column announcements.
 	def onManageColumns(self, evt):
