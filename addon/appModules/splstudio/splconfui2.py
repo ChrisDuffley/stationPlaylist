@@ -884,8 +884,22 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 
 	def makeSettings(self, settingsSizer):
 		metadataSizerHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
-		metadataSizerHelper.addItem(wx.StaticText(self, label=_("Select the URL for metadata streaming upon request.")))
 
+		self.metadataValues=[("off",_("Off")),
+		# Translators: One of the metadata notification settings.
+		("startup",_("When Studio starts")),
+		# Translators: One of the metadata notification settings.
+		("instant",_("When instant switch profile is active"))]
+		# Translators: the label for a setting in SPL add-on settings to be notified that metadata streaming is enabled.
+		self.metadataList = metadataSizerHelper.addLabeledControl(_("&Metadata streaming notification and connection"), wx.Choice, choices=[x[1] for x in self.metadataValues])
+		metadataCurValue=splconfig.SPLConfig["General"]["MetadataReminder"]
+		selection = (x for x,y in enumerate(self.metadataValues) if y[0]==metadataCurValue).next()
+		try:
+			self.metadataList.SetSelection(selection)
+		except:
+			pass
+
+		metadataSizerHelper.addItem(wx.StaticText(self, label=_("Select the URL for metadata streaming upon request.")))
 		# WX's CheckListBox isn't user friendly.
 		# Therefore use checkboxes laid out across the top.
 		# 17.04: instead of two loops, just use one loop, with labels deriving from a stream labels tuple.
@@ -899,6 +913,7 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 		metadataSizerHelper.addItem(sizer.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 
 	def onSave(self, applyOnly=False):
+		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
 		splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = [self.checkedStreams[url].Value for url in rangeGen(5)]
 
 # Column announcement manager.
