@@ -587,10 +587,10 @@ def playlist2htmlTable(start, end, transcriptAction):
 	else: playlistTranscripts = ["Playlist Transcripts - use table navigation commands to review track information"]
 	playlistTranscripts.append("<p>")
 	from . import splconfig
-	playlistTranscripts.append("<table><tr><th>Status<th>{columnHeaders}</tr>".format(columnHeaders = "<th>".join(splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])))
+	playlistTranscripts.append("<table><tr><th>{columnHeaders}</tr>".format(columnHeaders = "<th>".join(splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])))
 	obj = start
 	while obj not in (None, end):
-		columnContents = obj._getColumnContents(readable=True)
+		columnContents = obj._getColumnContents(readable=True)[1:]
 		playlistTranscripts.append("<tr><td>{trackContents}</tr>".format(trackContents = "<td>".join(columnContents)))
 		obj = obj.next
 	playlistTranscripts.append("</table>")
