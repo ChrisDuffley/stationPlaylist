@@ -1072,7 +1072,7 @@ class ColumnAnnouncementsPanel(gui.SettingsPanel):
 			if self.FindFocus().GetId() == wx.ID_OK:
 				self.upButton.SetFocus()
 
-# Columns Explorer for both Studio and Track Tool
+# Columns Explorer for Studio, Track Tool and Creator
 # Configure which column will be announced when Control+NVDA+number row keys are pressed.
 # In 2018, the panel will house Columns Explorer buttons, but eventually columns combo boxes should be part of main settings interface.
 class ColumnsExplorerPanel(gui.SettingsPanel):
