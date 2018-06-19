@@ -1863,6 +1863,10 @@ msgstr ""
 msgid "Another find dialog is open."
 msgstr "Un autre dialogue rechercher  est ouvert."
 
+#. Translators: Text of the dialog when a generic error has occured.
+msgid "An unexpected error has occured when trying to open find dialog."
+msgstr ""
+
 msgid "Enter or select the name or the artist of the track you wish to &search"
 msgstr ""
 "Entrez ou sélectionnez le nom ou l'artiste de la piste que vous souhaitez "

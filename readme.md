@@ -197,6 +197,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * It is now possible to obtain playlist transcripts for the current hour. Select "current hour" from list of playlist range options in playlist transcripts dialog (SPL Assistant, Shift+F8).
 * Added an option in Playlist Transcripts dialog to have transcripts saved to a file or copied to the clipboard (text format only) in addition to viewing transcripts on screen. When transcripts are saved, they are saved to user's Documents folder under "nvdasplPlaylistTranscripts" subfolder.
 * When focused on a track in Creator and Track Tool, pressing Control+NVDA+number row twice will present column information on a browse mode window.
+* Fixed errors when attempting to open Columns Explorer for Creator setting in add-on settings window.
 
 ## Version 18.06.1
 
