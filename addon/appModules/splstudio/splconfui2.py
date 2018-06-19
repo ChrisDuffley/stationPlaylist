@@ -1036,7 +1036,7 @@ class ColumnAnnouncementsPanel(gui.SettingsPanel):
 		splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"] = self.includedColumns
 		splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.Value
 
-	def onCancel(self, evt):
+	def onDiscard(self):
 		# 6.1: Discard changes to included columns set.
 		if self.includedColumns is not None: self.includedColumns.clear()
 		self.includedColumns = None
