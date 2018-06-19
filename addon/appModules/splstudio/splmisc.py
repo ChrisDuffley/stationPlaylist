@@ -618,10 +618,10 @@ SPLPlaylistTranscriptFormats.append(("htmllist", playlist2htmlList, "Data list i
 def playlist2mdTable(start, end, transcriptAction):
 	playlistTranscripts = []
 	from . import splconfig
-	playlistTranscripts.append("| Status | {columnHeaders} |\n".format(columnHeaders = " | ".join(splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])))
+	playlistTranscripts.append("| {columnHeaders} |\n".format(columnHeaders = " | ".join(splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])))
 	obj = start
 	while obj not in (None, end):
-		columnContents = obj._getColumnContents(readable=True)
+		columnContents = obj._getColumnContents(readable=True)[1:]
 		playlistTranscripts.append("| {trackContents} |\n".format(trackContents = " | ".join(columnContents)))
 		obj = obj.next
 	if transcriptAction == 0: displayPlaylistTranscripts(playlistTranscripts)
