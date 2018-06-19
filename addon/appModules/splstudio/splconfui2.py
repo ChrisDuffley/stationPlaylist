@@ -1405,10 +1405,10 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 	categoryClasses=[
 		#BroadcastProfilesPanel,
 		GeneralSettingsPanel,
-		#AlarmsPanel,
+		AlarmsPanel,
 		PlaylistSnapshotsPanel,
-		#MetadataStreamingPanel,
-		#ColumnAnnouncementPanel,
+		MetadataStreamingPanel,
+		ColumnAnnouncementPanel,
 		ColumnsExplorerPanel,
 		SayStatusPanel,
 		AdvancedOptionsPanel,
