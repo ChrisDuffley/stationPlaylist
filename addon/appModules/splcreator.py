@@ -77,6 +77,16 @@ class SPLCreatorItem(IAccessible):
 			self.__class__._curColumnNumber -=1
 		self.announceColumnContent(self._curColumnNumber)
 
+	def script_firstColumn(self, gesture):
+		self.columnHeaders = self.parent.children[-1]
+		self.__class__._curColumnNumber = 0
+		self.announceColumnContent(self._curColumnNumber)
+
+	def script_lastColumn(self, gesture):
+		self.columnHeaders = self.parent.children[-1]
+		self.__class__._curColumnNumber = self.columnHeaders.childCount - 1
+		self.announceColumnContent(self._curColumnNumber)
+
 	# Special script for Columns Explorer.
 
 	def script_columnExplorer(self, gesture):
@@ -105,6 +115,8 @@ class SPLCreatorItem(IAccessible):
 	__gestures={
 		"kb:control+alt+rightArrow":"nextColumn",
 		"kb:control+alt+leftArrow":"prevColumn",
+		"kb:control+alt+home":"firstColumn",
+		"kb:control+alt+end":"lastColumn",
 	}
 
 
