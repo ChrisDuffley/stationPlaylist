@@ -733,6 +733,49 @@ class AlarmsCenter(wx.Dialog):
 	def onAppTerminate(self):
 		self.onCancel(None)
 
+class AlarmsPanel(gui.SettingsPanel):
+
+	# Translators: Title of a dialog to configure vairous alarms and related settings.
+	title = _("Alarms")
+
+	def makeSettings(self, settingsSizer):
+		alarmsCenterHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
+
+		self.outroAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&End of track alarm in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=59, initial=splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"])
+		self.outroToggleCheckBox=alarmsCenterHelper.addItem(wx.CheckBox(self, label=_("&Notify when end of track is approaching")))
+		self.outroToggleCheckBox.SetValue(splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"])
+
+		self.introAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&Track intro alarm in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=9, initial=splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"])
+		self.introToggleCheckBox=alarmsCenterHelper.addItem(wx.CheckBox(self, label=_("&Notify when end of introduction is approaching")))
+		self.introToggleCheckBox.SetValue(splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"])
+
+		self.micAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&Microphone alarm in seconds (0 disables the alarm)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=7200, initial=splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"])
+		self.micIntervalEntry = alarmsCenterHelper.addLabeledControl(_("Microphone alarm &interval in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=60, initial=splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"])
+
+		# Translators: One of the alarm notification options.
+		self.alarmAnnounceValues=[("beep",_("beep")),
+		# Translators: One of the alarm notification options.
+		("message",_("message")),
+		# Translators: One of the alarm notification options.
+		("both",_("both beep and message"))]
+		# Translators: The label for a setting in SPL add-on dialog to control alarm announcement type.
+		self.alarmAnnounceList = alarmsCenterHelper.addLabeledControl(_("&Alarm notification:"), wx.Choice, choices=[x[1] for x in self.alarmAnnounceValues])
+		alarmAnnounceCurValue=splconfig.SPLConfig["General"]["AlarmAnnounce"]
+		selection = (x for x,y in enumerate(self.alarmAnnounceValues) if y[0]==alarmAnnounceCurValue).next()
+		try:
+			self.alarmAnnounceList.SetSelection(selection)
+		except:
+			pass
+
+	def onSave(self):
+		splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] = self.outroAlarmEntry.GetValue()
+		splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"] = self.outroToggleCheckBox.GetValue()
+		splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"] = self.introAlarmEntry.GetValue()
+		splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"] = self.introToggleCheckBox.GetValue()
+		splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"] = self.micAlarmEntry.GetValue()
+		splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] = self.micIntervalEntry.GetValue()
+		splconfig.SPLConfig["General"]["AlarmAnnounce"] = self.alarmAnnounceValues[self.alarmAnnounceList.GetSelection()][0]
+
 # Playlist snapshot flags
 # For things such as checkboxes for average duration and top category count.
 class PlaylistSnapshotsPanel(gui.SettingsPanel):
@@ -787,6 +830,7 @@ class PlaylistSnapshotsPanel(gui.SettingsPanel):
 # Metadata reminder controller.
 # Select notification/streaming URL's for metadata streaming.
 _metadataDialogOpened = False
+metadataStreamLabels = ("DSP encoder", "URL 1", "URL 2", "URL 3", "URL 4")
 
 class MetadataStreamingDialog(wx.Dialog):
 	"""A dialog to toggle metadata streaming quickly and from add-on settings dialog.
@@ -823,16 +867,15 @@ class MetadataStreamingDialog(wx.Dialog):
 
 		# WX's CheckListBox isn't user friendly.
 		# Therefore use checkboxes laid out across the top.
-		# 17.04: instead of two loops, just use one loop, with labels deriving from the below tuple.
+		# 17.04: instead of two loops, just use one loop, with labels deriving from a stream labels tuple.
 		# Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
-		streamLabels = ("DSP encoder", "URL 1", "URL 2", "URL 3", "URL 4")
 		self.checkedStreams = []
 		# Add checkboxes for each stream, beginning with the DSP encoder.
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		from . import splmisc
 		streams = splmisc.metadataList()
 		for stream in rangeGen(5):
-			self.checkedStreams.append(sizer.addItem(wx.CheckBox(self, label=streamLabels[stream])))
+			self.checkedStreams.append(sizer.addItem(wx.CheckBox(self, label=metadataStreamLabels[stream])))
 			if not configDialogActive: self.checkedStreams[-1].SetValue(streams[stream])
 			else: self.checkedStreams[-1].SetValue(self.Parent.metadataStreams[stream])
 		metadataSizerHelper.addItem(sizer.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
@@ -876,6 +919,45 @@ class MetadataStreamingDialog(wx.Dialog):
 
 	def onAppTerminate(self):
 		self.onCancel(None)
+
+class MetadataStreamingPanel(gui.SettingsPanel):
+
+	# Translators: Title of a dialog to configure metadata streaming status for DSP encoder and four additional URL's.
+	title = _("Metadata streaming")
+
+	def makeSettings(self, settingsSizer):
+		metadataSizerHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
+
+		self.metadataValues=[("off",_("Off")),
+		# Translators: One of the metadata notification settings.
+		("startup",_("When Studio starts")),
+		# Translators: One of the metadata notification settings.
+		("instant",_("When instant switch profile is active"))]
+		# Translators: the label for a setting in SPL add-on settings to be notified that metadata streaming is enabled.
+		self.metadataList = metadataSizerHelper.addLabeledControl(_("&Metadata streaming notification and connection"), wx.Choice, choices=[x[1] for x in self.metadataValues])
+		metadataCurValue=splconfig.SPLConfig["General"]["MetadataReminder"]
+		selection = (x for x,y in enumerate(self.metadataValues) if y[0]==metadataCurValue).next()
+		try:
+			self.metadataList.SetSelection(selection)
+		except:
+			pass
+
+		metadataSizerHelper.addItem(wx.StaticText(self, label=_("Select the URL for metadata streaming upon request.")))
+		# WX's CheckListBox isn't user friendly.
+		# Therefore use checkboxes laid out across the top.
+		# 17.04: instead of two loops, just use one loop, with labels deriving from a stream labels tuple.
+		# Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
+		self.checkedStreams = []
+		# Add checkboxes for each stream, beginning with the DSP encoder.
+		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
+		for stream in rangeGen(5):
+			self.checkedStreams.append(sizer.addItem(wx.CheckBox(self, label=metadataStreamLabels[stream])))
+			self.checkedStreams[-1].SetValue(splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"][stream])
+		metadataSizerHelper.addItem(sizer.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
+
+	def onSave(self, applyOnly=False):
+		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
+		splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = [self.checkedStreams[url].Value for url in rangeGen(5)]
 
 # Column announcement manager.
 # Select which track columns should be announced and in which order.
@@ -954,7 +1036,7 @@ class ColumnAnnouncementsPanel(gui.SettingsPanel):
 		splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"] = self.includedColumns
 		splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.Value
 
-	def onCancel(self, evt):
+	def onDiscard(self):
 		# 6.1: Discard changes to included columns set.
 		if self.includedColumns is not None: self.includedColumns.clear()
 		self.includedColumns = None
@@ -990,7 +1072,7 @@ class ColumnAnnouncementsPanel(gui.SettingsPanel):
 			if self.FindFocus().GetId() == wx.ID_OK:
 				self.upButton.SetFocus()
 
-# Columns Explorer for both Studio and Track Tool
+# Columns Explorer for Studio, Track Tool and Creator
 # Configure which column will be announced when Control+NVDA+number row keys are pressed.
 # In 2018, the panel will house Columns Explorer buttons, but eventually columns combo boxes should be part of main settings interface.
 class ColumnsExplorerPanel(gui.SettingsPanel):
@@ -1323,10 +1405,10 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 	categoryClasses=[
 		#BroadcastProfilesPanel,
 		GeneralSettingsPanel,
-		#AlarmsPanel,
+		AlarmsPanel,
 		PlaylistSnapshotsPanel,
-		#MetadataStreamingPanel,
-		#ColumnAnnouncementPanel,
+		MetadataStreamingPanel,
+		ColumnAnnouncementsPanel,
 		ColumnsExplorerPanel,
 		SayStatusPanel,
 		AdvancedOptionsPanel,
@@ -1348,11 +1430,6 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 	def onAlarmsCenter(self, evt):
 		self.Disable()
 		AlarmsCenter(self).Show()
-
-	# Manage metadata streaming.
-	def onManageMetadata(self, evt):
-		self.Disable()
-		MetadataStreamingDialog(self).Show()
 
 	# Manage column announcements.
 	def onManageColumns(self, evt):

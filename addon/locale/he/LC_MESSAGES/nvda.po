@@ -1736,6 +1736,10 @@ msgstr "תיבת דו-שיח של הגדרות התוסף כבר פתוחה. נ�
 msgid "Another find dialog is open."
 msgstr "תיבת דו-שיח של חיפוש כבר פתוחה."
 
+#. Translators: Text of the dialog when a generic error has occured.
+msgid "An unexpected error has occured when trying to open find dialog."
+msgstr ""
+
 msgid "Enter or select the name or the artist of the track you wish to &search"
 msgstr "נא הקש את שם המבצע או הרצועה שברצונך ל&חפש"
 
