@@ -1408,7 +1408,7 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		AlarmsPanel,
 		PlaylistSnapshotsPanel,
 		MetadataStreamingPanel,
-		ColumnAnnouncementPanel,
+		ColumnAnnouncementsPanel,
 		ColumnsExplorerPanel,
 		SayStatusPanel,
 		AdvancedOptionsPanel,
