@@ -10,7 +10,7 @@ import addonHandler
 import tones
 import ui
 import scriptHandler
-from NVDAObjects.IAccessible import IAccessible
+from NVDAObjects.IAccessible import IAccessible, sysListView32
 from splstudio import splconfig, SPLTrackItem
 from splstudio.splmisc import _getColumnContent
 addonHandler.initTranslation()
@@ -96,8 +96,6 @@ class TrackToolItem(SPLTrackItem):
 		self.__class__._curColumnNumber = self.columnHeaders.childCount - 1
 		self.announceColumnContent(self._curColumnNumber)
 
-	# Special script for Columns Explorer.
-
 	@property
 	def exploreColumns(self):
 		return splconfig.SPLConfig["General"]["ExploreColumnsTT"]
@@ -124,5 +122,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		import controlTypes
-		if obj.windowClassName in ("TListView", "TTntListView.UnicodeClass") and obj.role == controlTypes.ROLE_LISTITEM:
-			clsList.insert(0, TrackToolItem)
+		if obj.windowClassName in ("TListView", "TTntListView.UnicodeClass"):
+			if obj.role == controlTypes.ROLE_LISTITEM:
+				clsList.insert(0, TrackToolItem)
+			elif obj.role == controlTypes.ROLE_LIST:
+				clsList.insert(0, sysListView32.List)

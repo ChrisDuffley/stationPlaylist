@@ -29,7 +29,7 @@ import gui
 import wx
 from winUser import user32, sendMessage, OBJID_CLIENT
 from NVDAObjects import NVDAObject, NVDAObjectTextInfo
-from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent
+from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent, sysListView32
 from NVDAObjects.behaviors import Dialog
 import textInfos
 import tones
@@ -93,7 +93,7 @@ _SPLCategoryTones = {
 
 # Routines for track items themselves (prepare for future work).
 # #65 (18.07): this base class represents trakc items across StationPlaylist suites such as Studio, Creator and Track Tool.
-class SPLTrackItem(IAccessible):
+class SPLTrackItem(sysListView32.ListItem):
 	"""An abstract class representing track items across SPL suite of applications such as Studio, Creator and Track Tool.
 	This class provides basic properties, scripts and methods such as Columns Explorer and others.
 	Subclasses should provide custom routines for various attributes, including global ones to suit their needs.
@@ -751,8 +751,12 @@ class AppModule(appModuleHandler.AppModule):
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		role = obj.role
 		windowStyle = obj.windowStyle
-		if obj.windowClassName == "TTntListView.UnicodeClass" and role == controlTypes.ROLE_LISTITEM and abs(windowStyle - 1443991625)%0x100000 == 0:
-			clsList.insert(0, SPL510TrackItem)
+		if obj.windowClassName == "TTntListView.UnicodeClass":
+			if role == controlTypes.ROLE_LISTITEM and abs(windowStyle - 1443991625)%0x100000 == 0:
+				clsList.insert(0, SPL510TrackItem)
+			# #69 (18.08): allow actual list views to be treated as SysListView32.List so column count and other data can be retrieved easily.
+			elif role == controlTypes.ROLE_LIST:
+				clsList.insert(0, sysListView32.List)
 		# 7.2: Recognize known dialogs.
 		elif obj.windowClassName in ("TDemoRegForm", "TOpenPlaylist"):
 			clsList.insert(0, Dialog)

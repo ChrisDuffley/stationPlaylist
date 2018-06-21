@@ -11,7 +11,7 @@ import addonHandler
 import tones
 import ui
 import scriptHandler
-from NVDAObjects.IAccessible import IAccessible
+from NVDAObjects.IAccessible import IAccessible, sysListView32
 from splstudio import splconfig, SPLTrackItem
 from splstudio.splmisc import _getColumnContent
 addonHandler.initTranslation()
@@ -111,8 +111,11 @@ class AppModule(appModuleHandler.AppModule):
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		import controlTypes
-		if obj.windowClassName in ("TListView", "TTntListView.UnicodeClass") and obj.role == controlTypes.ROLE_LISTITEM:
-			clsList.insert(0, SPLCreatorItem)
+		if obj.windowClassName in ("TListView", "TTntListView.UnicodeClass"):
+			if obj.role == controlTypes.ROLE_LISTITEM:
+				clsList.insert(0, SPLCreatorItem)
+			elif obj.role == controlTypes.ROLE_LIST:
+				clsList.insert(0, sysListView32.List)
 		elif obj.windowClassName in ("TDemoRegForm", "TAboutForm"):
 			from NVDAObjects.behaviors import Dialog
 			clsList.insert(0, Dialog)
