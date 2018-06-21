@@ -320,9 +320,8 @@ class SPLStudioTrackItem(SPLTrackItem):
 			if columnContents[pos] is None: columnContents[pos] = "blank"
 			# Manually add header text until column gatherer adds headers support.
 			columnContents[pos] = ": ".join([columnHeaders[pos], columnContents[pos]])
-		ui.browseableMessage("\n".join(columnContents),
-					# Translators: Title of the column data window.
-					title=_("Track data"))
+		# Translators: Title of the column data window.
+		ui.browseableMessage("\n".join(columnContents), title=_("Track data"))
 	# Translators: input help mode message for columns viewer command.
 	script_trackColumnsViewer.__doc__ = _("Presents data for all columns in the currently selected track")
 
