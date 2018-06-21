@@ -198,6 +198,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * Added an option in Playlist Transcripts dialog to have transcripts saved to a file (all formats) or copied to the clipboard (text and Markdown table formats only) in addition to viewing transcripts on screen. When transcripts are saved, they are saved to user's Documents folder under "nvdasplPlaylistTranscripts" subfolder.
 * Status column is no longer included when creating playlist transcripts in HTML and Markdown table formats.
 * When focused on a track in Creator and Track Tool, pressing Control+NVDA+number row twice will present column information on a browse mode window.
+* In Creator and Track Tool, added Control+Alt+Home/End to move Column Navigator to first or last column for the focused track.
 
 ## Version 18.06.1
 
