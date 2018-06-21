@@ -70,7 +70,7 @@ class TrackToolItem(SPLTrackItem):
 
 	# Now the scripts.
 
-	def script_nextColumn(self, gesture):
+	def script_moveToNextColumn(self, gesture):
 		self.columnHeaders = self.parent.children[-1]
 		if (self._curColumnNumber+1) == self.columnHeaders.childCount:
 			tones.beep(2000, 100)
@@ -78,7 +78,7 @@ class TrackToolItem(SPLTrackItem):
 			self.__class__._curColumnNumber +=1
 		self.announceColumnContent(self._curColumnNumber)
 
-	def script_prevColumn(self, gesture):
+	def script_moveToPreviousColumn(self, gesture):
 		self.columnHeaders = self.parent.children[-1]
 		if self._curColumnNumber <= 0:
 			tones.beep(2000, 100)
@@ -101,8 +101,8 @@ class TrackToolItem(SPLTrackItem):
 		return splconfig.SPLConfig["General"]["ExploreColumnsTT"]
 
 	__gestures={
-		"kb:control+alt+rightArrow":"nextColumn",
-		"kb:control+alt+leftArrow":"prevColumn",
+		"kb:control+alt+downArrow": None,
+		"kb:control+alt+upArrow": None,
 		"kb:control+alt+home":"firstColumn",
 		"kb:control+alt+end":"lastColumn",
 	}
