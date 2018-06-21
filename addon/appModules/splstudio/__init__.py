@@ -30,7 +30,7 @@ import wx
 from winUser import user32, sendMessage, OBJID_CLIENT
 from NVDAObjects import NVDAObject, NVDAObjectTextInfo
 from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent, sysListView32
-from NVDAObjects.behaviors import Dialog
+from NVDAObjects.behaviors import Dialog, RowWithFakeNavigation, RowWithoutCellObjects
 import textInfos
 import tones
 from . import splbase
@@ -101,6 +101,13 @@ class SPLTrackItem(sysListView32.ListItem):
 	Each subclass is named after the app module name where tracks are encountered, such as SPLStudioTrackItem for Studio.
 	Subclasses of module-specific subclasses are named after SPL version, for example SPL510TrackItem for studio 5.10.
 	"""
+
+	def _get_name(self):
+		return self.IAccessibleObject.accName(self.IAccessibleChildID)
+
+	def _get_description(self):
+		# SysListView32.ListItem nullifies description, so resort to fetching it via IAccessible.
+		return self.IAccessibleObject.accDescription(self.IAccessibleChildID)
 
 	def initOverlayClass(self):
 		# LTS: Take a greater role in assigning enhanced Columns Explorer command at the expense of limiting where this can be invoked.
@@ -247,14 +254,14 @@ class SPLStudioTrackItem(SPLTrackItem):
 
 	# Now the scripts.
 
-	def script_nextColumn(self, gesture):
+	def script_moveToNextColumn(self, gesture):
 		if (self._curColumnNumber+1) == self.appModule._columnHeaders.childCount:
 			tones.beep(2000, 100)
 		else:
 			self.__class__._curColumnNumber +=1
 		self.announceColumnContent(self._curColumnNumber)
 
-	def script_prevColumn(self, gesture):
+	def script_moveToPreviousColumn(self, gesture):
 		if self._curColumnNumber <= 0:
 			tones.beep(2000, 100)
 		else:
@@ -287,7 +294,7 @@ class SPLStudioTrackItem(SPLTrackItem):
 
 	# Vertical column navigation.
 
-	def script_nextRowColumn(self, gesture):
+	def script_moveToNextRow(self, gesture):
 		newTrack = self.next
 		if newTrack is None and splconfig.SPLConfig["General"]["TopBottomAnnounce"]:
 			tones.beep(2000, 100)
@@ -297,7 +304,7 @@ class SPLStudioTrackItem(SPLTrackItem):
 			newTrack.setFocus(), newTrack.setFocus()
 			splbase.selectTrack(newTrack.IAccessibleChildID-1)
 
-	def script_prevRowColumn(self, gesture):
+	def script_moveToPreviousRow(self, gesture):
 		newTrack = self.previous
 		if newTrack is None and splconfig.SPLConfig["General"]["TopBottomAnnounce"]:
 			tones.beep(2000, 100)
@@ -380,10 +387,6 @@ class SPLStudioTrackItem(SPLTrackItem):
 	script_announceTrackComment.__doc__ = _("Announces track comment if any. Press twice to copy this information to the clipboard, and press three times to open a dialog to add, change or remove track comments")
 
 	__gestures={
-		"kb:control+alt+rightArrow":"nextColumn",
-		"kb:control+alt+leftArrow":"prevColumn",
-		"kb:control+alt+downArrow":"nextRowColumn",
-		"kb:control+alt+upArrow":"prevRowColumn",
 		"kb:control+alt+home":"firstColumn",
 		"kb:control+alt+end":"lastColumn",
 		"kb:downArrow":"nextTrack",
