@@ -1554,13 +1554,21 @@ class SPLConfigDialog(gui.SettingsDialog):
 		oldName = state[0]
 		index = self.profiles.Selection
 		profilePos = self.profileNames.index(oldName)
-		# Translators: The label of a field to enter a new name for a broadcast profile.
-		with wx.TextEntryDialog(self, _("New name:"),
-				# Translators: The title of the dialog to rename a profile.
-				_("Rename Profile"), defaultValue=oldName) as d:
-			if d.ShowModal() == wx.ID_CANCEL:
-				return
-			newName = api.filterFileName(d.Value)
+		# #70 (18.07): in wxPython 4, name for the value keyword argument for text entry dialog constructor has changed.
+		if wx.version().startswith("4"):
+			# Translators: The label of a field to enter a new name for a broadcast profile.
+			with wx.TextEntryDialog(self, _("New name:"),
+					# Translators: The title of the dialog to rename a profile.
+					_("Rename Profile"), value=oldName) as d:
+				if d.ShowModal() == wx.ID_CANCEL:
+					return
+				newName = api.filterFileName(d.Value)
+		else:
+			with wx.TextEntryDialog(self, _("New name:"),
+					_("Rename Profile"), defaultValue=oldName) as d:
+				if d.ShowModal() == wx.ID_CANCEL:
+					return
+				newName = api.filterFileName(d.Value)
 		if oldName == newName: return
 		try:
 			splconfig.SPLConfig.renameProfile(oldName, newName)
