@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 3.2\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2014-11-14 19:00+1000\n"
-"PO-Revision-Date: 2018-06-01 11:07+0100\n"
+"PO-Revision-Date: 2018-06-15 10:34+0100\n"
 "Last-Translator: Ângelo Miguel Abrantes <ampa4374@gmail.com>\n"
 "Language-Team: Equipa Portuguesa do NVDA <angelomiguelabrantes@gmail.com; "
 "rui.fontes@tiflotecnia.com>\n"
@@ -1835,7 +1835,7 @@ msgstr "Está aberto outro diálogo de procura"
 
 #. Translators: Text of the dialog when a generic error has occured.
 msgid "An unexpected error has occured when trying to open find dialog."
-msgstr ""
+msgstr "Ocorreu um erro inesperado ao tentar abrir o diálogo de localização."
 
 msgid "Enter or select the name or the artist of the track you wish to &search"
 msgstr ""
