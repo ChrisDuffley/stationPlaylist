@@ -37,7 +37,11 @@ CENTER_ON_SCREEN = wx.CENTER_ON_SCREEN if hasattr(wx, "CENTER_ON_SCREEN") else 2
 # Helper panels/dialogs for add-on settings dialog.
 
 # Broadcast profiles category
+_selectedProfile = None
+
 class BroadcastProfilesPanel(gui.SettingsPanel):
+
+	# Translators: the title of a dialog to configure bnroadcast profiles.
 	title = _("Broadcast profiles")
 
 	def makeSettings(self, settingsSizer):
@@ -142,7 +146,9 @@ class BroadcastProfilesPanel(gui.SettingsPanel):
 		return profiles
 
 	# Load settings from profiles.
+	# #6: set selected profile flag so other panels can pull in appropriate settings.
 	def onProfileSelection(self, evt):
+		global _selectedProfile
 		# Don't rely on SPLConfig here, as we don't want to interupt the show.
 		selection = self.profiles.GetSelection()
 		# No need to look at the profile flag.
@@ -150,6 +156,9 @@ class BroadcastProfilesPanel(gui.SettingsPanel):
 		# Play a tone to indicate active profile.
 		if self.activeProfile == selectedProfile:
 			tones.beep(512, 40)
+			_selectedProfile = None
+		else:
+			_selectedProfile = selectedProfile
 		if selection == 0:
 			self.renameButton.Disable()
 			self.deleteButton.Disable()
@@ -158,7 +167,6 @@ class BroadcastProfilesPanel(gui.SettingsPanel):
 			self.renameButton.Enable()
 			self.deleteButton.Enable()
 			self.triggerButton.Enable()
-		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
 
 	# Profile controls.
 	# Rename and delete events come from GUI/config profiles dialog from NVDA core.
@@ -217,6 +225,10 @@ class BroadcastProfilesPanel(gui.SettingsPanel):
 		self.profiles.SetString(index, newName)
 		self.profiles.Selection = index
 		self.profiles.SetFocus()
+		# Don't forget to update selected profile name.
+		global _selectedProfile
+		if _selectedProfile == oldName:
+			_selectedProfile = newName
 
 	def onDelete(self, evt):
 		# Prevent profile deletion while a trigger is active (in the midst of a broadcast), otherwise flags such as instant switch and time-based profiles become inconsistent.
@@ -273,6 +285,10 @@ class BroadcastProfilesPanel(gui.SettingsPanel):
 			self.profiles.Selection = 0
 		self.onProfileSelection(None)
 		self.profiles.SetFocus()
+		# Don't forget other settings panels.
+		global _selectedProfile
+		if _selectedProfile == name:
+			_selectedProfile = None
 
 	def onTriggers(self, evt):
 		self.Disable()
