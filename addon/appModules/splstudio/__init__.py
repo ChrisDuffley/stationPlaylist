@@ -753,7 +753,10 @@ class AppModule(appModuleHandler.AppModule):
 	# Some controls which needs special routines.
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		role = obj.role
-		windowStyle = obj.windowStyle
+		try:
+			windowStyle = obj.windowStyle
+		except AttributeError:
+			windowStyle = 0
 		if obj.windowClassName == "TTntListView.UnicodeClass":
 			if role == controlTypes.ROLE_LISTITEM and abs(windowStyle - 1443991625)%0x100000 == 0:
 				clsList.insert(0, SPL510TrackItem)
