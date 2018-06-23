@@ -1272,9 +1272,6 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 
 	# Translators: The title of a dialog to configure advanced SPL add-on options such as update checking.
 	title = _("Advanced options")
-	# Available channels (if there's only one, channel selection list will not be shown).
-	# Prepare for a day when channels list is NULL.
-	_updateChannels = ["try", "dev", "stable"]
 
 	def makeSettings(self, settingsSizer):
 		advOptionsHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
@@ -1283,6 +1280,7 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 		# The exception will be custom try builds.
 		# #50 (18.04): made simpler because the update module won't be present if updating isn't supported.
 		if splupdate and splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone:
+			self._updateChannels = splupdate._updateChannels
 			# Translators: A checkbox to toggle automatic add-on updates.
 			self.autoUpdateCheckbox=advOptionsHelper.addItem(wx.CheckBox(self,label=_("Automatically check for add-on &updates")))
 			self.autoUpdateCheckbox.SetValue(splconfig.SPLConfig["Update"]["AutoUpdateCheck"])
@@ -1293,7 +1291,7 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 		if len(self._updateChannels) > 1:
 			# Translators: The label for a combo box to select update channel.
 			labelText = _("&Add-on update channel:")
-			self.channels=advOptionsHelper.addLabeledControl(labelText, wx.Choice, choices=["Test Drive Fast", "Test Drive Slow", "stable"])
+			self.channels=advOptionsHelper.addLabeledControl(labelText, wx.Choice, choices=splupdate._updateChannelLabels)
 			self.channels.SetSelection(self._updateChannels.index(splupdate.SPLUpdateChannel))
 		# Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 		self.splConPassthroughCheckbox=advOptionsHelper.addItem(wx.CheckBox(self, label=_("Allow SPL C&ontroller command to invoke SPL Assistant layer")))
