@@ -38,6 +38,7 @@ CENTER_ON_SCREEN = wx.CENTER_ON_SCREEN if hasattr(wx, "CENTER_ON_SCREEN") else 2
 
 # Broadcast profiles category
 _selectedProfile = None
+_configApplyOnly = False
 
 class BroadcastProfilesPanel(gui.SettingsPanel):
 
@@ -1449,6 +1450,13 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		super(SPLConfigDialog,  self).onCancel(evt)
 		global _configDialogOpened
 		_configDialogOpened = False
+
+	def onApply(self,evt):
+		# Let profile sensitive panels (such as broadcast profiles) know that settings should be applied.
+		global _configApplyOnly
+		_configApplyOnly = True
+		super(SPLConfigDialog,  self).onApply(evt)
+		_configApplyOnly = False
 
 	# Alarms Center.
 	def onAlarmsCenter(self, evt):
