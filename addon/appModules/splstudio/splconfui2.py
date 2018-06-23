@@ -1458,16 +1458,6 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		super(SPLConfigDialog,  self).onApply(evt)
 		_configApplyOnly = False
 
-	# Alarms Center.
-	def onAlarmsCenter(self, evt):
-		self.Disable()
-		AlarmsCenter(self).Show()
-
-	# Manage column announcements.
-	def onManageColumns(self, evt):
-		self.Disable()
-		ColumnAnnouncementsDialog(self).Show()
-
 	# Reset settings to defaults.
 	# This affects the currently selected profile.
 	def onResetConfig(self, evt):
