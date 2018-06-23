@@ -1353,14 +1353,36 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 		return True
 
 	def onSave(self):
-		# Preview
-		splconfig.SPLConfig["Advanced"]["ConfUI2"] = self.confui2Checkbox.Value
+		# Update channel and other advanced settings will be checked in post-save method below.
 		splconfig.SPLConfig["Advanced"]["SPLConPassthrough"] = self.splConPassthroughCheckbox.Value
 		splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] = self.compatibilityLayouts[self.compatibilityList.GetSelection()][0]
 		if splupdate and splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone:
 			splconfig.SPLConfig["Update"]["AutoUpdateCheck"] = self.autoUpdateCheckbox.Value
 			splconfig.SPLConfig["Update"]["UpdateInterval"] = self.updateInterval.Value
-			if len(self._updateChannels) > 1: splupdate.SPLUpdateChannel = self._updateChannels[self.channels.GetSelection()]
+
+	def postSave(self):
+		# Preview
+		import versionInfo
+		if (versionInfo.version_year, versionInfo.version_major) >= (2018, 2):
+			if splconfig.SPLConfig["Advanced"]["ConfUI2"] != self.confui2Checkbox.Value:
+				wx.CallAfter(gui.messageBox, "You have changed add-on settings interface. You need to restart NVDA in order for changes to take effect.", "Add-on settings interface changed", wx.OK|wx.ICON_INFORMATION)
+			splconfig.SPLConfig["Advanced"]["ConfUI2"] = self.confui2Checkbox.Value
+		# Coordinate auto update timer restart routine if told to do so.
+		# #50 (18.03): but only if add-on update facility is alive.
+		if splupdate and len(self._updateChannels) > 1:
+			updateChannel = self._updateChannels[self.channels.GetSelection()]
+			pendingChannelChange = splupdate.SPLUpdateChannel != updateChannel
+			splupdate.SPLUpdateChannel = updateChannel
+			if not splconfig.SPLConfig["Update"]["AutoUpdateCheck"] or pendingChannelChange:
+				splupdate.updateCheckTimerEnd()
+				if pendingChannelChange:
+					splupdate._pendingChannelChange = True
+					# Translators: A dialog message shown when add-on update channel has changed.
+					wx.CallAfter(gui.messageBox, _("You have changed the add-on update channel. You must restart NVDA for the change to take effect. Be sure to answer yes when you are asked to install the new version when prompted after restarting NVDA."),
+					# Translators: Title of the update channel dialog.
+					_("Add-on update channel changed"), wx.OK|wx.ICON_INFORMATION)
+			else:
+				if splupdate._SPLUpdateT is None: splupdate.updateInit()
 
 # A dialog to reset add-on config including encoder settings and others.
 class ResetDialog(wx.Dialog):
