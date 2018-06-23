@@ -1500,7 +1500,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# Preview
 		if splconfig.SPLConfig["Advanced"]["ConfUI2"] != self.confui2:
 			wx.CallAfter(gui.messageBox, "You have changed add-on settings interface. You need to restart NVDA in order for changes to take effect.", "Add-on settings interface changed", wx.OK|wx.ICON_INFORMATION)
-		splconfig.SPLConfig["Advanced"]["ConfUI2"] = self.confui2
+			splconfig.SPLConfig["Advanced"]["ConfUI2"] = self.confui2
+			splconfig._confui2changed = True
 		# Coordinate auto update timer restart routine if told to do so.
 		# #50 (18.03): but only if add-on update facility is alive.
 		if splupdate:
@@ -1761,6 +1762,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 # Open the above dialog upon request.
 def onConfigDialog(evt):
+	# Preview: if interface style has changed, do not present the dialog until NVDA is restarted.
+	if splconfig._confui2changed:
+		wx.CallAfter(gui.messageBox, "Did you recently change add-on interface style? Please restart NVDA before opening add-on settings dialog.", _("Error"), wx.OK|wx.ICON_ERROR)
+		return
 	# 5.2: Guard against alarm dialogs.
 	if _alarmDialogOpened or _metadataDialogOpened:
 		# Translators: Presented when an alarm dialog is opened.

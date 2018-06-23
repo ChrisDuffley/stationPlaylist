@@ -119,6 +119,8 @@ confspecprofiles = {sect:key for sect, key in confspec.items() if sect in _mutat
 defaultProfileName = _("Normal profile")
 # StationPlaylist components.
 _SPLComponents_ = ("splstudio", "splcreator", "tracktool")
+# Preview
+_confui2changed = False
 
 # 8.0: Run-time config storage and management will use ConfigHub data structure, a subclass of chain map.
 # A chain map allows a dictionary to look up predefined mappings to locate a key.
