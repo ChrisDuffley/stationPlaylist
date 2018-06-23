@@ -38,6 +38,7 @@ CENTER_ON_SCREEN = wx.CENTER_ON_SCREEN if hasattr(wx, "CENTER_ON_SCREEN") else 2
 
 # Broadcast profiles category
 _selectedProfile = None
+_configApplyOnly = False
 
 class BroadcastProfilesPanel(gui.SettingsPanel):
 
@@ -101,26 +102,26 @@ class BroadcastProfilesPanel(gui.SettingsPanel):
 		self.switchProfileRenamed = False
 		self.switchProfileDeleted = False
 
-	def onSave(self, applyOnly=False):
-		applicableProfile = None
+	def onSave(self):
 		if hasattr(self, "profiles"):
 			selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
 			if splconfig.SPLConfig.activeProfile != selectedProfile:
-				if applyOnly:
+				if _configApplyOnly:
 					gui.messageBox(_("The selected profile is different from currently active broadcast profile. Settings will be applied to the selected profile instead."),
 						_("Apply settings"), wx.OK | wx.ICON_INFORMATION, self)
-				applicableProfile = splconfig.SPLConfig.profileByName(selectedProfile)
-			else:
-				splconfig.SPLConfig.swapProfiles(splconfig.SPLConfig.activeProfile, selectedProfile)
+				else:
+					splconfig.SPLConfig.swapProfiles(splconfig.SPLConfig.activeProfile, selectedProfile)
 		splconfig.SPLConfig.instantSwitch = self.switchProfile
 		# Make sure to nullify prev profile if instant switch profile is gone.
 		# 7.0: Don't do the following in the midst of a broadcast.
 		if self.switchProfile is None and not splconfig._triggerProfileActive:
 			splconfig.SPLConfig.prevProfile = None
 		# Apply changes to profile triggers.
-		splconfig.profileTriggers = dict(self._profileTriggersConfig)
-		self._profileTriggersConfig.clear()
-		self._profileTriggersConfig = None
+		# #6: but only if OK button is clicked.
+		if not _configApplyOnly:
+			splconfig.profileTriggers = dict(self._profileTriggersConfig)
+			self._profileTriggersConfig.clear()
+			self._profileTriggersConfig = None
 
 	def onDiscard(self):
 		# Apply profile trigger changes if any.
@@ -979,7 +980,7 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 			self.checkedStreams[-1].SetValue(splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"][stream])
 		metadataSizerHelper.addItem(sizer.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 
-	def onSave(self, applyOnly=False):
+	def onSave(self):
 		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
 		splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = [self.checkedStreams[url].Value for url in rangeGen(5)]
 
@@ -1048,7 +1049,7 @@ class ColumnAnnouncementsPanel(gui.SettingsPanel):
 		self.columnHeadersCheckbox = colAnnouncementsHelper.addItem(wx.CheckBox(self, label=_("Include column &headers when announcing track information")))
 		self.columnHeadersCheckbox.SetValue(splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"])
 
-	def onSave(self, applyOnly=False):
+	def onSave(self):
 		splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
 		splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"] = self.trackColumns.GetItems()
 		# Make sure artist and title are always included.
@@ -1450,15 +1451,12 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		global _configDialogOpened
 		_configDialogOpened = False
 
-	# Alarms Center.
-	def onAlarmsCenter(self, evt):
-		self.Disable()
-		AlarmsCenter(self).Show()
-
-	# Manage column announcements.
-	def onManageColumns(self, evt):
-		self.Disable()
-		ColumnAnnouncementsDialog(self).Show()
+	def onApply(self,evt):
+		# Let profile sensitive panels (such as broadcast profiles) know that settings should be applied.
+		global _configApplyOnly
+		_configApplyOnly = True
+		super(SPLConfigDialog,  self).onApply(evt)
+		_configApplyOnly = False
 
 	# Reset settings to defaults.
 	# This affects the currently selected profile.
