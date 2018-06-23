@@ -100,6 +100,7 @@ SayStudioPlayerPosition = boolean(default=false)
 SPLConPassthrough = boolean(default=false)
 CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
 ProfileTriggerThreshold = integer(min=5, max=60, default=15)
+ConfUI2 = boolean(default=false)
 [Update]
 AutoUpdateCheck = boolean(default=true)
 UpdateInterval = integer(min=0, max=180, default=30)

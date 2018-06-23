@@ -916,6 +916,12 @@ class SayStatusDialog(wx.Dialog):
 # 7.0: Auto update check will be configurable from this dialog.
 class AdvancedOptionsDialog(wx.Dialog):
 
+	# Preview
+	_addonSettingsWarningMessage = {
+		True: "You chose to use the new multi-page add-on settings interface based on new Settings screen found in NVDA 2018.2 and later. With this interface, once the add-on settings opens, press Control+Tab or Control+Shift+Tab to switch between categories, then press Tab to move through settings. Are you sure you wish to switch to the new interface?",
+		False: "You chose to use the old add-on settings interface based on settings dialogs found in NVDA 2018.1.1 and earlier. With this interface, to configure settings, select the appropriate settings category button from main add-on settings dialog. Are you sure you wish to switch to the new interface?",
+	}
+
 	def __init__(self, parent):
 		# Translators: The title of a dialog to configure advanced SPL add-on options such as update checking.
 		super(AdvancedOptionsDialog, self).__init__(parent, title=_("Advanced options"))
@@ -955,6 +961,12 @@ class AdvancedOptionsDialog(wx.Dialog):
 		except:
 			pass
 
+		# Preview
+		import versionInfo
+		if (versionInfo.version_year, versionInfo.version_major) >= (2018, 2):
+			self.confui2Checkbox=advOptionsHelper.addItem(wx.CheckBox(self, label="Use multi-page add-on settings interface (preview)"))
+			self.confui2Checkbox.SetValue(self.Parent.confui2)
+
 		advOptionsHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
@@ -968,6 +980,12 @@ class AdvancedOptionsDialog(wx.Dialog):
 		self.Center(wx.BOTH | CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
+		# Preview: ask for confirmation before switching to different add-on settings interface (restart is required).
+		import versionInfo
+		if (versionInfo.version_year, versionInfo.version_major) >= (2018, 2):
+			if self.Parent.confui2 != self.confui2Checkbox.Value:
+				if gui.messageBox(self._addonSettingsWarningMessage[self.confui2Checkbox.Value], "Add-on settings interface", wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION, self) == wx.NO:
+					return
 		addonUpdatingSupported = splupdate and splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone
 		# The try (fast ring) builds aren't for the faint of heart.
 		# 17.10: nor for old Windows releases anymore.
@@ -995,6 +1013,8 @@ class AdvancedOptionsDialog(wx.Dialog):
 			) == wx.NO:
 				return
 		parent = self.Parent
+		# Preview
+		parent.confui2 = self.confui2Checkbox.Value
 		parent.splConPassthrough = self.splConPassthroughCheckbox.Value
 		parent.compLayer = self.compatibilityLayouts[self.compatibilityList.GetSelection()][0]
 		if addonUpdatingSupported:
@@ -1280,6 +1300,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 		if splupdate: self.updateChannel = splupdate.SPLUpdateChannel
 		self.pendingChannelChange = False
 		SPLConfigHelper.addItem(sizer.sizer)
+		# Preview
+		self.confui2 = splconfig.SPLConfig["Advanced"]["ConfUI2"]
 
 		# Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
 		resetButton = SPLConfigHelper.addItem(wx.Button(self, label=_("Reset settings...")))
@@ -1475,6 +1497,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 	# Perform extra action when closing this dialog such as restarting update timer.
 	def onCloseExtraAction(self):
+		# Preview
+		if splconfig.SPLConfig["Advanced"]["ConfUI2"] != self.confui2:
+			wx.CallAfter(gui.messageBox, "You have changed add-on settings interface. You need to restart NVDA in order for changes to take effect.", "Add-on settings interface changed", wx.OK|wx.ICON_INFORMATION)
+		splconfig.SPLConfig["Advanced"]["ConfUI2"] = self.confui2
 		# Coordinate auto update timer restart routine if told to do so.
 		# #50 (18.03): but only if add-on update facility is alive.
 		if splupdate:
