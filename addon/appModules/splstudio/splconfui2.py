@@ -102,12 +102,12 @@ class BroadcastProfilesPanel(gui.SettingsPanel):
 		self.switchProfileRenamed = False
 		self.switchProfileDeleted = False
 
-	def onSave(self, applyOnly=False):
+	def onSave(self):
 		applicableProfile = None
 		if hasattr(self, "profiles"):
 			selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
 			if splconfig.SPLConfig.activeProfile != selectedProfile:
-				if applyOnly:
+				if _configApplyOnly:
 					gui.messageBox(_("The selected profile is different from currently active broadcast profile. Settings will be applied to the selected profile instead."),
 						_("Apply settings"), wx.OK | wx.ICON_INFORMATION, self)
 				applicableProfile = splconfig.SPLConfig.profileByName(selectedProfile)
@@ -980,7 +980,7 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 			self.checkedStreams[-1].SetValue(splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"][stream])
 		metadataSizerHelper.addItem(sizer.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 
-	def onSave(self, applyOnly=False):
+	def onSave(self):
 		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
 		splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = [self.checkedStreams[url].Value for url in rangeGen(5)]
 
@@ -1049,7 +1049,7 @@ class ColumnAnnouncementsPanel(gui.SettingsPanel):
 		self.columnHeadersCheckbox = colAnnouncementsHelper.addItem(wx.CheckBox(self, label=_("Include column &headers when announcing track information")))
 		self.columnHeadersCheckbox.SetValue(splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"])
 
-	def onSave(self, applyOnly=False):
+	def onSave(self):
 		splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
 		splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"] = self.trackColumns.GetItems()
 		# Make sure artist and title are always included.
