@@ -103,25 +103,25 @@ class BroadcastProfilesPanel(gui.SettingsPanel):
 		self.switchProfileDeleted = False
 
 	def onSave(self):
-		applicableProfile = None
 		if hasattr(self, "profiles"):
 			selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
 			if splconfig.SPLConfig.activeProfile != selectedProfile:
 				if _configApplyOnly:
 					gui.messageBox(_("The selected profile is different from currently active broadcast profile. Settings will be applied to the selected profile instead."),
 						_("Apply settings"), wx.OK | wx.ICON_INFORMATION, self)
-				applicableProfile = splconfig.SPLConfig.profileByName(selectedProfile)
-			else:
-				splconfig.SPLConfig.swapProfiles(splconfig.SPLConfig.activeProfile, selectedProfile)
+				else:
+					splconfig.SPLConfig.swapProfiles(splconfig.SPLConfig.activeProfile, selectedProfile)
 		splconfig.SPLConfig.instantSwitch = self.switchProfile
 		# Make sure to nullify prev profile if instant switch profile is gone.
 		# 7.0: Don't do the following in the midst of a broadcast.
 		if self.switchProfile is None and not splconfig._triggerProfileActive:
 			splconfig.SPLConfig.prevProfile = None
 		# Apply changes to profile triggers.
-		splconfig.profileTriggers = dict(self._profileTriggersConfig)
-		self._profileTriggersConfig.clear()
-		self._profileTriggersConfig = None
+		# #6: but only if OK button is clicked.
+		if not _configApplyOnly:
+			splconfig.profileTriggers = dict(self._profileTriggersConfig)
+			self._profileTriggersConfig.clear()
+			self._profileTriggersConfig = None
 
 	def onDiscard(self):
 		# Apply profile trigger changes if any.
