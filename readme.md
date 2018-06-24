@@ -195,6 +195,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 * Added an experimental multi-category add-on settings screen, accessible by toggling a setting in add-on settings/Advanced dialog (you need to restart NVDA after configuring this setting for the new dialog to show up). This is for NVDA 2018.2 users, and not all add-on settings can be configured from this new screen.
 * NVDA will no longer play error tones or appear to do nothing when trying to rename a broadcast profile from add-on settings, caused by wxPython 4 compatibility issue.
+* When restarting NvDA and/or Studio after making changes to settings in a broadcast profile other than normal profile, NVDA will no longer revert to old settings.
 * It is now possible to obtain playlist transcripts for the current hour. Select "current hour" from list of playlist range options in playlist transcripts dialog (SPL Assistant, Shift+F8).
 * Added an option in Playlist Transcripts dialog to have transcripts saved to a file (all formats) or copied to the clipboard (text and Markdown table formats only) in addition to viewing transcripts on screen. When transcripts are saved, they are saved to user's Documents folder under "nvdasplPlaylistTranscripts" subfolder.
 * Status column is no longer included when creating playlist transcripts in HTML and Markdown table formats.
