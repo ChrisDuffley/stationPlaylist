@@ -1498,10 +1498,12 @@ class SPLConfigDialog(gui.SettingsDialog):
 	# Perform extra action when closing this dialog such as restarting update timer.
 	def onCloseExtraAction(self):
 		# Preview
-		if splconfig.SPLConfig["Advanced"]["ConfUI2"] != self.confui2:
-			wx.CallAfter(gui.messageBox, "You have changed add-on settings interface. You need to restart NVDA in order for changes to take effect.", "Add-on settings interface changed", wx.OK|wx.ICON_INFORMATION)
-			splconfig.SPLConfig["Advanced"]["ConfUI2"] = self.confui2
-			splconfig._confui2changed = True
+		import versionInfo
+		if (versionInfo.version_year, versionInfo.version_major) >= (2018, 2):
+			if splconfig.SPLConfig["Advanced"]["ConfUI2"] != self.confui2:
+				wx.CallAfter(gui.messageBox, "You have changed add-on settings interface. You need to restart NVDA in order for changes to take effect.", "Add-on settings interface changed", wx.OK|wx.ICON_INFORMATION)
+				splconfig.SPLConfig["Advanced"]["ConfUI2"] = self.confui2
+				splconfig._confui2changed = True
 		# Coordinate auto update timer restart routine if told to do so.
 		# #50 (18.03): but only if add-on update facility is alive.
 		if splupdate:
