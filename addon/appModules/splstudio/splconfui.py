@@ -1318,6 +1318,14 @@ class SPLConfigDialog(gui.SettingsDialog):
 			selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
 			if splconfig.SPLConfig.activeProfile != selectedProfile:
 				splconfig.SPLConfig.swapProfiles(splconfig.SPLConfig.activeProfile, selectedProfile)
+				# 8.0: Make sure NVDA knows this must be cached (except for normal profile).
+				# 17.10: but not when config is volatile.
+				# #71 (18.07): must be done here, otherwise cache failure occurs where settings won't be saved when in fact it may have been changed from add-on settings.
+				try:
+					if selectedProfile != _("Normal profile") and selectedProfile not in splconfig._SPLCache:
+						splconfig._cacheConfig(splconfig.SPLConfig.profileByName(selectedProfile))
+				except NameError:
+					pass
 		splconfig.SPLConfig["General"]["BeepAnnounce"] = self.beepAnnounce
 		splconfig.SPLConfig["General"]["MessageVerbosity"] = self.messageVerbosity
 		splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] = self.endOfTrackTime
@@ -1378,13 +1386,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self._profileTriggersConfig.clear()
 		self._profileTriggersConfig = None
 		splconfig.triggerStart(restart=True)
-		# 8.0: Make sure NVDA knows this must be cached (except for normal profile).
-		# 17.10: but not when config is volatile.
-		try:
-			if selectedProfile != _("Normal profile") and selectedProfile not in splconfig._SPLCache:
-				splconfig._cacheConfig(splconfig.SPLConfig.profileByName(selectedProfile))
-		except NameError:
-			pass
 		super(SPLConfigDialog,  self).onOk(evt)
 
 	def onCancel(self, evt):
@@ -1418,6 +1419,14 @@ class SPLConfigDialog(gui.SettingsDialog):
 				gui.messageBox(_("The selected profile is different from currently active broadcast profile. Settings will be applied to the selected profile instead."),
 					_("Apply settings"), wx.OK | wx.ICON_INFORMATION, self)
 				applicableProfile = splconfig.SPLConfig.profileByName(selectedProfile)
+				# 8.0: Make sure NVDA knows this must be cached (except for normal profile).
+				# 17.10: but not when config is volatile.
+				# #71 (18.07): same problem as OK button handler but a lot simpler.
+				try:
+					if selectedProfile != _("Normal profile") and selectedProfile not in splconfig._SPLCache:
+						splconfig._cacheConfig(applicableProfile)
+				except NameError:
+					pass
 		# Apply global settings first, then save settings to appropriate profile.
 		splconfig.SPLConfig["General"]["BeepAnnounce"] = self.beepAnnounce
 		splconfig.SPLConfig["General"]["MessageVerbosity"] = self.messageVerbosity
@@ -1484,13 +1493,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# 7.0: Don't do the following in the midst of a broadcast.
 		if self.switchProfile is None and not splconfig._triggerProfileActive:
 			splconfig.SPLConfig.prevProfile = None
-		# 8.0: Make sure NVDA knows this must be cached (except for normal profile).
-		# 17.10: but not when config is volatile.
-		try:
-			if selectedProfile != _("Normal profile") and selectedProfile not in splconfig._SPLCache:
-				splconfig._cacheConfig(splconfig.SPLConfig.profileByName(selectedProfile))
-		except NameError:
-			pass
 		# Notify various modules of settings changes.
 		splactions.SPLActionProfileSwitched.notify(configDialogActive=True)
 		super(SPLConfigDialog,  self).onApply(evt)
