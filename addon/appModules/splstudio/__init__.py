@@ -658,7 +658,11 @@ class AppModule(appModuleHandler.AppModule):
 		try:
 			self.prefsMenu = gui.mainFrame.sysTrayIcon.preferencesMenu
 			self.SPLSettings = self.prefsMenu.Append(wx.ID_ANY, _("SPL Studio Settings..."), _("SPL settings"))
-			gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, splconfui.onConfigDialog, self.SPLSettings)
+			# Preview
+			if not splconfig.SPLConfig["Advanced"]["ConfUI2"]:
+				gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, splconfui.onConfigDialog, self.SPLSettings)
+			else:
+				gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, splconfui2.onConfigDialog, self.SPLSettings)
 		except AttributeError:
 			debugOutput("failed to initialize GUI subsystem")
 			self.prefsMenu = None
@@ -1179,7 +1183,7 @@ class AppModule(appModuleHandler.AppModule):
 	_confui2_ = False
 
 	@property
-	def _confui2(self): return self._confui2_
+	def _confui2(self): return splconfig.SPLConfig["Advanced"]["ConfUI2"]
 
 	@_confui2.setter
 	def _confui2(self, flag):

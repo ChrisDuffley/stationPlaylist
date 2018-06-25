@@ -37,7 +37,11 @@ CENTER_ON_SCREEN = wx.CENTER_ON_SCREEN if hasattr(wx, "CENTER_ON_SCREEN") else 2
 # Helper panels/dialogs for add-on settings dialog.
 
 # Broadcast profiles category
+_selectedProfile = None
+_configApplyOnly = False
+
 class BroadcastProfilesPanel(gui.SettingsPanel):
+	# Translators: title of a panel to configure broadcast profiles.
 	title = _("Broadcast profiles")
 
 	def makeSettings(self, settingsSizer):
@@ -97,26 +101,34 @@ class BroadcastProfilesPanel(gui.SettingsPanel):
 		self.switchProfileRenamed = False
 		self.switchProfileDeleted = False
 
-	def onSave(self, applyOnly=False):
-		applicableProfile = None
+	def onSave(self):
 		if hasattr(self, "profiles"):
 			selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
 			if splconfig.SPLConfig.activeProfile != selectedProfile:
-				if applyOnly:
+				if _configApplyOnly:
 					gui.messageBox(_("The selected profile is different from currently active broadcast profile. Settings will be applied to the selected profile instead."),
 						_("Apply settings"), wx.OK | wx.ICON_INFORMATION, self)
-				applicableProfile = splconfig.SPLConfig.profileByName(selectedProfile)
-			else:
-				splconfig.SPLConfig.swapProfiles(splconfig.SPLConfig.activeProfile, selectedProfile)
+				else:
+					splconfig.SPLConfig.swapProfiles(splconfig.SPLConfig.activeProfile, selectedProfile)
+				# 8.0: Make sure NVDA knows this must be cached (except for normal profile).
+				# 17.10: but not when config is volatile.
+				# #71 (18.07): must be done here, otherwise cache failure occurs where settings won't be saved when in fact it may have been changed from add-on settings.
+				try:
+					if selectedProfile != _("Normal profile") and selectedProfile not in splconfig._SPLCache:
+						splconfig._cacheConfig(splconfig.SPLConfig.profileByName(selectedProfile))
+				except NameError:
+					pass
 		splconfig.SPLConfig.instantSwitch = self.switchProfile
 		# Make sure to nullify prev profile if instant switch profile is gone.
 		# 7.0: Don't do the following in the midst of a broadcast.
 		if self.switchProfile is None and not splconfig._triggerProfileActive:
 			splconfig.SPLConfig.prevProfile = None
 		# Apply changes to profile triggers.
-		splconfig.profileTriggers = dict(self._profileTriggersConfig)
-		self._profileTriggersConfig.clear()
-		self._profileTriggersConfig = None
+		# #6: but only if OK button is clicked.
+		if not _configApplyOnly:
+			splconfig.profileTriggers = dict(self._profileTriggersConfig)
+			self._profileTriggersConfig.clear()
+			self._profileTriggersConfig = None
 
 	def onDiscard(self):
 		# Apply profile trigger changes if any.
@@ -142,7 +154,9 @@ class BroadcastProfilesPanel(gui.SettingsPanel):
 		return profiles
 
 	# Load settings from profiles.
+	# #6: set selected profile flag so other panels can pull in appropriate settings.
 	def onProfileSelection(self, evt):
+		global _selectedProfile
 		# Don't rely on SPLConfig here, as we don't want to interupt the show.
 		selection = self.profiles.GetSelection()
 		# No need to look at the profile flag.
@@ -150,6 +164,9 @@ class BroadcastProfilesPanel(gui.SettingsPanel):
 		# Play a tone to indicate active profile.
 		if self.activeProfile == selectedProfile:
 			tones.beep(512, 40)
+			_selectedProfile = None
+		else:
+			_selectedProfile = selectedProfile
 		if selection == 0:
 			self.renameButton.Disable()
 			self.deleteButton.Disable()
@@ -158,7 +175,6 @@ class BroadcastProfilesPanel(gui.SettingsPanel):
 			self.renameButton.Enable()
 			self.deleteButton.Enable()
 			self.triggerButton.Enable()
-		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
 
 	# Profile controls.
 	# Rename and delete events come from GUI/config profiles dialog from NVDA core.
@@ -176,13 +192,21 @@ class BroadcastProfilesPanel(gui.SettingsPanel):
 		oldName = state[0]
 		index = self.profiles.Selection
 		profilePos = self.profileNames.index(oldName)
-		# Translators: The label of a field to enter a new name for a broadcast profile.
-		with wx.TextEntryDialog(self, _("New name:"),
-				# Translators: The title of the dialog to rename a profile.
-				_("Rename Profile"), defaultValue=oldName) as d:
-			if d.ShowModal() == wx.ID_CANCEL:
-				return
-			newName = api.filterFileName(d.Value)
+		# #70 (18.07): in wxPython 4, name for the value keyword argument for text entry dialog constructor has changed.
+		if wx.version().startswith("4"):
+			# Translators: The label of a field to enter a new name for a broadcast profile.
+			with wx.TextEntryDialog(self, _("New name:"),
+					# Translators: The title of the dialog to rename a profile.
+					_("Rename Profile"), value=oldName) as d:
+				if d.ShowModal() == wx.ID_CANCEL:
+					return
+				newName = api.filterFileName(d.Value)
+		else:
+			with wx.TextEntryDialog(self, _("New name:"),
+					_("Rename Profile"), defaultValue=oldName) as d:
+				if d.ShowModal() == wx.ID_CANCEL:
+					return
+				newName = api.filterFileName(d.Value)
 		if oldName == newName: return
 		try:
 			splconfig.SPLConfig.renameProfile(oldName, newName)
@@ -209,6 +233,10 @@ class BroadcastProfilesPanel(gui.SettingsPanel):
 		self.profiles.SetString(index, newName)
 		self.profiles.Selection = index
 		self.profiles.SetFocus()
+		# Don't forget to update selected profile name.
+		global _selectedProfile
+		if _selectedProfile == oldName:
+			_selectedProfile = newName
 
 	def onDelete(self, evt):
 		# Prevent profile deletion while a trigger is active (in the midst of a broadcast), otherwise flags such as instant switch and time-based profiles become inconsistent.
@@ -265,6 +293,10 @@ class BroadcastProfilesPanel(gui.SettingsPanel):
 			self.profiles.Selection = 0
 		self.onProfileSelection(None)
 		self.profiles.SetFocus()
+		# Don't forget other settings panels.
+		global _selectedProfile
+		if _selectedProfile == name:
+			_selectedProfile = None
 
 	def onTriggers(self, evt):
 		self.Disable()
@@ -502,8 +534,7 @@ class TriggersDialog(wx.Dialog):
 
 # A collection of general settings for the add-on.
 class GeneralSettingsPanel(gui.SettingsPanel):
-
-	# Translators: Title of a dialog to configure various general add-on settings such as announcing listener count.
+	# Translators: title of a panel to configure various general add-on settings such as top and bottom announcement for playlists.
 	title = _("General")
 
 	def makeSettings(self, settingsSizer):
@@ -734,23 +765,22 @@ class AlarmsCenter(wx.Dialog):
 		self.onCancel(None)
 
 class AlarmsPanel(gui.SettingsPanel):
-
-	# Translators: Title of a dialog to configure vairous alarms and related settings.
+	# Translators: title of a panel to configure various alarms and related settings.
 	title = _("Alarms")
 
 	def makeSettings(self, settingsSizer):
 		alarmsCenterHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
-		self.outroAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&End of track alarm in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=59, initial=splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"])
+		self.outroAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&End of track alarm in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=59, initial=splconfig._SPLDefaults["IntroOutroAlarms"]["EndOfTrackTime"])
 		self.outroToggleCheckBox=alarmsCenterHelper.addItem(wx.CheckBox(self, label=_("&Notify when end of track is approaching")))
-		self.outroToggleCheckBox.SetValue(splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"])
+		self.outroToggleCheckBox.SetValue(splconfig._SPLDefaults["IntroOutroAlarms"]["SayEndOfTrack"])
 
-		self.introAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&Track intro alarm in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=9, initial=splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"])
+		self.introAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&Track intro alarm in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=9, initial=splconfig._SPLDefaults["IntroOutroAlarms"]["SongRampTime"])
 		self.introToggleCheckBox=alarmsCenterHelper.addItem(wx.CheckBox(self, label=_("&Notify when end of introduction is approaching")))
-		self.introToggleCheckBox.SetValue(splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"])
+		self.introToggleCheckBox.SetValue(splconfig._SPLDefaults["IntroOutroAlarms"]["SaySongRamp"])
 
-		self.micAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&Microphone alarm in seconds (0 disables the alarm)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=7200, initial=splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"])
-		self.micIntervalEntry = alarmsCenterHelper.addLabeledControl(_("Microphone alarm &interval in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=60, initial=splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"])
+		self.micAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&Microphone alarm in seconds (0 disables the alarm)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=7200, initial=splconfig._SPLDefaults["MicrophoneAlarm"]["MicAlarm"])
+		self.micIntervalEntry = alarmsCenterHelper.addLabeledControl(_("Microphone alarm &interval in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=60, initial=splconfig._SPLDefaults["MicrophoneAlarm"]["MicAlarmInterval"])
 
 		# Translators: One of the alarm notification options.
 		self.alarmAnnounceValues=[("beep",_("beep")),
@@ -767,20 +797,35 @@ class AlarmsPanel(gui.SettingsPanel):
 		except:
 			pass
 
+	def onPanelActivated(self):
+		selectedProfile = _selectedProfile
+		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
+		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
+		self.outroAlarmEntry.SetValue(curProfile["IntroOutroAlarms"]["EndOfTrackTime"])
+		self.outroToggleCheckBox.SetValue(curProfile["IntroOutroAlarms"]["SayEndOfTrack"])
+		self.introAlarmEntry.SetValue(curProfile["IntroOutroAlarms"]["SongRampTime"])
+		self.introToggleCheckBox.SetValue(curProfile["IntroOutroAlarms"]["SaySongRamp"])
+		self.micAlarmEntry.SetValue(curProfile["MicrophoneAlarm"]["MicAlarm"])
+		self.micIntervalEntry.SetValue(curProfile["MicrophoneAlarm"]["MicAlarmInterval"])
+		super(AlarmsPanel, self).onPanelActivated()
+
 	def onSave(self):
-		splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] = self.outroAlarmEntry.GetValue()
-		splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"] = self.outroToggleCheckBox.GetValue()
-		splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"] = self.introAlarmEntry.GetValue()
-		splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"] = self.introToggleCheckBox.GetValue()
-		splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"] = self.micAlarmEntry.GetValue()
-		splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] = self.micIntervalEntry.GetValue()
+		# Save global settings first, and then record profile-specific settings in appropriate profile.
 		splconfig.SPLConfig["General"]["AlarmAnnounce"] = self.alarmAnnounceValues[self.alarmAnnounceList.GetSelection()][0]
+		selectedProfile = _selectedProfile
+		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
+		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
+		curProfile["IntroOutroAlarms"]["EndOfTrackTime"] = self.outroAlarmEntry.GetValue()
+		curProfile["IntroOutroAlarms"]["SayEndOfTrack"] = self.outroToggleCheckBox.GetValue()
+		curProfile["IntroOutroAlarms"]["SongRampTime"] = self.introAlarmEntry.GetValue()
+		curProfile["IntroOutroAlarms"]["SaySongRamp"] = self.introToggleCheckBox.GetValue()
+		curProfile["MicrophoneAlarm"]["MicAlarm"] = self.micAlarmEntry.GetValue()
+		curProfile["MicrophoneAlarm"]["MicAlarmInterval"] = self.micIntervalEntry.GetValue()
 
 # Playlist snapshot flags
 # For things such as checkboxes for average duration and top category count.
 class PlaylistSnapshotsPanel(gui.SettingsPanel):
-
-	# Translators: Title of a dialog to configure playlist snapshot information.
+	# Translators: title of a panel to configure playlist snapshot information.
 	title = _("Playlist snapshots")
 
 	def makeSettings(self, settingsSizer):
@@ -921,8 +966,7 @@ class MetadataStreamingDialog(wx.Dialog):
 		self.onCancel(None)
 
 class MetadataStreamingPanel(gui.SettingsPanel):
-
-	# Translators: Title of a dialog to configure metadata streaming status for DSP encoder and four additional URL's.
+	# Translators: title of a panel to configure metadata streaming status for DSP encoder and four additional URL's.
 	title = _("Metadata streaming")
 
 	def makeSettings(self, settingsSizer):
@@ -947,23 +991,34 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 		# Therefore use checkboxes laid out across the top.
 		# 17.04: instead of two loops, just use one loop, with labels deriving from a stream labels tuple.
 		# Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
+		# #6: two loops now as actual settings will be loaded when the panel is actually shown later.
 		self.checkedStreams = []
 		# Add checkboxes for each stream, beginning with the DSP encoder.
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		for stream in rangeGen(5):
 			self.checkedStreams.append(sizer.addItem(wx.CheckBox(self, label=metadataStreamLabels[stream])))
-			self.checkedStreams[-1].SetValue(splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"][stream])
+			self.checkedStreams[-1].SetValue(splconfig._SPLDefaults["MetadataStreaming"]["MetadataEnabled"][stream])
 		metadataSizerHelper.addItem(sizer.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 
-	def onSave(self, applyOnly=False):
+	def onPanelActivated(self):
+		selectedProfile = _selectedProfile
+		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
+		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
+		for stream in rangeGen(5):
+			self.checkedStreams[stream].SetValue(curProfile["MetadataStreaming"]["MetadataEnabled"][stream])
+		super(MetadataStreamingPanel, self).onPanelActivated()
+
+	def onSave(self):
 		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
-		splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = [self.checkedStreams[url].Value for url in rangeGen(5)]
+		selectedProfile = _selectedProfile
+		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
+		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
+		curProfile["MetadataStreaming"]["MetadataEnabled"] = [self.checkedStreams[url].Value for url in rangeGen(5)]
 
 # Column announcement manager.
 # Select which track columns should be announced and in which order.
 class ColumnAnnouncementsPanel(gui.SettingsPanel):
-
-	# Translators: Title of a dialog to configure column announcements (order and what columns should be announced).
+	# Translators: title of a panel to configure column announcements (order and what columns should be announced).
 	title = _("Column announcements")
 
 	def makeSettings(self, settingsSizer):
@@ -975,14 +1030,14 @@ class ColumnAnnouncementsPanel(gui.SettingsPanel):
 
 		# Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
 		self.columnOrderCheckbox=colAnnouncementsHelper.addItem(wx.CheckBox(self,wx.ID_ANY,label=_("Announce columns in the &order shown on screen")))
-		self.columnOrderCheckbox.SetValue(splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"])
+		self.columnOrderCheckbox.SetValue(splconfig._SPLDefaults["ColumnAnnouncement"]["UseScreenColumnOrder"])
 
 		# Same as metadata panel (wx.CheckListBox isn't user friendly).
 		# Gather values for checkboxes except artist and title.
 		# 6.1: Split these columns into rows.
 		# 17.04: Gather items into a single list instead of three.
 		# Without manual conversion below, it produces a rare bug where clicking cancel after changing column inclusion causes new set to be retained.
-		self.includedColumns = set(splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"])
+		self.includedColumns = set(splconfig._SPLDefaults["ColumnAnnouncement"]["IncludedColumns"])
 		self.checkedColumns = []
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		for column in ("Duration", "Intro", "Category", "Filename"):
@@ -1004,7 +1059,7 @@ class ColumnAnnouncementsPanel(gui.SettingsPanel):
 		# Because wxPython 3 doesn't include this, work around by using a variant of list box and move up/down buttons.
 		# 17.04: The label for the list below is above the list, so move move up/down buttons to the right of the list box.
 		# Translators: The label for a setting in SPL add-on dialog to select column announcement order.
-		self.trackColumns = colAnnouncementsHelper.addLabeledControl(_("Column &order:"), wx.ListBox, choices=splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"])
+		self.trackColumns = colAnnouncementsHelper.addLabeledControl(_("Column &order:"), wx.ListBox, choices=splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])
 		self.trackColumns.Bind(wx.EVT_LISTBOX,self.onColumnSelection)
 		self.trackColumns.SetSelection(0)
 
@@ -1022,19 +1077,36 @@ class ColumnAnnouncementsPanel(gui.SettingsPanel):
 
 		# Translators: the label for a setting in SPL add-on settings to toggle whether column headers should be included when announcing track information.
 		self.columnHeadersCheckbox = colAnnouncementsHelper.addItem(wx.CheckBox(self, label=_("Include column &headers when announcing track information")))
-		self.columnHeadersCheckbox.SetValue(splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"])
+		self.columnHeadersCheckbox.SetValue(splconfig._SPLDefaults["ColumnAnnouncement"]["IncludeColumnHeaders"])
 
-	def onSave(self, applyOnly=False):
-		splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
-		splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"] = self.trackColumns.GetItems()
+	def onPanelActivated(self):
+		selectedProfile = _selectedProfile
+		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
+		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
+		self.columnOrderCheckbox.SetValue(curProfile["ColumnAnnouncement"]["UseScreenColumnOrder"])
+		self.trackColumns.SetItems(curProfile["ColumnAnnouncement"]["ColumnOrder"])
+		self.trackColumns.SetSelection(0)
+		# 6.1: Again convert list to set.
+		self.includedColumns = set(curProfile["ColumnAnnouncement"]["IncludedColumns"])
+		for checkbox in self.checkedColumns:
+			checkbox.SetValue(checkbox.Label in self.includedColumns)
+		self.columnHeadersCheckbox.SetValue(curProfile["ColumnAnnouncement"]["IncludeColumnHeaders"])
+		super(ColumnAnnouncementsPanel, self).onPanelActivated()
+
+	def onSave(self):
+		selectedProfile = _selectedProfile
+		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
+		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
+		curProfile["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
+		curProfile["ColumnAnnouncement"]["ColumnOrder"] = self.trackColumns.GetItems()
 		# Make sure artist and title are always included.
 		self.includedColumns.add("Artist")
 		self.includedColumns.add("Title")
 		for checkbox in self.checkedColumns:
 			action = self.includedColumns.add if checkbox.Value else self.includedColumns.discard
 			action(checkbox.Label)
-		splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"] = self.includedColumns
-		splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.Value
+		curProfile["ColumnAnnouncement"]["IncludedColumns"] = self.includedColumns
+		curProfile["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.Value
 
 	def onDiscard(self):
 		# 6.1: Discard changes to included columns set.
@@ -1076,8 +1148,7 @@ class ColumnAnnouncementsPanel(gui.SettingsPanel):
 # Configure which column will be announced when Control+NVDA+number row keys are pressed.
 # In 2018, the panel will house Columns Explorer buttons, but eventually columns combo boxes should be part of main settings interface.
 class ColumnsExplorerPanel(gui.SettingsPanel):
-
-	# Translators: Title of a dialog to configure various general add-on settings such as announcing listener count.
+	# Translators: title of a panel to configure columns explorer settings.
 	title = _("Columns explorer")
 
 	def makeSettings(self, settingsSizer):
@@ -1196,8 +1267,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 # Say status panel.
 # Houses options such as announcing cart names.
 class SayStatusPanel(gui.SettingsPanel):
-
-	# Translators: Title of a dialog to configure various status announcements such as announcing listener count.
+	# Translators: title of a panel to configure various status announcements such as announcing listener count.
 	title = _("Status announcements")
 
 	def makeSettings(self, settingsSizer):
@@ -1244,12 +1314,13 @@ class SayStatusPanel(gui.SettingsPanel):
 # #6: this is one of a few panels that will make sure changes are okay to be saved (isValid).
 # It is also one of two panels (the other one being broadcast profiles) that will perform extra actions if OK or Apply is clicked from add-on settings dialog (postSave).
 class AdvancedOptionsPanel(gui.SettingsPanel):
-
-	# Translators: The title of a dialog to configure advanced SPL add-on options such as update checking.
+	# Translators: title of a panel to configure advanced SPL add-on options such as update checking.
 	title = _("Advanced options")
-	# Available channels (if there's only one, channel selection list will not be shown).
-	# Prepare for a day when channels list is NULL.
-	_updateChannels = ["try", "dev", "stable"]
+	# Preview
+	_addonSettingsWarningMessage = {
+		True: "You chose to use the new multi-page add-on settings interface based on new Settings screen found in NVDA 2018.2 and later. With this interface, once the add-on settings opens, press Control+Tab or Control+Shift+Tab to switch between categories, then press Tab to move through settings. Are you sure you wish to switch to the new interface?",
+		False: "You chose to use the old add-on settings interface based on settings dialogs found in NVDA 2018.1.1 and earlier. With this interface, to configure settings, select the appropriate settings category button from main add-on settings dialog. Are you sure you wish to switch to the new interface?",
+	}
 
 	def makeSettings(self, settingsSizer):
 		advOptionsHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
@@ -1258,6 +1329,7 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 		# The exception will be custom try builds.
 		# #50 (18.04): made simpler because the update module won't be present if updating isn't supported.
 		if splupdate and splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone:
+			self._updateChannels = [x[0] for x in splupdate._updateChannels]
 			# Translators: A checkbox to toggle automatic add-on updates.
 			self.autoUpdateCheckbox=advOptionsHelper.addItem(wx.CheckBox(self,label=_("Automatically check for add-on &updates")))
 			self.autoUpdateCheckbox.SetValue(splconfig.SPLConfig["Update"]["AutoUpdateCheck"])
@@ -1268,7 +1340,7 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 		if len(self._updateChannels) > 1:
 			# Translators: The label for a combo box to select update channel.
 			labelText = _("&Add-on update channel:")
-			self.channels=advOptionsHelper.addLabeledControl(labelText, wx.Choice, choices=["Test Drive Fast", "Test Drive Slow", "stable"])
+			self.channels=advOptionsHelper.addLabeledControl(labelText, wx.Choice, choices=[x[1] for x in splupdate._updateChannels])
 			self.channels.SetSelection(self._updateChannels.index(splupdate.SPLUpdateChannel))
 		# Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 		self.splConPassthroughCheckbox=advOptionsHelper.addItem(wx.CheckBox(self, label=_("Allow SPL C&ontroller command to invoke SPL Assistant layer")))
@@ -1285,9 +1357,21 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 		except:
 			pass
 
+		# Preview
+		import versionInfo
+		if (versionInfo.version_year, versionInfo.version_major) >= (2018, 2):
+			self.confui2Checkbox=advOptionsHelper.addItem(wx.CheckBox(self, label="Use multi-page add-on settings interface (preview)"))
+			self.confui2Checkbox.SetValue(splconfig.SPLConfig["Advanced"]["ConfUI2"])
+
 	# Check update channel and interval here.
 	# The onSave method will just assume that it is okay to apply update channel switches and other advanced options.
 	def isValid(self):
+		# Preview: ask for confirmation before switching to different add-on settings interface (restart is required).
+		import versionInfo
+		if (versionInfo.version_year, versionInfo.version_major) >= (2018, 2):
+			if splconfig.SPLConfig["Advanced"]["ConfUI2"] != self.confui2Checkbox.Value:
+				if gui.messageBox(self._addonSettingsWarningMessage[self.confui2Checkbox.Value], "Add-on settings interface", wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION, self) == wx.NO:
+					return False
 		if splupdate and splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone:
 			# The try (fast ring) builds aren't for the faint of heart.
 			# 17.10: nor for old Windows releases anymore.
@@ -1313,12 +1397,37 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 		return True
 
 	def onSave(self):
+		# Update channel and other advanced settings will be checked in post-save method below.
 		splconfig.SPLConfig["Advanced"]["SPLConPassthrough"] = self.splConPassthroughCheckbox.Value
 		splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] = self.compatibilityLayouts[self.compatibilityList.GetSelection()][0]
 		if splupdate and splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone:
 			splconfig.SPLConfig["Update"]["AutoUpdateCheck"] = self.autoUpdateCheckbox.Value
 			splconfig.SPLConfig["Update"]["UpdateInterval"] = self.updateInterval.Value
-			if len(self._updateChannels) > 1: splupdate.SPLUpdateChannel = self._updateChannels[self.channels.GetSelection()]
+
+	def postSave(self):
+		# Preview
+		import versionInfo
+		if (versionInfo.version_year, versionInfo.version_major) >= (2018, 2):
+			if splconfig.SPLConfig["Advanced"]["ConfUI2"] != self.confui2Checkbox.Value:
+				wx.CallAfter(gui.messageBox, "You have changed add-on settings interface. You need to restart NVDA in order for changes to take effect.", "Add-on settings interface changed", wx.OK|wx.ICON_INFORMATION)
+				splconfig.SPLConfig["Advanced"]["ConfUI2"] = self.confui2Checkbox.Value
+				splconfig._confui2changed = True
+		# Coordinate auto update timer restart routine if told to do so.
+		# #50 (18.03): but only if add-on update facility is alive.
+		if splupdate and len(self._updateChannels) > 1:
+			updateChannel = self._updateChannels[self.channels.GetSelection()]
+			pendingChannelChange = splupdate.SPLUpdateChannel != updateChannel
+			splupdate.SPLUpdateChannel = updateChannel
+			if not splconfig.SPLConfig["Update"]["AutoUpdateCheck"] or pendingChannelChange:
+				splupdate.updateCheckTimerEnd()
+				if pendingChannelChange:
+					splupdate._pendingChannelChange = True
+					# Translators: A dialog message shown when add-on update channel has changed.
+					wx.CallAfter(gui.messageBox, _("You have changed the add-on update channel. You must restart NVDA for the change to take effect. Be sure to answer yes when you are asked to install the new version when prompted after restarting NVDA."),
+					# Translators: Title of the update channel dialog.
+					_("Add-on update channel changed"), wx.OK|wx.ICON_INFORMATION)
+			else:
+				if splupdate._SPLUpdateT is None: splupdate.updateInit()
 
 # A dialog to reset add-on config including encoder settings and others.
 class ResetDialog(wx.Dialog):
@@ -1403,7 +1512,7 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 	# Translators: This is the label for the StationPlaylist Studio configuration dialog.
 	title = _("Studio Add-on Settings V2")
 	categoryClasses=[
-		#BroadcastProfilesPanel,
+		BroadcastProfilesPanel,
 		GeneralSettingsPanel,
 		AlarmsPanel,
 		PlaylistSnapshotsPanel,
@@ -1417,24 +1526,23 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 
 	def onOk(self, evt):
 		super(SPLConfigDialog,  self).onOk(evt)
-		# But because of issues encountered while saving some settings, settings dialog might still be active.
-		global _configDialogOpened
+		# But because of issues encountered while saving some settings, settings dialog might still be active, as well as selected profile flag not being cleared.
+		global _configDialogOpened, _selectedProfile
 		_configDialogOpened = False
+		_selectedProfile = None
 
 	def onCancel(self, evt):
 		super(SPLConfigDialog,  self).onCancel(evt)
-		global _configDialogOpened
+		global _configDialogOpened, _selectedProfile
 		_configDialogOpened = False
+		_selectedProfile = None
 
-	# Alarms Center.
-	def onAlarmsCenter(self, evt):
-		self.Disable()
-		AlarmsCenter(self).Show()
-
-	# Manage column announcements.
-	def onManageColumns(self, evt):
-		self.Disable()
-		ColumnAnnouncementsDialog(self).Show()
+	def onApply(self,evt):
+		# Let profile sensitive panels (such as broadcast profiles) know that settings should be applied.
+		global _configApplyOnly
+		_configApplyOnly = True
+		super(SPLConfigDialog,  self).onApply(evt)
+		_configApplyOnly = False
 
 	# Reset settings to defaults.
 	# This affects the currently selected profile.
@@ -1445,6 +1553,10 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 
 # Open the above dialog upon request.
 def onConfigDialog(evt):
+	# Preview: if interface style has changed, do not present the dialog until NVDA is restarted.
+	if splconfig._confui2changed:
+		wx.CallAfter(gui.messageBox, "Did you recently change add-on interface style? Please restart NVDA before opening add-on settings dialog.", _("Error"), wx.OK|wx.ICON_ERROR)
+		return
 	# 5.2: Guard against alarm dialogs.
 	if _alarmDialogOpened or _metadataDialogOpened:
 		# Translators: Presented when an alarm dialog is opened.

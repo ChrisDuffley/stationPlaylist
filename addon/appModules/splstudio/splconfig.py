@@ -100,6 +100,7 @@ SayStudioPlayerPosition = boolean(default=false)
 SPLConPassthrough = boolean(default=false)
 CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
 ProfileTriggerThreshold = integer(min=5, max=60, default=15)
+ConfUI2 = boolean(default=false)
 [Update]
 AutoUpdateCheck = boolean(default=true)
 UpdateInterval = integer(min=0, max=180, default=30)
@@ -118,6 +119,8 @@ confspecprofiles = {sect:key for sect, key in confspec.items() if sect in _mutat
 defaultProfileName = _("Normal profile")
 # StationPlaylist components.
 _SPLComponents_ = ("splstudio", "splcreator", "tracktool")
+# Preview
+_confui2changed = False
 
 # 8.0: Run-time config storage and management will use ConfigHub data structure, a subclass of chain map.
 # A chain map allows a dictionary to look up predefined mappings to locate a key.

@@ -243,7 +243,7 @@ class TriggersDialog(wx.Dialog):
 class GeneralSettingsDialog(wx.Dialog):
 
 	def __init__(self, parent):
-		# Translators: Title of a dialog to configure various status announcements such as announcing listener count.
+		# Translators: Title of a dialog to configure various general add-on settings such as top and bottom announcement for playlists.
 		super(GeneralSettingsDialog, self).__init__(parent, title=_("General add-on settings"))
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
@@ -916,9 +916,11 @@ class SayStatusDialog(wx.Dialog):
 # 7.0: Auto update check will be configurable from this dialog.
 class AdvancedOptionsDialog(wx.Dialog):
 
-	# Available channels (if there's only one, channel selection list will not be shown).
-	# Prepare for a day when channels list is NULL.
-	_updateChannels = ["try", "dev", "stable"]
+	# Preview
+	_addonSettingsWarningMessage = {
+		True: "You chose to use the new multi-page add-on settings interface based on new Settings screen found in NVDA 2018.2 and later. With this interface, once the add-on settings opens, press Control+Tab or Control+Shift+Tab to switch between categories, then press Tab to move through settings. Are you sure you wish to switch to the new interface?",
+		False: "You chose to use the old add-on settings interface based on settings dialogs found in NVDA 2018.1.1 and earlier. With this interface, to configure settings, select the appropriate settings category button from main add-on settings dialog. Are you sure you wish to switch to the new interface?",
+	}
 
 	def __init__(self, parent):
 		# Translators: The title of a dialog to configure advanced SPL add-on options such as update checking.
@@ -931,6 +933,7 @@ class AdvancedOptionsDialog(wx.Dialog):
 		# The exception will be custom try builds.
 		# #50 (18.04): made simpler because the update module won't be present if updating isn't supported.
 		if splupdate and splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone:
+			self._updateChannels = [x[0] for x in splupdate._updateChannels]
 			# Translators: A checkbox to toggle automatic add-on updates.
 			self.autoUpdateCheckbox=advOptionsHelper.addItem(wx.CheckBox(self,label=_("Automatically check for add-on &updates")))
 			self.autoUpdateCheckbox.SetValue(self.Parent.autoUpdateCheck)
@@ -941,7 +944,7 @@ class AdvancedOptionsDialog(wx.Dialog):
 		if len(self._updateChannels) > 1:
 			# Translators: The label for a combo box to select update channel.
 			labelText = _("&Add-on update channel:")
-			self.channels=advOptionsHelper.addLabeledControl(labelText, wx.Choice, choices=["Test Drive Fast", "Test Drive Slow", "stable"])
+			self.channels=advOptionsHelper.addLabeledControl(labelText, wx.Choice, choices=[x[1] for x in splupdate._updateChannels])
 			self.channels.SetSelection(self._updateChannels.index(self.Parent.updateChannel))
 		# Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 		self.splConPassthroughCheckbox=advOptionsHelper.addItem(wx.CheckBox(self, label=_("Allow SPL C&ontroller command to invoke SPL Assistant layer")))
@@ -958,6 +961,12 @@ class AdvancedOptionsDialog(wx.Dialog):
 		except:
 			pass
 
+		# Preview
+		import versionInfo
+		if (versionInfo.version_year, versionInfo.version_major) >= (2018, 2):
+			self.confui2Checkbox=advOptionsHelper.addItem(wx.CheckBox(self, label="Use multi-page add-on settings interface (preview)"))
+			self.confui2Checkbox.SetValue(self.Parent.confui2)
+
 		advOptionsHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
@@ -971,6 +980,12 @@ class AdvancedOptionsDialog(wx.Dialog):
 		self.Center(wx.BOTH | CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
+		# Preview: ask for confirmation before switching to different add-on settings interface (restart is required).
+		import versionInfo
+		if (versionInfo.version_year, versionInfo.version_major) >= (2018, 2):
+			if self.Parent.confui2 != self.confui2Checkbox.Value:
+				if gui.messageBox(self._addonSettingsWarningMessage[self.confui2Checkbox.Value], "Add-on settings interface", wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION, self) == wx.NO:
+					return
 		addonUpdatingSupported = splupdate and splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone
 		# The try (fast ring) builds aren't for the faint of heart.
 		# 17.10: nor for old Windows releases anymore.
@@ -998,6 +1013,8 @@ class AdvancedOptionsDialog(wx.Dialog):
 			) == wx.NO:
 				return
 		parent = self.Parent
+		# Preview
+		parent.confui2 = self.confui2Checkbox.Value
 		parent.splConPassthrough = self.splConPassthroughCheckbox.Value
 		parent.compLayer = self.compatibilityLayouts[self.compatibilityList.GetSelection()][0]
 		if addonUpdatingSupported:
@@ -1283,6 +1300,8 @@ class SPLConfigDialog(gui.SettingsDialog):
 		if splupdate: self.updateChannel = splupdate.SPLUpdateChannel
 		self.pendingChannelChange = False
 		SPLConfigHelper.addItem(sizer.sizer)
+		# Preview
+		self.confui2 = splconfig.SPLConfig["Advanced"]["ConfUI2"]
 
 		# Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
 		resetButton = SPLConfigHelper.addItem(wx.Button(self, label=_("Reset settings...")))
@@ -1299,6 +1318,14 @@ class SPLConfigDialog(gui.SettingsDialog):
 			selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
 			if splconfig.SPLConfig.activeProfile != selectedProfile:
 				splconfig.SPLConfig.swapProfiles(splconfig.SPLConfig.activeProfile, selectedProfile)
+				# 8.0: Make sure NVDA knows this must be cached (except for normal profile).
+				# 17.10: but not when config is volatile.
+				# #71 (18.07): must be done here, otherwise cache failure occurs where settings won't be saved when in fact it may have been changed from add-on settings.
+				try:
+					if selectedProfile != _("Normal profile") and selectedProfile not in splconfig._SPLCache:
+						splconfig._cacheConfig(splconfig.SPLConfig.profileByName(selectedProfile))
+				except NameError:
+					pass
 		splconfig.SPLConfig["General"]["BeepAnnounce"] = self.beepAnnounce
 		splconfig.SPLConfig["General"]["MessageVerbosity"] = self.messageVerbosity
 		splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] = self.endOfTrackTime
@@ -1359,13 +1386,6 @@ class SPLConfigDialog(gui.SettingsDialog):
 		self._profileTriggersConfig.clear()
 		self._profileTriggersConfig = None
 		splconfig.triggerStart(restart=True)
-		# 8.0: Make sure NVDA knows this must be cached (except for normal profile).
-		# 17.10: but not when config is volatile.
-		try:
-			if selectedProfile != _("Normal profile") and selectedProfile not in splconfig._SPLCache:
-				splconfig._cacheConfig(splconfig.SPLConfig.profileByName(selectedProfile))
-		except NameError:
-			pass
 		super(SPLConfigDialog,  self).onOk(evt)
 
 	def onCancel(self, evt):
@@ -1399,6 +1419,14 @@ class SPLConfigDialog(gui.SettingsDialog):
 				gui.messageBox(_("The selected profile is different from currently active broadcast profile. Settings will be applied to the selected profile instead."),
 					_("Apply settings"), wx.OK | wx.ICON_INFORMATION, self)
 				applicableProfile = splconfig.SPLConfig.profileByName(selectedProfile)
+				# 8.0: Make sure NVDA knows this must be cached (except for normal profile).
+				# 17.10: but not when config is volatile.
+				# #71 (18.07): same problem as OK button handler but a lot simpler.
+				try:
+					if selectedProfile != _("Normal profile") and selectedProfile not in splconfig._SPLCache:
+						splconfig._cacheConfig(applicableProfile)
+				except NameError:
+					pass
 		# Apply global settings first, then save settings to appropriate profile.
 		splconfig.SPLConfig["General"]["BeepAnnounce"] = self.beepAnnounce
 		splconfig.SPLConfig["General"]["MessageVerbosity"] = self.messageVerbosity
@@ -1465,19 +1493,19 @@ class SPLConfigDialog(gui.SettingsDialog):
 		# 7.0: Don't do the following in the midst of a broadcast.
 		if self.switchProfile is None and not splconfig._triggerProfileActive:
 			splconfig.SPLConfig.prevProfile = None
-		# 8.0: Make sure NVDA knows this must be cached (except for normal profile).
-		# 17.10: but not when config is volatile.
-		try:
-			if selectedProfile != _("Normal profile") and selectedProfile not in splconfig._SPLCache:
-				splconfig._cacheConfig(splconfig.SPLConfig.profileByName(selectedProfile))
-		except NameError:
-			pass
 		# Notify various modules of settings changes.
 		splactions.SPLActionProfileSwitched.notify(configDialogActive=True)
 		super(SPLConfigDialog,  self).onApply(evt)
 
 	# Perform extra action when closing this dialog such as restarting update timer.
 	def onCloseExtraAction(self):
+		# Preview
+		import versionInfo
+		if (versionInfo.version_year, versionInfo.version_major) >= (2018, 2):
+			if splconfig.SPLConfig["Advanced"]["ConfUI2"] != self.confui2:
+				wx.CallAfter(gui.messageBox, "You have changed add-on settings interface. You need to restart NVDA in order for changes to take effect.", "Add-on settings interface changed", wx.OK|wx.ICON_INFORMATION)
+				splconfig.SPLConfig["Advanced"]["ConfUI2"] = self.confui2
+				splconfig._confui2changed = True
 		# Coordinate auto update timer restart routine if told to do so.
 		# #50 (18.03): but only if add-on update facility is alive.
 		if splupdate:
@@ -1554,13 +1582,21 @@ class SPLConfigDialog(gui.SettingsDialog):
 		oldName = state[0]
 		index = self.profiles.Selection
 		profilePos = self.profileNames.index(oldName)
-		# Translators: The label of a field to enter a new name for a broadcast profile.
-		with wx.TextEntryDialog(self, _("New name:"),
-				# Translators: The title of the dialog to rename a profile.
-				_("Rename Profile"), defaultValue=oldName) as d:
-			if d.ShowModal() == wx.ID_CANCEL:
-				return
-			newName = api.filterFileName(d.Value)
+		# #70 (18.07): in wxPython 4, name for the value keyword argument for text entry dialog constructor has changed.
+		if wx.version().startswith("4"):
+			# Translators: The label of a field to enter a new name for a broadcast profile.
+			with wx.TextEntryDialog(self, _("New name:"),
+					# Translators: The title of the dialog to rename a profile.
+					_("Rename Profile"), value=oldName) as d:
+				if d.ShowModal() == wx.ID_CANCEL:
+					return
+				newName = api.filterFileName(d.Value)
+		else:
+			with wx.TextEntryDialog(self, _("New name:"),
+					_("Rename Profile"), defaultValue=oldName) as d:
+				if d.ShowModal() == wx.ID_CANCEL:
+					return
+				newName = api.filterFileName(d.Value)
 		if oldName == newName: return
 		try:
 			splconfig.SPLConfig.renameProfile(oldName, newName)
@@ -1730,6 +1766,10 @@ class SPLConfigDialog(gui.SettingsDialog):
 
 # Open the above dialog upon request.
 def onConfigDialog(evt):
+	# Preview: if interface style has changed, do not present the dialog until NVDA is restarted.
+	if splconfig._confui2changed:
+		wx.CallAfter(gui.messageBox, "Did you recently change add-on interface style? Please restart NVDA before opening add-on settings dialog.", _("Error"), wx.OK|wx.ICON_ERROR)
+		return
 	# 5.2: Guard against alarm dialogs.
 	if _alarmDialogOpened or _metadataDialogOpened:
 		# Translators: Presented when an alarm dialog is opened.
