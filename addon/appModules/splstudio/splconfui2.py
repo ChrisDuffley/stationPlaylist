@@ -1023,14 +1023,14 @@ class ColumnAnnouncementsPanel(gui.SettingsPanel):
 
 		# Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
 		self.columnOrderCheckbox=colAnnouncementsHelper.addItem(wx.CheckBox(self,wx.ID_ANY,label=_("Announce columns in the &order shown on screen")))
-		self.columnOrderCheckbox.SetValue(splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"])
+		self.columnOrderCheckbox.SetValue(splconfig._SPLDefaults["ColumnAnnouncement"]["UseScreenColumnOrder"])
 
 		# Same as metadata panel (wx.CheckListBox isn't user friendly).
 		# Gather values for checkboxes except artist and title.
 		# 6.1: Split these columns into rows.
 		# 17.04: Gather items into a single list instead of three.
 		# Without manual conversion below, it produces a rare bug where clicking cancel after changing column inclusion causes new set to be retained.
-		self.includedColumns = set(splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"])
+		self.includedColumns = set(splconfig._SPLDefaults["ColumnAnnouncement"]["IncludedColumns"])
 		self.checkedColumns = []
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		for column in ("Duration", "Intro", "Category", "Filename"):
@@ -1052,7 +1052,7 @@ class ColumnAnnouncementsPanel(gui.SettingsPanel):
 		# Because wxPython 3 doesn't include this, work around by using a variant of list box and move up/down buttons.
 		# 17.04: The label for the list below is above the list, so move move up/down buttons to the right of the list box.
 		# Translators: The label for a setting in SPL add-on dialog to select column announcement order.
-		self.trackColumns = colAnnouncementsHelper.addLabeledControl(_("Column &order:"), wx.ListBox, choices=splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"])
+		self.trackColumns = colAnnouncementsHelper.addLabeledControl(_("Column &order:"), wx.ListBox, choices=splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])
 		self.trackColumns.Bind(wx.EVT_LISTBOX,self.onColumnSelection)
 		self.trackColumns.SetSelection(0)
 
@@ -1070,9 +1070,20 @@ class ColumnAnnouncementsPanel(gui.SettingsPanel):
 
 		# Translators: the label for a setting in SPL add-on settings to toggle whether column headers should be included when announcing track information.
 		self.columnHeadersCheckbox = colAnnouncementsHelper.addItem(wx.CheckBox(self, label=_("Include column &headers when announcing track information")))
-		self.columnHeadersCheckbox.SetValue(splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"])
+		self.columnHeadersCheckbox.SetValue(splconfig._SPLDefaults["ColumnAnnouncement"]["IncludeColumnHeaders"])
 
 	def onPanelActivated(self):
+		selectedProfile = _selectedProfile
+		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
+		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
+		self.columnOrderCheckbox.SetValue(curProfile["ColumnAnnouncement"]["UseScreenColumnOrder"])
+		self.trackColumns.SetItems(curProfile["ColumnAnnouncement"]["ColumnOrder"])
+		self.trackColumns.SetSelection(0)
+		# 6.1: Again convert list to set.
+		self.includedColumns = set(curProfile["ColumnAnnouncement"]["IncludedColumns"])
+		for checkbox in self.checkedColumns:
+			checkbox.SetValue(checkbox.Label in self.includedColumns)
+		self.columnHeadersCheckbox.SetValue(curProfile["ColumnAnnouncement"]["IncludeColumnHeaders"])
 		super(ColumnAnnouncementsPanel, self).onPanelActivated()
 
 	def onSave(self):
