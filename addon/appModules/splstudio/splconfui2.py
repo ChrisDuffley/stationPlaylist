@@ -987,15 +987,21 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 		# Therefore use checkboxes laid out across the top.
 		# 17.04: instead of two loops, just use one loop, with labels deriving from a stream labels tuple.
 		# Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
+		# #6: two loops now as actual settings will be loaded when the panel is actually shown later.
 		self.checkedStreams = []
 		# Add checkboxes for each stream, beginning with the DSP encoder.
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		for stream in rangeGen(5):
 			self.checkedStreams.append(sizer.addItem(wx.CheckBox(self, label=metadataStreamLabels[stream])))
-			self.checkedStreams[-1].SetValue(splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"][stream])
+			self.checkedStreams[-1].SetValue(splconfig._SPLDefaults["MetadataStreaming"]["MetadataEnabled"][stream])
 		metadataSizerHelper.addItem(sizer.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 
 	def onPanelActivated(self):
+		selectedProfile = _selectedProfile
+		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
+		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
+		for stream in rangeGen(5):
+			self.checkedStreams[stream].SetValue(curProfile["MetadataStreaming"]["MetadataEnabled"][stream])
 		super(MetadataStreamingPanel, self).onPanelActivated()
 
 	def onSave(self):
