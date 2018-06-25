@@ -243,7 +243,7 @@ class TriggersDialog(wx.Dialog):
 class GeneralSettingsDialog(wx.Dialog):
 
 	def __init__(self, parent):
-		# Translators: Title of a dialog to configure various status announcements such as announcing listener count.
+		# Translators: Title of a dialog to configure various general add-on settings such as top and bottom announcement for playlists.
 		super(GeneralSettingsDialog, self).__init__(parent, title=_("General add-on settings"))
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)

@@ -41,8 +41,7 @@ _selectedProfile = None
 _configApplyOnly = False
 
 class BroadcastProfilesPanel(gui.SettingsPanel):
-
-	# Translators: the title of a dialog to configure bnroadcast profiles.
+	# Translators: title of a panel to configure broadcast profiles.
 	title = _("Broadcast profiles")
 
 	def makeSettings(self, settingsSizer):
@@ -535,8 +534,7 @@ class TriggersDialog(wx.Dialog):
 
 # A collection of general settings for the add-on.
 class GeneralSettingsPanel(gui.SettingsPanel):
-
-	# Translators: Title of a dialog to configure various general add-on settings such as announcing listener count.
+	# Translators: title of a panel to configure various general add-on settings such as top and bottom announcement for playlists.
 	title = _("General")
 
 	def makeSettings(self, settingsSizer):
@@ -767,8 +765,7 @@ class AlarmsCenter(wx.Dialog):
 		self.onCancel(None)
 
 class AlarmsPanel(gui.SettingsPanel):
-
-	# Translators: Title of a dialog to configure vairous alarms and related settings.
+	# Translators: title of a panel to configure various alarms and related settings.
 	title = _("Alarms")
 
 	def makeSettings(self, settingsSizer):
@@ -812,8 +809,7 @@ class AlarmsPanel(gui.SettingsPanel):
 # Playlist snapshot flags
 # For things such as checkboxes for average duration and top category count.
 class PlaylistSnapshotsPanel(gui.SettingsPanel):
-
-	# Translators: Title of a dialog to configure playlist snapshot information.
+	# Translators: title of a panel to configure playlist snapshot information.
 	title = _("Playlist snapshots")
 
 	def makeSettings(self, settingsSizer):
@@ -954,8 +950,7 @@ class MetadataStreamingDialog(wx.Dialog):
 		self.onCancel(None)
 
 class MetadataStreamingPanel(gui.SettingsPanel):
-
-	# Translators: Title of a dialog to configure metadata streaming status for DSP encoder and four additional URL's.
+	# Translators: title of a panel to configure metadata streaming status for DSP encoder and four additional URL's.
 	title = _("Metadata streaming")
 
 	def makeSettings(self, settingsSizer):
@@ -995,8 +990,7 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 # Column announcement manager.
 # Select which track columns should be announced and in which order.
 class ColumnAnnouncementsPanel(gui.SettingsPanel):
-
-	# Translators: Title of a dialog to configure column announcements (order and what columns should be announced).
+	# Translators: title of a panel to configure column announcements (order and what columns should be announced).
 	title = _("Column announcements")
 
 	def makeSettings(self, settingsSizer):
@@ -1109,8 +1103,7 @@ class ColumnAnnouncementsPanel(gui.SettingsPanel):
 # Configure which column will be announced when Control+NVDA+number row keys are pressed.
 # In 2018, the panel will house Columns Explorer buttons, but eventually columns combo boxes should be part of main settings interface.
 class ColumnsExplorerPanel(gui.SettingsPanel):
-
-	# Translators: Title of a dialog to configure various general add-on settings such as announcing listener count.
+	# Translators: title of a panel to configure columns explorer settings.
 	title = _("Columns explorer")
 
 	def makeSettings(self, settingsSizer):
@@ -1229,8 +1222,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 # Say status panel.
 # Houses options such as announcing cart names.
 class SayStatusPanel(gui.SettingsPanel):
-
-	# Translators: Title of a dialog to configure various status announcements such as announcing listener count.
+	# Translators: title of a panel to configure various status announcements such as announcing listener count.
 	title = _("Status announcements")
 
 	def makeSettings(self, settingsSizer):
@@ -1277,8 +1269,7 @@ class SayStatusPanel(gui.SettingsPanel):
 # #6: this is one of a few panels that will make sure changes are okay to be saved (isValid).
 # It is also one of two panels (the other one being broadcast profiles) that will perform extra actions if OK or Apply is clicked from add-on settings dialog (postSave).
 class AdvancedOptionsPanel(gui.SettingsPanel):
-
-	# Translators: The title of a dialog to configure advanced SPL add-on options such as update checking.
+	# Translators: title of a panel to configure advanced SPL add-on options such as update checking.
 	title = _("Advanced options")
 	# Preview
 	_addonSettingsWarningMessage = {
