@@ -1526,14 +1526,16 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 
 	def onOk(self, evt):
 		super(SPLConfigDialog,  self).onOk(evt)
-		# But because of issues encountered while saving some settings, settings dialog might still be active.
-		global _configDialogOpened
+		# But because of issues encountered while saving some settings, settings dialog might still be active, as well as selected profile flag not being cleared.
+		global _configDialogOpened, _selectedProfile
 		_configDialogOpened = False
+		_selectedProfile = None
 
 	def onCancel(self, evt):
 		super(SPLConfigDialog,  self).onCancel(evt)
-		global _configDialogOpened
+		global _configDialogOpened, _selectedProfile
 		_configDialogOpened = False
+		_selectedProfile = None
 
 	def onApply(self,evt):
 		# Let profile sensitive panels (such as broadcast profiles) know that settings should be applied.
