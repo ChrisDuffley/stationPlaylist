@@ -1512,7 +1512,7 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 	# Translators: This is the label for the StationPlaylist Studio configuration dialog.
 	title = _("Studio Add-on Settings V2")
 	categoryClasses=[
-		#BroadcastProfilesPanel,
+		BroadcastProfilesPanel,
 		GeneralSettingsPanel,
 		AlarmsPanel,
 		PlaylistSnapshotsPanel,
