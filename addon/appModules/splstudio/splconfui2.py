@@ -771,16 +771,16 @@ class AlarmsPanel(gui.SettingsPanel):
 	def makeSettings(self, settingsSizer):
 		alarmsCenterHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
-		self.outroAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&End of track alarm in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=59, initial=splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"])
+		self.outroAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&End of track alarm in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=59, initial=splconfig._SPLDefaults["IntroOutroAlarms"]["EndOfTrackTime"])
 		self.outroToggleCheckBox=alarmsCenterHelper.addItem(wx.CheckBox(self, label=_("&Notify when end of track is approaching")))
-		self.outroToggleCheckBox.SetValue(splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"])
+		self.outroToggleCheckBox.SetValue(splconfig._SPLDefaults["IntroOutroAlarms"]["SayEndOfTrack"])
 
-		self.introAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&Track intro alarm in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=9, initial=splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"])
+		self.introAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&Track intro alarm in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=9, initial=splconfig._SPLDefaults["IntroOutroAlarms"]["SongRampTime"])
 		self.introToggleCheckBox=alarmsCenterHelper.addItem(wx.CheckBox(self, label=_("&Notify when end of introduction is approaching")))
-		self.introToggleCheckBox.SetValue(splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"])
+		self.introToggleCheckBox.SetValue(splconfig._SPLDefaults["IntroOutroAlarms"]["SaySongRamp"])
 
-		self.micAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&Microphone alarm in seconds (0 disables the alarm)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=7200, initial=splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"])
-		self.micIntervalEntry = alarmsCenterHelper.addLabeledControl(_("Microphone alarm &interval in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=60, initial=splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"])
+		self.micAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&Microphone alarm in seconds (0 disables the alarm)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=7200, initial=splconfig._SPLDefaults["MicrophoneAlarm"]["MicAlarm"])
+		self.micIntervalEntry = alarmsCenterHelper.addLabeledControl(_("Microphone alarm &interval in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=60, initial=splconfig._SPLDefaults["MicrophoneAlarm"]["MicAlarmInterval"])
 
 		# Translators: One of the alarm notification options.
 		self.alarmAnnounceValues=[("beep",_("beep")),
@@ -798,6 +798,15 @@ class AlarmsPanel(gui.SettingsPanel):
 			pass
 
 	def onPanelActivated(self):
+		selectedProfile = _selectedProfile
+		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
+		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
+		self.outroAlarmEntry.SetValue(curProfile["IntroOutroAlarms"]["EndOfTrackTime"])
+		self.outroToggleCheckBox.SetValue(curProfile["IntroOutroAlarms"]["SayEndOfTrack"])
+		self.introAlarmEntry.SetValue(curProfile["IntroOutroAlarms"]["SongRampTime"])
+		self.introToggleCheckBox.SetValue(curProfile["IntroOutroAlarms"]["SaySongRamp"])
+		self.micAlarmEntry.SetValue(curProfile["MicrophoneAlarm"]["MicAlarm"])
+		self.micIntervalEntry.SetValue(curProfile["MicrophoneAlarm"]["MicAlarmInterval"])
 		super(AlarmsPanel, self).onPanelActivated()
 
 	def onSave(self):
