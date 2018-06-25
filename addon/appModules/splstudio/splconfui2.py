@@ -810,13 +810,17 @@ class AlarmsPanel(gui.SettingsPanel):
 		super(AlarmsPanel, self).onPanelActivated()
 
 	def onSave(self):
-		splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] = self.outroAlarmEntry.GetValue()
-		splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"] = self.outroToggleCheckBox.GetValue()
-		splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"] = self.introAlarmEntry.GetValue()
-		splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"] = self.introToggleCheckBox.GetValue()
-		splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"] = self.micAlarmEntry.GetValue()
-		splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] = self.micIntervalEntry.GetValue()
+		# Save global settings first, and then record profile-specific settings in appropriate profile.
 		splconfig.SPLConfig["General"]["AlarmAnnounce"] = self.alarmAnnounceValues[self.alarmAnnounceList.GetSelection()][0]
+		selectedProfile = _selectedProfile
+		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
+		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
+		curProfile["IntroOutroAlarms"]["EndOfTrackTime"] = self.outroAlarmEntry.GetValue()
+		curProfile["IntroOutroAlarms"]["SayEndOfTrack"] = self.outroToggleCheckBox.GetValue()
+		curProfile["IntroOutroAlarms"]["SongRampTime"] = self.introAlarmEntry.GetValue()
+		curProfile["IntroOutroAlarms"]["SaySongRamp"] = self.introToggleCheckBox.GetValue()
+		curProfile["MicrophoneAlarm"]["MicAlarm"] = self.micAlarmEntry.GetValue()
+		curProfile["MicrophoneAlarm"]["MicAlarmInterval"] = self.micIntervalEntry.GetValue()
 
 # Playlist snapshot flags
 # For things such as checkboxes for average duration and top category count.
@@ -1006,7 +1010,10 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 
 	def onSave(self):
 		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
-		splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = [self.checkedStreams[url].Value for url in rangeGen(5)]
+		selectedProfile = _selectedProfile
+		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
+		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
+		curProfile["MetadataStreaming"]["MetadataEnabled"] = [self.checkedStreams[url].Value for url in rangeGen(5)]
 
 # Column announcement manager.
 # Select which track columns should be announced and in which order.
@@ -1087,16 +1094,19 @@ class ColumnAnnouncementsPanel(gui.SettingsPanel):
 		super(ColumnAnnouncementsPanel, self).onPanelActivated()
 
 	def onSave(self):
-		splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
-		splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"] = self.trackColumns.GetItems()
+		selectedProfile = _selectedProfile
+		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
+		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
+		curProfile["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
+		curProfile["ColumnAnnouncement"]["ColumnOrder"] = self.trackColumns.GetItems()
 		# Make sure artist and title are always included.
 		self.includedColumns.add("Artist")
 		self.includedColumns.add("Title")
 		for checkbox in self.checkedColumns:
 			action = self.includedColumns.add if checkbox.Value else self.includedColumns.discard
 			action(checkbox.Label)
-		splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"] = self.includedColumns
-		splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.Value
+		curProfile["ColumnAnnouncement"]["IncludedColumns"] = self.includedColumns
+		curProfile["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.Value
 
 	def onDiscard(self):
 		# 6.1: Discard changes to included columns set.
