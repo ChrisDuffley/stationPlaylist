@@ -797,6 +797,9 @@ class AlarmsPanel(gui.SettingsPanel):
 		except:
 			pass
 
+	def onPanelActivated(self):
+		super(AlarmsPanel, self).onPanelActivated()
+
 	def onSave(self):
 		splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] = self.outroAlarmEntry.GetValue()
 		splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"] = self.outroToggleCheckBox.GetValue()
@@ -983,6 +986,9 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 			self.checkedStreams[-1].SetValue(splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"][stream])
 		metadataSizerHelper.addItem(sizer.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 
+	def onPanelActivated(self):
+		super(MetadataStreamingPanel, self).onPanelActivated()
+
 	def onSave(self):
 		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
 		splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = [self.checkedStreams[url].Value for url in rangeGen(5)]
@@ -1050,6 +1056,9 @@ class ColumnAnnouncementsPanel(gui.SettingsPanel):
 		# Translators: the label for a setting in SPL add-on settings to toggle whether column headers should be included when announcing track information.
 		self.columnHeadersCheckbox = colAnnouncementsHelper.addItem(wx.CheckBox(self, label=_("Include column &headers when announcing track information")))
 		self.columnHeadersCheckbox.SetValue(splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"])
+
+	def onPanelActivated(self):
+		super(ColumnAnnouncementsPanel, self).onPanelActivated()
 
 	def onSave(self):
 		splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
