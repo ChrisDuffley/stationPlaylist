@@ -9,6 +9,7 @@ import appModuleHandler
 import addonHandler
 import tones
 import ui
+import scriptHandler
 from NVDAObjects.IAccessible import IAccessible
 from splstudio import splconfig
 from splstudio.splmisc import _getColumnContent
@@ -31,6 +32,9 @@ def indexOf(ttVersion):
 class TrackToolItem(IAccessible):
 	"""An entry in Track Tool, used to implement some exciting features.
 	"""
+
+	# Keep a record of which column is being looked at.
+	_curColumnNumber = 0
 
 	def reportFocus(self):
 		# Play a beep when intro exists.
@@ -70,54 +74,73 @@ class TrackToolItem(IAccessible):
 
 	def script_nextColumn(self, gesture):
 		self.columnHeaders = self.parent.children[-1]
-		if (self.appModule.SPLColNumber+1) == self.columnHeaders.childCount:
+		if (self._curColumnNumber+1) == self.columnHeaders.childCount:
 			tones.beep(2000, 100)
 		else:
-			self.appModule.SPLColNumber +=1
-		self.announceColumnContent(self.appModule.SPLColNumber)
+			self.__class__._curColumnNumber +=1
+		self.announceColumnContent(self._curColumnNumber)
 
 	def script_prevColumn(self, gesture):
 		self.columnHeaders = self.parent.children[-1]
-		if self.appModule.SPLColNumber <= 0:
+		if self._curColumnNumber <= 0:
 			tones.beep(2000, 100)
 		else:
-			self.appModule.SPLColNumber -=1
-		self.announceColumnContent(self.appModule.SPLColNumber)
+			self.__class__._curColumnNumber -=1
+		self.announceColumnContent(self._curColumnNumber)
+
+	def script_firstColumn(self, gesture):
+		self.columnHeaders = self.parent.children[-1]
+		self.__class__._curColumnNumber = 0
+		self.announceColumnContent(self._curColumnNumber)
+
+	def script_lastColumn(self, gesture):
+		self.columnHeaders = self.parent.children[-1]
+		self.__class__._curColumnNumber = self.columnHeaders.childCount - 1
+		self.announceColumnContent(self._curColumnNumber)
 
 	# Special script for Columns Explorer.
 
 	def script_columnExplorer(self, gesture):
 		# Just like the main app module, due to the below formula, columns explorer will be restricted to number commands.
 		header = splconfig.SPLConfig["General"]["ExploreColumnsTT"][int(gesture.displayName.split("+")[-1])-1]
-		# Several corner cases.
-		# Look up track name if artist is the header name.
-		if header == "Artist":
-			if self.name is None:
-				# Translators: Presented when artist information is not found for a track in Track Tool.
-				ui.message(_("No artist"))
-			else:
-				# Translators: Presents artist information for a track in Track Tool.
-				ui.message(_("Artist: {artistName}").format(artistName = self.name))
-		# Special case for intro to make it compatible with old add-on releases.
-		elif header == "Intro" and "Intro:" not in self.description:
-			# Translators: Presented when intro is not defined for a track in Track Tool.
-			ui.message(_("Introduction not set"))
+		try:
+			colNumber = indexOf(self.appModule.productVersion).index(header)
+		except ValueError:
+			# Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
+			ui.message(_("{headerText} not found").format(headerText = header))
+			return
+		if scriptHandler.getLastScriptRepeatCount() == 0: self.announceColumnContent(colNumber, columnHeader=header)
 		else:
-			try:
-				self.announceColumnContent(indexOf(self.appModule.productVersion).index(header), columnHeader=header)
-			except ValueError:
-				# Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
-				ui.message(_("{headerText} not found").format(headerText = header))
+			# 18.07: an exact copy of column announcement method with changes.
+			internalHeaders = indexOf(self.appModule.productVersion)
+			if internalHeaders[colNumber] != header:
+				colNumber = internalHeaders.index(header)
+			columnContent = _getColumnContent(self, colNumber)
+			if columnContent is None:
+				# Translators: presented when column information for a track is empty.
+				columnContent = _("blank")
+			ui.browseableMessage("{0}: {1}".format(header, columnContent),
+				# Translators: Title of the column data window.
+				title=_("Track data"))
 
 	__gestures={
 		"kb:control+alt+rightArrow":"nextColumn",
 		"kb:control+alt+leftArrow":"prevColumn",
+		"kb:control+alt+home":"firstColumn",
+		"kb:control+alt+end":"lastColumn",
 	}
 
 
 class AppModule(appModuleHandler.AppModule):
 
-	SPLColNumber = 0
+	def __init__(self, *args, **kwargs):
+		super(AppModule, self).__init__(*args, **kwargs)
+		# #64 (18.07): load config database if not done already.
+		splconfig.openConfig("tracktool")
+
+	def terminate(self):
+		super(AppModule, self).terminate()
+		splconfig.closeConfig("tracktool")
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		import controlTypes

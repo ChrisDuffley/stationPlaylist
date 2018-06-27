@@ -100,6 +100,7 @@ SayStudioPlayerPosition = boolean(default=false)
 SPLConPassthrough = boolean(default=false)
 CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
 ProfileTriggerThreshold = integer(min=5, max=60, default=15)
+ConfUI2 = boolean(default=false)
 [Update]
 AutoUpdateCheck = boolean(default=true)
 UpdateInterval = integer(min=0, max=180, default=30)
@@ -116,6 +117,10 @@ _mutatableSettings=("IntroOutroAlarms", "MicrophoneAlarm", "MetadataStreaming", 
 confspecprofiles = {sect:key for sect, key in confspec.items() if sect in _mutatableSettings}
 # Translators: The name of the default (normal) profile.
 defaultProfileName = _("Normal profile")
+# StationPlaylist components.
+_SPLComponents_ = ("splstudio", "splcreator", "tracktool")
+# Preview
+_confui2changed = False
 
 # 8.0: Run-time config storage and management will use ConfigHub data structure, a subclass of chain map.
 # A chain map allows a dictionary to look up predefined mappings to locate a key.
@@ -129,11 +134,21 @@ defaultProfileName = _("Normal profile")
 class ConfigHub(ChainMap):
 	"""A hub of broadcast profiles, a subclass of ChainMap.
 	Apart from giving favorable treatments to the active map and adding custom methods and properties, this structure is identical to chain map structure.
+
+	The constructor takes an optional parameter that specifies which StationPlaylist component opened this map.
+	The default value is None, which means Studio (splstudio.exe) app module opened this.
 	"""
 
-	def __init__(self):
+	def __init__(self, splComponent=None):
+		# Check SPL components to make sure malicious actors don't tamper with it.
+		if splComponent is None: splComponent = "splstudio"
+		if splComponent not in _SPLComponents_:
+			raise RuntimeError("Not a StationPlaylist component, cannot create SPL add-on Config Hub database")
 		# Create a "fake" map entry, to be replaced by the normal profile later.
 		super(ConfigHub, self).__init__()
+		# #64 (18.07): keep an eye on which SPL component opened this map.
+		self.splComponents = set()
+		self.splComponents.add(splComponent)
 		# 17.09 only: a private variable to be set when config must become volatile.
 		# 17.10: now pull it in from command line.
 		self._volatileConfig = "--spl-volatileconfig" in globalVars.appArgsExtra
@@ -600,6 +615,13 @@ _configLoadStatus = {} # Key = filename, value is pass or no pass.
 # Track comments map.
 trackComments = {}
 
+# Open config database, used mostly from modules other than Studio.
+def openConfig(splComponent):
+	global SPLConfig
+	# #64 (18.07): skip this step if another SPL component (such as Creator) opened this.
+	if SPLConfig is None: SPLConfig = ConfigHub(splComponent=splComponent)
+	else: SPLConfig.splComponents.add(splComponent)
+
 def initialize():
 	# Load the default config from a list of profiles.
 	# 8.0: All this work will be performed when ConfigHub loads.
@@ -607,7 +629,8 @@ def initialize():
 	# 7.0: Store the config as a dictionary.
 	# This opens up many possibilities, including config caching, loading specific sections only and others (the latter saves memory).
 	# 8.0: Replaced by ConfigHub object.
-	SPLConfig = ConfigHub()
+	# #64 (18.07): perfomed by openConfig function.
+	openConfig("splstudio")
 	# Locate instant profile and do something otherwise.
 	if SPLConfig.instantSwitch is not None and SPLConfig.instantSwitch not in SPLConfig.profileNames:
 		spldebugging.debugOutput("Failed to locate instant switch profile")
@@ -894,6 +917,16 @@ def shouldSave(profile):
 	# The old loop will be kept in 7.x/LTS for compatibility and to reduce risks associated with accidental saving/discard.
 	return _SPLCache[tree] != profile
 
+# Close config database if needed.
+def closeConfig(splComponent):
+	global SPLConfig, _SPLCache
+	SPLConfig.splComponents.discard(splComponent)
+	if len(SPLConfig.splComponents) == 0:
+		SPLConfig.save()
+		SPLConfig = None
+		_SPLCache.clear()
+		_SPLCache = None
+
 # Terminate the config and related subsystems.
 def terminate():
 	global SPLConfig, _SPLCache, _SPLTriggerEndTimer, _triggerProfileActive
@@ -910,10 +943,8 @@ def terminate():
 	pickle.dump(trackComments, file(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"), "wb"))
 	# Now save profiles.
 	# 8.0: Call the save method.
-	SPLConfig.save()
-	SPLConfig = None
-	_SPLCache.clear()
-	_SPLCache = None
+	# #64 (18.07): separated into its own function in 2018.
+	closeConfig("splstudio")
 
 # Switch between profiles.
 # A general-purpose profile switcher.

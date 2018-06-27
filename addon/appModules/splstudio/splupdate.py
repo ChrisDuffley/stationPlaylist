@@ -79,6 +79,14 @@ channels={
 	#"lts":"http://www.josephsl.net/files/nvdaaddons/getupdate.php?file=spl-ltsxp",
 }
 
+# Available channels and their UI labels (if there's only one, channel selection list will not be shown).
+# 18.07: channels and their labels will be managed from update module instead of add-on settings to prepare for different settings interfaces.
+_updateChannels = [
+	("try","Test Drive Fast"),
+	("dev","Test Drive Slow"),
+	("stable","stable")
+]
+
 # Come forth, update check routines.
 def initialize():
 	global SPLAddonState, SPLAddonCheck, _updateNow, SPLUpdateChannel

@@ -36,6 +36,10 @@ import tones
 from . import splbase
 from . import splconfig
 from . import splconfui
+try:
+	from . import splconfui2
+except RuntimeError:
+	splconfui2 = None
 from . import splmisc
 from . import splactions
 import addonHandler
@@ -88,8 +92,19 @@ _SPLCategoryTones = {
 }
 
 # Routines for track items themselves (prepare for future work).
+# #65 (18.07): this base class represents trakc items across StationPlaylist suites such as Studio, Creator and Track Tool.
 class SPLTrackItem(IAccessible):
-	"""A base class for providing utility scripts when track entries are focused, such as location text and column navigation."""
+	"""An abstract class representing track items across SPL suite of applications such as Studio, Creator and Track Tool.
+	This class provides basic properties, scripts and methods such as Columns Explorer and others.
+	Subclasses should provide custom routines for various attributes, including global ones to suit their needs.
+
+	Each subclass is named after the app module name where tracks are encountered, such as SPLStudioTrackItem for Studio.
+	Subclasses of module-specific subclasses are named after SPL version, for example SPL510TrackItem for studio 5.10.
+	"""
+	pass
+
+class SPLStudioTrackItem(SPLTrackItem):
+	"""A base class for providing utility scripts when SPL Studio track entries are focused, such as location text and column navigation."""
 
 	# Keep a record of which column is being looked at.
 	_curColumnNumber = None
@@ -305,9 +320,8 @@ class SPLTrackItem(IAccessible):
 			if columnContents[pos] is None: columnContents[pos] = "blank"
 			# Manually add header text until column gatherer adds headers support.
 			columnContents[pos] = ": ".join([columnHeaders[pos], columnContents[pos]])
-		ui.browseableMessage("\n".join(columnContents),
-					# Translators: Title of the column data window.
-					title=_("Track data"))
+		# Translators: Title of the column data window.
+		ui.browseableMessage("\n".join(columnContents), title=_("Track data"))
 	# Translators: input help mode message for columns viewer command.
 	script_trackColumnsViewer.__doc__ = _("Presents data for all columns in the currently selected track")
 
@@ -375,7 +389,7 @@ class SPLTrackItem(IAccessible):
 		"kb:Alt+NVDA+C":"announceTrackComment"
 	}
 
-class SPL510TrackItem(SPLTrackItem):
+class SPL510TrackItem(SPLStudioTrackItem):
 	"""Track item for Studio 5.10 and later."""
 
 	def event_stateChange(self):
@@ -635,9 +649,17 @@ class AppModule(appModuleHandler.AppModule):
 		eventHandler.requestEvents(eventName="show", processId=self.processID, windowClassName="TRequests")
 		self.backgroundStatusMonitor = True
 		debugOutput("preparing GUI subsystem")
-		self.prefsMenu = gui.mainFrame.sysTrayIcon.preferencesMenu
-		self.SPLSettings = self.prefsMenu.Append(wx.ID_ANY, _("SPL Studio Settings..."), _("SPL settings"))
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, splconfui.onConfigDialog, self.SPLSettings)
+		try:
+			self.prefsMenu = gui.mainFrame.sysTrayIcon.preferencesMenu
+			self.SPLSettings = self.prefsMenu.Append(wx.ID_ANY, _("SPL Studio Settings..."), _("SPL settings"))
+			# Preview
+			if not splconfig.SPLConfig["Advanced"]["ConfUI2"]:
+				gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, splconfui.onConfigDialog, self.SPLSettings)
+			else:
+				gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, splconfui2.onConfigDialog, self.SPLSettings)
+		except AttributeError:
+			debugOutput("failed to initialize GUI subsystem")
+			self.prefsMenu = None
 		# Let me know the Studio window handle.
 		# 6.1: Do not allow this thread to run forever (seen when evaluation times out and the app module starts).
 		self.noMoreHandle = threading.Event()
@@ -1144,8 +1166,27 @@ class AppModule(appModuleHandler.AppModule):
 
 	# SPL Config management among others.
 
+	# #6: the following experimental code will be removed in fall 2018.
+	_confui2_ = False
+
+	@property
+	def _confui2(self): return splconfig.SPLConfig["Advanced"]["ConfUI2"]
+
+	@_confui2.setter
+	def _confui2(self, flag):
+		# Tru/false
+		# This should not be set if the newer config UI isn't present.
+		if splconfui2 is None:
+			raise RuntimeError("cannot set new-style settings flag")
+		if not isinstance(flag, bool):
+			raise ValueError("this is a binary flag")
+		# No multi-category settings
+		if not hasattr(gui.settingsDialogs, "SettingsPanel"):
+			raise RuntimeError("This build of NVDA does not include multi-category settings facility")
+		self._confui2_ = flag
+
 	def script_openConfigDialog(self, gesture):
-		wx.CallAfter(splconfui.onConfigDialog, None)
+		wx.CallAfter(splconfui.onConfigDialog if not self._confui2 else splconfui2.onConfigDialog, None)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_openConfigDialog.__doc__=_("Opens SPL Studio add-on configuration dialog.")
 
