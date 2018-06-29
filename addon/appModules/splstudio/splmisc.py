@@ -17,6 +17,8 @@ import gui
 import wx
 import ui
 from winUser import user32, sendMessage
+import winKernel
+from NVDAObjects.IAccessible import sysListView32
 from . import splbase
 from .spldebugging import debugOutput
 from . import splactions
@@ -33,8 +35,6 @@ CENTER_ON_SCREEN = wx.CENTER_ON_SCREEN if hasattr(wx, "CENTER_ON_SCREEN") else 2
 # This is used by the track item class, Track Tool items and in track finder.
 # In track finder, this is used when encountering the track item but NVDA says otherwise.
 def _getColumnContent(obj, col):
-	import winKernel
-	from NVDAObjects.IAccessible import sysListView32
 	# Borrowed from SysListView32 implementation.
 	buffer=None
 	processHandle=obj.processHandle
@@ -54,6 +54,31 @@ def _getColumnContent(obj, col):
 			winKernel.virtualFreeEx(processHandle,internalText,0,winKernel.MEM_RELEASE)
 	finally:
 		winKernel.virtualFreeEx(processHandle,internalItem,0,winKernel.MEM_RELEASE)
+	return buffer.value if buffer else None
+
+# Locate column header.
+# Given an object and the column number, locate header txt for the specified column.
+# This is used by the track item class, Track Tool items and Creator.
+def _getColumnHeader(obj, col):
+	# Borrowed from SysListView32 implementation.
+	buffer=None
+	processHandle=obj.processHandle
+	sizeofLVCOLUMN = ctypes.sizeof(sysListView32.LVCOLUMN)
+	internalColumn=winKernel.virtualAllocEx(processHandle,None,sizeofLVCOLUMN,winKernel.MEM_COMMIT,winKernel.PAGE_READWRITE)
+	try:
+		internalText=winKernel.virtualAllocEx(processHandle,None,520,winKernel.MEM_COMMIT,winKernel.PAGE_READWRITE)
+		try:
+			column=sysListView32.LVCOLUMN(mask=sysListView32.LVCF_TEXT,iSubItem=col,pszText=internalText,cchTextMax=260)
+			winKernel.writeProcessMemory(processHandle,internalColumn,ctypes.byref(column),sizeofLVCOLUMN,None)
+			res = sendMessage(obj.windowHandle,sysListView32.LVM_GETCOLUMNW, col, internalColumn)
+			if res:
+				winKernel.readProcessMemory(processHandle,internalColumn,ctypes.byref(column),sizeofLVCOLUMN,None)
+				buffer=ctypes.create_unicode_buffer(column.cchTextMax)
+				winKernel.readProcessMemory(processHandle,column.pszText,buffer,ctypes.sizeof(buffer),None)
+		finally:
+			winKernel.virtualFreeEx(processHandle,internalText,0,winKernel.MEM_RELEASE)
+	finally:
+		winKernel.virtualFreeEx(processHandle,internalColumn,0,winKernel.MEM_RELEASE)
 	return buffer.value if buffer else None
 
 # A custom combo box for cases where combo boxes are not choice controls.
