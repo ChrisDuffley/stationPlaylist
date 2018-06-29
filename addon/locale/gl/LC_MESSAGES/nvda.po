@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-05-12 13:22+0100\n"
+"PO-Revision-Date: 2018-06-26 18:13+0100\n"
 "Last-Translator: Iván Novegil <ivan.novegil.cancelas@gmail.com>\n"
 "Language-Team: Add-ons translation team <oprisniki@gmail.com>\n"
 "Language: gl\n"
@@ -48,25 +48,19 @@ msgstr "{header}: en branco"
 msgid "{header}: ()"
 msgstr "{header}: ()"
 
-#. Translators: Presented when artist information is not found for a track in StationPlaylist Creator.
-#. Translators: Presented when artist information is not found for a track in Track Tool.
-msgid "No artist"
-msgstr "Non hai artista"
-
-#. Translators: Presents artist information for a track in Track Tool.
-#, python-brace-format
-msgid "Artist: {artistName}"
-msgstr "Artista: {artistName}"
-
-#. Translators: Presented when intro is not defined for a track in Track Tool.
-msgid "Introduction not set"
-msgstr "Non se estableciu introducción"
-
 #. Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
 #. Translators: Presented when a specific column header is not found.
 #, python-brace-format
 msgid "{headerText} not found"
 msgstr "{headerText} non atopado"
+
+#. Translators: presented when column information for a track is empty.
+msgid "blank"
+msgstr "en branco"
+
+#. Translators: Title of the column data window.
+msgid "Track data"
+msgstr "Datos da pista"
 
 #. Translators: Presented when microphone has been active for a while.
 msgid "Microphone active"
@@ -92,24 +86,17 @@ msgstr "{checkStatus}{header}: en blanco"
 msgid "{checkStatus}{header}: ()"
 msgstr "{checkStatus}{header}: ()"
 
-#. Translators: presented when column information for a track is empty.
-msgid "blank"
-msgstr ""
-
-#. Translators: Title of the column data window.
-#, fuzzy
-msgid "Track data"
-msgstr "Intro da pista"
-
 #. Translators: input help mode message for column explorer commands.
 msgid ""
 "Pressing once announces data for a track column, pressing twice will present "
 "column data in a browse mode window"
 msgstr ""
+"Premendo unha vez anuncia os datos para unha columna de pista, premendo dúas "
+"veces presentará os datos de columna nunha ventá en modo exploración"
 
 #. Translators: input help mode message for columns viewer command.
 msgid "Presents data for all columns in the currently selected track"
-msgstr ""
+msgstr "Presenta datos para todas as columnas na pista actualmente selecionada"
 
 msgid "Has comment"
 msgstr "Ten comentario"
@@ -689,6 +676,7 @@ msgstr "{genreName} ({genreCount})"
 
 #. Translators: The title of a window for displaying playlist snapshots information.
 #. Translators: Title of a dialog to configure playlist snapshot information.
+#. Translators: title of a panel to configure playlist snapshot information.
 msgid "Playlist snapshots"
 msgstr "Instantáneas de lista de reprodución"
 
@@ -1222,6 +1210,7 @@ msgstr "Perfil &Base:"
 #. Translators: An error displayed when the user attempts to create a profile which already exists.
 #. Translators: An error displayed when renaming a configuration profile
 #. and a profile with the new name already exists.
+#. Translators: An error displayed when the user attempts to create a profile which already exists.
 msgid "That profile already exists. Please choose a different name."
 msgstr "Ese perfil xa existe. Por favor elige un nombre diferente."
 
@@ -1270,7 +1259,7 @@ msgstr ""
 "data. Por favor especifica cambio de data(s) ou desmarca a Caixa perfil "
 "baseado en tempo."
 
-#. Translators: Title of a dialog to configure various status announcements such as announcing listener count.
+#. Translators: Title of a dialog to configure various general add-on settings such as top and bottom announcement for playlists.
 msgid "General add-on settings"
 msgstr "Opcións xerais do complemento"
 
@@ -1424,6 +1413,7 @@ msgid "Genre count"
 msgstr "Conta de xéneros"
 
 #. Translators: the label for a setting in SPL add-on settings to set top track genre limit in playlist snapshots window.
+#. Translators: the label for a setting in SPL add-on settings to set top track genre count limit in playlist snapshots window.
 msgid "Top genre count (0 displays all genres)"
 msgstr "Conta de xéneros principais (0 amosa todos os xéneros)"
 
@@ -1467,11 +1457,11 @@ msgstr ""
 msgid "Column &order:"
 msgstr "&orde de columna:"
 
-#. Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
+#. Translators: The label for a button in column announcement dialog to change column position for the selected column.
 msgid "Move &up"
 msgstr "Mover &arriba"
 
-#. Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
+#. Translators: The label for a button in column announcement dialog to change column position for the selected column.
 msgid "Move &down"
 msgstr "Mover a&baixo"
 
@@ -1484,9 +1474,8 @@ msgid "Columns Explorer for Track Tool"
 msgstr "Explorador de Columnas para a Ferramenta de Pista"
 
 #. Translators: The title of Columns Explorer configuration dialog.
-#, fuzzy
 msgid "Columns Explorer for SPL Creator"
-msgstr "Explorador de Columnas para a Ferramenta de Pista"
+msgstr "Explorador de Columnas para o SPL Creator"
 
 #. Translators: The label for a setting in SPL add-on dialog to select column for this column slot.
 #, python-brace-format
@@ -1494,6 +1483,7 @@ msgid "Slot {position}"
 msgstr "Slot {position}"
 
 #. Translators: Title of a dialog to configure various status announcements such as announcing listener count.
+#. Translators: title of a panel to configure various status announcements such as announcing listener count.
 msgid "Status announcements"
 msgstr "Anunciado de estado"
 
@@ -1534,6 +1524,7 @@ msgstr ""
 "das pistas actual e seguinte"
 
 #. Translators: The title of a dialog to configure advanced SPL add-on options such as update checking.
+#. Translators: title of a panel to configure advanced SPL add-on options such as update checking.
 msgid "Advanced options"
 msgstr "Opcións avanzadas"
 
@@ -1727,9 +1718,9 @@ msgid "Columns Explorer for &Track Tool..."
 msgstr "Explorador de Columnas para Ferramenta de &pista..."
 
 #. Translators: The label of a button to configure columns explorer slots for SPL Creator (SPL Assistant, number row keys to announce specific columns).
-#, fuzzy
+#. Translators: The label of a button to configure columns explorer slots (SPL Assistant, number row keys to announce specific columns).
 msgid "Columns Explorer for &SPL Creator..."
-msgstr "Explorador de Columnas para Ferramenta de &pista..."
+msgstr "Explorador de Columnas para o &SPL Creator..."
 
 #. Translators: The label of a button to open status announcement dialog such as announcing listener count.
 msgid "&Status announcements..."
@@ -1747,10 +1738,12 @@ msgid ""
 "The selected profile is different from currently active broadcast profile. "
 "Settings will be applied to the selected profile instead."
 msgstr ""
+"O perfil selecionado é diferente do perfil de retransmisión activo "
+"actualmente. A configuración debe aplicarse ao perfil selecionado no seu "
+"lugar."
 
-#, fuzzy
 msgid "Apply settings"
-msgstr "Opcións do SPL"
+msgstr "Aplicar configuración"
 
 #. Translators: A dialog message shown when add-on update channel has changed.
 msgid ""
@@ -1829,13 +1822,47 @@ msgstr ""
 "Outro  diálogo de opcións do complemento está aberto. Por favor pecha o "
 "diálogo aberto anteriormente."
 
+#. Translators: title of a panel to configure broadcast profiles.
+#, fuzzy
+msgid "Broadcast profiles"
+msgstr "&Perfil emisión:"
+
+#. Translators: title of a panel to configure various general add-on settings such as top and bottom announcement for playlists.
+msgid "General"
+msgstr ""
+
+#. Translators: title of a panel to configure various alarms and related settings.
+#, fuzzy
+msgid "Alarms"
+msgstr "Centro de Alarmas"
+
+#. Translators: title of a panel to configure metadata streaming status for DSP encoder and four additional URL's.
+#, fuzzy
+msgid "Metadata streaming"
+msgstr "Opcións de metadatos de streaming"
+
+#. Translators: title of a panel to configure column announcements (order and what columns should be announced).
+#, fuzzy
+msgid "Column announcements"
+msgstr "Administrar anunciado de columna"
+
+#. Translators: title of a panel to configure columns explorer settings.
+#, fuzzy
+msgid "Columns explorer"
+msgstr "Explorador de Columnas"
+
+#. Translators: This is the label for the StationPlaylist Studio configuration dialog.
+#, fuzzy
+msgid "Studio Add-on Settings V2"
+msgstr "Opcións do complemento Studio"
+
 #. Translators: Text of the dialog when another find dialog is open.
 msgid "Another find dialog is open."
 msgstr "Está aberto outro diálogo de procura."
 
 #. Translators: Text of the dialog when a generic error has occured.
 msgid "An unexpected error has occured when trying to open find dialog."
-msgstr ""
+msgstr "Ocurriu un erro inesperado cando se tentaba abrir o diálogo procurar."
 
 msgid "Enter or select the name or the artist of the track you wish to &search"
 msgstr ""
@@ -1913,6 +1940,7 @@ msgstr ""
 msgid "Metadata streaming configured for URL's {URL}"
 msgstr "Os metadatos do streaming configuráronse para a URL {URL}"
 
+#. Translators: the Playlist transcripts dialog title.
 msgid "Playlist Transcripts"
 msgstr "Transcripcións de listaxes de reprodución"
 
@@ -1923,6 +1951,22 @@ msgstr "Datos da listaxe de reprodución copiados ao portapapeis"
 msgid "Another playlist transcripts dialog is open."
 msgstr "Está aberto outro diálogo de transcripción de listaxe de reprodución."
 
+#. Translators: one of the playlist transcripts range options.
+msgid "entire playlist"
+msgstr ""
+
+#. Translators: one of the playlist transcripts range options.
+msgid "start to current item"
+msgstr ""
+
+#. Translators: one of the playlist transcripts range options.
+msgid "current item to the end"
+msgstr ""
+
+#. Translators: one of the playlist transcripts range options.
+msgid "current hour"
+msgstr ""
+
 #. Translators: The label in playlist transcripts dialog to select playlist transcript range.
 msgid "Transcript range:"
 msgstr "Rango de transcripción:"
@@ -1930,6 +1974,26 @@ msgstr "Rango de transcripción:"
 #. Translators: The label in playlist transcripts dialog to select transcript output format.
 msgid "Transcript format:"
 msgstr "Formato de transcripción:"
+
+#. Translators: one of the playlist transcript actions.
+#, fuzzy
+msgid "view transcript"
+msgstr "Transcripcións de listaxes de reprodución"
+
+#. Translators: one of the playlist transcript actions.
+#, fuzzy
+msgid "copy to clipboard"
+msgstr "Comentario da pista copiado ao portapapeis"
+
+#. Translators: one of the playlist transcript actions.
+#, fuzzy
+msgid "save to file"
+msgstr "Perfil &Base:"
+
+#. Translators: The label in playlist transcripts dialog to select transcript action.
+#, fuzzy
+msgid "Transcript action:"
+msgstr "Rango de transcripción:"
 
 msgid ""
 "Did you recently tell SPL add-on to use a different update channel? If so, "
@@ -2279,6 +2343,15 @@ msgid ""
 msgstr ""
 "Mellora o soporte para Station Playlist Studio.\n"
 "Ademáis, engade ordes globais para o estudio dende calquera parte."
+
+#~ msgid "No artist"
+#~ msgstr "Non hai artista"
+
+#~ msgid "Artist: {artistName}"
+#~ msgstr "Artista: {artistName}"
+
+#~ msgid "Introduction not set"
+#~ msgstr "Non se estableciu introducción"
 
 #~ msgid "Error checking for update."
 #~ msgstr "Erro procurando actualización."

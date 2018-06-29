@@ -45,25 +45,20 @@ msgstr "{header}: prazno"
 msgid "{header}: ()"
 msgstr "{header}: ()"
 
-#. Translators: Presented when artist information is not found for a track in StationPlaylist Creator.
-#. Translators: Presented when artist information is not found for a track in Track Tool.
-msgid "No artist"
-msgstr "Nema izvođača"
-
-#. Translators: Presents artist information for a track in Track Tool.
-#, python-brace-format
-msgid "Artist: {artistName}"
-msgstr "Izvođač: {artistName}"
-
-#. Translators: Presented when intro is not defined for a track in Track Tool.
-msgid "Introduction not set"
-msgstr "Uvod nije podešen"
-
 #. Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
 #. Translators: Presented when a specific column header is not found.
 #, python-brace-format
 msgid "{headerText} not found"
 msgstr "{headerText} nije pronađen"
+
+#. Translators: presented when column information for a track is empty.
+msgid "blank"
+msgstr ""
+
+#. Translators: Title of the column data window.
+#, fuzzy
+msgid "Track data"
+msgstr "Uvodni zapis"
 
 #. Translators: Presented when microphone has been active for a while.
 msgid "Microphone active"
@@ -88,15 +83,6 @@ msgstr "{checkStatus}{header}: prazno"
 #, python-brace-format
 msgid "{checkStatus}{header}: ()"
 msgstr "{checkStatus}{header}: ()"
-
-#. Translators: presented when column information for a track is empty.
-msgid "blank"
-msgstr ""
-
-#. Translators: Title of the column data window.
-#, fuzzy
-msgid "Track data"
-msgstr "Uvodni zapis"
 
 #. Translators: input help mode message for column explorer commands.
 msgid ""
@@ -677,6 +663,7 @@ msgstr "{genreName} ({genreCount})"
 
 #. Translators: The title of a window for displaying playlist snapshots information.
 #. Translators: Title of a dialog to configure playlist snapshot information.
+#. Translators: title of a panel to configure playlist snapshot information.
 msgid "Playlist snapshots"
 msgstr "Statistike liste zareprodukciju"
 
@@ -1188,6 +1175,7 @@ msgstr "&Osnovni profil:"
 #. Translators: An error displayed when the user attempts to create a profile which already exists.
 #. Translators: An error displayed when renaming a configuration profile
 #. and a profile with the new name already exists.
+#. Translators: An error displayed when the user attempts to create a profile which already exists.
 msgid "That profile already exists. Please choose a different name."
 msgstr "Taj profil već postoji. Molimo izaberite drugo ime"
 
@@ -1235,7 +1223,7 @@ msgstr ""
 "vreme. Molimo izaberite datum ili nemojte označiti izborno polje vremenski "
 "profil"
 
-#. Translators: Title of a dialog to configure various status announcements such as announcing listener count.
+#. Translators: Title of a dialog to configure various general add-on settings such as top and bottom announcement for playlists.
 msgid "General add-on settings"
 msgstr "Opšta podešavanja dodatka"
 
@@ -1387,6 +1375,7 @@ msgid "Genre count"
 msgstr "Broj vrsta"
 
 #. Translators: the label for a setting in SPL add-on settings to set top track genre limit in playlist snapshots window.
+#. Translators: the label for a setting in SPL add-on settings to set top track genre count limit in playlist snapshots window.
 msgid "Top genre count (0 displays all genres)"
 msgstr "Broj vrsta na vrhu(0 prikazuje sve vrste)"
 
@@ -1430,11 +1419,11 @@ msgstr ""
 msgid "Column &order:"
 msgstr "&Red kolona:"
 
-#. Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
+#. Translators: The label for a button in column announcement dialog to change column position for the selected column.
 msgid "Move &up"
 msgstr "Pomeri &gore"
 
-#. Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
+#. Translators: The label for a button in column announcement dialog to change column position for the selected column.
 msgid "Move &down"
 msgstr "Pomeri &dole"
 
@@ -1457,6 +1446,7 @@ msgid "Slot {position}"
 msgstr "Mesto{position}"
 
 #. Translators: Title of a dialog to configure various status announcements such as announcing listener count.
+#. Translators: title of a panel to configure various status announcements such as announcing listener count.
 msgid "Status announcements"
 msgstr "Izgovor statusa"
 
@@ -1497,6 +1487,7 @@ msgstr ""
 "trenutnom i sledećem zapisu"
 
 #. Translators: The title of a dialog to configure advanced SPL add-on options such as update checking.
+#. Translators: title of a panel to configure advanced SPL add-on options such as update checking.
 msgid "Advanced options"
 msgstr "Napredne opcije"
 
@@ -1688,6 +1679,7 @@ msgid "Columns Explorer for &Track Tool..."
 msgstr "Istraživač &kolona za alat zapisa"
 
 #. Translators: The label of a button to configure columns explorer slots for SPL Creator (SPL Assistant, number row keys to announce specific columns).
+#. Translators: The label of a button to configure columns explorer slots (SPL Assistant, number row keys to announce specific columns).
 #, fuzzy
 msgid "Columns Explorer for &SPL Creator..."
 msgstr "Istraživač &kolona za alat zapisa"
@@ -1787,6 +1779,40 @@ msgstr ""
 "Neki dijalog za podešavanja dodatka je već otvoren. Molimo prvo zatvorite "
 "taj dijalog"
 
+#. Translators: title of a panel to configure broadcast profiles.
+#, fuzzy
+msgid "Broadcast profiles"
+msgstr "&Profil strima:"
+
+#. Translators: title of a panel to configure various general add-on settings such as top and bottom announcement for playlists.
+msgid "General"
+msgstr ""
+
+#. Translators: title of a panel to configure various alarms and related settings.
+#, fuzzy
+msgid "Alarms"
+msgstr "Centar alarma"
+
+#. Translators: title of a panel to configure metadata streaming status for DSP encoder and four additional URL's.
+#, fuzzy
+msgid "Metadata streaming"
+msgstr "Podešavanja metadata strimova"
+
+#. Translators: title of a panel to configure column announcements (order and what columns should be announced).
+#, fuzzy
+msgid "Column announcements"
+msgstr "Upravljaj izgovaranjem kolona"
+
+#. Translators: title of a panel to configure columns explorer settings.
+#, fuzzy
+msgid "Columns explorer"
+msgstr "Istraživač kolona"
+
+#. Translators: This is the label for the StationPlaylist Studio configuration dialog.
+#, fuzzy
+msgid "Studio Add-on Settings V2"
+msgstr "Podešavanja Studio dodatka"
+
 #. Translators: Text of the dialog when another find dialog is open.
 msgid "Another find dialog is open."
 msgstr "Drugi dijalog pretrage je otvoren"
@@ -1870,6 +1896,7 @@ msgstr "Metadata strimovanje podešeno za DSP enkoder i adrese{URL}"
 msgid "Metadata streaming configured for URL's {URL}"
 msgstr "Metadata strimovanje podešeno za adrese{URL}"
 
+#. Translators: the Playlist transcripts dialog title.
 #, fuzzy
 msgid "Playlist Transcripts"
 msgstr "Statistike liste zareprodukciju"
@@ -1883,12 +1910,47 @@ msgstr "Komentar zapisa kopiran u privremenu memoriju"
 msgid "Another playlist transcripts dialog is open."
 msgstr "Drugi dijalog alarma je otvoren"
 
+#. Translators: one of the playlist transcripts range options.
+msgid "entire playlist"
+msgstr ""
+
+#. Translators: one of the playlist transcripts range options.
+msgid "start to current item"
+msgstr ""
+
+#. Translators: one of the playlist transcripts range options.
+msgid "current item to the end"
+msgstr ""
+
+#. Translators: one of the playlist transcripts range options.
+msgid "current hour"
+msgstr ""
+
 #. Translators: The label in playlist transcripts dialog to select playlist transcript range.
 msgid "Transcript range:"
 msgstr ""
 
 #. Translators: The label in playlist transcripts dialog to select transcript output format.
 msgid "Transcript format:"
+msgstr ""
+
+#. Translators: one of the playlist transcript actions.
+#, fuzzy
+msgid "view transcript"
+msgstr "Statistike liste zareprodukciju"
+
+#. Translators: one of the playlist transcript actions.
+#, fuzzy
+msgid "copy to clipboard"
+msgstr "Komentar zapisa kopiran u privremenu memoriju"
+
+#. Translators: one of the playlist transcript actions.
+#, fuzzy
+msgid "save to file"
+msgstr "&Osnovni profil:"
+
+#. Translators: The label in playlist transcripts dialog to select transcript action.
+msgid "Transcript action:"
 msgstr ""
 
 msgid ""
@@ -2230,6 +2292,15 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist Studio.\n"
 "Takođe, dodaje globalne komande za studio bilo gde."
+
+#~ msgid "No artist"
+#~ msgstr "Nema izvođača"
+
+#~ msgid "Artist: {artistName}"
+#~ msgstr "Izvođač: {artistName}"
+
+#~ msgid "Introduction not set"
+#~ msgstr "Uvod nije podešen"
 
 #~ msgid "Error checking for update."
 #~ msgstr "Greška u proveri ažuriranja"
