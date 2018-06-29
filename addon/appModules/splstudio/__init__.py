@@ -210,7 +210,7 @@ class SPLStudioTrackItem(SPLTrackItem):
 	# 7.0: Add an optional header in order to announce correct header information in columns explorer.
 	# 17.04: Allow checked status in 5.1x and later to be announced if this is such a case (vertical column navigation).)
 	def announceColumnContent(self, colNumber, header=None, reportStatus=False):
-		columnHeader = header if header is not None else self.appModule._columnHeaderNames[colNumber]
+		columnHeader = header if header is not None else splmisc._getColumnHeader(self, splmisc._getColumnOrderArray(self)[colNumber])
 		columnContent = self._getColumnContent(self.indexOf(columnHeader))
 		status = self.name + " " if reportStatus else ""
 		if columnContent:
