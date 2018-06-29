@@ -81,6 +81,32 @@ def _getColumnHeader(obj, col):
 		winKernel.virtualFreeEx(processHandle,internalColumn,0,winKernel.MEM_RELEASE)
 	return buffer.value if buffer else None
 
+# Find out how many columns are present for a given track.
+# Deriving from SysListView32.List but customized for two reasons: multi-column support and retrieved from a track.
+# All lists containing track items are multi-column enabled, and this function will be claled from tracks themselves.
+def _getColumnCount(track):
+	headerHwnd = sendMessage(track.parent.windowHandle,sysListView32.LVM_GETHEADER,0,0)
+	count = sendMessage(headerHwnd, sysListView32.HDM_GETITEMCOUNT, 0, 0)
+	if not count:
+		return 1
+	return count
+
+# Column order array, customized for SPL Studio.
+# This is needed so the correct column header and content can be fetched after a series of mouse clicks have rearranged column positions.
+def _getColumnOrderArray(track):
+	columnCount = _getColumnCount(track)
+	coa=(ctypes.c_int *columnCount)()
+	processHandle=track.processHandle
+	internalCoa=winKernel.virtualAllocEx(processHandle,None,ctypes.sizeof(coa),winKernel.MEM_COMMIT,winKernel.PAGE_READWRITE)
+	try:
+		winKernel.writeProcessMemory(processHandle,internalCoa,ctypes.byref(coa),ctypes.sizeof(coa),None)
+		res = sendMessage(track.parent.windowHandle,sysListView32.LVM_GETCOLUMNORDERARRAY, columnCount, internalCoa)
+		if res:
+			winKernel.readProcessMemory(processHandle,internalCoa,ctypes.byref(coa),ctypes.sizeof(coa),None)
+	finally:
+		winKernel.virtualFreeEx(processHandle,internalCoa,0,winKernel.MEM_RELEASE)
+	return coa
+
 # A custom combo box for cases where combo boxes are not choice controls.
 class CustomComboBox(wx.ComboBox, wx.Choice):
 	pass
