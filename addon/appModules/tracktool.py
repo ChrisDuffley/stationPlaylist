@@ -12,7 +12,7 @@ import ui
 import scriptHandler
 from NVDAObjects.IAccessible import IAccessible
 from splstudio import splconfig
-from splstudio.splmisc import _getColumnContent
+from splstudio.splmisc import _getColumnContent, _getColumnHeader, _getColumnOrderArray
 addonHandler.initTranslation()
 
 # Python 3 preparation (a compatibility layer until Six module is included).
@@ -52,7 +52,8 @@ class TrackToolItem(IAccessible):
 	# This also allows display order to be checked (Studio 5.10 and later).
 	def announceColumnContent(self, colNumber, columnHeader=None, individualColumns=False):
 		if not columnHeader:
-			columnHeader = self.columnHeaders.children[colNumber].name
+			# #72: directly fetch on-screen column header (not the in-memory one) by probing column order array from the list (parent).
+			columnHeader = _getColumnHeader(self, _getColumnOrderArray(self)[colNumber])
 			# LTS: Studio 5.10 data structure change is evident in Track Tool as well, so don't rely on column headers alone.
 			internalHeaders = indexOf(self.appModule.productVersion)
 			if internalHeaders[colNumber] != columnHeader:
