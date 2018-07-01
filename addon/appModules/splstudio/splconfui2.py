@@ -1541,7 +1541,7 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		ColumnsExplorerPanel,
 		SayStatusPanel,
 		AdvancedOptionsPanel,
-		#ResetSettingsPanel,
+		ResetSettingsPanel,
 	]
 
 	def onOk(self, evt):
