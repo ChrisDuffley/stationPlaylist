@@ -13,7 +13,7 @@ import ui
 import scriptHandler
 from NVDAObjects.IAccessible import IAccessible
 from splstudio import splconfig
-from splstudio.splmisc import _getColumnContent, _getColumnHeader, _getColumnOrderArray
+from splstudio.splmisc import _getColumnContent, _getColumnHeader, _getColumnOrderArray, _getColumnCount
 addonHandler.initTranslation()
 
 # Python 3 preparation (a compatibility layer until Six module is included).
@@ -63,15 +63,13 @@ class SPLCreatorItem(IAccessible):
 	# Now the scripts.
 
 	def script_nextColumn(self, gesture):
-		self.columnHeaders = self.parent.children[-1]
-		if (self._curColumnNumber+1) == self.columnHeaders.childCount:
+		if (self._curColumnNumber+1) == _getColumnCount(self):
 			tones.beep(2000, 100)
 		else:
 			self.__class__._curColumnNumber +=1
 		self.announceColumnContent(self._curColumnNumber)
 
 	def script_prevColumn(self, gesture):
-		self.columnHeaders = self.parent.children[-1]
 		if self._curColumnNumber <= 0:
 			tones.beep(2000, 100)
 		else:
@@ -79,13 +77,11 @@ class SPLCreatorItem(IAccessible):
 		self.announceColumnContent(self._curColumnNumber)
 
 	def script_firstColumn(self, gesture):
-		self.columnHeaders = self.parent.children[-1]
 		self.__class__._curColumnNumber = 0
 		self.announceColumnContent(self._curColumnNumber)
 
 	def script_lastColumn(self, gesture):
-		self.columnHeaders = self.parent.children[-1]
-		self.__class__._curColumnNumber = self.columnHeaders.childCount - 1
+		self.__class__._curColumnNumber = _getColumnCount(self)-1
 		self.announceColumnContent(self._curColumnNumber)
 
 	# Special script for Columns Explorer.
