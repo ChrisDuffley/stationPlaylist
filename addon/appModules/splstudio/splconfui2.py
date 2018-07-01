@@ -1520,6 +1520,10 @@ class ResetSettingsPanel(gui.SettingsPanel):
 		resetButton = resetHelper.addItem(wx.Button(self, label=_("Reset settings...")))
 		resetButton.Bind(wx.EVT_BUTTON, self.onResetConfig)
 
+	def onSave(self):
+		# Without this, not implemented error is raised by the superclass.
+		pass
+
 	def onResetConfig(self, evt):
 		self.Disable()
 		ResetDialog(self).Show()
