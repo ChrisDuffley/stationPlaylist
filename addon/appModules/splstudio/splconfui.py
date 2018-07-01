@@ -656,17 +656,28 @@ class MetadataStreamingDialog(wx.Dialog):
 
 # Column announcement manager.
 # Select which track columns should be announced and in which order.
+# 18.08: also serves as a base dialog for Playlist Transcripts/column selector setting.
 class ColumnAnnouncementsDialog(wx.Dialog):
 
-	def __init__(self, parent):
-		# Translators: Title of a dialog to configure column announcements (order and what columns should be announced).
-		super(ColumnAnnouncementsDialog, self).__init__(parent, title=_("Manage column announcements"))
+	def __init__(self, parent, playlistTranscripts=False):
+		self.playlistTranscripts = playlistTranscripts
+		if not self.playlistTranscripts:
+			# Translators: Title of a dialog to configure column announcements (order and what columns should be announced).
+			dialogTitle = _("Manage column announcements")
+		else:
+			# Translators: Title of a dialog to configure columnn seleciton for Playlist Transcripts.
+			dialogTitle = _("Playlist transcript columns")
+		super(ColumnAnnouncementsDialog, self).__init__(parent, title=dialogTitle)
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		colAnnouncementsHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
-		# Translators: Help text to select columns to be announced.
-		labelText = _("Select columns to be announced (artist and title are announced by default")
+		if not self.playlistTranscripts:
+			# Translators: Help text to select columns to be announced.
+			labelText = _("Select columns to be announced (artist and title are announced by default")
+		else:
+			# Translators: Help text to select columns to be announced.
+			labelText = _("Select columns to be included in playlist transcripts (artist and title are always included")
 		colAnnouncementsHelper.addItem(wx.StaticText(self, label=labelText))
 
 		# Same as metadata dialog (wx.CheckListBox isn't user friendly).
@@ -728,7 +739,7 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 		for checkbox in self.checkedColumns:
 			action = parent.includedColumns.add if checkbox.Value else parent.includedColumns.discard
 			action(checkbox.Label)
-		parent.profiles.SetFocus()
+		if not self.playlistTranscripts: parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()
 		return
