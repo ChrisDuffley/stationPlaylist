@@ -561,7 +561,7 @@ def metadata_actionProfileSwitched(configDialogActive=False):
 
 splactions.SPLActionProfileSwitched.register(metadata_actionProfileSwitched)
 
-# Playlist transcript processor
+# Playlist transcripts processor
 # Takes a snapshot of the active playlist (a 2-D array) and transforms it into various formats.
 # To account for expansions, let a master function call different formatters based on output format.
 SPLPlaylistTranscriptFormats = []
