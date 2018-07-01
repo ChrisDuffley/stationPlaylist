@@ -1575,7 +1575,11 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 def onConfigDialog(evt):
 	# Preview: if interface style has changed, do not present the dialog until NVDA is restarted.
 	if splconfig._confui2changed:
-		wx.CallAfter(gui.messageBox, "Did you recently change add-on interface style? Please restart NVDA before opening add-on settings dialog.", _("Error"), wx.OK|wx.ICON_ERROR)
+		if splconfig.SPLConfig.resetHappened:
+			warningMessage = "Add-on interface style was reset to defaults. You need to restart NVDA in order to view and/or change add-on settings."
+		else:
+			warningMessage = "Did you recently change add-on interface style? Please restart NVDA before opening add-on settings dialog."
+		wx.CallAfter(gui.messageBox, warningMessage, _("Error"), wx.OK|wx.ICON_ERROR)
 		return
 	# 5.2: Guard against alarm dialogs.
 	if _alarmDialogOpened or _metadataDialogOpened:
