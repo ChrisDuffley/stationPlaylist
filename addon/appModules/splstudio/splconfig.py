@@ -472,6 +472,9 @@ class ConfigHub(ChainMap):
 			if not self.profileExists(profile):
 				raise ValueError("The specified profile does not exist")
 			else: profilePool.append(self.profileByName(profile))
+		# Preview: save confui2 changes flag.
+		global _confui2changed
+		_confui2changed = self["Advanced"]["ConfUI2"] != _SPLDefaults["Advanced"]["ConfUI2"]
 		for conf in profilePool:
 			# Retrieve the profile path, as ConfigObj.reset nullifies it.
 			profilePath = conf.filename
