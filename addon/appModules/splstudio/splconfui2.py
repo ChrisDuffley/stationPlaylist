@@ -1465,7 +1465,6 @@ class ResetDialog(wx.Dialog):
 		# Translators: The title of the warning dialog.
 		_("Warning"),wx.YES_NO|wx.NO_DEFAULT|wx.ICON_WARNING,self
 		)!=wx.YES:
-			parent.profiles.SetFocus()
 			parent.Enable()
 			self.Destroy()
 			return
@@ -1498,11 +1497,32 @@ class ResetDialog(wx.Dialog):
 			# Translators: Title of the reset config dialog.
 			_("Reset configuration"), wx.OK|wx.ICON_INFORMATION)
 		self.Destroy()
-		parent.Destroy()
+		# #6: because the parent isn't add-on settings but the categories/panel sizer, fetch its ancestor.
+		parent.Parent.Parent.Destroy()
 
 	def onCancel(self, evt):
 		self.Parent.Enable()
 		self.Destroy()
+
+# Reset panel.
+class ResetSettingsPanel(gui.SettingsPanel):
+	# Translators: title of a panel to reset add-on settings.
+	title = _("Reset settings")
+
+	def makeSettings(self, settingsSizer):
+		resetHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
+
+		# Translators: Help text explaijning what will happen when settings are reset.
+		labelText = _("Warning! Selecting Reset button and choosing various reset options will reset add-on settings to defaults.")
+		resetHelper.addItem(wx.StaticText(self, label=labelText))
+
+		# Translators: The label of a button to open reset dialog.
+		resetButton = resetHelper.addItem(wx.Button(self, label=_("Reset settings...")))
+		resetButton.Bind(wx.EVT_BUTTON, self.onResetConfig)
+
+	def onResetConfig(self, evt):
+		self.Disable()
+		ResetDialog(self).Show()
 
 
 # Configuration dialog.
