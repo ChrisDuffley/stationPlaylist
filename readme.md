@@ -191,6 +191,11 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 18.08
+
+* When using column navigation commands in track items (Control+Alt+home/end/left arrow/right arrow) in Studio, Creator, and Track Tool, NVDA will no longer announce wrong column data after changing column position on screen via mouse.
+* Significant improvements to NVDA's responsiveness when using column navigation commands in Creator and Track Tool. In particular, when using Creator, NVDA will respond better when using column navigation commands.
+
 ## Version 18.07
 
 * Added an experimental multi-category add-on settings screen, accessible by toggling a setting in add-on settings/Advanced dialog (you need to restart NVDA after configuring this setting for the new dialog to show up). This is for NVDA 2018.2 users, and not all add-on settings can be configured from this new screen.
