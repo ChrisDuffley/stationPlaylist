@@ -104,13 +104,14 @@ SayStudioPlayerPosition = boolean(default=false)
 SPLConPassthrough = boolean(default=false)
 CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
 ProfileTriggerThreshold = integer(min=5, max=60, default=15)
-ConfUI2 = boolean(default=false)
+ConfUI2 = boolean(default=true)
 [Update]
 AutoUpdateCheck = boolean(default=true)
 UpdateInterval = integer(min=0, max=180, default=30)
 [Startup]
 AudioDuckingReminder = boolean(default=true)
 WelcomeDialog = boolean(default=true)
+ConfUI2Intro = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
 SPLConfig = None
@@ -1164,7 +1165,11 @@ def showStartupDialogs(oldVer=False, oldVerReturn=False):
 		gui.mainFrame.prePopup()
 		AudioDuckingReminder(gui.mainFrame).Show()
 		gui.mainFrame.postPopup()
-
+	# Preview: present intro message for multi-page add-on settings interface (NVDA 2018.2 and later).
+	import versionInfo
+	if (versionInfo.version_year, versionInfo.version_major) >= (2018, 2) and SPLConfig["Startup"]["ConfUI2Intro"]:
+		SPLConfig["Startup"]["ConfUI2Intro"] = False
+		wx.CallAfter(gui.messageBox, "We detected NVDA 2018.2 or later on this system. NVDA 2018.2 brings a redesigned NVDA Settings interface that allows you to visit all settings categories and make changes to various options without opening individual preferences dialogs. Inspired by this change, Studio add-on will display its add-on settings in multi-page interface format where settings are grouped under categories. If you want the old add-on settings interface where you opened dialogs for various options, open add-on settings, go to Advanced, then uncheck a checkbox named 'Use multi-page add-on settings interface (preview)', then select OK and restart NVDA. To return to the new format, repeat these steps, this time checking the checkbox.", "New add-on settings interface", wx.OK|wx.ICON_ERROR)
 
 # Message verbosity pool.
 # To be moved to its own module in add-on 7.0.
