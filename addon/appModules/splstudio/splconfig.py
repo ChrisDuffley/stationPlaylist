@@ -91,7 +91,7 @@ ColumnOrder = string_list(default=list("Artist","Title","Duration","Intro","Outr
 IncludedColumns = string_list(default=list("Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"))
 IncludeColumnHeaders = boolean(default=true)
 [PlaylistTranscripts]
-TranscriptFormat = option("", "txt", "htllist", "htmtable", "mdtable", default="")
+TranscriptFormat = option("", "txt", "htmltable", "htmllist", "mdtable", default="")
 ColumnOrder = string_list(default=list("Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"))
 IncludedColumns = string_list(default=list("Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"))
 [SayStatus]
@@ -1276,4 +1276,3 @@ def isAddonUpdatingSupported():
 
 def canUpdate():
 	return isAddonUpdatingSupported() == SPLUpdateErrorNone
-
