@@ -1017,49 +1017,56 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 
 # Column announcement manager.
 # Select which track columns should be announced and in which order.
-class ColumnAnnouncementsPanel(gui.SettingsPanel):
-	# Translators: title of a panel to configure column announcements (order and what columns should be announced).
-	title = _("Column announcements")
+# 18.08: also serves as a base dialog for Playlist Transcripts/column selector setting.
+class ColumnAnnouncementsDialog(wx.Dialog):
 
-	def makeSettings(self, settingsSizer):
-		colAnnouncementsHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
+	def __init__(self, parent, playlistTranscripts=False):
+		self.playlistTranscripts = playlistTranscripts
+		if not self.playlistTranscripts:
+			# Translators: Title of a dialog to configure column announcements (order and what columns should be announced).
+			dialogTitle = _("Manage column announcements")
+		else:
+			# Translators: Title of a dialog to configure columnn seleciton for Playlist Transcripts.
+			dialogTitle = _("Playlist transcript columns")
+		super(ColumnAnnouncementsDialog, self).__init__(parent, title=dialogTitle)
 
-		# Translators: Help text to select columns to be announced.
-		labelText = _("Select columns to be announced (artist and title are announced by default")
+		mainSizer = wx.BoxSizer(wx.VERTICAL)
+		colAnnouncementsHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
+
+		if not self.playlistTranscripts:
+			# Translators: Help text to select columns to be announced.
+			labelText = _("Select columns to be announced (artist and title are announced by default")
+		else:
+			# Translators: Help text to select columns to be announced.
+			labelText = _("Select columns to be included in playlist transcripts (artist and title are always included")
 		colAnnouncementsHelper.addItem(wx.StaticText(self, label=labelText))
 
-		# Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
-		self.columnOrderCheckbox=colAnnouncementsHelper.addItem(wx.CheckBox(self,wx.ID_ANY,label=_("Announce columns in the &order shown on screen")))
-		self.columnOrderCheckbox.SetValue(splconfig._SPLDefaults["ColumnAnnouncement"]["UseScreenColumnOrder"])
-
-		# Same as metadata panel (wx.CheckListBox isn't user friendly).
+		# Same as metadata dialog (wx.CheckListBox isn't user friendly).
 		# Gather values for checkboxes except artist and title.
 		# 6.1: Split these columns into rows.
 		# 17.04: Gather items into a single list instead of three.
-		# Without manual conversion below, it produces a rare bug where clicking cancel after changing column inclusion causes new set to be retained.
-		self.includedColumns = set(splconfig._SPLDefaults["ColumnAnnouncement"]["IncludedColumns"])
 		self.checkedColumns = []
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		for column in ("Duration", "Intro", "Category", "Filename"):
 			self.checkedColumns.append(sizer.addItem(wx.CheckBox(self, label=column)))
-			self.checkedColumns[-1].SetValue(column in self.includedColumns)
+			self.checkedColumns[-1].SetValue(column in self.Parent.includedColumns)
 		colAnnouncementsHelper.addItem(sizer.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		for column in ("Outro","Year","Album","Genre","Mood","Energy"):
 			self.checkedColumns.append(sizer.addItem(wx.CheckBox(self, label=column)))
-			self.checkedColumns[-1].SetValue(column in self.includedColumns)
+			self.checkedColumns[-1].SetValue(column in self.Parent.includedColumns)
 		colAnnouncementsHelper.addItem(sizer.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		for column in ("Tempo","BPM","Gender","Rating","Time Scheduled"):
 			self.checkedColumns.append(sizer.addItem(wx.CheckBox(self, label=column)))
-			self.checkedColumns[-1].SetValue(column in self.includedColumns)
+			self.checkedColumns[-1].SetValue(column in self.Parent.includedColumns)
 		colAnnouncementsHelper.addItem(sizer.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 
 		# wxPython 4 contains RearrangeList to allow item orders to be changed automatically.
 		# Because wxPython 3 doesn't include this, work around by using a variant of list box and move up/down buttons.
 		# 17.04: The label for the list below is above the list, so move move up/down buttons to the right of the list box.
 		# Translators: The label for a setting in SPL add-on dialog to select column announcement order.
-		self.trackColumns = colAnnouncementsHelper.addLabeledControl(_("Column &order:"), wx.ListBox, choices=splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])
+		self.trackColumns = colAnnouncementsHelper.addLabeledControl(_("Column &order:"), wx.ListBox, choices=parent.columnOrder)
 		self.trackColumns.Bind(wx.EVT_LISTBOX,self.onColumnSelection)
 		self.trackColumns.SetSelection(0)
 
@@ -1075,43 +1082,31 @@ class ColumnAnnouncementsPanel(gui.SettingsPanel):
 		sizer.Add(self.dnButton)
 		colAnnouncementsHelper.addItem(sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 
-		# Translators: the label for a setting in SPL add-on settings to toggle whether column headers should be included when announcing track information.
-		self.columnHeadersCheckbox = colAnnouncementsHelper.addItem(wx.CheckBox(self, label=_("Include column &headers when announcing track information")))
-		self.columnHeadersCheckbox.SetValue(splconfig._SPLDefaults["ColumnAnnouncement"]["IncludeColumnHeaders"])
+		colAnnouncementsHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
+		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
+		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
+		mainSizer.Add(colAnnouncementsHelper.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
+		mainSizer.Fit(self)
+		self.Sizer = mainSizer
+		self.checkedColumns[0].SetFocus()
+		self.Center(wx.BOTH | CENTER_ON_SCREEN)
 
-	def onPanelActivated(self):
-		selectedProfile = _selectedProfile
-		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
-		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
-		self.columnOrderCheckbox.SetValue(curProfile["ColumnAnnouncement"]["UseScreenColumnOrder"])
-		self.trackColumns.SetItems(curProfile["ColumnAnnouncement"]["ColumnOrder"])
-		self.trackColumns.SetSelection(0)
-		# 6.1: Again convert list to set.
-		self.includedColumns = set(curProfile["ColumnAnnouncement"]["IncludedColumns"])
-		for checkbox in self.checkedColumns:
-			checkbox.SetValue(checkbox.Label in self.includedColumns)
-		self.columnHeadersCheckbox.SetValue(curProfile["ColumnAnnouncement"]["IncludeColumnHeaders"])
-		super(ColumnAnnouncementsPanel, self).onPanelActivated()
-
-	def onSave(self):
-		selectedProfile = _selectedProfile
-		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
-		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
-		curProfile["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
-		curProfile["ColumnAnnouncement"]["ColumnOrder"] = self.trackColumns.GetItems()
+	def onOk(self, evt):
+		parent = self.Parent
+		parent.columnOrder = self.trackColumns.GetItems()
 		# Make sure artist and title are always included.
-		self.includedColumns.add("Artist")
-		self.includedColumns.add("Title")
+		parent.includedColumns.add("Artist")
+		parent.includedColumns.add("Title")
 		for checkbox in self.checkedColumns:
-			action = self.includedColumns.add if checkbox.Value else self.includedColumns.discard
+			action = parent.includedColumns.add if checkbox.Value else parent.includedColumns.discard
 			action(checkbox.Label)
-		curProfile["ColumnAnnouncement"]["IncludedColumns"] = self.includedColumns
-		curProfile["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.Value
+		parent.Enable()
+		self.Destroy()
+		return
 
-	def onDiscard(self):
-		# 6.1: Discard changes to included columns set.
-		if self.includedColumns is not None: self.includedColumns.clear()
-		self.includedColumns = None
+	def onCancel(self, evt):
+		self.Parent.Enable()
+		self.Destroy()
 
 	def onColumnSelection(self, evt):
 		selIndex = self.trackColumns.GetSelection()
@@ -1143,6 +1138,98 @@ class ColumnAnnouncementsPanel(gui.SettingsPanel):
 			# This will cause NVDA to say "unavailable" as focus is lost momentarily. A bit anoying but a necessary hack.
 			if self.FindFocus().GetId() == wx.ID_OK:
 				self.upButton.SetFocus()
+
+class ColumnAnnouncementsPanel(gui.SettingsPanel):
+	# Translators: title of a panel to configure column announcements (order and what columns should be announced).
+	title = _("Column announcements")
+
+	def makeSettings(self, settingsSizer):
+		colAnnouncementsHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
+		self.columnOrder = splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
+		# Without manual conversion below, it produces a rare bug where clicking cancel after changing column inclusion causes new set to be retained.
+		self.includedColumns = set(splconfig._SPLDefaults["ColumnAnnouncement"]["IncludedColumns"])
+
+		# Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
+		self.columnOrderCheckbox=colAnnouncementsHelper.addItem(wx.CheckBox(self,wx.ID_ANY,label=_("Announce columns in the &order shown on screen")))
+		self.columnOrderCheckbox.SetValue(splconfig._SPLDefaults["ColumnAnnouncement"]["UseScreenColumnOrder"])
+
+		# Translators: The label of a button to manage column announcements.
+		manageColumnsButton = colAnnouncementsHelper.addItem(wx.Button(self, label=_("&Manage track column announcements...")))
+		manageColumnsButton.Bind(wx.EVT_BUTTON, self.onManageColumns)
+
+		# Translators: the label for a setting in SPL add-on settings to toggle whether column headers should be included when announcing track information.
+		self.columnHeadersCheckbox = colAnnouncementsHelper.addItem(wx.CheckBox(self, label=_("Include column &headers when announcing track information")))
+		self.columnHeadersCheckbox.SetValue(splconfig._SPLDefaults["ColumnAnnouncement"]["IncludeColumnHeaders"])
+
+	def onPanelActivated(self):
+		selectedProfile = _selectedProfile
+		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
+		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
+		self.columnOrderCheckbox.SetValue(curProfile["ColumnAnnouncement"]["UseScreenColumnOrder"])
+		self.columnOrder = curProfile["ColumnAnnouncement"]["ColumnOrder"]
+		# 6.1: Again convert list to set.
+		self.includedColumns = set(curProfile["ColumnAnnouncement"]["IncludedColumns"])
+		for checkbox in self.checkedColumns:
+			checkbox.SetValue(checkbox.Label in self.includedColumns)
+		self.columnHeadersCheckbox.SetValue(curProfile["ColumnAnnouncement"]["IncludeColumnHeaders"])
+		super(ColumnAnnouncementsPanel, self).onPanelActivated()
+
+	def onSave(self):
+		selectedProfile = _selectedProfile
+		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
+		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
+		curProfile["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
+		curProfile["ColumnAnnouncement"]["ColumnOrder"] = self.columnOrder
+		curProfile["ColumnAnnouncement"]["IncludedColumns"] = self.includedColumns
+		curProfile["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.Value
+
+	def onDiscard(self):
+		# 6.1: Discard changes to included columns set.
+		if self.includedColumns is not None: self.includedColumns.clear()
+		self.includedColumns = None
+
+	def onManageColumns(self, evt):
+		self.Disable()
+		ColumnAnnouncementsDialog(self).Show()
+
+class PlaylistTranscriptsPanel(gui.SettingsPanel):
+	# Translators: Title of a panel to configure playlsit transcripts options.
+	title = _("Playlist transcripts")
+
+	def makeSettings(self, settingsSizer):
+		playlistTranscriptsHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
+
+		from . import splmisc
+		self.transcriptFormat = splconfig.SPLConfig["PlaylistTranscripts"]["TranscriptFormat"]
+		self.columnOrder = splconfig.SPLConfig["PlaylistTranscripts"]["ColumnOrder"]
+		# Again manually create a new set.
+		self.includedColumns = set(splconfig.SPLConfig["PlaylistTranscripts"]["IncludedColumns"])
+		self.availableTranscriptFormats = [output[0] for output in splmisc.SPLPlaylistTranscriptFormats]
+		self.availableTranscriptFormats.insert(0, "")
+
+		# Translators: the label for a setting in SPL add-on settings to select preferred playlist transcript format.
+		labelText = _("&Prefered transcript format:")
+		# Translators: one of the transcript format options.
+		self.transcriptFormatsList = playlistTranscriptsHelper.addLabeledControl(labelText, wx.Choice, choices=[_("ask me every time")]+[output[2] for output in splmisc.SPLPlaylistTranscriptFormats])
+		self.transcriptFormatsList.SetSelection(self.availableTranscriptFormats.index(splconfig.SPLConfig["PlaylistTranscripts"]["TranscriptFormat"]))
+
+		# Translators: The label of a button to configure columns for playlist transcripts.
+		transcriptColumnsButton = playlistTranscriptsHelper.addItem(wx.Button(self, label=_("Manage transcript columns...")))
+		transcriptColumnsButton.Bind(wx.EVT_BUTTON, self.onTranscriptColumns)
+
+	def onSave(self):
+		splconfig.SPLConfig["PlaylistTranscripts"]["TranscriptFormat"] = self.availableTranscriptFormats[self.transcriptFormatsList.GetSelection()]
+		splconfig.SPLConfig["PlaylistTranscripts"]["ColumnOrder"] = list(self.columnOrder)
+		splconfig.SPLConfig["PlaylistTranscripts"]["IncludedColumns"] = set(self.includedColumns)
+
+	def onDiscard(self):
+		# 6.1: Discard changes to included columns set.
+		if self.includedColumns is not None: self.includedColumns.clear()
+		self.includedColumns = None
+
+	def onTranscriptColumns(self, evt):
+		self.Disable()
+		ColumnAnnouncementsDialog(self, playlistTranscripts=True).Show()
 
 # Columns Explorer for Studio, Track Tool and Creator
 # Configure which column will be announced when Control+NVDA+number row keys are pressed.
@@ -1543,6 +1630,7 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		MetadataStreamingPanel,
 		ColumnAnnouncementsPanel,
 		ColumnsExplorerPanel,
+		PlaylistTranscriptsPanel,
 		SayStatusPanel,
 		AdvancedOptionsPanel,
 		ResetSettingsPanel,

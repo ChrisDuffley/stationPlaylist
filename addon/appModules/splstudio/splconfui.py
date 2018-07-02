@@ -779,6 +779,59 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 			if self.FindFocus().GetId() == wx.ID_OK:
 				self.upButton.SetFocus()
 
+# Playlist Transcripts settings.
+class PlaylistTranscriptsDialog(wx.Dialog):
+
+	def __init__(self, parent):
+		# Translators: Title of a dialog to configure playlsit transcripts options.
+		super(PlaylistTranscriptsDialog, self).__init__(parent, title=_("Playlist transcripts settings"))
+
+		mainSizer = wx.BoxSizer(wx.VERTICAL)
+		playlistTranscriptsHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
+		from . import splmisc
+		# PLT: playlist transcripts.
+		self.columnOrder = parent.columnOrderPLT
+		self.includedColumns = parent.includedColumnsPLT
+		self.availableTranscriptFormats = [output[0] for output in splmisc.SPLPlaylistTranscriptFormats]
+		self.availableTranscriptFormats.insert(0, "")
+
+		# Translators: the label for a setting in SPL add-on settings to select preferred playlist transcript format.
+		labelText = _("&Prefered transcript format:")
+		# Translators: one of the transcript format options.
+		self.transcriptFormatsList = playlistTranscriptsHelper.addLabeledControl(labelText, wx.Choice, choices=[_("ask me every time")]+[output[2] for output in splmisc.SPLPlaylistTranscriptFormats])
+		self.transcriptFormatsList.SetSelection(self.availableTranscriptFormats.index(parent.transcriptFormat))
+
+		# Translators: The label of a button to configure columns for playlist transcripts.
+		transcriptColumnsButton = playlistTranscriptsHelper.addItem(wx.Button(self, label=_("Manage transcript columns...")))
+		transcriptColumnsButton.Bind(wx.EVT_BUTTON, self.onTranscriptColumns)
+
+		playlistTranscriptsHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
+		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
+		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
+		mainSizer.Add(playlistTranscriptsHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
+		mainSizer.Fit(self)
+		self.Sizer = mainSizer
+		self.transcriptFormatsList.SetFocus()
+		self.Center(wx.BOTH | CENTER_ON_SCREEN)
+
+	def onOk(self, evt):
+		parent = self.Parent
+		parent.transcriptFormat = self.availableTranscriptFormats[self.transcriptFormatsList.GetSelection()]
+		parent.columnOrderPLT = list(self.columnOrder)
+		parent.includedColumnsPLT = set(self.includedColumns)
+		parent.profiles.SetFocus()
+		parent.Enable()
+		self.Destroy()
+		return
+
+	def onCancel(self, evt):
+		self.Parent.Enable()
+		self.Destroy()
+
+	def onTranscriptColumns(self, evt):
+		self.Disable()
+		ColumnAnnouncementsDialog(self, playlistTranscripts=True).Show()
+
 # Columns Explorer for Studio, Track Tool and Creator
 # Configure which column will be announced when Control+NVDA+number row keys are pressed.
 # Similar to Alarms Center, levels indicate which columns to display (0 = Studio, 1 = Track Tool, 2 = Creator).
@@ -1292,6 +1345,13 @@ class SPLConfigDialog(gui.SettingsDialog):
 		SPLConfigHelper.addItem(sizer.sizer)
 
 		sizer = gui.guiHelper.ButtonHelper(wx.HORIZONTAL)
+		# Translators: The label of a button to open playlist transcripts settings.
+		playlistTranscriptsButton = sizer.addButton(self, label=_("Playlist &transcripts..."))
+		playlistTranscriptsButton.Bind(wx.EVT_BUTTON, self.onPlaylistTranscripts)
+		self.transcriptFormat = splconfig.SPLConfig["PlaylistTranscripts"]["TranscriptFormat"]
+		self.columnOrderPLT = splconfig.SPLConfig["PlaylistTranscripts"]["ColumnOrder"]
+		# Again manually create a new set.
+		self.includedColumnsPLT = set(splconfig.SPLConfig["PlaylistTranscripts"]["IncludedColumns"])
 		# Translators: The label of a button to open status announcement dialog such as announcing listener count.
 		sayStatusButton = sizer.addButton(self, label=_("&Status announcements..."))
 		sayStatusButton.Bind(wx.EVT_BUTTON, self.onStatusAnnouncement)
@@ -1372,6 +1432,9 @@ class SPLConfigDialog(gui.SettingsDialog):
 		splconfig.SPLConfig["General"]["ExploreColumnsTT"] = self.exploreColumnsTT
 		splconfig.SPLConfig["General"]["ExploreColumnsCreator"] = self.exploreColumnsCreator
 		splconfig.SPLConfig["General"]["VerticalColumnAnnounce"] = self.verticalColumn
+		splconfig.SPLConfig["PlaylistTranscripts"]["TranscriptFormat"] = self.transcriptFormat
+		splconfig.SPLConfig["PlaylistTranscripts"]["ColumnOrder"] = self.columnOrderPLT
+		splconfig.SPLConfig["PlaylistTranscripts"]["IncludedColumns"] = self.includedColumnsPLT
 		splconfig.SPLConfig["SayStatus"]["SayScheduledFor"] = self.scheduledFor
 		splconfig.SPLConfig["SayStatus"]["SayListenerCount"] = self.listenerCount
 		splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"] = self.cartName
@@ -1463,6 +1526,9 @@ class SPLConfigDialog(gui.SettingsDialog):
 		splconfig.SPLConfig["General"]["ExploreColumnsTT"] = self.exploreColumnsTT
 		splconfig.SPLConfig["General"]["ExploreColumnsCreator"] = self.exploreColumnsCreator
 		splconfig.SPLConfig["General"]["VerticalColumnAnnounce"] = self.verticalColumn
+		splconfig.SPLConfig["PlaylistTranscripts"]["TranscriptFormat"] = self.transcriptFormat
+		splconfig.SPLConfig["PlaylistTranscripts"]["ColumnOrder"] = self.columnOrderPLT
+		splconfig.SPLConfig["PlaylistTranscripts"]["IncludedColumns"] = self.includedColumnsPLT
 		splconfig.SPLConfig["SayStatus"]["SayScheduledFor"] = self.scheduledFor
 		splconfig.SPLConfig["SayStatus"]["SayListenerCount"] = self.listenerCount
 		splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"] = self.cartName
@@ -1741,6 +1807,11 @@ class SPLConfigDialog(gui.SettingsDialog):
 	def onManageColumns(self, evt):
 		self.Disable()
 		ColumnAnnouncementsDialog(self).Show()
+
+	# Manage playlist transcripts options.
+	def onPlaylistTranscripts(self, evt):
+		self.Disable()
+		PlaylistTranscriptsDialog(self).Show()
 
 	# Columns Explorer configuration.
 	def onColumnsExplorer(self, evt):
