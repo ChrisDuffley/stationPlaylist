@@ -612,7 +612,6 @@ def playlist2msaa(start, end, additionalDecorations=False, prefix="", suffix="")
 		playlistTranscripts = ["Playlist Transcripts"]
 		# Add a blank line for presentational purposes.
 		playlistTranscripts.append("\r\n")
-	from . import splconfig
 	obj = start
 	columnHeaders = columnPresentationOrder()
 	columnPos = [obj.indexOf(column) for column in columnHeaders]
@@ -645,10 +644,9 @@ def playlist2htmlTable(start, end, transcriptAction):
 		playlistTranscripts.append("Playlist Transcripts - use table navigation commands to review track information")
 	else: playlistTranscripts = ["Playlist Transcripts - use table navigation commands to review track information"]
 	playlistTranscripts.append("<p>")
-	from . import splconfig
-	playlistTranscripts.append("<table><tr><th>{columnHeaders}</tr>".format(columnHeaders = "<th>".join(splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])))
-	obj = start
 	columnHeaders = columnPresentationOrder()
+	playlistTranscripts.append("<table><tr><th>{0}</tr>".format(columnHeaders))
+	obj = start
 	columnPos = [obj.indexOf(column) for column in columnHeaders]
 	while obj not in (None, end):
 		columnContents = obj._getColumnContents(columns=columnPos, readable=True)
@@ -678,10 +676,9 @@ SPLPlaylistTranscriptFormats.append(("htmllist", playlist2htmlList, "Data list i
 
 def playlist2mdTable(start, end, transcriptAction):
 	playlistTranscripts = []
-	from . import splconfig
-	playlistTranscripts.append("| {columnHeaders} |\n".format(columnHeaders = " | ".join(splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])))
-	obj = start
 	columnHeaders = columnPresentationOrder()
+	playlistTranscripts.append("| {0} |\n".format(columnHeaders))
+	obj = start
 	columnPos = [obj.indexOf(column) for column in columnHeaders]
 	while obj not in (None, end):
 		columnContents = obj._getColumnContents(columns=columnPos, readable=True)
