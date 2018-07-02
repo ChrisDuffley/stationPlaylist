@@ -425,6 +425,8 @@ class ConfigHub(ChainMap):
 			# 7.0: This will be repeated for broadcast profiles later.
 			# 8.0: Conversion will happen here, as conversion to list is necessary before writing it to disk (if told to do so).
 			self.profiles[normalProfile]["ColumnAnnouncement"]["IncludedColumns"] = list(self.profiles[normalProfile]["ColumnAnnouncement"]["IncludedColumns"])
+			# 18.08: also convert included columns in playlist transcripts.
+			self.profiles[normalProfile]["PlaylistTranscripts"]["IncludedColumns"] = list(self.profiles[normalProfile]["PlaylistTranscripts"]["IncludedColumns"])
 			self.profiles[normalProfile].write()
 		del self.profiles[normalProfile]
 		# Now save broadcast profiles.
