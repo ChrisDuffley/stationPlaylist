@@ -34,7 +34,9 @@ class SPLCreatorItem(SPLTrackItem):
 	def announceColumnContent(self, colNumber, header=None, individualColumns=False):
 		if not header:
 			# #72: directly fetch on-screen column header (not the in-memory one) by probing column order array from the list (parent).
-			header = _getColumnHeader(self, _getColumnOrderArray(self)[colNumber])
+			# #65 (18.08): use column header method (at least the method body) provided by the class itself.
+			# This will work properly if the list (parent) is (or recognized as) SysListView32.List.
+			header = self._getColumnHeaderRaw(self.parent._columnOrderArray[colNumber])
 			# LTS: Studio 5.10 data structure change is also seen in Creator, so don't rely on column headers alone.
 			internalHeaders = indexOf(self.appModule.productVersion)
 			if internalHeaders[colNumber] != header:
