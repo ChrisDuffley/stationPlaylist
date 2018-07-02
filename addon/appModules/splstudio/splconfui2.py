@@ -1656,12 +1656,6 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		super(SPLConfigDialog,  self).onApply(evt)
 		_configApplyOnly = False
 
-	# Reset settings to defaults.
-	# This affects the currently selected profile.
-	def onResetConfig(self, evt):
-		self.Disable()
-		ResetDialog(self).Show()
-
 
 # Open the above dialog upon request.
 def onConfigDialog(evt):
