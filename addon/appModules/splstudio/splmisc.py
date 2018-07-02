@@ -17,6 +17,8 @@ import gui
 import wx
 import ui
 from winUser import user32, sendMessage
+import winKernel
+from NVDAObjects.IAccessible import sysListView32
 from . import splbase
 from .spldebugging import debugOutput
 from . import splactions
@@ -33,8 +35,6 @@ CENTER_ON_SCREEN = wx.CENTER_ON_SCREEN if hasattr(wx, "CENTER_ON_SCREEN") else 2
 # This is used by the track item class, Track Tool items and in track finder.
 # In track finder, this is used when encountering the track item but NVDA says otherwise.
 def _getColumnContent(obj, col):
-	import winKernel
-	from NVDAObjects.IAccessible import sysListView32
 	# Borrowed from SysListView32 implementation.
 	buffer=None
 	processHandle=obj.processHandle
@@ -55,6 +55,57 @@ def _getColumnContent(obj, col):
 	finally:
 		winKernel.virtualFreeEx(processHandle,internalItem,0,winKernel.MEM_RELEASE)
 	return buffer.value if buffer else None
+
+# Locate column header.
+# Given an object and the column number, locate header txt for the specified column.
+# This is used by the track item class, Track Tool items and Creator.
+def _getColumnHeader(obj, col):
+	# Borrowed from SysListView32 implementation.
+	buffer=None
+	processHandle=obj.processHandle
+	sizeofLVCOLUMN = ctypes.sizeof(sysListView32.LVCOLUMN)
+	internalColumn=winKernel.virtualAllocEx(processHandle,None,sizeofLVCOLUMN,winKernel.MEM_COMMIT,winKernel.PAGE_READWRITE)
+	try:
+		internalText=winKernel.virtualAllocEx(processHandle,None,520,winKernel.MEM_COMMIT,winKernel.PAGE_READWRITE)
+		try:
+			column=sysListView32.LVCOLUMN(mask=sysListView32.LVCF_TEXT,iSubItem=col,pszText=internalText,cchTextMax=260)
+			winKernel.writeProcessMemory(processHandle,internalColumn,ctypes.byref(column),sizeofLVCOLUMN,None)
+			res = sendMessage(obj.windowHandle,sysListView32.LVM_GETCOLUMNW, col, internalColumn)
+			if res:
+				winKernel.readProcessMemory(processHandle,internalColumn,ctypes.byref(column),sizeofLVCOLUMN,None)
+				buffer=ctypes.create_unicode_buffer(column.cchTextMax)
+				winKernel.readProcessMemory(processHandle,column.pszText,buffer,ctypes.sizeof(buffer),None)
+		finally:
+			winKernel.virtualFreeEx(processHandle,internalText,0,winKernel.MEM_RELEASE)
+	finally:
+		winKernel.virtualFreeEx(processHandle,internalColumn,0,winKernel.MEM_RELEASE)
+	return buffer.value if buffer else None
+
+# Find out how many columns are present for a given track.
+# Deriving from SysListView32.List but customized for two reasons: multi-column support and retrieved from a track.
+# All lists containing track items are multi-column enabled, and this function will be claled from tracks themselves.
+def _getColumnCount(track):
+	headerHwnd = sendMessage(track.parent.windowHandle,sysListView32.LVM_GETHEADER,0,0)
+	count = sendMessage(headerHwnd, sysListView32.HDM_GETITEMCOUNT, 0, 0)
+	if not count:
+		return 1
+	return count
+
+# Column order array, customized for SPL Studio.
+# This is needed so the correct column header and content can be fetched after a series of mouse clicks have rearranged column positions.
+def _getColumnOrderArray(track):
+	columnCount = _getColumnCount(track)
+	coa=(ctypes.c_int *columnCount)()
+	processHandle=track.processHandle
+	internalCoa=winKernel.virtualAllocEx(processHandle,None,ctypes.sizeof(coa),winKernel.MEM_COMMIT,winKernel.PAGE_READWRITE)
+	try:
+		winKernel.writeProcessMemory(processHandle,internalCoa,ctypes.byref(coa),ctypes.sizeof(coa),None)
+		res = sendMessage(track.parent.windowHandle,sysListView32.LVM_GETCOLUMNORDERARRAY, columnCount, internalCoa)
+		if res:
+			winKernel.readProcessMemory(processHandle,internalCoa,ctypes.byref(coa),ctypes.sizeof(coa),None)
+	finally:
+		winKernel.virtualFreeEx(processHandle,internalCoa,0,winKernel.MEM_RELEASE)
+	return coa
 
 # A custom combo box for cases where combo boxes are not choice controls.
 class CustomComboBox(wx.ComboBox, wx.Choice):
@@ -510,10 +561,17 @@ def metadata_actionProfileSwitched(configDialogActive=False):
 
 splactions.SPLActionProfileSwitched.register(metadata_actionProfileSwitched)
 
-# Playlist transcript processor
+# Playlist transcripts processor
 # Takes a snapshot of the active playlist (a 2-D array) and transforms it into various formats.
 # To account for expansions, let a master function call different formatters based on output format.
 SPLPlaylistTranscriptFormats = []
+
+# Obtain column presentation order.
+# Although this is useful in playlist transcripts, it can also be useful for column announcement inclusion and order.
+def columnPresentationOrder():
+	from . import splconfig
+	return [column for column in splconfig.SPLConfig["PlaylistTranscripts"]["ColumnOrder"]
+		if column in splconfig.SPLConfig["PlaylistTranscripts"]["IncludedColumns"]]
 
 # Various post-transcript actions.
 # For each converter, after transcribing the playlist, additional actions will be performed.
@@ -554,15 +612,15 @@ def playlist2msaa(start, end, additionalDecorations=False, prefix="", suffix="")
 		playlistTranscripts = ["Playlist Transcripts"]
 		# Add a blank line for presentational purposes.
 		playlistTranscripts.append("\r\n")
-	from . import splconfig
-	columnHeaders = splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
 	obj = start
+	columnHeaders = columnPresentationOrder()
+	columnPos = [obj.indexOf(column) for column in columnHeaders]
 	while obj not in (None, end):
 		# Exclude status column, and no need to make this readable.
-		columnContents = obj._getColumnContents(columns=list(rangeGen(1, 18)))
+		columnContents = obj._getColumnContents(columns=columnPos)
 		# Filter empty columns.
 		filteredContent = []
-		for column in rangeGen(17):
+		for column in rangeGen(len(columnPos)):
 			if columnContents[column] is not None:
 				filteredContent.append("%s: %s"%(columnHeaders[column], columnContents[column]))
 		playlistTranscripts.append("{0}{1}{2}".format(prefix, "; ".join(filteredContent), suffix))
@@ -586,11 +644,12 @@ def playlist2htmlTable(start, end, transcriptAction):
 		playlistTranscripts.append("Playlist Transcripts - use table navigation commands to review track information")
 	else: playlistTranscripts = ["Playlist Transcripts - use table navigation commands to review track information"]
 	playlistTranscripts.append("<p>")
-	from . import splconfig
-	playlistTranscripts.append("<table><tr><th>{columnHeaders}</tr>".format(columnHeaders = "<th>".join(splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])))
+	columnHeaders = columnPresentationOrder()
+	playlistTranscripts.append("<table><tr><th>{0}</tr>".format(columnHeaders))
 	obj = start
+	columnPos = [obj.indexOf(column) for column in columnHeaders]
 	while obj not in (None, end):
-		columnContents = obj._getColumnContents(readable=True)[1:]
+		columnContents = obj._getColumnContents(columns=columnPos, readable=True)
 		playlistTranscripts.append("<tr><td>{trackContents}</tr>".format(trackContents = "<td>".join(columnContents)))
 		obj = obj.next
 	playlistTranscripts.append("</table>")
@@ -617,11 +676,12 @@ SPLPlaylistTranscriptFormats.append(("htmllist", playlist2htmlList, "Data list i
 
 def playlist2mdTable(start, end, transcriptAction):
 	playlistTranscripts = []
-	from . import splconfig
-	playlistTranscripts.append("| {columnHeaders} |\n".format(columnHeaders = " | ".join(splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])))
+	columnHeaders = columnPresentationOrder()
+	playlistTranscripts.append("| {0} |\n".format(columnHeaders))
 	obj = start
+	columnPos = [obj.indexOf(column) for column in columnHeaders]
 	while obj not in (None, end):
-		columnContents = obj._getColumnContents(readable=True)[1:]
+		columnContents = obj._getColumnContents(columns=columnPos, readable=True)
 		playlistTranscripts.append("| {trackContents} |\n".format(trackContents = " | ".join(columnContents)))
 		obj = obj.next
 	if transcriptAction == 0: displayPlaylistTranscripts(playlistTranscripts)

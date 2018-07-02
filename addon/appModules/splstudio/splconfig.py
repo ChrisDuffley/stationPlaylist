@@ -90,6 +90,10 @@ UseScreenColumnOrder = boolean(default=true)
 ColumnOrder = string_list(default=list("Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"))
 IncludedColumns = string_list(default=list("Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"))
 IncludeColumnHeaders = boolean(default=true)
+[PlaylistTranscripts]
+TranscriptFormat = option("", "txt", "htmltable", "htmllist", "mdtable", default="")
+ColumnOrder = string_list(default=list("Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"))
+IncludedColumns = string_list(default=list("Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"))
 [SayStatus]
 SayScheduledFor = boolean(default=true)
 SayListenerCount = boolean(default=true)
@@ -165,6 +169,7 @@ class ConfigHub(ChainMap):
 			copyProfile(_SPLDefaults, self.maps[0], complete=True)
 			self.maps[0].name = defaultProfileName
 			self.maps[0]["ColumnAnnouncement"]["IncludedColumns"] = set(self.maps[0]["ColumnAnnouncement"]["IncludedColumns"])
+			self.maps[0]["PlaylistTranscripts"]["IncludedColumns"] = set(self.maps[0]["PlaylistTranscripts"]["IncludedColumns"])
 			self.maps[0]["General"]["VerticalColumnAnnounce"] = None
 		self.profileNames.append(None) # Signifying normal profile.
 		# Always cache normal profile upon startup.
@@ -329,6 +334,8 @@ class ConfigHub(ChainMap):
 		# 17.04: If vertical column announcement value is "None", transform this to NULL.
 		if conf["General"]["VerticalColumnAnnounce"] == "None":
 			conf["General"]["VerticalColumnAnnounce"] = None
+		# 18.08: same thing for included columns in Playlist Transcripts.
+		conf["PlaylistTranscripts"]["IncludedColumns"] = set(conf["PlaylistTranscripts"]["IncludedColumns"])
 
 	# Create profile: public function to access the two private ones above (used when creating a new profile).
 	# Mechanics borrowed from NVDA Core's config.conf with modifications for this add-on.
@@ -418,6 +425,8 @@ class ConfigHub(ChainMap):
 			# 7.0: This will be repeated for broadcast profiles later.
 			# 8.0: Conversion will happen here, as conversion to list is necessary before writing it to disk (if told to do so).
 			self.profiles[normalProfile]["ColumnAnnouncement"]["IncludedColumns"] = list(self.profiles[normalProfile]["ColumnAnnouncement"]["IncludedColumns"])
+			# 18.08: also convert included columns in playlist transcripts.
+			self.profiles[normalProfile]["PlaylistTranscripts"]["IncludedColumns"] = list(self.profiles[normalProfile]["PlaylistTranscripts"]["IncludedColumns"])
 			self.profiles[normalProfile].write()
 		del self.profiles[normalProfile]
 		# Now save broadcast profiles.
@@ -445,8 +454,12 @@ class ConfigHub(ChainMap):
 			# 17.09: temporarily save a copy of the current column headers set.
 			includedColumnsTemp = set(self.profiles[normalProfile]["ColumnAnnouncement"]["IncludedColumns"])
 			self.profiles[normalProfile]["ColumnAnnouncement"]["IncludedColumns"] = list(self.profiles[normalProfile]["ColumnAnnouncement"]["IncludedColumns"])
+			# 18.08: also for Playlist Transcripts.
+			includedColumnsTemp2 = set(self.profiles[normalProfile]["PlaylistTranscripts"]["IncludedColumns"])
+			self.profiles[normalProfile]["PlaylistTranscripts"]["IncludedColumns"] = list(self.profiles[normalProfile]["PlaylistTranscripts"]["IncludedColumns"])
 			self.profiles[normalProfile].write()
 			self.profiles[normalProfile]["ColumnAnnouncement"]["IncludedColumns"] = includedColumnsTemp
+			self.profiles[normalProfile]["PlaylistTranscripts"]["IncludedColumns"] = includedColumnsTemp2
 		for configuration in self.profiles:
 			# Normal profile is done.
 			if configuration.name == defaultProfileName: continue
@@ -472,6 +485,9 @@ class ConfigHub(ChainMap):
 			if not self.profileExists(profile):
 				raise ValueError("The specified profile does not exist")
 			else: profilePool.append(self.profileByName(profile))
+		# Preview: save confui2 changes flag.
+		global _confui2changed
+		_confui2changed = self["Advanced"]["ConfUI2"] != _SPLDefaults["Advanced"]["ConfUI2"]
 		for conf in profilePool:
 			# Retrieve the profile path, as ConfigObj.reset nullifies it.
 			profilePath = conf.filename
@@ -486,6 +502,8 @@ class ConfigHub(ChainMap):
 			self.profiles[0], self.profiles[npIndex] = self.profiles[npIndex], self.profiles[0]
 		# 8.0 optimization: Tell other modules that reset was done in order to postpone disk writes until the end.
 		self.resetHappened = True
+		# 18.08: don't forget to change type for Playlist Transcripts/included columns set.
+		self["PlaylistTranscripts"]["IncludedColumns"] = set(_SPLDefaults["PlaylistTranscripts"]["IncludedColumns"])
 
 	def profileIndexByName(self, name):
 		# 8.0 optimization: Only traverse the profiles list if head (active profile) or tail does not yield profile name in question.
@@ -1258,4 +1276,3 @@ def isAddonUpdatingSupported():
 
 def canUpdate():
 	return isAddonUpdatingSupported() == SPLUpdateErrorNone
-

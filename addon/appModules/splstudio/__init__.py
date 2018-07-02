@@ -162,13 +162,6 @@ class SPLStudioTrackItem(SPLTrackItem):
 	def reportFocus(self):
 		# initialize column navigation tracker.
 		if self.__class__._curColumnNumber is None: self.__class__._curColumnNumber = 0
-		# 7.0: Cache column header data structures if meeting track items for the first time.
-		# It is better to do it while reporting focus, otherwise Python throws recursion limit exceeded error when initOverlayClass does this.
-		if self.appModule._columnHeaders is None:
-			self.appModule._columnHeaders = self.parent.children[-1]
-		# 7.0: Also cache column header names to improve performance (may need to check for header repositioning later).
-		if self.appModule._columnHeaderNames is None:
-			self.appModule._columnHeaderNames = [header.name for header in self.appModule._columnHeaders.children]
 		if splconfig.SPLConfig["General"]["CategorySounds"]:
 			category = self._getColumnContent(self.indexOf("Category"))
 			if category in _SPLCategoryTones:
@@ -239,7 +232,7 @@ class SPLStudioTrackItem(SPLTrackItem):
 	# 7.0: Add an optional header in order to announce correct header information in columns explorer.
 	# 17.04: Allow checked status in 5.1x and later to be announced if this is such a case (vertical column navigation).)
 	def announceColumnContent(self, colNumber, header=None, reportStatus=False):
-		columnHeader = header if header is not None else self.appModule._columnHeaderNames[colNumber]
+		columnHeader = header if header is not None else splmisc._getColumnHeader(self, splmisc._getColumnOrderArray(self)[colNumber])
 		columnContent = self._getColumnContent(self.indexOf(columnHeader))
 		status = self.name + " " if reportStatus else ""
 		if columnContent:
@@ -255,7 +248,7 @@ class SPLStudioTrackItem(SPLTrackItem):
 	# Now the scripts.
 
 	def script_moveToNextColumn(self, gesture):
-		if (self._curColumnNumber+1) == self.appModule._columnHeaders.childCount:
+		if (self._curColumnNumber+1) == splmisc._getColumnCount(self):
 			tones.beep(2000, 100)
 		else:
 			self.__class__._curColumnNumber +=1
@@ -276,7 +269,7 @@ class SPLStudioTrackItem(SPLTrackItem):
 		self._leftmostcol()
 
 	def script_lastColumn(self, gesture):
-		self.__class__._curColumnNumber = self.appModule._columnHeaders.childCount-1
+		self.__class__._curColumnNumber = splmisc._getColumnCount(self)-1
 		self.announceColumnContent(self._curColumnNumber)
 
 	# Track movement scripts.
@@ -623,8 +616,6 @@ class AppModule(appModuleHandler.AppModule):
 	# Translators: Script category for Station Playlist commands in input gestures dialog.
 	scriptCategory = _("StationPlaylist Studio")
 	SPLCurVersion = appModuleHandler.AppModule.productVersion
-	_columnHeaders = None
-	_columnHeaderNames = None
 	_focusedTrack = None
 	_announceColumnOnly = None # Used only if vertical column navigation commands are used.
 	_SPLStudioMonitor = None # Monitor Studio API routines.

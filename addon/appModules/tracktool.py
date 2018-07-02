@@ -12,7 +12,7 @@ import ui
 import scriptHandler
 from NVDAObjects.IAccessible import IAccessible, sysListView32
 from splstudio import splconfig, SPLTrackItem
-from splstudio.splmisc import _getColumnContent
+from splstudio.splmisc import _getColumnContent, _getColumnHeader, _getColumnOrderArray, _getColumnCount
 addonHandler.initTranslation()
 
 # Track Tool allows a broadcaster to manage track intros, cues and so forth. Each track is a list item with descriptions such as title, file name, intro time and so forth.
@@ -44,7 +44,8 @@ class TrackToolItem(SPLTrackItem):
 	# This also allows display order to be checked (Studio 5.10 and later).
 	def announceColumnContent(self, colNumber, header=None, individualColumns=False):
 		if not header:
-			header = self.columnHeaders.children[colNumber].name
+			# #72: directly fetch on-screen column header (not the in-memory one) by probing column order array from the list (parent).
+			header = _getColumnHeader(self, _getColumnOrderArray(self)[colNumber])
 			# LTS: Studio 5.10 data structure change is evident in Track Tool as well, so don't rely on column headers alone.
 			internalHeaders = indexOf(self.appModule.productVersion)
 			if internalHeaders[colNumber] != header:
@@ -71,15 +72,13 @@ class TrackToolItem(SPLTrackItem):
 	# Now the scripts.
 
 	def script_moveToNextColumn(self, gesture):
-		self.columnHeaders = self.parent.children[-1]
-		if (self._curColumnNumber+1) == self.columnHeaders.childCount:
+		if (self._curColumnNumber+1) == _getColumnCount(self):
 			tones.beep(2000, 100)
 		else:
 			self.__class__._curColumnNumber +=1
 		self.announceColumnContent(self._curColumnNumber)
 
 	def script_moveToPreviousColumn(self, gesture):
-		self.columnHeaders = self.parent.children[-1]
 		if self._curColumnNumber <= 0:
 			tones.beep(2000, 100)
 		else:
@@ -87,13 +86,11 @@ class TrackToolItem(SPLTrackItem):
 		self.announceColumnContent(self._curColumnNumber)
 
 	def script_firstColumn(self, gesture):
-		self.columnHeaders = self.parent.children[-1]
 		self.__class__._curColumnNumber = 0
 		self.announceColumnContent(self._curColumnNumber)
 
 	def script_lastColumn(self, gesture):
-		self.columnHeaders = self.parent.children[-1]
-		self.__class__._curColumnNumber = self.columnHeaders.childCount - 1
+		self.__class__._curColumnNumber = _getColumnCount(self)-1
 		self.announceColumnContent(self._curColumnNumber)
 
 	@property
