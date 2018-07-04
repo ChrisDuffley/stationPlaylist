@@ -1166,11 +1166,9 @@ class ColumnAnnouncementsPanel(gui.SettingsPanel):
 		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
 		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
 		self.columnOrderCheckbox.SetValue(curProfile["ColumnAnnouncement"]["UseScreenColumnOrder"])
-		self.columnOrder = curProfile["ColumnAnnouncement"]["ColumnOrder"]
+		self.columnOrder = list(curProfile["ColumnAnnouncement"]["ColumnOrder"])
 		# 6.1: Again convert list to set.
 		self.includedColumns = set(curProfile["ColumnAnnouncement"]["IncludedColumns"])
-		for checkbox in self.checkedColumns:
-			checkbox.SetValue(checkbox.Label in self.includedColumns)
 		self.columnHeadersCheckbox.SetValue(curProfile["ColumnAnnouncement"]["IncludeColumnHeaders"])
 		super(ColumnAnnouncementsPanel, self).onPanelActivated()
 
