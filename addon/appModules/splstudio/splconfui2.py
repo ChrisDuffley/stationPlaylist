@@ -1636,6 +1636,12 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		ResetSettingsPanel,
 	]
 
+	def makeSettings(self, settingsSizer):
+		super(SPLConfigDialog, self).makeSettings(settingsSizer)
+		# #40 (17.12): respond to app terminate notification by closing this dialog.
+		# All top-level dialogs will be affected by this, and apart from this one, others will check for flags also.
+		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
+
 	def onOk(self, evt):
 		super(SPLConfigDialog,  self).onOk(evt)
 		# But because of issues encountered while saving some settings, settings dialog might still be active, as well as selected profile flag not being cleared.
@@ -1655,6 +1661,10 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		_configApplyOnly = True
 		super(SPLConfigDialog,  self).onApply(evt)
 		_configApplyOnly = False
+
+	def onAppTerminate(self):
+		# Call cancel function when the app terminates so the dialog can be closed.
+		self.onCancel(None)
 
 
 # Open the above dialog upon request.
