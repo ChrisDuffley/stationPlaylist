@@ -60,10 +60,10 @@ SPLAddonCheck = 0
 # Update metadata storage.
 SPLAddonState = {}
 # Update URL (the only way to change it is installing a different version from a different branch).
-SPLUpdateURL = "https://addons.nvda-project.org/files/get.php?file=spl-dev"
+SPLUpdateURL = "https://addons.nvda-project.org/files/get.php?file=spl"
 _pendingChannelChange = False
 _updateNow = False
-SPLUpdateChannel = "dev"
+SPLUpdateChannel = "stable"
 # Update check timer.
 _SPLUpdateT = None
 # How long it should wait between automatic checks.
@@ -74,7 +74,7 @@ _retryAfterFailure = False
 _updatePickle = os.path.join(globalVars.appArgs.configPath, "splupdate.pickle")
 
 channels={
-	"stable":"https://addons.nvda-project.org/files/get.php?file=spl",
+	"dev":"https://addons.nvda-project.org/files/get.php?file=spl-dev",
 	"try":"http://www.josephsl.net/files/nvdaaddons/getupdate.php?file=spl-try",
 	#"lts":"http://www.josephsl.net/files/nvdaaddons/getupdate.php?file=spl-ltsxp",
 }
@@ -99,12 +99,12 @@ def initialize():
 			SPLUpdateChannel = SPLAddonState["UpdateChannel"]
 			"""if SPLUpdateChannel in ("beta", "prerelease") or (SPLUpdateChannel == "lts" and sys.getwindowsversion().build >= 7601) or (SPLUpdateChannel in ("try", "dev") and sys.getwindowsversion().build < 7601):
 				# 17.10 to 17.12: do not touch LTS channel if Windows XP or Vista is in use.
-				SPLUpdateChannel = "dev"
+				SPLUpdateChannel = "stable"
 				"""
 	except (IOError, KeyError):
 		SPLAddonState["PDT"] = 0
 		_updateNow = False
-		SPLUpdateChannel = "dev"
+		SPLUpdateChannel = "stable"
 	# Handle profile switches.
 	splactions.SPLActionProfileSwitched.register(splupdate_actionProfileSwitched)
 	# Check for add-on update if told to do so.
