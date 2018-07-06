@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: StationPlaylist 18.06\n"
+"Project-Id-Version: StationPlaylist 18.07\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-06-15 19:14+0200\n"
+"PO-Revision-Date: 2018-06-30 23:02+0200\n"
 "Last-Translator: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language-Team: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language: fr\n"
@@ -1852,38 +1852,32 @@ msgstr ""
 "Veuillez d'abord fermer le dialogue préalablement ouvert."
 
 #. Translators: title of a panel to configure broadcast profiles.
-#, fuzzy
 msgid "Broadcast profiles"
-msgstr "&Profil de diffusion :"
+msgstr "Profil de diffusion"
 
 #. Translators: title of a panel to configure various general add-on settings such as top and bottom announcement for playlists.
 msgid "General"
-msgstr ""
+msgstr "Général"
 
 #. Translators: title of a panel to configure various alarms and related settings.
-#, fuzzy
 msgid "Alarms"
-msgstr "Centre des alarmes"
+msgstr "Alarmes"
 
 #. Translators: title of a panel to configure metadata streaming status for DSP encoder and four additional URL's.
-#, fuzzy
 msgid "Metadata streaming"
-msgstr "Options de métadonnées en streaming"
+msgstr "Métadonnées en streaming"
 
 #. Translators: title of a panel to configure column announcements (order and what columns should be announced).
-#, fuzzy
 msgid "Column announcements"
-msgstr "Gérer les annonces de colonne"
+msgstr "Annonces de colonne"
 
 #. Translators: title of a panel to configure columns explorer settings.
-#, fuzzy
 msgid "Columns explorer"
-msgstr "Explorateur de Colonnes"
+msgstr "Explorateur de colonnes"
 
 #. Translators: This is the label for the StationPlaylist Studio configuration dialog.
-#, fuzzy
 msgid "Studio Add-on Settings V2"
-msgstr "Paramètres Module Complémentaire Studio"
+msgstr "Paramètres Module Complémentaire Studio V2"
 
 #. Translators: Text of the dialog when another find dialog is open.
 msgid "Another find dialog is open."
@@ -1986,19 +1980,19 @@ msgstr "Un autre dialogue de transcriptions de playlist est ouverte."
 
 #. Translators: one of the playlist transcripts range options.
 msgid "entire playlist"
-msgstr ""
+msgstr "playlist complète"
 
 #. Translators: one of the playlist transcripts range options.
 msgid "start to current item"
-msgstr ""
+msgstr "commencer à l'élément actuel"
 
 #. Translators: one of the playlist transcripts range options.
 msgid "current item to the end"
-msgstr ""
+msgstr "élément actuel à la fin"
 
 #. Translators: one of the playlist transcripts range options.
 msgid "current hour"
-msgstr ""
+msgstr "heure actuelle"
 
 #. Translators: The label in playlist transcripts dialog to select playlist transcript range.
 msgid "Transcript range:"
@@ -2009,24 +2003,20 @@ msgid "Transcript format:"
 msgstr "Format de transcription :"
 
 #. Translators: one of the playlist transcript actions.
-#, fuzzy
 msgid "view transcript"
-msgstr "Transcriptions de Playlist"
+msgstr "voir la transcription"
 
 #. Translators: one of the playlist transcript actions.
-#, fuzzy
 msgid "copy to clipboard"
-msgstr "Commentaire de piste copiée dans le presse-papiers"
+msgstr "copier dans le presse-papiers"
 
 #. Translators: one of the playlist transcript actions.
-#, fuzzy
 msgid "save to file"
-msgstr "Profil de &base :"
+msgstr "enregistrer dans le fichier"
 
 #. Translators: The label in playlist transcripts dialog to select transcript action.
-#, fuzzy
 msgid "Transcript action:"
-msgstr "Plage de transcription :"
+msgstr "Action de transcription :"
 
 msgid ""
 "Did you recently tell SPL add-on to use a different update channel? If so, "
