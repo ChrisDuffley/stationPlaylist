@@ -466,6 +466,8 @@ class ConfigHub(ChainMap):
 			self.profiles[normalProfile].write()
 			self.profiles[normalProfile]["ColumnAnnouncement"]["IncludedColumns"] = includedColumnsTemp
 			self.profiles[normalProfile]["PlaylistTranscripts"]["IncludedColumns"] = includedColumnsTemp2
+			# Don't forget to update profile cache, otherwise subsequent changes are lost.
+			if configSaveAction: self._cacheConfig(self.profiles[normalProfile])
 		for configuration in self.profiles:
 			# Normal profile is done.
 			if configuration.name == defaultProfileName: continue
@@ -480,6 +482,8 @@ class ConfigHub(ChainMap):
 					_preSave(configuration)
 					configuration.write()
 					configuration["ColumnAnnouncement"]["IncludedColumns"] = set(columnHeadersTemp2)
+					# just like normal profile, cache the profile again provided that it was done already and if options in the cache and the live profile are different.
+					if configSaveAction and configuration.name in _SPLCache: self._cacheConfig(configuration)
 
 	def handlePostConfigSave(self):
 		# Call the volatile version of save function above.
