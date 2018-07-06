@@ -18,6 +18,7 @@ from configobj import ConfigObj
 from validate import Validator
 import time
 import datetime
+import config
 import globalVars
 import ui
 import gui
@@ -208,6 +209,9 @@ class ConfigHub(ChainMap):
 		self.newProfiles = set()
 		# Reset flag (only engaged if reset did happen).
 		self.resetHappened = False
+		# #73: listen to config save/reset actions from NVDA Core.
+		if hasattr(config, "post_configSave"):
+			config.post_configSave.register(self.handlePostConfigSave)
 
 	# Various properties
 	@property
@@ -444,11 +448,13 @@ class ConfigHub(ChainMap):
 		self.newProfiles.clear()
 		self.profileHistory = None
 
-	def _saveVolatile(self):
+	def _saveVolatile(self, configSaveAction=False):
 		# Similar to save function except keeps the config hub alive, useful for testing new options or troubleshooting settings.
-		if self.configVolatile:
+		# #73: also used to save settings when notified by config save action.
+		# In case this is called when NVDA exits, just follow through, as profile history and new profiles list would be cleared as part of general process cleanup.
+		if self.volatileConfig:
 			raise RuntimeError("SPL config is already volatile")
-		self._volatileConfig = True
+		if not configSaveAction: self._volatileConfig = True
 		normalProfile = self.profileIndexByName(defaultProfileName)
 		_preSave(self.profiles[normalProfile])
 		if self.resetHappened or shouldSave(self.profiles[normalProfile]):
@@ -461,6 +467,8 @@ class ConfigHub(ChainMap):
 			self.profiles[normalProfile].write()
 			self.profiles[normalProfile]["ColumnAnnouncement"]["IncludedColumns"] = includedColumnsTemp
 			self.profiles[normalProfile]["PlaylistTranscripts"]["IncludedColumns"] = includedColumnsTemp2
+			# Don't forget to update profile cache, otherwise subsequent changes are lost.
+			if configSaveAction: self._cacheConfig(self.profiles[normalProfile])
 		for configuration in self.profiles:
 			# Normal profile is done.
 			if configuration.name == defaultProfileName: continue
@@ -475,6 +483,13 @@ class ConfigHub(ChainMap):
 					_preSave(configuration)
 					configuration.write()
 					configuration["ColumnAnnouncement"]["IncludedColumns"] = set(columnHeadersTemp2)
+					# just like normal profile, cache the profile again provided that it was done already and if options in the cache and the live profile are different.
+					if configSaveAction and configuration.name in _SPLCache: self._cacheConfig(configuration)
+
+	def handlePostConfigSave(self):
+		# Call the volatile version of save function above.
+		if (self.volatileConfig or self.configInMemory): return
+		self._saveVolatile(configSaveAction=True)
 
 	# Class version of module-level functions.
 
