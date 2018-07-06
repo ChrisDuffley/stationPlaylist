@@ -209,8 +209,8 @@ class ConfigHub(ChainMap):
 		# Reset flag (only engaged if reset did happen).
 		self.resetHappened = False
 		# #73: listen to config save/reset actions from NVDA Core.
-		if hasattr(config, "postConfigSave"):
-			config.postConfigSave.register(self.handlePostConfigSave)
+		if hasattr(config, "post_configSave"):
+			config.post_configSave.register(self.handlePostConfigSave)
 
 	# Various properties
 	@property
