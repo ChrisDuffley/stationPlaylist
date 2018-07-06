@@ -29,8 +29,8 @@ import gui
 import wx
 from winUser import user32, sendMessage, OBJID_CLIENT
 from NVDAObjects import NVDAObject, NVDAObjectTextInfo
-from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent
-from NVDAObjects.behaviors import Dialog
+from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent, sysListView32
+from NVDAObjects.behaviors import Dialog, RowWithFakeNavigation, RowWithoutCellObjects
 import textInfos
 import tones
 from . import splbase
@@ -93,7 +93,7 @@ _SPLCategoryTones = {
 
 # Routines for track items themselves (prepare for future work).
 # #65 (18.07): this base class represents trakc items across StationPlaylist suites such as Studio, Creator and Track Tool.
-class SPLTrackItem(IAccessible):
+class SPLTrackItem(sysListView32.ListItem):
 	"""An abstract class representing track items across SPL suite of applications such as Studio, Creator and Track Tool.
 	This class provides basic properties, scripts and methods such as Columns Explorer and others.
 	Subclasses should provide custom routines for various attributes, including global ones to suit their needs.
@@ -101,19 +101,75 @@ class SPLTrackItem(IAccessible):
 	Each subclass is named after the app module name where tracks are encountered, such as SPLStudioTrackItem for Studio.
 	Subclasses of module-specific subclasses are named after SPL version, for example SPL510TrackItem for studio 5.10.
 	"""
-	pass
 
-class SPLStudioTrackItem(SPLTrackItem):
-	"""A base class for providing utility scripts when SPL Studio track entries are focused, such as location text and column navigation."""
+	def _get_name(self):
+		return self.IAccessibleObject.accName(self.IAccessibleChildID)
 
-	# Keep a record of which column is being looked at.
-	_curColumnNumber = None
+	def _get_description(self):
+		# SysListView32.ListItem nullifies description, so resort to fetching it via IAccessible.
+		return self.IAccessibleObject.accDescription(self.IAccessibleChildID)
 
 	def initOverlayClass(self):
 		# LTS: Take a greater role in assigning enhanced Columns Explorer command at the expense of limiting where this can be invoked.
 		# 8.0: Just assign number row.
 		for i in rangeGen(10):
 			self.bindGesture("kb:control+nvda+%s"%(i), "columnExplorer")
+
+	def script_moveToNextColumn(self, gesture):
+		if (self._curColumnNumber+1) == splmisc._getColumnCount(self):
+			tones.beep(2000, 100)
+		else:
+			self.__class__._curColumnNumber +=1
+		self.announceColumnContent(self._curColumnNumber)
+
+	def script_moveToPreviousColumn(self, gesture):
+		if self._curColumnNumber <= 0:
+			tones.beep(2000, 100)
+		else:
+			self.__class__._curColumnNumber -=1
+		self.announceColumnContent(self._curColumnNumber)
+
+	def script_firstColumn(self, gesture):
+		self.__class__._curColumnNumber = 0
+		self.announceColumnContent(self._curColumnNumber)
+
+	def script_lastColumn(self, gesture):
+		self.__class__._curColumnNumber = splmisc._getColumnCount(self)-1
+		self.announceColumnContent(self._curColumnNumber)
+
+	def script_columnExplorer(self, gesture):
+		# LTS: Just in case Control+NVDA+number row command is pressed...
+		# Due to the below formula, columns explorer will be restricted to number commands.
+		columnPos = int(gesture.displayName.split("+")[-1])-1
+		header = self.exploreColumns[columnPos]
+		column = self.indexOf(header)
+		if column is not None:
+			# #61 (18.06): pressed once will announce column data, twice will present it in a browse mode window.
+			if scriptHandler.getLastScriptRepeatCount() == 0: self.announceColumnContent(column, header=header)
+			else:
+				columnContent = self._getColumnContent(column)
+				if columnContent is None:
+					# Translators: presented when column information for a track is empty.
+					columnContent = _("blank")
+				ui.browseableMessage("{0}: {1}".format(header, columnContent),
+					# Translators: Title of the column data window.
+					title=_("Track data"))
+		else:
+			# Translators: Presented when a specific column header is not found.
+			ui.message(_("{headerText} not found").format(headerText = header))
+	# Translators: input help mode message for column explorer commands.
+	script_columnExplorer.__doc__ = _("Pressing once announces data for a track column, pressing twice will present column data in a browse mode window")
+
+	__gestures={
+		"kb:control+alt+home":"firstColumn",
+		"kb:control+alt+end":"lastColumn",
+	}
+
+class SPLStudioTrackItem(SPLTrackItem):
+	"""A base class for providing utility scripts when SPL Studio track entries are focused, such as location text and column navigation."""
+
+	# Keep a record of which column is being looked at.
+	_curColumnNumber = None
 
 	# Locate the real column index for a column header.
 	# This is response to a situation where columns were rearranged yet testing shows in-memory arrangement remains the same.
@@ -203,7 +259,9 @@ class SPLStudioTrackItem(SPLTrackItem):
 	# 7.0: Add an optional header in order to announce correct header information in columns explorer.
 	# 17.04: Allow checked status in 5.1x and later to be announced if this is such a case (vertical column navigation).)
 	def announceColumnContent(self, colNumber, header=None, reportStatus=False):
-		columnHeader = header if header is not None else splmisc._getColumnHeader(self, splmisc._getColumnOrderArray(self)[colNumber])
+		# #65 (18.08): use column header method (at least the method body) provided by the class itself.
+		# This will work properly if the list (parent) is (or recognized as) SysListView32.List.
+		columnHeader = header if header is not None else self._getColumnHeaderRaw(self.parent._columnOrderArray[colNumber])
 		columnContent = self._getColumnContent(self.indexOf(columnHeader))
 		status = self.name + " " if reportStatus else ""
 		if columnContent:
@@ -217,15 +275,9 @@ class SPLStudioTrackItem(SPLTrackItem):
 			braille.handler.message(_("{checkStatus}{header}: ()").format(checkStatus = status, header = columnHeader))
 
 	# Now the scripts.
+	# Because Studio track item requires special handling for status column, first and previous column scripts will be part of this and other subclasses here.
 
-	def script_nextColumn(self, gesture):
-		if (self._curColumnNumber+1) == splmisc._getColumnCount(self):
-			tones.beep(2000, 100)
-		else:
-			self.__class__._curColumnNumber +=1
-		self.announceColumnContent(self._curColumnNumber)
-
-	def script_prevColumn(self, gesture):
+	def script_moveToPreviousColumn(self, gesture):
 		if self._curColumnNumber <= 0:
 			tones.beep(2000, 100)
 		else:
@@ -238,10 +290,6 @@ class SPLStudioTrackItem(SPLTrackItem):
 	def script_firstColumn(self, gesture):
 		self.__class__._curColumnNumber = 0
 		self._leftmostcol()
-
-	def script_lastColumn(self, gesture):
-		self.__class__._curColumnNumber = splmisc._getColumnCount(self)-1
-		self.announceColumnContent(self._curColumnNumber)
 
 	# Track movement scripts.
 	# Detects top/bottom of a playlist if told to do so.
@@ -258,7 +306,7 @@ class SPLStudioTrackItem(SPLTrackItem):
 
 	# Vertical column navigation.
 
-	def script_nextRowColumn(self, gesture):
+	def script_moveToNextRow(self, gesture):
 		newTrack = self.next
 		if newTrack is None and splconfig.SPLConfig["General"]["TopBottomAnnounce"]:
 			tones.beep(2000, 100)
@@ -268,7 +316,7 @@ class SPLStudioTrackItem(SPLTrackItem):
 			newTrack.setFocus(), newTrack.setFocus()
 			splbase.selectTrack(newTrack.IAccessibleChildID-1)
 
-	def script_prevRowColumn(self, gesture):
+	def script_moveToPreviousRow(self, gesture):
 		newTrack = self.previous
 		if newTrack is None and splconfig.SPLConfig["General"]["TopBottomAnnounce"]:
 			tones.beep(2000, 100)
@@ -280,28 +328,9 @@ class SPLStudioTrackItem(SPLTrackItem):
 
 	# Overlay class version of Columns Explorer.
 
-	def script_columnExplorer(self, gesture):
-		# LTS: Just in case Control+NVDA+number row command is pressed...
-		# Due to the below formula, columns explorer will be restricted to number commands.
-		columnPos = int(gesture.displayName.split("+")[-1])-1
-		header = splconfig.SPLConfig["General"]["ExploreColumns"][columnPos]
-		column = self.indexOf(header)
-		if column is not None:
-			# #61 (18.06): pressed once will announce column data, twice will present it in a browse mode window.
-			if scriptHandler.getLastScriptRepeatCount() == 0: self.announceColumnContent(column, header=header)
-			else:
-				columnContent = self._getColumnContent(column)
-				if columnContent is None:
-					# Translators: presented when column information for a track is empty.
-					columnContent = _("blank")
-				ui.browseableMessage("{0}: {1}".format(header, columnContent),
-					# Translators: Title of the column data window.
-					title=_("Track data"))
-		else:
-			# Translators: Presented when a specific column header is not found.
-			ui.message(_("{headerText} not found").format(headerText = header))
-	# Translators: input help mode message for column explorer commands.
-	script_columnExplorer.__doc__ = _("Pressing once announces data for a track column, pressing twice will present column data in a browse mode window")
+	@property
+	def exploreColumns(self):
+		return splconfig.SPLConfig["General"]["ExploreColumns"]
 
 	def script_trackColumnsViewer(self, gesture):
 		# #61 (18.06): a direct copy of column data gatherer from playlist transcripts.
@@ -370,12 +399,6 @@ class SPLStudioTrackItem(SPLTrackItem):
 	script_announceTrackComment.__doc__ = _("Announces track comment if any. Press twice to copy this information to the clipboard, and press three times to open a dialog to add, change or remove track comments")
 
 	__gestures={
-		"kb:control+alt+rightArrow":"nextColumn",
-		"kb:control+alt+leftArrow":"prevColumn",
-		"kb:control+alt+downArrow":"nextRowColumn",
-		"kb:control+alt+upArrow":"prevRowColumn",
-		"kb:control+alt+home":"firstColumn",
-		"kb:control+alt+end":"lastColumn",
 		"kb:downArrow":"nextTrack",
 		"kb:upArrow":"prevTrack",
 		"kb:control+NVDA+-":"trackColumnsViewer",
@@ -742,9 +765,16 @@ class AppModule(appModuleHandler.AppModule):
 	# Some controls which needs special routines.
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		role = obj.role
-		windowStyle = obj.windowStyle
-		if obj.windowClassName == "TTntListView.UnicodeClass" and role == controlTypes.ROLE_LISTITEM and abs(windowStyle - 1443991625)%0x100000 == 0:
-			clsList.insert(0, SPL510TrackItem)
+		try:
+			windowStyle = obj.windowStyle
+		except AttributeError:
+			windowStyle = 0
+		if obj.windowClassName == "TTntListView.UnicodeClass":
+			if role == controlTypes.ROLE_LISTITEM and abs(windowStyle - 1443991625)%0x100000 == 0:
+				clsList.insert(0, SPL510TrackItem)
+			# #69 (18.08): allow actual list views to be treated as SysListView32.List so column count and other data can be retrieved easily.
+			elif role == controlTypes.ROLE_LIST:
+				clsList.insert(0, sysListView32.List)
 		# 7.2: Recognize known dialogs.
 		elif obj.windowClassName in ("TDemoRegForm", "TOpenPlaylist"):
 			clsList.insert(0, Dialog)
