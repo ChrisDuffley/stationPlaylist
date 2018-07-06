@@ -115,6 +115,28 @@ class SPLTrackItem(sysListView32.ListItem):
 		for i in rangeGen(10):
 			self.bindGesture("kb:control+nvda+%s"%(i), "columnExplorer")
 
+	def script_moveToNextColumn(self, gesture):
+		if (self._curColumnNumber+1) == splmisc._getColumnCount(self):
+			tones.beep(2000, 100)
+		else:
+			self.__class__._curColumnNumber +=1
+		self.announceColumnContent(self._curColumnNumber)
+
+	def script_moveToPreviousColumn(self, gesture):
+		if self._curColumnNumber <= 0:
+			tones.beep(2000, 100)
+		else:
+			self.__class__._curColumnNumber -=1
+		self.announceColumnContent(self._curColumnNumber)
+
+	def script_firstColumn(self, gesture):
+		self.__class__._curColumnNumber = 0
+		self.announceColumnContent(self._curColumnNumber)
+
+	def script_lastColumn(self, gesture):
+		self.__class__._curColumnNumber = splmisc._getColumnCount(self)-1
+		self.announceColumnContent(self._curColumnNumber)
+
 	def script_columnExplorer(self, gesture):
 		# LTS: Just in case Control+NVDA+number row command is pressed...
 		# Due to the below formula, columns explorer will be restricted to number commands.
@@ -137,6 +159,11 @@ class SPLTrackItem(sysListView32.ListItem):
 			ui.message(_("{headerText} not found").format(headerText = header))
 	# Translators: input help mode message for column explorer commands.
 	script_columnExplorer.__doc__ = _("Pressing once announces data for a track column, pressing twice will present column data in a browse mode window")
+
+	__gestures={
+		"kb:control+alt+home":"firstColumn",
+		"kb:control+alt+end":"lastColumn",
+	}
 
 class SPLStudioTrackItem(SPLTrackItem):
 	"""A base class for providing utility scripts when SPL Studio track entries are focused, such as location text and column navigation."""
@@ -248,13 +275,7 @@ class SPLStudioTrackItem(SPLTrackItem):
 			braille.handler.message(_("{checkStatus}{header}: ()").format(checkStatus = status, header = columnHeader))
 
 	# Now the scripts.
-
-	def script_moveToNextColumn(self, gesture):
-		if (self._curColumnNumber+1) == splmisc._getColumnCount(self):
-			tones.beep(2000, 100)
-		else:
-			self.__class__._curColumnNumber +=1
-		self.announceColumnContent(self._curColumnNumber)
+	# Because Studio track item requires special handling for status column, first and previous column scripts will be part of this and other subclasses here.
 
 	def script_moveToPreviousColumn(self, gesture):
 		if self._curColumnNumber <= 0:
@@ -269,10 +290,6 @@ class SPLStudioTrackItem(SPLTrackItem):
 	def script_firstColumn(self, gesture):
 		self.__class__._curColumnNumber = 0
 		self._leftmostcol()
-
-	def script_lastColumn(self, gesture):
-		self.__class__._curColumnNumber = splmisc._getColumnCount(self)-1
-		self.announceColumnContent(self._curColumnNumber)
 
 	# Track movement scripts.
 	# Detects top/bottom of a playlist if told to do so.
@@ -382,8 +399,6 @@ class SPLStudioTrackItem(SPLTrackItem):
 	script_announceTrackComment.__doc__ = _("Announces track comment if any. Press twice to copy this information to the clipboard, and press three times to open a dialog to add, change or remove track comments")
 
 	__gestures={
-		"kb:control+alt+home":"firstColumn",
-		"kb:control+alt+end":"lastColumn",
 		"kb:downArrow":"nextTrack",
 		"kb:upArrow":"prevTrack",
 		"kb:control+NVDA+-":"trackColumnsViewer",

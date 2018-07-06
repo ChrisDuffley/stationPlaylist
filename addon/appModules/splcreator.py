@@ -60,30 +60,6 @@ class SPLCreatorItem(SPLTrackItem):
 		except ValueError:
 			return None
 
-	# Now the scripts.
-
-	def script_moveToNextColumn(self, gesture):
-		if (self._curColumnNumber+1) == _getColumnCount(self):
-			tones.beep(2000, 100)
-		else:
-			self.__class__._curColumnNumber +=1
-		self.announceColumnContent(self._curColumnNumber)
-
-	def script_moveToPreviousColumn(self, gesture):
-		if self._curColumnNumber <= 0:
-			tones.beep(2000, 100)
-		else:
-			self.__class__._curColumnNumber -=1
-		self.announceColumnContent(self._curColumnNumber)
-
-	def script_firstColumn(self, gesture):
-		self.__class__._curColumnNumber = 0
-		self.announceColumnContent(self._curColumnNumber)
-
-	def script_lastColumn(self, gesture):
-		self.__class__._curColumnNumber = _getColumnCount(self)-1
-		self.announceColumnContent(self._curColumnNumber)
-
 	@property
 	def exploreColumns(self):
 		return splconfig.SPLConfig["General"]["ExploreColumnsCreator"]
@@ -91,8 +67,6 @@ class SPLCreatorItem(SPLTrackItem):
 	__gestures={
 		"kb:control+alt+downArrow": None,
 		"kb:control+alt+upArrow": None,
-		"kb:control+alt+home":"firstColumn",
-		"kb:control+alt+end":"lastColumn",
 	}
 
 
