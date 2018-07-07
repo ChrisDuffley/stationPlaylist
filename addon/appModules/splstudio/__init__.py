@@ -116,7 +116,7 @@ class SPLTrackItem(sysListView32.ListItem):
 			self.bindGesture("kb:control+nvda+%s"%(i), "columnExplorer")
 
 	def script_moveToNextColumn(self, gesture):
-		if (self._curColumnNumber+1) == splmisc._getColumnCount(self):
+		if (self._curColumnNumber+1) == self.parent.columnCount:
 			tones.beep(2000, 100)
 		else:
 			self.__class__._curColumnNumber +=1
@@ -134,7 +134,7 @@ class SPLTrackItem(sysListView32.ListItem):
 		self.announceColumnContent(self._curColumnNumber)
 
 	def script_lastColumn(self, gesture):
-		self.__class__._curColumnNumber = splmisc._getColumnCount(self)-1
+		self.__class__._curColumnNumber = self.parent.columnCount-1
 		self.announceColumnContent(self._curColumnNumber)
 
 	def script_columnExplorer(self, gesture):
