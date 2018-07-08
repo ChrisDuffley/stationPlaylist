@@ -969,24 +969,6 @@ def terminate():
 	# #64 (18.07): separated into its own function in 2018.
 	closeConfig("splstudio")
 
-# Switch between profiles.
-# A general-purpose profile switcher.
-# Allows the add-on to switch between profiles as a result of manual intervention or through profile trigger timer.
-# Profiles refer to profile names.
-# Instant profile switching is just a special case of this function.
-# 18.04: kept for compatibility for a while.
-def switchProfile(prevProfile, newProfile):
-	global _SPLCache
-	from .splconfui import _configDialogOpened
-	if _configDialogOpened:
-		# Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
-		ui.message(_("Add-on settings dialog is open, cannot switch profiles"))
-		return
-	SPLConfig.switchProfile(prevProfile, newProfile)
-	# 8.0: Cache other profiles this time.
-	if newProfile != defaultProfileName and newProfile not in _SPLCache:
-		_cacheConfig(SPLConfig.profileByName(newProfile))
-
 # Called from within the app module.
 def instantProfileSwitch():
 	# 17.10: What if only normal profile is in use?
