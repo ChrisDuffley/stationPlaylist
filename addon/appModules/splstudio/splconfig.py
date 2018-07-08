@@ -1281,7 +1281,6 @@ def isAddonUpdatingSupported():
 	if not versionInfo.updateVersionType:
 		return SPLUpdateErrorSource
 	# NVDA 2018.1 and later.
-	import config
 	if hasattr(config, "isAppX") and config.isAppX:
 		return SPLUpdateErrorAppx
 	# Provided that NVDA issue 3208 is implemented.
