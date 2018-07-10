@@ -46,15 +46,12 @@ class BroadcastProfilesPanel(gui.SettingsPanel):
 
 	def makeSettings(self, settingsSizer):
 		broadcastProfilesHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
-		# #40 (17.12): respond to app terminate notification by closing this dialog.
-		# All top-level dialogs will be affected by this, and apart from this one, others will check for flags also.
-		#splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 
 		# Broadcast profile controls were inspired by Config Profiles dialog in NVDA Core.
 		# 7.0: Have a copy of the sorted profiles so the actual combo box items can show profile flags.
 		# 8.0: No need to sort as profile names from ConfigHub knows what to do.
 		# 17.10: skip this if only normal profile is in use.
-		# #6: do not even show this category if relevant restrictions are in place.
+		# #6: display a read-only explanatory text.
 		if not (splconfig.SPLConfig.configInMemory or splconfig.SPLConfig.normalProfileOnly):
 			self.profileNames = list(splconfig.SPLConfig.profileNames)
 			self.profileNames[0] = _("Normal profile")
@@ -65,6 +62,9 @@ class BroadcastProfilesPanel(gui.SettingsPanel):
 				self.profiles.SetSelection(self.profileNames.index(splconfig.SPLConfig.activeProfile))
 			except:
 				pass
+		else:
+			# Borrowed logic from NVDA Core's speech panel (although there is no label for this read-only text).
+			broadcastProfilesHelper.addItem(wx.lib.expando.ExpandoTextCtrl(self, size=(self.scaleSize(250), -1), value=_("Normal profile is in use."), style=wx.TE_READONLY))
 
 		# Profile controls code credit: NV Access (except copy button).
 		# 17.10: if restrictions such as volatile config are applied, disable this area entirely.
