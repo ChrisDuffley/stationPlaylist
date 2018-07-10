@@ -193,8 +193,9 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Version 18.08
 
+* Pressing Control+NvDA+C to save settings will now also save Studio add-on settings (requires compatible NVDA release).
 * Added a new section (button/panel) in add-on settings to configure playlist transcripts options, which is used to configure column inclusion and ordering for this feature and other settings.
-* When creating a table-based playlist transcripts and if custom column ordering and/or column removal is in effect, NVDA will use custom column presentation order specified form add-on settings and/or not include information from removed columns.
+* When creating a table-based playlist transcripts and if custom column ordering and/or column removal is in effect, NVDA will use custom column presentation order specified from add-on settings and/or not include information from removed columns.
 * When using column navigation commands in track items (Control+Alt+home/end/left arrow/right arrow) in Studio, Creator, and Track Tool, NVDA will no longer announce wrong column data after changing column position on screen via mouse.
 * Significant improvements to NVDA's responsiveness when using column navigation commands in Creator and Track Tool. In particular, when using Creator, NVDA will respond better when using column navigation commands.
 
