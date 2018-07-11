@@ -701,9 +701,6 @@ def initialize():
 # This helps prolong life of a solid-state drive (preventing unnecessary writes).
 _SPLCache = {}
 
-def _cacheConfig(conf):
-	SPLConfig._cacheConfig(conf)
-
 # Record profile triggers.
 # Each record (profile name) consists of seven fields organized as a list:
 # A bit vector specifying which days should this profile be active, the first five fields needed for constructing a datetime.datetime object used to look up when to trigger this profile, and an integer specifying the duration in minutes.
