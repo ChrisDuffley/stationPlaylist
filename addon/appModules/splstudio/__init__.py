@@ -147,7 +147,7 @@ class SPLTrackItem(sysListView32.ListItem):
 			# #61 (18.06): pressed once will announce column data, twice will present it in a browse mode window.
 			if scriptHandler.getLastScriptRepeatCount() == 0: self.announceColumnContent(column, header=header)
 			else:
-				columnContent = self._getColumnContent(column)
+				columnContent = self._getColumnContentRaw(column)
 				if columnContent is None:
 					# Translators: presented when column information for a track is empty.
 					columnContent = _("blank")
