@@ -75,7 +75,7 @@ _updatePickle = os.path.join(globalVars.appArgs.configPath, "splupdate.pickle")
 
 channels={
 	"stable":"https://addons.nvda-project.org/files/get.php?file=spl",
-	"try":"http://www.josephsl.net/files/nvdaaddons/getupdate.php?file=spl-try",
+	"try":"https://www.josephsl.net/files/nvdaaddons/getupdate.php?file=spl-try",
 	#"lts":"http://www.josephsl.net/files/nvdaaddons/getupdate.php?file=spl-ltsxp",
 }
 
