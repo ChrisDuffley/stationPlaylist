@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 18.07\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-06-30 23:02+0200\n"
+"PO-Revision-Date: 2018-07-08 09:38-0700\n"
 "Last-Translator: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language-Team: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.12\n"
+"X-Generator: Poedit 1.8.9\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Presented when attempting to install Studio add-on on unsupported Windows releases.
@@ -2367,15 +2367,3 @@ msgid ""
 msgstr ""
 "Améliore la prise en charge de StationPlaylist Studio.\n"
 "En outre, ajoute des commandes globales pour studio où que vous soyez."
-
-#~ msgid "No artist"
-#~ msgstr "Pas d'artiste"
-
-#~ msgid "Artist: {artistName}"
-#~ msgstr "Artiste : {artistName}"
-
-#~ msgid "Introduction not set"
-#~ msgstr "Introduction non définie"
-
-#~ msgid "Error checking for update."
-#~ msgstr "Échec lors de la recherche d'une mise à jour."
