@@ -239,8 +239,9 @@ class SPLStudioTrackItem(SPLTrackItem):
 
 	# Locate column content.
 	# This is merely the proxy of the module level function defined in the misc module.
-	def _getColumnContent(self, col):
-		return splmisc._getColumnContent(self, col)
+	# 18.08 optimization: use SysLissstView32.ListItem's column content getter but if raw flag is on.
+	def _getColumnContent(self, col, raw=True):
+		return self._getColumnContentRaw(col) if raw else super(SPLStudioTrackItem, self)._getColumnContent(col)
 
 	# Obtain column contents for all columns for this track.
 	# A convenience method that calls column content getter for a list of columns.

@@ -41,7 +41,7 @@ class SPLCreatorItem(SPLTrackItem):
 			internalHeaders = indexOf(self.appModule.productVersion)
 			if internalHeaders[colNumber] != header:
 				colNumber = internalHeaders.index(header)
-		columnContent = _getColumnContent(self, colNumber)
+		columnContent = self._getColumnContentRaw(colNumber)
 		if columnContent:
 			if py3: ui.message(str(_("{header}: {content}")).format(header = header, content = columnContent))
 			else: ui.message(unicode(_("{header}: {content}")).format(header = header, content = columnContent))

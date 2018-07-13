@@ -508,7 +508,8 @@ class ConfigHub(ChainMap):
 			profilePath = conf.filename
 			conf.reset()
 			conf.filename = profilePath
-			resetConfig(_SPLDefaults, conf)
+			# Although copy profile function is used, it is really a reset.
+			copyProfile(_SPLDefaults, conf, complete=profilePath == SPLIni)
 			# Convert certain settings to a different format.
 			conf["ColumnAnnouncement"]["IncludedColumns"] = set(_SPLDefaults["ColumnAnnouncement"]["IncludedColumns"])
 		# Switch back to normal profile via a custom variant of swap routine.
@@ -620,17 +621,6 @@ _SPLDefaults.validate(_val, copy=True)
 def runConfigErrorDialog(errorText, errorType):
 	wx.CallAfter(gui.messageBox, errorText, errorType, wx.OK|wx.ICON_ERROR)
 
-# For following functions, "Ex" indicates "extended".
-
-# Reset settings to defaults.
-# This will be called when validation fails or when the user asks for it.
-# 6.0: The below function resets a single profile. A sister function will reset all of them.
-# 7.0: This calls copy profile function with default dictionary as the source profile.
-# 8.0: ConfigHub's reset function will be invoked.
-def resetConfig(defaults, activeConfig):
-	# The only time everything should be copied is when resetting normal profile.
-	copyProfile(defaults, activeConfig, complete=activeConfig.filename == SPLIni)
-
 # In case one or more profiles had config issues, look up the error message from the following map.
 _configErrors ={
 	"fileReset":"Settings reset to defaults due to configuration file coruption",
@@ -710,9 +700,6 @@ def initialize():
 # This comes in handy when saving configuration to disk. For the most part, no change occurs to config.
 # This helps prolong life of a solid-state drive (preventing unnecessary writes).
 _SPLCache = {}
-
-def _cacheConfig(conf):
-	SPLConfig._cacheConfig(conf)
 
 # Record profile triggers.
 # Each record (profile name) consists of seven fields organized as a list:
@@ -978,24 +965,6 @@ def terminate():
 	# 8.0: Call the save method.
 	# #64 (18.07): separated into its own function in 2018.
 	closeConfig("splstudio")
-
-# Switch between profiles.
-# A general-purpose profile switcher.
-# Allows the add-on to switch between profiles as a result of manual intervention or through profile trigger timer.
-# Profiles refer to profile names.
-# Instant profile switching is just a special case of this function.
-# 18.04: kept for compatibility for a while.
-def switchProfile(prevProfile, newProfile):
-	global _SPLCache
-	from .splconfui import _configDialogOpened
-	if _configDialogOpened:
-		# Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
-		ui.message(_("Add-on settings dialog is open, cannot switch profiles"))
-		return
-	SPLConfig.switchProfile(prevProfile, newProfile)
-	# 8.0: Cache other profiles this time.
-	if newProfile != defaultProfileName and newProfile not in _SPLCache:
-		_cacheConfig(SPLConfig.profileByName(newProfile))
 
 # Called from within the app module.
 def instantProfileSwitch():
@@ -1281,7 +1250,6 @@ def isAddonUpdatingSupported():
 	if not versionInfo.updateVersionType:
 		return SPLUpdateErrorSource
 	# NVDA 2018.1 and later.
-	import config
 	if hasattr(config, "isAppX") and config.isAppX:
 		return SPLUpdateErrorAppx
 	# Provided that NVDA issue 3208 is implemented.

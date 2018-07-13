@@ -332,6 +332,8 @@ def _populateCarts(carts, cartlst, modifier, standardEdition=False, refresh=Fals
 	# The real cart string parser, a helper for cart explorer for building cart entries.
 	# 5.2: Discard number row if SPL Standard is in use.
 	if standardEdition: cartlst = cartlst[:12]
+	# 18.08 (optimization): this is number row (except on Studio Standard), so assign identifier based on the below static list.
+	numberRow = "1234567890-="
 	for entry in cartlst:
 		# An unassigned cart is stored with three consecutive commas, so skip it.
 		# 17.04: If refresh is on, the cart we're dealing with is the actual carts dictionary that was built previously.
@@ -343,10 +345,8 @@ def _populateCarts(carts, cartlst, modifier, standardEdition=False, refresh=Fals
 		if not entry.startswith('"'): cartName = entry.split(",")[0]
 		else: cartName = entry.split('"')[1]
 		if pos <= 12: identifier = "f%s"%(pos)
-		elif 12 < pos < 22: identifier = str(pos-12)
-		elif pos == 22: identifier = "0"
-		elif pos == 23: identifier = "-"
-		else: identifier = "="
+		# For number row (except Studio Standard), subtract 13 because pos starts at 1, so by the time it comes to number row, it'll be 13.
+		else: identifier = numberRow[pos-13]
 		cart = identifier if not modifier else "+".join([modifier, identifier])
 		if noEntry and refresh:
 			if cart in carts: del carts[cart]
