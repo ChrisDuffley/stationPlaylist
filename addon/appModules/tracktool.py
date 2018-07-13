@@ -12,7 +12,6 @@ import ui
 import scriptHandler
 from NVDAObjects.IAccessible import IAccessible, sysListView32
 from splstudio import splconfig, SPLTrackItem
-from splstudio.splmisc import _getColumnContent
 addonHandler.initTranslation()
 
 # Track Tool allows a broadcaster to manage track intros, cues and so forth. Each track is a list item with descriptions such as title, file name, intro time and so forth.

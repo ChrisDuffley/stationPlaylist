@@ -13,7 +13,6 @@ import ui
 import scriptHandler
 from NVDAObjects.IAccessible import IAccessible, sysListView32
 from splstudio import splconfig, SPLTrackItem
-from splstudio.splmisc import _getColumnContent
 addonHandler.initTranslation()
 
 # Return a tuple of column headers.
