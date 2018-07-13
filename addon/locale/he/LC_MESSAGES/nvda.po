@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 5.5\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2015-09-25 19:00+1000\n"
-"PO-Revision-Date: 2018-02-13 02:43+0100\n"
+"PO-Revision-Date: 2018-07-08 09:41-0700\n"
 "Last-Translator: shmuel_naaman@yahoo.com\n"
 "Language-Team: \n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 1.8.9\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Translators: Presented when attempting to install Studio add-on on unsupported Windows releases.
@@ -2219,15 +2219,3 @@ msgid ""
 msgstr ""
 "מנגיש את תוכנת StationPlaylist  Studio  .  \n"
 "בנוסף, מאפשר ביצוע פקודות מכל מקום אחר במחשב."
-
-#~ msgid "No artist"
-#~ msgstr "אין שם מבצע"
-
-#~ msgid "Artist: {artistName}"
-#~ msgstr "שם המבצע: {artistName}"
-
-#~ msgid "Introduction not set"
-#~ msgstr "הקדימון לא הוגדר"
-
-#~ msgid "Error checking for update."
-#~ msgstr "שגיאת בדיקת עדכון."

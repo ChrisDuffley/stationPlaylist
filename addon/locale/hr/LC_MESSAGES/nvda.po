@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 3.3\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2014-11-28 19:00+1000\n"
-"PO-Revision-Date: 2017-11-05 13:37+0100\n"
+"PO-Revision-Date: 2018-07-08 09:42-0700\n"
 "Last-Translator: zvonimir Stanecic <zvonimirek222@yandex.com>\n"
 "Language-Team: \n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.10\n"
+"X-Generator: Poedit 1.8.9\n"
 
 #. Translators: Presented when attempting to install Studio add-on on unsupported Windows releases.
 msgid ""
@@ -2290,15 +2290,3 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist Studio.\n"
 "Također, dodaje komande za studio bilo gdje."
-
-#~ msgid "No artist"
-#~ msgstr "Nema autora "
-
-#~ msgid "Artist: {artistName}"
-#~ msgstr "Izvođač: {artistName}"
-
-#~ msgid "Introduction not set"
-#~ msgstr "Uvod nije postavljen "
-
-#~ msgid "Error checking for update."
-#~ msgstr "Greška prilikom provjere ažuriranja"

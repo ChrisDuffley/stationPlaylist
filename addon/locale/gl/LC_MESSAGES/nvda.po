@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-06-26 18:13+0100\n"
+"PO-Revision-Date: 2018-07-08 09:40-0700\n"
 "Last-Translator: Iván Novegil <ivan.novegil.cancelas@gmail.com>\n"
 "Language-Team: Add-ons translation team <oprisniki@gmail.com>\n"
 "Language: gl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.6.11\n"
+"X-Generator: Poedit 1.8.9\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Presented when attempting to install Studio add-on on unsupported Windows releases.
@@ -2343,15 +2343,3 @@ msgid ""
 msgstr ""
 "Mellora o soporte para Station Playlist Studio.\n"
 "Ademáis, engade ordes globais para o estudio dende calquera parte."
-
-#~ msgid "No artist"
-#~ msgstr "Non hai artista"
-
-#~ msgid "Artist: {artistName}"
-#~ msgstr "Artista: {artistName}"
-
-#~ msgid "Introduction not set"
-#~ msgstr "Non se estableciu introducción"
-
-#~ msgid "Error checking for update."
-#~ msgstr "Erro procurando actualización."
