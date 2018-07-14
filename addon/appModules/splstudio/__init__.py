@@ -190,7 +190,7 @@ class SPLStudioTrackItem(SPLTrackItem):
 		# initialize column navigation tracker.
 		if self.__class__._curColumnNumber is None: self.__class__._curColumnNumber = 0
 		if splconfig.SPLConfig["General"]["CategorySounds"]:
-			category = self._getColumnContent(self.indexOf("Category"))
+			category = self._getColumnContentRaw(self.indexOf("Category"))
 			if category in _SPLCategoryTones:
 				tones.beep(_SPLCategoryTones[category], 50)
 		# LTS: Comments please.
@@ -206,7 +206,7 @@ class SPLStudioTrackItem(SPLTrackItem):
 				if header in columnsToInclude:
 					index = self.indexOf(header)
 					if index is None: continue # Header not found, mostly encountered in Studio 5.0x.
-					content = self._getColumnContent(index)
+					content = self._getColumnContentRaw(index)
 					if content:
 						descriptionPieces.append("%s: %s"%(header, content) if includeColumnHeaders else content)
 			self.description = ", ".join(descriptionPieces)
@@ -240,6 +240,8 @@ class SPLStudioTrackItem(SPLTrackItem):
 	# Locate column content.
 	# This is merely the proxy of the module level function defined in the misc module.
 	# 18.08 optimization: use SysLissstView32.ListItem's column content getter but if raw flag is on.
+	# 18.09: kept in LTS.
+	# 18.10: removed.
 	def _getColumnContent(self, col, raw=True):
 		return self._getColumnContentRaw(col) if raw else super(SPLStudioTrackItem, self)._getColumnContent(col)
 
@@ -263,7 +265,7 @@ class SPLStudioTrackItem(SPLTrackItem):
 		# #65 (18.08): use column header method (at least the method body) provided by the class itself.
 		# This will work properly if the list (parent) is (or recognized as) SysListView32.List.
 		columnHeader = header if header is not None else self._getColumnHeaderRaw(self.parent._columnOrderArray[colNumber])
-		columnContent = self._getColumnContent(self.indexOf(columnHeader))
+		columnContent = self._getColumnContentRaw(self.indexOf(columnHeader))
 		status = self.name + " " if reportStatus else ""
 		if columnContent:
 			# Translators: Standard message for announcing column content.
@@ -354,7 +356,7 @@ class SPLStudioTrackItem(SPLTrackItem):
 	# Levels indicate what should be done.
 	# 0 indicates reportFocus, subsequent levels indicate script repeat count+1.
 	def announceTrackComment(self, level):
-		filename = self._getColumnContent(self.indexOf("Filename"))
+		filename = self._getColumnContentRaw(self.indexOf("Filename"))
 		if filename is not None and filename in splconfig.trackComments:
 			if level == 0:
 				if splconfig.SPLConfig["General"]["TrackCommentAnnounce"] in ("message", "both"):
@@ -1554,7 +1556,7 @@ class AppModule(appModuleHandler.AppModule):
 	def isPlaceMarkerTrack(self, track=None):
 		if track is None: track = api.getFocusObject()
 		index = track.indexOf("Filename")
-		filename = track._getColumnContent(index)
+		filename = track._getColumnContentRaw(index)
 		if self.placeMarker == (index, filename):
 			return True
 		return False
@@ -1619,7 +1621,7 @@ class AppModule(appModuleHandler.AppModule):
 		obj = start
 		while obj not in (None, end):
 			# Technically segue.
-			segue = obj._getColumnContent(duration)
+			segue = obj._getColumnContentRaw(duration)
 			if segue not in (None, "00:00"):
 				hms = segue.split(":")
 				totalDuration += (int(hms[-2])*60) + int(hms[-1])
@@ -1666,13 +1668,13 @@ class AppModule(appModuleHandler.AppModule):
 		genres = []
 		# A specific version of the playlist duration loop is needed in order to gather statistics.
 		while obj not in (None, end):
-			segue = obj._getColumnContent(duration)
-			trackTitle = obj._getColumnContent(title)
-			categories.append(obj._getColumnContent(category))
+			segue = obj._getColumnContentRaw(duration)
+			trackTitle = obj._getColumnContentRaw(title)
+			categories.append(obj._getColumnContentRaw(category))
 			# Don't record artist and genre information for an hour marker (reported by a broadcaster).
 			if categories[-1] != "Hour Marker":
-				artists.append(obj._getColumnContent(artist))
-				genres.append(obj._getColumnContent(genre))
+				artists.append(obj._getColumnContentRaw(artist))
+				genres.append(obj._getColumnContentRaw(genre))
 			# Shortest and longest tracks.
 			# #22: assign min to the first segue in order to not forget title of the shortest track.
 			if segue and (min is None or segue < min):
@@ -2243,7 +2245,7 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: Presented when place marker cannot be set.
 			ui.message(_("No tracks found, cannot set place marker"))
 			return
-		filename = obj._getColumnContent(index)
+		filename = obj._getColumnContentRaw(index)
 		if filename:
 			self.placeMarker = (index, filename)
 			# Translators: Presented when place marker track is set.
