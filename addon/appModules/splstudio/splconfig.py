@@ -92,7 +92,6 @@ ColumnOrder = string_list(default=list("Artist","Title","Duration","Intro","Outr
 IncludedColumns = string_list(default=list("Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"))
 IncludeColumnHeaders = boolean(default=true)
 [PlaylistTranscripts]
-TranscriptFormat = option("", "txt", "htmltable", "htmllist", "mdtable", default="")
 ColumnOrder = string_list(default=list("Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"))
 IncludedColumns = string_list(default=list("Artist","Title","Duration","Intro","Outro","Category","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Filename","Time Scheduled"))
 [SayStatus]
@@ -179,7 +178,7 @@ class ConfigHub(ChainMap):
 			self._cacheConfig(self.maps[0])
 			# Remove deprecated keys.
 			# This action must be performed after caching, otherwise the newly modified profile will not be saved.
-			deprecatedKeys = {"General":"TrackDial", "Startup":"Studio500"}
+			deprecatedKeys = {"General":"TrackDial", "Startup":"Studio500", "PlaylistTranscripts":"TranscriptFormat"}
 			for section, key in deprecatedKeys.items():
 				if key in self.maps[0][section]: del self.maps[0][section][key]
 		# Moving onto broadcast profiles if any.
