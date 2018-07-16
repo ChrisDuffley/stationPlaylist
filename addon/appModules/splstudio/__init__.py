@@ -2163,12 +2163,16 @@ class AppModule(appModuleHandler.AppModule):
 			analysisBegin = min(self._analysisMarker, trackPos)
 			analysisEnd = max(self._analysisMarker, trackPos)
 			analysisRange = analysisEnd-analysisBegin+1
-			totalLength = self.playlistDurationRaw(analysisBegin, analysisEnd)
+			# #75 (18.08): use segue instead as it gives more accurate information as to the actual total duration.
+			# Add a 1 because track position subtracts it for comparison purposes.
+			# 18.10: rework this so this feature can work on track objects directly.
+			totalLength = self.playlistDuration(start=focus.parent.getChild(analysisBegin), end=focus.parent.getChild(analysisEnd+1))
+			# Playlist duration method returns raw seconds, so do not force milliseconds, and in case of multiple tracks, multiply this by 1000.
 			if analysisRange == 1:
-				self.announceTime(totalLength)
+				self.announceTime(totalLength, ms=False)
 			else:
 				# Translators: Presented when time analysis is done for a number of tracks (example output: Tracks: 3, totaling 5:00).
-				ui.message(_("Tracks: {numberOfSelectedTracks}, totaling {totalTime}").format(numberOfSelectedTracks = analysisRange, totalTime = self._ms2time(totalLength)))
+				ui.message(_("Tracks: {numberOfSelectedTracks}, totaling {totalTime}").format(numberOfSelectedTracks = analysisRange, totalTime = self._ms2time(totalLength*1000)))
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_trackTimeAnalysis.__doc__=_("Announces total length of tracks between analysis start marker and the current track")
 
