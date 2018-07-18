@@ -10,9 +10,8 @@ For more information about the add-on, read the [add-on guide][4]. For developer
 
 IMPORTANT NOTES:
 
-* This add-on requires NVDA 2017.4 or later and StationPlaylist Studio 5.10 or later.
+* This add-on requires NVDA 2018.2 or later and StationPlaylist Studio 5.10 or later.
 * If using Windows 8 or later, for best experience, disable audio ducking mode.
-* add-on 8.0/16.10 requires Studio 5.10 or later.
 * Starting from 2018, [changelogs for old add-on releases][5] will be found on GitHub. This add-on readme will list changes from version 5.0 (2015 onwards).
 * Certain add-on features (notably add-on updating) won't work under some conditions, including running NVDA in secure mode.
 * Due to tecnical limitations, you cannot install or use this add-on on Windows Store version of NVDA.
@@ -193,6 +192,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Version 18.08
 
+* Add-on settings dialog is now based on multi-category settings interface found in NVDA 2018.2. Consequently, this release requires NVDA 2018.2 or later. The old add-on settings interface is deprecated and will be removed later in 2018.
 * Pressing Control+NvDA+C to save settings will now also save Studio add-on settings (requires compatible NVDA release).
 * Added a new section (button/panel) in add-on settings to configure playlist transcripts options, which is used to configure column inclusion and ordering for this feature and other settings.
 * When creating a table-based playlist transcripts and if custom column ordering and/or column removal is in effect, NVDA will use custom column presentation order specified from add-on settings and/or not include information from removed columns.
