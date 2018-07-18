@@ -117,6 +117,8 @@ confspec.newlines = "\r\n"
 SPLConfig = None
 # The following settings can be changed in profiles:
 _mutatableSettings=("IntroOutroAlarms", "MicrophoneAlarm", "MetadataStreaming", "ColumnAnnouncement")
+# A tuple of deprecated/removed keys.
+SPLDeprecatedKeys = ("General/TrackDial", "Startup/Studio500", "PlaylistTranscripts/TranscriptFormat")
 # 7.0: Profile-specific confspec (might be removed once a more optimal way to validate sections is found).
 # Dictionary comprehension is better here.
 confspecprofiles = {sect:key for sect, key in confspec.items() if sect in _mutatableSettings}
@@ -179,8 +181,9 @@ class ConfigHub(ChainMap):
 			self._cacheConfig(self.maps[0])
 			# Remove deprecated keys.
 			# This action must be performed after caching, otherwise the newly modified profile will not be saved.
-			deprecatedKeys = {"General":"TrackDial", "Startup":"Studio500", "PlaylistTranscripts":"TranscriptFormat"}
-			for section, key in deprecatedKeys.items():
+			# For each deprecated/removed key, parse section/subsection.
+			for entry in SPLDeprecatedKeys:
+				section, key = entry.split("/")
 				if key in self.maps[0][section]: del self.maps[0][section][key]
 		# Moving onto broadcast profiles if any.
 		# 17.10: but not when only normal profile should be used.
