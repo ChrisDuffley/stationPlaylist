@@ -25,7 +25,7 @@ if not versionInfo.updateVersionType:
 	raise RuntimeError("NVDA is running from source code, add-on update check is not supported")
 # NVDA 2018.1 and later.
 import config
-if hasattr(config, "isAppX") and config.isAppX:
+if config.isAppX:
 	raise RuntimeError("This is NVDA Windows Store edition")
 import addonHandler
 # Provided that NVDA issue 3208 is implemented.
@@ -187,7 +187,7 @@ def isAddonUpdatingSupported():
 		return SPLUpdateErrorSource
 	# NVDA 2018.1 and later.
 	import config
-	if hasattr(config, "isAppX") and config.isAppX:
+	if config.isAppX:
 		return SPLUpdateErrorAppx
 	# Provided that NVDA issue 3208 is implemented.
 	if hasattr(addonHandler, "checkForAddonUpdate"):
