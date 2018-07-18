@@ -718,8 +718,12 @@ class AppModule(appModuleHandler.AppModule):
 			splbase._SPLWin = hwnd
 			debugOutput("Studio handle is %s"%hwnd)
 		# #41 (18.04): start background monitor.
-		self._SPLStudioMonitor = wx.PyTimer(self.studioAPIMonitor)
-		wx.CallAfter(self._SPLStudioMonitor.Start, 1000)
+		# 18.08: unless Studio is exiting.
+		try:
+			self._SPLStudioMonitor = wx.PyTimer(self.studioAPIMonitor)
+			wx.CallAfter(self._SPLStudioMonitor.Start, 1000)
+		except:
+			pass
 		# Remind me to broadcast metadata information.
 		# 18.04: also when delayed action is needed because metadata action handler couldn't locate Studio handle itself.
 		if splconfig.SPLConfig["General"]["MetadataReminder"] == "startup" or splmisc._delayMetadataAction:
