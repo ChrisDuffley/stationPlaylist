@@ -198,6 +198,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * When creating a table-based playlist transcripts and if custom column ordering and/or column removal is in effect, NVDA will use custom column presentation order specified from add-on settings and/or not include information from removed columns.
 * When using column navigation commands in track items (Control+Alt+home/end/left arrow/right arrow) in Studio, Creator, and Track Tool, NVDA will no longer announce wrong column data after changing column position on screen via mouse.
 * Significant improvements to NVDA's responsiveness when using column navigation commands in Creator and Track Tool. In particular, when using Creator, NVDA will respond better when using column navigation commands.
+* NVDA will no longer play error tones or appear to do nothing when attempting to add comments to tracks in Studio or when exiting NVDA while using Studio, caused by wxPython 4 compatibility issue.
 
 ## Version 18.07
 
@@ -213,7 +214,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Version 18.06.1
 
 * Fixed several compatibility issues with wxPython 4, including inability to open track finder (Control+NVDA+F), column search and time ranger finder dialogs in Studio and stream labeler dialog (F12) from encoders window.
-* While opening a find dialog from Studio and an unexpected error occurs, NVDA will present more appropriate message instead of saying that another find dialog is open.
+* While opening a find dialog from Studio and an unexpected error occurs, NVDA will present more appropriate messages instead of saying that another find dialog is open.
 * In encoders window, NVDA will no longer play error tones or appear to do nothing when attempting to open encoder settings dialog (Alt+NVDA+0).
 
 ## Version 18.06
