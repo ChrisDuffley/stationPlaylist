@@ -27,6 +27,8 @@ In addition, adds global commands for the studio from everywhere."""),
 	"addon_url" : "https://addons.nvda-project.org/",
 	# Documentation file name
 	"addon_docFileName" : "readme.html",
+	# Minimum NVDA version supported
+	"addon_minimumNVDAVersion" : "2018.2",
 	# Add-on update channel (default is stable)
 	"addon_updateChannel" : None,
 }
