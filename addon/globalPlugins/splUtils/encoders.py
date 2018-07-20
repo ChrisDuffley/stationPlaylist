@@ -359,13 +359,8 @@ class Encoder(IAccessible):
 		streamTitle = _("Stream labeler for {streamEntry}").format(streamEntry = title)
 		# Translators: The text of the stream labeler dialog.
 		streamText = _("Enter the label for this stream")
-		# In wxPython 4's text entry dialog, defaultValue is replaced by value keyword.
-		if wx.version().startswith("4"):
-			dlg = wx.TextEntryDialog(gui.mainFrame,
-			streamText, streamTitle, value=curStreamLabel)
-		else:
-			dlg = wx.TextEntryDialog(gui.mainFrame,
-			streamText, streamTitle, defaultValue=curStreamLabel)
+		dlg = wx.TextEntryDialog(gui.mainFrame,
+		streamText, streamTitle, value=curStreamLabel)
 		def callback(result):
 			if result == wx.ID_OK:
 				newStreamLabel = dlg.GetValue()
