@@ -24,9 +24,6 @@ from . import splactions
 # Python 3 preparation (a compatibility layer until Six module is included).
 rangeGen = range if py3 else xrange
 
-# Until wx.CENTER_ON_SCREEN returns...
-CENTER_ON_SCREEN = wx.CENTER_ON_SCREEN if hasattr(wx, "CENTER_ON_SCREEN") else 2
-
 # Due to syntax/variable name issues, the actual add-on settings class can be found at the end of this module.
 
 # Helper dialogs for add-on settings dialog.
@@ -64,7 +61,7 @@ class NewProfileDialog(wx.Dialog):
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
 		self.profileName.SetFocus()
-		self.Center(wx.BOTH | CENTER_ON_SCREEN)
+		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
 		parent = self.Parent
@@ -174,7 +171,7 @@ class TriggersDialog(wx.Dialog):
 		mainSizer.Add(triggersHelper.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 		mainSizer.Fit(self)
 		self.SetSizer(mainSizer)
-		self.Center(wx.BOTH | CENTER_ON_SCREEN)
+		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
 		self.instantSwitchCheckbox.SetFocus()
 
 	def onOk(self, evt):
@@ -348,7 +345,7 @@ class GeneralSettingsDialog(wx.Dialog):
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
 		self.beepAnnounceCheckbox.SetFocus()
-		self.Center(wx.BOTH | CENTER_ON_SCREEN)
+		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
 		parent = self.Parent
@@ -442,7 +439,7 @@ class AlarmsCenter(wx.Dialog):
 		mainSizer.Add(alarmsCenterHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 		mainSizer.Fit(self)
 		self.SetSizer(mainSizer)
-		self.Center(wx.BOTH | CENTER_ON_SCREEN)
+		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
 		if level in (0, 1): self.outroAlarmEntry.SetFocus()
 		elif level == 2: self.introAlarmEntry.SetFocus()
 		elif level == 3: self.micAlarmEntry.SetFocus()
@@ -539,7 +536,7 @@ class PlaylistSnapshotsDialog(wx.Dialog):
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
 		self.playlistDurationMinMaxCheckbox.SetFocus()
-		self.Center(wx.BOTH | CENTER_ON_SCREEN)
+		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
 		parent = self.Parent
@@ -626,7 +623,7 @@ class MetadataStreamingDialog(wx.Dialog):
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
 		self.checkedStreams[0].SetFocus()
-		self.Center(wx.BOTH | CENTER_ON_SCREEN)
+		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
 		global _metadataDialogOpened
@@ -728,7 +725,7 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
 		self.checkedColumns[0].SetFocus()
-		self.Center(wx.BOTH | CENTER_ON_SCREEN)
+		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
 		parent = self.Parent
@@ -813,7 +810,7 @@ class PlaylistTranscriptsDialog(wx.Dialog):
 		self.Sizer = mainSizer
 		#self.transcriptFormatsList.SetFocus()
 		transcriptColumnsButton.SetFocus()
-		self.Center(wx.BOTH | CENTER_ON_SCREEN)
+		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
 		parent = self.Parent
@@ -892,7 +889,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
 		self.columnSlots[0].SetFocus()
-		self.Center(wx.BOTH | CENTER_ON_SCREEN)
+		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
 		parent = self.Parent
@@ -957,7 +954,7 @@ class SayStatusDialog(wx.Dialog):
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
 		self.scheduledForCheckbox.SetFocus()
-		self.Center(wx.BOTH | CENTER_ON_SCREEN)
+		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
 		parent = self.Parent
@@ -1042,7 +1039,7 @@ class AdvancedOptionsDialog(wx.Dialog):
 			self.autoUpdateCheckbox.SetFocus()
 		except AttributeError:
 			self.splConPassthroughCheckbox.SetFocus()
-		self.Center(wx.BOTH | CENTER_ON_SCREEN)
+		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
 		# Preview: ask for confirmation before switching to different add-on settings interface (restart is required).
@@ -1121,7 +1118,7 @@ class ResetDialog(wx.Dialog):
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
 		self.resetInstantProfileCheckbox.SetFocus()
-		self.Center(wx.BOTH | CENTER_ON_SCREEN)
+		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
 		parent = self.Parent
