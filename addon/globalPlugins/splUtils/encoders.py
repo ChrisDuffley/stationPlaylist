@@ -420,7 +420,7 @@ class Encoder(IAccessible):
 		streamEraserTitle = _("Stream label and settings eraser")
 		# Translators: The text of the stream configuration eraser dialog.
 		streamEraserText = _("Enter the position of the encoder you wish to delete or will delete")
-		# 17.12: wxPython 4 does not have number entry dialog, so replace it with a combo box.
+		# 17.12: early versions of wxPython 4 does not have number entry dialog, so replace it with a combo box.
 		dlg = wx.SingleChoiceDialog(gui.mainFrame,
 		streamEraserText, streamEraserTitle, choices=choices)
 		dlg.SetSelection(self.IAccessibleChildID-1)
