@@ -190,6 +190,14 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 18.09-LTS
+
+Version 18.09.x is the last release series to support Studio 5.10 and based on old technologies, with 18.10 and later supporting Studio 5.11 and new features.
+
+* Requires NVDA 2018.3 or later due to introduction of wxPython 4.
+* Add-on settings is now fully based on multi-page interface derived from NVDA 2018.2 and later.
+* Pressing Control+NvDA+C to save settings will now also save Studio add-on settings (requires compatible NVDA release).
+
 ## Version 18.08
 
 * Add-on settings dialog is now based on multi-category settings interface found in NVDA 2018.2. Consequently, this release requires NVDA 2018.2 or later. The old add-on settings interface is deprecated and will be removed later in 2018.
