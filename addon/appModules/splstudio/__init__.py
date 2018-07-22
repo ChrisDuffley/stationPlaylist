@@ -1202,27 +1202,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	# SPL Config management among others.
 
-	# #6: the following experimental code will be removed in fall 2018.
-	_confui2_ = False
-
-	@property
-	def _confui2(self): return splconfig.SPLConfig["Advanced"]["ConfUI2"]
-
-	@_confui2.setter
-	def _confui2(self, flag):
-		# Tru/false
-		# This should not be set if the newer config UI isn't present.
-		if splconfui2 is None:
-			raise RuntimeError("cannot set new-style settings flag")
-		if not isinstance(flag, bool):
-			raise ValueError("this is a binary flag")
-		# No multi-category settings
-		if not hasattr(gui.settingsDialogs, "SettingsPanel"):
-			raise RuntimeError("This build of NVDA does not include multi-category settings facility")
-		self._confui2_ = flag
-
 	def script_openConfigDialog(self, gesture):
-		wx.CallAfter(splconfui.onConfigDialog if not self._confui2 else splconfui2.onConfigDialog, None)
+		wx.CallAfter(splconfui.onConfigDialog if not splconfig.SPLConfig["Advanced"]["ConfUI2"] else splconfui2.onConfigDialog, None)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_openConfigDialog.__doc__=_("Opens SPL Studio add-on configuration dialog.")
 
