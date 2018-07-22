@@ -76,7 +76,7 @@ _updatePickle = os.path.join(globalVars.appArgs.configPath, "splupdate.pickle")
 channels={
 	"stable":"https://addons.nvda-project.org/files/get.php?file=spl",
 	"try":"https://www.josephsl.net/files/nvdaaddons/getupdate.php?file=spl-try",
-	#"lts":"http://www.josephsl.net/files/nvdaaddons/getupdate.php?file=spl-ltsxp",
+	"lts":"https://www.josephsl.net/files/nvdaaddons/getupdate.php?file=spl-lts18",
 }
 
 # Available channels and their UI labels (if there's only one, channel selection list will not be shown).
@@ -84,7 +84,8 @@ channels={
 _updateChannels = [
 	("try","Test Drive Fast"),
 	("dev","Test Drive Slow"),
-	("stable","stable")
+	("stable","stable"),
+	("lts","longterm")
 ]
 
 # Come forth, update check routines.
