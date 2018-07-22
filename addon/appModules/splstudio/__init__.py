@@ -469,6 +469,7 @@ W: Weather and temperature.
 Y: Playlist modification.
 1 through 0: Announce columns via Columns Explorer (0 is tenth column slot).
 F8: Take playlist snapshots such as track count, longest track and so on.
+Shift+F8: Obtain playlist transcripts in a variety of formats.
 F9: Mark current track as start of track time analysis.
 F10: Perform track time analysis.
 F12: Switch to an instant switch profile.
@@ -502,6 +503,7 @@ W: Weather and temperature.
 Y: Playlist modification.
 1 through 0: Announce columns via Columns Explorer (0 is tenth column slot).
 F8: Take playlist snapshots such as track count, longest track and so on.
+Shift+F8: Obtain playlist transcripts in a variety of formats.
 F9: Mark current track as start of track time analysis.
 F10: Perform track time analysis.
 F12: Switch to an instant switch profile.
@@ -537,6 +539,7 @@ W: Weather and temperature.
 Y: Playlist modification.
 1 through 0: Announce columns via Columns Explorer (0 is tenth column slot).
 F8: Take playlist snapshots such as track count, longest track and so on.
+Shift+F8: Obtain playlist transcripts in a variety of formats.
 F9: Mark current track as start of track time analysis.
 F10: Perform track time analysis.
 F12: Switch to an instant switch profile.
