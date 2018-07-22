@@ -1057,8 +1057,13 @@ class AppModule(appModuleHandler.AppModule):
 			self._SPLStudioMonitor.Stop()
 			self._SPLStudioMonitor = None
 		# #54 (18.04): no more PyDeadObjectError in wxPython 4, so catch ALL exceptions until NVDA stable release with wxPython 4 is out.
+		# 18.08: call appropriate Remove function based on wxPython version in use.
+		# 18.09: use wx.Menu.Remove directly.
 		try:
-			self.prefsMenu.RemoveItem(self.SPLSettings)
+			if wx.version().startswith("4"):
+				self.prefsMenu.Remove(self.SPLSettings)
+			else:
+				self.prefsMenu.RemoveItem(self.SPLSettings)
 		except: #(RuntimeError, AttributeError):
 			pass
 		# Tell the handle finder thread it's time to leave this world.
