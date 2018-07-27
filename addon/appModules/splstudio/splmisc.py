@@ -686,7 +686,7 @@ SPLPlaylistTranscriptFormats.append(("htmllist", playlist2htmlList, "Data list i
 def playlist2mdTable(start, end, transcriptAction):
 	playlistTranscripts = []
 	columnHeaders = columnPresentationOrder()
-	playlistTranscripts.append("| {0} |\n".format(columnHeaders))
+	playlistTranscripts.append("| {headers} |\n".format(headers = " | ".join(columnHeaders)))
 	obj = start
 	columnPos = [obj.indexOf(column) for column in columnHeaders]
 	while obj not in (None, end):

@@ -702,7 +702,11 @@ class AppModule(appModuleHandler.AppModule):
 			splupdate.initialize()
 		# Display startup dialogs if any.
 		# 17.10: not when minimal startup flag is set.
-		if not globalVars.appArgs.minimal: wx.CallAfter(splconfig.showStartupDialogs)
+		# 18.08.1: sometimes, wxPython 4 says wx.App isn't ready.
+		try:
+			if not globalVars.appArgs.minimal: wx.CallAfter(splconfig.showStartupDialogs)
+		except:
+			pass
 
 	# Locate the handle for main window for caching purposes.
 	def _locateSPLHwnd(self):
@@ -1994,12 +1998,9 @@ class AppModule(appModuleHandler.AppModule):
 		self.announceTime(self.playlistDuration(start=obj), ms=False)
 
 	def script_sayPlaylistModified(self, gesture):
-		try:
-			obj = self.status(self.SPLSystemStatus).getChild(5)
-			ui.message(obj.name)
-		except IndexError:
-			# Translators: Presented when playlist modification is unavailable (for Studio 4.33 and earlier)
-			ui.message(_("Playlist modification not available"))
+		obj = self.status(self.SPLSystemStatus).getChild(5)
+		# Translators: presented when playlist modification message isn't shown.
+		ui.message(obj.name if obj.name else _("Playlist modification not available"))
 
 	def script_sayNextTrackTitle(self, gesture):
 		if not splbase.studioIsRunning():
@@ -2052,7 +2053,7 @@ class AppModule(appModuleHandler.AppModule):
 		try:
 			obj = self.status(self.SPLTemperature).firstChild
 			# Translators: Presented when there is no weather or temperature information.
-			ui.message(_("Weather and temperature not configured")) if obj.name is None else ui.message(obj.name)
+			ui.message(obj.name if obj.name else _("Weather and temperature not configured"))
 		except RuntimeError:
 			# Translators: Presented when temperature information cannot be found.
 			ui.message(_("Weather information not found"))
@@ -2092,15 +2093,11 @@ class AppModule(appModuleHandler.AppModule):
 	def script_sayListenerCount(self, gesture):
 		obj = self.status(self.SPLSystemStatus).getChild(3)
 		# Translators: Presented when there is no listener count information.
-		ui.message(obj.name) if obj.name is not None else ui.message(_("Listener count not found"))
+		ui.message(obj.name if obj.name else _("Listener count not found"))
 
 	def script_sayTrackPitch(self, gesture):
-		try:
-			obj = self.status(self.SPLSystemStatus).getChild(4)
-			ui.message(obj.name)
-		except IndexError:
-			# Translators: Presented when there is no information on song pitch (for Studio 4.33 and earlier).
-			ui.message(_("Song pitch not available"))
+		obj = self.status(self.SPLSystemStatus).getChild(4)
+		ui.message(obj.name)
 
 	# Few toggle/misc scripts that may be excluded from the layer later.
 
@@ -2269,7 +2266,8 @@ class AppModule(appModuleHandler.AppModule):
 	def script_metadataStreamingAnnouncer(self, gesture):
 		# 8.0: Call the module-level function directly.
 		# 18.04: obtain results via the misc module.
-		ui.message(splmisc.metadataStatus(handle=splbase._SPLWin))
+		# 18.08.1: metadata status function takes no arguments.
+		ui.message(splmisc.metadataStatus())
 
 	# Gesture(s) for the following script cannot be changed by users.
 	def script_metadataEnabled(self, gesture):
