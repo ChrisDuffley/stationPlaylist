@@ -45,11 +45,9 @@ msgstr "{header}: blank"
 msgid "{header}: ()"
 msgstr "{header}: ()"
 
-#. Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
-#. Translators: Presented when a specific column header is not found.
-#, python-brace-format
-msgid "{headerText} not found"
-msgstr "{headerText} nieznaleziono"
+#. Translators: Presented when microphone has been active for a while.
+msgid "Microphone active"
+msgstr "mikrofon aktywny"
 
 #. Translators: presented when column information for a track is empty.
 msgid "blank"
@@ -60,9 +58,16 @@ msgstr ""
 msgid "Track data"
 msgstr "Intro"
 
-#. Translators: Presented when microphone has been active for a while.
-msgid "Microphone active"
-msgstr "mikrofon aktywny"
+#. Translators: Presented when a specific column header is not found.
+#, python-brace-format
+msgid "{headerText} not found"
+msgstr "{headerText} nieznaleziono"
+
+#. Translators: input help mode message for column explorer commands.
+msgid ""
+"Pressing once announces data for a track column, pressing twice will present "
+"column data in a browse mode window"
+msgstr ""
 
 #. Translators: location text for a playlist item (example: item 1 of 10).
 #, python-brace-format
@@ -83,12 +88,6 @@ msgstr "{checkStatus}{header}: Nie ma"
 #, python-brace-format
 msgid "{checkStatus}{header}: ()"
 msgstr "{checkStatus}{header}: ()"
-
-#. Translators: input help mode message for column explorer commands.
-msgid ""
-"Pressing once announces data for a track column, pressing twice will present "
-"column data in a browse mode window"
-msgstr ""
 
 #. Translators: input help mode message for columns viewer command.
 msgid "Presents data for all columns in the currently selected track"
@@ -132,6 +131,7 @@ msgid "Status: {name}"
 msgstr "Status: {name}"
 
 #. Translators: The text of the help command in SPL Assistant layer.
+#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -161,6 +161,7 @@ msgid ""
 "1 through 0: Announce columns via Columns Explorer (0 is tenth column "
 "slot).\n"
 "F8: Take playlist snapshots such as track count, longest track and so on.\n"
+"Shift+F8: Obtain playlist transcripts in a variety of formats.\n"
 "F9: Mark current track as start of track time analysis.\n"
 "F10: Perform track time analysis.\n"
 "F12: Switch to an instant switch profile.\n"
@@ -200,6 +201,7 @@ msgstr ""
 "Shift+F1: Open online user guide."
 
 #. Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
+#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -231,6 +233,7 @@ msgid ""
 "1 through 0: Announce columns via Columns Explorer (0 is tenth column "
 "slot).\n"
 "F8: Take playlist snapshots such as track count, longest track and so on.\n"
+"Shift+F8: Obtain playlist transcripts in a variety of formats.\n"
 "F9: Mark current track as start of track time analysis.\n"
 "F10: Perform track time analysis.\n"
 "F12: Switch to an instant switch profile.\n"
@@ -272,6 +275,7 @@ msgstr ""
 "Shift+F1: Open online user guide."
 
 #. Translators: The text of the help command in SPL Assistant layer when Window-Eyes layer is active.
+#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -305,6 +309,7 @@ msgid ""
 "1 through 0: Announce columns via Columns Explorer (0 is tenth column "
 "slot).\n"
 "F8: Take playlist snapshots such as track count, longest track and so on.\n"
+"Shift+F8: Obtain playlist transcripts in a variety of formats.\n"
 "F9: Mark current track as start of track time analysis.\n"
 "F10: Perform track time analysis.\n"
 "F12: Switch to an instant switch profile.\n"
@@ -1392,10 +1397,24 @@ msgstr "Zastosuj zmiany do obecnego profilu"
 msgid "Manage column announcements"
 msgstr "Zarządzaj oznajmianiem kolumn"
 
+#. Translators: Title of a dialog to configure columnn seleciton for Playlist Transcripts.
+#, fuzzy
+msgid "Playlist transcript columns"
+msgstr "Statystyki playlisty"
+
 #. Translators: Help text to select columns to be announced.
 msgid ""
 "Select columns to be announced (artist and title are announced by default"
 msgstr "Wybierz kolumny: )Wykonawca i tytuł domyślnie)."
+
+#. Translators: Help text to select columns to be announced.
+#, fuzzy
+msgid ""
+"Select columns to be included in playlist transcripts (artist and title are "
+"always included"
+msgstr ""
+"Wybierz informacje wyświetlane w przeglądzie playlisty. \n"
+"\t\tKolumny liczba utworów oraz artysta są zawsze uwzględniane."
 
 #. wxPython 4 contains RearrangeList to allow item orders to be changed automatically.
 #. Because wxPython 3 doesn't include this, work around by using a variant of list box and move up/down buttons.
@@ -1411,6 +1430,31 @@ msgstr "W górę"
 #. Translators: The label for a button in column announcement dialog to change column position for the selected column.
 msgid "Move &down"
 msgstr "W dół"
+
+#. Translators: Title of a dialog to configure playlsit transcripts options.
+#, fuzzy
+msgid "Playlist transcripts settings"
+msgstr "Statystyki playlisty"
+
+#. self.availableTranscriptFormats = [output[0] for output in splmisc.SPLPlaylistTranscriptFormats]
+#. self.availableTranscriptFormats.insert(0, "")
+#. Translators: the label for a setting in SPL add-on settings to select preferred playlist transcript format.
+#. labelText = _("&Prefered transcript format:")
+#. Translators: one of the transcript format options.
+#. self.transcriptFormatsList = playlistTranscriptsHelper.addLabeledControl(labelText, wx.Choice, choices=[_("ask me every time")]+[output[2] for output in splmisc.SPLPlaylistTranscriptFormats])
+#. self.transcriptFormatsList.SetSelection(self.availableTranscriptFormats.index(parent.transcriptFormat))
+#. Translators: The label of a button to configure columns for playlist transcripts.
+#. self.availableTranscriptFormats = [output[0] for output in splmisc.SPLPlaylistTranscriptFormats]
+#. self.availableTranscriptFormats.insert(0, "")
+#. Translators: the label for a setting in SPL add-on settings to select preferred playlist transcript format.
+#. labelText = _("&Prefered transcript format:")
+#. Translators: one of the transcript format options.
+#. self.transcriptFormatsList = playlistTranscriptsHelper.addLabeledControl(labelText, wx.Choice, choices=[_("ask me every time")]+[output[2] for output in splmisc.SPLPlaylistTranscriptFormats])
+#. self.transcriptFormatsList.SetSelection(self.availableTranscriptFormats.index(splconfig.SPLConfig["PlaylistTranscripts"]["TranscriptFormat"]))
+#. Translators: The label of a button to configure columns for playlist transcripts.
+#, fuzzy
+msgid "Manage transcript columns..."
+msgstr "Zarządzaj ogłaszaniem kolumn"
 
 #. Translators: The title of Columns Explorer configuration dialog.
 msgid "Columns Explorer"
@@ -1531,6 +1575,7 @@ msgid "Confirm update interval"
 msgstr "Potwierdź czas sprawdzania aktualizacji"
 
 #. Translators: Title of the dialog to reset various add-on settings.
+#. Translators: title of a panel to reset add-on settings.
 msgid "Reset settings"
 msgstr "Wyzeruj ustawienia..."
 
@@ -1668,6 +1713,11 @@ msgstr "Eksplorator kolumn dla TrackTool"
 msgid "Columns Explorer for &SPL Creator..."
 msgstr "Eksplorator kolumn dla TrackTool"
 
+#. Translators: The label of a button to open playlist transcripts settings.
+#, fuzzy
+msgid "Playlist &transcripts..."
+msgstr "Statystyki playlisty"
+
 #. Translators: The label of a button to open status announcement dialog such as announcing listener count.
 msgid "&Status announcements..."
 msgstr "Oznajmianie statusu"
@@ -1677,6 +1727,7 @@ msgid "&Advanced options..."
 msgstr "Zaawansowane..."
 
 #. Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
+#. Translators: The label of a button to open reset dialog.
 msgid "Reset settings..."
 msgstr "Wyzeruj ustawienia..."
 
@@ -1764,6 +1815,11 @@ msgstr ""
 msgid "Broadcast profiles"
 msgstr "Profil:"
 
+#. Borrowed logic from NVDA Core's speech panel (although there is no label for this read-only text).
+#, fuzzy
+msgid "Normal profile is in use."
+msgstr "tylkoProfil standardowy jest w użyciu"
+
 #. Translators: title of a panel to configure various general add-on settings such as top and bottom announcement for playlists.
 msgid "General"
 msgstr ""
@@ -1783,15 +1839,21 @@ msgstr "Opcje metadanych"
 msgid "Column announcements"
 msgstr "Zarządzaj oznajmianiem kolumn"
 
+#. Translators: Title of a panel to configure playlsit transcripts options.
+#, fuzzy
+msgid "Playlist transcripts"
+msgstr "Statystyki playlisty"
+
 #. Translators: title of a panel to configure columns explorer settings.
 #, fuzzy
 msgid "Columns explorer"
 msgstr "Eksplorator kolumn"
 
-#. Translators: This is the label for the StationPlaylist Studio configuration dialog.
-#, fuzzy
-msgid "Studio Add-on Settings V2"
-msgstr "Ustawienia dodatku SPL"
+#. Translators: Help text explaijning what will happen when settings are reset.
+msgid ""
+"Warning! Selecting Reset button and choosing various reset options will "
+"reset add-on settings to defaults."
+msgstr ""
 
 #. Translators: Text of the dialog when another find dialog is open.
 msgid "Another find dialog is open."
@@ -2266,3 +2328,7 @@ msgid ""
 msgstr ""
 "Poprawia dostępność Station Playlist Studio.\n"
 "Ponadto, dodaje globalne komendy dla studia, dostępne z każdego miejsca."
+
+#, fuzzy
+#~ msgid "Studio Add-on Settings V2"
+#~ msgstr "Ustawienia dodatku SPL"
