@@ -2053,7 +2053,7 @@ class AppModule(appModuleHandler.AppModule):
 		try:
 			obj = self.status(self.SPLTemperature).firstChild
 			# Translators: Presented when there is no weather or temperature information.
-			ui.message(_("Weather and temperature not configured")) if obj.name is None else ui.message(obj.name)
+			ui.message(obj.name if obj.name else _("Weather and temperature not configured"))
 		except RuntimeError:
 			# Translators: Presented when temperature information cannot be found.
 			ui.message(_("Weather information not found"))
@@ -2093,7 +2093,7 @@ class AppModule(appModuleHandler.AppModule):
 	def script_sayListenerCount(self, gesture):
 		obj = self.status(self.SPLSystemStatus).getChild(3)
 		# Translators: Presented when there is no listener count information.
-		ui.message(obj.name) if obj.name is not None else ui.message(_("Listener count not found"))
+		ui.message(obj.name if obj.name else _("Listener count not found"))
 
 	def script_sayTrackPitch(self, gesture):
 		obj = self.status(self.SPLSystemStatus).getChild(4)
