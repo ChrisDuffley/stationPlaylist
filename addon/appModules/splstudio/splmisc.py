@@ -631,8 +631,20 @@ def playlist2txt(start, end, transcriptAction):
 	elif transcriptAction == 2: savePlaylistTranscriptsToFile(playlistTranscripts, "txt")
 SPLPlaylistTranscriptFormats.append(("txt", playlist2txt, "plain text with one line per entry"))
 
-def playlist2csv(): pass
-#SPLPlaylistTranscriptFormats.append(("csv", playlist2csv, "Comma-separated values"))
+def playlist2csv(start, end, transcriptAction):
+	playlistTranscripts = []
+	columnHeaders = columnPresentationOrder()
+	playlistTranscripts.append("\"{0}\"\n".format("\",\"".join([col for col in columnHeaders])))
+	obj = start
+	columnPos = [obj.indexOf(column) for column in columnHeaders]
+	while obj not in (None, end):
+		columnContents = obj._getColumnContents(columns=columnPos, readable=True)
+		playlistTranscripts.append("\"{0}\"\n".format("\",\"".join([content for content in columnContents])))
+		obj = obj.next
+	if transcriptAction == 0: displayPlaylistTranscripts(playlistTranscripts)
+	elif transcriptAction == 1: copyPlaylistTranscriptsToClipboard(playlistTranscripts)
+	elif transcriptAction == 2: savePlaylistTranscriptsToFile(playlistTranscripts, "csv")
+SPLPlaylistTranscriptFormats.append(("csv", playlist2csv, "Comma-separated values"))
 
 def playlist2htmlTable(start, end, transcriptAction):
 	if transcriptAction == 1:
