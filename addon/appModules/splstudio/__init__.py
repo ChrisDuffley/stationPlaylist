@@ -702,7 +702,11 @@ class AppModule(appModuleHandler.AppModule):
 			splupdate.initialize()
 		# Display startup dialogs if any.
 		# 17.10: not when minimal startup flag is set.
-		if not globalVars.appArgs.minimal: wx.CallAfter(splconfig.showStartupDialogs)
+		# 18.08.1: sometimes, wxPython 4 says wx.App isn't ready.
+		try:
+			if not globalVars.appArgs.minimal: wx.CallAfter(splconfig.showStartupDialogs)
+		except:
+			pass
 
 	# Locate the handle for main window for caching purposes.
 	def _locateSPLHwnd(self):
