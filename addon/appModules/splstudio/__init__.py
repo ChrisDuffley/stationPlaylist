@@ -1998,12 +1998,9 @@ class AppModule(appModuleHandler.AppModule):
 		self.announceTime(self.playlistDuration(start=obj), ms=False)
 
 	def script_sayPlaylistModified(self, gesture):
-		try:
-			obj = self.status(self.SPLSystemStatus).getChild(5)
-			ui.message(obj.name)
-		except IndexError:
-			# Translators: Presented when playlist modification is unavailable (for Studio 4.33 and earlier)
-			ui.message(_("Playlist modification not available"))
+		obj = self.status(self.SPLSystemStatus).getChild(5)
+		# Translators: presented when playlist modification message isn't shown.
+		ui.message(obj.name if obj.name else _("Playlist modification not available"))
 
 	def script_sayNextTrackTitle(self, gesture):
 		if not splbase.studioIsRunning():
