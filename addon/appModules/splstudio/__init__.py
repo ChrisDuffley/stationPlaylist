@@ -2096,12 +2096,8 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(obj.name) if obj.name is not None else ui.message(_("Listener count not found"))
 
 	def script_sayTrackPitch(self, gesture):
-		try:
-			obj = self.status(self.SPLSystemStatus).getChild(4)
-			ui.message(obj.name)
-		except IndexError:
-			# Translators: Presented when there is no information on song pitch (for Studio 4.33 and earlier).
-			ui.message(_("Song pitch not available"))
+		obj = self.status(self.SPLSystemStatus).getChild(4)
+		ui.message(obj.name)
 
 	# Few toggle/misc scripts that may be excluded from the layer later.
 
