@@ -199,6 +199,12 @@ Version 18.09.x is the last release series to support Studio 5.10 and based on o
 * Added CSV (comma-separated values) format as a playlist transcripts format.
 * Pressing Control+NvDA+C to save settings will now also save Studio add-on settings (requires compatible NVDA release).
 
+## Version 18.08.1
+
+* Fixed yet another wxPython 4 compatibility issue seen when Studio exits.
+* NVDA will announce an appropriate message when playlist modification text isn't present, commonly seen after loading an unmodified playlist or when Studio starts.
+* NVDA will no longer appear to do nothing or play error tones when trying to obtain metadata streaming status via SPL Assistant (E).
+
 ## Version 18.08
 
 * Add-on settings dialog is now based on multi-category settings interface found in NVDA 2018.2. Consequently, this release requires NVDA 2018.2 or later. The old add-on settings interface is deprecated and will be removed later in 2018.
