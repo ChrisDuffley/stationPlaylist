@@ -53,8 +53,9 @@ from . import splactions
 # Add-on manifest routine (credit: various add-on authors including Noelia Martinez).
 # Do not rely on using absolute path to open to manifest, as installation directory may change in a future NVDA Core version (highly unlikely, but...).
 _addonDir = os.path.join(os.path.dirname(__file__), "..", "..")
+SPLAddonManifest = addonHandler.Addon(_addonDir).manifest
 # Move this to the main app module in case version will be queried by users.
-SPLAddonVersion = addonHandler.Addon(_addonDir).manifest['version']
+SPLAddonVersion = SPLAddonManifest['version']
 # The Unix time stamp for add-on check time.
 SPLAddonCheck = 0
 # Update metadata storage.
@@ -75,6 +76,7 @@ _updatePickle = os.path.join(globalVars.appArgs.configPath, "splupdate.pickle")
 
 channels={
 	"stable":"https://addons.nvda-project.org/files/get.php?file=spl",
+	"dev":"https://addons.nvda-project.org/files/get.php?file=spl-dev",
 	"try":"https://www.josephsl.net/files/nvdaaddons/getupdate.php?file=spl-try",
 	"lts":"https://www.josephsl.net/files/nvdaaddons/getupdate.php?file=spl-lts18",
 }
