@@ -190,6 +190,12 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 18.08.1
+
+* Fixed yet another wxPython 4 compatibility issue seen when Studio exits.
+* NVDA will announce an appropriate message when playlist modification text isn't present, commonly seen after loading an unmodified playlist or when Studio starts.
+* NVDA will no longer appear to do nothing or play error tones when trying to obtain metadata streaming status via SPL Assistant (E).
+
 ## Version 18.08
 
 * Add-on settings dialog is now based on multi-category settings interface found in NVDA 2018.2. Consequently, this release requires NVDA 2018.2 or later. The old add-on settings interface is deprecated and will be removed later in 2018.
