@@ -234,7 +234,6 @@ def startAutoUpdateCheck(interval=None):
 		wx.CallAfter(_SPLUpdateT.Stop)
 	_SPLUpdateT = wx.PyTimer(autoUpdateCheck)
 	wx.CallAfter(_SPLUpdateT.Start, (_updateInterval if interval is None else interval) * 1000, True)
-	#updateChecker(auto=True, continuous=SPLConfig["Update"]["AutoUpdateCheck"], confUpdateInterval=SPLConfig["Update"]["UpdateInterval"])
 
 def checkForAddonUpdate():
 	updateURL = SPLUpdateURL if SPLUpdateChannel not in channels else channels[SPLUpdateChannel]
@@ -286,7 +285,6 @@ def updateChecker(auto=False, continuous=False, confUpdateInterval=1):
 	# #53 (18.05): legacy code now, as auto update check starter will take care of this and because we'll come here every day.
 	currentTime = time.time()
 	shouldCheckForUpdate = currentTime-SPLAddonCheck >= (confUpdateInterval*_updateInterval)
-	#if auto and not shouldCheckForUpdate: return
 	if not _retryAfterFailure and shouldCheckForUpdate: SPLAddonCheck = currentTime
 	# Auto disables UI portion of this function if no updates are pending.
 	try:
