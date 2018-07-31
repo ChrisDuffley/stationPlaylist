@@ -120,7 +120,7 @@ def initialize():
 		queueHandler.queueFunction(queueHandler.eventQueue, updateInit)
 
 def terminate():
-	global SPLAddonState
+	global SPLAddonState, SPLAddonCheck
 	splactions.SPLActionProfileSwitched.unregister(splupdate_actionProfileSwitched)
 	# 7.0: Turn off auto update check timer.
 	updateCheckTimerEnd()
@@ -134,6 +134,7 @@ def terminate():
 			SPLAddonState["pendingChannelChange"] = True
 		pickle.dump(SPLAddonState, file(_updatePickle, "wb"))
 	SPLAddonState = None
+	SPLAddonCheck = 0
 
 # Turn off update check timer.
 def updateCheckTimerEnd():
