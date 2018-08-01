@@ -50,12 +50,6 @@ import gui
 import wx
 from . import splactions
 
-# Add-on manifest routine (credit: various add-on authors including Noelia Martinez).
-# Do not rely on using absolute path to open to manifest, as installation directory may change in a future NVDA Core version (highly unlikely, but...).
-_addonDir = os.path.join(os.path.dirname(__file__), "..", "..")
-SPLAddonManifest = addonHandler.Addon(_addonDir).manifest
-# Move this to the main app module in case version will be queried by users.
-SPLAddonVersion = SPLAddonManifest['version']
 # The Unix time stamp for add-on check time.
 SPLAddonCheck = 0
 # Update metadata storage.
@@ -236,6 +230,12 @@ def startAutoUpdateCheck(interval=None):
 	wx.CallAfter(_SPLUpdateT.Start, (_updateInterval if interval is None else interval) * 1000, True)
 
 def checkForAddonUpdate():
+	# Add-on manifest routine (credit: various add-on authors including Noelia Martinez).
+	# Do not rely on using absolute path to open to manifest, as installation directory may change in a future NVDA Core version (highly unlikely, but...).
+	# The manifest routine is needed in this function only.
+	SPLAddonManifest = addonHandler.Addon(os.path.join(os.path.dirname(__file__), "..", "..")).manifest
+	# Move this to the main app module in case version will be queried by users (perhaps later).
+	SPLAddonVersion = SPLAddonManifest['version']
 	updateURL = SPLUpdateURL if SPLUpdateChannel not in channels else channels[SPLUpdateChannel]
 	# Skip ahead:
 	#import versionInfo
