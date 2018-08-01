@@ -36,10 +36,6 @@ import tones
 from . import splbase
 from . import splconfig
 from . import splconfui
-try:
-	from . import splconfui2
-except RuntimeError:
-	splconfui2 = None
 from . import splmisc
 from . import splactions
 import addonHandler
@@ -677,11 +673,7 @@ class AppModule(appModuleHandler.AppModule):
 		try:
 			self.prefsMenu = gui.mainFrame.sysTrayIcon.preferencesMenu
 			self.SPLSettings = self.prefsMenu.Append(wx.ID_ANY, _("SPL Studio Settings..."), _("SPL settings"))
-			# Preview
-			if not splconfig.SPLConfig["Advanced"]["ConfUI2"]:
-				gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, splconfui.onConfigDialog, self.SPLSettings)
-			else:
-				gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, splconfui2.onConfigDialog, self.SPLSettings)
+			gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, splconfui.onConfigDialog, self.SPLSettings)
 		except AttributeError:
 			debugOutput("failed to initialize GUI subsystem")
 			self.prefsMenu = None
@@ -1212,7 +1204,7 @@ class AppModule(appModuleHandler.AppModule):
 	# SPL Config management among others.
 
 	def script_openConfigDialog(self, gesture):
-		wx.CallAfter(splconfui.onConfigDialog if not splconfig.SPLConfig["Advanced"]["ConfUI2"] else splconfui2.onConfigDialog, None)
+		wx.CallAfter(splconfui.onConfigDialog, None)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_openConfigDialog.__doc__=_("Opens SPL Studio add-on configuration dialog.")
 
