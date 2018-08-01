@@ -931,20 +931,19 @@ class MetadataStreamingDialog(wx.Dialog):
 		else: labelText=_("Check to enable metadata streaming, uncheck to disable.")
 		metadataSizerHelper.addItem(wx.StaticText(self, label=labelText))
 
-		# WX's CheckListBox isn't user friendly.
+		# WX's native CheckListBox isn't user friendly.
 		# Therefore use checkboxes laid out across the top.
 		# 17.04: instead of two loops, just use one loop, with labels deriving from a stream labels tuple.
 		# Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
-		self.checkedStreams = []
 		# Add checkboxes for each stream, beginning with the DSP encoder.
-		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
-		from . import splmisc
+		# #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
+		from . import splmisc, nvdaControlsEx
 		streams = splmisc.metadataList()
+		self.checkedStreams = metadataSizerHelper.addLabeledControl(_("&Stream:"), nvdaControlsEx.CustomCheckListBox, choices=metadataStreamLabels)
 		for stream in rangeGen(5):
-			self.checkedStreams.append(sizer.addItem(wx.CheckBox(self, label=metadataStreamLabels[stream])))
-			if not configDialogActive: self.checkedStreams[-1].SetValue(streams[stream])
-			else: self.checkedStreams[-1].SetValue(self.Parent.metadataStreams[stream])
-		metadataSizerHelper.addItem(sizer.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
+			if not configDialogActive: self.checkedStreams.Check(stream, check=streams[stream])
+			else: self.checkedStreams.Check(stream, check=self.Parent.metadataStreams[stream])
+		self.checkedStreams.SetSelection(0)
 
 		if not configDialogActive:
 			# Translators: A checkbox to let metadata streaming status be applied to the currently active broadcast profile.
@@ -957,13 +956,14 @@ class MetadataStreamingDialog(wx.Dialog):
 		mainSizer.Add(metadataSizerHelper.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
-		self.checkedStreams[0].SetFocus()
+		self.checkedStreams.SetFocus()
 		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
 		global _metadataDialogOpened
 		# Prepare checkbox values first for various reasons.
-		metadataEnabled = [self.checkedStreams[url].Value for url in rangeGen(5)]
+		# #76 (18.09-LTS): traverse check list box and build boolean list accordingly.
+		metadataEnabled = [self.checkedStreams.IsChecked(url) for url in rangeGen(5)]
 		if self.configDialogActive:
 			parent = self.Parent
 			parent.metadataStreams = metadataEnabled
