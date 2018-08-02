@@ -50,7 +50,7 @@ class BroadcastProfilesPanel(gui.SettingsPanel):
 		# #6: display a read-only explanatory text.
 		if not (splconfig.SPLConfig.configInMemory or splconfig.SPLConfig.normalProfileOnly):
 			self.profileNames = list(splconfig.SPLConfig.profileNames)
-			self.profileNames[0] = _("Normal profile")
+			self.profileNames[0] = splconfig.defaultProfileName
 			# Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
 			self.profiles = broadcastProfilesHelper.addLabeledControl(_("Broadcast &profile:"), wx.Choice, choices=self.displayProfiles(list(self.profileNames)))
 			self.profiles.Bind(wx.EVT_CHOICE, self.onProfileSelection)
@@ -110,7 +110,7 @@ class BroadcastProfilesPanel(gui.SettingsPanel):
 				# 17.10: but not when config is volatile.
 				# #71 (18.07): must be done here, otherwise cache failure occurs where settings won't be saved when in fact it may have been changed from add-on settings.
 				try:
-					if selectedProfile != _("Normal profile") and selectedProfile not in splconfig._SPLCache:
+					if selectedProfile != splconfig.defaultProfileName and selectedProfile not in splconfig._SPLCache:
 						splconfig.SPLConfig._cacheConfig(splconfig.SPLConfig.profileByName(selectedProfile))
 				except NameError:
 					pass
@@ -139,7 +139,7 @@ class BroadcastProfilesPanel(gui.SettingsPanel):
 		try:
 			prevActive = self.activeProfile
 		except ValueError:
-			prevActive = _("Normal profile")
+			prevActive = splconfig.defaultProfileName
 		if self.switchProfileRenamed or self.switchProfileDeleted:
 			splconfig.SPLConfig.instantSwitch = self.switchProfile
 
@@ -285,7 +285,7 @@ class BroadcastProfilesPanel(gui.SettingsPanel):
 		try:
 			self.profiles.Selection = self.profileNames.index(self.activeProfile)
 		except ValueError:
-			self.activeProfile = _("Normal profile")
+			self.activeProfile = splconfig.defaultProfileName
 			self.profiles.Selection = 0
 		self.onProfileSelection(None)
 		self.profiles.SetFocus()
