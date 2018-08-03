@@ -313,6 +313,15 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
+## Version 18.08.1
+
+* Fixed yet another wxPython 4 compatibility issue seen when Studio exits.
+* NVDA will announce an appropriate message when playlist modification text
+  isn't present, commonly seen after loading an unmodified playlist or when
+  Studio starts.
+* NVDA will no longer appear to do nothing or play error tones when trying
+  to obtain metadata streaming status via SPL Assistant (E).
+
 ## Version 18.08
 
 * Add-on settings dialog is now based on multi-category settings interface
