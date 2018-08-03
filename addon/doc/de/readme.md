@@ -325,6 +325,15 @@ Studio-Befehle über den Touchscreen ausführen. Tippen Sie zunächst einmal
 mit drei Fingern, um in den SPL-Touchmodus zu wechseln. Verwenden Sie dann
 die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
 
+## Version 18.08.1
+
+* Fixed yet another wxPython 4 compatibility issue seen when Studio exits.
+* NVDA will announce an appropriate message when playlist modification text
+  isn't present, commonly seen after loading an unmodified playlist or when
+  Studio starts.
+* NVDA will no longer appear to do nothing or play error tones when trying
+  to obtain metadata streaming status via SPL Assistant (E).
+
 ## Version 18.08
 
 * Add-on settings dialog is now based on multi-category settings interface
