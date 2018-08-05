@@ -1009,19 +1009,17 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 
 		# Profile specific: have a map of current profile settings.
 		self._curProfileSettings = {}
-		metadataSizerHelper.addItem(wx.StaticText(self, label=_("Select the URL for metadata streaming upon request.")))
-		# WX's CheckListBox isn't user friendly.
+		# WX's native CheckListBox isn't user friendly.
 		# Therefore use checkboxes laid out across the top.
 		# 17.04: instead of two loops, just use one loop, with labels deriving from a stream labels tuple.
 		# Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
-		# #6: two loops now as actual settings will be loaded when the panel is actually shown later.
-		self.checkedStreams = []
 		# Add checkboxes for each stream, beginning with the DSP encoder.
-		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
+		# #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
+		from . import splmisc, nvdaControlsEx
+		self.checkedStreams = metadataSizerHelper.addLabeledControl(_("&Select the URL for metadata streaming upon request:"), nvdaControlsEx.CustomCheckListBox, choices=metadataStreamLabels)
 		for stream in rangeGen(5):
-			self.checkedStreams.append(sizer.addItem(wx.CheckBox(self, label=metadataStreamLabels[stream])))
-			self.checkedStreams[-1].SetValue(splconfig._SPLDefaults["MetadataStreaming"]["MetadataEnabled"][stream])
-		metadataSizerHelper.addItem(sizer.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
+			self.checkedStreams.Check(stream, check=splconfig._SPLDefaults["MetadataStreaming"]["MetadataEnabled"][stream])
+		self.checkedStreams.SetSelection(0)
 
 	def onPanelActivated(self):
 		selectedProfile = _selectedProfile
@@ -1031,14 +1029,14 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 		if selectedProfile not in self._curProfileSettings: settings = list(curProfile["MetadataStreaming"]["MetadataEnabled"])
 		else: settings = self._curProfileSettings[selectedProfile]
 		for stream in rangeGen(5):
-			self.checkedStreams[stream].SetValue(settings[stream])
+			self.checkedStreams.Check(stream, check=settings[stream])
 		super(MetadataStreamingPanel, self).onPanelActivated()
 
 	def onPanelDeactivated(self):
 		selectedProfile = _selectedProfile
 		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
 		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
-		currentSettings = [self.checkedStreams[url].Value for url in rangeGen(5)]
+		currentSettings = [self.checkedStreams.IsChecked(url) for url in rangeGen(5)]
 		if currentSettings != curProfile["MetadataStreaming"]["MetadataEnabled"]:
 			self._curProfileSettings[selectedProfile] = currentSettings
 		super(MetadataStreamingPanel, self).onPanelDeactivated()
@@ -1048,7 +1046,8 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 		selectedProfile = _selectedProfile
 		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
 		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
-		curProfile["MetadataStreaming"]["MetadataEnabled"] = [self.checkedStreams[url].Value for url in rangeGen(5)]
+		# #76 (18.09-LTS): traverse check list box and build boolean list accordingly.
+		curProfile["MetadataStreaming"]["MetadataEnabled"] = [self.checkedStreams.IsChecked(url) for url in rangeGen(5)]
 		self._curProfileSettings.clear()
 		self._curProfileSettings = None
 
