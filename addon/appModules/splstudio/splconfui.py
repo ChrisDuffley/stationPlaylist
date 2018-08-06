@@ -982,6 +982,8 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 		except:
 			pass
 
+		# Profile specific: have a map of current profile settings.
+		self._curProfileSettings = {}
 		metadataSizerHelper.addItem(wx.StaticText(self, label=_("Select the URL for metadata streaming upon request.")))
 		# WX's CheckListBox isn't user friendly.
 		# Therefore use checkboxes laid out across the top.
@@ -999,10 +1001,22 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 	def onPanelActivated(self):
 		selectedProfile = _selectedProfile
 		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
+		# Load settings from a temp map first.
 		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
+		if selectedProfile not in self._curProfileSettings: settings = list(curProfile["MetadataStreaming"]["MetadataEnabled"])
+		else: settings = self._curProfileSettings[selectedProfile]
 		for stream in rangeGen(5):
-			self.checkedStreams[stream].SetValue(curProfile["MetadataStreaming"]["MetadataEnabled"][stream])
+			self.checkedStreams[stream].SetValue(settings[stream])
 		super(MetadataStreamingPanel, self).onPanelActivated()
+
+	def onPanelDeactivated(self):
+		selectedProfile = _selectedProfile
+		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
+		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
+		currentSettings = [self.checkedStreams[url].Value for url in rangeGen(5)]
+		if currentSettings != curProfile["MetadataStreaming"]["MetadataEnabled"]:
+			self._curProfileSettings[selectedProfile] = currentSettings
+		super(MetadataStreamingPanel, self).onPanelDeactivated()
 
 	def onSave(self):
 		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
@@ -1010,6 +1024,12 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
 		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
 		curProfile["MetadataStreaming"]["MetadataEnabled"] = [self.checkedStreams[url].Value for url in rangeGen(5)]
+		self._curProfileSettings.clear()
+		self._curProfileSettings = None
+
+	def onDiscard(self):
+		self._curProfileSettings.clear()
+		self._curProfileSettings = None
 
 # Column announcement manager.
 # Select which track columns should be announced and in which order.
