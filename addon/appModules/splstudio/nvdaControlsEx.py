@@ -6,14 +6,12 @@
 
 # Used in SPL add-on until merged into NVDA directly (Joseph Lee)
 
-import wx
-from wx.lib.mixins import listctrl as listmix
+from nvdaBuiltin.gui.nvdaControls import *
 from . import accPropServer
 import oleacc
 import winUser
 import comtypes
 from comtypes import GUID
-from gui import nvdaControls
 
 # Apart from certain controls from check list box and friends, it is identical to NVDA Core version.
 
@@ -21,7 +19,7 @@ from gui import nvdaControls
 #Use these to look up the GUID needed when implementing a server.
 #Number of digits Format: "{8-4-4-4-12}"
 PROPID_ACC_NAME = GUID("{608d3df8-8128-4aa7-a428-f55e49267291}")
-PROPID_ACC_VALUE             = GUID("{123fe443-211a-4615-9527-c45a7e93717a}")
+PROPID_ACC_VALUE = GUID("{123fe443-211a-4615-9527-c45a7e93717a}")
 PROPID_ACC_DESCRIPTION = GUID("{4d48dfe4-bd3f-491f-a648-492d6f20c588}")
 PROPID_ACC_ROLE = GUID("{CB905FF2-7BD1-4C05-B3C8-E6C241364D70}")
 PROPID_ACC_STATE = GUID("{A8D4D5B0-0A21-42D0-A5C0-514E984F457B}")
@@ -94,7 +92,7 @@ class CustomCheckListBox(wx.CheckListBox):
 		evt.Skip()
 		winUser.user32.NotifyWinEvent(winUser.EVENT_OBJECT_STATECHANGE, self.Handle, winUser.OBJID_CLIENT, evt.Selection+1)
 
-class AutoWidthColumnCheckListCtrl(nvdaControls.AutoWidthColumnListCtrl, listmix.CheckListCtrlMixin):
+class AutoWidthColumnCheckListCtrl(AutoWidthColumnListCtrl, listmix.CheckListCtrlMixin):
 	"""
 	An L{AutoWidthColumnListCtrl} with accessible checkboxes per item.
 	In contrast with L{CustomCheckableListBox}, this class supports multiple columns.
