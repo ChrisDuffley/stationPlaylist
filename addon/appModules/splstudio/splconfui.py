@@ -767,6 +767,8 @@ class AlarmsPanel(gui.SettingsPanel):
 	def makeSettings(self, settingsSizer):
 		alarmsCenterHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
+		# #77 (18.09-LTS): record temporary settings.
+		self._curProfileSettings = {}
 		self.outroAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&End of track alarm in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=59, initial=splconfig._SPLDefaults["IntroOutroAlarms"]["EndOfTrackTime"])
 		self.outroToggleCheckBox=alarmsCenterHelper.addItem(wx.CheckBox(self, label=_("&Notify when end of track is approaching")))
 		self.outroToggleCheckBox.SetValue(splconfig._SPLDefaults["IntroOutroAlarms"]["SayEndOfTrack"])
@@ -797,13 +799,30 @@ class AlarmsPanel(gui.SettingsPanel):
 		selectedProfile = _selectedProfile
 		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
 		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
-		self.outroAlarmEntry.SetValue(curProfile["IntroOutroAlarms"]["EndOfTrackTime"])
-		self.outroToggleCheckBox.SetValue(curProfile["IntroOutroAlarms"]["SayEndOfTrack"])
-		self.introAlarmEntry.SetValue(curProfile["IntroOutroAlarms"]["SongRampTime"])
-		self.introToggleCheckBox.SetValue(curProfile["IntroOutroAlarms"]["SaySongRamp"])
-		self.micAlarmEntry.SetValue(curProfile["MicrophoneAlarm"]["MicAlarm"])
-		self.micIntervalEntry.SetValue(curProfile["MicrophoneAlarm"]["MicAlarmInterval"])
+		if selectedProfile not in self._curProfileSettings: settings = dict(curProfile)
+		else: settings = dict(self._curProfileSettings[selectedProfile])
+		self.outroAlarmEntry.SetValue(settings["IntroOutroAlarms"]["EndOfTrackTime"])
+		self.outroToggleCheckBox.SetValue(settings["IntroOutroAlarms"]["SayEndOfTrack"])
+		self.introAlarmEntry.SetValue(settings["IntroOutroAlarms"]["SongRampTime"])
+		self.introToggleCheckBox.SetValue(settings["IntroOutroAlarms"]["SaySongRamp"])
+		self.micAlarmEntry.SetValue(settings["MicrophoneAlarm"]["MicAlarm"])
+		self.micIntervalEntry.SetValue(settings["MicrophoneAlarm"]["MicAlarmInterval"])
 		super(AlarmsPanel, self).onPanelActivated()
+
+	def onPanelDeactivated(self):
+		selectedProfile = _selectedProfile
+		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
+		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
+		currentSettings = {"IntroOutroAlarms": {}, "MicrophoneAlarm": {}}
+		currentSettings["IntroOutroAlarms"]["EndOfTrackTime"] = self.outroAlarmEntry.GetValue()
+		currentSettings["IntroOutroAlarms"]["SayEndOfTrack"] = self.outroToggleCheckBox.GetValue()
+		currentSettings["IntroOutroAlarms"]["SongRampTime"] = self.introAlarmEntry.GetValue()
+		currentSettings["IntroOutroAlarms"]["SaySongRamp"] = self.introToggleCheckBox.GetValue()
+		currentSettings["MicrophoneAlarm"]["MicAlarm"] = self.micAlarmEntry.GetValue()
+		currentSettings["MicrophoneAlarm"]["MicAlarmInterval"] = self.micIntervalEntry.GetValue()
+		if currentSettings != {sect:key for sect, key in curProfile.items() if sect in ("IntroOutroAlarms", "MicrophoneAlarm")}:
+			self._curProfileSettings[selectedProfile] = dict(currentSettings)
+		super(AlarmsPanel, self).onPanelDeactivated()
 
 	def onSave(self):
 		# Save global settings first, and then record profile-specific settings in appropriate profile.
@@ -817,6 +836,12 @@ class AlarmsPanel(gui.SettingsPanel):
 		curProfile["IntroOutroAlarms"]["SaySongRamp"] = self.introToggleCheckBox.GetValue()
 		curProfile["MicrophoneAlarm"]["MicAlarm"] = self.micAlarmEntry.GetValue()
 		curProfile["MicrophoneAlarm"]["MicAlarmInterval"] = self.micIntervalEntry.GetValue()
+		self._curProfileSettings.clear()
+		self._curProfileSettings = None
+
+	def onDiscard(self):
+		self._curProfileSettings.clear()
+		self._curProfileSettings = None
 
 # Playlist snapshot flags
 # For things such as checkboxes for average duration and top category count.
