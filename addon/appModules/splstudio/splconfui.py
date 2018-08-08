@@ -1189,6 +1189,8 @@ class ColumnAnnouncementsPanel(gui.SettingsPanel):
 		self.columnOrder = splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
 		# Without manual conversion below, it produces a rare bug where clicking cancel after changing column inclusion causes new set to be retained.
 		self.includedColumns = set(splconfig._SPLDefaults["ColumnAnnouncement"]["IncludedColumns"])
+		# #77 (18.09-LTS): record temporary settings.
+		self._curProfileSettings = {}
 
 		# Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
 		self.columnOrderCheckbox=colAnnouncementsHelper.addItem(wx.CheckBox(self,wx.ID_ANY,label=_("Announce columns in the &order shown on screen")))
@@ -1206,12 +1208,27 @@ class ColumnAnnouncementsPanel(gui.SettingsPanel):
 		selectedProfile = _selectedProfile
 		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
 		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
-		self.columnOrderCheckbox.SetValue(curProfile["ColumnAnnouncement"]["UseScreenColumnOrder"])
-		self.columnOrder = list(curProfile["ColumnAnnouncement"]["ColumnOrder"])
+		if selectedProfile not in self._curProfileSettings: settings = dict(curProfile)
+		else: settings = dict(self._curProfileSettings[selectedProfile])
+		self.columnOrderCheckbox.SetValue(settings["ColumnAnnouncement"]["UseScreenColumnOrder"])
+		self.columnOrder = list(settings["ColumnAnnouncement"]["ColumnOrder"])
 		# 6.1: Again convert list to set.
-		self.includedColumns = set(curProfile["ColumnAnnouncement"]["IncludedColumns"])
-		self.columnHeadersCheckbox.SetValue(curProfile["ColumnAnnouncement"]["IncludeColumnHeaders"])
+		self.includedColumns = set(settings["ColumnAnnouncement"]["IncludedColumns"])
+		self.columnHeadersCheckbox.SetValue(settings["ColumnAnnouncement"]["IncludeColumnHeaders"])
 		super(ColumnAnnouncementsPanel, self).onPanelActivated()
+
+	def onPanelDeactivated(self):
+		selectedProfile = _selectedProfile
+		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
+		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
+		currentSettings = {"ColumnAnnouncement": {}}
+		currentSettings["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.GetValue()
+		currentSettings["ColumnAnnouncement"]["ColumnOrder"] = list(self.columnOrder)
+		currentSettings["ColumnAnnouncement"]["IncludedColumns"] = set(self.includedColumns)
+		currentSettings["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.GetValue()
+		if currentSettings["ColumnAnnouncement"] != curProfile["ColumnAnnouncement"]:
+			self._curProfileSettings[selectedProfile] = dict(currentSettings)
+		super(ColumnAnnouncementsPanel, self).onPanelDeactivated()
 
 	def onSave(self):
 		selectedProfile = _selectedProfile
@@ -1221,11 +1238,15 @@ class ColumnAnnouncementsPanel(gui.SettingsPanel):
 		curProfile["ColumnAnnouncement"]["ColumnOrder"] = self.columnOrder
 		curProfile["ColumnAnnouncement"]["IncludedColumns"] = self.includedColumns
 		curProfile["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.Value
+		self._curProfileSettings.clear()
+		self._curProfileSettings = None
 
 	def onDiscard(self):
 		# 6.1: Discard changes to included columns set.
 		if self.includedColumns is not None: self.includedColumns.clear()
 		self.includedColumns = None
+		self._curProfileSettings.clear()
+		self._curProfileSettings = None
 
 	def onManageColumns(self, evt):
 		self.Disable()
