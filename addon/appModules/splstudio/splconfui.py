@@ -1075,32 +1075,24 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 
 		if not self.playlistTranscripts:
 			# Translators: Help text to select columns to be announced.
-			labelText = _("Select columns to be announced (artist and title are announced by default")
+			labelText = _("&Select columns to be announced\n(artist and title are announced by default):")
 		else:
 			# Translators: Help text to select columns to be announced.
-			labelText = _("Select columns to be included in playlist transcripts (artist and title are always included")
-		colAnnouncementsHelper.addItem(wx.StaticText(self, label=labelText))
+			labelText = _("&Select columns to be included in playlist transcripts\n(artist and title are always included):")
 
 		# Same as metadata dialog (wx.CheckListBox isn't user friendly).
 		# Gather values for checkboxes except artist and title.
 		# 6.1: Split these columns into rows.
 		# 17.04: Gather items into a single list instead of three.
-		self.checkedColumns = []
-		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
-		for column in ("Duration", "Intro", "Category", "Filename"):
-			self.checkedColumns.append(sizer.addItem(wx.CheckBox(self, label=column)))
-			self.checkedColumns[-1].SetValue(column in self.Parent.includedColumns)
-		colAnnouncementsHelper.addItem(sizer.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
-		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
-		for column in ("Outro","Year","Album","Genre","Mood","Energy"):
-			self.checkedColumns.append(sizer.addItem(wx.CheckBox(self, label=column)))
-			self.checkedColumns[-1].SetValue(column in self.Parent.includedColumns)
-		colAnnouncementsHelper.addItem(sizer.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
-		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
-		for column in ("Tempo","BPM","Gender","Rating","Time Scheduled"):
-			self.checkedColumns.append(sizer.addItem(wx.CheckBox(self, label=column)))
-			self.checkedColumns[-1].SetValue(column in self.Parent.includedColumns)
-		colAnnouncementsHelper.addItem(sizer.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
+		# #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
+		# For this one, remove Artist and Title.
+		self.Parent.includedColumns.discard("Artist")
+		self.Parent.includedColumns.discard("Title")
+		from . import nvdaControlsEx
+		checkableColumns = ("Duration","Intro","Category","Filename","Outro","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Time Scheduled")
+		self.checkedColumns = colAnnouncementsHelper.addLabeledControl(labelText, nvdaControlsEx.CustomCheckListBox, choices=checkableColumns)
+		self.checkedColumns.SetCheckedStrings(self.Parent.includedColumns)
+		self.checkedColumns.SetSelection(0)
 
 		# wxPython 4 contains RearrangeList to allow item orders to be changed automatically.
 		# Because wxPython 3 doesn't include this, work around by using a variant of list box and move up/down buttons.
@@ -1128,18 +1120,16 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 		mainSizer.Add(colAnnouncementsHelper.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
-		self.checkedColumns[0].SetFocus()
+		self.checkedColumns.SetFocus()
 		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
 		parent = self.Parent
 		parent.columnOrder = self.trackColumns.GetItems()
+		parent.includedColumns = set(self.checkedColumns.GetCheckedStrings())
 		# Make sure artist and title are always included.
 		parent.includedColumns.add("Artist")
 		parent.includedColumns.add("Title")
-		for checkbox in self.checkedColumns:
-			action = parent.includedColumns.add if checkbox.Value else parent.includedColumns.discard
-			action(checkbox.Label)
 		parent.Enable()
 		self.Destroy()
 		return
