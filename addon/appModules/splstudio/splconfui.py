@@ -1076,10 +1076,10 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 
 		if not self.playlistTranscripts:
 			# Translators: Help text to select columns to be announced.
-			labelText = _("Select columns to be announced (artist and title are announced by default")
+			labelText = _("Select columns to be announced (artist and title are announced by default)")
 		else:
 			# Translators: Help text to select columns to be announced.
-			labelText = _("Select columns to be included in playlist transcripts (artist and title are always included")
+			labelText = _("Select columns to be included in playlist transcripts (artist and title are always included)")
 		colAnnouncementsHelper.addItem(wx.StaticText(self, label=labelText))
 
 		# Same as metadata dialog (wx.CheckListBox isn't user friendly).
