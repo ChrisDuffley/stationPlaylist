@@ -192,9 +192,9 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Version 18.09-LTS
 
-Version 18.09.x is the last release series to support Studio 5.10 and based on old technologies, with 18.10 and later supporting Studio 5.11/5.20 and new features.
+Version 18.09.x is the last release series to support Studio 5.10 and based on old technologies, with 18.10 and later supporting Studio 5.11/5.20 and new features. Some new features will be backported to 18.09.x if needed.
 
-* Requires NVDA 2018.3 or later due to introduction of wxPython 4.
+* NVDA 2018.3 or later is recommended due to introduction of wxPython 4.
 * Add-on settings screen is now fully based on multi-page interface derived from NVDA 2018.2 and later.
 * When switching between settings panels, NvDA will remember current settings for profile-specific settings (alarms, column announcements, metadata streaming settings).
 * Added CSV (comma-separated values) format as a playlist transcripts format.
