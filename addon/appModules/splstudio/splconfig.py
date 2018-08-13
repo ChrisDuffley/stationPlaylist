@@ -15,7 +15,11 @@ else:
 	from cStringIO import StringIO
 	import cPickle as pickle
 from configobj import ConfigObj
-from validate import Validator
+# ConfigObj 5.1.0 and later integrates validate module.
+try:
+	from configobj.validate import Validator
+except ImportError:
+	from validate import Validator
 import time
 import datetime
 import config
