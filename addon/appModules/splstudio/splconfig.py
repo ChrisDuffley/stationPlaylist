@@ -15,7 +15,11 @@ else:
 	from cStringIO import StringIO
 	import cPickle as pickle
 from configobj import ConfigObj
-from validate import Validator
+# ConfigObj 5.1.0 and later integrates validate module.
+try:
+	from configobj.validate import Validator
+except ImportError:
+	from validate import Validator
 import time
 import datetime
 import config
@@ -473,11 +477,12 @@ class ConfigHub(ChainMap):
 				# 8.0: Bypass cache check routine if this is a new profile or if reset happened.
 				# Takes advantage of the fact that Python's "or" operator evaluates from left to right, considerably saving time.
 				if self.resetHappened or configuration.name in self.newProfiles or (configuration.name in _SPLCache and shouldSave(configuration)):
-					columnHeadersTemp2 = set(configuration["ColumnAnnouncement"]["IncludedColumns"])
+					# Without keeping a copy of config dictionary (and restoring from it later), settings will be lost when presave check runs.
+					confSettings = configuration.dict()
 					configuration["ColumnAnnouncement"]["IncludedColumns"] = list(configuration["ColumnAnnouncement"]["IncludedColumns"])
 					_preSave(configuration)
 					configuration.write()
-					configuration["ColumnAnnouncement"]["IncludedColumns"] = set(columnHeadersTemp2)
+					configuration.update(confSettings)
 					# just like normal profile, cache the profile again provided that it was done already and if options in the cache and the live profile are different.
 					if configSaveAction and configuration.name in _SPLCache: self._cacheConfig(configuration)
 
