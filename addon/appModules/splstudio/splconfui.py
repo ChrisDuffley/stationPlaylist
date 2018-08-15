@@ -10,6 +10,12 @@
 import gui
 if not hasattr(gui, "MultiCategorySettingsDialog"):
 	raise RuntimeError("no multi-category settings dialog")
+# #76 (18.09-LTS): support NVDA releases with or without checkable list.
+# 19.01/18.09.x-LTS: strictly use native checkable list box that ships with NVDA.
+if hasattr(gui.nvdaControls, "CustomCheckListBox"):
+	from gui.nvdaControls import CustomCheckListBox
+else:
+	from .nvdaControlsEx import CustomCheckListBox
 import sys
 py3 = sys.version.startswith("3")
 import os
@@ -937,9 +943,9 @@ class MetadataStreamingDialog(wx.Dialog):
 		# Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
 		# Add checkboxes for each stream, beginning with the DSP encoder.
 		# #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
-		from . import splmisc, nvdaControlsEx
+		from . import splmisc
 		streams = splmisc.metadataList()
-		self.checkedStreams = metadataSizerHelper.addLabeledControl(_("&Stream:"), nvdaControlsEx.CustomCheckListBox, choices=metadataStreamLabels)
+		self.checkedStreams = metadataSizerHelper.addLabeledControl(_("&Stream:"), CustomCheckListBox, choices=metadataStreamLabels)
 		for stream in rangeGen(5):
 			if not configDialogActive: self.checkedStreams.Check(stream, check=streams[stream])
 			else: self.checkedStreams.Check(stream, check=self.Parent.metadataStreams[stream])
@@ -1015,8 +1021,8 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 		# Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
 		# Add checkboxes for each stream, beginning with the DSP encoder.
 		# #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
-		from . import splmisc, nvdaControlsEx
-		self.checkedStreams = metadataSizerHelper.addLabeledControl(_("&Select the URL for metadata streaming upon request:"), nvdaControlsEx.CustomCheckListBox, choices=metadataStreamLabels)
+		from . import splmisc
+		self.checkedStreams = metadataSizerHelper.addLabeledControl(_("&Select the URL for metadata streaming upon request:"), CustomCheckListBox, choices=metadataStreamLabels)
 		for stream in rangeGen(5):
 			self.checkedStreams.Check(stream, check=splconfig._SPLDefaults["MetadataStreaming"]["MetadataEnabled"][stream])
 		self.checkedStreams.SetSelection(0)
@@ -1088,9 +1094,8 @@ class ColumnAnnouncementsDialog(wx.Dialog):
 		# For this one, remove Artist and Title.
 		self.Parent.includedColumns.discard("Artist")
 		self.Parent.includedColumns.discard("Title")
-		from . import nvdaControlsEx
 		checkableColumns = ("Duration","Intro","Category","Filename","Outro","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Time Scheduled")
-		self.checkedColumns = colAnnouncementsHelper.addLabeledControl(labelText, nvdaControlsEx.CustomCheckListBox, choices=checkableColumns)
+		self.checkedColumns = colAnnouncementsHelper.addLabeledControl(labelText, CustomCheckListBox, choices=checkableColumns)
 		self.checkedColumns.SetCheckedStrings(self.Parent.includedColumns)
 		self.checkedColumns.SetSelection(0)
 
