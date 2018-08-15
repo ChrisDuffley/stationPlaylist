@@ -808,8 +808,7 @@ def duplicateExists(map, profile, bits, hour, min, duration):
 	start1 = (hour*60) + min
 	end1 = start1+duration
 	# A possible duplicate may exist simply because of bits.
-	# 17.09: find a replacement for the below expression that'll work across Python releases.
-	for item in filter(lambda p: p != profile, map.keys()):
+	for item in [p for p in map.keys() if p != profile]:
 		if map[item][0] == bits:
 			entry = map[item]
 			start2 = (entry[4] * 60) + entry[5]
