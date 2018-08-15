@@ -196,6 +196,7 @@ Version 18.09.x is the last release series to support Studio 5.10 and based on o
 
 * NVDA 2018.3 or later is recommended due to introduction of wxPython 4.
 * Add-on settings screen is now fully based on multi-page interface derived from NVDA 2018.2 and later.
+* Column inclusion checkboxes for column announcement and playlist transcripts are now part of a checkable list box control.
 * When switching between settings panels, NvDA will remember current settings for profile-specific settings (alarms, column announcements, metadata streaming settings).
 * Added CSV (comma-separated values) format as a playlist transcripts format.
 * Pressing Control+NvDA+C to save settings will now also save Studio add-on settings (requires NVDA 2018.3).
