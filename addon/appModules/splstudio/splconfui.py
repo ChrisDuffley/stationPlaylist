@@ -553,7 +553,7 @@ class GeneralSettingsPanel(gui.SettingsPanel):
 		# Translators: The label for a setting in SPL add-on dialog to set message verbosity.
 		self.verbosityList = generalSettingsHelper.addLabeledControl(_("Message &verbosity:"), wx.Choice, choices=[x[1] for x in self.verbosityLevels])
 		currentVerbosity=splconfig.SPLConfig["General"]["MessageVerbosity"]
-		selection = (x for x,y in enumerate(self.verbosityLevels) if y[0]==currentVerbosity).next()
+		selection = next((x for x,y in enumerate(self.verbosityLevels) if y[0]==currentVerbosity))
 		try:
 			self.verbosityList.SetSelection(selection)
 		except:
@@ -569,7 +569,7 @@ class GeneralSettingsPanel(gui.SettingsPanel):
 		# Translators: The label for a setting in SPL add-on dialog to control braille timer.
 		self.brailleTimerList = generalSettingsHelper.addLabeledControl(_("&Braille timer:"), wx.Choice, choices=[x[1] for x in self.brailleTimerValues])
 		brailleTimerCurValue=splconfig.SPLConfig["General"]["BrailleTimer"]
-		selection = (x for x,y in enumerate(self.brailleTimerValues) if y[0]==brailleTimerCurValue).next()
+		selection = next((x for x,y in enumerate(self.brailleTimerValues) if y[0]==brailleTimerCurValue))
 		try:
 			self.brailleTimerList.SetSelection(selection)
 		except:
@@ -585,7 +585,7 @@ class GeneralSettingsPanel(gui.SettingsPanel):
 		# Translators: The label for a setting in SPL add-on dialog to control library scan announcement.
 		self.libScanList = generalSettingsHelper.addLabeledControl(_("&Library scan announcement:"), wx.Choice, choices=[x[1] for x in self.libScanValues])
 		libScanCurValue=splconfig.SPLConfig["General"]["LibraryScanAnnounce"]
-		selection = (x for x,y in enumerate(self.libScanValues) if y[0]==libScanCurValue).next()
+		selection = next((x for x,y in enumerate(self.libScanValues) if y[0]==libScanCurValue))
 		try:
 			self.libScanList.SetSelection(selection)
 		except:
@@ -620,7 +620,7 @@ class GeneralSettingsPanel(gui.SettingsPanel):
 		# Translators: the label for a setting in SPL add-on settings to set how track comments are announced.
 		self.trackCommentList = generalSettingsHelper.addLabeledControl(_("&Track comment announcement:"), wx.Choice, choices=[x[1] for x in self.trackCommentValues])
 		trackCommentCurValue=splconfig.SPLConfig["General"]["TrackCommentAnnounce"]
-		selection = (x for x,y in enumerate(self.trackCommentValues) if y[0]==trackCommentCurValue).next()
+		selection = next((x for x,y in enumerate(self.trackCommentValues) if y[0]==trackCommentCurValue))
 		try:
 			self.trackCommentList.SetSelection(selection)
 		except:
@@ -795,7 +795,7 @@ class AlarmsPanel(gui.SettingsPanel):
 		# Translators: The label for a setting in SPL add-on dialog to control alarm announcement type.
 		self.alarmAnnounceList = alarmsCenterHelper.addLabeledControl(_("&Alarm notification:"), wx.Choice, choices=[x[1] for x in self.alarmAnnounceValues])
 		alarmAnnounceCurValue=splconfig.SPLConfig["General"]["AlarmAnnounce"]
-		selection = (x for x,y in enumerate(self.alarmAnnounceValues) if y[0]==alarmAnnounceCurValue).next()
+		selection = next((x for x,y in enumerate(self.alarmAnnounceValues) if y[0]==alarmAnnounceCurValue))
 		try:
 			self.alarmAnnounceList.SetSelection(selection)
 		except:
@@ -1007,7 +1007,7 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 		# Translators: the label for a setting in SPL add-on settings to be notified that metadata streaming is enabled.
 		self.metadataList = metadataSizerHelper.addLabeledControl(_("&Metadata streaming notification and connection"), wx.Choice, choices=[x[1] for x in self.metadataValues])
 		metadataCurValue=splconfig.SPLConfig["General"]["MetadataReminder"]
-		selection = (x for x,y in enumerate(self.metadataValues) if y[0]==metadataCurValue).next()
+		selection = next((x for x,y in enumerate(self.metadataValues) if y[0]==metadataCurValue))
 		try:
 			self.metadataList.SetSelection(selection)
 		except:
@@ -1432,7 +1432,7 @@ class SayStatusPanel(gui.SettingsPanel):
 		# Translators: One of the track name announcement options.
 		("off",_("off"))]
 		self.trackAnnouncementList=sayStatusHelper.addLabeledControl(labelText, wx.Choice, choices=[x[1] for x in self.trackAnnouncements])
-		selection = (x for x,y in enumerate(self.trackAnnouncements) if y[0]==splconfig.SPLConfig["SayStatus"]["SayPlayingTrackName"]).next()
+		selection = next((x for x,y in enumerate(self.trackAnnouncements) if y[0]==splconfig.SPLConfig["SayStatus"]["SayPlayingTrackName"]))
 		try:
 			self.trackAnnouncementList.SetSelection(selection)
 		except:
@@ -1487,7 +1487,7 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 		("jfw","JAWS for Windows"),
 		("wineyes","Window-Eyes")]
 		self.compatibilityList=advOptionsHelper.addLabeledControl(labelText, wx.Choice, choices=[x[1] for x in self.compatibilityLayouts])
-		selection = (x for x,y in enumerate(self.compatibilityLayouts) if y[0]==splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]).next()
+		selection = next((x for x,y in enumerate(self.compatibilityLayouts) if y[0]==splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]))
 		try:
 			self.compatibilityList.SetSelection(selection)
 		except:
