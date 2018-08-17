@@ -12,7 +12,7 @@ import ctypes
 import weakref
 import os
 import threading
-from .csv import reader # For cart explorer.
+from _csv import reader # For cart explorer.
 import gui
 import wx
 import ui
