@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-07-08 09:36-0700\n"
+"PO-Revision-Date: 2018-07-31 20:31+0100\n"
 "Last-Translator: Iván Novegil <ivan.novegil.cancelas@gmail.com>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 1.6.11\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Presented when attempting to install Studio add-on on unsupported Windows releases.
@@ -137,7 +137,6 @@ msgid "Status: {name}"
 msgstr "Estado: {name}"
 
 #. Translators: The text of the help command in SPL Assistant layer.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -202,13 +201,14 @@ msgstr ""
 "décima columna).\n"
 "F8: toma instantáneas de la lista de reproducción como cuenta de pistas, "
 "pista más larga y así.\n"
+"Shift+F8: Obtener transcripciones de la lista de reproducción en varios "
+"formatos.\n"
 "F9: Marca la pista actual como inicio de análisis de tiempo de la pista.\n"
 "F10: Realiza el análisis de tiempo de la pista.\n"
 "F12: Cambia a un perfil de cambio instantáneo.\n"
 "Shift+F1: abre una guía de usuario en línea."
 
 #. Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -277,13 +277,14 @@ msgstr ""
 "décima columna).\n"
 "F8: toma instantáneas de la lista de reproducción como cuenta de pistas, "
 "pista más larga y así.\n"
+"Shift+F8: Obtener transcripciones de la lista de reproducción en varios "
+"formatos.\n"
 "F9: Marca la pista actual como inicio de análisis de tiempo de la pista.\n"
 "F10: Realiza el análisis de tiempo de la pista.\n"
 "F12: Cambia a un perfil de cambio instantáeo.\n"
 "Shift+F1: abre una guía de usuario en línea."
 
 #. Translators: The text of the help command in SPL Assistant layer when Window-Eyes layer is active.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -356,6 +357,8 @@ msgstr ""
 "décima columna).\n"
 "F8: toma instantáneas de la lista de reproducción como cuenta de pistas, "
 "pista más larga y así.\n"
+"Shift+F8: Obtener transcripciones de la lista de reproducción en varios "
+"formatos.\n"
 "F9: Marca la pista actual como inicio de análisis de tiempo de la pista.\n"
 "F10: Realiza el análisis de tiempo de la pista.\n"
 "F12: Cambia a un perfil de cambio instantáeo.\n"
@@ -1458,9 +1461,8 @@ msgid "Manage column announcements"
 msgstr "Administrar anunciado de columna"
 
 #. Translators: Title of a dialog to configure columnn seleciton for Playlist Transcripts.
-#, fuzzy
 msgid "Playlist transcript columns"
-msgstr "Transcripciones de listas de reproducción"
+msgstr "Columnas de la transcripción de lista de reproducción"
 
 #. Translators: Help text to select columns to be announced.
 msgid ""
@@ -1470,14 +1472,12 @@ msgstr ""
 "predeterminadamente"
 
 #. Translators: Help text to select columns to be announced.
-#, fuzzy
 msgid ""
 "Select columns to be included in playlist transcripts (artist and title are "
 "always included"
 msgstr ""
-"Selecciona información para ser incluida al obtener instantáneas de listas "
-"de reproducción.\n"
-"\t\tSiempre se incluyen la cuenta de pistas y la duración total."
+"Selecciona columnas a ser incluidas en la transcripción (artista y título se "
+"incluyen siempre"
 
 #. wxPython 4 contains RearrangeList to allow item orders to be changed automatically.
 #. Because wxPython 3 doesn't include this, work around by using a variant of list box and move up/down buttons.
@@ -1495,9 +1495,8 @@ msgid "Move &down"
 msgstr "Mover a&bajo"
 
 #. Translators: Title of a dialog to configure playlsit transcripts options.
-#, fuzzy
 msgid "Playlist transcripts settings"
-msgstr "Transcripciones de listas de reproducción"
+msgstr "Opciones de transcripciones de listas de reproducción"
 
 #. self.availableTranscriptFormats = [output[0] for output in splmisc.SPLPlaylistTranscriptFormats]
 #. self.availableTranscriptFormats.insert(0, "")
@@ -1515,9 +1514,8 @@ msgstr "Transcripciones de listas de reproducción"
 #. self.transcriptFormatsList = playlistTranscriptsHelper.addLabeledControl(labelText, wx.Choice, choices=[_("ask me every time")]+[output[2] for output in splmisc.SPLPlaylistTranscriptFormats])
 #. self.transcriptFormatsList.SetSelection(self.availableTranscriptFormats.index(splconfig.SPLConfig["PlaylistTranscripts"]["TranscriptFormat"]))
 #. Translators: The label of a button to configure columns for playlist transcripts.
-#, fuzzy
 msgid "Manage transcript columns..."
-msgstr "&Administrar anunciado de columna de la pista..."
+msgstr "Administrar columnas de la transcripción..."
 
 #. Translators: The title of Columns Explorer configuration dialog.
 msgid "Columns Explorer"
@@ -1778,9 +1776,8 @@ msgid "Columns Explorer for &SPL Creator..."
 msgstr "Explorador de Columnas para el &SPL Creator..."
 
 #. Translators: The label of a button to open playlist transcripts settings.
-#, fuzzy
 msgid "Playlist &transcripts..."
-msgstr "Transcripciones de listas de reproducción"
+msgstr "&Transcripciones de listas de reproducción..."
 
 #. Translators: The label of a button to open status announcement dialog such as announcing listener count.
 msgid "&Status announcements..."
@@ -1884,41 +1881,34 @@ msgstr ""
 "diálogo abierto antes."
 
 #. Translators: title of a panel to configure broadcast profiles.
-#, fuzzy
 msgid "Broadcast profiles"
-msgstr "&Perfil emisión:"
+msgstr "Perfiles de emisión"
 
 #. Borrowed logic from NVDA Core's speech panel (although there is no label for this read-only text).
-#, fuzzy
 msgid "Normal profile is in use."
-msgstr "Sólo el perfil normal está en uso"
+msgstr "Se está usando el perfil normal"
 
 #. Translators: title of a panel to configure various general add-on settings such as top and bottom announcement for playlists.
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #. Translators: title of a panel to configure various alarms and related settings.
-#, fuzzy
 msgid "Alarms"
-msgstr "Centro de Alarmas"
+msgstr "Alarmas"
 
 #. Translators: title of a panel to configure metadata streaming status for DSP encoder and four additional URL's.
-#, fuzzy
 msgid "Metadata streaming"
-msgstr "Opciones de metadatos de streaming"
+msgstr "Transmisión de metadatos"
 
 #. Translators: title of a panel to configure column announcements (order and what columns should be announced).
-#, fuzzy
 msgid "Column announcements"
-msgstr "Administrar anunciado de columna"
+msgstr "Anunciado de columnas"
 
 #. Translators: Title of a panel to configure playlsit transcripts options.
-#, fuzzy
 msgid "Playlist transcripts"
 msgstr "Transcripciones de listas de reproducción"
 
 #. Translators: title of a panel to configure columns explorer settings.
-#, fuzzy
 msgid "Columns explorer"
 msgstr "Explorador de Columnas"
 
@@ -1927,6 +1917,9 @@ msgid ""
 "Warning! Selecting Reset button and choosing various reset options will "
 "reset add-on settings to defaults."
 msgstr ""
+"¡Atención! Al elegir el botón Restablecer y seleccionar varias opciones de "
+"restauración se restablecerán los ajustes del complemento a los "
+"predeterminados."
 
 #. Translators: Text of the dialog when another find dialog is open.
 msgid "Another find dialog is open."
@@ -2028,19 +2021,19 @@ msgstr "Está abierto otro diálogo de transcripción de lista de reproducción.
 
 #. Translators: one of the playlist transcripts range options.
 msgid "entire playlist"
-msgstr ""
+msgstr "lista de reproducción completa"
 
 #. Translators: one of the playlist transcripts range options.
 msgid "start to current item"
-msgstr ""
+msgstr "inicio en el elemento actual"
 
 #. Translators: one of the playlist transcripts range options.
 msgid "current item to the end"
-msgstr ""
+msgstr "elemento actual al final"
 
 #. Translators: one of the playlist transcripts range options.
 msgid "current hour"
-msgstr ""
+msgstr "hora actual"
 
 #. Translators: The label in playlist transcripts dialog to select playlist transcript range.
 msgid "Transcript range:"
@@ -2051,24 +2044,20 @@ msgid "Transcript format:"
 msgstr "Formato de transcripción:"
 
 #. Translators: one of the playlist transcript actions.
-#, fuzzy
 msgid "view transcript"
-msgstr "Transcripciones de listas de reproducción"
+msgstr "ver transcripción"
 
 #. Translators: one of the playlist transcript actions.
-#, fuzzy
 msgid "copy to clipboard"
-msgstr "Comentario de pista copiado al portapapeles"
+msgstr "copiar al portapapeles"
 
 #. Translators: one of the playlist transcript actions.
-#, fuzzy
 msgid "save to file"
-msgstr "Perfil &Base:"
+msgstr "guardar en archivo"
 
 #. Translators: The label in playlist transcripts dialog to select transcript action.
-#, fuzzy
 msgid "Transcript action:"
-msgstr "Rango de transcripción:"
+msgstr "Acción para transcripción:"
 
 msgid ""
 "Did you recently tell SPL add-on to use a different update channel? If so, "

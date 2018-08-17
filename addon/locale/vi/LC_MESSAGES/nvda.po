@@ -767,7 +767,7 @@ msgstr "Đã tắt phân tích danh sách phát"
 msgid ""
 "Marks focused track as start marker for various playlist analysis commands"
 msgstr ""
-"Đánh dấu track có focus là điểm bắt đầu cho nhiều lệnh phân tích danh sách "
+"Đánh dấu track tại vị trí con trỏ là điểm bắt đầu cho nhiều lệnh phân tích danh sách "
 "phát"
 
 msgid "No tracks were added, cannot perform track time analysis"
@@ -856,11 +856,11 @@ msgstr "Trợ giúp SPL Assistant"
 
 #. Translators: The title for SPL Assistant help dialog.
 msgid "SPL Assistant help for JAWS layout"
-msgstr "Trợ giúp SPL Assistant cho Jaws"
+msgstr "Trợ giúp SPL Assistant cho kiểu phím lệnh của Jaws"
 
 #. Translators: The title for SPL Assistant help dialog.
 msgid "SPL Assistant help for Window-Eyes layout"
-msgstr "Trợ giúp SPL Assistant cho Window-Eyes"
+msgstr "Trợ giúp SPL Assistant cho kiểu phím lệnh của Window-Eyes"
 
 #. Translators: Title of the add-on update check dialog.
 msgid "Studio add-on update"
@@ -2182,7 +2182,7 @@ msgstr "&Nhãn phát thanh"
 
 #. Translators: A checkbox in encoder settings to set if NvDA should switch focus to Studio window when connected.
 msgid "&Focus to Studio when connected"
-msgstr "&Focus đến Studio khi kết nối"
+msgstr "&Chuyển về Studio khi kết nối"
 
 #. Translators: A checkbox in encoder settings to set if NvDA should play the next track when connected.
 msgid "&Play first track when connected"
@@ -2338,4 +2338,4 @@ msgid ""
 "In addition, adds global commands for the studio from everywhere."
 msgstr ""
 "Cải thiện hỗ trợ cho StationPlaylist Studio.\n"
-"Ngoài ra là thêm các lệnh toàn cục cho studio từ mọi nơi."
+"Ngoài ra là thêm các lệnh toàn cục cho studio từ bất cứ đâu."
