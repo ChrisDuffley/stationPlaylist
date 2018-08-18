@@ -106,7 +106,7 @@ def _removeEncoderID(encoderType, pos):
 			map.remove(encoderID)
 			_encoderConfigRemoved = True
 		# If not sorted, encoders will appear in random order (a downside of using sets, as their ordering is quite unpredictable).
-		currentEncoders = sorted(filter(lambda x: x.startswith(encoderType), map))
+		currentEncoders = sorted([x for x in map if x.startswith(encoderType)])
 		if len(currentEncoders) and encoderID < currentEncoders[-1]:
 			# Same algorithm as stream label remover.
 			start = 0
