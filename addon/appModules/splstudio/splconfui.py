@@ -1477,7 +1477,15 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 			# Translators: The label for a combo box to select update channel.
 			labelText = _("&Add-on update channel:")
 			self.channels=advOptionsHelper.addLabeledControl(labelText, wx.Choice, choices=[x[1] for x in splupdate._updateChannels])
-			self.channels.SetSelection(self._updateChannels.index(splupdate.SPLUpdateChannel))
+			self.channels.Bind(wx.EVT_CHOICE, self.onChannelSelection)
+			try:
+				self.channels.SetSelection(self._updateChannels.index(splupdate.SPLUpdateChannel))
+			except: # In 2018, Test Drive Fast has become part of development channel with pilot flag turned on.
+				self.channels.SetSelection(0)
+			# Translators: A checkbox to enable pilot features (with risks involved).
+			self.pilotBuildCheckbox=advOptionsHelper.addItem(wx.CheckBox(self, label=_("I want to provide early &feedback on features under development")))
+			self.pilotBuildCheckbox.SetValue(splupdate.SPLUpdateChannel == "try")
+			if splupdate.SPLUpdateChannel not in ("dev", "try"): self.pilotBuildCheckbox.Disable()
 		# Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 		self.splConPassthroughCheckbox=advOptionsHelper.addItem(wx.CheckBox(self, label=_("Allow SPL C&ontroller command to invoke SPL Assistant layer")))
 		self.splConPassthroughCheckbox.SetValue(splconfig.SPLConfig["Advanced"]["SPLConPassthrough"])
@@ -1493,19 +1501,23 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 		except:
 			pass
 
+	def onChannelSelection(self, evt):
+		# 18.09: pilot flag requires using development builds.
+		self.pilotBuildCheckbox.Enable() if self.channels.GetSelection() == 0 else self.pilotBuildCheckbox.Disable()
+
 	# Check update channel and interval here.
 	# The onSave method will just assume that it is okay to apply update channel switches and other advanced options.
 	def isValid(self):
 		if splupdate and splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone:
-			# The try (fast ring) builds aren't for the faint of heart.
-			# 17.10: nor for old Windows releases anymore.
 			if len(self._updateChannels) > 1:
-				# 17.09: present this dialog if and only if switching to fast ring from other rings.
-				if (splupdate.SPLUpdateChannel != "try" and self._updateChannels[self.channels.GetSelection()] == "try" and gui.messageBox(
-					# Translators: The confirmation prompt displayed when changing to the fastest development channel (with risks involved).
-					_("You are about to switch to the Test Drive Fast (try) builds channel, the fastest and most unstable development channel. Please note that the selected channel may come with updates that might be unstable at times and should be used for testing and sending feedback to the add-on developer. If you prefer to use stable releases, please answer no and switch to a more stable update channel. Are you sure you wish to switch to Test Drive Fast channel?"),
+				enablePilotFeatures = (self._updateChannels[self.channels.GetSelection()] == "dev"
+					and splupdate.SPLUpdateChannel != "try"
+					and self.pilotBuildCheckbox.isChecked())
+				if (enablePilotFeatures and gui.messageBox(
+					# Translators: The confirmation prompt displayed when about to enable pilot flag (with risks involved).
+					_("You are about to enable pilot features. Please note that pilot features may include functionality that might be unstable at times and should be used for testing and sending feedback to the add-on developer. If you prefer to use stable features, please answer no and uncheck pilot features checkbox. Are you sure you wish to enable pilot features?"),
 					# Translators: The title of the channel switch confirmation dialog.
-					_("Switching to unstable channel"),
+					_("Enable pilot features"),
 					wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION, self
 				) == wx.NO):
 					return False
@@ -1533,6 +1545,9 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 		# #50 (18.03): but only if add-on update facility is alive.
 		if splupdate and len(self._updateChannels) > 1:
 			updateChannel = self._updateChannels[self.channels.GetSelection()]
+			# For backward compatibility, set update channel to "try" if development channel was selected and pilot flag is on.
+			if updateChannel == "dev" and self.pilotBuildCheckbox.isChecked():
+				updateChannel = "try"
 			pendingChannelChange = splupdate.SPLUpdateChannel != updateChannel
 			splupdate.SPLUpdateChannel = updateChannel
 			if not splconfig.SPLConfig["Update"]["AutoUpdateCheck"] or pendingChannelChange:
@@ -1540,7 +1555,7 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 				if pendingChannelChange:
 					splupdate._pendingChannelChange = True
 					# Translators: A dialog message shown when add-on update channel has changed.
-					wx.CallAfter(gui.messageBox, _("You have changed the add-on update channel. You must restart NVDA for the change to take effect. Be sure to answer yes when you are asked to install the new version when prompted after restarting NVDA."),
+					wx.CallAfter(gui.messageBox, _("You have changed the add-on update channel or toggled pilot features checkbox. You must restart NVDA for the change to take effect. Be sure to answer yes when you are asked to install the new version when prompted after restarting NVDA."),
 					# Translators: Title of the update channel dialog.
 					_("Add-on update channel changed"), wx.OK|wx.ICON_INFORMATION)
 			else:
