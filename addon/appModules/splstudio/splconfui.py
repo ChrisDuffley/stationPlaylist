@@ -1483,7 +1483,7 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 			except: # In 2018, Test Drive Fast has become part of development channel with pilot flag turned on.
 				self.channels.SetSelection(0)
 			# Translators: A checkbox to enable pilot features (with risks involved).
-			self.pilotBuildCheckbox=advOptionsHelper.addItem(wx.CheckBox(self, label=_("I want to provide early &feedback on features under development")))
+			self.pilotBuildCheckbox=advOptionsHelper.addItem(wx.CheckBox(self, label=_("Pilot features: I want to test and provide early &feedback on features under development")))
 			self.pilotBuildCheckbox.SetValue(splupdate.SPLUpdateChannel == "try")
 			if splupdate.SPLUpdateChannel not in ("dev", "try"): self.pilotBuildCheckbox.Disable()
 		# Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
@@ -1512,7 +1512,7 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 			if len(self._updateChannels) > 1:
 				enablePilotFeatures = (self._updateChannels[self.channels.GetSelection()] == "dev"
 					and splupdate.SPLUpdateChannel != "try"
-					and self.pilotBuildCheckbox.isChecked())
+					and self.pilotBuildCheckbox.IsChecked())
 				if (enablePilotFeatures and gui.messageBox(
 					# Translators: The confirmation prompt displayed when about to enable pilot flag (with risks involved).
 					_("You are about to enable pilot features. Please note that pilot features may include functionality that might be unstable at times and should be used for testing and sending feedback to the add-on developer. If you prefer to use stable features, please answer no and uncheck pilot features checkbox. Are you sure you wish to enable pilot features?"),
@@ -1546,7 +1546,7 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 		if splupdate and len(self._updateChannels) > 1:
 			updateChannel = self._updateChannels[self.channels.GetSelection()]
 			# For backward compatibility, set update channel to "try" if development channel was selected and pilot flag is on.
-			if updateChannel == "dev" and self.pilotBuildCheckbox.isChecked():
+			if updateChannel == "dev" and self.pilotBuildCheckbox.IsChecked():
 				updateChannel = "try"
 			pendingChannelChange = splupdate.SPLUpdateChannel != updateChannel
 			splupdate.SPLUpdateChannel = updateChannel
