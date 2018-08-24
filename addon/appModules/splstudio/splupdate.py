@@ -148,10 +148,11 @@ SPLUpdateErrorSource = 4
 SPLUpdateErrorAppx = 5
 SPLUpdateErrorAddonsManagerUpdate = 6
 SPLUpdateErrorNoNetConnection = 7
+SPLUpdateErrorAddonUpdaterRunning = 8
 
 # These conditions are set when NVDA starts and cannot be changed at runtime, hence major errors.
 # This means no update channel selection, no retrys, etc.
-SPLUpdateMajorErrors = (SPLUpdateErrorSecureMode, SPLUpdateErrorTryBuild, SPLUpdateErrorSource, SPLUpdateErrorAppx, SPLUpdateErrorAddonsManagerUpdate)
+SPLUpdateMajorErrors = (SPLUpdateErrorSecureMode, SPLUpdateErrorTryBuild, SPLUpdateErrorSource, SPLUpdateErrorAppx, SPLUpdateErrorAddonsManagerUpdate, SPLUpdateErrorAddonUpdaterRunning)
 
 updateErrorMessages={
 	# Translators: one of the error messages when trying to update the add-on.
@@ -168,6 +169,8 @@ updateErrorMessages={
 	SPLUpdateErrorAddonsManagerUpdate: _("Cannot update add-on directly. Please check for add-on updates by going to add-ons manager."),
 	# Translators: one of the error messages when trying to update the add-on.
 	SPLUpdateErrorNoNetConnection: _("No internet connection. Please connect to the internet before checking for add-on update."),
+	# Translators: one of the error messages when trying to update the add-on.
+	SPLUpdateErrorAddonUpdaterRunning: _("Add-on Updater add-on might be running. Please use that add-on to check for updates."),
 }
 
 # Check to really make sure add-on updating is supported.
@@ -189,6 +192,10 @@ def isAddonUpdatingSupported():
 	# Provided that NVDA issue 3208 is implemented.
 	if hasattr(addonHandler, "checkForAddonUpdate"):
 		return SPLUpdateErrorAddonsManagerUpdate
+	# Temporary: Add-on Updater.
+	import globalPlugins
+	if hasattr(globalPlugins, "addonUpdater"):
+		return SPLUpdateErrorAddonUpdaterRunning
 	return SPLUpdateErrorNone
 
 def canUpdate():
