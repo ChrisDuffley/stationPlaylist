@@ -201,6 +201,10 @@ Version 18.09.x is the last release series to support Studio 5.10 and based on o
 * Added CSV (comma-separated values) format as a playlist transcripts format.
 * Pressing Control+NvDA+C to save settings will now also save Studio add-on settings (requires NVDA 2018.3).
 
+## Version 18.08.2
+
+* NVDA will no longer check for Studio add-on updates if Add-on Updater (proof of concept) add-on is installed. Consequently, add-on settings will no longer include add-on update related settings if this is the case. If using Add-on Updater, users should use features provided by this add-on to check for Studio add-on updates.
+
 ## Version 18.08.1
 
 * Fixed yet another wxPython 4 compatibility issue seen when Studio exits.
