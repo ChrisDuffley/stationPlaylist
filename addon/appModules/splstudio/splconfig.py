@@ -1252,12 +1252,13 @@ def isAddonUpdatingSupported():
 	if config.isAppX:
 		return SPLUpdateErrorAppx
 	# Provided that NVDA issue 3208 is implemented.
+	import addonHandler
 	if hasattr(addonHandler, "checkForAddonUpdate"):
 		return SPLUpdateErrorAddonsManagerUpdate
 	# Temporary: Add-on Updater.
-	import globalPlugins
-	if hasattr(globalPlugins, "addonUpdater"):
-		return SPLUpdateErrorAddonUpdaterRunning
+	#import globalPlugins
+	#if hasattr(globalPlugins, "addonUpdater"):
+		#return SPLUpdateErrorAddonUpdaterRunning
 	return SPLUpdateErrorNone
 
 def canUpdate():

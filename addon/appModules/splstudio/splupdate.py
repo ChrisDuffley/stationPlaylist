@@ -31,6 +31,10 @@ import addonHandler
 # Provided that NVDA issue 3208 is implemented.
 if hasattr(addonHandler, "checkForAddonUpdate"):
 	raise RuntimeError("NVDA itself will check for add-on updates")
+# Temporary: check of Add-on Updater add-on is running.
+#for addon in addonHandler.getAvailableAddons():
+	#if (addon.name, addon.isDisabled) == ("addonUpdater", False):
+		#raise RuntimeError("Another add-on update provider exists")
 
 import sys
 py3 = sys.version.startswith("3")
@@ -193,9 +197,9 @@ def isAddonUpdatingSupported():
 	if hasattr(addonHandler, "checkForAddonUpdate"):
 		return SPLUpdateErrorAddonsManagerUpdate
 	# Temporary: Add-on Updater.
-	import globalPlugins
-	if hasattr(globalPlugins, "addonUpdater"):
-		return SPLUpdateErrorAddonUpdaterRunning
+	#import globalPlugins
+	#if hasattr(globalPlugins, "addonUpdater"):
+		#return SPLUpdateErrorAddonUpdaterRunning
 	return SPLUpdateErrorNone
 
 def canUpdate():
