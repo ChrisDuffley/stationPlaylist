@@ -1256,9 +1256,9 @@ def isAddonUpdatingSupported():
 	if hasattr(addonHandler, "checkForAddonUpdate"):
 		return SPLUpdateErrorAddonsManagerUpdate
 	# Temporary: Add-on Updater.
-	#import globalPlugins
-	#if hasattr(globalPlugins, "addonUpdater"):
-		#return SPLUpdateErrorAddonUpdaterRunning
+	import globalPlugins
+	if hasattr(globalPlugins, "addonUpdater"):
+		return SPLUpdateErrorAddonUpdaterRunning
 	return SPLUpdateErrorNone
 
 def canUpdate():
