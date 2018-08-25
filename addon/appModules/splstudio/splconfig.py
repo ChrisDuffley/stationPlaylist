@@ -105,6 +105,7 @@ SayStudioPlayerPosition = boolean(default=false)
 SPLConPassthrough = boolean(default=false)
 CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
 ProfileTriggerThreshold = integer(min=5, max=60, default=15)
+PilotFeatures = boolean(default=false)
 [Update]
 AutoUpdateCheck = boolean(default=true)
 UpdateInterval = integer(min=0, max=180, default=30)
@@ -211,6 +212,8 @@ class ConfigHub(ChainMap):
 		# #73: listen to config save/reset actions from NVDA Core.
 		if hasattr(config, "post_configSave"):
 			config.post_configSave.register(self.handlePostConfigSave)
+		# 18.09: pilot features.
+		self._pendingPilotFeaturesToggle = False
 
 	# Various properties
 	@property
@@ -607,6 +610,22 @@ class ConfigHub(ChainMap):
 		former, current = self.profileIndexByName(prevProfile if prevProfile is not None else self.switchHistory[-1]), self.profileIndexByName(newProfile)
 		self.profiles[current], self.profiles[former] = self.profiles[former], self.profiles[current]
 		if showSwitchIndex: return current
+
+	# 18.09: determine if pilot features can be used.
+	@property
+	def canEnablePilotFeatures(self):
+		if self._pendingPilotFeaturesToggle:
+			return False
+		if splupdate is not None:
+			return splupdate.SPLUpdateChannel in ("dev", "try")
+		else:
+			import addonHandler
+			SPLAddonManifest = addonHandler.Addon(os.path.join(os.path.dirname(__file__), "..", "..")).manifest
+			return SPLAddonManifest['updateChannel'] == "dev"
+
+	@property
+	def testDrive(self):
+		return self.canEnablePilotFeatures and self["Advanced"]["PilotFeatures"]
 
 
 # Default config spec container.

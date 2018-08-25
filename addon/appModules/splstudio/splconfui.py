@@ -1500,6 +1500,12 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 			self.compatibilityList.SetSelection(selection)
 		except:
 			pass
+		# 18.09: do not duplicate this checkbox if it is already shown.
+		if not hasattr(self, "pilotBuildCheckbox"):
+			# Translators: A checkbox to enable pilot features (with risks involved).
+			self.pilotBuildCheckbox=advOptionsHelper.addItem(wx.CheckBox(self, label=_("Pilot features: I want to test and provide early &feedback on features under development")))
+			self.pilotBuildCheckbox.SetValue(splconfig.SPLConfig["Advanced"]["PilotFeatures"])
+			if not splconfig.SPLConfig.canEnablePilotFeatures: self.pilotBuildCheckbox.Disable()
 
 	def onChannelSelection(self, evt):
 		# 18.09: pilot flag requires using development builds.
@@ -1527,6 +1533,15 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 				_("Update interval has been set to zero days, so updates to the Studio add-on will be checked every time NVDA and/or Studio starts. Are you sure you wish to continue?"),
 				# Translators: The title of the update interval dialog.
 				_("Confirm update interval"),
+				wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION, self
+			) == wx.NO):
+				return False
+		else:
+			if (self.pilotBuildCheckbox.IsChecked() and gui.messageBox(
+				# Translators: The confirmation prompt displayed when about to enable pilot flag (with risks involved).
+				_("You are about to enable pilot features. Please note that pilot features may include functionality that might be unstable at times and should be used for testing and sending feedback to the add-on developer. If you prefer to use stable features, please answer no and uncheck pilot features checkbox. Are you sure you wish to enable pilot features?"),
+				# Translators: The title of the channel switch confirmation dialog.
+				_("Enable pilot features"),
 				wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION, self
 			) == wx.NO):
 				return False
@@ -1560,6 +1575,14 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 					_("Add-on update channel changed"), wx.OK|wx.ICON_INFORMATION)
 			else:
 				if splupdate._SPLUpdateT is None: splupdate.updateInit()
+		else:
+			if hasattr(self, "pilotBuildCheckbox") and self.pilotBuildCheckbox.Value != splconfig.SPLConfig["Advanced"]["PilotFeatures"]:
+				# Translators: A dialog message shown when pilot features is turned on or off.
+				wx.CallAfter(gui.messageBox, _("You have toggled pilot features checkbox. You must restart NVDA for the change to take effect."),
+				# Translators: Title of the pilot features dialog.
+				_("Pilot features"), wx.OK|wx.ICON_INFORMATION)
+				splconfig.SPLConfig["Advanced"]["PilotFeatures"] = self.pilotBuildCheckbox.Value
+				splconfig.SPLConfig._pendingPilotFeaturesToggle = True
 
 # A dialog to reset add-on config including encoder settings and others.
 class ResetDialog(wx.Dialog):
