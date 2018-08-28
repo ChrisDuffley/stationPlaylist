@@ -2302,7 +2302,13 @@ class AppModule(appModuleHandler.AppModule):
 		wx.CallAfter(gui.messageBox, SPLAssistantHelp[compatibility], title)
 
 	def script_openOnlineDoc(self, gesture):
-		os.startfile("https://github.com/josephsl/stationplaylist/wiki/SPLDevAddonGuide")
+		# 18.09: show appropriate user guide version based on currently installed channel.
+		SPLAddonManifest = addonHandler.Addon(os.path.join(os.path.dirname(__file__), "..", "..")).manifest
+		updateChannel = SPLAddonManifest.get("updateChannel")
+		if "-dev" in SPLAddonManifest['version'] or updateChannel == "dev":
+			os.startfile("https://github.com/josephsl/stationplaylist/wiki/SPLDevAddonGuide")
+		else: 
+			os.startfile("https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide")
 
 	def script_updateCheck(self, gesture):
 		self.finish()
