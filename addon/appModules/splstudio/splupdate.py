@@ -54,15 +54,18 @@ import gui
 import wx
 from . import splactions
 
+# 18.09: choose default channel/update URL combination based on which channel is currently installed.
+SPLAddonManifest = addonHandler.Addon(os.path.join(os.path.dirname(__file__), "..", "..")).manifest
+devVersion = "-dev" in SPLAddonManifest['version'] or SPLAddonManifest.get("updateChannel") == "dev"
 # The Unix time stamp for add-on check time.
 SPLAddonCheck = 0
 # Update metadata storage.
 SPLAddonState = {}
 # Update URL (the only way to change it is installing a different version from a different branch).
-SPLUpdateURL = "https://addons.nvda-project.org/files/get.php?file=spl-dev"
+SPLUpdateURL = "https://addons.nvda-project.org/files/get.php?file=spl-dev" if devVersion else "https://addons.nvda-project.org/files/get.php?file=spl"
 _pendingChannelChange = False
 _updateNow = False
-SPLUpdateChannel = "dev"
+SPLUpdateChannel = "dev" if devVersion else "stable"
 # Update check timer.
 _SPLUpdateT = None
 # How long it should wait between automatic checks.
@@ -104,7 +107,7 @@ def initialize():
 	except (IOError, KeyError):
 		SPLAddonState["PDT"] = 0
 		_updateNow = False
-		SPLUpdateChannel = "dev"
+		SPLUpdateChannel = "dev" if devVersion else "stable"
 	# Handle profile switches.
 	splactions.SPLActionProfileSwitched.register(splupdate_actionProfileSwitched)
 	# Check for add-on update if told to do so.
@@ -242,8 +245,6 @@ def startAutoUpdateCheck(interval=None):
 def checkForAddonUpdate():
 	# Add-on manifest routine (credit: various add-on authors including Noelia Martinez).
 	# Do not rely on using absolute path to open to manifest, as installation directory may change in a future NVDA Core version (highly unlikely, but...).
-	# The manifest routine is needed in this function only.
-	SPLAddonManifest = addonHandler.Addon(os.path.join(os.path.dirname(__file__), "..", "..")).manifest
 	# Move this to the main app module in case version will be queried by users (perhaps later).
 	SPLAddonVersion = SPLAddonManifest['version']
 	updateURL = SPLUpdateURL if SPLUpdateChannel not in channels else channels[SPLUpdateChannel]
