@@ -100,10 +100,6 @@ def initialize():
 		if _updateNow: del SPLAddonState["pendingChannelChange"]
 		if "UpdateChannel" in SPLAddonState:
 			SPLUpdateChannel = SPLAddonState["UpdateChannel"]
-			"""if SPLUpdateChannel in ("beta", "prerelease") or (SPLUpdateChannel == "lts" and sys.getwindowsversion().build >= 7601) or (SPLUpdateChannel in ("try", "dev") and sys.getwindowsversion().build < 7601):
-				# 17.10 to 17.12: do not touch LTS channel if Windows XP or Vista is in use.
-				SPLUpdateChannel = "dev"
-				"""
 	except (IOError, KeyError):
 		SPLAddonState["PDT"] = 0
 		_updateNow = False
@@ -248,11 +244,6 @@ def checkForAddonUpdate():
 	# Move this to the main app module in case version will be queried by users (perhaps later).
 	SPLAddonVersion = SPLAddonManifest['version']
 	updateURL = SPLUpdateURL if SPLUpdateChannel not in channels else channels[SPLUpdateChannel]
-	# Skip ahead:
-	#import versionInfo
-	#if SPLUpdateChannel == "try" and (versionInfo.version_year, versionInfo.version_major) >= (2017, 4):
-		#updateURL = "http://www.josephsl.net/files/nvdaaddons/getupdate.php?file=spl-tryahead"
-	# Skip ahead end
 	try:
 		# Look up the channel if different from the default.
 		res = urlopen(updateURL)
