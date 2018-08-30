@@ -63,8 +63,6 @@ SPLAddonCheck = 0
 SPLAddonState = {}
 # Update URL (the only way to change it is installing a different version from a different branch).
 SPLUpdateURL = "https://addons.nvda-project.org/files/get.php?file=spl-dev" if devVersion else "https://addons.nvda-project.org/files/get.php?file=spl"
-_pendingChannelChange = False
-_updateNow = False
 SPLUpdateChannel = "dev" if devVersion else "stable"
 # Update check timer.
 _SPLUpdateT = None
@@ -82,34 +80,23 @@ channels={
 	"lts":"https://www.josephsl.net/files/nvdaaddons/getupdate.php?file=spl-lts18",
 }
 
-# Available channels and their UI labels (if there's only one, channel selection list will not be shown).
-# 18.07: channels and their labels will be managed from update module instead of add-on settings to prepare for different settings interfaces.
-_updateChannels = [
-	("dev","development"),
-	("stable","stable"),
-	("lts","longterm")
-]
-
-# Come forth, update check routines.
+# Come forth, update check routines (if allowed).
 def initialize():
-	global SPLAddonState, SPLAddonCheck, _updateNow, SPLUpdateChannel
+	global SPLAddonState, SPLAddonCheck, SPLUpdateChannel
 	try:
 		SPLAddonState = pickle.load(file(_updatePickle, "r"))
 		SPLAddonCheck = SPLAddonState["PDT"]
-		_updateNow = "pendingChannelChange" in SPLAddonState
-		if _updateNow: del SPLAddonState["pendingChannelChange"]
 		if "UpdateChannel" in SPLAddonState:
 			SPLUpdateChannel = SPLAddonState["UpdateChannel"]
 	except (IOError, KeyError):
 		SPLAddonState["PDT"] = 0
-		_updateNow = False
 		SPLUpdateChannel = "dev" if devVersion else "stable"
 	# Handle profile switches.
 	splactions.SPLActionProfileSwitched.register(splupdate_actionProfileSwitched)
 	# Check for add-on update if told to do so.
 	# In case a time-based profile is active or other switch flags are on, give up, as update check will happen after a possible trigger is set.
 	from . import splconfig, spldebugging
-	if canUpdate() and splconfig.SPLConfig.switchProfileFlags == 0 and (splconfig.SPLConfig["Update"]["AutoUpdateCheck"] or _updateNow):
+	if canUpdate() and splconfig.SPLConfig.switchProfileFlags == 0 and splconfig.SPLConfig["Update"]["AutoUpdateCheck"]:
 		spldebugging.debugOutput("checking for add-on updates from %s channel"%SPLUpdateChannel)
 		# 7.0: Have a timer call the update function indirectly.
 		import queueHandler
@@ -126,8 +113,6 @@ def terminate():
 	if stateChanged:
 		SPLAddonState["PDT"] = SPLAddonCheck
 		SPLAddonState["UpdateChannel"] = SPLUpdateChannel
-		if _pendingChannelChange:
-			SPLAddonState["pendingChannelChange"] = True
 		pickle.dump(SPLAddonState, file(_updatePickle, "wb"))
 	SPLAddonState = None
 	SPLAddonCheck = 0
@@ -217,15 +202,12 @@ def autoUpdateCheck():
 	# #36: only the first part will be used later due to the fact that update checker will check current time versus next check time.
 	# #53 (18.04): vastly changed.
 	from . import splconfig
-	global _updateNow
 	currentTime = time.time()
 	updateInterval = splconfig.SPLConfig["Update"]["UpdateInterval"]
-	if not _updateNow: _updateNow = (currentTime-SPLAddonCheck >= _updateInterval * updateInterval) or updateInterval == 0
-	if _updateNow:
+	if (currentTime-SPLAddonCheck >= _updateInterval * updateInterval) or updateInterval == 0:
 		t = threading.Thread(target=updateChecker, kwargs={"auto": True, "confUpdateInterval": updateInterval}) # No repeat here.
 		t.daemon = True
 		t.start()
-		_updateNow = False
 	else: startAutoUpdateCheck(interval=divmod((SPLAddonCheck-currentTime), _updateInterval)[-1])
 
 def startAutoUpdateCheck(interval=None):
@@ -274,11 +256,7 @@ _progressDialog = None
 # Auto is whether to respond with UI (manual check only), continuous takes in auto update check variable for restarting the timer.
 # ConfUpdateInterval comes from add-on config dictionary.
 def updateChecker(auto=False, continuous=False, confUpdateInterval=1):
-	if _pendingChannelChange:
-		wx.CallAfter(gui.messageBox, _("Did you recently tell SPL add-on to use a different update channel? If so, please restart NVDA before checking for add-on updates."), _("Update channel changed"), wx.ICON_ERROR)
-		return
-	global _SPLUpdateT, SPLAddonCheck, _retryAfterFailure, _progressDialog, _updateNow
-	if _updateNow: _updateNow = False
+	global _SPLUpdateT, SPLAddonCheck, _retryAfterFailure, _progressDialog
 	from logHandler import log
 	# Regardless of whether it is an auto check, update the check time.
 	# However, this shouldnt' be done if this is a retry after a failed attempt.
