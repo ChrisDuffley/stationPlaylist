@@ -1465,27 +1465,11 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 		# The exception will be custom try builds.
 		# #50 (18.04): made simpler because the update module won't be present if updating isn't supported.
 		if splupdate and splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone:
-			self._updateChannels = [x[0] for x in splupdate._updateChannels]
 			# Translators: A checkbox to toggle automatic add-on updates.
 			self.autoUpdateCheckbox=advOptionsHelper.addItem(wx.CheckBox(self,label=_("Automatically check for add-on &updates")))
 			self.autoUpdateCheckbox.SetValue(splconfig.SPLConfig["Update"]["AutoUpdateCheck"])
 			# Translators: The label for a setting in SPL add-on settings/advanced options to select automatic update interval in days.
 			self.updateInterval=advOptionsHelper.addLabeledControl(_("Update &interval in days"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=180, initial=splconfig.SPLConfig["Update"]["UpdateInterval"])
-		else: self._updateChannels = [None]
-		# For releases that support channel switching.
-		if len(self._updateChannels) > 1:
-			# Translators: The label for a combo box to select update channel.
-			labelText = _("&Add-on update channel:")
-			self.channels=advOptionsHelper.addLabeledControl(labelText, wx.Choice, choices=[x[1] for x in splupdate._updateChannels])
-			self.channels.Bind(wx.EVT_CHOICE, self.onChannelSelection)
-			try:
-				self.channels.SetSelection(self._updateChannels.index(splupdate.SPLUpdateChannel))
-			except: # In 2018, Test Drive Fast has become part of development channel with pilot flag turned on.
-				self.channels.SetSelection(0)
-			# Translators: A checkbox to enable pilot features (with risks involved).
-			self.pilotBuildCheckbox=advOptionsHelper.addItem(wx.CheckBox(self, label=_("Pilot features: I want to test and provide early &feedback on features under development")))
-			self.pilotBuildCheckbox.SetValue(splupdate.SPLUpdateChannel == "try")
-			if splupdate.SPLUpdateChannel not in ("dev", "try"): self.pilotBuildCheckbox.Disable()
 		# Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 		self.splConPassthroughCheckbox=advOptionsHelper.addItem(wx.CheckBox(self, label=_("Allow SPL C&ontroller command to invoke SPL Assistant layer")))
 		self.splConPassthroughCheckbox.SetValue(splconfig.SPLConfig["Advanced"]["SPLConPassthrough"])
@@ -1500,33 +1484,16 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 			self.compatibilityList.SetSelection(selection)
 		except:
 			pass
-		# 18.09: do not duplicate this checkbox if it is already shown.
-		if not hasattr(self, "pilotBuildCheckbox"):
-			# Translators: A checkbox to enable pilot features (with risks involved).
-			self.pilotBuildCheckbox=advOptionsHelper.addItem(wx.CheckBox(self, label=_("Pilot features: I want to test and provide early &feedback on features under development")))
-			self.pilotBuildCheckbox.SetValue(splconfig.SPLConfig["Advanced"]["PilotFeatures"])
-			if not splconfig.SPLConfig.canEnablePilotFeatures: self.pilotBuildCheckbox.Disable()
-
-	def onChannelSelection(self, evt):
-		# 18.09: pilot flag requires using development builds.
-		self.pilotBuildCheckbox.Enable() if self.channels.GetSelection() == 0 else self.pilotBuildCheckbox.Disable()
+		# 18.09: allow some dev snapshot users to test pilot features.
+		# Translators: A checkbox to enable pilot features (with risks involved).
+		self.pilotBuildCheckbox=advOptionsHelper.addItem(wx.CheckBox(self, label=_("Pilot features: I want to test and provide early &feedback on features under development")))
+		self.pilotBuildCheckbox.SetValue(splconfig.SPLConfig["Advanced"]["PilotFeatures"])
+		if not splconfig.SPLConfig.canEnablePilotFeatures: self.pilotBuildCheckbox.Disable()
 
 	# Check update channel and interval here.
 	# The onSave method will just assume that it is okay to apply update channel switches and other advanced options.
 	def isValid(self):
 		if splupdate and splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone:
-			if len(self._updateChannels) > 1:
-				enablePilotFeatures = (self._updateChannels[self.channels.GetSelection()] == "dev"
-					and splupdate.SPLUpdateChannel != "try"
-					and self.pilotBuildCheckbox.IsChecked())
-				if (enablePilotFeatures and gui.messageBox(
-					# Translators: The confirmation prompt displayed when about to enable pilot flag (with risks involved).
-					_("You are about to enable pilot features. Please note that pilot features may include functionality that might be unstable at times and should be used for testing and sending feedback to the add-on developer. If you prefer to use stable features, please answer no and uncheck pilot features checkbox. Are you sure you wish to enable pilot features?"),
-					# Translators: The title of the channel switch confirmation dialog.
-					_("Enable pilot features"),
-					wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION, self
-				) == wx.NO):
-					return False
 			# If update interval is set to zero, update check will happen every time the app module loads, so warn users.
 			if (splconfig.SPLConfig["Update"]["UpdateInterval"] > 0 and self.updateInterval.Value == 0 and gui.messageBox(
 				# Translators: The confirmation prompt displayed when changing update interval to zero days (updates will be checked every time Studio app module loads).
@@ -1536,19 +1503,19 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 				wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION, self
 			) == wx.NO):
 				return False
-		else:
-			if (self.pilotBuildCheckbox.IsChecked() and gui.messageBox(
-				# Translators: The confirmation prompt displayed when about to enable pilot flag (with risks involved).
-				_("You are about to enable pilot features. Please note that pilot features may include functionality that might be unstable at times and should be used for testing and sending feedback to the add-on developer. If you prefer to use stable features, please answer no and uncheck pilot features checkbox. Are you sure you wish to enable pilot features?"),
-				# Translators: The title of the channel switch confirmation dialog.
-				_("Enable pilot features"),
-				wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION, self
-			) == wx.NO):
-				return False
+		if (splconfig.SPLConfig.canEnablePilotFeatures and not splconfig.SPLConfig["Advanced"]["PilotFeatures"] and self.pilotBuildCheckbox.IsChecked() and gui.messageBox(
+			# Translators: The confirmation prompt displayed when about to enable pilot flag (with risks involved).
+			_("You are about to enable pilot features. Please note that pilot features may include functionality that might be unstable at times and should be used for testing and sending feedback to the add-on developer. If you prefer to use stable features, please answer no and uncheck pilot features checkbox. Are you sure you wish to enable pilot features?"),
+			# Translators: The title of the channel switch confirmation dialog.
+			_("Enable pilot features"),
+			wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION, self
+		) == wx.NO):
+			return False
 		return True
 
 	def onSave(self):
 		# Update channel and other advanced settings will be checked in post-save method below.
+		# 18.09: but only if add-on update feature is usable from Studio add-on.
 		splconfig.SPLConfig["Advanced"]["SPLConPassthrough"] = self.splConPassthroughCheckbox.Value
 		splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] = self.compatibilityLayouts[self.compatibilityList.GetSelection()][0]
 		if splupdate and splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone:
@@ -1576,7 +1543,7 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 			else:
 				if splupdate._SPLUpdateT is None: splupdate.updateInit()
 		else:
-			if hasattr(self, "pilotBuildCheckbox") and self.pilotBuildCheckbox.Value != splconfig.SPLConfig["Advanced"]["PilotFeatures"]:
+			if self.pilotBuildCheckbox.Value != splconfig.SPLConfig["Advanced"]["PilotFeatures"]:
 				# Translators: A dialog message shown when pilot features is turned on or off.
 				wx.CallAfter(gui.messageBox, _("You have toggled pilot features checkbox. You must restart NVDA for the change to take effect."),
 				# Translators: Title of the pilot features dialog.
