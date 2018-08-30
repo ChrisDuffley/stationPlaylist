@@ -1492,6 +1492,7 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 
 	# Check update channel and interval here.
 	# The onSave method will just assume that it is okay to apply update channel switches and other advanced options.
+	# 18.09: no op if something other than Studio add-on is used to check for updates.
 	def isValid(self):
 		if splupdate and splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone:
 			# If update interval is set to zero, update check will happen every time the app module loads, so warn users.
@@ -1514,7 +1515,7 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 		return True
 
 	def onSave(self):
-		# Update channel and other advanced settings will be checked in post-save method below.
+		# Pilot features flag will be checked in post-save method below.
 		# 18.09: but only if add-on update feature is usable from Studio add-on.
 		splconfig.SPLConfig["Advanced"]["SPLConPassthrough"] = self.splConPassthroughCheckbox.Value
 		splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] = self.compatibilityLayouts[self.compatibilityList.GetSelection()][0]
@@ -1525,31 +1526,18 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 	def postSave(self):
 		# Coordinate auto update timer restart routine if told to do so.
 		# #50 (18.03): but only if add-on update facility is alive.
-		if splupdate and len(self._updateChannels) > 1:
-			updateChannel = self._updateChannels[self.channels.GetSelection()]
-			# For backward compatibility, set update channel to "try" if development channel was selected and pilot flag is on.
-			if updateChannel == "dev" and self.pilotBuildCheckbox.IsChecked():
-				updateChannel = "try"
-			pendingChannelChange = splupdate.SPLUpdateChannel != updateChannel
-			splupdate.SPLUpdateChannel = updateChannel
-			if not splconfig.SPLConfig["Update"]["AutoUpdateCheck"] or pendingChannelChange:
+		if splupdate and splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone:
+			if not splconfig.SPLConfig["Update"]["AutoUpdateCheck"]:
 				splupdate.updateCheckTimerEnd()
-				if pendingChannelChange:
-					splupdate._pendingChannelChange = True
-					# Translators: A dialog message shown when add-on update channel has changed.
-					wx.CallAfter(gui.messageBox, _("You have changed the add-on update channel or toggled pilot features checkbox. You must restart NVDA for the change to take effect. Be sure to answer yes when you are asked to install the new version when prompted after restarting NVDA."),
-					# Translators: Title of the update channel dialog.
-					_("Add-on update channel changed"), wx.OK|wx.ICON_INFORMATION)
 			else:
 				if splupdate._SPLUpdateT is None: splupdate.updateInit()
-		else:
-			if self.pilotBuildCheckbox.Value != splconfig.SPLConfig["Advanced"]["PilotFeatures"]:
-				# Translators: A dialog message shown when pilot features is turned on or off.
-				wx.CallAfter(gui.messageBox, _("You have toggled pilot features checkbox. You must restart NVDA for the change to take effect."),
-				# Translators: Title of the pilot features dialog.
-				_("Pilot features"), wx.OK|wx.ICON_INFORMATION)
-				splconfig.SPLConfig["Advanced"]["PilotFeatures"] = self.pilotBuildCheckbox.Value
-				splconfig.SPLConfig._pendingPilotFeaturesToggle = True
+		if splconfig.SPLConfig.canEnablePilotFeatures and self.pilotBuildCheckbox.Value != splconfig.SPLConfig["Advanced"]["PilotFeatures"]:
+			# Translators: A dialog message shown when pilot features is turned on or off.
+			wx.CallAfter(gui.messageBox, _("You have toggled pilot features checkbox. You must restart NVDA for the change to take effect."),
+			# Translators: Title of the pilot features dialog.
+			_("Pilot features"), wx.OK|wx.ICON_INFORMATION)
+			splconfig.SPLConfig["Advanced"]["PilotFeatures"] = self.pilotBuildCheckbox.Value
+			splconfig.SPLConfig._pendingPilotFeaturesToggle = True
 
 # A dialog to reset add-on config including encoder settings and others.
 class ResetDialog(wx.Dialog):
