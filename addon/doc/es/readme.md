@@ -102,7 +102,7 @@ personalizadas.
   buscador de rango de tiempo.
 * Habilitar o deshabilitar cíclicamente metadatos del streaming.
 
-## Órdenes adicionales al utilizar los codificadores Sam o SPL 
+## Órdenes adicionales al utilizar los codificadores Sam o SPL
 
 Las siguientes órdenes  están disponibles al utilizar los codificadores Sam
 o SPL :
@@ -274,7 +274,7 @@ Para aprender las asignaciones de los cart, desde SPL Studio, pulsa
 Alt+NVDA+3. Pulsando la  orden del cart una vez te dirá que  jingle se
 asigna a  la orden. Pulsando la orden del cart dos veces reproducirá el
 jingle. Pulsa Alt+NVDA+3 para salir del explorador de cart. Mira la guía del
-complemento para más información sobre el explorador de carts
+complemento para más información sobre el explorador de carts.
 
 ## Análisis de tiempo de la pista
 
@@ -322,6 +322,15 @@ Windows 8 o posterior y tienes NVDA 2012.3 o posterior instalado, puedes
 realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
+
+## Versión 18.08.2
+
+* NVDA ya no buscará actualizaciones del complemento de Studio si el
+  complemento Add-on Updater (prueba de concepto) está instalado. Como
+  consecuencia, las opciones del complemento ya no incluirán ajustes
+  relacionados con la actualización del complemento si este es el caso. Si
+  se utiliza Add-on updater, los usuarios deberían emplear las funciones de
+  este complemento para buscar actualizaciones del complemento de Studio.
 
 ## Versión 18.08.1
 
@@ -426,7 +435,7 @@ un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
   específica.
 * Añadido un botón en los ajustes del complemento Studio para configurar el
   explorador de columnas en SPL Creator.
-* añadido el formato tabla markdown como formato de transcripciones de
+* Añadido el formato tabla markdown como formato de transcripciones de
   listas de reproducción.
 * El comando de email para comentarios al desarrollador ha cambiado de
   control+NVDA+guión a alt+NVDA+guión.
@@ -537,7 +546,7 @@ Pack 1. La siguiente versión estable para estas versiones de Windows serán
 una versión 15.x LTS.
 
 * Si se utilizan versiones de Windows anteriores a Windows 7 Service Pack 1,
-  no puedes cambiarte a los canales de desarrollo
+  no puedes cambiarte a los canales de desarrollo.
 
 ## Versión 17.11.1/15.11-LTS
 
@@ -1112,7 +1121,7 @@ versión para versiones estables.
   notificación de alarma (pitido, mensaje o ambos).
 * Ahora es posible configurar la alarma del micrófono entre 0
   (deshabilitado) y dos horas (7200 segundos.) y utiliza flecha arriba y
-  flecha abajo para configurar esta opción
+  flecha abajo para configurar esta opción.
 * Añadida una opción en el diálogo de opciones del complemento para permitir
   al micrófono activar una notificación para una periodicidad dada.
 * Ahora puedes usar la orden conmutar Dial de pista en Studio para conmutar

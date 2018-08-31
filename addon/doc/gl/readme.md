@@ -313,6 +313,14 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
+## Version 18.08.2
+
+* NVDA will no longer check for Studio add-on updates if Add-on Updater
+  (proof of concept) add-on is installed. Consequently, add-on settings will
+  no longer include add-on update related settings if this is the case. If
+  using Add-on Updater, users should use features provided by this add-on to
+  check for Studio add-on updates.
+
 ## Version 18.08.1
 
 * Fixed yet another wxPython 4 compatibility issue seen when Studio exits.

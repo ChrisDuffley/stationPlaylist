@@ -332,6 +332,17 @@ un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
 
+## Version 18.08.2
+
+* NVDA ne vérifie plus les mises à jour du module complémentaire Studio si
+  le module complémentaire Add-on Updater (preuve de concept) est
+  installé. Par conséquent, les paramètres du module complémentaire
+  n'incluent plus les paramètres associés à la mise à jour du module
+  complémentaire, si c'est le cas. Si vous utilisez Add-on Updater, les
+  utilisateurs doivent utiliser les fonctionnalités fournies par ce module
+  complémentaire pour vérifier les mises à jour du module complémentaire
+  Studio.
+
 ## Version 18.08.1
 
 * Correction d'un autre problème de compatibilité avec wxPython 4 constaté

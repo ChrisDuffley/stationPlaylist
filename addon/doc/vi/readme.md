@@ -281,6 +281,14 @@ NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio t
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
 
+## Phiên bản 18.08.2
+
+* NVDA sẽ không kiểm tra cập nhật Studio add-on nếu đã cài Add-on
+  Updater. Hậu quả là cài đặt add-on sẽ không còn bao gồm các thiết lập liên
+  quan đến cập nhật add-on trong trường hợp này. Nếu đang sử dụng Add-on
+  Updater, bạn nên dùng tính năng của add-on này để kiểm tra cập nhật Studio
+  add-on.
+
 ## Phiên bản 18.08.1
 
 * Sửa lỗi khác của wxPython 4 liên quan đến tính tương thích xảy ra khi

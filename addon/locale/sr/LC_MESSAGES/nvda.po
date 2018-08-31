@@ -667,7 +667,6 @@ msgid "{genreName} ({genreCount})"
 msgstr "{genreName} ({genreCount})"
 
 #. Translators: The title of a window for displaying playlist snapshots information.
-#. Translators: Title of a dialog to configure playlist snapshot information.
 #. Translators: title of a panel to configure playlist snapshot information.
 msgid "Playlist snapshots"
 msgstr "Statistike liste zareprodukciju"
@@ -687,7 +686,7 @@ msgstr "SPL asistent prečica. Pogledajte uputstvo dodatka za dostupne komande"
 msgid "No playlist has been loaded."
 msgstr "Nijedna lista za reprodukciju nije učitana"
 
-#. Translators: Presented when playlist modification is unavailable (for Studio 4.33 and earlier)
+#. Translators: presented when playlist modification message isn't shown.
 msgid "Playlist modification not available"
 msgstr "Izmena liste za reprodukciju nije dostupna"
 
@@ -732,10 +731,6 @@ msgstr "Izgovara informacije o temperaturi i vremenu"
 #. Translators: Presented when there is no listener count information.
 msgid "Listener count not found"
 msgstr "Broj slušaoca nije pronađen"
-
-#. Translators: Presented when there is no information on song pitch (for Studio 4.33 and earlier).
-msgid "Song pitch not available"
-msgstr "Visina pesme nije dostupna"
 
 #. Translators: Presented when attempting to start library scan.
 msgid "Monitoring library scan"
@@ -1161,6 +1156,118 @@ msgid ""
 "add-on update."
 msgstr ""
 
+#. Translators: one of the error messages when trying to update the add-on.
+msgid ""
+"Add-on Updater add-on might be running. Please use that add-on to check for "
+"updates."
+msgstr ""
+
+#. Translators: title of a panel to configure broadcast profiles.
+#, fuzzy
+msgid "Broadcast profiles"
+msgstr "&Profil strima:"
+
+#. Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
+msgid "Broadcast &profile:"
+msgstr "&Profil strima:"
+
+#. Borrowed logic from NVDA Core's speech panel (although there is no label for this read-only text).
+#, fuzzy
+msgid "Normal profile is in use."
+msgstr "Samo standardan profil se koristi"
+
+#. Translators: The label of a button to create a new broadcast profile.
+msgid "&New"
+msgstr "&Novi"
+
+#. Translators: The label of a button to copy a broadcast profile.
+msgid "Cop&y"
+msgstr "&Kopiraj"
+
+#. Translators: The label of a button to rename a broadcast profile.
+msgid "&Rename"
+msgstr "P&reimenuj"
+
+#. Translators: The label of a button to delete a broadcast profile.
+msgid "&Delete"
+msgstr "&Obriši"
+
+#. Translators: The label of a button to manage show profile triggers.
+msgid "&Triggers..."
+msgstr "&Aktivatori"
+
+#. Translators: The label for a setting in SPL Add-on settings to configure countdown seconds before switching profiles.
+msgid "Countdown seconds before switching profiles"
+msgstr "Odbrojavanje pre promene profila"
+
+msgid ""
+"The selected profile is different from currently active broadcast profile. "
+"Settings will be applied to the selected profile instead."
+msgstr ""
+
+#, fuzzy
+msgid "Apply settings"
+msgstr "SPL podešavanja"
+
+#. Translators: The label of a field to enter a new name for a broadcast profile.
+msgid "New name:"
+msgstr "Novo ime:"
+
+#. Translators: The title of the dialog to rename a profile.
+msgid "Rename Profile"
+msgstr "Preimenuj profil"
+
+#. Translators: An error displayed when renaming a configuration profile
+#. and a profile with the new name already exists.
+#. Translators: An error displayed when the user attempts to create a profile which already exists.
+msgid "That profile already exists. Please choose a different name."
+msgstr "Taj profil već postoji. Molimo izaberite drugo ime"
+
+#. Translators: Message reported when attempting to delete a profile while a profile is triggered.
+msgid ""
+"An instant switch profile might be active or you are in the midst of a "
+"broadcast. If so, please press SPL Assistant, F12 to switch back to a "
+"previously active profile before opening add-on settings to delete a profile."
+msgstr ""
+"Profil za trenutnu aktivaciju je već aktivan ili ste u toku strima. U tom "
+"slučaju, molimo pritisnite SPL Assistant+f12 da se vratite na prethodno "
+"aktiviran profil pre otvaranja dijaloga za brisanje profila."
+
+#. Translators: Title of a dialog shown when profile cannot be deleted.
+msgid "Profile delete error"
+msgstr "Greška u brisanju profila"
+
+#. Translators: The confirmation prompt displayed when the user requests to delete the active broadcast profile.
+msgid ""
+"You are about to delete the currently active profile. Select yes if you wish "
+"to proceed."
+msgstr ""
+"Upravo ćete obrisati trenutno aktivan profil. Aktivirajte dugme da kako "
+"biste potvrdili."
+
+#. Translators: The title of the confirmation dialog for deletion of a profile.
+msgid "Delete active profile"
+msgstr "Obriši aktivan profil"
+
+#. Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
+msgid "Are you sure you want to delete this profile? This cannot be undone."
+msgstr ""
+"Da li ste sigurni da želite da obrišete ovaj profil? Ovo ne može biti "
+"poništeno"
+
+#. Translators: The title of the confirmation dialog for deletion of a profile.
+msgid "Confirm Deletion"
+msgstr "Potvrdi brisanje"
+
+#. Translators: Message reported when attempting to change profile switch trigger while broadcasting.
+msgid "You cannot change profile switch triggers in the midst of a broadcast."
+msgstr ""
+
+#. Translators: Title of a dialog shown when profile trigger cannot e changd.
+#, fuzzy
+msgid "Profile triggers"
+msgstr "Aktivatori profila za{profileName}"
+
 #. Translators: The title of the dialog to create a new broadcast profile.
 msgid "New Profile"
 msgstr "Novi profil"
@@ -1176,13 +1283,6 @@ msgstr "Ime profila:"
 #. Translators: The label for a setting in SPL add-on dialog to select a base  profile for copying.
 msgid "&Base profile:"
 msgstr "&Osnovni profil:"
-
-#. Translators: An error displayed when the user attempts to create a profile which already exists.
-#. Translators: An error displayed when renaming a configuration profile
-#. and a profile with the new name already exists.
-#. Translators: An error displayed when the user attempts to create a profile which already exists.
-msgid "That profile already exists. Please choose a different name."
-msgstr "Taj profil već postoji. Molimo izaberite drugo ime"
 
 #. Translators: The title of the broadcast profile triggers dialog.
 #, python-brace-format
@@ -1228,9 +1328,9 @@ msgstr ""
 "vreme. Molimo izaberite datum ili nemojte označiti izborno polje vremenski "
 "profil"
 
-#. Translators: Title of a dialog to configure various general add-on settings such as top and bottom announcement for playlists.
-msgid "General add-on settings"
-msgstr "Opšta podešavanja dodatka"
+#. Translators: title of a panel to configure various general add-on settings such as top and bottom announcement for playlists.
+msgid "General"
+msgstr ""
 
 #. Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
 msgid "&Beep for status announcements"
@@ -1342,6 +1442,27 @@ msgstr "&Alarm mikrofona u sekundama(0 isključuje alarm)"
 msgid "Microphone alarm &interval in seconds"
 msgstr "Interval alarma mikrofona u &sekundama"
 
+#. Translators: title of a panel to configure various alarms and related settings.
+#, fuzzy
+msgid "Alarms"
+msgstr "Centar alarma"
+
+#. Translators: One of the alarm notification options.
+msgid "beep"
+msgstr "Pišti"
+
+#. Translators: One of the alarm notification options.
+msgid "message"
+msgstr "Poruka"
+
+#. Translators: One of the alarm notification options.
+msgid "both beep and message"
+msgstr "Pištanje i poruka"
+
+#. Translators: The label for a setting in SPL add-on dialog to control alarm announcement type.
+msgid "&Alarm notification:"
+msgstr "&Obaveštenje alarma:"
+
 #. Translators: Help text for playlist snapshots dialog.
 msgid ""
 "Select information to be included when obtaining playlist snapshots.\n"
@@ -1379,7 +1500,6 @@ msgstr "Broj kategorija na vrhu(0 prikazuje sve kategorije)"
 msgid "Genre count"
 msgstr "Broj vrsta"
 
-#. Translators: the label for a setting in SPL add-on settings to set top track genre limit in playlist snapshots window.
 #. Translators: the label for a setting in SPL add-on settings to set top track genre count limit in playlist snapshots window.
 msgid "Top genre count (0 displays all genres)"
 msgstr "Broj vrsta na vrhu(0 prikazuje sve vrste)"
@@ -1402,9 +1522,33 @@ msgstr ""
 "Označite da uključite metadata strimove, ili nemojte označiti da ih "
 "isključite"
 
+msgid "&Stream:"
+msgstr ""
+
 #. Translators: A checkbox to let metadata streaming status be applied to the currently active broadcast profile.
 msgid "&Apply streaming changes to the selected profile"
 msgstr "&Primeni promene strimova za izabran profil"
+
+#. Translators: title of a panel to configure metadata streaming status for DSP encoder and four additional URL's.
+#, fuzzy
+msgid "Metadata streaming"
+msgstr "Podešavanja metadata strimova"
+
+#. Translators: One of the metadata notification settings.
+msgid "When Studio starts"
+msgstr "Kada se Studio pokrene"
+
+#. Translators: One of the metadata notification settings.
+msgid "When instant switch profile is active"
+msgstr "Kada je profil za trenutnu promenu aktivan"
+
+#. Translators: the label for a setting in SPL add-on settings to be notified that metadata streaming is enabled.
+msgid "&Metadata streaming notification and connection"
+msgstr "&Obaveštenja za metadata strimove i povezivanja"
+
+#, fuzzy
+msgid "&Select the URL for metadata streaming upon request:"
+msgstr "Izaberite adresu za metadata strimove nakon zahteva"
 
 #. Translators: Title of a dialog to configure column announcements (order and what columns should be announced).
 msgid "Manage column announcements"
@@ -1416,8 +1560,10 @@ msgid "Playlist transcript columns"
 msgstr "Statistike liste zareprodukciju"
 
 #. Translators: Help text to select columns to be announced.
+#, fuzzy
 msgid ""
-"Select columns to be announced (artist and title are announced by default"
+"&Select columns to be announced\n"
+"(artist and title are announced by default):"
 msgstr ""
 "Izaberite kolone koje se izgovaraju(izvođač i naslov se izgovaraju po "
 "podrazumevanim podešavanjima"
@@ -1425,8 +1571,8 @@ msgstr ""
 #. Translators: Help text to select columns to be announced.
 #, fuzzy
 msgid ""
-"Select columns to be included in playlist transcripts (artist and title are "
-"always included"
+"&Select columns to be included in playlist transcripts\n"
+"(artist and title are always included):"
 msgstr ""
 "Izaberite informacije koje će biti uključene u statistiku liste za "
 "reprodukciju.\n"
@@ -1447,19 +1593,28 @@ msgstr "Pomeri &gore"
 msgid "Move &down"
 msgstr "Pomeri &dole"
 
-#. Translators: Title of a dialog to configure playlsit transcripts options.
+#. Translators: title of a panel to configure column announcements (order and what columns should be announced).
 #, fuzzy
-msgid "Playlist transcripts settings"
+msgid "Column announcements"
+msgstr "Upravljaj izgovaranjem kolona"
+
+#. Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
+msgid "Announce columns in the &order shown on screen"
+msgstr "&Izgovori kolone u redu u kom su prikazane na ekranu"
+
+#. Translators: The label of a button to manage column announcements.
+msgid "&Manage track column announcements..."
+msgstr "&Upravljaj izgovaranjem kolona zapisa"
+
+#. Translators: the label for a setting in SPL add-on settings to toggle whether column headers should be included when announcing track information.
+msgid "Include column &headers when announcing track information"
+msgstr "Uključi zaglavlja &kolona u izgovoru informacija o zapisima"
+
+#. Translators: Title of a panel to configure playlsit transcripts options.
+#, fuzzy
+msgid "Playlist transcripts"
 msgstr "Statistike liste zareprodukciju"
 
-#. self.availableTranscriptFormats = [output[0] for output in splmisc.SPLPlaylistTranscriptFormats]
-#. self.availableTranscriptFormats.insert(0, "")
-#. Translators: the label for a setting in SPL add-on settings to select preferred playlist transcript format.
-#. labelText = _("&Prefered transcript format:")
-#. Translators: one of the transcript format options.
-#. self.transcriptFormatsList = playlistTranscriptsHelper.addLabeledControl(labelText, wx.Choice, choices=[_("ask me every time")]+[output[2] for output in splmisc.SPLPlaylistTranscriptFormats])
-#. self.transcriptFormatsList.SetSelection(self.availableTranscriptFormats.index(parent.transcriptFormat))
-#. Translators: The label of a button to configure columns for playlist transcripts.
 #. self.availableTranscriptFormats = [output[0] for output in splmisc.SPLPlaylistTranscriptFormats]
 #. self.availableTranscriptFormats.insert(0, "")
 #. Translators: the label for a setting in SPL add-on settings to select preferred playlist transcript format.
@@ -1471,6 +1626,24 @@ msgstr "Statistike liste zareprodukciju"
 #, fuzzy
 msgid "Manage transcript columns..."
 msgstr "&Upravljaj izgovaranjem kolona zapisa"
+
+#. Translators: title of a panel to configure columns explorer settings.
+#, fuzzy
+msgid "Columns explorer"
+msgstr "Istraživač kolona"
+
+#. Translators: The label of a button to configure columns explorer slots (SPL Assistant, number row keys to announce specific columns).
+msgid "Columns E&xplorer..."
+msgstr "&Istraživač kolona"
+
+#. Translators: The label of a button to configure columns explorer slots for Track Tool (SPL Assistant, number row keys to announce specific columns).
+msgid "Columns Explorer for &Track Tool..."
+msgstr "Istraživač &kolona za alat zapisa"
+
+#. Translators: The label of a button to configure columns explorer slots (SPL Assistant, number row keys to announce specific columns).
+#, fuzzy
+msgid "Columns Explorer for &SPL Creator..."
+msgstr "Istraživač &kolona za alat zapisa"
 
 #. Translators: The title of Columns Explorer configuration dialog.
 msgid "Columns Explorer"
@@ -1490,7 +1663,6 @@ msgstr "Istraživač kolona za alat zapisa"
 msgid "Slot {position}"
 msgstr "Mesto{position}"
 
-#. Translators: Title of a dialog to configure various status announcements such as announcing listener count.
 #. Translators: title of a panel to configure various status announcements such as announcing listener count.
 msgid "Status announcements"
 msgstr "Izgovor statusa"
@@ -1531,7 +1703,6 @@ msgstr ""
 "Uključi &poziciju reprodukovanja zapisa u toku izgovaranja informacija o "
 "trenutnom i sledećem zapisu"
 
-#. Translators: The title of a dialog to configure advanced SPL add-on options such as update checking.
 #. Translators: title of a panel to configure advanced SPL add-on options such as update checking.
 msgid "Advanced options"
 msgstr "Napredne opcije"
@@ -1544,10 +1715,6 @@ msgstr "&Automatski proveri ažuriranja dodatka"
 msgid "Update &interval in days"
 msgstr "&Interval ažuriranja u danima"
 
-#. Translators: The label for a combo box to select update channel.
-msgid "&Add-on update channel:"
-msgstr "&Kanal ažuriranja dodatka"
-
 #. Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 msgid "Allow SPL C&ontroller command to invoke SPL Assistant layer"
 msgstr "&Dozvoli SPL kontroler komandi da aktivira SPL asistent"
@@ -1556,25 +1723,12 @@ msgstr "&Dozvoli SPL kontroler komandi da aktivira SPL asistent"
 msgid "SPL Assistant command &layout:"
 msgstr "SPL asistent raspored komandi:"
 
-#. Translators: The confirmation prompt displayed when changing to the fastest development channel (with risks involved).
+#. 18.09: allow some dev snapshot users to test pilot features.
+#. Translators: A checkbox to enable pilot features (with risks involved).
 msgid ""
-"You are about to switch to the Test Drive Fast (try) builds channel, the "
-"fastest and most unstable development channel. Please note that the selected "
-"channel may come with updates that might be unstable at times and should be "
-"used for testing and sending feedback to the add-on developer. If you prefer "
-"to use stable releases, please answer no and switch to a more stable update "
-"channel. Are you sure you wish to switch to Test Drive Fast channel?"
+"Pilot features: I want to test and provide early &feedback on features under "
+"development"
 msgstr ""
-"You are about to switch to the Test Drive Fast (try) builds channel, the "
-"fastest and most unstable development channel. Please note that the selected "
-"channel may come with updates that might be unstable at times and should be "
-"used for testing and sending feedback to the add-on developer. If you prefer "
-"to use stable releases, please answer no and switch to a more stable update "
-"channel. Are you sure you wish to switch to Test Drive Fast channel?"
-
-#. Translators: The title of the channel switch confirmation dialog.
-msgid "Switching to unstable channel"
-msgstr "Prebacivanje na nestabilni kanal"
 
 #. Translators: The confirmation prompt displayed when changing update interval to zero days (updates will be checked every time Studio app module loads).
 msgid ""
@@ -1589,6 +1743,36 @@ msgstr ""
 #. Translators: The title of the update interval dialog.
 msgid "Confirm update interval"
 msgstr "Potvrdi interval ažuriranja"
+
+#. Translators: The confirmation prompt displayed when about to enable pilot flag (with risks involved).
+#, fuzzy
+msgid ""
+"You are about to enable pilot features. Please note that pilot features may "
+"include functionality that might be unstable at times and should be used for "
+"testing and sending feedback to the add-on developer. If you prefer to use "
+"stable features, please answer no and uncheck pilot features checkbox. Are "
+"you sure you wish to enable pilot features?"
+msgstr ""
+"You are about to switch to the Test Drive Fast (try) builds channel, the "
+"fastest and most unstable development channel. Please note that the selected "
+"channel may come with updates that might be unstable at times and should be "
+"used for testing and sending feedback to the add-on developer. If you prefer "
+"to use stable releases, please answer no and switch to a more stable update "
+"channel. Are you sure you wish to switch to Test Drive Fast channel?"
+
+#. Translators: The title of the channel switch confirmation dialog.
+msgid "Enable pilot features"
+msgstr ""
+
+#. Translators: A dialog message shown when pilot features is turned on or off.
+msgid ""
+"You have toggled pilot features checkbox. You must restart NVDA for the "
+"change to take effect."
+msgstr ""
+
+#. Translators: Title of the pilot features dialog.
+msgid "Pilot features"
+msgstr ""
 
 #. Translators: Title of the dialog to reset various add-on settings.
 #. Translators: title of a panel to reset add-on settings.
@@ -1628,200 +1812,19 @@ msgstr "Uspešno primenjena podrazumevana podešavanja dodatka."
 msgid "Reset configuration"
 msgstr "Vrati podešavanja"
 
-#. Translators: This is the label for the StationPlaylist Studio configuration dialog.
-msgid "Studio Add-on Settings"
-msgstr "Podešavanja Studio dodatka"
+#. Translators: Help text explaijning what will happen when settings are reset.
+msgid ""
+"Warning! Selecting Reset button and choosing various reset options will "
+"reset add-on settings to defaults."
+msgstr ""
 
-#. Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
-msgid "Broadcast &profile:"
-msgstr "&Profil strima:"
-
-#. Translators: The label of a button to create a new broadcast profile.
-msgid "&New"
-msgstr "&Novi"
-
-#. Translators: The label of a button to copy a broadcast profile.
-msgid "Cop&y"
-msgstr "&Kopiraj"
-
-#. Translators: The label of a button to rename a broadcast profile.
-msgid "&Rename"
-msgstr "P&reimenuj"
-
-#. Translators: The label of a button to delete a broadcast profile.
-msgid "&Delete"
-msgstr "&Obriši"
-
-#. Translators: The label of a button to manage show profile triggers.
-msgid "&Triggers..."
-msgstr "&Aktivatori"
-
-#. Translators: The label for a setting in SPL Add-on settings to configure countdown seconds before switching profiles.
-msgid "Countdown seconds before switching profiles"
-msgstr "Odbrojavanje pre promene profila"
-
-#. Translators: The label of a button to open a dialog to configure general add-on settings such as beep announcement and top and bottom notifications.
-msgid "&General add-on settings..."
-msgstr "&Opšta podešavanja dodatka"
-
-#. Translators: The label of a button to open a dialog to configure various alarms.
-msgid "&Alarms Center..."
-msgstr "&Centar alarma"
-
-#. Translators: One of the alarm notification options.
-msgid "beep"
-msgstr "Pišti"
-
-#. Translators: One of the alarm notification options.
-msgid "message"
-msgstr "Poruka"
-
-#. Translators: One of the alarm notification options.
-msgid "both beep and message"
-msgstr "Pištanje i poruka"
-
-#. Translators: The label for a setting in SPL add-on dialog to control alarm announcement type.
-msgid "&Alarm notification:"
-msgstr "&Obaveštenje alarma:"
-
-#. Translators: The label of a button to manage playlist snapshot flags.
-msgid "&Playlist snapshots..."
-msgstr "&Statistike liste za reprodukciju"
-
-#. Translators: One of the metadata notification settings.
-msgid "When Studio starts"
-msgstr "Kada se Studio pokrene"
-
-#. Translators: One of the metadata notification settings.
-msgid "When instant switch profile is active"
-msgstr "Kada je profil za trenutnu promenu aktivan"
-
-#. Translators: the label for a setting in SPL add-on settings to be notified that metadata streaming is enabled.
-msgid "&Metadata streaming notification and connection"
-msgstr "&Obaveštenja za metadata strimove i povezivanja"
-
-#. Translators: The label of a button to manage column announcements.
-msgid "Configure metadata &streaming connection options..."
-msgstr "&Podesi metadata strimove i povezivanja"
-
-#. Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
-msgid "Announce columns in the &order shown on screen"
-msgstr "&Izgovori kolone u redu u kom su prikazane na ekranu"
-
-#. Translators: The label of a button to manage column announcements.
-msgid "&Manage track column announcements..."
-msgstr "&Upravljaj izgovaranjem kolona zapisa"
-
-#. Translators: the label for a setting in SPL add-on settings to toggle whether column headers should be included when announcing track information.
-msgid "Include column &headers when announcing track information"
-msgstr "Uključi zaglavlja &kolona u izgovoru informacija o zapisima"
-
-#. Translators: The label of a button to configure columns explorer slots (SPL Assistant, number row keys to announce specific columns).
-msgid "Columns E&xplorer..."
-msgstr "&Istraživač kolona"
-
-#. Translators: The label of a button to configure columns explorer slots for Track Tool (SPL Assistant, number row keys to announce specific columns).
-msgid "Columns Explorer for &Track Tool..."
-msgstr "Istraživač &kolona za alat zapisa"
-
-#. Translators: The label of a button to configure columns explorer slots for SPL Creator (SPL Assistant, number row keys to announce specific columns).
-#. Translators: The label of a button to configure columns explorer slots (SPL Assistant, number row keys to announce specific columns).
-#, fuzzy
-msgid "Columns Explorer for &SPL Creator..."
-msgstr "Istraživač &kolona za alat zapisa"
-
-#. Translators: The label of a button to open playlist transcripts settings.
-#, fuzzy
-msgid "Playlist &transcripts..."
-msgstr "Statistike liste zareprodukciju"
-
-#. Translators: The label of a button to open status announcement dialog such as announcing listener count.
-msgid "&Status announcements..."
-msgstr "&Izgovor statusa..."
-
-#. Translators: The label of a button to open advanced options such as using SPL Controller command to invoke Assistant layer.
-msgid "&Advanced options..."
-msgstr "&Napredne opcije..."
-
-#. Translators: The label for a button in SPL add-on configuration dialog to reset settings to defaults.
 #. Translators: The label of a button to open reset dialog.
 msgid "Reset settings..."
 msgstr "&Vrati podešavanja..."
 
-msgid ""
-"The selected profile is different from currently active broadcast profile. "
-"Settings will be applied to the selected profile instead."
-msgstr ""
-
-#, fuzzy
-msgid "Apply settings"
-msgstr "SPL podešavanja"
-
-#. Translators: A dialog message shown when add-on update channel has changed.
-msgid ""
-"You have changed the add-on update channel. You must restart NVDA for the "
-"change to take effect. Be sure to answer yes when you are asked to install "
-"the new version when prompted after restarting NVDA."
-msgstr ""
-"Promenili ste kanal za proveru ažuriranja dodatka. Morate ponovo pokrenuti "
-"NVDA kako bi se ove promene primenile"
-
-#. Translators: Title of the update channel dialog.
-msgid "Add-on update channel changed"
-msgstr "Kanal za ažuriranja dodatka promenjen"
-
-#. Translators: The label of a field to enter a new name for a broadcast profile.
-msgid "New name:"
-msgstr "Novo ime:"
-
-#. Translators: The title of the dialog to rename a profile.
-msgid "Rename Profile"
-msgstr "Preimenuj profil"
-
-#. Translators: Message reported when attempting to delete a profile while a profile is triggered.
-msgid ""
-"An instant switch profile might be active or you are in the midst of a "
-"broadcast. If so, please press SPL Assistant, F12 to switch back to a "
-"previously active profile before opening add-on settings to delete a profile."
-msgstr ""
-"Profil za trenutnu aktivaciju je već aktivan ili ste u toku strima. U tom "
-"slučaju, molimo pritisnite SPL Assistant+f12 da se vratite na prethodno "
-"aktiviran profil pre otvaranja dijaloga za brisanje profila."
-
-#. Translators: Title of a dialog shown when profile cannot be deleted.
-msgid "Profile delete error"
-msgstr "Greška u brisanju profila"
-
-#. Translators: The confirmation prompt displayed when the user requests to delete the active broadcast profile.
-msgid ""
-"You are about to delete the currently active profile. Select yes if you wish "
-"to proceed."
-msgstr ""
-"Upravo ćete obrisati trenutno aktivan profil. Aktivirajte dugme da kako "
-"biste potvrdili."
-
-#. Translators: The title of the confirmation dialog for deletion of a profile.
-msgid "Delete active profile"
-msgstr "Obriši aktivan profil"
-
-#. Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
-msgid "Are you sure you want to delete this profile? This cannot be undone."
-msgstr ""
-"Da li ste sigurni da želite da obrišete ovaj profil? Ovo ne može biti "
-"poništeno"
-
-#. Translators: The title of the confirmation dialog for deletion of a profile.
-msgid "Confirm Deletion"
-msgstr "Potvrdi brisanje"
-
-#. Translators: Message reported when attempting to change profile switch trigger while broadcasting.
-msgid "You cannot change profile switch triggers in the midst of a broadcast."
-msgstr ""
-
-#. Translators: Title of a dialog shown when profile trigger cannot e changd.
-#, fuzzy
-msgid "Profile triggers"
-msgstr "Aktivatori profila za{profileName}"
+#. Translators: This is the label for the StationPlaylist Studio configuration dialog.
+msgid "Studio Add-on Settings"
+msgstr "Podešavanja Studio dodatka"
 
 #. Translators: Presented when an alarm dialog is opened.
 msgid ""
@@ -1830,51 +1833,6 @@ msgid ""
 msgstr ""
 "Neki dijalog za podešavanja dodatka je već otvoren. Molimo prvo zatvorite "
 "taj dijalog"
-
-#. Translators: title of a panel to configure broadcast profiles.
-#, fuzzy
-msgid "Broadcast profiles"
-msgstr "&Profil strima:"
-
-#. Borrowed logic from NVDA Core's speech panel (although there is no label for this read-only text).
-#, fuzzy
-msgid "Normal profile is in use."
-msgstr "Samo standardan profil se koristi"
-
-#. Translators: title of a panel to configure various general add-on settings such as top and bottom announcement for playlists.
-msgid "General"
-msgstr ""
-
-#. Translators: title of a panel to configure various alarms and related settings.
-#, fuzzy
-msgid "Alarms"
-msgstr "Centar alarma"
-
-#. Translators: title of a panel to configure metadata streaming status for DSP encoder and four additional URL's.
-#, fuzzy
-msgid "Metadata streaming"
-msgstr "Podešavanja metadata strimova"
-
-#. Translators: title of a panel to configure column announcements (order and what columns should be announced).
-#, fuzzy
-msgid "Column announcements"
-msgstr "Upravljaj izgovaranjem kolona"
-
-#. Translators: Title of a panel to configure playlsit transcripts options.
-#, fuzzy
-msgid "Playlist transcripts"
-msgstr "Statistike liste zareprodukciju"
-
-#. Translators: title of a panel to configure columns explorer settings.
-#, fuzzy
-msgid "Columns explorer"
-msgstr "Istraživač kolona"
-
-#. Translators: Help text explaijning what will happen when settings are reset.
-msgid ""
-"Warning! Selecting Reset button and choosing various reset options will "
-"reset add-on settings to defaults."
-msgstr ""
 
 #. Translators: Text of the dialog when another find dialog is open.
 msgid "Another find dialog is open."
@@ -2015,16 +1973,6 @@ msgstr "&Osnovni profil:"
 #. Translators: The label in playlist transcripts dialog to select transcript action.
 msgid "Transcript action:"
 msgstr ""
-
-msgid ""
-"Did you recently tell SPL add-on to use a different update channel? If so, "
-"please restart NVDA before checking for add-on updates."
-msgstr ""
-"Da li ste nedavno rekli SPL dodatku da koristi drugi kanal za provere "
-"ažuriranja? U tom slučaju, ponovo pokrenite NVDA za proveru ažuriranja"
-
-msgid "Update channel changed"
-msgstr "Kanal ažuriranja promenjen"
 
 #. No need to interact with the user.
 #. Translators: Presented when no add-on update is available.
@@ -2355,6 +2303,65 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist Studio.\n"
 "Takođe, dodaje globalne komande za studio bilo gde."
+
+#~ msgid "Song pitch not available"
+#~ msgstr "Visina pesme nije dostupna"
+
+#~ msgid "General add-on settings"
+#~ msgstr "Opšta podešavanja dodatka"
+
+#, fuzzy
+#~ msgid "Playlist transcripts settings"
+#~ msgstr "Statistike liste zareprodukciju"
+
+#~ msgid "&Add-on update channel:"
+#~ msgstr "&Kanal ažuriranja dodatka"
+
+#~ msgid "Switching to unstable channel"
+#~ msgstr "Prebacivanje na nestabilni kanal"
+
+#~ msgid "&General add-on settings..."
+#~ msgstr "&Opšta podešavanja dodatka"
+
+#~ msgid "&Alarms Center..."
+#~ msgstr "&Centar alarma"
+
+#~ msgid "&Playlist snapshots..."
+#~ msgstr "&Statistike liste za reprodukciju"
+
+#~ msgid "Configure metadata &streaming connection options..."
+#~ msgstr "&Podesi metadata strimove i povezivanja"
+
+#, fuzzy
+#~ msgid "Playlist &transcripts..."
+#~ msgstr "Statistike liste zareprodukciju"
+
+#~ msgid "&Status announcements..."
+#~ msgstr "&Izgovor statusa..."
+
+#~ msgid "&Advanced options..."
+#~ msgstr "&Napredne opcije..."
+
+#~ msgid ""
+#~ "You have changed the add-on update channel. You must restart NVDA for the "
+#~ "change to take effect. Be sure to answer yes when you are asked to "
+#~ "install the new version when prompted after restarting NVDA."
+#~ msgstr ""
+#~ "Promenili ste kanal za proveru ažuriranja dodatka. Morate ponovo "
+#~ "pokrenuti NVDA kako bi se ove promene primenile"
+
+#~ msgid "Add-on update channel changed"
+#~ msgstr "Kanal za ažuriranja dodatka promenjen"
+
+#~ msgid ""
+#~ "Did you recently tell SPL add-on to use a different update channel? If "
+#~ "so, please restart NVDA before checking for add-on updates."
+#~ msgstr ""
+#~ "Da li ste nedavno rekli SPL dodatku da koristi drugi kanal za provere "
+#~ "ažuriranja? U tom slučaju, ponovo pokrenite NVDA za proveru ažuriranja"
+
+#~ msgid "Update channel changed"
+#~ msgstr "Kanal ažuriranja promenjen"
 
 #, fuzzy
 #~ msgid "Studio Add-on Settings V2"
