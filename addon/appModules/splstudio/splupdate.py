@@ -86,11 +86,13 @@ def initialize():
 	try:
 		SPLAddonState = pickle.load(file(_updatePickle, "r"))
 		SPLAddonCheck = SPLAddonState["PDT"]
-		if "UpdateChannel" in SPLAddonState:
-			SPLUpdateChannel = SPLAddonState["UpdateChannel"]
+		if "UpdateChannel" in SPLAddonState: del SPLAddonState["UpdateChannel"]
 	except (IOError, KeyError):
 		SPLAddonState["PDT"] = 0
-		SPLUpdateChannel = "dev" if devVersion else "stable"
+	# LTS check.
+	SPLUpdateChannel = "dev" if devVersion else "stable"
+	if "updateChannel" in SPLAddonManifest and SPLAddonManifest["updateChannel"].startswith("lts"):
+		SPLUpdateChannel = "lts"
 	# Handle profile switches.
 	splactions.SPLActionProfileSwitched.register(splupdate_actionProfileSwitched)
 	# Check for add-on update if told to do so.
@@ -108,11 +110,8 @@ def terminate():
 	# 7.0: Turn off auto update check timer.
 	updateCheckTimerEnd()
 	# Store new values if it is absolutely required.
-	# Take care of a case where one might be "downgrading" from try builds.
-	stateChanged = "UpdateChannel" not in SPLAddonState or (SPLAddonState["PDT"] != SPLAddonCheck or SPLAddonState["UpdateChannel"] != SPLUpdateChannel)
-	if stateChanged:
+	if SPLAddonState["PDT"] != SPLAddonCheck:
 		SPLAddonState["PDT"] = SPLAddonCheck
-		SPLAddonState["UpdateChannel"] = SPLUpdateChannel
 		pickle.dump(SPLAddonState, file(_updatePickle, "wb"))
 	SPLAddonState = None
 	SPLAddonCheck = 0
