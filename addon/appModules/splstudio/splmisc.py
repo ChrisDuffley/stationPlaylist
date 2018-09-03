@@ -4,8 +4,6 @@
 # Miscellaneous functions and user interfaces
 # Split from config module in 2015.
 
-# JL's disclaimer: Apart from CSV module, others in this folder are my modules. CSV is part of Python distribution (Copyright Python Software Foundation).
-
 import sys
 py3 = sys.version.startswith("3")
 import ctypes
@@ -761,7 +759,7 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 			# Translators: one of the playlist transcript actions.
 			_("save to file"),
 		)
-		self.copy2clipPossible = [0, 3]
+		self.copy2clipPossible = [0, 1, 4]
 
 		# Translators: The label in playlist transcripts dialog to select transcript action.
 		self.transcriptAction = plTranscriptsSizerHelper.addLabeledControl(_("Transcript action:"), wx.Choice, choices=self.transcriptActions)
