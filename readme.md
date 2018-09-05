@@ -198,7 +198,8 @@ Version 18.09.x is the last release series to support Studio 5.10 and based on o
 * NVDA 2018.3 or later is recommended due to introduction of wxPython 4.
 * Add-on settings screen is now fully based on multi-page interface derived from NVDA 2018.2 and later.
 * Test Drive Fast and Slow rings have been combined into "development" channel, with an option for development snapshot users to test pilot features by checking the new pilot features checkbox found in Advanced add-on settings panel. Users formerly on Test Drive Fast ring will continue to test pilot features.
-* Column inclusion checkboxes for column announcement and playlist transcripts are now part of a checkable list box control.
+* The ability to select different add-on update channel from add-on settings has been removed. Users wishing to switch to a different release channel should visit NVDA community add-ons website (addons.nvda-project.org), select StationPlaylist Studio, then download the appropriate release.
+* Column inclusion checkboxes for column announcement and playlist transcripts, as well as metadata streams checkboxes have been converted to checkable list controls.
 * When switching between settings panels, NvDA will remember current settings for profile-specific settings (alarms, column announcements, metadata streaming settings).
 * Added CSV (comma-separated values) format as a playlist transcripts format.
 * Pressing Control+NvDA+C to save settings will now also save Studio add-on settings (requires NVDA 2018.3).
