@@ -739,7 +739,11 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Locate the handle for main window for caching purposes.
 	def _locateSPLHwndEx(self):
-		hwnd = FindWindow(u"SPLStudio", None)
+		# #78 (18.10): ERROR_SUCCESS (0) is returned in some cases, thus coerce the handle to NULL (0) so at least detection loop can function,
+		try:
+			hwnd = FindWindow(u"SPLStudio", None)
+		except:
+			hwnd = 0
 		while not hwnd:
 			time.sleep(1)
 			# If the demo copy expires and the app module begins, this loop will spin forever.
@@ -748,7 +752,10 @@ class AppModule(appModuleHandler.AppModule):
 				self.noMoreHandle.clear()
 				self.noMoreHandle = None
 				return
-			hwnd = FindWindow(u"SPLStudio", None)
+			try:
+				hwnd = FindWindow(u"SPLStudio", None)
+			except:
+				hwnd = 0
 		# Only this thread will have privilege of notifying handle's existence.
 		with threading.Lock() as hwndNotifier:
 			splbase._SPLWin = hwnd
