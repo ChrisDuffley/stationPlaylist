@@ -18,7 +18,7 @@ _SPLWin = None
 # 18.05: strengthen this by checking for the handle once more.
 def studioAPI(arg, command):
 	if _SPLWin is None:
-		if not user32.FindWindowA("SPLStudio", None):
+		if not user32.FindWindowW(u"SPLStudio", None):
 			debugOutput("Studio handle not found")
 			return
 	debugOutput("Studio API wParem is %s, lParem is %s"%(arg, command))

@@ -179,7 +179,7 @@ class SPLFindDialog(wx.Dialog):
 		global _findDialogOpened
 		text = self.findEntry.Value
 		# Studio, are you alive?
-		if user32.FindWindowA("SPLStudio", None) and text:
+		if user32.FindWindowW(u"SPLStudio", None) and text:
 			appMod = self.obj.appModule
 			column = [self.columnHeaders.Selection+1] if self.columnSearch else None
 			startObj = self.obj
@@ -289,7 +289,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 			return
 		self.Destroy()
 		global _findDialogOpened
-		if user32.FindWindowA("SPLStudio", None):
+		if user32.FindWindowW(u"SPLStudio", None):
 			obj = self.obj.next
 			# Manually locate tracks here.
 			while obj is not None:
@@ -545,7 +545,7 @@ def metadata_actionProfileSwitched(configDialogActive=False):
 		# 18.02: transfered to the action handler and greatly simplified.
 		# 18.04: ask the handle finder to return to this place if Studio handle isn't ready.
 		# This is typically the case when launching Studio and profile switch occurs while demo registration screen is up.
-		handle = user32.FindWindowA("SPLStudio", None)
+		handle = user32.FindWindowW(u"SPLStudio", None)
 		if not handle:
 			_delayMetadataAction = True
 			return
