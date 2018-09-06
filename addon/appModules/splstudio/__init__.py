@@ -702,7 +702,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Locate the handle for main window for caching purposes.
 	def _locateSPLHwnd(self):
-		hwnd = user32.FindWindowA("SPLStudio", None)
+		hwnd = user32.FindWindowW(u"SPLStudio", None)
 		while not hwnd:
 			time.sleep(1)
 			# If the demo copy expires and the app module begins, this loop will spin forever.
@@ -711,7 +711,7 @@ class AppModule(appModuleHandler.AppModule):
 				self.noMoreHandle.clear()
 				self.noMoreHandle = None
 				return
-			hwnd = user32.FindWindowA("SPLStudio", None)
+			hwnd = user32.FindWindowW(u"SPLStudio", None)
 		# Only this thread will have privilege of notifying handle's existence.
 		with threading.Lock() as hwndNotifier:
 			splbase._SPLWin = hwnd
@@ -788,7 +788,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def studioAPIMonitor(self):
 		# Only proceed if Studio handle is valid.
-		if not user32.FindWindowA("SPLStudio", None):
+		if not user32.FindWindowW(u"SPLStudio", None):
 			if self._SPLStudioMonitor is not None:
 				self._SPLStudioMonitor.Stop()
 				self._SPLStudioMonitor = None
@@ -1550,7 +1550,7 @@ class AppModule(appModuleHandler.AppModule):
 		# 17.04: Use the constant directly, as 5.10 and later provides a convenient method to detect completion of library scans.
 		scanCount = splbase.studioAPI(1, 32)
 		while scanCount >= 0:
-			if not self.libraryScanning or not user32.FindWindowA("SPLStudio", None): return
+			if not self.libraryScanning or not user32.FindWindowW(u"SPLStudio", None): return
 			time.sleep(1)
 			# Do not continue if we're back on insert tracks form or library scan is finished.
 			if api.getForegroundObject().windowClassName == "TTrackInsertForm" or not self.libraryScanning:
@@ -1958,7 +1958,7 @@ class AppModule(appModuleHandler.AppModule):
 			if fg is not None and fg.windowClassName != "TStudioForm":
 				# 6.1: Allow gesture-based functions to look up status information even if Studio window isn't focused.
 				# 17.08: several SPL Controller commands will use this route.
-				fg = getNVDAObjectFromEvent(user32.FindWindowA("TStudioForm", None) if not splconfig.SPLConfig.testDrive else user32.FindWindowW(u"TStudioForm", None), OBJID_CLIENT, 0)
+				fg = getNVDAObjectFromEvent(user32.FindWindowW(u"TStudioForm", None), OBJID_CLIENT, 0)
 			statusObj = self.statusObjs[infoIndex]
 			# 7.0: sometimes (especially when first loaded), OBJID_CLIENT fails, so resort to retrieving focused object instead.
 			if fg is not None and fg.childCount > 1:
