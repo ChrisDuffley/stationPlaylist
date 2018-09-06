@@ -740,10 +740,12 @@ class AppModule(appModuleHandler.AppModule):
 	# Locate the handle for main window for caching purposes.
 	def _locateSPLHwndEx(self):
 		# #78 (18.10): ERROR_SUCCESS (0) is returned in some cases, thus coerce the handle to NULL (0) so at least detection loop can function,
-		try:
-			hwnd = FindWindow(u"SPLStudio", None)
-		except:
-			hwnd = 0
+		# 18.09: for now, use FindWindowW directly.
+		hwnd = user32.FindWindowW(u"SPLStudio", None)
+		#try:
+			#hwnd = FindWindow(u"SPLStudio", None)
+		#except:
+			#hwnd = 0
 		while not hwnd:
 			time.sleep(1)
 			# If the demo copy expires and the app module begins, this loop will spin forever.
@@ -1956,7 +1958,7 @@ class AppModule(appModuleHandler.AppModule):
 			if fg is not None and fg.windowClassName != "TStudioForm":
 				# 6.1: Allow gesture-based functions to look up status information even if Studio window isn't focused.
 				# 17.08: several SPL Controller commands will use this route.
-				fg = getNVDAObjectFromEvent(user32.FindWindowA("TStudioForm", None) if not splconfig.SPLConfig.testDrive else FindWindow(u"TStudioForm", None), OBJID_CLIENT, 0)
+				fg = getNVDAObjectFromEvent(user32.FindWindowA("TStudioForm", None) if not splconfig.SPLConfig.testDrive else user32.FindWindowW(u"TStudioForm", None), OBJID_CLIENT, 0)
 			statusObj = self.statusObjs[infoIndex]
 			# 7.0: sometimes (especially when first loaded), OBJID_CLIENT fails, so resort to retrieving focused object instead.
 			if fg is not None and fg.childCount > 1:
