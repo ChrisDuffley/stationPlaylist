@@ -681,7 +681,7 @@ class AppModule(appModuleHandler.AppModule):
 		# 6.1: Do not allow this thread to run forever (seen when evaluation times out and the app module starts).
 		self.noMoreHandle = threading.Event()
 		debugOutput("locating Studio window handle")
-		threading.Thread(target=self._locateSPLHwnd if not splconfig.SPLConfig.testDrive else self._locateSPLHwndEx).start()
+		threading.Thread(target=self._locateSPLHwnd).start()
 		# Let's start checking for add-on updates unless blocked for some reason.
 		# #46 (18.02): the below function will check for updates at startup as well, similar to NVDA Core's behavior.
 		# #50 (18.03): is add-on update check even possible?
@@ -712,52 +712,6 @@ class AppModule(appModuleHandler.AppModule):
 				self.noMoreHandle = None
 				return
 			hwnd = user32.FindWindowW(u"SPLStudio", None)
-		# Only this thread will have privilege of notifying handle's existence.
-		with threading.Lock() as hwndNotifier:
-			splbase._SPLWin = hwnd
-			debugOutput("Studio handle is %s"%hwnd)
-		# #41 (18.04): start background monitor.
-		# 18.08: unless Studio is exiting.
-		try:
-			self._SPLStudioMonitor = wx.PyTimer(self.studioAPIMonitor)
-			wx.CallAfter(self._SPLStudioMonitor.Start, 1000)
-		except:
-			pass
-		# Remind me to broadcast metadata information.
-		# 18.04: also when delayed action is needed because metadata action handler couldn't locate Studio handle itself.
-		if splconfig.SPLConfig["General"]["MetadataReminder"] == "startup" or splmisc._delayMetadataAction:
-			splmisc._delayMetadataAction = False
-			# If told to remind and connect, metadata streaming will be enabled at this time.
-			# 6.0: Call Studio API twice - once to set, once more to obtain the needed information.
-			# 6.2/7.0: When Studio API is called, add the value into the stream count list also.
-			# 17.11: call the connector.
-			splmisc.metadataConnector()
-			# #40 (18.02): call the internal announcer in order to not hold up action handler queue.
-			# #51 (18.03/15.14-LTS): if this is called within two seconds (status time-out), status will be announced multiple times.
-			# 18.04: hopefully the error message won't be shown as this is supposed to run right after locating Studio handle.
-			splmisc._earlyMetadataAnnouncerInternal(metadataStatus())
-
-	# Locate the handle for main window for caching purposes.
-	def _locateSPLHwndEx(self):
-		# #78 (18.10): ERROR_SUCCESS (0) is returned in some cases, thus coerce the handle to NULL (0) so at least detection loop can function,
-		# 18.09: for now, use FindWindowW directly.
-		hwnd = user32.FindWindowW(u"SPLStudio", None)
-		#try:
-			#hwnd = FindWindow(u"SPLStudio", None)
-		#except:
-			#hwnd = 0
-		while not hwnd:
-			time.sleep(1)
-			# If the demo copy expires and the app module begins, this loop will spin forever.
-			# Make sure this loop catches this case.
-			if self.noMoreHandle.isSet():
-				self.noMoreHandle.clear()
-				self.noMoreHandle = None
-				return
-			try:
-				hwnd = FindWindow(u"SPLStudio", None)
-			except:
-				hwnd = 0
 		# Only this thread will have privilege of notifying handle's existence.
 		with threading.Lock() as hwndNotifier:
 			splbase._SPLWin = hwnd
