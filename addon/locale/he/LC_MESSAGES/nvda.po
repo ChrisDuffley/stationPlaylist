@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 5.5\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2015-09-25 19:00+1000\n"
-"PO-Revision-Date: 2018-07-08 09:41-0700\n"
+"PO-Revision-Date: 2018-09-01 21:21-0700\n"
 "Last-Translator: shmuel_naaman@yahoo.com\n"
 "Language-Team: \n"
 "Language: he\n"
@@ -2230,65 +2230,3 @@ msgid ""
 msgstr ""
 "מנגיש את תוכנת StationPlaylist  Studio  .  \n"
 "בנוסף, מאפשר ביצוע פקודות מכל מקום אחר במחשב."
-
-#~ msgid "Song pitch not available"
-#~ msgstr "גובה צליל הקטע לא זוהה"
-
-#~ msgid "General add-on settings"
-#~ msgstr "הגדרות תוסף הסטודיו"
-
-#, fuzzy
-#~ msgid "Playlist transcripts settings"
-#~ msgstr "תמונות של רשימת השמעה"
-
-#~ msgid "&Add-on update channel:"
-#~ msgstr "&ערוץ עדכון התוסף:"
-
-#~ msgid "Switching to unstable channel"
-#~ msgstr "שנה לגרסה לא יציבה"
-
-#~ msgid "&General add-on settings..."
-#~ msgstr "שחזור הגדרות ברירת מחדל..."
-
-#~ msgid "&Alarms Center..."
-#~ msgstr "&מרכז ההתראות."
-
-#~ msgid "&Playlist snapshots..."
-#~ msgstr "&תמונות של רשימת השמעה ..."
-
-#~ msgid "Configure metadata &streaming connection options..."
-#~ msgstr "אפשרויות הגדרת זרימת מטודאטה  והתחברות."
-
-#, fuzzy
-#~ msgid "Playlist &transcripts..."
-#~ msgstr "תמונות של רשימת השמעה"
-
-#~ msgid "&Status announcements..."
-#~ msgstr "הקראת ה&מצבים..."
-
-#~ msgid "&Advanced options..."
-#~ msgstr "אפשרויות מתק&דמות..."
-
-#~ msgid ""
-#~ "You have changed the add-on update channel. You must restart NVDA for the "
-#~ "change to take effect. Be sure to answer yes when you are asked to "
-#~ "install the new version when prompted after restarting NVDA."
-#~ msgstr ""
-#~ "בוצע שינוי בערוץ העדכון של התוספים. יש להפעיל את NVDA כד שהשינויים יחולו."
-
-#~ msgid "Add-on update channel changed"
-#~ msgstr "שינוי בערוץ העדכון של התוספים"
-
-#~ msgid ""
-#~ "Did you recently tell SPL add-on to use a different update channel? If "
-#~ "so, please restart NVDA before checking for add-on updates."
-#~ msgstr ""
-#~ "האם הגדרות ערוץ העדכון של תוסף SPL שונו לאחרונה? אם כן, יש להריץ את NVDA "
-#~ "מחדש לפני עדכון התוסף."
-
-#~ msgid "Update channel changed"
-#~ msgstr "ערוץ עדכון התוסף שונה"
-
-#, fuzzy
-#~ msgid "Studio Add-on Settings V2"
-#~ msgstr "הגדרות תוסף הסטודיו"

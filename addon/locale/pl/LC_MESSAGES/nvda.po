@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-07-08 09:45-0700\n"
+"PO-Revision-Date: 2018-09-01 21:21-0700\n"
 "Last-Translator: Patryk <patric3031@wp.pl>\n"
 "Language-Team: Polish <killer@tyflonet.com>\n"
 "Language: pl\n"
@@ -2276,66 +2276,3 @@ msgid ""
 msgstr ""
 "Poprawia dostępność Station Playlist Studio.\n"
 "Ponadto, dodaje globalne komendy dla studia, dostępne z każdego miejsca."
-
-#~ msgid "Song pitch not available"
-#~ msgstr "Wysokość piosenki niedostępna."
-
-#~ msgid "General add-on settings"
-#~ msgstr "ogólne Ustawienia dodatku SPL"
-
-#, fuzzy
-#~ msgid "Playlist transcripts settings"
-#~ msgstr "Statystyki playlisty"
-
-#~ msgid "&Add-on update channel:"
-#~ msgstr "Kanał aktualizacji wtyczki"
-
-#~ msgid "Switching to unstable channel"
-#~ msgstr "Przełączam na: Kanał rozwojowy"
-
-#~ msgid "&General add-on settings..."
-#~ msgstr "Ogólne..."
-
-#~ msgid "&Alarms Center..."
-#~ msgstr "Centrum alertów."
-
-#~ msgid "&Playlist snapshots..."
-#~ msgstr "Przegląd playlisty..."
-
-#~ msgid "Configure metadata &streaming connection options..."
-#~ msgstr "Skonfiguruj opcje metadanych i strumieniowania"
-
-#, fuzzy
-#~ msgid "Playlist &transcripts..."
-#~ msgstr "Statystyki playlisty"
-
-#~ msgid "&Status announcements..."
-#~ msgstr "Oznajmianie statusu"
-
-#~ msgid "&Advanced options..."
-#~ msgstr "Zaawansowane..."
-
-#~ msgid ""
-#~ "You have changed the add-on update channel. You must restart NVDA for the "
-#~ "change to take effect. Be sure to answer yes when you are asked to "
-#~ "install the new version when prompted after restarting NVDA."
-#~ msgstr ""
-#~ "Zmieniono kanał dostarczania aktualizacji. Proszę, zrestartuj NVDA. "
-#~ "Pamiętaj, by odpowiedzieć twierdząco na pytanie o instalację nowej wersji."
-
-#~ msgid "Add-on update channel changed"
-#~ msgstr "Zmieniono kanał otrzymywania aktualizacji"
-
-#~ msgid ""
-#~ "Did you recently tell SPL add-on to use a different update channel? If "
-#~ "so, please restart NVDA before checking for add-on updates."
-#~ msgstr ""
-#~ "Jeśli zlecono zmianę kanału dostarczania aktualizacji, proszę, zrestartuj "
-#~ "NVDA."
-
-#~ msgid "Update channel changed"
-#~ msgstr "zmieniono kanał dostarczania aktualizacji."
-
-#, fuzzy
-#~ msgid "Studio Add-on Settings V2"
-#~ msgstr "Ustawienia dodatku SPL"

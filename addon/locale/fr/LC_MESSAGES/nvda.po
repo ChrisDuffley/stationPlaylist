@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: StationPlaylist 18.08\n"
+"Project-Id-Version: StationPlaylist 18.08.2\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-07-27 20:43+0200\n"
+"PO-Revision-Date: 2018-09-04 20:30+0200\n"
 "Last-Translator: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language-Team: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language: fr\n"
@@ -1223,6 +1223,8 @@ msgid ""
 "Add-on Updater add-on might be running. Please use that add-on to check for "
 "updates."
 msgstr ""
+"Add-on Updater peut être en cours d'exécution. Veuillez utiliser ce module "
+"complémentaire pour vérifier les mises à jour."
 
 #. Translators: title of a panel to configure broadcast profiles.
 msgid "Broadcast profiles"
@@ -1586,7 +1588,7 @@ msgstr ""
 "désactiver."
 
 msgid "&Stream:"
-msgstr ""
+msgstr "&Flux :"
 
 #. Translators: A checkbox to let metadata streaming status be applied to the currently active broadcast profile.
 msgid "&Apply streaming changes to the selected profile"
@@ -1608,9 +1610,8 @@ msgstr "Lorsque le changement de profil immédiat est actif"
 msgid "&Metadata streaming notification and connection"
 msgstr "Notification des &métadonnées en streaming et connexion"
 
-#, fuzzy
 msgid "&Select the URL for metadata streaming upon request:"
-msgstr "Sélectionnez l'URL de métadonnées en streaming à la demande."
+msgstr "&Sélectionnez l'URL de métadonnées en streaming à la demande :"
 
 #. Translators: Title of a dialog to configure column announcements (order and what columns should be announced).
 msgid "Manage column announcements"
@@ -1621,21 +1622,19 @@ msgid "Playlist transcript columns"
 msgstr "Colonnes de transcription de playlist"
 
 #. Translators: Help text to select columns to be announced.
-#, fuzzy
 msgid ""
 "&Select columns to be announced\n"
 "(artist and title are announced by default):"
 msgstr ""
-"Sélectionnez les colonnes à être annoncé (l'artiste et le titre sont "
-"annoncés par défaut"
+"&Sélectionnez les colonnes à être annoncé\n"
+"(l'artiste et le titre sont annoncés par défaut :"
 
 #. Translators: Help text to select columns to be announced.
-#, fuzzy
 msgid ""
 "&Select columns to be included in playlist transcripts\n"
 "(artist and title are always included):"
 msgstr ""
-"Sélectionnez les colonnes à inclure dans les transcriptions de playlist "
+"&Sélectionnez les colonnes à inclure dans les transcriptions de playlist\n"
 "(l'artiste et le titre sont toujours inclus"
 
 #. wxPython 4 contains RearrangeList to allow item orders to be changed automatically.
@@ -1785,6 +1784,8 @@ msgid ""
 "Pilot features: I want to test and provide early &feedback on features under "
 "development"
 msgstr ""
+"Fonctionnalités pilotes : Je souhaite tester et fournir rapidement des "
+"&commentaires sur les fonctionnalités en cours de développement."
 
 #. Translators: The confirmation prompt displayed when changing update interval to zero days (updates will be checked every time Studio app module loads).
 msgid ""
@@ -1801,7 +1802,6 @@ msgid "Confirm update interval"
 msgstr "Confirmer l'intervalle de mise à jour"
 
 #. Translators: The confirmation prompt displayed when about to enable pilot flag (with risks involved).
-#, fuzzy
 msgid ""
 "You are about to enable pilot features. Please note that pilot features may "
 "include functionality that might be unstable at times and should be used for "
@@ -1809,28 +1809,29 @@ msgid ""
 "stable features, please answer no and uncheck pilot features checkbox. Are "
 "you sure you wish to enable pilot features?"
 msgstr ""
-"Vous êtes sur le point de basculer vers le Test Drive Fast (essai), build du "
-"canal, le canal de développement le plus rapide et le plus instable. Notez "
-"que le canal sélectionné peut être accompagné de mises à jour qui peuvent "
-"être instables parfois et devraient être utilisés pour tester et envoyer des "
-"commentaires au développeur du module complémentaire. Si vous préférez "
-"utiliser des versions stables, répondez non et basculer vers un canal de "
-"mise à jour plus stable. Êtes-vous sûr de vouloir basculer vers le canal de "
-"développement le plus rapide ?"
+"Vous êtes sur le point d'activer les fonctionnalités pilotes. Veuillez noter "
+"que les fonctionnalités pilotes peuvent inclure des fonctionnalités qui "
+"peuvent être instables à certains moments et doivent être utilisées pour "
+"tester et envoyer des commentaires au développeur du module complémentaire. "
+"Si vous préférez utiliser des fonctionnalités stables, répondez non et "
+"décochez la case à cocher Fonctions pilotes. Êtes-vous sûr de vouloir "
+"activer les fonctionnalités pilotes?"
 
 #. Translators: The title of the channel switch confirmation dialog.
 msgid "Enable pilot features"
-msgstr ""
+msgstr "Activer les fonctionnalités pilotes"
 
 #. Translators: A dialog message shown when pilot features is turned on or off.
 msgid ""
 "You have toggled pilot features checkbox. You must restart NVDA for the "
 "change to take effect."
 msgstr ""
+"Vous avez activé la case à cocher Fonctions pilotes. Vous devez redémarrer "
+"NVDA pour que la modification prenne effet."
 
 #. Translators: Title of the pilot features dialog.
 msgid "Pilot features"
-msgstr ""
+msgstr "Fonctionnalités pilotes"
 
 #. Translators: Title of the dialog to reset various add-on settings.
 #. Translators: title of a panel to reset add-on settings.
@@ -2374,67 +2375,3 @@ msgid ""
 msgstr ""
 "Améliore la prise en charge de StationPlaylist Studio.\n"
 "En outre, ajoute des commandes globales pour studio où que vous soyez."
-
-#~ msgid "Song pitch not available"
-#~ msgstr "Tonalité de la chanson non disponible"
-
-#~ msgid "General add-on settings"
-#~ msgstr "Paramètres généraux du module complémentaire"
-
-#~ msgid "Playlist transcripts settings"
-#~ msgstr "Paramètres des transcriptions de playlists"
-
-#~ msgid "&Add-on update channel:"
-#~ msgstr "&Canal de mise à jour du module complémentaire:"
-
-#~ msgid "Switching to unstable channel"
-#~ msgstr "Basculer vers le canal instable"
-
-#~ msgid "&General add-on settings..."
-#~ msgstr "Paramètres &généraux du module complémentaire..."
-
-#~ msgid "&Alarms Center..."
-#~ msgstr "&Centre des alarmes..."
-
-#~ msgid "&Playlist snapshots..."
-#~ msgstr "Instantanés de &playlist..."
-
-#~ msgid "Configure metadata &streaming connection options..."
-#~ msgstr ""
-#~ "Configurer les options de connexion des métadonnées en &streaming..."
-
-#~ msgid "Playlist &transcripts..."
-#~ msgstr "&Transcriptions de playlist..."
-
-#~ msgid "&Status announcements..."
-#~ msgstr "Annonces des &statut..."
-
-#~ msgid "&Advanced options..."
-#~ msgstr "Options &avancées..."
-
-#~ msgid ""
-#~ "You have changed the add-on update channel. You must restart NVDA for the "
-#~ "change to take effect. Be sure to answer yes when you are asked to "
-#~ "install the new version when prompted after restarting NVDA."
-#~ msgstr ""
-#~ "Vous avez modifié le canal de mise à jour du module complémentaire. Vous "
-#~ "devez redémarrer NVDA pour que la modification soit prise en compte. "
-#~ "N'oubliez pas de répondre Oui lorsque vous êtes invité à installer la "
-#~ "nouvelle version, lorsque vous y êtes invité après le redémarrage de NVDA."
-
-#~ msgid "Add-on update channel changed"
-#~ msgstr "Canal de mise à jour du module complémentaire modifié"
-
-#~ msgid ""
-#~ "Did you recently tell SPL add-on to use a different update channel? If "
-#~ "so, please restart NVDA before checking for add-on updates."
-#~ msgstr ""
-#~ "Avez-vous récemment dit au module complémentaire SPL d'utiliser un canal "
-#~ "de mise à jour différent ? Si oui, s’il vous plaît redémarrer NVDA avant "
-#~ "de rechercher les mises à jour pour le module complémentaire."
-
-#~ msgid "Update channel changed"
-#~ msgstr "Canal de mise à jour modifié"
-
-#~ msgid "Studio Add-on Settings V2"
-#~ msgstr "Paramètres Module Complémentaire Studio V2"
