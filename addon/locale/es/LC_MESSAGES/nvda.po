@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-07-31 20:31+0100\n"
+"PO-Revision-Date: 2018-09-01 21:21-0700\n"
 "Last-Translator: Iván Novegil <ivan.novegil.cancelas@gmail.com>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.6.11\n"
+"X-Generator: Poedit 1.8.9\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Presented when attempting to install Studio add-on on unsupported Windows releases.
@@ -2355,67 +2355,3 @@ msgid ""
 msgstr ""
 "Mejora el soporte para Station Playlist Studio.\n"
 "Además, agrega comandos globales para el estudio desde cualquier parte."
-
-#~ msgid "Song pitch not available"
-#~ msgstr "Tono de canción no disponible"
-
-#~ msgid "General add-on settings"
-#~ msgstr "Opciones generales del complemento"
-
-#~ msgid "Playlist transcripts settings"
-#~ msgstr "Opciones de transcripciones de listas de reproducción"
-
-#~ msgid "&Add-on update channel:"
-#~ msgstr "Canal de actualización del &complemento:"
-
-#~ msgid "Switching to unstable channel"
-#~ msgstr "Cambiando al canal inestable"
-
-#~ msgid "&General add-on settings..."
-#~ msgstr "Opciones &Generales del Complemento..."
-
-#~ msgid "&Alarms Center..."
-#~ msgstr "Centro de &Alarmas"
-
-#~ msgid "&Playlist snapshots..."
-#~ msgstr "Instantáneas de las &listas de reproducción..."
-
-#~ msgid "Configure metadata &streaming connection options..."
-#~ msgstr "Configurar opciones de metadatos de conexión de &streaming..."
-
-#~ msgid "Playlist &transcripts..."
-#~ msgstr "&Transcripciones de listas de reproducción..."
-
-#~ msgid "&Status announcements..."
-#~ msgstr "Anunciado de e&Stado..."
-
-#~ msgid "&Advanced options..."
-#~ msgstr "Opciones &Avanzadas..."
-
-#~ msgid ""
-#~ "You have changed the add-on update channel. You must restart NVDA for the "
-#~ "change to take effect. Be sure to answer yes when you are asked to "
-#~ "install the new version when prompted after restarting NVDA."
-#~ msgstr ""
-#~ "Has cambiado el canal de actualización del complemento. Debes reiniciar "
-#~ "NVDA para que los cambios tengan efecto. Asegúrate de responder sí cuando "
-#~ "se te pregunte para instalar la nueva versión al indicársete después del "
-#~ "reiniciado de NVDA."
-
-#~ msgid "Add-on update channel changed"
-#~ msgstr "Cambió el canal de actualización del complemento"
-
-#~ msgid ""
-#~ "Did you recently tell SPL add-on to use a different update channel? If "
-#~ "so, please restart NVDA before checking for add-on updates."
-#~ msgstr ""
-#~ "¿Has dicho recientemente al complemento SPL que utilice un canal de "
-#~ "actualización diferente? Si es así, por favor reinicia NVDA antes de "
-#~ "buscar actualizaciones del complemento."
-
-#~ msgid "Update channel changed"
-#~ msgstr "Cambió el canal de actualización"
-
-#, fuzzy
-#~ msgid "Studio Add-on Settings V2"
-#~ msgstr "Opciones del complemento Studio"

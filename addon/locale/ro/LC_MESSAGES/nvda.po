@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 6.4\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2016-03-04 19:00+1000\n"
-"PO-Revision-Date: 2018-08-25 16:07+0300\n"
+"PO-Revision-Date: 2018-09-01 21:21-0700\n"
 "Last-Translator: Florian Ionașcu <florianionascu@hotmail.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.1.1\n"
+"X-Generator: Poedit 1.8.9\n"
 
 #. Translators: Presented when attempting to install Studio add-on on unsupported Windows releases.
 msgid ""
@@ -2323,69 +2323,3 @@ msgid ""
 msgstr ""
 "Conține suport pentru StationPlaylist Studio.\n"
 "De asemenea, adaugă comenzi globale pentru studio de oriunde."
-
-#~ msgid "Song pitch not available"
-#~ msgstr "Înălțimea melodiei nu este disponibilă"
-
-#~ msgid "General add-on settings"
-#~ msgstr "Setările generale ale suplimentului"
-
-#, fuzzy
-#~ msgid "Playlist transcripts settings"
-#~ msgstr "Analiza listei de redare este dezactivată"
-
-#~ msgid "&Add-on update channel:"
-#~ msgstr "&Actualizare canal add-on:"
-
-#~ msgid "Switching to unstable channel"
-#~ msgstr "Comutare la canalul instabil"
-
-#~ msgid "&General add-on settings..."
-#~ msgstr "&Setări grnerale..."
-
-#~ msgid "&Alarms Center..."
-#~ msgstr "Centrul de alarme"
-
-#~ msgid "&Playlist snapshots..."
-#~ msgstr "Liste de redare instantanee."
-
-#~ msgid "Configure metadata &streaming connection options..."
-#~ msgstr "Configurare opţiuni de conectare emi&sie metadata"
-
-#, fuzzy
-#~ msgid "Playlist &transcripts..."
-#~ msgstr "Liste de redare instantanee."
-
-#~ msgid "&Status announcements..."
-#~ msgstr "Anunţări &stare..."
-
-#~ msgid "&Advanced options..."
-#~ msgstr "Opţiuni &avansate..."
-
-#~ msgid ""
-#~ "You have changed the add-on update channel. You must restart NVDA for the "
-#~ "change to take effect. Be sure to answer yes when you are asked to "
-#~ "install the new version when prompted after restarting NVDA."
-#~ msgstr ""
-#~ "Ai modificat canalul de actualizare al extensiei add-on. Trebuie să "
-#~ "repornești NVDA pentru a se aplica modificarea. Fi sigur pentru a "
-#~ "răspunde da când ești întrebat dacă vrei să instalezi Noua versiune după "
-#~ "repornirea NVDA."
-
-#~ msgid "Add-on update channel changed"
-#~ msgstr "Canalul actualizărilor extensiei add-on a fost modificat"
-
-#~ msgid ""
-#~ "Did you recently tell SPL add-on to use a different update channel? If "
-#~ "so, please restart NVDA before checking for add-on updates."
-#~ msgstr ""
-#~ "I-ai spus recent lui SPL add-on Să folosească un canal de actualizări "
-#~ "diferit? Dacă-i așa, Te rugăm să repornești NVDA înainte să cauți "
-#~ "actualizări la extensia add-on."
-
-#~ msgid "Update channel changed"
-#~ msgstr "Canalul actualizărilor a fost modificat"
-
-#, fuzzy
-#~ msgid "Studio Add-on Settings V2"
-#~ msgstr "Setările addonului studio"

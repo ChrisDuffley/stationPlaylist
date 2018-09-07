@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-07-08 09:34-0700\n"
+"PO-Revision-Date: 2018-09-01 21:21-0700\n"
 "Last-Translator: René Linke <rene.linke@hamburg.de>\n"
 "Language-Team: Deutsch <bernd_dorer@yahoo.de>\n"
 "Language: de\n"
@@ -2381,69 +2381,3 @@ msgstr ""
 "Verbessert die Unterstützung für Station Playlist Studio.\n"
 "Des weiteren fügt es Tastenkombinationen für das Studio aus beliebigen "
 "Programmen hinzu."
-
-#~ msgid "Song pitch not available"
-#~ msgstr "Die Tonhöhe des Songs ist nicht verfügbar."
-
-#~ msgid "General add-on settings"
-#~ msgstr "Allgemeine Einstellungen für die Studio-Erweiterung"
-
-#, fuzzy
-#~ msgid "Playlist transcripts settings"
-#~ msgstr "Transkript-Wiedergabelisten"
-
-#~ msgid "&Add-on update channel:"
-#~ msgstr "Aktualisierungskanal der Erweiterung:"
-
-#~ msgid "Switching to unstable channel"
-#~ msgstr "Wechselt zum nicht stabilen Kanal"
-
-#~ msgid "&General add-on settings..."
-#~ msgstr "&Allgemeine Einstellungen..."
-
-#~ msgid "&Alarms Center..."
-#~ msgstr "&Benachrichtigungscenter..."
-
-#~ msgid "&Playlist snapshots..."
-#~ msgstr "&Playlist-Statistiken"
-
-#~ msgid "Configure metadata &streaming connection options..."
-#~ msgstr "Metadaten-&Streaming konfigurieren..."
-
-#, fuzzy
-#~ msgid "Playlist &transcripts..."
-#~ msgstr "Transkript-Wiedergabelisten"
-
-#~ msgid "&Status announcements..."
-#~ msgstr "&Statusansagen..."
-
-#~ msgid "&Advanced options..."
-#~ msgstr "Erweiterte Optionen..."
-
-#~ msgid ""
-#~ "You have changed the add-on update channel. You must restart NVDA for the "
-#~ "change to take effect. Be sure to answer yes when you are asked to "
-#~ "install the new version when prompted after restarting NVDA."
-#~ msgstr ""
-#~ "Sie haben den Aktualisierungskanal für diese Erweiterung geändert. Sie "
-#~ "müssen NVDA neu starten, damit die Änderung wirksam wird. Wenn Sie nach "
-#~ "dem Neustart von NVDA aufgefordert werden, die neue Version zu "
-#~ "installieren, müssen Sie mit Ja antworten."
-
-#~ msgid "Add-on update channel changed"
-#~ msgstr "Update-Kanal der Erweiterung geändert."
-
-#~ msgid ""
-#~ "Did you recently tell SPL add-on to use a different update channel? If "
-#~ "so, please restart NVDA before checking for add-on updates."
-#~ msgstr ""
-#~ "Haben Sie kürzlich der SPL-Erweiterung mitgeteilt einen anderen Update-"
-#~ "Kanal zu verwenden? Wenn ja, starten Sie NVDA neu, bevor Sie nach "
-#~ "Aktualisierungen suchen."
-
-#~ msgid "Update channel changed"
-#~ msgstr "Update-Kanal geändert"
-
-#, fuzzy
-#~ msgid "Studio Add-on Settings V2"
-#~ msgstr "Einstellungen zur Studio-Erweiterung"

@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 17.02\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2017-02-03 19:00+1000\n"
-"PO-Revision-Date: 2018-08-03 14:41+0700\n"
+"PO-Revision-Date: 2018-09-01 21:20-0700\n"
 "Last-Translator: Cuong Dang Manh <dangmanhcuong@gmail.com>\n"
 "Language-Team: \n"
 "Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.1.1\n"
+"X-Generator: Poedit 1.8.9\n"
 
 #. Translators: Presented when attempting to install Studio add-on on unsupported Windows releases.
 msgid ""
@@ -747,8 +747,8 @@ msgstr "Đang tiến hành quét"
 #. Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
 msgid "No playlist has been loaded, cannot perform playlist analysis."
 msgstr ""
-"Không có danh sách phát nào được tải, không thể thực hiện phân tích danh "
-"sách phát."
+"Không có danh sách phát nào được mở, không thể thực hiện phân tích danh sách "
+"phát."
 
 #. Translators: Presented when playlist analysis cannot be activated.
 msgid "No tracks are selected, cannot perform playlist analysis."
@@ -1181,6 +1181,7 @@ msgid ""
 "Add-on Updater add-on might be running. Please use that add-on to check for "
 "updates."
 msgstr ""
+"Có thể Add-on Updater đang chạy. Hãy dùng add-on đó để kiểm tra cập nhật."
 
 #. Translators: title of a panel to configure broadcast profiles.
 msgid "Broadcast profiles"
@@ -1312,7 +1313,7 @@ msgstr "Đây là hồ sơ chuyển nhanh"
 
 #. Translators: The label of a checkbox to toggle if selected profile is a time-based profile.
 msgid "This is a &time-based switch profile"
-msgstr "Đây là hồ sơ chuyển theo thời gian"
+msgstr "Đây là hồ sơ chuyển &theo thời gian"
 
 msgid "Day"
 msgstr "Ngày"
@@ -1334,7 +1335,7 @@ msgid ""
 "A profile trigger already exists for the entered time slot. Please choose a "
 "different date or time."
 msgstr ""
-"Đã có một tác nhân hồ sơ cho khung giờ đươc5 nhập. Vui lòng chọn thời gian "
+"Đã có một tác nhân hồ sơ cho khung giờ được nhập. Vui lòng chọn thời gian "
 "khác."
 
 #. Er, did you specify a date?
@@ -1535,7 +1536,7 @@ msgid "Check to enable metadata streaming, uncheck to disable."
 msgstr "Chọn để bật metadata streaming, bỏ chọn để tắt."
 
 msgid "&Stream:"
-msgstr ""
+msgstr "&Stream:"
 
 #. Translators: A checkbox to let metadata streaming status be applied to the currently active broadcast profile.
 msgid "&Apply streaming changes to the selected profile"
@@ -1555,11 +1556,10 @@ msgstr "Khi hồ sơ chuyển nhanh hoạt động"
 
 #. Translators: the label for a setting in SPL add-on settings to be notified that metadata streaming is enabled.
 msgid "&Metadata streaming notification and connection"
-msgstr "Thông báo và kết nối metadata streaming"
+msgstr "Thông báo và kết nối &metadata streaming"
 
-#, fuzzy
 msgid "&Select the URL for metadata streaming upon request:"
-msgstr "Chọn URL cho metadata streaming theo yêu cầu."
+msgstr "&Chọn URL cho metadata streaming theo yêu cầu:"
 
 #. Translators: Title of a dialog to configure column announcements (order and what columns should be announced).
 msgid "Manage column announcements"
@@ -1570,20 +1570,18 @@ msgid "Playlist transcript columns"
 msgstr "Cột bảng điểm danh sách phát"
 
 #. Translators: Help text to select columns to be announced.
-#, fuzzy
 msgid ""
 "&Select columns to be announced\n"
 "(artist and title are announced by default):"
-msgstr "Chọn các cột để thông báo (ca sĩ và tựa đề mặc định được thông báo"
+msgstr "&Chọn các cột để thông báo (ca sĩ và tựa đề mặc định được thông báo:"
 
 #. Translators: Help text to select columns to be announced.
-#, fuzzy
 msgid ""
 "&Select columns to be included in playlist transcripts\n"
 "(artist and title are always included):"
 msgstr ""
-"Chọn các cột để bao gồm trong bảng điểm danh sách phát (ca sĩ và tựa đề luôn "
-"được bao gồm"
+"&Chọn các cột để bao gồm trong bảng điểm danh sách phát (ca sĩ và tựa đề "
+"luôn được bao gồm:"
 
 #. wxPython 4 contains RearrangeList to allow item orders to be changed automatically.
 #. Because wxPython 3 doesn't include this, work around by using a variant of list box and move up/down buttons.
@@ -1729,6 +1727,8 @@ msgid ""
 "Pilot features: I want to test and provide early &feedback on features under "
 "development"
 msgstr ""
+"Các tính năng thử nghiệm: Tôi muốn kiểm tra và gửi &phản hồi sớm về các tính "
+"năng đang được thử nghiệm"
 
 #. Translators: The confirmation prompt displayed when changing update interval to zero days (updates will be checked every time Studio app module loads).
 msgid ""
@@ -1745,7 +1745,6 @@ msgid "Confirm update interval"
 msgstr "Xác nhận thời gian cập nhật"
 
 #. Translators: The confirmation prompt displayed when about to enable pilot flag (with risks involved).
-#, fuzzy
 msgid ""
 "You are about to enable pilot features. Please note that pilot features may "
 "include functionality that might be unstable at times and should be used for "
@@ -1753,26 +1752,27 @@ msgid ""
 "stable features, please answer no and uncheck pilot features checkbox. Are "
 "you sure you wish to enable pilot features?"
 msgstr ""
-"Bạn sắp chuyển sang kênh Test Drive Fast (dùng thử), kênh nhanh nhất và gần "
-"như không chính thức. Lưu ý rằng kênh được chọn có thể có các cập nhật không "
-"chính thức và chỉ nên dùng để kiểm tra và gửi phản hồi cho người phát triển "
-"add-on . Nếu bạn thích dùng các bản phát hành chính thức, vui lòng trả lời "
-"no và chuyển về một kênh cập nhật chính thức hơn. Bạn có chắc rằng mình dùng "
-"kênh Test Drive Fast không?"
+"Bạn sắp bật các tính năng thử nghiệm. Xin lưu ý rằng các tính năng thử "
+"nghiệm có thể bao gồm các chức năng hiện chưa chính thức được dùng và chỉ "
+"nên dùng để kiểm tra và gửi phản hồi cho người phát triển add-on. Nếu chỉ "
+"thích dùng các tính năng chính thức, hãy trả lời không và bỏ chọn hộp kiểm "
+"các tính năng thử nghiệm. Bạn có muốn bật tính năng thử nghiệm không?"
 
 #. Translators: The title of the channel switch confirmation dialog.
 msgid "Enable pilot features"
-msgstr ""
+msgstr "Bật các tính năng thử nghiệm"
 
 #. Translators: A dialog message shown when pilot features is turned on or off.
 msgid ""
 "You have toggled pilot features checkbox. You must restart NVDA for the "
 "change to take effect."
 msgstr ""
+"Bạn đã bật / tắt hộp kiểm các tính năng thử nghiệm. Bạn phải khởi động lại "
+"NVDA để thay đổi có hiệu lực."
 
 #. Translators: Title of the pilot features dialog.
 msgid "Pilot features"
-msgstr ""
+msgstr "Các tính năng thử nghiệm"
 
 #. Translators: Title of the dialog to reset various add-on settings.
 #. Translators: title of a panel to reset add-on settings.
@@ -2074,7 +2074,7 @@ msgstr ""
 #. Translators: The name of a layer command set for Station Playlist Studio.
 #. Hint: it is better to translate it as "SPL Control Panel."
 msgid "SPL Controller"
-msgstr "Bộ bộ điều khiển SPL"
+msgstr "Bộ điều khiển SPL"
 
 #. Translators: Input help mode message for a layer command in Station Playlist Studio.
 msgid "SPl Controller layer command. See add-on guide for available commands."
@@ -2298,62 +2298,3 @@ msgid ""
 msgstr ""
 "Cải thiện hỗ trợ cho StationPlaylist Studio.\n"
 "Ngoài ra là thêm các lệnh toàn cục cho studio từ bất cứ đâu."
-
-#~ msgid "Song pitch not available"
-#~ msgstr "Độ cao bài hát không sẵn sàng"
-
-#~ msgid "General add-on settings"
-#~ msgstr "Cài đặt chung cho add-on"
-
-#~ msgid "Playlist transcripts settings"
-#~ msgstr "Cài đặt bảng điểm danh sách phát"
-
-#~ msgid "&Add-on update channel:"
-#~ msgstr "Kênh cập nhật &add-on:"
-
-#~ msgid "Switching to unstable channel"
-#~ msgstr "Đang chuyển sang kênh không chính thức"
-
-#~ msgid "&General add-on settings..."
-#~ msgstr "&Cài đặt chung cho add-on..."
-
-#~ msgid "&Alarms Center..."
-#~ msgstr "&Trung  tâm các báo động..."
-
-#~ msgid "&Playlist snapshots..."
-#~ msgstr "Ả&nh chụp danh sách phát..."
-
-#~ msgid "Configure metadata &streaming connection options..."
-#~ msgstr "Cấu hình các tùy chọn cho kết nối metadata và phát thanh..."
-
-#~ msgid "Playlist &transcripts..."
-#~ msgstr "Bảng điểm &danh sách phát..."
-
-#~ msgid "&Status announcements..."
-#~ msgstr "&Thông báo trạng thái..."
-
-#~ msgid "&Advanced options..."
-#~ msgstr "&Tùy chọn nâng cao..."
-
-#~ msgid ""
-#~ "You have changed the add-on update channel. You must restart NVDA for the "
-#~ "change to take effect. Be sure to answer yes when you are asked to "
-#~ "install the new version when prompted after restarting NVDA."
-#~ msgstr ""
-#~ "Bạn đã thay đổi kênh cập nhật add-on. Bạn phải khởi động lại NVDA để thay "
-#~ "đổi có hiệu lực. Nhớ trả lời yes khi được yêu cầu cài phiên bản mới sau "
-#~ "khi khởi động lại NVDA."
-
-#~ msgid "Add-on update channel changed"
-#~ msgstr "Đã thay đổi kênh cập nhật add-on"
-
-#~ msgid ""
-#~ "Did you recently tell SPL add-on to use a different update channel? If "
-#~ "so, please restart NVDA before checking for add-on updates."
-#~ msgstr ""
-#~ "Có phải bạn đã khai báo với SPL add-on để dùng một kênh cập nhật khác "
-#~ "không? Nếu có, vui lòng khởi động lại NVDA trước khi kiểm tra cập nhật "
-#~ "add-on."
-
-#~ msgid "Update channel changed"
-#~ msgstr "Đã thay đổi kênh cập nhật"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 3.3\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2014-11-28 19:00+1000\n"
-"PO-Revision-Date: 2018-07-08 09:42-0700\n"
+"PO-Revision-Date: 2018-09-01 21:21-0700\n"
 "Last-Translator: zvonimir Stanecic <zvonimirek222@yandex.com>\n"
 "Language-Team: \n"
 "Language: hr\n"
@@ -2301,66 +2301,3 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist Studio.\n"
 "Također, dodaje komande za studio bilo gdje."
-
-#~ msgid "Song pitch not available"
-#~ msgstr "Visina pjesme nije dostupna."
-
-#~ msgid "General add-on settings"
-#~ msgstr "Opće postavke dodatka"
-
-#, fuzzy
-#~ msgid "Playlist transcripts settings"
-#~ msgstr "Statistike popisa za reprodukciju "
-
-#~ msgid "&Add-on update channel:"
-#~ msgstr "&Kanal nadogradnje dodatka"
-
-#~ msgid "Switching to unstable channel"
-#~ msgstr "Prebacivanje na nestabilni kanal"
-
-#~ msgid "&General add-on settings..."
-#~ msgstr "&Opće postavke dodatka..."
-
-#~ msgid "&Alarms Center..."
-#~ msgstr "&Centar za alarme "
-
-#~ msgid "&Playlist snapshots..."
-#~ msgstr "&Statistike popisa za reprodukciju"
-
-#~ msgid "Configure metadata &streaming connection options..."
-#~ msgstr "Konfiguriraj postavke za metadata strimove i povezivanja "
-
-#, fuzzy
-#~ msgid "Playlist &transcripts..."
-#~ msgstr "Statistike popisa za reprodukciju "
-
-#~ msgid "&Status announcements..."
-#~ msgstr "&Izgovor statusa"
-
-#~ msgid "&Advanced options..."
-#~ msgstr "&Dodatne opcije..."
-
-#~ msgid ""
-#~ "You have changed the add-on update channel. You must restart NVDA for the "
-#~ "change to take effect. Be sure to answer yes when you are asked to "
-#~ "install the new version when prompted after restarting NVDA."
-#~ msgstr ""
-#~ "Promijenili ste kanal za provjeru ažuriranja dodatka. Morate ponovo "
-#~ "pokrenuti NVDA kako bi se ove promjene primijenile. "
-
-#~ msgid "Add-on update channel changed"
-#~ msgstr "Kanal za ažuriranje dodatka promijenjen"
-
-#~ msgid ""
-#~ "Did you recently tell SPL add-on to use a different update channel? If "
-#~ "so, please restart NVDA before checking for add-on updates."
-#~ msgstr ""
-#~ "Jeste li nedavno rekli dodatku da koristi drugi kanal ažuriranja? Ako da, "
-#~ "molimo ponovno pokrenite NVDA prije provjere ažuriranja dodatka."
-
-#~ msgid "Update channel changed"
-#~ msgstr "Kanal ažuriranja promijenjen"
-
-#, fuzzy
-#~ msgid "Studio Add-on Settings V2"
-#~ msgstr "Postavke Studio dodatka "
