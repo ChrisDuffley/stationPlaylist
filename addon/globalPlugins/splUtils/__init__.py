@@ -104,11 +104,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Don't do anything if we're already focus on SPL Studio.
 		if "splstudio" in api.getForegroundObject().appModule.appModuleName: return
 		else:
-			SPLHwnd = user32.FindWindowA("SPLStudio", None) # Used ANSI version, as Wide char version always returns 0.
+			SPLHwnd = user32.FindWindowW(u"SPLStudio", None)
 			if not SPLHwnd: ui.message(_("SPL Studio is not running."))
 			else:
 				# 17.01: SetForegroundWindow function is better, as there's no need to traverse top-level windows and allows users to "switch" to SPL window if the window is minimized.
-				user32.SetForegroundWindow(user32.FindWindowA("TStudioForm", None))
+				user32.SetForegroundWindow(user32.FindWindowW(u"TStudioForm", None))
 	# Translators: Input help mode message for a command to switch to Station Playlist Studio from any program.
 	script_focusToSPLWindow.__doc__=_("Moves to SPL Studio window from other programs.")
 
@@ -130,7 +130,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			else:
 				api.getForegroundObject().appModule.script_SPLAssistantToggle(gesture)
 				return
-		SPLWin = user32.FindWindowA("SPLStudio", None)
+		SPLWin = user32.FindWindowW(u"SPLStudio", None)
 		if SPLWin == 0:
 			# Translators: Presented when Station Playlist Studio is not running.
 			ui.message(_("SPL Studio is not running."))
@@ -142,7 +142,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			# 17.12: also bind cart keys.
 			# Exclude number row if Studio Standard is running.
 			cartKeys = self.fnCartKeys
-			if not getNVDAObjectFromEvent(winUser.user32.FindWindowA("TStudioForm", None), winUser.OBJID_CLIENT, 0).name.startswith("StationPlaylist Studio Standard"):
+			if not getNVDAObjectFromEvent(winUser.user32.FindWindowW(u"TStudioForm", None), winUser.OBJID_CLIENT, 0).name.startswith("StationPlaylist Studio Standard"):
 				cartKeys+=self.numCartKeys
 			for cart in cartKeys:
 				self.bindGesture("kb:%s"%cart, "cartsWithoutBorders")
@@ -252,7 +252,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def script_statusInfo(self, gesture):
 		# Go through below procedure, as custom commands can be assigned for this script.
-		SPLWin = user32.FindWindowA("SPLStudio", None)
+		SPLWin = user32.FindWindowW(u"SPLStudio", None)
 		if not SPLWin:
 			ui.message(_("SPL Studio is not running."))
 			self.finish()
@@ -265,7 +265,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# For automation, Studio 5.11 and earlier does not have an easy way to detect this flag, thus resort to using playback status.
 		# 17.08: relaxed by locating the Studio foreground window and returning status bar messages (same procedure as the app module/SPL Assistant).
 		if winUser.sendMessage(SPLWin, 1024, 0, SPLVersion) < 520:
-			studioAppMod = getNVDAObjectFromEvent(winUser.user32.FindWindowA("TStudioForm", None), winUser.OBJID_CLIENT, 0).appModule
+			studioAppMod = getNVDAObjectFromEvent(winUser.user32.FindWindowW(u"TStudioForm", None), winUser.OBJID_CLIENT, 0).appModule
 			statusBar = studioAppMod.status(studioAppMod.SPLPlayStatus)
 			for index in range(1, 6):
 				statusInfo.append(statusBar.getChild(index).name)
@@ -286,12 +286,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	script_statusInfo.__doc__ = _("Announces Studio status such as track playback status from other programs")
 
 	def script_currentTrackTitle(self, gesture):
-		studioAppMod = getNVDAObjectFromEvent(winUser.user32.FindWindowA("TStudioForm", None), winUser.OBJID_CLIENT, 0).appModule
+		studioAppMod = getNVDAObjectFromEvent(winUser.user32.FindWindowW(u"TStudioForm", None), winUser.OBJID_CLIENT, 0).appModule
 		studioAppMod.script_sayCurrentTrackTitle(None)
 		self.finish()
 
 	def script_nextTrackTitle(self, gesture):
-		studioAppMod = getNVDAObjectFromEvent(winUser.user32.FindWindowA("TStudioForm", None), winUser.OBJID_CLIENT, 0).appModule
+		studioAppMod = getNVDAObjectFromEvent(winUser.user32.FindWindowW(u"TStudioForm", None), winUser.OBJID_CLIENT, 0).appModule
 		studioAppMod.script_sayNextTrackTitle(None)
 		self.finish()
 
