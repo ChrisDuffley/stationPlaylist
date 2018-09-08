@@ -381,15 +381,10 @@ class SPLStudioTrackItem(SPLTrackItem):
 
 	# A proxy function to call the track comments entry dialog.
 	def _trackCommentsEntry(self, filename, comment):
-		if wx.version().startswith("4"):
-			dlg = wx.TextEntryDialog(gui.mainFrame,
-			_("Track comment"),
-			# Translators: The title of the track comments dialog.
-			_("Track comment"), value=comment)
-		else:
-			dlg = wx.TextEntryDialog(gui.mainFrame,
-			_("Track comment"),
-			_("Track comment"), defaultValue=comment)
+		dlg = wx.TextEntryDialog(gui.mainFrame,
+		_("Track comment"),
+		# Translators: The title of the track comments dialog.
+		_("Track comment"), value=comment)
 		def callback(result):
 			if result == wx.ID_OK:
 				if dlg.GetValue() is None: return
