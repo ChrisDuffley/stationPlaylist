@@ -652,7 +652,7 @@ def playlist2htmlTable(start, end, transcriptAction):
 	else: playlistTranscripts = ["Playlist Transcripts - use table navigation commands to review track information"]
 	playlistTranscripts.append("<p>")
 	columnHeaders = columnPresentationOrder()
-	playlistTranscripts.append("<table><tr><th>{0}</tr>".format(columnHeaders))
+	playlistTranscripts.append("<table><tr><th>{trackHeaders}</tr>".format(trackHeaders = "<th>".join(columnHeaders)))
 	obj = start
 	columnPos = [obj.indexOf(column) for column in columnHeaders]
 	while obj not in (None, end):
