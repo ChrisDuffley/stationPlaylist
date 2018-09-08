@@ -1075,10 +1075,7 @@ class AppModule(appModuleHandler.AppModule):
 		# 18.08: call appropriate Remove function based on wxPython version in use.
 		# 18.09: use wx.Menu.Remove directly.
 		try:
-			if wx.version().startswith("4"):
-				self.prefsMenu.Remove(self.SPLSettings)
-			else:
-				self.prefsMenu.RemoveItem(self.SPLSettings)
+			self.prefsMenu.Remove(self.SPLSettings)
 		except: #(RuntimeError, AttributeError):
 			pass
 		# Tell the handle finder thread it's time to leave this world.
