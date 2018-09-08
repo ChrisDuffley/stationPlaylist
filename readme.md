@@ -191,6 +191,10 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 18.09.1-LTS
+
+* When obtaining playlist transcripts in HTML table format, column headers are no longer rendered as a Python list string.
+
 ## Version 18.09-LTS
 
 Version 18.09.x is the last release series to support Studio 5.10 and based on old technologies, with 18.10 and later supporting Studio 5.11/5.20 and new features. Some new features will be backported to 18.09.x if needed.
