@@ -195,6 +195,10 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 * Internal changes to make the add-on more compatible with Python 3.
 
+## Version 18.09.1-LTS
+
+* When obtaining playlist transcripts in HTML table format, column headers are no longer rendered as a Python list string.
+
 ## Version 18.09-LTS
 
 Version 18.09.x is the last release series to support Studio 5.10 and based on old technologies, with 18.10 and later supporting Studio 5.11/5.20 and new features. Some new features will be backported to 18.09.x if needed.
