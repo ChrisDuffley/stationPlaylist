@@ -248,7 +248,7 @@ class SPLStudioTrackItem(SPLTrackItem):
 	def _getColumnContents(self, columns=None, readable=False):
 		if columns is None:
 			columns = list(rangeGen(18))
-		columnContents = [splmisc._getColumnContent(self, col) for col in columns]
+		columnContents = [self._getColumnContentRaw(col) for col in columns]
 		if readable:
 			for pos in rangeGen(len(columnContents)):
 				if columnContents[pos] is None: columnContents[pos] = ""
@@ -335,7 +335,7 @@ class SPLStudioTrackItem(SPLTrackItem):
 		# #61 (18.06): a direct copy of column data gatherer from playlist transcripts.
 		# 18.07: just call the gatherer function with "blank" as the readable string and add column header afterwards.
 		columns = list(rangeGen(18))
-		columnContents = [splmisc._getColumnContent(self, col) for col in columns]
+		columnContents = [self._getColumnContentRaw(col) for col in columns]
 		columnHeaders = ["Status"] + splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
 		for pos in rangeGen(len(columnContents)):
 			if columnContents[pos] is None: columnContents[pos] = "blank"
@@ -1277,7 +1277,7 @@ class AppModule(appModuleHandler.AppModule):
 			# If this happens, use the module level version of column content getter.
 			# Optimization: search column texts.
 			for column in columns:
-				columnText = splmisc._getColumnContent(obj, column)
+				columnText = obj._getColumnContentRaw(column)
 				if columnText and text in columnText:
 					return obj
 			obj = getattr(obj, nextTrack)
