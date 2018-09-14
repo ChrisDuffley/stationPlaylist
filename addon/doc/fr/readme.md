@@ -3,6 +3,8 @@
 * Auteurs: Geoff Shang, Joseph Lee et d'autres contributeurs.
 * Télécharger [version stable][1]
 * Télécharger [la version de développement][2]
+* Télécharger [version support long-terme][3] - pour les utilisateurs de
+  Studio 5.10 / 5.11
 
 Ce module complémentaire améliore l'utilisation de Station Playlist Studio,
 mais il fournit aussi des utilitaires pour contrôler le Studio où que vous
@@ -16,7 +18,8 @@ racine du code source du module complémentaire du référentiel.
 NOTES IMPORTANTES :
 
 * Ce module complémentaire nécessite NVDA 2018.2 ou version ultérieure et
-  StationPlaylist Studio 5.10 ou version ultérieure.
+  StationPlaylist Studio 5.10 ou version ultérieure. Pour une meilleure
+  expérience, NVDA 2018.3 et Studio 5.11 ou ultérieur sont recommandés.
 * Si vous utilisez Windows 8 ou ultérieur, pour une meilleure expérience,
   désactiver le Mode d'atténuation audio.
 * À partir de 2018, [les journal des changements des anciennes versions du
@@ -331,6 +334,50 @@ ultérieure installé, vous pouvez exécuter certaines commandes Studio depuis
 un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
+
+## Version 18.09.1-LTS
+
+* Lors de l'obtention de transcriptions de playlist au format de tableau
+  HTML, les titres de colonnes ne sont plus affichés sous la forme d'une
+  chaîne de liste Python.
+
+## Version 18.09-LTS
+
+La version 18.09.x est la dernière série à prendre en charge Studio 5.10 et
+elle est basée sur les anciennes technologies, avec la 18.10 et versions
+ultérieures prenant en charge Studio 5.11 / 5.20 et des nouvelles
+fonctionnalités si nécessaire, certaines nouvelles fonctionnalités seront
+redirigées vers la 18.09.x.
+
+* NVDA 2018.3 ou une version ultérieure est recommandée en raison de
+  l'introduction de wxPython 4.
+* L'écran des paramètres des modules complémentaires est désormais
+  entièrement basé sur une interface multi-pages dérivée de NVDA 2018.2 et
+  versions ultérieures.
+* Test Drive Fast et Slow ont combiné le canal "développement" avec une
+  option permettant aux utilisateurs de snapshot  de développement de tester
+  les fonctionnalités pilotes en cochant la nouvelle case à cocher
+  "Fonctions pilotes" du panneau Paramètres avancés. Les utilisateurs
+  d'abord sur Test Drive Fast Ring continuera à tester les fonctionnalités
+  du pilote.
+* La possibilité de sélectionner un canal différent pour la mise à jour du
+  module complémentaire à partir des paramètres du module complémentaire a
+  été supprimé. Les utilisateurs qui souhaitent basculer vers un canal de
+  version différent devrait visiter le site comunautaire des modules
+  complémentaires NVDA (addons.nvda-project.org), sélectionnez
+  StationPlaylist Studio, puis téléchargez la version appropriée.
+* Les cases à cocher d'inclusion de colonne pour l'annonce de colonne et les
+  transcriptions de playlist, ainsi que les cases à cocher pour les flux de
+  métadonnées ont été converties en contrôles de liste vérifiables.
+* Lors du basculement entre les panneaux de configuration, NVDA se
+  souviendra des paramètres actuels pour les paramètres spécifiques au
+  profil (alarmes, annonces de colonnes, paramètres de diffusion de
+  métadonnées).
+* Ajout du format CSV (valeurs séparées par des virgules) en tant que format
+  de transcriptions de playlist.
+* En appuyant sur Ctrl+NVDA+C pour enregistrer les paramètres, vous
+  sauvegarderez également les paramètres du module complémentaire Studio
+  (nécessite NVDA 2018.3).
 
 ## Version 18.08.2
 
@@ -1375,7 +1422,7 @@ anciennes versions du modules complémentaire.
 
 [2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
 
-[3]: http://www.josephsl.net/files/nvdaaddons/getupdate.php?file=spl-lts16
+[3]: https://addons.nvda-project.org/files/get.php?file=spl-lts18
 
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 

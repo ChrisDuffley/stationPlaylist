@@ -3,6 +3,7 @@
 * Authoren: Geoff Shang, Joseph Lee und andere Entwickler
 * lade [stabile Version][1] herunter
 * lade [Entwickler-Version][2] herunter
+* Download [long-term support version][3] - for Studio 5.10/5.11 users
 
 Dieses Erweiterungspaket verbessert die Zugänglichkeit von Station Playlist
 Studio. Es stehen außerdem Befehle zur Verfügung, um Station Playlist von
@@ -16,7 +17,8 @@ Quellcodeverzeichnis der Erweiterung auf Github.
 WICHTIGE HINWEISE:
 
 * This add-on requires NVDA 2018.2 or later and StationPlaylist Studio 5.10
-  or later.
+  or later. For best experience, NVDA 2018.3 and Studio 5.11 or later is
+  recommended.
 * Wenn Sie Windows 8 oder höher verwenden, setzen Sie die Reduzierung der
   Lautstärke anderer Audioquellen auf "nie" im Dialog Sprachausgabe im
   NVDA-Einstellungsmenü.
@@ -324,6 +326,40 @@ verwenden und NVDA 2012.3 oder höher installiert haben, können Sie einige
 Studio-Befehle über den Touchscreen ausführen. Tippen Sie zunächst einmal
 mit drei Fingern, um in den SPL-Touchmodus zu wechseln. Verwenden Sie dann
 die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
+
+## Version 18.09.1-LTS
+
+* When obtaining playlist transcripts in HTML table format, column headers
+  are no longer rendered as a Python list string.
+
+## Version 18.09-LTS
+
+Version 18.09.x is the last release series to support Studio 5.10 and based
+on old technologies, with 18.10 and later supporting Studio 5.11/5.20 and
+new features. Some new features will be backported to 18.09.x if needed.
+
+* NVDA 2018.3 or later is recommended due to introduction of wxPython 4.
+* Add-on settings screen is now fully based on multi-page interface derived
+  from NVDA 2018.2 and later.
+* Test Drive Fast and Slow rings have been combined into "development"
+  channel, with an option for development snapshot users to test pilot
+  features by checking the new pilot features checkbox found in Advanced
+  add-on settings panel. Users formerly on Test Drive Fast ring will
+  continue to test pilot features.
+* The ability to select different add-on update channel from add-on settings
+  has been removed. Users wishing to switch to a different release channel
+  should visit NVDA community add-ons website (addons.nvda-project.org),
+  select StationPlaylist Studio, then download the appropriate release.
+* Column inclusion checkboxes for column announcement and playlist
+  transcripts, as well as metadata streams checkboxes have been converted to
+  checkable list controls.
+* When switching between settings panels, NvDA will remember current
+  settings for profile-specific settings (alarms, column announcements,
+  metadata streaming settings).
+* Added CSV (comma-separated values) format as a playlist transcripts
+  format.
+* Pressing Control+NvDA+C to save settings will now also save Studio add-on
+  settings (requires NVDA 2018.3).
 
 ## Version 18.08.2
 
@@ -1309,7 +1345,7 @@ Für weitere Änderungsnotizen beachten Sie den Link zu den Änderungsnotizen
 
 [2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
 
-[3]: http://www.josephsl.net/files/nvdaaddons/getupdate.php?file=spl-lts16
+[3]: https://addons.nvda-project.org/files/get.php?file=spl-lts18
 
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 
