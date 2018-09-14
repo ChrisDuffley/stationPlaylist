@@ -3,6 +3,7 @@
 * Tác giả: Geoff Shang, Joseph Lee và các cộng tác viên khác
 * Tải về [phiên bản chính thức][1]
 * Tải về [phiên bản thử nghiệm][2]
+* Tải về [phiên bản hỗ trợ lâu dài][3] - cho người dùng Studio 5.10/5.11
 
 Gói add-on này cung cấp sự cải thiện cho việc sử dụng StationPlaylist
 Studio, cũng như cung cấp các tiện ích để điều khiển Studio ở bất cứ đâu.
@@ -14,7 +15,8 @@ xem tập tin buildInstructions.txt ở thư mục gốc trong mã nguồn của
 CÁC LƯU Ý QUAN TRỌNG:
 
 * Add-on này yêu cầu NVDA 2018.2 trở lên và StationPlaylist Studio 5.10 trở
-  lên.
+  lên. Để có trải nghiệm tốt nhất, NVDA 2018.3 và Studio 5.11 trở lên được
+  khuyên dùng.
 * Nếu dùng Windows 8 trở lên, hãy tắt chế độ giảm âm thanh để có trải nghiệm
   tốt nhất.
 * Từ 2018, [bản ghi những thay đổi cho các bản phát hành cũ của add-on][5]
@@ -280,6 +282,40 @@ Nếu dùng Studio trên một máy tính cảm ứng chạy Windows 8 trở lê
 NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio từ mành hình
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
+
+## Phiên bản 18.09.1-LTS
+
+* Khi lấy thông tin bảng điểm danh sách phát ở định dạng bảng HTML, Các tiêu
+  đề cột không còn bị chuyển thành dạng giống danh sách chuỗi của Python.
+
+## Phiên bản 18.09-LTS
+
+Phiên bản 18.09.x là loạt phát hành cuối cùng hỗ trợ Studio 5.10 và dựa trên
+các công nghệ cũ, với 18.10 trở lên hỗ trợ Studio 5.11/5.20 và các tính năng
+mới. Vài tính năng mới sẽ hỗ trợ ngược trở lại 18.09.x nếu cần.
+
+* Khuyến khích dùng NVDA 2018.3 trở lên vì sử dụng wxPython 4.
+* Màn hình cài đặt Add-on giờ đây đã hiển thị trên giao diện nhiều trang bắt
+  nguồn từ NVDA 2018.2 trở lên.
+* Test Drive Fast và Slow rings đã được gom lại thành kênh "development"
+  (thử nghiệm), với tùy chọn cho người dùng các bản đang phát triển kiểm tra
+  các tính năng thử nghiệm bằng cách chọn vào hộp kiểm các tính năng thử
+  nghiệm trong cài đặt nâng cao của add-on. Người dùng ở kênh Test Drive
+  Fast ring sẽ tiếp tục kiểm tra các tính năng thử nghiệm.
+* Đã gỡ bỏ tính năng chọn các kênh  cập nhật add-on khác nhau từ cài đặt
+  add-on. Người dùng muốn chuyển sang kênh phát hành khác phải vào trang
+  cộng đồng NVDA add-on (addons.nvda-project.org), chọn StationPlaylist
+  Studio rồi tải bản phát hành mong muốn.
+* Các dấu kiểm để bao gồm cột cho việc thông báo cột và bảng điểm danh sách
+  phát, kể cả các hộp kiểm cho metadata streams cũng đã được chuyển sang
+  dạng checkable (tạm dịch: có thể chọn).
+* Khi chuyển qua lại giữa các bản cài đặt, NvDA sẽ nhớ các thiết lập hiện
+  tại cho các cài đặt hồ sơ cụ thể (báo động, thông báo cột, cài đặt cho
+  metadata streaming ).
+* Thêm định dạng CSV (dùng dấu phẩy ngăn cách các giá trị) như một định dạng
+  cho bảng điểm của danh sách phát.
+* Bấm Control+NvDA+C để lưu thiết lập sẽ lưu luôn thiết lập của Studio
+  add-on (yêu cầu NVDA 2018.3).
 
 ## Phiên bản 18.08.2
 
@@ -1126,7 +1162,7 @@ hành cũ của add-on.
 
 [2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
 
-[3]: http://www.josephsl.net/files/nvdaaddons/getupdate.php?file=spl-lts16
+[3]: https://addons.nvda-project.org/files/get.php?file=spl-lts18
 
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 
