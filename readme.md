@@ -11,7 +11,7 @@ For more information about the add-on, read the [add-on guide][4]. For developer
 
 IMPORTANT NOTES:
 
-* This add-on requires NVDA 2018.2 or later and StationPlaylist Studio 5.10 or later. For best experience, NVDA 2018.3 and Studio 5.11 or later is recommended.
+* This add-on requires NVDA 2018.3 or later and StationPlaylist Studio 5.11 or later.
 * If using Windows 8 or later, for best experience, disable audio ducking mode.
 * Starting from 2018, [changelogs for old add-on releases][5] will be found on GitHub. This add-on readme will list changes from version 5.0 (2015 onwards).
 * Certain add-on features (notably add-on updating) won't work under some conditions, including running NVDA in secure mode.
@@ -193,6 +193,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Version 18.10
 
+* NVDA 2018.3 or later is required.
 * Internal changes to make the add-on more compatible with Python 3.
 
 ## Version 18.09.1-LTS
