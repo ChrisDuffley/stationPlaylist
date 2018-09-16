@@ -20,7 +20,7 @@ addon_info = {
 	"addon_description" : _("""Enhances support for StationPlaylist Studio.
 In addition, adds global commands for the studio from everywhere."""),
 	# version
-	"addon_version" : "18.09.1",
+	"addon_version" : "18.09.2-lts",
 	# Author(s)
 	"addon_author" : u"Geoff Shang, Joseph Lee and other contributors",
 	# URL for the add-on documentation support
@@ -30,7 +30,7 @@ In addition, adds global commands for the studio from everywhere."""),
 	# Minimum NVDA version supported
 	"addon_minimumNVDAVersion" : "2018.2",
 	# Add-on update channel (default is stable)
-	"addon_updateChannel" : None,
+	"addon_updateChannel" : "lts18",
 }
 
 
