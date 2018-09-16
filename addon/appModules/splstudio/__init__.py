@@ -233,14 +233,6 @@ class SPLStudioTrackItem(SPLTrackItem):
 	def _leftmostcol(self):
 		pass
 
-	# Locate column content.
-	# This is merely the proxy of the module level function defined in the misc module.
-	# 18.08 optimization: use SysLissstView32.ListItem's column content getter but if raw flag is on.
-	# 18.09: kept in LTS.
-	# 18.10: removed.
-	def _getColumnContent(self, col, raw=True):
-		return self._getColumnContentRaw(col) if raw else super(SPLStudioTrackItem, self)._getColumnContent(col)
-
 	# Obtain column contents for all columns for this track.
 	# A convenience method that calls column content getter for a list of columns.
 	# Readable flag will transform None into an empty string, suitable for output.
