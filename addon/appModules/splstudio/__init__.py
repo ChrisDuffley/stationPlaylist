@@ -654,7 +654,7 @@ class AppModule(appModuleHandler.AppModule):
 			if not globalVars.appArgs.minimal:
 				# Translators: The sign-on message for Studio app module.
 				ui.message(_("Using SPL Studio version {SPLVersion}").format(SPLVersion = self.SPLCurVersion))
-		except (IOError, AttributeError):
+		except:
 			pass
 		# #40 (17.12): react to profile switches.
 		splactions.SPLActionProfileSwitched.register(self.actionProfileSwitched)
