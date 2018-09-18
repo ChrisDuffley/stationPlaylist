@@ -246,6 +246,8 @@ def checkForAddonUpdate():
 	# 17.04: Version is of the form year.month.revision, and regular expression will be employed (looks cleaner).
 	import re
 	version = re.search("stationPlaylist-(?P<version>.*).nvda-addon", res.url).groupdict()["version"]
+	# If hosted on places other than add-ons server, an unexpected URL might be returned, so parse this further.
+	if "stationPlaylist" in version: version = version.split("stationPlaylist")[1][1:]
 	if version != SPLAddonVersion:
 		return {"curVersion": SPLAddonVersion, "newVersion": version, "path": res.url}
 	return None
