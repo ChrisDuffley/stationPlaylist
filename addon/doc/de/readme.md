@@ -33,7 +33,8 @@ WICHTIGE HINWEISE:
 
 ## Tastenkürzel
 
-Most of these will work in Studio only unless otherwise specified.
+Die meisten davon funktionieren nur in Studio, sofern nicht anders
+angegeben. 
 
 * Alt+Umschalt+T bei geöffnetem spl-Hauptfenster: zeigt die verstrichene
   Zeit der Wiedergabe für den aktuellen Titel an.
@@ -338,18 +339,22 @@ Version 18.09.x is the last release series to support Studio 5.10 and based
 on old technologies, with 18.10 and later supporting Studio 5.11/5.20 and
 new features. Some new features will be backported to 18.09.x if needed.
 
-* NVDA 2018.3 or later is recommended due to introduction of wxPython 4.
+* NVDA 2018.3 oder höher wird auf Grund der Einführung von wxPython 4
+  empfohlen.
 * Add-on settings screen is now fully based on multi-page interface derived
   from NVDA 2018.2 and later.
-* Test Drive Fast and Slow rings have been combined into "development"
-  channel, with an option for development snapshot users to test pilot
-  features by checking the new pilot features checkbox found in Advanced
-  add-on settings panel. Users formerly on Test Drive Fast ring will
-  continue to test pilot features.
-* The ability to select different add-on update channel from add-on settings
-  has been removed. Users wishing to switch to a different release channel
-  should visit NVDA community add-ons website (addons.nvda-project.org),
-  select StationPlaylist Studio, then download the appropriate release.
+* Die schnellen und langsamen Ringe der Testkanäle wurden zum Kanal
+  "Entwicklung" kombiniert, mit einer Option für Benutzer von
+  Entwicklungs-Snapshots zum Testen von Pilotfunktionen, indem das
+  Kontrollkästchen für neue Pilotfunktionen aktiviert wird, das sich im
+  Fenster Erweiterte Zusatzeinstellungen befindet. Benutzer, die zuvor am
+  Testkanal Schneller Ring waren, werden weiterhin Pilotfunktionen testen.
+* Die Möglichkeit, verschiedene Update-Kanäle der Erweiterungen aus den
+  Einstellungen der Erweiterung auszuwählen, wurde entfernt. Benutzer, die
+  auf einen anderen Release-Kanal wechseln möchten, sollten die
+  Community-Website für NVDA-Erweiterungen besuchen
+  (addons.nvda-project.org), StationPlaylist Studio auswählen und dann die
+  entsprechende Version herunterladen.
 * Column inclusion checkboxes for column announcement and playlist
   transcripts, as well as metadata streams checkboxes have been converted to
   checkable list controls.
@@ -363,18 +368,20 @@ new features. Some new features will be backported to 18.09.x if needed.
 
 ## Version 18.08.2
 
-* NVDA will no longer check for Studio add-on updates if Add-on Updater
-  (proof of concept) add-on is installed. Consequently, add-on settings will
-  no longer include add-on update related settings if this is the case. If
-  using Add-on Updater, users should use features provided by this add-on to
-  check for Studio add-on updates.
+* NVDA wird nicht mehr nach Studio-Erweiterungs-Updates suchen, wenn der
+  Zusatz-Updater (Proof of Concept) Add-On installiert ist. Infolgedessen
+  beinhalten die Einstellungen in diesem Fall keine
+  Erweiterungs-Update-bezogenen Einstellungen mehr. Wenn Sie Zusatz-Updater
+  verwenden, sollten Benutzer die Funktionen diese Erweiterungen verwenden,
+  um nach Studio-Erweiterungs-Updates zu suchen.
 
 ## Version 18.08.1
 
-* Fixed yet another wxPython 4 compatibility issue seen when Studio exits.
-* NVDA will announce an appropriate message when playlist modification text
-  isn't present, commonly seen after loading an unmodified playlist or when
-  Studio starts.
+* Ein weiteres Kompatibilitätsproblem mit wxPython 4 wurde behoben, das beim
+  Beenden von Studio auftrat.
+* NVDA kündigt eine entsprechende Meldung an, wenn kein Text zur Änderung
+  der Wiedergabeliste vorhanden ist, was häufig nach dem Laden einer
+  unveränderten Wiedergabeliste oder beim Starten von Studio der Fall ist.
 * NVDA will no longer appear to do nothing or play error tones when trying
   to obtain metadata streaming status via SPL Assistant (E).
 
@@ -384,9 +391,11 @@ new features. Some new features will be backported to 18.09.x if needed.
   found in NVDA 2018.2. Consequently, this release requires NVDA 2018.2 or
   later. The old add-on settings interface is deprecated and will be removed
   later in 2018.
-* Added a new section (button/panel) in add-on settings to configure
-  playlist transcripts options, which is used to configure column inclusion
-  and ordering for this feature and other settings.
+* Es wurde ein neuer Abschnitt (Schaltfläche / Steuerung) in den
+  Einstellungen der Erweiterung hinzugefügt, um die Optionen für die
+  Transkripte der Wiedergabeliste zu konfigurieren, mit dem die
+  Spalteneinbindung und -reihenfolge für diese Funktion und andere
+  Einstellungen konfiguriert werden können.
 * When creating a table-based playlist transcripts and if custom column
   ordering and/or column removal is in effect, NVDA will use custom column
   presentation order specified from add-on settings and/or not include
@@ -395,9 +404,10 @@ new features. Some new features will be backported to 18.09.x if needed.
   (Control+Alt+home/end/left arrow/right arrow) in Studio, Creator, and
   Track Tool, NVDA will no longer announce wrong column data after changing
   column position on screen via mouse.
-* Significant improvements to NVDA's responsiveness when using column
-  navigation commands in Creator and Track Tool. In particular, when using
-  Creator, NVDA will respond better when using column navigation commands.
+* Signifikante Verbesserungen der Reaktionsfähigkeit von NVDA bei der
+  Verwendung von Spaltennavigationsbefehlen im Creator und Track
+  Tool. Insbesondere bei der Verwendung von Creator reagiert NVDA besser,
+  wenn dieser Befehle zur Spaltennavigation verwendet.
 * NVDA will no longer play error tones or appear to do nothing when
   attempting to add comments to tracks in Studio or when exiting NVDA while
   using Studio, caused by wxPython 4 compatibility issue.
@@ -433,9 +443,10 @@ new features. Some new features will be backported to 18.09.x if needed.
 
 ## Version 18.06.1
 
-* Fixed several compatibility issues with wxPython 4, including inability to
-  open track finder (Control+NVDA+F), column search and time ranger finder
-  dialogs in Studio and stream labeler dialog (F12) from encoders window.
+* Mehrere Kompatibilitätsprobleme mit wxPython 4 behoben, darunter die
+  Unfähigkeit, den Track Finder (Strg+NVDA+F) zu öffnen, die Dialoge für
+  Spaltensuche und Time Ranger Finder in Studio und den Stream Labeler
+  Dialog (F12) im Encoder-Fenster.
 * While opening a find dialog from Studio and an unexpected error occurs,
   NVDA will present more appropriate messages instead of saying that another
   find dialog is open.
@@ -447,8 +458,10 @@ new features. Some new features will be backported to 18.09.x if needed.
 * In add-on settings, added "Apply" button so changes to settings can be
   applied to the currently selected and/or active profile without closing
   the dialog first. This feature is available for NVDA 2018.2 users.
-* Resolved an issue where NVDA would apply changes to Columns Explorer
-  settings despite pressing Cancel button from add-on settings dialog.
+* Es wurde ein Problem behoben, bei dem NVDA Änderungen an den Einstellungen
+  der Spalten-Explorer vornehmen konnte, obwohl im Dialogfeld für die
+  Einstellungen der Erweiterung auf die Schaltfläche "Abbrechen" geklickt
+  wurde.
 * In Studio, when pressing Control+NVDA+number row twice while focused on a
   track, NVDA will display column information for a specific column on a
   browse mode window.
@@ -459,8 +472,8 @@ new features. Some new features will be backported to 18.09.x if needed.
 * Added a button in Studio add-on settings to configure Columns Explorer for
   SPL Creator.
 * Added Markdown table format as a playlist transcripts format.
-* The developer feedback email command has changed from Control+NVDA+dash to
-  Alt+NVDA+dash.
+* Der Befehl für die Entwicklerrückmeldung per E-Mail wurde von
+  Strg+NVDA+Bindestrich auf Alt+NVDA+Bindestrich geändert.
 
 ## Version 18.05
 
