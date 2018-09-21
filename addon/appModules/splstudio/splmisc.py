@@ -51,57 +51,6 @@ def _getColumnContent(obj, col):
 		winKernel.virtualFreeEx(processHandle,internalItem,0,winKernel.MEM_RELEASE)
 	return buffer.value if buffer else None
 
-# Locate column header.
-# Given an object and the column number, locate header txt for the specified column.
-# This is used by the track item class, Track Tool items and Creator.
-def _getColumnHeader(obj, col):
-	# Borrowed from SysListView32 implementation.
-	buffer=None
-	processHandle=obj.processHandle
-	sizeofLVCOLUMN = ctypes.sizeof(sysListView32.LVCOLUMN)
-	internalColumn=winKernel.virtualAllocEx(processHandle,None,sizeofLVCOLUMN,winKernel.MEM_COMMIT,winKernel.PAGE_READWRITE)
-	try:
-		internalText=winKernel.virtualAllocEx(processHandle,None,520,winKernel.MEM_COMMIT,winKernel.PAGE_READWRITE)
-		try:
-			column=sysListView32.LVCOLUMN(mask=sysListView32.LVCF_TEXT,iSubItem=col,pszText=internalText,cchTextMax=260)
-			winKernel.writeProcessMemory(processHandle,internalColumn,ctypes.byref(column),sizeofLVCOLUMN,None)
-			res = sendMessage(obj.windowHandle,sysListView32.LVM_GETCOLUMNW, col, internalColumn)
-			if res:
-				winKernel.readProcessMemory(processHandle,internalColumn,ctypes.byref(column),sizeofLVCOLUMN,None)
-				buffer=ctypes.create_unicode_buffer(column.cchTextMax)
-				winKernel.readProcessMemory(processHandle,column.pszText,buffer,ctypes.sizeof(buffer),None)
-		finally:
-			winKernel.virtualFreeEx(processHandle,internalText,0,winKernel.MEM_RELEASE)
-	finally:
-		winKernel.virtualFreeEx(processHandle,internalColumn,0,winKernel.MEM_RELEASE)
-	return buffer.value if buffer else None
-
-# Find out how many columns are present for a given track.
-# Deriving from SysListView32.List but customized for two reasons: multi-column support and retrieved from a track.
-# All lists containing track items are multi-column enabled, and this function will be claled from tracks themselves.
-def _getColumnCount(track):
-	headerHwnd = sendMessage(track.parent.windowHandle,sysListView32.LVM_GETHEADER,0,0)
-	count = sendMessage(headerHwnd, sysListView32.HDM_GETITEMCOUNT, 0, 0)
-	if not count:
-		return 1
-	return count
-
-# Column order array, customized for SPL Studio.
-# This is needed so the correct column header and content can be fetched after a series of mouse clicks have rearranged column positions.
-def _getColumnOrderArray(track):
-	columnCount = _getColumnCount(track)
-	coa=(ctypes.c_int *columnCount)()
-	processHandle=track.processHandle
-	internalCoa=winKernel.virtualAllocEx(processHandle,None,ctypes.sizeof(coa),winKernel.MEM_COMMIT,winKernel.PAGE_READWRITE)
-	try:
-		winKernel.writeProcessMemory(processHandle,internalCoa,ctypes.byref(coa),ctypes.sizeof(coa),None)
-		res = sendMessage(track.parent.windowHandle,sysListView32.LVM_GETCOLUMNORDERARRAY, columnCount, internalCoa)
-		if res:
-			winKernel.readProcessMemory(processHandle,internalCoa,ctypes.byref(coa),ctypes.sizeof(coa),None)
-	finally:
-		winKernel.virtualFreeEx(processHandle,internalCoa,0,winKernel.MEM_RELEASE)
-	return coa
-
 # A custom combo box for cases where combo boxes are not choice controls.
 class CustomComboBox(wx.ComboBox, wx.Choice):
 	pass
@@ -179,7 +128,7 @@ class SPLFindDialog(wx.Dialog):
 		global _findDialogOpened
 		text = self.findEntry.Value
 		# Studio, are you alive?
-		if user32.FindWindowA("SPLStudio", None) and text:
+		if user32.FindWindowW(u"SPLStudio", None) and text:
 			appMod = self.obj.appModule
 			column = [self.columnHeaders.Selection+1] if self.columnSearch else None
 			startObj = self.obj
@@ -264,10 +213,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 		mainSizer.Add(maxSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
 		# #68: wx.BoxSizer.AddSizer no longer exists in wxPython 4.
-		if wx.version().startswith("4"):
-			mainSizer.Add(self.CreateButtonSizer(wx.OK|wx.CANCEL))
-		else:
-			mainSizer.AddSizer(self.CreateButtonSizer(wx.OK|wx.CANCEL))
+		mainSizer.Add(self.CreateButtonSizer(wx.OK|wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON,self.onOk,id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON,self.onCancel,id=wx.ID_CANCEL)
 		mainSizer.Fit(self)
@@ -289,7 +235,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 			return
 		self.Destroy()
 		global _findDialogOpened
-		if user32.FindWindowA("SPLStudio", None):
+		if user32.FindWindowW(u"SPLStudio", None):
 			obj = self.obj.next
 			# Manually locate tracks here.
 			while obj is not None:
@@ -545,7 +491,7 @@ def metadata_actionProfileSwitched(configDialogActive=False):
 		# 18.02: transfered to the action handler and greatly simplified.
 		# 18.04: ask the handle finder to return to this place if Studio handle isn't ready.
 		# This is typically the case when launching Studio and profile switch occurs while demo registration screen is up.
-		handle = user32.FindWindowA("SPLStudio", None)
+		handle = user32.FindWindowW(u"SPLStudio", None)
 		if not handle:
 			_delayMetadataAction = True
 			return

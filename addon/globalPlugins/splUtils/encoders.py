@@ -359,13 +359,8 @@ class Encoder(IAccessible):
 		streamTitle = _("Stream labeler for {streamEntry}").format(streamEntry = title)
 		# Translators: The text of the stream labeler dialog.
 		streamText = _("Enter the label for this stream")
-		# In wxPython 4's text entry dialog, defaultValue is replaced by value keyword.
-		if wx.version().startswith("4"):
-			dlg = wx.TextEntryDialog(gui.mainFrame,
-			streamText, streamTitle, value=curStreamLabel)
-		else:
-			dlg = wx.TextEntryDialog(gui.mainFrame,
-			streamText, streamTitle, defaultValue=curStreamLabel)
+		dlg = wx.TextEntryDialog(gui.mainFrame,
+		streamText, streamTitle, value=curStreamLabel)
 		def callback(result):
 			if result == wx.ID_OK:
 				newStreamLabel = dlg.GetValue()
@@ -425,7 +420,7 @@ class Encoder(IAccessible):
 		streamEraserTitle = _("Stream label and settings eraser")
 		# Translators: The text of the stream configuration eraser dialog.
 		streamEraserText = _("Enter the position of the encoder you wish to delete or will delete")
-		# 17.12: wxPython 4 does not have number entry dialog, so replace it with a combo box.
+		# 17.12: early versions of wxPython 4 does not have number entry dialog, so replace it with a combo box.
 		dlg = wx.SingleChoiceDialog(gui.mainFrame,
 		streamEraserText, streamEraserTitle, choices=choices)
 		dlg.SetSelection(self.IAccessibleChildID-1)
@@ -525,7 +520,7 @@ class SAMEncoder(Encoder):
 	def reportConnectionStatus(self, connecting=False):
 		# Keep an eye on the stream's description field for connection changes.
 		# In order to not block NVDA commands, this will be done using a different thread.
-		SPLWin = user32.FindWindowA("SPLStudio", None)
+		SPLWin = user32.FindWindowW(u"SPLStudio", None)
 		toneCounter = 0
 		messageCache = ""
 		# Status message flags.
@@ -565,7 +560,7 @@ class SAMEncoder(Encoder):
 				if self.focusToStudio and not encoding:
 					if api.getFocusObject().appModule == "splstudio":
 						continue
-					user32.SetForegroundWindow(user32.FindWindowA("TStudioForm", None))
+					user32.SetForegroundWindow(user32.FindWindowW(u"TStudioForm", None))
 				# #37 (17.08.1): if run from another function, the message will not be sent, so must be done here.
 				if self.playAfterConnecting and not encoding:
 					# Do not interupt the currently playing track.
@@ -684,7 +679,7 @@ class SPLEncoder(Encoder):
 
 	def reportConnectionStatus(self, connecting=False):
 		# Same routine as SAM encoder: use a thread to prevent blocking NVDA commands.
-		SPLWin = user32.FindWindowA("SPLStudio", None)
+		SPLWin = user32.FindWindowW(u"SPLStudio", None)
 		attempt = 0
 		messageCache = ""
 		# Status flags.
@@ -712,7 +707,7 @@ class SPLEncoder(Encoder):
 				# We're on air, so exit.
 				if not connected: tones.beep(1000, 150)
 				if self.focusToStudio and not connected:
-					user32.SetForegroundWindow(user32.FindWindowA("TStudioForm", None))
+					user32.SetForegroundWindow(user32.FindWindowW(u"TStudioForm", None))
 				if self.playAfterConnecting and not connected:
 					if winUser.sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus) == 0:
 						winUser.sendMessage(SPLWin, 1024, 0, SPLPlay)

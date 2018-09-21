@@ -27,7 +27,7 @@ import braille
 import touchHandler
 import gui
 import wx
-from winUser import user32, sendMessage, OBJID_CLIENT
+from winUser import user32, sendMessage, OBJID_CLIENT, FindWindow
 from NVDAObjects import NVDAObject, NVDAObjectTextInfo
 from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent, sysListView32
 from NVDAObjects.behaviors import Dialog, RowWithFakeNavigation, RowWithoutCellObjects
@@ -233,14 +233,6 @@ class SPLStudioTrackItem(SPLTrackItem):
 	def _leftmostcol(self):
 		pass
 
-	# Locate column content.
-	# This is merely the proxy of the module level function defined in the misc module.
-	# 18.08 optimization: use SysLissstView32.ListItem's column content getter but if raw flag is on.
-	# 18.09: kept in LTS.
-	# 18.10: removed.
-	def _getColumnContent(self, col, raw=True):
-		return self._getColumnContentRaw(col) if raw else super(SPLStudioTrackItem, self)._getColumnContent(col)
-
 	# Obtain column contents for all columns for this track.
 	# A convenience method that calls column content getter for a list of columns.
 	# Readable flag will transform None into an empty string, suitable for output.
@@ -248,7 +240,7 @@ class SPLStudioTrackItem(SPLTrackItem):
 	def _getColumnContents(self, columns=None, readable=False):
 		if columns is None:
 			columns = list(rangeGen(18))
-		columnContents = [splmisc._getColumnContent(self, col) for col in columns]
+		columnContents = [self._getColumnContentRaw(col) for col in columns]
 		if readable:
 			for pos in rangeGen(len(columnContents)):
 				if columnContents[pos] is None: columnContents[pos] = ""
@@ -335,7 +327,7 @@ class SPLStudioTrackItem(SPLTrackItem):
 		# #61 (18.06): a direct copy of column data gatherer from playlist transcripts.
 		# 18.07: just call the gatherer function with "blank" as the readable string and add column header afterwards.
 		columns = list(rangeGen(18))
-		columnContents = [splmisc._getColumnContent(self, col) for col in columns]
+		columnContents = [self._getColumnContentRaw(col) for col in columns]
 		columnHeaders = ["Status"] + splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
 		for pos in rangeGen(len(columnContents)):
 			if columnContents[pos] is None: columnContents[pos] = "blank"
@@ -381,15 +373,10 @@ class SPLStudioTrackItem(SPLTrackItem):
 
 	# A proxy function to call the track comments entry dialog.
 	def _trackCommentsEntry(self, filename, comment):
-		if wx.version().startswith("4"):
-			dlg = wx.TextEntryDialog(gui.mainFrame,
-			_("Track comment"),
-			# Translators: The title of the track comments dialog.
-			_("Track comment"), value=comment)
-		else:
-			dlg = wx.TextEntryDialog(gui.mainFrame,
-			_("Track comment"),
-			_("Track comment"), defaultValue=comment)
+		dlg = wx.TextEntryDialog(gui.mainFrame,
+		_("Track comment"),
+		# Translators: The title of the track comments dialog.
+		_("Track comment"), value=comment)
 		def callback(result):
 			if result == wx.ID_OK:
 				if dlg.GetValue() is None: return
@@ -654,7 +641,7 @@ class AppModule(appModuleHandler.AppModule):
 			if not globalVars.appArgs.minimal:
 				# Translators: The sign-on message for Studio app module.
 				ui.message(_("Using SPL Studio version {SPLVersion}").format(SPLVersion = self.SPLCurVersion))
-		except (IOError, AttributeError):
+		except:
 			pass
 		# #40 (17.12): react to profile switches.
 		splactions.SPLActionProfileSwitched.register(self.actionProfileSwitched)
@@ -702,7 +689,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Locate the handle for main window for caching purposes.
 	def _locateSPLHwnd(self):
-		hwnd = user32.FindWindowA("SPLStudio", None)
+		hwnd = user32.FindWindowW(u"SPLStudio", None)
 		while not hwnd:
 			time.sleep(1)
 			# If the demo copy expires and the app module begins, this loop will spin forever.
@@ -711,7 +698,7 @@ class AppModule(appModuleHandler.AppModule):
 				self.noMoreHandle.clear()
 				self.noMoreHandle = None
 				return
-			hwnd = user32.FindWindowA("SPLStudio", None)
+			hwnd = user32.FindWindowW(u"SPLStudio", None)
 		# Only this thread will have privilege of notifying handle's existence.
 		with threading.Lock() as hwndNotifier:
 			splbase._SPLWin = hwnd
@@ -742,7 +729,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def studioAPIMonitor(self):
 		# Only proceed if Studio handle is valid.
-		if not user32.FindWindowA("SPLStudio", None):
+		if not user32.FindWindowW(u"SPLStudio", None):
 			if self._SPLStudioMonitor is not None:
 				self._SPLStudioMonitor.Stop()
 				self._SPLStudioMonitor = None
@@ -1056,10 +1043,7 @@ class AppModule(appModuleHandler.AppModule):
 		# 18.08: call appropriate Remove function based on wxPython version in use.
 		# 18.09: use wx.Menu.Remove directly.
 		try:
-			if wx.version().startswith("4"):
-				self.prefsMenu.Remove(self.SPLSettings)
-			else:
-				self.prefsMenu.RemoveItem(self.SPLSettings)
+			self.prefsMenu.Remove(self.SPLSettings)
 		except: #(RuntimeError, AttributeError):
 			pass
 		# Tell the handle finder thread it's time to leave this world.
@@ -1277,7 +1261,7 @@ class AppModule(appModuleHandler.AppModule):
 			# If this happens, use the module level version of column content getter.
 			# Optimization: search column texts.
 			for column in columns:
-				columnText = splmisc._getColumnContent(obj, column)
+				columnText = obj._getColumnContentRaw(column)
 				if columnText and text in columnText:
 					return obj
 			obj = getattr(obj, nextTrack)
@@ -1504,7 +1488,7 @@ class AppModule(appModuleHandler.AppModule):
 		# 17.04: Use the constant directly, as 5.10 and later provides a convenient method to detect completion of library scans.
 		scanCount = splbase.studioAPI(1, 32)
 		while scanCount >= 0:
-			if not self.libraryScanning or not user32.FindWindowA("SPLStudio", None): return
+			if not self.libraryScanning or not user32.FindWindowW(u"SPLStudio", None): return
 			time.sleep(1)
 			# Do not continue if we're back on insert tracks form or library scan is finished.
 			if api.getForegroundObject().windowClassName == "TTrackInsertForm" or not self.libraryScanning:
@@ -1912,7 +1896,7 @@ class AppModule(appModuleHandler.AppModule):
 			if fg is not None and fg.windowClassName != "TStudioForm":
 				# 6.1: Allow gesture-based functions to look up status information even if Studio window isn't focused.
 				# 17.08: several SPL Controller commands will use this route.
-				fg = getNVDAObjectFromEvent(user32.FindWindowA("TStudioForm", None), OBJID_CLIENT, 0)
+				fg = getNVDAObjectFromEvent(user32.FindWindowW(u"TStudioForm", None), OBJID_CLIENT, 0)
 			statusObj = self.statusObjs[infoIndex]
 			# 7.0: sometimes (especially when first loaded), OBJID_CLIENT fails, so resort to retrieving focused object instead.
 			if fg is not None and fg.childCount > 1:

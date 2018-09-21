@@ -195,20 +195,13 @@ class BroadcastProfilesPanel(gui.SettingsPanel):
 		index = self.profiles.Selection
 		profilePos = self.profileNames.index(oldName)
 		# #70 (18.07): in wxPython 4, name for the value keyword argument for text entry dialog constructor has changed.
-		if wx.version().startswith("4"):
-			# Translators: The label of a field to enter a new name for a broadcast profile.
-			with wx.TextEntryDialog(self, _("New name:"),
-					# Translators: The title of the dialog to rename a profile.
-					_("Rename Profile"), value=oldName) as d:
-				if d.ShowModal() == wx.ID_CANCEL:
-					return
-				newName = api.filterFileName(d.Value)
-		else:
-			with wx.TextEntryDialog(self, _("New name:"),
-					_("Rename Profile"), defaultValue=oldName) as d:
-				if d.ShowModal() == wx.ID_CANCEL:
-					return
-				newName = api.filterFileName(d.Value)
+		# Translators: The label of a field to enter a new name for a broadcast profile.
+		with wx.TextEntryDialog(self, _("New name:"),
+				# Translators: The title of the dialog to rename a profile.
+				_("Rename Profile"), value=oldName) as d:
+			if d.ShowModal() == wx.ID_CANCEL:
+				return
+			newName = api.filterFileName(d.Value)
 		if oldName == newName: return
 		try:
 			splconfig.SPLConfig.renameProfile(oldName, newName)
@@ -725,7 +718,7 @@ class AlarmsCenter(wx.Dialog):
 	def onOk(self, evt):
 		global _alarmDialogOpened
 		# Optimization: don't bother if Studio is dead and if the same value has been entered (only when standalone versions are opened).
-		if self.level > 0 and user32.FindWindowA("SPLStudio", None):
+		if self.level > 0 and user32.FindWindowW(u"SPLStudio", None):
 			# Gather settings to be applied in section/key format.
 			if self.level == 1:
 				splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] = self.outroAlarmEntry.GetValue()
@@ -741,7 +734,7 @@ class AlarmsCenter(wx.Dialog):
 				# It is fine to import something from winUser again as this will be traversed if and only if microphone alarm dialog is open with Studio active.
 				from winUser import OBJID_CLIENT
 				from NVDAObjects.IAccessible import getNVDAObjectFromEvent
-				studioWindow = getNVDAObjectFromEvent(user32.FindWindowA("TStudioForm", None), OBJID_CLIENT, 0)
+				studioWindow = getNVDAObjectFromEvent(user32.FindWindowW(u"TStudioForm", None), OBJID_CLIENT, 0)
 				studioWindow.appModule.actionProfileSwitched()
 		elif self.level == 0:
 			parent = self.Parent
