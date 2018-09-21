@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-09-01 21:21-0700\n"
+"PO-Revision-Date: 2018-09-19 05:27+0200\n"
 "Last-Translator: René Linke <rene.linke@hamburg.de>\n"
 "Language-Team: Deutsch <bernd_dorer@yahoo.de>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 2.1.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
@@ -29,7 +29,7 @@ msgstr ""
 
 #. Translators: Title of a dialog shown when installing Studio add-on on old Windows releases.
 msgid "Old Windows version"
-msgstr "Veraltete Windowsversion"
+msgstr "Veraltete Windows-Version"
 
 #, python-brace-format
 msgid "{header}: {content}"
@@ -42,7 +42,7 @@ msgstr "{header} nicht gefunden"
 
 #, python-brace-format
 msgid "{header}: blank"
-msgstr "{header}: Leer"
+msgstr "{header}: leer"
 
 #, python-brace-format
 msgid "{header}: ()"
@@ -1385,7 +1385,7 @@ msgstr ""
 
 #. Translators: title of a panel to configure various general add-on settings such as top and bottom announcement for playlists.
 msgid "General"
-msgstr ""
+msgstr "Allgemein"
 
 #. Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
 msgid "&Beep for status announcements"
@@ -1501,9 +1501,8 @@ msgid "Microphone alarm &interval in seconds"
 msgstr "Intervall für &Mikrofon-Alarm in Sekunden"
 
 #. Translators: title of a panel to configure various alarms and related settings.
-#, fuzzy
 msgid "Alarms"
-msgstr "Benachrichtigungscenter"
+msgstr "Alarme"
 
 #. Translators: One of the alarm notification options.
 msgid "beep"
@@ -1581,16 +1580,15 @@ msgstr ""
 "streaming abzuschalten"
 
 msgid "&Stream:"
-msgstr ""
+msgstr "&Stream:"
 
 #. Translators: A checkbox to let metadata streaming status be applied to the currently active broadcast profile.
 msgid "&Apply streaming changes to the selected profile"
 msgstr "&Übernehme Streaming-Einstellungen für das ausgewählte Profil"
 
 #. Translators: title of a panel to configure metadata streaming status for DSP encoder and four additional URL's.
-#, fuzzy
 msgid "Metadata streaming"
-msgstr "Metadaten-Streaming-Optionen"
+msgstr "Metadaten streamen"
 
 #. Translators: One of the metadata notification settings.
 msgid "When Studio starts"
@@ -1789,6 +1787,8 @@ msgid ""
 "Pilot features: I want to test and provide early &feedback on features under "
 "development"
 msgstr ""
+"Pilot-&Funktionen: Ich möchte testen und frühzeitig Feedback zu Features in "
+"der Entwicklung geben"
 
 #. Translators: The confirmation prompt displayed when changing update interval to zero days (updates will be checked every time Studio app module loads).
 msgid ""
@@ -1805,7 +1805,6 @@ msgid "Confirm update interval"
 msgstr "Interval der Aktualisierung bestätigen"
 
 #. Translators: The confirmation prompt displayed when about to enable pilot flag (with risks involved).
-#, fuzzy
 msgid ""
 "You are about to enable pilot features. Please note that pilot features may "
 "include functionality that might be unstable at times and should be used for "
@@ -1813,18 +1812,17 @@ msgid ""
 "stable features, please answer no and uncheck pilot features checkbox. Are "
 "you sure you wish to enable pilot features?"
 msgstr ""
-"Sie sind gerade dabei, auf den Test Drive Fast (Try) Builds Channel "
-"umzuschalten, den schnellsten und instabilsten Entwicklungskanal. Bitte "
-"beachten Sie, dass der ausgewählte Kanal möglicherweise Updates enthält, die "
-"zurzeit instabil sind und zum Testen und Senden von Feedback an den "
-"Erweiterungsentwickler verwendet werden sollten. Wenn Sie lieber stabile "
-"Releases verwenden möchten, antworten Sie bitte mit Nein und wechseln Sie zu "
-"einem stabileren Aktualisierungskanal. Sind Sie sicher, dass Sie auf den "
-"Kanal Test Drive Fast umschalten möchten?"
+"Sie sind dabei, Pilotfunktionen zu aktivieren. Bitte beachten Sie, dass "
+"Pilotfunktionen Funktionen beinhalten können, die manchmal instabil sein "
+"können und zum Testen und Senden von Feedback an den Entwickler der "
+"Erweiterung verwendet werden sollten. Wenn Sie es vorziehen, stabile "
+"Funktionen zu verwenden, antworten Sie bitte auf Nein und deaktivieren Sie "
+"das Kontrollkästchen Pilot-Funktionen. Sind Sie sicher, dass Sie Pilot-"
+"Funktionen aktivieren möchten?"
 
 #. Translators: The title of the channel switch confirmation dialog.
 msgid "Enable pilot features"
-msgstr ""
+msgstr "Pilotfunktionen aktivieren"
 
 #. Translators: A dialog message shown when pilot features is turned on or off.
 msgid ""
@@ -1834,7 +1832,7 @@ msgstr ""
 
 #. Translators: Title of the pilot features dialog.
 msgid "Pilot features"
-msgstr ""
+msgstr "Pilot-Features"
 
 #. Translators: Title of the dialog to reset various add-on settings.
 #. Translators: title of a panel to reset add-on settings.
@@ -2000,7 +1998,7 @@ msgstr "Ein anderer Playlist-Transkript-Dialog ist bereits geöffnet."
 
 #. Translators: one of the playlist transcripts range options.
 msgid "entire playlist"
-msgstr ""
+msgstr "gesamte Playlist"
 
 #. Translators: one of the playlist transcripts range options.
 msgid "start to current item"
@@ -2012,7 +2010,7 @@ msgstr ""
 
 #. Translators: one of the playlist transcripts range options.
 msgid "current hour"
-msgstr ""
+msgstr "aktuelle Stunde"
 
 #. Translators: The label in playlist transcripts dialog to select playlist transcript range.
 msgid "Transcript range:"
@@ -2028,19 +2026,16 @@ msgid "view transcript"
 msgstr "Transkript-Wiedergabelisten"
 
 #. Translators: one of the playlist transcript actions.
-#, fuzzy
 msgid "copy to clipboard"
-msgstr "Titel-Kommentar wurde in die Zwischenablage kopiert."
+msgstr "In die Zwischenablage kopiert"
 
 #. Translators: one of the playlist transcript actions.
-#, fuzzy
 msgid "save to file"
-msgstr "&Basisprofil:"
+msgstr "In Datei speichern"
 
 #. Translators: The label in playlist transcripts dialog to select transcript action.
-#, fuzzy
 msgid "Transcript action:"
-msgstr "Transkript-Bereich:"
+msgstr "Transcript-Aktion:"
 
 #. No need to interact with the user.
 #. Translators: Presented when no add-on update is available.
