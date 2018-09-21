@@ -191,6 +191,10 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 18.09.3-LTS
+
+* Resolved several issues related to encoder connection announcement feature, including not announcing status messages, failing to play the first selected track, or not switching to Studio window when connected. These bugs are caused by wxPython 4 (NVDA 2018.3 or later).
+
 ## Version 18.09.2-LTS
 
 * Initial version for 2018 long-term support release.
