@@ -271,11 +271,16 @@ class Encoder(IAccessible):
 
 	# Format the status message to prepare for monitoring multiple encoders.
 	def encoderStatusMessage(self, message, id):
-		if encoderMonCount[self.encoderType] > 1:
-			# Translators: Status message for encoder monitoring.
-			ui.message(_("{encoder} {encoderNumber}: {status}").format(encoder = self.encoderType, encoderNumber = id, status = message))
-		else:
-			ui.message(message)
+		# #79 (18.10.1/18.09.3-lts): wxPython 4 is more strict about where timers can be invoked from, and the below function is called from a thread other than the main one, which causes an exception to be logged.
+		# This is especially the case with some speech synthesizers and/or braille displays.
+		try:
+			if encoderMonCount[self.encoderType] > 1:
+				# Translators: Status message for encoder monitoring.
+				ui.message(_("{encoder} {encoderNumber}: {status}").format(encoder = self.encoderType, encoderNumber = id, status = message))
+			else:
+				ui.message(message)
+		except:
+			pass
 
 	# Encoder connection reporter thread.
 	def connectStart(self, connecting=False):
