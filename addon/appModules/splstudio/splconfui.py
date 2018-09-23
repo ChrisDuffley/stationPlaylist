@@ -843,7 +843,8 @@ class AlarmsPanel(gui.SettingsPanel):
 		curProfile["MicrophoneAlarm"]["MicAlarm"] = self.micAlarmEntry.GetValue()
 		curProfile["MicrophoneAlarm"]["MicAlarmInterval"] = self.micIntervalEntry.GetValue()
 		self._curProfileSettings.clear()
-		self._curProfileSettings = None
+		# #80 (18.10.2/18.09.4-LTS): don't just nullify profile setings, otherwise attribute and type error excpetions may arise.
+		if not _configApplyOnly: self._curProfileSettings = None
 
 	def onDiscard(self):
 		self._curProfileSettings.clear()
@@ -1055,7 +1056,7 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 		# #76 (18.09-LTS): traverse check list box and build boolean list accordingly.
 		curProfile["MetadataStreaming"]["MetadataEnabled"] = [self.checkedStreams.IsChecked(url) for url in rangeGen(5)]
 		self._curProfileSettings.clear()
-		self._curProfileSettings = None
+		if not _configApplyOnly: self._curProfileSettings = None
 
 	def onDiscard(self):
 		self._curProfileSettings.clear()
@@ -1233,7 +1234,7 @@ class ColumnAnnouncementsPanel(gui.SettingsPanel):
 		curProfile["ColumnAnnouncement"]["IncludedColumns"] = self.includedColumns
 		curProfile["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.Value
 		self._curProfileSettings.clear()
-		self._curProfileSettings = None
+		if not _configApplyOnly: self._curProfileSettings = None
 
 	def onDiscard(self):
 		# 6.1: Discard changes to included columns set.
