@@ -889,11 +889,11 @@ msgstr "SPL-Hilfe für Window-Eyes-Darstellung"
 
 #. Translators: Title of the add-on update check dialog.
 msgid "Studio add-on update"
-msgstr "Aktualisierung für die Studio-Erweiterung"
+msgstr "Update für die Studio-Erweiterung"
 
 #. Translators: The title of the dialog presented while checking for add-on updates.
 msgid "Add-on update check"
-msgstr "nach Aktualisierung für diese Erweiterung suchen"
+msgstr "nach Update für diese Erweiterung suchen"
 
 #. Translators: The message displayed while checking for newer version of Studio add-on.
 msgid "Checking for new version of Studio add-on..."
@@ -1047,7 +1047,7 @@ msgstr ""
 "* Verschiedene Wege, Titel zu finden.\n"
 "* Kartenexplorer, um die Zuordnung von Karten zu lernen.\n"
 "* Umfassende Einstellungen und Dokumentation.\n"
-"* Automatische oder manuelle Suche nach Aktualisierungen.\n"
+"* Automatische oder manuelle Suche nach Updates.\n"
 "* Komplett kostenlos, open-source und weiterentwickelt durch die Community.\n"
 "* Und noch viel mehr.\n"
 "\n"
@@ -1188,7 +1188,7 @@ msgid ""
 "This is a Windows Store version of NVDA. Add-on updating is supported on "
 "desktop version of NVDA."
 msgstr ""
-"Dies ist eine Windows-Store-Version von NVDA. Aktualisierungen für "
+"Dies ist eine Windows-Store-Version von NVDA. Updates für "
 "Erweiterungen werden nur in der Desktop-Version von NVDA unterstützt."
 
 #. Translators: one of the error messages when trying to update the add-on.
@@ -1197,7 +1197,7 @@ msgid ""
 "add-ons manager."
 msgstr ""
 "Die Erweiterung kann nicht direkt aktualisiert werden. Bitte suchen Sie nach "
-"Aktualisierungen über das NVDA-Menü / Extras / Erweiterungen verwalten."
+"Updates über das NVDA-Menü / Extras / Erweiterungen verwalten."
 
 #. Translators: one of the error messages when trying to update the add-on.
 msgid ""
@@ -1765,11 +1765,11 @@ msgstr "Erweiterte Optionen"
 
 #. Translators: A checkbox to toggle automatic add-on updates.
 msgid "Automatically check for add-on &updates"
-msgstr "Automatisch nach &Aktualisierungen der Erweiterung suchen"
+msgstr "Automatisch nach &Updates der Erweiterung suchen"
 
 #. Translators: The label for a setting in SPL add-on settings/advanced options to select automatic update interval in days.
 msgid "Update &interval in days"
-msgstr "&Interval der Aktualisierung in Tagen"
+msgstr "&Interval der Update in Tagen"
 
 #. Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 msgid "Allow SPL C&ontroller command to invoke SPL Assistant layer"
@@ -1796,13 +1796,13 @@ msgid ""
 "will be checked every time NVDA and/or Studio starts. Are you sure you wish "
 "to continue?"
 msgstr ""
-"Das Aktualisierungsintervall wurde auf null Tage festgelegt, so dass "
-"Aktualisierungen der Studio-Erweiterung bei jedem Start von NVDA und/oder "
+"Das Updatesintervall wurde auf null Tage festgelegt, so dass "
+"Updates der Studio-Erweiterung bei jedem Start von NVDA und/oder "
 "Studio gesucht werden. Sind Sie sicher, dass Sie weitermachen möchten?"
 
 #. Translators: The title of the update interval dialog.
 msgid "Confirm update interval"
-msgstr "Interval der Aktualisierung bestätigen"
+msgstr "Interval der Update bestätigen"
 
 #. Translators: The confirmation prompt displayed when about to enable pilot flag (with risks involved).
 msgid ""
@@ -2040,7 +2040,7 @@ msgstr "Transcript-Aktion:"
 #. No need to interact with the user.
 #. Translators: Presented when no add-on update is available.
 msgid "No add-on update available."
-msgstr "Keine Aktualisierung für diese Erweiterung verfügbar."
+msgstr "Keine Update für diese Erweiterung verfügbar."
 
 #. Translators: Text shown if an add-on update is available.
 #, python-brace-format
@@ -2051,7 +2051,7 @@ msgstr ""
 
 #. Translators: The title of the dialog displayed while downloading add-on update.
 msgid "Downloading Add-on Update"
-msgstr "Aktualisierung wird heruntergeladen"
+msgstr "Update wird heruntergeladen"
 
 #. Translators: The progress message indicating that a connection is being established.
 msgid "Connecting"
@@ -2059,7 +2059,7 @@ msgstr "Verbinden..."
 
 #. Translators: A message indicating that an error occurred while downloading an update to NVDA.
 msgid "Error downloading add-on update."
-msgstr "Fehler beim Suchen nach Aktualisierungen für diese Erweiterung."
+msgstr "Fehler beim Suchen nach Updates für diese Erweiterung."
 
 #. Translators: The message displayed when an error occurs when opening an add-on package for adding.
 #, python-format

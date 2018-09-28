@@ -3,7 +3,8 @@
 * Autores: Geoff Shang, Joseph Lee y otros colaboradores
 * Descargar [Versión estable][1]
 * Descargar [versión de desarrollo][2]
-* Download [long-term support version][3] - for Studio 5.10/5.11 users
+* Descargar [versión de soporte extendido][3] - Para usuarios de Studio 5.10
+  / 5.11
 
 Este paquete de complementos proporciona una utilización mejorada de Station
 Playlist Studio, así como utilidades para controlar el Studio desde
@@ -16,9 +17,8 @@ repositorio del código fuente del complemento.
 
 NOTAS IMPORTANTES:
 
-* This add-on requires NVDA 2018.2 or later and StationPlaylist Studio 5.10
-  or later. For best experience, NVDA 2018.3 and Studio 5.11 or later is
-  recommended.
+* Este complemento requiere de NVDA 2018.3 o posterior y StationPlaylist
+  Studio 5.11 o posterior.
 * Si utilizas Windows 8 o posterior, para una mejor experiencia, deshabilita
   el modo atenuación de audio.
 * A partir de 2018, los registros de cambios para versiones antiguas se
@@ -325,39 +325,65 @@ realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
 
-## Version 18.09.1-LTS
+## Versión 18.10.2/18.09.4-LTS
 
-* When obtaining playlist transcripts in HTML table format, column headers
-  are no longer rendered as a Python list string.
+* Solucionado un problema que impedía cerrar la pantalla de opciones del
+  complemento si se pulsaba el botón Aplicar y seguidamente se pulsaban los
+  botones Aceptar o Cancelar.
 
-## Version 18.09-LTS
+## Versión 18.10.1/18.09.3-LTS
 
-Version 18.09.x is the last release series to support Studio 5.10 and based
-on old technologies, with 18.10 and later supporting Studio 5.11/5.20 and
-new features. Some new features will be backported to 18.09.x if needed.
+* Se han resuelto varios problemas relacionados con la función de anuncio de
+  conexión del codificador, incluido que no se anunciaran mensajes de
+  estado, fallos al reproducir la primera pista, o no cambiar a la ventana
+  de Studio al estar conectado. Estos fallos son causados por WXPython 4
+  (NVDA 2018.3 y posterior).
 
-* NVDA 2018.3 or later is recommended due to introduction of wxPython 4.
-* Add-on settings screen is now fully based on multi-page interface derived
-  from NVDA 2018.2 and later.
-* Test Drive Fast and Slow rings have been combined into "development"
-  channel, with an option for development snapshot users to test pilot
-  features by checking the new pilot features checkbox found in Advanced
-  add-on settings panel. Users formerly on Test Drive Fast ring will
-  continue to test pilot features.
-* The ability to select different add-on update channel from add-on settings
-  has been removed. Users wishing to switch to a different release channel
-  should visit NVDA community add-ons website (addons.nvda-project.org),
-  select StationPlaylist Studio, then download the appropriate release.
-* Column inclusion checkboxes for column announcement and playlist
-  transcripts, as well as metadata streams checkboxes have been converted to
-  checkable list controls.
-* When switching between settings panels, NvDA will remember current
-  settings for profile-specific settings (alarms, column announcements,
-  metadata streaming settings).
-* Added CSV (comma-separated values) format as a playlist transcripts
-  format.
-* Pressing Control+NvDA+C to save settings will now also save Studio add-on
-  settings (requires NVDA 2018.3).
+## Versión 18.10
+
+* Se requiere NVDA 2018.3 o posterior.
+* Cambios internos para hacer al complemento más compatible con Python 3.
+
+## Versión 18.09.1-LTS
+
+* Al obtener transcripciones de lista de reproducción en formato de tabla
+  HTML, las cabeceras de columna ya no se renderizan como una cadena con una
+  lista Python.
+
+## Versión 18.09-LTS
+
+La versión 18.09.x es la última que se basa en antiguas tecnologías y da
+soporte a Studio 5.10. La versión 18.10 y posteriores darán soporte a Studio
+5.11 / 5.20 y nuevas funciones. Algunas nuevas funciones se llevarán a la
+18.09.x si es necesario.
+
+* Se recomienda utilizar NVDA 2018.3 o posterior debido a la introducción de
+  WXPython 4.
+* La pantalla de opciones del complemento está totalmente basada en la
+  interfaz multipágina derivada de NVDA 2018.2 y posterior.
+* Los anillos de prueba lento y rápido se han combinado en un único canal de
+  "desarrollo", ofreciendo una opción a los usuarios de versiones de
+  desarrollo para probar las funciones piloto marcando la nueva casilla de
+  funciones piloto en el panel de configuración avanzada del
+  complemento. Los usuarios del anillo de pruebas rápido continuarán
+  probando las funciones piloto.
+* Se ha eliminado la posibilidad de seleccionar un canal de actualización
+  diferente desde las opciones del complemento. Los usuarios que deseen
+  cambiar a otro canal de actualizaciones deberían visitar el sitio web de
+  complementos de la comunidad (addons.nvda-project.org), seleccionar
+  StationPlaylist Studio y descargar la versión apropiada.
+* Las casillas de verificación de inclusión de columnas para la
+  verbalización de columnas y transcripciones de listas de reproducción, así
+  como las casillas de flujo de metadatos, se han convertido a controles de
+  lista verificables.
+* Al cambiar entre paneles de opciones, NVDA recordará las opciones actuales
+  de los ajustes específicos del perfil (alarmas, anuncios de columna,
+  opciones de flujo de metadatos).
+* Añadido el formato CSV (valores separados por comas) como formato de
+  transcripciones de listas de reproducción.
+* Al pulsar NVDA+control+c para guardar la configuración de NVDA, también se
+  guardará la configuración del complemento de Studio (requiere NVDA 2018.3
+  o posterior).
 
 ## Versión 18.08.2
 

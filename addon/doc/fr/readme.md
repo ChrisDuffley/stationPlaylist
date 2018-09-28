@@ -17,9 +17,8 @@ racine du code source du module complémentaire du référentiel.
 
 NOTES IMPORTANTES :
 
-* Ce module complémentaire nécessite NVDA 2018.2 ou version ultérieure et
-  StationPlaylist Studio 5.10 ou version ultérieure. Pour une meilleure
-  expérience, NVDA 2018.3 et Studio 5.11 ou ultérieur sont recommandés.
+* Ce module complémentaire nécessite NVDA 2018.3 ou version ultérieure et
+  StationPlaylist Studio 5.11 ou version ultérieure.
 * Si vous utilisez Windows 8 ou ultérieur, pour une meilleure expérience,
   désactiver le Mode d'atténuation audio.
 * À partir de 2018, [les journal des changements des anciennes versions du
@@ -334,6 +333,26 @@ ultérieure installé, vous pouvez exécuter certaines commandes Studio depuis
 un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
+
+## Version 18.10.2/18.09.4-LTS
+
+* Correction de l'incapacité de fermer l'écran Paramètres du module
+  complémentaire si le bouton Appliquer a été appuyé et que les boutons OK
+  ou Annuler ont ensuite été pressés.
+
+## Version 18.10.1/18.09.3-LTS
+
+* Résolution de plusieurs problèmes liés à la fonction de l'annonce de
+  connexion de l'encodeur, y compris le fait de ne pas annoncer les statut
+  des messages, de ne pas lire la première piste sélectionnée ou de ne pas
+  basculer à la fenêtre Studio lorsqu'il est connectée. Ces bugs sont causés
+  par wxPython 4 (NVDA 2018.3 ou ultérieur).
+
+## Version 18.10
+
+* NVDA 2018.3 ou ultérieur est requis.
+* Changements internes afin de rendre le module complémentaire plus
+  compatibles avec Python 3.
 
 ## Version 18.09.1-LTS
 

@@ -14,9 +14,8 @@ xem tập tin buildInstructions.txt ở thư mục gốc trong mã nguồn của
 
 CÁC LƯU Ý QUAN TRỌNG:
 
-* Add-on này yêu cầu NVDA 2018.2 trở lên và StationPlaylist Studio 5.10 trở
-  lên. Để có trải nghiệm tốt nhất, NVDA 2018.3 và Studio 5.11 trở lên được
-  khuyên dùng.
+* Add-on này yêu cầu NVDA 2018.3 trở lên và StationPlaylist Studio 5.11 trở
+  lên.
 * Nếu dùng Windows 8 trở lên, hãy tắt chế độ giảm âm thanh để có trải nghiệm
   tốt nhất.
 * Từ 2018, [bản ghi những thay đổi cho các bản phát hành cũ của add-on][5]
@@ -282,6 +281,23 @@ Nếu dùng Studio trên một máy tính cảm ứng chạy Windows 8 trở lê
 NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio từ mành hình
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
+
+## Phiên bản 18.10.2/18.09.4-LTS
+
+* Sửa lỗi không đóng được màn hình cài đặt add-on nếu đã bấm nút Áp dụng và
+  và sau đó lại bấm nút Đồng ý hay Hủy.
+
+## Phiên bản 18.10.1/18.09.3-LTS
+
+* Giải quyết vài trục trặc liên quan đến tính năng thông báo kết nối bộ mã
+  hóa, bao gồm việc không thông báo thông điệp trạng thái, không phát track
+  đầu tiên được chọn hoặc không chuyển đến cửa sổ Studio khi đã kết
+  nối. Những lỗi này gây ra bởi wxPython 4 (NVDA 2018.3 trở lên).
+
+## Phiên bản 18.10
+
+* Yêu cầu NVDA 2018.3 trở lên.
+* Những thay đổi bên trong để add-on tương thích hơn với Python 3.
 
 ## Phiên bản 18.09.1-LTS
 

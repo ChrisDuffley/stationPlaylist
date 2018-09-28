@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-09-01 21:21-0700\n"
+"PO-Revision-Date: 2018-09-22 12:03+0100\n"
 "Last-Translator: Iván Novegil <ivan.novegil.cancelas@gmail.com>\n"
 "Language-Team: Add-ons translation team <oprisniki@gmail.com>\n"
 "Language: gl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 1.6.11\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Presented when attempting to install Studio add-on on unsupported Windows releases.
@@ -1196,6 +1196,8 @@ msgid ""
 "Add-on Updater add-on might be running. Please use that add-on to check for "
 "updates."
 msgstr ""
+"O complemento Add-on Updater podería estar en execución. Por favor usa ese "
+"complemento para procurar as actualizacións."
 
 #. Translators: title of a panel to configure broadcast profiles.
 msgid "Broadcast profiles"
@@ -1561,7 +1563,7 @@ msgstr ""
 "deshabilitalos."
 
 msgid "&Stream:"
-msgstr ""
+msgstr "&Stream:"
 
 #. Translators: A checkbox to let metadata streaming status be applied to the currently active broadcast profile.
 msgid "&Apply streaming changes to the selected profile"
@@ -1583,9 +1585,8 @@ msgstr "Cando o perfil cambio instantáneo está activo"
 msgid "&Metadata streaming notification and connection"
 msgstr "Notificación e conexión dos &Metadatos de streaming"
 
-#, fuzzy
 msgid "&Select the URL for metadata streaming upon request:"
-msgstr "Selecionar a URL para metadatos de streaming baixo demanda."
+msgstr "&Selecionar a URL para metadatos de streaming baixo demanda."
 
 #. Translators: Title of a dialog to configure column announcements (order and what columns should be announced).
 msgid "Manage column announcements"
@@ -1596,21 +1597,19 @@ msgid "Playlist transcript columns"
 msgstr "Columnas da transcrición de listaxe de reprodución"
 
 #. Translators: Help text to select columns to be announced.
-#, fuzzy
 msgid ""
 "&Select columns to be announced\n"
 "(artist and title are announced by default):"
 msgstr ""
-"Seleciona as columnas a seren anunciadas (artista e título anúncianse "
+"&Seleciona as columnas a seren anunciadas (artista e título anúncianse "
 "predeterminadamente"
 
 #. Translators: Help text to select columns to be announced.
-#, fuzzy
 msgid ""
 "&Select columns to be included in playlist transcripts\n"
 "(artist and title are always included):"
 msgstr ""
-"Selecciona columnas a incluír na transcrición (artista e título sempre se "
+"&Selecciona columnas a incluír na transcrición (artista e título sempre se "
 "inclúen"
 
 #. wxPython 4 contains RearrangeList to allow item orders to be changed automatically.
@@ -1758,6 +1757,8 @@ msgid ""
 "Pilot features: I want to test and provide early &feedback on features under "
 "development"
 msgstr ""
+"Características piloto: Quero probar e proporcionar &retroalimentación de "
+"cedo sobre as características en desenvolvemento"
 
 #. Translators: The confirmation prompt displayed when changing update interval to zero days (updates will be checked every time Studio app module loads).
 msgid ""
@@ -1774,7 +1775,6 @@ msgid "Confirm update interval"
 msgstr "Confirmar o intervalo de actualización"
 
 #. Translators: The confirmation prompt displayed when about to enable pilot flag (with risks involved).
-#, fuzzy
 msgid ""
 "You are about to enable pilot features. Please note that pilot features may "
 "include functionality that might be unstable at times and should be used for "
@@ -1782,27 +1782,28 @@ msgid ""
 "stable features, please answer no and uncheck pilot features checkbox. Are "
 "you sure you wish to enable pilot features?"
 msgstr ""
-"Estás perto de cambiar á canle de compilación Text Drive Fast (probar), a "
-"canle de desenvolvemento máis rápida e máis inestable. or favor ten en conta "
-"que a canle selecionada poderá incluir actualizacións que poden seren "
-"inestables ás veces e que deben usarse para probar e enviar comentarios ao "
-"desenvolvedor do complemento. Se prefires usar versións estables, por favor "
-"responde non e cambia a unha canle de actualización máis estable. ¿Estás "
-"seguro de que desexas cambiar á canle Test Drive Fast?"
+"Estás a piques activar as características piloto. Ten en conta que as "
+"características piloto poden incluir funcionalidades que poden seren "
+"inestables en ocasións e que deben usarse para probar e enviar comentarios "
+"ao desenvolvedor do complemento. Se prefires usar características estables, "
+"responde non e desmarca a Caixa de verificación de características piloto. "
+"¿Estás seguro de que desexas activar as características piloto?"
 
 #. Translators: The title of the channel switch confirmation dialog.
 msgid "Enable pilot features"
-msgstr ""
+msgstr "Activar características piloto"
 
 #. Translators: A dialog message shown when pilot features is turned on or off.
 msgid ""
 "You have toggled pilot features checkbox. You must restart NVDA for the "
 "change to take effect."
 msgstr ""
+"Conmutaches a Caixa de verificación características piloto. Debes reiniciar "
+"o NVDA para que os cambios teñan efecto."
 
 #. Translators: Title of the pilot features dialog.
 msgid "Pilot features"
-msgstr ""
+msgstr "Características piloto"
 
 #. Translators: Title of the dialog to reset various add-on settings.
 #. Translators: title of a panel to reset add-on settings.

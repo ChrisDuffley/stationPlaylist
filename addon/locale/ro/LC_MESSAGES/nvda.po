@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 6.4\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2016-03-04 19:00+1000\n"
-"PO-Revision-Date: 2018-09-01 21:21-0700\n"
+"PO-Revision-Date: 2018-09-23 10:54+0300\n"
 "Last-Translator: Florian Ionașcu <florianionascu@hotmail.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 2.1.1\n"
 
 #. Translators: Presented when attempting to install Studio add-on on unsupported Windows releases.
 msgid ""
@@ -55,9 +55,8 @@ msgid "blank"
 msgstr "gol"
 
 #. Translators: Title of the column data window.
-#, fuzzy
 msgid "Track data"
-msgstr "Începutul melodiei"
+msgstr "Date despre melodie"
 
 #. Translators: Presented when a specific column header is not found.
 #, python-brace-format
@@ -774,6 +773,8 @@ msgstr "Analiza listei de redare este dezactivată"
 msgid ""
 "Marks focused track as start marker for various playlist analysis commands"
 msgstr ""
+"Marchează piesa focalizată ca marcaj de început pentru diferite comenzi de "
+"analiză ale listei de redare"
 
 msgid "No tracks were added, cannot perform track time analysis"
 msgstr ""
@@ -1183,6 +1184,8 @@ msgid ""
 "Add-on Updater add-on might be running. Please use that add-on to check for "
 "updates."
 msgstr ""
+"Suplimentul Add-on Updater ar putea să ruleze. Vă rugăm să utilizați acel "
+"supliment pentru a căuta actualizări."
 
 #. Translators: title of a panel to configure broadcast profiles.
 #, fuzzy
@@ -1226,6 +1229,8 @@ msgid ""
 "The selected profile is different from currently active broadcast profile. "
 "Settings will be applied to the selected profile instead."
 msgstr ""
+"Profilul selectat este diferit de cel care este activ momentan. Setările vor "
+"fi aplicate în schimb la profilul selectat."
 
 #, fuzzy
 msgid "Apply settings"
@@ -1350,7 +1355,7 @@ msgstr ""
 
 #. Translators: title of a panel to configure various general add-on settings such as top and bottom announcement for playlists.
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #. Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
 msgid "&Beep for status announcements"
@@ -1543,7 +1548,7 @@ msgstr ""
 "Bifează pentru a activa emisia metadata, debifează pentru a o dezactiva."
 
 msgid "&Stream:"
-msgstr ""
+msgstr "&Stream:"
 
 #. Translators: A checkbox to let metadata streaming status be applied to the currently active broadcast profile.
 msgid "&Apply streaming changes to the selected profile"
@@ -1576,7 +1581,7 @@ msgstr "Gestionare anunțările de coloană"
 
 #. Translators: Title of a dialog to configure columnn seleciton for Playlist Transcripts.
 msgid "Playlist transcript columns"
-msgstr ""
+msgstr "Coloanele de transcriere ale listei de redare"
 
 #. Translators: Help text to select columns to be announced.
 #, fuzzy
@@ -1749,6 +1754,8 @@ msgid ""
 "Pilot features: I want to test and provide early &feedback on features under "
 "development"
 msgstr ""
+"Caracteristici pilot: Vreau să testez și să ofer &feedback prematur la "
+"caracteristicile aflate în dezvoltare"
 
 #. Translators: The confirmation prompt displayed when changing update interval to zero days (updates will be checked every time Studio app module loads).
 msgid ""
@@ -1784,17 +1791,19 @@ msgstr ""
 
 #. Translators: The title of the channel switch confirmation dialog.
 msgid "Enable pilot features"
-msgstr ""
+msgstr "Activează caracteristicile pilot"
 
 #. Translators: A dialog message shown when pilot features is turned on or off.
 msgid ""
 "You have toggled pilot features checkbox. You must restart NVDA for the "
 "change to take effect."
 msgstr ""
+"Ați activat caseta de bifat a caracteristicilor pilot. Trebuie să reporniți "
+"NVDA pentru ca modificarea să aibă efect."
 
 #. Translators: Title of the pilot features dialog.
 msgid "Pilot features"
-msgstr ""
+msgstr "Caracteristici pilot"
 
 #. Translators: Title of the dialog to reset various add-on settings.
 #. Translators: title of a panel to reset add-on settings.
@@ -1838,6 +1847,8 @@ msgid ""
 "Warning! Selecting Reset button and choosing various reset options will "
 "reset add-on settings to defaults."
 msgstr ""
+"Atenție! Selectarea butonului de resetare și alegerea unor opțiuni diverse "
+"de resetare vor aduce suplimentul la setările inițiale."
 
 #. Translators: The label of a button to open reset dialog.
 msgid "Reset settings..."
@@ -1862,6 +1873,8 @@ msgstr "Un alt dialog de căutare este deschis."
 #. Translators: Text of the dialog when a generic error has occured.
 msgid "An unexpected error has occured when trying to open find dialog."
 msgstr ""
+"A apărut o eroare neașteptată la încercarea de deschidere a dialogului de "
+"căutare."
 
 msgid "Enter or select the name or the artist of the track you wish to &search"
 msgstr ""
@@ -1908,7 +1921,7 @@ msgstr "Cronometru complet."
 
 #. Translators: presented when metadata streaming status cannot be obtained.
 msgid "Cannot obtain metadata streaming status information"
-msgstr ""
+msgstr "Nu se pot obține informații despre starea metadatei streamingului."
 
 #. Translators: Status message for metadata streaming.
 msgid "No metadata streaming URL's defined"
@@ -1940,42 +1953,42 @@ msgstr "Emisia metadata configurată pentru URL-ul {URL}"
 
 #. Translators: the Playlist transcripts dialog title.
 msgid "Playlist Transcripts"
-msgstr ""
+msgstr "Transcrieri ale listei de redare"
 
 msgid "Playlist data copied to clipboard"
-msgstr ""
+msgstr "Datele listei de redare copiate pe planșetă"
 
 #. Translators: Text of the dialog when another playlist transcripts dialog is open.
 msgid "Another playlist transcripts dialog is open."
-msgstr ""
+msgstr "Un alt dialog de transcrieri al listei de redarre este deschis."
 
 #. Translators: one of the playlist transcripts range options.
 msgid "entire playlist"
-msgstr ""
+msgstr "listă de redare întreagă"
 
 #. Translators: one of the playlist transcripts range options.
 msgid "start to current item"
-msgstr ""
+msgstr "începe la elementul curent"
 
 #. Translators: one of the playlist transcripts range options.
 msgid "current item to the end"
-msgstr ""
+msgstr "elementul curent la sfârșit"
 
 #. Translators: one of the playlist transcripts range options.
 msgid "current hour"
-msgstr ""
+msgstr "oră curentă"
 
 #. Translators: The label in playlist transcripts dialog to select playlist transcript range.
 msgid "Transcript range:"
-msgstr ""
+msgstr "Interval de transcriere:"
 
 #. Translators: The label in playlist transcripts dialog to select transcript output format.
 msgid "Transcript format:"
-msgstr ""
+msgstr "Format de transcriere:"
 
 #. Translators: one of the playlist transcript actions.
 msgid "view transcript"
-msgstr ""
+msgstr "Vizualizează transcrierea"
 
 #. Translators: one of the playlist transcript actions.
 #, fuzzy
@@ -1989,7 +2002,7 @@ msgstr "Profil de &bază:"
 
 #. Translators: The label in playlist transcripts dialog to select transcript action.
 msgid "Transcript action:"
-msgstr ""
+msgstr "Acțiune de transcriere:"
 
 #. No need to interact with the user.
 #. Translators: Presented when no add-on update is available.

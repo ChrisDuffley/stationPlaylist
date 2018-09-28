@@ -16,9 +16,8 @@ Quellcodeverzeichnis der Erweiterung auf Github.
 
 WICHTIGE HINWEISE:
 
-* This add-on requires NVDA 2018.2 or later and StationPlaylist Studio 5.10
-  or later. For best experience, NVDA 2018.3 and Studio 5.11 or later is
-  recommended.
+* This add-on requires NVDA 2018.3 or later and StationPlaylist Studio 5.11
+  or later.
 * Wenn Sie Windows 8 oder höher verwenden, setzen Sie die Reduzierung der
   Lautstärke anderer Audioquellen auf "nie" im Dialog Sprachausgabe im
   NVDA-Einstellungsmenü.
@@ -327,6 +326,23 @@ verwenden und NVDA 2012.3 oder höher installiert haben, können Sie einige
 Studio-Befehle über den Touchscreen ausführen. Tippen Sie zunächst einmal
 mit drei Fingern, um in den SPL-Touchmodus zu wechseln. Verwenden Sie dann
 die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
+
+## Version 18.10.2/18.09.4-LTS
+
+* Fixed inability to close the add-on settings screen if Apply button was
+  pressed and subsequently OK or Cancel buttons were pressed.
+
+## Version 18.10.1/18.09.3-LTS
+
+* Resolved several issues related to encoder connection announcement
+  feature, including not announcing status messages, failing to play the
+  first selected track, or not switching to Studio window when
+  connected. These bugs are caused by wxPython 4 (NVDA 2018.3 or later).
+
+## Version 18.10
+
+* NVDA 2018.3 or later is required.
+* Internal changes to make the add-on more compatible with Python 3.
 
 ## Version 18.09.1-LTS
 
