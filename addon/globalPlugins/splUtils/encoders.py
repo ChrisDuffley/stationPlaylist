@@ -530,7 +530,7 @@ class SAMEncoder(Encoder):
 	def reportConnectionStatus(self, connecting=False):
 		# Keep an eye on the stream's description field for connection changes.
 		# In order to not block NVDA commands, this will be done using a different thread.
-		SPLWin = user32.FindWindowA("SPLStudio", None)
+		SPLWin = user32.FindWindowW(u"SPLStudio", None)
 		toneCounter = 0
 		messageCache = ""
 		# Status message flags.
@@ -570,7 +570,7 @@ class SAMEncoder(Encoder):
 				if self.focusToStudio and not encoding:
 					if api.getFocusObject().appModule == "splstudio":
 						continue
-					user32.SetForegroundWindow(user32.FindWindowA("TStudioForm", None))
+					user32.SetForegroundWindow(user32.FindWindowW(u"TStudioForm", None))
 				# #37 (17.08.1): if run from another function, the message will not be sent, so must be done here.
 				if self.playAfterConnecting and not encoding:
 					# Do not interupt the currently playing track.
@@ -689,7 +689,7 @@ class SPLEncoder(Encoder):
 
 	def reportConnectionStatus(self, connecting=False):
 		# Same routine as SAM encoder: use a thread to prevent blocking NVDA commands.
-		SPLWin = user32.FindWindowA("SPLStudio", None)
+		SPLWin = user32.FindWindowW(u"SPLStudio", None)
 		attempt = 0
 		messageCache = ""
 		# Status flags.
@@ -717,7 +717,7 @@ class SPLEncoder(Encoder):
 				# We're on air, so exit.
 				if not connected: tones.beep(1000, 150)
 				if self.focusToStudio and not connected:
-					user32.SetForegroundWindow(user32.FindWindowA("TStudioForm", None))
+					user32.SetForegroundWindow(user32.FindWindowW(u"TStudioForm", None))
 				if self.playAfterConnecting and not connected:
 					if winUser.sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus) == 0:
 						winUser.sendMessage(SPLWin, 1024, 0, SPLPlay)
