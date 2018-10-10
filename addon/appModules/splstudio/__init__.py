@@ -2192,12 +2192,14 @@ class AppModule(appModuleHandler.AppModule):
 			self.finish()
 			return
 		if obj.role == controlTypes.ROLE_LIST:
-			ui.message(_("You need to add tracks before invoking this command"))
-			self.finish()
-			return
+			# 18.11/18.09.4-LTS: only say the following if Studio says playlist is empty, otherwise move one level down for backward compatibility.
+			if not splbase.studioAPI(0, 124):
+				ui.message(_("You need to add tracks before invoking this command"))
+				self.finish()
+				return
+			obj = obj.firstChild
 		try:
-			startObj =  api.getFocusObject()
-			d = splmisc.SPLPlaylistTranscriptsDialog(gui.mainFrame, api.getFocusObject())
+			d = splmisc.SPLPlaylistTranscriptsDialog(gui.mainFrame, obj)
 			gui.mainFrame.prePopup()
 			d.Raise()
 			d.Show()
