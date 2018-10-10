@@ -2168,7 +2168,7 @@ class AppModule(appModuleHandler.AppModule):
 			self.finish()
 			return
 		if obj.role == controlTypes.ROLE_LIST:
-			# 18.11/18.09.4-LTS: only say the following if Studio says playlist is empty, otherwise move one level down for backward compatibility.
+			# 18.11/18.09.5-LTS: only say the following if Studio says playlist is empty, otherwise move one level down for backward compatibility.
 			if not splbase.studioAPI(0, 124):
 				ui.message(_("You need to add tracks before invoking this command"))
 				self.finish()
@@ -2208,7 +2208,7 @@ class AppModule(appModuleHandler.AppModule):
 			self.finish()
 			return
 		if obj.role == controlTypes.ROLE_LIST:
-			# 18.11/18.09.4-LTS: only say the following if Studio says playlist is empty, otherwise move one level down for backward compatibility.
+			# 18.11/18.09.5-LTS: only say the following if Studio says playlist is empty, otherwise move one level down for backward compatibility.
 			if not splbase.studioAPI(0, 124):
 				ui.message(_("You need to add tracks before invoking this command"))
 				self.finish()
