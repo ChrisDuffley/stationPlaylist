@@ -1573,23 +1573,29 @@ class AppModule(appModuleHandler.AppModule):
 	# Although not directly related to this, track finder and its friends, as well as remaining playlist duration command also fall under playlist analyzer.
 	# A playlist must be loaded in order for these to work, or for some, playlist viewer must be the foreground window and most recent focused track must be known.
 
-	def canPerformPlaylistCommands(self, playlistViewerRequired=False, customErrorMessage=None):
+	# Possible playlist errors.
+	SPLPlaylistNoErrors = 0
+	SPLPlaylistNotFocused = 1
+	SPLPlaylistNotLoaded = 2
+	SPLPlaylistLastFocusUnknown = 3
+	
+	def canPerformPlaylistCommands(self, playlistViewerRequired=False, customErrorMessage=None, announceErrors=True):
 		# #81: some commands do require that playlist viewer must be the foreground window (focused), hence the keyword argument.
-		# Also let NvDA announce custom error messages if told to do so.
+		# Also let NvDA announce custom error messages if told to do so, and for some cases, not at all because the caller will announce them.
 		playlistViewerFocused = api.getForegroundObject().windowClassName == "TStudioForm"
 		if playlistViewerRequired and not playlistViewerFocused:
 			# Translators: an error message presented when performing some playlist commands while focused on places other than Playlist Viewer.
-			ui.message(customErrorMessage if customErrorMessage is not None else _("Please return to playlist viewer before invoking this command."))
-			return False
+			if announceErrors: ui.message(customErrorMessage if customErrorMessage is not None else _("Please return to playlist viewer before invoking this command."))
+			return self.SPLPlaylistNotFocused
 		if not splbase.studioAPI(0, 124):
 			# Translators: an error message presented when performing some playlist commands while no playlist has been loaded.
-			ui.message(customErrorMessage if customErrorMessage is not None else _("No playlist has been loaded."))
-			return False
+			if announceErrors: ui.message(customErrorMessage if customErrorMessage is not None else _("No playlist has been loaded."))
+			return self.SPLPlaylistNotLoaded
 		if not playlistViewerFocused and self._focusedTrack is None:
 			# Translators: an error message presented when performing some playlist commands while no tracks are selected/focused.
-			ui.message(customErrorMessage if customErrorMessage is not None else _("Please select a track from playlist viewer before invoking this command."))
-			return False
-		return True
+			if announceErrors: ui.message(customErrorMessage if customErrorMessage is not None else _("Please select a track from playlist viewer before invoking this command."))
+			return self.SPLPlaylistLastFocusUnknown
+		return self.SPLPlaylistNoErrors
 
 	# Track time analysis/Playlist snapshots
 	# Return total length of the selected tracks upon request.
