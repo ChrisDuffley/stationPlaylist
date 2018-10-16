@@ -194,6 +194,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Version 18.11/18.09.5-LTS
 
 * You can now obtain playlist snapshots (SPL Assistant, F8) and transcripts (SPL Assistant, Shift+F8) while a playlist is loaded but the first track isn't focused.
+* NVDA will no longer appear to do nothing or play error tones when trying to announce metadata streaming status when Studio starts if configured to do so.
 
 ## Version 18.10.2/18.09.4-LTS
 
