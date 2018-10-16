@@ -210,8 +210,7 @@ class ConfigHub(ChainMap):
 		# Reset flag (only engaged if reset did happen).
 		self.resetHappened = False
 		# #73: listen to config save/reset actions from NVDA Core.
-		if hasattr(config, "post_configSave"):
-			config.post_configSave.register(self.handlePostConfigSave)
+		config.post_configSave.register(self.handlePostConfigSave)
 		# 18.09: pilot features.
 		self._pendingPilotFeaturesToggle = False
 
@@ -959,6 +958,8 @@ def closeConfig(splComponent):
 	SPLConfig.splComponents.discard(splComponent)
 	if len(SPLConfig.splComponents) == 0:
 		SPLConfig.save()
+		# No need to keep config save registration alive.
+		config.post_configSave.unregister(SPLConfig.handlePostConfigSave)
 		SPLConfig = None
 		_SPLCache.clear()
 		_SPLCache = None
