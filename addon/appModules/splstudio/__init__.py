@@ -1272,7 +1272,8 @@ class AppModule(appModuleHandler.AppModule):
 	# Attempt level specifies which track finder to open (0 = Track Finder, 1 = Column Search, 2 = Time range).
 	def _trackFinderCheck(self, attemptLevel):
 		if not splbase.studioIsRunning(): return False
-		if api.getForegroundObject().windowClassName != "TStudioForm":
+		playlistErrors = self.canPerformPlaylistCommands(playlistViewerRequired=True, announceErrors=False)
+		if playlistErrors == self.SPLPlaylistNotFocused:
 			if attemptLevel == 0:
 				# Translators: Presented when a user attempts to find tracks but is not at the track list.
 				ui.message(_("Track finder is available only in track list."))
@@ -1284,7 +1285,8 @@ class AppModule(appModuleHandler.AppModule):
 				ui.message(_("Time range finder is available only in track list."))
 			return False
 		# 17.06/15.8-LTS: use Studio API to find out if a playlist is even loaded, otherwise Track Finder will fail to notice a playlist.
-		elif api.getForegroundObject().windowClassName == "TStudioForm" and not splbase.studioAPI(0, 124):
+		# #81 (18.12): all taken care of by playlist checker method.
+		elif playlistErrors == self.SPLPlaylistNotLoaded:
 			# Translators: Presented when a user wishes to find a track but didn't add any tracks.
 			ui.message(_("You need to add at least one track to find tracks."))
 			return False
