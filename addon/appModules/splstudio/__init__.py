@@ -722,7 +722,7 @@ class AppModule(appModuleHandler.AppModule):
 			# #40 (18.02): call the internal announcer in order to not hold up action handler queue.
 			# #51 (18.03/15.14-LTS): if this is called within two seconds (status time-out), status will be announced multiple times.
 			# 18.04: hopefully the error message won't be shown as this is supposed to run right after locating Studio handle.
-			splmisc._earlyMetadataAnnouncerInternal(metadataStatus())
+			splmisc._earlyMetadataAnnouncerInternal(splmisc.metadataStatus())
 
 	# Studio API heartbeat.
 	# Although useful for library scan detection, it can be extended to cover other features.
