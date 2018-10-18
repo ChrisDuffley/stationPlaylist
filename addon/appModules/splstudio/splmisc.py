@@ -502,9 +502,10 @@ def metadataStatus():
 # Internal metadata status announcer.
 # The idea is to pause for a while and announce the status message and playing the accompanying wave file.
 # This is necessary in order to allow extension points to work correctly and to not hold up other registered action handlers.
-def _metadataAnnouncerInternal(status):
+# A special startup flag will be used so other text sequences will not be cut off.
+def _metadataAnnouncerInternal(status, startup=False):
 	import nvwave, queueHandler, speech
-	speech.cancelSpeech()
+	if not startup: speech.cancelSpeech()
 	queueHandler.queueFunction(queueHandler.eventQueue, ui.message, status)
 	nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_Metadata.wav"))
 	# #51 (18.03/15.14-LTS): close link to metadata announcer thread when finished.
@@ -514,12 +515,12 @@ def _metadataAnnouncerInternal(status):
 # Handle a case where instant profile ssitch occurs twice within the switch time-out.
 _earlyMetadataAnnouncer = None
 
-def _earlyMetadataAnnouncerInternal(status):
+def _earlyMetadataAnnouncerInternal(status, startup=False):
 	global _earlyMetadataAnnouncer
 	if _earlyMetadataAnnouncer is not None:
 		_earlyMetadataAnnouncer.cancel()
 		_earlyMetadataAnnouncer = None
-	_earlyMetadataAnnouncer = threading.Timer(2, _metadataAnnouncerInternal, args=[status])
+	_earlyMetadataAnnouncer = threading.Timer(2, _metadataAnnouncerInternal, args=[status], kwargs={"startup": startup})
 	_earlyMetadataAnnouncer.start()
 
 # Delay the action handler if Studio handle is not found.
