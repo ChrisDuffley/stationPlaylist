@@ -664,6 +664,8 @@ class AppModule(appModuleHandler.AppModule):
 		except AttributeError:
 			debugOutput("failed to initialize GUI subsystem")
 			self.prefsMenu = None
+		# #82 (18.11/18.09.5-lts): notify others when Studio window gets focused the first time in order to synchronize announcement order.
+		self._initStudioWindowFocused = threading.Event()
 		# Let me know the Studio window handle.
 		# 6.1: Do not allow this thread to run forever (seen when evaluation times out and the app module starts).
 		self.noMoreHandle = threading.Event()
@@ -722,7 +724,9 @@ class AppModule(appModuleHandler.AppModule):
 			# #40 (18.02): call the internal announcer in order to not hold up action handler queue.
 			# #51 (18.03/15.14-LTS): if this is called within two seconds (status time-out), status will be announced multiple times.
 			# 18.04: hopefully the error message won't be shown as this is supposed to run right after locating Studio handle.
-			splmisc._earlyMetadataAnnouncerInternal(splmisc.metadataStatus())
+			# #82 (18.11/18.09.5-lts): wait until Studio window gets focused for the first time.
+			self._initStudioWindowFocused.wait()
+			splmisc._earlyMetadataAnnouncerInternal(splmisc.metadataStatus(), startup=True)
 
 	# Studio API heartbeat.
 	# Although useful for library scan detection, it can be extended to cover other features.
@@ -742,6 +746,14 @@ class AppModule(appModuleHandler.AppModule):
 	# Let the global plugin know if SPLController passthrough is allowed.
 	def SPLConPassthrough(self):
 		return splconfig.SPLConfig["Advanced"]["SPLConPassthrough"]
+
+	# The only job of the below event is to notify others that Studio window has appeared for the first time.
+	# This is used to coordinate various status announcements.
+
+	def event_foreground(self, obj, nextHandler):
+		if not self._initStudioWindowFocused.isSet() and obj.windowClassName == "TStudioForm":
+			self._initStudioWindowFocused.set()
+		nextHandler()
 
 	def event_NVDAObject_init(self, obj):
 		# From 0.01: previously focused item fires focus event when it shouldn't.
