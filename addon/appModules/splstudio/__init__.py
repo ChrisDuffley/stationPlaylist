@@ -737,8 +737,11 @@ class AppModule(appModuleHandler.AppModule):
 			# #40 (18.02): call the internal announcer in order to not hold up action handler queue.
 			# #51 (18.03/15.14-LTS): if this is called within two seconds (status time-out), status will be announced multiple times.
 			# 18.04: hopefully the error message won't be shown as this is supposed to run right after locating Studio handle.
-			# #82 (18.11/18.09.5-lts): wait until Studio window gets focused for the first time.
-			self._initStudioWindowFocused.wait()
+			# #82 (18.11/18.09.5-lts): wait until Studio window shows up (foreground or background) for the first time.
+			# #83: if NVDA restarts while Studio is running and foreground window is something other than playlist viewer, the below method won't work at all.
+			# Thankfully, NVDA's notion of foreground window depends on a global variable, and if it is not set, this is a restart with Studio running, so just announce it.
+			if api.getForegroundObject() is not None:
+				self._initStudioWindowFocused.wait()
 			splmisc._earlyMetadataAnnouncerInternal(splmisc.metadataStatus(), startup=True)
 
 	# Studio API heartbeat.
