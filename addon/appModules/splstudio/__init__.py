@@ -2005,19 +2005,11 @@ class AppModule(appModuleHandler.AppModule):
 		self.announceTime(splbase.studioAPI(1, 27))
 
 	def script_sayPlaylistRemainingDuration(self, gesture):
-		obj = api.getFocusObject() if api.getForegroundObject().windowClassName == "TStudioForm" else self._focusedTrack
-		if obj is None:
-			ui.message("Please return to playlist viewer before invoking this command.")
-			return
-		if obj.role == controlTypes.ROLE_LIST:
-			# 17.09/15.9-LTS: report if no playlist has been loaded.
-			if not splbase.studioAPI(0, 124):
-				# Translators: reported when no playlist has been loaded when trying to obtain remaining time for a playlist.
-				ui.message(_("No playlist has been loaded."))
-				return
-			else:
+		if self.canPerformPlaylistCommands(playlistViewerRequired=True) == self.SPLPlaylistNoErrors:
+			obj = api.getFocusObject()
+			if obj.role == controlTypes.ROLE_LIST:
 				obj = obj.firstChild
-		self.announceTime(self.playlistDuration(start=obj), ms=False)
+			self.announceTime(self.playlistDuration(start=obj), ms=False)
 
 	def script_sayPlaylistModified(self, gesture):
 		obj = self.status(self.SPLSystemStatus).getChild(5)
