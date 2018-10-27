@@ -675,7 +675,9 @@ class AppModule(appModuleHandler.AppModule):
 		# 6.1: Do not allow this thread to run forever (seen when evaluation times out and the app module starts).
 		self.noMoreHandle = threading.Event()
 		debugOutput("locating Studio window handle")
-		threading.Thread(target=self._locateSPLHwnd).start()
+		# If this is started right away, foreground and focus objects will be NULL according to NVDA if NVDA restarts while Studio is running.
+		t= threading.Thread(target=self._locateSPLHwnd)
+		wx.CallAfter(t.start)
 		# Let's start checking for add-on updates unless blocked for some reason.
 		# #46 (18.02): the below function will check for updates at startup as well, similar to NVDA Core's behavior.
 		# #50 (18.03): is add-on update check even possible?
