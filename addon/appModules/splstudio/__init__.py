@@ -636,6 +636,11 @@ class AppModule(appModuleHandler.AppModule):
 		super(AppModule, self).__init__(*args, **kwargs)
 		if self.SPLCurVersion < SPLMinVersion:
 			raise RuntimeError("Unsupported version of Studio is running, exiting app module")
+		debugOutput("Using SPL Studio version %s"%self.SPLCurVersion)
+		# #84: if foreground object is defined, this is a true Studio start, otherwise this is an NVDA restart with Studio running.
+		# The latter is possible because app module constructor can run before NVDA finishes initializing, particularly if system focus is located somewhere other than Taskbar.
+		# Note that this is an internal implementation detail and is subject to change without notice.
+		debugOutput("Studio is starting" if api.getForegroundObject() is not None else "Studio is already running")
 		# 17.09: do this if minimal startup flag is not present.
 		try:
 			if not globalVars.appArgs.minimal:
@@ -670,7 +675,9 @@ class AppModule(appModuleHandler.AppModule):
 		# 6.1: Do not allow this thread to run forever (seen when evaluation times out and the app module starts).
 		self.noMoreHandle = threading.Event()
 		debugOutput("locating Studio window handle")
-		threading.Thread(target=self._locateSPLHwnd).start()
+		# If this is started right away, foreground and focus objects will be NULL according to NVDA if NVDA restarts while Studio is running.
+		t= threading.Thread(target=self._locateSPLHwnd)
+		wx.CallAfter(t.start)
 		# Let's start checking for add-on updates unless blocked for some reason.
 		# #46 (18.02): the below function will check for updates at startup as well, similar to NVDA Core's behavior.
 		# #50 (18.03): is add-on update check even possible?
