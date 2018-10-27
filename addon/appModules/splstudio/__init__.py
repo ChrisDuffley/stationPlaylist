@@ -2269,18 +2269,18 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_findPlaceMarker(self, gesture):
 		# 7.0: Place marker command will still be restricted to playlist viewer in order to prevent focus bouncing.
-		if api.getForegroundObject().windowClassName != "TStudioForm":
+		if self.canPerformPlaylistCommands(playlistViewerRequired=True,
 			# Translators: Presented when attempting to move to a place marker track when not focused in playlist viewer.
-			ui.message(_("You cannot move to a place marker track outside of playlist viewer."))
-			return
-		if self.placeMarker is None:
-			# Translators: Presented when no place marker is found.
-			ui.message(_("No place marker found"))
-		else:
-			track = self._trackLocator(self.placeMarker[1], obj=api.getFocusObject().parent.firstChild, columns=[self.placeMarker[0]])
-			# 16.11: Just like Track Finder, use select track function to select the place marker track.
-			splbase.selectTrack(track.IAccessibleChildID-1)
-			track.setFocus(), track.setFocus()
+			customErrorMessage=_("You cannot move to a place marker track outside of playlist viewer."))
+		== self.SPLPlaylistNoErrors:
+			if self.placeMarker is None:
+				# Translators: Presented when no place marker is found.
+				ui.message(_("No place marker found"))
+			else:
+				track = self._trackLocator(self.placeMarker[1], obj=api.getFocusObject().parent.firstChild, columns=[self.placeMarker[0]])
+				# 16.11: Just like Track Finder, use select track function to select the place marker track.
+				splbase.selectTrack(track.IAccessibleChildID-1)
+				track.setFocus(), track.setFocus()
 
 	def script_metadataStreamingAnnouncer(self, gesture):
 		# 8.0: Call the module-level function directly.
