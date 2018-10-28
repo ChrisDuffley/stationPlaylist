@@ -2276,10 +2276,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_findPlaceMarker(self, gesture):
 		# 7.0: Place marker command will still be restricted to playlist viewer in order to prevent focus bouncing.
-		if self.canPerformPlaylistCommands(playlistViewerRequired=True,
-			# Translators: Presented when attempting to move to a place marker track when not focused in playlist viewer.
-			customErrorMessage=_("You cannot move to a place marker track outside of playlist viewer."))
-		== self.SPLPlaylistNoErrors:
+		# #81: no more custom message for place marker track, as the generic one will be enough for now.
+		if self.canPerformPlaylistCommands(playlistViewerRequired=True) == self.SPLPlaylistNoErrors:
 			if self.placeMarker is None:
 				# Translators: Presented when no place marker is found.
 				ui.message(_("No place marker found"))
