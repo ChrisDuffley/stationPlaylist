@@ -193,6 +193,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Version 18.09.5-LTS
 
+* Initial support for StationPlaylist Studio 5.31.
 * Internal changes to make the add-on more compatible with Python 3.
 * You can now obtain playlist snapshots (SPL Assistant, F8) and transcripts (SPL Assistant, Shift+F8) while a playlist is loaded but the first track isn't focused.
 * NVDA will no longer appear to do nothing or play error tones when trying to announce metadata streaming status when Studio starts if configured to do so.
