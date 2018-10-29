@@ -301,11 +301,16 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		except ValueError:
 			modifier, cart = None, gesture.displayName
 		# Pull in modifier values from the following list.
-		modifier = (None, "shift", "ctrl", "alt").index(modifier)+1
-		# Until a more elegant way is found, combine cart key assignments.
-		# Because just shifting bits won't work, multiply by 64K+1.
-		cart = ((self.fnCartKeys+self.numCartKeys).index(cart)+1) * 0x00010000
-		winUser.sendMessage(SPLWin,1024,cart | modifier,SPLCartPlayer)
+		modifier = (None, "shift", "ctrl", "alt").index(modifier)
+		# #85 (18.11.1/18.09.5-LTS): Cart index formula has changed in Studio 5.30.
+		# Both start with the following.
+		cart = (self.fnCartKeys+self.numCartKeys).index(cart)+1
+		# Studio 5.20 and earlier requires setting high (cart) and low (modifier) words (multiplying by 64K+1).
+		if winUser.sendMessage(SPLWin, 1024, 0, SPLVersion) < 530:
+			cart = (cart * 0x00010000) + modifier+1
+		# Whereas simplified to cart bank setup in Studio 5.30 and later.
+		else: cart += (modifier * 24)
+		winUser.sendMessage(SPLWin,1024,cart,SPLCartPlayer)
 		self.finish()
 
 	def script_conHelp(self, gesture):

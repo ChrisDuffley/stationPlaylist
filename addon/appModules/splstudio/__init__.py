@@ -790,8 +790,11 @@ class AppModule(appModuleHandler.AppModule):
 		except AttributeError:
 			windowStyle = 0
 		if obj.windowClassName == "TTntListView.UnicodeClass":
-			if role == controlTypes.ROLE_LISTITEM and abs(windowStyle - 1443991625)%0x100000 == 0:
-				clsList.insert(0, SPL510TrackItem)
+			if role == controlTypes.ROLE_LISTITEM:
+				# Track item window style has changed in Studio 5.31.
+				trackItemWindowStyle = 1443991617 if self.productVersion >= "5.31" else 1443991625
+				if abs(windowStyle - trackItemWindowStyle)%0x100000 == 0:
+					clsList.insert(0, SPL510TrackItem)
 			# #69 (18.08): allow actual list views to be treated as SysListView32.List so column count and other data can be retrieved easily.
 			elif role == controlTypes.ROLE_LIST:
 				clsList.insert(0, sysListView32.List)
