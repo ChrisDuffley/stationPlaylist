@@ -1605,8 +1605,8 @@ class AppModule(appModuleHandler.AppModule):
 	SPLPlaylistNotFocused = 1
 	SPLPlaylistNotLoaded = 2
 	SPLPlaylistLastFocusUnknown = 3
-	
-	def canPerformPlaylistCommands(self, playlistViewerRequired=False, customErrorMessage=None, announceErrors=True):
+
+	def canPerformPlaylistCommands(self, playlistViewerRequired=False, mustSelectTrack=False, announceErrors=True, customErrorMessage=None):
 		# #81: some commands do require that playlist viewer must be the foreground window (focused), hence the keyword argument.
 		# Also let NvDA announce custom error messages if told to do so, and for some cases, not at all because the caller will announce them.
 		playlistViewerFocused = api.getForegroundObject().windowClassName == "TStudioForm"
@@ -1618,7 +1618,7 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: an error message presented when performing some playlist commands while no playlist has been loaded.
 			if announceErrors: ui.message(customErrorMessage if customErrorMessage is not None else _("No playlist has been loaded."))
 			return self.SPLPlaylistNotLoaded
-		if not playlistViewerFocused and self._focusedTrack is None:
+		if mustSelectTrack and self._focusedTrack is None:
 			# Translators: an error message presented when performing some playlist commands while no tracks are selected/focused.
 			if announceErrors: ui.message(customErrorMessage if customErrorMessage is not None else _("Please select a track from playlist viewer before invoking this command."))
 			return self.SPLPlaylistLastFocusUnknown
