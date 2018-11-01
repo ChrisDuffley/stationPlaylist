@@ -2153,15 +2153,6 @@ class AppModule(appModuleHandler.AppModule):
 		self.finish()
 		if self._trackAnalysisAllowed():
 			focus = api.getFocusObject()
-			if focus.role == controlTypes.ROLE_LIST:
-				if not splbase.studioAPI(0, 124):
-					# Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
-					ui.message(_("No playlist has been loaded, cannot perform playlist analysis."))
-					return
-				else:
-					# Translators: Presented when playlist analysis cannot be activated.
-					ui.message(_("No tracks are selected, cannot perform playlist analysis."))
-					return
 			if scriptHandler.getLastScriptRepeatCount() == 0:
 				self._analysisMarker = focus.IAccessibleChildID-1
 				# Translators: Presented when track time analysis is turned on.
@@ -2176,14 +2167,11 @@ class AppModule(appModuleHandler.AppModule):
 	def script_trackTimeAnalysis(self, gesture):
 		self.finish()
 		if self._trackAnalysisAllowed():
-			focus = api.getFocusObject()
-			if focus.role == controlTypes.ROLE_LIST:
-				ui.message(_("No tracks were added, cannot perform track time analysis"))
-				return
 			if self._analysisMarker is None:
 				# Translators: Presented when track time analysis cannot be used because start marker is not set.
 				ui.message(_("No track selected as start of analysis marker, cannot perform time analysis"))
 				return
+			focus = api.getFocusObject()
 			trackPos = focus.IAccessibleChildID-1
 			analysisBegin = min(self._analysisMarker, trackPos)
 			analysisEnd = max(self._analysisMarker, trackPos)
