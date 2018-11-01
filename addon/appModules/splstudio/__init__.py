@@ -2193,17 +2193,11 @@ class AppModule(appModuleHandler.AppModule):
 		if not splbase.studioIsRunning():
 			self.finish()
 			return
-		obj = api.getFocusObject() if api.getForegroundObject().windowClassName == "TStudioForm" else self._focusedTrack
-		if obj is None:
-			ui.message("Please return to playlist viewer before invoking this command.")
+		if not self._trackAnalysisAllowed(mustSelectTrack=False):
 			self.finish()
 			return
+		obj = api.getFocusObject()
 		if obj.role == controlTypes.ROLE_LIST:
-			# 18.11/18.09.5-LTS: only say the following if Studio says playlist is empty, otherwise move one level down for backward compatibility.
-			if not splbase.studioAPI(0, 124):
-				ui.message(_("You need to add tracks before invoking this command"))
-				self.finish()
-				return
 			obj = obj.firstChild
 		scriptCount = scriptHandler.getLastScriptRepeatCount()
 		# Display the decorated HTML window on the first press if told to do so.
@@ -2233,17 +2227,11 @@ class AppModule(appModuleHandler.AppModule):
 		if not splbase.studioIsRunning():
 			self.finish()
 			return
-		obj = api.getFocusObject() if api.getForegroundObject().windowClassName == "TStudioForm" else self._focusedTrack
-		if obj is None:
-			ui.message("Please return to playlist viewer before invoking this command.")
+		if not self._trackAnalysisAllowed(mustSelectTrack=False):
 			self.finish()
 			return
+		obj = api.getFocusObject()
 		if obj.role == controlTypes.ROLE_LIST:
-			# 18.11/18.09.5-LTS: only say the following if Studio says playlist is empty, otherwise move one level down for backward compatibility.
-			if not splbase.studioAPI(0, 124):
-				ui.message(_("You need to add tracks before invoking this command"))
-				self.finish()
-				return
 			obj = obj.firstChild
 		try:
 			d = splmisc.SPLPlaylistTranscriptsDialog(gui.mainFrame, obj)
