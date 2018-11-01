@@ -1630,13 +1630,24 @@ class AppModule(appModuleHandler.AppModule):
 	# Also gather various data about the playlist.
 	_analysisMarker = None
 
-	# Trakc time analysis and playlist snapshots require main playlist viewer to be the foreground window.
-	def _trackAnalysisAllowed(self):
+	# Trakc time analysis and playlist snapshots, and to some extent, some parts of playlist transcripts  require main playlist viewer to be the foreground window.
+	# Track time analysis does require knowing the start and ending track, while others do not.
+	def _trackAnalysisAllowed(self, mustSelectTrack=True):
 		if not splbase.studioIsRunning():
 			return False
-		if api.getForegroundObject().windowClassName != "TStudioForm":
-			# Translators: Presented when track time analysis and/or playlist snapshot gathering cannot be performed because user is not focused on playlist viewer.
-			ui.message(_("Not in playlist viewer, cannot perform track time analysis or gather playlist snapshot statistics."))
+		# #81 (18.12): just return result of consulting playlist dispatch along with error messages if any.
+		playlistErrors = self.canPerformPlaylistCommands(playlistViewerRequired=True, mustSelectTrack=mustSelectTrack, announceErrors=False)
+		if playlistErrors == self.SPLPlaylistNotFocused:
+			# Translators: Presented when playlist analyzer cannot be performed because user is not focused on playlist viewer.
+			ui.message(_("Not in playlist viewer, cannot perform playlist analysis."))
+			return False
+		elif playlistErrors == self.SPLPlaylistNotLoaded:
+			# Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
+			ui.message(_("No playlist to analyze."))
+			return False
+		elif playlistErrors == self.SPLPlaylistLastFocusUnknown:
+			# Translators: Presented when playlist analysis cannot be activated.
+			ui.message(_("No tracks are selected, cannot perform playlist analysis."))
 			return False
 		return True
 
