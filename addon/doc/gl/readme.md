@@ -3,7 +3,8 @@
 * Autores: Geoff Shang, Joseph Lee e outros colaboradores
 * Descargar [versión estable][1]
 * Descargar [versión de desenvolvemento][2]
-* Download [long-term support version][3] - for Studio 5.10/5.11 users
+* Descargar [versión de soporte estendido][3] - para usuarios do Studio
+  5.10/5.11
 
 Este paquete de complementos proporciona unhha utilización mellorada do
 Station Playlist Studio, así como utilidades para controlar o Studio dende
@@ -16,13 +17,13 @@ repositorio do código fonte.
 
 NOTAS IMPORTANTES:
 
-* This add-on requires NVDA 2018.3 or later and StationPlaylist Studio 5.11
-  or later.
+* Este complemento require do NVDA 2018.3 ou posterior e do StationPlaylist
+  Studio 5.11 ou posterior.
 * Se usas o Windows 8 ou posterior, para unha mellor experiencia,
   deshabilita o modo atenuación de audio.
 * A partires de 2018, os rexistros de cambios para versións vellas
   atoparanse en GitHub. Este readme do complemento listará cambios dende a
-  versión 5.0 (2015 onwards).
+  versión 5.0 (2015 en adiante).
 * Certas características do complemento (especialmente a actualización) non
   funcionarán baixo algunhas condicións, incluindo a execución do NVDA en
   modo seguro.
@@ -31,7 +32,8 @@ NOTAS IMPORTANTES:
 
 ## Teclas de atallo
 
-Most of these will work in Studio only unless otherwise specified.
+A maioría destes funcionarán só en Studio a menos que se especifique o
+contrario.
 
 * Alt+Shift+T dende a ventá do Studio: anuncia o tempo transcorrido para a
   pista actual en reproducción.
@@ -57,22 +59,24 @@ Most of these will work in Studio only unless otherwise specified.
   escaneado da biblioteca.
 * Control+Shift+X dende a ventá do Studio: Pasos para as opcións do
   temporizador braille.
-* Control+Alt+left/right arrow (while focused on a track in Studio, Creator,
-  and Track Tool): Announce previous/next track column.
-* Control+Alt+up/down arrow (while focused on a track in Studio only): Move
-  to previous or next track and announce specific columns (unavailable in
-  add-on 15.x).
-* Control+NVDA+1 through 0 (while focused on a track in Studio, Creator, and
-  Track Tool): Announce column content for a specified column. Pressing this
-  command twice will display column information on a browse mode window.
-* Control+NVDA+- (hyphen in Studio): display data for all columns in a track
-  on a browse mode window.
-* Alt+NVDA+C while focused on a track (Studio only): announces track
-  comments if any.
+* Control+Alt+frechas dereita e esquerda (mentres se enfoca nunha pista no
+  Studio, Creator ou TrackTool): anuncia a columna da pista seguinte ou
+  anterior.
+* Control+Alt+frecha abaixo/arriba (mentres se enfoque unha pista só en
+  Studio): Moven á pista seguinte ou anterior e anuncian columnas
+  específicas (non dispoñible no complemento 15.x).
+* Control+NVDA+1 a 0 (cun track enfocado en Studio, Creator e Track Tool):
+  Anunciar contido da columna para unha columna especificada. Premer este
+  atallo dúas veces amosará a información de columna nunha xanela de modo
+  exploración.
+* Control+NVDA+- (guión, en Studio): Mostrar datos de todas as columnas
+  dunha pista nunha xanela de modo exploración.
+* Alt+NVDA+C mentres se enfoca unha pista (só Studio): anuncia os
+  comentarios da pista se os hai.
 * Alt+NVDA+0 dende a ventá do Studio: Abre o diálogo de configuración do
   complemento.
-* Alt+NVDA+- (hyphen) from Studio window: Send feedback to add-on developer
-  using the default email client.
+* Alt+NVDA+- (guión) dende a ventá Studio: envía retroalimentación ao
+  desenvolvedor do complemento usando o cliente predeterminado de correo.
 * Alt+NVDA+F1: abre o diálogo de benvida.
 
 ## Ordes non asignadas
@@ -275,11 +279,11 @@ preme SPL Assistant, F10 ó chegares ó remate da seleción.
 
 ## Explorador de Columnas
 
-By pressing Control+NVDA+1 through 0 or SPL Assistant, 1 through 0, you can
-obtain contents of specific columns. By default, these are artist, title,
-duration, intro, category, filename, year, album, genre and time
-scheduled. You can configure which columns will be explored via columns
-explorer dialog found in add-on settings dialog.
+Premendo Control+NVDA+1 ata 0 ou SPL Assistant, 1 ata 0, podes obter
+contidos das columnas especificadas. Por omisión, estas son  artista,
+título, duración, intro, categoría e nome de ficheiro, ano, álbume, xénero e
+tempo programado). Podes configurar que columnas se explorarán a través do
+diálogo explorador de columnas atopado no diálogo opcións do complemento.
 
 ## Instantáneas da listaxe de reprodución
 
@@ -314,157 +318,193 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
-## Version 18.10.2/18.09.4-LTS
+## Versión 18.11/18.09.5-LTS
 
-* Fixed inability to close the add-on settings screen if Apply button was
-  pressed and subsequently OK or Cancel buttons were pressed.
+Nota: a 18.11.1 remplaza á 18.11 coa fin de fornecer un soporte máis sólido
+para o studio 5.31.
 
-## Version 18.10.1/18.09.3-LTS
+* Soporte inicial para StationPlaylist Studio 5.31.
+* Agora pódense obter capturas de lista de reprodución (Asistente SPL, F8) e
+  transcricións (Asistente SPL, Shift+F8) mentres se carga unha lista de
+  reproducción pero a primeira pista non se enfoca.
+* NVDA xa non parecerá non facer nada ou non reproducirá un ton de erro ao
+  anunciar o estado de transmisión de metadatos ao arrancar Studio se se
+  configurou para facelo.
+* Se NVDA está configurado para anunciar o estado de emisión de metadatos
+  cando Studio se inicia, o anuncio do estado de transmisión de metadatos xa
+  non curtará o anuncio de cambios na barra de estado e viceversa.
 
-* Resolved several issues related to encoder connection announcement
-  feature, including not announcing status messages, failing to play the
-  first selected track, or not switching to Studio window when
-  connected. These bugs are caused by wxPython 4 (NVDA 2018.3 or later).
+## Versión 18.10.2/18.09.4-LTS
 
-## Version 18.10
+* Solucionada a imposibilidade de pechar a pantalla de axustes do
+  complemento se ao premerse o botón Aplicar e a continuación Aceptar ou
+  Cancelar
 
-* NVDA 2018.3 or later is required.
-* Internal changes to make the add-on more compatible with Python 3.
+## Versión 18.10.1/18.09.3-LTS
 
-## Version 18.09.1-LTS
+* Resoltos certos erros na característica de anunciado da conexión do
+  codificador, incluíndo a ausencia do anunciado de mensaxes de estado, os
+  fallos ao reproducir a primeira pista ou non saltar a Studio ao
+  conectarse. Estes erros son a causa de WxPython 4 (NVDA 2018.3 ou
+  posterior).
 
-* When obtaining playlist transcripts in HTML table format, column headers
-  are no longer rendered as a Python list string.
+## Versión 18.10
 
-## Version 18.09-LTS
+* Requírese do NVDA 2018.3 ou posterior.
+* Trocos internos para facer o complemento máis compatible con Python 3.
 
-Version 18.09.x is the last release series to support Studio 5.10 and based
-on old technologies, with 18.10 and later supporting Studio 5.11/5.20 and
-new features. Some new features will be backported to 18.09.x if needed.
+## Versión 18.09.1-LTS
 
-* NVDA 2018.3 or later is recommended due to introduction of wxPython 4.
-* Add-on settings screen is now fully based on multi-page interface derived
-  from NVDA 2018.2 and later.
-* Test Drive Fast and Slow rings have been combined into "development"
-  channel, with an option for development snapshot users to test pilot
-  features by checking the new pilot features checkbox found in Advanced
-  add-on settings panel. Users formerly on Test Drive Fast ring will
-  continue to test pilot features.
-* The ability to select different add-on update channel from add-on settings
-  has been removed. Users wishing to switch to a different release channel
-  should visit NVDA community add-ons website (addons.nvda-project.org),
-  select StationPlaylist Studio, then download the appropriate release.
-* Column inclusion checkboxes for column announcement and playlist
-  transcripts, as well as metadata streams checkboxes have been converted to
-  checkable list controls.
-* When switching between settings panels, NvDA will remember current
-  settings for profile-specific settings (alarms, column announcements,
-  metadata streaming settings).
-* Added CSV (comma-separated values) format as a playlist transcripts
-  format.
-* Pressing Control+NvDA+C to save settings will now also save Studio add-on
-  settings (requires NVDA 2018.3).
+* Ao obter transcricións de listas de reprodución no formato táboa HTML, as
+  cabeceiras de columna xa non se presentan coma unha cadea de lista Python.
 
-## Version 18.08.2
+## Versión 18.09-LTS
 
-* NVDA will no longer check for Studio add-on updates if Add-on Updater
-  (proof of concept) add-on is installed. Consequently, add-on settings will
-  no longer include add-on update related settings if this is the case. If
-  using Add-on Updater, users should use features provided by this add-on to
-  check for Studio add-on updates.
+A versión 18.09.x e a última serie de publicacións en soportar Studio 5.10 e
+basados en tecnoloxías vellas, soportando a versión 18.10 Studio 5.11/5.20 e
+novas características. Algunhas características retroportaranse á 18.09.x de
+ser necesario.
 
-## Version 18.08.1
+* Recoméndase NVDA 2018.3 ou superior debido á introdución de wxPython 4.
+* A pantalla de axustes do complemento está agora completamente baseada na
+  interface multipáxina derivada do NVDA 2018.2 e posteriores.
+* Combináronse os aneis de probas Drive Fast e Slow no canal
+  "desenvolvemento", coa opción para os usuarios de publicacións de
+  desenvolvemento de probar características piloto verificando a nova caixa
+  características piloto no panel de axustes avanzados do complemento.
+* Eliminouse a característica de escoller un canal de actualización do
+  complemento diferente. Os usuarios que desexen cambiar a outro canal de
+  publicación deben visitar o sitio web de complementos da comunidade do
+  NVDA (addons.nvda-project.org), seleccionar StationPlaylist Studio e
+  descargar logo a versión axeitada.
+* Convertéronse a controis de listas de verificación as caixas de
+  verificación de inclusión de columnas para anunciado de columnas e
+  transcricións de listaxes de reprodución, así como as caixas de
+  verificación de transmisións de metadatos.
+* Ao saltar entre paneis de axustes, NVDA lembrará as preferencias
+  específicas do perfil (alarmas, anuncios de columnas, axustes da
+  retransmisión de metadatos).
+* Engadido o formato CSV (valores separados por comas) aos formatos de
+  transcricións de listas de reprodución.
+* Ao pulsar Control+NVDA+C para gardar a configuración do NVDA agora
+  gardaranse tamén os axustes do complemento Station Playlist (require NVDA
+  2018.3).
 
-* Fixed yet another wxPython 4 compatibility issue seen when Studio exits.
-* NVDA will announce an appropriate message when playlist modification text
-  isn't present, commonly seen after loading an unmodified playlist or when
-  Studio starts.
-* NVDA will no longer appear to do nothing or play error tones when trying
-  to obtain metadata streaming status via SPL Assistant (E).
+## Versión 18.08.2
 
-## Version 18.08
+* NVDA non verificará as actualizacións do complemento Studio se o
+  complemento Add-on UPdater (proba de concepto) está instalado. En
+  consecuencia, as opcións do complemento non incluirán as configuracións
+  relacionadas coa actualización do complemento se este fose o caso. Se se
+  utiliza Add-on Updater os usuarios deberían empregar as características
+  fornecidas por este complemento para verificar as actualizacións do
+  complemento Studio.
 
-* Add-on settings dialog is now based on multi-category settings interface
-  found in NVDA 2018.2. Consequently, this release requires NVDA 2018.2 or
-  later. The old add-on settings interface is deprecated and will be removed
-  later in 2018.
-* Added a new section (button/panel) in add-on settings to configure
-  playlist transcripts options, which is used to configure column inclusion
-  and ordering for this feature and other settings.
-* When creating a table-based playlist transcripts and if custom column
-  ordering and/or column removal is in effect, NVDA will use custom column
-  presentation order specified from add-on settings and/or not include
-  information from removed columns.
-* When using column navigation commands in track items
-  (Control+Alt+home/end/left arrow/right arrow) in Studio, Creator, and
-  Track Tool, NVDA will no longer announce wrong column data after changing
-  column position on screen via mouse.
-* Significant improvements to NVDA's responsiveness when using column
-  navigation commands in Creator and Track Tool. In particular, when using
-  Creator, NVDA will respond better when using column navigation commands.
-* NVDA will no longer play error tones or appear to do nothing when
-  attempting to add comments to tracks in Studio or when exiting NVDA while
-  using Studio, caused by wxPython 4 compatibility issue.
+## Versión 18.08.1
 
-## Version 18.07
+* Arranxado un problema de WX4 visto ao saír de Studio.
+* NVDA anunciará unha mensaxe axeitada cando o texto de modificación da
+  lista de reprodución non estea presente, visto comunmente tras cargar unha
+  lista de reprodución non modificada ou ao iniciarse Studio.
+* NVDA xa non parecerá non facer nada ou non reproducirá un ton de erro ao
+  tentar obter o estado de transmisión de metadatos vía Asistente SPL (E).
 
-* Added an experimental multi-category add-on settings screen, accessible by
-  toggling a setting in add-on settings/Advanced dialog (you need to restart
-  NVDA after configuring this setting for the new dialog to show up). This
-  is for NVDA 2018.2 users, and not all add-on settings can be configured
-  from this new screen.
-* NVDA will no longer play error tones or appear to do nothing when trying
-  to rename a broadcast profile from add-on settings, caused by wxPython 4
-  compatibility issue.
-* When restarting NvDA and/or Studio after making changes to settings in a
-  broadcast profile other than normal profile, NVDA will no longer revert to
-  old settings.
-* It is now possible to obtain playlist transcripts for the current
-  hour. Select "current hour" from list of playlist range options in
-  playlist transcripts dialog (SPL Assistant, Shift+F8).
-* Added an option in Playlist Transcripts dialog to have transcripts saved
-  to a file (all formats) or copied to the clipboard (text and Markdown
-  table formats only) in addition to viewing transcripts on screen. When
-  transcripts are saved, they are saved to user's Documents folder under
-  "nvdasplPlaylistTranscripts" subfolder.
-* Status column is no longer included when creating playlist transcripts in
-  HTML and Markdown table formats.
-* When focused on a track in Creator and Track Tool, pressing
-  Control+NVDA+number row twice will present column information on a browse
-  mode window.
-* In Creator and Track Tool, added Control+Alt+Home/End keys to move Column
-  Navigator to first or last column for the focused track.
+## Versión 18.08
 
-## Version 18.06.1
+* O diálogo de opcións do complemento está agora baseado na interface de
+  opcións multicategoría do NVDA 2018.2. En consecuencia, esta versión
+  require NVDA 2018.2 ou posterior. A antiga interface de opcións do
+  complemento está desaconsellada e eliminarase e será eliminada máis
+  adiante no 2018.
+* Engadida unha nova sección (botón/panel) nas opcións do complemento para
+  configurar as opcións das transcripcións de listaxe de reprodución, usado
+  para configurar a inclusión e órden de columnas para esta característica e
+  outros axustes.
+* Ao crear unha nova transcrición de lista de reprodución baseada en táboa e
+  se a ordeación persoalizada de columnas e/ou a eliminación de columnas
+  está en efecto, NVDA utilizará a ordeación persoalizada de presentación de
+  columnas especificado nas opcións do complemento e/ou non incluirá
+  información das columnas eliminadas.
+* Ao utilizar comandos de navegación por columnas en elementos de pista
+  (ctrl+alt+inicio/fin/frecha esquerda/frecha dereita) en Studio, Creator e
+  Track Tool, NVDA non anunciará datos de columna incorrectos despois de
+  cambiar a posición de columna vía rato.
+* Melloras significativas á resposta do NVDA ao utilizar comandos de
+  navegación de columnas en Creator e Track tool. En particular, en Creator
+  NVDA responderá mellor ao usar comandos de navegación de columnas.
+* O NVDA xa non reproducirá tons de erro ou xa non parecerá non facer nada
+  ao tentar engadir comentarios a pistas en Studio ou ao saír do NVDA
+  mentres se use Studio, causado por un problema de compatibilidade con
+  WxPython 4.
 
-* Fixed several compatibility issues with wxPython 4, including inability to
-  open track finder (Control+NVDA+F), column search and time ranger finder
-  dialogs in Studio and stream labeler dialog (F12) from encoders window.
-* While opening a find dialog from Studio and an unexpected error occurs,
-  NVDA will present more appropriate messages instead of saying that another
-  find dialog is open.
-* In encoders window, NVDA will no longer play error tones or appear to do
-  nothing when attempting to open encoder settings dialog (Alt+NVDA+0).
+## Versión 18.07
 
-## Version 18.06
+* Engadida unha pantalla multicategoría experimental de opcións do
+  complemento, accesible activando unha opción no diálogo de opcións do
+  complemento/avanzado (debes reiniciar o NVDA tras configurar este axuste
+  para que se mostre o novo diálogo). Isto é para usuarios de NVDA 2018.2, e
+  non todos os axustes do complemento se poden configurar dende esta
+  pantalla.
+* NVDA xa non reproducirá tons de erro ou non fará nada ao renomear un
+  perfil de transmisión dende os axustes do complemento, causado por un
+  problema de compatibilidade co WxPython 4.
+* Ao reiniciar NVDA y/o Studio despois de facer cambios nos axustes dun
+  perfil de emisión que non sexa o perfil normal, NVDA xa non volverá ás
+  opcións por defecto.
+* Agora é posible obter transcricións de lista de reprodución para a hora
+  actual. Selecciona "hora actual" na lista de rango de listaxe de
+  reprodución no diálogo de transcricións de lista de reprodución (asistente
+  SPL, shift+F8).
+* Engadida unha opción no diálogo de Transcricións de Listas de Reprodución
+  para gardar as transcricións nun arquivo (todos os formatos) ou copiala ao
+  portapapeis (só nos formatos texto e táboa Markdown) ademais de velas na
+  pantalla. Cando se gardan as transcricións, almacénanse no cartafol de
+  documentos do usuario baixo o subcartafol "nvdasplPlaylistTranscripts".
+* Xa non se inclúe a columna Estado ao crear transcricións de listas de
+  reprodución nos formatos táboa HTML e Markdown.
+* Cando se estea a enfocar unha pista en Creator e Track Tool, ao pulsar
+  Control+NVDA+fila numérica dúas veces amosará a información da columna
+  nunha xanela de modo exploración.
+* Engadida Control+Alt+Inicio/Fin en Creator e TrackTool para mover o
+  navegador de Columnas á primeira ou á última columna no Visualizador de
+  Lista de Reprodución.
 
-* In add-on settings, added "Apply" button so changes to settings can be
-  applied to the currently selected and/or active profile without closing
-  the dialog first. This feature is available for NVDA 2018.2 users.
-* Resolved an issue where NVDA would apply changes to Columns Explorer
-  settings despite pressing Cancel button from add-on settings dialog.
-* In Studio, when pressing Control+NVDA+number row twice while focused on a
-  track, NVDA will display column information for a specific column on a
-  browse mode window.
-* While focused on a track in Studio, pressing Control+NVDA+Dash will
-  display data for all columns on a browse mode window.
-* In StationPlaylist Creator, when focused on a track, pressing
-  Control+NVDA+number row will announce data in specific column.
-* Added a button in Studio add-on settings to configure Columns Explorer for
-  SPL Creator.
-* Added Markdown table format as a playlist transcripts format.
-* The developer feedback email command has changed from Control+NVDA+dash to
-  Alt+NVDA+dash.
+## Versión 18.06.1
+
+* Arranxa varios problemas de compatibilidade con WxPython 4, incluíndo a
+  imposibilidade de abrir os diálogos do buscador de pistas
+  (Control+NVDA+F), de procura de columnas e de buscador de rangos de tempo
+  en Studio e o diálogo de etiquetado de transmisións (f12) dende a ventá de
+  codificadores.
+* Se ocorre un erro inesperado ao abrir un diálogo de procura dende studio
+  NVDA presentará mensaxes máis axeitadas no canto de dicir que outro
+  diálogo de busca xa estaba aberto.
+* Na ventá de codificadores, NVDA xa non reproducirá tons de erro nin
+  aparentará non facer nada ao tentar abrir o diálogo de axustes do
+  codificador (Control+NVDA+0).
+
+## Versión 18.06
+
+* Engadido botón "Aplicar" nas preferencias do complemento para aplicar a
+  configuración sobre o perfil actualmente seleccionado e/ou activo sen
+  pechar o diálogo primeiro. Esta característica está dispoñible para os
+  usuarios de NVDA 2018.2.
+* Resolto un erro polo que NVDA aplicaba os cambios nos axustes do
+  Explorador de Columnas aínda que se premese "Cancelar" dende o diálogo de
+  preferencias do complemento.
+* En Studio, ao premer Control+NVDA+números cando unha pista estea enfocada
+  NVDA amosará a información da columna para unha columna específica nunha
+  xanela de modo exploración.
+* Se está enfocado nunha pista en Studio, ao premer Control+NVDA+Guión
+  amosaranse os de todas as columnas nunha ventá de modo exploración.
+* No StationPlaylist Creator, mentres unha pista estea enfocada, ao pulsar
+  Control+NVDA+números anunciaranse os datos da columna específica.
+* Engadido un botón nas opcións do complemento para configurar o Explorador
+  de Columnas en SPL Creator.
+* Engadido o formato Táboa Markdown aos formatos de transcricións de listas
+  de reprodución.
+* O comando para o correo electrónico de comentarios ao desenvolvedor
+  cambiou de Control+NVDA+Guión a Alt+NVDA+Guión.
 
 ## Versión 18.05
 

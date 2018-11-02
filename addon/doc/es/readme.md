@@ -325,6 +325,22 @@ realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
 
+## Versión 18.11/18.09.5-LTS
+
+Nota: la versión 18.11.1 sustituye a la 18.11 para proporcionar un soporte
+más sólido en Studio 5.31.
+
+* Soporte inicial para StationPlaylist Studio 5.31.
+* Ahora puedes obtener instantáneas de la lista de reproducción (asistente
+  de SPL, f8) y transcripciones (asistente de SPL, shift+f8) mientras hay
+  una lista de reproducción cargada pero la primera pista no está enfocada.
+* NVDA ya no parecerá hacer nada o reproducir tonos de error al intentar
+  anunciar el estado del flujo de metadatos cuando Studio se inicia si se
+  configura para que lo haga.
+* Si se ha configurado para anunciar el estado del flujo de metadatos al
+  inicio, el anuncio de estado de los metadatos de flujo ya no interrumpirá
+  anuncios sobre cambios en la barra de estado y viceversa.
+
 ## Versión 18.10.2/18.09.4-LTS
 
 * Solucionado un problema que impedía cerrar la pantalla de opciones del
@@ -513,7 +529,7 @@ soporte a Studio 5.10. La versión 18.10 y posteriores darán soporte a Studio
   (shift+F8). Éstos incluyen texto plano, tabla HTML y lista HTML.
 * Varias características de análisis de lista de reproducción, como el
   análisis de tiempo de pista y capturas de lista de reproducción están
-  ahora agrupadas bajo el título "Analizador de lista de reproducción"
+  ahora agrupadas bajo el título "Analizador de lista de reproducción".
 
 ## Versión 18.04.1
 
