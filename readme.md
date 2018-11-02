@@ -191,6 +191,11 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 18.12
+
+* Some SPL Assistant commands will now require that the playlist viewer is visible and populated with a playlist, and in some cases, a track is focused. Commands affected include remaining duration (D), playlist snapshots (F8), and playlist transcripts (Shift+F8).
+* Playlist remaining duration command (SPL Assistant, D) will now require a track from playlist viewer be focused.
+
 ## Version 18.11/18.09.5-LTS
 
 Note: 18.11.1 replaces 18.11 in order to provide more solid Studio 5.31 support.
