@@ -1612,21 +1612,21 @@ class AppModule(appModuleHandler.AppModule):
 	SPLPlaylistNotLoaded = 2
 	SPLPlaylistLastFocusUnknown = 3
 
-	def canPerformPlaylistCommands(self, playlistViewerRequired=False, mustSelectTrack=False, announceErrors=True, customErrorMessage=None):
+	def canPerformPlaylistCommands(self, playlistViewerRequired=False, mustSelectTrack=False, announceErrors=True):
 		# #81: some commands do require that playlist viewer must be the foreground window (focused), hence the keyword argument.
-		# Also let NvDA announce custom error messages if told to do so, and for some cases, not at all because the caller will announce them.
+		# Also let NvDA announce generic error messages listed below if told to do so, and for some cases, not at all because the caller will announce them.
 		playlistViewerFocused = api.getForegroundObject().windowClassName == "TStudioForm"
 		if playlistViewerRequired and not playlistViewerFocused:
 			# Translators: an error message presented when performing some playlist commands while focused on places other than Playlist Viewer.
-			if announceErrors: ui.message(customErrorMessage if customErrorMessage is not None else _("Please return to playlist viewer before invoking this command."))
+			if announceErrors: ui.message(_("Please return to playlist viewer before invoking this command."))
 			return self.SPLPlaylistNotFocused
 		if not splbase.studioAPI(0, 124):
 			# Translators: an error message presented when performing some playlist commands while no playlist has been loaded.
-			if announceErrors: ui.message(customErrorMessage if customErrorMessage is not None else _("No playlist has been loaded."))
+			if announceErrors: ui.message(_("No playlist has been loaded."))
 			return self.SPLPlaylistNotLoaded
 		if mustSelectTrack and self._focusedTrack is None:
 			# Translators: an error message presented when performing some playlist commands while no tracks are selected/focused.
-			if announceErrors: ui.message(customErrorMessage if customErrorMessage is not None else _("Please select a track from playlist viewer before invoking this command."))
+			if announceErrors: ui.message(_("Please select a track from playlist viewer before invoking this command."))
 			return self.SPLPlaylistLastFocusUnknown
 		return self.SPLPlaylistNoErrors
 
