@@ -1,9 +1,9 @@
 # StationPlaylist Studio #
 
 * Authoren: Geoff Shang, Joseph Lee und andere Entwickler
-* lade [stabile Version][1] herunter
-* lade [Entwickler-Version][2] herunter
-* [Für Studio 5.10 / 5.11 (LTS-Version) herunterladen][3]
+* [stabile Version herunterladen][1]
+* [Entwicklungsversion herunterladen][2]
+* [LTS-Version für Studio 5.10 / 5.11 herunterladen][3]
 
 Dieses Erweiterungspaket verbessert die Zugänglichkeit von Station Playlist
 Studio. Es stehen außerdem Befehle zur Verfügung, um Station Playlist von
@@ -329,6 +329,23 @@ verwenden und NVDA 2012.3 oder höher installiert haben, können Sie einige
 Studio-Befehle über den Touchscreen ausführen. Tippen Sie zunächst einmal
 mit drei Fingern, um in den SPL-Touchmodus zu wechseln. Verwenden Sie dann
 die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
+
+## Version 18.11 / 18.09.5-LTS
+
+Hinweis: Version 18.11.1 ersetzt 18.11, um eine solidere Studio
+5.31-Unterstützung zu bieten.
+
+* Erstmalige Unterstützung für StationPlaylist Studio 5.31.
+* Sie können nun Playlist-Statistiken (SPL-Assistent: f8) und
+  Playlist-Transkripte (SPL-Assistent: Umschalt+f8) erstellen, während eine
+  Playlist geladen ist, auch wenn der erste Titel nicht fokussiert ist.
+* NVDA ist aktiv und spielt keine Fehlertöne mehr ab, wenn versucht wird den
+  Metadaten-Streaming-Status beim starten von Studio zu erhalten. Dies gilt
+  nur bei entsprechender Einstellung.
+* Wenn die Ansage der Statusinformationen des Metadaten-Streamings beim
+  Starten des Studio im Einstellungsdialog der Erweiterung aktiviert ist,
+  kommen sich diese Ansage und die Ansage anderer Änderungen in der
+  Statusleiste nicht mehr in die Quere.
 
 ## Version 18.10.2 / 18.09.4-LTS
 
