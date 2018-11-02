@@ -758,6 +758,10 @@ class AppModule(appModuleHandler.AppModule):
 		# Thankfully, current lib scan reporter function will not proceed when library scan is happening via Insert Tracks dialog.
 		if splbase.studioAPI(1, 32) >= 0:
 			if not self.libraryScanning: self.script_libraryScanMonitor(None)
+		# #86 (18.12/18.09.6-LTS): certain internal markers require presence of a playlist, otherwise unexpected things may happen.
+		if not splbase.studioAPI(0, 124):
+			if self._focusedTrack is not None: self._focusedTrack = None
+			if self._analysisMarker is not None: self._analysisMarker = None
 
 	# Let the global plugin know if SPLController passthrough is allowed.
 	def SPLConPassthrough(self):
