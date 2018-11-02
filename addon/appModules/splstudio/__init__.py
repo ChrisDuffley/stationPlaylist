@@ -1303,7 +1303,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Attempt level specifies which track finder to open (0 = Track Finder, 1 = Column Search, 2 = Time range).
 	def _trackFinderCheck(self, attemptLevel):
 		if not splbase.studioIsRunning(): return False
-		playlistErrors = self.canPerformPlaylistCommands(playlistViewerRequired=True, announceErrors=False)
+		playlistErrors = self.canPerformPlaylistCommands(announceErrors=False)
 		if playlistErrors == self.SPLPlaylistNotFocused:
 			if attemptLevel == 0:
 				# Translators: Presented when a user attempts to find tracks but is not at the track list.
@@ -1604,7 +1604,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Playlist Analyzer
 	# These include track time analysis, playlist snapshots, and some form of playlist transcripts and others.
 	# Although not directly related to this, track finder and its friends, as well as remaining playlist duration command also fall under playlist analyzer.
-	# A playlist must be loaded in order for these to work, or for some, playlist viewer must be the foreground window and most recent focused track must be known.
+	# A playlist must be loaded and visible in order for these to work, or for some, most recent focused track must be known.
 
 	# Possible playlist errors.
 	SPLPlaylistNoErrors = 0
@@ -1612,8 +1612,8 @@ class AppModule(appModuleHandler.AppModule):
 	SPLPlaylistNotLoaded = 2
 	SPLPlaylistLastFocusUnknown = 3
 
-	def canPerformPlaylistCommands(self, playlistViewerRequired=False, mustSelectTrack=False, announceErrors=True):
-		# #81: some commands do require that playlist viewer must be the foreground window (focused), hence the keyword argument.
+	def canPerformPlaylistCommands(self, playlistViewerRequired=True, mustSelectTrack=False, announceErrors=True):
+		# #81: most commands do require that playlist viewer must be the foreground window (focused), hence the keyword argument.
 		# Also let NvDA announce generic error messages listed below if told to do so, and for some cases, not at all because the caller will announce them.
 		playlistViewerFocused = api.getForegroundObject().windowClassName == "TStudioForm"
 		if playlistViewerRequired and not playlistViewerFocused:
@@ -1642,7 +1642,7 @@ class AppModule(appModuleHandler.AppModule):
 		if not splbase.studioIsRunning():
 			return False
 		# #81 (18.12): just return result of consulting playlist dispatch along with error messages if any.
-		playlistErrors = self.canPerformPlaylistCommands(playlistViewerRequired=True, mustSelectTrack=mustSelectTrack, announceErrors=False)
+		playlistErrors = self.canPerformPlaylistCommands(mustSelectTrack=mustSelectTrack, announceErrors=False)
 		if playlistErrors == self.SPLPlaylistNotFocused:
 			# Translators: Presented when playlist analyzer cannot be performed because user is not focused on playlist viewer.
 			ui.message(_("Not in playlist viewer, cannot perform playlist analysis."))
@@ -2032,7 +2032,7 @@ class AppModule(appModuleHandler.AppModule):
 		self.announceTime(splbase.studioAPI(1, 27))
 
 	def script_sayPlaylistRemainingDuration(self, gesture):
-		if self.canPerformPlaylistCommands(playlistViewerRequired=True) == self.SPLPlaylistNoErrors:
+		if self.canPerformPlaylistCommands() == self.SPLPlaylistNoErrors:
 			obj = api.getFocusObject()
 			if obj.role == controlTypes.ROLE_LIST:
 				obj = obj.firstChild
@@ -2273,7 +2273,7 @@ class AppModule(appModuleHandler.AppModule):
 	def script_findPlaceMarker(self, gesture):
 		# 7.0: Place marker command will still be restricted to playlist viewer in order to prevent focus bouncing.
 		# #81: no more custom message for place marker track, as the generic one will be enough for now.
-		if self.canPerformPlaylistCommands(playlistViewerRequired=True) == self.SPLPlaylistNoErrors:
+		if self.canPerformPlaylistCommands() == self.SPLPlaylistNoErrors:
 			if self.placeMarker is None:
 				# Translators: Presented when no place marker is found.
 				ui.message(_("No place marker found"))
