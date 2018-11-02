@@ -334,6 +334,23 @@ un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
 
+## Version 18.11/18.09.5-LTS
+
+Note: 18.11.1 remplace 18.11 afin de fournir une prise en charge plus solide
+de Studio 5.31.
+
+* Premier support de StationPlaylist Studio 5.31.
+* Vous pouvez maintenant obtenir des instantanés de playlist (Assistant SPL,
+  F8) et des transcriptions (Assistant SPL, Maj+F8) alors qu'une playlist
+  est chargée mais la première piste n'a pas le focus.
+* NVDA ne semblera plus rien faire et ne jouera pas des tonalités d'erreur
+  en essayant d'obtenir le statut de diffusion des métadonnées au démarrage
+  de Studio s'il est configuré pour le faire.
+* S'il est configuré pour annoncer l'état de la diffusion des métadonnées au
+  démarrage , , l'annonce de l'état de diffusion des métadonnées et ne sera
+  plus coupé les annonces relatives aux modifications de la barre d'état, et
+  inversement.
+
 ## Version 18.10.2/18.09.4-LTS
 
 * Correction de l'incapacité de fermer l'écran Paramètres du module

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-09-19 05:27+0200\n"
-"Last-Translator: René Linke <rene.linke@hamburg.de>\n"
+"PO-Revision-Date: 2018-11-01 14:40+0100\n"
+"Last-Translator: Adriani <adriani.botez@gmail.com>\n"
 "Language-Team: Deutsch <bernd_dorer@yahoo.de>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.1.1\n"
+"X-Generator: Poedit 2.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
@@ -71,7 +71,7 @@ msgid ""
 "column data in a browse mode window"
 msgstr ""
 "Einmaliges Drücken meldet die Daten für eine Titelspalte. Zweimaliges "
-"Drücken zeigt die Daten in einem virtuellen Fenster an."
+"Drücken zeigt die Daten in einem virtuellen Fenster an"
 
 #. Translators: location text for a playlist item (example: item 1 of 10).
 #, python-brace-format
@@ -137,7 +137,6 @@ msgid "Status: {name}"
 msgstr "Status: {name}"
 
 #. Translators: The text of the help command in SPL Assistant layer.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -191,9 +190,9 @@ msgstr ""
 "P: Wiedergabestatus.\n"
 "Umschalt+P: Pitch für den aktuellen Titel.\n"
 "R: Aufnahme in Datei.\n"
-"Shift+R: Bibliothek-Scan überwachen.\n"
+"Umschalt+R: Bibliothek-Scan überwachen.\n"
 "S: Geplante Zeit für den Titel.\n"
-"Shift+S: Zeit, bis der ausgewählte Titel abgespielt wird.\n"
+"Umschalt+S: Zeit, bis der ausgewählte Titel abgespielt wird.\n"
 "T: Cart-Bearbeitungs-/Einfügemodus.\n"
 "U: Studiozeit.\n"
 "W: Wetter und Temperatur.\n"
@@ -202,13 +201,13 @@ msgstr ""
 "Spalte).\n"
 "F8: Nimmt Schnappschüsse von Wiedergabelisten auf, wie z.B. die Anzahl der "
 "Titel, den längsten Titel und so weiter.\n"
+"Umschalt+F8: Playlist-Transkripte  in unterschiedlichen Formaten aufnehmen.\n"
 "F9: Markiert den aktuellen Titel als Anfang der Titel-Zeitanalyse.\n"
 "F10: Titel-Zeitanalyse durchführen.\n"
 "F12: Umschalten auf ein Instant-Switch-Profil.\n"
-"Shift+F1: Öffnet das Online-Benutzerhandbuch."
+"Umschalt+F1: Öffnet das Online-Benutzerhandbuch."
 
 #. Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -249,7 +248,7 @@ msgstr ""
 "Nachdem Sie den SPL-Assistenten aufgerufen haben, drücken Sie:\n"
 "A: Automatisierung.\n"
 "C: Cart-Explorer ein- und ausschalten.\n"
-"Shift+C: Name des aktuell abgespielten Titels ansagen.\n"
+"Umschalt+C: Name des aktuell abgespielten Titels ansagen.\n"
 "E: Gesamtstatus des Metadaten-Streams.\n"
 "Umschalt+1 bis Umschalt+4, Umschalt+0: Status des Metadaten-Streaming für "
 "DSP-Encoder und vier zusätzliche URLs.\n"
@@ -260,15 +259,15 @@ msgstr ""
 "K: Springt zum Lesezeichentitel.\n"
 "Control+K: Setzt einen Lesezeichentitel.\n"
 "L: Zuhörer zählen.\n"
-"Shift+L: Line-in-Status.\n"
+"Umschalt+L: Line-in-Status.\n"
 "M: Status des Mikrofons.\n"
 "N: Nächster Titel.\n"
 "P: Wiedergabestatus.\n"
 "Umschalt+P: Pitch für den aktuellen Titel.\n"
 "R: Verbleibende Zeit für die Playlist.\n"
-"Shift+R: Bibliothek-Scan überwachen.\n"
+"Umschalt+R: Bibliothek-Scan überwachen.\n"
 "S: Geplante Zeit für den Titel.\n"
-"Shift+S: Zeit, bis der ausgewählte Titel abgespielt wird.\n"
+"Umschalt+S: Zeit, bis der ausgewählte Titel abgespielt wird.\n"
 "T: Cart-Bearbeitungs-/Einfügemodus.\n"
 "U: Studiozeit.\n"
 "W: Wetter und Temperatur.\n"
@@ -277,13 +276,13 @@ msgstr ""
 "Spalte).\n"
 "F8: nimmt Schnappschüsse von Wiedergabelisten auf, wie z.B. die Anzahl der "
 "Titel, den längsten Titel und so weiter.\n"
+"Umschalt+F8: Playlist-Transkripte  in unterschiedlichen Formaten aufnehmen.\n"
 "F9: Markiert den aktuellen Titel als Anfang der Titel-Zeitanalyse.\n"
 "F10: Titel-Zeitanalyse durchführen.\n"
 "F12: Umschalten auf ein Instant-Switch-Profil.\n"
 "Umschalt+F1: Öffnet das Online-Benutzerhandbuch."
 
 #. Translators: The text of the help command in SPL Assistant layer when Window-Eyes layer is active.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -355,10 +354,11 @@ msgstr ""
 "1 bis 0: Ansage der Spalten via Spaltenexplorer (0 ist der zehnte "
 "Spaltenslot).\n"
 "F8: Statistiken wie Titelanzahl, längster Titel usw. erstellen.\n"
+"Umschalt+F8: Playlist-Transkripte  in unterschiedlichen Formaten aufnehmen.\n"
 "F9: aktuellen Titel als Startzeitpunkt für die Zeitanalyse festlegen.\n"
 "F10: Zeitanalyse starten.\n"
 "F12: Wechselt zu einem Instant-Switchh-Profil.\n"
-"Shift+F1: Benutzerhandbuch öffnen"
+"Umschalt+F1: Benutzerhandbuch öffnen"
 
 #. Translators: Script category for Station Playlist commands in input gestures dialog.
 #. Add-on summary, usually the user visible name of the addon.
@@ -1188,8 +1188,8 @@ msgid ""
 "This is a Windows Store version of NVDA. Add-on updating is supported on "
 "desktop version of NVDA."
 msgstr ""
-"Dies ist eine Windows-Store-Version von NVDA. Updates für "
-"Erweiterungen werden nur in der Desktop-Version von NVDA unterstützt."
+"Dies ist eine Windows-Store-Version von NVDA. Updates für Erweiterungen "
+"werden nur in der Desktop-Version von NVDA unterstützt."
 
 #. Translators: one of the error messages when trying to update the add-on.
 msgid ""
@@ -1212,20 +1212,20 @@ msgid ""
 "Add-on Updater add-on might be running. Please use that add-on to check for "
 "updates."
 msgstr ""
+"Die Erweiterung Zusatz-Updater wird möglicherweise bereits ausgeführt. Bitte "
+"verwenden Sie diese Erweiterung, um nach Updates zu suchen."
 
 #. Translators: title of a panel to configure broadcast profiles.
-#, fuzzy
 msgid "Broadcast profiles"
-msgstr "Sendungs&Profil:"
+msgstr "Sendungs&Profile:"
 
 #. Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
 msgid "Broadcast &profile:"
 msgstr "Sendungs&Profil:"
 
 #. Borrowed logic from NVDA Core's speech panel (although there is no label for this read-only text).
-#, fuzzy
 msgid "Normal profile is in use."
-msgstr "Nur das normale Profil ist gerade aktiv"
+msgstr "das normale Profil ist gerade aktiv"
 
 #. Translators: The label of a button to create a new broadcast profile.
 msgid "&New"
@@ -1602,9 +1602,8 @@ msgstr "Wenn das Schnellprofil aktiv ist"
 msgid "&Metadata streaming notification and connection"
 msgstr "Metadaten-Streaming-Benachrichtigung und Verbindung"
 
-#, fuzzy
 msgid "&Select the URL for metadata streaming upon request:"
-msgstr "Wählen Sie die URL für die Anfrage nach Metadaten-Streaming."
+msgstr "&Wählen Sie die URL für Metadaten-Streaming aus."
 
 #. Translators: Title of a dialog to configure column announcements (order and what columns should be announced).
 msgid "Manage column announcements"
@@ -1625,14 +1624,13 @@ msgstr ""
 "werden standardmäßig angezeigt)"
 
 #. Translators: Help text to select columns to be announced.
-#, fuzzy
 msgid ""
 "&Select columns to be included in playlist transcripts\n"
 "(artist and title are always included):"
 msgstr ""
-"Whälen Sie die Informationen aus, die bei der Erstellung von Playlist-"
-"Statistiken berücksichtigt werden sollen.\n"
-"\t\tAnzahl der Titel und Gesamtdauer sind standardmäßig eingeschlossen."
+"&Whälen Sie die Informationen aus, die bei der Erstellung von Playlist-"
+"Transkripten berücksichtigt werden sollen.\n"
+"(Künstler und Titel sind standardmäßig eingeschlossen):"
 
 #. wxPython 4 contains RearrangeList to allow item orders to be changed automatically.
 #. Because wxPython 3 doesn't include this, work around by using a variant of list box and move up/down buttons.
@@ -1681,9 +1679,8 @@ msgstr "Transkript-Wiedergabelisten"
 #. self.transcriptFormatsList = playlistTranscriptsHelper.addLabeledControl(labelText, wx.Choice, choices=[_("ask me every time")]+[output[2] for output in splmisc.SPLPlaylistTranscriptFormats])
 #. self.transcriptFormatsList.SetSelection(self.availableTranscriptFormats.index(splconfig.SPLConfig["PlaylistTranscripts"]["TranscriptFormat"]))
 #. Translators: The label of a button to configure columns for playlist transcripts.
-#, fuzzy
 msgid "Manage transcript columns..."
-msgstr "&Meldungen für Spalten von Titeln verwalten"
+msgstr "Spalten für Transkripte verwalten..."
 
 #. Translators: title of a panel to configure columns explorer settings.
 #, fuzzy
@@ -1796,9 +1793,9 @@ msgid ""
 "will be checked every time NVDA and/or Studio starts. Are you sure you wish "
 "to continue?"
 msgstr ""
-"Das Updatesintervall wurde auf null Tage festgelegt, so dass "
-"Updates der Studio-Erweiterung bei jedem Start von NVDA und/oder "
-"Studio gesucht werden. Sind Sie sicher, dass Sie weitermachen möchten?"
+"Das Updatesintervall wurde auf null Tage festgelegt, so dass Updates der "
+"Studio-Erweiterung bei jedem Start von NVDA und/oder Studio gesucht werden. "
+"Sind Sie sicher, dass Sie weitermachen möchten?"
 
 #. Translators: The title of the update interval dialog.
 msgid "Confirm update interval"
@@ -1829,6 +1826,8 @@ msgid ""
 "You have toggled pilot features checkbox. You must restart NVDA for the "
 "change to take effect."
 msgstr ""
+"Sie haben das Kontrollkästchen Pilotfunktionen aktiviert. Sie müssen NVDA "
+"neu starten, damit die Änderung wirksam wird."
 
 #. Translators: Title of the pilot features dialog.
 msgid "Pilot features"
@@ -1880,6 +1879,9 @@ msgid ""
 "Warning! Selecting Reset button and choosing various reset options will "
 "reset add-on settings to defaults."
 msgstr ""
+"Achtung! Wenn Sie die Schaltfläche Zurücksetzen und irgendeine "
+"Zurückstellungsoption auswählen, werden die Einstellungen der Erweiterung "
+"auf die Standardwerte zurückgesetzt."
 
 #. Translators: The label of a button to open reset dialog.
 msgid "Reset settings..."
@@ -2002,11 +2004,11 @@ msgstr "gesamte Playlist"
 
 #. Translators: one of the playlist transcripts range options.
 msgid "start to current item"
-msgstr ""
+msgstr "vom Anfang zum aktuellen Element"
 
 #. Translators: one of the playlist transcripts range options.
 msgid "current item to the end"
-msgstr ""
+msgstr "Vom aktuellen Element zum Ende"
 
 #. Translators: one of the playlist transcripts range options.
 msgid "current hour"
@@ -2021,9 +2023,8 @@ msgid "Transcript format:"
 msgstr "Transkript-Format:"
 
 #. Translators: one of the playlist transcript actions.
-#, fuzzy
 msgid "view transcript"
-msgstr "Transkript-Wiedergabelisten"
+msgstr "Transkript anzeigen"
 
 #. Translators: one of the playlist transcript actions.
 msgid "copy to clipboard"
