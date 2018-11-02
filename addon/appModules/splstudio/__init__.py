@@ -1060,6 +1060,8 @@ class AppModule(appModuleHandler.AppModule):
 		if self._focusedTrack: self._focusedTrack.__class__._curColumnNumber = None
 		# Delete focused track reference.
 		self._focusedTrack = None
+		# #86: track time analysis marker should be gone, too.
+		self._analysisMarker = None
 		# #41: We're done monitoring Studio API.
 		if self._SPLStudioMonitor is not None:
 			self._SPLStudioMonitor.Stop()
