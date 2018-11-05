@@ -9,7 +9,7 @@ import api
 import ui
 import speech
 import scriptHandler
-from NVDAObjects.IAccessible import IAccessible
+from NVDAObjects.IAccessible import IAccessible, sysListView32
 import winUser
 import tones
 import gui
@@ -517,10 +517,17 @@ class Encoder(IAccessible):
 		"kb:control+NVDA+2":"announceEncoderLabel",
 	}
 
-class SAMEncoder(Encoder):
+class SAMEncoder(Encoder, sysListView32.ListItem):
 	# Support for Sam Encoders.
 
 	encoderType = "SAM"
+
+	def _get_name(self):
+		return self.IAccessibleObject.accName(self.IAccessibleChildID)
+
+	def _get_description(self):
+		# #87 (18.09.6-LTS only): SysListView32.ListItem nullifies description, so resort to fetching it via IAccessible.
+		return self.IAccessibleObject.accDescription(self.IAccessibleChildID)
 
 	def reportConnectionStatus(self, connecting=False):
 		# Keep an eye on the stream's description field for connection changes.
