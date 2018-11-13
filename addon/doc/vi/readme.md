@@ -282,6 +282,22 @@ NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio t
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
 
+## Phiên bản 18.11/18.09.5-LTS
+
+Lưu ý: 18.11.1 thay thế 18.11 để cung cấp những hỗ trợ đắc lực hơn cho
+Studio 5.31.
+
+* Bắt đầu hỗ trợ cho StationPlaylist Studio 5.31.
+* Giờ bạn có thể thu thập các ảnh chụp (SPL Assistant, F8) và bảng điểm danh
+  sách phát (SPL Assistant, Shift+F8) khi một danh sách phát được mở nhưng
+  con trỏ không đứng ở tack đầu tiên.
+* NVDA sẽ không còn tình trạng không làm gì hoặc phát âm thanh báo lỗi khi
+  cố gắng thông báo trạng thái metadata streaming khi khởi độn Studio nếu đã
+  được cấu hình như vậy.
+* Nếu được cấu hình để thông báo trạng thái metadata streaming khi khởi động
+  Studio, việc thông báo trạng thái metadata streaming sẽ không còn bỏ đi
+  các thông báo thay đổi thanh trạng thái và ngược lại.
+
 ## Phiên bản 18.10.2/18.09.4-LTS
 
 * Sửa lỗi không đóng được màn hình cài đặt add-on nếu đã bấm nút Áp dụng và
