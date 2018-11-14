@@ -529,6 +529,11 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 		# #87 (18.09.6-LTS only): SysListView32.ListItem nullifies description, so resort to fetching it via IAccessible.
 		return self.IAccessibleObject.accDescription(self.IAccessibleChildID)
 
+	def _moveToRow(self, row):
+		# In addition to moving to the next or previous encoder entry, set focus on the new encoder entry once more.
+		super(SAMEncoder, self)._moveToRow(row)
+		if row is not None: row.setFocus()
+
 	def reportConnectionStatus(self, connecting=False):
 		# Keep an eye on the stream's description field for connection changes.
 		# In order to not block NVDA commands, this will be done using a different thread.
