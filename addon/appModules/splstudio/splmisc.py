@@ -14,6 +14,8 @@ from _csv import reader # For cart explorer.
 import gui
 import wx
 import ui
+import addonHandler
+addonHandler.initTranslation()
 from winUser import user32, sendMessage
 import winKernel
 from NVDAObjects.IAccessible import sysListView32

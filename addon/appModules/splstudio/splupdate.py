@@ -28,6 +28,7 @@ import config
 if config.isAppX:
 	raise RuntimeError("This is NVDA Windows Store edition")
 import addonHandler
+addonHandler.initTranslation()
 # Provided that NVDA issue 3208 is implemented.
 if hasattr(addonHandler, "checkForAddonUpdate"):
 	raise RuntimeError("NVDA itself will check for add-on updates")

@@ -28,6 +28,8 @@ try:
 	from . import splupdate
 except RuntimeError:
 	splupdate = None
+import addonHandler
+addonHandler.initTranslation()
 from . import splconfig
 from . import splactions
 
