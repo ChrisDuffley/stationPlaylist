@@ -199,7 +199,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Version 18.11/18.09.5-LTS
 
-Note: 18.11.1 replaces 18.11 in order to provide more solid Studio 5.31 support.
+Note: 18.11.1 replaces 18.11 in order to provide better support for Studio 5.31.
 
 * Initial support for StationPlaylist Studio 5.31.
 * You can now obtain playlist snapshots (SPL Assistant, F8) and transcripts (SPL Assistant, Shift+F8) while a playlist is loaded but the first track isn't focused.
