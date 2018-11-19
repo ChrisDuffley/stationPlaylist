@@ -7,6 +7,8 @@
 import ui
 from winUser import sendMessage, user32
 from .spldebugging import debugOutput
+import addonHandler
+addonHandler.initTranslation()
 
 # Cache the handle to main Studio window.
 _SPLWin = None

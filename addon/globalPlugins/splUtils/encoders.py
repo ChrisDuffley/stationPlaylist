@@ -14,6 +14,8 @@ import winUser
 import tones
 import gui
 import wx
+import addonHandler
+addonHandler.initTranslation()
 
 # SPL Studio uses WM messages to send and receive data, similar to Winamp (see NVDA sources/appModules/winamp.py for more information).
 user32 = winUser.user32 # user32.dll.
