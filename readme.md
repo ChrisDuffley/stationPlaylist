@@ -196,6 +196,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * Some SPL Assistant commands will now require that the playlist viewer is visible and populated with a playlist, and in some cases, a track is focused. Commands affected include remaining duration (D), playlist snapshots (F8), and playlist transcripts (Shift+F8).
 * Playlist remaining duration command (SPL Assistant, D) will now require a track from playlist viewer be focused.
 * In SAM Encoders, you can now use table navigation commands (Control+Alt+arrow keys) to review various encoder status information.
+* Fixed many instances of add-on messages spoken in English despite translated into other languages.
 
 ## Version 18.11/18.09.5-LTS
 
