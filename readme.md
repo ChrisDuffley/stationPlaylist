@@ -194,8 +194,9 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Version 18.09.6-LTS
 
 * Requires NVDA 2018.3 or later.
-* In SAM Encoders, you can now use table navigation commands (Control+Alt+arrow keys) to review various encoder status information.
+* Internal changes to make the add-on compatible with future NVDA releases.
 * Fixed many instances of add-on messages spoken in English despite translated into other languages.
+* In SAM Encoders, you can now use table navigation commands (Control+Alt+arrow keys) to review various encoder status information.
 
 ## Version 18.09.5-LTS
 
