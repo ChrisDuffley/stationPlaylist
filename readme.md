@@ -13,7 +13,7 @@ IMPORTANT NOTES:
 
 * This add-on requires NVDA 2018.3 or later and StationPlaylist Studio 5.11 or later.
 * If using Windows 8 or later, for best experience, disable audio ducking mode.
-* Starting from 2018, [changelogs for old add-on releases][5] will be found on GitHub. This add-on readme will list changes from version 5.0 (2015 onwards).
+* Starting from 2018, [changelogs for old add-on releases][5] will be found on GitHub. This add-on readme will list changes from version 7.0 (2016 onwards).
 * Certain add-on features (notably add-on updating) won't work under some conditions, including running NVDA in secure mode.
 * Due to tecnical limitations, you cannot install or use this add-on on Windows Store version of NVDA.
 
@@ -542,112 +542,6 @@ Version 7.4 is also known as 16.08 following the year.month version number for s
 * Pressing SPL Controller, R now causes NVDA to announce remaining time in hours, minutes and seconds (minutes and seconds if this is such a case).
 * In encoders, pressing Control+NVDA+0 will present encoder settings dialog for configuring various options such as stream label, focusing to Studio when connected and so on.
 * In encoders, it is now possible to turn off connection progress tone (configurable from encoder settings dialog).
-
-## Changes for 6.4
-
-* Fixed a major problem when switching back from an instant switch profile and the instant switch profile becomes active again, seen after deleting a profile that was positioned right before the previously active profile. When attempting to delete a profile, a warning dialog will be shown if an instant switch profile is active.
-
-## Changes for 6.3
-
-* Internal security enhancements.
-* When add-on 6.3 or later is first launched on a computer running Windows 8 or later with NVDA 2016.1 or later installed, an alert dialog will be shown asking you to disable audio ducking mode (NVDA+Shift+D). Select the checkbox to suppress this dialog in the future.
-* Added a command to send bug reports, feature suggestions and other feedback to add-on developer (Control+NVDA+dash (hyphen, "-")).
-* Updated translations.
-
-## Changes for 6.2
-
-* Fixed an issue with playlist remainder command (SPL Assistant, D (R if compatibility mode is on)) where the duration for the current hour was announced as opposed to the entire playlist (the behavior of this command can be configured from advanced settings found in add-on settings dialog).
-* NvDA can now announce name of the currently playing track while using another program (configurable from add-on settings).
-* The setting used to let SPL Controller command invoke SPL Assistant is now honored (previously it was enabled at all times).
-* In SAM encoders, Control+F9 and Control+F10 commands now works correctly.
-* In encoders, when an encoder is first focused and if this encoder is configured to be monitored in the background, NVDA will now start the background monitor automatically.
-
-## Changes for 6.1
-
-* Column announcement order and inclusion, as well as metadata streaming settings are now profile-specific settings.
-* When changing profiles, the correct metadata streams will be enabled.
-* When opening quick metadata streaming settings dialog (command unassigned), the changed settings are now applied to the active profile.
-* When starting Studio, changed how the errors are displayed if the only corrupt profile is the normal profile.
-* When changing certain settings using shortcut keys such as status announcements, fixed an issue where the changed settings are not retained when switching to and from an instant switch profile.
-* When using a SPL Assistant command with a custom gesture defined (such as next track command), it is no longer required to stay in the Studio's playlist viewer to use these commands (they can be performed from other Studio windows).
-
-## Changes for 6.0
-
-* New SPL Assistant commands, including announcing title of the currently playing track (C), announcing status of metadata streaming (E, 1 through 4 and 0) and opening the online user guide (Shift+F1).
-* Ability to package favorite settings as broadcast profiles to be used during a show and to switch to a predefined profile. See the add-on guide for details on broadcast profiles.
-* Added a new setting in add-on settings to control message verbosity (some messages will be shortened when advanced verbosity is selected).
-* Added a new setting in add-on settings to let NVDA announce hours, minutes and seconds for track or playlist duration commands (affected features include announcing elapsed and remaining time for the currently playing track, track time analysis and others).
-* You can now ask NVDA to report total length of a range of tracks via track time analysis feature. Press SPL Assistant, F9 to mark current track as start marker, move to end of track range and press SPL Assistant, F10. These commands can be reassigned so one doesn't have to invoke SPL Assistant layer to perform track time analysis.
-* Added a column search dialog (command unassigned) to find text in specific columns such as artist or part of file name.
-* Added a time range finder dialog (command unassigned) to find a track with duration that falls within a specified range, useful if wishing to find a track to fill an hour slot.
-* Added ability to reorder track column announcement and to suppress announcement of specific columns if "use screen order" is unchecked from add-on settings dialog. Use "manage column announcement" dialog to reorder columns.
-* Added a dialog (command unassigned) to quickly toggle metadata streaming.
-* Added a setting in add-on settings dialog to configure when metadata streaming status should be announced and to enable metadata streaming.
-* Added ability to mark a track as a place marker to return to it later (SPL Assistant, Control+K to set, SPL Assistant, K to move to the marked track).
-* Improved performance when searching for next or previous track text containing the searched text.
-* Added a setting in add-on settings dialog to configure alarm notification (beep, message or both).
-* It is now possible to configure microphone alarm between 0 (disabled) and two hours (7200 seconds) and to use up and down arrow keys to configure this setting.
-* Added a setting in add-on settings dialog to allow microphone active notification to be given periodically.
-* You can now use Track Dial toggle command in Studio to toggle Track Dial in Track Tool provided that you didn't assign a command to toggle Track Dial in Track Tool.
-* Added ability to use SPL Controller layer command to invoke SPL Assistant layer (configurable from advanced Settings dialog found in add-on settings dialog).
-* Added ability for NvDA to use certain SPL Assistant commands used by other screen readers. To configure this, go to add-on settings, select Advanced Settings and check screen reader compatibility mode checkbox.
-* In encoders, settings such as focusing to Studio when connected are now remembered.
-* It is now possible to view various columns from encoder window (such as encoder connection status) via Control+NVDA+number command; consult the encoder commands above.
-* Fixed a rare bug where switching to Studio or closing an NVDA dialog (including Studio add-on dialogs) prevented track commands (such as toggling Track Dial) from working as expected.
-
-## Changes for 5.6
-
-* In Studio 5.10 and later, NVDA no longer announces "not selected" when the selected track is playing.
-* Due to an issue with Studio itself, NVDA will now announce name of the currently playing track automatically. An option to toggle this behavior has been added in studio add-on settings dialog.
-
-## Changes for 5.5
-
-* Play after connecting setting will be remembered when moving away from the encoder window.
-
-## Changes for 5.4
-
-* Performing library scan from Insert Tracks dialog no longer causes NVDA to not announce scan status or play error tones if NVDA is configured to announce library scan progress or scan count.
-* Updated translations.
-
-## Changes for 5.3
-
-* The fix for SAM Encoder (not playing the next track if a track is playing and when the encoder connects) is now available for SPL Encoder users.
-* NVDA no longer plays errors or does not do anything when SPL Assistant, F1 (Assistant help dialog) is pressed.
-
-## Changes for 5.2
-
-* NVDA will no longer allow both settings and alarm dialogs to be opened. A warning will be shown asking you to close the previously opened dialog before opening another dialog.
-* When monitoring one or more encoders, pressing SPL Controller, E will now announce encoder count, encoder ID and stream label(s) if any.
-* NVDA supports connect/disconnect all commands (Control+F9/Control+F10) in SAM encoders.
-* NVDA will no longer play the next track if an encoder connects while Studio is playing a track and Studio is told to play tracks when an encoder is connected.
-* Updated translations.
-
-## Changes for 5.1
-
-* It is now possible to review individual columns in Track Tool via Track Dial (toggle key unassigned). Note that Studio must be active before using this mode.
-* Added a check box in Studio add-on settings dialog to toggle announcement of name of the currently playing cart.
-* Toggling microphone on and off via SPL Controller no longer causes error tones to be played or toggle sound to not be played.
-* If a custom command is assigned for an SPL Assistant layer command and this command is pressed right after entering SPL Assistant, NvDA will now promptly exit SPL Assistant.
-
-## Changes for 5.0
-
-* A dedicated settings dialog for SPL add-on has been added, accessible from NVDA's preferences menu or by pressing Control+NVDA+0 from SPL window.
-* Added ability to reset all settings to defaults via configuration dialog.
-* If some of the settings have errors, only the affected settings will be reset to factory defaults.
-* Added a dedicated SPL touchscreen mode and touch commands to perform various Studio commands.
-* Changes to SPL Assistant layer include addition of layer help command (F1) and removal of commands to toggle listener count (Shift+I) and scheduled time announcement (Shift+S). You can configure these settings in add-on settings dialog.
-* Renamed "toggle announcement" to "status announcement" as beeps are used for announcing other status information such as completion of library scans.
-* Status announcement setting is now retained across sessions. Previously you had to configure this setting manually when Studio starts.
-* You can now use Track Dial feature to review columns in a track entry in Studio's main playlist viewer (to toggle this feature, press the command you assigned for this feature).
-* You can now assign custom commands to hear temperature information or to announce title for the upcoming track if scheduled.
-* Added a checkbox in end of track and song intro alarm dialogs to enable or disable these alarms (check to enable). These can also be "configured" from add-on settings.
-* Fixed an issue where pressing alarm dialog or track finder commands while another alarm  or find dialog is opened would cause another instance of the same dialog to appear. NVDA will pop up a message asking you to close the previously opened dialog first.
-* Cart explorer changes and fixes, including exploring wrong cart banks when user is not focused on playlist viewer. Cart explorer will now check to make sure that you are in playlist viewer.
-* Added ability to use SPL Controller layer command to invoke SPL Assistant (experimental; consult the add-on guide on how to enable this).
-* In encoder windows, NVDA's time and date announcement command (NVDA+F12 by default) will announce time including seconds.
-* You can now monitor individual encoders for connection status and for other messages by pressing Control+F11 while the encoder you wish to monitor is focused (works better when using SAM encoders).
-* Added a command in SPL Controller layer to announce status of encoders being monitored (E).
-* A workaround is now available to fix an issue where NvDA was announcing stream labels for the wrong encoders, especially after deleting an encoder (to realign stream labels, press Control+F12, then select the position of the encoder you have removed).
 
 ## Older releases
 
