@@ -605,14 +605,38 @@ msgstr ""
 "Ouvre un dialogue pour activer ou désactiver rapidement des métadonnées en "
 "streaming."
 
-#. Translators: Presented when track time analysis and/or playlist snapshot gathering cannot be performed because user is not focused on playlist viewer.
+#. Translators: an error message presented when performing some playlist commands while focused on places other than Playlist Viewer.
+#, fuzzy
+msgid "Please return to playlist viewer before invoking this command."
+msgstr "Vous devez ajouter des pistes avant d'invoquer cette commande"
+
+#. Translators: an error message presented when performing some playlist commands while no playlist has been loaded.
+msgid "No playlist has been loaded."
+msgstr "Aucune playlist n'a été chargée."
+
+#. Translators: an error message presented when performing some playlist commands while no tracks are selected/focused.
+#, fuzzy
 msgid ""
-"Not in playlist viewer, cannot perform track time analysis or gather "
-"playlist snapshot statistics."
+"Please select a track from playlist viewer before invoking this command."
+msgstr "Vous devez ajouter des pistes avant d'invoquer cette commande"
+
+#. Translators: Presented when playlist analyzer cannot be performed because user is not focused on playlist viewer.
+#, fuzzy
+msgid "Not in playlist viewer, cannot perform playlist analysis."
 msgstr ""
-"Vous n'êtes pas dans la visionneuse de playlist, impossible d'effectuer "
-"l'analyse de la durée de piste ou rassembler les statistiques sur les "
-"instantanés de playlist."
+"Aucune playlist n'a été chargée, impossible d'effectuer l'analyse de "
+"playlist."
+
+#. Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
+#, fuzzy
+msgid "No playlist to analyze."
+msgstr "Aucune playlist n'a été chargée."
+
+#. Translators: Presented when playlist analysis cannot be activated.
+msgid "No tracks are selected, cannot perform playlist analysis."
+msgstr ""
+"Aucune des pistes ont été sélectionnées, impossible d'effectuer l'analyse de "
+"playlist."
 
 #. Translators: one of the results for playlist snapshots feature for announcing total number of items in a playlist.
 #, python-brace-format
@@ -716,10 +740,6 @@ msgstr ""
 "La commande couche Assistant SPL. Consultez la documentation du module "
 "complémentaire pour plus d'informations sur les commandes disponibles."
 
-#. Translators: reported when no playlist has been loaded when trying to obtain remaining time for a playlist.
-msgid "No playlist has been loaded."
-msgstr "Aucune playlist n'a été chargée."
-
 #. Translators: presented when playlist modification message isn't shown.
 msgid "Playlist modification not available"
 msgstr "Modification playlist non disponible"
@@ -774,18 +794,6 @@ msgstr "Contrôle du balayage de la bibliothèque en cours"
 msgid "Scanning is in progress"
 msgstr "Le balayage est en cours"
 
-#. Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
-msgid "No playlist has been loaded, cannot perform playlist analysis."
-msgstr ""
-"Aucune playlist n'a été chargée, impossible d'effectuer l'analyse de "
-"playlist."
-
-#. Translators: Presented when playlist analysis cannot be activated.
-msgid "No tracks are selected, cannot perform playlist analysis."
-msgstr ""
-"Aucune des pistes ont été sélectionnées, impossible d'effectuer l'analyse de "
-"playlist."
-
 #. Translators: Presented when track time analysis is turned on.
 msgid "Playlist analysis activated"
 msgstr "Analyse de playlist activé"
@@ -800,11 +808,6 @@ msgid ""
 msgstr ""
 "Marquer la piste mises en focus comme marqueur de début pour différentes "
 "commandes d'analyse de playlist"
-
-msgid "No tracks were added, cannot perform track time analysis"
-msgstr ""
-"Aucune des pistes ont été ajoutées, Impossible d'effectuer l'analyse pour la "
-"durée de piste"
 
 #. Translators: Presented when track time analysis cannot be used because start marker is not set.
 msgid ""
@@ -826,9 +829,6 @@ msgstr ""
 "Annonce la longueur totale des pistes entre le marqueur de début de "
 "l'analyse et la piste en cours"
 
-msgid "You need to add tracks before invoking this command"
-msgstr "Vous devez ajouter des pistes avant d'invoquer cette commande"
-
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid ""
 "Presents playlist snapshot information such as number of tracks and top "
@@ -849,12 +849,6 @@ msgstr "définir un marqueur de position"
 msgid "This track cannot be used as a place marker track"
 msgstr ""
 "Cette piste ne peut pas être utilisée comme un marqueur de position de piste"
-
-#. Translators: Presented when attempting to move to a place marker track when not focused in playlist viewer.
-msgid "You cannot move to a place marker track outside of playlist viewer."
-msgstr ""
-"Impossible de vous déplacer au marqueur de position de piste en dehors de la "
-"visionneuse de playlist."
 
 #. Translators: Presented when no place marker is found.
 msgid "No place marker found"
@@ -1272,6 +1266,7 @@ msgstr ""
 msgid "Apply settings"
 msgstr "Appliquer les paramètres"
 
+#. #70 (18.07): in wxPython 4, name for the value keyword argument for text entry dialog constructor has changed.
 #. Translators: The label of a field to enter a new name for a broadcast profile.
 msgid "New name:"
 msgstr "Nouveau nom :"
@@ -2127,7 +2122,6 @@ msgstr ""
 "R : Temps restant pour la piste en cours de lecture.\n"
 "Maj+R : Balayage de la bibliothèque en cours."
 
-#. Used ANSI version, as Wide char version always returns 0.
 #. Translators: Presented when Station Playlist Studio is not running.
 msgid "SPL Studio is not running."
 msgstr "SPL Studio n'est pas en cours d'exécution."
@@ -2375,3 +2369,21 @@ msgid ""
 msgstr ""
 "Améliore la prise en charge de StationPlaylist Studio.\n"
 "En outre, ajoute des commandes globales pour studio où que vous soyez."
+
+#~ msgid ""
+#~ "Not in playlist viewer, cannot perform track time analysis or gather "
+#~ "playlist snapshot statistics."
+#~ msgstr ""
+#~ "Vous n'êtes pas dans la visionneuse de playlist, impossible d'effectuer "
+#~ "l'analyse de la durée de piste ou rassembler les statistiques sur les "
+#~ "instantanés de playlist."
+
+#~ msgid "No tracks were added, cannot perform track time analysis"
+#~ msgstr ""
+#~ "Aucune des pistes ont été ajoutées, Impossible d'effectuer l'analyse pour "
+#~ "la durée de piste"
+
+#~ msgid "You cannot move to a place marker track outside of playlist viewer."
+#~ msgstr ""
+#~ "Impossible de vous déplacer au marqueur de position de piste en dehors de "
+#~ "la visionneuse de playlist."

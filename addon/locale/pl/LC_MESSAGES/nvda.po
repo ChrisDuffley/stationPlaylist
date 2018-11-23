@@ -575,12 +575,35 @@ msgid "Opens a dialog to quickly enable or disable metadata streaming."
 msgstr ""
 "Otwiera dialog, w którym możesz szybko zarządzać strumieniowaniem danych"
 
-#. Translators: Presented when track time analysis and/or playlist snapshot gathering cannot be performed because user is not focused on playlist viewer.
+#. Translators: an error message presented when performing some playlist commands while focused on places other than Playlist Viewer.
+#, fuzzy
+msgid "Please return to playlist viewer before invoking this command."
+msgstr "Dodaj utwory zanim wywołasz to polecenie"
+
+#. Translators: an error message presented when performing some playlist commands while no playlist has been loaded.
+msgid "No playlist has been loaded."
+msgstr "Nie załadowano playlisty"
+
+#. Translators: an error message presented when performing some playlist commands while no tracks are selected/focused.
+#, fuzzy
 msgid ""
-"Not in playlist viewer, cannot perform track time analysis or gather "
-"playlist snapshot statistics."
-msgstr ""
-"Nie w widoku playlisty; Nie mogę analizować lub utworzyć przeglądu playlisty"
+"Please select a track from playlist viewer before invoking this command."
+msgstr "Dodaj utwory zanim wywołasz to polecenie"
+
+#. Translators: Presented when playlist analyzer cannot be performed because user is not focused on playlist viewer.
+#, fuzzy
+msgid "Not in playlist viewer, cannot perform playlist analysis."
+msgstr "Nie załadowano playlisty, Nie mogę analizować czasu."
+
+#. Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
+#, fuzzy
+msgid "No playlist to analyze."
+msgstr "Nie załadowano playlisty"
+
+#. Translators: Presented when playlist analysis cannot be activated.
+#, fuzzy
+msgid "No tracks are selected, cannot perform playlist analysis."
+msgstr "Nie dodano kawałków, Nie mogę analizować czasu."
 
 #. Translators: one of the results for playlist snapshots feature for announcing total number of items in a playlist.
 #, python-brace-format
@@ -684,10 +707,6 @@ msgstr ""
 "Warstwa komend Asystenta SPL. Zajrzyj do podręcznika dodatku, aby uzyskać "
 "więcej informacji na temat dostępnych poleceń."
 
-#. Translators: reported when no playlist has been loaded when trying to obtain remaining time for a playlist.
-msgid "No playlist has been loaded."
-msgstr "Nie załadowano playlisty"
-
 #. Translators: presented when playlist modification message isn't shown.
 msgid "Playlist modification not available"
 msgstr "Modyfikacja listy odtwarzania niedostępna."
@@ -742,16 +761,6 @@ msgstr "Monitorowanie skanowania biblioteki"
 msgid "Scanning is in progress"
 msgstr "Skanowanie w toku"
 
-#. Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
-#, fuzzy
-msgid "No playlist has been loaded, cannot perform playlist analysis."
-msgstr "Nie załadowano playlisty, Nie mogę analizować czasu."
-
-#. Translators: Presented when playlist analysis cannot be activated.
-#, fuzzy
-msgid "No tracks are selected, cannot perform playlist analysis."
-msgstr "Nie dodano kawałków, Nie mogę analizować czasu."
-
 #. Translators: Presented when track time analysis is turned on.
 #, fuzzy
 msgid "Playlist analysis activated"
@@ -767,9 +776,6 @@ msgstr "Analiza czasu: Nie"
 msgid ""
 "Marks focused track as start marker for various playlist analysis commands"
 msgstr "Oznacza podświetlony kawałek jako początkowy dla analizy czasu"
-
-msgid "No tracks were added, cannot perform track time analysis"
-msgstr "Nie dodano kawałków, Nie mogę analizować czasu."
 
 #. Translators: Presented when track time analysis cannot be used because start marker is not set.
 msgid ""
@@ -788,9 +794,6 @@ msgid ""
 msgstr ""
 "Ogłasza długość wszystkich utworów od markera analizy, do podświetlonego "
 "utworu."
-
-msgid "You need to add tracks before invoking this command"
-msgstr "Dodaj utwory zanim wywołasz to polecenie"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid ""
@@ -811,10 +814,6 @@ msgstr "Ustawiono znacznik położenia"
 #. Translators: Presented when attempting to place a place marker on an unsupported track.
 msgid "This track cannot be used as a place marker track"
 msgstr "To nie może być znacznikiem położenia"
-
-#. Translators: Presented when attempting to move to a place marker track when not focused in playlist viewer.
-msgid "You cannot move to a place marker track outside of playlist viewer."
-msgstr "Nie da się przenieść do znacznika położenia poza oknem playlisty"
 
 #. Translators: Presented when no place marker is found.
 msgid "No place marker found"
@@ -1201,6 +1200,7 @@ msgstr ""
 msgid "Apply settings"
 msgstr "Ustawienia SPL"
 
+#. #70 (18.07): in wxPython 4, name for the value keyword argument for text entry dialog constructor has changed.
 #. Translators: The label of a field to enter a new name for a broadcast profile.
 msgid "New name:"
 msgstr "Nowa nazwa:"
@@ -2034,7 +2034,6 @@ msgstr ""
 "R: pozostały czas aktualnie odtwarzanej ścieżki.\n"
 "Shift+R: postęp skanowania biblioteki."
 
-#. Used ANSI version, as Wide char version always returns 0.
 #. Translators: Presented when Station Playlist Studio is not running.
 msgid "SPL Studio is not running."
 msgstr "SPL Studio nie jest uruchomione."
@@ -2276,3 +2275,16 @@ msgid ""
 msgstr ""
 "Poprawia dostępność Station Playlist Studio.\n"
 "Ponadto, dodaje globalne komendy dla studia, dostępne z każdego miejsca."
+
+#~ msgid ""
+#~ "Not in playlist viewer, cannot perform track time analysis or gather "
+#~ "playlist snapshot statistics."
+#~ msgstr ""
+#~ "Nie w widoku playlisty; Nie mogę analizować lub utworzyć przeglądu "
+#~ "playlisty"
+
+#~ msgid "No tracks were added, cannot perform track time analysis"
+#~ msgstr "Nie dodano kawałków, Nie mogę analizować czasu."
+
+#~ msgid "You cannot move to a place marker track outside of playlist viewer."
+#~ msgstr "Nie da się przenieść do znacznika położenia poza oknem playlisty"

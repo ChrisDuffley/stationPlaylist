@@ -577,13 +577,37 @@ msgstr ""
 msgid "Opens a dialog to quickly enable or disable metadata streaming."
 msgstr "Mở hộp thoại để nhanh chóng bật hay tắt metadata streaming."
 
-#. Translators: Presented when track time analysis and/or playlist snapshot gathering cannot be performed because user is not focused on playlist viewer.
+#. Translators: an error message presented when performing some playlist commands while focused on places other than Playlist Viewer.
+#, fuzzy
+msgid "Please return to playlist viewer before invoking this command."
+msgstr "Bạn cần phải thêm track trước khi gọi lệnh này"
+
+#. Translators: an error message presented when performing some playlist commands while no playlist has been loaded.
+msgid "No playlist has been loaded."
+msgstr "Không có danh sách phát nào được mở."
+
+#. Translators: an error message presented when performing some playlist commands while no tracks are selected/focused.
+#, fuzzy
 msgid ""
-"Not in playlist viewer, cannot perform track time analysis or gather "
-"playlist snapshot statistics."
+"Please select a track from playlist viewer before invoking this command."
+msgstr "Bạn cần phải thêm track trước khi gọi lệnh này"
+
+#. Translators: Presented when playlist analyzer cannot be performed because user is not focused on playlist viewer.
+#, fuzzy
+msgid "Not in playlist viewer, cannot perform playlist analysis."
 msgstr ""
-"Không ở trong trình xem danh sách phát, không thể thực hiện phân tích thời "
-"gian track hoặc tập hợp thống kê ảnh chụp danh sách phát."
+"Không có danh sách phát nào được mở, không thể thực hiện phân tích danh sách "
+"phát."
+
+#. Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
+#, fuzzy
+msgid "No playlist to analyze."
+msgstr "Không có danh sách phát nào được mở."
+
+#. Translators: Presented when playlist analysis cannot be activated.
+msgid "No tracks are selected, cannot perform playlist analysis."
+msgstr ""
+"Không có track nào được chọn, không thể thực hiện phân tích danh sách phát."
 
 #. Translators: one of the results for playlist snapshots feature for announcing total number of items in a playlist.
 #, python-brace-format
@@ -685,10 +709,6 @@ msgstr ""
 "Lệnh lớp SPL Assistant. Xem hướng dẫn sử dụng add-on để có thêm thông tin về "
 "các lệnh đang có sẵn."
 
-#. Translators: reported when no playlist has been loaded when trying to obtain remaining time for a playlist.
-msgid "No playlist has been loaded."
-msgstr "Không có danh sách phát nào được mở."
-
 #. Translators: presented when playlist modification message isn't shown.
 msgid "Playlist modification not available"
 msgstr "Sửa đổi danh sách phát không sẵn sàng"
@@ -744,17 +764,6 @@ msgstr "Đang theo dõi việcquét thư viện"
 msgid "Scanning is in progress"
 msgstr "Đang tiến hành quét"
 
-#. Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
-msgid "No playlist has been loaded, cannot perform playlist analysis."
-msgstr ""
-"Không có danh sách phát nào được mở, không thể thực hiện phân tích danh sách "
-"phát."
-
-#. Translators: Presented when playlist analysis cannot be activated.
-msgid "No tracks are selected, cannot perform playlist analysis."
-msgstr ""
-"Không có track nào được chọn, không thể thực hiện phân tích danh sách phát."
-
 #. Translators: Presented when track time analysis is turned on.
 msgid "Playlist analysis activated"
 msgstr "Đã kích hoạt phân tích danh sách phát"
@@ -769,11 +778,6 @@ msgid ""
 msgstr ""
 "Đánh dấu track tại vị trí con trỏ là điểm bắt đầu cho nhiều lệnh phân tích "
 "danh sách phát"
-
-msgid "No tracks were added, cannot perform track time analysis"
-msgstr ""
-"Không có track nào được thêm vào, không thể thực hiện phân tích thời gian "
-"track"
 
 #. Translators: Presented when track time analysis cannot be used because start marker is not set.
 msgid ""
@@ -795,9 +799,6 @@ msgstr ""
 "Thông báo tổng độ dài của các track giữa điểm bắt đầu phân tích và track "
 "hiện tại"
 
-msgid "You need to add tracks before invoking this command"
-msgstr "Bạn cần phải thêm track trước khi gọi lệnh này"
-
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid ""
 "Presents playlist snapshot information such as number of tracks and top "
@@ -817,12 +818,6 @@ msgstr "đã tạo điểm đánh dấu"
 #. Translators: Presented when attempting to place a place marker on an unsupported track.
 msgid "This track cannot be used as a place marker track"
 msgstr "Không thể dùng track này như một điểm đánh dấu"
-
-#. Translators: Presented when attempting to move to a place marker track when not focused in playlist viewer.
-msgid "You cannot move to a place marker track outside of playlist viewer."
-msgstr ""
-"Bạn không thể chuyển đến một track đánh dấu bên ngoài trình xem danh sách "
-"phát."
 
 #. Translators: Presented when no place marker is found.
 msgid "No place marker found"
@@ -1229,6 +1224,7 @@ msgstr ""
 msgid "Apply settings"
 msgstr "Áp dụng các thiết lập"
 
+#. #70 (18.07): in wxPython 4, name for the value keyword argument for text entry dialog constructor has changed.
 #. Translators: The label of a field to enter a new name for a broadcast profile.
 msgid "New name:"
 msgstr "Tên mới:"
@@ -2054,7 +2050,6 @@ msgstr ""
 "R: thời gian còn lại của track đang phát.\n"
 "Shift+R: tiến trình quét thư viện."
 
-#. Used ANSI version, as Wide char version always returns 0.
 #. Translators: Presented when Station Playlist Studio is not running.
 msgid "SPL Studio is not running."
 msgstr "SPL Studio không chạy."
@@ -2298,3 +2293,20 @@ msgid ""
 msgstr ""
 "Cải thiện hỗ trợ cho StationPlaylist Studio.\n"
 "Ngoài ra là thêm các lệnh toàn cục cho studio từ bất cứ đâu."
+
+#~ msgid ""
+#~ "Not in playlist viewer, cannot perform track time analysis or gather "
+#~ "playlist snapshot statistics."
+#~ msgstr ""
+#~ "Không ở trong trình xem danh sách phát, không thể thực hiện phân tích "
+#~ "thời gian track hoặc tập hợp thống kê ảnh chụp danh sách phát."
+
+#~ msgid "No tracks were added, cannot perform track time analysis"
+#~ msgstr ""
+#~ "Không có track nào được thêm vào, không thể thực hiện phân tích thời gian "
+#~ "track"
+
+#~ msgid "You cannot move to a place marker track outside of playlist viewer."
+#~ msgstr ""
+#~ "Bạn không thể chuyển đến một track đánh dấu bên ngoài trình xem danh sách "
+#~ "phát."

@@ -582,14 +582,36 @@ msgid "Opens a dialog to quickly enable or disable metadata streaming."
 msgstr ""
 "Deschide un dialog pentru a activa sau dezactiva rapid metadata streaming."
 
-#. Translators: Presented when track time analysis and/or playlist snapshot gathering cannot be performed because user is not focused on playlist viewer.
+#. Translators: an error message presented when performing some playlist commands while focused on places other than Playlist Viewer.
+#, fuzzy
+msgid "Please return to playlist viewer before invoking this command."
+msgstr "Este necesar să adăugați piese înainte de a invoca această comandă"
+
+#. Translators: an error message presented when performing some playlist commands while no playlist has been loaded.
+msgid "No playlist has been loaded."
+msgstr "Nicio listă de redare nu a fost încărcată."
+
+#. Translators: an error message presented when performing some playlist commands while no tracks are selected/focused.
+#, fuzzy
 msgid ""
-"Not in playlist viewer, cannot perform track time analysis or gather "
-"playlist snapshot statistics."
+"Please select a track from playlist viewer before invoking this command."
+msgstr "Este necesar să adăugați piese înainte de a invoca această comandă"
+
+#. Translators: Presented when playlist analyzer cannot be performed because user is not focused on playlist viewer.
+#, fuzzy
+msgid "Not in playlist viewer, cannot perform playlist analysis."
 msgstr ""
-"Nu există în vizualizatorul listei de redare, nu poate efectua analiza "
-"timpului piesei sau nu a adunat statistici pentru instantanee în lista de "
-"redare."
+"Nicio listă de redare nu a fost încărcată, nu se poate efectua analiza "
+"vreuneia."
+
+#. Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
+#, fuzzy
+msgid "No playlist to analyze."
+msgstr "Nicio listă de redare nu a fost încărcată."
+
+#. Translators: Presented when playlist analysis cannot be activated.
+msgid "No tracks are selected, cannot perform playlist analysis."
+msgstr "Nicio melodie nu e selectată, nu se poate efectua analiza vreuneia."
 
 #. Translators: one of the results for playlist snapshots feature for announcing total number of items in a playlist.
 #, python-brace-format
@@ -693,10 +715,6 @@ msgstr ""
 "Comandă de niveluri pentru asistentul SPL. Vedeți manualul add-on-ului "
 "pentru mai multe informații despre comenzile disponibile."
 
-#. Translators: reported when no playlist has been loaded when trying to obtain remaining time for a playlist.
-msgid "No playlist has been loaded."
-msgstr "Nicio listă de redare nu a fost încărcată."
-
 #. Translators: presented when playlist modification message isn't shown.
 msgid "Playlist modification not available"
 msgstr "Modificare playlist nedisponibilă"
@@ -751,16 +769,6 @@ msgstr "Se monitorizează scanarea librăriei"
 msgid "Scanning is in progress"
 msgstr "Scanarea este în curs..."
 
-#. Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
-msgid "No playlist has been loaded, cannot perform playlist analysis."
-msgstr ""
-"Nicio listă de redare nu a fost încărcată, nu se poate efectua analiza "
-"vreuneia."
-
-#. Translators: Presented when playlist analysis cannot be activated.
-msgid "No tracks are selected, cannot perform playlist analysis."
-msgstr "Nicio melodie nu e selectată, nu se poate efectua analiza vreuneia."
-
 #. Translators: Presented when track time analysis is turned on.
 msgid "Playlist analysis activated"
 msgstr "Analiza listei de redare este activată"
@@ -775,10 +783,6 @@ msgid ""
 msgstr ""
 "Marchează piesa focalizată ca marcaj de început pentru diferite comenzi de "
 "analiză ale listei de redare"
-
-msgid "No tracks were added, cannot perform track time analysis"
-msgstr ""
-"Nicio melodie adăugată, nu se poate începe analizarea timpul melodiilor"
 
 #. Translators: Presented when track time analysis cannot be used because start marker is not set.
 msgid ""
@@ -800,9 +804,6 @@ msgstr ""
 "Anunță durata totală a melodiilor între marcajul de start al analizei și "
 "melodia curentă."
 
-msgid "You need to add tracks before invoking this command"
-msgstr "Este necesar să adăugați piese înainte de a invoca această comandă"
-
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid ""
 "Presents playlist snapshot information such as number of tracks and top "
@@ -823,12 +824,6 @@ msgstr "marcajul de loc a fost setat"
 msgid "This track cannot be used as a place marker track"
 msgstr ""
 "Această melodie nu poate fi utilizată ca o melodie de marcaj al locului"
-
-#. Translators: Presented when attempting to move to a place marker track when not focused in playlist viewer.
-msgid "You cannot move to a place marker track outside of playlist viewer."
-msgstr ""
-"Nu se poate muta la o melodie marcaj de loc din afara vizualizatorului de "
-"playlisturi."
 
 #. Translators: Presented when no place marker is found.
 msgid "No place marker found"
@@ -1236,6 +1231,7 @@ msgstr ""
 msgid "Apply settings"
 msgstr "Setări SPL"
 
+#. #70 (18.07): in wxPython 4, name for the value keyword argument for text entry dialog constructor has changed.
 #. Translators: The label of a field to enter a new name for a broadcast profile.
 msgid "New name:"
 msgstr "Nume nou:"
@@ -2091,7 +2087,6 @@ msgstr ""
 "R: Timpul rămas pentru melodia curentă.\n"
 "Shift+R: Progresul scanării librăriei"
 
-#. Used ANSI version, as Wide char version always returns 0.
 #. Translators: Presented when Station Playlist Studio is not running.
 msgid "SPL Studio is not running."
 msgstr "Studioul SPL nu rulează."
@@ -2336,3 +2331,20 @@ msgid ""
 msgstr ""
 "Conține suport pentru StationPlaylist Studio.\n"
 "De asemenea, adaugă comenzi globale pentru studio de oriunde."
+
+#~ msgid ""
+#~ "Not in playlist viewer, cannot perform track time analysis or gather "
+#~ "playlist snapshot statistics."
+#~ msgstr ""
+#~ "Nu există în vizualizatorul listei de redare, nu poate efectua analiza "
+#~ "timpului piesei sau nu a adunat statistici pentru instantanee în lista de "
+#~ "redare."
+
+#~ msgid "No tracks were added, cannot perform track time analysis"
+#~ msgstr ""
+#~ "Nicio melodie adăugată, nu se poate începe analizarea timpul melodiilor"
+
+#~ msgid "You cannot move to a place marker track outside of playlist viewer."
+#~ msgstr ""
+#~ "Nu se poate muta la o melodie marcaj de loc din afara vizualizatorului de "
+#~ "playlisturi."

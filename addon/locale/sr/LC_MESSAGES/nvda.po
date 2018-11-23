@@ -573,13 +573,37 @@ msgstr ""
 msgid "Opens a dialog to quickly enable or disable metadata streaming."
 msgstr "Otvara dijalog za brzo uključivanje ili isključivanje metadata strima"
 
-#. Translators: Presented when track time analysis and/or playlist snapshot gathering cannot be performed because user is not focused on playlist viewer.
+#. Translators: an error message presented when performing some playlist commands while focused on places other than Playlist Viewer.
+#, fuzzy
+msgid "Please return to playlist viewer before invoking this command."
+msgstr "Morate dodati zapise pre korišćenja ove komande"
+
+#. Translators: an error message presented when performing some playlist commands while no playlist has been loaded.
+msgid "No playlist has been loaded."
+msgstr "Nijedna lista za reprodukciju nije učitana"
+
+#. Translators: an error message presented when performing some playlist commands while no tracks are selected/focused.
+#, fuzzy
 msgid ""
-"Not in playlist viewer, cannot perform track time analysis or gather "
-"playlist snapshot statistics."
+"Please select a track from playlist viewer before invoking this command."
+msgstr "Morate dodati zapise pre korišćenja ove komande"
+
+#. Translators: Presented when playlist analyzer cannot be performed because user is not focused on playlist viewer.
+#, fuzzy
+msgid "Not in playlist viewer, cannot perform playlist analysis."
 msgstr ""
-"Niste u pregledu liste za reprodukciju, nemoguće koristiti analizu vremena "
-"zapisa ili druge statističke analize liste za reprodukciju."
+"Nijedna lista za reprodukciju nije učitana, nemoguće izvršiti vremensku "
+"analizu zapisa"
+
+#. Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
+#, fuzzy
+msgid "No playlist to analyze."
+msgstr "Nijedna lista za reprodukciju nije učitana"
+
+#. Translators: Presented when playlist analysis cannot be activated.
+#, fuzzy
+msgid "No tracks are selected, cannot perform playlist analysis."
+msgstr "Nijedan zapis nije izabran, nemoguće izvršiti vremensku analizu zapisa"
 
 #. Translators: one of the results for playlist snapshots feature for announcing total number of items in a playlist.
 #, python-brace-format
@@ -682,10 +706,6 @@ msgid ""
 "on available commands."
 msgstr "SPL asistent prečica. Pogledajte uputstvo dodatka za dostupne komande"
 
-#. Translators: reported when no playlist has been loaded when trying to obtain remaining time for a playlist.
-msgid "No playlist has been loaded."
-msgstr "Nijedna lista za reprodukciju nije učitana"
-
 #. Translators: presented when playlist modification message isn't shown.
 msgid "Playlist modification not available"
 msgstr "Izmena liste za reprodukciju nije dostupna"
@@ -740,18 +760,6 @@ msgstr "Gledanje skeniranje biblioteke"
 msgid "Scanning is in progress"
 msgstr "Skeniranje je u toku"
 
-#. Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
-#, fuzzy
-msgid "No playlist has been loaded, cannot perform playlist analysis."
-msgstr ""
-"Nijedna lista za reprodukciju nije učitana, nemoguće izvršiti vremensku "
-"analizu zapisa"
-
-#. Translators: Presented when playlist analysis cannot be activated.
-#, fuzzy
-msgid "No tracks are selected, cannot perform playlist analysis."
-msgstr "Nijedan zapis nije izabran, nemoguće izvršiti vremensku analizu zapisa"
-
 #. Translators: Presented when track time analysis is turned on.
 #, fuzzy
 msgid "Playlist analysis activated"
@@ -767,9 +775,6 @@ msgstr "Vremenska analiza zapisa deaktivirana"
 msgid ""
 "Marks focused track as start marker for various playlist analysis commands"
 msgstr "Označava trenutno fokusiran zapis kao početak vremenske analize zapisa"
-
-msgid "No tracks were added, cannot perform track time analysis"
-msgstr "Zapisi nisu dodati, nemoguće izvršiti vremensku analizu zapisa"
 
 #. Translators: Presented when track time analysis cannot be used because start marker is not set.
 msgid ""
@@ -788,9 +793,6 @@ msgid ""
 "Announces total length of tracks between analysis start marker and the "
 "current track"
 msgstr "Izgovara vremensku analizu od početnog markera do trenutnog zapisa"
-
-msgid "You need to add tracks before invoking this command"
-msgstr "Morate dodati zapise pre korišćenja ove komande"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid ""
@@ -811,11 +813,6 @@ msgstr "Marker postavljen"
 #. Translators: Presented when attempting to place a place marker on an unsupported track.
 msgid "This track cannot be used as a place marker track"
 msgstr "Ovaj zapis se ne može označiti"
-
-#. Translators: Presented when attempting to move to a place marker track when not focused in playlist viewer.
-msgid "You cannot move to a place marker track outside of playlist viewer."
-msgstr ""
-"Ne možete se pomeriti na markiran zapis van prikaza liste za reprodukciju"
 
 #. Translators: Presented when no place marker is found.
 msgid "No place marker found"
@@ -1209,6 +1206,7 @@ msgstr ""
 msgid "Apply settings"
 msgstr "SPL podešavanja"
 
+#. #70 (18.07): in wxPython 4, name for the value keyword argument for text entry dialog constructor has changed.
 #. Translators: The label of a field to enter a new name for a broadcast profile.
 msgid "New name:"
 msgstr "Novo ime:"
@@ -2063,7 +2061,6 @@ msgstr ""
 "R: Preostalo vreme za zapis koji se reprodukuje.\n"
 "Šift+R: Napredak skeniranja biblioteke."
 
-#. Used ANSI version, as Wide char version always returns 0.
 #. Translators: Presented when Station Playlist Studio is not running.
 msgid "SPL Studio is not running."
 msgstr "SPL studio nije pokrenut"
@@ -2303,3 +2300,17 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist Studio.\n"
 "Takođe, dodaje globalne komande za studio bilo gde."
+
+#~ msgid ""
+#~ "Not in playlist viewer, cannot perform track time analysis or gather "
+#~ "playlist snapshot statistics."
+#~ msgstr ""
+#~ "Niste u pregledu liste za reprodukciju, nemoguće koristiti analizu "
+#~ "vremena zapisa ili druge statističke analize liste za reprodukciju."
+
+#~ msgid "No tracks were added, cannot perform track time analysis"
+#~ msgstr "Zapisi nisu dodati, nemoguće izvršiti vremensku analizu zapisa"
+
+#~ msgid "You cannot move to a place marker track outside of playlist viewer."
+#~ msgstr ""
+#~ "Ne možete se pomeriti na markiran zapis van prikaza liste za reprodukciju"

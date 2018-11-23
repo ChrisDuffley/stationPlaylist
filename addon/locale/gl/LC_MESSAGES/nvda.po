@@ -587,13 +587,37 @@ msgstr ""
 "Abre un diálogo para habilitar ou deshabilitar rápidamente os metadatos do "
 "streaming."
 
-#. Translators: Presented when track time analysis and/or playlist snapshot gathering cannot be performed because user is not focused on playlist viewer.
+#. Translators: an error message presented when performing some playlist commands while focused on places other than Playlist Viewer.
+#, fuzzy
+msgid "Please return to playlist viewer before invoking this command."
+msgstr "Necesitas engadir pistas antes de invocar esta orde"
+
+#. Translators: an error message presented when performing some playlist commands while no playlist has been loaded.
+msgid "No playlist has been loaded."
+msgstr "Non se cargou a lista de reprodución."
+
+#. Translators: an error message presented when performing some playlist commands while no tracks are selected/focused.
+#, fuzzy
 msgid ""
-"Not in playlist viewer, cannot perform track time analysis or gather "
-"playlist snapshot statistics."
+"Please select a track from playlist viewer before invoking this command."
+msgstr "Necesitas engadir pistas antes de invocar esta orde"
+
+#. Translators: Presented when playlist analyzer cannot be performed because user is not focused on playlist viewer.
+#, fuzzy
+msgid "Not in playlist viewer, cannot perform playlist analysis."
 msgstr ""
-"Non estás no visualizador de lista de reprodución, non podes realizar a "
-"análise de tempo ou recopilar estadísticas de instantáneas de listaxes de "
+"Non se cargaron listaxes de reprodución, non se puido realizar o aanálise "
+"das listaxes de reprodución."
+
+#. Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
+#, fuzzy
+msgid "No playlist to analyze."
+msgstr "Non se cargou a lista de reprodución."
+
+#. Translators: Presented when playlist analysis cannot be activated.
+msgid "No tracks are selected, cannot perform playlist analysis."
+msgstr ""
+"Non se selecionaron pistas, non se puido realizar a análise das listaxes de "
 "reprodución."
 
 #. Translators: one of the results for playlist snapshots feature for announcing total number of items in a playlist.
@@ -698,10 +722,6 @@ msgstr ""
 "A orde SPL Assistant layer. Consulta a guía do complemento para obter máis "
 "información sobre as ordes dispoñibles."
 
-#. Translators: reported when no playlist has been loaded when trying to obtain remaining time for a playlist.
-msgid "No playlist has been loaded."
-msgstr "Non se cargou a lista de reprodución."
-
 #. Translators: presented when playlist modification message isn't shown.
 msgid "Playlist modification not available"
 msgstr "Modificación de lista de reprodución non dispoñible"
@@ -756,18 +776,6 @@ msgstr "Monitorizando escaneo de biblioteca"
 msgid "Scanning is in progress"
 msgstr "O escaneado está en progreso"
 
-#. Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
-msgid "No playlist has been loaded, cannot perform playlist analysis."
-msgstr ""
-"Non se cargaron listaxes de reprodución, non se puido realizar o aanálise "
-"das listaxes de reprodución."
-
-#. Translators: Presented when playlist analysis cannot be activated.
-msgid "No tracks are selected, cannot perform playlist analysis."
-msgstr ""
-"Non se selecionaron pistas, non se puido realizar a análise das listaxes de "
-"reprodución."
-
 #. Translators: Presented when track time analysis is turned on.
 msgid "Playlist analysis activated"
 msgstr "Activada a análise de listaxe de reprodución"
@@ -782,10 +790,6 @@ msgid ""
 msgstr ""
 "Marca a pista enfocada como a marca de comezo para varias ordes de análise "
 "de listaxes de reprodución"
-
-msgid "No tracks were added, cannot perform track time analysis"
-msgstr ""
-"Non se engadiron pistas, non se puido realizar a análise do tempo da pista"
 
 #. Translators: Presented when track time analysis cannot be used because start marker is not set.
 msgid ""
@@ -807,9 +811,6 @@ msgstr ""
 "Anuncia a lonxitude total das pistas entre o marcador de comezo de análise e "
 "a pista actual"
 
-msgid "You need to add tracks before invoking this command"
-msgstr "Necesitas engadir pistas antes de invocar esta orde"
-
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid ""
 "Presents playlist snapshot information such as number of tracks and top "
@@ -829,12 +830,6 @@ msgstr "Marcador posto"
 #. Translators: Presented when attempting to place a place marker on an unsupported track.
 msgid "This track cannot be used as a place marker track"
 msgstr "Esta pista non se pode utilizar como un marcador de pista"
-
-#. Translators: Presented when attempting to move to a place marker track when not focused in playlist viewer.
-msgid "You cannot move to a place marker track outside of playlist viewer."
-msgstr ""
-"Non podes moverte a un marcador  de pista fora do visualizador de lista de "
-"reprodución."
 
 #. Translators: Presented when no place marker is found.
 msgid "No place marker found"
@@ -1246,6 +1241,7 @@ msgstr ""
 msgid "Apply settings"
 msgstr "Aplicar configuración"
 
+#. #70 (18.07): in wxPython 4, name for the value keyword argument for text entry dialog constructor has changed.
 #. Translators: The label of a field to enter a new name for a broadcast profile.
 msgid "New name:"
 msgstr "Nome novo:"
@@ -2092,7 +2088,6 @@ msgstr ""
 "R: Tempo restante para a pista en reprodución.\n"
 "Shift+R: Progreso do escaneado da biblioteca."
 
-#. Used ANSI version, as Wide char version always returns 0.
 #. Translators: Presented when Station Playlist Studio is not running.
 msgid "SPL Studio is not running."
 msgstr "Non se está a executar o SPL Studio."
@@ -2340,3 +2335,20 @@ msgid ""
 msgstr ""
 "Mellora o soporte para Station Playlist Studio.\n"
 "Ademáis, engade ordes globais para o estudio dende calquera parte."
+
+#~ msgid ""
+#~ "Not in playlist viewer, cannot perform track time analysis or gather "
+#~ "playlist snapshot statistics."
+#~ msgstr ""
+#~ "Non estás no visualizador de lista de reprodución, non podes realizar a "
+#~ "análise de tempo ou recopilar estadísticas de instantáneas de listaxes de "
+#~ "reprodución."
+
+#~ msgid "No tracks were added, cannot perform track time analysis"
+#~ msgstr ""
+#~ "Non se engadiron pistas, non se puido realizar a análise do tempo da pista"
+
+#~ msgid "You cannot move to a place marker track outside of playlist viewer."
+#~ msgstr ""
+#~ "Non podes moverte a un marcador  de pista fora do visualizador de lista "
+#~ "de reprodución."

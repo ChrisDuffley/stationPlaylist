@@ -569,11 +569,35 @@ msgstr ""
 msgid "Opens a dialog to quickly enable or disable metadata streaming."
 msgstr "פתיחת תיבת דו-שיח המאפשרת שינוי מידי של מצב זרימת המטאדאטה."
 
-#. Translators: Presented when track time analysis and/or playlist snapshot gathering cannot be performed because user is not focused on playlist viewer.
+#. Translators: an error message presented when performing some playlist commands while focused on places other than Playlist Viewer.
+#, fuzzy
+msgid "Please return to playlist viewer before invoking this command."
+msgstr "עליך להוסיף רצועות לפני הפעלת פקודה זו"
+
+#. Translators: an error message presented when performing some playlist commands while no playlist has been loaded.
+msgid "No playlist has been loaded."
+msgstr "רשימת השמעה לא הוטענה."
+
+#. Translators: an error message presented when performing some playlist commands while no tracks are selected/focused.
+#, fuzzy
 msgid ""
-"Not in playlist viewer, cannot perform track time analysis or gather "
-"playlist snapshot statistics."
-msgstr "מציג רשימת הנגינה אינו בפוקוס. לא ניתן לבצע ניתוח אורך זמן הנגינה."
+"Please select a track from playlist viewer before invoking this command."
+msgstr "עליך להוסיף רצועות לפני הפעלת פקודה זו"
+
+#. Translators: Presented when playlist analyzer cannot be performed because user is not focused on playlist viewer.
+#, fuzzy
+msgid "Not in playlist viewer, cannot perform playlist analysis."
+msgstr "לא נוספה שום רצועה. לא ניתן לבצע ניתוח אורך הנגינה."
+
+#. Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
+#, fuzzy
+msgid "No playlist to analyze."
+msgstr "רשימת השמעה לא הוטענה."
+
+#. Translators: Presented when playlist analysis cannot be activated.
+#, fuzzy
+msgid "No tracks are selected, cannot perform playlist analysis."
+msgstr "לא נוספה שום רצועה. לא ניתן לבצע ניתוח אורך הנגינה."
 
 #. Translators: one of the results for playlist snapshots feature for announcing total number of items in a playlist.
 #, python-brace-format
@@ -675,10 +699,6 @@ msgid ""
 "on available commands."
 msgstr "חלונית הפקודות של SPL  Studio. עיין במדריך התוסף לפריט הפקודות."
 
-#. Translators: reported when no playlist has been loaded when trying to obtain remaining time for a playlist.
-msgid "No playlist has been loaded."
-msgstr "רשימת השמעה לא הוטענה."
-
 #. Translators: presented when playlist modification message isn't shown.
 msgid "Playlist modification not available"
 msgstr "לא ניתן לשנות את רשימת הנגינה"
@@ -731,16 +751,6 @@ msgstr "שליטה על סריקת הספריות"
 msgid "Scanning is in progress"
 msgstr "הסריקה מתבצעת"
 
-#. Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
-#, fuzzy
-msgid "No playlist has been loaded, cannot perform playlist analysis."
-msgstr "לא נוספה שום רצועה. לא ניתן לבצע ניתוח אורך הנגינה."
-
-#. Translators: Presented when playlist analysis cannot be activated.
-#, fuzzy
-msgid "No tracks are selected, cannot perform playlist analysis."
-msgstr "לא נוספה שום רצועה. לא ניתן לבצע ניתוח אורך הנגינה."
-
 #. Translators: Presented when track time analysis is turned on.
 #, fuzzy
 msgid "Playlist analysis activated"
@@ -757,9 +767,6 @@ msgid ""
 "Marks focused track as start marker for various playlist analysis commands"
 msgstr "מסמן את הרצועה שבפוקוס כנקודת ההתחלה של ניתוח אורך הנגינה"
 
-msgid "No tracks were added, cannot perform track time analysis"
-msgstr "לא נוספה שום רצועה. לא ניתן לבצע ניתוח אורך הנגינה"
-
 #. Translators: Presented when track time analysis cannot be used because start marker is not set.
 msgid ""
 "No track selected as start of analysis marker, cannot perform time analysis"
@@ -775,9 +782,6 @@ msgid ""
 "Announces total length of tracks between analysis start marker and the "
 "current track"
 msgstr "הקראת האורך הכולל של הרצועות מנקודת תחילת הניתוח ועד לרצועה הנוכחית"
-
-msgid "You need to add tracks before invoking this command"
-msgstr "עליך להוסיף רצועות לפני הפעלת פקודה זו"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid ""
@@ -796,10 +800,6 @@ msgstr "סימניית הניתוח נקבעה"
 #. Translators: Presented when attempting to place a place marker on an unsupported track.
 msgid "This track cannot be used as a place marker track"
 msgstr "לא ניתן לקבוע רצועה זו כנקודת התחלת הניתוח"
-
-#. Translators: Presented when attempting to move to a place marker track when not focused in playlist viewer.
-msgid "You cannot move to a place marker track outside of playlist viewer."
-msgstr "לא ניתן לעבור לנקודת תחילת הניתוח כשחלונית הצגת הרצועות אינה בפוקוס."
 
 #. Translators: Presented when no place marker is found.
 msgid "No place marker found"
@@ -1172,6 +1172,7 @@ msgstr ""
 msgid "Apply settings"
 msgstr "הגדרות SPL"
 
+#. #70 (18.07): in wxPython 4, name for the value keyword argument for text entry dialog constructor has changed.
 #. Translators: The label of a field to enter a new name for a broadcast profile.
 msgid "New name:"
 msgstr "שם חדש:"
@@ -2001,7 +2002,6 @@ msgstr ""
 "R : הקראת הזמן הנותר להשמעה\n"
 "Shift+R : הקראת התקדמות סריקת הספריות."
 
-#. Used ANSI version, as Wide char version always returns 0.
 #. Translators: Presented when Station Playlist Studio is not running.
 msgid "SPL Studio is not running."
 msgstr "SPL Studio  אינה בריצה."
@@ -2230,3 +2230,15 @@ msgid ""
 msgstr ""
 "מנגיש את תוכנת StationPlaylist  Studio  .  \n"
 "בנוסף, מאפשר ביצוע פקודות מכל מקום אחר במחשב."
+
+#~ msgid ""
+#~ "Not in playlist viewer, cannot perform track time analysis or gather "
+#~ "playlist snapshot statistics."
+#~ msgstr "מציג רשימת הנגינה אינו בפוקוס. לא ניתן לבצע ניתוח אורך זמן הנגינה."
+
+#~ msgid "No tracks were added, cannot perform track time analysis"
+#~ msgstr "לא נוספה שום רצועה. לא ניתן לבצע ניתוח אורך הנגינה"
+
+#~ msgid "You cannot move to a place marker track outside of playlist viewer."
+#~ msgstr ""
+#~ "לא ניתן לעבור לנקודת תחילת הניתוח כשחלונית הצגת הרצועות אינה בפוקוס."
