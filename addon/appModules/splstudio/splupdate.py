@@ -372,6 +372,20 @@ class SPLUpdateDownloader(updateCheck.UpdateDownloader):
 					_("Error"),
 					wx.OK | wx.ICON_ERROR)
 				return
+			# 18.12/18.09.6-LTS: check compatibility with a given minimum NVDA version if present.
+			import versionInfo
+			minimumNVDAVersion = bundle.manifest.get("minimumNVDAVersion", None)
+			if minimumNVDAVersion is None:
+				minimumNVDAVersion = [versionInfo.version_year, versionInfo.version_major]
+			else:
+				minimumNVDAVersion = [int(data) for data in minimumNVDAVersion.split(".")]
+			minimumYear, minimumMajor = minimumNVDAVersion
+			if (versionInfo.version_year, versionInfo.version_major) < (minimumYear, minimumMajor):
+				# Translators: The message displayed when trying to update an add-on that is not going to be compatible with the current version of NVDA.
+				gui.messageBox(_("Studio add-on {newVersion} is not compatible with this version of NVDA. Please use NVDA {year}.{major} or later.").format(newVersion = bundle.manifest['version'], year = minimumYear, major = minimumMajor),
+					_("Error"),
+					wx.OK | wx.ICON_ERROR)
+				return
 			bundleName=bundle.manifest['name']
 			for addon in addonHandler.getAvailableAddons():
 				if not addon.isPendingRemove and bundleName==addon.manifest['name']:
