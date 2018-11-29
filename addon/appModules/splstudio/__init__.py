@@ -41,6 +41,7 @@ from . import splactions
 import addonHandler
 addonHandler.initTranslation()
 from .spldebugging import debugOutput
+from .skipTranslation import translate
 
 # Python 3 preparation (a compatibility layer until Six module is included).
 rangeGen = range if py3 else xrange
@@ -1182,7 +1183,7 @@ class AppModule(appModuleHandler.AppModule):
 	def alarmDialog(self, level):
 		if splconfui._configDialogOpened:
 			# Translators: Presented when the add-on config dialog is opened.
-			wx.CallAfter(gui.messageBox, _("The add-on settings dialog is opened. Please close the settings dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
+			wx.CallAfter(gui.messageBox, _("The add-on settings dialog is opened. Please close the settings dialog first."), translate("Error"), wx.OK|wx.ICON_ERROR)
 			return
 		try:
 			d = splconfui.AlarmsCenter(gui.mainFrame, level)
@@ -1585,7 +1586,7 @@ class AppModule(appModuleHandler.AppModule):
 			return
 		if splconfui._configDialogOpened or splconfui._metadataDialogOpened:
 			# Translators: Presented when the add-on config dialog is opened.
-			wx.CallAfter(gui.messageBox, _("The add-on settings dialog or the metadata streaming dialog is opened. Please close the opened dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
+			wx.CallAfter(gui.messageBox, _("The add-on settings dialog or the metadata streaming dialog is opened. Please close the opened dialog first."), translate("Error"), wx.OK|wx.ICON_ERROR)
 			return
 		try:
 			# #44 (18.02): do not rely on Studio API function object as its workings (including arguments) may change.

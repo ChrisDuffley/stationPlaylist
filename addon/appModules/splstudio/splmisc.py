@@ -19,6 +19,7 @@ from winUser import user32
 from . import splbase
 from .spldebugging import debugOutput
 from . import splactions
+from .skipTranslation import translate
 
 # Python 3 preparation (a compatibility layer until Six module is included).
 rangeGen = range if py3 else xrange
@@ -36,10 +37,10 @@ def _finderError():
 	global _findDialogOpened
 	if _findDialogOpened:
 		# Translators: Text of the dialog when another find dialog is open.
-		gui.messageBox(_("Another find dialog is open."),_("Error"),style=wx.OK | wx.ICON_ERROR)
+		gui.messageBox(_("Another find dialog is open."),translate("Error"),style=wx.OK | wx.ICON_ERROR)
 	else:
 		# Translators: Text of the dialog when a generic error has occured.
-		gui.messageBox(_("An unexpected error has occured when trying to open find dialog."),_("Error"),style=wx.OK | wx.ICON_ERROR)
+		gui.messageBox(_("An unexpected error has occured when trying to open find dialog."),translate("Error"),style=wx.OK | wx.ICON_ERROR)
 
 class SPLFindDialog(wx.Dialog):
 
@@ -201,8 +202,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 			gui.messageBox(
 				# Translators: Message to report wrong value for duration fields.
 				_("Minimum duration is greater than the maximum duration."),
-				# Translators: The title of the message box
-				_("Error"), wx.OK|wx.ICON_ERROR,self)
+				translate("Error"), wx.OK|wx.ICON_ERROR,self)
 			self.minMinEntry.SetFocus()
 			return
 		self.Destroy()
@@ -620,7 +620,7 @@ _plTranscriptsDialogOpened = False
 
 def plTranscriptsDialogError():
 	# Translators: Text of the dialog when another playlist transcripts dialog is open.
-	gui.messageBox(_("Another playlist transcripts dialog is open."),_("Error"),style=wx.OK | wx.ICON_ERROR)
+	gui.messageBox(_("Another playlist transcripts dialog is open."),translate("Error"),style=wx.OK | wx.ICON_ERROR)
 
 class SPLPlaylistTranscriptsDialog(wx.Dialog):
 

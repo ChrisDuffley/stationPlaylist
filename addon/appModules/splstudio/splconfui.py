@@ -32,6 +32,7 @@ import addonHandler
 addonHandler.initTranslation()
 from . import splconfig
 from . import splactions
+from .skipTranslation import translate
 
 # Python 3 preparation (a compatibility layer until Six module is included).
 rangeGen = range if py3 else xrange
@@ -211,7 +212,7 @@ class BroadcastProfilesPanel(gui.SettingsPanel):
 			# Translators: An error displayed when renaming a configuration profile
 			# and a profile with the new name already exists.
 			gui.messageBox(_("That profile already exists. Please choose a different name."),
-				_("Error"), wx.OK | wx.ICON_ERROR, self)
+				translate("Error"), wx.OK | wx.ICON_ERROR, self)
 			return
 		if self.switchProfile == oldName:
 			self.switchProfile = newName
@@ -364,7 +365,7 @@ class NewProfileDialog(wx.Dialog):
 		if name in parent.profileNames:
 			# Translators: An error displayed when the user attempts to create a profile which already exists.
 			gui.messageBox(_("That profile already exists. Please choose a different name."),
-				_("Error"), wx.OK | wx.ICON_ERROR, self)
+				translate("Error"), wx.OK | wx.ICON_ERROR, self)
 			return
 		namePath = name + ".ini"
 		if not os.path.exists(splconfig.SPLProfiles):
@@ -492,7 +493,7 @@ class TriggersDialog(wx.Dialog):
 				if splconfig.duplicateExists(parent._profileTriggersConfig, self.profile, bit, hour, min, duration):
 					# Translators: Presented if another profile occupies a time slot set by the user.
 					gui.messageBox(_("A profile trigger already exists for the entered time slot. Please choose a different date or time."),
-						_("Error"), wx.OK | wx.ICON_ERROR, self)
+						translate("Error"), wx.OK | wx.ICON_ERROR, self)
 					return
 				# Change display name if there is no profile of this name registered.
 				# This helps in preventing unnecessary calls to profile flags retriever, a huge time and memory savings.
@@ -505,7 +506,7 @@ class TriggersDialog(wx.Dialog):
 			else:
 				# Er, did you specify a date?
 				gui.messageBox(_("The time-based profile checkbox is checked but no switch dates are given. Please either specify switch date(s) or uncheck time-based profile checkbox."),
-					_("Error"), wx.OK | wx.ICON_ERROR, self)
+					translate("Error"), wx.OK | wx.ICON_ERROR, self)
 				return
 		elif not self.timeSwitchCheckbox.Value and self.profile in self.Parent._profileTriggersConfig:
 			del parent._profileTriggersConfig[self.profile]
@@ -650,7 +651,7 @@ _alarmDialogOpened = False
 # A common alarm error dialog.
 def _alarmError():
 	# Translators: Text of the dialog when another alarm dialog is open.
-	gui.messageBox(_("Another alarm dialog is open."),_("Error"),style=wx.OK | wx.ICON_ERROR)
+	gui.messageBox(_("Another alarm dialog is open."),translate("Error"),style=wx.OK | wx.ICON_ERROR)
 
 class AlarmsCenter(wx.Dialog):
 	"""A dialog providing common alarm settings.
@@ -1691,5 +1692,5 @@ def onConfigDialog(evt):
 	# 5.2: Guard against alarm dialogs.
 	if _alarmDialogOpened or _metadataDialogOpened:
 		# Translators: Presented when an alarm dialog is opened.
-		wx.CallAfter(gui.messageBox, _("Another add-on settings dialog is open. Please close the previously opened dialog first."), _("Error"), wx.OK|wx.ICON_ERROR)
+		wx.CallAfter(gui.messageBox, _("Another add-on settings dialog is open. Please close the previously opened dialog first."), translate("Error"), wx.OK|wx.ICON_ERROR)
 	else: gui.mainFrame._popupSettingsDialog(SPLConfigDialog)

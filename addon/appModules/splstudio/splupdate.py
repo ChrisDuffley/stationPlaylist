@@ -54,6 +54,7 @@ import ssl
 import gui
 import wx
 from . import splactions
+from .skipTranslation import translate
 
 # 18.09: choose default channel/update URL combination based on which channel is currently installed.
 SPLAddonManifest = addonHandler.Addon(os.path.join(os.path.dirname(__file__), "..", "..")).manifest
@@ -353,7 +354,7 @@ class SPLUpdateDownloader(updateCheck.UpdateDownloader):
 		gui.messageBox(
 			# Translators: A message indicating that an error occurred while downloading an update to NVDA.
 			_("Error downloading add-on update."),
-			_("Error"),
+			translate("Error"),
 			wx.OK | wx.ICON_ERROR)
 
 	def _downloadSuccess(self):
@@ -369,7 +370,7 @@ class SPLUpdateDownloader(updateCheck.UpdateDownloader):
 				# Translators: The message displayed when an error occurs when opening an add-on package for adding. 
 				gui.messageBox(_("Failed to open add-on package file at %s - missing file or invalid file format")%self.destPath,
 					# Translators: The title of a dialog presented when an error occurs.
-					_("Error"),
+					translate("Error"),
 					wx.OK | wx.ICON_ERROR)
 				return
 			# 18.12/18.09.6-LTS: check compatibility with a given minimum NVDA version if present.
@@ -383,7 +384,7 @@ class SPLUpdateDownloader(updateCheck.UpdateDownloader):
 			if (versionInfo.version_year, versionInfo.version_major) < (minimumYear, minimumMajor):
 				# Translators: The message displayed when trying to update an add-on that is not going to be compatible with the current version of NVDA.
 				gui.messageBox(_("Studio add-on {newVersion} is not compatible with this version of NVDA. Please use NVDA {year}.{major} or later.").format(newVersion = bundle.manifest['version'], year = minimumYear, major = minimumMajor),
-					_("Error"),
+					translate("Error"),
 					wx.OK | wx.ICON_ERROR)
 				return
 			bundleName=bundle.manifest['name']
@@ -405,8 +406,7 @@ class SPLUpdateDownloader(updateCheck.UpdateDownloader):
 				del progressDialog
 				# Translators: The message displayed when an error occurs when installing an add-on package.
 				gui.messageBox(_("Failed to update add-on  from %s")%self.destPath,
-					# Translators: The title of a dialog presented when an error occurs.
-					_("Error"),
+					translate("Error"),
 					wx.OK | wx.ICON_ERROR)
 				return
 			else:
