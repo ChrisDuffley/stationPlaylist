@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-09-22 12:05+0100\n"
-"Last-Translator: Iván Novegil <ivan.novegil.cancelas@gmail.com>\n"
+"PO-Revision-Date: 2018-11-29 08:00-0800\n"
+"Last-Translator: José Manuel Delicado <jmdaweb@hotmail.com>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.6.11\n"
+"X-Generator: Poedit 1.8.9\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Presented when attempting to install Studio add-on on unsupported Windows releases.
@@ -29,7 +29,7 @@ msgstr ""
 
 #. Translators: Title of a dialog shown when installing Studio add-on on old Windows releases.
 msgid "Old Windows version"
-msgstr "versión antigua de Windows"
+msgstr "Versión antigua de Windows"
 
 #, python-brace-format
 msgid "{header}: {content}"
@@ -443,7 +443,7 @@ msgstr "Error"
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Sets end of track alarm (default is 5 seconds)."
 msgstr ""
-"ajusta el fin de la alarma de pista (la predeterminada es de 5 segundos)."
+"Ajusta el fin de la alarma de pista (la predeterminada es de 5 segundos)."
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Sets song intro alarm (default is 5 seconds)."
@@ -463,7 +463,7 @@ msgstr "Abre el diálogo de bienvenida del complemento SPL Studio."
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Toggles between various braille timer settings."
-msgstr "Conmuta entre varias opciones de temporizadores braille"
+msgstr "Conmuta entre varias opciones de temporizadores braille."
 
 #. Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
 msgid "Search string not found."
@@ -538,7 +538,7 @@ msgstr "Introduciendo explorador de cart"
 
 #. Translators: Presented when cart explorer is off.
 msgid "Exiting cart explorer"
-msgstr "Saliendo de explorador de cart "
+msgstr "Saliendo de explorador de cart"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Toggles cart explorer to learn cart assignments."
@@ -597,31 +597,31 @@ msgstr ""
 "streaming."
 
 #. Translators: an error message presented when performing some playlist commands while focused on places other than Playlist Viewer.
-#, fuzzy
 msgid "Please return to playlist viewer before invoking this command."
-msgstr "Necesitas añadir pistas antes de invocar esta orden"
+msgstr ""
+"Por favor, vuelve al visor de lista de reproducción antes de invocar esta "
+"orden."
 
 #. Translators: an error message presented when performing some playlist commands while no playlist has been loaded.
 msgid "No playlist has been loaded."
 msgstr "No se ha cargado la lista de reproducción."
 
 #. Translators: an error message presented when performing some playlist commands while no tracks are selected/focused.
-#, fuzzy
 msgid ""
 "Please select a track from playlist viewer before invoking this command."
-msgstr "Necesitas añadir pistas antes de invocar esta orden"
+msgstr ""
+"Por favor, selecciona una pista en el visor de lista de reproducción antes "
+"de invocar esta orden."
 
 #. Translators: Presented when playlist analyzer cannot be performed because user is not focused on playlist viewer.
-#, fuzzy
 msgid "Not in playlist viewer, cannot perform playlist analysis."
 msgstr ""
-"No se han cargado listas de reproducción, no se pudo llevar a cabo el "
+"No estás en el visor de lista de reproducción, no se puede llevar a cabo el "
 "análisis de las listas de reproducción."
 
 #. Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
-#, fuzzy
 msgid "No playlist to analyze."
-msgstr "No se ha cargado la lista de reproducción."
+msgstr "No hay lista de reproducción para analizar."
 
 #. Translators: Presented when playlist analysis cannot be activated.
 msgid "No tracks are selected, cannot perform playlist analysis."
@@ -741,7 +741,7 @@ msgstr "No hay siguiente pista programada o no hay pista en reproducción"
 
 #. Translators: Presented when next track information is unavailable.
 msgid "Cannot find next track information"
-msgstr "No se pudo encontrar información de la siguiente pista "
+msgstr "No se pudo encontrar información de la siguiente pista"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Announces title of the next track if any"
@@ -755,11 +755,11 @@ msgstr ""
 
 #. Translators: Presented when current track information is unavailable.
 msgid "Cannot find current track information"
-msgstr "No se pudo encontrar información de la pista "
+msgstr "No se pudo encontrar información de la pista"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Announces title of the currently playing track"
-msgstr "&Anuncia el título de la pista actual."
+msgstr "&Anuncia el título de la pista actual"
 
 #. Translators: Presented when there is no weather or temperature information.
 msgid "Weather and temperature not configured"
@@ -771,7 +771,7 @@ msgstr "Información del tiempo no encontrada"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Announces temperature and weather information"
-msgstr "Anuncia la temperatura y la información del tiempo "
+msgstr "Anuncia la temperatura y la información del tiempo"
 
 #. Translators: Presented when there is no listener count information.
 msgid "Listener count not found"
@@ -834,7 +834,7 @@ msgstr "No se encontraron pistas, no se pudo ajustar el marcador"
 
 #. Translators: Presented when place marker track is set.
 msgid "place marker set"
-msgstr "Marcador ajustado"
+msgstr "marcador ajustado"
 
 #. Translators: Presented when attempting to place a place marker on an unsupported track.
 msgid "This track cannot be used as a place marker track"
@@ -902,7 +902,7 @@ msgstr "Perfil normal"
 msgid "Add-on settings dialog is open, cannot switch profiles"
 msgstr ""
 "El diálogo de opciones del complemento está abierto. no se puede cambiar de "
-"perfil."
+"perfil"
 
 #. Translators: Presented when switch to instant switch profile was successful.
 #, python-brace-format
@@ -942,7 +942,7 @@ msgstr ""
 
 #. Translators: The title of a dialog shown when some time-based profiles doesn't exist.
 msgid "Time-based profiles missing"
-msgstr "Faltan perfiles basados en tiempo "
+msgstr "Faltan perfiles basados en tiempo"
 
 #. Translators: A flag indicating the currently active broadcast profile.
 msgid "active"
@@ -951,7 +951,7 @@ msgstr "activo"
 #. Translators: A flag indicating the broadcast profile is an instant switch profile.
 #. Instant switch flag is set on another profile, so remove the flag first.
 msgid "instant switch"
-msgstr "Cambio instantáneo"
+msgstr "cambio instantáneo"
 
 #. Translators: A flag indicating the time-based triggers profile.
 #. Calling set profile flags with discard argument is always safe here.
@@ -1082,7 +1082,7 @@ msgid "Braille timer off"
 msgstr "Temporizador braille apagado"
 
 msgid "Off"
-msgstr "desactivado"
+msgstr "Desactivado"
 
 #. Translators: A setting in braille timer options.
 msgid "Braille track endings"
@@ -1215,7 +1215,7 @@ msgstr "&Perfil emisión:"
 
 #. Borrowed logic from NVDA Core's speech panel (although there is no label for this read-only text).
 msgid "Normal profile is in use."
-msgstr "Se está usando el perfil normal"
+msgstr "Se está usando el perfil normal."
 
 #. Translators: The label of a button to create a new broadcast profile.
 msgid "&New"
@@ -1434,7 +1434,7 @@ msgstr "&Pitar para diferentes categorías de pistas"
 
 #. Translators: One of the track comment notification settings.
 msgid "Message"
-msgstr "mensaje"
+msgstr "Mensaje"
 
 #. Translators: One of the track comment notification settings.
 msgid "Beep"
@@ -1509,7 +1509,7 @@ msgstr "pitido y mensaje"
 
 #. Translators: The label for a setting in SPL add-on dialog to control alarm announcement type.
 msgid "&Alarm notification:"
-msgstr "Notificación de &Alarma"
+msgstr "Notificación de &Alarma:"
 
 #. Translators: Help text for playlist snapshots dialog.
 msgid ""
@@ -1530,11 +1530,11 @@ msgstr "Duración media de la pista"
 
 #. Translators: the label for a setting in SPL add-on settings to include track artist count in playlist snapshots window.
 msgid "Artist count"
-msgstr "cuenta de artistas"
+msgstr "Cuenta de artistas"
 
 #. Translators: the label for a setting in SPL add-on settings to set top artist count limit in playlist snapshots window.
 msgid "Top artist count (0 displays all artists)"
-msgstr "cuenta de artistas principales (0 muestra todos los artistas)"
+msgstr "Cuenta de artistas principales (0 muestra todos los artistas)"
 
 #. Translators: the label for a setting in SPL add-on settings to include track category count in playlist snapshots window.
 msgid "Category count"
@@ -1593,7 +1593,7 @@ msgid "&Metadata streaming notification and connection"
 msgstr "Notificación y conexión de &Metadatos de streaming"
 
 msgid "&Select the URL for metadata streaming upon request:"
-msgstr "&Seleccionar la URL para metadatos de streaming bajo demanda."
+msgstr "&Seleccionar la URL para metadatos de streaming bajo demanda:"
 
 #. Translators: Title of a dialog to configure column announcements (order and what columns should be announced).
 msgid "Manage column announcements"
@@ -1608,16 +1608,16 @@ msgid ""
 "&Select columns to be announced\n"
 "(artist and title are announced by default):"
 msgstr ""
-"&Selecciona las columnas a ser anunciadas (artista y título se anuncian "
-"predeterminadamente"
+"&Selecciona las columnas a ser anunciadas\n"
+"(artista y título se anuncian predeterminadamente):"
 
 #. Translators: Help text to select columns to be announced.
 msgid ""
 "&Select columns to be included in playlist transcripts\n"
 "(artist and title are always included):"
 msgstr ""
-"&Selecciona columnas a ser incluidas en la transcripción (artista y título "
-"se incluyen siempre"
+"&Selecciona columnas a ser incluidas en la transcripción\n"
+"(artista y título se incluyen siempre):"
 
 #. wxPython 4 contains RearrangeList to allow item orders to be changed automatically.
 #. Because wxPython 3 doesn't include this, work around by using a variant of list box and move up/down buttons.
@@ -1712,7 +1712,7 @@ msgstr "Anunciar recuento de &oyentes"
 
 #. Translators: the label for a setting in SPL add-on settings to announce currently playing cart.
 msgid "&Announce name of the currently playing cart"
-msgstr "&Anuncia el nombre del cart pista que se está reproduciendo."
+msgstr "&Anuncia el nombre del cart pista que se está reproduciendo"
 
 #. Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
 msgid "&Track name announcement:"
@@ -1888,7 +1888,7 @@ msgstr ""
 
 msgid "Enter or select the name or the artist of the track you wish to &search"
 msgstr ""
-"Introduce o selecciona el nombre o el artista de la pista que deseas buscar."
+"Introduce o selecciona el nombre o el artista de la pista que deseas buscar"
 
 msgid "Enter or select text to be &searched in a column"
 msgstr "Introducir o seleccionar el texto a &buscar en una columna"
@@ -2047,6 +2047,13 @@ msgid ""
 msgstr ""
 "Falló al abrir el fichero de paquete de complemento en %s - Falta fichero o "
 "es un formato inválido"
+
+#. Translators: The message displayed when trying to update an add-on that is not going to be compatible with the current version of NVDA.
+#, python-brace-format
+msgid ""
+"Studio add-on {newVersion} is not compatible with this version of NVDA. "
+"Please use NVDA {year}.{major} or later."
+msgstr ""
 
 #. Translators: The title of the dialog presented while an Addon is being updated.
 msgid "Updating Add-on"
@@ -2224,7 +2231,7 @@ msgid ""
 "Toggles whether NVDA will switch to Studio when connected to a streaming "
 "server."
 msgstr ""
-"conmuta si NVDA cambiará a Studio cuando esté conectado a un servidor de "
+"Conmuta si NVDA cambiará a Studio cuando esté conectado a un servidor de "
 "streaming."
 
 #. Translators: Presented when toggling the setting to play selected song when connected to a streaming server.
@@ -2311,7 +2318,7 @@ msgid ""
 "twice, reports the current date"
 msgstr ""
 "Si se pulsó una vez, anuncia la hora actual incluyendo segundos. Si se pulsó "
-"dos veces, anuncia la fecha actual."
+"dos veces, anuncia la fecha actual"
 
 #, python-brace-format
 msgid "Position: {pos}"
@@ -2351,21 +2358,3 @@ msgid ""
 msgstr ""
 "Mejora el soporte para Station Playlist Studio.\n"
 "Además, agrega comandos globales para el estudio desde cualquier parte."
-
-#~ msgid ""
-#~ "Not in playlist viewer, cannot perform track time analysis or gather "
-#~ "playlist snapshot statistics."
-#~ msgstr ""
-#~ "No estás en el visualizador de lista de reproducción, no puedes realizar "
-#~ "el análisis de tiempo o recopilar estadísticas de instantáneas de listas "
-#~ "de reproducción."
-
-#~ msgid "No tracks were added, cannot perform track time analysis"
-#~ msgstr ""
-#~ "No se añadieron pistas, no se pudo llevar a cabo el análisis del tiempo "
-#~ "de la pista"
-
-#~ msgid "You cannot move to a place marker track outside of playlist viewer."
-#~ msgstr ""
-#~ "No puedes moverte a un marcador de pista fuera del visualizador de lista "
-#~ "de reproducción."

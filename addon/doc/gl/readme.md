@@ -21,9 +21,9 @@ NOTAS IMPORTANTES:
   Studio 5.11 ou posterior.
 * Se usas o Windows 8 ou posterior, para unha mellor experiencia,
   deshabilita o modo atenuación de audio.
-* Starting from 2018, [changelogs for old add-on releases][5] will be found
-  on GitHub. This add-on readme will list changes from version 7.0 (2016
-  onwards).
+* A partires de 2018, os [rexistros de cambios para versións vellas][5]
+  atoparanse en GitHub. Este readme do complemento listará cambios dende a
+  versión 7.0 (2016 en diante).
 * Certas características do complemento (especialmente a actualización) non
   funcionarán baixo algunhas condicións, incluindo a execución do NVDA en
   modo seguro.

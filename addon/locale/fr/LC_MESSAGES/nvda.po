@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 18.08.2\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-09-04 20:30+0200\n"
+"PO-Revision-Date: 2018-11-29 08:01-0800\n"
 "Last-Translator: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language-Team: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.12\n"
+"X-Generator: Poedit 1.8.9\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Presented when attempting to install Studio add-on on unsupported Windows releases.
@@ -606,31 +606,31 @@ msgstr ""
 "streaming."
 
 #. Translators: an error message presented when performing some playlist commands while focused on places other than Playlist Viewer.
-#, fuzzy
 msgid "Please return to playlist viewer before invoking this command."
-msgstr "Vous devez ajouter des pistes avant d'invoquer cette commande"
+msgstr ""
+"Veuillez revenir a la visionneuse de playlist avant d'invoquer cette "
+"commande."
 
 #. Translators: an error message presented when performing some playlist commands while no playlist has been loaded.
 msgid "No playlist has been loaded."
 msgstr "Aucune playlist n'a été chargée."
 
 #. Translators: an error message presented when performing some playlist commands while no tracks are selected/focused.
-#, fuzzy
 msgid ""
 "Please select a track from playlist viewer before invoking this command."
-msgstr "Vous devez ajouter des pistes avant d'invoquer cette commande"
+msgstr ""
+"Veuillez sélectionner une piste dans la visionneuse de playlist avant "
+"d'invoquer cette commande."
 
 #. Translators: Presented when playlist analyzer cannot be performed because user is not focused on playlist viewer.
-#, fuzzy
 msgid "Not in playlist viewer, cannot perform playlist analysis."
 msgstr ""
-"Aucune playlist n'a été chargée, impossible d'effectuer l'analyse de "
+"Pas dans la visionneuse de playlist, impossible d'effectuer l'analyse de "
 "playlist."
 
 #. Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
-#, fuzzy
 msgid "No playlist to analyze."
-msgstr "Aucune playlist n'a été chargée."
+msgstr "Aucune playlist à analyser."
 
 #. Translators: Presented when playlist analysis cannot be activated.
 msgid "No tracks are selected, cannot perform playlist analysis."
@@ -2066,6 +2066,13 @@ msgstr ""
 "Échec à l'ouverture du fichier du module complémentaire à %s : fichier "
 "manquant ou format de fichier incorrect"
 
+#. Translators: The message displayed when trying to update an add-on that is not going to be compatible with the current version of NVDA.
+#, python-brace-format
+msgid ""
+"Studio add-on {newVersion} is not compatible with this version of NVDA. "
+"Please use NVDA {year}.{major} or later."
+msgstr ""
+
 #. Translators: The title of the dialog presented while an Addon is being updated.
 msgid "Updating Add-on"
 msgstr "Mise à jour du Module Complémentaire en cours"
@@ -2369,21 +2376,3 @@ msgid ""
 msgstr ""
 "Améliore la prise en charge de StationPlaylist Studio.\n"
 "En outre, ajoute des commandes globales pour studio où que vous soyez."
-
-#~ msgid ""
-#~ "Not in playlist viewer, cannot perform track time analysis or gather "
-#~ "playlist snapshot statistics."
-#~ msgstr ""
-#~ "Vous n'êtes pas dans la visionneuse de playlist, impossible d'effectuer "
-#~ "l'analyse de la durée de piste ou rassembler les statistiques sur les "
-#~ "instantanés de playlist."
-
-#~ msgid "No tracks were added, cannot perform track time analysis"
-#~ msgstr ""
-#~ "Aucune des pistes ont été ajoutées, Impossible d'effectuer l'analyse pour "
-#~ "la durée de piste"
-
-#~ msgid "You cannot move to a place marker track outside of playlist viewer."
-#~ msgstr ""
-#~ "Impossible de vous déplacer au marqueur de position de piste en dehors de "
-#~ "la visionneuse de playlist."
