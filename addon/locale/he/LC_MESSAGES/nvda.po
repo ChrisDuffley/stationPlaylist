@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 5.5\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2015-09-25 19:00+1000\n"
-"PO-Revision-Date: 2018-09-01 21:21-0700\n"
+"PO-Revision-Date: 2018-11-29 08:02-0800\n"
 "Last-Translator: shmuel_naaman@yahoo.com\n"
 "Language-Team: \n"
 "Language: he\n"
@@ -1948,6 +1948,13 @@ msgid ""
 "format"
 msgstr "נכשלה פתיחת קובץ חבילת התוספים ב-%s - קובץ חסר או תבנית קובץ לא חוקית"
 
+#. Translators: The message displayed when trying to update an add-on that is not going to be compatible with the current version of NVDA.
+#, python-brace-format
+msgid ""
+"Studio add-on {newVersion} is not compatible with this version of NVDA. "
+"Please use NVDA {year}.{major} or later."
+msgstr ""
+
 #. Translators: The title of the dialog presented while an Addon is being updated.
 msgid "Updating Add-on"
 msgstr "מעדכן את התוסף"
@@ -2230,15 +2237,3 @@ msgid ""
 msgstr ""
 "מנגיש את תוכנת StationPlaylist  Studio  .  \n"
 "בנוסף, מאפשר ביצוע פקודות מכל מקום אחר במחשב."
-
-#~ msgid ""
-#~ "Not in playlist viewer, cannot perform track time analysis or gather "
-#~ "playlist snapshot statistics."
-#~ msgstr "מציג רשימת הנגינה אינו בפוקוס. לא ניתן לבצע ניתוח אורך זמן הנגינה."
-
-#~ msgid "No tracks were added, cannot perform track time analysis"
-#~ msgstr "לא נוספה שום רצועה. לא ניתן לבצע ניתוח אורך הנגינה"
-
-#~ msgid "You cannot move to a place marker track outside of playlist viewer."
-#~ msgstr ""
-#~ "לא ניתן לעבור לנקודת תחילת הניתוח כשחלונית הצגת הרצועות אינה בפוקוס."

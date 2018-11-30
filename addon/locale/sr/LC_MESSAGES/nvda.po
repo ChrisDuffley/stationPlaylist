@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 4.2\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2015-02-06 19:00+1000\n"
-"PO-Revision-Date: 2018-09-01 21:20-0700\n"
+"PO-Revision-Date: 2018-11-29 08:47-0800\n"
 "Last-Translator: Nikola Jović <wwenikola123@gmail.com>\n"
 "Language-Team: \n"
 "Language: sr\n"
@@ -2005,6 +2005,13 @@ msgstr ""
 "Nije uspelo otvaranje datoteke sa dodatkom na lokaciji %s - datoteka "
 "nedostaje ili je neispravnog formata"
 
+#. Translators: The message displayed when trying to update an add-on that is not going to be compatible with the current version of NVDA.
+#, python-brace-format
+msgid ""
+"Studio add-on {newVersion} is not compatible with this version of NVDA. "
+"Please use NVDA {year}.{major} or later."
+msgstr ""
+
 #. Translators: The title of the dialog presented while an Addon is being updated.
 msgid "Updating Add-on"
 msgstr "Ažuriranje dodatka"
@@ -2300,17 +2307,3 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist Studio.\n"
 "Takođe, dodaje globalne komande za studio bilo gde."
-
-#~ msgid ""
-#~ "Not in playlist viewer, cannot perform track time analysis or gather "
-#~ "playlist snapshot statistics."
-#~ msgstr ""
-#~ "Niste u pregledu liste za reprodukciju, nemoguće koristiti analizu "
-#~ "vremena zapisa ili druge statističke analize liste za reprodukciju."
-
-#~ msgid "No tracks were added, cannot perform track time analysis"
-#~ msgstr "Zapisi nisu dodati, nemoguće izvršiti vremensku analizu zapisa"
-
-#~ msgid "You cannot move to a place marker track outside of playlist viewer."
-#~ msgstr ""
-#~ "Ne možete se pomeriti na markiran zapis van prikaza liste za reprodukciju"

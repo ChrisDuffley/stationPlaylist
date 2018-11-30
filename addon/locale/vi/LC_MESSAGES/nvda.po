@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 17.02\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2017-02-03 19:00+1000\n"
-"PO-Revision-Date: 2018-09-01 21:20-0700\n"
-"Last-Translator: Cuong Dang Manh <dangmanhcuong@gmail.com>\n"
+"PO-Revision-Date: 2018-11-29 08:48-0800\n"
+"Last-Translator: Dang Manh Cuong <dangmanhcuong@gmail.com>\n"
 "Language-Team: \n"
 "Language: vi\n"
 "MIME-Version: 1.0\n"
@@ -578,31 +578,28 @@ msgid "Opens a dialog to quickly enable or disable metadata streaming."
 msgstr "Mở hộp thoại để nhanh chóng bật hay tắt metadata streaming."
 
 #. Translators: an error message presented when performing some playlist commands while focused on places other than Playlist Viewer.
-#, fuzzy
 msgid "Please return to playlist viewer before invoking this command."
-msgstr "Bạn cần phải thêm track trước khi gọi lệnh này"
+msgstr "Vui lòng trở về bản xem danh sách trước khi gọi lệnh này."
 
 #. Translators: an error message presented when performing some playlist commands while no playlist has been loaded.
 msgid "No playlist has been loaded."
 msgstr "Không có danh sách phát nào được mở."
 
 #. Translators: an error message presented when performing some playlist commands while no tracks are selected/focused.
-#, fuzzy
 msgid ""
 "Please select a track from playlist viewer before invoking this command."
-msgstr "Bạn cần phải thêm track trước khi gọi lệnh này"
+msgstr ""
+"Vui lòng chọn track trong bản xem danh sách phát trước khi gọi lệnh này."
 
 #. Translators: Presented when playlist analyzer cannot be performed because user is not focused on playlist viewer.
-#, fuzzy
 msgid "Not in playlist viewer, cannot perform playlist analysis."
 msgstr ""
-"Không có danh sách phát nào được mở, không thể thực hiện phân tích danh sách "
+"Không ở trrong danh sách phát nào, không thể thực hiện phân tích danh sách "
 "phát."
 
 #. Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
-#, fuzzy
 msgid "No playlist to analyze."
-msgstr "Không có danh sách phát nào được mở."
+msgstr "Không có danh sách phát nào để phân tích."
 
 #. Translators: Presented when playlist analysis cannot be activated.
 msgid "No tracks are selected, cannot perform playlist analysis."
@@ -1994,6 +1991,13 @@ msgid ""
 "format"
 msgstr "Mở gói add-on tại %s thất bại - tập tin bị lỗi hoạt sai định dạng"
 
+#. Translators: The message displayed when trying to update an add-on that is not going to be compatible with the current version of NVDA.
+#, python-brace-format
+msgid ""
+"Studio add-on {newVersion} is not compatible with this version of NVDA. "
+"Please use NVDA {year}.{major} or later."
+msgstr ""
+
 #. Translators: The title of the dialog presented while an Addon is being updated.
 msgid "Updating Add-on"
 msgstr "Đang cập nhật add-on"
@@ -2293,20 +2297,3 @@ msgid ""
 msgstr ""
 "Cải thiện hỗ trợ cho StationPlaylist Studio.\n"
 "Ngoài ra là thêm các lệnh toàn cục cho studio từ bất cứ đâu."
-
-#~ msgid ""
-#~ "Not in playlist viewer, cannot perform track time analysis or gather "
-#~ "playlist snapshot statistics."
-#~ msgstr ""
-#~ "Không ở trong trình xem danh sách phát, không thể thực hiện phân tích "
-#~ "thời gian track hoặc tập hợp thống kê ảnh chụp danh sách phát."
-
-#~ msgid "No tracks were added, cannot perform track time analysis"
-#~ msgstr ""
-#~ "Không có track nào được thêm vào, không thể thực hiện phân tích thời gian "
-#~ "track"
-
-#~ msgid "You cannot move to a place marker track outside of playlist viewer."
-#~ msgstr ""
-#~ "Bạn không thể chuyển đến một track đánh dấu bên ngoài trình xem danh sách "
-#~ "phát."

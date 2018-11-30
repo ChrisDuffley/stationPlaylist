@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-09-01 21:21-0700\n"
+"PO-Revision-Date: 2018-11-29 08:00-0800\n"
 "Last-Translator: Adriani Botez <adriani.botez@gmail.com>\n"
 "Language-Team: Deutsch <bernd_dorer@yahoo.de>\n"
 "Language: de_CH\n"
@@ -2069,6 +2069,13 @@ msgstr ""
 "Die Datei mit den Erweiterungspaketen aus %s konnte nicht geöffnet werden - "
 "Datei fehlt oder das Format ist unbekannt"
 
+#. Translators: The message displayed when trying to update an add-on that is not going to be compatible with the current version of NVDA.
+#, python-brace-format
+msgid ""
+"Studio add-on {newVersion} is not compatible with this version of NVDA. "
+"Please use NVDA {year}.{major} or later."
+msgstr ""
+
 #. Translators: The title of the dialog presented while an Addon is being updated.
 msgid "Updating Add-on"
 msgstr "Aktualisieren der Erweiterung"
@@ -2375,20 +2382,3 @@ msgstr ""
 "Verbessert die Unterstützung für Station Playlist Studio.\n"
 "Des weiteren fügt es Tastenkombinationen für das Studio aus beliebigen "
 "Programmen hinzu."
-
-#~ msgid ""
-#~ "Not in playlist viewer, cannot perform track time analysis or gather "
-#~ "playlist snapshot statistics."
-#~ msgstr ""
-#~ "Die Zeitanalyse bzw. Aufnahme von Playlist-Schnappschüssen kann nicht "
-#~ "durchgeführt werden, weil Sie sich nicht in der Wiedergabeliste befinden."
-
-#~ msgid "No tracks were added, cannot perform track time analysis"
-#~ msgstr ""
-#~ "Die Zeitanalyse kann nicht durchgeführt werden, weil Sie noch keine Titel "
-#~ "hinzugefügt haben."
-
-#~ msgid "You cannot move to a place marker track outside of playlist viewer."
-#~ msgstr ""
-#~ "Ausserhalb des Playlist-Viewers können Sie nicht zu einem Lesezeichen "
-#~ "wechseln."

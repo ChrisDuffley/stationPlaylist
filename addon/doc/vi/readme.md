@@ -18,9 +18,9 @@ CÁC LƯU Ý QUAN TRỌNG:
   lên.
 * Nếu dùng Windows 8 trở lên, hãy tắt chế độ giảm âm thanh để có trải nghiệm
   tốt nhất.
-* Starting from 2018, [changelogs for old add-on releases][5] will be found
-  on GitHub. This add-on readme will list changes from version 7.0 (2016
-  onwards).
+* Từ 2018, [bản ghi những thay đổi cho các bản phát hành cũ của add-on][5]
+  sẽ được tìm thấy trên GitHub. Tập tin readme này sẽ liệt kê các thay đổi
+  từ phiên bản 6.0 (2016 trở lên).
 * Một số tính năng nhất định của add-on (đặc biệt là cập nhật add-on) sẽ
   không hoạt động trong vài điều kiện, bao gồm chạy NVDA trong chế độ bảo
   vệ.

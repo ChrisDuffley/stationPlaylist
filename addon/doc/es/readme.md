@@ -21,9 +21,9 @@ NOTAS IMPORTANTES:
   Studio 5.11 o posterior.
 * Si utilizas Windows 8 o posterior, para una mejor experiencia, deshabilita
   el modo atenuación de audio.
-* Starting from 2018, [changelogs for old add-on releases][5] will be found
-  on GitHub. This add-on readme will list changes from version 7.0 (2016
-  onwards).
+* A partir de 2018, los [registros de cambios para versiones antiguas][5] se
+  encontrarán en GitHub. Este léeme del complemento listará cambios desde la
+  versión 7.0 (2016 en adelante).
 * Ciertas características del complemento (especialmente la actualización)
   no funcionarán bajo algunas condiciones, incluyendo la ejecución de NVDA
   en modo seguro.
@@ -1107,4 +1107,4 @@ versiones antiguas del complemento.
 
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 
-[5]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
+[5]: https://github.com/josephsl/stationplaylist/wiki/splchangelog

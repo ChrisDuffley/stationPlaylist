@@ -21,9 +21,9 @@ NOTES IMPORTANTES :
   StationPlaylist Studio 5.11 ou version ultérieure.
 * Si vous utilisez Windows 8 ou ultérieur, pour une meilleure expérience,
   désactiver le Mode d'atténuation audio.
-* Starting from 2018, [changelogs for old add-on releases][5] will be found
-  on GitHub. This add-on readme will list changes from version 7.0 (2016
-  onwards).
+* À partir de 2018, [les journal des changements des anciennes versions du
+  module complémentaire][5] seront trouvés sur GitHub. Ce fichier readme
+  ajoutera les changements depuis la version 7.0 (à partir de 2016).
 * Certaines fonctionnalités du module complémentaire (notamment la mise à
   jour de modules complémentaires) ne fonctionneront pas dans certaines
   conditions, notamment l'exécution de NVDA en mode sécurisé.
