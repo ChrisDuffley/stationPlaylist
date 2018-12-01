@@ -142,11 +142,6 @@ def cleanup():
 # Encoder configuration dialog.
 _configDialogOpened = False
 
-# Presented if the config dialog for another encoder is opened.
-def _configDialogError():
-	# Translators: Text of the dialog when another alarm dialog is open.
-	gui.messageBox(_("Another encoder settings dialog is open."),_("Error"),style=wx.OK | wx.ICON_ERROR)
-
 class EncoderConfigDialog(wx.Dialog):
 
 	# The following comes from exit dialog class from GUI package (credit: NV Access and Zahari from Bulgaria).
@@ -178,6 +173,8 @@ class EncoderConfigDialog(wx.Dialog):
 		# And to close this automatically when Studio dies.
 		from appModules.splstudio import splactions
 		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
+		global _configDialogOpened
+		_configDialogOpened = True
 
 		# Translators: An edit field in encoder settings to set stream label for this encoder.
 		self.streamLabel = encoderConfigHelper.addLabeledControl(_("Stream &label"), wx.TextCtrl)
@@ -217,9 +214,13 @@ class EncoderConfigDialog(wx.Dialog):
 			streamLabels.write() # Only flag(s) have changed.
 		else: self.obj.setStreamLabel(newStreamLabel)
 		self.Destroy()
+		global _configDialogOpened
+		_configDialogOpened = False
 
 	def onCancel(self, evt):
 		self.Destroy()
+		global _configDialogOpened
+		_configDialogOpened = False
 
 	def onAppTerminate(self):
 		self.onCancel(None)
@@ -447,7 +448,8 @@ class Encoder(IAccessible):
 			d.Show()
 			gui.mainFrame.postPopup()
 		except RuntimeError:
-			wx.CallAfter(ui.message, "A settings dialog is opened")
+			# Translators: Text of the dialog when another alarm dialog is open.
+			wx.CallAfter(gui.messageBox, _("Another encoder settings dialog is open."),_("Error"),style=wx.OK | wx.ICON_ERROR)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
 	script_encoderSettings.__doc__=_("Shows encoder configuration dialog to configure various encoder settings such as stream label.")
 	script_encoderSettings.category=_("Station Playlist Studio")
