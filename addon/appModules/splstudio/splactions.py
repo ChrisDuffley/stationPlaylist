@@ -8,13 +8,8 @@
 # An action is a notification about something that has happened or about to happen.
 # In SPL add-on, an action is prefixed by SPLAction*.
 
-import sys
-py3 = sys.version.startswith("3")
-
-# Do not unlock the full power of action extension point until 2018.
 import extensionPoints
 
-# 40 (17.12): unconditionally define actions, but not until 2018.
 # Studio handle found, app module is fully ready.
 SPLActionAppReady = extensionPoints.Action()
 # Add-on settings were loaded.
