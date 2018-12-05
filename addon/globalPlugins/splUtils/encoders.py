@@ -540,7 +540,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 		if row is not None: row.setFocus()
 
 	def reportConnectionStatus(self, connecting=False):
-		# Keep an eye on the stream's description field for connection changes.
+		# A fake child object holds crucial information about connection status.
 		# In order to not block NVDA commands, this will be done using a different thread.
 		SPLWin = user32.FindWindowW(u"SPLStudio", None)
 		toneCounter = 0
@@ -553,12 +553,19 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 		while True:
 			time.sleep(0.001)
 			try:
-				if messageCache != self.description[self.description.find("Status")+8:]:
-					messageCache = self.description[self.description.find("Status")+8:]
-					if not messageCache.startswith("Encoding"):
-						self.encoderStatusMessage(messageCache, self.IAccessibleChildID)
-			except AttributeError:
-				return
+				# An inner try block is required because statChild may say the base class is gone.
+				try:
+					statChild = self.children[2]
+				except NotImplementedError:
+					return # Only seen when the encoder dies.
+			except IndexError:
+				return # Don't leave zombie objects around.
+			# Status and description are two separate texts.
+			if not messageCache.startswith(statChild.name):
+				messageCache = "; ".join([statChild.name, statChild.next.name])
+				if not messageCache: return
+				if not messageCache.startswith("Encoding"):
+					self.encoderStatusMessage(messageCache, self.IAccessibleChildID)
 			if messageCache.startswith("Idle"):
 				if alreadyEncoding: alreadyEncoding = False
 				if encoding: encoding = False
