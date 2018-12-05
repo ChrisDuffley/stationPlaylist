@@ -358,4 +358,4 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				elif obj.role == controlTypes.ROLE_LIST:
 					clsList.insert(0, sysListView32.List)
 			elif obj.windowClassName == "SysListView32" and obj.role == controlTypes.ROLE_LISTITEM:
-					clsList.insert(0, encoders.SPLEncoder)
+				clsList.insert(0, encoders.SPLEncoder)
