@@ -421,9 +421,8 @@ class Encoder(IAccessible):
 		streamLabels.write()
 
 	def script_streamLabelEraser(self, gesture):
-		# Unfortunately, py3 flag must be checked here.
-		import sys
-		choices = [str(pos) for pos in range(1, self.simpleParent.childCount)] if sys.version.startswith("3") else [str(pos) for pos in xrange(1, self.simpleParent.childCount)]
+		import six
+		choices = [str(pos) for pos in six.moves.range(1, self.simpleParent.childCount)]
 		# Translators: The title of the stream configuration eraser dialog.
 		streamEraserTitle = _("Stream label and settings eraser")
 		# Translators: The text of the stream configuration eraser dialog.
