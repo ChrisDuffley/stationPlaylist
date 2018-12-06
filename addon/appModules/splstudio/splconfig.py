@@ -8,6 +8,7 @@
 import sys
 py3 = sys.version.startswith("3")
 import os
+import six
 if py3:
 	from io import StringIO
 	import pickle
@@ -37,9 +38,6 @@ except RuntimeError:
 	splupdate = None
 from . import splactions
 from . import spldebugging
-
-# Python 3 preparation (a compatibility layer until Six module is included).
-rangeGen = range if py3 else xrange
 
 # Until NVDA Core uses Python 3 (preferably 3.3 or later), use a backported version of chain map class.
 # Backported by Jonathan Eunice.
@@ -811,7 +809,7 @@ def setNextTimedProfile(profile, bits, switchTime, date=None, duration=0):
 				delta = currentDay-nextDay
 			else:
 				triggerBit = -1
-				for bit in rangeGen(currentDay-1, -1, -1):
+				for bit in six.moves.range(currentDay-1, -1, -1):
 					if 2 ** bit & days:
 						triggerBit = bit
 						break
