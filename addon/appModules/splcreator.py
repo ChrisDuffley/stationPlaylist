@@ -4,8 +4,6 @@
 
 # Basic support for StationPlaylist Creator.
 
-import sys
-py3 = sys.version.startswith("3")
 import appModuleHandler
 import addonHandler
 import tones
@@ -31,6 +29,7 @@ class SPLCreatorItem(SPLTrackItem):
 	# Also take care of this when specific columns are asked.
 	# This also allows display order to be checked (Studio 5.10 and later).
 	def announceColumnContent(self, colNumber, header=None, individualColumns=False):
+		import sys
 		if not header:
 			# #72: directly fetch on-screen column header (not the in-memory one) by probing column order array from the list (parent).
 			# #65 (18.08): use column header method (at least the method body) provided by the class itself.
@@ -42,7 +41,7 @@ class SPLCreatorItem(SPLTrackItem):
 				colNumber = internalHeaders.index(header)
 		columnContent = self._getColumnContentRaw(colNumber)
 		if columnContent:
-			if py3: ui.message(str(_("{header}: {content}")).format(header = header, content = columnContent))
+			if sys.version.startswith("3"): ui.message(str(_("{header}: {content}")).format(header = header, content = columnContent))
 			else: ui.message(unicode(_("{header}: {content}")).format(header = header, content = columnContent))
 		else:
 			if individualColumns:

@@ -11,7 +11,6 @@
 # Minimum version: SPL 5.10, NvDA 2017.4.
 
 import sys
-py3 = sys.version.startswith("3")
 import os
 import time
 import threading
@@ -265,7 +264,7 @@ class SPLStudioTrackItem(SPLTrackItem):
 		status = self.name + " " if reportStatus else ""
 		if columnContent:
 			# Translators: Standard message for announcing column content.
-			if py3: ui.message(str(_("{checkStatus}{header}: {content}")).format(checkStatus = status, header = columnHeader, content = columnContent))
+			if sys.version.startswith("3"): ui.message(str(_("{checkStatus}{header}: {content}")).format(checkStatus = status, header = columnHeader, content = columnContent))
 			else: ui.message(unicode(_("{checkStatus}{header}: {content}")).format(checkStatus = status, header = columnHeader, content = columnContent))
 		else:
 			# Translators: Spoken when column content is blank.
