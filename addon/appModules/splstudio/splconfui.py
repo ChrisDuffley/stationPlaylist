@@ -6,15 +6,12 @@
 # For code which provides foundation for code in this module, see splconfig module.
 
 # #6 (18.09-LTS): completely changed to use multi-page screen (requires NVDA 2018.2).
-
 import gui
 if not hasattr(gui, "MultiCategorySettingsDialog"):
 	raise RuntimeError("no multi-category settings dialog")
 # #76 (18.09-LTS): support NVDA releases with or without checkable list.
 # 19.01/18.09.6-LTS: strictly use native checkable list box that ships with NVDA.
 from gui.nvdaControls import CustomCheckListBox
-import sys
-py3 = sys.version.startswith("3")
 import os
 import weakref
 import api
