@@ -1398,9 +1398,6 @@ class AppModule(appModuleHandler.AppModule):
 	# Assigning carts.
 
 	def buildFNCarts(self):
-		# Used xrange, as it is much faster; change this to range if NvDA core decides to use Python 3.
-		# 18.02: use rangeGen that'll be assigned to range or xrange depending on Python version for now.
-		# 19.01: use six.moves.range.
 		for i in six.moves.range(12):
 			self.bindGesture("kb:f%s"%(i+1), "cartExplorer")
 			self.bindGesture("kb:shift+f%s"%(i+1), "cartExplorer")
