@@ -334,6 +334,27 @@ un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
 
+## Version 18.12
+
+* Changements internes afin de rendre le module complémentaire compatible
+  avec les futures versions de NVDA.
+* Correction de nombreuses occurrences de messages du module complémentaire
+  annoncés en anglais malgré leur traduction dans d'autres langues.
+* Si vous utilisez l'Assistant SPL pour rechercher des mises à jour du
+  module complémentaire (Assistant SPL, Contrôle+Maj+U), NVDA n'installe pas
+  de nouvelles versions du module complémentaire si elles nécessitent une
+  version plus récente de NVDA.
+* Certaines commandes de l'assistant SPL exigent désormais que la
+  visionneuse de playlist soit visible et complété par une playlist. Dans
+  certains cas, une piste est focalisée. Les commandes concernées incluent
+  la durée restante (D), les instantanés de playlist (F8) et les
+  transcriptions de Playlist (Maj + F8).
+* La commande pour la durée restante de la playlist (Assistant SPL, D) exige
+  désormais qu'une piste depuis la visionneuse de playlist soit focalisée.
+* Dans les encodeurs de SAM, vous pouvez désormais utiliser les commandes de
+  navigation dans les tableaux (Contrôle+Alt+touches fléchées) pour examiner
+  diverses informations sur l'état de l'encodeur.
+
 ## Version 18.11/18.09.5-LTS
 
 Note: 18.11.1 remplace 18.11 afin de fournir une prise en charge plus solide
@@ -369,7 +390,7 @@ de Studio 5.31.
 
 * NVDA 2018.3 ou ultérieur est requis.
 * Changements internes afin de rendre le module complémentaire plus
-  compatibles avec Python 3.
+  compatible avec Python 3.
 
 ## Version 18.09.1-LTS
 

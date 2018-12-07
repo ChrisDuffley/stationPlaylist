@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 5.5\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2015-09-25 19:00+1000\n"
-"PO-Revision-Date: 2018-11-29 08:02-0800\n"
+"PO-Revision-Date: 2018-12-06 14:15+0200\n"
 "Last-Translator: shmuel_naaman@yahoo.com\n"
 "Language-Team: \n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 2.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Translators: Presented when attempting to install Studio add-on on unsupported Windows releases.
@@ -53,12 +53,11 @@ msgstr "המיקרופון פעיל"
 
 #. Translators: presented when column information for a track is empty.
 msgid "blank"
-msgstr ""
+msgstr "ריק"
 
 #. Translators: Title of the column data window.
-#, fuzzy
 msgid "Track data"
-msgstr "קדימון"
+msgstr "עקוב אחר הנתונים"
 
 #. Translators: Presented when a specific column header is not found.
 #, python-brace-format
@@ -70,6 +69,8 @@ msgid ""
 "Pressing once announces data for a track column, pressing twice will present "
 "column data in a browse mode window"
 msgstr ""
+"לחיצה פעם אחת מכריזה על נתונים עבור מעקב עמודה, לחיצה פעמיים יציג נתוני "
+"עמודה בחלון מצב גלישה"
 
 #. Translators: location text for a playlist item (example: item 1 of 10).
 #, python-brace-format
@@ -93,7 +94,7 @@ msgstr "{checkStatus}{header}: ()"
 
 #. Translators: input help mode message for columns viewer command.
 msgid "Presents data for all columns in the currently selected track"
-msgstr ""
+msgstr "מציג נתונים עבור כל העמודות במעקב שנבחר כעת"
 
 msgid "Has comment"
 msgstr "קיימת הערה"
@@ -133,7 +134,6 @@ msgid "Status: {name}"
 msgstr "מצב: {name}"
 
 #. Translators: The text of the help command in SPL Assistant layer.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -204,7 +204,6 @@ msgstr ""
 "Shift+F1: פתיחת המדריך המקוון."
 
 #. Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -278,7 +277,6 @@ msgstr ""
 "Shift+F1: פתיחת המדריך המקוון."
 
 #. Translators: The text of the help command in SPL Assistant layer when Window-Eyes layer is active.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -570,34 +568,29 @@ msgid "Opens a dialog to quickly enable or disable metadata streaming."
 msgstr "פתיחת תיבת דו-שיח המאפשרת שינוי מידי של מצב זרימת המטאדאטה."
 
 #. Translators: an error message presented when performing some playlist commands while focused on places other than Playlist Viewer.
-#, fuzzy
 msgid "Please return to playlist viewer before invoking this command."
-msgstr "עליך להוסיף רצועות לפני הפעלת פקודה זו"
+msgstr "חזור למציג רשימת ההשמעה לפני הפעלת פקודה זו."
 
 #. Translators: an error message presented when performing some playlist commands while no playlist has been loaded.
 msgid "No playlist has been loaded."
 msgstr "רשימת השמעה לא הוטענה."
 
 #. Translators: an error message presented when performing some playlist commands while no tracks are selected/focused.
-#, fuzzy
 msgid ""
 "Please select a track from playlist viewer before invoking this command."
-msgstr "עליך להוסיף רצועות לפני הפעלת פקודה זו"
+msgstr "בחר רצועה מתוך מציג רשימת ההשמעה לפני שתפעיל פקודה זו."
 
 #. Translators: Presented when playlist analyzer cannot be performed because user is not focused on playlist viewer.
-#, fuzzy
 msgid "Not in playlist viewer, cannot perform playlist analysis."
-msgstr "לא נוספה שום רצועה. לא ניתן לבצע ניתוח אורך הנגינה."
+msgstr "לא קיים ברשימת ההשמעה. לא ניתן לבצע ניתוח רשימת ההשמעה."
 
 #. Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
-#, fuzzy
 msgid "No playlist to analyze."
-msgstr "רשימת השמעה לא הוטענה."
+msgstr "אין רשימת השמעה לניתוח."
 
 #. Translators: Presented when playlist analysis cannot be activated.
-#, fuzzy
 msgid "No tracks are selected, cannot perform playlist analysis."
-msgstr "לא נוספה שום רצועה. לא ניתן לבצע ניתוח אורך הנגינה."
+msgstr "לא נבחרה שום רצועה. לא ניתן לבצע ניתוח רשימת ההשמעה."
 
 #. Translators: one of the results for playlist snapshots feature for announcing total number of items in a playlist.
 #, python-brace-format
@@ -634,9 +627,8 @@ msgstr "ממוצע: {playlistAverageDuration}"
 msgid "Top artist: %s (%s)"
 msgstr "אמן מוביל:  %s (%s)"
 
-#, fuzzy
 msgid "Top artist: none"
-msgstr "אמנים מובילים:"
+msgstr "אמנים מובילים: ריק"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 msgid "Top artists:"
@@ -668,9 +660,8 @@ msgstr "{categoryName} ({categoryCount})"
 msgid "Top genre: %s (%s)"
 msgstr "סגנון מוביל: %s (%s)"
 
-#, fuzzy
 msgid "Top genre: none"
-msgstr "סגנונות מובילים:"
+msgstr "סגנונות מובילים: ריק"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 msgid "Top genres:"
@@ -752,20 +743,17 @@ msgid "Scanning is in progress"
 msgstr "הסריקה מתבצעת"
 
 #. Translators: Presented when track time analysis is turned on.
-#, fuzzy
 msgid "Playlist analysis activated"
 msgstr "ניתוח אורך הנגינה בביצוע"
 
 #. Translators: Presented when track time analysis is turned off.
-#, fuzzy
 msgid "Playlist analysis deactivated"
 msgstr "ניתוח אורך הנגינה בוטל"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
-#, fuzzy
 msgid ""
 "Marks focused track as start marker for various playlist analysis commands"
-msgstr "מסמן את הרצועה שבפוקוס כנקודת ההתחלה של ניתוח אורך הנגינה"
+msgstr "מסמן את הרצועה שבפוקוס כנקודת ההתחלה של ניתוח רשימת ההשמעה"
 
 #. Translators: Presented when track time analysis cannot be used because start marker is not set.
 msgid ""
@@ -1123,21 +1111,19 @@ msgstr "אין חיבור אינטרנט. התחבר לאינטרנט לפני �
 msgid ""
 "Add-on Updater add-on might be running. Please use that add-on to check for "
 "updates."
-msgstr ""
+msgstr "ייתכן שמעדכן ההרחבה פועל. השתמש בהרחבה זו כדי לבדוק אם קיימים עדכונים."
 
 #. Translators: title of a panel to configure broadcast profiles.
-#, fuzzy
 msgid "Broadcast profiles"
-msgstr "שידור ופרופיל:"
+msgstr "פרופילי שידור"
 
 #. Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
 msgid "Broadcast &profile:"
 msgstr "שידור ופרופיל:"
 
 #. Borrowed logic from NVDA Core's speech panel (although there is no label for this read-only text).
-#, fuzzy
 msgid "Normal profile is in use."
-msgstr "פרופיל בסיסי"
+msgstr "פרופיל בסיסי בשימוש"
 
 #. Translators: The label of a button to create a new broadcast profile.
 msgid "&New"
@@ -1167,10 +1153,11 @@ msgid ""
 "The selected profile is different from currently active broadcast profile. "
 "Settings will be applied to the selected profile instead."
 msgstr ""
+"הפרופיל שנבחר שונה מפרופיל שידור פעיל.  ההגדרות יחולו על הפרופיל שנבחר במקום "
+"זאת."
 
-#, fuzzy
 msgid "Apply settings"
-msgstr "הגדרות SPL"
+msgstr "החל הגדרות"
 
 #. #70 (18.07): in wxPython 4, name for the value keyword argument for text entry dialog constructor has changed.
 #. Translators: The label of a field to enter a new name for a broadcast profile.
@@ -1221,12 +1208,11 @@ msgstr "אישור מחיקה"
 
 #. Translators: Message reported when attempting to change profile switch trigger while broadcasting.
 msgid "You cannot change profile switch triggers in the midst of a broadcast."
-msgstr ""
+msgstr "לא ניתן לשנות את מפעילי מתג הפרופיל בעיצומו של שידור."
 
 #. Translators: Title of a dialog shown when profile trigger cannot e changd.
-#, fuzzy
 msgid "Profile triggers"
-msgstr "פרוצדורותם פרופיל עבור {profileName}"
+msgstr "טריגרים בפרופיל"
 
 #. Translators: The title of the dialog to create a new broadcast profile.
 msgid "New Profile"
@@ -1290,7 +1276,7 @@ msgstr ""
 
 #. Translators: title of a panel to configure various general add-on settings such as top and bottom announcement for playlists.
 msgid "General"
-msgstr ""
+msgstr "כללי"
 
 #. Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
 msgid "&Beep for status announcements"
@@ -1402,9 +1388,8 @@ msgid "Microphone alarm &interval in seconds"
 msgstr "התראה על ההקלטה ב&פרקי זמן קצובים"
 
 #. Translators: title of a panel to configure various alarms and related settings.
-#, fuzzy
 msgid "Alarms"
-msgstr "מרכז ההתראות"
+msgstr "התראות"
 
 #. Translators: One of the alarm notification options.
 msgid "beep"
@@ -1479,16 +1464,15 @@ msgstr ""
 "הסימון."
 
 msgid "&Stream:"
-msgstr ""
+msgstr "&שידור:"
 
 #. Translators: A checkbox to let metadata streaming status be applied to the currently active broadcast profile.
 msgid "&Apply streaming changes to the selected profile"
 msgstr "ה&חל את שינויי זרימת מטאדאטה לפרופיל זה"
 
 #. Translators: title of a panel to configure metadata streaming status for DSP encoder and four additional URL's.
-#, fuzzy
 msgid "Metadata streaming"
-msgstr "אפשרויות זרימת מטאדאטה"
+msgstr " זרימת מטאדאטה"
 
 #. Translators: One of the metadata notification settings.
 msgid "When Studio starts"
@@ -1502,34 +1486,32 @@ msgstr "בעת טעינת של פרופיל"
 msgid "&Metadata streaming notification and connection"
 msgstr "הודעה על זרימת מטודאטה ועל התחברות"
 
-#, fuzzy
 msgid "&Select the URL for metadata streaming upon request:"
-msgstr "נא לציין URL עבור זרימת מטאדאטה כשהדבר נדרש."
+msgstr "&נא לציין URL עבור זרימת מטאדאטה נדרשת:"
 
 #. Translators: Title of a dialog to configure column announcements (order and what columns should be announced).
 msgid "Manage column announcements"
 msgstr "ניהול הקראת העמודות"
 
 #. Translators: Title of a dialog to configure columnn seleciton for Playlist Transcripts.
-#, fuzzy
 msgid "Playlist transcript columns"
-msgstr "תמונות של רשימת השמעה"
+msgstr "תמליל עמודות רשימת השמעה"
 
 #. Translators: Help text to select columns to be announced.
-#, fuzzy
 msgid ""
 "&Select columns to be announced\n"
 "(artist and title are announced by default):"
-msgstr "נא לבחור עמודות להקראה (המבצע וכותרת הם בררת המחדל"
+msgstr ""
+"& בחר עמודות להכרזה\n"
+"(אמן וכותרת מוכרזים כברירת מחדל):"
 
 #. Translators: Help text to select columns to be announced.
-#, fuzzy
 msgid ""
 "&Select columns to be included in playlist transcripts\n"
 "(artist and title are always included):"
 msgstr ""
-"בחר מידע שייכלל בעת קבלת צילומי רשימת השמעה.\n"
-"\t\tמספר רצועות ומשך הזמן הכולל תמיד כלולים."
+"בחר עמודות שיכללו בתמלילי רשימת ההשמעה\n"
+"(אמן וכותרת כלולים תמיד):"
 
 #. wxPython 4 contains RearrangeList to allow item orders to be changed automatically.
 #. Because wxPython 3 doesn't include this, work around by using a variant of list box and move up/down buttons.
@@ -1547,9 +1529,8 @@ msgid "Move &down"
 msgstr "העבר למ&טה"
 
 #. Translators: title of a panel to configure column announcements (order and what columns should be announced).
-#, fuzzy
 msgid "Column announcements"
-msgstr "ניהול הקראת העמודות"
+msgstr "הקראת העמודות"
 
 #. Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
 msgid "Announce columns in the &order shown on screen"
@@ -1564,9 +1545,8 @@ msgid "Include column &headers when announcing track information"
 msgstr "כלול כותרות עמודות בעת הכרזה על פרטי &רצועה"
 
 #. Translators: Title of a panel to configure playlsit transcripts options.
-#, fuzzy
 msgid "Playlist transcripts"
-msgstr "תמונות של רשימת השמעה"
+msgstr "תמלול של רשימת השמעה"
 
 #. self.availableTranscriptFormats = [output[0] for output in splmisc.SPLPlaylistTranscriptFormats]
 #. self.availableTranscriptFormats.insert(0, "")
@@ -1576,12 +1556,10 @@ msgstr "תמונות של רשימת השמעה"
 #. self.transcriptFormatsList = playlistTranscriptsHelper.addLabeledControl(labelText, wx.Choice, choices=[_("ask me every time")]+[output[2] for output in splmisc.SPLPlaylistTranscriptFormats])
 #. self.transcriptFormatsList.SetSelection(self.availableTranscriptFormats.index(splconfig.SPLConfig["PlaylistTranscripts"]["TranscriptFormat"]))
 #. Translators: The label of a button to configure columns for playlist transcripts.
-#, fuzzy
 msgid "Manage transcript columns..."
-msgstr "&ניהול הקראת העמודות."
+msgstr "ניהול הקראת העמודות..."
 
 #. Translators: title of a panel to configure columns explorer settings.
-#, fuzzy
 msgid "Columns explorer"
 msgstr "סייר העמודות"
 
@@ -1594,9 +1572,8 @@ msgid "Columns Explorer for &Track Tool..."
 msgstr "סייר &הפקודות..."
 
 #. Translators: The label of a button to configure columns explorer slots (SPL Assistant, number row keys to announce specific columns).
-#, fuzzy
 msgid "Columns Explorer for &SPL Creator..."
-msgstr "סייר &הפקודות..."
+msgstr "סייר &הפקודות עבור יוצר SPL..."
 
 #. Translators: The title of Columns Explorer configuration dialog.
 msgid "Columns Explorer"
@@ -1607,9 +1584,8 @@ msgid "Columns Explorer for Track Tool"
 msgstr "סייר העמודות"
 
 #. Translators: The title of Columns Explorer configuration dialog.
-#, fuzzy
 msgid "Columns Explorer for SPL Creator"
-msgstr "סייר העמודות"
+msgstr "סייר &הפקודות עבור יוצר SPL"
 
 #. Translators: The label for a setting in SPL add-on dialog to select column for this column slot.
 #, python-brace-format
@@ -1679,7 +1655,7 @@ msgstr "מקלדת הפקודות של המ&סייע של SPL:"
 msgid ""
 "Pilot features: I want to test and provide early &feedback on features under "
 "development"
-msgstr ""
+msgstr "תכונות ניסיוניות: אני רוצה לבדוק ולספק משוב &מוקדם על תכונות בפיתוח"
 
 #. Translators: The confirmation prompt displayed when changing update interval to zero days (updates will be checked every time Studio app module loads).
 msgid ""
@@ -1695,7 +1671,6 @@ msgid "Confirm update interval"
 msgstr "אישור עדכון מרווח זמן"
 
 #. Translators: The confirmation prompt displayed when about to enable pilot flag (with risks involved).
-#, fuzzy
 msgid ""
 "You are about to enable pilot features. Please note that pilot features may "
 "include functionality that might be unstable at times and should be used for "
@@ -1703,25 +1678,26 @@ msgid ""
 "stable features, please answer no and uncheck pilot features checkbox. Are "
 "you sure you wish to enable pilot features?"
 msgstr ""
-"אתה עומד לעבור ל - Fast Test Fast (ניסיוני) בונה ערוצים, ערוץ הפיתוח המהיר "
-"והבלתי יציב. לידיעתך, הערוץ שנבחר עשוי לכלול עדכונים שעשויים להיות בלתי "
-"יציבים בזמנים ויש להשתמש בהם לבדיקה ולשליחת משוב למפתח התוספים. אם אתה מעדיף "
-"להשתמש בערוצים יציבים, השב לא ועבור לערוץ עדכון יציב יותר. האם אתה בטוח "
-"שברצונך לעבור לערוץ הפיתוח המהיר ביותר?"
+"אתה עומד להפעיל תכונות פיילוט. לידיעתך, תכונות פיילוט עשויות לכלול "
+"פונקציונליות שעשויה להיות לא יציבה בזמנים ויש להשתמש בה לבדיקה ולשלוח משוב "
+"למפתח התוספים. אם אתה מעדיף להשתמש בתכונות יציבות, השב על תיבת הסימון 'אל "
+"תבטל את הסימון'. האם אתה בטוח שברצונך להפעיל תכונות ניסיוניות?"
 
 #. Translators: The title of the channel switch confirmation dialog.
 msgid "Enable pilot features"
-msgstr ""
+msgstr "הפעל תכונות ניסיוניות"
 
 #. Translators: A dialog message shown when pilot features is turned on or off.
 msgid ""
 "You have toggled pilot features checkbox. You must restart NVDA for the "
 "change to take effect."
 msgstr ""
+"סימנת את תיבת הסימון לתכונות בפיתוח. עליך להפעיל מחדש את NVDA כדי שהשינוי "
+"ייכנס לתוקף."
 
 #. Translators: Title of the pilot features dialog.
 msgid "Pilot features"
-msgstr ""
+msgstr "תכונה ניסיונית"
 
 #. Translators: Title of the dialog to reset various add-on settings.
 #. Translators: title of a panel to reset add-on settings.
@@ -1765,6 +1741,8 @@ msgid ""
 "Warning! Selecting Reset button and choosing various reset options will "
 "reset add-on settings to defaults."
 msgstr ""
+"אזהרה! בחירה בלחצן איפוס ובחירת אפשרויות איפוס שונות תאפס את הגדרות ההרחבה "
+"לברירות המחדל."
 
 #. Translators: The label of a button to open reset dialog.
 msgid "Reset settings..."
@@ -1786,7 +1764,7 @@ msgstr "תיבת דו-שיח של חיפוש כבר פתוחה."
 
 #. Translators: Text of the dialog when a generic error has occured.
 msgid "An unexpected error has occured when trying to open find dialog."
-msgstr ""
+msgstr "אירעה שגיאה לא צפויה בעת ניסיון לפתוח תיבת דו-שיח של חיפוש."
 
 msgid "Enter or select the name or the artist of the track you wish to &search"
 msgstr "נא הקש את שם המבצע או הרצועה שברצונך ל&חפש"
@@ -1830,7 +1808,6 @@ msgid "Timer complete"
 msgstr "הזמן חלף"
 
 #. Translators: presented when metadata streaming status cannot be obtained.
-#, fuzzy
 msgid "Cannot obtain metadata streaming status information"
 msgstr "לא ניתן לפתוח את תיבת הדו-שיח של זרימת המטאדאטה"
 
@@ -1863,61 +1840,55 @@ msgid "Metadata streaming configured for URL's {URL}"
 msgstr "זרימת המטאדאטה הוגדרה עבור הכתובות  {URL}"
 
 #. Translators: the Playlist transcripts dialog title.
-#, fuzzy
 msgid "Playlist Transcripts"
-msgstr "תמונות של רשימת השמעה"
+msgstr "תמלול של רשימת השמעה"
 
-#, fuzzy
 msgid "Playlist data copied to clipboard"
 msgstr "הערת רצועה הועתקה"
 
 #. Translators: Text of the dialog when another playlist transcripts dialog is open.
-#, fuzzy
 msgid "Another playlist transcripts dialog is open."
-msgstr "תיבת דו-שיח של התראה כבר פתוחה."
+msgstr "תיבת דו-שיח של התראה נוספת פתוחה."
 
 #. Translators: one of the playlist transcripts range options.
 msgid "entire playlist"
-msgstr ""
+msgstr "כל רשימת ההשמעה"
 
 #. Translators: one of the playlist transcripts range options.
 msgid "start to current item"
-msgstr ""
+msgstr "התחל לפריט הנוכחי"
 
 #. Translators: one of the playlist transcripts range options.
 msgid "current item to the end"
-msgstr ""
+msgstr "פריט נוכחי עד הסוף"
 
 #. Translators: one of the playlist transcripts range options.
 msgid "current hour"
-msgstr ""
+msgstr "שעה נוכחית"
 
 #. Translators: The label in playlist transcripts dialog to select playlist transcript range.
 msgid "Transcript range:"
-msgstr ""
+msgstr "טווח תמלול:"
 
 #. Translators: The label in playlist transcripts dialog to select transcript output format.
 msgid "Transcript format:"
-msgstr ""
+msgstr "פורמט תמלול:"
 
 #. Translators: one of the playlist transcript actions.
-#, fuzzy
 msgid "view transcript"
-msgstr "תמונות של רשימת השמעה"
+msgstr "הצג תמלול"
 
 #. Translators: one of the playlist transcript actions.
-#, fuzzy
 msgid "copy to clipboard"
-msgstr "הערת רצועה הועתקה"
+msgstr "העתק ללוח הגזירים"
 
 #. Translators: one of the playlist transcript actions.
-#, fuzzy
 msgid "save to file"
-msgstr "פרופילמ&בוסס זמן:"
+msgstr "שמור לקובץ"
 
 #. Translators: The label in playlist transcripts dialog to select transcript action.
 msgid "Transcript action:"
-msgstr ""
+msgstr "פעולת תמלול:"
 
 #. No need to interact with the user.
 #. Translators: Presented when no add-on update is available.
@@ -1954,6 +1925,8 @@ msgid ""
 "Studio add-on {newVersion} is not compatible with this version of NVDA. "
 "Please use NVDA {year}.{major} or later."
 msgstr ""
+"ההרחבה של Studio {newVersion} אינה תואמת לגירסה זו של NVDA. השתמש ב- NVDA "
+"{year}.{major} או מאוחר יותר."
 
 #. Translators: The title of the dialog presented while an Addon is being updated.
 msgid "Updating Add-on"

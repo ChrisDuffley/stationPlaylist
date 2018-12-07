@@ -330,6 +330,23 @@ Studio-Befehle über den Touchscreen ausführen. Tippen Sie zunächst einmal
 mit drei Fingern, um in den SPL-Touchmodus zu wechseln. Verwenden Sie dann
 die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
 
+## Version 18.12
+
+* Internal changes to make the add-on compatible with future NVDA releases.
+* Fixed many instances of add-on messages spoken in English despite
+  translated into other languages.
+* If using SPL Assistant to check for add-on updates (SPL Assistant,
+  Control+Shift+U), NVDA will not install new add-on releases if they
+  require a newer version of NVDA.
+* Some SPL Assistant commands will now require that the playlist viewer is
+  visible and populated with a playlist, and in some cases, a track is
+  focused. Commands affected include remaining duration (D), playlist
+  snapshots (F8), and playlist transcripts (Shift+F8).
+* Playlist remaining duration command (SPL Assistant, D) will now require a
+  track from playlist viewer be focused.
+* In SAM Encoders, you can now use table navigation commands
+  (Control+Alt+arrow keys) to review various encoder status information.
+
 ## Version 18.11 / 18.09.5-LTS
 
 Hinweis: Version 18.11.1 ersetzt 18.11, um eine solidere Studio
