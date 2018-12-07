@@ -318,6 +318,27 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
+## Versión 18.12
+
+* Trocos internos para facer o complemento máis compatible con versións
+  futuras de NVDA.
+* Arranxadas varias instancias de mensaxes do complemento faladas en inglés
+  aínda que estivesen traducidas noutros idiomas.
+* Ao utilizar o Asistente SPL para verificar actualizacións do complemento
+  (Asistente SPL; Control+Shift+U), NVDA non instalará versións novas do
+  complemento se requiren unha versión máis actualizada do NVDA.
+* Algúns comandos do Asistente SPL requerirán agora que o visualizador de
+  lista de reprodución estea visible e enchido cunha lista de reprodución, e
+  nalgúns casos que unha pista estea enfocada. Os comandos afectados inclúen
+  duración restante (D), capturas de lista de reprodución (F8), e
+  transcricións de lista de reprodución (Shift+F8).
+* O comando de duración restante da lista de reprodución (asistente SPL, D)
+  requerirá agora que se enfoque unha pista no visualizador de listas de
+  reprodución.
+* Agora, en codificadores SAM, podes comandos de navegación por táboas
+  (Control+Alt+teclas de frecha) para consultar certa información de estado
+  do codificador.
+
 ## Versión 18.11/18.09.5-LTS
 
 Nota: a 18.11.1 remplaza á 18.11 coa fin de fornecer un soporte máis sólido

@@ -282,6 +282,25 @@ NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio t
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
 
+## Phiên bản 18.12
+
+* Những thay đổi bên trong để add-on tương thích hơn với các bản phát hành
+  trong tương lai của NVDA.
+* Sửa nhiều lỗi thông điệp nhanh của add-on trong tiếng Anh dù đã được dịch
+  sang các ngôn ngữ khác.
+* If using SPL Assistant to check for add-on updates (SPL Assistant,
+  Control+Shift+U), NVDA will not install new add-on releases if they
+  require a newer version of NVDA.
+* Vài lệnh SPL Assistant giờ đây yêu cầu trình xem danh sách phát phải hiển
+  thị, có một danh sách phát và trong vài trường hợp, phải đứng tại một
+  track. Các lệnh chịu ảnh hưởng bao gồm thời gian còn lại (D), ảnh chụp
+  danh sách phát (F8) và bảng điểm danh sách phát (Shift+F8).
+* Lệnh xem thời gian còn lại của danh sách phát (SPL Assistant, D) giờ đây
+  yêu cầu phải đứng tại  một track trong trình xem danh sách phát.
+* Trong SAM Encoders, giờ bạn có thể dùng các lệnh điều hướng trong bảng
+  (Control+Alt+các phím mũi tên) để xem lại nhiều thông tin trạng thái mã
+  hóa.
+
 ## Phiên bản 18.11/18.09.5-LTS
 
 Lưu ý: 18.11.1 thay thế 18.11 để cung cấp những hỗ trợ đắc lực hơn cho
