@@ -6,10 +6,9 @@
 # For UI surrounding this module, see splconfui module.
 
 import sys
-py3 = sys.version.startswith("3")
 import os
 import six
-if py3:
+if sys.version.startswith("3"):
 	from io import StringIO
 	import pickle
 else:
