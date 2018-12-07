@@ -32,9 +32,7 @@ import addonHandler
 addonHandler.initTranslation()
 from . import splconfig
 from . import splactions
-
-# Python 3 preparation (a compatibility layer until Six module is included).
-rangeGen = range if py3 else xrange
+import six
 
 # Due to syntax/variable name issues, the actual add-on settings class can be found at the end of this module.
 
@@ -153,7 +151,7 @@ class BroadcastProfilesPanel(gui.SettingsPanel):
 
 	# Include profile flags such as instant profile string for display purposes.
 	def displayProfiles(self, profiles):
-		for index in rangeGen(len(profiles)):
+		for index in six.moves.range(len(profiles)):
 			profiles[index] = splconfig.getProfileFlags(profiles[index])
 		return profiles
 
@@ -427,7 +425,7 @@ class TriggersDialog(wx.Dialog):
 		daysSizer = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Day")), wx.HORIZONTAL)
 		self.triggerDays = []
 		import calendar
-		for day in rangeGen(len(calendar.day_name)):
+		for day in six.moves.range(len(calendar.day_name)):
 			triggerDay=wx.CheckBox(self, wx.ID_ANY,label=calendar.day_name[day])
 			triggerDay.SetValue((64 >> day & self.Parent._profileTriggersConfig[profile][0]) if profile in self.Parent._profileTriggersConfig else 0)
 			if not self.timeSwitchCheckbox.IsChecked(): triggerDay.Disable()
@@ -942,7 +940,7 @@ class MetadataStreamingDialog(wx.Dialog):
 		from . import splmisc
 		streams = splmisc.metadataList()
 		self.checkedStreams = metadataSizerHelper.addLabeledControl(_("&Stream:"), CustomCheckListBox, choices=metadataStreamLabels)
-		for stream in rangeGen(5):
+		for stream in six.moves.range(5):
 			if not configDialogActive: self.checkedStreams.Check(stream, check=streams[stream])
 			else: self.checkedStreams.Check(stream, check=self.Parent.metadataStreams[stream])
 		self.checkedStreams.SetSelection(0)
@@ -965,7 +963,7 @@ class MetadataStreamingDialog(wx.Dialog):
 		global _metadataDialogOpened
 		# Prepare checkbox values first for various reasons.
 		# #76 (18.09-LTS): traverse check list box and build boolean list accordingly.
-		metadataEnabled = [self.checkedStreams.IsChecked(url) for url in rangeGen(5)]
+		metadataEnabled = [self.checkedStreams.IsChecked(url) for url in six.moves.range(5)]
 		if self.configDialogActive:
 			parent = self.Parent
 			parent.metadataStreams = metadataEnabled
@@ -1019,7 +1017,7 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 		# #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
 		from . import splmisc
 		self.checkedStreams = metadataSizerHelper.addLabeledControl(_("&Select the URL for metadata streaming upon request:"), CustomCheckListBox, choices=metadataStreamLabels)
-		for stream in rangeGen(5):
+		for stream in six.moves.range(5):
 			self.checkedStreams.Check(stream, check=splconfig._SPLDefaults["MetadataStreaming"]["MetadataEnabled"][stream])
 		self.checkedStreams.SetSelection(0)
 
@@ -1030,7 +1028,7 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
 		if selectedProfile not in self._curProfileSettings: settings = list(curProfile["MetadataStreaming"]["MetadataEnabled"])
 		else: settings = self._curProfileSettings[selectedProfile]
-		for stream in rangeGen(5):
+		for stream in six.moves.range(5):
 			self.checkedStreams.Check(stream, check=settings[stream])
 		super(MetadataStreamingPanel, self).onPanelActivated()
 
@@ -1038,7 +1036,7 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 		selectedProfile = _selectedProfile
 		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
 		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
-		currentSettings = [self.checkedStreams.IsChecked(url) for url in rangeGen(5)]
+		currentSettings = [self.checkedStreams.IsChecked(url) for url in six.moves.range(5)]
 		if currentSettings != curProfile["MetadataStreaming"]["MetadataEnabled"]:
 			self._curProfileSettings[selectedProfile] = currentSettings
 		super(MetadataStreamingPanel, self).onPanelDeactivated()
@@ -1049,7 +1047,7 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
 		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
 		# #76 (18.09-LTS): traverse check list box and build boolean list accordingly.
-		curProfile["MetadataStreaming"]["MetadataEnabled"] = [self.checkedStreams.IsChecked(url) for url in rangeGen(5)]
+		curProfile["MetadataStreaming"]["MetadataEnabled"] = [self.checkedStreams.IsChecked(url) for url in six.moves.range(5)]
 		self._curProfileSettings.clear()
 		if not _configApplyOnly: self._curProfileSettings = None
 
@@ -1354,7 +1352,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 		# 7.0: Studio 5.0x columns.
 		# 17.04: Five by two grid layout as 5.0x is no longer supported.
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
-		for slot in rangeGen(5):
+		for slot in six.moves.range(5):
 			# Translators: The label for a setting in SPL add-on dialog to select column for this column slot.
 			columns = sizer.addLabeledControl(_("Slot {position}").format(position = slot+1), wx.Choice, choices=cols)
 			try:
@@ -1365,7 +1363,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 		colExplorerHelper.addItem(sizer.sizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
-		for slot in rangeGen(5, 10):
+		for slot in six.moves.range(5, 10):
 			columns = sizer.addLabeledControl(_("Slot {position}").format(position = slot+1), wx.Choice, choices=cols)
 			try:
 				columns.SetSelection(cols.index(slots[slot]))
@@ -1388,7 +1386,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 		# #62 (18.06): manually build a list so changes won't be retained when Cancel button is clicked from main settings, caused by reference problem.
 		# Note that item count is based on how many column combo boxes are present in this dialog.
 		# #63 (18.06): use levels instead due to introduction of Columns Explorer for SPL Creator.
-		slots = [self.columnSlots[slot].GetStringSelection() for slot in rangeGen(10)]
+		slots = [self.columnSlots[slot].GetStringSelection() for slot in six.moves.range(10)]
 		if self.level == 0: parent.exploreColumns = slots
 		elif self.level == 1: parent.exploreColumnsTT = slots
 		elif self.level == 2: parent.exploreColumnsCreator = slots
