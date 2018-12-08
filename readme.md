@@ -194,9 +194,11 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Version 18.09.6-LTS
 
 * Requires NVDA 2018.3 or later.
-* Internal changes to make the add-on compatible with future NVDA releases.
+* Internal changes to make the add-on compatible with future NVDA releases and with Python 3.
 * Fixed many instances of add-on messages spoken in English despite translated into other languages.
+* Slight performance improvements when using NVDA with apps other than Studio while Voice Track Recorder is active. NVDA will still show performance issues when using Studio itself with Voice Track Recorder active.
 * In SAM Encoders, you can now use table navigation commands (Control+Alt+arrow keys) to review various encoder status information.
+* In encoders, if an encoder settings dialog is open (Alt+NVDA+0), NVDA will present an error message if trying to open another encoder settings dialog.
 
 ## Version 18.09.5-LTS
 
