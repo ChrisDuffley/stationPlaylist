@@ -38,10 +38,9 @@ for addon in addonHandler.getAvailableAddons():
 		raise RuntimeError("Another add-on update provider exists")
 
 import sys
-py3 = sys.version.startswith("3")
 import os # Essentially, update download is no different than file downloads.
 import time
-if py3:
+if sys.version.startswith("3"):
 	import pickle
 	from urllib.request import urlopen
 else:
