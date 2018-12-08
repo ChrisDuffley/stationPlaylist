@@ -679,7 +679,8 @@ def initialize():
 	# This must be a separate file (another pickle file).
 	# 8.0: Do this much later when a track is first focused.
 	try:
-		trackComments = pickle.load(file(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"), "r"))
+		with open(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"), "r") as f:
+			trackComments = pickle.load(f)
 	except (IOError, EOFError):
 		pass
 	if len(_configLoadStatus):
@@ -734,7 +735,8 @@ def initProfileTriggers():
 		raise RuntimeError("ConfigHub is unavailable, profile triggers manager cannot start")
 	global profileTriggers, profileTriggers2
 	try:
-		profileTriggers = pickle.load(file(SPLTriggersFile, "r"))
+		with open(SPLTriggersFile, "r") as f:
+			profileTriggers = pickle.load(f)
 	except IOError:
 		profileTriggers = {}
 	# Cache profile triggers, used to compare the runtime dictionary against the cache.
@@ -880,7 +882,8 @@ def saveProfileTriggers():
 	# Unless it is a daily show, profile triggers would not have been modified.
 	# This trick is employed in order to reduce unnecessary disk writes.
 	if profileTriggers != profileTriggers2:
-		pickle.dump(profileTriggers, file(SPLTriggersFile, "wb"))
+		with open(SPLTriggersFile, "wb") as f:
+			pickle.dump(profileTriggers, f)
 	profileTriggers = None
 	profileTriggers2 = None
 
@@ -977,7 +980,8 @@ def terminate():
 	# 17.10: but if only the normal profile is in use, it won't do anything.
 	if not SPLConfig.normalProfileOnly: saveProfileTriggers()
 	# Dump track comments.
-	pickle.dump(trackComments, file(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"), "wb"))
+	with open(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"), "wb") as f:
+		pickle.dump(trackComments, f)
 	# Now save profiles.
 	# 8.0: Call the save method.
 	# #64 (18.07): separated into its own function in 2018.
