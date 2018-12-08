@@ -85,7 +85,8 @@ channels={
 def initialize():
 	global SPLAddonState, SPLAddonCheck, SPLUpdateChannel
 	try:
-		SPLAddonState = pickle.load(file(_updatePickle, "r"))
+		with open(_updatePickle, "r") as f:
+			SPLAddonState = pickle.load(f)
 		SPLAddonCheck = SPLAddonState["PDT"]
 		if "UpdateChannel" in SPLAddonState: del SPLAddonState["UpdateChannel"]
 	except (IOError, KeyError):
@@ -113,7 +114,8 @@ def terminate():
 	# Store new values if it is absolutely required.
 	if SPLAddonState["PDT"] != SPLAddonCheck:
 		SPLAddonState["PDT"] = SPLAddonCheck
-		pickle.dump(SPLAddonState, file(_updatePickle, "wb"))
+		with open(_updatePickle, "wb") as f:
+			pickle.dump(SPLAddonState, f)
 	SPLAddonState = None
 	SPLAddonCheck = 0
 
