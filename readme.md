@@ -194,6 +194,10 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Version 19.01/18.09.6-LTS
 
 * NVDA 2018.4 or later is required.
+* More code changes to make the add-on compatible with Python 3.
+* 19.01: some message translations from this add-on will resemble NVDA messages.
+* Slight performance improvements when using NVDA with apps other than Studio while Voice Track Recorder is active. NVDA will still show performance issues when using Studio itself with Voice Track Recorder active.
+* In encoders, if an encoder settings dialog is open (Alt+NVDA+0), NVDA will present an error message if trying to open another encoder settings dialog.
 
 ## Version 18.12
 
