@@ -399,7 +399,8 @@ class SPLUpdateDownloader(updateCheck.UpdateDownloader):
 		self._stopped()
 		# Emulate add-on update (don't prompt to install).
 		from gui import addonGui
-		closeAfter = addonGui.AddonsDialog._instance is None
+		# In NVDA 2019.1, add-ons manager object is always "alive" due to compatibility checks.
+		closeAfter = addonGui.AddonsDialog._instance is None or (versionInfo.version_year, versionInfo.version_major) >= (2019, 1)
 		try:
 			try:
 				bundle=addonHandler.AddonBundle(self.destPath.decode("mbcs"))
@@ -414,7 +415,6 @@ class SPLUpdateDownloader(updateCheck.UpdateDownloader):
 					wx.OK | wx.ICON_ERROR)
 				return
 			# 18.12/18.09.6-LTS: check compatibility with a given minimum NVDA version if present.
-			import versionInfo
 			minimumNVDAVersion = bundle.manifest.get("minimumNVDAVersion", None)
 			if minimumNVDAVersion is None:
 				minimumNVDAVersion = [versionInfo.version_year, versionInfo.version_major]
