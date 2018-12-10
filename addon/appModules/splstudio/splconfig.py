@@ -1236,10 +1236,11 @@ SPLUpdateErrorAppx = 5
 SPLUpdateErrorAddonsManagerUpdate = 6
 SPLUpdateErrorNoNetConnection = 7
 SPLUpdateErrorAddonUpdaterRunning = 8
+SPLUpdateErrorRemoveWarning = -1
 
 # These conditions are set when NVDA starts and cannot be changed at runtime, hence major errors.
 # This means no update channel selection, no retrys, etc.
-SPLUpdateMajorErrors = (SPLUpdateErrorSecureMode, SPLUpdateErrorTryBuild, SPLUpdateErrorSource, SPLUpdateErrorAppx, SPLUpdateErrorAddonsManagerUpdate, SPLUpdateErrorAddonUpdaterRunning)
+SPLUpdateMajorErrors = (SPLUpdateErrorSecureMode, SPLUpdateErrorTryBuild, SPLUpdateErrorSource, SPLUpdateErrorAppx, SPLUpdateErrorAddonsManagerUpdate, SPLUpdateErrorAddonUpdaterRunning, SPLUpdateErrorRemoveWarning)
 
 updateErrorMessages={
 	# Translators: one of the error messages when trying to update the add-on.
@@ -1258,6 +1259,8 @@ updateErrorMessages={
 	SPLUpdateErrorNoNetConnection: _("No internet connection. Please connect to the internet before checking for add-on update."),
 	# Translators: one of the error messages when trying to update the add-on.
 	SPLUpdateErrorAddonUpdaterRunning: _("Add-on Updater add-on might be running. Please use that add-on to check for updates."),
+	# Translators: one of the error messages when trying to update the add-on.
+	SPLUpdateErrorRemoveWarning: _("Add-on update feature from SPL Studio add-on is no more, please use Add-on Updater add-on to check for updates."),
 }
 
 # Check to really make sure add-on updating is supported.
@@ -1265,6 +1268,8 @@ updateErrorMessages={
 # For most cases, it'll return no errors except for scenarios outlined below.
 # The generic error (1) is meant to catch all errors not listed here, and for now, not used.
 def isAddonUpdatingSupported():
+	# 19.01: the only way to restore previous behavior is commenting out the following.
+	return SPLUpdateErrorRemoveWarning
 	if globalVars.appArgs.secure:
 		return SPLUpdateErrorSecureMode
 	if "--spl-customtrybuild" in globalVars.appArgsExtra:

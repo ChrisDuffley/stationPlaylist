@@ -2339,6 +2339,7 @@ class AppModule(appModuleHandler.AppModule):
 		# #46 and others (18.02): there are times when update checking isn't supported such as when running inside Windows Store version of NVDA.
 		# Detect various errors and present appropriate messages and quit immediately.
 		# #50 (18.03): if import fails, treat it as failure and display a message.
+		# 19.01: simplified as runtime error is unconditionally raised.
 		try:
 			from . import splupdate
 		except RuntimeError:

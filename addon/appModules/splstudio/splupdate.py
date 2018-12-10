@@ -7,6 +7,9 @@
 
 # #50 (18.03): there are times when update check should not be supported.
 # Raise runtime exceptions if this is the case.
+# 19.01: raise runtime error unconditionally as standalone update check is deprecated.
+# The only way to restore previous behavior is commenting out this line (valid until end of February 2019).
+raise RuntimeError("Standalone add-on update feature is no more")
 try:
 	import updateCheck
 except RuntimeError:
