@@ -4,6 +4,7 @@
 * Download [stable version][1]
 * Download [development version][2]
 * Download [long-term support version][3] - for Studio 5.10/5.11 users
+* NVDA compatibility: 2018.4 to 2019.1
 
 This add-on package provides improved usage of StationPlaylist Studio, as well as providing utilities to control the Studio from anywhere.
 
@@ -11,11 +12,12 @@ For more information about the add-on, read the [add-on guide][4]. For developer
 
 IMPORTANT NOTES:
 
-* This add-on requires NVDA 2018.3 or later and StationPlaylist Studio 5.11 or later.
+* This add-on requires NVDA 2018.4 or later and StationPlaylist Studio 5.11 or later.
 * If using Windows 8 or later, for best experience, disable audio ducking mode.
 * Starting from 2018, [changelogs for old add-on releases][5] will be found on GitHub. This add-on readme will list changes from version 7.0 (2016 onwards).
 * Certain add-on features (notably add-on updating) won't work under some conditions, including running NVDA in secure mode.
 * Due to tecnical limitations, you cannot install or use this add-on on Windows Store version of NVDA.
+* Add-on update feature that comes with this add-on will be no more in 2019. Use Add-on Updater to update this add-on.
 
 ## Shortcut keys
 
@@ -113,7 +115,7 @@ The available commands are:
 * Shift+S: Time until selected track will play (track starts in).
 * T: Cart edit/insert mode on/off.
 * U: Studio up time.
-* Control+Shift+U: Check for add-on updates.
+* Control+Shift+U: Check for add-on updates (to be removed in 2019).
 * W: Weather and temperature if configured.
 * Y: Playlist modified status.
 * 1 through 0 (6 for Studio 5.0x): Announce column content for a specified column.
@@ -196,6 +198,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * NVDA 2018.4 or later is required.
 * More code changes to make the add-on compatible with Python 3.
 * 19.01: some message translations from this add-on will resemble NVDA messages.
+* 19.01: add-on update check feature from this add-on is no more. An error message will be presented when trying to use SPL Assistant, Control+Shift+U to check for updates.
 * Slight performance improvements when using NVDA with apps other than Studio while Voice Track Recorder is active. NVDA will still show performance issues when using Studio itself with Voice Track Recorder active.
 * In encoders, if an encoder settings dialog is open (Alt+NVDA+0), NVDA will present an error message if trying to open another encoder settings dialog.
 
