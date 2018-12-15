@@ -561,16 +561,10 @@ class ConfigHub(ChainMap):
 			self.switchHistory.append(newProfile)
 			# Translators: Presented when switch to instant switch profile was successful.
 			ui.message(_("Switching to {newProfileName}").format(newProfileName = self.activeProfile))
-			# Pause automatic update checking.
-			if self["Update"]["AutoUpdateCheck"]:
-				if splupdate: splupdate.updateCheckTimerEnd()
 		else:
 			self.switchHistory.pop()
 			# Translators: Presented when switching from instant switch profile to a previous profile.
 			ui.message(_("Returning to {previousProfile}").format(previousProfile = self.activeProfile))
-			# Resume auto update checker if told to do so.
-			if self["Update"]["AutoUpdateCheck"]:
-				if splupdate: splupdate.updateInit()
 		# #38 (17.11/15.10-LTS): can't wait two seconds for microphone alarm to stop.
 		# #40 (17.12): all taken care of by profile switched notification.
 		splactions.SPLActionProfileSwitched.notify()
