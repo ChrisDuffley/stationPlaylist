@@ -1112,7 +1112,6 @@ Highlights of StationPlaylist Studio add-on include:
 * Various ways to find tracks.
 * Cart Explorer to learn cart assignments.
 * Comprehensive settings and documentation.
-* Check for add-on updates automatically or manually.
 * Completely free, open-source and community-driven.
 * And much more.
 
