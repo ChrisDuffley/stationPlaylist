@@ -2333,31 +2333,6 @@ class AppModule(appModuleHandler.AppModule):
 		else: 
 			os.startfile("https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide")
 
-	def script_updateCheck(self, gesture):
-		self.finish()
-		# #46 and others (18.02): there are times when update checking isn't supported such as when running inside Windows Store version of NVDA.
-		# Detect various errors and present appropriate messages and quit immediately.
-		# #50 (18.03): if import fails, treat it as failure and display a message.
-		# 19.01: simplified as runtime error is unconditionally raised.
-		try:
-			from . import splupdate
-		except RuntimeError:
-			# Messages will be retrieved from config module.
-			updateBlocker = splconfig.isAddonUpdatingSupported()
-			if updateBlocker != splconfig.SPLUpdateErrorNone:
-				wx.CallAfter(gui.messageBox, splconfig.updateErrorMessages[updateBlocker], _("Studio add-on update"), wx.ICON_ERROR)
-				return
-		if splupdate._SPLUpdateT is not None and splupdate._SPLUpdateT.IsRunning(): splupdate._SPLUpdateT.Stop()
-		# Display the update check progress dialog (inspired by add-on installation dialog in NvDA Core).
-		# #9 (7.5): Do this if and only if update channel hasn't changed, otherwise we're stuck here forever.
-		# 18.09: just check for updates if this is allowed.
-		splupdate._progressDialog = gui.IndeterminateProgressDialog(gui.mainFrame,
-		# Translators: The title of the dialog presented while checking for add-on updates.
-		_("Add-on update check"),
-		# Translators: The message displayed while checking for newer version of Studio add-on.
-		_("Checking for new version of Studio add-on..."))
-		threading.Thread(target=splupdate.updateChecker, kwargs={"continuous":splconfig.SPLConfig["Update"]["AutoUpdateCheck"], "confUpdateInterval":splconfig.SPLConfig["Update"]["UpdateInterval"]}).start()
-
 	__SPLAssistantGestures={
 		"kb:p":"sayPlayStatus",
 		"kb:a":"sayAutomationStatus",
@@ -2389,7 +2364,6 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:e":"metadataStreamingAnnouncer",
 		"kb:f1":"layerHelp",
 		"kb:shift+f1":"openOnlineDoc",
-		"kb:control+shift+u":"updateCheck",
 	}
 
 	__SPLAssistantJFWGestures={
@@ -2424,7 +2398,6 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:e":"metadataStreamingAnnouncer",
 		"kb:f1":"layerHelp",
 		"kb:shift+f1":"openOnlineDoc",
-		"kb:control+shift+u":"updateCheck",
 	}
 
 	__SPLAssistantWEGestures={
@@ -2461,7 +2434,6 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:g":"metadataStreamingAnnouncer",
 		"kb:f1":"layerHelp",
 		"kb:shift+f1":"openOnlineDoc",
-		"kb:control+shift+u":"updateCheck",
 	}
 
 	__gestures={
