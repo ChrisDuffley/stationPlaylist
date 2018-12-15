@@ -676,16 +676,6 @@ class AppModule(appModuleHandler.AppModule):
 		# If this is started right away, foreground and focus objects will be NULL according to NVDA if NVDA restarts while Studio is running.
 		t= threading.Thread(target=self._locateSPLHwnd)
 		wx.CallAfter(t.start)
-		# Let's start checking for add-on updates unless blocked for some reason.
-		# #46 (18.02): the below function will check for updates at startup as well, similar to NVDA Core's behavior.
-		# #50 (18.03): is add-on update check even possible?
-		try:
-			from . import splupdate
-		except RuntimeError:
-			debugOutput("add-on update check not possible")
-		else:
-			debugOutput("starting update check")
-			splupdate.initialize()
 		# Display startup dialogs if any.
 		# 17.10: not when minimal startup flag is set.
 		# 18.08.1: sometimes, wxPython 4 says wx.App isn't ready.
@@ -1030,15 +1020,6 @@ class AppModule(appModuleHandler.AppModule):
 	def terminate(self):
 		super(AppModule, self).terminate()
 		debugOutput("terminating app module")
-		# Save update check state.
-		# 18.04: do it from the app module to enforce separation of concerns.
-		try:
-			from . import splupdate
-		except RuntimeError:
-			pass
-		else:
-			debugOutput("terminating update check")
-			splupdate.terminate()
 		# 6.3: Memory leak results if encoder flag sets and other encoder support maps aren't cleaned up.
 		# This also could have allowed a hacker to modify the flags set (highly unlikely) so NvDA could get confused next time Studio loads.
 		if "globalPlugins.splUtils.encoders" in sys.modules:

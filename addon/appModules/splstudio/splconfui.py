@@ -18,10 +18,6 @@ import api
 import wx
 from winUser import user32
 import tones
-try:
-	from . import splupdate
-except RuntimeError:
-	splupdate = None
 import addonHandler
 addonHandler.initTranslation()
 from . import splconfig

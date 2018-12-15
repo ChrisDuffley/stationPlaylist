@@ -30,11 +30,6 @@ import wx
 import addonHandler
 addonHandler.initTranslation()
 
-# #50 (18.03): keep an eye on update check facility.
-try:
-	from . import splupdate
-except RuntimeError:
-	splupdate = None
 from . import splactions
 from . import spldebugging
 
