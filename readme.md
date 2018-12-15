@@ -15,9 +15,9 @@ IMPORTANT NOTES:
 * This add-on requires NVDA 2018.4 or later and StationPlaylist Studio 5.11 or later.
 * If using Windows 8 or later, for best experience, disable audio ducking mode.
 * Starting from 2018, [changelogs for old add-on releases][5] will be found on GitHub. This add-on readme will list changes from version 7.0 (2016 onwards).
-* Certain add-on features (notably add-on updating) won't work under some conditions, including running NVDA in secure mode.
+* Certain add-on features won't work under some conditions, including running NVDA in secure mode.
 * Due to tecnical limitations, you cannot install or use this add-on on Windows Store version of NVDA.
-* Add-on update feature that comes with this add-on will be no more in 2019. Use Add-on Updater to update this add-on.
+* Add-on update feature that comes with this add-on has been removed. Use Add-on Updater to update this add-on.
 
 ## Shortcut keys
 
@@ -115,7 +115,6 @@ The available commands are:
 * Shift+S: Time until selected track will play (track starts in).
 * T: Cart edit/insert mode on/off.
 * U: Studio up time.
-* Control+Shift+U: Check for add-on updates (to be removed in 2019).
 * W: Weather and temperature if configured.
 * Y: Playlist modified status.
 * 1 through 0 (6 for Studio 5.0x): Announce column content for a specified column.
