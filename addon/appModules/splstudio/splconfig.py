@@ -106,9 +106,6 @@ SPLConPassthrough = boolean(default=false)
 CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
 ProfileTriggerThreshold = integer(min=5, max=60, default=15)
 PilotFeatures = boolean(default=false)
-[Update]
-AutoUpdateCheck = boolean(default=true)
-UpdateInterval = integer(min=0, max=180, default=30)
 [Startup]
 AudioDuckingReminder = boolean(default=true)
 WelcomeDialog = boolean(default=true)
@@ -183,6 +180,8 @@ class ConfigHub(ChainMap):
 			for entry in SPLDeprecatedKeys:
 				section, key = entry.split("/")
 				if key in self.maps[0][section]: del self.maps[0][section][key]
+			# 19.02: special handling for Update section (the whole section is deprecated).
+			if "Update" in self.maps[0]: del self.maps[0]["Update"]
 		# Moving onto broadcast profiles if any.
 		# 17.10: but not when only normal profile should be used.
 		if not self.normalProfileOnly:
