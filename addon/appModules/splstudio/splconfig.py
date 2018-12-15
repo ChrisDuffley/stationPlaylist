@@ -1157,7 +1157,6 @@ def showStartupDialogs(oldVer=False, oldVerReturn=False):
 	# To be resurrected later.
 	#if oldVer and os.path.exists(os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "ltsprep")):
 		#if gui.messageBox("You are using an older version of Windows. From 2018 onwards, Studio add-on will not support versions earlier than Windows 7 Service Pack 1. Add-on 15.x LTS (long-term support) versions will support Windows versions such as Windows XP until mid-2018. Would you like to switch to long-term support release?", "Long-Term Support version", wx.YES | wx.NO | wx.CANCEL | wx.CENTER | wx.ICON_QUESTION) == wx.YES:
-			#splupdate.SPLUpdateChannel = "lts"
 			#os.remove(os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "ltsprep"))
 	#if oldVerReturn: return
 	if SPLConfig["Startup"]["WelcomeDialog"]:
