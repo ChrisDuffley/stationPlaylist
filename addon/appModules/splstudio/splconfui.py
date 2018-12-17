@@ -64,25 +64,22 @@ class BroadcastProfilesPanel(gui.SettingsPanel):
 			broadcastProfilesHelper.addItem(wx.lib.expando.ExpandoTextCtrl(self, size=(self.scaleSize(250), -1), value=_("Normal profile is in use."), style=wx.TE_READONLY))
 
 		# Profile controls code credit: NV Access (except copy button).
+		# Most control labels come from NvDA Core.
 		# 17.10: if restrictions such as volatile config are applied, disable this area entirely.
 		if not (splconfig.SPLConfig.volatileConfig or splconfig.SPLConfig.normalProfileOnly or splconfig.SPLConfig.configInMemory):
 			sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
-			# Translators: The label of a button to create a new broadcast profile.
-			newButton = wx.Button(self, label=_("&New"))
+			newButton = wx.Button(self, label=translate("&New"))
 			newButton.Bind(wx.EVT_BUTTON, self.onNew)
 			# Translators: The label of a button to copy a broadcast profile.
 			copyButton = wx.Button(self, label=_("Cop&y"))
 			copyButton.Bind(wx.EVT_BUTTON, self.onCopy)
-			# Translators: The label of a button to rename a broadcast profile.
-			self.renameButton = wx.Button(self, label=_("&Rename"))
+			self.renameButton = wx.Button(self, label=translate("&Rename"))
 			self.renameButton.Bind(wx.EVT_BUTTON, self.onRename)
-			# Translators: The label of a button to delete a broadcast profile.
-			self.deleteButton = wx.Button(self, label=_("&Delete"))
+			self.deleteButton = wx.Button(self, label=translate("&Delete"))
 			self.deleteButton.Bind(wx.EVT_BUTTON, self.onDelete)
 			# Have a copy of the triggers dictionary.
 			self._profileTriggersConfig = dict(splconfig.profileTriggers)
-			# Translators: The label of a button to manage show profile triggers.
-			self.triggerButton = wx.Button(self, label=_("&Triggers..."))
+			self.triggerButton = wx.Button(self, label=translate("&Triggers..."))
 			self.triggerButton.Bind(wx.EVT_BUTTON, self.onTriggers)
 			sizer.sizer.AddMany((newButton, copyButton, self.renameButton, self.deleteButton, self.triggerButton))
 			# Translators: The label for a setting in SPL Add-on settings to configure countdown seconds before switching profiles.
