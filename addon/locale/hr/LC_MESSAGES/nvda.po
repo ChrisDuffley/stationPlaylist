@@ -419,11 +419,6 @@ msgstr ""
 "Dijaloški okvir postavki dodatka je otvoren. Molim, prvo zatvorite dijaloški "
 "okvir postavki. "
 
-#. Translators: The title of the message box
-#. Translators: The title of a dialog presented when an error occurs.
-msgid "Error"
-msgstr "Greška "
-
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Sets end of track alarm (default is 5 seconds)."
 msgstr "Postavlja alarm za kraj zapisa (podrazumijevano je 5 sekundi). "
@@ -451,10 +446,6 @@ msgstr "Prebacuje se između različitih postavki brajeve štoperice. "
 #. Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
 msgid "Search string not found."
 msgstr "Tekst pretrage nije pronađen. "
-
-#. Translators: Standard error title for find error (copy this from main nvda.po).
-msgid "Find error"
-msgstr "Greška u pretrazi. "
 
 #. Translators: Presented when a user attempts to find tracks but is not at the track list.
 msgid "Track finder is available only in track list."
@@ -1159,6 +1150,12 @@ msgstr ""
 msgid ""
 "Add-on Updater add-on might be running. Please use that add-on to check for "
 "updates."
+msgstr ""
+
+#. Translators: one of the error messages when trying to update the add-on.
+msgid ""
+"Add-on update feature from SPL Studio add-on is no more, please use Add-on "
+"Updater add-on to check for updates."
 msgstr ""
 
 #. Translators: title of a panel to configure broadcast profiles.
@@ -2133,10 +2130,6 @@ msgstr "Nema enkodera koji se trenutno gleda"
 msgid "Number of encoders monitored: {numberOfEncoders}: {streamLabels}"
 msgstr "Broj enkodera koji se gledaju: {numberOfEncoders}: {streamLabels}"
 
-#. Translators: Text of the dialog when another alarm dialog is open.
-msgid "Another encoder settings dialog is open."
-msgstr "Drugi dijaloški okvir postavki enkodera je otvoren."
-
 #. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
 #, python-brace-format
 msgid "Encoder settings for {name}"
@@ -2248,6 +2241,10 @@ msgstr ""
 "Otvara dijaloški okvir za brisanje oznaka strimova i postavki obrisanih "
 "enkodera."
 
+#. Translators: Text of the dialog when another alarm dialog is open.
+msgid "Another encoder settings dialog is open."
+msgstr "Drugi dijaloški okvir postavki enkodera je otvoren."
+
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid ""
 "Shows encoder configuration dialog to configure various encoder settings "
@@ -2305,3 +2302,9 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist Studio.\n"
 "Također, dodaje komande za studio bilo gdje."
+
+#~ msgid "Error"
+#~ msgstr "Greška "
+
+#~ msgid "Find error"
+#~ msgstr "Greška u pretrazi. "

@@ -5,6 +5,7 @@
 * Télécharger [la version de développement][2]
 * Télécharger [version support long-terme][3] - pour les utilisateurs de
   Studio 5.10 / 5.11
+* Compatibilité NVDA: 2018.3 à 2019.1
 
 Ce module complémentaire améliore l'utilisation de Station Playlist Studio,
 mais il fournit aussi des utilitaires pour contrôler le Studio où que vous

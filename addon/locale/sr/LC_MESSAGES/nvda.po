@@ -419,11 +419,6 @@ msgstr ""
 "Dijalog za podešavanja dodatka je otvoren. Molimo prvo zatvorite dijalog za "
 "podešavanja"
 
-#. Translators: The title of the message box
-#. Translators: The title of a dialog presented when an error occurs.
-msgid "Error"
-msgstr "Greška"
-
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Sets end of track alarm (default is 5 seconds)."
 msgstr "Podešava alarm za kraj zapisa(podrazumevano je 5 sekundi)"
@@ -451,10 +446,6 @@ msgstr "Prebacuje se između različitih podešavanja brajevog tajmera"
 #. Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
 msgid "Search string not found."
 msgstr "Tekst pretrage nije pronađen"
-
-#. Translators: Standard error title for find error (copy this from main nvda.po).
-msgid "Find error"
-msgstr "Greška u pretrazi"
 
 #. Translators: Presented when a user attempts to find tracks but is not at the track list.
 msgid "Track finder is available only in track list."
@@ -1159,6 +1150,12 @@ msgid ""
 "updates."
 msgstr ""
 
+#. Translators: one of the error messages when trying to update the add-on.
+msgid ""
+"Add-on update feature from SPL Studio add-on is no more, please use Add-on "
+"Updater add-on to check for updates."
+msgstr ""
+
 #. Translators: title of a panel to configure broadcast profiles.
 #, fuzzy
 msgid "Broadcast profiles"
@@ -1173,25 +1170,9 @@ msgstr "&Profil strima:"
 msgid "Normal profile is in use."
 msgstr "Samo standardan profil se koristi"
 
-#. Translators: The label of a button to create a new broadcast profile.
-msgid "&New"
-msgstr "&Novi"
-
 #. Translators: The label of a button to copy a broadcast profile.
 msgid "Cop&y"
 msgstr "&Kopiraj"
-
-#. Translators: The label of a button to rename a broadcast profile.
-msgid "&Rename"
-msgstr "P&reimenuj"
-
-#. Translators: The label of a button to delete a broadcast profile.
-msgid "&Delete"
-msgstr "&Obriši"
-
-#. Translators: The label of a button to manage show profile triggers.
-msgid "&Triggers..."
-msgstr "&Aktivatori"
 
 #. Translators: The label for a setting in SPL Add-on settings to configure countdown seconds before switching profiles.
 msgid "Countdown seconds before switching profiles"
@@ -2139,10 +2120,6 @@ msgstr "Nijedan enkoder se ne gleda"
 msgid "Number of encoders monitored: {numberOfEncoders}: {streamLabels}"
 msgstr "Broj enkodera koji se gledaju: {numberOfEncoders}: {streamLabels}"
 
-#. Translators: Text of the dialog when another alarm dialog is open.
-msgid "Another encoder settings dialog is open."
-msgstr "Drugi dijalog sa podešavanjima enkodera je otvoren."
-
 #. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
 #, python-brace-format
 msgid "Encoder settings for {name}"
@@ -2250,6 +2227,10 @@ msgid ""
 "deleted."
 msgstr "Otvara dijalog za brisanje oznake strimova za određen enkoder"
 
+#. Translators: Text of the dialog when another alarm dialog is open.
+msgid "Another encoder settings dialog is open."
+msgstr "Drugi dijalog sa podešavanjima enkodera je otvoren."
+
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid ""
 "Shows encoder configuration dialog to configure various encoder settings "
@@ -2307,3 +2288,21 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist Studio.\n"
 "Takođe, dodaje globalne komande za studio bilo gde."
+
+#~ msgid "Error"
+#~ msgstr "Greška"
+
+#~ msgid "Find error"
+#~ msgstr "Greška u pretrazi"
+
+#~ msgid "&New"
+#~ msgstr "&Novi"
+
+#~ msgid "&Rename"
+#~ msgstr "P&reimenuj"
+
+#~ msgid "&Delete"
+#~ msgstr "&Obriši"
+
+#~ msgid "&Triggers..."
+#~ msgstr "&Aktivatori"

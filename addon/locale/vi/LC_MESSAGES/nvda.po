@@ -424,11 +424,6 @@ msgid ""
 "The add-on settings dialog is opened. Please close the settings dialog first."
 msgstr "Hộp thoại cài đặt add-on đang mở. Vui lòng đóng nó lại trước."
 
-#. Translators: The title of the message box
-#. Translators: The title of a dialog presented when an error occurs.
-msgid "Error"
-msgstr "Lỗi"
-
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Sets end of track alarm (default is 5 seconds)."
 msgstr "Thiết lập báo động cuối track (mặc định là 5 giây)."
@@ -456,10 +451,6 @@ msgstr "Chuyển giữa nhiều cài đặt hẹn giờ chữ nổi."
 #. Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
 msgid "Search string not found."
 msgstr "Không tìm thấy chuỗi."
-
-#. Translators: Standard error title for find error (copy this from main nvda.po).
-msgid "Find error"
-msgstr "Lỗi tìm kiếm"
 
 #. Translators: Presented when a user attempts to find tracks but is not at the track list.
 msgid "Track finder is available only in track list."
@@ -1175,6 +1166,14 @@ msgid ""
 msgstr ""
 "Có thể Add-on Updater đang chạy. Hãy dùng add-on đó để kiểm tra cập nhật."
 
+#. Translators: one of the error messages when trying to update the add-on.
+#, fuzzy
+msgid ""
+"Add-on update feature from SPL Studio add-on is no more, please use Add-on "
+"Updater add-on to check for updates."
+msgstr ""
+"Có thể Add-on Updater đang chạy. Hãy dùng add-on đó để kiểm tra cập nhật."
+
 #. Translators: title of a panel to configure broadcast profiles.
 msgid "Broadcast profiles"
 msgstr "Hồ sơ phát thanh"
@@ -1187,25 +1186,9 @@ msgstr "Cấu hình &phát thanh:"
 msgid "Normal profile is in use."
 msgstr "Đang dùng cấu hình bình thường."
 
-#. Translators: The label of a button to create a new broadcast profile.
-msgid "&New"
-msgstr "&Mới"
-
 #. Translators: The label of a button to copy a broadcast profile.
 msgid "Cop&y"
 msgstr "&Chép"
-
-#. Translators: The label of a button to rename a broadcast profile.
-msgid "&Rename"
-msgstr "Đổi &tên"
-
-#. Translators: The label of a button to delete a broadcast profile.
-msgid "&Delete"
-msgstr "&Xóa"
-
-#. Translators: The label of a button to manage show profile triggers.
-msgid "&Triggers..."
-msgstr "&Tác nhân..."
 
 #. Translators: The label for a setting in SPL Add-on settings to configure countdown seconds before switching profiles.
 msgid "Countdown seconds before switching profiles"
@@ -2127,10 +2110,6 @@ msgstr "Không có bộ mã hóa nào đang được theo dõi"
 msgid "Number of encoders monitored: {numberOfEncoders}: {streamLabels}"
 msgstr "Số bộ mã hóa được theo dõi: {numberOfEncoders}: {streamLabels}"
 
-#. Translators: Text of the dialog when another alarm dialog is open.
-msgid "Another encoder settings dialog is open."
-msgstr "Một hộp thoại cài đặt mã hóa khác đang mở."
-
 #. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
 #, python-brace-format
 msgid "Encoder settings for {name}"
@@ -2242,6 +2221,10 @@ msgstr ""
 "Mở một hộp thoại để xóa các nhãn phát và các thiết lạp từ một bộ mã hóa đã "
 "bị xóa."
 
+#. Translators: Text of the dialog when another alarm dialog is open.
+msgid "Another encoder settings dialog is open."
+msgstr "Một hộp thoại cài đặt mã hóa khác đang mở."
+
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid ""
 "Shows encoder configuration dialog to configure various encoder settings "
@@ -2299,3 +2282,21 @@ msgid ""
 msgstr ""
 "Cải thiện hỗ trợ cho StationPlaylist Studio.\n"
 "Ngoài ra là thêm các lệnh toàn cục cho studio từ bất cứ đâu."
+
+#~ msgid "Error"
+#~ msgstr "Lỗi"
+
+#~ msgid "Find error"
+#~ msgstr "Lỗi tìm kiếm"
+
+#~ msgid "&New"
+#~ msgstr "&Mới"
+
+#~ msgid "&Rename"
+#~ msgstr "Đổi &tên"
+
+#~ msgid "&Delete"
+#~ msgstr "&Xóa"
+
+#~ msgid "&Triggers..."
+#~ msgstr "&Tác nhân..."
