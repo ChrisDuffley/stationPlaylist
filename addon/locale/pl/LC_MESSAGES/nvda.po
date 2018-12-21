@@ -421,11 +421,6 @@ msgid ""
 "The add-on settings dialog is opened. Please close the settings dialog first."
 msgstr "Okno ustawień dodatku otwarte. Proszę, zamknij je najpierw"
 
-#. Translators: The title of the message box
-#. Translators: The title of a dialog presented when an error occurs.
-msgid "Error"
-msgstr "Błąd"
-
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Sets end of track alarm (default is 5 seconds)."
 msgstr "Ustawia alarm końca ścieżki (domyślnie 5 sekund)."
@@ -453,10 +448,6 @@ msgstr "Przełącza pomiędzy różnymi ustawieniami timera brajlowskiego."
 #. Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
 msgid "Search string not found."
 msgstr "Nie znaleziono."
-
-#. Translators: Standard error title for find error (copy this from main nvda.po).
-msgid "Find error"
-msgstr "Błąd szukania"
 
 #. Translators: Presented when a user attempts to find tracks but is not at the track list.
 msgid "Track finder is available only in track list."
@@ -1153,6 +1144,12 @@ msgid ""
 "updates."
 msgstr ""
 
+#. Translators: one of the error messages when trying to update the add-on.
+msgid ""
+"Add-on update feature from SPL Studio add-on is no more, please use Add-on "
+"Updater add-on to check for updates."
+msgstr ""
+
 #. Translators: title of a panel to configure broadcast profiles.
 #, fuzzy
 msgid "Broadcast profiles"
@@ -1167,25 +1164,9 @@ msgstr "Profil:"
 msgid "Normal profile is in use."
 msgstr "tylkoProfil standardowy jest w użyciu"
 
-#. Translators: The label of a button to create a new broadcast profile.
-msgid "&New"
-msgstr "Nowy"
-
 #. Translators: The label of a button to copy a broadcast profile.
 msgid "Cop&y"
 msgstr "Kopiuj"
-
-#. Translators: The label of a button to rename a broadcast profile.
-msgid "&Rename"
-msgstr "Zmień nazwę"
-
-#. Translators: The label of a button to delete a broadcast profile.
-msgid "&Delete"
-msgstr "Usuń"
-
-#. Translators: The label of a button to manage show profile triggers.
-msgid "&Triggers..."
-msgstr "Wyzwalacze..."
 
 #. Translators: The label for a setting in SPL Add-on settings to configure countdown seconds before switching profiles.
 msgid "Countdown seconds before switching profiles"
@@ -2110,10 +2091,6 @@ msgstr "Brak monitorowanych enkoderów"
 msgid "Number of encoders monitored: {numberOfEncoders}: {streamLabels}"
 msgstr "Monitorowane enkodery: {numberOfEncoders}: {streamLabels}"
 
-#. Translators: Text of the dialog when another alarm dialog is open.
-msgid "Another encoder settings dialog is open."
-msgstr "Inne okno właściwości enkodera jest otwarte"
-
 #. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
 #, python-brace-format
 msgid "Encoder settings for {name}"
@@ -2225,6 +2202,10 @@ msgstr ""
 "Otwiera okno pozwalające usunąć etykiety i parametry uprzednio usuniętego "
 "enkodera"
 
+#. Translators: Text of the dialog when another alarm dialog is open.
+msgid "Another encoder settings dialog is open."
+msgstr "Inne okno właściwości enkodera jest otwarte"
+
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid ""
 "Shows encoder configuration dialog to configure various encoder settings "
@@ -2282,3 +2263,21 @@ msgid ""
 msgstr ""
 "Poprawia dostępność Station Playlist Studio.\n"
 "Ponadto, dodaje globalne komendy dla studia, dostępne z każdego miejsca."
+
+#~ msgid "Error"
+#~ msgstr "Błąd"
+
+#~ msgid "Find error"
+#~ msgstr "Błąd szukania"
+
+#~ msgid "&New"
+#~ msgstr "Nowy"
+
+#~ msgid "&Rename"
+#~ msgstr "Zmień nazwę"
+
+#~ msgid "&Delete"
+#~ msgstr "Usuń"
+
+#~ msgid "&Triggers..."
+#~ msgstr "Wyzwalacze..."

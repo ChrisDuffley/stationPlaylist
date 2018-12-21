@@ -4,6 +4,7 @@
 * Tải về [phiên bản chính thức][1]
 * Tải về [phiên bản thử nghiệm][2]
 * Tải về [phiên bản hỗ trợ lâu dài][3] - cho người dùng Studio 5.10/5.11
+* NVDA tương thích: 2018.3 đến 2019.1
 
 Gói add-on này cung cấp sự cải thiện cho việc sử dụng StationPlaylist
 Studio, cũng như cung cấp các tiện ích để điều khiển Studio ở bất cứ đâu.

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-11-29 08:00-0800\n"
-"Last-Translator: Adriani <adriani.botez@gmail.com>\n"
+"PO-Revision-Date: 2018-12-19 14:20+0100\n"
+"Last-Translator: Bernd Dorer <bdorer@mailbox.org>\n"
 "Language-Team: Deutsch <bernd_dorer@yahoo.de>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 2.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
@@ -433,11 +433,6 @@ msgstr ""
 "Der Einstellungsdialog für die Erweiterung ist noch geöffnet. Bitte "
 "schließen Sie den Einstellungsdialog."
 
-#. Translators: The title of the message box
-#. Translators: The title of a dialog presented when an error occurs.
-msgid "Error"
-msgstr "Fehler"
-
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Sets end of track alarm (default is 5 seconds)."
 msgstr ""
@@ -470,10 +465,6 @@ msgstr ""
 #. Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
 msgid "Search string not found."
 msgstr "Der gesuchte Text wurde nicht gefunden."
-
-#. Translators: Standard error title for find error (copy this from main nvda.po).
-msgid "Find error"
-msgstr "Fehler beim Suchen"
 
 #. Translators: Presented when a user attempts to find tracks but is not at the track list.
 msgid "Track finder is available only in track list."
@@ -602,31 +593,31 @@ msgstr ""
 "Öffnet einen Dialog, zum schnellen (de)aktivieren von Metadaten-Streaming."
 
 #. Translators: an error message presented when performing some playlist commands while focused on places other than Playlist Viewer.
-#, fuzzy
 msgid "Please return to playlist viewer before invoking this command."
-msgstr "Sie müssen Titel hinzufügen, bevor Sie diesen Befehl ausführen."
+msgstr ""
+"Bitte kehren Sie zum Playlistenbetrachter zurück, bevor Sie diesen Befehl "
+"aufrufen."
 
 #. Translators: an error message presented when performing some playlist commands while no playlist has been loaded.
 msgid "No playlist has been loaded."
 msgstr "Es wurde keine Playlist geladen."
 
 #. Translators: an error message presented when performing some playlist commands while no tracks are selected/focused.
-#, fuzzy
 msgid ""
 "Please select a track from playlist viewer before invoking this command."
-msgstr "Sie müssen Titel hinzufügen, bevor Sie diesen Befehl ausführen."
+msgstr ""
+"Bitte wählen Sie einen Titel aus dem Playlistenbetrachter aus, bevor Sie "
+"diesen Befehl aufrufen."
 
 #. Translators: Presented when playlist analyzer cannot be performed because user is not focused on playlist viewer.
-#, fuzzy
 msgid "Not in playlist viewer, cannot perform playlist analysis."
 msgstr ""
-"Die Playlist-Analyse kann nicht durchgeführt werden, weil noch keine "
-"Playlist geladen ist."
+"Die Playlist-Analyse kann nicht durchgeführt werden, da Sie sich nicht im "
+"Playlistenbetrachter befinden."
 
 #. Translators: reported when no playlist has been loaded when trying to perform playlist analysis.
-#, fuzzy
 msgid "No playlist to analyze."
-msgstr "Es wurde keine Playlist geladen."
+msgstr "Keine Playlist zum analysieren."
 
 #. Translators: Presented when playlist analysis cannot be activated.
 msgid "No tracks are selected, cannot perform playlist analysis."
@@ -1210,6 +1201,15 @@ msgstr ""
 "Die Erweiterung Zusatz-Updater wird möglicherweise bereits ausgeführt. Bitte "
 "verwenden Sie diese Erweiterung, um nach Updates zu suchen."
 
+#. Translators: one of the error messages when trying to update the add-on.
+msgid ""
+"Add-on update feature from SPL Studio add-on is no more, please use Add-on "
+"Updater add-on to check for updates."
+msgstr ""
+"Die Funktion Erweiterung aktualisieren von SPL Studio ist nicht mehr "
+"verfügbar, bitte verwenden Sie die Erweiterung Add-on Updater , um nach "
+"Updates zu suchen."
+
 #. Translators: title of a panel to configure broadcast profiles.
 msgid "Broadcast profiles"
 msgstr "Sendungs&Profile:"
@@ -1606,18 +1606,16 @@ msgid "Manage column announcements"
 msgstr "Anzeige von Spalten konfigurieren"
 
 #. Translators: Title of a dialog to configure columnn seleciton for Playlist Transcripts.
-#, fuzzy
 msgid "Playlist transcript columns"
-msgstr "Transkript-Wiedergabelisten"
+msgstr "Playlist-Transkription-Spalten"
 
 #. Translators: Help text to select columns to be announced.
-#, fuzzy
 msgid ""
 "&Select columns to be announced\n"
 "(artist and title are announced by default):"
 msgstr ""
-"Wählen Sie die Spalten, die angezeigt werden sollen (Interpret und Titel "
-"werden standardmäßig angezeigt)"
+"Wählen Sie die Spalten, die ausgegeben werden sollen.\n"
+"(Interpret und Titel werden standardmäßig ausgegeben):"
 
 #. Translators: Help text to select columns to be announced.
 msgid ""
@@ -1644,9 +1642,8 @@ msgid "Move &down"
 msgstr "Abwärts bewegen"
 
 #. Translators: title of a panel to configure column announcements (order and what columns should be announced).
-#, fuzzy
 msgid "Column announcements"
-msgstr "Anzeige von Spalten konfigurieren"
+msgstr "Ausgabe von Spalten konfigurieren"
 
 #. Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
 msgid "Announce columns in the &order shown on screen"
@@ -1663,9 +1660,8 @@ msgstr ""
 "einbeziehen"
 
 #. Translators: Title of a panel to configure playlsit transcripts options.
-#, fuzzy
 msgid "Playlist transcripts"
-msgstr "Transkript-Wiedergabelisten"
+msgstr "Playlist-Transkripte"
 
 #. self.availableTranscriptFormats = [output[0] for output in splmisc.SPLPlaylistTranscriptFormats]
 #. self.availableTranscriptFormats.insert(0, "")
@@ -1679,7 +1675,6 @@ msgid "Manage transcript columns..."
 msgstr "Spalten für Transkripte verwalten..."
 
 #. Translators: title of a panel to configure columns explorer settings.
-#, fuzzy
 msgid "Columns explorer"
 msgstr "Spaltenexplorer"
 
@@ -2073,6 +2068,8 @@ msgid ""
 "Studio add-on {newVersion} is not compatible with this version of NVDA. "
 "Please use NVDA {year}.{major} or later."
 msgstr ""
+"Studio-Erweiterung {newVersion} ist nicht kompatibel mit dieser Version von "
+"NVDA. Bitte verwenden Sie NVDA {year}. {major} oder neuerer."
 
 #. Translators: The title of the dialog presented while an Addon is being updated.
 msgid "Updating Add-on"
@@ -2202,10 +2199,6 @@ msgstr "Es werden keine Encoder überwacht"
 msgid "Number of encoders monitored: {numberOfEncoders}: {streamLabels}"
 msgstr "Anzahl überwachter Encoder: {numberOfEncoders}: {streamLabels}"
 
-#. Translators: Text of the dialog when another alarm dialog is open.
-msgid "Another encoder settings dialog is open."
-msgstr "Ein weiteres Dialog für Encoder-Einstellungen ist geöffnet."
-
 #. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
 #, python-brace-format
 msgid "Encoder settings for {name}"
@@ -2321,6 +2314,10 @@ msgstr ""
 "Öffnet einen Dialog, mit dem Beschriftungen und Einstellungen gelöschter "
 "Encoder entfernt werden können."
 
+#. Translators: Text of the dialog when another alarm dialog is open.
+msgid "Another encoder settings dialog is open."
+msgstr "Ein weiteres Dialog für Encoder-Einstellungen ist geöffnet."
+
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid ""
 "Shows encoder configuration dialog to configure various encoder settings "
@@ -2379,3 +2376,9 @@ msgstr ""
 "Verbessert die Unterstützung für Station Playlist Studio.\n"
 "Des weiteren fügt es Tastenkombinationen für das Studio aus beliebigen "
 "Programmen hinzu."
+
+#~ msgid "Error"
+#~ msgstr "Fehler"
+
+#~ msgid "Find error"
+#~ msgstr "Fehler beim Suchen"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-11-30 10:56+0100\n"
+"PO-Revision-Date: 2018-12-14 20:01+0100\n"
 "Last-Translator: José Manuel Delicado <jmdaweb@hotmail.com>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -435,11 +435,6 @@ msgstr ""
 "El diálogo de opciones del complemento está abierto. Por favor ciérralo "
 "antes."
 
-#. Translators: The title of the message box
-#. Translators: The title of a dialog presented when an error occurs.
-msgid "Error"
-msgstr "Error"
-
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Sets end of track alarm (default is 5 seconds)."
 msgstr ""
@@ -468,10 +463,6 @@ msgstr "Conmuta entre varias opciones de temporizadores braille."
 #. Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
 msgid "Search string not found."
 msgstr "No se encontró la cadena de búsqueda."
-
-#. Translators: Standard error title for find error (copy this from main nvda.po).
-msgid "Find error"
-msgstr "Se encontró un error"
 
 #. Translators: Presented when a user attempts to find tracks but is not at the track list.
 msgid "Track finder is available only in track list."
@@ -1204,6 +1195,14 @@ msgid ""
 msgstr ""
 "El complemento Add-on Updater podría estar en ejecución. Por favor utiliza "
 "ese complemento para buscar las actualizaciones."
+
+#. Translators: one of the error messages when trying to update the add-on.
+msgid ""
+"Add-on update feature from SPL Studio add-on is no more, please use Add-on "
+"Updater add-on to check for updates."
+msgstr ""
+"Las funciones de actualización del complemento de SPL ya no existen, por "
+"favor utiliza el complemento Add-on Updater para actualizarlo."
 
 #. Translators: title of a panel to configure broadcast profiles.
 msgid "Broadcast profiles"
@@ -2186,10 +2185,6 @@ msgid "Number of encoders monitored: {numberOfEncoders}: {streamLabels}"
 msgstr ""
 "Número de codificadores monitorizados: {numberOfEncoders}: {streamLabels}"
 
-#. Translators: Text of the dialog when another alarm dialog is open.
-msgid "Another encoder settings dialog is open."
-msgstr "Está abierto otro diálogo de opciones del codificador."
-
 #. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
 #, python-brace-format
 msgid "Encoder settings for {name}"
@@ -2303,6 +2298,10 @@ msgstr ""
 "Abre un diálogo para borrar etiquetas de cadena y opciones de un codificador "
 "que fue eleminado."
 
+#. Translators: Text of the dialog when another alarm dialog is open.
+msgid "Another encoder settings dialog is open."
+msgstr "Está abierto otro diálogo de opciones del codificador."
+
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid ""
 "Shows encoder configuration dialog to configure various encoder settings "
@@ -2360,3 +2359,9 @@ msgid ""
 msgstr ""
 "Mejora el soporte para Station Playlist Studio.\n"
 "Además, agrega comandos globales para el estudio desde cualquier parte."
+
+#~ msgid "Error"
+#~ msgstr "Error"
+
+#~ msgid "Find error"
+#~ msgstr "Se encontró un error"

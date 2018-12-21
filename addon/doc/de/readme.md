@@ -4,6 +4,7 @@
 * [stabile Version herunterladen][1]
 * [Entwicklungsversion herunterladen][2]
 * [LTS-Version für Studio 5.10 / 5.11 herunterladen][3]
+* NVDA compatibility: 2018.3 to 2019.1
 
 Dieses Erweiterungspaket verbessert die Zugänglichkeit von Station Playlist
 Studio. Es stehen außerdem Befehle zur Verfügung, um Station Playlist von
@@ -21,9 +22,9 @@ WICHTIGE HINWEISE:
 * Wenn Sie Windows 8 oder höher verwenden, setzen Sie die Reduzierung der
   Lautstärke anderer Audioquellen auf "nie" im Dialog Sprachausgabe im
   NVDA-Einstellungsmenü.
-* Starting from 2018, [changelogs for old add-on releases][5] will be found
-  on GitHub. This add-on readme will list changes from version 7.0 (2016
-  onwards).
+* Ab 2018 werden die [Änderungsnotizen älterer SPL-Erweiterungsversionen][5]
+  auf Github zu finden sein. Diese Readme-Version listet Änderungen ab
+  Version 7.0 (ab 2016) auf.
 * Bestimmte Features (insbesondere Erweiterungsaktualisierungen)
   funktionieren unter bestimmten Bedingungen nicht. Dies kann beispielsweise
   vorkommen, wenn die NVDA im abgesicherten Modus ausgeführt wird.
@@ -33,7 +34,7 @@ WICHTIGE HINWEISE:
 ## Tastenkürzel
 
 Die meisten davon funktionieren nur in Studio, sofern nicht anders
-angegeben. 
+angegeben.
 
 * Alt+Umschalt+T bei geöffnetem spl-Hauptfenster: zeigt die verstrichene
   Zeit der Wiedergabe für den aktuellen Titel an.
@@ -78,7 +79,7 @@ angegeben.
   an den Entwickler der Erweiterung mit der E-Mail-Programm.
 * Alt+NVDA+F1: öffnet das Willkommensdialog.
 
-## nicht zugewiesene Befehle
+## Nicht zugewiesene Befehle
 
 Die folgenden Befehle sind standardmäßig nicht belegt. Falls Sie diese
 Befehle verwenden möchten, weisen Sie  den Befehlen im NVDA-Eingabendialog
@@ -95,8 +96,8 @@ eine beliebige Tastenkombination zu.
 * Gibt die Bezeichnung des aktuell abgespielten Titels aus.
 * Markiert den aktuellen Titel als Anfand für die Titel-Zeitanalyse.
 * Titel-Zeitanalyse durchführen.
-* nimmt Schnappschüsse aus der Playlist auf.
-* Findet Text in bestimmten Spalten
+* Nimmt Statistiken für eine Wiedergabeliste auf.
+* Findet Text in bestimmten Spalten.
 * Findet über den Suchdialog für die Zeitspanne  Titel mit einer Dauer, die
   in einem bestimmten Zeitraum liegt.
 * Schnelles Aktivieren oder Deaktivieren von Metadaten-Streaming.
@@ -332,20 +333,27 @@ die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
 
 ## Version 18.12
 
-* Internal changes to make the add-on compatible with future NVDA releases.
-* Fixed many instances of add-on messages spoken in English despite
-  translated into other languages.
-* If using SPL Assistant to check for add-on updates (SPL Assistant,
-  Control+Shift+U), NVDA will not install new add-on releases if they
-  require a newer version of NVDA.
-* Some SPL Assistant commands will now require that the playlist viewer is
-  visible and populated with a playlist, and in some cases, a track is
-  focused. Commands affected include remaining duration (D), playlist
-  snapshots (F8), and playlist transcripts (Shift+F8).
-* Playlist remaining duration command (SPL Assistant, D) will now require a
-  track from playlist viewer be focused.
-* In SAM Encoders, you can now use table navigation commands
-  (Control+Alt+arrow keys) to review various encoder status information.
+* Interne Änderungen, um die Erweiterung besser mit zukünftigen
+  NVDA-Versionen kompatibel zu machen.
+* Viele Beispiele von Meldungen der Erweiterung wurden auf englisch
+  ausgesprochen, obwohl sie in andere Sprachen übersetzt wurden. Dieses
+  Problem ist nun gelöst.
+* Bei der Suche nach Aktualisierungen für die Erweiterung über den
+  SPL-Assistenten (SPL-Assistent, Steuerung+Umschalt+U) wird NVDA keine
+  neuen Erweiterungsversionen installieren, wenn diese eine neuere Version
+  von NVDA erfordern.
+* Einige Tastaturbefehle im SPL-Assistenten erfordern nun, dass der
+  Playlistviewer sichtbar ist und mit mindestens einer Wiedergabeliste
+  gefüllt ist. In einigen Fällen wird ein Titel fokussiert. Zu den
+  betroffenen Tastaturbefehlen gehören die Ansage der verbleibende Dauer
+  (D), Playlist-Statistiken (F8) und Transkripte von Wiedergabelisten
+  (Umschalt+F8).
+* Der Befehl für die Ansage der Restlaufzeit der Wiedergabeliste
+  (SPL-Assistent, D) erfordert nun, dass ein Titel aus dem Playlistviewer
+  fokussiert wird.
+* In SAM Encodern können Sie nun mit Hilfe von Tabellen-Navigationsbefehlen
+  (Steuerung+Alt+Pfeiltasten) verschiedene Statusinformationen zum Encoder
+  einsehen.
 
 ## Version 18.11 / 18.09.5-LTS
 
@@ -479,15 +487,13 @@ zurückportiert.
 
 ## Version 18.07
 
-* Es wurde ein experimenteller Bildschirm mit mehrkategorischen
-  Einstellungen der Erweiterung hinzugefügt, auf den Sie durch Umschalten
-  einer Einstellung in den Einstellungen der Erweiterung bzw. Erweitertes
-  Dialogfeld zugreifen können (Sie müssen NVDA neu starten, nachdem Sie
-  diese Einstellung konfiguriert haben, damit der neue Dialog angezeigt
-  wird). Dies ist für Benutzer von NVDA 2018.2. Nicht alle Einstellungen der
-  Erweiterung können über diesen neuen Bildschirm konfiguriert werden.
-  
-Übersetzt mit www.DeepL.com/Translator
+* Es wurde ein experimenteller Dialog mit Einstellungskathegorien der
+  Erweiterung hinzugefügt. Den neuen Dialog können Sie in den Einstellungen
+  der Erweiterung / erweiterte Einstellungen aktivieren. Sie müssen NVDA neu
+  starten, nachdem Sie diese Einstellung konfiguriert haben, damit der neue
+  Dialog angezeigt wird. Dies gilt für Benutzer von NVDA 2018.2 oder
+  höher. Nicht alle Einstellungen der Erweiterung können über diesen neuen
+  Bildschirm konfiguriert werden.
 * NVDA spielt keine Fehlertöne mehr ab oder scheint nichts zu tun, wenn
   versucht wird, ein Broadcast-Profil aus Add-On-Einstellungen umzubenennen,
   verursacht durch ein Kompatibilitätsproblem mit wxPython 4.
@@ -887,7 +893,7 @@ Windows-Versionen wird eine 15.x LTS-Version sein.
 * NVDA wird keine irreführenden Aktionen  mehr ausführen und auch keine
   Fehlerton mehr abspielen, wenn auf  ein temporäres Sendeprofil gewechselt
   wird.
-* Übersetzungen aktualisiert
+* Übersetzungen aktualisiert.
 
 ## Version 17.01/15.5-LTS
 
@@ -916,7 +922,7 @@ Speicherort neuer Erweiterungsdateien.
 
 * Die Darstellung der Benutzeroberfläche für den Einstellungsdialog für die
   Studio-Erweiterung wurde verbessert.
-* Übersetzungen aktualisiert
+* Übersetzungen aktualisiert.
 
 ## Version 16.12/15.4-LTS
 
@@ -952,7 +958,7 @@ Speicherort neuer Erweiterungsdateien.
 * Sie können nun mit dem Titel interagieren, der über den Titelfinder
   (STRG+NVDA+F) gefunden wurde, Beispielsweise, um ihn für die Wiedergabe zu
   aktivieren.
-* Übersetzungen aktualisiert
+* Übersetzungen aktualisiert.
 
 ## Version 8.0/16.10/15.0-LTS
 
@@ -1021,7 +1027,7 @@ verwenden.
   der Erweiterung gerade geändert hat.
 * NVDA berücksichtigt den ausgewählten Update-Kanal beim Herunterladen von
   Updates.
-* Übersetzungen aktualisiert
+* Übersetzungen aktualisiert.
 
 ## Version 7.4/16.08
 
@@ -1045,7 +1051,7 @@ für stabile Versionen.
 
 * Leichte Performance-Verbesserungen beim Nachschlagen von Informationen
   über einige Befehle des SPL-Assistenten wie z.B. Automatisierung.
-* Übersetzungen aktualisiert
+* Übersetzungen aktualisiert.
 
 ## Änderungen in7.2
 
@@ -1066,7 +1072,7 @@ für stabile Versionen.
 * Bei SPL-Encodern schaltet NVDA den Verbindungston aus, wenn Auto-Connect
   aktiviert ist und während dem Verbindungsaufbau diese Option aus dem
   Encoder-Kontextmenü ausgeschaltet wird.
-* Übersetzungen aktualisiert
+* Übersetzungen aktualisiert.
 
 ## Änderungen in7.1
 

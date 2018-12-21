@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 6.4\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2016-03-04 19:00+1000\n"
-"PO-Revision-Date: 2018-11-29 08:45-0800\n"
+"PO-Revision-Date: 2018-12-18 17:25+0200\n"
 "Last-Translator: Florian Ionașcu <florianionascu@hotmail.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 2.1.1\n"
 
 #. Translators: Presented when attempting to install Studio add-on on unsupported Windows releases.
 msgid ""
@@ -426,11 +426,6 @@ msgid ""
 msgstr ""
 "Setările add-onului sunt deja deschise. Vă rugăm să le închideți mai întâi."
 
-#. Translators: The title of the message box
-#. Translators: The title of a dialog presented when an error occurs.
-msgid "Error"
-msgstr "Eroare"
-
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid "Sets end of track alarm (default is 5 seconds)."
 msgstr "Setează alarma sfârșitului melodiiei (implicit este 5 secunde)."
@@ -458,10 +453,6 @@ msgstr "Comută între variațiile setărilor cronometrului braille."
 #. Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
 msgid "Search string not found."
 msgstr "Fraza căutată nu a fostgăsită."
-
-#. Translators: Standard error title for find error (copy this from main nvda.po).
-msgid "Find error"
-msgstr "Găsește eroare"
 
 #. Translators: Presented when a user attempts to find tracks but is not at the track list.
 msgid "Track finder is available only in track list."
@@ -1182,6 +1173,15 @@ msgstr ""
 "Suplimentul Add-on Updater ar putea să ruleze. Vă rugăm să utilizați acel "
 "supliment pentru a căuta actualizări."
 
+#. Translators: one of the error messages when trying to update the add-on.
+#, fuzzy
+msgid ""
+"Add-on update feature from SPL Studio add-on is no more, please use Add-on "
+"Updater add-on to check for updates."
+msgstr ""
+"Suplimentul Add-on Updater ar putea să ruleze. Vă rugăm să utilizați acel "
+"supliment pentru a căuta actualizări."
+
 #. Translators: title of a panel to configure broadcast profiles.
 #, fuzzy
 msgid "Broadcast profiles"
@@ -1196,25 +1196,9 @@ msgstr "&Profil de emisie:"
 msgid "Normal profile is in use."
 msgstr "Doar profilul normal e în uz"
 
-#. Translators: The label of a button to create a new broadcast profile.
-msgid "&New"
-msgstr "&Nou"
-
 #. Translators: The label of a button to copy a broadcast profile.
 msgid "Cop&y"
 msgstr "&Copiază"
-
-#. Translators: The label of a button to rename a broadcast profile.
-msgid "&Rename"
-msgstr "&Redenumește"
-
-#. Translators: The label of a button to delete a broadcast profile.
-msgid "&Delete"
-msgstr "&Șterge"
-
-#. Translators: The label of a button to manage show profile triggers.
-msgid "&Triggers..."
-msgstr "&Comutatoare..."
 
 #. Translators: The label for a setting in SPL Add-on settings to configure countdown seconds before switching profiles.
 msgid "Countdown seconds before switching profiles"
@@ -2037,6 +2021,8 @@ msgid ""
 "Studio add-on {newVersion} is not compatible with this version of NVDA. "
 "Please use NVDA {year}.{major} or later."
 msgstr ""
+"Suplimentul {newVersion} Nu este compatibil cu această versiune de NVDA. Vă "
+"rugăm să folosiți NVDA {year}.{major} sau mai nou."
 
 #. Translators: The title of the dialog presented while an Addon is being updated.
 msgid "Updating Add-on"
@@ -2164,10 +2150,6 @@ msgstr "Niciun encoder nu este monitorizat."
 msgid "Number of encoders monitored: {numberOfEncoders}: {streamLabels}"
 msgstr "Număr de encodere monitorizate: {numberOfEncoders}: {streamLabels}"
 
-#. Translators: Text of the dialog when another alarm dialog is open.
-msgid "Another encoder settings dialog is open."
-msgstr "Un alt dialog cu setările encoderului este deschis."
-
 #. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
 #, python-brace-format
 msgid "Encoder settings for {name}"
@@ -2281,6 +2263,10 @@ msgstr ""
 "Se deschide un dialog pentru a șterge etichetele de stream și setările unui "
 "encoder care este deja șters."
 
+#. Translators: Text of the dialog when another alarm dialog is open.
+msgid "Another encoder settings dialog is open."
+msgstr "Un alt dialog cu setările encoderului este deschis."
+
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid ""
 "Shows encoder configuration dialog to configure various encoder settings "
@@ -2338,3 +2324,21 @@ msgid ""
 msgstr ""
 "Conține suport pentru StationPlaylist Studio.\n"
 "De asemenea, adaugă comenzi globale pentru studio de oriunde."
+
+#~ msgid "Error"
+#~ msgstr "Eroare"
+
+#~ msgid "Find error"
+#~ msgstr "Găsește eroare"
+
+#~ msgid "&New"
+#~ msgstr "&Nou"
+
+#~ msgid "&Rename"
+#~ msgstr "&Redenumește"
+
+#~ msgid "&Delete"
+#~ msgstr "&Șterge"
+
+#~ msgid "&Triggers..."
+#~ msgstr "&Comutatoare..."
