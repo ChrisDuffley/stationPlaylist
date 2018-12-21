@@ -44,7 +44,7 @@ from .spldebugging import debugOutput
 from .skipTranslation import translate
 
 # Make sure the broadcaster is running a compatible version.
-SPLMinVersion = "5.10"
+SPLMinVersion = "5.11"
 
 # Threads pool.
 micAlarmT = None
