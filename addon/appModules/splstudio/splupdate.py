@@ -85,7 +85,8 @@ channels={
 def initialize():
 	global SPLAddonState, SPLAddonCheck, SPLUpdateChannel
 	try:
-		with open(_updatePickle, "r") as f:
+		# #91 (18.09.6-LTS): deal with pickle changes between Python 2 and 3 as long as update check is alive.
+		with open(_updatePickle, "rb") as f:
 			SPLAddonState = pickle.load(f)
 		SPLAddonCheck = SPLAddonState["PDT"]
 		if "UpdateChannel" in SPLAddonState: del SPLAddonState["UpdateChannel"]
@@ -115,7 +116,7 @@ def terminate():
 	if SPLAddonState["PDT"] != SPLAddonCheck:
 		SPLAddonState["PDT"] = SPLAddonCheck
 		with open(_updatePickle, "wb") as f:
-			pickle.dump(SPLAddonState, f)
+			pickle.dump(SPLAddonState, f, protocol=0)
 	SPLAddonState = None
 	SPLAddonCheck = 0
 
