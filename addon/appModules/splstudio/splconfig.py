@@ -663,8 +663,9 @@ def initialize():
 	# LTS: Load track comments if they exist.
 	# This must be a separate file (another pickle file).
 	# 8.0: Do this much later when a track is first focused.
+	# #91 (19.01/18.09.6-LTS): in Python 3, pickle wants to work with bytes and prefers protocol 3, so use "rb" flag and protocol 0 for maximum compatibility.
 	try:
-		with open(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"), "r") as f:
+		with open(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"), "rb") as f:
 			trackComments = pickle.load(f)
 	except (IOError, EOFError):
 		pass
@@ -720,7 +721,7 @@ def initProfileTriggers():
 		raise RuntimeError("ConfigHub is unavailable, profile triggers manager cannot start")
 	global profileTriggers, profileTriggers2
 	try:
-		with open(SPLTriggersFile, "r") as f:
+		with open(SPLTriggersFile, "rb") as f:
 			profileTriggers = pickle.load(f)
 	except IOError:
 		profileTriggers = {}
@@ -867,8 +868,9 @@ def saveProfileTriggers():
 	# Unless it is a daily show, profile triggers would not have been modified.
 	# This trick is employed in order to reduce unnecessary disk writes.
 	if profileTriggers != profileTriggers2:
+		# #91 (19.01/18.09.6-LTS): specify protocol 0 (for maximum compatibility) when dumping triggers and other pickle information.
 		with open(SPLTriggersFile, "wb") as f:
-			pickle.dump(profileTriggers, f)
+			pickle.dump(profileTriggers, f, protocol=0)
 	profileTriggers = None
 	profileTriggers2 = None
 
@@ -966,7 +968,7 @@ def terminate():
 	if not SPLConfig.normalProfileOnly: saveProfileTriggers()
 	# Dump track comments.
 	with open(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"), "wb") as f:
-		pickle.dump(trackComments, f)
+		pickle.dump(trackComments, f, protocol=0)
 	# Now save profiles.
 	# 8.0: Call the save method.
 	# #64 (18.07): separated into its own function in 2018.
