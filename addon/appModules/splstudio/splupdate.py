@@ -90,7 +90,7 @@ def initialize():
 			SPLAddonState = pickle.load(f)
 		SPLAddonCheck = SPLAddonState["PDT"]
 		if "UpdateChannel" in SPLAddonState: del SPLAddonState["UpdateChannel"]
-	except (IOError, KeyError):
+	except (IOError, KeyError, ValueError):
 		SPLAddonState["PDT"] = 0
 	# LTS check.
 	SPLUpdateChannel = "dev" if devVersion else "stable"
