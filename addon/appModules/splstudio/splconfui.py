@@ -18,10 +18,6 @@ import api
 import wx
 from winUser import user32
 import tones
-try:
-	from . import splupdate
-except RuntimeError:
-	splupdate = None
 import addonHandler
 addonHandler.initTranslation()
 from . import splconfig
@@ -1447,15 +1443,6 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 	def makeSettings(self, settingsSizer):
 		advOptionsHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
-		# #48 (18.02): do not show auto-update checkbox and interval options if not needed.
-		# The exception will be custom try builds.
-		# #50 (18.04): made simpler because the update module won't be present if updating isn't supported.
-		if splupdate and splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone:
-			# Translators: A checkbox to toggle automatic add-on updates.
-			self.autoUpdateCheckbox=advOptionsHelper.addItem(wx.CheckBox(self,label=_("Automatically check for add-on &updates")))
-			self.autoUpdateCheckbox.SetValue(splconfig.SPLConfig["Update"]["AutoUpdateCheck"])
-			# Translators: The label for a setting in SPL add-on settings/advanced options to select automatic update interval in days.
-			self.updateInterval=advOptionsHelper.addLabeledControl(_("Update &interval in days"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=180, initial=splconfig.SPLConfig["Update"]["UpdateInterval"])
 		# Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 		self.splConPassthroughCheckbox=advOptionsHelper.addItem(wx.CheckBox(self, label=_("Allow SPL C&ontroller command to invoke SPL Assistant layer")))
 		self.splConPassthroughCheckbox.SetValue(splconfig.SPLConfig["Advanced"]["SPLConPassthrough"])
@@ -1476,20 +1463,7 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 		self.pilotBuildCheckbox.SetValue(splconfig.SPLConfig["Advanced"]["PilotFeatures"])
 		if not splconfig.SPLConfig.canEnablePilotFeatures: self.pilotBuildCheckbox.Disable()
 
-	# Check update channel and interval here.
-	# The onSave method will just assume that it is okay to apply update channel switches and other advanced options.
-	# 18.09: no op if something other than Studio add-on is used to check for updates.
 	def isValid(self):
-		if splupdate and splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone:
-			# If update interval is set to zero, update check will happen every time the app module loads, so warn users.
-			if (splconfig.SPLConfig["Update"]["UpdateInterval"] > 0 and self.updateInterval.Value == 0 and gui.messageBox(
-				# Translators: The confirmation prompt displayed when changing update interval to zero days (updates will be checked every time Studio app module loads).
-				_("Update interval has been set to zero days, so updates to the Studio add-on will be checked every time NVDA and/or Studio starts. Are you sure you wish to continue?"),
-				# Translators: The title of the update interval dialog.
-				_("Confirm update interval"),
-				wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION, self
-			) == wx.NO):
-				return False
 		if (splconfig.SPLConfig.canEnablePilotFeatures and not splconfig.SPLConfig["Advanced"]["PilotFeatures"] and self.pilotBuildCheckbox.IsChecked() and gui.messageBox(
 			# Translators: The confirmation prompt displayed when about to enable pilot flag (with risks involved).
 			_("You are about to enable pilot features. Please note that pilot features may include functionality that might be unstable at times and should be used for testing and sending feedback to the add-on developer. If you prefer to use stable features, please answer no and uncheck pilot features checkbox. Are you sure you wish to enable pilot features?"),
@@ -1502,21 +1476,10 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 
 	def onSave(self):
 		# Pilot features flag will be checked in post-save method below.
-		# 18.09: but only if add-on update feature is usable from Studio add-on.
 		splconfig.SPLConfig["Advanced"]["SPLConPassthrough"] = self.splConPassthroughCheckbox.Value
 		splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] = self.compatibilityLayouts[self.compatibilityList.GetSelection()][0]
-		if splupdate and splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone:
-			splconfig.SPLConfig["Update"]["AutoUpdateCheck"] = self.autoUpdateCheckbox.Value
-			splconfig.SPLConfig["Update"]["UpdateInterval"] = self.updateInterval.Value
 
 	def postSave(self):
-		# Coordinate auto update timer restart routine if told to do so.
-		# #50 (18.03): but only if add-on update facility is alive.
-		if splupdate and splupdate.isAddonUpdatingSupported() == splupdate.SPLUpdateErrorNone:
-			if not splconfig.SPLConfig["Update"]["AutoUpdateCheck"]:
-				splupdate.updateCheckTimerEnd()
-			else:
-				if splupdate._SPLUpdateT is None: splupdate.updateInit()
 		if splconfig.SPLConfig.canEnablePilotFeatures and self.pilotBuildCheckbox.Value != splconfig.SPLConfig["Advanced"]["PilotFeatures"]:
 			# Translators: A dialog message shown when pilot features is turned on or off.
 			wx.CallAfter(gui.messageBox, _("You have toggled pilot features checkbox. You must restart NVDA for the change to take effect."),

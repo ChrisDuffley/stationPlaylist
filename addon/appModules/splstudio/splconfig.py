@@ -30,11 +30,6 @@ import wx
 import addonHandler
 addonHandler.initTranslation()
 
-# #50 (18.03): keep an eye on update check facility.
-try:
-	from . import splupdate
-except RuntimeError:
-	splupdate = None
 from . import splactions
 from . import spldebugging
 
@@ -106,9 +101,6 @@ SPLConPassthrough = boolean(default=false)
 CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
 ProfileTriggerThreshold = integer(min=5, max=60, default=15)
 PilotFeatures = boolean(default=false)
-[Update]
-AutoUpdateCheck = boolean(default=true)
-UpdateInterval = integer(min=0, max=180, default=30)
 [Startup]
 AudioDuckingReminder = boolean(default=true)
 WelcomeDialog = boolean(default=true)
@@ -183,6 +175,8 @@ class ConfigHub(ChainMap):
 			for entry in SPLDeprecatedKeys:
 				section, key = entry.split("/")
 				if key in self.maps[0][section]: del self.maps[0][section][key]
+			# 19.02: special handling for Update section (the whole section is deprecated).
+			if "Update" in self.maps[0]: del self.maps[0]["Update"]
 		# Moving onto broadcast profiles if any.
 		# 17.10: but not when only normal profile should be used.
 		if not self.normalProfileOnly:
@@ -561,16 +555,10 @@ class ConfigHub(ChainMap):
 			self.switchHistory.append(newProfile)
 			# Translators: Presented when switch to instant switch profile was successful.
 			ui.message(_("Switching to {newProfileName}").format(newProfileName = self.activeProfile))
-			# Pause automatic update checking.
-			if self["Update"]["AutoUpdateCheck"]:
-				if splupdate: splupdate.updateCheckTimerEnd()
 		else:
 			self.switchHistory.pop()
 			# Translators: Presented when switching from instant switch profile to a previous profile.
 			ui.message(_("Returning to {previousProfile}").format(previousProfile = self.activeProfile))
-			# Resume auto update checker if told to do so.
-			if self["Update"]["AutoUpdateCheck"]:
-				if splupdate: splupdate.updateInit()
 		# #38 (17.11/15.10-LTS): can't wait two seconds for microphone alarm to stop.
 		# #40 (17.12): all taken care of by profile switched notification.
 		splactions.SPLActionProfileSwitched.notify()
@@ -615,12 +603,9 @@ class ConfigHub(ChainMap):
 	def canEnablePilotFeatures(self):
 		if self._pendingPilotFeaturesToggle:
 			return False
-		if splupdate is not None:
-			return splupdate.SPLUpdateChannel in ("dev", "try")
-		else:
-			import addonHandler
-			SPLAddonManifest = addonHandler.Addon(os.path.join(os.path.dirname(__file__), "..", "..")).manifest
-			return SPLAddonManifest['updateChannel'] == "dev"
+		import addonHandler
+		SPLAddonManifest = addonHandler.Addon(os.path.join(os.path.dirname(__file__), "..", "..")).manifest
+		return SPLAddonManifest['updateChannel'] == "dev"
 
 	@property
 	def testDrive(self):
@@ -1114,7 +1099,6 @@ Highlights of StationPlaylist Studio add-on include:
 * Various ways to find tracks.
 * Cart Explorer to learn cart assignments.
 * Comprehensive settings and documentation.
-* Check for add-on updates automatically or manually.
 * Completely free, open-source and community-driven.
 * And much more.
 
@@ -1159,7 +1143,6 @@ def showStartupDialogs(oldVer=False, oldVerReturn=False):
 	# To be resurrected later.
 	#if oldVer and os.path.exists(os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "ltsprep")):
 		#if gui.messageBox("You are using an older version of Windows. From 2018 onwards, Studio add-on will not support versions earlier than Windows 7 Service Pack 1. Add-on 15.x LTS (long-term support) versions will support Windows versions such as Windows XP until mid-2018. Would you like to switch to long-term support release?", "Long-Term Support version", wx.YES | wx.NO | wx.CANCEL | wx.CENTER | wx.ICON_QUESTION) == wx.YES:
-			#splupdate.SPLUpdateChannel = "lts"
 			#os.remove(os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "ltsprep"))
 	#if oldVerReturn: return
 	if SPLConfig["Startup"]["WelcomeDialog"]:
@@ -1227,70 +1210,3 @@ messagePool={
 			# Translators: A setting in library scan announcement options.
 			(_("Announce progress and item count of a library scan"),
 			_("Scan count"))}}
-
-# Handle several cases that disables update feature completely (or partially).
-SPLUpdateErrorNone = 0
-SPLUpdateErrorGeneric = 1
-SPLUpdateErrorSecureMode = 2
-SPLUpdateErrorTryBuild = 3
-SPLUpdateErrorSource = 4
-SPLUpdateErrorAppx = 5
-SPLUpdateErrorAddonsManagerUpdate = 6
-SPLUpdateErrorNoNetConnection = 7
-SPLUpdateErrorAddonUpdaterRunning = 8
-SPLUpdateErrorRemoveWarning = -1
-
-# These conditions are set when NVDA starts and cannot be changed at runtime, hence major errors.
-# This means no update channel selection, no retrys, etc.
-SPLUpdateMajorErrors = (SPLUpdateErrorSecureMode, SPLUpdateErrorTryBuild, SPLUpdateErrorSource, SPLUpdateErrorAppx, SPLUpdateErrorAddonsManagerUpdate, SPLUpdateErrorAddonUpdaterRunning, SPLUpdateErrorRemoveWarning)
-
-updateErrorMessages={
-	# Translators: one of the error messages when trying to update the add-on.
-	SPLUpdateErrorGeneric: _("An error occured while checking for add-on update. Please check NVDA log for details."),
-	# Translators: one of the error messages when trying to update the add-on.
-	SPLUpdateErrorSecureMode: _("NVDA is in secure mode. Please restart with secure mode disabled before checking for add-on updates."),
-	# Translators: one of the error messages when trying to update the add-on.
-	SPLUpdateErrorTryBuild: _("This is a try build of StationPlaylist Studio add-on. Please install the latest stable release to receive updates again."),
-	# Translators: one of the error messages when trying to update the add-on.
-	SPLUpdateErrorSource: _("Update checking not supported while running NVDA from source. Please run this add-on from an installed or a portable version of NVDA."),
-	# Translators: one of the error messages when trying to update the add-on.
-	SPLUpdateErrorAppx: _("This is a Windows Store version of NVDA. Add-on updating is supported on desktop version of NVDA."),
-	# Translators: one of the error messages when trying to update the add-on.
-	SPLUpdateErrorAddonsManagerUpdate: _("Cannot update add-on directly. Please check for add-on updates by going to add-ons manager."),
-	# Translators: one of the error messages when trying to update the add-on.
-	SPLUpdateErrorNoNetConnection: _("No internet connection. Please connect to the internet before checking for add-on update."),
-	# Translators: one of the error messages when trying to update the add-on.
-	SPLUpdateErrorAddonUpdaterRunning: _("Add-on Updater add-on might be running. Please use that add-on to check for updates."),
-	# Translators: one of the error messages when trying to update the add-on.
-	SPLUpdateErrorRemoveWarning: _("Add-on update feature from SPL Studio add-on is no more, please use Add-on Updater add-on to check for updates."),
-}
-
-# Check to really make sure add-on updating is supported.
-# Contrary to its name, 0 means yes, otherwise no.
-# For most cases, it'll return no errors except for scenarios outlined below.
-# The generic error (1) is meant to catch all errors not listed here, and for now, not used.
-def isAddonUpdatingSupported():
-	# 19.01: the only way to restore previous behavior is commenting out the following.
-	return SPLUpdateErrorRemoveWarning
-	if globalVars.appArgs.secure:
-		return SPLUpdateErrorSecureMode
-	if "--spl-customtrybuild" in globalVars.appArgsExtra:
-		return SPLUpdateErrorTryBuild
-	import versionInfo
-	if not versionInfo.updateVersionType:
-		return SPLUpdateErrorSource
-	# NVDA 2018.1 and later.
-	if config.isAppX:
-		return SPLUpdateErrorAppx
-	# Provided that NVDA issue 3208 is implemented.
-	import addonHandler
-	if hasattr(addonHandler, "checkForAddonUpdate"):
-		return SPLUpdateErrorAddonsManagerUpdate
-	# Temporary: Add-on Updater.
-	import globalPlugins
-	if hasattr(globalPlugins, "addonUpdater"):
-		return SPLUpdateErrorAddonUpdaterRunning
-	return SPLUpdateErrorNone
-
-def canUpdate():
-	return isAddonUpdatingSupported() == SPLUpdateErrorNone
