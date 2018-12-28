@@ -31,6 +31,8 @@ In addition, adds global commands for the studio from everywhere."""),
 	"addon_minimumNVDAVersion" : "2018.4",
 	# Last NVDA version supported/tested
 	"addon_lastTestedNVDAVersion" : "2019.1",
+	# Minimum Windows version supported
+	"addon_minimumWindowsVersion" : "6.1.7601",
 	# Add-on update channel (default is stable)
 	"addon_updateChannel" : "lts18",
 }
