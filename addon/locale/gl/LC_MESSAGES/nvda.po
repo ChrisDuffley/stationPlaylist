@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-12-09 19:59+0100\n"
+"PO-Revision-Date: 2018-12-27 21:24+0100\n"
 "Last-Translator: Iván Novegil <ivan.novegil.cancelas@gmail.com>\n"
 "Language-Team: Add-ons translation team <oprisniki@gmail.com>\n"
 "Language: gl\n"
@@ -1186,13 +1186,13 @@ msgstr ""
 "complemento para procurar as actualizacións."
 
 #. Translators: one of the error messages when trying to update the add-on.
-#, fuzzy
 msgid ""
 "Add-on update feature from SPL Studio add-on is no more, please use Add-on "
 "Updater add-on to check for updates."
 msgstr ""
-"O complemento Add-on Updater podería estar en execución. Por favor usa ese "
-"complemento para procurar as actualizacións."
+"A característica de actualización de complemento do SPL Studio xa non está "
+"dispoñible, por favor utiliza o complemento Add-on Updater para verificar "
+"actualizacións."
 
 #. Translators: title of a panel to configure broadcast profiles.
 msgid "Broadcast profiles"

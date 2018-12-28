@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 17.02\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2017-02-03 19:00+1000\n"
-"PO-Revision-Date: 2018-11-30 22:51+0700\n"
+"PO-Revision-Date: 2018-12-22 07:52+0700\n"
 "Last-Translator: Dang Manh Cuong <dangmanhcuong@gmail.com>\n"
 "Language-Team: \n"
 "Language: vi\n"
@@ -1167,12 +1167,12 @@ msgstr ""
 "Có thể Add-on Updater đang chạy. Hãy dùng add-on đó để kiểm tra cập nhật."
 
 #. Translators: one of the error messages when trying to update the add-on.
-#, fuzzy
 msgid ""
 "Add-on update feature from SPL Studio add-on is no more, please use Add-on "
 "Updater add-on to check for updates."
 msgstr ""
-"Có thể Add-on Updater đang chạy. Hãy dùng add-on đó để kiểm tra cập nhật."
+"Tính năng cập nhật Add-on từ SPL Studio add-on không còn nữa, vui lòng dùng "
+"Add-on Cập nhật add-on để kiểm tra cập nhật."
 
 #. Translators: title of a panel to configure broadcast profiles.
 msgid "Broadcast profiles"
