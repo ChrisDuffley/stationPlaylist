@@ -103,12 +103,6 @@ class SPLTrackItem(sysListView32.ListItem):
 		# SysListView32.ListItem nullifies description, so resort to fetching it via IAccessible.
 		return self.IAccessibleObject.accDescription(self.IAccessibleChildID)
 
-	def initOverlayClass(self):
-		# LTS: Take a greater role in assigning enhanced Columns Explorer command at the expense of limiting where this can be invoked.
-		# 8.0: Just assign number row.
-		for i in six.moves.range(10):
-			self.bindGesture("kb:control+nvda+%s"%(i), "columnExplorer")
-
 	def script_moveToNextColumn(self, gesture):
 		if (self._curColumnNumber+1) == self.parent.columnCount:
 			tones.beep(2000, 100)
@@ -131,6 +125,12 @@ class SPLTrackItem(sysListView32.ListItem):
 		self.__class__._curColumnNumber = self.parent.columnCount-1
 		self.announceColumnContent(self._curColumnNumber)
 
+	@scriptHandler.script(
+		# Translators: input help mode message for column explorer commands.
+		description=_("Pressing once announces data for a track column, pressing twice will present column data in a browse mode window"),
+		# 19.02: script decorator can take in a list of gestures, thus take advantage of it.
+		gestures=["kb:control+nvda+%s"%(i) for i in six.moves.range(10)],
+		category=_("StationPlaylist Studio"))
 	def script_columnExplorer(self, gesture):
 		# LTS: Just in case Control+NVDA+number row command is pressed...
 		# Due to the below formula, columns explorer will be restricted to number commands.
@@ -151,8 +151,6 @@ class SPLTrackItem(sysListView32.ListItem):
 		else:
 			# Translators: Presented when a specific column header is not found.
 			ui.message(_("{headerText} not found").format(headerText = header))
-	# Translators: input help mode message for column explorer commands.
-	script_columnExplorer.__doc__ = _("Pressing once announces data for a track column, pressing twice will present column data in a browse mode window")
 
 	__gestures={
 		"kb:control+alt+home":"firstColumn",
