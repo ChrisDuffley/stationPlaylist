@@ -1822,11 +1822,13 @@ class AppModule(appModuleHandler.AppModule):
 	# The below hack is sensitive to changes in NVDA core.
 	deletedFocusObj = False
 
+	@scriptHandler.script(gestures=["kb:Shift+delete", "kb:Shift+numpadDelete"])
 	def script_deleteTrack(self, gesture):
 		self.preTrackRemoval()
 		gesture.send()
 
 	# When Escape is pressed, activate background library scan if conditions are right.
+	@scriptHandler.script(gesture="kb:escape")
 	def script_escape(self, gesture):
 		gesture.send()
 		if self.libraryScanning:
@@ -2439,8 +2441,5 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:control+shift+x":"setBrailleTimer",
 		"kb:alt+NVDA+0":"openConfigDialog",
 		"kb:alt+NVDA+f1":"openWelcomeDialog",
-		"kb:Shift+delete":"deleteTrack",
-		"kb:Shift+numpadDelete":"deleteTrack",
-		"kb:escape":"escape",
 		"kb:alt+nvda+-":"sendFeedbackEmail",
 	}
