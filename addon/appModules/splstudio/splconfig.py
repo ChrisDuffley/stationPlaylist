@@ -1,6 +1,6 @@
 # SPL Studio Configuration Manager
 # An app module and global plugin package for NVDA
-# Copyright 2015-2018 Joseph Lee and others, released under GPL.
+# Copyright 2015-2019 Joseph Lee and others, released under GPL.
 # Provides the configuration management package for SPL Studio app module.
 # For miscellaneous dialogs and tool, see SPLMisc module.
 # For UI surrounding this module, see splconfui module.
