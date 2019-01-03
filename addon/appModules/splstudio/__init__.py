@@ -736,7 +736,9 @@ class AppModule(appModuleHandler.AppModule):
 				return
 		# #41 (18.04): background library scan detection.
 		# Thankfully, current lib scan reporter function will not proceed when library scan is happening via Insert Tracks dialog.
+		# #92 (19.01.1/18.09.7-LTS): if Studio dies, zero will be returned, so check for window handle once more.
 		if splbase.studioAPI(1, 32) >= 0:
+			if not user32.FindWindowW(u"SPLStudio", None): return
 			if not self.libraryScanning: self.script_libraryScanMonitor(None)
 		# #86 (18.12/18.09.6-LTS): certain internal markers require presence of a playlist, otherwise unexpected things may happen.
 		if not splbase.studioAPI(0, 124):
