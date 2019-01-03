@@ -196,6 +196,10 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 * Removed standalone add-on update check feature, including update check command from SPL Assistant (Control+Shift+U) and add-on update check options from add-on settings. Add-on update check is now performed by Add-on Updater.
 
+## Version 19.01.1
+
+* NVDA will no longer announce "monitoring library scan" after closing Studio in some situations.
+
 ## Version 19.01/18.09.6-LTS
 
 * NVDA 2018.4 or later is required.
