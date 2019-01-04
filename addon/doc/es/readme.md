@@ -5,7 +5,7 @@
 * Descargar [versión de desarrollo][2]
 * Descargar [versión de soporte extendido][3] - Para usuarios de Studio 5.10
   / 5.11
-* Compatibilidad con NVDA: de 2018.3 a 2019.1
+* Compatibilidad con NVDA: de 2018.4 a 2019.1
 
 Este paquete de complementos proporciona una utilización mejorada de Station
 Playlist Studio, así como utilidades para controlar el Studio desde
@@ -18,7 +18,7 @@ repositorio del código fuente del complemento.
 
 NOTAS IMPORTANTES:
 
-* Este complemento requiere de NVDA 2018.3 o posterior y StationPlaylist
+* Este complemento requiere de NVDA 2018.4 o posterior y StationPlaylist
   Studio 5.11 o posterior.
 * Si utilizas Windows 8 o posterior, para una mejor experiencia, deshabilita
   el modo atenuación de audio.
@@ -30,6 +30,8 @@ NOTAS IMPORTANTES:
   en modo seguro.
 * Debido a limitaciones técnicas, no puedes instalar ni utilizar este
   complemento en la versión de Windows Store de NVDA.
+* La característica actualizar complemento que viene con este complemento no
+  estará ya en 2019. Utiliza Add-on Updater para actualizarlo.
 
 ## Teclas de atajo
 
@@ -186,7 +188,8 @@ Las órdenes disponibles son:
   (comienzos de pistas).
 * T: modo editar/insertar Cart activado/desactivado.
 * U: Studio al día.
-* Control+Shift+U: busca actualizaciones del complemento.
+* Control+Shift+U: busca actualizaciones del complemento (se elimina en
+  2019).
 * W: clima y temperatura si se configuró.
 * Y: Estado modificado de lista de reproducción.
 * 1 hasta 0 (6 para Studio 5.0x): anuncia el contenido de la columna para
@@ -325,6 +328,30 @@ Windows 8 o posterior y tienes NVDA 2012.3 o posterior instalado, puedes
 realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
+
+## Version 19.01.1
+
+* NVDA will no longer announce "monitoring library scan" after closing
+  Studio in some situations.
+
+## Versión 19.01/18.09.6-LTS
+
+* Se requiere de NVDA 2018.4 o posterior.
+* Más cambios en el código para hacer al complemento compatible con Python
+  3.
+* 19.01: algunas traducciones de mensajes de este complemento se parecerán a
+  los mensajes de NVDA.
+* 19.01: la característica buscar actualizaciones para este complemento no
+  está  más. Se presentará un mensaje de error cuando se intente utilizar
+  SPL Assistant, Control+Shift+U para buscar actualizaciones. Para
+  actualizaciones futuras, por favor utiliza el complemento Add-on Updater.
+* Ligeras mejoras de rendimiento al utilizar NVDA con aplicaciones distintas
+  de Studio mientras la grabadora de pistas de voz esté activa. NVDA seguirá
+  mostrando problemas de rendimiento cuando se utilice el propio Studio con
+  la grabadora de voz activa.
+* En los codificadores, si hay un cuadro de diálogo de configuración del
+  codificador abierto (Alt+NVDA+0), NVDA presentará un mensaje de error si
+  se intenta abrir otro cuadro de diálogo de configuración del codificador.
 
 ## Versión 18.12
 

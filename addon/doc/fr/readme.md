@@ -5,7 +5,7 @@
 * Télécharger [la version de développement][2]
 * Télécharger [version support long-terme][3] - pour les utilisateurs de
   Studio 5.10 / 5.11
-* Compatibilité NVDA: 2018.3 à 2019.1
+* Compatibilité NVDA: 2018.4 à 2019.1
 
 Ce module complémentaire améliore l'utilisation de Station Playlist Studio,
 mais il fournit aussi des utilitaires pour contrôler le Studio où que vous
@@ -18,7 +18,7 @@ racine du code source du module complémentaire du référentiel.
 
 NOTES IMPORTANTES :
 
-* Ce module complémentaire nécessite NVDA 2018.3 ou version ultérieure et
+* Ce module complémentaire nécessite NVDA 2018.4 ou version ultérieure et
   StationPlaylist Studio 5.11 ou version ultérieure.
 * Si vous utilisez Windows 8 ou ultérieur, pour une meilleure expérience,
   désactiver le Mode d'atténuation audio.
@@ -30,6 +30,9 @@ NOTES IMPORTANTES :
   conditions, notamment l'exécution de NVDA en mode sécurisé.
 * En raison de limitations techniques, vous ne pouvez pas installer ou
   utiliser ce module complémentaire sur la version Windows Store de NVDA.
+* La fonctionnalité de mise à jour du module complémentaire fournie avec ce
+  module complémentaire ne sera plus disponible en 2019. Utilisez Add-on
+  Updater pour mettre à jour ce module complémentaire.
 
 ## Raccourcis clavier
 
@@ -192,7 +195,8 @@ Les commandes disponibles sont :
   débute dans).
 * T : Mode édition/insertion chariot activé/désactivé.
 * U: temps de fonctionnement Studio.
-* Contrôle+Maj+U : Rechercher les mises à jour du module complémentaire.
+* Contrôle+Maj+U : Rechercher les mises à jour du module complémentaire
+  (suppression en 2019).
 * W: Météo et température si configurée.
 * Y: Statut de la modification de la playlist.
 * 1 jusqu'à 0 (6 pour Studio 5.0x) : Annoncer le contenu de la colonne pour
@@ -335,6 +339,31 @@ un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
 
+## Version 19.01.1
+
+* NVDA will no longer announce "monitoring library scan" after closing
+  Studio in some situations.
+
+## Version 19.01/18.09.6-LTS
+
+* NVDA 2018.4 ou ultérieur est requis.
+* Davantage de changements de code pour rendre le module complémentaire
+  compatible avec Python 3.
+* 19.01: certaines traductions de message de ce module complémentaire
+  ressembleront à des messages NVDA.
+* 19.01: la fonctionnalité Rechercher les mises à jour du module
+  complémentaire n'est plus disponible. Un message d'erreur apparaît lorsque
+  vous essayez d'utiliser l'Assistant SPL, Contrôle+Maj+U pour rechercher
+  des mises à jour. Pour les futures mises à jour, veuillez utiliser le
+  module complémentaire Add-on Updater.
+* Légères améliorations des performances lors de l'utilisation de NVDA avec
+  des applications autres que Studio lorsque Voice Track Recorder est
+  actif. NVDA continuera d'afficher des problèmes de performances lors de
+  l'utilisation de Studio lui-même avec Voice Track Recorder actif.
+* Dans les encodeurs, si un dialogue Paramètres de l'encodeur est ouvert
+  (Alt+NVDA+0), NVDA affichera un message d'erreur si vous essayez d'ouvrir
+  un eautre dialogue Paramètres de l'encodeur.
+
 ## Version 18.12
 
 * Changements internes afin de rendre le module complémentaire compatible
@@ -358,8 +387,7 @@ ci-dessus pour exécuter des commandes.
 
 ## Version 18.11/18.09.5-LTS
 
-Note: 18.11.1 remplace 18.11 afin de fournir une prise en charge plus solide
-de Studio 5.31.
+Note: 18.11.1 remplace 18.11 afin de mieux prendre en charge Studio 5.31.
 
 * Premier support de StationPlaylist Studio 5.31.
 * Vous pouvez maintenant obtenir des instantanés de playlist (Assistant SPL,

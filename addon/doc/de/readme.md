@@ -4,7 +4,7 @@
 * [stabile Version herunterladen][1]
 * [Entwicklungsversion herunterladen][2]
 * [LTS-Version für Studio 5.10 / 5.11 herunterladen][3]
-* NVDA-Kompatibilität: 2018.3 bis 2019.1
+* NVDA compatibility: 2018.4 to 2019.1
 
 Dieses Erweiterungspaket verbessert die Zugänglichkeit von Station Playlist
 Studio. Es stehen außerdem Befehle zur Verfügung, um Station Playlist von
@@ -17,8 +17,8 @@ Quellcodeverzeichnis der Erweiterung auf Github.
 
 WICHTIGE HINWEISE:
 
-* Diese Erweiterung erfordert NVDA 2018.3 oder höher und StationPlaylist
-  Studio 5.11 oder höher.
+* This add-on requires NVDA 2018.4 or later and StationPlaylist Studio 5.11
+  or later.
 * Wenn Sie Windows 8 oder höher verwenden, setzen Sie die Reduzierung der
   Lautstärke anderer Audioquellen auf "nie" im Dialog Sprachausgabe im
   NVDA-Einstellungsmenü.
@@ -30,6 +30,8 @@ WICHTIGE HINWEISE:
   vorkommen, wenn die NVDA im abgesicherten Modus ausgeführt wird.
 * Aufgrund technischer Einschränkungen können Sie diese Erweiterung nicht
   auf der Windows-Store-Version von NVDA installieren oder verwenden.
+* Add-on update feature that comes with this add-on will be no more in
+  2019. Use Add-on Updater to update this add-on.
 
 ## Tastenkürzel
 
@@ -183,8 +185,7 @@ Folgende Befehle stehen zur Verfügung:
   in...).
 * T: Cart-Bearbeitungs-/Einfügemodus ein und ausschalten.
 * U: Studiozeit.
-* STRG+Umschalt+U: überprüft, ob Aktualisierungen für die Erweiterung
-  vorhanden sind.
+* Control+Shift+U: Check for add-on updates (to be removed in 2019).
 * W: Wetter und Temperatur, wenn konfiguriert.
 * Y: Status der Playlist-Änderungen.
 * 1 bis 0 (bis 6 für Studio 5.0x): sagt den Spalteninhalt für eine bestimmte
@@ -331,6 +332,29 @@ Studio-Befehle über den Touchscreen ausführen. Tippen Sie zunächst einmal
 mit drei Fingern, um in den SPL-Touchmodus zu wechseln. Verwenden Sie dann
 die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
 
+## Version 19.01.1
+
+* NVDA will no longer announce "monitoring library scan" after closing
+  Studio in some situations.
+
+## Version 19.01/18.09.6-LTS
+
+* NVDA 2018.4 or later is required.
+* More code changes to make the add-on compatible with Python 3.
+* 19.01: some message translations from this add-on will resemble NVDA
+  messages.
+* 19.01: add-on update check feature from this add-on is no more. An error
+  message will be presented when trying to use SPL Assistant,
+  Control+Shift+U to check for updates. For future updates, please use
+  Add-on Updater add-on.
+* Slight performance improvements when using NVDA with apps other than
+  Studio while Voice Track Recorder is active. NVDA will still show
+  performance issues when using Studio itself with Voice Track Recorder
+  active.
+* In encoders, if an encoder settings dialog is open (Alt+NVDA+0), NVDA will
+  present an error message if trying to open another encoder settings
+  dialog.
+
 ## Version 18.12
 
 * Interne Änderungen, um die Erweiterung besser mit zukünftigen
@@ -357,8 +381,8 @@ die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
 
 ## Version 18.11 / 18.09.5-LTS
 
-Hinweis: Version 18.11.1 ersetzt 18.11, um eine solidere Studio
-5.31-Unterstützung zu bieten.
+Note: 18.11.1 replaces 18.11 in order to provide better support for Studio
+5.31.
 
 * Erstmalige Unterstützung für StationPlaylist Studio 5.31.
 * Sie können nun Playlist-Statistiken (SPL-Assistent: f8) und
