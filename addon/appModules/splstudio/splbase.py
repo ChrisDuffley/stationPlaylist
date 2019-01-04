@@ -31,11 +31,10 @@ def studioIsRunning(justChecking=False):
 # #45 (18.02): returns whatever result SendMessage function says.
 # If debugging framework is on, print arg, command and other values.
 # 18.05: strengthen this by checking for the handle once more.
+# #92 (19.03): SendMessage function returns something from anything (including from dead window handles), so really make sure Studio window handle is alive.
 def studioAPI(arg, command):
-	if _SPLWin is None:
-		if not user32.FindWindowW(u"SPLStudio", None):
-			debugOutput("Studio handle not found")
-			return
+	if not studioIsRunning(justChecking=True):
+		return
 	debugOutput("Studio API wParem is %s, lParem is %s"%(arg, command))
 	val = sendMessage(_SPLWin, 1024, arg, command)
 	debugOutput("Studio API result is %s"%val)
