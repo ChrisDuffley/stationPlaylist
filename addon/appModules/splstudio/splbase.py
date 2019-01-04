@@ -16,12 +16,14 @@ _SPLWin = None
 # Check if Studio itself is running.
 # This is to make sure custom commands for SPL Assistant commands and other app module gestures display appropriate error messages.
 def studioIsRunning():
-	if _SPLWin is None:
-		debugOutput("Studio handle not found")
+	# Keep the boolean flag handy because of message output.
+	isStudioAlive = ((_SPLWin is not None and _SPLWin == user32.FindWindowW(u"SPLStudio", None))
+	or (_SPLWin is None and user32.FindWindowW(u"SPLStudio", None) != 0))
+	if not isStudioAlive:
+		debugOutput("Studio is not alive")
 		# Translators: A message informing users that Studio is not running so certain commands will not work.
 		ui.message(_("Studio main window not found"))
-		return False
-	return True
+	return isStudioAlive
 
 # Use SPL Studio API to obtain needed values.
 # A thin wrapper around user32.SendMessage function with Studio handle and WM_USER supplied.
