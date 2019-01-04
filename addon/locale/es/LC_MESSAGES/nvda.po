@@ -869,18 +869,6 @@ msgstr "Ayuda de SPL Assistant para distribución JAWS"
 msgid "SPL Assistant help for Window-Eyes layout"
 msgstr "Ayuda de SPL Assistant para distribución Window-eyes"
 
-#. Translators: Title of the add-on update check dialog.
-msgid "Studio add-on update"
-msgstr "Actualización del complemento Studio"
-
-#. Translators: The title of the dialog presented while checking for add-on updates.
-msgid "Add-on update check"
-msgstr "Buscar actualización del complemento"
-
-#. Translators: The message displayed while checking for newer version of Studio add-on.
-msgid "Checking for new version of Studio add-on..."
-msgstr "Buscar nueva versión del complemento Studio..."
-
 #. Translators: A message informing users that Studio is not running so certain commands will not work.
 msgid "Studio main window not found"
 msgstr "Ventana principal de Studio no encontrada"
@@ -992,6 +980,7 @@ msgid "Do not show this message again"
 msgstr "No mostrar este mensaje otra vez"
 
 #. Translators: A message giving basic information about the add-on.
+#, fuzzy
 msgid ""
 "Welcome to StationPlaylist Studio add-on for NVDA,\n"
 "your companion to broadcasting with SPL Studio using NVDA screen reader.\n"
@@ -1002,7 +991,6 @@ msgid ""
 "* Various ways to find tracks.\n"
 "* Cart Explorer to learn cart assignments.\n"
 "* Comprehensive settings and documentation.\n"
-"* Check for add-on updates automatically or manually.\n"
 "* Completely free, open-source and community-driven.\n"
 "* And much more.\n"
 "\n"
@@ -1130,80 +1118,6 @@ msgstr ""
 msgid "Scan count"
 msgstr "Escanear cuenta"
 
-#. Translators: one of the error messages when trying to update the add-on.
-msgid ""
-"An error occured while checking for add-on update. Please check NVDA log for "
-"details."
-msgstr ""
-"Ocurrió un error mientras se buscaba una actualización para el complemento. "
-"Por favor comprueba el registro de NVDA para detalles."
-
-#. Translators: one of the error messages when trying to update the add-on.
-msgid ""
-"NVDA is in secure mode. Please restart with secure mode disabled before "
-"checking for add-on updates."
-msgstr ""
-"NVDA está en modo seguro. Por favor reinicia con el modo seguro "
-"deshabilitado antes de buscar actualizaciones del complemento."
-
-#. Translators: one of the error messages when trying to update the add-on.
-msgid ""
-"This is a try build of StationPlaylist Studio add-on. Please install the "
-"latest stable release to receive updates again."
-msgstr ""
-"Esta es una compilación de prueba del complemento StationPlaylist Studio. "
-"Por favor instala la última versión estable para recibir actualizaciones de "
-"nuevo."
-
-#. Translators: one of the error messages when trying to update the add-on.
-msgid ""
-"Update checking not supported while running NVDA from source. Please run "
-"this add-on from an installed or a portable version of NVDA."
-msgstr ""
-"No se soporta la búsqueda de actualizaciones mientras se ejecuta NVDA desde "
-"el código fuente. Por favor ejecuta el complemento desde una versión "
-"instalada o portable de NVDA."
-
-#. Translators: one of the error messages when trying to update the add-on.
-msgid ""
-"This is a Windows Store version of NVDA. Add-on updating is supported on "
-"desktop version of NVDA."
-msgstr ""
-"Esta es una versión Windows Store de NVDA. La actualización del complemento "
-"se soporta en versiones de escritorio de NVDA."
-
-#. Translators: one of the error messages when trying to update the add-on.
-msgid ""
-"Cannot update add-on directly. Please check for add-on updates by going to "
-"add-ons manager."
-msgstr ""
-"No se puede actualizar el complemento directamente. Por favor busca "
-"actualizaciones del complemento yendo al administrador de complementos."
-
-#. Translators: one of the error messages when trying to update the add-on.
-msgid ""
-"No internet connection. Please connect to the internet before checking for "
-"add-on update."
-msgstr ""
-"No hay conexión a internet. Por favor conéctate a internet antes de buscar "
-"la actualización del complemento."
-
-#. Translators: one of the error messages when trying to update the add-on.
-msgid ""
-"Add-on Updater add-on might be running. Please use that add-on to check for "
-"updates."
-msgstr ""
-"El complemento Add-on Updater podría estar en ejecución. Por favor utiliza "
-"ese complemento para buscar las actualizaciones."
-
-#. Translators: one of the error messages when trying to update the add-on.
-msgid ""
-"Add-on update feature from SPL Studio add-on is no more, please use Add-on "
-"Updater add-on to check for updates."
-msgstr ""
-"Las funciones de actualización del complemento de SPL ya no existen, por "
-"favor utiliza el complemento Add-on Updater para actualizarlo."
-
 #. Translators: title of a panel to configure broadcast profiles.
 msgid "Broadcast profiles"
 msgstr "Perfiles de emisión"
@@ -1216,25 +1130,9 @@ msgstr "&Perfil emisión:"
 msgid "Normal profile is in use."
 msgstr "Se está usando el perfil normal."
 
-#. Translators: The label of a button to create a new broadcast profile.
-msgid "&New"
-msgstr "&Nuevo"
-
 #. Translators: The label of a button to copy a broadcast profile.
 msgid "Cop&y"
 msgstr "Cop&iar"
-
-#. Translators: The label of a button to rename a broadcast profile.
-msgid "&Rename"
-msgstr "&Renombrar"
-
-#. Translators: The label of a button to delete a broadcast profile.
-msgid "&Delete"
-msgstr "&Eliminar"
-
-#. Translators: The label of a button to manage show profile triggers.
-msgid "&Triggers..."
-msgstr "&Disparadores..."
 
 #. Translators: The label for a setting in SPL Add-on settings to configure countdown seconds before switching profiles.
 msgid "Countdown seconds before switching profiles"
@@ -1741,14 +1639,6 @@ msgstr ""
 msgid "Advanced options"
 msgstr "Opciones avanzadas"
 
-#. Translators: A checkbox to toggle automatic add-on updates.
-msgid "Automatically check for add-on &updates"
-msgstr "Buscar automáticamente &actualizaciones para el complemento"
-
-#. Translators: The label for a setting in SPL add-on settings/advanced options to select automatic update interval in days.
-msgid "Update &interval in days"
-msgstr "&Intervalo de actualización en días"
-
 #. Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 msgid "Allow SPL C&ontroller command to invoke SPL Assistant layer"
 msgstr "Permite a la orden SPL C&ontroller invocar a SPL Assistant layer"
@@ -1765,20 +1655,6 @@ msgid ""
 msgstr ""
 "Características piloto: Quiero probar y proporcionar &retroalimentación "
 "temprana sobre las características en desarrollo"
-
-#. Translators: The confirmation prompt displayed when changing update interval to zero days (updates will be checked every time Studio app module loads).
-msgid ""
-"Update interval has been set to zero days, so updates to the Studio add-on "
-"will be checked every time NVDA and/or Studio starts. Are you sure you wish "
-"to continue?"
-msgstr ""
-"El intervalo de actualización se ha fijado a cero días, así las "
-"actualizaciones para el complemento de Studio se buscarán cada vez que NVDA "
-"y/o Studio se inicien. ¿Estás seguro de que deseas continuar?"
-
-#. Translators: The title of the update interval dialog.
-msgid "Confirm update interval"
-msgstr "Confirmar intervalo de actualización"
 
 #. Translators: The confirmation prompt displayed when about to enable pilot flag (with risks involved).
 msgid ""
@@ -2013,61 +1889,6 @@ msgstr "guardar en archivo"
 #. Translators: The label in playlist transcripts dialog to select transcript action.
 msgid "Transcript action:"
 msgstr "Acción para transcripción:"
-
-#. No need to interact with the user.
-#. Translators: Presented when no add-on update is available.
-msgid "No add-on update available."
-msgstr "No hay actualizaciones disponibles del complemento."
-
-#. Translators: Text shown if an add-on update is available.
-#, python-brace-format
-msgid "Studio add-on {newVersion} is available. Would you like to update?"
-msgstr ""
-"Está disponible la versión del complemento de Studio {newVersion}. ¿Te "
-"gustaría actualizar?"
-
-#. Translators: The title of the dialog displayed while downloading add-on update.
-msgid "Downloading Add-on Update"
-msgstr "Descargand la Actualización del Complemento"
-
-#. Translators: The progress message indicating that a connection is being established.
-msgid "Connecting"
-msgstr "Conectando"
-
-#. Translators: A message indicating that an error occurred while downloading an update to NVDA.
-msgid "Error downloading add-on update."
-msgstr "Error descqargando la actualización del complemento."
-
-#. Translators: The message displayed when an error occurs when opening an add-on package for adding.
-#, python-format
-msgid ""
-"Failed to open add-on package file at %s - missing file or invalid file "
-"format"
-msgstr ""
-"Falló al abrir el fichero de paquete de complemento en %s - Falta fichero o "
-"es un formato inválido"
-
-#. Translators: The message displayed when trying to update an add-on that is not going to be compatible with the current version of NVDA.
-#, python-brace-format
-msgid ""
-"Studio add-on {newVersion} is not compatible with this version of NVDA. "
-"Please use NVDA {year}.{major} or later."
-msgstr ""
-"La versión {newVersion} del complemento de Studio no es compatible con esta "
-"versión de NVDA. Por favor, usa NVDA {year}.{major} o posterior."
-
-#. Translators: The title of the dialog presented while an Addon is being updated.
-msgid "Updating Add-on"
-msgstr "Actualizando Complemento"
-
-#. Translators: The message displayed while an addon is being updated.
-msgid "Please wait while the add-on is being updated."
-msgstr "Por favor espera mientras se está actualizando el complemento."
-
-#. Translators: The message displayed when an error occurs when installing an add-on package.
-#, python-format
-msgid "Failed to update add-on  from %s"
-msgstr "Falló al actualizar el complemento desde %s"
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
@@ -2359,6 +2180,150 @@ msgid ""
 msgstr ""
 "Mejora el soporte para Station Playlist Studio.\n"
 "Además, agrega comandos globales para el estudio desde cualquier parte."
+
+#~ msgid "Studio add-on update"
+#~ msgstr "Actualización del complemento Studio"
+
+#~ msgid "Add-on update check"
+#~ msgstr "Buscar actualización del complemento"
+
+#~ msgid "Checking for new version of Studio add-on..."
+#~ msgstr "Buscar nueva versión del complemento Studio..."
+
+#~ msgid ""
+#~ "An error occured while checking for add-on update. Please check NVDA log "
+#~ "for details."
+#~ msgstr ""
+#~ "Ocurrió un error mientras se buscaba una actualización para el "
+#~ "complemento. Por favor comprueba el registro de NVDA para detalles."
+
+#~ msgid ""
+#~ "NVDA is in secure mode. Please restart with secure mode disabled before "
+#~ "checking for add-on updates."
+#~ msgstr ""
+#~ "NVDA está en modo seguro. Por favor reinicia con el modo seguro "
+#~ "deshabilitado antes de buscar actualizaciones del complemento."
+
+#~ msgid ""
+#~ "This is a try build of StationPlaylist Studio add-on. Please install the "
+#~ "latest stable release to receive updates again."
+#~ msgstr ""
+#~ "Esta es una compilación de prueba del complemento StationPlaylist Studio. "
+#~ "Por favor instala la última versión estable para recibir actualizaciones "
+#~ "de nuevo."
+
+#~ msgid ""
+#~ "Update checking not supported while running NVDA from source. Please run "
+#~ "this add-on from an installed or a portable version of NVDA."
+#~ msgstr ""
+#~ "No se soporta la búsqueda de actualizaciones mientras se ejecuta NVDA "
+#~ "desde el código fuente. Por favor ejecuta el complemento desde una "
+#~ "versión instalada o portable de NVDA."
+
+#~ msgid ""
+#~ "This is a Windows Store version of NVDA. Add-on updating is supported on "
+#~ "desktop version of NVDA."
+#~ msgstr ""
+#~ "Esta es una versión Windows Store de NVDA. La actualización del "
+#~ "complemento se soporta en versiones de escritorio de NVDA."
+
+#~ msgid ""
+#~ "Cannot update add-on directly. Please check for add-on updates by going "
+#~ "to add-ons manager."
+#~ msgstr ""
+#~ "No se puede actualizar el complemento directamente. Por favor busca "
+#~ "actualizaciones del complemento yendo al administrador de complementos."
+
+#~ msgid ""
+#~ "No internet connection. Please connect to the internet before checking "
+#~ "for add-on update."
+#~ msgstr ""
+#~ "No hay conexión a internet. Por favor conéctate a internet antes de "
+#~ "buscar la actualización del complemento."
+
+#~ msgid ""
+#~ "Add-on Updater add-on might be running. Please use that add-on to check "
+#~ "for updates."
+#~ msgstr ""
+#~ "El complemento Add-on Updater podría estar en ejecución. Por favor "
+#~ "utiliza ese complemento para buscar las actualizaciones."
+
+#~ msgid ""
+#~ "Add-on update feature from SPL Studio add-on is no more, please use Add-"
+#~ "on Updater add-on to check for updates."
+#~ msgstr ""
+#~ "Las funciones de actualización del complemento de SPL ya no existen, por "
+#~ "favor utiliza el complemento Add-on Updater para actualizarlo."
+
+#~ msgid "&New"
+#~ msgstr "&Nuevo"
+
+#~ msgid "&Rename"
+#~ msgstr "&Renombrar"
+
+#~ msgid "&Delete"
+#~ msgstr "&Eliminar"
+
+#~ msgid "&Triggers..."
+#~ msgstr "&Disparadores..."
+
+#~ msgid "Automatically check for add-on &updates"
+#~ msgstr "Buscar automáticamente &actualizaciones para el complemento"
+
+#~ msgid "Update &interval in days"
+#~ msgstr "&Intervalo de actualización en días"
+
+#~ msgid ""
+#~ "Update interval has been set to zero days, so updates to the Studio add-"
+#~ "on will be checked every time NVDA and/or Studio starts. Are you sure you "
+#~ "wish to continue?"
+#~ msgstr ""
+#~ "El intervalo de actualización se ha fijado a cero días, así las "
+#~ "actualizaciones para el complemento de Studio se buscarán cada vez que "
+#~ "NVDA y/o Studio se inicien. ¿Estás seguro de que deseas continuar?"
+
+#~ msgid "Confirm update interval"
+#~ msgstr "Confirmar intervalo de actualización"
+
+#~ msgid "No add-on update available."
+#~ msgstr "No hay actualizaciones disponibles del complemento."
+
+#~ msgid "Studio add-on {newVersion} is available. Would you like to update?"
+#~ msgstr ""
+#~ "Está disponible la versión del complemento de Studio {newVersion}. ¿Te "
+#~ "gustaría actualizar?"
+
+#~ msgid "Downloading Add-on Update"
+#~ msgstr "Descargand la Actualización del Complemento"
+
+#~ msgid "Connecting"
+#~ msgstr "Conectando"
+
+#~ msgid "Error downloading add-on update."
+#~ msgstr "Error descqargando la actualización del complemento."
+
+#~ msgid ""
+#~ "Failed to open add-on package file at %s - missing file or invalid file "
+#~ "format"
+#~ msgstr ""
+#~ "Falló al abrir el fichero de paquete de complemento en %s - Falta fichero "
+#~ "o es un formato inválido"
+
+#~ msgid ""
+#~ "Studio add-on {newVersion} is not compatible with this version of NVDA. "
+#~ "Please use NVDA {year}.{major} or later."
+#~ msgstr ""
+#~ "La versión {newVersion} del complemento de Studio no es compatible con "
+#~ "esta versión de NVDA. Por favor, usa NVDA {year}.{major} o posterior."
+
+#~ msgid "Updating Add-on"
+#~ msgstr "Actualizando Complemento"
+
+#~ msgid "Please wait while the add-on is being updated."
+#~ msgstr "Por favor espera mientras se está actualizando el complemento."
+
+#~ msgid "Failed to update add-on  from %s"
+#~ msgstr "Falló al actualizar el complemento desde %s"
 
 #~ msgid "Error"
 #~ msgstr "Error"

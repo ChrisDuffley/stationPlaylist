@@ -4,7 +4,7 @@
 * Tải về [phiên bản chính thức][1]
 * Tải về [phiên bản thử nghiệm][2]
 * Tải về [phiên bản hỗ trợ lâu dài][3] - cho người dùng Studio 5.10/5.11
-* NVDA tương thích: 2018.3 đến 2019.1
+* NVDA tương thích: 2018.4 đến 2019.1
 
 Gói add-on này cung cấp sự cải thiện cho việc sử dụng StationPlaylist
 Studio, cũng như cung cấp các tiện ích để điều khiển Studio ở bất cứ đâu.
@@ -15,8 +15,7 @@ xem tập tin buildInstructions.txt ở thư mục gốc trong mã nguồn của
 
 CÁC LƯU Ý QUAN TRỌNG:
 
-* Add-on này yêu cầu NVDA 2018.3 trở lên và StationPlaylist Studio 5.11 trở
-  lên.
+* Add-on này yêu cầu NVDA 2018.4 và StationPlaylist Studio 5.11 trở lên.
 * Nếu dùng Windows 8 trở lên, hãy tắt chế độ giảm âm thanh để có trải nghiệm
   tốt nhất.
 * Từ 2018, [bản ghi những thay đổi cho các bản phát hành cũ của add-on][5]
@@ -27,6 +26,8 @@ CÁC LƯU Ý QUAN TRỌNG:
   vệ.
 * Vì những giới hạn kĩ thuật, bạn không thể cài hay dùng add-on này với
   phiên bản NVDA từ Windows Store.
+* Tính năng cập nhật add-on không còn trong phiên bản  2019. Hãy dùng Add-on
+  Updater để cập nhật add-on này.
 
 ## Các phím tắt
 
@@ -164,7 +165,7 @@ Các lệnh được hỗ trợ bao gồm:
 * Shift+S: thời gian đến khi sẽ phát track được chọn (track bắt đầu).
 * T: bật / tắt chèn / chỉnh sửa Cart.
 * U: Studio tăng thời gian.
-* Control+Shift+U: kiểm tra cập nhật add-on.
+* Control+Shift+U: kiểm tra cập nhật add-on (bị gỡ bỏ trong phiên bản 2019).
 * W: thời tiết và nhiệt độ nếu được cấu hình.
 * Y: trạng thái chỉnh sửa danh sách phát.
 * 1 đến 0 (6 cho Studio 5.0x): thông báo nội dung của một cột được chỉ định.
@@ -283,6 +284,27 @@ NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio t
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
 
+## Phiên bản 19.01.1
+
+* NVDA sẽ không còn thông báo "Đang theo dõi việcquét thư viện" sau khi đóng
+  Studio trong vài trường hợp.
+
+## Phiên bản 19.01/18.09.6-LTS
+
+* Yêu cầu NVDA 2018.4 trở lên.
+* Nhiều thay đổi mã nguồn để add-on tương thích hơn với Python 3.
+* 19.01: vài thông điệp cho phiên dịch từ add-on này sẽ giống với thông điệp
+  của NVDA.
+* 19.01: tính năng kiểm tra cập nhật add-on không còn nữa. Thông điệp báo
+  lỗi sẽ hiển thị khi dùng SPL Assistant, Control+Shift+U để kiểm tra cập
+  nhật. Với các bản cập nhật trong tương lai, vui lòng dùng Add-on Updater.
+* Cải thiện nhẹ hiệu suất vận hành khi dùng NVDA với các ứng dụng khác trong
+  khi đã kích hoạt Voice Track Recorder. NVDA sẽ vẫn thể hiện các vấn đề
+  hiệu suất khi dùng Studio và Voice Track Recorder được kích hoạt.
+* Trong các bộ mã hóa, nếu một hộp thoại cài đặt mã hóa được mở
+  (Alt+NVDA+0), NVDA sẽ hiện thông điệp báo lỗi nếu mở thêm hộp thoại cài
+  đặt mã hóa khác.
+
 ## Phiên bản 18.12
 
 * Những thay đổi bên trong để add-on tương thích hơn với các bản phát hành
@@ -304,7 +326,7 @@ và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thự
 
 ## Phiên bản 18.11/18.09.5-LTS
 
-Lưu ý: 18.11.1 thay thế 18.11 để cung cấp những hỗ trợ đắc lực hơn cho
+Lưu ý: 18.11.1 thay thế 18.11 nhằm cung cấp những hỗ trợ đắc lực hơn cho
 Studio 5.31.
 
 * Bắt đầu hỗ trợ cho StationPlaylist Studio 5.31.
