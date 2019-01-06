@@ -27,7 +27,7 @@ import braille
 import touchHandler
 import gui
 import wx
-from winUser import user32, sendMessage, OBJID_CLIENT, FindWindow
+from winUser import user32, OBJID_CLIENT
 from NVDAObjects import NVDAObject, NVDAObjectTextInfo
 from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent, sysListView32
 from NVDAObjects.behaviors import Dialog, RowWithFakeNavigation, RowWithoutCellObjects
