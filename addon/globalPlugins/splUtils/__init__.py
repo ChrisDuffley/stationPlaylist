@@ -10,7 +10,7 @@ import api
 import ui
 import globalVars
 from NVDAObjects.IAccessible import getNVDAObjectFromEvent, sysListView32
-import winUser
+from winUser import user32, sendMessage, OBJID_CLIENT
 import addonHandler
 addonHandler.initTranslation()
 
@@ -28,7 +28,6 @@ def finally_(func, final):
 	return wrap(final)
 
 # SPL Studio uses WM messages to send and receive data, similar to Winamp (see NVDA sources/appModules/winamp.py for more information).
-user32 = winUser.user32 # user32.dll.
 SPLWin = 0 # A handle to studio window.
 
 # Various SPL IPC tags.
@@ -142,7 +141,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			# 17.12: also bind cart keys.
 			# Exclude number row if Studio Standard is running.
 			cartKeys = self.fnCartKeys
-			if not getNVDAObjectFromEvent(winUser.user32.FindWindowW(u"TStudioForm", None), winUser.OBJID_CLIENT, 0).name.startswith("StationPlaylist Studio Standard"):
+			if not getNVDAObjectFromEvent(user32.FindWindowW(u"TStudioForm", None), OBJID_CLIENT, 0).name.startswith("StationPlaylist Studio Standard"):
 				cartKeys+=self.numCartKeys
 			for cart in cartKeys:
 				self.bindGesture("kb:%s"%cart, "cartsWithoutBorders")
@@ -162,70 +161,70 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# The layer commands themselves. Calls user32.SendMessage method for each script.
 
 	def script_automateOn(self, gesture):
-		winUser.sendMessage(SPLWin,1024,1,SPLAutomate)
+		sendMessage(SPLWin,1024,1,SPLAutomate)
 		self.finish()
 
 	def script_automateOff(self, gesture):
-		winUser.sendMessage(SPLWin,1024,0,SPLAutomate)
+		sendMessage(SPLWin,1024,0,SPLAutomate)
 		self.finish()
 
 	def script_micOn(self, gesture):
-		winUser.sendMessage(SPLWin,1024,1,SPLMic)
+		sendMessage(SPLWin,1024,1,SPLMic)
 		self.finish()
 
 	def script_micOff(self, gesture):
-		winUser.sendMessage(SPLWin,1024,0,SPLMic)
+		sendMessage(SPLWin,1024,0,SPLMic)
 		self.finish()
 
 	def script_micNoFade(self, gesture):
-		winUser.sendMessage(SPLWin,1024,2,SPLMic)
+		sendMessage(SPLWin,1024,2,SPLMic)
 		self.finish()
 
 	def script_lineInOn(self, gesture):
-		winUser.sendMessage(SPLWin,1024,1,SPLLineIn)
+		sendMessage(SPLWin,1024,1,SPLLineIn)
 		self.finish()
 
 	def script_lineInOff(self, gesture):
-		winUser.sendMessage(SPLWin,1024,0,SPLLineIn)
+		sendMessage(SPLWin,1024,0,SPLLineIn)
 		self.finish()
 
 	def script_stopFade(self, gesture):
-		winUser.sendMessage(SPLWin,1024,0,SPLStop)
+		sendMessage(SPLWin,1024,0,SPLStop)
 		self.finish()
 
 	def script_stopInstant(self, gesture):
-		winUser.sendMessage(SPLWin,1024,1,SPLStop)
+		sendMessage(SPLWin,1024,1,SPLStop)
 		self.finish()
 
 	def script_play(self, gesture):
-		winUser.sendMessage(SPLWin, 1024, 0, SPLPlay)
+		sendMessage(SPLWin, 1024, 0, SPLPlay)
 		self.finish()
 
 	def script_pause(self, gesture):
-		playingNow = winUser.sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus)
+		playingNow = sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus)
 		# Translators: Presented when no track is playing in Station Playlist Studio.
 		if not playingNow: ui.message(_("There is no track playing. Try pausing while a track is playing."))
-		elif playingNow == 3: winUser.sendMessage(SPLWin, 1024, 0, SPLPause)
-		else: winUser.sendMessage(SPLWin, 1024, 1, SPLPause)
+		elif playingNow == 3: sendMessage(SPLWin, 1024, 0, SPLPause)
+		else: sendMessage(SPLWin, 1024, 1, SPLPause)
 		self.finish()
 
 	def script_libraryScanProgress(self, gesture):
-		scanned = winUser.sendMessage(SPLWin, 1024, 1, SPLLibraryScanCount)
+		scanned = sendMessage(SPLWin, 1024, 1, SPLLibraryScanCount)
 		if scanned >= 0:
 			# Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
 			ui.message(_("Scan in progress with {itemCount} items scanned").format(itemCount = scanned))
 		else:
 			# Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
-			ui.message(_("Scan complete with {itemCount} items scanned").format(itemCount = winUser.sendMessage(SPLWin, 1024, 0, SPLLibraryScanCount)))
+			ui.message(_("Scan complete with {itemCount} items scanned").format(itemCount = sendMessage(SPLWin, 1024, 0, SPLLibraryScanCount)))
 		self.finish()
 
 	def script_listenerCount(self, gesture):
 		# Translators: Announces number of stream listeners.
-		ui.message(_("Listener count: {listenerCount}").format(listenerCount = winUser.sendMessage(SPLWin, 1024, 0, SPLListenerCount)))
+		ui.message(_("Listener count: {listenerCount}").format(listenerCount = sendMessage(SPLWin, 1024, 0, SPLListenerCount)))
 		self.finish()
 
 	def script_remainingTime(self, gesture):
-		remainingTime = winUser.sendMessage(SPLWin, 1024, 3, SPLCurTrackPlaybackTime)
+		remainingTime = sendMessage(SPLWin, 1024, 3, SPLCurTrackPlaybackTime)
 		# Translators: Presented when no track is playing in Station Playlist Studio.
 		if remainingTime < 0: ui.message(_("There is no track playing."))
 		else:
@@ -260,23 +259,23 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# For consistency reasons (because of the Studio status bar), messages in this method will remain in English.
 		statusInfo = []
 		# 17.04: For Studio 5.10 and up, announce playback and automation status.
-		playingNow = winUser.sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus)
+		playingNow = sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus)
 		statusInfo.append("Play status: playing" if playingNow else "Play status: stopped")
 		# For automation, Studio 5.11 and earlier does not have an easy way to detect this flag, thus resort to using playback status.
 		# 17.08: relaxed by locating the Studio foreground window and returning status bar messages (same procedure as the app module/SPL Assistant).
-		if winUser.sendMessage(SPLWin, 1024, 0, SPLVersion) < 520:
-			studioAppMod = getNVDAObjectFromEvent(winUser.user32.FindWindowW(u"TStudioForm", None), winUser.OBJID_CLIENT, 0).appModule
+		if sendMessage(SPLWin, 1024, 0, SPLVersion) < 520:
+			studioAppMod = getNVDAObjectFromEvent(user32.FindWindowW(u"TStudioForm", None), OBJID_CLIENT, 0).appModule
 			statusBar = studioAppMod.status(studioAppMod.SPLPlayStatus)
 			for index in range(1, 6):
 				statusInfo.append(statusBar.getChild(index).name)
 		else:
 			# 5.20 and later.
-			statusInfo.append("Automation On" if winUser.sendMessage(SPLWin, 1024, 1, SPLStatusInfo) else "Automation Off")
-			statusInfo.append("Microphone On" if winUser.sendMessage(SPLWin, 1024, 2, SPLStatusInfo) else "Microphone Off")
-			statusInfo.append("Line-In On" if winUser.sendMessage(SPLWin, 1024, 3, SPLStatusInfo) else "Line-In Off")
-			statusInfo.append("Record to file On" if winUser.sendMessage(SPLWin, 1024, 4, SPLStatusInfo) else "Record to file Off")
-			cartEdit = winUser.sendMessage(SPLWin, 1024, 5, SPLStatusInfo)
-			cartInsert = winUser.sendMessage(SPLWin, 1024, 6, SPLStatusInfo)
+			statusInfo.append("Automation On" if sendMessage(SPLWin, 1024, 1, SPLStatusInfo) else "Automation Off")
+			statusInfo.append("Microphone On" if sendMessage(SPLWin, 1024, 2, SPLStatusInfo) else "Microphone Off")
+			statusInfo.append("Line-In On" if sendMessage(SPLWin, 1024, 3, SPLStatusInfo) else "Line-In Off")
+			statusInfo.append("Record to file On" if sendMessage(SPLWin, 1024, 4, SPLStatusInfo) else "Record to file Off")
+			cartEdit = sendMessage(SPLWin, 1024, 5, SPLStatusInfo)
+			cartInsert = sendMessage(SPLWin, 1024, 6, SPLStatusInfo)
 			if cartEdit: statusInfo.append("Cart Edit On")
 			elif not cartEdit and cartInsert: statusInfo.append("Cart Insert On")
 			else: statusInfo.append("Cart Edit Off")
@@ -286,12 +285,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	script_statusInfo.__doc__ = _("Announces Studio status such as track playback status from other programs")
 
 	def script_currentTrackTitle(self, gesture):
-		studioAppMod = getNVDAObjectFromEvent(winUser.user32.FindWindowW(u"TStudioForm", None), winUser.OBJID_CLIENT, 0).appModule
+		studioAppMod = getNVDAObjectFromEvent(user32.FindWindowW(u"TStudioForm", None), OBJID_CLIENT, 0).appModule
 		studioAppMod.script_sayCurrentTrackTitle(None)
 		self.finish()
 
 	def script_nextTrackTitle(self, gesture):
-		studioAppMod = getNVDAObjectFromEvent(winUser.user32.FindWindowW(u"TStudioForm", None), winUser.OBJID_CLIENT, 0).appModule
+		studioAppMod = getNVDAObjectFromEvent(user32.FindWindowW(u"TStudioForm", None), OBJID_CLIENT, 0).appModule
 		studioAppMod.script_sayNextTrackTitle(None)
 		self.finish()
 
@@ -306,11 +305,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Both start with the following.
 		cart = (self.fnCartKeys+self.numCartKeys).index(cart)+1
 		# Studio 5.20 and earlier requires setting high (cart) and low (modifier) words (multiplying by 64K+1).
-		if winUser.sendMessage(SPLWin, 1024, 0, SPLVersion) < 530:
+		if sendMessage(SPLWin, 1024, 0, SPLVersion) < 530:
 			cart = (cart * 0x00010000) + modifier+1
 		# Whereas simplified to cart bank setup in Studio 5.30 and later.
 		else: cart += (modifier * 24)
-		winUser.sendMessage(SPLWin,1024,cart,SPLCartPlayer)
+		sendMessage(SPLWin,1024,cart,SPLCartPlayer)
 		self.finish()
 
 	def script_conHelp(self, gesture):

@@ -10,16 +10,12 @@ import ui
 import speech
 import scriptHandler
 from NVDAObjects.IAccessible import IAccessible, sysListView32
-import winUser
+from winUser import user32, sendMessage
 import tones
 import gui
 import wx
 import addonHandler
 addonHandler.initTranslation()
-
-# SPL Studio uses WM messages to send and receive data, similar to Winamp (see NVDA sources/appModules/winamp.py for more information).
-user32 = winUser.user32 # user32.dll.
-SPLWin = 0 # A handle to studio window.
 
 # Various SPL IPC tags.
 SPLPlay = 12
@@ -592,8 +588,8 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 				# #37 (17.08.1): if run from another function, the message will not be sent, so must be done here.
 				if self.playAfterConnecting and not encoding:
 					# Do not interupt the currently playing track.
-					if winUser.sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus) == 0:
-						winUser.sendMessage(SPLWin, 1024, 0, SPLPlay)
+					if sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus) == 0:
+						sendMessage(SPLWin, 1024, 0, SPLPlay)
 				if not encoding: encoding = True
 			else:
 				if alreadyEncoding: alreadyEncoding = False
@@ -737,8 +733,8 @@ class SPLEncoder(Encoder):
 				if self.focusToStudio and not connected:
 					user32.SetForegroundWindow(user32.FindWindowW(u"TStudioForm", None))
 				if self.playAfterConnecting and not connected:
-					if winUser.sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus) == 0:
-						winUser.sendMessage(SPLWin, 1024, 0, SPLPlay)
+					if sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus) == 0:
+						sendMessage(SPLWin, 1024, 0, SPLPlay)
 				if not connected: connected = True
 			elif "Unable to connect" in messageCache or "Failed" in messageCache or statChild.name == "AutoConnect stopped.":
 				if connected: connected = False
