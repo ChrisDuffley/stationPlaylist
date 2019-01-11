@@ -341,8 +341,8 @@ ci-dessus pour exécuter des commandes.
 
 ## Version 19.01.1
 
-* NVDA will no longer announce "monitoring library scan" after closing
-  Studio in some situations.
+* NVDA n'annoncera plus "Contrôle du balayage de la bibliothèque en cours"
+  après la fermeture de Studio dans certaines situations.
 
 ## Version 19.01/18.09.6-LTS
 

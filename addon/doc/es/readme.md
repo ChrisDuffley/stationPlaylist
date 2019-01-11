@@ -329,10 +329,10 @@ realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
 
-## Version 19.01.1
+## Versión 19.01.1
 
-* NVDA will no longer announce "monitoring library scan" after closing
-  Studio in some situations.
+* NVDA ya no anunciará "Monitorizando escaneo de biblioteca" tras cerrar
+  Studio en algunas situaciones.
 
 ## Versión 19.01/18.09.6-LTS
 
