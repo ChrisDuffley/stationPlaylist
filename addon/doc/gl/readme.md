@@ -322,10 +322,10 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
-## Version 19.01.1
+## Versión 19.01.1
 
-* NVDA will no longer announce "monitoring library scan" after closing
-  Studio in some situations.
+* NVDA xa non anunciará "Monitorizando escaneado de biblioteca" tras pechar
+  Studio nalgunhas situacións.
 
 ## Versión 19.01/18.09.6-LTS
 
@@ -363,9 +363,9 @@ listadas arriba para realizar ordes.
 * O comando de duración restante da lista de reprodución (asistente SPL, D)
   requerirá agora que se enfoque unha pista no visualizador de listas de
   reprodución.
-* Agora, en codificadores SAM, podes comandos de navegación por táboas
-  (Control+Alt+teclas de frecha) para consultar certa información de estado
-  do codificador.
+* Agora, en codificadores SAM, podes utilizar comandos de navegación por
+  táboas (Control+Alt+teclas de frecha) para consultar certa información de
+  estado do codificador.
 
 ## Versión 18.11/18.09.5-LTS
 
