@@ -493,7 +493,8 @@ class ConfigHub(ChainMap):
 
 	# Reset config.
 	# Profile indicates the name of the profile to be reset.
-	def reset(self, profile=None):
+	# #93 (19.03/18.09.7-LTS): complete reset indicates which action to be performed (reset if True, reload otherwise).
+	def reset(self, profile=None, completeReset=True):
 		profilePool = [] if profile is not None else self.profiles
 		if profile is not None:
 			if not self.profileExists(profile):
@@ -518,6 +519,10 @@ class ConfigHub(ChainMap):
 		self["PlaylistTranscripts"]["IncludedColumns"] = set(_SPLDefaults["PlaylistTranscripts"]["IncludedColumns"])
 		# #94 (19.02/18.09.7-LTS): notify other subsystems to use default settings, as timers and other routines might not see default settings.
 		splactions.SPLActionProfileSwitched.notify()
+
+	def handlePostConfigReset(self, factoryDefaults=False):
+		# Tell the reset method above to perform appropriate action.
+		self.reset(completeReset=factoryDefaults)
 
 	def profileIndexByName(self, name):
 		# 8.0 optimization: Only traverse the profiles list if head (active profile) or tail does not yield profile name in question.
