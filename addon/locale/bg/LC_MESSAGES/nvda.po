@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2016-02-25 23:13-0800\n"
+"PO-Revision-Date: 2019-01-11 20:19-0800\n"
 "Last-Translator: Zahari Yurukov <zahari.yurukov@gmail.com>\n"
 "Language-Team: Български <>\n"
 "Language: bg_BG\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"X-Generator: Poedit 1.5.5\n"
+"X-Generator: Poedit 1.8.9\n"
 
 #. Translators: Presented when only Track Tool is running (Track Dial requires Studio to be running as well).
 msgid "Only Track Tool is running, Track Dial is unavailable"
@@ -1669,32 +1669,3 @@ msgid ""
 msgstr ""
 "Подобрява достъпността на Station Playlist Studio.\n"
 "В допълнение предоставя инструменти за контрол на програмата отвсякъде."
-
-#~ msgid "Remaining time not available"
-#~ msgstr "не е налично оставащо време"
-
-#~ msgid "Elapsed time not available"
-#~ msgstr "не еналично изминало време"
-
-#~ msgid "Broadcaster time not available"
-#~ msgstr "не е налично ефирно време"
-
-#~ msgid "Cannot obtain time in hours, minutes and seconds"
-#~ msgstr "Не може да бъде получено времето в часове, минути и секунди"
-
-#~ msgid "Disable instant profile switching"
-#~ msgstr "Изключване на незабавното превключване на профили"
-
-#~ msgid ""
-#~ "An alarm dialog is already opened. Please close the alarm dialog first."
-#~ msgstr "Диалога за аларма вече е отворен. Моля, първо го затворете."
-
-#, fuzzy
-#~ msgid "Playlist &remainder announcement:"
-#~ msgstr "&Съобщаване на сканиране на библиотека:"
-
-#~ msgid "current hour only"
-#~ msgstr "Само текущия час"
-
-#~ msgid "entire playlist"
-#~ msgstr "Целия списък на възпроизвеждане"

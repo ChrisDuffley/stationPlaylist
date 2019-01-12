@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2016-02-26 02:18-0800\n"
+"PO-Revision-Date: 2019-01-11 20:22-0800\n"
 "Last-Translator: drishtibachak@gmail.com\n"
 "Language-Team: Nepali <drishtibachak@gmail.com>\n"
 "Language: ne\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.5\n"
+"X-Generator: Poedit 1.8.9\n"
 
 #. Translators: Presented when only Track Tool is running (Track Dial requires Studio to be running as well).
 msgid "Only Track Tool is running, Track Dial is unavailable"
@@ -125,8 +125,8 @@ msgid ""
 "C: Announce name of the currently playing track.\n"
 "D: Remaining time for the playlist.\n"
 "E: Overall metadata streaming status.\n"
-"Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder "
-"and four additional URL's.\n"
+"Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder and four "
+"additional URL's.\n"
 "H: Duration of trakcs in this hour slot.\n"
 "Shift+H: Duration of remaining trakcs in this hour slot.\n"
 "I: Listener count.\n"
@@ -145,8 +145,8 @@ msgid ""
 "U: Studio up time.\n"
 "W: Weather and temperature.\n"
 "Y: Playlist modification.\n"
-"1 through 0 (6 for Studio 5.01 and earlier): Announce columns via Columns "
-"Explorer (0 is tenth column slot).\n"
+"1 through 0 (6 for Studio 5.01 and earlier): Announce columns via Columns Explorer (0 "
+"is tenth column slot).\n"
 "F9: Mark current track as start of track time analysis.\n"
 "F10: Perform track time analysis.\n"
 "F12: Switch to an instant switch profile.\n"
@@ -160,8 +160,8 @@ msgid ""
 "C: Toggle cart explorer.\n"
 "Shift+C: Announce name of the currently playing track.\n"
 "E: Overall metadata streaming status.\n"
-"Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder "
-"and four additional URL's.\n"
+"Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder and four "
+"additional URL's.\n"
 "Shift+E: Record to file.\n"
 "F: Track finder.\n"
 "H: Duration of trakcs in this hour slot.\n"
@@ -182,8 +182,8 @@ msgid ""
 "U: Studio up time.\n"
 "W: Weather and temperature.\n"
 "Y: Playlist modification.\n"
-"1 through 0 (6 for Studio 5.01 and earlier): Announce columns via Columns "
-"Explorer (0 is tenth column slot).\n"
+"1 through 0 (6 for Studio 5.01 and earlier): Announce columns via Columns Explorer (0 "
+"is tenth column slot).\n"
 "F9: Mark current track as start of track time analysis.\n"
 "F10: Perform track time analysis.\n"
 "F12: Switch to an instant switch profile.\n"
@@ -201,8 +201,8 @@ msgid ""
 "F: Track finder.\n"
 "R: Remaining time for the currently playing track.\n"
 "G: Overall metadata streaming status.\n"
-"Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder "
-"and four additional URL's.\n"
+"Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder and four "
+"additional URL's.\n"
 "H: Duration of trakcs in this hour slot.\n"
 "Shift+H: Duration of remaining trakcs in this hour slot.\n"
 "K: Move to place marker track.\n"
@@ -221,8 +221,8 @@ msgid ""
 "U: Studio up time.\n"
 "W: Weather and temperature.\n"
 "Y: Playlist modification.\n"
-"1 through 0 (6 for Studio 5.01 and earlier): Announce columns via Columns "
-"Explorer (0 is tenth column slot).\n"
+"1 through 0 (6 for Studio 5.01 and earlier): Announce columns via Columns Explorer (0 "
+"is tenth column slot).\n"
 "F9: Mark current track as start of track time analysis.\n"
 "F10: Perform track time analysis.\n"
 "F12: Switch to an instant switch profile.\n"
@@ -250,8 +250,7 @@ msgstr "गाडा अन्वेषक सक्रिय छ ।"
 
 #. Translators: Presented when cart edit mode is toggled off while cart explorer is on.
 msgid "Please reenter cart explorer to view updated cart assignments"
-msgstr ""
-"अद्यावधिक गाडा कार्य हेर्नका लागि, कृपया गाडा अन्वेषकलाई पुनः प्रविष्टी गर्नु होस् ।"
+msgstr "अद्यावधिक गाडा कार्य हेर्नका लागि, कृपया गाडा अन्वेषकलाई पुनः प्रविष्टी गर्नु होस् ।"
 
 #. Translators: Presented when microphone was on for more than a specified time in microphone alarm dialog.
 #, fuzzy
@@ -291,10 +290,8 @@ msgstr "चालू श्रवण स्थानलाई सेकेण्
 
 #. Translators: Presented when the add-on config dialog is opened.
 #, fuzzy
-msgid ""
-"The add-on settings dialog is opened. Please close the settings dialog first."
-msgstr ""
-"नेत्रवाणी अनुकूलन पातो यस अघि नै पल्टाएको रहेछ । कृपया यसलाइ पहिले बन्द गर्नु होला ।"
+msgid "The add-on settings dialog is opened. Please close the settings dialog first."
+msgstr "नेत्रवाणी अनुकूलन पातो यस अघि नै पल्टाएको रहेछ । कृपया यसलाइ पहिले बन्द गर्नु होला ।"
 
 #. Translators: The title of the message box
 msgid "Error"
@@ -342,15 +339,12 @@ msgstr "धुनको डाकोको अन्त कायम गर्�
 #. Translators: A dialog message to set microphone active alarm (curAlarmSec is the current mic monitoring alarm in seconds).
 #, fuzzy, python-brace-format
 msgid ""
-"Enter microphone alarm time in seconds (currently {curAlarmSec}, 0 disables "
-"the alarm)"
+"Enter microphone alarm time in seconds (currently {curAlarmSec}, 0 disables the alarm)"
 msgstr "धुन डाको समाप्ती समय सेकेण्डमा लेख (हालको {curAlarmSec})"
 
 #. Translators: A dialog message when microphone alarm is disabled (set to 0).
 #, fuzzy
-msgid ""
-"Enter microphone alarm time in seconds (currently disabled, 0 disables the "
-"alarm)"
+msgid "Enter microphone alarm time in seconds (currently disabled, 0 disables the alarm)"
 msgstr "धुन डाको समाप्ती समय सेकेण्डमा लेख (हालको {curAlarmSec})"
 
 #. Translators: The title of mic alarm dialog.
@@ -494,10 +488,9 @@ msgstr ""
 #. Translators: Presented when the add-on config dialog is opened.
 #, fuzzy
 msgid ""
-"The add-on settings dialog or the metadata streaming dialog is opened. "
-"Please close the opened dialog first."
-msgstr ""
-"नेत्रवाणी अनुकूलन पातो यस अघि नै पल्टाएको रहेछ । कृपया यसलाइ पहिले बन्द गर्नु होला ।"
+"The add-on settings dialog or the metadata streaming dialog is opened. Please close the "
+"opened dialog first."
+msgstr "नेत्रवाणी अनुकूलन पातो यस अघि नै पल्टाएको रहेछ । कृपया यसलाइ पहिले बन्द गर्नु होला ।"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 #, fuzzy
@@ -515,8 +508,8 @@ msgstr ""
 
 #. Translators: Input help mode message for a layer command in Station Playlist Studio.
 msgid ""
-"The SPL Assistant layer command. See the add-on guide for more information "
-"on available commands."
+"The SPL Assistant layer command. See the add-on guide for more information on available "
+"commands."
 msgstr "SPL सहयोगी तह आदेस ।. उपलब्ध आदेस विस्तृत रूपमा जान्न निर्देशिका हेर्नु होला ।"
 
 #. Translators: Presented when playlist modification is unavailable (for Studio 4.33 and earlier)
@@ -599,8 +592,7 @@ msgid "Marks focused track as start marker for track time analysis"
 msgstr ""
 
 #. Translators: Presented when track time analysis cannot be used because start marker is not set.
-msgid ""
-"No track selected as start of analysis marker, cannot perform time analysis"
+msgid "No track selected as start of analysis marker, cannot perform time analysis"
 msgstr ""
 
 #. Translators: Presented when time analysis is done for a number of tracks (example output: Tracks: 3, totaling 5:00).
@@ -610,8 +602,7 @@ msgstr ""
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid ""
-"Announces total length of tracks between analysis start marker and the "
-"current track"
+"Announces total length of tracks between analysis start marker and the current track"
 msgstr ""
 
 #. Translators: Presented when place marker cannot be set.
@@ -697,8 +688,8 @@ msgstr "स्टुडियो उप-कर्मी अनुकूलता
 
 #. Translators: Message displayed if errors were found in encoder configuration file.
 msgid ""
-"Your encoder settings had errors and were reset to defaults. If you have "
-"stream labels configured for various encoders, please add them again."
+"Your encoder settings had errors and were reset to defaults. If you have stream labels "
+"configured for various encoders, please add them again."
 msgstr ""
 
 #. Translators: Title of the encoder settings error dialog.
@@ -733,8 +724,7 @@ msgstr ""
 #. Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
 #, fuzzy
 msgid "Add-on settings dialog is open, cannot switch profiles"
-msgstr ""
-"नेत्रवाणी अनुकूलन पातो यस अघि नै पल्टाएको रहेछ । कृपया यसलाइ पहिले बन्द गर्नु होला ।"
+msgstr "नेत्रवाणी अनुकूलन पातो यस अघि नै पल्टाएको रहेछ । कृपया यसलाइ पहिले बन्द गर्नु होला ।"
 
 #. Translators: Presented when switch to instant switch profile was successful.
 #, python-brace-format
@@ -769,11 +759,10 @@ msgstr "SPL स्टुडियो चलि रहेको छैन ।."
 
 #. Translators: A message displayed if audio ducking should be disabled.
 msgid ""
-"NVDA 2016.1 and later allows NVDA to decrease volume of background audio "
-"including that of Studio. In order to not disrupt the listening experience "
-"of your listeners, please disable audio ducking by opening synthesizer "
-"dialog in NVDA and selecting 'no ducking' from audio ducking mode combo box "
-"or press NVDA+Shift+D."
+"NVDA 2016.1 and later allows NVDA to decrease volume of background audio including that "
+"of Studio. In order to not disrupt the listening experience of your listeners, please "
+"disable audio ducking by opening synthesizer dialog in NVDA and selecting 'no ducking' "
+"from audio ducking mode combo box or press NVDA+Shift+D."
 msgstr ""
 
 #. Translators: A checkbox to turn off audio ducking reminder message.
@@ -1046,9 +1035,9 @@ msgstr ""
 
 #. Translators: Message reported when attempting to delete a profile while a profile is triggered.
 msgid ""
-"An instant switch profile might be active or you are in the midst of a "
-"broadcast. If so, please press SPL Assistant, F12 to switch back to a "
-"previously active profile before opening add-on settings to delete a profile."
+"An instant switch profile might be active or you are in the midst of a broadcast. If "
+"so, please press SPL Assistant, F12 to switch back to a previously active profile "
+"before opening add-on settings to delete a profile."
 msgstr ""
 
 #. Translators: Title of a dialog shown when profile cannot be deleted.
@@ -1074,10 +1063,8 @@ msgstr "चेतावनी"
 #. Translators: Presented when an alarm dialog is opened.
 #, fuzzy
 msgid ""
-"Another add-on settings dialog is open. Please close the previously opened "
-"dialog first."
-msgstr ""
-"नेत्रवाणी अनुकूलन पातो यस अघि नै पल्टाएको रहेछ । कृपया यसलाइ पहिले बन्द गर्नु होला ।"
+"Another add-on settings dialog is open. Please close the previously opened dialog first."
+msgstr "नेत्रवाणी अनुकूलन पातो यस अघि नै पल्टाएको रहेछ । कृपया यसलाइ पहिले बन्द गर्नु होला ।"
 
 #. Translators: The title of the dialog to create a new broadcast profile.
 msgid "New Profile"
@@ -1125,14 +1112,14 @@ msgstr ""
 
 #. Translators: Presented if another profile occupies a time slot set by the user.
 msgid ""
-"A profile trigger already exists for the entered time slot. Please choose a "
-"different date or time."
+"A profile trigger already exists for the entered time slot. Please choose a different "
+"date or time."
 msgstr ""
 
 #. Er, did you specify a date?
 msgid ""
-"The time-based profile checkbox is checked but no switch dates are given. "
-"Please either specify switch date(s) or uncheck time-based profile checkbox."
+"The time-based profile checkbox is checked but no switch dates are given. Please either "
+"specify switch date(s) or uncheck time-based profile checkbox."
 msgstr ""
 
 #. Translators: Title of a dialog to configure metadata streaming status for DSP encoder and four additional URL's.
@@ -1155,8 +1142,7 @@ msgid "Manage column announcements"
 msgstr "ब्रेलमा सन्देसको घोषणालाई समर्थन गर्छ ।"
 
 #. Translators: Help text to select columns to be announced.
-msgid ""
-"Select columns to be announced (artist and title are announced by default"
+msgid "Select columns to be announced (artist and title are announced by default"
 msgstr ""
 
 #. Translators: The label for a setting in SPL add-on dialog to select column announcement order.
@@ -1326,8 +1312,8 @@ msgstr ""
 
 #. Translators: An error text shown when one is using a newer version of the add-on.
 msgid ""
-"You appear to be running a version newer than the latest released version. "
-"Please reinstall the official version to downgrade."
+"You appear to be running a version newer than the latest released version. Please "
+"reinstall the official version to downgrade."
 msgstr ""
 
 #. Translators: Text shown if an add-on update is available.
@@ -1372,11 +1358,9 @@ msgstr "अरू कार्यक्रम बाट SPL स्टुडि�
 
 #. Translators: Presented when NVDA cannot enter SPL Controller layer since SPL Studio is focused.
 msgid ""
-"You are already in SPL Studio window. For status commands, use SPL Assistant "
-"commands."
+"You are already in SPL Studio window. For status commands, use SPL Assistant commands."
 msgstr ""
-"तपाई SPL स्टुडियो सञ्झ्यालमा हुनु हुन्छ ।. स्थिति आदेसका लागि, SPL सहयोगी आदेसको प्रयोग "
-"गर्नु होस् ।"
+"तपाई SPL स्टुडियो सञ्झ्यालमा हुनु हुन्छ ।. स्थिति आदेसका लागि, SPL सहयोगी आदेसको प्रयोग गर्नु होस् ।"
 
 #. Translators: The name of a layer command set for Station Playlist Studio.
 #. Hint: it is better to translate it as "SPL Control Panel."
@@ -1459,11 +1443,8 @@ msgid "Do not switch to Studio after connecting"
 msgstr "जडान भए पछि स्टुडियोमा न जाउ ।।"
 
 #. Translators: Input help mode message in SAM Encoder window.
-msgid ""
-"Toggles whether NVDA will switch to Studio when connected to a streaming "
-"server."
-msgstr ""
-"जब सर्बरमा जडान हुन्छ, नेत्रवाणी स्टुडियोमा स्थानान्तरीत हुने प्रक्रिया साटोफेरो हुन्छ ।"
+msgid "Toggles whether NVDA will switch to Studio when connected to a streaming server."
+msgstr "जब सर्बरमा जडान हुन्छ, नेत्रवाणी स्टुडियोमा स्थानान्तरीत हुने प्रक्रिया साटोफेरो हुन्छ ।"
 
 #. Translators: Presented when toggling the setting to play selected song when connected to a streaming server.
 msgid "Play first track after connecting"
@@ -1475,8 +1456,7 @@ msgstr "जडान भए पछि पहिलो धुन न बजाउ
 
 #. Translators: Input help mode message in SAM Encoder window.
 msgid ""
-"Toggles whether Studio will play the first song when connected to a "
-"streaming server."
+"Toggles whether Studio will play the first song when connected to a streaming server."
 msgstr "सर्बरमा जडान हुँदा स्टुडियोले  पहिलो गित बजाउने प्रक्रिया साटोफेरो हुन्छ ।"
 
 #. Multiple encoders.
@@ -1497,10 +1477,8 @@ msgstr "चयनीत संहिताको नाम लेख्ने �
 
 #. Translators: Input help mode message in SAM Encoder window.
 #, fuzzy
-msgid ""
-"Toggles whether NVDA will monitor the selected encoder in the background."
-msgstr ""
-"जब सर्बरमा जडान हुन्छ, नेत्रवाणी स्टुडियोमा स्थानान्तरीत हुने प्रक्रिया साटोफेरो हुन्छ ।"
+msgid "Toggles whether NVDA will monitor the selected encoder in the background."
+msgstr "जब सर्बरमा जडान हुन्छ, नेत्रवाणी स्टुडियोमा स्थानान्तरीत हुने प्रक्रिया साटोफेरो हुन्छ ।"
 
 #. Translators: The title of the stream labeler dialog (example: stream labeler for 1).
 #, python-brace-format
@@ -1528,14 +1506,13 @@ msgstr "खोज्न चाहेको धुनको नाम लेख�
 #. Translators: Input help mode message in SAM Encoder window.
 #, fuzzy
 msgid ""
-"Opens a dialog to erase stream labels and settings from an encoder that was "
-"deleted."
+"Opens a dialog to erase stream labels and settings from an encoder that was deleted."
 msgstr "चयनीत संहिताको नाम लेख्ने पातो पल्टाउने छ ।"
 
 #. Translators: Input help mode message for a command in Station Playlist Studio.
 msgid ""
-"Shows encoder configuration dialog to configure various encoder settings "
-"such as stream label."
+"Shows encoder configuration dialog to configure various encoder settings such as stream "
+"label."
 msgstr ""
 
 #. Add-on summary, usually the user visible name of the addon.
@@ -1546,8 +1523,8 @@ msgstr "स्टेशन प्लेलिस्ट  स्टुडियो
 #. Translators: Input help mode message for report date and time command.
 #, fuzzy
 msgid ""
-"If pressed once, reports the current time including seconds. If pressed "
-"twice, reports the current date"
+"If pressed once, reports the current time including seconds. If pressed twice, reports "
+"the current date"
 msgstr "एक पटक दबाउँदा समय र लगातार दुई पटक थिचे मिति बताउने छ"
 
 #, python-brace-format
@@ -1588,16 +1565,3 @@ msgid ""
 msgstr ""
 "स्टेशन प्ले लिष्टको परिचालनमा थप सुविधा ल्याउने छ ।\n"
 "यसका अतिरिक्त, स्टुडियोमा जताबाट पनि सर्व आदेस थप्ने छ ।"
-
-#~ msgid "Remaining time not available"
-#~ msgstr "बांकि समय उपलब्ध छैन ।"
-
-#~ msgid "Elapsed time not available"
-#~ msgstr "बितेको समय उपलब्ध छैन ।"
-
-#~ msgid "Broadcaster time not available"
-#~ msgstr "प्रसारण समय उपलब्ध छैन ।"
-
-#, fuzzy
-#~ msgid "Playlist &remainder announcement:"
-#~ msgstr "&VirusTotal द्वारा जोखाना हेर"
