@@ -195,6 +195,8 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Version 18.09.7-LTS
 
 * NVDA will no longer announce "monitoring library scan" after closing Studio in some situations.
+* NVDA will no longer appear to do nothing or play error tones when microphone active interval is set, used to remind broadcasters that microphone is active with periodic beeps.
+* After resetting Studio add-on settings, NvDA will turn off microphone alarm timer and announce metadata streaming status, similar to after switching between broadcast profiles.
 
 ## Version 18.09.6-LTS
 
