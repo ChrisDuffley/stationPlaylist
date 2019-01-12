@@ -75,7 +75,7 @@ def micAlarmManager(micAlarmWav, micAlarmMessage):
 	# Mechanics come from Clock add-on.
 	if splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"]:
 		micAlarmT2 = wx.PyTimer(_micAlarmAnnouncer)
-		micAlarmT2.Start(splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] * 1000)
+		wx.CallAfter(micAlarmT2.Start, splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] * 1000)
 
 # Category sounds dictionary (key = category, value = tone pitch).
 _SPLCategoryTones = {
