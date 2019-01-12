@@ -537,6 +537,11 @@ class ConfigHub(ChainMap):
 			# Just like reset method, if dealing with normal profile, transform playlist transcripts setting.
 			if conf.filename == SPLIni:
 				conf["PlaylistTranscripts"]["IncludedColumns"] = set(conf["PlaylistTranscripts"]["IncludedColumns"])
+				# Just like constructor, remove deprecated keys if any.
+				for entry in SPLDeprecatedKeys:
+					section, key = entry.split("/")
+					if key in conf[section]: del conf[section][key]
+				if "Update" in conf: del conf["Update"]
 
 	def handlePostConfigReset(self, factoryDefaults=False):
 		self.reset() if factoryDefaults else self.reload()
