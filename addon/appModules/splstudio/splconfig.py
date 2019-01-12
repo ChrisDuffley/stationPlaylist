@@ -847,7 +847,7 @@ def triggerStart(restart=False):
 				if _SPLTriggerEndTimer is not None and _SPLTriggerEndTimer.IsRunning():
 					_SPLTriggerEndTimer.Stop()
 					_SPLTriggerEndTimer = wx.PyTimer(triggerProfileSwitch)
-					_SPLTriggerEndTimer.Start(queuedProfile[3] * 1000, True)
+					wx.CallAfter(_SPLTriggerEndTimer.Start, queuedProfile[3] * 1000, True)
 				else: triggerProfileSwitch(durationDelta = queuedProfile[3])
 		else:
 			switchAfter = (queuedProfile[0] - datetime.datetime.now())
@@ -1027,7 +1027,7 @@ def triggerProfileSwitch(durationDelta=None):
 			profileTriggers[SPLTriggerProfile] = setNextTimedProfile(SPLTriggerProfile, triggerSettings[0], datetime.time(triggerSettings[4], triggerSettings[5]))
 		else:
 			_SPLTriggerEndTimer = wx.PyTimer(triggerProfileSwitch)
-			_SPLTriggerEndTimer.Start(triggerSettings[6] * 60 * 1000 if durationDelta is None else durationDelta * 1000, True)
+			wx.CallAfter(_SPLTriggerEndTimer.Start, triggerSettings[6] * 60 * 1000 if durationDelta is None else durationDelta * 1000, True)
 	else:
 		SPLConfig.switchProfileEnd(None, SPLConfig.prevProfile, "timed")
 		_triggerProfileActive = False
