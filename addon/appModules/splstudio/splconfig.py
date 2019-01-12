@@ -353,7 +353,7 @@ class ConfigHub(ChainMap):
 		self.profileNames.append(profileName)
 		self.newProfiles.add(profileName)
 
-	# A class version of rename and delete operations.
+	# Rename and delete profiles.
 	# Mechanics powered by similar routines in NVDA Core's config.conf.
 	def renameProfile(self, oldName, newName):
 		# 17.10: No, not when restrictions are applied.
@@ -492,8 +492,6 @@ class ConfigHub(ChainMap):
 		# Call the volatile version of save function above.
 		if (self.volatileConfig or self.configInMemory): return
 		self._saveVolatile(configSaveAction=True)
-
-	# Class version of module-level functions.
 
 	# Reset config.
 	# Profile indicates the name of the profile to be reset.
