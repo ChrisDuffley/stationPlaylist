@@ -512,6 +512,8 @@ class ConfigHub(ChainMap):
 		self.resetHappened = True
 		# 18.08: don't forget to change type for Playlist Transcripts/included columns set.
 		self["PlaylistTranscripts"]["IncludedColumns"] = set(_SPLDefaults["PlaylistTranscripts"]["IncludedColumns"])
+		# #94 (19.02/18.09.7-LTS): notify other subsystems to use default settings, as timers and other routines might not see default settings.
+		splactions.SPLActionProfileSwitched.notify()
 
 	def profileIndexByName(self, name):
 		# 8.0 optimization: Only traverse the profiles list if head (active profile) or tail does not yield profile name in question.
