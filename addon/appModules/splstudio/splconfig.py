@@ -14,7 +14,7 @@ if sys.version.startswith("3"):
 else:
 	from cStringIO import StringIO
 	import cPickle as pickle
-from configobj import ConfigObj
+from configobj import ConfigObj, get_extra_values
 # ConfigObj 5.1.0 and later integrates validate module.
 try:
 	from configobj.validate import Validator
@@ -180,9 +180,14 @@ class ConfigHub(ChainMap):
 			# Remove deprecated keys.
 			# This action must be performed after caching, otherwise the newly modified profile will not be saved.
 			# For each deprecated/removed key, parse section/subsection.
-			for entry in SPLDeprecatedKeys:
-				section, key = entry.split("/")
-				if key in self.maps[0][section]: del self.maps[0][section][key]
+			# #95 (19.02/18.09.7-LTS): Configobj 4.7.0 ships with a more elegant way to obtain all extra values in one go, making deprecated keys definition unnecessary.
+			# A list of 2-tuples will be returned, with each entry recording the section name path tuple (requires parsing) and key, respectively.
+			# However, there are certain keys that must be kept across sessions or must be handled separately.
+			deprecatedKeys = get_extra_values(self.maps[0])
+			for section, key in deprecatedKeys:
+				if section == (): continue
+				# Unless otherwise specified, all keys are level 1 (section/key).
+				del self.maps[0][section[0]][key]
 		# Moving onto broadcast profiles if any.
 		# 17.10: but not when only normal profile should be used.
 		if not self.normalProfileOnly:
