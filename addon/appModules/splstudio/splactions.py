@@ -18,5 +18,7 @@ SPLActionSettingsLoaded = extensionPoints.Action()
 SPLActionProfileSwitched = extensionPoints.Action()
 # Settings are being saved.
 SPLActionSettingsSaved = extensionPoints.Action()
+# Settings are reloading or set to factory defaults.
+SPLActionSettingsReset = extensionPoints.Action()
 # Studio is terminating.
 SPLActionAppTerminating = extensionPoints.Action()
