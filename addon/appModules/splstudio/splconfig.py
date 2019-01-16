@@ -538,9 +538,10 @@ class ConfigHub(ChainMap):
 			if conf.filename == SPLIni:
 				conf["PlaylistTranscripts"]["IncludedColumns"] = set(conf["PlaylistTranscripts"]["IncludedColumns"])
 				# Just like constructor, remove deprecated keys if any.
-				for entry in SPLDeprecatedKeys:
-					section, key = entry.split("/")
-					if key in conf[section]: del conf[section][key]
+				deprecatedKeys = get_extra_values(conf)
+				for section, key in deprecatedKeys:
+					if section == (): continue
+					del conf[section[0]][key]
 				if "Update" in conf: del conf["Update"]
 
 	def handlePostConfigReset(self, factoryDefaults=False):
