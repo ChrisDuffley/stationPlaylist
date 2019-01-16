@@ -109,8 +109,6 @@ confspec.newlines = "\r\n"
 SPLConfig = None
 # The following settings can be changed in profiles:
 _mutatableSettings=("IntroOutroAlarms", "MicrophoneAlarm", "MetadataStreaming", "ColumnAnnouncement")
-# A tuple of deprecated/removed keys.
-SPLDeprecatedKeys = ("General/TrackDial", "Startup/Studio500", "PlaylistTranscripts/TranscriptFormat", "Advanced/ConfUI2", "Startup/ConfUI2Intro")
 # 7.0: Profile-specific confspec (might be removed once a more optimal way to validate sections is found).
 # Dictionary comprehension is better here.
 confspecprofiles = {sect:key for sect, key in confspec.items() if sect in _mutatableSettings}
