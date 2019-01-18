@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 17.02\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2017-02-03 19:00+1000\n"
-"PO-Revision-Date: 2019-01-04 22:06+0700\n"
+"PO-Revision-Date: 2019-01-11 12:50-0800\n"
 "Last-Translator: Dang Manh Cuong <dangmanhcuong@gmail.com>\n"
 "Language-Team: \n"
 "Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2\n"
+"X-Generator: Poedit 1.8.9\n"
 
 #. Translators: Presented when attempting to install Studio add-on on unsupported Windows releases.
 msgid ""
@@ -2122,146 +2122,3 @@ msgid ""
 msgstr ""
 "Cải thiện hỗ trợ cho StationPlaylist Studio.\n"
 "Ngoài ra là thêm các lệnh toàn cục cho studio từ bất cứ đâu."
-
-#~ msgid "Studio add-on update"
-#~ msgstr "Cập nhật Studio add-on"
-
-#~ msgid "Add-on update check"
-#~ msgstr "Kiểm tra cập nhật add-on"
-
-#~ msgid "Checking for new version of Studio add-on..."
-#~ msgstr "Đang kiểm tra phiên bản mới của Studio add-on..."
-
-#~ msgid ""
-#~ "An error occured while checking for add-on update. Please check NVDA log "
-#~ "for details."
-#~ msgstr ""
-#~ "Có lỗi trong khi kiểm tra cập nhật add-on. Vui lòng xem NVDA log để biết "
-#~ "thêm chi tiết."
-
-#~ msgid ""
-#~ "NVDA is in secure mode. Please restart with secure mode disabled before "
-#~ "checking for add-on updates."
-#~ msgstr ""
-#~ "NVDA đang trong chế độ bảo vệ. Vui lòng khởi động lại với chế độ bảo vệ "
-#~ "được tắt trước khi kiểm tra cập nhật add-on."
-
-#~ msgid ""
-#~ "This is a try build of StationPlaylist Studio add-on. Please install the "
-#~ "latest stable release to receive updates again."
-#~ msgstr ""
-#~ "Đây là bản dùng thử của StationPlaylist Studio add-on. Vui lòng cài bản "
-#~ "chính thức mới nhất để nhận lại các cập nhật."
-
-#~ msgid ""
-#~ "Update checking not supported while running NVDA from source. Please run "
-#~ "this add-on from an installed or a portable version of NVDA."
-#~ msgstr ""
-#~ "Không hỗ trợ kiểm tra cập nhật khi chạy NVDA từ mã nguồn. Vui lòng chạy "
-#~ "add-on này từ bản cài hay bản chạy trực tiếp của NVDA."
-
-#~ msgid ""
-#~ "This is a Windows Store version of NVDA. Add-on updating is supported on "
-#~ "desktop version of NVDA."
-#~ msgstr ""
-#~ "Đây là phiên bản NVDA từ Windows Store. Việc cập nhật add-on chỉ hỗ trợ "
-#~ "cho bản NVDA trên desktop."
-
-#~ msgid ""
-#~ "Cannot update add-on directly. Please check for add-on updates by going "
-#~ "to add-ons manager."
-#~ msgstr ""
-#~ "Không thể cập nhật trực tiếp add-on. Vui lòng kiểm tra cập nhật add-on "
-#~ "bằng cách mở trình quản lý add-on."
-
-#~ msgid ""
-#~ "No internet connection. Please connect to the internet before checking "
-#~ "for add-on update."
-#~ msgstr ""
-#~ "Không có kết nối mạng. Vui lòng kết nối mạng trước khi kiểm tra cập nhật "
-#~ "add-on."
-
-#~ msgid ""
-#~ "Add-on Updater add-on might be running. Please use that add-on to check "
-#~ "for updates."
-#~ msgstr ""
-#~ "Có thể Add-on Updater đang chạy. Hãy dùng add-on đó để kiểm tra cập nhật."
-
-#~ msgid ""
-#~ "Add-on update feature from SPL Studio add-on is no more, please use Add-"
-#~ "on Updater add-on to check for updates."
-#~ msgstr ""
-#~ "Tính năng cập nhật Add-on từ SPL Studio add-on không còn nữa, vui lòng "
-#~ "dùng Add-on Cập nhật add-on để kiểm tra cập nhật."
-
-#~ msgid "Automatically check for add-on &updates"
-#~ msgstr "Tự kiểm tra &cập nhật add-on"
-
-#~ msgid "Update &interval in days"
-#~ msgstr "Cập nhật theo &ngày"
-
-#~ msgid ""
-#~ "Update interval has been set to zero days, so updates to the Studio add-"
-#~ "on will be checked every time NVDA and/or Studio starts. Are you sure you "
-#~ "wish to continue?"
-#~ msgstr ""
-#~ "Thời gian cập nhật đã được thiết lập là 0 ngày nên việc kiểm tracập nhật "
-#~ "Studio add-on sẽ thực hiện mỗi khi khởi chạy NVDA hoặc Studio. Bạn có "
-#~ "muốn tiếp tục không?"
-
-#~ msgid "Confirm update interval"
-#~ msgstr "Xác nhận thời gian cập nhật"
-
-#~ msgid "No add-on update available."
-#~ msgstr "Không có bản cập nhật ađd-on nào."
-
-#~ msgid "Studio add-on {newVersion} is available. Would you like to update?"
-#~ msgstr "Đã có Studio add-on {newVersion}. Bạn có muốn cập nhật không?"
-
-#~ msgid "Downloading Add-on Update"
-#~ msgstr "Đang tải cập nhật add-on"
-
-#~ msgid "Connecting"
-#~ msgstr "Đang kết nối"
-
-#~ msgid "Error downloading add-on update."
-#~ msgstr "Lỗi tải cập nhật add-on."
-
-#~ msgid ""
-#~ "Failed to open add-on package file at %s - missing file or invalid file "
-#~ "format"
-#~ msgstr "Mở gói add-on tại %s thất bại - tập tin bị lỗi hoạt sai định dạng"
-
-#~ msgid ""
-#~ "Studio add-on {newVersion} is not compatible with this version of NVDA. "
-#~ "Please use NVDA {year}.{major} or later."
-#~ msgstr ""
-#~ "Studio add-on {newVersion} không tương thích với phiên bản NVDA này. Vui "
-#~ "lòng sử dụng NVDA {year}.{major} trở lên."
-
-#~ msgid "Updating Add-on"
-#~ msgstr "Đang cập nhật add-on"
-
-#~ msgid "Please wait while the add-on is being updated."
-#~ msgstr "Vui lòng đợi khi add-on đang cập nhật."
-
-#~ msgid "Failed to update add-on  from %s"
-#~ msgstr "Lỗi cập nhật add-on  từ %s"
-
-#~ msgid "Error"
-#~ msgstr "Lỗi"
-
-#~ msgid "Find error"
-#~ msgstr "Lỗi tìm kiếm"
-
-#~ msgid "&New"
-#~ msgstr "&Mới"
-
-#~ msgid "&Rename"
-#~ msgstr "Đổi &tên"
-
-#~ msgid "&Delete"
-#~ msgstr "&Xóa"
-
-#~ msgid "&Triggers..."
-#~ msgstr "&Tác nhân..."

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2019-01-04 23:02+0100\n"
+"PO-Revision-Date: 2019-01-11 12:34-0800\n"
 "Last-Translator: José Manuel Delicado <jmdaweb@hotmail.com>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.2\n"
+"X-Generator: Poedit 1.8.9\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Presented when attempting to install Studio add-on on unsupported Windows releases.
@@ -2178,153 +2178,3 @@ msgid ""
 msgstr ""
 "Mejora el soporte para Station Playlist Studio.\n"
 "Además, agrega comandos globales para el estudio desde cualquier parte."
-
-#~ msgid "Studio add-on update"
-#~ msgstr "Actualización del complemento Studio"
-
-#~ msgid "Add-on update check"
-#~ msgstr "Buscar actualización del complemento"
-
-#~ msgid "Checking for new version of Studio add-on..."
-#~ msgstr "Buscar nueva versión del complemento Studio..."
-
-#~ msgid ""
-#~ "An error occured while checking for add-on update. Please check NVDA log "
-#~ "for details."
-#~ msgstr ""
-#~ "Ocurrió un error mientras se buscaba una actualización para el "
-#~ "complemento. Por favor comprueba el registro de NVDA para detalles."
-
-#~ msgid ""
-#~ "NVDA is in secure mode. Please restart with secure mode disabled before "
-#~ "checking for add-on updates."
-#~ msgstr ""
-#~ "NVDA está en modo seguro. Por favor reinicia con el modo seguro "
-#~ "deshabilitado antes de buscar actualizaciones del complemento."
-
-#~ msgid ""
-#~ "This is a try build of StationPlaylist Studio add-on. Please install the "
-#~ "latest stable release to receive updates again."
-#~ msgstr ""
-#~ "Esta es una compilación de prueba del complemento StationPlaylist Studio. "
-#~ "Por favor instala la última versión estable para recibir actualizaciones "
-#~ "de nuevo."
-
-#~ msgid ""
-#~ "Update checking not supported while running NVDA from source. Please run "
-#~ "this add-on from an installed or a portable version of NVDA."
-#~ msgstr ""
-#~ "No se soporta la búsqueda de actualizaciones mientras se ejecuta NVDA "
-#~ "desde el código fuente. Por favor ejecuta el complemento desde una "
-#~ "versión instalada o portable de NVDA."
-
-#~ msgid ""
-#~ "This is a Windows Store version of NVDA. Add-on updating is supported on "
-#~ "desktop version of NVDA."
-#~ msgstr ""
-#~ "Esta es una versión Windows Store de NVDA. La actualización del "
-#~ "complemento se soporta en versiones de escritorio de NVDA."
-
-#~ msgid ""
-#~ "Cannot update add-on directly. Please check for add-on updates by going "
-#~ "to add-ons manager."
-#~ msgstr ""
-#~ "No se puede actualizar el complemento directamente. Por favor busca "
-#~ "actualizaciones del complemento yendo al administrador de complementos."
-
-#~ msgid ""
-#~ "No internet connection. Please connect to the internet before checking "
-#~ "for add-on update."
-#~ msgstr ""
-#~ "No hay conexión a internet. Por favor conéctate a internet antes de "
-#~ "buscar la actualización del complemento."
-
-#~ msgid ""
-#~ "Add-on Updater add-on might be running. Please use that add-on to check "
-#~ "for updates."
-#~ msgstr ""
-#~ "El complemento Add-on Updater podría estar en ejecución. Por favor "
-#~ "utiliza ese complemento para buscar las actualizaciones."
-
-#~ msgid ""
-#~ "Add-on update feature from SPL Studio add-on is no more, please use Add-"
-#~ "on Updater add-on to check for updates."
-#~ msgstr ""
-#~ "Las funciones de actualización del complemento de SPL ya no existen, por "
-#~ "favor utiliza el complemento Add-on Updater para actualizarlo."
-
-#~ msgid "&New"
-#~ msgstr "&Nuevo"
-
-#~ msgid "&Rename"
-#~ msgstr "&Renombrar"
-
-#~ msgid "&Delete"
-#~ msgstr "&Eliminar"
-
-#~ msgid "&Triggers..."
-#~ msgstr "&Disparadores..."
-
-#~ msgid "Automatically check for add-on &updates"
-#~ msgstr "Buscar automáticamente &actualizaciones para el complemento"
-
-#~ msgid "Update &interval in days"
-#~ msgstr "&Intervalo de actualización en días"
-
-#~ msgid ""
-#~ "Update interval has been set to zero days, so updates to the Studio add-"
-#~ "on will be checked every time NVDA and/or Studio starts. Are you sure you "
-#~ "wish to continue?"
-#~ msgstr ""
-#~ "El intervalo de actualización se ha fijado a cero días, así las "
-#~ "actualizaciones para el complemento de Studio se buscarán cada vez que "
-#~ "NVDA y/o Studio se inicien. ¿Estás seguro de que deseas continuar?"
-
-#~ msgid "Confirm update interval"
-#~ msgstr "Confirmar intervalo de actualización"
-
-#~ msgid "No add-on update available."
-#~ msgstr "No hay actualizaciones disponibles del complemento."
-
-#~ msgid "Studio add-on {newVersion} is available. Would you like to update?"
-#~ msgstr ""
-#~ "Está disponible la versión del complemento de Studio {newVersion}. ¿Te "
-#~ "gustaría actualizar?"
-
-#~ msgid "Downloading Add-on Update"
-#~ msgstr "Descargand la Actualización del Complemento"
-
-#~ msgid "Connecting"
-#~ msgstr "Conectando"
-
-#~ msgid "Error downloading add-on update."
-#~ msgstr "Error descqargando la actualización del complemento."
-
-#~ msgid ""
-#~ "Failed to open add-on package file at %s - missing file or invalid file "
-#~ "format"
-#~ msgstr ""
-#~ "Falló al abrir el fichero de paquete de complemento en %s - Falta fichero "
-#~ "o es un formato inválido"
-
-#~ msgid ""
-#~ "Studio add-on {newVersion} is not compatible with this version of NVDA. "
-#~ "Please use NVDA {year}.{major} or later."
-#~ msgstr ""
-#~ "La versión {newVersion} del complemento de Studio no es compatible con "
-#~ "esta versión de NVDA. Por favor, usa NVDA {year}.{major} o posterior."
-
-#~ msgid "Updating Add-on"
-#~ msgstr "Actualizando Complemento"
-
-#~ msgid "Please wait while the add-on is being updated."
-#~ msgstr "Por favor espera mientras se está actualizando el complemento."
-
-#~ msgid "Failed to update add-on  from %s"
-#~ msgstr "Falló al actualizar el complemento desde %s"
-
-#~ msgid "Error"
-#~ msgstr "Error"
-
-#~ msgid "Find error"
-#~ msgstr "Se encontró un error"

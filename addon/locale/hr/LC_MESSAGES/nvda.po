@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 3.3\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2014-11-28 19:00+1000\n"
-"PO-Revision-Date: 2018-11-29 08:02-0800\n"
+"PO-Revision-Date: 2019-01-11 12:36-0800\n"
 "Last-Translator: zvonimir Stanecic <zvonimirek222@yandex.com>\n"
 "Language-Team: \n"
 "Language: hr\n"
@@ -2147,79 +2147,3 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist Studio.\n"
 "Također, dodaje komande za studio bilo gdje."
-
-#~ msgid "Studio add-on update"
-#~ msgstr "Ažuriranje Studio dodatka"
-
-#~ msgid "Add-on update check"
-#~ msgstr "Provjera ažuriranja dodatka "
-
-#~ msgid "Checking for new version of Studio add-on..."
-#~ msgstr "Provjera nove verzije Studio dodatka"
-
-#~ msgid "&New"
-#~ msgstr "&Novo "
-
-#~ msgid "&Rename"
-#~ msgstr "&Preimenuj"
-
-#~ msgid "&Delete"
-#~ msgstr "&Izbriši "
-
-#~ msgid "&Triggers..."
-#~ msgstr "&Okidači"
-
-#~ msgid "Automatically check for add-on &updates"
-#~ msgstr "&Automatski provjeri ažuriranja dodatka"
-
-#~ msgid "Update &interval in days"
-#~ msgstr "Ažuriranje &interval u danima"
-
-#~ msgid ""
-#~ "Update interval has been set to zero days, so updates to the Studio add-"
-#~ "on will be checked every time NVDA and/or Studio starts. Are you sure you "
-#~ "wish to continue?"
-#~ msgstr ""
-#~ "Interval ažuriranja postavljen je na 0 dana, tako da će se ažuriranja "
-#~ "Studio dodatka provjeravati svaki put kada se pokrene NVDA ili studio. "
-#~ "Jeste li sigurni da želite nastaviti?"
-
-#~ msgid "Confirm update interval"
-#~ msgstr "Potvrdi interval ažuriranja"
-
-#~ msgid "No add-on update available."
-#~ msgstr "Nema dostupnih ažuriranja dodatka."
-
-#~ msgid "Studio add-on {newVersion} is available. Would you like to update?"
-#~ msgstr "Studio dodatak {newVersion} je dostupna. Želite li je nadograditi?"
-
-#~ msgid "Downloading Add-on Update"
-#~ msgstr "Preuzimanje ažuriranja dodatka"
-
-#~ msgid "Connecting"
-#~ msgstr "Povezivanje"
-
-#~ msgid "Error downloading add-on update."
-#~ msgstr "Greška pri preuzimanju ažuriranja dodatka"
-
-#~ msgid ""
-#~ "Failed to open add-on package file at %s - missing file or invalid file "
-#~ "format"
-#~ msgstr ""
-#~ "Nije uspjelo otvaranje datoteke sa dodatkom na lokaciji %s - datoteka "
-#~ "nedostaje ili je neispravnog formata"
-
-#~ msgid "Updating Add-on"
-#~ msgstr "Ažuriranje dodatka"
-
-#~ msgid "Please wait while the add-on is being updated."
-#~ msgstr "Molimo pričekajte dok se dodatak ažurira."
-
-#~ msgid "Failed to update add-on  from %s"
-#~ msgstr "Nije uspjelo ažuriranje dodatka  sa lokacije %s"
-
-#~ msgid "Error"
-#~ msgstr "Greška "
-
-#~ msgid "Find error"
-#~ msgstr "Greška u pretrazi. "
