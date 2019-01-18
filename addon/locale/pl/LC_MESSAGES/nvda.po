@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2018-11-29 08:43-0800\n"
+"PO-Revision-Date: 2019-01-11 12:40-0800\n"
 "Last-Translator: Patryk <patric3031@wp.pl>\n"
 "Language-Team: Polish <killer@tyflonet.com>\n"
 "Language: pl\n"
@@ -2126,77 +2126,3 @@ msgid ""
 msgstr ""
 "Poprawia dostępność Station Playlist Studio.\n"
 "Ponadto, dodaje globalne komendy dla studia, dostępne z każdego miejsca."
-
-#~ msgid "Studio add-on update"
-#~ msgstr "Aktualizacja dodatku SPL Studio"
-
-#~ msgid "Add-on update check"
-#~ msgstr "Sprawdzanie aktualizacji"
-
-#~ msgid "Checking for new version of Studio add-on..."
-#~ msgstr "Sprawdzam aktualizacje... Poczekaj chwilę"
-
-#~ msgid "Automatically check for add-on &updates"
-#~ msgstr "Sprawdzaj automatycznie, czy jest nowsza wersja"
-
-#~ msgid "Update &interval in days"
-#~ msgstr "Okres sprawdzania aktualizacji"
-
-#~ msgid ""
-#~ "Update interval has been set to zero days, so updates to the Studio add-"
-#~ "on will be checked every time NVDA and/or Studio starts. Are you sure you "
-#~ "wish to continue?"
-#~ msgstr ""
-#~ "Czas sprawdzania uaktualnień ustawiono na 0. Oznacza to, że aktualizacje "
-#~ "będą sprawdzane za każdym uruchomieniem SPL'a lub NVDA. Czy chcesz "
-#~ "kontynuoać?"
-
-#~ msgid "Confirm update interval"
-#~ msgstr "Potwierdź czas sprawdzania aktualizacji"
-
-#~ msgid "No add-on update available."
-#~ msgstr "Wygląda, że twoja wersja jest aktualna"
-
-#~ msgid "Studio add-on {newVersion} is available. Would you like to update?"
-#~ msgstr "Jest nowa wersja: {newVersion} dodatku SPL Studio. Uaktualnić?"
-
-#~ msgid "Downloading Add-on Update"
-#~ msgstr "Pobieranie aktualizacji dodatku SPL Studio"
-
-#~ msgid "Connecting"
-#~ msgstr "Łączenie..."
-
-#~ msgid "Error downloading add-on update."
-#~ msgstr "Błąd pobierania"
-
-#~ msgid ""
-#~ "Failed to open add-on package file at %s - missing file or invalid file "
-#~ "format"
-#~ msgstr "Nie udało się otworzyć pakietu z %s - Nieprawidłowy format pliku"
-
-#~ msgid "Updating Add-on"
-#~ msgstr "Uaktualniam!"
-
-#~ msgid "Please wait while the add-on is being updated."
-#~ msgstr "Proszę czekać..."
-
-#~ msgid "Failed to update add-on  from %s"
-#~ msgstr "Nie udało się uaktualnić z %s"
-
-#~ msgid "Error"
-#~ msgstr "Błąd"
-
-#~ msgid "Find error"
-#~ msgstr "Błąd szukania"
-
-#~ msgid "&New"
-#~ msgstr "Nowy"
-
-#~ msgid "&Rename"
-#~ msgstr "Zmień nazwę"
-
-#~ msgid "&Delete"
-#~ msgstr "Usuń"
-
-#~ msgid "&Triggers..."
-#~ msgstr "Wyzwalacze..."
