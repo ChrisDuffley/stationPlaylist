@@ -523,7 +523,8 @@ _delayMetadataAction = False
 
 # Connect and/or announce metadata status when broadcast profile switching occurs.
 # The config dialog active flag is only invoked when being notified while add-on settings dialog is focused.
-def metadata_actionProfileSwitched(configDialogActive=False):
+# Settings reset flag is used to prevent metadata server connection when settings are reloaded from disk or reset to defaults.
+def metadata_actionProfileSwitched(configDialogActive=False, settingsReset=False):
 	from . import splconfig
 	# Only connect if add-on settings is active in order to avoid wasting thread running time.
 	if configDialogActive:
@@ -545,12 +546,18 @@ def metadata_actionProfileSwitched(configDialogActive=False):
 		if not handle:
 			_delayMetadataAction = True
 			return
-		metadataConnector()
+		if not settingsReset: metadataConnector()
 		# #47 (18.02/15.13-LTS): call the internal announcer via wx.CallLater in order to not hold up action handler queue.
 		# #51 (18.03/15.14-LTS): wx.CallLater isn't enough - there must be ability to cancel it.
 		_earlyMetadataAnnouncerInternal(metadataStatus())
 
 splactions.SPLActionProfileSwitched.register(metadata_actionProfileSwitched)
+
+# The only job of this action handler is to call profile switch handler above with special flags.
+def metadata_actionSettingsReset(factoryDefaults=False):
+	metadata_actionProfileSwitched(settingsReset=True)
+
+splactions.SPLActionSettingsReset.register(metadata_actionSettingsReset)
 
 # Playlist transcripts processor
 # Takes a snapshot of the active playlist (a 2-D array) and transforms it into various formats.
