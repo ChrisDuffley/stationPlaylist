@@ -517,7 +517,8 @@ class ConfigHub(ChainMap):
 		# 18.08: don't forget to change type for Playlist Transcripts/included columns set.
 		self["PlaylistTranscripts"]["IncludedColumns"] = set(_SPLDefaults["PlaylistTranscripts"]["IncludedColumns"])
 		# #94 (19.02/18.09.7-LTS): notify other subsystems to use default settings, as timers and other routines might not see default settings.
-		splactions.SPLActionProfileSwitched.notify()
+		# The below action will ultimately call profile switch handler so subsystems can take appropriate action.
+		splactions.SPLActionSettingsReset.notify(factoryDefaults=True)
 
 	# Reload config.
 	# Go through profiles and reinitialize them.
@@ -543,6 +544,9 @@ class ConfigHub(ChainMap):
 					if section == (): continue
 					del conf[section[0]][key]
 				if "Update" in conf: del conf["Update"]
+		# #94 (19.02/18.09.7-LTS): same as reset method but settings from disk will be applied.
+		splactions.SPLActionSettingsReset.notify(factoryDefaults=False)
+
 
 	def handlePostConfigReset(self, factoryDefaults=False):
 		self.reset() if factoryDefaults else self.reload()
