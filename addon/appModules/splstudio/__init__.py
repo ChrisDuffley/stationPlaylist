@@ -654,7 +654,9 @@ class AppModule(appModuleHandler.AppModule):
 		except:
 			pass
 		# #40 (17.12): react to profile switches.
+		# #94 (19.03/18.09.7-LTS): also listen to profile reset action.
 		splactions.SPLActionProfileSwitched.register(self.actionProfileSwitched)
+		splactions.SPLActionSettingsReset.register(self.actionSettingsReset)
 		debugOutput("loading add-on settings")
 		splconfig.initialize()
 		# Announce status changes while using other programs.
@@ -982,6 +984,14 @@ class AppModule(appModuleHandler.AppModule):
 		# #38 (17.11/15.10-LTS): obtain microphone alarm status.
 		if splbase._SPLWin is not None: self.doExtraAction(self.sayStatus(2, statusText=True))
 
+	def actionSettingsReset(self, factoryDefaults=False):
+		# Regardless of factory defaults flag, turn off microphone alarm timers.
+		if micAlarmT is not None: micAlarmT.cancel()
+		micAlarmT = None
+		if micAlarmT2 is not None: micAlarmT2.Stop()
+		micAlarmT2 = None
+		if splbase._SPLWin is not None: self.doExtraAction(self.sayStatus(2, statusText=True))
+
 	# Alarm announcement: Alarm notification via beeps, speech or both.
 	def alarmAnnounce(self, timeText, tone, duration, intro=False):
 		if splconfig.SPLConfig["General"]["AlarmAnnounce"] in ("beep", "both"):
@@ -1056,6 +1066,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Also allows profile switch handler to unregister itself as well.
 		# At the same time, close any opened SPL add-on dialogs.
 		splactions.SPLActionProfileSwitched.unregister(self.actionProfileSwitched)
+		splactions.SPLActionSettingsReset.unregister(self.actionSettingsReset)
 		splactions.SPLActionAppTerminating.notify()
 		debugOutput("closing microphone alarm/interval thread")
 		global micAlarmT, micAlarmT2
