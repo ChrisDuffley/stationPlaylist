@@ -972,6 +972,7 @@ class AppModule(appModuleHandler.AppModule):
 		if splbase._SPLWin is not None: self.doExtraAction(self.sayStatus(2, statusText=True))
 
 	def actionSettingsReset(self, factoryDefaults=False):
+		global micAlarmT, micAlarmT2
 		# Regardless of factory defaults flag, turn off microphone alarm timers.
 		if micAlarmT is not None: micAlarmT.cancel()
 		micAlarmT = None
