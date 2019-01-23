@@ -508,6 +508,8 @@ class ConfigHub(ChainMap):
 				raise ValueError("The specified profile does not exist")
 			else: profilePool.append(self.profileByName(profile))
 		for conf in profilePool:
+			# Preserve pilot feature flag.
+			pilotFeatures = conf["Advanced"]["PilotFeatures"] if conf.name == defaultProfileName else None
 			# Retrieve the profile path, as ConfigObj.reset nullifies it.
 			profilePath = conf.filename
 			conf.reset()
@@ -516,6 +518,7 @@ class ConfigHub(ChainMap):
 			copyProfile(_SPLDefaults, conf, complete=profilePath == SPLIni)
 			# Convert certain settings to a different format.
 			conf["ColumnAnnouncement"]["IncludedColumns"] = set(_SPLDefaults["ColumnAnnouncement"]["IncludedColumns"])
+			if conf.name == defaultProfileName: conf["Advanced"]["PilotFeatures"] = pilotFeatures
 		# Switch back to normal profile via a custom variant of swap routine.
 		if self.profiles[0].name != defaultProfileName:
 			npIndex = self.profileIndexByName(defaultProfileName)
@@ -538,14 +541,17 @@ class ConfigHub(ChainMap):
 			else: profilePool.append(self.profileByName(profile))
 		for conf in profilePool:
 			# Update the profile with data coming from the disk.
+			# The only exception is pilot features flag, with live setting (or settings change) taking precedence.
 			# No need to cache the updated profile again as cached copy is same as the saved profile.
 			# For now, whatever profile that was active will be used.
+			pilotFeatures = conf["Advanced"]["PilotFeatures"] if conf.name == defaultProfileName else None
 			savedProfile = self._unlockConfig(conf.filename, profileName=conf.name, prefill=conf.filename == SPLIni, validateNow=True).dict()
 			conf.update(savedProfile)
 			conf["ColumnAnnouncement"]["IncludedColumns"] = set(conf["ColumnAnnouncement"]["IncludedColumns"])
-			# Just like reset method, if dealing with normal profile, transform playlist transcripts setting.
+			# Just like reset method, if dealing with normal profile, transform playlist transcripts setting along with loading current pilot features flag.
 			if conf.filename == SPLIni:
 				conf["PlaylistTranscripts"]["IncludedColumns"] = set(conf["PlaylistTranscripts"]["IncludedColumns"])
+				conf["Advanced"]["PilotFeatures"] = pilotFeatures
 				# Just like constructor, remove deprecated keys if any.
 				deprecatedKeys = get_extra_values(conf)
 				for section, key in deprecatedKeys:
@@ -554,7 +560,6 @@ class ConfigHub(ChainMap):
 				if "Update" in conf: del conf["Update"]
 		# #94 (19.02/18.09.7-LTS): same as reset method but settings from disk will be applied.
 		splactions.SPLActionSettingsReset.notify(factoryDefaults=False)
-
 
 	def handlePostConfigReset(self, factoryDefaults=False):
 		self.reset() if factoryDefaults else self.reload()
