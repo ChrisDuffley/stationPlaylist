@@ -562,7 +562,30 @@ class ConfigHub(ChainMap):
 		splactions.SPLActionSettingsReset.notify(factoryDefaults=False)
 
 	def handlePostConfigReset(self, factoryDefaults=False):
-		self.reset() if factoryDefaults else self.reload()
+		def factoryResetInternal():
+			if self._switchProfileFlags:
+				if gui.messageBox(
+					# Translators: Message displayed when attempting to reset Studio add-on settings while an instant switch or time-based profile is active.
+					_("An instant switch or time-based profile is active. Resetting Studio add-on settings means normal profile will become active and switch profile settings will be left in unpredictable state. Are you sure you wish to reset Studio add-on settings to factory defaults?"),
+					# Translators: The title of the confirmation dialog for Studio add-on settings reset.
+					_("SPL Studio add-on reset"),
+					wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION
+				) == wx.NO:
+					return
+				# End all triggers if needed, beginning with time-based profile.
+				global triggerTimer, _SPLTriggerEndTimer, _triggerProfileActive
+				_triggerProfileActive = False
+				if _SPLTriggerEndTimer is not None and _SPLTriggerEndTimer.IsRunning():
+					_SPLTriggerEndTimer.Stop()
+					_SPLTriggerEndTimer = None
+				if triggerTimer is not None and triggerTimer.IsRunning():
+					triggerTimer.Stop()
+					triggerTimer = None
+				self.prevProfile = None
+				self.switchHistory = [None]
+				self._switchProfileFlags = 0
+			self.reset()
+		self.reload() if not factoryDefaults else wx.CallAfter(factoryResetInternal)
 
 	def profileIndexByName(self, name):
 		# 8.0 optimization: Only traverse the profiles list if head (active profile) or tail does not yield profile name in question.
