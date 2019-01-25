@@ -1527,33 +1527,17 @@ class ResetDialog(wx.Dialog):
 			parent.Enable()
 			self.Destroy()
 			return
-		# #96 (19.02/18.09.7-LTS): ask once more if switch profiles are active or trigger timer is running.
-		if splconfig.SPLConfig._switchProfileFlags or splconfig.triggerTimer is not None and splconfig.triggerTimer.IsRunning():
-			if gui.messageBox(
-				# Translators: Message displayed when attempting to reset Studio add-on settings while an instant switch or time-based profile is active.
-				_("An instant switch or time-based profile is active. Resetting Studio add-on settings means normal profile will become active and switch profile settings will be left in unpredictable state. Are you sure you wish to reset Studio add-on settings to factory defaults?"),
-				# Translators: The title of the confirmation dialog for Studio add-on settings reset.
-				_("SPL Studio add-on reset"),
-				wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION
-			) == wx.NO:
-				return
 		import threading, sys, globalVars
 		# Reset all profiles.
 		# LTS: Only a priveleged thread should do this, otherwise unexpected things may happen.
 		with threading.Lock() as resetting:
 			global _configDialogOpened
-			# #96 (19.02/18.09.7-LTS): remove any switch profile flags.
-			splconfig._triggerProfileActive = False
-			if splconfig._SPLTriggerEndTimer is not None and splconfig._SPLTriggerEndTimer.IsRunning():
-				splconfig._SPLTriggerEndTimer.Stop()
-				splconfig._SPLTriggerEndTimer = None
-			if splconfig.triggerTimer is not None and splconfig.triggerTimer.IsRunning():
-				splconfig.triggerTimer.Stop()
-				splconfig.triggerTimer = None
-			splconfig.SPLConfig.prevProfile = None
-			splconfig.SPLConfig.switchHistory = [None]
-			splconfig.SPLConfig._switchProfileFlags = 0
-			splconfig.SPLConfig.reset()
+			# #96 (19.03/18.09.7-LTS): call the reset handler instead of reset method directly so the additional confirmation message can be shown.
+			# Without an exception, reset will continue.
+			try:
+				splconfig.SPLConfig.handlePostConfigReset(factoryDefaults=True, resetViaConfigDialog=True)
+			except RuntimeError:
+				return
 			if self.resetInstantProfileCheckbox.Value:
 				if splconfig.SPLConfig.instantSwitch is not None:
 					splconfig.SPLConfig.instantSwitch = None

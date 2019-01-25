@@ -553,9 +553,13 @@ class ConfigHub(ChainMap):
 		# #94 (19.02/18.09.7-LTS): same as reset method but settings from disk will be applied.
 		splactions.SPLActionSettingsReset.notify(factoryDefaults=False)
 
-	def handlePostConfigReset(self, factoryDefaults=False):
-		def factoryResetInternal():
-			if self._switchProfileFlags:
+	def handlePostConfigReset(self, factoryDefaults=False, resetViaConfigDialog=False):
+		def factoryResetInternal(resetViaConfigDialog=False):
+			# An internal function to perform confirmation message presentation in order to avoid freezes.
+			# Also, if done from add-on settings dialog, communicate failure through an exception.
+			global triggerTimer, _SPLTriggerEndTimer, _triggerProfileActive
+			# #96 (19.02/18.09.7-LTS): ask once more if switch profiles are active or trigger timer is running.
+			if self._switchProfileFlags or triggerTimer is not None and triggerTimer.IsRunning():
 				if gui.messageBox(
 					# Translators: Message displayed when attempting to reset Studio add-on settings while an instant switch or time-based profile is active.
 					_("An instant switch or time-based profile is active. Resetting Studio add-on settings means normal profile will become active and switch profile settings will be left in unpredictable state. Are you sure you wish to reset Studio add-on settings to factory defaults?"),
@@ -563,9 +567,9 @@ class ConfigHub(ChainMap):
 					_("SPL Studio add-on reset"),
 					wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION
 				) == wx.NO:
-					return
+					if not resetViaConfigDialog: return
+					else: raise RuntimeError("Instant switch and/or time-based profile must remain active, reset cannot proceed")
 				# End all triggers if needed, beginning with time-based profile.
-				global triggerTimer, _SPLTriggerEndTimer, _triggerProfileActive
 				_triggerProfileActive = False
 				if _SPLTriggerEndTimer is not None and _SPLTriggerEndTimer.IsRunning():
 					_SPLTriggerEndTimer.Stop()
@@ -577,7 +581,10 @@ class ConfigHub(ChainMap):
 				self.switchHistory = [None]
 				self._switchProfileFlags = 0
 			self.reset()
-		self.reload() if not factoryDefaults else wx.CallAfter(factoryResetInternal)
+		if not factoryDefaults: self.reload()
+		else:
+			# Because gui.messageBox freezes if not done from main thread, queue it if and only if this is done from the keyboard or via NVDA menu.
+			factoryResetInternal(True) if resetViaConfigDialog else wx.CallAfter(factoryResetInternal)
 
 	def profileIndexByName(self, name):
 		# 8.0 optimization: Only traverse the profiles list if head (active profile) or tail does not yield profile name in question.
