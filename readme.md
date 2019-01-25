@@ -114,7 +114,7 @@ The available commands are:
 * Shift+S: Time until selected track will play (track starts in).
 * T: Cart edit/insert mode on/off.
 * U: Studio up time.
-* Control+Shift+U: Check for add-on updates.
+* Control+Shift+U (disabled in 18.09.7-LTS): Check for add-on updates.
 * W: Weather and temperature if configured.
 * Y: Playlist modified status.
 * 1 through 0 (6 for Studio 5.0x): Announce column content for a specified column.
@@ -194,6 +194,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Version 18.09.7-LTS
 
+* Disabled standalone add-on update check feature, including update check command from SPL Assistant (Control+Shift+U) and add-on update check options from add-on settings. Add-on update check is now performed by Add-on Updater.
 * NVDA will no longer announce "monitoring library scan" after closing Studio in some situations.
 * NVDA will no longer appear to do nothing or play error tones when microphone active interval is set, used to remind broadcasters that microphone is active with periodic beeps.
 * Pressing Control+NVDA+R to reload saved settings will now also reload Studio add-on settings, and pressing this command three times will also reset Studio add-on settings to defaults along with NVDA settings.
