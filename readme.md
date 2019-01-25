@@ -196,6 +196,8 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 * NVDA will no longer announce "monitoring library scan" after closing Studio in some situations.
 * NVDA will no longer appear to do nothing or play error tones when microphone active interval is set, used to remind broadcasters that microphone is active with periodic beeps.
+* Pressing Control+NVDA+R to reload saved settings will now also reload Studio add-on settings, and pressing this command three times will also reset Studio add-on settings to defaults along with NVDA settings.
+* When resetting add-on settings from add-on settings dialog/reset panel, NVDA will ask once more if an instant switch profile or a time-based profile is active.
 * After resetting Studio add-on settings, NvDA will turn off microphone alarm timer and announce metadata streaming status, similar to after switching between broadcast profiles.
 
 ## Version 18.09.6-LTS
@@ -242,7 +244,7 @@ Version 18.09.x is the last release series to support Studio 5.10 and based on o
 * Column inclusion checkboxes for column announcement and playlist transcripts, as well as metadata streams checkboxes have been converted to checkable list controls.
 * When switching between settings panels, NvDA will remember current settings for profile-specific settings (alarms, column announcements, metadata streaming settings).
 * Added CSV (comma-separated values) format as a playlist transcripts format.
-* Pressing Control+NvDA+C to save settings will now also save Studio add-on settings (requires NVDA 2018.3).
+* Pressing Control+NVDA+C to save settings will now also save Studio add-on settings (requires NVDA 2018.3).
 
 ## Version 18.08.2
 
