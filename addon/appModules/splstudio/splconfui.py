@@ -1571,7 +1571,12 @@ class ResetDialog(wx.Dialog):
 		# LTS: Only a priveleged thread should do this, otherwise unexpected things may happen.
 		with threading.Lock() as resetting:
 			global _configDialogOpened
-			splconfig.SPLConfig.reset()
+			# #96 (19.03/18.09.7-LTS): call the reset handler instead of reset method directly so the additional confirmation message can be shown.
+			# Without an exception, reset will continue.
+			try:
+				splconfig.SPLConfig.handlePostConfigReset(factoryDefaults=True, resetViaConfigDialog=True)
+			except RuntimeError:
+				return
 			if self.resetInstantProfileCheckbox.Value:
 				if splconfig.SPLConfig.instantSwitch is not None:
 					splconfig.SPLConfig.instantSwitch = None
