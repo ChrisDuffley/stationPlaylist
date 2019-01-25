@@ -118,6 +118,7 @@ SPLConfig = None
 # The following settings can be changed in profiles:
 _mutatableSettings=("IntroOutroAlarms", "MicrophoneAlarm", "MetadataStreaming", "ColumnAnnouncement")
 # A tuple of deprecated/removed keys.
+# Kept in 18.09.x-LTS for reference purposes.
 SPLDeprecatedKeys = ("General/TrackDial", "Startup/Studio500", "PlaylistTranscripts/TranscriptFormat", "Advanced/ConfUI2", "Startup/ConfUI2Intro")
 # 7.0: Profile-specific confspec (might be removed once a more optimal way to validate sections is found).
 # Dictionary comprehension is better here.
