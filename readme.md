@@ -192,6 +192,10 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 19.03/18.09.7-LTS
+
+* Pressing Control+NVDA+R to reload saved settings will now also reload Studio add-on settings, and pressing this command three times will also reset Studio add-on settings to defaults along with NVDA settings.
+
 ## Version 19.02
 
 * Removed standalone add-on update check feature, including update check command from SPL Assistant (Control+Shift+U) and add-on update check options from add-on settings. Add-on update check is now performed by Add-on Updater.
@@ -258,7 +262,7 @@ Version 18.09.x is the last release series to support Studio 5.10 and based on o
 * Column inclusion checkboxes for column announcement and playlist transcripts, as well as metadata streams checkboxes have been converted to checkable list controls.
 * When switching between settings panels, NvDA will remember current settings for profile-specific settings (alarms, column announcements, metadata streaming settings).
 * Added CSV (comma-separated values) format as a playlist transcripts format.
-* Pressing Control+NvDA+C to save settings will now also save Studio add-on settings (requires NVDA 2018.3).
+* Pressing Control+NVDA+C to save settings will now also save Studio add-on settings (requires NVDA 2018.3).
 
 ## Version 18.08.2
 
