@@ -196,6 +196,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 * Removed standalone add-on update check feature, including update check command from SPL Assistant (Control+Shift+U) and add-on update check options from add-on settings. Add-on update check is now performed by Add-on Updater.
 * NVDA will no longer appear to do nothing or play error tones when microphone active interval is set, used to remind broadcasters that microphone is active with periodic beeps.
+* When resetting add-on settings from add-on settings dialog/reset panel, NVDA will ask once more if an instant switch profile or a time-based profile is active.
 * After resetting Studio add-on settings, NvDA will turn off microphone alarm timer and announce metadata streaming status, similar to after switching between broadcast profiles.
 
 ## Version 19.01.1
