@@ -574,7 +574,7 @@ class ConfigHub(ChainMap):
 					_("An instant switch or time-based profile is active. Resetting Studio add-on settings means normal profile will become active and switch profile settings will be left in unpredictable state. Are you sure you wish to reset Studio add-on settings to factory defaults?"),
 					# Translators: The title of the confirmation dialog for Studio add-on settings reset.
 					_("SPL Studio add-on reset"),
-					wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION
+					wx.YES_NO | wx.NO_DEFAULT | wx.ICON_WARNING
 				) == wx.NO:
 					if not resetViaConfigDialog: return
 					else: raise RuntimeError("Instant switch and/or time-based profile must remain active, reset cannot proceed")
