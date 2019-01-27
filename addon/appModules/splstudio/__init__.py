@@ -1510,7 +1510,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Report library scan (number of items scanned) in the background.
 	def monitorLibraryScan(self):
 		global libScanT
-		if libScanT and libScanT.isAlive() and api.getForegroundObject().windowClassName == "TTrackInsertForm":
+		if libScanT and libScanT.is_alive() and api.getForegroundObject().windowClassName == "TTrackInsertForm":
 			return
 		if splbase.studioAPI(1, 32) < 0:
 			self.libraryScanning = False
@@ -1825,7 +1825,7 @@ class AppModule(appModuleHandler.AppModule):
 	def script_escape(self, gesture):
 		gesture.send()
 		if self.libraryScanning:
-			if not libScanT or (libScanT and not libScanT.isAlive()):
+			if not libScanT or (libScanT and not libScanT.is_alive()):
 				self.monitorLibraryScan()
 
 	# The developer would like to get feedback from you.
