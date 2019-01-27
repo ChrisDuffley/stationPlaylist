@@ -343,7 +343,7 @@ class Encoder(IAccessible):
 			self._setFlags(self.encoderId, not self.backgroundMonitor, SPLBackgroundMonitor, "BackgroundMonitor")
 			if self.backgroundMonitor:
 				try:
-					monitoring = self.threadPool[self.IAccessibleChildID].isAlive()
+					monitoring = self.threadPool[self.IAccessibleChildID].is_alive()
 				except KeyError:
 					monitoring = False
 				if not monitoring: self.connectStart()
