@@ -670,12 +670,16 @@ class ConfigHub(ChainMap):
 		if showSwitchIndex: return current
 
 	# 18.09: determine if pilot features can be used.
+	# 19.03: split into two functions: the test drive checker function and a dev channel checker.
+	# There are times when a feature must be tested by more users without introducing regressions to stable branch users.
 	@property
-	def canEnablePilotFeatures(self):
-		if self._pendingPilotFeaturesToggle:
-			return False
+	def isDevVersion(self):
 		SPLAddonManifest = addonHandler.Addon(os.path.join(os.path.dirname(__file__), "..", "..")).manifest
 		return SPLAddonManifest['updateChannel'] == "dev"
+
+	@property
+	def canEnablePilotFeatures(self):
+		return self.isDevVersion and not self._pendingPilotFeaturesToggle
 
 	@property
 	def testDrive(self):
