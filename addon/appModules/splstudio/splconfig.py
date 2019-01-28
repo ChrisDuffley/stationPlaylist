@@ -692,7 +692,6 @@ class ConfigHub(ChainMap):
 		if splupdate is not None:
 			return splupdate.SPLUpdateChannel in ("dev", "try")
 		else:
-			import addonHandler
 			SPLAddonManifest = addonHandler.Addon(os.path.join(os.path.dirname(__file__), "..", "..")).manifest
 			return SPLAddonManifest['updateChannel'] == "dev"
 
