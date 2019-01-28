@@ -674,7 +674,6 @@ class ConfigHub(ChainMap):
 	def canEnablePilotFeatures(self):
 		if self._pendingPilotFeaturesToggle:
 			return False
-		import addonHandler
 		SPLAddonManifest = addonHandler.Addon(os.path.join(os.path.dirname(__file__), "..", "..")).manifest
 		return SPLAddonManifest['updateChannel'] == "dev"
 
