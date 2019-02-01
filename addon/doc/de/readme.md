@@ -25,14 +25,12 @@ WICHTIGE HINWEISE:
 * Ab 2018 werden die [Änderungsnotizen älterer SPL-Erweiterungsversionen][5]
   auf Github zu finden sein. Diese Readme-Version listet Änderungen ab
   Version 7.0 (ab 2016) auf.
-* Bestimmte Features (insbesondere Erweiterungsaktualisierungen)
-  funktionieren unter bestimmten Bedingungen nicht. Dies kann beispielsweise
-  vorkommen, wenn die NVDA im abgesicherten Modus ausgeführt wird.
+* Certain add-on features won't work under some conditions, including
+  running NVDA in secure mode.
 * Aufgrund technischer Einschränkungen können Sie diese Erweiterung nicht
   auf der Windows-Store-Version von NVDA installieren oder verwenden.
-* Die Update-Funktion, die mit dieser Erweiterung kommt, wird 2019 nicht
-  mehr verfügbar sein. Verwenden Sie den Addon-Updater, um diese Erweiterung
-  zu aktualisieren.
+* Add-on update feature that comes with this add-on has been removed. Use
+  Add-on Updater to update this add-on.
 
 ## Tastenkürzel
 
@@ -186,8 +184,6 @@ Folgende Befehle stehen zur Verfügung:
   in...).
 * T: Cart-Bearbeitungs-/Einfügemodus ein und ausschalten.
 * U: Studiozeit.
-* STRG+Umschalt+U: überprüft, ob Aktualisierungen für die Erweiterung
-  vorhanden sind. (Wird 2019 entfernt.)
 * W: Wetter und Temperatur, wenn konfiguriert.
 * Y: Status der Playlist-Änderungen.
 * 1 bis 0 (bis 6 für Studio 5.0x): sagt den Spalteninhalt für eine bestimmte
@@ -333,6 +329,22 @@ verwenden und NVDA 2012.3 oder höher installiert haben, können Sie einige
 Studio-Befehle über den Touchscreen ausführen. Tippen Sie zunächst einmal
 mit drei Fingern, um in den SPL-Touchmodus zu wechseln. Verwenden Sie dann
 die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
+
+## Version 19.02
+
+* Removed standalone add-on update check feature, including update check
+  command from SPL Assistant (Control+Shift+U) and add-on update check
+  options from add-on settings. Add-on update check is now performed by
+  Add-on Updater.
+* NVDA will no longer appear to do nothing or play error tones when
+  microphone active interval is set, used to remind broadcasters that
+  microphone is active with periodic beeps.
+* When resetting add-on settings from add-on settings dialog/reset panel,
+  NVDA will ask once more if an instant switch profile or a time-based
+  profile is active.
+* After resetting Studio add-on settings, NvDA will turn off microphone
+  alarm timer and announce metadata streaming status, similar to after
+  switching between broadcast profiles.
 
 ## Version 19.01.1
 

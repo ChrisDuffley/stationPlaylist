@@ -25,13 +25,12 @@ NOTAS IMPORTANTES:
 * A partir de 2018, los [registros de cambios para versiones antiguas][5] se
   encontrarán en GitHub. Este léeme del complemento listará cambios desde la
   versión 7.0 (2016 en adelante).
-* Ciertas características del complemento (especialmente la actualización)
-  no funcionarán bajo algunas condiciones, incluyendo la ejecución de NVDA
-  en modo seguro.
+* Ciertas características del complemento no funcionarán bajo algunas
+  condiciones, incluyendo la ejecución de NVDA en modo seguro.
 * Debido a limitaciones técnicas, no puedes instalar ni utilizar este
   complemento en la versión de Windows Store de NVDA.
-* La característica actualizar complemento que viene con este complemento no
-  estará ya en 2019. Utiliza Add-on Updater para actualizarlo.
+* Se ha eliminado la característica actualizar complemento que viene con
+  este complemento. Utiliza Add-on Updater para actualizarlo.
 
 ## Teclas de atajo
 
@@ -188,8 +187,6 @@ Las órdenes disponibles son:
   (comienzos de pistas).
 * T: modo editar/insertar Cart activado/desactivado.
 * U: Studio al día.
-* Control+Shift+U: busca actualizaciones del complemento (se elimina en
-  2019).
 * W: clima y temperatura si se configuró.
 * Y: Estado modificado de lista de reproducción.
 * 1 hasta 0 (6 para Studio 5.0x): anuncia el contenido de la columna para
@@ -328,6 +325,25 @@ Windows 8 o posterior y tienes NVDA 2012.3 o posterior instalado, puedes
 realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
+
+## Versión 19.02
+
+* Se ha eliminado la función de comprobación de actualizaciones incorporada
+  en el complemento, incluyendo la orden para buscar actualizaciones en el
+  asistente de SPL (ctrl+shift+u) y las opciones de búsqueda de
+  actualizaciones del complemento en los ajustes. Ahora es Add-on Updater el
+  encargado de buscar actualizaciones.
+* NVDA ya no parecerá no hacer nada o no reproducirá tonos de error cuando
+  se configure un intervalo de activación del micrófono, usado para recordar
+  a los locutores que el micrófono está activo emitiendo pitidos periódicos.
+* Cuando se restablecen los ajustes del complemento desde el diálogo de
+  configuración / panel de restablecimiento, NVDA preguntará una vez más si
+  se encuentra activo un perfil de cambio instantáneo o un perfil basado en
+  tiempo.
+* Tras restablecer los ajustes del complemento de Studio, NVDA desactivará
+  el temporizador de la alarma del micrófono y el anuncio del estado de los
+  metadatos del flujo, al igual que ocurre al cambiar entre perfiles de
+  emisión.
 
 ## Versión 19.01.1
 

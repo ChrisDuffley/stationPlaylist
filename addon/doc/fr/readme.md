@@ -25,14 +25,13 @@ NOTES IMPORTANTES :
 * À partir de 2018, [les journal des changements des anciennes versions du
   module complémentaire][5] seront trouvés sur GitHub. Ce fichier readme
   ajoutera les changements depuis la version 7.0 (à partir de 2016).
-* Certaines fonctionnalités du module complémentaire (notamment la mise à
-  jour de modules complémentaires) ne fonctionneront pas dans certaines
-  conditions, notamment l'exécution de NVDA en mode sécurisé.
+* Certaines fonctionnalités du module complémentaire ne fonctionneront pas
+  dans certaines conditions, notamment l'exécution de NVDA en mode sécurisé.
 * En raison de limitations techniques, vous ne pouvez pas installer ou
   utiliser ce module complémentaire sur la version Windows Store de NVDA.
 * La fonctionnalité de mise à jour du module complémentaire fournie avec ce
-  module complémentaire ne sera plus disponible en 2019. Utilisez Add-on
-  Updater pour mettre à jour ce module complémentaire.
+  module complémentaire a été supprimée. Utilisez Add-on Updater pour mettre
+  à jour ce module complémentaire.
 
 ## Raccourcis clavier
 
@@ -195,8 +194,6 @@ Les commandes disponibles sont :
   débute dans).
 * T : Mode édition/insertion chariot activé/désactivé.
 * U: temps de fonctionnement Studio.
-* Contrôle+Maj+U : Rechercher les mises à jour du module complémentaire
-  (suppression en 2019).
 * W: Météo et température si configurée.
 * Y: Statut de la modification de la playlist.
 * 1 jusqu'à 0 (6 pour Studio 5.0x) : Annoncer le contenu de la colonne pour
@@ -338,6 +335,27 @@ ultérieure installé, vous pouvez exécuter certaines commandes Studio depuis
 un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
+
+## Version 19.02
+
+* Suppression de la fonctionnalité de vérification de mise à jour autonome
+  du module complémentaire y compris la commande de vérification de mise à
+  jour à partir de l'Assistant SPL (Contrôle+Maj+U) et les options de
+  vérification de mise à jour à partir des paramètres du module
+  complémentaire. La vérification de mise à jour du module complémentaire
+  est maintenant effectuée par Add-on Updater.
+* NVDA ne semble plus rien faire ou ne lit plus une tonalité d'erreur
+  lorsque l'intervalle d'activation du microphone est défini, il est utilisé
+  pour se souvenir lors de la diffusion que le microphone est actif avec des
+  bips périodiques.
+* Lors de la réinitialisation des paramètres du module complémentaire à
+  partir du dialogue Paramètres module complémentaire / panneau
+  réinitialisation, NVDA demandra à nouveau si un changement de profil
+  immédiat ou un profil basé sur l'heure est actif.
+* Après avoir réinitialisé les paramètres du module complémentaire Studio,
+  NVDA désactive le minuteur alarme microphone et annonce le statut des
+  métadonnées en streaming, comme après le basculement entre les profils de
+  diffusion.
 
 ## Version 19.01.1
 
