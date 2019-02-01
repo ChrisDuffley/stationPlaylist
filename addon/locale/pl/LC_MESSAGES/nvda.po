@@ -49,6 +49,18 @@ msgstr "{header}: ()"
 msgid "Microphone active"
 msgstr "mikrofon aktywny"
 
+#. Translators: input help mode message for column explorer commands.
+msgid ""
+"Pressing once announces data for a track column, pressing twice will present "
+"column data in a browse mode window"
+msgstr ""
+
+#. Translators: Script category for Station Playlist commands in input gestures dialog.
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on to be shown on installation and add-on information.
+msgid "StationPlaylist Studio"
+msgstr "Station Playlist Studio"
+
 #. Translators: presented when column information for a track is empty.
 msgid "blank"
 msgstr ""
@@ -62,12 +74,6 @@ msgstr "Intro"
 #, python-brace-format
 msgid "{headerText} not found"
 msgstr "{headerText} nieznaleziono"
-
-#. Translators: input help mode message for column explorer commands.
-msgid ""
-"Pressing once announces data for a track column, pressing twice will present "
-"column data in a browse mode window"
-msgstr ""
 
 #. Translators: location text for a playlist item (example: item 1 of 10).
 #, python-brace-format
@@ -351,12 +357,6 @@ msgstr ""
 "F10: Perform track time analysis.\n"
 "F12: Switch to an instant switch profile.\n"
 "Shift+F1: Open online user guide."
-
-#. Translators: Script category for Station Playlist commands in input gestures dialog.
-#. Add-on summary, usually the user visible name of the addon.
-#. Translators: Summary for this add-on to be shown on installation and add-on information.
-msgid "StationPlaylist Studio"
-msgstr "Station Playlist Studio"
 
 #. Translators: The sign-on message for Studio app module.
 #, python-brace-format
@@ -1675,6 +1675,19 @@ msgstr "Czy jesteś pewien, że chcesz resetu ustawień dodatku SPL?"
 #. Translators: The title of the warning dialog.
 msgid "Warning"
 msgstr "Ostrzeżenie"
+
+#. Translators: Message displayed when attempting to reset Studio add-on settings while an instant switch or time-based profile is active.
+msgid ""
+"An instant switch or time-based profile is active. Resetting Studio add-on "
+"settings means normal profile will become active and switch profile settings "
+"will be left in unpredictable state. Are you sure you wish to reset Studio "
+"add-on settings to factory defaults?"
+msgstr ""
+
+#. Translators: The title of the confirmation dialog for Studio add-on settings reset.
+#, fuzzy
+msgid "SPL Studio add-on reset"
+msgstr "Ustawienia dodatku SPL"
 
 #. Translators: A dialog message shown when settings were reset to defaults.
 msgid "Successfully applied default add-on settings."

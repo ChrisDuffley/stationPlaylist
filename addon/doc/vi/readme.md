@@ -21,13 +21,12 @@ CÁC LƯU Ý QUAN TRỌNG:
 * Từ 2018, [bản ghi những thay đổi cho các bản phát hành cũ của add-on][5]
   sẽ được tìm thấy trên GitHub. Tập tin readme này sẽ liệt kê các thay đổi
   từ phiên bản 6.0 (2016 trở lên).
-* Một số tính năng nhất định của add-on (đặc biệt là cập nhật add-on) sẽ
-  không hoạt động trong vài điều kiện, bao gồm chạy NVDA trong chế độ bảo
-  vệ.
+* Vài tính năng nhất định của add-on sẽ không hoạt động trong vài điều kiện,
+  bao gồm chạy NVDA trong chế độ bảo vệ.
 * Vì những giới hạn kĩ thuật, bạn không thể cài hay dùng add-on này với
   phiên bản NVDA từ Windows Store.
-* Tính năng cập nhật add-on không còn trong phiên bản  2019. Hãy dùng Add-on
-  Updater để cập nhật add-on này.
+* Tính năng cập nhật add-on đã bị gỡ bỏ. Hãy dùng Add-on Updater để cập nhật
+  add-on này.
 
 ## Các phím tắt
 
@@ -165,7 +164,6 @@ Các lệnh được hỗ trợ bao gồm:
 * Shift+S: thời gian đến khi sẽ phát track được chọn (track bắt đầu).
 * T: bật / tắt chèn / chỉnh sửa Cart.
 * U: Studio tăng thời gian.
-* Control+Shift+U: kiểm tra cập nhật add-on (bị gỡ bỏ trong phiên bản 2019).
 * W: thời tiết và nhiệt độ nếu được cấu hình.
 * Y: trạng thái chỉnh sửa danh sách phát.
 * 1 đến 0 (6 cho Studio 5.0x): thông báo nội dung của một cột được chỉ định.
@@ -283,6 +281,23 @@ Nếu dùng Studio trên một máy tính cảm ứng chạy Windows 8 trở lê
 NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio từ mành hình
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
+
+## Phiên bản 19.02
+
+* Gỡ bỏ tính năng độc lập kiểm tra cập nhật add-on, bao gồm lệnh kiểm tra
+  cập nhật từ SPL Assistant (Control+Shift+U) và tùy chọn kiểm tra cập nhật
+  add-on từ cài đặt add-on. Giờ đây, tính năng này sẽ được thực hiện bởi
+  Add-on Updater (Cập nhật add-on).
+* NVDA sẽ không còn tình trạng không làm gì hoặc phát âm thanh báo lỗi khi
+  khoảng thời gian hoạt động của microphone được thiết lập, dùng để nhắc nhớ
+  các phát thanh viên rằng microphone đang hoạt động bằng một tiếng beep
+  ngắn.
+* Khi khôi phục các cài đặt add-on từ hộp thoại cài đặt add-on / bảng khôi
+  phục cài đặt, NVDA sẽ hỏi thêm một lần nữa nếu có một hồ sơ chuyển nhanh
+  hay hồ sơ theo thời gian đang được kích hoạt.
+* Sau khi khôi phục các cài đặt của Studio add-on, NvDA sẽ tắt hẹn giờ báo
+  động microphone và thông báo trạng thái metadata streaming, tương tự như
+  sau khi chuyển giữa các hồ sơ phát thanh.
 
 ## Phiên bản 19.01.1
 

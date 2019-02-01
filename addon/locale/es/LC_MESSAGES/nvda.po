@@ -52,6 +52,20 @@ msgstr "{header}: ()"
 msgid "Microphone active"
 msgstr "Micrófono activo"
 
+#. Translators: input help mode message for column explorer commands.
+msgid ""
+"Pressing once announces data for a track column, pressing twice will present "
+"column data in a browse mode window"
+msgstr ""
+"Pulsando una vez anuncia los datos para una columna de pista, pulsando dos "
+"veces presentará los datos de columna en una ventana en modo exploración"
+
+#. Translators: Script category for Station Playlist commands in input gestures dialog.
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on to be shown on installation and add-on information.
+msgid "StationPlaylist Studio"
+msgstr "StationPlaylist Studio"
+
 #. Translators: presented when column information for a track is empty.
 msgid "blank"
 msgstr "en blanco"
@@ -64,14 +78,6 @@ msgstr "Datos de pista"
 #, python-brace-format
 msgid "{headerText} not found"
 msgstr "{headerText} no encontrado"
-
-#. Translators: input help mode message for column explorer commands.
-msgid ""
-"Pressing once announces data for a track column, pressing twice will present "
-"column data in a browse mode window"
-msgstr ""
-"Pulsando una vez anuncia los datos para una columna de pista, pulsando dos "
-"veces presentará los datos de columna en una ventana en modo exploración"
 
 #. Translators: location text for a playlist item (example: item 1 of 10).
 #, python-brace-format
@@ -363,12 +369,6 @@ msgstr ""
 "F10: Realiza el análisis de tiempo de la pista.\n"
 "F12: Cambia a un perfil de cambio instantáeo.\n"
 "Shift+F1: abre una guía de usuario en línea."
-
-#. Translators: Script category for Station Playlist commands in input gestures dialog.
-#. Add-on summary, usually the user visible name of the addon.
-#. Translators: Summary for this add-on to be shown on installation and add-on information.
-msgid "StationPlaylist Studio"
-msgstr "StationPlaylist Studio"
 
 #. Translators: The sign-on message for Studio app module.
 #, python-brace-format
@@ -1716,6 +1716,19 @@ msgstr ""
 #. Translators: The title of the warning dialog.
 msgid "Warning"
 msgstr "Precaución"
+
+#. Translators: Message displayed when attempting to reset Studio add-on settings while an instant switch or time-based profile is active.
+msgid ""
+"An instant switch or time-based profile is active. Resetting Studio add-on "
+"settings means normal profile will become active and switch profile settings "
+"will be left in unpredictable state. Are you sure you wish to reset Studio "
+"add-on settings to factory defaults?"
+msgstr ""
+
+#. Translators: The title of the confirmation dialog for Studio add-on settings reset.
+#, fuzzy
+msgid "SPL Studio add-on reset"
+msgstr "Opciones del complemento Studio"
 
 #. Translators: A dialog message shown when settings were reset to defaults.
 msgid "Successfully applied default add-on settings."
