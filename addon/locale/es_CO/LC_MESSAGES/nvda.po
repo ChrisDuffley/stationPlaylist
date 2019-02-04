@@ -1262,7 +1262,7 @@ msgid "off"
 msgstr ""
 
 #. Translators: The title of a dialog to configure advanced SPL add-on options such as update checking.
-msgid "Advanced options"
+msgid "Advanced"
 msgstr ""
 
 #. Translators: A checkbox to toggle automatic add-on updates.

@@ -1736,7 +1736,7 @@ msgstr ""
 "e próximas"
 
 #. Translators: title of a panel to configure advanced SPL add-on options such as update checking.
-msgid "Advanced options"
+msgid "Advanced"
 msgstr "Opções avançadas"
 
 #. Translators: A checkbox to toggle automatic add-on updates.

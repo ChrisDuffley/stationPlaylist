@@ -1702,7 +1702,7 @@ msgstr ""
 "Bao gồm &vị trí track khi thông báo thông tin của track hiện tại và track kế"
 
 #. Translators: title of a panel to configure advanced SPL add-on options such as update checking.
-msgid "Advanced options"
+msgid "Advanced"
 msgstr "Các tùy chọn nâng cao"
 
 #. Translators: A checkbox to toggle automatic add-on updates.
