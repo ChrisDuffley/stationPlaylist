@@ -1444,7 +1444,7 @@ class SayStatusPanel(gui.SettingsPanel):
 # It is also one of two panels (the other one being broadcast profiles) that will perform extra actions if OK or Apply is clicked from add-on settings dialog (postSave).
 class AdvancedOptionsPanel(gui.SettingsPanel):
 	# Translators: title of a panel to configure advanced SPL add-on options such as update checking.
-	title = _("Advanced options")
+	title = _("Advanced")
 
 	def makeSettings(self, settingsSizer):
 		advOptionsHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
