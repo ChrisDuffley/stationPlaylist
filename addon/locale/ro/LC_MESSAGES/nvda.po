@@ -1621,8 +1621,9 @@ msgstr ""
 "despre melodiile actuale și viitoare"
 
 #. Translators: title of a panel to configure advanced SPL add-on options such as update checking.
-msgid "Advanced options"
-msgstr "Opțiuni avansate"
+#, fuzzy
+msgid "Advanced"
+msgstr "Avansat"
 
 #. Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 msgid "Allow SPL C&ontroller command to invoke SPL Assistant layer"
@@ -2175,6 +2176,9 @@ msgid ""
 msgstr ""
 "Conține suport pentru StationPlaylist Studio.\n"
 "De asemenea, adaugă comenzi globale pentru studio de oriunde."
+
+#~ msgid "Advanced options"
+#~ msgstr "Opțiuni avansate"
 
 #~ msgid "Add-on update check"
 #~ msgstr "Actualizarea extensiei add-on se caută"

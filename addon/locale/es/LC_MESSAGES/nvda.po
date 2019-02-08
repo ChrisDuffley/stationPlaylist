@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2019-01-11 12:34-0800\n"
+"PO-Revision-Date: 2019-02-01 11:25+0100\n"
 "Last-Translator: José Manuel Delicado <jmdaweb@hotmail.com>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 2.2.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Presented when attempting to install Studio add-on on unsupported Windows releases.
@@ -1634,8 +1634,9 @@ msgstr ""
 "las pistas actual y siguiente"
 
 #. Translators: title of a panel to configure advanced SPL add-on options such as update checking.
-msgid "Advanced options"
-msgstr "Opciones avanzadas"
+#, fuzzy
+msgid "Advanced"
+msgstr "avanzado"
 
 #. Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 msgid "Allow SPL C&ontroller command to invoke SPL Assistant layer"
@@ -1724,11 +1725,15 @@ msgid ""
 "will be left in unpredictable state. Are you sure you wish to reset Studio "
 "add-on settings to factory defaults?"
 msgstr ""
+"Hay un perfil de cambio instantáneo o basado en tiempo activado. Si "
+"restableces los ajustes del complemento de Studio se activará el perfil "
+"normal y los ajustes del resto de perfiles quedarán en un estado "
+"impredecible. ¿Estás seguro de que quieres restablecer los ajustes del "
+"complemento de Studio a los valores de fábrica?"
 
 #. Translators: The title of the confirmation dialog for Studio add-on settings reset.
-#, fuzzy
 msgid "SPL Studio add-on reset"
-msgstr "Opciones del complemento Studio"
+msgstr "Restablecimiento del complemento SPL Studio"
 
 #. Translators: A dialog message shown when settings were reset to defaults.
 msgid "Successfully applied default add-on settings."
@@ -2191,3 +2196,6 @@ msgid ""
 msgstr ""
 "Mejora el soporte para Station Playlist Studio.\n"
 "Además, agrega comandos globales para el estudio desde cualquier parte."
+
+#~ msgid "Advanced options"
+#~ msgstr "Opciones avanzadas"
