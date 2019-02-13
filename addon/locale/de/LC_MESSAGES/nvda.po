@@ -1644,8 +1644,9 @@ msgstr ""
 "Titelinformationen mit einbeziehen"
 
 #. Translators: title of a panel to configure advanced SPL add-on options such as update checking.
-msgid "Advanced options"
-msgstr "Erweiterte Optionen"
+#, fuzzy
+msgid "Advanced"
+msgstr "Fortgeschritten"
 
 #. Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 msgid "Allow SPL C&ontroller command to invoke SPL Assistant layer"
@@ -2208,3 +2209,6 @@ msgstr ""
 "Verbessert die Unterstützung für Station Playlist Studio.\n"
 "Des weiteren fügt es Tastenkombinationen für das Studio aus beliebigen "
 "Programmen hinzu."
+
+#~ msgid "Advanced options"
+#~ msgstr "Erweiterte Optionen"
