@@ -1536,8 +1536,9 @@ msgid ""
 msgstr "כלול שם הרצועה ומיקום נוכחי בעת הכרזה על המידע הנוכחי ועל הרצועה הבא"
 
 #. Translators: title of a panel to configure advanced SPL add-on options such as update checking.
-msgid "Advanced options"
-msgstr "אפשרויות מתקדמות"
+#, fuzzy
+msgid "Advanced"
+msgstr "מתקדם"
 
 #. Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 msgid "Allow SPL C&ontroller command to invoke SPL Assistant layer"
@@ -2056,3 +2057,6 @@ msgid ""
 msgstr ""
 "מנגיש את תוכנת StationPlaylist  Studio  .  \n"
 "בנוסף, מאפשר ביצוע פקודות מכל מקום אחר במחשב."
+
+#~ msgid "Advanced options"
+#~ msgstr "אפשרויות מתקדמות"

@@ -1616,8 +1616,9 @@ msgstr ""
 "trenutnom i sljedećem zapisu"
 
 #. Translators: title of a panel to configure advanced SPL add-on options such as update checking.
-msgid "Advanced options"
-msgstr "Napredne postavke"
+#, fuzzy
+msgid "Advanced"
+msgstr "Napredni"
 
 #. Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 msgid "Allow SPL C&ontroller command to invoke SPL Assistant layer"
@@ -2160,3 +2161,6 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist Studio.\n"
 "Također, dodaje komande za studio bilo gdje."
+
+#~ msgid "Advanced options"
+#~ msgstr "Napredne postavke"
