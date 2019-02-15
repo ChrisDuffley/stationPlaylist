@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2019-01-11 12:35-0800\n"
+"PO-Revision-Date: 2019-02-08 12:23+0100\n"
 "Last-Translator: Iván Novegil <ivan.novegil.cancelas@gmail.com>\n"
 "Language-Team: Add-ons translation team <oprisniki@gmail.com>\n"
 "Language: gl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 2.2.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Presented when attempting to install Studio add-on on unsupported Windows releases.
@@ -1624,7 +1624,6 @@ msgstr ""
 "das pistas actual e seguinte"
 
 #. Translators: title of a panel to configure advanced SPL add-on options such as update checking.
-#, fuzzy
 msgid "Advanced"
 msgstr "avanzado"
 
@@ -1714,11 +1713,15 @@ msgid ""
 "will be left in unpredictable state. Are you sure you wish to reset Studio "
 "add-on settings to factory defaults?"
 msgstr ""
+"Está activo un perfil de cambio instantáneo ou baseado en tempo. Restablecer "
+"a configuración do complemento Studio significa que se activará o perfil "
+"normal e que a configuración do perfil de cambio se deixará en estado "
+"impredecible. Estás seguro de que desexas restablecer a configuración do "
+"complemento Studio ás predeterminadas de fábrica?"
 
 #. Translators: The title of the confirmation dialog for Studio add-on settings reset.
-#, fuzzy
 msgid "SPL Studio add-on reset"
-msgstr "Opcións do complemento Studio"
+msgstr "Restablecer o complemento SPL Studio"
 
 #. Translators: A dialog message shown when settings were reset to defaults.
 msgid "Successfully applied default add-on settings."

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 17.02\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2017-02-03 19:00+1000\n"
-"PO-Revision-Date: 2019-02-03 00:23+0700\n"
+"PO-Revision-Date: 2019-02-09 23:13+0700\n"
 "Last-Translator: Dang Manh Cuong <dangmanhcuong@gmail.com>\n"
 "Language-Team: \n"
 "Language: vi\n"
@@ -1591,9 +1591,8 @@ msgstr ""
 "Bao gồm &vị trí track khi thông báo thông tin của track hiện tại và track kế"
 
 #. Translators: title of a panel to configure advanced SPL add-on options such as update checking.
-#, fuzzy
 msgid "Advanced"
-msgstr "nâng cao"
+msgstr "Nâng cao"
 
 #. Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 msgid "Allow SPL C&ontroller command to invoke SPL Assistant layer"
