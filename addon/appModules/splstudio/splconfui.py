@@ -1865,4 +1865,4 @@ def onConfigDialog(evt):
 	if _alarmDialogOpened or _metadataDialogOpened:
 		# Translators: Presented when an alarm dialog is opened.
 		wx.CallAfter(gui.messageBox, _("Another add-on settings dialog is open. Please close the previously opened dialog first."), translate("Error"), wx.OK|wx.ICON_ERROR)
-	else: gui.mainFrame._popupSettingsDialog(SPLConfigDialog if not splconfig.SPLConfig.testDrive else SPLConfigDialogEx)
+	else: gui.mainFrame._popupSettingsDialog(SPLConfigDialog if not splconfig.SPLConfig.isDevVersion else SPLConfigDialogEx)
