@@ -18,6 +18,7 @@ IMPORTANT NOTES:
 * Certain add-on features won't work under some conditions, including running NVDA in secure mode.
 * Due to tecnical limitations, you cannot install or use this add-on on Windows Store version of NVDA.
 * Add-on update feature that comes with this add-on has been removed. Use Add-on Updater to update this add-on.
+* Features marked as "experimental" are meant to test something before a wider release, so they will not be enabled in stable releases.
 
 ## Shortcut keys
 
@@ -195,6 +196,8 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Version 19.03/18.09.7-LTS
 
 * Pressing Control+NVDA+R to reload saved settings will now also reload Studio add-on settings, and pressing this command three times will also reset Studio add-on settings to defaults along with NVDA settings.
+* Renamed Studio add-on settings dialog's "Advanced options" panel to "Advanced".
+* 19.03 Experimental: in column announcements and playlist transcripts panels (add-on settings), custom column inclusion/order controls will be visible up front instead of having to select a button to open a dialog to configure these settings.
 
 ## Version 19.02
 
