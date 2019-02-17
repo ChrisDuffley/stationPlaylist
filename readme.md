@@ -200,6 +200,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * Pressing Control+NVDA+R to reload saved settings will now also reload Studio add-on settings, and pressing this command three times will also reset Studio add-on settings to defaults along with NVDA settings.
 * When resetting add-on settings from add-on settings dialog/reset panel, NVDA will ask once more if an instant switch profile or a time-based profile is active.
 * After resetting Studio add-on settings, NvDA will turn off microphone alarm timer and announce metadata streaming status, similar to after switching between broadcast profiles.
+* Renamed Studio add-on settings dialog's "Advanced options" panel to "Advanced".
 
 ## Version 18.09.6-LTS
 
