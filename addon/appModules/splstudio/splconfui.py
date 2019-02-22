@@ -1079,7 +1079,7 @@ class ColumnAnnouncementsBasePanel(gui.SettingsPanel):
 			if self.FindFocus().GetId() == wx.ID_OK:
 				self.upButton.SetFocus()
 
-class ColumnAnnouncementsPanelEx(ColumnAnnouncementsBasePanel):
+class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 	# Translators: title of a panel to configure column announcements (order and what columns should be announced).
 	title = _("Column announcements")
 
@@ -1178,7 +1178,7 @@ class ColumnAnnouncementsPanelEx(ColumnAnnouncementsBasePanel):
 		self._curProfileSettings.clear()
 		self._curProfileSettings = None
 
-class PlaylistTranscriptsPanelEx(ColumnAnnouncementsBasePanel):
+class PlaylistTranscriptsPanel(ColumnAnnouncementsBasePanel):
 	# Translators: Title of a panel to configure playlsit transcripts options.
 	title = _("Playlist transcripts")
 
