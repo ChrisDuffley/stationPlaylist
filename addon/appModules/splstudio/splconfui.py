@@ -1046,6 +1046,7 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 # Column announcement manager.
 # Select which track columns should be announced and in which order.
 # 18.08: also serves as a base dialog for Playlist Transcripts/column selector setting.
+# #97 (19.04): converted into a base panel (to be flagged as "abstract" later).
 class ColumnAnnouncementsBasePanel(gui.SettingsPanel):
 
 	def onColumnSelection(self, evt):
