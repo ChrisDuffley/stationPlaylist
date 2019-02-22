@@ -25,12 +25,12 @@ NOTAS IMPORTANTES:
 * A partires de 2018, os [rexistros de cambios para versións vellas][5]
   atoparanse en GitHub. Este readme do complemento listará cambios dende a
   versión 7.0 (2016 en diante).
-* Certain add-on features won't work under some conditions, including
-  running NVDA in secure mode.
+* Certas características do complemento non funcionarán baixo algunhas
+  condicións, incluindo a execución do NVDA en modo seguro.
 * Debido a limitacións técnicas, non podes instalar nin usar este
   complemento na versión de Windows Store do NVDA.
-* Add-on update feature that comes with this add-on has been removed. Use
-  Add-on Updater to update this add-on.
+* A característica de actualización que vén con este complemento
+  eliminouse. Utiliza Add-on Updater para actualizar este complemento.
 
 ## Teclas de atallo
 
@@ -319,21 +319,22 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
-## Version 19.02
+## Versión 19.02
 
-* Removed standalone add-on update check feature, including update check
-  command from SPL Assistant (Control+Shift+U) and add-on update check
-  options from add-on settings. Add-on update check is now performed by
+* Eliminada a característica de verificación de actualizacións, incluído o
+  comando de verificar actualizacións do Asistente SPL (Control+Shift+U) e
+  as opcións de actualización do complemento das preferencias. A
+  verificación de actualizacións para o complemento faise agora mediante
   Add-on Updater.
-* NVDA will no longer appear to do nothing or play error tones when
-  microphone active interval is set, used to remind broadcasters that
-  microphone is active with periodic beeps.
-* When resetting add-on settings from add-on settings dialog/reset panel,
-  NVDA will ask once more if an instant switch profile or a time-based
-  profile is active.
-* After resetting Studio add-on settings, NvDA will turn off microphone
-  alarm timer and announce metadata streaming status, similar to after
-  switching between broadcast profiles.
+* NVDA xa non parecerá non facer nada ou non reproducirá un ton de erro
+  cando o intervalo de micrófono activo estea configurado, utilizado para
+  lembrar aos emisores que o micrófono está activo con pitidos periódicos.
+* Ao restablecer os axustes do complemento dende o diálogo de preferencias
+  do complemento/panel restablecer, NVDA preguntará unha vez máis en caso de
+  que un perfil de cambio automático ou basado en tempo estea activo.
+* Tras restablecer os axustes do complemento Studio, NvDA desactivará o
+  temporizador de alarma de micrófono e anunciará o estado de emisión de
+  metadatos, similar a cando se cambia de perfil de transmisión.
 
 ## Versión 19.01.1
 

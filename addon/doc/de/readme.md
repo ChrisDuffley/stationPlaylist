@@ -25,12 +25,13 @@ WICHTIGE HINWEISE:
 * Ab 2018 werden die [Änderungsnotizen älterer SPL-Erweiterungsversionen][5]
   auf Github zu finden sein. Diese Readme-Version listet Änderungen ab
   Version 7.0 (ab 2016) auf.
-* Certain add-on features won't work under some conditions, including
-  running NVDA in secure mode.
+* Bestimmte Funktionen sind nicht mehr verfügbar, z.B. während NVDA im
+  abgesicherten Modus ausgeführt wird.
 * Aufgrund technischer Einschränkungen können Sie diese Erweiterung nicht
   auf der Windows-Store-Version von NVDA installieren oder verwenden.
-* Add-on update feature that comes with this add-on has been removed. Use
-  Add-on Updater to update this add-on.
+* Die mit dieser Erweiterung gelieferten Aktualisierungsfunktion wurde
+  entfernt. Verwenden Sie den Updater für Erweiterungen, um diese
+  Erweiterung zu aktualisieren.
 
 ## Tastenkürzel
 
@@ -332,24 +333,25 @@ die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
 
 ## Version 19.02
 
-* Removed standalone add-on update check feature, including update check
-  command from SPL Assistant (Control+Shift+U) and add-on update check
-  options from add-on settings. Add-on update check is now performed by
-  Add-on Updater.
+* Die eigenständige Aktualisierungsprüfung wurde entfernt, einschließlich
+  des Update-Check-Befehls aus dem SPL-Assistenten (STRG+Umschalt+U). Auch
+  die aktualisierungsprüfung aus den Einstellungen der Erweiterung wurde
+  entfernt. Die Überprüfung nach Aktualisierungen wird nun vom Updater für
+  Erweiterungen durchgeführt.
 * NVDA will no longer appear to do nothing or play error tones when
   microphone active interval is set, used to remind broadcasters that
   microphone is active with periodic beeps.
 * When resetting add-on settings from add-on settings dialog/reset panel,
   NVDA will ask once more if an instant switch profile or a time-based
   profile is active.
-* After resetting Studio add-on settings, NvDA will turn off microphone
-  alarm timer and announce metadata streaming status, similar to after
-  switching between broadcast profiles.
+* Nach dem Zurücksetzen der Einstellund der Studio-Erweiterung schaltet NVDA
+  das Mikrofonalarm aus und meldet den Metadaten-Streaming-Status, ähnlich
+  wie nach dem Umschalten zwischen den Broadcast-Profilen.
 
 ## Version 19.01.1
 
-* NVDA will no longer announce "monitoring library scan" after closing
-  Studio in some situations.
+* NVDA wird nach dem Schließen von Studio "Bibliotheks-Scan wird überwacht"
+  nicht mehr ankündigen.
 
 ## Version 19.01/18.09.6-LTS
 
