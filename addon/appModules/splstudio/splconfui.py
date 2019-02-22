@@ -1841,28 +1841,10 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		self.onCancel(None)
 
 
-class SPLConfigDialogEx(SPLConfigDialog):
-	# Translators: This is the label for the StationPlaylist Studio configuration dialog.
-	title = _("Studio Add-on Settings")
-	categoryClasses=[
-		BroadcastProfilesPanel,
-		GeneralSettingsPanel,
-		AlarmsPanel,
-		PlaylistSnapshotsPanel,
-		MetadataStreamingPanel,
-		ColumnAnnouncementsPanelEx,
-		ColumnsExplorerPanel,
-		PlaylistTranscriptsPanelEx,
-		SayStatusPanel,
-		AdvancedOptionsPanel,
-		ResetSettingsPanel,
-	]
-
-
 # Open the above dialog upon request.
 def onConfigDialog(evt):
 	# 5.2: Guard against alarm dialogs.
 	if _alarmDialogOpened or _metadataDialogOpened:
 		# Translators: Presented when an alarm dialog is opened.
 		wx.CallAfter(gui.messageBox, _("Another add-on settings dialog is open. Please close the previously opened dialog first."), translate("Error"), wx.OK|wx.ICON_ERROR)
-	else: gui.mainFrame._popupSettingsDialog(SPLConfigDialog if not splconfig.isDevVersion() else SPLConfigDialogEx)
+	else: gui.mainFrame._popupSettingsDialog(SPLConfigDialog)
