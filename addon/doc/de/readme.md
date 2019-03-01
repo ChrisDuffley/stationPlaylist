@@ -29,9 +29,8 @@ WICHTIGE HINWEISE:
   abgesicherten Modus ausgeführt wird.
 * Aufgrund technischer Einschränkungen können Sie diese Erweiterung nicht
   auf der Windows-Store-Version von NVDA installieren oder verwenden.
-* Die mit dieser Erweiterung gelieferten Aktualisierungsfunktion wurde
-  entfernt. Verwenden Sie den Updater für Erweiterungen, um diese
-  Erweiterung zu aktualisieren.
+* Features marked as "experimental" are meant to test something before a
+  wider release, so they will not be enabled in stable releases.
 
 ## Tastenkürzel
 
@@ -331,6 +330,18 @@ Studio-Befehle über den Touchscreen ausführen. Tippen Sie zunächst einmal
 mit drei Fingern, um in den SPL-Touchmodus zu wechseln. Verwenden Sie dann
 die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
 
+## Version 19.03/18.09.7-LTS
+
+* Pressing Control+NVDA+R to reload saved settings will now also reload
+  Studio add-on settings, and pressing this command three times will also
+  reset Studio add-on settings to defaults along with NVDA settings.
+* Renamed Studio add-on settings dialog's "Advanced options" panel to
+  "Advanced".
+* 19.03 Experimental: in column announcements and playlist transcripts
+  panels (add-on settings), custom column inclusion/order controls will be
+  visible up front instead of having to select a button to open a dialog to
+  configure these settings.
+
 ## Version 19.02
 
 * Die eigenständige Aktualisierungsprüfung wurde entfernt, einschließlich
@@ -471,9 +482,8 @@ zurückportiert.
   Spaltenansagen, Metadaten-Streaming-Einstellungen).
 * CSV-Format (kommagetrennte Werte) als Format für
   Wiedergabelistentranskripte hinzugefügt.
-* Wenn Sie zum Speichern der Einstellungen Strg+NVDA+C drücken, werden nun
-  auch die Einstellungen der Studio-Erweiterung gespeichert (erfordert NVDA
-  2018.3).
+* Pressing Control+NVDA+C to save settings will now also save Studio add-on
+  settings (requires NVDA 2018.3).
 
 ## Version 18.08.2
 
