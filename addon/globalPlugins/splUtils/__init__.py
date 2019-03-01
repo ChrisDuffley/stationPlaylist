@@ -9,6 +9,7 @@ import globalPluginHandler
 import api
 import ui
 import globalVars
+import config
 from NVDAObjects.IAccessible import getNVDAObjectFromEvent, sysListView32
 import winUser
 import addonHandler
