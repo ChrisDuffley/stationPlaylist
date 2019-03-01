@@ -65,8 +65,8 @@ E: Announce if any encoders are being monitored.
 I: Announce listener count.
 Q: Announce Studio status information.
 R: Remaining time for the playing track.
-Shift+R: Library scan progress.""")
-
+Shift+R: Library scan progress.
+Function keys and number row keys with or without Shift, Alt, and Control keys: Play carts.""")
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
