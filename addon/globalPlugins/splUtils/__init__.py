@@ -74,6 +74,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# Translators: Script category for Station Playlist commands in input gestures dialog.
 	scriptCategory = _("StationPlaylist Studio")
 
+	def __init__(self):
+		super(GlobalPlugin, self).__init__()
+		# #19.04/18.09.8-LTS: don't even think about proceeding in secure screens.
+		# Also, skip over the rest if appx is in effect.
+		if globalVars.appArgs.secure or config.isAppX: return
+
 	#Global layer environment (see the app module for more information).
 	SPLController = False # Control SPL from anywhere.
 	# Manual definitions of cart keys.
