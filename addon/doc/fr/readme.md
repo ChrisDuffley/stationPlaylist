@@ -29,9 +29,8 @@ NOTES IMPORTANTES :
   dans certaines conditions, notamment l'exécution de NVDA en mode sécurisé.
 * En raison de limitations techniques, vous ne pouvez pas installer ou
   utiliser ce module complémentaire sur la version Windows Store de NVDA.
-* La fonctionnalité de mise à jour du module complémentaire fournie avec ce
-  module complémentaire a été supprimée. Utilisez Add-on Updater pour mettre
-  à jour ce module complémentaire.
+* Features marked as "experimental" are meant to test something before a
+  wider release, so they will not be enabled in stable releases.
 
 ## Raccourcis clavier
 
@@ -336,6 +335,18 @@ un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
 
+## Version 19.03/18.09.7-LTS
+
+* Pressing Control+NVDA+R to reload saved settings will now also reload
+  Studio add-on settings, and pressing this command three times will also
+  reset Studio add-on settings to defaults along with NVDA settings.
+* Renamed Studio add-on settings dialog's "Advanced options" panel to
+  "Advanced".
+* 19.03 Experimental: in column announcements and playlist transcripts
+  panels (add-on settings), custom column inclusion/order controls will be
+  visible up front instead of having to select a button to open a dialog to
+  configure these settings.
+
 ## Version 19.02
 
 * Suppression de la fonctionnalité de vérification de mise à jour autonome
@@ -479,9 +490,8 @@ redirigées vers la 18.09.x.
   métadonnées).
 * Ajout du format CSV (valeurs séparées par des virgules) en tant que format
   de transcriptions de playlist.
-* En appuyant sur Ctrl+NVDA+C pour enregistrer les paramètres, vous
-  sauvegarderez également les paramètres du module complémentaire Studio
-  (nécessite NVDA 2018.3).
+* Pressing Control+NVDA+C to save settings will now also save Studio add-on
+  settings (requires NVDA 2018.3).
 
 ## Version 18.08.2
 

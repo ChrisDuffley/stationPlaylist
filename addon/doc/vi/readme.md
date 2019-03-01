@@ -25,8 +25,8 @@ CÁC LƯU Ý QUAN TRỌNG:
   bao gồm chạy NVDA trong chế độ bảo vệ.
 * Vì những giới hạn kĩ thuật, bạn không thể cài hay dùng add-on này với
   phiên bản NVDA từ Windows Store.
-* Tính năng cập nhật add-on đã bị gỡ bỏ. Hãy dùng Add-on Updater để cập nhật
-  add-on này.
+* Features marked as "experimental" are meant to test something before a
+  wider release, so they will not be enabled in stable releases.
 
 ## Các phím tắt
 
@@ -282,6 +282,18 @@ NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio t
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
 
+## Version 19.03/18.09.7-LTS
+
+* Pressing Control+NVDA+R to reload saved settings will now also reload
+  Studio add-on settings, and pressing this command three times will also
+  reset Studio add-on settings to defaults along with NVDA settings.
+* Renamed Studio add-on settings dialog's "Advanced options" panel to
+  "Advanced".
+* 19.03 Experimental: in column announcements and playlist transcripts
+  panels (add-on settings), custom column inclusion/order controls will be
+  visible up front instead of having to select a button to open a dialog to
+  configure these settings.
+
 ## Phiên bản 19.02
 
 * Gỡ bỏ tính năng độc lập kiểm tra cập nhật add-on, bao gồm lệnh kiểm tra
@@ -403,8 +415,8 @@ mới. Vài tính năng mới sẽ hỗ trợ ngược trở lại 18.09.x nếu
   metadata streaming ).
 * Thêm định dạng CSV (dùng dấu phẩy ngăn cách các giá trị) như một định dạng
   cho bảng điểm của danh sách phát.
-* Bấm Control+NvDA+C để lưu thiết lập sẽ lưu luôn thiết lập của Studio
-  add-on (yêu cầu NVDA 2018.3).
+* Pressing Control+NVDA+C to save settings will now also save Studio add-on
+  settings (requires NVDA 2018.3).
 
 ## Phiên bản 18.08.2
 
