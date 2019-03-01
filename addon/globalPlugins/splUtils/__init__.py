@@ -105,8 +105,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	# Switch focus to SPL Studio window from anywhere.
 	def script_focusToSPLWindow(self, gesture):
-		# 7.4: Forget it if this is the case like the following.
-		if globalVars.appArgs.secure: return
 		# Don't do anything if we're already focus on SPL Studio.
 		if "splstudio" in api.getForegroundObject().appModule.appModuleName: return
 		else:
@@ -121,8 +119,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# The SPL Controller:
 	# This layer set allows the user to control various aspects of SPL Studio from anywhere.
 	def script_SPLControllerPrefix(self, gesture):
-		# 7.4: Red flag...
-		if globalVars.appArgs.secure: return
 		global SPLWin
 		# Error checks:
 		# 1. If SPL Studio is not running, print an error message.
