@@ -64,12 +64,12 @@ def loadStreamLabels():
 # Report number of encoders being monitored.
 # 6.0: Refactor the below function to use the newer encoder config format.
 def getStreamLabel(identifier):
-	encoderType, id = identifier.split()
+	encoderType, encoderID = identifier.split()
 	# 5.2: Use a static map.
 	# 6.0: Look up the encoder type.
 	if encoderType == "SAM": labels = SAMStreamLabels
 	elif encoderType == "SPL": labels = SPLStreamLabels
-	if id in labels: return labels[id]
+	if encoderID in labels: return labels[encoderID]
 	return None
 
 def announceNumMonitoringEncoders():
@@ -269,13 +269,13 @@ class Encoder(IAccessible):
 			return True
 
 	# Format the status message to prepare for monitoring multiple encoders.
-	def encoderStatusMessage(self, message, id):
+	def encoderStatusMessage(self, message, encoderId):
 		# #79 (18.10.1/18.09.3-lts): wxPython 4 is more strict about where timers can be invoked from, and the below function is called from a thread other than the main one, which causes an exception to be logged.
 		# This is especially the case with some speech synthesizers and/or braille displays.
 		try:
 			if encoderMonCount[self.encoderType] > 1:
 				# Translators: Status message for encoder monitoring.
-				ui.message(_("{encoder} {encoderNumber}: {status}").format(encoder = self.encoderType, encoderNumber = id, status = message))
+				ui.message(_("{encoder} {encoderNumber}: {status}").format(encoder = self.encoderType, encoderNumber = encoderId, status = message))
 			else:
 				ui.message(message)
 		except:
