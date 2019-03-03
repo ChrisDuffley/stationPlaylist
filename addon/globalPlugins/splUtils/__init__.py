@@ -108,12 +108,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def script_focusToSPLWindow(self, gesture):
 		# Don't do anything if we're already focus on SPL Studio.
 		if "splstudio" in api.getForegroundObject().appModule.appModuleName: return
-		else:
-			SPLHwnd = user32.FindWindowW(u"SPLStudio", None)
-			if not SPLHwnd: ui.message(_("SPL Studio is not running."))
-			else:
-				# 17.01: SetForegroundWindow function is better, as there's no need to traverse top-level windows and allows users to "switch" to SPL window if the window is minimized.
-				user32.SetForegroundWindow(user32.FindWindowW(u"TStudioForm", None))
+		SPLHwnd = user32.FindWindowW(u"SPLStudio", None)
+		if not SPLHwnd: ui.message(_("SPL Studio is not running."))
+		# 17.01: SetForegroundWindow function is better, as there's no need to traverse top-level windows and allows users to "switch" to SPL window if the window is minimized.
+		else: user32.SetForegroundWindow(user32.FindWindowW(u"TStudioForm", None))
 	# Translators: Input help mode message for a command to switch to Station Playlist Studio from any program.
 	script_focusToSPLWindow.__doc__=_("Moves to SPL Studio window from other programs.")
 
