@@ -103,12 +103,12 @@ def _removeEncoderID(encoderType, pos):
 	# Go through each feature map, remove the encoder ID and manipulate encoder positions in these sets.
 	# For each set, have a list of set items handy, otherwise set cardinality error (RuntimeError) will occur if items are removed on the fly.
 	for key in key2map:
-		map = key2map[key]
-		if encoderID in map:
-			map.remove(encoderID)
+		encoderSettings = key2map[key]
+		if encoderID in encoderSettings:
+			encoderSettings.remove(encoderID)
 			_encoderConfigRemoved = True
 		# If not sorted, encoders will appear in random order (a downside of using sets, as their ordering is quite unpredictable).
-		currentEncoders = sorted([x for x in map if x.startswith(encoderType)])
+		currentEncoders = sorted([x for x in encoderSettings if x.startswith(encoderType)])
 		if len(currentEncoders) and encoderID < currentEncoders[-1]:
 			# Same algorithm as stream label remover.
 			start = 0
@@ -118,10 +118,10 @@ def _removeEncoderID(encoderType, pos):
 						start = currentEncoders.index(candidate)
 			# Do set entry manipulations (remove first, then add).
 			for item in currentEncoders[start:]:
-				map.remove(item)
-				map.add(" ".join([encoderType, "%s"%(int(item.split()[-1])-1)]))
+				encoderSettings.remove(item)
+				encoderSettings.add(" ".join([encoderType, "%s"%(int(item.split()[-1])-1)]))
 		_encoderConfigRemoved = True
-		if len(map): streamLabels[key] = list(map)
+		if len(encoderSettings): streamLabels[key] = list(encoderSettings)
 		else:
 			try:
 				del streamLabels[key]
@@ -131,8 +131,8 @@ def _removeEncoderID(encoderType, pos):
 # Nullify various flag sets, otherwise memory leak occurs.
 def cleanup():
 	global streamLabels, SAMStreamLabels, SPLStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, encoderMonCount, SAMMonitorThreads, SPLMonitorThreads
-	for map in [streamLabels, SAMStreamLabels, SPLStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SAMMonitorThreads, SPLMonitorThreads]:
-		if map is not None: map.clear()
+	for flag in [streamLabels, SAMStreamLabels, SPLStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SAMMonitorThreads, SPLMonitorThreads]:
+		if flag is not None: flag.clear()
 	# Nullify stream labels.
 	streamLabels = None
 	# Without resetting monitor count, we end up with higher and higher value for this.
