@@ -877,6 +877,23 @@ msgstr "Ventana principal de Studio no encontrada"
 msgid "Normal profile"
 msgstr "Perfil normal"
 
+#. Translators: Message displayed when attempting to reset Studio add-on settings while an instant switch or time-based profile is active.
+msgid ""
+"An instant switch or time-based profile is active. Resetting Studio add-on "
+"settings means normal profile will become active and switch profile settings "
+"will be left in unpredictable state. Are you sure you wish to reset Studio "
+"add-on settings to factory defaults?"
+msgstr ""
+"Hay un perfil de cambio instantáneo o basado en tiempo activado. Si "
+"restableces los ajustes del complemento de Studio se activará el perfil "
+"normal y los ajustes del resto de perfiles quedarán en un estado "
+"impredecible. ¿Estás seguro de que quieres restablecer los ajustes del "
+"complemento de Studio a los valores de fábrica?"
+
+#. Translators: The title of the confirmation dialog for Studio add-on settings reset.
+msgid "SPL Studio add-on reset"
+msgstr "Restablecimiento del complemento SPL Studio"
+
 #. Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
 msgid "Add-on settings dialog is open, cannot switch profiles"
 msgstr ""
@@ -1490,13 +1507,13 @@ msgstr "Notificación y conexión de &Metadatos de streaming"
 msgid "&Select the URL for metadata streaming upon request:"
 msgstr "&Seleccionar la URL para metadatos de streaming bajo demanda:"
 
-#. Translators: Title of a dialog to configure column announcements (order and what columns should be announced).
-msgid "Manage column announcements"
-msgstr "Administrar anunciado de columna"
+#. Translators: title of a panel to configure column announcements (order and what columns should be announced).
+msgid "Column announcements"
+msgstr "Anunciado de columnas"
 
-#. Translators: Title of a dialog to configure columnn seleciton for Playlist Transcripts.
-msgid "Playlist transcript columns"
-msgstr "Columnas de la transcripción de lista de reproducción"
+#. Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
+msgid "Announce columns in the &order shown on screen"
+msgstr "Anuncia columnas en el &orden mostrado en la pantalla"
 
 #. Translators: Help text to select columns to be announced.
 msgid ""
@@ -1505,14 +1522,6 @@ msgid ""
 msgstr ""
 "&Selecciona las columnas a ser anunciadas\n"
 "(artista y título se anuncian predeterminadamente):"
-
-#. Translators: Help text to select columns to be announced.
-msgid ""
-"&Select columns to be included in playlist transcripts\n"
-"(artist and title are always included):"
-msgstr ""
-"&Selecciona columnas a ser incluidas en la transcripción\n"
-"(artista y título se incluyen siempre):"
 
 #. wxPython 4 contains RearrangeList to allow item orders to be changed automatically.
 #. Because wxPython 3 doesn't include this, work around by using a variant of list box and move up/down buttons.
@@ -1529,18 +1538,6 @@ msgstr "Mover &arriba"
 msgid "Move &down"
 msgstr "Mover a&bajo"
 
-#. Translators: title of a panel to configure column announcements (order and what columns should be announced).
-msgid "Column announcements"
-msgstr "Anunciado de columnas"
-
-#. Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
-msgid "Announce columns in the &order shown on screen"
-msgstr "Anuncia columnas en el &orden mostrado en la pantalla"
-
-#. Translators: The label of a button to manage column announcements.
-msgid "&Manage track column announcements..."
-msgstr "&Administrar anunciado de columna de la pista..."
-
 #. Translators: the label for a setting in SPL add-on settings to toggle whether column headers should be included when announcing track information.
 msgid "Include column &headers when announcing track information"
 msgstr "Incluir &encabezados de columna al anunciar información de pista"
@@ -1556,9 +1553,13 @@ msgstr "Transcripciones de listas de reproducción"
 #. Translators: one of the transcript format options.
 #. self.transcriptFormatsList = playlistTranscriptsHelper.addLabeledControl(labelText, wx.Choice, choices=[_("ask me every time")]+[output[2] for output in splmisc.SPLPlaylistTranscriptFormats])
 #. self.transcriptFormatsList.SetSelection(self.availableTranscriptFormats.index(splconfig.SPLConfig["PlaylistTranscripts"]["TranscriptFormat"]))
-#. Translators: The label of a button to configure columns for playlist transcripts.
-msgid "Manage transcript columns..."
-msgstr "Administrar columnas de la transcripción..."
+#. Translators: Help text to select columns to be announced.
+msgid ""
+"&Select columns to be included in playlist transcripts\n"
+"(artist and title are always included):"
+msgstr ""
+"&Selecciona columnas a ser incluidas en la transcripción\n"
+"(artista y título se incluyen siempre):"
 
 #. Translators: title of a panel to configure columns explorer settings.
 msgid "Columns explorer"
@@ -1716,23 +1717,6 @@ msgstr ""
 #. Translators: The title of the warning dialog.
 msgid "Warning"
 msgstr "Precaución"
-
-#. Translators: Message displayed when attempting to reset Studio add-on settings while an instant switch or time-based profile is active.
-msgid ""
-"An instant switch or time-based profile is active. Resetting Studio add-on "
-"settings means normal profile will become active and switch profile settings "
-"will be left in unpredictable state. Are you sure you wish to reset Studio "
-"add-on settings to factory defaults?"
-msgstr ""
-"Hay un perfil de cambio instantáneo o basado en tiempo activado. Si "
-"restableces los ajustes del complemento de Studio se activará el perfil "
-"normal y los ajustes del resto de perfiles quedarán en un estado "
-"impredecible. ¿Estás seguro de que quieres restablecer los ajustes del "
-"complemento de Studio a los valores de fábrica?"
-
-#. Translators: The title of the confirmation dialog for Studio add-on settings reset.
-msgid "SPL Studio add-on reset"
-msgstr "Restablecimiento del complemento SPL Studio"
 
 #. Translators: A dialog message shown when settings were reset to defaults.
 msgid "Successfully applied default add-on settings."
@@ -1907,6 +1891,7 @@ msgstr "Acción para transcripción:"
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
+#, fuzzy
 msgid ""
 "\n"
 "After entering SPL Controller, press:\n"
@@ -1926,7 +1911,9 @@ msgid ""
 "I: Announce listener count.\n"
 "Q: Announce Studio status information.\n"
 "R: Remaining time for the playing track.\n"
-"Shift+R: Library scan progress."
+"Shift+R: Library scan progress.\n"
+"Function keys and number row keys with or without Shift, Alt, and Control "
+"keys: Play carts."
 msgstr ""
 "\n"
 "Después de entrar en el SPL Controller, pulsa:\n"
@@ -2195,6 +2182,18 @@ msgid ""
 msgstr ""
 "Mejora el soporte para Station Playlist Studio.\n"
 "Además, agrega comandos globales para el estudio desde cualquier parte."
+
+#~ msgid "Manage column announcements"
+#~ msgstr "Administrar anunciado de columna"
+
+#~ msgid "Playlist transcript columns"
+#~ msgstr "Columnas de la transcripción de lista de reproducción"
+
+#~ msgid "&Manage track column announcements..."
+#~ msgstr "&Administrar anunciado de columna de la pista..."
+
+#~ msgid "Manage transcript columns..."
+#~ msgstr "Administrar columnas de la transcripción..."
 
 #~ msgid "Advanced options"
 #~ msgstr "Opciones avanzadas"

@@ -7,30 +7,30 @@
   Studio 5.10 / 5.11
 * Compatibilité NVDA: 2018.4 à 2019.1
 
-Ce module complémentaire améliore l'utilisation de Station Playlist Studio,
-mais il fournit aussi des utilitaires pour contrôler le Studio où que vous
-soyez.
+Cette extension améliore l'utilisation de Station Playlist Studio, mais elle
+fournit aussi des utilitaires pour contrôler le Studio où que vous soyez.
 
-Pour plus d’informations sur le module complémentaire, lisez le [guide du
-module complémentaire][4]. Pour les développeurs cherchant à savoir comment
-construire le module complémentaire, voir buildInstructions.txt situé à la
-racine du code source du module complémentaire du référentiel.
+Pour plus d’informations sur l'extension, lisez le [guide de
+l'extension][4]. Pour les développeurs cherchant à savoir comment construire
+l'extension, voir buildInstructions.txt situé à la racine du code source du
+référentiel de l'extension.
 
 NOTES IMPORTANTES :
 
-* Ce module complémentaire nécessite NVDA 2018.4 ou version ultérieure et
+* Cette extension nécessite NVDA 2018.4 ou version ultérieure et
   StationPlaylist Studio 5.11 ou version ultérieure.
 * Si vous utilisez Windows 8 ou ultérieur, pour une meilleure expérience,
   désactiver le Mode d'atténuation audio.
-* À partir de 2018, [les journal des changements des anciennes versions du
-  module complémentaire][5] seront trouvés sur GitHub. Ce fichier readme
-  ajoutera les changements depuis la version 7.0 (à partir de 2016).
-* Certaines fonctionnalités du module complémentaire ne fonctionneront pas
-  dans certaines conditions, notamment l'exécution de NVDA en mode sécurisé.
+* À partir de 2018, [les journaux des changements des anciennes versions de
+  l'extension][5] seront trouvés sur GitHub. Ce fichier readme ajoutera les
+  changements depuis la version 7.0 (à partir de 2016).
+* Certaines fonctionnalités de l'extension ne fonctionneront pas dans
+  certaines conditions, notamment l'exécution de NVDA en mode sécurisé.
 * En raison de limitations techniques, vous ne pouvez pas installer ou
-  utiliser ce module complémentaire sur la version Windows Store de NVDA.
-* Features marked as "experimental" are meant to test something before a
-  wider release, so they will not be enabled in stable releases.
+  utiliser cette extension sur la version Windows Store de NVDA.
+* Les fonctionnalités marquées comme "expérimental" servent à tester quelque
+  chose avant une publication plus vaste, elles ne seront donc pas activées
+  dans les versions stables.
 
 ## Raccourcis clavier
 
@@ -68,8 +68,7 @@ contraire.
   piste précédente/suivante.
 * Contrôle+Alt+flèche haut/bas (alors que  a été mis en focus sur une piste
   dans Studio): Déplacer vers la piste précédente ou suivante et annoncer
-  des colonnes spécifiques (indisponible dans le module complémentaire
-  15.x).
+  des colonnes spécifiques (indisponible dans l'extension 15.x).
 * Contrôle+NVDA+1 à 0 (alors que  a été mis en focus sur une piste dans
   Studio, Creator et l'Outil de piste): Annoncer le contenu de la colonne
   pour une colonne spécifiée. Si vous appuyez deux fois sur cette commande,
@@ -80,10 +79,10 @@ contraire.
 * Alt+NVDA+C alors que  a été mis en focus sur une piste (Studio
   uniquement): annonce les commentaires de piste le cas échéant.
 * Alt+NVDA+0 depuis la fenêtre de Studio : Ouvre le dialogue de
-  configuration du module complémentaire Studio.
+  configuration de l'extension Studio.
 * Alt+NVDA+- (tiret) depuis la fenêtre de Studio : Envoyez vos commentaires
-  au développeur du module complémentaire en utilisant le client de
-  messagerie par défaut.
+  au développeur de l'extension en utilisant le client de messagerie par
+  défaut.
 * Alt+NVDA+F1: Ouvre le dialogue de bienvenue.
 
 ## Commandes non assignées
@@ -253,9 +252,9 @@ Par défaut, NVDA jouera un bip si il y'a cinq secondes restantes dans la
 piste (outro) et/ou intro. Pour configurer cette valeur aussi bien quant à
 les activer ou désactiver, appuyer sur Alt+NVDA+1 ou Alt+NVDA+2 pour ouvrir
 les boîtes de dialogues fin de piste et la montée de la chanson,
-respectivement. De plus, Utiliser la boîte de dialogue paramètres du module
-complémentaire Studio pour configurer si vous entendrez un bip, un message
-ou tous les deux lorsque les alarmes sont basculés sur activé.
+respectivement. De plus, Utiliser la boîte de dialogue paramètres de
+l'extension Studio pour configurer si vous entendrez un bip, un message ou
+tous les deux lorsque les alarmes sont basculés sur activé.
 
 ## Alarme microphone
 
@@ -285,8 +284,8 @@ Pour apprendre les assignations de chariot, depuis SPL Studio, appuyez sur
 Alt+NVDA+3. Appuyant une fois sur la commande chariot il vous dira à quel
 jingle est assignée à la commande. Appuyant deux fois sur la commande il
 jouera le jingle. appuyez sur Alt+NVDA+3 pour quitter l'explorateur de
-chariot. Consultez la documentation du module complémentaire pour plus
-d'informations sur l'explorateur de chariot.
+chariot. Consultez la documentation de l'extension pour plus d'informations
+sur l'explorateur de chariot.
 
 ## Analyse de durée de piste
 
@@ -302,7 +301,7 @@ vous pouvez obtenir le contenu des colonnes spécifiques. Par défaut ce sont
 artiste, titre, durée, intro, catégorie nom de fichier, année, album, genre
 et heure prévue. Vous pouvez configurer les colonnes qui seront explorées
 via le dialogue Explorateur de Colonnes trouvé dans le dialogue Paramètres
-module complémentaire.
+de l'extension.
 
 ## Instantanés de playlist
 
@@ -321,10 +320,9 @@ liste.
 ## Boîte de dialogue configuration
 
 Depuis la fenêtre studio, vous pouvez appuyer sur Alt+NVDA+0 pour ouvrir la
-boîte de dialogue configuration du module complémentaire. Sinon, allez dans
-le menu préférences de NVDA et sélectionnez l'élément Paramètres SPL
-Studio. Cette boîte de dialogue est également utilisé pour gérer les profils
-de diffusion.
+boîte de dialogue configuration de l'extension. Sinon, allez dans le menu
+préférences de NVDA et sélectionnez l'élément Paramètres SPL Studio. Cette
+boîte de dialogue est également utilisé pour gérer les profils de diffusion.
 
 ## Mode tactile SPL
 
@@ -337,34 +335,35 @@ ci-dessus pour exécuter des commandes.
 
 ## Version 19.03/18.09.7-LTS
 
-* Pressing Control+NVDA+R to reload saved settings will now also reload
-  Studio add-on settings, and pressing this command three times will also
-  reset Studio add-on settings to defaults along with NVDA settings.
-* Renamed Studio add-on settings dialog's "Advanced options" panel to
-  "Advanced".
-* 19.03 Experimental: in column announcements and playlist transcripts
-  panels (add-on settings), custom column inclusion/order controls will be
-  visible up front instead of having to select a button to open a dialog to
-  configure these settings.
+* L'appui sur Contrôle+NVDA+R pour recharger les paramètres sauvegardés
+  rechargera maintenant aussi les paramètres de l'extension Studio, et un
+  triple appui sur cette commande réinitialisera également les paramètres
+  par défaut de l'extension Studio ainsi que les paramètres NVDA.
+* Le dialogue de paramètres de l'extension Studio "Options avancées" a été
+  renommé en "Avancé".
+* 19.03 Expérimental : dans les panneaux d'annonces de colonnes
+  transcription de playlists (paramètres de l'extension), les contrôles
+  d'inclusion/ordre de personnalisation des colonnes seront visible au
+  premier plan au lieu d'avoir à sélectionner un bouton pour ouvrir un
+  dialogue pour configurer ces paramètres.
 
 ## Version 19.02
 
 * Suppression de la fonctionnalité de vérification de mise à jour autonome
-  du module complémentaire y compris la commande de vérification de mise à
-  jour à partir de l'Assistant SPL (Contrôle+Maj+U) et les options de
-  vérification de mise à jour à partir des paramètres du module
-  complémentaire. La vérification de mise à jour du module complémentaire
-  est maintenant effectuée par Add-on Updater.
+  de l'extension y compris la commande de vérification de mise à jour à
+  partir de l'Assistant SPL (Contrôle+Maj+U) et les options de vérification
+  de mise à jour à partir des paramètres de l'extension. La vérification de
+  mise à jour de l'extension est maintenant effectuée par Add-on Updater.
 * NVDA ne semble plus rien faire ou ne lit plus une tonalité d'erreur
   lorsque l'intervalle d'activation du microphone est défini, il est utilisé
   pour se souvenir lors de la diffusion que le microphone est actif avec des
   bips périodiques.
-* Lors de la réinitialisation des paramètres du module complémentaire à
-  partir du dialogue Paramètres module complémentaire / panneau
-  réinitialisation, NVDA demandra à nouveau si un changement de profil
-  immédiat ou un profil basé sur l'heure est actif.
-* Après avoir réinitialisé les paramètres du module complémentaire Studio,
-  NVDA désactive le minuteur alarme microphone et annonce le statut des
+* Lors de la réinitialisation des paramètres de l'extension à partir du
+  dialogue Paramètres extension / panneau réinitialisation, NVDA demandra à
+  nouveau si un changement de profil immédiat ou un profil basé sur l'heure
+  est actif.
+* Après avoir réinitialisé les paramètres de l'extension Studio, NVDA
+  désactive le minuteur alarme microphone et annonce le statut des
   métadonnées en streaming, comme après le basculement entre les profils de
   diffusion.
 
@@ -376,15 +375,15 @@ ci-dessus pour exécuter des commandes.
 ## Version 19.01/18.09.6-LTS
 
 * NVDA 2018.4 ou ultérieur est requis.
-* Davantage de changements de code pour rendre le module complémentaire
-  compatible avec Python 3.
-* 19.01: certaines traductions de message de ce module complémentaire
-  ressembleront à des messages NVDA.
-* 19.01: la fonctionnalité Rechercher les mises à jour du module
-  complémentaire n'est plus disponible. Un message d'erreur apparaît lorsque
-  vous essayez d'utiliser l'Assistant SPL, Contrôle+Maj+U pour rechercher
-  des mises à jour. Pour les futures mises à jour, veuillez utiliser le
-  module complémentaire Add-on Updater.
+* Davantage de changements de code pour rendre l'extension compatible avec
+  Python 3.
+* 19.01: certaines traductions de message de cette extension ressembleront à
+  des messages NVDA.
+* 19.01: la fonctionnalité Rechercher les mises à jour de l'extension n'est
+  plus disponible. Un message d'erreur apparaît lorsque vous essayez
+  d'utiliser l'Assistant SPL, Contrôle+Maj+U pour rechercher des mises à
+  jour. Pour les futures mises à jour, veuillez utiliser l'extension Add-on
+  Updater.
 * Légères améliorations des performances lors de l'utilisation de NVDA avec
   des applications autres que Studio lorsque Voice Track Recorder est
   actif. NVDA continuera d'afficher des problèmes de performances lors de
@@ -395,14 +394,14 @@ ci-dessus pour exécuter des commandes.
 
 ## Version 18.12
 
-* Changements internes afin de rendre le module complémentaire compatible
-  avec les futures versions de NVDA.
-* Correction de nombreuses occurrences de messages du module complémentaire
-  annoncés en anglais malgré leur traduction dans d'autres langues.
-* Si vous utilisez l'Assistant SPL pour rechercher des mises à jour du
-  module complémentaire (Assistant SPL, Contrôle+Maj+U), NVDA n'installe pas
-  de nouvelles versions du module complémentaire si elles nécessitent une
-  version plus récente de NVDA.
+* Changements internes afin de rendre l'extension compatible avec les
+  futures versions de NVDA.
+* Correction de nombreuses occurrences de messages de l'extension annoncés
+  en anglais malgré leur traduction dans d'autres langues.
+* Si vous utilisez l'Assistant SPL pour rechercher des mises à jour de
+  l'extension (Assistant SPL, Contrôle+Maj+U), NVDA n'installe pas de
+  nouvelles versions de l'extension si elles nécessitent une version plus
+  récente de NVDA.
 * Certaines commandes de l'assistant SPL exigent désormais que la
   visionneuse de playlist soit visible et complété par une playlist. Dans
   certains cas, une piste est focalisée. Les commandes concernées incluent
@@ -432,9 +431,9 @@ Note: 18.11.1 remplace 18.11 afin de mieux prendre en charge Studio 5.31.
 
 ## Version 18.10.2/18.09.4-LTS
 
-* Correction de l'incapacité de fermer l'écran Paramètres du module
-  complémentaire si le bouton Appliquer a été appuyé et que les boutons OK
-  ou Annuler ont ensuite été pressés.
+* Correction de l'incapacité de fermer l'écran Paramètres de l'extension si
+  le bouton Appliquer a été appuyé et que les boutons OK ou Annuler ont
+  ensuite été pressés.
 
 ## Version 18.10.1/18.09.3-LTS
 
@@ -447,8 +446,8 @@ Note: 18.11.1 remplace 18.11 afin de mieux prendre en charge Studio 5.31.
 ## Version 18.10
 
 * NVDA 2018.3 ou ultérieur est requis.
-* Changements internes afin de rendre le module complémentaire plus
-  compatible avec Python 3.
+* Changements internes afin de rendre l'extension plus compatible avec
+  Python 3.
 
 ## Version 18.09.1-LTS
 
@@ -466,21 +465,20 @@ redirigées vers la 18.09.x.
 
 * NVDA 2018.3 ou une version ultérieure est recommandée en raison de
   l'introduction de wxPython 4.
-* L'écran des paramètres des modules complémentaires est désormais
-  entièrement basé sur une interface multi-pages dérivée de NVDA 2018.2 et
-  versions ultérieures.
+* L'écran des paramètres des extensions est désormais entièrement basé sur
+  une interface multi-pages dérivée de NVDA 2018.2 et versions ultérieures.
 * Test Drive Fast et Slow ont combiné le canal "développement" avec une
   option permettant aux utilisateurs de snapshot  de développement de tester
   les fonctionnalités pilotes en cochant la nouvelle case à cocher
   "Fonctions pilotes" du panneau Paramètres avancés. Les utilisateurs
   d'abord sur Test Drive Fast Ring continuera à tester les fonctionnalités
   du pilote.
-* La possibilité de sélectionner un canal différent pour la mise à jour du
-  module complémentaire à partir des paramètres du module complémentaire a
-  été supprimé. Les utilisateurs qui souhaitent basculer vers un canal de
-  version différent devrait visiter le site comunautaire des modules
-  complémentaires NVDA (addons.nvda-project.org), sélectionnez
-  StationPlaylist Studio, puis téléchargez la version appropriée.
+* La possibilité de sélectionner un canal différent pour la mise à jour de
+  l'extension à partir des paramètres de l'extension a été supprimée. Les
+  utilisateurs qui souhaitent basculer vers un canal de version différent
+  devraient visiter le site comunautaire des extensions NVDA
+  (addons.nvda-project.org), sélectionnez StationPlaylist Studio, puis
+  téléchargez la version appropriée.
 * Les cases à cocher d'inclusion de colonne pour l'annonce de colonne et les
   transcriptions de playlist, ainsi que les cases à cocher pour les flux de
   métadonnées ont été converties en contrôles de liste vérifiables.
@@ -490,19 +488,18 @@ redirigées vers la 18.09.x.
   métadonnées).
 * Ajout du format CSV (valeurs séparées par des virgules) en tant que format
   de transcriptions de playlist.
-* Pressing Control+NVDA+C to save settings will now also save Studio add-on
-  settings (requires NVDA 2018.3).
+* En appuyant sur Ctrl+NVDA+C pour enregistrer les paramètres, vous
+  sauvegarderez également les paramètres de l'extension Studio (nécessite
+  NVDA 2018.3).
 
 ## Version 18.08.2
 
-* NVDA ne vérifie plus les mises à jour du module complémentaire Studio si
-  le module complémentaire Add-on Updater (preuve de concept) est
-  installé. Par conséquent, les paramètres du module complémentaire
-  n'incluent plus les paramètres associés à la mise à jour du module
-  complémentaire, si c'est le cas. Si vous utilisez Add-on Updater, les
-  utilisateurs doivent utiliser les fonctionnalités fournies par ce module
-  complémentaire pour vérifier les mises à jour du module complémentaire
-  Studio.
+* NVDA ne vérifie plus les mises à jour de l'extension Studio si l'extension
+  Add-on Updater (preuve de concept) est installée. Par conséquent, les
+  paramètres de l'extension n'incluent plus les paramètres associés à la
+  mise à jour de l'extension, si c'est le cas. Si vous utilisez Add-on
+  Updater, vous devez utiliser les fonctionnalités fournies par cette
+  extension pour vérifier les mises à jour de l'extension Studio.
 
 ## Version 18.08.1
 
@@ -517,20 +514,20 @@ redirigées vers la 18.09.x.
 
 ## Version 18.08
 
-* Le dialogue des paramètres du module complémentaire est désormais basée
-  sur l'interface des paramètres multi-catégories de NVDA 2018.2. Par
+* Le dialogue des paramètres de l'extension est désormais basée sur
+  l'interface des paramètres multi-catégories de NVDA 2018.2. Par
   conséquent, cette version nécessite NVDA 2018.2 ou une version
-  ultérieure. L'ancienne interface de paramètres du module complémentaire
-  est obsolète et sera supprimée plus tard en 2018.
+  ultérieure. L'ancienne interface de paramètres de l'extension est obsolète
+  et sera supprimée plus tard en 2018.
 * Ajout d'une nouvelle section (bouton / panneau) dans les Paramètres
-  module complémentaire pour configurer les options de transcriptions de
-  playlist, qui est utilisée pour configurer l'inclusion et l'organisation
-  de colonne pour cette fonctionnalité et d'autres paramètres.
+  extension pour configurer les options de transcriptions de playlist, qui
+  est utilisée pour configurer l'inclusion et l'organisation de colonne pour
+  cette fonctionnalité et d'autres paramètres.
 * Lors de la création de transcriptions de playlist basées sur des tableaux
   et si l'organisation de colonne personnalisée et / ou la suppression de
   colonne est activée, NVDA utilisera l'ordre de présentation des colonnes
-  personnalisé spécifié dans les Paramètres  module complémentaire et / ou
-  n'inclura pas les informations des colonnes supprimées.
+  personnalisé spécifié dans les Paramètres  extension et / ou n'inclura pas
+  les informations des colonnes supprimées.
 * Lors de l'utilisation des commandes des éléments de piste de la colonne de
   navigation (Contrôle+Alt+début / fin / flèche gauche / flèche droite) dans
   Studio, Créateur et l'Outil de piste, NVDA ne va plus annoncer la colonne
@@ -547,16 +544,16 @@ redirigées vers la 18.09.x.
 
 ## Version 18.07
 
-* Ajout d'un écran expérimental de Paramètres multi-catégories du module
-  complémentaire, accessible en basculant sur Paramètre dans les Paramètres
-  module complémentaire / dialogue Avancé (vous devez redémarrer NVDA après
-  avoir configuré ce paramètre pour que la nouvelle boîte de dialogue
+* Ajout d'un écran expérimental de Paramètres multi-catégories de
+  l'extension, accessible en basculant sur Paramètre dans les Paramètres
+  extension / dialogue Avancé (vous devez redémarrer NVDA après avoir
+  configuré ce paramètre pour que la nouvelle boîte de dialogue
   apparaisse). Ceci est destiné aux utilisateurs de NVDA 2018.2 et tous les
-  paramètres du module complémentaire ne peuvent pas être configurés à
-  partir de ce nouvel écran.
+  paramètres de l'extension ne peuvent pas être configurés à partir de ce
+  nouvel écran.
 * NVDA ne lira plus les tonalités d'erreur ou ne fera rien lorsque vous
-  essayez de renommer un profil de diffusion à partir des paramètres module
-  complémentaire, causés par le problème de compatibilité wxPython 4.
+  essayez de renommer un profil de diffusion à partir des paramètres
+  extension, causés par le problème de compatibilité wxPython 4.
 * Lorsque vous redémarrez NVDA et / ou Studio après avoir modifié les
   paramètres d'un profil de diffusion autre qu'un profil normal, NVDA ne
   revient plus aux anciens paramètres.
@@ -597,14 +594,14 @@ redirigées vers la 18.09.x.
 
 ## Version 18.06
 
-* Dans les paramètres module complémentaire, ajout du bouton "Appliquer"
-  afin que les modifications apportées aux paramètres puissent être
-  appliquées au profil actuellement sélectionné et / ou actif sans fermer le
-  dialogue en premier. Cette fonctionnalité est disponible pour les
-  utilisateurs de NVDA 2018.2.
+* Dans les paramètres de l'extension, ajout du bouton "Appliquer" afin que
+  les modifications apportées aux paramètres puissent être appliquées au
+  profil actuellement sélectionné et / ou actif sans fermer le dialogue en
+  premier. Cette fonctionnalité est disponible pour les utilisateurs de NVDA
+  2018.2.
 * Résolution d'un problème où NVDA appliquerait des modifications aux
   paramètres de l'Explorateur de colonnes malgré l'activation du bouton
-  Annuler dans le dialogue Paramètres module complémentaire.
+  Annuler dans le dialogue Paramètres de l'extension.
 * Dans Studio, lorsque vous appuyez deux fois sur Contrôle+NVDA+rangée
   numérique alors que a été mis en focus sur une piste, NVDA affiche des
   informations de colonne pour une colonne spécifique dans une fenêtre en
@@ -615,8 +612,8 @@ redirigées vers la 18.09.x.
 * Dans StationPlaylist Creator, lorsque a été mis en focus sur une piste en
   appuyant sur Contrôle+NVDA+rangée numérique annoncera les données dans une
   colonne spécifique.
-* Ajout d'un bouton dans les paramètres du module complémentaire pour
-  configurer l'explorateur de colonnes pour SPL Creator.
+* Ajout d'un bouton dans les paramètres de l'extension pour configurer
+  l'explorateur de colonnes pour SPL Creator.
 * Ajout du format de tableau Markdown en tant que format de transcriptions
   de playlist.
 * La commande pour le retour de commentaires au développeur a changé de
@@ -645,9 +642,9 @@ redirigées vers la 18.09.x.
 ## Version 18.04
 
 * Des modifications ont été apportées pour rendre la fonction de
-  vérification des mises à jour du module complémentaire plus fiable, en
-  particulier si la vérification automatique des mises à jour du module
-  complémentaire est activée.
+  vérification des mises à jour de l'extension plus fiable, en particulier
+  si la vérification automatique des mises à jour de l'extension est
+  activée.
 * NVDA émet une tonalité pour indiquer le début du balayage de la
   bibliothèque lorsqu'il est configuré pour lire des bips pour diverses
   annonces.
@@ -676,29 +673,28 @@ redirigées vers la 18.09.x.
   défini pour un affichage) après que NVDA redémarre plusieurs fois pendant
   les diffusions.
 * Si un profil basé sur l'heure avec la durée du profil est activé et que le
-  dialogue paramètres du module complémentaire est ouvert et fermé, NVDA
-  retournera au profil d'origine une fois le profil basé sur l'heure
-  terminée.
+  dialogue paramètres de l'extension est ouvert et fermé, NVDA retournera au
+  profil d'origine une fois le profil basé sur l'heure terminée.
 * Si un profil basé sur l'heure est actif (en particulier pendant les
   diffusions), il ne sera pas possible de modifier les déclencheurs de
-  profil de diffusion via le dialogue Paramètres du module complémentaire.
+  profil de diffusion via le dialogue Paramètres de l'extension.
 
 ## Version 18.02/15.13-LTS
 
 * 18.02 : En raison de modifications internes apportées pour prendre en
   charge les points d'extension et d'autres fonctionnalités, NVDA 2017.4 est
   requis.
-* La mise à jour du module complémentaire ne sera pas possible dans certains
-  cas. Cela inclut l'exécution de NVDA à partir du code source ou avec le
-  mode sécurisé activé. La vérification du mode sécurisé s'applique
-  également à la 15.13-LTS.
+* La mise à jour de l'extension ne sera pas possible dans certains cas. Cela
+  inclut l'exécution de NVDA à partir du code source ou avec le mode
+  sécurisé activé. La vérification du mode sécurisé s'applique également à
+  la 15.13-LTS.
 * Si des erreurs se produisent lors de la vérification des mises à jour,
   celles-ci seront sauvegardées et NVDA vous conseillera de lire le journal
   (log) de NVDA pour plus de détails.
-* Dans les paramètres du module complémentaire, divers paramètres de mise à
-  jour dans la section des paramètres avancés, tels que l'intervalle de mise
-  à jour, ne seront pas affichés si la mise à jour des modules
-  complémentaires n'est pas prise en charge.
+* Dans les paramètres de l'extension, divers paramètres de mise à jour dans
+  la section des paramètres avancés, tels que l'intervalle de mise à jour,
+  ne seront pas affichés si la mise à jour des extensions n'est pas prise en
+  charge.
 * NVDA ne semblera plus se bloquer ou ne fera plus rien lors du basculement
   à un changement de profil immédiat ou à un profil basé sur l'heure et NVDA
   est configuré pour annoncer l'état de diffusion des métadonnées.
@@ -716,13 +712,13 @@ redirigées vers la 18.09.x.
 ## Version 17.12
 
 * Windows 7 Service Pack 1 ou ultérieur est requis.
-* Plusieurs fonctionnalités du module complémentaire ont été améliorées avec
-  des points d'extension. Cela permet au microphone alarm et à la
-  fonctionnalité des métadonnées en streaming de répondre aux changements
-  dans les profils de diffusion. Cela nécessite NVDA 2017.4.
-* Lorsque Studio se ferme, divers dialogues du module complémentaire tels
-  que les paramètres du module complémentaire, les dialogues d'alarme et
-  autres se ferment automatiquement. Cela nécessite NVDA 2017.4.
+* Plusieurs fonctionnalités de l'extension ont été améliorées avec des
+  points d'extension. Cela permet au microphone alarm et à la fonctionnalité
+  des métadonnées en streaming de répondre aux changements dans les profils
+  de diffusion. Cela nécessite NVDA 2017.4.
+* Lorsque Studio se ferme, divers dialogues de l'extension tels que les
+  paramètres de l'extension, les dialogues d'alarme et autres se ferment
+  automatiquement. Cela nécessite NVDA 2017.4.
 * Ajout d'une nouvelle commande dans la Couche Contrôleur SPL pour annoncer
   le nom de la prochaine piste, le cas échéant (Maj+C).
 * Vous pouvez maintenant appuyer sur les touches du chariot (F1, par
@@ -763,7 +759,7 @@ Windows sera une version 15.x LTS.
   confirmation avant de continuer.
 * NVDA appliquera les paramètres corrects pour les paramètres alarme
   microphone lors des changements de profils via le dialogue de Paramètres
-  du module complémentaire.
+  de l'extension.
 * Vous pouvez maintenant appuyer sur Contrôleur SPL, H pour obtenir de
   l'aide sur la couche Contrôleur SPl.
 
@@ -771,26 +767,24 @@ Windows sera une version 15.x LTS.
 
 * Si vous utiliser les versions de Windows antérieures à Windows 7 Service
   Pack 1, vous ne pouvez pas basculer au canal de mise à jour de Test Drive
-  Fast. Une version future de ce module complémentaire déplacera les
-  utilisateurs des anciennes versions de Windows vers un canal de prise en
-  charge dédié.
+  Fast. Une version future de cette extension déplacera les utilisateurs des
+  anciennes versions de Windows vers un canal de prise en charge dédié.
 * Plusieurs paramètres généraux tels que le statut de l'annonce en bips, en
   haut et en bas de la notification de playlist et d'autres se trouvent
-  maintenant situés dans le nouveau dialogue Paramètres généraux du module
-  complémentaire (accessible à partir d'un nouveau bouton dans les
-  paramètres du module complémentaire).
-* Il est maintenant possible de faire que les options du module
-  complémentaire en lecture seule, utilisez uniquement le profil normal, ou
-  pas charger les paramètres à partir du disque lorsque Studio
-  démarre. Ceux-ci sont contrôlés par de nouveaux commutateurs en ligne de
-  commande spécifiques à ce module complémentaire.
+  maintenant situés dans le nouveau dialogue Paramètres généraux de
+  l'extension (accessible à partir d'un nouveau bouton dans les paramètres
+  de l'extension).
+* Il est maintenant possible de mettre les options de l'extension en lecture
+  seule, utilisez uniquement le profil normal, ou de ne pas charger les
+  paramètres à partir du disque lorsque Studio démarre. Ceux-ci sont
+  contrôlés par de nouveaux commutateurs en ligne de commande spécifiques à
+  cette extension.
 * Lors de l'exécution de NVDA depuis le dialogue Exécuter (Windows+R), vous
   pouvez maintenant passer en ligne de commande supplémentaires les
-  commutateurs pour modifier la façon dont le module complémentaire
-  fonctionne. Ces derniers comprennent "--spl-configvolatile" (paramètres en
-  lecture seule), "--spl-configinmemory" (ne pas charger les paramètres du
-  disque), et "--spl-normalprofileonly" (utiliser uniquement le profil
-  normal).
+  commutateurs pour modifier la façon dont l'extension fonctionne. Ces
+  derniers comprennent "--spl-configvolatile" (paramètres en lecture seule),
+  "--spl-configinmemory" (ne pas charger les paramètres du disque), et
+  "--spl-normalprofileonly" (utiliser uniquement le profil normal).
 * Si en sortant de Studio (pas de NVDA) pendant que le changement de profil
   immédiat est actif, NVDA ne donne plus d'annonces trompeurs lors du
   basculement à un changement de profil immédiat lors de l'utilisation de
@@ -798,13 +792,13 @@ Windows sera une version 15.x LTS.
 
 ## Version 17.09.1
 
-* À la suite de l'annonce de NV Access, NVDA 2017.3 sera la dernière version
-  prise en charge avec les versions de Windows antérieures à  Windows 7
-  Service Pack 1, le module complémentaire Studio présentera un message de
-  rappel à propos de ça si vous exécuter à partir d'anciennes versions de
+* À la suite de l'annonce de NV Access que NVDA 2017.3 sera la dernière
+  version prise en charge avec les versions de Windows antérieures à
+  Windows 7 Service Pack 1, l'extension Studio présentera un message de
+  rappel à ce propos si vous exécuter sur d'anciennes versions de
   Windows. La fin de la prise en charge des anciennes versions de Windows
-  pour ce module complémentaire (via une prise en charge de la version
-  long-term) est prévue pour Avril 2018.
+  pour cette extension (via une prise en charge de la version long-term) est
+  prévue pour Avril 2018.
 * NVDA n'affichera plus de dialogue de démarrage et/ou n'annoncera plus la
   version de Studio si elle a débuté avec un ensemble d'indicateurs minimal
   (nvda -rm). La seule exception est l'ancien dialogue de rappel de version
@@ -813,10 +807,10 @@ Windows sera une version 15.x LTS.
 ## Version 17.09
 
 * Si un utilisateur entre dans le dialogue des options avancées dans les
-  paramètres du module complémentaire, le canal et l'intervalle de mise à
-  jour ont été définis sur Test Drive Fast et/ou zéro jours, NVDA ne
-  présentera plus le message d'avertissement de canal et/ou d'intervalle en
-  sortant de ce dialogue.
+  paramètres de l'extenson, le canal et l'intervalle de mise à jour ont été
+  définis sur Test Drive Fast et/ou zéro jours, NVDA ne présentera plus le
+  message d'avertissement de canal et/ou d'intervalle en sortant de ce
+  dialogue.
 * Les commandes playlist restante et l'analyse de la durée de piste
   exigeront maintenant le chargement d'une playlist et un message d'erreur
   plus précis sera présenté autrement.
@@ -834,14 +828,13 @@ Windows sera une version 15.x LTS.
   réelles qui nécessitent que les utilisateurs installent manuellement une
   version de test.
 * L'intervalle de mise à jour peut maintenant être réglé sur 0 (zéro)
-  jours. Cela permet au module complémentaire de vérifier les mises à jour
-  lorsque NVDA et/ou SPL Studio démarrent. Une confirmation sera nécessaire
-  pour modifier l'intervalle de mise à jour à zéro jours.
-* NVDA ne parviendra plus à vérifier les mises à jour du module
-  complémentaire si l'intervalle de mise à jour est réglé sur 25 jours ou
-  plus.
-* Dans les paramètres du module complémentaires, il a été ajouté une case à
-  cocher pour laisser NVDA jouer un son lorsque les demandes des auditeurs
+  jours. Cela permet à l'extension de vérifier les mises à jour lorsque NVDA
+  et/ou SPL Studio démarrent. Une confirmation sera nécessaire pour modifier
+  l'intervalle de mise à jour à zéro jours.
+* NVDA ne parviendra plus à vérifier les mises à jour de l'extension si
+  l'intervalle de mise à jour est réglé sur 25 jours ou plus.
+* Dans les paramètres de l'extension, il a été ajouté une case à cocher pour
+  laisser NVDA jouer un son lorsque les demandes des auditeurs
   arrivent. Pour l'utiliser complètement, la fenêtre des requêtes doit
   apparaître lorsque les demandes arrivent.
 * En appuyant sur la commande de temps de diffusion (NVDA+Maj+F12) deux
@@ -854,17 +847,17 @@ Windows sera une version 15.x LTS.
   l'Assistant SPL, il est maintenant possible d'inclure des informations sur
   le lecteur interne de Studio qui jouera la piste (par exemple, le lecteur
   1).
-* Ajout d'un paramètre dans les paramètres du module complémentaire sous le
-  statut des annonces pour inclure l'information du lecteur lors de
-  l'annonce du titre de la piste actuelle et suivante.
+* Ajout d'un paramètre dans les paramètres de l'extension sous le statut des
+  annonces pour inclure l'information du lecteur lors de l'annonce du titre
+  de la piste actuelle et suivante.
 * Correction d'un problème dans le caractère indicateur temporaire et
   d'autres dialogues où NVDA n'indiquerait pas de nouvelles valeurs lors de
   la manipulation des horodateurs.
 * NVDA peut supprimer l'annonce des titres de colonne tels que l'artiste et
   la catégorie lors de la révision des pistes dans la visionneuse de
   playlist. Il s'agit d'un paramètre spécifique au profil de diffusion.
-* Ajouté une case à cocher   dans la boîte de dialogue paramètres du module
-  complémentaire pour supprimer l'annonce des titres de colonnes lors de la
+* Ajouté une case à cocher   dans la boîte de dialogue paramètres de
+  l'extension pour supprimer l'annonce des titres de colonnes lors de la
   révision des pistes dans la visionneuse de playlist.
 * Ajout d'une commande dans la Couche Contrôleur SPL pour annoncer le nom et
   la durée de la piste en cours de lecture de n'importe où (C).
@@ -901,31 +894,29 @@ Windows sera une version 15.x LTS.
 
 ## Version 17.04
 
-* Ajout d'un support pour le module complémentaire en mode débogage en
-  enregistrant diverses informations alors que le module complémentaire est
-  actif avec NVDA configuré en Niveau de journalisation : débogage (requiert
-  NVDA 2017.1 et versions ultérieures). Pour l'utiliser avec ce module
-  complémentaire, après l'installation de NVDA 2017.1, à partir du dialogue
-  Quitter NVDA, choisissez l'option "Redémarrer avec le journal activé en
-  mode débogage.
+* Ajout d'un support de débogage de l'extension en enregistrant diverses
+  informations alors que l'extension est actif avec NVDA configuré en Niveau
+  de journalisation : débogage (requiert NVDA 2017.1 et versions
+  ultérieures). Pour l'utiliser avec cette extension, après l'installation
+  de NVDA 2017.1, à partir du dialogue Quitter NVDA, choisissez l'option
+  "Redémarrer avec le journal activé en mode débogage.
 * Améliorations apportées à la présentation de diverses boîtes de dialogue
   ajoutées grâce aux fonctionnalités NVDA 2016.4.
-* NVDA va télécharger les mises à jour du module complémentaire en
-  arrière-plan si vous dites "oui" lorsqu'on lui demande de mettre à jour le
-  module complémentaire. Par conséquent, les notifications de téléchargement
-  de fichiers depuis les navigateurs Web ne seront plus affichées.
+* NVDA va télécharger les mises à jour de l'extension en arrière-plan si
+  vous dites "oui" lorsqu'on lui demande de mettre à jour l'extension. Par
+  conséquent, les notifications de téléchargement de fichiers depuis les
+  navigateurs Web ne seront plus affichées.
 * NVDA ne se bloquera plus lors de la recherche de la mise à jour au
-  démarrage en raison du changement du  canal de mise à jour du module
-  complémentaire.
+  démarrage en raison du changement du  canal de mise à jour de l'extension.
 * Ajoutée la possibilité d'appuyer sur Contrôle+Alt+touches flèche haut ou
   flèche bas  pour se déplacer entre les pistes  (en particulier, les
   colonnes de piste) verticalement au moment où l'on passe à la rangée
   suivante ou précédente dans un tableau.
-* Ajoutée une zone de liste déroulante dans le dialogue paramètres du module
-  complémentaire pour définir quelle colonne doit être annoncée lors du
+* Ajoutée une zone de liste déroulante dans le dialogue paramètres de
+  l'extension pour définir quelle colonne doit être annoncée lors du
   déplacement vertical des colonnes.
 * Déplacement des contrôles fin de piste, intro et alarme microphone depuis
-  les paramètres du module complémentaire au nouveau Centre des alarmes.
+  les paramètres de l'extension au nouveau Centre des alarmes.
 * Dans Centre des alarmes, les champs d'édition de fin de piste et Piste
   intro sont toujours affichés indépendamment des cases à cocher état de
   notification d'alarme.
@@ -974,31 +965,29 @@ Windows sera une version 15.x LTS.
 ## Version 17.01/15.5-LTS
 
 Remarque: 17.01.1/15.5A-LTS remplace la 17.01 en raison des changements
-apportés à l'emplacement des nouveaux fichiers du module complémentaire.
+apportés à l'emplacement des nouveaux fichiers de l'extension.
 
 * 17.01.1/15.5A-LTS: Modifié à partir duquel les mises à jour sont
   téléchargées pour les versions prises en charges à long
   terme. L'installation de cette version est obligatoire.
-* Amélioration de la réactivité et de la fiabilité lors de l'utilisation du
-  module complémentaire pour basculer à Studio, en utilisant le focus sur la
-  commande Studio à partir d'autres programmes ou lorsqu'un encodeur est
-  connecté et NVDA est invité à basculer vers Studio lorsque cela se
-  produit. Si Studio est minimisé, la fenêtre Studio s'affichera comme
-  indisponible. Dans ce cas, restaurez la fenêtre Studio depuis la barre
-  d'état système.
+* Amélioration de la réactivité et de la fiabilité lors de l'utilisation de
+  l'extension pour basculer à Studio, en utilisant le focus sur la commande
+  Studio à partir d'autres programmes ou lorsqu'un encodeur est connecté et
+  NVDA est invité à basculer vers Studio lorsque cela se produit. Si Studio
+  est minimisé, la fenêtre Studio s'affichera comme indisponible. Dans ce
+  cas, restaurez la fenêtre Studio depuis la barre d'état système.
 * Si vous modifier des chariots pendant que l'Explorateur de Chariot est
   actif, il n'est plus nécessaire d'entrer à nouveau dans l'Explorateur de
   Chariot pour afficher la mise à jour des assignations de chariot lorsque
   le mode édition chariot est désactivé. Par conséquent, le message pour
   entrer à nouveau dans l'Explorateur de Chariot n'est plus annoncé.
-* Dans le module complémentaire 15.5-LTS, correction de la présentation de
-  l'interface utilisateur pour le dialogue Paramètres module complémentaire
-  SPL.
+* Dans l'extension 15.5-LTS, correction de la présentation de l'interface
+  utilisateur pour le dialogue Paramètres extension SPL.
 
 ## Version 16.12.1
 
 * Correction de la présentation de l'interface utilisateur pour le dialogue
-  Paramètres module complémentaire SPL.
+  Paramètres extension SPL.
 * Mises à jour des traductions.
 
 ## Version 16.12/15.4-LTS
@@ -1044,34 +1033,33 @@ version SPL Studio 5.10 et ultérieure, avec la 15.0-LTS (anciennement la
 7.x) conçu pour fournir de nouvelles fonctionnalités depuis la 8.0 pour les
 utilisateurs des versions antérieures de Studio. À moins que dans le cas
 contraire les rubriques ci-dessous s’appliquent à les deux, 8.0 et 7.x. Un
-dialogue d'avertissement apparaît la première fois que vous utilisez le
-module complémentaire 8.0 avec Studio 5.0x installé, vous demandant
-d’utiliser la version  15.x LTS.
+dialogue d'avertissement apparaît la première fois que vous utilisez
+l'extension 8.0 avec Studio 5.0x installé, vous demandant d’utiliser la
+version  15.x LTS.
 
 * Le Schéma de la version a changé pour refléter la version year.month au
   lieu de major.minor. Au cours de la période de transition (jusqu'au
   mi-2017), la version 8.0 est synonyme de la version 16.10, avec la 7.x LTS
   étant désigné la 15.0 en raison des changements incompatibles.
-* Le code source du module complémentaire est désormais hébergé sur GitHub
+* Le code source de l'extension est désormais hébergé sur GitHub
   (référentiel  localisé à https://github.com/josephsl/stationPlaylist).
 * Ajouter un dialogue de Bienvenue qui se lance au démarrage de Studio après
-  l’installation du module complémentaire. Une commande (NVDA+AltF1) a été
-  ajoutée pour rouvrir ce dialogue une fois rejeté.
-* Changements de diverses commandes du module complémentaire, y compris la
-  suppression du basculement des annonces des statut (Contrôle+NVDA+1),
-  réassigné Alarme de fin de piste à Alt+NVDA+1, basculement  de
-  l'Explorateur de Chariot  est maintenant Alt+NVDA+3, le dialogue alarme
-  microphone est Alt+NVDA+4 et le dialogue Paramètres du module
-  complémentaire/encodeur est Alt+NVDA+0. Cela a été fait pour permettre
-  d'être Assigner  à Contrôle+NVDA+rangée de numéro à l'Explorateur de
-  Colonnes.
+  l’installation de l'extension. Une commande (NVDA+AltF1) a été ajoutée
+  pour rouvrir ce dialogue une fois rejeté.
+* Changements de diverses commandes de l'extension, y compris la suppression
+  du basculement des annonces des statut (Contrôle+NVDA+1), réassigné Alarme
+  de fin de piste à Alt+NVDA+1, basculement  de l'Explorateur de Chariot
+  est maintenant Alt+NVDA+3, le dialogue alarme microphone est Alt+NVDA+4 et
+  le dialogue Paramètres de l'extension/encodeur est Alt+NVDA+0. Cela a été
+  fait pour permettre d'être Assigner  à Contrôle+NVDA+rangée de numéro à
+  l'Explorateur de Colonnes.
 * 8.0: Relâché la restriction de l'Explorateur de colonnes à la place dans
   la  7.x donc les  chiffres 1 jusq'à 6 peuvent être configurés pour
   annoncer les colonnes dans Studio 5.1x.
 * 8.0: La commande  pour le basculement du Cadran de piste et  les paramètre
-  correspondant dans les paramètres du module complémentaire sont obsolètes
-  et seront supprimées dans la 9.0. Cette commande restent disponible dans
-  le module complémentaire 7.x.
+  correspondant dans les paramètres de l'extension sont obsolètes et seront
+  supprimés dans la 9.0. Cette commande restent disponible dans l'extension
+  7.x.
 * Ajouté Contrôle+Alt+début/fin pour déplacer le Navigateur de Colonne à la
   première ou la dernière colonne dans la Visionneuse de playlist.
 * Vous pouvez maintenant ajouter, afficher, modifier ou supprimer les
@@ -1080,24 +1068,23 @@ d’utiliser la version  15.x LTS.
   appuyez deux fois pour copier le commentaire dans le presse-papiers  ou
   trois fois pour ouvrir un dialogue pour modifier les commentaires.
 * Ajoutée la possibilité d'annoncer si un commentaire de piste existe,ainsi
-  que d’un paramètre dans les paramètres du module complémentaire pour
-  contrôler comment cela devrait être fait.
-* Ajouter un nouveau paramètre dans le dialogue paramètres du module
-  complémentaire pour permettre a NVDA de vous notifier si vous avez atteint
-  le haut ou le bas de la visionneuse de playlist.
-* Lors de la réinitialisation des paramètres du module complémentaire, vous
-  pouvez maintenant spécifier quel type de restauration vous souhaitez
-  avoir. Par défaut, les paramètres du module complémentaire seront
-  réinitialisés, avec des cases à cocher pour la réinitialisation des
-  changement de profil immédiat, pofil basé sur l'heure, paramètres de
-  l’encodeur et les commandes pour effacer la piste ajouté pour
-  réinitialiser la boîte de dialogue Paramètres.
+  que d’un paramètre dans les paramètres de l'extension pour contrôler
+  comment cela devrait être fait.
+* Ajouter un nouveau paramètre dans le dialogue paramètres de l'extension
+  pour permettre a NVDA de vous notifier si vous avez atteint le haut ou le
+  bas de la visionneuse de playlist.
+* Lors de la réinitialisation des paramètres de l'extension, vous pouvez
+  maintenant spécifier quel type de restauration vous souhaitez avoir. Par
+  défaut, les paramètres de l'extension seront réinitialisés, avec des cases
+  à cocher pour la réinitialisation des changement de profil immédiat, pofil
+  basé sur l'heure, paramètres de l’encodeur et les commandes pour effacer
+  la piste ajouté pour réinitialiser la boîte de dialogue Paramètres.
 * Dans l'Outil de piste, vous pouvez obtenir des informations sur l'album et
   le code du CD en appuyant sur Contrôle+NVDA+9 et Contrôle+NVDA+0,
   respectivement.
 * Amélioration des performances lors de l’obtention des informations de
   colonne pour la première fois dans l'Outil de Piste.
-* 8.0: Ajouté un dialogue dans les paramètres du module complémentaire pour
+* 8.0: Ajout d'un dialogue dans les paramètres de l'extension pour
   configurer les tranches de l'Explorateur de Colonnes pour l'Outil de
   Piste.
 * Vous pouvez maintenant configurer l'intervalle alarme microphone depuis le
@@ -1106,8 +1093,8 @@ d’utiliser la version  15.x LTS.
 ## Version 7.5/16.09
 
 * NVDA n'affichera plus la fenêtre de la boîte de dialogue de la progression
-  de la mise à jour si le canal de mise à jour du module complémentaire
-  vient de changer.
+  de la mise à jour si le canal de mise à jour de l'extension vient de
+  changer.
 * NVDA honorera le canal de mise à jour sélectionnée lors du téléchargement
   des mises à jour.
 * Mises à jour des traductions.
@@ -1117,13 +1104,13 @@ d’utiliser la version  15.x LTS.
 Version 7.4 est également connu comme 16.08 selon le numéro de version
 year.month pour les publications stable.
 
-* Il est possible de sélectionner le canal de mise à jour du module
-  complémentaire depuis les paramètres du module complémentaire/Options
-  avancées pour être supprimé plus tard en 2017. Pour 7.4, les canaux
-  disponibles sont bêta, stable et long-terme.
-* Ajouté un paramètre dans les paramètres du module complémentaire/Options
-  avancées pour configurer l'intervalle de recherche de mise à jour entre 1
-  et 30 jours (par défaut est 7 ou recherches hebdomadaire).
+* Il est possible de sélectionner le canal de mise à jour de l'extension
+  depuis les paramètres de l'extension/Options avancées pour être supprimé
+  plus tard en 2017. Pour 7.4, les canaux disponibles sont bêta, stable et
+  long-terme.
+* Ajouté un paramètre dans les paramètres de l'extension/Options avancées
+  pour configurer l'intervalle de recherche de mise à jour entre 1 et 30
+  jours (par défaut est 7 ou recherches hebdomadaire).
 * La commande pour le Contrôleur SPL et la commande pour la mise en focus de
   Studio ne sera pas disponibles à partir des écrans sécurisés.
 * Nouvelles et mises à jour des traductions et l'ajout de documentation
@@ -1138,15 +1125,15 @@ year.month pour les publications stable.
 ## Changements pour la version 7.2
 
 * En raison de la suppression du format de l'ancien style de configuration
-  interne, il est obligatoire d'installer le module complémentaire 7.2. Une
-  fois installé, vous ne pouvez pas revenir à une version antérieure du
-  module complémentaire.
+  interne, il est obligatoire d'installer l'extension 7.2. Une fois
+  installé, vous ne pouvez pas revenir à une version antérieure de
+  l'extension.
 * Ajout d'une commande dans le Contrôleur SPL pour annoncer le nombre
   d'auditeurs (I).
-* Vous pouvez maintenant ouvrir le dialogue Paramètres module complémentaire
-  SPL et le dialogue Paramètres de l'encodeur en appuyant sur
-  Alt+NVDA+0. Vous pouvez toujours utiliser Contrôle+NVDA+0 pour ouvrir ces
-  boîtes de dialogue (pour être supprimé dans le module complémentaire 8.0).
+* Vous pouvez maintenant ouvrir le dialogue Paramètres extension SPL et le
+  dialogue Paramètres de l'encodeur en appuyant sur Alt+NVDA+0. Vous pouvez
+  toujours utiliser Contrôle+NVDA+0 pour ouvrir ces boîtes de dialogue (pour
+  être supprimé dans l'extension 8.0).
 * Dans l'Outil de Piste, vous pouvez utiliser Contrôle+Alt+les touches
   flèche gauche ou flèche droite pour naviguer entre les colonnes.
 * Contenu de diverses boîtes de dialogue de Studio comme la boîte de
@@ -1158,23 +1145,21 @@ year.month pour les publications stable.
 
 ## Changements pour la version 7.1
 
-* Correction des erreurs rencontrés lors de la mise à niveau depuis le
-  module complémentaire 5.5 et en dessous de la 7.0.
-* Lorsque vous répondez "non" lors de la réinitialisation des paramètres du
-  module complémentaire, vous retourné à la boîte de dialogue Paramètres
-  module complémentaire et NVDA se souviendra du paramètre changement de
-  profil immédiat.
+* Correction des erreurs rencontrées lors de la mise à niveau depuis
+  l'extension  5.5 et en dessous de la 7.0.
+* Lorsque vous répondez "non" lors de la réinitialisation des paramètres de
+  l'extension, vous retourné à la boîte de dialogue Paramètres extension et
+  NVDA se souviendra du paramètre changement de profil immédiat.
 * NVDA vous demandera de reconfigurer les étiquettes de flux et d’autres
   options de l'encodeur si le fichier de configuration de l'encodeur est
   endommagé.
 
 ## Changements pour la version 7.0
 
-* Ajouté la fonction Rechercher une mise à jour du module
-  complémentaire. Cela peut se faire manuellement (Assistant SPL,
-  Contrôle+Maj+U) ou automatiquement (configurable depuis la boîte de
-  dialogue Options avancées dans la boîte de dialogue paramètres du module
-  complémentaire).
+* Ajouté la fonction Rechercher une mise à jour de l'extension. Cela peut se
+  faire manuellement (Assistant SPL, Contrôle+Maj+U) ou automatiquement
+  (configurable depuis la boîte de dialogue Options avancées dans la boîte
+  de dialogue paramètres de l'extension).
 * Il n'est plus nécessaire de rester dans la fenêtre de la visionneuse de
   playlist afin d'invoquer la plupart des commandes couche Assistant SPL ou
   obtenir des annonces de temps tels que le temps restant pour la piste et
@@ -1190,11 +1175,10 @@ year.month pour les publications stable.
 * Assistant SPL, chiffres 1 jusqu'à 0 (6 pour Studio 5.01 ou version
   antérieure) peut être utilisé pour annoncer les informations d'une colonne
   spécifique. Ces tranches de colonne peuvent être modifiés sous l'élément
-  Explorateur de Colonnes dans la boîte de dialogue Paramètres module
-  complémentaire.
+  Explorateur de Colonnes dans la boîte de dialogue Paramètres extension.
 * Corrigé les nombreuses erreurs signalées par les utilisateurs lors de
-  l'installation du module complémentaire 7.0 pour la première fois lorsque
-  aucune version antérieure de ce module complémentaire a été installé.
+  l'installation de l'extension 7.0 pour la première fois lorsque aucune
+  version antérieure de cette extension n'a été installée.
 * Améliorations apportées au Cadran de Piste, y compris la meilleure
   réactivité lors d’un déplacement dans les colonnes et le suivi de comment
   les colonnes sont présentées à l'écran.
@@ -1202,23 +1186,22 @@ year.month pour les publications stable.
   flèche droite pour se déplacer entre les colonnes de piste.
 * Il est maintenant possible d'utiliser une commande différente   pour la
   disposition du lecteur d'écran pour les commandes Assistant SPL. Aller
-  dans la boîte de dialogue Options avancées depuis Paramètres module
-  complémentaire pour configurer cette option entre les dispositions NVDA,
-  JAWS et Window-Eyes. Voir les commandes Assistant SPL ci-dessus pour plus
-  de détails.
+  dans la boîte de dialogue Options avancées depuis Paramètres extension
+  pour configurer cette option entre les dispositions NVDA, JAWS et
+  Window-Eyes. Voir les commandes Assistant SPL ci-dessus pour plus de
+  détails.
 * NVDA peut être configuré pour basculer vers un profil de diffusion
   spécifique à un jour et à une heure spécifier. Utiliser la nouvelle boîte
-  de dialogue Déclencheurs dans Paramètres module complémentaire pour
-  configurer cela.
+  de dialogue Déclencheurs dans Paramètres extension pour configurer cela.
 * NVDA annoncera le nom du profil lors du basculement vers via le changement
   immédiat (Assistant SPL, F12) ou comme un résultat du profil basé sur
   l'heure lequel devient actif.
 * Déplacé la bascule du changement immédiat(maintenant une case à cocher)
   vers la nouvelle boîte de dialogue Déclencheurs.
 * Entrées dans la liste déroulante des profils dans la boîte de dialogue
-  Paramètres module complémentaire maintenant s'affiche le drapeaux du
-  profil par exemple actif, que ce soit un changement de profil immédiat et
-  ainsi de suite.
+  Paramètres extension maintenant s'affiche le drapeaux du profil par
+  exemple actif, que ce soit un changement de profil immédiat et ainsi de
+  suite.
 * Si un problème sérieux avec le fichier lors de la lecture du profil de
   diffusion on été trouvés, NVDA présentera une boîte de dialogue d'erreur
   et va réinitialiser les paramètres par défaut au lieu de ne rien faire ou
@@ -1227,21 +1210,21 @@ year.month pour les publications stable.
   modifiez les paramètres. Ceci prolonge la vie des SSD (solid state drives(
   en empêchant les arrêts inutiles sur le disque si aucun paramètres n’ont
   été modifiés.
-* Dans le dialogue paramètres du module complémentaire les contrôles
-  utilisés pour basculer l'annonce de l'heure prévue, le nombre d'auditeurs,
-  le nom du chariot et le nom de la piste a été déplacé vers un dialogue
-  Annonces des statut (sélectionnez  le bouton annonce de statut pour ouvrir
-  cette boîte de dialogue).
-* Ajouter un nouveau paramètre dans le dialogue paramètres du module
-  complémentaire pour permettre a NVDA de jouer un bip pour les différentes
-  catégories de piste lors du déplacement entre les pistes dans la
-  visionneuse de playlist.
+* Dans le dialogue paramètres de l'extension les contrôles utilisés pour
+  basculer l'annonce de l'heure prévue, le nombre d'auditeurs, le nom du
+  chariot et le nom de la piste a été déplacé vers un dialogue Annonces des
+  statut (sélectionnez  le bouton annonce de statut pour ouvrir cette boîte
+  de dialogue).
+* Ajouter un nouveau paramètre dans le dialogue paramètres de l'extension
+  pour permettre a NVDA de jouer un bip pour les différentes catégories de
+  piste lors du déplacement entre les pistes dans la visionneuse de
+  playlist.
 * Tentative lors de l'ouverture de l'option de configuration de métadonnées
-  dans le dialogue de paramètres du module complémentaire alors que le
-  dialogue rapide de métadonnées en streaming est ouvert ne provoquera plus
-  que NVDA ne puisse rien faire ou de jouer une tonalité d’erreur. NVDA va
-  maintenant vous demander de fermer le dialogue de métadonnées en streaming
-  avant que vous puissiez ouvrir les paramètres du module complémentaire.
+  dans le dialogue de paramètres de l'extension alors que le dialogue rapide
+  de métadonnées en streaming est ouvert ne provoquera plus que NVDA ne
+  puisse rien faire ou de jouer une tonalité d’erreur. NVDA va maintenant
+  vous demander de fermer le dialogue de métadonnées en streaming avant que
+  vous puissiez ouvrir les paramètres de l'extension.
 * En annonçant le temps comme le temps restant pour la piste en cours de
   lecture, les heures sont également annoncées. Par conséquent, le réglage
   pour l'annonce des heures est activé par défaut.
@@ -1259,7 +1242,7 @@ year.month pour les publications stable.
 ## Anciennes versions
 
 S'il vous plaît voir le lien changelog pour les notes de version  pour les
-anciennes versions du modules complémentaire.
+anciennes versions de l'extension.
 
 [[!tag dev stable]]
 

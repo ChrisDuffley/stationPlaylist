@@ -25,8 +25,9 @@ CÁC LƯU Ý QUAN TRỌNG:
   bao gồm chạy NVDA trong chế độ bảo vệ.
 * Vì những giới hạn kĩ thuật, bạn không thể cài hay dùng add-on này với
   phiên bản NVDA từ Windows Store.
-* Features marked as "experimental" are meant to test something before a
-  wider release, so they will not be enabled in stable releases.
+* Các tính năng được đánh dấu "thử nghiệm" là để kiểm tra vài thứ trước khi
+  phát hành rộng rãi, vậy nên chúng sẽ không được bật trong các bản phát
+  hành chính thức.
 
 ## Các phím tắt
 
@@ -282,17 +283,16 @@ NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio t
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
 
-## Version 19.03/18.09.7-LTS
+## Phiên bản 19.03/18.09.7-LTS
 
-* Pressing Control+NVDA+R to reload saved settings will now also reload
-  Studio add-on settings, and pressing this command three times will also
-  reset Studio add-on settings to defaults along with NVDA settings.
-* Renamed Studio add-on settings dialog's "Advanced options" panel to
-  "Advanced".
-* 19.03 Experimental: in column announcements and playlist transcripts
-  panels (add-on settings), custom column inclusion/order controls will be
-  visible up front instead of having to select a button to open a dialog to
-  configure these settings.
+* Bấm Control+NVDA+R để gọi lại các thiết lập đã lưu giờ đây cũng sẽ gọi lại
+  các thiết lập của Studio add-on, và bấm lệnh này ba lần cũng sẽ khôi phục
+  các cài đặt của Studio add-on về mặc định cùng với thiết lập của NVDA.
+* Đổi tên hộp thoại cài đặt Studio add-on "Tùy chọn nâng cao" thành "Nâng
+  cao".
+* 19.03 thử nghiệm: trong thông báo cột và bảng điểm danh sách phát (cài đặt
+  add-on), các điều khiển bao gồm tùy chỉnh/sắp xếp cột sẽ hiện ra luôn thay
+  vì phải bấm nút mở một hộp thoại để cấu hình các cài đặt nảy.
 
 ## Phiên bản 19.02
 
@@ -415,8 +415,8 @@ mới. Vài tính năng mới sẽ hỗ trợ ngược trở lại 18.09.x nếu
   metadata streaming ).
 * Thêm định dạng CSV (dùng dấu phẩy ngăn cách các giá trị) như một định dạng
   cho bảng điểm của danh sách phát.
-* Pressing Control+NVDA+C to save settings will now also save Studio add-on
-  settings (requires NVDA 2018.3).
+* Bấm Control+NvDA+C để lưu thiết lập sẽ lưu luôn thiết lập của Studio
+  add-on (yêu cầu NVDA 2018.3).
 
 ## Phiên bản 18.08.2
 

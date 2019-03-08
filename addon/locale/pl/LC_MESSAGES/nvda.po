@@ -852,6 +852,19 @@ msgstr "Nie znaleziono okna głównego SPL Studio"
 msgid "Normal profile"
 msgstr "Profil standardowy"
 
+#. Translators: Message displayed when attempting to reset Studio add-on settings while an instant switch or time-based profile is active.
+msgid ""
+"An instant switch or time-based profile is active. Resetting Studio add-on "
+"settings means normal profile will become active and switch profile settings "
+"will be left in unpredictable state. Are you sure you wish to reset Studio "
+"add-on settings to factory defaults?"
+msgstr ""
+
+#. Translators: The title of the confirmation dialog for Studio add-on settings reset.
+#, fuzzy
+msgid "SPL Studio add-on reset"
+msgstr "Ustawienia dodatku SPL"
+
 #. Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
 msgid "Add-on settings dialog is open, cannot switch profiles"
 msgstr "Nie mogę przełączyć profilu; Okno dodatku aktywne"
@@ -1448,14 +1461,14 @@ msgstr "Powiadamianie o metadanych i strumieniowaniu"
 msgid "&Select the URL for metadata streaming upon request:"
 msgstr "Wybierz URL do streamingu metadanych na żądanie"
 
-#. Translators: Title of a dialog to configure column announcements (order and what columns should be announced).
-msgid "Manage column announcements"
+#. Translators: title of a panel to configure column announcements (order and what columns should be announced).
+#, fuzzy
+msgid "Column announcements"
 msgstr "Zarządzaj oznajmianiem kolumn"
 
-#. Translators: Title of a dialog to configure columnn seleciton for Playlist Transcripts.
-#, fuzzy
-msgid "Playlist transcript columns"
-msgstr "Statystyki playlisty"
+#. Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
+msgid "Announce columns in the &order shown on screen"
+msgstr "Oznajmiaj kolumny w kolejności widocznej na ekranie"
 
 #. Translators: Help text to select columns to be announced.
 #, fuzzy
@@ -1463,15 +1476,6 @@ msgid ""
 "&Select columns to be announced\n"
 "(artist and title are announced by default):"
 msgstr "Wybierz kolumny: )Wykonawca i tytuł domyślnie)."
-
-#. Translators: Help text to select columns to be announced.
-#, fuzzy
-msgid ""
-"&Select columns to be included in playlist transcripts\n"
-"(artist and title are always included):"
-msgstr ""
-"Wybierz informacje wyświetlane w przeglądzie playlisty. \n"
-"\t\tKolumny liczba utworów oraz artysta są zawsze uwzględniane."
 
 #. wxPython 4 contains RearrangeList to allow item orders to be changed automatically.
 #. Because wxPython 3 doesn't include this, work around by using a variant of list box and move up/down buttons.
@@ -1487,19 +1491,6 @@ msgstr "W górę"
 #. Translators: The label for a button in column announcement dialog to change column position for the selected column.
 msgid "Move &down"
 msgstr "W dół"
-
-#. Translators: title of a panel to configure column announcements (order and what columns should be announced).
-#, fuzzy
-msgid "Column announcements"
-msgstr "Zarządzaj oznajmianiem kolumn"
-
-#. Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
-msgid "Announce columns in the &order shown on screen"
-msgstr "Oznajmiaj kolumny w kolejności widocznej na ekranie"
-
-#. Translators: The label of a button to manage column announcements.
-msgid "&Manage track column announcements..."
-msgstr "Zarządzaj ogłaszaniem kolumn"
 
 #. Translators: the label for a setting in SPL add-on settings to toggle whether column headers should be included when announcing track information.
 msgid "Include column &headers when announcing track information"
@@ -1517,10 +1508,14 @@ msgstr "Statystyki playlisty"
 #. Translators: one of the transcript format options.
 #. self.transcriptFormatsList = playlistTranscriptsHelper.addLabeledControl(labelText, wx.Choice, choices=[_("ask me every time")]+[output[2] for output in splmisc.SPLPlaylistTranscriptFormats])
 #. self.transcriptFormatsList.SetSelection(self.availableTranscriptFormats.index(splconfig.SPLConfig["PlaylistTranscripts"]["TranscriptFormat"]))
-#. Translators: The label of a button to configure columns for playlist transcripts.
+#. Translators: Help text to select columns to be announced.
 #, fuzzy
-msgid "Manage transcript columns..."
-msgstr "Zarządzaj ogłaszaniem kolumn"
+msgid ""
+"&Select columns to be included in playlist transcripts\n"
+"(artist and title are always included):"
+msgstr ""
+"Wybierz informacje wyświetlane w przeglądzie playlisty. \n"
+"\t\tKolumny liczba utworów oraz artysta są zawsze uwzględniane."
 
 #. Translators: title of a panel to configure columns explorer settings.
 #, fuzzy
@@ -1676,19 +1671,6 @@ msgstr "Czy jesteś pewien, że chcesz resetu ustawień dodatku SPL?"
 #. Translators: The title of the warning dialog.
 msgid "Warning"
 msgstr "Ostrzeżenie"
-
-#. Translators: Message displayed when attempting to reset Studio add-on settings while an instant switch or time-based profile is active.
-msgid ""
-"An instant switch or time-based profile is active. Resetting Studio add-on "
-"settings means normal profile will become active and switch profile settings "
-"will be left in unpredictable state. Are you sure you wish to reset Studio "
-"add-on settings to factory defaults?"
-msgstr ""
-
-#. Translators: The title of the confirmation dialog for Studio add-on settings reset.
-#, fuzzy
-msgid "SPL Studio add-on reset"
-msgstr "Ustawienia dodatku SPL"
 
 #. Translators: A dialog message shown when settings were reset to defaults.
 msgid "Successfully applied default add-on settings."
@@ -1881,7 +1863,9 @@ msgid ""
 "I: Announce listener count.\n"
 "Q: Announce Studio status information.\n"
 "R: Remaining time for the playing track.\n"
-"Shift+R: Library scan progress."
+"Shift+R: Library scan progress.\n"
+"Function keys and number row keys with or without Shift, Alt, and Control "
+"keys: Play carts."
 msgstr ""
 "\n"
 "Po wejściu do kontrolera SPL, naciśnij:\n"
@@ -2140,6 +2124,20 @@ msgid ""
 msgstr ""
 "Poprawia dostępność Station Playlist Studio.\n"
 "Ponadto, dodaje globalne komendy dla studia, dostępne z każdego miejsca."
+
+#~ msgid "Manage column announcements"
+#~ msgstr "Zarządzaj oznajmianiem kolumn"
+
+#, fuzzy
+#~ msgid "Playlist transcript columns"
+#~ msgstr "Statystyki playlisty"
+
+#~ msgid "&Manage track column announcements..."
+#~ msgstr "Zarządzaj ogłaszaniem kolumn"
+
+#, fuzzy
+#~ msgid "Manage transcript columns..."
+#~ msgstr "Zarządzaj ogłaszaniem kolumn"
 
 #~ msgid "Advanced options"
 #~ msgstr "Zaawansowane"

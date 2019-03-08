@@ -29,8 +29,9 @@ NOTAS IMPORTANTES:
   condiciones, incluyendo la ejecución de NVDA en modo seguro.
 * Debido a limitaciones técnicas, no puedes instalar ni utilizar este
   complemento en la versión de Windows Store de NVDA.
-* Features marked as "experimental" are meant to test something before a
-  wider release, so they will not be enabled in stable releases.
+* Las funciones marcadas como "experimentales" están pensadas para ser
+  probadas antes de una liberación más amplia, por lo que no estarán
+  habilitadas en las versiones estables.
 
 ## Teclas de atajo
 
@@ -326,17 +327,19 @@ realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
 
-## Version 19.03/18.09.7-LTS
+## Versión 19.03/18.09.7-LTS
 
-* Pressing Control+NVDA+R to reload saved settings will now also reload
-  Studio add-on settings, and pressing this command three times will also
-  reset Studio add-on settings to defaults along with NVDA settings.
-* Renamed Studio add-on settings dialog's "Advanced options" panel to
-  "Advanced".
-* 19.03 Experimental: in column announcements and playlist transcripts
-  panels (add-on settings), custom column inclusion/order controls will be
-  visible up front instead of having to select a button to open a dialog to
-  configure these settings.
+* Al pulsar ctrl+NVDA+r para recargar los ajustes guardados también hará que
+  se recarguen los ajustes del complemento de Studio, y al pulsar esta orden
+  tres veces los ajustes del complemento de Studio se restablecerán a
+  valores de fábrica junto con los de NVDA.
+* Se ha renombrado el panel "Opciones avanzadas" del diálogo de
+  configuración del complemento de Studio a "Avanzado".
+* Experimental en 19.03: en los paneles de anuncio de columnas y
+  transcripción de listas de reproducción (configuración del complemento),
+  los controles de inclusión / orden personalizado serán visibles
+  directamente en vez de tener que pulsar un botón para abrir un diálogo y
+  configurar estos ajustes.
 
 ## Versión 19.02
 
@@ -475,8 +478,9 @@ soporte a Studio 5.10. La versión 18.10 y posteriores darán soporte a Studio
   opciones de flujo de metadatos).
 * Añadido el formato CSV (valores separados por comas) como formato de
   transcripciones de listas de reproducción.
-* Pressing Control+NVDA+C to save settings will now also save Studio add-on
-  settings (requires NVDA 2018.3).
+* Al pulsar NVDA+control+c para guardar la configuración de NVDA, también se
+  guardará la configuración del complemento de Studio (requiere NVDA
+  2018.3).
 
 ## Versión 18.08.2
 

@@ -853,6 +853,23 @@ msgstr "Không tìm thấy cửa sổ chính của Studio"
 msgid "Normal profile"
 msgstr "Hồ sơ bình thường"
 
+#. Translators: Message displayed when attempting to reset Studio add-on settings while an instant switch or time-based profile is active.
+msgid ""
+"An instant switch or time-based profile is active. Resetting Studio add-on "
+"settings means normal profile will become active and switch profile settings "
+"will be left in unpredictable state. Are you sure you wish to reset Studio "
+"add-on settings to factory defaults?"
+msgstr ""
+"Một hồ sơ chuyển nhanh hoặc hồ sơ theo thời gian đang hoạt động. Việc khôi "
+"phục các cài đặt của Studio add-on có nghĩa là hồ sơ bình thường sẽ được "
+"kích hoạt và các cài đặt chuyển hồ sơ sẽ còn trong trạng thái không xác "
+"định. Bạn có chắc chắn khôi phục các cài đặt Studio add-on về thiết lập mặc "
+"định của nhà sản xuất không?"
+
+#. Translators: The title of the confirmation dialog for Studio add-on settings reset.
+msgid "SPL Studio add-on reset"
+msgstr "Khôi phục cài đặt SPL Studio add-on"
+
 #. Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
 msgid "Add-on settings dialog is open, cannot switch profiles"
 msgstr "Hộp thoại cài đặt add-on đang mở, không thể chuyển hồ sơ"
@@ -1450,27 +1467,19 @@ msgstr "Thông báo và kết nối &metadata streaming"
 msgid "&Select the URL for metadata streaming upon request:"
 msgstr "&Chọn URL cho metadata streaming theo yêu cầu:"
 
-#. Translators: Title of a dialog to configure column announcements (order and what columns should be announced).
-msgid "Manage column announcements"
-msgstr "Quản lý thông báo cột"
+#. Translators: title of a panel to configure column announcements (order and what columns should be announced).
+msgid "Column announcements"
+msgstr "Thông báo các cột"
 
-#. Translators: Title of a dialog to configure columnn seleciton for Playlist Transcripts.
-msgid "Playlist transcript columns"
-msgstr "Cột bảng điểm danh sách phát"
+#. Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
+msgid "Announce columns in the &order shown on screen"
+msgstr "Thông báo các cột như được &sắp xếp hiẻn thị trên màn hình"
 
 #. Translators: Help text to select columns to be announced.
 msgid ""
 "&Select columns to be announced\n"
 "(artist and title are announced by default):"
 msgstr "&Chọn các cột để thông báo (ca sĩ và tựa đề mặc định được thông báo:"
-
-#. Translators: Help text to select columns to be announced.
-msgid ""
-"&Select columns to be included in playlist transcripts\n"
-"(artist and title are always included):"
-msgstr ""
-"&Chọn các cột để bao gồm trong bảng điểm danh sách phát (ca sĩ và tựa đề "
-"luôn được bao gồm:"
 
 #. wxPython 4 contains RearrangeList to allow item orders to be changed automatically.
 #. Because wxPython 3 doesn't include this, work around by using a variant of list box and move up/down buttons.
@@ -1487,18 +1496,6 @@ msgstr "Di chuyển &lên"
 msgid "Move &down"
 msgstr "Di chuyển &xuống"
 
-#. Translators: title of a panel to configure column announcements (order and what columns should be announced).
-msgid "Column announcements"
-msgstr "Thông báo các cột"
-
-#. Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
-msgid "Announce columns in the &order shown on screen"
-msgstr "Thông báo các cột như được &sắp xếp hiẻn thị trên màn hình"
-
-#. Translators: The label of a button to manage column announcements.
-msgid "&Manage track column announcements..."
-msgstr "&Quản lý thông báo cột của track..."
-
 #. Translators: the label for a setting in SPL add-on settings to toggle whether column headers should be included when announcing track information.
 msgid "Include column &headers when announcing track information"
 msgstr "Bao gồm cột và tiêu đề khi thông báo thông tin track"
@@ -1514,9 +1511,13 @@ msgstr "Bảng điểm danh sách phát"
 #. Translators: one of the transcript format options.
 #. self.transcriptFormatsList = playlistTranscriptsHelper.addLabeledControl(labelText, wx.Choice, choices=[_("ask me every time")]+[output[2] for output in splmisc.SPLPlaylistTranscriptFormats])
 #. self.transcriptFormatsList.SetSelection(self.availableTranscriptFormats.index(splconfig.SPLConfig["PlaylistTranscripts"]["TranscriptFormat"]))
-#. Translators: The label of a button to configure columns for playlist transcripts.
-msgid "Manage transcript columns..."
-msgstr "Quản lý các cột của bảng điểm..."
+#. Translators: Help text to select columns to be announced.
+msgid ""
+"&Select columns to be included in playlist transcripts\n"
+"(artist and title are always included):"
+msgstr ""
+"&Chọn các cột để bao gồm trong bảng điểm danh sách phát (ca sĩ và tựa đề "
+"luôn được bao gồm:"
 
 #. Translators: title of a panel to configure columns explorer settings.
 msgid "Columns explorer"
@@ -1670,23 +1671,6 @@ msgstr ""
 #. Translators: The title of the warning dialog.
 msgid "Warning"
 msgstr "Cảnh báo"
-
-#. Translators: Message displayed when attempting to reset Studio add-on settings while an instant switch or time-based profile is active.
-msgid ""
-"An instant switch or time-based profile is active. Resetting Studio add-on "
-"settings means normal profile will become active and switch profile settings "
-"will be left in unpredictable state. Are you sure you wish to reset Studio "
-"add-on settings to factory defaults?"
-msgstr ""
-"Một hồ sơ chuyển nhanh hoặc hồ sơ theo thời gian đang hoạt động. Việc khôi "
-"phục các cài đặt của Studio add-on có nghĩa là hồ sơ bình thường sẽ được "
-"kích hoạt và các cài đặt chuyển hồ sơ sẽ còn trong trạng thái không xác "
-"định. Bạn có chắc chắn khôi phục các cài đặt Studio add-on về thiết lập mặc "
-"định của nhà sản xuất không?"
-
-#. Translators: The title of the confirmation dialog for Studio add-on settings reset.
-msgid "SPL Studio add-on reset"
-msgstr "Khôi phục cài đặt SPL Studio add-on"
 
 #. Translators: A dialog message shown when settings were reset to defaults.
 msgid "Successfully applied default add-on settings."
@@ -1855,6 +1839,7 @@ msgstr "Hoạt động bản điểm:"
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
+#, fuzzy
 msgid ""
 "\n"
 "After entering SPL Controller, press:\n"
@@ -1874,7 +1859,9 @@ msgid ""
 "I: Announce listener count.\n"
 "Q: Announce Studio status information.\n"
 "R: Remaining time for the playing track.\n"
-"Shift+R: Library scan progress."
+"Shift+R: Library scan progress.\n"
+"Function keys and number row keys with or without Shift, Alt, and Control "
+"keys: Play carts."
 msgstr ""
 "\n"
 "Sau khi vào bộ điều khiển SPL, bấm:\n"
@@ -2139,6 +2126,18 @@ msgid ""
 msgstr ""
 "Cải thiện hỗ trợ cho StationPlaylist Studio.\n"
 "Ngoài ra là thêm các lệnh toàn cục cho studio từ bất cứ đâu."
+
+#~ msgid "Manage column announcements"
+#~ msgstr "Quản lý thông báo cột"
+
+#~ msgid "Playlist transcript columns"
+#~ msgstr "Cột bảng điểm danh sách phát"
+
+#~ msgid "&Manage track column announcements..."
+#~ msgstr "&Quản lý thông báo cột của track..."
+
+#~ msgid "Manage transcript columns..."
+#~ msgstr "Quản lý các cột của bảng điểm..."
 
 #~ msgid "Advanced options"
 #~ msgstr "Các tùy chọn nâng cao"
