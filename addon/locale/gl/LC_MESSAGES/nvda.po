@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2019-02-08 12:23+0100\n"
+"PO-Revision-Date: 2019-03-08 20:20+0100\n"
 "Last-Translator: Iván Novegil <ivan.novegil.cancelas@gmail.com>\n"
 "Language-Team: Add-ons translation team <oprisniki@gmail.com>\n"
 "Language: gl\n"
@@ -1876,7 +1876,6 @@ msgstr "Acción para a transcrición:"
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
-#, fuzzy
 msgid ""
 "\n"
 "After entering SPL Controller, press:\n"
@@ -1914,11 +1913,13 @@ msgstr ""
 "S: Deter co fade.\n"
 "T: Deter instantáneamente.\n"
 "C: Anuncia o nome e a duración da pista actualmente en reprodución.\n"
-"E: Anuncia se calquera codificador está a ser monitorizado.\n"
+"E: Anuncia se algún codificador está a ser monitorizado.\n"
 "I: anuncia o reconto de oíntes.\n"
 "Q: Anuncia información de estado do Studio.\n"
 "R: Tempo restante para a pista en reprodución.\n"
-"Shift+R: Progreso do escaneado da biblioteca."
+"Shift+R: Progreso do escaneado da biblioteca.\n"
+"Teclas de función e da fila de números con ou sen as teclas Shift, Control e "
+"Alt: Reproducir pisadores."
 
 #. Translators: Presented when Station Playlist Studio is not running.
 msgid "SPL Studio is not running."
