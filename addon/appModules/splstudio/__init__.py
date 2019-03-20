@@ -101,7 +101,11 @@ class SPLTrackItem(sysListView32.ListItem):
 
 	def _get_description(self):
 		# SysListView32.ListItem nullifies description, so resort to fetching it via IAccessible.
-		return self.IAccessibleObject.accDescription(self.IAccessibleChildID)
+		# 19.04/18.09.8-LTS: sometimes, description must be None because it is already dealing with what appears to be a SysListView32 object, resulting in COM error.
+		try:
+			return self.IAccessibleObject.accDescription(self.IAccessibleChildID)
+		except:
+			return ""
 
 	def script_moveToNextColumn(self, gesture):
 		if (self._curColumnNumber+1) == self.parent.columnCount:
