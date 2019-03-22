@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2019-01-11 12:33-0800\n"
+"PO-Revision-Date: 2019-03-15 16:22-0700\n"
 "Last-Translator: Adriani Botez <adriani.botez@gmail.com>\n"
 "Language-Team: Deutsch <bernd_dorer@yahoo.de>\n"
 "Language: de_CH\n"
@@ -2205,20 +2205,3 @@ msgstr ""
 "Verbessert die Unterstützung für Station Playlist Studio.\n"
 "Des weiteren fügt es Tastenkombinationen für das Studio aus beliebigen "
 "Programmen hinzu."
-
-#~ msgid "Manage column announcements"
-#~ msgstr "Anzeige von Spalten konfigurieren"
-
-#, fuzzy
-#~ msgid "Playlist transcript columns"
-#~ msgstr "Transkript-Wiedergabelisten"
-
-#~ msgid "&Manage track column announcements..."
-#~ msgstr "&Meldungen für Spalten von Titeln verwalten"
-
-#, fuzzy
-#~ msgid "Manage transcript columns..."
-#~ msgstr "&Meldungen für Spalten von Titeln verwalten"
-
-#~ msgid "Advanced options"
-#~ msgstr "Erweiterte Optionen"

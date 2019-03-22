@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 4.2\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2015-02-06 19:00+1000\n"
-"PO-Revision-Date: 2019-01-11 12:48-0800\n"
+"PO-Revision-Date: 2019-03-15 16:27-0700\n"
 "Last-Translator: Nikola Jović <wwenikola123@gmail.com>\n"
 "Language-Team: \n"
 "Language: sr\n"
@@ -2146,20 +2146,3 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist Studio.\n"
 "Takođe, dodaje globalne komande za studio bilo gde."
-
-#~ msgid "Manage column announcements"
-#~ msgstr "Upravljaj izgovaranjem kolona"
-
-#, fuzzy
-#~ msgid "Playlist transcript columns"
-#~ msgstr "Statistike liste zareprodukciju"
-
-#~ msgid "&Manage track column announcements..."
-#~ msgstr "&Upravljaj izgovaranjem kolona zapisa"
-
-#, fuzzy
-#~ msgid "Manage transcript columns..."
-#~ msgstr "&Upravljaj izgovaranjem kolona zapisa"
-
-#~ msgid "Advanced options"
-#~ msgstr "Napredne opcije"
