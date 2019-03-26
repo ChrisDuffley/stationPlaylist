@@ -195,6 +195,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Version 18.09.8-LTS
 
 * Various global commands such as entering SPL Controller and switching to Studio window will be turned off if NVDA is running in secure mode or as a Windows Store application.
+* In Creator, NVDA will no longer play error tones or appear to do nothing when focused on certain lists.
 
 ## Version 18.09.7-LTS
 
