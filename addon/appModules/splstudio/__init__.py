@@ -194,11 +194,14 @@ class SPLStudioTrackItem(SPLTrackItem):
 			self.announceTrackComment(0)
 		# 6.3: Catch an unusual case where screen order is off yet column order is same as screen order and NvDA is told to announce all columns.
 		# 17.04: Even if vertical column commands are performed, build description pieces for consistency.
-		if splconfig._shouldBuildDescriptionPieces():
+		# 19.06: have the column inclusion and order keys handy in order to avoid attribute lookup.
+		columnsToInclude = splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"]
+		columnOrder = splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"]
+		if (not splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"]
+		and (columnOrder != splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"] or len(columnsToInclude) != 17)):
 			descriptionPieces = []
-			columnsToInclude = splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"]
 			includeColumnHeaders = splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"]
-			for header in splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"]:
+			for header in columnOrder:
 				if header in columnsToInclude:
 					index = self.indexOf(header)
 					if index is None: continue # Header not found, mostly encountered in Studio 5.0x.
