@@ -1141,7 +1141,7 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 		# 6.1: Again convert list to set.
 		self.includedColumns = set(settings["ColumnAnnouncement"]["IncludedColumns"])
 		self.columnHeadersCheckbox.SetValue(settings["ColumnAnnouncement"]["IncludeColumnHeaders"])
-		super(ColumnAnnouncementsPanelEx, self).onPanelActivated()
+		super(ColumnAnnouncementsPanel, self).onPanelActivated()
 
 	def onPanelDeactivated(self):
 		selectedProfile = _selectedProfile
@@ -1154,7 +1154,7 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 		currentSettings["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.GetValue()
 		if currentSettings["ColumnAnnouncement"] != curProfile["ColumnAnnouncement"]:
 			self._curProfileSettings[selectedProfile] = dict(currentSettings)
-		super(ColumnAnnouncementsPanelEx, self).onPanelDeactivated()
+		super(ColumnAnnouncementsPanel, self).onPanelDeactivated()
 
 	def onSave(self):
 		selectedProfile = _selectedProfile
