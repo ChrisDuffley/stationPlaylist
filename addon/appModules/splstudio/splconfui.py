@@ -1231,8 +1231,8 @@ class PlaylistTranscriptsPanel(ColumnAnnouncementsBasePanel):
 
 	def onSave(self):
 		#splconfig.SPLConfig["PlaylistTranscripts"]["TranscriptFormat"] = self.availableTranscriptFormats[self.transcriptFormatsList.GetSelection()]
-		splconfig.SPLConfig["PlaylistTranscripts"]["ColumnOrder"] = list(self.columnOrder)
-		splconfig.SPLConfig["PlaylistTranscripts"]["IncludedColumns"] = set(self.includedColumns)
+		splconfig.SPLConfig["PlaylistTranscripts"]["ColumnOrder"] = self.trackColumns.GetItems()
+		splconfig.SPLConfig["PlaylistTranscripts"]["IncludedColumns"] = set(self.checkedColumns.GetCheckedStrings()) | {"Artist", "Title"}
 
 	def onDiscard(self):
 		# 6.1: Discard changes to included columns set.
