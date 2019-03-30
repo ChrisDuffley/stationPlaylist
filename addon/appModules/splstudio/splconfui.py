@@ -1081,9 +1081,9 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 
 	def makeSettings(self, settingsSizer):
 		colAnnouncementsHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
-		self.columnOrder = splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
 		# Without manual conversion below, it produces a rare bug where clicking cancel after changing column inclusion causes new set to be retained.
 		self.includedColumns = set(splconfig._SPLDefaults["ColumnAnnouncement"]["IncludedColumns"])
+		self.columnOrder = splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
 		# #77 (18.09-LTS): record temporary settings.
 		self._curProfileSettings = {}
 
@@ -1137,14 +1137,14 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 		if selectedProfile not in self._curProfileSettings: settings = dict(curProfile)
 		else: settings = dict(self._curProfileSettings[selectedProfile])
 		self.columnOrderCheckbox.SetValue(settings["ColumnAnnouncement"]["UseScreenColumnOrder"])
-		self.columnOrder = list(settings["ColumnAnnouncement"]["ColumnOrder"])
-		self.trackColumns.SetItems(self.columnOrder)
-		self.trackColumns.SetSelection(0)
 		# 6.1: Again convert list to set.
 		self.includedColumns = set(settings["ColumnAnnouncement"]["IncludedColumns"])
 		self.includedColumns.discard("Artist")
 		self.includedColumns.discard("Title")
 		self.checkedColumns.SetCheckedStrings(self.includedColumns)
+		self.columnOrder = list(settings["ColumnAnnouncement"]["ColumnOrder"])
+		self.trackColumns.SetItems(self.columnOrder)
+		self.trackColumns.SetSelection(0)
 		self.columnHeadersCheckbox.SetValue(settings["ColumnAnnouncement"]["IncludeColumnHeaders"])
 		super(ColumnAnnouncementsPanel, self).onPanelActivated()
 
@@ -1154,8 +1154,8 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
 		currentSettings = {"ColumnAnnouncement": {}}
 		currentSettings["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.GetValue()
-		currentSettings["ColumnAnnouncement"]["ColumnOrder"] = self.trackColumns.GetItems()
 		currentSettings["ColumnAnnouncement"]["IncludedColumns"] = set(self.checkedColumns.GetCheckedStrings()) | {"Artist", "Title"}
+		currentSettings["ColumnAnnouncement"]["ColumnOrder"] = self.trackColumns.GetItems()
 		currentSettings["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.GetValue()
 		if currentSettings["ColumnAnnouncement"] != curProfile["ColumnAnnouncement"]:
 			self._curProfileSettings[selectedProfile] = dict(currentSettings)
@@ -1166,8 +1166,8 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
 		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
 		curProfile["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
-		curProfile["ColumnAnnouncement"]["ColumnOrder"] = self.trackColumns.GetItems()
 		curProfile["ColumnAnnouncement"]["IncludedColumns"] = set(self.checkedColumns.GetCheckedStrings()) | {"Artist", "Title"}
+		curProfile["ColumnAnnouncement"]["ColumnOrder"] = self.trackColumns.GetItems()
 		curProfile["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.Value
 		self._curProfileSettings.clear()
 		if not _configApplyOnly: self._curProfileSettings = None
@@ -1188,9 +1188,9 @@ class PlaylistTranscriptsPanel(ColumnAnnouncementsBasePanel):
 
 		from . import splmisc
 		#self.transcriptFormat = splconfig.SPLConfig["PlaylistTranscripts"]["TranscriptFormat"]
-		self.columnOrder = splconfig.SPLConfig["PlaylistTranscripts"]["ColumnOrder"]
 		# Again manually create a new set.
 		self.includedColumns = set(splconfig.SPLConfig["PlaylistTranscripts"]["IncludedColumns"])
+		self.columnOrder = splconfig.SPLConfig["PlaylistTranscripts"]["ColumnOrder"]
 		#self.availableTranscriptFormats = [output[0] for output in splmisc.SPLPlaylistTranscriptFormats]
 		#self.availableTranscriptFormats.insert(0, "")
 
@@ -1236,8 +1236,8 @@ class PlaylistTranscriptsPanel(ColumnAnnouncementsBasePanel):
 
 	def onSave(self):
 		#splconfig.SPLConfig["PlaylistTranscripts"]["TranscriptFormat"] = self.availableTranscriptFormats[self.transcriptFormatsList.GetSelection()]
-		splconfig.SPLConfig["PlaylistTranscripts"]["ColumnOrder"] = self.trackColumns.GetItems()
 		splconfig.SPLConfig["PlaylistTranscripts"]["IncludedColumns"] = set(self.checkedColumns.GetCheckedStrings()) | {"Artist", "Title"}
+		splconfig.SPLConfig["PlaylistTranscripts"]["ColumnOrder"] = self.trackColumns.GetItems()
 
 	def onDiscard(self):
 		# 6.1: Discard changes to included columns set.
