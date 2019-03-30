@@ -1138,8 +1138,13 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 		else: settings = dict(self._curProfileSettings[selectedProfile])
 		self.columnOrderCheckbox.SetValue(settings["ColumnAnnouncement"]["UseScreenColumnOrder"])
 		self.columnOrder = list(settings["ColumnAnnouncement"]["ColumnOrder"])
+		self.trackColumns.SetItems(self.columnOrder)
+		self.trackColumns.SetSelection(0)
 		# 6.1: Again convert list to set.
 		self.includedColumns = set(settings["ColumnAnnouncement"]["IncludedColumns"])
+		self.includedColumns.discard("Artist")
+		self.includedColumns.discard("Title")
+		self.checkedColumns.SetCheckedStrings(self.includedColumns)
 		self.columnHeadersCheckbox.SetValue(settings["ColumnAnnouncement"]["IncludeColumnHeaders"])
 		super(ColumnAnnouncementsPanel, self).onPanelActivated()
 
@@ -1149,8 +1154,8 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
 		currentSettings = {"ColumnAnnouncement": {}}
 		currentSettings["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.GetValue()
-		currentSettings["ColumnAnnouncement"]["ColumnOrder"] = list(self.columnOrder)
-		currentSettings["ColumnAnnouncement"]["IncludedColumns"] = set(self.includedColumns)
+		currentSettings["ColumnAnnouncement"]["ColumnOrder"] = self.trackColumns.GetItems()
+		currentSettings["ColumnAnnouncement"]["IncludedColumns"] = set(self.checkedColumns.GetCheckedStrings()) | {"Artist", "Title"}
 		currentSettings["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.GetValue()
 		if currentSettings["ColumnAnnouncement"] != curProfile["ColumnAnnouncement"]:
 			self._curProfileSettings[selectedProfile] = dict(currentSettings)
@@ -1161,8 +1166,8 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
 		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
 		curProfile["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
-		curProfile["ColumnAnnouncement"]["ColumnOrder"] = self.columnOrder
-		curProfile["ColumnAnnouncement"]["IncludedColumns"] = self.includedColumns
+		curProfile["ColumnAnnouncement"]["ColumnOrder"] = self.trackColumns.GetItems()
+		curProfile["ColumnAnnouncement"]["IncludedColumns"] = set(self.checkedColumns.GetCheckedStrings()) | {"Artist", "Title"}
 		curProfile["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.Value
 		self._curProfileSettings.clear()
 		if not _configApplyOnly: self._curProfileSettings = None
