@@ -12,7 +12,7 @@ For more information about the add-on, read the [add-on guide][4]. For developer
 
 IMPORTANT NOTES:
 
-* This add-on requires NVDA 2018.4 or later and StationPlaylist Studio 5.11 or later.
+* This add-on requires NVDA 2018.4 or later and StationPlaylist Studio 5.20 or later.
 * If using Windows 8 or later, for best experience, disable audio ducking mode.
 * Starting from 2018, [changelogs for old add-on releases][5] will be found on GitHub. This add-on readme will list changes from version 7.0 (2016 onwards).
 * Certain add-on features won't work under some conditions, including running NVDA in secure mode.
@@ -191,6 +191,10 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 ## SPL touch mode
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
+
+## Version 19.06
+
+Version 19.06 supports SPL Studio 5.20 and later.
 
 ## Version 19.04.1
 
