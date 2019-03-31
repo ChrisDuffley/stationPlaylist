@@ -7,7 +7,7 @@
 import appModuleHandler
 import eventHandler
 from winUser import user32
-from splstudio import spldebugging
+from .splstudio import spldebugging
 
 class AppModule(appModuleHandler.AppModule):
 
