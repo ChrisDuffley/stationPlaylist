@@ -42,7 +42,7 @@ SPLLineIn = 18
 SPLCartPlayer = 19
 SPLLibraryScanCount = 32
 SPLListenerCount = 35
-SPLStatusInfo = 39 #Studio 5.20 and later.
+SPLStatusInfo = 39
 SPL_TrackPlaybackStatus = 104
 SPLCurTrackPlaybackTime = 105
 
@@ -257,29 +257,20 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			ui.message(_("SPL Studio is not running."))
 			self.finish()
 			return
+		# Studio 5.20 and later allows fetching status bar info from anywhere via Studio API, including playback and automation status.
 		# For consistency reasons (because of the Studio status bar), messages in this method will remain in English.
 		statusInfo = []
-		# 17.04: For Studio 5.10 and up, announce playback and automation status.
 		playingNow = sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus)
 		statusInfo.append("Play status: playing" if playingNow else "Play status: stopped")
-		# For automation, Studio 5.11 and earlier does not have an easy way to detect this flag, thus resort to using playback status.
-		# 17.08: relaxed by locating the Studio foreground window and returning status bar messages (same procedure as the app module/SPL Assistant).
-		if sendMessage(SPLWin, 1024, 0, SPLVersion) < 520:
-			studioAppMod = getNVDAObjectFromEvent(user32.FindWindowW(u"TStudioForm", None), OBJID_CLIENT, 0).appModule
-			statusBar = studioAppMod.status(studioAppMod.SPLPlayStatus)
-			for index in range(1, 6):
-				statusInfo.append(statusBar.getChild(index).name)
-		else:
-			# 5.20 and later.
-			statusInfo.append("Automation On" if sendMessage(SPLWin, 1024, 1, SPLStatusInfo) else "Automation Off")
-			statusInfo.append("Microphone On" if sendMessage(SPLWin, 1024, 2, SPLStatusInfo) else "Microphone Off")
-			statusInfo.append("Line-In On" if sendMessage(SPLWin, 1024, 3, SPLStatusInfo) else "Line-In Off")
-			statusInfo.append("Record to file On" if sendMessage(SPLWin, 1024, 4, SPLStatusInfo) else "Record to file Off")
-			cartEdit = sendMessage(SPLWin, 1024, 5, SPLStatusInfo)
-			cartInsert = sendMessage(SPLWin, 1024, 6, SPLStatusInfo)
-			if cartEdit: statusInfo.append("Cart Edit On")
-			elif not cartEdit and cartInsert: statusInfo.append("Cart Insert On")
-			else: statusInfo.append("Cart Edit Off")
+		statusInfo.append("Automation On" if sendMessage(SPLWin, 1024, 1, SPLStatusInfo) else "Automation Off")
+		statusInfo.append("Microphone On" if sendMessage(SPLWin, 1024, 2, SPLStatusInfo) else "Microphone Off")
+		statusInfo.append("Line-In On" if sendMessage(SPLWin, 1024, 3, SPLStatusInfo) else "Line-In Off")
+		statusInfo.append("Record to file On" if sendMessage(SPLWin, 1024, 4, SPLStatusInfo) else "Record to file Off")
+		cartEdit = sendMessage(SPLWin, 1024, 5, SPLStatusInfo)
+		cartInsert = sendMessage(SPLWin, 1024, 6, SPLStatusInfo)
+		if cartEdit: statusInfo.append("Cart Edit On")
+		elif not cartEdit and cartInsert: statusInfo.append("Cart Insert On")
+		else: statusInfo.append("Cart Edit Off")
 		ui.message("; ".join(statusInfo))
 		self.finish()
 	# Translators: Input help message for a SPL Controller command.
