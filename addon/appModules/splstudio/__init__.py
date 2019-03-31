@@ -2013,14 +2013,11 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_sayCartEditStatus(self, gesture):
 		# 16.12: Because cart edit status also shows cart insert status, verbosity control will not apply.
-		if self.productVersion >= "5.20":
-			cartEdit = splbase.studioAPI(5, 39)
-			cartInsert = splbase.studioAPI(6, 39)
-			if cartEdit: ui.message("Cart Edit On")
-			elif not cartEdit and cartInsert: ui.message("Cart Insert On")
-			else: ui.message("Cart Edit Off")
-		else:
-			ui.message(self.status(self.SPLPlayStatus).getChild(5).name)
+		cartEdit = splbase.studioAPI(5, 39)
+		cartInsert = splbase.studioAPI(6, 39)
+		if cartEdit: ui.message("Cart Edit On")
+		elif not cartEdit and cartInsert: ui.message("Cart Insert On")
+		else: ui.message("Cart Edit Off")
 
 	def script_sayHourTrackDuration(self, gesture):
 		self.announceTime(splbase.studioAPI(0, 27))
