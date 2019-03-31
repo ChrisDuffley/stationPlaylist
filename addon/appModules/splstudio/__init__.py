@@ -2110,27 +2110,17 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_sayScheduledTime(self, gesture):
 		# 7.0: Scheduled is the time originally specified in Studio, scheduled to play is broadcast time based on current time.
-		# 16.12: use Studio API if using 5.20.
-		if self.productVersion >= "5.20":
-			# Sometimes, hour markers return seconds.999 due to rounding error, hence this must be taken care of here.
-			trackStarts = divmod(splbase.studioAPI(3, 27), 1000)
-			# For this method, all three components of time display (hour, minute, second) must be present.
-			# In case it is midnight (0.0 but sometimes shown as 86399.999 due to rounding error), just say "midnight".
-			if trackStarts in ((86399, 999), (0, 0)): ui.message("00:00:00")
-			else: self.announceTime(trackStarts[0]+1 if trackStarts[1] == 999 else trackStarts[0], ms=False)
-		else:
-			obj = self.status(self.SPLScheduled).firstChild
-			ui.message(obj.name)
+		# Sometimes, hour markers return seconds.999 due to rounding error, hence this must be taken care of here.
+		trackStarts = divmod(splbase.studioAPI(3, 27), 1000)
+		# For this method, all three components of time display (hour, minute, second) must be present.
+		# In case it is midnight (0.0 but sometimes shown as 86399.999 due to rounding error), just say "midnight".
+		if trackStarts in ((86399, 999), (0, 0)): ui.message("00:00:00")
+		else: self.announceTime(trackStarts[0]+1 if trackStarts[1] == 999 else trackStarts[0], ms=False)
 
 	def script_sayScheduledToPlay(self, gesture):
 		# 7.0: This script announces length of time remaining until the selected track will play.
-		# 16.12: Use Studio 5.20 API (faster and more reliable).
-		if self.productVersion >= "5.20":
-			# This is the only time hour announcement should not be used in order to conform to what's displayed on screen.
-			self.announceTime(splbase.studioAPI(4, 27), includeHours=False)
-		else:
-			obj = self.status(self.SPLScheduledToPlay).firstChild
-			ui.message(obj.name)
+		# This is the only time hour announcement should not be used in order to conform to what's displayed on screen.
+		self.announceTime(splbase.studioAPI(4, 27), includeHours=False)
 
 	def script_sayListenerCount(self, gesture):
 		obj = self.status(self.SPLSystemStatus).getChild(3)
