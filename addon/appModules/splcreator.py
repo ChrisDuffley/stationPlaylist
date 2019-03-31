@@ -10,7 +10,7 @@ import tones
 import ui
 import scriptHandler
 from NVDAObjects.IAccessible import IAccessible, sysListView32
-from splstudio import splconfig, SPLTrackItem
+from .splstudio import splconfig, SPLTrackItem
 addonHandler.initTranslation()
 
 # Return a tuple of column headers.
