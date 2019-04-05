@@ -333,6 +333,18 @@ un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
 
+## Version 19.04/18.09.8-LTS
+
+* Various global commands such as entering SPL Controller and switching to
+  Studio window will be turned off if NVDA is running in secure mode or as a
+  Windows Store application.
+* 19.04: in column announcements and playlist transcripts panels (add-on
+  settings), custom column inclusion/order controls will be visible up front
+  instead of having to select a button to open a dialog to configure these
+  settings.
+* In Creator, NVDA will no longer play error tones or appear to do nothing
+  when focused on certain lists.
+
 ## Version 19.03/18.09.7-LTS
 
 * L'appui sur Contrôle+NVDA+R pour recharger les paramètres sauvegardés

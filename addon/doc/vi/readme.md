@@ -283,6 +283,18 @@ NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio t
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
 
+## Version 19.04/18.09.8-LTS
+
+* Various global commands such as entering SPL Controller and switching to
+  Studio window will be turned off if NVDA is running in secure mode or as a
+  Windows Store application.
+* 19.04: in column announcements and playlist transcripts panels (add-on
+  settings), custom column inclusion/order controls will be visible up front
+  instead of having to select a button to open a dialog to configure these
+  settings.
+* In Creator, NVDA will no longer play error tones or appear to do nothing
+  when focused on certain lists.
+
 ## Phiên bản 19.03/18.09.7-LTS
 
 * Bấm Control+NVDA+R để gọi lại các thiết lập đã lưu giờ đây cũng sẽ gọi lại
