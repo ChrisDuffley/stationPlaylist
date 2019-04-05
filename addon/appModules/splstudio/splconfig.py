@@ -1033,6 +1033,12 @@ def shouldSave(profile):
 # Close config database if needed.
 def closeConfig(splComponent):
 	global SPLConfig, _SPLCache
+	# #99 (19.06/18.09.9-LTS): if more than one instance of a given SPL component executable is running, do not remove the component from the components registry.
+	import appModuleHandler
+	# The below loop will be run from the component app module's terminate method, but before that, the app module associated with the component would have been deleted from the running table.
+	# This is subject to change based on NVDA Core changes.
+	for app in appModuleHandler.runningTable.values():
+		if app.appName == splComponent: return
 	SPLConfig.splComponents.discard(splComponent)
 	if len(SPLConfig.splComponents) == 0:
 		SPLConfig.save()
