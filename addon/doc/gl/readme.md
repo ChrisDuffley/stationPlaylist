@@ -320,6 +320,18 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
+## Versión 19.04/18.09.8-LTS
+
+* Varios comandos globais como acceder a SPL Controller e saltar á xanela de
+  Studio desactivaranse se NVDA se está a executar en modo seguro ou como
+  aplicación da Windows Store.
+* 19.04: nos paneis de anunciado de columnas e transcricións de listas de
+  reprodución (opcións do complemento), os controis de inclusión/orde de
+  columnas persoalizada estarán en primeiro plano en lugar de ter que
+  seleccionar un botón para abrir un diálogo onde configurar estes axustes.
+* En Creator, NVDA xa non reproducirá tons de erro nin aparentará non facer
+  nada ao enfocar certas listaxes.
+
 ## Versión 19.03/18.09.7-LTS
 
 * Ao priemer Control+NVDA+R para recargar as configuracións gardadas tamén
