@@ -8,12 +8,8 @@
 import sys
 import os
 import six
-if sys.version.startswith("3"):
-	from io import StringIO
-	import pickle
-else:
-	from cStringIO import StringIO
-	import cPickle as pickle
+from io import StringIO
+import pickle
 from configobj import ConfigObj, get_extra_values
 # ConfigObj 5.1.0 and later integrates validate module.
 from configobj.validate import Validator
