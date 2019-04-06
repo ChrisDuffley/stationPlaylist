@@ -5,7 +5,6 @@
 # For miscellaneous dialogs and tool, see SPLMisc module.
 # For UI surrounding this module, see splconfui module.
 
-import sys
 import os
 import six
 from io import StringIO
