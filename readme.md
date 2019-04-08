@@ -196,7 +196,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 Version 19.06 supports SPL Studio 5.20 and later.
 
-* While runing vairous Studio apps such as Track Tool and Studio, if a second instance of the app is started and exits, NVDA will no longer cause Studio app module to produce errors and stop working correctly.
+* While running various Studio apps such as Track Tool and Studio, if a second instance of the app is started and then exits, NVDA will no longer cause Studio add-on configuration routines to produce errors and stop working correctly.
 
 ## Version 19.04.1
 
