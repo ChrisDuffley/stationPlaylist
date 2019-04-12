@@ -9,6 +9,21 @@ import appModuleHandler
 import controlTypes
 from NVDAObjects.IAccessible import IAccessible
 
+# For SPL encoders at least, control iD's are different, which allows labels to be generated easily.
+encoderSettingsLabels= {
+	1008: "Quality",
+	1009: "Sample Rate",
+	1010: "Channels",
+	1013: "Server IP",
+	1014: "Server Port",
+	1015: "Encoder Password",
+	1016: "Mountpoint",
+	1017: "Server Type",
+	1018: "Encoder Type",
+	1019: "Reconnect Seconds",
+	1020: "Encoder Username",
+}
+
 class TEditNoLabel(IAccessible):
 
 	def _get_name(self):
@@ -16,6 +31,11 @@ class TEditNoLabel(IAccessible):
 
 
 class AppModule(appModuleHandler.AppModule):
+
+	def event_NVDAObject_init(self, obj):
+		encoderSettingsLabel = encoderSettingsLabels.get(obj.windowControlID)
+		if not obj.name and encoderSettingsLabel:
+			obj.name = encoderSettingsLabel
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		# Try adding labels written to the screen in case edit fields are encountered.
