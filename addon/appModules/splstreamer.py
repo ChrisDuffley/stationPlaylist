@@ -2,7 +2,7 @@
 # An app module and global plugin package for NVDA
 # Copyright 2019 Joseph Lee and others, released under GPL.
 
-# Support for StationPlaylsit Straemer
+# Support for StationPlaylist Straemer
 # A standalone app used for broadcast streaming when using something other than Studio for broadcasting.
 
 import appModuleHandler
