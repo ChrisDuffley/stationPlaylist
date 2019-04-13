@@ -20,8 +20,8 @@ encoderSettingsLabels= {
 	1016: "Mountpoint",
 	1017: "Server Type",
 	1018: "Encoder Type",
-	1019: "Reconnect Seconds",
-	1020: "Encoder Username",
+	1019: ("Reconnect Seconds", "Server Name"),
+	1020: ("Encoder Username", "Server Description"),
 }
 
 class TEditNoLabel(IAccessible):
@@ -33,9 +33,20 @@ class TEditNoLabel(IAccessible):
 class AppModule(appModuleHandler.AppModule):
 
 	def event_NVDAObject_init(self, obj):
-		encoderSettingsLabel = encoderSettingsLabels.get(obj.windowControlID)
-		if not obj.name and encoderSettingsLabel:
-			obj.name = encoderSettingsLabel
+		if not obj.name:
+			# Same ID's are used for two different things, distinguishable by looking at which configuration ab is active.
+			windowControlID = obj.windowControlID
+			if windowControlID in (1019, 1020):
+				# Labels are split between parent window and the actual control, thus attribute error is seen.
+				try:
+					configTab = obj.parent.parent.previous.previous.previous.firstChild
+				except AttributeError:
+					configTab = obj.parent.parent.parent.previous.previous.previous.firstChild
+				obj.name = encoderSettingsLabels[windowControlID][0 if controlTypes.STATE_SELECTED in configTab.firstChild.states else 1]
+			else:
+				encoderSettingsLabel = encoderSettingsLabels.get(obj.windowControlID)
+				if encoderSettingsLabel:
+					obj.name = encoderSettingsLabel
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		# Try adding labels written to the screen in case edit fields are encountered.
