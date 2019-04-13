@@ -192,6 +192,10 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 18.09.9-LTS
+
+* While running various Studio apps such as Track Tool and Studio, if a second instance of the app is started and then exits, NVDA will no longer cause Studio add-on configuration routines to produce errors and stop working correctly.
+
 ## Version 18.09.8-LTS
 
 * Various global commands such as entering SPL Controller and switching to Studio window will be turned off if NVDA is running in secure mode or as a Windows Store application.
