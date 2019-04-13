@@ -4,6 +4,7 @@
 # SPL Audio Processing Engine
 
 import appModuleHandler
+import controlTypes
 
 # For SPL encoder config screen at least, control iD's are different, which allows labels to be generated easily.
 encoderSettingsLabels= {
