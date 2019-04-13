@@ -23,7 +23,7 @@ encoderSettingsLabels= {
 class AppModule(appModuleHandler.AppModule):
 
 	def event_NVDAObject_init(self, obj):
-		if not obj.name:
+		if not obj.name and obj.role != controlTypes.ROLE_WINDOW:
 			# Same ID's are used for two different things, distinguishable by looking at which configuration ab is active.
 			windowControlID = obj.windowControlID
 			if windowControlID in (1019, 1020):
@@ -32,7 +32,10 @@ class AppModule(appModuleHandler.AppModule):
 					configTab = obj.parent.parent.previous.previous.previous.firstChild
 				except AttributeError:
 					configTab = obj.parent.parent.parent.previous.previous.previous.firstChild
-				obj.name = encoderSettingsLabels[windowControlID][0 if controlTypes.STATE_SELECTED in configTab.firstChild.states else 1]
+				try:
+					obj.name = encoderSettingsLabels[windowControlID][0 if controlTypes.STATE_SELECTED in configTab.firstChild.states else 1]
+				except AttributeError:
+					pass
 			else:
 				encoderSettingsLabel = encoderSettingsLabels.get(obj.windowControlID)
 				if encoderSettingsLabel:
