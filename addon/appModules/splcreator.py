@@ -60,7 +60,7 @@ class SPLCreatorItem(SPLTrackItem):
 	def exploreColumns(self):
 		return splconfig.SPLConfig["General"]["ExploreColumnsCreator"]
 
-	__gestures={
+	__gestures = {
 		"kb:control+alt+downArrow": None,
 		"kb:control+alt+upArrow": None,
 	}
