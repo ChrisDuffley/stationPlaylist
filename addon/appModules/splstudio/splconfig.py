@@ -108,7 +108,7 @@ WelcomeDialog = boolean(default=true)
 confspec.newlines = "\r\n"
 SPLConfig = None
 # The following settings can be changed in profiles:
-_mutatableSettings=("IntroOutroAlarms", "MicrophoneAlarm", "MetadataStreaming", "ColumnAnnouncement")
+_mutatableSettings = ("IntroOutroAlarms", "MicrophoneAlarm", "MetadataStreaming", "ColumnAnnouncement")
 # 7.0: Profile-specific confspec (might be removed once a more optimal way to validate sections is found).
 # Dictionary comprehension is better here.
 confspecprofiles = {sect:key for sect, key in confspec.items() if sect in _mutatableSettings}
@@ -322,7 +322,7 @@ class ConfigHub(ChainMap):
 		fields = _SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
 		invalidFields = 0
 		for field in fields:
-			if field not in columnOrder: invalidFields+=1
+			if field not in columnOrder: invalidFields += 1
 		if invalidFields or len(columnOrder) != 17:
 			if profileName in _configLoadStatus and _configLoadStatus[profileName] == "partialReset":
 				_configLoadStatus[profileName] = "partialAndColumnOrderReset"
@@ -696,7 +696,7 @@ def runConfigErrorDialog(errorText, errorType):
 	wx.CallAfter(gui.messageBox, errorText, errorType, wx.OK|wx.ICON_ERROR)
 
 # In case one or more profiles had config issues, look up the error message from the following map.
-_configErrors ={
+_configErrors = {
 	"fileReset":"Settings reset to defaults due to configuration file coruption",
 	"completeReset":"All settings reset to defaults",
 	"partialReset":"Some settings reset to defaults",
@@ -1149,7 +1149,7 @@ class AudioDuckingReminder(wx.Dialog):
 		mainSizer.Add(label,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
 		# Translators: A checkbox to turn off audio ducking reminder message.
-		self.audioDuckingReminder=wx.CheckBox(self,wx.ID_ANY,label=_("Do not show this message again"))
+		self.audioDuckingReminder = wx.CheckBox(self,wx.ID_ANY,label=_("Do not show this message again"))
 		self.audioDuckingReminder.SetValue(not SPLConfig["Startup"]["AudioDuckingReminder"])
 		mainSizer.Add(self.audioDuckingReminder, border=10,flag=wx.TOP)
 
@@ -1170,7 +1170,7 @@ class AudioDuckingReminder(wx.Dialog):
 class WelcomeDialog(wx.Dialog):
 
 	# Translators: A message giving basic information about the add-on.
-	welcomeMessage=_("""Welcome to StationPlaylist Studio add-on for NVDA,
+	welcomeMessage = _("""Welcome to StationPlaylist Studio add-on for NVDA,
 your companion to broadcasting with SPL Studio using NVDA screen reader.
 
 Highlights of StationPlaylist Studio add-on include:
@@ -1199,7 +1199,7 @@ Thank you.""")
 		mainSizer.Add(label,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
 
 		# Translators: A checkbox to show welcome dialog.
-		self.showWelcomeDialog=wx.CheckBox(self,wx.ID_ANY,label=_("Show welcome dialog when I start Studio"))
+		self.showWelcomeDialog = wx.CheckBox(self,wx.ID_ANY,label=_("Show welcome dialog when I start Studio"))
 		self.showWelcomeDialog.SetValue(SPLConfig["Startup"]["WelcomeDialog"])
 		mainSizer.Add(self.showWelcomeDialog, border=10,flag=wx.TOP)
 
@@ -1243,7 +1243,7 @@ def message(category, value):
 	verbosityLevels = ("beginner", "advanced")
 	ui.message(messagePool[category][value][verbosityLevels.index(SPLConfig["General"]["MessageVerbosity"])])
 
-messagePool={
+messagePool = {
 	"BeepAnnounce":
 		{True:
 			# Translators: Reported when status announcement is set to beeps in SPL Studio.
