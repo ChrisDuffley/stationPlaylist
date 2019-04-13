@@ -10,7 +10,7 @@ import controlTypes
 from NVDAObjects.IAccessible import IAccessible
 
 # For SPL encoder config screen at least, control iD's are different, which allows labels to be generated easily.
-encoderSettingsLabels= {
+encoderSettingsLabels = {
 	1008: "Quality",
 	1009: "Sample Rate",
 	1010: "Channels",
