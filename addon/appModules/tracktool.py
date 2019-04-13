@@ -72,7 +72,7 @@ class TrackToolItem(SPLTrackItem):
 	def exploreColumns(self):
 		return splconfig.SPLConfig["General"]["ExploreColumnsTT"]
 
-	__gestures={
+	__gestures = {
 		"kb:control+alt+downArrow": None,
 		"kb:control+alt+upArrow": None,
 	}
