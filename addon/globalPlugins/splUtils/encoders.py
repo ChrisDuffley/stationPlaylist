@@ -28,8 +28,8 @@ SPLBackgroundMonitor = set()
 SPLNoConnectionTone = set()
 
 # Customized for each encoder type.
-SAMStreamLabels= {} # A dictionary to store custom labels for each stream.
-SPLStreamLabels= {} # Same as above but optimized for SPL encoders (Studio 5.00 and later).
+SAMStreamLabels = {} # A dictionary to store custom labels for each stream.
+SPLStreamLabels = {} # Same as above but optimized for SPL encoders (Studio 5.00 and later).
 SAMMonitorThreads = {}
 SPLMonitorThreads = {}
 encoderMonCount = {"SAM":0, "SPL":0}
@@ -317,7 +317,7 @@ class Encoder(IAccessible):
 			ui.message(_("Do not switch to Studio after connecting"))
 		self._setFlags(self.encoderId, not self.focusToStudio, SPLFocusToStudio, "FocusToStudio")
 	# Translators: Input help mode message in SAM Encoder window.
-	script_toggleFocusToStudio.__doc__=_("Toggles whether NVDA will switch to Studio when connected to a streaming server.")
+	script_toggleFocusToStudio.__doc__ = _("Toggles whether NVDA will switch to Studio when connected to a streaming server.")
 
 	def script_togglePlay(self, gesture):
 		if not self.playAfterConnecting:
@@ -328,10 +328,10 @@ class Encoder(IAccessible):
 			ui.message(_("Do not play first track after connecting"))
 		self._setFlags(self.encoderId, not self.playAfterConnecting, SPLPlayAfterConnecting, "PlayAfterConnecting")
 	# Translators: Input help mode message in SAM Encoder window.
-	script_togglePlay.__doc__=_("Toggles whether Studio will play the first song when connected to a streaming server.")
+	script_togglePlay.__doc__ = _("Toggles whether Studio will play the first song when connected to a streaming server.")
 
 	def script_toggleBackgroundEncoderMonitor(self, gesture):
-		if scriptHandler.getLastScriptRepeatCount()==0:
+		if scriptHandler.getLastScriptRepeatCount() == 0:
 			if not self.backgroundMonitor:
 				encoderMonCount[self.encoderType] += 1 # Multiple encoders.
 				# Translators: Presented when toggling the setting to monitor the selected encoder.
@@ -354,7 +354,7 @@ class Encoder(IAccessible):
 			# Translators: Announced when background encoder monitoring is canceled.
 			ui.message(_("Encoder monitoring canceled"))
 	# Translators: Input help mode message in SAM Encoder window.
-	script_toggleBackgroundEncoderMonitor.__doc__=_("Toggles whether NVDA will monitor the selected encoder in the background.")
+	script_toggleBackgroundEncoderMonitor.__doc__ = _("Toggles whether NVDA will monitor the selected encoder in the background.")
 
 	def script_streamLabeler(self, gesture):
 		curStreamLabel, title = self.getStreamLabel(getTitle=True)
@@ -373,7 +373,7 @@ class Encoder(IAccessible):
 				else: self.setStreamLabel(newStreamLabel)
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message in SAM Encoder window.
-	script_streamLabeler.__doc__=_("Opens a dialog to label the selected encoder.")
+	script_streamLabeler.__doc__ = _("Opens a dialog to label the selected encoder.")
 
 	def removeStreamConfig(self, pos):
 		# An application of map successor algorithm.
@@ -432,7 +432,7 @@ class Encoder(IAccessible):
 				self.removeStreamConfig(dlg.GetStringSelection())
 		gui.runScriptModalDialog(dlg, callback)
 	# Translators: Input help mode message in SAM Encoder window.
-	script_streamLabelEraser.__doc__=_("Opens a dialog to erase stream labels and settings from an encoder that was deleted.")
+	script_streamLabelEraser.__doc__ = _("Opens a dialog to erase stream labels and settings from an encoder that was deleted.")
 
 	# stream settings.
 	def script_encoderSettings(self, gesture):
@@ -447,20 +447,20 @@ class Encoder(IAccessible):
 			# Translators: Text of the dialog when another alarm dialog is open.
 			wx.CallAfter(gui.messageBox, _("Another encoder settings dialog is open."),translate("Error"),style=wx.OK | wx.ICON_ERROR)
 	# Translators: Input help mode message for a command in Station Playlist Studio.
-	script_encoderSettings.__doc__=_("Shows encoder configuration dialog to configure various encoder settings such as stream label.")
-	script_encoderSettings.category=_("Station Playlist Studio")
+	script_encoderSettings.__doc__ = _("Shows encoder configuration dialog to configure various encoder settings such as stream label.")
+	script_encoderSettings.category = _("Station Playlist Studio")
 
 	# Announce complete time including seconds (slight change from global commands version).
 	def script_encoderDateTime(self, gesture):
 		import winKernel
-		if scriptHandler.getLastScriptRepeatCount()==0:
-			text=winKernel.GetTimeFormat(winKernel.LOCALE_USER_DEFAULT, 0, None, None)
+		if scriptHandler.getLastScriptRepeatCount() == 0:
+			text = winKernel.GetTimeFormat(winKernel.LOCALE_USER_DEFAULT, 0, None, None)
 		else:
-			text=winKernel.GetDateFormat(winKernel.LOCALE_USER_DEFAULT, winKernel.DATE_LONGDATE, None, None)
+			text = winKernel.GetDateFormat(winKernel.LOCALE_USER_DEFAULT, winKernel.DATE_LONGDATE, None, None)
 		ui.message(text)
 	# Translators: Input help mode message for report date and time command.
-	script_encoderDateTime.__doc__=_("If pressed once, reports the current time including seconds. If pressed twice, reports the current date")
-	script_encoderDateTime.category=_("Station Playlist Studio")
+	script_encoderDateTime.__doc__ = _("If pressed once, reports the current time including seconds. If pressed twice, reports the current date")
+	script_encoderDateTime.category = _("Station Playlist Studio")
 
 	# Various column announcement scripts.
 	# This base class implements encoder position and stream labels.
@@ -505,7 +505,7 @@ class Encoder(IAccessible):
 				pass
 		super(Encoder, self).reportFocus()
 
-	__gestures={
+	__gestures = {
 		"kb:f11":"toggleFocusToStudio",
 		"kb:shift+f11":"togglePlay",
 		"kb:control+f11":"toggleBackgroundEncoderMonitor",
@@ -570,7 +570,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 					toneCounter = 0
 			elif messageCache.startswith("Error"):
 				# Announce the description of the error.
-				if connecting: connecting= False
+				if connecting: connecting = False
 				if not error:
 					error = True
 					toneCounter = 0
@@ -595,7 +595,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 				if alreadyEncoding: alreadyEncoding = False
 				if encoding: encoding = False
 				elif "Error" not in self.description and error: error = False
-				toneCounter+=1
+				toneCounter += 1
 				if toneCounter%250 == 0 and self.connectionTone:
 					tones.beep(500, 50)
 			if connecting: continue
@@ -621,7 +621,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 	def _samContextMenu(self, pos):
 		def _samContextMenuActivate(pos):
 			speech.cancelSpeech()
-			focus =api.getFocusObject()
+			focus = api.getFocusObject()
 			focus.children[pos].doAction()
 		import keyboardHandler
 		contextMenu = keyboardHandler.KeyboardInputGesture.fromName("applications")
@@ -686,7 +686,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 		streamLabels["SAMEncoders"] = SAMStreamLabels
 		streamLabels.write()
 
-	__gestures={
+	__gestures = {
 		"kb:f9":"connect",
 		"kb:control+f9":"connectAll",
 		"kb:f10":"disconnect",
@@ -744,7 +744,7 @@ class SPLEncoder(Encoder):
 					attempt += 1
 					if attempt%250 == 0 and self.connectionTone:
 						tones.beep(500, 50)
-						if attempt>= 500 and statChild.name == "Disconnected":
+						if attempt >= 500 and statChild.name == "Disconnected":
 							tones.beep(250, 250)
 				if connecting: continue
 			if not self.backgroundMonitor: return
@@ -759,7 +759,7 @@ class SPLEncoder(Encoder):
 		self.setFocus()
 		# Same as SAM encoders.
 		if not self.backgroundMonitor: self.connectStart(connecting=True)
-	script_connect.__doc__=_("Connects to a streaming server.")
+	script_connect.__doc__ = _("Connects to a streaming server.")
 
 	# Announce SPL Encoder columns: encoder settings and transfer rate.
 	def script_announceEncoderSettings(self, gesture):
@@ -793,7 +793,7 @@ class SPLEncoder(Encoder):
 		streamLabels["SPLEncoders"] = SPLStreamLabels
 		streamLabels.write()
 
-	__gestures={
+	__gestures = {
 		"kb:f9":"connect",
 		"kb:control+NVDA+3":"announceEncoderSettings",
 		"kb:control+NVDA+4":"announceEncoderTransfer"
