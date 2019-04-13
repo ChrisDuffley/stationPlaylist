@@ -48,7 +48,7 @@ SPLCurTrackPlaybackTime = 105
 
 # Help message for SPL Controller
 # Translators: the dialog text for SPL Controller help.
-SPLConHelp=_("""
+SPLConHelp = _("""
 After entering SPL Controller, press:
 A: Turn automation on.
 Shift+A: Turn automation off.
@@ -112,7 +112,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# 17.01: SetForegroundWindow function is better, as there's no need to traverse top-level windows and allows users to "switch" to SPL window if the window is minimized.
 		else: user32.SetForegroundWindow(user32.FindWindowW(u"TStudioForm", None))
 	# Translators: Input help mode message for a command to switch to Station Playlist Studio from any program.
-	script_focusToSPLWindow.__doc__=_("Moves to SPL Studio window from other programs.")
+	script_focusToSPLWindow.__doc__ = _("Moves to SPL Studio window from other programs.")
 
 	# The SPL Controller:
 	# This layer set allows the user to control various aspects of SPL Studio from anywhere.
@@ -143,7 +143,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			# Exclude number row if Studio Standard is running.
 			cartKeys = self.fnCartKeys
 			if not getNVDAObjectFromEvent(user32.FindWindowW(u"TStudioForm", None), OBJID_CLIENT, 0).name.startswith("StationPlaylist Studio Standard"):
-				cartKeys+=self.numCartKeys
+				cartKeys += self.numCartKeys
 			for cart in cartKeys:
 				self.bindGesture("kb:%s"%cart, "cartsWithoutBorders")
 				self.bindGesture("kb:shift+%s"%cart, "cartsWithoutBorders")
@@ -157,7 +157,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self.script_error(gesture)
 			self.finish()
 	# Translators: Input help mode message for a layer command in Station Playlist Studio.
-	script_SPLControllerPrefix.__doc__=_("SPl Controller layer command. See add-on guide for available commands.")
+	script_SPLControllerPrefix.__doc__ = _("SPl Controller layer command. See add-on guide for available commands.")
 
 	# The layer commands themselves. Calls user32.SendMessage method for each script.
 
@@ -310,7 +310,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		wx.CallAfter(gui.messageBox, SPLConHelp, _("SPL Controller help"))
 		self.finish()
 
-	__SPLControllerGestures={
+	__SPLControllerGestures = {
 		"kb:p":"play",
 		"kb:a":"automateOn",
 		"kb:shift+a":"automateOff",
@@ -332,7 +332,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:h":"conHelp"
 	}
 
-	__gestures={}
+	__gestures = {}
 
 	# Support for Encoders
 	# Each encoder is an overlay class, thus makes it easier to add encoders in the future by implementing overlay objects.
