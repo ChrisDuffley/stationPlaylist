@@ -41,8 +41,3 @@ class AppModule(appModuleHandler.AppModule):
 				encoderSettingsLabel = encoderSettingsLabels.get(obj.windowControlID)
 				if encoderSettingsLabel:
 					obj.name = encoderSettingsLabel
-
-	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
-		# Try adding labels written to the screen in case edit fields are encountered.
-		if obj.windowClassName == "TEdit" and not obj.name and controlTypes.STATE_READONLY in obj.states:
-			clsList.insert(0, TEditNoLabel)
