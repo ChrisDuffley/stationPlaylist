@@ -40,16 +40,17 @@ class AppModule(appModuleHandler.AppModule):
 
 	def event_NVDAObject_init(self, obj):
 		if not obj.name and obj.role != controlTypes.ROLE_WINDOW:
-			# Same ID's are used for two different things, distinguishable by looking at which configuration ab is active.
+			# Same ID's are used across controls, distinguishable by looking at which configuration tab is active.
 			windowControlID = obj.windowControlID
-			if windowControlID in (1019, 1020):
+			if windowControlID in (1019, 1020, 1024, 1025):
 				# Labels are split between parent window and the actual control, thus attribute error is seen.
 				try:
 					configTab = obj.parent.parent.previous.previous.previous.firstChild
 				except AttributeError:
 					configTab = obj.parent.parent.parent.previous.previous.previous.firstChild
+				activeTab = 0 if windowControlID in (1019, 1020) else 1
 				try:
-					obj.name = encoderSettingsLabels[windowControlID][0 if controlTypes.STATE_SELECTED in configTab.firstChild.states else 1]
+					obj.name = encoderSettingsLabels[windowControlID][0 if controlTypes.STATE_SELECTED in configTab.getChild(activeTab).states else 1]
 				except AttributeError:
 					pass
 			else:
