@@ -22,6 +22,12 @@ encoderSettingsLabels= {
 	1018: "Encoder Type",
 	1019: ("Reconnect Seconds", "Server Name"),
 	1020: ("Encoder Username", "Server Description"),
+	1021: "Website URL",
+	1022: "Stream Genre",
+	1023: "ICQ #",
+	1024: ("AIM", "Archive Directory"),
+	1025: ("IRC", "Log Level"),
+	1026: "Log File",
 }
 
 class TEditNoLabel(IAccessible):
