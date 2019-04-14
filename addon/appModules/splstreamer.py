@@ -24,7 +24,6 @@ encoderSettingsLabels= {
 	1020: ("Encoder Username", "Server Description"),
 	1021: "Website URL",
 	1022: "Stream Genre",
-	1023: "ICQ #",
 	1024: ("AIM", "Archive Directory"),
 	1025: ("IRC", "Log Level"),
 	1026: "Log File",
@@ -39,6 +38,11 @@ class TEditNoLabel(IAccessible):
 class AppModule(appModuleHandler.AppModule):
 
 	def event_NVDAObject_init(self, obj):
+		# ICQ field is incorrectly labeled as IRC.
+		# After labeling it, return early so others can be labeled correctly.
+		if obj.windowControlID == 1023:
+			obj.name = "ICQ #"
+			return
 		if not obj.name and obj.role != controlTypes.ROLE_WINDOW:
 			# Same ID's are used across controls, distinguishable by looking at which configuration tab is active.
 			windowControlID = obj.windowControlID
