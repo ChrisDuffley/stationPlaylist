@@ -18,8 +18,8 @@ _SPLWin = None
 # 19.02: some checks will need to omit message output.
 def studioIsRunning(justChecking=False):
 	# Keep the boolean flag handy because of message output.
-	isStudioAlive = ((_SPLWin is not None and _SPLWin == user32.FindWindowW(u"SPLStudio", None))
-	or (_SPLWin is None and user32.FindWindowW(u"SPLStudio", None) != 0))
+	isStudioAlive = ((_SPLWin is not None and _SPLWin == user32.FindWindowW("SPLStudio", None))
+	or (_SPLWin is None and user32.FindWindowW("SPLStudio", None) != 0))
 	if not isStudioAlive:
 		debugOutput("Studio is not alive")
 		# Translators: A message informing users that Studio is not running so certain commands will not work.

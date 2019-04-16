@@ -719,7 +719,7 @@ class AlarmsCenter(wx.Dialog):
 	def onOk(self, evt):
 		global _alarmDialogOpened
 		# Optimization: don't bother if Studio is dead and if the same value has been entered (only when standalone versions are opened).
-		if self.level > 0 and user32.FindWindowW(u"SPLStudio", None):
+		if self.level > 0 and user32.FindWindowW("SPLStudio", None):
 			# Gather settings to be applied in section/key format.
 			if self.level == 1:
 				splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] = self.outroAlarmEntry.GetValue()
@@ -735,7 +735,7 @@ class AlarmsCenter(wx.Dialog):
 				# It is fine to import something from winUser again as this will be traversed if and only if microphone alarm dialog is open with Studio active.
 				from winUser import OBJID_CLIENT
 				from NVDAObjects.IAccessible import getNVDAObjectFromEvent
-				studioWindow = getNVDAObjectFromEvent(user32.FindWindowW(u"TStudioForm", None), OBJID_CLIENT, 0)
+				studioWindow = getNVDAObjectFromEvent(user32.FindWindowW("TStudioForm", None), OBJID_CLIENT, 0)
 				studioWindow.appModule.actionProfileSwitched()
 		elif self.level == 0:
 			parent = self.Parent

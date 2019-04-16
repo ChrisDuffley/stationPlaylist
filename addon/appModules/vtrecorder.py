@@ -13,7 +13,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def __init__(self, *args, **kwargs):
 		super(AppModule, self).__init__(*args, **kwargs)
-		if user32.FindWindowW(u"SPLStudio", None):
+		if user32.FindWindowW("SPLStudio", None):
 			spldebugging.debugOutput("Studio Recorder is online, attempting to disable background event tracking for Studio")
 			# Python 3: using dict.items directly for maximum Python compatibility.
 			# #90 (19.01/18.09.6-LTS): use Six renames if needed.
@@ -28,7 +28,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def terminate(self):
 		super(AppModule, self).terminate()
-		if user32.FindWindowW(u"SPLStudio", None):
+		if user32.FindWindowW("SPLStudio", None):
 			spldebugging.debugOutput("Studio Recorder is offline, enabling background event tracking for Studio with Studio active")
 			for pid, appMod in appModuleHandler.runningTable.items():
 				if appMod.appName == "splstudio":
