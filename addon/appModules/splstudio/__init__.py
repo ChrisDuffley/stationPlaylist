@@ -16,7 +16,6 @@ import os
 import time
 import threading
 from abc import abstractmethod
-import six
 import controlTypes
 import appModuleHandler
 import api
@@ -156,7 +155,7 @@ class SPLTrackItem(sysListView32.ListItem):
 		# Translators: input help mode message for column explorer commands.
 		description=_("Pressing once announces data for a track column, pressing twice will present column data in a browse mode window"),
 		# 19.02: script decorator can take in a list of gestures, thus take advantage of it.
-		gestures=["kb:control+nvda+%s"%(i) for i in six.moves.range(10)],
+		gestures=["kb:control+nvda+%s"%(i) for i in range(10)],
 		category=_("StationPlaylist"))
 	def script_columnExplorer(self, gesture):
 		# LTS: Just in case Control+NVDA+number row command is pressed...
@@ -277,10 +276,10 @@ class SPLStudioTrackItem(SPLTrackItem):
 	# #61 (18.07): readable flag will become a string parameter to be used in columns viewer.
 	def _getColumnContents(self, columns=None, readable=False):
 		if columns is None:
-			columns = list(six.moves.range(18))
+			columns = list(range(18))
 		columnContents = [self._getColumnContentRaw(col) for col in columns]
 		if readable:
-			for pos in six.moves.range(len(columnContents)):
+			for pos in range(len(columnContents)):
 				if columnContents[pos] is None: columnContents[pos] = ""
 		return columnContents
 
@@ -359,10 +358,10 @@ class SPLStudioTrackItem(SPLTrackItem):
 	def script_trackColumnsViewer(self, gesture):
 		# #61 (18.06): a direct copy of column data gatherer from playlist transcripts.
 		# 18.07: just call the gatherer function with "blank" as the readable string and add column header afterwards.
-		columns = list(six.moves.range(18))
+		columns = list(range(18))
 		columnContents = [self._getColumnContentRaw(col) for col in columns]
 		columnHeaders = ["Status"] + splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
-		for pos in six.moves.range(len(columnContents)):
+		for pos in range(len(columnContents)):
 			if columnContents[pos] is None: columnContents[pos] = "blank"
 			# Manually add header text until column gatherer adds headers support.
 			columnContents[pos] = ": ".join([columnHeaders[pos], columnContents[pos]])
@@ -553,7 +552,7 @@ class ReversedDialog(Dialog):
 		textList=[]
 		childCount=len(children)
 		# For these dialogs, children are arranged in reverse tab order (very strange indeed).
-		for index in six.moves.range(childCount-1, -1, -1):
+		for index in range(childCount-1, -1, -1):
 			child=children[index]
 			childStates=child.states
 			childRole=child.role
@@ -1401,7 +1400,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Assigning carts.
 
 	def buildFNCarts(self):
-		for i in six.moves.range(12):
+		for i in range(12):
 			self.bindGesture("kb:f%s"%(i+1), "cartExplorer")
 			self.bindGesture("kb:shift+f%s"%(i+1), "cartExplorer")
 			self.bindGesture("kb:control+f%s"%(i+1), "cartExplorer")
@@ -1903,10 +1902,10 @@ class AppModule(appModuleHandler.AppModule):
 			elif splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "wineyes": self.bindGestures(self.__SPLAssistantWEGestures)
 			# 7.0: Certain commands involving number row.
 			# 8.0: Also assign encoder status commands in addition to columns explorer.
-			for i in six.moves.range(5):
+			for i in range(5):
 				self.bindGesture("kb:%s"%(i), "columnExplorer")
 				self.bindGesture("kb:shift+%s"%(i), "metadataEnabled")
-			for i in six.moves.range(5, 10):
+			for i in range(5, 10):
 				self.bindGesture("kb:%s"%(i), "columnExplorer")
 			self.SPLAssistant = True
 			tones.beep(512, 50)

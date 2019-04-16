@@ -6,7 +6,6 @@
 # For UI surrounding this module, see splconfui module.
 
 import os
-import six
 from io import StringIO
 import pickle
 from configobj import ConfigObj, get_extra_values
@@ -860,7 +859,7 @@ def setNextTimedProfile(profile, bits, switchTime, date=None, duration=0):
 				delta = currentDay-nextDay
 			else:
 				triggerBit = -1
-				for bit in six.moves.range(currentDay-1, -1, -1):
+				for bit in range(currentDay-1, -1, -1):
 					if 2 ** bit & days:
 						triggerBit = bit
 						break

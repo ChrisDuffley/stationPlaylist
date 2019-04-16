@@ -8,7 +8,6 @@ import weakref
 import os
 import threading
 from _csv import reader # For cart explorer.
-import six
 import gui
 import wx
 import ui
@@ -365,7 +364,7 @@ class SPLCountdownTimer(object):
 # Gather streaming flags into a list.
 # 18.04: raise runtime error if list is nothing (thankfully the splbase's StudioAPI will return None if Studio handle is not found).
 def metadataList():
-	metadata = [splbase.studioAPI(pos, 36) for pos in six.moves.range(5)]
+	metadata = [splbase.studioAPI(pos, 36) for pos in range(5)]
 	if metadata == [None, None, None, None, None]:
 		raise RuntimeError("Studio handle not found, no metadata list to return")
 	return metadata
@@ -376,7 +375,7 @@ def metadataConnector(servers=None):
 	if servers is None:
 		from . import splconfig
 		servers = splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"]
-	for url in six.moves.range(5):
+	for url in range(5):
 		dataLo = 0x00010000 if servers[url] else 0xffff0000
 		splbase.studioAPI(dataLo | url, 36)
 
@@ -393,7 +392,7 @@ def metadataStatus():
 	# For others, a simple list.append will do.
 	# 17.04: Use a conditional list comprehension.
 	# 18.02: comprehend based on streams list from above.
-	streamCount = [str(pos) for pos in six.moves.range(1, 5) if streams[pos]]
+	streamCount = [str(pos) for pos in range(1, 5) if streams[pos]]
 	# Announce streaming status when told to do so.
 	status = None
 	if not len(streamCount):
@@ -537,7 +536,7 @@ def playlist2msaa(start, end, additionalDecorations=False, prefix="", suffix="")
 		columnContents = obj._getColumnContents(columns=columnPos)
 		# Filter empty columns.
 		filteredContent = []
-		for column in six.moves.range(len(columnPos)):
+		for column in range(len(columnPos)):
 			if columnContents[column] is not None:
 				filteredContent.append("%s: %s"%(columnHeaders[column], columnContents[column]))
 		playlistTranscripts.append("{0}{1}{2}".format(prefix, "; ".join(filteredContent), suffix))

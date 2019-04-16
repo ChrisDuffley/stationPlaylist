@@ -453,8 +453,7 @@ class Encoder(IAccessible):
 		streamLabels.write()
 
 	def script_streamLabelEraser(self, gesture):
-		import six
-		choices = [str(pos) for pos in six.moves.range(1, self.simpleParent.childCount)]
+		choices = [str(pos) for pos in range(1, self.simpleParent.childCount)]
 		# Translators: The title of the stream configuration eraser dialog.
 		streamEraserTitle = _("Stream label and settings eraser")
 		# Translators: The text of the stream configuration eraser dialog.
