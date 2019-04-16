@@ -194,7 +194,9 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Version 18.09.9-LTS
 
+* Initial support for StationPlaylist Streamer.
 * While running various Studio apps such as Track Tool and Studio, if a second instance of the app is started and then exits, NVDA will no longer cause Studio add-on configuration routines to produce errors and stop working correctly.
+* Added labels for various options in SPL Encoder configuration dialog.
 
 ## Version 18.09.8-LTS
 
