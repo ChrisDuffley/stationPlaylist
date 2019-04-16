@@ -107,10 +107,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def script_focusToSPLWindow(self, gesture):
 		# Don't do anything if we're already focus on SPL Studio.
 		if "splstudio" in api.getForegroundObject().appModule.appModuleName: return
-		SPLHwnd = user32.FindWindowW(u"SPLStudio", None)
+		SPLHwnd = user32.FindWindowW("SPLStudio", None)
 		if not SPLHwnd: ui.message(_("SPL Studio is not running."))
 		# 17.01: SetForegroundWindow function is better, as there's no need to traverse top-level windows and allows users to "switch" to SPL window if the window is minimized.
-		else: user32.SetForegroundWindow(user32.FindWindowW(u"TStudioForm", None))
+		else: user32.SetForegroundWindow(user32.FindWindowW("TStudioForm", None))
 	# Translators: Input help mode message for a command to switch to StationPlaylist Studio from any program.
 	script_focusToSPLWindow.__doc__=_("Moves to SPL Studio window from other programs.")
 
@@ -130,7 +130,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			else:
 				api.getForegroundObject().appModule.script_SPLAssistantToggle(gesture)
 				return
-		SPLWin = user32.FindWindowW(u"SPLStudio", None)
+		SPLWin = user32.FindWindowW("SPLStudio", None)
 		if SPLWin == 0:
 			# Translators: Presented when StationPlaylist Studio is not running.
 			ui.message(_("SPL Studio is not running."))
@@ -142,7 +142,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			# 17.12: also bind cart keys.
 			# Exclude number row if Studio Standard is running.
 			cartKeys = self.fnCartKeys
-			if not getNVDAObjectFromEvent(user32.FindWindowW(u"TStudioForm", None), OBJID_CLIENT, 0).name.startswith("StationPlaylist Studio Standard"):
+			if not getNVDAObjectFromEvent(user32.FindWindowW("TStudioForm", None), OBJID_CLIENT, 0).name.startswith("StationPlaylist Studio Standard"):
 				cartKeys+=self.numCartKeys
 			for cart in cartKeys:
 				self.bindGesture("kb:%s"%cart, "cartsWithoutBorders")
@@ -260,7 +260,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def script_statusInfo(self, gesture):
 		# Go through below procedure, as custom commands can be assigned for this script.
-		SPLWin = user32.FindWindowW(u"SPLStudio", None)
+		SPLWin = user32.FindWindowW("SPLStudio", None)
 		if not SPLWin:
 			ui.message(_("SPL Studio is not running."))
 			self.finish()
@@ -285,12 +285,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	script_statusInfo.__doc__ = _("Announces Studio status such as track playback status from other programs")
 
 	def script_currentTrackTitle(self, gesture):
-		studioAppMod = getNVDAObjectFromEvent(user32.FindWindowW(u"TStudioForm", None), OBJID_CLIENT, 0).appModule
+		studioAppMod = getNVDAObjectFromEvent(user32.FindWindowW("TStudioForm", None), OBJID_CLIENT, 0).appModule
 		studioAppMod.script_sayCurrentTrackTitle(None)
 		self.finish()
 
 	def script_nextTrackTitle(self, gesture):
-		studioAppMod = getNVDAObjectFromEvent(user32.FindWindowW(u"TStudioForm", None), OBJID_CLIENT, 0).appModule
+		studioAppMod = getNVDAObjectFromEvent(user32.FindWindowW("TStudioForm", None), OBJID_CLIENT, 0).appModule
 		studioAppMod.script_sayNextTrackTitle(None)
 		self.finish()
 
