@@ -8,7 +8,7 @@
 # Additional work done by Joseph Lee and other contributors.
 # For SPL Studio Controller, focus movement, SAM Encoder support and other utilities, see the global plugin version of this app module.
 
-# Minimum version: SPL 5.10, NvDA 2017.4.
+# Minimum version: SPL 5.20, NvDA 2018.4.
 
 import sys
 import os
