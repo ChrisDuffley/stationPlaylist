@@ -5,6 +5,7 @@
 
 import threading
 import time
+from abc import abstractmethod
 import api
 import ui
 import speech
@@ -224,7 +225,7 @@ class EncoderConfigDialog(wx.Dialog):
 
 class Encoder(IAccessible):
 	"""Represents an encoder from within StationPlaylist Studio or Streamer.
-	This base encoder provides scripts for all encoders such as stream labeler and toggling focusing to Studio when connected.
+	This abstract base encoder provides scripts for all encoders such as stream labeler and toggling focusing to Studio when connected.
 	Subclasses must provide scripts to handle encoder connection and connection announcement routines.
 	In addition, they must implement the required actions to set options such as focusing to Studio, storing stream labels and so on, as each subclass relies on a feature map.
 	For example, for SAM encoder class, the feature map is SAM* where * denotes the feature in question.
@@ -286,6 +287,11 @@ class Encoder(IAccessible):
 		statusThread = threading.Thread(target=self.reportConnectionStatus, kwargs=dict(connecting=connecting))
 		statusThread.start()
 		self.threadPool[self.IAccessibleChildID] = statusThread
+
+	# #103 (SPL Threshold): the abstract method that is responsible for announcing connection status.
+	@abstractmethod
+	def reportConnectionStatus(self, connecting=False):
+		raise NotImplementedError
 
 	# A master flag setter.
 	# Set or clear a given flag for the encoder given its ID, flag and flag container (currently a feature set).
