@@ -634,7 +634,7 @@ class SPLTimePicker(IAccessible):
 
 class AppModule(appModuleHandler.AppModule):
 
-	# Translators: Script category for Station Playlist commands in input gestures dialog.
+	# Translators: Script category for StationPlaylist add-on commands in input gestures dialog.
 	scriptCategory = _("StationPlaylist")
 	SPLCurVersion = appModuleHandler.AppModule.productVersion
 	_focusedTrack = None

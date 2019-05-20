@@ -72,7 +72,7 @@ Shift+R: Library scan progress.""")
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
-	# Translators: Script category for Station Playlist commands in input gestures dialog.
+	# Translators: Script category for StationPlaylist commands in input gestures dialog.
 	scriptCategory = _("StationPlaylist")
 
 	def __init__(self):
