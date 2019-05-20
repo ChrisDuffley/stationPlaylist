@@ -1574,8 +1574,8 @@ class ResetSettingsPanel(gui.SettingsPanel):
 _configDialogOpened = False
 
 class SPLConfigDialog(gui.MultiCategorySettingsDialog):
-	# Translators: This is the label for the StationPlaylist Studio configuration dialog.
-	title = _("Studio Add-on Settings")
+	# Translators: This is the label for the StationPlaylist add-on configuration dialog.
+	title = _("StationPlaylist Add-on Settings")
 	categoryClasses=[
 		BroadcastProfilesPanel,
 		GeneralSettingsPanel,
