@@ -151,13 +151,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				self.bindGesture("kb:control+%s"%cart, "cartsWithoutBorders")
 				self.bindGesture("kb:alt+%s"%cart, "cartsWithoutBorders")
 			self.SPLController = True
-			# Translators: The name of a layer command set for Station Playlist Studio.
+			# Translators: The name of a layer command set for StationPlaylist add-on.
 			# Hint: it is better to translate it as "SPL Control Panel."
 			ui.message(_("SPL Controller"))
 		else:
 			self.script_error(gesture)
 			self.finish()
-	# Translators: Input help mode message for a layer command in Station Playlist Studio.
+	# Translators: Input help mode message for a layer command in StationPlaylist add-on.
 	script_SPLControllerPrefix.__doc__=_("SPl Controller layer command. See add-on guide for available commands.")
 
 	# The layer commands themselves. Calls user32.SendMessage method for each script.

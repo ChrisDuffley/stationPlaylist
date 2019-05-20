@@ -449,7 +449,7 @@ class Encoder(IAccessible):
 		except RuntimeError:
 			# Translators: Text of the dialog when another alarm dialog is open.
 			wx.CallAfter(gui.messageBox, _("Another encoder settings dialog is open."),_("Error"),style=wx.OK | wx.ICON_ERROR)
-	# Translators: Input help mode message for a command in Station Playlist Studio.
+	# Translators: Input help mode message for a command in StationPlaylist add-on.
 	script_encoderSettings.__doc__=_("Shows encoder configuration dialog to configure various encoder settings such as stream label.")
 	script_encoderSettings.category=_("Station Playlist Studio")
 
