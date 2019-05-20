@@ -1187,18 +1187,9 @@ class PlaylistTranscriptsPanel(ColumnAnnouncementsBasePanel):
 		playlistTranscriptsHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
 		from . import splmisc
-		#self.transcriptFormat = splconfig.SPLConfig["PlaylistTranscripts"]["TranscriptFormat"]
 		# Again manually create a new set.
 		self.includedColumns = set(splconfig.SPLConfig["PlaylistTranscripts"]["IncludedColumns"])
 		self.columnOrder = splconfig.SPLConfig["PlaylistTranscripts"]["ColumnOrder"]
-		#self.availableTranscriptFormats = [output[0] for output in splmisc.SPLPlaylistTranscriptFormats]
-		#self.availableTranscriptFormats.insert(0, "")
-
-		# Translators: the label for a setting in SPL add-on settings to select preferred playlist transcript format.
-		#labelText = _("&Prefered transcript format:")
-		# Translators: one of the transcript format options.
-		#self.transcriptFormatsList = playlistTranscriptsHelper.addLabeledControl(labelText, wx.Choice, choices=[_("ask me every time")]+[output[2] for output in splmisc.SPLPlaylistTranscriptFormats])
-		#self.transcriptFormatsList.SetSelection(self.availableTranscriptFormats.index(splconfig.SPLConfig["PlaylistTranscripts"]["TranscriptFormat"]))
 
 		# Translators: Help text to select columns to be announced.
 		labelText = _("&Select columns to be included in playlist transcripts\n(artist and title are always included):")
@@ -1235,7 +1226,6 @@ class PlaylistTranscriptsPanel(ColumnAnnouncementsBasePanel):
 		playlistTranscriptsHelper.addItem(sizer.sizer)
 
 	def onSave(self):
-		#splconfig.SPLConfig["PlaylistTranscripts"]["TranscriptFormat"] = self.availableTranscriptFormats[self.transcriptFormatsList.GetSelection()]
 		splconfig.SPLConfig["PlaylistTranscripts"]["IncludedColumns"] = set(self.checkedColumns.GetCheckedStrings()) | {"Artist", "Title"}
 		splconfig.SPLConfig["PlaylistTranscripts"]["ColumnOrder"] = self.trackColumns.GetItems()
 
