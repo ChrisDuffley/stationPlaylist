@@ -1182,10 +1182,10 @@ class AudioDuckingReminder(wx.Dialog):
 class WelcomeDialog(wx.Dialog):
 
 	# Translators: A message giving basic information about the add-on.
-	welcomeMessage=_("""Welcome to StationPlaylist Studio add-on for NVDA,
+	welcomeMessage=_("""Welcome to StationPlaylist add-on for NVDA,
 your companion to broadcasting with SPL Studio using NVDA screen reader.
 
-Highlights of StationPlaylist Studio add-on include:
+Highlights of StationPlaylist add-on include:
 * Layer commands for obtaining status information.
 * Various ways to examine track columns.
 * Various ways to find tracks.
@@ -1195,7 +1195,7 @@ Highlights of StationPlaylist Studio add-on include:
 * Completely free, open-source and community-driven.
 * And much more.
 
-Visit www.stationplaylist.com for details on StationPlaylist Studio.
+Visit www.stationplaylist.com for details on StationPlaylist suite of applications.
 Visit StationPlaylist entry on NVDA Community Add-ons page (addons.nvda-project.org) for more information on the add-on and to read the documentation.
 Want to see this dialog again? Just press Alt+NVDA+F1 while using Studio to return to this dialog.
 Have something to say about the add-on? Press Control+NVDA+hyphen (-) to send a feedback to the developer of this add-on using your default email program.
@@ -1204,7 +1204,7 @@ Thank you.""")
 
 	def __init__(self, parent):
 		# Translators: Title of a dialog displayed when the add-on starts presenting basic information, similar to NVDA's own welcome dialog.
-		super(WelcomeDialog, self).__init__(parent, title=_("Welcome to StationPlaylist Studio add-on"))
+		super(WelcomeDialog, self).__init__(parent, title=_("Welcome to StationPlaylist add-on"))
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 
