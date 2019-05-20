@@ -998,7 +998,6 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 		# Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
 		# Add checkboxes for each stream, beginning with the DSP encoder.
 		# #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
-		from . import splmisc
 		self.checkedStreams = metadataSizerHelper.addLabeledControl(_("&Select the URL for metadata streaming upon request:"), CustomCheckListBox, choices=metadataStreamLabels)
 		for stream in six.moves.range(5):
 			self.checkedStreams.Check(stream, check=splconfig._SPLDefaults["MetadataStreaming"]["MetadataEnabled"][stream])
@@ -1186,7 +1185,6 @@ class PlaylistTranscriptsPanel(ColumnAnnouncementsBasePanel):
 	def makeSettings(self, settingsSizer):
 		playlistTranscriptsHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
-		from . import splmisc
 		# Again manually create a new set.
 		self.includedColumns = set(splconfig.SPLConfig["PlaylistTranscripts"]["IncludedColumns"])
 		self.columnOrder = splconfig.SPLConfig["PlaylistTranscripts"]["ColumnOrder"]
