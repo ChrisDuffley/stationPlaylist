@@ -451,7 +451,7 @@ class Encoder(IAccessible):
 			wx.CallAfter(gui.messageBox, _("Another encoder settings dialog is open."),_("Error"),style=wx.OK | wx.ICON_ERROR)
 	# Translators: Input help mode message for a command in StationPlaylist add-on.
 	script_encoderSettings.__doc__=_("Shows encoder configuration dialog to configure various encoder settings such as stream label.")
-	script_encoderSettings.category=_("Station Playlist Studio")
+	script_encoderSettings.category=_("StationPlaylist")
 
 	# Announce complete time including seconds (slight change from global commands version).
 	def script_encoderDateTime(self, gesture):
@@ -463,7 +463,7 @@ class Encoder(IAccessible):
 		ui.message(text)
 	# Translators: Input help mode message for report date and time command.
 	script_encoderDateTime.__doc__=_("If pressed once, reports the current time including seconds. If pressed twice, reports the current date")
-	script_encoderDateTime.category=_("Station Playlist Studio")
+	script_encoderDateTime.category=_("StationPlaylist")
 
 	# Various column announcement scripts.
 	# This base class implements encoder position and stream labels.
