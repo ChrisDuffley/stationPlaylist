@@ -1,4 +1,4 @@
-# StationPlaylist Studio
+# StationPlaylist (formerly StationPlaylist Studio)
 # An app module and global plugin package for NVDA
 # Copyright 2011, 2013-2019, Geoff Shang, Joseph Lee and others, released under GPL.
 # The primary function of this appModule is to provide meaningful feedback to users of SplStudio
@@ -6,6 +6,7 @@
 # Version 0.01 - 7 April 2011:
 # Initial release: Jamie's focus hack plus auto-announcement of status items.
 # Additional work done by Joseph Lee and other contributors.
+# Renamed to StationPlaylist in 2019 in order to describe the scope of this add-on.
 # For SPL Studio Controller, focus movement, SAM Encoder support and other utilities, see the global plugin version of this app module.
 
 # Minimum version: SPL 5.20, NvDA 2018.4.
