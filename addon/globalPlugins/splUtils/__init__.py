@@ -112,7 +112,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if not SPLHwnd: ui.message(_("SPL Studio is not running."))
 		# 17.01: SetForegroundWindow function is better, as there's no need to traverse top-level windows and allows users to "switch" to SPL window if the window is minimized.
 		else: user32.SetForegroundWindow(user32.FindWindowW(u"TStudioForm", None))
-	# Translators: Input help mode message for a command to switch to Station Playlist Studio from any program.
+	# Translators: Input help mode message for a command to switch to StationPlaylist Studio from any program.
 	script_focusToSPLWindow.__doc__=_("Moves to SPL Studio window from other programs.")
 
 	# The SPL Controller:
@@ -133,7 +133,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				return
 		SPLWin = user32.FindWindowW(u"SPLStudio", None)
 		if SPLWin == 0:
-			# Translators: Presented when Station Playlist Studio is not running.
+			# Translators: Presented when StationPlaylist Studio is not running.
 			ui.message(_("SPL Studio is not running."))
 			self.finish()
 			return
@@ -204,7 +204,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def script_pause(self, gesture):
 		playingNow = winUser.sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus)
-		# Translators: Presented when no track is playing in Station Playlist Studio.
+		# Translators: Presented when no track is playing in StationPlaylist Studio.
 		if not playingNow: ui.message(_("There is no track playing. Try pausing while a track is playing."))
 		elif playingNow == 3: winUser.sendMessage(SPLWin, 1024, 0, SPLPause)
 		else: winUser.sendMessage(SPLWin, 1024, 1, SPLPause)
@@ -227,7 +227,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def script_remainingTime(self, gesture):
 		remainingTime = winUser.sendMessage(SPLWin, 1024, 3, SPLCurTrackPlaybackTime)
-		# Translators: Presented when no track is playing in Station Playlist Studio.
+		# Translators: Presented when no track is playing in StationPlaylist Studio.
 		if remainingTime < 0: ui.message(_("There is no track playing."))
 		else:
 			# 7.0: Present remaining time in hh:mm:ss format for enhanced experience (borrowed from the app module).
