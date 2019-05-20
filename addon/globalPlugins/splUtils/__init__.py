@@ -72,7 +72,7 @@ Function keys and number row keys with or without Shift, Alt, and Control keys: 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	# Translators: Script category for Station Playlist commands in input gestures dialog.
-	scriptCategory = _("StationPlaylist Studio")
+	scriptCategory = _("StationPlaylist")
 
 	def __init__(self):
 		super(GlobalPlugin, self).__init__()

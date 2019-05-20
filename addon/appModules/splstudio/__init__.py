@@ -134,7 +134,7 @@ class SPLTrackItem(sysListView32.ListItem):
 		description=_("Pressing once announces data for a track column, pressing twice will present column data in a browse mode window"),
 		# 19.02: script decorator can take in a list of gestures, thus take advantage of it.
 		gestures=["kb:control+nvda+%s"%(i) for i in six.moves.range(10)],
-		category=_("StationPlaylist Studio"))
+		category=_("StationPlaylist"))
 	def script_columnExplorer(self, gesture):
 		# LTS: Just in case Control+NVDA+number row command is pressed...
 		# Due to the below formula, columns explorer will be restricted to number commands.
@@ -628,7 +628,7 @@ class SPLTimePicker(IAccessible):
 class AppModule(appModuleHandler.AppModule):
 
 	# Translators: Script category for Station Playlist commands in input gestures dialog.
-	scriptCategory = _("StationPlaylist Studio")
+	scriptCategory = _("StationPlaylist")
 	SPLCurVersion = appModuleHandler.AppModule.productVersion
 	_focusedTrack = None
 	_announceColumnOnly = None # Used only if vertical column navigation commands are used.
