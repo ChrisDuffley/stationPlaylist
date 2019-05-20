@@ -1,4 +1,4 @@
-# StationPlaylist Studio #
+# StationPlaylist #
 
 * Authors: Geoff Shang, Joseph Lee and other contributors
 * Download [stable version][1]
@@ -6,7 +6,7 @@
 * Download [long-term support version][3] - for Studio 5.10/5.11 users
 * NVDA compatibility: 2018.4 to 2019.2
 
-This add-on package provides improved usage of StationPlaylist Studio, as well as providing utilities to control the Studio from anywhere.
+This add-on package provides improved usage of StationPlaylist Studio and other StationPlaylist apps, as well as providing utilities to control the Studio from anywhere. Supported apps include Studio, Creator, Track Tool, VT Recorder, and Streamer.
 
 For more information about the add-on, read the [add-on guide][4]. For developers seeking to know how to build the add-on, see buildInstructions.txt located at the root of the add-on source code repository.
 
@@ -194,6 +194,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Version 18.09.10-LTS
 
+* Renamed the add-on from "StationPlaylist Studio" to "StationPlaylist" to better describe apps and features supported by this add-on.
 * Internal security enhancements.
 
 ## Version 18.09.9-LTS
