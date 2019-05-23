@@ -26,7 +26,7 @@ class SPLCreatorItem(SPLTrackItem):
 	# Another tweak for SPL Creator: Announce column header if given.
 	# Also take care of this when specific columns are asked.
 	# This also allows display order to be checked (Studio 5.10 and later).
-	def announceColumnContent(self, colNumber, header=None, individualColumns=False):
+	def announceColumnContent(self, colNumber, header=None):
 		import sys
 		if not header:
 			# #72: directly fetch on-screen column header (not the in-memory one) by probing column order array from the list (parent).
@@ -42,13 +42,9 @@ class SPLCreatorItem(SPLTrackItem):
 			if sys.version.startswith("3"): ui.message(str(_("{header}: {content}")).format(header = header, content = columnContent))
 			else: ui.message(unicode(_("{header}: {content}")).format(header = header, content = columnContent))
 		else:
-			if individualColumns:
-				# Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
-				ui.message(_("{header} not found").format(header = header))
-			else:
-				import speech, braille
-				speech.speakMessage(_("{header}: blank").format(header = header))
-				braille.handler.message(_("{header}: ()").format(header = header))
+			import speech, braille
+			speech.speakMessage(_("{header}: blank").format(header = header))
+			braille.handler.message(_("{header}: ()").format(header = header))
 
 	def indexOf(self, header):
 		try:

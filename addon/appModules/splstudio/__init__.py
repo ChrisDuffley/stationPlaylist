@@ -1675,22 +1675,6 @@ class AppModule(appModuleHandler.AppModule):
 			obj = obj.next
 		return totalDuration
 
-	# Segue version of this will be used in some places (the below is the raw duration).)
-	def playlistDurationRaw(self, start, end):
-		# Take care of errors such as the following.
-		if start < 0 or end > splbase.studioAPI(0, 124)-1:
-			raise ValueError("Track range start or end position out of range")
-			return
-		totalLength = 0
-		if start == end:
-			filename = splbase.studioAPI(start, 211)
-			totalLength = splbase.studioAPI(filename, 30)
-		else:
-			for track in six.moves.range(start, end+1):
-				filename = splbase.studioAPI(track, 211)
-				totalLength+=splbase.studioAPI(filename, 30)
-		return totalLength
-
 	# Playlist snapshots
 	# Data to be gathered comes from a set of flags.
 	# By default, playlist duration (including shortest and average), category summary and other statistics will be gathered.
