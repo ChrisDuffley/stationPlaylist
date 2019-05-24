@@ -1,8 +1,8 @@
 # StationPlaylist Studio #
 
 * Authoren: Geoff Shang, Joseph Lee und andere Entwickler
-* [stabile Version herunterladen][1]
-* [Entwicklungsversion herunterladen][2]
+* [Stabile Version herunterladen][1]
+* [Entwicklerversion herunterladen][2]
 * [LTS-Version für Studio 5.10 / 5.11 herunterladen][3]
 * NVDA-Kompatibilität: 2018.4 bis 2019.1
 
@@ -17,8 +17,8 @@ Quellcodeverzeichnis der Erweiterung auf Github.
 
 WICHTIGE HINWEISE:
 
-* Diese Erweiterung erfordert NVDA 2018.4 oder höher und StationPlaylist
-  Studio 5.11 oder höher.
+* This add-on requires NVDA 2018.4 or later and StationPlaylist Studio 5.20
+  or later.
 * Wenn Sie Windows 8 oder höher verwenden, setzen Sie die Reduzierung der
   Lautstärke anderer Audioquellen auf "nie" im Dialog Sprachausgabe im
   NVDA-Einstellungsmenü.
@@ -329,6 +329,17 @@ verwenden und NVDA 2012.3 oder höher installiert haben, können Sie einige
 Studio-Befehle über den Touchscreen ausführen. Tippen Sie zunächst einmal
 mit drei Fingern, um in den SPL-Touchmodus zu wechseln. Verwenden Sie dann
 die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
+
+## Version 19.06/18.09.9-LTS
+
+Version 19.06 supports SPL Studio 5.20 and later.
+
+* Initial support for StationPlaylist Streamer.
+* While running various Studio apps such as Track Tool and Studio, if a
+  second instance of the app is started and then exits, NVDA will no longer
+  cause Studio add-on configuration routines to produce errors and stop
+  working correctly.
+* Added labels for various options in SPL Encoder configuration dialog.
 
 ## Version 19.04/18.09.8-LTS
 
