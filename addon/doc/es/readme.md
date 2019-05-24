@@ -19,7 +19,7 @@ repositorio del código fuente del complemento.
 NOTAS IMPORTANTES:
 
 * Este complemento requiere de NVDA 2018.4 o posterior y StationPlaylist
-  Studio 5.11 o posterior.
+  Studio 5.20 o posterior.
 * Si utilizas Windows 8 o posterior, para una mejor experiencia, deshabilita
   el modo atenuación de audio.
 * A partir de 2018, los [registros de cambios para versiones antiguas][5] se
@@ -326,6 +326,19 @@ Windows 8 o posterior y tienes NVDA 2012.3 o posterior instalado, puedes
 realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
+
+## Versión 19.06/18.09.9-LTS
+
+La versión 19.06 soporta Studio 5.20 y posteriores.
+
+* Soporte inicial para StationPlaylist Streamer.
+* Mientras se ejecutan diversas aplicaciones de Studio como la herramienta
+  de pista o el propio Studio, si se inicia una segunda instancia de la
+  aplicación y luego se cierra, NVDA ya no hará que los procedimientos de
+  configuración del complemento de Studio causen errores y dejen de
+  funcionar correctamente.
+* Se han añadido etiquetas para diversas opciones del diálogo de
+  configuración del codificador de SPL.
 
 ## Versión 19.04/18.09.8-LTS
 

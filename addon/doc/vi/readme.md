@@ -15,7 +15,7 @@ xem tập tin buildInstructions.txt ở thư mục gốc trong mã nguồn của
 
 CÁC LƯU Ý QUAN TRỌNG:
 
-* Add-on này yêu cầu NVDA 2018.4 và StationPlaylist Studio 5.11 trở lên.
+* Add-on này yêu cầu NVDA 2018.4 và StationPlaylist Studio 5.20 trở lên.
 * Nếu dùng Windows 8 trở lên, hãy tắt chế độ giảm âm thanh để có trải nghiệm
   tốt nhất.
 * Từ 2018, [bản ghi những thay đổi cho các bản phát hành cũ của add-on][5]
@@ -283,17 +283,26 @@ NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio t
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
 
-## Version 19.04/18.09.8-LTS
+## Phiên bản 19.03/18.09.7-LTS
 
-* Various global commands such as entering SPL Controller and switching to
-  Studio window will be turned off if NVDA is running in secure mode or as a
-  Windows Store application.
-* 19.04: in column announcements and playlist transcripts panels (add-on
-  settings), custom column inclusion/order controls will be visible up front
-  instead of having to select a button to open a dialog to configure these
-  settings.
-* In Creator, NVDA will no longer play error tones or appear to do nothing
-  when focused on certain lists.
+Phiên bản 19.06 hỗ trợ SPL Studio 5.20 trở lên.
+
+* Bắt đầu hỗ trợ cho StationPlaylist Streamer.
+* Khi đang chạy các ứng dụng Studio như Track Tool và Studio, nếu có một ứng
+  dụng nhanh thứ hai được gọi chạy rồi tắt, NVDA sẽ không còn làm cho cấu
+  hình Studio add-on thông báo lỗi và dừng hoạt động.
+* Thêm nhãn cho nhiều tùy chọn trong hộp thoại SPL Encoder configuration.
+
+## Phiên bản 19.04/18.09.8-LTS
+
+* Nhiều lệnh toàn cục như vào bảng điều khiển SPL và chuyển đến cửa sổ
+  Studio sẽ bị tắt nếu chạy NVDA trong chế độ bảo vệ hay một ứng dụng từ
+  Windows Store.
+* 19.04: trong thông báo cột và bảng điểm danh sách phát (cài đặt add-on),
+  các điều khiển bao gồm tùy chỉnh/sắp xếp cột sẽ hiện ra luôn thay vì phải
+  bấm nút mở một hộp thoại để cấu hình các cài đặt này.
+* Trong Creator, NVDA sẽ không còn phát âm thanh báo lỗi hoặc không làm gì
+  khi focus ở một số danh sách nhất định.
 
 ## Phiên bản 19.03/18.09.7-LTS
 

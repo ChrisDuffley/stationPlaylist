@@ -17,8 +17,8 @@ référentiel de l'extension.
 
 NOTES IMPORTANTES :
 
-* Cette extension nécessite NVDA 2018.4 ou version ultérieure et
-  StationPlaylist Studio 5.11 ou version ultérieure.
+* This add-on requires NVDA 2018.4 or later and StationPlaylist Studio 5.20
+  or later.
 * Si vous utilisez Windows 8 ou ultérieur, pour une meilleure expérience,
   désactiver le Mode d'atténuation audio.
 * À partir de 2018, [les journaux des changements des anciennes versions de
@@ -332,6 +332,17 @@ ultérieure installé, vous pouvez exécuter certaines commandes Studio depuis
 un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
+
+## Version 19.06/18.09.9-LTS
+
+Version 19.06 supports SPL Studio 5.20 and later.
+
+* Initial support for StationPlaylist Streamer.
+* While running various Studio apps such as Track Tool and Studio, if a
+  second instance of the app is started and then exits, NVDA will no longer
+  cause Studio add-on configuration routines to produce errors and stop
+  working correctly.
+* Added labels for various options in SPL Encoder configuration dialog.
 
 ## Version 19.04/18.09.8-LTS
 
