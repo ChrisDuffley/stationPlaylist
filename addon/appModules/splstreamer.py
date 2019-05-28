@@ -5,6 +5,7 @@
 # Support for StationPlaylist Straemer
 # A standalone app used for broadcast streaming when using something other than Studio for broadcasting.
 
+import sys
 import appModuleHandler
 import controlTypes
 from NVDAObjects.IAccessible import IAccessible
@@ -36,6 +37,13 @@ class TEditNoLabel(IAccessible):
 
 
 class AppModule(appModuleHandler.AppModule):
+
+	def terminate(self):
+		super(AppModule, self).terminate()
+		# #104 (19.07/18.09.10-LTS): clean up encoder labels database because Studio and Streamer are separate apps.
+		if "globalPlugins.splUtils.encoders" in sys.modules:
+			import globalPlugins.splUtils.encoders
+			globalPlugins.splUtils.encoders.cleanup()
 
 	def event_NVDAObject_init(self, obj):
 		# ICQ field is incorrectly labeled as IRC.
