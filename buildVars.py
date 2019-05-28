@@ -28,9 +28,9 @@ In addition, adds global commands for the studio from everywhere."""),
 	# Documentation file name
 	"addon_docFileName" : "readme.html",
 	# Minimum NVDA version supported
-	"addon_minimumNVDAVersion" : "2019.3.0",
+	"addon_minimumNVDAVersion" : "2019.4.0",
 	# Last NVDA version supported/tested
-	"addon_lastTestedNVDAVersion" : "2019.3.0",
+	"addon_lastTestedNVDAVersion" : "2019.4.0",
 	# Minimum Windows version supported
 	"addon_minimumWindowsVersion" : "6.1.7601",
 	# Add-on update channel (default is stable)
