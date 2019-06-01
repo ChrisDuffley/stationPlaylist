@@ -195,6 +195,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Version 19.07
 
 * Renamed the add-on from "StationPlaylist Studio" to "StationPlaylist" to better describe apps and features supported by this add-on.
+* Internal security enhancements.
 
 ## Version 19.06/18.09.9-LTS
 
