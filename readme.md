@@ -4,7 +4,7 @@
 * Download [stable version][1]
 * Download [development version][2]
 * Download [long-term support version][3] - for Studio 5.10/5.11 users
-* NVDA compatibility: 2018.4 to 2019.1
+* NVDA compatibility: 2018.4 to 2019.2
 
 This add-on package provides improved usage of StationPlaylist Studio, as well as providing utilities to control the Studio from anywhere.
 
