@@ -5,7 +5,7 @@
 * Télécharger [la version de développement][2]
 * Télécharger [version support long-terme][3] - pour les utilisateurs de
   Studio 5.10 / 5.11
-* Compatibilité NVDA: 2018.4 à 2019.1
+* NVDA compatibility: 2018.4 to 2019.2
 
 Cette extension améliore l'utilisation de Station Playlist Studio, mais elle
 fournit aussi des utilitaires pour contrôler le Studio où que vous soyez.

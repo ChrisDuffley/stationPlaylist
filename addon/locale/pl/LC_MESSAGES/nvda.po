@@ -17,13 +17,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.6.10\n"
 
-#. Translators: Presented when attempting to install Studio add-on on unsupported Windows releases.
+#. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
 msgid ""
 "You are using an older version of Windows. This add-on requires Windows 7 "
 "Service Pack 1 or later."
 msgstr ""
 
-#. Translators: Title of a dialog shown when installing Studio add-on on old Windows releases.
+#. Translators: Title of a dialog shown when installing StationPlaylist add-on on old Windows releases.
 #, fuzzy
 msgid "Old Windows version"
 msgstr "Wykryto nieobsługiwaną wersję Windows"
@@ -31,11 +31,6 @@ msgstr "Wykryto nieobsługiwaną wersję Windows"
 #, python-brace-format
 msgid "{header}: {content}"
 msgstr "{header}: {content}"
-
-#. Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
-#, python-brace-format
-msgid "{header} not found"
-msgstr "{header} nie znaleziono"
 
 #, python-brace-format
 msgid "{header}: blank"
@@ -55,10 +50,12 @@ msgid ""
 "column data in a browse mode window"
 msgstr ""
 
-#. Translators: Script category for Station Playlist commands in input gestures dialog.
+#. Translators: Script category for StationPlaylist add-on commands in input gestures dialog.
+#. Translators: Script category for StationPlaylist commands in input gestures dialog.
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on to be shown on installation and add-on information.
-msgid "StationPlaylist Studio"
+#, fuzzy
+msgid "StationPlaylist"
 msgstr "Station Playlist Studio"
 
 #. Translators: presented when column information for a track is empty.
@@ -396,15 +393,15 @@ msgstr "{seconds} sekund pozostało"
 msgid "SPL mode"
 msgstr "Tryb SPL"
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Announces the remaining track time."
 msgstr "Wypowiada pozostały czas ścieżki."
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Announces the elapsed time for the currently playing track."
 msgstr "Oznajmia czas, który upłynął dla aktualnie odtwarzanej ścieżki."
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid ""
 "Announces broadcaster time. If pressed twice, reports minutes and seconds "
 "left to top of the hour."
@@ -412,7 +409,7 @@ msgstr ""
 "Oznajmia czas wewnątrz audycji; przyciśnięty dwukrotnie oznajmia czas "
 "pozostały do początku nowej godziny"
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Announces time including seconds."
 msgstr "Oznajmia czas z uwzględnieniem sekund."
 
@@ -421,27 +418,27 @@ msgid ""
 "The add-on settings dialog is opened. Please close the settings dialog first."
 msgstr "Okno ustawień dodatku otwarte. Proszę, zamknij je najpierw"
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Sets end of track alarm (default is 5 seconds)."
 msgstr "Ustawia alarm końca ścieżki (domyślnie 5 sekund)."
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Sets song intro alarm (default is 5 seconds)."
 msgstr "Ustawia alarm intra ścieżki (domyślnie 5 sekund)."
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Sets microphone alarm (default is 5 seconds)."
 msgstr "Ustawia alarm mikrofonu (domyślnie 5 sekund)."
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Opens SPL Studio add-on configuration dialog."
 msgstr "Otwiera dialog konfiguracji dodatku"
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Opens SPL Studio add-on welcome dialog."
 msgstr "Otwiera powitalne okno dialogu dodatku SPL"
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Toggles between various braille timer settings."
 msgstr "Przełącza pomiędzy różnymi ustawieniami timera brajlowskiego."
 
@@ -473,24 +470,24 @@ msgstr "Znajdź utwór"
 msgid "Column search"
 msgstr "Szukanie w kolumnach"
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Finds a track in the track list."
 msgstr "Pozwala wyszukać utwór na liście"
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Finds text in columns."
 msgstr "Znajduje tekst w kolumnach"
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Finds the next occurrence of the track with the name in the track list."
 msgstr "Wyszukuje w playliście następnego wystąpienia utworu o podanej nazwie"
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Finds previous occurrence of the track with the name in the track list."
 msgstr ""
 "Wyszukuje w playliście poprzedniego wystąpienia utworu o podanej nazwie"
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Locates track with duration within a time range"
 msgstr "Odszukuje utwór w określonym przedziale czasowym"
 
@@ -512,7 +509,7 @@ msgstr "Wejście do eksploratora koszyka"
 msgid "Exiting cart explorer"
 msgstr "Wyjście z eksploratora koszyka"
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Toggles cart explorer to learn cart assignments."
 msgstr "Przełącza eksplorator koszyka, aby nauczyć się przypisań koszyka"
 
@@ -524,7 +521,7 @@ msgstr "Komenda koszyka niedostępna"
 msgid "Cart unassigned"
 msgstr "Koszyk nieprzypisany"
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Toggles library scan progress settings."
 msgstr "Przełącza ustawienie oznajmiania postępu skanowania biblioteki"
 
@@ -561,7 +558,7 @@ msgid ""
 msgstr ""
 "Jedno z okien dodatku jest już aktywne. Proszę, zamknij najpierw je wszystkie"
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Opens a dialog to quickly enable or disable metadata streaming."
 msgstr ""
 "Otwiera dialog, w którym możesz szybko zarządzać strumieniowaniem danych"
@@ -690,7 +687,7 @@ msgstr "Statystyki playlisty"
 msgid "Failed to locate Studio main window, cannot enter SPL Assistant"
 msgstr "Nie znalazłem głównego okna SPL. Nie mogę uruchomić asystenta SPL"
 
-#. Translators: Input help mode message for a layer command in Station Playlist Studio.
+#. Translators: Input help mode message for a layer command in StationPlaylist add-on.
 msgid ""
 "The SPL Assistant layer command. See the add-on guide for more information "
 "on available commands."
@@ -710,7 +707,7 @@ msgstr "Żaden utwór nie jest odtwarzany lub zaplanowany"
 msgid "Cannot find next track information"
 msgstr "Informacja o następnym utworze niedostępna."
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Announces title of the next track if any"
 msgstr "Wypowiada nazwę następnej ścieżki (jeśli adekwatne)"
 
@@ -724,7 +721,7 @@ msgstr ""
 msgid "Cannot find current track information"
 msgstr "Informacja o obecnym utworze niedostępna."
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Announces title of the currently playing track"
 msgstr "Oznajmia tytuł obecnie granego utworu"
 
@@ -736,7 +733,7 @@ msgstr "Nie skonfigurowano pogody i temperatury"
 msgid "Weather information not found"
 msgstr "Nie znaleziono pogody"
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Announces temperature and weather information"
 msgstr "Ogłasza temperaturę i pogodę."
 
@@ -762,7 +759,7 @@ msgstr "Analiza czasu: Tak"
 msgid "Playlist analysis deactivated"
 msgstr "Analiza czasu: Nie"
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 #, fuzzy
 msgid ""
 "Marks focused track as start marker for various playlist analysis commands"
@@ -778,7 +775,7 @@ msgstr "Nie wybrano utworu startowego, Nie mogę rozpocząć analizy czasu"
 msgid "Tracks: {numberOfSelectedTracks}, totaling {totalTime}"
 msgstr "{numberOfSelectedTracks} tracków, W sumie {totalTime}"
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid ""
 "Announces total length of tracks between analysis start marker and the "
 "current track"
@@ -786,7 +783,7 @@ msgstr ""
 "Ogłasza długość wszystkich utworów od markera analizy, do podświetlonego "
 "utworu."
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid ""
 "Presents playlist snapshot information such as number of tracks and top "
 "artists"
@@ -964,10 +961,10 @@ msgstr "Nie pokazuj mi tego więcej!"
 #. Translators: A message giving basic information about the add-on.
 #, fuzzy
 msgid ""
-"Welcome to StationPlaylist Studio add-on for NVDA,\n"
+"Welcome to StationPlaylist add-on for NVDA,\n"
 "your companion to broadcasting with SPL Studio using NVDA screen reader.\n"
 "\n"
-"Highlights of StationPlaylist Studio add-on include:\n"
+"Highlights of StationPlaylist add-on include:\n"
 "* Layer commands for obtaining status information.\n"
 "* Various ways to examine track columns.\n"
 "* Various ways to find tracks.\n"
@@ -976,7 +973,8 @@ msgid ""
 "* Completely free, open-source and community-driven.\n"
 "* And much more.\n"
 "\n"
-"Visit www.stationplaylist.com for details on StationPlaylist Studio.\n"
+"Visit www.stationplaylist.com for details on StationPlaylist suite of "
+"applications.\n"
 "Visit StationPlaylist entry on NVDA Community Add-ons page (addons.nvda-"
 "project.org) for more information on the add-on and to read the "
 "documentation.\n"
@@ -1014,7 +1012,8 @@ msgstr ""
 "Thank you."
 
 #. Translators: Title of a dialog displayed when the add-on starts presenting basic information, similar to NVDA's own welcome dialog.
-msgid "Welcome to StationPlaylist Studio add-on"
+#, fuzzy
+msgid "Welcome to StationPlaylist add-on"
 msgstr "Witamy w Station Playlist Studio"
 
 #. Translators: A checkbox to show welcome dialog.
@@ -1457,6 +1456,12 @@ msgstr "Gdy szybki profil jest aktywny"
 msgid "&Metadata streaming notification and connection"
 msgstr "Powiadamianie o metadanych i strumieniowaniu"
 
+#. WX's native CheckListBox isn't user friendly.
+#. Therefore use checkboxes laid out across the top.
+#. 17.04: instead of two loops, just use one loop, with labels deriving from a stream labels tuple.
+#. Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
+#. Add checkboxes for each stream, beginning with the DSP encoder.
+#. #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
 #, fuzzy
 msgid "&Select the URL for metadata streaming upon request:"
 msgstr "Wybierz URL do streamingu metadanych na żądanie"
@@ -1501,13 +1506,6 @@ msgstr "Uwzględniaj kolumny i nagłówki w informacjach o utworze"
 msgid "Playlist transcripts"
 msgstr "Statystyki playlisty"
 
-#. self.availableTranscriptFormats = [output[0] for output in splmisc.SPLPlaylistTranscriptFormats]
-#. self.availableTranscriptFormats.insert(0, "")
-#. Translators: the label for a setting in SPL add-on settings to select preferred playlist transcript format.
-#. labelText = _("&Prefered transcript format:")
-#. Translators: one of the transcript format options.
-#. self.transcriptFormatsList = playlistTranscriptsHelper.addLabeledControl(labelText, wx.Choice, choices=[_("ask me every time")]+[output[2] for output in splmisc.SPLPlaylistTranscriptFormats])
-#. self.transcriptFormatsList.SetSelection(self.availableTranscriptFormats.index(splconfig.SPLConfig["PlaylistTranscripts"]["TranscriptFormat"]))
 #. Translators: Help text to select columns to be announced.
 #, fuzzy
 msgid ""
@@ -1690,8 +1688,9 @@ msgstr ""
 msgid "Reset settings..."
 msgstr "Wyzeruj ustawienia..."
 
-#. Translators: This is the label for the StationPlaylist Studio configuration dialog.
-msgid "Studio Add-on Settings"
+#. Translators: This is the label for the StationPlaylist add-on configuration dialog.
+#, fuzzy
+msgid "StationPlaylist Add-on Settings"
 msgstr "Ustawienia dodatku SPL"
 
 #. Translators: Presented when an alarm dialog is opened.
@@ -1883,11 +1882,11 @@ msgstr ""
 "R: pozostały czas aktualnie odtwarzanej ścieżki.\n"
 "Shift+R: postęp skanowania biblioteki."
 
-#. Translators: Presented when Station Playlist Studio is not running.
+#. Translators: Presented when StationPlaylist Studio is not running.
 msgid "SPL Studio is not running."
 msgstr "SPL Studio nie jest uruchomione."
 
-#. Translators: Input help mode message for a command to switch to Station Playlist Studio from any program.
+#. Translators: Input help mode message for a command to switch to StationPlaylist Studio from any program.
 msgid "Moves to SPL Studio window from other programs."
 msgstr "Przenosi do okna SPL Studio z innych programów."
 
@@ -1899,18 +1898,18 @@ msgstr ""
 "Jesteś już w oknie SPL Studio. Aby uzyskać informacje o statusie, użyj "
 "komend asystenta SPL."
 
-#. Translators: The name of a layer command set for Station Playlist Studio.
+#. Translators: The name of a layer command set for StationPlaylist add-on.
 #. Hint: it is better to translate it as "SPL Control Panel."
 msgid "SPL Controller"
 msgstr "Kontroler SPL"
 
-#. Translators: Input help mode message for a layer command in Station Playlist Studio.
+#. Translators: Input help mode message for a layer command in StationPlaylist add-on.
 msgid "SPl Controller layer command. See add-on guide for available commands."
 msgstr ""
 "Warstwa komend kontrolera SPL. Zajrzyj do podręcznika dodatku, aby uzyskać "
 "więcej informacji na temat dostępnych poleceń."
 
-#. Translators: Presented when no track is playing in Station Playlist Studio.
+#. Translators: Presented when no track is playing in StationPlaylist Studio.
 msgid "There is no track playing. Try pausing while a track is playing."
 msgstr ""
 "Żaden utwór nie jest odtwarzany; Spróbuj wykonać pauzę podczas odtwarzania"
@@ -1930,7 +1929,7 @@ msgstr "Skanowanie zakończone z {itemCount} elementów."
 msgid "Listener count: {listenerCount}"
 msgstr "Liczba słuchaczy: {listenerCount}"
 
-#. Translators: Presented when no track is playing in Station Playlist Studio.
+#. Translators: Presented when no track is playing in StationPlaylist Studio.
 msgid "There is no track playing."
 msgstr "Żaden utwór nie jest odtwarzany"
 
@@ -2067,16 +2066,13 @@ msgstr ""
 msgid "Another encoder settings dialog is open."
 msgstr "Inne okno właściwości enkodera jest otwarte"
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid ""
 "Shows encoder configuration dialog to configure various encoder settings "
 "such as stream label."
 msgstr ""
 "Wyświetla okno konfiguracji enkodera umożliwiające ustawienie jego "
 "rozmaitych właściwości"
-
-msgid "Station Playlist Studio"
-msgstr "Station Playlist Studio"
 
 #. Translators: Input help mode message for report date and time command.
 msgid ""
@@ -2124,3 +2120,9 @@ msgid ""
 msgstr ""
 "Poprawia dostępność Station Playlist Studio.\n"
 "Ponadto, dodaje globalne komendy dla studia, dostępne z każdego miejsca."
+
+#~ msgid "{header} not found"
+#~ msgstr "{header} nie znaleziono"
+
+#~ msgid "Station Playlist Studio"
+#~ msgstr "Station Playlist Studio"

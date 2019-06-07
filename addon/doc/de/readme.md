@@ -4,7 +4,7 @@
 * [Stabile Version herunterladen][1]
 * [Entwicklerversion herunterladen][2]
 * [LTS-Version für Studio 5.10 / 5.11 herunterladen][3]
-* NVDA-Kompatibilität: 2018.4 bis 2019.1
+* NVDA compatibility: 2018.4 to 2019.2
 
 Dieses Erweiterungspaket verbessert die Zugänglichkeit von Station Playlist
 Studio. Es stehen außerdem Befehle zur Verfügung, um Station Playlist von

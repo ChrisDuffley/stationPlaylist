@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.2.1\n"
 
-#. Translators: Presented when attempting to install Studio add-on on unsupported Windows releases.
+#. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
 msgid ""
 "You are using an older version of Windows. This add-on requires Windows 7 "
 "Service Pack 1 or later."
@@ -25,18 +25,13 @@ msgstr ""
 "Folosiți o versiune mai veche de windows. Această versiune de supliment "
 "necesită windows 7 Service pack 1 sau mai nouă"
 
-#. Translators: Title of a dialog shown when installing Studio add-on on old Windows releases.
+#. Translators: Title of a dialog shown when installing StationPlaylist add-on on old Windows releases.
 msgid "Old Windows version"
 msgstr "Versiune veche de Windows"
 
 #, python-brace-format
 msgid "{header}: {content}"
 msgstr "{header}: {content}"
-
-#. Translators: Presented when some info is not defined for a track in Track Tool (example: cue not found)
-#, python-brace-format
-msgid "{header} not found"
-msgstr "{header} negăsit"
 
 #, python-brace-format
 msgid "{header}: blank"
@@ -58,10 +53,12 @@ msgstr ""
 "Apăsarea odată anunță datele pentru o coloană de piesă, apăsarea de două ori "
 "va prezenta datele coloanei într-o fereastră a modului de navigare"
 
-#. Translators: Script category for Station Playlist commands in input gestures dialog.
+#. Translators: Script category for StationPlaylist add-on commands in input gestures dialog.
+#. Translators: Script category for StationPlaylist commands in input gestures dialog.
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on to be shown on installation and add-on information.
-msgid "StationPlaylist Studio"
+#, fuzzy
+msgid "StationPlaylist"
 msgstr "StationPlaylist Studio"
 
 #. Translators: presented when column information for a track is empty.
@@ -400,15 +397,15 @@ msgstr "Atenție: {seconds} secunde rămase."
 msgid "SPL mode"
 msgstr "Mod SPL"
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Announces the remaining track time."
 msgstr "Anunță timpul rămas din melodiie."
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Announces the elapsed time for the currently playing track."
 msgstr "Anunță timpul scurs pentru melodiia curentă."
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid ""
 "Announces broadcaster time. If pressed twice, reports minutes and seconds "
 "left to top of the hour."
@@ -416,7 +413,7 @@ msgstr ""
 "Anunță ora radiodifuzorului. Dacă ați apăsat de două ori, rapoartele "
 "minutelor și secundelor rămase în partea de sus a orei."
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Announces time including seconds."
 msgstr "Anunță timpul care include secundele."
 
@@ -426,27 +423,27 @@ msgid ""
 msgstr ""
 "Setările add-onului sunt deja deschise. Vă rugăm să le închideți mai întâi."
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Sets end of track alarm (default is 5 seconds)."
 msgstr "Setează alarma sfârșitului melodiiei (implicit este 5 secunde)."
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Sets song intro alarm (default is 5 seconds)."
 msgstr "Setează alarma de început a melodiei (implicit este 5  secunde)."
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Sets microphone alarm (default is 5 seconds)."
 msgstr "Setează alarma microfonului (implicit este 5 secunde)."
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Opens SPL Studio add-on configuration dialog."
 msgstr "Deschide dialogul de configurare al extensiei SPL Studio."
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Opens SPL Studio add-on welcome dialog."
 msgstr "Deschide dialogul de bun venital extensiei SPL Studio."
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Toggles between various braille timer settings."
 msgstr "Comută între variațiile setărilor cronometrului braille."
 
@@ -479,23 +476,23 @@ msgstr "Caută melodia"
 msgid "Column search"
 msgstr "Căutare coloană"
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Finds a track in the track list."
 msgstr "Caută o melodie în lista de melodii."
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Finds text in columns."
 msgstr "Caută text în coloane."
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Finds the next occurrence of the track with the name in the track list."
 msgstr "găsește următoarea apariție a pistei, cu numele de pe listă."
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Finds previous occurrence of the track with the name in the track list."
 msgstr "Caută apariția anterioară a melodiei pe listă."
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Locates track with duration within a time range"
 msgstr "găsește o pistă cu durata într-un interval de timp"
 
@@ -518,7 +515,7 @@ msgstr "Intrare în cart explorer..."
 msgid "Exiting cart explorer"
 msgstr "Ieșire din Cart Explorer..."
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Toggles cart explorer to learn cart assignments."
 msgstr "Comută Cart explorer pentru a afla atribuirile cartului."
 
@@ -530,7 +527,7 @@ msgstr "Comandă cart nu este valabilă."
 msgid "Cart unassigned"
 msgstr "Cart neatribuit."
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Toggles library scan progress settings."
 msgstr "Comutare între setările de scanare de biblioteca de progres."
 
@@ -568,7 +565,7 @@ msgstr ""
 "Setările de add-on sau de metadata streaming sunt deja deschise. Închideți "
 "mai întâi dialogurile deschise."
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Opens a dialog to quickly enable or disable metadata streaming."
 msgstr ""
 "Deschide un dialog pentru a activa sau dezactiva rapid metadata streaming."
@@ -698,7 +695,7 @@ msgstr ""
 "Localizarea ferestrei principale a Studioului a eșuat, imposibil de deschis "
 "asistentul SPL."
 
-#. Translators: Input help mode message for a layer command in Station Playlist Studio.
+#. Translators: Input help mode message for a layer command in StationPlaylist add-on.
 msgid ""
 "The SPL Assistant layer command. See the add-on guide for more information "
 "on available commands."
@@ -718,7 +715,7 @@ msgstr "Nicio melodie următoare programată sau nicio melodie nu se redă"
 msgid "Cannot find next track information"
 msgstr "Nu se pot găsi informații despre următoarea melodie"
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Announces title of the next track if any"
 msgstr "Anunță titlul următoarei melodi dacă există"
 
@@ -732,7 +729,7 @@ msgstr ""
 msgid "Cannot find current track information"
 msgstr "Nu se pot găsi informații despre melodia curentă."
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Announces title of the currently playing track"
 msgstr "Anunță titlul melodiei curente"
 
@@ -744,7 +741,7 @@ msgstr "Vremea și Temperatura nu sunt configurate"
 msgid "Weather information not found"
 msgstr "Informațiile despre vreme nu au fost găsite."
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Announces temperature and weather information"
 msgstr "Anunță informațiile vremii și ale temperaturii."
 
@@ -768,7 +765,7 @@ msgstr "Analiza listei de redare este activată"
 msgid "Playlist analysis deactivated"
 msgstr "Analiza listei de redare este dezactivată"
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid ""
 "Marks focused track as start marker for various playlist analysis commands"
 msgstr ""
@@ -787,7 +784,7 @@ msgstr ""
 msgid "Tracks: {numberOfSelectedTracks}, totaling {totalTime}"
 msgstr "Melodii: {numberOfSelectedTracks}, în total {totalTime}."
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid ""
 "Announces total length of tracks between analysis start marker and the "
 "current track"
@@ -795,7 +792,7 @@ msgstr ""
 "Anunță durata totală a melodiilor între marcajul de start al analizei și "
 "melodia curentă."
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid ""
 "Presents playlist snapshot information such as number of tracks and top "
 "artists"
@@ -861,6 +858,24 @@ msgstr "Fereastra principală Studio nu a fost găsită"
 #. Translators: The name of the default (normal) profile.
 msgid "Normal profile"
 msgstr "Profil normal"
+
+#. Translators: Message displayed when attempting to reset Studio add-on settings while an instant switch or time-based profile is active.
+msgid ""
+"An instant switch or time-based profile is active. Resetting Studio add-on "
+"settings means normal profile will become active and switch profile settings "
+"will be left in unpredictable state. Are you sure you wish to reset Studio "
+"add-on settings to factory defaults?"
+msgstr ""
+"Este activ un comutator instant sau un profil bazat pe timp. Resetarea "
+"configurărilor suplimentului Studio înseamnă că profilul normal devine activ "
+"și că setările profilului de comutare vor fi lăsate într-o stare "
+"imprevizibilă. Sunteți sigur că vreți să resetați configurările "
+"suplimentului  Studio la valorile implicite?"
+
+#. Translators: The title of the confirmation dialog for Studio add-on settings reset.
+#, fuzzy
+msgid "SPL Studio add-on reset"
+msgstr "Verifică actualizări addon"
 
 #. Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
 msgid "Add-on settings dialog is open, cannot switch profiles"
@@ -964,10 +979,10 @@ msgstr "Nu mai arăta acest mesaj din nou"
 #. Translators: A message giving basic information about the add-on.
 #, fuzzy
 msgid ""
-"Welcome to StationPlaylist Studio add-on for NVDA,\n"
+"Welcome to StationPlaylist add-on for NVDA,\n"
 "your companion to broadcasting with SPL Studio using NVDA screen reader.\n"
 "\n"
-"Highlights of StationPlaylist Studio add-on include:\n"
+"Highlights of StationPlaylist add-on include:\n"
 "* Layer commands for obtaining status information.\n"
 "* Various ways to examine track columns.\n"
 "* Various ways to find tracks.\n"
@@ -976,7 +991,8 @@ msgid ""
 "* Completely free, open-source and community-driven.\n"
 "* And much more.\n"
 "\n"
-"Visit www.stationplaylist.com for details on StationPlaylist Studio.\n"
+"Visit www.stationplaylist.com for details on StationPlaylist suite of "
+"applications.\n"
 "Visit StationPlaylist entry on NVDA Community Add-ons page (addons.nvda-"
 "project.org) for more information on the add-on and to read the "
 "documentation.\n"
@@ -1012,7 +1028,8 @@ msgstr ""
 "Vă mulțumim."
 
 #. Translators: Title of a dialog displayed when the add-on starts presenting basic information, similar to NVDA's own welcome dialog.
-msgid "Welcome to StationPlaylist Studio add-on"
+#, fuzzy
+msgid "Welcome to StationPlaylist add-on"
 msgstr "Bun venit la extensia StationPlaylist Studio"
 
 #. Translators: A checkbox to show welcome dialog.
@@ -1464,17 +1481,24 @@ msgstr "Când profilul de comutare instantanee este activ"
 msgid "&Metadata streaming notification and connection"
 msgstr "Notificare și conectare emisie &metadata"
 
+#. WX's native CheckListBox isn't user friendly.
+#. Therefore use checkboxes laid out across the top.
+#. 17.04: instead of two loops, just use one loop, with labels deriving from a stream labels tuple.
+#. Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
+#. Add checkboxes for each stream, beginning with the DSP encoder.
+#. #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
 #, fuzzy
 msgid "&Select the URL for metadata streaming upon request:"
 msgstr "Selectează URL-ul pentru cererea de emisie metadata"
 
-#. Translators: Title of a dialog to configure column announcements (order and what columns should be announced).
-msgid "Manage column announcements"
+#. Translators: title of a panel to configure column announcements (order and what columns should be announced).
+#, fuzzy
+msgid "Column announcements"
 msgstr "Gestionare anunțările de coloană"
 
-#. Translators: Title of a dialog to configure columnn seleciton for Playlist Transcripts.
-msgid "Playlist transcript columns"
-msgstr "Coloanele de transcriere ale listei de redare"
+#. Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
+msgid "Announce columns in the &order shown on screen"
+msgstr "Anunţă coloanele în &ordinea arătată pe ecran"
 
 #. Translators: Help text to select columns to be announced.
 #, fuzzy
@@ -1484,16 +1508,6 @@ msgid ""
 msgstr ""
 "Selectează coloanele pentru a fi anunțate (artistul și numele melodiei vor "
 "fi anunțate în mod implicit)"
-
-#. Translators: Help text to select columns to be announced.
-#, fuzzy
-msgid ""
-"&Select columns to be included in playlist transcripts\n"
-"(artist and title are always included):"
-msgstr ""
-"Selectați informațiile care trebuie incluse la obținerea instantaneelor de "
-"redare.\n"
-"Numărul de track-uri și durata totală sunt întotdeauna incluse."
 
 #. wxPython 4 contains RearrangeList to allow item orders to be changed automatically.
 #. Because wxPython 3 doesn't include this, work around by using a variant of list box and move up/down buttons.
@@ -1510,19 +1524,6 @@ msgstr "Mută în &sus"
 msgid "Move &down"
 msgstr "Mută în &jos"
 
-#. Translators: title of a panel to configure column announcements (order and what columns should be announced).
-#, fuzzy
-msgid "Column announcements"
-msgstr "Gestionare anunțările de coloană"
-
-#. Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
-msgid "Announce columns in the &order shown on screen"
-msgstr "Anunţă coloanele în &ordinea arătată pe ecran"
-
-#. Translators: The label of a button to manage column announcements.
-msgid "&Manage track column announcements..."
-msgstr "Gestionează anunţările coloanelor &melodiilor..."
-
 #. Translators: the label for a setting in SPL add-on settings to toggle whether column headers should be included when announcing track information.
 msgid "Include column &headers when announcing track information"
 msgstr "&Include antete de coloană la anunțarea informațiilor melodiei"
@@ -1532,17 +1533,15 @@ msgstr "&Include antete de coloană la anunțarea informațiilor melodiei"
 msgid "Playlist transcripts"
 msgstr "Listă de redare instantanee"
 
-#. self.availableTranscriptFormats = [output[0] for output in splmisc.SPLPlaylistTranscriptFormats]
-#. self.availableTranscriptFormats.insert(0, "")
-#. Translators: the label for a setting in SPL add-on settings to select preferred playlist transcript format.
-#. labelText = _("&Prefered transcript format:")
-#. Translators: one of the transcript format options.
-#. self.transcriptFormatsList = playlistTranscriptsHelper.addLabeledControl(labelText, wx.Choice, choices=[_("ask me every time")]+[output[2] for output in splmisc.SPLPlaylistTranscriptFormats])
-#. self.transcriptFormatsList.SetSelection(self.availableTranscriptFormats.index(splconfig.SPLConfig["PlaylistTranscripts"]["TranscriptFormat"]))
-#. Translators: The label of a button to configure columns for playlist transcripts.
+#. Translators: Help text to select columns to be announced.
 #, fuzzy
-msgid "Manage transcript columns..."
-msgstr "Gestionează anunţările coloanelor &melodiilor..."
+msgid ""
+"&Select columns to be included in playlist transcripts\n"
+"(artist and title are always included):"
+msgstr ""
+"Selectați informațiile care trebuie incluse la obținerea instantaneelor de "
+"redare.\n"
+"Numărul de track-uri și durata totală sunt întotdeauna incluse."
 
 #. Translators: title of a panel to configure columns explorer settings.
 #, fuzzy
@@ -1706,24 +1705,6 @@ msgstr "Sigur vreți să resetați setările addonului SPL la implicit?"
 msgid "Warning"
 msgstr "Atenţie"
 
-#. Translators: Message displayed when attempting to reset Studio add-on settings while an instant switch or time-based profile is active.
-msgid ""
-"An instant switch or time-based profile is active. Resetting Studio add-on "
-"settings means normal profile will become active and switch profile settings "
-"will be left in unpredictable state. Are you sure you wish to reset Studio "
-"add-on settings to factory defaults?"
-msgstr ""
-"Este activ un comutator instant sau un profil bazat pe timp. Resetarea "
-"configurărilor suplimentului Studio înseamnă că profilul normal devine activ "
-"și că setările profilului de comutare vor fi lăsate într-o stare "
-"imprevizibilă. Sunteți sigur că vreți să resetați configurările "
-"suplimentului  Studio la valorile implicite?"
-
-#. Translators: The title of the confirmation dialog for Studio add-on settings reset.
-#, fuzzy
-msgid "SPL Studio add-on reset"
-msgstr "Verifică actualizări addon"
-
 #. Translators: A dialog message shown when settings were reset to defaults.
 msgid "Successfully applied default add-on settings."
 msgstr "Setările implicite ale add-onului s-au aplicat cu succes."
@@ -1744,8 +1725,9 @@ msgstr ""
 msgid "Reset settings..."
 msgstr "Resetare setări."
 
-#. Translators: This is the label for the StationPlaylist Studio configuration dialog.
-msgid "Studio Add-on Settings"
+#. Translators: This is the label for the StationPlaylist add-on configuration dialog.
+#, fuzzy
+msgid "StationPlaylist Add-on Settings"
 msgstr "Setările addonului studio"
 
 #. Translators: Presented when an alarm dialog is opened.
@@ -1896,6 +1878,7 @@ msgstr "Acțiune de transcriere:"
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
+#, fuzzy
 msgid ""
 "\n"
 "After entering SPL Controller, press:\n"
@@ -1915,7 +1898,9 @@ msgid ""
 "I: Announce listener count.\n"
 "Q: Announce Studio status information.\n"
 "R: Remaining time for the playing track.\n"
-"Shift+R: Library scan progress."
+"Shift+R: Library scan progress.\n"
+"Function keys and number row keys with or without Shift, Alt, and Control "
+"keys: Play carts."
 msgstr ""
 "\n"
 "După pornirea controlerului SPL, apasă:\n"
@@ -1937,11 +1922,11 @@ msgstr ""
 "R: Timpul rămas pentru melodia curentă.\n"
 "Shift+R: Progresul scanării librăriei"
 
-#. Translators: Presented when Station Playlist Studio is not running.
+#. Translators: Presented when StationPlaylist Studio is not running.
 msgid "SPL Studio is not running."
 msgstr "Studioul SPL nu rulează."
 
-#. Translators: Input help mode message for a command to switch to Station Playlist Studio from any program.
+#. Translators: Input help mode message for a command to switch to StationPlaylist Studio from any program.
 msgid "Moves to SPL Studio window from other programs."
 msgstr "Comutare la fereastra studioului SPL de la alte programe."
 
@@ -1953,18 +1938,18 @@ msgstr ""
 "Ești deja în fereastra studio-ului SPL. Pentru comenzi de stare, folosește "
 "comenzile asistentului SPL."
 
-#. Translators: The name of a layer command set for Station Playlist Studio.
+#. Translators: The name of a layer command set for StationPlaylist add-on.
 #. Hint: it is better to translate it as "SPL Control Panel."
 msgid "SPL Controller"
 msgstr "Controler SPL"
 
-#. Translators: Input help mode message for a layer command in Station Playlist Studio.
+#. Translators: Input help mode message for a layer command in StationPlaylist add-on.
 msgid "SPl Controller layer command. See add-on guide for available commands."
 msgstr ""
 "Comandă aspect controler SPL. Citește manualul add-onului pentru a afla "
 "coomenzile disponibile."
 
-#. Translators: Presented when no track is playing in Station Playlist Studio.
+#. Translators: Presented when no track is playing in StationPlaylist Studio.
 msgid "There is no track playing. Try pausing while a track is playing."
 msgstr ""
 "Nicio melodie nu este redată. Încearcă să pui pauză când o melodie se redă."
@@ -1984,7 +1969,7 @@ msgstr "Scanare completă cu {itemCount} elemente scanate."
 msgid "Listener count: {listenerCount}"
 msgstr "Număr ascultători: {listenerCount}"
 
-#. Translators: Presented when no track is playing in Station Playlist Studio.
+#. Translators: Presented when no track is playing in StationPlaylist Studio.
 msgid "There is no track playing."
 msgstr "Nicio melodie nu se redă."
 
@@ -2124,16 +2109,13 @@ msgstr ""
 msgid "Another encoder settings dialog is open."
 msgstr "Un alt dialog cu setările encoderului este deschis."
 
-#. Translators: Input help mode message for a command in Station Playlist Studio.
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid ""
 "Shows encoder configuration dialog to configure various encoder settings "
 "such as stream label."
 msgstr ""
 "Arată dialogul de configurare a encoderului pentru a configura diverse "
 "setări ale acestuia, cum ar fi etichete de stream."
-
-msgid "Station Playlist Studio"
-msgstr "Station Playlist Studio"
 
 #. Translators: Input help mode message for report date and time command.
 msgid ""
@@ -2181,3 +2163,22 @@ msgid ""
 msgstr ""
 "Conține suport pentru StationPlaylist Studio.\n"
 "De asemenea, adaugă comenzi globale pentru studio de oriunde."
+
+#~ msgid "{header} not found"
+#~ msgstr "{header} negăsit"
+
+#~ msgid "Manage column announcements"
+#~ msgstr "Gestionare anunțările de coloană"
+
+#~ msgid "Playlist transcript columns"
+#~ msgstr "Coloanele de transcriere ale listei de redare"
+
+#~ msgid "&Manage track column announcements..."
+#~ msgstr "Gestionează anunţările coloanelor &melodiilor..."
+
+#, fuzzy
+#~ msgid "Manage transcript columns..."
+#~ msgstr "Gestionează anunţările coloanelor &melodiilor..."
+
+#~ msgid "Station Playlist Studio"
+#~ msgstr "Station Playlist Studio"
