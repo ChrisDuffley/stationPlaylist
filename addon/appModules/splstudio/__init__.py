@@ -1043,11 +1043,6 @@ class AppModule(appModuleHandler.AppModule):
 	def terminate(self):
 		super(AppModule, self).terminate()
 		debugOutput("terminating app module")
-		# 6.3: Memory leak results if encoder flag sets and other encoder support maps aren't cleaned up.
-		# This also could have allowed a hacker to modify the flags set (highly unlikely) so NvDA could get confused next time Studio loads.
-		if "globalPlugins.splUtils.encoders" in sys.modules:
-			import globalPlugins.splUtils.encoders
-			globalPlugins.splUtils.encoders.cleanup()
 		# #39 (17.11/15.10-lts): terminate microphone alarm/interval threads, otherwise errors are seen.
 		# #40 (17.12): replace this with a handler that responds to app module exit signal.
 		# Also allows profile switch handler to unregister itself as well.

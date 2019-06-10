@@ -3,6 +3,7 @@
 
 # SPL Audio Processing Engine
 
+import sys
 import appModuleHandler
 import controlTypes
 
@@ -27,6 +28,15 @@ encoderSettingsLabels= {
 }
 
 class AppModule(appModuleHandler.AppModule):
+
+	def terminate(self):
+		super(AppModule, self).terminate()
+		# 6.3: Memory leak results if encoder flag sets and other encoder support maps aren't cleaned up.
+		# This also could have allowed a hacker to modify the flags set (highly unlikely) so NvDA could get confused next time Studio loads.
+		# #105 (19.07): SPL Engine is responsible for hosting encoder DLL's.
+		if "globalPlugins.splUtils.encoders" in sys.modules:
+			import globalPlugins.splUtils.encoders
+			globalPlugins.splUtils.encoders.cleanup()
 
 	def event_NVDAObject_init(self, obj):
 		# ICQ field is incorrectly labeled as IRC.
