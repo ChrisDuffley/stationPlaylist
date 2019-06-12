@@ -24,11 +24,10 @@ import globalVars
 import ui
 import gui
 import wx
-import addonHandler
-addonHandler.initTranslation()
-
 from . import splactions
 from . import spldebugging
+import addonHandler
+addonHandler.initTranslation()
 
 # Until NVDA Core uses Python 3 (preferably 3.3 or later), use a backported version of chain map class.
 # Backported by Jonathan Eunice.
