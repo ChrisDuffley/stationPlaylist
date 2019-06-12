@@ -8,6 +8,7 @@
 import os
 from io import StringIO
 import pickle
+from collections import ChainMap
 from configobj import ConfigObj, get_extra_values
 # ConfigObj 5.1.0 and later integrates validate module.
 from configobj.validate import Validator
@@ -22,14 +23,6 @@ from . import splactions
 from . import spldebugging
 import addonHandler
 addonHandler.initTranslation()
-
-# Until NVDA Core uses Python 3 (preferably 3.3 or later), use a backported version of chain map class.
-# Backported by Jonathan Eunice.
-# Python Package Index: https://pypi.python.org/pypi/chainmap/1.0.2
-try:
-	from collections import ChainMap
-except ImportError:
-	from .chainmap import ChainMap
 
 # Configuration management
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
