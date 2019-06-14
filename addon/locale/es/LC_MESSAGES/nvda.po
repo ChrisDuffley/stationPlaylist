@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2019-03-15 16:23-0700\n"
+"PO-Revision-Date: 2019-06-13 07:50-0700\n"
 "Last-Translator: José Manuel Delicado <jmdaweb@hotmail.com>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -59,9 +59,8 @@ msgstr ""
 #. Translators: Script category for StationPlaylist commands in input gestures dialog.
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on to be shown on installation and add-on information.
-#, fuzzy
 msgid "StationPlaylist"
-msgstr "StationPlaylist Studio"
+msgstr "StationPlaylist"
 
 #. Translators: presented when column information for a track is empty.
 msgid "blank"
@@ -994,7 +993,6 @@ msgid "Do not show this message again"
 msgstr "No mostrar este mensaje otra vez"
 
 #. Translators: A message giving basic information about the add-on.
-#, fuzzy
 msgid ""
 "Welcome to StationPlaylist add-on for NVDA,\n"
 "your companion to broadcasting with SPL Studio using NVDA screen reader.\n"
@@ -1034,7 +1032,8 @@ msgstr ""
 "* Completamente libre, de código abierto e impulsado por la comunidad.\n"
 "* Y mucho más.\n"
 "\n"
-"Visita www.stationplaylist.com para detalles  sobre StationPlaylist Studio.\n"
+"Visita www.stationplaylist.com para detalles  sobre la suite de aplicaciones "
+"de StationPlaylist.\n"
 "Visita la entrada StationPlaylist en la página de complementos de la "
 "comunidad de NVDA (addons.nvda-project.org) para más información sobre el "
 "complemento y para leer la documentación.\n"
@@ -1047,9 +1046,8 @@ msgstr ""
 "Gracias."
 
 #. Translators: Title of a dialog displayed when the add-on starts presenting basic information, similar to NVDA's own welcome dialog.
-#, fuzzy
 msgid "Welcome to StationPlaylist add-on"
-msgstr "Bienvenido al complemento StationPlaylist Studio"
+msgstr "Bienvenido al complemento StationPlaylist"
 
 #. Translators: A checkbox to show welcome dialog.
 msgid "Show welcome dialog when I start Studio"
@@ -1739,9 +1737,8 @@ msgid "Reset settings..."
 msgstr "Reiniciar opciones..."
 
 #. Translators: This is the label for the StationPlaylist add-on configuration dialog.
-#, fuzzy
 msgid "StationPlaylist Add-on Settings"
-msgstr "Opciones del complemento Studio"
+msgstr "Opciones del complemento StationPlaylist"
 
 #. Translators: Presented when an alarm dialog is opened.
 msgid ""
@@ -2180,9 +2177,3 @@ msgid ""
 msgstr ""
 "Mejora el soporte para Station Playlist Studio.\n"
 "Además, agrega comandos globales para el estudio desde cualquier parte."
-
-#~ msgid "{header} not found"
-#~ msgstr "{header} no enconrado"
-
-#~ msgid "Station Playlist Studio"
-#~ msgstr "Station Playlist Studio"

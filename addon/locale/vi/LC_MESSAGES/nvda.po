@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 17.02\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2017-02-03 19:00+1000\n"
-"PO-Revision-Date: 2019-03-15 16:27-0700\n"
+"PO-Revision-Date: 2019-06-13 08:01-0700\n"
 "Last-Translator: Dang Manh Cuong <dangmanhcuong@gmail.com>\n"
 "Language-Team: \n"
 "Language: vi\n"
@@ -56,9 +56,8 @@ msgstr ""
 #. Translators: Script category for StationPlaylist commands in input gestures dialog.
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on to be shown on installation and add-on information.
-#, fuzzy
 msgid "StationPlaylist"
-msgstr "StationPlaylist Studio"
+msgstr "StationPlaylist"
 
 #. Translators: presented when column information for a track is empty.
 msgid "blank"
@@ -968,7 +967,6 @@ msgid "Do not show this message again"
 msgstr "Không hiển thị lại thông điệp này nữa"
 
 #. Translators: A message giving basic information about the add-on.
-#, fuzzy
 msgid ""
 "Welcome to StationPlaylist add-on for NVDA,\n"
 "your companion to broadcasting with SPL Studio using NVDA screen reader.\n"
@@ -995,10 +993,10 @@ msgid ""
 "\n"
 "Thank you."
 msgstr ""
-"Chào mừng đến với StationPlaylist Studio add-on cho NVDA,\n"
-"đồng hành với bạn để phát thanh với SPL bằng trình đọc màn hình NVDA.\n"
+"Chào mừng đến với StationPlaylist add-on cho NVDA,\n"
+"đồng hành với bạn để phát thanh bằng SPL với trình đọc màn hình NVDA.\n"
 "\n"
-"Các tính năng nổi bật của StationPlaylist Studio add-on bao gồm:\n"
+"Các tính năng nổi bật của StationPlaylist add-on bao gồm:\n"
 "* Các lệnh lớp để xem thông tin trạng thái.\n"
 "* Nhiều cách xem các cột của track.\n"
 "* Nhiều cách để tìm kiếm track.\n"
@@ -1020,9 +1018,8 @@ msgstr ""
 "Xin cảm ơn."
 
 #. Translators: Title of a dialog displayed when the add-on starts presenting basic information, similar to NVDA's own welcome dialog.
-#, fuzzy
 msgid "Welcome to StationPlaylist add-on"
-msgstr "Chào mừng đến với StationPlaylist Studio add-on"
+msgstr "Chào mừng đến với StationPlaylist add-on"
 
 #. Translators: A checkbox to show welcome dialog.
 msgid "Show welcome dialog when I start Studio"
@@ -1692,9 +1689,8 @@ msgid "Reset settings..."
 msgstr "Khôi phục các cài đặt..."
 
 #. Translators: This is the label for the StationPlaylist add-on configuration dialog.
-#, fuzzy
 msgid "StationPlaylist Add-on Settings"
-msgstr "Cài đặt Studio Add-on"
+msgstr "Cài đặt StationPlaylist"
 
 #. Translators: Presented when an alarm dialog is opened.
 msgid ""
@@ -2123,9 +2119,3 @@ msgid ""
 msgstr ""
 "Cải thiện hỗ trợ cho StationPlaylist Studio.\n"
 "Ngoài ra là thêm các lệnh toàn cục cho studio từ bất cứ đâu."
-
-#~ msgid "{header} not found"
-#~ msgstr "Không tìm thấy {header}"
-
-#~ msgid "Station Playlist Studio"
-#~ msgstr "Station Playlist Studio"
