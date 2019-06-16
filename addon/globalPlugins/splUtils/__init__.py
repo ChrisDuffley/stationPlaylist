@@ -333,20 +333,3 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	}
 
 	__gestures={}
-
-	# Support for Encoders
-	# Each encoder is an overlay class, thus makes it easier to add encoders in the future by implementing overlay objects.
-	# Each encoder, at a minimum, must support connection monitoring routines.
-
-	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
-		if obj.appModule.appName in ("splengine", "splstreamer"):
-			import controlTypes
-			from . import encoders
-			if obj.windowClassName == "TListView":
-				# #87: add support for table navigation commands by coercing encoder list and entries into SysListView32 family.
-				if obj.role == controlTypes.ROLE_LISTITEM:
-					clsList.insert(0, encoders.SAMEncoder)
-				elif obj.role == controlTypes.ROLE_LIST:
-					clsList.insert(0, sysListView32.List)
-			elif obj.windowClassName == "SysListView32" and obj.role == controlTypes.ROLE_LISTITEM:
-				clsList.insert(0, encoders.SPLEncoder)
