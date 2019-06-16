@@ -2,6 +2,7 @@
 # Copyright 2019 Joseph Lee and others, released under GPL.
 
 # SPL Audio Processing Engine
+# Home to various DSP DLL's including encoders.
 
 import sys
 import appModuleHandler
@@ -34,6 +35,7 @@ class AppModule(appModuleHandler.AppModule):
 		# 6.3: Memory leak results if encoder flag sets and other encoder support maps aren't cleaned up.
 		# This also could have allowed a hacker to modify the flags set (highly unlikely) so NvDA could get confused next time Studio loads.
 		# #105 (19.07): SPL Engine is responsible for hosting encoder DLL's.
+		# #104 (19.07/18.09.10-LTS): any app module deriving from this (including Streamer) must clean up encoders database.
 		if "globalPlugins.splUtils.encoders" in sys.modules:
 			import globalPlugins.splUtils.encoders
 			globalPlugins.splUtils.encoders.cleanup()
