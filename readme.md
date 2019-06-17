@@ -14,7 +14,7 @@ IMPORTANT NOTES:
 
 * This add-on requires NVDA 2018.4 or later and StationPlaylist suite 5.20 or later.
 * If using Windows 8 or later, for best experience, disable audio ducking mode.
-* Starting from 2018, [changelogs for old add-on releases][5] will be found on GitHub. This add-on readme will list changes from version 7.0 (2016 onwards).
+* Starting from 2018, [changelogs for old add-on releases][5] will be found on GitHub. This add-on readme will list changes from version 8.0/16.10 (2016 onwards).
 * Certain add-on features won't work under some conditions, including running NVDA in secure mode.
 * Due to tecnical limitations, you cannot install or use this add-on on Windows Store version of NVDA.
 * Features marked as "experimental" are meant to test something before a wider release, so they will not be enabled in stable releases.
@@ -533,67 +533,6 @@ Version 8.0 (also known as 16.10) supports SPL Studio 5.10 and later, with 15.0-
 * Performance improvements when obtaining column information for the first time in Track Tool.
 * 8.0: Added a dialog in add-on settings to configure Columns Explorer slots for Track Tool.
 * You can now configure microphone alarm interval from microphone alarm dialog (Alt+NvDA+4).
-
-## Version 7.5/16.09
-
-* NVDA will no longer pop up update progress dialog if add-on update channel has just changed.
-* NVDA will honor the selected update channel when downloading updates.
-* Updated translations.
-
-## Version 7.4/16.08
-
-Version 7.4 is also known as 16.08 following the year.month version number for stable releases.
-
-* It is possible to select add-on update channel from add-on settings/advanced options, to be removed later in 2017. For 7.4, available channels are beta, stable and long-term.
-* Added a setting in add-on settings/Advanced options to configure update check interval between 1 and 30 days (default is 7 or weekly checks).
-* SPL Controller command and the command to focus to Studio will not be available from secure screens.
-* New and updated translations and added localized documentation in various languages.
-
-## Changes for 7.3
-
-* Slight performance improvements when looking up information such as automation via some SPL Assistant commands.
-* Updated translations.
-
-## Changes for 7.2
-
-* Due to removal of old-style internal configuration format, it is mandatory to install add-on 7.2. Once installed, you cannot go back to an earlier version of the add-on.
-* Added a command in SPL Controller to report listener count (I).
-* You can now open SPL add-on settings and encoder settings dialogs by pressing Alt+NVDA+0. You can still use Control+NVDA+0 to open these dialogs (to be removed in add-on 8.0).
-* In Track Tool, you can use Control+Alt+left or right arrow keys to navigate between columns.
-* Contents of various Studio dialogs such as About dialog in Studio 5.1x are now announced.
-* In SPL Encoders, NVDA will silence connection tone if auto-connect is enabled and then turned off from encoder context menu while the selected encoder is connecting.
-* Updated translations.
-
-## Changes for 7.1
-
-* Fixed erorrs encountered when upgrading from add-on 5.5 and below to 7.0.
-* When answering "no" when resetting add-on settings, you'll be returned to add-on settings dialog and NVDA will remember instant switch profile setting.
-* NVDA will ask you to reconfigure stream labels and other encoder options if encoder configuration file becomes corrupted.
-
-## Changes for 7.0
-
-* Added add-on update check feature. This can be done manually (SPL Assistant, Control+Shift+U) or automatically (configurable via advanced options dialog from add-on settings).
-* It is no longer required to stay in the playlist viewer window in order to invoke most SPL Assistant layer commands or obtain time announcements such as remaining time for the track and broadcaster time.
-* Changes to SPL Assistant commands, including playlist duration (D), reassignment of hour selection duration from Shift+H to Shift+S and Shift+H now used to announce duration of remaining tracks for the current hour slot, metadata streaming status command reassigned (1 through 4, 0 is now Shift+1 through Shift+4, Shift+0).
-* It is now possible to invoke track finder via SPL Assistant (F).
-* SPL Assistant, numbers 1 through 0 (6 for Studio 5.01 and earlier) can be used to announce specific column information. These column slots can be changed under Columns Explorer item in add-on settings dialog.
-* Fixed numerous errors reported by users when installing add-on 7.0 for the first time when no prior version of this add-on was installed.
-* Improvements to Track Dial, including improved responsiveness when moving through columns and tracking how columns are presented on screen.
-* Added ability to press Control+Alt+left or right arrow keys to move between track columns.
-* It is now possible to use a different screen reader command layout for SPL Assistant commands. Go to advanced options dialog from add-on settings to configure this option between NVDA, JAWS and Window-Eyes layouts. See the SPL Assistant commands above for details.
-* NVDA can be configured to switch to a specific broadcast profile at a specific day and time. Use the new triggers dialog in add-on settings to configure this.
-* NVDA will report name of the profile one is switching to via instant switch (SPL Assistant, F12) or as a result of time-based profile becoming active.
-* Moved instant switch toggle (now a checkbox) to the new triggers dialog.
-* Entries in profiles combo box in add-on settings dialog now shows profile flags such as active, whether it is an instant switch profile and so on.
-* If a serious problem with reading broadcast profile files are found, NVDA will present an error dialog and reset settings to defaults instead of doing nothing or sounding an error tone.
-* Settings will be saved to disk if and only if you change settings. This prolongs life of SSD's (solid state drives) by preventing unnecessary saves to disk if no settings have changed.
-* In add-on settings dialog, the controls used to toggle announcement of scheduled time, listener count, cart name and track name has been moved to a dedicated status announcements dialog (select status announcement button to open this dialog).
-* Added a new setting in add-on settings dialog to let NVDA play beep for different track categories when moving between tracks in playlist viewer.
-* Attempting to open metadata configuration option in add-on settings dialog while quick metadata streaming dialog is open will no longer cause NVDA to do nothing or play an error tone. NvDA will now ask you to close metadata streaming dialog before you can open add-on settings.
-* When announcing time such as remaining time for the playing track, hours are also announced. Consequently, the hour announcement setting is enabled by default.
-* Pressing SPL Controller, R now causes NVDA to announce remaining time in hours, minutes and seconds (minutes and seconds if this is such a case).
-* In encoders, pressing Control+NVDA+0 will present encoder settings dialog for configuring various options such as stream label, focusing to Studio when connected and so on.
-* In encoders, it is now possible to turn off connection progress tone (configurable from encoder settings dialog).
 
 ## Older releases
 
