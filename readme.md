@@ -6,13 +6,13 @@
 * Download [long-term support version][3] - for Studio 5.10/5.11 users
 * NVDA compatibility: 2018.4 to 2019.2
 
-This add-on package provides improved usage of StationPlaylist Studio and other StationPlaylist apps, as well as providing utilities to control the Studio from anywhere. Supported apps include Studio, Creator, Track Tool, VT Recorder, and Streamer.
+This add-on package provides improved usage of StationPlaylist Studio and other StationPlaylist apps, as well as providing utilities to control Studio from anywhere. Supported apps include Studio, Creator, Track Tool, VT Recorder, and Streamer, as well as SAM and SPL encoders.
 
 For more information about the add-on, read the [add-on guide][4]. For developers seeking to know how to build the add-on, see buildInstructions.txt located at the root of the add-on source code repository.
 
 IMPORTANT NOTES:
 
-* This add-on requires NVDA 2018.4 or later and StationPlaylist Studio 5.10 or later.
+* This add-on requires NVDA 2018.4 or later and StationPlaylist suite 5.10 or later.
 * If using Windows 8 or later, for best experience, disable audio ducking mode.
 * Starting from 2018, [changelogs for old add-on releases][5] will be found on GitHub. This add-on readme will list changes from version 5.0 (2015 onwards).
 * Certain add-on features (notably add-on updating) won't work under some conditions, including running NVDA in secure mode.
