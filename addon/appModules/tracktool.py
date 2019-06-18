@@ -40,16 +40,12 @@ class TrackToolItem(SPLTrackItem):
 	# This also allows display order to be checked (Studio 5.10 and later).
 	def announceColumnContent(self, colNumber, header=None):
 		import sys
-		if not header:
-			# #72: directly fetch on-screen column header (not the in-memory one) by probing column order array from the list (parent).
-			# #65 (18.08): use column header method (at least the method body) provided by the class itself.
-			# This will work properly if the list (parent) is (or recognized as) SysListView32.List.
-			header = self._getColumnHeaderRaw(self.parent._columnOrderArray[colNumber])
-			# LTS: Studio 5.10 data structure change is evident in Track Tool as well, so don't rely on column headers alone.
-			internalHeaders = indexOf(self.appModule.productVersion)
-			if internalHeaders[colNumber] != header:
-				colNumber = internalHeaders.index(header)
-		columnContent = self._getColumnContentRaw(colNumber)
+		# #72: directly fetch on-screen column header (not the in-memory one) by probing column order array from the list (parent).
+		# #65 (18.08): use column header method (at least the method body) provided by the class itself.
+		# This will work properly if the list (parent) is (or recognized as) SysListView32.List.
+		if not header: header = self._getColumnHeaderRaw(self.parent._columnOrderArray[colNumber])
+		# LTS: Studio 5.10 data structure change is evident in Track Tool as well, so don't rely on column headers alone.
+		columnContent = self._getColumnContentRaw(self.indexOf(header))
 		if columnContent:
 			if sys.version.startswith("3"): ui.message(str(_("{header}: {content}")).format(header = header, content = columnContent))
 			else: ui.message(unicode(_("{header}: {content}")).format(header = header, content = columnContent))
