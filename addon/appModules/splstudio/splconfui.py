@@ -115,6 +115,14 @@ class BroadcastProfilesPanel(gui.SettingsPanel):
 			self._profileTriggersConfig.clear()
 			self._profileTriggersConfig = None
 
+	def postSave(self):
+		# #108 (19.07/18.09.10-LTS): notify various subsystems so new settings can take effect even it is just for pressing OK button.
+		# No need to worry if Apply button is pressed unless the selected profile and the active profile are one and the same.
+		selectedProfile = _selectedProfile
+		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
+		if not _configApplyOnly or (_configApplyOnly and selectedProfile == splconfig.SPLConfig.activeProfile):
+			splactions.SPLActionProfileSwitched.notify(configDialogActive=True)
+
 	def onDiscard(self):
 		# Apply profile trigger changes if any.
 		try:
