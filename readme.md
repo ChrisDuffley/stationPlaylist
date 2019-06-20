@@ -196,6 +196,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 * Renamed the add-on from "StationPlaylist Studio" to "StationPlaylist" to better describe apps and features supported by this add-on.
 * Internal security enhancements.
+* If microphone alarm or metadata streaming settings are changed from add-on settings, NVDA will no longer fail to apply changed settings. This resolves an issue where microphone alarm did not start or stop properly after changing settings via add-on settings.
 
 ## Version 18.09.9-LTS
 
