@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2019-06-13 07:51-0700\n"
-"Last-Translator: Iván Novegil <ivan.novegil.cancelas@gmail.com>\n"
+"PO-Revision-Date: 2019-06-15 18:10+0200\n"
+"Last-Translator: Iván Novegil Cancelas <ivan.novegil.cancelas@gmail.com>\n"
 "Language-Team: Add-ons translation team <oprisniki@gmail.com>\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 2.2.3\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
@@ -59,9 +59,8 @@ msgstr ""
 #. Translators: Script category for StationPlaylist commands in input gestures dialog.
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on to be shown on installation and add-on information.
-#, fuzzy
 msgid "StationPlaylist"
-msgstr "StationPlaylist Studio"
+msgstr "StationPlaylist"
 
 #. Translators: presented when column information for a track is empty.
 msgid "blank"
@@ -985,7 +984,6 @@ msgid "Do not show this message again"
 msgstr "Non amosar esta mensaxe de novo"
 
 #. Translators: A message giving basic information about the add-on.
-#, fuzzy
 msgid ""
 "Welcome to StationPlaylist add-on for NVDA,\n"
 "your companion to broadcasting with SPL Studio using NVDA screen reader.\n"
@@ -1012,11 +1010,11 @@ msgid ""
 "\n"
 "Thank you."
 msgstr ""
-"Benvido ao complemento do StationPlaylist Studio para NVDA,\n"
+"Benvido ao complemento do StationPlaylist para NVDA,\n"
 "o teu compañeiro para a radiodifusión co SPL Studio usando o lector de "
 "pantalla NVDA.\n"
 "\n"
-"O subliñable do complemento do StationPlaylist Studio inclúe:\n"
+"O subliñable do complemento do StationPlaylist inclúe:\n"
 "* Capa de ordes para obter información de estado.\n"
 "* Varios xeitos para examinar columnas de pista.\n"
 "* Varios xeitos para atopar pistas.\n"
@@ -1025,12 +1023,12 @@ msgstr ""
 "* Completamente gratuito, de fontes abertas e apoiado na comunidade.\n"
 "* E moito máis.\n"
 "\n"
-"Visita www.stationplaylist.com para detalles sobre o StationPlaylist "
-"Studio.\n"
+"Visita www.stationplaylist.com para detalles sobre o paquete de aplicacións "
+"StationPlaylist.\n"
 "Visita a entrada StationPlaylist na páxina de complementos da comunidade do "
 "NVDA (addons.nvda-project.org) para máis información sobre o complemento e "
 "para ler a documentación.\n"
-"¿Queres consultar este diálogo de novo? só preme Alt+NVDA+F1 mentres usas "
+"¿Queres consultar este diálogo de novo? Só preme Alt+NVDA+F1 mentres usas "
 "Studio para voltar a este diálogo.\n"
 "¿Tes algo que dicir acerca do complemento? Preme Control+NVDA+guión (-) para "
 "enviar una retroalimentación ao desenvolvedor deste complemento usando o teu "
@@ -1039,9 +1037,8 @@ msgstr ""
 "Grazas."
 
 #. Translators: Title of a dialog displayed when the add-on starts presenting basic information, similar to NVDA's own welcome dialog.
-#, fuzzy
 msgid "Welcome to StationPlaylist add-on"
-msgstr "Benvido ao complemento StationPlaylist Studio"
+msgstr "Benvido ao complemento StationPlaylist"
 
 #. Translators: A checkbox to show welcome dialog.
 msgid "Show welcome dialog when I start Studio"
@@ -1727,9 +1724,8 @@ msgid "Reset settings..."
 msgstr "Reiniciar opción..."
 
 #. Translators: This is the label for the StationPlaylist add-on configuration dialog.
-#, fuzzy
 msgid "StationPlaylist Add-on Settings"
-msgstr "Opcións do complemento Studio"
+msgstr "Opcións do complemento StationPlaylist"
 
 #. Translators: Presented when an alarm dialog is opened.
 msgid ""

@@ -1,4 +1,4 @@
-# StationPlaylist Studio #
+# StationPlaylist #
 
 * Auteurs: Geoff Shang, Joseph Lee et d'autres contributeurs.
 * Télécharger [version stable][1]
@@ -7,8 +7,10 @@
   Studio 5.10 / 5.11
 * NVDA compatibility: 2018.4 to 2019.2
 
-Cette extension améliore l'utilisation de Station Playlist Studio, mais elle
-fournit aussi des utilitaires pour contrôler le Studio où que vous soyez.
+This add-on package provides improved usage of StationPlaylist Studio and
+other StationPlaylist apps, as well as providing utilities to control Studio
+from anywhere. Supported apps include Studio, Creator, Track Tool, VT
+Recorder, and Streamer, as well as SAM and SPL encoders.
 
 Pour plus d’informations sur l'extension, lisez le [guide de
 l'extension][4]. Pour les développeurs cherchant à savoir comment construire
@@ -17,13 +19,13 @@ référentiel de l'extension.
 
 NOTES IMPORTANTES :
 
-* This add-on requires NVDA 2018.4 or later and StationPlaylist Studio 5.20
+* This add-on requires NVDA 2018.4 or later and StationPlaylist suite 5.20
   or later.
 * Si vous utilisez Windows 8 ou ultérieur, pour une meilleure expérience,
   désactiver le Mode d'atténuation audio.
-* À partir de 2018, [les journaux des changements des anciennes versions de
-  l'extension][5] seront trouvés sur GitHub. Ce fichier readme ajoutera les
-  changements depuis la version 7.0 (à partir de 2016).
+* Starting from 2018, [changelogs for old add-on releases][5] will be found
+  on GitHub. This add-on readme will list changes from version 8.0/16.10
+  (2016 onwards).
 * Certaines fonctionnalités de l'extension ne fonctionneront pas dans
   certaines conditions, notamment l'exécution de NVDA en mode sécurisé.
 * En raison de limitations techniques, vous ne pouvez pas installer ou
@@ -343,6 +345,13 @@ Version 19.06 supports SPL Studio 5.20 and later.
   cause Studio add-on configuration routines to produce errors and stop
   working correctly.
 * Added labels for various options in SPL Encoder configuration dialog.
+
+## Version 19.04.1
+
+* Fixed several issues with redesigned column announcements and playlist
+  transcripts panels in add-on settings, including changes to custom column
+  order and inclusion not being reflected when saving and/or switching
+  between panels.
 
 ## Version 19.04/18.09.8-LTS
 
@@ -1112,155 +1121,6 @@ version  15.x LTS.
   Piste.
 * Vous pouvez maintenant configurer l'intervalle alarme microphone depuis le
   dialogue Alarme microphone (Alt+NVDA+4).
-
-## Version 7.5/16.09
-
-* NVDA n'affichera plus la fenêtre de la boîte de dialogue de la progression
-  de la mise à jour si le canal de mise à jour de l'extension vient de
-  changer.
-* NVDA honorera le canal de mise à jour sélectionnée lors du téléchargement
-  des mises à jour.
-* Mises à jour des traductions.
-
-## Version 7.4/16.08
-
-Version 7.4 est également connu comme 16.08 selon le numéro de version
-year.month pour les publications stable.
-
-* Il est possible de sélectionner le canal de mise à jour de l'extension
-  depuis les paramètres de l'extension/Options avancées pour être supprimé
-  plus tard en 2017. Pour 7.4, les canaux disponibles sont bêta, stable et
-  long-terme.
-* Ajouté un paramètre dans les paramètres de l'extension/Options avancées
-  pour configurer l'intervalle de recherche de mise à jour entre 1 et 30
-  jours (par défaut est 7 ou recherches hebdomadaire).
-* La commande pour le Contrôleur SPL et la commande pour la mise en focus de
-  Studio ne sera pas disponibles à partir des écrans sécurisés.
-* Nouvelles et mises à jour des traductions et l'ajout de documentation
-  localisé en plusieurs langues.
-
-## Changements pour la version 7.3
-
-* Amélioration des performances légère quand on regarde les informations
-  telles que l’automatisation via certaines commandes de l'Assistant SPL.
-* Mises à jour des traductions.
-
-## Changements pour la version 7.2
-
-* En raison de la suppression du format de l'ancien style de configuration
-  interne, il est obligatoire d'installer l'extension 7.2. Une fois
-  installé, vous ne pouvez pas revenir à une version antérieure de
-  l'extension.
-* Ajout d'une commande dans le Contrôleur SPL pour annoncer le nombre
-  d'auditeurs (I).
-* Vous pouvez maintenant ouvrir le dialogue Paramètres extension SPL et le
-  dialogue Paramètres de l'encodeur en appuyant sur Alt+NVDA+0. Vous pouvez
-  toujours utiliser Contrôle+NVDA+0 pour ouvrir ces boîtes de dialogue (pour
-  être supprimé dans l'extension 8.0).
-* Dans l'Outil de Piste, vous pouvez utiliser Contrôle+Alt+les touches
-  flèche gauche ou flèche droite pour naviguer entre les colonnes.
-* Contenu de diverses boîtes de dialogue de Studio comme la boîte de
-  dialogue À propos dans Studio 5.1x sont maintenant annoncées.
-* Dans l'Encodeur SPL NVDA fera arrêter la tonalité de connexion si la
-  connexion automatique est activée, et puis désactivée depuis le menu
-  contextuel alors que l’encodeur sélectionné se connecte.
-* Mises à jour des traductions.
-
-## Changements pour la version 7.1
-
-* Correction des erreurs rencontrées lors de la mise à niveau depuis
-  l'extension  5.5 et en dessous de la 7.0.
-* Lorsque vous répondez "non" lors de la réinitialisation des paramètres de
-  l'extension, vous retourné à la boîte de dialogue Paramètres extension et
-  NVDA se souviendra du paramètre changement de profil immédiat.
-* NVDA vous demandera de reconfigurer les étiquettes de flux et d’autres
-  options de l'encodeur si le fichier de configuration de l'encodeur est
-  endommagé.
-
-## Changements pour la version 7.0
-
-* Ajouté la fonction Rechercher une mise à jour de l'extension. Cela peut se
-  faire manuellement (Assistant SPL, Contrôle+Maj+U) ou automatiquement
-  (configurable depuis la boîte de dialogue Options avancées dans la boîte
-  de dialogue paramètres de l'extension).
-* Il n'est plus nécessaire de rester dans la fenêtre de la visionneuse de
-  playlist afin d'invoquer la plupart des commandes couche Assistant SPL ou
-  obtenir des annonces de temps tels que le temps restant pour la piste et
-  le temps de diffusion.
-* Changements des commandes Assistant SPL, y compris Durée de la playlist
-  (D), réassignation de durée de sélection de l'heure de Maj+H à Maj+S et
-  Maj+H maintenant utilisé pour annoncer la Durée des pistes restantes pour
-  la tranche horaire courante, la commande Statut de Métadonnées en
-  streaming réassignée (1 jusqu'à 4, 0 est maintenant Maj+1 jusqu'à Maj+4,
-  Maj+0).
-* Il est maintenant possible d'invoquer Recherche de piste via l'Assistant
-  SPL (F).
-* Assistant SPL, chiffres 1 jusqu'à 0 (6 pour Studio 5.01 ou version
-  antérieure) peut être utilisé pour annoncer les informations d'une colonne
-  spécifique. Ces tranches de colonne peuvent être modifiés sous l'élément
-  Explorateur de Colonnes dans la boîte de dialogue Paramètres extension.
-* Corrigé les nombreuses erreurs signalées par les utilisateurs lors de
-  l'installation de l'extension 7.0 pour la première fois lorsque aucune
-  version antérieure de cette extension n'a été installée.
-* Améliorations apportées au Cadran de Piste, y compris la meilleure
-  réactivité lors d’un déplacement dans les colonnes et le suivi de comment
-  les colonnes sont présentées à l'écran.
-* Ajoutée la possibilité d'appuyer sur Contrôle+Alt+touches flèche gauche ou
-  flèche droite pour se déplacer entre les colonnes de piste.
-* Il est maintenant possible d'utiliser une commande différente   pour la
-  disposition du lecteur d'écran pour les commandes Assistant SPL. Aller
-  dans la boîte de dialogue Options avancées depuis Paramètres extension
-  pour configurer cette option entre les dispositions NVDA, JAWS et
-  Window-Eyes. Voir les commandes Assistant SPL ci-dessus pour plus de
-  détails.
-* NVDA peut être configuré pour basculer vers un profil de diffusion
-  spécifique à un jour et à une heure spécifier. Utiliser la nouvelle boîte
-  de dialogue Déclencheurs dans Paramètres extension pour configurer cela.
-* NVDA annoncera le nom du profil lors du basculement vers via le changement
-  immédiat (Assistant SPL, F12) ou comme un résultat du profil basé sur
-  l'heure lequel devient actif.
-* Déplacé la bascule du changement immédiat(maintenant une case à cocher)
-  vers la nouvelle boîte de dialogue Déclencheurs.
-* Entrées dans la liste déroulante des profils dans la boîte de dialogue
-  Paramètres extension maintenant s'affiche le drapeaux du profil par
-  exemple actif, que ce soit un changement de profil immédiat et ainsi de
-  suite.
-* Si un problème sérieux avec le fichier lors de la lecture du profil de
-  diffusion on été trouvés, NVDA présentera une boîte de dialogue d'erreur
-  et va réinitialiser les paramètres par défaut au lieu de ne rien faire ou
-  donnera une tonalité d'erreur.
-* Les paramètres seront sauvegardés sur le disque si et seulement si vous
-  modifiez les paramètres. Ceci prolonge la vie des SSD (solid state drives(
-  en empêchant les arrêts inutiles sur le disque si aucun paramètres n’ont
-  été modifiés.
-* Dans le dialogue paramètres de l'extension les contrôles utilisés pour
-  basculer l'annonce de l'heure prévue, le nombre d'auditeurs, le nom du
-  chariot et le nom de la piste a été déplacé vers un dialogue Annonces des
-  statut (sélectionnez  le bouton annonce de statut pour ouvrir cette boîte
-  de dialogue).
-* Ajouter un nouveau paramètre dans le dialogue paramètres de l'extension
-  pour permettre a NVDA de jouer un bip pour les différentes catégories de
-  piste lors du déplacement entre les pistes dans la visionneuse de
-  playlist.
-* Tentative lors de l'ouverture de l'option de configuration de métadonnées
-  dans le dialogue de paramètres de l'extension alors que le dialogue rapide
-  de métadonnées en streaming est ouvert ne provoquera plus que NVDA ne
-  puisse rien faire ou de jouer une tonalité d’erreur. NVDA va maintenant
-  vous demander de fermer le dialogue de métadonnées en streaming avant que
-  vous puissiez ouvrir les paramètres de l'extension.
-* En annonçant le temps comme le temps restant pour la piste en cours de
-  lecture, les heures sont également annoncées. Par conséquent, le réglage
-  pour l'annonce des heures est activé par défaut.
-* Appuyant sur le Contrôleur SPL, R permet maintenant a NVDA d’annoncer le
-  temps restant en heures, minutes et secondes (minutes et secondes s’il
-  s’agit d’un tel cas).
-* Dans les encodeurs, en appuyant sur contrôle + NVDA + 0 se présentera le
-  dialogue Paramètres de l'encodeur permettant de configurer différentes
-  options telles que l'étiquette de flux, en plaçant le focus à Studio
-  lorsqu'il est connecté et ainsi de suite.
-* Dans les encodeurs, il est maintenant possible de désactiver la tonalité
-  de progression de connexion (configurable à partir  de la boîte  de
-  dialogue paramètres de l'encodeur).
 
 ## Anciennes versions
 

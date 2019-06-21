@@ -1,4 +1,4 @@
-# StationPlaylist Studio #
+# StationPlaylist #
 
 * Tác giả: Geoff Shang, Joseph Lee và các cộng tác viên khác
 * Tải về [phiên bản chính thức][1]
@@ -6,8 +6,10 @@
 * Tải về [phiên bản hỗ trợ lâu dài][3] - cho người dùng Studio 5.10/5.11
 * NVDA tương thích: 2018.4 đến 2019.2
 
-Gói add-on này cung cấp sự cải thiện cho việc sử dụng StationPlaylist
-Studio, cũng như cung cấp các tiện ích để điều khiển Studio ở bất cứ đâu.
+Gói add-on này cung cấp sự cải thiện cho việc sử dụng StationPlaylist Studio
+và các ứng dụng StationPlaylist khác, cũng như cung cấp các tiện ích để điều
+khiển Studio ở bất cứ đâu. Các ứng dụng được hỗ trợ bao gồm Studio, Creator,
+Track Tool, VT Recorder và Streamer, cả các bộ mã hóa SAM và SPL.
 
 Để biết thêm thông tin về add-on này, xem [hướng dẫn sử dụng add-on][4]. Với
 những người phát triển add-on quan tâm đến việc làm thế nào để tạo add-on,
@@ -15,12 +17,12 @@ xem tập tin buildInstructions.txt ở thư mục gốc trong mã nguồn của
 
 CÁC LƯU Ý QUAN TRỌNG:
 
-* Add-on này yêu cầu NVDA 2018.4 và StationPlaylist Studio 5.20 trở lên.
+* Add-on này yêu cầu NVDA 2018.4 và bộ StationPlaylist 5.20 trở lên.
 * Nếu dùng Windows 8 trở lên, hãy tắt chế độ giảm âm thanh để có trải nghiệm
   tốt nhất.
 * Từ 2018, [bản ghi những thay đổi cho các bản phát hành cũ của add-on][5]
   sẽ được tìm thấy trên GitHub. Tập tin readme này sẽ liệt kê các thay đổi
-  từ phiên bản 6.0 (2016 trở lên).
+  từ phiên bản 8.0/16.10 (2016 trở lên).
 * Vài tính năng nhất định của add-on sẽ không hoạt động trong vài điều kiện,
   bao gồm chạy NVDA trong chế độ bảo vệ.
 * Vì những giới hạn kĩ thuật, bạn không thể cài hay dùng add-on này với
@@ -292,6 +294,12 @@ Phiên bản 19.06 hỗ trợ SPL Studio 5.20 trở lên.
   dụng nhanh thứ hai được gọi chạy rồi tắt, NVDA sẽ không còn làm cho cấu
   hình Studio add-on thông báo lỗi và dừng hoạt động.
 * Thêm nhãn cho nhiều tùy chọn trong hộp thoại SPL Encoder configuration.
+
+## Phiên bản 19.04.1
+
+* Khắc phục vài lỗi với việc thiết kế lại thông báo cột và bảng điểm danh
+  sách phát trong cài đặt add-on, bao gồm các thay đổi để tùy chỉnh sắp xếp
+  cột và bao gồm cả việc không có phản hồi khi lưu hay chuyển giữa các bản.
 
 ## Phiên bản 19.04/18.09.8-LTS
 
@@ -931,127 +939,6 @@ cầu bạn dùng phiên bản 15.x LTS.
   cho Track Tool.
 * Giờ bạn có thể cấu hình thời gian báo động microphone từ hộp thoại báo
   động microphone (Alt+NvDA+4).
-
-## Phiên bản 7.5/16.09
-
-* NVDA sẽ không còn hiện hộp thoại tiến trình cập nhật nếu vừa thay đổi kênh
-  cập nhật add-on.
-* NVDA sẽ thông báo kênh cập nhật đã chọn khi đang tải cập nhật.
-* Cập nhật các bản dịch.
-
-## Phiên bản 7.4/16.08
-
-Phiên bản 7.4 cũng được biết đến là 16.08 căn cứ vào số phiên bản phát hành
-chính thức theo năm.tháng.
-
-* Việc có thể chọn kênh cập nhật add-on từ cài đặt add-on /tùy chọn nâng
-  cao, sẽ bị gỡ bỏ trong năm 2017. Với 7.4, các kênh bao gồm beta, stable và
-  long-term.
-* Đã thêm một thiết lập trong  cài đặt add-on/tùy chọn nâng cao để cấu hình
-  thời gian kiểm tra cập nhật trong khoảng 1 đến 30 ngày (mặc định là 7 hoặc
-  kiểm tra mỗi tuần).
-* Lệnh của bộ điều khiển SPL và lệnh đưa con trỏ về Studio sẽ không hoạt
-  động ở màn hình bảo vệ.
-* Cập nhật và thêm vào các bản dịch cho nhiều ngôn ngữ.
-
-## Các thay đổi cho phiên bản 7.3
-
-* Cải thiện hiệu suất nhẹ khi tìm kiếm các thông tin như tự động hóa thông
-  qua vài lệnh SPL Assistant.
-* Cập nhật các bản dịch.
-
-## Các thay đổi cho phiên bản 7.2
-
-* Do việc gỡ bỏ kiểu cấu hình định dạng nội bộ cũ, bắt buộc phải cài đặt
-  add-on 7.2. Khi đã cài rồi, bạn không thể trở về một phiên bản cũ hơn của
-  add-on.
-* Thêm lệnh trong bộ điều khiển SPL để thông báo lượng người nghe (I).
-* Giờ bạn có thể mở các hộp thoại cài đặt SPL add-on và cài đặt bộ mã hóa
-  bằng cách bấm Alt+NVDA+0. Bạn vẫn có thể dùng Control+NVDA+0 để mở chúng
-  (sẽ bị gỡ bỏ trong add-on 8.0).
-* Trong Track Tool, bạn có thể dùng Control+Alt+mũi tên trái phải để điều
-  hướng giữa các cột.
-* Nội dung của nhiều hộp thoại khác nhau trong Studio như hộp thoại About
-  trong Studio 5.1x giờ đây đã được thông báo.
-* Trong các bộ mã hóa SPL, NVDA sẽ không phát âm thanh kết nối nếu bật tùy
-  chọn tự kết nối rồi tắt từ trình đơn ngữ cảnh của bộ mã hóa khi nó đang
-  được kết nối.
-* Cập nhật các bản dịch.
-
-## Các thay đổi cho phiên bản 7.1
-
-* Sửa các lỗi gặp phải  khi nâng cấp từ add-on 5.5 hay thấp hơn lên 7.0.
-* Trả lời "không" khi khôi phục các cài đặt add-on, bạn sẽ được đưa về hộp
-  thoại cài đặt add-on và NVDA sẽ nhớ thiết lập cho hồ sơ chuyển nhanh.
-* NVDA sẽ yêu cầu bạn cấu hình lại các nhãn phát thanh và các tùy chọn mã
-  hóa khác nếu tập tin cấu hình mã hóa bị hư hỏng.
-
-## Các thay đổi cho phiên bản 7.0
-
-* Thêm tính năng kiểm tra cập nhật add-on. Tính năng này có thể thực hiện
-  thủ công (SPL Assistant, Control+Shift+U) hoặc tự động (được cấu hình
-  thông qua hộp thoại tùy chọn nâng cao từ cài đặt add-on).
-* Không còn yêu cầu phải đứng trong cửa sổ trình xem danh sách phát để gọi
-  hầu hết các lệnh của SPL Assistant layer hoặc thu thập các thông báo về
-  thời gian như thời gian còn lại của track và thời gian phát thanh.
-* Các thay đổi cho lệnh SPL Assistant, bao gồm thời lượng danh sách phát
-  (D), đổi lệnh chọn thời lượng theo giờ từ Shift+H thành Shift+S và Shift+H
-  giờ đây dùng để thông báo thời lượng của các track còn lại trong khung giờ
-  hiện tại, lệnh trạng thái metadata streaming được gán lại (1 đến 4, 0 đổi
-  thành Shift+1 đến Shift+4, Shift+0).
-* Giờ đây đã có thể gọi lệnh tìm kiếm track thông qua SPL Assistant (F).
-* SPL Assistant, các số từ 1 đến 0 (6 với Studio 5.01 trở xuống) có thể dùng
-  để thông báo các thông tin cột. Các cột này có thể thay đổi trong mục khám
-  phá cột trong hộp thoại cài đặt add-on.
-* Sửa nhiều lỗi  do người dùng báo về khi lần đầu cài đặt add-on 7.0 mà
-  không có phiên bản thấp hơn được cài trước đó.
-* Các cải thiện cho Track Dial, bao gồm cải thiện khả năng phản hồi khi di
-  chuyển qua các cột và theo dõi việc các cột được trình bày trên màn hình
-  như thế nào.
-* Thêm tính năng bấm Control+Alt+mũi tên trái phải để di chuyển giữa các cột
-  của track.
-* Giờ đây, đã có thể dùng các kiểu phím tắt của các trình đọc màn hình khác
-  nhau cho lệnh SPL Assistant. Vào hộp thoại tùy chọn nâng cao từ cài đặt
-  add-on để cấu hình tùy chọn này giữa NVDA, JAWS và Window-Eyes. Xem các
-  lệnh SPL Assistant ở trên để biết thêm chi tiết.
-* Có thể cấu hình để NVDA chuyển sang một hồ sơ phát thanh cụ thể ở một thời
-  điểm cụ thể. Dùng hộp thoại tác nhân mới trong cài đặt add-on để thực hiện
-  điều này.
-* NVDA sẽ thông báo tên của hồ sơ khi nó được chuyển sang thông qua hồ sơ
-  chuyển nhanh (SPL Assistant, F12) hoặc một hồ sơ theo thời gian được kích
-  hoạt.
-* Chuyển tùy chọn bật / tắt hồ sơ chuyển nhanh (giờ đây là một hộp kiểm) đến
-  hộp thoại tác nhân mới.
-* Các thành phần của hộp xổ hồ sơ trong hộp thoại cài đặt add-on giờ đây
-  hiển thị các thông tin hồ sơ như đang hoạt động, là hồ sơ chuyển nhanh và
-  nhiều nữa.
-* Nếu một vấn đề nghiêm trọng trong việc đọc các tập tin hồ sơ phát thanh
-  được tìm thấy, NVDA sẽ hiển thị hộp thoại báo lỗi và khôi phục các cài đặt
-  về mặc định thay vì phát âm thanh báo lỗi hay không làm gì.
-* Các thiết lập sẽ được lưu xuống đĩa khi và chỉ khi bạn thay đổi
-  chúng. Điều này sẽ kéo dài tuổi thọ của đĩa SSD (ổ đĩa trạng thái rắn)
-  bằng cách ngăn chặn việc lưu xuống đĩa ngoài ý muốn khi không có thay đổi
-  thiết lập nào được thực hiện.
-* Trong hộp thoại cài đặt add-on, các điều khiển để bật / tắt các thông báo
-  thời gian đã lên lịch, số lượng người nghe, tên cart và tên track đã được
-  chuyển đến một hộp thoại thông báo trạng thái riêng (chọn nút thông báo
-  trạng thái để mở hộp thoại này).
-* Thêm một thiết lập mới trong hộp thoại cài đặt add-on để NVDA phát tiếng
-  beep cho các loại track khác nhau khi di chuyển giữa các track trong trình
-  xem danh sách phát.
-* Việc cố gắng mở tùy chọn cấu hình metadata trong hộp thoại cài đặt add-on
-  khi hộp thoại quick metadata streaming đang mở sẽ không còn khiến NVDA
-  phát âm thanh báo lỗi hoặc không làm gì. Giờ đây, NvDA sẽ yêu cầu bạn đóng
-  hộp thoại metadata streaming trước khi mở cài đặt add-on.
-* Khi thông báo thời gian còn lại cho track đang phát chẳng hạn, giờ cũng
-  được thông báo. Kết quả, thiết lập thông báo giờ mặc định được bật.
-* Bấm điều khiển SPL, giờ đây sẽ khiến cho NVDA thông báo thời gian còn lại
-  theo định dạng giờ, phút và giây (phút và giây nếu là trường hợp như vậy).
-* Trong các bộ mã hóa, bấm Control+NVDA+0 sẽ hiện hộp thoại cài đặt mã hóa
-  để cấu hình nhiều tùy chọn như nhãn phát thanh, đưa con trỏ về cửa sổ
-  Studio khi kết nối và nhiều nữa.
-* Trong các bộ mã hóa, giờ đây đã có thể tắt âm báo tiến trình kết nối (cấu
-  hình từ hộp thoại cài đặt mã hóa).
 
 ## Các bản phát hành cũ hơn
 

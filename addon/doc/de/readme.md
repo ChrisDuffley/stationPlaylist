@@ -1,4 +1,4 @@
-# StationPlaylist Studio #
+# StationPlaylist #
 
 * Authoren: Geoff Shang, Joseph Lee und andere Entwickler
 * [Stabile Version herunterladen][1]
@@ -6,9 +6,10 @@
 * [LTS-Version für Studio 5.10 / 5.11 herunterladen][3]
 * NVDA compatibility: 2018.4 to 2019.2
 
-Dieses Erweiterungspaket verbessert die Zugänglichkeit von Station Playlist
-Studio. Es stehen außerdem Befehle zur Verfügung, um Station Playlist von
-überall aus zu bedienen.
+This add-on package provides improved usage of StationPlaylist Studio and
+other StationPlaylist apps, as well as providing utilities to control Studio
+from anywhere. Supported apps include Studio, Creator, Track Tool, VT
+Recorder, and Streamer, as well as SAM and SPL encoders.
 
 Weitere Informationen zur Erweiterung finden Sie in der
 [Add-On-Anleitung][4]. Für Entwickler, welche wissen wollen, wie die
@@ -17,14 +18,14 @@ Quellcodeverzeichnis der Erweiterung auf Github.
 
 WICHTIGE HINWEISE:
 
-* This add-on requires NVDA 2018.4 or later and StationPlaylist Studio 5.20
+* This add-on requires NVDA 2018.4 or later and StationPlaylist suite 5.20
   or later.
 * Wenn Sie Windows 8 oder höher verwenden, setzen Sie die Reduzierung der
   Lautstärke anderer Audioquellen auf "nie" im Dialog Sprachausgabe im
   NVDA-Einstellungsmenü.
-* Ab 2018 werden die [Änderungsnotizen älterer SPL-Erweiterungsversionen][5]
-  auf Github zu finden sein. Diese Readme-Version listet Änderungen ab
-  Version 7.0 (ab 2016) auf.
+* Starting from 2018, [changelogs for old add-on releases][5] will be found
+  on GitHub. This add-on readme will list changes from version 8.0/16.10
+  (2016 onwards).
 * Bestimmte Funktionen sind nicht mehr verfügbar, z.B. während NVDA im
   abgesicherten Modus ausgeführt wird.
 * Aufgrund technischer Einschränkungen können Sie diese Erweiterung nicht
@@ -340,6 +341,13 @@ Version 19.06 supports SPL Studio 5.20 and later.
   cause Studio add-on configuration routines to produce errors and stop
   working correctly.
 * Added labels for various options in SPL Encoder configuration dialog.
+
+## Version 19.04.1
+
+* Fixed several issues with redesigned column announcements and playlist
+  transcripts panels in add-on settings, including changes to custom column
+  order and inclusion not being reflected when saving and/or switching
+  between panels.
 
 ## Version 19.04/18.09.8-LTS
 
@@ -1094,149 +1102,6 @@ verwenden.
   konfigurieren.
 * Sie können nun das Intervall der Mikrofonbenachrichtigung im Dialog
   Mikrofonbenachrichtigung konfigurieren (Alt+NVDA+4).
-
-## Version 7.5/16.09
-
-* NVDA öffnet den Fortschrittsdialog nicht mehr, wenn sich der Update-Kanal
-  der Erweiterung gerade geändert hat.
-* NVDA berücksichtigt den ausgewählten Update-Kanal beim Herunterladen von
-  Updates.
-* Übersetzungen aktualisiert.
-
-## Version 7.4/16.08
-
-Version 7.4 ist auch bekannt als 16.08 nach der Jahr/Monat-Versionsnummer
-für stabile Versionen.
-
-* Es ist jetzt möglich, aus den Einstellungen zur
-  Studio-Erweiterung/Erweiterte Optionen einen Aktualisierungskanal für die
-  Erweiterung auszuwählen, der später im Jahr 2017 entfernt werden soll. Für
-  7.4 verfügbare Kanäle sind Beta, stabil und langfristig.
-* Es wurde eine Einstellung in dem Einstellungsdialog für die
-  Studio-Erweiterung/Erweiterte Optionen hinzugefügt, um das Prüfintervall
-  für Aktualisierungen zwischen 1 und 30 Tagen zu konfigurieren (Standard
-  ist 7 oder wöchentliche Prüfungen).
-* Der Befehl SPL-Controller und der Befehl zum Fokussieren auf Studio stehen
-  auf geschützten Bildschirmen nicht zur Verfügung.
-* Neue und aktualisierte Übersetzungen und lokalisierte Dokumentation in
-  verschiedenen Sprachen.
-
-## Änderungen in7.3
-
-* Leichte Performance-Verbesserungen beim Nachschlagen von Informationen
-  über einige Befehle des SPL-Assistenten wie z.B. Automatisierung.
-* Übersetzungen aktualisiert.
-
-## Änderungen in7.2
-
-* Aufgrund der Entfernung des alten internen Konfigurationsformats ist es
-  zwingend erforderlich das Add-on 7.2 zu installieren. Nach der
-  Installation können Sie nicht mehr auf eine frühere Version des Add-ons
-  zurückgreifen.
-* Im SPL-Controller wurde ein Befehl hinzugefügt, um die Anzahl der Zuhörer
-  (I) zu melden.
-* Mit Alt+NVDA+0 können Sie nun die Einstellungen zur Studio-Erweiterung und
-  die Dialoge für die Encoder-Einstellungen öffnen. Sie können diese Dialoge
-  auch weiterhin mit Control+NVDA+0 öffnen (in der Version 8.0 nur noch
-  Alt+NVDA+0 verfügbar).
-* Im Track-Tool können Sie mit Strg+Alt+Links oder Rechtspfeil zwischen den
-  Spalten navigieren.
-* Inhalte verschiedener Studio-Dialoge, wie z.B. Info-Dialog in Studio 5.1x,
-  werden nun angesagt.
-* Bei SPL-Encodern schaltet NVDA den Verbindungston aus, wenn Auto-Connect
-  aktiviert ist und während dem Verbindungsaufbau diese Option aus dem
-  Encoder-Kontextmenü ausgeschaltet wird.
-* Übersetzungen aktualisiert.
-
-## Änderungen in7.1
-
-* Fehler behoben, die beim Upgrade von Version 5.5 und älter auf 7.0
-  aufgetreten sind.
-* Wenn Sie beim Zurücksetzen der Einstellungen mit "nein" antworten, werden
-  Sie zum Dialogfeld "Einstellungen zur Studio-Erweiterung" zurückgeleitet
-  und NVDA merkt sich die Einstellungen des Instant-Switch-Profils.
-* NVDA wird Sie auffordern Streambezeichnungen und andere Encoder-Optionen
-  neu zu konfigurieren, wenn die Encoder-Konfigurationsdatei beschädigt ist.
-
-## Änderungen in7.0
-
-* Funktion für die Suche nach Aktualisierungen wurde hinzugefügt. Dies kann
-  manuell (STRG+Umschalt+U im SPL-Assistenten) oder automatisch
-  (konfigurierbar über den Dialog Erweiterte Optionen aus den Einstellungen
-  für die SPL-Erweiterung) erfolgen.
-* Es ist nicht mehr erforderlich, im Fenster für den Playlist-Viewer zu
-  bleiben, um die meisten Hilfsbefehle des SPL-Assistenten aufzurufen oder
-  Zeitansagen wie die verbleibende Zeit für den Titel und die Sendezeit zu
-  erhalten.
-* Änderungen an den Befehlen des SPL-Assistenten, einschließlich der
-  Playlist-Dauer (D), Neuzuweisung der Auswahl der Stundendauer von
-  Umschalt+H zu Umschalt+S. Umschalt+H wird nun verwendet, um die Dauer der
-  verbleibenden Titel für den aktuellen Stundenplatzhalter anzusagen. Neuer
-  Statusbefehl für Metadaten-Streaming (1 bis 4, 0 ist jetzt Umschalt+1 bis
-  Shift+4 bzw. Umschalt+0).
-* Es ist nun möglich, den Titelfinder über den SPL-Assistenten (F)
-  aufzurufen.
-* Im SPL-Assistenten können die Zahlen 1 bis 0 (bis 6 für Studio 5.01 und
-  früher) verwendet werden, um bestimmte Spalteninformationen
-  anzukündigen. Diese Spaltenslots können unter dem Eintrag Spaltenexplorer
-  im Einstellungsdialog zur Studio-Erweiterung geändert werden.
-* Es wurden zahlreiche Fehler behoben, die von Benutzern bei der
-  Erstinstallation von Add-on 7.0 gemeldet wurden, wenn keine
-  Vorgängerversion dieser Erweiterung installiert war.
-* Verbesserungen bei der Titeleingabe, einschließlich verbesserter
-  Reaktionsfähigkeit beim Bewegen durch Spalten und Verfolgen der
-  Darstellung von Spalten auf dem Bildschirm.
-* Mit Strg+Alt+Links oder Rechtspfeil können Sie nun  zwischen den Spalten
-  der Titel wechseln.
-* Es ist nun möglich, für die Befehle des SPL-Assistenten ein anderes
-  Screenreader-Befehlslayout zu verwenden. Wechseln Sie in den Dialog
-  Erweiterte Optionen aus den Einstellungen zur Studio-Erweiterung, um
-  zwischen NVDA-, JAWS- und Window-Eyes-Darstellungen zu wechseln. Für
-  weitere Informationen siehe die Befehle des SPL-Assistenten weiter oben.
-* NVDA kann so konfiguriert werden, dass es zu einem bestimmten Sendeprofil
-  an einem bestimmten Tag und zu einer bestimmten Uhrzeit
-  wechselt. Verwenden Sie den neuen Triggerdialog in den Einstellungen zur
-  Studio-Erweiterung, um dies einzustellen.
-* NVDA meldet den Namen des Profils, zu dem über den Instant-Switch-Schalter
-  (F12 im SPL-Assistenten) gewechselt wurde, oder auch beim Aktivieren des
-  temporären Profils.
-* Der Schalter für den Instant-Switch (jetzt ein Kontrollkästchen) wurde in
-  den neuen Triggerdialog verschoben.
-* Einträge in der Ausklappliste für die Profile in den Einstellungen zur
-  Erweiterung beinhalten nun Profil-Flags, wie z.B. aktiv, ob es sich um ein
-  Instant-Switch-Profil handelt und so weiter.
-* Wenn ein ernsthaftes Problem mit dem Lesen von Sendeprofildateien gefunden
-  wird, zeigt NVDA einen Fehlerdialog an, setzt die Einstellungen auf die
-  Standardwerte zurück und spielt keinen Fehlerton mehr ab.
-* Einstellungen werden nur dann auf der Festplatte gespeichert, wenn Sie die
-  Einstellungen ändern. Dies verlängert die Lebensdauer von SSDs (Solid
-  State Drives), indem unnötige Sicherungen auf der Festplatte vermieden
-  werden, wenn keine Einstellungen geändert wurden.
-* Im Einstellungsdialog zur Studio-Erweiterung wurden die Steuerelemente zum
-  Umschalten der Ansage der geplanten Zeit, der Anzahl der Zuhörer, des
-  Cart-Namens und der Titelbezeichnung in einen dedizierten Dialog für
-  Statusansagen verschoben (wählen Sie die Schaltfläche für Statusansagen,
-  um diesen Dialog zu öffnen).
-* Es wurde eine neue Einstellung im Dialogfeld "Einstellungen zur
-  Studio-Erweiterung" hinzugefügt, mit der NVDA beim Wechseln zwischen
-  Titeln im Playlist-Viewer für verschiedene Titelkategorien einen Piepton
-  abspielen kann.
-* Der Versuch, die Metadaten-Konfigurationseinstellung im Einstellungsdialog
-  zur Erweiterung zu öffnen, während der schnelle Metadaten-Streaming-Dialog
-  geöffnet ist, führt nicht mehr zu einem Fehlerton. NVDA fordert Sie nun
-  auf, den Dialog Metadaten-Streaming zu schließen, bevor Sie die
-  Einstellungen öffnen können.
-* Bei der Ansage der Zeit, wie z.B. der Restdauer für den laufenden Titel,
-  werden auch die Stunden angesagt. Daher ist die Einstellung der
-  Stundenansagen standardmäßig aktiviert.
-* Wenn Sie R im SPL-Controller drücken, sagt NVDA nun die verbleibende Zeit
-  in Stunden, Minuten und Sekunden an.
-* In Encodern wird durch Drücken von STRG+NVDA+0 ein Dialogfeld für die
-  Encoder-Einstellungen angezeigt, in dem verschiedene Optionen wie
-  Streambezeichnung, Fokussierung auf Studio bei Verbindungsaufbau
-  usw. konfiguriert werden können.
-* In Encodern ist es nun möglich, den Ton für den Verbindungsfortschritt
-  abzuschalten (konfigurierbar über den Dialog Encoder-Einstellungen).
 
 ## Ältere Versionen
 

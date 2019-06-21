@@ -1,4 +1,4 @@
-# StationPlaylist Studio #
+# StationPlaylist #
 
 * Autores: Geoff Shang, Joseph Lee y otros colaboradores
 * Descargar [Versión estable][1]
@@ -8,8 +8,10 @@
 * Compatibilidad con NVDA: de 2018.4 a 2019.2
 
 Este paquete de complementos proporciona una utilización mejorada de Station
-Playlist Studio, así como utilidades para controlar el Studio desde
-cualquier lugar.
+Playlist Studio y otras aplicaciones de StationPlaylist, así como utilidades
+para controlar Studio desde cualquier lugar. Entre las aplicaciones
+soportadas se encuentran Studio, Creator, la herramienta de pista, VT
+Recorder y Streamer, así como los codificadores SAM y SPL.
 
 Para más información acerca del complemento, lee la [guía del
 complemento][4]. Para los desarrolladores que busquen cómo compilar el
@@ -19,12 +21,12 @@ repositorio del código fuente del complemento.
 NOTAS IMPORTANTES:
 
 * Este complemento requiere de NVDA 2018.4 o posterior y StationPlaylist
-  Studio 5.20 o posterior.
+  Suite 5.20 o posterior.
 * Si utilizas Windows 8 o posterior, para una mejor experiencia, deshabilita
   el modo atenuación de audio.
 * A partir de 2018, los [registros de cambios para versiones antiguas][5] se
   encontrarán en GitHub. Este léeme del complemento listará cambios desde la
-  versión 7.0 (2016 en adelante).
+  versión 8.0/16.10 (2016 en adelante).
 * Ciertas características del complemento no funcionarán bajo algunas
   condiciones, incluyendo la ejecución de NVDA en modo seguro.
 * Debido a limitaciones técnicas, no puedes instalar ni utilizar este
@@ -339,6 +341,13 @@ La versión 19.06 soporta Studio 5.20 y posteriores.
   funcionar correctamente.
 * Se han añadido etiquetas para diversas opciones del diálogo de
   configuración del codificador de SPL.
+
+## Versión 19.04.1
+
+* Corregidos varios problemas con los anuncios de columna rediseñados y los
+  paneles de transcripción de lista de reproducción en los ajustes del
+  complemento, incluyendo cambios en el orden de columnas personalizado y su
+  inclusión que no se reflejaban al guardar y / o alternar entre paneles.
 
 ## Versión 19.04/18.09.8-LTS
 
@@ -1058,145 +1067,6 @@ instalado, pidiéndote que utilices la versión 15.x LTS.
   los slots del Explorador de Columnas para la Herramienta de Pista.
 * Ahora puedes configurar el intervalo de alarma de micrófono desde el
   diálogo Alarma de micrófono (Alt+NVDA+4).
-
-## Versión 7.5/16.09
-
-* NVDA ya no desplegará el diálogo de progreso de la actualización si el
-  canal de actualización del complemento se ha cambiado.
-* NVDA respetará el canal seleccionado de actualización cuando descargue
-  actualizaciones.
-* Traducciones actualizadas.
-
-## Versión 7.4/16.08
-
-La versión 7.4 también se conoce como 16.08 seguido del año.mes número de
-versión para versiones estables.
-
-* Es posible seleccionar el canal de actualización del complemento desde
-  opciones/opciones avanzadas del complemento, para que se elimine más tarde
-  en 2017. Para 7.4, los canales disponibles son beta, stable y long-term.
-* Añadida una opción en opciones/Opciones avanzadas del complemento para
-  configurar el intervalo de búsqueda de las actualizaciones   entre 1 y 30
-  días (el predeterminado es 7 o búsquedas semanales).
-* La orden SPL Controller y la orden para enfocar a Studio no estarán
-  disponibles desde pantallas seguras.
-* Traducciones nuevas y actualizadas y añadida documentación localizada en
-  varios idiomas.
-
-## Cambios para 7.3
-
-* Ligeras mejoras en el rendimiento al buscar información tal como
-  automatización a través de algunas órdenes de SPL Assistant.
-* Traducciones actualizadas.
-
-## Cambios para 7.2
-
-* Debido a la eliminación del antiguo estilo del formato de configuración
-  interna, es obligatorio instalar el complemento 7.2. Una vez instalado, no
-  puedes volver a una versión anterior del complemento.
-* Añadida una orden en SPL Controller para informar del recuento de oyentes
-  (I).
-* Ahora puedes abrir los diálogos de opciones de SPL y opciones del
-  codificador pulsando Alt+NVDA+0. Todavía puedes utilizar Control+NVDA+0
-  para abrir estos diálogos (se eliminará en el complemento 8.0).
-* En la Herramienta Pista, puedes utilizar Control+Alt+flechas izquierda o
-  derecha para navegar entre columnas.
-* Los contenidos de varios diálogos de Studio tales como el diálogo Acerca
-  en Studio 5.1x ahora se anuncian.
-* En los Codificadores SPL, NVDA silenciará el tono de conexión si
-  auto-conectar está habilitado y entonces se apaga desde el menú de
-  contexto del codificador mientras el codificador seleccionado se esté
-  conectando.
-* Traducciones actualizadas.
-
-## Cambios para 7.1
-
-* Corregidos erorres encontrados al actualizar desde el complemento 5.5 y
-  anteriores al 7.0.
-* Al responder "no" cuando se reinician las opciones del complemento, se
-  volverá al diálogo de opciones del complemento y NVDA recordará la
-  configuración del perfil cambio instantáneo.
-* NVDA te preguntará para reconfigurar etiquetas de cadena y otras opciones
-  del codificador si el fichero de configuración del codificador se
-  corrompió.
-
-## Cambios para 7.0
-
-* Aññadida la característica buscar actualización del complemento. Esto
-  puede hacerse manualmente (SPL Assistant, Control+Shift+U) o
-  automáticamente (configurable a través del diálogo opciones avanzadas
-  desde las opciones del complemento).
-* Ya no se requiere estar  en la ventana visualizador de lista de
-  reproducción para poder llamar a la mayoría de las órdenes de la capa SPL
-  Assistant ­­­­­o obtener anunciados del tiempo tales como tiempo restante
-  para la pista y el tiempo de retransmisión.
-* Cambios para las órdenes del SPL Assistant, incluyendo duración de la
-  lista de reproducción (D), reasignación de la selección de la duración en
-  horas desde Shift+H a Shift+S y Shift+H ahora se utiliza para anunciar la
-  duración de las pistas restantes para el actual slot horario, reasignada
-  la orden estado de los metadatos del streaming (1 hasta 4, 0 es ahora
-  Shift+1 hasta Shift+4, Shift+0).
-* Ahora es posible invocar el buscador de pistas a través de SPL Assistant
-  (F).
-* SPL Assistant, números 1 hasta 0 (6 para Studio 5.01 y anteriores) pueden
-  utilizarse para anunciar columnas de información específica. Estos slots
-  de columnas pueden cambiarse con el elemento Explorador de Columnas en el
-  diálogo Opciones del complemento.
-* Corregidos numerosos errores informados por los usuarios al instalar el
-  complemento 7.0 por primera vez cuando no se habían instalado estas
-  versiones previas.
-* Mejoras al Dial de pista, incluyendo mejorada la capacidad de respuesta al
-  moverse a través de las columnas  y el seguimiento de columnas ahora se
-  presenta en la pantalla.
-* Añadida la habilidad para pulsar Control+Alt+flechas izquierda o derecha
-  para moverse entre columnas de pista.
-* Ahora es posible utilizar una distribución de órdenes diferente de lector
-  de pantalla para las órdenes del SPL Assistant. Ve al diálogo Opciones
-  avanzadas desde las opciones del complemento para configurar esta opción
-  entre las distribuciones NVDA, JAWS y Window-Eyes. Consulta las órdenes
-  del SPL Assistant más arriba para detalles.
-* NVDA puede configurarse para cambiar a un perfil de retransmisión
-  específico en un día específico y hora. Utiliza el nuevo diálogo
-  Disparadores en las opciones del complemento para configurar esto.
-* NVDA anunciará el nombre del perfil al que se cambie a través de cambio
-  instantáneo (SPL Assistant, F12) o como un resultado del perfil basado en
-  tiempo que está activándose.
-* Movido el conmutador de cambio instantáneo (ahora una casilla de
-  verificación) al nuevo diálogo disparadores.
-* Las entradas en el cuadro combinado perfiles en el diálogo opciones del
-  complemento ahora muestran banderas de perfil tales como activo, si es un
-  perfil de cambio instantáneo y otros.
-* Si se encuentra un problema serio con la lectura de los ficheros de
-  perfiles de retransmisión, NVDA presentará un diálogo de error y
-  reiniciará las opciones a las predeterminadas en lugar de no hacer nada o
-  de hacer sonar un tono de error.
-* Las opciones se guardarán en disco si y sólo si cambias opciones. Esto
-  prolonga la vida de los SSDs (unidades de disco de estado sólido)
-  previniendo guardados innecesarios en disco si las opciones no han
-  cambiado.
-* En el diálogo de opciones del complemento, los controles utilizados para
-  conmutar el anunciado del tiempo programado, cuenta de oyentes, nombre de
-  cart y nombre de pista se han movido a un diálogo dedicado al estado de
-  los anunciados (selecciona el botón estado de los anunciados para abrir
-  este diálogo).
-* Añadido un ajuste nuevo en el diálogo opciones del complemento para
-  permitir a NVDA reproducir pitidos para diferentes categorías de la pista
-  al moverse entre pistas en el visualizador de lista de reproducción.
-* Al intentar abrir la opción de configuración de metadatos en el diálogo
-  opciones del complemento mientras el diálogo rápido de metadatos del
-  streaming está abierto ya no causará que NVDA no haga nada o reproduzca un
-  tono de error. NVDA ahora te pedirá cerrar el diálogo de metadatos del
-  streaming antes de que puedas abrir las opciones del complemento.
-* Cuando se anuncia tiempo tal como tiempon restante para la pista en
-  reproducción, las horas también se anuncian. Consecuentemente, la opción
-  anunciado de hora está habilitada por omisión.
-* Pulsando SPL Controller, R ahora causa que NVDA anuncie el tiempo restante
-  en horas, minutos y segundos (minutos y segundos si esto es tal caso).
-* En los codificadores, al pulsar Control+NVDA+0 presentará el diálogo
-  opciones del codificador para configurar varias opciones tales como
-  etiqueta de cadena, enfocar a Studio al conectar y otras.
-* En los codificadores, ahora es posible apagar los tonos de progreso de la
-  conexión (configurable desde el diálogo opciones del codificador).
 
 ## Versiones antiguas
 
