@@ -108,6 +108,22 @@ class SPLTrackItem(sysListView32.ListItem):
 		except:
 			return ""
 
+	# Announce columns based on column number and an optional header for the given column.
+	# 7.0: Add an optional header in order to announce correct header information in columns explorer.
+	def announceColumnContent(self, colNumber, header=None):
+		# #72: directly fetch on-screen column header (not the in-memory one) by probing column order array from the list (parent).
+		# #65 (18.08): use column header method (at least the method body) provided by the class itself.
+		# This will work properly if the list (parent) is (or recognized as) SysListView32.List.
+		if not header: header = self._getColumnHeaderRaw(self.parent._columnOrderArray[colNumber])
+		columnContent = self._getColumnContentRaw(self.indexOf(header))
+		if columnContent:
+			if sys.version.startswith("3"): ui.message(str(_("{header}: {content}")).format(header = header, content = columnContent))
+			else: ui.message(unicode(_("{header}: {content}")).format(header = header, content = columnContent))
+		else:
+			import speech, braille
+			speech.speakMessage(_("{header}: blank").format(header = header))
+			braille.handler.message(_("{header}: ()").format(header = header))
+
 	def script_moveToNextColumn(self, gesture):
 		if (self._curColumnNumber+1) == self.parent.columnCount:
 			tones.beep(2000, 100)
@@ -250,12 +266,9 @@ class SPLStudioTrackItem(SPLTrackItem):
 				if columnContents[pos] is None: columnContents[pos] = ""
 		return columnContents
 
-	# Announce column content if any.
-	# 7.0: Add an optional header in order to announce correct header information in columns explorer.
+	# Column announcer tweaked for Studio.
 	# 17.04: Allow checked status in 5.1x and later to be announced if this is such a case (vertical column navigation).)
 	def announceColumnContent(self, colNumber, header=None, reportStatus=False):
-		# #65 (18.08): use column header method (at least the method body) provided by the class itself.
-		# This will work properly if the list (parent) is (or recognized as) SysListView32.List.
 		columnHeader = header if header is not None else self._getColumnHeaderRaw(self.parent._columnOrderArray[colNumber])
 		columnContent = self._getColumnContentRaw(self.indexOf(columnHeader))
 		status = self.name + " " if reportStatus else ""

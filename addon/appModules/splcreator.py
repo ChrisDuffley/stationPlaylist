@@ -6,7 +6,6 @@
 
 import appModuleHandler
 import addonHandler
-import ui
 from NVDAObjects.IAccessible import IAccessible, sysListView32
 from .splstudio import splconfig, SPLTrackItem
 addonHandler.initTranslation()
@@ -22,25 +21,6 @@ class SPLCreatorItem(SPLTrackItem):
 
 	# Keep a record of which column is being looked at.
 	_curColumnNumber = 0
-
-	# Another tweak for SPL Creator: Announce column header if given.
-	# Also take care of this when specific columns are asked.
-	# This also allows display order to be checked (Studio 5.10 and later).
-	def announceColumnContent(self, colNumber, header=None):
-		import sys
-		# #72: directly fetch on-screen column header (not the in-memory one) by probing column order array from the list (parent).
-		# #65 (18.08): use column header method (at least the method body) provided by the class itself.
-		# This will work properly if the list (parent) is (or recognized as) SysListView32.List.
-		if not header: header = self._getColumnHeaderRaw(self.parent._columnOrderArray[colNumber])
-		# LTS: Studio 5.10 data structure change is also seen in Creator, so don't rely on column headers alone.
-		columnContent = self._getColumnContentRaw(self.indexOf(header))
-		if columnContent:
-			if sys.version.startswith("3"): ui.message(str(_("{header}: {content}")).format(header = header, content = columnContent))
-			else: ui.message(unicode(_("{header}: {content}")).format(header = header, content = columnContent))
-		else:
-			import speech, braille
-			speech.speakMessage(_("{header}: blank").format(header = header))
-			braille.handler.message(_("{header}: ()").format(header = header))
 
 	def indexOf(self, header):
 		try:
