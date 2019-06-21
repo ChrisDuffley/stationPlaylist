@@ -2,10 +2,12 @@
 # Copyright 2019 Joseph Lee and others, released under GPL.
 
 # SPL Audio Processing Engine
+# Home to various DSP DLL's including encoders.
 
 import sys
 import appModuleHandler
 import controlTypes
+from NVDAObjects.IAccessible import sysListView32
 
 # For SPL encoder config screen at least, control iD's are different, which allows labels to be generated easily.
 encoderSettingsLabels= {
@@ -34,6 +36,7 @@ class AppModule(appModuleHandler.AppModule):
 		# 6.3: Memory leak results if encoder flag sets and other encoder support maps aren't cleaned up.
 		# This also could have allowed a hacker to modify the flags set (highly unlikely) so NvDA could get confused next time Studio loads.
 		# #105 (19.07): SPL Engine is responsible for hosting encoder DLL's.
+		# #104 (19.07/18.09.10-LTS): any app module deriving from this (including Streamer) must clean up encoders database.
 		if "globalPlugins.splUtils.encoders" in sys.modules:
 			import globalPlugins.splUtils.encoders
 			globalPlugins.splUtils.encoders.cleanup()
@@ -62,3 +65,16 @@ class AppModule(appModuleHandler.AppModule):
 				encoderSettingsLabel = encoderSettingsLabels.get(obj.windowControlID)
 				if encoderSettingsLabel:
 					obj.name = encoderSettingsLabel
+
+	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
+		# Detect encoders.
+		# #107 (19.08): for now SPL Utils global plugin will be checked, but in the future, look into supporting encoders via an app module package.
+		from globalPlugins.splUtils import encoders
+		if obj.windowClassName == "TListView":
+			# #87: add support for table navigation commands by coercing encoder list and entries into SysListView32 family.
+			if obj.role == controlTypes.ROLE_LISTITEM:
+				clsList.insert(0, encoders.SAMEncoder)
+			elif obj.role == controlTypes.ROLE_LIST:
+				clsList.insert(0, sysListView32.List)
+		elif obj.windowClassName == "SysListView32" and obj.role == controlTypes.ROLE_LISTITEM:
+			clsList.insert(0, encoders.SPLEncoder)
