@@ -335,6 +335,16 @@ un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
 
+## Version 19.07/18.09.10-LTS
+
+* Renamed the add-on from "StationPlaylist Studio" to "StationPlaylist" to
+  better describe apps and features supported by this add-on.
+* Améliorations de la sécurité interne.
+* If microphone alarm or metadata streaming settings are changed from add-on
+  settings, NVDA will no longer fail to apply changed settings. This
+  resolves an issue where microphone alarm did not start or stop properly
+  after changing settings via add-on settings.
+
 ## Version 19.06/18.09.9-LTS
 
 Version 19.06 supports SPL Studio 5.20 and later.

@@ -1,15 +1,14 @@
 # StationPlaylist #
 
-* Authoren: Geoff Shang, Joseph Lee und andere Entwickler
+* Autoren: Geoff Shang, Joseph Lee und weitere Mitwirkende
 * [Stabile Version herunterladen][1]
 * [Entwicklerversion herunterladen][2]
 * [LTS-Version für Studio 5.10 / 5.11 herunterladen][3]
-* NVDA compatibility: 2018.4 to 2019.2
+* NVDA-Kompatibilität: 2018.4 bis 2019.2
 
-This add-on package provides improved usage of StationPlaylist Studio and
-other StationPlaylist apps, as well as providing utilities to control Studio
-from anywhere. Supported apps include Studio, Creator, Track Tool, VT
-Recorder, and Streamer, as well as SAM and SPL encoders.
+Diese Erweiterung verbessert die Zugänglichkeit von Station Playlist. Es
+stehen außerdem Befehle zur Verfügung, um diese Anwendungvon überall aus zu
+bedienen.
 
 Weitere Informationen zur Erweiterung finden Sie in der
 [Add-On-Anleitung][4]. Für Entwickler, welche wissen wollen, wie die
@@ -18,20 +17,21 @@ Quellcodeverzeichnis der Erweiterung auf Github.
 
 WICHTIGE HINWEISE:
 
-* This add-on requires NVDA 2018.4 or later and StationPlaylist suite 5.20
-  or later.
+* Diese Erweiterung benötigt NVDA 2018.4 oder neuer und StationPlaylist 5.20
+  oder neuer.
 * Wenn Sie Windows 8 oder höher verwenden, setzen Sie die Reduzierung der
   Lautstärke anderer Audioquellen auf "nie" im Dialog Sprachausgabe im
   NVDA-Einstellungsmenü.
-* Starting from 2018, [changelogs for old add-on releases][5] will be found
-  on GitHub. This add-on readme will list changes from version 8.0/16.10
-  (2016 onwards).
+* Seit 2018 finden Sie [die Änderungen der Veröffentlichungen der
+  Erweiterung][5] auf GitHub. Diese Readme für die Erweiterung listet die
+  Änderungen gegenüber der Version 8.0/16.10 (seit 2016) auf.
 * Bestimmte Funktionen sind nicht mehr verfügbar, z.B. während NVDA im
   abgesicherten Modus ausgeführt wird.
 * Aufgrund technischer Einschränkungen können Sie diese Erweiterung nicht
   auf der Windows-Store-Version von NVDA installieren oder verwenden.
-* Features marked as "experimental" are meant to test something before a
-  wider release, so they will not be enabled in stable releases.
+* Features, die als "experimentell" gekennzeichnet sind, sollen etwas vor
+  einer zukünftigen Version testen, sodass sie nicht in stabilen Versionen
+  aktiviert werden.
 
 ## Tastenkürzel
 
@@ -331,47 +331,65 @@ Studio-Befehle über den Touchscreen ausführen. Tippen Sie zunächst einmal
 mit drei Fingern, um in den SPL-Touchmodus zu wechseln. Verwenden Sie dann
 die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
 
+## Version 19.07/18.09.10-LTS
+
+* Die Erweiterung wurde von "StationPlaylist Studio" in "StationPlaylist"
+  umbenannt, um die unterstützten Anwendungen und Funktionen besser zu
+  beschreiben.
+* Verbesserungen der internen Sicherheit.
+* Wenn die Einstellungen für Mikrofon-Alarm oder Metadaten-Streaming von den
+  Einstellungen der Erweiterung geändert werden, kann NVDA die geänderten
+  Einstellungen nicht mehr übernehmen. Dies behebt ein Problem, bei dem der
+  Mikrofon-Alarm nicht richtig gestartet oder gestoppt werden konnte, nach
+  dem die Einstellungen über die Zusatz-Einstellungen geändert wurden.
+
 ## Version 19.06/18.09.9-LTS
 
-Version 19.06 supports SPL Studio 5.20 and later.
+Version 19.06 unterstützt SPL 5.20 und neuer.
 
-* Initial support for StationPlaylist Streamer.
-* While running various Studio apps such as Track Tool and Studio, if a
-  second instance of the app is started and then exits, NVDA will no longer
-  cause Studio add-on configuration routines to produce errors and stop
-  working correctly.
-* Added labels for various options in SPL Encoder configuration dialog.
+* Erstmalige Unterstützung für StationPlaylist.
+* Wenn beim Ausführen verschiedener Studio-Anwendungen wie Titelwerkzeug und
+  Studio eine zweite Instanz der Anwendung gestartet und dann beendet wird,
+  führt NVDA nicht mehr dazu, dass Studio-Konfigurationsroutinen der
+  Erweiterung Fehler verursachen und nicht mehr ordnungsgemäß funktionieren.
+* Bezeichnungen für verschiedene Optionen im Konfigurationsdialog des
+  SPL-Encoders hinzugefügt.
 
 ## Version 19.04.1
 
-* Fixed several issues with redesigned column announcements and playlist
-  transcripts panels in add-on settings, including changes to custom column
-  order and inclusion not being reflected when saving and/or switching
-  between panels.
+* Mehrere Probleme mit neu gestalteten Spaltenansagen und
+  Playlist-Transkripten in den Einstellungen der Erweiterung behoben,
+  einschließlich Änderungen an der benutzerdefinierten Spaltenreihenfolge
+  und inklusiv, die beim Speichern und/oder Umschalten zwischen den Panels
+  nicht berücksichtigt wurden.
 
 ## Version 19.04/18.09.8-LTS
 
-* Various global commands such as entering SPL Controller and switching to
-  Studio window will be turned off if NVDA is running in secure mode or as a
-  Windows Store application.
-* 19.04: in column announcements and playlist transcripts panels (add-on
-  settings), custom column inclusion/order controls will be visible up front
-  instead of having to select a button to open a dialog to configure these
-  settings.
-* In Creator, NVDA will no longer play error tones or appear to do nothing
-  when focused on certain lists.
+* Verschiedene globale Befehle wie die Eingabe des SPL-Steuerung und die
+  Umschaltung auf das Studio-Fenster werden deaktiviert, wenn NVDA im
+  sicheren Modus oder als Windows Store-Anwendung ausgeführt wird.
+* 19.04: In Spaltenansagen und Playlist-Transkriptfeldern (Einstellungen der
+  ERweiterung) werden benutzerdefinierte
+  Spalteneinschluss-/Reihenfolgesteuerelemente im Vordergrund sichtbar sein,
+  anstatt eine Schaltfläche auswählen zu müssen, um einen Dialog zum
+  Konfigurieren dieser Einstellungen zu öffnen.
+* Im Creator spielt NVDA keinen Fehlerton mehr ab oder scheint nichts zu
+  passieren, wenn man sich auf bestimmte Listen konzentriert.
 
 ## Version 19.03/18.09.7-LTS
 
-* Pressing Control+NVDA+R to reload saved settings will now also reload
-  Studio add-on settings, and pressing this command three times will also
-  reset Studio add-on settings to defaults along with NVDA settings.
-* Renamed Studio add-on settings dialog's "Advanced options" panel to
-  "Advanced".
-* 19.03 Experimental: in column announcements and playlist transcripts
-  panels (add-on settings), custom column inclusion/order controls will be
-  visible up front instead of having to select a button to open a dialog to
-  configure these settings.
+* Wenn Sie Strg+NVDA+R drücken, um gespeicherte Einstellungen neu zu laden,
+  werden nun auch die Einstellungen der SPL-Erweiterung neu geladen, und
+  wenn Sie diesen Befehl dreimal drücken, werden auch diese Einstellungen
+  auf die Standard-Einstellungen zusammen mit den NVDA-Einstellungen
+  zurückgesetzt.
+* Der Dialog "Erweiterungseinstellungen für Studio" im Bereich "Erweiterte
+  Optionen" wurde in "Erweitert" umbenannt.
+* 19.03 Experimentell: In Spaltenansagen und Playlist-Transkriptfeldern
+  (Add-On-Einstellungen) werden benutzerdefinierte
+  Spalteneinschluss-/Reihenfolgesteuerelemente im Vordergrund sichtbar sein,
+  anstatt eine Schaltfläche auswählen zu müssen, um einen Dialog zur
+  Konfiguration dieser Einstellungen zu öffnen.
 
 ## Version 19.02
 
@@ -380,12 +398,13 @@ Version 19.06 supports SPL Studio 5.20 and later.
   die aktualisierungsprüfung aus den Einstellungen der Erweiterung wurde
   entfernt. Die Überprüfung nach Aktualisierungen wird nun vom Updater für
   Erweiterungen durchgeführt.
-* NVDA will no longer appear to do nothing or play error tones when
-  microphone active interval is set, used to remind broadcasters that
-  microphone is active with periodic beeps.
-* When resetting add-on settings from add-on settings dialog/reset panel,
-  NVDA will ask once more if an instant switch profile or a time-based
-  profile is active.
+* NVDA scheint nichts mehr zu unternehmen oder einen Fehlerton abzuspielen,
+  wenn das aktive Intervall des Mikrofons eingestellt ist, um die Sender
+  daran zu erinnern, dass das Mikrofon aktiv ist und dabei periodische
+  Pieptöne sendet.
+* Beim Zurücksetzen von den Einstellungen der Erweiterung aus dem Dialogfeld
+  Zurücksetzen von den Einstellungen der Erweiterung fragt NVDA erneut, ob
+  ein Sofortwechselprofil oder ein zeitbasiertes Profil aktiv ist.
 * Nach dem Zurücksetzen der Einstellund der Studio-Erweiterung schaltet NVDA
   das Mikrofonalarm aus und meldet den Metadaten-Streaming-Status, ähnlich
   wie nach dem Umschalten zwischen den Broadcast-Profilen.
@@ -513,8 +532,9 @@ zurückportiert.
   Spaltenansagen, Metadaten-Streaming-Einstellungen).
 * CSV-Format (kommagetrennte Werte) als Format für
   Wiedergabelistentranskripte hinzugefügt.
-* Pressing Control+NVDA+C to save settings will now also save Studio add-on
-  settings (requires NVDA 2018.3).
+* Wenn Sie zum Speichern der Einstellungen Strg+NVDA+C drücken, werden nun
+  auch die Einstellungen der Erweiterung gespeichert (erfordert NVDA
+  2018.4).
 
 ## Version 18.08.2
 
