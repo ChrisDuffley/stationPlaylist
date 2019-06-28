@@ -329,6 +329,18 @@ realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
 
+## Versión 19.07/18.09.10-LTS
+
+* Se ha renombrado el complemento de "StationPlaylist Studio" a
+  "StationPlaylist" para describir mejor las aplicaciones y características
+  que soporta este complemento.
+* Mejoras internas de seguridad.
+* Si los ajustes de la alarma del micrófono o el flujo de metadatos se
+  modifican desde las opciones del complemento, NVDA ya no fallará al
+  aplicar las opciones cambiadas. Esto resuelve un problema por el que la
+  alarma del micrófono no se iniciaba o detenía adecuadamente después de
+  cambiar los ajustes mediante las opciones del complemento.
+
 ## Versión 19.06/18.09.9-LTS
 
 La versión 19.06 soporta Studio 5.20 y posteriores.

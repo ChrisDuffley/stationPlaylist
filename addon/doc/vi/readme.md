@@ -285,6 +285,16 @@ NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio t
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
 
+## Phiên bản 19.07/18.09.10-LTS
+
+* Đổi tên add-on từ "StationPlaylist Studio" thành "StationPlaylist" để mô
+  tả tốt hơn các ứng dụng và tính năng được hỗ trợ bởi add-on này.
+* Các cải tiến bảo mật bên trong.
+* Nếu báo động microphone hoặc các thiết lập metadata streaming bị thay đổi
+  từ cài đặt add-on, NVDA sẽ không còn bị lỗi áp dụng các thiết lập đã thay
+  đổi. Điều này khắc phục lỗi khi báo động microphone không khởi động hoặc
+  bị dừng ngay sau khi thay đổi các thiết lập  thông qua cài đặt add-on.
+
 ## Phiên bản 19.03/18.09.7-LTS
 
 Phiên bản 19.06 hỗ trợ SPL Studio 5.20 trở lên.
