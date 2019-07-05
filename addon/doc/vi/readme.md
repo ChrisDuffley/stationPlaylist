@@ -46,10 +46,10 @@ lập khác.
 * Alt+NVDA+1 (vuốt hai ngón tay qua phải trong chế độ SPL) từ cửa sổ Studio:
   mở hộp thoại cài đặt kết thúc track.
 * Alt+NVDA+2 (vuốt hai ngón qua trái trong chế độ SPL ) từ cửa sổ Studio: mở
-  hộp thoại cài đặt báo động nhạc dạo.
+  hộp thoại cài đặt báo nhạc hiệu.
 * Alt+NVDA+3 từ cửa sổ Studio: bật tắt cart explorer để tìm hiểu cách gán
   cart.
-* Alt+NVDA+4 từ cửa sổ Studio: mở hộp thoại báo động microphone.
+* Alt+NVDA+4 từ cửa sổ Studio: mở hộp thoại báo hiệu microphone.
 * Control+NVDA+f từ cửa sổ Studio: mở hộp thoại để tìm một track theo tên ca
   sĩ hay bài hát. Bấm NvDA+F3 để tìm tiếp hoặc NVDA+Shift+F3 để tìm lùi.
 * Alt+NVDA+R từ cửa sổ Studio: chuyển đến các cài đặt thông báo quét thư
@@ -77,7 +77,7 @@ lập khác.
 Các lệnh sau đây mặc định không được gán thao tác; nếu muốn gán thao tác cho
 chúng, hãy dùng hộp thoại quản lý thao tác để thêm lệnh.
 
-* Chuyển đến cửa sổ SPL Studio từ một chương trình bất kì.
+* Chuyển từ một chương trình bất kì đến cửa sổ SPL Studio .
 * Lệnh cho bộ điều khiển SPL.
 * Thông báo trạng thái Studio như track đang phát từ một chương trình bất
   kì.
@@ -208,18 +208,17 @@ Các lệnh của bộ điều khiển SPL bao gồm:
   đâu.
 * Bấm H để hiện hộp thoại trợ giúp với toàn bộ các lệnh được liệt kê.
 
-## Các báo động cho track
+## Các báo hiệu cho track
 
 Mặc định, NvDA sẽ phát tiếng beep nếu track còn lại five giây (còn lại ở
 cuối track) hoặc đầu track. Để thiết lập giá trị này hoặc bật / tắt chúng,
 bấm Alt+NVDA+1 hoặc Alt+NVDA+2 mở hộp thoại end of track và song ramp. Ngoài
-ra, dùng hộp thoại cài đặt add-on của Studio để thiết lập nếu nghe thấy
-tiếng beep, thấy một thống điệp hoặc cả hai when khi bật báo động.
+ra, dùng hộp thoại cài đặt add-on của Studio để thiết lập nếu nghe thấy 
 
-## Các báo động cho microphone
+## Báo hiệu microphone
 
 Bạn có thể yêu cầu NVDA phát âm thanh khi microphone đã hoạt động được một
-thời gian ngắn. Bấm Alt+NVDA+4 để cấu hình thời gian báo động bằng giây (0
+thời gian ngắn. Bấm Alt+NVDA+4 để cấu hình thời gian báo hiệu bằng giây (0
 để tắt).
 
 ## Tìm kiếm track
@@ -290,9 +289,9 @@ và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thự
 * Đổi tên add-on từ "StationPlaylist Studio" thành "StationPlaylist" để mô
   tả tốt hơn các ứng dụng và tính năng được hỗ trợ bởi add-on này.
 * Các cải tiến bảo mật bên trong.
-* Nếu báo động microphone hoặc các thiết lập metadata streaming bị thay đổi
+* Nếu báo hiệu microphone hoặc các thiết lập metadata streaming bị thay đổi
   từ cài đặt add-on, NVDA sẽ không còn bị lỗi áp dụng các thiết lập đã thay
-  đổi. Điều này khắc phục lỗi khi báo động microphone không khởi động hoặc
+  đổi. Điều này khắc phục lỗi khi báo hiệu microphone không khởi động hoặc
   bị dừng ngay sau khi thay đổi các thiết lập  thông qua cài đặt add-on.
 
 ## Phiên bản 19.03/18.09.7-LTS
@@ -450,7 +449,7 @@ mới. Vài tính năng mới sẽ hỗ trợ ngược trở lại 18.09.x nếu
   phát, kể cả các hộp kiểm cho metadata streams cũng đã được chuyển sang
   dạng checkable (tạm dịch: có thể chọn).
 * Khi chuyển qua lại giữa các bản cài đặt, NvDA sẽ nhớ các thiết lập hiện
-  tại cho các cài đặt hồ sơ cụ thể (báo động, thông báo cột, cài đặt cho
+  tại cho các cài đặt hồ sơ cụ thể (báo hiệu, thông báo cột, cài đặt cho
   metadata streaming ).
 * Thêm định dạng CSV (dùng dấu phẩy ngăn cách các giá trị) như một định dạng
   cho bảng điểm của danh sách phát.
@@ -631,18 +630,18 @@ mới. Vài tính năng mới sẽ hỗ trợ ngược trở lại 18.09.x nếu
 
 * Khi dùng kiểu phím lệnh của JAWS cho SPL Assistant, lệnh kiểm tra cập nhật
   (Control+Shift+U) đã làm việc chính xác.
-* Khi thay đổi cài đặt báo động cho microphone thông qua hộp thoại báo động
-  (Alt+NVDA+4), các thay đổi như bật báo động và thay đổi của báo động
+* Khi thay đổi cài đặt báo hiệu cho microphone thông qua hộp thoại báo hiệu
+  (Alt+NVDA+4), các thay đổi như bật báo hiệu và thay đổi của báo hiệu
   microphone theo giờ được áp dụng khi đóng hộp thoại.
 
 ## Phiên bản 17.12
 
 * Yêu cầu Windows 7 Service Pack 1 trở lên.
-* Vài tính năng của add-on đã được cải thiện. Điều này cho phép báo động
+* Vài tính năng của add-on đã được cải thiện. Điều này cho phép báo hiệu
   microphone và metadata streaming phản hồi đến các thay đổi trong hồ sơ
   phát thanh. Yêu cầu NvDA 2017.4.
 * Khi thoát Studio, nhiều hộp thoại của add-on như cài đặt add-on, hộp thoại
-  báo động và nhiều nữa sẽ tự đóng lại. Yêu cầu NVDA 2017.4.
+  báo hiệu và nhiều nữa sẽ tự đóng lại. Yêu cầu NVDA 2017.4.
 * Thêm một lệnh mới trong bộ điều khiển SPL để thông báo tên của track sắp
   tới nếu có (Shift+C).
 * Giờ bạn có thể bấm các phím của cart (ví dụ như F1) sau khi vào bộ điều
@@ -669,14 +668,14 @@ bản phát hành 15.x LTS.
 ## Phiên bản 17.11/15.10-LTS
 
 * Bắt đầu hỗ trợ cho StationPlaylist Studio 5.30.
-* Nếu báo động microphone hay báo giờ theo thời gian được bật, và nếu thoát
-  Studio trong khi còn bật microphone, NVDA sẽ không còn phát âm báo động
+* Nếu báo hiệu microphone hay báo giờ theo thời gian được bật, và nếu thoát
+  Studio trong khi còn bật microphone, NVDA sẽ không còn phát âm báo hiệu
   microphone từ mọi cửa sổ.
 * Khi xóa các hồ sơ phát thanh và nếu một hồ sơ khác trở thành hồ sơ chuyển
   nhanh, cờ báo chuyển nhanh sẽ không bị gỡ khỏi hồ sơ chuyển.
 * Nếu xóa một hồ sơ đang hoạt động mà không phải hồ sơ chuyển nhánh hay theo
   thời gian, NVDA sẽ hỏi một lần nữa để xác nhận trước khi thực hiện.
-* NVDA sẽ áp dụng chính xác các cài đặt cho báo động microphone khi chuyển
+* NVDA sẽ áp dụng chính xác các cài đặt cho báo hiệu microphone khi chuyển
   sang các hồ sơ thông qua hộp thoại cài đặt add-on.
 * Giờ bạn có thể bấm SPL Controller, H để xem thông tin giúp đỡ cho bộ điều
   khiển SPL.
@@ -778,8 +777,8 @@ bản phát hành 15.x LTS.
 
 ## Phiên bản 17.05.1
 
-* NVDA sẽ không còn bị lỗi khi lưu các thay đổi cho cài đặt báo động từ
-  nhiều hộp thoại báo động (ví dụ, Alt+NVDA+1 cho báo động cuối track).
+* NVDA sẽ không còn bị lỗi khi lưu các thay đổi cho cài đặt báo hiệu từ
+  nhiều hộp thoại báo hiệu (ví dụ, Alt+NVDA+1 cho báo hiệu cuối track).
 
 ## Phiên bản 17.05/15.7-LTS
 
@@ -806,10 +805,10 @@ bản phát hành 15.x LTS.
   dòng kế và dòng trước trong bảng.
 * Thêm một hộp xổ trong hộp thoại cài đặt add-on để thiết lập cột nào được
   thông báo khi di chuyển qua chúng theo hàng dọc.
-* Di chuyển các điều khiển cuối track , nhạc dạo và báo động microphone từ
-  cài đặt add-on đến trung tâm báo động mới.
-* Trong trung tâm báo động, trường nhập liệu cuối track và track giới thiệu
-  đã luôn hiển thị có đánh dấu chọn vào hộp kiểm thông báo báo động hay
+* Di chuyển các điều khiển cuối track , nhạc dạo và báo hiệu ộng microphone
+  từ cài đặt add-on đến trung tâm báo hiệu mới.
+* Trong trung tâm báo hiệu, trường nhập liệu cuối track và track giới thiệu
+  đã luôn hiển thị có đánh dấu chọn vào hộp kiểm thông báo báo hiệu hay
   không.
 * Thêm lệnh trong SPL Assistant để thu thập các ảnh chụp danh sách phát như
   số track, track dài nhất, ca sĩ tiêu biểu và nhiều nữa (F8). Bạn cũng có
@@ -917,8 +916,8 @@ cầu bạn dùng phiên bản 15.x LTS.
 * Thêm hộp thoại chào mừng sẽ chạy khi khởi động Studio sau khi cài đặt
   add-on. Lệnh (Alt+NvDA+F1) đã được thêm vào để mở lại hộp thoại này.
 * Thay đổi nhiều phím lệnh của add-on, bao gồm gỡ bỏ lệnh bật tắt thông báo
-  trạng thái (Control+NvDA+1), sửa lệnh báo động cuối track thành
-  Alt+NVDA+1, bật / tắt Cart Explorer là Alt+NvDA+3, hộp thoại báo động
+  trạng thái (Control+NvDA+1), sửa lệnh báo hiệu cuối track thành
+  Alt+NVDA+1, bật / tắt Cart Explorer là Alt+NvDA+3, hộp thoại báo hiệu
   microphone là Alt+NVDA+4 và hộp thoại cài đặt add-on / bộ mã hóa là
   Alt+NvDA+0. Điều này cho phép gán Control+NVDA+phím số cho khám phá cột.
 * 8.0: nới lỏng giới hạn khám phá cột như với phiên bản 7.x nên các phím 1
@@ -947,8 +946,8 @@ cầu bạn dùng phiên bản 15.x LTS.
   Tool.
 * 8.0: thêm một hộp thoại trong cài đặt add-on để cấu hình việc khám phá cột
   cho Track Tool.
-* Giờ bạn có thể cấu hình thời gian báo động microphone từ hộp thoại báo
-  động microphone (Alt+NvDA+4).
+* Giờ bạn có thể cấu hình khoảng thời gian báo hiệu microphone từ hộp thoại
+  báo hiệu microphone (Alt+NvDA+4).
 
 ## Các bản phát hành cũ hơn
 

@@ -322,15 +322,17 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
-## Version 19.07/18.09.10-LTS
+## Versión 19.07/18.09.10-LTS
 
-* Renamed the add-on from "StationPlaylist Studio" to "StationPlaylist" to
-  better describe apps and features supported by this add-on.
+* Complemento renomeado de "StationPlaylist Studio" a "StationPlaylist" para
+  describir mellor as aplicacións e características soportadas por este
+  complemento.
 * Melloras de seguridade interna.
-* If microphone alarm or metadata streaming settings are changed from add-on
-  settings, NVDA will no longer fail to apply changed settings. This
-  resolves an issue where microphone alarm did not start or stop properly
-  after changing settings via add-on settings.
+* Se os axustes de alarma de micrófono ou de transmisión de metadatos se
+  cambian dende as opcións do complemento, NVDA xa non fallará aplicando os
+  axustes modificados. Isto resolve un problema polo que a alarma de
+  micrófono non comezaba ou se detía apropiadamente tras cambiar os axustes
+  mediante as opcións do complemento.
 
 ## Versión 19.06/18.09.9-LTS
 
