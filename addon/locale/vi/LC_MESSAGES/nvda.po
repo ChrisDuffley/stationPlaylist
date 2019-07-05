@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 17.02\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2017-02-03 19:00+1000\n"
-"PO-Revision-Date: 2019-06-13 08:01-0700\n"
+"PO-Revision-Date: 2019-06-30 00:58+0700\n"
 "Last-Translator: Dang Manh Cuong <dangmanhcuong@gmail.com>\n"
 "Language-Team: \n"
 "Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 1.6.11\n"
 
 #. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
 msgid ""
@@ -426,7 +426,7 @@ msgstr "Thiết lập báo động cuối track (mặc định là 5 giây)."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Sets song intro alarm (default is 5 seconds)."
-msgstr "Đặt báo thức nhạc dạo (mặc định là 5 giây)."
+msgstr "Đặt nhạc hiệu (mặc định là 5 giây)."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Sets microphone alarm (default is 5 seconds)."
@@ -524,7 +524,7 @@ msgstr "Cart không được gán"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Toggles library scan progress settings."
-msgstr "Chuyển đổi cài đặt tiến trình quét thư viện."
+msgstr "Bật / tắt cài đặt tiến trình quét thư viện."
 
 #. Translators: Presented when library scan has started.
 msgid "Scan start"
@@ -1111,11 +1111,11 @@ msgstr "Cấu hình &phát thanh:"
 
 #. Borrowed logic from NVDA Core's speech panel (although there is no label for this read-only text).
 msgid "Normal profile is in use."
-msgstr "Đang dùng cấu hình bình thường."
+msgstr "Đang dùng hồ sơ bình thường."
 
 #. Translators: The label of a button to copy a broadcast profile.
 msgid "Cop&y"
-msgstr "&Chép"
+msgstr "&Sao chép"
 
 #. Translators: The label for a setting in SPL Add-on settings to configure countdown seconds before switching profiles.
 msgid "Countdown seconds before switching profiles"
@@ -1332,39 +1332,39 @@ msgstr "Một hộp thoại báo động khác đang mở."
 #. Now the actual alarm dialog code.
 #. 8.0: Apart from level 0 (all settings shown), levels change title.
 msgid "Alarms Center"
-msgstr "Trugn tâm các báo động"
+msgstr "Trugn tâm các báo hiệu"
 
 msgid "End of track alarm"
-msgstr "Báo động cuối track"
+msgstr "Báo hiệu cuối track"
 
 msgid "Song intro alarm"
-msgstr "Báo động nhạc dạo"
+msgstr "Nhạc hiệu"
 
 msgid "Microphone alarm"
-msgstr "Báo động microphone"
+msgstr "Báo hiệu microphone"
 
 msgid "&End of track alarm in seconds"
-msgstr "&Báo động cuối track bằng giây"
+msgstr "&Báo hiệu cuối track bằng giây"
 
 msgid "&Notify when end of track is approaching"
 msgstr "&Thông báo khi gần hết track"
 
 msgid "&Track intro alarm in seconds"
-msgstr "&Báo động track nhạc dạo bằng giây"
+msgstr "&Track nhạc hiệu bằng giây"
 
 msgid "&Notify when end of introduction is approaching"
 msgstr "&Thông báo khi gần hết phần giới thiệu"
 
 #. Translators: A dialog message to set microphone active alarm.
 msgid "&Microphone alarm in seconds (0 disables the alarm)"
-msgstr "&Báo động Microphone bằng giây (0 giây là tắt báo động)"
+msgstr "&Báo hiệu Microphone bằng giây (0 giây là tắt báo hiệu)"
 
 msgid "Microphone alarm &interval in seconds"
-msgstr "Thời &gian báo động microphone tính bằng giây"
+msgstr "Thiết lập khoảng &thời gian bao hiệu microphone"
 
 #. Translators: title of a panel to configure various alarms and related settings.
 msgid "Alarms"
-msgstr "Các báo động"
+msgstr "Báo hiệu"
 
 #. Translators: One of the alarm notification options.
 msgid "beep"
@@ -1380,7 +1380,7 @@ msgstr "cả beep và thông điệp"
 
 #. Translators: The label for a setting in SPL add-on dialog to control alarm announcement type.
 msgid "&Alarm notification:"
-msgstr "&Thông báo báo động:"
+msgstr "&Thông báo kiểu báo hiệu:"
 
 #. Translators: Help text for playlist snapshots dialog.
 msgid ""
@@ -1408,7 +1408,7 @@ msgstr "Số ca sĩ tiêu biểu (0 sẽ hiển thị tất cả ca sĩ)"
 
 #. Translators: the label for a setting in SPL add-on settings to include track category count in playlist snapshots window.
 msgid "Category count"
-msgstr "Số loại"
+msgstr "Số chủ đề"
 
 #. Translators: the label for a setting in SPL add-on settings to set top track category count limit in playlist snapshots window.
 msgid "Top category count (0 displays all categories)"
@@ -1662,7 +1662,8 @@ msgstr "Xóa các chú thích track"
 #. Translators: A message to warn about resetting SPL config settings to factory defaults.
 msgid "Are you sure you wish to reset SPL add-on settings to defaults?"
 msgstr ""
-"Bạn có chắc chắn muốn trả các thiết lập của SPL add-on về mặc định không?"
+"Bạn có chắc chắn muốn khôi phục các thiết lập của SPL add-on về mặc định "
+"không?"
 
 #. Translators: The title of the warning dialog.
 msgid "Warning"
@@ -1885,7 +1886,7 @@ msgstr "SPL Studio không chạy."
 
 #. Translators: Input help mode message for a command to switch to StationPlaylist Studio from any program.
 msgid "Moves to SPL Studio window from other programs."
-msgstr "Chuyển đến cửa sổ SPL Studio từ chương trình khác."
+msgstr "Chuyển từ chương trình khác đến cửa sổ SPL Studio."
 
 #. Translators: Presented when NVDA cannot enter SPL Controller layer since SPL Studio is focused.
 msgid ""
@@ -1893,7 +1894,7 @@ msgid ""
 "commands."
 msgstr ""
 "Bạn đã ở trong cửa sổ SPL Studio. Để biết các lệnh trạng thái, hãy dùng các "
-"lệnh SPL Assistant."
+"lệnh của SPL Assistant."
 
 #. Translators: The name of a layer command set for StationPlaylist add-on.
 #. Hint: it is better to translate it as "SPL Control Panel."
@@ -1961,7 +1962,7 @@ msgstr "&Nhãn phát thanh"
 
 #. Translators: A checkbox in encoder settings to set if NvDA should switch focus to Studio window when connected.
 msgid "&Focus to Studio when connected"
-msgstr "&Chuyển về Studio khi kết nối"
+msgstr "&Chuyển về Studio khi đã kết nối"
 
 #. Translators: A checkbox in encoder settings to set if NvDA should play the next track when connected.
 msgid "&Play first track when connected"
@@ -2030,7 +2031,7 @@ msgstr "Đã hủy bỏ theo dõi bộ mã hóa"
 #. Translators: Input help mode message in SAM Encoder window.
 msgid ""
 "Toggles whether NVDA will monitor the selected encoder in the background."
-msgstr "Chuyển chế độ ngầm theo dõi bộ mã hóa được chọn."
+msgstr "Bật / tắt chế độ ngầm theo dõi bộ mã hóa được chọn."
 
 #. Translators: The title of the stream labeler dialog (example: stream labeler for 1).
 #, python-brace-format
