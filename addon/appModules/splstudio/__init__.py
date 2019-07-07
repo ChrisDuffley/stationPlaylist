@@ -191,11 +191,21 @@ class SPLStudioTrackItem(SPLTrackItem):
 	# Keep a record of which column is being looked at.
 	_curColumnNumber = None
 
+	def event_stateChange(self):
+		# Why is it that NVDA keeps announcing "not selected" when track items are scrolled?
+		if controlTypes.STATE_SELECTED not in self.states:
+			pass
+
+	@scriptHandler.script(gesture="kb:space")
+	def script_select(self, gesture):
+		gesture.send()
+		speech.speakMessage(self.name)
+		braille.handler.handleUpdate(self)
+
 	# Locate the real column index for a column header.
 	# This is response to a situation where columns were rearranged yet testing shows in-memory arrangement remains the same.
-	# Subclasses must provide this function.
 	def _origIndexOf(self, columnHeader):
-		return None
+		return splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"].index(columnHeader)+1
 
 	# Read selected columns.
 	# But first, find where the requested column lives.
@@ -258,7 +268,12 @@ class SPLStudioTrackItem(SPLTrackItem):
 	# Some helper functions to handle corner cases.
 	# Each track item provides its own version.
 	def _leftmostcol(self):
-		pass
+		if not self.name:
+			# Translators: Presented when no track status is found in Studio 5.10.
+			ui.message(_("Status not found"))
+		else:
+			# Translators: Status information for a checked track in Studio 5.10.
+			ui.message(_("Status: {name}").format(name = self.name))
 
 	# Obtain column contents for all columns for this track.
 	# A convenience method that calls column content getter for a list of columns.
@@ -420,33 +435,6 @@ class SPLStudioTrackItem(SPLTrackItem):
 		"kb:Alt+NVDA+C":"announceTrackComment"
 	}
 
-class SPL510TrackItem(SPLStudioTrackItem):
-	"""Track item for Studio 5.10 and later."""
-
-	def event_stateChange(self):
-		# Why is it that NVDA keeps announcing "not selected" when track items are scrolled?
-		if controlTypes.STATE_SELECTED not in self.states:
-			pass
-
-	def script_select(self, gesture):
-		gesture.send()
-		speech.speakMessage(self.name)
-		braille.handler.handleUpdate(self)
-
-	# Studio 5.10 version of original index finder.
-	def _origIndexOf(self, columnHeader):
-		return splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"].index(columnHeader)+1
-
-	# Handle column announcement for SPL 5.10.
-	def _leftmostcol(self):
-		if not self.name:
-			# Translators: Presented when no track status is found in Studio 5.10.
-			ui.message(_("Status not found"))
-		else:
-			# Translators: Status information for a checked track in Studio 5.10.
-			ui.message(_("Status: {name}").format(name = self.name))
-
-	__gestures={"kb:space":"select"}
 
 SPLAssistantHelp={
 	# Translators: The text of the help command in SPL Assistant layer.
@@ -820,7 +808,7 @@ class AppModule(appModuleHandler.AppModule):
 				# Track item window style has changed in Studio 5.31.
 				trackItemWindowStyle = 1443991617 if self.productVersion >= "5.31" else 1443991625
 				if abs(windowStyle - trackItemWindowStyle)%0x100000 == 0:
-					clsList.insert(0, SPL510TrackItem)
+					clsList.insert(0, SPLStudioTrackItem)
 			# #69 (18.08): allow actual list views to be treated as SysListView32.List so column count and other data can be retrieved easily.
 			elif role == controlTypes.ROLE_LIST:
 				clsList.insert(0, sysListView32.List)
