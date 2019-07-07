@@ -202,17 +202,13 @@ class SPLStudioTrackItem(SPLTrackItem):
 		speech.speakMessage(self.name)
 		braille.handler.handleUpdate(self)
 
-	# Locate the real column index for a column header.
-	# This is response to a situation where columns were rearranged yet testing shows in-memory arrangement remains the same.
-	def _origIndexOf(self, columnHeader):
-		return splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"].index(columnHeader)+1
-
 	# Read selected columns.
 	# But first, find where the requested column lives.
 	# 8.0: Make this a public function.
+	# #109 (19.08): now standardized around this function.
 	def indexOf(self, columnHeader):
 		try:
-			return self._origIndexOf(columnHeader)
+			return splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"].index(columnHeader)+1
 		except ValueError:
 			return None
 
