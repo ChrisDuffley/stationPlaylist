@@ -1114,14 +1114,6 @@ def triggerProfileSwitch(durationDelta=None):
 			_SPLTriggerEndTimer.Stop()
 			_SPLTriggerEndTimer = None
 
-# Let SPL track item know if it needs to build description pieces.
-# To be renamed and used in other places in 7.0.
-# 19.06: deprecated and will be removed later in 2019.
-def _shouldBuildDescriptionPieces():
-	return (not SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"]
-	and (SPLConfig["ColumnAnnouncement"]["ColumnOrder"] != _SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
-	or len(SPLConfig["ColumnAnnouncement"]["IncludedColumns"]) != 17))
-
 # Additional configuration and miscellaneous dialogs
 # See splconfui module for basic configuration dialogs.
 
