@@ -1917,7 +1917,6 @@ class AppModule(appModuleHandler.AppModule):
 	script_SPLAssistantToggle.__doc__=_("The SPL Assistant layer command. See the add-on guide for more information on available commands.")
 
 	# Status table keys
-	SPLPlayStatus = 0
 	SPLSystemStatus = 1
 	SPLScheduledToPlay = 2
 	SPLNextTrackTitle = 3
@@ -1930,9 +1929,8 @@ class AppModule(appModuleHandler.AppModule):
 	# Table of child constants based on versions
 	# These are scattered throughout the screen, so one can use foreground.getChild(index) to fetch them (getChild tip from Jamie Teh (NV Access)).
 	# Because 5.x (an perhaps future releases) uses different screen layout, look up the needed constant from the table below (row = info needed, column = version).
-	# As of 18.05, the below table is based on Studio 5.10.
+	# As of 19.08, the below table is based on Studio 5.20.
 	statusObjs={
-		SPLPlayStatus: 6, # Play status, mic, etc.
 		SPLSystemStatus: -2, # The second status bar containing system status such as up time.
 		SPLScheduledToPlay: 19, # In case the user selects one or more tracks in a given hour.
 		SPLScheduled: 20, # Time when the selected track will begin.
