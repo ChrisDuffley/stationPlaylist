@@ -10,7 +10,7 @@ import api
 import ui
 import globalVars
 import config
-from NVDAObjects.IAccessible import getNVDAObjectFromEvent, sysListView32
+from NVDAObjects.IAccessible import getNVDAObjectFromEvent
 from winUser import user32, sendMessage, OBJID_CLIENT
 import addonHandler
 addonHandler.initTranslation()
