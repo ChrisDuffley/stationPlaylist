@@ -641,6 +641,9 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Prepare the settings dialog among other things.
 	def __init__(self, *args, **kwargs):
+		# #110 (19.08): assertion thrown when attempting to locate Studio window handle because the locator thread is queued from main thread when app is gone.
+		# This is seen when restarting NVDA while studio add-on settings screen was active.
+		if wx.GetApp() is None: return
 		super(AppModule, self).__init__(*args, **kwargs)
 		if self.SPLCurVersion < SPLMinVersion:
 			raise RuntimeError("Unsupported version of Studio is running, exiting app module")

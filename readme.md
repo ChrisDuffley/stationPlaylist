@@ -194,6 +194,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Version 19.08
 
 * NVDA 2019.1 or later is required.
+* NVDA will no longer appear to do nothing or play error tones when restarting it while Studio add-on settings dialog is open.
 
 ## Version 19.07/18.09.10-LTS
 
