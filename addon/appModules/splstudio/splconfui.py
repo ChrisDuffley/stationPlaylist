@@ -215,8 +215,7 @@ class BroadcastProfilesPanel(gui.SettingsPanel):
 		if oldName in splconfig._SPLCache:
 			splconfig._SPLCache[newName] = splconfig._SPLCache[oldName]
 			del splconfig._SPLCache[oldName]
-		if len(state) > 1: newName = " <".join([newName, state[1]])
-		self.profiles.SetString(index, newName)
+		self.profiles.SetString(index, " <".join([newName, state[1]]) if len(state) > 1 else newName)
 		self.profiles.Selection = index
 		self.profiles.SetFocus()
 		# Don't forget to update selected profile name.
