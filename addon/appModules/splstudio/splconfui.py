@@ -17,6 +17,7 @@ try:
 	from . import splupdate
 except RuntimeError:
 	splupdate = None
+import extensionPoints
 import addonHandler
 addonHandler.initTranslation()
 from . import splconfig
@@ -28,8 +29,11 @@ import six
 # Helper panels/dialogs for add-on settings dialog.
 
 # Broadcast profiles category
+# The following also affects profile-specific panels.
 _selectedProfile = None
 _configApplyOnly = False
+# #112 (19.08/18.09.11-LTS): an internal config UI action for managing profile renames/deletions.
+SPLConfUIProfileRenamedOrDeleted = extensionPoints.Action()
 
 class BroadcastProfilesPanel(gui.SettingsPanel):
 	# Translators: title of a panel to configure broadcast profiles.
@@ -228,6 +232,8 @@ class BroadcastProfilesPanel(gui.SettingsPanel):
 		global _selectedProfile
 		if _selectedProfile == oldName:
 			_selectedProfile = newName
+		# Notify profile-specific panels about profile renames.
+		SPLConfUIProfileRenamedOrDeleted.notify(oldName=oldName, newName=newName)
 
 	def onDelete(self, evt):
 		# Prevent profile deletion while a trigger is active (in the midst of a broadcast), otherwise flags such as instant switch and time-based profiles become inconsistent.
@@ -288,6 +294,8 @@ class BroadcastProfilesPanel(gui.SettingsPanel):
 		global _selectedProfile
 		if _selectedProfile == name:
 			_selectedProfile = None
+		# Notify profile-specific panels about profile deletion (new name is None).
+		SPLConfUIProfileRenamedOrDeleted.notify(oldName=name, newName=None)
 
 	def onTriggers(self, evt):
 		self.Disable()
