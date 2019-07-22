@@ -766,6 +766,7 @@ class AlarmsPanel(gui.SettingsPanel):
 
 		# #77 (18.09-LTS): record temporary settings.
 		self._curProfileSettings = {}
+		SPLConfUIProfileRenamedOrDeleted.register(self.onProfileRenamedOrDeleted)
 		self.outroAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&End of track alarm in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=59, initial=splconfig._SPLDefaults["IntroOutroAlarms"]["EndOfTrackTime"])
 		self.outroToggleCheckBox=alarmsCenterHelper.addItem(wx.CheckBox(self, label=_("&Notify when end of track is approaching")))
 		self.outroToggleCheckBox.SetValue(splconfig._SPLDefaults["IntroOutroAlarms"]["SayEndOfTrack"])
@@ -820,6 +821,15 @@ class AlarmsPanel(gui.SettingsPanel):
 		if currentSettings != {sect:key for sect, key in curProfile.items() if sect in ("IntroOutroAlarms", "MicrophoneAlarm")}:
 			self._curProfileSettings[selectedProfile] = dict(currentSettings)
 		super(AlarmsPanel, self).onPanelDeactivated()
+
+	def onProfileRenamedOrDeleted(self, oldName=None, newName=None):
+		# New name determines what happend (renamed or deleted if it is not None or otherwise, respectivley).
+		# Although an exception should be thrown when old name is None, don't worry about it at this time.
+		if oldName not in self._curProfileSettings: return
+		if newName is not None:
+			self._curProfileSettings[newName] = self._curProfileSettings[oldName]
+			del self._curProfileSettings[oldName]
+		else: del self._curProfileSettings[oldName]
 
 	def onSave(self):
 		# Save global settings first, and then record profile-specific settings in appropriate profile.
@@ -990,6 +1000,7 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 
 	def makeSettings(self, settingsSizer):
 		metadataSizerHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
+		SPLConfUIProfileRenamedOrDeleted.register(self.onProfileRenamedOrDeleted)
 
 		self.metadataValues=[("off",_("Off")),
 		# Translators: One of the metadata notification settings.
@@ -1037,6 +1048,13 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 		if currentSettings != curProfile["MetadataStreaming"]["MetadataEnabled"]:
 			self._curProfileSettings[selectedProfile] = currentSettings
 		super(MetadataStreamingPanel, self).onPanelDeactivated()
+
+	def onProfileRenamedOrDeleted(self, oldName=None, newName=None):
+		if oldName not in self._curProfileSettings: return
+		if newName is not None:
+			self._curProfileSettings[newName] = self._curProfileSettings[oldName]
+			del self._curProfileSettings[oldName]
+		else: del self._curProfileSettings[oldName]
 
 	def onSave(self):
 		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
@@ -1100,6 +1118,7 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 		self.columnOrder = splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
 		# #77 (18.09-LTS): record temporary settings.
 		self._curProfileSettings = {}
+		SPLConfUIProfileRenamedOrDeleted.register(self.onProfileRenamedOrDeleted)
 
 		# Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
 		self.columnOrderCheckbox=colAnnouncementsHelper.addItem(wx.CheckBox(self,wx.ID_ANY,label=_("Announce columns in the &order shown on screen")))
@@ -1174,6 +1193,13 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 		if currentSettings["ColumnAnnouncement"] != curProfile["ColumnAnnouncement"]:
 			self._curProfileSettings[selectedProfile] = dict(currentSettings)
 		super(ColumnAnnouncementsPanel, self).onPanelDeactivated()
+
+	def onProfileRenamedOrDeleted(self, oldName=None, newName=None):
+		if oldName not in self._curProfileSettings: return
+		if newName is not None:
+			self._curProfileSettings[newName] = self._curProfileSettings[oldName]
+			del self._curProfileSettings[oldName]
+		else: del self._curProfileSettings[oldName]
 
 	def onSave(self):
 		selectedProfile = _selectedProfile
