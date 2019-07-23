@@ -221,7 +221,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * NVDA will no longer appear to do nothing or play error tones when microphone active interval is set, used to remind broadcasters that microphone is active with periodic beeps.
 * Pressing Control+NVDA+R to reload saved settings will now also reload Studio add-on settings, and pressing this command three times will also reset Studio add-on settings to defaults along with NVDA settings.
 * When resetting add-on settings from add-on settings dialog/reset panel, NVDA will ask once more if an instant switch profile or a time-based profile is active.
-* After resetting Studio add-on settings, NvDA will turn off microphone alarm timer and announce metadata streaming status, similar to after switching between broadcast profiles.
+* After resetting Studio add-on settings, NVDA will turn off microphone alarm timer and announce metadata streaming status, similar to after switching between broadcast profiles.
 * Renamed Studio add-on settings dialog's "Advanced options" panel to "Advanced".
 
 ## Version 18.09.6-LTS
@@ -570,7 +570,7 @@ Version 7.4 is also known as 16.08 following the year.month version number for s
 * Settings will be saved to disk if and only if you change settings. This prolongs life of SSD's (solid state drives) by preventing unnecessary saves to disk if no settings have changed.
 * In add-on settings dialog, the controls used to toggle announcement of scheduled time, listener count, cart name and track name has been moved to a dedicated status announcements dialog (select status announcement button to open this dialog).
 * Added a new setting in add-on settings dialog to let NVDA play beep for different track categories when moving between tracks in playlist viewer.
-* Attempting to open metadata configuration option in add-on settings dialog while quick metadata streaming dialog is open will no longer cause NVDA to do nothing or play an error tone. NvDA will now ask you to close metadata streaming dialog before you can open add-on settings.
+* Attempting to open metadata configuration option in add-on settings dialog while quick metadata streaming dialog is open will no longer cause NVDA to do nothing or play an error tone. NVDA will now ask you to close metadata streaming dialog before you can open add-on settings.
 * When announcing time such as remaining time for the playing track, hours are also announced. Consequently, the hour announcement setting is enabled by default.
 * Pressing SPL Controller, R now causes NVDA to announce remaining time in hours, minutes and seconds (minutes and seconds if this is such a case).
 * In encoders, pressing Control+NVDA+0 will present encoder settings dialog for configuring various options such as stream label, focusing to Studio when connected and so on.
@@ -590,7 +590,7 @@ Version 7.4 is also known as 16.08 following the year.month version number for s
 ## Changes for 6.2
 
 * Fixed an issue with playlist remainder command (SPL Assistant, D (R if compatibility mode is on)) where the duration for the current hour was announced as opposed to the entire playlist (the behavior of this command can be configured from advanced settings found in add-on settings dialog).
-* NvDA can now announce name of the currently playing track while using another program (configurable from add-on settings).
+* NVDA can now announce name of the currently playing track while using another program (configurable from add-on settings).
 * The setting used to let SPL Controller command invoke SPL Assistant is now honored (previously it was enabled at all times).
 * In SAM encoders, Control+F9 and Control+F10 commands now works correctly.
 * In encoders, when an encoder is first focused and if this encoder is configured to be monitored in the background, NVDA will now start the background monitor automatically.
@@ -623,7 +623,7 @@ Version 7.4 is also known as 16.08 following the year.month version number for s
 * Added a setting in add-on settings dialog to allow microphone active notification to be given periodically.
 * You can now use Track Dial toggle command in Studio to toggle Track Dial in Track Tool provided that you didn't assign a command to toggle Track Dial in Track Tool.
 * Added ability to use SPL Controller layer command to invoke SPL Assistant layer (configurable from advanced Settings dialog found in add-on settings dialog).
-* Added ability for NvDA to use certain SPL Assistant commands used by other screen readers. To configure this, go to add-on settings, select Advanced Settings and check screen reader compatibility mode checkbox.
+* Added ability for NVDA to use certain SPL Assistant commands used by other screen readers. To configure this, go to add-on settings, select Advanced Settings and check screen reader compatibility mode checkbox.
 * In encoders, settings such as focusing to Studio when connected are now remembered.
 * It is now possible to view various columns from encoder window (such as encoder connection status) via Control+NVDA+number command; consult the encoder commands above.
 * Fixed a rare bug where switching to Studio or closing an NVDA dialog (including Studio add-on dialogs) prevented track commands (such as toggling Track Dial) from working as expected.
@@ -660,7 +660,7 @@ Version 7.4 is also known as 16.08 following the year.month version number for s
 * It is now possible to review individual columns in Track Tool via Track Dial (toggle key unassigned). Note that Studio must be active before using this mode.
 * Added a check box in Studio add-on settings dialog to toggle announcement of name of the currently playing cart.
 * Toggling microphone on and off via SPL Controller no longer causes error tones to be played or toggle sound to not be played.
-* If a custom command is assigned for an SPL Assistant layer command and this command is pressed right after entering SPL Assistant, NvDA will now promptly exit SPL Assistant.
+* If a custom command is assigned for an SPL Assistant layer command and this command is pressed right after entering SPL Assistant, NVDA will now promptly exit SPL Assistant.
 
 ## Changes for 5.0
 
@@ -680,7 +680,7 @@ Version 7.4 is also known as 16.08 following the year.month version number for s
 * In encoder windows, NVDA's time and date announcement command (NVDA+F12 by default) will announce time including seconds.
 * You can now monitor individual encoders for connection status and for other messages by pressing Control+F11 while the encoder you wish to monitor is focused (works better when using SAM encoders).
 * Added a command in SPL Controller layer to announce status of encoders being monitored (E).
-* A workaround is now available to fix an issue where NvDA was announcing stream labels for the wrong encoders, especially after deleting an encoder (to realign stream labels, press Control+F12, then select the position of the encoder you have removed).
+* A workaround is now available to fix an issue where NVDA was announcing stream labels for the wrong encoders, especially after deleting an encoder (to realign stream labels, press Control+F12, then select the position of the encoder you have removed).
 
 ## Older releases
 
