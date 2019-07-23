@@ -132,6 +132,9 @@ class BroadcastProfilesPanel(gui.SettingsPanel):
 		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
 		if not _configApplyOnly or (_configApplyOnly and selectedProfile == splconfig.SPLConfig.activeProfile):
 			splactions.SPLActionProfileSwitched.notify(configDialogActive=True)
+		# #111 (19.08/18.09.11-LTS): restart triggers if and only if OK button is pressed (broken since 18.09).
+		if not _configApplyOnly:
+			splconfig.triggerStart(restart=True)
 
 	def onDiscard(self):
 		# Apply profile trigger changes if any.
