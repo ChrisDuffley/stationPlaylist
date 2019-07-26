@@ -210,10 +210,11 @@ Các lệnh của bộ điều khiển SPL bao gồm:
 
 ## Các báo hiệu cho track
 
-Mặc định, NvDA sẽ phát tiếng beep nếu track còn lại five giây (còn lại ở
-cuối track) hoặc đầu track. Để thiết lập giá trị này hoặc bật / tắt chúng,
-bấm Alt+NVDA+1 hoặc Alt+NVDA+2 mở hộp thoại end of track và song ramp. Ngoài
-ra, dùng hộp thoại cài đặt add-on của Studio để thiết lập nếu nghe thấy 
+Mặc định, NvDA sẽ phát tiếng beep nếu track còn five giây (ở cuối track)
+hoặc đầu track. Để thiết lập giá trị này hoặc bật / tắt chúng, bấm
+Alt+NVDA+1 hoặc Alt+NVDA+2 mở hộp thoại end of track và song ramp. Ngoài ra,
+dùng hộp thoại cài đặt add-on của Studio để thiết lập để nghe tiếng beep,
+một thông điệp hoặc chuông báo.
 
 ## Báo hiệu microphone
 
@@ -345,9 +346,9 @@ Phiên bản 19.06 hỗ trợ SPL Studio 5.20 trở lên.
 * Khi khôi phục các cài đặt add-on từ hộp thoại cài đặt add-on / bảng khôi
   phục cài đặt, NVDA sẽ hỏi thêm một lần nữa nếu có một hồ sơ chuyển nhanh
   hay hồ sơ theo thời gian đang được kích hoạt.
-* Sau khi khôi phục các cài đặt của Studio add-on, NvDA sẽ tắt hẹn giờ báo
-  động microphone và thông báo trạng thái metadata streaming, tương tự như
-  sau khi chuyển giữa các hồ sơ phát thanh.
+* Sau khi khôi phục các cài đặt của Studio add-on, NvDA sẽ tắt hẹn giờ
+  chuông báo microphone và thông báo trạng thái metadata streaming, tương tự
+  như sau khi chuyển giữa các hồ sơ phát thanh.
 
 ## Phiên bản 19.01.1
 
@@ -509,9 +510,9 @@ mới. Vài tính năng mới sẽ hỗ trợ ngược trở lại 18.09.x nếu
 * NVDA sẽ không còn tình trạng phát âm thanh báo lỗi hoặc không làm gì khi
   nỗ lực đổi tên một hồ sơ phát thanh từ cài đặt add-on, lỗi gây ra bởi vấn
   đề tương thích của wxPython 4.
-* Khởi động lại NvDA hoặc Studio sau khi thực hiện các thay đổi trong cài
-  đặt của một hồ sơ phát thanh không phải hồ sơ bình thường, NVDA sẽ không
-  còn tình trạng trở về các cài đặt cũ.
+* Việc khởi động lại NvDA hoặc Studio sau khi thực hiện các thay đổi trong
+  cài đặt của một hồ sơ phát thanh không phải hồ sơ bình thường, NVDA sẽ
+  không còn tình trạng trở về các cài đặt cũ.
 * Đã có thể  thu thập bảng điểm của danh sách phát cho khung giờ hiện
   tại. Chọn "khung giờ hiện tại" trong các tùy chọn khoảng danh sách phát
   trong bảng điểm của danh sách phát (SPL Assistant, Shift+F8).
@@ -913,8 +914,8 @@ cầu bạn dùng phiên bản 15.x LTS.
   15.0 vì các thay đổi không tương thích.
 * Mã nguồn Add-on giờ đây được lưu trên GitHub (tại
   https://github.com/josephsl/stationPlaylist).
-* Thêm hộp thoại chào mừng sẽ chạy khi khởi động Studio sau khi cài đặt
-  add-on. Lệnh (Alt+NvDA+F1) đã được thêm vào để mở lại hộp thoại này.
+* Thêm hộp thoại chào mừng được gọi chạy khi khởi động Studio sau khi cài
+  đặt add-on. Lệnh (Alt+NvDA+F1) đã được thêm vào để mở lại hộp thoại này.
 * Thay đổi nhiều phím lệnh của add-on, bao gồm gỡ bỏ lệnh bật tắt thông báo
   trạng thái (Control+NvDA+1), sửa lệnh báo hiệu cuối track thành
   Alt+NVDA+1, bật / tắt Cart Explorer là Alt+NvDA+3, hộp thoại báo hiệu

@@ -57,9 +57,9 @@ contrario.
 * Alt+NVDA+3 desde la ventana Studio: activa o desactiva el explorador de
   cart para aprender las asignaciones de cart.
 * Alt+NVDA+4 desde la ventana Studio: Abre el diálogo alarma del micrófono.
-* Control+NVDA+f desde la ventana del Studio: Abre un diálogo para encontrar
+* Control+NVDA+f desde la ventana de Studio: Abre un diálogo para encontrar
   una pista sobre la base del artista o del nombre de la canción. Pulsa
-  NVDA+F3 para encontrar hacia adelante o NVDA+Shift+F3 para encontrar hacia
+  NVDA+F3 para buscar hacia adelante o NVDA+Shift+F3 para buscar hacia
   atrás.
 * Alt+NVDA+R desde la ventana de Studio: Pasos de las opciones de anunciado
   del escaneado de biblioteca.
@@ -152,7 +152,7 @@ todas las pistas para la hora y así sucesivamente. desde la ventana SPL
 Studio, pulsa la orden de capa SPL Assistant,  luego pulsa una de las teclas
 de la siguiente lista (una o más órdenes son exclusivas para el visualizador
 de lista de reproducción). También puedes configurar NVDA para emular
-órdenes desde otros lectores de pantalla.
+órdenes de otros lectores de pantalla.
 
 Las órdenes disponibles son:
 
@@ -842,7 +842,7 @@ una versión 15.x LTS.
 * NVDA ya no fallará al buscar actualizaciones del complemento si el
   intervalo de actualización se configura a 25 días o más.
 * En la configuración del complemento, se añadió una casilla de verificación
-  para permitir a NVDA reproducir un sonido cuando un escuchante solicite
+  para permitir a NVDA reproducir un sonido cuando un oyente solicite
   entrar. Para utilizar esto completamente, la ventana de peticiones debe
   desplegarse cuando llegue la petición.
 * Al pulsar dos veces la orden tiempo de transmisión (NVDA+Shift+F12) ahora
@@ -1038,7 +1038,7 @@ instalado, pidiéndote que utilices la versión 15.x LTS.
 * El código fuente del complemento ahora se publica en GitHub (repositorio
   localizado en https://github.com/josephsl/stationPlaylist).
 * Añadido un diálogo de bienvenida que se lanza cuando Studio arranca
-  después de instalar el complemento. Se aha añadido una orden (Alt+NVDA+F1)
+  después de instalar el complemento. Se ha añadido una orden (Alt+NVDA+F1)
   para reabrir este diálogo una vez cerrado.
 * Cambios para varias órdenes del complemento, incluyendo la eliminación de
   el comuntado del anuncio de estado (Control+NVDA+1), reasignada la alarma
