@@ -193,8 +193,8 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Version 19.08/18.09.11-LTS
 
-* NVDA 2019.1 or later is required.
-* NVDA will no longer appear to do nothing or play error tones when restarting it while Studio add-on settings dialog is open.
+* 19.08: NVDA 2019.1 or later is required.
+* 19.08: NVDA will no longer appear to do nothing or play error tones when restarting it while Studio add-on settings dialog is open.
 * NVDA will remember profile-specific setttings when switching between settings panels even after renaming the currently selected broadcast profile from add-on settings.
 * NVDA will no longer forget to honor changes to time-based profiles when OK button is pressed to close add-on settings. This bug has been present since migrating to multi-page settings in 2018.
 
