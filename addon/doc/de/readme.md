@@ -3,8 +3,7 @@
 * Autoren: Geoff Shang, Joseph Lee und weitere Mitwirkende
 * [Stabile Version herunterladen][1]
 * [Entwicklerversion herunterladen][2]
-* [LTS-Version für Studio 5.10 / 5.11 herunterladen][3]
-* NVDA-Kompatibilität: 2018.4 bis 2019.2
+* NVDA compatibility: 2019.1 to 2019.2
 
 Diese Erweiterung verbessert die Zugänglichkeit von Station Playlist. Es
 stehen außerdem Befehle zur Verfügung, um diese Anwendungvon überall aus zu
@@ -17,8 +16,8 @@ Quellcodeverzeichnis der Erweiterung auf Github.
 
 WICHTIGE HINWEISE:
 
-* Diese Erweiterung benötigt NVDA 2018.4 oder neuer und StationPlaylist 5.20
-  oder neuer.
+* This add-on requires NVDA 2019.1 or later and StationPlaylist suite 5.20
+  or later.
 * Wenn Sie Windows 8 oder höher verwenden, setzen Sie die Reduzierung der
   Lautstärke anderer Audioquellen auf "nie" im Dialog Sprachausgabe im
   NVDA-Einstellungsmenü.
@@ -54,9 +53,10 @@ angegeben.
 * Alt+NVDA+3 aus dem Studio-Fenster: legt den Cart-Explorer fest, um die
   Zuordnung von Carts zu lernen.
 * Alt+NVDA+4 aus dem Studio-Fenster: Öffnet den Mikrofonalarm-Dialog.
-* Control+NVDA+f from Studio window: Opens a dialog to find a track based on
-  artist or song name. Press NVDA+F3 to find forward or NVDA+Shift+F3 to
-  find backward.
+* STRG+NVDA+f aus dem Studio-Fenster: Öffnet einen Dialog, um einen Titel
+  basierend auf Künstler oder Titelbezeichnung zu finden. Drücken Sie
+  NVDA+F3, um vorwärts zu suchen oder NVDA+Umschalt+F3, um rückwärts zu
+  suchen.
 * Alt+NVDA+R aus dem Studio-Fenster: Benachrichtigungseinstellungen für
   Bibliothek-Scans.
 * Strg+Umschalt+X aus dem Studio-Fenster: Braille-Timer-Einstellungen.
@@ -133,19 +133,21 @@ Verfügung:
 * STRG+NVDA+2: StreamBezeichnung.
 * STRG+NVDA+3 aus dem SAM-Encoder: Encoder-Format.
 * STRG+NVDA+3 aus dem SPL-Encoder: öffnet die Encoder-Einstellungen.
-* Control+NVDA+4 from SAM Encoder: Encoder connection status.
+* STRG+NvDA+4 aus dem SAM-Encoder: meldet den Encoder-Verbindungsstatus.
 * STRG+NVDA+4 aus dem SPL-Encoder: Übertragungsrate oder Verbindungsstatus
   wird angesagt.
 * STRG+NVDA+5 aus dem SAM-Encoder: Beschreibt den Verbindungsstatus.
 
 ## Befehlsschicht für den SPL-Assistenten
 
-This layer command set allows you to obtain various status on SPL Studio,
-such as whether a track is playing, total duration of all tracks for the
-hour and so on. From any SPL Studio window, press the SPL Assistant layer
-command, then press one of the keys from the list below (one or more
-commands are exclusive to playlist viewer). You can also configure NVDA to
-emulate commands from other screen readers.
+Mit dieser Befehlsschicht können Sie verschiedene Statusmeldungen in SPL
+Studio erhalten, wie z.B. ob ein Titel gerade abgespielt wird, die
+Gesamtdauer aller Titel für die aktuelle Stunde und so weiter. Verwenden Sie
+in einem beliebigen SPL-Studio-Fenster die Befehlsschicht des
+SPL-Assistenten und drücken Sie dann eine der Tasten aus der untenstehenden
+Liste (ein oder mehrere Befehle sind exklusiv für den Playlist-Viewer
+bestimmt). Sie können NVDA auch so konfigurieren, dass es Befehle von
+anderen Screenreadern simuliert.
 
 Folgende Befehle stehen zur Verfügung:
 
@@ -238,12 +240,13 @@ Die verfügbaren Befehle für den SPL-Controller sind:
 
 ## Titelbenachrichtigungen
 
-By default, NVDA will play a beep if five seconds are left in the track
-(outro) and/or intro. To configure this value as well as to enable or
-disable them, press Alt+NVDA+1 or Alt+NVDA+2 to open end of track and song
-ramp dialogs, respectively. In addition, use Studio add-on settings dialog
-to configure if you'll hear a beep, a message or both when alarms are turned
-on.
+Standardmäßig gibt NVDA einen Piepton aus, wenn fünf Sekunden im Titel-Outro
+und/oder -Intro verbleiben. Um diesen Wert zu konfigurieren und zu
+aktivieren bzw. zu deaktivieren, drücken Sie Alt+NVDA+1 oder
+Alt+NVDA+2. Somit öffnen Sie die Dialoge für das Ende des Titels. Darüber
+hinaus können Sie im Einstellungsdialog für die SPL-Erweiterung
+konfigurieren, ob Sie beim Einschalten des Alarms einen Signalton, eine
+Meldung oder beides hören.
 
 ## Mikrofon-Alarm
 
@@ -270,11 +273,12 @@ Je nach Version erlaubt SPL-Studio die Zuweisung von bis zu 96 Carts für die
 Wiedergabe. Mit NVDA können Sie hören, welches Cart oder Ton diesen Befehlen
 zugeordnet ist.
 
-To learn cart assignments, from SPL Studio, press Alt+NVDA+3. Pressing the
-cart command once will tell you which jingle is assigned to the
-command. Pressing the cart command twice will play the jingle. Press
-Alt+NVDA+3 to exit cart explorer. See the add-on guide for more information
-on cart explorer.
+Um die Zuordnung von Carts zu lernen, drücken Sie im SPL-Studio
+Alt+NVDA+3. Durch einmaliges Drücken des Cart-Befehls erfahren Sie, welcher
+Ton dem Befehl zugeordnet ist. Durch zweimaliges Drücken des Cart-Befehls
+wird der Ton abgespielt. Drücken Sie Alt+NVDA+3, um den Cart-Explorer zu
+verlassen. Weitere Informationen zum Cart-Explorer finden Sie in der
+Erweiterungsanleitung.
 
 ## Titel-Zeitanalyse
 
@@ -325,6 +329,18 @@ verwenden und NVDA 2012.3 oder höher installiert haben, können Sie einige
 Studio-Befehle über den Touchscreen ausführen. Tippen Sie zunächst einmal
 mit drei Fingern, um in den SPL-Touchmodus zu wechseln. Verwenden Sie dann
 die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
+
+## Version 19.08/18.09.11-LTS
+
+* 19.08: NVDA 2019.1 or later is required.
+* 19.08: NVDA will no longer appear to do nothing or play error tones when
+  restarting it while Studio add-on settings dialog is open.
+* NVDA will remember profile-specific setttings when switching between
+  settings panels even after renaming the currently selected broadcast
+  profile from add-on settings.
+* NVDA will no longer forget to honor changes to time-based profiles when OK
+  button is pressed to close add-on settings. This bug has been present
+  since migrating to multi-page settings in 2018.
 
 ## Version 19.07/18.09.10-LTS
 
@@ -400,9 +416,9 @@ Version 19.06 unterstützt SPL 5.20 und neuer.
 * Beim Zurücksetzen von den Einstellungen der Erweiterung aus dem Dialogfeld
   Zurücksetzen von den Einstellungen der Erweiterung fragt NVDA erneut, ob
   ein Sofortwechselprofil oder ein zeitbasiertes Profil aktiv ist.
-* After resetting Studio add-on settings, NVDA will turn off microphone
-  alarm timer and announce metadata streaming status, similar to after
-  switching between broadcast profiles.
+* Nach dem Zurücksetzen der Einstellund der Studio-Erweiterung schaltet NVDA
+  das Mikrofonalarm aus und meldet den Metadaten-Streaming-Status, ähnlich
+  wie nach dem Umschalten zwischen den Broadcast-Profilen.
 
 ## Version 19.01.1
 
@@ -522,9 +538,9 @@ zurückportiert.
 * Die Kontrollkästchen für die Spaltenansage und die Transkription von
   Wiedergabelisten sowie die Kontrollkästchen für Metadatenströme wurden in
   überprüfbare Listensteuerelemente umgewandelt.
-* When switching between settings panels, NVDA will remember current
-  settings for profile-specific settings (alarms, column announcements,
-  metadata streaming settings).
+* Beim Umschalten zwischen den Einstellungsfeldern speichert NVDA die
+  aktuellen Einstellungen für profilspezifische Einstellungen (Alarm-,
+  Spaltenansagen, Metadaten-Streaming-Einstellungen, etc.).
 * CSV-Format (kommagetrennte Werte) als Format für
   Wiedergabelistentranskripte hinzugefügt.
 * Wenn Sie zum Speichern der Einstellungen Strg+NVDA+C drücken, werden nun
@@ -594,9 +610,9 @@ zurückportiert.
 * NVDA spielt keine Fehlertöne mehr ab oder scheint nichts zu tun, wenn
   versucht wird, ein Broadcast-Profil aus Add-On-Einstellungen umzubenennen,
   verursacht durch ein Kompatibilitätsproblem mit wxPython 4.
-* When restarting NVDA and/or Studio after making changes to settings in a
-  broadcast profile other than normal profile, NVDA will no longer revert to
-  old settings.
+* Wenn Sie NVDA bzw. Studio neu starten, nachdem Sie Änderungen an
+  Einstellungen in einem anderen als dem normalen Profil vorgenommen haben,
+  kehrt NVDA nicht mehr zu den alten Einstellungen zurück.
 * Es ist nun möglich, Transkripte von Playlisten für die aktuelle Stunde zu
   erhalten. Wählen Sie "aktuelle Stunde" aus der Liste der Optionen für den
   Wiedergabelistenbereich im Dialogfeld für Wiedergabelistentranskripte
@@ -745,9 +761,9 @@ zurückportiert.
 ## Version 17.12
 
 * Windows 7 Service Pack 1 oder höher ist erforderlich.
-* Several add-on features were enhanced with extension points. This allows
-  microphone alarm and metadata streaming feature to respond to changes in
-  broadcast profiles. This requires NVDA 2017.4.
+* Mehrere Zusatzfunktionen wurden erweitert. Dadurch können
+  Mikrofonbenachrichtigung und Metadaten-Streaming auf Änderungen in
+  Broadcast-Konfigurationsprofilen reagieren. Dies erfordert NVDA 2017.4.
 * Beim Beenden des Studio schließen sich verschiedene Erweiterungsdialoge
   wie Einstellungen, Benachrichtigungsdialoge und andere automatisch. Dies
   erfordert NVDA 2017.4.
@@ -861,9 +877,10 @@ Windows-Versionen wird eine 15.x LTS-Version sein.
 * NVDA wird nicht mehr bei der Suche von Aktualisierungen für diese
   Erweiterung fehlschlagen, wenn das Aktualisierungsintervall auf 25 Tage
   oder länger eingestellt ist.
-* In add-on settings, added a checkbox to let NVDA play a sound when
-  listener requests arrive. To use this fully, requests window must pop up
-  when requests arrive.
+* In den Einstellungenzur Erweiterung  wurde ein Kontrollkästchen
+  hinzugefügt, mit dem NVDA einen Sound abspielen kann, wenn Anfragen von
+  Zuhörern eintreffen. Um dies vollständig nutzen zu können, muss das
+  Anfragenfenster beim Eintreffen von Anfragen geöffnet sein.
 * Zweimaliges Drücken des Befehls für die Sendezeit (NVDA+Umschalt+F12)
   bewirkt nun, dass NVDA die verbleibenden Minuten und Sekunden in der
   aktuellen Stunde ansagt.
@@ -1072,15 +1089,16 @@ verwenden.
   Änderungen als 15.0 bezeichnet wird.
 * Der Quellcode der Erweiterung wird nun auf GitHub gehostet (Repository
   unter https://github.com/josephsl/stationPlaylist).
-* Added a welcome dialog that launches when Studio starts after installing
-  the add-on. A command (Alt+NVDA+F1) has been added to reopen this dialog
-  once dismissed.
-* Changes to various add-on commands, including removal of status
-  announcement toggle (Control+NVDA+1), reassigned end of track alarm to
-  Alt+NVDA+1, Cart Explorer toggle is now Alt+NVDA+3, microphone alarm
-  dialog is Alt+NVDA+4 and add-on/encoder settings dialog is
-  Alt+NVDA+0. This was done to allow Control+NVDA+number row to be assigned
-  to Columns Explorer.
+* Es wurde ein Willkommensdialog hinzugefügt, der beim Start von Studio nach
+  der Installation der Erweiterung angezeigt wird. Ein Befehl (Alt+NVDA+F1)
+  wurde hinzugefügt, um diesen Dialog nach dem Schließen wieder zu öffnen.
+* Änderungen an verschiedenen Tastaturbefehlen. Dazu gehören die Entfernung
+  des Wechselns der Statusansage (STRG+NvDA+1), die Zuweisung der
+  Benachrichtigung zum Ende des Titels an Alt+NVDA+1, der Schalter für die
+  Cart-Übersicht ist jetzt Alt+NvDA+3, der Mikrofon-Alarm-Dialog ist
+  Alt+NVDA+4 und der Einstellundsdialog der Erweiterung / des Encoders ist
+  Alt+NVDA+0. Dies wurde geändert, damit STRG+NVDA+Zajlenreihe dem
+  Spaltenexplorer zugewiesen werden kann.
 * 8.0: leichte Beschränkung des Spaltenexplorers in 7.x, so dass die Zahlen
   1 bis 6 so konfiguriert werden können, dass sie die Spalten in Studio 5.1x
   ankündigen.
@@ -1113,8 +1131,8 @@ verwenden.
 * 8.0: Es wurde ein Dialog in den Einstellungen für die SPL-Erweiterung
   hinzugefügt, um Platzhalter für den Spaltenexplorer für das Track-Tool zu
   konfigurieren.
-* You can now configure microphone alarm interval from microphone alarm
-  dialog (Alt+NVDA+4).
+* Sie können nun das Intervall der Mikrofonbenachrichtigung im Dialog
+  Mikrofonbenachrichtigung konfigurieren (Alt+NVDA+4).
 
 ## Ältere Versionen
 

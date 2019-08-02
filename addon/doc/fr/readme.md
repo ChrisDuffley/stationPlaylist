@@ -3,9 +3,7 @@
 * Auteurs: Geoff Shang, Joseph Lee et d'autres contributeurs.
 * Télécharger [version stable][1]
 * Télécharger [la version de développement][2]
-* Télécharger [version support long-terme][3] - pour les utilisateurs de
-  Studio 5.10 / 5.11
-* NVDA compatibility: 2018.4 to 2019.2
+* NVDA compatibility: 2019.1 to 2019.2
 
 This add-on package provides improved usage of StationPlaylist Studio and
 other StationPlaylist apps, as well as providing utilities to control Studio
@@ -19,7 +17,7 @@ référentiel de l'extension.
 
 NOTES IMPORTANTES :
 
-* This add-on requires NVDA 2018.4 or later and StationPlaylist suite 5.20
+* This add-on requires NVDA 2019.1 or later and StationPlaylist suite 5.20
   or later.
 * Si vous utilisez Windows 8 ou ultérieur, pour une meilleure expérience,
   désactiver le Mode d'atténuation audio.
@@ -328,6 +326,18 @@ ultérieure installé, vous pouvez exécuter certaines commandes Studio depuis
 un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
+
+## Version 19.08/18.09.11-LTS
+
+* 19.08: NVDA 2019.1 or later is required.
+* 19.08: NVDA will no longer appear to do nothing or play error tones when
+  restarting it while Studio add-on settings dialog is open.
+* NVDA will remember profile-specific setttings when switching between
+  settings panels even after renaming the currently selected broadcast
+  profile from add-on settings.
+* NVDA will no longer forget to honor changes to time-based profiles when OK
+  button is pressed to close add-on settings. This bug has been present
+  since migrating to multi-page settings in 2018.
 
 ## Version 19.07/18.09.10-LTS
 

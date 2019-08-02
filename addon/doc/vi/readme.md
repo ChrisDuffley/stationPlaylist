@@ -3,8 +3,7 @@
 * Tác giả: Geoff Shang, Joseph Lee và các cộng tác viên khác
 * Tải về [phiên bản chính thức][1]
 * Tải về [phiên bản thử nghiệm][2]
-* Tải về [phiên bản hỗ trợ lâu dài][3] - cho người dùng Studio 5.10/5.11
-* NVDA tương thích: 2018.4 đến 2019.2
+* NVDA compatibility: 2019.1 đến 2019.2
 
 Gói add-on này cung cấp sự cải thiện cho việc sử dụng StationPlaylist Studio
 và các ứng dụng StationPlaylist khác, cũng như cung cấp các tiện ích để điều
@@ -17,7 +16,7 @@ xem tập tin buildInstructions.txt ở thư mục gốc trong mã nguồn của
 
 CÁC LƯU Ý QUAN TRỌNG:
 
-* Add-on này yêu cầu NVDA 2018.4 và bộ StationPlaylist 5.20 trở lên.
+* Add-on này yêu cầu NVDA 2019.1 và bộ StationPlaylist 5.20 trở lên.
 * Nếu dùng Windows 8 trở lên, hãy tắt chế độ giảm âm thanh để có trải nghiệm
   tốt nhất.
 * Từ 2018, [bản ghi những thay đổi cho các bản phát hành cũ của add-on][5]
@@ -284,6 +283,18 @@ Nếu dùng Studio trên một máy tính cảm ứng chạy Windows 8 trở lê
 NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio từ mành hình
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
+
+## Phiên bản 19.08/18.09.11-LTS
+
+* 19.08: yêu cầu NVDA 2019.1 trở lên.
+* 19.08: NVDA sẽ không còn tình trạng không làm gì hoặc phát âm thanh báo
+  lỗi khi khởi động lại mà hộp thoại cài đặt Studio add-on còn mở.
+* NVDA sẽ nhớ các thiết lập riêng biệt cho hồ sơ khi chuyển giữa các bản cài
+  đặt, thậm chí là sau khi đổi tên hồ sơ được chọn hiện tại từ cài đặt
+  add-on.
+* NVDA sẽ không còn quên các thay đổi của các hồ sơ theo thời gian khi bấm
+  nút Đồng ý để đóng cài đặt add-on. Lỗi này đã xuất hiện từ khi chuyển vào
+  cài đặt nhiều trang trong nằm 2018.
 
 ## Phiên bản 19.07/18.09.10-LTS
 

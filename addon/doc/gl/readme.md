@@ -3,9 +3,7 @@
 * Autores: Geoff Shang, Joseph Lee e outros colaboradores
 * Descargar [versión estable][1]
 * Descargar [versión de desenvolvemento][2]
-* Descargar [versión de soporte estendido][3] - para usuarios do Studio
-  5.10/5.11
-* Compatibilidade con NVDA: da 2018.4 á 2019.2
+* Compatibilidade con NVDA: da 2019.1 á 2019.2
 
 Este paquete de complementos proporciona unhha utilización mellorada do
 Station Playlist Studio e outras apps de Station Playlist, así como
@@ -20,7 +18,7 @@ repositorio do código fonte.
 
 NOTAS IMPORTANTES:
 
-* Este complemento require do NVDA 2018.4 ou posterior e do paquete
+* Este complemento require do NVDA 2019.1 ou posterior e do paquete
   StationPlaylist 5.20 ou posterior.
 * Se usas o Windows 8 ou posterior, para unha mellor experiencia,
   deshabilita o modo atenuación de audio.
@@ -57,9 +55,9 @@ contrario.
 * Alt+NVDA+3 dende a ventá Studio:  conmuta o explorador de cart para
   deprender  as asignacións das cart. 
 * Alt+NVDA+4 dende a ventá do Studio: Abre o diálogo de alarma do micrófono.
-* Control+NVDA+f from Studio window: Opens a dialog to find a track based on
-  artist or song name. Press NVDA+F3 to find forward or NVDA+Shift+F3 to
-  find backward.
+* Control+NVDA+f dende a ventá do Studio: Abre un diálogo para procurar unha
+  pista baseada no artista ou no nome da canción. Preme NVDA+F3 para
+  procurar cara adiante ou NVDA+Shift+F3 para procurar cara atrás.
 * Alt+NVDA+R dende a ventá do Studio: Pasos para as opcións de anunciado do
   escaneado da biblioteca.
 * Control+Shift+X dende a ventá do Studio: Pasos para as opcións do
@@ -135,19 +133,20 @@ Ademáis, as ordes de revisión de columna están dispoñibles, incluindo:
 * Control+NVDA+2: etiqueta da cadea.
 * Control+NVDA+3 dende o codificador SAM: formato do codificador.
 * Control+NVDA+3 dende o codificador SPL: opcións do codificador.
-* Control+NVDA+4 from SAM Encoder: Encoder connection status.
+* Control+NVDA+4 dende o codificador SAM: Estado da conexión do codificador.
 * Control+NVDA+4 dende o codificador SPL: velocidade de transferencia ou
   estado da conexión.
 * Control+NVDA+5 dende o codificador SAM: descripción do estado da conexión.
 
 ## SPL Assistant layer
 
-This layer command set allows you to obtain various status on SPL Studio,
-such as whether a track is playing, total duration of all tracks for the
-hour and so on. From any SPL Studio window, press the SPL Assistant layer
-command, then press one of the keys from the list below (one or more
-commands are exclusive to playlist viewer). You can also configure NVDA to
-emulate commands from other screen readers.
+Este conxunto de comandos en capas de ordes permíteche obter varios estados
+no SPL Studio, coma se unha pista se reproduce, duración total de todas as
+pistas para a hora e outros. Dende calquera ventá do SPL Studio, preme a
+orde da capa SPL Assistant, logo preme una das teclas da lista de abaixo
+(una ou máis ordes son exclusivamente para o visualizador de lita de
+reprodución). Tamén podes configurar NVDA para emular ordes de outros
+lectores de pantalla.
 
 As ordes dispoñibles son:
 
@@ -238,12 +237,12 @@ As ordes dispoñibles para o SPL Controller son:
 
 ## Alarmas de pista
 
-By default, NVDA will play a beep if five seconds are left in the track
-(outro) and/or intro. To configure this value as well as to enable or
-disable them, press Alt+NVDA+1 or Alt+NVDA+2 to open end of track and song
-ramp dialogs, respectively. In addition, use Studio add-on settings dialog
-to configure if you'll hear a beep, a message or both when alarms are turned
-on.
+Por omisión, NvDA reproducirá un pitido se quedan cinco segundos á esquerda
+na pista (outro) e/ou intro. Para configurar este valor así como para
+habilitalos ou deshabilitalos, preme Alt+NVDA+1 ou Alt+NVDA+2 para abrir os
+diálogos remate da pista e rampa de canción, respectivamente. Ademáis, usa o
+diálogo opcións do complemento Studio para configurar se escoitarás un
+pitido, unha mensaxe ou ambos cando as alarmas estean acesas.
 
 ## Alarma do micrófono
 
@@ -268,11 +267,11 @@ Depenndendo da edición, SPL Studio permite ate 96 carts para se asignar para
 a reproducción. NVDA permíteche escoitar cal cart, ou jingle se asignou a
 estas ordes.
 
-To learn cart assignments, from SPL Studio, press Alt+NVDA+3. Pressing the
-cart command once will tell you which jingle is assigned to the
-command. Pressing the cart command twice will play the jingle. Press
-Alt+NVDA+3 to exit cart explorer. See the add-on guide for more information
-on cart explorer.
+Para deprender as asignacións de cart, dende o SPL Studio, preme
+Alt+NVDA+3. Premendo a orden do cart unha vez dirache cal jingle se asignou
+á orden. Premendo a orden do cart dúas veces reproduce o jingle. Preme
+Alt+NVDA+3 para saír do explorador de cart. Olla a guía do complemento para
+máis información sobre o explorador de cart.
 
 ## Análise de tempo de pista
 
@@ -320,6 +319,19 @@ Windows 8 ou posterior e tes NVDA 2012.3 ou posterior instalado, podes
 realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
+
+## Versión 19.08/18.09.11-LTS
+
+* 19.08: Requírese NVDA 2019.1 ou posterior.
+* 19.08: NVDA xa non parecerá non facer nada ou non reproducirá tons de erro
+  ao reinicialo mentres o diálogo de opcións do complemento Studio estea
+  aberto.
+* NVDA lembrará axustes específicos de perfil ao cambiar entre paneles de
+  opcións mesmo despois de renomear o perfil de transmisión actualmente
+  seleccionado dende as opcións do complemento.
+* NVDA xa non esquecerá respectar cambios en perfís basados en tempo cando
+  se prema o botón Aceptar para pechar as opcións do complemento. Este bug
+  estivo presente dende a migración a opcións multipáxina en 2018.
 
 ## Versión 19.07/18.09.10-LTS
 
@@ -391,9 +403,9 @@ A versión 19.06 soporta SPL Studio 5.20 e posterior.
 * Ao restablecer os axustes do complemento dende o diálogo de preferencias
   do complemento/panel restablecer, NVDA preguntará unha vez máis en caso de
   que un perfil de cambio automático ou basado en tempo estea activo.
-* After resetting Studio add-on settings, NVDA will turn off microphone
-  alarm timer and announce metadata streaming status, similar to after
-  switching between broadcast profiles.
+* Tras restablecer os axustes do complemento Studio, NvDA desactivará o
+  temporizador de alarma de micrófono e anunciará o estado de emisión de
+  metadatos, similar a cando se cambia de perfil de transmisión.
 
 ## Versión 19.01.1
 
@@ -503,9 +515,9 @@ ser necesario.
   verificación de inclusión de columnas para anunciado de columnas e
   transcricións de listaxes de reprodución, así como as caixas de
   verificación de transmisións de metadatos.
-* When switching between settings panels, NVDA will remember current
-  settings for profile-specific settings (alarms, column announcements,
-  metadata streaming settings).
+* Ao saltar entre paneis de axustes, NVDA lembrará as preferencias actuais
+  de axustes específicos do perfil (alarmas, anuncios de columnas, axustes
+  da retransmisión de metadatos).
 * Engadido o formato CSV (valores separados por comas) aos formatos de
   transcricións de listas de reprodución.
 * Ao pulsar Control+NVDA+C para gardar a configuración agora gardaranse
@@ -569,9 +581,9 @@ ser necesario.
 * NVDA xa non reproducirá tons de erro ou non fará nada ao renomear un
   perfil de transmisión dende os axustes do complemento, causado por un
   problema de compatibilidade co WxPython 4.
-* When restarting NVDA and/or Studio after making changes to settings in a
-  broadcast profile other than normal profile, NVDA will no longer revert to
-  old settings.
+* Ao reiniciar NVDA e/ou Studio despois de facer cambios nos axustes dun
+  perfil de emisión que non sexa o perfil normal, NVDA xa non volverá ás
+  opcións por defecto.
 * Agora é posible obter transcricións de lista de reprodución para a hora
   actual. Selecciona "hora actual" na lista de rango de listaxe de
   reprodución no diálogo de transcricións de lista de reprodución (asistente
@@ -666,12 +678,12 @@ ser necesario.
 
 * Se NVDA está configurado para anunciar o estado de emisión de metadatos
   cando Studio se inicia, NVDA atenderá a esta configuración e xa non
-  anunciará o estado de emisión ao alternar dende e cara perfiles de cambio
+  anunciará o estado de emisión ao alternar dende e cara perfís de cambio
   instantáneo.
 * Se se cambia dende ou cara un perfil de cambio instantáneo e NVDA está
   configurado para anunciar o estado de emisión de metadatos cando isto
   ocorra, non se anunciará a información varias veces cando se alternen
-  perfiles rapidamente.
+  perfís rapidamente.
 * NVDA lembrará cambiar ao perfil basado en horario (se se definió para un
   evento) aínda que se reinicie NVDA varias veces durante a emisión.
 * Se está activo un perfil basado en horario coa duración de perfil
@@ -709,9 +721,10 @@ ser necesario.
 ## Versión 17.12
 
 * Requírese do indows 7 Service Pack 1 ouposterior.
-* Several add-on features were enhanced with extension points. This allows
-  microphone alarm and metadata streaming feature to respond to changes in
-  broadcast profiles. This requires NVDA 2017.4.
+* Melloráronse varias características do complemento con pontos de
+  extensión. Esto permite que as características alarma do micrófono e
+  streaming de metadatos respondan a cambios en perfís de
+  retransmisión. Esto require do NVDA 2017.4.
 * Cando se saia do Studio, varios diálogos do complemento coma Opcións de
   complemento, diálogos de alarma e outros pecharanse automáticamente. Esto
   require do NVDA 2017.4.
@@ -820,9 +833,10 @@ serán unha versión 15.x LTS.
   de actualización a cero días.
 * O NVDA xa non fallará ao procurar actualizacións do complemento se o
   intervalo de actualización se configura a 25 días ou máis.
-* In add-on settings, added a checkbox to let NVDA play a sound when
-  listener requests arrive. To use this fully, requests window must pop up
-  when requests arrive.
+* Na configuración do complemento, engadiuse unha Caixa de verificación para
+  permitir ao NVDA reproducir un son cando un escoitante solicite
+  entrar. Para usar esto compretamente, a ventá de peticións debe
+  despregarse cando chegue a petición.
 * Ao premer dúas veces a orde tempo de transmisión (NVDA+Shift+F12) agora
   causará que o NVDA anuncie os minutos e segundos restantes na hora actual.
 * Agora é posible usar Buscador de Pista (Control+NVDA+F) para procurar
@@ -1013,15 +1027,15 @@ preguntándoche se usas a versión 15.x LTS.
   15.0 debido a cambios incompatibles.
 * O códigop fonte do complemento agora está hospedado en GitHub (repositorio
   localizado en https://github.com/josephsl/stationPlaylist).
-* Added a welcome dialog that launches when Studio starts after installing
-  the add-on. A command (Alt+NVDA+F1) has been added to reopen this dialog
-  once dismissed.
-* Changes to various add-on commands, including removal of status
-  announcement toggle (Control+NVDA+1), reassigned end of track alarm to
-  Alt+NVDA+1, Cart Explorer toggle is now Alt+NVDA+3, microphone alarm
-  dialog is Alt+NVDA+4 and add-on/encoder settings dialog is
-  Alt+NVDA+0. This was done to allow Control+NVDA+number row to be assigned
-  to Columns Explorer.
+* Engadido un diálogo de benvida que se lanza cando o Studio arranca despois
+  de instalar o complemento. Engadiuse una orde (Alt+NVDA+F1) para reabrir
+  este diálogo una vez pechado.
+* Cambios para varias ordes do complemento, incluindo o borrado do conmutado
+  do anunciado de estado (Control+NVDA+1), reasignada alarma de final da
+  pista a Alt+NVDA+1, conmutar Esplorador de Cart agora é Alt+NVDA+3, o
+  diálogo de alarma de micrófono é Alt+NVDA+4 e o diálogo das preferencias
+  do complemento/codificador é Alt+NVDA+0. Esto fíxose para permitir que
+  Control+NVDA+fila de números sexa asignada ao Explorador de Columnas.
 * 8.0: Relaxouse a restrición do Explorador de Columnas en lugar en 7.x así
   os números 1 ata 6 poden configurarse para anunciar columnas no Studio
   5.1x.
@@ -1052,8 +1066,8 @@ preguntándoche se usas a versión 15.x LTS.
   na Ferramenta de Pista.
 * 8.0: engadido un diálogo nas opcións do complemento para configurar os
   slots no Explorador de Columnas para a Ferramenta de Pista.
-* You can now configure microphone alarm interval from microphone alarm
-  dialog (Alt+NVDA+4).
+* Agora podes configurar o intervalo da alarma do micrófono dende o diálogo
+  Alarma do micrófono (Alt+NvDA+4).
 
 ## Versións vellas
 

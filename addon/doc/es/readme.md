@@ -3,9 +3,7 @@
 * Autores: Geoff Shang, Joseph Lee y otros colaboradores
 * Descargar [Versión estable][1]
 * Descargar [versión de desarrollo][2]
-* Descargar [versión de soporte extendido][3] - Para usuarios de Studio 5.10
-  / 5.11
-* Compatibilidad con NVDA: de 2018.4 a 2019.2
+* Compatibilidad con NVDA: de 2019.1 a 2019.2
 
 Este paquete de complementos proporciona una utilización mejorada de Station
 Playlist Studio y otras aplicaciones de StationPlaylist, así como utilidades
@@ -20,7 +18,7 @@ repositorio del código fuente del complemento.
 
 NOTAS IMPORTANTES:
 
-* Este complemento requiere de NVDA 2018.4 o posterior y StationPlaylist
+* Este complemento requiere de NVDA 2019.1 o posterior y StationPlaylist
   Suite 5.20 o posterior.
 * Si utilizas Windows 8 o posterior, para una mejor experiencia, deshabilita
   el modo atenuación de audio.
@@ -328,6 +326,20 @@ Windows 8 o posterior y tienes NVDA 2012.3 o posterior instalado, puedes
 realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
+
+## Versión 19.08/18.09.11-LTS
+
+* 19.08: se requiere NVDA 2019.1 o posterior.
+* 19.08: NVDA ya no parecerá hacer nada ni reproducirá tonos de error al
+  reiniciarlo mientras el diálogo de opciones del complemento de Studio esté
+  abierto.
+* NVDA recordará los ajustes específicos del perfil al cambiar entre paneles
+  de opciones, incluso tras renombrar el perfil de emisión seleccionado
+  actualmente desde las opciones del complemento.
+* NVDA ya no se olvidará de respetar los cambios de los perfiles basados en
+  tiempo cuando se pulse el botón Aceptar para cerrar las opciones del
+  complemento. Este fallo ha estado presente desde que se migró a las
+  opciones en varias páginas en 2018.
 
 ## Versión 19.07/18.09.10-LTS
 
