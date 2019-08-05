@@ -561,6 +561,8 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 					return # Only seen when the encoder dies.
 			except IndexError:
 				return # Don't leave zombie objects around.
+			# Encoding status object will die if encoder entry is deleted while being monitored.
+			if statChild.name is None: return
 			# Status and description are two separate texts.
 			if not messageCache.startswith(statChild.name):
 				messageCache = "; ".join([statChild.name, statChild.next.name])
