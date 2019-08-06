@@ -555,7 +555,9 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 					messageCache = self.description[self.description.find("Status")+8:]
 					if not messageCache.startswith("Encoding"):
 						self.encoderStatusMessage(messageCache, self.IAccessibleChildID)
-			except AttributeError:
+			# All sorts of errors can be raised, not just attribute error.
+			# A more subtle error is COM error, raised due to MSAA description becoming undefined.
+			except:
 				return
 			if messageCache.startswith("Idle"):
 				if alreadyEncoding: alreadyEncoding = False
