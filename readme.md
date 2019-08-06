@@ -196,6 +196,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 * NVDA will remember profile-specific setttings when switching between settings panels even after renaming the currently selected broadcast profile from add-on settings.
 * NVDA will no longer forget to honor changes to time-based profiles when OK button is pressed to close add-on settings. This bug has been present since migrating to multi-page settings in 2018.
+* In SAM encoders, NVDA will no longer appear to do nothing or play error tones if an encoder entry is deleted while being monitored in the background.
 
 ## Version 18.09.10-LTS
 
