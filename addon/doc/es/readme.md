@@ -327,6 +327,12 @@ realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
 
+## Versión 19.08.1
+
+* En los codificadores SAM, NVDA ya no parecerá hacer nada o reproducir
+  tonos de error si una entrada del codificador se elimina mientras se
+  monitoriza en segundo plano.
+
 ## Versión 19.08/18.09.11-LTS
 
 * 19.08: se requiere NVDA 2019.1 o posterior.

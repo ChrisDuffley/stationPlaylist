@@ -284,6 +284,12 @@ NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio t
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
 
+## Version 19.08.1
+
+* In SAM encoders, NVDA will no longer appear to do nothing or play error
+  tones if an encoder entry is deleted while being monitored in the
+  background.
+
 ## Phiên bản 19.08/18.09.11-LTS
 
 * 19.08: yêu cầu NVDA 2019.1 trở lên.

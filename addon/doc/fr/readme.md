@@ -327,6 +327,12 @@ un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
 
+## Version 19.08.1
+
+* In SAM encoders, NVDA will no longer appear to do nothing or play error
+  tones if an encoder entry is deleted while being monitored in the
+  background.
+
 ## Version 19.08/18.09.11-LTS
 
 * 19.08: NVDA 2019.1 or later is required.

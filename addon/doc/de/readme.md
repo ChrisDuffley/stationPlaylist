@@ -330,6 +330,12 @@ Studio-Befehle über den Touchscreen ausführen. Tippen Sie zunächst einmal
 mit drei Fingern, um in den SPL-Touchmodus zu wechseln. Verwenden Sie dann
 die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
 
+## Version 19.08.1
+
+* In SAM encoders, NVDA will no longer appear to do nothing or play error
+  tones if an encoder entry is deleted while being monitored in the
+  background.
+
 ## Version 19.08/18.09.11-LTS
 
 * 19.08: NVDA 2019.1 or later is required.
