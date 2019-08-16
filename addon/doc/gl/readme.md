@@ -320,11 +320,11 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
-## Version 19.08.1
+## Versión 19.08.1
 
-* In SAM encoders, NVDA will no longer appear to do nothing or play error
-  tones if an encoder entry is deleted while being monitored in the
-  background.
+* En codificadores SAM, NVDA xa non parecerá non facer nada nin reproducirá
+  tons de erro se unha entrada de codificador se elimina mentres se está a
+  monitorizar en segundo plano.
 
 ## Versión 19.08/18.09.11-LTS
 

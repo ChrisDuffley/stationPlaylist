@@ -3,7 +3,7 @@
 * Autoren: Geoff Shang, Joseph Lee und weitere Mitwirkende
 * [Stabile Version herunterladen][1]
 * [Entwicklerversion herunterladen][2]
-* NVDA compatibility: 2019.1 to 2019.2
+* NVDA-Kompatibilität: 2019.1 bis 2019.2
 
 Diese Erweiterung verbessert die Zugänglichkeit von Station Playlist. Es
 stehen außerdem Befehle zur Verfügung, um diese Anwendungvon überall aus zu
@@ -16,8 +16,8 @@ Quellcodeverzeichnis der Erweiterung auf Github.
 
 WICHTIGE HINWEISE:
 
-* This add-on requires NVDA 2019.1 or later and StationPlaylist suite 5.20
-  or later.
+* Diese Erweiterung benötigt NVDA 2019.1 oder neuer und StationPlaylist
+  Suite 5.20 oder neuer.
 * Wenn Sie Windows 8 oder höher verwenden, setzen Sie die Reduzierung der
   Lautstärke anderer Audioquellen auf "nie" im Dialog Sprachausgabe im
   NVDA-Einstellungsmenü.
@@ -332,15 +332,16 @@ die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
 
 ## Version 19.08.1
 
-* In SAM encoders, NVDA will no longer appear to do nothing or play error
-  tones if an encoder entry is deleted while being monitored in the
-  background.
+* In SAM-Enkodern wurde das Problem behoben, dass NVDA nichts zu tuhn
+  scheint oder Fehlertöne abspielt, wenn ein Encoder-Eintrag  gelöscht wird,
+  während dieser im Hintergrund beobachtet wird.
 
 ## Version 19.08/18.09.11-LTS
 
-* 19.08: NVDA 2019.1 or later is required.
-* 19.08: NVDA will no longer appear to do nothing or play error tones when
-  restarting it while Studio add-on settings dialog is open.
+* 19.08: NVDA 2019.1 oder höher ist erforderlich.
+* 19.08: Das Problem, dass NVDA nichts zu tuhn scheint oder Fehlertöne
+  abspielt, wurde behoben, wenn es bei geöffnetem Studio-Einstellungsdialog
+  der Erweiterung neu gestartet wird.
 * NVDA will remember profile-specific setttings when switching between
   settings panels even after renaming the currently selected broadcast
   profile from add-on settings.
