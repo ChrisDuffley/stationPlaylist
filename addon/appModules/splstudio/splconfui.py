@@ -760,7 +760,20 @@ class AlarmsCenter(wx.Dialog):
 	def onAppTerminate(self):
 		self.onCancel(None)
 
-class AlarmsPanel(gui.SettingsPanel):
+# Base panel for profile-specific panels.
+# The job of this base panel is to provide services such as profile rename/deletion action support.
+class ProfileSpecificSettingsBasePanel(gui.SettingsPanel):
+
+	def onProfileRenamedOrDeleted(self, oldName=None, newName=None):
+		# New name determines what happend (renamed or deleted if it is not None or otherwise, respectivley).
+		# Although an exception should be thrown when old name is None, don't worry about it at this time.
+		if oldName not in self._curProfileSettings: return
+		if newName is not None:
+			self._curProfileSettings[newName] = self._curProfileSettings[oldName]
+			del self._curProfileSettings[oldName]
+		else: del self._curProfileSettings[oldName]
+
+class AlarmsPanel(ProfileSpecificSettingsBasePanel):
 	# Translators: title of a panel to configure various alarms and related settings.
 	title = _("Alarms")
 
@@ -824,15 +837,6 @@ class AlarmsPanel(gui.SettingsPanel):
 		if currentSettings != {sect:key for sect, key in curProfile.items() if sect in ("IntroOutroAlarms", "MicrophoneAlarm")}:
 			self._curProfileSettings[selectedProfile] = dict(currentSettings)
 		super(AlarmsPanel, self).onPanelDeactivated()
-
-	def onProfileRenamedOrDeleted(self, oldName=None, newName=None):
-		# New name determines what happend (renamed or deleted if it is not None or otherwise, respectivley).
-		# Although an exception should be thrown when old name is None, don't worry about it at this time.
-		if oldName not in self._curProfileSettings: return
-		if newName is not None:
-			self._curProfileSettings[newName] = self._curProfileSettings[oldName]
-			del self._curProfileSettings[oldName]
-		else: del self._curProfileSettings[oldName]
 
 	def onSave(self):
 		# Save global settings first, and then record profile-specific settings in appropriate profile.
@@ -997,7 +1001,7 @@ class MetadataStreamingDialog(wx.Dialog):
 	def onAppTerminate(self):
 		self.onCancel(None)
 
-class MetadataStreamingPanel(gui.SettingsPanel):
+class MetadataStreamingPanel(ProfileSpecificSettingsBasePanel):
 	# Translators: title of a panel to configure metadata streaming status for DSP encoder and four additional URL's.
 	title = _("Metadata streaming")
 
@@ -1052,13 +1056,6 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 			self._curProfileSettings[selectedProfile] = currentSettings
 		super(MetadataStreamingPanel, self).onPanelDeactivated()
 
-	def onProfileRenamedOrDeleted(self, oldName=None, newName=None):
-		if oldName not in self._curProfileSettings: return
-		if newName is not None:
-			self._curProfileSettings[newName] = self._curProfileSettings[oldName]
-			del self._curProfileSettings[oldName]
-		else: del self._curProfileSettings[oldName]
-
 	def onSave(self):
 		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
 		selectedProfile = _selectedProfile
@@ -1110,7 +1107,7 @@ class ColumnAnnouncementsBasePanel(gui.SettingsPanel):
 			if self.FindFocus().GetId() == wx.ID_OK:
 				self.upButton.SetFocus()
 
-class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
+class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel, ProfileSpecificSettingsBasePanel):
 	# Translators: title of a panel to configure column announcements (order and what columns should be announced).
 	title = _("Column announcements")
 
@@ -1196,13 +1193,6 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 		if currentSettings["ColumnAnnouncement"] != curProfile["ColumnAnnouncement"]:
 			self._curProfileSettings[selectedProfile] = dict(currentSettings)
 		super(ColumnAnnouncementsPanel, self).onPanelDeactivated()
-
-	def onProfileRenamedOrDeleted(self, oldName=None, newName=None):
-		if oldName not in self._curProfileSettings: return
-		if newName is not None:
-			self._curProfileSettings[newName] = self._curProfileSettings[oldName]
-			del self._curProfileSettings[oldName]
-		else: del self._curProfileSettings[oldName]
 
 	def onSave(self):
 		selectedProfile = _selectedProfile
