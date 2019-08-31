@@ -654,8 +654,8 @@ class AppModule(appModuleHandler.AppModule):
 		# 17.09: do this if minimal startup flag is not present.
 		try:
 			if not globalVars.appArgs.minimal:
-				# Translators: The sign-on message for Studio app module.
-				ui.message(_("Using SPL Studio version {SPLVersion}").format(SPLVersion = self.SPLCurVersion))
+				# No translation.
+				ui.message("SPL Studio {SPLVersion}".format(SPLVersion = self.SPLCurVersion))
 		except:
 			pass
 		# #40 (17.12): react to profile switches.
