@@ -6,6 +6,8 @@
 
 import appModuleHandler
 import addonHandler
+import globalVars
+import ui
 from NVDAObjects.IAccessible import IAccessible, sysListView32
 from .splstudio import splconfig, SPLTrackItem
 addonHandler.initTranslation()
@@ -42,6 +44,13 @@ class AppModule(appModuleHandler.AppModule):
 
 	def __init__(self, *args, **kwargs):
 		super(AppModule, self).__init__(*args, **kwargs)
+		# Announce Creator version at startup unless minimal flag is set.
+		try:
+			if not globalVars.appArgs.minimal:
+				# No translation.
+				ui.message("SPL Creator {SPLVersion}".format(SPLVersion = self.productVersion))
+		except:
+			pass
 		# #64 (18.07): load config database if not done already.
 		splconfig.openConfig("splcreator")
 
