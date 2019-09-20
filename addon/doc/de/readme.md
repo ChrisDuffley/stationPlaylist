@@ -342,12 +342,13 @@ die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
 * 19.08: Das Problem, dass NVDA nichts zu tuhn scheint oder Fehlertöne
   abspielt, wurde behoben, wenn es bei geöffnetem Studio-Einstellungsdialog
   der Erweiterung neu gestartet wird.
-* NVDA will remember profile-specific setttings when switching between
-  settings panels even after renaming the currently selected broadcast
-  profile from add-on settings.
-* NVDA will no longer forget to honor changes to time-based profiles when OK
-  button is pressed to close add-on settings. This bug has been present
-  since migrating to multi-page settings in 2018.
+* NVDA merkt sich profilspezifische Einstellungen beim Wechseln zwischen den
+  Einstellungsbereichen, auch nachdem das aktuell ausgewählte
+  Broadcast-Profil aus den Add-On-Einstellungen umbenannt wurde.
+* NVDA wird nicht mehr vergessen, Änderungen an zeitbasierten Profilen zu
+  berücksichtigen, wenn die Schaltfläche OK gedrückt wird, um die
+  Erweiterungs-Einstellungen zu schließen. Dieser Fehler ist seit der
+  Migration zu mehrseitigen Einstellungen im Jahr 2018 vorhanden.
 
 ## Version 19.07/18.09.10-LTS
 
