@@ -246,9 +246,17 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.finish()
 
 	def script_encoderStatus(self, gesture):
+		# Go through below procedure, as custom commands can be assigned for this script.
+		SPLWin = user32.FindWindowW(u"SPLStudio", None)
+		if not SPLWin:
+			ui.message(_("SPL Studio is not running."))
+			self.finish()
+			return
 		from . import encoders
 		encoders.announceNumMonitoringEncoders()
 		self.finish()
+	# Translators: Input help message for a SPL Controller command.
+	script_encoderStatus.__doc__ = _("Announces stream encoder status from other programs")
 
 	def script_statusInfo(self, gesture):
 		# Go through below procedure, as custom commands can be assigned for this script.
