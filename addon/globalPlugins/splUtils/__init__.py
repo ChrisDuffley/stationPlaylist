@@ -245,7 +245,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 					ui.message("{mm:02d}:{ss:02d}".format(mm = mm, ss = ss))
 		self.finish()
 
-	def script_announceNumMonitoringEncoders(self, gesture):
+	def script_encoderStatus(self, gesture):
 		from . import encoders
 		encoders.announceNumMonitoringEncoders()
 		self.finish()
@@ -324,7 +324,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:t":"stopInstant",
 		"kb:u":"pause",
 		"kb:r":"remainingTime",
-		"kb:e":"announceNumMonitoringEncoders",
+		"kb:e":"encoderStatus",
 		"kb:i":"listenerCount",
 		"kb:q":"statusInfo",
 		"kb:c":"currentTrackTitle",
