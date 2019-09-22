@@ -34,16 +34,18 @@ SPLNoConnectionTone = set()
 # Customized for each encoder type.
 SAMStreamLabels= {} # A dictionary to store custom labels for each stream.
 SPLStreamLabels= {} # Same as above but optimized for SPL encoders (Studio 5.00 and later).
+ACStreamLabels= {} # Optimized for AltaCast.
 SAMMonitorThreads = {}
 SPLMonitorThreads = {}
-encoderMonCount = {"SAM":0, "SPL":0}
+ACMonitorThreads = {}
+encoderMonCount = {"SAM":0, "SPL":0, "AltaCast":0}
 
 # Configuration management.
 streamLabels = None
 
 # Load stream labels (and possibly other future goodies) from a file-based database.
 def loadStreamLabels():
-	global streamLabels, SAMStreamLabels, SPLStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone
+	global streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone
 	import os, configobj, globalVars
 	streamLabels = configobj.ConfigObj(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
 	# Read stream labels.
@@ -55,6 +57,10 @@ def loadStreamLabels():
 		SPLStreamLabels = dict(streamLabels["SPLEncoders"])
 	except KeyError:
 		SPLStreamLabels = {}
+	try:
+		ACStreamLabels = dict(streamLabels["AltaCastEncoders"])
+	except KeyError:
+		ACStreamLabels = {}
 	# Read other settings.
 	if "FocusToStudio" in streamLabels:
 		SPLFocusToStudio = set(streamLabels["FocusToStudio"])
@@ -73,6 +79,7 @@ def getStreamLabel(identifier):
 	# 6.0: Look up the encoder type.
 	if encoderType == "SAM": labels = SAMStreamLabels
 	elif encoderType == "SPL": labels = SPLStreamLabels
+	elif encoderType == "AltaCast": labels = ACStreamLabels
 	if encoderID in labels: return labels[encoderID]
 	return None
 
@@ -130,14 +137,14 @@ def _removeEncoderID(encoderType, pos):
 
 # Nullify various flag sets, otherwise memory leak occurs.
 def cleanup():
-	global streamLabels, SAMStreamLabels, SPLStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, encoderMonCount, SAMMonitorThreads, SPLMonitorThreads
-	for flag in [streamLabels, SAMStreamLabels, SPLStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SAMMonitorThreads, SPLMonitorThreads]:
+	global streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, encoderMonCount, SAMMonitorThreads, SPLMonitorThreads, ACMonitorThreads
+	for flag in [streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SAMMonitorThreads, SPLMonitorThreads, ACMonitorThreads]:
 		if flag is not None: flag.clear()
 	# Nullify stream labels.
 	streamLabels = None
 	# Without resetting monitor count, we end up with higher and higher value for this.
 	# 7.0: Destroy threads also.
-	encoderMonCount = {"SAM":0, "SPL":0}
+	encoderMonCount = {"SAM":0, "SPL":0, "AltaCast":0}
 
 # Encoder configuration dialog.
 _configDialogOpened = False
