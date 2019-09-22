@@ -796,3 +796,34 @@ class SPLEncoder(Encoder):
 		"kb:control+NVDA+3":"announceEncoderSettings",
 		"kb:control+NVDA+4":"announceEncoderTransfer"
 	}
+
+class AltaCastEncoder(SPLEncoder):
+	# Support for AltaCast Encoder window.
+	# Deriving from Edcast (now unsupported), user interface resembles SPL Encoder.
+
+	encoderType = "AltaCast"
+
+	@property
+	def threadPool(self):
+		return ACMonitorThreads
+
+	@property
+	def streamLabelsMap(self):
+		return ACStreamLabels
+
+	def getStreamLabel(self, getTitle=False):
+		if str(self.IAccessibleChildID) in ACStreamLabels:
+			streamLabel = ACStreamLabels[str(self.IAccessibleChildID)]
+			return streamLabel, self.firstChild.name if getTitle else streamLabel
+		return (None, self.firstChild.name) if getTitle else None
+
+	def setStreamLabel(self, newStreamLabel):
+		if len(newStreamLabel):
+			ACStreamLabels[str(self.IAccessibleChildID)] = newStreamLabel
+		else:
+			try:
+				del ACStreamLabels[str(self.IAccessibleChildID)]
+			except KeyError:
+				pass
+		streamLabels["AltaCastEncoders"] = ACStreamLabels
+		streamLabels.write()
