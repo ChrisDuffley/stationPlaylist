@@ -359,4 +359,5 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				elif obj.role == controlTypes.ROLE_LIST:
 					clsList.insert(0, sysListView32.List)
 			elif obj.windowClassName == "SysListView32" and obj.role == controlTypes.ROLE_LISTITEM:
-				clsList.insert(0, encoders.SPLEncoder)
+				# #113 (19.10/18.09.12-LTS): AltaCast encoder list has a name whereas SPL Encoder doesn't.
+				clsList.insert(0, encoders.AltaCastEncoder if obj.parent.name == "List1" else encoders.SPLEncoder)
