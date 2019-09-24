@@ -10,8 +10,8 @@ import api
 import ui
 import speech
 import scriptHandler
-from NVDAObjects.IAccessible import IAccessible, sysListView32
-from winUser import user32, sendMessage
+from NVDAObjects.IAccessible import IAccessible, sysListView32, getNVDAObjectFromEvent
+from winUser import user32, sendMessage, OBJID_CLIENT
 import tones
 import gui
 import wx
@@ -81,19 +81,42 @@ def getStreamLabel(identifier):
 	return None
 
 def announceNumMonitoringEncoders():
-	monitorCount = len(SPLBackgroundMonitor)
-	if not monitorCount:
-		# Translators: Message presented when there are no encoders being monitored.
-		ui.message(_("No encoders are being monitored"))
+	import windowUtils
+	# For SAM encoders, descend into encoder window after locating the foreground window.
+	# For others, look for a specific SysListView32 control.
+	desktopHwnd = api.getDesktopObject().windowHandle
+	try:
+		samEncoderWindow = windowUtils.findDescendantWindow(desktopHwnd, className="TfoSCEncoders")
+	except LookupError:
+		samEncoderWindow = 0
+	if samEncoderWindow:
+		try:
+			samEncoderWindow = windowUtils.findDescendantWindow(samEncoderWindow, className="TListView")
+		except LookupError:
+			samEncoderWindow = 0
+	try:
+		sysListView32EncoderWindow = windowUtils.findDescendantWindow(desktopHwnd, className="SysListView32", controlID=1004)
+	except LookupError:
+		sysListView32EncoderWindow = 0
+	if not samEncoderWindow and not sysListView32EncoderWindow:
+		# Translators: presented when no streaming encoders were found when trying to obtain connection status.
+		ui.message(_("No encoders found"))
+	elif samEncoderWindow and sysListView32EncoderWindow:
+		# Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
+		ui.message(_("Only one encoder type can be active at once"))
 	else:
-		# Locate stream labels if any.
-		labels = []
-		for identifier in SPLBackgroundMonitor:
-			label = getStreamLabel(identifier)
-			if label is None: labels.append(identifier)
-			else: labels.append("{encoderID} ({streamLabel})".format(encoderID = identifier, streamLabel=label))
-		# Translators: Announces number of encoders being monitored in the background.
-		ui.message(_("Number of encoders monitored: {numberOfEncoders}: {streamLabels}").format(numberOfEncoders = monitorCount, streamLabels=", ".join(labels)))
+		encoderWindow = max(samEncoderWindow, sysListView32EncoderWindow)
+		encoderList = getNVDAObjectFromEvent(encoderWindow, OBJID_CLIENT, 0)
+		connectedEncoders = []
+		for encoder in encoderList.children:
+			if isinstance(encoder, Encoder) and encoder.connected:
+				connectedEncoders.append("{0} {1}".format(encoder.encoderType, str(encoder.IAccessibleChildID)))
+		if len(connectedEncoders) > 0:
+			# Translators: presented when at least one encoder is connected.
+			ui.message(_("Connected encoders: {encodersConnected}").format(encodersConnected=", ".join(connectedEncoders)))
+		else:
+			# Translators: presented when no encoders are connected.
+			ui.message(_("No encoders connected"))
 
 # Remove encoder ID from various settings maps.
 # This is a private module level function in order for it to be invoked by humans alone.
