@@ -547,6 +547,10 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 		super(SAMEncoder, self)._moveToRow(row)
 		if row is not None: row.setFocus()
 
+	@property
+	def connected(self):
+		return self.children[2].name == "Encoding"
+
 	def reportConnectionStatus(self, connecting=False):
 		# A fake child object holds crucial information about connection status.
 		# In order to not block NVDA commands, this will be done using a different thread.
@@ -715,6 +719,10 @@ class SPLEncoder(Encoder):
 	# Support for SPL Encoder window.
 
 	encoderType = "SPL"
+
+	@property
+	def connected(self):
+		return "Kbps" in self.children[1].name
 
 	def reportConnectionStatus(self, connecting=False):
 		# Same routine as SAM encoder: use a thread to prevent blocking NVDA commands.
