@@ -247,7 +247,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def script_encoderStatus(self, gesture):
 		# Go through below procedure, as custom commands can be assigned for this script.
-		SPLWin = user32.FindWindowW(u"SPLStudio", None)
+		SPLWin = user32.FindWindowW("SPLStudio", None)
 		if not SPLWin:
 			ui.message(_("SPL Studio is not running."))
 			self.finish()
