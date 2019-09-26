@@ -745,7 +745,8 @@ class SPLEncoder(Encoder):
 
 	@property
 	def connected(self):
-		return "Kbps" in self.children[1].name
+		status = self.children[1].name
+		return "Kbps" in status or "Connected" in status
 
 	def reportConnectionStatus(self, connecting=False):
 		# Same routine as SAM encoder: use a thread to prevent blocking NVDA commands.
