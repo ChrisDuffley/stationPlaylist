@@ -28,6 +28,10 @@ msgstr ""
 msgid "Old Windows version"
 msgstr "Phiên bản Windows cũ"
 
+#. Translators: Presented when microphone has been active for a while.
+msgid "Microphone active"
+msgstr "Microphone hoạt động"
+
 #, python-brace-format
 msgid "{header}: {content}"
 msgstr "{header}: {content}"
@@ -39,10 +43,6 @@ msgstr "{header}: rỗng"
 #, python-brace-format
 msgid "{header}: ()"
 msgstr "{header}: ()"
-
-#. Translators: Presented when microphone has been active for a while.
-msgid "Microphone active"
-msgstr "Microphone hoạt động"
 
 #. Translators: input help mode message for column explorer commands.
 msgid ""
@@ -76,6 +76,15 @@ msgstr "không tìm thấy {headerText}"
 #, python-brace-format
 msgid "Item {current} of {total}"
 msgstr "Mục {current} của {total}"
+
+#. Translators: Presented when no track status is found in Studio 5.10.
+msgid "Status not found"
+msgstr "Không tìm thấy trạng thái"
+
+#. Translators: Status information for a checked track in Studio 5.10.
+#, python-brace-format
+msgid "Status: {name}"
+msgstr "Trạng thái: {name}"
 
 #. Translators: Standard message for announcing column content.
 #, python-brace-format
@@ -123,15 +132,6 @@ msgid ""
 msgstr ""
 "Thông báo chú thích track nếu có. Bấm hai lần để chép thông tin này vào bộ "
 "nhớ tạm và bấm ba lần mở hộp thoại để thêm, sửa hay xóa chú thích track"
-
-#. Translators: Presented when no track status is found in Studio 5.10.
-msgid "Status not found"
-msgstr "Không tìm thấy trạng thái"
-
-#. Translators: Status information for a checked track in Studio 5.10.
-#, python-brace-format
-msgid "Status: {name}"
-msgstr "Trạng thái: {name}"
 
 #. Translators: The text of the help command in SPL Assistant layer.
 msgid ""
@@ -356,11 +356,6 @@ msgstr ""
 "F10: thực hiện phân tích thời gian .\n"
 "F12: chuyển đến một hồ sơ chuyển nhanh.\n"
 "Shift+F1: mở tài liệu hướng dẫn trực tuyến."
-
-#. Translators: The sign-on message for Studio app module.
-#, python-brace-format
-msgid "Using SPL Studio version {SPLVersion}"
-msgstr "Sử dụng SPL Studio phiên bản {SPLVersion}"
 
 msgid "SPL Studio Settings..."
 msgstr "Cài đặt SPL Studio..."
@@ -1932,6 +1927,13 @@ msgid "There is no track playing."
 msgstr "Không có track nào đang phát."
 
 #. Translators: Input help message for a SPL Controller command.
+#, fuzzy
+msgid "Announces stream encoder status from other programs"
+msgstr ""
+"Thông báo trạng thái của Studio như trạng thái phát track từ các chương "
+"trình khác"
+
+#. Translators: Input help message for a SPL Controller command.
 msgid ""
 "Announces Studio status such as track playback status from other programs"
 msgstr ""
@@ -2120,3 +2122,6 @@ msgid ""
 msgstr ""
 "Cải thiện hỗ trợ cho StationPlaylist Studio.\n"
 "Ngoài ra là thêm các lệnh toàn cục cho studio từ bất cứ đâu."
+
+#~ msgid "Using SPL Studio version {SPLVersion}"
+#~ msgstr "Sử dụng SPL Studio phiên bản {SPLVersion}"

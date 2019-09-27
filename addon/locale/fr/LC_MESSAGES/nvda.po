@@ -30,6 +30,10 @@ msgstr ""
 msgid "Old Windows version"
 msgstr "Ancienne version de Windows"
 
+#. Translators: Presented when microphone has been active for a while.
+msgid "Microphone active"
+msgstr "Microphone actif"
+
 #, python-brace-format
 msgid "{header}: {content}"
 msgstr "{header} : {content}"
@@ -41,10 +45,6 @@ msgstr "{header} : vide"
 #, python-brace-format
 msgid "{header}: ()"
 msgstr "{header} : ()"
-
-#. Translators: Presented when microphone has been active for a while.
-msgid "Microphone active"
-msgstr "Microphone actif"
 
 #. Translators: input help mode message for column explorer commands.
 msgid ""
@@ -79,6 +79,15 @@ msgstr "{headerText} introuvable"
 #, python-brace-format
 msgid "Item {current} of {total}"
 msgstr "Élément {current} sur {total}"
+
+#. Translators: Presented when no track status is found in Studio 5.10.
+msgid "Status not found"
+msgstr "Statut introuvable"
+
+#. Translators: Status information for a checked track in Studio 5.10.
+#, python-brace-format
+msgid "Status: {name}"
+msgstr "Statut : {name}"
 
 #. Translators: Standard message for announcing column content.
 #, python-brace-format
@@ -127,15 +136,6 @@ msgstr ""
 "Annoncer commentaire de piste le cas échéant. Appuyer deux fois pour copier "
 "ces informations dans le presse-papiers, puis appuyer trois fois pour ouvrir "
 "le dialogue pour ajouter, modifier ou supprimer les commentaires de piste"
-
-#. Translators: Presented when no track status is found in Studio 5.10.
-msgid "Status not found"
-msgstr "Statut introuvable"
-
-#. Translators: Status information for a checked track in Studio 5.10.
-#, python-brace-format
-msgid "Status: {name}"
-msgstr "Statut : {name}"
 
 #. Translators: The text of the help command in SPL Assistant layer.
 msgid ""
@@ -364,11 +364,6 @@ msgstr ""
 "F10 : Effectuer une analyse de durée de piste.\n"
 "F12 : Basculer vers un changement de profil immédiat.\n"
 "Maj+F1 : Ouvre le guide de l'utilisateur en ligne."
-
-#. Translators: The sign-on message for Studio app module.
-#, python-brace-format
-msgid "Using SPL Studio version {SPLVersion}"
-msgstr "La version utilisée est Studio SPL {SPLVersion}"
 
 msgid "SPL Studio Settings..."
 msgstr "Paramètres SPL Studio..."
@@ -1998,6 +1993,13 @@ msgid "There is no track playing."
 msgstr "Il n'y a aucune piste en cours de lecture."
 
 #. Translators: Input help message for a SPL Controller command.
+#, fuzzy
+msgid "Announces stream encoder status from other programs"
+msgstr ""
+"Annonce le statut de Studio tel que le statut de la lecture de la piste à "
+"partir d'autres programmes"
+
+#. Translators: Input help message for a SPL Controller command.
 msgid ""
 "Announces Studio status such as track playback status from other programs"
 msgstr ""
@@ -2188,3 +2190,6 @@ msgid ""
 msgstr ""
 "Améliore la prise en charge de StationPlaylist Studio.\n"
 "En outre, ajoute des commandes globales pour studio où que vous soyez."
+
+#~ msgid "Using SPL Studio version {SPLVersion}"
+#~ msgstr "La version utilisée est Studio SPL {SPLVersion}"

@@ -31,6 +31,10 @@ msgstr ""
 msgid "Old Windows version"
 msgstr "Versión antigua de Windows"
 
+#. Translators: Presented when microphone has been active for a while.
+msgid "Microphone active"
+msgstr "Micrófono activo"
+
 #, python-brace-format
 msgid "{header}: {content}"
 msgstr "{header}: {content}"
@@ -42,10 +46,6 @@ msgstr "{header}: en blanco"
 #, python-brace-format
 msgid "{header}: ()"
 msgstr "{header}: ()"
-
-#. Translators: Presented when microphone has been active for a while.
-msgid "Microphone active"
-msgstr "Micrófono activo"
 
 #. Translators: input help mode message for column explorer commands.
 msgid ""
@@ -79,6 +79,15 @@ msgstr "{headerText} no encontrado"
 #, python-brace-format
 msgid "Item {current} of {total}"
 msgstr "Elemento {current} de {total}"
+
+#. Translators: Presented when no track status is found in Studio 5.10.
+msgid "Status not found"
+msgstr "Estado no encontrado"
+
+#. Translators: Status information for a checked track in Studio 5.10.
+#, python-brace-format
+msgid "Status: {name}"
+msgstr "Estado: {name}"
 
 #. Translators: Standard message for announcing column content.
 #, python-brace-format
@@ -128,15 +137,6 @@ msgstr ""
 "Anuncia comentarios de pista si los hay. Pulsa dos veces para copiar esta "
 "información al portapapeles, y pulsa tres veces para abrir un diálogo para "
 "añadir, cambiar o eliminar comentarios de pista"
-
-#. Translators: Presented when no track status is found in Studio 5.10.
-msgid "Status not found"
-msgstr "Estado no encontrado"
-
-#. Translators: Status information for a checked track in Studio 5.10.
-#, python-brace-format
-msgid "Status: {name}"
-msgstr "Estado: {name}"
 
 #. Translators: The text of the help command in SPL Assistant layer.
 msgid ""
@@ -365,11 +365,6 @@ msgstr ""
 "F10: Realiza el análisis de tiempo de la pista.\n"
 "F12: Cambia a un perfil de cambio instantáeo.\n"
 "Shift+F1: abre una guía de usuario en línea."
-
-#. Translators: The sign-on message for Studio app module.
-#, python-brace-format
-msgid "Using SPL Studio version {SPLVersion}"
-msgstr "Utilizando versión de SPL Studio {SPLVersion}"
 
 msgid "SPL Studio Settings..."
 msgstr "Opciones de SPL Studio..."
@@ -1986,6 +1981,13 @@ msgid "There is no track playing."
 msgstr "No hay pista en reproducción."
 
 #. Translators: Input help message for a SPL Controller command.
+#, fuzzy
+msgid "Announces stream encoder status from other programs"
+msgstr ""
+"Anuncia el estado de Studio como el estado de la pista en reproducción desde "
+"otros programas"
+
+#. Translators: Input help message for a SPL Controller command.
 msgid ""
 "Announces Studio status such as track playback status from other programs"
 msgstr ""
@@ -2177,3 +2179,6 @@ msgid ""
 msgstr ""
 "Mejora el soporte para Station Playlist Studio.\n"
 "Además, agrega comandos globales para el estudio desde cualquier parte."
+
+#~ msgid "Using SPL Studio version {SPLVersion}"
+#~ msgstr "Utilizando versión de SPL Studio {SPLVersion}"

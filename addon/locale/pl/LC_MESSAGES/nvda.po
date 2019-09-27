@@ -29,6 +29,10 @@ msgstr ""
 msgid "Old Windows version"
 msgstr "Starsza wersja systemu windows"
 
+#. Translators: Presented when microphone has been active for a while.
+msgid "Microphone active"
+msgstr "Mikrofon aktywny"
+
 #, python-brace-format
 msgid "{header}: {content}"
 msgstr "{header}: {content}"
@@ -40,10 +44,6 @@ msgstr "{header}: pusto"
 #, python-brace-format
 msgid "{header}: ()"
 msgstr "{header}: ()"
-
-#. Translators: Presented when microphone has been active for a while.
-msgid "Microphone active"
-msgstr "Mikrofon aktywny"
 
 #. Translators: input help mode message for column explorer commands.
 msgid ""
@@ -77,6 +77,15 @@ msgstr "{headerText} nieznaleziono"
 #, python-brace-format
 msgid "Item {current} of {total}"
 msgstr " {current} z {total}"
+
+#. Translators: Presented when no track status is found in Studio 5.10.
+msgid "Status not found"
+msgstr "Nie znaleziono statusu"
+
+#. Translators: Status information for a checked track in Studio 5.10.
+#, python-brace-format
+msgid "Status: {name}"
+msgstr "Status: {name}"
 
 #. Translators: Standard message for announcing column content.
 #, python-brace-format
@@ -125,15 +134,6 @@ msgid ""
 msgstr ""
 "Ogłasza komentarze dla utworu, jeśli obecne. Podwójne naciśnięcie kopiuje "
 "zawartość do schowka, potrójne otwiera dialog zarządzania nimi."
-
-#. Translators: Presented when no track status is found in Studio 5.10.
-msgid "Status not found"
-msgstr "Nie znaleziono statusu"
-
-#. Translators: Status information for a checked track in Studio 5.10.
-#, python-brace-format
-msgid "Status: {name}"
-msgstr "Status: {name}"
 
 #. Translators: The text of the help command in SPL Assistant layer.
 msgid ""
@@ -317,11 +317,6 @@ msgid ""
 "F12: Switch to an instant switch profile.\n"
 "Shift+F1: Open online user guide."
 msgstr ""
-
-#. Translators: The sign-on message for Studio app module.
-#, python-brace-format
-msgid "Using SPL Studio version {SPLVersion}"
-msgstr "SPL Studio {SPLVersion}"
 
 msgid "SPL Studio Settings..."
 msgstr "Ustawienia dodatku SPL"
@@ -1817,6 +1812,11 @@ msgid "There is no track playing."
 msgstr "Żaden utwór nie jest odtwarzany"
 
 #. Translators: Input help message for a SPL Controller command.
+#, fuzzy
+msgid "Announces stream encoder status from other programs"
+msgstr "Oznajmia status SPL z poziomu innych aplikacji"
+
+#. Translators: Input help message for a SPL Controller command.
 msgid ""
 "Announces Studio status such as track playback status from other programs"
 msgstr "Oznajmia status SPL z poziomu innych aplikacji"
@@ -2003,3 +2003,6 @@ msgid ""
 msgstr ""
 "Poprawia dostępność Station Playlist Studio.\n"
 "Ponadto, dodaje globalne komendy dla studia, dostępne z każdego miejsca."
+
+#~ msgid "Using SPL Studio version {SPLVersion}"
+#~ msgstr "SPL Studio {SPLVersion}"
