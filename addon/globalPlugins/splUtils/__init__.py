@@ -62,7 +62,7 @@ U: Pause.
 S: Stop with fade.
 T: Instant stop.
 C: Announce name and duration of the currently playing track.
-E: Announce if any encoders are being monitored.
+E: Announce connected encoders if any.
 I: Announce listener count.
 Q: Announce Studio status information.
 R: Remaining time for the playing track.
