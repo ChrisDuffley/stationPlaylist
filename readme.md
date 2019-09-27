@@ -5,7 +5,7 @@
 * Download [development version][2]
 * NVDA compatibility: 2019.1 to 2019.2
 
-This add-on package provides improved usage of StationPlaylist Studio and other StationPlaylist apps, as well as providing utilities to control Studio from anywhere. Supported apps include Studio, Creator, Track Tool, VT Recorder, and Streamer, as well as SAM and SPL encoders.
+This add-on package provides improved usage of StationPlaylist Studio and other StationPlaylist apps, as well as providing utilities to control Studio from anywhere. Supported apps include Studio, Creator, Track Tool, VT Recorder, and Streamer, as well as SAM, SPL, and AltaCast encoders.
 
 For more information about the add-on, read the [add-on guide][4]. For developers seeking to know how to build the add-on, see buildInstructions.txt located at the root of the add-on source code repository.
 
@@ -48,6 +48,7 @@ The following commands are not assigned by default; if you wish to assign them, 
 * Switching to SPL Studio window from any program.
 * SPL Controller layer.
 * Announcing Studio status such as track playback from other programs.
+* Announcing encoder status from any program.
 * SPL Assistant layer from SPL Studio.
 * Announce time including seconds from SPL Studio.
 * Announcing temperature.
@@ -60,9 +61,9 @@ The following commands are not assigned by default; if you wish to assign them, 
 * Find tracks with duration that falls within a given range via time range finder.
 * Quickly enable or disable metadata streaming.
 
-## Additional commands when using Sam or SPL encoders
+## Additional commands when using encoders
 
-The following commands are available when using Sam or SPL encoders:
+The following commands are available when using encoders:
 
 * F9: connect to a streaming server.
 * F10 (SAM encoder only): Disconnect from the streaming server.
@@ -79,9 +80,9 @@ In addition, column review commands are available, including:
 * Control+NVDA+1: Encoder position.
 * Control+NVDA+2: stream label.
 * Control+NVDA+3 from SAM Encoder: Encoder format.
-* Control+NVDA+3 from SPL Encoder: Encoder settings.
+* Control+NVDA+3 from SPL and AltaCast Encoder: Encoder settings.
 * Control+NVDA+4 from SAM Encoder: Encoder connection status.
-* Control+NVDA+4 from SPL Encoder: Transfer rate or connection status.
+* Control+NVDA+4 from SPL and AltaCast Encoder: Transfer rate or connection status.
 * Control+NVDA+5 from SAM Encoder: Connection status description.
 
 ## SPL Assistant layer
@@ -190,6 +191,13 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 ## SPL touch mode
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
+
+## Version 19.10/18.09.12-LTS
+
+* Shortened the version announcement message for Studio when it starts.
+* Version information for Creator will be announced when it starts.
+* 19.10: custom command can be assigned for encoder status command from SPL Controller (E) so it can be used from everywhere.
+* Initial support for AltaCast encoder (Winamp plugin and must be recognized by Studio). Commands are same as SPL Encoder.
 
 ## Version 19.08.1
 
