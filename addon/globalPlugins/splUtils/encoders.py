@@ -80,7 +80,7 @@ def getStreamLabel(identifier):
 	if encoderID in labels: return labels[encoderID]
 	return None
 
-def announceNumMonitoringEncoders():
+def announceEncoderConnectionStatus():
 	import windowUtils
 	# For SAM encoders, descend into encoder window after locating the foreground window.
 	# For others, look for a specific SysListView32 control.

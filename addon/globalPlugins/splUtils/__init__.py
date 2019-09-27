@@ -253,7 +253,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self.finish()
 			return
 		from . import encoders
-		encoders.announceNumMonitoringEncoders()
+		encoders.announceEncoderConnectionStatus()
 		self.finish()
 	# Translators: Input help message for a SPL Controller command.
 	script_encoderStatus.__doc__ = _("Announces stream encoder status from other programs")
