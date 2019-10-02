@@ -48,7 +48,7 @@ The following commands are not assigned by default; if you wish to assign them, 
 * Switching to SPL Studio window from any program.
 * SPL Controller layer.
 * Announcing Studio status such as track playback from other programs.
-* Announcing encoder status from any program.
+* Announcing encoder connection status from any program.
 * SPL Assistant layer from SPL Studio.
 * Announce time including seconds from SPL Studio.
 * Announcing temperature.
@@ -142,7 +142,7 @@ The available SPL Controller commands are:
 * Press Shift+R to get a report on library scan progress.
 * Press C to let NVDA announce name and duration of the currently playing track.
 * Press Shift+C to let NVDA announce name and duration of the upcoming track if any.
-* Press E to get count and labels for encoders being monitored.
+* Press E to hear which encoders are connected.
 * Press I to obtain listener count.
 * Press Q to obtain various status information about Studio including whether a track is playing, microphone is on and others.
 * Press cart keys (F1, Control+1, for example) to play assigned carts from anywhere.
@@ -191,6 +191,10 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 ## SPL touch mode
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
+
+## Version 19.11
+
+* Encoder status command from SPL Controller (E) will announce connection status for the active encoder set instead of encoders being monitored in the background.
 
 ## Version 19.10/18.09.12-LTS
 
