@@ -117,7 +117,7 @@ The available commands are:
 * U: Studio up time.
 * W: Weather and temperature if configured.
 * Y: Playlist modified status.
-* 1 through 0 (6 for Studio 5.0x): Announce column content for a specified column.
+* 1 through 0: Announce column content for a specified column.
 * F8: Take playlist snapshots (number of tracks, longest track, etc.).
 * Shift+F8: Request playlist transcripts in numerous formats.
 * F9: Mark current track for start of playlist analysis (playlist viewer only).
