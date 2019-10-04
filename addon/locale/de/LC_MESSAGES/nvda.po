@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2019-06-26 02:23+0200\n"
+"PO-Revision-Date: 2019-09-27 20:36+0200\n"
 "Last-Translator: René Linke <rene.linke@hamburg.de>\n"
 "Language-Team: Deutsch <bernd_dorer@yahoo.de>\n"
 "Language: de\n"
@@ -1993,11 +1993,8 @@ msgid "There is no track playing."
 msgstr "Es wird momentan keinen Titel wiedergegeben."
 
 #. Translators: Input help message for a SPL Controller command.
-#, fuzzy
 msgid "Announces stream encoder status from other programs"
-msgstr ""
-"Meldet Studio-Status und Status der Titelwiedergabe auch aus anderen "
-"Anwendungen heraus."
+msgstr "Meldet den Status des Stream-Encoders aus anderen Programmen heraus."
 
 #. Translators: Input help message for a SPL Controller command.
 msgid ""

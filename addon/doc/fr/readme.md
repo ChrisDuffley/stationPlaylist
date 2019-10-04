@@ -8,7 +8,7 @@
 This add-on package provides improved usage of StationPlaylist Studio and
 other StationPlaylist apps, as well as providing utilities to control Studio
 from anywhere. Supported apps include Studio, Creator, Track Tool, VT
-Recorder, and Streamer, as well as SAM and SPL encoders.
+Recorder, and Streamer, as well as SAM, SPL, and AltaCast encoders.
 
 Pour plus d’informations sur l'extension, lisez le [guide de
 l'extension][4]. Pour les développeurs cherchant à savoir comment construire
@@ -94,6 +94,7 @@ commandes personnalisées.
 * Couche Contrôleur SPL.
 * Annonçant le statut de Studio, comme la lecture de pistes à partir
   d'autres programmes.
+* Announcing encoder status from any program.
 * Couche Assistant SPL depuis SPL Studio.
 * Annoncer le temps y compris les secondes depuis SPL Studio.
 * Annonce de la température.
@@ -107,10 +108,9 @@ commandes personnalisées.
   la recherche de l'intervalle de temps.
 * Activer ou désactiver les métadonnées en streaming rapidement.
 
-## Commandes supplémentaires lors de l'utilisation des encodeurs de Sam ou SPL
+## Additional commands when using encoders
 
-Les commandes suivantes sont disponibles lorsque vous utilisez les encodeurs
-de Sam ou de SPL :
+The following commands are available when using encoders:
 
 * F9 : Se connecter à un serveur de streaming.
 * F10 (Encodeur SAM uniquement) : Se déconnecter d'un serveur de streaming.
@@ -136,10 +136,10 @@ compris :
 * Contrôle+NVDA+1 : Position de l'encodeur.
 * Contrôle+NVDA+2 : étiquette de flux.
 * Contrôle+NVDA+3 depuis l'Encodeur SAM : Format de l'Encodeur.
-* Contrôle+NVDA+3 depuis l'Encodeur SPL : Paramètres de l'encodeur.
+* Control+NVDA+3 from SPL and AltaCast Encoder: Encoder settings.
 * Control+NVDA+4 from SAM Encoder: Encoder connection status.
-* Contrôle+NVDA+4 depuis l'Encodeur SPL : Statut de la connexion ou du taux
-  de transfert.
+* Control+NVDA+4 from SPL and AltaCast Encoder: Transfer rate or connection
+  status.
 * Contrôle+NVDA+5 depuis l'Encodeur SAM : Description du statut de la
   connexion.
 
@@ -326,6 +326,15 @@ ultérieure installé, vous pouvez exécuter certaines commandes Studio depuis
 un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
+
+## Version 19.10/18.09.12-LTS
+
+* Shortened the version announcement message for Studio when it starts.
+* Version information for Creator will be announced when it starts.
+* 19.10: custom command can be assigned for encoder status command from SPL
+  Controller (E) so it can be used from everywhere.
+* Initial support for AltaCast encoder (Winamp plugin and must be recognized
+  by Studio). Commands are same as SPL Encoder.
 
 ## Version 19.08.1
 

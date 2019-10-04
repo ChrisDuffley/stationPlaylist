@@ -8,7 +8,7 @@
 Gói add-on này cung cấp sự cải thiện cho việc sử dụng StationPlaylist Studio
 và các ứng dụng StationPlaylist khác, cũng như cung cấp các tiện ích để điều
 khiển Studio ở bất cứ đâu. Các ứng dụng được hỗ trợ bao gồm Studio, Creator,
-Track Tool, VT Recorder và Streamer, cả các bộ mã hóa SAM và SPL.
+Track Tool, VT Recorder và Streamer, cả các bộ mã hóa SAM, SPL và AltaCast.
 
 Để biết thêm thông tin về add-on này, xem [hướng dẫn sử dụng add-on][4]. Với
 những người phát triển add-on quan tâm đến việc làm thế nào để tạo add-on,
@@ -80,6 +80,7 @@ chúng, hãy dùng hộp thoại quản lý thao tác để thêm lệnh.
 * Lệnh cho bộ điều khiển SPL.
 * Thông báo trạng thái Studio như track đang phát từ một chương trình bất
   kì.
+* Thông báo trạng thái Studio từ bất kì chương trình nào.
 * SPL Assistant layer từ SPL Studio.
 * Thông báo giờ bao gồm giây từ SPL Studio.
 * Thông báo nhiệt độ.
@@ -93,9 +94,9 @@ chúng, hãy dùng hộp thoại quản lý thao tác để thêm lệnh.
   kiếm theo khoảng thời gian.
 * Nhanh chóng bật hay tắt metadata streaming.
 
-## Các lệnh cho thêm khi dùng Sam hay SPL encoders
+## Những lệnh cho thêm khi dùng các bộ mã hóa
 
-Các phím lệnh sau  đây hoạt động khi sử dụng Sam hoặc SPL encoders:
+Các phím lệnh sau  đây hoạt động khi sử dụng các bộ mã hóa:
 
 * F9: kết nối tới một máy chủ đang phát.
 * F10 (chỉ khi dùng SAM encoder): ngắt kết nối khỏi một máy chủ đang phát.
@@ -118,9 +119,10 @@ Ngoài ra, có các lệnh để xem lại cột bao gồm:
 * Control+NVDA+1: vị trí mã hóa.
 * Control+NVDA+2: nhãn phát thanh.
 * Control+NVDA+3 từ SAM Encoder: định dạng mã hóa.
-* Control+NVDA+3 từ SPL Encoder: cài đặt mã hóa.
+* Control+NVDA+3 từ SPL và AltaCast Encoder: cài đặt mã hóa.
 * Control+NvDA+4 từ SAM Encoder: trạng thái kết nối bộ mã hóa.
-* Control+NVDA+4 từ SPL Encoder: tốc độ đường truyền hay trạng thái kết nối.
+* Control+NVDA+4 từ SPL và AltaCast Encoder: tốc độ đường truyền hay trạng
+  thái kết nối.
 * Control+NVDA+5 từ SAM Encoder: mô tả trạng thái kết nối.
 
 ## SPL Assistant layer
@@ -283,6 +285,15 @@ Nếu dùng Studio trên một máy tính cảm ứng chạy Windows 8 trở lê
 NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio từ mành hình
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
+
+## Phiên bản 19.10/18.09.12-LTS
+
+* Rút gọn thông điệp thông báo phiên bản cho Studio khi nó khởi động.
+* Thông tin phiên bản cho Creator sẽ được thông báo khi nó khởi động.
+* 19.10: lệnh tùy chỉnh có thể gán được cho lệnh trạng thái mã hóa từ SPL
+  Controller (E) nên có thể dùng ở mọi nơi.
+* Bước đầu hỗ trợ cho  bộ mã hóa AltaCast (Winamp plugin và phải được Studio
+  nhận dạng). Các lệnh giống với bộ mã hóa SPL.
 
 ## Phiên bản 19.08.1
 
