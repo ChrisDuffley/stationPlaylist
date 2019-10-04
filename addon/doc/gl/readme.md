@@ -9,7 +9,7 @@ Este paquete de complementos proporciona unhha utilización mellorada do
 Station Playlist Studio e outras apps de Station Playlist, así como
 utilidades para controlar o Studio dende calquera lugar. As apps soportadas
 inclúen Studio, Creator, Track Tool, VT Recorder, e Streamer, así como os
-codificadores SAM e SPL.
+codificadores SAM, SPLe AltaCast.
 
 Para máis información acerca do complemento, le a [guía do
 complemento][4]. Para os desenvolvedores que queran saber cómo compilar o
@@ -53,7 +53,7 @@ contrario.
   SPL) dende a ventá do Studio: Abre o diálogo de configuración da alarma de
   intro da canción.
 * Alt+NVDA+3 dende a ventá Studio:  conmuta o explorador de cart para
-  deprender  as asignacións das cart. 
+  deprender  as asignacións das cart.
 * Alt+NVDA+4 dende a ventá do Studio: Abre o diálogo de alarma do micrófono.
 * Control+NVDA+f dende a ventá do Studio: Abre un diálogo para procurar unha
   pista baseada no artista ou no nome da canción. Preme NVDA+F3 para
@@ -91,7 +91,8 @@ o diálogo Xestos de Entrada para engadir ordes persoalizadas.
 * Capa SPL Controller.
 * Anunciar o estado do Studio como a reproducción de pista dende outros
   programas.
-* capa SPL Assistant desde SPL Studio.
+* Anunciar o estado do codificador dende calquera programas.
+* Capa SPL Assistant desde SPL Studio.
 * Anunciar tempo incluíndo segundos dende o SPL Studio.
 * Anunciar temperatura.
 * Anunciar o título da seguinte pista se se programou.
@@ -104,10 +105,9 @@ o diálogo Xestos de Entrada para engadir ordes persoalizadas.
   buscador de rango de tempo.
 * Habilitar ou deshabilitar cíclicamente metadatos do streaming.
 
-## Ordes adicionais cando se utilizan os codificadores Sam ou SPL
+## Ordes adicionais cando se utilizan os codificadores
 
-As seguintes ordes están dispoñibles cando se utilizan os codificadores Sam
-ou SPL:
+As seguintes ordes están dispoñibles cando se utilizan os codificadores:
 
 * F9: conecta a un servidor de streaming.
 * F10 (só o codificador SAM):: Desconecta dun servidor de streaming.
@@ -132,10 +132,11 @@ Ademáis, as ordes de revisión de columna están dispoñibles, incluindo:
 * Control+NVDA+1: posición do codificador.
 * Control+NVDA+2: etiqueta da cadea.
 * Control+NVDA+3 dende o codificador SAM: formato do codificador.
-* Control+NVDA+3 dende o codificador SPL: opcións do codificador.
+* Control+NVDA+3 dende o codificador SPL ou AltaCast: opcións do
+  codificador.
 * Control+NVDA+4 dende o codificador SAM: Estado da conexión do codificador.
-* Control+NVDA+4 dende o codificador SPL: velocidade de transferencia ou
-  estado da conexión.
+* Control+NVDA+4 dende o codificador SPL ou AltaCast: velocidade de
+  transferencia ou estado da conexión.
 * Control+NVDA+5 dende o codificador SAM: descripción do estado da conexión.
 
 ## SPL Assistant layer
@@ -320,6 +321,16 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
+## Versión 19.10/18.09.12-LTS
+
+* Encurtado a mensaxe de anuncio de versión cando Studio se inicia.
+* Anunciarase información de versión de Creator ao iniciar.
+* 19.10: poden asignarse ordes persoalizadas para o estado do codificador
+  dende o SPL Controller (E) de maneira que se poida usar dende calquera
+  sitio.
+* Soporte inicial para codificador altaCast (plugin de Winamp e debe ser
+  recoñecido por Studio). Os comandos son os mesmos que os de SPL Encoder.
+
 ## Versión 19.08.1
 
 * En codificadores SAM, NVDA xa non parecerá non facer nada nin reproducirá
@@ -423,7 +434,7 @@ A versión 19.06 soporta SPL Studio 5.20 e posterior.
 * Requírese do NVDA 2018.4 ou posterior.
 * Máis trocos internos para facer o complemento compatible con Python 3.
 * 19.01: algunhas traducións de mensaxes deste complemento asemellaranse a
-  mensaxes do NVDA:
+  mensaxes do NVDA.
 * 19.01: a característica de verificación de actualizacións deste
   complemento xa non existe. Presentarase unha mensaxe de erro ao tentar
   utilizar asistente SPL, Control+Shift+U para verificar
@@ -478,7 +489,7 @@ Nota: a 18.11.1 remplaza á 18.11 co fin de fornecer mellor soporte do studio
 
 * Solucionada a imposibilidade de pechar a pantalla de axustes do
   complemento se ao premerse o botón Aplicar e a continuación Aceptar ou
-  Cancelar
+  Cancelar.
 
 ## Versión 18.10.1/18.09.3-LTS
 
@@ -650,7 +661,7 @@ ser necesario.
 * Engadida a posibilidade de tomar capturas parciais da lista de
   reprodución. Pódese facer definindo un rango de análise (asistente SPL, F9
   ao comezo do rango de análise) e movéndose a outro elemento, e executando
-  o comando de capturas de lista de reprodución. 
+  o comando de capturas de lista de reprodución.
 * Engadido un novo comando no asistente SPL para solicitar transcricións da
   lista de reprodución nun número de formatos (shift+F8). Éstes inclúen
   texto plano, unha táboa HTML ou unha listaxe HTML.

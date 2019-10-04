@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2019-06-15 18:10+0200\n"
+"PO-Revision-Date: 2019-10-02 18:52+0200\n"
 "Last-Translator: Iván Novegil Cancelas <ivan.novegil.cancelas@gmail.com>\n"
 "Language-Team: Add-ons translation team <oprisniki@gmail.com>\n"
 "Language: gl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.2.3\n"
+"X-Generator: Poedit 2.2.4\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
@@ -443,7 +443,7 @@ msgstr "Abre o diálogo de benvida do complemento SPL Studio."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Toggles between various braille timer settings."
-msgstr "Conmuta entre varias opcións de temporizadores braille"
+msgstr "Conmuta entre varias opcións de temporizadores braille."
 
 #. Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
 msgid "Search string not found."
@@ -511,7 +511,7 @@ msgstr "Introducindo explorador de cart"
 
 #. Translators: Presented when cart explorer is off.
 msgid "Exiting cart explorer"
-msgstr "Saíndo do explorador de cart "
+msgstr "Saíndo do explorador de cart"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Toggles cart explorer to learn cart assignments."
@@ -714,7 +714,7 @@ msgstr "Non hai seguinte pista programada ou non hai pista en reprodución"
 
 #. Translators: Presented when next track information is unavailable.
 msgid "Cannot find next track information"
-msgstr "Non se puido atopar información da seguinte pista "
+msgstr "Non se puido atopar información da seguinte pista"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Announces title of the next track if any"
@@ -728,11 +728,11 @@ msgstr ""
 
 #. Translators: Presented when current track information is unavailable.
 msgid "Cannot find current track information"
-msgstr "Non se puido atopar información da pista "
+msgstr "Non se puido atopar información da pista"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Announces title of the currently playing track"
-msgstr "&Anuncia o título da pista actual."
+msgstr "&Anuncia o título da pista actual"
 
 #. Translators: Presented when there is no weather or temperature information.
 msgid "Weather and temperature not configured"
@@ -744,7 +744,7 @@ msgstr "Información do tempo non atopada"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Announces temperature and weather information"
-msgstr "Anuncia a temperatura e a información do tempo "
+msgstr "Anuncia a temperatura e a información do tempo"
 
 #. Translators: Presented when there is no listener count information.
 msgid "Listener count not found"
@@ -807,7 +807,7 @@ msgstr "Non se atoparon pistas, non se puido poñer o marcador"
 
 #. Translators: Presented when place marker track is set.
 msgid "place marker set"
-msgstr "Marcador posto"
+msgstr "marcador posto"
 
 #. Translators: Presented when attempting to place a place marker on an unsupported track.
 msgid "This track cannot be used as a place marker track"
@@ -849,7 +849,7 @@ msgstr "Axuda de SPL Assistant para a distribución JAWS"
 
 #. Translators: The title for SPL Assistant help dialog.
 msgid "SPL Assistant help for Window-Eyes layout"
-msgstr "Axuda de SPL Assistant para a distribución Window-Eyes "
+msgstr "Axuda de SPL Assistant para a distribución Window-Eyes"
 
 #. Translators: A message informing users that Studio is not running so certain commands will not work.
 msgid "Studio main window not found"
@@ -880,7 +880,7 @@ msgstr "Restablecer o complemento SPL Studio"
 msgid "Add-on settings dialog is open, cannot switch profiles"
 msgstr ""
 "O diálogo de opcións do complemento está aberto. no se puede cambiar de "
-"perfil."
+"perfil"
 
 #. Translators: Presented when switch to instant switch profile was successful.
 #, python-brace-format
@@ -929,7 +929,7 @@ msgstr "activo"
 #. Translators: A flag indicating the broadcast profile is an instant switch profile.
 #. Instant switch flag is set on another profile, so remove the flag first.
 msgid "instant switch"
-msgstr "Cambio instantáneo"
+msgstr "cambio instantáneo"
 
 #. Translators: A flag indicating the time-based triggers profile.
 #. Calling set profile flags with discard argument is always safe here.
@@ -1060,7 +1060,7 @@ msgid "Braille timer off"
 msgstr "Temporizador braille apagado"
 
 msgid "Off"
-msgstr "desactivado"
+msgstr "Desactivado"
 
 #. Translators: A setting in braille timer options.
 msgid "Braille track endings"
@@ -1327,7 +1327,7 @@ msgstr "&Pitar para diferentes categorías de pista"
 
 #. Translators: One of the track comment notification settings.
 msgid "Message"
-msgstr "mensaxe"
+msgstr "Mensaxe"
 
 #. Translators: One of the track comment notification settings.
 msgid "Beep"
@@ -1402,7 +1402,7 @@ msgstr "pitido e mensaxe"
 
 #. Translators: The label for a setting in SPL add-on dialog to control alarm announcement type.
 msgid "&Alarm notification:"
-msgstr "Notificación da &Alarma"
+msgstr "Notificación da &Alarma."
 
 #. Translators: Help text for playlist snapshots dialog.
 msgid ""
@@ -1427,7 +1427,7 @@ msgstr "Conta de artistas"
 
 #. Translators: the label for a setting in SPL add-on settings to set top artist count limit in playlist snapshots window.
 msgid "Top artist count (0 displays all artists)"
-msgstr "conta de artistas principais (0 amosa todos os artistas)"
+msgstr "Conta de artistas principais (0 amosa todos os artistas)"
 
 #. Translators: the label for a setting in SPL add-on settings to include track category count in playlist snapshots window.
 msgid "Category count"
@@ -1493,7 +1493,7 @@ msgstr "Notificación e conexión dos &Metadatos de streaming"
 #. Add checkboxes for each stream, beginning with the DSP encoder.
 #. #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
 msgid "&Select the URL for metadata streaming upon request:"
-msgstr "&Selecionar a URL para metadatos de streaming baixo demanda."
+msgstr "&Selecionar a URL para metadatos de streaming baixo demanda:"
 
 #. Translators: title of a panel to configure column announcements (order and what columns should be announced).
 msgid "Column announcements"
@@ -1509,7 +1509,7 @@ msgid ""
 "(artist and title are announced by default):"
 msgstr ""
 "&Seleciona as columnas a seren anunciadas (artista e título anúncianse "
-"predeterminadamente"
+"predeterminadamente."
 
 #. wxPython 4 contains RearrangeList to allow item orders to be changed automatically.
 #. Because wxPython 3 doesn't include this, work around by using a variant of list box and move up/down buttons.
@@ -1540,7 +1540,7 @@ msgid ""
 "(artist and title are always included):"
 msgstr ""
 "&Selecciona columnas a incluír na transcrición (artista e título sempre se "
-"inclúen"
+"inclúen."
 
 #. Translators: title of a panel to configure columns explorer settings.
 msgid "Columns explorer"
@@ -1589,7 +1589,7 @@ msgstr "Anunciar reconto de &oíntes"
 
 #. Translators: the label for a setting in SPL add-on settings to announce currently playing cart.
 msgid "&Announce name of the currently playing cart"
-msgstr "&Anuncia o nome do cart pista que se está reproducindo."
+msgstr "&Anuncia o nome do cart pista que se está reproducindo"
 
 #. Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
 msgid "&Track name announcement:"
@@ -1617,7 +1617,7 @@ msgstr ""
 
 #. Translators: title of a panel to configure advanced SPL add-on options such as update checking.
 msgid "Advanced"
-msgstr "avanzado"
+msgstr "Avanzado"
 
 #. Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 msgid "Allow SPL C&ontroller command to invoke SPL Assistant layer"
@@ -1740,7 +1740,7 @@ msgstr "Ocurriu un erro inesperado cando se tentaba abrir o diálogo procurar."
 
 msgid "Enter or select the name or the artist of the track you wish to &search"
 msgstr ""
-"Introduce ou seleciona o nome ou o artista da pista que desexas procurar."
+"Introduce ou seleciona o nome ou o artista da pista que desexas procurar"
 
 msgid "Enter or select text to be &searched in a column"
 msgstr "Introducir ou seleccionar o texto a &procurar nunha columna"
@@ -1965,11 +1965,8 @@ msgid "There is no track playing."
 msgstr "Non hai pista en reprodución."
 
 #. Translators: Input help message for a SPL Controller command.
-#, fuzzy
 msgid "Announces stream encoder status from other programs"
-msgstr ""
-"Anuncia o estado do Studio coma o estado da pista en reprodución dende "
-"outros programas"
+msgstr "Anuncia o estado do codificador da transmisión dende outros programas"
 
 #. Translators: Input help message for a SPL Controller command.
 msgid ""
@@ -2035,7 +2032,7 @@ msgid ""
 "Toggles whether NVDA will switch to Studio when connected to a streaming "
 "server."
 msgstr ""
-"conmuta se NVDA cambiará a Studio cando estea conectado a un servidor de "
+"Conmuta se NVDA cambiará a Studio cando estea conectado a un servidor de "
 "streaming."
 
 #. Translators: Presented when toggling the setting to play selected song when connected to a streaming server.
@@ -2123,7 +2120,7 @@ msgid ""
 "twice, reports the current date"
 msgstr ""
 "Se se premeu unha vez, anuncia a hora actual incluindo segundos. Se se "
-"premeu dúas veces, anuncia a data actual."
+"premeu dúas veces, anuncia a data actual"
 
 #, python-brace-format
 msgid "Position: {pos}"

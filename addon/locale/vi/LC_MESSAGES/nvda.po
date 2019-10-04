@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 17.02\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2017-02-03 19:00+1000\n"
-"PO-Revision-Date: 2019-06-30 00:58+0700\n"
+"PO-Revision-Date: 2019-09-28 09:09+0700\n"
 "Last-Translator: Dang Manh Cuong <dangmanhcuong@gmail.com>\n"
 "Language-Team: \n"
 "Language: vi\n"
@@ -1927,11 +1927,8 @@ msgid "There is no track playing."
 msgstr "Không có track nào đang phát."
 
 #. Translators: Input help message for a SPL Controller command.
-#, fuzzy
 msgid "Announces stream encoder status from other programs"
-msgstr ""
-"Thông báo trạng thái của Studio như trạng thái phát track từ các chương "
-"trình khác"
+msgstr "Thông báo trạng thái mã hóa phát sóng từ các chương trình khác."
 
 #. Translators: Input help message for a SPL Controller command.
 msgid ""

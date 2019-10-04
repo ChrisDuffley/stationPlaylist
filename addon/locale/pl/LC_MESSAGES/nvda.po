@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2019-08-24 19:20+0100\n"
+"PO-Revision-Date: 2019-09-28 16:31+0100\n"
 "Last-Translator: zvonimir stanecic <zvonimirek222@yandex.com>\n"
 "Language-Team: Polish <killer@tyflonet.com>\n"
 "Language: pl\n"
@@ -533,7 +533,7 @@ msgstr "Nie załadowano playlisty"
 #. Translators: an error message presented when performing some playlist commands while no tracks are selected/focused.
 msgid ""
 "Please select a track from playlist viewer before invoking this command."
-msgstr ""
+msgstr "Proszę wybrać utwór z playlisty zanim wywołasz to polecenie."
 
 #. Translators: Presented when playlist analyzer cannot be performed because user is not focused on playlist viewer.
 msgid "Not in playlist viewer, cannot perform playlist analysis."
@@ -1425,6 +1425,8 @@ msgid ""
 "&Select columns to be included in playlist transcripts\n"
 "(artist and title are always included):"
 msgstr ""
+"&Zaznacz kolumny, które będą włączane do transkryptów playlisty\n"
+"(Wykonawca i tytuł są zawsze włączone):"
 
 #. Translators: title of a panel to configure columns explorer settings.
 msgid "Columns explorer"
@@ -1531,17 +1533,19 @@ msgstr ""
 
 #. Translators: The title of the channel switch confirmation dialog.
 msgid "Enable pilot features"
-msgstr ""
+msgstr "włączanie funkcji pilot"
 
 #. Translators: A dialog message shown when pilot features is turned on or off.
 msgid ""
 "You have toggled pilot features checkbox. You must restart NVDA for the "
 "change to take effect."
 msgstr ""
+"Zaznaczyłeś funkcje pilot. musisz zrestartować NVDA, aby zmiany zaczęły "
+"działać."
 
 #. Translators: Title of the pilot features dialog.
 msgid "Pilot features"
-msgstr ""
+msgstr "Funkcje pilot"
 
 #. Translators: Title of the dialog to reset various add-on settings.
 #. Translators: title of a panel to reset add-on settings.
@@ -1585,6 +1589,8 @@ msgid ""
 "Warning! Selecting Reset button and choosing various reset options will "
 "reset add-on settings to defaults."
 msgstr ""
+"Uwaga! Wybierając przycisk zresetuj i wybierając róźne opcje  resetowania "
+"zresetuje ustawienia dodatku do ich wartości domyślnych."
 
 #. Translators: The label of a button to open reset dialog.
 msgid "Reset settings..."
@@ -1609,6 +1615,8 @@ msgstr "Okno wyszukiwania jest już tgdzieś otwarte"
 #. Translators: Text of the dialog when a generic error has occured.
 msgid "An unexpected error has occured when trying to open find dialog."
 msgstr ""
+"Zdarzył się nieoczekiwany błąd przy próbię otwierania okna dialogowego "
+"wyszukiwanie."
 
 msgid "Enter or select the name or the artist of the track you wish to &search"
 msgstr "Podaj wykonawcę lub tytuł utworu do  wyszukania."
@@ -1696,27 +1704,27 @@ msgstr "Inne okno transkryptów playlisty jest otwarte."
 
 #. Translators: one of the playlist transcripts range options.
 msgid "entire playlist"
-msgstr ""
+msgstr "całkowita playlista"
 
 #. Translators: one of the playlist transcripts range options.
 msgid "start to current item"
-msgstr ""
+msgstr "początek do aktualnego elementu"
 
 #. Translators: one of the playlist transcripts range options.
 msgid "current item to the end"
-msgstr ""
+msgstr "aktualny element do końca"
 
 #. Translators: one of the playlist transcripts range options.
 msgid "current hour"
-msgstr ""
+msgstr "aktualna godzina"
 
 #. Translators: The label in playlist transcripts dialog to select playlist transcript range.
 msgid "Transcript range:"
-msgstr ""
+msgstr "zakres transkryptu:"
 
 #. Translators: The label in playlist transcripts dialog to select transcript output format.
 msgid "Transcript format:"
-msgstr ""
+msgstr "Format transkryptu:"
 
 #. Translators: one of the playlist transcript actions.
 msgid "view transcript"
@@ -1732,7 +1740,7 @@ msgstr "Zapisz do pliku"
 
 #. Translators: The label in playlist transcripts dialog to select transcript action.
 msgid "Transcript action:"
-msgstr ""
+msgstr "Akcja transkryptu:"
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
@@ -1759,6 +1767,27 @@ msgid ""
 "Function keys and number row keys with or without Shift, Alt, and Control "
 "keys: Play carts."
 msgstr ""
+"\n"
+"Po wejściu do kontrolera SPL, naciśnij:\n"
+"A: włączanie automatyzacji.\n"
+"Shift+A: wyłączanie automatyzacji.\n"
+"M: włączanie mikrofonu.\n"
+"Shift+M: wyłączanie mikrofonu.\n"
+"N: włączanie mikrofonu bez wyciszania.\n"
+"L: włącza wejście liniowe.\n"
+"Shift+L: wyłącza wejście liniowe.\n"
+"P: odtwarzanie.\n"
+"U: pauza.\n"
+"S: wstrzymanie bez z wyciszaniem.\n"
+"T: szybkie wstrzymanie.\n"
+"C: oznajmia nazwę i czas trwania aktualnie odtwarzanego utworu.\n"
+"E: oznajmia aktywność enkodera, jeżeli jest aktywny jakikolwiek.\n"
+"I: oznajmia liczbę słuchaczy.\n"
+"Q: Oznajmia informację o stanie Studio.\n"
+"R: Pozostały czas odtwarzanego utworu.\n"
+"Shift+R: postęp skanowania biblioteki.\n"
+"Klawisze funkcyjne i klawisze w rzędzie cyfrowym z lub bez shiftu, altu lub "
+"klawisza kontrol: odtwarzanie deków."
 
 #. Translators: Presented when StationPlaylist Studio is not running.
 msgid "SPL Studio is not running."
@@ -1812,9 +1841,8 @@ msgid "There is no track playing."
 msgstr "Żaden utwór nie jest odtwarzany"
 
 #. Translators: Input help message for a SPL Controller command.
-#, fuzzy
 msgid "Announces stream encoder status from other programs"
-msgstr "Oznajmia status SPL z poziomu innych aplikacji"
+msgstr "Oznajmia stan enkoderów strumieniowania z innych programów"
 
 #. Translators: Input help message for a SPL Controller command.
 msgid ""

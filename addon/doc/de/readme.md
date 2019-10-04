@@ -5,9 +5,10 @@
 * [Entwicklerversion herunterladen][2]
 * NVDA-Kompatibilität: 2019.1 bis 2019.2
 
-Diese Erweiterung verbessert die Zugänglichkeit von Station Playlist. Es
-stehen außerdem Befehle zur Verfügung, um diese Anwendungvon überall aus zu
-bedienen.
+This add-on package provides improved usage of StationPlaylist Studio and
+other StationPlaylist apps, as well as providing utilities to control Studio
+from anywhere. Supported apps include Studio, Creator, Track Tool, VT
+Recorder, and Streamer, as well as SAM, SPL, and AltaCast encoders.
 
 Weitere Informationen zur Erweiterung finden Sie in der
 [Add-On-Anleitung][4]. Für Entwickler, welche wissen wollen, wie die
@@ -90,6 +91,7 @@ eine beliebige Tastenkombination zu.
 * Befehlsschicht des SPL-Controllers.
 * Ansage des Studio-Status beim Navigieren in anderen Programmen,
   z.B. Titelwiedergabe.
+* Ansage des Encoder-Status aus anderen Programmen heraus.
 * Befehlsschicht des SPL-Assistenten im SPL-Studio.
 * Meldet die Studiozeit einschließlich Sekunden.
 * Meldet die Temperatur.
@@ -103,10 +105,9 @@ eine beliebige Tastenkombination zu.
   in einem bestimmten Zeitraum liegt.
 * Schnelles Aktivieren oder Deaktivieren von Metadaten-Streaming.
 
-## Zusätzliche Befehle während der Verwendung von Sam- oder SPL-Encoder
+## Zusätzliche Befehle während der Verwendung von Encodern.
 
-Folgende Befehle stehen zur Verfügung, wenn Sie Sam- oder SPL-Encoder
-verwenden:
+Folgende Befehle stehen zur Verfügung, wenn Sie Encoder verwenden:
 
 * F9: Mit einem Streaming-Server verbinden.
 * F10 (nur SAM-Encoder): Trennt die Verbindung zum Streaming-Server.
@@ -132,10 +133,10 @@ Verfügung:
 * STRG+NVDA+1: Position des Encoders.
 * STRG+NVDA+2: StreamBezeichnung.
 * STRG+NVDA+3 aus dem SAM-Encoder: Encoder-Format.
-* STRG+NVDA+3 aus dem SPL-Encoder: öffnet die Encoder-Einstellungen.
+* Control+NVDA+3 from SPL and AltaCast Encoder: Encoder settings.
 * STRG+NvDA+4 aus dem SAM-Encoder: meldet den Encoder-Verbindungsstatus.
-* STRG+NVDA+4 aus dem SPL-Encoder: Übertragungsrate oder Verbindungsstatus
-  wird angesagt.
+* Control+NVDA+4 from SPL and AltaCast Encoder: Transfer rate or connection
+  status.
 * STRG+NVDA+5 aus dem SAM-Encoder: Beschreibt den Verbindungsstatus.
 
 ## Befehlsschicht für den SPL-Assistenten
@@ -329,6 +330,15 @@ verwenden und NVDA 2012.3 oder höher installiert haben, können Sie einige
 Studio-Befehle über den Touchscreen ausführen. Tippen Sie zunächst einmal
 mit drei Fingern, um in den SPL-Touchmodus zu wechseln. Verwenden Sie dann
 die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
+
+## Version 19.10/18.09.12-LTS
+
+* Die Versionsankündigungsnachricht für Studio wurde beim Starten gekürzt.
+* Versionsinformationen für Creator werden beim Start ausgegeben.
+* 19.10: custom command can be assigned for encoder status command from SPL
+  Controller (E) so it can be used from everywhere.
+* Initial support for AltaCast encoder (Winamp plugin and must be recognized
+  by Studio). Commands are same as SPL Encoder.
 
 ## Version 19.08.1
 
