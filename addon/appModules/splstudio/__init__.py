@@ -11,7 +11,6 @@
 
 # Minimum version: SPL 5.20, NvDA 2018.4.
 
-import sys
 import os
 import time
 import threading
@@ -116,9 +115,7 @@ class SPLTrackItem(sysListView32.ListItem):
 		# This will work properly if the list (parent) is (or recognized as) SysListView32.List.
 		if not header: header = self._getColumnHeaderRaw(self.parent._columnOrderArray[colNumber])
 		columnContent = self._getColumnContentRaw(self.indexOf(header))
-		if columnContent:
-			if sys.version.startswith("3"): ui.message(str(_("{header}: {content}")).format(header = header, content = columnContent))
-			else: ui.message(unicode(_("{header}: {content}")).format(header = header, content = columnContent))
+		if columnContent: ui.message(str(_("{header}: {content}")).format(header = header, content = columnContent))
 		else:
 			import speech, braille
 			speech.speakMessage(_("{header}: blank").format(header = header))
