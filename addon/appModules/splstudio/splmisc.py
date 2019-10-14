@@ -499,7 +499,7 @@ def displayPlaylistTranscripts(transcript, HTMLDecoration=False):
 def copyPlaylistTranscriptsToClipboard(playlistTranscripts):
 	# Only text style transcript such as pure text and Markdown supports copying contents to clipboard.
 	import api
-	api.copyToClip(u"\r\n".join(playlistTranscripts))
+	api.copyToClip("\r\n".join(playlistTranscripts))
 	ui.message(_("Playlist data copied to clipboard"))
 
 def savePlaylistTranscriptsToFile(playlistTranscripts, extension, location=None):
