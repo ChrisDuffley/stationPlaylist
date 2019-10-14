@@ -282,8 +282,7 @@ def cartExplorerInit(StudioTitle, cartFiles=None, refresh=False, carts=None):
 		# See if multiple users are using SPl Studio.
 		userNameIndex = StudioTitle.find("-")
 		# Read *.cart files and process the cart entries within (be careful when these cart file names change between SPL releases).
-		# Until NVDA core moves to Python 3, assume that file names aren't unicode.
-		cartFiles = [u"main carts.cart", u"shift carts.cart", u"ctrl carts.cart", u"alt carts.cart"]
+		cartFiles = ["main carts.cart", "shift carts.cart", "ctrl carts.cart", "alt carts.cart"]
 		if userNameIndex >= 0:
 			cartFiles = [StudioTitle[userNameIndex+2:]+" "+cartFile for cartFile in cartFiles]
 	faultyCarts = False
