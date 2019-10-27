@@ -318,7 +318,7 @@ class Encoder(IAccessible):
 		statusThread.start()
 		self.threadPool[self.IAccessibleChildID] = statusThread
 
-	# #103 (SPL Threshold): the abstract method that is responsible for announcing connection status.
+	# #103: the abstract method that is responsible for announcing connection status.
 	@abstractmethod
 	def reportConnectionStatus(self, connecting=False):
 		raise NotImplementedError

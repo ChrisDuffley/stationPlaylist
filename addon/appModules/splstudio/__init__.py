@@ -120,7 +120,7 @@ class SPLTrackItem(sysListView32.ListItem):
 			speech.speakMessage(_("{header}: blank").format(header = header))
 			braille.handler.message(_("{header}: ()").format(header = header))
 
-	# #103 (SPL Threshold): provide an abstract index of function.
+	# #103: provide an abstract index of function.
 	@abstractmethod
 	def indexOf(self, columnHeader):
 		return None
@@ -158,7 +158,7 @@ class SPLTrackItem(sysListView32.ListItem):
 		# Due to the below formula, columns explorer will be restricted to number commands.
 		columnPos = int(gesture.displayName.split("+")[-1])-1
 		header = self.exploreColumns[columnPos]
-		# #103 (SPL Threshold): only concrete implementations will return the correct index.
+		# #103: only concrete implementations will return the correct index.
 		column = self.indexOf(header)
 		if column is not None:
 			# #61 (18.06): pressed once will announce column data, twice will present it in a browse mode window.
