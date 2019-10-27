@@ -117,7 +117,6 @@ class SPLTrackItem(sysListView32.ListItem):
 		columnContent = self._getColumnContentRaw(self.indexOf(header))
 		if columnContent: ui.message(str(_("{header}: {content}")).format(header = header, content = columnContent))
 		else:
-			import speech, braille
 			speech.speakMessage(_("{header}: blank").format(header = header))
 			braille.handler.message(_("{header}: ()").format(header = header))
 
