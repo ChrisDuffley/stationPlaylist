@@ -9,7 +9,7 @@
 # Renamed to StationPlaylist in 2019 in order to describe the scope of this add-on.
 # For SPL Studio Controller, focus movement, SAM Encoder support and other utilities, see the global plugin version of this app module.
 
-# Minimum version: SPL 5.20, NvDA 2018.4.
+# Minimum version: SPL 5.20, NvDA 2019.3.
 
 import os
 import time
