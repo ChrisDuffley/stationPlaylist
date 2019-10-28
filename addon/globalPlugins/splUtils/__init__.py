@@ -253,8 +253,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			ui.message(_("SPL Studio is not running."))
 			self.finish()
 			return
-		from . import encoders
-		encoders.announceEncoderConnectionStatus()
+		# #98: ask SPL Engine app module for encoder connection status, which in turn will call the one found in encoders support module.
+		import appModules.splengine
+		appModules.splengine.announceEncoderConnectionStatus()
 		self.finish()
 	# Translators: Input help message for a SPL Controller command.
 	script_encoderStatus.__doc__ = _("Announces stream encoder status from other programs")

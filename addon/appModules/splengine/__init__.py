@@ -29,6 +29,12 @@ encoderSettingsLabels= {
 	1026: "Log File",
 }
 
+# #98: call the one from encoders module directly.
+# This is an indirect jump due to SPL Controller's encoder connection status  command.
+def announceEncoderConnectionStatus():
+	from . import encoders
+	encoders.announceEncoderConnectionStatus()
+
 class AppModule(appModuleHandler.AppModule):
 
 	def terminate(self):
