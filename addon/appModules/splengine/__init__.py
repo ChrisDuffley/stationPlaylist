@@ -37,9 +37,11 @@ class AppModule(appModuleHandler.AppModule):
 		# This also could have allowed a hacker to modify the flags set (highly unlikely) so NvDA could get confused next time Studio loads.
 		# #105 (19.07): SPL Engine is responsible for hosting encoder DLL's.
 		# #104 (19.07/18.09.10-LTS): any app module deriving from this (including Streamer) must clean up encoders database.
-		if "globalPlugins.splUtils.encoders" in sys.modules:
-			import globalPlugins.splUtils.encoders
-			globalPlugins.splUtils.encoders.cleanup()
+		# #98: this is still the case even though encoders support is part of the SPL Engine app module package.
+		# This introduces a side effect where encoders database might be reopened if both SPL Engine and Streamer are active and one of them dies.
+		# For now, ignore this condition.
+		from . import encoders
+		encoders.cleanup()
 
 	def event_NVDAObject_init(self, obj):
 		# ICQ field is incorrectly labeled as IRC.
@@ -70,11 +72,8 @@ class AppModule(appModuleHandler.AppModule):
 		# Detect encoders.
 		# #107 (19.08): for now SPL Utils global plugin will be checked, but in the future, look into supporting encoders via an app module package.
 		# 19.11: if SPL Engine or Streamer is focused when NVDA starts, it results in error because global plugin portion isn't loaded yet.
-		try:
-			from globalPlugins.splUtils import encoders
-		except:
-			# Just forget it.
-			return
+		# #98: now part of SPL Engine app module package, so no need to worry about global plugin workaround.
+		from . import encoders
 		if obj.windowClassName == "TListView":
 			# #87: add support for table navigation commands by coercing encoder list and entries into SysListView32 family.
 			if obj.role == controlTypes.ROLE_LISTITEM:
