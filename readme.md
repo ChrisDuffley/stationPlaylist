@@ -195,6 +195,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Version 19.11
 
 * Encoder status command from SPL Controller (E) will announce connection status for the active encoder set instead of encoders being monitored in the background.
+* NVDA will no longer appear to do nothing or play error tones when it starts while an encoder window is focused.
 
 ## Version 19.10/18.09.12-LTS
 
