@@ -86,15 +86,18 @@ contrario.
 
 ## Órdenes sin asignar
 
-Las siguientes órdenes no se asignaron de manera predeterminada; si deseas
-asignnarlas, utiliza el diálogo Gestos de Entrada para añadir órdenes
-personalizadas.
+Las siguientes órdenes se encuentran por defecto sin asignar; si deseas
+asignarlas, usa el diálogo Gestos de entrada para añadir órdenes
+personalizadas. Para hacerlo, desde la ventana de Studio, abre el menú NVDA,
+Preferencias, Gestos de entrada. Expande la categoría StationPlaylist y
+busca las órdenes sin asignar de la siguiente lista, elige "Añadir" y teclea
+la orden que quieres usar.
 
 * Cambia a la ventana SPL Studio desde cualquier programa.
 * SPL Controller layer.
 * Anunciar el estado de Studio tal como reproducción de pista desde otros
   programas.
-* Anunciar el estado del codificador desde otros programas.
+* Anunciar el estado de conexión del codificador desde cualquier programa.
 * Capa SPL Assistant desde SPL Studio.
 * Anuncia el tiempo incluyendo segundos desde SPL Studio.
 * Anuncia la temperatura.
@@ -191,8 +194,7 @@ Las órdenes disponibles son:
 * U: Studio al día.
 * W: clima y temperatura si se configuró.
 * Y: Estado modificado de lista de reproducción.
-* 1 hasta 0 (6 para Studio 5.0x): anuncia el contenido de la columna para
-  una columna específica.
+* 1 hasta 0: anuncia el contenido de la columna para una columna específica.
 * F8: toma instantáneas de la lista de reproducción (número de pistas, pista
   más larga, etc.).
 * Shift+F8: Solicita transcripciones de la lista de reproducción en varios
@@ -232,8 +234,7 @@ Las órdenes disponibles para el SPL Controller son:
   actualmente en reproducción.
 * Pulsa Shift+C para permitir a NVDA anunciar el nombre y la duración de la
   pista actualmente en reproducción si la hay.
-* Pulsa E para obtener una cuenta y etiquetas de los codificadores que están
-  siendo monitorizados.
+* Pulsa E para escuchar qué codificadores están conectados.
 * Pulsa I para obtener el recuento de oyentes.
 * Pulsa Q para obtener información de estado variada acerca de Studio
   incluyendo si una pista se está reproduciendo, si el micrófono está
@@ -327,6 +328,14 @@ Windows 8 o posterior y tienes NVDA 2012.3 o posterior instalado, puedes
 realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
+
+## Versión 19.11
+
+* La orden de estado del codificador del controlador de SPL (E) anunciará el
+  estado de conexión del codificador activo configurado en vez de los
+  codificadores monitorizados en segundo plano.
+* NVDA ya no parecerá no hacer nada o reproducir tonos de error cuando se
+  inicie mientras una ventana del codificador tenga el foco.
 
 ## Versión 19.10/18.09.12-LTS
 

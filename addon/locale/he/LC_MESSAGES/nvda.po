@@ -1784,7 +1784,7 @@ msgid ""
 "S: Stop with fade.\n"
 "T: Instant stop.\n"
 "C: Announce name and duration of the currently playing track.\n"
-"E: Announce if any encoders are being monitored.\n"
+"E: Announce connected encoders if any.\n"
 "I: Announce listener count.\n"
 "Q: Announce Studio status information.\n"
 "R: Remaining time for the playing track.\n"
@@ -1871,14 +1871,24 @@ msgstr "מכריזה על מצב הסטודיו, כגון מצב השמעת רצ
 msgid "SPL Controller help"
 msgstr "עזרה על תוכנת SPL"
 
-#. Translators: Message presented when there are no encoders being monitored.
-msgid "No encoders are being monitored"
-msgstr "אין מנגנוני קידוד תחת שליטה"
+#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
+#, fuzzy
+msgid "No encoders found"
+msgstr "לא נמצאה נקודת תחילת הניתוח"
 
-#. Translators: Announces number of encoders being monitored in the background.
-#, python-brace-format
-msgid "Number of encoders monitored: {numberOfEncoders}: {streamLabels}"
-msgstr "מספר מנגנוני קידוד תחת שליטה:   {numberOfEncoders}: {streamLabels}"
+#. Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
+msgid "Only one encoder type can be active at once"
+msgstr ""
+
+#. Translators: presented when at least one encoder is connected.
+#, fuzzy, python-brace-format
+msgid "Connected encoders: {encodersConnected}"
+msgstr "שליטה על מנגנון הקידוד   {encoderNumber}"
+
+#. Translators: presented when no encoders are connected.
+#, fuzzy
+msgid "No encoders connected"
+msgstr "אין מנגנוני קידוד תחת שליטה"
 
 #. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
 #, python-brace-format
@@ -2040,6 +2050,9 @@ msgid ""
 msgstr ""
 "מנגיש את תוכנת StationPlaylist  Studio  .  \n"
 "בנוסף, מאפשר ביצוע פקודות מכל מקום אחר במחשב."
+
+#~ msgid "Number of encoders monitored: {numberOfEncoders}: {streamLabels}"
+#~ msgstr "מספר מנגנוני קידוד תחת שליטה:   {numberOfEncoders}: {streamLabels}"
 
 #~ msgid "Using SPL Studio version {SPLVersion}"
 #~ msgstr "השימוש בSPL גרסת  {SPLVersion}"

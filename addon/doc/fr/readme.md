@@ -86,15 +86,17 @@ contraire.
 
 ## Commandes non assignées
 
-Les commandes suivantes ne sont pas assignées par défaut ; si vous souhaitez
-les assigner, utilisez le dialogue Gestes de commandes pour ajouter des
-commandes personnalisées.
+The following commands are not assigned by default; if you wish to assign
+them, use Input Gestures dialog to add custom commands. To do so, from
+Studio window, open NVDA menu, Preferences, then Input Gestures. Expand
+StationPlaylist category, then locate unassigned commands from the list
+below and select "Add", then type the gesutre you wish to use.
 
 * Basculement vers la fenêtre SPL Studio depuis n'importe quel programme.
 * Couche Contrôleur SPL.
 * Annonçant le statut de Studio, comme la lecture de pistes à partir
   d'autres programmes.
-* Announcing encoder status from any program.
+* Announcing encoder connection status from any program.
 * Couche Assistant SPL depuis SPL Studio.
 * Annoncer le temps y compris les secondes depuis SPL Studio.
 * Annonce de la température.
@@ -190,8 +192,7 @@ Les commandes disponibles sont :
 * U: temps de fonctionnement Studio.
 * W: Météo et température si configurée.
 * Y: Statut de la modification de la playlist.
-* 1 jusqu'à 0 (6 pour Studio 5.0x) : Annoncer le contenu de la colonne pour
-  une colonne spécifiée.
+* 1 through 0: Announce column content for a specified column.
 * F8 : Prendre des instantanés de playlist (nombre de pistes, piste la plus
   longue, etc.).
 * Maj+F8 : Demander des transcriptions de playlist dans de nombreux formats.
@@ -231,8 +232,7 @@ Les commandes disponibles pour le Contrôleur SPL sont:
   cours de lecture.
 * Appuyez sur Maj+C pour laisser NVDA annoncer le nom et la durée de la
   prochaine piste, le cas échéant.
-* Appuyez sur E pour obtenir un nombre et des étiquettes pour les encodeurs
-  étant contrôlés.
+* Press E to hear which encoders are connected.
 * Appuyez sur I pour obtenir le nombre d'auditeurs.
 * Appuyer sur Q pour obtenir diverses informations du statut de Studio, y
   compris si une piste est en cours de lecture, le microphone est activé et
@@ -326,6 +326,14 @@ ultérieure installé, vous pouvez exécuter certaines commandes Studio depuis
 un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
+
+## Version 19.11
+
+* Encoder status command from SPL Controller (E) will announce connection
+  status for the active encoder set instead of encoders being monitored in
+  the background.
+* NVDA will no longer appear to do nothing or play error tones when it
+  starts while an encoder window is focused.
 
 ## Version 19.10/18.09.12-LTS
 

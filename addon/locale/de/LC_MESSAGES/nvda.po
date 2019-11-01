@@ -1897,6 +1897,7 @@ msgstr "Transcript-Aktion:"
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
+#, fuzzy
 msgid ""
 "\n"
 "After entering SPL Controller, press:\n"
@@ -1912,7 +1913,7 @@ msgid ""
 "S: Stop with fade.\n"
 "T: Instant stop.\n"
 "C: Announce name and duration of the currently playing track.\n"
-"E: Announce if any encoders are being monitored.\n"
+"E: Announce connected encoders if any.\n"
 "I: Announce listener count.\n"
 "Q: Announce Studio status information.\n"
 "R: Remaining time for the playing track.\n"
@@ -2007,14 +2008,24 @@ msgstr ""
 msgid "SPL Controller help"
 msgstr "Hilfe zur SPL-Steuerung"
 
-#. Translators: Message presented when there are no encoders being monitored.
-msgid "No encoders are being monitored"
-msgstr "Es werden keine Encoder überwacht"
+#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
+#, fuzzy
+msgid "No encoders found"
+msgstr "Keine Markierung gefunden"
 
-#. Translators: Announces number of encoders being monitored in the background.
-#, python-brace-format
-msgid "Number of encoders monitored: {numberOfEncoders}: {streamLabels}"
-msgstr "Anzahl überwachter Encoder: {numberOfEncoders}: {streamLabels}"
+#. Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
+msgid "Only one encoder type can be active at once"
+msgstr ""
+
+#. Translators: presented when at least one encoder is connected.
+#, fuzzy, python-brace-format
+msgid "Connected encoders: {encodersConnected}"
+msgstr "Überwachen der Encoder {encoderNumber}"
+
+#. Translators: presented when no encoders are connected.
+#, fuzzy
+msgid "No encoders connected"
+msgstr "Es werden keine Encoder überwacht"
 
 #. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
 #, python-brace-format
@@ -2190,6 +2201,9 @@ msgstr ""
 "Verbessert die Unterstützung für Station Playlist Studio.\n"
 "Des weiteren fügt es Tastenkombinationen für das Studio aus beliebigen "
 "Programmen hinzu."
+
+#~ msgid "Number of encoders monitored: {numberOfEncoders}: {streamLabels}"
+#~ msgstr "Anzahl überwachter Encoder: {numberOfEncoders}: {streamLabels}"
 
 #~ msgid "Using SPL Studio version {SPLVersion}"
 #~ msgstr "Verwendete SPL Version {SPLVersion}"

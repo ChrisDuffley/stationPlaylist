@@ -73,14 +73,17 @@ lập khác.
 
 ## Các lệnh chưa được gán thao tác
 
-Các lệnh sau đây mặc định không được gán thao tác; nếu muốn gán thao tác cho
-chúng, hãy dùng hộp thoại quản lý thao tác để thêm lệnh.
+Các lệnh sau mặc định không được gán thao tác; nếu muốn gán cho chúng, hãy
+dùng hộp thoại quản lý thao tác để thêm các lệnh tùy biến. Để làm điều này,
+từ cửa sổ Studio, mở trình đơn NVDA, tùy chỉnh, Quản lý thao tác. mở phân
+loại StationPlaylist, tìm đến các lệnh chưa gán thao tác từ danh sách bên
+dưới rồi chọn "Thêm", và nhập vào thao tác bạn muốn sử dụng.
 
 * Chuyển từ một chương trình bất kì đến cửa sổ SPL Studio .
 * Lệnh cho bộ điều khiển SPL.
 * Thông báo trạng thái Studio như track đang phát từ một chương trình bất
   kì.
-* Thông báo trạng thái Studio từ bất kì chương trình nào.
+* Thông báo trạng thái kết nối mã hóa từ bất kì chương trình nào.
 * SPL Assistant layer từ SPL Studio.
 * Thông báo giờ bao gồm giây từ SPL Studio.
 * Thông báo nhiệt độ.
@@ -92,7 +95,7 @@ chúng, hãy dùng hộp thoại quản lý thao tác để thêm lệnh.
 * Tìm kiếm văn bản trong các cột cụ thể.
 * Tìm track với  thời lượng trong khoảng thời gian cho trước thông qua tìm
   kiếm theo khoảng thời gian.
-* Nhanh chóng bật hay tắt metadata streaming.
+* Nhanh chóng bật hay tắt truyền siêu dữ liệu.
 
 ## Những lệnh cho thêm khi dùng các bộ mã hóa
 
@@ -144,9 +147,9 @@ Các lệnh được hỗ trợ bao gồm:
 * D (R trong kiểu phím lệnh của JAWS): thời lượng còn lại của danh sách phát
   (nếu có thông báo lỗi, di chuyển đến trình xem danh sách phát và thực hiện
   lệnh này).
-* `E (G trong kiểu phím lệnh Window-Eyes): trạng thái metadata streaming.
-* Shift+1 đến Shift+4, Shift+0: trạng thái của metadata streaming URL cụ thể
-  (0 cho DSP encoder).
+* `E (G trong kiểu phím lệnh Window-Eyes): trạng thái truyền siêu dữ liệu.
+* Shift+1 đến Shift+4, Shift+0: trạng thái của URL truyền siêu dữ liệu cụ
+  thể (0 cho DSP encoder).
 * E (kiểu phím lệnh của Window-Eyes): thời gian đã phát của track hiện tại.
 * F: tìm kiếm track (chỉ  khi ở trong trình xem danh sách phát).
 * H: thời lượng phát nhạc của khung giờ hiện tại.
@@ -170,7 +173,7 @@ Các lệnh được hỗ trợ bao gồm:
 * U: Studio tăng thời gian.
 * W: thời tiết và nhiệt độ nếu được cấu hình.
 * Y: trạng thái chỉnh sửa danh sách phát.
-* 1 đến 0 (6 cho Studio 5.0x): thông báo nội dung của một cột được chỉ định.
+* 1 đến 0: thông báo nội dung của một cột được chỉ định.
 * `F8: lấy ảnh chụp danh sách phát (số track, track dài nhất, v...v....).
 * Shift+F8: yêu cầu bảng điểm danh sách phát ở nhiều định dạng.
 * F9: đánh dấu track hiện tại là nơi bắt đầu phân tích danh sách phát (chỉ
@@ -201,7 +204,7 @@ Các lệnh của bộ điều khiển SPL bao gồm:
 * Bấm Shift+R để xem báo cáo về tiến trình quét thư viện.
 * Bấm C để NVDA thông báo tên và thời lượng của track đang phát.
 * Bấm Shift+C để NVDA thông báo tên và thời lượng của track sắp tới nếu có.
-* Bấm E để biết số lượng và các nhãn của các bộ mã hóa đang được theo dõi.
+* Bấm E để biết bộ mã hóa nào đã kết nối.
 * Bấm I để thu thập số lượng người nghe.
 * Bấm Q để thu thập nhiều thông tin trạng thái về Studio bao gồm việc có một
   track đang phát, microphone đang bật và các thông tin khác.
@@ -286,6 +289,14 @@ NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio t
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
 
+## Phiên bản 19.11
+
+* Lệnh trạng thái mã hóa từ bộ điều khiển SPL (E ) sẽ thông báo trạng thái
+  kết nối cho các bộ mã hóa đang hoạt động thay vì một bộ mã hóa đang được
+  theo dõi ngầm.
+* NVDA sẽ không còn tình trạng không làm gì hoặc phát âm thanh báo lỗi khi
+  khởi động trong lúc một cửa sổ mã hóa đang có focus.
+
 ## Phiên bản 19.10/18.09.12-LTS
 
 * Rút gọn thông điệp thông báo phiên bản cho Studio khi nó khởi động.
@@ -318,7 +329,7 @@ và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thự
 * Đổi tên add-on từ "StationPlaylist Studio" thành "StationPlaylist" để mô
   tả tốt hơn các ứng dụng và tính năng được hỗ trợ bởi add-on này.
 * Các cải tiến bảo mật bên trong.
-* Nếu báo hiệu microphone hoặc các thiết lập metadata streaming bị thay đổi
+* Nếu báo hiệu microphone hoặc các thiết lập truyền siêu dữ liệu bị thay đổi
   từ cài đặt add-on, NVDA sẽ không còn bị lỗi áp dụng các thiết lập đã thay
   đổi. Điều này khắc phục lỗi khi báo hiệu microphone không khởi động hoặc
   bị dừng ngay sau khi thay đổi các thiết lập  thông qua cài đặt add-on.
@@ -375,8 +386,8 @@ Phiên bản 19.06 hỗ trợ SPL Studio 5.20 trở lên.
   phục cài đặt, NVDA sẽ hỏi thêm một lần nữa nếu có một hồ sơ chuyển nhanh
   hay hồ sơ theo thời gian đang được kích hoạt.
 * Sau khi khôi phục các cài đặt của Studio add-on, NvDA sẽ tắt hẹn giờ
-  chuông báo microphone và thông báo trạng thái metadata streaming, tương tự
-  như sau khi chuyển giữa các hồ sơ phát thanh.
+  chuông báo microphone và thông báo trạng thái truyền siêu dữ liệu, tương
+  tự như sau khi chuyển giữa các hồ sơ phát thanh.
 
 ## Phiên bản 19.01.1
 
@@ -428,11 +439,11 @@ Studio 5.31.
   sách phát (SPL Assistant, Shift+F8) khi một danh sách phát được mở nhưng
   con trỏ không đứng ở tack đầu tiên.
 * NVDA sẽ không còn tình trạng không làm gì hoặc phát âm thanh báo lỗi khi
-  cố gắng thông báo trạng thái metadata streaming khi khởi độn Studio nếu đã
-  được cấu hình như vậy.
-* Nếu được cấu hình để thông báo trạng thái metadata streaming khi khởi động
-  Studio, việc thông báo trạng thái metadata streaming sẽ không còn bỏ đi
-  các thông báo thay đổi thanh trạng thái và ngược lại.
+  cố gắng thông báo trạng thái truyền siêu dữ liệu khi khởi độn Studio nếu
+  đã được cấu hình như vậy.
+* Nếu được cấu hình để thông báo trạng thái truyền siêu dữ liệu khi khởi
+  động Studio, việc thông báo trạng thái metadata streaming sẽ không còn bỏ
+  đi các thông báo thay đổi thanh trạng thái và ngược lại.
 
 ## Phiên bản 18.10.2/18.09.4-LTS
 
@@ -475,11 +486,11 @@ mới. Vài tính năng mới sẽ hỗ trợ ngược trở lại 18.09.x nếu
   cộng đồng NVDA add-on (addons.nvda-project.org), chọn StationPlaylist
   Studio rồi tải bản phát hành mong muốn.
 * Các dấu kiểm để bao gồm cột cho việc thông báo cột và bảng điểm danh sách
-  phát, kể cả các hộp kiểm cho metadata streams cũng đã được chuyển sang
+  phát, kể cả các hộp kiểm cho truyền siêu dữ liệu cũng đã được chuyển sang
   dạng checkable (tạm dịch: có thể chọn).
 * Khi chuyển qua lại giữa các bản cài đặt, NvDA sẽ nhớ các thiết lập hiện
   tại cho các cài đặt hồ sơ cụ thể (báo hiệu, thông báo cột, cài đặt cho
-  metadata streaming ).
+  truyền siêu dữ liệu).
 * Thêm định dạng CSV (dùng dấu phẩy ngăn cách các giá trị) như một định dạng
   cho bảng điểm của danh sách phát.
 * Bấm Control+NvDA+C để lưu thiết lập sẽ lưu luôn thiết lập của Studio
@@ -501,7 +512,7 @@ mới. Vài tính năng mới sẽ hỗ trợ ngược trở lại 18.09.x nếu
   bản chỉnh sửa của danh sách phát, thường thấy sau khi mở một danh sách
   phát chưa chỉnh sửa hoặc khi khởi động Studio.
 * NVDA sẽ không còn tình trạng không làm gì hoặc phát âm thanh báo lỗi khi
-  cố gắng thu thập trạng thái metadata streaming thông qua SPL Assistant
+  cố gắng thu thập trạng thái truyền siêu dữ liệu thông qua SPL Assistant
   (E).
 
 ## Phiên bản 18.08
@@ -623,11 +634,11 @@ mới. Vài tính năng mới sẽ hỗ trợ ngược trở lại 18.09.x nếu
 
 ## Phiên bản 18.03/15.14-LTS
 
-* Nếu được cấu hình để thông báo trạng thái metadata streaming khi khởi động
-  Studio, NVDA sẽ tôn trọng thiết lập này và không thông báo trạng thái phát
-  khi chuyển đến và chuyển đi khỏi các hồ sơ chuyển nhánh.
+* Nếu được cấu hình để thông báo trạng thái truyền siêu dữ liệu khi khởi
+  động Studio, NVDA sẽ tôn trọng thiết lập này và không thông báo trạng thái
+  phát khi chuyển đến và chuyển đi khỏi các hồ sơ chuyển nhánh.
 * Nếu chuyển đến hay chuyển đi khỏi một hồ sơ chuyển nhanh, và NVDA được cấu
-  hình thông báo trạng thái metadata streaming khi nó xuất hiện, NVDA sẽ
+  hình thông báo trạng thái truyền siêu dữ liệu khi nó xuất hiện, NVDA sẽ
   không còn đọc thông tin này nhiều lần khi chuyển nhanh đến các hồ sơ.
 * NVDA sẽ nhớ chuyển đến các hồ sơ theo thời gian thích hợp (nếu chỉ định
   cho một chương trình) sau khi khởi động lại NVDA nhiều lần trong chương
@@ -653,7 +664,7 @@ mới. Vài tính năng mới sẽ hỗ trợ ngược trở lại 18.09.x nếu
   nhật add-on.
 * NVDA sẽ không còn tình trạng bị đóng băng hoặc không làm gì khi chuyển đến
   một hồ sơ chuyển nhanh hay hồ sơ theo thời gian và NVDA được cấu hình để
-  thông báo trạng thái metadata streaming.
+  thông báo trạng thái truyền siêu dữ liệu.
 
 ## Phiên bản 18.01/15.12-LTS
 
@@ -667,7 +678,7 @@ mới. Vài tính năng mới sẽ hỗ trợ ngược trở lại 18.09.x nếu
 
 * Yêu cầu Windows 7 Service Pack 1 trở lên.
 * Vài tính năng của add-on đã được cải thiện. Điều này cho phép báo hiệu
-  microphone và metadata streaming phản hồi đến các thay đổi trong hồ sơ
+  microphone và truyền siêu dữ liệu phản hồi đến các thay đổi trong hồ sơ
   phát thanh. Yêu cầu NvDA 2017.4.
 * Khi thoát Studio, nhiều hộp thoại của add-on như cài đặt add-on, hộp thoại
   báo hiệu và nhiều nữa sẽ tự đóng lại. Yêu cầu NVDA 2017.4.
