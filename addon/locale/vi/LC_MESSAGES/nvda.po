@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 17.02\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2017-02-03 19:00+1000\n"
-"PO-Revision-Date: 2019-10-31 10:36+0700\n"
+"PO-Revision-Date: 2019-11-04 10:18+0700\n"
 "Last-Translator: Dang Manh Cuong <dangmanhcuong@gmail.com>\n"
 "Language-Team: \n"
 "Language: vi\n"
@@ -1831,7 +1831,6 @@ msgstr "Hoạt động bản điểm:"
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
-#, fuzzy
 msgid ""
 "\n"
 "After entering SPL Controller, press:\n"
@@ -1869,12 +1868,13 @@ msgstr ""
 "S: dừng với hiệu ứng fade.\n"
 "T: dừng nhanh.\n"
 "C: thông báo tên và thời lượng của track đang phát.\n"
-"E: thông báo khi có một bộ mã hóa đang được theo dõi.\n"
+"E: thông báo bộ mã hóa đã kết nối.\n"
 "I: thông báo số người nghe.\n"
 "Q: thông báo trạng thái Studio.\n"
 "R: thời gian còn lại của track đang phát.\n"
-"Shift+R: tiến trình quét thư viện.Các phím chức năng và phím số có hoặc "
-"không có phím Shift, Alt, và Control: phát cart."
+"Shift+R: tiến trình quét thư viện.\n"
+"Các phím chức năng và phím số có hoặc không có phím Shift, Alt, và Control: "
+"phát cart."
 
 #. Translators: Presented when StationPlaylist Studio is not running.
 msgid "SPL Studio is not running."
@@ -1943,23 +1943,21 @@ msgid "SPL Controller help"
 msgstr "Trợ giúp bộ điều khiển SPL"
 
 #. Translators: presented when no streaming encoders were found when trying to obtain connection status.
-#, fuzzy
 msgid "No encoders found"
-msgstr "Không tìm thấy điểm đánh dấu nào"
+msgstr "Không tìm thấy bộ mã hóa nào"
 
 #. Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
 msgid "Only one encoder type can be active at once"
-msgstr ""
+msgstr "Chỉ có thể kích hoạt một loại mã hóa cho một lần"
 
 #. Translators: presented when at least one encoder is connected.
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Connected encoders: {encodersConnected}"
-msgstr "Đang theo dõi bộ mã hóa {encoderNumber}"
+msgstr "Các bộ mã hóa đã kết nối: {encodersConnected}"
 
 #. Translators: presented when no encoders are connected.
-#, fuzzy
 msgid "No encoders connected"
-msgstr "Không có bộ mã hóa nào đang được theo dõi"
+msgstr "Không có bộ mã hóa nào được kết nối"
 
 #. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
 #, python-brace-format

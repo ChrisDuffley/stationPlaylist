@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2019-09-28 12:59+0200\n"
+"PO-Revision-Date: 2019-11-01 12:36+0100\n"
 "Last-Translator: José Manuel Delicado <jmdaweb@hotmail.com>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.2.3\n"
+"X-Generator: Poedit 2.2.4\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
@@ -1883,7 +1883,6 @@ msgstr "Acción para transcripción:"
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
-#, fuzzy
 msgid ""
 "\n"
 "After entering SPL Controller, press:\n"
@@ -1921,7 +1920,7 @@ msgstr ""
 "S: Detener con fade.\n"
 "T: Detener instantáneamente.\n"
 "C: Anuncia el nombre y la duración de la pista actualmente en reproducción.\n"
-"E: Anuncia si cualquier codificador se está monitorizando.\n"
+"E: Anuncia los codificadores conectados, si los hay.\n"
 "I: anuncia el recuento de oyentes.\n"
 "Q: Anuncia información de estado de Studio.\n"
 "R: Tiempo restante para la pista en reproducción.\n"
@@ -1997,23 +1996,21 @@ msgid "SPL Controller help"
 msgstr "Ayuda del SPL Controller"
 
 #. Translators: presented when no streaming encoders were found when trying to obtain connection status.
-#, fuzzy
 msgid "No encoders found"
-msgstr "No se encontró marcador"
+msgstr "No se encontraron codificadores"
 
 #. Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
 msgid "Only one encoder type can be active at once"
-msgstr ""
+msgstr "Sólo puede haber un codificador de cada tipo activado a la vez"
 
 #. Translators: presented when at least one encoder is connected.
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Connected encoders: {encodersConnected}"
-msgstr "Monitorizando codificador {encoderNumber}"
+msgstr "Codificadores conectados: {encodersConnected}"
 
 #. Translators: presented when no encoders are connected.
-#, fuzzy
 msgid "No encoders connected"
-msgstr "No hay codificadores siendo monitorizados"
+msgstr "No hay codificadores conectados"
 
 #. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
 #, python-brace-format
