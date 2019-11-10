@@ -192,6 +192,13 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 19.11.1/18.09.13-LTS
+
+* Initial support for StationPlaylist suite 5.40.
+* In Studio, playlist snapshots (SPL Assistant, F8) and various time announcement commands such as remaining time (Control+Alt+T) will no longer cause NVDA to play error tones or do nothing if using NVDA 2019.3 or later.
+* In Creator's track list items, "Language" column added in Creator 5.31 and later is properly recognized.
+* In various lists in Creator apart from track list, NVDA will no longer announce odd column information if Control+NVDA+number row command is pressed.
+
 ## Version 19.11
 
 * Encoder status command from SPL Controller (E) will announce connection status for the active encoder set instead of encoders being monitored in the background.
