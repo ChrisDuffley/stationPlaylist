@@ -14,8 +14,11 @@ addonHandler.initTranslation()
 
 # Return a tuple of column headers.
 # This is just a thinly disguised indexOf function from Studio's track item class.
-def indexOf(ttVersion):
-	return ("Artist", "Title", "Position", "Cue", "Intro", "Outro", "Segue", "Duration", "Last Scheduled", "7 Days", "Date Restriction", "Year", "Album", "Genre", "Mood", "Energy", "Tempo", "BPM", "Gender", "Rating", "File Created", "Filename", "Client", "Other", "Intro Link", "Outro Link")
+def indexOf(creatorVersion):
+	if creatorVersion >= "5.31":
+		return ("Artist", "Title", "Position", "Cue", "Intro", "Outro", "Segue", "Duration", "Last Scheduled", "7 Days", "Date Restriction", "Year", "Album", "Genre", "Mood", "Energy", "Tempo", "BPM", "Gender", "Rating", "File Created", "Filename", "Client", "Other", "Intro Link", "Outro Link", "Language")
+	else:
+		return ("Artist", "Title", "Position", "Cue", "Intro", "Outro", "Segue", "Duration", "Last Scheduled", "7 Days", "Date Restriction", "Year", "Album", "Genre", "Mood", "Energy", "Tempo", "BPM", "Gender", "Rating", "File Created", "Filename", "Client", "Other", "Intro Link", "Outro Link")
 
 class SPLCreatorItem(SPLTrackItem):
 	"""An entry in SPL Creator (mostly tracks).
