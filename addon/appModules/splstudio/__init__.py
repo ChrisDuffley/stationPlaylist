@@ -1120,7 +1120,8 @@ class AppModule(appModuleHandler.AppModule):
 			return "00:00"
 		else:
 			if ms:
-				t = (t/1000) if not offset else (t/1000)+offset
+				# 19.11.1/18.09.13-LTS: be sure to convert time into integer indirectly via floor division for maximum compatibility between Python 2 and 3.
+				t = (t//1000) if not offset else (t//1000)+offset
 			mm, ss = divmod(t, 60)
 			if mm > 59 and (includeHours or (includeHours is None and splconfig.SPLConfig["General"]["TimeHourAnnounce"])):
 				hh, mm = divmod(mm, 60)
