@@ -92,7 +92,9 @@ class AppModule(appModuleHandler.AppModule):
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		import controlTypes
 		if obj.windowClassName in ("TListView", "TTntListView.UnicodeClass"):
-			if obj.role == controlTypes.ROLE_LISTITEM:
+			# 19.11.1/18.09.13-LTS: filter out list items other than actual track list.
+			# Column count is assumed to be 20 or more.
+			if obj.role == controlTypes.ROLE_LISTITEM and obj.parent.columnCount > 20:
 				clsList.insert(0, SPLCreatorItem)
 			elif obj.role == controlTypes.ROLE_LIST:
 				clsList.insert(0, sysListView32.List)
