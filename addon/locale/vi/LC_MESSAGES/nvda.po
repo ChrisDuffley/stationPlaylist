@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 17.02\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2017-02-03 19:00+1000\n"
-"PO-Revision-Date: 2019-09-28 09:09+0700\n"
+"PO-Revision-Date: 2019-11-04 10:18+0700\n"
 "Last-Translator: Dang Manh Cuong <dangmanhcuong@gmail.com>\n"
 "Language-Team: \n"
 "Language: vi\n"
@@ -173,8 +173,8 @@ msgstr ""
 "A: tự động hóa.\n"
 "C: thông báo tên của track đang phát.\n"
 "D: thời gian còn lại của danh sách phát.\n"
-"E: tổng thể trạng thái metadata streaming.\n"
-"Shift+1 đến shift+4, shift+0: trạng thái metadata streaming cho bộ mã hóa "
+"E: tổng thể trạng thái truyền siêu dữ liệu.\n"
+"Shift+1 đến shift+4, shift+0: trạng thái truyền siêu dữ liệu cho bộ mã hóa "
 "DSP và URL bổ sung.\n"
 "H: thời lượng các track trong khung giờ này.\n"
 "Shift+H: thời lượng các track còn lại trong khung giờ này.\n"
@@ -326,9 +326,9 @@ msgstr ""
 "E: thời gian đã trôi qua.\n"
 "F: tìm kiếm track.\n"
 "R: thời gian còn lại của track đang phát.\n"
-"G: tổng thể trạng thái metadata streaming.\n"
-"Shift+1 through shift+4, shift+0: trạng thái metadata\n"
-"streaming cho bộ mã hóa và URL bổ sung.\n"
+"G: tổng thể trạng thái truyền siêu dữ liệu.\n"
+"Shift+1 đến shift+4, shift+0: trạng thái truyền siêu dữ liệu cho bộ mã hóa "
+"và URL bổ sung.\n"
 "H: thời lượng các track trong khung giờ này.\n"
 "Shift+H: thời lượng các track còn lại trong khung giờ này.\n"
 "K: chuyển đến track đánh dấu.\n"
@@ -545,19 +545,19 @@ msgstr "{itemCount} mục đã quét"
 
 #. Translators: Presented when streaming dialog cannot be shown.
 msgid "Cannot open metadata streaming dialog"
-msgstr "Không thể mở hộp thoại metadata streaming"
+msgstr "Không thể mở hộp thoại truyền siêu dữ liệu"
 
 #. Translators: Presented when the add-on config dialog is opened.
 msgid ""
 "The add-on settings dialog or the metadata streaming dialog is opened. "
 "Please close the opened dialog first."
 msgstr ""
-"Hộp thoại cài đặt add-on hoặc hộp thoại metadata streaming đang mở. Vui lòng "
-"đóng chúng lại trước."
+"Hộp thoại cài đặt add-on hoặc hộp thoại truyền siêu dữ liệu đang mở. Vui "
+"lòng đóng chúng lại trước."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Opens a dialog to quickly enable or disable metadata streaming."
-msgstr "Mở hộp thoại để nhanh chóng bật hay tắt metadata streaming."
+msgstr "Mở hộp thoại để nhanh chóng bật hay tắt truyền siêu dữ liệu."
 
 #. Translators: an error message presented when performing some playlist commands while focused on places other than Playlist Viewer.
 msgid "Please return to playlist viewer before invoking this command."
@@ -805,20 +805,20 @@ msgstr "Không tìm thấy điểm đánh dấu nào"
 #. Translators: Status message for metadata streaming.
 #, python-brace-format
 msgid "Metadata streaming on URL {URLPosition} enabled"
-msgstr "Metadata streaming trên URL {URLPosition} đã bật"
+msgstr "Truyền siêu dữ liệu trên URL {URLPosition} đã bật"
 
 #. Translators: Status message for metadata streaming.
 msgid "Metadata streaming on DSP encoder enabled"
-msgstr "Metadata streaming trên DSP encoder đã bật"
+msgstr "Truyền siêu dữ liệu trên DSP encoder đã bật"
 
 #. Translators: Status message for metadata streaming.
 #, python-brace-format
 msgid "Metadata streaming on URL {URLPosition} disabled"
-msgstr "Metadata streaming trên URL {URLPosition} đã tắt"
+msgstr "Truyền siêu dữ liệu trên URL {URLPosition} đã tắt"
 
 #. Translators: Status message for metadata streaming.
 msgid "Metadata streaming on DSP encoder disabled"
-msgstr "Metadata streaming trên DSP encoder đã tắt"
+msgstr "Truyền siêu dữ liệu trên DSP encoder đã tắt"
 
 #. Translators: Presented when attempting to announce specific columns but the focused item isn't a track.
 msgid "Not a track"
@@ -1425,13 +1425,13 @@ msgstr ""
 
 #. Translators: Title of a dialog to configure metadata streaming status for DSP encoder and four additional URL's.
 msgid "Metadata streaming options"
-msgstr "Các tùy chọn cho Metadata streaming"
+msgstr "Các tùy chọn cho Truyền siêu dữ liệu"
 
 msgid "Select the URL for metadata streaming upon request."
-msgstr "Chọn URL cho metadata streaming theo yêu cầu."
+msgstr "Chọn URL cho truyền siêu dữ liệu theo yêu cầu."
 
 msgid "Check to enable metadata streaming, uncheck to disable."
-msgstr "Chọn để bật metadata streaming, bỏ chọn để tắt."
+msgstr "Chọn để bật truyền siêu dữ liệu, bỏ chọn để tắt."
 
 msgid "&Stream:"
 msgstr "&Phát:"
@@ -1442,7 +1442,7 @@ msgstr "Á&p dụng các thay đổi phát thanh cho hồ sơ được chọn"
 
 #. Translators: title of a panel to configure metadata streaming status for DSP encoder and four additional URL's.
 msgid "Metadata streaming"
-msgstr "Metadata streaming"
+msgstr "Truyền siêu dữ liệu"
 
 #. Translators: One of the metadata notification settings.
 msgid "When Studio starts"
@@ -1454,7 +1454,7 @@ msgstr "Khi hồ sơ chuyển nhanh hoạt động"
 
 #. Translators: the label for a setting in SPL add-on settings to be notified that metadata streaming is enabled.
 msgid "&Metadata streaming notification and connection"
-msgstr "Thông báo và kết nối &metadata streaming"
+msgstr "Thông báo và kết nối &truyền siêu dữ liệu"
 
 #. WX's native CheckListBox isn't user friendly.
 #. Therefore use checkboxes laid out across the top.
@@ -1463,7 +1463,7 @@ msgstr "Thông báo và kết nối &metadata streaming"
 #. Add checkboxes for each stream, beginning with the DSP encoder.
 #. #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
 msgid "&Select the URL for metadata streaming upon request:"
-msgstr "&Chọn URL cho metadata streaming theo yêu cầu:"
+msgstr "&Chọn URL cho truyền siêu dữ liệu theo yêu cầu:"
 
 #. Translators: title of a panel to configure column announcements (order and what columns should be announced).
 msgid "Column announcements"
@@ -1748,35 +1748,35 @@ msgstr "Hẹn giờ hoàn tất"
 
 #. Translators: presented when metadata streaming status cannot be obtained.
 msgid "Cannot obtain metadata streaming status information"
-msgstr "Không thể thu thập thông tin trạng thái metadata streaming"
+msgstr "Không thể thu thập thông tin trạng thái truyền siêu dữ liệu"
 
 #. Translators: Status message for metadata streaming.
 msgid "No metadata streaming URL's defined"
-msgstr "Không có metadata streaming URL nào được chỉ định"
+msgstr "Không có URL truyền siêu dữ liệu nào được chỉ định"
 
 #. Translators: Status message for metadata streaming.
 msgid "Metadata streaming configured for DSP encoder"
-msgstr "Metadata streaming được cấu hình cho DSP encoder"
+msgstr "Truyền siêu dữ liệu được cấu hình cho DSP encoder"
 
 #. Translators: Status message for metadata streaming.
 #, python-brace-format
 msgid "Metadata streaming configured for DSP encoder and URL {URL}"
-msgstr "Metadata streaming được cấu hình cho DSP encoder và URL {URL}"
+msgstr "Truyền siêu dữ liệu được cấu hình cho DSP encoder và URL {URL}"
 
 #. Translators: Status message for metadata streaming.
 #, python-brace-format
 msgid "Metadata streaming configured for URL {URL}"
-msgstr "Metadata streaming được cấu hình cho URL {URL}"
+msgstr "Truyền siêu dữ liệu được cấu hình cho URL {URL}"
 
 #. Translators: Status message for metadata streaming.
 #, python-brace-format
 msgid "Metadata streaming configured for DSP encoder and URL's {URL}"
-msgstr "Metadata streaming được cấu hình cho DSP encoder và URL {URL}"
+msgstr "Truyền siêu dữ liệu được cấu hình cho DSP encoder và URL {URL}"
 
 #. Translators: Status message for metadata streaming.
 #, python-brace-format
 msgid "Metadata streaming configured for URL's {URL}"
-msgstr "Metadata streaming được cấu hình cho URL {URL}"
+msgstr "Truyền siêu dữ liệu được cấu hình cho URL {URL}"
 
 #. Translators: the Playlist transcripts dialog title.
 msgid "Playlist Transcripts"
@@ -1846,7 +1846,7 @@ msgid ""
 "S: Stop with fade.\n"
 "T: Instant stop.\n"
 "C: Announce name and duration of the currently playing track.\n"
-"E: Announce if any encoders are being monitored.\n"
+"E: Announce connected encoders if any.\n"
 "I: Announce listener count.\n"
 "Q: Announce Studio status information.\n"
 "R: Remaining time for the playing track.\n"
@@ -1868,12 +1868,13 @@ msgstr ""
 "S: dừng với hiệu ứng fade.\n"
 "T: dừng nhanh.\n"
 "C: thông báo tên và thời lượng của track đang phát.\n"
-"E: thông báo khi có một bộ mã hóa đang được theo dõi.\n"
+"E: thông báo bộ mã hóa đã kết nối.\n"
 "I: thông báo số người nghe.\n"
 "Q: thông báo trạng thái Studio.\n"
 "R: thời gian còn lại của track đang phát.\n"
-"Shift+R: tiến trình quét thư viện.Các phím chức năng và phím số có hoặc "
-"không có phím Shift, Alt, và Control: phát cart."
+"Shift+R: tiến trình quét thư viện.\n"
+"Các phím chức năng và phím số có hoặc không có phím Shift, Alt, và Control: "
+"phát cart."
 
 #. Translators: Presented when StationPlaylist Studio is not running.
 msgid "SPL Studio is not running."
@@ -1941,14 +1942,22 @@ msgstr ""
 msgid "SPL Controller help"
 msgstr "Trợ giúp bộ điều khiển SPL"
 
-#. Translators: Message presented when there are no encoders being monitored.
-msgid "No encoders are being monitored"
-msgstr "Không có bộ mã hóa nào đang được theo dõi"
+#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
+msgid "No encoders found"
+msgstr "Không tìm thấy bộ mã hóa nào"
 
-#. Translators: Announces number of encoders being monitored in the background.
+#. Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
+msgid "Only one encoder type can be active at once"
+msgstr "Chỉ có thể kích hoạt một loại mã hóa cho một lần"
+
+#. Translators: presented when at least one encoder is connected.
 #, python-brace-format
-msgid "Number of encoders monitored: {numberOfEncoders}: {streamLabels}"
-msgstr "Số bộ mã hóa được theo dõi: {numberOfEncoders}: {streamLabels}"
+msgid "Connected encoders: {encodersConnected}"
+msgstr "Các bộ mã hóa đã kết nối: {encodersConnected}"
+
+#. Translators: presented when no encoders are connected.
+msgid "No encoders connected"
+msgstr "Không có bộ mã hóa nào được kết nối"
 
 #. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
 #, python-brace-format
@@ -2119,6 +2128,9 @@ msgid ""
 msgstr ""
 "Cải thiện hỗ trợ cho StationPlaylist Studio.\n"
 "Ngoài ra là thêm các lệnh toàn cục cho studio từ bất cứ đâu."
+
+#~ msgid "Number of encoders monitored: {numberOfEncoders}: {streamLabels}"
+#~ msgstr "Số bộ mã hóa được theo dõi: {numberOfEncoders}: {streamLabels}"
 
 #~ msgid "Using SPL Studio version {SPLVersion}"
 #~ msgstr "Sử dụng SPL Studio phiên bản {SPLVersion}"

@@ -1868,7 +1868,7 @@ msgid ""
 "S: Stop with fade.\n"
 "T: Instant stop.\n"
 "C: Announce name and duration of the currently playing track.\n"
-"E: Announce if any encoders are being monitored.\n"
+"E: Announce connected encoders if any.\n"
 "I: Announce listener count.\n"
 "Q: Announce Studio status information.\n"
 "R: Remaining time for the playing track.\n"
@@ -1966,14 +1966,24 @@ msgstr ""
 msgid "SPL Controller help"
 msgstr "SPL kontroler pomoć"
 
-#. Translators: Message presented when there are no encoders being monitored.
-msgid "No encoders are being monitored"
-msgstr "Nema enkodera koji se trenutno gleda"
+#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
+#, fuzzy
+msgid "No encoders found"
+msgstr "Mjesna oznaka nije pronađena."
 
-#. Translators: Announces number of encoders being monitored in the background.
-#, python-brace-format
-msgid "Number of encoders monitored: {numberOfEncoders}: {streamLabels}"
-msgstr "Broj enkodera koji se gledaju: {numberOfEncoders}: {streamLabels}"
+#. Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
+msgid "Only one encoder type can be active at once"
+msgstr ""
+
+#. Translators: presented when at least one encoder is connected.
+#, fuzzy, python-brace-format
+msgid "Connected encoders: {encodersConnected}"
+msgstr "Gledanje enkodera {encoderNumber}"
+
+#. Translators: presented when no encoders are connected.
+#, fuzzy
+msgid "No encoders connected"
+msgstr "Nema enkodera koji se trenutno gleda"
 
 #. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
 #, python-brace-format
@@ -2144,6 +2154,9 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist Studio.\n"
 "Također, dodaje komande za studio bilo gdje."
+
+#~ msgid "Number of encoders monitored: {numberOfEncoders}: {streamLabels}"
+#~ msgstr "Broj enkodera koji se gledaju: {numberOfEncoders}: {streamLabels}"
 
 #~ msgid "Using SPL Studio version {SPLVersion}"
 #~ msgstr "Koristi se SPL studio verzija{SPLVersion}"

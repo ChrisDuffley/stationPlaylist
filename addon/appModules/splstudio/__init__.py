@@ -1114,7 +1114,8 @@ class AppModule(appModuleHandler.AppModule):
 			return "00:00"
 		else:
 			if ms:
-				t = (t/1000) if not offset else (t/1000)+offset
+				# 19.11.1/18.09.13-LTS: be sure to convert time into integer indirectly via floor division for maximum compatibility between Python 2 and 3.
+				t = (t//1000) if not offset else (t//1000)+offset
 			mm, ss = divmod(t, 60)
 			if mm > 59 and (includeHours or (includeHours is None and splconfig.SPLConfig["General"]["TimeHourAnnounce"])):
 				hh, mm = divmod(mm, 60)
@@ -1705,7 +1706,8 @@ class AppModule(appModuleHandler.AppModule):
 			if segue and (min is None or segue < min):
 				min = segue
 				minTitle = trackTitle
-			if segue and segue > max:
+			# 19.11.1/18.09.13-LTS: also do the same for max as Python 3 does not allow comparison between objects and None.
+			if segue and (max is None or segue > max):
 				max = segue
 				maxTitle = trackTitle
 			if segue not in (None, "00:00"):
@@ -1724,7 +1726,8 @@ class AppModule(appModuleHandler.AppModule):
 		if "DurationAverage" in snapshotFlags:
 			# #57 (18.04): zero division error may occur if the playlist consists of hour markers only.
 			try:
-				snapshot["PlaylistDurationAverage"] = self._ms2time(totalDuration/snapshot["PlaylistTrackCount"], ms=False)
+				# 19.11.1/18.09.13-LTS: track count is an integer, so use floor division.
+				snapshot["PlaylistDurationAverage"] = self._ms2time(totalDuration//snapshot["PlaylistTrackCount"], ms=False)
 			except ZeroDivisionError:
 				snapshot["PlaylistDurationAverage"] = "00:00"
 		if "CategoryCount" in snapshotFlags or "ArtistCount" in snapshotFlags or "GenreCount" in snapshotFlags:

@@ -83,15 +83,17 @@ angegeben.
 
 ## Nicht zugewiesene Befehle
 
-Die folgenden Befehle sind standardmäßig nicht belegt. Falls Sie diese
-Befehle verwenden möchten, weisen Sie  den Befehlen im NVDA-Eingabendialog
-eine beliebige Tastenkombination zu.
+The following commands are not assigned by default; if you wish to assign
+them, use Input Gestures dialog to add custom commands. To do so, from
+Studio window, open NVDA menu, Preferences, then Input Gestures. Expand
+StationPlaylist category, then locate unassigned commands from the list
+below and select "Add", then type the gesutre you wish to use.
 
 * Das wechseln zum SPL Studio-Fenster aus einem beliebigen Programm.
 * Befehlsschicht des SPL-Controllers.
 * Ansage des Studio-Status beim Navigieren in anderen Programmen,
   z.B. Titelwiedergabe.
-* Ansage des Encoder-Status aus anderen Programmen heraus.
+* Announcing encoder connection status from any program.
 * Befehlsschicht des SPL-Assistenten im SPL-Studio.
 * Meldet die Studiozeit einschließlich Sekunden.
 * Meldet die Temperatur.
@@ -187,8 +189,7 @@ Folgende Befehle stehen zur Verfügung:
 * U: Studiozeit.
 * W: Wetter und Temperatur, wenn konfiguriert.
 * Y: Status der Playlist-Änderungen.
-* 1 bis 0 (bis 6 für Studio 5.0x): sagt den Spalteninhalt für eine bestimmte
-  Spalte an.
+* 1 through 0: Announce column content for a specified column.
 * F8: nimmt Schnappschüsse von Playlisten auf (Anzahl der Titel, längster
   Titel, etc.).
 * Umschalt+F8: Playlist-Protokolle in verschiednen Formaten anfordern.
@@ -228,8 +229,7 @@ Die verfügbaren Befehle für den SPL-Controller sind:
   zu hören.
 * Drücken Sie Umschalt+C, um den Namen und die Dauer des nächsten Titels,
   falls vorhanden, zu erhalten.
-* Drücken Sie E, um die Anzahl und die Bezeichnung der aktuell überwachten
-  Encoder zu erhalten.
+* Press E to hear which encoders are connected.
 * Drücken Sie I, um die Anzahl der Zuhörer zu ermitteln.
 * Drücken Sie Q, um verschiedene Statusinformationen über Studio zu
   erhalten, z. B. ob ein Titel wiedergegeben wird, das Mikrofon
@@ -330,6 +330,14 @@ verwenden und NVDA 2012.3 oder höher installiert haben, können Sie einige
 Studio-Befehle über den Touchscreen ausführen. Tippen Sie zunächst einmal
 mit drei Fingern, um in den SPL-Touchmodus zu wechseln. Verwenden Sie dann
 die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
+
+## Version 19.11
+
+* Encoder status command from SPL Controller (E) will announce connection
+  status for the active encoder set instead of encoders being monitored in
+  the background.
+* NVDA will no longer appear to do nothing or play error tones when it
+  starts while an encoder window is focused.
 
 ## Version 19.10/18.09.12-LTS
 
