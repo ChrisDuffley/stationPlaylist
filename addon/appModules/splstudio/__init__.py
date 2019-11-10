@@ -1731,7 +1731,8 @@ class AppModule(appModuleHandler.AppModule):
 		if "DurationAverage" in snapshotFlags:
 			# #57 (18.04): zero division error may occur if the playlist consists of hour markers only.
 			try:
-				snapshot["PlaylistDurationAverage"] = self._ms2time(totalDuration/snapshot["PlaylistTrackCount"], ms=False)
+				# 19.11.1/18.09.13-LTS: track count is an integer, so use floor division.
+				snapshot["PlaylistDurationAverage"] = self._ms2time(totalDuration//snapshot["PlaylistTrackCount"], ms=False)
 			except ZeroDivisionError:
 				snapshot["PlaylistDurationAverage"] = "00:00"
 		if "CategoryCount" in snapshotFlags or "ArtistCount" in snapshotFlags or "GenreCount" in snapshotFlags:
