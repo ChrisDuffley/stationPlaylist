@@ -1704,7 +1704,8 @@ class AppModule(appModuleHandler.AppModule):
 			if segue and (min is None or segue < min):
 				min = segue
 				minTitle = trackTitle
-			if segue and segue > max:
+			# 19.11.1/18.09.13-LTS: also do the same for max as Python 3 does not allow comparison between objects and None.
+			if segue and (max is None or segue > max):
 				max = segue
 				maxTitle = trackTitle
 			if segue not in (None, "00:00"):
