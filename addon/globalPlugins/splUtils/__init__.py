@@ -2,7 +2,6 @@
 # Author: Joseph Lee
 # Copyright 2013-2019, released under GPL.
 # Adds a few utility features such as switching focus to the SPL Studio window and some global scripts.
-# For encoder support, see the encoders package.
 
 from functools import wraps
 import globalPluginHandler
