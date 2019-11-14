@@ -253,8 +253,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self.finish()
 			return
 		# #98: ask SPL Engine app module for encoder connection status, which in turn will call the one found in encoders support module.
-		import appModules.splengine
-		appModules.splengine.announceEncoderConnectionStatus()
+		# Do nothing if SPL Engine app module isn't present.
+		try:
+			import appModules.splengine
+			appModules.splengine.announceEncoderConnectionStatus()
+		except:
+			# Translators: presented if encoder connection status cannot be obtained.
+			ui.message(_("Cannot obtain encoder connection status"))
 		self.finish()
 	# Translators: Input help message for a SPL Controller command.
 	script_encoderStatus.__doc__ = _("Announces stream encoder status from other programs")
