@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 6.4\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2016-03-04 19:00+1000\n"
-"PO-Revision-Date: 2019-06-13 07:59-0700\n"
+"PO-Revision-Date: 2019-11-09 19:17+0200\n"
 "Last-Translator: Florian Ionașcu <florianionascu@hotmail.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 2.2.4\n"
 
 #. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
 msgid ""
@@ -566,19 +566,21 @@ msgstr ""
 "Deschide un dialog pentru a activa sau dezactiva rapid metadata streaming."
 
 #. Translators: an error message presented when performing some playlist commands while focused on places other than Playlist Viewer.
-#, fuzzy
 msgid "Please return to playlist viewer before invoking this command."
-msgstr "Este necesar să adăugați piese înainte de a invoca această comandă"
+msgstr ""
+"Vă rugăm să reveniți la vizualizatorul de playlist-uri înainte de a invoca "
+"această comandă"
 
 #. Translators: an error message presented when performing some playlist commands while no playlist has been loaded.
 msgid "No playlist has been loaded."
 msgstr "Nicio listă de redare nu a fost încărcată."
 
 #. Translators: an error message presented when performing some playlist commands while no tracks are selected/focused.
-#, fuzzy
 msgid ""
 "Please select a track from playlist viewer before invoking this command."
-msgstr "Este necesar să adăugați piese înainte de a invoca această comandă"
+msgstr ""
+"Vă rugăm să o piesă din vizualizatorul de playlist-uri înainte de a invoca "
+"această comandă"
 
 #. Translators: Presented when playlist analyzer cannot be performed because user is not focused on playlist viewer.
 #, fuzzy
@@ -1108,18 +1110,16 @@ msgid "Scan count"
 msgstr "Numărul de scanări"
 
 #. Translators: title of a panel to configure broadcast profiles.
-#, fuzzy
 msgid "Broadcast profiles"
-msgstr "&Profil de emisie:"
+msgstr "Profiluri de emisie"
 
 #. Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
 msgid "Broadcast &profile:"
 msgstr "&Profil de emisie:"
 
 #. Borrowed logic from NVDA Core's speech panel (although there is no label for this read-only text).
-#, fuzzy
 msgid "Normal profile is in use."
-msgstr "Doar profilul normal e în uz"
+msgstr "Profilul normal e în uz"
 
 #. Translators: The label of a button to copy a broadcast profile.
 msgid "Cop&y"

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2019-09-27 20:36+0200\n"
+"PO-Revision-Date: 2019-11-12 12:47+0100\n"
 "Last-Translator: René Linke <rene.linke@hamburg.de>\n"
 "Language-Team: Deutsch <bernd_dorer@yahoo.de>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.3\n"
+"X-Generator: Poedit 2.2.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
@@ -133,10 +133,10 @@ msgid ""
 "clipboard, and press three times to open a dialog to add, change or remove "
 "track comments"
 msgstr ""
-"Gibt Titelkommentare bekannt, falls vorhanden. Drücken Sie zweimal, um diese "
-"Informationen in die Zwischenablage zu kopieren, und drücken Sie dreimal, um "
-"einen Dialog zum Hinzufügen, Ändern oder Entfernen von Kommentaren "
-"anzuzeigen."
+"Gibt einen Kommentar zum Titel aus, falls vorhanden. Zweimal drücken, um "
+"diese Informationen in die Zwischenablage zu kopieren und dreimal drücken, "
+"um einen Dialog zum Hinzufügen, Ändern oder Entfernen von Kommentaren zum "
+"Titel zu öffnen."
 
 #. Translators: The text of the help command in SPL Assistant layer.
 msgid ""
@@ -326,41 +326,45 @@ msgid ""
 msgstr ""
 "Nachdem Sie den SPL-Assistenten aufgerufen haben, drücken Sie:\n"
 "A: Automatisierung.\n"
-"c: Cart-Explorer ausklappen.\n"
-"Umschalt + c: Name des aktuell abgespielten Titels.\n"
-"D: Verbleibende Zeit für die Playlist.\n"
-"E: Verstrichene Zeit.\n"
-"F: Titelfinder.\n"
-"R: Verbleibende zeit des aktuellen Titels.\n"
-"G: Streaming-Status der gesamten Metadaten.\n"
-"Umschalt + 1 bis Umschalt + 4, Umschalt + 0: Streaming-Status der Metadaten "
-"für den DSP-Encoder und für zusätzliche URLs.\n"
-"H: Spieldauer in dieser Sendestunde.\n"
-"Umschalt+H: Spieldauer der ausgewählten Titel.\n"
-"K: zum Lesezeichen bewegen\n"
-"strg+K: Lesezeichen setzen\n"
+"C: Schalte den Cart-Explorer um.\n"
+"Umschalt+C: Name des aktuell wiedergegebenen Titels ankündigen.\n"
+"D: Verbleibende Zeit für die Wiedergabeliste.\n"
+"E: Abgelaufene Zeit.\n"
+"F: Spurfinder.\n"
+"R: Verbleibende Zeit für den aktuell wiedergegebenen Titel.\n"
+"G: Gesamtstatus des Streaming von Metadaten.\n"
+"Umschalt+1 bis Umschalt+4, Umschalt+0: Metadaten-Streaming-Status für DSP-"
+"Encoder und vier zusätzliche URLs.\n"
+"H: Dauer der Titel in Stunden im Slot.\n"
+"Umschalt+H: Dauer der verbleibenden Titel in Stunden im Slot.\n"
+"K: Gehen Sie zur Platzierung der Markierungsspur.\n"
+"Strg+K: Stellen Sie die Position der Markierungsspur ein.\n"
 "L: Anzahl der Zuhörer.\n"
-"Umschalt + L: Line-In-Status.\n"
-"M: Mikrofon-Status.\n"
+"Umschalt+L: Line-In-Status.\n"
+"M: Mikrofonstatus.\n"
 "N: Nächster Titel.\n"
-"P: Wiedergabe-Status.\n"
-"Umschalt+P: Tonhöhe des aktuellen Titels.\n"
-"Umschalt+E: In Datei aufzeichnen.\n"
-"Umschalt+R: Scanvorgang der Bibliothek überwachen.\n"
-"S: Voreingestellte Zeit für die Titelwiedergabe.\n"
-"Umschalt + S_ Zeit, bis der Titel abgespielt wird.\n"
-"T: Cart-Bearbeitungsmodus.\n"
-"U: Studiolaufzeit.\n"
+"P: Wiedergabestatus.\n"
+"Umschalt+P: Tonhöhe für den aktuellen Titel.\n"
+"Umschalt+E: Aufnahme in Datei.\n"
+"Umschalt+R: Scan-Überwachung der Bibliothek.\n"
+"S: Geplante Zeit für den Titel.\n"
+"Umschalt+S: Zeit bis zur Wiedergabe des ausgewählten Titels.\n"
+"T: Cart bearbeiten/einfügen.\n"
+"U: Studio-Betriebszeit.\n"
 "W: Wetter und Temperatur.\n"
-"Y: Änderungen der Wiedergabeliste.\n"
-"1 bis 0: Ansage der Spalten via Spaltenexplorer (0 ist der zehnte "
-"Spaltenslot).\n"
-"F8: Statistiken wie Titelanzahl, längster Titel usw. erstellen.\n"
-"Umschalt+F8: Playlist-Transkripte  in unterschiedlichen Formaten aufnehmen.\n"
-"F9: aktuellen Titel als Startzeitpunkt für die Zeitanalyse festlegen.\n"
-"F10: Zeitanalyse starten.\n"
-"F12: Wechselt zu einem Instant-Switchh-Profil.\n"
-"Umschalt+F1: Benutzerhandbuch öffnen"
+"Y: Änderung der Wiedergabeliste.\n"
+"1 bis 0: Ankündigung von Spalten im Spalten-Explorer (0 ist der zehnte "
+"Slot).\n"
+"F8: Nimmt Schnappschüsse von Wiedergabelisten auf, wie z. B. die Anzahl der "
+"Spuren, die längste Spur, etc.\n"
+"Umschalt+F8: Erhält Transkripte von Wiedergabelisten in einer Vielzahl von "
+"Formaten.\n"
+"F9: Markiert den aktuellen Titel als Start der Titelzeit-Analyse.\n"
+"F10: Führt eine Titelzeit-Analyse durch.\n"
+"F12: Wechselt zu einem sofortigen Schalterprofil.\n"
+"Umschalt+F1: Öffnet die Online-Bedienungsanleitung.\n"
+"\n"
+"Übersetzt mit www.DeepL.com/Translator"
 
 msgid "SPL Studio Settings..."
 msgstr "SPL-Einstellungen..."
@@ -371,7 +375,7 @@ msgstr "SPL-Einstellungen"
 #. Translators: Presented when library scan is complete.
 #, python-brace-format
 msgid "Scan complete with {scanCount} items"
-msgstr "Suchlauf beendet. Es wurden {scanCount} Einträge gefunden."
+msgstr "Scan-Vorgang abgeschlossen mit {scanCount} Einträgen"
 
 #. Translators: Presented when cart modes are toggled while cart explorer is on.
 msgid "Cart explorer is active"
@@ -384,9 +388,7 @@ msgstr "Warnung: Mikrofon ist aktiv"
 #. Translators: Presented when end of introduction is approaching (example output: 5 sec left in track introduction).
 #, python-brace-format
 msgid "Warning: {seconds} sec left in track introduction"
-msgstr ""
-"Achtung: Das Vorspiel des aktuellen Titels dauert nur noch {seconds} "
-"Sekunden."
+msgstr "Warnung: {seconds} Sekunden übrig in der Titel-Einleitung!"
 
 #. Translators: Presented when end of track is approaching.
 #, python-brace-format
@@ -455,7 +457,7 @@ msgstr ""
 
 #. Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
 msgid "Search string not found."
-msgstr "Gesuchte Zeichenkette nicht gefunden"
+msgstr "Gesuchte Zeichenkette nicht gefunden."
 
 #. Translators: Presented when a user attempts to find tracks but is not at the track list.
 msgid "Track finder is available only in track list."
@@ -485,7 +487,7 @@ msgstr "Spaltensuche"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Finds a track in the track list."
-msgstr "Sucht in der Titelliste nach einem Titel"
+msgstr "Sucht in der Titelliste nach einem Titel."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Finds text in columns."
@@ -493,7 +495,7 @@ msgstr "Sucht Text in Spalten."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Finds the next occurrence of the track with the name in the track list."
-msgstr "Sucht nach dem nächsten gefundenen Titel in der Titelliste"
+msgstr "Sucht nach dem nächsten Titel in der Titelliste."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Finds previous occurrence of the track with the name in the track list."
@@ -507,8 +509,8 @@ msgstr ""
 #. Translators: Presented when cart explorer cannot be entered.
 msgid "You are not in playlist viewer, cannot enter cart explorer"
 msgstr ""
-"Sie befinden sich nicht in der Ansicht für die Wiedergabeliste. Daher konnte "
-"die Cart-Übersicht nicht aufgerufen werden."
+"Sie befinden sich nicht in der Ansicht für die Wiedergabelisten, hier können "
+"Sie den Cart-Explorer nicht aufrufen."
 
 #. Translators: presented when cart explorer could not be switched on.
 msgid "Some or all carts could not be assigned, cannot enter cart explorer"
@@ -518,11 +520,11 @@ msgstr ""
 
 #. Translators: Presented when cart explorer is on.
 msgid "Entering cart explorer"
-msgstr "Die Cart-Üübersicht wird aufgerufen."
+msgstr "Cart-Übersicht wird aufgerufen"
 
 #. Translators: Presented when cart explorer is off.
 msgid "Exiting cart explorer"
-msgstr "Die Cart-Übersicht wird beendet."
+msgstr "Cart-Übersicht wird beendet"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Toggles cart explorer to learn cart assignments."
@@ -535,7 +537,7 @@ msgstr "Der Cart-Befehl ist nicht verfügbar."
 
 #. Translators: Presented when there is no cart assigned to a cart command.
 msgid "Cart unassigned"
-msgstr "Das Cart wurde nicht zugewiesen."
+msgstr "Cart wurde nicht zugewiesen."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Toggles library scan progress settings."
@@ -559,7 +561,7 @@ msgstr "Scanvorgang mit {itemCount} Einträge abgeschlossen."
 
 #. Translators: Presented when library scan is in progress.
 msgid "Scanning"
-msgstr "Scanvorgang läuft..."
+msgstr "Scan-Vorgang läuft..."
 
 #, python-brace-format
 msgid "{itemCount} items scanned"
@@ -656,7 +658,7 @@ msgstr "Top Künstler: keine"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 msgid "Top artists:"
-msgstr "Top Künstler"
+msgstr "Top-Künstler"
 
 #, python-brace-format
 msgid "No artist information ({artistCount})"
@@ -733,18 +735,18 @@ msgstr "Die Informationen zum nächsten gesuchten Titel wurden nicht gefunden."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Announces title of the next track if any"
-msgstr "Sagt jeden Songtitel an."
+msgstr "Kündigt jeden Titel an."
 
 #. Translators: Presented when there is no information for the current track.
 msgid "Cannot locate current track information or no track is playing"
 msgstr ""
 "Die Informationen über den aktuellen Titel konnten nicht abgerufen werden. "
-"Möglicherweise wird kein titel abgespielt."
+"Möglicherweise wird keiner abgespielt."
 
 #. Translators: Presented when current track information is unavailable.
 msgid "Cannot find current track information"
 msgstr ""
-"Es konnten keine informationen über den aktuellen Titel abgerufen werden."
+"Es konnten keine Informationen über den aktuellen Titel abgerufen werden."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Announces title of the currently playing track"
@@ -812,7 +814,7 @@ msgid ""
 "Presents playlist snapshot information such as number of tracks and top "
 "artists"
 msgstr ""
-"Zeigt Playlist-Statistiken, wie z.B. die Anzahl der Titel und Top künstler."
+"Zeigt Playlist-Statistiken, wie z. B. die Anzahl der Titel und Top künstler."
 
 #. Translators: Presented when place marker cannot be set.
 msgid "No tracks found, cannot set place marker"
@@ -1897,7 +1899,6 @@ msgstr "Transcript-Aktion:"
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
-#, fuzzy
 msgid ""
 "\n"
 "After entering SPL Controller, press:\n"
@@ -1922,24 +1923,26 @@ msgid ""
 "keys: Play carts."
 msgstr ""
 "\n"
-"Nach dem Öffnen der SPL-Steuerung drücken Sie:\n"
+"Nachdem Sie die SPL-Steuerung geöffnet haben, drücken Sie:\n"
 "A: Schaltet die Automatisierung ein.\n"
 "Umschalt+A: Schaltet die Automatisierung aus.\n"
-"M: Schaltet das Mikrofon an.\n"
+"M: Schaltet das Mikrofon ein.\n"
 "Umschalt+M: Schaltet das Mikrofon aus.\n"
-"N: Schaltet das Mikrofon ohne Blende an.\n"
-"L: Schaltet den Line-Eingang an.\n"
-"Umschalt+L: Schaltet den line-Eingang aus.\n"
-"P: abspielen.\n"
+"N: Schaltet das Mikrofon ein, ohne auszublenden.\n"
+"L: Schaltet Line-In ein.\n"
+"Umschalt+L: Schaltet Line-In aus.\n"
+"P: Wiedergabe.\n"
 "U: Pause.\n"
-"S: Stop und ausblenden.\n"
+"S: Stopp mit Ausblendung.\n"
 "T: Sofortiger Stopp.\n"
-"C: Nennt den Namen und die Dauer des gerade abzuspielenden Titels.\n"
-"E: Zeigt an, ob Codecs überwacht werden.\n"
-"I: Gibt die Anzahl der Zuhörer aus.\n"
-"Q: Gibt Status-Informationen über das Studio aus.\n"
-"R: Zeigt die noch verbleibende Zeit an.\n"
-"Umschalt+R: Zeigt den Fortschritt beim Suchlauf der Bibliothek an."
+"C: Name und Dauer des aktuell wiedergegebenen Titels ankündigen.\n"
+"E: Anzeige der angeschlossenen Encoder, falls vorhanden.\n"
+"I: Anzahl der Zuhörer ansagen.\n"
+"F: Studio-Status-Informationen ansagen.\n"
+"R: Verbleibende Zeit für die Wiedergabe des Titels.\n"
+"Umschalt+R: Fortschritt des Scans der Bibliothek.\n"
+"Funktionstasten und Zifferntasten mit oder ohne Umschalt-, Alt- und Strg-"
+"Taste: Gibt Carts wieder."
 
 #. Translators: Presented when StationPlaylist Studio is not running.
 msgid "SPL Studio is not running."
@@ -2009,23 +2012,21 @@ msgid "SPL Controller help"
 msgstr "Hilfe zur SPL-Steuerung"
 
 #. Translators: presented when no streaming encoders were found when trying to obtain connection status.
-#, fuzzy
 msgid "No encoders found"
-msgstr "Keine Markierung gefunden"
+msgstr "Keine Encoder gefunden."
 
 #. Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
 msgid "Only one encoder type can be active at once"
-msgstr ""
+msgstr "Es kann nur ein Encoder-Typ gleichzeitig aktiv sein."
 
 #. Translators: presented when at least one encoder is connected.
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Connected encoders: {encodersConnected}"
-msgstr "Überwachen der Encoder {encoderNumber}"
+msgstr "Verbundene Encoder: {encodersConnected}"
 
 #. Translators: presented when no encoders are connected.
-#, fuzzy
 msgid "No encoders connected"
-msgstr "Es werden keine Encoder überwacht"
+msgstr "Keine Encoder verbunden."
 
 #. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
 #, python-brace-format
@@ -2201,9 +2202,3 @@ msgstr ""
 "Verbessert die Unterstützung für Station Playlist Studio.\n"
 "Des weiteren fügt es Tastenkombinationen für das Studio aus beliebigen "
 "Programmen hinzu."
-
-#~ msgid "Number of encoders monitored: {numberOfEncoders}: {streamLabels}"
-#~ msgstr "Anzahl überwachter Encoder: {numberOfEncoders}: {streamLabels}"
-
-#~ msgid "Using SPL Studio version {SPLVersion}"
-#~ msgstr "Verwendete SPL Version {SPLVersion}"

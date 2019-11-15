@@ -329,6 +329,19 @@ realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
 
+## Versión 19.11.1/18.09.13-LTS
+
+* Soporte inicial para StationPlaylist Suite 5.40.
+* En Studio, las instantáneas de lista de reproducción (asistente de SPL,
+  f8) y diversas órdenes de anuncio de tiempo, como la de tiempo restante
+  (control+alt+T) ya no causarán que NVDA reproduzca tonos de error o
+  parezca no hacer nada si se usa NVDA 2019.3 o posterior.
+* En los elementos de lista de pistas de Creator, se reconoce adecuadamente
+  la etiqueta "Language" añadida en la versión 5.31 y posteriores.
+* En diversas listas de Creator aparte de la lista de pistas, NVDA ya no
+  anunciará información de columnas defectuosa si se pulsa la orden
+  control+NVDA+fila numérica.
+
 ## Versión 19.11
 
 * La orden de estado del codificador del controlador de SPL (E) anunciará el

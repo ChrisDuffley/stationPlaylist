@@ -5,10 +5,11 @@
 * [Entwicklerversion herunterladen][2]
 * NVDA-Kompatibilität: 2019.1 bis 2019.2
 
-This add-on package provides improved usage of StationPlaylist Studio and
-other StationPlaylist apps, as well as providing utilities to control Studio
-from anywhere. Supported apps include Studio, Creator, Track Tool, VT
-Recorder, and Streamer, as well as SAM, SPL, and AltaCast encoders.
+Dieses Zusatzpaket bietet eine verbesserte Nutzung von StationPlaylist
+Studio und anderen StationPlaylist-Anwendungen sowie Dienstprogramme zur
+Steuerung von Studio von überall. Zu den unterstützten Anwendungen gehören
+Studio, Creator, Track Tool, VT Recorder und Streamer sowie SAM, SPL und
+AltaCast Encoder.
 
 Weitere Informationen zur Erweiterung finden Sie in der
 [Add-On-Anleitung][4]. Für Entwickler, welche wissen wollen, wie die
@@ -83,17 +84,19 @@ angegeben.
 
 ## Nicht zugewiesene Befehle
 
-The following commands are not assigned by default; if you wish to assign
-them, use Input Gestures dialog to add custom commands. To do so, from
-Studio window, open NVDA menu, Preferences, then Input Gestures. Expand
-StationPlaylist category, then locate unassigned commands from the list
-below and select "Add", then type the gesutre you wish to use.
+Die folgenden Befehle sind standardmäßig nicht zugewiesen; wenn Sie sie
+zuweisen möchten, verwenden Sie den Dialog Eingabegesten, um
+benutzerdefinierte Befehle hinzuzufügen. Öffnen Sie dazu im Studio-Fenster
+das NVDA-Menü, Einstellungen und dann Eingaben. Erweitern Sie die Kategorie
+StationPlaylist, suchen Sie dann nicht zugewiesene Befehle aus der Liste
+unten und wählen Sie "Hinzufügen" aus, geben Sie dann den die Taste oder
+Tastenkombination ein, die Sie verwenden möchten.
 
 * Das wechseln zum SPL Studio-Fenster aus einem beliebigen Programm.
 * Befehlsschicht des SPL-Controllers.
 * Ansage des Studio-Status beim Navigieren in anderen Programmen,
   z.B. Titelwiedergabe.
-* Announcing encoder connection status from any program.
+* Anzeige des Verbindungsstatus des Encoders von jedem Programm aus.
 * Befehlsschicht des SPL-Assistenten im SPL-Studio.
 * Meldet die Studiozeit einschließlich Sekunden.
 * Meldet die Temperatur.
@@ -107,7 +110,7 @@ below and select "Add", then type the gesutre you wish to use.
   in einem bestimmten Zeitraum liegt.
 * Schnelles Aktivieren oder Deaktivieren von Metadaten-Streaming.
 
-## Zusätzliche Befehle während der Verwendung von Encodern.
+## Zusätzliche Befehle bei der Encoder-Verwendung
 
 Folgende Befehle stehen zur Verfügung, wenn Sie Encoder verwenden:
 
@@ -135,10 +138,10 @@ Verfügung:
 * STRG+NVDA+1: Position des Encoders.
 * STRG+NVDA+2: StreamBezeichnung.
 * STRG+NVDA+3 aus dem SAM-Encoder: Encoder-Format.
-* Control+NVDA+3 from SPL and AltaCast Encoder: Encoder settings.
+* Strg+NVDA+3 aus SPL und AltaCast Encoder: Encoder-Einstellungen.
 * STRG+NvDA+4 aus dem SAM-Encoder: meldet den Encoder-Verbindungsstatus.
-* Control+NVDA+4 from SPL and AltaCast Encoder: Transfer rate or connection
-  status.
+* Strg+NVDA+4 aus SPL und AltaCast Encoder: Übertragungsgeschwindigkeit oder
+  Verbindungsstatus.
 * STRG+NVDA+5 aus dem SAM-Encoder: Beschreibt den Verbindungsstatus.
 
 ## Befehlsschicht für den SPL-Assistenten
@@ -189,7 +192,7 @@ Folgende Befehle stehen zur Verfügung:
 * U: Studiozeit.
 * W: Wetter und Temperatur, wenn konfiguriert.
 * Y: Status der Playlist-Änderungen.
-* 1 through 0: Announce column content for a specified column.
+* 1 bis 0: Ansage der Spalteninhalte für eine bestimmte Spalte.
 * F8: nimmt Schnappschüsse von Playlisten auf (Anzahl der Titel, längster
   Titel, etc.).
 * Umschalt+F8: Playlist-Protokolle in verschiednen Formaten anfordern.
@@ -229,7 +232,7 @@ Die verfügbaren Befehle für den SPL-Controller sind:
   zu hören.
 * Drücken Sie Umschalt+C, um den Namen und die Dauer des nächsten Titels,
   falls vorhanden, zu erhalten.
-* Press E to hear which encoders are connected.
+* Drücken Sie E, um zu hören, welche Encoder verbunden sind.
 * Drücken Sie I, um die Anzahl der Zuhörer zu ermitteln.
 * Drücken Sie Q, um verschiedene Statusinformationen über Studio zu
   erhalten, z. B. ob ein Titel wiedergegeben wird, das Mikrofon
@@ -331,22 +334,36 @@ Studio-Befehle über den Touchscreen ausführen. Tippen Sie zunächst einmal
 mit drei Fingern, um in den SPL-Touchmodus zu wechseln. Verwenden Sie dann
 die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
 
+## Version 19.11.1/18.09.13-LTS
+
+* Erste Unterstützung für die StationPlaylist Suite 5.40.
+* In Studio führen Wiedergabelistenschnappschüsse (SPL-Assistent, F8) und
+  verschiedene Befehle der Zeitansage wie Restzeit (Strg+Alt+T) nicht mehr
+  dazu, dass NVDA bei Verwendung von NVDA 2019.3 oder neuer Fehlertöne
+  wiedergibt oder verstummt.
+* In den Titellistenelementen von Creator wird die Spalte "Sprache", die in
+  Creator 5.31 und neuer hinzugefügt wurde, richtig erkannt.
+* In verschiedenen Listen im Creator, abgesehen von der Titelliste, wird
+  NVDA keine ungeraden Spalteninformationen mehr melden, wenn die
+  Tastenkombination Strg+NVDA+Zahlenreihe gedrückt wird.
+
 ## Version 19.11
 
-* Encoder status command from SPL Controller (E) will announce connection
-  status for the active encoder set instead of encoders being monitored in
-  the background.
-* NVDA will no longer appear to do nothing or play error tones when it
-  starts while an encoder window is focused.
+* Der Encoder-Statusbefehl der SPL-Steuerung (E) meldet den
+  Verbindungsstatus für den aktiven Encodersatz, anstatt dass Encoder im
+  Hintergrund überwacht werden.
+* NVDA gibt beim Start keine Fehlertöne mehr wieder, während ein
+  Encoder-Fenster im Vordergrund sich befindet.
 
 ## Version 19.10/18.09.12-LTS
 
 * Die Versionsankündigungsnachricht für Studio wurde beim Starten gekürzt.
 * Versionsinformationen für Creator werden beim Start ausgegeben.
-* 19.10: custom command can be assigned for encoder status command from SPL
-  Controller (E) so it can be used from everywhere.
-* Initial support for AltaCast encoder (Winamp plugin and must be recognized
-  by Studio). Commands are same as SPL Encoder.
+* 19.10: Eine benutzerdefinierte Tastenkombination kann für den
+  Encoder-Status vom SPL-Steuerung (E) zugewiesen werden, so dass er von
+  überall her verwendet werden kann.
+* Erste Unterstützung für AltaCast Encoder (Winamp Plugin und muss vom
+  Studio erkannt werden). Die Befehle sind identisch mit dem SPL Encoder.
 
 ## Version 19.08.1
 
