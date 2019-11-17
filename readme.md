@@ -13,7 +13,7 @@ IMPORTANT NOTES:
 
 * This add-on requires NVDA 2019.3 or later and StationPlaylist suite 5.20 or later.
 * If using Windows 8 or later, for best experience, disable audio ducking mode.
-* Starting from 2018, [changelogs for old add-on releases][5] will be found on GitHub. This add-on readme will list changes from version 8.0/16.10 (2016 onwards).
+* Starting from 2018, [changelogs for old add-on releases][5] will be found on GitHub. This add-on readme will list changes from version 17.08 (2017 onwards).
 * Certain add-on features won't work under some conditions, including running NVDA in secure mode.
 * Due to tecnical limitations, you cannot install or use this add-on on Windows Store version of NVDA.
 * Features marked as "experimental" are meant to test something before a wider release, so they will not be enabled in stable releases.
@@ -476,99 +476,6 @@ This is the last stable version to support Windows XP, Vista and 7 without Servi
 * Added a checkbox in add-on settings dialog to suppress announcement of column headers when reviewing tracks in playlist viewer.
 * Added a command in SPL Controller layer to announce name and duration of the currently playing track from anywhere (C).
 * When obtaining status information via SPL Controller (Q) while using Studio 5.1x, information such as microphone status, cart edit mode and others will also be announced in addition to playback and automation.
-
-## Version 17.06
-
-* You can now perform Track Finder command (Control+NVDA+F) while a playlist is loaded but the first track isn't focused.
-* NVDA will no longer play error tones or do nothing when searching for a track forward from the last track or backward from the first track, respectively.
-* Pressing NVDA+Numpad Delete (NVDA+Delete in laptop layout) will now announce track position followed by number of items in a playlist.
-
-## Version 17.05.1
-
-* NVDA will no longer fail to save changes to alarm settings from various alarm dialogs (for example, Alt+NVDA+1 for end of track alarm).
-
-## Version 17.05/15.7-LTS
-
-* Update interval can now be set up to 180 days. For default installations, update check interval will be 30 days.
-* Fixed an issue where NVDA may play error tone if Studio exits while a time-based profile is active.
-
-## Version 17.04
-
-* Added a basic add-on debugging support by logging various information while the add-on is active with NVDA set to debug logging (requires NVDA 2017.1 and later). To use this, after installing NVDA 2017.1, from Exit NVDA dialog, choose "restart with debug logging enabled" option.
-* Improvements to presentation of various add-on dialogs thanks to NVDA 2016.4 features.
-* NVDA will download add-on updates in the background if you say "yes" when asked to update the add-on. Consequently, file download notifications from web browsers will no longer be shown.
-* NVDA will no longer appear to freeze when checking for update at startup due to add-on update channel change.
-* Added ability to press Control+Alt+up or down arrow keys to move between tracks (specifically, track columns) vertically just as one is moving to next or previous row in a table.
-* Added a combo box in add-on settings dialog to set which column should be announced when moving through columns vertically.
-* Moved end of track , intro and microphone alarm controls from add-on settings to the new Alarms Center.
-* In Alarms Center, end of track and track intro edit fields are always shown regardless of state of alarm notification checkboxes.
-* Added a command in SPL Assistant to obtain playlist snapshots such as number of tracks, longest track, top artists and so on (F8). You can also add a custom command for this feature.
-* Pressing the custom gesture for playlist snapshots command once will let NVDA speak and braile a short snapshot information. Pressing the command twice will cause NVDA to open a webpage containing a fuller playlist snapshot information. Press escape to close this webpage.
-* Removed Track Dial (NVDA's version of enhanced arrow keys), replaced by Columns explorer and Column Navigator/table navigation commands). This affects Studio and Track Tool.
-* After closing Insert Tracks dialog while a library scan is in progress, it is no longer required to press SPL Assistant, Shift+R to monitor scan progress.
-* Improved accuracy of detecting and reporting completion of library scans in Studio 5.10 and later. This fixes a problem where library scan monitor will end prematurely when there are more tracks to be scanned, necessitating restarting library scan monitor.
-* Improved library scan status reporting via SPL Controller (Shift+R) by announcing scan count if scan is indeed happening.
-* In studio Demo, when registration screen appears when starting Studio, commands such as remaining time for a track will no longer cause NVDA to do nothing, play error tones, or give wrong information. An error message will be announced instead. Commands such as these will require Studio's main window handle to be present.
-* Initial support for StationPlaylist Creator.
-* Added a new command in SPL Controller layer to announce Studio status such as track playback and microphone status (Q).
-
-## Version 17.03
-
-* NVDA will no longer appear to do anything or play an error tone when switching to a time-based broadcast profile.
-* Updated translations.
-
-## Version 17.01/15.5-LTS
-
-Note: 17.01.1/15.5A-LTS replaces 17.01 due to changes to location of new add-on files.
-
-* 17.01.1/15.5A-LTS: Changed where updates are downloaded from for long-term support releases. Installing this version is mandatory.
-* Improved responsiveness and reliability when using the add-on to switch to Studio, either using focus to Studio command from other programs or when an encoder is connected and NVDA is told to switch to Studio when this happens. If Studio is minimized, Studio window will be shown as unavailable. If so, restore Studio window from system tray.
-* If editing carts while Cart Explorer is active, it is no longer necessary to reenter Cart Explorer to view updated cart assignments when Cart Edit mode is turned off. Consequently, Cart Explorer reentry message is no longer announced.
-* In add-on 15.5-LTS, corrected user interface presentation for SPL add-on settings dialog.
-
-## Version 16.12.1
-
-* Corrected user interface presentation for SPL add-on settings dialog.
-* Updated translations.
-
-## Version 16.12/15.4-LTS
-
-* More work on supporting Studio 5.20, including announcing cart insert mode status (if turned on) from SPL Assistant layer (T).
-* Cart edit/insert mode toggle is no longer affected by message verbosity nor status announcement type settings (this status will always be announced via speech and/or braille).
-* It is no longer possible to add comments to timed break notes.
-* Support for Track Tool 5.20, including fixed an issue where wrong information is announced when using Columns Explorer commands to announce column information.
-
-## Version 16.11/15.3-LTS
-
-* Initial support for StationPlaylist Studio 5.20, including improved responsiveness when obtaining status information such as automation status via SPL Assistant layer.
-* Fixed issues related to searching for tracks and interacting with them, including inability to check or uncheck place marker track or a track found via time range finder dialog.
-* Column announcement order will no longer revert to default order after changing it.
-* 16.11: If broadcast profiles have errors, error dialog will no longer fail to show up.
-
-## Version 16.10.1/15.2-LTS
-
-* You can now interact with the track that was found via Track Finder (Control+NVDA+F) such as checking it for playback.
-* Updated translations.
-
-## Version 8.0/16.10/15.0-LTS
-
-Version 8.0 (also known as 16.10) supports SPL Studio 5.10 and later, with 15.0-LTS (formerly 7.x) designed to provide some new features from 8.0 for users using earlier versions of Studio. Unless otherwise noted, entries below apply to both 8.0 and 7.x. A warning dialog will be shown the first time you use add-on 8.0 with Studio 5.0x installed, asking you to use 15.x LTS version.
-
-* Version scheme has changed to reflect release year.month instead of major.minor. During transition period (until mid-2017), version 8.0 is synonymous with version 16.10, with 7.x LTS being designated 15.0 due to incompatible changes.
-* Add-on source code is now hosted on GitHub (repository located at https://github.com/josephsl/stationPlaylist).
-* Added a welcome dialog that launches when Studio starts after installing the add-on. A command (Alt+NVDA+F1) has been added to reopen this dialog once dismissed.
-* Changes to various add-on commands, including removal of status announcement toggle (Control+NVDA+1), reassigned end of track alarm to Alt+NVDA+1, Cart Explorer toggle is now Alt+NVDA+3, microphone alarm dialog is Alt+NVDA+4 and add-on/encoder settings dialog is Alt+NVDA+0. This was done to allow Control+NVDA+number row to be assigned to Columns Explorer.
-* 8.0: Relaxed Columns Explorer restriction in place in 7.x so numbers 1 through 6 can be configured to announce Studio 5.1x columns.
-* 8.0: Track Dial toggle command and the corresponding setting in add-on settings are deprecated and will be removed in 9.0. This command will remain available in add-on 7.x.
-* Added Control+Alt+Home/End to move Column Navigator to first or last column in Playlist Viewer.
-* You can now add, view, change or delete track comments (notes). Press Alt+NVDA+C from a track in the playlist viewer to hear track comments if defined, press twice to copy comment to clipboard or three times to open a dialog to edit comments.
-* Added ability to notify if a track comment exists, as well as a setting in add-on settings to control how this should be done.
-* Added a setting in add-on settings dialog to let NVDA notify you if you've reached top or bottom of playlist viewer.
-* When resetting add-on settings, you can now specify what gets reset. By default, add-on settings will be reset, with checkboxes for resetting instant switch profile, time-based profile, encoder settings and erasing track comments added to reset settings dialog.
-* In Track Tool, you can obtain information on album and CD code by pressing Control+NVDA+9 and Control+NVDA+0, respectively.
-* Performance improvements when obtaining column information for the first time in Track Tool.
-* 8.0: Added a dialog in add-on settings to configure Columns Explorer slots for Track Tool.
-* You can now configure microphone alarm interval from microphone alarm dialog (Alt+NVDA+4).
 
 ## Older releases
 
