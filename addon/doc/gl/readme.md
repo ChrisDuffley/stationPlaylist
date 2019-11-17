@@ -323,6 +323,19 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
+## Version 19.11.1/18.09.13-LTS
+
+* Initial support for StationPlaylist suite 5.40.
+* In Studio, playlist snapshots (SPL Assistant, F8) and various time
+  announcement commands such as remaining time (Control+Alt+T) will no
+  longer cause NVDA to play error tones or do nothing if using NVDA 2019.3
+  or later.
+* In Creator's track list items, "Language" column added in Creator 5.31 and
+  later is properly recognized.
+* In various lists in Creator apart from track list, NVDA will no longer
+  announce odd column information if Control+NVDA+number row command is
+  pressed.
+
 ## Versión 19.11
 
 * O comando Estado de codificador dende o SPL controller (E) anunciará o

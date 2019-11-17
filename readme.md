@@ -17,7 +17,7 @@ IMPORTANT NOTES:
 * Certain add-on features won't work under some conditions, including running NVDA in secure mode.
 * Due to tecnical limitations, you cannot install or use this add-on on Windows Store version of NVDA.
 * Features marked as "experimental" are meant to test something before a wider release, so they will not be enabled in stable releases.
-* Due to use of Python 3, downgrading from version 19.12 to an earlier release or to 18.09.x is no longer supported and will cause certain add-on functionality to fail.
+* Due to use of Python 3, downgrading from version 20.01 to an earlier release or to 18.09.x is no longer supported and will cause certain add-on functionality to fail.
 
 ## Shortcut keys
 
