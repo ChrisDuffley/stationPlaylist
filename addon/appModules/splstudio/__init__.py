@@ -115,7 +115,7 @@ class SPLTrackItem(sysListView32.ListItem):
 		# This will work properly if the list (parent) is (or recognized as) SysListView32.List.
 		if not header: header = self._getColumnHeaderRaw(self.parent._columnOrderArray[colNumber])
 		columnContent = self._getColumnContentRaw(self.indexOf(header))
-		if columnContent: ui.message(str(_("{header}: {content}")).format(header = header, content = columnContent))
+		if columnContent: ui.message(_("{header}: {content}").format(header = header, content = columnContent))
 		else:
 			speech.speakMessage(_("{header}: blank").format(header = header))
 			braille.handler.message(_("{header}: ()").format(header = header))
@@ -286,7 +286,7 @@ class SPLStudioTrackItem(SPLTrackItem):
 		columnContent = self._getColumnContentRaw(self.indexOf(header))
 		status = self.name + " " if reportStatus else ""
 		# Translators: Standard message for announcing column content.
-		if columnContent: ui.message(str(_("{checkStatus}{header}: {content}")).format(checkStatus = status, header = header, content = columnContent))
+		if columnContent: ui.message(_("{checkStatus}{header}: {content}").format(checkStatus = status, header = header, content = columnContent))
 		else:
 			# Translators: Spoken when column content is blank.
 			speech.speakMessage(_("{checkStatus}{header}: blank").format(checkStatus = status, header = header))
