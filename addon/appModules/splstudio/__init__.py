@@ -289,9 +289,9 @@ class SPLStudioTrackItem(SPLTrackItem):
 		if columnContent: ui.message(str(_("{checkStatus}{header}: {content}")).format(checkStatus = status, header = header, content = columnContent))
 		else:
 			# Translators: Spoken when column content is blank.
-			speech.speakMessage(_("{checkStatus}{header}: blank").format(checkStatus = status, header = columnHeader))
+			speech.speakMessage(_("{checkStatus}{header}: blank").format(checkStatus = status, header = header))
 			# Translators: Brailled to indicate empty column content.
-			braille.handler.message(_("{checkStatus}{header}: ()").format(checkStatus = status, header = columnHeader))
+			braille.handler.message(_("{checkStatus}{header}: ()").format(checkStatus = status, header = header))
 
 	# Now the scripts.
 	# Because Studio track item requires special handling for status column, first and previous column scripts will be part of this and other subclasses here.
