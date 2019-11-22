@@ -289,9 +289,9 @@ NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio t
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
 
-## Version 19.11.1/18.09.13-LTS
+## Phiên bản 19.11.1/18.09.13-LTS
 
-* Initial support for StationPlaylist suite 5.40.
+* Bắt đầu hỗ trợ cho StationPlaylist suite 5.40.
 * In Studio, playlist snapshots (SPL Assistant, F8) and various time
   announcement commands such as remaining time (Control+Alt+T) will no
   longer cause NVDA to play error tones or do nothing if using NVDA 2019.3
