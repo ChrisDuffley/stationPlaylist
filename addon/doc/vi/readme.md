@@ -292,15 +292,14 @@ và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thự
 ## Phiên bản 19.11.1/18.09.13-LTS
 
 * Bắt đầu hỗ trợ cho StationPlaylist suite 5.40.
-* In Studio, playlist snapshots (SPL Assistant, F8) and various time
-  announcement commands such as remaining time (Control+Alt+T) will no
-  longer cause NVDA to play error tones or do nothing if using NVDA 2019.3
-  or later.
-* In Creator's track list items, "Language" column added in Creator 5.31 and
-  later is properly recognized.
-* In various lists in Creator apart from track list, NVDA will no longer
-  announce odd column information if Control+NVDA+number row command is
-  pressed.
+* Trong Studio, ảnh chụp danh sách phát (SPL Assistant, F8) và nhiều lệnh
+  báo thời gian như thời gian còn lại (Control+Alt+T) sẽ không còn làm NVDA
+  phát các âm thanh báo lỗi hoặc không làm gì nếu dùng NVDA 2019.3 hay cao
+  hơn.
+* Trong các thành phần danh sách track của Creator, cột "ngôn ngữ" được thêm
+  trong Creator 5.31 và cao hơn nhận dạng đúng.
+* Nhiều danh sách trong Creator ngoài danh sách track, NVDA sẽ không còn đọc
+  các thông tin cột lẻ nếu bấm các lệnh có Control+NVDA+các phím số.
 
 ## Phiên bản 19.11
 
