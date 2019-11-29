@@ -10,7 +10,7 @@ import ui
 import globalVars
 import config
 from NVDAObjects.IAccessible import getNVDAObjectFromEvent
-from winUser import user32, sendMessage, OBJID_CLIENT
+from winUser import user32, sendMessage, OBJID_CLIENT, getWindowText
 import addonHandler
 addonHandler.initTranslation()
 
@@ -142,7 +142,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			# 17.12: also bind cart keys.
 			# Exclude number row if Studio Standard is running.
 			cartKeys = self.fnCartKeys
-			if not getNVDAObjectFromEvent(user32.FindWindowW("TStudioForm", None), OBJID_CLIENT, 0).name.startswith("StationPlaylist Studio Standard"):
+			if not getWindowText(user32.FindWindowW("TStudioForm", None)).startswith("StationPlaylist Studio Standard"):
 				cartKeys+=self.numCartKeys
 			for cart in cartKeys:
 				self.bindGesture("kb:%s"%cart, "cartsWithoutBorders")
