@@ -37,9 +37,25 @@ class SPLCreatorItem(SPLTrackItem):
 	def exploreColumns(self):
 		return splconfig.SPLConfig["General"]["ExploreColumnsCreator"]
 
+	def script_trackColumnsViewer(self, gesture):
+		# #61 (18.06): a direct copy of column data gatherer from playlist transcripts.
+		# 20.02: customized for Creator (no status column).
+		columnHeaders = indexOf(self.appModule.productVersion)
+		columns = list(range(len(columnHeaders)))
+		columnContents = [self._getColumnContentRaw(col) for col in columns]
+		for pos in range(len(columnContents)):
+			if columnContents[pos] is None: columnContents[pos] = "blank"
+			# Manually add header text until column gatherer adds headers support.
+			columnContents[pos] = ": ".join([columnHeaders[pos], columnContents[pos]])
+		# Translators: Title of the column data window.
+		ui.browseableMessage("\n".join(columnContents), title=_("Track data"))
+	# Translators: input help mode message for columns viewer command.
+	script_trackColumnsViewer.__doc__ = _("Presents data for all columns in the currently selected track")
+
 	__gestures={
 		"kb:control+alt+downArrow": None,
 		"kb:control+alt+upArrow": None,
+		"kb:control+NVDA+-":"trackColumnsViewer",
 	}
 
 
