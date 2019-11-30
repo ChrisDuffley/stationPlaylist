@@ -193,6 +193,10 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 20.02
+
+* While focused on a track in Creator and Track Tool, pressing Control+NVDA+Dash will display data for all columns on a browse mode window.
+
 ## Version 20.01
 
 * NVDA 2019.3 or later is required due to extensive use of Python 3.
