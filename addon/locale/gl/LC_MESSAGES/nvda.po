@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2019-11-21 16:18-0800\n"
+"PO-Revision-Date: 2019-11-30 19:32+0100\n"
 "Last-Translator: Iván Novegil Cancelas <ivan.novegil.cancelas@gmail.com>\n"
 "Language-Team: Add-ons translation team <oprisniki@gmail.com>\n"
 "Language: gl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 2.2.4\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
@@ -1402,7 +1402,7 @@ msgstr "pitido e mensaxe"
 
 #. Translators: The label for a setting in SPL add-on dialog to control alarm announcement type.
 msgid "&Alarm notification:"
-msgstr "Notificación da &Alarma."
+msgstr "Notificación da &Alarma:"
 
 #. Translators: Help text for playlist snapshots dialog.
 msgid ""
@@ -1508,8 +1508,8 @@ msgid ""
 "&Select columns to be announced\n"
 "(artist and title are announced by default):"
 msgstr ""
-"&Seleciona as columnas a seren anunciadas (artista e título anúncianse "
-"predeterminadamente."
+"&Seleciona as columnas a seren anunciadas\n"
+"(artista e título anúncianse predeterminadamente:"
 
 #. wxPython 4 contains RearrangeList to allow item orders to be changed automatically.
 #. Because wxPython 3 doesn't include this, work around by using a variant of list box and move up/down buttons.
@@ -1539,8 +1539,8 @@ msgid ""
 "&Select columns to be included in playlist transcripts\n"
 "(artist and title are always included):"
 msgstr ""
-"&Selecciona columnas a incluír na transcrición (artista e título sempre se "
-"inclúen."
+"&Selecciona columnas a incluír na transcrición de lista de reprodución\n"
+"(artista e título sempre se inclúen):"
 
 #. Translators: title of a panel to configure columns explorer settings.
 msgid "Columns explorer"
@@ -1867,7 +1867,6 @@ msgstr "Acción para a transcrición:"
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
-#, fuzzy
 msgid ""
 "\n"
 "After entering SPL Controller, press:\n"
@@ -1892,26 +1891,26 @@ msgid ""
 "keys: Play carts."
 msgstr ""
 "\n"
-"Despois de entrar no SPL Controller, preme:\n"
-"A: Encende a automatización.\n"
-"Shift+A: Apaga a automatización.\n"
-"M: Encende o micrófono.\n"
-"Shift+M: Apaga o micrófono.\n"
-"N: Encende o micrófono sen fade.\n"
-"L: Encende line in.\n"
-"Shift+L: Apaga line in.\n"
+"Tras entrar no SPL controller, preme:\n"
+"A: Activar automatización.\n"
+"Shift+A: Desactivar automatización.\n"
+"M: Activar micrófono.\n"
+"Shift+M: Desactivar micrófono.\n"
+"N: Activar micrófono sen fundido.\n"
+"L: Activar liña de entrada.\n"
+"Shift+L: Desactivar liña de entrada.\n"
 "P: Reproducir.\n"
 "U: Pausar.\n"
-"S: Deter co fade.\n"
-"T: Deter instantáneamente.\n"
-"C: Anuncia o nome e a duración da pista actualmente en reprodución.\n"
-"E: Anuncia se algún codificador está a ser monitorizado.\n"
-"I: anuncia o reconto de oíntes.\n"
-"Q: Anuncia información de estado do Studio.\n"
-"R: Tempo restante para a pista en reprodución.\n"
-"Shift+R: Progreso do escaneado da biblioteca.\n"
-"Teclas de función e da fila de números con ou sen as teclas Shift, Control e "
-"Alt: Reproducir pisadores."
+"S: Deter con fundido.\n"
+"T: Detención instantánea.\n"
+"C: Anunciar nome e duración da pista en reprodución.\n"
+"E: Anunciar codificadores conectados se hai algún.\n"
+"I: Anunciar contador de oíntes.\n"
+"Q: Anunciar información de estado de Studio.\n"
+"R: Tempo restante da pista actual.\n"
+"Shift+R: Progreso de escaneo da biblioteca.\n"
+"Teclas de función e da fila de números  con ou sen as teclas Shift, Alt, e "
+"Control: Reproducir carts."
 
 #. Translators: Presented when StationPlaylist Studio is not running.
 msgid "SPL Studio is not running."
@@ -1981,23 +1980,21 @@ msgid "SPL Controller help"
 msgstr "Axuda do SPL Controller"
 
 #. Translators: presented when no streaming encoders were found when trying to obtain connection status.
-#, fuzzy
 msgid "No encoders found"
-msgstr "Non se atopou marcador"
+msgstr "Non se atoparon codificadores"
 
 #. Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
 msgid "Only one encoder type can be active at once"
-msgstr ""
+msgstr "Só pode estar activo un só tipo de codificador á vez"
 
 #. Translators: presented when at least one encoder is connected.
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Connected encoders: {encodersConnected}"
-msgstr "Monitorizando codificador {encoderNumber}"
+msgstr "Codificadores conectados: {encodersConnected}"
 
 #. Translators: presented when no encoders are connected.
-#, fuzzy
 msgid "No encoders connected"
-msgstr "Non hai codificadores sendo monitorizados"
+msgstr "Non hai codificadores conectados"
 
 #. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
 #, python-brace-format

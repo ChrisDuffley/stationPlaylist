@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2019-11-21 16:22-0800\n"
+"PO-Revision-Date: 2019-12-07 20:15+0100\n"
 "Last-Translator: zvonimir stanecic <zvonimirek222@yandex.com>\n"
 "Language-Team: Polish <killer@tyflonet.com>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 1.6.10\n"
 
 #. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
 msgid ""
@@ -1744,7 +1744,6 @@ msgstr "Akcja transkryptu:"
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
-#, fuzzy
 msgid ""
 "\n"
 "After entering SPL Controller, press:\n"
@@ -1768,27 +1767,6 @@ msgid ""
 "Function keys and number row keys with or without Shift, Alt, and Control "
 "keys: Play carts."
 msgstr ""
-"\n"
-"Po wejściu do kontrolera SPL, naciśnij:\n"
-"A: włączanie automatyzacji.\n"
-"Shift+A: wyłączanie automatyzacji.\n"
-"M: włączanie mikrofonu.\n"
-"Shift+M: wyłączanie mikrofonu.\n"
-"N: włączanie mikrofonu bez wyciszania.\n"
-"L: włącza wejście liniowe.\n"
-"Shift+L: wyłącza wejście liniowe.\n"
-"P: odtwarzanie.\n"
-"U: pauza.\n"
-"S: wstrzymanie bez z wyciszaniem.\n"
-"T: szybkie wstrzymanie.\n"
-"C: oznajmia nazwę i czas trwania aktualnie odtwarzanego utworu.\n"
-"E: oznajmia aktywność enkodera, jeżeli jest aktywny jakikolwiek.\n"
-"I: oznajmia liczbę słuchaczy.\n"
-"Q: Oznajmia informację o stanie Studio.\n"
-"R: Pozostały czas odtwarzanego utworu.\n"
-"Shift+R: postęp skanowania biblioteki.\n"
-"Klawisze funkcyjne i klawisze w rzędzie cyfrowym z lub bez shiftu, altu lub "
-"klawisza kontrol: odtwarzanie deków."
 
 #. Translators: Presented when StationPlaylist Studio is not running.
 msgid "SPL Studio is not running."
@@ -1855,23 +1833,21 @@ msgid "SPL Controller help"
 msgstr "Pomoc kontrolera SPL"
 
 #. Translators: presented when no streaming encoders were found when trying to obtain connection status.
-#, fuzzy
 msgid "No encoders found"
-msgstr "Nie ma znaczników"
+msgstr "Nie znaleziono enkoderów"
 
 #. Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
 msgid "Only one encoder type can be active at once"
 msgstr ""
 
 #. Translators: presented when at least one encoder is connected.
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Connected encoders: {encodersConnected}"
-msgstr "Monitorowanie enkodera {encoderNumber}"
+msgstr "Połączonych enkoderów: {encodersConnected}"
 
 #. Translators: presented when no encoders are connected.
-#, fuzzy
 msgid "No encoders connected"
-msgstr "Brak monitorowanych enkoderów"
+msgstr "Nie ma podłączonych enkoderów"
 
 #. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
 #, python-brace-format

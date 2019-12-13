@@ -323,18 +323,18 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
-## Version 19.11.1/18.09.13-LTS
+## Versión 19.11.1/18.09.13-LTS
 
-* Initial support for StationPlaylist suite 5.40.
-* In Studio, playlist snapshots (SPL Assistant, F8) and various time
-  announcement commands such as remaining time (Control+Alt+T) will no
-  longer cause NVDA to play error tones or do nothing if using NVDA 2019.3
-  or later.
-* In Creator's track list items, "Language" column added in Creator 5.31 and
-  later is properly recognized.
-* In various lists in Creator apart from track list, NVDA will no longer
-  announce odd column information if Control+NVDA+number row command is
-  pressed.
+* Soporte inicial para o paquete StationPlaylist 5.40.
+* En Studio, a de capturas de lista de reprodución (Asistente SPL, F8) e
+  varias ordes de anunciado de hora como a de tempo restante (Control+Alt+T)
+  xa non causarán que NVDA reproduza tons de erro ou non faga nada ao
+  utilizar NVDA 2019.3 ou posterior.
+* Nos elementos da lista de pistas de Creator, xa se recoñece correctamente
+  a columna "Idioma" engadida en Creator 5.31 e posterior.
+* En varias listas en Creator aparte da lista de pistas, NVDA xa non
+  anunciará información de columna aleatoria se se preme a orde
+  Control+NVDA+fila de números.
 
 ## Versión 19.11
 

@@ -17,7 +17,7 @@ IMPORTANT NOTES:
 * Certain add-on features won't work under some conditions, including running NVDA in secure mode.
 * Due to tecnical limitations, you cannot install or use this add-on on Windows Store version of NVDA.
 * Features marked as "experimental" are meant to test something before a wider release, so they will not be enabled in stable releases.
-* Due to use of Python 3, downgrading from version 20.01 to an earlier release or to 18.09.x is no longer supported and will cause certain add-on functionality to fail.
+* Due to use of Python 3, downgrading from version 20.01 to an earlier release or to 18.09.x is no longer supported and will cause certain add-on functionality to fail. If you need to use this add-on with NVDA 2019.2.1 or earlier, download [version 19.11.2][6] of this add-on.
 
 ## Shortcut keys
 
@@ -494,3 +494,5 @@ Please see changelog link for release notes for old add-on releases.
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 
 [5]: https://github.com/josephsl/stationplaylist/wiki/splchangelog
+
+[6]: https://github.com/josephsl/stationPlaylist/releases/download/19.11.1/stationPlaylist-19.11.2.nvda-addon
