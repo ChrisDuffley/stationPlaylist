@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 3.3\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2014-11-28 19:00+1000\n"
-"PO-Revision-Date: 2019-11-24 21:18+0100\n"
+"PO-Revision-Date: 2019-12-08 17:58+0100\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: \n"
 "Language: hr\n"
@@ -1305,7 +1305,7 @@ msgstr "&Uključi sate pri najavljivanju trajanja snimke ili popisa snimaka"
 
 #. Translators: The label for a setting in SPL add-on dialog to set vertical column.
 msgid "&Vertical column navigation announcement:"
-msgstr "Najavljivanje okomite navigacije po stupcima:"
+msgstr "Najavljivanje okomitog kretanja po stupcima:"
 
 #. Translators: One of the options for vertical column navigation denoting NVDA will announce current column positoin (e.g. second column position from the left).
 msgid "whichever column I am reviewing"
