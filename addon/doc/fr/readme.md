@@ -3,7 +3,7 @@
 * Auteurs: Geoff Shang, Joseph Lee et d'autres contributeurs.
 * Télécharger [version stable][1]
 * Télécharger [la version de développement][2]
-* NVDA compatibility: 2019.1 to 2019.2
+* NVDA compatibility: 2019.1 to 2019.3
 
 This add-on package provides improved usage of StationPlaylist Studio and
 other StationPlaylist apps, as well as providing utilities to control Studio
