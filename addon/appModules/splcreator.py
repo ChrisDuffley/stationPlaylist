@@ -80,11 +80,10 @@ class AppModule(appModuleHandler.AppModule):
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		import controlTypes
-		if obj.windowClassName in ("TListView", "TTntListView.UnicodeClass"):
-			# 19.11.1/18.09.13-LTS: filter out list items other than actual track list.
-			# Column count is assumed to be 20 or more.
-			# 20.02: a specific window style is used by tracks list.
-			if obj.role == controlTypes.ROLE_LISTITEM and obj.windowStyle == 1443958857:
+		# 20.02: tracks list uses a different window class name other than "TListView".
+		# Resort to window style and other tricks if other lists with the class name below is found and are not tracks list.
+		if obj.windowClassName == "TTntListView.UnicodeClass":
+			if obj.role == controlTypes.ROLE_LISTITEM:
 				clsList.insert(0, SPLCreatorItem)
 			elif obj.role == controlTypes.ROLE_LIST:
 				clsList.insert(0, sysListView32.List)
