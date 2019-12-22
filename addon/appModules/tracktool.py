@@ -1,6 +1,6 @@
 # StationPlaylist Track Tool
 # An app module for NVDA
-# Copyright 2014-2019 Joseph Lee and contributors, released under gPL.
+# Copyright 2014-2020 Joseph Lee and contributors, released under gPL.
 # Functionality is based on JFW scripts for SPL Track Tool by Brian Hartgen.
 
 import appModuleHandler

@@ -1,6 +1,6 @@
 # StationPlaylist Utilities
 # Author: Joseph Lee
-# Copyright 2013-2019, released under GPL.
+# Copyright 2013-2020, released under GPL.
 # Adds a few utility features such as switching focus to the SPL Studio window and some global scripts.
 
 from functools import wraps

@@ -1,6 +1,6 @@
 # StationPlaylist encoders support
 # Author: Joseph Lee
-# Copyright 2015-2019, released under GPL.
+# Copyright 2015-2020, released under GPL.
 # Split from main global plugin in 2015.
 
 import threading
