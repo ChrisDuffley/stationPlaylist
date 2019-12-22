@@ -83,7 +83,8 @@ class AppModule(appModuleHandler.AppModule):
 		if obj.windowClassName in ("TListView", "TTntListView.UnicodeClass"):
 			# 19.11.1/18.09.13-LTS: filter out list items other than actual track list.
 			# Column count is assumed to be 20 or more.
-			if obj.role == controlTypes.ROLE_LISTITEM and obj.parent.columnCount > 20:
+			# 20.02: a specific window style is used by tracks list.
+			if obj.role == controlTypes.ROLE_LISTITEM and obj.windowStyle == 1443958857:
 				clsList.insert(0, SPLCreatorItem)
 			elif obj.role == controlTypes.ROLE_LIST:
 				clsList.insert(0, sysListView32.List)
