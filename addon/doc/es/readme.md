@@ -3,7 +3,8 @@
 * Autores: Geoff Shang, Joseph Lee y otros colaboradores
 * Descargar [Versión estable][1]
 * Descargar [versión de desarrollo][2]
-* NVDA compatibility: 2019.1 to 2019.3
+* NVDA compatibility: 2019.3 and beyond
+* Download [older version][6] compatible with NVDA 2019.2.1 and earlier
 
 Este paquete de complementos proporciona una utilización mejorada de Station
 Playlist Studio y otras aplicaciones de StationPlaylist, así como utilidades
@@ -18,13 +19,13 @@ repositorio del código fuente del complemento.
 
 NOTAS IMPORTANTES:
 
-* Este complemento requiere de NVDA 2019.1 o posterior y StationPlaylist
-  Suite 5.20 o posterior.
+* This add-on requires NVDA 2019.3 or later and StationPlaylist suite 5.20
+  or later.
 * Si utilizas Windows 8 o posterior, para una mejor experiencia, deshabilita
   el modo atenuación de audio.
-* A partir de 2018, los [registros de cambios para versiones antiguas][5] se
-  encontrarán en GitHub. Este léeme del complemento listará cambios desde la
-  versión 8.0/16.10 (2016 en adelante).
+* Starting from 2018, [changelogs for old add-on releases][5] will be found
+  on GitHub. This add-on readme will list changes from version 17.08 (2017
+  onwards).
 * Ciertas características del complemento no funcionarán bajo algunas
   condiciones, incluyendo la ejecución de NVDA en modo seguro.
 * Debido a limitaciones técnicas, no puedes instalar ni utilizar este
@@ -328,6 +329,10 @@ Windows 8 o posterior y tienes NVDA 2012.3 o posterior instalado, puedes
 realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
+
+## Version 20.01
+
+* NVDA 2019.3 or later is required due to extensive use of Python 3.
 
 ## Versión 19.11.1/18.09.13-LTS
 
@@ -923,214 +928,6 @@ una versión 15.x LTS.
   edición del cart y otra también se anunciará además de reproducción y
   automatización.
 
-## Versión 17.06
-
-* Ahora puedes realizar la orden Buscador de Pista (Control+NVDA+F) mientras
-  se carga una lista de reproducción pero la primera pista no se enfoca.
-* NVDA ya no reproducirá tonos de error o no hará nada al buscar una pista
-  hacia adelante desde la última pista o hacia atrás desde la primera,
-  respectivamente.
-* Pulsar NVDA+Subrimir del teclado numérico (NVDA+Suprimir en la
-  distribución portátil) ahora anunciará la posición de la pista seguida del
-  número de elementos en una lista de reproducción.
-
-## Versión 17.05.1
-
-* NVDA ya no fallará al guardar cambios para opciones de alarma desde varios
-  diálogos de alarma (por ejemplo, Alt+NVDA+1 para alarma de fin de pista).
-
-## Versión 17.05/15.7-LTS
-
-* El intervalo de actualización ahora puede configurarse a 180 días. Para
-  instalaciones predeterminadas, el intervalo de actualización se buscará
-  cada 30 días.
-* Corregido un fallo donde NVDA podrá reproducir tonos de error si Studio
-  sale mientras está activo un perfil basado en tiempo.
-
-## Versión 17.04
-
-* Añadido el soporte básico de depuración del complemento registrando
-  información variada mientras el complemento está activo con NVDA
-  configurado para registrar la depuración (se requiere de NVDA 2017.1 y
-  superior). Para utilizar esto, antes de instalar NVDA 2017.1, desde el
-  diálogo Salir de NVDA, elige la opción "reiniciar con el registro de
-  depuración habilitado".
-* Mejoras para la presentación de varios diálogos del complemento gracias a
-  las características del NVDA 2016.4.
-* NVDA descargará actualizaciones para el complemento en segundo plano si
-  respondiste "sí" cuando se te preguntó para actualizar el
-  complemento. Consecuentemente, ya no se te mostrarán las notificaciones de
-  descarga del fichero desde los navegadores web.
-* NVDA ya no parecerá colgarse al buscar una actualización al iniciarse
-  debido a que cambie el canal de actualizaciones del complemento.
-* Añadida la capacidad de pulsar Control+Alt+flecha arriba o abajo para
-  moverse entre pistas (en especial, columnas de pista) verticalmente sólo
-  según se mueve a la fila siguiente o anterior en una tabla.
-* Añadida una casilla de verificación en el diálogo opciones del complemento
-  para configurar qué columna debería anunciarse al moverse por las columnas
-  verticalmente.
-* Movidos los controles fin de pista, alarmas de intro y de micrófono desde
-  las opciones del complemento al nuevo Centro de Alarmas.
-* En el Centro de alarmas, los campos de edición de fin de pista e intro de
-  pista siempre se muestran independientemente del estado de las casillas de
-  verificación de notificación de alarma.
-* Añadida una orden en el SPL Assistant para obtener instantáneas de listas
-  de reproducción tales como número de pista, pista más larga, artistas
-  principales y así (F8). también puedes añadir una orden personalizada para
-  esta característica.
-* Pulsando el gesto personalizado para instantáneas de lista de reproducción
-  una vez permitirá a NVDA verbalizar y mostrar en braile una breve
-  información instantánea. Pulsando la orden dos veces hará que NVDA abra
-  una página web conteniendo una información más completa de la instantánea
-  de la lista de reproducción. Pulsa escape para cerrar esta página web.
-* Eliminado el Dial de Pista (versión mejorada de teclas de flechas de
-  NVDA), reemplazado por las órdenes de navegación Explorador de Columnas y
-  navegador de columnas/tablas ). Esto afecta a Studio y a Track Tool.
-* Después de cerrar el diálogo Insertar Pistas mientras esté en progreso un
-  escaneado de biblioteca, ya no se requiere pulsar SPL Assistant, Shift+R
-  para monitorizar el progreso del escaneo.
-* Mejorada la precisión de la detección y anunciado del completado de los
-  escaneados de la biblioteca en Studio 5.10 y posterior. Esto corrige un
-  problema donde el monitoreo de escaneado de la biblioteca finalizará
-  prematuramente cuando hay más pistas a escanear, necesitando reiniciar el
-  monitoreo de escaneado de la biblioteca.
-* Mejorado el anunciado del estado del escaneo de biblioteca a través del
-  SPL Controller (Shift+R) anunciando la cuenta de escaneo si el escaneado
-  está ocurriendo.
-* En la demo de Studio, cuando aparece la ventana de registro al iniciar
-  Studio, las órdenes como tiempo restante para una pista ya no causará que
-  NVDA no haga nada, reproduzca tonos de error, o dé información errónea. Se
-  anunciará un mensaje de error en su lugar. Órdenes tales como estas
-  requerirán que la ventana principal de Studio esté presente.
-* Soporte inicial para StationPlaylist Creator.
-* Añadida una nueva orden en SPL Controller layer para anunciar el estado de
-  Studio como la reproducción de la pista y el estado del micrófono (Q).
-
-## Versión 17.03
-
-* NVDA ya no parecerá no hacer nada o no reproducirá un tono de error al
-  cambiar a un perfil de transmisión basado en tiempo.
-* Traducciones actualizadas.
-
-## Versión 17.01/15.5-LTS
-
-Nota: 17.01.1/15.5A-LTS reemplaza a 17.01 debido a cambios de la
-localización de los ficheros nuevos del complemento.
-
-* 17.01.1/15.5A-LTS: se cambió de dónde se descargan las actualizaciones
-  para las versiones de soporte a largo plazo. Es obligatoria la instalación
-  de esta versión.
-* Mejorada la respuesta y la fiabilidad al utilizar el complemento para
-  cambiar a Studio, o utilizando el foco para órdenes de Studio desde otros
-  programas o cuando un codificador está conectado y se le pide a NVDA que
-  cambie a Studio cuando esto ocurra. Si Studio se minimiza, la ventana de
-  Studio se mostrará como no disponible. Si es así, restaura la ventana de
-  Studio desde la bandeja del sistema.
-* Si se editan carts mientras el explorador de Cart está activado, ya no es
-  necesario reintroducir el explorador de Cart para ver las asignaciones de
-  cart actualizadas cuando el modo Edición de Cart se
-  desactive. Consecuentemente, el mensaje reintroducir explorador de Cart ya
-  no se anuncia.
-* En el complemento 15.5-LTS, se corrigió la presentación de la interfaz de
-  usuario para el diálogo Opciones del complemento SPL.
-
-## Versión 16.12.1
-
-* Corregida la presentación de la interfaz de usuario para el diálogo
-  Opciones del complemento SPL.
-* Traducciones actualizadas.
-
-## Versión 16.12/15.4-LTS
-
-* Más trabajo sobre el soporte de Studio 5.20, incluyendo el anunciado del
-  estado del modo inserción de cart (si está activado) desde el SPL
-  Assistant layer (T).
-* El conmutado del modo editar/insertar Cart ya no está afectado por la
-  verbosidad de los mensajes ni por las opciones de anunciado del tipo de
-  estado (Este estado se anunciará siempre a través de voz y/o braille).
-* Ya no es posible añadir commentarios a las notas partidas.
-* Soporte para Track Tool 5.20, incluyendo corregido un problema donde se
-  anunciaba información errónea al utilizar las órdenes del Explorador de
-  Columnas para anunciar información de columna.
-
-## Versión 16.11/15.3-LTS
-
-* Soporte inicial para StationPlaylist Studio 5.20, incluyendo la
-  sensibilidad mejorada al obtener información de estado tal como estado de
-  la automatización a través de SPL Assistant layer.
-* Corregidos fallos relativos a la búsqueda de pistas e interactuación con
-  ellas, incluyendo la incapacidad para marcar o desmarcar marcadores de
-  pista o una pista encontrada a través del diálogo buscador de rango.
-* El orden del anunciado de columnas ya no se revertirá al orden
-  predeterminado después de cambiarlo.
-* 16.11: Si los perfiles de transmisión tienen errores, el diálogo error ya
-  no fallará al desplegarse.
-
-## Versión 16.10.1/15.2-LTS
-
-* Ahora puedes interactuar con la pista que se encontró a través del
-  Buscador de Pistas (Control+NVDA+F) según la busques para reproducir.
-* Traducciones actualizadas.
-
-## Versión 8.0/16.10/15.0-LTS
-
-La versión 8.0 (también conocida como 16.10) soporta SPL Studio 5.10 y
-posteriores, con 15.0-LTS (antes 7.x) diseñada para proporcionar algunas
-características nuevas de 8.0 para usuarios que utilicen versiones
-anteriores de Studio. Al menos que se indique lo contrario, las entradas que
-siguen se aplican tanto a 8.0 como a 7.x. Se mostrará un diálogo de
-advertencia la primera vez que utilices el complemento 8.0 con Studio 5.0x
-instalado, pidiéndote que utilices la versión 15.x LTS.
-
-* El esquema de la versión ha cambiado para reflejar el año/mes de la
-  publicación en lugar de mayor.menor. Durante el período de transición
-  (hasta mediados de 2017), versión 8.0 es sinónimo de versión 16.10, con
-  7.x LTS designándose como 15.0 debido a cambios incompatibles.
-* El código fuente del complemento ahora se publica en GitHub (repositorio
-  localizado en https://github.com/josephsl/stationPlaylist).
-* Añadido un diálogo de bienvenida que se lanza cuando Studio arranca
-  después de instalar el complemento. Se ha añadido una orden (Alt+NVDA+F1)
-  para reabrir este diálogo una vez cerrado.
-* Cambios para varias órdenes del complemento, incluyendo la eliminación de
-  el comuntado del anuncio de estado (Control+NVDA+1), reasignada la alarma
-  de fin de pista a Alt+NVDA+1, el conmutador de explorador de Cart ahora es
-  Alt+NVDA+3, el diálogo de alarma de micrófono es Alt+NVDA+4 y el diálogo
-  opciones del complemento/codificador es Alt+NVDA+0. Esto se hizo para
-  permitir que Control+NVDA+fila de números se asigne al Explorador de
-  Columnas.
-* 8.0: relajada la restricción del Explorador de Columnas en lugar del 7.x
-  así los números del 1 al 6 pueden configurarse para anunciar columnas en
-  Studio 5.1x.
-* 8.0: la orden conmutar Dial de pista y la opción correspondiente en las
-  opciones del complemento han quedado en desuso y se eliminarán 9.0. Esta
-  orden permanecerá disponible en el complemento 7.x.
-* Añadido Control+Alt+Inicio/Fin para mover el navegador de Columna a la
-  primera o última columna en el visualizador de la lista de reproducción.
-* Ahora puedes añadir, ver, cambiar o eliminar comentarios de pista
-  (notas). Pulsa Alt+NVDA+C desde una pista en el visualizador de lista de
-  reproducción para escuchar los comentarios de pista si se definieron,
-  pulsa dos veces para copiar el comentario al portapapeles o tres veces
-  para abrir un diálogo para editar los comentarios.
-* Añadida la capacidad de notificar si existe un comentario de pista, así
-  como una opción en las opciones del complemento para controlar cómo
-  debería hacerse.
-* Añadido un ajuste en el diálogo opciones del complemento para permitir a
-  NVDA notificarte si has alcanzado la parte superior o inferior del
-  visualizador de lista de reproducción.
-* Al reiniciar las opciones del complemento, ahora puedes especificar lo que
-  se reinicia. Por defecto, las opciones del complemento se reiniciarán, con
-  cuadros combinados para reiniciar el perfil de cambio instantáneo, perfil
-  basado en tiempo, opciones del codificador y borrado de comentarios de
-  pista añadidos al diálogo de opciones de reiniciado.
-* En la Herramienta Pista, puedes obtener información sobre el álbum y
-  código de CD pulsando Control+NVDA+9 y Control+NVDA+0, respectivamente.
-* Se realizan mejoras al obtener información de columna por primera vez en
-  la Herramienta de Pista.
-* 8.0: añadido un diálogo en las opciones del complemento para configurar
-  los slots del Explorador de Columnas para la Herramienta de Pista.
-* Ahora puedes configurar el intervalo de alarma de micrófono desde el
-  diálogo Alarma de micrófono (Alt+NVDA+4).
-
 ## Versiones antiguas
 
 Por favor consulta el enlace changelog para notas de la versión para
@@ -1147,3 +944,5 @@ versiones antiguas del complemento.
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 
 [5]: https://github.com/josephsl/stationplaylist/wiki/splchangelog
+
+[6]: https://addons.nvda-project.org/files/get.php?file=spl-2019

@@ -3,7 +3,8 @@
 * Autoren: Geoff Shang, Joseph Lee und weitere Mitwirkende
 * [Stabile Version herunterladen][1]
 * [Entwicklerversion herunterladen][2]
-* NVDA compatibility: 2019.1 to 2019.3
+* NVDA compatibility: 2019.3 and beyond
+* Download [older version][6] compatible with NVDA 2019.2.1 and earlier
 
 Dieses Zusatzpaket bietet eine verbesserte Nutzung von StationPlaylist
 Studio und anderen StationPlaylist-Anwendungen sowie Dienstprogramme zur
@@ -18,14 +19,14 @@ Quellcodeverzeichnis der Erweiterung auf Github.
 
 WICHTIGE HINWEISE:
 
-* Diese Erweiterung benötigt NVDA 2019.1 oder neuer und StationPlaylist
-  Suite 5.20 oder neuer.
+* This add-on requires NVDA 2019.3 or later and StationPlaylist suite 5.20
+  or later.
 * Wenn Sie Windows 8 oder höher verwenden, setzen Sie die Reduzierung der
   Lautstärke anderer Audioquellen auf "nie" im Dialog Sprachausgabe im
   NVDA-Einstellungsmenü.
-* Seit 2018 finden Sie [die Änderungen der Veröffentlichungen der
-  Erweiterung][5] auf GitHub. Diese Readme für die Erweiterung listet die
-  Änderungen gegenüber der Version 8.0/16.10 (seit 2016) auf.
+* Starting from 2018, [changelogs for old add-on releases][5] will be found
+  on GitHub. This add-on readme will list changes from version 17.08 (2017
+  onwards).
 * Bestimmte Funktionen sind nicht mehr verfügbar, z.B. während NVDA im
   abgesicherten Modus ausgeführt wird.
 * Aufgrund technischer Einschränkungen können Sie diese Erweiterung nicht
@@ -333,6 +334,10 @@ verwenden und NVDA 2012.3 oder höher installiert haben, können Sie einige
 Studio-Befehle über den Touchscreen ausführen. Tippen Sie zunächst einmal
 mit drei Fingern, um in den SPL-Touchmodus zu wechseln. Verwenden Sie dann
 die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
+
+## Version 20.01
+
+* NVDA 2019.3 or later is required due to extensive use of Python 3.
 
 ## Version 19.11.1/18.09.13-LTS
 
@@ -954,229 +959,6 @@ Windows-Versionen wird eine 15.x LTS-Version sein.
   Informationen wie Mikrofonstatus, Cart-Bearbeitungsmodus und mehr
   angesagt.
 
-## Version 17.06
-
-* Sie können nun den Titelfinder-Befehl (STRG+NVDA+F) ausführen, während
-  eine Playlist geladen ist. Dies gilt, auch wenn der erste Titel nicht
-  fokussiert ist.
-* NVDA wird keine Fehlertöne mehr abspielen und entsprechend reagieren, wenn
-  vorwärts vom letzten Titel bzw. rückwärts vom ersten Titel nach einem
-  bestimmten Titel gesucht wird.
-* Drücken von NVDA+Nummernblock-Entfernen (NVDA+Entfernen im Laptop-Layout)
-  wird nun die Titelposition und die Anzahl der Elemente in einer Playlist
-  ausgeben.
-
-## Version 17.05.1
-
-* NVDA wird beim Speichern von Änderungen an den Alarmeinstellungen aus
-  verschiedenen Alarmdialogen nicht mehr fehlschlagen (z.B. Alt+NVDA+1 für
-  Benachrichtigungen zum Ende eines Titels).
-
-## Version 17.05/15.7-LTS
-
-* Das Aktualisierungsintervall kann jetzt auf 180 Tage eingestellt
-  werden. Bei Standardinstallationen beträgt das Prüfintervall für
-  Aktualisierungen 30 Tage.
-* Es wurde ein Problem behoben, bei dem NVDA manchmal einen Fehlerton
-  ausgab, wenn Studio beendet wurde. Dies trat auf, wenn ein temporäres
-  Profil aktiv war.
-
-## Version 17.04
-
-* Es wurde eine grundlegende Unterstützung für Debugging hinzugefügt, indem
-  verschiedene Informationen protokolliert werden, während die Erweiterung
-  aktiv ist und NVDA auf Debug-Protokollierungsstufe eingestellt ist
-  (erfordert NVDA 2017.1 und höher). Wählen Sie nach der Installation von
-  NVDA 2017.1 im Dialogfeld "Protokollierungsstufe" die Option "Debug", um
-  diese Funktion zu verwenden.
-* Verbesserte Darstellung verschiedener Dialoge dank der Funktionen von NVDA
-  2016.4.
-* NVDA lädt Aktualisierungen für diese Erweiterung  im Hintergrund herunter,
-  wenn Sie im Bestätigungsdialog bei der Aktualisierung auf "Ja"
-  klicken. Infolgedessen werden Benachrichtigungen über Datei-Downloads von
-  Webbrowsern nicht mehr angesagt.
-* NVDA hängt sich bei der Suche nach Aktualisierungen für diese Erweiterung
-  nicht mehr auf, da der Kanalwechsel beim Update erfolgt.
-* Es wurde die Möglichkeit zugefügt, mit Strg+Alt+aufwärts oder abwärtspfeil
-  vertikal zwischen den Titeln (insbesondere den Titelspalten) zu wechseln,
-  während man sich in einer Tabelle zur nächsten oder vorherigen Zeile
-  bewegt.
-* Es wurde ein Kombinationsfeld im Einstellungsdialog der SPL-Erweiterung
-  hinzugefügt, um festzulegen, welche Spalte beim vertikalen Durchlaufen von
-  Spalten angesagt werden soll.
-* Das Ende des Titels, Intro- und Mikrofon-Alarmsteuerungen wurden von den
-  Einstellungen der Erweiterung im neuen Benachrichtigungscenter verschoben.
-* Im Benachrichtigungscenter werden die Eingabefelder für das Ende und das
-  Intro des Titels immer angesagt, unabhängig vom Status der
-  Alarmbenachrichtigung.
-* Im SPL-Assistenten wurde der Befehl F8 hinzugefügt, um Schnappschüsse von
-  Wiedergabelisten zu erhalten (z.B. Anzahl der Titel, längster Titel, Top
-  Interpreten usw.). Sie können auch einen benutzerdefinierten Befehl für
-  diese Funktion hinzufügen.
-* Durch einmaliges Drücken des benutzerdefinierten Befehls für die Funktion
-  "Playlist-Schnappschüsse" kann NVDA eine kurze Statistik-Information
-  ausgeben und in Braille anzeigen. Wenn Sie den Befehl zweimal drücken,
-  öffnet NVDA eine Webseite, die eine umfangreichere Playlist-Statistik
-  enthält. Drücken Sie Escape, um diese Webseite zu schließen.
-* Titeleingabe (Die Art der erweiterten Pfeiltasten in NVDA) wurde entfernt
-  und durch Spaltenexplorer und Spaltennavigator/Befehele der
-  Tabellennavigation ersetzt. Dies betrifft Studio und Tracktool.
-* Nach dem Schließen des Dialogs "Titel einfügen" während eines
-  Suchduurchlaufs in der Bibliothek ist es nicht mehr erforderlich, im
-  SPL-Assistenten Umschalt+R zu drücken, um den Scanfortschritt zu
-  überwachen.
-* Verbesserte Genauigkeit bei der Erkennung und Meldung der Fertigstellung
-  von Suchdurchläufen in Bibliotheken in Studio 5.10 und höher. Dies behebt
-  ein Problem, bei dem der Bibliothek-Scan-Monitor vorzeitig beendet wird,
-  wenn mehr Titel durchsucht werden müssen. Dies macht einen Neustart des
-  Bibliotheks-Scan-Monitors erforderlich.
-* Verbesserte Statusmeldung des Bibliotheksscans über den SPL-Controller
-  (Umschalt+R) durch Ankündigung des Scan-Zählers, wenn der Scan tatsächlich
-  stattfindet.
-* In der Studio-Demo, wenn der Registrierungsbildschirm beim Starten von
-  Studio erscheint, führen Befehle wie die verbleibende Zeit für einen Titel
-  nicht mehr zur Ausgabe von Fehlertönen oder falscher Informationsangaben
-  durch NVDA. Stattdessen wird eine Fehlermeldung ausgegeben. Für solche
-  Befehle ist es erforderlich, dass das Hauptfenster von Studio maximiert
-  ist.
-* Erstmalige  Unterstützung für StationPlaylist-Creator.
-* Es wurde ein neuer Befehl in der Befehlsschicht für den SPL-Controller
-  hinzugefügt, um den Studio-Status wie Titelwiedergabe und Mikrofon-Status
-  (Q) zu melden.
-
-## Version 17.03
-
-* NVDA wird keine irreführenden Aktionen  mehr ausführen und auch keine
-  Fehlerton mehr abspielen, wenn auf  ein temporäres Sendeprofil gewechselt
-  wird.
-* Übersetzungen aktualisiert.
-
-## Version 17.01/15.5-LTS
-
-Hinweis: 17.01.1/15.5A-LTS ersetzt 17.01 aufgrund von Änderungen am
-Speicherort neuer Erweiterungsdateien.
-
-* 17.01.1/15.5A-LTS: Bei Langzeit-Support-Versionen wurden die Quellen der
-  Downloads der Aktualisierungen geändert. Die Installation dieser Version
-  ist obligatorisch.
-* Verbesserte Reaktionsfähigkeit und Zuverlässigkeit bei der Verwendung der
-  Erweiterung zum Umschalten auf Studio, entweder mit dem Befehl "Fokus zum
-  Studio" aus anderen Programmen oder wenn ein Encoder angeschlossen ist und
-  NVDA aufgefordert wird, in diesem Fall auf Studio umzuschalten. Wenn
-  Studio minimiert ist, wird das Studio-Fenster als nicht verfügbar
-  angezeigt. Bitte stellen Sie in diesem Fall das Studio-Fenster aus der
-  Taskleiste wieder her.
-* Beim Bearbeiten von Carts während die Cart-Übersicht aktiv ist, ist es
-  nicht mehr notwendig die Cart-Übersicht erneut zu öffnen, um aktualisierte
-  Cart-Zuweisungen anzuzeigen. Dies gilt, wenn der Cart-Bearbeitungsmodus
-  deaktiviert ist. Folglich, die Meldung "Cart-Explorer reentry" wird nicht
-  mehr angezeigt.
-* In der Version 15.5-LTS wurde die Darstellung der Benutzeroberfläche für
-  den SPL-Einstellungsdialog korrigiert.
-
-## Version 16.12.1
-
-* Die Darstellung der Benutzeroberfläche für den Einstellungsdialog für die
-  Studio-Erweiterung wurde verbessert.
-* Übersetzungen aktualisiert.
-
-## Version 16.12/15.4-LTS
-
-* Weitere Arbeiten an der Unterstützung von Studio 5.20, einschließlich der
-  Ansage des Status des Einfügemodus mit der Taste t (falls aktiviert) von
-  der Ebene SPL-Assistenten.
-* Die Umschaltung zwischen dem Bearbeitungs- und Einfügemodus der Carts wird
-  nicht mehr durch die Einstellungen für die Sprachausführlichkeit und die
-  Art der Statusansage beeinflusst (dieser Status wird immer über Sprache
-  und/oder Braille angezeigt).
-* Das Hinzufügen von Kommentaren zu zeitgesteuerten Pausen ist nicht mehr
-  möglich.
-* Unterstützung für Track Tool 5.20. Ein Problem wurde behoben, bei dem
-  falsche Informationen angesagt werden, wenn mit den Befehlen des
-  Spaltenexplorers Spalteninformationen abgerufen werden.
-
-## Version 16.11/15.3-LTS
-
-* Erstmalige Unterstützung für StationPlaylist Studio 5.20, einschließlich
-  verbesserter Reaktionsfähigkeit beim Abrufen von Statusinformationen wie
-  z.B. Automatisierungsstatus über die Ebene des SPL-Assistenten.
-* Probleme bei der Suche nach Titel und der Interaktion mit ihnen wurden
-  behoben. Auch fehler beim Aktivieren und Deaktivieren der Titel als
-  Markierungszeichen oder eines Titels, der über den Suchdialog für den
-  Zeitbereich gefunden wurde, wurden beseitigt.
-* Die Reihenfolge der Spaltenansage wird nicht mehr auf die
-  Standardreihenfolge zurückgesetzt, nachdem sie geändert wurde.
-* 16.11: der  Fehlerdialog wird nun immer angezeigt, Wenn Sendeprofile
-  Fehler aufweisen.
-
-## Version 16.10.1/15.2-LTS
-
-* Sie können nun mit dem Titel interagieren, der über den Titelfinder
-  (STRG+NVDA+F) gefunden wurde, Beispielsweise, um ihn für die Wiedergabe zu
-  aktivieren.
-* Übersetzungen aktualisiert.
-
-## Version 8.0/16.10/15.0-LTS
-
-Version 8.0 (auch bekannt als 16.10) unterstützt SPL Studio 5.10 und
-höher. Version 15.0-LTS (früher 7.x) stellt einige neue Funktionen von 8.0
-für Benutzer früherer Studio-Versionen bereit. Sofern nicht anders vermerkt,
-gelten die folgenden Einträge sowohl für 8.0 als auch für 7.x. Bei der
-ersten Verwendung des Add-ons 8.0 mit installiertem Studio 5.0x erscheint
-ein Warndialog, in dem Sie aufgefordert werden, die 15.x LTS-Version zu
-verwenden.
-
-* Das Versionsschema  wurde von major.minor zu Version Jahr.Monat
-  geändert. Während der Übergangszeit (bis Mitte 2017) ist Version 8.0
-  gleichbedeutend mit Version 16.10, wobei 7.x LTS aufgrund inkompatibler
-  Änderungen als 15.0 bezeichnet wird.
-* Der Quellcode der Erweiterung wird nun auf GitHub gehostet (Repository
-  unter https://github.com/josephsl/stationPlaylist).
-* Es wurde ein Willkommensdialog hinzugefügt, der beim Start von Studio nach
-  der Installation der Erweiterung angezeigt wird. Ein Befehl (Alt+NVDA+F1)
-  wurde hinzugefügt, um diesen Dialog nach dem Schließen wieder zu öffnen.
-* Änderungen an verschiedenen Tastaturbefehlen. Dazu gehören die Entfernung
-  des Wechselns der Statusansage (STRG+NvDA+1), die Zuweisung der
-  Benachrichtigung zum Ende des Titels an Alt+NVDA+1, der Schalter für die
-  Cart-Übersicht ist jetzt Alt+NvDA+3, der Mikrofon-Alarm-Dialog ist
-  Alt+NVDA+4 und der Einstellundsdialog der Erweiterung / des Encoders ist
-  Alt+NVDA+0. Dies wurde geändert, damit STRG+NVDA+Zajlenreihe dem
-  Spaltenexplorer zugewiesen werden kann.
-* 8.0: leichte Beschränkung des Spaltenexplorers in 7.x, so dass die Zahlen
-  1 bis 6 so konfiguriert werden können, dass sie die Spalten in Studio 5.1x
-  ankündigen.
-* 8.0: Der Wechsel-Befehl Titeleingabe und die entsprechende Einstellung in
-  den Einstellungen zur Studio-Erweiterung sind veraltet und werden in 9.0
-  entfernt. Dieser Befehl bleibt in der Version 7.x verfügbar.
-* STRG+Alt+Pos1/Ende hinzugefügt, um den Spaltennavigator auf die erste oder
-  letzte Spalte im Playlist-Viewer zu verschieben.
-* Sie können nun Titelkommentare (Notizen) hinzufügen, anzeigen, ändern oder
-  löschen. Drücken Sie Alt+NVDA+C von einem Titel im Playlist-Viewer, um
-  Titelkommentare zu hören. Falls der Befehl benutzerdefiniert ist, drücken
-  Sie zweimal, um den Kommentar in die Zwischenablage zu kopieren oder
-  dreimal, um einen Dialog zum Bearbeiten von Kommentaren zu öffnen.
-* Benachrichtigung bei vorhandenen Titelkommentaren wurde hinzugefügt. Eine
-  Einstellung in den Einstellungen für die Studio-Erweiterung wurde
-  eingefügt, um die Benachrichtigungsparameter zu steuern.
-* Es wurde eine Einstellung im Einstellungsdialog der SPL-Erweiterung
-  hinzugefügt, mit der NVDA Sie benachrichtigen kann, wenn Sie ganz oben
-  oder ganz unten im Playlist-Viewer angelangt sind.
-* Beim Zurücksetzen der Einstellungen für die Studio-Erweiterung können Sie
-  nun festlegen, was zurückgesetzt werden soll. Standardmäßig werden die
-  Einstellungen der Erweiterung zurückgesetzt, wobei die Kontrollkästchen
-  für das Zurücksetzen des Instant-Switch-Profils, des temporären Profils,
-  der Encoder-Einstellungen und des Löschens von Titelkommentaren im
-  Einstellungsdialog hinzugefügt wurden.
-* Im Track Tool können Sie Informationen über Album und CD-Code erhalten,
-  indem Sie STRG+NVDA+9 bzw. STRG+NVDA+0 drücken.
-* Performance-Verbesserungen beim erstmaligen Abrufen von
-  Spalteninformationen in Track Tool.
-* 8.0: Es wurde ein Dialog in den Einstellungen für die SPL-Erweiterung
-  hinzugefügt, um Platzhalter für den Spaltenexplorer für das Track-Tool zu
-  konfigurieren.
-* Sie können nun das Intervall der Mikrofonbenachrichtigung im Dialog
-  Mikrofonbenachrichtigung konfigurieren (Alt+NVDA+4).
-
 ## Ältere Versionen
 
 Für weitere Änderungsnotizen beachten Sie den Link zu den Änderungsnotizen
@@ -1193,3 +975,5 @@ Für weitere Änderungsnotizen beachten Sie den Link zu den Änderungsnotizen
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 
 [5]: https://github.com/josephsl/stationplaylist/wiki/splchangelog
+
+[6]: https://addons.nvda-project.org/files/get.php?file=spl-2019
