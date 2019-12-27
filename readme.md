@@ -195,6 +195,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Version 20.02
 
 * While focused on a track in Creator and Track Tool, pressing Control+NVDA+Dash will display data for all columns on a browse mode window.
+* If NVDA Recognizes a track list item with less than 10 columns, NVDA will no longer announce headers for nonexistent columns if Control+NVDA+number row for out of range column is pressed.
 * In creator, NVDA will no longer announce column information if Control+NVDA+number row keys are pressed while focused on places other than track list.
 
 ## Version 20.01
