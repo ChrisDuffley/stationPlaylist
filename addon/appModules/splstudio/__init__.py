@@ -159,6 +159,7 @@ class SPLTrackItem(sysListView32.ListItem):
 		if columnPos == 0: columnPos = 10
 		# #115 (20.02): do not proceed if parent list reports less than 10 columns.
 		if columnPos > self.parent.columnCount:
+			debugOutput(f"Column {columnPos} is out of range for this item")
 			# Translators: Presented when column is out of range.
 			ui.message(_("Column {columnPosition} not found").format(columnPosition= columnPos))
 			return
