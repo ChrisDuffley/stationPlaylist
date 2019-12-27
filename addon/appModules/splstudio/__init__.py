@@ -154,9 +154,15 @@ class SPLTrackItem(sysListView32.ListItem):
 		gestures=["kb:control+nvda+%s"%(i) for i in range(10)],
 		category=_("StationPlaylist"))
 	def script_columnExplorer(self, gesture):
-		# LTS: Just in case Control+NVDA+number row command is pressed...
 		# Due to the below formula, columns explorer will be restricted to number commands.
-		columnPos = int(gesture.displayName.split("+")[-1])-1
+		columnPos = int(gesture.displayName.split("+")[-1])
+		if columnPos == 0: columnPos = 10
+		# #115 (20.02): do not proceed if parent list reports less than 10 columns.
+		if columnPos > self.parent.columnCount:
+			# Translators: Presented when column is out of range.
+			ui.message(_("Column {columnPosition} not found").format(columnPosition= columnPos))
+			return
+		columnPos -= 1
 		header = self.exploreColumns[columnPos]
 		# #103: only concrete implementations will return the correct index.
 		column = self.indexOf(header)
