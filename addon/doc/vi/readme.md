@@ -3,7 +3,8 @@
 * Tác giả: Geoff Shang, Joseph Lee và các cộng tác viên khác
 * Tải về [phiên bản chính thức][1]
 * Tải về [phiên bản thử nghiệm][2]
-* NVDA compatibility: 2019.1 to 2019.3
+* NVDA tương thích: 2019.3 và cao hơn
+* Tải về [phiên bản cũ hơn][6] tương thích với NVDA 2019.2.1 trở về trước
 
 Gói add-on này cung cấp sự cải thiện cho việc sử dụng StationPlaylist Studio
 và các ứng dụng StationPlaylist khác, cũng như cung cấp các tiện ích để điều
@@ -16,12 +17,12 @@ xem tập tin buildInstructions.txt ở thư mục gốc trong mã nguồn của
 
 CÁC LƯU Ý QUAN TRỌNG:
 
-* Add-on này yêu cầu NVDA 2019.1 và bộ StationPlaylist 5.20 trở lên.
+* Add-on này yêu cầu NVDA 2019.3 trở lên và bộ StationPlaylist 5.20 trở lên.
 * Nếu dùng Windows 8 trở lên, hãy tắt chế độ giảm âm thanh để có trải nghiệm
   tốt nhất.
 * Từ 2018, [bản ghi những thay đổi cho các bản phát hành cũ của add-on][5]
   sẽ được tìm thấy trên GitHub. Tập tin readme này sẽ liệt kê các thay đổi
-  từ phiên bản 8.0/16.10 (2016 trở lên).
+  từ phiên bản 17.08 (2017 trở đi).
 * Vài tính năng nhất định của add-on sẽ không hoạt động trong vài điều kiện,
   bao gồm chạy NVDA trong chế độ bảo vệ.
 * Vì những giới hạn kĩ thuật, bạn không thể cài hay dùng add-on này với
@@ -288,6 +289,10 @@ Nếu dùng Studio trên một máy tính cảm ứng chạy Windows 8 trở lê
 NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio từ mành hình
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
+
+## Phiên bản 20.01
+
+* Yêu cầu NVDA 2019.3 trở lên vì sử dụng Python 3.
 
 ## Phiên bản 19.11.1/18.09.13-LTS
 
@@ -817,190 +822,6 @@ bản phát hành 15.x LTS.
   độ chỉnh sửa cart và các thông tin khác cũng được thông báo ngoài phát lại
   và tự động hóa.
 
-## Phiên bản 17.06
-
-* Giờ bạn có thể thực hiện lệnh tìm kiếm track (Control+NVDA+F) khi đã tải
-  một danh sách phát nhưng con trỏ không đứng ở track đầu tiên.
-* NVDA sẽ không còn phát âm thanh báo lỗi hoặc không làm gì khi tìm kiếm một
-  track tiếp theo từ track cuối hay track trước từ track đầu tiên.
-* Bấm NVDA+Delete bàn phím số (NVDA+Delete với kiểu bàn phím laptop) giờ đây
-  sẽ thông báo vị trí track và số thứ tự của mục đó trong một danh sách
-  phát.
-
-## Phiên bản 17.05.1
-
-* NVDA sẽ không còn bị lỗi khi lưu các thay đổi cho cài đặt báo hiệu từ
-  nhiều hộp thoại báo hiệu (ví dụ, Alt+NVDA+1 cho báo hiệu cuối track).
-
-## Phiên bản 17.05/15.7-LTS
-
-* Giờ đây, thời gian cập nhật có thể thiết lập là 180 ngày. Mặc định, thời
-  gian kiểm tra cập nhật là 30 ngày.
-* Sửa lỗi NVDA có thể phát âm thanh báo lỗi nếu thoát Studio khi một hồ sơ
-  theo thời gian đang hoạt động.
-
-## Phiên bản 17.04
-
-* Đã thêm bản ghi dò lỗi cơ bản cho add-on bằng cách ghi lại nhiều thông tin
-  khi add-on hoạt động với chế độ bản ghi dò lỗi của NVDA được bật (yêu cầu
-  NVDA 2017.1 trở lên). Để dùng tính năng này, sau khi cài đặt NVDA 2017.1,
-  từ hộp thoại thoát NVDA, chọn "Khởi động lại với bản ghi dò lỗi được bật".
-* Cải thiện hiển thị cho nhiều hộp thoại của add-on. Cảm ơn tính năng của
-  NVDA 2016.4.
-* NVDA sẽ ngầm tải cập nhật add-on về  nếu chọn "yes" khi được yêu cầu cập
-  nhật add-on. Kết quả là sẽ không hiện thông báo tải tập tin về cỉa các
-  trình duyệt web.
-* NVDA sẽ không còn tình trạng bị đóng băng khi kiểm tra phiên bản mới lúc
-  khởi động vì thay đổi kênh cập nhật add-on.
-* Thêm khả năng bấm Control+Alt+mũi tên lên xuống để di chuyển giữa các
-  track (riêng biệt, các cột của track) theo hàng dọc như là di chuyển đến
-  dòng kế và dòng trước trong bảng.
-* Thêm một hộp xổ trong hộp thoại cài đặt add-on để thiết lập cột nào được
-  thông báo khi di chuyển qua chúng theo hàng dọc.
-* Di chuyển các điều khiển cuối track , nhạc dạo và báo hiệu ộng microphone
-  từ cài đặt add-on đến trung tâm báo hiệu mới.
-* Trong trung tâm báo hiệu, trường nhập liệu cuối track và track giới thiệu
-  đã luôn hiển thị có đánh dấu chọn vào hộp kiểm thông báo báo hiệu hay
-  không.
-* Thêm lệnh trong SPL Assistant để thu thập các ảnh chụp danh sách phát như
-  số track, track dài nhất, ca sĩ tiêu biểu và nhiều nữa (F8). Bạn cũng có
-  thể thêm lệnh tùy chỉnh cho tính năng này.
-* Bấm thao tác tùy chỉnh của lệnh chụp ảnh danh sách phát một lần sẽ cho
-  phép NVDA đọc và hiện một thông tin ngắn về ảnh chụp trên màn hình
-  nổi. Bấm hai lần để NVDA mở một trang web với đầy đủ thông tin hơn về ảnh
-  chụp danh sách phát. Bấm escape để đóng trang web này.
-* Gỡ bỏ lệnh Track Dial (phiên bản NVDA có cải tiến các phím mũi tên), thay
-  thế bởi lệnh khám phá cột và điều hướng cột / lệnh điều hướng trong
-  bảng). Điều này ảnh hưởng đến Studio và Trrack Tool.
-* Sau khi đóng hộp thoại chèn track trong lúc đang thực hiện quét thư viện,
-  không còn yêu cầu phải bấm SPL Assistant, Shift+R để theo dõi tiến trình
-  quét.
-* Cải thiện độ chính xác khi phát hiện và báo cáo việc hoàn thành quét thư
-  viện trong Studio 5.10 trở lên. Điều này sửa một lỗi làm cho việc theo dõi
-  quét thư viện bị ngưng sớm khi có nhiều track để quét, cần phải khởi động
-  lại việc theo dõi quét thư viện.
-* Cải thiện khả năng thông báo trạng thái quét thư viện thông qua bộ điều
-  khiển SPL (Shift+R) bằng cách thông báo số lượng quét nếu có diễn ra quá
-  trình này.
-* Trong studio bản dùng thử (Demo), khi màn hình đăng kí xuất hiện lúc khởi
-  động Studio, các lệnh như xem thời gian còn lại của track sẽ không còn
-  tình trạng làm cho NVDA không làm gì, phát âm thanh báo lỗi hay cung cấp
-  sai thông tin. Thay vào đó, thông điệp báo lỗi sẽ được thông báo. Các lệnh
-  như vầy yêu cầu trình bày handle cửa sổ chính của Studio.
-* Bắt đầu hỗ trợ cho StationPlaylist Creator.
-* Thêm lệnh mới trong bộ điều khiển SPL để thông báo trạng thái Studio như
-  phát track và thông tin trạng thái microphone (Q).
-
-## Phiên bản 17.03
-
-* NVDA sẽ không còn tình trạng không làm gì hoặc phát âm thanh báo lỗi khi
-  chuyển đến một hồ sơ theo thời gian.
-* Cập nhật các bản dịch.
-
-## Phiên bản 17.01/15.5-LTS
-
-Lưu ý: 17.01.1/15.5A-LTS thay thế 17.01 vì lí do thay đổi đường dẫn của các
-tập tin add-on mới.
-
-* 17.01.1/15.5A-LTS: thay đổi nơi tải các cập nhật cho các bản phát hành
-  được hỗ trợ dài hạn. Cài đặt phiên bản này là bắt buộc.
-* Cải thiện khả năng phản hồi và độ tin cạy khi dùng add-on để chuyển sang
-  Studio, bất kể là dùng lệnh chuyển con trỏ về Studio từ một chương trình
-  khác hay khi một bộ mã hóa được kết nối và NVDA được yêu cầu chuyển sang
-  Studio. Nếu Studio đang được thu nhỏ, cửa sổ Studio sẽ hiển thị là không
-  sẵn sàng. Trường hợp này, hãy phục hồi cửa sổ Studio từ khay hệ thống.
-* Nếu chỉnh sửa cart khi Cart Explorer đang hoạt động, không còn cần thiết
-  phải vào lại Cart Explorer để xem các cập nhật đã gán cho cart khi tắt chế
-  độ chỉnh sửa cart. Kết quả là sẽ không còn thông báo yêu cầu vào lại Cart
-  explorer..
-* Trong add-on 15.5-LTS, chỉnh sửa giao diện người dùng cho hộp thoại cài
-  đặt SPL add-on.
-
-## Phiên bản 16.12.1
-
-* Sửa giao diện người dùng của  hộp thoại cài đặt SPL add-on.
-* Cập nhật các bản dịch.
-
-## Phiên bản 16.12/15.4-LTS
-
-* Hỗ trợ nhiều hơn cho Studio 5.20, bao gồm thông báo trạng thái chế độ chèn
-  cart (nếu được bật) từ SPL Assistant layer (T).
-* Bật tắt chế độ chỉnh sửa / chèn cart sẽ không còn bị ảnh hưởng bởi cấp độ
-  đọc thông điệp và cài đặt kiểu thông báo trạng thái (trạng thái này sẽ
-  luôn được thông báo qua bộ đọc và màn hình nổi).
-* Không còn có thể thêm chú thích vào các lưu ý ngắt thời gian.
-* Hỗ trợ cho Track Tool 5.20, bao gồm sửa một lỗi thông báo sai thông tin
-  khi dùng lệnh khám phá cột để xem các thông tin cột.
-
-## Phiên bản 16.11/15.3-LTS
-
-* Bắt đầu hỗ trợ cho StationPlaylist Studio 5.20, bao gồm cải thiện khả năng
-  phản hồi khi thu thập các thông tin trạng thái như tự động hóa thông qua
-  SPL Assistant layer.
-* Sửa lỗi liên quan đến tìm kiếm và tương tác với track, bao gồm việc không
-  có khả năng chọn hay không chọn track đánh dấu hay một track tìm thấy
-  thông qua hộp thoại tìm kiếm theo thời gian.
-* Sắp xếp thông báo cột sẽ không còn bị trả về mặc định sau khi thay đổi nó.
-* 16.11: nếu các hồ sơ phát thanh bị lỗi, hộp thoại báo lỗi sẽ không bị trục
-  trặc và không hiển thị được.
-
-## Phiên bản 16.10.1/15.2-LTS
-
-* Giờ bạn có thể tương tác với track được tìm thấy qua tìm kiếm track
-  (Control+NVDA+F) như là kiểm tra để phát lại.
-* Cập nhật các bản dịch.
-
-## Phiên bản 8.0/16.10/15.0-LTS
-
-Phiên bản 8.0 (cũng được biết đến là 16.10) hỗ trợ SPL Studio 5.10 trở lên,
-với 15.0-LTS (trước kia là 7.x) được thiết kế để cung cấp vài tính năng mới
-từ 8.0 cho người dùng các phiên bản cũ của Studio. Cho đến khi có các ghi
-chú khác, các mục dưới đây áp dụng cho cả 8.0 và 7.x. Một hộp thoại cảnh báo
-sẽ hiển thị ở lần đầu sử dụng add-on 8.0 với Studio 5.0x được cài đặt, yêu
-cầu bạn dùng phiên bản 15.x LTS.
-
-* Kiểu tên phiên bản đã được thay đổi để thể hiện năm, tháng phát hành thay
-  vì là phiên bản chính, phụ. Trong quá trình chuyển đổi (đến giữa năm
-  2017), phiên bản 8.0 được xem như 16.10, với 7.x LTS đang được hiểu là
-  15.0 vì các thay đổi không tương thích.
-* Mã nguồn Add-on giờ đây được lưu trên GitHub (tại
-  https://github.com/josephsl/stationPlaylist).
-* Thêm hộp thoại chào mừng được gọi chạy khi khởi động Studio sau khi cài
-  đặt add-on. Lệnh (Alt+NvDA+F1) đã được thêm vào để mở lại hộp thoại này.
-* Thay đổi nhiều phím lệnh của add-on, bao gồm gỡ bỏ lệnh bật tắt thông báo
-  trạng thái (Control+NvDA+1), sửa lệnh báo hiệu cuối track thành
-  Alt+NVDA+1, bật / tắt Cart Explorer là Alt+NvDA+3, hộp thoại báo hiệu
-  microphone là Alt+NVDA+4 và hộp thoại cài đặt add-on / bộ mã hóa là
-  Alt+NvDA+0. Điều này cho phép gán Control+NVDA+phím số cho khám phá cột.
-* 8.0: nới lỏng giới hạn khám phá cột như với phiên bản 7.x nên các phím 1
-  đến 6 có thể cấu hình để thông báo cột trong Studio 5.1x.
-* 8.0: lệnh bật / tắt Track Dial và các thiết lập tương ứng trong cài đặt
-  add-on không còn dùng nữa và sẽ bị gỡ bỏ trong bản 9.0. Lệnh này vẫn còn
-  trong add-on 7.x.
-* Đã thêm Control+Alt+Home/End để chuyển con trỏ điều hướng đến cột đầu hay
-  cuối trong trình xem danh sách phát.
-* Giờ bạn có thể thêm, xem, thay đổi hoặc xóa các chú thích track. Bấm
-  Alt+NVDA+C tại một track trong trình xem danh sách phát để nghe chú thích
-  track nếu có, bấm hai lần để sao chép chú thích lên bộ nhớ tạm và ba lần
-  để mở hộp thoại chỉnh sửa các chú thích.
-* Thêm khả năng thông báo khi có chú thích track, và cũng thêm một thiết lập
-  trong cài đặt add-on để điều khiển việc nó hoạt động như thế nào.
-* Thêm một thiết lập trong hộp thoại  cài đặt add-on để NVDA thông báo nếu
-  bạn đi về đầu hay cuối trình xem danh sách phát.
-* Khi khôi phục các cài  đặt add-on, bạn có thể chỉ định phần nào sẽ được
-  khôi phục. Mặc định, các thiết lập cho add-on sẽ được khôi phục, với các
-  hộp kiểm cho việc khôi phục các hồ sơ chuyển nhanh, hồ sơ theo thời gian,
-  thiết lập cho bộ mã hóa và xóa các chú thích track đã được thêm vào hộp
-  thoại khôi phục cài đặt.
-* Trong Track Tool, bạn có thể thu thập thông tin của album và mã CD bằng
-  phím lệnh Control+NVDA+9 và Control+NVDA+0.
-* Cải thiện sự vận hành khi lần đầu tiên thu thập thông tin cột trong Track
-  Tool.
-* 8.0: thêm một hộp thoại trong cài đặt add-on để cấu hình việc khám phá cột
-  cho Track Tool.
-* Giờ bạn có thể cấu hình khoảng thời gian báo hiệu microphone từ hộp thoại
-  báo hiệu microphone (Alt+NvDA+4).
-
 ## Các bản phát hành cũ hơn
 
 Vui lòng xem liên kết bản ghi các thay đổi để có thông tin về các bản phát
@@ -1017,3 +838,5 @@ hành cũ của add-on.
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 
 [5]: https://github.com/josephsl/stationplaylist/wiki/splchangelog
+
+[6]: https://addons.nvda-project.org/files/get.php?file=spl-2019

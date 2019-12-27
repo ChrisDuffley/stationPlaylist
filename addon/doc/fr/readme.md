@@ -3,7 +3,8 @@
 * Auteurs: Geoff Shang, Joseph Lee et d'autres contributeurs.
 * Télécharger [version stable][1]
 * Télécharger [la version de développement][2]
-* NVDA compatibility: 2019.1 to 2019.3
+* NVDA compatibility: 2019.3 and beyond
+* Download [older version][6] compatible with NVDA 2019.2.1 and earlier
 
 This add-on package provides improved usage of StationPlaylist Studio and
 other StationPlaylist apps, as well as providing utilities to control Studio
@@ -17,13 +18,13 @@ référentiel de l'extension.
 
 NOTES IMPORTANTES :
 
-* This add-on requires NVDA 2019.1 or later and StationPlaylist suite 5.20
+* This add-on requires NVDA 2019.3 or later and StationPlaylist suite 5.20
   or later.
 * Si vous utilisez Windows 8 ou ultérieur, pour une meilleure expérience,
   désactiver le Mode d'atténuation audio.
 * Starting from 2018, [changelogs for old add-on releases][5] will be found
-  on GitHub. This add-on readme will list changes from version 8.0/16.10
-  (2016 onwards).
+  on GitHub. This add-on readme will list changes from version 17.08 (2017
+  onwards).
 * Certaines fonctionnalités de l'extension ne fonctionneront pas dans
   certaines conditions, notamment l'exécution de NVDA en mode sécurisé.
 * En raison de limitations techniques, vous ne pouvez pas installer ou
@@ -326,6 +327,10 @@ ultérieure installé, vous pouvez exécuter certaines commandes Studio depuis
 un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
+
+## Version 20.01
+
+* NVDA 2019.3 or later is required due to extensive use of Python 3.
 
 ## Version 19.11.1/18.09.13-LTS
 
@@ -944,229 +949,6 @@ Windows sera une version 15.x LTS.
   statut du microphone, mode édition chariot et d'autres seront également
   annoncées en plus de la lecture et de l'automatisation.
 
-## Version 17.06
-
-* Vous pouvez maintenant effectuer la commande Recherche de Piste
-  (Contrôle+NVDA+F) alors qu'une playlist est chargée mais la première piste
-  n'a pas le focus.
-* NVDA ne lira plus les tonalités d'erreur ou ne fera rien lors de la
-  recherche d'une piste en avant à partir de la dernière piste ou en arrière
-  à partir de la première piste, respectivement.
-* En appuyant sur NVDA+pavNum Effacement (NVDA+Effacement dans la
-  disposition  d'un ordinateur portable), va maintenant annoncer la position
-  de la piste suivie du nombre d'éléments dans une playlist.
-
-## Version 17.05.1
-
-* NVDA ne cessera plus d'enregistrer les modifications apportées aux
-  paramètres d'alarme à partir de diverses boîtes de dialogue d'alarme (par
-  exemple, Alt+NVDA+1 pour l'alarme de fin de piste).
-
-## Version 17.05/15.7-LTS
-
-* L'intervalle de mise à jour peut maintenant être configuré jusqu'à 180
-  jours. Pour les installations par défaut, l'intervalle de vérification de
-  la mise à jour sera de 30 jours.
-* Correction d'un problème où NVDA peut jouer une tonalité d'erreur si
-  Studio sort alors qu'un un profil basé sur l'heure est actif.
-
-## Version 17.04
-
-* Ajout d'un support de débogage de l'extension en enregistrant diverses
-  informations alors que l'extension est actif avec NVDA configuré en Niveau
-  de journalisation : débogage (requiert NVDA 2017.1 et versions
-  ultérieures). Pour l'utiliser avec cette extension, après l'installation
-  de NVDA 2017.1, à partir du dialogue Quitter NVDA, choisissez l'option
-  "Redémarrer avec le journal activé en mode débogage.
-* Améliorations apportées à la présentation de diverses boîtes de dialogue
-  ajoutées grâce aux fonctionnalités NVDA 2016.4.
-* NVDA va télécharger les mises à jour de l'extension en arrière-plan si
-  vous dites "oui" lorsqu'on lui demande de mettre à jour l'extension. Par
-  conséquent, les notifications de téléchargement de fichiers depuis les
-  navigateurs Web ne seront plus affichées.
-* NVDA ne se bloquera plus lors de la recherche de la mise à jour au
-  démarrage en raison du changement du  canal de mise à jour de l'extension.
-* Ajoutée la possibilité d'appuyer sur Contrôle+Alt+touches flèche haut ou
-  flèche bas  pour se déplacer entre les pistes  (en particulier, les
-  colonnes de piste) verticalement au moment où l'on passe à la rangée
-  suivante ou précédente dans un tableau.
-* Ajoutée une zone de liste déroulante dans le dialogue paramètres de
-  l'extension pour définir quelle colonne doit être annoncée lors du
-  déplacement vertical des colonnes.
-* Déplacement des contrôles fin de piste, intro et alarme microphone depuis
-  les paramètres de l'extension au nouveau Centre des alarmes.
-* Dans Centre des alarmes, les champs d'édition de fin de piste et Piste
-  intro sont toujours affichés indépendamment des cases à cocher état de
-  notification d'alarme.
-* Ajout d'une commande dans Assistant SPL pour obtenir des instantanés de
-  playlist tels que le nombre de pistes, la piste la plus longue, les
-  meilleurs artistes et ainsi de suite (F8). Vous pouvez également ajouter
-  une commande personnalisée pour cette fonction.
-* En appuyant une fois sur la commande de geste personnalisé pour les
-  instantanés de playlist NVDA peut annoncer et brailler une courte
-  information instantanée. En appuyant deux fois sur la commande, NVDA ouvre
-  une page Web contenant des informations plus complètes sur les instantanés
-  de playlist. Appuyez sur Échap pour fermer cette page Web.
-* Suppression du Cadran de piste (version NVDA des touches fléchées
-  améliorées), remplacée par les commandes Explorateur de colonnes et
-  Navigateur de colonnes/Navigation par tableau). Cela affecte Studio et
-  outil de piste.
-* Après avoir fermé le dialogue Insérer des pistes pendant qu'un balayage de
-  la bibliothèque est en cours, il n'est plus nécessaire d'appuyer sur
-  Assistant SPL, Maj+R pour surveiller la progression du balayage.
-* Amélioration de la précision de la détection et de l'établissement des
-  annonces de la  fin du balayage de la bibliothèque dans Studio 5.10 et
-  versions ultérieures. Cela corrige un problème où le moniteur du balayage
-  de la bibliothèque se terminera prématurément quand il ya plus de pistes à
-  balayer, nécessitant le redémarrage du moniteur du balayage de la
-  bibliothèque.
-* Amélioration des annonces du statut du balayage de la bibliothèque via le
-  contrôleur SPL (Maj+R) en annonçant le comptage de balayage si le balayage
-  se produit réellement.
-* En mode Démo de studio, lorsque l'écran d'enregistrement s'affiche lors du
-  démarrage de Studio, les commandes telles que le temps restant pour une
-  piste ne provoqueront plus que NVDA ne fasse rien, lira les tonalités
-  d'erreur ou donnera des informations erronées. Un message d'erreur sera
-  alors annoncé. Des commandes comme celles-ci nécessiteront que la poignée
-  de la fenêtre principale de Studio soit présente.
-* Premier support de StationPlaylist Creator.
-* Ajout d'une nouvelle commande dans la couche Contrôleur SPL pour annoncer
-  le statut de Studio telles que la lecture des pistes et le statut du
-  microphone (Q).
-
-## Version 17.03
-
-* NVDA ne semble plus rien faire ou ne lit plus une tonalité d'erreur
-  lorsque vous basculer à un profil de diffusion basé sur l'heure.
-* Mises à jour des traductions.
-
-## Version 17.01/15.5-LTS
-
-Remarque: 17.01.1/15.5A-LTS remplace la 17.01 en raison des changements
-apportés à l'emplacement des nouveaux fichiers de l'extension.
-
-* 17.01.1/15.5A-LTS: Modifié à partir duquel les mises à jour sont
-  téléchargées pour les versions prises en charges à long
-  terme. L'installation de cette version est obligatoire.
-* Amélioration de la réactivité et de la fiabilité lors de l'utilisation de
-  l'extension pour basculer à Studio, en utilisant le focus sur la commande
-  Studio à partir d'autres programmes ou lorsqu'un encodeur est connecté et
-  NVDA est invité à basculer vers Studio lorsque cela se produit. Si Studio
-  est minimisé, la fenêtre Studio s'affichera comme indisponible. Dans ce
-  cas, restaurez la fenêtre Studio depuis la barre d'état système.
-* Si vous modifier des chariots pendant que l'Explorateur de Chariot est
-  actif, il n'est plus nécessaire d'entrer à nouveau dans l'Explorateur de
-  Chariot pour afficher la mise à jour des assignations de chariot lorsque
-  le mode édition chariot est désactivé. Par conséquent, le message pour
-  entrer à nouveau dans l'Explorateur de Chariot n'est plus annoncé.
-* Dans l'extension 15.5-LTS, correction de la présentation de l'interface
-  utilisateur pour le dialogue Paramètres extension SPL.
-
-## Version 16.12.1
-
-* Correction de la présentation de l'interface utilisateur pour le dialogue
-  Paramètres extension SPL.
-* Mises à jour des traductions.
-
-## Version 16.12/15.4-LTS
-
-* Plus de travail sur le support Studio 5.20, incluant l'annonce du statut
-  en mode insertion chariot (si celui-ci est activé) depuis la couche
-  Assistant SPL (T).
-* Le basculement du Mode édition/insertion chariot n'est plus affecté par
-  les paramètres de type verbosité du message ni par le statut (ce statut
-  sera toujours annoncé par la parole et / ou le braille).
-* Il n'est plus possible d'ajouter des commentaires aux notes de pause
-  temporisées.
-* Support pour l'Outil de Piste 5.20, incluant la résolution d'un problème
-  où des informations erronées sont annoncées lors de l'utilisation des
-  commandes dans l'Explorateur de Colonnes pour annoncer les informations
-  sur les colonnes.
-
-## Version 16.11/15.3-LTS
-
-* Premier support de StationPlaylist Studio 5.20, y compris une meilleure
-  réactivité lors de l'obtention des informations du statut telles que
-  l’automatisation du statut via la couche de l'Assistant SPL.
-* Correction des problèmes liés à la recherche de pistes et à l'interaction
-  avec celles-ci, y compris l'impossibilité de cocher ou de décocher le
-  marqueur de position de piste ou une piste >trouvée via le dialogue
-  Recherche de l'intervalle de temps.
-* L'ordre d'annonce des colonnes ne revient plus à l'ordre par défaut après
-  modification.
-* 16.11: Si les profils de diffusion ont des erreurs, la boîte de dialogue
-  d'erreur ne cessera plus de s'afficher.
-
-## Version 16.10.1/15.2-LTS
-
-* Vous pouvez maintenant interagir avec la piste qui a été trouvé via la
-  Recherche de Piste (Contrôle+NVDA+F) tel que la vérification pour la
-  lecture.
-* Mises à jour des traductions.
-
-## Version 8.0/16.10/15.0-LTS
-
-La version 8.0 (également connu sous le nom de 16.10) prend en charge la
-version SPL Studio 5.10 et ultérieure, avec la 15.0-LTS (anciennement la
-7.x) conçu pour fournir de nouvelles fonctionnalités depuis la 8.0 pour les
-utilisateurs des versions antérieures de Studio. À moins que dans le cas
-contraire les rubriques ci-dessous s’appliquent à les deux, 8.0 et 7.x. Un
-dialogue d'avertissement apparaît la première fois que vous utilisez
-l'extension 8.0 avec Studio 5.0x installé, vous demandant d’utiliser la
-version  15.x LTS.
-
-* Le Schéma de la version a changé pour refléter la version year.month au
-  lieu de major.minor. Au cours de la période de transition (jusqu'au
-  mi-2017), la version 8.0 est synonyme de la version 16.10, avec la 7.x LTS
-  étant désigné la 15.0 en raison des changements incompatibles.
-* Le code source de l'extension est désormais hébergé sur GitHub
-  (référentiel  localisé à https://github.com/josephsl/stationPlaylist).
-* Added a welcome dialog that launches when Studio starts after installing
-  the add-on. A command (Alt+NVDA+F1) has been added to reopen this dialog
-  once dismissed.
-* Changes to various add-on commands, including removal of status
-  announcement toggle (Control+NVDA+1), reassigned end of track alarm to
-  Alt+NVDA+1, Cart Explorer toggle is now Alt+NVDA+3, microphone alarm
-  dialog is Alt+NVDA+4 and add-on/encoder settings dialog is
-  Alt+NVDA+0. This was done to allow Control+NVDA+number row to be assigned
-  to Columns Explorer.
-* 8.0: Relâché la restriction de l'Explorateur de colonnes à la place dans
-  la  7.x donc les  chiffres 1 jusq'à 6 peuvent être configurés pour
-  annoncer les colonnes dans Studio 5.1x.
-* 8.0: La commande  pour le basculement du Cadran de piste et  les paramètre
-  correspondant dans les paramètres de l'extension sont obsolètes et seront
-  supprimés dans la 9.0. Cette commande restent disponible dans l'extension
-  7.x.
-* Ajouté Contrôle+Alt+début/fin pour déplacer le Navigateur de Colonne à la
-  première ou la dernière colonne dans la Visionneuse de playlist.
-* Vous pouvez maintenant ajouter, afficher, modifier ou supprimer les
-  commentaires (notes) de la piste. Appuyer sur Alt+NVDA+C depuis une piste
-  dans la visionneuse de playlist pour entendre les commentaires si défini,
-  appuyez deux fois pour copier le commentaire dans le presse-papiers  ou
-  trois fois pour ouvrir un dialogue pour modifier les commentaires.
-* Ajoutée la possibilité d'annoncer si un commentaire de piste existe,ainsi
-  que d’un paramètre dans les paramètres de l'extension pour contrôler
-  comment cela devrait être fait.
-* Ajouter un nouveau paramètre dans le dialogue paramètres de l'extension
-  pour permettre a NVDA de vous notifier si vous avez atteint le haut ou le
-  bas de la visionneuse de playlist.
-* Lors de la réinitialisation des paramètres de l'extension, vous pouvez
-  maintenant spécifier quel type de restauration vous souhaitez avoir. Par
-  défaut, les paramètres de l'extension seront réinitialisés, avec des cases
-  à cocher pour la réinitialisation des changement de profil immédiat, pofil
-  basé sur l'heure, paramètres de l’encodeur et les commandes pour effacer
-  la piste ajouté pour réinitialiser la boîte de dialogue Paramètres.
-* Dans l'Outil de piste, vous pouvez obtenir des informations sur l'album et
-  le code du CD en appuyant sur Contrôle+NVDA+9 et Contrôle+NVDA+0,
-  respectivement.
-* Amélioration des performances lors de l’obtention des informations de
-  colonne pour la première fois dans l'Outil de Piste.
-* 8.0: Ajout d'un dialogue dans les paramètres de l'extension pour
-  configurer les tranches de l'Explorateur de Colonnes pour l'Outil de
-  Piste.
-* You can now configure microphone alarm interval from microphone alarm
-  dialog (Alt+NVDA+4).
-
 ## Anciennes versions
 
 S'il vous plaît voir le lien changelog pour les notes de version  pour les
@@ -1183,3 +965,5 @@ anciennes versions de l'extension.
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 
 [5]: https://github.com/josephsl/stationplaylist/wiki/splchangelog
+
+[6]: https://addons.nvda-project.org/files/get.php?file=spl-2019
