@@ -109,12 +109,13 @@ class SPLTrackItem(sysListView32.ListItem):
 
 	# Announce columns based on column number and an optional header for the given column.
 	# 7.0: Add an optional header in order to announce correct header information in columns explorer.
-	def announceColumnContent(self, colNumber, header=None):
+	# #117 (20.02): use visual column order/layout if a track item class doesn't define a custom Columns Explorer list.
+	def announceColumnContent(self, colNumber, header=None, visualColumns=True):
 		# #72: directly fetch on-screen column header (not the in-memory one) by probing column order array from the list (parent).
 		# #65 (18.08): use column header method (at least the method body) provided by the class itself.
 		# This will work properly if the list (parent) is (or recognized as) SysListView32.List.
 		if not header: header = self._getColumnHeaderRaw(self.parent._columnOrderArray[colNumber])
-		columnContent = self._getColumnContentRaw(self.indexOf(header))
+		columnContent = self._getColumnContentRaw(self.indexOf(header) if not visualColumns else colNumber)
 		if columnContent: ui.message(_("{header}: {content}").format(header = header, content = columnContent))
 		else:
 			speech.speakMessage(_("{header}: blank").format(header = header))
