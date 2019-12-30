@@ -174,7 +174,7 @@ class SPLTrackItem(sysListView32.ListItem):
 			# #117 (20.02): for track items with no custom Columns Explorer support, refer to visual column layout.
 			# Note that zero-based indexing is still used.
 			column = columnPos
-			header = self._getColumnHeader(column)
+			header = self._getColumnHeaderRaw(column)
 			visualColumns = True
 		if column is not None:
 			# #61 (18.06): pressed once will announce column data, twice will present it in a browse mode window.
