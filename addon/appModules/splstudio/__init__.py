@@ -164,12 +164,20 @@ class SPLTrackItem(sysListView32.ListItem):
 			ui.message(_("Column {columnPosition} not found").format(columnPosition= columnPos))
 			return
 		columnPos -= 1
-		header = self.exploreColumns[columnPos]
-		# #103: only concrete implementations will return the correct index.
-		column = self.indexOf(header)
+		try:
+			header = self.exploreColumns[columnPos]
+			# #103: only concrete implementations will return the correct index.
+			column = self.indexOf(header)
+			visualColumns = False
+		except AttributeError:
+			# #117 (20.02): for track items with no custom Columns Explorer support, refer to visual column layout.
+			# Note that zero-based indexing is still used.
+			column = columnPos
+			header = self._getColumnHeader(column)
+			visualColumns = True
 		if column is not None:
 			# #61 (18.06): pressed once will announce column data, twice will present it in a browse mode window.
-			if scriptHandler.getLastScriptRepeatCount() == 0: self.announceColumnContent(column, header=header)
+			if scriptHandler.getLastScriptRepeatCount() == 0: self.announceColumnContent(column, header=header, visualColumns=visualColumns)
 			else:
 				columnContent = self._getColumnContentRaw(column)
 				if columnContent is None:
