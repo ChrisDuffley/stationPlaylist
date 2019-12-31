@@ -26,9 +26,13 @@ Most of these will work in Studio only unless otherwise specified.
 * Control+Alt+T (two finger flick down in SPL touch mode) from Studio window: announce remaining time for the currently playing trakc.
 * NVDA+Shift+F12 (two finger flick up in SPL touch mode) from Studio window: announces broadcaster time such as 5 minutes to top of the hour. Pressing this command twice will announce minutes and seconds till top of the hour.
 * Alt+NVDA+1 (two finger flick right in SPL mode) from Studio window: Opens end of track setting dialog.
+* Alt+NVDA+1 from Creator's Playlist Editor window: Announces scheduled time for the loaded playlist.
 * Alt+NVDA+2 (two finger flick left in SPL mode) from Studio window: Opens song intro alarm setting dialog.
+* Alt+NVDA+2 from Creator's Playlist Editor window: Announces total playlist duration.
 * Alt+NVDA+3 from Studio window: Toggles cart explorer to learn cart assignments.
+* Alt+NVDA+3 from Creator's Playlist Editor window: Announces when the selected track is scheduled to play.
 * Alt+NVDA+4 from Studio window: Opens microphone alarm dialog.
+* Alt+NVDA+4 from Creator's Playlist Editor window: Announces rotation and category associated with the loaded playlist.
 * Control+NVDA+f from Studio window: Opens a dialog to find a track based on artist or song name. Press NVDA+F3 to find forward or NVDA+Shift+F3 to find backward.
 * Alt+NVDA+R from Studio window: Steps through library scan announcement settings.
 * Control+Shift+X from Studio window: Steps through braille timer settings.
@@ -194,7 +198,9 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Version 20.02
 
-* While focused on a track in Creator and Track Tool, pressing Control+NVDA+Dash will display data for all columns on a browse mode window.
+* Initial support for StationPlaylist Creator's Playlist Editor.
+* Added Alt+NVDA+number row commands to announce various status information in Playlist Editor. These include date and time for the playlist (1), total playlist duration (2), when the selected track is scheduled to play (3) and rotation and category (4).
+* While focused on a track in Creator and Track Tool (except in Creator's Playlist Editor), pressing Control+NVDA+Dash will display data for all columns on a browse mode window.
 * If NVDA Recognizes a track list item with less than 10 columns, NVDA will no longer announce headers for nonexistent columns if Control+NVDA+number row for out of range column is pressed.
 * In creator, NVDA will no longer announce column information if Control+NVDA+number row keys are pressed while focused on places other than track list.
 
