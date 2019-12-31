@@ -59,6 +59,32 @@ class SPLCreatorItem(SPLTrackItem):
 	}
 
 
+class SPLPlaylistEditorItem(SPLTrackItem):
+	"""An entry in SPL Creator's Playlist Editor.
+	"""
+
+	# Keep a record of which column is being looked at.
+	_curColumnNumber = 0
+
+	def indexOf(self, header):
+		try:
+			return self.exploreColumns.index(header)
+		except ValueError:
+			return None
+
+	@property
+	def exploreColumns(self):
+		columns = ['Artist', 'Title', 'Duration', 'Intro', 'Outro', 'Category', 'Filename']
+		if self.appModule.productVersion >= "5.40":
+			columns.append('Rating')
+		return columns
+
+	__gestures={
+		"kb:control+alt+downArrow": None,
+		"kb:control+alt+upArrow": None,
+	}
+
+
 class AppModule(appModuleHandler.AppModule):
 
 	def __init__(self, *args, **kwargs):
