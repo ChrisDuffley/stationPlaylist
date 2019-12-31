@@ -84,7 +84,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Resort to window style and other tricks if other lists with the class name below is found and are not tracks list.
 		if obj.windowClassName == "TTntListView.UnicodeClass":
 			if obj.role == controlTypes.ROLE_LISTITEM:
-				clsList.insert(0, SPLCreatorItem)
+				clsList.insert(0, SPLCreatorItem if obj.windowStyle == 1443958857 else SPLPlaylistEditorItem)
 			elif obj.role == controlTypes.ROLE_LIST:
 				clsList.insert(0, sysListView32.List)
 		elif obj.windowClassName in ("TDemoRegForm", "TAboutForm"):
