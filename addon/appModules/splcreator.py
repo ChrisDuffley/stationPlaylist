@@ -104,6 +104,8 @@ class AppModule(appModuleHandler.AppModule):
 		super(AppModule, self).terminate()
 		splconfig.closeConfig("splcreator")
 		SPLCreatorItem._curColumnNumber = 0
+		# Clear Playlist Editor status cache, otherwise it will generate errors when Creator restarts without restarting NVDA.
+		self._playlistEditorStatusCache.clear()
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		import controlTypes
@@ -126,26 +128,49 @@ class AppModule(appModuleHandler.AppModule):
 			return False
 		return True
 
+	# Just like Studio, status items are scattered around the screen in Playlist Editor, and takes a really long time to fetch things.
+	SPLEditorDateTime = 0
+	SPLEditorDuration = 1
+	SPLEditorStatusBar = 2
+	_playlistEditorStatusCache = {}
+
 	def script_playlistDateTime(self, gesture):
 		if self.isPlaylistEditor():
-			playlistDateTime = api.getForegroundObject().simpleLastChild.firstChild.next
-			playlistHour = playlistDateTime.simpleNext
-			playlistDay = playlistHour.simpleNext.simpleNext
+			try:
+				playlistHour = self._playlistEditorStatusCache[self.SPLEditorDateTime][0]
+				playlistDay = self._playlistEditorStatusCache[self.SPLEditorDateTime][1]
+			except KeyError:
+				playlistDateTime = api.getForegroundObject().simpleLastChild.firstChild.next
+				playlistHour = playlistDateTime.simpleNext
+				playlistDay = playlistHour.simpleNext.simpleNext
+				self._playlistEditorStatusCache[self.SPLEditorDateTime] = [playlistHour, playlistDay]
 			ui.message(" ".join([playlistDay.value, playlistHour.value]))
 
 	def script_playlistDuration(self, gesture):
 		if self.isPlaylistEditor():
-			playlistDuration = api.getForegroundObject().simpleLastChild.firstChild
+			try:
+				playlistDuration = self._playlistEditorStatusCache[self.SPLEditorDuration]
+			except KeyError:
+				playlistDuration = api.getForegroundObject().simpleLastChild.firstChild
+				self._playlistEditorStatusCache[self.SPLEditorDuration] = playlistDuration
 			ui.message(playlistDuration.name)
 
 	def script_playlistScheduled(self, gesture):
 		if self.isPlaylistEditor():
-			statusBar = api.getForegroundObject().firstChild.firstChild
+			try:
+				statusBar = self._playlistEditorStatusCache[self.SPLEditorStatusBar]
+			except KeyError:
+				statusBar = api.getForegroundObject().firstChild.firstChild
+				self._playlistEditorStatusCache[self.SPLEditorStatusBar] = statusBar
 			ui.message(statusBar.getChild(2).name)
 
 	def script_playlistRotation(self, gesture):
 		if self.isPlaylistEditor():
-			statusBar = api.getForegroundObject().firstChild.firstChild
+			try:
+				statusBar = self._playlistEditorStatusCache[self.SPLEditorStatusBar]
+			except KeyError:
+				statusBar = api.getForegroundObject().firstChild.firstChild
+				self._playlistEditorStatusCache[self.SPLEditorStatusBar] = statusBar
 			ui.message(statusBar.getChild(3).name)
 
 	__gestures = {
