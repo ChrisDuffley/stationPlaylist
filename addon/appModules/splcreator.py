@@ -8,6 +8,7 @@ import appModuleHandler
 import addonHandler
 import globalVars
 import ui
+import api
 from NVDAObjects.IAccessible import IAccessible, sysListView32
 from .splstudio import splconfig, SPLTrackItem
 addonHandler.initTranslation()
@@ -116,3 +117,40 @@ class AppModule(appModuleHandler.AppModule):
 		elif obj.windowClassName in ("TDemoRegForm", "TAboutForm"):
 			from NVDAObjects.behaviors import Dialog
 			clsList.insert(0, Dialog)
+
+	# The following scripts are designed to work while using Playlist Editor.
+
+	def isPlaylistEditor(self):
+		if api.getForegroundObject().windowClassName != "TEditMain":
+			ui.message("You are not in playlist editor")
+			return False
+		return True
+
+	def script_playlistDateTime(self, gesture):
+		if self.isPlaylistEditor():
+			playlistDateTime = api.getForegroundObject().simpleLastChild.firstChild.next
+			playlistHour = playlistDateTime.simpleNext
+			playlistDay = playlistHour.simpleNext.simpleNext
+			ui.message(" ".join([playlistDay.value, playlistHour.value]))
+
+	def script_playlistDuration(self, gesture):
+		if self.isPlaylistEditor():
+			playlistDuration = api.getForegroundObject().simpleLastChild.firstChild
+			ui.message(playlistDuration.name)
+
+	def script_playlistScheduled(self, gesture):
+		if self.isPlaylistEditor():
+			statusBar = api.getForegroundObject().firstChild.firstChild
+			ui.message(statusBar.getChild(2).name)
+
+	def script_playlistRotation(self, gesture):
+		if self.isPlaylistEditor():
+			statusBar = api.getForegroundObject().firstChild.firstChild
+			ui.message(statusBar.getChild(3).name)
+
+	__gestures = {
+		"kb:alt+NVDA+1": "playlistDateTime",
+		"kb:alt+NVDA+2": "playlistDuration",
+		"kb:alt+NVDA+3": "playlistScheduled",
+		"kb:alt+NVDA+4": "playlistRotation",
+	}
