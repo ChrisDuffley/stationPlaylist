@@ -35,13 +35,13 @@ def studioIsRunning(justChecking=False):
 def studioAPI(arg, command):
 	if not studioIsRunning(justChecking=True):
 		return
-	debugOutput("Studio API wParem is %s, lParem is %s"%(arg, command))
+	debugOutput(f"Studio API wParem is {arg}, lParem is {command}")
 	val = sendMessage(_SPLWin, 1024, arg, command)
-	debugOutput("Studio API result is %s"%val)
+	debugOutput(f"Studio API result is {val}")
 	return val
 
 # Select a track upon request.
 def selectTrack(trackIndex):
 	studioAPI(-1, 121)
-	debugOutput("selecting track index %s"%trackIndex)
+	debugOutput(f"selecting track index {trackIndex}")
 	studioAPI(trackIndex, 121)

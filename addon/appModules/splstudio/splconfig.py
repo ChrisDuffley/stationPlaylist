@@ -632,7 +632,7 @@ class ConfigHub(ChainMap):
 			raise RuntimeError("Instant switch flag is already on")
 		elif switchType == "timed" and self.timedSwitchProfileActive:
 			raise RuntimeError("Timed switch flag is already on")
-		spldebugging.debugOutput("Profile switching start: type = %s, previous profile is %s, new profile is %s"%(switchType, prevProfile, newProfile))
+		spldebugging.debugOutput(f"Profile switching start: type = {switchType}, previous profile is {prevProfile}, new profile is {newProfile}")
 		self.switchProfile(prevProfile, newProfile, switchFlags=self._switchProfileFlags ^ self._profileSwitchFlags[switchType])
 		# 8.0: Cache the new profile.
 		global _SPLCache
@@ -647,7 +647,7 @@ class ConfigHub(ChainMap):
 			raise RuntimeError("Instant switch flag is already off")
 		elif switchType == "timed" and not self.timedSwitchProfileActive:
 			raise RuntimeError("Timed switch flag is already off")
-		spldebugging.debugOutput("Profile switching end: type = %s, previous profile is %s, new profile is %s"%(switchType, prevProfile, newProfile))
+		spldebugging.debugOutput(f"Profile switching end: type = {switchType}, previous profile is {prevProfile}, new profile is {newProfile}")
 		self.switchProfile(prevProfile, newProfile, switchFlags=self._switchProfileFlags ^ self._profileSwitchFlags[switchType])
 
 	# Used from config dialog and other places.
@@ -791,7 +791,7 @@ def initProfileTriggers():
 			try:
 				SPLConfig.profileIndexByName(profile)
 			except ValueError:
-				spldebugging.debugOutput("profile %s does not exist"%profile)
+				spldebugging.debugOutput(f"profile {profile} does not exist")
 				nonexistent.append(profile)
 				del profileTriggers[profile]
 		if len(nonexistent):

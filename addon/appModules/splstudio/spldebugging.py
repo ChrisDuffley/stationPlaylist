@@ -4,11 +4,9 @@
 # Provides debug output and other diagnostics probes.
 
 from logHandler import log
-
 import globalVars
 SPLDebuggingFramework = globalVars.appArgs.debugLogging
 
 def debugOutput(message):
 	if SPLDebuggingFramework:
-		log.debug("SPL: %s"%message)
-
+		log.debug(f"SPL: {message}")
