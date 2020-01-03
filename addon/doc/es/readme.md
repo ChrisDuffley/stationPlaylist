@@ -3,8 +3,9 @@
 * Autores: Geoff Shang, Joseph Lee y otros colaboradores
 * Descargar [Versión estable][1]
 * Descargar [versión de desarrollo][2]
-* NVDA compatibility: 2019.3 and beyond
-* Download [older version][6] compatible with NVDA 2019.2.1 and earlier
+* Compatibilidad con NVDA: 2019.3 y versiones posteriores
+* Descargar [versión más antigua][6] compatible con NVDA 2019.2.1 y
+  versiones anteriores
 
 Este paquete de complementos proporciona una utilización mejorada de Station
 Playlist Studio y otras aplicaciones de StationPlaylist, así como utilidades
@@ -19,13 +20,13 @@ repositorio del código fuente del complemento.
 
 NOTAS IMPORTANTES:
 
-* This add-on requires NVDA 2019.3 or later and StationPlaylist suite 5.20
-  or later.
+* Este complemento requiere de NVDA 2019.3 o posterior y StationPlaylist
+  Suite 5.20 o posterior.
 * Si utilizas Windows 8 o posterior, para una mejor experiencia, deshabilita
   el modo atenuación de audio.
-* Starting from 2018, [changelogs for old add-on releases][5] will be found
-  on GitHub. This add-on readme will list changes from version 17.08 (2017
-  onwards).
+* A partir de 2018, los [registros de cambios para versiones antiguas][5] se
+  encontrarán en GitHub. Este léeme del complemento listará cambios desde la
+  versión 17.08 (2017 en adelante).
 * Ciertas características del complemento no funcionarán bajo algunas
   condiciones, incluyendo la ejecución de NVDA en modo seguro.
 * Debido a limitaciones técnicas, no puedes instalar ni utilizar este
@@ -330,9 +331,9 @@ realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
 
-## Version 20.01
+## Versión 20.01
 
-* NVDA 2019.3 or later is required due to extensive use of Python 3.
+* Se requiere NVDA 2019.3 o posterior debido al uso extenso de Python 3.
 
 ## Versión 19.11.1/18.09.13-LTS
 
