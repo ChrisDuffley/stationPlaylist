@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 6.4\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2016-03-04 19:00+1000\n"
-"PO-Revision-Date: 2019-11-21 16:22-0800\n"
+"PO-Revision-Date: 2020-01-05 10:45+0200\n"
 "Last-Translator: Florian Ionașcu <florianionascu@hotmail.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 2.2.4\n"
 
 #. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
 msgid ""
@@ -23,7 +23,7 @@ msgid ""
 "Service Pack 1 or later."
 msgstr ""
 "Folosiți o versiune mai veche de windows. Această versiune de supliment "
-"necesită windows 7 Service pack 1 sau mai nouă"
+"necesită windows 7 Service pack 1 sau mai nouă."
 
 #. Translators: Title of a dialog shown when installing StationPlaylist add-on on old Windows releases.
 msgid "Old Windows version"
@@ -57,9 +57,8 @@ msgstr ""
 #. Translators: Script category for StationPlaylist commands in input gestures dialog.
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on to be shown on installation and add-on information.
-#, fuzzy
 msgid "StationPlaylist"
-msgstr "StationPlaylist Studio"
+msgstr "StationPlaylist"
 
 #. Translators: presented when column information for a track is empty.
 msgid "blank"
@@ -72,7 +71,7 @@ msgstr "Date despre melodie"
 #. Translators: Presented when a specific column header is not found.
 #, python-brace-format
 msgid "{headerText} not found"
-msgstr "{headerText} negăsit."
+msgstr "{headerText} negăsit"
 
 #. Translators: location text for a playlist item (example: item 1 of 10).
 #, python-brace-format
@@ -368,11 +367,11 @@ msgstr "Setări SPL"
 #. Translators: Presented when library scan is complete.
 #, python-brace-format
 msgid "Scan complete with {scanCount} items"
-msgstr "Scan terminat cu {scanCount} elemente."
+msgstr "Scan terminat cu {scanCount} elemente"
 
 #. Translators: Presented when cart modes are toggled while cart explorer is on.
 msgid "Cart explorer is active"
-msgstr "Cart explorer este activat."
+msgstr "Cart explorer este activat"
 
 #. Translators: Presented when microphone was on for more than a specified time in microphone alarm dialog.
 msgid "Warning: Microphone active"
@@ -381,12 +380,12 @@ msgstr "Atenție: Microfon activ"
 #. Translators: Presented when end of introduction is approaching (example output: 5 sec left in track introduction).
 #, python-brace-format
 msgid "Warning: {seconds} sec left in track introduction"
-msgstr "Atenție: {seconds} secunde rămase în introducerea melodiiei."
+msgstr "Atenție: {seconds} secunde rămase în introducerea melodiiei"
 
 #. Translators: Presented when end of track is approaching.
 #, python-brace-format
 msgid "Warning: {seconds} sec remaining"
-msgstr "Atenție: {seconds} secunde rămase."
+msgstr "Atenție: {seconds} secunde rămase"
 
 #. Add the human-readable representation also.
 msgid "SPL mode"
@@ -448,7 +447,7 @@ msgstr "Fraza căutată nu a fostgăsită."
 
 #. Translators: Presented when a user attempts to find tracks but is not at the track list.
 msgid "Track finder is available only in track list."
-msgstr "căutarea melodiilor este disponibilă doar în lista de melodii."
+msgstr "Căutarea melodiilor este disponibilă doar în lista de melodii."
 
 #. Translators: Presented when a user attempts to find tracks but is not at the track list.
 msgid "Column search is available only in track list."
@@ -481,7 +480,7 @@ msgstr "Caută text în coloane."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Finds the next occurrence of the track with the name in the track list."
-msgstr "găsește următoarea apariție a pistei, cu numele de pe listă."
+msgstr "Găsește următoarea apariție a pistei, cu numele de pe listă."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Finds previous occurrence of the track with the name in the track list."
@@ -489,26 +488,25 @@ msgstr "Caută apariția anterioară a melodiei pe listă."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Locates track with duration within a time range"
-msgstr "găsește o pistă cu durata într-un interval de timp"
+msgstr "Găsește o pistă cu durata într-un interval de timp"
 
 #. Translators: Presented when cart explorer cannot be entered.
 msgid "You are not in playlist viewer, cannot enter cart explorer"
 msgstr ""
-"Nu ești în vizualizatorul playlist-ului, nu poți intra în cart explorer."
+"Nu ești în vizualizatorul playlist-ului, nu poți intra în cart explorer"
 
 #. Translators: presented when cart explorer could not be switched on.
 msgid "Some or all carts could not be assigned, cannot enter cart explorer"
 msgstr ""
-"Unele sau toate carturile nu pot fi atribuite. nu poți intra în cart "
-"explorer."
+"Unele sau toate carturile nu pot fi atribuite. nu poți intra în cart explorer"
 
 #. Translators: Presented when cart explorer is on.
 msgid "Entering cart explorer"
-msgstr "Intrare în cart explorer..."
+msgstr "Intrare în cart explorer"
 
 #. Translators: Presented when cart explorer is off.
 msgid "Exiting cart explorer"
-msgstr "Ieșire din Cart Explorer..."
+msgstr "Ieșire din Cart Explorer"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Toggles cart explorer to learn cart assignments."
@@ -516,11 +514,11 @@ msgstr "Comută Cart explorer pentru a afla atribuirile cartului."
 
 #. Translators: Presented when cart command is unavailable.
 msgid "Cart command unavailable"
-msgstr "Comandă cart nu este valabilă."
+msgstr "Comandă cart nu este valabilă"
 
 #. Translators: Presented when there is no cart assigned to a cart command.
 msgid "Cart unassigned"
-msgstr "Cart neatribuit."
+msgstr "Cart neatribuit"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Toggles library scan progress settings."
@@ -533,20 +531,20 @@ msgstr "Start scanare"
 #. Translators: Presented when library scanning is finished.
 #, python-brace-format
 msgid "{itemCount} items in the library"
-msgstr "Au fost găsite {itemCount} elemente în librarie."
+msgstr "{itemCount} elemente în librarie"
 
 #. Translators: Presented after library scan is done.
 #, python-brace-format
 msgid "Scan complete with {itemCount} items"
-msgstr "Scanare completă cu {itemCount} elemente."
+msgstr "Scanare completă cu {itemCount} elemente"
 
 #. Translators: Presented when library scan is in progress.
 msgid "Scanning"
-msgstr "Scanare..."
+msgstr "Scanare"
 
 #, python-brace-format
 msgid "{itemCount} items scanned"
-msgstr "{itemCount} elemente au fost scanate."
+msgstr "{itemCount} elemente au fost scanate"
 
 #. Translators: Presented when streaming dialog cannot be shown.
 msgid "Cannot open metadata streaming dialog"
@@ -569,7 +567,7 @@ msgstr ""
 msgid "Please return to playlist viewer before invoking this command."
 msgstr ""
 "Vă rugăm să reveniți la vizualizatorul de playlist-uri înainte de a invoca "
-"această comandă"
+"această comandă."
 
 #. Translators: an error message presented when performing some playlist commands while no playlist has been loaded.
 msgid "No playlist has been loaded."
@@ -579,8 +577,8 @@ msgstr "Nicio listă de redare nu a fost încărcată."
 msgid ""
 "Please select a track from playlist viewer before invoking this command."
 msgstr ""
-"Vă rugăm să o piesă din vizualizatorul de playlist-uri înainte de a invoca "
-"această comandă"
+"Vă rugăm să selectați o piesă din vizualizatorul de playlist-uri înainte de "
+"a invoca această comandă."
 
 #. Translators: Presented when playlist analyzer cannot be performed because user is not focused on playlist viewer.
 #, fuzzy
@@ -638,7 +636,7 @@ msgstr "Artiști de top: fără"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 msgid "Top artists:"
-msgstr "Top artiști"
+msgstr "Artiști de top:"
 
 #, python-brace-format
 msgid "No artist information ({artistCount})"
@@ -651,7 +649,7 @@ msgstr "{artistName} ({artistCount})"
 #. Translators: one of the results for playlist snapshots feature for announcing top track category in a playlist.
 #, python-format
 msgid "Top category: %s (%s)"
-msgstr "categorii de top: %s (%s)"
+msgstr "Categorii de top: %s(%s)"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 msgid "Categories:"
@@ -671,7 +669,7 @@ msgstr "Genuri de top: fără"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 msgid "Top genres:"
-msgstr "Genuri de top"
+msgstr "Genuri de top:"
 
 #, python-brace-format
 msgid "No genre information ({genreCount})"
@@ -690,7 +688,7 @@ msgstr "Listă de redare instantanee"
 msgid "Failed to locate Studio main window, cannot enter SPL Assistant"
 msgstr ""
 "Localizarea ferestrei principale a Studioului a eșuat, imposibil de deschis "
-"asistentul SPL."
+"asistentul SPL"
 
 #. Translators: Input help mode message for a layer command in StationPlaylist add-on.
 msgid ""
@@ -724,7 +722,7 @@ msgstr ""
 
 #. Translators: Presented when current track information is unavailable.
 msgid "Cannot find current track information"
-msgstr "Nu se pot găsi informații despre melodia curentă."
+msgstr "Nu se pot găsi informații despre melodia curentă"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Announces title of the currently playing track"
@@ -736,15 +734,15 @@ msgstr "Vremea și Temperatura nu sunt configurate"
 
 #. Translators: Presented when temperature information cannot be found.
 msgid "Weather information not found"
-msgstr "Informațiile despre vreme nu au fost găsite."
+msgstr "Informațiile despre vreme nu au fost găsite"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Announces temperature and weather information"
-msgstr "Anunță informațiile vremii și ale temperaturii."
+msgstr "Anunță informațiile vremii și ale temperaturii"
 
 #. Translators: Presented when there is no listener count information.
 msgid "Listener count not found"
-msgstr "Numărul de ascultători nu a putut fi identificat."
+msgstr "Numărul de ascultători nu a putut fi identificat"
 
 #. Translators: Presented when attempting to start library scan.
 msgid "Monitoring library scan"
@@ -752,7 +750,7 @@ msgstr "Se monitorizează scanarea librăriei"
 
 #. Translators: Presented when library scan is already in progress.
 msgid "Scanning is in progress"
-msgstr "Scanarea este în curs..."
+msgstr "Scanarea este în curs"
 
 #. Translators: Presented when track time analysis is turned on.
 msgid "Playlist analysis activated"
@@ -774,7 +772,7 @@ msgid ""
 "No track selected as start of analysis marker, cannot perform time analysis"
 msgstr ""
 "Nicio melodie selectată ca pornire a marcajului de analiză, imposibil de "
-"efectuat analiza timpului."
+"efectuat analiza timpului"
 
 #. Translators: Presented when time analysis is done for a number of tracks (example output: Tracks: 3, totaling 5:00).
 #, python-brace-format
@@ -787,7 +785,7 @@ msgid ""
 "current track"
 msgstr ""
 "Anunță durata totală a melodiilor între marcajul de start al analizei și "
-"melodia curentă."
+"melodia curentă"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid ""
@@ -799,7 +797,7 @@ msgstr ""
 
 #. Translators: Presented when place marker cannot be set.
 msgid "No tracks found, cannot set place marker"
-msgstr "Nicio melodie găsită, nu se poate seta marcajul de loc."
+msgstr "Nicio melodie găsită, nu se poate seta marcajul de loc"
 
 #. Translators: Presented when place marker track is set.
 msgid "place marker set"
@@ -812,25 +810,25 @@ msgstr ""
 
 #. Translators: Presented when no place marker is found.
 msgid "No place marker found"
-msgstr "Niciun marcaj de loc găsit."
+msgstr "Niciun marcaj de loc găsit"
 
 #. Translators: Status message for metadata streaming.
 #, python-brace-format
 msgid "Metadata streaming on URL {URLPosition} enabled"
-msgstr "Emisia metadata pe linkul URL {URLPosition} activată."
+msgstr "Emisia metadata pe linkul URL {URLPosition} activată"
 
 #. Translators: Status message for metadata streaming.
 msgid "Metadata streaming on DSP encoder enabled"
-msgstr "Emisia metadata pe encoderul DSP activată."
+msgstr "Emisia metadata pe encoderul DSP activată"
 
 #. Translators: Status message for metadata streaming.
 #, python-brace-format
 msgid "Metadata streaming on URL {URLPosition} disabled"
-msgstr "Emisia metadata pe linkul URL {URLPosition} dezactivată."
+msgstr "Emisia metadata pe linkul URL {URLPosition} dezactivată"
 
 #. Translators: Status message for metadata streaming.
 msgid "Metadata streaming on DSP encoder disabled"
-msgstr "Emisia metadata pe encoderul DSP dezactivată."
+msgstr "Emisia metadata pe encoderul DSP dezactivată"
 
 #. Translators: Presented when attempting to announce specific columns but the focused item isn't a track.
 msgid "Not a track"
@@ -842,7 +840,7 @@ msgstr "Ajutor asistent SPL"
 
 #. Translators: The title for SPL Assistant help dialog.
 msgid "SPL Assistant help for JAWS layout"
-msgstr "Ajutor asistent SPL pentru aspectul Jaws."
+msgstr "Ajutor asistent SPL pentru aspectul JAWS"
 
 #. Translators: The title for SPL Assistant help dialog.
 msgid "SPL Assistant help for Window-Eyes layout"
@@ -882,7 +880,7 @@ msgstr ""
 #. Translators: Presented when switch to instant switch profile was successful.
 #, python-brace-format
 msgid "Switching to {newProfileName}"
-msgstr "comutare la {newProfileName}"
+msgstr "Comutare la {newProfileName}"
 
 #. Translators: Presented when switching from instant switch profile to a previous profile.
 #, python-brace-format
@@ -891,7 +889,7 @@ msgstr "Întoarcere la {previousProfile}"
 
 #. Translators: Standard error title for configuration error.
 msgid "Studio add-on Configuration error"
-msgstr "Eroare la configurarea add-onului Studio."
+msgstr "Eroare la configurarea add-onului Studio"
 
 #. Translators: Message displayed if errors were found in encoder configuration file.
 msgid ""
@@ -926,7 +924,7 @@ msgstr "activ"
 #. Translators: A flag indicating the broadcast profile is an instant switch profile.
 #. Instant switch flag is set on another profile, so remove the flag first.
 msgid "instant switch"
-msgstr "Comutare instantanee"
+msgstr "comutare instantanee"
 
 #. Translators: A flag indicating the time-based triggers profile.
 #. Calling set profile flags with discard argument is always safe here.
@@ -939,15 +937,15 @@ msgstr "Doar profilul normal e în uz"
 
 #. Translators: Presented when trying to switch to an instant switch profile when the instant switch profile is not defined.
 msgid "No instant switch profile is defined"
-msgstr "Niciun profil de comutare instantanee definit."
+msgstr "Niciun profil de comutare instantanee definit"
 
 #. Translators: Presented when trying to switch to an instant switch profile when one is already using the instant switch profile.
 msgid "You are already in the instant switch profile"
-msgstr "Ești deja în profilul de comutare instantanee."
+msgstr "Ești deja în profilul de comutare instantanee"
 
 #. Translators: Presented when trying to switch to an instant switch profile when one is already using the instant switch profile.
 msgid "A profile trigger is already active"
-msgstr "Un trigger al profilului este deja activ."
+msgstr "Un declanșator de profiluri este deja activ"
 
 #. Translators: Title of a dialog displayed when the add-on starts reminding broadcasters to disable audio ducking.
 msgid "SPL Studio and audio ducking"
@@ -1035,26 +1033,26 @@ msgstr "Arată dialogul de bun venit când pornesc Studio"
 
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Status announcement beeps"
-msgstr "bipuri de anunțare a stării"
+msgstr "Bipuri de anunțare a stării"
 
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Beeps"
-msgstr "bipuri"
+msgstr "Bipuri"
 
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Status announcement words"
-msgstr "cuvinte de anunțare a stării"
+msgstr "Cuvinte de anunțare a stării"
 
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Words"
-msgstr "cuvinte"
+msgstr "Cuvinte"
 
 #. Translators: A setting in braille timer options.
 msgid "Braille timer off"
-msgstr "Cronometrul braille dezacrtivat."
+msgstr "Cronometrul braille dezactivat"
 
 msgid "Off"
-msgstr "dezactivat"
+msgstr "Dezactivat"
 
 #. Translators: A setting in braille timer options.
 msgid "Braille track endings"
@@ -1119,7 +1117,7 @@ msgstr "&Profil de emisie:"
 
 #. Borrowed logic from NVDA Core's speech panel (although there is no label for this read-only text).
 msgid "Normal profile is in use."
-msgstr "Profilul normal e în uz"
+msgstr "Profilul normal e în uz."
 
 #. Translators: The label of a button to copy a broadcast profile.
 msgid "Cop&y"
@@ -1225,7 +1223,7 @@ msgstr "Acest profil este un profil de comutare &instantanee"
 
 #. Translators: The label of a checkbox to toggle if selected profile is a time-based profile.
 msgid "This is a &time-based switch profile"
-msgstr "Acest profil este un profil bazat pe comutare în &timp."
+msgstr "Acest profil este un profil bazat pe comutare în &timp"
 
 msgid "Day"
 msgstr "Zi"
@@ -1268,11 +1266,11 @@ msgstr "&Bip pentru anunțurile stării"
 
 #. Translators: One of the message verbosity levels.
 msgid "beginner"
-msgstr "Începător"
+msgstr "începător"
 
 #. Translators: One of the message verbosity levels.
 msgid "advanced"
-msgstr "Avansat"
+msgstr "avansat"
 
 #. Translators: The label for a setting in SPL add-on dialog to set message verbosity.
 msgid "Message &verbosity:"
@@ -1304,11 +1302,11 @@ msgstr "Include &orele când se anunță durata melodiei sau a playlistului"
 
 #. Translators: The label for a setting in SPL add-on dialog to set vertical column.
 msgid "&Vertical column navigation announcement:"
-msgstr "&Anunțarea navigării coloanei verticale"
+msgstr "&Anunțarea navigării coloanei verticale:"
 
 #. Translators: One of the options for vertical column navigation denoting NVDA will announce current column positoin (e.g. second column position from the left).
 msgid "whichever column I am reviewing"
-msgstr "Indiferent de coloana pe care o revizuiesc"
+msgstr "indiferent de coloana pe care o revizuiesc"
 
 #. Translators: the label for a setting in SPL add-on settings to toggle category sound announcement.
 msgid "&Beep for different track categories"
@@ -1346,7 +1344,7 @@ msgid "Alarms Center"
 msgstr "Centrul de alarme"
 
 msgid "End of track alarm"
-msgstr "Alarma sfârșitului melodiiei."
+msgstr "Alarma sfârșitului melodiiei"
 
 msgid "Song intro alarm"
 msgstr "Alarma de intrare a melodiiei"
@@ -1358,13 +1356,13 @@ msgid "&End of track alarm in seconds"
 msgstr "Alarma pentru &sfârșit de melodie în secunde"
 
 msgid "&Notify when end of track is approaching"
-msgstr "&Notifică când sfârșitul melodiei se apropie."
+msgstr "&Notifică când sfârșitul melodiei se apropie"
 
 msgid "&Track intro alarm in seconds"
 msgstr "Alarma pentru î&nceput de melodie în secunde"
 
 msgid "&Notify when end of introduction is approaching"
-msgstr "&Notifică la apropierea sfârșitului introducerii."
+msgstr "&Notifică la apropierea sfârșitului introducerii"
 
 #. Translators: A dialog message to set microphone active alarm.
 msgid "&Microphone alarm in seconds (0 disables the alarm)"
@@ -1380,15 +1378,15 @@ msgstr "Centrul de alarme"
 
 #. Translators: One of the alarm notification options.
 msgid "beep"
-msgstr "Bip"
+msgstr "bip"
 
 #. Translators: One of the alarm notification options.
 msgid "message"
-msgstr "Mesaj"
+msgstr "mesaj"
 
 #. Translators: One of the alarm notification options.
 msgid "both beep and message"
-msgstr "Ambele, bip și mesaj"
+msgstr "atât bip cât și mesaj"
 
 #. Translators: The label for a setting in SPL add-on dialog to control alarm announcement type.
 msgid "&Alarm notification:"
@@ -1446,7 +1444,7 @@ msgid "Metadata streaming options"
 msgstr "Opţiuni emisie metadata"
 
 msgid "Select the URL for metadata streaming upon request."
-msgstr "Selectează URL-ul pentru cererea de emisie metadata"
+msgstr "Selectează URL-ul pentru cererea de emisie metadata."
 
 msgid "Check to enable metadata streaming, uncheck to disable."
 msgstr ""
@@ -1482,9 +1480,8 @@ msgstr "Notificare și conectare emisie &metadata"
 #. Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
 #. Add checkboxes for each stream, beginning with the DSP encoder.
 #. #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
-#, fuzzy
 msgid "&Select the URL for metadata streaming upon request:"
-msgstr "Selectează URL-ul pentru cererea de emisie metadata"
+msgstr "&Selectează URL-ul pentru cererea de emisie metadata:"
 
 #. Translators: title of a panel to configure column announcements (order and what columns should be announced).
 #, fuzzy
@@ -1529,19 +1526,16 @@ msgid "Playlist transcripts"
 msgstr "Listă de redare instantanee"
 
 #. Translators: Help text to select columns to be announced.
-#, fuzzy
 msgid ""
 "&Select columns to be included in playlist transcripts\n"
 "(artist and title are always included):"
 msgstr ""
-"Selectați informațiile care trebuie incluse la obținerea instantaneelor de "
-"redare.\n"
-"Numărul de track-uri și durata totală sunt întotdeauna incluse."
+"&Selectează coloanele care să fie incluse în transcrierile listei de redare\n"
+"(Artistul și titlul sunt întotdeauna incluse):"
 
 #. Translators: title of a panel to configure columns explorer settings.
-#, fuzzy
 msgid "Columns explorer"
-msgstr "explorer coloane"
+msgstr "Explorator de coloane"
 
 #. Translators: The label of a button to configure columns explorer slots (SPL Assistant, number row keys to announce specific columns).
 msgid "Columns E&xplorer..."
@@ -1558,7 +1552,7 @@ msgstr "Exploratorul de coloane pentru unealta &piesei."
 
 #. Translators: The title of Columns Explorer configuration dialog.
 msgid "Columns Explorer"
-msgstr "explorer coloane"
+msgstr "Explorer coloane"
 
 #. Translators: The title of Columns Explorer configuration dialog.
 msgid "Columns Explorer for Track Tool"
@@ -1596,15 +1590,15 @@ msgstr "Anunțare nume &melodie:"
 
 #. Translators: One of the track name announcement options.
 msgid "automatic"
-msgstr "Automat"
+msgstr "automat"
 
 #. Translators: One of the track name announcement options.
 msgid "while using other programs"
-msgstr "Când se utilizează alte programe"
+msgstr "când se utilizează alte programe"
 
 #. Translators: One of the track name announcement options.
 msgid "off"
-msgstr "Dezactivat"
+msgstr "dezactivat"
 
 #. Translators: the label for a setting in SPL add-on settings to announce player position for the current and next tracks.
 msgid ""
@@ -1757,7 +1751,7 @@ msgstr "C&oloană de căutare:"
 
 #. Translators: The title of a dialog to find tracks with duration within a specified range.
 msgid "Time range finder"
-msgstr "căutare distanță timp"
+msgstr "Căutare distanță timp"
 
 msgid "Minimum duration"
 msgstr "Durată minimă"
@@ -1778,17 +1772,17 @@ msgstr "Nicio melodie nu a fost găsită între durata minimă și cea maximă."
 
 #. Translators: Standard error title for find error (copy this from main nvda.po).
 msgid "Time range find error"
-msgstr "Eroare la căutarea distanței."
+msgstr "Eroare la căutarea distanței"
 
 msgid "Countdown started"
-msgstr "Numărătoarea inversă a început!"
+msgstr "Numărătoarea inversă a început"
 
 msgid "Timer complete"
-msgstr "Cronometru complet."
+msgstr "Cronometrare completă"
 
 #. Translators: presented when metadata streaming status cannot be obtained.
 msgid "Cannot obtain metadata streaming status information"
-msgstr "Nu se pot obține informații despre starea metadatei streamingului."
+msgstr "Nu se pot obține informații despre starea metadatei streamingului"
 
 #. Translators: Status message for metadata streaming.
 msgid "No metadata streaming URL's defined"
@@ -1855,17 +1849,15 @@ msgstr "Format de transcriere:"
 
 #. Translators: one of the playlist transcript actions.
 msgid "view transcript"
-msgstr "Vizualizează transcrierea"
+msgstr "vizualizează transcrierea"
 
 #. Translators: one of the playlist transcript actions.
-#, fuzzy
 msgid "copy to clipboard"
-msgstr "Comentariul melodiei copiat pe planșetă"
+msgstr "copiere pe planșetă"
 
 #. Translators: one of the playlist transcript actions.
-#, fuzzy
 msgid "save to file"
-msgstr "Profil de &bază:"
+msgstr "salvare în fișier"
 
 #. Translators: The label in playlist transcripts dialog to select transcript action.
 msgid "Transcript action:"
@@ -1873,7 +1865,6 @@ msgstr "Acțiune de transcriere:"
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
-#, fuzzy
 msgid ""
 "\n"
 "After entering SPL Controller, press:\n"
@@ -1915,7 +1906,9 @@ msgstr ""
 "I: Anunță numărul de ascultători.\n"
 "Q: Anunță starea informației Studio.\n"
 "R: Timpul rămas pentru melodia curentă.\n"
-"Shift+R: Progresul scanării librăriei"
+"Shift+R: Progresul scanării librăriei\n"
+"Tastele de funcție și rândul tastelor cu numere, cu sau fără Shift, Alt și "
+"Control: Redau cart-urile."
 
 #. Translators: Presented when StationPlaylist Studio is not running.
 msgid "SPL Studio is not running."
@@ -1957,7 +1950,7 @@ msgstr "Scanare completă cu {itemCount} elemente scanate"
 #. Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
 #, python-brace-format
 msgid "Scan complete with {itemCount} items scanned"
-msgstr "Scanare completă cu {itemCount} elemente scanate."
+msgstr "Scanare completă cu {itemCount} elemente scanate"
 
 #. Translators: Announces number of stream listeners.
 #, python-brace-format
@@ -1985,13 +1978,14 @@ msgid "SPL Controller help"
 msgstr "Ajutor controler SPL"
 
 #. Translators: presented when no streaming encoders were found when trying to obtain connection status.
-#, fuzzy
 msgid "No encoders found"
-msgstr "Niciun marcaj de loc găsit."
+msgstr "Niciun encoder găsit"
 
 #. Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
 msgid "Only one encoder type can be active at once"
 msgstr ""
+"Doar un tip de encoder poate fi activ, nu pot fi active mai multe tipuri "
+"simultan"
 
 #. Translators: presented when at least one encoder is connected.
 #, fuzzy, python-brace-format
@@ -1999,9 +1993,8 @@ msgid "Connected encoders: {encodersConnected}"
 msgstr "Se monitorizează encoderul {encoderNumber}"
 
 #. Translators: presented when no encoders are connected.
-#, fuzzy
 msgid "No encoders connected"
-msgstr "Niciun encoder nu este monitorizat."
+msgstr "Niciun encoder nu este conectat"
 
 #. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
 #, python-brace-format
@@ -2051,7 +2044,7 @@ msgstr ""
 
 #. Translators: Presented when toggling the setting to play selected song when connected to a streaming server.
 msgid "Play first track after connecting"
-msgstr "redă prima melodie după conectare"
+msgstr "Redă prima melodie după conectare"
 
 #. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 msgid "Do not play first track after connecting"
