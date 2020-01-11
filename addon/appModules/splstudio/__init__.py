@@ -2040,9 +2040,13 @@ class AppModule(appModuleHandler.AppModule):
 			self.finish()
 			return
 		try:
-			obj = self.status(self.SPLNextTrackTitle).firstChild
-			# Translators: Presented when there is no information for the next track.
-			nextTrack = _("No next track scheduled or no track is playing") if obj.name is None else obj.name
+			if not splbase.studioAPI(0, 39):
+				# Translators: Presented when there is no information for the next track.
+				nextTrack = _("No track is playing")
+			else:
+				obj = self.status(self.SPLNextTrackTitle).firstChild
+				# Translators: Presented when there is no information for the next track.
+				nextTrack = _("No next track scheduled") if obj.name is None else obj.name
 			# #34 (17.08): normally, player position (name of the internal player in Studio) would not be announced, but might be useful for some broadcasters with mixers.
 			if splconfig.SPLConfig["SayStatus"]["SayStudioPlayerPosition"]:
 				player = self.status(self.SPLNextPlayer).firstChild.name
@@ -2062,9 +2066,13 @@ class AppModule(appModuleHandler.AppModule):
 			self.finish()
 			return
 		try:
-			obj = self.status(self.SPLCurrentTrackTitle).firstChild
-			# Translators: Presented when there is no information for the current track.
-			currentTrack = _("Cannot locate current track information or no track is playing") if obj.name is None else obj.name
+			if not splbase.studioAPI(0, 39):
+				# Translators: Presented when there is no information for the current track.
+				currentTrack = _("No track is playing")
+			else:
+				obj = self.status(self.SPLCurrentTrackTitle).firstChild
+				# Translators: Presented when there is no information for the current track.
+				currentTrack = _("Cannot locate current track information") if obj.name is None else obj.name
 			# #34 (17.08): see the note on next track script above.
 			if splconfig.SPLConfig["SayStatus"]["SayStudioPlayerPosition"]:
 				player = self.status(self.SPLCurrentPlayer).firstChild.name
