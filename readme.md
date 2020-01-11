@@ -200,10 +200,11 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Version 20.02
 
 * Initial support for StationPlaylist Creator's Playlist Editor.
-* Added Alt+NVDA+number row commands to announce various status information in Playlist Editor. These include date and time for the playlist (1), total playlist duration (2), when the selected track is scheduled to play (3) and rotation and category (4).
+* Added Alt+NVDA+number row commands to announce various status information in Playlist Editor. These include date and time for the playlist (1), total playlist duration (2), when the selected track is scheduled to play (3), and rotation and category (4).
 * While focused on a track in Creator and Track Tool (except in Creator's Playlist Editor), pressing Control+NVDA+Dash will display data for all columns on a browse mode window.
 * If NVDA Recognizes a track list item with less than 10 columns, NVDA will no longer announce headers for nonexistent columns if Control+NVDA+number row for out of range column is pressed.
 * In creator, NVDA will no longer announce column information if Control+NVDA+number row keys are pressed while focused on places other than track list.
+* When a track is playing, NVDA will no longer announce "no track is playing" if obtaining information about current and next tracks via SPL Assistant or SPL Controller.
 
 ## Version 20.01
 
