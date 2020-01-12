@@ -850,7 +850,7 @@ class AlarmsPanel(ProfileSpecificSettingsBasePanel):
 		curProfile["MicrophoneAlarm"]["MicAlarm"] = self.micAlarmEntry.GetValue()
 		curProfile["MicrophoneAlarm"]["MicAlarmInterval"] = self.micIntervalEntry.GetValue()
 		self._curProfileSettings.clear()
-		# #80 (18.10.2/18.09.4-LTS): don't just nullify profile setings, otherwise attribute and type error excpetions may arise.
+		# #80 (18.10.2/18.09.4-LTS): don't just nullify profile settings, otherwise attribute and type error exceptions may arise.
 		if not _configApplyOnly: self._curProfileSettings = None
 
 	def onDiscard(self):
