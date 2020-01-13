@@ -562,13 +562,6 @@ class Encoder(IAccessible):
 		super(Encoder, self).reportFocus()
 
 	__gestures={
-		"kb:f11":"toggleFocusToStudio",
-		"kb:shift+f11":"togglePlay",
-		"kb:control+f11":"toggleBackgroundEncoderMonitor",
-		"kb:f12":"streamLabeler",
-		"kb:control+f12":"streamLabelEraser",
-		"kb:NVDA+F12":"encoderDateTime",
-		"kb:alt+NVDA+0":"encoderSettings",
 		"kb:control+NVDA+1":"announceEncoderPosition",
 		"kb:control+NVDA+2":"announceEncoderLabel",
 	}

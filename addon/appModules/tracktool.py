@@ -66,7 +66,6 @@ class TrackToolItem(SPLTrackItem):
 	__gestures={
 		"kb:control+alt+downArrow": None,
 		"kb:control+alt+upArrow": None,
-		"kb:control+NVDA+-":"trackColumnsViewer",
 	}
 
 

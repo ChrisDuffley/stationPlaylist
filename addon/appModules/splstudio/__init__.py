@@ -2491,26 +2491,3 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:f1":"layerHelp",
 		"kb:shift+f1":"openOnlineDoc",
 	}
-
-	__gestures={
-		"kb:control+alt+t":"sayRemainingTime",
-		"ts(SPL):2finger_flickDown":"sayRemainingTime",
-		"kb:alt+shift+t":"sayElapsedTime",
-		"kb:shift+nvda+f12":"sayBroadcasterTime",
-		"ts(SPL):2finger_flickUp":"sayBroadcasterTime",
-		"kb:alt+nvda+1":"setEndOfTrackTime",
-		"ts(SPL):2finger_flickRight":"setEndOfTrackTime",
-		"kb:alt+nvda+2":"setSongRampTime",
-		"ts(SPL):2finger_flickLeft":"setSongRampTime",
-		"kb:alt+nvda+4":"setMicAlarm",
-		"kb:control+nvda+f":"findTrack",
-		"kb:nvda+f3":"findTrackNext",
-		"kb:shift+nvda+f3":"findTrackPrevious",
-		"kb:alt+nvda+3":"toggleCartExplorer",
-		"kb:alt+nvda+r":"setLibraryScanProgress",
-		"kb:control+shift+r":"startScanFromInsertTracks",
-		"kb:control+shift+x":"setBrailleTimer",
-		"kb:alt+NVDA+0":"openConfigDialog",
-		"kb:alt+NVDA+f1":"openWelcomeDialog",
-		"kb:alt+nvda+-":"sendFeedbackEmail",
-	}
