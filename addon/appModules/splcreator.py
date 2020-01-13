@@ -39,6 +39,10 @@ class SPLCreatorItem(SPLTrackItem):
 	def exploreColumns(self):
 		return splconfig.SPLConfig["General"]["ExploreColumnsCreator"]
 
+	@scriptHandler.script(
+		# Translators: input help mode message for columns viewer command.
+		description=_("Presents data for all columns in the currently selected track")
+		gesture="kb:control+NVDA+-")
 	def script_trackColumnsViewer(self, gesture):
 		# #61 (18.06): a direct copy of column data gatherer from playlist transcripts.
 		# 20.02: customized for Creator (no status column).
@@ -122,6 +126,7 @@ class AppModule(appModuleHandler.AppModule):
 	SPLEditorStatusBar = 2
 	_playlistEditorStatusCache = {}
 
+	@scriptHandler.script(gesture="kb:alt+NVDA+1")
 	def script_playlistDateTime(self, gesture):
 		if self.isPlaylistEditor():
 			try:
@@ -134,6 +139,7 @@ class AppModule(appModuleHandler.AppModule):
 				self._playlistEditorStatusCache[self.SPLEditorDateTime] = [playlistHour, playlistDay]
 			ui.message(" ".join([playlistDay.value, playlistHour.value]))
 
+	@scriptHandler.script(gesture="kb:alt+NVDA+2")
 	def script_playlistDuration(self, gesture):
 		if self.isPlaylistEditor():
 			try:
@@ -143,6 +149,7 @@ class AppModule(appModuleHandler.AppModule):
 				self._playlistEditorStatusCache[self.SPLEditorDuration] = playlistDuration
 			ui.message(playlistDuration.name)
 
+	@scriptHandler.script(gesture="kb:alt+NVDA+3")
 	def script_playlistScheduled(self, gesture):
 		if self.isPlaylistEditor():
 			try:
@@ -152,6 +159,7 @@ class AppModule(appModuleHandler.AppModule):
 				self._playlistEditorStatusCache[self.SPLEditorStatusBar] = statusBar
 			ui.message(statusBar.getChild(2).name)
 
+	@scriptHandler.script(gesture="kb:alt+NVDA+4")
 	def script_playlistRotation(self, gesture):
 		if self.isPlaylistEditor():
 			try:
