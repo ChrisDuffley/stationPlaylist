@@ -39,7 +39,7 @@ Most of these will work in Studio only unless otherwise specified.
 * Control+Alt+left/right arrow (while focused on a track in Studio, Creator, and Track Tool): Announce previous/next track column.
 * Control+Alt+Home/End (while focused on a track in Studio, Creator, and Track Tool): Announce first/last track column.
 * Control+Alt+up/down arrow (while focused on a track in Studio only): Move to previous or next track and announce specific columns.
-* Control+NVDA+1 through 0 (while focused on a track in Studio, Creator, and Track Tool): Announce column content for a specified column. Pressing this command twice will display column information on a browse mode window.
+* Control+NVDA+1 through 0 (while focused on a track in Studio, Creator (including Playlist Editor), and Track Tool): Announce column content for a specified column (first ten columns by default). Pressing this command twice will display column information on a browse mode window.
 * Control+NVDA+- (hyphen while focused on a track in Studio, Creator, and Track Tool): display data for all columns in a track on a browse mode window.
 * Alt+NVDA+C while focused on a track (Studio only): announces track comments if any.
 * Alt+NVDA+0 from Studio window: Opens the Studio add-on configuration dialog.
@@ -179,7 +179,7 @@ To obtain length to play selected tracks, mark current track for start of track 
 
 ## Columns Explorer
 
-By pressing Control+NVDA+1 through 0 or SPL Assistant, 1 through 0, you can obtain contents of specific columns. By default, these are artist, title, duration, intro, category, filename, year, album, genre and time scheduled. You can configure which columns will be explored via columns explorer dialog found in add-on settings dialog.
+By pressing Control+NVDA+1 through 0 or SPL Assistant, 1 through 0, you can obtain contents of specific columns. By default, these are artist, title, duration, intro, outro, category, year, album, genre and mood. You can configure which columns will be explored via columns explorer dialog found in add-on settings dialog.
 
 ## Playlist snapshots
 
@@ -196,6 +196,10 @@ From studio window, you can press Alt+NVDA+0 to open the add-on configuration di
 ## SPL touch mode
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
+
+## Version 20.03
+
+* Columns Explorer will now announce first ten columns by default (existing installations will continue to use old column slots).
 
 ## Version 20.02
 
