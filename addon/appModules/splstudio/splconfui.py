@@ -339,9 +339,9 @@ class NewProfileDialog(wx.Dialog):
 
 		if self.copy:
 			# Translators: The label for a setting in SPL add-on dialog to select a base  profile for copying.
-			self.baseProfiles = newProfileSizerHelper.addLabeledControl(_("&Base profile:"), wx.Choice, choices=[profile.split(" <")[0] for profile in parent.profiles.GetItems()])
+			self.baseProfiles = newProfileSizerHelper.addLabeledControl(_("&Base profile:"), wx.Choice, choices=parent.profileNames)
 			try:
-				self.baseProfiles.SetSelection(self.baseProfiles.GetItems().index(parent.profiles.GetStringSelection().split(" <")[0]))
+				self.baseProfiles.SetSelection(parent.profiles.GetSelection())
 			except:
 				pass
 
