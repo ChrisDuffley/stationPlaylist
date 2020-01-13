@@ -205,6 +205,8 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * If NVDA Recognizes a track list item with less than 10 columns, NVDA will no longer announce headers for nonexistent columns if Control+NVDA+number row for out of range column is pressed.
 * In creator, NVDA will no longer announce column information if Control+NVDA+number row keys are pressed while focused on places other than track list.
 * When a track is playing, NVDA will no longer announce "no track is playing" if obtaining information about current and next tracks via SPL Assistant or SPL Controller.
+* If an alarm options dialog (intro, outro, microphone) is open, NVDA will no longer appear to do nothing or play error tone if attempting to open a second instance of any alarm dialog.
+* When trying to switch between active profile and an instant profile via SPL Assistant (F12), NVDA will present a message if attempting to do so while add-on settings screen is open.
 
 ## Version 20.01
 
