@@ -1607,9 +1607,12 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 
 	def makeSettings(self, settingsSizer):
 		super(SPLConfigDialog, self).makeSettings(settingsSizer)
+		global _configDialogOpened
 		# #40 (17.12): respond to app terminate notification by closing this dialog.
 		# All top-level dialogs will be affected by this, and apart from this one, others will check for flags also.
 		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
+		# 20.02: let everyone know add-on settings is opened.
+		_configDialogOpened = True
 
 	def onOk(self, evt):
 		super(SPLConfigDialog,  self).onOk(evt)
