@@ -140,10 +140,12 @@ class SPLTrackItem(sysListView32.ListItem):
 			self.__class__._curColumnNumber -=1
 		self.announceColumnContent(self._curColumnNumber)
 
+	@scriptHandler.script(gesture="kb:control+alt+home")
 	def script_firstColumn(self, gesture):
 		self.__class__._curColumnNumber = 0
 		self.announceColumnContent(self._curColumnNumber)
 
+	@scriptHandler.script(gesture="kb:control+alt+end")
 	def script_lastColumn(self, gesture):
 		self.__class__._curColumnNumber = self.parent.columnCount-1
 		self.announceColumnContent(self._curColumnNumber)
@@ -330,11 +332,13 @@ class SPLStudioTrackItem(SPLTrackItem):
 	# Track movement scripts.
 	# Detects top/bottom of a playlist if told to do so.
 
+	@scriptHandler.script(gesture="kb:downArrow")
 	def script_nextTrack(self, gesture):
 		gesture.send()
 		if self.IAccessibleChildID == self.parent.childCount-1 and splconfig.SPLConfig["General"]["TopBottomAnnounce"]:
 			tones.beep(2000, 100)
 
+	@scriptHandler.script(gesture="kb:upArrow")
 	def script_prevTrack(self, gesture):
 		gesture.send()
 		if self.IAccessibleChildID == 1 and splconfig.SPLConfig["General"]["TopBottomAnnounce"]:
@@ -368,6 +372,11 @@ class SPLStudioTrackItem(SPLTrackItem):
 	def exploreColumns(self):
 		return splconfig.SPLConfig["General"]["ExploreColumns"]
 
+	@scriptHandler.script(
+		# Translators: input help mode message for columns viewer command.
+		description=_("Presents data for all columns in the currently selected track"),
+		gesture="kb:control+NVDA+-",
+		category=_("StationPlaylist"))
 	def script_trackColumnsViewer(self, gesture):
 		# #61 (18.06): a direct copy of column data gatherer from playlist transcripts.
 		# 18.07: just call the gatherer function with "blank" as the readable string and add column header afterwards.
@@ -380,8 +389,6 @@ class SPLStudioTrackItem(SPLTrackItem):
 			columnContents[pos] = ": ".join([columnHeaders[pos], columnContents[pos]])
 		# Translators: Title of the column data window.
 		ui.browseableMessage("\n".join(columnContents), title=_("Track data"))
-	# Translators: input help mode message for columns viewer command.
-	script_trackColumnsViewer.__doc__ = _("Presents data for all columns in the currently selected track")
 
 	# Track comments.
 
@@ -429,6 +436,11 @@ class SPLStudioTrackItem(SPLTrackItem):
 				else: splconfig.trackComments[filename] = dlg.GetValue()
 		gui.runScriptModalDialog(dlg, callback)
 
+	@scriptHandler.script(
+		# Translators: Input help message for track comment announcemnet command in SPL Studio.
+		description=_("Announces track comment if any. Press twice to copy this information to the clipboard, and press three times to open a dialog to add, change or remove track comments"),
+		gesture="kb:Alt+NVDA+C",
+		category=_("StationPlaylist"))
 	def script_announceTrackComment(self, gesture):
 		self.announceTrackComment(scriptHandler.getLastScriptRepeatCount()+1)
 	# Translators: Input help message for track comment announcemnet command in SPL Studio.
@@ -620,6 +632,7 @@ class ReversedDialog(Dialog):
 # Thankfully, when up or down arrows are pressed, display text changes.
 class SPLTimePicker(IAccessible):
 
+	@scriptHandler.script(gestures=["kb:upArrow", "kb:downArrow"])
 	def script_changeTimePickerValue(self, gesture):
 		gesture.send()
 		import treeInterceptorHandler
@@ -1145,16 +1158,24 @@ class AppModule(appModuleHandler.AppModule):
 				return "{mm:02d}:{ss:02d}".format(mm = mm, ss = ss)
 
 	# Scripts which rely on API.
+	@scriptHandler.script(
+		# Translators: Input help mode message for a command in StationPlaylist add-on.
+		description=_("Announces the remaining track time."),
+		gestures=["kb:control+alt+t", "ts(SPL):2finger_flickDown"])
 	def script_sayRemainingTime(self, gesture):
 		if splbase.studioIsRunning(): self.announceTime(splbase.studioAPI(3, 105), offset=1)
-	# Translators: Input help mode message for a command in StationPlaylist add-on.
-	script_sayRemainingTime.__doc__=_("Announces the remaining track time.")
 
+	@scriptHandler.script(
+		# Translators: Input help mode message for a command in StationPlaylist add-on.
+		description=_("Announces the elapsed time for the currently playing track."),
+		gesture="kb:alt+shift+t")
 	def script_sayElapsedTime(self, gesture):
 		if splbase.studioIsRunning(): self.announceTime(splbase.studioAPI(0, 105))
-	# Translators: Input help mode message for a command in StationPlaylist add-on.
-	script_sayElapsedTime.__doc__=_("Announces the elapsed time for the currently playing track.")
 
+	@scriptHandler.script(
+		# Translators: Input help mode message for a command in StationPlaylist add-on.
+		description=_("Announces broadcaster time. If pressed twice, reports minutes and seconds left to top of the hour."),
+		gestures=["kb:shift+nvda+f12", "ts(SPL):2finger_flickUp"])
 	def script_sayBroadcasterTime(self, gesture):
 		if not splbase.studioIsRunning(): return
 		# Says things such as "25 minutes to 2" and "5 past 11".
@@ -1180,16 +1201,15 @@ class AppModule(appModuleHandler.AppModule):
 				ui.message("{minute} min to {hour}".format(minute = m, hour = h+1))
 		else:
 			self.announceTime(3600-(m*60+localtime[5]), ms=False)
-	# Translators: Input help mode message for a command in StationPlaylist add-on.
-	script_sayBroadcasterTime.__doc__=_("Announces broadcaster time. If pressed twice, reports minutes and seconds left to top of the hour.")
 
+	@scriptHandler.script(
+		# Translators: Input help mode message for a command in StationPlaylist add-on.
+		description=_("Announces time including seconds."))
 	def script_sayCompleteTime(self, gesture):
 		if not splbase.studioIsRunning(): return
 		import winKernel
 		# Says complete time in hours, minutes and seconds via kernel32's routines.
 		ui.message(winKernel.GetTimeFormat(winKernel.LOCALE_USER_DEFAULT, 0, None, None))
-	# Translators: Input help mode message for a command in StationPlaylist add-on.
-	script_sayCompleteTime.__doc__=_("Announces time including seconds.")
 
 	# Invoke the common alarm dialog.
 	# The below invocation function is also used for error handling purposes.
@@ -1212,45 +1232,59 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Set the end of track alarm time between 1 and 59 seconds.
 
+	@scriptHandler.script(
+		# Translators: Input help mode message for a command in StationPlaylist add-on.
+		description=_("Sets end of track alarm (default is 5 seconds)."),
+		gestures=["kb:alt+nvda+1", "ts(SPL):2finger_flickRight"])
 	def script_setEndOfTrackTime(self, gesture):
 		self.alarmDialog(1)
-	# Translators: Input help mode message for a command in StationPlaylist add-on.
-	script_setEndOfTrackTime.__doc__=_("Sets end of track alarm (default is 5 seconds).")
 
 	# Set song ramp (introduction) time between 1 and 9 seconds.
 
+	@scriptHandler.script(
+		# Translators: Input help mode message for a command in StationPlaylist add-on.
+		description=_("Sets song intro alarm (default is 5 seconds)."),
+		gestures=["kb:alt+nvda+2", "ts(SPL):2finger_flickLeft"])
 	def script_setSongRampTime(self, gesture):
 		self.alarmDialog(2)
-	# Translators: Input help mode message for a command in StationPlaylist add-on.
-	script_setSongRampTime.__doc__=_("Sets song intro alarm (default is 5 seconds).")
 
 	# Tell NVDA to play a sound when mic was active for a long time, as well as contorl the alarm interval.
 	# 8.0: This dialog will let users configure mic alarm interval as well.
 
+	@scriptHandler.script(
+		# Translators: Input help mode message for a command in StationPlaylist add-on.
+		description=_("Sets microphone alarm (default is 5 seconds)."),
+		gesture="kb:alt+nvda+4")
 	def script_setMicAlarm(self, gesture):
 		self.alarmDialog(3)
-	# Translators: Input help mode message for a command in StationPlaylist add-on.
-	script_setMicAlarm.__doc__=_("Sets microphone alarm (default is 5 seconds).")
 
 	# SPL Config management among others.
 
+	@scriptHandler.script(
+		# Translators: Input help mode message for a command in StationPlaylist add-on.
+		description=_("Opens SPL Studio add-on configuration dialog."),
+		gesture="kb:alt+NVDA+0")
 	def script_openConfigDialog(self, gesture):
 		wx.CallAfter(splconfui.onConfigDialog, None)
-	# Translators: Input help mode message for a command in StationPlaylist add-on.
-	script_openConfigDialog.__doc__=_("Opens SPL Studio add-on configuration dialog.")
 
+	@scriptHandler.script(
+		# Translators: Input help mode message for a command in StationPlaylist add-on.
+		description=_("Opens SPL Studio add-on welcome dialog."),
+		gesture="kb:alt+NVDA+f1")
 	def script_openWelcomeDialog(self, gesture):
 		gui.mainFrame.prePopup()
 		splconfig.WelcomeDialog(gui.mainFrame).Show()
 		gui.mainFrame.postPopup()
-	# Translators: Input help mode message for a command in StationPlaylist add-on.
-	script_openWelcomeDialog.__doc__=_("Opens SPL Studio add-on welcome dialog.")
 
 	# Other commands (track finder and others)
 
 	# Braille timer.
 	# Announce end of track and other info via braille.
 
+	@scriptHandler.script(
+		# Translators: Input help mode message for a command in StationPlaylist add-on.
+		description=_("Toggles between various braille timer settings."),
+		gesture="kb:control+shift+x")
 	def script_setBrailleTimer(self, gesture):
 		brailleTimer = splconfig.SPLConfig["General"]["BrailleTimer"]
 		if brailleTimer == "off":
@@ -1263,8 +1297,6 @@ class AppModule(appModuleHandler.AppModule):
 			brailleTimer = "off"
 		splconfig.SPLConfig["General"]["BrailleTimer"] = brailleTimer
 		splconfig.message("BrailleTimer", brailleTimer)
-	# Translators: Input help mode message for a command in StationPlaylist add-on.
-	script_setBrailleTimer.__doc__=_("Toggles between various braille timer settings.")
 
 	# The track finder utility for find track script and other functions
 	# Perform a linear search to locate the track name and/or description which matches the entered value.
@@ -1356,18 +1388,25 @@ class AppModule(appModuleHandler.AppModule):
 		except RuntimeError:
 			wx.CallAfter(splmisc._finderError)
 
+	@scriptHandler.script(
+		# Translators: Input help mode message for a command in StationPlaylist add-on.
+		description=_("Finds a track in the track list."),
+		gesture="kb:control+nvda+f")
 	def script_findTrack(self, gesture):
 		if self._trackFinderCheck(0): self.trackFinderGUI()
-	# Translators: Input help mode message for a command in StationPlaylist add-on.
-	script_findTrack.__doc__=_("Finds a track in the track list.")
 
+	@scriptHandler.script(
+		# Translators: Input help mode message for a command in StationPlaylist add-on.
+		description=_("Finds text in columns."))
 	def script_columnSearch(self, gesture):
 		if self._trackFinderCheck(1): self.trackFinderGUI(columnSearch=True)
-	# Translators: Input help mode message for a command in StationPlaylist add-on.
-	script_columnSearch.__doc__=_("Finds text in columns.")
 
 	# Find next and previous scripts.
 
+	@scriptHandler.script(
+		# Translators: Input help mode message for a command in StationPlaylist add-on.
+		description=_("Finds the next occurrence of the track with the name in the track list."),
+		gesture="kb:nvda+f3")
 	def script_findTrackNext(self, gesture):
 		if self._trackFinderCheck(0):
 			if self.findText is None: self.trackFinderGUI()
@@ -1376,9 +1415,11 @@ class AppModule(appModuleHandler.AppModule):
 				if api.getForegroundObject().windowClassName == "TStudioForm" and startObj.role == controlTypes.ROLE_LIST:
 					startObj = startObj.firstChild
 				self.trackFinder(self.findText[0], obj=startObj.next)
-	# Translators: Input help mode message for a command in StationPlaylist add-on.
-	script_findTrackNext.__doc__=_("Finds the next occurrence of the track with the name in the track list.")
 
+	@scriptHandler.script(
+		# Translators: Input help mode message for a command in StationPlaylist add-on.
+		description=_("Finds previous occurrence of the track with the name in the track list."),
+		gesture="kb:shift+nvda+f3")
 	def script_findTrackPrevious(self, gesture):
 		if self._trackFinderCheck(0):
 			if self.findText is None: self.trackFinderGUI()
@@ -1387,12 +1428,13 @@ class AppModule(appModuleHandler.AppModule):
 				if api.getForegroundObject().windowClassName == "TStudioForm" and startObj.role == controlTypes.ROLE_LIST:
 					startObj = startObj.lastChild
 				self.trackFinder(self.findText[0], obj=startObj.previous, directionForward=False)
-	# Translators: Input help mode message for a command in StationPlaylist add-on.
-	script_findTrackPrevious.__doc__=_("Finds previous occurrence of the track with the name in the track list.")
 
 	# Time range finder.
 	# Locate a track with duration falling between min and max.
 
+	@scriptHandler.script(
+		# Translators: Input help mode message for a command in StationPlaylist add-on.
+		description=_("Locates track with duration within a time range"))
 	def script_timeRangeFinder(self, gesture):
 		if self._trackFinderCheck(2):
 			try:
@@ -1404,8 +1446,6 @@ class AppModule(appModuleHandler.AppModule):
 				splmisc._findDialogOpened = True
 			except RuntimeError:
 				wx.CallAfter(splmisc._finderError)
-	# Translators: Input help mode message for a command in StationPlaylist add-on.
-	script_timeRangeFinder.__doc__=_("Locates track with duration within a time range")
 
 	# Cart explorer
 	cartExplorer = False
@@ -1437,6 +1477,10 @@ class AppModule(appModuleHandler.AppModule):
 			self.clearGestureBindings()
 			self.bindGestures(self.__gestures)
 
+	@scriptHandler.script(
+		# Translators: Input help mode message for a command in StationPlaylist add-on.
+		description=_("Toggles cart explorer to learn cart assignments."),
+		gesture="kb:alt+nvda+3")
 	def script_toggleCartExplorer(self, gesture):
 		if not splbase.studioIsRunning(): return
 		if not self.cartExplorer:
@@ -1464,8 +1508,6 @@ class AppModule(appModuleHandler.AppModule):
 			splmisc._cartEditTimestamps = None
 			# Translators: Presented when cart explorer is off.
 			ui.message(_("Exiting cart explorer"))
-	# Translators: Input help mode message for a command in StationPlaylist add-on.
-	script_toggleCartExplorer.__doc__=_("Toggles cart explorer to learn cart assignments.")
 
 	def script_cartExplorer(self, gesture):
 		if api.getForegroundObject().windowClassName != "TStudioForm":
@@ -1484,6 +1526,10 @@ class AppModule(appModuleHandler.AppModule):
 	# Library scan announcement
 	# Announces progress of a library scan (launched from insert tracks dialog by pressing Control+Shift+R or from rescan option from Options dialog).
 
+	@scriptHandler.script(
+		# Translators: Input help mode message for a command in StationPlaylist add-on.
+		description=_("Toggles library scan progress settings."),
+		gesture="kb:alt+nvda+r")
 	def script_setLibraryScanProgress(self, gesture):
 		libraryScanAnnounce = splconfig.SPLConfig["General"]["LibraryScanAnnounce"]
 		if libraryScanAnnounce == "off":
@@ -1496,9 +1542,8 @@ class AppModule(appModuleHandler.AppModule):
 			libraryScanAnnounce = "off"
 		splconfig.SPLConfig["General"]["LibraryScanAnnounce"] = libraryScanAnnounce
 		splconfig.message("LibraryScanAnnounce", libraryScanAnnounce)
-	# Translators: Input help mode message for a command in StationPlaylist add-on.
-	script_setLibraryScanProgress.__doc__=_("Toggles library scan progress settings.")
 
+	@scriptHandler.script(gesture="kb:control+shift+r")
 	def script_startScanFromInsertTracks(self, gesture):
 		gesture.send()
 		fg = api.getForegroundObject()
@@ -1590,6 +1635,9 @@ class AppModule(appModuleHandler.AppModule):
 	# Also allows broadcasters to toggle metadata streaming.
 
 	# The script version to open the manage metadata URL's dialog.
+	@scriptHandler.script(
+		# Translators: Input help mode message for a command in StationPlaylist add-on.
+		description=_("Opens a dialog to quickly enable or disable metadata streaming."))
 	def script_manageMetadataStreams(self, gesture):
 		# Do not even think about opening this dialog if handle to Studio isn't found.
 		if splbase._SPLWin is None:
@@ -1611,8 +1659,6 @@ class AppModule(appModuleHandler.AppModule):
 			splconfui._metadataDialogOpened = True
 		except RuntimeError:
 			wx.CallAfter(splconfig._alarmError)
-	# Translators: Input help mode message for a command in StationPlaylist add-on.
-	script_manageMetadataStreams.__doc__=_("Opens a dialog to quickly enable or disable metadata streaming.")
 
 	# Playlist Analyzer
 	# These include track time analysis, playlist snapshots, and some form of playlist transcripts and others.
@@ -1857,9 +1903,11 @@ class AppModule(appModuleHandler.AppModule):
 				self.monitorLibraryScan()
 
 	# The developer would like to get feedback from you.
+	@scriptHandler.script(
+		description="Opens the default email client to send an email to the add-on developer",
+		gesture="kb:alt+nvda+-")
 	def script_sendFeedbackEmail(self, gesture):
 		os.startfile("mailto:joseph.lee22590@gmail.com")
-	script_sendFeedbackEmail.__doc__="Opens the default email client to send an email to the add-on developer"
 
 	# SPL Assistant: reports status on playback, operation, etc.
 	# Used layer command approach to save gesture assignments.
@@ -1893,6 +1941,9 @@ class AppModule(appModuleHandler.AppModule):
 
 	# The SPL Assistant layer driver.
 
+	@scriptHandler.script(
+		# Translators: Input help mode message for a layer command in StationPlaylist add-on.
+		description=_("The SPL Assistant layer command. See the add-on guide for more information on available commands."))
 	def script_SPLAssistantToggle(self, gesture):
 		# Enter the layer command if an only if we're in the track list to allow easier gesture assignment.
 		# 7.0: This requirement has been relaxed (commands themselves will check for specific conditions).
@@ -1929,8 +1980,6 @@ class AppModule(appModuleHandler.AppModule):
 			elif splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "wineyes": ui.message("Window-Eyes")
 		except WindowsError:
 			return
-	# Translators: Input help mode message for a layer command in StationPlaylist add-on.
-	script_SPLAssistantToggle.__doc__=_("The SPL Assistant layer command. See the add-on guide for more information on available commands.")
 
 	# Status table keys
 	SPLSystemStatus = 1
@@ -2036,6 +2085,9 @@ class AppModule(appModuleHandler.AppModule):
 		# Translators: presented when playlist modification message isn't shown.
 		ui.message(obj.name if obj.name else _("Playlist modification not available"))
 
+	@scriptHandler.script(
+		# Translators: Input help mode message for a command in StationPlaylist add-on.
+		description=_("Announces title of the next track if any"))
 	def script_sayNextTrackTitle(self, gesture):
 		if not splbase.studioIsRunning():
 			self.finish()
@@ -2059,9 +2111,10 @@ class AppModule(appModuleHandler.AppModule):
 			ui.message(_("Cannot find next track information"))
 		finally:
 			self.finish()
-	# Translators: Input help mode message for a command in StationPlaylist add-on.
-	script_sayNextTrackTitle.__doc__=_("Announces title of the next track if any")
 
+	@scriptHandler.script(
+		# Translators: Input help mode message for a command in StationPlaylist add-on.
+		description=_("Announces title of the currently playing track"))
 	def script_sayCurrentTrackTitle(self, gesture):
 		if not splbase.studioIsRunning():
 			self.finish()
@@ -2085,9 +2138,10 @@ class AppModule(appModuleHandler.AppModule):
 			ui.message(_("Cannot find current track information"))
 		finally:
 			self.finish()
-	# Translators: Input help mode message for a command in StationPlaylist add-on.
-	script_sayCurrentTrackTitle.__doc__=_("Announces title of the currently playing track")
 
+	@scriptHandler.script(
+		# Translators: Input help mode message for a command in StationPlaylist add-on.
+		description=_("Announces temperature and weather information"))
 	def script_sayTemperature(self, gesture):
 		if not splbase.studioIsRunning():
 			self.finish()
@@ -2101,8 +2155,6 @@ class AppModule(appModuleHandler.AppModule):
 			ui.message(_("Weather information not found"))
 		finally:
 			self.finish()
-	# Translators: Input help mode message for a command in StationPlaylist add-on.
-	script_sayTemperature.__doc__=_("Announces temperature and weather information")
 
 	def script_sayUpTime(self, gesture):
 		obj = self.status(self.SPLSystemStatus).firstChild
@@ -2146,6 +2198,9 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: Presented when library scan is already in progress.
 			ui.message(_("Scanning is in progress"))
 
+	@scriptHandler.script(
+		# Translators: Input help mode message for a command in StationPlaylist add-on.
+		description=_("Marks focused track as start marker for various playlist analysis commands"))
 	def script_markTrackForAnalysis(self, gesture):
 		self.finish()
 		if self._trackAnalysisAllowed():
@@ -2158,9 +2213,10 @@ class AppModule(appModuleHandler.AppModule):
 				self._analysisMarker = None
 				# Translators: Presented when track time analysis is turned off.
 				ui.message(_("Playlist analysis deactivated"))
-	# Translators: Input help mode message for a command in StationPlaylist add-on.
-	script_markTrackForAnalysis.__doc__=_("Marks focused track as start marker for various playlist analysis commands")
 
+	@scriptHandler.script(
+		# Translators: Input help mode message for a command in StationPlaylist add-on.
+		description=_("Announces total length of tracks between analysis start marker and the current track"))
 	def script_trackTimeAnalysis(self, gesture):
 		self.finish()
 		if self._trackAnalysisAllowed():
@@ -2183,9 +2239,10 @@ class AppModule(appModuleHandler.AppModule):
 			else:
 				# Translators: Presented when time analysis is done for a number of tracks (example output: Tracks: 3, totaling 5:00).
 				ui.message(_("Tracks: {numberOfSelectedTracks}, totaling {totalTime}").format(numberOfSelectedTracks = analysisRange, totalTime = self._ms2time(totalLength*1000)))
-	# Translators: Input help mode message for a command in StationPlaylist add-on.
-	script_trackTimeAnalysis.__doc__=_("Announces total length of tracks between analysis start marker and the current track")
 
+	@scriptHandler.script(
+		# Translators: Input help mode message for a command in StationPlaylist add-on.
+		description=_("Presents playlist snapshot information such as number of tracks and top artists"))
 	def script_takePlaylistSnapshots(self, gesture):
 		if not splbase.studioIsRunning():
 			self.finish()
@@ -2217,8 +2274,6 @@ class AppModule(appModuleHandler.AppModule):
 		# Speak and braille on the first press, display a decorated HTML message for subsequent presses.
 		self.playlistSnapshotOutput(self.playlistSnapshots(start, end), scriptCount)
 		self.finish()
-	# Translators: Input help mode message for a command in StationPlaylist add-on.
-	script_takePlaylistSnapshots.__doc__=_("Presents playlist snapshot information such as number of tracks and top artists")
 
 	def script_playlistTranscripts(self, gesture):
 		if not splbase.studioIsRunning():
