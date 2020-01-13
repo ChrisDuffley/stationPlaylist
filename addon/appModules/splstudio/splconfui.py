@@ -1545,9 +1545,9 @@ class ResetDialog(wx.Dialog):
 			if self.resetEncodersCheckbox.Value:
 				if os.path.exists(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini")):
 					os.remove(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
-				if "globalPlugins.splUtils.encoders" in sys.modules:
-					import globalPlugins.splUtils.encoders
-					globalPlugins.splUtils.encoders.cleanup()
+				if "appModules.splengine.encoders" in sys.modules:
+					import appModules.splengine.encoders
+					appModules.splengine.encoders.cleanup()
 			_configDialogOpened = False
 			# Translators: A dialog message shown when settings were reset to defaults.
 			wx.CallAfter(gui.messageBox, _("Successfully applied default add-on settings."),
