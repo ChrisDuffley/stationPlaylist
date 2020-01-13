@@ -673,7 +673,6 @@ class AlarmsCenter(wx.Dialog):
 		if inst:
 			return
 		# Use a weakref so the instance can die.
-		import weakref
 		AlarmsCenter._instance = weakref.ref(self)
 
 		# Now the actual alarm dialog code.
