@@ -165,10 +165,3 @@ class AppModule(appModuleHandler.AppModule):
 				statusBar = api.getForegroundObject().firstChild.firstChild
 				self._playlistEditorStatusCache[self.SPLEditorStatusBar] = statusBar
 			ui.message(statusBar.getChild(3).name)
-
-	__gestures = {
-		"kb:alt+NVDA+1": "playlistDateTime",
-		"kb:alt+NVDA+2": "playlistDuration",
-		"kb:alt+NVDA+3": "playlistScheduled",
-		"kb:alt+NVDA+4": "playlistRotation",
-	}

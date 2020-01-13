@@ -355,5 +355,3 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:shift+c":"nextTrackTitle",
 		"kb:h":"conHelp"
 	}
-
-	__gestures={}

@@ -193,10 +193,6 @@ class SPLTrackItem(sysListView32.ListItem):
 			# Translators: Presented when a specific column header is not found.
 			ui.message(_("{headerText} not found").format(headerText = header))
 
-	__gestures={
-		"kb:control+alt+home":"firstColumn",
-		"kb:control+alt+end":"lastColumn",
-	}
 
 class SPLStudioTrackItem(SPLTrackItem):
 	"""A base class for providing utility scripts when SPL Studio track entries are focused, such as location text and column navigation."""
@@ -443,15 +439,6 @@ class SPLStudioTrackItem(SPLTrackItem):
 		category=_("StationPlaylist"))
 	def script_announceTrackComment(self, gesture):
 		self.announceTrackComment(scriptHandler.getLastScriptRepeatCount()+1)
-	# Translators: Input help message for track comment announcemnet command in SPL Studio.
-	script_announceTrackComment.__doc__ = _("Announces track comment if any. Press twice to copy this information to the clipboard, and press three times to open a dialog to add, change or remove track comments")
-
-	__gestures={
-		"kb:downArrow":"nextTrack",
-		"kb:upArrow":"prevTrack",
-		"kb:control+NVDA+-":"trackColumnsViewer",
-		"kb:Alt+NVDA+C":"announceTrackComment"
-	}
 
 
 SPLAssistantHelp={
@@ -646,11 +633,6 @@ class SPLTimePicker(IAccessible):
 			info=obj.makeTextInfo(textInfos.POSITION_FIRST)
 		info.expand(textInfos.UNIT_LINE)
 		speech.speakTextInfo(info,unit=textInfos.UNIT_LINE,reason=controlTypes.REASON_CARET)
-
-	__gestures={
-		"kb:upArrow":"changeTimePickerValue",
-		"kb:downArrow":"changeTimePickerValue"
-	}
 
 
 class AppModule(appModuleHandler.AppModule):
