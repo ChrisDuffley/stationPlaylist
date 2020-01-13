@@ -766,10 +766,10 @@ class ProfileSpecificSettingsBasePanel(gui.SettingsPanel):
 		# New name determines what happend (renamed or deleted if it is not None or otherwise, respectivley).
 		# Although an exception should be thrown when old name is None, don't worry about it at this time.
 		if oldName not in self._curProfileSettings: return
+		# 20.03 (optimization): just remove old name regardless of rename or delete operation.
 		if newName is not None:
 			self._curProfileSettings[newName] = self._curProfileSettings[oldName]
-			del self._curProfileSettings[oldName]
-		else: del self._curProfileSettings[oldName]
+		del self._curProfileSettings[oldName]
 
 class AlarmsPanel(ProfileSpecificSettingsBasePanel):
 	# Translators: title of a panel to configure various alarms and related settings.
