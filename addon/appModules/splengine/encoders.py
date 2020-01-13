@@ -344,6 +344,11 @@ class Encoder(IAccessible):
 
 	# Now the flag configuration scripts.
 
+	@scriptHandler.script(
+		# Translators: Input help mode message in SAM Encoder window.
+		description=_("Toggles whether NVDA will switch to Studio when connected to a streaming server."),
+		gesture="kb:f11")
+	)
 	def script_toggleFocusToStudio(self, gesture):
 		if not self.focusToStudio:
 			# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
@@ -352,9 +357,12 @@ class Encoder(IAccessible):
 			# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 			ui.message(_("Do not switch to Studio after connecting"))
 		self._setFlags(self.encoderId, not self.focusToStudio, SPLFocusToStudio, "FocusToStudio")
-	# Translators: Input help mode message in SAM Encoder window.
-	script_toggleFocusToStudio.__doc__=_("Toggles whether NVDA will switch to Studio when connected to a streaming server.")
 
+	@scriptHandler.script(
+		# Translators: Input help mode message in SAM Encoder window.
+		description=_("Toggles whether Studio will play the first song when connected to a streaming server."),
+		gesture="kb:shift+f11"
+	)
 	def script_togglePlay(self, gesture):
 		if not self.playAfterConnecting:
 			# Translators: Presented when toggling the setting to play selected song when connected to a streaming server.
@@ -363,9 +371,12 @@ class Encoder(IAccessible):
 			# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 			ui.message(_("Do not play first track after connecting"))
 		self._setFlags(self.encoderId, not self.playAfterConnecting, SPLPlayAfterConnecting, "PlayAfterConnecting")
-	# Translators: Input help mode message in SAM Encoder window.
-	script_togglePlay.__doc__=_("Toggles whether Studio will play the first song when connected to a streaming server.")
 
+	@scriptHandler.script(
+		# Translators: Input help mode message in SAM Encoder window.
+		description=_("Toggles whether NVDA will monitor the selected encoder in the background."),
+		gesture="kb:control+f11"
+	)
 	def script_toggleBackgroundEncoderMonitor(self, gesture):
 		if scriptHandler.getLastScriptRepeatCount()==0:
 			if not self.backgroundMonitor:
@@ -389,9 +400,12 @@ class Encoder(IAccessible):
 			SPLBackgroundMonitor.clear()
 			# Translators: Announced when background encoder monitoring is canceled.
 			ui.message(_("Encoder monitoring canceled"))
-	# Translators: Input help mode message in SAM Encoder window.
-	script_toggleBackgroundEncoderMonitor.__doc__=_("Toggles whether NVDA will monitor the selected encoder in the background.")
 
+	@scriptHandler.script(
+		# Translators: Input help mode message in SAM Encoder window.
+		description=_("Opens a dialog to label the selected encoder."),
+		gesture="kb:f12"
+	)
 	def script_streamLabeler(self, gesture):
 		curStreamLabel, title = self.getStreamLabel(getTitle=True)
 		if not curStreamLabel: curStreamLabel = ""
@@ -408,8 +422,6 @@ class Encoder(IAccessible):
 					return # No need to write to disk.
 				else: self.setStreamLabel(newStreamLabel)
 		gui.runScriptModalDialog(dlg, callback)
-	# Translators: Input help mode message in SAM Encoder window.
-	script_streamLabeler.__doc__=_("Opens a dialog to label the selected encoder.")
 
 	def removeStreamConfig(self, pos):
 		# An application of map successor algorithm.
@@ -452,6 +464,11 @@ class Encoder(IAccessible):
 		streamLabels[self.encoderType + "Encoders"] = streamLabelsMap
 		streamLabels.write()
 
+	@scriptHandler.script(
+		# Translators: Input help mode message in SAM Encoder window.
+		description=_("Opens a dialog to erase stream labels and settings from an encoder that was deleted."),
+		gesture="kb:control+f12"
+	)
 	def script_streamLabelEraser(self, gesture):
 		choices = [str(pos) for pos in range(1, self.simpleParent.childCount)]
 		# Translators: The title of the stream configuration eraser dialog.
@@ -466,10 +483,14 @@ class Encoder(IAccessible):
 			if result == wx.ID_OK:
 				self.removeStreamConfig(dlg.GetStringSelection())
 		gui.runScriptModalDialog(dlg, callback)
-	# Translators: Input help mode message in SAM Encoder window.
-	script_streamLabelEraser.__doc__=_("Opens a dialog to erase stream labels and settings from an encoder that was deleted.")
 
 	# stream settings.
+	@scriptHandler.script(
+		# Translators: Input help mode message for a command in StationPlaylist add-on.
+		description=_("Shows encoder configuration dialog to configure various encoder settings such as stream label."),
+		gesture="kb:alt+NVDA+0",
+		category=_("StationPlaylist")
+	)
 	def script_encoderSettings(self, gesture):
 		try:
 			d = EncoderConfigDialog(gui.mainFrame, self)
@@ -481,11 +502,14 @@ class Encoder(IAccessible):
 			from .skipTranslation import translate
 			# Translators: Text of the dialog when another alarm dialog is open.
 			wx.CallAfter(gui.messageBox, _("Another encoder settings dialog is open."),translate("Error"),style=wx.OK | wx.ICON_ERROR)
-	# Translators: Input help mode message for a command in StationPlaylist add-on.
-	script_encoderSettings.__doc__=_("Shows encoder configuration dialog to configure various encoder settings such as stream label.")
-	script_encoderSettings.category=_("StationPlaylist")
 
 	# Announce complete time including seconds (slight change from global commands version).
+	@scriptHandler.script(
+		# Translators: Input help mode message for report date and time command.
+		description=_("If pressed once, reports the current time including seconds. If pressed twice, reports the current date"),
+		gesture="kb:NVDA+F12",
+		category=_("StationPlaylist")
+	)
 	def script_encoderDateTime(self, gesture):
 		import winKernel
 		if scriptHandler.getLastScriptRepeatCount()==0:
@@ -493,9 +517,6 @@ class Encoder(IAccessible):
 		else:
 			text=winKernel.GetDateFormat(winKernel.LOCALE_USER_DEFAULT, winKernel.DATE_LONGDATE, None, None)
 		ui.message(text)
-	# Translators: Input help mode message for report date and time command.
-	script_encoderDateTime.__doc__=_("If pressed once, reports the current time including seconds. If pressed twice, reports the current date")
-	script_encoderDateTime.category=_("StationPlaylist")
 
 	# Various column announcement scripts.
 	# This base class implements encoder position and stream labels.
