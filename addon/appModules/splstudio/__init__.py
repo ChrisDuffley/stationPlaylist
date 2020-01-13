@@ -1195,9 +1195,9 @@ class AppModule(appModuleHandler.AppModule):
 	# Levels indicate which dialog to show (0 = all, 1 = outro, 2 = intro, 3 = microphone).
 
 	def alarmDialog(self, level):
-		if splconfui._configDialogOpened:
+		if splconfui._configDialogOpened or splconfui._alarmDialogOpened:
 			# Translators: Presented when the add-on config dialog is opened.
-			wx.CallAfter(gui.messageBox, _("The add-on settings dialog is opened. Please close the settings dialog first."), translate("Error"), wx.OK|wx.ICON_ERROR)
+			wx.CallAfter(gui.messageBox, _("The add-on settings dialog or another alarm dialog is opened. Please close the opened dialog first."), translate("Error"), wx.OK|wx.ICON_ERROR)
 			return
 		try:
 			d = splconfui.AlarmsCenter(gui.mainFrame, level)
