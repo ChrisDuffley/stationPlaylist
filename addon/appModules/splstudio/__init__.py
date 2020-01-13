@@ -297,7 +297,8 @@ class SPLStudioTrackItem(SPLTrackItem):
 
 	# Column announcer tweaked for Studio.
 	# 17.04: Allow checked status in 5.1x and later to be announced if this is such a case (vertical column navigation).)
-	def announceColumnContent(self, colNumber, header=None, reportStatus=False):
+	# #117 (20.03): although visual columns flag is specified (consistency with other track items), it isn't used in Studio track items.
+	def announceColumnContent(self, colNumber, header=None, visualColumns=True, reportStatus=False):
 		if not header: header = self._getColumnHeaderRaw(self.parent._columnOrderArray[colNumber])
 		columnContent = self._getColumnContentRaw(self.indexOf(header))
 		status = self.name + " " if reportStatus else ""
