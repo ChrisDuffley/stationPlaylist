@@ -55,8 +55,6 @@ class SPLCreatorItem(SPLTrackItem):
 			columnContents[pos] = ": ".join([columnHeaders[pos], columnContents[pos]])
 		# Translators: Title of the column data window.
 		ui.browseableMessage("\n".join(columnContents), title=_("Track data"))
-	# Translators: input help mode message for columns viewer command.
-	script_trackColumnsViewer.__doc__ = _("Presents data for all columns in the currently selected track")
 
 	__gestures={
 		"kb:control+alt+downArrow": None,
