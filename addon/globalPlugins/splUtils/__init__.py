@@ -7,6 +7,7 @@ from functools import wraps
 import globalPluginHandler
 import api
 import ui
+import scriptHandler
 import globalVars
 import config
 from NVDAObjects.IAccessible import getNVDAObjectFromEvent

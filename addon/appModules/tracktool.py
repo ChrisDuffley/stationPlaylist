@@ -5,6 +5,7 @@
 
 import appModuleHandler
 import addonHandler
+import scriptHandler
 import tones
 from NVDAObjects.IAccessible import IAccessible, sysListView32
 from .splstudio import splconfig, SPLTrackItem

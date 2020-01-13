@@ -6,6 +6,7 @@
 
 import appModuleHandler
 import addonHandler
+import scriptHandler
 import globalVars
 import ui
 import api
