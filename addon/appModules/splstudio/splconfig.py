@@ -598,12 +598,6 @@ class ConfigHub(ChainMap):
 		# There are two switch flags in use, so make sure to check the highest bit.
 		if switchFlags is not None and not 0 <= switchFlags < 0x4:
 			raise RuntimeError("Profile switch flag out of range")
-		if not appTerminating:
-			from .splconfui import _configDialogOpened
-			if _configDialogOpened:
-				# Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
-				ui.message(_("Add-on settings dialog is open, cannot switch profiles"))
-				return
 		self.swapProfiles(prevProfile, newProfile)
 		if appTerminating: return
 		# Set the prev flag manually.

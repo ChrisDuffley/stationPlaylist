@@ -2241,6 +2241,11 @@ class AppModule(appModuleHandler.AppModule):
 		self.finish()
 
 	def script_switchProfiles(self, gesture):
+		# #118 (20.02): do not allow profile switching while add-on settings screen is shown.
+		if splconfui._configDialogOpened:
+			# Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
+			ui.message(_("Add-on settings dialog is open, cannot switch profiles"))
+			return
 		splconfig.triggerProfileSwitch() if splconfig._triggerProfileActive else splconfig.instantProfileSwitch()
 
 	def script_setPlaceMarker(self, gesture):
