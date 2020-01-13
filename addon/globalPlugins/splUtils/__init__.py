@@ -104,6 +104,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		tones.beep(120, 100)
 
 	# Switch focus to SPL Studio window from anywhere.
+	@scriptHandler.script(
+		# Translators: Input help mode message for a command to switch to StationPlaylist Studio from any program.
+		description=_("Moves to SPL Studio window from other programs.")
+	)
 	def script_focusToSPLWindow(self, gesture):
 		# Don't do anything if we're already focus on SPL Studio.
 		if "splstudio" in api.getForegroundObject().appModule.appModuleName: return
@@ -111,11 +115,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if not SPLHwnd: ui.message(_("SPL Studio is not running."))
 		# 17.01: SetForegroundWindow function is better, as there's no need to traverse top-level windows and allows users to "switch" to SPL window if the window is minimized.
 		else: user32.SetForegroundWindow(user32.FindWindowW("TStudioForm", None))
-	# Translators: Input help mode message for a command to switch to StationPlaylist Studio from any program.
-	script_focusToSPLWindow.__doc__=_("Moves to SPL Studio window from other programs.")
 
 	# The SPL Controller:
 	# This layer set allows the user to control various aspects of SPL Studio from anywhere.
+	@scriptHandler.script(
+		# Translators: Input help mode message for a layer command in StationPlaylist add-on.
+		description=_("SPl Controller layer command. See add-on guide for available commands.")
+	)
 	def script_SPLControllerPrefix(self, gesture):
 		global SPLWin
 		# Error checks:
@@ -157,8 +163,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		else:
 			self.script_error(gesture)
 			self.finish()
-	# Translators: Input help mode message for a layer command in StationPlaylist add-on.
-	script_SPLControllerPrefix.__doc__=_("SPl Controller layer command. See add-on guide for available commands.")
 
 	# The layer commands themselves. Calls user32.SendMessage method for each script.
 
@@ -247,6 +251,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 					ui.message("{mm:02d}:{ss:02d}".format(mm = mm, ss = ss))
 		self.finish()
 
+	@scriptHandler.script(
+		# Translators: Input help message for a SPL Controller command.
+		description=_("Announces stream encoder status from other programs")
+	)
 	def script_encoderStatus(self, gesture):
 		# Go through below procedure, as custom commands can be assigned for this script.
 		SPLWin = user32.FindWindowW("SPLStudio", None)
@@ -263,9 +271,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			# Translators: presented if encoder connection status cannot be obtained.
 			ui.message(_("Cannot obtain encoder connection status"))
 		self.finish()
-	# Translators: Input help message for a SPL Controller command.
-	script_encoderStatus.__doc__ = _("Announces stream encoder status from other programs")
 
+	@scriptHandler.script(
+		# Translators: Input help message for a SPL Controller command.
+		description=_("Announces Studio status such as track playback status from other programs")
+	)
 	def script_statusInfo(self, gesture):
 		# Go through below procedure, as custom commands can be assigned for this script.
 		SPLWin = user32.FindWindowW("SPLStudio", None)
@@ -289,8 +299,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		else: statusInfo.append("Cart Edit Off")
 		ui.message("; ".join(statusInfo))
 		self.finish()
-	# Translators: Input help message for a SPL Controller command.
-	script_statusInfo.__doc__ = _("Announces Studio status such as track playback status from other programs")
 
 	def script_currentTrackTitle(self, gesture):
 		studioAppMod = getNVDAObjectFromEvent(user32.FindWindowW("TStudioForm", None), OBJID_CLIENT, 0).appModule
