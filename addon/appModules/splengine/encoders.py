@@ -347,7 +347,7 @@ class Encoder(IAccessible):
 	@scriptHandler.script(
 		# Translators: Input help mode message in SAM Encoder window.
 		description=_("Toggles whether NVDA will switch to Studio when connected to a streaming server."),
-		gesture="kb:f11")
+		gesture="kb:f11"
 	)
 	def script_toggleFocusToStudio(self, gesture):
 		if not self.focusToStudio:

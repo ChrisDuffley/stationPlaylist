@@ -41,7 +41,7 @@ class SPLCreatorItem(SPLTrackItem):
 
 	@scriptHandler.script(
 		# Translators: input help mode message for columns viewer command.
-		description=_("Presents data for all columns in the currently selected track")
+		description=_("Presents data for all columns in the currently selected track"),
 		gesture="kb:control+NVDA+-")
 	def script_trackColumnsViewer(self, gesture):
 		# #61 (18.06): a direct copy of column data gatherer from playlist transcripts.
