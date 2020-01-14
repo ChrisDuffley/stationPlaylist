@@ -97,7 +97,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def finish(self):
 		self.SPLController = False
 		self.clearGestureBindings()
-		self.bindGestures(self.__gestures)
 
 	def script_error(self, gesture):
 		import tones
