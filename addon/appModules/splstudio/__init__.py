@@ -1965,13 +1965,11 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Status table keys
 	SPLSystemStatus = 1
-	SPLScheduledToPlay = 2
 	SPLNextTrackTitle = 3
 	SPLNextPlayer = 4
 	SPLCurrentTrackTitle = 5
 	SPLCurrentPlayer = 6
 	SPLTemperature = 7
-	SPLScheduled = 8
 
 	# Table of child constants based on versions
 	# These are scattered throughout the screen, so one can use foreground.getChild(index) to fetch them (getChild tip from Jamie Teh (NV Access)).
@@ -1979,8 +1977,6 @@ class AppModule(appModuleHandler.AppModule):
 	# As of 19.08, the below table is based on Studio 5.20.
 	statusObjs={
 		SPLSystemStatus: -2, # The second status bar containing system status such as up time.
-		SPLScheduledToPlay: 19, # In case the user selects one or more tracks in a given hour.
-		SPLScheduled: 20, # Time when the selected track will begin.
 		SPLNextTrackTitle: 8, # Name and duration of the next track if any.
 		SPLNextPlayer: 11, # Name and duration of the next track if any.
 		SPLCurrentTrackTitle: 9, # Name of the currently playing track.
