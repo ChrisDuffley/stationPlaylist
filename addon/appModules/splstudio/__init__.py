@@ -2000,10 +2000,17 @@ class AppModule(appModuleHandler.AppModule):
 				# 6.1: Allow gesture-based functions to look up status information even if Studio window isn't focused.
 				# 17.08: several SPL Controller commands will use this route.
 				fg = getNVDAObjectFromEvent(user32.FindWindowW("TStudioForm", None), OBJID_CLIENT, 0)
-			statusObj = self.statusObjs[infoIndex]
+			statusIndex = self.statusObjs[infoIndex]
 			# 7.0: sometimes (especially when first loaded), OBJID_CLIENT fails, so resort to retrieving focused object instead.
 			if fg is not None and fg.childCount > 1:
-				self._cachedStatusObjs[infoIndex] = fg.getChild(statusObj)
+				obj = fg
+				# #119 (20.03): for some status items, an object one level below info index must be fetched, evidenced by different window handles.
+				# For situations like this (a list of navigational child indecies), an iterative descent will be used.
+				if isinstance(statusIndex, list):
+					for child in statusIndex:
+						obj = obj.getChild(child)
+				else: obj = fg.getChild(statusIndex)
+				self._cachedStatusObjs[infoIndex] = obj
 			else: return api.getFocusObject()
 		return self._cachedStatusObjs[infoIndex]
 
