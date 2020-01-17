@@ -972,22 +972,15 @@ class MetadataStreamingDialog(wx.Dialog):
 		# Prepare checkbox values first for various reasons.
 		# #76 (18.09-LTS): traverse check list box and build boolean list accordingly.
 		metadataEnabled = [self.checkedStreams.IsChecked(url) for url in range(5)]
-		if self.configDialogActive:
-			parent = self.Parent
-			parent.metadataStreams = metadataEnabled
-			parent.profiles.SetFocus()
-			parent.Enable()
-		else:
-			from . import splmisc
-			splmisc.metadataConnector(servers=metadataEnabled)
-			# 6.1: Store just toggled settings to profile if told to do so.
-			if self.applyCheckbox.Value: splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = metadataEnabled
+		from . import splmisc
+		splmisc.metadataConnector(servers=metadataEnabled)
+		# 6.1: Store just toggled settings to profile if told to do so.
+		if self.applyCheckbox.Value: splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = metadataEnabled
 		self.Destroy()
 		_metadataDialogOpened = False
 
 	def onCancel(self, evt):
 		global _metadataDialogOpened
-		if self.configDialogActive: self.Parent.Enable()
 		self.Destroy()
 		_metadataDialogOpened = False
 
