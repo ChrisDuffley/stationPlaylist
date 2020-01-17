@@ -912,7 +912,7 @@ _metadataDialogOpened = False
 metadataStreamLabels = ("DSP encoder", "URL 1", "URL 2", "URL 3", "URL 4")
 
 class MetadataStreamingDialog(wx.Dialog):
-	"""A dialog to toggle metadata streaming quickly and from add-on settings dialog.
+	"""A dialog to toggle metadata streaming quickly and optionally save changes to add-on configuration.
 	"""
 	_instance = None
 
@@ -934,14 +934,11 @@ class MetadataStreamingDialog(wx.Dialog):
 
 		# Translators: Title of a dialog to configure metadata streaming status for DSP encoder and four additional URL's.
 		super(MetadataStreamingDialog, self).__init__(parent, title=_("Metadata streaming options"))
-		# #44 (18.02): Config dialog flag controls how stream value will be gathered and set (if true, this is part of add-on settings, otherwise use Studio API).
-		self.configDialogActive = configDialogActive
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		metadataSizerHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 
-		if configDialogActive: labelText=_("Select the URL for metadata streaming upon request.")
-		else: labelText=_("Check to enable metadata streaming, uncheck to disable.")
+		labelText=_("Check to enable metadata streaming, uncheck to disable.")
 		metadataSizerHelper.addItem(wx.StaticText(self, label=labelText))
 
 		# WX's native CheckListBox isn't user friendly.
@@ -954,8 +951,7 @@ class MetadataStreamingDialog(wx.Dialog):
 		streams = splmisc.metadataList()
 		self.checkedStreams = metadataSizerHelper.addLabeledControl(_("&Stream:"), CustomCheckListBox, choices=metadataStreamLabels)
 		for stream in range(5):
-			if not configDialogActive: self.checkedStreams.Check(stream, check=streams[stream])
-			else: self.checkedStreams.Check(stream, check=self.Parent.metadataStreams[stream])
+			self.checkedStreams.Check(stream, check=streams[stream])
 		self.checkedStreams.SetSelection(0)
 
 		if not configDialogActive:
