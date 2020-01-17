@@ -1397,20 +1397,6 @@ class SayStatusPanel(gui.SettingsPanel):
 		# Translators: the label for a setting in SPL add-on settings to announce currently playing cart.
 		self.cartNameCheckbox=sayStatusHelper.addItem(wx.CheckBox(self, label=_("&Announce name of the currently playing cart")))
 		self.cartNameCheckbox.SetValue(splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"])
-		# Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
-		labelText = _("&Track name announcement:")
-		# Translators: One of the track name announcement options.
-		self.trackAnnouncements=[("auto",_("automatic")),
-		# Translators: One of the track name announcement options.
-		("background",_("while using other programs")),
-		# Translators: One of the track name announcement options.
-		("off",_("off"))]
-		self.trackAnnouncementList=sayStatusHelper.addLabeledControl(labelText, wx.Choice, choices=[x[1] for x in self.trackAnnouncements])
-		selection = next((x for x,y in enumerate(self.trackAnnouncements) if y[0]==splconfig.SPLConfig["SayStatus"]["SayPlayingTrackName"]))
-		try:
-			self.trackAnnouncementList.SetSelection(selection)
-		except:
-			pass
 		# Translators: the label for a setting in SPL add-on settings to announce player position for the current and next tracks.
 		self.playerPositionCheckbox=sayStatusHelper.addItem(wx.CheckBox(self, label=_("Include track player &position when announcing current and next track information")))
 		self.playerPositionCheckbox.SetValue(splconfig.SPLConfig["SayStatus"]["SayStudioPlayerPosition"])
@@ -1419,7 +1405,6 @@ class SayStatusPanel(gui.SettingsPanel):
 		splconfig.SPLConfig["SayStatus"]["SayScheduledFor"] = self.scheduledForCheckbox.Value
 		splconfig.SPLConfig["SayStatus"]["SayListenerCount"] = self.listenerCountCheckbox.Value
 		splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"] = self.cartNameCheckbox.Value
-		splconfig.SPLConfig["SayStatus"]["SayPlayingTrackName"] = self.trackAnnouncements[self.trackAnnouncementList.GetSelection()][0]
 		splconfig.SPLConfig["SayStatus"]["SayStudioPlayerPosition"] = self.playerPositionCheckbox.Value
 
 # Advanced options

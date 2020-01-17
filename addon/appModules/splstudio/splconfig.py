@@ -77,7 +77,6 @@ IncludedColumns = string_list(default=list("Artist","Title","Duration","Intro","
 SayScheduledFor = boolean(default=true)
 SayListenerCount = boolean(default=true)
 SayPlayingCartName = boolean(default=true)
-SayPlayingTrackName = option("auto", "background", "off", default="auto")
 SayStudioPlayerPosition = boolean(default=false)
 [Advanced]
 SPLConPassthrough = boolean(default=false)
