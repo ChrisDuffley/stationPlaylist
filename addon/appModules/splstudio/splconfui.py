@@ -954,10 +954,9 @@ class MetadataStreamingDialog(wx.Dialog):
 			self.checkedStreams.Check(stream, check=streams[stream])
 		self.checkedStreams.SetSelection(0)
 
-		if not configDialogActive:
-			# Translators: A checkbox to let metadata streaming status be applied to the currently active broadcast profile.
-			self.applyCheckbox = metadataSizerHelper.addItem(wx.CheckBox(self, label=_("&Apply streaming changes to the selected profile")))
-			self.applyCheckbox.SetValue(True)
+		# Translators: A checkbox to let metadata streaming status be applied to the currently active broadcast profile.
+		self.applyCheckbox = metadataSizerHelper.addItem(wx.CheckBox(self, label=_("&Apply streaming changes to the selected profile")))
+		self.applyCheckbox.SetValue(True)
 
 		metadataSizerHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
