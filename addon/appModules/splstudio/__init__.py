@@ -905,14 +905,6 @@ class AppModule(appModuleHandler.AppModule):
 					if (obj.name == "00:{0:02d}".format(splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"])
 					and splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"]):
 						self.alarmAnnounce(obj.name, 512, 400, intro=True)
-				# Hack: auto scroll in Studio itself might be broken (according to Brian Hartgen), so force NVDA to announce currently playing track automatically if told to do so.
-				try:
-					if obj == self.status(self.SPLCurrentTrackTitle).firstChild.firstChild:
-						if ((splconfig.SPLConfig["SayStatus"]["SayPlayingTrackName"] == "auto" and self.SPLCurVersion < "5.11")
-						or (splconfig.SPLConfig["SayStatus"]["SayPlayingTrackName"] == "background" and api.getForegroundObject().windowClassName != "TStudioForm")):
-							ui.message(obj.name)
-				except AttributeError:
-					pass
 		nextHandler()
 
 	# JL's additions
