@@ -925,7 +925,7 @@ class MetadataStreamingDialog(wx.Dialog):
 			return super(cls, cls).__new__(cls, parent, *args, **kwargs)
 		return inst
 
-	def __init__(self, parent, configDialogActive=True):
+	def __init__(self, parent):
 		inst = MetadataStreamingDialog._instance() if MetadataStreamingDialog._instance else None
 		if inst:
 			return

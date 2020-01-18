@@ -1625,7 +1625,7 @@ class AppModule(appModuleHandler.AppModule):
 		try:
 			# #44 (18.02): do not rely on Studio API function object as its workings (including arguments) may change.
 			# Use a flag to tell the streaming dialog that this is invoked from somewhere other than add-on settings dialog.
-			d = splconfui.MetadataStreamingDialog(gui.mainFrame, configDialogActive=False)
+			d = splconfui.MetadataStreamingDialog(gui.mainFrame)
 			gui.mainFrame.prePopup()
 			d.Raise()
 			d.Show()
