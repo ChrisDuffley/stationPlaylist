@@ -675,30 +675,30 @@ class AlarmsCenter(wx.Dialog):
 		# Use a weakref so the instance can die.
 		AlarmsCenter._instance = weakref.ref(self)
 
-		# Now the actual alarm dialog code.
 		# 8.0: Apart from level 0 (all settings shown), levels change title.
-		titles = (_("Alarms Center"), _("End of track alarm"), _("Song intro alarm"), _("Microphone alarm"))
+		# 20.03: level 0 (Alarms Center/all settings) is no more, as the dialog will not be invoked from add-on settings interface (default is end of track alarm).
+		titles = (_("End of track alarm"), _("Song intro alarm"), _("Microphone alarm"))
 		super(AlarmsCenter, self).__init__(parent, wx.ID_ANY, titles[level])
 		self.level = level
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		alarmsCenterHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 
-		if level in (0, 1):
-			timeVal = parent.endOfTrackTime if level == 0 else splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"]
+		if level == 0:
+			timeVal = splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"]
 			self.outroAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&End of track alarm in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=59, initial=timeVal)
 			self.outroToggleCheckBox=alarmsCenterHelper.addItem(wx.CheckBox(self, label=_("&Notify when end of track is approaching")))
-			self.outroToggleCheckBox.SetValue(parent.sayEndOfTrack if level == 0 else splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"])
+			self.outroToggleCheckBox.SetValue(splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"])
 
-		if level in (0, 2):
-			rampVal = parent.songRampTime if level == 0 else splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"]
+		if level == 1:
+			rampVal = splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"]
 			self.introAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&Track intro alarm in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=9, initial=rampVal)
 			self.introToggleCheckBox=alarmsCenterHelper.addItem(wx.CheckBox(self, label=_("&Notify when end of introduction is approaching")))
-			self.introToggleCheckBox.SetValue(parent.saySongRamp if level == 0 else splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"])
+			self.introToggleCheckBox.SetValue(splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"])
 
-		if level in (0, 3):
-			micAlarm = splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"] if level == 3 else parent.micAlarm
-			micAlarmInterval = splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] if level == 3 else parent.micAlarmInterval
+		if level == 2:
+			micAlarm = splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"]
+			micAlarmInterval = splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"]
 			# Translators: A dialog message to set microphone active alarm.
 			self.micAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&Microphone alarm in seconds (0 disables the alarm)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=7200, initial=micAlarm)
 			self.micIntervalEntry = alarmsCenterHelper.addLabeledControl(_("Microphone alarm &interval in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=60, initial=micAlarmInterval)
@@ -710,9 +710,9 @@ class AlarmsCenter(wx.Dialog):
 		mainSizer.Fit(self)
 		self.SetSizer(mainSizer)
 		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
-		if level in (0, 1): self.outroAlarmEntry.SetFocus()
-		elif level == 2: self.introAlarmEntry.SetFocus()
-		elif level == 3: self.micAlarmEntry.SetFocus()
+		if level == 0: self.outroAlarmEntry.SetFocus()
+		elif level == 1: self.introAlarmEntry.SetFocus()
+		elif level == 2: self.micAlarmEntry.SetFocus()
 
 	def onOk(self, evt):
 		global _alarmDialogOpened
