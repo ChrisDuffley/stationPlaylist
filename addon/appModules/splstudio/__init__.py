@@ -1195,7 +1195,7 @@ class AppModule(appModuleHandler.AppModule):
 			wx.CallAfter(gui.messageBox, _("The add-on settings dialog or another alarm dialog is opened. Please close the opened dialog first."), translate("Error"), wx.OK|wx.ICON_ERROR)
 			return
 		try:
-			d = splconfui.AlarmsCenter(gui.mainFrame, level)
+			d = splconfui.AlarmsCenter(gui.mainFrame, level=level)
 			gui.mainFrame.prePopup()
 			d.Raise()
 			d.Show()
@@ -1211,7 +1211,7 @@ class AppModule(appModuleHandler.AppModule):
 		description=_("Sets end of track alarm (default is 5 seconds)."),
 		gestures=["kb:alt+nvda+1", "ts(SPL):2finger_flickRight"])
 	def script_setEndOfTrackTime(self, gesture):
-		self.alarmDialog(1)
+		self.alarmDialog(0)
 
 	# Set song ramp (introduction) time between 1 and 9 seconds.
 
@@ -1220,7 +1220,7 @@ class AppModule(appModuleHandler.AppModule):
 		description=_("Sets song intro alarm (default is 5 seconds)."),
 		gestures=["kb:alt+nvda+2", "ts(SPL):2finger_flickLeft"])
 	def script_setSongRampTime(self, gesture):
-		self.alarmDialog(2)
+		self.alarmDialog(1)
 
 	# Tell NVDA to play a sound when mic was active for a long time, as well as contorl the alarm interval.
 	# 8.0: This dialog will let users configure mic alarm interval as well.
@@ -1230,7 +1230,7 @@ class AppModule(appModuleHandler.AppModule):
 		description=_("Sets microphone alarm (default is 5 seconds)."),
 		gesture="kb:alt+nvda+4")
 	def script_setMicAlarm(self, gesture):
-		self.alarmDialog(3)
+		self.alarmDialog(2)
 
 	# SPL Config management among others.
 
