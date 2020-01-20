@@ -717,15 +717,15 @@ class AlarmsCenter(wx.Dialog):
 	def onOk(self, evt):
 		global _alarmDialogOpened
 		# Optimization: don't bother if Studio is dead and if the same value has been entered (only when standalone versions are opened).
-		if self.level > 0 and user32.FindWindowW("SPLStudio", None):
+		if user32.FindWindowW("SPLStudio", None):
 			# Gather settings to be applied in section/key format.
-			if self.level == 1:
+			if self.level == 0:
 				splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] = self.outroAlarmEntry.GetValue()
 				splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"] = self.outroToggleCheckBox.GetValue()
-			elif self.level == 2:
+			elif self.level == 1:
 				splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"] = self.introAlarmEntry.GetValue()
 				splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"] = self.introToggleCheckBox.GetValue()
-			elif self.level == 3:
+			elif self.level == 2:
 				splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"] = self.micAlarmEntry.GetValue()
 				splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] = self.micIntervalEntry.GetValue()
 				# #42 (18.01/15.12-LTS): don't forget to restart microphone alarm timer.
@@ -735,22 +735,10 @@ class AlarmsCenter(wx.Dialog):
 				from NVDAObjects.IAccessible import getNVDAObjectFromEvent
 				studioWindow = getNVDAObjectFromEvent(user32.FindWindowW("TStudioForm", None), OBJID_CLIENT, 0)
 				studioWindow.appModule.actionProfileSwitched()
-		elif self.level == 0:
-			parent = self.Parent
-			parent.endOfTrackTime = self.outroAlarmEntry.GetValue()
-			parent.sayEndOfTrack = self.outroToggleCheckBox.GetValue()
-			parent.songRampTime = self.introAlarmEntry.GetValue()
-			parent.saySongRamp = self.introToggleCheckBox.GetValue()
-			parent.micAlarm = self.micAlarmEntry.GetValue()
-			parent.micAlarmInterval = self.micIntervalEntry.GetValue()
-			self.Parent.profiles.SetFocus()
-			self.Parent.Enable()
 		self.Destroy()
 		_alarmDialogOpened = False
 
 	def onCancel(self, evt):
-		if self.level == 0:
-			self.Parent.Enable()
 		self.Destroy()
 		global _alarmDialogOpened
 		_alarmDialogOpened = False
