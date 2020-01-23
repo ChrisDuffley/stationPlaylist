@@ -1967,13 +1967,14 @@ class AppModule(appModuleHandler.AppModule):
 	# These are scattered throughout the screen, so one can use foreground.getChild(index) to fetch them (getChild tip from Jamie Teh (NV Access)).
 	# Because 5.x (an perhaps future releases) uses different screen layout, look up the needed constant from the table below (row = info needed, column = version).
 	# As of 19.08, the below table is based on Studio 5.20.
+	# #119 (20.03): a list indicates iterative descent to locate the actual objects.
 	statusObjs={
 		SPLSystemStatus: -2, # The second status bar containing system status such as up time.
-		SPLNextTrackTitle: 8, # Name and duration of the next track if any.
-		SPLNextPlayer: 11, # Name and duration of the next track if any.
-		SPLCurrentTrackTitle: 9, # Name of the currently playing track.
-		SPLCurrentPlayer: 12, # Name of the currently playing track.
-		SPLTemperature: 7, # Temperature for the current city.
+		SPLNextTrackTitle: [8, 0], # Name and duration of the next track if any.
+		SPLNextPlayer: [11, 0], # Name and duration of the next track if any.
+		SPLCurrentTrackTitle: [9, 0], # Name of the currently playing track.
+		SPLCurrentPlayer: [12, 0], # Name of the currently playing track.
+		SPLTemperature: [7, 0], # Temperature for the current city.
 	}
 
 	_cachedStatusObjs = {}
