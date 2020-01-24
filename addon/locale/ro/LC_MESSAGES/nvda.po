@@ -29,6 +29,14 @@ msgstr ""
 msgid "Old Windows version"
 msgstr "Versiune veche de Windows"
 
+#. Translators: Title of the column data window.
+msgid "Track data"
+msgstr "Date despre melodie"
+
+#. Translators: input help mode message for columns viewer command.
+msgid "Presents data for all columns in the currently selected track"
+msgstr "Prezintă datele pentru toate coloanele din piesa curent-selectată"
+
 #. Translators: Presented when microphone has been active for a while.
 msgid "Microphone active"
 msgstr "Microfon activ"
@@ -60,13 +68,14 @@ msgstr ""
 msgid "StationPlaylist"
 msgstr "StationPlaylist"
 
+#. Translators: Presented when column is out of range.
+#, python-brace-format
+msgid "Column {columnPosition} not found"
+msgstr ""
+
 #. Translators: presented when column information for a track is empty.
 msgid "blank"
 msgstr "gol"
-
-#. Translators: Title of the column data window.
-msgid "Track data"
-msgstr "Date despre melodie"
 
 #. Translators: Presented when a specific column header is not found.
 #, python-brace-format
@@ -101,10 +110,6 @@ msgstr "{checkStatus}{header}: gol"
 #, python-brace-format
 msgid "{checkStatus}{header}: ()"
 msgstr "{checkStatus}{header}: blank"
-
-#. Translators: input help mode message for columns viewer command.
-msgid "Presents data for all columns in the currently selected track"
-msgstr "Prezintă datele pentru toate coloanele din piesa curent-selectată"
 
 msgid "Has comment"
 msgstr "Are comentariu"
@@ -412,10 +417,13 @@ msgid "Announces time including seconds."
 msgstr "Anunță timpul care include secundele."
 
 #. Translators: Presented when the add-on config dialog is opened.
+#, fuzzy
 msgid ""
-"The add-on settings dialog is opened. Please close the settings dialog first."
+"The add-on settings dialog or another alarm dialog is opened. Please close "
+"the opened dialog first."
 msgstr ""
-"Setările add-onului sunt deja deschise. Vă rugăm să le închideți mai întâi."
+"Setările de add-on sau de metadata streaming sunt deja deschise. Închideți "
+"mai întâi dialogurile deschise."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Sets end of track alarm (default is 5 seconds)."
@@ -703,7 +711,14 @@ msgid "Playlist modification not available"
 msgstr "Modificare playlist nedisponibilă"
 
 #. Translators: Presented when there is no information for the next track.
-msgid "No next track scheduled or no track is playing"
+#. Translators: Presented when there is no information for the current track.
+#, fuzzy
+msgid "No track is playing"
+msgstr "Nicio melodie nu se redă."
+
+#. Translators: Presented when there is no information for the next track.
+#, fuzzy
+msgid "No next track scheduled"
 msgstr "Nicio melodie următoare programată sau nicio melodie nu se redă"
 
 #. Translators: Presented when next track information is unavailable.
@@ -715,10 +730,9 @@ msgid "Announces title of the next track if any"
 msgstr "Anunță titlul următoarei melodi dacă există"
 
 #. Translators: Presented when there is no information for the current track.
-msgid "Cannot locate current track information or no track is playing"
-msgstr ""
-"Nu se poate localiza informația despre melodia curentă sau nicio melodie nu "
-"se redă"
+#, fuzzy
+msgid "Cannot locate current track information"
+msgstr "Nu se pot găsi informații despre melodia curentă"
 
 #. Translators: Presented when current track information is unavailable.
 msgid "Cannot find current track information"
@@ -794,6 +808,11 @@ msgid ""
 msgstr ""
 "Prezintă informațiile listei de redare instantanee, cum ar fi numărul "
 "melodiilor și artiștii de top"
+
+#. Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
+msgid "Add-on settings dialog is open, cannot switch profiles"
+msgstr ""
+"Dialogul cu setările addonului este deschis, nu se pot comuta profiluri"
 
 #. Translators: Presented when place marker cannot be set.
 msgid "No tracks found, cannot set place marker"
@@ -871,11 +890,6 @@ msgstr ""
 #, fuzzy
 msgid "SPL Studio add-on reset"
 msgstr "Verifică actualizări addon"
-
-#. Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
-msgid "Add-on settings dialog is open, cannot switch profiles"
-msgstr ""
-"Dialogul cu setările addonului este deschis, nu se pot comuta profiluri"
 
 #. Translators: Presented when switch to instant switch profile was successful.
 #, python-brace-format
@@ -1961,6 +1975,11 @@ msgstr "Număr ascultători: {listenerCount}"
 msgid "There is no track playing."
 msgstr "Nicio melodie nu se redă."
 
+#. Translators: presented if encoder connection status cannot be obtained.
+#, fuzzy
+msgid "Cannot obtain encoder connection status"
+msgstr "Nu se pot obține informații despre starea metadatei streamingului"
+
 #. Translators: Input help message for a SPL Controller command.
 #, fuzzy
 msgid "Announces stream encoder status from other programs"
@@ -1977,188 +1996,6 @@ msgstr ""
 msgid "SPL Controller help"
 msgstr "Ajutor controler SPL"
 
-#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
-msgid "No encoders found"
-msgstr "Niciun encoder găsit"
-
-#. Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
-msgid "Only one encoder type can be active at once"
-msgstr ""
-"Doar un tip de encoder poate fi activ, nu pot fi active mai multe tipuri "
-"simultan"
-
-#. Translators: presented when at least one encoder is connected.
-#, fuzzy, python-brace-format
-msgid "Connected encoders: {encodersConnected}"
-msgstr "Se monitorizează encoderul {encoderNumber}"
-
-#. Translators: presented when no encoders are connected.
-msgid "No encoders connected"
-msgstr "Niciun encoder nu este conectat"
-
-#. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
-#, python-brace-format
-msgid "Encoder settings for {name}"
-msgstr "Setări encoder pentru {name}"
-
-#. Translators: An edit field in encoder settings to set stream label for this encoder.
-msgid "Stream &label"
-msgstr "&Etichetă emisie"
-
-#. Translators: A checkbox in encoder settings to set if NvDA should switch focus to Studio window when connected.
-msgid "&Focus to Studio when connected"
-msgstr "&Focusare la studio când este conectat"
-
-#. Translators: A checkbox in encoder settings to set if NvDA should play the next track when connected.
-msgid "&Play first track when connected"
-msgstr "Redă &prima melodie când s-a conectat la server"
-
-#. Translators: A checkbox in encoder settings to set if NvDA should monitor the status of this encoder in the background.
-msgid "Enable background connection &monitoring"
-msgstr "Activează &monitorizarea pe fundal a conectării"
-
-#. Translators: A checkbox in encoder settings to set if NvDA should play connection progress tone.
-msgid "Play connection status &beep while connecting"
-msgstr "Redă &bipul de stare a conexiunii când se conectează"
-
-#. Translators: Status message for encoder monitoring.
-#, python-brace-format
-msgid "{encoder} {encoderNumber}: {status}"
-msgstr "{encoder} {encoderNumber}: {status}"
-
-#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
-msgid "Switch to Studio after connecting"
-msgstr "Comutare la studio după conectare"
-
-#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
-msgid "Do not switch to Studio after connecting"
-msgstr "Nu comuta la studio după conectare"
-
-#. Translators: Input help mode message in SAM Encoder window.
-msgid ""
-"Toggles whether NVDA will switch to Studio when connected to a streaming "
-"server."
-msgstr ""
-"Comută daca NVDA va schimba la Studio după conectarea la un server de "
-"streaming."
-
-#. Translators: Presented when toggling the setting to play selected song when connected to a streaming server.
-msgid "Play first track after connecting"
-msgstr "Redă prima melodie după conectare"
-
-#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
-msgid "Do not play first track after connecting"
-msgstr "Nu reda prima melodie după conectare"
-
-#. Translators: Input help mode message in SAM Encoder window.
-msgid ""
-"Toggles whether Studio will play the first song when connected to a "
-"streaming server."
-msgstr ""
-"Comută dacă aplicația Studio va reda prima melodie după conectare la un "
-"server de streaming."
-
-#. Multiple encoders.
-#. Translators: Presented when toggling the setting to monitor the selected encoder.
-#, python-brace-format
-msgid "Monitoring encoder {encoderNumber}"
-msgstr "Se monitorizează encoderul {encoderNumber}"
-
-#. Translators: Presented when toggling the setting to monitor the selected encoder.
-#, python-brace-format
-msgid "Encoder {encoderNumber} will not be monitored"
-msgstr "Encoderul {encoderNumber} nu va fi monitorizat."
-
-#. Translators: Announced when background encoder monitoring is canceled.
-msgid "Encoder monitoring canceled"
-msgstr "Monitorizarea encoderului a fost anulată."
-
-#. Translators: Input help mode message in SAM Encoder window.
-msgid ""
-"Toggles whether NVDA will monitor the selected encoder in the background."
-msgstr "Comută dacă NVDA va monitoriza sau nu pe fundal encoderul selectat."
-
-#. Translators: The title of the stream labeler dialog (example: stream labeler for 1).
-#, python-brace-format
-msgid "Stream labeler for {streamEntry}"
-msgstr "Etichetare emisie pentru {streamEntry}"
-
-#. Translators: The text of the stream labeler dialog.
-msgid "Enter the label for this stream"
-msgstr "Introdu eticheta pentru această emisie"
-
-#. Translators: Input help mode message in SAM Encoder window.
-msgid "Opens a dialog to label the selected encoder."
-msgstr "Deschide un dialog pentru a putea eticheta encoderul selectat."
-
-#. Translators: The title of the stream configuration eraser dialog.
-msgid "Stream label and settings eraser"
-msgstr "Etichetare stream și ștergere setări"
-
-#. Translators: The text of the stream configuration eraser dialog.
-msgid "Enter the position of the encoder you wish to delete or will delete"
-msgstr ""
-"Introduceți poziția encoderului pe care doriți să îl ștergeți sau pe care îl "
-"veți șterge"
-
-#. Translators: Input help mode message in SAM Encoder window.
-msgid ""
-"Opens a dialog to erase stream labels and settings from an encoder that was "
-"deleted."
-msgstr ""
-"Se deschide un dialog pentru a șterge etichetele de stream și setările unui "
-"encoder care este deja șters."
-
-#. Translators: Text of the dialog when another alarm dialog is open.
-msgid "Another encoder settings dialog is open."
-msgstr "Un alt dialog cu setările encoderului este deschis."
-
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid ""
-"Shows encoder configuration dialog to configure various encoder settings "
-"such as stream label."
-msgstr ""
-"Arată dialogul de configurare a encoderului pentru a configura diverse "
-"setări ale acestuia, cum ar fi etichete de stream."
-
-#. Translators: Input help mode message for report date and time command.
-msgid ""
-"If pressed once, reports the current time including seconds. If pressed "
-"twice, reports the current date"
-msgstr ""
-"Dacă este apăsat o dată, raportează ora curentă care include secundele. Dacă "
-"este apăsat de două ori, raportează data."
-
-#, python-brace-format
-msgid "Position: {pos}"
-msgstr "Poziție: {pos}"
-
-#, python-brace-format
-msgid "Label: {label}"
-msgstr "Label: {label}"
-
-msgid "No stream label"
-msgstr "Nicio etichetă de emisie"
-
-#. Translators: Presented when an Encoder is trying to connect to a streaming server.
-msgid "Connecting..."
-msgstr "Se conectează..."
-
-#. Translators: Presented when an Encoder is disconnecting from a streaming server.
-msgid "Disconnecting..."
-msgstr "Se deconectează..."
-
-msgid "Connects to a streaming server."
-msgstr "Conectează-te la un streaming server."
-
-#, python-brace-format
-msgid "Encoder Settings: {setting}"
-msgstr "Setări encoder: {setting}"
-
-#, python-brace-format
-msgid "Transfer Rate: {transferRate}"
-msgstr "Frecvență de transfer: {transferRate}"
-
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
 msgid ""
@@ -2167,3 +2004,155 @@ msgid ""
 msgstr ""
 "Conține suport pentru StationPlaylist Studio.\n"
 "De asemenea, adaugă comenzi globale pentru studio de oriunde."
+
+#~ msgid ""
+#~ "The add-on settings dialog is opened. Please close the settings dialog "
+#~ "first."
+#~ msgstr ""
+#~ "Setările add-onului sunt deja deschise. Vă rugăm să le închideți mai "
+#~ "întâi."
+
+#~ msgid "Cannot locate current track information or no track is playing"
+#~ msgstr ""
+#~ "Nu se poate localiza informația despre melodia curentă sau nicio melodie "
+#~ "nu se redă"
+
+#~ msgid "No encoders found"
+#~ msgstr "Niciun encoder găsit"
+
+#~ msgid "Only one encoder type can be active at once"
+#~ msgstr ""
+#~ "Doar un tip de encoder poate fi activ, nu pot fi active mai multe tipuri "
+#~ "simultan"
+
+#, fuzzy
+#~ msgid "Connected encoders: {encodersConnected}"
+#~ msgstr "Se monitorizează encoderul {encoderNumber}"
+
+#~ msgid "No encoders connected"
+#~ msgstr "Niciun encoder nu este conectat"
+
+#~ msgid "Encoder settings for {name}"
+#~ msgstr "Setări encoder pentru {name}"
+
+#~ msgid "Stream &label"
+#~ msgstr "&Etichetă emisie"
+
+#~ msgid "&Focus to Studio when connected"
+#~ msgstr "&Focusare la studio când este conectat"
+
+#~ msgid "&Play first track when connected"
+#~ msgstr "Redă &prima melodie când s-a conectat la server"
+
+#~ msgid "Enable background connection &monitoring"
+#~ msgstr "Activează &monitorizarea pe fundal a conectării"
+
+#~ msgid "Play connection status &beep while connecting"
+#~ msgstr "Redă &bipul de stare a conexiunii când se conectează"
+
+#~ msgid "{encoder} {encoderNumber}: {status}"
+#~ msgstr "{encoder} {encoderNumber}: {status}"
+
+#~ msgid "Switch to Studio after connecting"
+#~ msgstr "Comutare la studio după conectare"
+
+#~ msgid "Do not switch to Studio after connecting"
+#~ msgstr "Nu comuta la studio după conectare"
+
+#~ msgid ""
+#~ "Toggles whether NVDA will switch to Studio when connected to a streaming "
+#~ "server."
+#~ msgstr ""
+#~ "Comută daca NVDA va schimba la Studio după conectarea la un server de "
+#~ "streaming."
+
+#~ msgid "Play first track after connecting"
+#~ msgstr "Redă prima melodie după conectare"
+
+#~ msgid "Do not play first track after connecting"
+#~ msgstr "Nu reda prima melodie după conectare"
+
+#~ msgid ""
+#~ "Toggles whether Studio will play the first song when connected to a "
+#~ "streaming server."
+#~ msgstr ""
+#~ "Comută dacă aplicația Studio va reda prima melodie după conectare la un "
+#~ "server de streaming."
+
+#~ msgid "Monitoring encoder {encoderNumber}"
+#~ msgstr "Se monitorizează encoderul {encoderNumber}"
+
+#~ msgid "Encoder {encoderNumber} will not be monitored"
+#~ msgstr "Encoderul {encoderNumber} nu va fi monitorizat."
+
+#~ msgid "Encoder monitoring canceled"
+#~ msgstr "Monitorizarea encoderului a fost anulată."
+
+#~ msgid ""
+#~ "Toggles whether NVDA will monitor the selected encoder in the background."
+#~ msgstr "Comută dacă NVDA va monitoriza sau nu pe fundal encoderul selectat."
+
+#~ msgid "Stream labeler for {streamEntry}"
+#~ msgstr "Etichetare emisie pentru {streamEntry}"
+
+#~ msgid "Enter the label for this stream"
+#~ msgstr "Introdu eticheta pentru această emisie"
+
+#~ msgid "Opens a dialog to label the selected encoder."
+#~ msgstr "Deschide un dialog pentru a putea eticheta encoderul selectat."
+
+#~ msgid "Stream label and settings eraser"
+#~ msgstr "Etichetare stream și ștergere setări"
+
+#~ msgid "Enter the position of the encoder you wish to delete or will delete"
+#~ msgstr ""
+#~ "Introduceți poziția encoderului pe care doriți să îl ștergeți sau pe care "
+#~ "îl veți șterge"
+
+#~ msgid ""
+#~ "Opens a dialog to erase stream labels and settings from an encoder that "
+#~ "was deleted."
+#~ msgstr ""
+#~ "Se deschide un dialog pentru a șterge etichetele de stream și setările "
+#~ "unui encoder care este deja șters."
+
+#~ msgid "Another encoder settings dialog is open."
+#~ msgstr "Un alt dialog cu setările encoderului este deschis."
+
+#~ msgid ""
+#~ "Shows encoder configuration dialog to configure various encoder settings "
+#~ "such as stream label."
+#~ msgstr ""
+#~ "Arată dialogul de configurare a encoderului pentru a configura diverse "
+#~ "setări ale acestuia, cum ar fi etichete de stream."
+
+#~ msgid ""
+#~ "If pressed once, reports the current time including seconds. If pressed "
+#~ "twice, reports the current date"
+#~ msgstr ""
+#~ "Dacă este apăsat o dată, raportează ora curentă care include secundele. "
+#~ "Dacă este apăsat de două ori, raportează data."
+
+#~ msgid "Position: {pos}"
+#~ msgstr "Poziție: {pos}"
+
+#~ msgid "Label: {label}"
+#~ msgstr "Label: {label}"
+
+#~ msgid "No stream label"
+#~ msgstr "Nicio etichetă de emisie"
+
+#~ msgid "Connecting..."
+#~ msgstr "Se conectează..."
+
+#~ msgid "Disconnecting..."
+#~ msgstr "Se deconectează..."
+
+#~ msgid "Connects to a streaming server."
+#~ msgstr "Conectează-te la un streaming server."
+
+#~ msgid "Encoder Settings: {setting}"
+#~ msgstr "Setări encoder: {setting}"
+
+#~ msgid "Transfer Rate: {transferRate}"
+#~ msgstr "Frecvență de transfer: {transferRate}"

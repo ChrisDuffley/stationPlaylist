@@ -3,8 +3,9 @@
 * Autores: Geoff Shang, Joseph Lee e outros colaboradores
 * Descargar [versión estable][1]
 * Descargar [versión de desenvolvemento][2]
-* NVDA compatibility: 2019.3 and beyond
-* Download [older version][6] compatible with NVDA 2019.2.1 and earlier
+* Compatibilidade con NVDA: 2019.3 en diante
+* Descargar [versión máis antiga][6] compatible con NVDA 2019.2.1 e
+  anteriores
 
 Este paquete de complementos proporciona unhha utilización mellorada do
 Station Playlist Studio e outras apps de Station Playlist, así como
@@ -19,13 +20,12 @@ repositorio do código fonte.
 
 NOTAS IMPORTANTES:
 
-* This add-on requires NVDA 2019.3 or later and StationPlaylist suite 5.20
-  or later.
+* Este complemento require o paquete StationPlaylist 5.20 ou posterior.
 * Se usas o Windows 8 ou posterior, para unha mellor experiencia,
   deshabilita o modo atenuación de audio.
-* Starting from 2018, [changelogs for old add-on releases][5] will be found
-  on GitHub. This add-on readme will list changes from version 17.08 (2017
-  onwards).
+* A partires de 2018, os [rexistros de cambios para versións vellas][5]
+  atoparanse en GitHub. Este readme do complemento listará cambios dende a
+  versión 17.08 (2017 en diante).
 * Certas características do complemento non funcionarán baixo algunhas
   condicións, incluindo a execución do NVDA en modo seguro.
 * Debido a limitacións técnicas, non podes instalar nin usar este
@@ -50,12 +50,20 @@ contrario.
   segundos ata a hora.
 * Alt+NVDA+1 (deslizamento con dous dedos cara a dereita no modo tactil SPL)
   dende a ventá do Studio: Abre o diálogo de opcións do remate da pista.
+* Alt+NVDA+1 dende a ventá do Editor de Listas de Reprodución de Creator:
+  anuncia o tempo programado para a lista cargada.
 * Alt+NVDA+2 (deslizamento con dous dedos cara a esquerda no modo tactil
   SPL) dende a ventá do Studio: Abre o diálogo de configuración da alarma de
   intro da canción.
+* Alt+NVDA+2 dende a ventá de Editor de Listas de Reprodución de Creator:
+  Anuncia a duración de toda a lista.
 * Alt+NVDA+3 dende a ventá Studio:  conmuta o explorador de cart para
   deprender  as asignacións das cart.
+* Alt+NVDA+2 dende a ventá de Editor de Listas de Reprodución de Creator:
+  Anuncia cando está a pista seleccionada programada para reproducirse.
 * Alt+NVDA+4 dende a ventá do Studio: Abre o diálogo de alarma do micrófono.
+* Alt+NVDA+2 dende a ventá de Editor de Listas de Reprodución de Creator:
+  Anuncia rotación e e categoría asociadas coa lista cargada.
 * Control+NVDA+f dende a ventá do Studio: Abre un diálogo para procurar unha
   pista baseada no artista ou no nome da canción. Preme NVDA+F3 para
   procurar cara adiante ou NVDA+Shift+F3 para procurar cara atrás.
@@ -66,15 +74,18 @@ contrario.
 * Control+Alt+frechas dereita e esquerda (mentres se enfoca nunha pista no
   Studio, Creator ou TrackTool): anuncia a columna da pista seguinte ou
   anterior.
-* Control+Alt+frecha abaixo/arriba (mentres se enfoque unha pista só en
-  Studio): Moven á pista seguinte ou anterior e anuncian columnas
-  específicas (non dispoñible no complemento 15.x).
+* Control+Alt+inicio/fin (mentres se enfoca nunha pista no Studio, Creator e
+  Track Tool): anuncia a primeira/última columna da pista.
+* Control+Alt+frecha arriba/abaixo (mentres se enfoque unha pista só en
+  Studio): Moverse á pista seguinte ou anterior e anuncia columnas
+  específicas.
 * Control+NVDA+1 a 0 (cun track enfocado en Studio, Creator e Track Tool):
   Anunciar contido da columna para unha columna especificada. Premer este
   atallo dúas veces amosará a información de columna nunha xanela de modo
   exploración.
-* Control+NVDA+- (guión, en Studio): Mostrar datos de todas as columnas
-  dunha pista nunha xanela de modo exploración.
+* Control+NVDA+- (guión, mentres se enfoca unha pista en Studio, Creator, e
+  Track Tool): amosar datos de todas as columnas dunha pista nunha xanela de
+  modo exploración.
 * Alt+NVDA+C mentres se enfoca unha pista (só Studio): anuncia os
   comentarios da pista se os hai.
 * Alt+NVDA+0 dende a ventá do Studio: Abre o diálogo de configuración do
@@ -324,9 +335,37 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
-## Version 20.01
+## Versión 20.02
 
-* NVDA 2019.3 or later is required due to extensive use of Python 3.
+* Soporte inicial para o Editor de Listas de Reprodución do StationPlaylist
+  Creator.
+* Engadidas as ordes Alt+NVDA+fila de números para anunciar varias
+  informacións de estado no Editor de Listas de Reprodución. Inclúen data e
+  hora para a lista (1), duración total da lista (2), cando a pista
+  seleccionada está programado para reproducirse (3), e rotación e categoría
+  (4).
+* ao enfocar unha pista en Creator e Track tool, agás no Editor de Listas de
+  Reprodución de Creator, ao premer Control+NVDA+Guión amosará todas as
+  columnas nunha ventá de modo exploración.
+* Se NVDA recoñece un elemento da lista de pistas con menos de 10 columnas,
+  NVDA xa non anunciará os encabezados de columnas que non existen se se
+  preme Control+NVDA+fila de números para columnas fóra de rango.
+* En Creator, NVDA xa non anunciará información de columna se se premen as
+  teclas Control+NVDA+fila de números enfocando lugares diferentes da lista
+  de pistas.
+* Cando unha pista se está reproducindo, NVDA xa non anunciará "Sen pista en
+  reprodución" ao abrir a información sobre a pista actual e seguinte a
+  través de SPL Assistant ou SPL controller.
+* Se está aberto un diálogo de opcións de alarma (intro, outro, micrófono),
+  NVDA xa non parecerá non facer nada ou non reproducirá tons de erro ao
+  tentar abrir unha segunda instancia de calquera diálogo de alarma.
+* ao tentar cambiar entre o perfil activo e un perfil instantáneo a través
+  de SPL Assitant (F12), NVDA presentará unha mensaxe se se intenta facer
+  cando a pantalla de opcións do complemento estea aberta.
+
+## Versión 20.01
+
+* Requírese NVDA 2019.3 ou posterior debido ao uso extensivo de Python 3.
 
 ## Versión 19.11.1/18.09.13-LTS
 

@@ -28,6 +28,14 @@ msgstr ""
 msgid "Old Windows version"
 msgstr "Phiên bản Windows cũ"
 
+#. Translators: Title of the column data window.
+msgid "Track data"
+msgstr "Dữ liệu track"
+
+#. Translators: input help mode message for columns viewer command.
+msgid "Presents data for all columns in the currently selected track"
+msgstr "Trình bày tất cả các cột dữ liệu cho track đang được chọn"
+
 #. Translators: Presented when microphone has been active for a while.
 msgid "Microphone active"
 msgstr "Microphone hoạt động"
@@ -59,13 +67,14 @@ msgstr ""
 msgid "StationPlaylist"
 msgstr "StationPlaylist"
 
+#. Translators: Presented when column is out of range.
+#, python-brace-format
+msgid "Column {columnPosition} not found"
+msgstr ""
+
 #. Translators: presented when column information for a track is empty.
 msgid "blank"
 msgstr "rỗng"
-
-#. Translators: Title of the column data window.
-msgid "Track data"
-msgstr "Dữ liệu track"
 
 #. Translators: Presented when a specific column header is not found.
 #, python-brace-format
@@ -100,10 +109,6 @@ msgstr "{checkStatus}{header}: rỗng"
 #, python-brace-format
 msgid "{checkStatus}{header}: ()"
 msgstr "{checkStatus}{header}: ()"
-
-#. Translators: input help mode message for columns viewer command.
-msgid "Presents data for all columns in the currently selected track"
-msgstr "Trình bày tất cả các cột dữ liệu cho track đang được chọn"
 
 msgid "Has comment"
 msgstr "Có chú thích"
@@ -411,9 +416,13 @@ msgid "Announces time including seconds."
 msgstr "Thông báo thời gian bao bồm giây."
 
 #. Translators: Presented when the add-on config dialog is opened.
+#, fuzzy
 msgid ""
-"The add-on settings dialog is opened. Please close the settings dialog first."
-msgstr "Hộp thoại cài đặt add-on đang mở. Vui lòng đóng nó lại trước."
+"The add-on settings dialog or another alarm dialog is opened. Please close "
+"the opened dialog first."
+msgstr ""
+"Hộp thoại cài đặt add-on hoặc hộp thoại truyền siêu dữ liệu đang mở. Vui "
+"lòng đóng chúng lại trước."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Sets end of track alarm (default is 5 seconds)."
@@ -693,7 +702,14 @@ msgid "Playlist modification not available"
 msgstr "Sửa đổi danh sách phát không sẵn sàng"
 
 #. Translators: Presented when there is no information for the next track.
-msgid "No next track scheduled or no track is playing"
+#. Translators: Presented when there is no information for the current track.
+#, fuzzy
+msgid "No track is playing"
+msgstr "Không có track nào đang phát."
+
+#. Translators: Presented when there is no information for the next track.
+#, fuzzy
+msgid "No next track scheduled"
 msgstr ""
 "Không có track kế nào được lên lịch hoặc không có track nào đang được phát"
 
@@ -706,10 +722,9 @@ msgid "Announces title of the next track if any"
 msgstr "Thông báo tựa đề track kế tiếp nếu có"
 
 #. Translators: Presented when there is no information for the current track.
-msgid "Cannot locate current track information or no track is playing"
-msgstr ""
-"Không thể xem thông tin của track hiện tại hoặc không có track nào đang được "
-"phát"
+#, fuzzy
+msgid "Cannot locate current track information"
+msgstr "Không tìm thấy thông tin của track hiện tại"
 
 #. Translators: Presented when current track information is unavailable.
 msgid "Cannot find current track information"
@@ -786,6 +801,10 @@ msgstr ""
 "Trình bày thông tin ảnh chụp danh sách phát như số track và các ca sĩ tiêu "
 "biểu"
 
+#. Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
+msgid "Add-on settings dialog is open, cannot switch profiles"
+msgstr "Hộp thoại cài đặt add-on đang mở, không thể chuyển hồ sơ"
+
 #. Translators: Presented when place marker cannot be set.
 msgid "No tracks found, cannot set place marker"
 msgstr "Không có track nào. Không thể tạo điểm đánh dấu"
@@ -860,10 +879,6 @@ msgstr ""
 #. Translators: The title of the confirmation dialog for Studio add-on settings reset.
 msgid "SPL Studio add-on reset"
 msgstr "Khôi phục cài đặt SPL Studio add-on"
-
-#. Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
-msgid "Add-on settings dialog is open, cannot switch profiles"
-msgstr "Hộp thoại cài đặt add-on đang mở, không thể chuyển hồ sơ"
 
 #. Translators: Presented when switch to instant switch profile was successful.
 #, python-brace-format
@@ -1927,6 +1942,11 @@ msgstr "Số người nghe: {listenerCount}"
 msgid "There is no track playing."
 msgstr "Không có track nào đang phát."
 
+#. Translators: presented if encoder connection status cannot be obtained.
+#, fuzzy
+msgid "Cannot obtain encoder connection status"
+msgstr "Không thể thu thập thông tin trạng thái truyền siêu dữ liệu"
+
 #. Translators: Input help message for a SPL Controller command.
 msgid "Announces stream encoder status from other programs"
 msgstr "Thông báo trạng thái mã hóa phát sóng từ các chương trình khác."
@@ -1942,184 +1962,6 @@ msgstr ""
 msgid "SPL Controller help"
 msgstr "Trợ giúp bộ điều khiển SPL"
 
-#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
-msgid "No encoders found"
-msgstr "Không tìm thấy bộ mã hóa nào"
-
-#. Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
-msgid "Only one encoder type can be active at once"
-msgstr "Chỉ có thể kích hoạt một loại mã hóa cho một lần"
-
-#. Translators: presented when at least one encoder is connected.
-#, python-brace-format
-msgid "Connected encoders: {encodersConnected}"
-msgstr "Các bộ mã hóa đã kết nối: {encodersConnected}"
-
-#. Translators: presented when no encoders are connected.
-msgid "No encoders connected"
-msgstr "Không có bộ mã hóa nào được kết nối"
-
-#. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
-#, python-brace-format
-msgid "Encoder settings for {name}"
-msgstr "Cài đặt mã hóa cho {name}"
-
-#. Translators: An edit field in encoder settings to set stream label for this encoder.
-msgid "Stream &label"
-msgstr "&Nhãn phát thanh"
-
-#. Translators: A checkbox in encoder settings to set if NvDA should switch focus to Studio window when connected.
-msgid "&Focus to Studio when connected"
-msgstr "&Chuyển về Studio khi đã kết nối"
-
-#. Translators: A checkbox in encoder settings to set if NvDA should play the next track when connected.
-msgid "&Play first track when connected"
-msgstr "&Phát track đầu tiên khi kết nối"
-
-#. Translators: A checkbox in encoder settings to set if NvDA should monitor the status of this encoder in the background.
-msgid "Enable background connection &monitoring"
-msgstr "Bật kết nối và theo dõi ngầ&m"
-
-#. Translators: A checkbox in encoder settings to set if NvDA should play connection progress tone.
-msgid "Play connection status &beep while connecting"
-msgstr "Phát trạng thái kết nối &beep trong khi kết nối"
-
-#. Translators: Status message for encoder monitoring.
-#, python-brace-format
-msgid "{encoder} {encoderNumber}: {status}"
-msgstr "{encoder} {encoderNumber}: {status}"
-
-#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
-msgid "Switch to Studio after connecting"
-msgstr "Chuyển đến Studio sau khi kết nối"
-
-#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
-msgid "Do not switch to Studio after connecting"
-msgstr "Không chuyển đến Studio sau khi kết nối"
-
-#. Translators: Input help mode message in SAM Encoder window.
-msgid ""
-"Toggles whether NVDA will switch to Studio when connected to a streaming "
-"server."
-msgstr ""
-"Bật chế độ để NVDA sẽ chuyển đến Studio khi đã kết nối đến một máy chủ phát "
-"thanh."
-
-#. Translators: Presented when toggling the setting to play selected song when connected to a streaming server.
-msgid "Play first track after connecting"
-msgstr "Phát track đầu tiên sau khi kết nối"
-
-#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
-msgid "Do not play first track after connecting"
-msgstr "Không phát track đầu tiên sau khi kết nối"
-
-#. Translators: Input help mode message in SAM Encoder window.
-msgid ""
-"Toggles whether Studio will play the first song when connected to a "
-"streaming server."
-msgstr ""
-"Bật chế độ để Studio sẽ phát bài nhạc đầu tiên khi kết nối vào máy chủ đang "
-"phát."
-
-#. Multiple encoders.
-#. Translators: Presented when toggling the setting to monitor the selected encoder.
-#, python-brace-format
-msgid "Monitoring encoder {encoderNumber}"
-msgstr "Đang theo dõi bộ mã hóa {encoderNumber}"
-
-#. Translators: Presented when toggling the setting to monitor the selected encoder.
-#, python-brace-format
-msgid "Encoder {encoderNumber} will not be monitored"
-msgstr "Bộ mã hóa {encoderNumber} sẽ không được theo dõi"
-
-#. Translators: Announced when background encoder monitoring is canceled.
-msgid "Encoder monitoring canceled"
-msgstr "Đã hủy bỏ theo dõi bộ mã hóa"
-
-#. Translators: Input help mode message in SAM Encoder window.
-msgid ""
-"Toggles whether NVDA will monitor the selected encoder in the background."
-msgstr "Bật / tắt chế độ ngầm theo dõi bộ mã hóa được chọn."
-
-#. Translators: The title of the stream labeler dialog (example: stream labeler for 1).
-#, python-brace-format
-msgid "Stream labeler for {streamEntry}"
-msgstr "Đặt nhãn phát cho {streamEntry}"
-
-#. Translators: The text of the stream labeler dialog.
-msgid "Enter the label for this stream"
-msgstr "Nhập nhãn cho đường này"
-
-#. Translators: Input help mode message in SAM Encoder window.
-msgid "Opens a dialog to label the selected encoder."
-msgstr "Mở hộp thoại để gán nhãn cho bộ mã hóa được chọn."
-
-#. Translators: The title of the stream configuration eraser dialog.
-msgid "Stream label and settings eraser"
-msgstr "Nhãn phát thanh và xóa các cài đặt"
-
-#. Translators: The text of the stream configuration eraser dialog.
-msgid "Enter the position of the encoder you wish to delete or will delete"
-msgstr "Nhập vị trí của bộ mã hóa bạn muốn xóa hoặc sẽ xóa"
-
-#. Translators: Input help mode message in SAM Encoder window.
-msgid ""
-"Opens a dialog to erase stream labels and settings from an encoder that was "
-"deleted."
-msgstr ""
-"Mở một hộp thoại để xóa các nhãn phát và các thiết lạp từ một bộ mã hóa đã "
-"bị xóa."
-
-#. Translators: Text of the dialog when another alarm dialog is open.
-msgid "Another encoder settings dialog is open."
-msgstr "Một hộp thoại cài đặt mã hóa khác đang mở."
-
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid ""
-"Shows encoder configuration dialog to configure various encoder settings "
-"such as stream label."
-msgstr ""
-"Hiển thị hộp thoại cấu hình mã hóa để cấu hình nhiều cài đặt mã hóa như nhãn "
-"phát trực tuyến."
-
-#. Translators: Input help mode message for report date and time command.
-msgid ""
-"If pressed once, reports the current time including seconds. If pressed "
-"twice, reports the current date"
-msgstr ""
-"Bấm một lần để thông báo thời gian hiện tại bao gồm giây. Bấm hai lần để "
-"thông báo ngày hiện tại"
-
-#, python-brace-format
-msgid "Position: {pos}"
-msgstr "Vị trí: {pos}"
-
-#, python-brace-format
-msgid "Label: {label}"
-msgstr "Nhãn: {label}"
-
-msgid "No stream label"
-msgstr "Không có nhãn phát thanh"
-
-#. Translators: Presented when an Encoder is trying to connect to a streaming server.
-msgid "Connecting..."
-msgstr "Đang kết nối..."
-
-#. Translators: Presented when an Encoder is disconnecting from a streaming server.
-msgid "Disconnecting..."
-msgstr "Đang ngắt kết nối..."
-
-msgid "Connects to a streaming server."
-msgstr "Kết nối với một máy chủ đang phát."
-
-#, python-brace-format
-msgid "Encoder Settings: {setting}"
-msgstr "Cài đặt mã hóa: {setting}"
-
-#, python-brace-format
-msgid "Transfer Rate: {transferRate}"
-msgstr "Tốc độ truyền tải: {transferRate}"
-
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
 msgid ""
@@ -2128,3 +1970,148 @@ msgid ""
 msgstr ""
 "Cải thiện hỗ trợ cho StationPlaylist Studio.\n"
 "Ngoài ra là thêm các lệnh toàn cục cho studio từ bất cứ đâu."
+
+#~ msgid ""
+#~ "The add-on settings dialog is opened. Please close the settings dialog "
+#~ "first."
+#~ msgstr "Hộp thoại cài đặt add-on đang mở. Vui lòng đóng nó lại trước."
+
+#~ msgid "Cannot locate current track information or no track is playing"
+#~ msgstr ""
+#~ "Không thể xem thông tin của track hiện tại hoặc không có track nào đang "
+#~ "được phát"
+
+#~ msgid "No encoders found"
+#~ msgstr "Không tìm thấy bộ mã hóa nào"
+
+#~ msgid "Only one encoder type can be active at once"
+#~ msgstr "Chỉ có thể kích hoạt một loại mã hóa cho một lần"
+
+#~ msgid "Connected encoders: {encodersConnected}"
+#~ msgstr "Các bộ mã hóa đã kết nối: {encodersConnected}"
+
+#~ msgid "No encoders connected"
+#~ msgstr "Không có bộ mã hóa nào được kết nối"
+
+#~ msgid "Encoder settings for {name}"
+#~ msgstr "Cài đặt mã hóa cho {name}"
+
+#~ msgid "Stream &label"
+#~ msgstr "&Nhãn phát thanh"
+
+#~ msgid "&Focus to Studio when connected"
+#~ msgstr "&Chuyển về Studio khi đã kết nối"
+
+#~ msgid "&Play first track when connected"
+#~ msgstr "&Phát track đầu tiên khi kết nối"
+
+#~ msgid "Enable background connection &monitoring"
+#~ msgstr "Bật kết nối và theo dõi ngầ&m"
+
+#~ msgid "Play connection status &beep while connecting"
+#~ msgstr "Phát trạng thái kết nối &beep trong khi kết nối"
+
+#~ msgid "{encoder} {encoderNumber}: {status}"
+#~ msgstr "{encoder} {encoderNumber}: {status}"
+
+#~ msgid "Switch to Studio after connecting"
+#~ msgstr "Chuyển đến Studio sau khi kết nối"
+
+#~ msgid "Do not switch to Studio after connecting"
+#~ msgstr "Không chuyển đến Studio sau khi kết nối"
+
+#~ msgid ""
+#~ "Toggles whether NVDA will switch to Studio when connected to a streaming "
+#~ "server."
+#~ msgstr ""
+#~ "Bật chế độ để NVDA sẽ chuyển đến Studio khi đã kết nối đến một máy chủ "
+#~ "phát thanh."
+
+#~ msgid "Play first track after connecting"
+#~ msgstr "Phát track đầu tiên sau khi kết nối"
+
+#~ msgid "Do not play first track after connecting"
+#~ msgstr "Không phát track đầu tiên sau khi kết nối"
+
+#~ msgid ""
+#~ "Toggles whether Studio will play the first song when connected to a "
+#~ "streaming server."
+#~ msgstr ""
+#~ "Bật chế độ để Studio sẽ phát bài nhạc đầu tiên khi kết nối vào máy chủ "
+#~ "đang phát."
+
+#~ msgid "Monitoring encoder {encoderNumber}"
+#~ msgstr "Đang theo dõi bộ mã hóa {encoderNumber}"
+
+#~ msgid "Encoder {encoderNumber} will not be monitored"
+#~ msgstr "Bộ mã hóa {encoderNumber} sẽ không được theo dõi"
+
+#~ msgid "Encoder monitoring canceled"
+#~ msgstr "Đã hủy bỏ theo dõi bộ mã hóa"
+
+#~ msgid ""
+#~ "Toggles whether NVDA will monitor the selected encoder in the background."
+#~ msgstr "Bật / tắt chế độ ngầm theo dõi bộ mã hóa được chọn."
+
+#~ msgid "Stream labeler for {streamEntry}"
+#~ msgstr "Đặt nhãn phát cho {streamEntry}"
+
+#~ msgid "Enter the label for this stream"
+#~ msgstr "Nhập nhãn cho đường này"
+
+#~ msgid "Opens a dialog to label the selected encoder."
+#~ msgstr "Mở hộp thoại để gán nhãn cho bộ mã hóa được chọn."
+
+#~ msgid "Stream label and settings eraser"
+#~ msgstr "Nhãn phát thanh và xóa các cài đặt"
+
+#~ msgid "Enter the position of the encoder you wish to delete or will delete"
+#~ msgstr "Nhập vị trí của bộ mã hóa bạn muốn xóa hoặc sẽ xóa"
+
+#~ msgid ""
+#~ "Opens a dialog to erase stream labels and settings from an encoder that "
+#~ "was deleted."
+#~ msgstr ""
+#~ "Mở một hộp thoại để xóa các nhãn phát và các thiết lạp từ một bộ mã hóa "
+#~ "đã bị xóa."
+
+#~ msgid "Another encoder settings dialog is open."
+#~ msgstr "Một hộp thoại cài đặt mã hóa khác đang mở."
+
+#~ msgid ""
+#~ "Shows encoder configuration dialog to configure various encoder settings "
+#~ "such as stream label."
+#~ msgstr ""
+#~ "Hiển thị hộp thoại cấu hình mã hóa để cấu hình nhiều cài đặt mã hóa như "
+#~ "nhãn phát trực tuyến."
+
+#~ msgid ""
+#~ "If pressed once, reports the current time including seconds. If pressed "
+#~ "twice, reports the current date"
+#~ msgstr ""
+#~ "Bấm một lần để thông báo thời gian hiện tại bao gồm giây. Bấm hai lần để "
+#~ "thông báo ngày hiện tại"
+
+#~ msgid "Position: {pos}"
+#~ msgstr "Vị trí: {pos}"
+
+#~ msgid "Label: {label}"
+#~ msgstr "Nhãn: {label}"
+
+#~ msgid "No stream label"
+#~ msgstr "Không có nhãn phát thanh"
+
+#~ msgid "Connecting..."
+#~ msgstr "Đang kết nối..."
+
+#~ msgid "Disconnecting..."
+#~ msgstr "Đang ngắt kết nối..."
+
+#~ msgid "Connects to a streaming server."
+#~ msgstr "Kết nối với một máy chủ đang phát."
+
+#~ msgid "Encoder Settings: {setting}"
+#~ msgstr "Cài đặt mã hóa: {setting}"
+
+#~ msgid "Transfer Rate: {transferRate}"
+#~ msgstr "Tốc độ truyền tải: {transferRate}"

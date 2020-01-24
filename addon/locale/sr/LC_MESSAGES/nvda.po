@@ -28,6 +28,15 @@ msgstr ""
 msgid "Old Windows version"
 msgstr "Otkrivena je starija verzija Windowsa"
 
+#. Translators: Title of the column data window.
+#, fuzzy
+msgid "Track data"
+msgstr "Uvodni zapis"
+
+#. Translators: input help mode message for columns viewer command.
+msgid "Presents data for all columns in the currently selected track"
+msgstr ""
+
 #. Translators: Presented when microphone has been active for a while.
 msgid "Microphone active"
 msgstr "Mikrofon aktivan"
@@ -58,14 +67,14 @@ msgstr ""
 msgid "StationPlaylist"
 msgstr "StationPlaylist Studio"
 
+#. Translators: Presented when column is out of range.
+#, python-brace-format
+msgid "Column {columnPosition} not found"
+msgstr ""
+
 #. Translators: presented when column information for a track is empty.
 msgid "blank"
 msgstr ""
-
-#. Translators: Title of the column data window.
-#, fuzzy
-msgid "Track data"
-msgstr "Uvodni zapis"
 
 #. Translators: Presented when a specific column header is not found.
 #, python-brace-format
@@ -100,10 +109,6 @@ msgstr "{checkStatus}{header}: prazno"
 #, python-brace-format
 msgid "{checkStatus}{header}: ()"
 msgstr "{checkStatus}{header}: ()"
-
-#. Translators: input help mode message for columns viewer command.
-msgid "Presents data for all columns in the currently selected track"
-msgstr ""
 
 msgid "Has comment"
 msgstr "Ima komentar"
@@ -405,11 +410,13 @@ msgid "Announces time including seconds."
 msgstr "Izgovara vreme uključujući sekunde"
 
 #. Translators: Presented when the add-on config dialog is opened.
+#, fuzzy
 msgid ""
-"The add-on settings dialog is opened. Please close the settings dialog first."
+"The add-on settings dialog or another alarm dialog is opened. Please close "
+"the opened dialog first."
 msgstr ""
-"Dijalog za podešavanja dodatka je otvoren. Molimo prvo zatvorite dijalog za "
-"podešavanja"
+"Dijalog sa podešavanjima dodatka ili metadata stream dijalog je već otvoren. "
+"Molimo prvo zatvorite dijalog"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Sets end of track alarm (default is 5 seconds)."
@@ -694,7 +701,14 @@ msgid "Playlist modification not available"
 msgstr "Izmena liste za reprodukciju nije dostupna"
 
 #. Translators: Presented when there is no information for the next track.
-msgid "No next track scheduled or no track is playing"
+#. Translators: Presented when there is no information for the current track.
+#, fuzzy
+msgid "No track is playing"
+msgstr "Nijedan zapis se ne reprodukuje"
+
+#. Translators: Presented when there is no information for the next track.
+#, fuzzy
+msgid "No next track scheduled"
 msgstr "Nema sledećeg podešenog zapisa ili se zapis ne reprodukuje"
 
 #. Translators: Presented when next track information is unavailable.
@@ -706,10 +720,9 @@ msgid "Announces title of the next track if any"
 msgstr "Izgovara naslov sledećeg zapisa ako postoji"
 
 #. Translators: Presented when there is no information for the current track.
-msgid "Cannot locate current track information or no track is playing"
-msgstr ""
-"Nemoguće pronaći informacije o trenutnom zapisu ili se nijedan zapis ne "
-"reprodukuje"
+#, fuzzy
+msgid "Cannot locate current track information"
+msgstr "Nemoguće pronaći informacije trenutnog zapisa"
 
 #. Translators: Presented when current track information is unavailable.
 msgid "Cannot find current track information"
@@ -785,6 +798,10 @@ msgstr ""
 "Prikazuje informacije statistike liste za reprodukciju kao što su broj "
 "zapisa i izvođači na vrhu"
 
+#. Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
+msgid "Add-on settings dialog is open, cannot switch profiles"
+msgstr "Dijalog za podešavanja dodatka je otvoren, nemoguće promeniti profile"
+
 #. Translators: Presented when place marker cannot be set.
 msgid "No tracks found, cannot set place marker"
 msgstr "Nijedan zapis nije pronađen, nemoguće podesiti početni marker"
@@ -855,10 +872,6 @@ msgstr ""
 #, fuzzy
 msgid "SPL Studio add-on reset"
 msgstr "Podešavanja Studio dodatka"
-
-#. Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
-msgid "Add-on settings dialog is open, cannot switch profiles"
-msgstr "Dijalog za podešavanja dodatka je otvoren, nemoguće promeniti profile"
 
 #. Translators: Presented when switch to instant switch profile was successful.
 #, python-brace-format
@@ -1952,6 +1965,11 @@ msgstr "Broj slušaoca: {listenerCount}"
 msgid "There is no track playing."
 msgstr "Nijedan zapis se ne reprodukuje"
 
+#. Translators: presented if encoder connection status cannot be obtained.
+#, fuzzy
+msgid "Cannot obtain encoder connection status"
+msgstr "Nemoguće otvoriti metadata dijalog strima"
+
 #. Translators: Input help message for a SPL Controller command.
 #, fuzzy
 msgid "Announces stream encoder status from other programs"
@@ -1970,182 +1988,6 @@ msgstr ""
 msgid "SPL Controller help"
 msgstr "Pomoć za SPL kontroler"
 
-#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
-#, fuzzy
-msgid "No encoders found"
-msgstr "Marker nije pronađen"
-
-#. Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
-msgid "Only one encoder type can be active at once"
-msgstr ""
-
-#. Translators: presented when at least one encoder is connected.
-#, fuzzy, python-brace-format
-msgid "Connected encoders: {encodersConnected}"
-msgstr "Gledanje enkodera{encoderNumber}"
-
-#. Translators: presented when no encoders are connected.
-#, fuzzy
-msgid "No encoders connected"
-msgstr "Nijedan enkoder se ne gleda"
-
-#. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
-#, python-brace-format
-msgid "Encoder settings for {name}"
-msgstr "Podešavanja enkodera za{name}"
-
-#. Translators: An edit field in encoder settings to set stream label for this encoder.
-msgid "Stream &label"
-msgstr "&Oznaka strima"
-
-#. Translators: A checkbox in encoder settings to set if NvDA should switch focus to Studio window when connected.
-msgid "&Focus to Studio when connected"
-msgstr "&Fokusiraj se na Studio nakon povezivanja"
-
-#. Translators: A checkbox in encoder settings to set if NvDA should play the next track when connected.
-msgid "&Play first track when connected"
-msgstr "&Reprodukuj prvi zapis nakon povezivanja"
-
-#. Translators: A checkbox in encoder settings to set if NvDA should monitor the status of this encoder in the background.
-msgid "Enable background connection &monitoring"
-msgstr "&Omogući povezivanje i gledanje u pozadini"
-
-#. Translators: A checkbox in encoder settings to set if NvDA should play connection progress tone.
-msgid "Play connection status &beep while connecting"
-msgstr "&Reprodukuj pištanja statusa povezivanja u toku povezivanja"
-
-#. Translators: Status message for encoder monitoring.
-#, python-brace-format
-msgid "{encoder} {encoderNumber}: {status}"
-msgstr "{encoder} {encoderNumber}: {status}"
-
-#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
-msgid "Switch to Studio after connecting"
-msgstr "Prebaci se na Studio nakon povezivanja"
-
-#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
-msgid "Do not switch to Studio after connecting"
-msgstr "Ne prebacuj se na Studio nakon povezivanja"
-
-#. Translators: Input help mode message in SAM Encoder window.
-msgid ""
-"Toggles whether NVDA will switch to Studio when connected to a streaming "
-"server."
-msgstr ""
-"Odlučuje da li NVDA treba da se prebaci na Studio kada se povežete na server "
-"za strimovanje"
-
-#. Translators: Presented when toggling the setting to play selected song when connected to a streaming server.
-msgid "Play first track after connecting"
-msgstr "Reprodukuj prvi zapis nakon povezivanja"
-
-#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
-msgid "Do not play first track after connecting"
-msgstr "Ne reprodukuj prvi zapis nakon povezivanja"
-
-#. Translators: Input help mode message in SAM Encoder window.
-msgid ""
-"Toggles whether Studio will play the first song when connected to a "
-"streaming server."
-msgstr "Odlučuje da li će Studio reprodukovati prvi zapis nakon povezivanja"
-
-#. Multiple encoders.
-#. Translators: Presented when toggling the setting to monitor the selected encoder.
-#, python-brace-format
-msgid "Monitoring encoder {encoderNumber}"
-msgstr "Gledanje enkodera{encoderNumber}"
-
-#. Translators: Presented when toggling the setting to monitor the selected encoder.
-#, python-brace-format
-msgid "Encoder {encoderNumber} will not be monitored"
-msgstr "Enkoder{encoderNumber} neće biti gledan"
-
-#. Translators: Announced when background encoder monitoring is canceled.
-msgid "Encoder monitoring canceled"
-msgstr "Gledanje enkodera obustavljeno"
-
-#. Translators: Input help mode message in SAM Encoder window.
-msgid ""
-"Toggles whether NVDA will monitor the selected encoder in the background."
-msgstr "Odlučuje da li će NVDA pratiti izabran enkoder u pozadini"
-
-#. Translators: The title of the stream labeler dialog (example: stream labeler for 1).
-#, python-brace-format
-msgid "Stream labeler for {streamEntry}"
-msgstr "Oznaka strima za{streamEntry}"
-
-#. Translators: The text of the stream labeler dialog.
-msgid "Enter the label for this stream"
-msgstr "Upišite oznaku za ovaj strim"
-
-#. Translators: Input help mode message in SAM Encoder window.
-msgid "Opens a dialog to label the selected encoder."
-msgstr "Otvara dijalog za oznaku izabranog enkodera"
-
-#. Translators: The title of the stream configuration eraser dialog.
-msgid "Stream label and settings eraser"
-msgstr "Brisač podešavanja i oznaka strimova"
-
-#. Translators: The text of the stream configuration eraser dialog.
-msgid "Enter the position of the encoder you wish to delete or will delete"
-msgstr "Upišite poziciju enkodera koji želite da obrišete"
-
-#. Translators: Input help mode message in SAM Encoder window.
-msgid ""
-"Opens a dialog to erase stream labels and settings from an encoder that was "
-"deleted."
-msgstr "Otvara dijalog za brisanje oznake strimova za određen enkoder"
-
-#. Translators: Text of the dialog when another alarm dialog is open.
-msgid "Another encoder settings dialog is open."
-msgstr "Drugi dijalog sa podešavanjima enkodera je otvoren."
-
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid ""
-"Shows encoder configuration dialog to configure various encoder settings "
-"such as stream label."
-msgstr ""
-"Prikazuje dijalog za podešavanje različitih podešavanja enkodera kao što su "
-"oznaka strima"
-
-#. Translators: Input help mode message for report date and time command.
-msgid ""
-"If pressed once, reports the current time including seconds. If pressed "
-"twice, reports the current date"
-msgstr ""
-"Ako se pritisne jednom, prijavljuje trenutno vreme uključujući sekunde. Ako "
-"se pritisne dva puta, prijavljuje datum"
-
-#, python-brace-format
-msgid "Position: {pos}"
-msgstr "Pozicija: {pos}"
-
-#, python-brace-format
-msgid "Label: {label}"
-msgstr "Oznaka: {label}"
-
-msgid "No stream label"
-msgstr "Nema oznake strima"
-
-#. Translators: Presented when an Encoder is trying to connect to a streaming server.
-msgid "Connecting..."
-msgstr "Povezivanje..."
-
-#. Translators: Presented when an Encoder is disconnecting from a streaming server.
-msgid "Disconnecting..."
-msgstr "Prekidanje veze..."
-
-msgid "Connects to a streaming server."
-msgstr "Povezuje se na server za strimovanje"
-
-#, python-brace-format
-msgid "Encoder Settings: {setting}"
-msgstr "Podešavanja enkodera: {setting}"
-
-#, python-brace-format
-msgid "Transfer Rate: {transferRate}"
-msgstr "Brzina: {transferRate}"
-
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
 msgid ""
@@ -2154,3 +1996,146 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist Studio.\n"
 "Takođe, dodaje globalne komande za studio bilo gde."
+
+#~ msgid ""
+#~ "The add-on settings dialog is opened. Please close the settings dialog "
+#~ "first."
+#~ msgstr ""
+#~ "Dijalog za podešavanja dodatka je otvoren. Molimo prvo zatvorite dijalog "
+#~ "za podešavanja"
+
+#~ msgid "Cannot locate current track information or no track is playing"
+#~ msgstr ""
+#~ "Nemoguće pronaći informacije o trenutnom zapisu ili se nijedan zapis ne "
+#~ "reprodukuje"
+
+#, fuzzy
+#~ msgid "No encoders found"
+#~ msgstr "Marker nije pronađen"
+
+#, fuzzy
+#~ msgid "Connected encoders: {encodersConnected}"
+#~ msgstr "Gledanje enkodera{encoderNumber}"
+
+#, fuzzy
+#~ msgid "No encoders connected"
+#~ msgstr "Nijedan enkoder se ne gleda"
+
+#~ msgid "Encoder settings for {name}"
+#~ msgstr "Podešavanja enkodera za{name}"
+
+#~ msgid "Stream &label"
+#~ msgstr "&Oznaka strima"
+
+#~ msgid "&Focus to Studio when connected"
+#~ msgstr "&Fokusiraj se na Studio nakon povezivanja"
+
+#~ msgid "&Play first track when connected"
+#~ msgstr "&Reprodukuj prvi zapis nakon povezivanja"
+
+#~ msgid "Enable background connection &monitoring"
+#~ msgstr "&Omogući povezivanje i gledanje u pozadini"
+
+#~ msgid "Play connection status &beep while connecting"
+#~ msgstr "&Reprodukuj pištanja statusa povezivanja u toku povezivanja"
+
+#~ msgid "{encoder} {encoderNumber}: {status}"
+#~ msgstr "{encoder} {encoderNumber}: {status}"
+
+#~ msgid "Switch to Studio after connecting"
+#~ msgstr "Prebaci se na Studio nakon povezivanja"
+
+#~ msgid "Do not switch to Studio after connecting"
+#~ msgstr "Ne prebacuj se na Studio nakon povezivanja"
+
+#~ msgid ""
+#~ "Toggles whether NVDA will switch to Studio when connected to a streaming "
+#~ "server."
+#~ msgstr ""
+#~ "Odlučuje da li NVDA treba da se prebaci na Studio kada se povežete na "
+#~ "server za strimovanje"
+
+#~ msgid "Play first track after connecting"
+#~ msgstr "Reprodukuj prvi zapis nakon povezivanja"
+
+#~ msgid "Do not play first track after connecting"
+#~ msgstr "Ne reprodukuj prvi zapis nakon povezivanja"
+
+#~ msgid ""
+#~ "Toggles whether Studio will play the first song when connected to a "
+#~ "streaming server."
+#~ msgstr "Odlučuje da li će Studio reprodukovati prvi zapis nakon povezivanja"
+
+#~ msgid "Monitoring encoder {encoderNumber}"
+#~ msgstr "Gledanje enkodera{encoderNumber}"
+
+#~ msgid "Encoder {encoderNumber} will not be monitored"
+#~ msgstr "Enkoder{encoderNumber} neće biti gledan"
+
+#~ msgid "Encoder monitoring canceled"
+#~ msgstr "Gledanje enkodera obustavljeno"
+
+#~ msgid ""
+#~ "Toggles whether NVDA will monitor the selected encoder in the background."
+#~ msgstr "Odlučuje da li će NVDA pratiti izabran enkoder u pozadini"
+
+#~ msgid "Stream labeler for {streamEntry}"
+#~ msgstr "Oznaka strima za{streamEntry}"
+
+#~ msgid "Enter the label for this stream"
+#~ msgstr "Upišite oznaku za ovaj strim"
+
+#~ msgid "Opens a dialog to label the selected encoder."
+#~ msgstr "Otvara dijalog za oznaku izabranog enkodera"
+
+#~ msgid "Stream label and settings eraser"
+#~ msgstr "Brisač podešavanja i oznaka strimova"
+
+#~ msgid "Enter the position of the encoder you wish to delete or will delete"
+#~ msgstr "Upišite poziciju enkodera koji želite da obrišete"
+
+#~ msgid ""
+#~ "Opens a dialog to erase stream labels and settings from an encoder that "
+#~ "was deleted."
+#~ msgstr "Otvara dijalog za brisanje oznake strimova za određen enkoder"
+
+#~ msgid "Another encoder settings dialog is open."
+#~ msgstr "Drugi dijalog sa podešavanjima enkodera je otvoren."
+
+#~ msgid ""
+#~ "Shows encoder configuration dialog to configure various encoder settings "
+#~ "such as stream label."
+#~ msgstr ""
+#~ "Prikazuje dijalog za podešavanje različitih podešavanja enkodera kao što "
+#~ "su oznaka strima"
+
+#~ msgid ""
+#~ "If pressed once, reports the current time including seconds. If pressed "
+#~ "twice, reports the current date"
+#~ msgstr ""
+#~ "Ako se pritisne jednom, prijavljuje trenutno vreme uključujući sekunde. "
+#~ "Ako se pritisne dva puta, prijavljuje datum"
+
+#~ msgid "Position: {pos}"
+#~ msgstr "Pozicija: {pos}"
+
+#~ msgid "Label: {label}"
+#~ msgstr "Oznaka: {label}"
+
+#~ msgid "No stream label"
+#~ msgstr "Nema oznake strima"
+
+#~ msgid "Connecting..."
+#~ msgstr "Povezivanje..."
+
+#~ msgid "Disconnecting..."
+#~ msgstr "Prekidanje veze..."
+
+#~ msgid "Connects to a streaming server."
+#~ msgstr "Povezuje se na server za strimovanje"
+
+#~ msgid "Encoder Settings: {setting}"
+#~ msgstr "Podešavanja enkodera: {setting}"
+
+#~ msgid "Transfer Rate: {transferRate}"
+#~ msgstr "Brzina: {transferRate}"
