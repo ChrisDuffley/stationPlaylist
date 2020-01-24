@@ -17,7 +17,7 @@ xem tập tin buildInstructions.txt ở thư mục gốc trong mã nguồn của
 
 CÁC LƯU Ý QUAN TRỌNG:
 
-* Add-on này yêu cầu NVDA 2019.3 trở lên và bộ StationPlaylist 5.20 trở lên.
+* Add-on này yêu cầu bộ StationPlaylist 5.20 trở lên.
 * Nếu dùng Windows 8 trở lên, hãy tắt chế độ giảm âm thanh để có trải nghiệm
   tốt nhất.
 * Từ 2018, [bản ghi những thay đổi cho các bản phát hành cũ của add-on][5]
@@ -45,11 +45,19 @@ lập khác.
   lần sẽ thông báo số phút và giây đến đầu giờ.
 * Alt+NVDA+1 (vuốt hai ngón tay qua phải trong chế độ SPL) từ cửa sổ Studio:
   mở hộp thoại cài đặt kết thúc track.
+* Alt+NVDA+1 từ cửa sổ Creator's Playlist Editor: thông báo thời gian đã lên
+  lịch cho danh sách phát đã tải.
 * Alt+NVDA+2 (vuốt hai ngón qua trái trong chế độ SPL ) từ cửa sổ Studio: mở
   hộp thoại cài đặt báo nhạc hiệu.
+* Alt+NVDA+2 từ cửa sổ Playlist Editor của Creator: thông báo tổng thời gian
+  của danh sách phát.
 * Alt+NVDA+3 từ cửa sổ Studio: bật tắt cart explorer để tìm hiểu cách gán
   cart.
+* Alt+NVDA+3 từ cửa sổ  Playlist Editor của Creator: thông báo khi các track
+  được chọn đã lên lịch phát.
 * Alt+NVDA+4 từ cửa sổ Studio: mở hộp thoại báo hiệu microphone.
+* Alt+NVDA+4 từ cửa sổ Playlist Editor của Creator: thông báo vòng xoay và
+  phân loại đã kết hợp với danh sách phát đã tải.
 * Control+NVDA+f từ cửa sổ Studio: mở hộp thoại để tìm một track theo tên ca
   sĩ hay bài hát. Bấm NvDA+F3 để tìm tiếp hoặc NVDA+Shift+F3 để tìm lùi.
 * Alt+NVDA+R từ cửa sổ Studio: chuyển đến các cài đặt thông báo quét thư
@@ -57,14 +65,15 @@ lập khác.
 * Control+Shift+X từ cửa sổ Studio: đi qua các cài đặt hẹn giờ chữ nổi.
 * Control+Alt+mũi tên trái phải (khi đứng ở một track trong Studio, Creator,
   và Track Tool): thông báo các cột trước / sau của track.
+* Control+Alt+Home/End (khi đứng tại một track trong Studio, Creator và
+  Track Tool): thông báo cột đầu / cuối của track.
 * Control+Alt+mũi tên lên / xuống (chỉ khi đứng ở tại một track trong
-  Studio): chuyển đến track trước hoặc kế và thông báo các cột cụ thể (không
-  hỗ trợ cho các add-on phiên bản 15.x).
+  Studio): chuyển đến track trước hoặc kế và thông báo các cột cụ thể.
 * Control+NVDA+1 đến 0 (khi đứng ở tại một track trong Studio, Creator và
   Track Tool): thông báo nội dung cho một cột đã định. Bấm hai lần sẽ hiển
   thị thông tin trên cửa sổ duyệt tài liệu.
-* Control+NVDA+- (trừ trong Studio): hiển thị dữ liệu của tất cả các cột
-  trong một track trên một cửa sổ ở chế độ duyệt.
+* Control+NVDA+- (trừ trong Studio, Creator và Track Tool): hiển thị dữ liệu
+  của tất cả các cột trong một track trên một cửa sổ ở chế độ duyệt.
 * Alt+NVDA+C khi đứng tại một track (chỉ trong Studio): thông báo chú thích
   track nếu có.
 * Alt+NVDA+0 từ cửa sổ Studio: mở hộp thoại cấu hình add-on của Studio.
@@ -215,11 +224,11 @@ Các lệnh của bộ điều khiển SPL bao gồm:
 
 ## Các báo hiệu cho track
 
-Mặc định, NvDA sẽ phát tiếng beep nếu track còn five giây (ở cuối track)
-hoặc đầu track. Để thiết lập giá trị này hoặc bật / tắt chúng, bấm
-Alt+NVDA+1 hoặc Alt+NVDA+2 mở hộp thoại end of track và song ramp. Ngoài ra,
-dùng hộp thoại cài đặt add-on của Studio để thiết lập để nghe tiếng beep,
-một thông điệp hoặc chuông báo.
+Mặc định, NvDA sẽ phát tiếng beep nếu track còn 5 giây (ở cuối track) hoặc
+đầu track. Để thiết lập giá trị này hoặc bật / tắt chúng, bấm Alt+NVDA+1
+hoặc Alt+NVDA+2 mở hộp thoại end of track và song ramp. Ngoài ra, dùng hộp
+thoại cài đặt add-on của Studio để thiết lập để nghe tiếng beep, một thông
+điệp hoặc chuông báo.
 
 ## Báo hiệu microphone
 
@@ -289,6 +298,31 @@ Nếu dùng Studio trên một máy tính cảm ứng chạy Windows 8 trở lê
 NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio từ mành hình
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
+
+## Phiên bản 20.02
+
+* Bắt đầu hỗ trợ cho StationPlaylist Creator's Playlist Editor.
+* Đã thêm các lệnh Alt+NVDA+phím số để thông báo nhiều thông tin trạng thái
+  trong Playlist Editor. Chúng bao gồm ngày và giờ cho danh sách phát (1),
+  tổng thời gian danh sách phát (2), khi track được chọn đã lên lịch phát
+  (3), vòng xoay và phân loại (4).
+* Khi đứng ở một track trong Creator và Track Tool (ngoại trừ trong
+  Creator's Playlist Editor), bấm Control+NVDA+trừ sẽ hiển thị dữ liệu của
+  tất cả các cột trên một cửa sổ chế độ duyệt.
+* Nếu NVDA nhận ra một thành phần trong danh sách track có ít hơn 10 cột,
+  NVDA sẽ không thông báo tiêu đề các cột không tồn tại khi bấm
+  Control+NVDA+các số ngoài vùng có tiêu đề cột.
+* Trong creator, NVDA sẽ không còn thông báo thông tin cột nếu bấm
+  Control+NVDA+các phím số khi không đứng tại danh sách track.
+* Khi một track đang phát, NVDA sẽ không còn thông báo "không có track nào
+  đang phát" nếu lấy thông tin về track hiện tại và kế tiếp thông qua SPL
+  Assistant hay SPL Controller.
+* Nếu một hộp thoại tùy chỉnh báo hiệu (nhạc hiệu, nhạc kết thúc,
+  microphone) được mở, NVDA sẽ không còn phát âm thanh báo lỗi hoặc không
+  làm gì nếu dự định mở một hộp thoại báo hiệu thứ hai.
+* Khi nỗ lực chuyển giữa hồ sơ đang hoạt động và một hồ sơ chuyển nhanh
+  thông qua SPL Assistant (F12), NVDA sẽ hiện một thông điệp nếu làm vậy khi
+  đang mở màn hình cài đặt add-on.
 
 ## Phiên bản 20.01
 

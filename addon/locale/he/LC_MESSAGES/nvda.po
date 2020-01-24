@@ -30,6 +30,14 @@ msgstr ""
 msgid "Old Windows version"
 msgstr "התגלתה גרסת ווינדוס ישנה"
 
+#. Translators: Title of the column data window.
+msgid "Track data"
+msgstr "עקוב אחר הנתונים"
+
+#. Translators: input help mode message for columns viewer command.
+msgid "Presents data for all columns in the currently selected track"
+msgstr "מציג נתונים עבור כל העמודות במעקב שנבחר כעת"
+
 #. Translators: Presented when microphone has been active for a while.
 msgid "Microphone active"
 msgstr "המיקרופון פעיל"
@@ -62,13 +70,14 @@ msgstr ""
 msgid "StationPlaylist"
 msgstr "StationPlaylist Studio"
 
+#. Translators: Presented when column is out of range.
+#, python-brace-format
+msgid "Column {columnPosition} not found"
+msgstr ""
+
 #. Translators: presented when column information for a track is empty.
 msgid "blank"
 msgstr "ריק"
-
-#. Translators: Title of the column data window.
-msgid "Track data"
-msgstr "עקוב אחר הנתונים"
 
 #. Translators: Presented when a specific column header is not found.
 #, python-brace-format
@@ -103,10 +112,6 @@ msgstr "{checkStatus}{header}: ריק"
 #, python-brace-format
 msgid "{checkStatus}{header}: ()"
 msgstr "{checkStatus}{header}: ()"
-
-#. Translators: input help mode message for columns viewer command.
-msgid "Presents data for all columns in the currently selected track"
-msgstr "מציג נתונים עבור כל העמודות במעקב שנבחר כעת"
 
 msgid "Has comment"
 msgstr "קיימת הערה"
@@ -404,9 +409,13 @@ msgid "Announces time including seconds."
 msgstr "הקראת אורך הנגינה, כולל שניות."
 
 #. Translators: Presented when the add-on config dialog is opened.
+#, fuzzy
 msgid ""
-"The add-on settings dialog is opened. Please close the settings dialog first."
-msgstr "תיבת דו-שיח של הגדרות כבר פתוחה. נא לסגור אותה תחילה."
+"The add-on settings dialog or another alarm dialog is opened. Please close "
+"the opened dialog first."
+msgstr ""
+"תיבת דו-שיח של הגדרות התוסף או של זרימת הנתונם פתוחה כרגע. נא לסגור אותה "
+"תחילה."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Sets end of track alarm (default is 5 seconds)."
@@ -678,7 +687,14 @@ msgid "Playlist modification not available"
 msgstr "לא ניתן לשנות את רשימת הנגינה"
 
 #. Translators: Presented when there is no information for the next track.
-msgid "No next track scheduled or no track is playing"
+#. Translators: Presented when there is no information for the current track.
+#, fuzzy
+msgid "No track is playing"
+msgstr "אין רצועה בנגינה כעת."
+
+#. Translators: Presented when there is no information for the next track.
+#, fuzzy
+msgid "No next track scheduled"
 msgstr "אין רצועה עתידה לנגן או בנגינה כעת"
 
 #. Translators: Presented when next track information is unavailable.
@@ -690,8 +706,9 @@ msgid "Announces title of the next track if any"
 msgstr "הקראת כותרת הרצועה הבאה, אם יש כזאת"
 
 #. Translators: Presented when there is no information for the current track.
-msgid "Cannot locate current track information or no track is playing"
-msgstr "לא ניתן למצוא מידע על הרצועה הנוכחית או אין רצועה בנגינה כרגע"
+#, fuzzy
+msgid "Cannot locate current track information"
+msgstr "לא ניתן למצוא מידע על הרצועה הנוכחית"
 
 #. Translators: Presented when current track information is unavailable.
 msgid "Cannot find current track information"
@@ -759,6 +776,10 @@ msgid ""
 "Presents playlist snapshot information such as number of tracks and top "
 "artists"
 msgstr "מציג מידע על רשימת השמעה כמו מספר רצועות ואמנים מובילים"
+
+#. Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
+msgid "Add-on settings dialog is open, cannot switch profiles"
+msgstr "תיבת דו-שיח התוסף פתוחה כרגע. לא ניתן להחליף פרופיל"
 
 #. Translators: Presented when place marker cannot be set.
 msgid "No tracks found, cannot set place marker"
@@ -830,10 +851,6 @@ msgstr ""
 #, fuzzy
 msgid "SPL Studio add-on reset"
 msgstr "הגדרות תוסף הסטודיו"
-
-#. Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
-msgid "Add-on settings dialog is open, cannot switch profiles"
-msgstr "תיבת דו-שיח התוסף פתוחה כרגע. לא ניתן להחליף פרופיל"
 
 #. Translators: Presented when switch to instant switch profile was successful.
 #, python-brace-format
@@ -1857,6 +1874,11 @@ msgstr "מספר מאזינים:  {listenerCount}"
 msgid "There is no track playing."
 msgstr "אין רצועה בנגינה כעת."
 
+#. Translators: presented if encoder connection status cannot be obtained.
+#, fuzzy
+msgid "Cannot obtain encoder connection status"
+msgstr "לא ניתן לפתוח את תיבת הדו-שיח של זרימת המטאדאטה"
+
 #. Translators: Input help message for a SPL Controller command.
 #, fuzzy
 msgid "Announces stream encoder status from other programs"
@@ -1871,177 +1893,6 @@ msgstr "מכריזה על מצב הסטודיו, כגון מצב השמעת רצ
 msgid "SPL Controller help"
 msgstr "עזרה על תוכנת SPL"
 
-#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
-#, fuzzy
-msgid "No encoders found"
-msgstr "לא נמצאה נקודת תחילת הניתוח"
-
-#. Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
-msgid "Only one encoder type can be active at once"
-msgstr ""
-
-#. Translators: presented when at least one encoder is connected.
-#, fuzzy, python-brace-format
-msgid "Connected encoders: {encodersConnected}"
-msgstr "שליטה על מנגנון הקידוד   {encoderNumber}"
-
-#. Translators: presented when no encoders are connected.
-#, fuzzy
-msgid "No encoders connected"
-msgstr "אין מנגנוני קידוד תחת שליטה"
-
-#. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
-#, python-brace-format
-msgid "Encoder settings for {name}"
-msgstr "הגדרות קידוד עבור  {name}"
-
-#. Translators: An edit field in encoder settings to set stream label for this encoder.
-msgid "Stream &label"
-msgstr "Stream &label"
-
-#. Translators: A checkbox in encoder settings to set if NvDA should switch focus to Studio window when connected.
-msgid "&Focus to Studio when connected"
-msgstr "ה&עברת הפוקוס לסטודיו בעת התחברות"
-
-#. Translators: A checkbox in encoder settings to set if NvDA should play the next track when connected.
-msgid "&Play first track when connected"
-msgstr "&נגן את הרצועה הראשונה בעת התחברות"
-
-#. Translators: A checkbox in encoder settings to set if NvDA should monitor the status of this encoder in the background.
-msgid "Enable background connection &monitoring"
-msgstr "הפוך את ה&שליטה על ההתחברות לזמינה"
-
-#. Translators: A checkbox in encoder settings to set if NvDA should play connection progress tone.
-msgid "Play connection status &beep while connecting"
-msgstr "השמע &צליל מצב בעת התחברות"
-
-#. Translators: Status message for encoder monitoring.
-#, python-brace-format
-msgid "{encoder} {encoderNumber}: {status}"
-msgstr "{encoder} {encoderNumber}: {status}"
-
-#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
-msgid "Switch to Studio after connecting"
-msgstr "העבר את הפוקוס לסטודיו בעת התחברות"
-
-#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
-msgid "Do not switch to Studio after connecting"
-msgstr "אל תעביר את הפוקוס לסטודיו בעת התחברות"
-
-#. Translators: Input help mode message in SAM Encoder window.
-msgid ""
-"Toggles whether NVDA will switch to Studio when connected to a streaming "
-"server."
-msgstr "מיתוג העברת הפוקוס לסטודיו על ידי NVDA בעת התחברות לשרת זרימה."
-
-#. Translators: Presented when toggling the setting to play selected song when connected to a streaming server.
-msgid "Play first track after connecting"
-msgstr "נגן את הרצועה הראשונה בעת התחברות"
-
-#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
-msgid "Do not play first track after connecting"
-msgstr "אל תנגן את הרצועה הראשונה בעת התחברות"
-
-#. Translators: Input help mode message in SAM Encoder window.
-msgid ""
-"Toggles whether Studio will play the first song when connected to a "
-"streaming server."
-msgstr "מיתוג נגינת הרצועה הראשונה בעת התחברות לשרת זרימה."
-
-#. Multiple encoders.
-#. Translators: Presented when toggling the setting to monitor the selected encoder.
-#, python-brace-format
-msgid "Monitoring encoder {encoderNumber}"
-msgstr "שליטה על מנגנון הקידוד   {encoderNumber}"
-
-#. Translators: Presented when toggling the setting to monitor the selected encoder.
-#, python-brace-format
-msgid "Encoder {encoderNumber} will not be monitored"
-msgstr "לא תתבצע שליטה על מנגנון  {encoderNumber} הקידוד"
-
-#. Translators: Announced when background encoder monitoring is canceled.
-msgid "Encoder monitoring canceled"
-msgstr "השליטה על מנגנון הקידוד בוטלה"
-
-#. Translators: Input help mode message in SAM Encoder window.
-msgid ""
-"Toggles whether NVDA will monitor the selected encoder in the background."
-msgstr "מיתוג שליטת NVDA על מנגנון הקידוד."
-
-#. Translators: The title of the stream labeler dialog (example: stream labeler for 1).
-#, python-brace-format
-msgid "Stream labeler for {streamEntry}"
-msgstr "הגדרת תוית עבור  {streamEntry}"
-
-#. Translators: The text of the stream labeler dialog.
-msgid "Enter the label for this stream"
-msgstr "נא להקיש את התוית המגדירה את פריט הזרימה הזה"
-
-#. Translators: Input help mode message in SAM Encoder window.
-msgid "Opens a dialog to label the selected encoder."
-msgstr "פתיחת תיבת דו-שיח להגדרת תויות."
-
-#. Translators: The title of the stream configuration eraser dialog.
-msgid "Stream label and settings eraser"
-msgstr "אפשרויות מחיקה של תויות ושל הגדרות"
-
-#. Translators: The text of the stream configuration eraser dialog.
-msgid "Enter the position of the encoder you wish to delete or will delete"
-msgstr "נא להקיש את מיקומו של מנגנון הקידוד שברצונך למחוק"
-
-#. Translators: Input help mode message in SAM Encoder window.
-msgid ""
-"Opens a dialog to erase stream labels and settings from an encoder that was "
-"deleted."
-msgstr "פתיחת תיבת דו-שיח למחיקת תויות והגדרות השייכות למנגנון קידוד שנמחק."
-
-#. Translators: Text of the dialog when another alarm dialog is open.
-msgid "Another encoder settings dialog is open."
-msgstr "תיבת דו-שיח של מנגנוני קידוד כבר פתוחה."
-
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid ""
-"Shows encoder configuration dialog to configure various encoder settings "
-"such as stream label."
-msgstr ""
-"מציג תיבת דו-שיח המאפשרת להגדיר מאפיינים שונים של מנגנוני הקידוד, כגון תויות."
-
-#. Translators: Input help mode message for report date and time command.
-msgid ""
-"If pressed once, reports the current time including seconds. If pressed "
-"twice, reports the current date"
-msgstr "לחיצה פעם אחת : הקראת השעה. לחיצה פעמיים : הקראת התאריך הנוכחי"
-
-#, python-brace-format
-msgid "Position: {pos}"
-msgstr "מיקום: {pos}"
-
-#, python-brace-format
-msgid "Label: {label}"
-msgstr "תוית: {label}"
-
-msgid "No stream label"
-msgstr "אין תוית לקטע"
-
-#. Translators: Presented when an Encoder is trying to connect to a streaming server.
-msgid "Connecting..."
-msgstr "מתחבר..."
-
-#. Translators: Presented when an Encoder is disconnecting from a streaming server.
-msgid "Disconnecting..."
-msgstr "מתנתק..."
-
-msgid "Connects to a streaming server."
-msgstr "מתחבר לשרת זרימה."
-
-#, python-brace-format
-msgid "Encoder Settings: {setting}"
-msgstr "הגדרות מגנון זרימה:  {setting}"
-
-#, python-brace-format
-msgid "Transfer Rate: {transferRate}"
-msgstr "קצב העברה: : {transferRate}"
-
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
 msgid ""
@@ -2050,3 +1901,138 @@ msgid ""
 msgstr ""
 "מנגיש את תוכנת StationPlaylist  Studio  .  \n"
 "בנוסף, מאפשר ביצוע פקודות מכל מקום אחר במחשב."
+
+#~ msgid ""
+#~ "The add-on settings dialog is opened. Please close the settings dialog "
+#~ "first."
+#~ msgstr "תיבת דו-שיח של הגדרות כבר פתוחה. נא לסגור אותה תחילה."
+
+#~ msgid "Cannot locate current track information or no track is playing"
+#~ msgstr "לא ניתן למצוא מידע על הרצועה הנוכחית או אין רצועה בנגינה כרגע"
+
+#, fuzzy
+#~ msgid "No encoders found"
+#~ msgstr "לא נמצאה נקודת תחילת הניתוח"
+
+#, fuzzy
+#~ msgid "Connected encoders: {encodersConnected}"
+#~ msgstr "שליטה על מנגנון הקידוד   {encoderNumber}"
+
+#, fuzzy
+#~ msgid "No encoders connected"
+#~ msgstr "אין מנגנוני קידוד תחת שליטה"
+
+#~ msgid "Encoder settings for {name}"
+#~ msgstr "הגדרות קידוד עבור  {name}"
+
+#~ msgid "Stream &label"
+#~ msgstr "Stream &label"
+
+#~ msgid "&Focus to Studio when connected"
+#~ msgstr "ה&עברת הפוקוס לסטודיו בעת התחברות"
+
+#~ msgid "&Play first track when connected"
+#~ msgstr "&נגן את הרצועה הראשונה בעת התחברות"
+
+#~ msgid "Enable background connection &monitoring"
+#~ msgstr "הפוך את ה&שליטה על ההתחברות לזמינה"
+
+#~ msgid "Play connection status &beep while connecting"
+#~ msgstr "השמע &צליל מצב בעת התחברות"
+
+#~ msgid "{encoder} {encoderNumber}: {status}"
+#~ msgstr "{encoder} {encoderNumber}: {status}"
+
+#~ msgid "Switch to Studio after connecting"
+#~ msgstr "העבר את הפוקוס לסטודיו בעת התחברות"
+
+#~ msgid "Do not switch to Studio after connecting"
+#~ msgstr "אל תעביר את הפוקוס לסטודיו בעת התחברות"
+
+#~ msgid ""
+#~ "Toggles whether NVDA will switch to Studio when connected to a streaming "
+#~ "server."
+#~ msgstr "מיתוג העברת הפוקוס לסטודיו על ידי NVDA בעת התחברות לשרת זרימה."
+
+#~ msgid "Play first track after connecting"
+#~ msgstr "נגן את הרצועה הראשונה בעת התחברות"
+
+#~ msgid "Do not play first track after connecting"
+#~ msgstr "אל תנגן את הרצועה הראשונה בעת התחברות"
+
+#~ msgid ""
+#~ "Toggles whether Studio will play the first song when connected to a "
+#~ "streaming server."
+#~ msgstr "מיתוג נגינת הרצועה הראשונה בעת התחברות לשרת זרימה."
+
+#~ msgid "Monitoring encoder {encoderNumber}"
+#~ msgstr "שליטה על מנגנון הקידוד   {encoderNumber}"
+
+#~ msgid "Encoder {encoderNumber} will not be monitored"
+#~ msgstr "לא תתבצע שליטה על מנגנון  {encoderNumber} הקידוד"
+
+#~ msgid "Encoder monitoring canceled"
+#~ msgstr "השליטה על מנגנון הקידוד בוטלה"
+
+#~ msgid ""
+#~ "Toggles whether NVDA will monitor the selected encoder in the background."
+#~ msgstr "מיתוג שליטת NVDA על מנגנון הקידוד."
+
+#~ msgid "Stream labeler for {streamEntry}"
+#~ msgstr "הגדרת תוית עבור  {streamEntry}"
+
+#~ msgid "Enter the label for this stream"
+#~ msgstr "נא להקיש את התוית המגדירה את פריט הזרימה הזה"
+
+#~ msgid "Opens a dialog to label the selected encoder."
+#~ msgstr "פתיחת תיבת דו-שיח להגדרת תויות."
+
+#~ msgid "Stream label and settings eraser"
+#~ msgstr "אפשרויות מחיקה של תויות ושל הגדרות"
+
+#~ msgid "Enter the position of the encoder you wish to delete or will delete"
+#~ msgstr "נא להקיש את מיקומו של מנגנון הקידוד שברצונך למחוק"
+
+#~ msgid ""
+#~ "Opens a dialog to erase stream labels and settings from an encoder that "
+#~ "was deleted."
+#~ msgstr "פתיחת תיבת דו-שיח למחיקת תויות והגדרות השייכות למנגנון קידוד שנמחק."
+
+#~ msgid "Another encoder settings dialog is open."
+#~ msgstr "תיבת דו-שיח של מנגנוני קידוד כבר פתוחה."
+
+#~ msgid ""
+#~ "Shows encoder configuration dialog to configure various encoder settings "
+#~ "such as stream label."
+#~ msgstr ""
+#~ "מציג תיבת דו-שיח המאפשרת להגדיר מאפיינים שונים של מנגנוני הקידוד, כגון "
+#~ "תויות."
+
+#~ msgid ""
+#~ "If pressed once, reports the current time including seconds. If pressed "
+#~ "twice, reports the current date"
+#~ msgstr "לחיצה פעם אחת : הקראת השעה. לחיצה פעמיים : הקראת התאריך הנוכחי"
+
+#~ msgid "Position: {pos}"
+#~ msgstr "מיקום: {pos}"
+
+#~ msgid "Label: {label}"
+#~ msgstr "תוית: {label}"
+
+#~ msgid "No stream label"
+#~ msgstr "אין תוית לקטע"
+
+#~ msgid "Connecting..."
+#~ msgstr "מתחבר..."
+
+#~ msgid "Disconnecting..."
+#~ msgstr "מתנתק..."
+
+#~ msgid "Connects to a streaming server."
+#~ msgstr "מתחבר לשרת זרימה."
+
+#~ msgid "Encoder Settings: {setting}"
+#~ msgstr "הגדרות מגנון זרימה:  {setting}"
+
+#~ msgid "Transfer Rate: {transferRate}"
+#~ msgstr "קצב העברה: : {transferRate}"
