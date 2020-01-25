@@ -17,7 +17,7 @@ from winUser import user32
 from . import splbase
 from .spldebugging import debugOutput
 from . import splactions
-from .skipTranslation import translate
+from ..skipTranslation import translate
 
 # A custom combo box for cases where combo boxes are not choice controls.
 class CustomComboBox(wx.ComboBox, wx.Choice):

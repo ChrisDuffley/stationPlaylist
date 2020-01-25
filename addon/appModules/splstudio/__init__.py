@@ -41,7 +41,7 @@ from . import splactions
 import addonHandler
 addonHandler.initTranslation()
 from .spldebugging import debugOutput
-from .skipTranslation import translate
+from ..skipTranslation import translate
 
 # Make sure the broadcaster is running a compatible version.
 SPLMinVersion = "5.20"

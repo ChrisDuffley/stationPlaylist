@@ -18,7 +18,7 @@ import addonHandler
 addonHandler.initTranslation()
 from . import splconfig
 from . import splactions
-from .skipTranslation import translate
+from ..skipTranslation import translate
 
 # Due to syntax/variable name issues, the actual add-on settings class can be found at the end of this module.
 

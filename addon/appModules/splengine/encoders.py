@@ -499,7 +499,7 @@ class Encoder(IAccessible):
 			d.Show()
 			gui.mainFrame.postPopup()
 		except RuntimeError:
-			from .skipTranslation import translate
+			from ..skipTranslation import translate
 			# Translators: Text of the dialog when another alarm dialog is open.
 			wx.CallAfter(gui.messageBox, _("Another encoder settings dialog is open."),translate("Error"),style=wx.OK | wx.ICON_ERROR)
 
