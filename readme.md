@@ -207,6 +207,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * When a track is playing, NVDA will no longer announce "no track is playing" if obtaining information about current and next tracks via SPL Assistant or SPL Controller.
 * If an alarm options dialog (intro, outro, microphone) is open, NVDA will no longer appear to do nothing or play error tone if attempting to open a second instance of any alarm dialog.
 * When trying to switch between active profile and an instant profile via SPL Assistant (F12), NVDA will present a message if attempting to do so while add-on settings screen is open.
+* In encoders, NVDA will no longer forget to apply no connection tone setting for encoders when NVDA is restarted.
 
 ## Version 20.01
 
