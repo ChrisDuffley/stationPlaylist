@@ -65,7 +65,7 @@ def loadStreamLabels():
 		SPLPlayAfterConnecting = set(streamLabels["PlayAfterConnecting"])
 	if "BackgroundMonitor" in streamLabels:
 		SPLBackgroundMonitor = set(streamLabels["BackgroundMonitor"])
-	if "ConnectionTone" in streamLabels:
+	if "NoConnectionTone" in streamLabels:
 		SPLNoConnectionTone = set(streamLabels["NoConnectionTone"])
 
 # Report number of encoders being monitored.
