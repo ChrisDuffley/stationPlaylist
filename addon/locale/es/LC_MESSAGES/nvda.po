@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2019-11-21 16:17-0800\n"
+"PO-Revision-Date: 2020-01-26 18:38+0100\n"
 "Last-Translator: José Manuel Delicado <jmdaweb@hotmail.com>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 2.2.4\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
@@ -74,7 +74,7 @@ msgstr "StationPlaylist"
 #. Translators: Presented when column is out of range.
 #, python-brace-format
 msgid "Column {columnPosition} not found"
-msgstr ""
+msgstr "Columna {columnPosition} no encontrada"
 
 #. Translators: presented when column information for a track is empty.
 msgid "blank"
@@ -425,13 +425,12 @@ msgid "Announces time including seconds."
 msgstr "Anuncia el tiempo incluyendo segundos."
 
 #. Translators: Presented when the add-on config dialog is opened.
-#, fuzzy
 msgid ""
 "The add-on settings dialog or another alarm dialog is opened. Please close "
 "the opened dialog first."
 msgstr ""
-"Los diálogos de opciones del complemento o metadatos del streaming están "
-"abiertos. Por favor ciérralos antes."
+"El diálogo de opciones del complemento o un diálogo de alarma está abierto. "
+"Por favor, ciérralo primero."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Sets end of track alarm (default is 5 seconds)."
@@ -726,14 +725,12 @@ msgstr "Modificación de lista de reproducción no disponible"
 
 #. Translators: Presented when there is no information for the next track.
 #. Translators: Presented when there is no information for the current track.
-#, fuzzy
 msgid "No track is playing"
-msgstr "No hay pista en reproducción."
+msgstr "No hay pista en reproducción"
 
 #. Translators: Presented when there is no information for the next track.
-#, fuzzy
 msgid "No next track scheduled"
-msgstr "No hay siguiente pista programada o no hay pista en reproducción"
+msgstr "No hay siguiente pista programada"
 
 #. Translators: Presented when next track information is unavailable.
 msgid "Cannot find next track information"
@@ -744,9 +741,8 @@ msgid "Announces title of the next track if any"
 msgstr "Anuncia el título de la siguiente pista si la hay"
 
 #. Translators: Presented when there is no information for the current track.
-#, fuzzy
 msgid "Cannot locate current track information"
-msgstr "No se pudo encontrar información de la pista"
+msgstr "No se pudo encontrar información de la pista actual"
 
 #. Translators: Presented when current track information is unavailable.
 msgid "Cannot find current track information"
@@ -1994,9 +1990,8 @@ msgid "There is no track playing."
 msgstr "No hay pista en reproducción."
 
 #. Translators: presented if encoder connection status cannot be obtained.
-#, fuzzy
 msgid "Cannot obtain encoder connection status"
-msgstr "No se pudo obtener la información sobre la transmisión de metadatos"
+msgstr "No se puede obtener el estado de conexión del codificador"
 
 #. Translators: Input help message for a SPL Controller command.
 msgid "Announces stream encoder status from other programs"

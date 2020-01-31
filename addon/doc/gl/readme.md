@@ -362,6 +362,8 @@ listadas arriba para realizar ordes.
 * ao tentar cambiar entre o perfil activo e un perfil instantáneo a través
   de SPL Assitant (F12), NVDA presentará unha mensaxe se se intenta facer
   cando a pantalla de opcións do complemento estea aberta.
+* In encoders, NVDA will no longer forget to apply no connection tone
+  setting for encoders when NVDA is restarted.
 
 ## Versión 20.01
 
