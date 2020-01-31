@@ -323,6 +323,8 @@ và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thự
 * Khi nỗ lực chuyển giữa hồ sơ đang hoạt động và một hồ sơ chuyển nhanh
   thông qua SPL Assistant (F12), NVDA sẽ hiện một thông điệp nếu làm vậy khi
   đang mở màn hình cài đặt add-on.
+* In encoders, NVDA will no longer forget to apply no connection tone
+  setting for encoders when NVDA is restarted.
 
 ## Phiên bản 20.01
 

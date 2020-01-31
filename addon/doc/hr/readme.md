@@ -344,6 +344,8 @@ koristi gore navedene dodirne naredbe za njihovo izvršavanje.
 * When trying to switch between active profile and an instant profile via
   SPL Assistant (F12), NVDA will present a message if attempting to do so
   while add-on settings screen is open.
+* In encoders, NVDA will no longer forget to apply no connection tone
+  setting for encoders when NVDA is restarted.
 
 ## Version 20.01
 
