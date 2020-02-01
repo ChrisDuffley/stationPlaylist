@@ -585,7 +585,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 
 	@property
 	def connected(self):
-		return self.children[2].name == "Encoding"
+		return self.getChild(2).name == "Encoding"
 
 	def reportConnectionStatus(self, connecting=False):
 		# A fake child object holds crucial information about connection status.
@@ -603,7 +603,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 			try:
 				# An inner try block is required because statChild may say the base class is gone.
 				try:
-					statChild = self.children[2]
+					statChild = self.getChild(2)
 				except NotImplementedError:
 					return # Only seen when the encoder dies.
 			except IndexError:
@@ -677,7 +677,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 		def _samContextMenuActivate(pos):
 			speech.cancelSpeech()
 			focus =api.getFocusObject()
-			focus.children[pos].doAction()
+			focus.getChild(pos).doAction()
 		import keyboardHandler
 		contextMenu = keyboardHandler.KeyboardInputGesture.fromName("applications")
 		contextMenu.send()
@@ -758,7 +758,7 @@ class SPLEncoder(Encoder):
 
 	@property
 	def connected(self):
-		status = self.children[1].name
+		status = self.getChild(1).name
 		return "Kbps" in status or "Connected" in status
 
 	def reportConnectionStatus(self, connecting=False):
@@ -773,7 +773,7 @@ class SPLEncoder(Encoder):
 			try:
 				# An inner try block is required because statChild may say the base class is gone.
 				try:
-					statChild = self.children[1]
+					statChild = self.getChild(1)
 				except NotImplementedError:
 					return # Only seen when the encoder dies.
 			except IndexError:
@@ -811,7 +811,7 @@ class SPLEncoder(Encoder):
 
 	def script_connect(self, gesture):
 		# Same as SAM's connection routine, but this time, keep an eye on self.name and a different connection flag.
-		connectButton = api.getForegroundObject().children[2]
+		connectButton = api.getForegroundObject().getChild(2)
 		if connectButton.name == "Disconnect": return
 		ui.message(_("Connecting..."))
 		# Juggle the focus around.
@@ -823,10 +823,10 @@ class SPLEncoder(Encoder):
 
 	# Announce SPL Encoder columns: encoder settings and transfer rate.
 	def script_announceEncoderSettings(self, gesture):
-		ui.message(_("Encoder Settings: {setting}").format(setting = self.children[0].name))
+		ui.message(_("Encoder Settings: {setting}").format(setting = self.getChild(0).name))
 
 	def script_announceEncoderTransfer(self, gesture):
-		ui.message(_("Transfer Rate: {transferRate}").format(transferRate = self.children[1].name))
+		ui.message(_("Transfer Rate: {transferRate}").format(transferRate = self.getChild(1).name))
 
 	@property
 	def threadPool(self):
