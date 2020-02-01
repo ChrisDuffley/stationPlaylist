@@ -601,12 +601,8 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 		while True:
 			time.sleep(0.001)
 			try:
-				# An inner try block is required because statChild may say the base class is gone.
-				try:
-					statChild = self.getChild(2)
-				except NotImplementedError:
-					return # Only seen when the encoder dies.
-			except IndexError:
+				statChild = self.getChild(2)
+			except:
 				return # Don't leave zombie objects around.
 			# Encoding status object will die if encoder entry is deleted while being monitored.
 			if statChild.name is None: return
@@ -771,12 +767,8 @@ class SPLEncoder(Encoder):
 		while True:
 			time.sleep(0.001)
 			try:
-				# An inner try block is required because statChild may say the base class is gone.
-				try:
-					statChild = self.getChild(1)
-				except NotImplementedError:
-					return # Only seen when the encoder dies.
-			except IndexError:
+				statChild = self.getChild(1)
+			except:
 				return # Don't leave zombie objects around.
 			if messageCache != statChild.name:
 				messageCache = statChild.name
