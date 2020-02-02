@@ -702,19 +702,15 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 	# Announce SAM columns: encoder name/type, status and description.
 	@scriptHandler.script(gesture="kb:control+NVDA+3")
 	def script_announceEncoderFormat(self, gesture):
-		typeIndex = self.description.find(", Status: ")
-		ui.message(self.description[:typeIndex])
+		ui.message(_("Format: {encoderFormat}").format(encoderFormat = self.getChild(1).name))
 
 	@scriptHandler.script(gesture="kb:control+NVDA+4")
 	def script_announceEncoderStatus(self, gesture):
-		typeIndex = self.description.find(", Status: ")
-		statusIndex = self.description.find(", Description: ")
-		ui.message(self.description[typeIndex+2:statusIndex])
+		ui.message(_("Status: {encoderStatus}").format(encoderStatus = self.getChild(2).name))
 
 	@scriptHandler.script(gesture="kb:control+NVDA+5")
 	def script_announceEncoderStatusDesc(self, gesture):
-		statusIndex = self.description.find(", Description: ")
-		ui.message(self.description[statusIndex+2:])
+		ui.message(_("Description: {encoderDescription}").format(encoderDescription = self.getChild(3).name))
 
 	@property
 	def threadPool(self):
