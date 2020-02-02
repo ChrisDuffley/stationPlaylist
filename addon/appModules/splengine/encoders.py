@@ -588,7 +588,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 		# A fake child object holds crucial information about connection status.
 		# In order to not block NVDA commands, this will be done using a different thread.
 		SPLWin = user32.FindWindowW("SPLStudio", None)
-		toneCounter = 0
+		connectionAttempt = 0
 		messageCache = ""
 		# Status message flags.
 		idle = False
@@ -615,13 +615,13 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 				if not idle:
 					tones.beep(250, 250)
 					idle = True
-					toneCounter = 0
+					connectionAttempt = 0
 			elif messageCache.startswith("Error"):
 				# Announce the description of the error.
 				if connecting: connecting= False
 				if not error:
 					error = True
-					toneCounter = 0
+					connectionAttempt = 0
 				if alreadyEncoding: alreadyEncoding = False
 			elif messageCache.startswith("Encoding"):
 				if connecting: connecting = False
@@ -643,8 +643,8 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 				if alreadyEncoding: alreadyEncoding = False
 				if encoding: encoding = False
 				elif "Error" not in messageCache and error: error = False
-				toneCounter+=1
-				if toneCounter%250 == 0 and self.connectionTone:
+				connectionAttempt+=1
+				if connectionAttempt%250 == 0 and self.connectionTone:
 					tones.beep(500, 50)
 			if connecting: continue
 			if not self.backgroundMonitor: return
@@ -750,7 +750,7 @@ class SPLEncoder(Encoder):
 	def reportConnectionStatus(self, connecting=False):
 		# Same routine as SAM encoder: use a thread to prevent blocking NVDA commands.
 		SPLWin = user32.FindWindowW("SPLStudio", None)
-		attempt = 0
+		connectionAttempt = 0
 		messageCache = ""
 		# Status flags.
 		connected = False
@@ -783,10 +783,10 @@ class SPLEncoder(Encoder):
 			else:
 				if connected: connected = False
 				if not "Kbps" in messageCache:
-					attempt += 1
-					if attempt%250 == 0 and self.connectionTone:
+					connectionAttempt += 1
+					if connectionAttempt%250 == 0 and self.connectionTone:
 						tones.beep(500, 50)
-						if attempt>= 500 and statChild.name == "Disconnected":
+						if connectionAttempt>= 500 and statChild.name == "Disconnected":
 							tones.beep(250, 250)
 				if connecting: continue
 			if not self.backgroundMonitor: return
