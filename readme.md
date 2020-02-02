@@ -202,6 +202,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * Columns Explorer will now announce first ten columns by default (existing installations will continue to use old column slots).
 * The ability to announce name of the playing track automatically from places other than Studio has been removed. This feature, introduced in add-on 5.6 as a workaround for Studio 5.1x, is no longer functional. Users must now use SPL Controller and/or Assistant layer command to hear title of the currently playing track from everywhere (C).
 * Due to removal of automatic announcement of playing track title, the setting to configure this feature has been removed from add-on settings/status announcement category.
+* In encoders, NvDA will play connection tone every half a second while an encoder is connecting.
 
 ## Version 20.02
 
