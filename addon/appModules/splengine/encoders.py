@@ -590,6 +590,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 		SPLWin = user32.FindWindowW("SPLStudio", None)
 		# #123 (20.03): conection attempt counting is deprecated, replaced by time intervals.
 		connectionAttempt = 0
+		attemptTime = time.time()
 		messageCache = ""
 		# Status message flags.
 		idle = False
@@ -645,8 +646,10 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 				if encoding: encoding = False
 				elif "Error" not in messageCache and error: error = False
 				connectionAttempt+=1
-				if connectionAttempt%250 == 0 and self.connectionTone:
+				currentTime = time.time()
+				if currentTime-attemptTime >= 0.5 and self.connectionTone:
 					tones.beep(500, 50)
+					attemptTime = currentTime
 			if connecting: continue
 			if not self.backgroundMonitor: return
 
@@ -753,6 +756,7 @@ class SPLEncoder(Encoder):
 		SPLWin = user32.FindWindowW("SPLStudio", None)
 		# #123 (20.03): same deprecation as SAM encoder.
 		connectionAttempt = 0
+		attemptTime = time.time()
 		messageCache = ""
 		# Status flags.
 		connected = False
@@ -786,8 +790,10 @@ class SPLEncoder(Encoder):
 				if connected: connected = False
 				if not "Kbps" in messageCache:
 					connectionAttempt += 1
-					if connectionAttempt%250 == 0 and self.connectionTone:
+					currentTime = time.time()
+					if currentTime-attemptTime >= 0.5 and self.connectionTone:
 						tones.beep(500, 50)
+						attemptTime = currentTime
 						if connectionAttempt>= 500 and statChild.name == "Disconnected":
 							tones.beep(250, 250)
 				if connecting: continue
