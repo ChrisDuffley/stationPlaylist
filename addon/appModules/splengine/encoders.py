@@ -801,6 +801,11 @@ class SPLEncoder(Encoder):
 				if connecting: continue
 			if not self.backgroundMonitor: return
 
+	@scriptHandler.script(
+		# Translators: input hep command for an encoder connection command.
+		description=_("Connects to a streaming server."),
+		gesture="kb:f9"
+	)
 	def script_connect(self, gesture):
 		# Same as SAM's connection routine, but this time, keep an eye on self.name and a different connection flag.
 		connectButton = api.getForegroundObject().getChild(2)
