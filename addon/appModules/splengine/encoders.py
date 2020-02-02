@@ -642,7 +642,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 			else:
 				if alreadyEncoding: alreadyEncoding = False
 				if encoding: encoding = False
-				elif "Error" not in self.description and error: error = False
+				elif "Error" not in messageCache and error: error = False
 				toneCounter+=1
 				if toneCounter%250 == 0 and self.connectionTone:
 					tones.beep(500, 50)
