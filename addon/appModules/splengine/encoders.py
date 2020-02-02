@@ -588,6 +588,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 		# A fake child object holds crucial information about connection status.
 		# In order to not block NVDA commands, this will be done using a different thread.
 		SPLWin = user32.FindWindowW("SPLStudio", None)
+		# #123 (20.03): conection attempt counting is deprecated, replaced by time intervals.
 		connectionAttempt = 0
 		messageCache = ""
 		# Status message flags.
@@ -750,6 +751,7 @@ class SPLEncoder(Encoder):
 	def reportConnectionStatus(self, connecting=False):
 		# Same routine as SAM encoder: use a thread to prevent blocking NVDA commands.
 		SPLWin = user32.FindWindowW("SPLStudio", None)
+		# #123 (20.03): same deprecation as SAM encoder.
 		connectionAttempt = 0
 		messageCache = ""
 		# Status flags.
