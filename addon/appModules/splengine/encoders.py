@@ -520,9 +520,11 @@ class Encoder(IAccessible):
 
 	# Various column announcement scripts.
 	# This base class implements encoder position and stream labels.
+	@scriptHandler.script(gesture="kb:control+NVDA+1")
 	def script_announceEncoderPosition(self, gesture):
 		ui.message(_("Position: {pos}").format(pos = self.IAccessibleChildID))
 
+	@scriptHandler.script(gesture="kb:control+NVDA+2")
 	def script_announceEncoderLabel(self, gesture):
 		try:
 			streamLabel = self.getStreamLabel()[0]
@@ -560,11 +562,6 @@ class Encoder(IAccessible):
 			except TypeError:
 				pass
 		super(Encoder, self).reportFocus()
-
-	__gestures={
-		"kb:control+NVDA+1":"announceEncoderPosition",
-		"kb:control+NVDA+2":"announceEncoderLabel",
-	}
 
 class SAMEncoder(Encoder, sysListView32.ListItem):
 	# Support for Sam Encoders.
@@ -652,6 +649,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 			if connecting: continue
 			if not self.backgroundMonitor: return
 
+	@scriptHandler.script(gesture="kb:f9")
 	def script_connect(self, gesture):
 		gesture.send()
 		# Translators: Presented when an Encoder is trying to connect to a streaming server.
@@ -660,6 +658,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 		# To be packaged into a new function in 7.0.
 		if not self.backgroundMonitor: self.connectStart(connecting=True)
 
+	@scriptHandler.script(gesture="kb:f10")
 	def script_disconnect(self, gesture):
 		gesture.send()
 		# Translators: Presented when an Encoder is disconnecting from a streaming server.
@@ -680,6 +679,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 		wx.CallLater(100, _samContextMenuActivate, pos)
 		time.sleep(0.2)
 
+	@scriptHandler.script(gesture="kb:control+f9")
 	def script_connectAll(self, gesture):
 		ui.message(_("Connecting..."))
 		speechMode = speech.speechMode
@@ -689,6 +689,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 		if not self.backgroundMonitor: self.connectStart(connecting=True)
 		speech.speechMode = speechMode
 
+	@scriptHandler.script(gesture="kb:control+f10")
 	def script_disconnectAll(self, gesture):
 		ui.message(_("Disconnecting..."))
 		speechMode = speech.speechMode
@@ -699,15 +700,18 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 		speech.cancelSpeech()
 
 	# Announce SAM columns: encoder name/type, status and description.
+	@scriptHandler.script(gesture="kb:control+NVDA+3")
 	def script_announceEncoderFormat(self, gesture):
 		typeIndex = self.description.find(", Status: ")
 		ui.message(self.description[:typeIndex])
 
+	@scriptHandler.script(gesture="kb:control+NVDA+4")
 	def script_announceEncoderStatus(self, gesture):
 		typeIndex = self.description.find(", Status: ")
 		statusIndex = self.description.find(", Description: ")
 		ui.message(self.description[typeIndex+2:statusIndex])
 
+	@scriptHandler.script(gesture="kb:control+NVDA+5")
 	def script_announceEncoderStatusDesc(self, gesture):
 		statusIndex = self.description.find(", Description: ")
 		ui.message(self.description[statusIndex+2:])
@@ -736,16 +740,6 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 				pass
 		streamLabels["SAMEncoders"] = SAMStreamLabels
 		streamLabels.write()
-
-	__gestures={
-		"kb:f9":"connect",
-		"kb:control+f9":"connectAll",
-		"kb:f10":"disconnect",
-		"kb:control+f10":"disconnectAll",
-		"kb:control+NVDA+3":"announceEncoderFormat",
-		"kb:control+NVDA+4":"announceEncoderStatus",
-		"kb:control+NVDA+5":"announceEncoderStatusDesc"
-	}
 
 class SPLEncoder(Encoder):
 	# Support for SPL Encoder window.
@@ -816,12 +810,13 @@ class SPLEncoder(Encoder):
 		self.setFocus()
 		# Same as SAM encoders.
 		if not self.backgroundMonitor: self.connectStart(connecting=True)
-	script_connect.__doc__=_("Connects to a streaming server.")
 
 	# Announce SPL Encoder columns: encoder settings and transfer rate.
+	@scriptHandler.script(gesture="kb:control+NVDA+3")
 	def script_announceEncoderSettings(self, gesture):
 		ui.message(_("Encoder Settings: {setting}").format(setting = self.getChild(0).name))
 
+	@scriptHandler.script(gesture="kb:control+NVDA+4")
 	def script_announceEncoderTransfer(self, gesture):
 		ui.message(_("Transfer Rate: {transferRate}").format(transferRate = self.getChild(1).name))
 
@@ -849,12 +844,6 @@ class SPLEncoder(Encoder):
 				pass
 		streamLabels["SPLEncoders"] = SPLStreamLabels
 		streamLabels.write()
-
-	__gestures={
-		"kb:f9":"connect",
-		"kb:control+NVDA+3":"announceEncoderSettings",
-		"kb:control+NVDA+4":"announceEncoderTransfer"
-	}
 
 class AltaCastEncoder(SPLEncoder):
 	# Support for AltaCast Encoder window.
