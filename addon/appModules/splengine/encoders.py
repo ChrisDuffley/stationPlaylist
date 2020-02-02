@@ -794,8 +794,6 @@ class SPLEncoder(Encoder):
 					if currentTime-attemptTime >= 0.5 and self.connectionTone:
 						tones.beep(500, 50)
 						attemptTime = currentTime
-						if connectionAttempt>= 500 and statChild.name == "Disconnected":
-							tones.beep(250, 250)
 				if connecting: continue
 			if not self.backgroundMonitor: return
 
