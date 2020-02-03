@@ -313,14 +313,15 @@ class Encoder(IAccessible):
 			pass
 
 	# Encoder connection reporter thread.
-	def connectStart(self, connecting=False):
-		statusThread = threading.Thread(target=self.reportConnectionStatus, kwargs=dict(connecting=connecting))
+	# By default background encoding (no manual connect) is assumed.
+	def connectStart(self, manualConnect=False):
+		statusThread = threading.Thread(target=self.reportConnectionStatus, kwargs=dict(manualConnect=manualConnect))
 		statusThread.start()
 		self.threadPool[self.IAccessibleChildID] = statusThread
 
 	# #103: the abstract method that is responsible for announcing connection status.
 	@abstractmethod
-	def reportConnectionStatus(self, connecting=False):
+	def reportConnectionStatus(self, manualConnect=False):
 		raise NotImplementedError
 
 	# A master flag setter.
@@ -584,7 +585,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 	def connected(self):
 		return self._getColumnContentRaw(2) == "Encoding"
 
-	def reportConnectionStatus(self, connecting=False):
+	def reportConnectionStatus(self, manualConnect=False):
 		# A fake child object holds crucial information about connection status.
 		# In order to not block NVDA commands, this will be done using a different thread.
 		SPLWin = user32.FindWindowW("SPLStudio", None)
@@ -621,13 +622,13 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 					connectionAttempt = 0
 			elif messageCache.startswith("Error"):
 				# Announce the description of the error.
-				if connecting: connecting= False
+				if manualConnect: manualConnect = False
 				if not error:
 					error = True
 					connectionAttempt = 0
 				if alreadyEncoding: alreadyEncoding = False
 			elif messageCache.startswith("Encoding"):
-				if connecting: connecting = False
+				if manualConnect: manualConnect = False
 				# We're on air, so exit unless told to monitor for connection changes.
 				if not encoding:
 					tones.beep(1000, 150)
@@ -651,7 +652,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 				if currentTime-attemptTime >= 0.5 and self.connectionTone:
 					tones.beep(500, 50)
 					attemptTime = currentTime
-			if connecting: continue
+			if manualConnect: continue
 			if not self.backgroundMonitor: return
 
 	@scriptHandler.script(gesture="kb:f9")
@@ -661,7 +662,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 		ui.message(_("Connecting..."))
 		# Oi, status thread, can you keep an eye on the connection status for me?
 		# To be packaged into a new function in 7.0.
-		if not self.backgroundMonitor: self.connectStart(connecting=True)
+		if not self.backgroundMonitor: self.connectStart(manualConnect=True)
 
 	@scriptHandler.script(gesture="kb:f10")
 	def script_disconnect(self, gesture):
@@ -691,7 +692,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 		speech.speechMode = 0
 		wx.CallAfter(self._samContextMenu, 7)
 		# Oi, status thread, can you keep an eye on the connection status for me?
-		if not self.backgroundMonitor: self.connectStart(connecting=True)
+		if not self.backgroundMonitor: self.connectStart(manualConnect=True)
 		speech.speechMode = speechMode
 
 	@scriptHandler.script(gesture="kb:control+f10")
@@ -752,7 +753,7 @@ class SPLEncoder(Encoder):
 		status = self._getColumnContentRaw(1)
 		return "Kbps" in status or "Connected" in status
 
-	def reportConnectionStatus(self, connecting=False):
+	def reportConnectionStatus(self, manualConnect=False):
 		# Same routine as SAM encoder: use a thread to prevent blocking NVDA commands.
 		SPLWin = user32.FindWindowW("SPLStudio", None)
 		# #123 (20.03): same deprecation as SAM encoder.
@@ -774,9 +775,9 @@ class SPLEncoder(Encoder):
 					self.encoderStatusMessage(messageCache, self.IAccessibleChildID)
 			if messageCache == "Disconnected":
 				connected = False
-				if connecting: continue
+				if manualConnect: continue
 			elif "Kbps" in messageCache or "Connected" in messageCache:
-				connecting = False
+				manualConnect = False
 				# We're on air, so exit.
 				if not connected: tones.beep(1000, 150)
 				if self.focusToStudio and not connected:
@@ -795,7 +796,7 @@ class SPLEncoder(Encoder):
 					if currentTime-attemptTime >= 0.5 and self.connectionTone:
 						tones.beep(500, 50)
 						attemptTime = currentTime
-				if connecting: continue
+				if manualConnect: continue
 			if not self.backgroundMonitor: return
 
 	@scriptHandler.script(
@@ -812,7 +813,7 @@ class SPLEncoder(Encoder):
 		connectButton.doAction()
 		self.setFocus()
 		# Same as SAM encoders.
-		if not self.backgroundMonitor: self.connectStart(connecting=True)
+		if not self.backgroundMonitor: self.connectStart(manualConnect=True)
 
 	# Announce SPL Encoder columns: encoder settings and transfer rate.
 	@scriptHandler.script(gesture="kb:control+NVDA+3")
