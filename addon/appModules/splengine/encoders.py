@@ -600,14 +600,15 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 		while True:
 			time.sleep(0.001)
 			try:
-				statChild = self.getChild(2)
+				status = self._getColumnContentRaw(2)
+				statusDetails = self._getColumnContentRaw(3)
 			except:
 				return # Don't leave zombie objects around.
 			# Encoding status object will die if encoder entry is deleted while being monitored.
-			if statChild.name is None: return
+			if not status: return
 			# Status and description are two separate texts.
-			if not messageCache.startswith(statChild.name):
-				messageCache = "; ".join([statChild.name, statChild.next.name])
+			if not messageCache.startswith(status):
+				messageCache = "; ".join([status, statusDetails])
 				if not messageCache: return
 				if not messageCache.startswith("Encoding"):
 					self.encoderStatusMessage(messageCache, self.IAccessibleChildID)
@@ -763,18 +764,18 @@ class SPLEncoder(Encoder):
 		while True:
 			time.sleep(0.001)
 			try:
-				statChild = self.getChild(1)
+				status = self._getColumnContentRaw(1)
 			except:
 				return # Don't leave zombie objects around.
-			if messageCache != statChild.name:
-				messageCache = statChild.name
+			if messageCache != status:
+				messageCache = status
 				if not messageCache: return
 				if "Kbps" not in messageCache:
 					self.encoderStatusMessage(messageCache, self.IAccessibleChildID)
 			if messageCache == "Disconnected":
 				connected = False
 				if connecting: continue
-			elif messageCache == "Connected":
+			elif "Kbps" in messageCache or "Connected" in messageCache:
 				connecting = False
 				# We're on air, so exit.
 				if not connected: tones.beep(1000, 150)
@@ -784,7 +785,7 @@ class SPLEncoder(Encoder):
 					if sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus) == 0:
 						sendMessage(SPLWin, 1024, 0, SPLPlay)
 				if not connected: connected = True
-			elif "Unable to connect" in messageCache or "Failed" in messageCache or statChild.name == "AutoConnect stopped.":
+			elif "Unable to connect" in messageCache or "Failed" in messageCache or status == "AutoConnect stopped.":
 				if connected: connected = False
 			else:
 				if connected: connected = False
