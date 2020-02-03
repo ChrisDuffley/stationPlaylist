@@ -582,7 +582,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 
 	@property
 	def connected(self):
-		return self.getChild(2).name == "Encoding"
+		return self._getColumnContentRaw(2) == "Encoding"
 
 	def reportConnectionStatus(self, connecting=False):
 		# A fake child object holds crucial information about connection status.
@@ -748,7 +748,7 @@ class SPLEncoder(Encoder):
 
 	@property
 	def connected(self):
-		status = self.getChild(1).name
+		status = self._getColumnContentRaw(1)
 		return "Kbps" in status or "Connected" in status
 
 	def reportConnectionStatus(self, connecting=False):
