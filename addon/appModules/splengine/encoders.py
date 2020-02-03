@@ -775,7 +775,6 @@ class SPLEncoder(Encoder):
 					self.encoderStatusMessage(messageCache, self.IAccessibleChildID)
 			if messageCache == "Disconnected":
 				connected = False
-				if manualConnect: continue
 			elif "Kbps" in messageCache or "Connected" in messageCache:
 				manualConnect = False
 				# We're on air, so exit.
@@ -787,6 +786,7 @@ class SPLEncoder(Encoder):
 						sendMessage(SPLWin, 1024, 0, SPLPlay)
 				if not connected: connected = True
 			elif "Unable to connect" in messageCache or "Failed" in messageCache or status == "AutoConnect stopped.":
+				if manualConnect: manualConnect = False
 				if connected: connected = False
 			else:
 				if connected: connected = False
@@ -796,7 +796,7 @@ class SPLEncoder(Encoder):
 					if currentTime-attemptTime >= 0.5 and self.connectionTone:
 						tones.beep(500, 50)
 						attemptTime = currentTime
-				if manualConnect: continue
+			if manualConnect: continue
 			if not self.backgroundMonitor: return
 
 	@scriptHandler.script(
