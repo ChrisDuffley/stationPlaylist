@@ -222,6 +222,9 @@ class EncoderConfigDialog(wx.Dialog):
 		# Translators: A checkbox in encoder settings to set if NvDA should play connection progress tone.
 		self.noConnectionTone = encoderConfigHelper.addItem(wx.CheckBox(self, label=_("Play connection status &beep while connecting")))
 		self.noConnectionTone.SetValue(obj.encoderId not in SPLNoConnectionTone)
+		# Translators: A checkbox in encoder settings to set if NVDA should announce connection progress until an encoder connects.
+		self.connectionStopOnError = encoderConfigHelper.addItem(wx.CheckBox(self, label=_("Announce connection &status until encoder connects")))
+		self.connectionStopOnError.SetValue(obj.encoderId not in SPLConnectionStopOnError)
 
 		encoderConfigHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON,self.onOk,id=wx.ID_OK)
@@ -236,8 +239,9 @@ class EncoderConfigDialog(wx.Dialog):
 		self.obj._setFlags(self.obj.encoderId, self.focusToStudio.Value, SPLFocusToStudio, "FocusToStudio", save=False)
 		self.obj._setFlags(self.obj.encoderId, self.playAfterConnecting.Value, SPLPlayAfterConnecting, "PlayAfterConnecting", save=False)
 		self.obj._setFlags(self.obj.encoderId, self.backgroundMonitor.Value, SPLBackgroundMonitor, "BackgroundMonitor", save=False)
-		# Invert the following only.
+		# Invert the following two flags.
 		self.obj._setFlags(self.obj.encoderId, not self.noConnectionTone.Value, SPLNoConnectionTone, "NoConnectionTone", save=False)
+		self.obj._setFlags(self.obj.encoderId, not self.connectionStopOnError.Value, SPLConnectionStopOnError, "ConnectionStopOnError", save=False)
 		newStreamLabel = self.streamLabel.Value
 		if newStreamLabel is None: newStreamLabel = ""
 		if newStreamLabel == self.curStreamLabel:
