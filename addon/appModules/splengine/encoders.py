@@ -637,7 +637,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 					connectionAttempt = 0
 			elif messageCache.startswith("Error"):
 				# Announce the description of the error.
-				if manualConnect: manualConnect = False
+				if manualConnect and not self.announceStatusUntilConnected: manualConnect = False
 				if not error:
 					error = True
 					connectionAttempt = 0
@@ -795,7 +795,7 @@ class SPLEncoder(Encoder):
 			if messageCache == "Disconnected":
 				connected = False
 			elif "Unable to connect" in messageCache or "Failed" in messageCache or status == "AutoConnect stopped.":
-				if manualConnect: manualConnect = False
+				if manualConnect and not self.announceStatusUntilConnected: manualConnect = False
 				if connected: connected = False
 			elif "Kbps" in messageCache or "Connected" in messageCache:
 				connecting = False
