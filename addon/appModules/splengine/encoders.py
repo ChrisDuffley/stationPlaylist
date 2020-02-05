@@ -610,6 +610,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 		# Status message flags.
 		idle = False
 		error = False
+		connecting = False
 		encoding = False
 		alreadyEncoding = False
 		while True:
@@ -641,8 +642,10 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 					error = True
 					connectionAttempt = 0
 				if alreadyEncoding: alreadyEncoding = False
+				if connecting: connecting = False
 			elif messageCache.startswith("Encoding"):
 				if manualConnect: manualConnect = False
+				if connecting: connecting = False
 				# We're on air, so exit unless told to monitor for connection changes.
 				if not encoding:
 					tones.beep(1000, 150)
@@ -658,6 +661,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 						sendMessage(SPLWin, 1024, 0, SPLPlay)
 				if not encoding: encoding = True
 			else:
+				if not connecting: connecting = True
 				if alreadyEncoding: alreadyEncoding = False
 				if encoding: encoding = False
 				elif "Error" not in messageCache and error: error = False
@@ -775,6 +779,7 @@ class SPLEncoder(Encoder):
 		attemptTime = time.time()
 		messageCache = ""
 		# Status flags.
+		connecting = False
 		connected = False
 		while True:
 			time.sleep(0.001)
@@ -793,6 +798,7 @@ class SPLEncoder(Encoder):
 				if manualConnect: manualConnect = False
 				if connected: connected = False
 			elif "Kbps" in messageCache or "Connected" in messageCache:
+				connecting = False
 				manualConnect = False
 				# We're on air, so exit.
 				if not connected: tones.beep(1000, 150)
@@ -804,6 +810,7 @@ class SPLEncoder(Encoder):
 				if not connected: connected = True
 			else:
 				if connected: connected = False
+				if not connecting: connecting = True
 				if not "Kbps" in messageCache:
 					connectionAttempt += 1
 					currentTime = time.time()
