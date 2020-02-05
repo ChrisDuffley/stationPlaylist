@@ -27,6 +27,7 @@ SPLFocusToStudio = set() # Whether to focus to Studio or not.
 SPLPlayAfterConnecting = set()
 SPLBackgroundMonitor = set()
 SPLNoConnectionTone = set()
+SPLConnectionStopOnError = set() # Whether connection status message announcements should stop when an error is encountered.
 
 # Customized for each encoder type.
 SAMStreamLabels= {} # A dictionary to store custom labels for each stream.
@@ -42,7 +43,7 @@ streamLabels = None
 
 # Load stream labels (and possibly other future goodies) from a file-based database.
 def loadStreamLabels():
-	global streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone
+	global streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError
 	import os, configobj, globalVars
 	streamLabels = configobj.ConfigObj(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
 	# Read stream labels.
@@ -67,6 +68,8 @@ def loadStreamLabels():
 		SPLBackgroundMonitor = set(streamLabels["BackgroundMonitor"])
 	if "NoConnectionTone" in streamLabels:
 		SPLNoConnectionTone = set(streamLabels["NoConnectionTone"])
+	if "ConnectionStopOnError" in streamLabels:
+		SPLConnectionStopOnError = set(streamLabels["ConnectionStopOnError"])
 
 # Report number of encoders being monitored.
 # 6.0: Refactor the below function to use the newer encoder config format.
@@ -296,6 +299,13 @@ class Encoder(IAccessible):
 	def connectionTone(self):
 		try:
 			return self.encoderId not in SPLNoConnectionTone
+		except KeyError:
+			return True
+
+	@property
+	def announceStatusUntilConnected(self):
+		try:
+			return self.encoderId not in SPLConnectionStopOnError
 		except KeyError:
 			return True
 
