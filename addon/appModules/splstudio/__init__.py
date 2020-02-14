@@ -632,7 +632,12 @@ class SPLTimePicker(IAccessible):
 		except (NotImplementedError, RuntimeError):
 			info=obj.makeTextInfo(textInfos.POSITION_FIRST)
 		info.expand(textInfos.UNIT_LINE)
-		speech.speakTextInfo(info,unit=textInfos.UNIT_LINE,reason=controlTypes.REASON_CARET)
+		# 20.03: NVDA 2020.1 includes output reason enumeration, deprecating output reason flags.
+		# Until support for NVDA 2019.3 is dropped, use both paths.
+		if hasattr(controlTypes, "OutputReason"):
+			speech.speakTextInfo(info,unit=textInfos.UNIT_LINE,reason=controlTypes.OutputReason.CARET)
+		else:
+			speech.speakTextInfo(info,unit=textInfos.UNIT_LINE,reason=controlTypes.REASON_CARET)
 
 
 class AppModule(appModuleHandler.AppModule):
