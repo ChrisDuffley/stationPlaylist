@@ -128,7 +128,7 @@ def _removeEncoderID(encoderType, pos):
 	global _encoderConfigRemoved
 	# For now, store the key to map.
 	# This might become a module-level constant if other functions require this dictionary.
-	key2map = {"FocusToStudio":SPLFocusToStudio, "PlayAfterConnecting":SPLPlayAfterConnecting, "BackgroundMonitor":SPLBackgroundMonitor, "NoConnectionTone":SPLNoConnectionTone}
+	key2map = {"FocusToStudio":SPLFocusToStudio, "PlayAfterConnecting":SPLPlayAfterConnecting, "BackgroundMonitor":SPLBackgroundMonitor, "NoConnectionTone":SPLNoConnectionTone, "ConnectionStopOnError": SPLConnectionStopOnError}
 	encoderID = " ".join([encoderType, pos])
 	# Go through each feature map, remove the encoder ID and manipulate encoder positions in these sets.
 	# For each set, have a list of set items handy, otherwise set cardinality error (RuntimeError) will occur if items are removed on the fly.
@@ -160,8 +160,8 @@ def _removeEncoderID(encoderType, pos):
 
 # Nullify various flag sets, otherwise memory leak occurs.
 def cleanup():
-	global streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, encoderMonCount, SAMMonitorThreads, SPLMonitorThreads, ACMonitorThreads
-	for flag in [streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SAMMonitorThreads, SPLMonitorThreads, ACMonitorThreads]:
+	global streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError, encoderMonCount, SAMMonitorThreads, SPLMonitorThreads, ACMonitorThreads
+	for flag in [streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError, SAMMonitorThreads, SPLMonitorThreads, ACMonitorThreads]:
 		if flag is not None: flag.clear()
 	# Nullify stream labels.
 	streamLabels = None
