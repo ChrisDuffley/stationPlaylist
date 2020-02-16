@@ -47,7 +47,7 @@ class AppModule(appModuleHandler.AppModule):
 		# This introduces a side effect where encoders database might be reopened if both SPL Engine and Streamer are active and one of them dies.
 		# For now, ignore this condition.
 		from . import encoders
-		encoders.cleanup()
+		encoders.cleanup(appTerminating=True)
 
 	def event_NVDAObject_init(self, obj):
 		# ICQ field is incorrectly labeled as IRC.
