@@ -158,6 +158,21 @@ def _removeEncoderID(encoderType, pos):
 			except KeyError:
 				pass
 
+# Save stream labels and various flags, called when closing app modules and when config save command is pressed.
+def saveStreamLabels():
+	global streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError
+	# Gather stream labels and flags.
+	streamLabels["SAMEncoders"] = dict(SAMStreamLabels)
+	streamLabels["SPLEncoders"] = dict(SPLStreamLabels)
+	streamLabels["AltaCastEncoders"] = dict(ACStreamLabels)
+	# For flags, convert flag sets into lists.
+	streamLabels["FocusToStudio"] = list(SPLFocusToStudio)
+	streamLabels["PlayAfterConnecting"] = list(SPLPlayAfterConnecting)
+	streamLabels["BackgroundMonitor"] = list(SPLBackgroundMonitor)
+	streamLabels["NoConnectionTone"] = list(SPLNoConnectionTone)
+	streamLabels["ConnectionStopOnError"] = list(SPLConnectionStopOnError)
+	streamLabels.write()
+
 # Nullify various flag sets, otherwise memory leak occurs.
 def cleanup():
 	global streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError, encoderMonCount, SAMMonitorThreads, SPLMonitorThreads, ACMonitorThreads
