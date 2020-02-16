@@ -171,6 +171,10 @@ def saveStreamLabels():
 	streamLabels["BackgroundMonitor"] = list(SPLBackgroundMonitor)
 	streamLabels["NoConnectionTone"] = list(SPLNoConnectionTone)
 	streamLabels["ConnectionStopOnError"] = list(SPLConnectionStopOnError)
+	# To save disk space, remove empty data.
+	for key in streamLabels.keys():
+		if not len(streamLabels[key]): 
+			del streamLabels[key]
 	streamLabels.write()
 
 # Nullify various flag sets, otherwise memory leak occurs.
