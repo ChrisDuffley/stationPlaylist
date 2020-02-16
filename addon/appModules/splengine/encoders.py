@@ -7,6 +7,7 @@ import threading
 import time
 from abc import abstractmethod
 import api
+import config
 import ui
 import speech
 import scriptHandler
@@ -70,6 +71,8 @@ def loadStreamLabels():
 		SPLNoConnectionTone = set(streamLabels["NoConnectionTone"])
 	if "ConnectionStopOnError" in streamLabels:
 		SPLConnectionStopOnError = set(streamLabels["ConnectionStopOnError"])
+	# 20.04: register config save handler.
+	config.post_configSave.register(saveStreamLabels)
 
 # Report number of encoders being monitored.
 # 6.0: Refactor the below function to use the newer encoder config format.
