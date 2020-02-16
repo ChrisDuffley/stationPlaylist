@@ -181,10 +181,12 @@ def saveStreamLabels():
 	streamLabels.write()
 
 # Nullify various flag sets, otherwise memory leak occurs.
-# 20.04: if told to do so, save encoder settings.
-def cleanup(appTerminating=False):
+# 20.04: if told to do so, save encoder settings and unregister config save handler.
+# In case this is called as part of a reset, unregister config save handler unconditionally.
+def cleanup(appTerminating=False, reset=False):
 	global streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError, encoderMonCount, SAMMonitorThreads, SPLMonitorThreads, ACMonitorThreads
 	if appTerminating: saveStreamLabels()
+	if reset or appTerminating: config.post_configSave.unregister(saveStreamLabels)
 	for flag in [streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError, SAMMonitorThreads, SPLMonitorThreads, ACMonitorThreads]:
 		if flag is not None: flag.clear()
 	# Nullify stream labels.
