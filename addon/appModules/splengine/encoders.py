@@ -263,9 +263,7 @@ class EncoderConfigDialog(wx.Dialog):
 		setFlags(encoderId, not self.connectionStopOnError.Value, SPLConnectionStopOnError, "ConnectionStopOnError", save=False)
 		newStreamLabel = self.streamLabel.Value
 		if newStreamLabel is None: newStreamLabel = ""
-		if newStreamLabel == self.curStreamLabel:
-			streamLabels.write() # Only flag(s) have changed.
-		else: self.obj.setStreamLabel(newStreamLabel)
+		self.obj.setStreamLabel(newStreamLabel)
 		self.Destroy()
 		global _configDialogOpened
 		_configDialogOpened = False
