@@ -236,12 +236,14 @@ class EncoderConfigDialog(wx.Dialog):
 		self.streamLabel.SetFocus()
 
 	def onOk(self, evt):
-		self.obj._setFlags(self.obj.encoderId, self.focusToStudio.Value, SPLFocusToStudio, "FocusToStudio", save=False)
-		self.obj._setFlags(self.obj.encoderId, self.playAfterConnecting.Value, SPLPlayAfterConnecting, "PlayAfterConnecting", save=False)
-		self.obj._setFlags(self.obj.encoderId, self.backgroundMonitor.Value, SPLBackgroundMonitor, "BackgroundMonitor", save=False)
+		setFlags = self.obj._setFlags
+		encoderId = self.obj.encoderId
+		setFlags(encoderId, self.focusToStudio.Value, SPLFocusToStudio, "FocusToStudio", save=False)
+		setFlags(encoderId, self.playAfterConnecting.Value, SPLPlayAfterConnecting, "PlayAfterConnecting", save=False)
+		setFlags(encoderId, self.backgroundMonitor.Value, SPLBackgroundMonitor, "BackgroundMonitor", save=False)
 		# Invert the following two flags.
-		self.obj._setFlags(self.obj.encoderId, not self.noConnectionTone.Value, SPLNoConnectionTone, "NoConnectionTone", save=False)
-		self.obj._setFlags(self.obj.encoderId, not self.connectionStopOnError.Value, SPLConnectionStopOnError, "ConnectionStopOnError", save=False)
+		setFlags(encoderId, not self.noConnectionTone.Value, SPLNoConnectionTone, "NoConnectionTone", save=False)
+		setFlags(encoderId, not self.connectionStopOnError.Value, SPLConnectionStopOnError, "ConnectionStopOnError", save=False)
 		newStreamLabel = self.streamLabel.Value
 		if newStreamLabel is None: newStreamLabel = ""
 		if newStreamLabel == self.curStreamLabel:
