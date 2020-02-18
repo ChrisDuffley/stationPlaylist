@@ -369,19 +369,12 @@ class Encoder(IAccessible):
 	# Also take in the flag key for storing it into the settings file.
 	# The flag will then be written to the configuration file.
 	# 7.0: Don't dump flags to disk unless told.
-	def _setFlags(self, encoderId, flag, flagMap, flagKey, save=True):
+	# 20.04: do not dump flags to disk at all, as a dedicated save action will do it.
+	def _setFlags(self, encoderId, flag, flagMap):
 		if flag and not encoderId in flagMap:
 			flagMap.add(encoderId)
 		elif not flag and encoderId in flagMap:
 			flagMap.remove(encoderId)
-		# No need to store an empty flag map.
-		if len(flagMap): streamLabels[flagKey] = list(flagMap)
-		else:
-			try:
-				del streamLabels[flagKey]
-			except KeyError:
-				pass
-		if save: streamLabels.write()
 
 	# Now the flag configuration scripts.
 
