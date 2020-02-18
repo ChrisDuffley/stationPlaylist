@@ -264,12 +264,12 @@ class EncoderConfigDialog(wx.Dialog):
 	def onOk(self, evt):
 		setFlags = self.obj._setFlags
 		encoderId = self.obj.encoderId
-		setFlags(encoderId, self.focusToStudio.Value, SPLFocusToStudio, "FocusToStudio", save=False)
-		setFlags(encoderId, self.playAfterConnecting.Value, SPLPlayAfterConnecting, "PlayAfterConnecting", save=False)
-		setFlags(encoderId, self.backgroundMonitor.Value, SPLBackgroundMonitor, "BackgroundMonitor", save=False)
+		setFlags(encoderId, self.focusToStudio.Value, SPLFocusToStudio)
+		setFlags(encoderId, self.playAfterConnecting.Value, SPLPlayAfterConnecting)
+		setFlags(encoderId, self.backgroundMonitor.Value, SPLBackgroundMonitor)
 		# Invert the following two flags.
-		setFlags(encoderId, not self.noConnectionTone.Value, SPLNoConnectionTone, "NoConnectionTone", save=False)
-		setFlags(encoderId, not self.connectionStopOnError.Value, SPLConnectionStopOnError, "ConnectionStopOnError", save=False)
+		setFlags(encoderId, not self.noConnectionTone.Value, SPLNoConnectionTone)
+		setFlags(encoderId, not self.connectionStopOnError.Value, SPLConnectionStopOnError)
 		newStreamLabel = self.streamLabel.Value
 		if newStreamLabel is None: newStreamLabel = ""
 		self.obj.setStreamLabel(newStreamLabel)
@@ -390,7 +390,7 @@ class Encoder(IAccessible):
 		else:
 			# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 			ui.message(_("Do not switch to Studio after connecting"))
-		self._setFlags(self.encoderId, not self.focusToStudio, SPLFocusToStudio, "FocusToStudio")
+		self._setFlags(self.encoderId, not self.focusToStudio, SPLFocusToStudio)
 
 	@scriptHandler.script(
 		# Translators: Input help mode message in SAM Encoder window.
@@ -404,7 +404,7 @@ class Encoder(IAccessible):
 		else:
 			# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 			ui.message(_("Do not play first track after connecting"))
-		self._setFlags(self.encoderId, not self.playAfterConnecting, SPLPlayAfterConnecting, "PlayAfterConnecting")
+		self._setFlags(self.encoderId, not self.playAfterConnecting, SPLPlayAfterConnecting)
 
 	@scriptHandler.script(
 		# Translators: Input help mode message in SAM Encoder window.
@@ -421,7 +421,7 @@ class Encoder(IAccessible):
 				encoderMonCount[self.encoderType] -= 1
 				# Translators: Presented when toggling the setting to monitor the selected encoder.
 				ui.message(_("Encoder {encoderNumber} will not be monitored").format(encoderNumber = self.IAccessibleChildID))
-			self._setFlags(self.encoderId, not self.backgroundMonitor, SPLBackgroundMonitor, "BackgroundMonitor")
+			self._setFlags(self.encoderId, not self.backgroundMonitor, SPLBackgroundMonitor)
 			if self.backgroundMonitor:
 				try:
 					monitoring = self.threadPool[self.IAccessibleChildID].is_alive()
