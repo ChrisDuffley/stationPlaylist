@@ -785,8 +785,6 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 				del SAMStreamLabels[str(self.IAccessibleChildID)]
 			except KeyError:
 				pass
-		streamLabels["SAMEncoders"] = SAMStreamLabels
-		streamLabels.write()
 
 class SPLEncoder(Encoder):
 	# Support for SPL Encoder window.
@@ -895,8 +893,6 @@ class SPLEncoder(Encoder):
 				del SPLStreamLabels[str(self.IAccessibleChildID)]
 			except KeyError:
 				pass
-		streamLabels["SPLEncoders"] = SPLStreamLabels
-		streamLabels.write()
 
 class AltaCastEncoder(SPLEncoder):
 	# Support for AltaCast Encoder window.
@@ -926,5 +922,3 @@ class AltaCastEncoder(SPLEncoder):
 				del ACStreamLabels[str(self.IAccessibleChildID)]
 			except KeyError:
 				pass
-		streamLabels["AltaCastEncoders"] = ACStreamLabels
-		streamLabels.write()
