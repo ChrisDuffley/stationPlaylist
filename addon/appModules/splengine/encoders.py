@@ -150,12 +150,6 @@ def _removeEncoderID(encoderType, pos):
 			for item in currentEncoders[start:]:
 				encoderSettings.remove(item)
 				encoderSettings.add(" ".join([encoderType, "%s"%(int(item.split()[-1])-1)]))
-		if len(encoderSettings): streamLabels[key] = list(encoderSettings)
-		else:
-			try:
-				del streamLabels[key]
-			except KeyError:
-				pass
 
 # Save stream labels and various flags, called when closing app modules and when config save command is pressed.
 def saveStreamLabels():
