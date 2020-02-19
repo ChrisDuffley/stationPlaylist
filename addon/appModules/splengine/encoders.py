@@ -465,7 +465,6 @@ class Encoder(IAccessible):
 		labelLength = len(streamLabelsMap)
 		if not labelLength or pos > max(streamLabelsMap.keys()):
 			if _encoderConfigRemoved is not None:
-				streamLabels.write()
 				_encoderConfigRemoved = None
 			return
 		elif labelLength  == 1:
@@ -495,8 +494,6 @@ class Encoder(IAccessible):
 					oldPosition = int(position)
 					streamLabelsMap[str(oldPosition-1)] = streamLabelsMap[position]
 					del streamLabelsMap[position]
-		streamLabels[self.encoderType + "Encoders"] = streamLabelsMap
-		streamLabels.write()
 
 	@scriptHandler.script(
 		# Translators: Input help mode message in SAM Encoder window.
