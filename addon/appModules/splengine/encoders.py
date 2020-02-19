@@ -126,9 +126,7 @@ def announceEncoderConnectionStatus():
 
 # Remove encoder ID from various settings maps.
 # This is a private module level function in order for it to be invoked by humans alone.
-_encoderConfigRemoved = None
 def _removeEncoderID(encoderType, pos):
-	global _encoderConfigRemoved
 	# For now, store the key to map.
 	# This might become a module-level constant if other functions require this dictionary.
 	key2map = {"FocusToStudio":SPLFocusToStudio, "PlayAfterConnecting":SPLPlayAfterConnecting, "BackgroundMonitor":SPLBackgroundMonitor, "NoConnectionTone":SPLNoConnectionTone, "ConnectionStopOnError": SPLConnectionStopOnError}
@@ -139,7 +137,6 @@ def _removeEncoderID(encoderType, pos):
 		encoderSettings = key2map[key]
 		if encoderID in encoderSettings:
 			encoderSettings.remove(encoderID)
-			_encoderConfigRemoved = True
 		# If not sorted, encoders will appear in random order (a downside of using sets, as their ordering is quite unpredictable).
 		currentEncoders = sorted([x for x in encoderSettings if x.startswith(encoderType)])
 		if len(currentEncoders) and encoderID < currentEncoders[-1]:
@@ -153,7 +150,6 @@ def _removeEncoderID(encoderType, pos):
 			for item in currentEncoders[start:]:
 				encoderSettings.remove(item)
 				encoderSettings.add(" ".join([encoderType, "%s"%(int(item.split()[-1])-1)]))
-		_encoderConfigRemoved = True
 		if len(encoderSettings): streamLabels[key] = list(encoderSettings)
 		else:
 			try:
@@ -459,13 +455,10 @@ class Encoder(IAccessible):
 
 	def removeStreamConfig(self, pos):
 		# An application of map successor algorithm.
-		global _encoderConfigRemoved
 		_removeEncoderID(self.encoderType, pos)
 		streamLabelsMap = self.streamLabelsMap
 		labelLength = len(streamLabelsMap)
 		if not labelLength or pos > max(streamLabelsMap.keys()):
-			if _encoderConfigRemoved is not None:
-				_encoderConfigRemoved = None
 			return
 		elif labelLength  == 1:
 			if not pos in streamLabelsMap:
