@@ -3,26 +3,26 @@
 * Tác giả: Geoff Shang, Joseph Lee và các cộng tác viên khác
 * Tải về [phiên bản chính thức][1]
 * Tải về [phiên bản thử nghiệm][2]
-* NVDA tương thích: 2019.3 và cao hơn
-* Tải về [phiên bản cũ hơn][6] tương thích với NVDA 2019.2.1 trở về trước
+* NVDA compatibility: 2019.3
 
 Gói add-on này cung cấp sự cải thiện cho việc sử dụng StationPlaylist Studio
 và các ứng dụng StationPlaylist khác, cũng như cung cấp các tiện ích để điều
 khiển Studio ở bất cứ đâu. Các ứng dụng được hỗ trợ bao gồm Studio, Creator,
 Track Tool, VT Recorder và Streamer, cả các bộ mã hóa SAM, SPL và AltaCast.
 
-Để biết thêm thông tin về add-on này, xem [hướng dẫn sử dụng add-on][4]. Với
-những người phát triển add-on quan tâm đến việc làm thế nào để tạo add-on,
-xem tập tin buildInstructions.txt ở thư mục gốc trong mã nguồn của add-on.
+For more information about the add-on, read the [add-on guide][4]. For
+developers seeking to know how to build the add-on, see
+buildInstructions.txt located at the root of the add-on source code
+repository.
 
 CÁC LƯU Ý QUAN TRỌNG:
 
 * Add-on này yêu cầu bộ StationPlaylist 5.20 trở lên.
 * Nếu dùng Windows 8 trở lên, hãy tắt chế độ giảm âm thanh để có trải nghiệm
   tốt nhất.
-* Từ 2018, [bản ghi những thay đổi cho các bản phát hành cũ của add-on][5]
-  sẽ được tìm thấy trên GitHub. Tập tin readme này sẽ liệt kê các thay đổi
-  từ phiên bản 17.08 (2017 trở đi).
+* Starting from 2018, [changelogs for old add-on releases][5] will be found
+  on GitHub. This add-on readme will list changes from version 17.08 (2017
+  onwards).
 * Vài tính năng nhất định của add-on sẽ không hoạt động trong vài điều kiện,
   bao gồm chạy NVDA trong chế độ bảo vệ.
 * Vì những giới hạn kĩ thuật, bạn không thể cài hay dùng add-on này với
@@ -69,9 +69,10 @@ lập khác.
   Track Tool): thông báo cột đầu / cuối của track.
 * Control+Alt+mũi tên lên / xuống (chỉ khi đứng ở tại một track trong
   Studio): chuyển đến track trước hoặc kế và thông báo các cột cụ thể.
-* Control+NVDA+1 đến 0 (khi đứng ở tại một track trong Studio, Creator và
-  Track Tool): thông báo nội dung cho một cột đã định. Bấm hai lần sẽ hiển
-  thị thông tin trên cửa sổ duyệt tài liệu.
+* Control+NVDA+1 through 0 (while focused on a track in Studio, Creator
+  (including Playlist Editor), and Track Tool): Announce column content for
+  a specified column (first ten columns by default). Pressing this command
+  twice will display column information on a browse mode window.
 * Control+NVDA+- (trừ trong Studio, Creator và Track Tool): hiển thị dữ liệu
   của tất cả các cột trong một track trên một cửa sổ ở chế độ duyệt.
 * Alt+NVDA+C khi đứng tại một track (chỉ trong Studio): thông báo chú thích
@@ -265,11 +266,11 @@ Assistant, F10 khi kết thúc vùng chọn.
 
 ## Khám phá các cột
 
-Bấm Control+NVDA+1 đến 0 hoặc SPL Assistant, 1 đến 0, bạn có thể thu thập
-các nội dung của các cột cụ thể. Mặc định là ca sĩ, tựa đề, thời lượng, nhạc
-dạo, loại, tên tập tin, năm, album, thể loại và thời gian được lên lịch. Bạn
-có thể cấu hình những cột nào sẽ được khám phá thông qua hộp thoại khám phá
-cột được tìm thấy trong hộp thoại cài đặt add-on.
+By pressing Control+NVDA+1 through 0 or SPL Assistant, 1 through 0, you can
+obtain contents of specific columns. By default, these are artist, title,
+duration, intro, outro, category, year, album, genre and mood. You can
+configure which columns will be explored via columns explorer dialog found
+in add-on settings dialog.
 
 ## Ảnh chụp danh sách phát
 
@@ -299,6 +300,27 @@ NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio t
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
 
+## Version 20.03
+
+* Columns Explorer will now announce first ten columns by default (existing
+  installations will continue to use old column slots).
+* The ability to announce name of the playing track automatically from
+  places other than Studio has been removed. This feature, introduced in
+  add-on 5.6 as a workaround for Studio 5.1x, is no longer functional. Users
+  must now use SPL Controller and/or Assistant layer command to hear title
+  of the currently playing track from everywhere (C).
+* Due to removal of automatic announcement of playing track title, the
+  setting to configure this feature has been removed from add-on
+  settings/status announcement category.
+* In encoders, NvDA will play connection tone every half a second while an
+  encoder is connecting.
+* In encoders, NVDA will now announce connection attempt messages until an
+  encoder is actually connected. Previously NVDA stopped when an error was
+  encountered.
+* A new setting has been added to encoder settings to let NvDA announce
+  connection messages until the selected encoder is connected. This setting
+  is enabled by default.
+
 ## Phiên bản 20.02
 
 * Bắt đầu hỗ trợ cho StationPlaylist Creator's Playlist Editor.
@@ -323,8 +345,8 @@ và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thự
 * Khi nỗ lực chuyển giữa hồ sơ đang hoạt động và một hồ sơ chuyển nhanh
   thông qua SPL Assistant (F12), NVDA sẽ hiện một thông điệp nếu làm vậy khi
   đang mở màn hình cài đặt add-on.
-* In encoders, NVDA will no longer forget to apply no connection tone
-  setting for encoders when NVDA is restarted.
+* Trong các bộ mã hóa, NVDA sẽ không còn quên áp dụng âm báo không có kết
+  nối cho các bộ mã hóa khi NVDA bị khởi động lại.
 
 ## Phiên bản 20.01
 
@@ -630,7 +652,7 @@ mới. Vài tính năng mới sẽ hỗ trợ ngược trở lại 18.09.x nếu
 * Khi mở một hộp thoại tìm kiếm từ Studio và xảy ra lỗi không mong muốn,
   NVDA sẽ trình bày thêm các thông điệp hợp lý thay vì chỉ nói rằng một hộp
   thoại tìm kiếm khác đang mở.
-* Trong cửa sổ của các bộ mã hóa, NVDA sẽ không còn phát âm tanh báo lỗi
+* Trong cửa sổ của các bộ mã hóa, NVDA sẽ không còn phát âm thanh báo lỗi
   hoặc không làm gì khi nỗ lực mở hộp thoại cài đặt mã hóa (Alt+NVDA+0).
 
 ## Phiên bản 18.06
@@ -869,10 +891,6 @@ hành cũ của add-on.
 
 [2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
 
-[3]: https://addons.nvda-project.org/files/get.php?file=spl-lts18
-
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 
 [5]: https://github.com/josephsl/stationplaylist/wiki/splchangelog
-
-[6]: https://addons.nvda-project.org/files/get.php?file=spl-2019

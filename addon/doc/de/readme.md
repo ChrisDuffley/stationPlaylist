@@ -3,8 +3,7 @@
 * Autoren: Geoff Shang, Joseph Lee und weitere Mitwirkende
 * [Stabile Version herunterladen][1]
 * [Entwicklerversion herunterladen][2]
-* NVDA compatibility: 2019.3 and beyond
-* Download [older version][6] compatible with NVDA 2019.2.1 and earlier
+* NVDA compatibility: 2019.3
 
 Dieses Zusatzpaket bietet eine verbesserte Nutzung von StationPlaylist
 Studio und anderen StationPlaylist-Anwendungen sowie Dienstprogramme zur
@@ -12,14 +11,14 @@ Steuerung von Studio von überall. Zu den unterstützten Anwendungen gehören
 Studio, Creator, Track Tool, VT Recorder und Streamer sowie SAM, SPL und
 AltaCast Encoder.
 
-Weitere Informationen zur Erweiterung finden Sie in der
-[Add-On-Anleitung][4]. Für Entwickler, welche wissen wollen, wie die
-Erweiterung  erstellt wurde, siehe buildInstructions.txt im
-Quellcodeverzeichnis der Erweiterung auf Github.
+For more information about the add-on, read the [add-on guide][4]. For
+developers seeking to know how to build the add-on, see
+buildInstructions.txt located at the root of the add-on source code
+repository.
 
 WICHTIGE HINWEISE:
 
-* This add-on requires StationPlaylist suite 5.20 or later.
+* Diese Erweiterung benötigt die StationPlaylist-Suite 5.20 oder neuer.
 * Wenn Sie Windows 8 oder höher verwenden, setzen Sie die Reduzierung der
   Lautstärke anderer Audioquellen auf "nie" im Dialog Sprachausgabe im
   NVDA-Einstellungsmenü.
@@ -50,19 +49,19 @@ angegeben.
   Sekunden bis zur vollen Stunde angesagt.
 * Alt+NVDA+1 (mit zwei Fingern nach rechts wischen im SPL-Touch-Modus) aus
   dem Studio-Fenster: Öffnet den Dialog zum Einstellen des Titelendes.
-* Alt+NVDA+1 from Creator's Playlist Editor window: Announces scheduled time
-  for the loaded playlist.
+* Alt+NVDA+1 aus dem Playlist-Editor des Creators: Teilt die geplante Zeit
+  für die geladene Wiedergabeliste mit.
 * Alt+NVDA+2 (mit zwei Fingern nach links wischen im SPL-Touchmodus) aus dem
   Studio-Fenster: Öffnet den Einstellungsdialog für den Titel-Intro-Alarm.
-* Alt+NVDA+2 from Creator's Playlist Editor window: Announces total playlist
-  duration.
+* Alt+NVDA+2 aus dem Playlist-Editor des Creators: Teilt die Gesamtdauer der
+  Wiedergabeliste mit.
 * Alt+NVDA+3 aus dem Studio-Fenster: legt den Cart-Explorer fest, um die
   Zuordnung von Carts zu lernen.
-* Alt+NVDA+3 from Creator's Playlist Editor window: Announces when the
-  selected track is scheduled to play.
+* Alt+NVDA+3 aus dem Fenster des Wiedergabelisten-Editors: Zeigt an, wann
+  der ausgewählte Titel abgespielt wird.
 * Alt+NVDA+4 aus dem Studio-Fenster: Öffnet den Mikrofonalarm-Dialog.
-* Alt+NVDA+4 from Creator's Playlist Editor window: Announces rotation and
-  category associated with the loaded playlist.
+* Alt+NVDA+4 aus dem Playlist-Editor des Creators: Teilt die Rotation und
+  die Kategorie mit, die mit der geladenen Wiedergabeliste verbunden sind.
 * STRG+NVDA+f aus dem Studio-Fenster: Öffnet einen Dialog, um einen Titel
   basierend auf Künstler oder Titelbezeichnung zu finden. Drücken Sie
   NVDA+F3, um vorwärts zu suchen oder NVDA+Umschalt+F3, um rückwärts zu
@@ -73,17 +72,18 @@ angegeben.
 * Strg+Alt+Pfeiltaste nach links/rechts (während Sie sich auf einen Track im
   Studio, Creator und Track Tool befinden): Ankündigung der
   vorherigen/nächsten Track-Spalte.
-* Control+Alt+Home/End (while focused on a track in Studio, Creator, and
-  Track Tool): Announce first/last track column.
-* Control+Alt+up/down arrow (while focused on a track in Studio only): Move
-  to previous or next track and announce specific columns.
-* Strg+NVDA+1 bis 0 (während sie sich auf einen Track im Studio, Creator und
-  Track Tool befinden): Ankündigung von Spalteninhalten für eine bestimmte
-  Spalte. Wenn Sie diesen Befehl zweimal drücken, werden
-  Spalteninformationen in einem Fenster des Lesemodus angezeigt.
-* Control+NVDA+- (hyphen while focused on a track in Studio, Creator, and
-  Track Tool): display data for all columns in a track on a browse mode
-  window.
+* Strg+Alt+Home/End (während der Fokus auf einem Track in Studio, Creator
+  und Track Tool liegt): Erste/letzte Track-Spalte mitteilen.
+* Strg+Alt+Pfeil nach oben/unten (während der Fokus nur auf einen Titel in
+  Studio gerichtet ist): Zur vorherigen oder nächsten Spur wechseln und
+  bestimmte Spalten mitteilen.
+* Control+NVDA+1 through 0 (while focused on a track in Studio, Creator
+  (including Playlist Editor), and Track Tool): Announce column content for
+  a specified column (first ten columns by default). Pressing this command
+  twice will display column information on a browse mode window.
+* Strg+NVDA+- (Bindestrich bei Fokussierung auf eine Spur in Studio, Creator
+  und Titelwerkzeug): Anzeige der Daten für alle Spalten einer Spur im
+  Lesemodus.
 * Alt+NVDA+C während der Fokus auf einen Track (nur Studio): Meldet
   Track-Kommentare, falls vorhanden.
 * Alt+NVDA+0 aus dem Studio-Fenster: Öffnet den Konfigurationsdialog der
@@ -303,12 +303,11 @@ erreicht haben.
 
 ## Spaltenexplorer
 
-Durch Drücken von Strg+NVDA+1 bis 0 oder SPL Assistant, 1 bis 0, können Sie
-den Inhalt bestimmter Spalten erhalten. Standardmäßig sind dies Künstler,
-Titel, Dauer, Intro, Kategorie, Dateiname, Jahr, Album, Genre und
-Zeitplanung. Sie können konfigurieren, welche Spalten über den
-Spalten-Explorer-Dialog im Einstellungsdialog des Add-ons erkundet werden
-sollen.
+By pressing Control+NVDA+1 through 0 or SPL Assistant, 1 through 0, you can
+obtain contents of specific columns. By default, these are artist, title,
+duration, intro, outro, category, year, album, genre and mood. You can
+configure which columns will be explored via columns explorer dialog found
+in add-on settings dialog.
 
 ## Playlist-Statistiken
 
@@ -344,37 +343,65 @@ Studio-Befehle über den Touchscreen ausführen. Tippen Sie zunächst einmal
 mit drei Fingern, um in den SPL-Touchmodus zu wechseln. Verwenden Sie dann
 die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
 
+## Version 20.03
+
+* Columns Explorer will now announce first ten columns by default (existing
+  installations will continue to use old column slots).
+* The ability to announce name of the playing track automatically from
+  places other than Studio has been removed. This feature, introduced in
+  add-on 5.6 as a workaround for Studio 5.1x, is no longer functional. Users
+  must now use SPL Controller and/or Assistant layer command to hear title
+  of the currently playing track from everywhere (C).
+* Due to removal of automatic announcement of playing track title, the
+  setting to configure this feature has been removed from add-on
+  settings/status announcement category.
+* In encoders, NvDA will play connection tone every half a second while an
+  encoder is connecting.
+* In encoders, NVDA will now announce connection attempt messages until an
+  encoder is actually connected. Previously NVDA stopped when an error was
+  encountered.
+* A new setting has been added to encoder settings to let NvDA announce
+  connection messages until the selected encoder is connected. This setting
+  is enabled by default.
+
 ## Version 20.02
 
-* Initial support for StationPlaylist Creator's Playlist Editor.
-* Added Alt+NVDA+number row commands to announce various status information
-  in Playlist Editor. These include date and time for the playlist (1),
-  total playlist duration (2), when the selected track is scheduled to play
-  (3), and rotation and category (4).
-* While focused on a track in Creator and Track Tool (except in Creator's
-  Playlist Editor), pressing Control+NVDA+Dash will display data for all
-  columns on a browse mode window.
-* If NVDA Recognizes a track list item with less than 10 columns, NVDA will
-  no longer announce headers for nonexistent columns if Control+NVDA+number
-  row for out of range column is pressed.
-* In creator, NVDA will no longer announce column information if
-  Control+NVDA+number row keys are pressed while focused on places other
-  than track list.
-* When a track is playing, NVDA will no longer announce "no track is
-  playing" if obtaining information about current and next tracks via SPL
-  Assistant or SPL Controller.
-* If an alarm options dialog (intro, outro, microphone) is open, NVDA will
-  no longer appear to do nothing or play error tone if attempting to open a
-  second instance of any alarm dialog.
-* When trying to switch between active profile and an instant profile via
-  SPL Assistant (F12), NVDA will present a message if attempting to do so
-  while add-on settings screen is open.
-* In encoders, NVDA will no longer forget to apply no connection tone
-  setting for encoders when NVDA is restarted.
+* Anfängliche Unterstützung für den Playlist-Editor des StationPlaylist
+  Creators.
+* Es wurden Befehle mit Alt+NVDA+Zahlenreihen hinzugefügt, um verschiedene
+  Status-Informationen im Playlist-Editor mitzuteilen. Dazu gehören Datum
+  und Uhrzeit für die Wiedergabeliste (1), die Gesamtdauer der
+  Wiedergabeliste (2), wann der ausgewählte Titel abgespielt wird (3) sowie
+  Rotation und Kategorie (4).
+* Während Sie sich im Creator und im Titelwerkzeug auf einen Titel
+  konzentrieren (außer im Playlist-Editor des Creators), können Sie durch
+  Drücken von Strg+NVDA+Barcode Daten für alle Spalten im Lesemodus anzeigen
+  lassen.
+* Wenn NVDA ein Titellistenelement mit weniger als zehn Spalten erkennt,
+  kündigt NVDA keine Überschriften für nicht vorhandene Spalten mehr an,
+  wenn Steuerung+NVDA+Zahlenzeile für Spalte außerhalb des Bereichs gedrückt
+  werden.
+* Im Creator wird NVDA keine Spalteninformationen mehr ankündigen, wenn die
+  Tasten Strg+NVDA+Zahlenreihe gedrückt werden, während man sich auf andere
+  Stellen als die Titelliste konzentriert.
+* Wenn ein Titel abgespielt wird, meldet NVDA nicht mehr "Kein Titel wird
+  abgespielt", wenn Informationen über den aktuellen und nächsten Titel über
+  den SPL-Assistenten oder SPL-Controller eingeholt werden.
+* Wenn eine Option der Alarm-Meldung (Intro, Outro, Mikrofon) geöffnet ist,
+  erscheint NVDA nicht mehr, um nichts zu tun oder einen Fehlerton
+  abzuspielen, wenn versucht wird, eine zweite Instanz einer Alarm-Meldung
+  zu öffnen.
+* Wenn Sie versuchen, über den SPL-Assistenten (F12) zwischen einem aktiven
+  Profil und einem Sofortprofil zu wechseln, zeigt NVDA eine Meldung an,
+  wenn Sie versuchen, dies zu tun, während der Bildschirm mit den
+  Zusatzeinstellungen geöffnet ist.
+* Beim Neustarten von NVDA werden keine Verbindungston-Einstellung für
+  Enkoder mehr vergessen vorzunehmen.
 
 ## Version 20.01
 
-* NVDA 2019.3 or later is required due to extensive use of Python 3.
+* NVDA 2019.3 oder neuer ist auf Grund der umfangreichen Nutzung von Python
+  3 erforderlich.
 
 ## Version 19.11.1/18.09.13-LTS
 
@@ -1007,10 +1034,6 @@ Für weitere Änderungsnotizen beachten Sie den Link zu den Änderungsnotizen
 
 [2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
 
-[3]: https://addons.nvda-project.org/files/get.php?file=spl-lts18
-
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 
 [5]: https://github.com/josephsl/stationplaylist/wiki/splchangelog
-
-[6]: https://addons.nvda-project.org/files/get.php?file=spl-2019

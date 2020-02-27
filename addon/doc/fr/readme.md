@@ -3,18 +3,17 @@
 * Auteurs: Geoff Shang, Joseph Lee et d'autres contributeurs.
 * Télécharger [version stable][1]
 * Télécharger [la version de développement][2]
-* NVDA compatibility: 2019.3 and beyond
-* Download [older version][6] compatible with NVDA 2019.2.1 and earlier
+* NVDA compatibility: 2019.3
 
 This add-on package provides improved usage of StationPlaylist Studio and
 other StationPlaylist apps, as well as providing utilities to control Studio
 from anywhere. Supported apps include Studio, Creator, Track Tool, VT
 Recorder, and Streamer, as well as SAM, SPL, and AltaCast encoders.
 
-Pour plus d’informations sur l'extension, lisez le [guide de
-l'extension][4]. Pour les développeurs cherchant à savoir comment construire
-l'extension, voir buildInstructions.txt situé à la racine du code source du
-référentiel de l'extension.
+For more information about the add-on, read the [add-on guide][4]. For
+developers seeking to know how to build the add-on, see
+buildInstructions.txt located at the root of the add-on source code
+repository.
 
 NOTES IMPORTANTES :
 
@@ -77,11 +76,10 @@ contraire.
   Track Tool): Announce first/last track column.
 * Control+Alt+up/down arrow (while focused on a track in Studio only): Move
   to previous or next track and announce specific columns.
-* Contrôle+NVDA+1 à 0 (alors que  a été mis en focus sur une piste dans
-  Studio, Creator et l'Outil de piste): Annoncer le contenu de la colonne
-  pour une colonne spécifiée. Si vous appuyez deux fois sur cette commande,
-  les informations de colonne s'affichent dans une fenêtre en mode
-  navigation.
+* Control+NVDA+1 through 0 (while focused on a track in Studio, Creator
+  (including Playlist Editor), and Track Tool): Announce column content for
+  a specified column (first ten columns by default). Pressing this command
+  twice will display column information on a browse mode window.
 * Control+NVDA+- (hyphen while focused on a track in Studio, Creator, and
   Track Tool): display data for all columns in a track on a browse mode
   window.
@@ -300,12 +298,11 @@ sélection.
 
 ## Explorateur de Colonnes
 
-En appuyant sur Contrôle+NVDA+1 jusqu'à 0 ou Assistant SPL, 1 jusqu'à 0,
-vous pouvez obtenir le contenu des colonnes spécifiques. Par défaut ce sont
-artiste, titre, durée, intro, catégorie nom de fichier, année, album, genre
-et heure prévue. Vous pouvez configurer les colonnes qui seront explorées
-via le dialogue Explorateur de Colonnes trouvé dans le dialogue Paramètres
-de l'extension.
+By pressing Control+NVDA+1 through 0 or SPL Assistant, 1 through 0, you can
+obtain contents of specific columns. By default, these are artist, title,
+duration, intro, outro, category, year, album, genre and mood. You can
+configure which columns will be explored via columns explorer dialog found
+in add-on settings dialog.
 
 ## Instantanés de playlist
 
@@ -336,6 +333,27 @@ ultérieure installé, vous pouvez exécuter certaines commandes Studio depuis
 un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
+
+## Version 20.03
+
+* Columns Explorer will now announce first ten columns by default (existing
+  installations will continue to use old column slots).
+* The ability to announce name of the playing track automatically from
+  places other than Studio has been removed. This feature, introduced in
+  add-on 5.6 as a workaround for Studio 5.1x, is no longer functional. Users
+  must now use SPL Controller and/or Assistant layer command to hear title
+  of the currently playing track from everywhere (C).
+* Due to removal of automatic announcement of playing track title, the
+  setting to configure this feature has been removed from add-on
+  settings/status announcement category.
+* In encoders, NvDA will play connection tone every half a second while an
+  encoder is connecting.
+* In encoders, NVDA will now announce connection attempt messages until an
+  encoder is actually connected. Previously NVDA stopped when an error was
+  encountered.
+* A new setting has been added to encoder settings to let NvDA announce
+  connection messages until the selected encoder is connected. This setting
+  is enabled by default.
 
 ## Version 20.02
 
@@ -997,10 +1015,6 @@ anciennes versions de l'extension.
 
 [2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
 
-[3]: https://addons.nvda-project.org/files/get.php?file=spl-lts18
-
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 
 [5]: https://github.com/josephsl/stationplaylist/wiki/splchangelog
-
-[6]: https://addons.nvda-project.org/files/get.php?file=spl-2019

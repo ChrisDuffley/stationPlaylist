@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 17.02\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2017-02-03 19:00+1000\n"
-"PO-Revision-Date: 2019-11-21 16:24-0800\n"
+"PO-Revision-Date: 2020-02-03 00:51+0700\n"
 "Last-Translator: Dang Manh Cuong <dangmanhcuong@gmail.com>\n"
 "Language-Team: \n"
 "Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 1.6.11\n"
 
 #. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
 msgid ""
@@ -70,7 +70,7 @@ msgstr "StationPlaylist"
 #. Translators: Presented when column is out of range.
 #, python-brace-format
 msgid "Column {columnPosition} not found"
-msgstr ""
+msgstr "Không tìm thấy cột {columnPosition}"
 
 #. Translators: presented when column information for a track is empty.
 msgid "blank"
@@ -416,13 +416,12 @@ msgid "Announces time including seconds."
 msgstr "Thông báo thời gian bao bồm giây."
 
 #. Translators: Presented when the add-on config dialog is opened.
-#, fuzzy
 msgid ""
 "The add-on settings dialog or another alarm dialog is opened. Please close "
 "the opened dialog first."
 msgstr ""
-"Hộp thoại cài đặt add-on hoặc hộp thoại truyền siêu dữ liệu đang mở. Vui "
-"lòng đóng chúng lại trước."
+"Hộp thoại cài đặt add-on hoặc hộp thoại báo hiệu nào đó đang mở. Vui lòng "
+"đóng chúng lại trước."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Sets end of track alarm (default is 5 seconds)."
@@ -703,15 +702,12 @@ msgstr "Sửa đổi danh sách phát không sẵn sàng"
 
 #. Translators: Presented when there is no information for the next track.
 #. Translators: Presented when there is no information for the current track.
-#, fuzzy
 msgid "No track is playing"
-msgstr "Không có track nào đang phát."
+msgstr "Không có track nào đang phát"
 
 #. Translators: Presented when there is no information for the next track.
-#, fuzzy
 msgid "No next track scheduled"
-msgstr ""
-"Không có track kế nào được lên lịch hoặc không có track nào đang được phát"
+msgstr "Không có track kế nào được lên lịch phát"
 
 #. Translators: Presented when next track information is unavailable.
 msgid "Cannot find next track information"
@@ -722,7 +718,6 @@ msgid "Announces title of the next track if any"
 msgstr "Thông báo tựa đề track kế tiếp nếu có"
 
 #. Translators: Presented when there is no information for the current track.
-#, fuzzy
 msgid "Cannot locate current track information"
 msgstr "Không tìm thấy thông tin của track hiện tại"
 
@@ -1943,9 +1938,8 @@ msgid "There is no track playing."
 msgstr "Không có track nào đang phát."
 
 #. Translators: presented if encoder connection status cannot be obtained.
-#, fuzzy
 msgid "Cannot obtain encoder connection status"
-msgstr "Không thể thu thập thông tin trạng thái truyền siêu dữ liệu"
+msgstr "Không thể thu thập thông tin trạng thái kết nối bộ mã hóa"
 
 #. Translators: Input help message for a SPL Controller command.
 msgid "Announces stream encoder status from other programs"
