@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 3.3\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2014-11-28 19:00+1000\n"
-"PO-Revision-Date: 2019-12-08 17:58+0100\n"
+"PO-Revision-Date: 2020-02-27 17:19-0800\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: \n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 1.8.9\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 
@@ -1996,151 +1996,3 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist Studio.\n"
 "Također, dodaje pristup naredbama za Studio s bilo kojeg mjesta."
-
-#~ msgid ""
-#~ "The add-on settings dialog is opened. Please close the settings dialog "
-#~ "first."
-#~ msgstr ""
-#~ "Dijaloški okvir s postavkama dodatka je otvoren. Najprije zatvori "
-#~ "dijaloški okvir s postavkama."
-
-#~ msgid "Cannot locate current track information or no track is playing"
-#~ msgstr ""
-#~ "Nije moguće pronaći informacije o trenutačnoj snimci ili nijedna snimka "
-#~ "ne svira"
-
-#~ msgid "No encoders found"
-#~ msgstr "Niti jedan dekoder nije pronađen"
-
-#~ msgid "Only one encoder type can be active at once"
-#~ msgstr "U određenom trenutku može biti aktivna samo jedna vrsta dekodera"
-
-#~ msgid "Connected encoders: {encodersConnected}"
-#~ msgstr "Povezani dekoderi: {encodersConnected}"
-
-#~ msgid "No encoders connected"
-#~ msgstr "Nema povezanih dekodera"
-
-#~ msgid "Encoder settings for {name}"
-#~ msgstr "Postavke dekodera za {name}"
-
-#~ msgid "Stream &label"
-#~ msgstr "&Oznaka internetskog prijenosa"
-
-#~ msgid "&Focus to Studio when connected"
-#~ msgstr "&Fokusiraj na Studio nakon povezivanja"
-
-#~ msgid "&Play first track when connected"
-#~ msgstr "&Sviraj prvu snimku nakon povezivanja"
-
-#~ msgid "Enable background connection &monitoring"
-#~ msgstr "Aktiviraj &praćenje povezivanja u pozadini"
-
-#~ msgid "Play connection status &beep while connecting"
-#~ msgstr "Sviraj &zvučni signal za stanje povezivanja tijekom povezivanja"
-
-#~ msgid "{encoder} {encoderNumber}: {status}"
-#~ msgstr "{encoder} {encoderNumber}: {status}"
-
-#~ msgid "Switch to Studio after connecting"
-#~ msgstr "Prebaci se na Studio nakon povezivanja"
-
-#~ msgid "Do not switch to Studio after connecting"
-#~ msgstr "Nemoj se prebaciti na Studio nakon povezivanja"
-
-#~ msgid ""
-#~ "Toggles whether NVDA will switch to Studio when connected to a streaming "
-#~ "server."
-#~ msgstr ""
-#~ "Odlučuje hoće li se NVDA prebaciti na Studio nakon povezivanja sa "
-#~ "serverom za internetski prijenos."
-
-#~ msgid "Play first track after connecting"
-#~ msgstr "Sviraj prvu snimku nakon povezivanja"
-
-#~ msgid "Do not play first track after connecting"
-#~ msgstr "Nemoj svirati prvu snimku nakon povezivanja"
-
-#~ msgid ""
-#~ "Toggles whether Studio will play the first song when connected to a "
-#~ "streaming server."
-#~ msgstr ""
-#~ "Odlučuje hoće li Studio svirati prvu pjesmu nakon povezivanja sa serverom "
-#~ "za internetski prijenos."
-
-#~ msgid "Monitoring encoder {encoderNumber}"
-#~ msgstr "Praćenje dekodera {encoderNumber}"
-
-#~ msgid "Encoder {encoderNumber} will not be monitored"
-#~ msgstr "Dekoder {encoderNumber} se neće pratiti"
-
-#~ msgid "Encoder monitoring canceled"
-#~ msgstr "Prekinuto praćenje dekodera"
-
-#~ msgid ""
-#~ "Toggles whether NVDA will monitor the selected encoder in the background."
-#~ msgstr "Odlučuje hoće li NVDA pratiti odabrani dekder u pozadini."
-
-#~ msgid "Stream labeler for {streamEntry}"
-#~ msgstr "Označavanje internetskog prijenosa za {streamEntry}"
-
-#~ msgid "Enter the label for this stream"
-#~ msgstr "Upiši oznaku za ovaj internetski prijenos"
-
-#~ msgid "Opens a dialog to label the selected encoder."
-#~ msgstr "Otvara dijaloški okvir za označavanje odabranog dekodera."
-
-#~ msgid "Stream label and settings eraser"
-#~ msgstr "Brisač oznaka i postavki internetskih prijenosa"
-
-#~ msgid "Enter the position of the encoder you wish to delete or will delete"
-#~ msgstr ""
-#~ "Upiši poziciju dekodera kojeg želiš izbrisati ili kojeg ćeš izbrisati"
-
-#~ msgid ""
-#~ "Opens a dialog to erase stream labels and settings from an encoder that "
-#~ "was deleted."
-#~ msgstr ""
-#~ "Otvara dijaloški okvir za brisanje oznaka internetskih prijenosa i "
-#~ "postavki izbrisanog dekodera."
-
-#~ msgid "Another encoder settings dialog is open."
-#~ msgstr "Otvoren je jedan drugi dijaloški okvir s postavkama dekodera."
-
-#~ msgid ""
-#~ "Shows encoder configuration dialog to configure various encoder settings "
-#~ "such as stream label."
-#~ msgstr ""
-#~ "Prikazuje dijaloški okvir za konfiguriranje različitih postavki dekodera "
-#~ "kao što je oznaka internetskog prijenosa."
-
-#~ msgid ""
-#~ "If pressed once, reports the current time including seconds. If pressed "
-#~ "twice, reports the current date"
-#~ msgstr ""
-#~ "Jednom pritisnuto, izgovara trenutačno vrijeme sa sekundama. Pritisnuto "
-#~ "dvaput, izgovara trenutačni datum"
-
-#~ msgid "Position: {pos}"
-#~ msgstr "Pozicija: {pos}"
-
-#~ msgid "Label: {label}"
-#~ msgstr "Oznaka: {label}"
-
-#~ msgid "No stream label"
-#~ msgstr "Nema oznake internetskog prijenosa"
-
-#~ msgid "Connecting..."
-#~ msgstr "Povezivanje …"
-
-#~ msgid "Disconnecting..."
-#~ msgstr "Prekidanje veze …"
-
-#~ msgid "Connects to a streaming server."
-#~ msgstr "Povezuje se na server za streaming."
-
-#~ msgid "Encoder Settings: {setting}"
-#~ msgstr "Postavke enkodera: {setting}"
-
-#~ msgid "Transfer Rate: {transferRate}"
-#~ msgstr "Brzina prijenosa: {transferRate}"

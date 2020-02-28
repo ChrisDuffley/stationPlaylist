@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-02-12 17:01+0100\n"
+"PO-Revision-Date: 2020-02-27 17:20-0800\n"
 "Last-Translator: Iván Novegil Cancelas <ivan.novegil.cancelas@gmail.com>\n"
 "Language-Team: Add-ons translation team <oprisniki@gmail.com>\n"
 "Language: gl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 1.8.9\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
@@ -2001,151 +2001,3 @@ msgid ""
 msgstr ""
 "Mellora o soporte para Station Playlist Studio.\n"
 "Ademáis, engade ordes globais para o estudio dende calquera parte."
-
-#~ msgid ""
-#~ "The add-on settings dialog is opened. Please close the settings dialog "
-#~ "first."
-#~ msgstr ""
-#~ "O diálogo de opcións do complemento está aberto. Por favor péchao antes."
-
-#~ msgid "Cannot locate current track information or no track is playing"
-#~ msgstr ""
-#~ "Non se puido atopar a información da pista actual ou non hai pista en "
-#~ "reprodución"
-
-#~ msgid "No encoders found"
-#~ msgstr "Non se atoparon codificadores"
-
-#~ msgid "Only one encoder type can be active at once"
-#~ msgstr "Só pode estar activo un só tipo de codificador á vez"
-
-#~ msgid "Connected encoders: {encodersConnected}"
-#~ msgstr "Codificadores conectados: {encodersConnected}"
-
-#~ msgid "No encoders connected"
-#~ msgstr "Non hai codificadores conectados"
-
-#~ msgid "Encoder settings for {name}"
-#~ msgstr "Opcións do codificador para {name}"
-
-#~ msgid "Stream &label"
-#~ msgstr "&Etiqueta de cadea"
-
-#~ msgid "&Focus to Studio when connected"
-#~ msgstr "En&focar  Studio cando estea conectado"
-
-#~ msgid "&Play first track when connected"
-#~ msgstr "&Reproducir primeira pista cando estea conectado"
-
-#~ msgid "Enable background connection &monitoring"
-#~ msgstr "Habilitar &monitorización de conexión de fondo"
-
-#~ msgid "Play connection status &beep while connecting"
-#~ msgstr "Reproducir &pitido de estado da conexión mentras se conecta"
-
-#~ msgid "{encoder} {encoderNumber}: {status}"
-#~ msgstr "{encoder} {encoderNumber}: {status}"
-
-#~ msgid "Switch to Studio after connecting"
-#~ msgstr "Cambiar ó Studio tras se conectar"
-
-#~ msgid "Do not switch to Studio after connecting"
-#~ msgstr "Non cambiar a Studio despois de se conectar"
-
-#~ msgid ""
-#~ "Toggles whether NVDA will switch to Studio when connected to a streaming "
-#~ "server."
-#~ msgstr ""
-#~ "Conmuta se NVDA cambiará a Studio cando estea conectado a un servidor de "
-#~ "streaming."
-
-#~ msgid "Play first track after connecting"
-#~ msgstr "Reproducir primeira pista despois de conectar"
-
-#~ msgid "Do not play first track after connecting"
-#~ msgstr "Non reproducir primeira pista despois de conectar"
-
-#~ msgid ""
-#~ "Toggles whether Studio will play the first song when connected to a "
-#~ "streaming server."
-#~ msgstr ""
-#~ "Conmuta se Studio reproducirá ou non a primeira canción cando se conecte "
-#~ "a un servidor de streaming."
-
-#~ msgid "Monitoring encoder {encoderNumber}"
-#~ msgstr "Monitorizando codificador {encoderNumber}"
-
-#~ msgid "Encoder {encoderNumber} will not be monitored"
-#~ msgstr "O codificador {encoderNumber} non se monitorizará"
-
-#~ msgid "Encoder monitoring canceled"
-#~ msgstr "Monitorización de codificador cancelada"
-
-#~ msgid ""
-#~ "Toggles whether NVDA will monitor the selected encoder in the background."
-#~ msgstr ""
-#~ "Conmuta se NVDA monitorizará o codificador selecionado en segundo plano."
-
-#~ msgid "Stream labeler for {streamEntry}"
-#~ msgstr "Etiquetador de cadea para {streamEntry}"
-
-#~ msgid "Enter the label for this stream"
-#~ msgstr "Introduce a etiqueta para esta cadea"
-
-#~ msgid "Opens a dialog to label the selected encoder."
-#~ msgstr "Abre un diálogo para etiquetar o codificador selecionado."
-
-#~ msgid "Stream label and settings eraser"
-#~ msgstr "Eliminador de etiqueta de cadea e opcións"
-
-#~ msgid "Enter the position of the encoder you wish to delete or will delete"
-#~ msgstr ""
-#~ "Introduce a posición do codificador que desexas eliminar ou eliminarase"
-
-#~ msgid ""
-#~ "Opens a dialog to erase stream labels and settings from an encoder that "
-#~ "was deleted."
-#~ msgstr ""
-#~ "Abre un diálogo para borrar etiquetas de cadea e opcións dun codificador "
-#~ "que foi eleminado."
-
-#~ msgid "Another encoder settings dialog is open."
-#~ msgstr "Está aberto outro diálogo de opcións de codificador."
-
-#~ msgid ""
-#~ "Shows encoder configuration dialog to configure various encoder settings "
-#~ "such as stream label."
-#~ msgstr ""
-#~ "Amosa o diálogo configuración do codificador para configurar varias "
-#~ "opcións do codificador como a etiqueta de cadea."
-
-#~ msgid ""
-#~ "If pressed once, reports the current time including seconds. If pressed "
-#~ "twice, reports the current date"
-#~ msgstr ""
-#~ "Se se premeu unha vez, anuncia a hora actual incluindo segundos. Se se "
-#~ "premeu dúas veces, anuncia a data actual"
-
-#~ msgid "Position: {pos}"
-#~ msgstr "Posición: {pos}"
-
-#~ msgid "Label: {label}"
-#~ msgstr "Etiqueta: {label}"
-
-#~ msgid "No stream label"
-#~ msgstr "Non hai etiqueta de cadea"
-
-#~ msgid "Connecting..."
-#~ msgstr "Conectando..."
-
-#~ msgid "Disconnecting..."
-#~ msgstr "Desconectando..."
-
-#~ msgid "Connects to a streaming server."
-#~ msgstr "Conecta a un servidor de streaming."
-
-#~ msgid "Encoder Settings: {setting}"
-#~ msgstr "Opcións do Codificador: {setting}"
-
-#~ msgid "Transfer Rate: {transferRate}"
-#~ msgstr "Taxa de Transferencia: {transferRate}"

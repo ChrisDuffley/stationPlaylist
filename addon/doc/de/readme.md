@@ -3,7 +3,7 @@
 * Autoren: Geoff Shang, Joseph Lee und weitere Mitwirkende
 * [Stabile Version herunterladen][1]
 * [Entwicklerversion herunterladen][2]
-* NVDA compatibility: 2019.3
+* NVDA-Kompatibilität: 2019.3
 
 Dieses Zusatzpaket bietet eine verbesserte Nutzung von StationPlaylist
 Studio und anderen StationPlaylist-Anwendungen sowie Dienstprogramme zur
@@ -11,10 +11,10 @@ Steuerung von Studio von überall. Zu den unterstützten Anwendungen gehören
 Studio, Creator, Track Tool, VT Recorder und Streamer sowie SAM, SPL und
 AltaCast Encoder.
 
-For more information about the add-on, read the [add-on guide][4]. For
-developers seeking to know how to build the add-on, see
-buildInstructions.txt located at the root of the add-on source code
-repository.
+Weitere Informationen über die Erweiterungfinden Sie in der [Anleitung der
+Erweiterung][4]. Entwickler, die wissen möchten, wie das Add-On gebaut wird,
+finden die Datei "buildInstructions.txt", die sich im Hauptverzeichnis des
+Repository der Erweiterung befindet.
 
 WICHTIGE HINWEISE:
 
@@ -22,9 +22,9 @@ WICHTIGE HINWEISE:
 * Wenn Sie Windows 8 oder höher verwenden, setzen Sie die Reduzierung der
   Lautstärke anderer Audioquellen auf "nie" im Dialog Sprachausgabe im
   NVDA-Einstellungsmenü.
-* Starting from 2018, [changelogs for old add-on releases][5] will be found
-  on GitHub. This add-on readme will list changes from version 17.08 (2017
-  onwards).
+* Seit 2018 sind [Änderungsprotokolle für alte Versionen der Erweiterung][5]
+  auf GitHub zu finden. Diese Readme der Erweiterung wird Änderungen ab
+  Version 17.08 (ab 2017) enthalten.
 * Bestimmte Funktionen sind nicht mehr verfügbar, z.B. während NVDA im
   abgesicherten Modus ausgeführt wird.
 * Aufgrund technischer Einschränkungen können Sie diese Erweiterung nicht
@@ -77,10 +77,11 @@ angegeben.
 * Strg+Alt+Pfeil nach oben/unten (während der Fokus nur auf einen Titel in
   Studio gerichtet ist): Zur vorherigen oder nächsten Spur wechseln und
   bestimmte Spalten mitteilen.
-* Control+NVDA+1 through 0 (while focused on a track in Studio, Creator
-  (including Playlist Editor), and Track Tool): Announce column content for
-  a specified column (first ten columns by default). Pressing this command
-  twice will display column information on a browse mode window.
+* Strg+NVDA+1 bis 0 (während der Fokus auf einen Titel in Studio, Creator
+  (einschließlich Playlist-Editor) und Track Tool liegt): Spalteninhalt für
+  eine bestimmte Spalte ankündigen (standardmäßig die ersten zehn
+  Spalten). Bei zweimal Drücken werden die Spalteninformationen in einem
+  Fenster im Lesemodus angezeigt.
 * Strg+NVDA+- (Bindestrich bei Fokussierung auf eine Spur in Studio, Creator
   und Titelwerkzeug): Anzeige der Daten für alle Spalten einer Spur im
   Lesemodus.
@@ -303,11 +304,11 @@ erreicht haben.
 
 ## Spaltenexplorer
 
-By pressing Control+NVDA+1 through 0 or SPL Assistant, 1 through 0, you can
-obtain contents of specific columns. By default, these are artist, title,
-duration, intro, outro, category, year, album, genre and mood. You can
-configure which columns will be explored via columns explorer dialog found
-in add-on settings dialog.
+Durch Drücken von Strg+NVDA+1 bis 0 oder SPL-Assistent, 1 bis 0, können Sie
+den Inhalt bestimmter Spalten erhalten. Standardmäßig sind dies Interpreten,
+Titel, Dauer, Intro, Outro, Kategorie, Jahr, Album, Genre und Stimmung. Sie
+können konfigurieren, welche Spalten über den Spalten-Explorer-Dialog, der
+sich in den Einstellungen der Erweiterung befindet, erkundet werden sollen.
 
 ## Playlist-Statistiken
 
@@ -345,24 +346,25 @@ die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
 
 ## Version 20.03
 
-* Columns Explorer will now announce first ten columns by default (existing
-  installations will continue to use old column slots).
-* The ability to announce name of the playing track automatically from
-  places other than Studio has been removed. This feature, introduced in
-  add-on 5.6 as a workaround for Studio 5.1x, is no longer functional. Users
-  must now use SPL Controller and/or Assistant layer command to hear title
-  of the currently playing track from everywhere (C).
-* Due to removal of automatic announcement of playing track title, the
-  setting to configure this feature has been removed from add-on
-  settings/status announcement category.
-* In encoders, NvDA will play connection tone every half a second while an
-  encoder is connecting.
-* In encoders, NVDA will now announce connection attempt messages until an
-  encoder is actually connected. Previously NVDA stopped when an error was
-  encountered.
-* A new setting has been added to encoder settings to let NvDA announce
-  connection messages until the selected encoder is connected. This setting
-  is enabled by default.
+* Der Spalten-Explorer liest standardmäßig die ersten zehn Spalten vor
+  (bestehende Installationen werden weiterhin die alten Spalten verwenden).
+* Die Möglichkeit, den Namen des abspielenden Titels automatisch von anderen
+  Orten als Studio aus anzukündigen, wurde entfernt. Diese Funktion, die in
+  5.6 als Workaround für Studio 5.1x eingeführt wurde, ist nicht mehr
+  funktionsfähig. Benutzer müssen nun den SPL-Controller und/oder den Befehl
+  für den Assistenten verwenden, um den Titel des gerade abgespielten Titels
+  von überall her zu hören (C).
+* Auf Grund der Entfernung der automatischen Ansage des abspielenden Titels
+  wurde die Einstellung zur Konfiguration dieser Funktion aus der Kategorie
+  Zusatzeinstellungen bzw. Status-Ankündigung entfernt.
+* Bei Encodern spielt NvDA den Verbindungston jede halbe Sekunde ab, während
+  ein Encoder angeschlossen ist.
+* Bei Encodern meldet NVDA nun Meldungen über Verbindungsversuche, bis ein
+  Encoder tatsächlich angeschlossen ist. Zuvor stoppte NVDA, wenn ein Fehler
+  auftrat.
+* Eine neue Einstellung wurde zu den Encoder-Einstellungen hinzugefügt, um
+  NVDA Verbindungsmeldungen mitzuteilen, bis der ausgewählte Encoder
+  angeschlossen ist. Diese Einstellung ist standardmäßig aktiviert.
 
 ## Version 20.02
 
