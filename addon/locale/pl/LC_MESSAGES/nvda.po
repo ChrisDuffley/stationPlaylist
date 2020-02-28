@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2019-12-07 20:15+0100\n"
+"PO-Revision-Date: 2020-02-27 17:18-0800\n"
 "Last-Translator: zvonimir stanecic <zvonimirek222@yandex.com>\n"
 "Language-Team: Polish <killer@tyflonet.com>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.10\n"
+"X-Generator: Poedit 1.8.9\n"
 
 #. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
 msgid ""
@@ -1859,145 +1859,3 @@ msgid ""
 msgstr ""
 "Poprawia dostępność Station Playlist Studio.\n"
 "Ponadto, dodaje globalne komendy dla studia, dostępne z każdego miejsca."
-
-#~ msgid ""
-#~ "The add-on settings dialog is opened. Please close the settings dialog "
-#~ "first."
-#~ msgstr "Okno ustawień dodatku otwarte. Proszę, zamknij je najpierw"
-
-#~ msgid "Cannot locate current track information or no track is playing"
-#~ msgstr ""
-#~ "Nie mogę odczytać informacji o obecnym utworze lub żaden utwór nie jest "
-#~ "odtwarzany"
-
-#~ msgid "No encoders found"
-#~ msgstr "Nie znaleziono enkoderów"
-
-#~ msgid "Connected encoders: {encodersConnected}"
-#~ msgstr "Połączonych enkoderów: {encodersConnected}"
-
-#~ msgid "No encoders connected"
-#~ msgstr "Nie ma podłączonych enkoderów"
-
-#~ msgid "Encoder settings for {name}"
-#~ msgstr "Właściwości dla {name}"
-
-#~ msgid "Stream &label"
-#~ msgstr "Etykieta strumienia"
-
-#~ msgid "&Focus to Studio when connected"
-#~ msgstr "Przełączaj do studia po połączeniu"
-
-#~ msgid "&Play first track when connected"
-#~ msgstr "Odtwarzaj pierwszy kawałek po połączeniu"
-
-#~ msgid "Enable background connection &monitoring"
-#~ msgstr "Włącz monitorowanie połączenia w tle"
-
-#~ msgid "Play connection status &beep while connecting"
-#~ msgstr "Dźwięk podczas połączenia"
-
-#~ msgid "{encoder} {encoderNumber}: {status}"
-#~ msgstr "{encoder} {encoderNumber}: {status}"
-
-#~ msgid "Switch to Studio after connecting"
-#~ msgstr "Przełączaj do studia po połączeniu"
-
-#~ msgid "Do not switch to Studio after connecting"
-#~ msgstr "Nie przełączaj do studia po połączeniu"
-
-#~ msgid ""
-#~ "Toggles whether NVDA will switch to Studio when connected to a streaming "
-#~ "server."
-#~ msgstr ""
-#~ "Przełącza, czy NVDA będzie przechodzić do studia po połączeniu z serwerem "
-#~ "strumieniowania."
-
-#~ msgid "Play first track after connecting"
-#~ msgstr "Odtwarzaj pierwszą ścieżkę po połączeniu"
-
-#~ msgid "Do not play first track after connecting"
-#~ msgstr "Nie odtwarzaj pierwszej ścieżki po połączeniu"
-
-#~ msgid ""
-#~ "Toggles whether Studio will play the first song when connected to a "
-#~ "streaming server."
-#~ msgstr ""
-#~ "Przełącza, czy Studio będzie odtwarzać pierwszą ścieżkę po połączeniu z "
-#~ "serwerem strumieniowania."
-
-#~ msgid "Monitoring encoder {encoderNumber}"
-#~ msgstr "Monitorowanie enkodera {encoderNumber}"
-
-#~ msgid "Encoder {encoderNumber} will not be monitored"
-#~ msgstr "Enkoder {encoderNumber} nie będzie monitorowany"
-
-#~ msgid "Encoder monitoring canceled"
-#~ msgstr "Monitorowanie enkodera zaniechane"
-
-#~ msgid ""
-#~ "Toggles whether NVDA will monitor the selected encoder in the background."
-#~ msgstr "Przełącza monitorowanie wybranego enkodera w tle"
-
-#~ msgid "Stream labeler for {streamEntry}"
-#~ msgstr "Etykietownik strumienia dla {streamEntry}"
-
-#~ msgid "Enter the label for this stream"
-#~ msgstr "Wprowadź etykietę tego strumienia"
-
-#~ msgid "Opens a dialog to label the selected encoder."
-#~ msgstr "Otwiera okno etykietowania wybranego enkodera.."
-
-#~ msgid "Stream label and settings eraser"
-#~ msgstr "Usuwanie etykiet strumieni i ustawień"
-
-#~ msgid "Enter the position of the encoder you wish to delete or will delete"
-#~ msgstr "Podaj numer enkodera który chcesz usunąć"
-
-#~ msgid ""
-#~ "Opens a dialog to erase stream labels and settings from an encoder that "
-#~ "was deleted."
-#~ msgstr ""
-#~ "Otwiera okno pozwalające usunąć etykiety i parametry uprzednio usuniętego "
-#~ "enkodera"
-
-#~ msgid "Another encoder settings dialog is open."
-#~ msgstr "Inne okno właściwości enkodera jest otwarte"
-
-#~ msgid ""
-#~ "Shows encoder configuration dialog to configure various encoder settings "
-#~ "such as stream label."
-#~ msgstr ""
-#~ "Wyświetla okno konfiguracji enkodera umożliwiające ustawienie jego "
-#~ "rozmaitych właściwości"
-
-#~ msgid ""
-#~ "If pressed once, reports the current time including seconds. If pressed "
-#~ "twice, reports the current date"
-#~ msgstr ""
-#~ "Wciśnięty raz, wypowiada aktualny czas z uwzględnieniem sekund. "
-#~ "Podwójnie, aktualną datę."
-
-#~ msgid "Position: {pos}"
-#~ msgstr "Pozycja: {pos}"
-
-#~ msgid "Label: {label}"
-#~ msgstr "Etykieta: {label}"
-
-#~ msgid "No stream label"
-#~ msgstr "Nie ma etykiety dla strumienia"
-
-#~ msgid "Connecting..."
-#~ msgstr "Łączenie..."
-
-#~ msgid "Disconnecting..."
-#~ msgstr "Rozłączanie..."
-
-#~ msgid "Connects to a streaming server."
-#~ msgstr "Łączy z serwerem strumieniowania."
-
-#~ msgid "Encoder Settings: {setting}"
-#~ msgstr "Ustawienie enkodera: {setting}"
-
-#~ msgid "Transfer Rate: {transferRate}"
-#~ msgstr "Szybkość: {transferRate}"
