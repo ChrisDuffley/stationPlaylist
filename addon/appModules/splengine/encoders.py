@@ -182,6 +182,8 @@ def cleanup(appTerminating=False, reset=False):
 		config.post_configReset.unregister(resetStreamLabels)
 	for flag in [streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError, SAMMonitorThreads, SPLMonitorThreads, ACMonitorThreads]:
 		if flag is not None: flag.clear()
+	# 20.04: save a "clean" copy after resetting encoder settings.
+	if reset: streamLabels.write()
 	# Nullify stream labels.
 	streamLabels = None
 	# Without resetting monitor count, we end up with higher and higher value for this.
