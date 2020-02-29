@@ -71,8 +71,9 @@ def loadStreamLabels():
 		SPLNoConnectionTone = set(streamLabels["NoConnectionTone"])
 	if "ConnectionStopOnError" in streamLabels:
 		SPLConnectionStopOnError = set(streamLabels["ConnectionStopOnError"])
-	# 20.04: register config save handler.
+	# 20.04: register config save and reset handlers.
 	config.post_configSave.register(saveStreamLabels)
+	config.post_configReset.register(resetStreamLabels)
 
 # Report number of encoders being monitored.
 # 6.0: Refactor the below function to use the newer encoder config format.
@@ -176,7 +177,9 @@ def saveStreamLabels():
 def cleanup(appTerminating=False, reset=False):
 	global streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError, encoderMonCount, SAMMonitorThreads, SPLMonitorThreads, ACMonitorThreads
 	if appTerminating: saveStreamLabels()
-	if reset or appTerminating: config.post_configSave.unregister(saveStreamLabels)
+	if reset or appTerminating:
+		config.post_configSave.unregister(saveStreamLabels)
+		config.post_configReset.unregister(resetStreamLabels)
 	for flag in [streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError, SAMMonitorThreads, SPLMonitorThreads, ACMonitorThreads]:
 		if flag is not None: flag.clear()
 	# Nullify stream labels.
