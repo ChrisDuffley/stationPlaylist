@@ -185,6 +185,11 @@ def cleanup(appTerminating=False, reset=False):
 	# 7.0: Destroy threads also.
 	encoderMonCount = {"SAM":0, "SPL":0, "AltaCast":0}
 
+# Reset encoder settings.
+# Because simply reloading settings will introduce errors, respond only to proper reset signal (Control+NVDA+R three times).
+def resetStreamLabels(factoryDefaults=False):
+	if factoryDefaults: cleanup(reset=True)
+
 # Encoder configuration dialog.
 _configDialogOpened = False
 
