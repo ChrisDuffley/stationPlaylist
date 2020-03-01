@@ -201,7 +201,6 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Version 20.04
 
 * In encoders, you can now save and reset encoder settings (including stream labels) by pressing Control+NVDA+C or Control+NVDA+R three times, respectively.
-* NVDA will no longer load saved encoder settings after resetting encoder configuration to defaults via add-on settings/reset category.
 
 ## Version 20.03
 
