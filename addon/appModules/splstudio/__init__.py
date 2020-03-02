@@ -1946,13 +1946,8 @@ class AppModule(appModuleHandler.AppModule):
 			if splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "off": self.bindGestures(self.__SPLAssistantGestures)
 			elif splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "jfw": self.bindGestures(self.__SPLAssistantJFWGestures)
 			elif splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "wineyes": self.bindGestures(self.__SPLAssistantWEGestures)
-			# 7.0: Certain commands involving number row.
-			# 8.0: Also assign encoder status commands in addition to columns explorer.
 			for i in range(5):
-				self.bindGesture("kb:%s"%(i), "columnExplorer")
 				self.bindGesture("kb:shift+%s"%(i), "metadataEnabled")
-			for i in range(5, 10):
-				self.bindGesture("kb:%s"%(i), "columnExplorer")
 			self.SPLAssistant = True
 			tones.beep(512, 50)
 			if splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "jfw": ui.message("JAWS")
