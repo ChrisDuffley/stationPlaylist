@@ -2343,16 +2343,6 @@ class AppModule(appModuleHandler.AppModule):
 				status = _("Metadata streaming on DSP encoder disabled")
 		ui.message(status)
 
-	def script_columnExplorer(self, gesture):
-		focus = api.getFocusObject()
-		if not isinstance(focus, SPLTrackItem):
-			# Translators: Presented when attempting to announce specific columns but the focused item isn't a track.
-			ui.message(_("Not a track"))
-		else:
-			# LTS: Call the overlay class version.
-			focus.script_columnExplorer(gesture)
-		self.finish()
-
 	def script_layerHelp(self, gesture):
 		compatibility = splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]
 		# Translators: The title for SPL Assistant help dialog.
