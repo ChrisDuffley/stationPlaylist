@@ -123,7 +123,6 @@ The available commands are:
 * U: Studio up time.
 * W: Weather and temperature if configured.
 * Y: Playlist modified status.
-* 1 through 0: Announce column content for a specified column.
 * F8: Take playlist snapshots (number of tracks, longest track, etc.).
 * Shift+F8: Request playlist transcripts in numerous formats.
 * F9: Mark current track for start of playlist analysis (playlist viewer only).
@@ -200,6 +199,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Version 20.04
 
+* Due to duplication, columns explorer commands from SPL Assistant (number row) has been removed.
 * In encoders, you can now save and reset encoder settings (including stream labels) by pressing Control+NVDA+C or Control+NVDA+R three times, respectively.
 
 ## Version 20.03
