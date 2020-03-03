@@ -1503,8 +1503,6 @@ class ResetDialog(wx.Dialog):
 			if self.resetTrackCommentsCheckbox.Value:
 				splconfig.trackComments.clear()
 			if self.resetEncodersCheckbox.Value:
-				if os.path.exists(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini")):
-					os.remove(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
 				if "appModules.splengine.encoders" in sys.modules:
 					import appModules.splengine.encoders
 					appModules.splengine.encoders.cleanup()
