@@ -645,11 +645,6 @@ class GeneralSettingsPanel(gui.SettingsPanel):
 # Only one instance can be active at a given moment (code borrowed from GUI's exit dialog routine).
 _alarmDialogOpened = False
 
-# A common alarm error dialog.
-def _alarmError():
-	# Translators: Text of the dialog when another alarm dialog is open.
-	gui.messageBox(_("Another alarm dialog is open."),translate("Error"),style=wx.OK | wx.ICON_ERROR)
-
 class AlarmsCenter(wx.Dialog):
 	"""A dialog providing common alarm settings.
 	This dialog contains a number entry field for alarm duration and a check box to enable or disable the alarm.
