@@ -1600,7 +1600,7 @@ def _configDialogOpenError():
 # Open the above dialog upon request.
 def onConfigDialog(evt):
 	# 5.2: Guard against alarm dialogs.
+	# #125 (20.04) temporary: call the temporary error handler.
 	if _alarmDialogOpened or _metadataDialogOpened:
-		# Translators: Presented when an alarm dialog is opened.
-		wx.CallAfter(gui.messageBox, _("Another add-on settings dialog is open. Please close the previously opened dialog first."), translate("Error"), wx.OK|wx.ICON_ERROR)
+		wx.CallAfter(_configDialogOpenError)
 	else: gui.mainFrame._popupSettingsDialog(SPLConfigDialog)

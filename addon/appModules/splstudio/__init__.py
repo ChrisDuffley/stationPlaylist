@@ -1193,8 +1193,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	def alarmDialog(self, level):
 		if splconfui._configDialogOpened or splconfui._alarmDialogOpened:
-			# Translators: Presented when the add-on config dialog is opened.
-			wx.CallAfter(gui.messageBox, _("The add-on settings dialog or another alarm dialog is opened. Please close the opened dialog first."), translate("Error"), wx.OK|wx.ICON_ERROR)
+			# #125 (20.04) temporary: call centralized error handler.
+			wx.CallAfter(splconfui._configDialogOpenError)
 			return
 		try:
 			d = splconfui.AlarmsCenter(gui.mainFrame, level=level)
@@ -1621,8 +1621,8 @@ class AppModule(appModuleHandler.AppModule):
 			ui.message(_("Cannot open metadata streaming dialog"))
 			return
 		if splconfui._configDialogOpened or splconfui._metadataDialogOpened:
-			# Translators: Presented when the add-on config dialog is opened.
-			wx.CallAfter(gui.messageBox, _("The add-on settings dialog or the metadata streaming dialog is opened. Please close the opened dialog first."), translate("Error"), wx.OK|wx.ICON_ERROR)
+			# #125 (20.04) temporary: call centralized error handler.
+			wx.CallAfter(splconfui._configDialogOpenError)
 			return
 		try:
 			# #44 (18.02): do not rely on Studio API function object as its workings (including arguments) may change.
