@@ -199,7 +199,8 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Version 20.04
 
-* Due to duplication, columns explorer commands from SPL Assistant (number row) has been removed.
+* Due to duplication with Control+NVDA+number row commands for Studio tracks, columns explorer commands from SPL Assistant (number row) has been removed.
+* Changed error message shown when trying to open a Studio add-on settings dialog (such as metadata streaming dialog) while another settings dialog (such as end of track alarm dialog) is active. The new error message is same as the message shown when trying to open multiple NVDA settings dialogs.
 * In encoders, you can now save and reset encoder settings (including stream labels) by pressing Control+NVDA+C or Control+NVDA+R three times, respectively.
 
 ## Version 20.03
