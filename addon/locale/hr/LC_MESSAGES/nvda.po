@@ -31,13 +31,13 @@ msgstr ""
 msgid "Old Windows version"
 msgstr "Stara Windows verzija"
 
-#. Translators: Title of the column data window.
-msgid "Track data"
-msgstr "Podaci snimke"
-
 #. Translators: input help mode message for columns viewer command.
 msgid "Presents data for all columns in the currently selected track"
 msgstr "Prikazuje podatke svih stupaca u trenutačno odabranoj snimci"
+
+#. Translators: Title of the column data window.
+msgid "Track data"
+msgstr "Podaci snimke"
 
 #. Translators: Presented when microphone has been active for a while.
 msgid "Microphone active"
@@ -143,6 +143,7 @@ msgstr ""
 "za dodavanje, mijenjanje ili uklanjanje komentara"
 
 #. Translators: The text of the help command in SPL Assistant layer.
+#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -169,8 +170,6 @@ msgid ""
 "U: Studio up time.\n"
 "W: Weather and temperature.\n"
 "Y: Playlist modification.\n"
-"1 through 0: Announce columns via Columns Explorer (0 is tenth column "
-"slot).\n"
 "F8: Take playlist snapshots such as track count, longest track and so on.\n"
 "Shift+F8: Obtain playlist transcripts in a variety of formats.\n"
 "F9: Mark current track as start of track time analysis.\n"
@@ -213,6 +212,7 @@ msgstr ""
 "Shift+F1: Otvori korisnički priručnik na internetu."
 
 #. Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
+#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -241,8 +241,6 @@ msgid ""
 "U: Studio up time.\n"
 "W: Weather and temperature.\n"
 "Y: Playlist modification.\n"
-"1 through 0: Announce columns via Columns Explorer (0 is tenth column "
-"slot).\n"
 "F8: Take playlist snapshots such as track count, longest track and so on.\n"
 "Shift+F8: Obtain playlist transcripts in a variety of formats.\n"
 "F9: Mark current track as start of track time analysis.\n"
@@ -287,6 +285,7 @@ msgstr ""
 "Shift+F1: Otvori korisnički priručnik na internetu."
 
 #. Translators: The text of the help command in SPL Assistant layer when Window-Eyes layer is active.
+#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -317,8 +316,6 @@ msgid ""
 "U: Studio up time.\n"
 "W: Weather and temperature.\n"
 "Y: Playlist modification.\n"
-"1 through 0: Announce columns via Columns Explorer (0 is tenth column "
-"slot).\n"
 "F8: Take playlist snapshots such as track count, longest track and so on.\n"
 "Shift+F8: Obtain playlist transcripts in a variety of formats.\n"
 "F9: Mark current track as start of track time analysis.\n"
@@ -417,15 +414,6 @@ msgstr ""
 msgid "Announces time including seconds."
 msgstr "Najavljuje vrijeme sa sekundama."
 
-#. Translators: Presented when the add-on config dialog is opened.
-#, fuzzy
-msgid ""
-"The add-on settings dialog or another alarm dialog is opened. Please close "
-"the opened dialog first."
-msgstr ""
-"Već je otvoren dijaloški okvir s postavkama ili dijaloški okvir za "
-"internetski prijenos metapodataka. Najprije zatvori otvoreni dijaloški okvir."
-
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Sets end of track alarm (default is 5 seconds)."
 msgstr "Postavlja alarm za kraj snimke (standardno postavljeno na 5 sekundi)."
@@ -501,6 +489,11 @@ msgstr ""
 msgid "Locates track with duration within a time range"
 msgstr "Nalazi snimku s trajanjem u vremesnkom rasponu"
 
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+msgid "Toggles cart explorer to learn cart assignments."
+msgstr ""
+"Uključuje i isključuje istraživača džinglova za javljanje njihovih naredbi."
+
 #. Translators: Presented when cart explorer cannot be entered.
 msgid "You are not in playlist viewer, cannot enter cart explorer"
 msgstr ""
@@ -520,11 +513,6 @@ msgstr "Ulazak u istraživača džìnglova"
 #. Translators: Presented when cart explorer is off.
 msgid "Exiting cart explorer"
 msgstr "Izlazak iz istraživača džìnglova"
-
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid "Toggles cart explorer to learn cart assignments."
-msgstr ""
-"Uključuje i isključuje istraživača džinglova za javljanje njihovih naredbi."
 
 #. Translators: Presented when cart command is unavailable.
 msgid "Cart command unavailable"
@@ -560,24 +548,16 @@ msgstr "Skeniranje"
 msgid "{itemCount} items scanned"
 msgstr "Broj skeniranih stavki: {itemCount}"
 
-#. Translators: Presented when streaming dialog cannot be shown.
-msgid "Cannot open metadata streaming dialog"
-msgstr ""
-"Nije moguće otvoriti dijaloški okvir internetskog prijenosa metapodataka"
-
-#. Translators: Presented when the add-on config dialog is opened.
-msgid ""
-"The add-on settings dialog or the metadata streaming dialog is opened. "
-"Please close the opened dialog first."
-msgstr ""
-"Već je otvoren dijaloški okvir s postavkama ili dijaloški okvir za "
-"internetski prijenos metapodataka. Najprije zatvori otvoreni dijaloški okvir."
-
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Opens a dialog to quickly enable or disable metadata streaming."
 msgstr ""
 "Otvara dijaloški okvir za brzo aktiviranje ili deaktiviranje internetskog "
 "prijenosa metapodataka."
+
+#. Translators: Presented when streaming dialog cannot be shown.
+msgid "Cannot open metadata streaming dialog"
+msgstr ""
+"Nije moguće otvoriti dijaloški okvir internetskog prijenosa metapodataka"
 
 #. Translators: an error message presented when performing some playlist commands while focused on places other than Playlist Viewer.
 msgid "Please return to playlist viewer before invoking this command."
@@ -692,12 +672,6 @@ msgstr "{genreName} ({genreCount})"
 msgid "Playlist snapshots"
 msgstr "Statistika popisa snimaka"
 
-#. Translators: Presented when SPL Assistant cannot be invoked.
-msgid "Failed to locate Studio main window, cannot enter SPL Assistant"
-msgstr ""
-"Neuspjelo pronalaženje glavnog prostora programa Studio, nije moguće ući u "
-"SPL Assistant"
-
 #. Translators: Input help mode message for a layer command in StationPlaylist add-on.
 msgid ""
 "The SPL Assistant layer command. See the add-on guide for more information "
@@ -706,9 +680,19 @@ msgstr ""
 "Naredba sloja SPL Assistant. Pogledaj priručnik dodatka za daljnje "
 "informacije o dostupnim naredbama."
 
+#. Translators: Presented when SPL Assistant cannot be invoked.
+msgid "Failed to locate Studio main window, cannot enter SPL Assistant"
+msgstr ""
+"Neuspjelo pronalaženje glavnog prostora programa Studio, nije moguće ući u "
+"SPL Assistant"
+
 #. Translators: presented when playlist modification message isn't shown.
 msgid "Playlist modification not available"
 msgstr "Promjena u popisu snimaka nije dostupna"
+
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+msgid "Announces title of the next track if any"
+msgstr "Najavljuje naslov sljedeće snimke, ako postoji"
 
 #. Translators: Presented when there is no information for the next track.
 #. Translators: Presented when there is no information for the current track.
@@ -726,8 +710,8 @@ msgid "Cannot find next track information"
 msgstr "Nije moguće pronaći informacije o sljedećoj snimci"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid "Announces title of the next track if any"
-msgstr "Najavljuje naslov sljedeće snimke, ako postoji"
+msgid "Announces title of the currently playing track"
+msgstr "Najavljuje naslov trenutačne snimke, ako postoji"
 
 #. Translators: Presented when there is no information for the current track.
 #, fuzzy
@@ -739,8 +723,8 @@ msgid "Cannot find current track information"
 msgstr "Nije moguće pronaći informacije o trenutačnoj snimci"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid "Announces title of the currently playing track"
-msgstr "Najavljuje naslov trenutačne snimke, ako postoji"
+msgid "Announces temperature and weather information"
+msgstr "Najavljuje informacije o temperaturi i vremenu"
 
 #. Translators: Presented when there is no weather or temperature information.
 msgid "Weather and temperature not configured"
@@ -749,10 +733,6 @@ msgstr "Vrijeme i temperatura nisu konfigurirani"
 #. Translators: Presented when temperature information cannot be found.
 msgid "Weather information not found"
 msgstr "Informacije o vremenu nisu pronađene"
-
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid "Announces temperature and weather information"
-msgstr "Najavljuje informacije o temperaturi i vremenu"
 
 #. Translators: Presented when there is no listener count information.
 msgid "Listener count not found"
@@ -766,6 +746,13 @@ msgstr "Praćenje skeniranje biblioteke"
 msgid "Scanning is in progress"
 msgstr "Skeniranje je u tijeku"
 
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+msgid ""
+"Marks focused track as start marker for various playlist analysis commands"
+msgstr ""
+"Označava trenutačno fokusiranu snimku kao početnu oznaku za naredbe kojima "
+"se analizira popis snimaka"
+
 #. Translators: Presented when track time analysis is turned on.
 msgid "Playlist analysis activated"
 msgstr "Analiza popisa snimaka aktivirana"
@@ -776,10 +763,11 @@ msgstr "Analiza popisa snimaka deaktivirana"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid ""
-"Marks focused track as start marker for various playlist analysis commands"
+"Announces total length of tracks between analysis start marker and the "
+"current track"
 msgstr ""
-"Označava trenutačno fokusiranu snimku kao početnu oznaku za naredbe kojima "
-"se analizira popis snimaka"
+"Najavljuje ukupno trajanje snimaka između početne oznake analiziranja i "
+"trenutačne snimke"
 
 #. Translators: Presented when track time analysis cannot be used because start marker is not set.
 msgid ""
@@ -792,14 +780,6 @@ msgstr ""
 #, python-brace-format
 msgid "Tracks: {numberOfSelectedTracks}, totaling {totalTime}"
 msgstr "Snimke: {numberOfSelectedTracks}, ukupno vrijeme {totalTime}"
-
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid ""
-"Announces total length of tracks between analysis start marker and the "
-"current track"
-msgstr ""
-"Najavljuje ukupno trajanje snimaka između početne oznake analiziranja i "
-"trenutačne snimke"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid ""
@@ -849,10 +829,6 @@ msgstr ""
 #. Translators: Status message for metadata streaming.
 msgid "Metadata streaming on DSP encoder disabled"
 msgstr "Internetski prijenos metapodataka na DSP dekoderu deaktiviran"
-
-#. Translators: Presented when attempting to announce specific columns but the focused item isn't a track.
-msgid "Not a track"
-msgstr "Nije snimka"
 
 #. Translators: The title for SPL Assistant help dialog.
 msgid "SPL Assistant help"
@@ -1348,15 +1324,8 @@ msgstr "&Obavijesti kad se nalazim na vrhu ili dnu prikaza popisa snimaka"
 msgid "Play a sound when listener &requests arrive"
 msgstr "&Sviraj zvuk kad stignu zahtjevi slušatelja"
 
-#. Translators: Text of the dialog when another alarm dialog is open.
-msgid "Another alarm dialog is open."
-msgstr "Otvoren je jedan drugi dijaloški okvir za alarm."
-
-#. Now the actual alarm dialog code.
 #. 8.0: Apart from level 0 (all settings shown), levels change title.
-msgid "Alarms Center"
-msgstr "Centar alarma"
-
+#. 20.03: level 0 (Alarms Center/all settings) is no more, as the dialog will not be invoked from add-on settings interface (default is end of track alarm).
 msgid "End of track alarm"
 msgstr "Alarm za kraj snimke"
 
@@ -1454,11 +1423,6 @@ msgstr ""
 #. Translators: Title of a dialog to configure metadata streaming status for DSP encoder and four additional URL's.
 msgid "Metadata streaming options"
 msgstr "Opcije za internetski prijenos metapodataka"
-
-msgid "Select the URL for metadata streaming upon request."
-msgstr ""
-"Odaberi URL adresu za internetski prijenos metapodataka pri zaprimanju "
-"zahtjeva."
 
 msgid "Check to enable metadata streaming, uncheck to disable."
 msgstr ""
@@ -1595,22 +1559,6 @@ msgstr "Najavi broj &slušatelja"
 msgid "&Announce name of the currently playing cart"
 msgstr "Najavi ime &džingla koji trenutačno svira"
 
-#. Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
-msgid "&Track name announcement:"
-msgstr "&Najavljivanje imena snimaka:"
-
-#. Translators: One of the track name announcement options.
-msgid "automatic"
-msgstr "automatski"
-
-#. Translators: One of the track name announcement options.
-msgid "while using other programs"
-msgstr "kad se koriste drugi programi"
-
-#. Translators: One of the track name announcement options.
-msgid "off"
-msgstr "isključeno"
-
 #. Translators: the label for a setting in SPL add-on settings to announce player position for the current and next tracks.
 msgid ""
 "Include track player &position when announcing current and next track "
@@ -1722,14 +1670,6 @@ msgstr "Resetiraj postavke …"
 #. Translators: This is the label for the StationPlaylist add-on configuration dialog.
 msgid "StationPlaylist Add-on Settings"
 msgstr "Postavke StationPlaylist dodatka"
-
-#. Translators: Presented when an alarm dialog is opened.
-msgid ""
-"Another add-on settings dialog is open. Please close the previously opened "
-"dialog first."
-msgstr ""
-"Otvoren je jedan drugi dijaloški okvir s postavkama dodatka. Najprije "
-"zatvori prethodno otvoren dijaloški okvir."
 
 #. Translators: Text of the dialog when another find dialog is open.
 msgid "Another find dialog is open."
@@ -1917,13 +1857,19 @@ msgstr ""
 "Tipke funkcija i brojeva redaka sa ili bez tipki Shift, Alt i Control: "
 "sviraj carts."
 
+#. Translators: Input help mode message for a command to switch to StationPlaylist Studio from any program.
+msgid "Moves to SPL Studio window from other programs."
+msgstr "Premješta se na prozor programa SPL Studio iz drugih programa."
+
 #. Translators: Presented when StationPlaylist Studio is not running.
 msgid "SPL Studio is not running."
 msgstr "SPL Studio nije pokrenut."
 
-#. Translators: Input help mode message for a command to switch to StationPlaylist Studio from any program.
-msgid "Moves to SPL Studio window from other programs."
-msgstr "Premješta se na prozor programa SPL Studio iz drugih programa."
+#. Translators: Input help mode message for a layer command in StationPlaylist add-on.
+msgid "SPl Controller layer command. See add-on guide for available commands."
+msgstr ""
+"Složena naredba za SPL Controller. Nađi dostupne naredbe u priručniku "
+"dodatka."
 
 #. Translators: Presented when NVDA cannot enter SPL Controller layer since SPL Studio is focused.
 msgid ""
@@ -1937,12 +1883,6 @@ msgstr ""
 #. Hint: it is better to translate it as "SPL Control Panel."
 msgid "SPL Controller"
 msgstr "SPL Controller"
-
-#. Translators: Input help mode message for a layer command in StationPlaylist add-on.
-msgid "SPl Controller layer command. See add-on guide for available commands."
-msgstr ""
-"Složena naredba za SPL Controller. Nađi dostupne naredbe u priručniku "
-"dodatka."
 
 #. Translators: Presented when no track is playing in StationPlaylist Studio.
 msgid "There is no track playing. Try pausing while a track is playing."
@@ -1967,15 +1907,15 @@ msgstr "Broj slušatelja: {listenerCount}"
 msgid "There is no track playing."
 msgstr "Niti jedna snimka ne svira."
 
+#. Translators: Input help message for a SPL Controller command.
+msgid "Announces stream encoder status from other programs"
+msgstr "Najavljuje stanje dekodera internetskog prijenosa drugih programa"
+
 #. Translators: presented if encoder connection status cannot be obtained.
 #, fuzzy
 msgid "Cannot obtain encoder connection status"
 msgstr ""
 "Nije moguće dobiti informacije o stanju internetskog prijenosa metapodataka"
-
-#. Translators: Input help message for a SPL Controller command.
-msgid "Announces stream encoder status from other programs"
-msgstr "Najavljuje stanje dekodera internetskog prijenosa drugih programa"
 
 #. Translators: Input help message for a SPL Controller command.
 msgid ""
@@ -1996,3 +1936,53 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist Studio.\n"
 "Također, dodaje pristup naredbama za Studio s bilo kojeg mjesta."
+
+#, fuzzy
+#~ msgid ""
+#~ "The add-on settings dialog or another alarm dialog is opened. Please "
+#~ "close the opened dialog first."
+#~ msgstr ""
+#~ "Već je otvoren dijaloški okvir s postavkama ili dijaloški okvir za "
+#~ "internetski prijenos metapodataka. Najprije zatvori otvoreni dijaloški "
+#~ "okvir."
+
+#~ msgid ""
+#~ "The add-on settings dialog or the metadata streaming dialog is opened. "
+#~ "Please close the opened dialog first."
+#~ msgstr ""
+#~ "Već je otvoren dijaloški okvir s postavkama ili dijaloški okvir za "
+#~ "internetski prijenos metapodataka. Najprije zatvori otvoreni dijaloški "
+#~ "okvir."
+
+#~ msgid "Not a track"
+#~ msgstr "Nije snimka"
+
+#~ msgid "Another alarm dialog is open."
+#~ msgstr "Otvoren je jedan drugi dijaloški okvir za alarm."
+
+#~ msgid "Alarms Center"
+#~ msgstr "Centar alarma"
+
+#~ msgid "Select the URL for metadata streaming upon request."
+#~ msgstr ""
+#~ "Odaberi URL adresu za internetski prijenos metapodataka pri zaprimanju "
+#~ "zahtjeva."
+
+#~ msgid "&Track name announcement:"
+#~ msgstr "&Najavljivanje imena snimaka:"
+
+#~ msgid "automatic"
+#~ msgstr "automatski"
+
+#~ msgid "while using other programs"
+#~ msgstr "kad se koriste drugi programi"
+
+#~ msgid "off"
+#~ msgstr "isključeno"
+
+#~ msgid ""
+#~ "Another add-on settings dialog is open. Please close the previously "
+#~ "opened dialog first."
+#~ msgstr ""
+#~ "Otvoren je jedan drugi dijaloški okvir s postavkama dodatka. Najprije "
+#~ "zatvori prethodno otvoren dijaloški okvir."

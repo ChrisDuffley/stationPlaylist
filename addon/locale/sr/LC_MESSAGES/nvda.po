@@ -28,14 +28,14 @@ msgstr ""
 msgid "Old Windows version"
 msgstr "Otkrivena je starija verzija Windowsa"
 
+#. Translators: input help mode message for columns viewer command.
+msgid "Presents data for all columns in the currently selected track"
+msgstr ""
+
 #. Translators: Title of the column data window.
 #, fuzzy
 msgid "Track data"
 msgstr "Uvodni zapis"
-
-#. Translators: input help mode message for columns viewer command.
-msgid "Presents data for all columns in the currently selected track"
-msgstr ""
 
 #. Translators: Presented when microphone has been active for a while.
 msgid "Microphone active"
@@ -167,8 +167,6 @@ msgid ""
 "U: Studio up time.\n"
 "W: Weather and temperature.\n"
 "Y: Playlist modification.\n"
-"1 through 0: Announce columns via Columns Explorer (0 is tenth column "
-"slot).\n"
 "F8: Take playlist snapshots such as track count, longest track and so on.\n"
 "Shift+F8: Obtain playlist transcripts in a variety of formats.\n"
 "F9: Mark current track as start of track time analysis.\n"
@@ -238,8 +236,6 @@ msgid ""
 "U: Studio up time.\n"
 "W: Weather and temperature.\n"
 "Y: Playlist modification.\n"
-"1 through 0: Announce columns via Columns Explorer (0 is tenth column "
-"slot).\n"
 "F8: Take playlist snapshots such as track count, longest track and so on.\n"
 "Shift+F8: Obtain playlist transcripts in a variety of formats.\n"
 "F9: Mark current track as start of track time analysis.\n"
@@ -313,8 +309,6 @@ msgid ""
 "U: Studio up time.\n"
 "W: Weather and temperature.\n"
 "Y: Playlist modification.\n"
-"1 through 0: Announce columns via Columns Explorer (0 is tenth column "
-"slot).\n"
 "F8: Take playlist snapshots such as track count, longest track and so on.\n"
 "Shift+F8: Obtain playlist transcripts in a variety of formats.\n"
 "F9: Mark current track as start of track time analysis.\n"
@@ -409,15 +403,6 @@ msgstr ""
 msgid "Announces time including seconds."
 msgstr "Izgovara vreme uključujući sekunde"
 
-#. Translators: Presented when the add-on config dialog is opened.
-#, fuzzy
-msgid ""
-"The add-on settings dialog or another alarm dialog is opened. Please close "
-"the opened dialog first."
-msgstr ""
-"Dijalog sa podešavanjima dodatka ili metadata stream dijalog je već otvoren. "
-"Molimo prvo zatvorite dijalog"
-
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Sets end of track alarm (default is 5 seconds)."
 msgstr "Podešava alarm za kraj zapisa(podrazumevano je 5 sekundi)"
@@ -490,6 +475,11 @@ msgstr "Pronalazi prethodnu pojavu zapisa sa imenom u listi zapisa"
 msgid "Locates track with duration within a time range"
 msgstr "Nalazi zapis sa trajanjem u opsegu tajmera"
 
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+msgid "Toggles cart explorer to learn cart assignments."
+msgstr ""
+"Uključuje i isključuje istraživač karata za prikazivanje pridruženih karata"
+
 #. Translators: Presented when cart explorer cannot be entered.
 msgid "You are not in playlist viewer, cannot enter cart explorer"
 msgstr ""
@@ -507,11 +497,6 @@ msgstr "Ulazak u istraživač karata"
 #. Translators: Presented when cart explorer is off.
 msgid "Exiting cart explorer"
 msgstr "Izlaz iz istraživača karata"
-
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid "Toggles cart explorer to learn cart assignments."
-msgstr ""
-"Uključuje i isključuje istraživač karata za prikazivanje pridruženih karata"
 
 #. Translators: Presented when cart command is unavailable.
 msgid "Cart command unavailable"
@@ -547,21 +532,13 @@ msgstr "Skeniranje"
 msgid "{itemCount} items scanned"
 msgstr "{itemCount} stavki skenirano"
 
-#. Translators: Presented when streaming dialog cannot be shown.
-msgid "Cannot open metadata streaming dialog"
-msgstr "Nemoguće otvoriti metadata dijalog strima"
-
-#. Translators: Presented when the add-on config dialog is opened.
-msgid ""
-"The add-on settings dialog or the metadata streaming dialog is opened. "
-"Please close the opened dialog first."
-msgstr ""
-"Dijalog sa podešavanjima dodatka ili metadata stream dijalog je već otvoren. "
-"Molimo prvo zatvorite dijalog"
-
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Opens a dialog to quickly enable or disable metadata streaming."
 msgstr "Otvara dijalog za brzo uključivanje ili isključivanje metadata strima"
+
+#. Translators: Presented when streaming dialog cannot be shown.
+msgid "Cannot open metadata streaming dialog"
+msgstr "Nemoguće otvoriti metadata dijalog strima"
 
 #. Translators: an error message presented when performing some playlist commands while focused on places other than Playlist Viewer.
 #, fuzzy
@@ -685,20 +662,24 @@ msgstr "{genreName} ({genreCount})"
 msgid "Playlist snapshots"
 msgstr "Statistike liste zareprodukciju"
 
-#. Translators: Presented when SPL Assistant cannot be invoked.
-msgid "Failed to locate Studio main window, cannot enter SPL Assistant"
-msgstr ""
-"Nije uspelo pronalaženje glavnog prozora studija, nemoguće ući u SPL asistent"
-
 #. Translators: Input help mode message for a layer command in StationPlaylist add-on.
 msgid ""
 "The SPL Assistant layer command. See the add-on guide for more information "
 "on available commands."
 msgstr "SPL asistent prečica. Pogledajte uputstvo dodatka za dostupne komande"
 
+#. Translators: Presented when SPL Assistant cannot be invoked.
+msgid "Failed to locate Studio main window, cannot enter SPL Assistant"
+msgstr ""
+"Nije uspelo pronalaženje glavnog prozora studija, nemoguće ući u SPL asistent"
+
 #. Translators: presented when playlist modification message isn't shown.
 msgid "Playlist modification not available"
 msgstr "Izmena liste za reprodukciju nije dostupna"
+
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+msgid "Announces title of the next track if any"
+msgstr "Izgovara naslov sledećeg zapisa ako postoji"
 
 #. Translators: Presented when there is no information for the next track.
 #. Translators: Presented when there is no information for the current track.
@@ -716,8 +697,8 @@ msgid "Cannot find next track information"
 msgstr "Nemoguće pronaći informacije o sledećem zapisu"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid "Announces title of the next track if any"
-msgstr "Izgovara naslov sledećeg zapisa ako postoji"
+msgid "Announces title of the currently playing track"
+msgstr "Izgovara naslov zapisa koji se trenutno reprodukuje"
 
 #. Translators: Presented when there is no information for the current track.
 #, fuzzy
@@ -729,8 +710,8 @@ msgid "Cannot find current track information"
 msgstr "Nemoguće pronaći informacije trenutnog zapisa"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid "Announces title of the currently playing track"
-msgstr "Izgovara naslov zapisa koji se trenutno reprodukuje"
+msgid "Announces temperature and weather information"
+msgstr "Izgovara informacije o temperaturi i vremenu"
 
 #. Translators: Presented when there is no weather or temperature information.
 msgid "Weather and temperature not configured"
@@ -739,10 +720,6 @@ msgstr "Vreme i temperatura nisu podešeni"
 #. Translators: Presented when temperature information cannot be found.
 msgid "Weather information not found"
 msgstr "Informacije o vremenu nisu pronađene"
-
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid "Announces temperature and weather information"
-msgstr "Izgovara informacije o temperaturi i vremenu"
 
 #. Translators: Presented when there is no listener count information.
 msgid "Listener count not found"
@@ -756,6 +733,12 @@ msgstr "Gledanje skeniranje biblioteke"
 msgid "Scanning is in progress"
 msgstr "Skeniranje je u toku"
 
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+#, fuzzy
+msgid ""
+"Marks focused track as start marker for various playlist analysis commands"
+msgstr "Označava trenutno fokusiran zapis kao početak vremenske analize zapisa"
+
 #. Translators: Presented when track time analysis is turned on.
 #, fuzzy
 msgid "Playlist analysis activated"
@@ -767,10 +750,10 @@ msgid "Playlist analysis deactivated"
 msgstr "Vremenska analiza zapisa deaktivirana"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-#, fuzzy
 msgid ""
-"Marks focused track as start marker for various playlist analysis commands"
-msgstr "Označava trenutno fokusiran zapis kao početak vremenske analize zapisa"
+"Announces total length of tracks between analysis start marker and the "
+"current track"
+msgstr "Izgovara vremensku analizu od početnog markera do trenutnog zapisa"
 
 #. Translators: Presented when track time analysis cannot be used because start marker is not set.
 msgid ""
@@ -783,12 +766,6 @@ msgstr ""
 #, python-brace-format
 msgid "Tracks: {numberOfSelectedTracks}, totaling {totalTime}"
 msgstr "Zapisi: {numberOfSelectedTracks}, ukupno vreme{totalTime}"
-
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid ""
-"Announces total length of tracks between analysis start marker and the "
-"current track"
-msgstr "Izgovara vremensku analizu od početnog markera do trenutnog zapisa"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid ""
@@ -835,10 +812,6 @@ msgstr "Metadata strimovanje na adresi{URLPosition} onemogućeno"
 #. Translators: Status message for metadata streaming.
 msgid "Metadata streaming on DSP encoder disabled"
 msgstr "Metadata strimovanje na DSP enkoderu onemogućeno"
-
-#. Translators: Presented when attempting to announce specific columns but the focused item isn't a track.
-msgid "Not a track"
-msgstr "Nije zapis"
 
 #. Translators: The title for SPL Assistant help dialog.
 msgid "SPL Assistant help"
@@ -1338,15 +1311,8 @@ msgstr ""
 msgid "Play a sound when listener &requests arrive"
 msgstr "&Reprodukuj zvukove kada stignu zahtevi slušaoca"
 
-#. Translators: Text of the dialog when another alarm dialog is open.
-msgid "Another alarm dialog is open."
-msgstr "Drugi dijalog alarma je otvoren"
-
-#. Now the actual alarm dialog code.
 #. 8.0: Apart from level 0 (all settings shown), levels change title.
-msgid "Alarms Center"
-msgstr "Centar alarma"
-
+#. 20.03: level 0 (Alarms Center/all settings) is no more, as the dialog will not be invoked from add-on settings interface (default is end of track alarm).
 msgid "End of track alarm"
 msgstr "Alarm za kraj zapisa"
 
@@ -1446,9 +1412,6 @@ msgstr ""
 #. Translators: Title of a dialog to configure metadata streaming status for DSP encoder and four additional URL's.
 msgid "Metadata streaming options"
 msgstr "Podešavanja metadata strimova"
-
-msgid "Select the URL for metadata streaming upon request."
-msgstr "Izaberite adresu za metadata strimove nakon zahteva"
 
 msgid "Check to enable metadata streaming, uncheck to disable."
 msgstr ""
@@ -1593,22 +1556,6 @@ msgstr "&Izgovori broj slušaoca"
 msgid "&Announce name of the currently playing cart"
 msgstr "&Izgovori ime karte koja se trenutno reprodukuje"
 
-#. Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
-msgid "&Track name announcement:"
-msgstr "&Izgovor imena zapisa:"
-
-#. Translators: One of the track name announcement options.
-msgid "automatic"
-msgstr "Automatski"
-
-#. Translators: One of the track name announcement options.
-msgid "while using other programs"
-msgstr "Dok koristite druge programe"
-
-#. Translators: One of the track name announcement options.
-msgid "off"
-msgstr "Isključeno"
-
 #. Translators: the label for a setting in SPL add-on settings to announce player position for the current and next tracks.
 msgid ""
 "Include track player &position when announcing current and next track "
@@ -1719,14 +1666,6 @@ msgstr "&Vrati podešavanja..."
 #, fuzzy
 msgid "StationPlaylist Add-on Settings"
 msgstr "Podešavanja Studio dodatka"
-
-#. Translators: Presented when an alarm dialog is opened.
-msgid ""
-"Another add-on settings dialog is open. Please close the previously opened "
-"dialog first."
-msgstr ""
-"Neki dijalog za podešavanja dodatka je već otvoren. Molimo prvo zatvorite "
-"taj dijalog"
 
 #. Translators: Text of the dialog when another find dialog is open.
 msgid "Another find dialog is open."
@@ -1914,13 +1853,18 @@ msgstr ""
 "R: Preostalo vreme za zapis koji se reprodukuje.\n"
 "Šift+R: Napredak skeniranja biblioteke."
 
+#. Translators: Input help mode message for a command to switch to StationPlaylist Studio from any program.
+msgid "Moves to SPL Studio window from other programs."
+msgstr "Prebacuje se na prozor programa SPL studio iz drugih programa"
+
 #. Translators: Presented when StationPlaylist Studio is not running.
 msgid "SPL Studio is not running."
 msgstr "SPL studio nije pokrenut"
 
-#. Translators: Input help mode message for a command to switch to StationPlaylist Studio from any program.
-msgid "Moves to SPL Studio window from other programs."
-msgstr "Prebacuje se na prozor programa SPL studio iz drugih programa"
+#. Translators: Input help mode message for a layer command in StationPlaylist add-on.
+msgid "SPl Controller layer command. See add-on guide for available commands."
+msgstr ""
+"SPL Kontroller komanda. Pročitajte uputstvo dodatka za dostupne komande."
 
 #. Translators: Presented when NVDA cannot enter SPL Controller layer since SPL Studio is focused.
 msgid ""
@@ -1934,11 +1878,6 @@ msgstr ""
 #. Hint: it is better to translate it as "SPL Control Panel."
 msgid "SPL Controller"
 msgstr "SPL kontroler"
-
-#. Translators: Input help mode message for a layer command in StationPlaylist add-on.
-msgid "SPl Controller layer command. See add-on guide for available commands."
-msgstr ""
-"SPL Kontroller komanda. Pročitajte uputstvo dodatka za dostupne komande."
 
 #. Translators: Presented when no track is playing in StationPlaylist Studio.
 msgid "There is no track playing. Try pausing while a track is playing."
@@ -1965,17 +1904,17 @@ msgstr "Broj slušaoca: {listenerCount}"
 msgid "There is no track playing."
 msgstr "Nijedan zapis se ne reprodukuje"
 
-#. Translators: presented if encoder connection status cannot be obtained.
-#, fuzzy
-msgid "Cannot obtain encoder connection status"
-msgstr "Nemoguće otvoriti metadata dijalog strima"
-
 #. Translators: Input help message for a SPL Controller command.
 #, fuzzy
 msgid "Announces stream encoder status from other programs"
 msgstr ""
 "Izgovara status studija kao što je zapis koji se trenutno reprodukuje iz "
 "drugih programa"
+
+#. Translators: presented if encoder connection status cannot be obtained.
+#, fuzzy
+msgid "Cannot obtain encoder connection status"
+msgstr "Nemoguće otvoriti metadata dijalog strima"
 
 #. Translators: Input help message for a SPL Controller command.
 msgid ""
@@ -1996,3 +1935,49 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist Studio.\n"
 "Takođe, dodaje globalne komande za studio bilo gde."
+
+#, fuzzy
+#~ msgid ""
+#~ "The add-on settings dialog or another alarm dialog is opened. Please "
+#~ "close the opened dialog first."
+#~ msgstr ""
+#~ "Dijalog sa podešavanjima dodatka ili metadata stream dijalog je već "
+#~ "otvoren. Molimo prvo zatvorite dijalog"
+
+#~ msgid ""
+#~ "The add-on settings dialog or the metadata streaming dialog is opened. "
+#~ "Please close the opened dialog first."
+#~ msgstr ""
+#~ "Dijalog sa podešavanjima dodatka ili metadata stream dijalog je već "
+#~ "otvoren. Molimo prvo zatvorite dijalog"
+
+#~ msgid "Not a track"
+#~ msgstr "Nije zapis"
+
+#~ msgid "Another alarm dialog is open."
+#~ msgstr "Drugi dijalog alarma je otvoren"
+
+#~ msgid "Alarms Center"
+#~ msgstr "Centar alarma"
+
+#~ msgid "Select the URL for metadata streaming upon request."
+#~ msgstr "Izaberite adresu za metadata strimove nakon zahteva"
+
+#~ msgid "&Track name announcement:"
+#~ msgstr "&Izgovor imena zapisa:"
+
+#~ msgid "automatic"
+#~ msgstr "Automatski"
+
+#~ msgid "while using other programs"
+#~ msgstr "Dok koristite druge programe"
+
+#~ msgid "off"
+#~ msgstr "Isključeno"
+
+#~ msgid ""
+#~ "Another add-on settings dialog is open. Please close the previously "
+#~ "opened dialog first."
+#~ msgstr ""
+#~ "Neki dijalog za podešavanja dodatka je već otvoren. Molimo prvo zatvorite "
+#~ "taj dijalog"

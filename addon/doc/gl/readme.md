@@ -3,7 +3,7 @@
 * Autores: Geoff Shang, Joseph Lee e outros colaboradores
 * Descargar [versión estable][1]
 * Descargar [versión de desenvolvemento][2]
-* NVDA compatibility: 2019.3
+* Compatibilidade con NVDA: 2019.3
 
 Este paquete de complementos proporciona unhha utilización mellorada do
 Station Playlist Studio e outras apps de Station Playlist, así como
@@ -11,19 +11,19 @@ utilidades para controlar o Studio dende calquera lugar. As apps soportadas
 inclúen Studio, Creator, Track Tool, VT Recorder, e Streamer, así como os
 codificadores SAM, SPLe AltaCast.
 
-For more information about the add-on, read the [add-on guide][4]. For
-developers seeking to know how to build the add-on, see
-buildInstructions.txt located at the root of the add-on source code
-repository.
+Para máis información acerca do complemento, le a [guía do
+complemento][4]. Para os desenvolvedores que queran saber cómo compilar o
+complemento, consulta buildInstructions.txt localizado na raíz do
+repositorio do código fonte.
 
 NOTAS IMPORTANTES:
 
 * Este complemento require o paquete StationPlaylist 5.20 ou posterior.
 * Se usas o Windows 8 ou posterior, para unha mellor experiencia,
   deshabilita o modo atenuación de audio.
-* Starting from 2018, [changelogs for old add-on releases][5] will be found
-  on GitHub. This add-on readme will list changes from version 17.08 (2017
-  onwards).
+* A partires de 2018, os [rexistros de cambios para versións vellas][5]
+  atoparanse en GitHub. Este readme do complemento listará cambios dende a
+  versión 17.08 (2017 en diante).
 * Certas características do complemento non funcionarán baixo algunhas
   condicións, incluindo a execución do NVDA en modo seguro.
 * Debido a limitacións técnicas, non podes instalar nin usar este
@@ -77,10 +77,11 @@ contrario.
 * Control+Alt+frecha arriba/abaixo (mentres se enfoque unha pista só en
   Studio): Moverse á pista seguinte ou anterior e anuncia columnas
   específicas.
-* Control+NVDA+1 through 0 (while focused on a track in Studio, Creator
-  (including Playlist Editor), and Track Tool): Announce column content for
-  a specified column (first ten columns by default). Pressing this command
-  twice will display column information on a browse mode window.
+* Control+NVDA+1 a 0 (cun track enfocado en Studio, Creator -inclúe o editor
+  de listas de reprodución- e Track Tool): Anunciar contido da columna para
+  unha columna especificada (primeiras dez columnas por defecto). Premer
+  este atallo dúas veces amosará a información de columna nunha xanela de
+  modo exploración.
 * Control+NVDA+- (guión, mentres se enfoca unha pista en Studio, Creator, e
   Track Tool): amosar datos de todas as columnas dunha pista nunha xanela de
   modo exploración.
@@ -294,11 +295,11 @@ preme SPL Assistant, F10 ó chegares ó remate da seleción.
 
 ## Explorador de Columnas
 
-By pressing Control+NVDA+1 through 0 or SPL Assistant, 1 through 0, you can
-obtain contents of specific columns. By default, these are artist, title,
-duration, intro, outro, category, year, album, genre and mood. You can
-configure which columns will be explored via columns explorer dialog found
-in add-on settings dialog.
+Premendo Control+NVDA+1 ata 0 ou SPL Assistant, 1 ata 0, podes obter
+contidos das columnas especificadas. Por omisión, estas son  artista,
+título, duración, "outro",  categoría, ano, álbume, xénero e mood. Podes
+configurar que columnas se explorarán a través do diálogo explorador de
+columnas atopado no diálogo opcións do complemento.
 
 ## Instantáneas da listaxe de reprodución
 
@@ -333,26 +334,28 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
-## Version 20.03
+## Versión 20.03
 
-* Columns Explorer will now announce first ten columns by default (existing
-  installations will continue to use old column slots).
-* The ability to announce name of the playing track automatically from
-  places other than Studio has been removed. This feature, introduced in
-  add-on 5.6 as a workaround for Studio 5.1x, is no longer functional. Users
-  must now use SPL Controller and/or Assistant layer command to hear title
-  of the currently playing track from everywhere (C).
-* Due to removal of automatic announcement of playing track title, the
-  setting to configure this feature has been removed from add-on
-  settings/status announcement category.
-* In encoders, NvDA will play connection tone every half a second while an
-  encoder is connecting.
-* In encoders, NVDA will now announce connection attempt messages until an
-  encoder is actually connected. Previously NVDA stopped when an error was
-  encountered.
-* A new setting has been added to encoder settings to let NvDA announce
-  connection messages until the selected encoder is connected. This setting
-  is enabled by default.
+* O Explorador de Columnas agora anunciará por defecto as primeiras dez
+  columnas (as instalacións existentes continuarán utilizando os antigos
+  lotes de columnas).
+* A habilidade para anunciar o nome da pista en reprodución automaticamente
+  dende lugares diferentes de Studio eliminouse. Esta característica,
+  introducida no complemento 5.6 como un parche para Studio 5.1x, xa non é
+  funcional. Os usuarios agora deberán utilizar SPL Controller e/ou o
+  comando en capa do Asistente SPL para escoitar o título da pista
+  actualmente en reprodución desde calquera lugar (C).
+* Debido á eliminación do anunciado automático do nome da pista en
+  reprodución, a opción para configurar esta característica eliminouse das
+  opcións do complemento/categoría anuncio de estado.
+* Nos Codificadores, NVDA reproducirá o ton de conexión cada medio segundo
+  mentres un codificador se estea conectando.
+* Nos codificadores, agora NVDA anunciará as mensaxes de tentativas de
+  conexión ata que o codificador estea realmente conectado. Anteriormente
+  NVDA detíñase cando se atopaba un erro.
+* Engadiuse un novo axuste ás opcións do codificador para que NVDA anuncie
+  as mensaxes de conexión ata que o codificador seleccionado estea
+  conectado. Esta opción está habilitada por defecto.
 
 ## Versión 20.02
 

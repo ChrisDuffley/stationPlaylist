@@ -28,13 +28,13 @@ msgstr ""
 msgid "Old Windows version"
 msgstr "Phiên bản Windows cũ"
 
-#. Translators: Title of the column data window.
-msgid "Track data"
-msgstr "Dữ liệu track"
-
 #. Translators: input help mode message for columns viewer command.
 msgid "Presents data for all columns in the currently selected track"
 msgstr "Trình bày tất cả các cột dữ liệu cho track đang được chọn"
+
+#. Translators: Title of the column data window.
+msgid "Track data"
+msgstr "Dữ liệu track"
 
 #. Translators: Presented when microphone has been active for a while.
 msgid "Microphone active"
@@ -139,6 +139,7 @@ msgstr ""
 "nhớ tạm và bấm ba lần mở hộp thoại để thêm, sửa hay xóa chú thích track"
 
 #. Translators: The text of the help command in SPL Assistant layer.
+#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -165,8 +166,6 @@ msgid ""
 "U: Studio up time.\n"
 "W: Weather and temperature.\n"
 "Y: Playlist modification.\n"
-"1 through 0: Announce columns via Columns Explorer (0 is tenth column "
-"slot).\n"
 "F8: Take playlist snapshots such as track count, longest track and so on.\n"
 "Shift+F8: Obtain playlist transcripts in a variety of formats.\n"
 "F9: Mark current track as start of track time analysis.\n"
@@ -209,6 +208,7 @@ msgstr ""
 "Shift+F1: mở tài liệu hướng dẫn trực tuyến."
 
 #. Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
+#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -237,8 +237,6 @@ msgid ""
 "U: Studio up time.\n"
 "W: Weather and temperature.\n"
 "Y: Playlist modification.\n"
-"1 through 0: Announce columns via Columns Explorer (0 is tenth column "
-"slot).\n"
 "F8: Take playlist snapshots such as track count, longest track and so on.\n"
 "Shift+F8: Obtain playlist transcripts in a variety of formats.\n"
 "F9: Mark current track as start of track time analysis.\n"
@@ -284,6 +282,7 @@ msgstr ""
 "Shift+F1: mở tài liệu hướng dẫn trực tuyến."
 
 #. Translators: The text of the help command in SPL Assistant layer when Window-Eyes layer is active.
+#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -314,8 +313,6 @@ msgid ""
 "U: Studio up time.\n"
 "W: Weather and temperature.\n"
 "Y: Playlist modification.\n"
-"1 through 0: Announce columns via Columns Explorer (0 is tenth column "
-"slot).\n"
 "F8: Take playlist snapshots such as track count, longest track and so on.\n"
 "Shift+F8: Obtain playlist transcripts in a variety of formats.\n"
 "F9: Mark current track as start of track time analysis.\n"
@@ -415,14 +412,6 @@ msgstr ""
 msgid "Announces time including seconds."
 msgstr "Thông báo thời gian bao bồm giây."
 
-#. Translators: Presented when the add-on config dialog is opened.
-msgid ""
-"The add-on settings dialog or another alarm dialog is opened. Please close "
-"the opened dialog first."
-msgstr ""
-"Hộp thoại cài đặt add-on hoặc hộp thoại báo hiệu nào đó đang mở. Vui lòng "
-"đóng chúng lại trước."
-
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Sets end of track alarm (default is 5 seconds)."
 msgstr "Thiết lập báo động cuối track (mặc định là 5 giây)."
@@ -495,6 +484,10 @@ msgstr "Tìm sự xuất hiện của track trước với tên trong danh sách
 msgid "Locates track with duration within a time range"
 msgstr "Xác định track với thời lượng trong một khoảng thời gian"
 
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+msgid "Toggles cart explorer to learn cart assignments."
+msgstr "Bật cart explorer để học cách gán cart."
+
 #. Translators: Presented when cart explorer cannot be entered.
 msgid "You are not in playlist viewer, cannot enter cart explorer"
 msgstr ""
@@ -512,10 +505,6 @@ msgstr "Vào cart explorer"
 #. Translators: Presented when cart explorer is off.
 msgid "Exiting cart explorer"
 msgstr "Thoát cart explorer"
-
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid "Toggles cart explorer to learn cart assignments."
-msgstr "Bật cart explorer để học cách gán cart."
 
 #. Translators: Presented when cart command is unavailable.
 msgid "Cart command unavailable"
@@ -551,21 +540,13 @@ msgstr "Đang quét"
 msgid "{itemCount} items scanned"
 msgstr "{itemCount} mục đã quét"
 
-#. Translators: Presented when streaming dialog cannot be shown.
-msgid "Cannot open metadata streaming dialog"
-msgstr "Không thể mở hộp thoại truyền siêu dữ liệu"
-
-#. Translators: Presented when the add-on config dialog is opened.
-msgid ""
-"The add-on settings dialog or the metadata streaming dialog is opened. "
-"Please close the opened dialog first."
-msgstr ""
-"Hộp thoại cài đặt add-on hoặc hộp thoại truyền siêu dữ liệu đang mở. Vui "
-"lòng đóng chúng lại trước."
-
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Opens a dialog to quickly enable or disable metadata streaming."
 msgstr "Mở hộp thoại để nhanh chóng bật hay tắt truyền siêu dữ liệu."
+
+#. Translators: Presented when streaming dialog cannot be shown.
+msgid "Cannot open metadata streaming dialog"
+msgstr "Không thể mở hộp thoại truyền siêu dữ liệu"
 
 #. Translators: an error message presented when performing some playlist commands while focused on places other than Playlist Viewer.
 msgid "Please return to playlist viewer before invoking this command."
@@ -684,10 +665,6 @@ msgstr "{genreName} ({genreCount})"
 msgid "Playlist snapshots"
 msgstr "Ảnh chụp danh sách phát"
 
-#. Translators: Presented when SPL Assistant cannot be invoked.
-msgid "Failed to locate Studio main window, cannot enter SPL Assistant"
-msgstr "Xác định cửa sổ chính của Studio thất bại. Không thể vào SPL Assistant"
-
 #. Translators: Input help mode message for a layer command in StationPlaylist add-on.
 msgid ""
 "The SPL Assistant layer command. See the add-on guide for more information "
@@ -696,9 +673,17 @@ msgstr ""
 "Lệnh lớp SPL Assistant. Xem hướng dẫn sử dụng add-on để có thêm thông tin về "
 "các lệnh đang có sẵn."
 
+#. Translators: Presented when SPL Assistant cannot be invoked.
+msgid "Failed to locate Studio main window, cannot enter SPL Assistant"
+msgstr "Xác định cửa sổ chính của Studio thất bại. Không thể vào SPL Assistant"
+
 #. Translators: presented when playlist modification message isn't shown.
 msgid "Playlist modification not available"
 msgstr "Sửa đổi danh sách phát không sẵn sàng"
+
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+msgid "Announces title of the next track if any"
+msgstr "Thông báo tựa đề track kế tiếp nếu có"
 
 #. Translators: Presented when there is no information for the next track.
 #. Translators: Presented when there is no information for the current track.
@@ -714,8 +699,8 @@ msgid "Cannot find next track information"
 msgstr "Không tìm thấy thông tin của track kế"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid "Announces title of the next track if any"
-msgstr "Thông báo tựa đề track kế tiếp nếu có"
+msgid "Announces title of the currently playing track"
+msgstr "Thông báo tựa đề của track đang được phát"
 
 #. Translators: Presented when there is no information for the current track.
 msgid "Cannot locate current track information"
@@ -726,8 +711,8 @@ msgid "Cannot find current track information"
 msgstr "Không tìm thấy thông tin của track hiện tại"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid "Announces title of the currently playing track"
-msgstr "Thông báo tựa đề của track đang được phát"
+msgid "Announces temperature and weather information"
+msgstr "Thông báo thông tin thời tiết và nhiệt độ"
 
 #. Translators: Presented when there is no weather or temperature information.
 msgid "Weather and temperature not configured"
@@ -736,10 +721,6 @@ msgstr "Thời tiết và nhiệt độ không được cấu hình"
 #. Translators: Presented when temperature information cannot be found.
 msgid "Weather information not found"
 msgstr "Không tìm thấy thông tin thời tiết"
-
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid "Announces temperature and weather information"
-msgstr "Thông báo thông tin thời tiết và nhiệt độ"
 
 #. Translators: Presented when there is no listener count information.
 msgid "Listener count not found"
@@ -753,6 +734,13 @@ msgstr "Đang theo dõi việcquét thư viện"
 msgid "Scanning is in progress"
 msgstr "Đang tiến hành quét"
 
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+msgid ""
+"Marks focused track as start marker for various playlist analysis commands"
+msgstr ""
+"Đánh dấu track tại vị trí con trỏ là điểm bắt đầu cho nhiều lệnh phân tích "
+"danh sách phát"
+
 #. Translators: Presented when track time analysis is turned on.
 msgid "Playlist analysis activated"
 msgstr "Đã kích hoạt phân tích danh sách phát"
@@ -763,10 +751,11 @@ msgstr "Đã tắt phân tích danh sách phát"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid ""
-"Marks focused track as start marker for various playlist analysis commands"
+"Announces total length of tracks between analysis start marker and the "
+"current track"
 msgstr ""
-"Đánh dấu track tại vị trí con trỏ là điểm bắt đầu cho nhiều lệnh phân tích "
-"danh sách phát"
+"Thông báo tổng độ dài của các track giữa điểm bắt đầu phân tích và track "
+"hiện tại"
 
 #. Translators: Presented when track time analysis cannot be used because start marker is not set.
 msgid ""
@@ -779,14 +768,6 @@ msgstr ""
 #, python-brace-format
 msgid "Tracks: {numberOfSelectedTracks}, totaling {totalTime}"
 msgstr "Track: {numberOfSelectedTracks}, tổng cộng {totalTime}"
-
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid ""
-"Announces total length of tracks between analysis start marker and the "
-"current track"
-msgstr ""
-"Thông báo tổng độ dài của các track giữa điểm bắt đầu phân tích và track "
-"hiện tại"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid ""
@@ -833,10 +814,6 @@ msgstr "Truyền siêu dữ liệu trên URL {URLPosition} đã tắt"
 #. Translators: Status message for metadata streaming.
 msgid "Metadata streaming on DSP encoder disabled"
 msgstr "Truyền siêu dữ liệu trên DSP encoder đã tắt"
-
-#. Translators: Presented when attempting to announce specific columns but the focused item isn't a track.
-msgid "Not a track"
-msgstr "Không phải một track"
 
 #. Translators: The title for SPL Assistant help dialog.
 msgid "SPL Assistant help"
@@ -1330,15 +1307,8 @@ msgstr "Thông báo khi ở đầu hay cuối của trình xem danh sách phát"
 msgid "Play a sound when listener &requests arrive"
 msgstr "Phát âm thanh khi có &yêu cầu của người nghe"
 
-#. Translators: Text of the dialog when another alarm dialog is open.
-msgid "Another alarm dialog is open."
-msgstr "Một hộp thoại báo động khác đang mở."
-
-#. Now the actual alarm dialog code.
 #. 8.0: Apart from level 0 (all settings shown), levels change title.
-msgid "Alarms Center"
-msgstr "Trugn tâm các báo hiệu"
-
+#. 20.03: level 0 (Alarms Center/all settings) is no more, as the dialog will not be invoked from add-on settings interface (default is end of track alarm).
 msgid "End of track alarm"
 msgstr "Báo hiệu cuối track"
 
@@ -1436,9 +1406,6 @@ msgstr ""
 #. Translators: Title of a dialog to configure metadata streaming status for DSP encoder and four additional URL's.
 msgid "Metadata streaming options"
 msgstr "Các tùy chọn cho Truyền siêu dữ liệu"
-
-msgid "Select the URL for metadata streaming upon request."
-msgstr "Chọn URL cho truyền siêu dữ liệu theo yêu cầu."
 
 msgid "Check to enable metadata streaming, uncheck to disable."
 msgstr "Chọn để bật truyền siêu dữ liệu, bỏ chọn để tắt."
@@ -1569,22 +1536,6 @@ msgstr "Thông báo số &người nghe"
 msgid "&Announce name of the currently playing cart"
 msgstr "&Thông báo tên của cart đang phát"
 
-#. Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
-msgid "&Track name announcement:"
-msgstr "&Thông báo tên track:"
-
-#. Translators: One of the track name announcement options.
-msgid "automatic"
-msgstr "tự động"
-
-#. Translators: One of the track name announcement options.
-msgid "while using other programs"
-msgstr "khi dùng các chương trình khác"
-
-#. Translators: One of the track name announcement options.
-msgid "off"
-msgstr "tắt"
-
 #. Translators: the label for a setting in SPL add-on settings to announce player position for the current and next tracks.
 msgid ""
 "Include track player &position when announcing current and next track "
@@ -1697,13 +1648,6 @@ msgstr "Khôi phục các cài đặt..."
 #. Translators: This is the label for the StationPlaylist add-on configuration dialog.
 msgid "StationPlaylist Add-on Settings"
 msgstr "Cài đặt StationPlaylist"
-
-#. Translators: Presented when an alarm dialog is opened.
-msgid ""
-"Another add-on settings dialog is open. Please close the previously opened "
-"dialog first."
-msgstr ""
-"Một hộp thoại cài đặt add-on khác đang được mở.  Vui lòng đóng nó lại trước."
 
 #. Translators: Text of the dialog when another find dialog is open.
 msgid "Another find dialog is open."
@@ -1886,13 +1830,19 @@ msgstr ""
 "Các phím chức năng và phím số có hoặc không có phím Shift, Alt, và Control: "
 "phát cart."
 
+#. Translators: Input help mode message for a command to switch to StationPlaylist Studio from any program.
+msgid "Moves to SPL Studio window from other programs."
+msgstr "Chuyển từ chương trình khác đến cửa sổ SPL Studio."
+
 #. Translators: Presented when StationPlaylist Studio is not running.
 msgid "SPL Studio is not running."
 msgstr "SPL Studio không chạy."
 
-#. Translators: Input help mode message for a command to switch to StationPlaylist Studio from any program.
-msgid "Moves to SPL Studio window from other programs."
-msgstr "Chuyển từ chương trình khác đến cửa sổ SPL Studio."
+#. Translators: Input help mode message for a layer command in StationPlaylist add-on.
+msgid "SPl Controller layer command. See add-on guide for available commands."
+msgstr ""
+"Các lệnh SPl Controller layer. Xem hướng dẫn sử dụng add-on để biết các lệnh "
+"đang có."
 
 #. Translators: Presented when NVDA cannot enter SPL Controller layer since SPL Studio is focused.
 msgid ""
@@ -1906,12 +1856,6 @@ msgstr ""
 #. Hint: it is better to translate it as "SPL Control Panel."
 msgid "SPL Controller"
 msgstr "Bộ điều khiển SPL"
-
-#. Translators: Input help mode message for a layer command in StationPlaylist add-on.
-msgid "SPl Controller layer command. See add-on guide for available commands."
-msgstr ""
-"Các lệnh SPl Controller layer. Xem hướng dẫn sử dụng add-on để biết các lệnh "
-"đang có."
 
 #. Translators: Presented when no track is playing in StationPlaylist Studio.
 msgid "There is no track playing. Try pausing while a track is playing."
@@ -1937,13 +1881,13 @@ msgstr "Số người nghe: {listenerCount}"
 msgid "There is no track playing."
 msgstr "Không có track nào đang phát."
 
-#. Translators: presented if encoder connection status cannot be obtained.
-msgid "Cannot obtain encoder connection status"
-msgstr "Không thể thu thập thông tin trạng thái kết nối bộ mã hóa"
-
 #. Translators: Input help message for a SPL Controller command.
 msgid "Announces stream encoder status from other programs"
 msgstr "Thông báo trạng thái mã hóa phát sóng từ các chương trình khác."
+
+#. Translators: presented if encoder connection status cannot be obtained.
+msgid "Cannot obtain encoder connection status"
+msgstr "Không thể thu thập thông tin trạng thái kết nối bộ mã hóa"
 
 #. Translators: Input help message for a SPL Controller command.
 msgid ""
@@ -1964,3 +1908,48 @@ msgid ""
 msgstr ""
 "Cải thiện hỗ trợ cho StationPlaylist Studio.\n"
 "Ngoài ra là thêm các lệnh toàn cục cho studio từ bất cứ đâu."
+
+#~ msgid ""
+#~ "The add-on settings dialog or another alarm dialog is opened. Please "
+#~ "close the opened dialog first."
+#~ msgstr ""
+#~ "Hộp thoại cài đặt add-on hoặc hộp thoại báo hiệu nào đó đang mở. Vui lòng "
+#~ "đóng chúng lại trước."
+
+#~ msgid ""
+#~ "The add-on settings dialog or the metadata streaming dialog is opened. "
+#~ "Please close the opened dialog first."
+#~ msgstr ""
+#~ "Hộp thoại cài đặt add-on hoặc hộp thoại truyền siêu dữ liệu đang mở. Vui "
+#~ "lòng đóng chúng lại trước."
+
+#~ msgid "Not a track"
+#~ msgstr "Không phải một track"
+
+#~ msgid "Another alarm dialog is open."
+#~ msgstr "Một hộp thoại báo động khác đang mở."
+
+#~ msgid "Alarms Center"
+#~ msgstr "Trugn tâm các báo hiệu"
+
+#~ msgid "Select the URL for metadata streaming upon request."
+#~ msgstr "Chọn URL cho truyền siêu dữ liệu theo yêu cầu."
+
+#~ msgid "&Track name announcement:"
+#~ msgstr "&Thông báo tên track:"
+
+#~ msgid "automatic"
+#~ msgstr "tự động"
+
+#~ msgid "while using other programs"
+#~ msgstr "khi dùng các chương trình khác"
+
+#~ msgid "off"
+#~ msgstr "tắt"
+
+#~ msgid ""
+#~ "Another add-on settings dialog is open. Please close the previously "
+#~ "opened dialog first."
+#~ msgstr ""
+#~ "Một hộp thoại cài đặt add-on khác đang được mở.  Vui lòng đóng nó lại "
+#~ "trước."

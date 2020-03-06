@@ -30,13 +30,13 @@ msgstr ""
 msgid "Old Windows version"
 msgstr "התגלתה גרסת ווינדוס ישנה"
 
-#. Translators: Title of the column data window.
-msgid "Track data"
-msgstr "עקוב אחר הנתונים"
-
 #. Translators: input help mode message for columns viewer command.
 msgid "Presents data for all columns in the currently selected track"
 msgstr "מציג נתונים עבור כל העמודות במעקב שנבחר כעת"
+
+#. Translators: Title of the column data window.
+msgid "Track data"
+msgstr "עקוב אחר הנתונים"
 
 #. Translators: Presented when microphone has been active for a while.
 msgid "Microphone active"
@@ -142,6 +142,7 @@ msgstr ""
 "פעמים בכדי לערוך או למחוק את ההערה"
 
 #. Translators: The text of the help command in SPL Assistant layer.
+#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -168,8 +169,6 @@ msgid ""
 "U: Studio up time.\n"
 "W: Weather and temperature.\n"
 "Y: Playlist modification.\n"
-"1 through 0: Announce columns via Columns Explorer (0 is tenth column "
-"slot).\n"
 "F8: Take playlist snapshots such as track count, longest track and so on.\n"
 "Shift+F8: Obtain playlist transcripts in a variety of formats.\n"
 "F9: Mark current track as start of track time analysis.\n"
@@ -212,6 +211,7 @@ msgstr ""
 "Shift+F1: פתיחת המדריך המקוון."
 
 #. Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
+#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -240,8 +240,6 @@ msgid ""
 "U: Studio up time.\n"
 "W: Weather and temperature.\n"
 "Y: Playlist modification.\n"
-"1 through 0: Announce columns via Columns Explorer (0 is tenth column "
-"slot).\n"
 "F8: Take playlist snapshots such as track count, longest track and so on.\n"
 "Shift+F8: Obtain playlist transcripts in a variety of formats.\n"
 "F9: Mark current track as start of track time analysis.\n"
@@ -285,6 +283,7 @@ msgstr ""
 "Shift+F1: פתיחת המדריך המקוון."
 
 #. Translators: The text of the help command in SPL Assistant layer when Window-Eyes layer is active.
+#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -315,8 +314,6 @@ msgid ""
 "U: Studio up time.\n"
 "W: Weather and temperature.\n"
 "Y: Playlist modification.\n"
-"1 through 0: Announce columns via Columns Explorer (0 is tenth column "
-"slot).\n"
 "F8: Take playlist snapshots such as track count, longest track and so on.\n"
 "Shift+F8: Obtain playlist transcripts in a variety of formats.\n"
 "F9: Mark current track as start of track time analysis.\n"
@@ -408,15 +405,6 @@ msgstr ""
 msgid "Announces time including seconds."
 msgstr "הקראת אורך הנגינה, כולל שניות."
 
-#. Translators: Presented when the add-on config dialog is opened.
-#, fuzzy
-msgid ""
-"The add-on settings dialog or another alarm dialog is opened. Please close "
-"the opened dialog first."
-msgstr ""
-"תיבת דו-שיח של הגדרות התוסף או של זרימת הנתונם פתוחה כרגע. נא לסגור אותה "
-"תחילה."
-
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Sets end of track alarm (default is 5 seconds)."
 msgstr "קביעת זמן ההתראה עד לסוף הנגינה בשניות (5 כבררת מחדל)."
@@ -489,6 +477,10 @@ msgstr "חיפוש רצועה קודמת בעלת שם דומה ברשימת ה�
 msgid "Locates track with duration within a time range"
 msgstr "חיפוש רצועה שאורכה בטווח המוגדר"
 
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+msgid "Toggles cart explorer to learn cart assignments."
+msgstr "מיתוג בין פעולות הסייר לבין למידת המקשים."
+
 #. Translators: Presented when cart explorer cannot be entered.
 msgid "You are not in playlist viewer, cannot enter cart explorer"
 msgstr "רשימת הרצועות אינה בפוקוס. לא ניתן להפעיל את הסייר"
@@ -504,10 +496,6 @@ msgstr "כניסה לסייר"
 #. Translators: Presented when cart explorer is off.
 msgid "Exiting cart explorer"
 msgstr "יציאה מהסייר"
-
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid "Toggles cart explorer to learn cart assignments."
-msgstr "מיתוג בין פעולות הסייר לבין למידת המקשים."
 
 #. Translators: Presented when cart command is unavailable.
 msgid "Cart command unavailable"
@@ -543,21 +531,13 @@ msgstr "הסריקה מתבצעת כעת"
 msgid "{itemCount} items scanned"
 msgstr "{itemCount} פריטים נסקרו עד עכשיו"
 
-#. Translators: Presented when streaming dialog cannot be shown.
-msgid "Cannot open metadata streaming dialog"
-msgstr "לא ניתן לפתוח את תיבת הדו-שיח של זרימת המטאדאטה"
-
-#. Translators: Presented when the add-on config dialog is opened.
-msgid ""
-"The add-on settings dialog or the metadata streaming dialog is opened. "
-"Please close the opened dialog first."
-msgstr ""
-"תיבת דו-שיח של הגדרות התוסף או של זרימת הנתונם פתוחה כרגע. נא לסגור אותה "
-"תחילה."
-
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Opens a dialog to quickly enable or disable metadata streaming."
 msgstr "פתיחת תיבת דו-שיח המאפשרת שינוי מידי של מצב זרימת המטאדאטה."
+
+#. Translators: Presented when streaming dialog cannot be shown.
+msgid "Cannot open metadata streaming dialog"
+msgstr "לא ניתן לפתוח את תיבת הדו-שיח של זרימת המטאדאטה"
 
 #. Translators: an error message presented when performing some playlist commands while focused on places other than Playlist Viewer.
 msgid "Please return to playlist viewer before invoking this command."
@@ -672,19 +652,23 @@ msgstr "{genreName} ({genreCount})"
 msgid "Playlist snapshots"
 msgstr "תמונות של רשימת השמעה"
 
-#. Translators: Presented when SPL Assistant cannot be invoked.
-msgid "Failed to locate Studio main window, cannot enter SPL Assistant"
-msgstr "החלון הראשי של הסטודיו לא זוהה. לא ניתן להפעיל את המסייע של SPL"
-
 #. Translators: Input help mode message for a layer command in StationPlaylist add-on.
 msgid ""
 "The SPL Assistant layer command. See the add-on guide for more information "
 "on available commands."
 msgstr "חלונית הפקודות של SPL  Studio. עיין במדריך התוסף לפריט הפקודות."
 
+#. Translators: Presented when SPL Assistant cannot be invoked.
+msgid "Failed to locate Studio main window, cannot enter SPL Assistant"
+msgstr "החלון הראשי של הסטודיו לא זוהה. לא ניתן להפעיל את המסייע של SPL"
+
 #. Translators: presented when playlist modification message isn't shown.
 msgid "Playlist modification not available"
 msgstr "לא ניתן לשנות את רשימת הנגינה"
+
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+msgid "Announces title of the next track if any"
+msgstr "הקראת כותרת הרצועה הבאה, אם יש כזאת"
 
 #. Translators: Presented when there is no information for the next track.
 #. Translators: Presented when there is no information for the current track.
@@ -702,8 +686,8 @@ msgid "Cannot find next track information"
 msgstr "לא ניתן למצוא מידע על הרצועה הבאה"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid "Announces title of the next track if any"
-msgstr "הקראת כותרת הרצועה הבאה, אם יש כזאת"
+msgid "Announces title of the currently playing track"
+msgstr "הקראת הכותרת של הרצועה המנגנת כרגע"
 
 #. Translators: Presented when there is no information for the current track.
 #, fuzzy
@@ -715,8 +699,8 @@ msgid "Cannot find current track information"
 msgstr "לא ניתן למצוא מידע על הרצועה הנוכחית"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid "Announces title of the currently playing track"
-msgstr "הקראת הכותרת של הרצועה המנגנת כרגע"
+msgid "Announces temperature and weather information"
+msgstr "הקראת מידת החום ומזג האוויר"
 
 #. Translators: Presented when there is no weather or temperature information.
 msgid "Weather and temperature not configured"
@@ -725,10 +709,6 @@ msgstr "אין הגדרות מזג אוויר ומידות החום"
 #. Translators: Presented when temperature information cannot be found.
 msgid "Weather information not found"
 msgstr "לא זוהה מידע על מזג האוויר"
-
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid "Announces temperature and weather information"
-msgstr "הקראת מידת החום ומזג האוויר"
 
 #. Translators: Presented when there is no listener count information.
 msgid "Listener count not found"
@@ -742,6 +722,11 @@ msgstr "שליטה על סריקת הספריות"
 msgid "Scanning is in progress"
 msgstr "הסריקה מתבצעת"
 
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+msgid ""
+"Marks focused track as start marker for various playlist analysis commands"
+msgstr "מסמן את הרצועה שבפוקוס כנקודת ההתחלה של ניתוח רשימת ההשמעה"
+
 #. Translators: Presented when track time analysis is turned on.
 msgid "Playlist analysis activated"
 msgstr "ניתוח אורך הנגינה בביצוע"
@@ -752,8 +737,9 @@ msgstr "ניתוח אורך הנגינה בוטל"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid ""
-"Marks focused track as start marker for various playlist analysis commands"
-msgstr "מסמן את הרצועה שבפוקוס כנקודת ההתחלה של ניתוח רשימת ההשמעה"
+"Announces total length of tracks between analysis start marker and the "
+"current track"
+msgstr "הקראת האורך הכולל של הרצועות מנקודת תחילת הניתוח ועד לרצועה הנוכחית"
 
 #. Translators: Presented when track time analysis cannot be used because start marker is not set.
 msgid ""
@@ -764,12 +750,6 @@ msgstr "אין רצועה מסומנת כנקודת התחלת הניתוח. ל�
 #, python-brace-format
 msgid "Tracks: {numberOfSelectedTracks}, totaling {totalTime}"
 msgstr "רצועות : {numberOfSelectedTracks}, סיכום {totalTime}"
-
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid ""
-"Announces total length of tracks between analysis start marker and the "
-"current track"
-msgstr "הקראת האורך הכולל של הרצועות מנקודת תחילת הניתוח ועד לרצועה הנוכחית"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid ""
@@ -814,10 +794,6 @@ msgstr "בוטלה זרימת המטאדאטה עבור URL {URLPosition} מוש
 #. Translators: Status message for metadata streaming.
 msgid "Metadata streaming on DSP encoder disabled"
 msgstr "בוטלה זרימת המטאדאטה עבור מנגנון הקידוד של DSP"
-
-#. Translators: Presented when attempting to announce specific columns but the focused item isn't a track.
-msgid "Not a track"
-msgstr "אובייקט זה אינו רצועה"
 
 #. Translators: The title for SPL Assistant help dialog.
 msgid "SPL Assistant help"
@@ -1279,15 +1255,8 @@ msgstr "עדכן כאשר מצוי בראשית או בתחתית רשימת ה�
 msgid "Play a sound when listener &requests arrive"
 msgstr "השמע צליל כאשר מאזינים &ובקשות מגיעות"
 
-#. Translators: Text of the dialog when another alarm dialog is open.
-msgid "Another alarm dialog is open."
-msgstr "תיבת דו-שיח של התראה כבר פתוחה."
-
-#. Now the actual alarm dialog code.
 #. 8.0: Apart from level 0 (all settings shown), levels change title.
-msgid "Alarms Center"
-msgstr "מרכז ההתראות"
-
+#. 20.03: level 0 (Alarms Center/all settings) is no more, as the dialog will not be invoked from add-on settings interface (default is end of track alarm).
 msgid "End of track alarm"
 msgstr "סוף התראת רצועה"
 
@@ -1383,9 +1352,6 @@ msgstr "&הצג חלון תוצאות כאשר פקודת התמונות של ר
 #. Translators: Title of a dialog to configure metadata streaming status for DSP encoder and four additional URL's.
 msgid "Metadata streaming options"
 msgstr "אפשרויות זרימת מטאדאטה"
-
-msgid "Select the URL for metadata streaming upon request."
-msgstr "נא לציין URL עבור זרימת מטאדאטה כשהדבר נדרש."
 
 msgid "Check to enable metadata streaming, uncheck to disable."
 msgstr ""
@@ -1520,22 +1486,6 @@ msgstr "הקראת מספר המא&זינים"
 msgid "&Announce name of the currently playing cart"
 msgstr "הקראת &שם הקטע המתנגן כעת"
 
-#. Translators: the label for a setting in SPL add-on settings to announce currently playing track name.
-msgid "&Track name announcement:"
-msgstr "הקראת שם הר&צועות:"
-
-#. Translators: One of the track name announcement options.
-msgid "automatic"
-msgstr "אוטומטי"
-
-#. Translators: One of the track name announcement options.
-msgid "while using other programs"
-msgstr "בעת שימוש בתוכנות אחרות"
-
-#. Translators: One of the track name announcement options.
-msgid "off"
-msgstr "לא פעיל"
-
 #. Translators: the label for a setting in SPL add-on settings to announce player position for the current and next tracks.
 msgid ""
 "Include track player &position when announcing current and next track "
@@ -1644,12 +1594,6 @@ msgstr "שחזור הגדרות ברירת מחדל."
 #, fuzzy
 msgid "StationPlaylist Add-on Settings"
 msgstr "הגדרות תוסף הסטודיו"
-
-#. Translators: Presented when an alarm dialog is opened.
-msgid ""
-"Another add-on settings dialog is open. Please close the previously opened "
-"dialog first."
-msgstr "תיבת דו-שיח של הגדרות התוסף כבר פתוחה. נא לסגור אותה תחילה."
 
 #. Translators: Text of the dialog when another find dialog is open.
 msgid "Another find dialog is open."
@@ -1827,13 +1771,17 @@ msgstr ""
 "R : הקראת הזמן הנותר להשמעה\n"
 "Shift+R : הקראת התקדמות סריקת הספריות."
 
+#. Translators: Input help mode message for a command to switch to StationPlaylist Studio from any program.
+msgid "Moves to SPL Studio window from other programs."
+msgstr "מעבר לחלון SPL מתוך תוכנות אחרות."
+
 #. Translators: Presented when StationPlaylist Studio is not running.
 msgid "SPL Studio is not running."
 msgstr "SPL Studio  אינה בריצה."
 
-#. Translators: Input help mode message for a command to switch to StationPlaylist Studio from any program.
-msgid "Moves to SPL Studio window from other programs."
-msgstr "מעבר לחלון SPL מתוך תוכנות אחרות."
+#. Translators: Input help mode message for a layer command in StationPlaylist add-on.
+msgid "SPl Controller layer command. See add-on guide for available commands."
+msgstr "מקלדת של פקודות SPL Controller . למידע נוסף, נא עיין במדריך התוסף."
 
 #. Translators: Presented when NVDA cannot enter SPL Controller layer since SPL Studio is focused.
 msgid ""
@@ -1846,10 +1794,6 @@ msgstr ""
 #. Hint: it is better to translate it as "SPL Control Panel."
 msgid "SPL Controller"
 msgstr "SPL Controller"
-
-#. Translators: Input help mode message for a layer command in StationPlaylist add-on.
-msgid "SPl Controller layer command. See add-on guide for available commands."
-msgstr "מקלדת של פקודות SPL Controller . למידע נוסף, נא עיין במדריך התוסף."
 
 #. Translators: Presented when no track is playing in StationPlaylist Studio.
 msgid "There is no track playing. Try pausing while a track is playing."
@@ -1874,15 +1818,15 @@ msgstr "מספר מאזינים:  {listenerCount}"
 msgid "There is no track playing."
 msgstr "אין רצועה בנגינה כעת."
 
-#. Translators: presented if encoder connection status cannot be obtained.
-#, fuzzy
-msgid "Cannot obtain encoder connection status"
-msgstr "לא ניתן לפתוח את תיבת הדו-שיח של זרימת המטאדאטה"
-
 #. Translators: Input help message for a SPL Controller command.
 #, fuzzy
 msgid "Announces stream encoder status from other programs"
 msgstr "מכריזה על מצב הסטודיו, כגון מצב השמעת רצועה מתוכניות אחרות"
+
+#. Translators: presented if encoder connection status cannot be obtained.
+#, fuzzy
+msgid "Cannot obtain encoder connection status"
+msgstr "לא ניתן לפתוח את תיבת הדו-שיח של זרימת המטאדאטה"
 
 #. Translators: Input help message for a SPL Controller command.
 msgid ""
@@ -1901,6 +1845,50 @@ msgid ""
 msgstr ""
 "מנגיש את תוכנת StationPlaylist  Studio  .  \n"
 "בנוסף, מאפשר ביצוע פקודות מכל מקום אחר במחשב."
+
+#, fuzzy
+#~ msgid ""
+#~ "The add-on settings dialog or another alarm dialog is opened. Please "
+#~ "close the opened dialog first."
+#~ msgstr ""
+#~ "תיבת דו-שיח של הגדרות התוסף או של זרימת הנתונם פתוחה כרגע. נא לסגור אותה "
+#~ "תחילה."
+
+#~ msgid ""
+#~ "The add-on settings dialog or the metadata streaming dialog is opened. "
+#~ "Please close the opened dialog first."
+#~ msgstr ""
+#~ "תיבת דו-שיח של הגדרות התוסף או של זרימת הנתונם פתוחה כרגע. נא לסגור אותה "
+#~ "תחילה."
+
+#~ msgid "Not a track"
+#~ msgstr "אובייקט זה אינו רצועה"
+
+#~ msgid "Another alarm dialog is open."
+#~ msgstr "תיבת דו-שיח של התראה כבר פתוחה."
+
+#~ msgid "Alarms Center"
+#~ msgstr "מרכז ההתראות"
+
+#~ msgid "Select the URL for metadata streaming upon request."
+#~ msgstr "נא לציין URL עבור זרימת מטאדאטה כשהדבר נדרש."
+
+#~ msgid "&Track name announcement:"
+#~ msgstr "הקראת שם הר&צועות:"
+
+#~ msgid "automatic"
+#~ msgstr "אוטומטי"
+
+#~ msgid "while using other programs"
+#~ msgstr "בעת שימוש בתוכנות אחרות"
+
+#~ msgid "off"
+#~ msgstr "לא פעיל"
+
+#~ msgid ""
+#~ "Another add-on settings dialog is open. Please close the previously "
+#~ "opened dialog first."
+#~ msgstr "תיבת דו-שיח של הגדרות התוסף כבר פתוחה. נא לסגור אותה תחילה."
 
 #~ msgid ""
 #~ "The add-on settings dialog is opened. Please close the settings dialog "

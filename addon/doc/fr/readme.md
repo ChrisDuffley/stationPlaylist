@@ -346,12 +346,12 @@ ci-dessus pour exécuter des commandes.
 * Due to removal of automatic announcement of playing track title, the
   setting to configure this feature has been removed from add-on
   settings/status announcement category.
-* In encoders, NvDA will play connection tone every half a second while an
+* In encoders, NVDA will play connection tone every half a second while an
   encoder is connecting.
 * In encoders, NVDA will now announce connection attempt messages until an
   encoder is actually connected. Previously NVDA stopped when an error was
   encountered.
-* A new setting has been added to encoder settings to let NvDA announce
+* A new setting has been added to encoder settings to let NVDA announce
   connection messages until the selected encoder is connected. This setting
   is enabled by default.
 

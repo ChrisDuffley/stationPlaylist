@@ -357,14 +357,14 @@ die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
 * Auf Grund der Entfernung der automatischen Ansage des abspielenden Titels
   wurde die Einstellung zur Konfiguration dieser Funktion aus der Kategorie
   Zusatzeinstellungen bzw. Status-Ankündigung entfernt.
-* Bei Encodern spielt NvDA den Verbindungston jede halbe Sekunde ab, während
-  ein Encoder angeschlossen ist.
+* In encoders, NVDA will play connection tone every half a second while an
+  encoder is connecting.
 * Bei Encodern meldet NVDA nun Meldungen über Verbindungsversuche, bis ein
   Encoder tatsächlich angeschlossen ist. Zuvor stoppte NVDA, wenn ein Fehler
   auftrat.
-* Eine neue Einstellung wurde zu den Encoder-Einstellungen hinzugefügt, um
-  NVDA Verbindungsmeldungen mitzuteilen, bis der ausgewählte Encoder
-  angeschlossen ist. Diese Einstellung ist standardmäßig aktiviert.
+* A new setting has been added to encoder settings to let NVDA announce
+  connection messages until the selected encoder is connected. This setting
+  is enabled by default.
 
 ## Version 20.02
 
