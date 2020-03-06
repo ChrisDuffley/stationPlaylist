@@ -286,7 +286,7 @@ Version 19.06 supports SPL Studio 5.20 and later.
 
 * Pressing Control+NVDA+R to reload saved settings will now also reload Studio add-on settings, and pressing this command three times will also reset Studio add-on settings to defaults along with NVDA settings.
 * Renamed Studio add-on settings dialog's "Advanced options" panel to "Advanced".
-* 19.03 Experimental: in column announcements and playlist transcripts panels (add-on settings), custom column inclusion/order controls will be visible up front instead of having to select a button to open a dialog to configure these settings.
+* 19.03 experimental: in column announcements and playlist transcripts panels (add-on settings), custom column inclusion/order controls will be visible up front instead of having to select a button to open a dialog to configure these settings.
 
 ## Version 19.02
 
