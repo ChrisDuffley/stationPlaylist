@@ -1204,7 +1204,7 @@ class AppModule(appModuleHandler.AppModule):
 			gui.mainFrame.postPopup()
 			splconfui._alarmDialogOpened = True
 		except RuntimeError:
-			wx.CallAfter(splconfig._alarmError)
+			pass
 
 	# Set the end of track alarm time between 1 and 59 seconds.
 
@@ -1634,7 +1634,7 @@ class AppModule(appModuleHandler.AppModule):
 			gui.mainFrame.postPopup()
 			splconfui._metadataDialogOpened = True
 		except RuntimeError:
-			wx.CallAfter(splconfig._alarmError)
+			pass
 
 	# Playlist Analyzer
 	# These include track time analysis, playlist snapshots, and some form of playlist transcripts and others.
