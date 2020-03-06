@@ -1189,7 +1189,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Invoke the common alarm dialog.
 	# The below invocation function is also used for error handling purposes.
-	# Levels indicate which dialog to show (0 = all, 1 = outro, 2 = intro, 3 = microphone).
+	# Levels indicate which dialog to show (0 = outro, 1 = intro, 2 = microphone).
 
 	def alarmDialog(self, level):
 		if splconfui._configDialogOpened or splconfui._alarmDialogOpened:
