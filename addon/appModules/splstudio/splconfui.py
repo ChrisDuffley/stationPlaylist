@@ -1592,6 +1592,10 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		# Call cancel function when the app terminates so the dialog can be closed.
 		self.onCancel(None)
 
+# #125 (20.04) temporary: until various standalone add-on settings dialogs become proper NVDA settings dialogs, centralize error handling.
+# The below error message came directly from NVDA Core's settings dialog opener method (credit: NV Access)
+def _configDialogOpenError():
+	gui.messageBox(translate("An NVDA settings dialog is already open. Please close it first."),translate("Error"),style=wx.OK | wx.ICON_ERROR)
 
 # Open the above dialog upon request.
 def onConfigDialog(evt):
