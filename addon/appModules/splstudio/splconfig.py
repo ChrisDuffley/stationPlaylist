@@ -86,6 +86,7 @@ PilotFeatures = boolean(default=false)
 [Startup]
 AudioDuckingReminder = boolean(default=true)
 WelcomeDialog = boolean(default=true)
+TriggerProfileDeprecation = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
 SPLConfig = None
@@ -702,7 +703,7 @@ def initialize():
 	# 7.0: Store the config as a dictionary.
 	# This opens up many possibilities, including config caching, loading specific sections only and others (the latter saves memory).
 	# 8.0: Replaced by ConfigHub object.
-	# #64 (18.07): perfomed by openConfig function.
+	# #64 (18.07): performed by openConfig function.
 	openConfig("splstudio")
 	# Locate instant profile and do something otherwise.
 	if SPLConfig.instantSwitch is not None and SPLConfig.instantSwitch not in SPLConfig.profileNames:
@@ -737,6 +738,7 @@ def initialize():
 		runConfigErrorDialog("\n".join(messages), title)
 	# Fire up profile triggers.
 	# 17.10: except when normal profile only flag is specified.
+	# 20.04: time-based profile feature is deprecated.
 	if not SPLConfig.normalProfileOnly: initProfileTriggers()
 	# 7.1: Make sure encoder settings map isn't corrupted.
 	try:
@@ -1194,6 +1196,11 @@ def showStartupDialogs(oldVer=False, oldVerReturn=False):
 		#if gui.messageBox("You are using an older version of Windows. From 2018 onwards, Studio add-on will not support versions earlier than Windows 7 Service Pack 1. Add-on 15.x LTS (long-term support) versions will support Windows versions such as Windows XP until mid-2018. Would you like to switch to long-term support release?", "Long-Term Support version", wx.YES | wx.NO | wx.CANCEL | wx.CENTER | wx.ICON_QUESTION) == wx.YES:
 			#os.remove(os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "ltsprep"))
 	#if oldVerReturn: return
+	# 20.04 (temporary): display time-based profile feature deprecation message.
+	if SPLConfig["Startup"]["TriggerProfileDeprecation"] and len(profileTriggers):
+		gui.messageBox(_("One or more time-based broadcast profiles are defined. Time-based broadcast profiles feature is deprecated and will be removed in a future version of StationPlaylist add-on."), _("SPL add-on feature deprecation"), wx.OK | wx.ICON_INFORMATION)
+		SPLConfig["Startup"]["TriggerProfileDeprecation"] = False
+		return
 	if SPLConfig["Startup"]["WelcomeDialog"]:
 		gui.mainFrame.prePopup()
 		WelcomeDialog(gui.mainFrame).Show()
