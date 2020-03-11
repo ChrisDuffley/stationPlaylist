@@ -93,7 +93,7 @@ class BroadcastProfilesDialog(gui.SettingsDialog):
 		self.switchProfileRenamed = False
 		self.switchProfileDeleted = False
 
-	def onSave(self):
+	def onOk(self, evt):
 		if hasattr(self, "profiles"):
 			selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
 			if splconfig.SPLConfig.activeProfile != selectedProfile:
@@ -133,7 +133,7 @@ class BroadcastProfilesDialog(gui.SettingsDialog):
 		if not _configApplyOnly:
 			splconfig.triggerStart(restart=True)
 
-	def onDiscard(self):
+	def onCancel(self, evt):
 		# Apply profile trigger changes if any.
 		try:
 			splconfig.profileTriggers = dict(self._profileTriggersConfig)
@@ -149,6 +149,7 @@ class BroadcastProfilesDialog(gui.SettingsDialog):
 			prevActive = splconfig.defaultProfileName
 		if self.switchProfileRenamed or self.switchProfileDeleted:
 			splconfig.SPLConfig.instantSwitch = self.switchProfile
+		super(BroadcastProfilesDialog, self).onCancel(evt)
 
 	# Include profile flags such as instant profile string for display purposes.
 	def displayProfiles(self, profiles):
