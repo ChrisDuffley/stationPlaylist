@@ -24,16 +24,18 @@ from ..skipTranslation import translate
 
 # Helper panels/dialogs for add-on settings dialog.
 
-# Broadcast profiles category
+# Broadcast profiles
+# #129 (20.05): formerly a settings panel, now a dedicated settings dialog.
+
 # The following also affects profile-specific panels.
 _selectedProfile = None
 _configApplyOnly = False
 # #112 (19.08/18.09.11-LTS): an internal config UI action for managing profile renames/deletions.
 SPLConfUIProfileRenamedOrDeleted = extensionPoints.Action()
 
-class BroadcastProfilesPanel(gui.SettingsPanel):
-	# Translators: title of a panel to configure broadcast profiles.
-	title = _("Broadcast profiles")
+class BroadcastProfilesDialog(gui.SettingsDialog):
+	# Translators: title of a dialog to configure broadcast profiles.
+	title = _("SPL Broadcast Profiles")
 
 	def makeSettings(self, settingsSizer):
 		broadcastProfilesHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
@@ -43,6 +45,7 @@ class BroadcastProfilesPanel(gui.SettingsPanel):
 		# 8.0: No need to sort as profile names from ConfigHub knows what to do.
 		# 17.10: skip this if only normal profile is in use.
 		# #6: display a read-only explanatory text.
+		# #129 (20.05): explanatory text will be provided when attempting to open this dialog, not here.
 		if not (splconfig.SPLConfig.configInMemory or splconfig.SPLConfig.normalProfileOnly):
 			self.profileNames = list(splconfig.SPLConfig.profileNames)
 			self.profileNames[0] = splconfig.defaultProfileName
@@ -60,6 +63,7 @@ class BroadcastProfilesPanel(gui.SettingsPanel):
 		# Profile controls code credit: NV Access (except copy button).
 		# Most control labels come from NvDA Core.
 		# 17.10: if restrictions such as volatile config are applied, disable this area entirely.
+		# #129 (20.05): no need for this check in standalone dialog.
 		if not (splconfig.SPLConfig.volatileConfig or splconfig.SPLConfig.normalProfileOnly or splconfig.SPLConfig.configInMemory):
 			sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 			newButton = wx.Button(self, label=translate("&New"))
