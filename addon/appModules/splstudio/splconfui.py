@@ -121,8 +121,6 @@ class BroadcastProfilesDialog(gui.SettingsDialog):
 			splconfig.profileTriggers = dict(self._profileTriggersConfig)
 			self._profileTriggersConfig.clear()
 			self._profileTriggersConfig = None
-
-	def postSave(self):
 		# #108 (19.07/18.09.10-LTS): notify various subsystems so new settings can take effect even it is just for pressing OK button.
 		# No need to worry if Apply button is pressed unless the selected profile and the active profile are one and the same.
 		selectedProfile = _selectedProfile
@@ -132,6 +130,7 @@ class BroadcastProfilesDialog(gui.SettingsDialog):
 		# #111 (19.08/18.09.11-LTS): restart triggers if and only if OK button is pressed (broken since 18.09).
 		if not _configApplyOnly:
 			splconfig.triggerStart(restart=True)
+		super(BroadcastProfilesDialog, self).onOk(evt)
 
 	def onCancel(self, evt):
 		# Apply profile trigger changes if any.
