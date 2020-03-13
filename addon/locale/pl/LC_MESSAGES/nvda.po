@@ -968,6 +968,15 @@ msgstr "Witamy w Station Playlist Studio"
 msgid "Show welcome dialog when I start Studio"
 msgstr "Pokazuj okno powitalne po uruchomieniu Studia"
 
+msgid ""
+"One or more time-based broadcast profiles are defined. Time-based broadcast "
+"profiles feature is deprecated and will be removed in a future version of "
+"StationPlaylist add-on."
+msgstr ""
+
+msgid "SPL add-on feature deprecation"
+msgstr ""
+
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Status announcement beeps"
 msgstr "Przełącz oznajmianie dźwięki"

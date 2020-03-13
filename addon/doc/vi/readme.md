@@ -3,26 +3,25 @@
 * Tác giả: Geoff Shang, Joseph Lee và các cộng tác viên khác
 * Tải về [phiên bản chính thức][1]
 * Tải về [phiên bản thử nghiệm][2]
-* NVDA compatibility: 2019.3
+* NVDA tương thích: 2019.3
 
 Gói add-on này cung cấp sự cải thiện cho việc sử dụng StationPlaylist Studio
 và các ứng dụng StationPlaylist khác, cũng như cung cấp các tiện ích để điều
 khiển Studio ở bất cứ đâu. Các ứng dụng được hỗ trợ bao gồm Studio, Creator,
 Track Tool, VT Recorder và Streamer, cả các bộ mã hóa SAM, SPL và AltaCast.
 
-For more information about the add-on, read the [add-on guide][4]. For
-developers seeking to know how to build the add-on, see
-buildInstructions.txt located at the root of the add-on source code
-repository.
+Để biết thêm thông tin về add-on này, xem [hướng dẫn sử dụng add-on][4]. Với
+những người phát triển add-on quan tâm đến việc tạo add-on, xem tập tin
+buildInstructions.txt ở thư mục gốc trong mã nguồn của add-on.
 
 CÁC LƯU Ý QUAN TRỌNG:
 
 * Add-on này yêu cầu bộ StationPlaylist 5.20 trở lên.
 * Nếu dùng Windows 8 trở lên, hãy tắt chế độ giảm âm thanh để có trải nghiệm
   tốt nhất.
-* Starting from 2018, [changelogs for old add-on releases][5] will be found
-  on GitHub. This add-on readme will list changes from version 17.08 (2017
-  onwards).
+* Từ 2018, [bản ghi những thay đổi cho các bản phát hành cũ của add-on][5]
+  sẽ được tìm thấy trên GitHub. Tập tin readme này sẽ liệt kê các thay đổi
+  từ phiên bản 17.08 (2017 trở đi).
 * Vài tính năng nhất định của add-on sẽ không hoạt động trong vài điều kiện,
   bao gồm chạy NVDA trong chế độ bảo vệ.
 * Vì những giới hạn kĩ thuật, bạn không thể cài hay dùng add-on này với
@@ -69,10 +68,9 @@ lập khác.
   Track Tool): thông báo cột đầu / cuối của track.
 * Control+Alt+mũi tên lên / xuống (chỉ khi đứng ở tại một track trong
   Studio): chuyển đến track trước hoặc kế và thông báo các cột cụ thể.
-* Control+NVDA+1 through 0 (while focused on a track in Studio, Creator
-  (including Playlist Editor), and Track Tool): Announce column content for
-  a specified column (first ten columns by default). Pressing this command
-  twice will display column information on a browse mode window.
+* Control+NVDA+1 đến 0 (khi đứng ở tại một track trong Studio, Creator (bao
+  gồm Playlist Editor) và Track Tool): thông báo nội dung cho một cột đã
+  định. Bấm hai lần sẽ hiển thị thông tin trên cửa sổ duyệt tài liệu.
 * Control+NVDA+- (trừ trong Studio, Creator và Track Tool): hiển thị dữ liệu
   của tất cả các cột trong một track trên một cửa sổ ở chế độ duyệt.
 * Alt+NVDA+C khi đứng tại một track (chỉ trong Studio): thông báo chú thích
@@ -266,11 +264,11 @@ Assistant, F10 khi kết thúc vùng chọn.
 
 ## Khám phá các cột
 
-By pressing Control+NVDA+1 through 0 or SPL Assistant, 1 through 0, you can
-obtain contents of specific columns. By default, these are artist, title,
-duration, intro, outro, category, year, album, genre and mood. You can
-configure which columns will be explored via columns explorer dialog found
-in add-on settings dialog.
+Bấm Control+NVDA+1 đến 0 hoặc SPL Assistant, 1 đến 0, bạn có thể thu thập
+các nội dung của các cột cụ thể. Mặc định là ca sĩ, tựa đề, thời lượng, nhạc
+dạo, nhạc kết thúc, loại, năm, album, thể loại và trạng thái. Bạn có thể cấu
+hình những cột nào sẽ được khám phá thông qua hộp thoại khám phá cột được
+tìm thấy trong hộp thoại cài đặt add-on.
 
 ## Ảnh chụp danh sách phát
 
@@ -300,26 +298,25 @@ NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio t
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
 
-## Version 20.03
+## Phiên bản 20.03
 
-* Columns Explorer will now announce first ten columns by default (existing
-  installations will continue to use old column slots).
-* The ability to announce name of the playing track automatically from
-  places other than Studio has been removed. This feature, introduced in
-  add-on 5.6 as a workaround for Studio 5.1x, is no longer functional. Users
-  must now use SPL Controller and/or Assistant layer command to hear title
-  of the currently playing track from everywhere (C).
-* Due to removal of automatic announcement of playing track title, the
-  setting to configure this feature has been removed from add-on
-  settings/status announcement category.
-* In encoders, NVDA will play connection tone every half a second while an
-  encoder is connecting.
-* In encoders, NVDA will now announce connection attempt messages until an
-  encoder is actually connected. Previously NVDA stopped when an error was
-  encountered.
-* A new setting has been added to encoder settings to let NVDA announce
-  connection messages until the selected encoder is connected. This setting
-  is enabled by default.
+* Hộp thoại khám phá cột giờ đây sẽ mặc định thông báo 10 cột đầu tiên (các
+  cài đặt có sẵn vẫn sẽ dung thiết lập cũ).
+* Đã bỏ tính năng tự thông báo tên của track đang phát ở các cửa sổ khác
+  Studio. Tính năng này được giới thiệu trong add-on 5.6 như một giải pháp
+  cho Studio 5.1x, nó không còn hoạt động nữa. Người dùng giờ đây phải sử
+  dụng lệnh của SPL Controller hay Assistant layer để nghe tên của  track
+  đang phát từ bất cứ đâu (C).
+* Do việc gỡ bỏ tính năng tự thông báo tên của track đang phát, phần thiết
+  lập cho tính năng này cũng được gỡ bỏ trong bản cài đặt add-on.
+* Trong các bộ mã hóa, NVDA sẽ phát âm báo kết nối mỗi nửa giây khi một bộ
+  mã hóa đang kết nối.
+* Trong các bộ mã hóa, NVDA giờ đây sẽ đọc thông điệp đang kết nối cho đến
+  khi thật sự có một bộ mã hóa được kết nối. Trước đây NVDA bị dừng khi có
+  lỗi xảy ra.
+* Một thiết lập mới đã được thêm vào bảng cài đặt mã hóa để NVDA đọc thông
+  điệp đang kết nối cho đến khi bộ mã hóa đã chọn được kết nối. Thiết lập
+  này mặc định được bật.
 
 ## Phiên bản 20.02
 

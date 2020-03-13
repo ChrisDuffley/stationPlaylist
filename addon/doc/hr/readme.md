@@ -3,8 +3,7 @@
 * Autori: Geoff Shang, Joseph Lee i drugi doprinositelji
 * Preuzmi [stabilnu verziju][1]
 * Preuzmi [razvojnu verziju][2]
-* NVDA compatibility: 2019.3 and beyond
-* Download [older version][6] compatible with NVDA 2019.2.1 and earlier
+* NVDA kompatibilnost: 2019.3
 
 Ovaj paket dodataka omogućava bolje korištenje programa StationPlaylist
 Studio i drugih StationPlaylist programa te pruža alate za kontrolu programa
@@ -18,12 +17,12 @@ izvornog koda.
 
 VAŽNE NAPOMENE:
 
-* This add-on requires StationPlaylist suite 5.20 or later.
+* Za dodatak zahtijeva StationPlaylist suite 5.20 ili noviju verziju.
 * Korisnicima sustava Windows 8 ili novijeg, preporučamo deaktivirati modus
   stišavanja zvuka.
-* Starting from 2018, [changelogs for old add-on releases][5] will be found
-  on GitHub. This add-on readme will list changes from version 17.08 (2017
-  onwards).
+* Od 2018. godine pa nadalje, [zapisi o promjenama za stara izdanja][5]
+  nalaze se na GitHubu. Readme datoteka dodatka sadrži popis promjena od
+  verzije 17.08 (2017. pa nadalje).
 * Određene funkcije dodatka neće raditi pod nekim uvjetima, uključujući
   pokretanje NVDA čitača u sigurnom modusu.
 * Zbog tehničkih ograničenja, ovaj se dodatak ne može instalirati ili
@@ -45,20 +44,20 @@ Većina njih radi samo u programu Studio, ukoliko nešto drugo nije navedeno.
   sekunde do punog sata.
 * Alt+NVDA+1 (klizanje s dva prsta prema desno u dodirnom modusu SPL-a) u
   prozoru Studija: otvara dijaloški okvir s postavkama za kraj snimke.
-* Alt+NVDA+1 from Creator's Playlist Editor window: Announces scheduled time
-  for the loaded playlist.
+* Alt+NVDA+1 u prozoru Playlist Editora Creatora: najavljuje planirano
+  vrijeme za učitani popisa snimaka.
 * Alt+NVDA+2 (klizanje s dva prsta prema lijevo u dodirnom modusu SPL-a) u
   prozoru Studija: otvara dijaloški okvir s postavkama alarma za uvodni dio
   pjesme.
-* Alt+NVDA+2 from Creator's Playlist Editor window: Announces total playlist
-  duration.
+* Alt+NVDA+2 u prozoru Playlist Editora Creatora: najavljuje ukupno trajanje
+  popisa snimaka.
 * Alt+NVDA+3 u prozoru programa Studio: uključuje i isključuje istraživača
   džinglova za prikaz njima dodijeljenih naredbi.
-* Alt+NVDA+3 from Creator's Playlist Editor window: Announces when the
-  selected track is scheduled to play.
+* Alt+NVDA+3 u prozoru Playlist Editora Creatora: najavljuje planirano
+  vrijeme sviranja za odabranu snimku.
 * Alt+NVDA+4 u prozoru Studija: otvara dijaloški okvir za alarm mikrofona.
-* Alt+NVDA+4 from Creator's Playlist Editor window: Announces rotation and
-  category associated with the loaded playlist.
+* Alt+NVDA+4 u prozoru Playlist Editora Creatora: najavljuje rotaciju i
+  povezanu kategoriju s učitanim popisom snimaka.
 * Control+NVDA+f u prozoru Studija: otvara dijaloški okvir za pronalaženje
   snimke na temelju izvođača ili pjesme. Pritisni NVDA+F3 za traženje prema
   naprijed ili NVDA+Shift+F3 za traženje prema natrag.
@@ -69,16 +68,17 @@ Većina njih radi samo u programu Studio, ukoliko nešto drugo nije navedeno.
 * Control+Alt+strelica lijevo ili desno (tijekom fokusiranja trake u
   programima Studio, Creator i Track Tool): najavi prethodni ili sljedeći
   stupac trake.
-* Control+Alt+Home/End (while focused on a track in Studio, Creator, and
-  Track Tool): Announce first/last track column.
-* Control+Alt+up/down arrow (while focused on a track in Studio only): Move
-  to previous or next track and announce specific columns.
+* Control+Alt+Home/End (tijekom fokusiranja trake u programima Studio,
+  Creator i Track Tool): najavi prvi ili zadnji stupac trake.
+* Control+Alt+strelica gore ili dolje (samo tijekom fokusiranja na snimku u
+  programu Studio): prijeđi na prethodnu ili sljedeću traku i najavi
+  određene stupce.
 * Control+NVDA+1 do 0 (tijekom fokusiranja trake u programima Studio,
-  Creator i Track Tool): najavi sadržaj stupca za određeni stupac. Pritisni
-  naredbu dvaput za prikaz podataka stupca u prozoru modusa pregledavanja.
-* Control+NVDA+- (hyphen while focused on a track in Studio, Creator, and
-  Track Tool): display data for all columns in a track on a browse mode
-  window.
+  Creator (uključujući Playlist Editor) i Track Tool): najavi sadržaj stupca
+  za određeni stupac (standardno za prvih deset stupaca). Pritisni naredbu
+  dvaput za prikaz podataka stupca u prozoru modusa pregledavanja.
+* Control+NVDA+- (crtica u programu Studio, Creator i Track Tool): prikaži
+  podatke svih stupaca u snimci na prozoru modusa pregledavanja.
 * Alt+NVDA+C tijekom fokusiranja na snimku (samo Studio): najavljuje
   komentare snimke, ukoliko ih ima.
 * Alt+NVDA+0 u prozoru Studija: otvara dijaloški okvir za konfiguriranje
@@ -283,10 +283,9 @@ kad dođeš do kraja odabira.
 
 Pritiskom na Control+NVDA+1 do 0 ili SPL Assistant, od 1 do 0, dobiva se
 sadržaj određenih stupaca. Standardno su to sljedeći podaci: izvođač,
-naslov, trajanje, uvod, kategorija, naziv datoteke, godina, album, žanr i
-planirano vrijeme. Moguće je konfigurirati koji će se stupci istraživati
-putem dijaloškog okvira istraživača stupaca, koji se nalazi u dijaloškom
-okviru za postavke dodatka.
+naslov, trajanje, uvodni dio, završni dio, kategorija, godina, album, žanr i
+ugođaj. Moguće je konfigurirati koji će se stupci istraživati putem
+dijaloškog okvira istraživača stupaca, koji se nalazi u postavkama dodatka.
 
 ## Statistika popisa snimaka
 
@@ -319,6 +318,27 @@ operacijskim sustavom Windows 8 ili novijim i ako imaš instaliran NVDA
 na dodir. Za prebacivanje na modus SPL-a, dodirni ekran s tri prsta. Zatim
 koristi gore navedene dodirne naredbe za njihovo izvršavanje.
 
+## Version 20.03
+
+* Columns Explorer will now announce first ten columns by default (existing
+  installations will continue to use old column slots).
+* The ability to announce name of the playing track automatically from
+  places other than Studio has been removed. This feature, introduced in
+  add-on 5.6 as a workaround for Studio 5.1x, is no longer functional. Users
+  must now use SPL Controller and/or Assistant layer command to hear title
+  of the currently playing track from everywhere (C).
+* Due to removal of automatic announcement of playing track title, the
+  setting to configure this feature has been removed from add-on
+  settings/status announcement category.
+* In encoders, NVDA will play connection tone every half a second while an
+  encoder is connecting.
+* In encoders, NVDA will now announce connection attempt messages until an
+  encoder is actually connected. Previously NVDA stopped when an error was
+  encountered.
+* A new setting has been added to encoder settings to let NVDA announce
+  connection messages until the selected encoder is connected. This setting
+  is enabled by default.
+
 ## Version 20.02
 
 * Initial support for StationPlaylist Creator's Playlist Editor.
@@ -326,9 +346,9 @@ koristi gore navedene dodirne naredbe za njihovo izvršavanje.
   in Playlist Editor. These include date and time for the playlist (1),
   total playlist duration (2), when the selected track is scheduled to play
   (3), and rotation and category (4).
-* While focused on a track in Creator and Track Tool (except in Creator's
-  Playlist Editor), pressing Control+NVDA+Dash will display data for all
-  columns on a browse mode window.
+* Dok je fokusiran na zapis u alatu Creator i Track Tool (osim u Playlist
+  Editoru Creatora), pritiskom na Control+NVDA+crtica prikazat će se podaci
+  za sve stupce u prozoru načina pregledavanja.
 * If NVDA Recognizes a track list item with less than 10 columns, NVDA will
   no longer announce headers for nonexistent columns if Control+NVDA+number
   row for out of range column is pressed.
@@ -890,10 +910,6 @@ Please see changelog link for release notes for old add-on releases.
 
 [2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
 
-[3]: https://addons.nvda-project.org/files/get.php?file=spl-lts18
-
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 
 [5]: https://github.com/josephsl/stationplaylist/wiki/splchangelog
-
-[6]: https://addons.nvda-project.org/files/get.php?file=spl-2019

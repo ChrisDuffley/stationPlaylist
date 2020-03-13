@@ -1,21 +1,21 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Hrvatska lokalizacija za NVDA.
+# Copyright (C) 2006-2019 NVDA contributors <https://www.nvda-project.org>
+# This file is distributed under the same license as the virtualRevision package.
+# Milo Ivir <mail@milotype.de>, 2019., 2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: stationPlaylist 3.3\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2014-11-28 19:00+1000\n"
-"PO-Revision-Date: 2020-02-27 17:19-0800\n"
+"PO-Revision-Date: 2020-03-11 15:55+0100\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: \n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 2.3\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 
@@ -73,7 +73,7 @@ msgstr "StationPlaylist"
 #. Translators: Presented when column is out of range.
 #, python-brace-format
 msgid "Column {columnPosition} not found"
-msgstr ""
+msgstr "Stupac {columnPosition} nije pronađen"
 
 #. Translators: presented when column information for a track is empty.
 msgid "blank"
@@ -143,7 +143,6 @@ msgstr ""
 "za dodavanje, mijenjanje ili uklanjanje komentara"
 
 #. Translators: The text of the help command in SPL Assistant layer.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -202,7 +201,6 @@ msgstr ""
 "U: Ukupno vrijeme rada programa Studio.\n"
 "W: Vremenska prognoza i temperatura.\n"
 "Y: Promjena u popisu snimaka.\n"
-"1 do 0: Najavi stupce putem istraživača stupaca (0 je deseti stupac).\n"
 "F8: Sastavi statistiku popisa snimaka kao što su broj snimaka, najduža "
 "snimka, itd.\n"
 "Shift+F8: Dobavi prijepis popisa snimaka u raznim formatima.\n"
@@ -212,7 +210,6 @@ msgstr ""
 "Shift+F1: Otvori korisnički priručnik na internetu."
 
 #. Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -251,41 +248,39 @@ msgstr ""
 "Nakon ulaska u SPL Assistant, pritisni:\n"
 "A: Automacija.\n"
 "C: Uključi i isključi istraživača džìnglova.\n"
-"Shift+C: Najavi ime trenutačno svirane snimke.\n"
+"Šift+C: Najavi ime trenutačno svirane snimke.\n"
 "E: Ukupno stanje internetskog prijenosa metapodataka.\n"
-"Shift+1 do Shift+4, Shift+0: Stanje internetskog prijenosa metapodataka za "
-"DSP dekoder i četiri dodatne URL adrese.\n"
-"Shift+E: Snimi u datoteku.\n"
-"F: Pronalazač snimaka.\n"
+"Šift+1 do Šift+4, Šift+0: Stanje internetskog prijenosa metapodataka za DSP "
+"dekoder i četiri dodatne URL adrese.\n"
+"Šift+E: Snimi u datoteku.\n"
+"F: Traženje snimaka.\n"
 "H: Trajanje snimaka u ovom jednosatnom slotu.\n"
-"Shift+H: Trajanje preostalih snimaka u ovom jednosatnom slotu.\n"
+"Šift+H: Trajanje preostalih snimaka u ovom jednosatnom slotu.\n"
 "K: Premjesti se na označenu snimku.\n"
-"Control+K: Postavi snimku kao pozicijsku oznaku.\n"
+"Kontrol+K: Postavi snimku kao pozicijsku oznaku.\n"
 "L: Broj slušatelja.\n"
-"Shift+L: Line-in stanje.\n"
+"Šift+L: Line-in stanje.\n"
 "M: Stanje mikrofona.\n"
 "N: Sljedeća snimka.\n"
 "P: Stanje sviranja.\n"
-"Shift+P: Glasnoća trenutačne snimke.\n"
+"Šift+P: Glasnoća trenutačne snimke.\n"
 "R: Preostalo vrijeme popisa snimaka.\n"
-"Shift+R: Prati skeniranje biblioteke.\n"
+"Šift+R: Prati skeniranje biblioteke.\n"
 "S: Planirano vrijeme za snimku.\n"
-"Shift+S: Vrijeme do sviranja odabrane snimke.\n"
+"Šift+S: Vrijeme do sviranja odabrane snimke.\n"
 "T: Modus uređivanja ili dodavanja džinglova.\n"
 "U: Ukupno vrijeme rada programa Studio.\n"
 "W: Vremenska prognoza i temperatura.\n"
 "Y: Promjena u popisu snimaka.\n"
-"1 do 0: Najavi stupce putem istraživača stupaca (0 je deseti stupac).\n"
 "F8: Sastavi statistiku popisa snimaka kao što su broj snimaka, najduža "
 "snimka, itd.\n"
-"Shift+F8: Dobavi prijepis popisa snimaka u raznim formatima.\n"
+"Šift+F8: Dobavi prijepis popisa snimaka u raznim formatima.\n"
 "F9: Označi trenutačnu snimku kao početak za vremensku analizu snimaka.\n"
 "F10: Izvrši vremensku analizu snimke.\n"
 "F12: Prebaci na trenutnu promjenu profila.\n"
-"Shift+F1: Otvori korisnički priručnik na internetu."
+"Šift+F1: Otvori korisnički priručnik na internetu."
 
 #. Translators: The text of the help command in SPL Assistant layer when Window-Eyes layer is active.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -326,40 +321,39 @@ msgstr ""
 "Nakon ulaska u SPL Assistant, pritisni:\n"
 "A: Automacija.\n"
 "C: Uključi i isključi istraživača džìnglova.\n"
-"Shift+C: Najavi ime trenutačno svirane snimke.\n"
+"Šift+C: Najavi ime trenutačno svirane snimke.\n"
 "D: Preostalo vrijeme popisa snimaka.\n"
-"E: Ukupno stanje internetskog prijenosa.\n"
-"Shift+E: Snimi u datoteku.\n"
-"F: Pronalazač snimaka.\n"
+"E: Proteklo vrijeme.\n"
+"F: Traženje snimaka.\n"
+"R: Preostalo vrijeme popisa snimaka.\n"
 "G: Ukupno stanje internetskog prijenosa metapodataka.\n"
-"Shift+1 do Shift+4, Shift+0: Stanje internetskog prijenosa metapodataka za "
-"DSP dekoder i četiri dodatne URL adrese.\n"
+"Šift+1 do Šift+4, Šift+0: Stanje internetskog prijenosa metapodataka za DSP "
+"dekoder i četiri dodatne URL adrese.\n"
 "H: Trajanje snimaka u ovom jednosatnom slotu.\n"
-"Shift+H: Trajanje preostalih snimaka u ovom jednosatnom slotu.\n"
+"Šift+H: Trajanje preostalih snimaka u ovom jednosatnom slotu.\n"
 "K: Premjesti se na označenu snimku.\n"
-"Control+K: Postavi snimku kao pozicijsku oznaku.\n"
+"Kontrol+K: Postavi snimku kao pozicijsku oznaku.\n"
 "L: Broj slušatelja.\n"
-"Shift+L: Line-in stanje.\n"
+"Šift+L: Line-in stanje.\n"
 "M: Stanje mikrofona.\n"
 "N: Sljedeća snimka.\n"
 "P: Stanje sviranja.\n"
-"Shift+P: Glasnoća trenutačne snimke.\n"
-"R: Preostalo vrijeme popisa snimaka.\n"
-"Shift+R: Prati skeniranje biblioteke.\n"
+"Šift+P: Glasnoća trenutačne snimke.\n"
+"Šift+E: Snimaj u datoteku.\n"
+"Šift+R: Prati skeniranje biblioteke.\n"
 "S: Planirano vrijeme za snimku.\n"
-"Shift+S: Vrijeme do sviranja odabrane snimke.\n"
+"Šift+S: Vrijeme do sviranja odabrane snimke.\n"
 "T: Modus uređivanja ili dodavanja džinglova.\n"
 "U: Ukupno vrijeme rada programa Studio.\n"
 "W: Vremenska prognoza i temperatura.\n"
 "Y: Promjena u popisu snimaka.\n"
-"1 do 0: Najavi stupce putem istraživača stupaca (0 je deseti stupac).\n"
 "F8: Sastavi statistiku popisa snimaka kao što su broj snimaka, najduža "
 "snimka, itd.\n"
-"Shift+F8: Dobavi prijepis popisa snimaka u raznim formatima.\n"
+"Šift+F8: Dobavi prijepis popisa snimaka u raznim formatima.\n"
 "F9: Označi trenutačnu snimku kao početak za vremensku analizu snimaka.\n"
 "F10: Izvrši vremensku analizu snimke.\n"
 "F12: Prebaci na trenutnu promjenu profila.\n"
-"Shift+F1: Otvori korisnički priručnik na internetu."
+"Šift+F1: Otvori korisnički priručnik na internetu."
 
 msgid "SPL Studio Settings..."
 msgstr "Postavke za SPL Studio …"
@@ -696,14 +690,12 @@ msgstr "Najavljuje naslov sljedeće snimke, ako postoji"
 
 #. Translators: Presented when there is no information for the next track.
 #. Translators: Presented when there is no information for the current track.
-#, fuzzy
 msgid "No track is playing"
-msgstr "Niti jedna snimka ne svira."
+msgstr "Niti jedna snimka ne svira"
 
 #. Translators: Presented when there is no information for the next track.
-#, fuzzy
 msgid "No next track scheduled"
-msgstr "Nijedna snimka nije dalje planirana ili nijedna snimka ne svira"
+msgstr "Nijedna daljnja snimka nije planirana"
 
 #. Translators: Presented when next track information is unavailable.
 msgid "Cannot find next track information"
@@ -714,7 +706,6 @@ msgid "Announces title of the currently playing track"
 msgstr "Najavljuje naslov trenutačne snimke, ako postoji"
 
 #. Translators: Presented when there is no information for the current track.
-#, fuzzy
 msgid "Cannot locate current track information"
 msgstr "Nije moguće pronaći informacije o trenutačnoj snimci"
 
@@ -1024,6 +1015,15 @@ msgstr "Dobrodošli u StationPlaylist dodatak"
 msgid "Show welcome dialog when I start Studio"
 msgstr ""
 "Prikaži dijaloški okvir dobrodošlice tijekom pokretanja programa Studio"
+
+msgid ""
+"One or more time-based broadcast profiles are defined. Time-based broadcast "
+"profiles feature is deprecated and will be removed in a future version of "
+"StationPlaylist add-on."
+msgstr ""
+
+msgid "SPL add-on feature deprecation"
+msgstr ""
 
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Status announcement beeps"
@@ -1912,10 +1912,8 @@ msgid "Announces stream encoder status from other programs"
 msgstr "Najavljuje stanje dekodera internetskog prijenosa drugih programa"
 
 #. Translators: presented if encoder connection status cannot be obtained.
-#, fuzzy
 msgid "Cannot obtain encoder connection status"
-msgstr ""
-"Nije moguće dobiti informacije o stanju internetskog prijenosa metapodataka"
+msgstr "Nije moguće dobiti informacije o stanju veze dekodera"
 
 #. Translators: Input help message for a SPL Controller command.
 msgid ""
@@ -1936,53 +1934,3 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist Studio.\n"
 "Također, dodaje pristup naredbama za Studio s bilo kojeg mjesta."
-
-#, fuzzy
-#~ msgid ""
-#~ "The add-on settings dialog or another alarm dialog is opened. Please "
-#~ "close the opened dialog first."
-#~ msgstr ""
-#~ "Već je otvoren dijaloški okvir s postavkama ili dijaloški okvir za "
-#~ "internetski prijenos metapodataka. Najprije zatvori otvoreni dijaloški "
-#~ "okvir."
-
-#~ msgid ""
-#~ "The add-on settings dialog or the metadata streaming dialog is opened. "
-#~ "Please close the opened dialog first."
-#~ msgstr ""
-#~ "Već je otvoren dijaloški okvir s postavkama ili dijaloški okvir za "
-#~ "internetski prijenos metapodataka. Najprije zatvori otvoreni dijaloški "
-#~ "okvir."
-
-#~ msgid "Not a track"
-#~ msgstr "Nije snimka"
-
-#~ msgid "Another alarm dialog is open."
-#~ msgstr "Otvoren je jedan drugi dijaloški okvir za alarm."
-
-#~ msgid "Alarms Center"
-#~ msgstr "Centar alarma"
-
-#~ msgid "Select the URL for metadata streaming upon request."
-#~ msgstr ""
-#~ "Odaberi URL adresu za internetski prijenos metapodataka pri zaprimanju "
-#~ "zahtjeva."
-
-#~ msgid "&Track name announcement:"
-#~ msgstr "&Najavljivanje imena snimaka:"
-
-#~ msgid "automatic"
-#~ msgstr "automatski"
-
-#~ msgid "while using other programs"
-#~ msgstr "kad se koriste drugi programi"
-
-#~ msgid "off"
-#~ msgstr "isključeno"
-
-#~ msgid ""
-#~ "Another add-on settings dialog is open. Please close the previously "
-#~ "opened dialog first."
-#~ msgstr ""
-#~ "Otvoren je jedan drugi dijaloški okvir s postavkama dodatka. Najprije "
-#~ "zatvori prethodno otvoren dijaloški okvir."
