@@ -25,7 +25,7 @@ from ..skipTranslation import translate
 # Helper panels/dialogs for add-on settings dialog.
 
 # Broadcast profiles
-# #129 (20.05): formerly a settings panel, now a dedicated settings dialog.
+# #129 (20.04): formerly a settings panel, now a dedicated settings dialog.
 
 # The following also affects profile-specific panels.
 _selectedProfile = None
@@ -49,7 +49,7 @@ class BroadcastProfilesDialog(wx.Dialog):
 		# 8.0: No need to sort as profile names from ConfigHub knows what to do.
 		# 17.10: skip this if only normal profile is in use.
 		# #6: display a read-only explanatory text.
-		# #129 (20.05): explanatory text will be provided when attempting to open this dialog, not here.
+		# #129 (20.04): explanatory text will be provided when attempting to open this dialog, not here.
 		self.profileNames = list(splconfig.SPLConfig.profileNames)
 		self.profileNames[0] = splconfig.defaultProfileName
 		# Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
@@ -74,7 +74,7 @@ class BroadcastProfilesDialog(wx.Dialog):
 		# Profile controls code credit: NV Access (except copy button).
 		# Most control labels come from NvDA Core.
 		# 17.10: if restrictions such as volatile config are applied, disable this area entirely.
-		# #129 (20.05): no need for this check in standalone dialog.
+		# #129 (20.04): no need for this check in standalone dialog.
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		newButton = wx.Button(self, label=translate("&New"))
 		newButton.Bind(wx.EVT_BUTTON, self.onNew)
@@ -1620,7 +1620,7 @@ def _configDialogOpenError():
 def onConfigDialog(evt):
 	# 5.2: Guard against alarm dialogs.
 	# #125 (20.04) temporary: call the temporary error handler.
-	# #129 (20.05): also check for broadcast profiles dialog.
+	# #129 (20.04): also check for broadcast profiles dialog.
 	if _configDialogOpened or _alarmDialogOpened or _metadataDialogOpened:
 		wx.CallAfter(_configDialogOpenError)
 	else: gui.mainFrame._popupSettingsDialog(SPLConfigDialog)
