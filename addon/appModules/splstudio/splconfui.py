@@ -65,6 +65,8 @@ class BroadcastProfilesDialog(wx.Dialog):
 		# Translators: label for a button to activate the selected broadcast profile.
 		self.changeStateButton = wx.Button(self, label=_("Activate"))
 		self.changeStateButton.Bind(wx.EVT_BUTTON, self.onChangeState)
+		# The selected profile is already active, so no need to present this button in tab order.
+		self.changeStateButton.Disable()
 		self.AffirmativeId = self.changeStateButton.Id
 		self.changeStateButton.SetDefault()
 		broadcastProfilesHelper.addItem(self.changeStateButton)
@@ -129,11 +131,14 @@ class BroadcastProfilesDialog(wx.Dialog):
 		# No need to look at the profile flag.
 		selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
 		# Play a tone to indicate active profile.
+		# Also enable/disable "activate" button.
 		if self.activeProfile == selectedProfile:
 			tones.beep(512, 40)
 			_selectedProfile = None
+			self.changeStateButton.Disable()
 		else:
 			_selectedProfile = selectedProfile
+			self.changeStateButton.Enable()
 		if selection == 0:
 			self.renameButton.Disable()
 			self.deleteButton.Disable()
