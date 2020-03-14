@@ -290,11 +290,7 @@ class BroadcastProfilesDialog(wx.Dialog):
 	def onChangeState(self, evt):
 		selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
 		if splconfig.SPLConfig.activeProfile != selectedProfile:
-			if _configApplyOnly:
-				gui.messageBox(_("The selected profile is different from currently active broadcast profile. Settings will be applied to the selected profile instead."),
-					_("Apply settings"), wx.OK | wx.ICON_INFORMATION, self)
-			else:
-				splconfig.SPLConfig.swapProfiles(splconfig.SPLConfig.activeProfile, selectedProfile)
+			splconfig.SPLConfig.swapProfiles(splconfig.SPLConfig.activeProfile, selectedProfile)
 			# 8.0: Make sure NVDA knows this must be cached (except for normal profile).
 			# 17.10: but not when config is volatile.
 			# #71 (18.07): must be done here, otherwise cache failure occurs where settings won't be saved when in fact it may have been changed from add-on settings.
@@ -308,21 +304,10 @@ class BroadcastProfilesDialog(wx.Dialog):
 		# 7.0: Don't do the following in the midst of a broadcast.
 		if self.switchProfile is None and not splconfig._triggerProfileActive:
 			splconfig.SPLConfig.prevProfile = None
-		# Apply changes to profile triggers.
-		# #6: but only if OK button is clicked.
-		if not _configApplyOnly:
-			splconfig.profileTriggers = dict(self._profileTriggersConfig)
-			self._profileTriggersConfig.clear()
-			self._profileTriggersConfig = None
-		# #108 (19.07/18.09.10-LTS): notify various subsystems so new settings can take effect even it is just for pressing OK button.
-		# No need to worry if Apply button is pressed unless the selected profile and the active profile are one and the same.
+		# #108 (19.07/18.09.10-LTS): notify various subsystems so new settings can take effect.
 		selectedProfile = _selectedProfile
 		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
-		if not _configApplyOnly or (_configApplyOnly and selectedProfile == splconfig.SPLConfig.activeProfile):
-			splactions.SPLActionProfileSwitched.notify(configDialogActive=True)
-		# #111 (19.08/18.09.11-LTS): restart triggers if and only if OK button is pressed (broken since 18.09).
-		if not _configApplyOnly:
-			splconfig.triggerStart(restart=True)
+		splactions.SPLActionProfileSwitched.notify(configDialogActive=True)
 		self.Close()
 
 	def onClose(self, evt):
