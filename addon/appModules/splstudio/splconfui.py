@@ -38,6 +38,8 @@ class BroadcastProfilesDialog(gui.SettingsDialog):
 	title = _("SPL Broadcast Profiles")
 
 	def makeSettings(self, settingsSizer):
+		global _configDialogOpened
+		_configDialogOpened = True
 		broadcastProfilesHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
 		# Broadcast profile controls were inspired by Config Profiles dialog in NVDA Core.
@@ -131,6 +133,8 @@ class BroadcastProfilesDialog(gui.SettingsDialog):
 		if not _configApplyOnly:
 			splconfig.triggerStart(restart=True)
 		super(BroadcastProfilesDialog, self).onOk(evt)
+		global _configDialogOpened
+		_configDialogOpened = False
 
 	def onCancel(self, evt):
 		# Apply profile trigger changes if any.
@@ -149,6 +153,8 @@ class BroadcastProfilesDialog(gui.SettingsDialog):
 		if self.switchProfileRenamed or self.switchProfileDeleted:
 			splconfig.SPLConfig.instantSwitch = self.switchProfile
 		super(BroadcastProfilesDialog, self).onCancel(evt)
+		global _configDialogOpened
+		_configDialogOpened = False
 
 	# Include profile flags such as instant profile string for display purposes.
 	def displayProfiles(self, profiles):
