@@ -33,14 +33,16 @@ _configApplyOnly = False
 # #112 (19.08/18.09.11-LTS): an internal config UI action for managing profile renames/deletions.
 SPLConfUIProfileRenamedOrDeleted = extensionPoints.Action()
 
-class BroadcastProfilesDialog(gui.SettingsDialog):
-	# Translators: title of a dialog to configure broadcast profiles.
-	title = _("SPL Broadcast Profiles")
+class BroadcastProfilesDialog(wx.Dialog):
+	shouldSuspendConfigProfileTriggers = True
 
-	def makeSettings(self, settingsSizer):
+	def __init__(self, parent):
+		# Translators: title of a dialog to configure broadcast profiles.
+		super(BroadcastProfilesDialog, self).__init__(parent, title=_("SPL Broadcast Profiles"))
 		global _configDialogOpened
 		_configDialogOpened = True
-		broadcastProfilesHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
+		mainSizer = wx.BoxSizer(wx.VERTICAL)
+		broadcastProfilesHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
 		# Broadcast profile controls were inspired by Config Profiles dialog in NVDA Core.
 		# 7.0: Have a copy of the sorted profiles so the actual combo box items can show profile flags.
@@ -1621,4 +1623,6 @@ def onBroadcastProfilesDialog(evt):
 		# Translators: presented when only normal profile is in use.
 		wx.CallAfter(gui.messageBox, _("Normal profile is in use, cannot open broadcast profiles dialog."), _("SPL Broadcast Profiles"), wx.OK|wx.ICON_ERROR)
 		return
-	else: gui.mainFrame._popupSettingsDialog(BroadcastProfilesDialog)
+	gui.mainFrame.prePopup()
+	BroadcastProfilesDialog(gui.mainFrame).Show()
+	gui.mainFrame.postPopup()
