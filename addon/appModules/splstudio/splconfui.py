@@ -318,6 +318,7 @@ class BroadcastProfilesDialog(wx.Dialog):
 			self._profileTriggersConfig = None
 		except (AttributeError, TypeError):
 			pass
+		# #111 (19.08/18.09.11-LTS): restart triggers regardless of profile changes or not (broken since 18.09).
 		splconfig.triggerStart(restart=True)
 		# 7.0: No matter what happens, merge appropriate profile.
 		try:
