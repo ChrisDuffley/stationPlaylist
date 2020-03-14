@@ -45,6 +45,7 @@ Most of these will work in Studio only unless otherwise specified.
 * Control+NVDA+- (hyphen while focused on a track in Studio, Creator, and Track Tool): display data for all columns in a track on a browse mode window.
 * Alt+NVDA+C while focused on a track (Studio only): announces track comments if any.
 * Alt+NVDA+0 from Studio window: Opens the Studio add-on configuration dialog.
+* Alt+NVDA+P from Studio window: Opens the Studio broadcast profiles dialog.
 * Alt+NVDA+- (hyphen) from Studio window: Send feedback to add-on developer using the default email client.
 * Alt+NVDA+F1: Open welcome dialog.
 
@@ -194,6 +195,10 @@ Pressing SPL Assistant, Shift+F8 will present a dialog to let you request playli
 
 From studio window, you can press Alt+NVDA+0 to open the add-on configuration dialog. Alternatively, go to NVDA's preferences menu and select SPL Studio Settings item. This dialog is also used to manage broadcast profiles.
 
+## Broadcast profiles dialog
+
+You can save settings for specific shows into broadcast profiles. These profiles can be managed via SPL broadcast profiles dialog which can be accessed by pressing Alt+NVDA+P from Studio window.
+
 ## SPL touch mode
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
@@ -201,6 +206,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Version 20.04
 
 * Time-based broadcast profiles feature is deprecated. A warning message will be shown when first starting Studio after installing add-on 20.04 if you have defined one or more time-based broadcast profiles.
+* Broadcast profiles management has been split from SPL add-on settings dialog into its own dialog. You can access broadcast profiles dialog by pressing Alt+NVDA+P from Studio window.
 * Due to duplication with Control+NVDA+number row commands for Studio tracks, columns explorer commands from SPL Assistant (number row) has been removed.
 * Changed error message shown when trying to open a Studio add-on settings dialog (such as metadata streaming dialog) while another settings dialog (such as end of track alarm dialog) is active. The new error message is same as the message shown when trying to open multiple NVDA settings dialogs.
 * In encoders, you can now save and reset encoder settings (including stream labels) by pressing Control+NVDA+C or Control+NVDA+R three times, respectively.
