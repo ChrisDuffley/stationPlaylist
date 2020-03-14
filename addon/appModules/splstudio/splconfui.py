@@ -51,8 +51,8 @@ class BroadcastProfilesDialog(gui.SettingsDialog):
 		self.profileNames = list(splconfig.SPLConfig.profileNames)
 		self.profileNames[0] = splconfig.defaultProfileName
 		# Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
-		self.profiles = broadcastProfilesHelper.addLabeledControl(_("Broadcast &profile:"), wx.Choice, choices=self.displayProfiles(list(self.profileNames)))
-		self.profiles.Bind(wx.EVT_CHOICE, self.onProfileSelection)
+		self.profiles = broadcastProfilesHelper.addLabeledControl(_("Broadcast &profile:"), wx.ListBox, choices=self.displayProfiles(list(self.profileNames)))
+		self.profiles.Bind(wx.EVT_LISTBOX, self.onProfileSelection)
 		try:
 			self.profiles.SetSelection(self.profileNames.index(splconfig.SPLConfig.activeProfile))
 		except:
