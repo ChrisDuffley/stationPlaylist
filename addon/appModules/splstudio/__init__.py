@@ -1245,6 +1245,13 @@ class AppModule(appModuleHandler.AppModule):
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
+		description=_("Opens SPL add-on broadcast profiles dialog."),
+		gesture="kb:alt+NVDA+p")
+	def script_openBroadcastProfilesDialog(self, gesture):
+		wx.CallAfter(splconfui.onBroadcastProfilesDialog, None)
+
+	@scriptHandler.script(
+		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Opens SPL Studio add-on welcome dialog."),
 		gesture="kb:alt+NVDA+f1")
 	def script_openWelcomeDialog(self, gesture):
