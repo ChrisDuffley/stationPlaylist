@@ -1604,7 +1604,8 @@ def _configDialogOpenError():
 def onConfigDialog(evt):
 	# 5.2: Guard against alarm dialogs.
 	# #125 (20.04) temporary: call the temporary error handler.
-	if _alarmDialogOpened or _metadataDialogOpened:
+	# #129 (20.05): also check for broadcast profiles dialog.
+	if _configDialogOpened or _alarmDialogOpened or _metadataDialogOpened:
 		wx.CallAfter(_configDialogOpenError)
 	else: gui.mainFrame._popupSettingsDialog(SPLConfigDialog)
 
