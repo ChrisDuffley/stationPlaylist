@@ -60,6 +60,15 @@ class BroadcastProfilesDialog(wx.Dialog):
 		except:
 			pass
 
+		# Borrowed directly from NvDA Core (credit: NV Access)
+		# This allows Enter key to be pressed to activate the selected profile.
+		# Translators: label for a button to activate the selected broadcast profile.
+		self.changeStateButton = wx.Button(self, label=_("Activate"))
+		self.changeStateButton.Bind(wx.EVT_BUTTON, self.onChangeState)
+		self.AffirmativeId = self.changeStateButton.Id
+		self.changeStateButton.SetDefault()
+		broadcastProfilesHelper.addItem(self.changeStateButton)
+
 		# Profile controls code credit: NV Access (except copy button).
 		# Most control labels come from NvDA Core.
 		# 17.10: if restrictions such as volatile config are applied, disable this area entirely.
