@@ -316,6 +316,9 @@ class BroadcastProfilesDialog(wx.Dialog):
 		self.Close()
 
 	def onClose(self, evt):
+		# #129 (temporary): nullify selected profile global flag.
+		global _selectedProfile
+		_selectedProfile = None
 		# Apply profile trigger changes if any.
 		try:
 			splconfig.profileTriggers = dict(self._profileTriggersConfig)
