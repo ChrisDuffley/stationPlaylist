@@ -48,47 +48,42 @@ class BroadcastProfilesDialog(gui.SettingsDialog):
 		# 17.10: skip this if only normal profile is in use.
 		# #6: display a read-only explanatory text.
 		# #129 (20.05): explanatory text will be provided when attempting to open this dialog, not here.
-		if not (splconfig.SPLConfig.configInMemory or splconfig.SPLConfig.normalProfileOnly):
-			self.profileNames = list(splconfig.SPLConfig.profileNames)
-			self.profileNames[0] = splconfig.defaultProfileName
-			# Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
-			self.profiles = broadcastProfilesHelper.addLabeledControl(_("Broadcast &profile:"), wx.Choice, choices=self.displayProfiles(list(self.profileNames)))
-			self.profiles.Bind(wx.EVT_CHOICE, self.onProfileSelection)
-			try:
-				self.profiles.SetSelection(self.profileNames.index(splconfig.SPLConfig.activeProfile))
-			except:
-				pass
-		else:
-			# Borrowed logic from NVDA Core's speech panel (although there is no label for this read-only text).
-			broadcastProfilesHelper.addItem(wx.lib.expando.ExpandoTextCtrl(self, size=(self.scaleSize(250), -1), value=_("Normal profile is in use."), style=wx.TE_READONLY))
+		self.profileNames = list(splconfig.SPLConfig.profileNames)
+		self.profileNames[0] = splconfig.defaultProfileName
+		# Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
+		self.profiles = broadcastProfilesHelper.addLabeledControl(_("Broadcast &profile:"), wx.Choice, choices=self.displayProfiles(list(self.profileNames)))
+		self.profiles.Bind(wx.EVT_CHOICE, self.onProfileSelection)
+		try:
+			self.profiles.SetSelection(self.profileNames.index(splconfig.SPLConfig.activeProfile))
+		except:
+			pass
 
 		# Profile controls code credit: NV Access (except copy button).
 		# Most control labels come from NvDA Core.
 		# 17.10: if restrictions such as volatile config are applied, disable this area entirely.
 		# #129 (20.05): no need for this check in standalone dialog.
-		if not (splconfig.SPLConfig.volatileConfig or splconfig.SPLConfig.normalProfileOnly or splconfig.SPLConfig.configInMemory):
-			sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
-			newButton = wx.Button(self, label=translate("&New"))
-			newButton.Bind(wx.EVT_BUTTON, self.onNew)
-			# Translators: The label of a button to copy a broadcast profile.
-			copyButton = wx.Button(self, label=_("Cop&y"))
-			copyButton.Bind(wx.EVT_BUTTON, self.onCopy)
-			self.renameButton = wx.Button(self, label=translate("&Rename"))
-			self.renameButton.Bind(wx.EVT_BUTTON, self.onRename)
-			self.deleteButton = wx.Button(self, label=translate("&Delete"))
-			self.deleteButton.Bind(wx.EVT_BUTTON, self.onDelete)
-			# Have a copy of the triggers dictionary.
-			self._profileTriggersConfig = dict(splconfig.profileTriggers)
-			self.triggerButton = wx.Button(self, label=translate("&Triggers..."))
-			self.triggerButton.Bind(wx.EVT_BUTTON, self.onTriggers)
-			sizer.sizer.AddMany((newButton, copyButton, self.renameButton, self.deleteButton, self.triggerButton))
-			# Translators: The label for a setting in SPL Add-on settings to configure countdown seconds before switching profiles.
-			self.triggerThreshold = sizer.addLabeledControl(_("Countdown seconds before switching profiles"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=10, max=60, initial=splconfig.SPLConfig["Advanced"]["ProfileTriggerThreshold"])
-			if self.profiles.GetSelection() == 0:
-				self.renameButton.Disable()
-				self.deleteButton.Disable()
-				self.triggerButton.Disable()
-			broadcastProfilesHelper.addItem(sizer.sizer)
+		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
+		newButton = wx.Button(self, label=translate("&New"))
+		newButton.Bind(wx.EVT_BUTTON, self.onNew)
+		# Translators: The label of a button to copy a broadcast profile.
+		copyButton = wx.Button(self, label=_("Cop&y"))
+		copyButton.Bind(wx.EVT_BUTTON, self.onCopy)
+		self.renameButton = wx.Button(self, label=translate("&Rename"))
+		self.renameButton.Bind(wx.EVT_BUTTON, self.onRename)
+		self.deleteButton = wx.Button(self, label=translate("&Delete"))
+		self.deleteButton.Bind(wx.EVT_BUTTON, self.onDelete)
+		# Have a copy of the triggers dictionary.
+		self._profileTriggersConfig = dict(splconfig.profileTriggers)
+		self.triggerButton = wx.Button(self, label=translate("&Triggers..."))
+		self.triggerButton.Bind(wx.EVT_BUTTON, self.onTriggers)
+		sizer.sizer.AddMany((newButton, copyButton, self.renameButton, self.deleteButton, self.triggerButton))
+		# Translators: The label for a setting in SPL Add-on settings to configure countdown seconds before switching profiles.
+		self.triggerThreshold = sizer.addLabeledControl(_("Countdown seconds before switching profiles"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=10, max=60, initial=splconfig.SPLConfig["Advanced"]["ProfileTriggerThreshold"])
+		if self.profiles.GetSelection() == 0:
+			self.renameButton.Disable()
+			self.deleteButton.Disable()
+			self.triggerButton.Disable()
+		broadcastProfilesHelper.addItem(sizer.sizer)
 		self.switchProfile = splconfig.SPLConfig.instantSwitch
 		self.activeProfile = splconfig.SPLConfig.activeProfile
 		# Used as sanity check in case switch profile is renamed or deleted.
@@ -96,22 +91,21 @@ class BroadcastProfilesDialog(gui.SettingsDialog):
 		self.switchProfileDeleted = False
 
 	def onOk(self, evt):
-		if hasattr(self, "profiles"):
-			selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
-			if splconfig.SPLConfig.activeProfile != selectedProfile:
-				if _configApplyOnly:
-					gui.messageBox(_("The selected profile is different from currently active broadcast profile. Settings will be applied to the selected profile instead."),
-						_("Apply settings"), wx.OK | wx.ICON_INFORMATION, self)
-				else:
-					splconfig.SPLConfig.swapProfiles(splconfig.SPLConfig.activeProfile, selectedProfile)
-				# 8.0: Make sure NVDA knows this must be cached (except for normal profile).
-				# 17.10: but not when config is volatile.
-				# #71 (18.07): must be done here, otherwise cache failure occurs where settings won't be saved when in fact it may have been changed from add-on settings.
-				try:
-					if selectedProfile != splconfig.defaultProfileName and selectedProfile not in splconfig._SPLCache:
-						splconfig.SPLConfig._cacheConfig(splconfig.SPLConfig.profileByName(selectedProfile))
-				except NameError:
-					pass
+		selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
+		if splconfig.SPLConfig.activeProfile != selectedProfile:
+			if _configApplyOnly:
+				gui.messageBox(_("The selected profile is different from currently active broadcast profile. Settings will be applied to the selected profile instead."),
+					_("Apply settings"), wx.OK | wx.ICON_INFORMATION, self)
+			else:
+				splconfig.SPLConfig.swapProfiles(splconfig.SPLConfig.activeProfile, selectedProfile)
+			# 8.0: Make sure NVDA knows this must be cached (except for normal profile).
+			# 17.10: but not when config is volatile.
+			# #71 (18.07): must be done here, otherwise cache failure occurs where settings won't be saved when in fact it may have been changed from add-on settings.
+			try:
+				if selectedProfile != splconfig.defaultProfileName and selectedProfile not in splconfig._SPLCache:
+					splconfig.SPLConfig._cacheConfig(splconfig.SPLConfig.profileByName(selectedProfile))
+			except NameError:
+				pass
 		splconfig.SPLConfig.instantSwitch = self.switchProfile
 		# Make sure to nullify prev profile if instant switch profile is gone.
 		# 7.0: Don't do the following in the midst of a broadcast.
@@ -1620,4 +1614,10 @@ def onBroadcastProfilesDialog(evt):
 	# #125 (20.04) temporary: call the temporary error handler.
 	if _configDialogOpened or _alarmDialogOpened or _metadataDialogOpened:
 		wx.CallAfter(_configDialogOpenError)
+		return
+	# Present an error message if only normal profile is in use.
+	if splconfig.SPLConfig.configInMemory or splconfig.SPLConfig.normalProfileOnly:
+		# Translators: presented when only normal profile is in use.
+		wx.CallAfter(gui.messageBox, _("Normal profile is in use, cannot open broadcast profiles dialog."), _("SPL Broadcast Profiles"), wx.OK|wx.ICON_ERROR)
+		return
 	else: gui.mainFrame._popupSettingsDialog(BroadcastProfilesDialog)
