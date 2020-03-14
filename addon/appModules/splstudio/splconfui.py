@@ -101,65 +101,18 @@ class BroadcastProfilesDialog(wx.Dialog):
 		self.switchProfileRenamed = False
 		self.switchProfileDeleted = False
 
-	def onOk(self, evt):
-		selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
-		if splconfig.SPLConfig.activeProfile != selectedProfile:
-			if _configApplyOnly:
-				gui.messageBox(_("The selected profile is different from currently active broadcast profile. Settings will be applied to the selected profile instead."),
-					_("Apply settings"), wx.OK | wx.ICON_INFORMATION, self)
-			else:
-				splconfig.SPLConfig.swapProfiles(splconfig.SPLConfig.activeProfile, selectedProfile)
-			# 8.0: Make sure NVDA knows this must be cached (except for normal profile).
-			# 17.10: but not when config is volatile.
-			# #71 (18.07): must be done here, otherwise cache failure occurs where settings won't be saved when in fact it may have been changed from add-on settings.
-			try:
-				if selectedProfile != splconfig.defaultProfileName and selectedProfile not in splconfig._SPLCache:
-					splconfig.SPLConfig._cacheConfig(splconfig.SPLConfig.profileByName(selectedProfile))
-			except NameError:
-				pass
-		splconfig.SPLConfig.instantSwitch = self.switchProfile
-		# Make sure to nullify prev profile if instant switch profile is gone.
-		# 7.0: Don't do the following in the midst of a broadcast.
-		if self.switchProfile is None and not splconfig._triggerProfileActive:
-			splconfig.SPLConfig.prevProfile = None
-		# Apply changes to profile triggers.
-		# #6: but only if OK button is clicked.
-		if not _configApplyOnly:
-			splconfig.profileTriggers = dict(self._profileTriggersConfig)
-			self._profileTriggersConfig.clear()
-			self._profileTriggersConfig = None
-		# #108 (19.07/18.09.10-LTS): notify various subsystems so new settings can take effect even it is just for pressing OK button.
-		# No need to worry if Apply button is pressed unless the selected profile and the active profile are one and the same.
-		selectedProfile = _selectedProfile
-		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
-		if not _configApplyOnly or (_configApplyOnly and selectedProfile == splconfig.SPLConfig.activeProfile):
-			splactions.SPLActionProfileSwitched.notify(configDialogActive=True)
-		# #111 (19.08/18.09.11-LTS): restart triggers if and only if OK button is pressed (broken since 18.09).
-		if not _configApplyOnly:
-			splconfig.triggerStart(restart=True)
-		super(BroadcastProfilesDialog, self).onOk(evt)
-		global _configDialogOpened
-		_configDialogOpened = False
+		# Close button logic comes from NVDA Core (creidt: NV Access)
+		closeButton = wx.Button(self, wx.ID_CLOSE, label=translate("&Close"))
+		closeButton.Bind(wx.EVT_BUTTON, lambda evt: self.Close())
+		broadcastProfilesHelper.addDialogDismissButtons(closeButton)
+		self.Bind(wx.EVT_CLOSE, self.onClose)
+		self.EscapeId = wx.ID_CLOSE
 
-	def onCancel(self, evt):
-		# Apply profile trigger changes if any.
-		try:
-			splconfig.profileTriggers = dict(self._profileTriggersConfig)
-			self._profileTriggersConfig.clear()
-			self._profileTriggersConfig = None
-		except AttributeError:
-			pass
-		splconfig.triggerStart(restart=True)
-		# 7.0: No matter what happens, merge appropriate profile.
-		try:
-			prevActive = self.activeProfile
-		except ValueError:
-			prevActive = splconfig.defaultProfileName
-		if self.switchProfileRenamed or self.switchProfileDeleted:
-			splconfig.SPLConfig.instantSwitch = self.switchProfile
-		super(BroadcastProfilesDialog, self).onCancel(evt)
-		global _configDialogOpened
-		_configDialogOpened = False
+		mainSizer.Add(broadcastProfilesHelper.sizer, flag=wx.ALL, border=gui.guiHelper.BORDER_FOR_DIALOGS)
+		mainSizer.Fit(self)
+		self.Sizer = mainSizer
+		self.profiles.SetFocus()
+		self.CentreOnScreen()
 
 	# Include profile flags such as instant profile string for display purposes.
 	def displayProfiles(self, profiles):
@@ -333,6 +286,64 @@ class BroadcastProfilesDialog(wx.Dialog):
 		action = getattr(flags, action)
 		action(flag)
 		self.profiles.SetString(index, profile if not len(flags) else "{0} <{1}>".format(profile, ", ".join(flags)))
+
+	def onChangeState(self, evt):
+		selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
+		if splconfig.SPLConfig.activeProfile != selectedProfile:
+			if _configApplyOnly:
+				gui.messageBox(_("The selected profile is different from currently active broadcast profile. Settings will be applied to the selected profile instead."),
+					_("Apply settings"), wx.OK | wx.ICON_INFORMATION, self)
+			else:
+				splconfig.SPLConfig.swapProfiles(splconfig.SPLConfig.activeProfile, selectedProfile)
+			# 8.0: Make sure NVDA knows this must be cached (except for normal profile).
+			# 17.10: but not when config is volatile.
+			# #71 (18.07): must be done here, otherwise cache failure occurs where settings won't be saved when in fact it may have been changed from add-on settings.
+			try:
+				if selectedProfile != splconfig.defaultProfileName and selectedProfile not in splconfig._SPLCache:
+					splconfig.SPLConfig._cacheConfig(splconfig.SPLConfig.profileByName(selectedProfile))
+			except NameError:
+				pass
+		splconfig.SPLConfig.instantSwitch = self.switchProfile
+		# Make sure to nullify prev profile if instant switch profile is gone.
+		# 7.0: Don't do the following in the midst of a broadcast.
+		if self.switchProfile is None and not splconfig._triggerProfileActive:
+			splconfig.SPLConfig.prevProfile = None
+		# Apply changes to profile triggers.
+		# #6: but only if OK button is clicked.
+		if not _configApplyOnly:
+			splconfig.profileTriggers = dict(self._profileTriggersConfig)
+			self._profileTriggersConfig.clear()
+			self._profileTriggersConfig = None
+		# #108 (19.07/18.09.10-LTS): notify various subsystems so new settings can take effect even it is just for pressing OK button.
+		# No need to worry if Apply button is pressed unless the selected profile and the active profile are one and the same.
+		selectedProfile = _selectedProfile
+		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
+		if not _configApplyOnly or (_configApplyOnly and selectedProfile == splconfig.SPLConfig.activeProfile):
+			splactions.SPLActionProfileSwitched.notify(configDialogActive=True)
+		# #111 (19.08/18.09.11-LTS): restart triggers if and only if OK button is pressed (broken since 18.09).
+		if not _configApplyOnly:
+			splconfig.triggerStart(restart=True)
+		self.Close()
+
+	def onClose(self, evt):
+		# Apply profile trigger changes if any.
+		try:
+			splconfig.profileTriggers = dict(self._profileTriggersConfig)
+			self._profileTriggersConfig.clear()
+			self._profileTriggersConfig = None
+		except (AttributeError, TypeError):
+			pass
+		splconfig.triggerStart(restart=True)
+		# 7.0: No matter what happens, merge appropriate profile.
+		try:
+			prevActive = self.activeProfile
+		except ValueError:
+			prevActive = splconfig.defaultProfileName
+		if self.switchProfileRenamed or self.switchProfileDeleted:
+			splconfig.SPLConfig.instantSwitch = self.switchProfile
+		self.Destroy()
+		global _configDialogOpened
+		_configDialogOpened = False
 
 # New broadcast profile dialog: Modification of new config profile dialog from NvDA Core.
 class NewProfileDialog(wx.Dialog):
