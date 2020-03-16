@@ -43,6 +43,7 @@ class BroadcastProfilesDialog(wx.Dialog):
 		_configDialogOpened = True
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		broadcastProfilesHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
+		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 
 		# Broadcast profile controls were inspired by Config Profiles dialog in NVDA Core.
 		# 7.0: Have a copy of the sorted profiles so the actual combo box items can show profile flags.
@@ -338,6 +339,9 @@ class BroadcastProfilesDialog(wx.Dialog):
 		self.Destroy()
 		global _configDialogOpened
 		_configDialogOpened = False
+
+	def onAppTerminate(self):
+		self.onClose(None)
 
 # New broadcast profile dialog: Modification of new config profile dialog from NvDA Core.
 class NewProfileDialog(wx.Dialog):
