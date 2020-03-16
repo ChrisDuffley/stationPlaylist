@@ -13,7 +13,6 @@ import api
 import wx
 from winUser import user32
 import tones
-import extensionPoints
 import addonHandler
 addonHandler.initTranslation()
 from . import splconfig
@@ -28,8 +27,6 @@ from ..skipTranslation import translate
 # #129 (20.04): formerly a settings panel, now a dedicated settings dialog.
 
 _configApplyOnly = False
-# #112 (19.08/18.09.11-LTS): an internal config UI action for managing profile renames/deletions.
-SPLConfUIProfileRenamedOrDeleted = extensionPoints.Action()
 
 class BroadcastProfilesDialog(wx.Dialog):
 	shouldSuspendConfigProfileTriggers = True
@@ -193,8 +190,6 @@ class BroadcastProfilesDialog(wx.Dialog):
 		self.profiles.SetString(index, " <".join([newName, state[1]]) if len(state) > 1 else newName)
 		self.profiles.Selection = index
 		self.profiles.SetFocus()
-		# Notify profile-specific panels about profile renames.
-		SPLConfUIProfileRenamedOrDeleted.notify(oldName=oldName, newName=newName)
 
 	def onDelete(self, evt):
 		# Prevent profile deletion while a trigger is active (in the midst of a broadcast), otherwise flags such as instant switch and time-based profiles become inconsistent.
@@ -251,8 +246,6 @@ class BroadcastProfilesDialog(wx.Dialog):
 			self.profiles.Selection = 0
 		self.onProfileSelection(None)
 		self.profiles.SetFocus()
-		# Notify profile-specific panels about profile deletion (new name is None).
-		SPLConfUIProfileRenamedOrDeleted.notify(oldName=name, newName=None)
 
 	def onTriggers(self, evt):
 		self.Disable()
@@ -768,7 +761,6 @@ class AlarmsPanel(ProfileSpecificSettingsBasePanel):
 
 		# #77 (18.09-LTS): record temporary settings.
 		self._curProfileSettings = {}
-		SPLConfUIProfileRenamedOrDeleted.register(self.onProfileRenamedOrDeleted)
 		self.outroAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&End of track alarm in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=59, initial=splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"])
 		self.outroToggleCheckBox=alarmsCenterHelper.addItem(wx.CheckBox(self, label=_("&Notify when end of track is approaching")))
 		self.outroToggleCheckBox.SetValue(splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"])
@@ -941,7 +933,6 @@ class MetadataStreamingPanel(ProfileSpecificSettingsBasePanel):
 
 	def makeSettings(self, settingsSizer):
 		metadataSizerHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
-		SPLConfUIProfileRenamedOrDeleted.register(self.onProfileRenamedOrDeleted)
 
 		self.metadataValues=[("off",_("Off")),
 		# Translators: One of the metadata notification settings.
@@ -1023,7 +1014,6 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel, ProfileSpecificSett
 		self.columnOrder = splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"]
 		# #77 (18.09-LTS): record temporary settings.
 		self._curProfileSettings = {}
-		SPLConfUIProfileRenamedOrDeleted.register(self.onProfileRenamedOrDeleted)
 
 		# Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
 		self.columnOrderCheckbox=colAnnouncementsHelper.addItem(wx.CheckBox(self,wx.ID_ANY,label=_("Announce columns in the &order shown on screen")))
