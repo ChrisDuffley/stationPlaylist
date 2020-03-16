@@ -27,8 +27,6 @@ from ..skipTranslation import translate
 # Broadcast profiles
 # #129 (20.04): formerly a settings panel, now a dedicated settings dialog.
 
-# The following also affects profile-specific panels.
-_selectedProfile = None
 _configApplyOnly = False
 # #112 (19.08/18.09.11-LTS): an internal config UI action for managing profile renames/deletions.
 SPLConfUIProfileRenamedOrDeleted = extensionPoints.Action()
@@ -126,7 +124,6 @@ class BroadcastProfilesDialog(wx.Dialog):
 	# Load settings from profiles.
 	# #6: set selected profile flag so other panels can pull in appropriate settings.
 	def onProfileSelection(self, evt):
-		global _selectedProfile
 		# Don't rely on SPLConfig here, as we don't want to interupt the show.
 		selection = self.profiles.GetSelection()
 		# No need to look at the profile flag.
@@ -135,10 +132,8 @@ class BroadcastProfilesDialog(wx.Dialog):
 		# Also enable/disable "activate" button.
 		if self.activeProfile == selectedProfile:
 			tones.beep(512, 40)
-			_selectedProfile = None
 			self.changeStateButton.Disable()
 		else:
-			_selectedProfile = selectedProfile
 			self.changeStateButton.Enable()
 		if selection == 0:
 			self.renameButton.Disable()
@@ -198,10 +193,6 @@ class BroadcastProfilesDialog(wx.Dialog):
 		self.profiles.SetString(index, " <".join([newName, state[1]]) if len(state) > 1 else newName)
 		self.profiles.Selection = index
 		self.profiles.SetFocus()
-		# Don't forget to update selected profile name.
-		global _selectedProfile
-		if _selectedProfile == oldName:
-			_selectedProfile = newName
 		# Notify profile-specific panels about profile renames.
 		SPLConfUIProfileRenamedOrDeleted.notify(oldName=oldName, newName=newName)
 
@@ -260,10 +251,6 @@ class BroadcastProfilesDialog(wx.Dialog):
 			self.profiles.Selection = 0
 		self.onProfileSelection(None)
 		self.profiles.SetFocus()
-		# Don't forget other settings panels.
-		global _selectedProfile
-		if _selectedProfile == name:
-			_selectedProfile = None
 		# Notify profile-specific panels about profile deletion (new name is None).
 		SPLConfUIProfileRenamedOrDeleted.notify(oldName=name, newName=None)
 
@@ -310,16 +297,10 @@ class BroadcastProfilesDialog(wx.Dialog):
 		# 7.0: Don't do the following in the midst of a broadcast.
 		if self.switchProfile is None and not splconfig._triggerProfileActive:
 			splconfig.SPLConfig.prevProfile = None
-		# #108 (19.07/18.09.10-LTS): notify various subsystems so new settings can take effect.
-		selectedProfile = _selectedProfile
-		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
 		splactions.SPLActionProfileSwitched.notify(configDialogActive=True)
 		self.Close()
 
 	def onClose(self, evt):
-		# #129 (temporary): nullify selected profile global flag.
-		global _selectedProfile
-		_selectedProfile = None
 		# Apply profile trigger changes if any.
 		try:
 			splconfig.profileTriggers = dict(self._profileTriggersConfig)
@@ -1480,16 +1461,13 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 
 	def onOk(self, evt):
 		super(SPLConfigDialog,  self).onOk(evt)
-		# But because of issues encountered while saving some settings, settings dialog might still be active, as well as selected profile flag not being cleared.
-		global _configDialogOpened, _selectedProfile
+		global _configDialogOpened
 		_configDialogOpened = False
-		_selectedProfile = None
 
 	def onCancel(self, evt):
 		super(SPLConfigDialog,  self).onCancel(evt)
-		global _configDialogOpened, _selectedProfile
+		global _configDialogOpened
 		_configDialogOpened = False
-		_selectedProfile = None
 
 	def onApply(self,evt):
 		# Let profile sensitive panels (such as broadcast profiles) know that settings should be applied.
