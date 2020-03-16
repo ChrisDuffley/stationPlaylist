@@ -739,19 +739,6 @@ class AlarmsCenter(wx.Dialog):
 	def onAppTerminate(self):
 		self.onCancel(None)
 
-# Base panel for profile-specific panels.
-# The job of this base panel is to provide services such as profile rename/deletion action support.
-class ProfileSpecificSettingsBasePanel(gui.SettingsPanel):
-
-	def onProfileRenamedOrDeleted(self, oldName=None, newName=None):
-		# New name determines what happend (renamed or deleted if it is not None or otherwise, respectivley).
-		# Although an exception should be thrown when old name is None, don't worry about it at this time.
-		if oldName not in self._curProfileSettings: return
-		# 20.03 (optimization): just remove old name regardless of rename or delete operation.
-		if newName is not None:
-			self._curProfileSettings[newName] = self._curProfileSettings[oldName]
-		del self._curProfileSettings[oldName]
-
 class AlarmsPanel(ProfileSpecificSettingsBasePanel):
 	# Translators: title of a panel to configure various alarms and related settings.
 	title = _("Alarms")
@@ -759,8 +746,6 @@ class AlarmsPanel(ProfileSpecificSettingsBasePanel):
 	def makeSettings(self, settingsSizer):
 		alarmsCenterHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
-		# #77 (18.09-LTS): record temporary settings.
-		self._curProfileSettings = {}
 		self.outroAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&End of track alarm in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=59, initial=splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"])
 		self.outroToggleCheckBox=alarmsCenterHelper.addItem(wx.CheckBox(self, label=_("&Notify when end of track is approaching")))
 		self.outroToggleCheckBox.SetValue(splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"])
@@ -948,8 +933,6 @@ class MetadataStreamingPanel(ProfileSpecificSettingsBasePanel):
 		except:
 			pass
 
-		# Profile specific: have a map of current profile settings.
-		self._curProfileSettings = {}
 		# WX's native CheckListBox isn't user friendly.
 		# Therefore use checkboxes laid out across the top.
 		# 17.04: instead of two loops, just use one loop, with labels deriving from a stream labels tuple.
@@ -1012,8 +995,6 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel, ProfileSpecificSett
 		# Without manual conversion below, it produces a rare bug where clicking cancel after changing column inclusion causes new set to be retained.
 		self.includedColumns = set(splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"])
 		self.columnOrder = splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"]
-		# #77 (18.09-LTS): record temporary settings.
-		self._curProfileSettings = {}
 
 		# Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
 		self.columnOrderCheckbox=colAnnouncementsHelper.addItem(wx.CheckBox(self,wx.ID_ANY,label=_("Announce columns in the &order shown on screen")))
