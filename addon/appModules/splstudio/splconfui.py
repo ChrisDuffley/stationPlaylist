@@ -814,35 +814,6 @@ class AlarmsPanel(ProfileSpecificSettingsBasePanel):
 		except:
 			pass
 
-	def onPanelActivated(self):
-		selectedProfile = _selectedProfile
-		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
-		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
-		if selectedProfile not in self._curProfileSettings: settings = dict(curProfile)
-		else: settings = dict(self._curProfileSettings[selectedProfile])
-		self.outroAlarmEntry.SetValue(settings["IntroOutroAlarms"]["EndOfTrackTime"])
-		self.outroToggleCheckBox.SetValue(settings["IntroOutroAlarms"]["SayEndOfTrack"])
-		self.introAlarmEntry.SetValue(settings["IntroOutroAlarms"]["SongRampTime"])
-		self.introToggleCheckBox.SetValue(settings["IntroOutroAlarms"]["SaySongRamp"])
-		self.micAlarmEntry.SetValue(settings["MicrophoneAlarm"]["MicAlarm"])
-		self.micIntervalEntry.SetValue(settings["MicrophoneAlarm"]["MicAlarmInterval"])
-		super(AlarmsPanel, self).onPanelActivated()
-
-	def onPanelDeactivated(self):
-		selectedProfile = _selectedProfile
-		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
-		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
-		currentSettings = {"IntroOutroAlarms": {}, "MicrophoneAlarm": {}}
-		currentSettings["IntroOutroAlarms"]["EndOfTrackTime"] = self.outroAlarmEntry.GetValue()
-		currentSettings["IntroOutroAlarms"]["SayEndOfTrack"] = self.outroToggleCheckBox.GetValue()
-		currentSettings["IntroOutroAlarms"]["SongRampTime"] = self.introAlarmEntry.GetValue()
-		currentSettings["IntroOutroAlarms"]["SaySongRamp"] = self.introToggleCheckBox.GetValue()
-		currentSettings["MicrophoneAlarm"]["MicAlarm"] = self.micAlarmEntry.GetValue()
-		currentSettings["MicrophoneAlarm"]["MicAlarmInterval"] = self.micIntervalEntry.GetValue()
-		if currentSettings != {sect:key for sect, key in curProfile.items() if sect in ("IntroOutroAlarms", "MicrophoneAlarm")}:
-			self._curProfileSettings[selectedProfile] = dict(currentSettings)
-		super(AlarmsPanel, self).onPanelDeactivated()
-
 	def onSave(self):
 		# Save global settings first, and then record profile-specific settings in appropriate profile.
 		splconfig.SPLConfig["General"]["AlarmAnnounce"] = self.alarmAnnounceValues[self.alarmAnnounceList.GetSelection()][0]
@@ -1025,26 +996,6 @@ class MetadataStreamingPanel(ProfileSpecificSettingsBasePanel):
 			self.checkedStreams.Check(stream, check=splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"][stream])
 		self.checkedStreams.SetSelection(0)
 
-	def onPanelActivated(self):
-		selectedProfile = _selectedProfile
-		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
-		# Load settings from a temp map first.
-		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
-		if selectedProfile not in self._curProfileSettings: settings = list(curProfile["MetadataStreaming"]["MetadataEnabled"])
-		else: settings = self._curProfileSettings[selectedProfile]
-		for stream in range(5):
-			self.checkedStreams.Check(stream, check=settings[stream])
-		super(MetadataStreamingPanel, self).onPanelActivated()
-
-	def onPanelDeactivated(self):
-		selectedProfile = _selectedProfile
-		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
-		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
-		currentSettings = [self.checkedStreams.IsChecked(url) for url in range(5)]
-		if currentSettings != curProfile["MetadataStreaming"]["MetadataEnabled"]:
-			self._curProfileSettings[selectedProfile] = currentSettings
-		super(MetadataStreamingPanel, self).onPanelDeactivated()
-
 	def onSave(self):
 		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
 		selectedProfile = _selectedProfile
@@ -1147,37 +1098,6 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel, ProfileSpecificSett
 		# Translators: the label for a setting in SPL add-on settings to toggle whether column headers should be included when announcing track information.
 		self.columnHeadersCheckbox = colAnnouncementsHelper.addItem(wx.CheckBox(self, label=_("Include column &headers when announcing track information")))
 		self.columnHeadersCheckbox.SetValue(splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"])
-
-	def onPanelActivated(self):
-		selectedProfile = _selectedProfile
-		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
-		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
-		if selectedProfile not in self._curProfileSettings: settings = dict(curProfile)
-		else: settings = dict(self._curProfileSettings[selectedProfile])
-		self.columnOrderCheckbox.SetValue(settings["ColumnAnnouncement"]["UseScreenColumnOrder"])
-		# 6.1: Again convert list to set.
-		self.includedColumns = set(settings["ColumnAnnouncement"]["IncludedColumns"])
-		self.includedColumns.discard("Artist")
-		self.includedColumns.discard("Title")
-		self.checkedColumns.SetCheckedStrings(self.includedColumns)
-		self.columnOrder = list(settings["ColumnAnnouncement"]["ColumnOrder"])
-		self.trackColumns.SetItems(self.columnOrder)
-		self.trackColumns.SetSelection(0)
-		self.columnHeadersCheckbox.SetValue(settings["ColumnAnnouncement"]["IncludeColumnHeaders"])
-		super(ColumnAnnouncementsPanel, self).onPanelActivated()
-
-	def onPanelDeactivated(self):
-		selectedProfile = _selectedProfile
-		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
-		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
-		currentSettings = {"ColumnAnnouncement": {}}
-		currentSettings["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.GetValue()
-		currentSettings["ColumnAnnouncement"]["IncludedColumns"] = set(self.checkedColumns.GetCheckedStrings()) | {"Artist", "Title"}
-		currentSettings["ColumnAnnouncement"]["ColumnOrder"] = self.trackColumns.GetItems()
-		currentSettings["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.GetValue()
-		if currentSettings["ColumnAnnouncement"] != curProfile["ColumnAnnouncement"]:
-			self._curProfileSettings[selectedProfile] = dict(currentSettings)
-		super(ColumnAnnouncementsPanel, self).onPanelDeactivated()
 
 	def onSave(self):
 		selectedProfile = _selectedProfile
