@@ -26,8 +26,6 @@ from ..skipTranslation import translate
 # Broadcast profiles
 # #129 (20.04): formerly a settings panel, now a dedicated settings dialog.
 
-_configApplyOnly = False
-
 class BroadcastProfilesDialog(wx.Dialog):
 	shouldSuspendConfigProfileTriggers = True
 
@@ -1439,13 +1437,6 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		super(SPLConfigDialog,  self).onCancel(evt)
 		global _configDialogOpened
 		_configDialogOpened = False
-
-	def onApply(self,evt):
-		# Let profile sensitive panels (such as broadcast profiles) know that settings should be applied.
-		global _configApplyOnly
-		_configApplyOnly = True
-		super(SPLConfigDialog,  self).onApply(evt)
-		_configApplyOnly = False
 
 	def onAppTerminate(self):
 		# Call cancel function when the app terminates so the dialog can be closed.
