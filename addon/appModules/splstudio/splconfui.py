@@ -737,7 +737,7 @@ class AlarmsCenter(wx.Dialog):
 	def onAppTerminate(self):
 		self.onCancel(None)
 
-class AlarmsPanel(ProfileSpecificSettingsBasePanel):
+class AlarmsPanel(gui.SettingsPanel):
 	# Translators: title of a panel to configure various alarms and related settings.
 	title = _("Alarms")
 
@@ -910,7 +910,7 @@ class MetadataStreamingDialog(wx.Dialog):
 	def onAppTerminate(self):
 		self.onCancel(None)
 
-class MetadataStreamingPanel(ProfileSpecificSettingsBasePanel):
+class MetadataStreamingPanel(gui.SettingsPanel):
 	# Translators: title of a panel to configure metadata streaming status for DSP encoder and four additional URL's.
 	title = _("Metadata streaming")
 
@@ -984,7 +984,7 @@ class ColumnAnnouncementsBasePanel(gui.SettingsPanel):
 			if self.FindFocus().GetId() == wx.ID_OK:
 				self.upButton.SetFocus()
 
-class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel, ProfileSpecificSettingsBasePanel):
+class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 	# Translators: title of a panel to configure column announcements (order and what columns should be announced).
 	title = _("Column announcements")
 
