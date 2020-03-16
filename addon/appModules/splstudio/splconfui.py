@@ -788,16 +788,16 @@ class AlarmsPanel(ProfileSpecificSettingsBasePanel):
 		# #77 (18.09-LTS): record temporary settings.
 		self._curProfileSettings = {}
 		SPLConfUIProfileRenamedOrDeleted.register(self.onProfileRenamedOrDeleted)
-		self.outroAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&End of track alarm in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=59, initial=splconfig._SPLDefaults["IntroOutroAlarms"]["EndOfTrackTime"])
+		self.outroAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&End of track alarm in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=59, initial=splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"])
 		self.outroToggleCheckBox=alarmsCenterHelper.addItem(wx.CheckBox(self, label=_("&Notify when end of track is approaching")))
-		self.outroToggleCheckBox.SetValue(splconfig._SPLDefaults["IntroOutroAlarms"]["SayEndOfTrack"])
+		self.outroToggleCheckBox.SetValue(splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"])
 
-		self.introAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&Track intro alarm in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=9, initial=splconfig._SPLDefaults["IntroOutroAlarms"]["SongRampTime"])
+		self.introAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&Track intro alarm in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=9, initial=splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"])
 		self.introToggleCheckBox=alarmsCenterHelper.addItem(wx.CheckBox(self, label=_("&Notify when end of introduction is approaching")))
-		self.introToggleCheckBox.SetValue(splconfig._SPLDefaults["IntroOutroAlarms"]["SaySongRamp"])
+		self.introToggleCheckBox.SetValue(splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"])
 
-		self.micAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&Microphone alarm in seconds (0 disables the alarm)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=7200, initial=splconfig._SPLDefaults["MicrophoneAlarm"]["MicAlarm"])
-		self.micIntervalEntry = alarmsCenterHelper.addLabeledControl(_("Microphone alarm &interval in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=60, initial=splconfig._SPLDefaults["MicrophoneAlarm"]["MicAlarmInterval"])
+		self.micAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&Microphone alarm in seconds (0 disables the alarm)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=7200, initial=splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"])
+		self.micIntervalEntry = alarmsCenterHelper.addLabeledControl(_("Microphone alarm &interval in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=60, initial=splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"])
 
 		# Translators: One of the alarm notification options.
 		self.alarmAnnounceValues=[("beep",_("beep")),
@@ -849,12 +849,12 @@ class AlarmsPanel(ProfileSpecificSettingsBasePanel):
 		selectedProfile = _selectedProfile
 		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
 		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
-		curProfile["IntroOutroAlarms"]["EndOfTrackTime"] = self.outroAlarmEntry.GetValue()
-		curProfile["IntroOutroAlarms"]["SayEndOfTrack"] = self.outroToggleCheckBox.GetValue()
-		curProfile["IntroOutroAlarms"]["SongRampTime"] = self.introAlarmEntry.GetValue()
-		curProfile["IntroOutroAlarms"]["SaySongRamp"] = self.introToggleCheckBox.GetValue()
-		curProfile["MicrophoneAlarm"]["MicAlarm"] = self.micAlarmEntry.GetValue()
-		curProfile["MicrophoneAlarm"]["MicAlarmInterval"] = self.micIntervalEntry.GetValue()
+		splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] = self.outroAlarmEntry.GetValue()
+		splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"] = self.outroToggleCheckBox.GetValue()
+		splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"] = self.introAlarmEntry.GetValue()
+		splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"] = self.introToggleCheckBox.GetValue()
+		splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"] = self.micAlarmEntry.GetValue()
+		splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] = self.micIntervalEntry.GetValue()
 		self._curProfileSettings.clear()
 		# #80 (18.10.2/18.09.4-LTS): don't just nullify profile settings, otherwise attribute and type error exceptions may arise.
 		if not _configApplyOnly: self._curProfileSettings = None
@@ -1026,7 +1026,7 @@ class MetadataStreamingPanel(ProfileSpecificSettingsBasePanel):
 		# #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
 		self.checkedStreams = metadataSizerHelper.addLabeledControl(_("&Select the URL for metadata streaming upon request:"), CustomCheckListBox, choices=metadataStreamLabels)
 		for stream in range(5):
-			self.checkedStreams.Check(stream, check=splconfig._SPLDefaults["MetadataStreaming"]["MetadataEnabled"][stream])
+			self.checkedStreams.Check(stream, check=splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"][stream])
 		self.checkedStreams.SetSelection(0)
 
 	def onPanelActivated(self):
@@ -1055,7 +1055,7 @@ class MetadataStreamingPanel(ProfileSpecificSettingsBasePanel):
 		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
 		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
 		# #76 (18.09-LTS): traverse check list box and build boolean list accordingly.
-		curProfile["MetadataStreaming"]["MetadataEnabled"] = [self.checkedStreams.IsChecked(url) for url in range(5)]
+		splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = [self.checkedStreams.IsChecked(url) for url in range(5)]
 		self._curProfileSettings.clear()
 		if not _configApplyOnly: self._curProfileSettings = None
 
@@ -1107,15 +1107,15 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel, ProfileSpecificSett
 	def makeSettings(self, settingsSizer):
 		colAnnouncementsHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 		# Without manual conversion below, it produces a rare bug where clicking cancel after changing column inclusion causes new set to be retained.
-		self.includedColumns = set(splconfig._SPLDefaults["ColumnAnnouncement"]["IncludedColumns"])
-		self.columnOrder = splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
+		self.includedColumns = set(splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"])
+		self.columnOrder = splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"]
 		# #77 (18.09-LTS): record temporary settings.
 		self._curProfileSettings = {}
 		SPLConfUIProfileRenamedOrDeleted.register(self.onProfileRenamedOrDeleted)
 
 		# Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
 		self.columnOrderCheckbox=colAnnouncementsHelper.addItem(wx.CheckBox(self,wx.ID_ANY,label=_("Announce columns in the &order shown on screen")))
-		self.columnOrderCheckbox.SetValue(splconfig._SPLDefaults["ColumnAnnouncement"]["UseScreenColumnOrder"])
+		self.columnOrderCheckbox.SetValue(splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"])
 
 		# Translators: Help text to select columns to be announced.
 		labelText = _("&Select columns to be announced\n(artist and title are announced by default):")
@@ -1154,7 +1154,7 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel, ProfileSpecificSett
 
 		# Translators: the label for a setting in SPL add-on settings to toggle whether column headers should be included when announcing track information.
 		self.columnHeadersCheckbox = colAnnouncementsHelper.addItem(wx.CheckBox(self, label=_("Include column &headers when announcing track information")))
-		self.columnHeadersCheckbox.SetValue(splconfig._SPLDefaults["ColumnAnnouncement"]["IncludeColumnHeaders"])
+		self.columnHeadersCheckbox.SetValue(splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"])
 
 	def onPanelActivated(self):
 		selectedProfile = _selectedProfile
@@ -1191,10 +1191,10 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel, ProfileSpecificSett
 		selectedProfile = _selectedProfile
 		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
 		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
-		curProfile["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
-		curProfile["ColumnAnnouncement"]["IncludedColumns"] = set(self.checkedColumns.GetCheckedStrings()) | {"Artist", "Title"}
-		curProfile["ColumnAnnouncement"]["ColumnOrder"] = self.trackColumns.GetItems()
-		curProfile["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.Value
+		splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
+		splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"] = set(self.checkedColumns.GetCheckedStrings()) | {"Artist", "Title"}
+		splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"] = self.trackColumns.GetItems()
+		splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.Value
 		self._curProfileSettings.clear()
 		if not _configApplyOnly: self._curProfileSettings = None
 
