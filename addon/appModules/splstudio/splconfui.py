@@ -815,20 +815,13 @@ class AlarmsPanel(ProfileSpecificSettingsBasePanel):
 			pass
 
 	def onSave(self):
-		# Save global settings first, and then record profile-specific settings in appropriate profile.
 		splconfig.SPLConfig["General"]["AlarmAnnounce"] = self.alarmAnnounceValues[self.alarmAnnounceList.GetSelection()][0]
-		selectedProfile = _selectedProfile
-		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
-		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
 		splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] = self.outroAlarmEntry.GetValue()
 		splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"] = self.outroToggleCheckBox.GetValue()
 		splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"] = self.introAlarmEntry.GetValue()
 		splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"] = self.introToggleCheckBox.GetValue()
 		splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"] = self.micAlarmEntry.GetValue()
 		splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] = self.micIntervalEntry.GetValue()
-		self._curProfileSettings.clear()
-		# #80 (18.10.2/18.09.4-LTS): don't just nullify profile settings, otherwise attribute and type error exceptions may arise.
-		if not _configApplyOnly: self._curProfileSettings = None
 
 # Playlist snapshot flags
 # For things such as checkboxes for average duration and top category count.
@@ -998,13 +991,8 @@ class MetadataStreamingPanel(ProfileSpecificSettingsBasePanel):
 
 	def onSave(self):
 		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
-		selectedProfile = _selectedProfile
-		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
-		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
 		# #76 (18.09-LTS): traverse check list box and build boolean list accordingly.
 		splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = [self.checkedStreams.IsChecked(url) for url in range(5)]
-		self._curProfileSettings.clear()
-		if not _configApplyOnly: self._curProfileSettings = None
 
 # Column announcement manager.
 # Select which track columns should be announced and in which order.
@@ -1100,15 +1088,10 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel, ProfileSpecificSett
 		self.columnHeadersCheckbox.SetValue(splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"])
 
 	def onSave(self):
-		selectedProfile = _selectedProfile
-		if selectedProfile is None: selectedProfile = splconfig.SPLConfig.activeProfile
-		curProfile = splconfig.SPLConfig.profileByName(selectedProfile)
 		splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
 		splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"] = set(self.checkedColumns.GetCheckedStrings()) | {"Artist", "Title"}
 		splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"] = self.trackColumns.GetItems()
 		splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.Value
-		self._curProfileSettings.clear()
-		if not _configApplyOnly: self._curProfileSettings = None
 
 class PlaylistTranscriptsPanel(ColumnAnnouncementsBasePanel):
 	# Translators: Title of a panel to configure playlsit transcripts options.
