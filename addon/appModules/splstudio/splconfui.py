@@ -778,6 +778,13 @@ class AlarmsPanel(gui.SettingsPanel):
 		splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"] = self.introToggleCheckBox.GetValue()
 		splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"] = self.micAlarmEntry.GetValue()
 		splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] = self.micIntervalEntry.GetValue()
+		# #42 (18.01/15.12-LTS): don't forget to restart microphone alarm timer.
+		# 18.02: do it here at once.
+		# At least try notifying the app module that microphone alarm settings have changed.
+		from winUser import OBJID_CLIENT
+		from NVDAObjects.IAccessible import getNVDAObjectFromEvent
+		studioWindow = getNVDAObjectFromEvent(user32.FindWindowW("TStudioForm", None), OBJID_CLIENT, 0)
+		if studioWindow is not None: studioWindow.appModule.actionProfileSwitched()
 
 # Playlist snapshot flags
 # For things such as checkboxes for average duration and top category count.
