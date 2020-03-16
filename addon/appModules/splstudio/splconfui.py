@@ -1246,7 +1246,7 @@ class SayStatusPanel(gui.SettingsPanel):
 # More options will be added in 7.0.
 # 7.0: Auto update check will be configurable from this panel.
 # #6: this is one of a few panels that will make sure changes are okay to be saved (isValid).
-# It is also one of two panels (the other one being broadcast profiles) that will perform extra actions if OK or Apply is clicked from add-on settings dialog (postSave).
+# It is also the only panel that will perform extra actions if OK or Apply is clicked from add-on settings dialog (postSave).
 class AdvancedOptionsPanel(gui.SettingsPanel):
 	# Translators: title of a panel to configure advanced SPL add-on options such as update checking.
 	title = _("Advanced")
