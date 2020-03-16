@@ -953,6 +953,9 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
 		# #76 (18.09-LTS): traverse check list box and build boolean list accordingly.
 		splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = [self.checkedStreams.IsChecked(url) for url in range(5)]
+		# Try connecting to metadata streaming servers if any.
+		from . import splmisc
+		splmisc.metadata_actionProfileSwitched(configDialogActive=True)
 
 # Column announcement manager.
 # Select which track columns should be announced and in which order.
