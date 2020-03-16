@@ -859,10 +859,6 @@ class AlarmsPanel(ProfileSpecificSettingsBasePanel):
 		# #80 (18.10.2/18.09.4-LTS): don't just nullify profile settings, otherwise attribute and type error exceptions may arise.
 		if not _configApplyOnly: self._curProfileSettings = None
 
-	def onDiscard(self):
-		self._curProfileSettings.clear()
-		self._curProfileSettings = None
-
 # Playlist snapshot flags
 # For things such as checkboxes for average duration and top category count.
 class PlaylistSnapshotsPanel(gui.SettingsPanel):
@@ -1059,10 +1055,6 @@ class MetadataStreamingPanel(ProfileSpecificSettingsBasePanel):
 		self._curProfileSettings.clear()
 		if not _configApplyOnly: self._curProfileSettings = None
 
-	def onDiscard(self):
-		self._curProfileSettings.clear()
-		self._curProfileSettings = None
-
 # Column announcement manager.
 # Select which track columns should be announced and in which order.
 # 18.08: also serves as a base dialog for Playlist Transcripts/column selector setting.
@@ -1197,13 +1189,6 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel, ProfileSpecificSett
 		splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.Value
 		self._curProfileSettings.clear()
 		if not _configApplyOnly: self._curProfileSettings = None
-
-	def onDiscard(self):
-		# 6.1: Discard changes to included columns set.
-		if self.includedColumns is not None: self.includedColumns.clear()
-		self.includedColumns = None
-		self._curProfileSettings.clear()
-		self._curProfileSettings = None
 
 class PlaylistTranscriptsPanel(ColumnAnnouncementsBasePanel):
 	# Translators: Title of a panel to configure playlsit transcripts options.
