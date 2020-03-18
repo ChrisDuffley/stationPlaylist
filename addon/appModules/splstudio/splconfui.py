@@ -1365,7 +1365,6 @@ class ColumnsExplorerDialog(wx.Dialog):
 		if self.level == 0: parent.exploreColumns = slots
 		elif self.level == 1: parent.exploreColumnsTT = slots
 		elif self.level == 2: parent.exploreColumnsCreator = slots
-		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()
 		return
