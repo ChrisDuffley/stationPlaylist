@@ -209,6 +209,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * Broadcast profiles management has been split from SPL add-on settings dialog into its own dialog. You can access broadcast profiles dialog by pressing Alt+NVDA+P from Studio window.
 * Due to duplication with Control+NVDA+number row commands for Studio tracks, columns explorer commands from SPL Assistant (number row) has been removed.
 * Changed error message shown when trying to open a Studio add-on settings dialog (such as metadata streaming dialog) while another settings dialog (such as end of track alarm dialog) is active. The new error message is same as the message shown when trying to open multiple NVDA settings dialogs.
+* NVDA will no longer play error tones or appear to do nothing when clicking OK button from Columns Explorer dialog after configuring column slots.
 * In encoders, you can now save and reset encoder settings (including stream labels) by pressing Control+NVDA+C or Control+NVDA+R three times, respectively.
 
 ## Version 20.03
