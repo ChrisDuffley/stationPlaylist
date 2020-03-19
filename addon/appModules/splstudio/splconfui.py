@@ -1206,8 +1206,6 @@ class ResetDialog(wx.Dialog):
 
 		# Translators: the label for resetting profile triggers.
 		self.resetInstantProfileCheckbox=resetHelper.addItem(wx.CheckBox(self,label=_("Reset instant switch profile")))
-		# Translators: the label for resetting profile triggers.
-		self.resetTimeProfileCheckbox=resetHelper.addItem(wx.CheckBox(self,label=_("Delete time-based profile database")))
 		# Translators: the label for resetting encoder settings.
 		self.resetEncodersCheckbox=resetHelper.addItem(wx.CheckBox(self,label=_("Remove encoder settings")))
 		# Translators: the label for resetting track comments.
@@ -1248,11 +1246,6 @@ class ResetDialog(wx.Dialog):
 				if splconfig.SPLConfig.instantSwitch is not None:
 					splconfig.SPLConfig.instantSwitch = None
 					splconfig.SPLConfig.prevProfile = None
-			if self.resetTimeProfileCheckbox.Value:
-				splconfig.profileTriggers.clear()
-				if splconfig.triggerTimer is not None and splconfig.triggerTimer.IsRunning():
-					splconfig.triggerTimer.Stop()
-					splconfig.triggerTimer = None
 			if self.resetTrackCommentsCheckbox.Value:
 				splconfig.trackComments.clear()
 			if self.resetEncodersCheckbox.Value:
