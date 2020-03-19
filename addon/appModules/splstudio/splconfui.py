@@ -84,8 +84,6 @@ class BroadcastProfilesDialog(wx.Dialog):
 		self.triggerButton = wx.Button(self, label=translate("&Triggers..."))
 		self.triggerButton.Bind(wx.EVT_BUTTON, self.onTriggers)
 		sizer.sizer.AddMany((newButton, copyButton, self.renameButton, self.deleteButton, self.triggerButton))
-		# Translators: The label for a setting in SPL Add-on settings to configure countdown seconds before switching profiles.
-		self.triggerThreshold = sizer.addLabeledControl(_("Countdown seconds before switching profiles"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=10, max=60, initial=splconfig.SPLConfig["Advanced"]["ProfileTriggerThreshold"])
 		if self.profiles.GetSelection() == 0:
 			self.renameButton.Disable()
 			self.deleteButton.Disable()
