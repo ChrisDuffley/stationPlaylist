@@ -249,7 +249,7 @@ class BroadcastProfilesDialog(wx.Dialog):
 	# Obtain profile flags for a given profile.
 	# This is a proxy to the splconfig module level profile flag retriever with custom strings/maps as arguments.
 	def getProfileFlags(self, name):
-		return splconfig.getProfileFlags(name, active=self.activeProfile, instant=self.switchProfile, triggers=self._profileTriggersConfig, contained=True)
+		return splconfig.getProfileFlags(name, active=self.activeProfile, instant=self.switchProfile, contained=True)
 
 	# Handle flag modifications such as when toggling instant switch.
 	# Unless given, flags will be queried.
