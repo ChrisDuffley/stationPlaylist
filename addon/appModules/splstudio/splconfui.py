@@ -373,20 +373,6 @@ class TriggersDialog(wx.Dialog):
 		super(TriggersDialog, self).__init__(parent, title=_("Profile triggers for {profileName}").format(profileName = profile))
 		self.profile = profile
 		self.selection = parent.profiles.GetSelection()
-		# When referencing profile triggers, use the dictionary stored in the main add-on settings.
-		# This is needed in order to discard changes when cancel button is clicked from the parent dialog.
-		# 7.0: Remove this text for now (may return in 7.1 if requested).
-		"""if profile in self.Parent._profileTriggersConfig:
-			t = self.Parent._profileTriggersConfig[profile]
-			d = "-".join([str(t[1]), str(t[2]).zfill(2), str(t[3]).zfill(2)])
-			t = ":".join([str(t[4]).zfill(2), str(t[5]).zfill(2)])
-			triggerText = "The next trigger is scheduled on {0} at {1}.".format(d, t)
-		else:
-			triggerText = "No triggers defined."
-		sizer = wx.BoxSizer(wx.HORIZONTAL)
-		label = wx.StaticText(self, wx.ID_ANY, label=triggerText)
-		sizer.Add(label)"""
-
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		triggersHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
