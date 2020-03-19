@@ -79,8 +79,6 @@ class BroadcastProfilesDialog(wx.Dialog):
 		self.renameButton.Bind(wx.EVT_BUTTON, self.onRename)
 		self.deleteButton = wx.Button(self, label=translate("&Delete"))
 		self.deleteButton.Bind(wx.EVT_BUTTON, self.onDelete)
-		# Have a copy of the triggers dictionary.
-		self._profileTriggersConfig = dict(splconfig.profileTriggers)
 		self.triggerButton = wx.Button(self, label=translate("&Triggers..."))
 		self.triggerButton.Bind(wx.EVT_BUTTON, self.onTriggers)
 		sizer.sizer.AddMany((newButton, copyButton, self.renameButton, self.deleteButton, self.triggerButton))
@@ -290,13 +288,6 @@ class BroadcastProfilesDialog(wx.Dialog):
 		self.Close()
 
 	def onClose(self, evt):
-		# Apply profile trigger changes if any.
-		try:
-			splconfig.profileTriggers = dict(self._profileTriggersConfig)
-			self._profileTriggersConfig.clear()
-			self._profileTriggersConfig = None
-		except (AttributeError, TypeError):
-			pass
 		# #111 (19.08/18.09.11-LTS): restart triggers regardless of profile changes or not (broken since 18.09).
 		splconfig.triggerStart(restart=True)
 		# 7.0: No matter what happens, merge appropriate profile.
