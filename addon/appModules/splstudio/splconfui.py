@@ -380,45 +380,6 @@ class TriggersDialog(wx.Dialog):
 		self.instantSwitchCheckbox=triggersHelper.addItem(wx.CheckBox(self, label=_("This is an &instant switch profile")))
 		self.instantSwitchCheckbox.SetValue(parent.switchProfile == parent.profiles.GetStringSelection().split(" <")[0])
 
-		# Translators: The label of a checkbox to toggle if selected profile is a time-based profile.
-		self.timeSwitchCheckbox=triggersHelper.addItem(wx.CheckBox(self, label=_("This is a &time-based switch profile")))
-		self.timeSwitchCheckbox.SetValue(profile in self.Parent._profileTriggersConfig)
-		self.timeSwitchCheckbox.Bind(wx.EVT_CHECKBOX, self.onTimeSwitch)
-
-		daysSizer = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Day")), wx.HORIZONTAL)
-		self.triggerDays = []
-		import calendar
-		for day in range(len(calendar.day_name)):
-			triggerDay=wx.CheckBox(self, wx.ID_ANY,label=calendar.day_name[day])
-			triggerDay.SetValue((64 >> day & self.Parent._profileTriggersConfig[profile][0]) if profile in self.Parent._profileTriggersConfig else 0)
-			if not self.timeSwitchCheckbox.IsChecked(): triggerDay.Disable()
-			self.triggerDays.append(triggerDay)
-			daysSizer.Add(triggerDay)
-		triggersHelper.addItem(daysSizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
-
-		timeSizer = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Time")), wx.HORIZONTAL)
-		self.hourPrompt = wx.StaticText(self, wx.ID_ANY, label=_("Hour"))
-		self.hourEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=23)
-		self.hourEntry.SetValue(self.Parent._profileTriggersConfig[profile][4] if profile in self.Parent._profileTriggersConfig else 0)
-		self.hourEntry.SetSelection(-1, -1)
-		self.minPrompt = wx.StaticText(self, wx.ID_ANY, label=_("Minute"))
-		self.minEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=59)
-		self.minEntry.SetValue(self.Parent._profileTriggersConfig[profile][5] if profile in self.Parent._profileTriggersConfig else 0)
-		self.minEntry.SetSelection(-1, -1)
-		self.durationPrompt = wx.StaticText(self, wx.ID_ANY, label=_("Duration in minutes"))
-		self.durationEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=1440)
-		self.durationEntry.SetValue(self.Parent._profileTriggersConfig[profile][6] if profile in self.Parent._profileTriggersConfig else 0)
-		self.durationEntry.SetSelection(-1, -1)
-		if not self.timeSwitchCheckbox.IsChecked():
-			self.hourPrompt.Disable()
-			self.hourEntry.Disable()
-			self.minPrompt.Disable()
-			self.minEntry.Disable()
-			self.durationPrompt.Disable()
-			self.durationEntry.Disable()
-		timeSizer.AddMany((self.hourPrompt, self.hourEntry, self.minPrompt, self.minEntry, self.durationPrompt, self.durationEntry))
-		triggersHelper.addItem(timeSizer, border = gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
-
 		triggersHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
