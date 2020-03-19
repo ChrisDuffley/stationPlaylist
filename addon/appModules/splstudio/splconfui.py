@@ -171,10 +171,6 @@ class BroadcastProfilesDialog(wx.Dialog):
 		if self.switchProfile == oldName:
 			self.switchProfile = newName
 			self.switchProfileRenamed = True
-		# Be sure to update profile triggers.
-		if oldName in self._profileTriggersConfig:
-			self._profileTriggersConfig[newName] = self._profileTriggersConfig[oldName]
-			del self._profileTriggersConfig[oldName]
 		if self.activeProfile == oldName:
 			self.activeProfile = newName
 		self.profileNames[profilePos] = newName
@@ -229,8 +225,6 @@ class BroadcastProfilesDialog(wx.Dialog):
 		self.profiles.Delete(index)
 		del self.profileNames[profilePos]
 		if name in splconfig._SPLCache: del splconfig._SPLCache[name]
-		if name in self._profileTriggersConfig:
-			del self._profileTriggersConfig[name]
 		# 6.3: Select normal profile if the active profile is gone.
 		# 7.0: Consult profile names instead.
 		try:
