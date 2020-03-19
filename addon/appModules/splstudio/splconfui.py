@@ -442,15 +442,6 @@ class TriggersDialog(wx.Dialog):
 		self.Parent.Enable()
 		self.Destroy()
 
-	# Disable date and time sizers when time switch checkbox is cleared and vice versa.
-	def onTimeSwitch(self, evt):
-		# Hack: Somehow, NVDA is not notified of state change for this checkbox, so force NVDA to report the new state.
-		import eventHandler
-		eventHandler.executeEvent("stateChange", api.getFocusObject())
-		for prompt in self.triggerDays + [self.hourPrompt, self.hourEntry, self.minPrompt, self.minEntry, self.durationPrompt, self.durationEntry]:
-			prompt.Enable() if self.timeSwitchCheckbox.IsChecked() else prompt.Disable()
-		self.Fit()
-
 # A collection of general settings for the add-on.
 class GeneralSettingsPanel(gui.SettingsPanel):
 	# Translators: title of a panel to configure various general add-on settings such as top and bottom announcement for playlists.
