@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-03-07 18:24+0100\n"
+"PO-Revision-Date: 2020-03-14 08:29-0700\n"
 "Last-Translator: José Manuel Delicado <jmdaweb@hotmail.com>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 1.8.9\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
@@ -428,6 +428,11 @@ msgstr "Ajusta la alarma de micrófono (por defecto es 5 segundos)."
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Opens SPL Studio add-on configuration dialog."
 msgstr "Abre el diálogo de configuración del complemento SPL Studio."
+
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+#, fuzzy
+msgid "Opens SPL add-on broadcast profiles dialog."
+msgstr "Abre el diálogo de bienvenida del complemento SPL Studio."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Opens SPL Studio add-on welcome dialog."
@@ -1030,9 +1035,12 @@ msgid ""
 "profiles feature is deprecated and will be removed in a future version of "
 "StationPlaylist add-on."
 msgstr ""
+"Se han definido uno o varios perfiles de emisión basados en tiempo. La "
+"función de perfiles de emisión basados en tiempo ha quedado obsoleta y se "
+"eliminará en una versión futura del complemento de StationPlaylist."
 
 msgid "SPL add-on feature deprecation"
-msgstr ""
+msgstr "Obsolescencia de funciones del complemento SPL"
 
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Status announcement beeps"
@@ -1112,17 +1120,21 @@ msgstr ""
 msgid "Scan count"
 msgstr "Escanear cuenta"
 
-#. Translators: title of a panel to configure broadcast profiles.
-msgid "Broadcast profiles"
+#. Translators: title of a dialog to configure broadcast profiles.
+#, fuzzy
+msgid "SPL Broadcast Profiles"
 msgstr "Perfiles de emisión"
 
 #. Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
 msgid "Broadcast &profile:"
 msgstr "&Perfil emisión:"
 
-#. Borrowed logic from NVDA Core's speech panel (although there is no label for this read-only text).
-msgid "Normal profile is in use."
-msgstr "Se está usando el perfil normal."
+#. Borrowed directly from NvDA Core (credit: NV Access)
+#. This allows Enter key to be pressed to activate the selected profile.
+#. Translators: label for a button to activate the selected broadcast profile.
+#, fuzzy
+msgid "Activate"
+msgstr "activo"
 
 #. Translators: The label of a button to copy a broadcast profile.
 msgid "Cop&y"
@@ -1131,17 +1143,6 @@ msgstr "Cop&iar"
 #. Translators: The label for a setting in SPL Add-on settings to configure countdown seconds before switching profiles.
 msgid "Countdown seconds before switching profiles"
 msgstr "Cuenta atrás en segundos antes de cambiar perfiles"
-
-msgid ""
-"The selected profile is different from currently active broadcast profile. "
-"Settings will be applied to the selected profile instead."
-msgstr ""
-"El perfil seleccionado es diferente del perfil de retransmisión activo "
-"actualmente. La configuración debe aplicarse al perfil seleccionado en su "
-"lugar."
-
-msgid "Apply settings"
-msgstr "Aplicar configuración"
 
 #. #70 (18.07): in wxPython 4, name for the value keyword argument for text entry dialog constructor has changed.
 #. Translators: The label of a field to enter a new name for a broadcast profile.
@@ -1159,10 +1160,12 @@ msgid "That profile already exists. Please choose a different name."
 msgstr "Ese perfil ya existe. Por favor elige un nombre diferente."
 
 #. Translators: Message reported when attempting to delete a profile while a profile is triggered.
+#, fuzzy
 msgid ""
 "An instant switch profile might be active or you are in the midst of a "
 "broadcast. If so, please press SPL Assistant, F12 to switch back to a "
-"previously active profile before opening add-on settings to delete a profile."
+"previously active profile before opening broadcast profiles dialog to delete "
+"a profile."
 msgstr ""
 "Un perfil de cambio instantáneo podría estár activado o estás en medio de "
 "una emisión. Si es así, por favor pulsa SPL Assistant, F12 para regresar a "
@@ -1695,6 +1698,10 @@ msgstr "Reiniciar opciones..."
 msgid "StationPlaylist Add-on Settings"
 msgstr "Opciones del complemento StationPlaylist"
 
+#. Translators: presented when only normal profile is in use.
+msgid "Normal profile is in use, cannot open broadcast profiles dialog."
+msgstr ""
+
 #. Translators: Text of the dialog when another find dialog is open.
 msgid "Another find dialog is open."
 msgstr "Está abierto otro diálogo de búsqueda."
@@ -1960,47 +1967,16 @@ msgstr ""
 "Mejora el soporte para Station Playlist Studio.\n"
 "Además, agrega comandos globales para el estudio desde cualquier parte."
 
-#~ msgid ""
-#~ "The add-on settings dialog or another alarm dialog is opened. Please "
-#~ "close the opened dialog first."
-#~ msgstr ""
-#~ "El diálogo de opciones del complemento o un diálogo de alarma está "
-#~ "abierto. Por favor, ciérralo primero."
+#~ msgid "Normal profile is in use."
+#~ msgstr "Se está usando el perfil normal."
 
 #~ msgid ""
-#~ "The add-on settings dialog or the metadata streaming dialog is opened. "
-#~ "Please close the opened dialog first."
+#~ "The selected profile is different from currently active broadcast "
+#~ "profile. Settings will be applied to the selected profile instead."
 #~ msgstr ""
-#~ "Los diálogos de opciones del complemento o metadatos del streaming están "
-#~ "abiertos. Por favor ciérralos antes."
+#~ "El perfil seleccionado es diferente del perfil de retransmisión activo "
+#~ "actualmente. La configuración debe aplicarse al perfil seleccionado en su "
+#~ "lugar."
 
-#~ msgid "Not a track"
-#~ msgstr "No está en una pista"
-
-#~ msgid "Another alarm dialog is open."
-#~ msgstr "Está abierto otro diálogo de alarma."
-
-#~ msgid "Alarms Center"
-#~ msgstr "Centro de Alarmas"
-
-#~ msgid "Select the URL for metadata streaming upon request."
-#~ msgstr "Seleccionar la URL para metadatos de streaming bajo demanda."
-
-#~ msgid "&Track name announcement:"
-#~ msgstr "Anunciado de nombre de &pista:"
-
-#~ msgid "automatic"
-#~ msgstr "automático"
-
-#~ msgid "while using other programs"
-#~ msgstr "mientras se utilizan otros programas"
-
-#~ msgid "off"
-#~ msgstr "desactivado"
-
-#~ msgid ""
-#~ "Another add-on settings dialog is open. Please close the previously "
-#~ "opened dialog first."
-#~ msgstr ""
-#~ "Otro diálogo de opciones del complemento está abierto. Por favor cierra "
-#~ "el diálogo abierto antes."
+#~ msgid "Apply settings"
+#~ msgstr "Aplicar configuración"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-02-27 17:18-0800\n"
+"PO-Revision-Date: 2020-03-14 08:40-0700\n"
 "Last-Translator: zvonimir stanecic <zvonimirek222@yandex.com>\n"
 "Language-Team: Polish <killer@tyflonet.com>\n"
 "Language: pl\n"
@@ -422,6 +422,11 @@ msgstr "Ustawia alarm mikrofonu (domyślnie 5 sekund)."
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Opens SPL Studio add-on configuration dialog."
 msgstr "Otwiera dialog konfiguracji dodatku"
+
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+#, fuzzy
+msgid "Opens SPL add-on broadcast profiles dialog."
+msgstr "Otwiera powitalne okno dialogu dodatku SPL"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Opens SPL Studio add-on welcome dialog."
@@ -1053,17 +1058,21 @@ msgstr "Oznajmiaj postęp i ilość elementów podczas skanowania biblioteki"
 msgid "Scan count"
 msgstr "Zeskanowanych obiektów"
 
-#. Translators: title of a panel to configure broadcast profiles.
-msgid "Broadcast profiles"
+#. Translators: title of a dialog to configure broadcast profiles.
+#, fuzzy
+msgid "SPL Broadcast Profiles"
 msgstr "Profile nadawania"
 
 #. Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
 msgid "Broadcast &profile:"
 msgstr "Profil:"
 
-#. Borrowed logic from NVDA Core's speech panel (although there is no label for this read-only text).
-msgid "Normal profile is in use."
-msgstr "Standardowy profil w użyciu."
+#. Borrowed directly from NvDA Core (credit: NV Access)
+#. This allows Enter key to be pressed to activate the selected profile.
+#. Translators: label for a button to activate the selected broadcast profile.
+#, fuzzy
+msgid "Activate"
+msgstr "Aktywny"
 
 #. Translators: The label of a button to copy a broadcast profile.
 msgid "Cop&y"
@@ -1072,14 +1081,6 @@ msgstr "Kopiuj"
 #. Translators: The label for a setting in SPL Add-on settings to configure countdown seconds before switching profiles.
 msgid "Countdown seconds before switching profiles"
 msgstr "Odliczaj sekund przed zmianą profilu"
-
-msgid ""
-"The selected profile is different from currently active broadcast profile. "
-"Settings will be applied to the selected profile instead."
-msgstr ""
-
-msgid "Apply settings"
-msgstr "Zastosuj ustawienia"
 
 #. #70 (18.07): in wxPython 4, name for the value keyword argument for text entry dialog constructor has changed.
 #. Translators: The label of a field to enter a new name for a broadcast profile.
@@ -1097,10 +1098,12 @@ msgid "That profile already exists. Please choose a different name."
 msgstr "Taki profil już istnieje. Proszę, nazwij inaczej"
 
 #. Translators: Message reported when attempting to delete a profile while a profile is triggered.
+#, fuzzy
 msgid ""
 "An instant switch profile might be active or you are in the midst of a "
 "broadcast. If so, please press SPL Assistant, F12 to switch back to a "
-"previously active profile before opening add-on settings to delete a profile."
+"previously active profile before opening broadcast profiles dialog to delete "
+"a profile."
 msgstr ""
 "Szybki profil jest aktywny, lub właśnie nadajesz. Jeśli tak, naciśnij "
 "klawisz asystenta SPL + F12 aby wrócić do poprzedniego profilu przed "
@@ -1609,6 +1612,10 @@ msgstr "Wyzeruj ustawienia..."
 msgid "StationPlaylist Add-on Settings"
 msgstr "Ustawienia dodatku StationPlaylist"
 
+#. Translators: presented when only normal profile is in use.
+msgid "Normal profile is in use, cannot open broadcast profiles dialog."
+msgstr ""
+
 #. Translators: Text of the dialog when another find dialog is open.
 msgid "Another find dialog is open."
 msgstr "Okno wyszukiwania jest już tgdzieś otwarte"
@@ -1847,48 +1854,8 @@ msgstr ""
 "Poprawia dostępność Station Playlist Studio.\n"
 "Ponadto, dodaje globalne komendy dla studia, dostępne z każdego miejsca."
 
-#, fuzzy
-#~ msgid ""
-#~ "The add-on settings dialog or another alarm dialog is opened. Please "
-#~ "close the opened dialog first."
-#~ msgstr ""
-#~ "Jedno z okien dodatku jest już aktywne. Proszę, zamknij najpierw je "
-#~ "wszystkie"
+#~ msgid "Normal profile is in use."
+#~ msgstr "Standardowy profil w użyciu."
 
-#~ msgid ""
-#~ "The add-on settings dialog or the metadata streaming dialog is opened. "
-#~ "Please close the opened dialog first."
-#~ msgstr ""
-#~ "Jedno z okien dodatku jest już aktywne. Proszę, zamknij najpierw je "
-#~ "wszystkie"
-
-#~ msgid "Not a track"
-#~ msgstr "To nie utwór"
-
-#~ msgid "Another alarm dialog is open."
-#~ msgstr "Inne okno konfiguracji alertów już działa."
-
-#~ msgid "Alarms Center"
-#~ msgstr "Centrum alertów"
-
-#~ msgid "Select the URL for metadata streaming upon request."
-#~ msgstr "Wybierz URL do streamingu metadanych na żądanie"
-
-#~ msgid "&Track name announcement:"
-#~ msgstr "Oznajmianie nazwy utworu"
-
-#~ msgid "automatic"
-#~ msgstr "Automatycznie"
-
-#~ msgid "while using other programs"
-#~ msgstr "Podczas, gdy inne programy są używane"
-
-#~ msgid "off"
-#~ msgstr "Nie"
-
-#~ msgid ""
-#~ "Another add-on settings dialog is open. Please close the previously "
-#~ "opened dialog first."
-#~ msgstr ""
-#~ "Inne okno ustawień dodatku jest aktywne. Proszę, zamknij je w pierwszej "
-#~ "kolejności"
+#~ msgid "Apply settings"
+#~ msgstr "Zastosuj ustawienia"

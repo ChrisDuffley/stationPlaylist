@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 4.2\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2015-02-06 19:00+1000\n"
-"PO-Revision-Date: 2020-02-27 17:17-0800\n"
+"PO-Revision-Date: 2020-03-14 08:59-0700\n"
 "Last-Translator: Nikola Jović <wwenikola123@gmail.com>\n"
 "Language-Team: \n"
 "Language: sr\n"
@@ -418,6 +418,11 @@ msgstr "Podešava alarm mikrofona(podrazumevano je 5 sekundi)"
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Opens SPL Studio add-on configuration dialog."
 msgstr "Otvara dijalog za podešavanje dodatka SPL studio"
+
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+#, fuzzy
+msgid "Opens SPL add-on broadcast profiles dialog."
+msgstr "Otvara dijalog dobrodošlice dodatka SPL studio"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Opens SPL Studio add-on welcome dialog."
@@ -1092,19 +1097,21 @@ msgstr "Izgovori napredak i broj stavki skeniranja biblioteke"
 msgid "Scan count"
 msgstr "Broj skeniranja"
 
-#. Translators: title of a panel to configure broadcast profiles.
+#. Translators: title of a dialog to configure broadcast profiles.
 #, fuzzy
-msgid "Broadcast profiles"
+msgid "SPL Broadcast Profiles"
 msgstr "&Profil strima:"
 
 #. Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
 msgid "Broadcast &profile:"
 msgstr "&Profil strima:"
 
-#. Borrowed logic from NVDA Core's speech panel (although there is no label for this read-only text).
+#. Borrowed directly from NvDA Core (credit: NV Access)
+#. This allows Enter key to be pressed to activate the selected profile.
+#. Translators: label for a button to activate the selected broadcast profile.
 #, fuzzy
-msgid "Normal profile is in use."
-msgstr "Samo standardan profil se koristi"
+msgid "Activate"
+msgstr "Aktivan"
 
 #. Translators: The label of a button to copy a broadcast profile.
 msgid "Cop&y"
@@ -1113,15 +1120,6 @@ msgstr "&Kopiraj"
 #. Translators: The label for a setting in SPL Add-on settings to configure countdown seconds before switching profiles.
 msgid "Countdown seconds before switching profiles"
 msgstr "Odbrojavanje pre promene profila"
-
-msgid ""
-"The selected profile is different from currently active broadcast profile. "
-"Settings will be applied to the selected profile instead."
-msgstr ""
-
-#, fuzzy
-msgid "Apply settings"
-msgstr "SPL podešavanja"
 
 #. #70 (18.07): in wxPython 4, name for the value keyword argument for text entry dialog constructor has changed.
 #. Translators: The label of a field to enter a new name for a broadcast profile.
@@ -1139,10 +1137,12 @@ msgid "That profile already exists. Please choose a different name."
 msgstr "Taj profil već postoji. Molimo izaberite drugo ime"
 
 #. Translators: Message reported when attempting to delete a profile while a profile is triggered.
+#, fuzzy
 msgid ""
 "An instant switch profile might be active or you are in the midst of a "
 "broadcast. If so, please press SPL Assistant, F12 to switch back to a "
-"previously active profile before opening add-on settings to delete a profile."
+"previously active profile before opening broadcast profiles dialog to delete "
+"a profile."
 msgstr ""
 "Profil za trenutnu aktivaciju je već aktivan ili ste u toku strima. U tom "
 "slučaju, molimo pritisnite SPL Assistant+f12 da se vratite na prethodno "
@@ -1676,6 +1676,10 @@ msgstr "&Vrati podešavanja..."
 msgid "StationPlaylist Add-on Settings"
 msgstr "Podešavanja Studio dodatka"
 
+#. Translators: presented when only normal profile is in use.
+msgid "Normal profile is in use, cannot open broadcast profiles dialog."
+msgstr ""
+
 #. Translators: Text of the dialog when another find dialog is open.
 msgid "Another find dialog is open."
 msgstr "Drugi dijalog pretrage je otvoren"
@@ -1946,47 +1950,9 @@ msgstr ""
 "Takođe, dodaje globalne komande za studio bilo gde."
 
 #, fuzzy
-#~ msgid ""
-#~ "The add-on settings dialog or another alarm dialog is opened. Please "
-#~ "close the opened dialog first."
-#~ msgstr ""
-#~ "Dijalog sa podešavanjima dodatka ili metadata stream dijalog je već "
-#~ "otvoren. Molimo prvo zatvorite dijalog"
+#~ msgid "Normal profile is in use."
+#~ msgstr "Samo standardan profil se koristi"
 
-#~ msgid ""
-#~ "The add-on settings dialog or the metadata streaming dialog is opened. "
-#~ "Please close the opened dialog first."
-#~ msgstr ""
-#~ "Dijalog sa podešavanjima dodatka ili metadata stream dijalog je već "
-#~ "otvoren. Molimo prvo zatvorite dijalog"
-
-#~ msgid "Not a track"
-#~ msgstr "Nije zapis"
-
-#~ msgid "Another alarm dialog is open."
-#~ msgstr "Drugi dijalog alarma je otvoren"
-
-#~ msgid "Alarms Center"
-#~ msgstr "Centar alarma"
-
-#~ msgid "Select the URL for metadata streaming upon request."
-#~ msgstr "Izaberite adresu za metadata strimove nakon zahteva"
-
-#~ msgid "&Track name announcement:"
-#~ msgstr "&Izgovor imena zapisa:"
-
-#~ msgid "automatic"
-#~ msgstr "Automatski"
-
-#~ msgid "while using other programs"
-#~ msgstr "Dok koristite druge programe"
-
-#~ msgid "off"
-#~ msgstr "Isključeno"
-
-#~ msgid ""
-#~ "Another add-on settings dialog is open. Please close the previously "
-#~ "opened dialog first."
-#~ msgstr ""
-#~ "Neki dijalog za podešavanja dodatka je već otvoren. Molimo prvo zatvorite "
-#~ "taj dijalog"
+#, fuzzy
+#~ msgid "Apply settings"
+#~ msgstr "SPL podešavanja"

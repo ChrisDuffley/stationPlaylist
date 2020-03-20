@@ -34,11 +34,11 @@ VAŽNE NAPOMENE:
 
 Većina njih radi samo u programu Studio, ukoliko nešto drugo nije navedeno.
 
-* Alt+Shift+T u prozoru Studija: najavi proteklo vrijeme trake koja
+* Alt+Šift+T u prozoru Studija: najavi proteklo vrijeme trake koja
   trenutačno svira.
-* Control+Alt+T (klizanje s dva prsta prema dolje u dodirnom modusu SPL-a) u
+* Kontrol+Alt+T (klizanje s dva prsta prema dolje u dodirnom modusu SPL-a) u
   prozoru Studija: najavi preostalo vrijeme trake koja trenutačno svira.
-* NVDA+Shift+F12 (klizanje s dva prsta prema gore u dodirnom modusu SPL-a) u
+* NVDA+Šift+F12 (klizanje s dva prsta prema gore u dodirnom modusu SPL-a) u
   prozoru Studija: najavljuje vrijeme emitiranja kao što je 5 minuta do
   punog sata. Dvostrukim pritiskom ove naredbe objavit će se minute i
   sekunde do punog sata.
@@ -58,26 +58,25 @@ Većina njih radi samo u programu Studio, ukoliko nešto drugo nije navedeno.
 * Alt+NVDA+4 u prozoru Studija: otvara dijaloški okvir za alarm mikrofona.
 * Alt+NVDA+4 u prozoru Playlist Editora Creatora: najavljuje rotaciju i
   povezanu kategoriju s učitanim popisom snimaka.
-* Control+NVDA+f u prozoru Studija: otvara dijaloški okvir za pronalaženje
+* Kontrol+NVDA+f u prozoru Studija: otvara dijaloški okvir za pronalaženje
   snimke na temelju izvođača ili pjesme. Pritisni NVDA+F3 za traženje prema
-  naprijed ili NVDA+Shift+F3 za traženje prema natrag.
+  naprijed ili NVDA+Šift+F3 za traženje prema natrag.
 * Alt+NVDA+R u prozoru Studija: prolazi kroz postavke najave skeniranja
   biblioteke.
-* Control+Shift+X u prozoru Studija: prolazi kroz postavke brajeve
-  štoperice.
-* Control+Alt+strelica lijevo ili desno (tijekom fokusiranja trake u
+* Kontrol+Šift+X u prozoru Studija: prolazi kroz postavke brajeve štoperice.
+* Kontrol+Alt+strelica lijevo ili desno (tijekom fokusiranja trake u
   programima Studio, Creator i Track Tool): najavi prethodni ili sljedeći
   stupac trake.
-* Control+Alt+Home/End (tijekom fokusiranja trake u programima Studio,
+* Kontrol+Alt+Home/End (tijekom fokusiranja trake u programima Studio,
   Creator i Track Tool): najavi prvi ili zadnji stupac trake.
-* Control+Alt+strelica gore ili dolje (samo tijekom fokusiranja na snimku u
+* Kontrol+Alt+strelica gore ili dolje (samo tijekom fokusiranja na snimku u
   programu Studio): prijeđi na prethodnu ili sljedeću traku i najavi
   određene stupce.
-* Control+NVDA+1 do 0 (tijekom fokusiranja trake u programima Studio,
+* Kontrol+NVDA+1 do 0 (tijekom fokusiranja trake u programima Studio,
   Creator (uključujući Playlist Editor) i Track Tool): najavi sadržaj stupca
   za određeni stupac (standardno za prvih deset stupaca). Pritisni naredbu
   dvaput za prikaz podataka stupca u prozoru modusa pregledavanja.
-* Control+NVDA+- (crtica u programu Studio, Creator i Track Tool): prikaži
+* Kontrol+NVDA+- (crtica u programu Studio, Creator i Track Tool): prikaži
   podatke svih stupaca u snimci na prozoru modusa pregledavanja.
 * Alt+NVDA+C tijekom fokusiranja na snimku (samo Studio): najavljuje
   komentare snimke, ukoliko ih ima.
@@ -96,11 +95,11 @@ geste”. Rasklopi kategoriju StationPlaylist. Pronađi nedodijeljene naredbe s
 donjeg popisa, odaberi „Dodaj” i upiši gestu koju želiš koristiti.
 
 * Prebacivanje na SPL Studio prozor iz bilo koje aplikacije..
-* Sloj SPL Controller.
+* Sloj SPL Kontroler.
 * Najavljivanje stanja porgrama Studio, kao što je sviranje snimaka iz
   drugih programa.
 * Najavljivanje stanje veze dekodera iz bilo kojeg programa.
-* Sloj SPL Assistant iz programa SPL Studio.
+* Sloj SPL Asistent iz programa SPL Studio.
 * Najavi vrijeme sa sekundama iz programa SPL Studio.
 * Najavljivanje temperature.
 * Najavljivanje naslova sljedeće snimke ako je planirana.
@@ -120,17 +119,17 @@ Tijekom korištenja dekodera su dostupne sljedeće naredbe:
 * F9: Poveži se s poslužiteljem za internetski prijenos.
 * F10 (samo SAM dekoder): Prekini vezu s poslužiteljem za internetski
   prijenos.
-* Control+F9/Control+F10 (samo SAM dekoder): Poveži dekodere ili prekini
+* Kontrol+F9/Kontrol+F10 (samo SAM dekoder): Poveži dekodere ili prekini
   njihovu vezu.
 * F11: Prekidač za mijenjanje NVDA čitača na prozor programa Studio za
   odabrani dekoder, ako je povezan.
-* Shift+F11: U programu Studio uključuje i isključuje sviranje prve odabrane
+* Šift+F11: U programu Studio uključuje i isključuje sviranje prve odabrane
   snimke kad je dekoder povezan s poslužiteljem za internetski prijenos.
-* Control+F11: Uključuje i isključuje praćenje odabranog dekodera u
+* Kontrol+F11: Uključuje i isključuje praćenje odabranog dekodera u
   pozadini.
 * F12: Otvara dijaloški okvir za unos prilagođene oznake za odabrani dekoder
   ili internetski prijenos.
-* Control+F12: Otvara dijaloški okvir za biranje dekodera kojeg si
+* Kontrol+F12: Otvara dijaloški okvir za biranje dekodera kojeg si
   izbrisao/la (kako bi se uskladile oznake internetskog prijenosa i postavke
   dekodera).
 * Alt+NVDA+0: Otvara dijaloški okvir postavki dekodera za konfiguriranje
@@ -138,21 +137,21 @@ Tijekom korištenja dekodera su dostupne sljedeće naredbe:
 
 Dodatno tome, dostupne su naredbe za pregled stupaca, uključujući sljedeće:
 
-* Control+NVDA+1: Pozicija dekodera.
-* Control+NVDA+2: Oznaka internetskog prijenosa.
-* Control+NVDA+3 u SAM dekoderu: Format dekodera.
-* Control+NVDA+3 u SPL-u i AltaCast dekoderu: Postavke dekodera.
-* Control+NVDA+4 u SAM dekoderu: Stanje veze dekodera.
-* Control+NVDA+4 u SPL-u i AltaCast dekoderu: Brzina prijenosa ili stanje
+* Kontrol+NVDA+1: Pozicija dekodera.
+* Kontrol+NVDA+2: Oznaka internetskog prijenosa.
+* Kontrol+NVDA+3 u SAM dekoderu: Format dekodera.
+* Kontrol+NVDA+3 u SPL-u i AltaCast dekoderu: Postavke dekodera.
+* Kontrol+NVDA+4 u SAM dekoderu: Stanje veze dekodera.
+* Kontrol+NVDA+4 u SPL-u i AltaCast dekoderu: Brzina prijenosa ili stanje
   veze.
-* Control+NVDA+5 u SAM dekoderu: Opis stanja veze.
+* Kontrol+NVDA+5 u SAM dekoderu: Opis stanja veze.
 
-## Sloj SPL Assistant
+## Sloj SPL Asistent
 
 Ovaj skup naredbi sloja omogućuje dobivanje različitih stanja u programu SPL
 Studio, kao što je sviranje snimaka, ukupno trajanje svih snimaka u
 određenom satu i tako dalje. U bilo kojem prozoru programa SPL Studio,
-pritisni naredbu za sloj SPL Assistant. Zatim pritisni jednu od tipki s
+pritisni naredbu za sloj SPL Asistent. Zatim pritisni jednu od tipki s
 donjeg popisa (jedna ili više naredbi se koriste isključivo u prikazu popisa
 snimaka). NVDA čitača možeš konfigurirati i na način, da oponaša naredbe
 drugih čitača ekrana.
@@ -160,33 +159,33 @@ drugih čitača ekrana.
 Dostupne naredbe su:
 
 * A: Automacija.
-* C (Shift+C u JAWS i Window-Eyes rasporedima): Naslov trenutačno svirane
+* C (Šift+C u JAWS i Window-Eyes rasporedima): Naslov trenutačno svirane
   snimke.
 * C (JAWS i Window-Eyes rasporedi): Uključi ili isključi istraživača
   džinglova (samo u prikazu popisa snimaka).
 * D (R u JAWS rasporedu): Preostalo vrijeme popisa snimaka (ako se pojavi
   greška, premjesti se na prikaz popisa snimaka te zadaj ovu naredbu).
 * E (G u Window-Eyes rasporedu): stanje internetskog prijenosa metapodataka.
-* Shift+1 do Shift+4, Shift+0: Stanje URL adresa pojedinih internetskih
+* Šift+1 do Šift+4, Šift+0: Stanje URL adresa pojedinih internetskih
   prijenosa metapodataka (0 je za DSP dekoder).
 * E (Window-Eyes layout): Elapsed time for the currently playing track.
 * F: Nađi snimku (samo u prikazu popisa snimaka).
 * H: Trajanje snimaka trenutačnog jednosatnog slota.
-* Shift+H: Preostalo trajanje snimaka jednosatnog slota.
+* Šift+H: Preostalo trajanje snimaka jednosatnog slota.
 * I (L u JAWS ili Window-Eyes rasporedima): Broj slušatelja.
 * K: Premjesti se na označenu snimku (samo u prikazu popisa snimaka).
-* Control+K: Postavi trenutačnu snimku kao pozicijsku oznaku (samo u prikazu
+* Kontrol+K: Postavi trenutačnu snimku kao pozicijsku oznaku (samo u prikazu
   popisa snimaka).
-* L (Shift+L u JAWS i Window-Eyes rasporedima): Line in.
+* L (Šift+L u JAWS i Window-Eyes rasporedima): Line in.
 * M: Mikrofon.
 * N: Naslov sljedeće planirane snimke.
 * P: Stanje sviranja (svira ili je zaustavljeno).
-* Shift+P: Glasnoća trenutačne snimke.
-* R (Shift+E u JAWS i Window-Eyes rasporedima): Snimanje u datoteku
-  uključeno ili isključeno.
-* Shift+R: Praćenje skeniranja biblioteke u tijeku.
+* Šift+P: Glasnoća trenutačne snimke.
+* R (Šift+E u JAWS i Window-Eyes rasporedima): Snimanje u datoteku uključeno
+  ili isključeno.
+* Šift+R: Praćenje skeniranja biblioteke u tijeku.
 * S: Početak sviranja snimke (planirano).
-* Shift+S: Vrijeme do sviranja odabrane snimke (sviranje snimke započinje
+* Šift+S: Vrijeme do sviranja odabrane snimke (sviranje snimke započinje
   za).
 * T: Modus uređivanja ili dodavanja džinglova uključen ili isključen.
 * U: Ukupno vrijeme rada programa Studio.
@@ -195,43 +194,43 @@ Dostupne naredbe su:
 * 1 do 0: Najavi sadržaj stupaca za određeni stupac.
 * F8: Sastavi statistiku popisa snimaka (broj snimaka, najduža snimka,
   itd.).
-* Shift+F8: Zatraži prijepis popisa snimaka u raznim formatima.
+* Šift+F8: Zatraži prijepis popisa snimaka u raznim formatima.
 * F9: Označi trenutačnu snimku kao početak za vremensku analizu snimaka
   (samo u prikazu popisa snimaka).
 * F10: Izvrši vremensku analizu snimke (samo u prikazu popisa snimaka).
 * F12: Mijenjaj profil između trenutačnog i unaprijed definiranog.
 * F1: Pomoć za slojeve.
-* Shift+F1: Otvori korisnički priručnik na internetu.
+* Šift+F1: Otvori korisnički priručnik na internetu.
 
-## SPL Controller
+## SPL Kontroler
 
-SPL Controller je skup naredbi koje se mogu koristiti za upravljanje
+SPL Kontroler je skup naredbi koje se mogu koristiti za upravljanje
 programom SPL Studio s bilo kojeg mjesta. Pritisni naredbu sloja SPL
-Controller i NVDA će izgovoriti: „SPL Controller.” Pritisni neku drugu
-naredbu za upravljanje raznim Studio postavkama, kao što je uključivanje ili
+Kontroler i NVDA će izgovoriti: „SPL Kontroler.” Pritisni neku drugu naredbu
+za upravljanje raznim Studio postavkama, kao što je uključivanje ili
 isključivanje mikrofona ili sviranje sljedeće snimke.
 
-Dostupne naredbe za SPL Controller su:
+Dostupne naredbe za SPL Kontroler su:
 
 * Pritisni P za sviranje sljedeće odabrane snimke.
 * Pritisni U za pauzu ili za nastavljanje sviranja.
 * Pritisni S za zaustavljanje snimke sa stišavanjem. Za trenutno
   zaustavljanje, pritisni T.
-* Pritisni M ili Shift+M za uključivanje ili isključivanje
+* Pritisni M ili Šift+M za uključivanje ili isključivanje
   mikrofona. Pritisni N za aktiviranje mikrofona bez stišavanja.
-* Pritisni A za aktiviranje automacije ili Shift+A za njeno deaktiviranje.
-* Pritisni L za aktiviranje line-in ulaza ili Shift+L za njegovo
+* Pritisni A za aktiviranje automacije ili Šift+A za njeno deaktiviranje.
+* Pritisni L za aktiviranje line-in ulaza ili Šift+L za njegovo
   deaktiviranje.
 * Pritisni R za slušanje preostalog vremena trenutačno svirane snimke.
-* Pritisni Shift+R za dobivanje izvještaja o napretku skeniranja biblioteke.
+* Pritisni Šift+R za dobivanje izvještaja o napretku skeniranja biblioteke.
 * Pritisni C kako bi NVDA najavio ime i trajanje trenutačno svirane snimke.
-* Pritisni Shift+C kako bi NVDA najavio ime i trajanje nadolazeće snimke,
-  ako je ima.
+* Pritisni Šift+C kako bi NVDA najavio ime i trajanje nadolazeće snimke, ako
+  je ima.
 * Pritisni E za slušanje podatka o tome koji su dekoderi povezani.
 * Pritisni I za broj slušatelja.
 * Pritisni Q za razne informacije o stanjima u programu Studio, npr. je li
   se svira neka snimka, je li mikrofon uključen ili nije i drugo.
-* Pritisni tipke za džinglove (npr. F1, Control+1) za sviranje dodijeljenih
+* Pritisni tipke za džinglove (npr. F1, Kontrol+1) za sviranje dodijeljenih
   džinglova s bilo kojeg mjesta.
 * Pritisni H za prikaz dijaloškog okvira za pomoć s popisom dostupnih
   naredbi.
@@ -254,10 +253,10 @@ Alt+NVDA+4 i konfiguriraj vrijeme alarma u sekundama (0 ga deaktivira).
 ## Pronalaženje snimaka
 
 Ako s popisa snimaka želi brzo pronaći pjesmu na osnovi izvođača ili imena
-pjesme, pritisni Control+NVDA+F. Upiši ili odaberi ime izvođača ili naslov
+pjesme, pritisni Kontrol+NVDA+F. Upiši ili odaberi ime izvođača ili naslov
 pjesme. Ako se pronađe, NVDA će te premjestiti na pjesmu. Ako ne može
 pronaći pjesmu koju tražiš, prikazat će grešku. Za traženje prethodno
-upisane pjesme ili izvođača, pritisni NVDA+F3 ili NVDA+Shift+F3 za traženje
+upisane pjesme ili izvođača, pritisni NVDA+F3 ili NVDA+Šift+F3 za traženje
 prema naprijed ili natrag.
 
 Napomena: Pronalaženje snimaka razlikuje pisanje velikim i malim slovima.
@@ -276,12 +275,12 @@ priručnik dodatka za daljnje informacije o istraživaču džinglova.
 ## Vremenska analiza snimaka
 
 Za dobivanje trjanja odabranih snimaka, označi trenutačnu snimku za početak
-vremenske analize (SPL Assistant, F9), a zatim pritisni SPL Assistant, F10
-kad dođeš do kraja odabira.
+vremenske analize (SPL Asistent, F9), a zatim pritisni SPL Asistent, F10 kad
+dođeš do kraja odabira.
 
 ## Istraživač stupaca
 
-Pritiskom na Control+NVDA+1 do 0 ili SPL Assistant, od 1 do 0, dobiva se
+Pritiskom na Kontrol+NVDA+1 do 0 ili SPL Asistent, od 1 do 0, dobiva se
 sadržaj određenih stupaca. Standardno su to sljedeći podaci: izvođač,
 naslov, trajanje, uvodni dio, završni dio, kategorija, godina, album, žanr i
 ugođaj. Moguće je konfigurirati koji će se stupci istraživati putem
@@ -289,7 +288,7 @@ dijaloškog okvira istraživača stupaca, koji se nalazi u postavkama dodatka.
 
 ## Statistika popisa snimaka
 
-Pritisni SPL Assistant, F8 tijekom fokusa na popis snimaka u programu Studio
+Pritisni SPL Asistent, F8 tijekom fokusa na popis snimaka u programu Studio
 za dobivanje raznih statistika o popisu snimaka, uključujući broj snimaka u
 popisu snimaka, najdulju snimku, top izvođače i tako dalje. Nakon što
 dodijeliš prilagođenu naredbu za ovu funkciju, pritisni prilagođenu naredbu
@@ -299,7 +298,7 @@ web stranicu. Na taj način možeš koristiti modus čitanja za kretanje
 
 ## Prijepisi popisa snimaka
 
-Pritiskom na SPL Assistant, Shift+F8 će prikazati dijaloški okvir koji
+Pritiskom na SPL Asistent, Šift+F8 će prikazati dijaloški okvir koji
 omogućava zatražiti prijepis popisa snimaka u raznim formatima, uključujući
 format običnog teksta, HTML tablice ili popisa.
 
@@ -347,7 +346,7 @@ koristi gore navedene dodirne naredbe za njihovo izvršavanje.
   total playlist duration (2), when the selected track is scheduled to play
   (3), and rotation and category (4).
 * Dok je fokusiran na zapis u alatu Creator i Track Tool (osim u Playlist
-  Editoru Creatora), pritiskom na Control+NVDA+crtica prikazat će se podaci
+  Editoru Creatora), pritiskom na Kontrol+NVDA+crtica prikazat će se podaci
   za sve stupce u prozoru načina pregledavanja.
 * If NVDA Recognizes a track list item with less than 10 columns, NVDA will
   no longer announce headers for nonexistent columns if Control+NVDA+number
