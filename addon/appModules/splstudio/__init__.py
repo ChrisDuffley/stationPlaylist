@@ -1192,7 +1192,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Levels indicate which dialog to show (0 = outro, 1 = intro, 2 = microphone).
 
 	def alarmDialog(self, level):
-		if splconfui._configDialogOpened or splconfui._alarmDialogOpened:
+		if splconfui._configDialogOpened:
 			# #125 (20.04) temporary: call centralized error handler.
 			wx.CallAfter(splconfui._configDialogOpenError)
 			return
@@ -1202,7 +1202,7 @@ class AppModule(appModuleHandler.AppModule):
 			d.Raise()
 			d.Show()
 			gui.mainFrame.postPopup()
-			splconfui._alarmDialogOpened = True
+			splconfui._configDialogOpened = True
 		except RuntimeError:
 			pass
 
@@ -1627,7 +1627,7 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: Presented when streaming dialog cannot be shown.
 			ui.message(_("Cannot open metadata streaming dialog"))
 			return
-		if splconfui._configDialogOpened or splconfui._metadataDialogOpened:
+		if splconfui._configDialogOpened:
 			# #125 (20.04) temporary: call centralized error handler.
 			wx.CallAfter(splconfui._configDialogOpenError)
 			return
@@ -1639,7 +1639,7 @@ class AppModule(appModuleHandler.AppModule):
 			d.Raise()
 			d.Show()
 			gui.mainFrame.postPopup()
-			splconfui._metadataDialogOpened = True
+			splconfui._configDialogOpened = True
 		except RuntimeError:
 			pass
 

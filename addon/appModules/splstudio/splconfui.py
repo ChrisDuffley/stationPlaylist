@@ -639,7 +639,6 @@ class GeneralSettingsPanel(gui.SettingsPanel):
 # Based on NVDA core's find dialog code (implemented by the author of this add-on).
 # Extended in 2016 to handle microphone alarms.
 # Only one instance can be active at a given moment (code borrowed from GUI's exit dialog routine).
-_alarmDialogOpened = False
 
 class AlarmsCenter(wx.Dialog):
 	"""A dialog providing common alarm settings.
@@ -652,7 +651,7 @@ class AlarmsCenter(wx.Dialog):
 
 	def __new__(cls, parent, *args, **kwargs):
 		# Make this a singleton and prompt an error dialog if it isn't.
-		if _alarmDialogOpened:
+		if _configDialogOpened:
 			raise RuntimeError("An instance of alarm dialog is opened")
 		inst = cls._instance() if cls._instance else None
 		if not inst:
@@ -706,7 +705,7 @@ class AlarmsCenter(wx.Dialog):
 		elif level == 2: self.micAlarmEntry.SetFocus()
 
 	def onOk(self, evt):
-		global _alarmDialogOpened
+		global _configDialogOpened
 		# Optimization: don't bother if Studio is dead and if the same value has been entered (only when standalone versions are opened).
 		if user32.FindWindowW("SPLStudio", None):
 			# Gather settings to be applied in section/key format.
@@ -727,12 +726,12 @@ class AlarmsCenter(wx.Dialog):
 				studioWindow = getNVDAObjectFromEvent(user32.FindWindowW("TStudioForm", None), OBJID_CLIENT, 0)
 				studioWindow.appModule.actionProfileSwitched()
 		self.Destroy()
-		_alarmDialogOpened = False
+		_configDialogOpened = False
 
 	def onCancel(self, evt):
 		self.Destroy()
-		global _alarmDialogOpened
-		_alarmDialogOpened = False
+		global _configDialogOpened
+		_configDialogOpened = False
 
 	def onAppTerminate(self):
 		self.onCancel(None)
@@ -838,7 +837,6 @@ class PlaylistSnapshotsPanel(gui.SettingsPanel):
 
 # Metadata reminder controller.
 # Select notification/streaming URL's for metadata streaming.
-_metadataDialogOpened = False
 metadataStreamLabels = ("DSP encoder", "URL 1", "URL 2", "URL 3", "URL 4")
 
 class MetadataStreamingDialog(wx.Dialog):
@@ -848,7 +846,7 @@ class MetadataStreamingDialog(wx.Dialog):
 
 	def __new__(cls, parent, *args, **kwargs):
 		# Make this a singleton and prompt an error dialog if it isn't.
-		if _metadataDialogOpened:
+		if _configDialogOpened:
 			raise RuntimeError("An instance of metadata streaming dialog is opened")
 		inst = cls._instance() if cls._instance else None
 		if not inst:
@@ -898,7 +896,7 @@ class MetadataStreamingDialog(wx.Dialog):
 		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
 
 	def onOk(self, evt):
-		global _metadataDialogOpened
+		global _configDialogOpened
 		# Prepare checkbox values first for various reasons.
 		# #76 (18.09-LTS): traverse check list box and build boolean list accordingly.
 		metadataEnabled = [self.checkedStreams.IsChecked(url) for url in range(5)]
@@ -907,12 +905,12 @@ class MetadataStreamingDialog(wx.Dialog):
 		# 6.1: Store just toggled settings to profile if told to do so.
 		if self.applyCheckbox.Value: splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = metadataEnabled
 		self.Destroy()
-		_metadataDialogOpened = False
+		_configDialogOpened = False
 
 	def onCancel(self, evt):
-		global _metadataDialogOpened
+		global _configDialogOpened
 		self.Destroy()
-		_metadataDialogOpened = False
+		_configDialogOpened = False
 
 	def onAppTerminate(self):
 		self.onCancel(None)
@@ -1462,7 +1460,7 @@ def onConfigDialog(evt):
 	# 5.2: Guard against alarm dialogs.
 	# #125 (20.04) temporary: call the temporary error handler.
 	# #129 (20.04): also check for broadcast profiles dialog.
-	if _configDialogOpened or _alarmDialogOpened or _metadataDialogOpened:
+	if _configDialogOpened:
 		wx.CallAfter(_configDialogOpenError)
 	else: gui.mainFrame._popupSettingsDialog(SPLConfigDialog)
 
@@ -1470,7 +1468,7 @@ def onConfigDialog(evt):
 def onBroadcastProfilesDialog(evt):
 	# 5.2: Guard against alarm dialogs.
 	# #125 (20.04) temporary: call the temporary error handler.
-	if _configDialogOpened or _alarmDialogOpened or _metadataDialogOpened:
+	if _configDialogOpened:
 		wx.CallAfter(_configDialogOpenError)
 		return
 	# Present an error message if only normal profile is in use.
