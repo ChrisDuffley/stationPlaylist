@@ -1241,7 +1241,8 @@ class AppModule(appModuleHandler.AppModule):
 		description=_("Opens SPL Studio add-on configuration dialog."),
 		gesture="kb:alt+NVDA+0")
 	def script_openConfigDialog(self, gesture):
-		wx.CallAfter(splconfui.onConfigDialog, None)
+		# 20.05: rather than calling the config dialog open event, call the open dialog function directly to avoid indirection.
+		wx.CallAfter(splconfui.openAddonSettingsPanel, None)
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
