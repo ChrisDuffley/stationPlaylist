@@ -1192,19 +1192,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Levels indicate which dialog to show (0 = outro, 1 = intro, 2 = microphone).
 
 	def alarmDialog(self, level):
-		if splconfui._configDialogOpened:
-			# #125 (20.04) temporary: call centralized error handler.
-			wx.CallAfter(splconfui._configDialogOpenError)
-			return
-		try:
-			d = splconfui.AlarmsCenter(gui.mainFrame, level=level)
-			gui.mainFrame.prePopup()
-			d.Raise()
-			d.Show()
-			gui.mainFrame.postPopup()
-			splconfui._configDialogOpened = True
-		except RuntimeError:
-			pass
+		wx.CallAfter(splconfui.openAddonSettingsPanel, splconfui.AlarmsPanel)
 
 	# Set the end of track alarm time between 1 and 59 seconds.
 
