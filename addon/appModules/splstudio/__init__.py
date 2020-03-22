@@ -1187,40 +1187,14 @@ class AppModule(appModuleHandler.AppModule):
 		# Says complete time in hours, minutes and seconds via kernel32's routines.
 		ui.message(winKernel.GetTimeFormat(winKernel.LOCALE_USER_DEFAULT, 0, None, None))
 
-	# Invoke the common alarm dialog.
-	# The below invocation function is also used for error handling purposes.
-	# Levels indicate which dialog to show (0 = outro, 1 = intro, 2 = microphone).
+	# Show the Alarms panel in add-on settings screen.
 
-	def alarmDialog(self, level):
+	@scriptHandler.script(
+		# Translators: Input help mode message for a command in StationPlaylist add-on.
+		description=_("Opens SPL Studio alarms settings."),
+		gestures=["kb:alt+nvda+1", "ts(SPL):2finger_flickRight", "kb:alt+nvda+2", "ts(SPL):2finger_flickLeft", "kb:alt+nvda+4"])
+	def script_openAlarmsSettings(self, gesture):
 		wx.CallAfter(splconfui.openAddonSettingsPanel, splconfui.AlarmsPanel)
-
-	# Set the end of track alarm time between 1 and 59 seconds.
-
-	@scriptHandler.script(
-		# Translators: Input help mode message for a command in StationPlaylist add-on.
-		description=_("Sets end of track alarm (default is 5 seconds)."),
-		gestures=["kb:alt+nvda+1", "ts(SPL):2finger_flickRight"])
-	def script_setEndOfTrackTime(self, gesture):
-		self.alarmDialog(0)
-
-	# Set song ramp (introduction) time between 1 and 9 seconds.
-
-	@scriptHandler.script(
-		# Translators: Input help mode message for a command in StationPlaylist add-on.
-		description=_("Sets song intro alarm (default is 5 seconds)."),
-		gestures=["kb:alt+nvda+2", "ts(SPL):2finger_flickLeft"])
-	def script_setSongRampTime(self, gesture):
-		self.alarmDialog(1)
-
-	# Tell NVDA to play a sound when mic was active for a long time, as well as contorl the alarm interval.
-	# 8.0: This dialog will let users configure mic alarm interval as well.
-
-	@scriptHandler.script(
-		# Translators: Input help mode message for a command in StationPlaylist add-on.
-		description=_("Sets microphone alarm (default is 5 seconds)."),
-		gesture="kb:alt+nvda+4")
-	def script_setMicAlarm(self, gesture):
-		self.alarmDialog(2)
 
 	# SPL Config management among others.
 
