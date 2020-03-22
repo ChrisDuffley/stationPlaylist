@@ -27,13 +27,11 @@ Most of these will work in Studio only unless otherwise specified.
 * Alt+Shift+T from Studio window: announce elapsed time for the currently playing trakc.
 * Control+Alt+T (two finger flick down in SPL touch mode) from Studio window: announce remaining time for the currently playing trakc.
 * NVDA+Shift+F12 (two finger flick up in SPL touch mode) from Studio window: announces broadcaster time such as 5 minutes to top of the hour. Pressing this command twice will announce minutes and seconds till top of the hour.
-* Alt+NVDA+1 (two finger flick right in SPL mode) from Studio window: Opens end of track setting dialog.
+* Alt+NVDA+1/Alt+NVDA+2/Alt+NVDA+4 (two finger flick right or flick left in SPL mode) from Studio window: Opens alarms category in Studio add-on configuration dialog.
 * Alt+NVDA+1 from Creator's Playlist Editor window: Announces scheduled time for the loaded playlist.
-* Alt+NVDA+2 (two finger flick left in SPL mode) from Studio window: Opens song intro alarm setting dialog.
 * Alt+NVDA+2 from Creator's Playlist Editor window: Announces total playlist duration.
 * Alt+NVDA+3 from Studio window: Toggles cart explorer to learn cart assignments.
 * Alt+NVDA+3 from Creator's Playlist Editor window: Announces when the selected track is scheduled to play.
-* Alt+NVDA+4 from Studio window: Opens microphone alarm dialog.
 * Alt+NVDA+4 from Creator's Playlist Editor window: Announces rotation and category associated with the loaded playlist.
 * Control+NVDA+f from Studio window: Opens a dialog to find a track based on artist or song name. Press NVDA+F3 to find forward or NVDA+Shift+F3 to find backward.
 * Alt+NVDA+R from Studio window: Steps through library scan announcement settings.
@@ -155,13 +153,9 @@ The available SPL Controller commands are:
 * Press cart keys (F1, Control+1, for example) to play assigned carts from anywhere.
 * Press H to show a help dialog which lists available commands.
 
-## Track alarms
+## Track and microphone alarms
 
-By default, NVDA will play a beep if five seconds are left in the track (outro) and/or intro. To configure this value as well as to enable or disable them, press Alt+NVDA+1 or Alt+NVDA+2 to open end of track and song ramp dialogs, respectively. In addition, use Studio add-on settings dialog to configure if you'll hear a beep, a message or both when alarms are turned on.
-
-## Microphone alarm
-
-You can ask NVDA to play a sound when microphone has been active for a while. Press Alt+NVDA+4 to configure alarm time in seconds (0 disables it).
+By default, NVDA will play a beep if five seconds are left in the track (outro) and/or intro, as well as to hear a beep if microphone has been active for a while. To configure track and microphone alarms, press Alt+NVDA+1, Alt+NVDA+2, or Alt+NvDA+4 to open alarms settings in Studio add-on settings screen. You can also use this screen to configure if you'll hear a beep, a message or both when alarms are turned on.
 
 ## Track Finder
 
@@ -202,6 +196,10 @@ You can save settings for specific shows into broadcast profiles. These profiles
 ## SPL touch mode
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
+
+## Version 20.05
+
+* Commands used to open separate alarm settings dialogs (Alt+NVDA+1, Alt+NVDA+2, Alt+NVDA+4) will now open alarms settings in SPL add-on settings screen where track outro/intro and microphone alarm settings can be found.
 
 ## Version 20.04
 
