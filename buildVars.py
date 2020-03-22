@@ -20,7 +20,7 @@ addon_info = {
 	"addon_description" : _("""Enhances support for StationPlaylist Studio.
 In addition, adds global commands for the studio from everywhere."""),
 	# version
-	"addon_version" : "20.03",
+	"addon_version" : "20.04",
 	# Author(s)
 	"addon_author" : u"Geoff Shang, Joseph Lee and other contributors",
 	# URL for the add-on documentation support
@@ -31,8 +31,6 @@ In addition, adds global commands for the studio from everywhere."""),
 	"addon_minimumNVDAVersion" : "2019.3.0",
 	# Last NVDA version supported/tested
 	"addon_lastTestedNVDAVersion" : "2020.1.0",
-	# Minimum Windows version supported
-	"addon_minimumWindowsVersion" : "6.1.7601",
 	# Add-on update channel (default is stable)
 	"addon_updateChannel" : None,
 }
