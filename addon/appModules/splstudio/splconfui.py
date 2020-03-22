@@ -1450,19 +1450,25 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		# Call cancel function when the app terminates so the dialog can be closed.
 		self.onCancel(None)
 
-# #125 (20.04) temporary: until various standalone add-on settings dialogs become proper NVDA settings dialogs, centralize error handling.
+# Open various add-on settings dialogs.
+
+# Centralize error handling for various SPL add-on settings dialogs.
 # The below error message came directly from NVDA Core's settings dialog opener method (credit: NV Access)
 def _configDialogOpenError():
 	gui.messageBox(translate("An NVDA settings dialog is already open. Please close it first."),translate("Error"),style=wx.OK | wx.ICON_ERROR)
 
-# Open the above dialog upon request.
-def onConfigDialog(evt):
+# #125 (20.05): open any settings panel from main add-on settings, also checking if other dialogs are open.
+def openAddonSettingsPanel(panel):
 	# 5.2: Guard against alarm dialogs.
-	# #125 (20.04) temporary: call the temporary error handler.
 	# #129 (20.04): also check for broadcast profiles dialog.
+	# #125 (20.05): checking for instance of base settings dialog class isn't enough - Python will look at actual class being instantiated, so keep the global flag.
 	if _configDialogOpened:
 		wx.CallAfter(_configDialogOpenError)
-	else: gui.mainFrame._popupSettingsDialog(SPLConfigDialog)
+	else: gui.mainFrame._popupSettingsDialog(SPLConfigDialog, panel)
+
+# Main add-on settings screen.
+def onConfigDialog(evt):
+	wx.CallAfter(openAddonSettingsPanel, None)
 
 # Open broadcast profiles dialog and its friends upon request.
 def onBroadcastProfilesDialog(evt):
