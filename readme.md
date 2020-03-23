@@ -525,8 +525,6 @@ Please see changelog link for release notes for old add-on releases.
 
 [2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
 
-[3]: https://addons.nvda-project.org/files/get.php?file=spl-lts18
-
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 
 [5]: https://github.com/josephsl/stationplaylist/wiki/splchangelog
