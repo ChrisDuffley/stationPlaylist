@@ -186,8 +186,9 @@ class BroadcastProfilesDialog(wx.Dialog):
 		# 6.4: This was seen after deleting a profile one position before the previously active profile.
 		# 7.0: One should never delete the currently active time-based profile.
 		# 7.1: Find a way to safely proceed via two-step verification if trying to delete currently active time-based profile.
-		if (splconfig._SPLTriggerEndTimer is not None and splconfig._SPLTriggerEndTimer.IsRunning()) or splconfig._triggerProfileActive or splconfig.SPLConfig.prevProfile is not None:
-			# Translators: Message reported when attempting to delete a profile while a profile is triggered.
+		# 20.06: just focus on instant switch profile.
+		if splconfig.SPLConfig.prevProfile is not None:
+			# Translators: Message reported when attempting to delete a profile in the midst of a broadcast.
 			gui.messageBox(_("An instant switch profile might be active or you are in the midst of a broadcast. If so, please press SPL Assistant, F12 to switch back to a previously active profile before opening broadcast profiles dialog to delete a profile."),
 				# Translators: Title of a dialog shown when profile cannot be deleted.
 				_("Profile delete error"), wx.OK | wx.ICON_ERROR, self)
@@ -237,13 +238,6 @@ class BroadcastProfilesDialog(wx.Dialog):
 
 	def onTriggers(self, evt):
 		self.Disable()
-		if splconfig._triggerProfileActive:
-			# Translators: Message reported when attempting to change profile switch trigger while broadcasting.
-			gui.messageBox(_("You cannot change profile switch triggers in the midst of a broadcast."),
-				# Translators: Title of a dialog shown when profile trigger cannot e changd.
-				_("Profile triggers"), wx.OK | wx.ICON_ERROR, self)
-			self.Enable()
-			return
 		TriggersDialog(self, self.profileNames[self.profiles.Selection]).Show()
 
 	# Obtain profile flags for a given profile.
@@ -276,7 +270,8 @@ class BroadcastProfilesDialog(wx.Dialog):
 		splconfig.SPLConfig.instantSwitch = self.switchProfile
 		# Make sure to nullify prev profile if instant switch profile is gone.
 		# 7.0: Don't do the following in the midst of a broadcast.
-		if self.switchProfile is None and not splconfig._triggerProfileActive:
+		# 20.07: find a way to work around this as time-based profiles feature is gone.
+		if self.switchProfile is None:
 			splconfig.SPLConfig.prevProfile = None
 		splactions.SPLActionProfileSwitched.notify(configDialogActive=True)
 		self.Close()
