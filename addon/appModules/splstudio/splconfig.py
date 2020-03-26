@@ -884,13 +884,12 @@ def closeConfig(splComponent):
 
 # Terminate the config and related subsystems.
 def terminate():
-	global SPLConfig, _SPLCache, _SPLTriggerEndTimer, _triggerProfileActive
+	global SPLConfig, _SPLCache, _SPLTriggerEndTimer
 	# #30 (17.05): If we come here before a time-based profile expires, the trigger end timer will meet a painful death.
 	if _SPLTriggerEndTimer is not None and _SPLTriggerEndTimer.IsRunning():
 		_SPLTriggerEndTimer.Stop()
 		_SPLTriggerEndTimer = None
 		SPLConfig.switchProfile(None, SPLConfig.prevProfile, appTerminating=True)
-		_triggerProfileActive = False
 	# Close profile triggers dictionary.
 	# 17.10: but if only the normal profile is in use, it won't do anything.
 	if not SPLConfig.normalProfileOnly: saveProfileTriggers()
@@ -930,10 +929,6 @@ def instantProfileSwitch():
 			SPLConfig.switchProfileStart(SPLConfig.activeProfile, SPLSwitchProfile, "instant")
 		else:
 			SPLConfig.switchProfileEnd(None, SPLConfig.prevProfile, "instant")
-
-_SPLTriggerEndTimer = None
-# Record if time-based profile is active or not.
-_triggerProfileActive = False
 
 # Additional configuration and miscellaneous dialogs
 # See splconfui module for basic configuration dialogs.
