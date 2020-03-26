@@ -806,20 +806,16 @@ def copyProfile(sourceProfile, targetProfile, complete=False):
 # Module level version of get profile flags function.
 # Optional keyword arguments are to be added when called from dialogs such as add-on settings.
 # A crucial kwarg is contained, and if so, profile flags set will be returned.
-def getProfileFlags(name, active=None, instant=None, triggers=None, contained=False):
+def getProfileFlags(name, active=None, instant=None, contained=False):
 	flags = set()
 	if active is None: active = SPLConfig.activeProfile
 	if instant is None: instant = SPLConfig.instantSwitch
-	if triggers is None: triggers = profileTriggers
 	if name == active:
 		# Translators: A flag indicating the currently active broadcast profile.
 		flags.add(_("active"))
 	if name == instant:
 		# Translators: A flag indicating the broadcast profile is an instant switch profile.
 		flags.add(_("instant switch"))
-	if name in triggers:
-		# Translators: A flag indicating the time-based triggers profile.
-		flags.add(_("time-based"))
 	if not contained:
 		return name if len(flags) == 0 else "{0} <{1}>".format(name, ", ".join(flags))
 	else: return flags
