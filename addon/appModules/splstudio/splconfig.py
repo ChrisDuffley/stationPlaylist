@@ -780,61 +780,6 @@ def initProfileTriggers():
 			_("Time-based profiles missing"), wx.OK|wx.ICON_ERROR)
 	triggerStart()
 
-# Some helpers used in locating next air date/time.
-
-# Set the next timed profile.
-# Bits indicate the trigger days vector, hhmm is time, with the optional date being a specific date otherwise current date.
-def setNextTimedProfile(profile, bits, switchTime, date=None, duration=0):
-	if date is None: date = datetime.datetime.now()
-	dayIndex = date.weekday()
-	triggerCandidate = 64 >> dayIndex
-	currentTime = datetime.time(date.hour, date.minute, date.second, date.microsecond)
-	# Case 1: Show hasn't begun.
-	if (bits & triggerCandidate) and currentTime < switchTime:
-		delta = 0
-	else:
-		# Case 2: This is a weekly show.
-		if bits == triggerCandidate:
-			delta = 7
-		else:
-			import math
-			# Scan the bit vector until finding the correct date and calculate the resulting delta (dayIndex modulo 7).
-			# Take away the current trigger bit as this is invoked once the show air date has passed.
-			days = bits-triggerCandidate if bits & triggerCandidate else bits
-			currentDay = int(math.log(triggerCandidate, 2))
-			nextDay = int(math.log(days, 2))
-			# Hoping the resulting vector will have some bits set to 1...
-			if triggerCandidate > days:
-				delta = currentDay-nextDay
-			else:
-				triggerBit = -1
-				for bit in range(currentDay-1, -1, -1):
-					if 2 ** bit & days:
-						triggerBit = bit
-						break
-				if triggerBit > -1:
-					delta = currentDay-triggerBit
-				else:
-					delta = 7-(nextDay-currentDay)
-	date += datetime.timedelta(delta)
-	return [bits, date.year, date.month, date.day, switchTime.hour, switchTime.minute, duration]
-
-# Find if another profile is occupying the specified time slot.
-def duplicateExists(map, profile, bits, hour, min, duration):
-	if len(map) == 0 or (len(map) == 1 and profile in map): return False
-	# Convert hours and minutes to an integer for faster comparison.
-	start1 = (hour*60) + min
-	end1 = start1+duration
-	# A possible duplicate may exist simply because of bits.
-	for item in [p for p in map.keys() if p != profile]:
-		if map[item][0] == bits:
-			entry = map[item]
-			start2 = (entry[4] * 60) + entry[5]
-			end2 = start2+entry[6]
-			if start1 <= start2 <= end1 or start2 <= start1 <= end2:
-				return True
-	return False
-
 # Dump profile triggers pickle away.
 def saveProfileTriggers():
 	global triggerTimer, profileTriggers, profileTriggers2
