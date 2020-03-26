@@ -507,7 +507,8 @@ F10: Perform track time analysis.
 F12: Switch to an instant switch profile.
 Shift+F1: Open online user guide."""),
 # Translators: The text of the help command in SPL Assistant layer when Window-Eyes layer is active.
-	"wineyes":_("""After entering SPL Assistant, press:
+	"wineyes":_("""WARNING! Window-Eyes command layout is deprecated and will be removed in a future version of StationPlaylist add-on.
+After entering SPL Assistant, press:
 A: Automation.
 C: Toggle cart explorer.
 Shift+C: Announce name of the currently playing track.
