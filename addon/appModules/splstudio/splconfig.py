@@ -931,40 +931,9 @@ def instantProfileSwitch():
 		else:
 			SPLConfig.switchProfileEnd(None, SPLConfig.prevProfile, "instant")
 
-# The triggers version of the above function.
 _SPLTriggerEndTimer = None
 # Record if time-based profile is active or not.
 _triggerProfileActive = False
-
-# Duration delta refers to update profile switch duration (in seconds) while switching in the middle of a show.
-def triggerProfileSwitch(durationDelta=None):
-	global SPLConfig, triggerTimer, _SPLTriggerEndTimer, _triggerProfileActive
-	SPLTriggerProfile = SPLConfig.timedSwitch
-	if SPLTriggerProfile is None and _triggerProfileActive:
-		raise RuntimeError("Trigger profile flag cannot be active when the trigger profile itself isn't defined")
-	if SPLConfig.prevProfile is None:
-		if SPLConfig.activeProfile == SPLTriggerProfile:
-			# Translators: Presented when trying to switch to an instant switch profile when one is already using the instant switch profile.
-			ui.message(_("A profile trigger is already active"))
-			return
-		SPLConfig.switchProfileStart(SPLConfig.activeProfile, SPLTriggerProfile, "timed")
-		# Set the global trigger flag to inform various subsystems such as add-on settings dialog.
-		_triggerProfileActive = True
-		# Set the next trigger date and time.
-		triggerSettings = profileTriggers[SPLTriggerProfile]
-		# Set next trigger if no duration is specified.
-		if triggerSettings[6] == 0:
-			profileTriggers[SPLTriggerProfile] = setNextTimedProfile(SPLTriggerProfile, triggerSettings[0], datetime.time(triggerSettings[4], triggerSettings[5]))
-		else:
-			_SPLTriggerEndTimer = wx.PyTimer(triggerProfileSwitch)
-			wx.CallAfter(_SPLTriggerEndTimer.Start, triggerSettings[6] * 60 * 1000 if durationDelta is None else durationDelta * 1000, True)
-	else:
-		SPLConfig.switchProfileEnd(None, SPLConfig.prevProfile, "timed")
-		_triggerProfileActive = False
-		# Stop the ending timer.
-		if _SPLTriggerEndTimer is not None and _SPLTriggerEndTimer.IsRunning():
-			_SPLTriggerEndTimer.Stop()
-			_SPLTriggerEndTimer = None
 
 # Additional configuration and miscellaneous dialogs
 # See splconfui module for basic configuration dialogs.
