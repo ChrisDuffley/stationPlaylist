@@ -200,6 +200,9 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Version 20.05
 
 * Commands used to open separate alarm settings dialogs (Alt+NVDA+1, Alt+NVDA+2, Alt+NVDA+4) will now open alarms settings in SPL add-on settings screen where track outro/intro and microphone alarm settings can be found.
+* Removed the user interface associated with time-based broadcast profiles feature, including configuring profile switch countdown in seconds and profile switch day/time/duration fields in triggers dialog.
+* Profile switch countdown setting found in broadcast profiles dialog has been removed.
+* As Window-Eyes is no longer supported by Vispero since 2017, SPL Assistant command layout for Window-Eyes is deprecated and will be removed in a future add-on release. A warning will be shown at startup urging users to change SPL Assistant command layout to NVDA (default) or JAWS.
 
 ## Version 20.04
 
