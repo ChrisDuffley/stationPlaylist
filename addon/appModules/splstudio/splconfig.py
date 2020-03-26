@@ -180,11 +180,10 @@ class ConfigHub(ChainMap):
 						self.profileNames.append(name)
 			except WindowsError:
 				pass
-		# Runtime flags (profiles and profile switching/triggers flags come from NVDA Core's ConfigManager).
+		# Runtime flags (profiles and profile switching flag come from NVDA Core's ConfigManager).
 		self.profiles = self.maps
 		# Active profile name is retrieved via the below property function.
 		self.instantSwitch = self.profiles[0]["InstantProfile"] if ("InstantProfile" in self.profiles[0] and not self.normalProfileOnly) else None
-		self.timedSwitch = None
 		self.prevProfile = None
 		# A bit vector used to store profile switching flags.
 		self._switchProfileFlags = 0
@@ -223,7 +222,7 @@ class ConfigHub(ChainMap):
 		return self.volatileConfig or self.normalProfileOnly or self.configInMemory
 
 	# Profile switching flags.
-	_profileSwitchFlags = {"instant": 0x1, "timed": 0x2}
+	_profileSwitchFlags = {"instant": 0x1}
 
 	@property
 	def switchProfileFlags(self):
@@ -232,10 +231,6 @@ class ConfigHub(ChainMap):
 	@property
 	def instantSwitchProfileActive(self):
 		return bool(self._switchProfileFlags & self._profileSwitchFlags["instant"])
-
-	@property
-	def timedSwitchProfileActive(self):
-		return bool(self._switchProfileFlags & self._profileSwitchFlags["timed"])
 
 	# Unlock (load) profiles from files.
 	# LTS: Allow new profile settings to be overridden by a parent profile.
