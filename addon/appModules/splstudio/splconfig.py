@@ -780,29 +780,6 @@ def initProfileTriggers():
 			_("Time-based profiles missing"), wx.OK|wx.ICON_ERROR)
 	triggerStart()
 
-# Locate time-based profiles if any.
-# A 4-tuple will be returned, containing the next trigger time (for time delta calculation), the profile name for this trigger time, whether an immediate switch is necessary, and if so, the duration delta for profiles with duration entry specified.
-def nextTimedProfile(current=None):
-	if current is None: current = datetime.datetime.now()
-	# No need to proceed if no timed profiles are defined.
-	if not len(profileTriggers): return None
-	possibleTriggers = []
-	for profile in list(profileTriggers.keys()):
-		shouldBeSwitched = False
-		entry = list(profileTriggers[profile])
-		# Construct the comparison datetime (see the profile triggers spec).
-		triggerTime = datetime.datetime(entry[1], entry[2], entry[3], entry[4], entry[5])
-		# Hopefully the trigger should be ready before the show, but sometimes it isn't.
-		if current > triggerTime:
-			# #52 (18.03/15.14-LTS): check the duration field first.
-			durationDelta = (current-triggerTime).seconds
-			if durationDelta < (entry[6]*60):
-				# Return the tuple immediately, as the show is more important.
-				return (triggerTime, profile, True, (entry[6]*60) - durationDelta)
-			else: profileTriggers[profile] = setNextTimedProfile(profile, entry[0], datetime.time(entry[4], entry[5]), date=current, duration=entry[6])
-		possibleTriggers.append((triggerTime, profile, shouldBeSwitched, None))
-	return min(possibleTriggers) if len(possibleTriggers) else None
-
 # Some helpers used in locating next air date/time.
 
 # Set the next timed profile.
