@@ -835,42 +835,6 @@ def duplicateExists(map, profile, bits, hour, min, duration):
 				return True
 	return False
 
-# Start the trigger timer based on above information.
-# Can be restarted if needed.
-def triggerStart(restart=False):
-	global SPLConfig, triggerTimer
-	# Restart the timer when called from triggers dialog in order to prevent multiple timers from running.
-	if triggerTimer is not None and triggerTimer.IsRunning() and restart:
-		triggerTimer.Stop()
-		triggerTimer = None
-	queuedProfile = nextTimedProfile()
-	if queuedProfile is not None:
-		try:
-			SPLTriggerProfile = queuedProfile[1]
-		except ValueError:
-			SPLTriggerProfile = None
-		# 17.08: The config hub object will now keep an eye on this.
-		SPLConfig.timedSwitch = SPLTriggerProfile
-		# We are in the midst of a show, so switch now.
-		if queuedProfile[2]:
-			# Only come here if this is the first time this function is run (startup).
-			if not restart: triggerProfileSwitch(durationDelta = queuedProfile[3])
-			else:
-				# restart the timer if required.
-				global _SPLTriggerEndTimer
-				if _SPLTriggerEndTimer is not None and _SPLTriggerEndTimer.IsRunning():
-					_SPLTriggerEndTimer.Stop()
-					_SPLTriggerEndTimer = wx.PyTimer(triggerProfileSwitch)
-					wx.CallAfter(_SPLTriggerEndTimer.Start, queuedProfile[3] * 1000, True)
-				else: triggerProfileSwitch(durationDelta = queuedProfile[3])
-		else:
-			switchAfter = (queuedProfile[0] - datetime.datetime.now())
-			if switchAfter.days == 0 and switchAfter.seconds <= 3600:
-				time.sleep((switchAfter.microseconds+1000) / 1000000.0)
-				from .splmisc import SPLCountdownTimer
-				triggerTimer = SPLCountdownTimer(switchAfter.seconds, triggerProfileSwitch, SPLConfig["Advanced"]["ProfileTriggerThreshold"])
-				triggerTimer.Start()
-
 # Dump profile triggers pickle away.
 def saveProfileTriggers():
 	global triggerTimer, profileTriggers, profileTriggers2
