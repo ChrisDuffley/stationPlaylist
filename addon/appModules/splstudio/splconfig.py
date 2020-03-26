@@ -582,8 +582,8 @@ class ConfigHub(ChainMap):
 	def switchProfile(self, prevProfile, newProfile, appTerminating=False, switchFlags=None):
 		if self.normalProfileOnly or self.configInMemory:
 			raise RuntimeError("Only normal profile is in use or config was loaded from memory, cannot switch profiles")
-		# There are two switch flags in use, so make sure to check the highest bit.
-		if switchFlags is not None and not 0 <= switchFlags < 0x4:
+		# Check profile flags (for now, instant switch (0x1)).
+		if switchFlags is not None and not 0 <= switchFlags < 0x2:
 			raise RuntimeError("Profile switch flag out of range")
 		self.swapProfiles(prevProfile, newProfile)
 		if appTerminating: return
@@ -606,13 +606,12 @@ class ConfigHub(ChainMap):
 	# Switch start/end functions.
 	# To be called from the module when starting or ending a profile switch.
 	# The only difference is the switch type, which will then set appropriate flag to be passed to switchProfile method above, with xor used to set the flags.
+	# 20.06: time-based profile flag is gone (only instant switch flag remains).
 	def switchProfileStart(self, prevProfile, newProfile, switchType):
-		if switchType not in ("instant", "timed"):
+		if switchType != "instant":
 			raise RuntimeError("Incorrect profile switch type specified")
 		if switchType == "instant" and self.instantSwitchProfileActive:
 			raise RuntimeError("Instant switch flag is already on")
-		elif switchType == "timed" and self.timedSwitchProfileActive:
-			raise RuntimeError("Timed switch flag is already on")
 		spldebugging.debugOutput(f"Profile switching start: type = {switchType}, previous profile is {prevProfile}, new profile is {newProfile}")
 		self.switchProfile(prevProfile, newProfile, switchFlags=self._switchProfileFlags ^ self._profileSwitchFlags[switchType])
 		# 8.0: Cache the new profile.
@@ -622,12 +621,10 @@ class ConfigHub(ChainMap):
 			self._cacheConfig(self.profileByName(newProfile))
 
 	def switchProfileEnd(self, prevProfile, newProfile, switchType):
-		if switchType not in ("instant", "timed"):
+		if switchType != "instant":
 			raise RuntimeError("Incorrect profile switch type specified")
 		if switchType == "instant" and not self.instantSwitchProfileActive:
 			raise RuntimeError("Instant switch flag is already off")
-		elif switchType == "timed" and not self.timedSwitchProfileActive:
-			raise RuntimeError("Timed switch flag is already off")
 		spldebugging.debugOutput(f"Profile switching end: type = {switchType}, previous profile is {prevProfile}, new profile is {newProfile}")
 		self.switchProfile(prevProfile, newProfile, switchFlags=self._switchProfileFlags ^ self._profileSwitchFlags[switchType])
 
