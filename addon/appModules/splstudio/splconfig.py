@@ -81,7 +81,6 @@ SayStudioPlayerPosition = boolean(default=false)
 [Advanced]
 SPLConPassthrough = boolean(default=false)
 CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
-ProfileTriggerThreshold = integer(min=5, max=60, default=15)
 PilotFeatures = boolean(default=false)
 [Startup]
 AudioDuckingReminder = boolean(default=true)
