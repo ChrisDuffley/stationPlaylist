@@ -2248,7 +2248,7 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
 			ui.message(_("Add-on settings dialog is open, cannot switch profiles"))
 			return
-		splconfig.triggerProfileSwitch() if splconfig._triggerProfileActive else splconfig.instantProfileSwitch()
+		splconfig.instantProfileSwitch()
 
 	def script_setPlaceMarker(self, gesture):
 		obj = api.getFocusObject()
