@@ -541,26 +541,17 @@ class ConfigHub(ChainMap):
 		def factoryResetInternal(resetViaConfigDialog=False):
 			# An internal function to perform confirmation message presentation in order to avoid freezes.
 			# Also, if done from add-on settings dialog, communicate failure through an exception.
-			global triggerTimer, _SPLTriggerEndTimer, _triggerProfileActive
-			# #96 (19.02/18.09.7-LTS): ask once more if switch profiles are active or trigger timer is running.
-			if self._switchProfileFlags or triggerTimer is not None and triggerTimer.IsRunning():
+			# #96 (19.02/18.09.7-LTS): ask once more if a switch profile is active.
+			if self._switchProfileFlags:
 				if gui.messageBox(
-					# Translators: Message displayed when attempting to reset Studio add-on settings while an instant switch or time-based profile is active.
-					_("An instant switch or time-based profile is active. Resetting Studio add-on settings means normal profile will become active and switch profile settings will be left in unpredictable state. Are you sure you wish to reset Studio add-on settings to factory defaults?"),
+					# Translators: Message displayed when attempting to reset Studio add-on settings while an instant switch profile is active.
+					_("An instant switch profile is active. Resetting Studio add-on settings means normal profile will become active and switch profile settings will be left in unpredictable state. Are you sure you wish to reset Studio add-on settings to factory defaults?"),
 					# Translators: The title of the confirmation dialog for Studio add-on settings reset.
 					_("SPL Studio add-on reset"),
 					wx.YES_NO | wx.NO_DEFAULT | wx.ICON_WARNING
 				) == wx.NO:
 					if not resetViaConfigDialog: return
-					else: raise RuntimeError("Instant switch and/or time-based profile must remain active, reset cannot proceed")
-				# End all triggers if needed, beginning with time-based profile.
-				_triggerProfileActive = False
-				if _SPLTriggerEndTimer is not None and _SPLTriggerEndTimer.IsRunning():
-					_SPLTriggerEndTimer.Stop()
-					_SPLTriggerEndTimer = None
-				if triggerTimer is not None and triggerTimer.IsRunning():
-					triggerTimer.Stop()
-					triggerTimer = None
+					else: raise RuntimeError("Instant switch profile must remain active, reset cannot proceed")
 				self.prevProfile = None
 				self.switchHistory = [None]
 				self._switchProfileFlags = 0
