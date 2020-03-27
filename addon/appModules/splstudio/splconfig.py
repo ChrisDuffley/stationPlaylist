@@ -754,21 +754,6 @@ def initProfileTriggers():
 	# 20.07: delete profile triggers database file.
 	return
 
-# Dump profile triggers pickle away.
-def saveProfileTriggers():
-	global triggerTimer, profileTriggers, profileTriggers2
-	if triggerTimer is not None and triggerTimer.IsRunning():
-		triggerTimer.Stop()
-		triggerTimer = None
-	# Unless it is a daily show, profile triggers would not have been modified.
-	# This trick is employed in order to reduce unnecessary disk writes.
-	if profileTriggers != profileTriggers2:
-		# Pickle protocol 4 for forward compatibility.
-		with open(SPLTriggersFile, "wb") as f:
-			pickle.dump(profileTriggers, f, protocol=4)
-	profileTriggers = None
-	profileTriggers2 = None
-
 # Copy settings across profiles.
 # Setting complete flag controls whether profile-specific settings are applied (true otherwise, only set when resetting profiles).
 # 8.0: Simplified thanks to in-place swapping.
