@@ -3,7 +3,7 @@
 * Autori: Geoff Shang, Joseph Lee a ďalší
 * Stiahnuť [stabilnú verziu][1]
 * Stiahnuť [vývojovú verziu][2]
-* Funguje s NVDA 2019.3
+* Funguje s NVDA 2019.3 až 2020.1
 
 Doplnok zlepšuje prístupnosť Station Playlist Studio a ďalších pridružených
 aplikácií a tiež umožňuje ovládať Station Playlist mimo hlavného okna
@@ -27,6 +27,13 @@ Dôležité:
   Windows obchodu.
 * Funkcie označené ako experimentálne sú v štádiu testovania a nie sú zatiaľ
   zaradené do stabilnej verzie doplnku.
+* Z okna SPL studio je možné uložiť nastavenia skratkou ctrl+nvda+c. Môžete
+  tiež načítať uložené nastavenia skratkou ctrl+nvda+r. Takisto je možné
+  obnoviť pôvodné nastavenia skratkou nvda+ctrl+r stlačením trikrát rýchlo
+  za sebou. Toto sa týka aj nastavení enkodéra. Tieto je však možné len
+  uložiť alebo obnoviť.
+* Časovo aktivované profily nie sú viac podporované a budú z doplnku
+  odstránené.
 
 ## Klávesové skratky
 
@@ -75,6 +82,7 @@ Väčšina skratiek je určených pre Studio, ak nie je uvedené inak.
 * Alt+NVDA+C (pri zobrazení skladby v okne Studio): oznámi komentár k
   skladbe.
 * Alt+NVDA+0 z okna studio: Otvorí nastavenia doplnku.
+* Alt+NVDA+p z okna studio: Otvorí nastavenia vysielacích profilov.
 * Alt+NVDA+- (pomlčka) z okna studio: Otvorí predvoleného e-mailového
   klienta na zaslanie e-mailu vývojárovi doplnku.
 * Alt+NVDA+F1: Otvorí uvítací dialóg doplnku.
@@ -176,7 +184,6 @@ Dostupné sú tieto príkazy:
 * U: Oznámi čas od spustenia aplikácie Studio.
 * W: Oznámi Predpoveď počasia.
 * Y: Oznámi stav úpravy playlistu.
-* 1 až 0: Oznámi príslušné metadáta.
 * F8: Zobrazí štatistiku playlistu (počet skladieb, trvanie playlistu,
   najkratšia a najdlhšia skladba).
 * Shift+F8: Uloží prepis playlistu vo viacerých formátoch.
@@ -280,12 +287,34 @@ alebo ako tabuľku HTML.
 Z okna Studio môžete skratkou alt+nvda+0 otvoriť nastavenia doplnku. Môžete
 tiež použiť ponuku NVDA > možnosti. Tu tiež môžete nastaviť profily.
 
+## Profily
+
+Pre rôzne relácie si môžete vytvoriť rôzne profily. Nastavenia vyvoláte
+skratkou alt+nvda+p.
+
 ## Dotykový režim
 
 Ak máte k dispozícii dotykovú obrazovku, používate Windows od verzie 8 a
 NVDA  od verzie 2012.3, môžete na ovládanie doplnku použiť dotykové
 príkazy. Najprv je potrebné dotknúť sa obrazovky tromi prstami. Následne
 vykonajte gestá spomenúté vyššie v tomto návode.
+
+## verzia 20.04
+
+* Profily viazané na určitý čas viac nie sú podporované. Doplnok vás na túto
+  skutočnosť upozorní, ak používate verziu doplnku 20.04 a máte definované
+  profily so spustením v určitom čase.
+* Nastavenia profilov boli presunuté do samostatného okna, ktoré je dostupné
+  pod skratkou alt+nvda+p.
+* Boli odstránené skratky na prezeranie metadát zo spl asistenta, keďže
+  dochádzalo ku konfliktom so skratkami nvda+ctrl+čísla.
+* Opravené zobrazovanie správ, ak sa pokúšate otvoriť viacero dialógov
+  doplnku. Využívame teraz hlásenie integrované v NVDA.
+* Po nastavení poradia zobrazovaných metadát a ich uložení NVDA viac nehlási
+  chybu.
+* Odteraz je možné uložiť nastavenia a názvy enkodéra skratkou
+  ctrl+nvda+c. Nastavenia obnovíte skratkou ctrl+nvda+r stlačené trikrát
+  rýchlo za sebou.
 
 ## verzia 20.03
 

@@ -3,7 +3,7 @@
 * Autores: Geoff Shang, Joseph Lee y otros colaboradores
 * Descargar [Versión estable][1]
 * Descargar [versión de desarrollo][2]
-* Compatibilidad con NVDA: 2019.3
+* Compatibilidad con NVDA: de 2019.3 a 2020.1
 
 Este paquete de complementos proporciona una utilización mejorada de Station
 Playlist Studio y otras aplicaciones de StationPlaylist, así como utilidades
@@ -31,6 +31,14 @@ NOTAS IMPORTANTES:
 * Las funciones marcadas como "experimentales" están pensadas para ser
   probadas antes de una liberación más amplia, por lo que no estarán
   habilitadas en las versiones estables.
+* Cuando Studio está en ejecución, se pueden guardar, restablecer o poner
+  los valores de fábrica del complemento pulsando control+NVDA+c,
+  control+NVDA+r una vez o control+NVDA+r tres veces, respectivamente. Esto
+  también se aplica a los ajustes del codificador - se pueden guardar y
+  restablecer (pero no recargar) los ajustes del codificador si se usan los
+  codificadores.
+* La función de perfiles basados en tiempo ha quedado obsoleta y se
+  eliminará en una versión futura.
 
 ## Teclas de atajo
 
@@ -92,6 +100,8 @@ contrario.
   comentarios de pista si los hay.
 * Alt+NVDA+0 desde la ventana Studio: abre el diálogo de configuración del
   complemento para Studio.
+* Alt+NVDA+p desde la ventana de Studio: abre el diálogo de perfiles de
+  emisión de Studio.
 * Alt+NVDA+- (guión) desde la ventana de Studio: envía retroalimentación al
   desarrollador del complemento utilizando el cliente de correo
   predeterminado.
@@ -207,7 +217,6 @@ Las órdenes disponibles son:
 * U: Studio al día.
 * W: clima y temperatura si se configuró.
 * Y: Estado modificado de lista de reproducción.
-* 1 hasta 0: anuncia el contenido de la columna para una columna específica.
 * F8: toma instantáneas de la lista de reproducción (número de pistas, pista
   más larga, etc.).
 * Shift+F8: Solicita transcripciones de la lista de reproducción en varios
@@ -333,6 +342,13 @@ de configuración del complemento. Alternativamente, ve al menú Preferencias
 de NVDA y selecciona el elemento Opciones de SPL Studio. Este diálogo
 también se utiliza para administrar los perfiles de transmisión.
 
+## El diálogo de perfiles de emisión
+
+Se pueden guardar configuraciones específicas para programas concretos en
+perfiles de emisión. Estos perfiles se pueden gestionar desde el diálogo de
+perfiles de emisión de SPL, al que se puede acceder pulsando alt+NVDA+p
+desde la ventana de Studio.
+
 ## Modo táctil de SPL
 
 Si estás utilizando Studio en un ordenador con pantalla táctil ejecutando
@@ -340,6 +356,32 @@ Windows 8 o posterior y tienes NVDA 2012.3 o posterior instalado, puedes
 realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
+
+## Versión 20.04
+
+* La función de perfiles de emisión basados en tiempo está obsoleta. Se
+  mostrará un mensaje con una advertencia cuando se inicie Studio por
+  primera vez tras instalar el complemento 20.04 si se encuentran definidos
+  uno o varios perfiles de emisión basados en tiempo.
+* La gestión de perfiles de emisión se ha separado en un diálogo
+  independiente al diálogo de opciones del complemento. Se puede acceder al
+  diálogo de perfiles de emisión pulsando alt+NVDA+p desde la ventana de
+  Studio.
+* A causa de la duplicidad con las órdenes control+NVDA+números de la fila
+  numérica en las pistas de Studio, las órdenes del explorador de columnas
+  del asistente de SPL (fila numérica) se han eliminado.
+* Se ha cambiado el mensaje de error que se muestra al intentar abrir un
+  diálogo de opciones del complemento de Studio (tal como el diálogo de
+  metadatos del flujo) mientras otro diálogo de opciones (como el diálogo de
+  alarma de fin de pista) está activo. El nuevo mensaje de error es el mismo
+  que el que se muestra al intentar abrir varios diálogos de opciones de
+  NVDA.
+* NVDA ya no reproducirá tonos de error ni se quedará sin hacer nada al
+  pulsar el botón Aceptar en el diálogo del explorador de columnas después
+  de configurar los slots de columna.
+* En los codificadores, ahora se puede guardar o restablecer la
+  configuración del codificador (incluyendo etiquetas de flujo) pulsando
+  control+NVDA+c o control+NVDA+r tres veces, respectivamente.
 
 ## Versión 20.03
 

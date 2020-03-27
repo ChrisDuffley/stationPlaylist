@@ -3,7 +3,7 @@
 * Tác giả: Geoff Shang, Joseph Lee và các cộng tác viên khác
 * Tải về [phiên bản chính thức][1]
 * Tải về [phiên bản thử nghiệm][2]
-* NVDA tương thích: 2019.3
+* NVDA compatibility: 2019.3 to 2020.1
 
 Gói add-on này cung cấp sự cải thiện cho việc sử dụng StationPlaylist Studio
 và các ứng dụng StationPlaylist khác, cũng như cung cấp các tiện ích để điều
@@ -29,6 +29,13 @@ CÁC LƯU Ý QUAN TRỌNG:
 * Các tính năng được đánh dấu "thử nghiệm" là để kiểm tra vài thứ trước khi
   phát hành rộng rãi, vậy nên chúng sẽ không được bật trong các bản phát
   hành chính thức.
+* While Studio is running, you can save, reload saved settings, or reset
+  add-on settings to defaults by pressing Control+NVDA+C, Control+NVDA+R
+  once, or Control+NVDA+R three times, respectively. This is also applicable
+  to encoder settings - you can save and reset (not reload) encoder settings
+  if using encoders.
+* Time-based broadcast profiles feature is deprecated and will be removed in
+  a future release.
 
 ## Các phím tắt
 
@@ -76,6 +83,7 @@ lập khác.
 * Alt+NVDA+C khi đứng tại một track (chỉ trong Studio): thông báo chú thích
   track nếu có.
 * Alt+NVDA+0 từ cửa sổ Studio: mở hộp thoại cấu hình add-on của Studio.
+* Alt+NVDA+P from Studio window: Opens the Studio broadcast profiles dialog.
 * Alt+NVDA+- (trừ) từ cửa sổ Studio: gửi phản hồi cho nhóm phát triển add-on
   bằng trình gửi thư điện tử mặc định.
 * Alt+NVDA+F1: mở hộp thoại chào mừng.
@@ -182,7 +190,6 @@ Các lệnh được hỗ trợ bao gồm:
 * U: Studio tăng thời gian.
 * W: thời tiết và nhiệt độ nếu được cấu hình.
 * Y: trạng thái chỉnh sửa danh sách phát.
-* 1 đến 0: thông báo nội dung của một cột được chỉ định.
 * `F8: lấy ảnh chụp danh sách phát (số track, track dài nhất, v...v....).
 * Shift+F8: yêu cầu bảng điểm danh sách phát ở nhiều định dạng.
 * F9: đánh dấu track hiện tại là nơi bắt đầu phân tích danh sách phát (chỉ
@@ -291,12 +298,40 @@ Từ cửa sổ studio, bạn có thể bấm Alt+NVDA+0 để mở hộp thoạ
 add-on. Cách khác, vào trình đơn tùy chỉnh của NVDA và chọn mục Cài đặt SPL
 Studio. Hộp thoại này cũng dùng để quản lý các hồ sơ phát thanh.
 
+## Broadcast profiles dialog
+
+You can save settings for specific shows into broadcast profiles. These
+profiles can be managed via SPL broadcast profiles dialog which can be
+accessed by pressing Alt+NVDA+P from Studio window.
+
 ## Chế độ chạm của SPL
 
 Nếu dùng Studio trên một máy tính cảm ứng chạy Windows 8 trở lên và cài đặt
 NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio từ mành hình
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
+
+## Version 20.04
+
+* Time-based broadcast profiles feature is deprecated. A warning message
+  will be shown when first starting Studio after installing add-on 20.04 if
+  you have defined one or more time-based broadcast profiles.
+* Broadcast profiles management has been split from SPL add-on settings
+  dialog into its own dialog. You can access broadcast profiles dialog by
+  pressing Alt+NVDA+P from Studio window.
+* Due to duplication with Control+NVDA+number row commands for Studio
+  tracks, columns explorer commands from SPL Assistant (number row) has been
+  removed.
+* Changed error message shown when trying to open a Studio add-on settings
+  dialog (such as metadata streaming dialog) while another settings dialog
+  (such as end of track alarm dialog) is active. The new error message is
+  same as the message shown when trying to open multiple NVDA settings
+  dialogs.
+* NVDA will no longer play error tones or appear to do nothing when clicking
+  OK button from Columns Explorer dialog after configuring column slots.
+* In encoders, you can now save and reset encoder settings (including stream
+  labels) by pressing Control+NVDA+C or Control+NVDA+R three times,
+  respectively.
 
 ## Phiên bản 20.03
 
@@ -309,14 +344,14 @@ và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thự
   đang phát từ bất cứ đâu (C).
 * Do việc gỡ bỏ tính năng tự thông báo tên của track đang phát, phần thiết
   lập cho tính năng này cũng được gỡ bỏ trong bản cài đặt add-on.
-* Trong các bộ mã hóa, NVDA sẽ phát âm báo kết nối mỗi nửa giây khi một bộ
-  mã hóa đang kết nối.
+* In encoders, NvDA will play connection tone every half a second while an
+  encoder is connecting.
 * Trong các bộ mã hóa, NVDA giờ đây sẽ đọc thông điệp đang kết nối cho đến
   khi thật sự có một bộ mã hóa được kết nối. Trước đây NVDA bị dừng khi có
   lỗi xảy ra.
-* Một thiết lập mới đã được thêm vào bảng cài đặt mã hóa để NVDA đọc thông
-  điệp đang kết nối cho đến khi bộ mã hóa đã chọn được kết nối. Thiết lập
-  này mặc định được bật.
+* A new setting has been added to encoder settings to let NvDA announce
+  connection messages until the selected encoder is connected. This setting
+  is enabled by default.
 
 ## Phiên bản 20.02
 
@@ -440,9 +475,10 @@ Phiên bản 19.06 hỗ trợ SPL Studio 5.20 trở lên.
   các cài đặt của Studio add-on về mặc định cùng với thiết lập của NVDA.
 * Đổi tên hộp thoại cài đặt Studio add-on "Tùy chọn nâng cao" thành "Nâng
   cao".
-* 19.03 thử nghiệm: trong thông báo cột và bảng điểm danh sách phát (cài đặt
-  add-on), các điều khiển bao gồm tùy chỉnh/sắp xếp cột sẽ hiện ra luôn thay
-  vì phải bấm nút mở một hộp thoại để cấu hình các cài đặt nảy.
+* 19.03 experimental: in column announcements and playlist transcripts
+  panels (add-on settings), custom column inclusion/order controls will be
+  visible up front instead of having to select a button to open a dialog to
+  configure these settings.
 
 ## Phiên bản 19.02
 

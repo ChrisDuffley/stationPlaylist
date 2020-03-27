@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 4.2\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2015-02-06 19:00+1000\n"
-"PO-Revision-Date: 2020-03-14 08:59-0700\n"
+"PO-Revision-Date: 2020-03-25 23:57-0700\n"
 "Last-Translator: Nikola Jović <wwenikola123@gmail.com>\n"
 "Language-Team: \n"
 "Language: sr\n"
@@ -1948,11 +1948,3 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist Studio.\n"
 "Takođe, dodaje globalne komande za studio bilo gde."
-
-#, fuzzy
-#~ msgid "Normal profile is in use."
-#~ msgstr "Samo standardan profil se koristi"
-
-#, fuzzy
-#~ msgid "Apply settings"
-#~ msgstr "SPL podešavanja"

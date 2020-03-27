@@ -3,7 +3,7 @@
 * Autores: Geoff Shang, Joseph Lee e outros colaboradores
 * Descargar [versión estable][1]
 * Descargar [versión de desenvolvemento][2]
-* Compatibilidade con NVDA: 2019.3
+* Compatibilidade con NVDA: da 2019.3 á 2020.1
 
 Este paquete de complementos proporciona unhha utilización mellorada do
 Station Playlist Studio e outras apps de Station Playlist, así como
@@ -31,6 +31,14 @@ NOTAS IMPORTANTES:
 * As características marcadas como "experimental" están concebidas para
   probar algo antes dunha publicación máis ampla, polo que non estarán
   habilitadas en versións estables.
+* Cando Studio está en execución, podes gardar, recargar as opcións
+  gardadas, ou restablecer as opcións do complemento ás de fábrica premendo
+  Control+NVDA+C, Control+NVDA+R unha vez, ou Control+NVDA+R tres veces,
+  respectivamente, Isto tamén se aplica ás opcións dos codificadores - podes
+  gardar e restablecer (non recargar) as opcións de codificadores se
+  utilizas codificadores.
+* A característica de perfiles de transmisión baseados en tempo está
+  descatalogada e eliminarase nunha versión futura.
 
 ## Teclas de atallo
 
@@ -89,6 +97,8 @@ contrario.
   comentarios da pista se os hai.
 * Alt+NVDA+0 dende a ventá do Studio: Abre o diálogo de configuración do
   complemento.
+* Alt+NVDA+P dende a ventá de Studio: Abre o diálogo de perfiles de
+  transmisión de Studio.
 * Alt+NVDA+- (guión) dende a ventá Studio: envía retroalimentación ao
   desenvolvedor do complemento usando o cliente predeterminado de correo.
 * Alt+NVDA+F1: abre o diálogo de benvida.
@@ -201,7 +211,6 @@ As ordes dispoñibles son:
 * U: Studio up time.
 * W: Clima e temperatura se se configurou.
 * Y: Estado da lista de reprodución modificada.
-* 1 ata 0: anuncia contidos de columna para una columna especificada.
 * F8: toma instantáneas da listaxe de reprodución (número de pistas, pista
   máis longa, etc.).
 * Shift+F8: Solicita transcripcións da listaxe de reprodución en varios
@@ -326,6 +335,12 @@ configuración do complemento. Alternativamente, vai ó menú Preferencias do
 NVDA e seleciona o elemento Opcions do SPL Studio. Este diálogo tamén se usa
 para administrar perfís de emisión.
 
+## Diálogo de perfiles de transmisión
+
+Podes gardar as opcións para shows específicos en perfiles de emisión. Estes
+perfiles pódense administrar dende o diálogo de perfiles de transmisión, ao
+que se pode acceder premendo NVDA+Alt+P dende a ventá de Studio.
+
 ## Modo Táctil do SPL
 
 Se estás a usar o Studio nunha computadora con pantalla tactil executando
@@ -333,6 +348,30 @@ Windows 8 ou posterior e tes NVDA 2012.3 ou posterior instalado, podes
 realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
+
+## Versión 20.04
+
+* A característica de perfiles de transmisión baseados en tempo está
+  descatalogada. Amosarase unha advertencia ao iniciar Studio por primeira
+  vez despois de instalar o complemento 20.04 se definiches un ou máis
+  perfiles de emisión baseados en tempo.
+* A administración de perfiles de transmisión separouse do diálogo de
+  opcións do complemento SPL ao seu propio diálogo. Podes acceder ó diálogo
+  de perfiles de transmisión premendo Alt+NVDA+P dende a ventá de Studio.
+* Debido a duplicación coas ordes Control+NVDA+fila de números para pistas
+  en Studio, a orde do explorador de columnas dende o Asistente SPL (fila de
+  números) eliminouse.
+* Modificada a mensaxe de erro ao tentar abrir un diálogo de opcións do
+  complemento Studio (como o diálogo de transmisión de metadatos) mentres
+  outro diálogo de opcións (como o diálogo de alarma de fin de pista) está
+  activo. A nova mensaxe de erro é a mesma que ao tentar abrir múltiples
+  diálogos de opcións de NVDA.
+* NVDA xa non reproducirá tons de erro nin aparentará non facer nada ao
+  pulsar o botón Aceptar dende o diálogo de Explorador de Columnas tras
+  configurar os lotes de columnas.
+* Nos codificadores, agora podes gardar e restablecer os axustes do
+  codificador (incluídas as etiquetas das emisións) premendo Control+NVDA+C
+  ou Control+NVDA+R tres veces, respectivamente.
 
 ## Versión 20.03
 

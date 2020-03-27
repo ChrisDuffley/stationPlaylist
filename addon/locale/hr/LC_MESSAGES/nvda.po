@@ -5,17 +5,17 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: stationPlaylist 3.3\n"
+"Project-Id-Version: stationPlaylist\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2014-11-28 19:00+1000\n"
-"PO-Revision-Date: 2020-03-13 14:21+0100\n"
+"PO-Revision-Date: 2020-03-25 23:30-0700\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: \n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 1.8.9\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 
@@ -429,9 +429,8 @@ msgstr ""
 "Otvara dijaloški okvir za konfiguriranje dodataka u programu SPL Studio."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-#, fuzzy
 msgid "Opens SPL add-on broadcast profiles dialog."
-msgstr "Otvara dijaloški okvir dobrodošlice dodataka u programu SPL Studio."
+msgstr "Otvara dijaloški okvir SPL dodatka za profile emitiranja."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Opens SPL Studio add-on welcome dialog."
@@ -1111,9 +1110,8 @@ msgid "Scan count"
 msgstr "Broj skeniranja"
 
 #. Translators: title of a dialog to configure broadcast profiles.
-#, fuzzy
 msgid "SPL Broadcast Profiles"
-msgstr "Profil emitiranja"
+msgstr "Profili emitiranja za SPL"
 
 #. Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
 msgid "Broadcast &profile:"
@@ -1122,9 +1120,8 @@ msgstr "&Profil emitiranja:"
 #. Borrowed directly from NvDA Core (credit: NV Access)
 #. This allows Enter key to be pressed to activate the selected profile.
 #. Translators: label for a button to activate the selected broadcast profile.
-#, fuzzy
 msgid "Activate"
-msgstr "aktivni"
+msgstr "Aktiviraj"
 
 #. Translators: The label of a button to copy a broadcast profile.
 msgid "Cop&y"
@@ -1150,7 +1147,6 @@ msgid "That profile already exists. Please choose a different name."
 msgstr "Taj profil već postoji. Odaberi jedno drugo ime."
 
 #. Translators: Message reported when attempting to delete a profile while a profile is triggered.
-#, fuzzy
 msgid ""
 "An instant switch profile might be active or you are in the midst of a "
 "broadcast. If so, please press SPL Assistant, F12 to switch back to a "
@@ -1159,8 +1155,8 @@ msgid ""
 msgstr ""
 "Profil za trenutno mijenjanje je možda aktivan ili se nalaziš usred "
 "emitiranja. Ako je tako, pritisni SPL Asistenta, F12 za vraćanje na "
-"prethodno aktivni profil prije otvaranja postavki dodatka, za brisanje "
-"profila."
+"prethodno aktivni profil, prije nego što otvoriš dijaloški okvir za profile "
+"emitiranja i izbrišeš profil."
 
 #. Translators: Title of a dialog shown when profile cannot be deleted.
 msgid "Profile delete error"
@@ -1680,6 +1676,8 @@ msgstr "Postavke StationPlaylist dodatka"
 #. Translators: presented when only normal profile is in use.
 msgid "Normal profile is in use, cannot open broadcast profiles dialog."
 msgstr ""
+"Koristi se normalni profil, nije moguće otvoriti dijaloški okvir za profile "
+"emitiranja."
 
 #. Translators: Text of the dialog when another find dialog is open.
 msgid "Another find dialog is open."
@@ -1943,16 +1941,3 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist Studio.\n"
 "Također, dodaje pristup naredbama za Studio s bilo kojeg mjesta."
-
-#~ msgid "Normal profile is in use."
-#~ msgstr "Koristi se normalni profil."
-
-#~ msgid ""
-#~ "The selected profile is different from currently active broadcast "
-#~ "profile. Settings will be applied to the selected profile instead."
-#~ msgstr ""
-#~ "Odabrani profil se razlikuje od trenutačno aktivnog profila emitiranja. "
-#~ "Umjesto toga će se postavke primijeniti na odabrani profil."
-
-#~ msgid "Apply settings"
-#~ msgstr "Primijeni postavke"

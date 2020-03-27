@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-03-14 08:31-0700\n"
+"PO-Revision-Date: 2020-03-25 23:28-0700\n"
 "Last-Translator: Iván Novegil Cancelas <ivan.novegil.cancelas@gmail.com>\n"
 "Language-Team: Add-ons translation team <oprisniki@gmail.com>\n"
 "Language: gl\n"
@@ -424,9 +424,8 @@ msgid "Opens SPL Studio add-on configuration dialog."
 msgstr "Abre o diálogo de configuración do complemento SPL Studio."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-#, fuzzy
 msgid "Opens SPL add-on broadcast profiles dialog."
-msgstr "Abre o diálogo de benvida do complemento SPL Studio."
+msgstr "Abre o diálogo de perfiles de transmisión do complemento SPL Studio."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Opens SPL Studio add-on welcome dialog."
@@ -1110,9 +1109,8 @@ msgid "Scan count"
 msgstr "Escanear conta"
 
 #. Translators: title of a dialog to configure broadcast profiles.
-#, fuzzy
 msgid "SPL Broadcast Profiles"
-msgstr "Perfís de emisión"
+msgstr "Perfiles de emisión"
 
 #. Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
 msgid "Broadcast &profile:"
@@ -1121,9 +1119,8 @@ msgstr "&Perfil emisión:"
 #. Borrowed directly from NvDA Core (credit: NV Access)
 #. This allows Enter key to be pressed to activate the selected profile.
 #. Translators: label for a button to activate the selected broadcast profile.
-#, fuzzy
 msgid "Activate"
-msgstr "activo"
+msgstr "Activar"
 
 #. Translators: The label of a button to copy a broadcast profile.
 msgid "Cop&y"
@@ -1149,7 +1146,6 @@ msgid "That profile already exists. Please choose a different name."
 msgstr "Ese perfil xa existe. Por favor elige un nombre diferente."
 
 #. Translators: Message reported when attempting to delete a profile while a profile is triggered.
-#, fuzzy
 msgid ""
 "An instant switch profile might be active or you are in the midst of a "
 "broadcast. If so, please press SPL Assistant, F12 to switch back to a "
@@ -1158,8 +1154,8 @@ msgid ""
 msgstr ""
 "Podería estar activo un perfil de cambio instantáneo ou estás en medio dunha "
 "emisión. Se é así, por favor preme SPL Assistant, F12 para voltar a un "
-"perfil anteriormente activo antes de abrir as opcións do complemento para "
-"borrar un perfil."
+"perfil anteriormente activo antes de abrir o diálogo de perfiles de emisión "
+"para borrar un perfil."
 
 #. Translators: Title of a dialog shown when profile cannot be deleted.
 msgid "Profile delete error"
@@ -1688,6 +1684,8 @@ msgstr "Opcións do complemento StationPlaylist"
 #. Translators: presented when only normal profile is in use.
 msgid "Normal profile is in use, cannot open broadcast profiles dialog."
 msgstr ""
+"O perfil normal está en uso, non se pode abrir o diálogo de perfiles de "
+"transmisión."
 
 #. Translators: Text of the dialog when another find dialog is open.
 msgid "Another find dialog is open."
@@ -1950,17 +1948,3 @@ msgid ""
 msgstr ""
 "Mellora o soporte para Station Playlist Studio.\n"
 "Ademáis, engade ordes globais para o estudio dende calquera parte."
-
-#~ msgid "Normal profile is in use."
-#~ msgstr "Estase a usar o perfil normal."
-
-#~ msgid ""
-#~ "The selected profile is different from currently active broadcast "
-#~ "profile. Settings will be applied to the selected profile instead."
-#~ msgstr ""
-#~ "O perfil selecionado é diferente do perfil de retransmisión activo "
-#~ "actualmente. A configuración debe aplicarse ao perfil selecionado no seu "
-#~ "lugar."
-
-#~ msgid "Apply settings"
-#~ msgstr "Aplicar configuración"

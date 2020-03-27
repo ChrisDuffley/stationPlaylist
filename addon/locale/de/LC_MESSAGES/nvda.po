@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-03-14 19:23+0100\n"
+"PO-Revision-Date: 2020-03-25 23:25-0700\n"
 "Last-Translator: René Linke <rene.linke@hamburg.de>\n"
 "Language-Team: Deutsch <bernd_dorer@yahoo.de>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 1.8.9\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
@@ -432,9 +432,8 @@ msgid "Opens SPL Studio add-on configuration dialog."
 msgstr "Öffnet die Einstellungen zur Erweiterung von SPL Studio."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-#, fuzzy
 msgid "Opens SPL add-on broadcast profiles dialog."
-msgstr "Öffnet das SPL-Willkommensdialog."
+msgstr "Öffnet das Dialogfeld SPL-Broadcast-Erweiterungs-Profile."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Opens SPL Studio add-on welcome dialog."
@@ -1130,9 +1129,8 @@ msgid "Scan count"
 msgstr "Anzahl der Scans"
 
 #. Translators: title of a dialog to configure broadcast profiles.
-#, fuzzy
 msgid "SPL Broadcast Profiles"
-msgstr "Sendungsprofile"
+msgstr "SPL-Broadcast-Profile"
 
 #. Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
 msgid "Broadcast &profile:"
@@ -1141,9 +1139,8 @@ msgstr "Sendungs&profil:"
 #. Borrowed directly from NvDA Core (credit: NV Access)
 #. This allows Enter key to be pressed to activate the selected profile.
 #. Translators: label for a button to activate the selected broadcast profile.
-#, fuzzy
 msgid "Activate"
-msgstr "aktiv"
+msgstr "Aktivieren"
 
 #. Translators: The label of a button to copy a broadcast profile.
 msgid "Cop&y"
@@ -1170,7 +1167,6 @@ msgstr ""
 "Dieses Profil existiert bereits. Bitte wählen Sie einen anderen Namen aus."
 
 #. Translators: Message reported when attempting to delete a profile while a profile is triggered.
-#, fuzzy
 msgid ""
 "An instant switch profile might be active or you are in the midst of a "
 "broadcast. If so, please press SPL Assistant, F12 to switch back to a "
@@ -1178,10 +1174,9 @@ msgid ""
 "a profile."
 msgstr ""
 "Möglicherweise ist ein Profil für den Sofortwechsel aktiv oder Sie befinden "
-"sich mitten in einer Sendung. Wenn dies der Fall ist, drücken Sie bitte den "
-"F12 für den SPL-Assistenten, um zu einem zuvor aktiven Profil "
-"zurückzukehren, bevor Sie die Zusatzeinstellungen zum Löschen eines Profils "
-"öffnen."
+"sich mitten in einer Sendung. In diesem Fall drücken Sie bitte die F12-Taste "
+"für den SPL-Assistenten, um zu einem zuvor aktiven Profil zurückzukehren, "
+"bevor Sie die Zusatzeinstellungen zum Löschen eines Profils öffnen."
 
 #. Translators: Title of a dialog shown when profile cannot be deleted.
 msgid "Profile delete error"
@@ -1720,6 +1715,8 @@ msgstr "Einstellungen der StationPlaylist-Erweiterung"
 #. Translators: presented when only normal profile is in use.
 msgid "Normal profile is in use, cannot open broadcast profiles dialog."
 msgstr ""
+"Normales Profil wird verwendet, kann das Dialogfeld Broadcast-Profile nicht "
+"öffnen."
 
 #. Translators: Text of the dialog when another find dialog is open.
 msgid "Another find dialog is open."
@@ -1987,16 +1984,3 @@ msgstr ""
 "Verbessert die Unterstützung für Station Playlist Studio.\n"
 "Des weiteren fügt es Tastenkombinationen für das Studio aus beliebigen "
 "Programmen hinzu."
-
-#~ msgid "Normal profile is in use."
-#~ msgstr "Das normale Profil ist gerade aktiv."
-
-#~ msgid ""
-#~ "The selected profile is different from currently active broadcast "
-#~ "profile. Settings will be applied to the selected profile instead."
-#~ msgstr ""
-#~ "Das ausgewählte Profil ist nicht das aktive Sendungsprofil. Die "
-#~ "Einstellungen werden stattdessen für das ausgewählte Profil angewendet."
-
-#~ msgid "Apply settings"
-#~ msgstr "Einstellungen übernehmen"

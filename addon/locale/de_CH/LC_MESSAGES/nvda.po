@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-03-14 08:29-0700\n"
+"PO-Revision-Date: 2020-03-25 23:25-0700\n"
 "Last-Translator: Adriani Botez <adriani.botez@gmail.com>\n"
 "Language-Team: Deutsch <bernd_dorer@yahoo.de>\n"
 "Language: de_CH\n"
@@ -1999,11 +1999,3 @@ msgstr ""
 "Verbessert die Unterstützung für Station Playlist Studio.\n"
 "Des weiteren fügt es Tastenkombinationen für das Studio aus beliebigen "
 "Programmen hinzu."
-
-#, fuzzy
-#~ msgid "Normal profile is in use."
-#~ msgstr "Nur das normale Profil ist gerade aktiv"
-
-#, fuzzy
-#~ msgid "Apply settings"
-#~ msgstr "SPL-Einstellungen"
