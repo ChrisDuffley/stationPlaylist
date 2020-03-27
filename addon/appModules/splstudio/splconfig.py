@@ -750,34 +750,9 @@ triggerTimer = None
 
 # Prepare the triggers dictionary and other runtime support.
 def initProfileTriggers():
-	# Make sure config hub is ready.
-	if SPLConfig is None:
-		raise RuntimeError("ConfigHub is unavailable, profile triggers manager cannot start")
-	global profileTriggers, profileTriggers2
-	try:
-		with open(SPLTriggersFile, "rb") as f:
-			profileTriggers = pickle.load(f)
-	except IOError:
-		profileTriggers = {}
-	# Cache profile triggers, used to compare the runtime dictionary against the cache.
-	profileTriggers2 = dict(profileTriggers)
-	# Is the triggers dictionary and the config pool in sync?
-	if len(profileTriggers):
-		spldebugging.debugOutput("trigger profiles found, verifying existence of profiles")
-		nonexistent = []
-		for profile in list(profileTriggers.keys()):
-			try:
-				SPLConfig.profileIndexByName(profile)
-			except ValueError:
-				spldebugging.debugOutput(f"profile {profile} does not exist")
-				nonexistent.append(profile)
-				del profileTriggers[profile]
-		if len(nonexistent):
-			# Translators: Message presented indicating missing time-based profiles.
-			wx.CallAfter(gui.messageBox, _("Could not locate the following time-based profile(s):\n{profiles}").format(profiles = ", ".join(nonexistent)),
-			# Translators: The title of a dialog shown when some time-based profiles doesn't exist.
-			_("Time-based profiles missing"), wx.OK|wx.ICON_ERROR)
-	triggerStart()
+	# 20.06: do nothing.
+	# 20.07: delete profile triggers database file.
+	return
 
 # Dump profile triggers pickle away.
 def saveProfileTriggers():
