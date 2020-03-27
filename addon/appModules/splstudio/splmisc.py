@@ -325,6 +325,7 @@ def cartExplorerRefresh(studioTitle, currentCarts):
 
 # Countdown timer.
 # This is utilized by many services, chiefly profile triggers routine.
+# 20.06: no longer actively used, kept for possible uses in the future.
 
 class SPLCountdownTimer(object):
 
