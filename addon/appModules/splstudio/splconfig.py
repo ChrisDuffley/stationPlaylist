@@ -722,7 +722,8 @@ def initialize():
 	# Fire up profile triggers.
 	# 17.10: except when normal profile only flag is specified.
 	# 20.04: time-based profile feature is deprecated.
-	if not SPLConfig.normalProfileOnly: initProfileTriggers()
+	# 20.06 (temporary): "fire up" profile triggers - actually doing nothing.
+	initProfileTriggers()
 	# 7.1: Make sure encoder settings map isn't corrupted.
 	try:
 		streamLabels = ConfigObj(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
