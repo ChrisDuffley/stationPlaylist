@@ -739,15 +739,8 @@ def initialize():
 # This helps prolong life of a solid-state drive (preventing unnecessary writes).
 _SPLCache = {}
 
-# Record profile triggers.
-# Each record (profile name) consists of seven fields organized as a list:
-# A bit vector specifying which days should this profile be active, the first five fields needed for constructing a datetime.datetime object used to look up when to trigger this profile, and an integer specifying the duration in minutes.
-profileTriggers = {} # Using a pickle is quite elegant.
-profileTriggers2 = {} # For caching purposes.
 # Profile triggers pickle.
 SPLTriggersFile = os.path.join(globalVars.appArgs.configPath, "spltriggers.pickle")
-# Trigger timer.
-triggerTimer = None
 
 # Prepare the triggers dictionary and other runtime support.
 def initProfileTriggers():
