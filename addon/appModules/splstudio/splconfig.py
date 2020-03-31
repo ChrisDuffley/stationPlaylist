@@ -1203,8 +1203,7 @@ def showStartupDialogs(oldVer=False, oldVerReturn=False):
 		SPLConfig["Startup"]["TriggerProfileDeprecation"] = False
 		return
 	# 20.05 (temporary): display SPL Assistant Window-Eyes compatibility layer deprecation warning.
-	SPLConfig["Startup"]["WinEyesLayerDeprecation"] = SPLConfig["Advanced"]["CompatibilityLayer"] == "wineyes"
-	if SPLConfig["Startup"]["WinEyesLayerDeprecation"]:
+	if SPLConfig["Startup"]["WinEyesLayerDeprecation"] and SPLConfig["Advanced"]["CompatibilityLayer"] == "wineyes":
 		gui.messageBox(_("You are using SPL Assistant layer commands set to Window-Eyes command layout. As Window-Eyes is no longer supported, Window-Eyes command layout will be removed in a future version of StationPlaylist add-on. Please change SPL Assistant command layout to NVDA or JAWS layout by opening add-on settings screen (Alt+NvDA+0 from Studio window), selecting Advanced, then selecting the appropriate option from SPL Assistant compatibility layer combo box."), _("SPL add-on feature deprecation"), wx.OK | wx.ICON_INFORMATION)
 		SPLConfig["Startup"]["WinEyesLayerDeprecation"] = False
 		return
