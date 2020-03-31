@@ -3,7 +3,7 @@
 * Auteurs: Geoff Shang, Joseph Lee et d'autres contributeurs.
 * Télécharger [version stable][1]
 * Télécharger [la version de développement][2]
-* NVDA compatibility: 2019.3
+* NVDA compatibility: 2019.3 to 2020.1
 
 This add-on package provides improved usage of StationPlaylist Studio and
 other StationPlaylist apps, as well as providing utilities to control Studio
@@ -30,6 +30,13 @@ NOTES IMPORTANTES :
 * Les fonctionnalités marquées comme "expérimental" servent à tester quelque
   chose avant une publication plus vaste, elles ne seront donc pas activées
   dans les versions stables.
+* While Studio is running, you can save, reload saved settings, or reset
+  add-on settings to defaults by pressing Control+NVDA+C, Control+NVDA+R
+  once, or Control+NVDA+R three times, respectively. This is also applicable
+  to encoder settings - you can save and reset (not reload) encoder settings
+  if using encoders.
+* Time-based broadcast profiles feature is deprecated and will be removed in
+  a future release.
 
 ## Raccourcis clavier
 
@@ -87,6 +94,7 @@ contraire.
   uniquement): annonce les commentaires de piste le cas échéant.
 * Alt+NVDA+0 depuis la fenêtre de Studio : Ouvre le dialogue de
   configuration de l'extension Studio.
+* Alt+NVDA+P from Studio window: Opens the Studio broadcast profiles dialog.
 * Alt+NVDA+- (tiret) depuis la fenêtre de Studio : Envoyez vos commentaires
   au développeur de l'extension en utilisant le client de messagerie par
   défaut.
@@ -200,7 +208,6 @@ Les commandes disponibles sont :
 * U: temps de fonctionnement Studio.
 * W: Météo et température si configurée.
 * Y: Statut de la modification de la playlist.
-* 1 through 0: Announce column content for a specified column.
 * F8 : Prendre des instantanés de playlist (nombre de pistes, piste la plus
   longue, etc.).
 * Maj+F8 : Demander des transcriptions de playlist dans de nombreux formats.
@@ -325,6 +332,12 @@ boîte de dialogue configuration de l'extension. Sinon, allez dans le menu
 préférences de NVDA et sélectionnez l'élément Paramètres SPL Studio. Cette
 boîte de dialogue est également utilisé pour gérer les profils de diffusion.
 
+## Broadcast profiles dialog
+
+You can save settings for specific shows into broadcast profiles. These
+profiles can be managed via SPL broadcast profiles dialog which can be
+accessed by pressing Alt+NVDA+P from Studio window.
+
 ## Mode tactile SPL
 
 Si vous utilisez Studio sur un ordinateur possédant un écran tactile
@@ -333,6 +346,28 @@ ultérieure installé, vous pouvez exécuter certaines commandes Studio depuis
 un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
+
+## Version 20.04
+
+* Time-based broadcast profiles feature is deprecated. A warning message
+  will be shown when first starting Studio after installing add-on 20.04 if
+  you have defined one or more time-based broadcast profiles.
+* Broadcast profiles management has been split from SPL add-on settings
+  dialog into its own dialog. You can access broadcast profiles dialog by
+  pressing Alt+NVDA+P from Studio window.
+* Due to duplication with Control+NVDA+number row commands for Studio
+  tracks, columns explorer commands from SPL Assistant (number row) has been
+  removed.
+* Changed error message shown when trying to open a Studio add-on settings
+  dialog (such as metadata streaming dialog) while another settings dialog
+  (such as end of track alarm dialog) is active. The new error message is
+  same as the message shown when trying to open multiple NVDA settings
+  dialogs.
+* NVDA will no longer play error tones or appear to do nothing when clicking
+  OK button from Columns Explorer dialog after configuring column slots.
+* In encoders, you can now save and reset encoder settings (including stream
+  labels) by pressing Control+NVDA+C or Control+NVDA+R three times,
+  respectively.
 
 ## Version 20.03
 
@@ -346,12 +381,12 @@ ci-dessus pour exécuter des commandes.
 * Due to removal of automatic announcement of playing track title, the
   setting to configure this feature has been removed from add-on
   settings/status announcement category.
-* In encoders, NVDA will play connection tone every half a second while an
+* In encoders, NvDA will play connection tone every half a second while an
   encoder is connecting.
 * In encoders, NVDA will now announce connection attempt messages until an
   encoder is actually connected. Previously NVDA stopped when an error was
   encountered.
-* A new setting has been added to encoder settings to let NVDA announce
+* A new setting has been added to encoder settings to let NvDA announce
   connection messages until the selected encoder is connected. This setting
   is enabled by default.
 
@@ -483,11 +518,10 @@ Version 19.06 supports SPL Studio 5.20 and later.
   par défaut de l'extension Studio ainsi que les paramètres NVDA.
 * Le dialogue de paramètres de l'extension Studio "Options avancées" a été
   renommé en "Avancé".
-* 19.03 Expérimental : dans les panneaux d'annonces de colonnes
-  transcription de playlists (paramètres de l'extension), les contrôles
-  d'inclusion/ordre de personnalisation des colonnes seront visible au
-  premier plan au lieu d'avoir à sélectionner un bouton pour ouvrir un
-  dialogue pour configurer ces paramètres.
+* 19.03 experimental: in column announcements and playlist transcripts
+  panels (add-on settings), custom column inclusion/order controls will be
+  visible up front instead of having to select a button to open a dialog to
+  configure these settings.
 
 ## Version 19.02
 

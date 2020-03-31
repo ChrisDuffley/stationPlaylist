@@ -3,7 +3,7 @@
 * Autoren: Geoff Shang, Joseph Lee und weitere Mitwirkende
 * [Stabile Version herunterladen][1]
 * [Entwicklerversion herunterladen][2]
-* NVDA-Kompatibilität: 2019.3
+* NVDA compatibility: 2019.3 to 2020.1
 
 Dieses Zusatzpaket bietet eine verbesserte Nutzung von StationPlaylist
 Studio und anderen StationPlaylist-Anwendungen sowie Dienstprogramme zur
@@ -32,6 +32,13 @@ WICHTIGE HINWEISE:
 * Features, die als "experimentell" gekennzeichnet sind, sollen etwas vor
   einer zukünftigen Version testen, sodass sie nicht in stabilen Versionen
   aktiviert werden.
+* While Studio is running, you can save, reload saved settings, or reset
+  add-on settings to defaults by pressing Control+NVDA+C, Control+NVDA+R
+  once, or Control+NVDA+R three times, respectively. This is also applicable
+  to encoder settings - you can save and reset (not reload) encoder settings
+  if using encoders.
+* Time-based broadcast profiles feature is deprecated and will be removed in
+  a future release.
 
 ## Tastenkürzel
 
@@ -89,6 +96,7 @@ angegeben.
   Track-Kommentare, falls vorhanden.
 * Alt+NVDA+0 aus dem Studio-Fenster: Öffnet den Konfigurationsdialog der
   SPL-Erweiterung.
+* Alt+NVDA+P from Studio window: Opens the Studio broadcast profiles dialog.
 * Alt+NVDA+Minus (Bindestrich) aus dem Studio-Fenster: Senden Sie Feedback
   an den Entwickler der Erweiterung mit der E-Mail-Programm.
 * Alt+NVDA+F1: öffnet das Willkommensdialog.
@@ -203,7 +211,6 @@ Folgende Befehle stehen zur Verfügung:
 * U: Studiozeit.
 * W: Wetter und Temperatur, wenn konfiguriert.
 * Y: Status der Playlist-Änderungen.
-* 1 bis 0: Ansage der Spalteninhalte für eine bestimmte Spalte.
 * F8: nimmt Schnappschüsse von Playlisten auf (Anzahl der Titel, längster
   Titel, etc.).
 * Umschalt+F8: Playlist-Protokolle in verschiednen Formaten anfordern.
@@ -336,6 +343,12 @@ auch das Einstellungsmenü von NVDA aufrufen und den Punkt Einstellungen für
 SPL-Studio auswählen. Dieser Dialog dient auch zur Verwaltung von
 Broadcast-Profilen.
 
+## Broadcast profiles dialog
+
+You can save settings for specific shows into broadcast profiles. These
+profiles can be managed via SPL broadcast profiles dialog which can be
+accessed by pressing Alt+NVDA+P from Studio window.
+
 ## SPL-Touchmodus
 
 Wenn Sie Studio auf einem Touchscreen-Computer mit Windows 8 oder höher
@@ -343,6 +356,28 @@ verwenden und NVDA 2012.3 oder höher installiert haben, können Sie einige
 Studio-Befehle über den Touchscreen ausführen. Tippen Sie zunächst einmal
 mit drei Fingern, um in den SPL-Touchmodus zu wechseln. Verwenden Sie dann
 die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
+
+## Version 20.04
+
+* Time-based broadcast profiles feature is deprecated. A warning message
+  will be shown when first starting Studio after installing add-on 20.04 if
+  you have defined one or more time-based broadcast profiles.
+* Broadcast profiles management has been split from SPL add-on settings
+  dialog into its own dialog. You can access broadcast profiles dialog by
+  pressing Alt+NVDA+P from Studio window.
+* Due to duplication with Control+NVDA+number row commands for Studio
+  tracks, columns explorer commands from SPL Assistant (number row) has been
+  removed.
+* Changed error message shown when trying to open a Studio add-on settings
+  dialog (such as metadata streaming dialog) while another settings dialog
+  (such as end of track alarm dialog) is active. The new error message is
+  same as the message shown when trying to open multiple NVDA settings
+  dialogs.
+* NVDA will no longer play error tones or appear to do nothing when clicking
+  OK button from Columns Explorer dialog after configuring column slots.
+* In encoders, you can now save and reset encoder settings (including stream
+  labels) by pressing Control+NVDA+C or Control+NVDA+R three times,
+  respectively.
 
 ## Version 20.03
 
@@ -357,12 +392,12 @@ die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
 * Auf Grund der Entfernung der automatischen Ansage des abspielenden Titels
   wurde die Einstellung zur Konfiguration dieser Funktion aus der Kategorie
   Zusatzeinstellungen bzw. Status-Ankündigung entfernt.
-* In encoders, NVDA will play connection tone every half a second while an
+* In encoders, NvDA will play connection tone every half a second while an
   encoder is connecting.
 * Bei Encodern meldet NVDA nun Meldungen über Verbindungsversuche, bis ein
   Encoder tatsächlich angeschlossen ist. Zuvor stoppte NVDA, wenn ein Fehler
   auftrat.
-* A new setting has been added to encoder settings to let NVDA announce
+* A new setting has been added to encoder settings to let NvDA announce
   connection messages until the selected encoder is connected. This setting
   is enabled by default.
 
@@ -510,11 +545,10 @@ Version 19.06 unterstützt SPL 5.20 und neuer.
   zurückgesetzt.
 * Der Dialog "Erweiterungseinstellungen für Studio" im Bereich "Erweiterte
   Optionen" wurde in "Erweitert" umbenannt.
-* 19.03 Experimentell: In Spaltenansagen und Playlist-Transkriptfeldern
-  (Add-On-Einstellungen) werden benutzerdefinierte
-  Spalteneinschluss-/Reihenfolgesteuerelemente im Vordergrund sichtbar sein,
-  anstatt eine Schaltfläche auswählen zu müssen, um einen Dialog zur
-  Konfiguration dieser Einstellungen zu öffnen.
+* 19.03 experimental: in column announcements and playlist transcripts
+  panels (add-on settings), custom column inclusion/order controls will be
+  visible up front instead of having to select a button to open a dialog to
+  configure these settings.
 
 ## Version 19.02
 

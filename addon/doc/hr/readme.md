@@ -3,7 +3,7 @@
 * Autori: Geoff Shang, Joseph Lee i drugi doprinositelji
 * Preuzmi [stabilnu verziju][1]
 * Preuzmi [razvojnu verziju][2]
-* NVDA kompatibilnost: 2019.3
+* NVDA kompatibilnost: 2019.3 do 2020.1
 
 Ovaj paket dodataka omogućava bolje korištenje programa StationPlaylist
 Studio i drugih StationPlaylist programa te pruža alate za kontrolu programa
@@ -29,6 +29,14 @@ VAŽNE NAPOMENE:
   koristiti u Windows Store verziji NVDA čitača.
 * Funkcije označene kao „eksperimentalne” služe za testiranje nečega prije
   objavljivanja. One stoga neće biti aktivirane u stabilnim izdanjima.
+* Dok je Studio pokrenut, moguće je spremiti postavke, ponovo učitati
+  spremljene postavke ili resetirati postavke dodatka na standardne
+  vrijednosti pritiskom tipki kontrol+NVDA+C, pritiskom tipki kontrol+NVDA+R
+  jednom ili pritiskom tipki kontrol+NVDA+R tri puta. Ovo se također
+  primijenjuje na postavke kodera – moguće je spremiti i resetirati (ali ne
+  ponovo učitati) postavke kodera, ako se koderi koriste.
+* Funkcija vremenski određenih profila emitiranja zastarjela je i uklonit će
+  se u budućem izdanju.
 
 ## Tipkovni prečaci
 
@@ -82,6 +90,8 @@ Većina njih radi samo u programu Studio, ukoliko nešto drugo nije navedeno.
   komentare snimke, ukoliko ih ima.
 * Alt+NVDA+0 u prozoru Studija: otvara dijaloški okvir za konfiguriranje
   dodataka.
+* Alt+NVDA+P u prozoru Studija: otvara dijaloški okvir za profile
+  emitiranja.
 * Alt+NVDA+- (crtica) u prozoru Studija: pošalji povratne informacije
   razvojnom programeru dodatka pomoću zadanog klijenta za e-poštu.
 * Alt+NVDA+F1: otvara dijaloški okvir za dobrodošlicu.
@@ -191,7 +201,6 @@ Dostupne naredbe su:
 * U: Ukupno vrijeme rada programa Studio.
 * W: Vremenska prognoza i temperatura, ukoliko je konfigurirano.
 * Y: Stanje promjena popisa snimaka.
-* 1 do 0: Najavi sadržaj stupaca za određeni stupac.
 * F8: Sastavi statistiku popisa snimaka (broj snimaka, najduža snimka,
   itd.).
 * Šift+F8: Zatraži prijepis popisa snimaka u raznim formatima.
@@ -309,6 +318,13 @@ dijaloškog okvira za konfiguraciju dodatka. Alternativno, idi na NVDA
 izbornik Postavke i odaberi stavku SPL Studio postavke. Ovaj se dijaloški
 okvir koristi i za upravljanje profilima za emitiranje.
 
+## Dijaloški okvir profila emitiranja
+
+Postavke za određene emisije mogu se spremiti u profile emitiranja. Tim se
+profilima može upravljati putem SPL-ovog dijaloškog okvira profila
+emitiranja, kojem se može pristupiti pritiskom na Alt+NVDA+P u prozoru
+programa Studio.
+
 ## Dodirni modus za SPL
 
 Ako koristiš Studio na računalu s ekranom osjetljivim na dodir s
@@ -316,6 +332,32 @@ operacijskim sustavom Windows 8 ili novijim i ako imaš instaliran NVDA
 2012.3 ili noviji, možeš izvršiti neke Studio naredbe na ekranu osjetljivim
 na dodir. Za prebacivanje na modus SPL-a, dodirni ekran s tri prsta. Zatim
 koristi gore navedene dodirne naredbe za njihovo izvršavanje.
+
+## Verzija 20.04
+
+* Funkcija vremenski određenih profila emitiranja je zastarjela. Prilikom
+  prvog pokretanja Studija, prikazat će se poruka upozorenja nakon
+  instaliranja dodatka 20.04, ako postoji jedan ili više vremenski određenih
+  profila emitiranja.
+* Upravljanje profilima emitiranja odvojeno je iz dijaloškog okvira postavki
+  SPL dodatka u vlastiti dijaloški okvir. Dijaloškom okviru profila
+  emitiranja moguće je pristupiti pritiskom na Alt+NVDA+P u prozoru programa
+  Studio.
+* Zbog dupliciranja s naredbama za Studio zapise kao što su
+  kontrol+NVDA+brojčani redak tipkovnice, naredbe istrživača stupaca
+  uklonjene su iz SPL Assistant-a (brojčani redak tipkovnice).
+* Izmijenjena je poruka o grešci, koja se prikazuje prilikom pokušaja
+  otvaranja dijaloškog okvira postavki Studio-dodatka (kao što je dijaloški
+  okvir za prijenos metapodataka) dok je jedan drugi dijaloški okvir
+  postavki aktivan (poput dijaloškog okvira alarma za kraj snimke). Nova
+  poruka o grešci jednaka je poruci koja se prikazuje prilikom pokušaja
+  otvaranja višestrukih dijaloških okvira NVDA postavki.
+* NVDA više neće svirati tonove greške niti izgledati kao da se ništa ne
+  radi, kad se u dijaloškom okviru „Istraživača stupaca” pritisne gumb „U
+  redu”, nakon konfiguriranja slotova stupaca.
+* U koderima je sada moguće spremiti i resetirati postavke kodera
+  (uključujući oznake prijenosa) pritiskom tipki kontrol+NVDA+C ili
+  pritiskom tipki kontrol+NVDA+R tri puta.
 
 ## Version 20.03
 
@@ -329,12 +371,12 @@ koristi gore navedene dodirne naredbe za njihovo izvršavanje.
 * Due to removal of automatic announcement of playing track title, the
   setting to configure this feature has been removed from add-on
   settings/status announcement category.
-* In encoders, NVDA will play connection tone every half a second while an
+* In encoders, NvDA will play connection tone every half a second while an
   encoder is connecting.
 * In encoders, NVDA will now announce connection attempt messages until an
   encoder is actually connected. Previously NVDA stopped when an error was
   encountered.
-* A new setting has been added to encoder settings to let NVDA announce
+* A new setting has been added to encoder settings to let NvDA announce
   connection messages until the selected encoder is connected. This setting
   is enabled by default.
 
@@ -465,7 +507,7 @@ Version 19.06 supports SPL Studio 5.20 and later.
   reset Studio add-on settings to defaults along with NVDA settings.
 * Renamed Studio add-on settings dialog's "Advanced options" panel to
   "Advanced".
-* 19.03 Experimental: in column announcements and playlist transcripts
+* 19.03 experimental: in column announcements and playlist transcripts
   panels (add-on settings), custom column inclusion/order controls will be
   visible up front instead of having to select a button to open a dialog to
   configure these settings.
