@@ -167,6 +167,10 @@ class ConfigHub(ChainMap):
 				del self.maps[0][section[0]][key]
 			# 19.02: special handling for Update section (the whole section is deprecated).
 			if "Update" in self.maps[0]: del self.maps[0]["Update"]
+			# 20.06: remove Window-Eyes command layout manually.
+			# 20.07: remove this altogether so it now becomes a config error.
+			if self.maps[0]["Advanced"]["CompatibilityLayer"] == "wineyes":
+				self.maps[0]["Advanced"]["CompatibilityLayer"] = "off"
 		# Moving onto broadcast profiles if any.
 		# 17.10: but not when only normal profile should be used.
 		if not self.normalProfileOnly:
