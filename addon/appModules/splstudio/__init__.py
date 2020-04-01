@@ -1877,13 +1877,11 @@ class AppModule(appModuleHandler.AppModule):
 			# 7.0: choose the required compatibility layer.
 			if splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "off": self.bindGestures(self.__SPLAssistantGestures)
 			elif splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "jfw": self.bindGestures(self.__SPLAssistantJFWGestures)
-			elif splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "wineyes": self.bindGestures(self.__SPLAssistantWEGestures)
 			for i in range(5):
 				self.bindGesture("kb:shift+%s"%(i), "metadataEnabled")
 			self.SPLAssistant = True
 			tones.beep(512, 50)
 			if splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "jfw": ui.message("JAWS")
-			elif splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "wineyes": ui.message("Window-Eyes")
 		except WindowsError:
 			return
 
