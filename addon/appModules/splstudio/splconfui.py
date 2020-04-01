@@ -1147,8 +1147,7 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 		# Translators: The label for a setting in SPL add-on dialog to set keyboard layout for SPL Assistant.
 		labelText = _("SPL Assistant command &layout:")
 		self.compatibilityLayouts=[("off","NVDA"),
-		("jfw","JAWS for Windows"),
-		("wineyes","Window-Eyes")]
+		("jfw","JAWS for Windows")]
 		self.compatibilityList=advOptionsHelper.addLabeledControl(labelText, wx.Choice, choices=[x[1] for x in self.compatibilityLayouts])
 		selection = next((x for x,y in enumerate(self.compatibilityLayouts) if y[0]==splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]))
 		try:
