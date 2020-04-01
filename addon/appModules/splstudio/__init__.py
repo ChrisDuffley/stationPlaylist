@@ -505,42 +505,6 @@ Shift+F8: Obtain playlist transcripts in a variety of formats.
 F9: Mark current track as start of track time analysis.
 F10: Perform track time analysis.
 F12: Switch to an instant switch profile.
-Shift+F1: Open online user guide."""),
-# Translators: The text of the help command in SPL Assistant layer when Window-Eyes layer is active.
-	"wineyes":_("""WARNING! Window-Eyes command layout is deprecated and will be removed in a future version of StationPlaylist add-on.
-After entering SPL Assistant, press:
-A: Automation.
-C: Toggle cart explorer.
-Shift+C: Announce name of the currently playing track.
-D: Remaining time for the playlist.
-E: Elapsed time.
-F: Track finder.
-R: Remaining time for the currently playing track.
-G: Overall metadata streaming status.
-Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder and four additional URL's.
-H: Duration of trakcs in this hour slot.
-Shift+H: Duration of remaining trakcs in this hour slot.
-K: Move to place marker track.
-Control+K: Set place marker track.
-L: Listener count.
-Shift+L: Line-in status.
-M: Microphone status.
-N: Next track.
-P: Playback status.
-Shift+P: Pitch for the current track.
-Shift+E: Record to file.
-Shift+R: Monitor library scan.
-S: Scheduled time for the track.
-Shift+S: Time until the selected track will play.
-T: Cart edit/insert mode.
-U: Studio up time.
-W: Weather and temperature.
-Y: Playlist modification.
-F8: Take playlist snapshots such as track count, longest track and so on.
-Shift+F8: Obtain playlist transcripts in a variety of formats.
-F9: Mark current track as start of track time analysis.
-F10: Perform track time analysis.
-F12: Switch to an instant switch profile.
 Shift+F1: Open online user guide.""")}
 
 # Provide a way to fetch dialog description in reverse order.
@@ -1858,7 +1822,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# SPL Assistant: reports status on playback, operation, etc.
 	# Used layer command approach to save gesture assignments.
-	# Most were borrowed from JFW and Window-Eyes layer scripts.
+	# Most were borrowed from JFW and Window-Eyes layer scripts (Window-Eyes command layout removed in 2020).
 
 	# Set up the layer script environment.
 	def getScript(self, gesture):
@@ -2312,8 +2276,6 @@ class AppModule(appModuleHandler.AppModule):
 		if compatibility == "off": title = _("SPL Assistant help")
 		# Translators: The title for SPL Assistant help dialog.
 		elif compatibility == "jfw": title = _("SPL Assistant help for JAWS layout")
-		# Translators: The title for SPL Assistant help dialog.
-		elif compatibility == "wineyes": title = _("SPL Assistant help for Window-Eyes layout")
 		wx.CallAfter(gui.messageBox, SPLAssistantHelp[compatibility], title)
 
 	def script_openOnlineDoc(self, gesture):
