@@ -167,10 +167,11 @@ class ConfigHub(ChainMap):
 				del self.maps[0][section[0]][key]
 			# 19.02: special handling for Update section (the whole section is deprecated).
 			if "Update" in self.maps[0]: del self.maps[0]["Update"]
-			# 20.06: remove Window-Eyes command layout manually.
+			# 20.06: remove Window-Eyes command layout manually, present one final deprecation warning before doing so.
 			# 20.07: remove this altogether so it now becomes a config error.
 			if self.maps[0]["Advanced"]["CompatibilityLayer"] == "wineyes":
 				self.maps[0]["Advanced"]["CompatibilityLayer"] = "off"
+				self.maps[0]["Startup"]["WinEyesLayerDeprecation"] = True
 		# Moving onto broadcast profiles if any.
 		# 17.10: but not when only normal profile should be used.
 		if not self.normalProfileOnly:
@@ -974,8 +975,8 @@ def showStartupDialogs(oldVer=False, oldVerReturn=False):
 			#os.remove(os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "ltsprep"))
 	#if oldVerReturn: return
 	# 20.05 (temporary): display SPL Assistant Window-Eyes compatibility layer deprecation warning.
-	if SPLConfig["Startup"]["WinEyesLayerDeprecation"] and SPLConfig["Advanced"]["CompatibilityLayer"] == "wineyes":
-		gui.messageBox(_("You are using SPL Assistant layer commands set to Window-Eyes command layout. As Window-Eyes is no longer supported, Window-Eyes command layout will be removed in a future version of StationPlaylist add-on. Please change SPL Assistant command layout to NVDA or JAWS layout by opening add-on settings screen (Alt+NvDA+0 from Studio window), selecting Advanced, then selecting the appropriate option from SPL Assistant compatibility layer combo box."), _("SPL add-on feature deprecation"), wx.OK | wx.ICON_INFORMATION)
+	if SPLConfig["Startup"]["WinEyesLayerDeprecation"]:
+		gui.messageBox(_("Window-Eyes command layout has been removed. Your SPL Assistant command layout is set to NVDA (default layout). To learn more about commands you can use in SPL Assistant, from Studio window, press SPL Assistant, F1."), _("SPL add-on feature removed"), wx.OK | wx.ICON_INFORMATION)
 		SPLConfig["Startup"]["WinEyesLayerDeprecation"] = False
 		return
 	if SPLConfig["Startup"]["WelcomeDialog"]:
