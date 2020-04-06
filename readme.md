@@ -18,7 +18,6 @@ IMPORTANT NOTES:
 * Due to tecnical limitations, you cannot install or use this add-on on Windows Store version of NVDA.
 * Features marked as "experimental" are meant to test something before a wider release, so they will not be enabled in stable releases.
 * While Studio is running, you can save, reload saved settings, or reset add-on settings to defaults by pressing Control+NVDA+C, Control+NVDA+R once, or Control+NVDA+R three times, respectively. This is also applicable to encoder settings - you can save and reset (not reload) encoder settings if using encoders.
-* Time-based broadcast profiles feature is deprecated and will be removed in a future release.
 
 ## Shortcut keys
 
@@ -196,6 +195,10 @@ You can save settings for specific shows into broadcast profiles. These profiles
 ## SPL touch mode
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
+
+## Version 20.06
+
+* Time-based broadcast profiles feature has been removed.
 
 ## Version 20.05
 
