@@ -85,7 +85,6 @@ PilotFeatures = boolean(default=false)
 [Startup]
 AudioDuckingReminder = boolean(default=true)
 WelcomeDialog = boolean(default=true)
-TriggerProfileDeprecation = boolean(default=true)
 WinEyesLayerDeprecation = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
@@ -970,11 +969,6 @@ def showStartupDialogs(oldVer=False, oldVerReturn=False):
 		#if gui.messageBox("You are using an older version of Windows. From 2018 onwards, Studio add-on will not support versions earlier than Windows 7 Service Pack 1. Add-on 15.x LTS (long-term support) versions will support Windows versions such as Windows XP until mid-2018. Would you like to switch to long-term support release?", "Long-Term Support version", wx.YES | wx.NO | wx.CANCEL | wx.CENTER | wx.ICON_QUESTION) == wx.YES:
 			#os.remove(os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "ltsprep"))
 	#if oldVerReturn: return
-	# 20.04 (temporary): display time-based profile feature deprecation message.
-	if SPLConfig["Startup"]["TriggerProfileDeprecation"] and len(profileTriggers):
-		gui.messageBox(_("One or more time-based broadcast profiles are defined. Time-based broadcast profiles feature is deprecated and will be removed in a future version of StationPlaylist add-on."), _("SPL add-on feature deprecation"), wx.OK | wx.ICON_INFORMATION)
-		SPLConfig["Startup"]["TriggerProfileDeprecation"] = False
-		return
 	# 20.05 (temporary): display SPL Assistant Window-Eyes compatibility layer deprecation warning.
 	if SPLConfig["Startup"]["WinEyesLayerDeprecation"] and SPLConfig["Advanced"]["CompatibilityLayer"] == "wineyes":
 		gui.messageBox(_("You are using SPL Assistant layer commands set to Window-Eyes command layout. As Window-Eyes is no longer supported, Window-Eyes command layout will be removed in a future version of StationPlaylist add-on. Please change SPL Assistant command layout to NVDA or JAWS layout by opening add-on settings screen (Alt+NvDA+0 from Studio window), selecting Advanced, then selecting the appropriate option from SPL Assistant compatibility layer combo box."), _("SPL add-on feature deprecation"), wx.OK | wx.ICON_INFORMATION)
