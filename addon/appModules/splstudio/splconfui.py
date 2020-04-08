@@ -240,7 +240,7 @@ class BroadcastProfilesDialog(wx.Dialog):
 		if splconfig._triggerProfileActive:
 			# Translators: Message reported when attempting to change profile switch trigger while broadcasting.
 			gui.messageBox(_("You cannot change profile switch triggers in the midst of a broadcast."),
-				# Translators: Title of a dialog shown when profile trigger cannot e changd.
+				# Translators: Title of a dialog shown when profile trigger cannot e changed.
 				_("Profile triggers"), wx.OK | wx.ICON_ERROR, self)
 			self.Enable()
 			return
