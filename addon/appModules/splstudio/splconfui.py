@@ -358,7 +358,6 @@ class NewProfileDialog(wx.Dialog):
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()
-		return
 
 	def onCancel(self, evt):
 		self.Parent.Enable()
@@ -406,7 +405,6 @@ class TriggersDialog(wx.Dialog):
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()
-		return
 
 	def onCancel(self, evt):
 		self.Parent.Enable()
@@ -1102,7 +1100,6 @@ class ColumnsExplorerDialog(wx.Dialog):
 		elif self.level == 2: parent.exploreColumnsCreator = slots
 		parent.Enable()
 		self.Destroy()
-		return
 
 	def onCancel(self, evt):
 		self.Parent.Enable()
