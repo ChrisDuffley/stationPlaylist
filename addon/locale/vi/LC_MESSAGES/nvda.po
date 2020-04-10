@@ -278,7 +278,10 @@ msgstr ""
 "Shift+F1: mở tài liệu hướng dẫn trực tuyến."
 
 #. Translators: The text of the help command in SPL Assistant layer when Window-Eyes layer is active.
+#, fuzzy
 msgid ""
+"WARNING! Window-Eyes command layout is deprecated and will be removed in a "
+"future version of StationPlaylist add-on.\n"
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
 "C: Toggle cart explorer.\n"
@@ -406,16 +409,9 @@ msgid "Announces time including seconds."
 msgstr "Thông báo thời gian bao bồm giây."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid "Sets end of track alarm (default is 5 seconds)."
-msgstr "Thiết lập báo động cuối track (mặc định là 5 giây)."
-
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid "Sets song intro alarm (default is 5 seconds)."
-msgstr "Đặt nhạc hiệu (mặc định là 5 giây)."
-
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid "Sets microphone alarm (default is 5 seconds)."
-msgstr "Thiết lập báo động microphone (mặc định là 5 giây)."
+#, fuzzy
+msgid "Opens SPL Studio alarms settings."
+msgstr "Cài đặt SPL Studio..."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Opens SPL Studio add-on configuration dialog."
@@ -900,7 +896,6 @@ msgid "instant switch"
 msgstr "chuyển nhanh"
 
 #. Translators: A flag indicating the time-based triggers profile.
-#. Calling set profile flags with discard argument is always safe here.
 msgid "time-based"
 msgstr "theo thời gian"
 
@@ -1014,6 +1009,16 @@ msgstr ""
 msgid "SPL add-on feature deprecation"
 msgstr ""
 
+msgid ""
+"You are using SPL Assistant layer commands set to Window-Eyes command "
+"layout. As Window-Eyes is no longer supported, Window-Eyes command layout "
+"will be removed in a future version of StationPlaylist add-on. Please change "
+"SPL Assistant command layout to NVDA or JAWS layout by opening add-on "
+"settings screen (Alt+NvDA+0 from Studio window), selecting Advanced, then "
+"selecting the appropriate option from SPL Assistant compatibility layer "
+"combo box."
+msgstr ""
+
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Status announcement beeps"
 msgstr "Thông báo trạng thái beeps"
@@ -1110,10 +1115,6 @@ msgstr "hoạt động"
 msgid "Cop&y"
 msgstr "&Sao chép"
 
-#. Translators: The label for a setting in SPL Add-on settings to configure countdown seconds before switching profiles.
-msgid "Countdown seconds before switching profiles"
-msgstr "Đếm ngược bằng giây trước khi chuyển hồ sơ"
-
 #. #70 (18.07): in wxPython 4, name for the value keyword argument for text entry dialog constructor has changed.
 #. Translators: The label of a field to enter a new name for a broadcast profile.
 msgid "New name:"
@@ -1170,7 +1171,7 @@ msgstr ""
 "Bạn không thể thay đổi tác nhân chuyển hồ sơ khi đang nghe chương trình phát "
 "thanh."
 
-#. Translators: Title of a dialog shown when profile trigger cannot e changd.
+#. Translators: Title of a dialog shown when profile trigger cannot e changed.
 msgid "Profile triggers"
 msgstr "Các tác nhân hồ sơ"
 
@@ -1198,41 +1199,6 @@ msgstr "Tác nhân hồ sơ cho {profileName}"
 #. Translators: The label of a checkbox to toggle if selected profile is an instant switch profile.
 msgid "This is an &instant switch profile"
 msgstr "Đây là hồ sơ chuyển nhanh"
-
-#. Translators: The label of a checkbox to toggle if selected profile is a time-based profile.
-msgid "This is a &time-based switch profile"
-msgstr "Đây là hồ sơ chuyển &theo thời gian"
-
-msgid "Day"
-msgstr "Ngày"
-
-msgid "Time"
-msgstr "Thời gian"
-
-msgid "Hour"
-msgstr "Giờ"
-
-msgid "Minute"
-msgstr "Phút"
-
-msgid "Duration in minutes"
-msgstr "Thời lượng bằng phút"
-
-#. Translators: Presented if another profile occupies a time slot set by the user.
-msgid ""
-"A profile trigger already exists for the entered time slot. Please choose a "
-"different date or time."
-msgstr ""
-"Đã có một tác nhân hồ sơ cho khung giờ được nhập. Vui lòng chọn thời gian "
-"khác."
-
-#. Er, did you specify a date?
-msgid ""
-"The time-based profile checkbox is checked but no switch dates are given. "
-"Please either specify switch date(s) or uncheck time-based profile checkbox."
-msgstr ""
-"Hộp kiểm hồ sơ theo thời gian đã được chọn nưng không có chỉ định ngày "
-"chuyển. Vui lòng định ngày chuyển hoặc bỏ chọn mục này."
 
 #. Translators: title of a panel to configure various general add-on settings such as top and bottom announcement for playlists.
 msgid "General"
@@ -1606,10 +1572,6 @@ msgstr "Khôi phục các cài đặt"
 msgid "Reset instant switch profile"
 msgstr "Khôi phục hồ sơ chuyển nhanh"
 
-#. Translators: the label for resetting profile triggers.
-msgid "Delete time-based profile database"
-msgstr "Xóa dữ liệu hồ sơ theo thời gian"
-
 #. Translators: the label for resetting encoder settings.
 msgid "Remove encoder settings"
 msgstr "Gỡ các thiết lập mã hóa"
@@ -1680,6 +1642,9 @@ msgstr "Tìm khoảng thời gian"
 
 msgid "Minimum duration"
 msgstr "Thời lượng tối thiểu"
+
+msgid "Minute"
+msgstr "Phút"
 
 msgid "Second"
 msgstr "Giây"
@@ -1915,3 +1880,48 @@ msgid ""
 msgstr ""
 "Cải thiện hỗ trợ cho StationPlaylist Studio.\n"
 "Ngoài ra là thêm các lệnh toàn cục cho studio từ bất cứ đâu."
+
+#~ msgid "Sets end of track alarm (default is 5 seconds)."
+#~ msgstr "Thiết lập báo động cuối track (mặc định là 5 giây)."
+
+#~ msgid "Sets song intro alarm (default is 5 seconds)."
+#~ msgstr "Đặt nhạc hiệu (mặc định là 5 giây)."
+
+#~ msgid "Sets microphone alarm (default is 5 seconds)."
+#~ msgstr "Thiết lập báo động microphone (mặc định là 5 giây)."
+
+#~ msgid "Countdown seconds before switching profiles"
+#~ msgstr "Đếm ngược bằng giây trước khi chuyển hồ sơ"
+
+#~ msgid "This is a &time-based switch profile"
+#~ msgstr "Đây là hồ sơ chuyển &theo thời gian"
+
+#~ msgid "Day"
+#~ msgstr "Ngày"
+
+#~ msgid "Time"
+#~ msgstr "Thời gian"
+
+#~ msgid "Hour"
+#~ msgstr "Giờ"
+
+#~ msgid "Duration in minutes"
+#~ msgstr "Thời lượng bằng phút"
+
+#~ msgid ""
+#~ "A profile trigger already exists for the entered time slot. Please choose "
+#~ "a different date or time."
+#~ msgstr ""
+#~ "Đã có một tác nhân hồ sơ cho khung giờ được nhập. Vui lòng chọn thời gian "
+#~ "khác."
+
+#~ msgid ""
+#~ "The time-based profile checkbox is checked but no switch dates are given. "
+#~ "Please either specify switch date(s) or uncheck time-based profile "
+#~ "checkbox."
+#~ msgstr ""
+#~ "Hộp kiểm hồ sơ theo thời gian đã được chọn nưng không có chỉ định ngày "
+#~ "chuyển. Vui lòng định ngày chuyển hoặc bỏ chọn mục này."
+
+#~ msgid "Delete time-based profile database"
+#~ msgstr "Xóa dữ liệu hồ sơ theo thời gian"
