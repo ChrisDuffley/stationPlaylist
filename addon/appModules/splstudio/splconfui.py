@@ -353,7 +353,6 @@ class NewProfileDialog(wx.Dialog):
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()
-		return
 
 	def onCancel(self, evt):
 		self.Parent.Enable()
@@ -373,7 +372,7 @@ class TriggersDialog(wx.Dialog):
 
 		# Translators: The label of a checkbox to toggle if selected profile is an instant switch profile.
 		self.instantSwitchCheckbox=triggersHelper.addItem(wx.CheckBox(self, label=_("This is an &instant switch profile")))
-		self.instantSwitchCheckbox.SetValue(parent.switchProfile == parent.profiles.GetStringSelection().split(" <")[0])
+		self.instantSwitchCheckbox.SetValue(parent.switchProfile == profile)
 
 		triggersHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
@@ -401,7 +400,6 @@ class TriggersDialog(wx.Dialog):
 		parent.profiles.SetFocus()
 		parent.Enable()
 		self.Destroy()
-		return
 
 	def onCancel(self, evt):
 		self.Parent.Enable()
@@ -1097,7 +1095,6 @@ class ColumnsExplorerDialog(wx.Dialog):
 		elif self.level == 2: parent.exploreColumnsCreator = slots
 		parent.Enable()
 		self.Destroy()
-		return
 
 	def onCancel(self, evt):
 		self.Parent.Enable()

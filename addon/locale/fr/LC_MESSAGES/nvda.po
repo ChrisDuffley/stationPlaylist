@@ -291,6 +291,8 @@ msgstr ""
 #. Translators: The text of the help command in SPL Assistant layer when Window-Eyes layer is active.
 #, fuzzy
 msgid ""
+"WARNING! Window-Eyes command layout is deprecated and will be removed in a "
+"future version of StationPlaylist add-on.\n"
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
 "C: Toggle cart explorer.\n"
@@ -421,16 +423,9 @@ msgid "Announces time including seconds."
 msgstr "Annonce l'heure avec les secondes."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid "Sets end of track alarm (default is 5 seconds)."
-msgstr "Définit l'alarme fin de piste (la valeur par défaut est 5 secondes)."
-
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid "Sets song intro alarm (default is 5 seconds)."
-msgstr "définit l'allarme chanson intro (la valeur par défaut est 5 secondes)."
-
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid "Sets microphone alarm (default is 5 seconds)."
-msgstr "Définit alarme microphone (la valeur par défaut est 5 secondes)."
+#, fuzzy
+msgid "Opens SPL Studio alarms settings."
+msgstr "Paramètres SPL Studio..."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Opens SPL Studio add-on configuration dialog."
@@ -943,7 +938,6 @@ msgid "instant switch"
 msgstr "changement immédiat"
 
 #. Translators: A flag indicating the time-based triggers profile.
-#. Calling set profile flags with discard argument is always safe here.
 msgid "time-based"
 msgstr "basé sur l'heure"
 
@@ -1062,6 +1056,16 @@ msgstr ""
 msgid "SPL add-on feature deprecation"
 msgstr ""
 
+msgid ""
+"You are using SPL Assistant layer commands set to Window-Eyes command "
+"layout. As Window-Eyes is no longer supported, Window-Eyes command layout "
+"will be removed in a future version of StationPlaylist add-on. Please change "
+"SPL Assistant command layout to NVDA or JAWS layout by opening add-on "
+"settings screen (Alt+NvDA+0 from Studio window), selecting Advanced, then "
+"selecting the appropriate option from SPL Assistant compatibility layer "
+"combo box."
+msgstr ""
+
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Status announcement beeps"
 msgstr "Annonce le statut en bips"
@@ -1160,10 +1164,6 @@ msgstr "active"
 msgid "Cop&y"
 msgstr "cop&ie"
 
-#. Translators: The label for a setting in SPL Add-on settings to configure countdown seconds before switching profiles.
-msgid "Countdown seconds before switching profiles"
-msgstr "Compte à rebours des secondes avant les changements de profils"
-
 #. #70 (18.07): in wxPython 4, name for the value keyword argument for text entry dialog constructor has changed.
 #. Translators: The label of a field to enter a new name for a broadcast profile.
 msgid "New name:"
@@ -1223,7 +1223,7 @@ msgstr ""
 "Vous ne pouvez pas modifier les déclencheurs de changement de profil au "
 "milieu d'une diffusion."
 
-#. Translators: Title of a dialog shown when profile trigger cannot e changd.
+#. Translators: Title of a dialog shown when profile trigger cannot e changed.
 msgid "Profile triggers"
 msgstr "Déclencheurs de profil"
 
@@ -1251,42 +1251,6 @@ msgstr "Déclencheurs de profil pour {profileName}"
 #. Translators: The label of a checkbox to toggle if selected profile is an instant switch profile.
 msgid "This is an &instant switch profile"
 msgstr "Ceci est un changement de profil &immédiat"
-
-#. Translators: The label of a checkbox to toggle if selected profile is a time-based profile.
-msgid "This is a &time-based switch profile"
-msgstr "Ceci est un changement de profil basé sur l'&heure"
-
-msgid "Day"
-msgstr "Jour"
-
-msgid "Time"
-msgstr "Heure"
-
-msgid "Hour"
-msgstr "Heure"
-
-msgid "Minute"
-msgstr "Minute"
-
-msgid "Duration in minutes"
-msgstr "Durée en minutes"
-
-#. Translators: Presented if another profile occupies a time slot set by the user.
-msgid ""
-"A profile trigger already exists for the entered time slot. Please choose a "
-"different date or time."
-msgstr ""
-"Un déclencheur de profil existe déjà pour la tranche horaire saisie. "
-"Veuillez choisir une date ou une heure différente."
-
-#. Er, did you specify a date?
-msgid ""
-"The time-based profile checkbox is checked but no switch dates are given. "
-"Please either specify switch date(s) or uncheck time-based profile checkbox."
-msgstr ""
-"La case à cocher profil basé sur l'heure est cochée, mais aucune date de "
-"changement n’est donnés. Veuillez spécifier la date(s) de changement(s) ou "
-"décochez profil basé sur l'heure."
 
 #. Translators: title of a panel to configure various general add-on settings such as top and bottom announcement for playlists.
 msgid "General"
@@ -1671,10 +1635,6 @@ msgstr "Réinitialiser les paramètres"
 msgid "Reset instant switch profile"
 msgstr "Réinitialiser le changement de profil immédiat"
 
-#. Translators: the label for resetting profile triggers.
-msgid "Delete time-based profile database"
-msgstr "Supprimer la base de données du profils basé sur l'heure"
-
 #. Translators: the label for resetting encoder settings.
 msgid "Remove encoder settings"
 msgstr "Supprimer les paramètres de l'encodeur"
@@ -1751,6 +1711,9 @@ msgstr "Recherche de l'intervalle de temps"
 
 msgid "Minimum duration"
 msgstr "Durée minimale"
+
+msgid "Minute"
+msgstr "Minute"
 
 msgid "Second"
 msgstr "Seconde"
@@ -1995,3 +1958,51 @@ msgid ""
 msgstr ""
 "Améliore la prise en charge de StationPlaylist Studio.\n"
 "En outre, ajoute des commandes globales pour studio où que vous soyez."
+
+#~ msgid "Sets end of track alarm (default is 5 seconds)."
+#~ msgstr ""
+#~ "Définit l'alarme fin de piste (la valeur par défaut est 5 secondes)."
+
+#~ msgid "Sets song intro alarm (default is 5 seconds)."
+#~ msgstr ""
+#~ "définit l'allarme chanson intro (la valeur par défaut est 5 secondes)."
+
+#~ msgid "Sets microphone alarm (default is 5 seconds)."
+#~ msgstr "Définit alarme microphone (la valeur par défaut est 5 secondes)."
+
+#~ msgid "Countdown seconds before switching profiles"
+#~ msgstr "Compte à rebours des secondes avant les changements de profils"
+
+#~ msgid "This is a &time-based switch profile"
+#~ msgstr "Ceci est un changement de profil basé sur l'&heure"
+
+#~ msgid "Day"
+#~ msgstr "Jour"
+
+#~ msgid "Time"
+#~ msgstr "Heure"
+
+#~ msgid "Hour"
+#~ msgstr "Heure"
+
+#~ msgid "Duration in minutes"
+#~ msgstr "Durée en minutes"
+
+#~ msgid ""
+#~ "A profile trigger already exists for the entered time slot. Please choose "
+#~ "a different date or time."
+#~ msgstr ""
+#~ "Un déclencheur de profil existe déjà pour la tranche horaire saisie. "
+#~ "Veuillez choisir une date ou une heure différente."
+
+#~ msgid ""
+#~ "The time-based profile checkbox is checked but no switch dates are given. "
+#~ "Please either specify switch date(s) or uncheck time-based profile "
+#~ "checkbox."
+#~ msgstr ""
+#~ "La case à cocher profil basé sur l'heure est cochée, mais aucune date de "
+#~ "changement n’est donnés. Veuillez spécifier la date(s) de changement(s) "
+#~ "ou décochez profil basé sur l'heure."
+
+#~ msgid "Delete time-based profile database"
+#~ msgstr "Supprimer la base de données du profils basé sur l'heure"

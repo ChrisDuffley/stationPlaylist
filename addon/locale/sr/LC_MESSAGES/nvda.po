@@ -280,6 +280,8 @@ msgstr ""
 #. Translators: The text of the help command in SPL Assistant layer when Window-Eyes layer is active.
 #, fuzzy
 msgid ""
+"WARNING! Window-Eyes command layout is deprecated and will be removed in a "
+"future version of StationPlaylist add-on.\n"
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
 "C: Toggle cart explorer.\n"
@@ -404,16 +406,9 @@ msgid "Announces time including seconds."
 msgstr "Izgovara vreme uključujući sekunde"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid "Sets end of track alarm (default is 5 seconds)."
-msgstr "Podešava alarm za kraj zapisa(podrazumevano je 5 sekundi)"
-
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid "Sets song intro alarm (default is 5 seconds)."
-msgstr "Podešava alarm za uvodnu pesmu(podrazumevano je 5 sekundi)"
-
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid "Sets microphone alarm (default is 5 seconds)."
-msgstr "Podešava alarm mikrofona(podrazumevano je 5 sekundi)"
+#, fuzzy
+msgid "Opens SPL Studio alarms settings."
+msgstr "SPL Studio podešavanja..."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Opens SPL Studio add-on configuration dialog."
@@ -901,7 +896,6 @@ msgid "instant switch"
 msgstr "Trenutna promena"
 
 #. Translators: A flag indicating the time-based triggers profile.
-#. Calling set profile flags with discard argument is always safe here.
 msgid "time-based"
 msgstr "Vremenski"
 
@@ -1021,6 +1015,16 @@ msgstr ""
 msgid "SPL add-on feature deprecation"
 msgstr ""
 
+msgid ""
+"You are using SPL Assistant layer commands set to Window-Eyes command "
+"layout. As Window-Eyes is no longer supported, Window-Eyes command layout "
+"will be removed in a future version of StationPlaylist add-on. Please change "
+"SPL Assistant command layout to NVDA or JAWS layout by opening add-on "
+"settings screen (Alt+NvDA+0 from Studio window), selecting Advanced, then "
+"selecting the appropriate option from SPL Assistant compatibility layer "
+"combo box."
+msgstr ""
+
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Status announcement beeps"
 msgstr "Obaveštenje o statusu pištanjem"
@@ -1117,10 +1121,6 @@ msgstr "Aktivan"
 msgid "Cop&y"
 msgstr "&Kopiraj"
 
-#. Translators: The label for a setting in SPL Add-on settings to configure countdown seconds before switching profiles.
-msgid "Countdown seconds before switching profiles"
-msgstr "Odbrojavanje pre promene profila"
-
 #. #70 (18.07): in wxPython 4, name for the value keyword argument for text entry dialog constructor has changed.
 #. Translators: The label of a field to enter a new name for a broadcast profile.
 msgid "New name:"
@@ -1178,7 +1178,7 @@ msgstr "Potvrdi brisanje"
 msgid "You cannot change profile switch triggers in the midst of a broadcast."
 msgstr ""
 
-#. Translators: Title of a dialog shown when profile trigger cannot e changd.
+#. Translators: Title of a dialog shown when profile trigger cannot e changed.
 #, fuzzy
 msgid "Profile triggers"
 msgstr "Aktivatori profila za{profileName}"
@@ -1207,41 +1207,6 @@ msgstr "Aktivatori profila za{profileName}"
 #. Translators: The label of a checkbox to toggle if selected profile is an instant switch profile.
 msgid "This is an &instant switch profile"
 msgstr "&Ovo je profil za trenutnu promenu"
-
-#. Translators: The label of a checkbox to toggle if selected profile is a time-based profile.
-msgid "This is a &time-based switch profile"
-msgstr "Ovo je &vremenski profil"
-
-msgid "Day"
-msgstr "Dan"
-
-msgid "Time"
-msgstr "Vreme"
-
-msgid "Hour"
-msgstr "Sat"
-
-msgid "Minute"
-msgstr "Minut"
-
-msgid "Duration in minutes"
-msgstr "Trajanje u minutima"
-
-#. Translators: Presented if another profile occupies a time slot set by the user.
-msgid ""
-"A profile trigger already exists for the entered time slot. Please choose a "
-"different date or time."
-msgstr ""
-"Profil već postoji za odabrano vreme. Molimo izaberite drugi datum ili vreme."
-
-#. Er, did you specify a date?
-msgid ""
-"The time-based profile checkbox is checked but no switch dates are given. "
-"Please either specify switch date(s) or uncheck time-based profile checkbox."
-msgstr ""
-"Izborno polje za vremenski profil je označeno ali niste izabrali datum i "
-"vreme. Molimo izaberite datum ili nemojte označiti izborno polje vremenski "
-"profil"
 
 #. Translators: title of a panel to configure various general add-on settings such as top and bottom announcement for playlists.
 msgid "General"
@@ -1632,10 +1597,6 @@ msgstr "Vrati podešavanja"
 msgid "Reset instant switch profile"
 msgstr "Vrati profil za trenutnu promenu"
 
-#. Translators: the label for resetting profile triggers.
-msgid "Delete time-based profile database"
-msgstr "Obriši bazu podataka vremenskih profila"
-
 #. Translators: the label for resetting encoder settings.
 msgid "Remove encoder settings"
 msgstr "Ukloni podešavanja enkodera"
@@ -1705,6 +1666,9 @@ msgstr "Pronalazač opsega vremena"
 
 msgid "Minimum duration"
 msgstr "Minimalno trajanje"
+
+msgid "Minute"
+msgstr "Minut"
 
 msgid "Second"
 msgstr "Sekunda"
@@ -1948,3 +1912,49 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist Studio.\n"
 "Takođe, dodaje globalne komande za studio bilo gde."
+
+#~ msgid "Sets end of track alarm (default is 5 seconds)."
+#~ msgstr "Podešava alarm za kraj zapisa(podrazumevano je 5 sekundi)"
+
+#~ msgid "Sets song intro alarm (default is 5 seconds)."
+#~ msgstr "Podešava alarm za uvodnu pesmu(podrazumevano je 5 sekundi)"
+
+#~ msgid "Sets microphone alarm (default is 5 seconds)."
+#~ msgstr "Podešava alarm mikrofona(podrazumevano je 5 sekundi)"
+
+#~ msgid "Countdown seconds before switching profiles"
+#~ msgstr "Odbrojavanje pre promene profila"
+
+#~ msgid "This is a &time-based switch profile"
+#~ msgstr "Ovo je &vremenski profil"
+
+#~ msgid "Day"
+#~ msgstr "Dan"
+
+#~ msgid "Time"
+#~ msgstr "Vreme"
+
+#~ msgid "Hour"
+#~ msgstr "Sat"
+
+#~ msgid "Duration in minutes"
+#~ msgstr "Trajanje u minutima"
+
+#~ msgid ""
+#~ "A profile trigger already exists for the entered time slot. Please choose "
+#~ "a different date or time."
+#~ msgstr ""
+#~ "Profil već postoji za odabrano vreme. Molimo izaberite drugi datum ili "
+#~ "vreme."
+
+#~ msgid ""
+#~ "The time-based profile checkbox is checked but no switch dates are given. "
+#~ "Please either specify switch date(s) or uncheck time-based profile "
+#~ "checkbox."
+#~ msgstr ""
+#~ "Izborno polje za vremenski profil je označeno ali niste izabrali datum i "
+#~ "vreme. Molimo izaberite datum ili nemojte označiti izborno polje "
+#~ "vremenski profil"
+
+#~ msgid "Delete time-based profile database"
+#~ msgstr "Obriši bazu podataka vremenskih profila"
