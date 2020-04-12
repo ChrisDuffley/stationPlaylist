@@ -114,7 +114,9 @@ class SPLTrackItem(sysListView32.ListItem):
 		# #72: directly fetch on-screen column header (not the in-memory one) by probing column order array from the list (parent).
 		# #65 (18.08): use column header method (at least the method body) provided by the class itself.
 		# This will work properly if the list (parent) is (or recognized as) SysListView32.List.
-		if not header: header = self._getColumnHeaderRaw(self.parent._columnOrderArray[colNumber])
+		# #130 (20.05): if visual column is to be used, visual column number must be passed in, otherwise in-memory column content will be fetched.
+		if visualColumns: colNumber = self.parent._columnOrderArray[colNumber]
+		if not header: header = self._getColumnHeaderRaw(colNumber)
 		columnContent = self._getColumnContentRaw(self.indexOf(header) if not visualColumns else colNumber)
 		if columnContent: ui.message(_("{header}: {content}").format(header = header, content = columnContent))
 		else:
@@ -167,6 +169,7 @@ class SPLTrackItem(sysListView32.ListItem):
 			ui.message(_("Column {columnPosition} not found").format(columnPosition= columnPos))
 			return
 		columnPos -= 1
+		header = None
 		try:
 			header = self.exploreColumns[columnPos]
 			# #103: only concrete implementations will return the correct index.
@@ -176,7 +179,6 @@ class SPLTrackItem(sysListView32.ListItem):
 			# #117 (20.02): for track items with no custom Columns Explorer support, refer to visual column layout.
 			# Note that zero-based indexing is still used.
 			column = columnPos
-			header = self._getColumnHeaderRaw(column)
 			visualColumns = True
 		if column is not None:
 			# #61 (18.06): pressed once will announce column data, twice will present it in a browse mode window.
