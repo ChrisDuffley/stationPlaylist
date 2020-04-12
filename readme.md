@@ -175,7 +175,7 @@ To obtain length to play selected tracks, mark current track for start of track 
 
 ## Columns Explorer
 
-By pressing Control+NVDA+1 through 0 or SPL Assistant, 1 through 0, you can obtain contents of specific columns. By default, these are artist, title, duration, intro, outro, category, year, album, genre and mood. You can configure which columns will be explored via columns explorer dialog found in add-on settings dialog.
+By pressing Control+NVDA+1 through 0, you can obtain contents of specific columns. By default, these are first ten columns for a track item (in Studio: artist, title, duration, intro, outro, category, year, album, genre, mood). For playlist editor in Creator and Remote VT client, column data depends on column order as shown on screen. In Studio, Creator's main track list, and Track Tool, column slots are preset regardless of column order on screen and can be configured from add-on settings dialog under columns explorer category.
 
 ## Playlist snapshots
 
