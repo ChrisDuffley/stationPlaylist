@@ -27,18 +27,18 @@ Most of these will work in Studio only unless otherwise specified.
 * Control+Alt+T (two finger flick down in SPL touch mode) from Studio window: announce remaining time for the currently playing trakc.
 * NVDA+Shift+F12 (two finger flick up in SPL touch mode) from Studio window: announces broadcaster time such as 5 minutes to top of the hour. Pressing this command twice will announce minutes and seconds till top of the hour.
 * Alt+NVDA+1/Alt+NVDA+2/Alt+NVDA+4 (two finger flick right or flick left in SPL mode) from Studio window: Opens alarms category in Studio add-on configuration dialog.
-* Alt+NVDA+1 from Creator's Playlist Editor window: Announces scheduled time for the loaded playlist.
-* Alt+NVDA+2 from Creator's Playlist Editor window: Announces total playlist duration.
+* Alt+NVDA+1 from Creator's Playlist Editor and Remote VT playlist editor: Announces scheduled time for the loaded playlist.
+* Alt+NVDA+2 from Creator's Playlist Editor and Remote VT playlist editor: Announces total playlist duration.
 * Alt+NVDA+3 from Studio window: Toggles cart explorer to learn cart assignments.
-* Alt+NVDA+3 from Creator's Playlist Editor window: Announces when the selected track is scheduled to play.
-* Alt+NVDA+4 from Creator's Playlist Editor window: Announces rotation and category associated with the loaded playlist.
+* Alt+NVDA+3 from Creator's Playlist Editor and Remote VT playlist editor: Announces when the selected track is scheduled to play.
+* Alt+NVDA+4 from Creator's Playlist Editor and Remote VT playlist editor: Announces rotation and category associated with the loaded playlist.
 * Control+NVDA+f from Studio window: Opens a dialog to find a track based on artist or song name. Press NVDA+F3 to find forward or NVDA+Shift+F3 to find backward.
 * Alt+NVDA+R from Studio window: Steps through library scan announcement settings.
 * Control+Shift+X from Studio window: Steps through braille timer settings.
-* Control+Alt+left/right arrow (while focused on a track in Studio, Creator, and Track Tool): Announce previous/next track column.
-* Control+Alt+Home/End (while focused on a track in Studio, Creator, and Track Tool): Announce first/last track column.
+* Control+Alt+left/right arrow (while focused on a track in Studio, Creator, Remote VT, and Track Tool): Announce previous/next track column.
+* Control+Alt+Home/End (while focused on a track in Studio, Creator, Remote VT, and Track Tool): Announce first/last track column.
 * Control+Alt+up/down arrow (while focused on a track in Studio only): Move to previous or next track and announce specific columns.
-* Control+NVDA+1 through 0 (while focused on a track in Studio, Creator (including Playlist Editor), and Track Tool): Announce column content for a specified column (first ten columns by default). Pressing this command twice will display column information on a browse mode window.
+* Control+NVDA+1 through 0 (while focused on a track in Studio, Creator (including Playlist Editor), Remote VT, and Track Tool): Announce column content for a specified column (first ten columns by default). Pressing this command twice will display column information on a browse mode window.
 * Control+NVDA+- (hyphen while focused on a track in Studio, Creator, and Track Tool): display data for all columns in a track on a browse mode window.
 * Alt+NVDA+C while focused on a track (Studio only): announces track comments if any.
 * Alt+NVDA+0 from Studio window: Opens the Studio add-on configuration dialog.
@@ -202,6 +202,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Version 20.05
 
+* Initial support for Remote VT (voice track) client, including remote playlist editor with same commands as Creator's playlist editor.
 * Commands used to open separate alarm settings dialogs (Alt+NVDA+1, Alt+NVDA+2, Alt+NVDA+4) will now open alarms settings in SPL add-on settings screen where track outro/intro and microphone alarm settings can be found.
 * In triggers dialog found in broadcast profiles dialog, removed the user interface associated with time-based broadcast profiles feature such as profile switch day/time/duration fields.
 * Profile switch countdown setting found in broadcast profiles dialog has been removed.
