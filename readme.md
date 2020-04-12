@@ -97,24 +97,23 @@ This layer command set allows you to obtain various status on SPL Studio, such a
 The available commands are:
 
 * A: Automation.
-* C (Shift+C  in JAWS and Window-Eyes layouts): Title for the currently playing track.
-* C (JAWS and Window-Eyes layouts): Toggle cart explorer (playlist viewer only).
+* C (Shift+C  in JAWS layout): Title for the currently playing track.
+* C (JAWS layout): Toggle cart explorer (playlist viewer only).
 * D (R in JAWS layout): Remaining duration for the playlist (if an error message is given, move to playlist viewer and then issue this command).
-* E (G in Window-Eyes layout): Metadata streaming status.
+* E: Metadata streaming status.
 * Shift+1 through Shift+4, Shift+0: Status for individual metadata streaming URL's (0 is for DSP encoder).
-* E (Window-Eyes layout): Elapsed time for the currently playing track.
 * F: Find track (playlist viewer only).
 * H: Duration of music for the current hour slot.
 * Shift+H: Remaining track duration for the hour slot.
-* I (L in JAWS or Window-Eyes layouts): Listener count.
+* I (L in JAWS layout): Listener count.
 * K: Move to the marked track (playlist viewer only).
 * Control+K: Set the current track as the place marker track (playlist viewer only).
-* L (Shift+L in JAWS and Window-Eyes layouts): Line in.
+* L (Shift+L in JAWS layout): Line in.
 * M: Microphone.
 * N: Title for the next scheduled track.
 * P: Playback status (playing or stopped).
 * Shift+P: Pitch of the current track.
-* R (Shift+E in JAWS and Window-Eyes layouts): Record to file enabled/disabled.
+* R (Shift+E in JAWS layout): Record to file enabled/disabled.
 * Shift+R: Monitor library scan in progress.
 * S: Track starts (scheduled).
 * Shift+S: Time until selected track will play (track starts in).
@@ -199,6 +198,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Version 20.06
 
 * Time-based broadcast profiles feature has been removed.
+* Window-Eyes command layout for SPL Assistant has been removed. Window-Eyes command layout users will be migrated to NVDA layout.
 
 ## Version 20.05
 
