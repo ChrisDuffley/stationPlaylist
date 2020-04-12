@@ -27,7 +27,7 @@ Most of these will work in Studio only unless otherwise specified.
 * Alt+Shift+T from Studio window: announce elapsed time for the currently playing trakc.
 * Control+Alt+T (two finger flick down in SPL touch mode) from Studio window: announce remaining time for the currently playing trakc.
 * NVDA+Shift+F12 (two finger flick up in SPL touch mode) from Studio window: announces broadcaster time such as 5 minutes to top of the hour. Pressing this command twice will announce minutes and seconds till top of the hour.
-* Alt+NVDA+1/Alt+NVDA+2/Alt+NVDA+4 (two finger flick right or flick left in SPL mode) from Studio window: Opens alarms category in Studio add-on configuration dialog.
+* Alt+NVDA+1 (two finger flick left in SPL mode) from Studio window: Opens alarms category in Studio add-on configuration dialog.
 * Alt+NVDA+1 from Creator's Playlist Editor and Remote VT playlist editor: Announces scheduled time for the loaded playlist.
 * Alt+NVDA+2 from Creator's Playlist Editor and Remote VT playlist editor: Announces total playlist duration.
 * Alt+NVDA+3 from Studio window: Toggles cart explorer to learn cart assignments.
@@ -155,7 +155,7 @@ The available SPL Controller commands are:
 
 ## Track and microphone alarms
 
-By default, NVDA will play a beep if five seconds are left in the track (outro) and/or intro, as well as to hear a beep if microphone has been active for a while. To configure track and microphone alarms, press Alt+NVDA+1, Alt+NVDA+2, or Alt+NvDA+4 to open alarms settings in Studio add-on settings screen. You can also use this screen to configure if you'll hear a beep, a message or both when alarms are turned on.
+By default, NVDA will play a beep if five seconds are left in the track (outro) and/or intro, as well as to hear a beep if microphone has been active for a while. To configure track and microphone alarms, press Alt+NVDA+1 to open alarms settings in Studio add-on settings screen. You can also use this screen to configure if you'll hear a beep, a message or both when alarms are turned on.
 
 ## Track Finder
 
@@ -200,7 +200,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Version 20.05
 
 * Initial support for Remote VT (voice track) client, including remote playlist editor with same commands as Creator's playlist editor.
-* Commands used to open separate alarm settings dialogs (Alt+NVDA+1, Alt+NVDA+2, Alt+NVDA+4) will now open alarms settings in SPL add-on settings screen where track outro/intro and microphone alarm settings can be found.
+* Commands used to open separate alarm settings dialogs (Alt+NVDA+1, Alt+NVDA+2, Alt+NVDA+4) has been combined into Alt+NvDA+1 and will now open alarms settings in SPL add-on settings screen where track outro/intro and microphone alarm settings can be found.
 * In triggers dialog found in broadcast profiles dialog, removed the user interface associated with time-based broadcast profiles feature such as profile switch day/time/duration fields.
 * Profile switch countdown setting found in broadcast profiles dialog has been removed.
 * As Window-Eyes is no longer supported by Vispero since 2017, SPL Assistant command layout for Window-Eyes is deprecated and will be removed in a future add-on release. A warning will be shown at startup urging users to change SPL Assistant command layout to NVDA (default) or JAWS.
