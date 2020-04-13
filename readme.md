@@ -208,6 +208,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * Profile switch countdown setting found in broadcast profiles dialog has been removed.
 * As Window-Eyes is no longer supported by Vispero since 2017, SPL Assistant command layout for Window-Eyes is deprecated and will be removed in a future add-on release. A warning will be shown at startup urging users to change SPL Assistant command layout to NVDA (default) or JAWS.
 * When using Columns Explorer slots (Control+NvDA+number row commands) or column navigation commands (Control+Alt+home/end/left arrow/right arrow) in Creator and Remote VT client, NVDA will no longer announce wrong column data after changing column position on screen via mouse.
+* In encoders and Streamer, NVDA will no longer appear to do nothing or play error tones when NVDA is exited while focused on something other than encoders list without focusing to encoders first.
 
 ## Version 20.04
 
