@@ -176,6 +176,8 @@ def saveStreamLabels():
 # In case this is called as part of a reset, unregister config save handler unconditionally.
 def cleanup(appTerminating=False, reset=False):
 	global streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError, encoderMonCount, SAMMonitorThreads, SPLMonitorThreads, ACMonitorThreads
+	# #132 (20.05): do not proceed if stream labels is None (no encoders were initialized).
+	if streamLabels is None: return
 	if appTerminating: saveStreamLabels()
 	if reset or appTerminating:
 		config.post_configSave.unregister(saveStreamLabels)
