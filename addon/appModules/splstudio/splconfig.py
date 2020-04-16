@@ -728,15 +728,6 @@ def initialize():
 	# 20.04: time-based profile feature is deprecated.
 	# 20.06 (temporary): "fire up" profile triggers - actually doing nothing.
 	initProfileTriggers()
-	# 7.1: Make sure encoder settings map isn't corrupted.
-	try:
-		streamLabels = ConfigObj(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
-	except:
-		open(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"), "w").close()
-		# Translators: Message displayed if errors were found in encoder configuration file.
-		runConfigErrorDialog(_("Your encoder settings had errors and were reset to defaults. If you have stream labels configured for various encoders, please add them again."),
-		# Translators: Title of the encoder settings error dialog.
-		_("Encoder settings error"))
 
 # Cache a copy of the loaded config.
 # This comes in handy when saving configuration to disk. For the most part, no change occurs to config.

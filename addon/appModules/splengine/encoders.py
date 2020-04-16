@@ -46,7 +46,19 @@ streamLabels = None
 def loadStreamLabels():
 	global streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError
 	import os, configobj, globalVars
-	streamLabels = configobj.ConfigObj(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
+	# 7.1: Make sure encoder settings map isn't corrupted.
+	# #131 (20.06): transplanted from Studio app module so the error message can be shown when an encoder gains focus.
+	try:
+		streamLabels = configobj.ConfigObj(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
+	except:
+		# To avoid type errors, create an empty dictionary.
+		streamLabels = {}
+		open(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"), "w").close()
+		# Translators: Message displayed if errors were found in encoder configuration file.
+		wx.CallAfter(gui.messageBox, _("Your encoder settings had errors and were reset to defaults."),
+		# Translators: Title of the encoder settings error dialog.
+		_("SPL add-on Encoder settings error"), wx.OK|wx.ICON_ERROR)
+		return
 	# Read stream labels.
 	try:
 		SAMStreamLabels = dict(streamLabels["SAMEncoders"])
