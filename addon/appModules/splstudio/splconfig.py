@@ -234,10 +234,10 @@ class ConfigHub(ChainMap):
 		return bool(self._switchProfileFlags & self._profileSwitchFlags["instant"])
 
 	# Unlock (load) profiles from files.
-	# LTS: Allow new profile settings to be overridden by a parent profile.
+	# 7.0: Allow new profile settings to be overridden by a parent profile.
 	# 8.0: Don't validate profiles other than normal profile in the beginning.
 	def _unlockConfig(self, path, profileName=None, prefill=False, parent=None, validateNow=False):
-		# LTS: Suppose this is one of the steps taken when copying settings when instantiating a new profile.
+		# 7.0: Suppose this is one of the steps taken when copying settings when instantiating a new profile.
 		# If so, go through same procedure as though config passes validation tests, as all values from parent are in the right format.
 		if parent is not None:
 			SPLConfigCheckpoint = ConfigObj(parent, encoding="UTF-8")
@@ -695,7 +695,7 @@ def initialize():
 		spldebugging.debugOutput("Failed to locate instant switch profile")
 		_configLoadStatus[SPLConfig.activeProfile] = "noInstantProfile"
 		SPLConfig.instantSwitch = None
-	# LTS: Load track comments if they exist.
+	# 7.0: Load track comments if they exist.
 	# This must be a separate file (another pickle file).
 	# 8.0: Do this much later when a track is first focused.
 	# For forward compatibility, work with pickle protocol 4 (Python 3.4 and later).

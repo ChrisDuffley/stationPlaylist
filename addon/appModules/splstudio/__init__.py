@@ -230,7 +230,7 @@ class SPLStudioTrackItem(SPLTrackItem):
 			category = self._getColumnContentRaw(self.indexOf("Category"))
 			if category in _SPLCategoryTones:
 				tones.beep(_SPLCategoryTones[category], 50)
-		# LTS: Comments please.
+		# 7.0: Comments please.
 		if splconfig.SPLConfig["General"]["TrackCommentAnnounce"] != "off":
 			self.announceTrackComment(0)
 		# 6.3: Catch an unusual case where screen order is off yet column order is same as screen order and NvDA is told to announce all columns.
