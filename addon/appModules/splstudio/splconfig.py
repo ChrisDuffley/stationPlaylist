@@ -954,15 +954,13 @@ Thank you.""")
 		self.Destroy()
 
 # And to open the above dialog and any other dialogs.
-# LTS18: return immediately after opening old ver dialog if minimal flag is set.
+# 18.09: return immediately after opening old ver dialog if minimal flag is set.
 def showStartupDialogs(oldVer=False, oldVerReturn=False):
 	# Old version reminder if this is such a case.
 	# 17.10: and also used to give people a chance to switch to LTS.
+	# 20.06: controlled by a temporary flag that can come and go.
 	# To be resurrected later.
-	#if oldVer and os.path.exists(os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "ltsprep")):
-		#if gui.messageBox("You are using an older version of Windows. From 2018 onwards, Studio add-on will not support versions earlier than Windows 7 Service Pack 1. Add-on 15.x LTS (long-term support) versions will support Windows versions such as Windows XP until mid-2018. Would you like to switch to long-term support release?", "Long-Term Support version", wx.YES | wx.NO | wx.CANCEL | wx.CENTER | wx.ICON_QUESTION) == wx.YES:
-			#os.remove(os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "ltsprep"))
-	#if oldVerReturn: return
+	# if oldVerReturn: return
 	# 20.05 (temporary): display SPL Assistant Window-Eyes compatibility layer deprecation warning.
 	if SPLConfig["Startup"]["WinEyesLayerDeprecation"]:
 		gui.messageBox(_("Window-Eyes command layout has been removed. Your SPL Assistant command layout is set to NVDA (default layout). To learn more about commands you can use in SPL Assistant, from Studio window, press SPL Assistant, F1."), _("SPL add-on feature removed"), wx.OK | wx.ICON_INFORMATION)
