@@ -523,7 +523,7 @@ def savePlaylistTranscriptsToFile(playlistTranscripts, extension, location=None)
 # Prefix and suffix denote text to be added around entries (useful for various additional decoration rules).
 def playlist2msaa(start, end, additionalDecorations=False, prefix="", suffix=""):
 	playlistTranscripts = []
-	#Just pure text, ready for the clipboard or writing to a txt file.
+	# Just pure text, ready for the clipboard or writing to a txt file.
 	if not additionalDecorations:
 		playlistTranscripts = ["Playlist Transcripts"]
 		# Add a blank line for presentational purposes.

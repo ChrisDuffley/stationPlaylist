@@ -80,7 +80,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Also, skip over the rest if appx is in effect.
 		if globalVars.appArgs.secure or config.isAppX: return
 
-	#Global layer environment (see the app module for more information).
+	# Global layer environment (see the app module for more information).
 	SPLController = False # Control SPL from anywhere.
 	# Manual definitions of cart keys.
 	fnCartKeys = ("f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11", "f12")

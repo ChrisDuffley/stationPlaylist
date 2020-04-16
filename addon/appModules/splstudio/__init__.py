@@ -532,20 +532,20 @@ class ReversedDialog(Dialog):
 			child=children[index]
 			childStates=child.states
 			childRole=child.role
-			#We don't want to handle invisible or unavailable objects
+			# We don't want to handle invisible or unavailable objects
 			if controlTypes.STATE_INVISIBLE in childStates or controlTypes.STATE_UNAVAILABLE in childStates:
 				continue
-			#For particular objects, we want to descend in to them and get their children's message text
+			# For particular objects, we want to descend in to them and get their children's message text
 			if childRole in (controlTypes.ROLE_PROPERTYPAGE,controlTypes.ROLE_PANE,controlTypes.ROLE_PANEL,controlTypes.ROLE_WINDOW,controlTypes.ROLE_GROUPING,controlTypes.ROLE_PARAGRAPH,controlTypes.ROLE_SECTION,controlTypes.ROLE_TEXTFRAME,controlTypes.ROLE_UNKNOWN):
-				#Grab text from descendants, but not for a child which inherits from Dialog and has focusable descendants
-				#Stops double reporting when focus is in a property page in a dialog
+				# Grab text from descendants, but not for a child which inherits from Dialog and has focusable descendants
+				# Stops double reporting when focus is in a property page in a dialog
 				childText=cls.getDialogText(child,not isinstance(child,Dialog))
 				if childText:
 					textList.append(childText)
 				elif childText is None:
 					return None
 				continue
-			#If the child is focused  we should just stop and return None
+			# If the child is focused  we should just stop and return None
 			if not allowFocusedDescendants and controlTypes.STATE_FOCUSED in child.states:
 				return None
 			# We only want text from certain controls.
@@ -556,10 +556,10 @@ class ReversedDialog(Dialog):
 				or (childRole==controlTypes.ROLE_EDITABLETEXT and controlTypes.STATE_READONLY in childStates and controlTypes.STATE_MULTILINE not in childStates)
 			):
 				continue
-			#We should ignore a text object directly after a grouping object, as it's probably the grouping's description
+			# We should ignore a text object directly after a grouping object, as it's probably the grouping's description
 			if index>0 and children[index-1].role==controlTypes.ROLE_GROUPING:
 				continue
-			#Like the last one, but a graphic might be before the grouping's description
+			# Like the last one, but a graphic might be before the grouping's description
 			if index>1 and children[index-1].role==controlTypes.ROLE_GRAPHIC and children[index-2].role==controlTypes.ROLE_GROUPING:
 				continue
 			childName=child.name
