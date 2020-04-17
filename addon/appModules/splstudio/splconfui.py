@@ -1210,12 +1210,12 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		_configDialogOpened = True
 
 	def onOk(self, evt):
-		super(SPLConfigDialog,  self).onOk(evt)
+		super(SPLConfigDialog, self).onOk(evt)
 		global _configDialogOpened
 		_configDialogOpened = False
 
 	def onCancel(self, evt):
-		super(SPLConfigDialog,  self).onCancel(evt)
+		super(SPLConfigDialog, self).onCancel(evt)
 		global _configDialogOpened
 		_configDialogOpened = False
 
