@@ -31,9 +31,9 @@ SPLNoConnectionTone = set()
 SPLConnectionStopOnError = set() # Whether connection status message announcements should stop when an error is encountered.
 
 # Customized for each encoder type.
-SAMStreamLabels= {} # A dictionary to store custom labels for each stream.
-SPLStreamLabels= {} # Same as above but optimized for SPL encoders (Studio 5.00 and later).
-ACStreamLabels= {} # Optimized for AltaCast.
+SAMStreamLabels = {} # A dictionary to store custom labels for each stream.
+SPLStreamLabels = {} # Same as above but optimized for SPL encoders (Studio 5.00 and later).
+ACStreamLabels = {} # Optimized for AltaCast.
 SAMMonitorThreads = {}
 SPLMonitorThreads = {}
 ACMonitorThreads = {}
@@ -426,7 +426,7 @@ class Encoder(IAccessible):
 		gesture="kb:control+f11"
 	)
 	def script_toggleBackgroundEncoderMonitor(self, gesture):
-		if scriptHandler.getLastScriptRepeatCount()==0:
+		if scriptHandler.getLastScriptRepeatCount() == 0:
 			if not self.backgroundMonitor:
 				encoderMonCount[self.encoderType] += 1 # Multiple encoders.
 				# Translators: Presented when toggling the setting to monitor the selected encoder.
@@ -554,10 +554,10 @@ class Encoder(IAccessible):
 	)
 	def script_encoderDateTime(self, gesture):
 		import winKernel
-		if scriptHandler.getLastScriptRepeatCount()==0:
-			text=winKernel.GetTimeFormat(winKernel.LOCALE_USER_DEFAULT, 0, None, None)
+		if scriptHandler.getLastScriptRepeatCount() == 0:
+			text = winKernel.GetTimeFormat(winKernel.LOCALE_USER_DEFAULT, 0, None, None)
 		else:
-			text=winKernel.GetDateFormat(winKernel.LOCALE_USER_DEFAULT, winKernel.DATE_LONGDATE, None, None)
+			text = winKernel.GetDateFormat(winKernel.LOCALE_USER_DEFAULT, winKernel.DATE_LONGDATE, None, None)
 		ui.message(text)
 
 	# Various column announcement scripts.
@@ -693,7 +693,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 				if alreadyEncoding: alreadyEncoding = False
 				if encoding: encoding = False
 				elif "Error" not in messageCache and error: error = False
-				connectionAttempt+=1
+				connectionAttempt += 1
 				currentTime = time.time()
 				if currentTime-attemptTime >= 0.5 and self.connectionTone:
 					tones.beep(500, 50)
@@ -723,7 +723,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 	def _samContextMenu(self, pos):
 		def _samContextMenuActivate(pos):
 			speech.cancelSpeech()
-			focus =api.getFocusObject()
+			focus = api.getFocusObject()
 			focus.getChild(pos).doAction()
 		import keyboardHandler
 		contextMenu = keyboardHandler.KeyboardInputGesture.fromName("applications")
