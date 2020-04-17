@@ -132,14 +132,14 @@ class SPLTrackItem(sysListView32.ListItem):
 		if (self._curColumnNumber+1) == self.parent.columnCount:
 			tones.beep(2000, 100)
 		else:
-			self.__class__._curColumnNumber +=1
+			self.__class__._curColumnNumber += 1
 		self.announceColumnContent(self._curColumnNumber)
 
 	def script_moveToPreviousColumn(self, gesture):
 		if self._curColumnNumber <= 0:
 			tones.beep(2000, 100)
 		else:
-			self.__class__._curColumnNumber -=1
+			self.__class__._curColumnNumber -= 1
 		self.announceColumnContent(self._curColumnNumber)
 
 	@scriptHandler.script(gesture="kb:control+alt+home")
@@ -317,7 +317,7 @@ class SPLStudioTrackItem(SPLTrackItem):
 		if self._curColumnNumber <= 0:
 			tones.beep(2000, 100)
 		else:
-			self.__class__._curColumnNumber -=1
+			self.__class__._curColumnNumber -= 1
 		if self._curColumnNumber == 0:
 			self._leftmostcol()
 		else:
@@ -443,7 +443,7 @@ class SPLStudioTrackItem(SPLTrackItem):
 		self.announceTrackComment(scriptHandler.getLastScriptRepeatCount()+1)
 
 
-SPLAssistantHelp={
+SPLAssistantHelp = {
 	# Translators: The text of the help command in SPL Assistant layer.
 	"off":_("""After entering SPL Assistant, press:
 A: Automation.
@@ -524,14 +524,14 @@ class ReversedDialog(Dialog):
 		@param allowFocusedDescendants: if false no text will be returned at all if one of the descendants is focused.
 		@type allowFocusedDescendants: boolean
 		"""
-		children=obj.children
-		textList=[]
-		childCount=len(children)
+		children = obj.children
+		textList = []
+		childCount = len(children)
 		# For these dialogs, children are arranged in reverse tab order (very strange indeed).
 		for index in range(childCount-1, -1, -1):
-			child=children[index]
-			childStates=child.states
-			childRole=child.role
+			child = children[index]
+			childStates = child.states
+			childRole = child.role
 			# We don't want to handle invisible or unavailable objects
 			if controlTypes.STATE_INVISIBLE in childStates or controlTypes.STATE_UNAVAILABLE in childStates:
 				continue
@@ -539,7 +539,7 @@ class ReversedDialog(Dialog):
 			if childRole in (controlTypes.ROLE_PROPERTYPAGE,controlTypes.ROLE_PANE,controlTypes.ROLE_PANEL,controlTypes.ROLE_WINDOW,controlTypes.ROLE_GROUPING,controlTypes.ROLE_PARAGRAPH,controlTypes.ROLE_SECTION,controlTypes.ROLE_TEXTFRAME,controlTypes.ROLE_UNKNOWN):
 				# Grab text from descendants, but not for a child which inherits from Dialog and has focusable descendants
 				# Stops double reporting when focus is in a property page in a dialog
-				childText=cls.getDialogText(child,not isinstance(child,Dialog))
+				childText = cls.getDialogText(child,not isinstance(child,Dialog))
 				if childText:
 					textList.append(childText)
 				elif childText is None:
@@ -553,24 +553,24 @@ class ReversedDialog(Dialog):
 				 # Static text, labels and links
 				 childRole in (controlTypes.ROLE_STATICTEXT,controlTypes.ROLE_LABEL,controlTypes.ROLE_LINK)
 				# Read-only, non-multiline edit fields
-				or (childRole==controlTypes.ROLE_EDITABLETEXT and controlTypes.STATE_READONLY in childStates and controlTypes.STATE_MULTILINE not in childStates)
+				or (childRole == controlTypes.ROLE_EDITABLETEXT and controlTypes.STATE_READONLY in childStates and controlTypes.STATE_MULTILINE not in childStates)
 			):
 				continue
 			# We should ignore a text object directly after a grouping object, as it's probably the grouping's description
-			if index>0 and children[index-1].role==controlTypes.ROLE_GROUPING:
+			if index > 0 and children[index-1].role == controlTypes.ROLE_GROUPING:
 				continue
 			# Like the last one, but a graphic might be before the grouping's description
-			if index>1 and children[index-1].role==controlTypes.ROLE_GRAPHIC and children[index-2].role==controlTypes.ROLE_GROUPING:
+			if index > 1 and children[index-1].role == controlTypes.ROLE_GRAPHIC and children[index-2].role == controlTypes.ROLE_GROUPING:
 				continue
-			childName=child.name
-			if childName and index<(childCount-1) and children[index+1].role not in (controlTypes.ROLE_GRAPHIC,controlTypes.ROLE_STATICTEXT,controlTypes.ROLE_SEPARATOR,controlTypes.ROLE_WINDOW,controlTypes.ROLE_PANE,controlTypes.ROLE_BUTTON) and children[index+1].name==childName:
+			childName = child.name
+			if childName and index < (childCount-1) and children[index+1].role not in (controlTypes.ROLE_GRAPHIC,controlTypes.ROLE_STATICTEXT,controlTypes.ROLE_SEPARATOR,controlTypes.ROLE_WINDOW,controlTypes.ROLE_PANE,controlTypes.ROLE_BUTTON) and children[index+1].name == childName:
 				# This is almost certainly the label for the next object, so skip it.
 				continue
-			isNameIncluded=child.TextInfo is NVDAObjectTextInfo or childRole in (controlTypes.ROLE_LABEL,controlTypes.ROLE_STATICTEXT)
-			childText=child.makeTextInfo(textInfos.POSITION_ALL).text
+			isNameIncluded = child.TextInfo is NVDAObjectTextInfo or childRole in (controlTypes.ROLE_LABEL,controlTypes.ROLE_STATICTEXT)
+			childText = child.makeTextInfo(textInfos.POSITION_ALL).text
 			if not childText or childText.isspace() and child.TextInfo is not NVDAObjectTextInfo:
-				childText=child.basicText
-				isNameIncluded=True
+				childText = child.basicText
+				isNameIncluded = True
 			if not isNameIncluded:
 				# The label isn't in the text, so explicitly include it first.
 				if childName:
@@ -587,14 +587,14 @@ class SPLTimePicker(IAccessible):
 	def script_changeTimePickerValue(self, gesture):
 		gesture.send()
 		import treeInterceptorHandler
-		obj=api.getFocusObject()
-		treeInterceptor=obj.treeInterceptor
+		obj = api.getFocusObject()
+		treeInterceptor = obj.treeInterceptor
 		if isinstance(treeInterceptor,treeInterceptorHandler.DocumentTreeInterceptor) and not treeInterceptor.passThrough:
-			obj=treeInterceptor
+			obj = treeInterceptor
 		try:
-			info=obj.makeTextInfo(textInfos.POSITION_CARET)
+			info = obj.makeTextInfo(textInfos.POSITION_CARET)
 		except (NotImplementedError, RuntimeError):
-			info=obj.makeTextInfo(textInfos.POSITION_FIRST)
+			info = obj.makeTextInfo(textInfos.POSITION_FIRST)
 		info.expand(textInfos.UNIT_LINE)
 		# 20.03: NVDA 2020.1 includes output reason enumeration, deprecating output reason flags.
 		# Until support for NVDA 2019.3 is dropped, use both paths.
@@ -663,7 +663,7 @@ class AppModule(appModuleHandler.AppModule):
 		self.noMoreHandle = threading.Event()
 		debugOutput("locating Studio window handle")
 		# If this is started right away, foreground and focus objects will be NULL according to NVDA if NVDA restarts while Studio is running.
-		t= threading.Thread(target=self._locateSPLHwnd)
+		t = threading.Thread(target=self._locateSPLHwnd)
 		wx.CallAfter(t.start)
 		# Display startup dialogs if any.
 		# 17.10: not when minimal startup flag is set.
@@ -835,7 +835,7 @@ class AppModule(appModuleHandler.AppModule):
 				elif "Loading" in obj.name:
 					if splconfig.SPLConfig["General"]["LibraryScanAnnounce"] not in ("off", "ending"):
 						# If library scan is in progress, announce its progress when told to do so.
-						self.scanCount+=1
+						self.scanCount += 1
 						if self.scanCount%100 == 0:
 							self._libraryScanAnnouncer(obj.name[1:obj.name.find("]")], splconfig.SPLConfig["General"]["LibraryScanAnnounce"])
 					if not self.libraryScanning:
@@ -1132,11 +1132,11 @@ class AppModule(appModuleHandler.AppModule):
 			if h not in (0, 12):
 				h %= 12
 			if m == 0:
-				if h == 0: h+=12
+				if h == 0: h += 12
 				# Messages in this method should not be translated.
 				ui.message("{hour} o'clock".format(hour = h))
 			elif 1 <= m <= 30:
-				if h == 0: h+=12
+				if h == 0: h += 12
 				ui.message("{minute} min past {hour}".format(minute = m, hour = h))
 			else:
 				if h == 12: h = 1
@@ -1501,7 +1501,7 @@ class AppModule(appModuleHandler.AppModule):
 			scanCount = splbase.studioAPI(1, 32)
 			if scanCount < 0:
 				break
-			scanIter+=1
+			scanIter += 1
 			if scanIter%5 == 0 and splconfig.SPLConfig["General"]["LibraryScanAnnounce"] not in ("off", "ending"):
 				self._libraryScanAnnouncer(scanCount, splconfig.SPLConfig["General"]["LibraryScanAnnounce"])
 		self.libraryScanning = False
@@ -1900,7 +1900,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Because 5.x (an perhaps future releases) uses different screen layout, look up the needed constant from the table below (row = info needed, column = version).
 	# As of 19.08, the below table is based on Studio 5.20.
 	# #119 (20.03): a list indicates iterative descent to locate the actual objects.
-	statusObjs={
+	statusObjs = {
 		SPLSystemStatus: -2, # The second status bar containing system status such as up time.
 		SPLNextTrackTitle: [8, 0], # Name and duration of the next track if any.
 		SPLNextPlayer: [11, 0], # Name and duration of the next track if any.
@@ -1936,7 +1936,7 @@ class AppModule(appModuleHandler.AppModule):
 		return self._cachedStatusObjs[infoIndex]
 
 	# Status flags for Studio 5.20 API.
-	_statusBarMessages=(
+	_statusBarMessages = (
 		("Play status: Stopped","Play status: Playing"),
 		("Automation Off","Automation On"),
 		("Microphone Off","Microphone On"),
@@ -2287,7 +2287,7 @@ class AppModule(appModuleHandler.AppModule):
 		else: 
 			os.startfile("https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide")
 
-	__SPLAssistantGestures={
+	__SPLAssistantGestures = {
 		"kb:p":"sayPlayStatus",
 		"kb:a":"sayAutomationStatus",
 		"kb:m":"sayMicStatus",
@@ -2320,7 +2320,7 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:shift+f1":"openOnlineDoc",
 	}
 
-	__SPLAssistantJFWGestures={
+	__SPLAssistantJFWGestures = {
 		"kb:p":"sayPlayStatus",
 		"kb:a":"sayAutomationStatus",
 		"kb:m":"sayMicStatus",
