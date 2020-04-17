@@ -163,7 +163,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 		self.minSecEntry.SetValue(0)
 		self.minSecEntry.SetSelection(-1, -1)
 		minSizer.Add(self.minSecEntry)
-		mainSizer.Add(minSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
+		mainSizer.Add(minSizer,border=20,flag=wx.LEFT | wx.RIGHT | wx.TOP)
 
 		maxSizer = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Maximum duration")), wx.HORIZONTAL)
 		prompt = wx.StaticText(self, wx.ID_ANY, label=_("Minute"))
@@ -178,10 +178,10 @@ class SPLTimeRangeDialog(wx.Dialog):
 		self.maxSecEntry.SetValue(0)
 		self.maxSecEntry.SetSelection(-1, -1)
 		maxSizer.Add(self.maxSecEntry)
-		mainSizer.Add(maxSizer,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
+		mainSizer.Add(maxSizer,border=20,flag=wx.LEFT | wx.RIGHT | wx.TOP)
 
 		# #68: wx.BoxSizer.AddSizer no longer exists in wxPython 4.
-		mainSizer.Add(self.CreateButtonSizer(wx.OK|wx.CANCEL))
+		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON,self.onOk,id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON,self.onCancel,id=wx.ID_CANCEL)
 		mainSizer.Fit(self)
@@ -197,7 +197,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 			gui.messageBox(
 				# Translators: Message to report wrong value for duration fields.
 				_("Minimum duration is greater than the maximum duration."),
-				translate("Error"), wx.OK|wx.ICON_ERROR,self)
+				translate("Error"), wx.OK | wx.ICON_ERROR,self)
 			self.minMinEntry.SetFocus()
 			return
 		self.Destroy()
@@ -221,7 +221,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 				# Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
 				_("No track with duration between minimum and maximum duration."),
 				# Translators: Standard error title for find error (copy this from main nvda.po).
-				_("Time range find error"),wx.OK|wx.ICON_ERROR)
+				_("Time range find error"),wx.OK | wx.ICON_ERROR)
 		_findDialogOpened = False
 
 	def onCancel(self, evt):

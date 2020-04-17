@@ -1081,7 +1081,7 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 			# Translators: A dialog message shown when pilot features is turned on or off.
 			wx.CallAfter(gui.messageBox, _("You have toggled pilot features checkbox. You must restart NVDA for the change to take effect."),
 			# Translators: Title of the pilot features dialog.
-			_("Pilot features"), wx.OK|wx.ICON_INFORMATION)
+			_("Pilot features"), wx.OK | wx.ICON_INFORMATION)
 			splconfig.SPLConfig["Advanced"]["PilotFeatures"] = self.pilotBuildCheckbox.Value
 			splconfig.SPLConfig._pendingPilotFeaturesToggle = True
 
@@ -1117,7 +1117,7 @@ class ResetDialog(wx.Dialog):
 		# Translators: A message to warn about resetting SPL config settings to factory defaults.
 		_("Are you sure you wish to reset SPL add-on settings to defaults?"),
 		# Translators: The title of the warning dialog.
-		_("Warning"),wx.YES_NO|wx.NO_DEFAULT|wx.ICON_WARNING,self
+		_("Warning"),wx.YES_NO | wx.NO_DEFAULT | wx.ICON_WARNING,self
 		) != wx.YES:
 			parent.Enable()
 			self.Destroy()
@@ -1147,7 +1147,7 @@ class ResetDialog(wx.Dialog):
 			# Translators: A dialog message shown when settings were reset to defaults.
 			wx.CallAfter(gui.messageBox, _("Successfully applied default add-on settings."),
 			# Translators: Title of the reset config dialog.
-			_("Reset configuration"), wx.OK|wx.ICON_INFORMATION)
+			_("Reset configuration"), wx.OK | wx.ICON_INFORMATION)
 		self.Destroy()
 		# #6: because the parent isn't add-on settings but the categories/panel sizer, fetch its ancestor.
 		parent.Parent.Parent.Destroy()
@@ -1251,7 +1251,7 @@ def onBroadcastProfilesDialog(evt):
 	# Present an error message if only normal profile is in use.
 	if splconfig.SPLConfig.configInMemory or splconfig.SPLConfig.normalProfileOnly:
 		# Translators: presented when only normal profile is in use.
-		wx.CallAfter(gui.messageBox, _("Normal profile is in use, cannot open broadcast profiles dialog."), _("SPL Broadcast Profiles"), wx.OK|wx.ICON_ERROR)
+		wx.CallAfter(gui.messageBox, _("Normal profile is in use, cannot open broadcast profiles dialog."), _("SPL Broadcast Profiles"), wx.OK | wx.ICON_ERROR)
 		return
 	gui.mainFrame.prePopup()
 	BroadcastProfilesDialog(gui.mainFrame).Show()

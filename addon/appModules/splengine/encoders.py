@@ -57,7 +57,7 @@ def loadStreamLabels():
 		# Translators: Message displayed if errors were found in encoder configuration file.
 		wx.CallAfter(gui.messageBox, _("Your encoder settings had errors and were reset to defaults."),
 		# Translators: Title of the encoder settings error dialog.
-		_("SPL add-on Encoder settings error"), wx.OK|wx.ICON_ERROR)
+		_("SPL add-on Encoder settings error"), wx.OK | wx.ICON_ERROR)
 		return
 	# Read stream labels.
 	try:

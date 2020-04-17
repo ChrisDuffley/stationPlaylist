@@ -655,7 +655,7 @@ _SPLDefaults.validate(_val, copy=True)
 
 # Display an error dialog when configuration validation fails.
 def runConfigErrorDialog(errorText, errorType):
-	wx.CallAfter(gui.messageBox, errorText, errorType, wx.OK|wx.ICON_ERROR)
+	wx.CallAfter(gui.messageBox, errorText, errorType, wx.OK | wx.ICON_ERROR)
 
 # In case one or more profiles had config issues, look up the error message from the following map.
 _configErrors = {
@@ -884,7 +884,7 @@ class AudioDuckingReminder(wx.Dialog):
 		In order to not disrupt the listening experience of your listeners, please disable audio ducking either by:
 		* Opening synthesizer dialog in NVDA and selecting 'no ducking' from audio ducking mode combo box.
 		* Press NVDA+Shift+D to set it to 'no ducking'."""))
-		mainSizer.Add(label,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
+		mainSizer.Add(label,border=20,flag=wx.LEFT | wx.RIGHT | wx.TOP)
 
 		# Translators: A checkbox to turn off audio ducking reminder message.
 		self.audioDuckingReminder = wx.CheckBox(self,wx.ID_ANY,label=_("Do not show this message again"))
@@ -934,7 +934,7 @@ Thank you.""")
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 
 		label = wx.StaticText(self, wx.ID_ANY, label=self.welcomeMessage)
-		mainSizer.Add(label,border=20,flag=wx.LEFT|wx.RIGHT|wx.TOP)
+		mainSizer.Add(label,border=20,flag=wx.LEFT | wx.RIGHT | wx.TOP)
 
 		# Translators: A checkbox to show welcome dialog.
 		self.showWelcomeDialog = wx.CheckBox(self,wx.ID_ANY,label=_("Show welcome dialog when I start Studio"))
