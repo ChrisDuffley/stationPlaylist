@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-03-25 23:56-0700\n"
+"PO-Revision-Date: 2020-04-10 18:34+0100\n"
 "Last-Translator: Ondrej Rosík <ondrej.rosik@gmail.com>\n"
 "Language-Team: \n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 1.6.11\n"
 
 #. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
 msgid ""
@@ -279,7 +279,6 @@ msgstr ""
 "Shift+F1: Otvorí online používateľskú príručku."
 
 #. Translators: The text of the help command in SPL Assistant layer when Window-Eyes layer is active.
-#, fuzzy
 msgid ""
 "WARNING! Window-Eyes command layout is deprecated and will be removed in a "
 "future version of StationPlaylist add-on.\n"
@@ -319,6 +318,8 @@ msgid ""
 "F12: Switch to an instant switch profile.\n"
 "Shift+F1: Open online user guide."
 msgstr ""
+"Pozor! Skratkypre Window-eyes nie sú viac podporované a budú odstránené z "
+"novších verzii doplnku.\n"
 "Po otvorení SPL asistenta máte k dispozícii tieto možnosti:\n"
 "A: Spustí autopilota.\n"
 "C: zapne a vypne prehliadač jinglov.\n"
@@ -410,9 +411,8 @@ msgid "Announces time including seconds."
 msgstr "Oznámy aktuálny čas vrátane sekúnd."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-#, fuzzy
 msgid "Opens SPL Studio alarms settings."
-msgstr "Nastavenia SPL Studio..."
+msgstr "Otvorí nastavenia upozornení."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Opens SPL Studio add-on configuration dialog."
@@ -1007,6 +1007,10 @@ msgid ""
 "selecting the appropriate option from SPL Assistant compatibility layer "
 "combo box."
 msgstr ""
+"Používate rozloženie SPL asistenta pre Window-eyes. Nakoľko tento čítač "
+"obrazovky sa viac nevyvíja, rozhodli sme sa túto funkciu odstrániť z doplnku "
+"pre Station playlist. Rozloženie skratiek upravíte v nastaveniach doplnku "
+"(alt+nvda+0 z okna studio) v časti rozšírené."
 
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Status announcement beeps"

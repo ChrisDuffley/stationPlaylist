@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-03-25 23:28-0700\n"
+"PO-Revision-Date: 2020-04-12 19:44+0200\n"
 "Last-Translator: Iván Novegil Cancelas <ivan.novegil.cancelas@gmail.com>\n"
 "Language-Team: Add-ons translation team <oprisniki@gmail.com>\n"
 "Language: gl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 2.3\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
@@ -280,7 +280,6 @@ msgstr ""
 "Shift+F1: Abre a guía de usuario en liña."
 
 #. Translators: The text of the help command in SPL Assistant layer when Window-Eyes layer is active.
-#, fuzzy
 msgid ""
 "WARNING! Window-Eyes command layout is deprecated and will be removed in a "
 "future version of StationPlaylist add-on.\n"
@@ -320,6 +319,8 @@ msgid ""
 "F12: Switch to an instant switch profile.\n"
 "Shift+F1: Open online user guide."
 msgstr ""
+"ADVERTENCIA! A capa de ordes de window-Eyes está obsoleta e eliminarase "
+"nunha futura versión do complemento StationPlaylist.\n"
 "Despois de entrar no SPL Assistant, preme:\n"
 "A: Automatización.\n"
 "C: conmuta o explorador de cart.\n"
@@ -411,9 +412,8 @@ msgid "Announces time including seconds."
 msgstr "Anuncia o tempo incluindo segundos."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-#, fuzzy
 msgid "Opens SPL Studio alarms settings."
-msgstr "Opcións do SPL Studio..."
+msgstr "Abre as opcións de alarma de SPLStudio."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Opens SPL Studio add-on configuration dialog."
@@ -1036,6 +1036,14 @@ msgid ""
 "selecting the appropriate option from SPL Assistant compatibility layer "
 "combo box."
 msgstr ""
+"Estás a utilizar o conxunto de ordes da capa do Asistente SPL para a "
+"distribución de ordes de Window-Eyes. Posto que Window-Eyes xa non se "
+"soporta, a distribución de ordes de Window-Eyes eliminarase nunha versión "
+"futura do complemento StationPlaylist. Por avor cambia a distribución de "
+"ordes do asistente SPL á distribución de JAWS ou NVDA abrindo a pantalla de "
+"opcións do complemento (Alt+NVDA+0 dende a ventá de Studio), selecciona "
+"Avanzado, seleccionando logo a opción correspondente dende a caixa combinada "
+"Capa de compatibilidade do asistente SPL."
 
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Status announcement beeps"
