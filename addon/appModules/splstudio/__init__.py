@@ -1289,7 +1289,7 @@ class AppModule(appModuleHandler.AppModule):
 			if not columnSearch: title = _("Find track")
 			# Translators: Title for column search dialog.
 			else: title = _("Column search")
-			startObj =  api.getFocusObject()
+			startObj = api.getFocusObject()
 			if api.getForegroundObject().windowClassName == "TStudioForm" and startObj.role == controlTypes.ROLE_LIST:
 				startObj = startObj.firstChild
 			d = splmisc.SPLFindDialog(gui.mainFrame, startObj, self.findText[0] if self.findText and len(self.findText) else "", title, columnSearch = columnSearch)
