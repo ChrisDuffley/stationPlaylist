@@ -550,8 +550,8 @@ class ReversedDialog(Dialog):
 				return None
 			# We only want text from certain controls.
 			if not (
-				 # Static text, labels and links
-				 childRole in (controlTypes.ROLE_STATICTEXT,controlTypes.ROLE_LABEL,controlTypes.ROLE_LINK)
+				# Static text, labels and links
+				childRole in (controlTypes.ROLE_STATICTEXT,controlTypes.ROLE_LABEL,controlTypes.ROLE_LINK)
 				# Read-only, non-multiline edit fields
 				or (childRole == controlTypes.ROLE_EDITABLETEXT and controlTypes.STATE_READONLY in childStates and controlTypes.STATE_MULTILINE not in childStates)
 			):
