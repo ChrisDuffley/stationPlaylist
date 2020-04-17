@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 17.02\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2017-02-03 19:00+1000\n"
-"PO-Revision-Date: 2020-03-25 23:59-0700\n"
+"PO-Revision-Date: 2020-04-13 00:10+0700\n"
 "Last-Translator: Dang Manh Cuong <dangmanhcuong@gmail.com>\n"
 "Language-Team: \n"
 "Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 1.6.11\n"
 
 #. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
 msgid ""
@@ -278,7 +278,6 @@ msgstr ""
 "Shift+F1: mở tài liệu hướng dẫn trực tuyến."
 
 #. Translators: The text of the help command in SPL Assistant layer when Window-Eyes layer is active.
-#, fuzzy
 msgid ""
 "WARNING! Window-Eyes command layout is deprecated and will be removed in a "
 "future version of StationPlaylist add-on.\n"
@@ -318,9 +317,11 @@ msgid ""
 "F12: Switch to an instant switch profile.\n"
 "Shift+F1: Open online user guide."
 msgstr ""
+"Cảnh báo! Kiểu phím lệnh của Window-Eyes đã được lược bỏ và sẽ bị gỡ ở một "
+"phiên bản trong tương lai của StationPlaylist add-on.\n"
 "Sau khi vào SPL Assistant, bấm:\n"
 "A: tự động hóa.\n"
-"C: bật cart explorer.\n"
+"C: bật / tắt cart explorer.\n"
 "Shift+C: thông báo tên của track đang phát.\n"
 "D: thời gian còn lại cho danh sách phát.\n"
 "E: thời gian đã trôi qua.\n"
@@ -409,18 +410,16 @@ msgid "Announces time including seconds."
 msgstr "Thông báo thời gian bao bồm giây."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-#, fuzzy
 msgid "Opens SPL Studio alarms settings."
-msgstr "Cài đặt SPL Studio..."
+msgstr "Mở cài đặt báo hiệu SPL Studio."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Opens SPL Studio add-on configuration dialog."
 msgstr "Mở hộp thoại cấu hình SPL Studio add-on."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-#, fuzzy
 msgid "Opens SPL add-on broadcast profiles dialog."
-msgstr "Mở hộp thoại chào mừng của SPL Studio add-on."
+msgstr "Mở hộp thoại các hồ sơ phát thanh của SPL Studio add-on."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Opens SPL Studio add-on welcome dialog."
@@ -1005,9 +1004,12 @@ msgid ""
 "profiles feature is deprecated and will be removed in a future version of "
 "StationPlaylist add-on."
 msgstr ""
+"Một hoặc nhiều hồ sơ phát thanh theo thời gian đã được quy định. Tính năng "
+"này đã được lược bớt và sẽ được gỡ bỏ ở một phiên bản trong tương lai của "
+"StationPlaylist add-on."
 
 msgid "SPL add-on feature deprecation"
-msgstr ""
+msgstr "Giản lược tính năng SPL add-on"
 
 msgid ""
 "You are using SPL Assistant layer commands set to Window-Eyes command "
@@ -1018,6 +1020,12 @@ msgid ""
 "selecting the appropriate option from SPL Assistant compatibility layer "
 "combo box."
 msgstr ""
+"Bạn đang dùng các lệnh lớp của SPL Assistant được thiết lập theo kiểu lệnh "
+"của Window-Eyes. Vì Window-Eyes không còn được hỗ trợ nữa, kiểu lệnh này sẽ "
+"bị gỡ bỏ ở một phiên bản trong tương lai của  StationPlaylist add-on. Vui "
+"lòng đổi kiểu phím lệnh cho SPL Assistant sang NVDA hoặc JAWS bằng cách mở "
+"hộp thoại cài đặt add-on (Alt+NvDA+0 từ cửa sổ Studio), chọn nâng cao, rồi "
+"chọn các tùy chỉnh phù hợp từ hộp xổ kiểu phím lệnh SPL Assistant."
 
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Status announcement beeps"
@@ -1096,9 +1104,8 @@ msgid "Scan count"
 msgstr "Lượt quét"
 
 #. Translators: title of a dialog to configure broadcast profiles.
-#, fuzzy
 msgid "SPL Broadcast Profiles"
-msgstr "Hồ sơ phát thanh"
+msgstr "Hồ sơ phát thanh SPL"
 
 #. Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
 msgid "Broadcast &profile:"
@@ -1107,9 +1114,8 @@ msgstr "Cấu hình &phát thanh:"
 #. Borrowed directly from NvDA Core (credit: NV Access)
 #. This allows Enter key to be pressed to activate the selected profile.
 #. Translators: label for a button to activate the selected broadcast profile.
-#, fuzzy
 msgid "Activate"
-msgstr "hoạt động"
+msgstr "Kích hoạt"
 
 #. Translators: The label of a button to copy a broadcast profile.
 msgid "Cop&y"
@@ -1131,7 +1137,6 @@ msgid "That profile already exists. Please choose a different name."
 msgstr "Đã có tên hồ sơ này. Vui lòng chọn tên khác."
 
 #. Translators: Message reported when attempting to delete a profile while a profile is triggered.
-#, fuzzy
 msgid ""
 "An instant switch profile might be active or you are in the midst of a "
 "broadcast. If so, please press SPL Assistant, F12 to switch back to a "
@@ -1617,6 +1622,7 @@ msgstr "Cài đặt StationPlaylist"
 #. Translators: presented when only normal profile is in use.
 msgid "Normal profile is in use, cannot open broadcast profiles dialog."
 msgstr ""
+"Hồ sơ bình thường đang được sử dụng. Không thể mở hộp thoại hồ sơ phát thanh."
 
 #. Translators: Text of the dialog when another find dialog is open.
 msgid "Another find dialog is open."

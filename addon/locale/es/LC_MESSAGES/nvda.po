@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-03-25 23:26-0700\n"
+"PO-Revision-Date: 2020-04-10 20:30+0200\n"
 "Last-Translator: José Manuel Delicado <jmdaweb@hotmail.com>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 2.3\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
@@ -284,7 +284,6 @@ msgstr ""
 "Shift+F1: abre una guía de usuario en línea."
 
 #. Translators: The text of the help command in SPL Assistant layer when Window-Eyes layer is active.
-#, fuzzy
 msgid ""
 "WARNING! Window-Eyes command layout is deprecated and will be removed in a "
 "future version of StationPlaylist add-on.\n"
@@ -324,6 +323,8 @@ msgid ""
 "F12: Switch to an instant switch profile.\n"
 "Shift+F1: Open online user guide."
 msgstr ""
+"¡Aviso! La disposición de órdenes de Window Eyes está obsoleta y se "
+"eliminará en una versión futura del complemento StationPlaylist.\n"
 "Después de entrar en SPL Assistant, pulsa:\n"
 "A: Automatización.\n"
 "C: conmuta el explorador de cart.\n"
@@ -416,9 +417,8 @@ msgid "Announces time including seconds."
 msgstr "Anuncia el tiempo incluyendo segundos."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-#, fuzzy
 msgid "Opens SPL Studio alarms settings."
-msgstr "Opciones de SPL Studio..."
+msgstr "Abre las opciones de alarma de SPL Studio."
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Opens SPL Studio add-on configuration dialog."
@@ -1044,6 +1044,14 @@ msgid ""
 "selecting the appropriate option from SPL Assistant compatibility layer "
 "combo box."
 msgstr ""
+"Estás utilizando el conjunto de órdenes del asistente de SPL con la "
+"disposición de Window Eyes. Ya que Window Eyes ya no se soporta, la "
+"disposición de órdenes de Window Eyes se eliminará en una versión futura del "
+"complemento StationPlaylist. Por favor, cambia la disposición de órdenes del "
+"asistente de SPL a NVDA o Jaws abriendo la pantalla de opciones del "
+"complemento (Alt+NVDA+0 desde la ventana de Studio), seleccionando Avanzado, "
+"y luego seleccionando la opción apropiada del cuadro combinado de capa de "
+"compatibilidad del asistente de SPL."
 
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Status announcement beeps"
