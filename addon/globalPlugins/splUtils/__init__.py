@@ -48,7 +48,7 @@ SPLCurTrackPlaybackTime = 105
 
 # Help message for SPL Controller
 # Translators: the dialog text for SPL Controller help.
-SPLConHelp=_("""
+SPLConHelp = _("""
 After entering SPL Controller, press:
 A: Turn automation on.
 Shift+A: Turn automation off.
@@ -149,7 +149,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			# Exclude number row if Studio Standard is running.
 			cartKeys = self.fnCartKeys
 			if not getWindowText(user32.FindWindowW("TStudioForm", None)).startswith("StationPlaylist Studio Standard"):
-				cartKeys+=self.numCartKeys
+				cartKeys += self.numCartKeys
 			for cart in cartKeys:
 				self.bindGesture("kb:%s"%cart, "cartsWithoutBorders")
 				self.bindGesture("kb:shift+%s"%cart, "cartsWithoutBorders")
@@ -333,7 +333,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		wx.CallAfter(gui.messageBox, SPLConHelp, _("SPL Controller help"))
 		self.finish()
 
-	__SPLControllerGestures={
+	__SPLControllerGestures = {
 		"kb:p":"play",
 		"kb:a":"automateOn",
 		"kb:shift+a":"automateOff",
