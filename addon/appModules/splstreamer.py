@@ -12,7 +12,7 @@ from NVDAObjects.IAccessible import IAccessible
 class TEditNoLabel(IAccessible):
 
 	def _get_name(self):
-		return 			"Buffer Size {0} ms".format(self.value)
+		return "Buffer Size {0} ms".format(self.value)
 
 
 class AppModule(AppModule):
