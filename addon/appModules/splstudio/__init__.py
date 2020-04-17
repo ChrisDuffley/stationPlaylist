@@ -475,7 +475,7 @@ F9: Mark current track as start of track time analysis.
 F10: Perform track time analysis.
 F12: Switch to an instant switch profile.
 Shift+F1: Open online user guide."""),
-# Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
+	# Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
 	"jfw":_("""After entering SPL Assistant, press:
 A: Automation.
 C: Toggle cart explorer.
