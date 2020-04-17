@@ -2284,7 +2284,7 @@ class AppModule(appModuleHandler.AppModule):
 		updateChannel = SPLAddonManifest.get("updateChannel")
 		if "-dev" in SPLAddonManifest['version'] or updateChannel == "dev":
 			os.startfile("https://github.com/josephsl/stationplaylist/wiki/SPLDevAddonGuide")
-		else: 
+		else:
 			os.startfile("https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide")
 
 	__SPLAssistantGestures = {
