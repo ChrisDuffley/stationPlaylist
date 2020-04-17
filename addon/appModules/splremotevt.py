@@ -21,7 +21,7 @@ class SPLRemotePlaylistEditorItem(SPLTrackItem):
 	# Keep a record of which column is being looked at.
 	_curColumnNumber = 0
 
-	__gestures={
+	__gestures = {
 		"kb:control+alt+downArrow": None,
 		"kb:control+alt+upArrow": None,
 	}

@@ -63,7 +63,7 @@ class TrackToolItem(SPLTrackItem):
 		# Translators: Title of the column data window.
 		ui.browseableMessage("\n".join(columnContents), title=_("Track data"))
 
-	__gestures={
+	__gestures = {
 		"kb:control+alt+downArrow": None,
 		"kb:control+alt+upArrow": None,
 	}
