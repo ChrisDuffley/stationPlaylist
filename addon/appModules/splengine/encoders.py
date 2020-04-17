@@ -478,7 +478,7 @@ class Encoder(IAccessible):
 		labelLength = len(streamLabelsMap)
 		if not labelLength or pos > max(streamLabelsMap.keys()):
 			return
-		elif labelLength  == 1:
+		elif labelLength == 1:
 			if not pos in streamLabelsMap:
 				pos = list(streamLabelsMap.keys())[0]
 				oldPosition = int(pos)
