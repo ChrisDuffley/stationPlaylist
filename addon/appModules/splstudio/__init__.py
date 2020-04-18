@@ -1075,16 +1075,16 @@ class AppModule(appModuleHandler.AppModule):
 	# 6.0: Split this into two functions: the announcer (below) and formatter.
 	# 7.0: The ms (millisecond) argument will be used when announcing playlist remainder.
 	# 16.12: Include hours by default unless told not to do so.
-	def announceTime(self, t, offset = None, ms=True, includeHours=None):
+	def announceTime(self, t, offset=None, ms=True, includeHours=None):
 		if t <= 0:
 			ui.message("00:00")
 		else:
-			ui.message(self._ms2time(t, offset = offset, ms=ms, includeHours=includeHours))
+			ui.message(self._ms2time(t, offset=offset, ms=ms, includeHours=includeHours))
 
 	# Formatter: given time in milliseconds, convert it to human-readable format.
 	# 7.0: There will be times when one will deal with time in seconds.
 	# 16.12: For some cases, do not include hour slot when trying to conform to what Studio displays.)
-	def _ms2time(self, t, offset = None, ms=True, includeHours=None):
+	def _ms2time(self, t, offset=None, ms=True, includeHours=None):
 		if t <= 0:
 			return "00:00"
 		else:
@@ -1294,7 +1294,7 @@ class AppModule(appModuleHandler.AppModule):
 			startObj = api.getFocusObject()
 			if api.getForegroundObject().windowClassName == "TStudioForm" and startObj.role == controlTypes.ROLE_LIST:
 				startObj = startObj.firstChild
-			d = splmisc.SPLFindDialog(gui.mainFrame, startObj, self.findText[0] if self.findText and len(self.findText) else "", title, columnSearch = columnSearch)
+			d = splmisc.SPLFindDialog(gui.mainFrame, startObj, self.findText[0] if self.findText and len(self.findText) else "", title, columnSearch=columnSearch)
 			gui.mainFrame.prePopup()
 			d.Raise()
 			d.Show()
