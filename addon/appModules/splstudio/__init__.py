@@ -858,7 +858,7 @@ class AppModule(appModuleHandler.AppModule):
 					# Activate mic alarm or announce when cart explorer is active.
 					self.doExtraAction(obj.name)
 		# Monitor the end of track and song intro time and announce it.
-		elif obj.windowClassName == "TStaticText": # For future extensions.
+		elif obj.windowClassName == "TStaticText":
 			if obj.simplePrevious is not None:
 				if obj.simplePrevious.name == "Remaining Time":
 					# End of track for SPL 5.x.
