@@ -799,7 +799,7 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 		# For this one, remove Artist and Title.
 		self.includedColumns.discard("Artist")
 		self.includedColumns.discard("Title")
-		checkableColumns = ("Duration","Intro","Category","Filename","Outro","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Time Scheduled")
+		checkableColumns = ("Duration", "Intro", "Category", "Filename", "Outro", "Year", "Album", "Genre", "Mood", "Energy", "Tempo", "BPM", "Gender", "Rating", "Time Scheduled")
 		self.checkedColumns = colAnnouncementsHelper.addLabeledControl(labelText, CustomCheckListBox, choices=checkableColumns)
 		self.checkedColumns.SetCheckedStrings(self.includedColumns)
 		self.checkedColumns.SetSelection(0)
@@ -854,7 +854,7 @@ class PlaylistTranscriptsPanel(ColumnAnnouncementsBasePanel):
 		# For this one, remove Artist and Title.
 		self.includedColumns.discard("Artist")
 		self.includedColumns.discard("Title")
-		checkableColumns = ("Duration","Intro","Category","Filename","Outro","Year","Album","Genre","Mood","Energy","Tempo","BPM","Gender","Rating","Time Scheduled")
+		checkableColumns = ("Duration", "Intro", "Category", "Filename", "Outro", "Year", "Album", "Genre", "Mood", "Energy", "Tempo", "BPM", "Gender", "Rating", "Time Scheduled")
 		self.checkedColumns = playlistTranscriptsHelper.addLabeledControl(labelText, CustomCheckListBox, choices=checkableColumns)
 		self.checkedColumns.SetCheckedStrings(self.includedColumns)
 		self.checkedColumns.SetSelection(0)
@@ -938,7 +938,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 		elif level == 1:
 			# Translators: The title of Columns Explorer configuration dialog.
 			actualTitle = _("Columns Explorer for Track Tool")
-			cols = ("Artist","Title","Duration","Cue","Overlap","Intro","Segue","Filename","Album","CD Code","Outro","Year","URL 1","URL 2","Genre")
+			cols = ("Artist", "Title", "Duration", "Cue", "Overlap", "Intro", "Segue", "Filename", "Album", "CD Code", "Outro", "Year", "URL 1", "URL 2", "Genre")
 			slots = parent.exploreColumnsTT
 		elif level == 2:
 			# Translators: The title of Columns Explorer configuration dialog.

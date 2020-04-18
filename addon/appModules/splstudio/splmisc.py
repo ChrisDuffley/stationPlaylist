@@ -277,7 +277,7 @@ def cartExplorerInit(StudioTitle, cartFiles=None, refresh=False, carts=None):
 	if carts is None: carts = {"standardLicense": StudioTitle.startswith("StationPlaylist Studio Standard")}
 	if refresh: carts["modifiedBanks"] = []
 	# Obtain the "real" path for SPL via environment variables and open the cart data folder.
-	cartsDataPath = os.path.join(os.environ["PROGRAMFILES"],"StationPlaylist","Data")  # Provided that Studio was installed using default path.
+	cartsDataPath = os.path.join(os.environ["PROGRAMFILES"], "StationPlaylist", "Data")  # Provided that Studio was installed using default path.
 	if cartFiles is None:
 		# See if multiple users are using SPl Studio.
 		userNameIndex = StudioTitle.find("-")
@@ -297,7 +297,7 @@ def cartExplorerInit(StudioTitle, cartFiles=None, refresh=False, carts=None):
 			# In a rare event that the broadcaster has saved the cart bank with the name like "carts.cart".
 			faultyCarts = True
 			continue
-		cartFile = os.path.join(cartsDataPath,f)
+		cartFile = os.path.join(cartsDataPath, f)
 		# Cart explorer can safely assume that the cart bank exists if refresh flag is set.
 		# But it falls apart if whitespaces are in the beginning or at the end of a user name.
 		if not refresh and not os.path.isfile(cartFile):
