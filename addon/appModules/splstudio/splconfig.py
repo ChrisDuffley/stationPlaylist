@@ -147,7 +147,7 @@ class ConfigHub(ChainMap):
 			self.maps[0]["ColumnAnnouncement"]["IncludedColumns"] = set(self.maps[0]["ColumnAnnouncement"]["IncludedColumns"])
 			self.maps[0]["PlaylistTranscripts"]["IncludedColumns"] = set(self.maps[0]["PlaylistTranscripts"]["IncludedColumns"])
 			self.maps[0]["General"]["VerticalColumnAnnounce"] = None
-		self.profileNames.append(None) # Signifying normal profile.
+		self.profileNames.append(None)  # Signifying normal profile.
 		# Always cache normal profile upon startup.
 		# 17.10: and no, not when config is volatile.
 		if not self.volatileConfig:
@@ -670,7 +670,7 @@ _configErrors = {
 # To be run in app module constructor.
 # With the load function below, prepare config and other things upon request.
 # Prompt the config error dialog only once.
-_configLoadStatus = {} # Key = filename, value is pass or no pass.
+_configLoadStatus = {}  # Key = filename, value is pass or no pass.
 # Track comments map.
 trackComments = {}
 

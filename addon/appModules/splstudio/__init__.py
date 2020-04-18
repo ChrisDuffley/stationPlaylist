@@ -245,7 +245,7 @@ class SPLStudioTrackItem(SPLTrackItem):
 			for header in columnOrder:
 				if header in columnsToInclude:
 					index = self.indexOf(header)
-					if index is None: continue # Header not found, mostly encountered in Studio 5.0x.
+					if index is None: continue  # Header not found, mostly encountered in Studio 5.0x.
 					content = self._getColumnContentRaw(index)
 					if content:
 						descriptionPieces.append("%s: %s"%(header, content) if includeColumnHeaders else content)
@@ -1901,12 +1901,12 @@ class AppModule(appModuleHandler.AppModule):
 	# As of 19.08, the below table is based on Studio 5.20.
 	# #119 (20.03): a list indicates iterative descent to locate the actual objects.
 	statusObjs = {
-		SPLSystemStatus: -2, # The second status bar containing system status such as up time.
-		SPLNextTrackTitle: [8, 0], # Name and duration of the next track if any.
-		SPLNextPlayer: [11, 0], # Name and duration of the next track if any.
-		SPLCurrentTrackTitle: [9, 0], # Name of the currently playing track.
-		SPLCurrentPlayer: [12, 0], # Name of the currently playing track.
-		SPLTemperature: [7, 0], # Temperature for the current city.
+		SPLSystemStatus: -2,  # The second status bar containing system status such as up time.
+		SPLNextTrackTitle: [8, 0],  # Name and duration of the next track if any.
+		SPLNextPlayer: [11, 0],  # Name and duration of the next track if any.
+		SPLCurrentTrackTitle: [9, 0],  # Name of the currently playing track.
+		SPLCurrentPlayer: [12, 0],  # Name of the currently playing track.
+		SPLTemperature: [7, 0],  # Temperature for the current city.
 	}
 
 	_cachedStatusObjs = {}

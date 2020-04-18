@@ -7,7 +7,7 @@
 import weakref
 import os
 import threading
-from _csv import reader # For cart explorer.
+from _csv import reader  # For cart explorer.
 import gui
 import wx
 import ui
@@ -277,7 +277,7 @@ def cartExplorerInit(StudioTitle, cartFiles=None, refresh=False, carts=None):
 	if carts is None: carts = {"standardLicense":StudioTitle.startswith("StationPlaylist Studio Standard")}
 	if refresh: carts["modifiedBanks"] = []
 	# Obtain the "real" path for SPL via environment variables and open the cart data folder.
-	cartsDataPath = os.path.join(os.environ["PROGRAMFILES"],"StationPlaylist","Data") # Provided that Studio was installed using default path.
+	cartsDataPath = os.path.join(os.environ["PROGRAMFILES"],"StationPlaylist","Data")  # Provided that Studio was installed using default path.
 	if cartFiles is None:
 		# See if multiple users are using SPl Studio.
 		userNameIndex = StudioTitle.find("-")
@@ -291,7 +291,7 @@ def cartExplorerInit(StudioTitle, cartFiles=None, refresh=False, carts=None):
 	for f in cartFiles:
 		# Only do this if told to build cart banks from scratch, as refresh flag is set if cart explorer is active in the first place.
 		try:
-			mod = f.split()[-2] # Checking for modifier string such as ctrl.
+			mod = f.split()[-2]  # Checking for modifier string such as ctrl.
 			# Todo: Check just in case some SPL flavors doesn't ship with a particular cart file.
 		except IndexError:
 			faultyCarts = True # In a rare event that the broadcaster has saved the cart bank with the name like "carts.cart".
@@ -311,7 +311,7 @@ def cartExplorerInit(StudioTitle, cartFiles=None, refresh=False, carts=None):
 			cl = [row for row in reader(cartInfo)]
 		# 17.04 (optimization): let empty string represent main cart bank to avoid this being partially consulted up to 24 times.
 		# The below method will just check for string length, which is faster than looking for specific substring.
-		_populateCarts(carts, cl[1], mod if mod != "main" else "", standardEdition=carts["standardLicense"], refresh=refresh) # See the comment for _populate method above.
+		_populateCarts(carts, cl[1], mod if mod != "main" else "", standardEdition=carts["standardLicense"], refresh=refresh)  # See the comment for _populate method above.
 		if not refresh:
 			debugOutput(f"carts processed so far: {(len(carts)-1)}")
 	carts["faultyCarts"] = faultyCarts
