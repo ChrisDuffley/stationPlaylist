@@ -1046,7 +1046,7 @@ class AppModule(appModuleHandler.AppModule):
 		# 18.09: use wx.Menu.Remove directly.
 		try:
 			self.prefsMenu.Remove(self.SPLSettings)
-		except: #(RuntimeError, AttributeError):
+		except (RuntimeError, AttributeError):
 			pass
 		# Tell the handle finder thread it's time to leave this world.
 		self.noMoreHandle.set()
