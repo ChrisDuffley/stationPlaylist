@@ -24,16 +24,23 @@ SPLPlay = 12
 SPL_TrackPlaybackStatus = 104
 
 # Needed in Encoder support:
-SPLFocusToStudio = set() # Whether to focus to Studio or not.
+# Move focus to Studio once connected.
+SPLFocusToStudio = set()
+# Play the first selected track after an encoder is connected.
 SPLPlayAfterConnecting = set()
+# Use a thread to monitor status changes for encoders.
 SPLBackgroundMonitor = set()
+# Do not play connection tone while an encoder is connecting.
 SPLNoConnectionTone = set()
-SPLConnectionStopOnError = set() # Whether connection status message announcements should stop when an error is encountered.
+# Stop announcing connection status messages when an error is encountered.
+SPLConnectionStopOnError = set()
 
-# Customized for each encoder type.
-SAMStreamLabels = {} # A dictionary to store custom labels for each stream.
-SPLStreamLabels = {} # Same as above but optimized for SPL encoders (Studio 5.00 and later).
-ACStreamLabels = {} # Optimized for AltaCast.
+# Stream labels dictionary, customized for each encoder type.
+SAMStreamLabels = {}
+SPLStreamLabels = {}
+ACStreamLabels = {}
+
+# A collection of encoder status monitor threads, one per encoder type.
 SAMMonitorThreads = {}
 SPLMonitorThreads = {}
 ACMonitorThreads = {}
@@ -467,7 +474,8 @@ class Encoder(IAccessible):
 			if result == wx.ID_OK:
 				newStreamLabel = dlg.GetValue()
 				if newStreamLabel == curStreamLabel:
-					return # No need to write to disk.
+					# No need to write to disk.
+					return
 				else: self.setStreamLabel(newStreamLabel)
 		gui.runScriptModalDialog(dlg, callback)
 
@@ -646,7 +654,8 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 				status = self._getColumnContentRaw(2)
 				statusDetails = self._getColumnContentRaw(3)
 			except:
-				return # Don't leave zombie objects around.
+				# Don't leave zombie objects around.
+				return
 			# Encoding status object will die if encoder entry is deleted while being monitored.
 			if not status: return
 			# Status and description are two separate texts.
@@ -812,7 +821,8 @@ class SPLEncoder(Encoder):
 			try:
 				status = self._getColumnContentRaw(1)
 			except:
-				return # Don't leave zombie objects around.
+				# Don't leave zombie objects around.
+				return
 			if messageCache != status:
 				messageCache = status
 				if not messageCache: return

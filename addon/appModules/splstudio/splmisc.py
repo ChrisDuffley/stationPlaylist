@@ -294,11 +294,13 @@ def cartExplorerInit(StudioTitle, cartFiles=None, refresh=False, carts=None):
 			mod = f.split()[-2]  # Checking for modifier string such as ctrl.
 			# Todo: Check just in case some SPL flavors doesn't ship with a particular cart file.
 		except IndexError:
-			faultyCarts = True # In a rare event that the broadcaster has saved the cart bank with the name like "carts.cart".
+			# In a rare event that the broadcaster has saved the cart bank with the name like "carts.cart".
+			faultyCarts = True
 			continue
 		cartFile = os.path.join(cartsDataPath,f)
 		# Cart explorer can safely assume that the cart bank exists if refresh flag is set.
-		if not refresh and not os.path.isfile(cartFile): # Cart explorer will fail if whitespaces are in the beginning or at the end of a user name.
+		# But it falls apart if whitespaces are in the beginning or at the end of a user name.
+		if not refresh and not os.path.isfile(cartFile):
 			faultyCarts = True
 			continue
 		debugOutput(f"examining carts from file {cartFile}")

@@ -29,7 +29,9 @@ def finally_(func, final):
 	return wrap(final)
 
 # SPL Studio uses WM messages to send and receive data, similar to Winamp (see NVDA sources/appModules/winamp.py for more information).
-SPLWin = 0 # A handle to studio window.
+
+# A handle to studio window.
+SPLWin = 0
 
 # Various SPL IPC tags.
 SPLVersion = 2
@@ -81,7 +83,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if globalVars.appArgs.secure or config.isAppX: return
 
 	# Global layer environment (see the app module for more information).
-	SPLController = False # Control SPL from anywhere.
+
+	# Control SPL from anywhere.
+	SPLController = False
 	# Manual definitions of cart keys.
 	fnCartKeys = ("f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11", "f12")
 	numCartKeys = ("1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=")

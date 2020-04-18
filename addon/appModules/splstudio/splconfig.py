@@ -245,7 +245,8 @@ class ConfigHub(ChainMap):
 			SPLConfigCheckpoint.name = profileName
 			return SPLConfigCheckpoint
 		# For the rest.
-		global _configLoadStatus # To be mutated only during unlock routine.
+		# To be mutated only during unlock routine.
+		global _configLoadStatus
 		# Optimization: Profiles other than normal profile contains profile-specific sections only.
 		# This speeds up profile loading routine significantly as there is no need to call a function to strip global settings.
 		# 7.0: What if profiles have parsing errors?

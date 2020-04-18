@@ -610,8 +610,10 @@ class AppModule(appModuleHandler.AppModule):
 	scriptCategory = _("StationPlaylist")
 	SPLCurVersion = appModuleHandler.AppModule.productVersion
 	_focusedTrack = None
-	_announceColumnOnly = None # Used only if vertical column navigation commands are used.
-	_SPLStudioMonitor = None # Monitor Studio API routines.
+	# Used only if vertical column navigation commands are used.
+	_announceColumnOnly = None
+	# Monitor Studio API routines.
+	_SPLStudioMonitor = None
 
 	# Prepare the settings dialog among other things.
 	def __init__(self, *args, **kwargs):
@@ -1362,7 +1364,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Cart explorer
 	cartExplorer = False
-	carts = {} # The carts dictionary (key = cart gesture, item = cart name).
+	# The carts dictionary (key = cart gesture, item = cart name).
+	carts = {}
 
 	# Assigning carts.
 
