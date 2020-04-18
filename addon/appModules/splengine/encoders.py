@@ -44,7 +44,7 @@ ACStreamLabels = {}
 SAMMonitorThreads = {}
 SPLMonitorThreads = {}
 ACMonitorThreads = {}
-encoderMonCount = {"SAM":0, "SPL":0, "AltaCast":0}
+encoderMonCount = {"SAM": 0, "SPL": 0, "AltaCast": 0}
 
 # Configuration management.
 streamLabels = None
@@ -149,7 +149,7 @@ def announceEncoderConnectionStatus():
 def _removeEncoderID(encoderType, pos):
 	# For now, store the key to map.
 	# This might become a module-level constant if other functions require this dictionary.
-	key2map = {"FocusToStudio":SPLFocusToStudio, "PlayAfterConnecting":SPLPlayAfterConnecting, "BackgroundMonitor":SPLBackgroundMonitor, "NoConnectionTone":SPLNoConnectionTone, "ConnectionStopOnError": SPLConnectionStopOnError}
+	key2map = {"FocusToStudio": SPLFocusToStudio, "PlayAfterConnecting": SPLPlayAfterConnecting, "BackgroundMonitor": SPLBackgroundMonitor, "NoConnectionTone": SPLNoConnectionTone, "ConnectionStopOnError": SPLConnectionStopOnError}
 	encoderID = " ".join([encoderType, pos])
 	# Go through each feature map, remove the encoder ID and manipulate encoder positions in these sets.
 	# For each set, have a list of set items handy, otherwise set cardinality error (RuntimeError) will occur if items are removed on the fly.
@@ -209,7 +209,7 @@ def cleanup(appTerminating=False, reset=False):
 	streamLabels = None
 	# Without resetting monitor count, we end up with higher and higher value for this.
 	# 7.0: Destroy threads also.
-	encoderMonCount = {"SAM":0, "SPL":0, "AltaCast":0}
+	encoderMonCount = {"SAM": 0, "SPL": 0, "AltaCast": 0}
 
 # Reset encoder settings.
 # Because simply reloading settings will introduce errors, respond only to proper reset signal (Control+NVDA+R three times).

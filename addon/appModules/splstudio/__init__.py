@@ -80,9 +80,9 @@ def micAlarmManager(micAlarmWav, micAlarmMessage):
 
 # Category sounds dictionary (key = category, value = tone pitch).
 _SPLCategoryTones = {
-	"Break Note":415,
-	"Timed Break Note":208,
-	"<Manual Intro>":600,
+	"Break Note": 415,
+	"Timed Break Note": 208,
+	"<Manual Intro>": 600,
 }
 
 # Routines for track items themselves (prepare for future work).
@@ -445,7 +445,7 @@ class SPLStudioTrackItem(SPLTrackItem):
 
 SPLAssistantHelp = {
 	# Translators: The text of the help command in SPL Assistant layer.
-	"off":_("""After entering SPL Assistant, press:
+	"off": _("""After entering SPL Assistant, press:
 A: Automation.
 C: Announce name of the currently playing track.
 D: Remaining time for the playlist.
@@ -476,7 +476,7 @@ F10: Perform track time analysis.
 F12: Switch to an instant switch profile.
 Shift+F1: Open online user guide."""),
 	# Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
-	"jfw":_("""After entering SPL Assistant, press:
+	"jfw": _("""After entering SPL Assistant, press:
 A: Automation.
 C: Toggle cart explorer.
 Shift+C: Announce name of the currently playing track.

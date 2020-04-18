@@ -660,12 +660,12 @@ def runConfigErrorDialog(errorText, errorType):
 
 # In case one or more profiles had config issues, look up the error message from the following map.
 _configErrors = {
-	"fileReset":"Settings reset to defaults due to configuration file coruption",
-	"completeReset":"All settings reset to defaults",
-	"partialReset":"Some settings reset to defaults",
-	"columnOrderReset":"Column announcement order reset to defaults",
-	"partialAndColumnOrderReset":"Some settings, including column announcement order reset to defaults",
-	"noInstantProfile":"Cannot find instant profile"
+	"fileReset": "Settings reset to defaults due to configuration file coruption",
+	"completeReset": "All settings reset to defaults",
+	"partialReset": "Some settings reset to defaults",
+	"columnOrderReset": "Column announcement order reset to defaults",
+	"partialAndColumnOrderReset": "Some settings, including column announcement order reset to defaults",
+	"noInstantProfile": "Cannot find instant profile"
 }
 
 # To be run in app module constructor.

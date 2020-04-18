@@ -274,7 +274,7 @@ def cartExplorerInit(StudioTitle, cartFiles=None, refresh=False, carts=None):
 	# use a combination of SPL user name and static cart location to locate cart bank files.
 	# Once the cart banks are located, use the routines in the populate method above to assign carts.
 	# Since sstandard edition does not support number row carts, skip them if told to do so.
-	if carts is None: carts = {"standardLicense":StudioTitle.startswith("StationPlaylist Studio Standard")}
+	if carts is None: carts = {"standardLicense": StudioTitle.startswith("StationPlaylist Studio Standard")}
 	if refresh: carts["modifiedBanks"] = []
 	# Obtain the "real" path for SPL via environment variables and open the cart data folder.
 	cartsDataPath = os.path.join(os.environ["PROGRAMFILES"],"StationPlaylist","Data")  # Provided that Studio was installed using default path.
