@@ -141,7 +141,7 @@ class ConfigHub(ChainMap):
 		# But data conversion must take place.
 		if not self.configInMemory: self.maps[0] = self._unlockConfig(SPLIni, profileName=defaultProfileName, prefill=True, validateNow=True)
 		else:
-			self.maps[0] = ConfigObj(None, configspec = confspec, encoding="UTF-8")
+			self.maps[0] = ConfigObj(None, configspec=confspec, encoding="UTF-8")
 			copyProfile(_SPLDefaults, self.maps[0], complete=True)
 			self.maps[0].name = defaultProfileName
 			self.maps[0]["ColumnAnnouncement"]["IncludedColumns"] = set(self.maps[0]["ColumnAnnouncement"]["IncludedColumns"])
@@ -252,10 +252,10 @@ class ConfigHub(ChainMap):
 		# 7.0: What if profiles have parsing errors?
 		# If so, reset everything back to factory defaults.
 		try:
-			SPLConfigCheckpoint = ConfigObj(path, configspec = confspec if prefill else confspecprofiles, encoding="UTF-8")
+			SPLConfigCheckpoint = ConfigObj(path, configspec=confspec if prefill else confspecprofiles, encoding="UTF-8")
 		except:
 			open(path, "w").close()
-			SPLConfigCheckpoint = ConfigObj(path, configspec = confspec if prefill else confspecprofiles, encoding="UTF-8")
+			SPLConfigCheckpoint = ConfigObj(path, configspec=confspec if prefill else confspecprofiles, encoding="UTF-8")
 			_configLoadStatus[profileName] = "fileReset"
 		# 5.2 and later: check to make sure all values are correct.
 		# 7.0: Make sure errors are displayed as config keys are now sections and may need to go through subkeys.
@@ -650,7 +650,7 @@ class ConfigHub(ChainMap):
 
 # Default config spec container.
 # To be moved to a different place in 8.0.
-_SPLDefaults = ConfigObj(None, configspec = confspec, encoding="UTF-8")
+_SPLDefaults = ConfigObj(None, configspec=confspec, encoding="UTF-8")
 _val = Validator()
 _SPLDefaults.validate(_val, copy=True)
 
