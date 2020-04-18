@@ -274,8 +274,8 @@ class EncoderConfigDialog(wx.Dialog):
 		self.connectionStopOnError.SetValue(obj.encoderId not in SPLConnectionStopOnError)
 
 		encoderConfigHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
-		self.Bind(wx.EVT_BUTTON,self.onOk,id=wx.ID_OK)
-		self.Bind(wx.EVT_BUTTON,self.onCancel,id=wx.ID_CANCEL)
+		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
+		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
 		mainSizer.Add(encoderConfigHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 		mainSizer.Fit(self)
 		self.SetSizer(mainSizer)
@@ -551,7 +551,7 @@ class Encoder(IAccessible):
 		except RuntimeError:
 			from ..skipTranslation import translate
 			# Translators: Text of the dialog when another alarm dialog is open.
-			wx.CallAfter(gui.messageBox, _("Another encoder settings dialog is open."),translate("Error"),style=wx.OK | wx.ICON_ERROR)
+			wx.CallAfter(gui.messageBox, _("Another encoder settings dialog is open."), translate("Error"), style=wx.OK | wx.ICON_ERROR)
 
 	# Announce complete time including seconds (slight change from global commands version).
 	@scriptHandler.script(

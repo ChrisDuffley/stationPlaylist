@@ -885,12 +885,12 @@ class AudioDuckingReminder(wx.Dialog):
 		In order to not disrupt the listening experience of your listeners, please disable audio ducking either by:
 		* Opening synthesizer dialog in NVDA and selecting 'no ducking' from audio ducking mode combo box.
 		* Press NVDA+Shift+D to set it to 'no ducking'."""))
-		mainSizer.Add(label,border=20,flag=wx.LEFT | wx.RIGHT | wx.TOP)
+		mainSizer.Add(label, border=20, flag=wx.LEFT | wx.RIGHT | wx.TOP)
 
 		# Translators: A checkbox to turn off audio ducking reminder message.
-		self.audioDuckingReminder = wx.CheckBox(self,wx.ID_ANY,label=_("Do not show this message again"))
+		self.audioDuckingReminder = wx.CheckBox(self, wx.ID_ANY, label=_("Do not show this message again"))
 		self.audioDuckingReminder.SetValue(not SPLConfig["Startup"]["AudioDuckingReminder"])
-		mainSizer.Add(self.audioDuckingReminder, border=10,flag=wx.TOP)
+		mainSizer.Add(self.audioDuckingReminder, border=10, flag=wx.TOP)
 
 		mainSizer.Add(self.CreateButtonSizer(wx.OK), flag=wx.ALIGN_CENTER_HORIZONTAL)
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
@@ -935,12 +935,12 @@ Thank you.""")
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 
 		label = wx.StaticText(self, wx.ID_ANY, label=self.welcomeMessage)
-		mainSizer.Add(label,border=20,flag=wx.LEFT | wx.RIGHT | wx.TOP)
+		mainSizer.Add(label, border=20, flag=wx.LEFT | wx.RIGHT | wx.TOP)
 
 		# Translators: A checkbox to show welcome dialog.
-		self.showWelcomeDialog = wx.CheckBox(self,wx.ID_ANY,label=_("Show welcome dialog when I start Studio"))
+		self.showWelcomeDialog = wx.CheckBox(self, wx.ID_ANY, label=_("Show welcome dialog when I start Studio"))
 		self.showWelcomeDialog.SetValue(SPLConfig["Startup"]["WelcomeDialog"])
-		mainSizer.Add(self.showWelcomeDialog, border=10,flag=wx.TOP)
+		mainSizer.Add(self.showWelcomeDialog, border=10, flag=wx.TOP)
 
 		mainSizer.Add(self.CreateButtonSizer(wx.OK), flag=wx.ALIGN_CENTER_HORIZONTAL)
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)

@@ -32,10 +32,10 @@ def _finderError():
 	global _findDialogOpened
 	if _findDialogOpened:
 		# Translators: Text of the dialog when another find dialog is open.
-		gui.messageBox(_("Another find dialog is open."),translate("Error"),style=wx.OK | wx.ICON_ERROR)
+		gui.messageBox(_("Another find dialog is open."), translate("Error"), style=wx.OK | wx.ICON_ERROR)
 	else:
 		# Translators: Text of the dialog when a generic error has occured.
-		gui.messageBox(_("An unexpected error has occured when trying to open find dialog."),translate("Error"),style=wx.OK | wx.ICON_ERROR)
+		gui.messageBox(_("An unexpected error has occured when trying to open find dialog."), translate("Error"), style=wx.OK | wx.ICON_ERROR)
 
 class SPLFindDialog(wx.Dialog):
 
@@ -84,8 +84,8 @@ class SPLFindDialog(wx.Dialog):
 			self.columnHeaders.SetSelection(0)
 
 		findSizerHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
-		self.Bind(wx.EVT_BUTTON,self.onOk,id=wx.ID_OK)
-		self.Bind(wx.EVT_BUTTON,self.onCancel,id=wx.ID_CANCEL)
+		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
+		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
 		mainSizer.Add(findSizerHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
@@ -163,7 +163,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 		self.minSecEntry.SetValue(0)
 		self.minSecEntry.SetSelection(-1, -1)
 		minSizer.Add(self.minSecEntry)
-		mainSizer.Add(minSizer,border=20,flag=wx.LEFT | wx.RIGHT | wx.TOP)
+		mainSizer.Add(minSizer, border=20, flag=wx.LEFT | wx.RIGHT | wx.TOP)
 
 		maxSizer = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Maximum duration")), wx.HORIZONTAL)
 		prompt = wx.StaticText(self, wx.ID_ANY, label=_("Minute"))
@@ -178,12 +178,12 @@ class SPLTimeRangeDialog(wx.Dialog):
 		self.maxSecEntry.SetValue(0)
 		self.maxSecEntry.SetSelection(-1, -1)
 		maxSizer.Add(self.maxSecEntry)
-		mainSizer.Add(maxSizer,border=20,flag=wx.LEFT | wx.RIGHT | wx.TOP)
+		mainSizer.Add(maxSizer, border=20, flag=wx.LEFT | wx.RIGHT | wx.TOP)
 
 		# #68: wx.BoxSizer.AddSizer no longer exists in wxPython 4.
 		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
-		self.Bind(wx.EVT_BUTTON,self.onOk,id=wx.ID_OK)
-		self.Bind(wx.EVT_BUTTON,self.onCancel,id=wx.ID_CANCEL)
+		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
+		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
 		mainSizer.Fit(self)
 		self.SetSizer(mainSizer)
 		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
@@ -197,7 +197,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 			gui.messageBox(
 				# Translators: Message to report wrong value for duration fields.
 				_("Minimum duration is greater than the maximum duration."),
-				translate("Error"), wx.OK | wx.ICON_ERROR,self)
+				translate("Error"), wx.OK | wx.ICON_ERROR, self)
 			self.minMinEntry.SetFocus()
 			return
 		self.Destroy()
@@ -221,7 +221,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 				# Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
 				_("No track with duration between minimum and maximum duration."),
 				# Translators: Standard error title for find error (copy this from main nvda.po).
-				_("Time range find error"),wx.OK | wx.ICON_ERROR)
+				_("Time range find error"), wx.OK | wx.ICON_ERROR)
 		_findDialogOpened = False
 
 	def onCancel(self, evt):
@@ -624,7 +624,7 @@ _plTranscriptsDialogOpened = False
 
 def plTranscriptsDialogError():
 	# Translators: Text of the dialog when another playlist transcripts dialog is open.
-	gui.messageBox(_("Another playlist transcripts dialog is open."),translate("Error"),style=wx.OK | wx.ICON_ERROR)
+	gui.messageBox(_("Another playlist transcripts dialog is open."), translate("Error"), style=wx.OK | wx.ICON_ERROR)
 
 class SPLPlaylistTranscriptsDialog(wx.Dialog):
 
@@ -689,8 +689,8 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 		self.transcriptAction.SetSelection(0)
 
 		plTranscriptsSizerHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
-		self.Bind(wx.EVT_BUTTON,self.onOk,id=wx.ID_OK)
-		self.Bind(wx.EVT_BUTTON,self.onCancel,id=wx.ID_CANCEL)
+		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
+		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
 		mainSizer.Add(plTranscriptsSizerHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer

@@ -785,7 +785,7 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 		self.columnOrder = splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"]
 
 		# Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
-		self.columnOrderCheckbox = colAnnouncementsHelper.addItem(wx.CheckBox(self,wx.ID_ANY,label=_("Announce columns in the &order shown on screen")))
+		self.columnOrderCheckbox = colAnnouncementsHelper.addItem(wx.CheckBox(self, wx.ID_ANY, label=_("Announce columns in the &order shown on screen")))
 		self.columnOrderCheckbox.SetValue(splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"])
 
 		# Translators: Help text to select columns to be announced.
@@ -809,17 +809,17 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 		# 17.04: The label for the list below is above the list, so move move up/down buttons to the right of the list box.
 		# Translators: The label for a setting in SPL add-on dialog to select column announcement order.
 		self.trackColumns = colAnnouncementsHelper.addLabeledControl(_("Column &order:"), wx.ListBox, choices=self.columnOrder)
-		self.trackColumns.Bind(wx.EVT_LISTBOX,self.onColumnSelection)
+		self.trackColumns.Bind(wx.EVT_LISTBOX, self.onColumnSelection)
 		self.trackColumns.SetSelection(0)
 
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		# Translators: The label for a button in column announcement dialog to change column position for the selected column.
 		self.upButton = wx.Button(self, wx.ID_ANY, label=_("Move &up"))
-		self.upButton.Bind(wx.EVT_BUTTON,self.onMoveUp)
+		self.upButton.Bind(wx.EVT_BUTTON, self.onMoveUp)
 		self.upButton.Disable()
 		# Translators: The label for a button in column announcement dialog to change column position for the selected column.
 		self.dnButton = wx.Button(self, wx.ID_ANY, label=_("Move &down"))
-		self.dnButton.Bind(wx.EVT_BUTTON,self.onMoveDown)
+		self.dnButton.Bind(wx.EVT_BUTTON, self.onMoveDown)
 		sizer.sizer.AddMany((self.upButton, self.dnButton))
 		colAnnouncementsHelper.addItem(sizer.sizer)
 
@@ -864,17 +864,17 @@ class PlaylistTranscriptsPanel(ColumnAnnouncementsBasePanel):
 		# 17.04: The label for the list below is above the list, so move move up/down buttons to the right of the list box.
 		# Translators: The label for a setting in SPL add-on dialog to select column announcement order.
 		self.trackColumns = playlistTranscriptsHelper.addLabeledControl(_("Column &order:"), wx.ListBox, choices=self.columnOrder)
-		self.trackColumns.Bind(wx.EVT_LISTBOX,self.onColumnSelection)
+		self.trackColumns.Bind(wx.EVT_LISTBOX, self.onColumnSelection)
 		self.trackColumns.SetSelection(0)
 
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		# Translators: The label for a button in column announcement dialog to change column position for the selected column.
 		self.upButton = wx.Button(self, wx.ID_ANY, label=_("Move &up"))
-		self.upButton.Bind(wx.EVT_BUTTON,self.onMoveUp)
+		self.upButton.Bind(wx.EVT_BUTTON, self.onMoveUp)
 		self.upButton.Disable()
 		# Translators: The label for a button in column announcement dialog to change column position for the selected column.
 		self.dnButton = wx.Button(self, wx.ID_ANY, label=_("Move &down"))
-		self.dnButton.Bind(wx.EVT_BUTTON,self.onMoveDown)
+		self.dnButton.Bind(wx.EVT_BUTTON, self.onMoveDown)
 		sizer.sizer.AddMany((self.upButton, self.dnButton))
 		playlistTranscriptsHelper.addItem(sizer.sizer)
 
@@ -1096,11 +1096,11 @@ class ResetDialog(wx.Dialog):
 		resetHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
 		# Translators: the label for resetting profile triggers.
-		self.resetInstantProfileCheckbox = resetHelper.addItem(wx.CheckBox(self,label=_("Reset instant switch profile")))
+		self.resetInstantProfileCheckbox = resetHelper.addItem(wx.CheckBox(self, label=_("Reset instant switch profile")))
 		# Translators: the label for resetting encoder settings.
-		self.resetEncodersCheckbox = resetHelper.addItem(wx.CheckBox(self,label=_("Remove encoder settings")))
+		self.resetEncodersCheckbox = resetHelper.addItem(wx.CheckBox(self, label=_("Remove encoder settings")))
 		# Translators: the label for resetting track comments.
-		self.resetTrackCommentsCheckbox = resetHelper.addItem(wx.CheckBox(self,label=_("Erase track comments")))
+		self.resetTrackCommentsCheckbox = resetHelper.addItem(wx.CheckBox(self, label=_("Erase track comments")))
 
 		resetHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
@@ -1117,7 +1117,7 @@ class ResetDialog(wx.Dialog):
 		# Translators: A message to warn about resetting SPL config settings to factory defaults.
 		_("Are you sure you wish to reset SPL add-on settings to defaults?"),
 		# Translators: The title of the warning dialog.
-		_("Warning"),wx.YES_NO | wx.NO_DEFAULT | wx.ICON_WARNING,self
+		_("Warning"), wx.YES_NO | wx.NO_DEFAULT | wx.ICON_WARNING, self
 		) != wx.YES:
 			parent.Enable()
 			self.Destroy()
@@ -1228,7 +1228,7 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 # Centralize error handling for various SPL add-on settings dialogs.
 # The below error message came directly from NVDA Core's settings dialog opener method (credit: NV Access)
 def _configDialogOpenError():
-	gui.messageBox(translate("An NVDA settings dialog is already open. Please close it first."),translate("Error"),style=wx.OK | wx.ICON_ERROR)
+	gui.messageBox(translate("An NVDA settings dialog is already open. Please close it first."), translate("Error"), style=wx.OK | wx.ICON_ERROR)
 
 # #125 (20.05): open any settings panel from main add-on settings, also checking if other dialogs are open.
 def openAddonSettingsPanel(panel):

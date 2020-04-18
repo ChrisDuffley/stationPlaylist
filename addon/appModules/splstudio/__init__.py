@@ -1242,7 +1242,7 @@ class AppModule(appModuleHandler.AppModule):
 			wx.CallAfter(gui.messageBox,
 			# Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
 			_("Search string not found."),
-			translate("Find Error"),wx.OK | wx.ICON_ERROR)
+			translate("Find Error"), wx.OK | wx.ICON_ERROR)
 
 	# Split from track finder in 2015.
 	# Return a track with the given search criteria.
