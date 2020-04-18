@@ -221,15 +221,15 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		scanned = sendMessage(SPLWin, 1024, 1, SPLLibraryScanCount)
 		if scanned >= 0:
 			# Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
-			ui.message(_("Scan in progress with {itemCount} items scanned").format(itemCount = scanned))
+			ui.message(_("Scan in progress with {itemCount} items scanned").format(itemCount=scanned))
 		else:
 			# Translators: Announces number of items in the Studio's track library (example: 1000 items scanned).
-			ui.message(_("Scan complete with {itemCount} items scanned").format(itemCount = sendMessage(SPLWin, 1024, 0, SPLLibraryScanCount)))
+			ui.message(_("Scan complete with {itemCount} items scanned").format(itemCount=sendMessage(SPLWin, 1024, 0, SPLLibraryScanCount)))
 		self.finish()
 
 	def script_listenerCount(self, gesture):
 		# Translators: Announces number of stream listeners.
-		ui.message(_("Listener count: {listenerCount}").format(listenerCount = sendMessage(SPLWin, 1024, 0, SPLListenerCount)))
+		ui.message(_("Listener count: {listenerCount}").format(listenerCount=sendMessage(SPLWin, 1024, 0, SPLListenerCount)))
 		self.finish()
 
 	def script_remainingTime(self, gesture):
@@ -244,14 +244,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			remainingTime = (remainingTime//1000)+1
 			if remainingTime == 0: ui.message("00:00")
 			elif 1 <= remainingTime <= 59:
-				ui.message("00:{ss:02d}".format(ss = remainingTime))
+				ui.message("00:{ss:02d}".format(ss=remainingTime))
 			else:
 				mm, ss = divmod(remainingTime, 60)
 				if mm > 59:
 					hh, mm = divmod(mm, 60)
-					ui.message("{hh:02d}:{mm:02d}:{ss:02d}".format(hh = hh, mm = mm, ss = ss))
+					ui.message("{hh:02d}:{mm:02d}:{ss:02d}".format(hh=hh, mm=mm, ss=ss))
 				else:
-					ui.message("{mm:02d}:{ss:02d}".format(mm = mm, ss = ss))
+					ui.message("{mm:02d}:{ss:02d}".format(mm=mm, ss=ss))
 		self.finish()
 
 	@scriptHandler.script(

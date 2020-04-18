@@ -35,7 +35,7 @@ class AppModule(appModuleHandler.AppModule):
 		try:
 			if not globalVars.appArgs.minimal:
 				# No translation.
-				ui.message("SPL VT Client {SPLVersion}".format(SPLVersion = self.productVersion))
+				ui.message("SPL VT Client {SPLVersion}".format(SPLVersion=self.productVersion))
 		except:
 			pass
 

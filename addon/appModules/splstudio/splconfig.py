@@ -596,11 +596,11 @@ class ConfigHub(ChainMap):
 		if prevProfile is not None:
 			self.switchHistory.append(newProfile)
 			# Translators: Presented when switch to instant switch profile was successful.
-			ui.message(_("Switching to {newProfileName}").format(newProfileName = self.activeProfile))
+			ui.message(_("Switching to {newProfileName}").format(newProfileName=self.activeProfile))
 		else:
 			self.switchHistory.pop()
 			# Translators: Presented when switching from instant switch profile to a previous profile.
-			ui.message(_("Returning to {previousProfile}").format(previousProfile = self.activeProfile))
+			ui.message(_("Returning to {previousProfile}").format(previousProfile=self.activeProfile))
 		# #38 (17.11/15.10-LTS): can't wait two seconds for microphone alarm to stop.
 		# #40 (17.12): all taken care of by profile switched notification.
 		splactions.SPLActionProfileSwitched.notify()
@@ -719,7 +719,7 @@ def initialize():
 			messages.append("One or more broadcast profiles had issues:\n\n")
 			for profile in _configLoadStatus:
 				error = _configErrors[_configLoadStatus[profile]]
-				messages.append("{profileName}: {errorMessage}".format(profileName = profile, errorMessage = error))
+				messages.append("{profileName}: {errorMessage}".format(profileName=profile, errorMessage=error))
 		_configLoadStatus.clear()
 		runConfigErrorDialog("\n".join(messages), title)
 	# Fire up profile triggers.

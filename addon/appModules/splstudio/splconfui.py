@@ -364,7 +364,7 @@ class TriggersDialog(wx.Dialog):
 
 	def __init__(self, parent, profile):
 		# Translators: The title of the broadcast profile triggers dialog.
-		super(TriggersDialog, self).__init__(parent, title=_("Profile triggers for {profileName}").format(profileName = profile))
+		super(TriggersDialog, self).__init__(parent, title=_("Profile triggers for {profileName}").format(profileName=profile))
 		self.profile = profile
 		self.selection = parent.profiles.GetSelection()
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
@@ -957,7 +957,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		for slot in range(5):
 			# Translators: The label for a setting in SPL add-on dialog to select column for this column slot.
-			columns = sizer.addLabeledControl(_("Slot {position}").format(position = slot+1), wx.Choice, choices=cols)
+			columns = sizer.addLabeledControl(_("Slot {position}").format(position=slot+1), wx.Choice, choices=cols)
 			try:
 				columns.SetSelection(cols.index(slots[slot]))
 			except:
@@ -967,7 +967,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		for slot in range(5, 10):
-			columns = sizer.addLabeledControl(_("Slot {position}").format(position = slot+1), wx.Choice, choices=cols)
+			columns = sizer.addLabeledControl(_("Slot {position}").format(position=slot+1), wx.Choice, choices=cols)
 			try:
 				columns.SetSelection(cols.index(slots[slot]))
 			except:

@@ -244,7 +244,7 @@ class EncoderConfigDialog(wx.Dialog):
 		self.obj = obj
 		self.curStreamLabel, title = obj.getStreamLabel(getTitle=True)
 		# Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
-		super(EncoderConfigDialog, self).__init__(parent, wx.ID_ANY, _("Encoder settings for {name}").format(name = title))
+		super(EncoderConfigDialog, self).__init__(parent, wx.ID_ANY, _("Encoder settings for {name}").format(name=title))
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		encoderConfigHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 		# And to close this automatically when Studio dies.
@@ -367,7 +367,7 @@ class Encoder(IAccessible):
 		try:
 			if encoderMonCount[self.encoderType] > 1:
 				# Translators: Status message for encoder monitoring.
-				ui.message(_("{encoder} {encoderNumber}: {status}").format(encoder = self.encoderType, encoderNumber = encoderId, status = message))
+				ui.message(_("{encoder} {encoderNumber}: {status}").format(encoder=self.encoderType, encoderNumber=encoderId, status=message))
 			else:
 				ui.message(message)
 		except:
@@ -437,11 +437,11 @@ class Encoder(IAccessible):
 			if not self.backgroundMonitor:
 				encoderMonCount[self.encoderType] += 1
 				# Translators: Presented when toggling the setting to monitor the selected encoder.
-				ui.message(_("Monitoring encoder {encoderNumber}").format(encoderNumber = self.IAccessibleChildID))
+				ui.message(_("Monitoring encoder {encoderNumber}").format(encoderNumber=self.IAccessibleChildID))
 			else:
 				encoderMonCount[self.encoderType] -= 1
 				# Translators: Presented when toggling the setting to monitor the selected encoder.
-				ui.message(_("Encoder {encoderNumber} will not be monitored").format(encoderNumber = self.IAccessibleChildID))
+				ui.message(_("Encoder {encoderNumber} will not be monitored").format(encoderNumber=self.IAccessibleChildID))
 			self._setFlags(self.encoderId, not self.backgroundMonitor, SPLBackgroundMonitor)
 			if self.backgroundMonitor:
 				try:
@@ -465,7 +465,7 @@ class Encoder(IAccessible):
 		curStreamLabel, title = self.getStreamLabel(getTitle=True)
 		if not curStreamLabel: curStreamLabel = ""
 		# Translators: The title of the stream labeler dialog (example: stream labeler for 1).
-		streamTitle = _("Stream labeler for {streamEntry}").format(streamEntry = title)
+		streamTitle = _("Stream labeler for {streamEntry}").format(streamEntry=title)
 		# Translators: The text of the stream labeler dialog.
 		streamText = _("Enter the label for this stream")
 		dlg = wx.TextEntryDialog(gui.mainFrame,
@@ -572,7 +572,7 @@ class Encoder(IAccessible):
 	# This base class implements encoder position and stream labels.
 	@scriptHandler.script(gesture="kb:control+NVDA+1")
 	def script_announceEncoderPosition(self, gesture):
-		ui.message(_("Position: {pos}").format(pos = self.IAccessibleChildID))
+		ui.message(_("Position: {pos}").format(pos=self.IAccessibleChildID))
 
 	@scriptHandler.script(gesture="kb:control+NVDA+2")
 	def script_announceEncoderLabel(self, gesture):
@@ -581,7 +581,7 @@ class Encoder(IAccessible):
 		except TypeError:
 			streamLabel = None
 		if streamLabel:
-			ui.message(_("Label: {label}").format(label = streamLabel))
+			ui.message(_("Label: {label}").format(label=streamLabel))
 		else:
 			ui.message(_("No stream label"))
 
@@ -763,15 +763,15 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 	# Announce SAM columns: encoder name/type, status and description.
 	@scriptHandler.script(gesture="kb:control+NVDA+3")
 	def script_announceEncoderFormat(self, gesture):
-		ui.message(_("Format: {encoderFormat}").format(encoderFormat = self.getChild(1).name))
+		ui.message(_("Format: {encoderFormat}").format(encoderFormat=self.getChild(1).name))
 
 	@scriptHandler.script(gesture="kb:control+NVDA+4")
 	def script_announceEncoderStatus(self, gesture):
-		ui.message(_("Status: {encoderStatus}").format(encoderStatus = self.getChild(2).name))
+		ui.message(_("Status: {encoderStatus}").format(encoderStatus=self.getChild(2).name))
 
 	@scriptHandler.script(gesture="kb:control+NVDA+5")
 	def script_announceEncoderStatusDesc(self, gesture):
-		ui.message(_("Description: {encoderDescription}").format(encoderDescription = self.getChild(3).name))
+		ui.message(_("Description: {encoderDescription}").format(encoderDescription=self.getChild(3).name))
 
 	@property
 	def threadPool(self):
@@ -876,11 +876,11 @@ class SPLEncoder(Encoder):
 	# Announce SPL Encoder columns: encoder settings and transfer rate.
 	@scriptHandler.script(gesture="kb:control+NVDA+3")
 	def script_announceEncoderSettings(self, gesture):
-		ui.message(_("Encoder Settings: {setting}").format(setting = self.getChild(0).name))
+		ui.message(_("Encoder Settings: {setting}").format(setting=self.getChild(0).name))
 
 	@scriptHandler.script(gesture="kb:control+NVDA+4")
 	def script_announceEncoderTransfer(self, gesture):
-		ui.message(_("Transfer Rate: {transferRate}").format(transferRate = self.getChild(1).name))
+		ui.message(_("Transfer Rate: {transferRate}").format(transferRate=self.getChild(1).name))
 
 	@property
 	def threadPool(self):

@@ -83,7 +83,7 @@ class AppModule(appModuleHandler.AppModule):
 		try:
 			if not globalVars.appArgs.minimal:
 				# No translation.
-				ui.message("SPL Creator {SPLVersion}".format(SPLVersion = self.productVersion))
+				ui.message("SPL Creator {SPLVersion}".format(SPLVersion=self.productVersion))
 		except:
 			pass
 		# #64 (18.07): load config database if not done already.

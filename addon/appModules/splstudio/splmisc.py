@@ -404,14 +404,14 @@ def metadataStatus():
 		else: status = _("Metadata streaming configured for DSP encoder")
 	elif len(streamCount) == 1:
 		# Translators: Status message for metadata streaming.
-		if dsp: status = _("Metadata streaming configured for DSP encoder and URL {URL}").format(URL = streamCount[0])
+		if dsp: status = _("Metadata streaming configured for DSP encoder and URL {URL}").format(URL=streamCount[0])
 		# Translators: Status message for metadata streaming.
-		else: status = _("Metadata streaming configured for URL {URL}").format(URL = streamCount[0])
+		else: status = _("Metadata streaming configured for URL {URL}").format(URL=streamCount[0])
 	else:
 		# Translators: Status message for metadata streaming.
-		if dsp: status = _("Metadata streaming configured for DSP encoder and URL's {URL}").format(URL = ", ".join(streamCount))
+		if dsp: status = _("Metadata streaming configured for DSP encoder and URL's {URL}").format(URL=", ".join(streamCount))
 		# Translators: Status message for metadata streaming.
-		else: status = _("Metadata streaming configured for URL's {URL}").format(URL = ", ".join(streamCount))
+		else: status = _("Metadata streaming configured for URL's {URL}").format(URL=", ".join(streamCount))
 	return status
 
 # Internal metadata status announcer.
@@ -517,7 +517,7 @@ def savePlaylistTranscriptsToFile(playlistTranscripts, extension, location=None)
 	transcriptPath = os.path.join(transcriptFileLocation, transcriptFilename)
 	with open(transcriptPath, "w") as transcript:
 		transcript.writelines(playlistTranscripts)
-	ui.message("Playlist transcripts saved at {location}".format(location = transcriptPath))
+	ui.message("Playlist transcripts saved at {location}".format(location=transcriptPath))
 
 # Several converters rely on assistants for their work.
 # For text file 1 and HTML list 1, it expects playlist data in the format presented by MSAA.
@@ -575,12 +575,12 @@ def playlist2htmlTable(start, end, transcriptAction):
 	else: playlistTranscripts = ["Playlist Transcripts - use table navigation commands to review track information"]
 	playlistTranscripts.append("<p>")
 	columnHeaders = columnPresentationOrder()
-	playlistTranscripts.append("<table><tr><th>{trackHeaders}</tr>".format(trackHeaders = "<th>".join(columnHeaders)))
+	playlistTranscripts.append("<table><tr><th>{trackHeaders}</tr>".format(trackHeaders="<th>".join(columnHeaders)))
 	obj = start
 	columnPos = [obj.indexOf(column) for column in columnHeaders]
 	while obj not in (None, end):
 		columnContents = obj._getColumnContents(columns=columnPos, readable=True)
-		playlistTranscripts.append("<tr><td>{trackContents}</tr>".format(trackContents = "<td>".join(columnContents)))
+		playlistTranscripts.append("<tr><td>{trackContents}</tr>".format(trackContents="<td>".join(columnContents)))
 		obj = obj.next
 	playlistTranscripts.append("</table>")
 	if transcriptAction == 0: displayPlaylistTranscripts(playlistTranscripts, HTMLDecoration=True)
@@ -607,12 +607,12 @@ SPLPlaylistTranscriptFormats.append(("htmllist", playlist2htmlList, "Data list i
 def playlist2mdTable(start, end, transcriptAction):
 	playlistTranscripts = []
 	columnHeaders = columnPresentationOrder()
-	playlistTranscripts.append("| {headers} |\n".format(headers = " | ".join(columnHeaders)))
+	playlistTranscripts.append("| {headers} |\n".format(headers=" | ".join(columnHeaders)))
 	obj = start
 	columnPos = [obj.indexOf(column) for column in columnHeaders]
 	while obj not in (None, end):
 		columnContents = obj._getColumnContents(columns=columnPos, readable=True)
-		playlistTranscripts.append("| {trackContents} |\n".format(trackContents = " | ".join(columnContents)))
+		playlistTranscripts.append("| {trackContents} |\n".format(trackContents=" | ".join(columnContents)))
 		obj = obj.next
 	if transcriptAction == 0: displayPlaylistTranscripts(playlistTranscripts)
 	elif transcriptAction == 1: copyPlaylistTranscriptsToClipboard(playlistTranscripts)

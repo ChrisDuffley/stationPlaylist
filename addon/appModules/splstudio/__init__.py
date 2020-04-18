@@ -118,10 +118,10 @@ class SPLTrackItem(sysListView32.ListItem):
 		if visualColumns: colNumber = self.parent._columnOrderArray[colNumber]
 		if not header: header = self._getColumnHeaderRaw(colNumber)
 		columnContent = self._getColumnContentRaw(self.indexOf(header) if not visualColumns else colNumber)
-		if columnContent: ui.message(_("{header}: {content}").format(header = header, content = columnContent))
+		if columnContent: ui.message(_("{header}: {content}").format(header=header, content=columnContent))
 		else:
-			speech.speakMessage(_("{header}: blank").format(header = header))
-			braille.handler.message(_("{header}: ()").format(header = header))
+			speech.speakMessage(_("{header}: blank").format(header=header))
+			braille.handler.message(_("{header}: ()").format(header=header))
 
 	# #103: provide an abstract index of function.
 	@abstractmethod
@@ -166,7 +166,7 @@ class SPLTrackItem(sysListView32.ListItem):
 		if columnPos > self.parent.columnCount:
 			debugOutput(f"Column {columnPos} is out of range for this item")
 			# Translators: Presented when column is out of range.
-			ui.message(_("Column {columnPosition} not found").format(columnPosition= columnPos))
+			ui.message(_("Column {columnPosition} not found").format(columnPosition=columnPos))
 			return
 		columnPos -= 1
 		header = None
@@ -193,7 +193,7 @@ class SPLTrackItem(sysListView32.ListItem):
 					title=_("Track data"))
 		else:
 			# Translators: Presented when a specific column header is not found.
-			ui.message(_("{headerText} not found").format(headerText = header))
+			ui.message(_("{headerText} not found").format(headerText=header))
 
 
 class SPLStudioTrackItem(SPLTrackItem):
@@ -265,7 +265,7 @@ class SPLStudioTrackItem(SPLTrackItem):
 	# A friendly way to report track position via location text.
 	def _get_locationText(self):
 		# Translators: location text for a playlist item (example: item 1 of 10).
-		return _("Item {current} of {total}").format(current = self.IAccessibleChildID, total = splbase.studioAPI(0, 124))
+		return _("Item {current} of {total}").format(current=self.IAccessibleChildID, total=splbase.studioAPI(0, 124))
 
 	# #12 (18.04): select and set focus to this track.
 	def doAction(self, index=None):
@@ -280,7 +280,7 @@ class SPLStudioTrackItem(SPLTrackItem):
 			ui.message(_("Status not found"))
 		else:
 			# Translators: Status information for a checked track in Studio 5.10.
-			ui.message(_("Status: {name}").format(name = self.name))
+			ui.message(_("Status: {name}").format(name=self.name))
 
 	# Obtain column contents for all columns for this track.
 	# A convenience method that calls column content getter for a list of columns.
@@ -303,12 +303,12 @@ class SPLStudioTrackItem(SPLTrackItem):
 		columnContent = self._getColumnContentRaw(self.indexOf(header))
 		status = self.name + " " if reportStatus else ""
 		# Translators: Standard message for announcing column content.
-		if columnContent: ui.message(_("{checkStatus}{header}: {content}").format(checkStatus = status, header = header, content = columnContent))
+		if columnContent: ui.message(_("{checkStatus}{header}: {content}").format(checkStatus=status, header=header, content=columnContent))
 		else:
 			# Translators: Spoken when column content is blank.
-			speech.speakMessage(_("{checkStatus}{header}: blank").format(checkStatus = status, header = header))
+			speech.speakMessage(_("{checkStatus}{header}: blank").format(checkStatus=status, header=header))
 			# Translators: Brailled to indicate empty column content.
-			braille.handler.message(_("{checkStatus}{header}: ()").format(checkStatus = status, header = header))
+			braille.handler.message(_("{checkStatus}{header}: ()").format(checkStatus=status, header=header))
 
 	# Now the scripts.
 	# Because Studio track item requires special handling for status column, first and previous column scripts will be part of this and other subclasses here.
@@ -632,7 +632,7 @@ class AppModule(appModuleHandler.AppModule):
 		try:
 			if not globalVars.appArgs.minimal:
 				# No translation.
-				ui.message("SPL Studio {SPLVersion}".format(SPLVersion = self.SPLCurVersion))
+				ui.message("SPL Studio {SPLVersion}".format(SPLVersion=self.SPLCurVersion))
 		except:
 			pass
 		# #40 (17.12): react to profile switches.
@@ -847,7 +847,7 @@ class AppModule(appModuleHandler.AppModule):
 						if splconfig.SPLConfig["General"]["BeepAnnounce"]: tones.beep(370, 100)
 						else:
 							# Translators: Presented when library scan is complete.
-							ui.message(_("Scan complete with {scanCount} items").format(scanCount = obj.name.split()[3]))
+							ui.message(_("Scan complete with {scanCount} items").format(scanCount=obj.name.split()[3]))
 					if self.libraryScanning: self.libraryScanning = False
 					self.scanCount = 0
 			else:
@@ -971,10 +971,10 @@ class AppModule(appModuleHandler.AppModule):
 			alarmTime = int(timeText.split(":")[1])
 			if intro:
 				# Translators: Presented when end of introduction is approaching (example output: 5 sec left in track introduction).
-				ui.message(_("Warning: {seconds} sec left in track introduction").format(seconds = str(alarmTime)))
+				ui.message(_("Warning: {seconds} sec left in track introduction").format(seconds=str(alarmTime)))
 			else:
 				# Translators: Presented when end of track is approaching.
-				ui.message(_("Warning: {seconds} sec remaining").format(seconds = str(alarmTime)))
+				ui.message(_("Warning: {seconds} sec remaining").format(seconds=str(alarmTime)))
 
 	# Hacks for gain focus events.
 	def event_gainFocus(self, obj, nextHandler):
@@ -1098,9 +1098,9 @@ class AppModule(appModuleHandler.AppModule):
 				# 6.1: Optimize the string builder so it can return just one string.
 				# 17.08: Return the generated string directly.
 				# 17.09: use modulo formatter to reduce instruction count.
-				return "{hh:02d}:{mm:02d}:{ss:02d}".format(hh = hh, mm = mm, ss = ss)
+				return "{hh:02d}:{mm:02d}:{ss:02d}".format(hh=hh, mm=mm, ss=ss)
 			else:
-				return "{mm:02d}:{ss:02d}".format(mm = mm, ss = ss)
+				return "{mm:02d}:{ss:02d}".format(mm=mm, ss=ss)
 
 	# Scripts which rely on API.
 	@scriptHandler.script(
@@ -1136,14 +1136,14 @@ class AppModule(appModuleHandler.AppModule):
 			if m == 0:
 				if h == 0: h += 12
 				# Messages in this method should not be translated.
-				ui.message("{hour} o'clock".format(hour = h))
+				ui.message("{hour} o'clock".format(hour=h))
 			elif 1 <= m <= 30:
 				if h == 0: h += 12
-				ui.message("{minute} min past {hour}".format(minute = m, hour = h))
+				ui.message("{minute} min past {hour}".format(minute=m, hour=h))
 			else:
 				if h == 12: h = 1
 				m = 60-m
-				ui.message("{minute} min to {hour}".format(minute = m, hour = h+1))
+				ui.message("{minute} min to {hour}".format(minute=m, hour=h+1))
 		else:
 			self.announceTime(3600-(m*60+localtime[5]), ms=False)
 
@@ -1484,7 +1484,7 @@ class AppModule(appModuleHandler.AppModule):
 		if splbase.studioAPI(1, 32) < 0:
 			self.libraryScanning = False
 			# Translators: Presented when library scanning is finished.
-			ui.message(_("{itemCount} items in the library").format(itemCount = splbase.studioAPI(0, 32)))
+			ui.message(_("{itemCount} items in the library").format(itemCount=splbase.studioAPI(0, 32)))
 		else:
 			libScanT = threading.Thread(target=self.libraryScanReporter)
 			libScanT.daemon = True
@@ -1514,7 +1514,7 @@ class AppModule(appModuleHandler.AppModule):
 				tones.beep(370, 100)
 			else:
 				# Translators: Presented after library scan is done.
-				ui.message(_("Scan complete with {itemCount} items").format(itemCount = splbase.studioAPI(0, 32)))
+				ui.message(_("Scan complete with {itemCount} items").format(itemCount=splbase.studioAPI(0, 32)))
 
 	# Take care of library scanning announcement.
 	def _libraryScanAnnouncer(self, count, announcementType):
@@ -1526,7 +1526,7 @@ class AppModule(appModuleHandler.AppModule):
 				tones.beep(550, 100)
 				# No need to provide translatable string - just use index.
 				ui.message("{0}".format(count))
-			else: ui.message(_("{itemCount} items scanned").format(itemCount = count))
+			else: ui.message(_("{itemCount} items scanned").format(itemCount=count))
 
 	# Place markers.
 	placeMarker = None
@@ -1721,19 +1721,19 @@ class AppModule(appModuleHandler.AppModule):
 
 	def playlistSnapshotOutput(self, snapshot, scriptCount):
 		# Translators: one of the results for playlist snapshots feature for announcing total number of items in a playlist.
-		statusInfo = [_("Items: {playlistItemCount}").format(playlistItemCount = snapshot["PlaylistItemCount"])]
+		statusInfo = [_("Items: {playlistItemCount}").format(playlistItemCount=snapshot["PlaylistItemCount"])]
 		# Translators: one of the results for playlist snapshots feature for announcing total number of tracks in a playlist.
-		statusInfo.append(_("Tracks: {playlistTrackCount}").format(playlistTrackCount = snapshot["PlaylistTrackCount"]))
+		statusInfo.append(_("Tracks: {playlistTrackCount}").format(playlistTrackCount=snapshot["PlaylistTrackCount"]))
 		# Translators: one of the results for playlist snapshots feature for announcing total duration of a playlist.
-		statusInfo.append(_("Duration: {playlistTotalDuration}").format(playlistTotalDuration = snapshot["PlaylistDurationTotal"]))
+		statusInfo.append(_("Duration: {playlistTotalDuration}").format(playlistTotalDuration=snapshot["PlaylistDurationTotal"]))
 		if "PlaylistDurationMin" in snapshot:
 			# Translators: one of the results for playlist snapshots feature for announcing shortest track name and duration of a playlist.
-			statusInfo.append(_("Shortest: {playlistShortestTrack}").format(playlistShortestTrack = snapshot["PlaylistDurationMin"]))
+			statusInfo.append(_("Shortest: {playlistShortestTrack}").format(playlistShortestTrack=snapshot["PlaylistDurationMin"]))
 			# Translators: one of the results for playlist snapshots feature for announcing longest track name and duration of a playlist.
-			statusInfo.append(_("Longest: {playlistLongestTrack}").format(playlistLongestTrack = snapshot["PlaylistDurationMax"]))
+			statusInfo.append(_("Longest: {playlistLongestTrack}").format(playlistLongestTrack=snapshot["PlaylistDurationMax"]))
 		if "PlaylistDurationAverage" in snapshot:
 			# Translators: one of the results for playlist snapshots feature for announcing average duration for tracks in a playlist.
-			statusInfo.append(_("Average: {playlistAverageDuration}").format(playlistAverageDuration = snapshot["PlaylistDurationAverage"]))
+			statusInfo.append(_("Average: {playlistAverageDuration}").format(playlistAverageDuration=snapshot["PlaylistDurationAverage"]))
 		if "PlaylistArtistCount" in snapshot:
 			artistCount = splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCountLimit"]
 			artists = snapshot["PlaylistArtistCount"].most_common(None if not artistCount else artistCount)
@@ -1750,9 +1750,9 @@ class AppModule(appModuleHandler.AppModule):
 				for item in artists:
 					artist, count = item
 					if artist is None:
-						info = _("No artist information ({artistCount})").format(artistCount = count)
+						info = _("No artist information ({artistCount})").format(artistCount=count)
 					else:
-						info = _("{artistName} ({artistCount})").format(artistName = artist, artistCount = count)
+						info = _("{artistName} ({artistCount})").format(artistName=artist, artistCount=count)
 					artistList.append("<li>%s</li>"%info)
 				statusInfo.append("".join([header, "<ol>", "\n".join(artistList), "</ol>"]))
 		if "PlaylistCategoryCount" in snapshot:
@@ -1769,7 +1769,7 @@ class AppModule(appModuleHandler.AppModule):
 					category, count = item
 					category = category.replace("<", "")
 					category = category.replace(">", "")
-					info = _("{categoryName} ({categoryCount})").format(categoryName = category, categoryCount = count)
+					info = _("{categoryName} ({categoryCount})").format(categoryName=category, categoryCount=count)
 					categoryList.append("<li>%s</li>"%info)
 				statusInfo.append("".join([header, "<ol>", "\n".join(categoryList), "</ol>"]))
 		if "PlaylistGenreCount" in snapshot:
@@ -1788,9 +1788,9 @@ class AppModule(appModuleHandler.AppModule):
 				for item in genres:
 					genre, count = item
 					if genre is None:
-						info = _("No genre information ({genreCount})").format(genreCount = count)
+						info = _("No genre information ({genreCount})").format(genreCount=count)
 					else:
-						info = _("{genreName} ({genreCount})").format(genreName = genre, genreCount = count)
+						info = _("{genreName} ({genreCount})").format(genreName=genre, genreCount=count)
 					genreList.append("<li>%s</li>"%info)
 				statusInfo.append("".join([header, "<ol>", "\n".join(genreList), "</ol>"]))
 		if scriptCount == 0:
@@ -2101,7 +2101,7 @@ class AppModule(appModuleHandler.AppModule):
 	def script_libraryScanMonitor(self, gesture):
 		if not self.libraryScanning:
 			if splbase.studioAPI(1, 32) < 0:
-				ui.message(_("{itemCount} items in the library").format(itemCount = splbase.studioAPI(0, 32)))
+				ui.message(_("{itemCount} items in the library").format(itemCount=splbase.studioAPI(0, 32)))
 				return
 			self.libraryScanning = True
 			# Translators: Presented when attempting to start library scan.
@@ -2151,7 +2151,7 @@ class AppModule(appModuleHandler.AppModule):
 				self.announceTime(totalLength, ms=False)
 			else:
 				# Translators: Presented when time analysis is done for a number of tracks (example output: Tracks: 3, totaling 5:00).
-				ui.message(_("Tracks: {numberOfSelectedTracks}, totaling {totalTime}").format(numberOfSelectedTracks = analysisRange, totalTime = self._ms2time(totalLength*1000)))
+				ui.message(_("Tracks: {numberOfSelectedTracks}, totaling {totalTime}").format(numberOfSelectedTracks=analysisRange, totalTime=self._ms2time(totalLength*1000)))
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
@@ -2260,14 +2260,14 @@ class AppModule(appModuleHandler.AppModule):
 			# 0 is DSP encoder status, others are servers.
 			if url:
 				# Translators: Status message for metadata streaming.
-				status = _("Metadata streaming on URL {URLPosition} enabled").format(URLPosition = url)
+				status = _("Metadata streaming on URL {URLPosition} enabled").format(URLPosition=url)
 			else:
 				# Translators: Status message for metadata streaming.
 				status = _("Metadata streaming on DSP encoder enabled")
 		else:
 			if url:
 				# Translators: Status message for metadata streaming.
-				status = _("Metadata streaming on URL {URLPosition} disabled").format(URLPosition = url)
+				status = _("Metadata streaming on URL {URLPosition} disabled").format(URLPosition=url)
 			else:
 				# Translators: Status message for metadata streaming.
 				status = _("Metadata streaming on DSP encoder disabled")
