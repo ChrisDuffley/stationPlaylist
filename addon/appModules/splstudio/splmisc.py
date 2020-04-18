@@ -496,7 +496,7 @@ def columnPresentationOrder():
 # Actions can include viewing the transcript, copying to clipboard (text style format only), and saving to a file.
 
 def displayPlaylistTranscripts(transcript, HTMLDecoration=False):
-	ui.browseableMessage("\n".join(transcript),title=_("Playlist Transcripts"), isHtml=HTMLDecoration)
+	ui.browseableMessage("\n".join(transcript), title=_("Playlist Transcripts"), isHtml=HTMLDecoration)
 
 def copyPlaylistTranscriptsToClipboard(playlistTranscripts):
 	# Only text style transcript such as pure text and Markdown supports copying contents to clipboard.

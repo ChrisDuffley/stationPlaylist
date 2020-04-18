@@ -170,39 +170,39 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# The layer commands themselves. Calls user32.SendMessage method for each script.
 
 	def script_automateOn(self, gesture):
-		sendMessage(SPLWin,1024,1,SPLAutomate)
+		sendMessage(SPLWin, 1024, 1, SPLAutomate)
 		self.finish()
 
 	def script_automateOff(self, gesture):
-		sendMessage(SPLWin,1024,0,SPLAutomate)
+		sendMessage(SPLWin, 1024, 0, SPLAutomate)
 		self.finish()
 
 	def script_micOn(self, gesture):
-		sendMessage(SPLWin,1024,1,SPLMic)
+		sendMessage(SPLWin, 1024, 1, SPLMic)
 		self.finish()
 
 	def script_micOff(self, gesture):
-		sendMessage(SPLWin,1024,0,SPLMic)
+		sendMessage(SPLWin, 1024, 0, SPLMic)
 		self.finish()
 
 	def script_micNoFade(self, gesture):
-		sendMessage(SPLWin,1024,2,SPLMic)
+		sendMessage(SPLWin, 1024, 2, SPLMic)
 		self.finish()
 
 	def script_lineInOn(self, gesture):
-		sendMessage(SPLWin,1024,1,SPLLineIn)
+		sendMessage(SPLWin, 1024, 1, SPLLineIn)
 		self.finish()
 
 	def script_lineInOff(self, gesture):
-		sendMessage(SPLWin,1024,0,SPLLineIn)
+		sendMessage(SPLWin, 1024, 0, SPLLineIn)
 		self.finish()
 
 	def script_stopFade(self, gesture):
-		sendMessage(SPLWin,1024,0,SPLStop)
+		sendMessage(SPLWin, 1024, 0, SPLStop)
 		self.finish()
 
 	def script_stopInstant(self, gesture):
-		sendMessage(SPLWin,1024,1,SPLStop)
+		sendMessage(SPLWin, 1024, 1, SPLStop)
 		self.finish()
 
 	def script_play(self, gesture):
@@ -328,7 +328,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			cart = (cart * 0x00010000) + modifier+1
 		# Whereas simplified to cart bank setup in Studio 5.30 and later.
 		else: cart += (modifier * 24)
-		sendMessage(SPLWin,1024,cart,SPLCartPlayer)
+		sendMessage(SPLWin, 1024, cart, SPLCartPlayer)
 		self.finish()
 
 	def script_conHelp(self, gesture):

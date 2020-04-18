@@ -517,7 +517,7 @@ class ReversedDialog(Dialog):
 	"""
 
 	@classmethod
-	def getDialogText(cls,obj,allowFocusedDescendants=True):
+	def getDialogText(cls, obj, allowFocusedDescendants=True):
 		"""This classmethod walks through the children of the given object, and collects up and returns any text that seems to be  part of a dialog's message text.
 		@param obj: the object who's children you want to collect the text from
 		@type obj: L{IAccessible}
@@ -536,10 +536,10 @@ class ReversedDialog(Dialog):
 			if controlTypes.STATE_INVISIBLE in childStates or controlTypes.STATE_UNAVAILABLE in childStates:
 				continue
 			# For particular objects, we want to descend in to them and get their children's message text
-			if childRole in (controlTypes.ROLE_PROPERTYPAGE,controlTypes.ROLE_PANE,controlTypes.ROLE_PANEL,controlTypes.ROLE_WINDOW,controlTypes.ROLE_GROUPING,controlTypes.ROLE_PARAGRAPH,controlTypes.ROLE_SECTION,controlTypes.ROLE_TEXTFRAME,controlTypes.ROLE_UNKNOWN):
+			if childRole in (controlTypes.ROLE_PROPERTYPAGE, controlTypes.ROLE_PANE, controlTypes.ROLE_PANEL, controlTypes.ROLE_WINDOW, controlTypes.ROLE_GROUPING, controlTypes.ROLE_PARAGRAPH, controlTypes.ROLE_SECTION, controlTypes.ROLE_TEXTFRAME, controlTypes.ROLE_UNKNOWN):
 				# Grab text from descendants, but not for a child which inherits from Dialog and has focusable descendants
 				# Stops double reporting when focus is in a property page in a dialog
-				childText = cls.getDialogText(child,not isinstance(child,Dialog))
+				childText = cls.getDialogText(child, not isinstance(child, Dialog))
 				if childText:
 					textList.append(childText)
 				elif childText is None:
@@ -551,7 +551,7 @@ class ReversedDialog(Dialog):
 			# We only want text from certain controls.
 			if not (
 				# Static text, labels and links
-				childRole in (controlTypes.ROLE_STATICTEXT,controlTypes.ROLE_LABEL,controlTypes.ROLE_LINK)
+				childRole in (controlTypes.ROLE_STATICTEXT, controlTypes.ROLE_LABEL, controlTypes.ROLE_LINK)
 				# Read-only, non-multiline edit fields
 				or (childRole == controlTypes.ROLE_EDITABLETEXT and controlTypes.STATE_READONLY in childStates and controlTypes.STATE_MULTILINE not in childStates)
 			):
@@ -563,10 +563,10 @@ class ReversedDialog(Dialog):
 			if index > 1 and children[index-1].role == controlTypes.ROLE_GRAPHIC and children[index-2].role == controlTypes.ROLE_GROUPING:
 				continue
 			childName = child.name
-			if childName and index < (childCount-1) and children[index+1].role not in (controlTypes.ROLE_GRAPHIC,controlTypes.ROLE_STATICTEXT,controlTypes.ROLE_SEPARATOR,controlTypes.ROLE_WINDOW,controlTypes.ROLE_PANE,controlTypes.ROLE_BUTTON) and children[index+1].name == childName:
+			if childName and index < (childCount-1) and children[index+1].role not in (controlTypes.ROLE_GRAPHIC, controlTypes.ROLE_STATICTEXT, controlTypes.ROLE_SEPARATOR, controlTypes.ROLE_WINDOW, controlTypes.ROLE_PANE, controlTypes.ROLE_BUTTON) and children[index+1].name == childName:
 				# This is almost certainly the label for the next object, so skip it.
 				continue
-			isNameIncluded = child.TextInfo is NVDAObjectTextInfo or childRole in (controlTypes.ROLE_LABEL,controlTypes.ROLE_STATICTEXT)
+			isNameIncluded = child.TextInfo is NVDAObjectTextInfo or childRole in (controlTypes.ROLE_LABEL, controlTypes.ROLE_STATICTEXT)
 			childText = child.makeTextInfo(textInfos.POSITION_ALL).text
 			if not childText or childText.isspace() and child.TextInfo is not NVDAObjectTextInfo:
 				childText = child.basicText
@@ -589,7 +589,7 @@ class SPLTimePicker(IAccessible):
 		import treeInterceptorHandler
 		obj = api.getFocusObject()
 		treeInterceptor = obj.treeInterceptor
-		if isinstance(treeInterceptor,treeInterceptorHandler.DocumentTreeInterceptor) and not treeInterceptor.passThrough:
+		if isinstance(treeInterceptor, treeInterceptorHandler.DocumentTreeInterceptor) and not treeInterceptor.passThrough:
 			obj = treeInterceptor
 		try:
 			info = obj.makeTextInfo(textInfos.POSITION_CARET)
@@ -599,9 +599,9 @@ class SPLTimePicker(IAccessible):
 		# 20.03: NVDA 2020.1 includes output reason enumeration, deprecating output reason flags.
 		# Until support for NVDA 2019.3 is dropped, use both paths.
 		if hasattr(controlTypes, "OutputReason"):
-			speech.speakTextInfo(info,unit=textInfos.UNIT_LINE,reason=controlTypes.OutputReason.CARET)
+			speech.speakTextInfo(info, unit=textInfos.UNIT_LINE, reason=controlTypes.OutputReason.CARET)
 		else:
-			speech.speakTextInfo(info,unit=textInfos.UNIT_LINE,reason=controlTypes.REASON_CARET)
+			speech.speakTextInfo(info, unit=textInfos.UNIT_LINE, reason=controlTypes.REASON_CARET)
 
 
 class AppModule(appModuleHandler.AppModule):
@@ -1797,7 +1797,7 @@ class AppModule(appModuleHandler.AppModule):
 			ui.message(", ".join(statusInfo))
 		else:
 			# Translators: The title of a window for displaying playlist snapshots information.
-			ui.browseableMessage("<p>".join(statusInfo),title=_("Playlist snapshots"), isHtml=True)
+			ui.browseableMessage("<p>".join(statusInfo), title=_("Playlist snapshots"), isHtml=True)
 
 	# Some handlers for native commands.
 
