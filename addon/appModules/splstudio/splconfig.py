@@ -91,7 +91,7 @@ SPLConfig = None
 _mutatableSettings = ("IntroOutroAlarms", "MicrophoneAlarm", "MetadataStreaming", "ColumnAnnouncement")
 # 7.0: Profile-specific confspec (might be removed once a more optimal way to validate sections is found).
 # Dictionary comprehension is better here.
-confspecprofiles = {sect:key for sect, key in confspec.items() if sect in _mutatableSettings}
+confspecprofiles = {sect: key for sect, key in confspec.items() if sect in _mutatableSettings}
 # Translators: The name of the default (normal) profile.
 defaultProfileName = _("Normal profile")
 # StationPlaylist components.
