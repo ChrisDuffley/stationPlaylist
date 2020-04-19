@@ -12,8 +12,6 @@ from collections import ChainMap
 from configobj import ConfigObj, get_extra_values
 # ConfigObj 5.1.0 and later integrates validate module.
 from configobj.validate import Validator
-import time
-import datetime
 import config
 import globalVars
 import ui
