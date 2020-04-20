@@ -30,7 +30,7 @@ import wx
 from winUser import user32, OBJID_CLIENT
 from NVDAObjects import NVDAObjectTextInfo
 from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent, sysListView32
-from NVDAObjects.behaviors import Dialog, RowWithFakeNavigation, RowWithoutCellObjects
+from NVDAObjects.behaviors import Dialog
 import textInfos
 import tones
 from . import splbase
