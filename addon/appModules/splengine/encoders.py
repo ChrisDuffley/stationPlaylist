@@ -5,9 +5,12 @@
 
 import threading
 import time
+import os
 from abc import abstractmethod
 import api
 import config
+import configobj
+import globalVars
 import ui
 import speech
 import scriptHandler
@@ -53,7 +56,6 @@ streamLabels = None
 # Load stream labels (and possibly other future goodies) from a file-based database.
 def loadStreamLabels():
 	global streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError
-	import os, configobj, globalVars
 	# 7.1: Make sure encoder settings map isn't corrupted.
 	# #131 (20.06): transplanted from Studio app module so the error message can be shown when an encoder gains focus.
 	try:

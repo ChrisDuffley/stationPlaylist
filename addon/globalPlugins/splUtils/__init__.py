@@ -7,6 +7,8 @@ from functools import wraps
 import globalPluginHandler
 import api
 import ui
+import gui
+import wx
 import scriptHandler
 import globalVars
 import config
@@ -335,7 +337,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.finish()
 
 	def script_conHelp(self, gesture):
-		import gui, wx
 		# Translators: The title for SPL Controller help dialog.
 		wx.CallAfter(gui.messageBox, SPLConHelp, _("SPL Controller help"))
 		self.finish()

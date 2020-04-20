@@ -5,6 +5,8 @@
 # Routines are partly based on other add-ons, particularly Place Markers by Noelia Martinez (thanks add-on authors).
 
 import sys
+import os
+import shutil
 import gui
 import wx
 import addonHandler
@@ -19,7 +21,6 @@ def onInstall():
 			# Translators: Title of a dialog shown when installing StationPlaylist add-on on old Windows releases.
 			_("Old Windows version"), wx.OK | wx.ICON_ERROR)
 		raise RuntimeError("SPL: minimum Windows version requirement not met, aborting")
-	import os, shutil
 	profiles = os.path.join(os.path.dirname(__file__), "..", "stationPlaylist", "profiles")
 	# Import old profiles.
 	if os.path.exists(profiles):

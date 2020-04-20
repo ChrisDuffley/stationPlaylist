@@ -5,6 +5,8 @@
 # Provides the configuration management UI package for SPL Studio app module.
 # For code which provides foundation for code in this module, see splconfig module.
 
+import sys
+import threading
 import gui
 from gui.nvdaControls import CustomCheckListBox
 import os
@@ -1138,7 +1140,6 @@ class ResetDialog(wx.Dialog):
 			parent.Enable()
 			self.Destroy()
 			return
-		import threading, sys
 		# Reset all profiles.
 		# 7.0: Only a priveleged thread should do this, otherwise unexpected things may happen.
 		with threading.Lock() as resetting:

@@ -10,6 +10,9 @@ import threading
 from _csv import reader  # For cart explorer.
 import gui
 import wx
+import nvwave
+import queueHandler
+import speech
 import ui
 import addonHandler
 addonHandler.initTranslation()
@@ -433,7 +436,6 @@ def metadataStatus():
 # This is necessary in order to allow extension points to work correctly and to not hold up other registered action handlers.
 # A special startup flag will be used so other text sequences will not be cut off.
 def _metadataAnnouncerInternal(status, startup=False):
-	import nvwave, queueHandler, speech
 	if not startup: speech.cancelSpeech()
 	queueHandler.queueFunction(queueHandler.eventQueue, ui.message, status)
 	nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_Metadata.wav"))
