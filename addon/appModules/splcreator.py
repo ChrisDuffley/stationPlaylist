@@ -10,7 +10,7 @@ import scriptHandler
 import globalVars
 import ui
 import api
-from NVDAObjects.IAccessible import IAccessible, sysListView32
+from NVDAObjects.IAccessible import sysListView32
 from .splstudio import splconfig, SPLTrackItem
 addonHandler.initTranslation()
 
