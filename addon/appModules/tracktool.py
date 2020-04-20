@@ -3,6 +3,9 @@
 # Copyright 2014-2020 Joseph Lee and contributors, released under gPL.
 # Functionality is based on JFW scripts for SPL Track Tool by Brian Hartgen.
 
+# Track Tool allows a broadcaster to manage track intros, cues and so forth. Each track is a list item with descriptions such as title, file name, intro time and so forth.
+# One can press TAB to move along the controls for Track Tool.
+
 import appModuleHandler
 import addonHandler
 import scriptHandler
@@ -10,9 +13,6 @@ import tones
 from NVDAObjects.IAccessible import IAccessible, sysListView32
 from .splstudio import splconfig, SPLTrackItem
 addonHandler.initTranslation()
-
-# Track Tool allows a broadcaster to manage track intros, cues and so forth. Each track is a list item with descriptions such as title, file name, intro time and so forth.
-# One can press TAB to move along the controls for Track Tool.
 
 # Return a tuple of column headers.
 # This is just a thinly disguised indexOf function from Studio's track item class.
