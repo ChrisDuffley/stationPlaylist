@@ -1122,7 +1122,7 @@ class ResetDialog(wx.Dialog):
 			parent.Enable()
 			self.Destroy()
 			return
-		import threading, sys, globalVars
+		import threading, sys
 		# Reset all profiles.
 		# LTS: Only a priveleged thread should do this, otherwise unexpected things may happen.
 		with threading.Lock() as resetting:
