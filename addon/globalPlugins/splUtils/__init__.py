@@ -15,6 +15,7 @@ from winUser import user32, sendMessage, OBJID_CLIENT, getWindowText
 import addonHandler
 addonHandler.initTranslation()
 
+
 # The finally function for status announcement scripts in this module (source: Tyler Spivey's code).
 def finally_(func, final):
 	"""Calls final after func, even if it fails."""

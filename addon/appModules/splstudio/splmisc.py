@@ -26,6 +26,7 @@ class CustomComboBox(wx.ComboBox, wx.Choice):
 # A common dialog for Track Finder
 _findDialogOpened = False
 
+
 # Track Finder error dialog.
 # This will be refactored into something else.
 def _finderError():
@@ -236,6 +237,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 
 # Cart Explorer helper.
 
+
 def _populateCarts(carts, cartlst, modifier, standardEdition=False, refresh=False):
 	# The real cart string parser, a helper for cart explorer for building cart entries.
 	# 5.2: Discard number row if SPL Standard is in use.
@@ -263,6 +265,8 @@ def _populateCarts(carts, cartlst, modifier, standardEdition=False, refresh=Fals
 
 # Cart file timestamps.
 _cartEditTimestamps = None
+
+
 # Initialize Cart Explorer i.e. fetch carts.
 # Cart files list is for future use when custom cart names are used.
 # if told to refresh, timestamps will be checked and updated banks will be reassigned.
@@ -320,6 +324,7 @@ def cartExplorerInit(StudioTitle, cartFiles=None, refresh=False, carts=None):
 	debugOutput(f"total carts processed: {(len(carts)-2)}")
 	return carts
 
+
 # Refresh carts upon request.
 # calls cart explorer init with special (internal) flags.
 def cartExplorerRefresh(studioTitle, currentCarts):
@@ -363,6 +368,7 @@ class SPLCountdownTimer(object):
 
 # Metadata and encoders management, including connection, announcement and so on.
 
+
 # Gather streaming flags into a list.
 # 18.04: raise runtime error if list is nothing (thankfully the splbase's StudioAPI will return None if Studio handle is not found).
 def metadataList():
@@ -370,6 +376,7 @@ def metadataList():
 	if metadata == [None, None, None, None, None]:
 		raise RuntimeError("Studio handle not found, no metadata list to return")
 	return metadata
+
 
 # Metadata server connector, to be utilized from many modules.
 # Servers refer to a list of connection flags to pass to Studio API, and if not present, will be pulled from add-on settings.
@@ -380,6 +387,7 @@ def metadataConnector(servers=None):
 	for url in range(5):
 		dataLo = 0x00010000 if servers[url] else 0xffff0000
 		splbase.studioAPI(dataLo | url, 36)
+
 
 # Metadata status formatter.
 # 18.04: say something if Studio handle is not found.
@@ -414,6 +422,7 @@ def metadataStatus():
 		else: status = _("Metadata streaming configured for URL's {URL}").format(URL=", ".join(streamCount))
 	return status
 
+
 # Internal metadata status announcer.
 # The idea is to pause for a while and announce the status message and playing the accompanying wave file.
 # This is necessary in order to allow extension points to work correctly and to not hold up other registered action handlers.
@@ -430,6 +439,7 @@ def _metadataAnnouncerInternal(status, startup=False):
 # Handle a case where instant profile ssitch occurs twice within the switch time-out.
 _earlyMetadataAnnouncer = None
 
+
 def _earlyMetadataAnnouncerInternal(status, startup=False):
 	global _earlyMetadataAnnouncer
 	if _earlyMetadataAnnouncer is not None:
@@ -440,6 +450,7 @@ def _earlyMetadataAnnouncerInternal(status, startup=False):
 
 # Delay the action handler if Studio handle is not found.
 _delayMetadataAction = False
+
 
 # Connect and/or announce metadata status when broadcast profile switching occurs.
 # The config dialog active flag is only invoked when being notified while add-on settings dialog is focused.
@@ -473,6 +484,7 @@ def metadata_actionProfileSwitched(configDialogActive=False, settingsReset=False
 
 splactions.SPLActionProfileSwitched.register(metadata_actionProfileSwitched)
 
+
 # The only job of this action handler is to call profile switch handler above with special flags.
 def metadata_actionSettingsReset(factoryDefaults=False):
 	metadata_actionProfileSwitched(settingsReset=True)
@@ -483,6 +495,7 @@ splactions.SPLActionSettingsReset.register(metadata_actionSettingsReset)
 # Takes a snapshot of the active playlist (a 2-D array) and transforms it into various formats.
 # To account for expansions, let a master function call different formatters based on output format.
 SPLPlaylistTranscriptFormats = []
+
 
 # Obtain column presentation order.
 # Although this is useful in playlist transcripts, it can also be useful for column announcement inclusion and order.
@@ -495,14 +508,17 @@ def columnPresentationOrder():
 # For each converter, after transcribing the playlist, additional actions will be performed.
 # Actions can include viewing the transcript, copying to clipboard (text style format only), and saving to a file.
 
+
 def displayPlaylistTranscripts(transcript, HTMLDecoration=False):
 	ui.browseableMessage("\n".join(transcript), title=_("Playlist Transcripts"), isHtml=HTMLDecoration)
+
 
 def copyPlaylistTranscriptsToClipboard(playlistTranscripts):
 	# Only text style transcript such as pure text and Markdown supports copying contents to clipboard.
 	import api
 	api.copyToClip("\r\n".join(playlistTranscripts))
 	ui.message(_("Playlist data copied to clipboard"))
+
 
 def savePlaylistTranscriptsToFile(playlistTranscripts, extension, location=None):
 	# By default playlist transcripts will be saved to a subfolder in user's Documents folder named "nvdasplPlaylistTranscripts".
@@ -518,6 +534,7 @@ def savePlaylistTranscriptsToFile(playlistTranscripts, extension, location=None)
 	with open(transcriptPath, "w") as transcript:
 		transcript.writelines(playlistTranscripts)
 	ui.message("Playlist transcripts saved at {location}".format(location=transcriptPath))
+
 
 # Several converters rely on assistants for their work.
 # For text file 1 and HTML list 1, it expects playlist data in the format presented by MSAA.
@@ -545,12 +562,14 @@ def playlist2msaa(start, end, additionalDecorations=False, prefix="", suffix="")
 		obj = obj.next
 	return playlistTranscripts
 
+
 def playlist2txt(start, end, transcriptAction):
 	playlistTranscripts = playlist2msaa(start, end)
 	if transcriptAction == 0: displayPlaylistTranscripts(playlistTranscripts)
 	elif transcriptAction == 1: copyPlaylistTranscriptsToClipboard(playlistTranscripts)
 	elif transcriptAction == 2: savePlaylistTranscriptsToFile(playlistTranscripts, "txt")
 SPLPlaylistTranscriptFormats.append(("txt", playlist2txt, "plain text with one line per entry"))
+
 
 def playlist2csv(start, end, transcriptAction):
 	playlistTranscripts = []
@@ -566,6 +585,7 @@ def playlist2csv(start, end, transcriptAction):
 	elif transcriptAction == 1: copyPlaylistTranscriptsToClipboard(playlistTranscripts)
 	elif transcriptAction == 2: savePlaylistTranscriptsToFile(playlistTranscripts, "csv")
 SPLPlaylistTranscriptFormats.append(("csv", playlist2csv, "Comma-separated values"))
+
 
 def playlist2htmlTable(start, end, transcriptAction):
 	if transcriptAction == 1:
@@ -589,6 +609,7 @@ def playlist2htmlTable(start, end, transcriptAction):
 		savePlaylistTranscriptsToFile(playlistTranscripts, "htm")
 SPLPlaylistTranscriptFormats.append(("htmltable", playlist2htmlTable, "Table in HTML format"))
 
+
 def playlist2htmlList(start, end, transcriptAction):
 	if transcriptAction == 1:
 		playlistTranscripts = ["<html><head><title>Playlist Transcripts</title></head>"]
@@ -603,6 +624,7 @@ def playlist2htmlList(start, end, transcriptAction):
 		playlistTranscripts.append("</body></html>")
 		savePlaylistTranscriptsToFile(playlistTranscripts, "htm")
 SPLPlaylistTranscriptFormats.append(("htmllist", playlist2htmlList, "Data list in HTML format"))
+
 
 def playlist2mdTable(start, end, transcriptAction):
 	playlistTranscripts = []
@@ -621,6 +643,7 @@ SPLPlaylistTranscriptFormats.append(("mdtable", playlist2mdTable, "Table in Mark
 
 # Playlist transcripts help desk
 _plTranscriptsDialogOpened = False
+
 
 def plTranscriptsDialogError():
 	# Translators: Text of the dialog when another playlist transcripts dialog is open.

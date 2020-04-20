@@ -14,6 +14,7 @@ from NVDAObjects.IAccessible import sysListView32
 from .splstudio import splconfig, SPLTrackItem
 addonHandler.initTranslation()
 
+
 # Return a tuple of column headers.
 # This is just a thinly disguised indexOf function from Studio's track item class.
 def indexOf(creatorVersion):

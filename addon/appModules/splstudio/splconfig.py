@@ -97,6 +97,7 @@ defaultProfileName = _("Normal profile")
 # StationPlaylist components.
 _SPLComponents_ = ("splstudio", "splcreator", "tracktool")
 
+
 # There are times when a feature must be tested by more users without introducing regressions to stable branch users.
 def isDevVersion():
 	SPLAddonManifest = addonHandler.Addon(os.path.join(os.path.dirname(__file__), "..", "..")).manifest
@@ -654,6 +655,7 @@ _SPLDefaults = ConfigObj(None, configspec=confspec, encoding="UTF-8")
 _val = Validator()
 _SPLDefaults.validate(_val, copy=True)
 
+
 # Display an error dialog when configuration validation fails.
 def runConfigErrorDialog(errorText, errorType):
 	wx.CallAfter(gui.messageBox, errorText, errorType, wx.OK | wx.ICON_ERROR)
@@ -675,12 +677,14 @@ _configLoadStatus = {}  # Key = filename, value is pass or no pass.
 # Track comments map.
 trackComments = {}
 
+
 # Open config database, used mostly from modules other than Studio.
 def openConfig(splComponent):
 	global SPLConfig
 	# #64 (18.07): skip this step if another SPL component (such as Creator) opened this.
 	if SPLConfig is None: SPLConfig = ConfigHub(splComponent=splComponent)
 	else: SPLConfig.splComponents.add(splComponent)
+
 
 def initialize():
 	# Load the default config from a list of profiles.
@@ -733,6 +737,7 @@ def initialize():
 # This helps prolong life of a solid-state drive (preventing unnecessary writes).
 _SPLCache = {}
 
+
 # Prepare the triggers dictionary and other runtime support.
 def initProfileTriggers():
 	# 20.06: do nothing.
@@ -741,6 +746,7 @@ def initProfileTriggers():
 	SPLTriggersFile = os.path.join(globalVars.appArgs.configPath, "spltriggers.pickle")
 	return
 
+
 # Copy settings across profiles.
 # Setting complete flag controls whether profile-specific settings are applied (true otherwise, only set when resetting profiles).
 # 8.0: Simplified thanks to in-place swapping.
@@ -748,6 +754,7 @@ def initProfileTriggers():
 def copyProfile(sourceProfile, targetProfile, complete=False):
 	for section in list(sourceProfile.keys()) if complete else _mutatableSettings:
 		targetProfile[section] = dict(sourceProfile[section])
+
 
 # Last but not least...
 # Module level version of get profile flags function.
@@ -766,6 +773,7 @@ def getProfileFlags(name, active=None, instant=None, contained=False):
 	if not contained:
 		return name if len(flags) == 0 else "{0} <{1}>".format(name, ", ".join(flags))
 	else: return flags
+
 
 # Perform some extra work before writing the config file.
 def _preSave(conf):
@@ -797,6 +805,7 @@ def _preSave(conf):
 			if setting in conf and not len(conf[setting]):
 				del conf[setting]
 
+
 # Check if the profile should be written to disk.
 # For the most part, no setting will be modified.
 def shouldSave(profile):
@@ -804,6 +813,7 @@ def shouldSave(profile):
 	# 8.0: Streamline the whole process by comparing values alone instead of walking the entire dictionary.
 	# The old loop will be kept in 7.x/LTS for compatibility and to reduce risks associated with accidental saving/discard.
 	return _SPLCache[tree] != profile
+
 
 # Close config database if needed.
 def closeConfig(splComponent):
@@ -824,6 +834,7 @@ def closeConfig(splComponent):
 		_SPLCache.clear()
 		_SPLCache = None
 
+
 # Terminate the config and related subsystems.
 def terminate():
 	global SPLConfig, _SPLCache
@@ -834,6 +845,7 @@ def terminate():
 	# 8.0: Call the save method.
 	# #64 (18.07): separated into its own function in 2018.
 	closeConfig("splstudio")
+
 
 # Called from within the app module.
 def instantProfileSwitch():
@@ -954,6 +966,7 @@ Thank you.""")
 		SPLConfig["Startup"]["WelcomeDialog"] = self.showWelcomeDialog.Value
 		self.Destroy()
 
+
 # And to open the above dialog and any other dialogs.
 # 18.09: return immediately after opening old ver dialog if minimal flag is set.
 def showStartupDialogs(oldVer=False, oldVerReturn=False):
@@ -976,6 +989,7 @@ def showStartupDialogs(oldVer=False, oldVerReturn=False):
 		gui.mainFrame.prePopup()
 		AudioDuckingReminder(gui.mainFrame).Show()
 		gui.mainFrame.postPopup()
+
 
 # Message verbosity pool.
 # To be moved to its own module in add-on 7.0.

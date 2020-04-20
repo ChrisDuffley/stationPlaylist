@@ -10,6 +10,7 @@ import wx
 import addonHandler
 addonHandler.initTranslation()
 
+
 def onInstall():
 	# #17.12: Windows 7 SP1 or higher is required.
 	if sys.getwindowsversion().build < 7601:

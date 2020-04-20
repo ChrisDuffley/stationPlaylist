@@ -49,6 +49,7 @@ encoderMonCount = {"SAM": 0, "SPL": 0, "AltaCast": 0}
 # Configuration management.
 streamLabels = None
 
+
 # Load stream labels (and possibly other future goodies) from a file-based database.
 def loadStreamLabels():
 	global streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError
@@ -94,6 +95,7 @@ def loadStreamLabels():
 	config.post_configSave.register(saveStreamLabels)
 	config.post_configReset.register(resetStreamLabels)
 
+
 # Report number of encoders being monitored.
 # 6.0: Refactor the below function to use the newer encoder config format.
 def getStreamLabel(identifier):
@@ -105,6 +107,7 @@ def getStreamLabel(identifier):
 	elif encoderType == "AltaCast": labels = ACStreamLabels
 	if encoderID in labels: return labels[encoderID]
 	return None
+
 
 def announceEncoderConnectionStatus():
 	import windowUtils
@@ -144,6 +147,7 @@ def announceEncoderConnectionStatus():
 			# Translators: presented when no encoders are connected.
 			ui.message(_("No encoders connected"))
 
+
 # Remove encoder ID from various settings maps.
 # This is a private module level function in order for it to be invoked by humans alone.
 def _removeEncoderID(encoderType, pos):
@@ -171,6 +175,7 @@ def _removeEncoderID(encoderType, pos):
 				encoderSettings.remove(item)
 				encoderSettings.add(" ".join([encoderType, "%s"%(int(item.split()[-1])-1)]))
 
+
 # Save stream labels and various flags, called when closing app modules and when config save command is pressed.
 def saveStreamLabels():
 	global streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError
@@ -189,6 +194,7 @@ def saveStreamLabels():
 		if not len(streamLabels[key]):
 			del streamLabels[key]
 	streamLabels.write()
+
 
 # Nullify various flag sets, otherwise memory leak occurs.
 # 20.04: if told to do so, save encoder settings and unregister config save handler.
@@ -210,6 +216,7 @@ def cleanup(appTerminating=False, reset=False):
 	# Without resetting monitor count, we end up with higher and higher value for this.
 	# 7.0: Destroy threads also.
 	encoderMonCount = {"SAM": 0, "SPL": 0, "AltaCast": 0}
+
 
 # Reset encoder settings.
 # Because simply reloading settings will introduce errors, respond only to proper reset signal (Control+NVDA+R three times).

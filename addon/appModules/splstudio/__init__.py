@@ -54,10 +54,12 @@ libScanT = None
 # Blacklisted versions of Studio where library scanning functionality is broken.
 noLibScanMonitor = []
 
+
 # Braille and play a sound in response to an alarm or an event.
 def messageSound(wavFile, message):
 	nvwave.playWaveFile(wavFile)
 	braille.handler.message(message)
+
 
 # A special version for microphone alarm (continuous or not).
 def _micAlarmAnnouncer():
@@ -66,6 +68,7 @@ def _micAlarmAnnouncer():
 	if splconfig.SPLConfig["General"]["AlarmAnnounce"] in ("message", "both"):
 		# Translators: Presented when microphone has been active for a while.
 		ui.message(_("Microphone active"))
+
 
 # Manage microphone alarm announcement.
 def micAlarmManager(micAlarmWav, micAlarmMessage):

@@ -13,6 +13,7 @@ addonHandler.initTranslation()
 # Cache the handle to main Studio window.
 _SPLWin = None
 
+
 # Check if Studio itself is running.
 # This is to make sure custom commands for SPL Assistant commands and other app module gestures display appropriate error messages.
 # 19.02: some checks will need to omit message output.
@@ -25,6 +26,7 @@ def studioIsRunning(justChecking=False):
 		# Translators: A message informing users that Studio is not running so certain commands will not work.
 		if not justChecking: ui.message(_("Studio main window not found"))
 	return isStudioAlive
+
 
 # Use SPL Studio API to obtain needed values.
 # A thin wrapper around user32.SendMessage function with Studio handle and WM_USER supplied.
@@ -39,6 +41,7 @@ def studioAPI(arg, command):
 	val = sendMessage(_SPLWin, 1024, arg, command)
 	debugOutput(f"Studio API result is {val}")
 	return val
+
 
 # Select a track upon request.
 def selectTrack(trackIndex):
