@@ -9,6 +9,7 @@
 from .splengine import *
 from NVDAObjects.IAccessible import IAccessible
 
+
 class TEditNoLabel(IAccessible):
 
 	def _get_name(self):

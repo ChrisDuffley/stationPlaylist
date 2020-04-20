@@ -72,6 +72,7 @@ R: Remaining time for the playing track.
 Shift+R: Library scan progress.
 Function keys and number row keys with or without Shift, Alt, and Control keys: Play carts.""")
 
+
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	# Translators: Script category for StationPlaylist commands in input gestures dialog.

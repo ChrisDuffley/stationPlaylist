@@ -9,6 +9,7 @@ import eventHandler
 from winUser import user32
 from .splstudio import spldebugging
 
+
 class AppModule(appModuleHandler.AppModule):
 
 	def __init__(self, *args, **kwargs):

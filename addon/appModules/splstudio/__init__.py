@@ -88,6 +88,7 @@ _SPLCategoryTones = {
 	"<Manual Intro>": 600,
 }
 
+
 # Routines for track items themselves (prepare for future work).
 # #65 (18.07): this base class represents trakc items across StationPlaylist suites such as Studio, Creator and Track Tool.
 class SPLTrackItem(sysListView32.ListItem):
@@ -512,6 +513,7 @@ F10: Perform track time analysis.
 F12: Switch to an instant switch profile.
 Shift+F1: Open online user guide.""")}
 
+
 # Provide a way to fetch dialog description in reverse order.
 # This is used in Studio's About dialog as children are in reverse tab order somehow.
 class ReversedDialog(Dialog):
@@ -581,6 +583,7 @@ class ReversedDialog(Dialog):
 			if childText:
 				textList.append(childText)
 		return "\n".join(textList)
+
 
 # Temporary Cue time pickers does not expose the correct tree.
 # Thankfully, when up or down arrows are pressed, display text changes.

@@ -19,6 +19,7 @@ from .spldebugging import debugOutput
 from . import splactions
 from ..skipTranslation import translate
 
+
 # A custom combo box for cases where combo boxes are not choice controls.
 class CustomComboBox(wx.ComboBox, wx.Choice):
 	pass
@@ -37,6 +38,7 @@ def _finderError():
 	else:
 		# Translators: Text of the dialog when a generic error has occured.
 		gui.messageBox(_("An unexpected error has occured when trying to open find dialog."), translate("Error"), style=wx.OK | wx.ICON_ERROR)
+
 
 class SPLFindDialog(wx.Dialog):
 
@@ -121,6 +123,7 @@ class SPLFindDialog(wx.Dialog):
 	def onAppTerminate(self):
 		# Call cancel function when the app terminates so the dialog can be closed.
 		self.onCancel(None)
+
 
 # Time range finder: a variation on track finder.
 # Similar to track finder, locate tracks with duration that falls between min and max.
@@ -330,10 +333,10 @@ def cartExplorerInit(StudioTitle, cartFiles=None, refresh=False, carts=None):
 def cartExplorerRefresh(studioTitle, currentCarts):
 	return cartExplorerInit(studioTitle, refresh=True, carts=currentCarts)
 
+
 # Countdown timer.
 # This is utilized by many services, chiefly profile triggers routine.
 # 20.06: no longer actively used, kept for possible uses in the future.
-
 class SPLCountdownTimer(object):
 
 	def __init__(self, duration, func, threshold):
@@ -648,6 +651,7 @@ _plTranscriptsDialogOpened = False
 def plTranscriptsDialogError():
 	# Translators: Text of the dialog when another playlist transcripts dialog is open.
 	gui.messageBox(_("Another playlist transcripts dialog is open."), translate("Error"), style=wx.OK | wx.ICON_ERROR)
+
 
 class SPLPlaylistTranscriptsDialog(wx.Dialog):
 

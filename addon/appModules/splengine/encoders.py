@@ -226,6 +226,7 @@ def resetStreamLabels(factoryDefaults=False):
 # Encoder configuration dialog.
 _configDialogOpened = False
 
+
 class EncoderConfigDialog(wx.Dialog):
 
 	# The following comes from exit dialog class from GUI package (credit: NV Access and Zahari from Bulgaria).
@@ -620,6 +621,7 @@ class Encoder(IAccessible):
 				pass
 		super(Encoder, self).reportFocus()
 
+
 class SAMEncoder(Encoder, sysListView32.ListItem):
 	# Support for Sam Encoders.
 
@@ -803,6 +805,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 			except KeyError:
 				pass
 
+
 class SPLEncoder(Encoder):
 	# Support for SPL Encoder window.
 
@@ -911,6 +914,7 @@ class SPLEncoder(Encoder):
 				del SPLStreamLabels[str(self.IAccessibleChildID)]
 			except KeyError:
 				pass
+
 
 class AltaCastEncoder(SPLEncoder):
 	# Support for AltaCast Encoder window.

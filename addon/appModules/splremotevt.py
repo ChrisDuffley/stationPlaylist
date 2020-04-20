@@ -14,6 +14,7 @@ import api
 from .splstudio import SPLTrackItem
 addonHandler.initTranslation()
 
+
 class SPLRemotePlaylistEditorItem(SPLTrackItem):
 	"""An entry in SPL VT Remote Playlist Editor.
 	"""

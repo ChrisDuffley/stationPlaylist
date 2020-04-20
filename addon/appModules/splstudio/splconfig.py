@@ -112,6 +112,7 @@ def isDevVersion():
 # Finally, because this is a class, additional methods and properties are used, which frees the config dictionary from the burden of carrying global flags such as the name of the instant switch profile and others.
 # To preserve backward compatibility with add-on 7.x, module-level functions formerly used for profile management will call corresponding methods in ConfigHub structure (to be deprecated in 9.0 and will be gone no later than 10.0).
 
+
 class ConfigHub(ChainMap):
 	"""A hub of broadcast profiles, a subclass of ChainMap.
 	Apart from giving favorable treatments to the active map and adding custom methods and properties, this structure is identical to chain map structure.
@@ -881,6 +882,7 @@ def instantProfileSwitch():
 
 # Startup dialogs.
 
+
 # Audio ducking reminder (NVDA 2016.1 and later).
 class AudioDuckingReminder(wx.Dialog):
 	"""A dialog to remind users to turn off audio ducking (NVDA 2016.1 and later).
@@ -916,6 +918,7 @@ class AudioDuckingReminder(wx.Dialog):
 		if self.audioDuckingReminder.Value:
 			SPLConfig["Startup"]["AudioDuckingReminder"] = not self.audioDuckingReminder.Value
 		self.Destroy()
+
 
 # Welcome dialog (emulating NvDA Core)
 class WelcomeDialog(wx.Dialog):

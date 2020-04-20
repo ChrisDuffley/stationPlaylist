@@ -23,9 +23,9 @@ from ..skipTranslation import translate
 
 # Helper panels/dialogs for add-on settings dialog.
 
+
 # Broadcast profiles
 # #129 (20.04): formerly a settings panel, now a dedicated settings dialog.
-
 class BroadcastProfilesDialog(wx.Dialog):
 	shouldSuspendConfigProfileTriggers = True
 
@@ -291,6 +291,7 @@ class BroadcastProfilesDialog(wx.Dialog):
 	def onAppTerminate(self):
 		self.onClose(None)
 
+
 # New broadcast profile dialog: Modification of new config profile dialog from NvDA Core.
 class NewProfileDialog(wx.Dialog):
 
@@ -358,6 +359,7 @@ class NewProfileDialog(wx.Dialog):
 		self.Parent.Enable()
 		self.Destroy()
 
+
 # Broadcast profile triggers dialog.
 # This dialog is similar to NVDA Core's profile triggers dialog and allows one to configure when to trigger this profile.
 class TriggersDialog(wx.Dialog):
@@ -404,6 +406,7 @@ class TriggersDialog(wx.Dialog):
 	def onCancel(self, evt):
 		self.Parent.Enable()
 		self.Destroy()
+
 
 # A collection of general settings for the add-on.
 class GeneralSettingsPanel(gui.SettingsPanel):
@@ -517,6 +520,7 @@ class GeneralSettingsPanel(gui.SettingsPanel):
 		splconfig.SPLConfig["General"]["TopBottomAnnounce"] = self.topBottomCheckbox.Value
 		splconfig.SPLConfig["General"]["RequestsAlert"] = self.requestsAlertCheckbox.Value
 
+
 # Various alarm settings (outro, intro, microphone).
 class AlarmsPanel(gui.SettingsPanel):
 	# Translators: title of a panel to configure various alarms and related settings.
@@ -566,6 +570,7 @@ class AlarmsPanel(gui.SettingsPanel):
 		from NVDAObjects.IAccessible import getNVDAObjectFromEvent
 		studioWindow = getNVDAObjectFromEvent(user32.FindWindowW("TStudioForm", None), OBJID_CLIENT, 0)
 		if studioWindow is not None: studioWindow.appModule.actionProfileSwitched()
+
 
 # Playlist snapshot flags
 # For things such as checkboxes for average duration and top category count.
@@ -620,6 +625,7 @@ class PlaylistSnapshotsPanel(gui.SettingsPanel):
 # Metadata reminder controller.
 # Select notification/streaming URL's for metadata streaming.
 metadataStreamLabels = ("DSP encoder", "URL 1", "URL 2", "URL 3", "URL 4")
+
 
 class MetadataStreamingDialog(wx.Dialog):
 	"""A dialog to toggle metadata streaming quickly and optionally save changes to add-on configuration.
@@ -697,6 +703,7 @@ class MetadataStreamingDialog(wx.Dialog):
 	def onAppTerminate(self):
 		self.onCancel(None)
 
+
 class MetadataStreamingPanel(gui.SettingsPanel):
 	# Translators: title of a panel to configure metadata streaming status for DSP encoder and four additional URL's.
 	title = _("Metadata streaming")
@@ -737,6 +744,7 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 		from . import splmisc
 		splmisc.metadata_actionProfileSwitched(configDialogActive=True)
 
+
 # Column announcement manager.
 # Select which track columns should be announced and in which order.
 # 18.08: also serves as a base dialog for Playlist Transcripts/column selector setting.
@@ -773,6 +781,7 @@ class ColumnAnnouncementsBasePanel(gui.SettingsPanel):
 			# This will cause NVDA to say "unavailable" as focus is lost momentarily. A bit anoying but a necessary hack.
 			if self.FindFocus().GetId() == wx.ID_OK:
 				self.upButton.SetFocus()
+
 
 class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 	# Translators: title of a panel to configure column announcements (order and what columns should be announced).
@@ -833,6 +842,7 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 		splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"] = self.trackColumns.GetItems()
 		splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.Value
 
+
 class PlaylistTranscriptsPanel(ColumnAnnouncementsBasePanel):
 	# Translators: Title of a panel to configure playlsit transcripts options.
 	title = _("Playlist transcripts")
@@ -882,6 +892,7 @@ class PlaylistTranscriptsPanel(ColumnAnnouncementsBasePanel):
 		splconfig.SPLConfig["PlaylistTranscripts"]["IncludedColumns"] = set(self.checkedColumns.GetCheckedStrings()) | {"Artist", "Title"}
 		splconfig.SPLConfig["PlaylistTranscripts"]["ColumnOrder"] = self.trackColumns.GetItems()
 
+
 # Columns Explorer for Studio, Track Tool and Creator
 # Configure which column will be announced when Control+NVDA+number row keys are pressed.
 # In 2018, the panel will house Columns Explorer buttons, but eventually columns combo boxes should be part of main settings interface.
@@ -925,6 +936,7 @@ class ColumnsExplorerPanel(gui.SettingsPanel):
 	def onColumnsExplorerCreator(self, evt):
 		self.Disable()
 		ColumnsExplorerDialog(self, level=2).Show()
+
 
 class ColumnsExplorerDialog(wx.Dialog):
 
@@ -1000,6 +1012,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 		self.Parent.Enable()
 		self.Destroy()
 
+
 # Say status panel.
 # Houses options such as announcing cart names.
 class SayStatusPanel(gui.SettingsPanel):
@@ -1027,6 +1040,7 @@ class SayStatusPanel(gui.SettingsPanel):
 		splconfig.SPLConfig["SayStatus"]["SayListenerCount"] = self.listenerCountCheckbox.Value
 		splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"] = self.cartNameCheckbox.Value
 		splconfig.SPLConfig["SayStatus"]["SayStudioPlayerPosition"] = self.playerPositionCheckbox.Value
+
 
 # Advanced options
 # This panel houses advanced options such as using SPL Controller command to invoke SPL Assistant.
@@ -1084,6 +1098,7 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 			_("Pilot features"), wx.OK | wx.ICON_INFORMATION)
 			splconfig.SPLConfig["Advanced"]["PilotFeatures"] = self.pilotBuildCheckbox.Value
 			splconfig.SPLConfig._pendingPilotFeaturesToggle = True
+
 
 # A dialog to reset add-on config including encoder settings and others.
 class ResetDialog(wx.Dialog):
@@ -1156,6 +1171,7 @@ class ResetDialog(wx.Dialog):
 		self.Parent.Enable()
 		self.Destroy()
 
+
 # Reset panel.
 class ResetSettingsPanel(gui.SettingsPanel):
 	# Translators: title of a panel to reset add-on settings.
@@ -1183,6 +1199,7 @@ class ResetSettingsPanel(gui.SettingsPanel):
 
 # Configuration dialog.
 _configDialogOpened = False
+
 
 class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 	# Translators: This is the label for the StationPlaylist add-on configuration dialog.

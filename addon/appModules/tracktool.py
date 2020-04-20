@@ -23,6 +23,7 @@ def indexOf(ttVersion):
 	else:
 		return ("Artist", "Title", "Duration", "Cue", "Overlap", "Intro", "Outro", "Segue", "Hook Start", "Hook Len", "Year", "Album", "CD Code", "URL 1", "URL 2", "Genre", "Mood", "Energy", "Tempo", "BPM", "Gender", "Rating", "Filename", "Client", "Other", "Intro Link", "Outro Link", "ReplayGain", "Record Label", "ISRC", "Language")
 
+
 class TrackToolItem(SPLTrackItem):
 	"""An entry in Track Tool, used to implement some exciting features.
 	"""

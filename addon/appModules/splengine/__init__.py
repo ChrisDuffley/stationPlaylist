@@ -35,6 +35,7 @@ def announceEncoderConnectionStatus():
 	from . import encoders
 	encoders.announceEncoderConnectionStatus()
 
+
 class AppModule(appModuleHandler.AppModule):
 
 	def terminate(self):
