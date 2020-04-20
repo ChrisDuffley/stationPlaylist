@@ -223,6 +223,7 @@ def cleanup(appTerminating=False, reset=False):
 def resetStreamLabels(factoryDefaults=False):
 	if factoryDefaults: cleanup(reset=True)
 
+
 # Encoder configuration dialog.
 _configDialogOpened = False
 

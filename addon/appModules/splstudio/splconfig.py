@@ -661,6 +661,7 @@ _SPLDefaults.validate(_val, copy=True)
 def runConfigErrorDialog(errorText, errorType):
 	wx.CallAfter(gui.messageBox, errorText, errorType, wx.OK | wx.ICON_ERROR)
 
+
 # In case one or more profiles had config issues, look up the error message from the following map.
 _configErrors = {
 	"fileReset": "Settings reset to defaults due to configuration file coruption",
@@ -732,6 +733,7 @@ def initialize():
 	# 20.04: time-based profile feature is deprecated.
 	# 20.06 (temporary): "fire up" profile triggers - actually doing nothing.
 	initProfileTriggers()
+
 
 # Cache a copy of the loaded config.
 # This comes in handy when saving configuration to disk. For the most part, no change occurs to config.
@@ -1001,6 +1003,7 @@ def showStartupDialogs(oldVer=False, oldVerReturn=False):
 def message(category, value):
 	verbosityLevels = ("beginner", "advanced")
 	ui.message(messagePool[category][value][verbosityLevels.index(SPLConfig["General"]["MessageVerbosity"])])
+
 
 messagePool = {
 	"BeepAnnounce":

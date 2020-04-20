@@ -81,6 +81,7 @@ def micAlarmManager(micAlarmWav, micAlarmMessage):
 		micAlarmT2 = wx.PyTimer(_micAlarmAnnouncer)
 		wx.CallAfter(micAlarmT2.Start, splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"] * 1000)
 
+
 # Category sounds dictionary (key = category, value = tone pitch).
 _SPLCategoryTones = {
 	"Break Note": 415,

@@ -622,6 +622,7 @@ class PlaylistSnapshotsPanel(gui.SettingsPanel):
 		splconfig.SPLConfig["PlaylistSnapshots"]["GenreCountLimit"] = self.playlistGenreCountLimit.GetValue()
 		splconfig.SPLConfig["PlaylistSnapshots"]["ShowResultsWindowOnFirstPress"] = self.resultsWindowOnFirstPressCheckbox.Value
 
+
 # Metadata reminder controller.
 # Select notification/streaming URL's for metadata streaming.
 metadataStreamLabels = ("DSP encoder", "URL 1", "URL 2", "URL 3", "URL 4")

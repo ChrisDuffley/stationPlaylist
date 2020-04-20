@@ -24,6 +24,7 @@ from ..skipTranslation import translate
 class CustomComboBox(wx.ComboBox, wx.Choice):
 	pass
 
+
 # A common dialog for Track Finder
 _findDialogOpened = False
 
@@ -266,6 +267,7 @@ def _populateCarts(carts, cartlst, modifier, standardEdition=False, refresh=Fals
 		else:
 			carts[cart] = cartName
 
+
 # Cart file timestamps.
 _cartEditTimestamps = None
 
@@ -439,6 +441,7 @@ def _metadataAnnouncerInternal(status, startup=False):
 	global _earlyMetadataAnnouncer
 	_earlyMetadataAnnouncer = None
 
+
 # Handle a case where instant profile ssitch occurs twice within the switch time-out.
 _earlyMetadataAnnouncer = None
 
@@ -450,6 +453,7 @@ def _earlyMetadataAnnouncerInternal(status, startup=False):
 		_earlyMetadataAnnouncer = None
 	_earlyMetadataAnnouncer = threading.Timer(2, _metadataAnnouncerInternal, args=[status], kwargs={"startup": startup})
 	_earlyMetadataAnnouncer.start()
+
 
 # Delay the action handler if Studio handle is not found.
 _delayMetadataAction = False
@@ -485,12 +489,14 @@ def metadata_actionProfileSwitched(configDialogActive=False, settingsReset=False
 		# #51 (18.03/15.14-LTS): wx.CallLater isn't enough - there must be ability to cancel it.
 		_earlyMetadataAnnouncerInternal(metadataStatus())
 
+
 splactions.SPLActionProfileSwitched.register(metadata_actionProfileSwitched)
 
 
 # The only job of this action handler is to call profile switch handler above with special flags.
 def metadata_actionSettingsReset(factoryDefaults=False):
 	metadata_actionProfileSwitched(settingsReset=True)
+
 
 splactions.SPLActionSettingsReset.register(metadata_actionSettingsReset)
 
@@ -571,6 +577,8 @@ def playlist2txt(start, end, transcriptAction):
 	if transcriptAction == 0: displayPlaylistTranscripts(playlistTranscripts)
 	elif transcriptAction == 1: copyPlaylistTranscriptsToClipboard(playlistTranscripts)
 	elif transcriptAction == 2: savePlaylistTranscriptsToFile(playlistTranscripts, "txt")
+
+
 SPLPlaylistTranscriptFormats.append(("txt", playlist2txt, "plain text with one line per entry"))
 
 
@@ -587,6 +595,8 @@ def playlist2csv(start, end, transcriptAction):
 	if transcriptAction == 0: displayPlaylistTranscripts(playlistTranscripts)
 	elif transcriptAction == 1: copyPlaylistTranscriptsToClipboard(playlistTranscripts)
 	elif transcriptAction == 2: savePlaylistTranscriptsToFile(playlistTranscripts, "csv")
+
+
 SPLPlaylistTranscriptFormats.append(("csv", playlist2csv, "Comma-separated values"))
 
 
@@ -610,6 +620,8 @@ def playlist2htmlTable(start, end, transcriptAction):
 	elif transcriptAction == 1:
 		playlistTranscripts.append("</body></html>")
 		savePlaylistTranscriptsToFile(playlistTranscripts, "htm")
+
+
 SPLPlaylistTranscriptFormats.append(("htmltable", playlist2htmlTable, "Table in HTML format"))
 
 
@@ -626,6 +638,8 @@ def playlist2htmlList(start, end, transcriptAction):
 	elif transcriptAction == 1:
 		playlistTranscripts.append("</body></html>")
 		savePlaylistTranscriptsToFile(playlistTranscripts, "htm")
+
+
 SPLPlaylistTranscriptFormats.append(("htmllist", playlist2htmlList, "Data list in HTML format"))
 
 
@@ -642,6 +656,8 @@ def playlist2mdTable(start, end, transcriptAction):
 	if transcriptAction == 0: displayPlaylistTranscripts(playlistTranscripts)
 	elif transcriptAction == 1: copyPlaylistTranscriptsToClipboard(playlistTranscripts)
 	elif transcriptAction == 2: savePlaylistTranscriptsToFile(playlistTranscripts, "md")
+
+
 SPLPlaylistTranscriptFormats.append(("mdtable", playlist2mdTable, "Table in Markdown format"))
 
 # Playlist transcripts help desk

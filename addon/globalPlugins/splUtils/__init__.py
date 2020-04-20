@@ -29,7 +29,8 @@ def finally_(func, final):
 		return new
 	return wrap(final)
 
-# SPL Studio uses WM messages to send and receive data, similar to Winamp (see NVDA sources/appModules/winamp.py for more information).
+
+# SPL Studio uses WM messages to send and receive data, similar to Winamp (see NVDA source/appModules/winamp.py for more information).
 
 # A handle to studio window.
 SPLWin = 0
