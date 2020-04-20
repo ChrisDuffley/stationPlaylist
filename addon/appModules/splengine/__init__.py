@@ -4,7 +4,6 @@
 # SPL Audio Processing Engine
 # Home to various DSP DLL's including encoders.
 
-import sys
 import appModuleHandler
 import controlTypes
 from NVDAObjects.IAccessible import sysListView32
