@@ -403,7 +403,7 @@ class Encoder(IAccessible):
 	# 7.0: Don't dump flags to disk unless told.
 	# 20.04: do not dump flags to disk at all, as a dedicated save action will do it.
 	def _setFlags(self, encoderId, flag, flagMap):
-		if flag and not encoderId in flagMap:
+		if flag and encoderId not in flagMap:
 			flagMap.add(encoderId)
 		elif not flag and encoderId in flagMap:
 			flagMap.remove(encoderId)
@@ -498,7 +498,7 @@ class Encoder(IAccessible):
 		if not labelLength or pos > max(streamLabelsMap.keys()):
 			return
 		elif labelLength == 1:
-			if not pos in streamLabelsMap:
+			if pos not in streamLabelsMap:
 				pos = list(streamLabelsMap.keys())[0]
 				oldPosition = int(pos)
 				streamLabelsMap[str(oldPosition-1)] = streamLabelsMap[pos]
@@ -861,7 +861,7 @@ class SPLEncoder(Encoder):
 			else:
 				if connected: connected = False
 				if not connecting: connecting = True
-				if not "Kbps" in messageCache:
+				if "Kbps" not in messageCache:
 					connectionAttempt += 1
 					currentTime = time.time()
 					if currentTime-attemptTime >= 0.5 and self.connectionTone:
