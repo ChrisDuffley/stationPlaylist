@@ -1042,13 +1042,11 @@ messagePool = {
 			_("Do not announce library scans"), _("Off")),
 		"ending": (
 			# Translators: A setting in library scan announcement options.
-			_("Announce start and end of a library scan"),
-			_("Start and end only")),
+			_("Announce start and end of a library scan"), _("Start and end only")),
 		"progress": (
 			# Translators: A setting in library scan announcement options.
-			_("Announce the progress of a library scan"),
-			_("Scan progress")),
+			_("Announce the progress of a library scan"), _("Scan progress")),
 		"numbers": (
 			# Translators: A setting in library scan announcement options.
-			_("Announce progress and item count of a library scan"),
-			_("Scan count"))}}
+			_("Announce progress and item count of a library scan"), _("Scan count"))}
+}
