@@ -1006,49 +1006,49 @@ def message(category, value):
 
 
 messagePool = {
-	"BeepAnnounce":
-		{True:
+	"BeepAnnounce": {
+		True: (
 			# Translators: Reported when status announcement is set to beeps in SPL Studio.
-			(_("Status announcement beeps"),
+			_("Status announcement beeps"),
 			# Translators: Reported when status announcement is set to beeps in SPL Studio.
 			_("Beeps")),
-		False:
+		False: (
 			# Translators: Reported when status announcement is set to beeps in SPL Studio.
-			(_("Status announcement words"),
+			_("Status announcement words"),
 			# Translators: Reported when status announcement is set to beeps in SPL Studio.
 			_("Words"))},
-	"BrailleTimer":
-		{"off":
+	"BrailleTimer": {
+		"off": (
 			# Translators: A setting in braille timer options.
-			(_("Braille timer off"), _("Off")),
-		"outro":
+			_("Braille timer off"), _("Off")),
+		"outro": (
 			# Translators: A setting in braille timer options.
-			(_("Braille track endings"),
+			_("Braille track endings"),
 			# Translators: A setting in braille timer options.
 			_("Outro")),
-		"intro":
+		"intro": (
 			# Translators: A setting in braille timer options.
-			(_("Braille intro endings"),
+			_("Braille intro endings"),
 			# Translators: A setting in braille timer options.
 			_("Intro")),
-		"both":
+		"both": (
 			# Translators: A setting in braille timer options.
-			(_("Braille intro and track endings"),
+			_("Braille intro and track endings"),
 			# Translators: A setting in braille timer options.
 			_("Both"))},
-	"LibraryScanAnnounce":
-		{"off":
+	"LibraryScanAnnounce": {
+		"off": (
 			# Translators: A setting in library scan announcement options.
-			(_("Do not announce library scans"), _("Off")),
-		"ending":
+			_("Do not announce library scans"), _("Off")),
+		"ending": (
 			# Translators: A setting in library scan announcement options.
-			(_("Announce start and end of a library scan"),
+			_("Announce start and end of a library scan"),
 			_("Start and end only")),
-		"progress":
+		"progress": (
 			# Translators: A setting in library scan announcement options.
-			(_("Announce the progress of a library scan"),
+			_("Announce the progress of a library scan"),
 			_("Scan progress")),
-		"numbers":
+		"numbers": (
 			# Translators: A setting in library scan announcement options.
-			(_("Announce progress and item count of a library scan"),
+			_("Announce progress and item count of a library scan"),
 			_("Scan count"))}}
