@@ -193,7 +193,8 @@ class SPLTrackItem(sysListView32.ListItem):
 				if columnContent is None:
 					# Translators: presented when column information for a track is empty.
 					columnContent = _("blank")
-				ui.browseableMessage("{0}: {1}".format(header, columnContent),
+				ui.browseableMessage(
+					"{0}: {1}".format(header, columnContent),
 					# Translators: Title of the column data window.
 					title=_("Track data"))
 		else:

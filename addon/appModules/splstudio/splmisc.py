@@ -512,7 +512,8 @@ SPLPlaylistTranscriptFormats = []
 # Although this is useful in playlist transcripts, it can also be useful for column announcement inclusion and order.
 def columnPresentationOrder():
 	from . import splconfig
-	return [column for column in splconfig.SPLConfig["PlaylistTranscripts"]["ColumnOrder"]
+	return [
+		column for column in splconfig.SPLConfig["PlaylistTranscripts"]["ColumnOrder"]
 		if column in splconfig.SPLConfig["PlaylistTranscripts"]["IncludedColumns"]]
 
 # Various post-transcript actions.
