@@ -197,6 +197,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Version 20.06
 
+* Resolved many coding style issues and potential bugs with Flake8.
 * Time-based broadcast profiles feature has been removed.
 * Window-Eyes command layout for SPL Assistant has been removed. Window-Eyes command layout users will be migrated to NVDA layout.
 * When errors are found in encoder settings, it is no longer necessary to switch to Studio window to let NVDA reset settings to defaults. You must now switch to an encoder from encoders window to let NVDA reset encoder settings.
