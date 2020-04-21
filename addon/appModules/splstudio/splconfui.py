@@ -154,10 +154,12 @@ class BroadcastProfilesDialog(wx.Dialog):
 		index = self.profiles.Selection
 		profilePos = self.profileNames.index(oldName)
 		# #70 (18.07): in wxPython 4, name for the value keyword argument for text entry dialog constructor has changed.
-		# Translators: The label of a field to enter a new name for a broadcast profile.
-		with wx.TextEntryDialog(self, _("New name:"),
-				# Translators: The title of the dialog to rename a profile.
-				_("Rename Profile"), value=oldName) as d:
+		with wx.TextEntryDialog(
+			# Translators: The label of a field to enter a new name for a broadcast profile.
+			self, _("New name:"),
+			# Translators: The title of the dialog to rename a profile.
+			_("Rename Profile"), value=oldName
+		) as d:
 			if d.ShowModal() == wx.ID_CANCEL:
 				return
 			newName = api.filterFileName(d.Value)
@@ -165,9 +167,10 @@ class BroadcastProfilesDialog(wx.Dialog):
 		try:
 			splconfig.SPLConfig.renameProfile(oldName, newName)
 		except RuntimeError:
-			# Translators: An error displayed when renaming a configuration profile
-			# and a profile with the new name already exists.
-			gui.messageBox(_("That profile already exists. Please choose a different name."),
+			gui.messageBox(
+				# Translators: An error displayed when renaming a configuration profile
+				# and a profile with the new name already exists.
+				_("That profile already exists. Please choose a different name."),
 				translate("Error"), wx.OK | wx.ICON_ERROR, self)
 			return
 		if self.switchProfile == oldName:
@@ -190,8 +193,9 @@ class BroadcastProfilesDialog(wx.Dialog):
 		# 7.1: Find a way to safely proceed via two-step verification if trying to delete currently active time-based profile.
 		# 20.06: just focus on instant switch profile.
 		if splconfig.SPLConfig.prevProfile is not None:
-			# Translators: Message reported when attempting to delete a profile in the midst of a broadcast.
-			gui.messageBox(_("An instant switch profile might be active or you are in the midst of a broadcast. If so, please press SPL Assistant, F12 to switch back to a previously active profile before opening broadcast profiles dialog to delete a profile."),
+			gui.messageBox(
+				# Translators: Message reported when attempting to delete a profile in the midst of a broadcast.
+				_("An instant switch profile might be active or you are in the midst of a broadcast. If so, please press SPL Assistant, F12 to switch back to a previously active profile before opening broadcast profiles dialog to delete a profile."),
 				# Translators: Title of a dialog shown when profile cannot be deleted.
 				_("Profile delete error"), wx.OK | wx.ICON_ERROR, self)
 			return
@@ -335,8 +339,9 @@ class NewProfileDialog(wx.Dialog):
 		if not name:
 			return
 		if name in parent.profileNames:
-			# Translators: An error displayed when the user attempts to create a profile which already exists.
-			gui.messageBox(_("That profile already exists. Please choose a different name."),
+			gui.messageBox(
+				# Translators: An error displayed when the user attempts to create a profile which already exists.
+				_("That profile already exists. Please choose a different name."),
 				translate("Error"), wx.OK | wx.ICON_ERROR, self)
 			return
 		namePath = name + ".ini"
