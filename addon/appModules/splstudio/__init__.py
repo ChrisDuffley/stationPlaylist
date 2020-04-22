@@ -244,8 +244,10 @@ class SPLStudioTrackItem(SPLTrackItem):
 		# 19.06: have the column inclusion and order keys handy in order to avoid attribute lookup.
 		columnsToInclude = splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"]
 		columnOrder = splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"]
-		if (not splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"]
-		and (columnOrder != splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"] or len(columnsToInclude) != 17)):
+		if (
+			not splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"]
+			and (columnOrder != splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"] or len(columnsToInclude) != 17)
+		):
 			descriptionPieces = []
 			includeColumnHeaders = splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"]
 			for header in columnOrder:
@@ -874,15 +876,19 @@ class AppModule(appModuleHandler.AppModule):
 					# End of track for SPL 5.x.
 					if splconfig.SPLConfig["General"]["BrailleTimer"] in ("outro", "both") and api.getForegroundObject().processID == self.processID:
 						braille.handler.message(obj.name)
-					if (obj.name == "00:{0:02d}".format(splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"])
-					and splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"]):
+					if (
+						obj.name == "00:{0:02d}".format(splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"])
+						and splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"]
+					):
 						self.alarmAnnounce(obj.name, 440, 200)
 				elif obj.simplePrevious.name == "Remaining Song Ramp":
 					# Song intro for SPL 5.x.
 					if splconfig.SPLConfig["General"]["BrailleTimer"] in ("intro", "both") and api.getForegroundObject().processID == self.processID:
 						braille.handler.message(obj.name)
-					if (obj.name == "00:{0:02d}".format(splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"])
-					and splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"]):
+					if (
+						obj.name == "00:{0:02d}".format(splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"])
+						and splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"]
+					):
 						self.alarmAnnounce(obj.name, 512, 400, intro=True)
 		nextHandler()
 
