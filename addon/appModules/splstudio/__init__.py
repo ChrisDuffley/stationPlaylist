@@ -698,7 +698,7 @@ class AppModule(appModuleHandler.AppModule):
 				return
 			hwnd = user32.FindWindowW("SPLStudio", None)
 		# Only this thread will have privilege of notifying handle's existence.
-		with threading.Lock() as hwndNotifier:
+		with threading.Lock():
 			splbase._SPLWin = hwnd
 			debugOutput(f"Studio handle is {hwnd}")
 		# #41 (18.04): start background monitor.
