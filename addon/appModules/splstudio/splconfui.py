@@ -1152,10 +1152,10 @@ class ResetDialog(wx.Dialog):
 	def onOk(self, evt):
 		parent = self.Parent
 		if gui.messageBox(
-		# Translators: A message to warn about resetting SPL config settings to factory defaults.
-		_("Are you sure you wish to reset SPL add-on settings to defaults?"),
-		# Translators: The title of the warning dialog.
-		_("Warning"), wx.YES_NO | wx.NO_DEFAULT | wx.ICON_WARNING, self
+			# Translators: A message to warn about resetting SPL config settings to factory defaults.
+			_("Are you sure you wish to reset SPL add-on settings to defaults?"),
+			# Translators: The title of the warning dialog.
+			_("Warning"), wx.YES_NO | wx.NO_DEFAULT | wx.ICON_WARNING, self
 		) != wx.YES:
 			parent.Enable()
 			self.Destroy()
