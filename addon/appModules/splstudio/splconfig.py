@@ -277,25 +277,25 @@ class ConfigHub(ChainMap):
 	def _validateConfig(self, SPLConfigCheckpoint, profileName=None, prefill=False):
 		global _configLoadStatus
 		configTest = SPLConfigCheckpoint.validate(_val, copy=prefill, preserve_errors=True)
-		if configTest != True:
-			if not configTest:
-				# Case 1: restore settings to defaults when 5.x config validation has failed on all values.
-				# 6.0: In case this is a user profile, apply base configuration.
-				# 8.0: Call copy profile function directly to reduce overhead.
-				copyProfile(_SPLDefaults, SPLConfigCheckpoint, complete=SPLConfigCheckpoint.filename == SPLIni)
-				_configLoadStatus[profileName] = "completeReset"
-			elif isinstance(configTest, dict):
-				# Case 2: For 5.x and later, attempt to reconstruct the failed values.
-				# 6.0: Cherry-pick global settings only.
-				# 7.0: Go through failed sections.
-				for setting in list(configTest.keys()):
-					if isinstance(configTest[setting], dict):
-						for failedKey in list(configTest[setting].keys()):
-							# 7.0 optimization: just reload from defaults dictionary, as broadcast profiles contain profile-specific settings only.
-							SPLConfigCheckpoint[setting][failedKey] = _SPLDefaults[setting][failedKey]
-				# 7.0: Disqualified from being cached this time.
-				SPLConfigCheckpoint.write()
-				_configLoadStatus[profileName] = "partialReset"
+		# Validator may return "True" if everything is okay, "False" for unrecoverable error, or a dictionary of failed keys.
+		if isinstance(configTest, bool) and not configTest:
+			# Case 1: restore settings to defaults when 5.x config validation has failed on all values.
+			# 6.0: In case this is a user profile, apply base configuration.
+			# 8.0: Call copy profile function directly to reduce overhead.
+			copyProfile(_SPLDefaults, SPLConfigCheckpoint, complete=SPLConfigCheckpoint.filename == SPLIni)
+			_configLoadStatus[profileName] = "completeReset"
+		elif isinstance(configTest, dict):
+			# Case 2: For 5.x and later, attempt to reconstruct the failed values.
+			# 6.0: Cherry-pick global settings only.
+			# 7.0: Go through failed sections.
+			for setting in list(configTest.keys()):
+				if isinstance(configTest[setting], dict):
+					for failedKey in list(configTest[setting].keys()):
+						# 7.0 optimization: just reload from defaults dictionary, as broadcast profiles contain profile-specific settings only.
+						SPLConfigCheckpoint[setting][failedKey] = _SPLDefaults[setting][failedKey]
+			# 7.0: Disqualified from being cached this time.
+			SPLConfigCheckpoint.write()
+			_configLoadStatus[profileName] = "partialReset"
 
 	# Extra initialization steps such as converting value types.
 	def _extraInitSteps(self, conf, profileName=None):
