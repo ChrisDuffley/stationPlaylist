@@ -427,10 +427,12 @@ class GeneralSettingsPanel(gui.SettingsPanel):
 		self.beepAnnounceCheckbox = generalSettingsHelper.addItem(wx.CheckBox(self, label=_("&Beep for status announcements")))
 		self.beepAnnounceCheckbox.SetValue(splconfig.SPLConfig["General"]["BeepAnnounce"])
 
-		# Translators: One of the message verbosity levels.
-		self.verbosityLevels = [("beginner", _("beginner")),
-		# Translators: One of the message verbosity levels.
-		("advanced", _("advanced"))]
+		self.verbosityLevels = [
+			# Translators: One of the message verbosity levels.
+			("beginner", _("beginner")),
+			# Translators: One of the message verbosity levels.
+			("advanced", _("advanced"))
+		]
 		# Translators: The label for a setting in SPL add-on dialog to set message verbosity.
 		self.verbosityList = generalSettingsHelper.addLabeledControl(_("Message &verbosity:"), wx.Choice, choices=[x[1] for x in self.verbosityLevels])
 		currentVerbosity = splconfig.SPLConfig["General"]["MessageVerbosity"]
@@ -440,13 +442,15 @@ class GeneralSettingsPanel(gui.SettingsPanel):
 		except:
 			pass
 
-		self.brailleTimerValues = [("off", _("Off")),
-		# Translators: One of the braille timer settings.
-		("outro", _("Track ending")),
-		# Translators: One of the braille timer settings.
-		("intro", _("Track intro")),
-		# Translators: One of the braille timer settings.
-		("both", _("Track intro and ending"))]
+		self.brailleTimerValues = [
+			("off", _("Off")),
+			# Translators: One of the braille timer settings.
+			("outro", _("Track ending")),
+			# Translators: One of the braille timer settings.
+			("intro", _("Track intro")),
+			# Translators: One of the braille timer settings.
+			("both", _("Track intro and ending"))
+		]
 		# Translators: The label for a setting in SPL add-on dialog to control braille timer.
 		self.brailleTimerList = generalSettingsHelper.addLabeledControl(_("&Braille timer:"), wx.Choice, choices=[x[1] for x in self.brailleTimerValues])
 		brailleTimerCurValue = splconfig.SPLConfig["General"]["BrailleTimer"]
@@ -456,13 +460,15 @@ class GeneralSettingsPanel(gui.SettingsPanel):
 		except:
 			pass
 
-		self.libScanValues = [("off", _("Off")),
-		# Translators: One of the library scan announcement settings.
-		("ending", _("Start and end only")),
-		# Translators: One of the library scan announcement settings.
-		("progress", _("Scan progress")),
-		# Translators: One of the library scan announcement settings.
-		("numbers", _("Scan count"))]
+		self.libScanValues = [
+			("off", _("Off")),
+			# Translators: One of the library scan announcement settings.
+			("ending", _("Start and end only")),
+			# Translators: One of the library scan announcement settings.
+			("progress", _("Scan progress")),
+			# Translators: One of the library scan announcement settings.
+			("numbers", _("Scan count"))
+		]
 		# Translators: The label for a setting in SPL add-on dialog to control library scan announcement.
 		self.libScanList = generalSettingsHelper.addLabeledControl(_("&Library scan announcement:"), wx.Choice, choices=[x[1] for x in self.libScanValues])
 		libScanCurValue = splconfig.SPLConfig["General"]["LibraryScanAnnounce"]
@@ -491,13 +497,15 @@ class GeneralSettingsPanel(gui.SettingsPanel):
 		self.categorySoundsCheckbox = generalSettingsHelper.addItem(wx.CheckBox(self, label=_("&Beep for different track categories")))
 		self.categorySoundsCheckbox.SetValue(splconfig.SPLConfig["General"]["CategorySounds"])
 
-		self.trackCommentValues = [("off", _("Off")),
-		# Translators: One of the track comment notification settings.
-		("message", _("Message")),
-		# Translators: One of the track comment notification settings.
-		("beep", _("Beep")),
-		# Translators: One of the track comment notification settings.
-		("both", _("Both"))]
+		self.trackCommentValues = [
+			("off", _("Off")),
+			# Translators: One of the track comment notification settings.
+			("message", _("Message")),
+			# Translators: One of the track comment notification settings.
+			("beep", _("Beep")),
+			# Translators: One of the track comment notification settings.
+			("both", _("Both"))
+		]
 		# Translators: the label for a setting in SPL add-on settings to set how track comments are announced.
 		self.trackCommentList = generalSettingsHelper.addLabeledControl(_("&Track comment announcement:"), wx.Choice, choices=[x[1] for x in self.trackCommentValues])
 		trackCommentCurValue = splconfig.SPLConfig["General"]["TrackCommentAnnounce"]
@@ -547,12 +555,14 @@ class AlarmsPanel(gui.SettingsPanel):
 		self.micAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&Microphone alarm in seconds (0 disables the alarm)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=7200, initial=splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"])
 		self.micIntervalEntry = alarmsCenterHelper.addLabeledControl(_("Microphone alarm &interval in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=60, initial=splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"])
 
-		# Translators: One of the alarm notification options.
-		self.alarmAnnounceValues = [("beep", _("beep")),
-		# Translators: One of the alarm notification options.
-		("message", _("message")),
-		# Translators: One of the alarm notification options.
-		("both", _("both beep and message"))]
+		self.alarmAnnounceValues = [
+			# Translators: One of the alarm notification options.
+			("beep", _("beep")),
+			# Translators: One of the alarm notification options.
+			("message", _("message")),
+			# Translators: One of the alarm notification options.
+			("both", _("both beep and message"))
+		]
 		# Translators: The label for a setting in SPL add-on dialog to control alarm announcement type.
 		self.alarmAnnounceList = alarmsCenterHelper.addLabeledControl(_("&Alarm notification:"), wx.Choice, choices=[x[1] for x in self.alarmAnnounceValues])
 		alarmAnnounceCurValue = splconfig.SPLConfig["General"]["AlarmAnnounce"]
@@ -719,11 +729,13 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 	def makeSettings(self, settingsSizer):
 		metadataSizerHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
-		self.metadataValues = [("off", _("Off")),
-		# Translators: One of the metadata notification settings.
-		("startup", _("When Studio starts")),
-		# Translators: One of the metadata notification settings.
-		("instant", _("When instant switch profile is active"))]
+		self.metadataValues = [
+			("off", _("Off")),
+			# Translators: One of the metadata notification settings.
+			("startup", _("When Studio starts")),
+			# Translators: One of the metadata notification settings.
+			("instant", _("When instant switch profile is active"))
+		]
 		# Translators: the label for a setting in SPL add-on settings to be notified that metadata streaming is enabled.
 		self.metadataList = metadataSizerHelper.addLabeledControl(_("&Metadata streaming notification and connection"), wx.Choice, choices=[x[1] for x in self.metadataValues])
 		metadataCurValue = splconfig.SPLConfig["General"]["MetadataReminder"]
@@ -1068,8 +1080,10 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 		self.splConPassthroughCheckbox.SetValue(splconfig.SPLConfig["Advanced"]["SPLConPassthrough"])
 		# Translators: The label for a setting in SPL add-on dialog to set keyboard layout for SPL Assistant.
 		labelText = _("SPL Assistant command &layout:")
-		self.compatibilityLayouts = [("off", "NVDA"),
-		("jfw", "JAWS for Windows")]
+		self.compatibilityLayouts = [
+			("off", "NVDA"),
+			("jfw", "JAWS for Windows")
+		]
 		self.compatibilityList = advOptionsHelper.addLabeledControl(labelText, wx.Choice, choices=[x[1] for x in self.compatibilityLayouts])
 		selection = next((x for x, y in enumerate(self.compatibilityLayouts) if y[0] == splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]))
 		try:
