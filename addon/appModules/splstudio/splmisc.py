@@ -225,11 +225,11 @@ class SPLTimeRangeDialog(wx.Dialog):
 				# #45 (18.02): call select track function in splbase module.
 				splbase.selectTrack(obj.IAccessibleChildID-1)
 			else:
-				wx.CallAfter(gui.messageBox,
-				# Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
-				_("No track with duration between minimum and maximum duration."),
-				# Translators: Standard error title for find error (copy this from main nvda.po).
-				_("Time range find error"), wx.OK | wx.ICON_ERROR)
+				wx.CallAfter(
+					# Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
+					gui.messageBox, _("No track with duration between minimum and maximum duration."),
+					# Translators: Standard error title for find error (copy this from main nvda.po).
+					_("Time range find error"), wx.OK | wx.ICON_ERROR)
 		_findDialogOpened = False
 
 	def onCancel(self, evt):

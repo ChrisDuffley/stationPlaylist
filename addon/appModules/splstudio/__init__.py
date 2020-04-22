@@ -429,10 +429,10 @@ class SPLStudioTrackItem(SPLTrackItem):
 
 	# A proxy function to call the track comments entry dialog.
 	def _trackCommentsEntry(self, filename, comment):
-		dlg = wx.TextEntryDialog(gui.mainFrame,
-		_("Track comment"),
-		# Translators: The title of the track comments dialog.
-		_("Track comment"), value=comment)
+		dlg = wx.TextEntryDialog(
+			gui.mainFrame, _("Track comment"),
+			# Translators: The title of the track comments dialog.
+			_("Track comment"), value=comment)
 		def callback(result):
 			if result == wx.ID_OK:
 				if dlg.GetValue() is None: return
@@ -1247,10 +1247,8 @@ class AppModule(appModuleHandler.AppModule):
 			splbase.selectTrack(track.IAccessibleChildID-1)
 			track.setFocus(), track.setFocus()
 		else:
-			wx.CallAfter(gui.messageBox,
 			# Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
-			_("Search string not found."),
-			translate("Find Error"), wx.OK | wx.ICON_ERROR)
+			wx.CallAfter(gui.messageBox, _("Search string not found."), translate("Find Error"), wx.OK | wx.ICON_ERROR)
 
 	# Split from track finder in 2015.
 	# Return a track with the given search criteria.

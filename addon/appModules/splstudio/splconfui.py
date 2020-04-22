@@ -1100,10 +1100,11 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 
 	def postSave(self):
 		if splconfig.SPLConfig.canEnablePilotFeatures and self.pilotBuildCheckbox.Value != splconfig.SPLConfig["Advanced"]["PilotFeatures"]:
-			# Translators: A dialog message shown when pilot features is turned on or off.
-			wx.CallAfter(gui.messageBox, _("You have toggled pilot features checkbox. You must restart NVDA for the change to take effect."),
-			# Translators: Title of the pilot features dialog.
-			_("Pilot features"), wx.OK | wx.ICON_INFORMATION)
+			wx.CallAfter(
+				# Translators: A dialog message shown when pilot features is turned on or off.
+				gui.messageBox, _("You have toggled pilot features checkbox. You must restart NVDA for the change to take effect."),
+				# Translators: Title of the pilot features dialog.
+				_("Pilot features"), wx.OK | wx.ICON_INFORMATION)
 			splconfig.SPLConfig["Advanced"]["PilotFeatures"] = self.pilotBuildCheckbox.Value
 			splconfig.SPLConfig._pendingPilotFeaturesToggle = True
 
@@ -1166,10 +1167,11 @@ class ResetDialog(wx.Dialog):
 					import appModules.splengine.encoders
 					appModules.splengine.encoders.resetStreamLabels(factoryDefaults=True)
 			_configDialogOpened = False
-			# Translators: A dialog message shown when settings were reset to defaults.
-			wx.CallAfter(gui.messageBox, _("Successfully applied default add-on settings."),
-			# Translators: Title of the reset config dialog.
-			_("Reset configuration"), wx.OK | wx.ICON_INFORMATION)
+			wx.CallAfter(
+				# Translators: A dialog message shown when settings were reset to defaults.
+				gui.messageBox, _("Successfully applied default add-on settings."),
+				# Translators: Title of the reset config dialog.
+				_("Reset configuration"), wx.OK | wx.ICON_INFORMATION)
 		self.Destroy()
 		# #6: because the parent isn't add-on settings but the categories/panel sizer, fetch its ancestor.
 		parent.Parent.Parent.Destroy()

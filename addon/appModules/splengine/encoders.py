@@ -64,10 +64,11 @@ def loadStreamLabels():
 		# To avoid type errors, create an empty dictionary.
 		streamLabels = {}
 		open(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"), "w").close()
-		# Translators: Message displayed if errors were found in encoder configuration file.
-		wx.CallAfter(gui.messageBox, _("Your encoder settings had errors and were reset to defaults."),
-		# Translators: Title of the encoder settings error dialog.
-		_("SPL add-on Encoder settings error"), wx.OK | wx.ICON_ERROR)
+		wx.CallAfter(
+			# Translators: Message displayed if errors were found in encoder configuration file.
+			gui.messageBox, _("Your encoder settings had errors and were reset to defaults."),
+			# Translators: Title of the encoder settings error dialog.
+			_("SPL add-on Encoder settings error"), wx.OK | wx.ICON_ERROR)
 		return
 	# Read stream labels.
 	try:
@@ -479,8 +480,7 @@ class Encoder(IAccessible):
 		streamTitle = _("Stream labeler for {streamEntry}").format(streamEntry=title)
 		# Translators: The text of the stream labeler dialog.
 		streamText = _("Enter the label for this stream")
-		dlg = wx.TextEntryDialog(gui.mainFrame,
-		streamText, streamTitle, value=curStreamLabel)
+		dlg = wx.TextEntryDialog(gui.mainFrame, streamText, streamTitle, value=curStreamLabel)
 		def callback(result):
 			if result == wx.ID_OK:
 				newStreamLabel = dlg.GetValue()
@@ -537,8 +537,7 @@ class Encoder(IAccessible):
 		# Translators: The text of the stream configuration eraser dialog.
 		streamEraserText = _("Enter the position of the encoder you wish to delete or will delete")
 		# 17.12: early versions of wxPython 4 does not have number entry dialog, so replace it with a combo box.
-		dlg = wx.SingleChoiceDialog(gui.mainFrame,
-		streamEraserText, streamEraserTitle, choices=choices)
+		dlg = wx.SingleChoiceDialog(gui.mainFrame, streamEraserText, streamEraserTitle, choices=choices)
 		dlg.SetSelection(self.IAccessibleChildID-1)
 		def callback(result):
 			if result == wx.ID_OK:
