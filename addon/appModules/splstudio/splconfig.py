@@ -746,7 +746,7 @@ def initProfileTriggers():
 	# 20.06: do nothing.
 	# 20.07: delete profile triggers database file.
 	# Profile triggers pickle.
-	SPLTriggersFile = os.path.join(globalVars.appArgs.configPath, "spltriggers.pickle")
+	# SPLTriggersFile = os.path.join(globalVars.appArgs.configPath, "spltriggers.pickle")
 	return
 
 
