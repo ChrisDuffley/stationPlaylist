@@ -283,11 +283,6 @@ class BroadcastProfilesDialog(wx.Dialog):
 		self.Close()
 
 	def onClose(self, evt):
-		# 7.0: No matter what happens, merge appropriate profile.
-		try:
-			prevActive = self.activeProfile
-		except ValueError:
-			prevActive = splconfig.defaultProfileName
 		if self.switchProfileRenamed or self.switchProfileDeleted:
 			splconfig.SPLConfig.instantSwitch = self.switchProfile
 		self.Destroy()
