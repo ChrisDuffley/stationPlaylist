@@ -21,7 +21,7 @@ CÁC LƯU Ý QUAN TRỌNG:
   tốt nhất.
 * Từ 2018, [bản ghi những thay đổi cho các bản phát hành cũ của add-on][5]
   sẽ được tìm thấy trên GitHub. Tập tin readme này sẽ liệt kê các thay đổi
-  từ phiên bản 17.08 (2017 trở đi).
+  từ phiên bản 18.09 (2018 trở đi).
 * Vài tính năng nhất định của add-on sẽ không hoạt động trong vài điều kiện,
   bao gồm chạy NVDA trong chế độ bảo vệ.
 * Vì những giới hạn kĩ thuật, bạn không thể cài hay dùng add-on này với
@@ -49,35 +49,33 @@ lập khác.
 * NVDA+Shift+F12 (vuốt lên hai ngón trong chế độ chạm của SPL) từ cửa sổ
   Studio: thông báo thời gian phát thanh như là 5 phút đến đầu giờ. Bấm hai
   lần sẽ thông báo số phút và giây đến đầu giờ.
-* Alt+NVDA+1 (vuốt hai ngón tay qua phải trong chế độ SPL) từ cửa sổ Studio:
-  mở hộp thoại cài đặt kết thúc track.
-* Alt+NVDA+1 từ cửa sổ Creator's Playlist Editor: thông báo thời gian đã lên
-  lịch cho danh sách phát đã tải.
-* Alt+NVDA+2 (vuốt hai ngón qua trái trong chế độ SPL ) từ cửa sổ Studio: mở
-  hộp thoại cài đặt báo nhạc hiệu.
-* Alt+NVDA+2 từ cửa sổ Playlist Editor của Creator: thông báo tổng thời gian
-  của danh sách phát.
+* Alt+NVDA+1 (vuốt hai ngón qua trái trong chế độ SPL ) từ cửa sổ Studio: mở
+  phân loại báo hiệu trong hộp thoại cấu hình add-on Studio.
+* Alt+NVDA+1 từ cửa sổ Creator's Playlist Editor và Remote VT playlist
+  editor: thông báo thời gian đã lên lịch cho danh sách phát đã tải.
+* Alt+NVDA+2 từ cửa sổ Playlist Editor của Creator và Remote VT playlist
+  editor: thông báo tổng thời gian của danh sách phát.
 * Alt+NVDA+3 từ cửa sổ Studio: bật tắt cart explorer để tìm hiểu cách gán
   cart.
-* Alt+NVDA+3 từ cửa sổ  Playlist Editor của Creator: thông báo khi các track
-  được chọn đã lên lịch phát.
-* Alt+NVDA+4 từ cửa sổ Studio: mở hộp thoại báo hiệu microphone.
-* Alt+NVDA+4 từ cửa sổ Playlist Editor của Creator: thông báo vòng xoay và
-  phân loại đã kết hợp với danh sách phát đã tải.
+* Alt+NVDA+3 từ cửa sổ  Playlist Editor của Creator và Remote VT playlist
+  editor: thông báo khi các track được chọn đã lên lịch phát.
+* Alt+NVDA+4 từ cửa sổ Playlist Editor của Creator và Remote VT playlist
+  editor: thông báo vòng xoay và phân loại đã kết hợp với danh sách phát đã
+  tải.
 * Control+NVDA+f từ cửa sổ Studio: mở hộp thoại để tìm một track theo tên ca
   sĩ hay bài hát. Bấm NvDA+F3 để tìm tiếp hoặc NVDA+Shift+F3 để tìm lùi.
 * Alt+NVDA+R từ cửa sổ Studio: chuyển đến các cài đặt thông báo quét thư
   viện.
 * Control+Shift+X từ cửa sổ Studio: đi qua các cài đặt hẹn giờ chữ nổi.
 * Control+Alt+mũi tên trái phải (khi đứng ở một track trong Studio, Creator,
-  và Track Tool): thông báo các cột trước / sau của track.
-* Control+Alt+Home/End (khi đứng tại một track trong Studio, Creator và
-  Track Tool): thông báo cột đầu / cuối của track.
+  Remote VT và Track Tool): thông báo các cột trước / sau của track.
+* Control+Alt+Home/End (khi đứng tại một track trong Studio, Creator, Remote
+  VT và Track Tool): thông báo cột đầu / cuối của track.
 * Control+Alt+mũi tên lên / xuống (chỉ khi đứng ở tại một track trong
   Studio): chuyển đến track trước hoặc kế và thông báo các cột cụ thể.
 * Control+NVDA+1 đến 0 (khi đứng ở tại một track trong Studio, Creator (bao
-  gồm Playlist Editor) và Track Tool): thông báo nội dung cho một cột đã
-  định. Bấm hai lần sẽ hiển thị thông tin trên cửa sổ duyệt tài liệu.
+  gồm Playlist Editor), Remote VT và Track Tool): thông báo nội dung cho một
+  cột đã định. Bấm hai lần sẽ hiển thị thông tin trên cửa sổ duyệt tài liệu.
 * Control+NVDA+- (trừ trong Studio, Creator và Track Tool): hiển thị dữ liệu
   của tất cả các cột trong một track trên một cửa sổ ở chế độ duyệt.
 * Alt+NVDA+C khi đứng tại một track (chỉ trong Studio): thông báo chú thích
@@ -228,19 +226,13 @@ Các lệnh của bộ điều khiển SPL bao gồm:
   đâu.
 * Bấm H để hiện hộp thoại trợ giúp với toàn bộ các lệnh được liệt kê.
 
-## Các báo hiệu cho track
+## Báo hiệu track và microphone
 
 Mặc định, NvDA sẽ phát tiếng beep nếu track còn 5 giây (ở cuối track) hoặc
-đầu track. Để thiết lập giá trị này hoặc bật / tắt chúng, bấm Alt+NVDA+1
-hoặc Alt+NVDA+2 mở hộp thoại end of track và song ramp. Ngoài ra, dùng hộp
-thoại cài đặt add-on của Studio để thiết lập để nghe tiếng beep, một thông
-điệp hoặc chuông báo.
-
-## Báo hiệu microphone
-
-Bạn có thể yêu cầu NVDA phát âm thanh khi microphone đã hoạt động được một
-thời gian ngắn. Bấm Alt+NVDA+4 để cấu hình thời gian báo hiệu bằng giây (0
-để tắt).
+đầu track, hoặc microphone đã được kích hoạt một thời gian. Để thiết lập báo
+hiệu track và microphone, bấm Alt+NVDA+1 để mở cài đặt báo hiệu trong cài
+đặt Studio add-on. Cái này cũng có thể dùng để cấu hình khi nghe tiếng beep,
+một thông điệp hoặc cả hai khi báo hiệu đã được bật.
 
 ## Tìm kiếm track
 
@@ -271,11 +263,14 @@ Assistant, F10 khi kết thúc vùng chọn.
 
 ## Khám phá các cột
 
-Bấm Control+NVDA+1 đến 0 hoặc SPL Assistant, 1 đến 0, bạn có thể thu thập
-các nội dung của các cột cụ thể. Mặc định là ca sĩ, tựa đề, thời lượng, nhạc
-dạo, nhạc kết thúc, loại, năm, album, thể loại và trạng thái. Bạn có thể cấu
-hình những cột nào sẽ được khám phá thông qua hộp thoại khám phá cột được
-tìm thấy trong hộp thoại cài đặt add-on.
+Bấm Control+NVDA+1 đến 0, bạn có thể thu thập các nội dung của các cột cụ
+thể. Mặc định là mười cột đầu tiên (trong Studio: ca sĩ, tựa đề, thời lượng,
+nhạc dạo, nhạc kết thúc, loại, năm, album, thể loại, trạng thái) cho
+playlist editor trong Creator và Remote VT client, dữ lieu các cột phụ thuộc
+vào việc sắp xếp cột được hiển thị trên màn hình. Trong Studio, danh sách
+các track chính của Creator và track tool, các cột được xếp theo sắp xếp cột
+trên màn hình và có thể cấu hình trong hộp thoại cài đặt add-on, ở phân loại
+khám phá cột.
 
 ## Ảnh chụp danh sách phát
 
@@ -310,6 +305,32 @@ Nếu dùng Studio trên một máy tính cảm ứng chạy Windows 8 trở lê
 NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio từ mành hình
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
+
+## Phiên bản 20.05
+
+* Bắt đầu hỗ trợ cho Remote VT (voice track) client, bao gồm remote playlist
+  editor với các lệnh giống như Creator's playlist editor.
+* Những lệnh dùng để mở các hộp thoại cài đặt báo hiệu riêng lẻ (Alt+NVDA+1,
+  Alt+NVDA+2, Alt+NVDA+4) đã được gom lại thành Alt+NvDA+1 và giờ đây sẽ mở
+  cài đặt báo hiệu trong cài đặt SPL add-on, nơi có thể tìm thấy cài đặt
+  giới thiệu / kết thúc track và microphone.
+* Ở hộp thoại các tác nhân được tìm thấy trong hộp thoại hồ sơ phát thanh,
+  gỡ bỏ giao diện người dùng được gắn với tính năng hồ sơ phát thanh theo
+  thời gian như các ô chuyển hồ sơ theo ngày / giờ / thời lượng.
+* Đã gỡ bỏ các thiết lập chuyển hồ sơ đếm ngược được tìm thấy trong hộp
+  thoại hồ sơ phát thanh.
+* Vì Window-Eyes không còn được hỗ trợ bởi Vispero từ 2017, kiểu phím lệnh
+  SPL Assistant cho Window-Eyes đã được lược đi và sẽ bị gỡ bỏ ở một phiên
+  bản trong tương lai của add-on. Một cảnh báo sẽ hiển thị khi khởi động yêu
+  cầu người dùng thay đổi kiểu lệnh SPL Assistant sang kiểu lệnh của NVDA
+  (mặc định) hay JAWS.
+* Khi dùng các lệnh khám phá cột (Control+NvDA+phím số) hay các lệnh điều
+  hướng cột (Control+Alt+home/end/mũi tên trái/phải) trong Creator và Remote
+  VT client, NVDA sẽ không còn tình trạng thông báo sai cột dữ liệu sau khi
+  thay đổi vị trí cột trên màn hình bằng chuột.
+* Trong các bộ mã hóa và Streamer, NVDA sẽ không còn tình trạng không làm gì
+  hoặc phát âm thanh báo lỗi khi khởi động trong lúc một cửa sổ mã hóa đang
+  có focus.
 
 ## Phiên bản 20.04
 
@@ -602,315 +623,6 @@ mới. Vài tính năng mới sẽ hỗ trợ ngược trở lại 18.09.x nếu
   cho bảng điểm của danh sách phát.
 * Bấm Control+NvDA+C để lưu thiết lập sẽ lưu luôn thiết lập của Studio
   add-on (yêu cầu NVDA 2018.3).
-
-## Phiên bản 18.08.2
-
-* NVDA sẽ không kiểm tra cập nhật Studio add-on nếu đã cài Add-on
-  Updater. Hậu quả là cài đặt add-on sẽ không còn bao gồm các thiết lập liên
-  quan đến cập nhật add-on trong trường hợp này. Nếu đang sử dụng Add-on
-  Updater, bạn nên dùng tính năng của add-on này để kiểm tra cập nhật Studio
-  add-on.
-
-## Phiên bản 18.08.1
-
-* Sửa lỗi khác của wxPython 4 liên quan đến tính tương thích xảy ra khi
-  thoát Studio.
-* NVDA sẽ thông báo một thông điệp thích hợp khi không hiển thị được các văn
-  bản chỉnh sửa của danh sách phát, thường thấy sau khi mở một danh sách
-  phát chưa chỉnh sửa hoặc khi khởi động Studio.
-* NVDA sẽ không còn tình trạng không làm gì hoặc phát âm thanh báo lỗi khi
-  cố gắng thu thập trạng thái truyền siêu dữ liệu thông qua SPL Assistant
-  (E).
-
-## Phiên bản 18.08
-
-* Hộp thoại cài đặt Add-on giờ đây đã dùng giao diện cài đặt nhiều nhánh tìm
-  thấy trong NVDA 2018.2. Vậy nên, bản phát hành này yêu cầu NVDA 2018.2 trở
-  lên. Giao diện cài đặt cũ của add-on không còn được dùng nữa và sẽ bị gỡ
-  bỏ trong năm 2018.
-* Đã thêm một phần mới (nút / bảng) trong cài đặt add-on để cấu hình các tùy
-  chỉnh cho bảng điểm danh sách phát, được dùng để cấu hình việc bao gồm và
-  sắp xếp các cột cho tính năng này cũng như các cài đặt khác.
-* Khi tạo một bảng theo điểm của danh sách phát và nếu có thực hiện tùy
-  chỉnh sắp xếp hay xóa cột, NVDA sẽ dùng tùy chỉnh trình bày sắp xếp cột đã
-  thiết lập từ cài đặt add-on hoặc không bao gồm thông tin từ các cột đã
-  xóa.
-* Khi dùng các lệnh điều hướng cột trong các mục của track
-  (Control+Alt+home/end/mũi tên trái/mũi tên phải) trong Studio, Creator và
-  Track Tool, NVDA sẽ không còn tình trạng thông báo sai cột dữ liệu sau khi
-  thay đổi vị trí cột trên màn hình bằng chuột.
-* Những cải thiện đáng kể đến các phản hồi của NVDA khi dùng các lệnh điều
-  hướng cột trong Creator và Track Tool. Cụ thể, khi dùng Creator, NVDA sẽ
-  phản hồi tốt hơn khi dùng các lệnh điều hướng cột.
-* NVDA sẽ không còn tịnh trạng phát âm thanh báo lỗi hoặc không làm gì khi
-  nỗ lực thêm các chú thích vào track trong Studio hay khi thoát NVDA trong
-  lúc đang sử dụng Studio, lỗi gây ra bởi vấn đề tương thích của wxPython 4.
-
-## Phiên bản 18.07
-
-* Thêm vào màn hình cài đặt add-on nhiều nhánh để thử nghiệm, tiếp cận bằng
-  cách bật / tắt một thiết lập trong cài đặt add-on / hộp thoại nâng cao
-  (cần phải khởi động lại NVDA sau khi cấu hình để hiện hộp thoại mới). Tính
-  năng này dành cho nguiờ dùng NVDA 2018.2, và không phải tất cả các cài đặt
-  của add-on đều có thể cấu hình ở đây.
-* NVDA sẽ không còn tình trạng phát âm thanh báo lỗi hoặc không làm gì khi
-  nỗ lực đổi tên một hồ sơ phát thanh từ cài đặt add-on, lỗi gây ra bởi vấn
-  đề tương thích của wxPython 4.
-* Việc khởi động lại NvDA hoặc Studio sau khi thực hiện các thay đổi trong
-  cài đặt của một hồ sơ phát thanh không phải hồ sơ bình thường, NVDA sẽ
-  không còn tình trạng trở về các cài đặt cũ.
-* Đã có thể  thu thập bảng điểm của danh sách phát cho khung giờ hiện
-  tại. Chọn "khung giờ hiện tại" trong các tùy chọn khoảng danh sách phát
-  trong bảng điểm của danh sách phát (SPL Assistant, Shift+F8).
-* Thêm một tùy chọn trong hộp thoại bảng điểm của danh sách phát để lưu điểm
-  thành một tập tin (tất cả định dạng) hoặc chép vào bộ nhớ tạm (chỉ văn bản
-  thô và định dạng bảng Markdown) thêm nữa là hiện điểm ra màn hình. Khi lưu
-  bảng điểm, chúng ở tại thư mục Documents của người dùng, trong thư mục
-  "nvdasplPlaylistTranscripts".
-* Trạng thái cột không còn được bao gồm khi tạo bảng điểm của danh sách phát
-  ở định dạng HTML và Markdown.
-* Khi đứng ở tại một track trong Creator và Track Tool, bấm Control+NVDA+các
-  phím số hai lần sẽ trình bày các cột thông tin trên một cửa sổ ở chế độ
-  duyệt.
-* Trong Creator và Track Tool, đã thêm các phím Control+Alt+Home/End để di
-  chuyển đến cột đầu hay cuối cho track tại vị trí con trỏ.
-
-## Phiên bản  18.06.1
-
-* Sửa vài lỗi tương thích với wxPython 4, bao gồm lỗi mở các hộp thoại tìm
-  kiếm track (Control+NVDA+F), tìm kiếm cột và tìm kiếm theo khoảng thời
-  gian trong Studio và hộp thoại tạo nhãn phát thanh (F12) từ cửa sổ các bộ
-  mã hóa.
-* Khi mở một hộp thoại tìm kiếm từ Studio và xảy ra lỗi không mong muốn,
-  NVDA sẽ trình bày thêm các thông điệp hợp lý thay vì chỉ nói rằng một hộp
-  thoại tìm kiếm khác đang mở.
-* Trong cửa sổ của các bộ mã hóa, NVDA sẽ không còn phát âm thanh báo lỗi
-  hoặc không làm gì khi nỗ lực mở hộp thoại cài đặt mã hóa (Alt+NVDA+0).
-
-## Phiên bản 18.06
-
-* Trong hộp thoại cài đặt add-on, thêm nút "Áp dụng" để có thể áp dụng các
-  thay đổi cho hồ sơ hiện tại mà không đóng hộp thoại. Tính năng này hoạt
-  động với NVDA 2018.2.
-* Khắc phục lỗi NVDA áp dụng các thay đổi cho cài đặt khám phá cột mặc dù
-  bấm nút hủy từ hộp thoại cài đặt add-on.
-* Trong Studio, bấm Control+NVDA+phím số hai lần khi đứng tại một track để
-  hiển thị thông tin cho một cột cụ thể trên một cửa sổ chế độ duyệt.
-* Khi đứng ở một track trong Studio, bấm Control+NVDA+trừ sẽ hiển thị dữ
-  liệu của tất cả các cột trên một cửa sổ chế độ duyệt.
-* Trong StationPlaylist Creator, khi đứng ở một track, bấm Control+NVDA+phím
-  số sẽ thông báo dữ liệu cho một cột cụ thể.
-* Thêm một nút trong hộp thoại cài đặt Studio add-on để cấu hình khám phá
-  các cột cho SPL Creator.
-* Thêm định dạng Markdown như một định dạng cho bảng điểm của danh sách
-  phát.
-* Phím lệnh gửi thư điện tử cho nhóm phát triển đã được đổi từ
-  Control+NVDA+trừ thành Alt+NVDA+trừ.
-
-## Phiên bản 18.05
-
-* Thêm khả năng chụp nhanh một phần ảnh của danh sách phát. Có thể làm điều
-  này bằng cách chỉ định khoảng phân tích (SPL Assistant, F9 ở điểm bắt đầu
-  của khoảng cần phân tích) và chuyển một mục khác rồi thực hiện lệnh chụp
-  ảnh danh sách phát.
-* Thêm một lệnh mới trong SPL Assistant để yêu cầu bảng điểm của danh sách
-  phát ở một số định dạng (Shift+F8). Chúng bao gồm văn bản thô, bảng HTML
-  hay danh sách HTML.
-* Nhiều tính năng phân tích danh sách phát như phân tích track theo thời
-  gian và ảnh chụp danh sách phát giờ đây được liệt kê trong giao diện của
-  "Trình phân tích danh sách phát".
-
-## Phiên bản 18.04.1
-
-* NVDA sẽ không còn bị lỗi khi đếm ngược đến giờ hẹn cho một hồ sơ phát theo
-  thời gian nếu NVDA được cài đặt và dùng với wxPython 4 toolkit.
-
-## Phiên bản 18.04
-
-* Đã thực hiện các thay đổi để tính năng kiểm tra cập nhật add-on trở nên
-  đáng tin cậy hơn, cụ thể là khi bật tính năng tự kiểm tra cập nhật.
-* NVDA sẽ phát một âm thanh để biểu thị việc bắt đầu quét thư viện khi nó
-  được cấu hình phát tiếng beep cho các thông báo khác nhau.
-* NVDA sẽ bắt đầu ngầm quét thư viện nếu nó được bắt đầu từ các hộp thoại
-  tùy chọn của Studio hoặc bắt đầu khi khởi động.
-* Chạm hai lần vào track trên màn hình cảm ứng hoặc thực hiện các lệnh mặc
-  định sẽ chọn track và chuyển con trỏ hệ thống đến nó.
-* Khi chụp ảnh của danh sách phát (SPL Assistant, F8), nếu một danh sách
-  phát chỉ bao gồm các điểm đánh dấu theo giờ, sửa vài lỗi làm cho NVDA
-  không thực hiện chụp ảnh.
-
-## Phiên bản 18.03/15.14-LTS
-
-* Nếu được cấu hình để thông báo trạng thái truyền siêu dữ liệu khi khởi
-  động Studio, NVDA sẽ tôn trọng thiết lập này và không thông báo trạng thái
-  phát khi chuyển đến và chuyển đi khỏi các hồ sơ chuyển nhánh.
-* Nếu chuyển đến hay chuyển đi khỏi một hồ sơ chuyển nhanh, và NVDA được cấu
-  hình thông báo trạng thái truyền siêu dữ liệu khi nó xuất hiện, NVDA sẽ
-  không còn đọc thông tin này nhiều lần khi chuyển nhanh đến các hồ sơ.
-* NVDA sẽ nhớ chuyển đến các hồ sơ theo thời gian thích hợp (nếu chỉ định
-  cho một chương trình) sau khi khởi động lại NVDA nhiều lần trong chương
-  trình phát thanh.
-* Nếu một hồ sơ theo thời gian có thời lượng hoạt động đang chạy và khi hộp
-  thoại cài đặt add-on được mở hay đóng, NVDA vẫn sẽ chuyển trở về hồ sơ
-  nguyên thủy khi kết thúc hồ sơ theo thời gian.
-* Nếu một hồ sơ theo thời gian được kích hoạt (cụ thể là trong lúc phát
-  thanh), sẽ không thay đổi được tác nhân hồ sơ phát thanh thông qua hộp
-  thoại cài đặt ađd-on.
-
-## Phiên bản 18.02/15.13-LTS
-
-* 18.02: do các thay đổi bên trong để hỗ trợ các tính năng mở rộng nên yêu
-  cầu NVDA 2017.4.
-* Việc cập nhật add-on sẽ không thực hiện được trong vài trường hợp bao gồm
-  chạy NVDA từ mã nguồn hay chế độ bảo vệ đang bật. Việc kiểm tra chế độ bảo
-  vệ cũng áp dụng cho 15.13-LTS.
-* Nếu có lỗi xảy ra khi kiểm tra cập nhật, chúng sẽ được ghi lại và NVDA sẽ
-  gợi ý bạn đọc nó để biết thêm chi tiết.
-* Trong cài đặt add-on, nhiều cài đặt cập nhật trong phần cài đặt nâng cao
-  như cập nhật theo thời gian sẽ không hiển thị nếu không được hỗ trợ cập
-  nhật add-on.
-* NVDA sẽ không còn tình trạng bị đóng băng hoặc không làm gì khi chuyển đến
-  một hồ sơ chuyển nhanh hay hồ sơ theo thời gian và NVDA được cấu hình để
-  thông báo trạng thái truyền siêu dữ liệu.
-
-## Phiên bản 18.01/15.12-LTS
-
-* Khi dùng kiểu phím lệnh của JAWS cho SPL Assistant, lệnh kiểm tra cập nhật
-  (Control+Shift+U) đã làm việc chính xác.
-* Khi thay đổi cài đặt báo hiệu cho microphone thông qua hộp thoại báo hiệu
-  (Alt+NVDA+4), các thay đổi như bật báo hiệu và thay đổi của báo hiệu
-  microphone theo giờ được áp dụng khi đóng hộp thoại.
-
-## Phiên bản 17.12
-
-* Yêu cầu Windows 7 Service Pack 1 trở lên.
-* Vài tính năng của add-on đã được cải thiện. Điều này cho phép báo hiệu
-  microphone và truyền siêu dữ liệu phản hồi đến các thay đổi trong hồ sơ
-  phát thanh. Yêu cầu NvDA 2017.4.
-* Khi thoát Studio, nhiều hộp thoại của add-on như cài đặt add-on, hộp thoại
-  báo hiệu và nhiều nữa sẽ tự đóng lại. Yêu cầu NVDA 2017.4.
-* Thêm một lệnh mới trong bộ điều khiển SPL để thông báo tên của track sắp
-  tới nếu có (Shift+C).
-* Giờ bạn có thể bấm các phím của cart (ví dụ như F1) sau khi vào bộ điều
-  khiển SPl để phát các cart được gán ở bất cứ đâu.
-* Do các thay đổi có trong wxPython 4 GUI toolkit, hộp thoại xóa nhãn phát
-  thanh giờ đây là một hộp xổ thay vì là một trường nhập số.
-
-## Phiên bản 17.11.2
-
-Đây là phiên bản chính thức cuối cùng  còn hỗ trợ Windows XP, Vista và 7
-không có Service Pack 1. Phiên bản sắp tới cho các hệ điều hành này sẽ là
-bản phát hành 15.x LTS.
-
-* Nếu dùng các bản phát hành Windows trước Windows 7 Service Pack 1, bạn
-  không thể chuyển sang kênh thử nghiệm.
-
-## Phiên bản 17.11.1/15.11-LTS
-
-* NVDA sẽ không còn phát âm thanh báo lỗi hoặc không làm gì khi dùng các
-  phím Control+Alt+mũi tên trái phải để điều hướng qua các cột trong Track
-  Tool 5.20 với một track đã mở. Thay đổi này yêu cầu Studio 5.20, build 48
-  trở lên.
-
-## Phiên bản 17.11/15.10-LTS
-
-* Bắt đầu hỗ trợ cho StationPlaylist Studio 5.30.
-* Nếu báo hiệu microphone hay báo giờ theo thời gian được bật, và nếu thoát
-  Studio trong khi còn bật microphone, NVDA sẽ không còn phát âm báo hiệu
-  microphone từ mọi cửa sổ.
-* Khi xóa các hồ sơ phát thanh và nếu một hồ sơ khác trở thành hồ sơ chuyển
-  nhanh, cờ báo chuyển nhanh sẽ không bị gỡ khỏi hồ sơ chuyển.
-* Nếu xóa một hồ sơ đang hoạt động mà không phải hồ sơ chuyển nhánh hay theo
-  thời gian, NVDA sẽ hỏi một lần nữa để xác nhận trước khi thực hiện.
-* NVDA sẽ áp dụng chính xác các cài đặt cho báo hiệu microphone khi chuyển
-  sang các hồ sơ thông qua hộp thoại cài đặt add-on.
-* Giờ bạn có thể bấm SPL Controller, H để xem thông tin giúp đỡ cho bộ điều
-  khiển SPL.
-
-## Phiên bản 17.10
-
-* Nếu dùng các bản phát hành Windows trước Windows 7 Service Pack 1, bạn
-  không thể chuyển sang kênh cập nhật Test Drive Fast. Một bản phát hành
-  trong tương lai của add-on này sẽ chuyển những người dùng các phiên bản
-  Windows cũ sang một kênh hỗ trợ riêng.
-* Vài cài đặt chung như tiếng beep thông báo trạng thái, thông báo về đầu
-  hay cuối danh sách phát và nhiều nữa giờ đây đã được lưu tại hộp thoại cài
-  đặt add-on mới (truy cập từ một nút mới trong cài đặt add-on).
-* Giờ đã có thể gán thuộc tính chỉ đọc (read-only) cho các tùy chọn của
-  add-on, chỉ cần dùng hồ sơ bình thường, hoặc không gọi các cài đặt từ ổ
-  đĩa khi khởi động Studio. Những điều này được điều khiển bởi một lệnh
-  chuyển mới dành riêng cho add-on này.
-* Khi chạy NVDA từ hộp thoại Run (Windows+R), bạn có thể dùng thêm các dòng
-  lệnh chuyển để thay đổi cách hoạt động của add-on. Chúng bao gồm
-  "--spl-configvolatile" (thuộc tính chỉ đọc cho các cài đặt),
-  "--spl-configinmemory" (không gọi các cài đặt từ ổ đĩa), và
-  "--spl-normalprofileonly" (chỉ dùng hồ sơ bình thường).
-* Nếu thoát Studio (nhưng không thoát NVDA) khi một hồ sơ chuyển nhanh đang
-  hoạt động, NVDA sẽ không còn đưa ra thông báo gây hiểu lầm khi chuyển đến
-  một hồ sơ chuyển nhanh khi dùng lại Studio.
-
-## Phiên bản 17.09.1
-
-* Như là kết quả của một thông báo từ NV Access rằng NVDA 2017.3 sẽ là phiên
-  bản cuối cùng hỗ trợ các phiên bản Windows trước windows 7 Service Pack 1,
-  Studio add-on sẽ hiện một thông điệp nhắc nhớ chuyện này nếu chạy từ các
-  bản phát hành Windows cũ. Ngưng hỗ trợ cho các bản phát hành Windows cũ từ
-  add-on này (thông qua bản phát hành hỗ trợ dài hạn) được lên lịch cho
-  tháng tư 2018.
-* NVDA sẽ không còn hiện hộp thoại startup hoặc thông báo phiên bản Studio
-  nếu được chạy với lệnh chuyển minimal (nvda -rm). Chỉ ngoại lệ cho hộp
-  thoại các bản phát hành Windows cũ.
-
-## Phiên bản 17.09
-
-* Nếu người dùng mở hộp thoại tùy chọn nâng cao của add-on khi kênh cập nhật
-  và thời gian cập nhật được thiết lập là Test Drive Fast và 0 ngày, NVDA sẽ
-  không hiện thông điệp cảnh báo cho kênh cập nhật và thiờ gian cập nhật khi
-  thoát hộp thoại.
-* Lệnh cho phần còn lại của danh sách phát và phân tích track theo thời gian
-  giờ đây yêu cầu một danh sách phát được mở. Nếu không, sẽ hiện thông báo
-  lỗi.
-
-## Phiên bản 17.08.1
-
-* NVDA sẽ không còn bị lỗi khiến cho Studio phát track đầu tiên khi kết nối
-  bộ mã hóa.
-
-## Phiên bản 17.08
-
-* Các thay đổi về kênh cập nhật: try build giờ đổi thành Test Drive Fast,
-  development channel đổi thành Test Drive Slow. True "try" builds sẽ được
-  bảo lưu cho các bản dùng thử có yêu cầu người dùng phải cài đặt thủ công.
-* Giờ đây, đã có thể thiết lập thời gian cập nhật là 0 ngày. Điều này cho
-  phép add-on kiểm tra cập nhật khi khởi động NVDA hay SPL Studio. Sẽ có một
-  yêu cầu xác nhận việc chọn thời gian cập nhật là 0 ngày.
-* NVDA sẽ không còn tình trạng lỗi kiểm tra cập nhật add-on nếu cập nhật
-  theo thời gian được thiết lập là 25 ngày trở lên.
-* Trong cài đặt add-on, thêm hộp kiểm để NvDA phát âm thanh khi xuất hiện
-  yêu cầu của người nghe. Để dùng tính năng này, cửa sổ yêu cầu phải hiển
-  thị khi có yêu cầu.
-* Bấm lệnh xem thời gian phát thanh (NVDA+Shift+F12) hai lần sẽ làm cho NVDA
-  thông báo giờ và phút còn lại trong khung giờ hiện tại.
-* Giờ đã có thể dùng lệnh  tìm kiếm track (Control+NVDA+F) để tìm tên các
-  track đã tìm trước đó bằng cách chọn một cụm từ tìm kiếm trong lịch sử từ
-  đã nhập.
-* Khi thông báo tên track hiện tại và track kế qua SPL Assistant, giờ đã có
-  thể bao gồm các thông tin về việc Studio nội bộ nào sẽ phát track.
-* Thêm một thiết lập trong cài đặt add-on ở phần thông báo trạng thái để bao
-  gồm thông tin phát khi thông báo tựa đề của track hiện tại và track kế.
-* Sửa lỗi trong hộp thoại gợi ý tạm cũng như các hộp thoại khác khiến NVDA
-  không thông báo các giá trị mới khi thao tác với bộ chọn thời gian.
-* NVDA có thể ngăn chặn việc thông báo tiêu đề cột như ca sĩ và phân loại
-  khi xem lại track trong trình xem danh sách phát. Đây là thiết lập cho một
-  hồ sơ phát thanh riêng biệt.
-* Thêm một hộp kiểm trong hộp thoại cài đặt add-on để ngăn chặn thông báo
-  các tiêu đề cột khi xem lại track trong trình xem danh sách phát.
-* Thêm một lệnh trong bộ điều khiển SPL để thông báo tên và thời lượng của
-  track đang phát từ bất cứ đâu (C).
-* Khi thu thập các thông tin trạng thái thông qua bộ điều khiển SPL (Q)
-  trong khi dùng Studio 5.1x, các thông tin như trạng thái microphone, chế
-  độ chỉnh sửa cart và các thông tin khác cũng được thông báo ngoài phát lại
-  và tự động hóa.
 
 ## Các bản phát hành cũ hơn
 

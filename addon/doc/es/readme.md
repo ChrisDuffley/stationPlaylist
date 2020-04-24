@@ -23,7 +23,7 @@ NOTAS IMPORTANTES:
   el modo atenuación de audio.
 * A partir de 2018, los [registros de cambios para versiones antiguas][5] se
   encontrarán en GitHub. Este léeme del complemento listará cambios desde la
-  versión 17.08 (2017 en adelante).
+  versión 18.09 (2018 en adelante).
 * Ciertas características del complemento no funcionarán bajo algunas
   condiciones, incluyendo la ejecución de NVDA en modo seguro.
 * Debido a limitaciones técnicas, no puedes instalar ni utilizar este
@@ -54,24 +54,23 @@ contrario.
   SPL) desde la ventana Studio: anuncia el tiempo de emisión tal como 5
   minutos para el principio de la hora. Pulsando esta orden dos veces
   anunciará los minutos y segundos hasta la hora.
-* Alt+NVDA+1 (deslizar dos dedos a la derecha en modo SPL) desde la ventana
-  de Studio: abre el diálogo de opciones de fin de pista.
+* Alt+NVDA+1 (deslizamiento hacia la izquierda con dos dedos en el modo SPL)
+  desde la ventana de Studio: abre la categoría Alarmas en el diálogo de
+  configuración del complemento de Studio.
 * Alt+NVDA+1 desde la ventana del editor de listas de reproducción de
-  Creator: anuncia la hora programada de la lista de reproducción cargada.
-* Alt+NVDA+2 (deslizar  con dos dedos hacia a la izquierda en modo táctil
-  para SPL) desde la ventana Studio: Abre el diálogo de configuración de
-  alarma de intro de la canción.
+  Creator o de Remote VT: anuncia la hora programada de la lista de
+  reproducción cargada.
 * Alt+NVDA+2 desde la ventana del editor de listas de reproducción de
-  Creator: anuncia la duración total de la lista de reproducción.
+  Creator y de Remote VT: anuncia la duración total de la lista de
+  reproducción.
 * Alt+NVDA+3 desde la ventana Studio: activa o desactiva el explorador de
   cart para aprender las asignaciones de cart.
 * Alt+NVDA+3 desde la ventana del editor de listas de reproducción de
-  Creator: indica para cuándo se ha programado la reproducción de la pista
-  seleccionada.
-* Alt+NVDA+4 desde la ventana Studio: Abre el diálogo alarma del micrófono.
+  Creator y de Remote VT: indica para cuándo se ha programado la
+  reproducción de la pista seleccionada.
 * Alt+NVDA+4 desde la ventana del editor de listas de reproducción de
-  Creator: anuncia la rotación y categoría asociadas con la lista de
-  reproducción cargada.
+  Creator y de Remote VT: anuncia la rotación y categoría asociadas con la
+  lista de reproducción cargada.
 * Control+NVDA+f desde la ventana de Studio: Abre un diálogo para encontrar
   una pista sobre la base del artista o del nombre de la canción. Pulsa
   NVDA+F3 para buscar hacia adelante o NVDA+Shift+F3 para buscar hacia
@@ -81,17 +80,17 @@ contrario.
 * Control+Shift+X desde la ventana de Studio: Pasos de las opciones del
   temporizador braille.
 * Control+Alt+flecha derecha o izquierda (mientras se enfoca una pista en
-  Studio, Creator, o Track Tool): anuncia la columna de la pista siguiente o
-  anterior.
+  Studio, Creator, Remote VT o Track Tool): anuncia la columna de la pista
+  siguiente o anterior.
 * Control+Alt+inicio o fin (mientras se enfoca una pista en Studio, Creator,
-  o Track Tool): anuncia la primera o última columna de la pista.
+  Remote VT o Track Tool): anuncia la primera o última columna de la pista.
 * Control+Alt+flecha abajo/arriba (mientras se enfoque una pista sólo en
   Studio): se mueve a la pista siguiente o anterior y anuncia columnas
   específicas.
 * Control+NVDA+1 a 0 (mientras se enfoque una pista en Studio, Creator
-  (incluyendo su editor de listas de reproducción) o Track Tool): Anuncia el
-  contenido de la columna especificada (primeras diez columnas por
-  defecto). Pulsando este atajo dos veces mostrará la información de la
+  (incluyendo su editor de listas de reproducción), Remote VT o Track Tool):
+  Anuncia el contenido de la columna especificada (primeras diez columnas
+  por defecto). Pulsando este atajo dos veces mostrará la información de la
   columna en una ventana para modo navegación.
 * Control+NVDA+- (guión cuando una pista tiene el foco en Studio, Creator y
   Track Tool): mostrar datos de todas las columnas de una pista en una
@@ -266,20 +265,15 @@ Las órdenes disponibles para el SPL Controller son:
 * Pulsa H para mostrar un diálogo de ayuda que liste  las órdenes
   disponibles.
 
-## Alarmas de pista
+## Alarmas de pista y micrófono
 
-Por defecto, NVDA reproducirá un pitido si quedan cinco segundos a la
-izquierda de la pista (outro) y/o intro. Para configurar este valor así como
-para habilitarlos o deshabilitarlos, pulsa Alt+NVDA+1 o Alt+NVDA+2 para
-abrir los diálogos fin de la pista y canción ramp, respectivamente. Además,
-utiliza las opciones del diálogo del complemento Studio para configurar si
-escucharás un pitido, un mensaje o ambos cuando se enciendan las alarmas.
-
-## Alarma de micrófono
-
-Puedes pedir a NVDA reproducir una canción cuando el micrófono haya sido
-activado un rato. Pulsa Alt+NVDA+4 para configurar el tiempo de alarma en
-segundos (0 la deshabilita).
+Por defecto, NVDA reproducirá un pitido si quedan cinco segundos para que
+acabe la pista (outro) y/o intro, así como un pitido si el micrófono ha
+estado activado durante un rato. Para configurar las alarmas de pista y
+micrófono, pulsa NVDA+alt+1 para abrir las opciones de las alarmas en la
+pantalla de opciones del complemento de Studio. También puedes utilizar esta
+pantalla para configurar si se oye un pitido, un mensaje o ambos cuando se
+encienden las alarmas.
 
 ## Track Finder
 
@@ -312,11 +306,16 @@ entonces pulsa SPL Assistant, F10 cuando se llegue a la selección final.
 
 ## Explorador de Columnas
 
-Pulsando Control+NVDA+1 hasta 0 o SPL Assistant, 1 hasta 0, puedes obtener
-contenidos de columnas especificadas. Por omisión, hay artista, título,
-duración, intro, outro, categoría, año, álbum, género y mood. Puedes
-configurar qué columnas se explorarán a través del diálogo Explorador de
-columnas que se encuentra en el diálogo de opciones del complemento.
+Pulsando Control+NVDA+1 hasta 0, puedes obtener contenidos de columnas
+específicas. Por defecto, estas son las diez primeras columnas de un
+elemento de pista (en Studio: artista, título, duración, intro, outro,
+categoría, año, álbum, género, mood). En el editor de listas de reproducción
+de Creator y del cliente Remote VT, los datos de las columnas dependen del
+orden de las mismas según se muestren en pantalla. En Studio, la lista
+principal de pistas de Creator y la herramienta de pista, los slots de
+columna están predefinidos sin importar el orden de las columnas en pantalla
+y se pueden configurar desde el diálogo de opciones del complemento, bajo la
+categoría Explorador de columnas.
 
 ## Instantáneas de lista de reproducción
 
@@ -356,6 +355,37 @@ Windows 8 o posterior y tienes NVDA 2012.3 o posterior instalado, puedes
 realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
+
+## Versión 20.05
+
+* Soporte inicial para el cliente VT (pistas de voz) remoto, incluyendo las
+  mismas órdenes para el editor remoto de listas de reproducción que las del
+  editor de listas de reproducción de Creator.
+* Las órdenes para abrir diálogos de opciones de alarma separados
+  (Alt+NVDA+1, Alt+NVDA+2, Alt+NVDA+4) se han combinado en Alt+NVDA+1, y
+  ahora abrirán los ajustes de la alarma en la pantalla de opciones del
+  complemento de SPL, donde se pueden encontrar las opciones de alarma del
+  micrófono y de la introducción y la conclusión.
+* En el diálogo de disparadores que hay dentro del diálogo de perfiles de
+  emisión, se ha eliminado la interfaz de usuario asociada a la función de
+  perfiles de emisión basados en tiempo, como los campos de cambio de perfil
+  en día, hora o duración.
+* La opción de cuenta atrás de cambio de perfil que se encontraba en el
+  diálogo de perfiles de emisión se ha eliminado.
+* Ya que Window Eyes no está soportado por Vispero desde 2017, la
+  disposición de órdenes del asistente de SPL para Window Eyes está obsoleta
+  y se eliminará en una versión futura del complemento. Se mostrará un aviso
+  al inicio urgiendo a los usuarios a que cambien la disposición de órdenes
+  del asistente de SPL a NVDA (por defecto) o JAWS.
+* Al usar slots en el explorador de columnas (órdenes control+NVDA+fila
+  numérica) u órdenes de navegación por columnas (Control+alt+inicio / fin /
+  flecha izquierda / flecha derecha) en Creator o el cliente Remote VT, NVDA
+  ya no anunciará los datos de columna incorrectos tras cambiar la posición
+  de columna en pantalla mediante el ratón.
+* En los codificadores y Streamer, NVDA ya no parecerá hacer nada o
+  reproducir tonos de error al salir de NVDA mientras el foco está en algo
+  distinto a la lista de codificadores sin mover el foco a los codificadores
+  primero.
 
 ## Versión 20.04
 
@@ -691,350 +721,6 @@ soporte a Studio 5.10. La versión 18.10 y posteriores darán soporte a Studio
 * Al pulsar NVDA+control+c para guardar la configuración de NVDA, también se
   guardará la configuración del complemento de Studio (requiere NVDA
   2018.3).
-
-## Versión 18.08.2
-
-* NVDA ya no buscará actualizaciones del complemento de Studio si el
-  complemento Add-on Updater (prueba de concepto) está instalado. Como
-  consecuencia, las opciones del complemento ya no incluirán ajustes
-  relacionados con la actualización del complemento si este es el caso. Si
-  se utiliza Add-on updater, los usuarios deberían emplear las funciones de
-  este complemento para buscar actualizaciones del complemento de Studio.
-
-## Versión 18.08.1
-
-* Ya solucionado otro error de compatibilidad con WXPython 4 reproducible
-  cuando se sale de Studio.
-* NVDA anunciará con un mensaje pertinente cuando el texto de modificación
-  de lista de reproducción no esté presente, común cuando se carga una lista
-  sin modificar o cuando arranca Studio.
-* NVDA ya no parecerá no hacer nada o reproducirá un tono de error al
-  intentar obtener el estado de transmisión vía Asistente SPL (E).
-
-## Versión 18.08
-
-* El diálogo de opciones del complemento se basa ahora en la interfaz de
-  opciones multicategoría de NVDA 2018.2. En consecuencia, esta versión
-  requiere NVDA 2018.2 o posterior. La interfaz antigua de opciones del
-  complemento está desaprobada y se eliminará más adelante en 2018.
-* Añadida una nueva sección (botón/panel) en las opciones del complemento
-  para configurar las opciones de las transcripciones de lista de
-  reproducción, usado para configurar la inclusión y orden de columnas para
-  esta característica y otros ajustes.
-* Al crear una transcripción de lista de reproducción basada en tabla y si
-  el orden de columnas personalizado y/o la eliminación de columnas está
-  configurada, NVDA usará el orden personalizado de presentación de columnas
-  especificado en las opciones del complemento y/o no incluirá la
-  información de columnas eliminadas.
-* Al usar comandos de navegación por columnas en elementos de pista
-  (ctrl+alt+inicio/fin/flecha izquierda/flecha derecha) en Studio, Creator y
-  Track Tool, NVDA no anunciará datos de columna incorrectos después de
-  cambiar la posición de columna vía ratón.
-* Mejoras significativas en la respuesta de NVDA al usar atajos de
-  navegación por columnas en Creator y Track Tool. En particular, usando
-  Creator, NVDA responderá mejor al utilizar atajos de navegación por
-  columnas.
-* NVDA ya no reproducirá tonos de error o parecerá no hacer nada al intentar
-  añadir comentarios a pistas en Studio o al salir de NVDA mientras Studio
-  esté en uso, causado por un problema de compatibilidad con WXPython 4.
-
-## Versión 18.07
-
-* Añadida una pantalla multicategoría experimental de opciones del
-  complemento, accesible activando una opción en el diálogo de opciones del
-  complemento/avanzado (debes reiniciar NVDA tras configurar este ajuste
-  para que se muestre el nuevo diálogo). Esto es para usuarios de NVDA
-  2018.2, y no todos los ajustes del complemento se pueden configurar desde
-  esta pantalla.
-* NVDA ya no reproducirá tonos de error o parecerá no hacer nada al intentar
-  renombrar un perfil de difusión desde los ajustes del complemento, causado
-  por un problema de compatibilidad con WXPython 4.
-* Al reiniciar NVDA y/o Studio después de hacer cambios en los ajustes de un
-  perfil de emisión que no sea el perfil normal, NVDA ya no volverá a las
-  opciones por defecto.
-* Ahora es posible obtener transcripciones de lista de reproducción para la
-  hora actual. Selecciona "hora actual" en el desplegable de rango de lista
-  de reproducción en el diálogo de transcripciones de lista de reproducción
-  (Asistente SPL, shift+f8).
-* Añadida una opción en el diálogo de transcripciones de lista de
-  reproducción para guardar las transcripciones en un archivo (todos los
-  formatos) o copiadas al portapapeles (solo formatos texto y tabla
-  Markdown) además de la de verlas en la pantalla. Cuando se guardan las
-  transcripciones, lo hacen en la carpeta de documentos del usuario bajo la
-  subcarpeta "nvdasplPlaylistTranscripts".
-* La columna Estado ya no se incluye al crear listas en formatos HTML y
-  tabla Markdown.
-* Cuando  esté enfocada una pista en Creator o Track tool, pulsar
-  control+NVDA+fila numérica dos veces presentará la información de columna
-  en una ventana navegable.
-* En Creator y Track Tool, añadidos los atajos Control+Alt+Inicio/Fin para
-  mover el navegador de Columna a la primera o última columna para la pista
-  enfocada.
-
-## Versión 18.06.1
-
-* Solucionados varios problemas de compatibilidad con WXPython 4, incluyendo
-  la imposibilidad de abrir el buscador de pistas (control+NVDA+F), el
-  buscador de columnas o el buscador de rango de tiempo en Studio y el
-  diálogo etiquetador de streams (f12) desde la ventana de codificadores.
-* Si al abrir un diálogo de buscar en Studio ocurre un error inesperado,
-  NVDA presentará mensajes más apropiados en lugar de decir que otra ventana
-  buscar está abierta.
-* En la ventana de codificadores, NVDA ya no reproducirá tonos de error o
-  parecerá no hacer nada al intentar abrir el diálogo de ajustes del
-  codificador (alt+NVDA+0).
-
-## Versión 18.06
-
-* En los ajustes del complemento, añadido botón "Aplicar" de manera que la
-  configuración se aplique al perfil actualmente seleccionado y/o activo sin
-  cerrar la ventana primero. Esta característica está disponible para los
-  usuarios de NVDA 2018.2.
-* Resuelto un fallo por el que NVDA aplicaba los cambios en los ajustes del
-  explorador de columnas a pesar de pulsar el botón cancelar en el diálogo
-  de opciones del complemento.
-* En Studio, al pulsar control+NVDA+fila numérica dos veces mientras una
-  pista esté enfocada, NVDA mostrará la información de columna para una
-  columna  específica en una ventana de modo exploración.
-* Mientras una pista esté enfocada en Studio, pulsar control+NVDA+guión
-  mostrará los datos para todas las columnas en una ventana de modo
-  exploración.
-* En StationPlaylist Creator, mientras una pista esté enfocada, pulsar
-  control+NVDA+fila numérica anunciará los datos para una columna
-  específica.
-* Añadido un botón en los ajustes del complemento Studio para configurar el
-  explorador de columnas en SPL Creator.
-* Añadido el formato tabla markdown como formato de transcripciones de
-  listas de reproducción.
-* El comando de email para comentarios al desarrollador ha cambiado de
-  control+NVDA+guión a alt+NVDA+guión.
-
-## Versión 18.05
-
-* Añadido soporte para capturas parciales de la lista de reproducción. Esto
-  se puede hacer definiendo rango de análisis (asistente SPL, F9 al inicio
-  del rango de análisis) y moviéndose a otro elemento, y pulsando el comando
-  de Capturas de lista de reproducción.
-* Añadido un nuevo comando en el asistente SPL para solicitar
-  transcripciones de la lista de reproducción en un número de formatos
-  (shift+F8). Éstos incluyen texto plano, tabla HTML y lista HTML.
-* Varias características de análisis de lista de reproducción, como el
-  análisis de tiempo de pista y capturas de lista de reproducción están
-  ahora agrupadas bajo el título "Analizador de lista de reproducción".
-
-## Versión 18.04.1
-
-* NVDA ya no fallará al comenzar el temporizador de cuenta atrás para
-  perfiles de retransmisión basados en tiempo si se está utilizando NVDA con
-  el wxPython 4 toolkit instalado.
-
-## Versión 18.04
-
-* Se han realizado cambios para hacer la característica de verificar
-  actualizaciones más fiable, especialmente si la verificación automática de
-  actualizaciones del complemento está activada.
-* NVDA reproducirá un tono para indicar el comienzo del escaneo de
-  biblioteca cuando esté configurado para reproducir pitidos para anuncios
-  diversos.
-* NVDA comenzará a escanear la biblioteca en segundo plano si el escaneo se
-  invoca desde el diálogo de opciones de Studio o automáticamente al
-  arrancar.
-* Tocar dos veces sobre una pista en la pantalla táctil o realizando el
-  comando de acción por defecto seleccionará la pista y moverá el foco del
-  sistema a ella.
-* Se han resuelto varios errores cuando se toman capturas de listas de
-  reproducción (asistente SPL, F8) que solo tienen marcadores horarios.
-
-## Versión 18.03/15.14-LTS
-
-* Si NVDA está configurado para anunciar el estado de emisión de metadatos
-  cuando Studio se inicia, NVDA atenderá a esta configuración y ya no
-  anunciará el estado de emisión al alternar desde y a perfiles de cambio
-  instantáneo.
-* Si se cambia desde o a un perfil de cambio instantáneo y NVDA está
-  configurado para anunciar el estado de emisión de metadatos cuando esto
-  ocurra, no se anunciará la información varias veces cuando se alternen
-  perfiles rápidamente.
-* NVDA recordará cambiar al perfil basado en horario (si se definió para un
-  evento) aunque se reinicie NVDA varias veces durante la emisión.
-* Si está activo un perfil basado en horario con la duración de perfil
-  establecida, NVDA volverá al perfil original cuando el perfil acabe aunque
-  se abra y se cierre el diálogo de configuración.
-* Si está activo un perfil basado en horario (particularmente durante la
-  transmisión), no será posible cambiar los disparadores del perfil de
-  emisión mediante el diálogo de configuración del complemento.
-
-## Versión 18.02/15.13-LTS
-
-* 18.02: debido a los cambios internos realizados para soportar puntos de
-  extensión y otras características, se requiere de NVDA 2017.4.
-* La actualización adicional no será posible en algunos casos. Esto incluye
-  ejecutar NVDA desde código fuente o con el modo seguro activado. La
-  comprobación de modo seguro también es aplicable a 15.13-LTS.
-* Si se producen errores durante la comprobación de las actualizaciones,
-  éstos se registrarán y NVDA te aconsejará que leas el registro de NVDA
-  para obtener más detalles.
-* En las opciones del complemento, no se mostrarán varios ajustes de
-  actualización en la sección de parámetros avanzados, como el intervalo de
-  actualización, si no se admite la actualización de complementos.
-* NVDA ya no parecerá congelarse o no hacer nada al cambiar a un perfil de
-  cambio instantáneo o a un perfil basado en el tiempo y NVDA está
-  configurado para anunciar el estado de la transmisión de metadatos.
-
-## Versión 18.01/15.12-LTS
-
-* Al utilizar la distribución de JAWS para SPL Assistant, la orden buscar
-  actualizaciones (Control+Shift+U) ahora funciona correctamente.
-* Al cambiar las opciones de alarma de micrófono a través del diálogo alarma
-  (Alt+NVDA+4), cambios tales como habilitar alarma y cambios al intervalo
-  de alarma de micrófono se aplican cuando se cierre el diálogo.
-
-## Versión 17.12
-
-* Se requiere Windows 7 Service Pack 1 o posterior.
-* Se mejoraron varias características del complemento con puntos de
-  extensión. Esto permite que las características alarma del micrófono y
-  streaming de metadatos respondan a cambios en perfiles de
-  retransmisión. Esto requiere NVDA 2017.4.
-* Cuando se salga de Studio, varios diálogos del complemento tales como
-  Opciones de complemento, diálogos de alarma y otros se cerrarán
-  automáticamente. Esto requiere NVDA 2017.4.
-* Añadida una orden a SPL Controller para informar del nombre de la pista
-  actual en reproducción desde cualquier sitio (c).
-* Ahora puedes pulsar las teclas de cart (F1, por ejemplo) después de
-  introducir SPl Controller layer para reproducir carts asignados desde
-  cualquier lugar.
-* Debido a cambios introducidos en wxPython 4 GUI toolkit, el diálogo
-  Eliminar etiqueta de stream ahora es un cuadro combinado en lugar de un
-  campo de entrada numérica.
-
-## Versión 17.11.2
-
-Esta es la última versión que soporta Windows XP, Vista y 7 sin el Service
-Pack 1. La siguiente versión estable para estas versiones de Windows serán
-una versión 15.x LTS.
-
-* Si se utilizan versiones de Windows anteriores a Windows 7 Service Pack 1,
-  no puedes cambiarte a los canales de desarrollo.
-
-## Versión 17.11.1/15.11-LTS
-
-* NVDA ya no reproducirá tonos de error o ya no parecerá no hacer nada al
-  utilizar Control+Alt+teclas de flecha izquierda o derecha para navegar por
-  columnas en Track Tool 5.20 con una pista cargada. Debido a este cambio,
-  al utilizar Studio 5.20, se requiere de la compilación 48 o posterior.
-
-## Versión 17.11/15.10-LTS
-
-* Soporte inicial para StationPlaylist Studio 5.30.
-* Si la alarma de micrófono y/o el temporizador de intervalos están
-  activados y si se sale de Studio mientras el micrófono está encendido,
-  NVDA ya no reproducirá los tonos de alarma de micrófono desde ningún
-  sitio.
-* Al eliminar los perfiles de retransmisión y ocurre otro perfil para ser un
-  perfil de cambio instantáneo, la bandera de cambio instantáneo no se
-  debería borrar del perfil de cambio.
-* Si eliminando un perfil activo que no es un cambio instantáneo o un perfil
-  basado en tiempo, NVDA pedirá confirmación una vez más antes de proceder.
-* NVDA aplicará las configuraciones correctas para las opciones de alarma de
-  micrófono cuando los perfiles de cambio a través del diálogo opciones del
-  complemento.
-* Ahora puedes pulsar SPL Controller, H para obtener ayuda para el SPL
-  Controller layer.
-
-## Versión 17.10
-
-* Si se utilizan versiones de Windows anteriores a Windows 7 Service Pack 1,
-  no puedes cambiarf al canal de actualizaciones Test Drive Fast. Una
-  versión futura de este complemento moverá al usuario de versiones antiguas
-  de Windows a un canal de soporte dedicado.
-* Varias configuraciones generales tales como pitidos de anunciado de
-  estado, notificación de inicio y de fin de la lista de reproducción y
-  otras  ahora se colocan en el nuevo diálogo opciones generales del
-  complemento (accesible desde un botón nuevo en las opciones del
-  complemento).
-* Ahora es posible hacer las opciones del complemento de sólo lectura,
-  utilizar sólo el perfil normal, o no cargar opciones desde disco cuando
-  Studio arranque. Estas se controlan por nuevos parámetros de órdenes de
-  línea específicos para este complemento.
-* Al ejecutar NVDA desde el diálogo Ejecutar (Windows+R), ahora puedes pasar
-  unos parámetros adicionales de línea de órdenes para cambiar cómo funciona
-  el complemento. Estos incluyen "--spl-configvolatile" (opciones de sólo
-  lectura), "--spl-configinmemory" (No cargar opciones desde disco), y
-  "--spl-normalprofileonly" (utilizar sólo el perfil normal).
-* Si se sale de Studio (no de NVDA) mientras un perfil de cambio instantáneo
-  está activo, NVDA ya no dará un anuncio engañoso al cambiar a un perfil de
-  cambio instantáneo cuando se utilice Studio de nuevo.
-
-## Versión 17.09.1
-
-* Como resultado del anuncio de NV Access en que NVDA 2017.3 será la última
-  versión que soporte versiones de Windows anteriores a windows 7 Service
-  Pack 1, el complemento Studio presentará un mensaje recordatorio acerca de
-  esto si se ejecutan versiones antiguas de Windows. El fin del soporte para
-  versiones antiguas de Windows de este complemento se programó para abril
-  de 2018.
-* NVDA ya no muestra diálogos de inicio y/o anuncia la versión de Studio si
-  se inició con la bandera mínimo ajustada a (nvda -rm). la única excepción
-  es el diálogo recordatorio de versión antigua de Windows.
-
-## Versión 17.09
-
-* Si un usuario entra en el diálogo opciones avanzadas en opciones del
-  complemento mientras el canal de actualizaciones y el intervalo se
-  configuró a Unidad Rápida de Pruebas y/o cero días, NVDA ya no presentará
-  el mensaje de aviso de canal y/o de intervalo al salir de este diálogo.
-* Las órdenes de lista de reproducción restante y análisis de tiempo de
-  pista ahora requerirán que se cargue una lista de reproducción, y de lo
-  contrario se mostrará un mensaje de error más preciso.
-
-## Versión 17.08.1
-
-* NVDA ya no fallará causando que Studio reproduzca la primera pista cuando
-  esté conectado un codificador.
-
-## Versión 17.08
-
-* Cambios para actualizar las etiquetas de canales: try build ahora es Test
-  Drive Fast, development channel es Test Drive Slow. Las compilaciones
-  verdaderas "try" se reservarán para las compilaciones reales try que
-  requieran que los usuarios instalen manualmente una versión test.
-* El intervalo de actualización ahora puede configurarse a 0 (cero)
-  días. Esto permite al complemento buscar actualizaciones cuando NVDA y/o
-  SPL Studio arranquen. Se requerirá de una confirmación para cambiar el
-  intervalo de actualización a cero días.
-* NVDA ya no fallará al buscar actualizaciones del complemento si el
-  intervalo de actualización se configura a 25 días o más.
-* En la configuración del complemento, se añadió una casilla de verificación
-  para permitir a NVDA reproducir un sonido cuando un oyente solicite
-  entrar. Para utilizar esto completamente, la ventana de peticiones debe
-  desplegarse cuando llegue la petición.
-* Al pulsar dos veces la orden tiempo de transmisión (NVDA+Shift+F12) ahora
-  causará que NVDA anuncie los minutos y segundos restantes en la hora
-  actual.
-* Ahora es posible utilizar Buscador de Pista (Control+NVDA+F) para buscar
-  nombres de pistas que hayas buscado antes seleccionando un término de
-  búsqueda desde un historial de términos.
-* Al anunciar el título de la pista actual o siguiente a través del SPL
-  Assistant, ahora es posible incluir información acerca de qué reproductor
-  interno de Studio reproducirá la pista (ej.: player 1).
-* Añadida una opción en la configuración del complemento en anuncios de
-  estado para incluir información del reproductor al anunciar el título de
-  la pista actual y siguiente .
-* Corregido un problema en la cola temporal y otros diálogos donde NVDA no
-  anunciaría los nuevos valores al manipular temporizadores.
-* NVDA puede suprimir el anunciado de encabezados de columna tales como
-  Artista y Categoría cuando se revisan pistas en el visualizador de listas
-  de reproducción. Esta es una opción específica del perfil de transmisión.
-* Añadida una casilla de verificación en el diálogo de opciones del
-  complemento para suprimir el anunciado  de los encabezados de columna al
-  revisar pistas en el visualizador de listas de reproducción.
-* Añadida una orden a SPL Controller para informar del nombre y la duración
-  de la pista actual en reproducción desde cualquier sitio (c).
-* Al obtener información de estado a través de SPL Controller (Q) mientras
-  se utiliza Studio 5.1x, la información tal como estado del micrófono, modo
-  edición del cart y otra también se anunciará además de reproducción y
-  automatización.
 
 ## Versiones antiguas
 

@@ -20,9 +20,9 @@ VAŽNE NAPOMENE:
 * Za dodatak zahtijeva StationPlaylist suite 5.20 ili noviju verziju.
 * Korisnicima sustava Windows 8 ili novijeg, preporučamo deaktivirati modus
   stišavanja zvuka.
-* Od 2018. godine pa nadalje, [zapisi o promjenama za stara izdanja][5]
-  nalaze se na GitHubu. Readme datoteka dodatka sadrži popis promjena od
-  verzije 17.08 (2017. pa nadalje).
+* Starting from 2018, [changelogs for old add-on releases][5] will be found
+  on GitHub. This add-on readme will list changes from version 18.09 (2018
+  onwards).
 * Određene funkcije dodatka neće raditi pod nekim uvjetima, uključujući
   pokretanje NVDA čitača u sigurnom modusu.
 * Zbog tehničkih ograničenja, ovaj se dodatak ne može instalirati ili
@@ -50,40 +50,36 @@ Većina njih radi samo u programu Studio, ukoliko nešto drugo nije navedeno.
   prozoru Studija: najavljuje vrijeme emitiranja kao što je 5 minuta do
   punog sata. Dvostrukim pritiskom ove naredbe objavit će se minute i
   sekunde do punog sata.
-* Alt+NVDA+1 (klizanje s dva prsta prema desno u dodirnom modusu SPL-a) u
-  prozoru Studija: otvara dijaloški okvir s postavkama za kraj snimke.
-* Alt+NVDA+1 u prozoru Playlist Editora Creatora: najavljuje planirano
-  vrijeme za učitani popisa snimaka.
-* Alt+NVDA+2 (klizanje s dva prsta prema lijevo u dodirnom modusu SPL-a) u
-  prozoru Studija: otvara dijaloški okvir s postavkama alarma za uvodni dio
-  pjesme.
-* Alt+NVDA+2 u prozoru Playlist Editora Creatora: najavljuje ukupno trajanje
-  popisa snimaka.
+* Alt+NVDA+1 (two finger flick left in SPL mode) from Studio window: Opens
+  alarms category in Studio add-on configuration dialog.
+* Alt+NVDA+1 from Creator's Playlist Editor and Remote VT playlist editor:
+  Announces scheduled time for the loaded playlist.
+* Alt+NVDA+2 from Creator's Playlist Editor and Remote VT playlist editor:
+  Announces total playlist duration.
 * Alt+NVDA+3 u prozoru programa Studio: uključuje i isključuje istraživača
   džinglova za prikaz njima dodijeljenih naredbi.
-* Alt+NVDA+3 u prozoru Playlist Editora Creatora: najavljuje planirano
-  vrijeme sviranja za odabranu snimku.
-* Alt+NVDA+4 u prozoru Studija: otvara dijaloški okvir za alarm mikrofona.
-* Alt+NVDA+4 u prozoru Playlist Editora Creatora: najavljuje rotaciju i
-  povezanu kategoriju s učitanim popisom snimaka.
+* Alt+NVDA+3 from Creator's Playlist Editor and Remote VT playlist editor:
+  Announces when the selected track is scheduled to play.
+* Alt+NVDA+4 from Creator's Playlist Editor and Remote VT playlist editor:
+  Announces rotation and category associated with the loaded playlist.
 * Kontrol+NVDA+f u prozoru Studija: otvara dijaloški okvir za pronalaženje
   snimke na temelju izvođača ili pjesme. Pritisni NVDA+F3 za traženje prema
   naprijed ili NVDA+Šift+F3 za traženje prema natrag.
 * Alt+NVDA+R u prozoru Studija: prolazi kroz postavke najave skeniranja
   biblioteke.
 * Kontrol+Šift+X u prozoru Studija: prolazi kroz postavke brajeve štoperice.
-* Kontrol+Alt+strelica lijevo ili desno (tijekom fokusiranja trake u
-  programima Studio, Creator i Track Tool): najavi prethodni ili sljedeći
-  stupac trake.
-* Kontrol+Alt+Home/End (tijekom fokusiranja trake u programima Studio,
-  Creator i Track Tool): najavi prvi ili zadnji stupac trake.
+* Control+Alt+left/right arrow (while focused on a track in Studio, Creator,
+  Remote VT, and Track Tool): Announce previous/next track column.
+* Control+Alt+Home/End (while focused on a track in Studio, Creator, Remote
+  VT, and Track Tool): Announce first/last track column.
 * Kontrol+Alt+strelica gore ili dolje (samo tijekom fokusiranja na snimku u
   programu Studio): prijeđi na prethodnu ili sljedeću traku i najavi
   određene stupce.
-* Kontrol+NVDA+1 do 0 (tijekom fokusiranja trake u programima Studio,
-  Creator (uključujući Playlist Editor) i Track Tool): najavi sadržaj stupca
-  za određeni stupac (standardno za prvih deset stupaca). Pritisni naredbu
-  dvaput za prikaz podataka stupca u prozoru modusa pregledavanja.
+* Control+NVDA+1 through 0 (while focused on a track in Studio, Creator
+  (including Playlist Editor), Remote VT, and Track Tool): Announce column
+  content for a specified column (first ten columns by default). Pressing
+  this command twice will display column information on a browse mode
+  window.
 * Kontrol+NVDA+- (crtica u programu Studio, Creator i Track Tool): prikaži
   podatke svih stupaca u snimci na prozoru modusa pregledavanja.
 * Alt+NVDA+C tijekom fokusiranja na snimku (samo Studio): najavljuje
@@ -244,20 +240,14 @@ Dostupne naredbe za SPL Kontroler su:
 * Pritisni H za prikaz dijaloškog okvira za pomoć s popisom dostupnih
   naredbi.
 
-## Alarmi za snimke
+## Track and microphone alarms
 
-NVDA je standardno tako postavljen, da svira zvučni signal pri ostatku od
-pet sekundi u završnom i-ili uvodnom dijelu snimke. Za konfiguriranje ovu
-vrijednosti te za aktiviranje ili deaktiviranje sviranja zvučnog signala,
-pritisni Alt+NVDA+1. Ili pritisni Alt+NVDA+2 za otvaranje kraja
-snimke. Pored toga, koristi dijaloški okvir postavki Studio dodatka, gdje
-možeš odlučiti, želiš li čuti zvučni signal, poruku ili oboje, kad su alarmi
-uključeni.
-
-## Alarmi za mikrofon
-
-NVDA može svirati zvuk kad je mikrofon neko vrijeme aktivan. Pritisni
-Alt+NVDA+4 i konfiguriraj vrijeme alarma u sekundama (0 ga deaktivira).
+By default, NVDA will play a beep if five seconds are left in the track
+(outro) and/or intro, as well as to hear a beep if microphone has been
+active for a while. To configure track and microphone alarms, press
+Alt+NVDA+1 to open alarms settings in Studio add-on settings screen. You can
+also use this screen to configure if you'll hear a beep, a message or both
+when alarms are turned on.
 
 ## Pronalaženje snimaka
 
@@ -289,11 +279,14 @@ dođeš do kraja odabira.
 
 ## Istraživač stupaca
 
-Pritiskom na Kontrol+NVDA+1 do 0 ili SPL Asistent, od 1 do 0, dobiva se
-sadržaj određenih stupaca. Standardno su to sljedeći podaci: izvođač,
-naslov, trajanje, uvodni dio, završni dio, kategorija, godina, album, žanr i
-ugođaj. Moguće je konfigurirati koji će se stupci istraživati putem
-dijaloškog okvira istraživača stupaca, koji se nalazi u postavkama dodatka.
+By pressing Control+NVDA+1 through 0, you can obtain contents of specific
+columns. By default, these are first ten columns for a track item (in
+Studio: artist, title, duration, intro, outro, category, year, album, genre,
+mood). For playlist editor in Creator and Remote VT client, column data
+depends on column order as shown on screen. In Studio, Creator's main track
+list, and Track Tool, column slots are preset regardless of column order on
+screen and can be configured from add-on settings dialog under columns
+explorer category.
 
 ## Statistika popisa snimaka
 
@@ -332,6 +325,31 @@ operacijskim sustavom Windows 8 ili novijim i ako imaš instaliran NVDA
 2012.3 ili noviji, možeš izvršiti neke Studio naredbe na ekranu osjetljivim
 na dodir. Za prebacivanje na modus SPL-a, dodirni ekran s tri prsta. Zatim
 koristi gore navedene dodirne naredbe za njihovo izvršavanje.
+
+## Version 20.05
+
+* Initial support for Remote VT (voice track) client, including remote
+  playlist editor with same commands as Creator's playlist editor.
+* Commands used to open separate alarm settings dialogs (Alt+NVDA+1,
+  Alt+NVDA+2, Alt+NVDA+4) has been combined into Alt+NvDA+1 and will now
+  open alarms settings in SPL add-on settings screen where track outro/intro
+  and microphone alarm settings can be found.
+* In triggers dialog found in broadcast profiles dialog, removed the user
+  interface associated with time-based broadcast profiles feature such as
+  profile switch day/time/duration fields.
+* Profile switch countdown setting found in broadcast profiles dialog has
+  been removed.
+* As Window-Eyes is no longer supported by Vispero since 2017, SPL Assistant
+  command layout for Window-Eyes is deprecated and will be removed in a
+  future add-on release. A warning will be shown at startup urging users to
+  change SPL Assistant command layout to NVDA (default) or JAWS.
+* When using Columns Explorer slots (Control+NvDA+number row commands) or
+  column navigation commands (Control+Alt+home/end/left arrow/right arrow)
+  in Creator and Remote VT client, NVDA will no longer announce wrong column
+  data after changing column position on screen via mouse.
+* In encoders and Streamer, NVDA will no longer appear to do nothing or play
+  error tones when exiting NVDA while focused on something other than
+  encoders list without moving focus to encoders first.
 
 ## Verzija 20.04
 
@@ -634,312 +652,6 @@ new features. Some new features will be backported to 18.09.x if needed.
   format.
 * Pressing Control+NVDA+C to save settings will now also save Studio add-on
   settings (requires NVDA 2018.3).
-
-## Version 18.08.2
-
-* NVDA will no longer check for Studio add-on updates if Add-on Updater
-  (proof of concept) add-on is installed. Consequently, add-on settings will
-  no longer include add-on update related settings if this is the case. If
-  using Add-on Updater, users should use features provided by this add-on to
-  check for Studio add-on updates.
-
-## Version 18.08.1
-
-* Fixed yet another wxPython 4 compatibility issue seen when Studio exits.
-* NVDA will announce an appropriate message when playlist modification text
-  isn't present, commonly seen after loading an unmodified playlist or when
-  Studio starts.
-* NVDA will no longer appear to do nothing or play error tones when trying
-  to obtain metadata streaming status via SPL Assistant (E).
-
-## Version 18.08
-
-* Add-on settings dialog is now based on multi-category settings interface
-  found in NVDA 2018.2. Consequently, this release requires NVDA 2018.2 or
-  later. The old add-on settings interface is deprecated and will be removed
-  later in 2018.
-* Added a new section (button/panel) in add-on settings to configure
-  playlist transcripts options, which is used to configure column inclusion
-  and ordering for this feature and other settings.
-* When creating a table-based playlist transcripts and if custom column
-  ordering and/or column removal is in effect, NVDA will use custom column
-  presentation order specified from add-on settings and/or not include
-  information from removed columns.
-* When using column navigation commands in track items
-  (Control+Alt+home/end/left arrow/right arrow) in Studio, Creator, and
-  Track Tool, NVDA will no longer announce wrong column data after changing
-  column position on screen via mouse.
-* Significant improvements to NVDA's responsiveness when using column
-  navigation commands in Creator and Track Tool. In particular, when using
-  Creator, NVDA will respond better when using column navigation commands.
-* NVDA will no longer play error tones or appear to do nothing when
-  attempting to add comments to tracks in Studio or when exiting NVDA while
-  using Studio, caused by wxPython 4 compatibility issue.
-
-## Version 18.07
-
-* Added an experimental multi-category add-on settings screen, accessible by
-  toggling a setting in add-on settings/Advanced dialog (you need to restart
-  NVDA after configuring this setting for the new dialog to show up). This
-  is for NVDA 2018.2 users, and not all add-on settings can be configured
-  from this new screen.
-* NVDA will no longer play error tones or appear to do nothing when trying
-  to rename a broadcast profile from add-on settings, caused by wxPython 4
-  compatibility issue.
-* When restarting NVDA and/or Studio after making changes to settings in a
-  broadcast profile other than normal profile, NVDA will no longer revert to
-  old settings.
-* It is now possible to obtain playlist transcripts for the current
-  hour. Select "current hour" from list of playlist range options in
-  playlist transcripts dialog (SPL Assistant, Shift+F8).
-* Added an option in Playlist Transcripts dialog to have transcripts saved
-  to a file (all formats) or copied to the clipboard (text and Markdown
-  table formats only) in addition to viewing transcripts on screen. When
-  transcripts are saved, they are saved to user's Documents folder under
-  "nvdasplPlaylistTranscripts" subfolder.
-* Status column is no longer included when creating playlist transcripts in
-  HTML and Markdown table formats.
-* When focused on a track in Creator and Track Tool, pressing
-  Control+NVDA+number row twice will present column information on a browse
-  mode window.
-* In Creator and Track Tool, added Control+Alt+Home/End keys to move Column
-  Navigator to first or last column for the focused track.
-
-## Version 18.06.1
-
-* Fixed several compatibility issues with wxPython 4, including inability to
-  open track finder (Control+NVDA+F), column search and time ranger finder
-  dialogs in Studio and stream labeler dialog (F12) from encoders window.
-* While opening a find dialog from Studio and an unexpected error occurs,
-  NVDA will present more appropriate messages instead of saying that another
-  find dialog is open.
-* In encoders window, NVDA will no longer play error tones or appear to do
-  nothing when attempting to open encoder settings dialog (Alt+NVDA+0).
-
-## Version 18.06
-
-* In add-on settings, added "Apply" button so changes to settings can be
-  applied to the currently selected and/or active profile without closing
-  the dialog first. This feature is available for NVDA 2018.2 users.
-* Resolved an issue where NVDA would apply changes to Columns Explorer
-  settings despite pressing Cancel button from add-on settings dialog.
-* In Studio, when pressing Control+NVDA+number row twice while focused on a
-  track, NVDA will display column information for a specific column on a
-  browse mode window.
-* While focused on a track in Studio, pressing Control+NVDA+Dash will
-  display data for all columns on a browse mode window.
-* In StationPlaylist Creator, when focused on a track, pressing
-  Control+NVDA+number row will announce data in specific column.
-* Added a button in Studio add-on settings to configure Columns Explorer for
-  SPL Creator.
-* Added Markdown table format as a playlist transcripts format.
-* The developer feedback email command has changed from Control+NVDA+dash to
-  Alt+NVDA+dash.
-
-## Version 18.05
-
-* Added ability to take partial playlist snapshots. This can be done by
-  defining analysis range (SPL Assistant, F9 at the start of the analysis
-  range) and moving to another item and performing playlist snapshots
-  command.
-* Added a new command in SPL Assistant to request playlist transcripts in a
-  number of formats (Shift+F8). These include plain text, an HTML table, or
-  an HTML list.
-* Various playlist analysis features such as track time analysis and
-  playlist snapshots are now grouped under the theme of "Playlist Analyzer".
-
-## Version 18.04.1
-
-* NVDA will no longer fail to start countdown timer for time-based broadcast
-  profiles if NVDA with wxPython 4 toolkit installed is in use.
-
-## Version 18.04
-
-* Changes were made to make add-on update check feature more reliable,
-  particularly if automatic add-on update check is enabled.
-* NVDA will play a tone to indicate start of library scan when it is
-  configured to play beeps for various announcements.
-* NVDA will start library scan in the background if library scan is started
-  from Studio's Options dialog or at startup.
-* Double-tapping on a track on a touchscreen computer or performing default
-  action command will now select the track and move system focus to it.
-* When taking playlist snapshots (SPL Assistant, F8), if a playlist consists
-  of hour markers only, resolves several issues where NVDA appeared to not
-  take snapshots.
-
-## Version 18.03/15.14-LTS
-
-* If NVDA is configured to announce metadata streaming status when Studio
-  starts, NVDA will honor this setting and no longer announce streaming
-  status when switching to and from instant switch profiles.
-* If switching to and from an instant switch profile and NVDA is configured
-  to announce metadata streaming status whenever this happens, NVDA will no
-  longer announce this information multiple times when switching profiles
-  quickly.
-* NVDA will remember to switch to the appropriate time-based profile (if
-  defined for a show) after NVDA restarts multiple times during broadcasts.
-* If a time-based profile with profile duration set is active and when
-  add-on settings dialog is opened and closed, NVDA will still switch back
-  to the original profile once the time-based profile is finished.
-* If a time-based profile is active (particularly during broadcasts),
-  changing broadcast profile triggers via add-on settings dialog will not be
-  possible.
-
-## Version 18.02/15.13-LTS
-
-* 18.02: Due to internal changes made to support extension points and other
-  features, NVDA 2017.4 is required.
-* Add-on updating won't be possible under some cases. These include running
-  NVDA from source code or with secure mode turned on. Secure mode check is
-  applicable to 15.13-LTS as well.
-* If errors occur while checking for updates, these will be logged and NVDA
-  will advise you to read the NVDA log for details.
-* In add-on settings, various update settings in advanced settings section
-  such as update interval will not be displayed if add-on updating is not
-  supported.
-* NVDA will no longer appear to freeze or do nothing when switching to an
-  instant switch profile or a time-based profile and NVDA is configured to
-  announce metadata streaming status.
-
-## Version 18.01/15.12-LTS
-
-* When using JAWS layout for SPL Assistant, update check command
-  (Control+Shift+U) now works correctly.
-* When changing microphone alarm settings via the alarm dialog (Alt+NVDA+4),
-  changes such as enabling alarm and changes to microphone alarm interval
-  are applied when closing the dialog.
-
-## Version 17.12
-
-* Windows 7 Service Pack 1 or later is required.
-* Several add-on features were enhanced with extension points. This allows
-  microphone alarm and metadata streaming feature to respond to changes in
-  broadcast profiles. This requires NVDA 2017.4.
-* When Studio exits, various add-on dialogs such as add-on settings, alarm
-  dialogs and others will close automatically. This requires NVDA 2017.4.
-* Added a new command in SPL Controller layer to announce name of the
-  upcoming track if any (Shift+C).
-* You can now press cart keys (F1, for example) after entering SPl
-  Controller layer to play assigned carts from anywhere.
-* Due to changes introduced in wxPython 4 GUI toolkit, stream label eraser
-  dialog is now a combo box instead of a number entry field.
-
-## Version 17.11.2
-
-This is the last stable version to support Windows XP, Vista and 7 without
-Service Pack 1. The next stable version for these Windows releases will be a
-15.x LTS release.
-
-* If using Windows releases prior to Windows 7 Service Pack 1, you cannot
-  switch to development channels.
-
-## Version 17.11.1/15.11-LTS
-
-* NVDA will no longer play error tones or appear to do nothing when using
-  Control+Alt+left or right arrow keys to navigate columns in Track Tool
-  5.20 with a track loaded. Because of this change, when using Studio 5.20,
-  build 48 or later is required.
-
-## Version 17.11/15.10-LTS
-
-* Initial support for StationPlaylist Studio 5.30.
-* If microphone alarm and/or interval timer is turned on and if Studio exits
-  while microphone is on, NVDA will no longer play microphone alarm tone
-  from everywhere.
-* When deleting broadcast profiles and if another profile happens to be an
-  instant switch profile, instant switch flag won't be removed from the
-  switch profile.
-* If deleting an active profile that is not an instant switch or a
-  time-based profile, NVDA will ask once more for confirmation before
-  proceeding.
-* NVDA will apply correct settings for microphone alarm settings when
-  switching profiles via add-on settings dialog.
-* You can now press SPL Controller, H to obtain help for SPL Controller
-  layer.
-
-## Version 17.10
-
-* If using Windows releases prior to Windows 7 Service Pack 1, you cannot
-  switch to Test Drive Fast update channel. A future release of this add-on
-  will move users of old Windows versions to a dedicated support channel.
-* Several general settings such as status announcement beeps, top and bottom
-  of playlist notification and others are now located in the new general
-  add-on settings dialog (accessed from a new button in add-on settings).
-* It is now possible to make add-on options read-only, use only the normal
-  profile, or not load settings from disk when Studio starts. These are
-  controlled by new command-line switches specific to this add-on.
-* When running NVDA from Run dialog (Windows+R), you can now pass in
-  additional command-line switches to change how the add-on works. These
-  include "--spl-configvolatile" (read-only settings),
-  "--spl-configinmemory" (do not load settings from disk), and
-  "--spl-normalprofileonly" (only use normal profile).
-* If exitting Studio (not NVDA) while an instant switch profile is active,
-  NVDA will no longer give misleading announcement when switching to an
-  instant switch profile when using Studio again.
-
-## Version 17.09.1
-
-* As a result of announcement from NV Access that NVDA 2017.3 will be the
-  last version to support Windows versions prior to windows 7 Service Pack
-  1, Studio add-on will present a reminder message about this if running
-  from old Windows releases. End of support for old Windows releases from
-  this add-on (via long-term support release) is scheduled for April 2018.
-* NVDA will no longer display startup dialogs and/or announce Studio version
-  if started with minimal (nvda -rm) flag set. The sole exception is the old
-  Windows release reminder dialog.
-
-## Version 17.09
-
-* If a user enters advanced options dialog under add-on settings while the
-  update channel and interval was set to Test Drive Fast and/or zero days,
-  NVDA will no longer present the channel and/or interval warning message
-  when exitting this dialog.
-* Playlist remainder and trakc time analysis commands will now require that
-  a playlist be loaded, and a more accurate error message will be presented
-  otherwise.
-
-## Version 17.08.1
-
-* NVDA will no longer fail to cause Studio to play the first track when an
-  encoder is connected.
-
-## Version 17.08
-
-* Changes to update channel labels: try build is now Test Drive Fast,
-  development channel is Test Drive Slow. The true "try" builds will be
-  reserved for actual try builds that require users to manually install a
-  test version.
-* Update interval can now be set to 0 (zero) days. This allows the add-on to
-  check for updates when NVDA and/or SPL Studio starts. A confirmation will
-  be required to change update interval to zero days.
-* NVDA will no longer fail to check for add-on updates if update interval is
-  set to 25 days or longer.
-* In add-on settings, added a checkbox to let NVDA play a sound when
-  listener requests arrive. To use this fully, requests window must pop up
-  when requests arrive.
-* Pressing broadcaster time command (NVDA+Shift+F12) twice will now cause
-  NVDA to announce minutes and seconds remaining in the current hour.
-* It is now possible to use Track Finder (Control+NVDA+F) to search for
-  names of tracks you've searched before by selecting a search term from a
-  history of terms.
-* When announcing title of current and next track via SPL Assistant, it is
-  now possible to include information about which Studio internal player
-  will play the track (e.g. player 1).
-* Added a setting in add-on settings under status announcements to include
-  player information when announcing title of the current and the next
-  track.
-* Fixed an issue in temporary cue and other dialogs where NVDA would not
-  announce new values when manipulating time pickers.
-* NVDA can suppress announcement of column headers such as Artist and
-  Category when reviewing tracks in playlist viewer. This is a broadcast
-  profile specific setting.
-* Added a checkbox in add-on settings dialog to suppress announcement of
-  column headers when reviewing tracks in playlist viewer.
-* Added a command in SPL Controller layer to announce name and duration of
-  the currently playing track from anywhere (C).
-* When obtaining status information via SPL Controller (Q) while using
-  Studio 5.1x, information such as microphone status, cart edit mode and
-  others will also be announced in addition to playback and automation.
 
 ## Older releases
 
