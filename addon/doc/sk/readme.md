@@ -20,7 +20,7 @@ Dôležité:
 * Ak používate Systém od verzie Windows 8, odporúčame vám vypnúť funkciu
   automatického stišovania.
 * Od roku 2018 je [Zoznam zmien (anglicky)][5] na serveri GitHub. V tomto
-  dokumente sú uvedené zmeny od verzie 17.08.
+  dokumente sú uvedené zmeny od verzie 18.09.
 * Niektoré funkcie doplnku nemusia vždy fungovať, napríklad ak sa nachádzate
   na zabezpečenej obrazovke.
 * Z technických príčin nie je možné tento doplnok používať na verzii NVDA z
@@ -45,37 +45,32 @@ Väčšina skratiek je určených pre Studio, ak nie je uvedené inak.
 * nvda+shift+F12 (švihnutie dvoma prstami hore v dotykovom režime) v okne
   Studio: oznámi čas vysielania, napríklad 5 minút do celej hodiny. Stlačené
   dvakrát rýchlo za sebou oznamuje minúty aj sekundy.
-* alt+nvda+1 (švihnutie dvoma prstami doprava v dotykovom režime) v okne
-  Studio: otvorí dialóg s nastavením konca skladby.
-* alt+nvda+1 pri úprave playlistu v okne creator: Oznámi plánovaný čas
-  spustenia playlistu.
-* alt+NVDA+2 (švihnutie dvoma prstami doľava v dotykovom režime) v okne
-  Studio: otvorí dialóg s nastavením úvodu a upozornenia na koniec intra
-  skladby.
-* Alt+NVDA+2 pri úprave playlistu v okne creator: Oznámi celkový čas
-  skladieb v playliste.
+* alt+NVDA+1 (švihnutie dvoma prstami doľava v dotykovom režime) v okne
+  Studio: otvorí kategóriu upozornenia v nastaveniach doplnku.
+* alt+nvda+1 pri úprave playlistu v okne creator a Remote VT playlist
+  editor: Oznámi plánovaný čas spustenia playlistu.
+* Alt+NVDA+2 pri úprave playlistu v okne creator a Remote VT playlist
+  editor: Oznámi celkový čas skladieb v playliste.
 * alt+NVDA+3 v okne Studio : zapína a vypína prehliadač jinglov.
-* Alt+NVDA+3 pri úprave playlistu v okne creator: Oznámi čas odohratia
-  vybratej skladby.
-* Alt+NVDA+4 v okne Studio: Otvorí nastavenia upozornenia na zapnutý
-  mikrofón.
-* Alt+NVDA+4 pri úprave playlistu v okne creator: Oznámi kategóriu a rotáciu
-  pre načítaný playlist.
+* Alt+NVDA+3 pri úprave playlistu v okne creator a Remote VT playlist
+  editor: Oznámi čas odohratia vybratej skladby.
+* Alt+NVDA+4 pri úprave playlistu v okne creator a Remote VT playlist
+  editor: Oznámi kategóriu a rotáciu pre načítaný playlist.
 * Ctrl+NVDA+f v okne Studio: otvorí okno, v ktorom môžete nájsť skladbu
   podľa názvu alebo interpreta. NVDA+F3 hľadá dopredu, NVDA+shift+F3 hľadá
   dozadu.
 * Alt+NVDA+R v okne Studio: Prepína oznamovanie skenovania knižnice.
 * Ctrl+Shift+X v okne Studio: Prepína zobrazenie na braillovskom riadku.
 * Ctrl+Alt+šípky doľava a doprava (pri zobrazení skladby v oknách Studio,
-  Creator, a Track Tool): Oznamuje metadáta vybratej skladby.
-* Ctrl+Alt+home a end (pri zobrazení skladby v oknách Studio, Creator, a
-  Track Tool): Oznámi prvú a poslednú informáciu o metadátach.
+  Creator, Remote VT, a Track Tool): Oznamuje metadáta vybratej skladby.
+* Ctrl+Alt+home a end (pri zobrazení skladby v oknách Studio, Creator,
+  Remote VT, a Track Tool): Oznámi prvú a poslednú informáciu o metadátach.
 * Ctrl+Alt+šípky hore a dole (pri zobrazení skladby v okne Studio): presunie
   kurzor na nasledujúcu alebo predchádzajúcu skladbu a oznámi vybraté
   metadáta.
 * Ctrl+NVDA+1 až 0 (Pri zobrazení skladby v okne Studio, Creator (vrátane
-  úpravy playlistu), a Track Tool): Oznámi príslušné metadáta (prvých
-  10). Stlačené dvakrát rýchlo za sebou zobrazí metadáta v režime
+  úpravy playlistu), Remote VT, a Track Tool): Oznámi príslušné metadáta
+  (prvých 10). Stlačené dvakrát rýchlo za sebou zobrazí metadáta v režime
   prehliadania.
 * Ctrl+NVDA+- (pomlčka pri zobrazení skladby v oknách Studio, Creator, a
   Track Tool): Zobrazí všetky metadáta v režime prehliadania.
@@ -220,19 +215,12 @@ Dostupné sú tieto príkazy:
 * Jingle môžete odkiaľ koľvek spúšťať skratkami F1, ctrl+1 a podobne.
 * H: Oznámi dostupné príkazy a funkcie.
 
-## Upozornenia
+## Upozornenia na zapnutý mikrofón, intro a koniec skladby
 
 Predvolene NVDA zapípa 5 sekúnd pred koncom skladby alebo pred koncom intra
-skladby. Toto nastavenie je možné zapnúť, vypnúť a upraviť hodnoty po
-stlačení alt+nvda+1 (začiatok skladby) a alt+nvda+2 (koniec skladby). V
-nastaveniach doplnku je navyše možné nastaviť upozornenie pípaním, rečou
-alebo oboje.
-
-## Upozornenia na zapnutý mikrofón
-
-NVDA môže upozorniť, že je dlhšie zapnutý mikrofón. Nastavenie upravíte
-skratkou alt+nvda+4. Nastavte príslušný počet sekúnd. Upozornenia vypnete
-nastavením hodnoty 0.
+skladby a tiež upozorňuje, keď je zapnutý mikrofón. Toto nastavenie je možné
+zapnúť, vypnúť a upraviť hodnoty po stlačení alt+nvda+1. Je možné nastaviť
+upozornenie pípaním, rečou alebo oboje.
 
 ## Vyhľadávač skladieb
 
@@ -264,10 +252,12 @@ skratku na spl zložený príkaz nasledovaný klávesom F10.
 
 ## Prehliadač metadát
 
-Skratkami Ctrl+NVDA+1 až 0 alebo pod zložením príkazom číslami 1 až 0,
-môžete čítať metadáta k skladbe.Predvolene je to interpret, názov, dĺžka,
-intro, outro, kategória, rok, album, žáner a nálada. Zobrazené metadáta sa
-dajú nastavovať v prehliadači metadát v nastaveniach doplnku.
+Skratkami Ctrl+NVDA+1 až 0, môžete čítať metadáta k skladbe. Predvolene je
+to v okne studio: interpret, názov, dĺžka, intro, outro, kategória, rok,
+album, žáner a nálada. V editoroch playlistu Creator a Remote VT závisí
+poradie podľa toho, ako je nastavené usporiadanie na obrazovke. Zobrazené
+metadáta sa dajú nastavovať v prehliadači metadát v nastaveniach
+doplnku. Tieto nastavenia sa zohľadňujú len pre Studio a Tracktool.
 
 ## Štatistika playlistu
 
@@ -298,6 +288,27 @@ Ak máte k dispozícii dotykovú obrazovku, používate Windows od verzie 8 a
 NVDA  od verzie 2012.3, môžete na ovládanie doplnku použiť dotykové
 príkazy. Najprv je potrebné dotknúť sa obrazovky tromi prstami. Následne
 vykonajte gestá spomenúté vyššie v tomto návode.
+
+## verzia 20.05
+
+* Prvotná podpora pre aplikáciu na nahrávanie vstupov Remote VT (voice
+  track), a tiež podpora pre remote playlist editor s rovnakými príkazmi ako
+  Creator.
+* Príkazy na otvorenie nastavení upozornení (alt+nvda+1, alt+nvda+2,
+  alt+nvda+4) sú odteraz zlúčené do jedného okna, ktoré otvoríte skratkou
+  alt+nvda+1.
+* Odstránená možnos nastaviť čas a dĺžku trvania spusteného profilu.
+* Odstránená možnosť odpočítavania pri spustení časovaného profilu.
+* Keďže čítač obrazovky Window-Eyes už firma Vispero  nevyvíja od roku 2017,
+  budú z nasledujúcich verzií doplnku odstránené skratky pre tento čítač
+  obrazovky. Ak používate rozloženie pre Window-eyes, NVDA na túto
+  skutočnosť upozorní a odporučí nastavenie iného rozloženia (JAWS alebo
+  NVDA).
+* Ak zmeníte poradie metadát myšou a následne použijete skratky na
+  prezeranie metadát, NVDA zohľadní zmenyy
+* Ak ukončíte NVDA a nemáte v okne s nastavením enkodéra zameraný zoznam
+  pripojení, NVDA viac nehlási chybu a dá sa ukončiť bez nutnosti zamerať
+  zoznam pripojení.
 
 ## verzia 20.04
 
@@ -540,253 +551,6 @@ funkcie môžu byť časom portované aj do verzie 18.09.
   čiarkami\v).
 * Skratka na uloženie nastavení ctrl+nvda+c uloží aj nastavenia
   doplnku. Vyžaduje sa NVDA od verzie 2018.3.
-
-## verzia 18.08.2
-
-* Ak je nainštalovaný aktualizačný nástroj pre doplnky, tento doplnok viac
-  nebude kontrolovať aktualizácie a nastavenia pre aktualizácie viac nebudú
-  dostupné. V takomto prípade aktualizujte cez aktualizačný nástroj
-  doplnkov.
-
-## verzia 18.08.1
-
-* Opravený problém s wxPython 4  pri ukončení okna Studio.
-* NVDA správne oznamuje, že nedošlo k zmene playlistu, ak zmenu zisťujete
-  hneď po štarte Studio alebo po otvorení nového playlistu.
-* NVDA nehlási chybu, ak zisťujete stav pripojenia cez zložený príkaz
-  nasledovaný písmenom E.
-
-## Verzia 18.08
-
-* Nastavenia doplnku sú prispôsobené pre strom s nastaveniami predstavený v
-  NVDA od verzie 2018.2. Preto vyžadujeme túto verziu NVDA. Staršie
-  rozhranie doplnku sa viac nevyvíja a bude odstránené.
-* Pridané nastavenie pre prepis playlistu. Môžete tu nastaviť zahrnutie
-  metadát, poradie a iné nastavenia.
-* Ak ukladáte prepis playlistu do tabuľky a použiete vlastné usporiadanie
-  metadát, NVDA toto správne zahrnie do tabuľky a nebude zapisovať údaje,
-  ktoré ste nezvolili.
-* Ak zmeníte poradie metadát myšou a následne použijete skratky na
-  prezeranie metadát, NVDA zohľadní zmeny.
-* Zrýchlená odozva pri navigácii po metadátach, hlavne v okne Creator a
-  Tracktool.
-* NVDA nehlási chybu alebo neignoruje pokus pridať komentár k skladbe alebo
-  pri pokuse ukončiť NVDA z okna Studio. Chyba bola spôsobená použitím
-  wxPython 4.
-
-## Verzia 18.07
-
-* Používatelia NVDA 2018.2 môžu v pokročilých nastaveniach zapnúť použitie
-  nového stromu s nastaveniami. Zatiaľ tento strom neobsahuje všetky
-  nastavenia, časom ale nahradí súčasné okná s nastaveniami doplnku. Aby sa
-  prejavili zmeny, je potrebné reštartovať NVDA.
-* NVDA viac nehlási chybu alebo neignoruje príkaz na premenovanie profilu z
-  nastavení doplnku. Chybu spôsobovala implementácia wxPython 4.
-* NVDA viac nezabudne nastavenia profilu po reštarte NVDA alebo Studio.
-* Pridaná možnosť vytvoriť prepis playlistu pre aktuálnu hodinu. Stačí v
-  okne s prepisom vybrať príslušnú možnosť.
-* Prepis playlistu je možné odteraz uložiť do súboru (všetky
-  formáty). Súbory sa ukladajú do adresára
-  "nvdasplPlaylistTranscripts". Takisto je možné prepis vložiť do schránky
-  (formát markdown a čistý text). Ostala aj možnosť zobraziť prepis v
-  samostatnom okne.
-* Pri vytváraní prepisu v markdown a html sa nezobrazuje hlavička stav.
-* Pridaná možnosť zobraziť metadáta v režime prehliadania, ak v zozname
-  skladieb stlačíte dvakrát príslušnú skratku ctrl+nvda+číslo.
-* V oknách Tracktool a Creator pridané skratky ctrl+alt+home a end na
-  prechod k prvému a poslednému údaju metadát.
-
-## verzia 18.06.1
-
-* Opravené chyby v oknách hľadania skladieb, hľadanie v metadátach, časová
-  analýza v aplikácii Studio a okno s enkodérmi. Chyby boli spôsobené
-  prechodom na wxPython 4.
-* Ak pri otvorení dialógu na hľadanie skladby nastane chyba, NVDA poskytne
-  bližšie informácie a neuspokojí sa s hlásením, že je už otvorené iné okno.
-* Ak z okna enkodérov otvoríte nastavenie enkodérov (alt+nvda+0), NVDA
-  nehlási chybu.
-
-## Verzia 18.06
-
-* Od verzie NVDA 2018.2 je možné v nastaveniach stlačiť tlačidlo Použiť, aby
-  sa prejavili nastavenia okamžite a nebolo potrebné najprv zatvoriť dialóg.
-* Ak v dialógu s nastavením poradia a zobrazenia metadát stlačíte Zrušiť,
-  NVDA naozaj nastavenia zahodí a neuloží ich.
-* Dvojité stlačenie skratiek ctrl+nvda+číslo v okne Studio v zozname
-  skladieb zobrazí príslušné metadáta v režime prehliadania.
-* Pridaná skratka nvda+ctrl+-, ktorá po stlačení v zozname skladieb v okne
-  Studio zobrazí všetky metadáta v režime prehliadania.
-* V okne Creator je možné použiť skratky ctrl+nvda+0-9 v zozname skladieb na
-  oznamovanie metadát.
-* Pridaná možnosť nastaviť poradie metadát pre okno Creator.
-* Prepis playlistu je možné uložiť vo formáte markdown.
-* Zmenená skratka na zaslanie e-mailu vývojárovi z ctrl+NVDA+- na
-  Alt+NVDA+-.
-
-## Verzia 18.05
-
-* Štatistiku playlistu okrem celého playllistu môžete získať len z jeho
-  časti. Zamerajte prvú skladbu, stlačte množinu príkazov SPL nasledovanú
-  klávesom F9. Potom nájdite poslednú skladbu, ktorú chcete do analýzy
-  zahrnúť. Stlačte množinu príkazov spl a kláves F10.
-* Pridaná funkcia prepis playlistu. Môžetesi nechať prepísať playlist do
-  čistého textu, tabuľky alebo zoznam html.
-* Funkcie na analýzu playlistu (čas, štatistika a podobne) sú odteraz
-  zoskupené.
-
-## verzia 18.04.1
-
-* NVDA dokáže správne spustiť odpočítavanie pre časovo aktivovaný profil, ak
-  už používate NVDA s podporou wxPython 4 toolkit.
-
-## Verzia 18.04
-
-* Opravené problémy s automatickou aktualizáciou doplnku.
-* Ak nastavíte oznamovanie zvukom, NVDA bude zvukom oznamovať aj skenovanie
-  knižnice.
-* NVDA bude na pozadí sledovať skenovanie knižnice, ak sa automaticky spustí
-  alebo ho spustíte ručne.
-* Poklepanie na skladbe na dotykovej obrazovke vyberie skladbu a presunie na
-  ňu fokus.
-* NVDA prepíše aj taký playlist, ktorý obsahuje len časové značky.
-
-## verzia 18.03/15.14-LTS
-
-* Ak zapnete oznamovanie streamovania metadát po starte Studio, NVDA
-  zohľadní toto nastavenie a nebude oznamovať stav počas prepínania
-  profilov.
-* NVDA viac neoznamuje opakovane stav pripojenia počas zmeny profilov a
-  súčasnom aktívnom oznamovaní streamovania metadát.
-* Profily sú spustené v správnom čase aj vtedy, ak počas vysielania viackrát
-  reštartujete NVDA.
-* Ak je aktívny profil s časovým spustením aopakovane zatvoríte a otvoríte
-  dialóg s nastavením doplnku, po skončení príslušného času NVDA prepne
-  naspäť do pôvodného profilu.
-* Ak je aktívny profil s časovým spustením, nie je možné viac zmeniť
-  spúšťanie profilu.
-
-## Verzia 18.02/15.13-LTS
-
-* 18.02: Vyžaduje sa NVDA od verzie2017.4.
-* Nie je viac možné spúšťať aktualizáciu, ak NVDA beží zo zdroja alebo na
-  zabezpečenej obrazovke. Týka sa aj verzie 15.13-LTS.
-* Ak počas aktualizácie nastane chyba, NVDA informáciu zapíše do logu a
-  odporučí jeho prečítanie.
-* Ak nie je možné aktualizovať doplnok, skryjú sa aj príslušné nastavenia
-  týkajúce sa aktualizácie.
-* NVDA viac nezamrzne, keď je zapnuté oznamovanie streamovaných metadát a
-  dôjde k zmene profilu.
-
-## Verzia 18.01/15.12-LTS
-
-* Príkaz na aktualizáciu doplnku funguje aj vtedy, ak je aktívne rozloženie
-  klávesnice pre JAWS.
-* Po zatvorení dialógu s nastavením upozornenia na zapnutý mikrofón sa toto
-  nastavenie uloží.
-
-## Verzia 17.12
-
-* Vyžaduje sa minimálne Windows 7 a Servicepack 1.
-* V profiloch je teraz možné mať rôzne nastavené oznamovanie streamovania
-  metadát a upozornenia na zapnutý mikrofón. Toto vyžaduje NVDA od verzie
-  2017.4.
-* Ak ukončíte Studio, automaticky sa zatvoria aj dialógi doplnku. Vyžaduje
-  NVDA od verzie 2017.4.
-* Do množiny príkazov pridaná skratka shift+c, ktorá oznámi nasledujúcu
-  naplánovanú skladbu.
-* Odteraz je možné odkiaľkoľvek spúšťať jingle. Použite množinú príkazov SPL
-  nasledovanú skratkou jingla.
-* Zoznam s enkodérmi na odstránenie nie je viac číslovaný zoznam ale
-  zoznamový rámik. Je to spôsobené prechodom na wxPython 4 GUI toolkit.
-
-## Verzia 17.11.2
-
-Toto je posledná stabilná verzia, ktorá podporuje Windows XP, Vista a 7 bez
-Service Pack 1. Ďalšia stabilná verzia pre tieto systémy bude 15.x LTS.
-
-* Na starších systémoch Windows nie je možné používať vývojovú verziu
-  doplnku.
-
-## Verzia 17.11.1/15.11-LTS
-
-* NVDA viac nehlási chybu alebo nezamrzne pri prezeraní metadát skratkami
-  ctrl+Alt+šípky v Track Tool 5.20. Vyžadujeme ale Studio 5.20, zostava 48.
-
-## Verzia 17.11/15.10-LTS
-
-* Prvotná podpora pre StationPlaylist Studio 5.30.
-* Ak je zapnutý mikrofón, súčasne aktívne oznamovanie zapnutého mikrofónu a
-  ukončíte Studio, NVDA nepokračuje v oznamovaní upozornenia.
-* Ak odstránite profil a aktivuje sa iný profil, doplnok nezruší príznak
-  ručného spustenia pre aktívny profil.
-* Ak odstraňujete profil, NVDA sa uistí, že ho naoozaj chcete odstrániť.
-* NVDA načíta správne nastavenie pre upozornenie na zapnutý mikrofón pri
-  zmene profilu z nastavení doplnku.
-* Do množiny príkazov pridaná funkcia na výpis skratiek, je pod písmenom H.
-
-## Verzia 17.10
-
-* Na starších systémoch Windows nie je možné používať vývojovú verziu
-  doplnku. Ďalšie verzie doplnku presmerujú používateľov starších systémov
-  do príslušného aktualizačného kanála.
-* Viaceré všeobecné nastavenia (ako oznamovanie stavu pípaním, upozornenie
-  na začiatok a koniec playlistu) sú presunuté do nového okna s
-  nastaveniami.
-* Z príkazového riadka je možné vypnúť ukladanie nastavení pre tento
-  doplnok, použitie predvoleného profilu, alebo ignorovať nastavenia na
-  disku pri spustení Studio.
-* Pri spustení NVDA napríklad z okna spustiť (Windows+r), môžete použiť
-  tieto parametre:"--spl-configvolatile" (prečítaj nastavenia ale
-  neukladaj), "--spl-configinmemory" (Nenačítavaj nastavenia z disku), a
-  "--spl-normalprofileonly" (Použi len predvolený profil).
-* Ak ukončíte Studio a súčasne je ručne aktivovaný profil, NVDA neoznamuje
-  nesprávne informácie pri opätovnom spustení Studio.
-
-## Verzia 17.09.1
-
-* NVDA 2017.3 je posledná verzia, ktorá funguje na  systéme Windows staršej
-  ako windows 7 Service Pack 1. Preto doplnok na túto skutočnosť
-  používateľov upozorní. Ukončenie podpory pre tieto systémy je pokiaľ ide o
-  tento doplnok plánované na apríl 2018.
-* NVDA nebude zobrazovať úvodné správy  a oznamovať verziu SPL, ak je
-  spustené s parametrom nvda -rm. Výnimku tvorí upozornenie na zastaralú
-  verziu Windows.
-
-## verzia 17.09
-
-* Ak používateľ otvorí pokročilé nastavenia a aktualizačný kanál je
-  nastavený na niektorú z vývojových verzií, NVDA viac nezobrazuje dialóg s
-  varovaním.
-* Mnohé príkazy teraz vyžadujú, aby bol fokus v zozname so skladbami. Ak to
-  tak nie je, NVDA na to upozorní.
-
-## Verzia 17.08.1
-
-* Správne funguje prehratie prvej skladby z playlistu po úspešnom pripojení.
-
-## Verzia 17.08
-
-* Upravené aktualizačné kanály.
-* Počet dní na aktualizáciu je možné nastaviť na 0. Toto bude kontrolovať
-  aktualizáciu po každom štarte NVDA a SPL. Nastavenie je potrebné potvrdiť.
-* NVDA dokáže skontrolovať aktualizáciu, ak je interval nastavený na 25 a
-  viac dní.
-* Pridaná možnosť upozorniť na žiadosť od poslucháča. Aby fungovalo správne,
-  musí SPL zobraziť príslušné okno.
-* Dvojité stlačenie skratky nvda+shift+F12 oznamuje ostávajúci čas do konca
-  hodiny v sekundách.
-* V okne s vyhľadávaním skladby je možné vybrať reťazec z histórie.
-* Pri oznamovaní aktuálnej a nasledujúcej skladby je možné zapnúť aj
-  oznamovanie, ktorý interný prehrávač SPL skladbu prehrá.
-* Pridaná možnosť zapnúť a vypnúť oznamovanie interného prehrávača.
-* Opravené oznamovanie úpravy času v niektorých dialógoch.
-* NVDA môže potlačiť oznamovanie niektorých metadát a ich hlavičiek pri
-  prezeraní playlistu. Toto nastavenie môže byť rôzne pre rôzne profily.
-* Pridané nastavenie na zapnutie a vypnutie oznamovania metadát a hlavičiek.
-* Do množiny príkazov pridaná skratka c, ktorá oznámi trvanie a názov
-  hrajúcej skladby (c).
-* Stavová informácia (množina príkazov q) oznamuje od verzie studio 5.1x
-  stav mikrofónu, úpravu jinglov, stav prehrávania a autopylota.
 
 ## Staršie verzie
 
