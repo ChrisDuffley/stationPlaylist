@@ -792,7 +792,7 @@ class AppModule(appModuleHandler.AppModule):
 			if role == controlTypes.ROLE_LISTITEM:
 				# Track item window style has changed in Studio 5.31.
 				trackItemWindowStyle = 1443991617 if self.productVersion >= "5.31" else 1443991625
-				if abs(windowStyle - trackItemWindowStyle)%0x100000 == 0:
+				if abs(windowStyle - trackItemWindowStyle) % 0x100000 == 0:
 					clsList.insert(0, SPLStudioTrackItem)
 			# #69 (18.08): allow actual list views to be treated as SysListView32.List so column count and other data can be retrieved easily.
 			elif role == controlTypes.ROLE_LIST:
@@ -848,7 +848,7 @@ class AppModule(appModuleHandler.AppModule):
 					if splconfig.SPLConfig["General"]["LibraryScanAnnounce"] not in ("off", "ending"):
 						# If library scan is in progress, announce its progress when told to do so.
 						self.scanCount += 1
-						if self.scanCount%100 == 0:
+						if self.scanCount % 100 == 0:
 							self._libraryScanAnnouncer(obj.name[1:obj.name.find("]")], splconfig.SPLConfig["General"]["LibraryScanAnnounce"])
 					if not self.libraryScanning:
 						if self.productVersion not in noLibScanMonitor: self.libraryScanning = True
@@ -1517,7 +1517,7 @@ class AppModule(appModuleHandler.AppModule):
 			if scanCount < 0:
 				break
 			scanIter += 1
-			if scanIter%5 == 0 and splconfig.SPLConfig["General"]["LibraryScanAnnounce"] not in ("off", "ending"):
+			if scanIter % 5 == 0 and splconfig.SPLConfig["General"]["LibraryScanAnnounce"] not in ("off", "ending"):
 				self._libraryScanAnnouncer(scanCount, splconfig.SPLConfig["General"]["LibraryScanAnnounce"])
 		self.libraryScanning = False
 		# 18.04: what if config database died?
