@@ -165,8 +165,6 @@ class ConfigHub(ChainMap):
 				if section == (): continue
 				# Unless otherwise specified, all keys are level 1 (section/key).
 				del self.maps[0][section[0]][key]
-			# 19.02: special handling for Update section (the whole section is deprecated).
-			if "Update" in self.maps[0]: del self.maps[0]["Update"]
 			# 20.06: remove Window-Eyes command layout manually, present one final deprecation warning before doing so.
 			# 20.07: remove this altogether so it now becomes a config error.
 			if self.maps[0]["Advanced"]["CompatibilityLayer"] == "wineyes":
