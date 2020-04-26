@@ -1175,7 +1175,7 @@ class AppModule(appModuleHandler.AppModule):
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Opens SPL Studio alarms settings."),
-		gestures=["kb:alt+nvda+1", "ts(SPL):2finger_flickRight", "kb:alt+nvda+2", "ts(SPL):2finger_flickLeft", "kb:alt+nvda+4"])
+		gestures=["kb:alt+nvda+1", "ts(SPL):2finger_flickRight"])
 	def script_openAlarmsSettings(self, gesture):
 		wx.CallAfter(splconfui.openAddonSettingsPanel, splconfui.AlarmsPanel)
 
