@@ -176,7 +176,7 @@ def _removeEncoderID(encoderType, pos):
 			# Do set entry manipulations (remove first, then add).
 			for item in currentEncoders[start:]:
 				encoderSettings.remove(item)
-				encoderSettings.add(" ".join([encoderType, "%s"%(int(item.split()[-1])-1)]))
+				encoderSettings.add("{} {}".format(encoderType, int(item.split()[-1])-1))
 
 
 # Save stream labels and various flags, called when closing app modules and when config save command is pressed.
