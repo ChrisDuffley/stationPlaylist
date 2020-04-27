@@ -4,13 +4,13 @@
 # Provides needed routines during add-on installation and removal.
 # Routines are partly based on other add-ons, particularly Place Markers by Noelia Martinez (thanks add-on authors).
 
-import sys
-import gui
-import wx
 import addonHandler
 addonHandler.initTranslation()
 
 def onInstall():
+	import sys
+	import gui
+	import wx
 	# #17.12: Windows 7 SP1 or higher is required.
 	if sys.getwindowsversion().build < 7601:
 		# Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
