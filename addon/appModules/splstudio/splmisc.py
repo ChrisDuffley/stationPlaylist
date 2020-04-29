@@ -569,7 +569,7 @@ def playlist2msaa(start, end, additionalDecorations=False, prefix="", suffix="")
 		filteredContent = []
 		for column in range(len(columnPos)):
 			if columnContents[column] is not None:
-				filteredContent.append("%s: %s"%(columnHeaders[column], columnContents[column]))
+				filteredContent.append("{}: {}".format(columnHeaders[column], columnContents[column]))
 		playlistTranscripts.append("{0}{1}{2}".format(prefix, "; ".join(filteredContent), suffix))
 		obj = obj.next
 	return playlistTranscripts

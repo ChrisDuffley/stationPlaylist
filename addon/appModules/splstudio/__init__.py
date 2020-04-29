@@ -256,7 +256,7 @@ class SPLStudioTrackItem(SPLTrackItem):
 					if index is None: continue  # Header not found, mostly encountered in Studio 5.0x.
 					content = self._getColumnContentRaw(index)
 					if content:
-						descriptionPieces.append("%s: %s"%(header, content) if includeColumnHeaders else content)
+						descriptionPieces.append("{}: {}".format(header, content) if includeColumnHeaders else content)
 			self.description = ", ".join(descriptionPieces)
 		if self.appModule._announceColumnOnly is None:
 			super(IAccessible, self).reportFocus()
