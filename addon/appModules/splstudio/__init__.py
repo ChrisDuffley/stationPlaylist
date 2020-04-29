@@ -161,7 +161,7 @@ class SPLTrackItem(sysListView32.ListItem):
 		# Translators: input help mode message for column explorer commands.
 		description=_("Pressing once announces data for a track column, pressing twice will present column data in a browse mode window"),
 		# 19.02: script decorator can take in a list of gestures, thus take advantage of it.
-		gestures=["kb:control+nvda+%s"%(i) for i in range(10)],
+		gestures=[f"kb:control+nvda+{i}" for i in range(10)],
 		category=_("StationPlaylist"))
 	def script_columnExplorer(self, gesture):
 		# Due to the below formula, columns explorer will be restricted to number commands.
@@ -1383,18 +1383,18 @@ class AppModule(appModuleHandler.AppModule):
 
 	def buildFNCarts(self):
 		for i in range(12):
-			self.bindGesture("kb:f%s"%(i+1), "cartExplorer")
-			self.bindGesture("kb:shift+f%s"%(i+1), "cartExplorer")
-			self.bindGesture("kb:control+f%s"%(i+1), "cartExplorer")
-			self.bindGesture("kb:alt+f%s"%(i+1), "cartExplorer")
+			self.bindGesture("kb:f{}".format(i+1), "cartExplorer")
+			self.bindGesture("kb:shift+f{}".format(i+1), "cartExplorer")
+			self.bindGesture("kb:control+f{}".format(i+1), "cartExplorer")
+			self.bindGesture("kb:alt+f{}".format(i+1), "cartExplorer")
 
 	def buildNumberCarts(self):
 		# It is much faster to work directly with number row keys.
 		for i in "1234567890-=":
-			self.bindGesture("kb:%s"%(i), "cartExplorer")
-			self.bindGesture("kb:shift+%s"%(i), "cartExplorer")
-			self.bindGesture("kb:control+%s"%(i), "cartExplorer")
-			self.bindGesture("kb:alt+%s"%(i), "cartExplorer")
+			self.bindGesture("kb:{}".format(i), "cartExplorer")
+			self.bindGesture("kb:shift+{}".format(i), "cartExplorer")
+			self.bindGesture("kb:control+{}".format(i), "cartExplorer")
+			self.bindGesture("kb:alt+{}".format(i), "cartExplorer")
 
 	def cartsBuilder(self, build=True):
 		# A function to build and return cart commands.
@@ -1895,7 +1895,7 @@ class AppModule(appModuleHandler.AppModule):
 			if splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "off": self.bindGestures(self.__SPLAssistantGestures)
 			elif splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "jfw": self.bindGestures(self.__SPLAssistantJFWGestures)
 			for i in range(5):
-				self.bindGesture("kb:shift+%s"%(i), "metadataEnabled")
+				self.bindGesture(f"kb:shift+{i}", "metadataEnabled")
 			self.SPLAssistant = True
 			tones.beep(512, 50)
 			if splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "jfw": ui.message("JAWS")

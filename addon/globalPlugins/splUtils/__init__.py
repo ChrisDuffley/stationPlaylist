@@ -160,10 +160,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			if not getWindowText(user32.FindWindowW("TStudioForm", None)).startswith("StationPlaylist Studio Standard"):
 				cartKeys += self.numCartKeys
 			for cart in cartKeys:
-				self.bindGesture("kb:%s"%cart, "cartsWithoutBorders")
-				self.bindGesture("kb:shift+%s"%cart, "cartsWithoutBorders")
-				self.bindGesture("kb:control+%s"%cart, "cartsWithoutBorders")
-				self.bindGesture("kb:alt+%s"%cart, "cartsWithoutBorders")
+				self.bindGesture(f"kb:{cart}", "cartsWithoutBorders")
+				self.bindGesture(f"kb:shift+{cart}", "cartsWithoutBorders")
+				self.bindGesture(f"kb:control+{cart}", "cartsWithoutBorders")
+				self.bindGesture(f"kb:alt+{cart}", "cartsWithoutBorders")
 			self.SPLController = True
 			# Translators: The name of a layer command set for StationPlaylist add-on.
 			# Hint: it is better to translate it as "SPL Control Panel."
