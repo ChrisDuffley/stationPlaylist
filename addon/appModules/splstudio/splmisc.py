@@ -261,7 +261,7 @@ def _populateCarts(carts, cartlst, modifier, standardEdition=False, refresh=Fals
 		# If a cart name has commas or other characters, SPL surrounds the cart name with quotes (""), so parse it as well.
 		if not entry.startswith('"'): cartName = entry.split(",")[0]
 		else: cartName = entry.split('"')[1]
-		if pos <= 12: identifier = "f%s"%(pos)
+		if pos <= 12: identifier = f"f{pos}"
 		# For number row (except Studio Standard), subtract 13 because pos starts at 1, so by the time it comes to number row, it'll be 13.
 		else: identifier = numberRow[pos-13]
 		cart = identifier if not modifier else "+".join([modifier, identifier])
