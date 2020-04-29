@@ -1712,8 +1712,8 @@ class AppModule(appModuleHandler.AppModule):
 		snapshot["PlaylistTrackCount"] = len(artists)
 		snapshot["PlaylistDurationTotal"] = self._ms2time(totalDuration, ms=False)
 		if "DurationMinMax" in snapshotFlags:
-			snapshot["PlaylistDurationMin"] = "%s (%s)"%(minTitle, min)
-			snapshot["PlaylistDurationMax"] = "%s (%s)"%(maxTitle, max)
+			snapshot["PlaylistDurationMin"] = "{} ({})".format(minTitle, min)
+			snapshot["PlaylistDurationMax"] = "{} ({})".format(maxTitle, max)
 		if "DurationAverage" in snapshotFlags:
 			# #57 (18.04): zero division error may occur if the playlist consists of hour markers only.
 			try:
@@ -1752,7 +1752,7 @@ class AppModule(appModuleHandler.AppModule):
 			if scriptCount == 0:
 				try:
 					# Translators: one of the results for playlist snapshots feature for announcing top artist in a playlist.
-					statusInfo.append(_("Top artist: %s (%s)")%(artists[0][:]))
+					statusInfo.append(_("Top artist: {} ({})").format(artists[0][0], artists[0][1]))
 				except IndexError:
 					statusInfo.append(_("Top artist: none"))
 			elif scriptCount == 1:
@@ -1765,14 +1765,14 @@ class AppModule(appModuleHandler.AppModule):
 						info = _("No artist information ({artistCount})").format(artistCount=count)
 					else:
 						info = _("{artistName} ({artistCount})").format(artistName=artist, artistCount=count)
-					artistList.append("<li>%s</li>"%info)
+					artistList.append("<li>{}</li>".format(info))
 				statusInfo.append("".join([header, "<ol>", "\n".join(artistList), "</ol>"]))
 		if "PlaylistCategoryCount" in snapshot:
 			categoryCount = splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCountLimit"]
 			categories = snapshot["PlaylistCategoryCount"].most_common(None if not categoryCount else categoryCount)
 			if scriptCount == 0:
 				# Translators: one of the results for playlist snapshots feature for announcing top track category in a playlist.
-				statusInfo.append(_("Top category: %s (%s)")%(categories[0][:]))
+				statusInfo.append(_("Top category: {} ({})").format(categories[0][0], categories[0][1]))
 			elif scriptCount == 1:
 				categoryList = []
 				# Translators: one of the results for playlist snapshots feature, a heading for a group of items.
@@ -1782,7 +1782,7 @@ class AppModule(appModuleHandler.AppModule):
 					category = category.replace("<", "")
 					category = category.replace(">", "")
 					info = _("{categoryName} ({categoryCount})").format(categoryName=category, categoryCount=count)
-					categoryList.append("<li>%s</li>"%info)
+					categoryList.append("<li>{}</li>".format(info))
 				statusInfo.append("".join([header, "<ol>", "\n".join(categoryList), "</ol>"]))
 		if "PlaylistGenreCount" in snapshot:
 			genreCount = splconfig.SPLConfig["PlaylistSnapshots"]["GenreCountLimit"]
@@ -1790,7 +1790,7 @@ class AppModule(appModuleHandler.AppModule):
 			if scriptCount == 0:
 				try:
 					# Translators: one of the results for playlist snapshots feature for announcing top genre in a playlist.
-					statusInfo.append(_("Top genre: %s (%s)")%(genres[0][:]))
+					statusInfo.append(_("Top genre: {} ({})").format(genres[0][0], genres[0][1]))
 				except IndexError:
 					statusInfo.append(_("Top genre: none"))
 			elif scriptCount == 1:
@@ -1803,7 +1803,7 @@ class AppModule(appModuleHandler.AppModule):
 						info = _("No genre information ({genreCount})").format(genreCount=count)
 					else:
 						info = _("{genreName} ({genreCount})").format(genreName=genre, genreCount=count)
-					genreList.append("<li>%s</li>"%info)
+					genreList.append("<li>{}</li>".format(info))
 				statusInfo.append("".join([header, "<ol>", "\n".join(genreList), "</ol>"]))
 		if scriptCount == 0:
 			ui.message(", ".join(statusInfo))
