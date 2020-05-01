@@ -20,9 +20,9 @@ VAŽNE NAPOMENE:
 * Za dodatak zahtijeva StationPlaylist suite 5.20 ili noviju verziju.
 * Korisnicima sustava Windows 8 ili novijeg, preporučamo deaktivirati modus
   stišavanja zvuka.
-* Starting from 2018, [changelogs for old add-on releases][5] will be found
-  on GitHub. This add-on readme will list changes from version 18.09 (2018
-  onwards).
+* Od 2018. godine pa nadalje, [zapisi o promjenama za stara izdanja][5]
+  nalaze se na GitHubu. Readme datoteka dodatka sadrži popis promjena od
+  verzije 18.09 (2018. pa nadalje).
 * Određene funkcije dodatka neće raditi pod nekim uvjetima, uključujući
   pokretanje NVDA čitača u sigurnom modusu.
 * Zbog tehničkih ograničenja, ovaj se dodatak ne može instalirati ili
@@ -50,36 +50,39 @@ Većina njih radi samo u programu Studio, ukoliko nešto drugo nije navedeno.
   prozoru Studija: najavljuje vrijeme emitiranja kao što je 5 minuta do
   punog sata. Dvostrukim pritiskom ove naredbe objavit će se minute i
   sekunde do punog sata.
-* Alt+NVDA+1 (two finger flick left in SPL mode) from Studio window: Opens
-  alarms category in Studio add-on configuration dialog.
-* Alt+NVDA+1 from Creator's Playlist Editor and Remote VT playlist editor:
-  Announces scheduled time for the loaded playlist.
-* Alt+NVDA+2 from Creator's Playlist Editor and Remote VT playlist editor:
-  Announces total playlist duration.
+* Alt+NVDA+1 (klizanje s dva prsta prema lijevo u dodirnom modusu SPL-a) u
+  prozoru Studija: otvara dijaloški okvir s postavkama alarma za uvodni dio
+  pjesme.
+* Alt+NVDA+1 u prozoru Playlist Editora Creatora i Remote VT editoru popisa
+  snimaka: najavljuje planirano vrijeme za učitani popisa snimaka.
+* Alt+NVDA+2 u prozoru Playlist Editora Creatora i Remote VT editoru popisa
+  snimaka: najavljuje ukupno trajanje popisa snimaka.
 * Alt+NVDA+3 u prozoru programa Studio: uključuje i isključuje istraživača
   džinglova za prikaz njima dodijeljenih naredbi.
-* Alt+NVDA+3 from Creator's Playlist Editor and Remote VT playlist editor:
-  Announces when the selected track is scheduled to play.
-* Alt+NVDA+4 from Creator's Playlist Editor and Remote VT playlist editor:
-  Announces rotation and category associated with the loaded playlist.
+* Alt+NVDA+3 u prozoru Playlist Editora Creatora i Remote VT editoru popisa
+  snimaka: najavljuje planirano vrijeme sviranja za odabranu snimku.
+* Alt+NVDA+4 u prozoru Playlist Editora Creatora i Remote VT editoru popisa
+  snimaka: najavljuje rotaciju i povezanu kategoriju s učitanim popisom
+  snimaka.
 * Kontrol+NVDA+f u prozoru Studija: otvara dijaloški okvir za pronalaženje
   snimke na temelju izvođača ili pjesme. Pritisni NVDA+F3 za traženje prema
   naprijed ili NVDA+Šift+F3 za traženje prema natrag.
 * Alt+NVDA+R u prozoru Studija: prolazi kroz postavke najave skeniranja
   biblioteke.
 * Kontrol+Šift+X u prozoru Studija: prolazi kroz postavke brajeve štoperice.
-* Control+Alt+left/right arrow (while focused on a track in Studio, Creator,
-  Remote VT, and Track Tool): Announce previous/next track column.
-* Control+Alt+Home/End (while focused on a track in Studio, Creator, Remote
-  VT, and Track Tool): Announce first/last track column.
+* Kontrol+Alt+strelica lijevo ili desno (tijekom fokusiranja trake u
+  programima Studio, Creator, Remote VT i Track Tool): najavi prethodni ili
+  sljedeći stupac snimaka.
+* Kontrol+Alt+Home/End (tijekom fokusiranja trake u programima Studio,
+  Creator, Remote VT i Track Tool): najavi prvi ili zadnji stupac snimaka.
 * Kontrol+Alt+strelica gore ili dolje (samo tijekom fokusiranja na snimku u
   programu Studio): prijeđi na prethodnu ili sljedeću traku i najavi
   određene stupce.
-* Control+NVDA+1 through 0 (while focused on a track in Studio, Creator
-  (including Playlist Editor), Remote VT, and Track Tool): Announce column
-  content for a specified column (first ten columns by default). Pressing
-  this command twice will display column information on a browse mode
-  window.
+* Kontrol+NVDA+1 do 0 (tijekom fokusiranja trake u programima Studio,
+  Creator (uključujući Playlist Editor), Remote VT i Track Tool): najavi
+  sadržaj stupca za određeni stupac (standardno za prvih deset
+  stupaca). Pritisni naredbu dvaput za prikaz podataka stupca u prozoru
+  modusa pregledavanja.
 * Kontrol+NVDA+- (crtica u programu Studio, Creator i Track Tool): prikaži
   podatke svih stupaca u snimci na prozoru modusa pregledavanja.
 * Alt+NVDA+C tijekom fokusiranja na snimku (samo Studio): najavljuje
@@ -174,7 +177,7 @@ Dostupne naredbe su:
 * E (G u Window-Eyes rasporedu): stanje internetskog prijenosa metapodataka.
 * Šift+1 do Šift+4, Šift+0: Stanje URL adresa pojedinih internetskih
   prijenosa metapodataka (0 je za DSP dekoder).
-* E (Window-Eyes layout): Elapsed time for the currently playing track.
+* E (Window-Eyes raspored): Proteklo vrijeme za trenutačno sviranu snimku.
 * F: Nađi snimku (samo u prikazu popisa snimaka).
 * H: Trajanje snimaka trenutačnog jednosatnog slota.
 * Šift+H: Preostalo trajanje snimaka jednosatnog slota.
@@ -240,14 +243,14 @@ Dostupne naredbe za SPL Kontroler su:
 * Pritisni H za prikaz dijaloškog okvira za pomoć s popisom dostupnih
   naredbi.
 
-## Track and microphone alarms
+## Alarmi za snimke i mikrofon
 
-By default, NVDA will play a beep if five seconds are left in the track
-(outro) and/or intro, as well as to hear a beep if microphone has been
-active for a while. To configure track and microphone alarms, press
-Alt+NVDA+1 to open alarms settings in Studio add-on settings screen. You can
-also use this screen to configure if you'll hear a beep, a message or both
-when alarms are turned on.
+NVDA je standardno tako postavljen, da svira zvučni signal pri ostatku od
+pet sekundi u završnom i-ili uvodnom dijelu snimke, kao i zvučni signal kad
+je mikrofon već neko vrijeme aktivan. Za konfiguriranje alarma za snimke i
+mikrofon, pritisni Alt+NVDA+1 za otvaranje ostavki alarma u prozoru postavki
+Studio dodatka. U tom prozoru možeš i odlučiti, želiš li čuti zvučni signal,
+poruku ili oboje, kad su alarmi uključeni.
 
 ## Pronalaženje snimaka
 
@@ -279,14 +282,15 @@ dođeš do kraja odabira.
 
 ## Istraživač stupaca
 
-By pressing Control+NVDA+1 through 0, you can obtain contents of specific
-columns. By default, these are first ten columns for a track item (in
-Studio: artist, title, duration, intro, outro, category, year, album, genre,
-mood). For playlist editor in Creator and Remote VT client, column data
-depends on column order as shown on screen. In Studio, Creator's main track
-list, and Track Tool, column slots are preset regardless of column order on
-screen and can be configured from add-on settings dialog under columns
-explorer category.
+Pritiskom na Kontrol+NVDA+1 do 0, dobiva se sadržaj određenih
+stupaca. Standardno je to prvih deset stupaca za snimku (u Studio programu:
+izvođač, naslov, trajanje, uvodni dio, završni dio, kategorija, godina,
+album, žanr i ugođaj). Za uređivača popisa snimaka u Creatoru i Remote VT
+klijentu, podaci stupaca ovise o redoslijedu stupaca kako se prikazuju na
+ekranu. U programu Studio, u glavnom popisu pjesama Creatora i u Track Tool,
+mjesta u stupcima se prikazuju bez obzira na redoslijed stupaca na ekranu i
+mogu se konfigurirati u dijaloškom okviru postavki dodataka u kategoriji
+istraživača stupaca.
 
 ## Statistika popisa snimaka
 
@@ -326,7 +330,7 @@ operacijskim sustavom Windows 8 ili novijim i ako imaš instaliran NVDA
 na dodir. Za prebacivanje na modus SPL-a, dodirni ekran s tri prsta. Zatim
 koristi gore navedene dodirne naredbe za njihovo izvršavanje.
 
-## Version 20.05
+## Verzija 20.05
 
 * Initial support for Remote VT (voice track) client, including remote
   playlist editor with same commands as Creator's playlist editor.

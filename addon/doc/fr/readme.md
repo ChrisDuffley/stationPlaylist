@@ -52,7 +52,7 @@ contraire.
   depuis la fenêtre de Studio: annonce le temps de diffusion tel que 5
   minutes en haut de l'heure. Appuyez deux fois sur cette commande pour
   annoncer les minutes et les secondes jusqu'au début de l'heure.
-* Alt+NVDA+1 (two finger flick left in SPL mode) from Studio window: Opens
+* Alt+NVDA+1 (two finger flick right in SPL mode) from Studio window: Opens
   alarms category in Studio add-on configuration dialog.
 * Alt+NVDA+1 from Creator's Playlist Editor and Remote VT playlist editor:
   Announces scheduled time for the loaded playlist.

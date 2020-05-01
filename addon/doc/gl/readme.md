@@ -54,9 +54,9 @@ contrario.
   SPL) dende a ventá Studio: anuncia o tempo de emisión como 5 minutos para
   o comezo da hora.Premendo dúas veces esta orde anunciará os minutos e
   segundos ata a hora.
-* Alt+NVDA+1 (deslizamento con dous dedos cara a esquerda no modo tactil
-  SPL) dende a ventá do Studio: Abre a categoría alarmas no diálogo de
-  configuración no complemento Studio.
+* Alt+NVDA+1 (deslizamento con dous dedos cara á dereita no modo SPL) dende
+  a ventá do Studio: Abre a categoría alarmas no diálogo de configuración no
+  complemento Studio.
 * Alt+NVDA+1 dende a ventá do Editor de Listas de Reprodución de Creator e o
   editor de listas de reprodución de Remote VT: anuncia o tempo programado
   para a lista cargada.

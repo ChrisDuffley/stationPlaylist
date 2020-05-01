@@ -54,7 +54,7 @@ angegeben.
   aus dem Studio-Fenster: Zeigt die Sendezeit an z.B. 5 Minuten bis zur
   vollen Stunde. Wenn Sie diesen Befehl zweimal drücken, werden Minuten und
   Sekunden bis zur vollen Stunde angesagt.
-* Alt+NVDA+1 (two finger flick left in SPL mode) from Studio window: Opens
+* Alt+NVDA+1 (two finger flick right in SPL mode) from Studio window: Opens
   alarms category in Studio add-on configuration dialog.
 * Alt+NVDA+1 from Creator's Playlist Editor and Remote VT playlist editor:
   Announces scheduled time for the loaded playlist.

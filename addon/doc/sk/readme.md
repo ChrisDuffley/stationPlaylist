@@ -45,7 +45,7 @@ Väčšina skratiek je určených pre Studio, ak nie je uvedené inak.
 * nvda+shift+F12 (švihnutie dvoma prstami hore v dotykovom režime) v okne
   Studio: oznámi čas vysielania, napríklad 5 minút do celej hodiny. Stlačené
   dvakrát rýchlo za sebou oznamuje minúty aj sekundy.
-* alt+NVDA+1 (švihnutie dvoma prstami doľava v dotykovom režime) v okne
+* alt+NVDA+1 (švihnutie dvoma prstami doprava v dotykovom režime spl) v okne
   Studio: otvorí kategóriu upozornenia v nastaveniach doplnku.
 * alt+nvda+1 pri úprave playlistu v okne creator a Remote VT playlist
   editor: Oznámi plánovaný čas spustenia playlistu.
