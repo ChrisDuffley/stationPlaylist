@@ -795,8 +795,8 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 	def getStreamLabel(self, getTitle=False):
 		if str(self.IAccessibleChildID) in SAMStreamLabels:
 			streamLabel = SAMStreamLabels[str(self.IAccessibleChildID)]
-			return streamLabel, self.IAccessibleChildID if getTitle else streamLabel
-		return None, self.IAccessibleChildID if getTitle else None
+			return streamLabel, self.getChild(1).name if getTitle else streamLabel
+		return (None, self.getChild(1).name) if getTitle else None
 
 	def setStreamLabel(self, newStreamLabel):
 		if len(newStreamLabel):
