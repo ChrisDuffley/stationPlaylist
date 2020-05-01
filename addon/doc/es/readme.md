@@ -54,7 +54,7 @@ contrario.
   SPL) desde la ventana Studio: anuncia el tiempo de emisión tal como 5
   minutos para el principio de la hora. Pulsando esta orden dos veces
   anunciará los minutos y segundos hasta la hora.
-* Alt+NVDA+1 (deslizamiento hacia la izquierda con dos dedos en el modo SPL)
+* Alt+NVDA+1 (deslizamiento hacia la derecha con dos dedos en el modo SPL)
   desde la ventana de Studio: abre la categoría Alarmas en el diálogo de
   configuración del complemento de Studio.
 * Alt+NVDA+1 desde la ventana del editor de listas de reproducción de
