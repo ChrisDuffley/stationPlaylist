@@ -372,7 +372,7 @@ class Encoder(IAccessible):
 			# #135 (20.06): find out how many background monitor threads for this encoder type are still active.
 			# #136 (20.07): encoder monitoring can cross encoder type boundaries (multiple encoder types can be monitored at once).
 			# Include encoder ID if multiple encoders have one encoder entry being monitored.
-			if len([thread for thread in self.threadPool.values() if thread.is_alive()]) > 1:
+			if len([thread for thread in SPLBackgroundMonitorThreads.values() if thread.is_alive()]) > 1:
 				# Translators: Status message for encoder monitoring.
 				ui.message(_("{encoder} {encoderNumber}: {status}").format(encoder=self.encoderType, encoderNumber=encoderId, status=message))
 			else:
