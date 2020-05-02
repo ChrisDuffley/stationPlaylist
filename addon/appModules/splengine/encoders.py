@@ -33,6 +33,8 @@ SPLFocusToStudio = set()
 SPLPlayAfterConnecting = set()
 # Use a thread to monitor status changes for encoders.
 SPLBackgroundMonitor = set()
+# A collection of encoder status monitor threads.
+SPLBackgroundMonitorThreads = {}
 # Do not play connection tone while an encoder is connecting.
 SPLNoConnectionTone = set()
 # Stop announcing connection status messages when an error is encountered.
@@ -190,14 +192,14 @@ def saveStreamLabels():
 # 20.04: if told to do so, save encoder settings and unregister config save handler.
 # In case this is called as part of a reset, unregister config save handler unconditionally.
 def cleanup(appTerminating=False, reset=False):
-	global streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError, encoderMonCount, SAMMonitorThreads, SPLMonitorThreads, ACMonitorThreads
+	global streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLBackgroundMonitorThreads, SPLNoConnectionTone, SPLConnectionStopOnError, encoderMonCount, SAMMonitorThreads, SPLMonitorThreads, ACMonitorThreads
 	# #132 (20.05): do not proceed if stream labels is None (no encoders were initialized).
 	if streamLabels is None: return
 	if appTerminating: saveStreamLabels()
 	if reset or appTerminating:
 		config.post_configSave.unregister(saveStreamLabels)
 		config.post_configReset.unregister(resetStreamLabels)
-	for flag in [streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError, SAMMonitorThreads, SPLMonitorThreads, ACMonitorThreads]:
+	for flag in [streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLBackgroundMonitorThreads, SPLNoConnectionTone, SPLConnectionStopOnError, SAMMonitorThreads, SPLMonitorThreads, ACMonitorThreads]:
 		if flag is not None: flag.clear()
 	# 20.04: save a "clean" copy after resetting encoder settings.
 	if reset: streamLabels.write()
