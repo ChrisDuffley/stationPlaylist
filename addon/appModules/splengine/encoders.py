@@ -385,7 +385,7 @@ class Encoder(IAccessible):
 	def connectStart(self, manualConnect=False):
 		statusThread = threading.Thread(target=self.reportConnectionStatus, kwargs=dict(manualConnect=manualConnect))
 		statusThread.start()
-		self.threadPool[self.IAccessibleChildID] = statusThread
+		SPLBackgroundMonitorThreads[self.encoderId] = statusThread
 
 	# #103: the abstract method that is responsible for announcing connection status.
 	@abstractmethod
@@ -452,7 +452,7 @@ class Encoder(IAccessible):
 			self._setFlags(self.encoderId, not self.backgroundMonitor, SPLBackgroundMonitor)
 			if self.backgroundMonitor:
 				try:
-					monitoring = self.threadPool[self.IAccessibleChildID].is_alive()
+					monitoring = SPLBackgroundMonitorThreads[self.encoderId].is_alive()
 				except KeyError:
 					monitoring = False
 				if not monitoring: self.connectStart()
