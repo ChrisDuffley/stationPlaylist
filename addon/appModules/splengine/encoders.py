@@ -574,10 +574,9 @@ class Encoder(IAccessible):
 		if streamLabels is None: loadStreamLabels()
 		# 6.2: Make sure background monitor threads are started if the flag is set.
 		if self.backgroundMonitor:
-			threadPool = self.threadPool
-			if self.IAccessibleChildID in threadPool:
-				if not threadPool[self.IAccessibleChildID].is_alive():
-					del threadPool[self.IAccessibleChildID]
+			if self.encoderId in SPLBackgroundMonitorThreads:
+				if not SPLBackgroundMonitorThreads[self.encoderId].is_alive():
+					del SPLBackgroundMonitorThreads[self.encoderId]
 				# If it is indeed alive... Otherwise another thread will be created to keep an eye on this encoder (undesirable).
 				else: return
 			self.connectStart()
