@@ -763,7 +763,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 	def streamLabelsMap(self):
 		return SAMStreamLabels
 
-	def getStreamLabel(self, getTitle=False):
+	def getStreamLabel(self):
 		if str(self.IAccessibleChildID) in SAMStreamLabels:
 			return SAMStreamLabels[str(self.IAccessibleChildID)]
 		return None
@@ -876,7 +876,7 @@ class SPLEncoder(Encoder):
 	def streamLabelsMap(self):
 		return SPLStreamLabels
 
-	def getStreamLabel(self, getTitle=False):
+	def getStreamLabel(self):
 		if str(self.IAccessibleChildID) in SPLStreamLabels:
 			return SPLStreamLabels[str(self.IAccessibleChildID)]
 		return None
@@ -905,7 +905,7 @@ class AltaCastEncoder(SPLEncoder):
 	def streamLabelsMap(self):
 		return ACStreamLabels
 
-	def getStreamLabel(self, getTitle=False):
+	def getStreamLabel(self):
 		if str(self.IAccessibleChildID) in ACStreamLabels:
 			return ACStreamLabels[str(self.IAccessibleChildID)]
 		return None
