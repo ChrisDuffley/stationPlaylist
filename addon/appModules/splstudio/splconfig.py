@@ -83,7 +83,6 @@ PilotFeatures = boolean(default=false)
 [Startup]
 AudioDuckingReminder = boolean(default=true)
 WelcomeDialog = boolean(default=true)
-WinEyesLayerDeprecation = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
 SPLConfig = None
@@ -978,11 +977,6 @@ def showStartupDialogs(oldVer=False, oldVerReturn=False):
 	# 20.06: controlled by a temporary flag that can come and go.
 	# To be resurrected later.
 	# if oldVerReturn: return
-	# 20.05 (temporary): display SPL Assistant Window-Eyes compatibility layer deprecation warning.
-	if SPLConfig["Startup"]["WinEyesLayerDeprecation"]:
-		gui.messageBox(_("Window-Eyes command layout has been removed. Your SPL Assistant command layout is set to NVDA (default layout). To learn more about commands you can use in SPL Assistant, from Studio window, press SPL Assistant, F1."), _("SPL add-on feature removed"), wx.OK | wx.ICON_INFORMATION)
-		SPLConfig["Startup"]["WinEyesLayerDeprecation"] = False
-		return
 	if SPLConfig["Startup"]["WelcomeDialog"]:
 		gui.mainFrame.prePopup()
 		WelcomeDialog(gui.mainFrame).Show()
