@@ -608,6 +608,10 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 		if row is not None: row.setFocus()
 
 	@property
+	def encoderFormat(self):
+		return self.getChild(1).name
+
+	@property
 	def connected(self):
 		return self._getColumnContentRaw(2) == "Encoding"
 
@@ -778,6 +782,10 @@ class SPLEncoder(Encoder):
 	# Support for SPL Encoder window.
 
 	encoderType = "SPL"
+
+	@property
+	def encoderFormat(self):
+		return self.getChild(0).name
 
 	@property
 	def connected(self):
