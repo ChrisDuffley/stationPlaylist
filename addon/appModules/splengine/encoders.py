@@ -321,7 +321,7 @@ class EncoderConfigDialog(wx.Dialog):
 
 class Encoder(IAccessible):
 	"""Represents an encoder from within StationPlaylist Studio or Streamer.
-	This abstract base encoder provides scripts for all encoders such as stream labeler and toggling focusing to Studio when connected.
+	This abstract base encoder provides scripts for all encoders such as encoder settings dialog and toggling focusing to Studio when connected.
 	Subclasses must provide scripts to handle encoder connection and connection announcement routines.
 	In addition, they must implement the required actions to set options such as focusing to Studio, storing stream labels and so on, as each subclass relies on a feature map.
 	For example, for SAM encoder class, the feature map is SAM* where * denotes the feature in question.
@@ -470,28 +470,6 @@ class Encoder(IAccessible):
 			SPLBackgroundMonitor.clear()
 			# Translators: Announced when background encoder monitoring is canceled.
 			ui.message(_("Encoder monitoring canceled"))
-
-	@scriptHandler.script(
-		# Translators: Input help mode message in SAM Encoder window.
-		description=_("Opens a dialog to label the selected encoder."),
-		gesture="kb:f12"
-	)
-	def script_streamLabeler(self, gesture):
-		curStreamLabel, title = self.getStreamLabel(getTitle=True)
-		if not curStreamLabel: curStreamLabel = ""
-		# Translators: The title of the stream labeler dialog (example: stream labeler for 1).
-		streamTitle = _("Stream labeler for {streamEntry}").format(streamEntry=title)
-		# Translators: The text of the stream labeler dialog.
-		streamText = _("Enter the label for this stream")
-		dlg = wx.TextEntryDialog(gui.mainFrame, streamText, streamTitle, value=curStreamLabel)
-		def callback(result):
-			if result == wx.ID_OK:
-				newStreamLabel = dlg.GetValue()
-				if newStreamLabel == curStreamLabel:
-					# No need to write to disk.
-					return
-				else: self.setStreamLabel(newStreamLabel)
-		gui.runScriptModalDialog(dlg, callback)
 
 	def removeStreamConfig(self, pos):
 		# An application of map successor algorithm.
