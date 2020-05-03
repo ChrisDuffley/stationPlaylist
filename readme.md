@@ -76,7 +76,6 @@ The following commands are available when using encoders:
 * F11: Toggles whether NVDA will switch to Studio window for the selected encoder if connected.
 * Shift+F11: Toggles whether Studio will play the first selected track when encoder is connected to a streaming server.
 * Control+F11: Toggles background monitoring of the selected encoder.
-* F12: Opens a dialog to enter custom label for the selected encoder or stream.
 * Control+F12: opens a dialog to select the encoder you have deleted (to realign stream labels and encoder settings).
 * Alt+NVDA+0: Opens encoder settings dialog to configure options such as stream label.
 
@@ -194,6 +193,10 @@ You can save settings for specific shows into broadcast profiles. These profiles
 ## SPL touch mode
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
+
+## Version 20.07
+
+* Dedicated stream labeler command (F12) has been removed from encoders. Stream labels can be defined from encoder settings dialog (Alt+NVDA+0).
 
 ## Version 20.06
 
