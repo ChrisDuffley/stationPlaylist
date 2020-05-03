@@ -78,7 +78,7 @@ SayPlayingCartName = boolean(default=true)
 SayStudioPlayerPosition = boolean(default=false)
 [Advanced]
 SPLConPassthrough = boolean(default=false)
-CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
+CompatibilityLayer = option("off", "jfw", default="off")
 PilotFeatures = boolean(default=false)
 [Startup]
 AudioDuckingReminder = boolean(default=true)
@@ -164,11 +164,6 @@ class ConfigHub(ChainMap):
 				if section == (): continue
 				# Unless otherwise specified, all keys are level 1 (section/key).
 				del self.maps[0][section[0]][key]
-			# 20.06: remove Window-Eyes command layout manually, present one final deprecation warning before doing so.
-			# 20.07: remove this altogether so it now becomes a config error.
-			if self.maps[0]["Advanced"]["CompatibilityLayer"] == "wineyes":
-				self.maps[0]["Advanced"]["CompatibilityLayer"] = "off"
-				self.maps[0]["Startup"]["WinEyesLayerDeprecation"] = True
 		# Moving onto broadcast profiles if any.
 		# 17.10: but not when only normal profile should be used.
 		if not self.normalProfileOnly:
