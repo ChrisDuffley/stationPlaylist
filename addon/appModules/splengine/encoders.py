@@ -46,9 +46,6 @@ SPLStreamLabels = {}
 ACStreamLabels = {}
 
 # A collection of encoder status monitor threads, one per encoder type.
-SAMMonitorThreads = {}
-SPLMonitorThreads = {}
-ACMonitorThreads = {}
 encoderMonCount = {"SAM": 0, "SPL": 0, "AltaCast": 0}
 
 # Configuration management.
