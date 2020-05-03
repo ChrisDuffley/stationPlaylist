@@ -279,11 +279,11 @@ class EncoderConfigDialog(wx.Dialog):
 		self.backgroundMonitor = encoderConfigHelper.addItem(wx.CheckBox(self, label=_("Enable background connection &monitoring")))
 		self.backgroundMonitor.SetValue(obj.backgroundMonitor)
 		# Translators: A checkbox in encoder settings to set if NvDA should play connection progress tone.
-		self.noConnectionTone = encoderConfigHelper.addItem(wx.CheckBox(self, label=_("Play connection status &beep while connecting")))
-		self.noConnectionTone.SetValue(obj.connectionTone)
+		self.connectionTone = encoderConfigHelper.addItem(wx.CheckBox(self, label=_("Play connection status &beep while connecting")))
+		self.connectionTone.SetValue(obj.connectionTone)
 		# Translators: A checkbox in encoder settings to set if NVDA should announce connection progress until an encoder connects.
-		self.connectionStopOnError = encoderConfigHelper.addItem(wx.CheckBox(self, label=_("Announce connection &status until encoder connects")))
-		self.connectionStopOnError.SetValue(obj.announceStatusUntilConnected)
+		self.announceStatusUntilConnected = encoderConfigHelper.addItem(wx.CheckBox(self, label=_("Announce connection &status until encoder connects")))
+		self.announceStatusUntilConnected.SetValue(obj.announceStatusUntilConnected)
 
 		encoderConfigHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
@@ -301,8 +301,8 @@ class EncoderConfigDialog(wx.Dialog):
 		setFlags(encoderId, self.playAfterConnecting.Value, SPLPlayAfterConnecting)
 		setFlags(encoderId, self.backgroundMonitor.Value, SPLBackgroundMonitor)
 		# Invert the following two flags.
-		setFlags(encoderId, not self.noConnectionTone.Value, SPLNoConnectionTone)
-		setFlags(encoderId, not self.connectionStopOnError.Value, SPLConnectionStopOnError)
+		setFlags(encoderId, not self.connectionTone.Value, SPLNoConnectionTone)
+		setFlags(encoderId, not self.announceStatusUntilConnected.Value, SPLConnectionStopOnError)
 		newStreamLabel = self.streamLabel.Value
 		if newStreamLabel is None: newStreamLabel = ""
 		self.obj.setStreamLabel(newStreamLabel)
