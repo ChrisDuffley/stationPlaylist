@@ -339,38 +339,23 @@ class Encoder(IAccessible):
 
 	@property
 	def focusToStudio(self):
-		try:
-			return self.encoderId in SPLFocusToStudio
-		except KeyError:
-			return False
+		return self.encoderId in SPLFocusToStudio
 
 	@property
 	def playAfterConnecting(self):
-		try:
-			return self.encoderId in SPLPlayAfterConnecting
-		except KeyError:
-			return False
+		return self.encoderId in SPLPlayAfterConnecting
 
 	@property
 	def backgroundMonitor(self):
-		try:
-			return self.encoderId in SPLBackgroundMonitor
-		except KeyError:
-			return False
+		return self.encoderId in SPLBackgroundMonitor
 
 	@property
 	def connectionTone(self):
-		try:
-			return self.encoderId not in SPLNoConnectionTone
-		except KeyError:
-			return True
+		return self.encoderId not in SPLNoConnectionTone
 
 	@property
 	def announceStatusUntilConnected(self):
-		try:
-			return self.encoderId not in SPLConnectionStopOnError
-		except KeyError:
-			return True
+		return self.encoderId not in SPLConnectionStopOnError
 
 	# Format the status message to prepare for monitoring multiple encoders.
 	def encoderStatusMessage(self, message, encoderId):
