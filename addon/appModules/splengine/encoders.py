@@ -761,10 +761,6 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 		ui.message(_("Description: {encoderDescription}").format(encoderDescription=self.getChild(3).name))
 
 	@property
-	def threadPool(self):
-		return SAMMonitorThreads
-
-	@property
 	def streamLabelsMap(self):
 		return SAMStreamLabels
 
@@ -860,10 +856,6 @@ class SPLEncoder(Encoder):
 		ui.message(_("Transfer Rate: {transferRate}").format(transferRate=self.getChild(1).name))
 
 	@property
-	def threadPool(self):
-		return SPLMonitorThreads
-
-	@property
 	def streamLabelsMap(self):
 		return SPLStreamLabels
 
@@ -873,10 +865,6 @@ class AltaCastEncoder(SPLEncoder):
 	# Deriving from Edcast (now unsupported), user interface resembles SPL Encoder.
 
 	encoderType = "AltaCast"
-
-	@property
-	def threadPool(self):
-		return ACMonitorThreads
 
 	@property
 	def streamLabelsMap(self):
