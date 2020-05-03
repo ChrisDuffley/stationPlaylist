@@ -253,10 +253,11 @@ class EncoderConfigDialog(wx.Dialog):
 		import weakref
 		EncoderConfigDialog._instance = weakref.ref(self)
 
+		# Encoder format text is used as part of the dialog title.
 		self.obj = obj
-		self.curStreamLabel, title = obj.getStreamLabel(getTitle=True)
+		self.curStreamLabel = obj.getStreamLabel()
 		# Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
-		super(EncoderConfigDialog, self).__init__(parent, wx.ID_ANY, _("Encoder settings for {name}").format(name=title))
+		super(EncoderConfigDialog, self).__init__(parent, wx.ID_ANY, _("Encoder settings for {name}").format(name=obj.encoderFormat))
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		encoderConfigHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 		# And to close this automatically when Studio dies.
