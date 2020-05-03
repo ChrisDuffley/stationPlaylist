@@ -554,7 +554,7 @@ class Encoder(IAccessible):
 	@scriptHandler.script(gesture="kb:control+NVDA+2")
 	def script_announceEncoderLabel(self, gesture):
 		try:
-			streamLabel = self.getStreamLabel()[0]
+			streamLabel = self.getStreamLabel()
 		except TypeError:
 			streamLabel = None
 		if streamLabel:
@@ -579,7 +579,7 @@ class Encoder(IAccessible):
 
 	def reportFocus(self):
 		try:
-			streamLabel = self.getStreamLabel()[0]
+			streamLabel = self.getStreamLabel()
 		except TypeError:
 			streamLabel = None
 		# Announce stream label if it exists.
