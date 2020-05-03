@@ -765,9 +765,8 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 
 	def getStreamLabel(self, getTitle=False):
 		if str(self.IAccessibleChildID) in SAMStreamLabels:
-			streamLabel = SAMStreamLabels[str(self.IAccessibleChildID)]
-			return streamLabel, self.getChild(1).name if getTitle else streamLabel
-		return (None, self.getChild(1).name) if getTitle else None
+			return SAMStreamLabels[str(self.IAccessibleChildID)]
+		return None
 
 	def setStreamLabel(self, newStreamLabel):
 		if len(newStreamLabel):
@@ -879,9 +878,8 @@ class SPLEncoder(Encoder):
 
 	def getStreamLabel(self, getTitle=False):
 		if str(self.IAccessibleChildID) in SPLStreamLabels:
-			streamLabel = SPLStreamLabels[str(self.IAccessibleChildID)]
-			return streamLabel, self.firstChild.name if getTitle else streamLabel
-		return (None, self.firstChild.name) if getTitle else None
+			return SPLStreamLabels[str(self.IAccessibleChildID)]
+		return None
 
 	def setStreamLabel(self, newStreamLabel):
 		if len(newStreamLabel):
@@ -909,9 +907,8 @@ class AltaCastEncoder(SPLEncoder):
 
 	def getStreamLabel(self, getTitle=False):
 		if str(self.IAccessibleChildID) in ACStreamLabels:
-			streamLabel = ACStreamLabels[str(self.IAccessibleChildID)]
-			return streamLabel, self.firstChild.name if getTitle else streamLabel
-		return (None, self.firstChild.name) if getTitle else None
+			return ACStreamLabels[str(self.IAccessibleChildID)]
+		return None
 
 	def setStreamLabel(self, newStreamLabel):
 		if len(newStreamLabel):
