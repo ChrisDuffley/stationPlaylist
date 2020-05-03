@@ -335,7 +335,7 @@ class Encoder(IAccessible):
 	# This consists of two or three letter abbreviations for the encoder and the child ID.
 	@property
 	def encoderId(self):
-		return " ".join([self.encoderType, str(self.IAccessibleChildID)])
+		return f"{self.encoderType} {self.IAccessibleChildID}"
 
 	@property
 	def focusToStudio(self):
