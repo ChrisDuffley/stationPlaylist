@@ -883,43 +883,6 @@ def instantProfileSwitch():
 # Startup dialogs.
 
 
-# Audio ducking reminder (NVDA 2016.1 and later).
-class AudioDuckingReminder(wx.Dialog):
-	"""A dialog to remind users to turn off audio ducking (NVDA 2016.1 and later).
-	"""
-
-	def __init__(self, parent):
-		# Translators: Title of a dialog displayed when the add-on starts reminding broadcasters to disable audio ducking.
-		super(AudioDuckingReminder, self).__init__(parent, title=_("SPL Studio and audio ducking"))
-
-		mainSizer = wx.BoxSizer(wx.VERTICAL)
-
-		# Translators: A message displayed if audio ducking should be disabled.
-		label = wx.StaticText(self, wx.ID_ANY, label=_("""NVDA 2016.1 and later allows NVDA to decrease volume of background audio including that of Studio.
-		In order to not disrupt the listening experience of your listeners, please disable audio ducking either by:
-		* Opening synthesizer dialog in NVDA and selecting 'no ducking' from audio ducking mode combo box.
-		* Press NVDA+Shift+D to set it to 'no ducking'."""))
-		mainSizer.Add(label, border=20, flag=wx.LEFT | wx.RIGHT | wx.TOP)
-
-		# Translators: A checkbox to turn off audio ducking reminder message.
-		self.audioDuckingReminder = wx.CheckBox(self, wx.ID_ANY, label=_("Do not show this message again"))
-		self.audioDuckingReminder.SetValue(not SPLConfig["Startup"]["AudioDuckingReminder"])
-		mainSizer.Add(self.audioDuckingReminder, border=10, flag=wx.TOP)
-
-		mainSizer.Add(self.CreateButtonSizer(wx.OK), flag=wx.ALIGN_CENTER_HORIZONTAL)
-		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
-		mainSizer.Fit(self)
-		self.Sizer = mainSizer
-		self.audioDuckingReminder.SetFocus()
-		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
-
-	def onOk(self, evt):
-		global SPLConfig
-		if self.audioDuckingReminder.Value:
-			SPLConfig["Startup"]["AudioDuckingReminder"] = not self.audioDuckingReminder.Value
-		self.Destroy()
-
-
 # Welcome dialog (emulating NvDA Core)
 class WelcomeDialog(wx.Dialog):
 
