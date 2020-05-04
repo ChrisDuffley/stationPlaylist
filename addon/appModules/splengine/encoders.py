@@ -338,6 +338,23 @@ class Encoder(IAccessible):
 	def encoderId(self):
 		return f"{self.encoderType} {self.IAccessibleChildID}"
 
+	# Get and set stream labels (hence stream label is not really a property, although it may appear to be so).
+	# These rely on stream labels map that records encoder labels for a specific encoder type.
+
+	def getStreamLabel(self):
+		if str(self.IAccessibleChildID) in self.streamLabelsMap:
+			return self.streamLabelsMap[str(self.IAccessibleChildID)]
+		return None
+
+	def setStreamLabel(self, newStreamLabel):
+		if len(newStreamLabel):
+			self.streamLabelsMap[str(self.IAccessibleChildID)] = newStreamLabel
+		else:
+			try:
+				del self.streamLabelsMap[str(self.IAccessibleChildID)]
+			except KeyError:
+				pass
+
 	@property
 	def focusToStudio(self):
 		return self.encoderId in SPLFocusToStudio
