@@ -987,11 +987,6 @@ def showStartupDialogs(oldVer=False, oldVerReturn=False):
 		gui.mainFrame.prePopup()
 		WelcomeDialog(gui.mainFrame).Show()
 		gui.mainFrame.postPopup()
-	import audioDucking
-	if SPLConfig["Startup"]["AudioDuckingReminder"] and audioDucking.isAudioDuckingSupported():
-		gui.mainFrame.prePopup()
-		AudioDuckingReminder(gui.mainFrame).Show()
-		gui.mainFrame.postPopup()
 
 
 # Message verbosity pool.
