@@ -99,19 +99,6 @@ def loadStreamLabels():
 	config.post_configReset.register(resetStreamLabels)
 
 
-# Report number of encoders being monitored.
-# 6.0: Refactor the below function to use the newer encoder config format.
-def getStreamLabel(identifier):
-	encoderType, encoderID = identifier.split()
-	# 5.2: Use a static map.
-	# 6.0: Look up the encoder type.
-	if encoderType == "SAM": labels = SAMStreamLabels
-	elif encoderType == "SPL": labels = SPLStreamLabels
-	elif encoderType == "AltaCast": labels = ACStreamLabels
-	if encoderID in labels: return labels[encoderID]
-	return None
-
-
 def announceEncoderConnectionStatus():
 	import windowUtils
 	# For SAM encoders, descend into encoder window after locating the foreground window.
