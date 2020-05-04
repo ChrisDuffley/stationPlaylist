@@ -81,7 +81,6 @@ SPLConPassthrough = boolean(default=false)
 CompatibilityLayer = option("off", "jfw", "wineyes", default="off")
 PilotFeatures = boolean(default=false)
 [Startup]
-AudioDuckingReminder = boolean(default=true)
 WelcomeDialog = boolean(default=true)
 WinEyesLayerDeprecation = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
