@@ -780,20 +780,6 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 	def streamLabelsMap(self):
 		return SAMStreamLabels
 
-	def getStreamLabel(self):
-		if str(self.IAccessibleChildID) in SAMStreamLabels:
-			return SAMStreamLabels[str(self.IAccessibleChildID)]
-		return None
-
-	def setStreamLabel(self, newStreamLabel):
-		if len(newStreamLabel):
-			SAMStreamLabels[str(self.IAccessibleChildID)] = newStreamLabel
-		else:
-			try:
-				del SAMStreamLabels[str(self.IAccessibleChildID)]
-			except KeyError:
-				pass
-
 
 class SPLEncoder(Encoder):
 	# Support for SPL Encoder window.
@@ -893,20 +879,6 @@ class SPLEncoder(Encoder):
 	def streamLabelsMap(self):
 		return SPLStreamLabels
 
-	def getStreamLabel(self):
-		if str(self.IAccessibleChildID) in SPLStreamLabels:
-			return SPLStreamLabels[str(self.IAccessibleChildID)]
-		return None
-
-	def setStreamLabel(self, newStreamLabel):
-		if len(newStreamLabel):
-			SPLStreamLabels[str(self.IAccessibleChildID)] = newStreamLabel
-		else:
-			try:
-				del SPLStreamLabels[str(self.IAccessibleChildID)]
-			except KeyError:
-				pass
-
 
 class AltaCastEncoder(SPLEncoder):
 	# Support for AltaCast Encoder window.
@@ -921,17 +893,3 @@ class AltaCastEncoder(SPLEncoder):
 	@property
 	def streamLabelsMap(self):
 		return ACStreamLabels
-
-	def getStreamLabel(self):
-		if str(self.IAccessibleChildID) in ACStreamLabels:
-			return ACStreamLabels[str(self.IAccessibleChildID)]
-		return None
-
-	def setStreamLabel(self, newStreamLabel):
-		if len(newStreamLabel):
-			ACStreamLabels[str(self.IAccessibleChildID)] = newStreamLabel
-		else:
-			try:
-				del ACStreamLabels[str(self.IAccessibleChildID)]
-			except KeyError:
-				pass
