@@ -137,17 +137,12 @@ def announceEncoderConnectionStatus():
 			ui.message(_("No encoders connected"))
 
 
-# Remove encoder ID from various settings maps.
+# Remove encoder ID from various settings maps and sets.
 # This is a private module level function in order for it to be invoked by humans alone.
 def _removeEncoderID(encoderType, pos):
-	# For now, store the key to map.
-	# This might become a module-level constant if other functions require this dictionary.
-	key2map = {"FocusToStudio": SPLFocusToStudio, "PlayAfterConnecting": SPLPlayAfterConnecting, "BackgroundMonitor": SPLBackgroundMonitor, "NoConnectionTone": SPLNoConnectionTone, "ConnectionStopOnError": SPLConnectionStopOnError}
 	encoderID = " ".join([encoderType, pos])
-	# Go through each feature map, remove the encoder ID and manipulate encoder positions in these sets.
-	# For each set, have a list of set items handy, otherwise set cardinality error (RuntimeError) will occur if items are removed on the fly.
-	for key in key2map:
-		encoderSettings = key2map[key]
+	# Go through each feature map/set, remove the encoder ID and manipulate encoder positions.
+	for encoderSettings in (SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError):
 		if encoderID in encoderSettings:
 			encoderSettings.remove(encoderID)
 		# If not sorted, encoders will appear in random order (a downside of using sets, as their ordering is quite unpredictable).
