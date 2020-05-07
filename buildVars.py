@@ -4,35 +4,35 @@
 # Change this file instead of sconstruct or manifest files, whenever possible.
 
 # Full getext (please don't change)
-_ = lambda x : x
+_ = lambda x: x
 
 # Add-on information variables
 addon_info = {
 	# for previously unpublished addons, please follow the community guidelines at:
 	# https://bitbucket.org/nvdaaddonteam/todo/raw/master/guideLines.txt
 	# add-on Name, internal for nvda
-	"addon_name" : "stationPlaylist",
+	"addon_name": "stationPlaylist",
 	# Add-on summary, usually the user visible name of the addon.
 	# Translators: Summary for this add-on to be shown on installation and add-on information.
-	"addon_summary" : _("StationPlaylist"),
+	"addon_summary": _("StationPlaylist"),
 	# Add-on description
 	# Translators: Long description to be shown for this add-on on add-on information from add-ons manager
-	"addon_description" : _("""Enhances support for StationPlaylist Studio.
+	"addon_description": _("""Enhances support for StationPlaylist Studio.
 In addition, adds global commands for the studio from everywhere."""),
 	# version
-	"addon_version" : "20.05",
+	"addon_version": "20.05",
 	# Author(s)
-	"addon_author" : u"Geoff Shang, Joseph Lee and other contributors",
+	"addon_author": u"Geoff Shang, Joseph Lee and other contributors",
 	# URL for the add-on documentation support
-	"addon_url" : "https://addons.nvda-project.org/",
+	"addon_url": "https://addons.nvda-project.org/",
 	# Documentation file name
-	"addon_docFileName" : "readme.html",
+	"addon_docFileName": "readme.html",
 	# Minimum NVDA version supported
-	"addon_minimumNVDAVersion" : "2019.3.0",
+	"addon_minimumNVDAVersion": "2019.3.0",
 	# Last NVDA version supported/tested
-	"addon_lastTestedNVDAVersion" : "2020.2.0",
+	"addon_lastTestedNVDAVersion": "2020.2.0",
 	# Add-on update channel (default is stable)
-	"addon_updateChannel" : None,
+	"addon_updateChannel": None,
 }
 
 
@@ -43,6 +43,7 @@ import os.path
 pythonSources = [os.path.join("addon", "*.py"),
 os.path.join("addon", "appModules", "*.py"),
 os.path.join("addon", "appModules", "splstudio", "*.py"),
+os.path.join("addon", "appModules", "splengine", "*.py"),
 os.path.join("addon", "globalPlugins", "splUtils", "*.py")]
 
 # Files that contain strings for translation. Usually your python sources
