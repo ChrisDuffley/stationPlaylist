@@ -44,7 +44,7 @@ pythonSources = [os.path.join("addon", "*.py"),
 os.path.join("addon", "appModules", "*.py"),
 os.path.join("addon", "appModules", "splstudio", "*.py"),
 os.path.join("addon", "appModules", "splengine", "*.py"),
-os.path.join("addon", "globalPlugins", "splUtils", "*.py")]
+os.path.join("addon", "globalPlugins", "splUtils.py")]
 
 # Files that contain strings for translation. Usually your python sources
 i18nSources = pythonSources + ["buildVars.py"]
