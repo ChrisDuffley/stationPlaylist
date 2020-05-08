@@ -440,11 +440,9 @@ class Encoder(IAccessible):
 	def script_toggleBackgroundEncoderMonitor(self, gesture):
 		if scriptHandler.getLastScriptRepeatCount() == 0:
 			if not self.backgroundMonitor:
-				encoderMonCount[self.encoderType] += 1
 				# Translators: Presented when toggling the setting to monitor the selected encoder.
 				ui.message(_("Monitoring encoder {encoderNumber}").format(encoderNumber=self.IAccessibleChildID))
 			else:
-				encoderMonCount[self.encoderType] -= 1
 				# Translators: Presented when toggling the setting to monitor the selected encoder.
 				ui.message(_("Encoder {encoderNumber} will not be monitored").format(encoderNumber=self.IAccessibleChildID))
 			self._setFlags(self.encoderId, not self.backgroundMonitor, SPLBackgroundMonitor)
