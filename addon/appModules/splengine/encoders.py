@@ -565,7 +565,6 @@ class Encoder(IAccessible):
 			ui.message(_("No stream label"))
 
 	def initOverlayClass(self):
-		global encoderMonCount
 		# Load stream labels upon request.
 		if streamLabels is None: loadStreamLabels()
 		# 6.2: Make sure background monitor threads are started if the flag is set.
@@ -576,7 +575,6 @@ class Encoder(IAccessible):
 				# If it is indeed alive... Otherwise another thread will be created to keep an eye on this encoder (undesirable).
 				else: return
 			self.connectStart()
-			encoderMonCount[self.encoderType] += 1
 
 	def reportFocus(self):
 		try:
