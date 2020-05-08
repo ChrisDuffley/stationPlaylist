@@ -282,86 +282,6 @@ msgstr ""
 "F12: Zu einem sofortigen Umschaltprofil wechseln.\n"
 "Umschalt+F1: Online-Benutzerhandbuch öffnen."
 
-#. Translators: The text of the help command in SPL Assistant layer when Window-Eyes layer is active.
-msgid ""
-"WARNING! Window-Eyes command layout is deprecated and will be removed in a "
-"future version of StationPlaylist add-on.\n"
-"After entering SPL Assistant, press:\n"
-"A: Automation.\n"
-"C: Toggle cart explorer.\n"
-"Shift+C: Announce name of the currently playing track.\n"
-"D: Remaining time for the playlist.\n"
-"E: Elapsed time.\n"
-"F: Track finder.\n"
-"R: Remaining time for the currently playing track.\n"
-"G: Overall metadata streaming status.\n"
-"Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder "
-"and four additional URL's.\n"
-"H: Duration of trakcs in this hour slot.\n"
-"Shift+H: Duration of remaining trakcs in this hour slot.\n"
-"K: Move to place marker track.\n"
-"Control+K: Set place marker track.\n"
-"L: Listener count.\n"
-"Shift+L: Line-in status.\n"
-"M: Microphone status.\n"
-"N: Next track.\n"
-"P: Playback status.\n"
-"Shift+P: Pitch for the current track.\n"
-"Shift+E: Record to file.\n"
-"Shift+R: Monitor library scan.\n"
-"S: Scheduled time for the track.\n"
-"Shift+S: Time until the selected track will play.\n"
-"T: Cart edit/insert mode.\n"
-"U: Studio up time.\n"
-"W: Weather and temperature.\n"
-"Y: Playlist modification.\n"
-"F8: Take playlist snapshots such as track count, longest track and so on.\n"
-"Shift+F8: Obtain playlist transcripts in a variety of formats.\n"
-"F9: Mark current track as start of track time analysis.\n"
-"F10: Perform track time analysis.\n"
-"F12: Switch to an instant switch profile.\n"
-"Shift+F1: Open online user guide."
-msgstr ""
-"WARNUNG! Window-Eyes-Befehlsebene ist veraltet und wird in einer zukünftigen "
-"Version der Erweiterung  StationPlaylist entfernt.\n"
-"Nachdem Sie den SPL-Assistenten aufgerufen haben, drücken Sie:\n"
-"A: Automatisierung.\n"
-"C: Cart-Explorer umschalten.\n"
-"Umschalt+C: Name des aktuell abgespielten Titels ankündigen.\n"
-"D: Verbleibende Zeit für die Wiedergabeliste.\n"
-"E: Verstrichene Zeit.\n"
-"F: Titel-Finder.\n"
-"R: Verbleibende Zeit für den aktuell abgespielten Titel.\n"
-"G: Gesamter Metadaten-Streaming-Status.\n"
-"Umschalt+1 bis Umschalt+4, Umschalt+0: Metadaten-Streaming-Status für den "
-"DSP-Encoder und vier zusätzliche URLs.\n"
-"H: Dauer der Titel in diesem Stunden-Fenster.\n"
-"Umschalt+H: Dauer der verbleibenden Titel in diesem Stundenfenster.\n"
-"K: Verschieben, um die Markierungsspur zu platzieren.\n"
-"Strg+K: Platzmarkierungsspur setzen.\n"
-"L: Anzahl der Zuhörer.\n"
-"Umschalt+L: Line-In-Status.\n"
-"M: Mikrofon-Status.\n"
-"N: Nächste Spur.\n"
-"P: Wiedergabestatus.\n"
-"Umschalt+P: Tonhöhe für den aktuellen Titel.\n"
-"Umschalt+E: Aufnahme in Datei.\n"
-"Umschalt+R: Durchsuchen der Monitorbibliothek.\n"
-"S: Geplante Zeit für den Titel.\n"
-"Umschalt+S: Zeit bis zur Wiedergabe des ausgewählten Titels.\n"
-"T: Modus zum Bearbeiten/Einfügen der Cart.\n"
-"U: Studio-Betriebszeit.\n"
-"W: Wetter und Temperatur.\n"
-"Y: Änderung der Wiedergabeliste.\n"
-"F8: Aufnahme von Schnappschüssen der Wiedergabeliste, z. B. Anzahl der "
-"Titel, längster Titel usw.\n"
-"Umschalt+F8: Erhalten Sie Abschriften von Wiedergabelisten in verschiedenen "
-"Formaten.\n"
-"F9: Markieren des aktuellen Titels als Beginn der Titelzeitanalyse.\n"
-"F10: Titel-Zeitanalyse durchführen.\n"
-"F12: Zu einem sofortigen Umschaltprofil wechseln.\n"
-"Umschalt+F1: Online-Benutzerhandbuch öffnen."
-
 msgid "SPL Studio Settings..."
 msgstr "SPL-Studio-Einstellungen..."
 
@@ -621,8 +541,8 @@ msgid "Average: {playlistAverageDuration}"
 msgstr "Durchschnittlich: {playlistAverageDuration}"
 
 #. Translators: one of the results for playlist snapshots feature for announcing top artist in a playlist.
-#, python-format
-msgid "Top artist: %s (%s)"
+#, fuzzy
+msgid "Top artist: {} ({})"
 msgstr "Top-Interpreten: %s (%s)"
 
 msgid "Top artist: none"
@@ -641,8 +561,8 @@ msgid "{artistName} ({artistCount})"
 msgstr "{artistName} ({artistCount})"
 
 #. Translators: one of the results for playlist snapshots feature for announcing top track category in a playlist.
-#, python-format
-msgid "Top category: %s (%s)"
+#, fuzzy
+msgid "Top category: {} ({})"
 msgstr "Top-Kategorie: %s (%s)"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
@@ -654,8 +574,8 @@ msgid "{categoryName} ({categoryCount})"
 msgstr "{categoryName} ({categoryCount})"
 
 #. Translators: one of the results for playlist snapshots feature for announcing top genre in a playlist.
-#, python-format
-msgid "Top genre: %s (%s)"
+#, fuzzy
+msgid "Top genre: {} ({})"
 msgstr "Top-Genres: %s (%s)"
 
 msgid "Top genre: none"
@@ -840,10 +760,6 @@ msgstr "SPL-Assistenten-Hilfe"
 msgid "SPL Assistant help for JAWS layout"
 msgstr "SPL-Assistenten-Hilfe für die Darstellung mit JAWS"
 
-#. Translators: The title for SPL Assistant help dialog.
-msgid "SPL Assistant help for Window-Eyes layout"
-msgstr "SPL-Assistenten-Hilfe für die Darstellung mit Window-Eyes"
-
 #. Translators: A message informing users that Studio is not running so certain commands will not work.
 msgid "Studio main window not found"
 msgstr "Das Hauptfenster des Studios wurde nicht gefunden"
@@ -852,12 +768,13 @@ msgstr "Das Hauptfenster des Studios wurde nicht gefunden"
 msgid "Normal profile"
 msgstr "Normales Profil"
 
-#. Translators: Message displayed when attempting to reset Studio add-on settings while an instant switch or time-based profile is active.
+#. Translators: Message displayed when attempting to reset Studio add-on settings while an instant switch profile is active.
+#, fuzzy
 msgid ""
-"An instant switch or time-based profile is active. Resetting Studio add-on "
-"settings means normal profile will become active and switch profile settings "
-"will be left in unpredictable state. Are you sure you wish to reset Studio "
-"add-on settings to factory defaults?"
+"An instant switch profile is active. Resetting Studio add-on settings means "
+"normal profile will become active and switch profile settings will be left "
+"in unpredictable state. Are you sure you wish to reset Studio add-on "
+"settings to factory defaults?"
 msgstr ""
 "Ein Sofortwechsel oder ein zeitbasiertes Profil ist aktiv. Das Zurücksetzen "
 "der SPL-Einstellungen bedeutet, dass das normale Profil aktiv wird und die "
@@ -883,32 +800,6 @@ msgstr "Kehrt zum {previousProfile} zurück"
 msgid "Studio add-on Configuration error"
 msgstr "Fehler beim Konfigurieren der Studio-Erweiterung"
 
-#. Translators: Message displayed if errors were found in encoder configuration file.
-msgid ""
-"Your encoder settings had errors and were reset to defaults. If you have "
-"stream labels configured for various encoders, please add them again."
-msgstr ""
-"Ihre Encoder-Einstellungen waren fehlerhaft und wurden auf die "
-"Standardeinstellungen zurückgesetzt. Wenn Sie Streambezeichnungen für "
-"verschiedene Encoder konfiguriert haben, fügen Sie diese bitte erneut hinzu."
-
-#. Translators: Title of the encoder settings error dialog.
-msgid "Encoder settings error"
-msgstr "Fehler in den Encoder-Einstellungen"
-
-#. Translators: Message presented indicating missing time-based profiles.
-#, python-brace-format
-msgid ""
-"Could not locate the following time-based profile(s):\n"
-"{profiles}"
-msgstr ""
-"Die folgenden zeitbasierten Profile konnten nicht gefunden werden:\n"
-"{profiles}"
-
-#. Translators: The title of a dialog shown when some time-based profiles doesn't exist.
-msgid "Time-based profiles missing"
-msgstr "Zeitbasierte Profile fehlen"
-
 #. Translators: A flag indicating the currently active broadcast profile.
 msgid "active"
 msgstr "aktiv"
@@ -917,10 +808,6 @@ msgstr "aktiv"
 #. Instant switch flag is set on another profile, so remove the flag first.
 msgid "instant switch"
 msgstr "Sofortwechsel"
-
-#. Translators: A flag indicating the time-based triggers profile.
-msgid "time-based"
-msgstr "zeitbasiert"
 
 #. Translators: announced when only normal profile is in use.
 msgid "Only normal profile is in use"
@@ -933,38 +820,6 @@ msgstr "Kein Profil für den Sofortwechsel definiert"
 #. Translators: Presented when trying to switch to an instant switch profile when one is already using the instant switch profile.
 msgid "You are already in the instant switch profile"
 msgstr "Sie befinden sich bereits im Profil für den Sofortwechsel"
-
-#. Translators: Presented when trying to switch to an instant switch profile when one is already using the instant switch profile.
-msgid "A profile trigger is already active"
-msgstr "Ein Profil-Trigger ist bereits aktiv"
-
-#. Translators: Title of a dialog displayed when the add-on starts reminding broadcasters to disable audio ducking.
-msgid "SPL Studio and audio ducking"
-msgstr "SPL-Studio und Reduzierung der Lautstärke anderer Audio-Quellen"
-
-#. Translators: A message displayed if audio ducking should be disabled.
-msgid ""
-"NVDA 2016.1 and later allows NVDA to decrease volume of background audio "
-"including that of Studio.\n"
-"\t\tIn order to not disrupt the listening experience of your listeners, "
-"please disable audio ducking either by:\n"
-"\t\t* Opening synthesizer dialog in NVDA and selecting 'no ducking' from "
-"audio ducking mode combo box.\n"
-"\t\t* Press NVDA+Shift+D to set it to 'no ducking'."
-msgstr ""
-"NVDA 2016.1 und neuer ermöglicht NVDA, die Lautstärke der Hintergrund-Sounds "
-"zu verringern, einschließlich der Lautstärke von Studio.\n"
-"\t\tUm das Hörer-Erlebnis Ihrer Zuhörer nicht zu stören, deaktivieren Sie "
-"bitte die Reduzierung der Lautstärke anderer Audio-Quellen wie folgt:\n"
-"\t\t* Öffnen Sie das Dialogfeld für die aktuelle Sprachausgabe in den NVDA-"
-"Einstellungen und setzen Sie die Option \"Lautstärke anderer Audio-Quellen "
-"reduzieren\" auf \"Niemals\".\n"
-"\t\t* Oder drücken Sie NVDA+Umschalt+D solange, um die Verringerung der "
-"Lautstärke auf \"Niemals\" einzustellen."
-
-#. Translators: A checkbox to turn off audio ducking reminder message.
-msgid "Do not show this message again"
-msgstr "Diese Meldung nicht mehr anzeigen"
 
 #. Translators: A message giving basic information about the add-on.
 msgid ""
@@ -1029,33 +884,14 @@ msgid "Show welcome dialog when I start Studio"
 msgstr "Willkommensdialog beim Starten der Studio-Erweiterung anzeigen"
 
 msgid ""
-"One or more time-based broadcast profiles are defined. Time-based broadcast "
-"profiles feature is deprecated and will be removed in a future version of "
-"StationPlaylist add-on."
+"Window-Eyes command layout has been removed. Your SPL Assistant command "
+"layout is set to NVDA (default layout). To learn more about commands you can "
+"use in SPL Assistant, from Studio window, press SPL Assistant, F1."
 msgstr ""
-"Es werden ein oder mehrere zeitbasierte Sendeprofile definiert. Die Funktion "
-"der zeitbasierten Sendeprofile ist veraltet und wird in einer zukünftigen "
-"Version der StationPlaylist-Erweiterung entfernt."
 
-msgid "SPL add-on feature deprecation"
+#, fuzzy
+msgid "SPL add-on feature removed"
 msgstr "Veraltete Features der SPL-Erweiterung"
-
-msgid ""
-"You are using SPL Assistant layer commands set to Window-Eyes command "
-"layout. As Window-Eyes is no longer supported, Window-Eyes command layout "
-"will be removed in a future version of StationPlaylist add-on. Please change "
-"SPL Assistant command layout to NVDA or JAWS layout by opening add-on "
-"settings screen (Alt+NvDA+0 from Studio window), selecting Advanced, then "
-"selecting the appropriate option from SPL Assistant compatibility layer "
-"combo box."
-msgstr ""
-"Sie verwenden den SPL-Assistent-Schichtbefehl für Window-Eyes \n"
-". Da Window-Eyes nicht länger entwickelt wird, wird dieser Schichtbefehl in "
-"einer zukünftigen Version der Erweiterung StationPlaylist entfernt. Bitte "
-"Ändern Sie diesen in JAWS oder NVDA in dem Sie die Erweiterungs-"
-"Einstellungen (Alt+NvDA+0 im Studio-Fenster) öffnen, in die Kategorie "
-"erweitert wechseln und dort  aus dem Kombinationsfeld SPL-Assistent-"
-"Kompatibilitätsschicht die passende Option auswählen."
 
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Status announcement beeps"
@@ -1154,7 +990,6 @@ msgstr "Aktivieren"
 msgid "Cop&y"
 msgstr "&Kopieren"
 
-#. #70 (18.07): in wxPython 4, name for the value keyword argument for text entry dialog constructor has changed.
 #. Translators: The label of a field to enter a new name for a broadcast profile.
 msgid "New name:"
 msgstr "Neuer Name:"
@@ -1170,7 +1005,7 @@ msgid "That profile already exists. Please choose a different name."
 msgstr ""
 "Dieses Profil existiert bereits. Bitte wählen Sie einen anderen Namen aus."
 
-#. Translators: Message reported when attempting to delete a profile while a profile is triggered.
+#. Translators: Message reported when attempting to delete a profile in the midst of a broadcast.
 msgid ""
 "An instant switch profile might be active or you are in the midst of a "
 "broadcast. If so, please press SPL Assistant, F12 to switch back to a "
@@ -1207,15 +1042,6 @@ msgstr ""
 #. Translators: The title of the confirmation dialog for deletion of a profile.
 msgid "Confirm Deletion"
 msgstr "Löschen bestätigen"
-
-#. Translators: Message reported when attempting to change profile switch trigger while broadcasting.
-msgid "You cannot change profile switch triggers in the midst of a broadcast."
-msgstr ""
-"Sie können während einer Sendung keine Auslöser für Profilwechsel ändern."
-
-#. Translators: Title of a dialog shown when profile trigger cannot e changed.
-msgid "Profile triggers"
-msgstr "Profil-Auslöser"
 
 #. Translators: The title of the dialog to create a new broadcast profile.
 msgid "New Profile"
@@ -1320,16 +1146,9 @@ msgstr ""
 msgid "Play a sound when listener &requests arrive"
 msgstr "Einen Ton wiedergeben, wenn Zuhö&rer-Anfragen eintreffen"
 
-#. 8.0: Apart from level 0 (all settings shown), levels change title.
-#. 20.03: level 0 (Alarms Center/all settings) is no more, as the dialog will not be invoked from add-on settings interface (default is end of track alarm).
-msgid "End of track alarm"
-msgstr "Benachrichtigung bei Titelende"
-
-msgid "Song intro alarm"
-msgstr "Benachrichtigung bei Song-Einleitung"
-
-msgid "Microphone alarm"
-msgstr "Mikrofon-Alarm"
+#. Translators: title of a panel to configure various alarms and related settings.
+msgid "Alarms"
+msgstr "Alarme"
 
 msgid "&End of track alarm in seconds"
 msgstr "&Benachrichtigung zum Ende eines Titels in Sekunden"
@@ -1343,7 +1162,6 @@ msgstr "&Vorwarnzeit für Titelanfang in Sekunden"
 msgid "&Notify when end of introduction is approaching"
 msgstr "&Benachrichtigen sobald das Ende der Einleitung erreicht wird"
 
-#. Translators: A dialog message to set microphone active alarm.
 msgid "&Microphone alarm in seconds (0 disables the alarm)"
 msgstr ""
 "&Zeitspanne des Mikrofon-Alarms in Sekunden (mit 0 können Sie den Alarm "
@@ -1351,10 +1169,6 @@ msgstr ""
 
 msgid "Microphone alarm &interval in seconds"
 msgstr "Intervall für &Mikrofon-Alarm in Sekunden"
-
-#. Translators: title of a panel to configure various alarms and related settings.
-msgid "Alarms"
-msgstr "Alarme"
 
 #. Translators: One of the alarm notification options.
 msgid "beep"
@@ -1824,6 +1638,203 @@ msgstr "In Datei speichern"
 msgid "Transcript action:"
 msgstr "Transcript-Aktion:"
 
+#. Translators: Message displayed if errors were found in encoder configuration file.
+msgid "Your encoder settings had errors and were reset to defaults."
+msgstr ""
+
+#. Translators: Title of the encoder settings error dialog.
+#, fuzzy
+msgid "SPL add-on Encoder settings error"
+msgstr "Fehler in den Encoder-Einstellungen"
+
+#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
+#, fuzzy
+msgid "No encoders found"
+msgstr "Keine Markierung gefunden"
+
+#. Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
+msgid "Only one encoder type can be active at once"
+msgstr ""
+
+#. Translators: presented when at least one encoder is connected.
+#, python-brace-format
+msgid "Connected encoders: {encodersConnected}"
+msgstr ""
+
+#. Translators: presented when no encoders are connected.
+msgid "No encoders connected"
+msgstr ""
+
+#. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
+#, fuzzy, python-brace-format
+msgid "Encoder settings for {name}"
+msgstr "Fehler in den Encoder-Einstellungen"
+
+#. Translators: An edit field in encoder settings to set stream label for this encoder.
+msgid "Stream &label"
+msgstr ""
+
+#. Translators: A checkbox in encoder settings to set if NvDA should switch focus to Studio window when connected.
+msgid "&Focus to Studio when connected"
+msgstr ""
+
+#. Translators: A checkbox in encoder settings to set if NvDA should play the next track when connected.
+msgid "&Play first track when connected"
+msgstr ""
+
+#. Translators: A checkbox in encoder settings to set if NvDA should monitor the status of this encoder in the background.
+msgid "Enable background connection &monitoring"
+msgstr ""
+
+#. Translators: A checkbox in encoder settings to set if NvDA should play connection progress tone.
+msgid "Play connection status &beep while connecting"
+msgstr ""
+
+#. Translators: A checkbox in encoder settings to set if NVDA should announce connection progress until an encoder connects.
+msgid "Announce connection &status until encoder connects"
+msgstr ""
+
+#. Translators: Status message for encoder monitoring.
+#, python-brace-format
+msgid "{encoder} {encoderNumber}: {status}"
+msgstr ""
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid ""
+"Toggles whether NVDA will switch to Studio when connected to a streaming "
+"server."
+msgstr ""
+
+#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+msgid "Switch to Studio after connecting"
+msgstr ""
+
+#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+msgid "Do not switch to Studio after connecting"
+msgstr ""
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid ""
+"Toggles whether Studio will play the first song when connected to a "
+"streaming server."
+msgstr ""
+
+#. Translators: Presented when toggling the setting to play selected song when connected to a streaming server.
+msgid "Play first track after connecting"
+msgstr ""
+
+#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+msgid "Do not play first track after connecting"
+msgstr ""
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid ""
+"Toggles whether NVDA will monitor the selected encoder in the background."
+msgstr ""
+
+#. Translators: Presented when toggling the setting to monitor the selected encoder.
+#, python-brace-format
+msgid "Monitoring encoder {encoderNumber}"
+msgstr ""
+
+#. Translators: Presented when toggling the setting to monitor the selected encoder.
+#, python-brace-format
+msgid "Encoder {encoderNumber} will not be monitored"
+msgstr ""
+
+#. Translators: Announced when background encoder monitoring is canceled.
+msgid "Encoder monitoring canceled"
+msgstr ""
+
+#. Translators: Input help mode message in SAM Encoder window.
+#, fuzzy
+msgid "Opens a dialog to label the selected encoder."
+msgstr ""
+"Öffnet einen Dialog, zum schnellen (de)aktivieren von Metadaten-Streaming."
+
+#. Translators: The title of the stream labeler dialog (example: stream labeler for 1).
+#, python-brace-format
+msgid "Stream labeler for {streamEntry}"
+msgstr ""
+
+#. Translators: The text of the stream labeler dialog.
+msgid "Enter the label for this stream"
+msgstr ""
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid ""
+"Opens a dialog to erase stream labels and settings from an encoder that was "
+"deleted."
+msgstr ""
+
+#. Translators: The title of the stream configuration eraser dialog.
+msgid "Stream label and settings eraser"
+msgstr ""
+
+#. Translators: The text of the stream configuration eraser dialog.
+msgid "Enter the position of the encoder you wish to delete or will delete"
+msgstr ""
+
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+msgid ""
+"Shows encoder configuration dialog to configure various encoder settings "
+"such as stream label."
+msgstr ""
+
+#. Translators: Text of the dialog when another alarm dialog is open.
+#, fuzzy
+msgid "Another encoder settings dialog is open."
+msgstr "Ein weiteres Suchdialog ist geöffnet."
+
+#. Translators: Input help mode message for report date and time command.
+msgid ""
+"If pressed once, reports the current time including seconds. If pressed "
+"twice, reports the current date"
+msgstr ""
+
+#, python-brace-format
+msgid "Position: {pos}"
+msgstr ""
+
+#, python-brace-format
+msgid "Label: {label}"
+msgstr ""
+
+msgid "No stream label"
+msgstr ""
+
+#. Translators: Presented when an Encoder is trying to connect to a streaming server.
+msgid "Connecting..."
+msgstr ""
+
+#. Translators: Presented when an Encoder is disconnecting from a streaming server.
+msgid "Disconnecting..."
+msgstr ""
+
+#, python-brace-format
+msgid "Format: {encoderFormat}"
+msgstr ""
+
+#, fuzzy, python-brace-format
+msgid "Status: {encoderStatus}"
+msgstr "Status: {name}"
+
+#, python-brace-format
+msgid "Description: {encoderDescription}"
+msgstr ""
+
+#. Translators: input hep command for an encoder connection command.
+msgid "Connects to a streaming server."
+msgstr ""
+
+#, fuzzy, python-brace-format
+msgid "Encoder Settings: {setting}"
+msgstr "Fehler in den Encoder-Einstellungen"
+
+#, python-brace-format
+msgid "Transfer Rate: {transferRate}"
+msgstr ""
+
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
 msgid ""
@@ -1951,6 +1962,182 @@ msgstr ""
 "Verbessert die Unterstützung für Station Playlist Studio.\n"
 "Des weiteren fügt es Tastenkombinationen für das Studio aus beliebigen "
 "Programmen hinzu."
+
+#~ msgid ""
+#~ "WARNING! Window-Eyes command layout is deprecated and will be removed in "
+#~ "a future version of StationPlaylist add-on.\n"
+#~ "After entering SPL Assistant, press:\n"
+#~ "A: Automation.\n"
+#~ "C: Toggle cart explorer.\n"
+#~ "Shift+C: Announce name of the currently playing track.\n"
+#~ "D: Remaining time for the playlist.\n"
+#~ "E: Elapsed time.\n"
+#~ "F: Track finder.\n"
+#~ "R: Remaining time for the currently playing track.\n"
+#~ "G: Overall metadata streaming status.\n"
+#~ "Shift+1 through shift+4, shift+0: Metadata streaming status for DSP "
+#~ "encoder and four additional URL's.\n"
+#~ "H: Duration of trakcs in this hour slot.\n"
+#~ "Shift+H: Duration of remaining trakcs in this hour slot.\n"
+#~ "K: Move to place marker track.\n"
+#~ "Control+K: Set place marker track.\n"
+#~ "L: Listener count.\n"
+#~ "Shift+L: Line-in status.\n"
+#~ "M: Microphone status.\n"
+#~ "N: Next track.\n"
+#~ "P: Playback status.\n"
+#~ "Shift+P: Pitch for the current track.\n"
+#~ "Shift+E: Record to file.\n"
+#~ "Shift+R: Monitor library scan.\n"
+#~ "S: Scheduled time for the track.\n"
+#~ "Shift+S: Time until the selected track will play.\n"
+#~ "T: Cart edit/insert mode.\n"
+#~ "U: Studio up time.\n"
+#~ "W: Weather and temperature.\n"
+#~ "Y: Playlist modification.\n"
+#~ "F8: Take playlist snapshots such as track count, longest track and so "
+#~ "on.\n"
+#~ "Shift+F8: Obtain playlist transcripts in a variety of formats.\n"
+#~ "F9: Mark current track as start of track time analysis.\n"
+#~ "F10: Perform track time analysis.\n"
+#~ "F12: Switch to an instant switch profile.\n"
+#~ "Shift+F1: Open online user guide."
+#~ msgstr ""
+#~ "WARNUNG! Window-Eyes-Befehlsebene ist veraltet und wird in einer "
+#~ "zukünftigen Version der Erweiterung  StationPlaylist entfernt.\n"
+#~ "Nachdem Sie den SPL-Assistenten aufgerufen haben, drücken Sie:\n"
+#~ "A: Automatisierung.\n"
+#~ "C: Cart-Explorer umschalten.\n"
+#~ "Umschalt+C: Name des aktuell abgespielten Titels ankündigen.\n"
+#~ "D: Verbleibende Zeit für die Wiedergabeliste.\n"
+#~ "E: Verstrichene Zeit.\n"
+#~ "F: Titel-Finder.\n"
+#~ "R: Verbleibende Zeit für den aktuell abgespielten Titel.\n"
+#~ "G: Gesamter Metadaten-Streaming-Status.\n"
+#~ "Umschalt+1 bis Umschalt+4, Umschalt+0: Metadaten-Streaming-Status für den "
+#~ "DSP-Encoder und vier zusätzliche URLs.\n"
+#~ "H: Dauer der Titel in diesem Stunden-Fenster.\n"
+#~ "Umschalt+H: Dauer der verbleibenden Titel in diesem Stundenfenster.\n"
+#~ "K: Verschieben, um die Markierungsspur zu platzieren.\n"
+#~ "Strg+K: Platzmarkierungsspur setzen.\n"
+#~ "L: Anzahl der Zuhörer.\n"
+#~ "Umschalt+L: Line-In-Status.\n"
+#~ "M: Mikrofon-Status.\n"
+#~ "N: Nächste Spur.\n"
+#~ "P: Wiedergabestatus.\n"
+#~ "Umschalt+P: Tonhöhe für den aktuellen Titel.\n"
+#~ "Umschalt+E: Aufnahme in Datei.\n"
+#~ "Umschalt+R: Durchsuchen der Monitorbibliothek.\n"
+#~ "S: Geplante Zeit für den Titel.\n"
+#~ "Umschalt+S: Zeit bis zur Wiedergabe des ausgewählten Titels.\n"
+#~ "T: Modus zum Bearbeiten/Einfügen der Cart.\n"
+#~ "U: Studio-Betriebszeit.\n"
+#~ "W: Wetter und Temperatur.\n"
+#~ "Y: Änderung der Wiedergabeliste.\n"
+#~ "F8: Aufnahme von Schnappschüssen der Wiedergabeliste, z. B. Anzahl der "
+#~ "Titel, längster Titel usw.\n"
+#~ "Umschalt+F8: Erhalten Sie Abschriften von Wiedergabelisten in "
+#~ "verschiedenen Formaten.\n"
+#~ "F9: Markieren des aktuellen Titels als Beginn der Titelzeitanalyse.\n"
+#~ "F10: Titel-Zeitanalyse durchführen.\n"
+#~ "F12: Zu einem sofortigen Umschaltprofil wechseln.\n"
+#~ "Umschalt+F1: Online-Benutzerhandbuch öffnen."
+
+#~ msgid "SPL Assistant help for Window-Eyes layout"
+#~ msgstr "SPL-Assistenten-Hilfe für die Darstellung mit Window-Eyes"
+
+#~ msgid ""
+#~ "Your encoder settings had errors and were reset to defaults. If you have "
+#~ "stream labels configured for various encoders, please add them again."
+#~ msgstr ""
+#~ "Ihre Encoder-Einstellungen waren fehlerhaft und wurden auf die "
+#~ "Standardeinstellungen zurückgesetzt. Wenn Sie Streambezeichnungen für "
+#~ "verschiedene Encoder konfiguriert haben, fügen Sie diese bitte erneut "
+#~ "hinzu."
+
+#~ msgid ""
+#~ "Could not locate the following time-based profile(s):\n"
+#~ "{profiles}"
+#~ msgstr ""
+#~ "Die folgenden zeitbasierten Profile konnten nicht gefunden werden:\n"
+#~ "{profiles}"
+
+#~ msgid "Time-based profiles missing"
+#~ msgstr "Zeitbasierte Profile fehlen"
+
+#~ msgid "time-based"
+#~ msgstr "zeitbasiert"
+
+#~ msgid "A profile trigger is already active"
+#~ msgstr "Ein Profil-Trigger ist bereits aktiv"
+
+#~ msgid "SPL Studio and audio ducking"
+#~ msgstr "SPL-Studio und Reduzierung der Lautstärke anderer Audio-Quellen"
+
+#~ msgid ""
+#~ "NVDA 2016.1 and later allows NVDA to decrease volume of background audio "
+#~ "including that of Studio.\n"
+#~ "\t\tIn order to not disrupt the listening experience of your listeners, "
+#~ "please disable audio ducking either by:\n"
+#~ "\t\t* Opening synthesizer dialog in NVDA and selecting 'no ducking' from "
+#~ "audio ducking mode combo box.\n"
+#~ "\t\t* Press NVDA+Shift+D to set it to 'no ducking'."
+#~ msgstr ""
+#~ "NVDA 2016.1 und neuer ermöglicht NVDA, die Lautstärke der Hintergrund-"
+#~ "Sounds zu verringern, einschließlich der Lautstärke von Studio.\n"
+#~ "\t\tUm das Hörer-Erlebnis Ihrer Zuhörer nicht zu stören, deaktivieren Sie "
+#~ "bitte die Reduzierung der Lautstärke anderer Audio-Quellen wie folgt:\n"
+#~ "\t\t* Öffnen Sie das Dialogfeld für die aktuelle Sprachausgabe in den "
+#~ "NVDA-Einstellungen und setzen Sie die Option \"Lautstärke anderer Audio-"
+#~ "Quellen reduzieren\" auf \"Niemals\".\n"
+#~ "\t\t* Oder drücken Sie NVDA+Umschalt+D solange, um die Verringerung der "
+#~ "Lautstärke auf \"Niemals\" einzustellen."
+
+#~ msgid "Do not show this message again"
+#~ msgstr "Diese Meldung nicht mehr anzeigen"
+
+#~ msgid ""
+#~ "One or more time-based broadcast profiles are defined. Time-based "
+#~ "broadcast profiles feature is deprecated and will be removed in a future "
+#~ "version of StationPlaylist add-on."
+#~ msgstr ""
+#~ "Es werden ein oder mehrere zeitbasierte Sendeprofile definiert. Die "
+#~ "Funktion der zeitbasierten Sendeprofile ist veraltet und wird in einer "
+#~ "zukünftigen Version der StationPlaylist-Erweiterung entfernt."
+
+#~ msgid ""
+#~ "You are using SPL Assistant layer commands set to Window-Eyes command "
+#~ "layout. As Window-Eyes is no longer supported, Window-Eyes command layout "
+#~ "will be removed in a future version of StationPlaylist add-on. Please "
+#~ "change SPL Assistant command layout to NVDA or JAWS layout by opening add-"
+#~ "on settings screen (Alt+NvDA+0 from Studio window), selecting Advanced, "
+#~ "then selecting the appropriate option from SPL Assistant compatibility "
+#~ "layer combo box."
+#~ msgstr ""
+#~ "Sie verwenden den SPL-Assistent-Schichtbefehl für Window-Eyes \n"
+#~ ". Da Window-Eyes nicht länger entwickelt wird, wird dieser Schichtbefehl "
+#~ "in einer zukünftigen Version der Erweiterung StationPlaylist entfernt. "
+#~ "Bitte Ändern Sie diesen in JAWS oder NVDA in dem Sie die Erweiterungs-"
+#~ "Einstellungen (Alt+NvDA+0 im Studio-Fenster) öffnen, in die Kategorie "
+#~ "erweitert wechseln und dort  aus dem Kombinationsfeld SPL-Assistent-"
+#~ "Kompatibilitätsschicht die passende Option auswählen."
+
+#~ msgid ""
+#~ "You cannot change profile switch triggers in the midst of a broadcast."
+#~ msgstr ""
+#~ "Sie können während einer Sendung keine Auslöser für Profilwechsel ändern."
+
+#~ msgid "Profile triggers"
+#~ msgstr "Profil-Auslöser"
+
+#~ msgid "End of track alarm"
+#~ msgstr "Benachrichtigung bei Titelende"
+
+#~ msgid "Song intro alarm"
+#~ msgstr "Benachrichtigung bei Song-Einleitung"
+
+#~ msgid "Microphone alarm"
+#~ msgstr "Mikrofon-Alarm"
 
 #~ msgid "Sets end of track alarm (default is 5 seconds)."
 #~ msgstr ""

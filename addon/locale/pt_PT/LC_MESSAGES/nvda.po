@@ -215,47 +215,6 @@ msgid ""
 "Shift+F1: Open online user guide."
 msgstr ""
 
-#. Translators: The text of the help command in SPL Assistant layer when Window-Eyes layer is active.
-msgid ""
-"WARNING! Window-Eyes command layout is deprecated and will be removed in a "
-"future version of StationPlaylist add-on.\n"
-"After entering SPL Assistant, press:\n"
-"A: Automation.\n"
-"C: Toggle cart explorer.\n"
-"Shift+C: Announce name of the currently playing track.\n"
-"D: Remaining time for the playlist.\n"
-"E: Elapsed time.\n"
-"F: Track finder.\n"
-"R: Remaining time for the currently playing track.\n"
-"G: Overall metadata streaming status.\n"
-"Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder "
-"and four additional URL's.\n"
-"H: Duration of trakcs in this hour slot.\n"
-"Shift+H: Duration of remaining trakcs in this hour slot.\n"
-"K: Move to place marker track.\n"
-"Control+K: Set place marker track.\n"
-"L: Listener count.\n"
-"Shift+L: Line-in status.\n"
-"M: Microphone status.\n"
-"N: Next track.\n"
-"P: Playback status.\n"
-"Shift+P: Pitch for the current track.\n"
-"Shift+E: Record to file.\n"
-"Shift+R: Monitor library scan.\n"
-"S: Scheduled time for the track.\n"
-"Shift+S: Time until the selected track will play.\n"
-"T: Cart edit/insert mode.\n"
-"U: Studio up time.\n"
-"W: Weather and temperature.\n"
-"Y: Playlist modification.\n"
-"F8: Take playlist snapshots such as track count, longest track and so on.\n"
-"Shift+F8: Obtain playlist transcripts in a variety of formats.\n"
-"F9: Mark current track as start of track time analysis.\n"
-"F10: Perform track time analysis.\n"
-"F12: Switch to an instant switch profile.\n"
-"Shift+F1: Open online user guide."
-msgstr ""
-
 msgid "SPL Studio Settings..."
 msgstr "Configurações do SPL Studio..."
 
@@ -511,8 +470,8 @@ msgid "Average: {playlistAverageDuration}"
 msgstr "Média: {playlistAverageDuration}"
 
 #. Translators: one of the results for playlist snapshots feature for announcing top artist in a playlist.
-#, python-format
-msgid "Top artist: %s (%s)"
+#, fuzzy
+msgid "Top artist: {} ({})"
 msgstr "Primeiro intérprete: %s (%s)"
 
 msgid "Top artist: none"
@@ -531,8 +490,8 @@ msgid "{artistName} ({artistCount})"
 msgstr "{artistName} ({artistCount})"
 
 #. Translators: one of the results for playlist snapshots feature for announcing top track category in a playlist.
-#, python-format
-msgid "Top category: %s (%s)"
+#, fuzzy
+msgid "Top category: {} ({})"
 msgstr "Primeira categoria: %s (%s)"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
@@ -544,8 +503,8 @@ msgid "{categoryName} ({categoryCount})"
 msgstr "{categoryName} ({categoryCount})"
 
 #. Translators: one of the results for playlist snapshots feature for announcing top genre in a playlist.
-#, python-format
-msgid "Top genre: %s (%s)"
+#, fuzzy
+msgid "Top genre: {} ({})"
 msgstr "primeiro género: %s (%s)"
 
 msgid "Top genre: none"
@@ -730,10 +689,6 @@ msgstr "Ajuda do assistente SPL"
 msgid "SPL Assistant help for JAWS layout"
 msgstr "Ajuda do Assistente SPL para o layout JAWS"
 
-#. Translators: The title for SPL Assistant help dialog.
-msgid "SPL Assistant help for Window-Eyes layout"
-msgstr "Ajuda do assistente SPL para o layout Window-Eyes"
-
 #. Translators: A message informing users that Studio is not running so certain commands will not work.
 msgid "Studio main window not found"
 msgstr "Janela principal do estúdio não encontrada"
@@ -742,12 +697,12 @@ msgstr "Janela principal do estúdio não encontrada"
 msgid "Normal profile"
 msgstr "Perfil normal"
 
-#. Translators: Message displayed when attempting to reset Studio add-on settings while an instant switch or time-based profile is active.
+#. Translators: Message displayed when attempting to reset Studio add-on settings while an instant switch profile is active.
 msgid ""
-"An instant switch or time-based profile is active. Resetting Studio add-on "
-"settings means normal profile will become active and switch profile settings "
-"will be left in unpredictable state. Are you sure you wish to reset Studio "
-"add-on settings to factory defaults?"
+"An instant switch profile is active. Resetting Studio add-on settings means "
+"normal profile will become active and switch profile settings will be left "
+"in unpredictable state. Are you sure you wish to reset Studio add-on "
+"settings to factory defaults?"
 msgstr ""
 
 #. Translators: The title of the confirmation dialog for Studio add-on settings reset.
@@ -769,32 +724,6 @@ msgstr "Retornando para {previousProfile}"
 msgid "Studio add-on Configuration error"
 msgstr "Erro de configuração do complemento do Studio"
 
-#. Translators: Message displayed if errors were found in encoder configuration file.
-msgid ""
-"Your encoder settings had errors and were reset to defaults. If you have "
-"stream labels configured for various encoders, please add them again."
-msgstr ""
-"As configurações do codificador tiveram erros e foram redefinidas para "
-"padrões. Se você tiver etiquetas de fluxo configuradas para vários "
-"codificadores, adicione-os novamente."
-
-#. Translators: Title of the encoder settings error dialog.
-msgid "Encoder settings error"
-msgstr "Erro de configurações do codificador"
-
-#. Translators: Message presented indicating missing time-based profiles.
-#, python-brace-format
-msgid ""
-"Could not locate the following time-based profile(s):\n"
-"{profiles}"
-msgstr ""
-"Não é possível localizar os seguintesperfis baseados no tempo (s):\n"
-"{profiles}"
-
-#. Translators: The title of a dialog shown when some time-based profiles doesn't exist.
-msgid "Time-based profiles missing"
-msgstr "Perfis baseados no tempo faltam"
-
 #. Translators: A flag indicating the currently active broadcast profile.
 msgid "active"
 msgstr "Acttivo"
@@ -803,10 +732,6 @@ msgstr "Acttivo"
 #. Instant switch flag is set on another profile, so remove the flag first.
 msgid "instant switch"
 msgstr "interruptor instantâneo"
-
-#. Translators: A flag indicating the time-based triggers profile.
-msgid "time-based"
-msgstr "com base no tempo"
 
 #. Translators: announced when only normal profile is in use.
 msgid "Only normal profile is in use"
@@ -819,36 +744,6 @@ msgstr "Nenhum perfil de switch instantâneo está definido"
 #. Translators: Presented when trying to switch to an instant switch profile when one is already using the instant switch profile.
 msgid "You are already in the instant switch profile"
 msgstr "Já está no perfil de troca instantânea"
-
-#. Translators: Presented when trying to switch to an instant switch profile when one is already using the instant switch profile.
-msgid "A profile trigger is already active"
-msgstr "Um gatilho de perfil já está ativo"
-
-#. Translators: Title of a dialog displayed when the add-on starts reminding broadcasters to disable audio ducking.
-msgid "SPL Studio and audio ducking"
-msgstr "SPL Studio e ducking de áudio"
-
-#. Translators: A message displayed if audio ducking should be disabled.
-msgid ""
-"NVDA 2016.1 and later allows NVDA to decrease volume of background audio "
-"including that of Studio.\n"
-"\t\tIn order to not disrupt the listening experience of your listeners, "
-"please disable audio ducking either by:\n"
-"\t\t* Opening synthesizer dialog in NVDA and selecting 'no ducking' from "
-"audio ducking mode combo box.\n"
-"\t\t* Press NVDA+Shift+D to set it to 'no ducking'."
-msgstr ""
-"NVDA 2016.1 and later allows NVDA to decrease volume of background audio "
-"including that of Studio.\n"
-"\t\tIn order to not disrupt the listening experience of your listeners, "
-"please disable audio ducking either by:\n"
-"\t\t* Opening synthesizer dialog in NVDA and selecting 'no ducking' from "
-"audio ducking mode combo box.\n"
-"\t\t* Press NVDA+Shift+D to set it to 'no ducking'."
-
-#. Translators: A checkbox to turn off audio ducking reminder message.
-msgid "Do not show this message again"
-msgstr "Não mostrar esta mensagem novamente"
 
 #. Translators: A message giving basic information about the add-on.
 msgid ""
@@ -887,22 +782,12 @@ msgid "Show welcome dialog when I start Studio"
 msgstr "Mostrar caixa de diálogo de boas-vindas quando eu iniciar o Studio"
 
 msgid ""
-"One or more time-based broadcast profiles are defined. Time-based broadcast "
-"profiles feature is deprecated and will be removed in a future version of "
-"StationPlaylist add-on."
+"Window-Eyes command layout has been removed. Your SPL Assistant command "
+"layout is set to NVDA (default layout). To learn more about commands you can "
+"use in SPL Assistant, from Studio window, press SPL Assistant, F1."
 msgstr ""
 
-msgid "SPL add-on feature deprecation"
-msgstr ""
-
-msgid ""
-"You are using SPL Assistant layer commands set to Window-Eyes command "
-"layout. As Window-Eyes is no longer supported, Window-Eyes command layout "
-"will be removed in a future version of StationPlaylist add-on. Please change "
-"SPL Assistant command layout to NVDA or JAWS layout by opening add-on "
-"settings screen (Alt+NvDA+0 from Studio window), selecting Advanced, then "
-"selecting the appropriate option from SPL Assistant compatibility layer "
-"combo box."
+msgid "SPL add-on feature removed"
 msgstr ""
 
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
@@ -999,7 +884,6 @@ msgstr ""
 msgid "Cop&y"
 msgstr "&Copiar"
 
-#. #70 (18.07): in wxPython 4, name for the value keyword argument for text entry dialog constructor has changed.
 #. Translators: The label of a field to enter a new name for a broadcast profile.
 msgid "New name:"
 msgstr "Novo nome"
@@ -1014,7 +898,7 @@ msgstr "Renomear perfil"
 msgid "That profile already exists. Please choose a different name."
 msgstr "Este perfil já existe; escolha um nome diferente"
 
-#. Translators: Message reported when attempting to delete a profile while a profile is triggered.
+#. Translators: Message reported when attempting to delete a profile in the midst of a broadcast.
 msgid ""
 "An instant switch profile might be active or you are in the midst of a "
 "broadcast. If so, please press SPL Assistant, F12 to switch back to a "
@@ -1047,16 +931,6 @@ msgstr ""
 #. Translators: The title of the confirmation dialog for deletion of a profile.
 msgid "Confirm Deletion"
 msgstr "Confirmar o apagamento"
-
-#. Translators: Message reported when attempting to change profile switch trigger while broadcasting.
-msgid "You cannot change profile switch triggers in the midst of a broadcast."
-msgstr ""
-"Não pode alterar os disparadores de mudança de perfil no meio de uma "
-"transmissão."
-
-#. Translators: Title of a dialog shown when profile trigger cannot e changed.
-msgid "Profile triggers"
-msgstr "Disparadores de perfil"
 
 #. Translators: The title of the dialog to create a new broadcast profile.
 msgid "New Profile"
@@ -1161,16 +1035,9 @@ msgstr ""
 msgid "Play a sound when listener &requests arrive"
 msgstr "Reproduzir um som quando chega uma solicitação de um ouvinte"
 
-#. 8.0: Apart from level 0 (all settings shown), levels change title.
-#. 20.03: level 0 (Alarms Center/all settings) is no more, as the dialog will not be invoked from add-on settings interface (default is end of track alarm).
-msgid "End of track alarm"
-msgstr "Fim da pista de alarme"
-
-msgid "Song intro alarm"
-msgstr "Alarme de introdução de música"
-
-msgid "Microphone alarm"
-msgstr "Alarme de microfone"
+#. Translators: title of a panel to configure various alarms and related settings.
+msgid "Alarms"
+msgstr "Alarmes"
 
 msgid "&End of track alarm in seconds"
 msgstr "& Alarme de fim de pista em segundos"
@@ -1184,16 +1051,11 @@ msgstr "Alarme de introdução de pista, em segundos"
 msgid "&Notify when end of introduction is approaching"
 msgstr "& Notificar quando o fim da introdução se aproxima"
 
-#. Translators: A dialog message to set microphone active alarm.
 msgid "&Microphone alarm in seconds (0 disables the alarm)"
 msgstr "& Alarme do microfone em segundos (0 desativa o alarme)"
 
 msgid "Microphone alarm &interval in seconds"
 msgstr "Alarme de microfone &intervalo em segundos"
-
-#. Translators: title of a panel to configure various alarms and related settings.
-msgid "Alarms"
-msgstr "Alarmes"
 
 #. Translators: One of the alarm notification options.
 msgid "beep"
@@ -1649,6 +1511,204 @@ msgstr "Guardar para ficheiro"
 msgid "Transcript action:"
 msgstr "Acção de transcrito"
 
+#. Translators: Message displayed if errors were found in encoder configuration file.
+msgid "Your encoder settings had errors and were reset to defaults."
+msgstr ""
+
+#. Translators: Title of the encoder settings error dialog.
+#, fuzzy
+msgid "SPL add-on Encoder settings error"
+msgstr "Erro de configurações do codificador"
+
+#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
+#, fuzzy
+msgid "No encoders found"
+msgstr "Nenhum marcador de local encontrado"
+
+#. Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
+msgid "Only one encoder type can be active at once"
+msgstr ""
+
+#. Translators: presented when at least one encoder is connected.
+#, python-brace-format
+msgid "Connected encoders: {encodersConnected}"
+msgstr ""
+
+#. Translators: presented when no encoders are connected.
+msgid "No encoders connected"
+msgstr ""
+
+#. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
+#, fuzzy, python-brace-format
+msgid "Encoder settings for {name}"
+msgstr "Erro de configurações do codificador"
+
+#. Translators: An edit field in encoder settings to set stream label for this encoder.
+msgid "Stream &label"
+msgstr ""
+
+#. Translators: A checkbox in encoder settings to set if NvDA should switch focus to Studio window when connected.
+msgid "&Focus to Studio when connected"
+msgstr ""
+
+#. Translators: A checkbox in encoder settings to set if NvDA should play the next track when connected.
+msgid "&Play first track when connected"
+msgstr ""
+
+#. Translators: A checkbox in encoder settings to set if NvDA should monitor the status of this encoder in the background.
+msgid "Enable background connection &monitoring"
+msgstr ""
+
+#. Translators: A checkbox in encoder settings to set if NvDA should play connection progress tone.
+msgid "Play connection status &beep while connecting"
+msgstr ""
+
+#. Translators: A checkbox in encoder settings to set if NVDA should announce connection progress until an encoder connects.
+msgid "Announce connection &status until encoder connects"
+msgstr ""
+
+#. Translators: Status message for encoder monitoring.
+#, python-brace-format
+msgid "{encoder} {encoderNumber}: {status}"
+msgstr ""
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid ""
+"Toggles whether NVDA will switch to Studio when connected to a streaming "
+"server."
+msgstr ""
+
+#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+msgid "Switch to Studio after connecting"
+msgstr ""
+
+#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+msgid "Do not switch to Studio after connecting"
+msgstr ""
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid ""
+"Toggles whether Studio will play the first song when connected to a "
+"streaming server."
+msgstr ""
+
+#. Translators: Presented when toggling the setting to play selected song when connected to a streaming server.
+msgid "Play first track after connecting"
+msgstr ""
+
+#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+msgid "Do not play first track after connecting"
+msgstr ""
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid ""
+"Toggles whether NVDA will monitor the selected encoder in the background."
+msgstr ""
+
+#. Translators: Presented when toggling the setting to monitor the selected encoder.
+#, python-brace-format
+msgid "Monitoring encoder {encoderNumber}"
+msgstr ""
+
+#. Translators: Presented when toggling the setting to monitor the selected encoder.
+#, python-brace-format
+msgid "Encoder {encoderNumber} will not be monitored"
+msgstr ""
+
+#. Translators: Announced when background encoder monitoring is canceled.
+msgid "Encoder monitoring canceled"
+msgstr ""
+
+#. Translators: Input help mode message in SAM Encoder window.
+#, fuzzy
+msgid "Opens a dialog to label the selected encoder."
+msgstr ""
+"Abre uma caixa de diálogo para ativar ou desativar rapidamente a transmissão "
+"de metadados."
+
+#. Translators: The title of the stream labeler dialog (example: stream labeler for 1).
+#, python-brace-format
+msgid "Stream labeler for {streamEntry}"
+msgstr ""
+
+#. Translators: The text of the stream labeler dialog.
+msgid "Enter the label for this stream"
+msgstr ""
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid ""
+"Opens a dialog to erase stream labels and settings from an encoder that was "
+"deleted."
+msgstr ""
+
+#. Translators: The title of the stream configuration eraser dialog.
+msgid "Stream label and settings eraser"
+msgstr ""
+
+#. Translators: The text of the stream configuration eraser dialog.
+msgid "Enter the position of the encoder you wish to delete or will delete"
+msgstr ""
+
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+msgid ""
+"Shows encoder configuration dialog to configure various encoder settings "
+"such as stream label."
+msgstr ""
+
+#. Translators: Text of the dialog when another alarm dialog is open.
+#, fuzzy
+msgid "Another encoder settings dialog is open."
+msgstr "Está aberto outro diálogo de procura"
+
+#. Translators: Input help mode message for report date and time command.
+msgid ""
+"If pressed once, reports the current time including seconds. If pressed "
+"twice, reports the current date"
+msgstr ""
+
+#, python-brace-format
+msgid "Position: {pos}"
+msgstr ""
+
+#, python-brace-format
+msgid "Label: {label}"
+msgstr ""
+
+msgid "No stream label"
+msgstr ""
+
+#. Translators: Presented when an Encoder is trying to connect to a streaming server.
+msgid "Connecting..."
+msgstr ""
+
+#. Translators: Presented when an Encoder is disconnecting from a streaming server.
+msgid "Disconnecting..."
+msgstr ""
+
+#, python-brace-format
+msgid "Format: {encoderFormat}"
+msgstr ""
+
+#, fuzzy, python-brace-format
+msgid "Status: {encoderStatus}"
+msgstr "Estado: {name}"
+
+#, python-brace-format
+msgid "Description: {encoderDescription}"
+msgstr ""
+
+#. Translators: input hep command for an encoder connection command.
+msgid "Connects to a streaming server."
+msgstr ""
+
+#, fuzzy, python-brace-format
+msgid "Encoder Settings: {setting}"
+msgstr "Erro de configurações do codificador"
+
+#, python-brace-format
+msgid "Transfer Rate: {transferRate}"
+msgstr ""
+
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
 msgid ""
@@ -1754,6 +1814,74 @@ msgid ""
 msgstr ""
 "Melhora o suporte para StationPlaylist Studio.\n"
 "Além disso, adiciona comandos globais para o estúdio em todos os lugares."
+
+#~ msgid "SPL Assistant help for Window-Eyes layout"
+#~ msgstr "Ajuda do assistente SPL para o layout Window-Eyes"
+
+#~ msgid ""
+#~ "Your encoder settings had errors and were reset to defaults. If you have "
+#~ "stream labels configured for various encoders, please add them again."
+#~ msgstr ""
+#~ "As configurações do codificador tiveram erros e foram redefinidas para "
+#~ "padrões. Se você tiver etiquetas de fluxo configuradas para vários "
+#~ "codificadores, adicione-os novamente."
+
+#~ msgid ""
+#~ "Could not locate the following time-based profile(s):\n"
+#~ "{profiles}"
+#~ msgstr ""
+#~ "Não é possível localizar os seguintesperfis baseados no tempo (s):\n"
+#~ "{profiles}"
+
+#~ msgid "Time-based profiles missing"
+#~ msgstr "Perfis baseados no tempo faltam"
+
+#~ msgid "time-based"
+#~ msgstr "com base no tempo"
+
+#~ msgid "A profile trigger is already active"
+#~ msgstr "Um gatilho de perfil já está ativo"
+
+#~ msgid "SPL Studio and audio ducking"
+#~ msgstr "SPL Studio e ducking de áudio"
+
+#~ msgid ""
+#~ "NVDA 2016.1 and later allows NVDA to decrease volume of background audio "
+#~ "including that of Studio.\n"
+#~ "\t\tIn order to not disrupt the listening experience of your listeners, "
+#~ "please disable audio ducking either by:\n"
+#~ "\t\t* Opening synthesizer dialog in NVDA and selecting 'no ducking' from "
+#~ "audio ducking mode combo box.\n"
+#~ "\t\t* Press NVDA+Shift+D to set it to 'no ducking'."
+#~ msgstr ""
+#~ "NVDA 2016.1 and later allows NVDA to decrease volume of background audio "
+#~ "including that of Studio.\n"
+#~ "\t\tIn order to not disrupt the listening experience of your listeners, "
+#~ "please disable audio ducking either by:\n"
+#~ "\t\t* Opening synthesizer dialog in NVDA and selecting 'no ducking' from "
+#~ "audio ducking mode combo box.\n"
+#~ "\t\t* Press NVDA+Shift+D to set it to 'no ducking'."
+
+#~ msgid "Do not show this message again"
+#~ msgstr "Não mostrar esta mensagem novamente"
+
+#~ msgid ""
+#~ "You cannot change profile switch triggers in the midst of a broadcast."
+#~ msgstr ""
+#~ "Não pode alterar os disparadores de mudança de perfil no meio de uma "
+#~ "transmissão."
+
+#~ msgid "Profile triggers"
+#~ msgstr "Disparadores de perfil"
+
+#~ msgid "End of track alarm"
+#~ msgstr "Fim da pista de alarme"
+
+#~ msgid "Song intro alarm"
+#~ msgstr "Alarme de introdução de música"
+
+#~ msgid "Microphone alarm"
+#~ msgstr "Alarme de microfone"
 
 #~ msgid "Sets end of track alarm (default is 5 seconds)."
 #~ msgstr "Define o alarme de fim de pista (o padrão é de 5 segundos)."

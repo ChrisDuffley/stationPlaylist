@@ -277,85 +277,6 @@ msgstr ""
 "F12: chuyển đến một hồ sơ chuyển nhanh.\n"
 "Shift+F1: mở tài liệu hướng dẫn trực tuyến."
 
-#. Translators: The text of the help command in SPL Assistant layer when Window-Eyes layer is active.
-msgid ""
-"WARNING! Window-Eyes command layout is deprecated and will be removed in a "
-"future version of StationPlaylist add-on.\n"
-"After entering SPL Assistant, press:\n"
-"A: Automation.\n"
-"C: Toggle cart explorer.\n"
-"Shift+C: Announce name of the currently playing track.\n"
-"D: Remaining time for the playlist.\n"
-"E: Elapsed time.\n"
-"F: Track finder.\n"
-"R: Remaining time for the currently playing track.\n"
-"G: Overall metadata streaming status.\n"
-"Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder "
-"and four additional URL's.\n"
-"H: Duration of trakcs in this hour slot.\n"
-"Shift+H: Duration of remaining trakcs in this hour slot.\n"
-"K: Move to place marker track.\n"
-"Control+K: Set place marker track.\n"
-"L: Listener count.\n"
-"Shift+L: Line-in status.\n"
-"M: Microphone status.\n"
-"N: Next track.\n"
-"P: Playback status.\n"
-"Shift+P: Pitch for the current track.\n"
-"Shift+E: Record to file.\n"
-"Shift+R: Monitor library scan.\n"
-"S: Scheduled time for the track.\n"
-"Shift+S: Time until the selected track will play.\n"
-"T: Cart edit/insert mode.\n"
-"U: Studio up time.\n"
-"W: Weather and temperature.\n"
-"Y: Playlist modification.\n"
-"F8: Take playlist snapshots such as track count, longest track and so on.\n"
-"Shift+F8: Obtain playlist transcripts in a variety of formats.\n"
-"F9: Mark current track as start of track time analysis.\n"
-"F10: Perform track time analysis.\n"
-"F12: Switch to an instant switch profile.\n"
-"Shift+F1: Open online user guide."
-msgstr ""
-"Cảnh báo! Kiểu phím lệnh của Window-Eyes đã được lược bỏ và sẽ bị gỡ ở một "
-"phiên bản trong tương lai của StationPlaylist add-on.\n"
-"Sau khi vào SPL Assistant, bấm:\n"
-"A: tự động hóa.\n"
-"C: bật / tắt cart explorer.\n"
-"Shift+C: thông báo tên của track đang phát.\n"
-"D: thời gian còn lại cho danh sách phát.\n"
-"E: thời gian đã trôi qua.\n"
-"F: tìm kiếm track.\n"
-"R: thời gian còn lại của track đang phát.\n"
-"G: tổng thể trạng thái truyền siêu dữ liệu.\n"
-"Shift+1 đến shift+4, shift+0: trạng thái truyền siêu dữ liệu cho bộ mã hóa "
-"và URL bổ sung.\n"
-"H: thời lượng các track trong khung giờ này.\n"
-"Shift+H: thời lượng các track còn lại trong khung giờ này.\n"
-"K: chuyển đến track đánh dấu.\n"
-"Control+K: cài đặt track đánh dấu.\n"
-"L: lượt người nghe..\n"
-"Shift+L: trạng thái line-in.\n"
-"M: trạng thái microphone.\n"
-"N: track kế.\n"
-"P: trạng thái phát.\n"
-"Shift+P: độ cao track hiện tại.\n"
-"Shift+E: thu ra tập tin.\n"
-"Shift+R: theo dõi quét thư viện.\n"
-"S: thời gian đã lên lịch cho track.\n"
-"Shift+S: thời gian đến khi sẽ phát các track được chọn.\n"
-"T: chế độ chỉnh sửa / chèn cart.\n"
-"U: Studio tăng thời gian.\n"
-"W: thời tiết và nhiệt độ.\n"
-"Y: chỉnh sửa danh sách phát.\n"
-"F8: chụp các ảnh của danh sách phát như số lượng track,\n"
-"track dài nhất và nhiều nữa.\n"
-"Shift+F8: lấy các thông tin về điểm của danh sách phát ở nhiều định dạng.\n"
-"F9: đánh dấu track hiện tại là nơi bắt đầu phân tích thời gian track.\n"
-"F10: thực hiện phân tích thời gian .\n"
-"F12: chuyển đến một hồ sơ chuyển nhanh.\n"
-"Shift+F1: mở tài liệu hướng dẫn trực tuyến."
-
 msgid "SPL Studio Settings..."
 msgstr "Cài đặt SPL Studio..."
 
@@ -601,8 +522,8 @@ msgid "Average: {playlistAverageDuration}"
 msgstr "Trugn bình: {playlistAverageDuration}"
 
 #. Translators: one of the results for playlist snapshots feature for announcing top artist in a playlist.
-#, python-format
-msgid "Top artist: %s (%s)"
+#, fuzzy
+msgid "Top artist: {} ({})"
 msgstr "Ca sĩ tiêu biểu: %s (%s)"
 
 msgid "Top artist: none"
@@ -621,8 +542,8 @@ msgid "{artistName} ({artistCount})"
 msgstr "{artistName} ({artistCount})"
 
 #. Translators: one of the results for playlist snapshots feature for announcing top track category in a playlist.
-#, python-format
-msgid "Top category: %s (%s)"
+#, fuzzy
+msgid "Top category: {} ({})"
 msgstr "Các chủ đề tiêu biểu: %s (%s)"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
@@ -634,8 +555,8 @@ msgid "{categoryName} ({categoryCount})"
 msgstr "{categoryName} ({categoryCount})"
 
 #. Translators: one of the results for playlist snapshots feature for announcing top genre in a playlist.
-#, python-format
-msgid "Top genre: %s (%s)"
+#, fuzzy
+msgid "Top genre: {} ({})"
 msgstr "Thể loại tiêu biểu: %s (%s)"
 
 msgid "Top genre: none"
@@ -816,10 +737,6 @@ msgstr "Trợ giúp SPL Assistant"
 msgid "SPL Assistant help for JAWS layout"
 msgstr "Trợ giúp SPL Assistant cho kiểu phím lệnh của Jaws"
 
-#. Translators: The title for SPL Assistant help dialog.
-msgid "SPL Assistant help for Window-Eyes layout"
-msgstr "Trợ giúp SPL Assistant cho kiểu phím lệnh của Window-Eyes"
-
 #. Translators: A message informing users that Studio is not running so certain commands will not work.
 msgid "Studio main window not found"
 msgstr "Không tìm thấy cửa sổ chính của Studio"
@@ -828,12 +745,13 @@ msgstr "Không tìm thấy cửa sổ chính của Studio"
 msgid "Normal profile"
 msgstr "Hồ sơ bình thường"
 
-#. Translators: Message displayed when attempting to reset Studio add-on settings while an instant switch or time-based profile is active.
+#. Translators: Message displayed when attempting to reset Studio add-on settings while an instant switch profile is active.
+#, fuzzy
 msgid ""
-"An instant switch or time-based profile is active. Resetting Studio add-on "
-"settings means normal profile will become active and switch profile settings "
-"will be left in unpredictable state. Are you sure you wish to reset Studio "
-"add-on settings to factory defaults?"
+"An instant switch profile is active. Resetting Studio add-on settings means "
+"normal profile will become active and switch profile settings will be left "
+"in unpredictable state. Are you sure you wish to reset Studio add-on "
+"settings to factory defaults?"
 msgstr ""
 "Một hồ sơ chuyển nhanh hoặc hồ sơ theo thời gian đang hoạt động. Việc khôi "
 "phục các cài đặt của Studio add-on có nghĩa là hồ sơ bình thường sẽ được "
@@ -859,32 +777,6 @@ msgstr "Đang trở về {previousProfile}"
 msgid "Studio add-on Configuration error"
 msgstr "Studio add-on lỗi cấu hình"
 
-#. Translators: Message displayed if errors were found in encoder configuration file.
-msgid ""
-"Your encoder settings had errors and were reset to defaults. If you have "
-"stream labels configured for various encoders, please add them again."
-msgstr ""
-"Cài đặt mã hóa của bạn bị lỗi và đã được khôi phục về mặc định. Nếu bạn có "
-"các nhãn phát thanh được cấu hình cho các bộ mã hóa khác nhau, vui lòng thêm "
-"chúng vào lại."
-
-#. Translators: Title of the encoder settings error dialog.
-msgid "Encoder settings error"
-msgstr "Lỗi cài đặt mã hóa"
-
-#. Translators: Message presented indicating missing time-based profiles.
-#, python-brace-format
-msgid ""
-"Could not locate the following time-based profile(s):\n"
-"{profiles}"
-msgstr ""
-"Không tìm thấy các hồ sơ theo thời gian:\n"
-"{profiles}"
-
-#. Translators: The title of a dialog shown when some time-based profiles doesn't exist.
-msgid "Time-based profiles missing"
-msgstr "Không có hồ sơ theo thời gian"
-
 #. Translators: A flag indicating the currently active broadcast profile.
 msgid "active"
 msgstr "hoạt động"
@@ -893,10 +785,6 @@ msgstr "hoạt động"
 #. Instant switch flag is set on another profile, so remove the flag first.
 msgid "instant switch"
 msgstr "chuyển nhanh"
-
-#. Translators: A flag indicating the time-based triggers profile.
-msgid "time-based"
-msgstr "theo thời gian"
 
 #. Translators: announced when only normal profile is in use.
 msgid "Only normal profile is in use"
@@ -909,36 +797,6 @@ msgstr "Không có hồ sơ chuyển nhanh nào được chỉ định"
 #. Translators: Presented when trying to switch to an instant switch profile when one is already using the instant switch profile.
 msgid "You are already in the instant switch profile"
 msgstr "Bạn đã ở trong hồ sơ chuyển nhanh"
-
-#. Translators: Presented when trying to switch to an instant switch profile when one is already using the instant switch profile.
-msgid "A profile trigger is already active"
-msgstr "Đã có một tác nhân hồ sơ hoạt động"
-
-#. Translators: Title of a dialog displayed when the add-on starts reminding broadcasters to disable audio ducking.
-msgid "SPL Studio and audio ducking"
-msgstr "SPL Studio và giảm âm lượng"
-
-#. Translators: A message displayed if audio ducking should be disabled.
-msgid ""
-"NVDA 2016.1 and later allows NVDA to decrease volume of background audio "
-"including that of Studio.\n"
-"\t\tIn order to not disrupt the listening experience of your listeners, "
-"please disable audio ducking either by:\n"
-"\t\t* Opening synthesizer dialog in NVDA and selecting 'no ducking' from "
-"audio ducking mode combo box.\n"
-"\t\t* Press NVDA+Shift+D to set it to 'no ducking'."
-msgstr ""
-"NVDA 2016.1 trở lên cho phép NVDA giảm âm lượng của âm thanh nền bao gồm "
-"luôn Studio.\n"
-"\t\tĐể không làm gián đoạn trải nghiệm của người nghe, vui lòng vô hiệu hóa "
-"tính năng giảm âm lượng bằng cách:\n"
-"\t\t* Mở hộp thoại chọn bộ đọc trong NVDA và chọn 'không giảm' trong hộp xổ "
-"giảm âm lượng các ứng dụng khác.\n"
-"\t\t* Bấm NVDA+Shift+D để thiết lập là 'không giảm'."
-
-#. Translators: A checkbox to turn off audio ducking reminder message.
-msgid "Do not show this message again"
-msgstr "Không hiển thị lại thông điệp này nữa"
 
 #. Translators: A message giving basic information about the add-on.
 msgid ""
@@ -1000,32 +858,14 @@ msgid "Show welcome dialog when I start Studio"
 msgstr "Hiện hộp thoại chào mừng khi khởi động Studio"
 
 msgid ""
-"One or more time-based broadcast profiles are defined. Time-based broadcast "
-"profiles feature is deprecated and will be removed in a future version of "
-"StationPlaylist add-on."
+"Window-Eyes command layout has been removed. Your SPL Assistant command "
+"layout is set to NVDA (default layout). To learn more about commands you can "
+"use in SPL Assistant, from Studio window, press SPL Assistant, F1."
 msgstr ""
-"Một hoặc nhiều hồ sơ phát thanh theo thời gian đã được quy định. Tính năng "
-"này đã được lược bớt và sẽ được gỡ bỏ ở một phiên bản trong tương lai của "
-"StationPlaylist add-on."
 
-msgid "SPL add-on feature deprecation"
+#, fuzzy
+msgid "SPL add-on feature removed"
 msgstr "Giản lược tính năng SPL add-on"
-
-msgid ""
-"You are using SPL Assistant layer commands set to Window-Eyes command "
-"layout. As Window-Eyes is no longer supported, Window-Eyes command layout "
-"will be removed in a future version of StationPlaylist add-on. Please change "
-"SPL Assistant command layout to NVDA or JAWS layout by opening add-on "
-"settings screen (Alt+NvDA+0 from Studio window), selecting Advanced, then "
-"selecting the appropriate option from SPL Assistant compatibility layer "
-"combo box."
-msgstr ""
-"Bạn đang dùng các lệnh lớp của SPL Assistant được thiết lập theo kiểu lệnh "
-"của Window-Eyes. Vì Window-Eyes không còn được hỗ trợ nữa, kiểu lệnh này sẽ "
-"bị gỡ bỏ ở một phiên bản trong tương lai của  StationPlaylist add-on. Vui "
-"lòng đổi kiểu phím lệnh cho SPL Assistant sang NVDA hoặc JAWS bằng cách mở "
-"hộp thoại cài đặt add-on (Alt+NvDA+0 từ cửa sổ Studio), chọn nâng cao, rồi "
-"chọn các tùy chỉnh phù hợp từ hộp xổ kiểu phím lệnh SPL Assistant."
 
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Status announcement beeps"
@@ -1121,7 +961,6 @@ msgstr "Kích hoạt"
 msgid "Cop&y"
 msgstr "&Sao chép"
 
-#. #70 (18.07): in wxPython 4, name for the value keyword argument for text entry dialog constructor has changed.
 #. Translators: The label of a field to enter a new name for a broadcast profile.
 msgid "New name:"
 msgstr "Tên mới:"
@@ -1136,7 +975,7 @@ msgstr "Đổi tên hồ sơ"
 msgid "That profile already exists. Please choose a different name."
 msgstr "Đã có tên hồ sơ này. Vui lòng chọn tên khác."
 
-#. Translators: Message reported when attempting to delete a profile while a profile is triggered.
+#. Translators: Message reported when attempting to delete a profile in the midst of a broadcast.
 msgid ""
 "An instant switch profile might be active or you are in the midst of a "
 "broadcast. If so, please press SPL Assistant, F12 to switch back to a "
@@ -1169,16 +1008,6 @@ msgstr "Bạn có chắc muốn xóa hồ sơ này không? Thao tác này không
 #. Translators: The title of the confirmation dialog for deletion of a profile.
 msgid "Confirm Deletion"
 msgstr "Xác nhận xóa"
-
-#. Translators: Message reported when attempting to change profile switch trigger while broadcasting.
-msgid "You cannot change profile switch triggers in the midst of a broadcast."
-msgstr ""
-"Bạn không thể thay đổi tác nhân chuyển hồ sơ khi đang nghe chương trình phát "
-"thanh."
-
-#. Translators: Title of a dialog shown when profile trigger cannot e changed.
-msgid "Profile triggers"
-msgstr "Các tác nhân hồ sơ"
 
 #. Translators: The title of the dialog to create a new broadcast profile.
 msgid "New Profile"
@@ -1281,16 +1110,9 @@ msgstr "Thông báo khi ở đầu hay cuối của trình xem danh sách phát"
 msgid "Play a sound when listener &requests arrive"
 msgstr "Phát âm thanh khi có &yêu cầu của người nghe"
 
-#. 8.0: Apart from level 0 (all settings shown), levels change title.
-#. 20.03: level 0 (Alarms Center/all settings) is no more, as the dialog will not be invoked from add-on settings interface (default is end of track alarm).
-msgid "End of track alarm"
-msgstr "Báo hiệu cuối track"
-
-msgid "Song intro alarm"
-msgstr "Nhạc hiệu"
-
-msgid "Microphone alarm"
-msgstr "Báo hiệu microphone"
+#. Translators: title of a panel to configure various alarms and related settings.
+msgid "Alarms"
+msgstr "Báo hiệu"
 
 msgid "&End of track alarm in seconds"
 msgstr "&Báo hiệu cuối track bằng giây"
@@ -1304,16 +1126,11 @@ msgstr "&Track nhạc hiệu bằng giây"
 msgid "&Notify when end of introduction is approaching"
 msgstr "&Thông báo khi gần hết phần giới thiệu"
 
-#. Translators: A dialog message to set microphone active alarm.
 msgid "&Microphone alarm in seconds (0 disables the alarm)"
 msgstr "&Báo hiệu Microphone bằng giây (0 giây là tắt báo hiệu)"
 
 msgid "Microphone alarm &interval in seconds"
 msgstr "Thiết lập khoảng &thời gian bao hiệu microphone"
-
-#. Translators: title of a panel to configure various alarms and related settings.
-msgid "Alarms"
-msgstr "Báo hiệu"
 
 #. Translators: One of the alarm notification options.
 msgid "beep"
@@ -1761,6 +1578,202 @@ msgstr "lưu thành tập tin"
 msgid "Transcript action:"
 msgstr "Hoạt động bản điểm:"
 
+#. Translators: Message displayed if errors were found in encoder configuration file.
+msgid "Your encoder settings had errors and were reset to defaults."
+msgstr ""
+
+#. Translators: Title of the encoder settings error dialog.
+#, fuzzy
+msgid "SPL add-on Encoder settings error"
+msgstr "Lỗi cài đặt mã hóa"
+
+#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
+#, fuzzy
+msgid "No encoders found"
+msgstr "Không tìm thấy điểm đánh dấu nào"
+
+#. Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
+msgid "Only one encoder type can be active at once"
+msgstr ""
+
+#. Translators: presented when at least one encoder is connected.
+#, python-brace-format
+msgid "Connected encoders: {encodersConnected}"
+msgstr ""
+
+#. Translators: presented when no encoders are connected.
+msgid "No encoders connected"
+msgstr ""
+
+#. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
+#, fuzzy, python-brace-format
+msgid "Encoder settings for {name}"
+msgstr "Lỗi cài đặt mã hóa"
+
+#. Translators: An edit field in encoder settings to set stream label for this encoder.
+msgid "Stream &label"
+msgstr ""
+
+#. Translators: A checkbox in encoder settings to set if NvDA should switch focus to Studio window when connected.
+msgid "&Focus to Studio when connected"
+msgstr ""
+
+#. Translators: A checkbox in encoder settings to set if NvDA should play the next track when connected.
+msgid "&Play first track when connected"
+msgstr ""
+
+#. Translators: A checkbox in encoder settings to set if NvDA should monitor the status of this encoder in the background.
+msgid "Enable background connection &monitoring"
+msgstr ""
+
+#. Translators: A checkbox in encoder settings to set if NvDA should play connection progress tone.
+msgid "Play connection status &beep while connecting"
+msgstr ""
+
+#. Translators: A checkbox in encoder settings to set if NVDA should announce connection progress until an encoder connects.
+msgid "Announce connection &status until encoder connects"
+msgstr ""
+
+#. Translators: Status message for encoder monitoring.
+#, python-brace-format
+msgid "{encoder} {encoderNumber}: {status}"
+msgstr ""
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid ""
+"Toggles whether NVDA will switch to Studio when connected to a streaming "
+"server."
+msgstr ""
+
+#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+msgid "Switch to Studio after connecting"
+msgstr ""
+
+#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+msgid "Do not switch to Studio after connecting"
+msgstr ""
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid ""
+"Toggles whether Studio will play the first song when connected to a "
+"streaming server."
+msgstr ""
+
+#. Translators: Presented when toggling the setting to play selected song when connected to a streaming server.
+msgid "Play first track after connecting"
+msgstr ""
+
+#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+msgid "Do not play first track after connecting"
+msgstr ""
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid ""
+"Toggles whether NVDA will monitor the selected encoder in the background."
+msgstr ""
+
+#. Translators: Presented when toggling the setting to monitor the selected encoder.
+#, python-brace-format
+msgid "Monitoring encoder {encoderNumber}"
+msgstr ""
+
+#. Translators: Presented when toggling the setting to monitor the selected encoder.
+#, python-brace-format
+msgid "Encoder {encoderNumber} will not be monitored"
+msgstr ""
+
+#. Translators: Announced when background encoder monitoring is canceled.
+msgid "Encoder monitoring canceled"
+msgstr ""
+
+#. Translators: Input help mode message in SAM Encoder window.
+#, fuzzy
+msgid "Opens a dialog to label the selected encoder."
+msgstr "Mở hộp thoại để nhanh chóng bật hay tắt truyền siêu dữ liệu."
+
+#. Translators: The title of the stream labeler dialog (example: stream labeler for 1).
+#, python-brace-format
+msgid "Stream labeler for {streamEntry}"
+msgstr ""
+
+#. Translators: The text of the stream labeler dialog.
+msgid "Enter the label for this stream"
+msgstr ""
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid ""
+"Opens a dialog to erase stream labels and settings from an encoder that was "
+"deleted."
+msgstr ""
+
+#. Translators: The title of the stream configuration eraser dialog.
+msgid "Stream label and settings eraser"
+msgstr ""
+
+#. Translators: The text of the stream configuration eraser dialog.
+msgid "Enter the position of the encoder you wish to delete or will delete"
+msgstr ""
+
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+msgid ""
+"Shows encoder configuration dialog to configure various encoder settings "
+"such as stream label."
+msgstr ""
+
+#. Translators: Text of the dialog when another alarm dialog is open.
+#, fuzzy
+msgid "Another encoder settings dialog is open."
+msgstr "Một hộp thoại tìm kiếm khác đang mở."
+
+#. Translators: Input help mode message for report date and time command.
+msgid ""
+"If pressed once, reports the current time including seconds. If pressed "
+"twice, reports the current date"
+msgstr ""
+
+#, python-brace-format
+msgid "Position: {pos}"
+msgstr ""
+
+#, python-brace-format
+msgid "Label: {label}"
+msgstr ""
+
+msgid "No stream label"
+msgstr ""
+
+#. Translators: Presented when an Encoder is trying to connect to a streaming server.
+msgid "Connecting..."
+msgstr ""
+
+#. Translators: Presented when an Encoder is disconnecting from a streaming server.
+msgid "Disconnecting..."
+msgstr ""
+
+#, python-brace-format
+msgid "Format: {encoderFormat}"
+msgstr ""
+
+#, fuzzy, python-brace-format
+msgid "Status: {encoderStatus}"
+msgstr "Trạng thái: {name}"
+
+#, python-brace-format
+msgid "Description: {encoderDescription}"
+msgstr ""
+
+#. Translators: input hep command for an encoder connection command.
+msgid "Connects to a streaming server."
+msgstr ""
+
+#, fuzzy, python-brace-format
+msgid "Encoder Settings: {setting}"
+msgstr "Lỗi cài đặt mã hóa"
+
+#, python-brace-format
+msgid "Transfer Rate: {transferRate}"
+msgstr ""
+
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
 msgid ""
@@ -1886,6 +1899,180 @@ msgid ""
 msgstr ""
 "Cải thiện hỗ trợ cho StationPlaylist Studio.\n"
 "Ngoài ra là thêm các lệnh toàn cục cho studio từ bất cứ đâu."
+
+#~ msgid ""
+#~ "WARNING! Window-Eyes command layout is deprecated and will be removed in "
+#~ "a future version of StationPlaylist add-on.\n"
+#~ "After entering SPL Assistant, press:\n"
+#~ "A: Automation.\n"
+#~ "C: Toggle cart explorer.\n"
+#~ "Shift+C: Announce name of the currently playing track.\n"
+#~ "D: Remaining time for the playlist.\n"
+#~ "E: Elapsed time.\n"
+#~ "F: Track finder.\n"
+#~ "R: Remaining time for the currently playing track.\n"
+#~ "G: Overall metadata streaming status.\n"
+#~ "Shift+1 through shift+4, shift+0: Metadata streaming status for DSP "
+#~ "encoder and four additional URL's.\n"
+#~ "H: Duration of trakcs in this hour slot.\n"
+#~ "Shift+H: Duration of remaining trakcs in this hour slot.\n"
+#~ "K: Move to place marker track.\n"
+#~ "Control+K: Set place marker track.\n"
+#~ "L: Listener count.\n"
+#~ "Shift+L: Line-in status.\n"
+#~ "M: Microphone status.\n"
+#~ "N: Next track.\n"
+#~ "P: Playback status.\n"
+#~ "Shift+P: Pitch for the current track.\n"
+#~ "Shift+E: Record to file.\n"
+#~ "Shift+R: Monitor library scan.\n"
+#~ "S: Scheduled time for the track.\n"
+#~ "Shift+S: Time until the selected track will play.\n"
+#~ "T: Cart edit/insert mode.\n"
+#~ "U: Studio up time.\n"
+#~ "W: Weather and temperature.\n"
+#~ "Y: Playlist modification.\n"
+#~ "F8: Take playlist snapshots such as track count, longest track and so "
+#~ "on.\n"
+#~ "Shift+F8: Obtain playlist transcripts in a variety of formats.\n"
+#~ "F9: Mark current track as start of track time analysis.\n"
+#~ "F10: Perform track time analysis.\n"
+#~ "F12: Switch to an instant switch profile.\n"
+#~ "Shift+F1: Open online user guide."
+#~ msgstr ""
+#~ "Cảnh báo! Kiểu phím lệnh của Window-Eyes đã được lược bỏ và sẽ bị gỡ ở "
+#~ "một phiên bản trong tương lai của StationPlaylist add-on.\n"
+#~ "Sau khi vào SPL Assistant, bấm:\n"
+#~ "A: tự động hóa.\n"
+#~ "C: bật / tắt cart explorer.\n"
+#~ "Shift+C: thông báo tên của track đang phát.\n"
+#~ "D: thời gian còn lại cho danh sách phát.\n"
+#~ "E: thời gian đã trôi qua.\n"
+#~ "F: tìm kiếm track.\n"
+#~ "R: thời gian còn lại của track đang phát.\n"
+#~ "G: tổng thể trạng thái truyền siêu dữ liệu.\n"
+#~ "Shift+1 đến shift+4, shift+0: trạng thái truyền siêu dữ liệu cho bộ mã "
+#~ "hóa và URL bổ sung.\n"
+#~ "H: thời lượng các track trong khung giờ này.\n"
+#~ "Shift+H: thời lượng các track còn lại trong khung giờ này.\n"
+#~ "K: chuyển đến track đánh dấu.\n"
+#~ "Control+K: cài đặt track đánh dấu.\n"
+#~ "L: lượt người nghe..\n"
+#~ "Shift+L: trạng thái line-in.\n"
+#~ "M: trạng thái microphone.\n"
+#~ "N: track kế.\n"
+#~ "P: trạng thái phát.\n"
+#~ "Shift+P: độ cao track hiện tại.\n"
+#~ "Shift+E: thu ra tập tin.\n"
+#~ "Shift+R: theo dõi quét thư viện.\n"
+#~ "S: thời gian đã lên lịch cho track.\n"
+#~ "Shift+S: thời gian đến khi sẽ phát các track được chọn.\n"
+#~ "T: chế độ chỉnh sửa / chèn cart.\n"
+#~ "U: Studio tăng thời gian.\n"
+#~ "W: thời tiết và nhiệt độ.\n"
+#~ "Y: chỉnh sửa danh sách phát.\n"
+#~ "F8: chụp các ảnh của danh sách phát như số lượng track,\n"
+#~ "track dài nhất và nhiều nữa.\n"
+#~ "Shift+F8: lấy các thông tin về điểm của danh sách phát ở nhiều định "
+#~ "dạng.\n"
+#~ "F9: đánh dấu track hiện tại là nơi bắt đầu phân tích thời gian track.\n"
+#~ "F10: thực hiện phân tích thời gian .\n"
+#~ "F12: chuyển đến một hồ sơ chuyển nhanh.\n"
+#~ "Shift+F1: mở tài liệu hướng dẫn trực tuyến."
+
+#~ msgid "SPL Assistant help for Window-Eyes layout"
+#~ msgstr "Trợ giúp SPL Assistant cho kiểu phím lệnh của Window-Eyes"
+
+#~ msgid ""
+#~ "Your encoder settings had errors and were reset to defaults. If you have "
+#~ "stream labels configured for various encoders, please add them again."
+#~ msgstr ""
+#~ "Cài đặt mã hóa của bạn bị lỗi và đã được khôi phục về mặc định. Nếu bạn "
+#~ "có các nhãn phát thanh được cấu hình cho các bộ mã hóa khác nhau, vui "
+#~ "lòng thêm chúng vào lại."
+
+#~ msgid ""
+#~ "Could not locate the following time-based profile(s):\n"
+#~ "{profiles}"
+#~ msgstr ""
+#~ "Không tìm thấy các hồ sơ theo thời gian:\n"
+#~ "{profiles}"
+
+#~ msgid "Time-based profiles missing"
+#~ msgstr "Không có hồ sơ theo thời gian"
+
+#~ msgid "time-based"
+#~ msgstr "theo thời gian"
+
+#~ msgid "A profile trigger is already active"
+#~ msgstr "Đã có một tác nhân hồ sơ hoạt động"
+
+#~ msgid "SPL Studio and audio ducking"
+#~ msgstr "SPL Studio và giảm âm lượng"
+
+#~ msgid ""
+#~ "NVDA 2016.1 and later allows NVDA to decrease volume of background audio "
+#~ "including that of Studio.\n"
+#~ "\t\tIn order to not disrupt the listening experience of your listeners, "
+#~ "please disable audio ducking either by:\n"
+#~ "\t\t* Opening synthesizer dialog in NVDA and selecting 'no ducking' from "
+#~ "audio ducking mode combo box.\n"
+#~ "\t\t* Press NVDA+Shift+D to set it to 'no ducking'."
+#~ msgstr ""
+#~ "NVDA 2016.1 trở lên cho phép NVDA giảm âm lượng của âm thanh nền bao gồm "
+#~ "luôn Studio.\n"
+#~ "\t\tĐể không làm gián đoạn trải nghiệm của người nghe, vui lòng vô hiệu "
+#~ "hóa tính năng giảm âm lượng bằng cách:\n"
+#~ "\t\t* Mở hộp thoại chọn bộ đọc trong NVDA và chọn 'không giảm' trong hộp "
+#~ "xổ giảm âm lượng các ứng dụng khác.\n"
+#~ "\t\t* Bấm NVDA+Shift+D để thiết lập là 'không giảm'."
+
+#~ msgid "Do not show this message again"
+#~ msgstr "Không hiển thị lại thông điệp này nữa"
+
+#~ msgid ""
+#~ "One or more time-based broadcast profiles are defined. Time-based "
+#~ "broadcast profiles feature is deprecated and will be removed in a future "
+#~ "version of StationPlaylist add-on."
+#~ msgstr ""
+#~ "Một hoặc nhiều hồ sơ phát thanh theo thời gian đã được quy định. Tính "
+#~ "năng này đã được lược bớt và sẽ được gỡ bỏ ở một phiên bản trong tương "
+#~ "lai của StationPlaylist add-on."
+
+#~ msgid ""
+#~ "You are using SPL Assistant layer commands set to Window-Eyes command "
+#~ "layout. As Window-Eyes is no longer supported, Window-Eyes command layout "
+#~ "will be removed in a future version of StationPlaylist add-on. Please "
+#~ "change SPL Assistant command layout to NVDA or JAWS layout by opening add-"
+#~ "on settings screen (Alt+NvDA+0 from Studio window), selecting Advanced, "
+#~ "then selecting the appropriate option from SPL Assistant compatibility "
+#~ "layer combo box."
+#~ msgstr ""
+#~ "Bạn đang dùng các lệnh lớp của SPL Assistant được thiết lập theo kiểu "
+#~ "lệnh của Window-Eyes. Vì Window-Eyes không còn được hỗ trợ nữa, kiểu lệnh "
+#~ "này sẽ bị gỡ bỏ ở một phiên bản trong tương lai của  StationPlaylist add-"
+#~ "on. Vui lòng đổi kiểu phím lệnh cho SPL Assistant sang NVDA hoặc JAWS "
+#~ "bằng cách mở hộp thoại cài đặt add-on (Alt+NvDA+0 từ cửa sổ Studio), chọn "
+#~ "nâng cao, rồi chọn các tùy chỉnh phù hợp từ hộp xổ kiểu phím lệnh SPL "
+#~ "Assistant."
+
+#~ msgid ""
+#~ "You cannot change profile switch triggers in the midst of a broadcast."
+#~ msgstr ""
+#~ "Bạn không thể thay đổi tác nhân chuyển hồ sơ khi đang nghe chương trình "
+#~ "phát thanh."
+
+#~ msgid "Profile triggers"
+#~ msgstr "Các tác nhân hồ sơ"
+
+#~ msgid "End of track alarm"
+#~ msgstr "Báo hiệu cuối track"
+
+#~ msgid "Song intro alarm"
+#~ msgstr "Nhạc hiệu"
+
+#~ msgid "Microphone alarm"
+#~ msgstr "Báo hiệu microphone"
 
 #~ msgid "Sets end of track alarm (default is 5 seconds)."
 #~ msgstr "Thiết lập báo động cuối track (mặc định là 5 giây)."
