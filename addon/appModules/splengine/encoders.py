@@ -135,11 +135,12 @@ def _removeEncoderID(encoderType, pos):
 
 # Save stream labels and various flags, called when closing app modules and when config save command is pressed.
 def saveStreamLabels():
-	global streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError
+	global streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError, SPLEncoderLabels
 	# Gather stream labels and flags.
 	streamLabels["SAMEncoders"] = dict(SAMStreamLabels)
 	streamLabels["SPLEncoders"] = dict(SPLStreamLabels)
 	streamLabels["AltaCastEncoders"] = dict(ACStreamLabels)
+	streamLabels["EncoderLabels"] = dict(SPLEncoderLabels)
 	# For flags, convert flag sets into lists.
 	streamLabels["FocusToStudio"] = list(SPLFocusToStudio)
 	streamLabels["PlayAfterConnecting"] = list(SPLPlayAfterConnecting)
