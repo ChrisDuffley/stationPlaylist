@@ -187,7 +187,7 @@ def saveStreamLabels():
 # 20.04: if told to do so, save encoder settings and unregister config save handler.
 # In case this is called as part of a reset, unregister config save handler unconditionally.
 def cleanup(appTerminating=False, reset=False):
-	global streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLBackgroundMonitorThreads, SPLNoConnectionTone, SPLConnectionStopOnError, encoderMonCount
+	global streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLBackgroundMonitorThreads, SPLNoConnectionTone, SPLConnectionStopOnError
 	# #132 (20.05): do not proceed if stream labels is None (no encoders were initialized).
 	if streamLabels is None: return
 	if appTerminating: saveStreamLabels()
@@ -203,9 +203,6 @@ def cleanup(appTerminating=False, reset=False):
 	shutil.copyfile(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"), os.path.join(globalVars.appArgs.configPath, "splencodersettings.ini"))
 	# Nullify stream labels.
 	streamLabels = None
-	# Without resetting monitor count, we end up with higher and higher value for this.
-	# 7.0: Destroy threads also.
-	encoderMonCount = {"SAM": 0, "SPL": 0, "AltaCast": 0}
 
 
 # Reset encoder settings.
@@ -453,8 +450,6 @@ class Encoder(IAccessible):
 					monitoring = False
 				if not monitoring: self.connectStart()
 		else:
-			for encoderType in encoderMonCount:
-				encoderMonCount[encoderType] = 0
 			SPLBackgroundMonitor.clear()
 			# Translators: Announced when background encoder monitoring is canceled.
 			ui.message(_("Encoder monitoring canceled"))
