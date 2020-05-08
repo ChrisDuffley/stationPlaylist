@@ -44,6 +44,7 @@ SPLConnectionStopOnError = set()
 SAMStreamLabels = {}
 SPLStreamLabels = {}
 ACStreamLabels = {}
+SPLEncoderLabels = {}
 
 # Configuration management.
 streamLabels = None
@@ -51,7 +52,7 @@ streamLabels = None
 
 # Load stream labels (and possibly other future goodies) from a file-based database.
 def loadStreamLabels():
-	global streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError
+	global streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError, SPLEncoderLabels
 	# 7.1: Make sure encoder settings map isn't corrupted.
 	# #131 (20.06): transplanted from Studio app module so the error message can be shown when an encoder gains focus.
 	try:
@@ -79,6 +80,20 @@ def loadStreamLabels():
 		ACStreamLabels = dict(streamLabels["AltaCastEncoders"])
 	except KeyError:
 		ACStreamLabels = {}
+	# #137: prepare a unified view of encoder labels.
+	try:
+		SPLEncoderLabels = dict(streamLabels["EncoderLabels"])
+	except KeyError:
+		SPLEncoderLabels = {}
+	if len(SAMStreamLabels):
+		for pos in SAMStreamLabels:
+			SPLEncoderLabels[f"SAM {pos}"] = SAMStreamLabels[pos]
+	if len(SPLStreamLabels):
+		for pos in SPLStreamLabels:
+			SPLEncoderLabels[f"SPL {pos}"] = SPLStreamLabels[pos]
+	if len(ACStreamLabels):
+		for pos in ACStreamLabels:
+			SPLEncoderLabels[f"AltaCast {pos}"] = ACStreamLabels[pos]
 	# Read other settings.
 	if "FocusToStudio" in streamLabels:
 		SPLFocusToStudio = set(streamLabels["FocusToStudio"])
