@@ -197,9 +197,9 @@ def saveStreamLabels():
 		if not len(streamLabels[key]):
 			del streamLabels[key]
 	streamLabels.write()
-	# 20.06: write a copy to splencodersettings.ini.
+	# 20.06: write a copy to splencoders.ini.
 	import shutil
-	shutil.copyfile(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"), os.path.join(globalVars.appArgs.configPath, "splencodersettings.ini"))
+	shutil.copyfile(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"), os.path.join(globalVars.appArgs.configPath, "splencoders.ini"))
 
 
 # Nullify various flag sets, otherwise memory leak occurs.
@@ -217,9 +217,9 @@ def cleanup(appTerminating=False, reset=False):
 		if flag is not None: flag.clear()
 	# 20.04: save a "clean" copy after resetting encoder settings.
 	if reset: streamLabels.write()
-	# 20.06: write a copy to splencodersettings.ini.
+	# 20.06: write a copy to splencoders.ini.
 	import shutil
-	shutil.copyfile(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"), os.path.join(globalVars.appArgs.configPath, "splencodersettings.ini"))
+	shutil.copyfile(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"), os.path.join(globalVars.appArgs.configPath, "splencoders.ini"))
 	# Nullify stream labels.
 	streamLabels = None
 	# Without resetting monitor count, we end up with higher and higher value for this.
