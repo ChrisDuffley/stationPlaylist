@@ -49,8 +49,8 @@ lập khác.
 * NVDA+Shift+F12 (vuốt lên hai ngón trong chế độ chạm của SPL) từ cửa sổ
   Studio: thông báo thời gian phát thanh như là 5 phút đến đầu giờ. Bấm hai
   lần sẽ thông báo số phút và giây đến đầu giờ.
-* Alt+NVDA+1 (two finger flick right in SPL mode) from Studio window: Opens
-  alarms category in Studio add-on configuration dialog.
+* Alt+NVDA+1 (vuốt hai ngón qua trái trong chế độ SPL ) từ cửa sổ Studio: mở
+  phân loại báo hiệu trong hộp thoại cấu hình add-on Studio.
 * Alt+NVDA+1 từ cửa sổ Creator's Playlist Editor và Remote VT playlist
   editor: thông báo thời gian đã lên lịch cho danh sách phát đã tải.
 * Alt+NVDA+2 từ cửa sổ Playlist Editor của Creator và Remote VT playlist

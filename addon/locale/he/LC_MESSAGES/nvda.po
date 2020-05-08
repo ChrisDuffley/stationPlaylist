@@ -282,79 +282,6 @@ msgstr ""
 "F12: מעבר מידי לפרופיל אחר.\n"
 "Shift+F1: פתיחת המדריך המקוון."
 
-#. Translators: The text of the help command in SPL Assistant layer when Window-Eyes layer is active.
-#, fuzzy
-msgid ""
-"WARNING! Window-Eyes command layout is deprecated and will be removed in a "
-"future version of StationPlaylist add-on.\n"
-"After entering SPL Assistant, press:\n"
-"A: Automation.\n"
-"C: Toggle cart explorer.\n"
-"Shift+C: Announce name of the currently playing track.\n"
-"D: Remaining time for the playlist.\n"
-"E: Elapsed time.\n"
-"F: Track finder.\n"
-"R: Remaining time for the currently playing track.\n"
-"G: Overall metadata streaming status.\n"
-"Shift+1 through shift+4, shift+0: Metadata streaming status for DSP encoder "
-"and four additional URL's.\n"
-"H: Duration of trakcs in this hour slot.\n"
-"Shift+H: Duration of remaining trakcs in this hour slot.\n"
-"K: Move to place marker track.\n"
-"Control+K: Set place marker track.\n"
-"L: Listener count.\n"
-"Shift+L: Line-in status.\n"
-"M: Microphone status.\n"
-"N: Next track.\n"
-"P: Playback status.\n"
-"Shift+P: Pitch for the current track.\n"
-"Shift+E: Record to file.\n"
-"Shift+R: Monitor library scan.\n"
-"S: Scheduled time for the track.\n"
-"Shift+S: Time until the selected track will play.\n"
-"T: Cart edit/insert mode.\n"
-"U: Studio up time.\n"
-"W: Weather and temperature.\n"
-"Y: Playlist modification.\n"
-"F8: Take playlist snapshots such as track count, longest track and so on.\n"
-"Shift+F8: Obtain playlist transcripts in a variety of formats.\n"
-"F9: Mark current track as start of track time analysis.\n"
-"F10: Perform track time analysis.\n"
-"F12: Switch to an instant switch profile.\n"
-"Shift+F1: Open online user guide."
-msgstr ""
-"לאחר הכניסה למסייע של SPL נא להקיש :\n"
-"A: אוטומציה\n"
-" C :  מיתוג סייר\n"
-"Shift+C: הקראת שם הרצועה המנגנת כעת\n"
-"D: הזמן הנותר ברשימת הנגינה\n"
-"E: קבלת מידע כולל על זרימת המטאדאטה\n"
-"Shift+1 עד shift+4, shift+0: -  סטטוס הזרימה של מטאדאטה עבוד מנגון הקידוד של "
-"DSP ועבור כתובות URL נוספות\n"
-"Shift+H: אורך הרצועות הנוכחיות הנותרות במשבצת השעה השוטפת\n"
-"I: מספר שומעים\n"
-"K: מעבר לרצועה מסומנת\n"
-"Control+K: קביעת רצועה מסומנת\n"
-"L: מצב חיבור אודיו נכנס\n"
-"M: מצב מיקרופון\n"
-"N: מעבר לרצועה הבאה\n"
-"P: מצב הנגינה\n"
-"Shift+P: גובה הרצועה הנוכחית\n"
-"R: הקלטה לקובץ\n"
-"Shift+R: סריקת הספרייה\n"
-"S: לוח הזמנים של נגינת הרצועה\n"
-"Shift+S: הזמן הנותר לפני נגינת הרצועה\n"
-"T: מצב עריכת Cart \n"
-"U: הזמן הנותר עד לכיבוי.\n"
-"W: מזג אוויר ומידות החום\n"
-"Y: שינוי רשימת הנגינה\n"
-"1 עד 0 (6 עבור Studio 5.01 וגרסאות קודמות): הקראת עמודות בעזרת סייר העמודות  "
-"(0 מסמל את המשבצת בעמודה העשירית).\n"
-"F9: סימון הרצועה הנוכחית כרצועת ההתחלה של ניתוח אורך הרצועות\n"
-"F10: ביצוע ניתוח של אורח הרצועות.\n"
-"F12: מעבר מידי לפרופיל אחר.\n"
-"Shift+F1: פתיחת המדריך המקוון."
-
 msgid "SPL Studio Settings..."
 msgstr "הגדרות SPL."
 
@@ -595,8 +522,8 @@ msgid "Average: {playlistAverageDuration}"
 msgstr "ממוצע: {playlistAverageDuration}"
 
 #. Translators: one of the results for playlist snapshots feature for announcing top artist in a playlist.
-#, python-format
-msgid "Top artist: %s (%s)"
+#, fuzzy
+msgid "Top artist: {} ({})"
 msgstr "אמן מוביל:  %s (%s)"
 
 msgid "Top artist: none"
@@ -615,8 +542,8 @@ msgid "{artistName} ({artistCount})"
 msgstr "{artistName} ({artistCount})"
 
 #. Translators: one of the results for playlist snapshots feature for announcing top track category in a playlist.
-#, python-format
-msgid "Top category: %s (%s)"
+#, fuzzy
+msgid "Top category: {} ({})"
 msgstr "קטגוריה מובילה: %s (%s)"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
@@ -628,8 +555,8 @@ msgid "{categoryName} ({categoryCount})"
 msgstr "{categoryName} ({categoryCount})"
 
 #. Translators: one of the results for playlist snapshots feature for announcing top genre in a playlist.
-#, python-format
-msgid "Top genre: %s (%s)"
+#, fuzzy
+msgid "Top genre: {} ({})"
 msgstr "סגנון מוביל: %s (%s)"
 
 msgid "Top genre: none"
@@ -803,10 +730,6 @@ msgstr "עזרת המסייע של SPL"
 msgid "SPL Assistant help for JAWS layout"
 msgstr "עזרת המסייע של SPL עבור פקודות JAWS"
 
-#. Translators: The title for SPL Assistant help dialog.
-msgid "SPL Assistant help for Window-Eyes layout"
-msgstr "עזרת המסייע של SPL עבור פקודות של Window-Eyes"
-
 #. Translators: A message informing users that Studio is not running so certain commands will not work.
 msgid "Studio main window not found"
 msgstr "לא נמצא חלון ראשי של סטודיו"
@@ -815,12 +738,12 @@ msgstr "לא נמצא חלון ראשי של סטודיו"
 msgid "Normal profile"
 msgstr "פרופיל בסיסי"
 
-#. Translators: Message displayed when attempting to reset Studio add-on settings while an instant switch or time-based profile is active.
+#. Translators: Message displayed when attempting to reset Studio add-on settings while an instant switch profile is active.
 msgid ""
-"An instant switch or time-based profile is active. Resetting Studio add-on "
-"settings means normal profile will become active and switch profile settings "
-"will be left in unpredictable state. Are you sure you wish to reset Studio "
-"add-on settings to factory defaults?"
+"An instant switch profile is active. Resetting Studio add-on settings means "
+"normal profile will become active and switch profile settings will be left "
+"in unpredictable state. Are you sure you wish to reset Studio add-on "
+"settings to factory defaults?"
 msgstr ""
 
 #. Translators: The title of the confirmation dialog for Studio add-on settings reset.
@@ -842,31 +765,6 @@ msgstr "חזרה ל{previousProfile}"
 msgid "Studio add-on Configuration error"
 msgstr "שגיאה בהגדרות התוסף"
 
-#. Translators: Message displayed if errors were found in encoder configuration file.
-msgid ""
-"Your encoder settings had errors and were reset to defaults. If you have "
-"stream labels configured for various encoders, please add them again."
-msgstr ""
-"קיימות שגיאות בהגדרות התוסף והן ישוחזרו לבררת המחדל.  אם היו לך העדפות עבור "
-"תוויות של מנגנוני קידוד אחרים, עליך להגדיר אותן מחדש."
-
-#. Translators: Title of the encoder settings error dialog.
-msgid "Encoder settings error"
-msgstr "שגיות בהגדרות מנגנון הקידוד"
-
-#. Translators: Message presented indicating missing time-based profiles.
-#, python-brace-format
-msgid ""
-"Could not locate the following time-based profile(s):\n"
-"{profiles}"
-msgstr ""
-"לא נמצאו פרופילי מבוססי זמן הבאים: \n"
-"{profiles}"
-
-#. Translators: The title of a dialog shown when some time-based profiles doesn't exist.
-msgid "Time-based profiles missing"
-msgstr "פרופילים מבוססי זמן חסרים"
-
 #. Translators: A flag indicating the currently active broadcast profile.
 msgid "active"
 msgstr "פעיל"
@@ -875,10 +773,6 @@ msgstr "פעיל"
 #. Instant switch flag is set on another profile, so remove the flag first.
 msgid "instant switch"
 msgstr "החלפה מיידית"
-
-#. Translators: A flag indicating the time-based triggers profile.
-msgid "time-based"
-msgstr "מבוסס זמן"
 
 #. Translators: announced when only normal profile is in use.
 msgid "Only normal profile is in use"
@@ -891,33 +785,6 @@ msgstr "לא הוגדרה החלפה מיידית של פרופילים"
 #. Translators: Presented when trying to switch to an instant switch profile when one is already using the instant switch profile.
 msgid "You are already in the instant switch profile"
 msgstr "אתה כבר נמצא בחלון החלפת הפרופילים"
-
-#. Translators: Presented when trying to switch to an instant switch profile when one is already using the instant switch profile.
-msgid "A profile trigger is already active"
-msgstr "תהליך החלפת הפרופיל כבר בביצוע"
-
-#. Translators: Title of a dialog displayed when the add-on starts reminding broadcasters to disable audio ducking.
-msgid "SPL Studio and audio ducking"
-msgstr "SPL Studio  והנמכת צלילי השמע"
-
-#. Translators: A message displayed if audio ducking should be disabled.
-msgid ""
-"NVDA 2016.1 and later allows NVDA to decrease volume of background audio "
-"including that of Studio.\n"
-"\t\tIn order to not disrupt the listening experience of your listeners, "
-"please disable audio ducking either by:\n"
-"\t\t* Opening synthesizer dialog in NVDA and selecting 'no ducking' from "
-"audio ducking mode combo box.\n"
-"\t\t* Press NVDA+Shift+D to set it to 'no ducking'."
-msgstr ""
-"מאז גרסת 2016.1  יש לNVDA  היכולת להנמיך את עוצמת הצלילים של צלילי תוכנות "
-"אחרות.  אם ברצונך להשאיר שלמה את חוויית ההקשבה,  יש לבטל את ההנמכה "
-"האוטומטית. לשם כך, פתח את תפריט מנוע הדיבור ותסמן \"לא\" באופציה \"הנמכה של "
-"השמע\" או לחץ על הצירוף  NVDA+Shift+D."
-
-#. Translators: A checkbox to turn off audio ducking reminder message.
-msgid "Do not show this message again"
-msgstr "אל תציג הודעה זו שוב"
 
 #. Translators: A message giving basic information about the add-on.
 #, fuzzy
@@ -958,22 +825,12 @@ msgid "Show welcome dialog when I start Studio"
 msgstr "הצג חלון דו שיח בהפעלת התוכנה"
 
 msgid ""
-"One or more time-based broadcast profiles are defined. Time-based broadcast "
-"profiles feature is deprecated and will be removed in a future version of "
-"StationPlaylist add-on."
+"Window-Eyes command layout has been removed. Your SPL Assistant command "
+"layout is set to NVDA (default layout). To learn more about commands you can "
+"use in SPL Assistant, from Studio window, press SPL Assistant, F1."
 msgstr ""
 
-msgid "SPL add-on feature deprecation"
-msgstr ""
-
-msgid ""
-"You are using SPL Assistant layer commands set to Window-Eyes command "
-"layout. As Window-Eyes is no longer supported, Window-Eyes command layout "
-"will be removed in a future version of StationPlaylist add-on. Please change "
-"SPL Assistant command layout to NVDA or JAWS layout by opening add-on "
-"settings screen (Alt+NvDA+0 from Studio window), selecting Advanced, then "
-"selecting the appropriate option from SPL Assistant compatibility layer "
-"combo box."
+msgid "SPL add-on feature removed"
 msgstr ""
 
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
@@ -1072,7 +929,6 @@ msgstr "פעיל"
 msgid "Cop&y"
 msgstr "ה&עתק"
 
-#. #70 (18.07): in wxPython 4, name for the value keyword argument for text entry dialog constructor has changed.
 #. Translators: The label of a field to enter a new name for a broadcast profile.
 msgid "New name:"
 msgstr "שם חדש:"
@@ -1087,7 +943,7 @@ msgstr "שינוי שם פרופיל"
 msgid "That profile already exists. Please choose a different name."
 msgstr "קיים כבר פרופיל עם שם דומה. נא לבחור בשם אחר."
 
-#. Translators: Message reported when attempting to delete a profile while a profile is triggered.
+#. Translators: Message reported when attempting to delete a profile in the midst of a broadcast.
 #, fuzzy
 msgid ""
 "An instant switch profile might be active or you are in the midst of a "
@@ -1120,14 +976,6 @@ msgstr "האם ברצונך למחוק פרופיל זה? אין דרך חזרה
 #. Translators: The title of the confirmation dialog for deletion of a profile.
 msgid "Confirm Deletion"
 msgstr "אישור מחיקה"
-
-#. Translators: Message reported when attempting to change profile switch trigger while broadcasting.
-msgid "You cannot change profile switch triggers in the midst of a broadcast."
-msgstr "לא ניתן לשנות את מפעילי מתג הפרופיל בעיצומו של שידור."
-
-#. Translators: Title of a dialog shown when profile trigger cannot e changed.
-msgid "Profile triggers"
-msgstr "טריגרים בפרופיל"
 
 #. Translators: The title of the dialog to create a new broadcast profile.
 msgid "New Profile"
@@ -1230,16 +1078,9 @@ msgstr "עדכן כאשר מצוי בראשית או בתחתית רשימת ה�
 msgid "Play a sound when listener &requests arrive"
 msgstr "השמע צליל כאשר מאזינים &ובקשות מגיעות"
 
-#. 8.0: Apart from level 0 (all settings shown), levels change title.
-#. 20.03: level 0 (Alarms Center/all settings) is no more, as the dialog will not be invoked from add-on settings interface (default is end of track alarm).
-msgid "End of track alarm"
-msgstr "סוף התראת רצועה"
-
-msgid "Song intro alarm"
-msgstr "התראה על סוף קדימון"
-
-msgid "Microphone alarm"
-msgstr "התראת הקלטה"
+#. Translators: title of a panel to configure various alarms and related settings.
+msgid "Alarms"
+msgstr "התראות"
 
 msgid "&End of track alarm in seconds"
 msgstr "התרעה בשניות על &סיום קרוב של הרצועה"
@@ -1253,16 +1094,11 @@ msgstr "התראה על סיום קרוב של ה&קדימון"
 msgid "&Notify when end of introduction is approaching"
 msgstr "התראה ברגע שסוף נגינת הקדימון מתקרב"
 
-#. Translators: A dialog message to set microphone active alarm.
 msgid "&Microphone alarm in seconds (0 disables the alarm)"
 msgstr "&התראת מיקרופון בשניות (0 משבית את ההתראה)"
 
 msgid "Microphone alarm &interval in seconds"
 msgstr "התראה על ההקלטה ב&פרקי זמן קצובים"
-
-#. Translators: title of a panel to configure various alarms and related settings.
-msgid "Alarms"
-msgstr "התראות"
 
 #. Translators: One of the alarm notification options.
 msgid "beep"
@@ -1705,6 +1541,202 @@ msgstr "שמור לקובץ"
 msgid "Transcript action:"
 msgstr "פעולת תמלול:"
 
+#. Translators: Message displayed if errors were found in encoder configuration file.
+msgid "Your encoder settings had errors and were reset to defaults."
+msgstr ""
+
+#. Translators: Title of the encoder settings error dialog.
+#, fuzzy
+msgid "SPL add-on Encoder settings error"
+msgstr "שגיות בהגדרות מנגנון הקידוד"
+
+#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
+#, fuzzy
+msgid "No encoders found"
+msgstr "לא נמצאה נקודת תחילת הניתוח"
+
+#. Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
+msgid "Only one encoder type can be active at once"
+msgstr ""
+
+#. Translators: presented when at least one encoder is connected.
+#, python-brace-format
+msgid "Connected encoders: {encodersConnected}"
+msgstr ""
+
+#. Translators: presented when no encoders are connected.
+msgid "No encoders connected"
+msgstr ""
+
+#. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
+#, fuzzy, python-brace-format
+msgid "Encoder settings for {name}"
+msgstr "שגיות בהגדרות מנגנון הקידוד"
+
+#. Translators: An edit field in encoder settings to set stream label for this encoder.
+msgid "Stream &label"
+msgstr ""
+
+#. Translators: A checkbox in encoder settings to set if NvDA should switch focus to Studio window when connected.
+msgid "&Focus to Studio when connected"
+msgstr ""
+
+#. Translators: A checkbox in encoder settings to set if NvDA should play the next track when connected.
+msgid "&Play first track when connected"
+msgstr ""
+
+#. Translators: A checkbox in encoder settings to set if NvDA should monitor the status of this encoder in the background.
+msgid "Enable background connection &monitoring"
+msgstr ""
+
+#. Translators: A checkbox in encoder settings to set if NvDA should play connection progress tone.
+msgid "Play connection status &beep while connecting"
+msgstr ""
+
+#. Translators: A checkbox in encoder settings to set if NVDA should announce connection progress until an encoder connects.
+msgid "Announce connection &status until encoder connects"
+msgstr ""
+
+#. Translators: Status message for encoder monitoring.
+#, python-brace-format
+msgid "{encoder} {encoderNumber}: {status}"
+msgstr ""
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid ""
+"Toggles whether NVDA will switch to Studio when connected to a streaming "
+"server."
+msgstr ""
+
+#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+msgid "Switch to Studio after connecting"
+msgstr ""
+
+#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+msgid "Do not switch to Studio after connecting"
+msgstr ""
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid ""
+"Toggles whether Studio will play the first song when connected to a "
+"streaming server."
+msgstr ""
+
+#. Translators: Presented when toggling the setting to play selected song when connected to a streaming server.
+msgid "Play first track after connecting"
+msgstr ""
+
+#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+msgid "Do not play first track after connecting"
+msgstr ""
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid ""
+"Toggles whether NVDA will monitor the selected encoder in the background."
+msgstr ""
+
+#. Translators: Presented when toggling the setting to monitor the selected encoder.
+#, python-brace-format
+msgid "Monitoring encoder {encoderNumber}"
+msgstr ""
+
+#. Translators: Presented when toggling the setting to monitor the selected encoder.
+#, python-brace-format
+msgid "Encoder {encoderNumber} will not be monitored"
+msgstr ""
+
+#. Translators: Announced when background encoder monitoring is canceled.
+msgid "Encoder monitoring canceled"
+msgstr ""
+
+#. Translators: Input help mode message in SAM Encoder window.
+#, fuzzy
+msgid "Opens a dialog to label the selected encoder."
+msgstr "פתיחת תיבת דו-שיח המאפשרת שינוי מידי של מצב זרימת המטאדאטה."
+
+#. Translators: The title of the stream labeler dialog (example: stream labeler for 1).
+#, python-brace-format
+msgid "Stream labeler for {streamEntry}"
+msgstr ""
+
+#. Translators: The text of the stream labeler dialog.
+msgid "Enter the label for this stream"
+msgstr ""
+
+#. Translators: Input help mode message in SAM Encoder window.
+msgid ""
+"Opens a dialog to erase stream labels and settings from an encoder that was "
+"deleted."
+msgstr ""
+
+#. Translators: The title of the stream configuration eraser dialog.
+msgid "Stream label and settings eraser"
+msgstr ""
+
+#. Translators: The text of the stream configuration eraser dialog.
+msgid "Enter the position of the encoder you wish to delete or will delete"
+msgstr ""
+
+#. Translators: Input help mode message for a command in StationPlaylist add-on.
+msgid ""
+"Shows encoder configuration dialog to configure various encoder settings "
+"such as stream label."
+msgstr ""
+
+#. Translators: Text of the dialog when another alarm dialog is open.
+#, fuzzy
+msgid "Another encoder settings dialog is open."
+msgstr "תיבת דו-שיח של חיפוש כבר פתוחה."
+
+#. Translators: Input help mode message for report date and time command.
+msgid ""
+"If pressed once, reports the current time including seconds. If pressed "
+"twice, reports the current date"
+msgstr ""
+
+#, python-brace-format
+msgid "Position: {pos}"
+msgstr ""
+
+#, python-brace-format
+msgid "Label: {label}"
+msgstr ""
+
+msgid "No stream label"
+msgstr ""
+
+#. Translators: Presented when an Encoder is trying to connect to a streaming server.
+msgid "Connecting..."
+msgstr ""
+
+#. Translators: Presented when an Encoder is disconnecting from a streaming server.
+msgid "Disconnecting..."
+msgstr ""
+
+#, python-brace-format
+msgid "Format: {encoderFormat}"
+msgstr ""
+
+#, fuzzy, python-brace-format
+msgid "Status: {encoderStatus}"
+msgstr "מצב: {name}"
+
+#, python-brace-format
+msgid "Description: {encoderDescription}"
+msgstr ""
+
+#. Translators: input hep command for an encoder connection command.
+msgid "Connects to a streaming server."
+msgstr ""
+
+#, fuzzy, python-brace-format
+msgid "Encoder Settings: {setting}"
+msgstr "שגיות בהגדרות מנגנון הקידוד"
+
+#, python-brace-format
+msgid "Transfer Rate: {transferRate}"
+msgstr ""
+
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
 #, fuzzy
@@ -1823,6 +1855,141 @@ msgid ""
 msgstr ""
 "מנגיש את תוכנת StationPlaylist  Studio  .  \n"
 "בנוסף, מאפשר ביצוע פקודות מכל מקום אחר במחשב."
+
+#, fuzzy
+#~ msgid ""
+#~ "WARNING! Window-Eyes command layout is deprecated and will be removed in "
+#~ "a future version of StationPlaylist add-on.\n"
+#~ "After entering SPL Assistant, press:\n"
+#~ "A: Automation.\n"
+#~ "C: Toggle cart explorer.\n"
+#~ "Shift+C: Announce name of the currently playing track.\n"
+#~ "D: Remaining time for the playlist.\n"
+#~ "E: Elapsed time.\n"
+#~ "F: Track finder.\n"
+#~ "R: Remaining time for the currently playing track.\n"
+#~ "G: Overall metadata streaming status.\n"
+#~ "Shift+1 through shift+4, shift+0: Metadata streaming status for DSP "
+#~ "encoder and four additional URL's.\n"
+#~ "H: Duration of trakcs in this hour slot.\n"
+#~ "Shift+H: Duration of remaining trakcs in this hour slot.\n"
+#~ "K: Move to place marker track.\n"
+#~ "Control+K: Set place marker track.\n"
+#~ "L: Listener count.\n"
+#~ "Shift+L: Line-in status.\n"
+#~ "M: Microphone status.\n"
+#~ "N: Next track.\n"
+#~ "P: Playback status.\n"
+#~ "Shift+P: Pitch for the current track.\n"
+#~ "Shift+E: Record to file.\n"
+#~ "Shift+R: Monitor library scan.\n"
+#~ "S: Scheduled time for the track.\n"
+#~ "Shift+S: Time until the selected track will play.\n"
+#~ "T: Cart edit/insert mode.\n"
+#~ "U: Studio up time.\n"
+#~ "W: Weather and temperature.\n"
+#~ "Y: Playlist modification.\n"
+#~ "F8: Take playlist snapshots such as track count, longest track and so "
+#~ "on.\n"
+#~ "Shift+F8: Obtain playlist transcripts in a variety of formats.\n"
+#~ "F9: Mark current track as start of track time analysis.\n"
+#~ "F10: Perform track time analysis.\n"
+#~ "F12: Switch to an instant switch profile.\n"
+#~ "Shift+F1: Open online user guide."
+#~ msgstr ""
+#~ "לאחר הכניסה למסייע של SPL נא להקיש :\n"
+#~ "A: אוטומציה\n"
+#~ " C :  מיתוג סייר\n"
+#~ "Shift+C: הקראת שם הרצועה המנגנת כעת\n"
+#~ "D: הזמן הנותר ברשימת הנגינה\n"
+#~ "E: קבלת מידע כולל על זרימת המטאדאטה\n"
+#~ "Shift+1 עד shift+4, shift+0: -  סטטוס הזרימה של מטאדאטה עבוד מנגון הקידוד "
+#~ "של DSP ועבור כתובות URL נוספות\n"
+#~ "Shift+H: אורך הרצועות הנוכחיות הנותרות במשבצת השעה השוטפת\n"
+#~ "I: מספר שומעים\n"
+#~ "K: מעבר לרצועה מסומנת\n"
+#~ "Control+K: קביעת רצועה מסומנת\n"
+#~ "L: מצב חיבור אודיו נכנס\n"
+#~ "M: מצב מיקרופון\n"
+#~ "N: מעבר לרצועה הבאה\n"
+#~ "P: מצב הנגינה\n"
+#~ "Shift+P: גובה הרצועה הנוכחית\n"
+#~ "R: הקלטה לקובץ\n"
+#~ "Shift+R: סריקת הספרייה\n"
+#~ "S: לוח הזמנים של נגינת הרצועה\n"
+#~ "Shift+S: הזמן הנותר לפני נגינת הרצועה\n"
+#~ "T: מצב עריכת Cart \n"
+#~ "U: הזמן הנותר עד לכיבוי.\n"
+#~ "W: מזג אוויר ומידות החום\n"
+#~ "Y: שינוי רשימת הנגינה\n"
+#~ "1 עד 0 (6 עבור Studio 5.01 וגרסאות קודמות): הקראת עמודות בעזרת סייר "
+#~ "העמודות  (0 מסמל את המשבצת בעמודה העשירית).\n"
+#~ "F9: סימון הרצועה הנוכחית כרצועת ההתחלה של ניתוח אורך הרצועות\n"
+#~ "F10: ביצוע ניתוח של אורח הרצועות.\n"
+#~ "F12: מעבר מידי לפרופיל אחר.\n"
+#~ "Shift+F1: פתיחת המדריך המקוון."
+
+#~ msgid "SPL Assistant help for Window-Eyes layout"
+#~ msgstr "עזרת המסייע של SPL עבור פקודות של Window-Eyes"
+
+#~ msgid ""
+#~ "Your encoder settings had errors and were reset to defaults. If you have "
+#~ "stream labels configured for various encoders, please add them again."
+#~ msgstr ""
+#~ "קיימות שגיאות בהגדרות התוסף והן ישוחזרו לבררת המחדל.  אם היו לך העדפות "
+#~ "עבור תוויות של מנגנוני קידוד אחרים, עליך להגדיר אותן מחדש."
+
+#~ msgid ""
+#~ "Could not locate the following time-based profile(s):\n"
+#~ "{profiles}"
+#~ msgstr ""
+#~ "לא נמצאו פרופילי מבוססי זמן הבאים: \n"
+#~ "{profiles}"
+
+#~ msgid "Time-based profiles missing"
+#~ msgstr "פרופילים מבוססי זמן חסרים"
+
+#~ msgid "time-based"
+#~ msgstr "מבוסס זמן"
+
+#~ msgid "A profile trigger is already active"
+#~ msgstr "תהליך החלפת הפרופיל כבר בביצוע"
+
+#~ msgid "SPL Studio and audio ducking"
+#~ msgstr "SPL Studio  והנמכת צלילי השמע"
+
+#~ msgid ""
+#~ "NVDA 2016.1 and later allows NVDA to decrease volume of background audio "
+#~ "including that of Studio.\n"
+#~ "\t\tIn order to not disrupt the listening experience of your listeners, "
+#~ "please disable audio ducking either by:\n"
+#~ "\t\t* Opening synthesizer dialog in NVDA and selecting 'no ducking' from "
+#~ "audio ducking mode combo box.\n"
+#~ "\t\t* Press NVDA+Shift+D to set it to 'no ducking'."
+#~ msgstr ""
+#~ "מאז גרסת 2016.1  יש לNVDA  היכולת להנמיך את עוצמת הצלילים של צלילי תוכנות "
+#~ "אחרות.  אם ברצונך להשאיר שלמה את חוויית ההקשבה,  יש לבטל את ההנמכה "
+#~ "האוטומטית. לשם כך, פתח את תפריט מנוע הדיבור ותסמן \"לא\" באופציה \"הנמכה "
+#~ "של השמע\" או לחץ על הצירוף  NVDA+Shift+D."
+
+#~ msgid "Do not show this message again"
+#~ msgstr "אל תציג הודעה זו שוב"
+
+#~ msgid ""
+#~ "You cannot change profile switch triggers in the midst of a broadcast."
+#~ msgstr "לא ניתן לשנות את מפעילי מתג הפרופיל בעיצומו של שידור."
+
+#~ msgid "Profile triggers"
+#~ msgstr "טריגרים בפרופיל"
+
+#~ msgid "End of track alarm"
+#~ msgstr "סוף התראת רצועה"
+
+#~ msgid "Song intro alarm"
+#~ msgstr "התראה על סוף קדימון"
+
+#~ msgid "Microphone alarm"
+#~ msgstr "התראת הקלטה"
 
 #~ msgid "Sets end of track alarm (default is 5 seconds)."
 #~ msgstr "קביעת זמן ההתראה עד לסוף הנגינה בשניות (5 כבררת מחדל)."
