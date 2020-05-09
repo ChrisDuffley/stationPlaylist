@@ -262,6 +262,7 @@ class EncoderConfigDialog(wx.Dialog):
 		self.onCancel(None)
 
 
+# Announce connected encoders if any.
 def announceEncoderConnectionStatus():
 	import windowUtils
 	# For SAM encoders, descend into encoder window after locating the foreground window.
