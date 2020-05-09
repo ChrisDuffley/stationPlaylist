@@ -293,7 +293,7 @@ def announceEncoderConnectionStatus():
 		connectedEncoders = []
 		for encoder in encoderList.children:
 			if isinstance(encoder, Encoder) and encoder.connected:
-				connectedEncoders.append("{0} {1}".format(encoder.encoderType, str(encoder.IAccessibleChildID)))
+				connectedEncoders.append(encoder.encoderId)
 		if len(connectedEncoders) > 0:
 			# Translators: presented when at least one encoder is connected.
 			ui.message(_("Connected encoders: {encodersConnected}").format(encodersConnected=", ".join(connectedEncoders)))
