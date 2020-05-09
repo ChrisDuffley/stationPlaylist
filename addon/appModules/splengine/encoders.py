@@ -95,45 +95,6 @@ def loadStreamLabels():
 	config.post_configReset.register(resetStreamLabels)
 
 
-def announceEncoderConnectionStatus():
-	import windowUtils
-	# For SAM encoders, descend into encoder window after locating the foreground window.
-	# For others, look for a specific SysListView32 control.
-	desktopHwnd = api.getDesktopObject().windowHandle
-	try:
-		samEncoderWindow = windowUtils.findDescendantWindow(desktopHwnd, className="TfoSCEncoders")
-	except LookupError:
-		samEncoderWindow = 0
-	if samEncoderWindow:
-		try:
-			samEncoderWindow = windowUtils.findDescendantWindow(samEncoderWindow, className="TListView")
-		except LookupError:
-			samEncoderWindow = 0
-	try:
-		sysListView32EncoderWindow = windowUtils.findDescendantWindow(desktopHwnd, className="SysListView32", controlID=1004)
-	except LookupError:
-		sysListView32EncoderWindow = 0
-	if not samEncoderWindow and not sysListView32EncoderWindow:
-		# Translators: presented when no streaming encoders were found when trying to obtain connection status.
-		ui.message(_("No encoders found"))
-	elif samEncoderWindow and sysListView32EncoderWindow:
-		# Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
-		ui.message(_("Only one encoder type can be active at once"))
-	else:
-		encoderWindow = max(samEncoderWindow, sysListView32EncoderWindow)
-		encoderList = getNVDAObjectFromEvent(encoderWindow, OBJID_CLIENT, 0)
-		connectedEncoders = []
-		for encoder in encoderList.children:
-			if isinstance(encoder, Encoder) and encoder.connected:
-				connectedEncoders.append("{0} {1}".format(encoder.encoderType, str(encoder.IAccessibleChildID)))
-		if len(connectedEncoders) > 0:
-			# Translators: presented when at least one encoder is connected.
-			ui.message(_("Connected encoders: {encodersConnected}").format(encodersConnected=", ".join(connectedEncoders)))
-		else:
-			# Translators: presented when no encoders are connected.
-			ui.message(_("No encoders connected"))
-
-
 # Remove encoder ID from various settings maps and sets.
 # This is a private module level function in order for it to be invoked by humans alone.
 def _removeEncoderID(encoderType, pos):
@@ -299,6 +260,45 @@ class EncoderConfigDialog(wx.Dialog):
 
 	def onAppTerminate(self):
 		self.onCancel(None)
+
+
+def announceEncoderConnectionStatus():
+	import windowUtils
+	# For SAM encoders, descend into encoder window after locating the foreground window.
+	# For others, look for a specific SysListView32 control.
+	desktopHwnd = api.getDesktopObject().windowHandle
+	try:
+		samEncoderWindow = windowUtils.findDescendantWindow(desktopHwnd, className="TfoSCEncoders")
+	except LookupError:
+		samEncoderWindow = 0
+	if samEncoderWindow:
+		try:
+			samEncoderWindow = windowUtils.findDescendantWindow(samEncoderWindow, className="TListView")
+		except LookupError:
+			samEncoderWindow = 0
+	try:
+		sysListView32EncoderWindow = windowUtils.findDescendantWindow(desktopHwnd, className="SysListView32", controlID=1004)
+	except LookupError:
+		sysListView32EncoderWindow = 0
+	if not samEncoderWindow and not sysListView32EncoderWindow:
+		# Translators: presented when no streaming encoders were found when trying to obtain connection status.
+		ui.message(_("No encoders found"))
+	elif samEncoderWindow and sysListView32EncoderWindow:
+		# Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
+		ui.message(_("Only one encoder type can be active at once"))
+	else:
+		encoderWindow = max(samEncoderWindow, sysListView32EncoderWindow)
+		encoderList = getNVDAObjectFromEvent(encoderWindow, OBJID_CLIENT, 0)
+		connectedEncoders = []
+		for encoder in encoderList.children:
+			if isinstance(encoder, Encoder) and encoder.connected:
+				connectedEncoders.append("{0} {1}".format(encoder.encoderType, str(encoder.IAccessibleChildID)))
+		if len(connectedEncoders) > 0:
+			# Translators: presented when at least one encoder is connected.
+			ui.message(_("Connected encoders: {encodersConnected}").format(encodersConnected=", ".join(connectedEncoders)))
+		else:
+			# Translators: presented when no encoders are connected.
+			ui.message(_("No encoders connected"))
 
 
 class Encoder(IAccessible):
