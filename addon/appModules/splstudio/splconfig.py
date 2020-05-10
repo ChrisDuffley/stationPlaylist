@@ -732,15 +732,6 @@ def initialize():
 _SPLCache = {}
 
 
-# Prepare the triggers dictionary and other runtime support.
-def initProfileTriggers():
-	# 20.06: do nothing.
-	# 20.07: delete profile triggers database file.
-	# Profile triggers pickle.
-	# SPLTriggersFile = os.path.join(globalVars.appArgs.configPath, "spltriggers.pickle")
-	return
-
-
 # Copy settings across profiles.
 # Setting complete flag controls whether profile-specific settings are applied (true otherwise, only set when resetting profiles).
 # 8.0: Simplified thanks to in-place swapping.
