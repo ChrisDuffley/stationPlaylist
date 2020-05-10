@@ -346,9 +346,10 @@ class Encoder(IAccessible):
 	# These rely on stream labels map that records encoder labels for a specific encoder type.
 
 	def getStreamLabel(self):
-		if str(self.IAccessibleChildID) in self.streamLabelsMap:
+		try:
 			return self.streamLabelsMap[str(self.IAccessibleChildID)]
-		return None
+		except KeyError:
+			return None
 
 	def setStreamLabel(self, newStreamLabel):
 		if len(newStreamLabel):
