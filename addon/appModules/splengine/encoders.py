@@ -347,7 +347,7 @@ class Encoder(IAccessible):
 
 	def getStreamLabel(self):
 		try:
-			return self.streamLabelsMap[str(self.IAccessibleChildID)]
+			return SPLEncoderLabels[self.encoderId]
 		except KeyError:
 			return None
 
