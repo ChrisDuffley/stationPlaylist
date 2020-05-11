@@ -488,37 +488,6 @@ class Encoder(IAccessible):
 	def removeStreamConfig(self, pos):
 		# An application of map successor algorithm.
 		_removeEncoderID(self.encoderType, pos)
-		streamLabelsMap = self.streamLabelsMap
-		labelLength = len(streamLabelsMap)
-		if not labelLength or pos > max(streamLabelsMap.keys()):
-			return
-		elif labelLength == 1:
-			if pos not in streamLabelsMap:
-				pos = list(streamLabelsMap.keys())[0]
-				oldPosition = int(pos)
-				streamLabelsMap[str(oldPosition-1)] = streamLabelsMap[pos]
-			del streamLabelsMap[pos]
-		else:
-			encoderPositions = sorted(streamLabelsMap.keys())
-			# What if the position happens to be the last stream label position?
-			if pos == max(encoderPositions): del streamLabelsMap[pos]
-			else:
-				# Find the exact or closest successor.
-				startPosition = 0
-				if pos == min(encoderPositions):
-					del streamLabelsMap[pos]
-					startPosition = 1
-				elif pos > min(encoderPositions):
-					for candidate in encoderPositions:
-						if candidate >= pos:
-							startPositionCandidate = encoderPositions.index(candidate)
-							startPosition = startPositionCandidate+1 if candidate == pos else startPositionCandidate
-							break
-				# Now move them forward.
-				for position in encoderPositions[startPosition:]:
-					oldPosition = int(position)
-					streamLabelsMap[str(oldPosition-1)] = streamLabelsMap[position]
-					del streamLabelsMap[position]
 
 	@scriptHandler.script(
 		# Translators: Input help mode message in SAM Encoder window.
