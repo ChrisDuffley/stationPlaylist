@@ -780,10 +780,6 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 	def script_announceEncoderStatusDesc(self, gesture):
 		ui.message(_("Description: {encoderDescription}").format(encoderDescription=self.getChild(3).name))
 
-	@property
-	def streamLabelsMap(self):
-		return SAMStreamLabels
-
 
 class SPLEncoder(Encoder):
 	# Support for SPL Encoder window.
@@ -875,17 +871,9 @@ class SPLEncoder(Encoder):
 	def script_announceEncoderTransfer(self, gesture):
 		ui.message(_("Transfer Rate: {transferRate}").format(transferRate=self.getChild(1).name))
 
-	@property
-	def streamLabelsMap(self):
-		return SPLStreamLabels
-
 
 class AltaCastEncoder(SPLEncoder):
 	# Support for AltaCast Encoder window.
 	# Deriving from Edcast (now unsupported), user interface resembles SPL Encoder.
 
 	encoderType = "AltaCast"
-
-	@property
-	def streamLabelsMap(self):
-		return ACStreamLabels
