@@ -353,13 +353,8 @@ class Encoder(IAccessible):
 
 	def setStreamLabel(self, newStreamLabel):
 		if len(newStreamLabel):
-			self.streamLabelsMap[str(self.IAccessibleChildID)] = newStreamLabel
 			SPLEncoderLabels[self.encoderId] = newStreamLabel
 		else:
-			try:
-				del self.streamLabelsMap[str(self.IAccessibleChildID)]
-			except KeyError:
-				pass
 			try:
 				del SPLEncoderLabels[self.encoderId]
 			except KeyError:
