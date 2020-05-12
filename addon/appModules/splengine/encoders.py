@@ -56,11 +56,11 @@ def loadStreamLabels():
 	# 7.1: Make sure encoder settings map isn't corrupted.
 	# #131 (20.06): transplanted from Studio app module so the error message can be shown when an encoder gains focus.
 	try:
-		streamLabels = configobj.ConfigObj(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
+		streamLabels = configobj.ConfigObj(os.path.join(globalVars.appArgs.configPath, "splencoders.ini"))
 	except:
 		# To avoid type errors, create an empty dictionary.
 		streamLabels = {}
-		open(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"), "w").close()
+		open(os.path.join(globalVars.appArgs.configPath, "splencoders.ini"), "w").close()
 		wx.CallAfter(
 			# Translators: Message displayed if errors were found in encoder configuration file.
 			gui.messageBox, _("Your encoder settings had errors and were reset to defaults."),
@@ -158,9 +158,9 @@ def saveStreamLabels():
 		if not len(streamLabels[key]):
 			del streamLabels[key]
 	streamLabels.write()
-	# 20.06: write a copy to splencoders.ini.
+	# 20.06: write a copy to splStreamLabels.ini.
 	import shutil
-	shutil.copyfile(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"), os.path.join(globalVars.appArgs.configPath, "splencoders.ini"))
+	shutil.copyfile(os.path.join(globalVars.appArgs.configPath, "splencoders.ini"), os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
 
 
 # Nullify various flag sets, otherwise memory leak occurs.
@@ -178,9 +178,9 @@ def cleanup(appTerminating=False, reset=False):
 		if flag is not None: flag.clear()
 	# 20.04: save a "clean" copy after resetting encoder settings.
 	if reset: streamLabels.write()
-	# 20.06: write a copy to splencoders.ini.
+	# 20.06: write a copy to splStreamLabels.ini.
 	import shutil
-	shutil.copyfile(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"), os.path.join(globalVars.appArgs.configPath, "splencoders.ini"))
+	shutil.copyfile(os.path.join(globalVars.appArgs.configPath, "splencoders.ini"), os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
 	# Nullify stream labels.
 	streamLabels = None
 
