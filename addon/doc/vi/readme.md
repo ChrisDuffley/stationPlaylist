@@ -34,8 +34,6 @@ CÁC LƯU Ý QUAN TRỌNG:
   Control+NVDA+R một lần, hoặc Control+NVDA+R ba lần. điều này cũng được áp
   dụng cho các thiết lập mã hóa - bạn có thể lưu và khôi phục (không gọi
   lại) các thiết lập mã hóa nếu đang sử dụng chúng.
-* Tính năng các hồ sơ phát thanh theo thời gian  đã được lược bỏ và sẽ được
-  gỡ bỏ ở một phiên bản trong tương lai.
 
 ## Các phím tắt
 
@@ -155,32 +153,28 @@ hình NvDA để mô phỏng lệnh theo kiểu của các trình đọc màn h�
 Các lệnh được hỗ trợ bao gồm:
 
 * A: tự động hóa.
-* C (Shift+C trong kiểu phím lệnh của JAWS và Window-Eyes): tên của track
-  đang phát.
-* C (Kiểu phím lệnh JAWS và Window-Eyes): bật tắt cart explorer (chỉ trong
-  trình xem danh sách phát).
+* C (Shift+C in JAWS layout): Title for the currently playing track.
+* C (JAWS layout): Toggle cart explorer (playlist viewer only).
 * D (R trong kiểu phím lệnh của JAWS): thời lượng còn lại của danh sách phát
   (nếu có thông báo lỗi, di chuyển đến trình xem danh sách phát và thực hiện
   lệnh này).
-* `E (G trong kiểu phím lệnh Window-Eyes): trạng thái truyền siêu dữ liệu.
+* E: Metadata streaming status.
 * Shift+1 đến Shift+4, Shift+0: trạng thái của URL truyền siêu dữ liệu cụ
   thể (0 cho DSP encoder).
-* E (kiểu phím lệnh của Window-Eyes): thời gian đã phát của track hiện tại.
 * F: tìm kiếm track (chỉ  khi ở trong trình xem danh sách phát).
 * H: thời lượng phát nhạc của khung giờ hiện tại.
 * Shift+H: thời lượng còn lại cho track của khung giờ hiện tại.
-* I (L trong kiểu phím lệnh của JAWS hay Window-Eyes): lượt người nghe.
+* I (L in JAWS layout): Listener count.
 * K: chuyển đến track đã đánh dấu (chỉ khi ở trong trình xem danh sách
   phát).
 * Control+K: chọn track hiện tại làm track đánh dấu (chỉ khi ở trong trình
   xem danh sách phát).
-* L (Shift+L trong kiểu phím lệnh của JAWS và Window-Eyes): Line in.
+* L (Shift+L in JAWS layout): Line in.
 * M: Microphone.
 * N: tên của track kế được lên lịch.
 * P: trạng thái phát nhạc (đang phát hay dừng).
 * Shift+P: độ cao của track hiện tại.
-* R (Shift+E trong kiểu phím lệnh của JAWS và Window-Eyes): bật / tắt thu ra
-  tập tin.
+* R (Shift+E in JAWS layout): Record to file enabled/disabled.
 * Shift+R: theo dõi tiến trình quét thư viện.
 * S: Track bắt đầu (được lên lịch).
 * Shift+S: thời gian đến khi sẽ phát track được chọn (track bắt đầu).
@@ -305,6 +299,24 @@ Nếu dùng Studio trên một máy tính cảm ứng chạy Windows 8 trở lê
 NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio từ mành hình
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
+
+## Version 20.06
+
+* Resolved many coding style issues and potential bugs with Flake8.
+* Fixed many instances of encoders support feature messages spoken in
+  English despite translated into other languages.
+* Time-based broadcast profiles feature has been removed.
+* Window-Eyes command layout for SPL Assistant has been removed. Window-Eyes
+  command layout users will be migrated to NVDA layout.
+* As audio ducking feature in NVDA does not impact streaming from Studio
+  except for specific hardware setups, audio ducking reminder dialog has
+  been removed.
+* When errors are found in encoder settings, it is no longer necessary to
+  switch to Studio window to let NVDA reset settings to defaults. You must
+  now switch to an encoder from encoders window to let NVDA reset encoder
+  settings.
+* The title of encoder settings dialog for SAM encoders now displays encoder
+  format rather than encoder position.
 
 ## Phiên bản 20.05
 

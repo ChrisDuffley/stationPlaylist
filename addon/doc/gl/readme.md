@@ -37,8 +37,6 @@ NOTAS IMPORTANTES:
   respectivamente, Isto tamén se aplica ás opcións dos codificadores - podes
   gardar e restablecer (non recargar) as opcións de codificadores se
   utilizas codificadores.
-* A característica de perfiles de transmisión baseados en tempo está
-  descatalogada e eliminarase nunha versión futura.
 
 ## Teclas de atallo
 
@@ -178,32 +176,27 @@ lectores de pantalla.
 As ordes dispoñibles son:
 
 * A: Automatización.
-* C (Shift+C nas distribucións JAWS e Window-Eyes): Título para a pista
-  actualmente en reprodución.
-* C (distribucións JAWS e Window-Eyes): conmuta o explorador de cart (só
-  visualizador de lista de reprodución).
+* C (Shift+C in JAWS layout): Title for the currently playing track.
+* C (JAWS layout): Toggle cart explorer (playlist viewer only).
 * D (R na distribución JAWS): duración restante para a lista de reprodución
   (se se da unha mensaxe de erro, move ao visualizador de lista de
   reproducción e logo aílla esta orden).
-* E (G na distribución Window-Eyes): Estado dos metadatos do streaming.
+* E: Metadata streaming status.
 * Shift+1 ata Shift+4, Shift+0: estado para as URLs dos metadatos
   individuais do streaming (0 é para o codificador DSP).
-* E (distribución Window-Eyes): tempo transcorrido para a pista actualmente
-  en reprodución.
 * F: atopar pista (só visualizador de lista de reprodución).
 * H: Duración da música para o actual espazo de tempo.
 * Shift+H: duración das pistas restantes para o slot horario.
-* I (L nas distribucións JAWS ou Window-Eyes): conta de oíntes.
+* I (L in JAWS layout): Listener count.
 * K: móvese á pista marcada (só no visualizador de lista de reprodución).
 * Control+K: pon a pista actual como a pista  marcada (só no visualizador de
   lista de reprodución).
-* L (Shift+L nas distribucións JAWS e Window-Eyes): Liña auxiliar.
+* L (Shift+L in JAWS layout): Line in.
 * M: Micrófono.
 * N: Título para a seguinte pista programada.
 * P: Estado da reproducción (reproducindo ou detido).
 * Shift+P: Ton da pista actual.
-* R (Shift+E nas distribucións JAWS e Windows-Eye): Grabar en ficheiro
-  activado / desactivado.
+* R (Shift+E in JAWS layout): Record to file enabled/disabled.
 * Shift+R: Monitorización  do escaneado da biblioteca en progreso.
 * S: Comezos de pistas (programado).
 * Shift+S: tempo ata o que se reproducirá a pista selecionada (comezos de
@@ -347,6 +340,24 @@ Windows 8 ou posterior e tes NVDA 2012.3 ou posterior instalado, podes
 realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
+
+## Version 20.06
+
+* Resolved many coding style issues and potential bugs with Flake8.
+* Fixed many instances of encoders support feature messages spoken in
+  English despite translated into other languages.
+* Time-based broadcast profiles feature has been removed.
+* Window-Eyes command layout for SPL Assistant has been removed. Window-Eyes
+  command layout users will be migrated to NVDA layout.
+* As audio ducking feature in NVDA does not impact streaming from Studio
+  except for specific hardware setups, audio ducking reminder dialog has
+  been removed.
+* When errors are found in encoder settings, it is no longer necessary to
+  switch to Studio window to let NVDA reset settings to defaults. You must
+  now switch to an encoder from encoders window to let NVDA reset encoder
+  settings.
+* The title of encoder settings dialog for SAM encoders now displays encoder
+  format rather than encoder position.
 
 ## Versión 20.05
 

@@ -37,8 +37,6 @@ WICHTIGE HINWEISE:
   once, or Control+NVDA+R three times, respectively. This is also applicable
   to encoder settings - you can save and reset (not reload) encoder settings
   if using encoders.
-* Time-based broadcast profiles feature is deprecated and will be removed in
-  a future release.
 
 ## Tastenkürzel
 
@@ -173,32 +171,27 @@ anderen Screenreadern simuliert.
 Folgende Befehle stehen zur Verfügung:
 
 * A: Automatisierung.
-* C (Umschalt+C in JAWS- und Window-Eyes-Darstellung): Bezeichnung des
-  aktuell abgespielten Titels.
-* C (JAWS- und Window-Eyes-Darstellungen): Wechselt die Cart-Übersicht (nur
-  im Playlist-Viewer).
+* C (Shift+C in JAWS layout): Title for the currently playing track.
+* C (JAWS layout): Toggle cart explorer (playlist viewer only).
 * D (R in der JAWS-Darstellung): Restdauer der Playlist (wenn eine
   Fehlermeldung angezeigt wird, wechseln Sie zum Playlist-Viewer und geben
   Sie diesen Befehl ein).
-* E (G in Window-Eyes-Darstellung): Status der Metadaten-Streams.
+* E: Metadata streaming status.
 * Umschalt+1 bis 4, Umschalt+0: Status für einzelne Metadaten-Streaming-URLs
   (0 ist für DSP-Encoder).
-* E (Window-Eyes-Darstellung): verstrichene zeit des aktuell abgespielten
-  Titels.
 * F: Titel suchen (nur im Playlist-Viewer).
 * H: Dauer der Titel in dieser Stunde.
 * Umschalt+H: Verbleibende Spieldauer für den Stundenplatzhalter.
-* I (L in der jaws- und Window-Eyes-Darstellung): Anzahl der Zuhörer.
+* I (L in JAWS layout): Listener count.
 * K: springt zum Lesezeichentitel (nur im Playlist-Viewer).
 * Strg+K: Aktuellen Titel als Lesezeichentitel setzen (nur im
   Playlist-viewer).
-* L (Umschalt+L in JAWS- und Window-Eyes-Darstellungen): Line in.
+* L (Shift+L in JAWS layout): Line in.
 * M: Mikrofon.
 * N: Titel der nächst geplante Datei.
 * P: Wiedergabestatus (Wiedergabe oder angehalten).
 * Umschalt+P: Pitch des aktuellen Titels.
-* R (Umschalt+E in der Jaws- und Window-Eyes-Darstellung): in Datei
-  aufzeichnen ein- und ausschalten.
+* R (Shift+E in JAWS layout): Record to file enabled/disabled.
 * Umschalt+R: Überwachung des Bibliothek-Scans läuft...
 * S: Titel beginnt (geplant).
 * Umschalt+S: Zeit bis zur Wiedergabe des ausgewählten Titels (Titel startet
@@ -348,6 +341,24 @@ verwenden und NVDA 2012.3 oder höher installiert haben, können Sie einige
 Studio-Befehle über den Touchscreen ausführen. Tippen Sie zunächst einmal
 mit drei Fingern, um in den SPL-Touchmodus zu wechseln. Verwenden Sie dann
 die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
+
+## Version 20.06
+
+* Resolved many coding style issues and potential bugs with Flake8.
+* Fixed many instances of encoders support feature messages spoken in
+  English despite translated into other languages.
+* Time-based broadcast profiles feature has been removed.
+* Window-Eyes command layout for SPL Assistant has been removed. Window-Eyes
+  command layout users will be migrated to NVDA layout.
+* As audio ducking feature in NVDA does not impact streaming from Studio
+  except for specific hardware setups, audio ducking reminder dialog has
+  been removed.
+* When errors are found in encoder settings, it is no longer necessary to
+  switch to Studio window to let NVDA reset settings to defaults. You must
+  now switch to an encoder from encoders window to let NVDA reset encoder
+  settings.
+* The title of encoder settings dialog for SAM encoders now displays encoder
+  format rather than encoder position.
 
 ## Version 20.05
 

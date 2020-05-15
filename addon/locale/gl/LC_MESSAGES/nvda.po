@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-04-12 19:44+0200\n"
+"PO-Revision-Date: 2020-05-08 20:07-0700\n"
 "Last-Translator: Iván Novegil Cancelas <ivan.novegil.cancelas@gmail.com>\n"
 "Language-Team: Add-ons translation team <oprisniki@gmail.com>\n"
 "Language: gl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 1.8.9\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
@@ -1619,47 +1619,46 @@ msgid "SPL add-on Encoder settings error"
 msgstr "Erro de opcións do codificador"
 
 #. Translators: presented when no streaming encoders were found when trying to obtain connection status.
-#, fuzzy
 msgid "No encoders found"
-msgstr "Non se atopou marcador"
+msgstr "Non se atoparon codificadores"
 
 #. Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
 msgid "Only one encoder type can be active at once"
-msgstr ""
+msgstr "Só pode estar activo un só tipo de codificador á vez"
 
 #. Translators: presented when at least one encoder is connected.
 #, python-brace-format
 msgid "Connected encoders: {encodersConnected}"
-msgstr ""
+msgstr "Codificadores conectados: {encodersConnected}"
 
 #. Translators: presented when no encoders are connected.
 msgid "No encoders connected"
-msgstr ""
+msgstr "Non hai codificadores conectados"
 
 #. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Encoder settings for {name}"
-msgstr "Erro de opcións do codificador"
+msgstr "Opcións do codificador para {name}"
 
 #. Translators: An edit field in encoder settings to set stream label for this encoder.
 msgid "Stream &label"
-msgstr ""
+msgstr "&Etiqueta de cadea"
 
 #. Translators: A checkbox in encoder settings to set if NvDA should switch focus to Studio window when connected.
 msgid "&Focus to Studio when connected"
-msgstr ""
+msgstr "En&focar  Studio cando estea conectado"
 
 #. Translators: A checkbox in encoder settings to set if NvDA should play the next track when connected.
 msgid "&Play first track when connected"
-msgstr ""
+msgstr "&Reproducir primeira pista cando estea conectado"
 
 #. Translators: A checkbox in encoder settings to set if NvDA should monitor the status of this encoder in the background.
 msgid "Enable background connection &monitoring"
-msgstr ""
+msgstr "Habilitar &monitorización de conexión de fondo"
 
 #. Translators: A checkbox in encoder settings to set if NvDA should play connection progress tone.
 msgid "Play connection status &beep while connecting"
-msgstr ""
+msgstr "Reproducir &pitido de estado da conexión mentras se conecta"
 
 #. Translators: A checkbox in encoder settings to set if NVDA should announce connection progress until an encoder connects.
 msgid "Announce connection &status until encoder connects"
@@ -1668,120 +1667,128 @@ msgstr ""
 #. Translators: Status message for encoder monitoring.
 #, python-brace-format
 msgid "{encoder} {encoderNumber}: {status}"
-msgstr ""
+msgstr "{encoder} {encoderNumber}: {status}"
 
 #. Translators: Input help mode message in SAM Encoder window.
 msgid ""
 "Toggles whether NVDA will switch to Studio when connected to a streaming "
 "server."
 msgstr ""
+"Conmuta se NVDA cambiará a Studio cando estea conectado a un servidor de "
+"streaming."
 
 #. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 msgid "Switch to Studio after connecting"
-msgstr ""
+msgstr "Cambiar ó Studio tras se conectar"
 
 #. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 msgid "Do not switch to Studio after connecting"
-msgstr ""
+msgstr "Non cambiar a Studio despois de se conectar"
 
 #. Translators: Input help mode message in SAM Encoder window.
 msgid ""
 "Toggles whether Studio will play the first song when connected to a "
 "streaming server."
 msgstr ""
+"Conmuta se Studio reproducirá ou non a primeira canción cando se conecte a "
+"un servidor de streaming."
 
 #. Translators: Presented when toggling the setting to play selected song when connected to a streaming server.
 msgid "Play first track after connecting"
-msgstr ""
+msgstr "Reproducir primeira pista despois de conectar"
 
 #. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 msgid "Do not play first track after connecting"
-msgstr ""
+msgstr "Non reproducir primeira pista despois de conectar"
 
 #. Translators: Input help mode message in SAM Encoder window.
 msgid ""
 "Toggles whether NVDA will monitor the selected encoder in the background."
 msgstr ""
+"Conmuta se NVDA monitorizará o codificador selecionado en segundo plano."
 
 #. Translators: Presented when toggling the setting to monitor the selected encoder.
 #, python-brace-format
 msgid "Monitoring encoder {encoderNumber}"
-msgstr ""
+msgstr "Monitorizando codificador {encoderNumber}"
 
 #. Translators: Presented when toggling the setting to monitor the selected encoder.
 #, python-brace-format
 msgid "Encoder {encoderNumber} will not be monitored"
-msgstr ""
+msgstr "O codificador {encoderNumber} non se monitorizará"
 
 #. Translators: Announced when background encoder monitoring is canceled.
 msgid "Encoder monitoring canceled"
-msgstr ""
+msgstr "Monitorización de codificador cancelada"
 
 #. Translators: Input help mode message in SAM Encoder window.
-#, fuzzy
 msgid "Opens a dialog to label the selected encoder."
-msgstr ""
-"Abre un diálogo para habilitar ou deshabilitar rápidamente os metadatos do "
-"streaming."
+msgstr "Abre un diálogo para etiquetar o codificador selecionado."
 
 #. Translators: The title of the stream labeler dialog (example: stream labeler for 1).
 #, python-brace-format
 msgid "Stream labeler for {streamEntry}"
-msgstr ""
+msgstr "Etiquetador de cadea para {streamEntry}"
 
 #. Translators: The text of the stream labeler dialog.
 msgid "Enter the label for this stream"
-msgstr ""
+msgstr "Introduce a etiqueta para esta cadea"
 
 #. Translators: Input help mode message in SAM Encoder window.
 msgid ""
 "Opens a dialog to erase stream labels and settings from an encoder that was "
 "deleted."
 msgstr ""
+"Abre un diálogo para borrar etiquetas de cadea e opcións dun codificador que "
+"foi eleminado."
 
 #. Translators: The title of the stream configuration eraser dialog.
 msgid "Stream label and settings eraser"
-msgstr ""
+msgstr "Eliminador de etiqueta de cadea e opcións"
 
 #. Translators: The text of the stream configuration eraser dialog.
 msgid "Enter the position of the encoder you wish to delete or will delete"
 msgstr ""
+"Introduce a posición do codificador que desexas eliminar ou eliminarase"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid ""
 "Shows encoder configuration dialog to configure various encoder settings "
 "such as stream label."
 msgstr ""
+"Amosa o diálogo configuración do codificador para configurar varias opcións "
+"do codificador como a etiqueta de cadea."
 
 #. Translators: Text of the dialog when another alarm dialog is open.
-#, fuzzy
 msgid "Another encoder settings dialog is open."
-msgstr "Está aberto outro diálogo de procura."
+msgstr "Está aberto outro diálogo de opcións de codificador."
 
 #. Translators: Input help mode message for report date and time command.
 msgid ""
 "If pressed once, reports the current time including seconds. If pressed "
 "twice, reports the current date"
 msgstr ""
+"Se se premeu unha vez, anuncia a hora actual incluindo segundos. Se se "
+"premeu dúas veces, anuncia a data actual"
 
 #, python-brace-format
 msgid "Position: {pos}"
-msgstr ""
+msgstr "Posición: {pos}"
 
 #, python-brace-format
 msgid "Label: {label}"
-msgstr ""
+msgstr "Etiqueta: {label}"
 
 msgid "No stream label"
-msgstr ""
+msgstr "Non hai etiqueta de cadea"
 
 #. Translators: Presented when an Encoder is trying to connect to a streaming server.
 msgid "Connecting..."
-msgstr ""
+msgstr "Conectando..."
 
 #. Translators: Presented when an Encoder is disconnecting from a streaming server.
 msgid "Disconnecting..."
-msgstr ""
+msgstr "Desconectando..."
 
 #, python-brace-format
 msgid "Format: {encoderFormat}"
@@ -1797,15 +1804,15 @@ msgstr ""
 
 #. Translators: input hep command for an encoder connection command.
 msgid "Connects to a streaming server."
-msgstr ""
+msgstr "Conecta a un servidor de streaming."
 
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Encoder Settings: {setting}"
-msgstr "Erro de opcións do codificador"
+msgstr "Opcións do Codificador: {setting}"
 
 #, python-brace-format
 msgid "Transfer Rate: {transferRate}"
-msgstr ""
+msgstr "Taxa de Transferencia: {transferRate}"
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.

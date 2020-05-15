@@ -32,8 +32,6 @@ Dôležité:
   obnoviť pôvodné nastavenia skratkou nvda+ctrl+r stlačením trikrát rýchlo
   za sebou. Toto sa týka aj nastavení enkodéra. Tieto je však možné len
   uložiť alebo obnoviť.
-* Časovo aktivované profily nie sú viac podporované a budú z doplnku
-  odstránené.
 
 ## Klávesové skratky
 
@@ -149,29 +147,25 @@ obrazovky.
 Dostupné sú tieto príkazy:
 
 * A: autopylot.
-* C (Shift+C v rozložení pre JAWS a Window-Eyes ): Oznámi názov prehrávanej
-  skladby.
-* C (Rozloženie JAWS a Window-Eyes): Zobraziť jingle (len z playlistu).
+* C (Shift+C in JAWS layout): Title for the currently playing track.
+* C (JAWS layout): Toggle cart explorer (playlist viewer only).
 * D (R v rozložení pre JAWS): Oznámi ostávajúci čas do konca skladby. (Ak
   nefunguje, zopakujte skratku zo zobrazenia playlistu).
-* E (G v rozložení pre Window-Eyes): Oznámi Stav streamovania metadát.
+* E: Metadata streaming status.
 * Shift+1 až Shift+4: Stav jednotlivých pripojení. Shift+0: Stav pre DSP
   enkodér.
-* E (rozloženie Window-Eyes): Oznámy čas do konca práve prehrávanej skladby.
 * F: Nájsť skladbu (len zo zoznamu skladieb).
 * H: Oznámi Trvanie skladieb v aktuálnom hodinovom slote.
 * Shift+H: Oznámi zostávajúci čas skladieb v aktuálnom hodinovom slote.
-* I (L v rozložení pre JAWS a Window-Eyes): Oznámi počet pripojených
-  poslucháčov.
+* I (L in JAWS layout): Listener count.
 * K: Prejde na záložku (vyznačenú skladbu v zozname skladieb).
 * Ctrl+K: Nastaví aktuálnu skladbu ako záložku (v zobrazení playlistu).
-* L (Shift+L v rozložení JAWS a Window-Eyes): Line in.
+* L (Shift+L in JAWS layout): Line in.
 * M: Mikrofón.
 * N: Oznámi Názov nasledujúcej skladby.
 * P: Oznámi Stav prehrávania (prehrávanie alebo zastavené).
 * Shift+P: Oznámi tóninu skladby.
-* R (Shift+E v rozložení JAWS a Window-Eyes): zapína a vypína nahrávanie do
-  súboru.
+* R (Shift+E in JAWS layout): Record to file enabled/disabled.
 * Shift+R: Oznámi stav skenovania knižnice.
 * S: Oznámi naplánovaný čas spustenia skladby.
 * Shift+S: Oznámi čas do spustenia (začína o).
@@ -288,6 +282,24 @@ Ak máte k dispozícii dotykovú obrazovku, používate Windows od verzie 8 a
 NVDA  od verzie 2012.3, môžete na ovládanie doplnku použiť dotykové
 príkazy. Najprv je potrebné dotknúť sa obrazovky tromi prstami. Následne
 vykonajte gestá spomenúté vyššie v tomto návode.
+
+## Version 20.06
+
+* Resolved many coding style issues and potential bugs with Flake8.
+* Fixed many instances of encoders support feature messages spoken in
+  English despite translated into other languages.
+* Time-based broadcast profiles feature has been removed.
+* Window-Eyes command layout for SPL Assistant has been removed. Window-Eyes
+  command layout users will be migrated to NVDA layout.
+* As audio ducking feature in NVDA does not impact streaming from Studio
+  except for specific hardware setups, audio ducking reminder dialog has
+  been removed.
+* When errors are found in encoder settings, it is no longer necessary to
+  switch to Studio window to let NVDA reset settings to defaults. You must
+  now switch to an encoder from encoders window to let NVDA reset encoder
+  settings.
+* The title of encoder settings dialog for SAM encoders now displays encoder
+  format rather than encoder position.
 
 ## verzia 20.05
 

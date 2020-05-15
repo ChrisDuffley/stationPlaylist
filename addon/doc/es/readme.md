@@ -37,8 +37,6 @@ NOTAS IMPORTANTES:
   también se aplica a los ajustes del codificador - se pueden guardar y
   restablecer (pero no recargar) los ajustes del codificador si se usan los
   codificadores.
-* La función de perfiles basados en tiempo ha quedado obsoleta y se
-  eliminará en una versión futura.
 
 ## Teclas de atajo
 
@@ -181,32 +179,30 @@ de lista de reproducción). También puedes configurar NVDA para emular
 Las órdenes disponibles son:
 
 * A: Automatización.
-* C (Shift+C en distribuciones JAWS y Window-Eyes): Título para la pista
-  actualmente en reproducción.
-* C (distribuciones JAWS y Window-Eyes): conmuta el explorador de cart
-  (visualizador de lista de reproducción sólo).
+* C (Shift+C en la distribución de JAWS): Título para la pista actualmente
+  en reproducción.
+* C (distribución de JAWS): conmuta el explorador de cart (visualizador de
+  lista de reproducción sólo).
 * D (R en distribución JAWS): duración restante para la lista de
   reproducción (si se da un mensaje de error, se mueve al visualizador de
   lista de reproducción y entonces emite esta orden).
-* E(G en distribución Window-Eyes): estado de metadatos del streaming.
+* E: estado de metadatos del streaming.
 * Shift+1 hasta Shift+4, Shift+0: estado para los metadatos individuales de
   la URL del streaming (0 es para el codificador DSP).
-* E (distribución Window-Eyes): tiempo transcurrido para la pista
-  actualmente en reproducción.
 * F: busca pista (visualizador de lista de reproducción sólo).
 * H: Duración de la música para el actual espacio de tiempo.
 * Shift+H: duración restante de la pista o del slot horario.
-* I (L en distribuciones JAWS y Window-eyes): cuenta de oyentes.
+* I (L en la distribución de JAWS): recuento de oyentes.
 * K: se mueve a la pista marcada (sólo visualizador de lista de
   reproducción).
 * Control+K: pone la pista actual como la pista marcada (sólo visualizador
   de lista de reproducción).
-* L (Shift+L en las distribuciones JAWS y Window-Eyes): línea auxiliar.
+* L (Shift+L en la distribución de JAWS): línea auxiliar.
 * M: Micrófono.
 * N: Título para la siguiente pista programada.
 * P: Estado de reproducción (reproduciendo o detenido).
 * Shift+P: Tono de la pista actual.
-* R (Shift+E en disbribuciones JAWS y Window_eyes): Grabar en archivo
+* R (Shift+E en la disbribución de JAWS): Grabar en archivo
   habilitado/deshabilitado.
 * Shift+R: Monitor de escaneado de biblioteca en progreso.
 * S: Comienzo de pistas (programado).
@@ -355,6 +351,28 @@ Windows 8 o posterior y tienes NVDA 2012.3 o posterior instalado, puedes
 realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
+
+## Versión 20.06
+
+* Se han resuelto muchos problemas de estilo del código y fallos potenciales
+  con Flake8.
+* Corregidas muchas instancias de mensajes de la función de soporte del
+  codificador que se verbalizaban en inglés a pesar de que estaban
+  traducidas a otros idiomas.
+* Se ha eliminado la función de perfiles de emisión basados en tiempo.
+* Se ha eliminado la disposición de órdenes de Window Eyes para el asistente
+  de SPL. Los usuarios de la disposición de órdenes de Window Eyes se
+  migrarán automáticamente a la disposición de NVDA.
+* Ya que la función de atenuación de audio de NVDA no afecta a la emisión en
+  Studio salvo en configuraciones de hardware específicas, se ha eliminado
+  el diálogo de recordatorio de atenuación de audio.
+* Cuando se encuentren errores en los ajustes del codificador, ya no será
+  necesario cambiar a la ventana de Studio para permitir que NVDA
+  restablezca los ajustes por defecto. Ahora debes pasar a cualquier
+  codificador desde la ventana de codificadores para hacer que NVDA
+  restablezca los ajustes del codificador.
+* El título del diálogo de configuración de codificador en los codificadores
+  SAM ahora muestra el formato del codificador en lugar de su posición.
 
 ## Versión 20.05
 
