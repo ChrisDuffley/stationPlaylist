@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-04-10 18:34+0100\n"
+"PO-Revision-Date: 2020-05-08 23:55-0700\n"
 "Last-Translator: Ondrej Rosík <ondrej.rosik@gmail.com>\n"
 "Language-Team: \n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.11\n"
+"X-Generator: Poedit 1.8.9\n"
 
 #. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
 msgid ""
@@ -1627,29 +1627,29 @@ msgstr ""
 msgid ""
 "Toggles whether NVDA will switch to Studio when connected to a streaming "
 "server."
-msgstr ""
+msgstr "určuje, či sa NVDA vráti do okna štúdia po pripojení na server."
 
 #. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 msgid "Switch to Studio after connecting"
-msgstr ""
+msgstr "prepnúť do štúdia po pripojení"
 
 #. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 msgid "Do not switch to Studio after connecting"
-msgstr ""
+msgstr "neprepojiť do štúdia po pripojení"
 
 #. Translators: Input help mode message in SAM Encoder window.
 msgid ""
 "Toggles whether Studio will play the first song when connected to a "
 "streaming server."
-msgstr ""
+msgstr "určuje, či SPL prehráv prvú skaldbu po pripojení na vysielací server."
 
 #. Translators: Presented when toggling the setting to play selected song when connected to a streaming server.
 msgid "Play first track after connecting"
-msgstr ""
+msgstr "prehrať prvú skladbu po pripojení"
 
 #. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 msgid "Do not play first track after connecting"
-msgstr ""
+msgstr "neprehrať pvú skladbu po pripojení"
 
 #. Translators: Input help mode message in SAM Encoder window.
 msgid ""
@@ -1671,19 +1671,17 @@ msgid "Encoder monitoring canceled"
 msgstr ""
 
 #. Translators: Input help mode message in SAM Encoder window.
-#, fuzzy
 msgid "Opens a dialog to label the selected encoder."
-msgstr ""
-"otvorí dialóg, v ktorom môžete rýchlo zapnúť a vypnúť vysielanie metadát."
+msgstr "otvorí dialóg, v ktorom môžete pomenovať nastavenie enkodéra."
 
 #. Translators: The title of the stream labeler dialog (example: stream labeler for 1).
 #, python-brace-format
 msgid "Stream labeler for {streamEntry}"
-msgstr ""
+msgstr "označenie vysielania pre {streamEntry}"
 
 #. Translators: The text of the stream labeler dialog.
 msgid "Enter the label for this stream"
-msgstr ""
+msgstr "zadajte názov tohto vysielania"
 
 #. Translators: Input help mode message in SAM Encoder window.
 msgid ""
@@ -1729,11 +1727,11 @@ msgstr ""
 
 #. Translators: Presented when an Encoder is trying to connect to a streaming server.
 msgid "Connecting..."
-msgstr ""
+msgstr "pripájam..."
 
 #. Translators: Presented when an Encoder is disconnecting from a streaming server.
 msgid "Disconnecting..."
-msgstr ""
+msgstr "odpájam..."
 
 #, python-brace-format
 msgid "Format: {encoderFormat}"
@@ -1749,7 +1747,7 @@ msgstr ""
 
 #. Translators: input hep command for an encoder connection command.
 msgid "Connects to a streaming server."
-msgstr ""
+msgstr "pripojí na vysielací server."
 
 #, fuzzy, python-brace-format
 msgid "Encoder Settings: {setting}"

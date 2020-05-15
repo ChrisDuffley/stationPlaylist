@@ -201,6 +201,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Version 20.06
 
 * Resolved many coding style issues and potential bugs with Flake8.
+* Fixed many instances of encoders support feature messages spoken in English despite translated into other languages.
 * Time-based broadcast profiles feature has been removed.
 * Window-Eyes command layout for SPL Assistant has been removed. Window-Eyes command layout users will be migrated to NVDA layout.
 * As audio ducking feature in NVDA does not impact streaming from Studio except for specific hardware setups, audio ducking reminder dialog has been removed.

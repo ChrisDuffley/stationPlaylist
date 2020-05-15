@@ -35,8 +35,6 @@ VAŽNE NAPOMENE:
   jednom ili pritiskom tipki kontrol+NVDA+R tri puta. Ovo se također
   primijenjuje na postavke kodera – moguće je spremiti i resetirati (ali ne
   ponovo učitati) postavke kodera, ako se koderi koriste.
-* Funkcija vremenski određenih profila emitiranja zastarjela je i uklonit će
-  se u budućem izdanju.
 
 ## Tipkovni prečaci
 
@@ -168,30 +166,27 @@ drugih čitača ekrana.
 Dostupne naredbe su:
 
 * A: Automacija.
-* C (Šift+C u JAWS i Window-Eyes rasporedima): Naslov trenutačno svirane
-  snimke.
-* C (JAWS i Window-Eyes rasporedi): Uključi ili isključi istraživača
-  džinglova (samo u prikazu popisa snimaka).
+* C (Šift+C u JAWS rasporedu): Naslov trenutačno svirane snimke.
+* C (JAWS raspored): Uključi ili isključi istraživača džinglova (samo u
+  prikazu popisa snimaka).
 * D (R u JAWS rasporedu): Preostalo vrijeme popisa snimaka (ako se pojavi
   greška, premjesti se na prikaz popisa snimaka te zadaj ovu naredbu).
-* E (G u Window-Eyes rasporedu): stanje internetskog prijenosa metapodataka.
+* E: Stanje internetskog prijenosa metapodataka.
 * Šift+1 do Šift+4, Šift+0: Stanje URL adresa pojedinih internetskih
   prijenosa metapodataka (0 je za DSP dekoder).
-* E (Window-Eyes raspored): Proteklo vrijeme za trenutačno sviranu snimku.
 * F: Nađi snimku (samo u prikazu popisa snimaka).
 * H: Trajanje snimaka trenutačnog jednosatnog slota.
 * Šift+H: Preostalo trajanje snimaka jednosatnog slota.
-* I (L u JAWS ili Window-Eyes rasporedima): Broj slušatelja.
+* I (L u JAWS rasporedu): Broj slušatelja.
 * K: Premjesti se na označenu snimku (samo u prikazu popisa snimaka).
 * Kontrol+K: Postavi trenutačnu snimku kao pozicijsku oznaku (samo u prikazu
   popisa snimaka).
-* L (Šift+L u JAWS i Window-Eyes rasporedima): Line in.
+* L (Šift+L u JAWS rasporedu): Line in.
 * M: Mikrofon.
 * N: Naslov sljedeće planirane snimke.
 * P: Stanje sviranja (svira ili je zaustavljeno).
 * Šift+P: Glasnoća trenutačne snimke.
-* R (Šift+E u JAWS i Window-Eyes rasporedima): Snimanje u datoteku uključeno
-  ili isključeno.
+* R (Šift+E u JAWS rasporedu): Snimanje u datoteku uključeno ili isključeno.
 * Šift+R: Praćenje skeniranja biblioteke u tijeku.
 * S: Početak sviranja snimke (planirano).
 * Šift+S: Vrijeme do sviranja odabrane snimke (sviranje snimke započinje
@@ -329,6 +324,24 @@ operacijskim sustavom Windows 8 ili novijim i ako imaš instaliran NVDA
 2012.3 ili noviji, možeš izvršiti neke Studio naredbe na ekranu osjetljivim
 na dodir. Za prebacivanje na modus SPL-a, dodirni ekran s tri prsta. Zatim
 koristi gore navedene dodirne naredbe za njihovo izvršavanje.
+
+## Verzija 20.06
+
+* Resolved many coding style issues and potential bugs with Flake8.
+* Fixed many instances of encoders support feature messages spoken in
+  English despite translated into other languages.
+* Funkcija vremenski određenih profila emitiranja je uklonjenja.
+* Window-Eyes command layout for SPL Assistant has been removed. Window-Eyes
+  command layout users will be migrated to NVDA layout.
+* As audio ducking feature in NVDA does not impact streaming from Studio
+  except for specific hardware setups, audio ducking reminder dialog has
+  been removed.
+* When errors are found in encoder settings, it is no longer necessary to
+  switch to Studio window to let NVDA reset settings to defaults. You must
+  now switch to an encoder from encoders window to let NVDA reset encoder
+  settings.
+* The title of encoder settings dialog for SAM encoders now displays encoder
+  format rather than encoder position.
 
 ## Verzija 20.05
 

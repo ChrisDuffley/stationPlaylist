@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-04-10 20:30+0200\n"
+"PO-Revision-Date: 2020-05-09 13:44+0200\n"
 "Last-Translator: José Manuel Delicado <jmdaweb@hotmail.com>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -539,9 +539,8 @@ msgid "Average: {playlistAverageDuration}"
 msgstr "Promedio: {playlistAverageDuration}"
 
 #. Translators: one of the results for playlist snapshots feature for announcing top artist in a playlist.
-#, fuzzy
 msgid "Top artist: {} ({})"
-msgstr "Artista principal: %s (%s)"
+msgstr "Artista principal: {} ({})"
 
 msgid "Top artist: none"
 msgstr "Artista principal: ninguno"
@@ -559,9 +558,8 @@ msgid "{artistName} ({artistCount})"
 msgstr "{artistName} ({artistCount})"
 
 #. Translators: one of the results for playlist snapshots feature for announcing top track category in a playlist.
-#, fuzzy
 msgid "Top category: {} ({})"
-msgstr "Categoría principal: %s (%s)"
+msgstr "Categoría principal: {} ({})"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 msgid "Categories:"
@@ -572,9 +570,8 @@ msgid "{categoryName} ({categoryCount})"
 msgstr "{categoryName} ({categoryCount})"
 
 #. Translators: one of the results for playlist snapshots feature for announcing top genre in a playlist.
-#, fuzzy
 msgid "Top genre: {} ({})"
-msgstr "Género principal: %s (%s)"
+msgstr "Género principal: {} ({})"
 
 msgid "Top genre: none"
 msgstr "Género principal: ninguno"
@@ -767,18 +764,17 @@ msgid "Normal profile"
 msgstr "Perfil normal"
 
 #. Translators: Message displayed when attempting to reset Studio add-on settings while an instant switch profile is active.
-#, fuzzy
 msgid ""
 "An instant switch profile is active. Resetting Studio add-on settings means "
 "normal profile will become active and switch profile settings will be left "
 "in unpredictable state. Are you sure you wish to reset Studio add-on "
 "settings to factory defaults?"
 msgstr ""
-"Hay un perfil de cambio instantáneo o basado en tiempo activado. Si "
-"restableces los ajustes del complemento de Studio se activará el perfil "
-"normal y los ajustes del resto de perfiles quedarán en un estado "
-"impredecible. ¿Estás seguro de que quieres restablecer los ajustes del "
-"complemento de Studio a los valores de fábrica?"
+"Hay un perfil de cambio instantáneo activado. Si restableces los ajustes del "
+"complemento de Studio se activará el perfil normal y los ajustes de los "
+"perfiles de cambio quedarán en un estado impredecible. ¿Estás seguro de que "
+"quieres restablecer los ajustes del complemento de Studio a los valores de "
+"fábrica?"
 
 #. Translators: The title of the confirmation dialog for Studio add-on settings reset.
 msgid "SPL Studio add-on reset"
@@ -885,10 +881,13 @@ msgid ""
 "layout is set to NVDA (default layout). To learn more about commands you can "
 "use in SPL Assistant, from Studio window, press SPL Assistant, F1."
 msgstr ""
+"Se ha eliminado la disposición de órdenes de Window Eyes. Tu disposición de "
+"órdenes del asistente de SPL se ha establecido en NVDA (disposición por "
+"defecto). Para aprender más sobre las órdenes que puedes usar en el "
+"asistente de SPL, pulsa asistente de SPL, f1 desde la ventana de Studio."
 
-#, fuzzy
 msgid "SPL add-on feature removed"
-msgstr "Obsolescencia de funciones del complemento SPL"
+msgstr "Característica eliminada del complemento SPL"
 
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Status announcement beeps"
@@ -1626,200 +1625,208 @@ msgstr "Acción para transcripción:"
 #. Translators: Message displayed if errors were found in encoder configuration file.
 msgid "Your encoder settings had errors and were reset to defaults."
 msgstr ""
+"Los ajustes de tu codificador tenían errores y se han restablecido a sus "
+"valores por defecto."
 
 #. Translators: Title of the encoder settings error dialog.
-#, fuzzy
 msgid "SPL add-on Encoder settings error"
-msgstr "Error de opciones de codificador"
+msgstr "Error de opciones de codificador del complemento SPL"
 
 #. Translators: presented when no streaming encoders were found when trying to obtain connection status.
-#, fuzzy
 msgid "No encoders found"
-msgstr "No se encontró marcador"
+msgstr "No se encontraron codificadores"
 
 #. Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
 msgid "Only one encoder type can be active at once"
-msgstr ""
+msgstr "Sólo puede haber un codificador de cada tipo activado a la vez"
 
 #. Translators: presented when at least one encoder is connected.
 #, python-brace-format
 msgid "Connected encoders: {encodersConnected}"
-msgstr ""
+msgstr "Codificadores conectados: {encodersConnected}"
 
 #. Translators: presented when no encoders are connected.
 msgid "No encoders connected"
-msgstr ""
+msgstr "No hay codificadores conectados"
 
 #. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Encoder settings for {name}"
-msgstr "Error de opciones de codificador"
+msgstr "Opciones de codificador para {name}"
 
 #. Translators: An edit field in encoder settings to set stream label for this encoder.
 msgid "Stream &label"
-msgstr ""
+msgstr "&Etiqueta de cadena"
 
 #. Translators: A checkbox in encoder settings to set if NvDA should switch focus to Studio window when connected.
 msgid "&Focus to Studio when connected"
-msgstr ""
+msgstr "En&focar a Studio cuando esté conectado"
 
 #. Translators: A checkbox in encoder settings to set if NvDA should play the next track when connected.
 msgid "&Play first track when connected"
-msgstr ""
+msgstr "&Reproducir primera pista cuando esté conectado"
 
 #. Translators: A checkbox in encoder settings to set if NvDA should monitor the status of this encoder in the background.
 msgid "Enable background connection &monitoring"
-msgstr ""
+msgstr "Habilitar &monitorización de conexión en segundo plano"
 
 #. Translators: A checkbox in encoder settings to set if NvDA should play connection progress tone.
 msgid "Play connection status &beep while connecting"
-msgstr ""
+msgstr "Reproduce el &pitido de estado de la conexión mientras se conecta"
 
 #. Translators: A checkbox in encoder settings to set if NVDA should announce connection progress until an encoder connects.
 msgid "Announce connection &status until encoder connects"
-msgstr ""
+msgstr "Anunciar e&stado de conexión hasta que el codificador se conecte"
 
 #. Translators: Status message for encoder monitoring.
 #, python-brace-format
 msgid "{encoder} {encoderNumber}: {status}"
-msgstr ""
+msgstr "{encoder} {encoderNumber}: {status}"
 
 #. Translators: Input help mode message in SAM Encoder window.
 msgid ""
 "Toggles whether NVDA will switch to Studio when connected to a streaming "
 "server."
 msgstr ""
+"Conmuta si NVDA cambiará a Studio cuando esté conectado a un servidor de "
+"streaming."
 
 #. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 msgid "Switch to Studio after connecting"
-msgstr ""
+msgstr "Cambiar a Studio después de conectarse"
 
 #. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 msgid "Do not switch to Studio after connecting"
-msgstr ""
+msgstr "No cambiar a Studio después de conectarse"
 
 #. Translators: Input help mode message in SAM Encoder window.
 msgid ""
 "Toggles whether Studio will play the first song when connected to a "
 "streaming server."
 msgstr ""
+"Conmuta si Studio reproducirá o no la primera  canción cuando se conecte a "
+"un servidor de streaming."
 
 #. Translators: Presented when toggling the setting to play selected song when connected to a streaming server.
 msgid "Play first track after connecting"
-msgstr ""
+msgstr "Reproducir primera pista después de conectar"
 
 #. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 msgid "Do not play first track after connecting"
-msgstr ""
+msgstr "No reproducir primera pista después de conectar"
 
 #. Translators: Input help mode message in SAM Encoder window.
 msgid ""
 "Toggles whether NVDA will monitor the selected encoder in the background."
 msgstr ""
+"Conmuta si NVDA monitorizará el codificador seleccionado en segundo plano."
 
 #. Translators: Presented when toggling the setting to monitor the selected encoder.
 #, python-brace-format
 msgid "Monitoring encoder {encoderNumber}"
-msgstr ""
+msgstr "Monitorizando codificador {encoderNumber}"
 
 #. Translators: Presented when toggling the setting to monitor the selected encoder.
 #, python-brace-format
 msgid "Encoder {encoderNumber} will not be monitored"
-msgstr ""
+msgstr "El codificador {encoderNumber} no se monitorizará"
 
 #. Translators: Announced when background encoder monitoring is canceled.
 msgid "Encoder monitoring canceled"
-msgstr ""
+msgstr "Monitorización de codificador cancelada"
 
 #. Translators: Input help mode message in SAM Encoder window.
-#, fuzzy
 msgid "Opens a dialog to label the selected encoder."
-msgstr ""
-"Abre un diálogo para habilitar o deshabilitar rápidamente los metadatos del "
-"streaming."
+msgstr "Abre un diálogo para etiquetar el codificador seleccionado."
 
 #. Translators: The title of the stream labeler dialog (example: stream labeler for 1).
 #, python-brace-format
 msgid "Stream labeler for {streamEntry}"
-msgstr ""
+msgstr "Etiquetador de Stream para {streamEntry}"
 
 #. Translators: The text of the stream labeler dialog.
 msgid "Enter the label for this stream"
-msgstr ""
+msgstr "Introduce la etiqueta para este stream"
 
 #. Translators: Input help mode message in SAM Encoder window.
 msgid ""
 "Opens a dialog to erase stream labels and settings from an encoder that was "
 "deleted."
 msgstr ""
+"Abre un diálogo para borrar etiquetas de cadena y opciones de un codificador "
+"que fue eleminado."
 
 #. Translators: The title of the stream configuration eraser dialog.
 msgid "Stream label and settings eraser"
-msgstr ""
+msgstr "Eliminador de etiqueta de cadena y opciones"
 
 #. Translators: The text of the stream configuration eraser dialog.
 msgid "Enter the position of the encoder you wish to delete or will delete"
 msgstr ""
+"Introduce la posición del codificador que deseas eliminar o se eliminará"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid ""
 "Shows encoder configuration dialog to configure various encoder settings "
 "such as stream label."
 msgstr ""
+"Muestra el diálogo configuración de codificador para configurar varias "
+"opciones del codificador tales como la etiqueta de la cadena."
 
 #. Translators: Text of the dialog when another alarm dialog is open.
-#, fuzzy
 msgid "Another encoder settings dialog is open."
-msgstr "Está abierto otro diálogo de búsqueda."
+msgstr "Está abierto otro diálogo de opciones del codificador."
 
 #. Translators: Input help mode message for report date and time command.
 msgid ""
 "If pressed once, reports the current time including seconds. If pressed "
 "twice, reports the current date"
 msgstr ""
+"Si se pulsó una vez, anuncia la hora actual incluyendo segundos. Si se pulsó "
+"dos veces, anuncia la fecha actual"
 
 #, python-brace-format
 msgid "Position: {pos}"
-msgstr ""
+msgstr "Posición: {pos}"
 
 #, python-brace-format
 msgid "Label: {label}"
-msgstr ""
+msgstr "Etiqueta: {label}"
 
 msgid "No stream label"
-msgstr ""
+msgstr "No hay etiqueta de cadena"
 
 #. Translators: Presented when an Encoder is trying to connect to a streaming server.
 msgid "Connecting..."
-msgstr ""
+msgstr "Conectando..."
 
 #. Translators: Presented when an Encoder is disconnecting from a streaming server.
 msgid "Disconnecting..."
-msgstr ""
+msgstr "Desconectando..."
 
 #, python-brace-format
 msgid "Format: {encoderFormat}"
-msgstr ""
+msgstr "Formato: {encoderFormat}"
 
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Status: {encoderStatus}"
-msgstr "Estado: {name}"
+msgstr "Estado: {encoderStatus}"
 
 #, python-brace-format
 msgid "Description: {encoderDescription}"
-msgstr ""
+msgstr "Descripción: {encoderDescription}"
 
 #. Translators: input hep command for an encoder connection command.
 msgid "Connects to a streaming server."
-msgstr ""
+msgstr "Conecta a un servidor de streaming."
 
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Encoder Settings: {setting}"
-msgstr "Error de opciones de codificador"
+msgstr "Opciones de Codificador: {setting}"
 
 #, python-brace-format
 msgid "Transfer Rate: {transferRate}"
-msgstr ""
+msgstr "Velocidad de Transferencia: {transferRate}"
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.

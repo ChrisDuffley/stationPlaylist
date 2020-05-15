@@ -35,8 +35,6 @@ NOTES IMPORTANTES :
   once, or Control+NVDA+R three times, respectively. This is also applicable
   to encoder settings - you can save and reset (not reload) encoder settings
   if using encoders.
-* Time-based broadcast profiles feature is deprecated and will be removed in
-  a future release.
 
 ## Raccourcis clavier
 
@@ -168,33 +166,27 @@ emulate commands from other screen readers.
 Les commandes disponibles sont :
 
 * A : Automatisation.
-* C (Maj+C dans la disposition de JAWS et Window-Eyes) : Titre pour la piste
-  en cours de lecture.
-* C (disposition JAWS et Window-Eyes) : Bascule l'explorateur de chariot
-  (visionneuse de playlist uniquement).
+* C (Shift+C in JAWS layout): Title for the currently playing track.
+* C (JAWS layout): Toggle cart explorer (playlist viewer only).
 * D (R dans la disposition de JAWS) : Durée restante pour la playlist (si un
   message d’erreur est donné, se déplacer vers la visionneuse de playlist et
   puis tapez cette commande).
-* E (G dans la disposition de Window-Eyes) : Statut de métadonnées en
-  streaming.
+* E: Metadata streaming status.
 * Maj+1 jusqu'à maj+4, maj+0 : Statut de Métadonnées individuelles en
   streaming URLs (0 est pour l'encodeur DSP).
-* E (disposition de Window-Eyes) : Temps écoulé pour la piste en cours de
-  lecture.
 * F : Recherche de piste (visionneuse de playlist uniquement).
 * H : Durée de la musique pour la tranche horaire en cours.
 * Maj+H : Durée des pistes restantes pour la tranche horaire.
-* I (L dans la disposition de JAWS ou Window-Eyes) : Nombre d'auditeurs.
+* I (L in JAWS layout): Listener count.
 * K : Se déplacer à la piste marquée (visionneuse de playlist uniquement).
 * Contrôle+K : Définir la piste en cours comme le marqueur de position de
   piste (visionneuse de playlist uniquement).
-* L (Maj+L dans la  disposition de JAWS et Window-Eyes) : Entrée ligne.
+* L (Shift+L in JAWS layout): Line in.
 * M : Microphone.
 * N : Titre pour la piste suivante planifié.
 * P : Statut (en cours de lecture ou arrêté).
 * Maj+P : Hauteur de la piste actuelle.
-* R (Maj+E dans la disposition  de JAWS et Window-Eyes) : Enregistrer dans
-  un fichier activé/désactivé.
+* R (Shift+E in JAWS layout): Record to file enabled/disabled.
 * Maj+R : Contrôle du balayage de la bibliothèque en cours.
 * S : Piste débute (planifié).
 * Maj+S : Durée jusqu'à la piste sélectionnée qui va être jouer (piste
@@ -338,6 +330,24 @@ ultérieure installé, vous pouvez exécuter certaines commandes Studio depuis
 un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
+
+## Version 20.06
+
+* Resolved many coding style issues and potential bugs with Flake8.
+* Fixed many instances of encoders support feature messages spoken in
+  English despite translated into other languages.
+* Time-based broadcast profiles feature has been removed.
+* Window-Eyes command layout for SPL Assistant has been removed. Window-Eyes
+  command layout users will be migrated to NVDA layout.
+* As audio ducking feature in NVDA does not impact streaming from Studio
+  except for specific hardware setups, audio ducking reminder dialog has
+  been removed.
+* When errors are found in encoder settings, it is no longer necessary to
+  switch to Studio window to let NVDA reset settings to defaults. You must
+  now switch to an encoder from encoders window to let NVDA reset encoder
+  settings.
+* The title of encoder settings dialog for SAM encoders now displays encoder
+  format rather than encoder position.
 
 ## Version 20.05
 
