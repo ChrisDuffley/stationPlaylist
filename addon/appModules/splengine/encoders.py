@@ -72,7 +72,7 @@ def loadStreamLabels():
 			# Translators: Title of the encoder settings error dialog.
 			_("SPL add-on Encoder settings error"), wx.OK | wx.ICON_ERROR)
 		return
-	# Read stream labels.
+	# Read encoder labels.
 	try:
 		SAMStreamLabels = dict(streamLabels["SAMEncoders"])
 	except KeyError:
@@ -129,7 +129,7 @@ def _removeEncoderID(encoderType, pos):
 		# The below list comprehension also works for dictionaries as it will iterate over keys.
 		currentEncoders = sorted([x for x in encoderSettings if x.startswith(encoderType)])
 		if len(currentEncoders) and encoderID < currentEncoders[-1]:
-			# Same algorithm as old stream label remover.
+			# Locate position of the just removed encoder and move entries forward.
 			start = 0
 			if encoderID > currentEncoders[0]:
 				for candidate in currentEncoders:
@@ -180,7 +180,7 @@ def saveStreamLabels():
 # In case this is called as part of a reset, unregister config save handler unconditionally.
 def cleanup(appTerminating=False, reset=False):
 	global streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLBackgroundMonitorThreads, SPLNoConnectionTone, SPLConnectionStopOnError, SPLEncoderLabels
-	# #132 (20.05): do not proceed if stream labels is None (no encoders were initialized).
+	# #132 (20.05): do not proceed if encoder settings database is None (no encoders were initialized).
 	if streamLabels is None: return
 	if appTerminating: saveStreamLabels()
 	if reset or appTerminating:
@@ -190,7 +190,7 @@ def cleanup(appTerminating=False, reset=False):
 		if flag is not None: flag.clear()
 	# 20.04: save a "clean" copy after resetting encoder settings.
 	if reset: streamLabels.write()
-	# Nullify stream labels.
+	# Nullify encoder settings.
 	streamLabels = None
 
 
@@ -337,9 +337,7 @@ class Encoder(IAccessible):
 	"""Represents an encoder from within StationPlaylist Studio or Streamer.
 	This abstract base encoder provides scripts for all encoders such as encoder settings dialog and toggling focusing to Studio when connected.
 	Subclasses must provide scripts to handle encoder connection and connection announcement routines.
-	In addition, they must implement the required actions to set options such as focusing to Studio, storing stream labels and so on, as each subclass relies on a feature map.
-	For example, for SAM encoder class, the feature map is SAM* where * denotes the feature in question.
-	Lastly, each encoder class must provide a unique identifying string to identify the type of the encoder (e.g. SAM for SAM encoder).
+	Most importantly, each encoder class must provide a unique identifying string to identify the type of the encoder (e.g. SAM for SAM encoder).
 	"""
 
 	# Some helper functions
@@ -351,8 +349,7 @@ class Encoder(IAccessible):
 	def encoderId(self):
 		return f"{self.encoderType} {self.IAccessibleChildID}"
 
-	# Get and set stream labels (hence stream label is not really a property, although it may appear to be so).
-	# These rely on stream labels map that records encoder labels for a specific encoder type.
+	# Get and set encoder labels (hence encoder label is not really a property, although it may appear to be so).
 
 	def getStreamLabel(self):
 		try:
@@ -542,7 +539,7 @@ class Encoder(IAccessible):
 		ui.message(text)
 
 	# Various column announcement scripts.
-	# This base class implements encoder position and stream labels.
+	# This base class implements encoder position and labels.
 	@scriptHandler.script(gesture="kb:control+NVDA+1")
 	def script_announceEncoderPosition(self, gesture):
 		ui.message(_("Position: {pos}").format(pos=self.IAccessibleChildID))
@@ -550,16 +547,16 @@ class Encoder(IAccessible):
 	@scriptHandler.script(gesture="kb:control+NVDA+2")
 	def script_announceEncoderLabel(self, gesture):
 		try:
-			streamLabel = self.getStreamLabel()
+			encoderLabel = self.getStreamLabel()
 		except TypeError:
-			streamLabel = None
-		if streamLabel:
-			ui.message(_("Label: {label}").format(label=streamLabel))
+			encoderLabel = None
+		if encoderLabel:
+			ui.message(_("Label: {label}").format(label=encoderLabel))
 		else:
-			ui.message(_("No stream label"))
+			ui.message(_("No encoder label"))
 
 	def initOverlayClass(self):
-		# Load stream labels upon request.
+		# Load encoder settings upon request.
 		if streamLabels is None: loadStreamLabels()
 		# 6.2: Make sure background monitor threads are started if the flag is set.
 		if self.backgroundMonitor:
