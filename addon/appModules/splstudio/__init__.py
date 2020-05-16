@@ -1754,6 +1754,7 @@ class AppModule(appModuleHandler.AppModule):
 					# Translators: one of the results for playlist snapshots feature for announcing top artist in a playlist.
 					statusInfo.append(_("Top artist: {} ({})").format(artists[0][0], artists[0][1]))
 				except IndexError:
+					# Translators: one of the results for playlist snapshots feature when there is no top artist.
 					statusInfo.append(_("Top artist: none"))
 			elif scriptCount == 1:
 				if len(artists) == 0:
@@ -1766,8 +1767,10 @@ class AppModule(appModuleHandler.AppModule):
 					for item in artists:
 						artist, count = item
 						if artist is None:
+							# Translators: one of the results for playlist snapshots feature when there is no artist information.
 							info = _("No artist information ({artistCount})").format(artistCount=count)
 						else:
+							# Translators: one of the results for playlist snapshots feature for artist count information.
 							info = _("{artistName} ({artistCount})").format(artistName=artist, artistCount=count)
 						artistList.append("<li>{}</li>".format(info))
 					statusInfo.append("".join([header, "<ol>", "\n".join(artistList), "</ol>"]))
@@ -1796,6 +1799,7 @@ class AppModule(appModuleHandler.AppModule):
 					# Translators: one of the results for playlist snapshots feature for announcing top genre in a playlist.
 					statusInfo.append(_("Top genre: {} ({})").format(genres[0][0], genres[0][1]))
 				except IndexError:
+					# Translators: one of the results for playlist snapshots feature when there is no top genre.
 					statusInfo.append(_("Top genre: none"))
 			elif scriptCount == 1:
 				if len(genres) == 0:
@@ -1808,8 +1812,10 @@ class AppModule(appModuleHandler.AppModule):
 					for item in genres:
 						genre, count = item
 						if genre is None:
+							# Translators: one of the results for playlist snapshots feature when there is no genre information for an item.
 							info = _("No genre information ({genreCount})").format(genreCount=count)
 						else:
+							# Translators: one of the results for playlist snapshots feature for genre count information.
 							info = _("{genreName} ({genreCount})").format(genreName=genre, genreCount=count)
 						genreList.append("<li>{}</li>".format(info))
 					statusInfo.append("".join([header, "<ol>", "\n".join(genreList), "</ol>"]))
