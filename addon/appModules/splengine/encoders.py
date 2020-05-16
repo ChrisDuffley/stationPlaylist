@@ -228,7 +228,7 @@ class EncoderConfigDialog(wx.Dialog):
 
 		# Encoder format text is used as part of the dialog title.
 		self.obj = obj
-		self.curStreamLabel = obj.getStreamLabel()
+		self.curEncoderLabel = obj.getStreamLabel()
 		# Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
 		super(EncoderConfigDialog, self).__init__(parent, wx.ID_ANY, _("Encoder settings for {name}").format(name=obj.encoderFormat))
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
@@ -239,9 +239,9 @@ class EncoderConfigDialog(wx.Dialog):
 		global _configDialogOpened
 		_configDialogOpened = True
 
-		# Translators: An edit field in encoder settings to set stream label for this encoder.
-		self.streamLabel = encoderConfigHelper.addLabeledControl(_("Stream &label"), wx.TextCtrl)
-		self.streamLabel.SetValue(self.curStreamLabel if self.curStreamLabel is not None else "")
+		# Translators: An edit field in encoder settings to set a label for this encoder.
+		self.encoderLabel = encoderConfigHelper.addLabeledControl(_("Encoder &label"), wx.TextCtrl)
+		self.encoderLabel.SetValue(self.curEncoderLabel if self.curEncoderLabel is not None else "")
 
 		# Translators: A checkbox in encoder settings to set if NvDA should switch focus to Studio window when connected.
 		self.focusToStudio = encoderConfigHelper.addItem(wx.CheckBox(self, label=_("&Focus to Studio when connected")))
@@ -266,7 +266,7 @@ class EncoderConfigDialog(wx.Dialog):
 		mainSizer.Fit(self)
 		self.SetSizer(mainSizer)
 		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
-		self.streamLabel.SetFocus()
+		self.encoderLabel.SetFocus()
 
 	def onOk(self, evt):
 		setFlags = self.obj._setFlags
@@ -277,9 +277,9 @@ class EncoderConfigDialog(wx.Dialog):
 		# Invert the following two flags.
 		setFlags(encoderId, not self.connectionTone.Value, SPLNoConnectionTone)
 		setFlags(encoderId, not self.announceStatusUntilConnected.Value, SPLConnectionStopOnError)
-		newStreamLabel = self.streamLabel.Value
-		if newStreamLabel is None: newStreamLabel = ""
-		self.obj.setStreamLabel(newStreamLabel)
+		newEncoderLabel = self.encoderLabel.Value
+		if newEncoderLabel is None: newEncoderLabel = ""
+		self.obj.setStreamLabel(newEncoderLabel)
 		self.Destroy()
 		global _configDialogOpened
 		_configDialogOpened = False
@@ -510,7 +510,7 @@ class Encoder(IAccessible):
 	# stream settings.
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
-		description=_("Shows encoder configuration dialog to configure various encoder settings such as stream label."),
+		description=_("Shows encoder settings dialog to configure various encoder settings such as encoder label."),
 		gesture="kb:alt+NVDA+0",
 		category=_("StationPlaylist")
 	)
