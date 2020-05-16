@@ -360,9 +360,9 @@ class Encoder(IAccessible):
 		except KeyError:
 			return None
 
-	def setStreamLabel(self, newStreamLabel):
-		if len(newStreamLabel):
-			SPLEncoderLabels[self.encoderId] = newStreamLabel
+	def setStreamLabel(self, newEncoderLabel):
+		if len(newEncoderLabel):
+			SPLEncoderLabels[self.encoderId] = newEncoderLabel
 		else:
 			try:
 				del SPLEncoderLabels[self.encoderId]
@@ -490,17 +490,17 @@ class Encoder(IAccessible):
 
 	@scriptHandler.script(
 		# Translators: Input help mode message in SAM Encoder window.
-		description=_("Opens a dialog to erase stream labels and settings from an encoder that was deleted."),
+		description=_("Opens a dialog to erase encoder labels and settings from an encoder that was deleted."),
 		gesture="kb:control+f12"
 	)
-	def script_streamLabelEraser(self, gesture):
+	def script_encoderSettingsEraser(self, gesture):
 		choices = [str(pos) for pos in range(1, self.simpleParent.childCount)]
-		# Translators: The title of the stream configuration eraser dialog.
-		streamEraserTitle = _("Stream label and settings eraser")
+		# Translators: The title of the encoder settings eraser dialog.
+		encoderSettingsEraserTitle = _("Encoder label and settings eraser")
 		# Translators: The text of the stream configuration eraser dialog.
-		streamEraserText = _("Enter the position of the encoder you wish to delete or will delete")
+		encoderSettingsEraserText = _("Enter the position of the encoder you wish to delete or will delete")
 		# 17.12: early versions of wxPython 4 does not have number entry dialog, so replace it with a combo box.
-		dlg = wx.SingleChoiceDialog(gui.mainFrame, streamEraserText, streamEraserTitle, choices=choices)
+		dlg = wx.SingleChoiceDialog(gui.mainFrame, encoderSettingsEraserText, encoderSettingsEraserTitle, choices=choices)
 		dlg.SetSelection(self.IAccessibleChildID-1)
 		def callback(result):
 			if result == wx.ID_OK:
@@ -572,13 +572,13 @@ class Encoder(IAccessible):
 
 	def reportFocus(self):
 		try:
-			streamLabel = self.getStreamLabel()
+			encoderLabel = self.getStreamLabel()
 		except TypeError:
-			streamLabel = None
-		# Announce stream label if it exists.
-		if streamLabel is not None:
+			encoderLabel = None
+		# Announce encoder label if it exists.
+		if encoderLabel is not None:
 			try:
-				self.name = "(" + streamLabel + ") " + self.name
+				self.name = "(" + encoderLabel + ") " + self.name
 			except TypeError:
 				pass
 		super(Encoder, self).reportFocus()
