@@ -1746,6 +1746,7 @@ class AppModule(appModuleHandler.AppModule):
 		if "PlaylistDurationAverage" in snapshot:
 			# Translators: one of the results for playlist snapshots feature for announcing average duration for tracks in a playlist.
 			statusInfo.append(_("Average: {playlistAverageDuration}").format(playlistAverageDuration=snapshot["PlaylistDurationAverage"]))
+		# 20.09 optimization: for top artists and genres, report statistics if there is an actual common entries counter.
 		if "PlaylistArtistCount" in snapshot:
 			artistCount = splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCountLimit"]
 			artists = snapshot["PlaylistArtistCount"].most_common(None if not artistCount else artistCount)

@@ -350,6 +350,7 @@ class Encoder(IAccessible):
 		return f"{self.encoderType} {self.IAccessibleChildID}"
 
 	# Get and set encoder labels (hence encoder label is not really a property, although it may appear to be so).
+	# 20.09: convert the following two methods to get/set descriptors.
 
 	def getStreamLabel(self):
 		try:
