@@ -1562,8 +1562,11 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Used in delete track workaround routine.
 	def preTrackRemoval(self):
-		if self.isPlaceMarkerTrack(track=api.getFocusObject()):
-			self.placeMarker = None
+		try:
+			if self.isPlaceMarkerTrack(track=api.getFocusObject()):
+				self.placeMarker = None
+		except ValueError:
+			pass
 
 	# Metadata streaming manager
 	# Obtains information on metadata streaming for each URL, notifying the broadcaster if told to do so upon startup.
