@@ -168,9 +168,6 @@ def saveStreamLabels():
 		if not len(streamLabels[key]):
 			del streamLabels[key]
 	streamLabels.write()
-	# 20.06: write a copy to splStreamLabels.ini.
-	import shutil
-	shutil.copyfile(os.path.join(globalVars.appArgs.configPath, "splencoders.ini"), os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
 
 
 # Nullify various flag sets, otherwise memory leak occurs.
@@ -188,9 +185,6 @@ def cleanup(appTerminating=False, reset=False):
 		if flag is not None: flag.clear()
 	# 20.04: save a "clean" copy after resetting encoder settings.
 	if reset: streamLabels.write()
-	# 20.06: write a copy to splStreamLabels.ini.
-	import shutil
-	shutil.copyfile(os.path.join(globalVars.appArgs.configPath, "splencoders.ini"), os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
 	# Nullify stream labels.
 	streamLabels = None
 
