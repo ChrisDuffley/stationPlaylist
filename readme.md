@@ -76,13 +76,13 @@ The following commands are available when using encoders:
 * F11: Toggles whether NVDA will switch to Studio window for the selected encoder if connected.
 * Shift+F11: Toggles whether Studio will play the first selected track when encoder is connected to a streaming server.
 * Control+F11: Toggles background monitoring of the selected encoder.
-* Control+F12: opens a dialog to select the encoder you have deleted (to realign stream labels and encoder settings).
-* Alt+NVDA+0: Opens encoder settings dialog to configure options such as stream label.
+* Control+F12: opens a dialog to select the encoder you have deleted (to realign encoder labels and settings).
+* Alt+NVDA+0: Opens encoder settings dialog to configure options such as encoder label.
 
 In addition, column review commands are available, including:
 
 * Control+NVDA+1: Encoder position.
-* Control+NVDA+2: stream label.
+* Control+NVDA+2: encoder label.
 * Control+NVDA+3 from SAM Encoder: Encoder format.
 * Control+NVDA+3 from SPL and AltaCast Encoder: Encoder settings.
 * Control+NVDA+4 from SAM Encoder: Encoder connection status.
@@ -196,7 +196,8 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Version 20.07
 
-* Dedicated stream labeler command (F12) has been removed from encoders. Stream labels can be defined from encoder settings dialog (Alt+NVDA+0).
+* In encoder settings, "stream label" has been renamed to "encoder label".
+* Dedicated stream labeler command (F12) has been removed from encoders. Encoder labels can be defined from encoder settings dialog (Alt+NVDA+0).
 
 ## Version 20.06
 
