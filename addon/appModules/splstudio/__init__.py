@@ -102,7 +102,11 @@ class SPLTrackItem(sysListView32.ListItem):
 	"""
 
 	def _get_name(self):
-		return self.IAccessibleObject.accName(self.IAccessibleChildID)
+		# 20.07: COM error is thrown when attempting to look up the name of this "track" when a playlist is cleared.
+		try:
+			return self.IAccessibleObject.accName(self.IAccessibleChildID)
+		except:
+			return""
 
 	def _get_description(self):
 		# SysListView32.ListItem nullifies description, so resort to fetching it via IAccessible.
