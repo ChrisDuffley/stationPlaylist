@@ -1551,6 +1551,9 @@ class AppModule(appModuleHandler.AppModule):
 	# Track argument is None (only useful for debugging purposes).
 	def isPlaceMarkerTrack(self, track=None):
 		if track is None: track = api.getFocusObject()
+		# 20.07: no, only list items can become place marker tracks.
+		if track.role != controlTypes.ROLE_LISTITEM:
+			raise ValueError("Only list items can be marked as a place marker track")
 		index = track.indexOf("Filename")
 		filename = track._getColumnContentRaw(index)
 		if self.placeMarker == (index, filename):
