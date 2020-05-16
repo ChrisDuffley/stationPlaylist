@@ -1756,17 +1756,21 @@ class AppModule(appModuleHandler.AppModule):
 				except IndexError:
 					statusInfo.append(_("Top artist: none"))
 			elif scriptCount == 1:
-				artistList = []
-				# Translators: one of the results for playlist snapshots feature, a heading for a group of items.
-				header = _("Top artists:")
-				for item in artists:
-					artist, count = item
-					if artist is None:
-						info = _("No artist information ({artistCount})").format(artistCount=count)
-					else:
-						info = _("{artistName} ({artistCount})").format(artistName=artist, artistCount=count)
-					artistList.append("<li>{}</li>".format(info))
-				statusInfo.append("".join([header, "<ol>", "\n".join(artistList), "</ol>"]))
+				if len(artists) == 0:
+					# Translators: one of the results for playlist snapshots feature when there is no top artist (formatted for browse mode).
+					statusInfo.append(_("Top artists: none"))
+				else:
+					artistList = []
+					# Translators: one of the results for playlist snapshots feature, a heading for a group of items.
+					header = _("Top artists:")
+					for item in artists:
+						artist, count = item
+						if artist is None:
+							info = _("No artist information ({artistCount})").format(artistCount=count)
+						else:
+							info = _("{artistName} ({artistCount})").format(artistName=artist, artistCount=count)
+						artistList.append("<li>{}</li>".format(info))
+					statusInfo.append("".join([header, "<ol>", "\n".join(artistList), "</ol>"]))
 		if "PlaylistCategoryCount" in snapshot:
 			categoryCount = splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCountLimit"]
 			categories = snapshot["PlaylistCategoryCount"].most_common(None if not categoryCount else categoryCount)
@@ -1794,17 +1798,21 @@ class AppModule(appModuleHandler.AppModule):
 				except IndexError:
 					statusInfo.append(_("Top genre: none"))
 			elif scriptCount == 1:
-				genreList = []
-				# Translators: one of the results for playlist snapshots feature, a heading for a group of items.
-				header = _("Top genres:")
-				for item in genres:
-					genre, count = item
-					if genre is None:
-						info = _("No genre information ({genreCount})").format(genreCount=count)
-					else:
-						info = _("{genreName} ({genreCount})").format(genreName=genre, genreCount=count)
-					genreList.append("<li>{}</li>".format(info))
-				statusInfo.append("".join([header, "<ol>", "\n".join(genreList), "</ol>"]))
+				if len(genres) == 0:
+					# Translators: one of the results for playlist snapshots feature when there is no top genre (formatted for browse mode).
+					statusInfo.append(_("Top genres: none"))
+				else:
+					genreList = []
+					# Translators: one of the results for playlist snapshots feature, a heading for a group of items.
+					header = _("Top genres:")
+					for item in genres:
+						genre, count = item
+						if genre is None:
+							info = _("No genre information ({genreCount})").format(genreCount=count)
+						else:
+							info = _("{genreName} ({genreCount})").format(genreName=genre, genreCount=count)
+						genreList.append("<li>{}</li>".format(info))
+					statusInfo.append("".join([header, "<ol>", "\n".join(genreList), "</ol>"]))
 		if scriptCount == 0:
 			ui.message(", ".join(statusInfo))
 		else:
