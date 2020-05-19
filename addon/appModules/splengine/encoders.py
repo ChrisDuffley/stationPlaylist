@@ -482,10 +482,6 @@ class Encoder(IAccessible):
 			# Translators: Announced when background encoder monitoring is canceled.
 			ui.message(_("Encoder monitoring canceled"))
 
-	def removeStreamConfig(self, pos):
-		# An application of map successor algorithm.
-		_removeEncoderID(self.encoderType, pos)
-
 	@scriptHandler.script(
 		# Translators: Input help mode message in SAM Encoder window.
 		description=_("Opens a dialog to erase encoder labels and settings from an encoder that was deleted."),
@@ -502,7 +498,7 @@ class Encoder(IAccessible):
 		dlg.SetSelection(self.IAccessibleChildID-1)
 		def callback(result):
 			if result == wx.ID_OK:
-				self.removeStreamConfig(dlg.GetStringSelection())
+				_removeEncoderID(self.encoderType, dlg.GetStringSelection())
 		gui.runScriptModalDialog(dlg, callback)
 
 	# stream settings.
