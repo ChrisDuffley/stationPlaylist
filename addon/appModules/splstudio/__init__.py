@@ -836,6 +836,10 @@ class AppModule(appModuleHandler.AppModule):
 			return splconfig.SPLConfig["SayStatus"]["SayListenerCount"]
 		elif name.startswith("Cart") and obj.IAccessibleChildID == 3:
 			return splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"]
+		# 20.07: in insert tracks dialog, name change event is fired continuously until actual result is known.
+		# To prevent an event flood risk, say "no" if the same result text was cached.
+		elif "match" in name and api.getForegroundObject().windowClassName == "TTrackInsertForm":
+			return self.matchedResultsCache != name
 		return True
 
 	# Now the actual event.
