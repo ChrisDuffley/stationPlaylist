@@ -816,6 +816,8 @@ class AppModule(appModuleHandler.AppModule):
 	scanCount = 0
 	# Prevent NVDA from announcing scheduled time multiple times.
 	scheduledTimeCache = ""
+	# Prevent NVDA from announcing match results in Insert Tracks/search.
+	matchedResultsCache = ""
 
 	# Automatically announce mic, line in, etc changes
 	# These items are static text items whose name changes.
