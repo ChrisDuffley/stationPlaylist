@@ -859,13 +859,19 @@ class AppModule(appModuleHandler.AppModule):
 					if not self.libraryScanning:
 						if self.productVersion not in noLibScanMonitor: self.libraryScanning = True
 				elif "match" in obj.name:
-					if splconfig.SPLConfig["General"]["LibraryScanAnnounce"] != "off" and self.libraryScanning:
-						if splconfig.SPLConfig["General"]["BeepAnnounce"]: tones.beep(370, 100)
-						else:
-							# Translators: Presented when library scan is complete.
-							ui.message(_("Scan complete with {scanCount} items").format(scanCount=obj.name.split()[3]))
-					if self.libraryScanning: self.libraryScanning = False
-					self.scanCount = 0
+					# 20.07: announce search/match results from insert tracks dialog while there is no library rescan in progress.
+					# Only announce match count as the whole thing is very verbose, and results text would have been checked by status bar checker anyway.
+					if not self.libraryScanning:
+						self.matchedResultsCache = obj.name
+						ui.message(obj.name)
+					else:
+						if splconfig.SPLConfig["General"]["LibraryScanAnnounce"] != "off" and self.libraryScanning:
+							if splconfig.SPLConfig["General"]["BeepAnnounce"]: tones.beep(370, 100)
+							else:
+								# Translators: Presented when library scan is complete.
+								ui.message(_("Scan complete with {scanCount} items").format(scanCount=obj.name.split()[3]))
+						if self.libraryScanning: self.libraryScanning = False
+						self.scanCount = 0
 			else:
 				# 16.12: Because cart edit text shows cart insert status, exclude this from toggle state announcement.
 				if obj.name.endswith((" On", " Off")) and not obj.name.startswith("Cart "):
