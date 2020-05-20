@@ -867,7 +867,7 @@ class AppModule(appModuleHandler.AppModule):
 					# Only announce match count as the whole thing is very verbose, and results text would have been checked by status bar checker anyway.
 					if not self.libraryScanning:
 						self.matchedResultsCache = obj.name
-						ui.message(obj.name)
+						ui.message(" ".join(obj.name.split()[:2]))
 					else:
 						if splconfig.SPLConfig["General"]["LibraryScanAnnounce"] != "off" and self.libraryScanning:
 							if splconfig.SPLConfig["General"]["BeepAnnounce"]: tones.beep(370, 100)
