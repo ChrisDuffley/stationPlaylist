@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 17.02\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2017-02-03 19:00+1000\n"
-"PO-Revision-Date: 2020-05-08 20:23-0700\n"
+"PO-Revision-Date: 2020-05-15 10:13-0700\n"
 "Last-Translator: Dang Manh Cuong <dangmanhcuong@gmail.com>\n"
 "Language-Team: \n"
 "Language: vi\n"
@@ -526,17 +526,25 @@ msgstr "Trugn bình: {playlistAverageDuration}"
 msgid "Top artist: {} ({})"
 msgstr "Ca sĩ tiêu biểu: %s (%s)"
 
+#. Translators: one of the results for playlist snapshots feature when there is no top artist.
 msgid "Top artist: none"
+msgstr "Ca sĩ tiêu biểu: không có"
+
+#. Translators: one of the results for playlist snapshots feature when there is no top artist (formatted for browse mode).
+#, fuzzy
+msgid "Top artists: none"
 msgstr "Ca sĩ tiêu biểu: không có"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 msgid "Top artists:"
 msgstr "Ca sĩ tiêu biểu:"
 
+#. Translators: one of the results for playlist snapshots feature when there is no artist information.
 #, python-brace-format
 msgid "No artist information ({artistCount})"
 msgstr "Không có thông tin ca sĩ ({artistCount})"
 
+#. Translators: one of the results for playlist snapshots feature for artist count information.
 #, python-brace-format
 msgid "{artistName} ({artistCount})"
 msgstr "{artistName} ({artistCount})"
@@ -559,17 +567,25 @@ msgstr "{categoryName} ({categoryCount})"
 msgid "Top genre: {} ({})"
 msgstr "Thể loại tiêu biểu: %s (%s)"
 
+#. Translators: one of the results for playlist snapshots feature when there is no top genre.
 msgid "Top genre: none"
+msgstr "Thể loại tiêu biểu: không có"
+
+#. Translators: one of the results for playlist snapshots feature when there is no top genre (formatted for browse mode).
+#, fuzzy
+msgid "Top genres: none"
 msgstr "Thể loại tiêu biểu: không có"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 msgid "Top genres:"
 msgstr "Các thể loại tiêu biểu:"
 
+#. Translators: one of the results for playlist snapshots feature when there is no genre information for an item.
 #, python-brace-format
 msgid "No genre information ({genreCount})"
 msgstr "Không có thông tin thể loại ({genreCount})"
 
+#. Translators: one of the results for playlist snapshots feature for genre count information.
 #, python-brace-format
 msgid "{genreName} ({genreCount})"
 msgstr "{genreName} ({genreCount})"
@@ -856,16 +872,6 @@ msgstr "Chào mừng đến với StationPlaylist add-on"
 #. Translators: A checkbox to show welcome dialog.
 msgid "Show welcome dialog when I start Studio"
 msgstr "Hiện hộp thoại chào mừng khi khởi động Studio"
-
-msgid ""
-"Window-Eyes command layout has been removed. Your SPL Assistant command "
-"layout is set to NVDA (default layout). To learn more about commands you can "
-"use in SPL Assistant, from Studio window, press SPL Assistant, F1."
-msgstr ""
-
-#, fuzzy
-msgid "SPL add-on feature removed"
-msgstr "Giản lược tính năng SPL add-on"
 
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Status announcement beeps"
@@ -1587,31 +1593,14 @@ msgstr ""
 msgid "SPL add-on Encoder settings error"
 msgstr "Lỗi cài đặt mã hóa"
 
-#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
-msgid "No encoders found"
-msgstr "Không tìm thấy bộ mã hóa nào"
-
-#. Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
-msgid "Only one encoder type can be active at once"
-msgstr "Chỉ có thể kích hoạt một loại mã hóa cho một lần"
-
-#. Translators: presented when at least one encoder is connected.
-#, python-brace-format
-msgid "Connected encoders: {encodersConnected}"
-msgstr "Các bộ mã hóa đã kết nối: {encodersConnected}"
-
-#. Translators: presented when no encoders are connected.
-msgid "No encoders connected"
-msgstr "Không có bộ mã hóa nào được kết nối"
-
 #. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
 #, python-brace-format
 msgid "Encoder settings for {name}"
 msgstr "Cài đặt mã hóa cho {name}"
 
-#. Translators: An edit field in encoder settings to set stream label for this encoder.
-msgid "Stream &label"
-msgstr "&Nhãn phát thanh"
+#. Translators: An edit field in encoder settings to set a label for this encoder.
+msgid "Encoder &label"
+msgstr ""
 
 #. Translators: A checkbox in encoder settings to set if NvDA should switch focus to Studio window when connected.
 msgid "&Focus to Studio when connected"
@@ -1632,6 +1621,23 @@ msgstr "Phát trạng thái kết nối &beep trong khi kết nối"
 #. Translators: A checkbox in encoder settings to set if NVDA should announce connection progress until an encoder connects.
 msgid "Announce connection &status until encoder connects"
 msgstr ""
+
+#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
+msgid "No encoders found"
+msgstr "Không tìm thấy bộ mã hóa nào"
+
+#. Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
+msgid "Only one encoder type can be active at once"
+msgstr "Chỉ có thể kích hoạt một loại mã hóa cho một lần"
+
+#. Translators: presented when at least one encoder is connected.
+#, python-brace-format
+msgid "Connected encoders: {encodersConnected}"
+msgstr "Các bộ mã hóa đã kết nối: {encodersConnected}"
+
+#. Translators: presented when no encoders are connected.
+msgid "No encoders connected"
+msgstr "Không có bộ mã hóa nào được kết nối"
 
 #. Translators: Status message for encoder monitoring.
 #, python-brace-format
@@ -1690,28 +1696,17 @@ msgid "Encoder monitoring canceled"
 msgstr "Đã hủy bỏ theo dõi bộ mã hóa"
 
 #. Translators: Input help mode message in SAM Encoder window.
-msgid "Opens a dialog to label the selected encoder."
-msgstr "Mở hộp thoại để gán nhãn cho bộ mã hóa được chọn."
-
-#. Translators: The title of the stream labeler dialog (example: stream labeler for 1).
-#, python-brace-format
-msgid "Stream labeler for {streamEntry}"
-msgstr "Đặt nhãn phát cho {streamEntry}"
-
-#. Translators: The text of the stream labeler dialog.
-msgid "Enter the label for this stream"
-msgstr "Nhập nhãn cho đường này"
-
-#. Translators: Input help mode message in SAM Encoder window.
+#, fuzzy
 msgid ""
-"Opens a dialog to erase stream labels and settings from an encoder that was "
+"Opens a dialog to erase encoder labels and settings from an encoder that was "
 "deleted."
 msgstr ""
 "Mở một hộp thoại để xóa các nhãn phát và các thiết lạp từ một bộ mã hóa đã "
 "bị xóa."
 
-#. Translators: The title of the stream configuration eraser dialog.
-msgid "Stream label and settings eraser"
+#. Translators: The title of the encoder settings eraser dialog.
+#, fuzzy
+msgid "Encoder label and settings eraser"
 msgstr "Nhãn phát thanh và xóa các cài đặt"
 
 #. Translators: The text of the stream configuration eraser dialog.
@@ -1719,9 +1714,10 @@ msgid "Enter the position of the encoder you wish to delete or will delete"
 msgstr "Nhập vị trí của bộ mã hóa bạn muốn xóa hoặc sẽ xóa"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
+#, fuzzy
 msgid ""
-"Shows encoder configuration dialog to configure various encoder settings "
-"such as stream label."
+"Shows encoder settings dialog to configure various encoder settings such as "
+"encoder label."
 msgstr ""
 "Hiển thị hộp thoại cấu hình mã hóa để cấu hình nhiều cài đặt mã hóa như nhãn "
 "phát trực tuyến."
@@ -1746,8 +1742,9 @@ msgstr "Vị trí: {pos}"
 msgid "Label: {label}"
 msgstr "Nhãn: {label}"
 
-msgid "No stream label"
-msgstr "Không có nhãn phát thanh"
+#, fuzzy
+msgid "No encoder label"
+msgstr "Không tìm thấy bộ mã hóa nào"
 
 #. Translators: Presented when an Encoder is trying to connect to a streaming server.
 msgid "Connecting..."
@@ -1907,221 +1904,21 @@ msgstr ""
 "Cải thiện hỗ trợ cho StationPlaylist Studio.\n"
 "Ngoài ra là thêm các lệnh toàn cục cho studio từ bất cứ đâu."
 
-#~ msgid ""
-#~ "WARNING! Window-Eyes command layout is deprecated and will be removed in "
-#~ "a future version of StationPlaylist add-on.\n"
-#~ "After entering SPL Assistant, press:\n"
-#~ "A: Automation.\n"
-#~ "C: Toggle cart explorer.\n"
-#~ "Shift+C: Announce name of the currently playing track.\n"
-#~ "D: Remaining time for the playlist.\n"
-#~ "E: Elapsed time.\n"
-#~ "F: Track finder.\n"
-#~ "R: Remaining time for the currently playing track.\n"
-#~ "G: Overall metadata streaming status.\n"
-#~ "Shift+1 through shift+4, shift+0: Metadata streaming status for DSP "
-#~ "encoder and four additional URL's.\n"
-#~ "H: Duration of trakcs in this hour slot.\n"
-#~ "Shift+H: Duration of remaining trakcs in this hour slot.\n"
-#~ "K: Move to place marker track.\n"
-#~ "Control+K: Set place marker track.\n"
-#~ "L: Listener count.\n"
-#~ "Shift+L: Line-in status.\n"
-#~ "M: Microphone status.\n"
-#~ "N: Next track.\n"
-#~ "P: Playback status.\n"
-#~ "Shift+P: Pitch for the current track.\n"
-#~ "Shift+E: Record to file.\n"
-#~ "Shift+R: Monitor library scan.\n"
-#~ "S: Scheduled time for the track.\n"
-#~ "Shift+S: Time until the selected track will play.\n"
-#~ "T: Cart edit/insert mode.\n"
-#~ "U: Studio up time.\n"
-#~ "W: Weather and temperature.\n"
-#~ "Y: Playlist modification.\n"
-#~ "F8: Take playlist snapshots such as track count, longest track and so "
-#~ "on.\n"
-#~ "Shift+F8: Obtain playlist transcripts in a variety of formats.\n"
-#~ "F9: Mark current track as start of track time analysis.\n"
-#~ "F10: Perform track time analysis.\n"
-#~ "F12: Switch to an instant switch profile.\n"
-#~ "Shift+F1: Open online user guide."
-#~ msgstr ""
-#~ "Cảnh báo! Kiểu phím lệnh của Window-Eyes đã được lược bỏ và sẽ bị gỡ ở "
-#~ "một phiên bản trong tương lai của StationPlaylist add-on.\n"
-#~ "Sau khi vào SPL Assistant, bấm:\n"
-#~ "A: tự động hóa.\n"
-#~ "C: bật / tắt cart explorer.\n"
-#~ "Shift+C: thông báo tên của track đang phát.\n"
-#~ "D: thời gian còn lại cho danh sách phát.\n"
-#~ "E: thời gian đã trôi qua.\n"
-#~ "F: tìm kiếm track.\n"
-#~ "R: thời gian còn lại của track đang phát.\n"
-#~ "G: tổng thể trạng thái truyền siêu dữ liệu.\n"
-#~ "Shift+1 đến shift+4, shift+0: trạng thái truyền siêu dữ liệu cho bộ mã "
-#~ "hóa và URL bổ sung.\n"
-#~ "H: thời lượng các track trong khung giờ này.\n"
-#~ "Shift+H: thời lượng các track còn lại trong khung giờ này.\n"
-#~ "K: chuyển đến track đánh dấu.\n"
-#~ "Control+K: cài đặt track đánh dấu.\n"
-#~ "L: lượt người nghe..\n"
-#~ "Shift+L: trạng thái line-in.\n"
-#~ "M: trạng thái microphone.\n"
-#~ "N: track kế.\n"
-#~ "P: trạng thái phát.\n"
-#~ "Shift+P: độ cao track hiện tại.\n"
-#~ "Shift+E: thu ra tập tin.\n"
-#~ "Shift+R: theo dõi quét thư viện.\n"
-#~ "S: thời gian đã lên lịch cho track.\n"
-#~ "Shift+S: thời gian đến khi sẽ phát các track được chọn.\n"
-#~ "T: chế độ chỉnh sửa / chèn cart.\n"
-#~ "U: Studio tăng thời gian.\n"
-#~ "W: thời tiết và nhiệt độ.\n"
-#~ "Y: chỉnh sửa danh sách phát.\n"
-#~ "F8: chụp các ảnh của danh sách phát như số lượng track,\n"
-#~ "track dài nhất và nhiều nữa.\n"
-#~ "Shift+F8: lấy các thông tin về điểm của danh sách phát ở nhiều định "
-#~ "dạng.\n"
-#~ "F9: đánh dấu track hiện tại là nơi bắt đầu phân tích thời gian track.\n"
-#~ "F10: thực hiện phân tích thời gian .\n"
-#~ "F12: chuyển đến một hồ sơ chuyển nhanh.\n"
-#~ "Shift+F1: mở tài liệu hướng dẫn trực tuyến."
+#, fuzzy
+#~ msgid "SPL add-on feature removed"
+#~ msgstr "Giản lược tính năng SPL add-on"
 
-#~ msgid "SPL Assistant help for Window-Eyes layout"
-#~ msgstr "Trợ giúp SPL Assistant cho kiểu phím lệnh của Window-Eyes"
+#~ msgid "Stream &label"
+#~ msgstr "&Nhãn phát thanh"
 
-#~ msgid ""
-#~ "Your encoder settings had errors and were reset to defaults. If you have "
-#~ "stream labels configured for various encoders, please add them again."
-#~ msgstr ""
-#~ "Cài đặt mã hóa của bạn bị lỗi và đã được khôi phục về mặc định. Nếu bạn "
-#~ "có các nhãn phát thanh được cấu hình cho các bộ mã hóa khác nhau, vui "
-#~ "lòng thêm chúng vào lại."
+#~ msgid "Opens a dialog to label the selected encoder."
+#~ msgstr "Mở hộp thoại để gán nhãn cho bộ mã hóa được chọn."
 
-#~ msgid ""
-#~ "Could not locate the following time-based profile(s):\n"
-#~ "{profiles}"
-#~ msgstr ""
-#~ "Không tìm thấy các hồ sơ theo thời gian:\n"
-#~ "{profiles}"
+#~ msgid "Stream labeler for {streamEntry}"
+#~ msgstr "Đặt nhãn phát cho {streamEntry}"
 
-#~ msgid "Time-based profiles missing"
-#~ msgstr "Không có hồ sơ theo thời gian"
+#~ msgid "Enter the label for this stream"
+#~ msgstr "Nhập nhãn cho đường này"
 
-#~ msgid "time-based"
-#~ msgstr "theo thời gian"
-
-#~ msgid "A profile trigger is already active"
-#~ msgstr "Đã có một tác nhân hồ sơ hoạt động"
-
-#~ msgid "SPL Studio and audio ducking"
-#~ msgstr "SPL Studio và giảm âm lượng"
-
-#~ msgid ""
-#~ "NVDA 2016.1 and later allows NVDA to decrease volume of background audio "
-#~ "including that of Studio.\n"
-#~ "\t\tIn order to not disrupt the listening experience of your listeners, "
-#~ "please disable audio ducking either by:\n"
-#~ "\t\t* Opening synthesizer dialog in NVDA and selecting 'no ducking' from "
-#~ "audio ducking mode combo box.\n"
-#~ "\t\t* Press NVDA+Shift+D to set it to 'no ducking'."
-#~ msgstr ""
-#~ "NVDA 2016.1 trở lên cho phép NVDA giảm âm lượng của âm thanh nền bao gồm "
-#~ "luôn Studio.\n"
-#~ "\t\tĐể không làm gián đoạn trải nghiệm của người nghe, vui lòng vô hiệu "
-#~ "hóa tính năng giảm âm lượng bằng cách:\n"
-#~ "\t\t* Mở hộp thoại chọn bộ đọc trong NVDA và chọn 'không giảm' trong hộp "
-#~ "xổ giảm âm lượng các ứng dụng khác.\n"
-#~ "\t\t* Bấm NVDA+Shift+D để thiết lập là 'không giảm'."
-
-#~ msgid "Do not show this message again"
-#~ msgstr "Không hiển thị lại thông điệp này nữa"
-
-#~ msgid ""
-#~ "One or more time-based broadcast profiles are defined. Time-based "
-#~ "broadcast profiles feature is deprecated and will be removed in a future "
-#~ "version of StationPlaylist add-on."
-#~ msgstr ""
-#~ "Một hoặc nhiều hồ sơ phát thanh theo thời gian đã được quy định. Tính "
-#~ "năng này đã được lược bớt và sẽ được gỡ bỏ ở một phiên bản trong tương "
-#~ "lai của StationPlaylist add-on."
-
-#~ msgid ""
-#~ "You are using SPL Assistant layer commands set to Window-Eyes command "
-#~ "layout. As Window-Eyes is no longer supported, Window-Eyes command layout "
-#~ "will be removed in a future version of StationPlaylist add-on. Please "
-#~ "change SPL Assistant command layout to NVDA or JAWS layout by opening add-"
-#~ "on settings screen (Alt+NvDA+0 from Studio window), selecting Advanced, "
-#~ "then selecting the appropriate option from SPL Assistant compatibility "
-#~ "layer combo box."
-#~ msgstr ""
-#~ "Bạn đang dùng các lệnh lớp của SPL Assistant được thiết lập theo kiểu "
-#~ "lệnh của Window-Eyes. Vì Window-Eyes không còn được hỗ trợ nữa, kiểu lệnh "
-#~ "này sẽ bị gỡ bỏ ở một phiên bản trong tương lai của  StationPlaylist add-"
-#~ "on. Vui lòng đổi kiểu phím lệnh cho SPL Assistant sang NVDA hoặc JAWS "
-#~ "bằng cách mở hộp thoại cài đặt add-on (Alt+NvDA+0 từ cửa sổ Studio), chọn "
-#~ "nâng cao, rồi chọn các tùy chỉnh phù hợp từ hộp xổ kiểu phím lệnh SPL "
-#~ "Assistant."
-
-#~ msgid ""
-#~ "You cannot change profile switch triggers in the midst of a broadcast."
-#~ msgstr ""
-#~ "Bạn không thể thay đổi tác nhân chuyển hồ sơ khi đang nghe chương trình "
-#~ "phát thanh."
-
-#~ msgid "Profile triggers"
-#~ msgstr "Các tác nhân hồ sơ"
-
-#~ msgid "End of track alarm"
-#~ msgstr "Báo hiệu cuối track"
-
-#~ msgid "Song intro alarm"
-#~ msgstr "Nhạc hiệu"
-
-#~ msgid "Microphone alarm"
-#~ msgstr "Báo hiệu microphone"
-
-#~ msgid "Sets end of track alarm (default is 5 seconds)."
-#~ msgstr "Thiết lập báo động cuối track (mặc định là 5 giây)."
-
-#~ msgid "Sets song intro alarm (default is 5 seconds)."
-#~ msgstr "Đặt nhạc hiệu (mặc định là 5 giây)."
-
-#~ msgid "Sets microphone alarm (default is 5 seconds)."
-#~ msgstr "Thiết lập báo động microphone (mặc định là 5 giây)."
-
-#~ msgid "Countdown seconds before switching profiles"
-#~ msgstr "Đếm ngược bằng giây trước khi chuyển hồ sơ"
-
-#~ msgid "This is a &time-based switch profile"
-#~ msgstr "Đây là hồ sơ chuyển &theo thời gian"
-
-#~ msgid "Day"
-#~ msgstr "Ngày"
-
-#~ msgid "Time"
-#~ msgstr "Thời gian"
-
-#~ msgid "Hour"
-#~ msgstr "Giờ"
-
-#~ msgid "Duration in minutes"
-#~ msgstr "Thời lượng bằng phút"
-
-#~ msgid ""
-#~ "A profile trigger already exists for the entered time slot. Please choose "
-#~ "a different date or time."
-#~ msgstr ""
-#~ "Đã có một tác nhân hồ sơ cho khung giờ được nhập. Vui lòng chọn thời gian "
-#~ "khác."
-
-#~ msgid ""
-#~ "The time-based profile checkbox is checked but no switch dates are given. "
-#~ "Please either specify switch date(s) or uncheck time-based profile "
-#~ "checkbox."
-#~ msgstr ""
-#~ "Hộp kiểm hồ sơ theo thời gian đã được chọn nưng không có chỉ định ngày "
-#~ "chuyển. Vui lòng định ngày chuyển hoặc bỏ chọn mục này."
-
-#~ msgid "Delete time-based profile database"
-#~ msgstr "Xóa dữ liệu hồ sơ theo thời gian"
+#~ msgid "No stream label"
+#~ msgstr "Không có nhãn phát thanh"

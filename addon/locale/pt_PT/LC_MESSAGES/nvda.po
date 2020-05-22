@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 3.2\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-05-08 19:01-0700\n"
+"PO-Revision-Date: 2020-05-15 10:11-0700\n"
 "Last-Translator: Ângelo Miguel Abrantes <ampa4374@gmail.com>\n"
 "Language-Team: Equipa Portuguesa do NVDA <angelomiguelabrantes@gmail.com; "
 "rui.fontes@tiflotecnia.com>\n"
@@ -474,17 +474,25 @@ msgstr "Média: {playlistAverageDuration}"
 msgid "Top artist: {} ({})"
 msgstr "Primeiro intérprete: %s (%s)"
 
+#. Translators: one of the results for playlist snapshots feature when there is no top artist.
 msgid "Top artist: none"
+msgstr "Primeiros Intérpretes."
+
+#. Translators: one of the results for playlist snapshots feature when there is no top artist (formatted for browse mode).
+#, fuzzy
+msgid "Top artists: none"
 msgstr "Primeiros Intérpretes."
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 msgid "Top artists:"
 msgstr "Primeiros Intérpretes"
 
+#. Translators: one of the results for playlist snapshots feature when there is no artist information.
 #, python-brace-format
 msgid "No artist information ({artistCount})"
 msgstr "Sem informação sobre intérprete ({artistCount})"
 
+#. Translators: one of the results for playlist snapshots feature for artist count information.
 #, python-brace-format
 msgid "{artistName} ({artistCount})"
 msgstr "{artistName} ({artistCount})"
@@ -507,17 +515,25 @@ msgstr "{categoryName} ({categoryCount})"
 msgid "Top genre: {} ({})"
 msgstr "primeiro género: %s (%s)"
 
+#. Translators: one of the results for playlist snapshots feature when there is no top genre.
 msgid "Top genre: none"
+msgstr "Géneros principais:"
+
+#. Translators: one of the results for playlist snapshots feature when there is no top genre (formatted for browse mode).
+#, fuzzy
+msgid "Top genres: none"
 msgstr "Géneros principais:"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 msgid "Top genres:"
 msgstr "Principais géneros:"
 
+#. Translators: one of the results for playlist snapshots feature when there is no genre information for an item.
 #, python-brace-format
 msgid "No genre information ({genreCount})"
 msgstr "Sem informação de género ({genreCount})"
 
+#. Translators: one of the results for playlist snapshots feature for genre count information.
 #, python-brace-format
 msgid "{genreName} ({genreCount})"
 msgstr "{genreName} ({genreCount})"
@@ -780,15 +796,6 @@ msgstr ""
 #. Translators: A checkbox to show welcome dialog.
 msgid "Show welcome dialog when I start Studio"
 msgstr "Mostrar caixa de diálogo de boas-vindas quando eu iniciar o Studio"
-
-msgid ""
-"Window-Eyes command layout has been removed. Your SPL Assistant command "
-"layout is set to NVDA (default layout). To learn more about commands you can "
-"use in SPL Assistant, from Studio window, press SPL Assistant, F1."
-msgstr ""
-
-msgid "SPL add-on feature removed"
-msgstr ""
 
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Status announcement beeps"
@@ -1520,32 +1527,14 @@ msgstr ""
 msgid "SPL add-on Encoder settings error"
 msgstr "Erro de configurações do codificador"
 
-#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
-#, fuzzy
-msgid "No encoders found"
-msgstr "Nenhum marcador de local encontrado"
-
-#. Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
-msgid "Only one encoder type can be active at once"
-msgstr ""
-
-#. Translators: presented when at least one encoder is connected.
-#, python-brace-format
-msgid "Connected encoders: {encodersConnected}"
-msgstr ""
-
-#. Translators: presented when no encoders are connected.
-msgid "No encoders connected"
-msgstr ""
-
 #. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
 #, python-brace-format
 msgid "Encoder settings for {name}"
 msgstr "Configurações do codificador para {name}"
 
-#. Translators: An edit field in encoder settings to set stream label for this encoder.
-msgid "Stream &label"
-msgstr "Transmissão e rótulo"
+#. Translators: An edit field in encoder settings to set a label for this encoder.
+msgid "Encoder &label"
+msgstr ""
 
 #. Translators: A checkbox in encoder settings to set if NvDA should switch focus to Studio window when connected.
 msgid "&Focus to Studio when connected"
@@ -1565,6 +1554,24 @@ msgstr "Reproduzir o estado da conexão e o sinal sonoro durante a conexão"
 
 #. Translators: A checkbox in encoder settings to set if NVDA should announce connection progress until an encoder connects.
 msgid "Announce connection &status until encoder connects"
+msgstr ""
+
+#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
+#, fuzzy
+msgid "No encoders found"
+msgstr "Nenhum marcador de local encontrado"
+
+#. Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
+msgid "Only one encoder type can be active at once"
+msgstr ""
+
+#. Translators: presented when at least one encoder is connected.
+#, python-brace-format
+msgid "Connected encoders: {encodersConnected}"
+msgstr ""
+
+#. Translators: presented when no encoders are connected.
+msgid "No encoders connected"
 msgstr ""
 
 #. Translators: Status message for encoder monitoring.
@@ -1625,28 +1632,17 @@ msgid "Encoder monitoring canceled"
 msgstr "Monitorização do codificador cancelado"
 
 #. Translators: Input help mode message in SAM Encoder window.
-msgid "Opens a dialog to label the selected encoder."
-msgstr "Abre uma caixa de diálogo para rotular o codificador selecionado."
-
-#. Translators: The title of the stream labeler dialog (example: stream labeler for 1).
-#, python-brace-format
-msgid "Stream labeler for {streamEntry}"
-msgstr "Etiquetagem de transmissão para {streamEntry}"
-
-#. Translators: The text of the stream labeler dialog.
-msgid "Enter the label for this stream"
-msgstr "Digite o rótulo para esta transmissão"
-
-#. Translators: Input help mode message in SAM Encoder window.
+#, fuzzy
 msgid ""
-"Opens a dialog to erase stream labels and settings from an encoder that was "
+"Opens a dialog to erase encoder labels and settings from an encoder that was "
 "deleted."
 msgstr ""
 "Abre uma caixa de diálogo para apagar rótulos e configurações de um "
 "codificador que foi excluído."
 
-#. Translators: The title of the stream configuration eraser dialog.
-msgid "Stream label and settings eraser"
+#. Translators: The title of the encoder settings eraser dialog.
+#, fuzzy
+msgid "Encoder label and settings eraser"
 msgstr "Rótulo e apagador de configurações"
 
 #. Translators: The text of the stream configuration eraser dialog.
@@ -1654,9 +1650,10 @@ msgid "Enter the position of the encoder you wish to delete or will delete"
 msgstr "Digite a posição do codificador que deseja excluir ou excluirá"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
+#, fuzzy
 msgid ""
-"Shows encoder configuration dialog to configure various encoder settings "
-"such as stream label."
+"Shows encoder settings dialog to configure various encoder settings such as "
+"encoder label."
 msgstr ""
 "Mostra a caixa de diálogo de configuração do codificador para configurar "
 "várias configurações do codificador, como a etiqueta de transmissão."
@@ -1681,8 +1678,9 @@ msgstr "Posição: {pos}"
 msgid "Label: {label}"
 msgstr "Rótulo: {label}"
 
-msgid "No stream label"
-msgstr "Nenhum rótulo de transmissão"
+#, fuzzy
+msgid "No encoder label"
+msgstr "Nenhum marcador de local encontrado"
 
 #. Translators: Presented when an Encoder is trying to connect to a streaming server.
 msgid "Connecting..."
@@ -1822,116 +1820,17 @@ msgstr ""
 "Melhora o suporte para StationPlaylist Studio.\n"
 "Além disso, adiciona comandos globais para o estúdio em todos os lugares."
 
-#~ msgid "SPL Assistant help for Window-Eyes layout"
-#~ msgstr "Ajuda do assistente SPL para o layout Window-Eyes"
+#~ msgid "Stream &label"
+#~ msgstr "Transmissão e rótulo"
 
-#~ msgid ""
-#~ "Your encoder settings had errors and were reset to defaults. If you have "
-#~ "stream labels configured for various encoders, please add them again."
-#~ msgstr ""
-#~ "As configurações do codificador tiveram erros e foram redefinidas para "
-#~ "padrões. Se você tiver etiquetas de fluxo configuradas para vários "
-#~ "codificadores, adicione-os novamente."
+#~ msgid "Opens a dialog to label the selected encoder."
+#~ msgstr "Abre uma caixa de diálogo para rotular o codificador selecionado."
 
-#~ msgid ""
-#~ "Could not locate the following time-based profile(s):\n"
-#~ "{profiles}"
-#~ msgstr ""
-#~ "Não é possível localizar os seguintesperfis baseados no tempo (s):\n"
-#~ "{profiles}"
+#~ msgid "Stream labeler for {streamEntry}"
+#~ msgstr "Etiquetagem de transmissão para {streamEntry}"
 
-#~ msgid "Time-based profiles missing"
-#~ msgstr "Perfis baseados no tempo faltam"
+#~ msgid "Enter the label for this stream"
+#~ msgstr "Digite o rótulo para esta transmissão"
 
-#~ msgid "time-based"
-#~ msgstr "com base no tempo"
-
-#~ msgid "A profile trigger is already active"
-#~ msgstr "Um gatilho de perfil já está ativo"
-
-#~ msgid "SPL Studio and audio ducking"
-#~ msgstr "SPL Studio e ducking de áudio"
-
-#~ msgid ""
-#~ "NVDA 2016.1 and later allows NVDA to decrease volume of background audio "
-#~ "including that of Studio.\n"
-#~ "\t\tIn order to not disrupt the listening experience of your listeners, "
-#~ "please disable audio ducking either by:\n"
-#~ "\t\t* Opening synthesizer dialog in NVDA and selecting 'no ducking' from "
-#~ "audio ducking mode combo box.\n"
-#~ "\t\t* Press NVDA+Shift+D to set it to 'no ducking'."
-#~ msgstr ""
-#~ "NVDA 2016.1 and later allows NVDA to decrease volume of background audio "
-#~ "including that of Studio.\n"
-#~ "\t\tIn order to not disrupt the listening experience of your listeners, "
-#~ "please disable audio ducking either by:\n"
-#~ "\t\t* Opening synthesizer dialog in NVDA and selecting 'no ducking' from "
-#~ "audio ducking mode combo box.\n"
-#~ "\t\t* Press NVDA+Shift+D to set it to 'no ducking'."
-
-#~ msgid "Do not show this message again"
-#~ msgstr "Não mostrar esta mensagem novamente"
-
-#~ msgid ""
-#~ "You cannot change profile switch triggers in the midst of a broadcast."
-#~ msgstr ""
-#~ "Não pode alterar os disparadores de mudança de perfil no meio de uma "
-#~ "transmissão."
-
-#~ msgid "Profile triggers"
-#~ msgstr "Disparadores de perfil"
-
-#~ msgid "End of track alarm"
-#~ msgstr "Fim da pista de alarme"
-
-#~ msgid "Song intro alarm"
-#~ msgstr "Alarme de introdução de música"
-
-#~ msgid "Microphone alarm"
-#~ msgstr "Alarme de microfone"
-
-#~ msgid "Sets end of track alarm (default is 5 seconds)."
-#~ msgstr "Define o alarme de fim de pista (o padrão é de 5 segundos)."
-
-#~ msgid "Sets song intro alarm (default is 5 seconds)."
-#~ msgstr "Define o alarme de introdução de música (o padrão é de 5 segundos)."
-
-#~ msgid "Sets microphone alarm (default is 5 seconds)."
-#~ msgstr "Define o alarme do microfone (o padrão é 5 segundos)."
-
-#~ msgid "Countdown seconds before switching profiles"
-#~ msgstr "Segundos de contagem regressiva antes de mudar os perfis"
-
-#~ msgid "This is a &time-based switch profile"
-#~ msgstr "Este é um perfil de comutação baseado no tempo"
-
-#~ msgid "Day"
-#~ msgstr "Dia"
-
-#~ msgid "Time"
-#~ msgstr "tempo"
-
-#~ msgid "Hour"
-#~ msgstr "Hora"
-
-#~ msgid "Duration in minutes"
-#~ msgstr "Duração em minutos"
-
-#~ msgid ""
-#~ "A profile trigger already exists for the entered time slot. Please choose "
-#~ "a different date or time."
-#~ msgstr ""
-#~ "Já existe um gatilho de perfil para o intervalo de tempo inserido. "
-#~ "Escolha uma data ou hora diferente."
-
-#~ msgid ""
-#~ "The time-based profile checkbox is checked but no switch dates are given. "
-#~ "Please either specify switch date(s) or uncheck time-based profile "
-#~ "checkbox."
-#~ msgstr ""
-#~ "A caixa de seleção do perfil com base no tempo está marcada, mas não são "
-#~ "fornecidas datas de troca. Por favor, especifique a caixa de seleção das "
-#~ "datas de opção ou desmarque o perfil do tempo."
-
-#~ msgid "Delete time-based profile database"
-#~ msgstr "Excluir banco de dados de perfil com base no tempo"
+#~ msgid "No stream label"
+#~ msgstr "Nenhum rótulo de transmissão"

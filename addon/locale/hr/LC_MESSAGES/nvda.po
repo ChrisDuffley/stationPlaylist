@@ -532,17 +532,25 @@ msgstr "Prosječno: {playlistAverageDuration}"
 msgid "Top artist: {} ({})"
 msgstr "Top izvođač: {} ({})"
 
+#. Translators: one of the results for playlist snapshots feature when there is no top artist.
 msgid "Top artist: none"
+msgstr "Top izvođač: nitko"
+
+#. Translators: one of the results for playlist snapshots feature when there is no top artist (formatted for browse mode).
+#, fuzzy
+msgid "Top artists: none"
 msgstr "Top izvođač: nitko"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 msgid "Top artists:"
 msgstr "Top izvođači:"
 
+#. Translators: one of the results for playlist snapshots feature when there is no artist information.
 #, python-brace-format
 msgid "No artist information ({artistCount})"
 msgstr "Nema informacija o izvođaču ({artistCount})"
 
+#. Translators: one of the results for playlist snapshots feature for artist count information.
 #, python-brace-format
 msgid "{artistName} ({artistCount})"
 msgstr "{artistName} ({artistCount})"
@@ -563,17 +571,25 @@ msgstr "{categoryName} ({categoryCount})"
 msgid "Top genre: {} ({})"
 msgstr "Top žanr: {} ({})"
 
+#. Translators: one of the results for playlist snapshots feature when there is no top genre.
 msgid "Top genre: none"
+msgstr "Top žanr: nikoji"
+
+#. Translators: one of the results for playlist snapshots feature when there is no top genre (formatted for browse mode).
+#, fuzzy
+msgid "Top genres: none"
 msgstr "Top žanr: nikoji"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 msgid "Top genres:"
 msgstr "Top žanrovi:"
 
+#. Translators: one of the results for playlist snapshots feature when there is no genre information for an item.
 #, python-brace-format
 msgid "No genre information ({genreCount})"
 msgstr "Nema informacija o žanru ({genreCount})"
 
+#. Translators: one of the results for playlist snapshots feature for genre count information.
 #, python-brace-format
 msgid "{genreName} ({genreCount})"
 msgstr "{genreName} ({genreCount})"
@@ -865,18 +881,6 @@ msgstr "Dobrodošli u StationPlaylist dodatak"
 msgid "Show welcome dialog when I start Studio"
 msgstr ""
 "Prikaži dijaloški okvir dobrodošlice tijekom pokretanja programa Studio"
-
-msgid ""
-"Window-Eyes command layout has been removed. Your SPL Assistant command "
-"layout is set to NVDA (default layout). To learn more about commands you can "
-"use in SPL Assistant, from Studio window, press SPL Assistant, F1."
-msgstr ""
-"Raspored naredbi Window-Eyesa su uklonjene. SPL Assistant je postavljen na "
-"NVDA (standardni raspored). Za daljnje informacije o naredbama koje se mogu "
-"koristiti u SPL Assistantu, iz prozora Studio, pritisni SPL Assistant, F1."
-
-msgid "SPL add-on feature removed"
-msgstr "Funkcija SPL dodatka uklonjena"
 
 #. Translators: Reported when status announcement is set to beeps in SPL Studio.
 msgid "Status announcement beeps"
@@ -1610,31 +1614,14 @@ msgstr ""
 msgid "SPL add-on Encoder settings error"
 msgstr "Greška postavki kodera SPL dodatka"
 
-#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
-msgid "No encoders found"
-msgstr "Nema kodera"
-
-#. Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
-msgid "Only one encoder type can be active at once"
-msgstr "U određenom trenutku može biti aktivna samo jedna vrsta kodera"
-
-#. Translators: presented when at least one encoder is connected.
-#, python-brace-format
-msgid "Connected encoders: {encodersConnected}"
-msgstr "Povezani koderi: {encodersConnected}"
-
-#. Translators: presented when no encoders are connected.
-msgid "No encoders connected"
-msgstr "Nema povezanih kodera"
-
 #. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
 #, python-brace-format
 msgid "Encoder settings for {name}"
 msgstr "Postavke kodera za {name}"
 
-#. Translators: An edit field in encoder settings to set stream label for this encoder.
-msgid "Stream &label"
-msgstr "&Oznaka internetskog prijenosa"
+#. Translators: An edit field in encoder settings to set a label for this encoder.
+msgid "Encoder &label"
+msgstr ""
 
 #. Translators: A checkbox in encoder settings to set if NvDA should switch focus to Studio window when connected.
 msgid "&Focus to Studio when connected"
@@ -1655,6 +1642,23 @@ msgstr "Sviraj &zvučni signal za stanje povezivanja tijekom povezivanja"
 #. Translators: A checkbox in encoder settings to set if NVDA should announce connection progress until an encoder connects.
 msgid "Announce connection &status until encoder connects"
 msgstr "Najavi &stanje veze dok se koder ne poveže"
+
+#. Translators: presented when no streaming encoders were found when trying to obtain connection status.
+msgid "No encoders found"
+msgstr "Nema kodera"
+
+#. Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
+msgid "Only one encoder type can be active at once"
+msgstr "U određenom trenutku može biti aktivna samo jedna vrsta kodera"
+
+#. Translators: presented when at least one encoder is connected.
+#, python-brace-format
+msgid "Connected encoders: {encodersConnected}"
+msgstr "Povezani koderi: {encodersConnected}"
+
+#. Translators: presented when no encoders are connected.
+msgid "No encoders connected"
+msgstr "Nema povezanih kodera"
 
 #. Translators: Status message for encoder monitoring.
 #, python-brace-format
@@ -1713,28 +1717,17 @@ msgid "Encoder monitoring canceled"
 msgstr "Prekinuto praćenje kodera"
 
 #. Translators: Input help mode message in SAM Encoder window.
-msgid "Opens a dialog to label the selected encoder."
-msgstr "Otvara dijaloški okvir za označavanje odabranog kodera."
-
-#. Translators: The title of the stream labeler dialog (example: stream labeler for 1).
-#, python-brace-format
-msgid "Stream labeler for {streamEntry}"
-msgstr "Označavanje internetskog prijenosa za {streamEntry}"
-
-#. Translators: The text of the stream labeler dialog.
-msgid "Enter the label for this stream"
-msgstr "Upiši oznaku za ovaj internetski prijenos"
-
-#. Translators: Input help mode message in SAM Encoder window.
+#, fuzzy
 msgid ""
-"Opens a dialog to erase stream labels and settings from an encoder that was "
+"Opens a dialog to erase encoder labels and settings from an encoder that was "
 "deleted."
 msgstr ""
 "Otvara dijaloški okvir za brisanje oznaka internetskih prijenosa i postavki "
 "izbrisanog kodera."
 
-#. Translators: The title of the stream configuration eraser dialog.
-msgid "Stream label and settings eraser"
+#. Translators: The title of the encoder settings eraser dialog.
+#, fuzzy
+msgid "Encoder label and settings eraser"
 msgstr "Brisač oznaka i postavki internetskih prijenosa"
 
 #. Translators: The text of the stream configuration eraser dialog.
@@ -1742,9 +1735,10 @@ msgid "Enter the position of the encoder you wish to delete or will delete"
 msgstr "Upiši poziciju kodera kojeg želiš izbrisati ili kojeg ćeš izbrisati"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
+#, fuzzy
 msgid ""
-"Shows encoder configuration dialog to configure various encoder settings "
-"such as stream label."
+"Shows encoder settings dialog to configure various encoder settings such as "
+"encoder label."
 msgstr ""
 "Prikazuje dijaloški okvir za konfiguriranje različitih postavki kodera kao "
 "što je oznaka internetskog prijenosa."
@@ -1769,8 +1763,9 @@ msgstr "Pozicija: {pos}"
 msgid "Label: {label}"
 msgstr "Oznaka: {label}"
 
-msgid "No stream label"
-msgstr "Nema oznake internetskog prijenosa"
+#, fuzzy
+msgid "No encoder label"
+msgstr "Nema kodera"
 
 #. Translators: Presented when an Encoder is trying to connect to a streaming server.
 msgid "Connecting..."
@@ -1927,3 +1922,31 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist Studio.\n"
 "Također, dodaje pristup naredbama za Studio s bilo kojeg mjesta."
+
+#~ msgid ""
+#~ "Window-Eyes command layout has been removed. Your SPL Assistant command "
+#~ "layout is set to NVDA (default layout). To learn more about commands you "
+#~ "can use in SPL Assistant, from Studio window, press SPL Assistant, F1."
+#~ msgstr ""
+#~ "Raspored naredbi Window-Eyesa su uklonjene. SPL Assistant je postavljen "
+#~ "na NVDA (standardni raspored). Za daljnje informacije o naredbama koje se "
+#~ "mogu koristiti u SPL Assistantu, iz prozora Studio, pritisni SPL "
+#~ "Assistant, F1."
+
+#~ msgid "SPL add-on feature removed"
+#~ msgstr "Funkcija SPL dodatka uklonjena"
+
+#~ msgid "Stream &label"
+#~ msgstr "&Oznaka internetskog prijenosa"
+
+#~ msgid "Opens a dialog to label the selected encoder."
+#~ msgstr "Otvara dijaloški okvir za označavanje odabranog kodera."
+
+#~ msgid "Stream labeler for {streamEntry}"
+#~ msgstr "Označavanje internetskog prijenosa za {streamEntry}"
+
+#~ msgid "Enter the label for this stream"
+#~ msgstr "Upiši oznaku za ovaj internetski prijenos"
+
+#~ msgid "No stream label"
+#~ msgstr "Nema oznake internetskog prijenosa"

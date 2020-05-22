@@ -176,27 +176,30 @@ lectores de pantalla.
 As ordes dispoñibles son:
 
 * A: Automatización.
-* C (Shift+C in JAWS layout): Title for the currently playing track.
-* C (JAWS layout): Toggle cart explorer (playlist viewer only).
+* C (Shift+C na distribución JAWS): Título para a pista actualmente en
+  reprodución.
+* C (distribución JAWS): conmuta o explorador de cart (só visualizador de
+  lista de reprodución).
 * D (R na distribución JAWS): duración restante para a lista de reprodución
   (se se da unha mensaxe de erro, move ao visualizador de lista de
   reproducción e logo aílla esta orden).
-* E: Metadata streaming status.
+* E: Estado dos metadatos do streaming.
 * Shift+1 ata Shift+4, Shift+0: estado para as URLs dos metadatos
   individuais do streaming (0 é para o codificador DSP).
 * F: atopar pista (só visualizador de lista de reprodución).
 * H: Duración da música para o actual espazo de tempo.
 * Shift+H: duración das pistas restantes para o slot horario.
-* I (L in JAWS layout): Listener count.
+* I (L na distribución JAWS): conta de oíntes.
 * K: móvese á pista marcada (só no visualizador de lista de reprodución).
 * Control+K: pon a pista actual como a pista  marcada (só no visualizador de
   lista de reprodución).
-* L (Shift+L in JAWS layout): Line in.
+* L (Shift+L na distribución JAWS): Liña auxiliar.
 * M: Micrófono.
 * N: Título para a seguinte pista programada.
 * P: Estado da reproducción (reproducindo ou detido).
 * Shift+P: Ton da pista actual.
-* R (Shift+E in JAWS layout): Record to file enabled/disabled.
+* R (Shift+E na distribución JAWS): Grabar en ficheiro activado /
+  desactivado.
 * Shift+R: Monitorización  do escaneado da biblioteca en progreso.
 * S: Comezos de pistas (programado).
 * Shift+S: tempo ata o que se reproducirá a pista selecionada (comezos de
@@ -341,23 +344,26 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
-## Version 20.06
+## Versión 20.06
 
-* Resolved many coding style issues and potential bugs with Flake8.
-* Fixed many instances of encoders support feature messages spoken in
-  English despite translated into other languages.
-* Time-based broadcast profiles feature has been removed.
-* Window-Eyes command layout for SPL Assistant has been removed. Window-Eyes
-  command layout users will be migrated to NVDA layout.
-* As audio ducking feature in NVDA does not impact streaming from Studio
-  except for specific hardware setups, audio ducking reminder dialog has
-  been removed.
-* When errors are found in encoder settings, it is no longer necessary to
-  switch to Studio window to let NVDA reset settings to defaults. You must
-  now switch to an encoder from encoders window to let NVDA reset encoder
-  settings.
-* The title of encoder settings dialog for SAM encoders now displays encoder
-  format rather than encoder position.
+* Resoltas varias incidencias de estilo do código e erros potenciais con
+  Flake8.
+* Arranxadas varias instancias de mensaxes da caracterísitca de soporte de
+  codificadores faladas en inglés aínda que estivesen traducidas noutros
+  idiomas.
+* A característica de perfiles de transmisión baseados en tempo eliminouse.
+* Eliminouse a disposición de ordes de Window-Eyes para o Asistente SPL. Os
+  usuarios da disposición de ordes de Window-Eyes migraranse á disposición
+  de NVDA.
+* Xa que a característica de atenuación de audio en NVDA non afecta á
+  emisión dende Studio agás en instalacións específicas de hardware,
+  eliminouse o diálogo de recordatorio de atenuación de audio.
+* Cando se atopan erros nas opcións do codificador, xa non é necesario
+  cambiar á xanela do Studio para que NVDA restableza as opcións por
+  defecto. Agora tes que cambiar a un codificador dende a xanela de
+  codificadores para que NVDA restableza as opcións do codificador.
+* O título do diálogo de opcións do codificador para codificadores SAM
+  mostra agora o formato do codificador no canto da posición do codificador.
 
 ## Versión 20.05
 
