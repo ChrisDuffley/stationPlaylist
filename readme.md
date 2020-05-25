@@ -198,6 +198,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 * In Studio's playlist viewer, NVDA will no longer appear to do nothing or play error tones when attempting to delete tracks or after clearing the loaded playlist while focused on playlist viewer.
 * When searching for tracks in Studio's insert tracks dialog, NVDA will announce search results if results are found.
+* NVDA will no longer appear to do nothing or play error tones when trying to switch to a newly created broadcast profile and save add-on settings.
 * In encoder settings, "stream label" has been renamed to "encoder label".
 * Dedicated stream labeler command (F12) has been removed from encoders. Encoder labels can be defined from encoder settings dialog (Alt+NVDA+0).
 
