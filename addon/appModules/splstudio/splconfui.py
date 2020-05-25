@@ -346,7 +346,8 @@ class NewProfileDialog(wx.Dialog):
 		# LTS optimization: just build base profile dictionary here if copying a profile.
 		if self.copy:
 			baseConfig = splconfig.SPLConfig.profileByName(self.baseProfiles.GetStringSelection())
-			baseProfile = {sect: key for sect, key in baseConfig.items() if sect in splconfig._mutatableSettings}
+			# #140 (20.07): it isn't enough to copy dictionaries - deep copy (config.dict()) must be performed to avoid accidental reference manipulation.
+			baseProfile = {sect: key for sect, key in baseConfig.dict().items() if sect in splconfig._mutatableSettings}
 		else: baseProfile = None
 		splconfig.SPLConfig.createProfile(newProfilePath, profileName=name, parent=baseProfile)
 		parent.profileNames.append(name)
