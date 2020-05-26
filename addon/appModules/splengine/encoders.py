@@ -396,8 +396,7 @@ class Encoder(IAccessible):
 			# #136 (20.07): encoder monitoring can cross encoder type boundaries (multiple encoder types can be monitored at once).
 			# Include encoder ID if multiple encoders have one encoder entry being monitored.
 			if len([thread for thread in SPLBackgroundMonitorThreads.values() if thread.is_alive()]) > 1:
-				# Translators: Status message for encoder monitoring.
-				ui.message(_("{encoder} {encoderNumber}: {status}").format(encoder=self.encoderType, encoderNumber=encoderId, status=message))
+				ui.message("{}: {}".format(self.encoderId, message))
 			else:
 				ui.message(message)
 		except:
