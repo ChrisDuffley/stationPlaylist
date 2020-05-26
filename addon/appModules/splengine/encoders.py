@@ -648,6 +648,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 					error = True
 					connectionAttempt = 0
 				if alreadyEncoding: alreadyEncoding = False
+				if encoding: encoding = False
 				if connecting: connecting = False
 			elif messageCache.startswith("Encoding"):
 				if manualConnect: manualConnect = False
