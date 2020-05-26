@@ -388,7 +388,7 @@ class Encoder(IAccessible):
 		return self.encoderId not in SPLConnectionStopOnError
 
 	# Format the status message to prepare for monitoring multiple encoders.
-	def encoderStatusMessage(self, message, encoderId):
+	def encoderStatusMessage(self, message):
 		# #79 (18.10.1/18.09.3-lts): wxPython 4 is more strict about where timers can be invoked from, and the below function is called from a thread other than the main one, which causes an exception to be logged.
 		# This is especially the case with some speech synthesizers and/or braille displays.
 		try:
@@ -631,7 +631,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 				messageCache = "; ".join([status, statusDetails])
 				if not messageCache: return
 				if not messageCache.startswith("Encoding"):
-					self.encoderStatusMessage(messageCache, self.IAccessibleChildID)
+					self.encoderStatusMessage(messageCache)
 			if messageCache.startswith("Idle"):
 				if alreadyEncoding: alreadyEncoding = False
 				if encoding: encoding = False
@@ -655,7 +655,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 				# We're on air, so exit unless told to monitor for connection changes.
 				if not encoding:
 					tones.beep(1000, 150)
-					self.encoderStatusMessage(messageCache, self.IAccessibleChildID)
+					self.encoderStatusMessage(messageCache)
 				if self.focusToStudio and not encoding:
 					if api.getFocusObject().appModule == "splstudio":
 						continue
@@ -778,7 +778,7 @@ class SPLEncoder(Encoder):
 				messageCache = status
 				if not messageCache: return
 				if "Kbps" not in messageCache:
-					self.encoderStatusMessage(messageCache, self.IAccessibleChildID)
+					self.encoderStatusMessage(messageCache)
 			if messageCache == "Disconnected":
 				connected = False
 				if manualConnect and connecting: manualConnect = False
