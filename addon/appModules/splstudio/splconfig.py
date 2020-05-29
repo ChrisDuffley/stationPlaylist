@@ -572,16 +572,14 @@ class ConfigHub(ChainMap):
 
 	# Switch between profiles.
 	# This involves promoting and demoting normal profile.
-	# 17.05: The appTerminating flag is used to suppress profile switching messages.
 	# 17.10: this will never be invoked if only normal profile is in use or if config was loaded from memory alone.
-	def switchProfile(self, prevProfile, newProfile, appTerminating=False, switchFlags=None):
+	def switchProfile(self, prevProfile, newProfile, switchFlags=None):
 		if self.normalProfileOnly or self.configInMemory:
 			raise RuntimeError("Only normal profile is in use or config was loaded from memory, cannot switch profiles")
 		# Check profile flags (for now, instant switch (0x1)).
 		if switchFlags is not None and not 0 <= switchFlags < 0x2:
 			raise RuntimeError("Profile switch flag out of range")
 		self.swapProfiles(prevProfile, newProfile)
-		if appTerminating: return
 		# Set the prev flag manually.
 		self.prevProfile = prevProfile
 		# Manipulated only by profile switch start/end functions.
