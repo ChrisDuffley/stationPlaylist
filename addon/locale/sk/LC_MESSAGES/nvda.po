@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-05-15 10:11-0700\n"
+"PO-Revision-Date: 2020-05-26 15:29+0100\n"
 "Last-Translator: Ondrej Rosík <ondrej.rosik@gmail.com>\n"
 "Language-Team: \n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 1.6.11\n"
 
 #. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
 msgid ""
@@ -180,7 +180,7 @@ msgstr ""
 "D: Oznámi zostávajúci čas do konca aktuálneho playlistu.\n"
 "E: Oznámi stav živého vysielania.\n"
 "Skratky Shift+1 až shift+4,: Oznámi stav prvých štyroch pripojení. Shift+0: "
-"Oznámi stav DSP enkodéra.\n"
+"Oznámi stav DSP pripojenia.\n"
 "H: Oznámi Dĺžku skladieb v aktuálnom hodinovom slote.\n"
 "Shift+H: Oznámi zostávajúci čas skladieb v aktuálnom hodinovom slote.\n"
 "I: Oznámi počet poslucháčov.\n"
@@ -249,7 +249,7 @@ msgstr ""
 "Shift+C: Oznámy názov prehrávanej skladby.\n"
 "E: Oznámi stav živého vysielania.\n"
 "Shift+1 až shift+4: Oznámi stav prvých štyroch pripojení. Shift+0: Oznámi "
-"stav pripojenia DSP enkodéra.\n"
+"stav DSP pripojenia.\n"
 "shift+E: Oznámi stav nahrávania.\n"
 "F: Vyhľadá skladbu.\n"
 "H: Oznámi dĺžku skladieb v aktuálnom hodinovom slote.\n"
@@ -521,18 +521,16 @@ msgid "Average: {playlistAverageDuration}"
 msgstr "Priemerná dĺžka skladby: {playlistAverageDuration}"
 
 #. Translators: one of the results for playlist snapshots feature for announcing top artist in a playlist.
-#, fuzzy
 msgid "Top artist: {} ({})"
-msgstr "Najhranejší interpret: %s (%s)"
+msgstr "Najhranejší interpret: {} ({})"
 
 #. Translators: one of the results for playlist snapshots feature when there is no top artist.
 msgid "Top artist: none"
 msgstr "Žiadny najhranejší interpret"
 
 #. Translators: one of the results for playlist snapshots feature when there is no top artist (formatted for browse mode).
-#, fuzzy
 msgid "Top artists: none"
-msgstr "Žiadny najhranejší interpret"
+msgstr "Žiadny najhranejší interpreti"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 msgid "Top artists:"
@@ -549,9 +547,8 @@ msgid "{artistName} ({artistCount})"
 msgstr "{artistName} ({artistCount})"
 
 #. Translators: one of the results for playlist snapshots feature for announcing top track category in a playlist.
-#, fuzzy
 msgid "Top category: {} ({})"
-msgstr "Najviac hraná kategória: %s (%s)"
+msgstr "Najhranejšia kategória: {} ({})"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 msgid "Categories:"
@@ -562,16 +559,14 @@ msgid "{categoryName} ({categoryCount})"
 msgstr "{categoryName} ({categoryCount})"
 
 #. Translators: one of the results for playlist snapshots feature for announcing top genre in a playlist.
-#, fuzzy
 msgid "Top genre: {} ({})"
-msgstr "Najhranejší žáner: %s (%s)"
+msgstr "Najhranejší žáner: {} ({})"
 
 #. Translators: one of the results for playlist snapshots feature when there is no top genre.
 msgid "Top genre: none"
 msgstr "Žiadne najhranejšie žánre"
 
 #. Translators: one of the results for playlist snapshots feature when there is no top genre (formatted for browse mode).
-#, fuzzy
 msgid "Top genres: none"
 msgstr "Žiadne najhranejšie žánre"
 
@@ -727,7 +722,7 @@ msgstr "Zapnuté vysielanie Metadát na {URLPosition}"
 
 #. Translators: Status message for metadata streaming.
 msgid "Metadata streaming on DSP encoder enabled"
-msgstr "Zapnuté vysielanie metadát na DSP enkodéry"
+msgstr "Zapnuté vysielanie metadát na DSP pripojení"
 
 #. Translators: Status message for metadata streaming.
 #, python-brace-format
@@ -736,7 +731,7 @@ msgstr "Vypnuté vysielanie metadát na {URLPosition}"
 
 #. Translators: Status message for metadata streaming.
 msgid "Metadata streaming on DSP encoder disabled"
-msgstr "Vypnuté vysielanie metadát na DSP enkodéry"
+msgstr "Vypnuté vysielanie metadát na DSP pripojení"
 
 #. Translators: The title for SPL Assistant help dialog.
 msgid "SPL Assistant help"
@@ -755,16 +750,14 @@ msgid "Normal profile"
 msgstr "Predvolený profil"
 
 #. Translators: Message displayed when attempting to reset Studio add-on settings while an instant switch profile is active.
-#, fuzzy
 msgid ""
 "An instant switch profile is active. Resetting Studio add-on settings means "
 "normal profile will become active and switch profile settings will be left "
 "in unpredictable state. Are you sure you wish to reset Studio add-on "
 "settings to factory defaults?"
 msgstr ""
-"Máte aktivovaný profil, ktorý ste aktivovali ručne alebo sa aktivoval podľa "
-"zadaného času. Ak obnovíte nastavenia doplnku, aktivuje sa predvolený "
-"profil. Želáte si pokračovať?"
+"Máte aktivovaný profil. Ak obnovíte nastavenia doplnku, aktivuje sa "
+"predvolený profil. Želáte si pokračovať?"
 
 #. Translators: The title of the confirmation dialog for Studio add-on settings reset.
 msgid "SPL Studio add-on reset"
@@ -1389,7 +1382,7 @@ msgstr "Obnoviť profil s ručnou aktiváciou"
 
 #. Translators: the label for resetting encoder settings.
 msgid "Remove encoder settings"
-msgstr "Vymazať nastavenia enkodéra"
+msgstr "Vymazať nastavenia pripojenia"
 
 #. Translators: the label for resetting track comments.
 msgid "Erase track comments"
@@ -1495,12 +1488,12 @@ msgstr "Nie sú definované žiadne URL pre metadáta živého vysielania"
 
 #. Translators: Status message for metadata streaming.
 msgid "Metadata streaming configured for DSP encoder"
-msgstr "Metadáta nastavené pre DSP enkodér"
+msgstr "Metadáta nastavené pre DSP pripojenie"
 
 #. Translators: Status message for metadata streaming.
 #, python-brace-format
 msgid "Metadata streaming configured for DSP encoder and URL {URL}"
-msgstr "Metadáta nastavené pre DSP enkodér a URL {URL}"
+msgstr "Metadáta nastavené pre DSP pripojenie a URL {URL}"
 
 #. Translators: Status message for metadata streaming.
 #, python-brace-format
@@ -1510,7 +1503,7 @@ msgstr "Metadáta nastavené pre URL {URL}"
 #. Translators: Status message for metadata streaming.
 #, python-brace-format
 msgid "Metadata streaming configured for DSP encoder and URL's {URL}"
-msgstr "Metadata nastavené pre DSP enkodér a adresy {URL}"
+msgstr "Metadata nastavené pre DSP pripojenie a adresy {URL}"
 
 #. Translators: Status message for metadata streaming.
 #, python-brace-format
@@ -1571,63 +1564,63 @@ msgstr "Akcia:"
 #. Translators: Message displayed if errors were found in encoder configuration file.
 msgid "Your encoder settings had errors and were reset to defaults."
 msgstr ""
+"Vaše nastavenia pripojení obsahovali chyby a boli obnovené na pôvodné "
+"hodnoty."
 
 #. Translators: Title of the encoder settings error dialog.
-#, fuzzy
 msgid "SPL add-on Encoder settings error"
-msgstr "Chyba nastavení enkodéra"
+msgstr "Chyba nastavení pripojenia"
 
 #. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Encoder settings for {name}"
-msgstr "Chyba nastavení enkodéra"
+msgstr "Nastavenia pripojenia pre {name}"
 
 #. Translators: An edit field in encoder settings to set a label for this encoder.
 msgid "Encoder &label"
-msgstr ""
+msgstr "&Názov pripojenia"
 
 #. Translators: A checkbox in encoder settings to set if NvDA should switch focus to Studio window when connected.
 msgid "&Focus to Studio when connected"
-msgstr ""
+msgstr "&zamerať okno SPL studio po pripojení"
 
 #. Translators: A checkbox in encoder settings to set if NvDA should play the next track when connected.
 msgid "&Play first track when connected"
-msgstr ""
+msgstr "&Prehrať prvú položku playlistu po pripojení"
 
 #. Translators: A checkbox in encoder settings to set if NvDA should monitor the status of this encoder in the background.
 msgid "Enable background connection &monitoring"
-msgstr ""
+msgstr "sledovať na pozadí"
 
 #. Translators: A checkbox in encoder settings to set if NvDA should play connection progress tone.
 msgid "Play connection status &beep while connecting"
-msgstr ""
+msgstr "Oznamovať stav pripojenia pípaním"
 
 #. Translators: A checkbox in encoder settings to set if NVDA should announce connection progress until an encoder connects.
 msgid "Announce connection &status until encoder connects"
-msgstr ""
+msgstr "Pípať počas pripájania"
 
 #. Translators: presented when no streaming encoders were found when trying to obtain connection status.
-#, fuzzy
 msgid "No encoders found"
-msgstr "Žiadna počiatočná skladba"
+msgstr "Žiadne pripojenia"
 
 #. Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
 msgid "Only one encoder type can be active at once"
-msgstr ""
+msgstr "Súčasne môžete používať len jeden typ pripojenia"
 
 #. Translators: presented when at least one encoder is connected.
 #, python-brace-format
 msgid "Connected encoders: {encodersConnected}"
-msgstr ""
+msgstr "Aktívne pripojenia: {encodersConnected}"
 
 #. Translators: presented when no encoders are connected.
 msgid "No encoders connected"
-msgstr ""
+msgstr "Žiadne aktívne pripojenia"
 
 #. Translators: Status message for encoder monitoring.
 #, python-brace-format
 msgid "{encoder} {encoderNumber}: {status}"
-msgstr ""
+msgstr "{encoder} {encoderNumber}: {status}"
 
 #. Translators: Input help mode message in SAM Encoder window.
 msgid ""
@@ -1660,65 +1653,65 @@ msgstr "neprehrať pvú skladbu po pripojení"
 #. Translators: Input help mode message in SAM Encoder window.
 msgid ""
 "Toggles whether NVDA will monitor the selected encoder in the background."
-msgstr ""
+msgstr "Určuje, či bude NVDA sledovať pripojenie na pozadí."
 
 #. Translators: Presented when toggling the setting to monitor the selected encoder.
 #, python-brace-format
 msgid "Monitoring encoder {encoderNumber}"
-msgstr ""
+msgstr "Sledované pripojenie {encoderNumber}"
 
 #. Translators: Presented when toggling the setting to monitor the selected encoder.
 #, python-brace-format
 msgid "Encoder {encoderNumber} will not be monitored"
-msgstr ""
+msgstr "Pripojenie {encoderNumber} nebude sledované"
 
 #. Translators: Announced when background encoder monitoring is canceled.
 msgid "Encoder monitoring canceled"
-msgstr ""
+msgstr "Sledovanie pripojenia zrušené"
 
 #. Translators: Input help mode message in SAM Encoder window.
 msgid ""
 "Opens a dialog to erase encoder labels and settings from an encoder that was "
 "deleted."
-msgstr ""
+msgstr "Umožní zmazať nastavenia pre odstránené pripojenie."
 
 #. Translators: The title of the encoder settings eraser dialog.
-#, fuzzy
 msgid "Encoder label and settings eraser"
-msgstr "Chyba nastavení enkodéra"
+msgstr "Zmazanie pripojení"
 
 #. Translators: The text of the stream configuration eraser dialog.
 msgid "Enter the position of the encoder you wish to delete or will delete"
-msgstr ""
+msgstr "Zadajte pozíciu pripojenia, ktoré plánujete odstrániť"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid ""
 "Shows encoder settings dialog to configure various encoder settings such as "
 "encoder label."
 msgstr ""
+"Zobrazí nastavenia pripojenia, kde je možné napríklad pomenovať pripojenie"
 
 #. Translators: Text of the dialog when another alarm dialog is open.
-#, fuzzy
 msgid "Another encoder settings dialog is open."
-msgstr "Máte otvorené iné okno hľadania."
+msgstr "Máte otvorené iné okno s nastavením pripojenia."
 
 #. Translators: Input help mode message for report date and time command.
 msgid ""
 "If pressed once, reports the current time including seconds. If pressed "
 "twice, reports the current date"
 msgstr ""
+"Oznámi aktuálny čas vrátane sekúnd. Stlačené dvakrát rýchlo za sebou oznámi "
+"dátum."
 
 #, python-brace-format
 msgid "Position: {pos}"
-msgstr ""
+msgstr "Pozícia: {pos}"
 
 #, python-brace-format
 msgid "Label: {label}"
-msgstr ""
+msgstr "Názov: {label}"
 
-#, fuzzy
 msgid "No encoder label"
-msgstr "Žiadna počiatočná skladba"
+msgstr "Bez názvu"
 
 #. Translators: Presented when an Encoder is trying to connect to a streaming server.
 msgid "Connecting..."
@@ -1730,27 +1723,27 @@ msgstr "odpájam..."
 
 #, python-brace-format
 msgid "Format: {encoderFormat}"
-msgstr ""
+msgstr "Formát: {encoderFormat}"
 
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Status: {encoderStatus}"
-msgstr "Stav: {name}"
+msgstr "Stav: {encoderStatus}"
 
 #, python-brace-format
 msgid "Description: {encoderDescription}"
-msgstr ""
+msgstr "Popis: {encoderDescription}"
 
 #. Translators: input hep command for an encoder connection command.
 msgid "Connects to a streaming server."
 msgstr "pripojí na vysielací server."
 
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Encoder Settings: {setting}"
-msgstr "Chyba nastavení enkodéra"
+msgstr "Nastavenia pripojenia: {setting}"
 
 #, python-brace-format
 msgid "Transfer Rate: {transferRate}"
-msgstr ""
+msgstr "Prenosová rýchlosť: {transferRate}"
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
@@ -1791,7 +1784,7 @@ msgstr ""
 "S: Stíšiť a zastaviť.\n"
 "T: Okamžite zastaviť.\n"
 "C: Oznám názov a dĺžku hrajúcej skladby.\n"
-"E: Oznám pripojené enkodéry.\n"
+"E: Oznám aktívne pripojenia.\n"
 "I: Oznám počet poslucháčov.\n"
 "Q: Oznám stav štúdia.\n"
 "R: Oznám zostávajúci čas do konca skladby.\n"
@@ -1848,11 +1841,11 @@ msgstr "Nie je spustená žiadna skladba"
 
 #. Translators: Input help message for a SPL Controller command.
 msgid "Announces stream encoder status from other programs"
-msgstr "Oznamuje stav enkodérov ak je v popredí okno inej aplikácie"
+msgstr "Oznamuje stav pripojení ak je v popredí okno inej aplikácie"
 
 #. Translators: presented if encoder connection status cannot be obtained.
 msgid "Cannot obtain encoder connection status"
-msgstr "Nepodarilo sa získať informácie o stave enkodéra"
+msgstr "Nepodarilo sa získať informácie o stave pripojenia"
 
 #. Translators: Input help message for a SPL Controller command.
 msgid ""

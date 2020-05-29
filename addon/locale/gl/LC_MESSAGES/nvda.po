@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-05-19 13:13+0200\n"
+"PO-Revision-Date: 2020-05-22 11:25+0200\n"
 "Last-Translator: Iván Novegil Cancelas <ivan.novegil.cancelas@gmail.com>\n"
 "Language-Team: Add-ons translation team <oprisniki@gmail.com>\n"
 "Language: gl\n"
@@ -540,9 +540,8 @@ msgid "Top artist: none"
 msgstr "Artista principal: ningún"
 
 #. Translators: one of the results for playlist snapshots feature when there is no top artist (formatted for browse mode).
-#, fuzzy
 msgid "Top artists: none"
-msgstr "Artista principal: ningún"
+msgstr "Artistas principais: ningún"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 msgid "Top artists:"
@@ -579,9 +578,8 @@ msgid "Top genre: none"
 msgstr "Xénero principal: ningún"
 
 #. Translators: one of the results for playlist snapshots feature when there is no top genre (formatted for browse mode).
-#, fuzzy
 msgid "Top genres: none"
-msgstr "Xénero principal: ningún"
+msgstr "Xéneros principais: ningún"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 msgid "Top genres:"
@@ -1628,7 +1626,7 @@ msgstr "Opcións do codificador para {name}"
 
 #. Translators: An edit field in encoder settings to set a label for this encoder.
 msgid "Encoder &label"
-msgstr ""
+msgstr "&Etiqueta do codificador"
 
 #. Translators: A checkbox in encoder settings to set if NvDA should switch focus to Studio window when connected.
 msgid "&Focus to Studio when connected"
@@ -1725,18 +1723,16 @@ msgid "Encoder monitoring canceled"
 msgstr "Monitorización de codificador cancelada"
 
 #. Translators: Input help mode message in SAM Encoder window.
-#, fuzzy
 msgid ""
 "Opens a dialog to erase encoder labels and settings from an encoder that was "
 "deleted."
 msgstr ""
-"Abre un diálogo para borrar etiquetas de cadea e opcións dun codificador que "
-"foi eleminado."
+"Abre un diálogo para borrar etiquetas de codificador e opcións dun "
+"codificador que foi eleminado."
 
 #. Translators: The title of the encoder settings eraser dialog.
-#, fuzzy
 msgid "Encoder label and settings eraser"
-msgstr "Eliminador de etiqueta de cadea e opcións"
+msgstr "Eliminador de etiqueta e opcións de codificador"
 
 #. Translators: The text of the stream configuration eraser dialog.
 msgid "Enter the position of the encoder you wish to delete or will delete"
@@ -1744,13 +1740,12 @@ msgstr ""
 "Introduce a posición do codificador que desexas eliminar ou eliminarase"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-#, fuzzy
 msgid ""
 "Shows encoder settings dialog to configure various encoder settings such as "
 "encoder label."
 msgstr ""
-"Amosa o diálogo configuración do codificador para configurar varias opcións "
-"do codificador como a etiqueta de cadea."
+"Amosa o diálogo de configuración do codificador para configurar varias "
+"opcións do codificador como a etiqueta do codificador."
 
 #. Translators: Text of the dialog when another alarm dialog is open.
 msgid "Another encoder settings dialog is open."
@@ -1772,9 +1767,8 @@ msgstr "Posición: {pos}"
 msgid "Label: {label}"
 msgstr "Etiqueta: {label}"
 
-#, fuzzy
 msgid "No encoder label"
-msgstr "Non se atoparon codificadores"
+msgstr "Sen etiqueta de codificador"
 
 #. Translators: Presented when an Encoder is trying to connect to a streaming server.
 msgid "Connecting..."

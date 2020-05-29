@@ -153,28 +153,29 @@ hình NvDA để mô phỏng lệnh theo kiểu của các trình đọc màn h�
 Các lệnh được hỗ trợ bao gồm:
 
 * A: tự động hóa.
-* C (Shift+C in JAWS layout): Title for the currently playing track.
-* C (JAWS layout): Toggle cart explorer (playlist viewer only).
+* C (Shift+C trong kiểu phím lệnh của JAWS): tên của track đang phát.
+* C (Kiểu phím lệnh JAWS): bật tắt cart explorer (chỉ trong trình xem danh
+  sách phát).
 * D (R trong kiểu phím lệnh của JAWS): thời lượng còn lại của danh sách phát
   (nếu có thông báo lỗi, di chuyển đến trình xem danh sách phát và thực hiện
   lệnh này).
-* E: Metadata streaming status.
+* E: trạng thái truyền siêu dữ liệu.
 * Shift+1 đến Shift+4, Shift+0: trạng thái của URL truyền siêu dữ liệu cụ
   thể (0 cho DSP encoder).
 * F: tìm kiếm track (chỉ  khi ở trong trình xem danh sách phát).
 * H: thời lượng phát nhạc của khung giờ hiện tại.
 * Shift+H: thời lượng còn lại cho track của khung giờ hiện tại.
-* I (L in JAWS layout): Listener count.
+* I (L trong kiểu phím lệnh của JAWS): đếm lượt người nghe.
 * K: chuyển đến track đã đánh dấu (chỉ khi ở trong trình xem danh sách
   phát).
 * Control+K: chọn track hiện tại làm track đánh dấu (chỉ khi ở trong trình
   xem danh sách phát).
-* L (Shift+L in JAWS layout): Line in.
+* L (Shift+L trong kiểu phím lệnh của JAWS): Line in.
 * M: Microphone.
 * N: tên của track kế được lên lịch.
 * P: trạng thái phát nhạc (đang phát hay dừng).
 * Shift+P: độ cao của track hiện tại.
-* R (Shift+E in JAWS layout): Record to file enabled/disabled.
+* R (Shift+E trong kiểu phím lệnh của JAWS): bật / tắt thu ra tập tin.
 * Shift+R: theo dõi tiến trình quét thư viện.
 * S: Track bắt đầu (được lên lịch).
 * Shift+S: thời gian đến khi sẽ phát track được chọn (track bắt đầu).
@@ -300,23 +301,23 @@ NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio t
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
 
-## Version 20.06
+## Phiên bản 20.06
 
-* Resolved many coding style issues and potential bugs with Flake8.
-* Fixed many instances of encoders support feature messages spoken in
-  English despite translated into other languages.
-* Time-based broadcast profiles feature has been removed.
-* Window-Eyes command layout for SPL Assistant has been removed. Window-Eyes
-  command layout users will be migrated to NVDA layout.
-* As audio ducking feature in NVDA does not impact streaming from Studio
-  except for specific hardware setups, audio ducking reminder dialog has
-  been removed.
-* When errors are found in encoder settings, it is no longer necessary to
-  switch to Studio window to let NVDA reset settings to defaults. You must
-  now switch to an encoder from encoders window to let NVDA reset encoder
-  settings.
-* The title of encoder settings dialog for SAM encoders now displays encoder
-  format rather than encoder position.
+* Giải quyết nhiều vấn đề về kiểu mã nguồn và các lỗi tiềm năng với Flake8.
+* Sửa nhiều lỗi thông điệp nhanh hỗ trợ các bộ mã hóa trong tiếng Anh dù đã
+  được dịch sang các ngôn ngữ khác.
+* Tính năng các hồ sơ phát thanh theo thời gian  đã bị gỡ bỏ.
+* Kiểu lệnh của Window-Eyes cho SPL Assistant đã bị gỡ bỏ. Những người dùng
+  kiểu lệnh này sẽ phải chuyển sang kiểu lệnh của NVDA.
+* Vì tính năng giảm âm của NVDA không có tác dụng với việc phát thanh từ
+  Studio, trừ khi thiết lập vài thứ về phần cứng, hộp thoại nhắc nhớ tính
+  năng này đã bị gỡ bỏ.
+* Khi có lỗi trong các cài đặt mã hóa, không cần phải chuyển đến cửa sổ
+  Studio để NVDA khôi phục các thiết lập về mặc định. Giờ đây bạn phải
+  chuyển đến một bộ mã hóa từ cửa sổ các bộ mã hóa để NVDA khôi phục các
+  thiết lập.
+* Tên của hộp thoại cài đặt các bộ mã hóa cho SAM encoders giờ đây hiển thị
+  định dạng mã hóa thay vì vị trí bộ mã hóa.
 
 ## Phiên bản 20.05
 

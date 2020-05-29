@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 17.02\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2017-02-03 19:00+1000\n"
-"PO-Revision-Date: 2020-05-15 10:13-0700\n"
+"PO-Revision-Date: 2020-05-24 14:21+0700\n"
 "Last-Translator: Dang Manh Cuong <dangmanhcuong@gmail.com>\n"
 "Language-Team: \n"
 "Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 1.6.11\n"
 
 #. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
 msgid ""
@@ -522,16 +522,14 @@ msgid "Average: {playlistAverageDuration}"
 msgstr "Trugn bình: {playlistAverageDuration}"
 
 #. Translators: one of the results for playlist snapshots feature for announcing top artist in a playlist.
-#, fuzzy
 msgid "Top artist: {} ({})"
-msgstr "Ca sĩ tiêu biểu: %s (%s)"
+msgstr "Ca sĩ tiêu biểu: ({})"
 
 #. Translators: one of the results for playlist snapshots feature when there is no top artist.
 msgid "Top artist: none"
 msgstr "Ca sĩ tiêu biểu: không có"
 
 #. Translators: one of the results for playlist snapshots feature when there is no top artist (formatted for browse mode).
-#, fuzzy
 msgid "Top artists: none"
 msgstr "Ca sĩ tiêu biểu: không có"
 
@@ -550,9 +548,8 @@ msgid "{artistName} ({artistCount})"
 msgstr "{artistName} ({artistCount})"
 
 #. Translators: one of the results for playlist snapshots feature for announcing top track category in a playlist.
-#, fuzzy
 msgid "Top category: {} ({})"
-msgstr "Các chủ đề tiêu biểu: %s (%s)"
+msgstr "Các chủ đề tiêu biểu: {} ({})"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 msgid "Categories:"
@@ -563,16 +560,14 @@ msgid "{categoryName} ({categoryCount})"
 msgstr "{categoryName} ({categoryCount})"
 
 #. Translators: one of the results for playlist snapshots feature for announcing top genre in a playlist.
-#, fuzzy
 msgid "Top genre: {} ({})"
-msgstr "Thể loại tiêu biểu: %s (%s)"
+msgstr "Thể loại tiêu biểu: {} ({})"
 
 #. Translators: one of the results for playlist snapshots feature when there is no top genre.
 msgid "Top genre: none"
 msgstr "Thể loại tiêu biểu: không có"
 
 #. Translators: one of the results for playlist snapshots feature when there is no top genre (formatted for browse mode).
-#, fuzzy
 msgid "Top genres: none"
 msgstr "Thể loại tiêu biểu: không có"
 
@@ -762,18 +757,16 @@ msgid "Normal profile"
 msgstr "Hồ sơ bình thường"
 
 #. Translators: Message displayed when attempting to reset Studio add-on settings while an instant switch profile is active.
-#, fuzzy
 msgid ""
 "An instant switch profile is active. Resetting Studio add-on settings means "
 "normal profile will become active and switch profile settings will be left "
 "in unpredictable state. Are you sure you wish to reset Studio add-on "
 "settings to factory defaults?"
 msgstr ""
-"Một hồ sơ chuyển nhanh hoặc hồ sơ theo thời gian đang hoạt động. Việc khôi "
-"phục các cài đặt của Studio add-on có nghĩa là hồ sơ bình thường sẽ được "
-"kích hoạt và các cài đặt chuyển hồ sơ sẽ còn trong trạng thái không xác "
-"định. Bạn có chắc chắn khôi phục các cài đặt Studio add-on về thiết lập mặc "
-"định của nhà sản xuất không?"
+"Một hồ sơ chuyển nhanh đang hoạt động. Việc khôi phục các cài đặt của Studio "
+"add-on có nghĩa là hồ sơ bình thường sẽ được kích hoạt và các cài đặt chuyển "
+"hồ sơ sẽ còn trong trạng thái không xác định. Bạn có chắc chắn khôi phục các "
+"cài đặt Studio add-on về thiết lập mặc định của nhà sản xuất không?"
 
 #. Translators: The title of the confirmation dialog for Studio add-on settings reset.
 msgid "SPL Studio add-on reset"
@@ -1587,11 +1580,12 @@ msgstr "Hoạt động bản điểm:"
 #. Translators: Message displayed if errors were found in encoder configuration file.
 msgid "Your encoder settings had errors and were reset to defaults."
 msgstr ""
+"Có lỗi trong các thiết lập mã hóa của bạn  và chúng đã được khôi phục về mặc "
+"định."
 
 #. Translators: Title of the encoder settings error dialog.
-#, fuzzy
 msgid "SPL add-on Encoder settings error"
-msgstr "Lỗi cài đặt mã hóa"
+msgstr "Lỗi cài đặt mã hóa SPL add-on"
 
 #. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
 #, python-brace-format
@@ -1600,7 +1594,7 @@ msgstr "Cài đặt mã hóa cho {name}"
 
 #. Translators: An edit field in encoder settings to set a label for this encoder.
 msgid "Encoder &label"
-msgstr ""
+msgstr "&Nhãn cho bộ mã hóa"
 
 #. Translators: A checkbox in encoder settings to set if NvDA should switch focus to Studio window when connected.
 msgid "&Focus to Studio when connected"
@@ -1620,7 +1614,7 @@ msgstr "Phát trạng thái kết nối &beep trong khi kết nối"
 
 #. Translators: A checkbox in encoder settings to set if NVDA should announce connection progress until an encoder connects.
 msgid "Announce connection &status until encoder connects"
-msgstr ""
+msgstr "Thông báo &trạng thái kết nối cho đến khi kết nối bộ mã hóa"
 
 #. Translators: presented when no streaming encoders were found when trying to obtain connection status.
 msgid "No encoders found"
@@ -1696,31 +1690,28 @@ msgid "Encoder monitoring canceled"
 msgstr "Đã hủy bỏ theo dõi bộ mã hóa"
 
 #. Translators: Input help mode message in SAM Encoder window.
-#, fuzzy
 msgid ""
 "Opens a dialog to erase encoder labels and settings from an encoder that was "
 "deleted."
 msgstr ""
-"Mở một hộp thoại để xóa các nhãn phát và các thiết lạp từ một bộ mã hóa đã "
+"Mở một hộp thoại để xóa các nhãn mã hóa và các thiết lạp từ một bộ mã hóa đã "
 "bị xóa."
 
 #. Translators: The title of the encoder settings eraser dialog.
-#, fuzzy
 msgid "Encoder label and settings eraser"
-msgstr "Nhãn phát thanh và xóa các cài đặt"
+msgstr "Nhãn mã hóa và xóa các cài đặt"
 
 #. Translators: The text of the stream configuration eraser dialog.
 msgid "Enter the position of the encoder you wish to delete or will delete"
 msgstr "Nhập vị trí của bộ mã hóa bạn muốn xóa hoặc sẽ xóa"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-#, fuzzy
 msgid ""
 "Shows encoder settings dialog to configure various encoder settings such as "
 "encoder label."
 msgstr ""
 "Hiển thị hộp thoại cấu hình mã hóa để cấu hình nhiều cài đặt mã hóa như nhãn "
-"phát trực tuyến."
+"mã hóa."
 
 #. Translators: Text of the dialog when another alarm dialog is open.
 msgid "Another encoder settings dialog is open."
@@ -1742,9 +1733,8 @@ msgstr "Vị trí: {pos}"
 msgid "Label: {label}"
 msgstr "Nhãn: {label}"
 
-#, fuzzy
 msgid "No encoder label"
-msgstr "Không tìm thấy bộ mã hóa nào"
+msgstr "Không có nhãn mã hóa"
 
 #. Translators: Presented when an Encoder is trying to connect to a streaming server.
 msgid "Connecting..."
@@ -1756,15 +1746,15 @@ msgstr "Đang ngắt kết nối..."
 
 #, python-brace-format
 msgid "Format: {encoderFormat}"
-msgstr ""
+msgstr "Định dạng: {encoderFormat}"
 
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Status: {encoderStatus}"
-msgstr "Trạng thái: {name}"
+msgstr "Trạng thái: {encoderStatus}"
 
 #, python-brace-format
 msgid "Description: {encoderDescription}"
-msgstr ""
+msgstr "Mô tả: {encoderDescription}"
 
 #. Translators: input hep command for an encoder connection command.
 msgid "Connects to a streaming server."
