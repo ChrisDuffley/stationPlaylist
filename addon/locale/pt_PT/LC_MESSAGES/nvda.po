@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 3.2\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-05-15 10:11-0700\n"
+"PO-Revision-Date: 2020-06-10 10:59-0700\n"
 "Last-Translator: Ângelo Miguel Abrantes <ampa4374@gmail.com>\n"
 "Language-Team: Equipa Portuguesa do NVDA <angelomiguelabrantes@gmail.com; "
 "rui.fontes@tiflotecnia.com>\n"
@@ -1819,18 +1819,3 @@ msgid ""
 msgstr ""
 "Melhora o suporte para StationPlaylist Studio.\n"
 "Além disso, adiciona comandos globais para o estúdio em todos os lugares."
-
-#~ msgid "Stream &label"
-#~ msgstr "Transmissão e rótulo"
-
-#~ msgid "Opens a dialog to label the selected encoder."
-#~ msgstr "Abre uma caixa de diálogo para rotular o codificador selecionado."
-
-#~ msgid "Stream labeler for {streamEntry}"
-#~ msgstr "Etiquetagem de transmissão para {streamEntry}"
-
-#~ msgid "Enter the label for this stream"
-#~ msgstr "Digite o rótulo para esta transmissão"
-
-#~ msgid "No stream label"
-#~ msgstr "Nenhum rótulo de transmissão"

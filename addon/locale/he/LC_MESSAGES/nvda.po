@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 5.5\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2015-09-25 19:00+1000\n"
-"PO-Revision-Date: 2020-05-15 10:07-0700\n"
+"PO-Revision-Date: 2020-06-10 10:59-0700\n"
 "Last-Translator: shmuel naaman <shmuel_naaman@yahoo.com>\n"
 "Language-Team: Shmuel Naaman <nvda.israel@gmail.com>\n"
 "Language: he\n"
@@ -1852,18 +1852,3 @@ msgid ""
 msgstr ""
 "מנגיש את תוכנת StationPlaylist  Studio  .  \n"
 "בנוסף, מאפשר ביצוע פקודות מכל מקום אחר במחשב."
-
-#~ msgid "Stream &label"
-#~ msgstr "Stream &label"
-
-#~ msgid "Opens a dialog to label the selected encoder."
-#~ msgstr "פתיחת תיבת דו-שיח להגדרת תויות."
-
-#~ msgid "Stream labeler for {streamEntry}"
-#~ msgstr "הגדרת תוית עבור  {streamEntry}"
-
-#~ msgid "Enter the label for this stream"
-#~ msgstr "נא להקיש את התוית המגדירה את פריט הזרימה הזה"
-
-#~ msgid "No stream label"
-#~ msgstr "אין תוית לקטע"

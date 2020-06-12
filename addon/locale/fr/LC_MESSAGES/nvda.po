@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 19.02\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-05-15 10:06-0700\n"
+"PO-Revision-Date: 2020-06-10 11:00-0700\n"
 "Last-Translator: Michel Such <michel.such@free.fr>\n"
 "Language-Team: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language: fr\n"
@@ -66,14 +66,13 @@ msgstr ""
 #. Translators: Script category for StationPlaylist commands in input gestures dialog.
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on to be shown on installation and add-on information.
-#, fuzzy
 msgid "StationPlaylist"
-msgstr "StationPlaylist Studio"
+msgstr "StationPlaylist"
 
 #. Translators: Presented when column is out of range.
 #, python-brace-format
 msgid "Column {columnPosition} not found"
-msgstr ""
+msgstr "Colonne {columnPosition} non trouvée"
 
 #. Translators: presented when column information for a track is empty.
 msgid "blank"
@@ -214,7 +213,6 @@ msgstr ""
 "Maj+F1 : Ouvre le guide de l'utilisateur en ligne."
 
 #. Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
-#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -254,8 +252,8 @@ msgstr ""
 "A : Automatisation.\n"
 "C : Basculer l'explorateur de chariot.\n"
 "Maj+C : Annoncer le nom de la piste en cours de lecture.\n"
-"E : Statut général de flux de métadonnées.\n"
-"Maj+1 jusqu'à maj+4, maj+0 : Statut de flux de Métadonnées pour l'encodeur "
+"E : Statut général du flux de métadonnées.\n"
+"Maj+1 jusqu'à maj+4, maj+0 : Statut du flux de Métadonnées pour l'encodeur "
 "DSP et les quatre autres URLs.\n"
 "Maj+E : Enregistrer dans un fichier.\n"
 "F : Recherche de piste.\n"
@@ -264,7 +262,7 @@ msgstr ""
 "K : Se déplacer au marqueur de position de piste.\n"
 "Contrôle+K : Définir un marqueur de position de piste.\n"
 "L : Nombre d'auditeurs.\n"
-"L : Statut de l'Entrée ligne.\n"
+"maj+l : Statut de l'Entrée ligne.\n"
 "M : Statut du Microphone.\n"
 "N : Piste suivante.\n"
 "P : Statut Lecture.\n"
@@ -272,13 +270,11 @@ msgstr ""
 "R : Durée restante pour la playlist.\n"
 "Maj+R : Contrôle du balayage de la bibliothèque.\n"
 "S : Heure prévue pour la piste.\n"
-"Maj+S : Durée jusqu'à la piste sélectionnée qui va être jouer.\n"
+"Maj+S : Durée jusqu'à ce que la piste sélectionnée soit jouée.\n"
 "T : Mode édition/insertion chariot.\n"
 "U : Temps de fonctionnement Studio.\n"
 "W : Météo et température.\n"
 "Y : Modification de la playlist.\n"
-"1 jusqu'à 0 : Annoncer les colonnes via l'Explorateur de Colonnes (0 est la "
-"dixième tranche de colonne).\n"
 "F8 : Prendre des instantanés de playlist Tel que le nombre de pistes, la "
 "piste la plus longue et ainsi de suite.\n"
 "Maj+F8 : Obtenir des transcriptions de playlist dans une variété de "
@@ -1512,6 +1508,8 @@ msgstr "Paramètres de l'extension Studio"
 #. Translators: presented when only normal profile is in use.
 msgid "Normal profile is in use, cannot open broadcast profiles dialog."
 msgstr ""
+"Le profil normal est en cours d'utilisation, impossible d'ouvrir le dialogue "
+"des profils de diffusion"
 
 #. Translators: Text of the dialog when another find dialog is open.
 msgid "Another find dialog is open."
@@ -1657,6 +1655,8 @@ msgstr "Action de transcription :"
 #. Translators: Message displayed if errors were found in encoder configuration file.
 msgid "Your encoder settings had errors and were reset to defaults."
 msgstr ""
+"Les paramètres de votre encodeur contenaient des erreurs et ont été "
+"réinitialisés aux valeurs par défaut."
 
 #. Translators: Title of the encoder settings error dialog.
 #, fuzzy
@@ -1670,7 +1670,7 @@ msgstr "Paramètres de l'encodeur pour {name}"
 
 #. Translators: An edit field in encoder settings to set a label for this encoder.
 msgid "Encoder &label"
-msgstr ""
+msgstr "&étiquette d'Encodeur"
 
 #. Translators: A checkbox in encoder settings to set if NvDA should switch focus to Studio window when connected.
 msgid "&Focus to Studio when connected"
@@ -1690,7 +1690,7 @@ msgstr "Lire le statut de la connexion en &bip lors de la connexion"
 
 #. Translators: A checkbox in encoder settings to set if NVDA should announce connection progress until an encoder connects.
 msgid "Announce connection &status until encoder connects"
-msgstr ""
+msgstr "Annonce le &statut de connexion jusqu'à ce que l'encodeur se connecte"
 
 #. Translators: presented when no streaming encoders were found when trying to obtain connection status.
 #, fuzzy
@@ -1699,16 +1699,16 @@ msgstr "Aucun marqueur de position trouvé"
 
 #. Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
 msgid "Only one encoder type can be active at once"
-msgstr ""
+msgstr "Un seul type d'encodeur peut être actif à la fois"
 
 #. Translators: presented when at least one encoder is connected.
 #, python-brace-format
 msgid "Connected encoders: {encodersConnected}"
-msgstr ""
+msgstr "Encodeurs connectés : {encodersConnected}"
 
 #. Translators: presented when no encoders are connected.
 msgid "No encoders connected"
-msgstr ""
+msgstr "Aucun encodeur connecté"
 
 #. Translators: Status message for encoder monitoring.
 #, python-brace-format
@@ -1829,7 +1829,7 @@ msgstr "Déconnexion en cours..."
 
 #, python-brace-format
 msgid "Format: {encoderFormat}"
-msgstr ""
+msgstr "Format : {encoderFormat}"
 
 #, fuzzy, python-brace-format
 msgid "Status: {encoderStatus}"
@@ -1837,7 +1837,7 @@ msgstr "Statut : {name}"
 
 #, python-brace-format
 msgid "Description: {encoderDescription}"
-msgstr ""
+msgstr "Description : {encoderDescription}"
 
 #. Translators: input hep command for an encoder connection command.
 msgid "Connects to a streaming server."
@@ -1985,18 +1985,3 @@ msgid ""
 msgstr ""
 "Améliore la prise en charge de StationPlaylist Studio.\n"
 "En outre, ajoute des commandes globales pour studio où que vous soyez."
-
-#~ msgid "Stream &label"
-#~ msgstr "Étiquette de f&lux"
-
-#~ msgid "Opens a dialog to label the selected encoder."
-#~ msgstr "Ouvre un dialogue pour étiqueter l'encodeur sélectionné."
-
-#~ msgid "Stream labeler for {streamEntry}"
-#~ msgstr "Étiqueteuse de flux pour {streamEntry}"
-
-#~ msgid "Enter the label for this stream"
-#~ msgstr "Entrez l'étiquette pour ce flux"
-
-#~ msgid "No stream label"
-#~ msgstr "Pas d'étiquette de flux"

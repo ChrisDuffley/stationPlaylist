@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 6.4\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2016-03-04 19:00+1000\n"
-"PO-Revision-Date: 2020-05-15 10:11-0700\n"
+"PO-Revision-Date: 2020-06-10 10:59-0700\n"
 "Last-Translator: Florian Ionașcu <florianionascu@hotmail.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -1956,20 +1956,3 @@ msgid ""
 msgstr ""
 "Conține suport pentru StationPlaylist Studio.\n"
 "De asemenea, adaugă comenzi globale pentru studio de oriunde."
-
-#~ msgid "Stream &label"
-#~ msgstr "&Etichetă emisie"
-
-#, fuzzy
-#~ msgid "Opens a dialog to label the selected encoder."
-#~ msgstr ""
-#~ "Deschide un dialog pentru a activa sau dezactiva rapid metadata streaming."
-
-#~ msgid "Stream labeler for {streamEntry}"
-#~ msgstr "Etichetare emisie pentru {streamEntry}"
-
-#~ msgid "Enter the label for this stream"
-#~ msgstr "Introdu eticheta pentru această emisie"
-
-#~ msgid "No stream label"
-#~ msgstr "Nicio etichetă de emisie"

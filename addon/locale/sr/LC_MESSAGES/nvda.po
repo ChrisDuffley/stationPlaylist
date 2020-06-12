@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 4.2\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2015-02-06 19:00+1000\n"
-"PO-Revision-Date: 2020-05-15 10:12-0700\n"
+"PO-Revision-Date: 2020-06-10 10:59-0700\n"
 "Last-Translator: Nikola Jović <wwenikola123@gmail.com>\n"
 "Language-Team: \n"
 "Language: sr\n"
@@ -1938,18 +1938,3 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist Studio.\n"
 "Takođe, dodaje globalne komande za studio bilo gde."
-
-#~ msgid "Stream &label"
-#~ msgstr "&Oznaka strima"
-
-#~ msgid "Opens a dialog to label the selected encoder."
-#~ msgstr "Otvara dijalog za oznaku izabranog enkodera"
-
-#~ msgid "Stream labeler for {streamEntry}"
-#~ msgstr "Oznaka strima za{streamEntry}"
-
-#~ msgid "Enter the label for this stream"
-#~ msgstr "Upišite oznaku za ovaj strim"
-
-#~ msgid "No stream label"
-#~ msgstr "Nema oznake strima"
