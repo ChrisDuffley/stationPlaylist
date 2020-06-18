@@ -616,6 +616,8 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 		connecting = False
 		encoding = False
 		alreadyEncoding = False
+		# #141 (20.07): prevent multiple connection follow-up actions while background monitoring is on.
+		connectedBefore = False
 		while True:
 			time.sleep(0.001)
 			try:
@@ -656,16 +658,20 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 				if not encoding:
 					tones.beep(1000, 150)
 					self.encoderStatusMessage(messageCache)
-				if self.focusToStudio and not encoding:
-					if api.getFocusObject().appModule == "splstudio":
-						continue
-					user32.SetForegroundWindow(user32.FindWindowW("TStudioForm", None))
-				# #37 (17.08.1): if run from another function, the message will not be sent, so must be done here.
-				if self.playAfterConnecting and not encoding:
-					# Do not interupt the currently playing track.
-					if sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus) == 0:
-						sendMessage(SPLWin, 1024, 0, SPLPlay)
+				# #141 (20.07): do not focus to Studio or play first selected track if background monitoring is on and this encoder was connected before.
+				# Don't forget that follow-up actions should be performed if this is a manual connect (no background monitoring).
+				if not self.backgroundMonitor or (self.backgroundMonitor and not connectedBefore):
+					if self.focusToStudio and not encoding:
+						if api.getFocusObject().appModule == "splstudio":
+							continue
+						user32.SetForegroundWindow(user32.FindWindowW("TStudioForm", None))
+					# #37 (17.08.1): if run from another function, the message will not be sent, so must be done here.
+					if self.playAfterConnecting and not encoding:
+						# Do not interupt the currently playing track.
+						if sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus) == 0:
+							sendMessage(SPLWin, 1024, 0, SPLPlay)
 				if not encoding: encoding = True
+				if not connectedBefore: connectedBefore = True
 			else:
 				if not connecting: connecting = True
 				if alreadyEncoding: alreadyEncoding = False
@@ -767,6 +773,7 @@ class SPLEncoder(Encoder):
 		# Status flags.
 		connecting = False
 		connected = False
+		connectedBefore = False
 		while True:
 			time.sleep(0.001)
 			try:
@@ -790,12 +797,15 @@ class SPLEncoder(Encoder):
 				manualConnect = False
 				# We're on air, so exit.
 				if not connected: tones.beep(1000, 150)
-				if self.focusToStudio and not connected:
-					user32.SetForegroundWindow(user32.FindWindowW("TStudioForm", None))
-				if self.playAfterConnecting and not connected:
-					if sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus) == 0:
-						sendMessage(SPLWin, 1024, 0, SPLPlay)
+				# Same as SAM encoder: do not do this while background monitoring is on and this encoder was once connected before unless this is a manual connect.
+				if not self.backgroundMonitor or (self.backgroundMonitor and not connectedBefore):
+					if self.focusToStudio and not connected:
+						user32.SetForegroundWindow(user32.FindWindowW("TStudioForm", None))
+					if self.playAfterConnecting and not connected:
+						if sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus) == 0:
+							sendMessage(SPLWin, 1024, 0, SPLPlay)
 				if not connected: connected = True
+				if not connectedBefore: connectedBefore = True
 			else:
 				if connected: connected = False
 				if not connecting: connecting = True
