@@ -201,6 +201,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * NVDA will no longer appear to do nothing or play error tones when trying to switch to a newly created broadcast profile and save add-on settings.
 * In encoder settings, "stream label" has been renamed to "encoder label".
 * Dedicated stream labeler command (F12) has been removed from encoders. Encoder labels can be defined from encoder settings dialog (Alt+NVDA+0).
+* System focus will no longer move to Studio repeatedly or selected track will be played when an encoder being monitored in the background (Control+F11) connects and disconnects repeatedly.
 
 ## Version 20.06
 
