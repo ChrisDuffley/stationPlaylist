@@ -361,7 +361,7 @@ class ConfigHub(ChainMap):
 			raise RuntimeError("Broadcast profiles are volatile, only normal profile is in use, or config was loaded from memory")
 		# Bring normal profile to the front if it isn't.
 		# Optimization: Tell the swapper that we need index to the normal profile for this case.
-		configPos = self.swapProfiles(name, defaultProfileName, showSwitchIndex=True) if self.profiles[0].name == name else self.profileIndexByName(name)
+		configPos = self.swapProfiles(name, defaultProfileName, showSwitchIndex=True) if name == self.activeProfile else self.profileIndexByName(name)
 		profilePos = self.profileNames.index(name)
 		try:
 			os.remove(self.profiles[configPos].filename)
@@ -491,7 +491,7 @@ class ConfigHub(ChainMap):
 			conf["ColumnAnnouncement"]["IncludedColumns"] = set(_SPLDefaults["ColumnAnnouncement"]["IncludedColumns"])
 			if conf.name == defaultProfileName: conf["Advanced"]["PilotFeatures"] = pilotFeatures
 		# Switch back to normal profile via a custom variant of swap routine.
-		if self.profiles[0].name != defaultProfileName:
+		if self.activeProfile != defaultProfileName:
 			npIndex = self.profileIndexByName(defaultProfileName)
 			self.profiles[0], self.profiles[npIndex] = self.profiles[npIndex], self.profiles[0]
 		# 8.0 optimization: Tell other modules that reset was done in order to postpone disk writes until the end.
@@ -558,7 +558,7 @@ class ConfigHub(ChainMap):
 
 	def profileIndexByName(self, name):
 		# 8.0 optimization: Only traverse the profiles list if head (active profile) or tail does not yield profile name in question.
-		if name == self.profiles[0].name:
+		if name == self.activeProfile:
 			return 0
 		elif name == self.profiles[-1].name:
 			return -1
