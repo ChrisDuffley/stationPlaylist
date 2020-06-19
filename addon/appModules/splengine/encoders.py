@@ -821,7 +821,7 @@ class SPLEncoder(Encoder):
 	@scriptHandler.script(
 		# Translators: input hep command for an encoder connection command.
 		description=_("Connects to a streaming server."),
-		gesture="kb:f9"
+		gestures=["kb:f9", "kb:control+f9"]
 	)
 	def script_connect(self, gesture):
 		# Same as SAM's connection routine, but this time, keep an eye on self.name and a different connection flag.
