@@ -698,7 +698,7 @@ def initialize():
 	try:
 		with open(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"), "rb") as f:
 			trackComments = pickle.load(f)
-	except (IOError, EOFError):
+	except (IOError, EOFError, pickle.UnpicklingError):
 		pass
 	if len(_configLoadStatus):
 		# Translators: Standard error title for configuration error.
