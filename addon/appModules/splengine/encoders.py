@@ -615,7 +615,6 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 		error = False
 		connecting = False
 		encoding = False
-		alreadyEncoding = False
 		# #141 (20.07): prevent multiple connection follow-up actions while background monitoring is on.
 		connectedBefore = False
 		while True:
@@ -635,7 +634,6 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 				if not messageCache.startswith("Encoding"):
 					self.encoderStatusMessage(messageCache)
 			if messageCache.startswith("Idle"):
-				if alreadyEncoding: alreadyEncoding = False
 				if encoding: encoding = False
 				if not idle:
 					tones.beep(250, 250)
@@ -648,7 +646,6 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 				if not error:
 					error = True
 					connectionAttempt = 0
-				if alreadyEncoding: alreadyEncoding = False
 				if encoding: encoding = False
 				if connecting: connecting = False
 			elif messageCache.startswith("Encoding"):
@@ -674,7 +671,6 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 				if not connectedBefore: connectedBefore = True
 			else:
 				if not connecting: connecting = True
-				if alreadyEncoding: alreadyEncoding = False
 				if encoding: encoding = False
 				elif "Error" not in messageCache and error: error = False
 				connectionAttempt += 1
