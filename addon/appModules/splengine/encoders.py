@@ -606,8 +606,6 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 		# A fake child object holds crucial information about connection status.
 		# In order to not block NVDA commands, this will be done using a different thread.
 		SPLWin = user32.FindWindowW("SPLStudio", None)
-		# #123 (20.03): conection attempt counting is deprecated, replaced by time intervals.
-		connectionAttempt = 0
 		attemptTime = time.time()
 		messageCache = ""
 		# Status message flags.
@@ -638,14 +636,12 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 				if not idle:
 					tones.beep(250, 250)
 					idle = True
-					connectionAttempt = 0
 				if manualConnect and (error or connecting): manualConnect = False
 			elif messageCache.startswith("Error"):
 				# Announce the description of the error.
 				if manualConnect and not self.announceStatusUntilConnected: manualConnect = False
 				if not error:
 					error = True
-					connectionAttempt = 0
 				if encoding: encoding = False
 				if connecting: connecting = False
 			elif messageCache.startswith("Encoding"):
@@ -673,7 +669,6 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 				if not connecting: connecting = True
 				if encoding: encoding = False
 				elif "Error" not in messageCache and error: error = False
-				connectionAttempt += 1
 				currentTime = time.time()
 				if currentTime-attemptTime >= 0.5 and self.connectionTone:
 					tones.beep(500, 50)
@@ -762,8 +757,6 @@ class SPLEncoder(Encoder):
 	def reportConnectionStatus(self, manualConnect=False):
 		# Same routine as SAM encoder: use a thread to prevent blocking NVDA commands.
 		SPLWin = user32.FindWindowW("SPLStudio", None)
-		# #123 (20.03): same deprecation as SAM encoder.
-		connectionAttempt = 0
 		attemptTime = time.time()
 		messageCache = ""
 		# Status flags.
@@ -806,7 +799,6 @@ class SPLEncoder(Encoder):
 				if connected: connected = False
 				if not connecting: connecting = True
 				if "Kbps" not in messageCache:
-					connectionAttempt += 1
 					currentTime = time.time()
 					if currentTime-attemptTime >= 0.5 and self.connectionTone:
 						tones.beep(500, 50)
