@@ -318,18 +318,6 @@ class SPLStudioTrackItem(SPLTrackItem):
 			braille.handler.message(_("{checkStatus}{header}: ()").format(checkStatus=status, header=header))
 
 	# Now the scripts.
-	# Because Studio track item requires special handling for status column, first and previous column scripts will be part of this and other subclasses here.
-
-	def script_moveToPreviousColumn(self, gesture):
-		if self._curColumnNumber <= 0:
-			tones.beep(2000, 100)
-		else:
-			self.__class__._curColumnNumber -= 1
-		self.announceColumnContent(self._curColumnNumber)
-
-	def script_firstColumn(self, gesture):
-		self.__class__._curColumnNumber = 0
-		self.announceColumnContent(self._curColumnNumber)
 
 	# Track movement scripts.
 	# Detects top/bottom of a playlist if told to do so.
