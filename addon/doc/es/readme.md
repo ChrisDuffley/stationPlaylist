@@ -3,7 +3,7 @@
 * Autores: Geoff Shang, Joseph Lee y otros colaboradores
 * Descargar [Versión estable][1]
 * Descargar [versión de desarrollo][2]
-* Compatibilidad con NVDA: de 2019.3 a 2020.1
+* Compatibilidad con NVDA: de 2019.3 a 2020.2
 
 Este paquete de complementos proporciona una utilización mejorada de Station
 Playlist Studio y otras aplicaciones de StationPlaylist, así como utilidades
