@@ -292,12 +292,7 @@ class SPLStudioTrackItem(SPLTrackItem):
 	# Some helper functions to handle corner cases.
 	# Each track item provides its own version.
 	def _leftmostcol(self):
-		if not self.name:
-			# Translators: Presented when no track status is found in Studio 5.10.
-			ui.message(_("Status not found"))
-		else:
-			# Translators: Status information for a checked track in Studio 5.10.
-			ui.message(_("Status: {name}").format(name=self.name))
+		self.announceColumnContent(0)
 
 	# Obtain column contents for all columns for this track.
 	# A convenience method that calls column content getter for a list of columns.
