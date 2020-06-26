@@ -53,11 +53,6 @@ streamLabels = None
 # Load stream labels (and possibly other future goodies) from a file-based database.
 def loadStreamLabels():
 	global streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError, SPLEncoderLabels
-	# 20.07: delete old stream labels file (to be removed in 20.09).
-	try:
-		os.remove(os.path.join(globalVars.appArgs.configPath, "splStreamLabels.ini"))
-	except WindowsError:
-		pass
 	# 7.1: Make sure encoder settings map isn't corrupted.
 	# #131 (20.06): transplanted from Studio app module so the error message can be shown when an encoder gains focus.
 	try:
