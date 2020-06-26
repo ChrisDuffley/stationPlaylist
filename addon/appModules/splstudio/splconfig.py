@@ -716,14 +716,6 @@ def initialize():
 				messages.append("{profileName}: {errorMessage}".format(profileName=profile, errorMessage=error))
 		_configLoadStatus.clear()
 		runConfigErrorDialog("\n".join(messages), title)
-	# Fire up profile triggers.
-	# 17.10: except when normal profile only flag is specified.
-	# 20.04: time-based profile feature is deprecated.
-	# 20.07: delete profile triggers database file (to be removed in 20.09).
-	try:
-		os.remove(os.path.join(globalVars.appArgs.configPath, "spltriggers.pickle"))
-	except WindowsError:
-		pass
 
 
 # Cache a copy of the loaded config.
