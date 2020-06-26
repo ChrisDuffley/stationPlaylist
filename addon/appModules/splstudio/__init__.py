@@ -289,11 +289,6 @@ class SPLStudioTrackItem(SPLTrackItem):
 		splbase.selectTrack(self.IAccessibleChildID-1)
 		self.setFocus(), self.setFocus()
 
-	# Some helper functions to handle corner cases.
-	# Each track item provides its own version.
-	def _leftmostcol(self):
-		self.announceColumnContent(0)
-
 	# Obtain column contents for all columns for this track.
 	# A convenience method that calls column content getter for a list of columns.
 	# Readable flag will transform None into an empty string, suitable for output.
