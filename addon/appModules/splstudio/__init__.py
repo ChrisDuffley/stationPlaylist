@@ -230,9 +230,11 @@ class SPLStudioTrackItem(SPLTrackItem):
 	# But first, find where the requested column lives.
 	# 8.0: Make this a public function.
 	# #109 (19.08): now standardized around this function.
+	# #142 (20.09): do not ignore Status column (0) just because it is the name of the track as reported by MSAA.
 	def indexOf(self, columnHeader):
 		try:
-			return splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"].index(columnHeader)+1
+			columnHeaders = ["Status"] + splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
+			return columnHeaders.index(columnHeader)
 		except ValueError:
 			return None
 
