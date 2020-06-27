@@ -257,11 +257,13 @@ class SPLStudioTrackItem(SPLTrackItem):
 			super(IAccessible, self).reportFocus()
 		else:
 			self.appModule._announceColumnOnly = None
+			colNumber = self._curColumnNumber
 			verticalColumnAnnounce = splconfig.SPLConfig["General"]["VerticalColumnAnnounce"]
 			if verticalColumnAnnounce == "Status" or (verticalColumnAnnounce is None and self._curColumnNumber == 0):
-				self.announceColumnContent(0, header="Status")
+				colNumber = 0
 			else:
-				self.announceColumnContent(self._curColumnNumber if verticalColumnAnnounce is None else self.indexOf(verticalColumnAnnounce), header=verticalColumnAnnounce, reportStatus=self.name is not None)
+				colNumber = self._curColumnNumber if verticalColumnAnnounce is None else self.indexOf(verticalColumnAnnounce)
+			self._moveToColumnNumber(colNumber+1)
 		# 7.0: Let the app module keep a reference to this track.
 		self.appModule._focusedTrack = self
 
