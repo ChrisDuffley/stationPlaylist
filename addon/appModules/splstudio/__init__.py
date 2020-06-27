@@ -143,12 +143,12 @@ class SPLTrackItem(sysListView32.ListItem):
 	@scriptHandler.script(gesture="kb:control+alt+home")
 	def script_firstColumn(self, gesture):
 		self.__class__._curColumnNumber = 0
-		self.announceColumnContent(self._curColumnNumber)
+		self._moveToColumnNumber(self._curColumnNumber+1)
 
 	@scriptHandler.script(gesture="kb:control+alt+end")
 	def script_lastColumn(self, gesture):
 		self.__class__._curColumnNumber = self.parent.columnCount-1
-		self.announceColumnContent(self._curColumnNumber)
+		self._moveToColumnNumber(self._curColumnNumber+1)
 
 	@scriptHandler.script(
 		# Translators: input help mode message for column explorer commands.
