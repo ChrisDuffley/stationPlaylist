@@ -266,6 +266,8 @@ class SPLStudioTrackItem(SPLTrackItem):
 			self._moveToColumnNumber(colNumber+1)
 		# 7.0: Let the app module keep a reference to this track.
 		self.appModule._focusedTrack = self
+		# #142 (20.09): just like fake table row behavior class, nullify saved column number.
+		self.__class__._savedColumnNumber = None
 
 	# A friendly way to report track position via location text.
 	def _get_locationText(self):
