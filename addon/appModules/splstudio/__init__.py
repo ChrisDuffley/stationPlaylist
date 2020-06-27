@@ -338,26 +338,6 @@ class SPLStudioTrackItem(SPLTrackItem):
 		row.setFocus(), row.setFocus()
 		splbase.selectTrack(row.IAccessibleChildID-1)
 
-	def script_moveToNextRow(self, gesture):
-		newTrack = self.next
-		if newTrack is None and splconfig.SPLConfig["General"]["TopBottomAnnounce"]:
-			tones.beep(2000, 100)
-		else:
-			self.appModule._announceColumnOnly = True
-			newTrack._curColumnNumber = self._curColumnNumber
-			newTrack.setFocus(), newTrack.setFocus()
-			splbase.selectTrack(newTrack.IAccessibleChildID-1)
-
-	def script_moveToPreviousRow(self, gesture):
-		newTrack = self.previous
-		if newTrack is None and splconfig.SPLConfig["General"]["TopBottomAnnounce"]:
-			tones.beep(2000, 100)
-		else:
-			self.appModule._announceColumnOnly = True
-			newTrack._curColumnNumber = self._curColumnNumber
-			newTrack.setFocus(), newTrack.setFocus()
-			splbase.selectTrack(newTrack.IAccessibleChildID-1)
-
 	# Overlay class version of Columns Explorer.
 
 	@property
