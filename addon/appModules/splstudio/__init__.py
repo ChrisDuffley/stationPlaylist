@@ -325,6 +325,18 @@ class SPLStudioTrackItem(SPLTrackItem):
 			tones.beep(2000, 100)
 
 	# Vertical column navigation.
+	# The following move to row method was customized for Studio track item.
+
+	def _moveToRow(self, row):
+		if not row:
+			return self._moveToColumn(None) if splconfig.SPLConfig["General"]["TopBottomAnnounce"] else None
+		self.appModule._announceColumnOnly = True
+		nav = api.getNavigatorObject()
+		if nav != self and nav.parent == self:
+			self.__class__._savedColumnNumber = nav.columnNumber
+			self.__class__._curColumnNumber = nav.columnNumber-1
+		row.setFocus(), row.setFocus()
+		splbase.selectTrack(row.IAccessibleChildID-1)
 
 	def script_moveToNextRow(self, gesture):
 		newTrack = self.next
