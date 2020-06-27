@@ -140,20 +140,6 @@ class SPLTrackItem(sysListView32.ListItem):
 	def indexOf(self, columnHeader):
 		return None
 
-	def script_moveToNextColumn(self, gesture):
-		if (self._curColumnNumber+1) == self.parent.columnCount:
-			tones.beep(2000, 100)
-		else:
-			self.__class__._curColumnNumber += 1
-		self.announceColumnContent(self._curColumnNumber)
-
-	def script_moveToPreviousColumn(self, gesture):
-		if self._curColumnNumber <= 0:
-			tones.beep(2000, 100)
-		else:
-			self.__class__._curColumnNumber -= 1
-		self.announceColumnContent(self._curColumnNumber)
-
 	@scriptHandler.script(gesture="kb:control+alt+home")
 	def script_firstColumn(self, gesture):
 		self.__class__._curColumnNumber = 0
