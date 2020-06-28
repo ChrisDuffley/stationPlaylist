@@ -263,7 +263,10 @@ class SPLStudioTrackItem(SPLTrackItem):
 				colNumber = 0
 			else:
 				colNumber = self._curColumnNumber if verticalColumnAnnounce is None else self.indexOf(verticalColumnAnnounce)
-			self._moveToColumnNumber(colNumber+1)
+			# Add track check status to column data if needed by using a customized move to column number method.
+			cell = self.getChild(colNumber)
+			if colNumber > 0 and self.name: cell.name = "{0} {1}".format(self.name, cell.name)
+			self._moveToColumn(cell)
 		# 7.0: Let the app module keep a reference to this track.
 		self.appModule._focusedTrack = self
 		# #142 (20.09): just like fake table row behavior class, nullify saved column number.
