@@ -58,11 +58,6 @@ class SPLCreatorItem(SPLTrackItem):
 		# Translators: Title of the column data window.
 		ui.browseableMessage("\n".join(columnContents), title=_("Track data"))
 
-	__gestures = {
-		"kb:control+alt+downArrow": None,
-		"kb:control+alt+upArrow": None,
-	}
-
 
 class SPLPlaylistEditorItem(SPLTrackItem):
 	"""An entry in SPL Creator's Playlist Editor.
@@ -70,11 +65,6 @@ class SPLPlaylistEditorItem(SPLTrackItem):
 
 	# Keep a record of which column is being looked at.
 	_curColumnNumber = 0
-
-	__gestures = {
-		"kb:control+alt+downArrow": None,
-		"kb:control+alt+upArrow": None,
-	}
 
 
 class AppModule(appModuleHandler.AppModule):
