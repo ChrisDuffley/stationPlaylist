@@ -127,9 +127,12 @@ class SPLTrackItem(sysListView32.ListItem):
 		if visualColumns: colNumber = self.parent._columnOrderArray[colNumber]
 		if not header: header = self._getColumnHeaderRaw(colNumber)
 		columnContent = self._getColumnContentRaw(self.indexOf(header) if not visualColumns else colNumber)
+		# Translators: Standard message for announcing column content.
 		if columnContent: ui.message(_("{header}: {content}").format(header=header, content=columnContent))
 		else:
+			# Translators: Spoken when column content is blank.
 			speech.speakMessage(_("{header}: blank").format(header=header))
+			# Translators: Brailled to indicate empty column content.
 			braille.handler.message(_("{header}: ()").format(header=header))
 
 	# #103: provide an abstract index of function.
