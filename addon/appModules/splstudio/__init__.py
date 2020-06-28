@@ -296,19 +296,14 @@ class SPLStudioTrackItem(SPLTrackItem):
 		return columnContents
 
 	# Column announcer tweaked for Studio.
-	# 17.04: Allow checked status in 5.1x and later to be announced if this is such a case (vertical column navigation).)
 	# #117 (20.03): although visual columns flag is specified (consistency with other track items), it isn't used in Studio track items.
-	def announceColumnContent(self, colNumber, header=None, visualColumns=True, reportStatus=False):
+	def announceColumnContent(self, colNumber, header=None, visualColumns=True):
 		if not header: header = self._getColumnHeaderRaw(self.parent._columnOrderArray[colNumber])
 		columnContent = self._getColumnContentRaw(self.indexOf(header))
-		status = self.name + " " if reportStatus else ""
-		# Translators: Standard message for announcing column content.
-		if columnContent: ui.message(_("{checkStatus}{header}: {content}").format(checkStatus=status, header=header, content=columnContent))
+		if columnContent: ui.message(_("{header}: {content}").format(header=header, content=columnContent))
 		else:
-			# Translators: Spoken when column content is blank.
-			speech.speakMessage(_("{checkStatus}{header}: blank").format(checkStatus=status, header=header))
-			# Translators: Brailled to indicate empty column content.
-			braille.handler.message(_("{checkStatus}{header}: ()").format(checkStatus=status, header=header))
+			speech.speakMessage(_("{header}: blank").format(header=header))
+			braille.handler.message(_("{header}: ()").format(header=header))
 
 	# Now the scripts.
 
