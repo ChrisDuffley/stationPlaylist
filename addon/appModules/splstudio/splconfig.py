@@ -375,13 +375,13 @@ class ConfigHub(ChainMap):
 		# 17.10: although normal profile is taken care of when the ConfigHub loads, broadcast profiles may not know about volatile config flag.
 		if self.volatileConfig: return
 		global _SPLCache
-		import copy
 		if _SPLCache is None: _SPLCache = {}
 		key = None if conf.filename == SPLIni else conf.name
 		_SPLCache[key] = {}
 		# 8.0: Caching the dictionary (items) is enough.
-		# Do not just say dict(conf) because of referencing nature of Python, hence perform a deepcopy (copying everything to a new address).
-		_SPLCache[key] = copy.deepcopy(dict(conf))
+		# Do not just copy dictionaries, as it copies references.
+		# 20.09: thankfully conf.dict method performs a "deep copy" (returns a fresh dictionary with data inside).
+		_SPLCache[key] = conf.dict()
 
 	def __delitem__(self, key):
 		# Consult profile-specific key first before deleting anything.
