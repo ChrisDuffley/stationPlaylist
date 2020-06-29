@@ -528,7 +528,6 @@ class ConfigHub(ChainMap):
 				for section, key in deprecatedKeys:
 					if section == (): continue
 					del conf[section[0]][key]
-				if "Update" in conf: del conf["Update"]
 		# #94 (19.02/18.09.7-LTS): same as reset method but settings from disk will be applied.
 		splactions.SPLActionSettingsReset.notify(factoryDefaults=False)
 
