@@ -142,12 +142,10 @@ class SPLTrackItem(sysListView32.ListItem):
 
 	@scriptHandler.script(gesture="kb:control+alt+home")
 	def script_firstColumn(self, gesture):
-		self.__class__._curColumnNumber = 0
 		self._moveToColumnNumber(1)
 
 	@scriptHandler.script(gesture="kb:control+alt+end")
 	def script_lastColumn(self, gesture):
-		self.__class__._curColumnNumber = self.parent.columnCount-1
 		self._moveToColumnNumber(self.childCount)
 
 	@scriptHandler.script(
@@ -225,8 +223,6 @@ class SPLStudioTrackItem(SPLTrackItem):
 			return None
 
 	def reportFocus(self):
-		# initialize column navigation tracker.
-		if self.__class__._curColumnNumber is None: self.__class__._curColumnNumber = 0
 		if splconfig.SPLConfig["General"]["CategorySounds"]:
 			category = self._getColumnContentRaw(self.indexOf("Category"))
 			if category in _SPLCategoryTones:
@@ -331,7 +327,6 @@ class SPLStudioTrackItem(SPLTrackItem):
 		nav = api.getNavigatorObject()
 		if nav != self and nav.parent == self:
 			self.__class__._savedColumnNumber = nav.columnNumber
-			self.__class__._curColumnNumber = nav.columnNumber-1
 		row.setFocus(), row.setFocus()
 		splbase.selectTrack(row.IAccessibleChildID-1)
 
@@ -1020,8 +1015,6 @@ class AppModule(appModuleHandler.AppModule):
 		micAlarmT2 = None
 		debugOutput("saving add-on settings")
 		splconfig.terminate()
-		# reset column number for column navigation commands.
-		if self._focusedTrack: self._focusedTrack.__class__._curColumnNumber = None
 		# Delete focused track reference.
 		self._focusedTrack = None
 		# #86: track time analysis marker should be gone, too.
