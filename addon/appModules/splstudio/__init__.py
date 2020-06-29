@@ -263,7 +263,8 @@ class SPLStudioTrackItem(SPLTrackItem):
 			else:
 				colNumber = self._savedColumnNumber if verticalColumnAnnounce is None else self.indexOf(verticalColumnAnnounce)
 			# Add track check status to column data if needed by using a customized move to column number method.
-			cell = self.getChild(colNumber)
+			# Don't forget that column position starts at 1, not 0 (therefore subtract 1).
+			cell = self.getChild(colNumber-1)
 			if colNumber > 0 and self.name: cell.name = "{0} {1}".format(self.name, cell.name)
 			self._moveToColumn(cell)
 		# 7.0: Let the app module keep a reference to this track.
