@@ -253,10 +253,9 @@ class SPLStudioTrackItem(SPLTrackItem):
 					if content:
 						descriptionPieces.append("{}: {}".format(header, content) if includeColumnHeaders else content)
 			self.description = ", ".join(descriptionPieces)
-		if self.appModule._announceColumnOnly is None:
+		if self._savedColumnNumber is None:
 			super(IAccessible, self).reportFocus()
 		else:
-			self.appModule._announceColumnOnly = None
 			colNumber = self._savedColumnNumber
 			verticalColumnAnnounce = splconfig.SPLConfig["General"]["VerticalColumnAnnounce"]
 			if verticalColumnAnnounce == "Status" or (verticalColumnAnnounce is None and self._savedColumnNumber == 0):
@@ -328,7 +327,6 @@ class SPLStudioTrackItem(SPLTrackItem):
 	def _moveToRow(self, row):
 		if not row:
 			return self._moveToColumn(None) if splconfig.SPLConfig["General"]["TopBottomAnnounce"] else None
-		self.appModule._announceColumnOnly = True
 		nav = api.getNavigatorObject()
 		if nav != self and nav.parent == self:
 			self.__class__._savedColumnNumber = nav.columnNumber
@@ -584,8 +582,6 @@ class AppModule(appModuleHandler.AppModule):
 	scriptCategory = _("StationPlaylist")
 	SPLCurVersion = appModuleHandler.AppModule.productVersion
 	_focusedTrack = None
-	# Used only if vertical column navigation commands are used.
-	_announceColumnOnly = None
 	# Monitor Studio API routines.
 	_SPLStudioMonitor = None
 
