@@ -257,12 +257,12 @@ class SPLStudioTrackItem(SPLTrackItem):
 			super(IAccessible, self).reportFocus()
 		else:
 			self.appModule._announceColumnOnly = None
-			colNumber = self._curColumnNumber
+			colNumber = self._savedColumnNumber
 			verticalColumnAnnounce = splconfig.SPLConfig["General"]["VerticalColumnAnnounce"]
-			if verticalColumnAnnounce == "Status" or (verticalColumnAnnounce is None and self._curColumnNumber == 0):
+			if verticalColumnAnnounce == "Status" or (verticalColumnAnnounce is None and self._savedColumnNumber == 0):
 				colNumber = 0
 			else:
-				colNumber = self._curColumnNumber if verticalColumnAnnounce is None else self.indexOf(verticalColumnAnnounce)
+				colNumber = self._savedColumnNumber if verticalColumnAnnounce is None else self.indexOf(verticalColumnAnnounce)
 			# Add track check status to column data if needed by using a customized move to column number method.
 			cell = self.getChild(colNumber)
 			if colNumber > 0 and self.name: cell.name = "{0} {1}".format(self.name, cell.name)
