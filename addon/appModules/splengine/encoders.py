@@ -465,7 +465,7 @@ class Encoder(IAccessible):
 		else:
 			# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 			ui.message(_("Do not switch to Studio after connecting"))
-		self._setFlags(self.encoderId, not self.focusToStudio, SPLFocusToStudio)
+		self.focusToStudio = not self.focusToStudio
 
 	@scriptHandler.script(
 		# Translators: Input help mode message in SAM Encoder window.
@@ -479,7 +479,7 @@ class Encoder(IAccessible):
 		else:
 			# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
 			ui.message(_("Do not play first track after connecting"))
-		self._setFlags(self.encoderId, not self.playAfterConnecting, SPLPlayAfterConnecting)
+		self.playAfterConnecting = not self.playAfterConnecting
 
 	@scriptHandler.script(
 		# Translators: Input help mode message in SAM Encoder window.
@@ -494,7 +494,7 @@ class Encoder(IAccessible):
 			else:
 				# Translators: Presented when toggling the setting to monitor the selected encoder.
 				ui.message(_("Encoder {encoderNumber} will not be monitored").format(encoderNumber=self.IAccessibleChildID))
-			self._setFlags(self.encoderId, not self.backgroundMonitor, SPLBackgroundMonitor)
+			self.backgroundMonitor = not self.backgroundMonitor
 			if self.backgroundMonitor:
 				try:
 					monitoring = SPLBackgroundMonitorThreads[self.encoderId].is_alive()
