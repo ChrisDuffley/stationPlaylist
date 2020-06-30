@@ -290,8 +290,7 @@ class SPLStudioTrackItem(SPLTrackItem):
 		return columnContents
 
 	# Column announcer tweaked for Studio.
-	# #117 (20.03): although visual columns flag is specified (consistency with other track items), it isn't used in Studio track items.
-	def announceColumnContent(self, colNumber, header=None, visualColumns=True):
+	def announceColumnContent(self, colNumber, header=None):
 		if not header: header = self._getColumnHeaderRaw(self.parent._columnOrderArray[colNumber])
 		columnContent = self._getColumnContentRaw(self.indexOf(header))
 		if columnContent: ui.message(_("{header}: {content}").format(header=header, content=columnContent))
