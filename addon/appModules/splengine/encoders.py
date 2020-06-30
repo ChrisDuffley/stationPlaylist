@@ -350,6 +350,8 @@ class Encoder(IAccessible):
 
 	@encoderLabel.setter
 	def encoderLabel(self, newEncoderLabel):
+		if not isinstance(newEncoderLabel, str):
+			raise ValueError("Encoder label must be a string")
 		if len(newEncoderLabel):
 			SPLEncoderLabels[self.encoderId] = newEncoderLabel
 		else:
@@ -364,6 +366,8 @@ class Encoder(IAccessible):
 
 	@focusToStudio.setter
 	def focusToStudio(self, flag):
+		if not isinstance(flag, bool):
+			raise ValueError("Flag must be a boolean")
 		self._setFlags(self.encoderId, flag, SPLFocusToStudio)
 
 	@property
@@ -372,6 +376,8 @@ class Encoder(IAccessible):
 
 	@playAfterConnecting.setter
 	def playAfterConnecting(self, flag):
+		if not isinstance(flag, bool):
+			raise ValueError("Flag must be a boolean")
 		self._setFlags(self.encoderId, flag, SPLPlayAfterConnecting)
 
 	@property
@@ -380,6 +386,8 @@ class Encoder(IAccessible):
 
 	@backgroundMonitor.setter
 	def backgroundMonitor(self, flag):
+		if not isinstance(flag, bool):
+			raise ValueError("Flag must be a boolean")
 		self._setFlags(self.encoderId, flag, SPLBackgroundMonitor)
 
 	# For the next two properties, setter should invert the flag.
@@ -390,6 +398,8 @@ class Encoder(IAccessible):
 
 	@connectionTone.setter
 	def connectionTone(self, flag):
+		if not isinstance(flag, bool):
+			raise ValueError("Flag must be a boolean")
 		self._setFlags(self.encoderId, not flag, SPLNoConnectionTone)
 
 	@property
@@ -398,6 +408,8 @@ class Encoder(IAccessible):
 
 	@announceStatusUntilConnected.setter
 	def announceStatusUntilConnected(self, flag):
+		if not isinstance(flag, bool):
+			raise ValueError("Flag must be a boolean")
 		self._setFlags(self.encoderId, not flag, SPLConnectionStopOnError)
 
 	# Format the status message to prepare for monitoring multiple encoders.
