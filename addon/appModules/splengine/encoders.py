@@ -223,7 +223,7 @@ class EncoderConfigDialog(wx.Dialog):
 
 		# Encoder format text is used as part of the dialog title.
 		self.obj = obj
-		self.curEncoderLabel = obj.getStreamLabel()
+		self.curEncoderLabel = obj.encoderLabel
 		# Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
 		super(EncoderConfigDialog, self).__init__(parent, wx.ID_ANY, _("Encoder settings for {name}").format(name=obj.encoderFormat))
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
@@ -274,7 +274,7 @@ class EncoderConfigDialog(wx.Dialog):
 		setFlags(encoderId, not self.announceStatusUntilConnected.Value, SPLConnectionStopOnError)
 		newEncoderLabel = self.encoderLabel.Value
 		if newEncoderLabel is None: newEncoderLabel = ""
-		self.obj.setStreamLabel(newEncoderLabel)
+		self.obj.encoderLabel = newEncoderLabel
 		self.Destroy()
 		global _configDialogOpened
 		_configDialogOpened = False
@@ -539,7 +539,7 @@ class Encoder(IAccessible):
 	@scriptHandler.script(gesture="kb:control+NVDA+2")
 	def script_announceEncoderLabel(self, gesture):
 		try:
-			encoderLabel = self.getStreamLabel()
+			encoderLabel = self.encoderLabel
 		except TypeError:
 			encoderLabel = None
 		if encoderLabel:
@@ -561,7 +561,7 @@ class Encoder(IAccessible):
 
 	def reportFocus(self):
 		try:
-			encoderLabel = self.getStreamLabel()
+			encoderLabel = self.encoderLabel
 		except TypeError:
 			encoderLabel = None
 		# Announce encoder label if it exists.
