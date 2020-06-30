@@ -289,15 +289,6 @@ class SPLStudioTrackItem(SPLTrackItem):
 				if columnContents[pos] is None: columnContents[pos] = ""
 		return columnContents
 
-	# Column announcer tweaked for Studio.
-	def announceColumnContent(self, colNumber, header=None):
-		if not header: header = self._getColumnHeaderRaw(self.parent._columnOrderArray[colNumber])
-		columnContent = self._getColumnContentRaw(self.indexOf(header))
-		if columnContent: ui.message(_("{header}: {content}").format(header=header, content=columnContent))
-		else:
-			speech.speakMessage(_("{header}: blank").format(header=header))
-			braille.handler.message(_("{header}: ()").format(header=header))
-
 	# Now the scripts.
 
 	# Track movement scripts.
