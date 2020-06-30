@@ -170,15 +170,13 @@ class SPLTrackItem(sysListView32.ListItem):
 			header = self.exploreColumns[columnPos]
 			# #103: only concrete implementations will return the correct index.
 			column = self.indexOf(header)
-			visualColumns = False
 		except AttributeError:
 			# #117 (20.02): for track items with no custom Columns Explorer support, refer to visual column layout.
 			# Note that zero-based indexing is still used.
 			column = columnPos
-			visualColumns = True
 		if column is not None:
 			# #61 (18.06): pressed once will announce column data, twice will present it in a browse mode window.
-			if scriptHandler.getLastScriptRepeatCount() == 0: self.announceColumnContent(column, header=header, visualColumns=visualColumns)
+			if scriptHandler.getLastScriptRepeatCount() == 0: self.announceColumnContent(column, header=header)
 			else:
 				columnContent = self._getColumnContentRaw(column)
 				if columnContent is None:
