@@ -264,14 +264,12 @@ class EncoderConfigDialog(wx.Dialog):
 		self.encoderLabel.SetFocus()
 
 	def onOk(self, evt):
-		setFlags = self.obj._setFlags
 		encoderId = self.obj.encoderId
-		setFlags(encoderId, self.focusToStudio.Value, SPLFocusToStudio)
-		setFlags(encoderId, self.playAfterConnecting.Value, SPLPlayAfterConnecting)
-		setFlags(encoderId, self.backgroundMonitor.Value, SPLBackgroundMonitor)
-		# Invert the following two flags.
-		setFlags(encoderId, not self.connectionTone.Value, SPLNoConnectionTone)
-		setFlags(encoderId, not self.announceStatusUntilConnected.Value, SPLConnectionStopOnError)
+		self.obj.focusToStudio = self.focusToStudio.Value
+		self.obj.playAfterConnecting = self.playAfterConnecting.Value
+		self.obj.backgroundMonitor = self.backgroundMonitor.Value
+		self.obj.connectionTone = self.connectionTone.Value
+		self.obj.announceStatusUntilConnected = self.announceStatusUntilConnected.Value
 		newEncoderLabel = self.encoderLabel.Value
 		if newEncoderLabel is None: newEncoderLabel = ""
 		self.obj.encoderLabel = newEncoderLabel
