@@ -348,10 +348,7 @@ class Encoder(IAccessible):
 
 	@property
 	def encoderLabel(self):
-		try:
-			return SPLEncoderLabels[self.encoderId]
-		except KeyError:
-			return None
+		return SPLEncoderLabels.get(self.encoderId, None)
 
 	@encoderLabel.setter
 	def encoderLabel(self, newEncoderLabel):
