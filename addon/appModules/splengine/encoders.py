@@ -364,21 +364,43 @@ class Encoder(IAccessible):
 	def focusToStudio(self):
 		return self.encoderId in SPLFocusToStudio
 
+	@focusToStudio.setter
+	def focusToStudio(self, flag):
+		self._setFlags(self.encoderId, flag, SPLFocusToStudio)
+
 	@property
 	def playAfterConnecting(self):
 		return self.encoderId in SPLPlayAfterConnecting
+
+	@playAfterConnecting.setter
+	def playAfterConnecting(self, flag):
+		self._setFlags(self.encoderId, flag, SPLPlayAfterConnecting)
 
 	@property
 	def backgroundMonitor(self):
 		return self.encoderId in SPLBackgroundMonitor
 
+	@backgroundMonitor.setter
+	def backgroundMonitor(self, flag):
+		self._setFlags(self.encoderId, flag, SPLBackgroundMonitor)
+
+	# For the next two properties, setter should invert the flag.
+
 	@property
 	def connectionTone(self):
 		return self.encoderId not in SPLNoConnectionTone
 
+	@connectionTone.setter
+	def connectionTone(self, flag):
+		self._setFlags(self.encoderId, not flag, SPLNoConnectionTone)
+
 	@property
 	def announceStatusUntilConnected(self):
 		return self.encoderId not in SPLConnectionStopOnError
+
+	@announceStatusUntilConnected.setter
+	def announceStatusUntilConnected(self, flag):
+		self._setFlags(self.encoderId, not flag, SPLConnectionStopOnError)
 
 	# Format the status message to prepare for monitoring multiple encoders.
 	def encoderStatusMessage(self, message):
