@@ -664,8 +664,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 				if currentTime-attemptTime >= 0.5 and self.connectionTone:
 					tones.beep(500, 50)
 					attemptTime = currentTime
-			if manualConnect: continue
-			if not self.backgroundMonitor: return
+			if not manualConnect and not self.backgroundMonitor: return
 
 	@scriptHandler.script(gesture="kb:f9")
 	def script_connect(self, gesture):
@@ -795,8 +794,7 @@ class SPLEncoder(Encoder):
 					if currentTime-attemptTime >= 0.5 and self.connectionTone:
 						tones.beep(500, 50)
 						attemptTime = currentTime
-			if manualConnect: continue
-			if not self.backgroundMonitor: return
+			if not manualConnect and not self.backgroundMonitor: return
 
 	@scriptHandler.script(
 		# Translators: input hep command for an encoder connection command.
