@@ -264,7 +264,6 @@ class EncoderConfigDialog(wx.Dialog):
 		self.encoderLabel.SetFocus()
 
 	def onOk(self, evt):
-		encoderId = self.obj.encoderId
 		self.obj.focusToStudio = self.focusToStudio.Value
 		self.obj.playAfterConnecting = self.playAfterConnecting.Value
 		self.obj.backgroundMonitor = self.backgroundMonitor.Value
