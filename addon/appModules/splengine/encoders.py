@@ -27,6 +27,8 @@ SPLPlay = 12
 SPL_TrackPlaybackStatus = 104
 
 # Needed in Encoder support:
+# Encoder labels dictionary.
+SPLEncoderLabels = {}
 # Move focus to Studio once connected.
 SPLFocusToStudio = set()
 # Play the first selected track after an encoder is connected.
@@ -40,11 +42,6 @@ SPLNoConnectionTone = set()
 # Stop announcing connection status messages when an error is encountered.
 SPLConnectionStopOnError = set()
 
-# Stream labels dictionary, customized for each encoder type.
-SAMStreamLabels = {}
-SPLStreamLabels = {}
-ACStreamLabels = {}
-SPLEncoderLabels = {}
 
 # Configuration management.
 streamLabels = None
