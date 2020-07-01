@@ -81,6 +81,7 @@ def loadStreamLabels():
 	except KeyError:
 		ACStreamLabels = {}
 	# #137: prepare a unified view of encoder labels.
+	# 20.09 only: remove old encoder label sections after importing them (to be removed in 20.10).
 	try:
 		SPLEncoderLabels = dict(streamLabels["EncoderLabels"])
 	except KeyError:
@@ -88,12 +89,15 @@ def loadStreamLabels():
 	if len(SAMStreamLabels):
 		for pos in SAMStreamLabels:
 			SPLEncoderLabels[f"SAM {pos}"] = SAMStreamLabels[pos]
+		del streamLabels["SAMEncoders"]
 	if len(SPLStreamLabels):
 		for pos in SPLStreamLabels:
 			SPLEncoderLabels[f"SPL {pos}"] = SPLStreamLabels[pos]
+		del streamLabels["SPLEncoders"]
 	if len(ACStreamLabels):
 		for pos in ACStreamLabels:
 			SPLEncoderLabels[f"AltaCast {pos}"] = ACStreamLabels[pos]
+		del streamLabels["AltaCastEncoders"]
 	# Read other settings.
 	if "FocusToStudio" in streamLabels:
 		SPLFocusToStudio = set(streamLabels["FocusToStudio"])
