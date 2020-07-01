@@ -52,7 +52,7 @@ streamLabels = None
 
 # Load stream labels (and possibly other future goodies) from a file-based database.
 def loadStreamLabels():
-	global streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError, SPLEncoderLabels
+	global streamLabels, SPLEncoderLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError
 	# 7.1: Make sure encoder settings map isn't corrupted.
 	# #131 (20.06): transplanted from Studio app module so the error message can be shown when an encoder gains focus.
 	try:
@@ -119,7 +119,7 @@ def loadStreamLabels():
 def _removeEncoderID(encoderType, pos):
 	encoderID = " ".join([encoderType, pos])
 	# Go through each feature map/set, remove the encoder ID and manipulate encoder positions.
-	for encoderSettings in (SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError, SPLEncoderLabels):
+	for encoderSettings in (SPLEncoderLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError):
 		if encoderID in encoderSettings:
 			# Other than encoder labels (a dictionary), others are sets.
 			if isinstance(encoderSettings, set): encoderSettings.remove(encoderID)
@@ -145,7 +145,7 @@ def _removeEncoderID(encoderType, pos):
 
 # Save stream labels and various flags, called when closing app modules and when config save command is pressed.
 def saveStreamLabels():
-	global streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError, SPLEncoderLabels
+	global streamLabels, SPLEncoderLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError
 	# Gather stream labels and flags.
 	streamLabels["EncoderLabels"] = dict(SPLEncoderLabels)
 	# For flags, convert flag sets into lists.
@@ -165,14 +165,14 @@ def saveStreamLabels():
 # 20.04: if told to do so, save encoder settings and unregister config save handler.
 # In case this is called as part of a reset, unregister config save handler unconditionally.
 def cleanup(appTerminating=False, reset=False):
-	global streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLBackgroundMonitorThreads, SPLNoConnectionTone, SPLConnectionStopOnError, SPLEncoderLabels
+	global streamLabels, SPLEncoderLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLBackgroundMonitorThreads, SPLNoConnectionTone, SPLConnectionStopOnError
 	# #132 (20.05): do not proceed if encoder settings database is None (no encoders were initialized).
 	if streamLabels is None: return
 	if appTerminating: saveStreamLabels()
 	if reset or appTerminating:
 		config.post_configSave.unregister(saveStreamLabels)
 		config.post_configReset.unregister(resetStreamLabels)
-	for flag in [streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLBackgroundMonitorThreads, SPLNoConnectionTone, SPLConnectionStopOnError, SPLEncoderLabels]:
+	for flag in [streamLabels, SPLEncoderLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLBackgroundMonitorThreads, SPLNoConnectionTone, SPLConnectionStopOnError]:
 		if flag is not None: flag.clear()
 	# 20.04: save a "clean" copy after resetting encoder settings.
 	if reset: streamLabels.write()
