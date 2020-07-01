@@ -648,8 +648,6 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 				# Don't forget that follow-up actions should be performed if this is a manual connect (no background monitoring).
 				if not self.backgroundMonitor or (self.backgroundMonitor and not connectedBefore):
 					if self.focusToStudio and not encoding:
-						if api.getFocusObject().appModule == "splstudio":
-							continue
 						user32.SetForegroundWindow(user32.FindWindowW("TStudioForm", None))
 					# #37 (17.08.1): if run from another function, the message will not be sent, so must be done here.
 					if self.playAfterConnecting and not encoding:
