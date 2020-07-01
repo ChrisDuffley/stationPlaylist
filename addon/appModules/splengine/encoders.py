@@ -147,19 +147,6 @@ def _removeEncoderID(encoderType, pos):
 def saveStreamLabels():
 	global streamLabels, SAMStreamLabels, SPLStreamLabels, ACStreamLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError, SPLEncoderLabels
 	# Gather stream labels and flags.
-	# 20.07: for consistency, old stream label maps must be cleared first.
-	SAMStreamLabels.clear()
-	for pos in [encoderId.split(" ")[1] for encoderId in SPLEncoderLabels if encoderId.startswith("SAM")]:
-		SAMStreamLabels[pos] = SPLEncoderLabels[f"SAM {pos}"]
-	streamLabels["SAMEncoders"] = dict(SAMStreamLabels)
-	SPLStreamLabels.clear()
-	for pos in [encoderId.split(" ")[1] for encoderId in SPLEncoderLabels if encoderId.startswith("SPL")]:
-		SPLStreamLabels[pos] = SPLEncoderLabels[f"SPL {pos}"]
-	streamLabels["SPLEncoders"] = dict(SPLStreamLabels)
-	ACStreamLabels.clear()
-	for pos in [encoderId.split(" ")[1] for encoderId in SPLEncoderLabels if encoderId.startswith("AltaCast")]:
-		ACStreamLabels[pos] = SPLEncoderLabels[f"AltaCast {pos}"]
-	streamLabels["AltaCastEncoders"] = dict(ACStreamLabels)
 	streamLabels["EncoderLabels"] = dict(SPLEncoderLabels)
 	# For flags, convert flag sets into lists.
 	streamLabels["FocusToStudio"] = list(SPLFocusToStudio)
