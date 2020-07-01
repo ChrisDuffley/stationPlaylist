@@ -368,7 +368,7 @@ class Encoder(IAccessible):
 	def focusToStudio(self, flag):
 		if not isinstance(flag, bool):
 			raise ValueError("Flag must be a boolean")
-		self._setFlags(self.encoderId, flag, SPLFocusToStudio)
+		self._setFlags(flag, SPLFocusToStudio)
 
 	@property
 	def playAfterConnecting(self):
@@ -378,7 +378,7 @@ class Encoder(IAccessible):
 	def playAfterConnecting(self, flag):
 		if not isinstance(flag, bool):
 			raise ValueError("Flag must be a boolean")
-		self._setFlags(self.encoderId, flag, SPLPlayAfterConnecting)
+		self._setFlags(flag, SPLPlayAfterConnecting)
 
 	@property
 	def backgroundMonitor(self):
@@ -388,7 +388,7 @@ class Encoder(IAccessible):
 	def backgroundMonitor(self, flag):
 		if not isinstance(flag, bool):
 			raise ValueError("Flag must be a boolean")
-		self._setFlags(self.encoderId, flag, SPLBackgroundMonitor)
+		self._setFlags(flag, SPLBackgroundMonitor)
 
 	# For the next two properties, setter should invert the flag.
 
@@ -400,7 +400,7 @@ class Encoder(IAccessible):
 	def connectionTone(self, flag):
 		if not isinstance(flag, bool):
 			raise ValueError("Flag must be a boolean")
-		self._setFlags(self.encoderId, not flag, SPLNoConnectionTone)
+		self._setFlags(not flag, SPLNoConnectionTone)
 
 	@property
 	def announceStatusUntilConnected(self):
@@ -410,7 +410,7 @@ class Encoder(IAccessible):
 	def announceStatusUntilConnected(self, flag):
 		if not isinstance(flag, bool):
 			raise ValueError("Flag must be a boolean")
-		self._setFlags(self.encoderId, not flag, SPLConnectionStopOnError)
+		self._setFlags(not flag, SPLConnectionStopOnError)
 
 	# Format the status message to prepare for monitoring multiple encoders.
 	def encoderStatusMessage(self, message):
@@ -442,14 +442,14 @@ class Encoder(IAccessible):
 		raise NotImplementedError
 
 	# A master flag setter.
-	# Set or clear a given flag for the encoder given its ID, flag and flag container (currently a feature set).
+	# Set or clear a given flag for the encoder given the flag and flag container (currently a feature set).
 	# Also take in the flag key for storing it into the settings file.
 	# The flag will then be written to the configuration file.
 	# 7.0: Don't dump flags to disk unless told.
 	# 20.04: do not dump flags to disk at all, as a dedicated save action will do it.
 	# 20.09 optimization: unconditionally do set add/discard.
-	def _setFlags(self, encoderId, flag, flagMap):
-		flagMap.add(encoderId) if flag else flagMap.discard(encoderId)
+	def _setFlags(self, flag, flagMap):
+		flagMap.add(self.encoderId) if flag else flagMap.discard(self.encoderId)
 
 	# Now the flag configuration scripts.
 
