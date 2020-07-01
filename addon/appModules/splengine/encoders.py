@@ -415,11 +415,9 @@ class Encoder(IAccessible):
 	# The flag will then be written to the configuration file.
 	# 7.0: Don't dump flags to disk unless told.
 	# 20.04: do not dump flags to disk at all, as a dedicated save action will do it.
+	# 20.09 optimization: unconditionally do set add/discard.
 	def _setFlags(self, encoderId, flag, flagMap):
-		if flag and encoderId not in flagMap:
-			flagMap.add(encoderId)
-		elif not flag and encoderId in flagMap:
-			flagMap.remove(encoderId)
+		flagMap.add(encoderId) if flag else flagMap.discard(encoderId)
 
 	# Now the flag configuration scripts.
 
