@@ -400,6 +400,8 @@ class Encoder(IAccessible):
 	# Encoder connection reporter thread.
 	# By default background encoding (no manual connect) is assumed.
 	def connectStart(self, manualConnect=False):
+		# 20.09: don't bother if another thread is monitoring this encoder.
+		if self.encoderId in SPLBackgroundMonitorThreads and SPLBackgroundMonitorThreads[self.encoderId].is_alive(): return
 		statusThread = threading.Thread(target=self.reportConnectionStatus, kwargs=dict(manualConnect=manualConnect))
 		statusThread.start()
 		SPLBackgroundMonitorThreads[self.encoderId] = statusThread
