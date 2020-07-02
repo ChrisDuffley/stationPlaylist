@@ -765,7 +765,9 @@ class SPLEncoder(Encoder):
 				if not messageCache: return
 				if "Kbps" not in messageCache:
 					self.encoderStatusMessage(messageCache)
-			if messageCache == "Disconnected":
+			# 20.09: If all encoders are told to connect but then auto-connect stops for the selected encoder, a manually started thread (invoked by a user command) will continue to run.
+			# Therefore forcefully stop this thread if the latter message appears.
+			if messageCache in ("Disconnected", "AutoConnect stopped."):
 				connected = False
 				if manualConnect and connecting: manualConnect = False
 			elif "Unable to connect" in messageCache or "Failed" in messageCache or status == "AutoConnect stopped.":
