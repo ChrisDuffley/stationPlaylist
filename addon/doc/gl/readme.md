@@ -3,7 +3,7 @@
 * Autores: Geoff Shang, Joseph Lee e outros colaboradores
 * Descargar [versión estable][1]
 * Descargar [versión de desenvolvemento][2]
-* NVDA compatibility: 2019.3 to 2020.2
+* Compatibilidade con NVDA: da 2019.3 á 2020.2
 
 Este paquete de complementos proporciona unhha utilización mellorada do
 Station Playlist Studio e outras apps de Station Playlist, así como
@@ -135,26 +135,23 @@ As seguintes ordes están dispoñibles cando se utilizan os codificadores:
 
 * F9: conecta a un servidor de streaming.
 * F10 (só o codificador SAM):: Desconecta dun servidor de streaming.
-* Control+F9/Control+F10 (Só codificador SAM): Conecta ou desconecta todos
-  os codificadores respectivamente.
+* Control+F9: Conectar todos os codificadores.
+* Control+F10 (só codificador SAM): Desconecta todos os codificadores.
 * F11: Conmuta se NVDA cambiará á ventá do Studio para o codificador
   seleccionado se está conectado.
 * Shift+F11: conmuta  se Studio reproducirá a primeira pista seleccionada
   cando o codificador estéa conectado a un servidor de streaming.
 * Control+F11: Conmuta a monitorización de fondo do codificador
   seleccionado.
-* F12: abre un diálogo para intropducir etiquetas persoalizadas o cadeas
-  para o codificador selecionado.
 * Control+F12: Abre un diálogo para seleccionar o codificador que
-  eliminaches(para realiñar  as etiquetas de cadea e as opcións do
-  codificador).
+  eliminaches(para realiñar  as etiquetas e as opcións do codificador).
 * Alt+NVDA+0: abre o diálogo de opcións do codificador para configurar
-  opcións como etiqueta de cadea.
+  opcións como a etiqueta de codificador.
 
 Ademáis, as ordes de revisión de columna están dispoñibles, incluindo:
 
 * Control+NVDA+1: posición do codificador.
-* Control+NVDA+2: etiqueta da cadea.
+* Control+NVDA+2: etiqueta de codificador.
 * Control+NVDA+3 dende o codificador SAM: formato do codificador.
 * Control+NVDA+3 dende o codificador SPL ou AltaCast: opcións do
   codificador.
@@ -343,6 +340,28 @@ Windows 8 ou posterior e tes NVDA 2012.3 ou posterior instalado, podes
 realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
+
+## Versión 20.07
+
+* No visualizador de lista de reprodución de Studio, NVDA xa non parecerá
+  non facer nada ou reproducirá tons de erro ao tentar eliminar pistas ou
+  despois de vaciar a lista de reprodución cargada mentres o visor estea
+  enfocado.
+* Cando se busquen pistas no diálogo insertar pistas de Studio, NVDA
+  anunciará os resultados da procura se éstes se amosan.
+* NVDA xa non parecerá non facer nada ou non reproducirá un ton de erro ao
+  tentar cambiar a un perfil de transmisión de nova creación e gardar as
+  opcións do complemento.
+* Nos axustes de codificador, "etiqueta de transmisión" renomeouse a
+  "etiqueta de codificador".
+* A orde dedicada para o etiquetador de transmisión (F12) eliminouse dos
+  codificadores. As etiquetas dos codificadores pódense definir dende o
+  diálogo de axustes do codificador (Alt+NVDA+0).
+* O foco do sistema xa non se moverá repetidamente a Studio nin se
+  reproducirá a pista seleccionada cando un codificador en monitorización en
+  segundo plano (Control+F11) se conecte e desconecte repetidamente.
+* Nos codificadores de SPL, engadida a orde Control+F9 para conectar todos
+  os codificadores (ó igual que a orde F9).
 
 ## Versión 20.06
 

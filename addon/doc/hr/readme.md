@@ -3,7 +3,7 @@
 * Autori: Geoff Shang, Joseph Lee i drugi doprinositelji
 * Preuzmi [stabilnu verziju][1]
 * Preuzmi [razvojnu verziju][2]
-* NVDA compatibility: 2019.3 to 2020.2
+* NVDA kompatibilnost: 2019.3 do 2020.2
 
 Ovaj paket dodataka omogućava bolje korištenje programa StationPlaylist
 Studio i drugih StationPlaylist programa te pruža alate za kontrolu programa
@@ -126,26 +126,23 @@ Tijekom korištenja dekodera su dostupne sljedeće naredbe:
 * F9: Poveži se s poslužiteljem za internetski prijenos.
 * F10 (samo SAM dekoder): Prekini vezu s poslužiteljem za internetski
   prijenos.
-* Kontrol+F9/Kontrol+F10 (samo SAM dekoder): Poveži dekodere ili prekini
-  njihovu vezu.
+* Kontrol+F9: Spoji sve dekodere.
+* Kontrol+F10 (samo SAM dekoder): Odspoji sve dekodere.
 * F11: Prekidač za mijenjanje NVDA čitača na prozor programa Studio za
   odabrani dekoder, ako je povezan.
 * Šift+F11: U programu Studio uključuje i isključuje sviranje prve odabrane
   snimke kad je dekoder povezan s poslužiteljem za internetski prijenos.
 * Kontrol+F11: Uključuje i isključuje praćenje odabranog dekodera u
   pozadini.
-* F12: Otvara dijaloški okvir za unos prilagođene oznake za odabrani dekoder
-  ili internetski prijenos.
-* Kontrol+F12: Otvara dijaloški okvir za biranje dekodera kojeg si
-  izbrisao/la (kako bi se uskladile oznake internetskog prijenosa i postavke
-  dekodera).
+* Kontrol+F12: Otvara dijaloški okvir za biranje izbrisanih dekodera (kako
+  bi se uskladile oznake dekodera i postavke).
 * Alt+NVDA+0: Otvara dijaloški okvir postavki dekodera za konfiguriranje
-  opcija kao što je oznaka internetskog prijenosa.
+  opcija kao što je oznaka dekodera.
 
 Dodatno tome, dostupne su naredbe za pregled stupaca, uključujući sljedeće:
 
 * Kontrol+NVDA+1: Pozicija dekodera.
-* Kontrol+NVDA+2: Oznaka internetskog prijenosa.
+* Kontrol+NVDA+2: Oznaka dekodera.
 * Kontrol+NVDA+3 u SAM dekoderu: Format dekodera.
 * Kontrol+NVDA+3 u SPL-u i AltaCast dekoderu: Postavke dekodera.
 * Kontrol+NVDA+4 u SAM dekoderu: Stanje veze dekodera.
@@ -324,6 +321,25 @@ operacijskim sustavom Windows 8 ili novijim i ako imaš instaliran NVDA
 2012.3 ili noviji, možeš izvršiti neke Studio naredbe na ekranu osjetljivim
 na dodir. Za prebacivanje na modus SPL-a, dodirni ekran s tri prsta. Zatim
 koristi gore navedene dodirne naredbe za njihovo izvršavanje.
+
+## Verzija 20.07
+
+* In Studio's playlist viewer, NVDA will no longer appear to do nothing or
+  play error tones when attempting to delete tracks or after clearing the
+  loaded playlist while focused on playlist viewer.
+* When searching for tracks in Studio's insert tracks dialog, NVDA will
+  announce search results if results are found.
+* NVDA will no longer appear to do nothing or play error tones when trying
+  to switch to a newly created broadcast profile and save add-on settings.
+* In encoder settings, "stream label" has been renamed to "encoder label".
+* Dedicated stream labeler command (F12) has been removed from
+  encoders. Encoder labels can be defined from encoder settings dialog
+  (Alt+NVDA+0).
+* System focus will no longer move to Studio repeatedly or selected track
+  will be played when an encoder being monitored in the background
+  (Control+F11) connects and disconnects repeatedly.
+* In SPL encoders, added Control+F9 command to connect all encoders (same as
+  F9 command).
 
 ## Verzija 20.06
 

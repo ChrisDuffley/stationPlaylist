@@ -137,25 +137,23 @@ Las siguientes órdenes  están disponibles al utilizar los codificadores:
 
 * F9: conecta a un servidor de streaming.
 * F10: (Sólo SAM encoder): Desconecta de un servidor de streaming.
-* Control+F9/Control+F10 (sólo codificador SAM): Conecta o desconecta todos
-  los codificadores.
+* Control+f9: conecta todos los codificadores.
+* Control+F10 (sólo codificador SAM): Desconecta todos los codificadores.
 * F11: Activa o desactiva si NVDA cambiará a la ventana Studio para el
   codificador seleccionador si está conectado.
 * Shift+F11: conmuta si Studio reproducirá la primera pista seleccionada
   cuando el codificador esté conectado a un servidor de streaming.
 * Control+F11: Conmuta el monitoreo de fondo del codificador seleccionado.
-* F12: Abre un diálogo para introducir etiquetas personalizadas para el
-  codificador o el stream seleccionado.
 * Control+F12: abre un diálogo para seleccionar el codificador que has
-  eliminado (para realinear las etiquetas de cadena y las opciones del
+  eliminado (para realinear las etiquetas del codificador y las opciones del
   codificador).
 * Alt+NVDA+0: abre el diálogo opciones del codificador para configurar
-  opciones tales como etiqueta de cadena.
+  ajustes tales como su etiqueta.
 
 Además, las órdenes de revisión de columna están disponibles, incluyendo:
 
 * Control+NVDA+1: posición del codificador.
-* Control+NVDA+2: etiqueta de cadena.
+* Control+NVDA+2: etiqueta de codificador.
 * Control+NVDA+3 desde el codificador SAM: formato del codificador.
 * Control+NVDA+3 desde los codificadores SPL y AltaCast: Opciones del
   codificador.
@@ -351,6 +349,28 @@ Windows 8 o posterior y tienes NVDA 2012.3 o posterior instalado, puedes
 realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
+
+## Versión 20.07
+
+* En el visualizador de listas de reproducción de Studio, NVDA ya no
+  reproducirá tonos de error o parecerá no hacer nada al intentar eliminar
+  pistas o tras limpiar la lista de reproducción cargada mientras el visor
+  de listas de reproducción tenga el foco.
+* Al buscar pistas en el diálogo de inserción de pistas de Studio, NVDA
+  anunciará los resultados de búsqueda si existen.
+* NVDA ya no parecerá no hacer nada o no reproducirá un tono de error al
+  intentar cambiar a un perfil de emisión recién creado e intentar guardar
+  las opciones del complemento.
+* En las opciones del codificador, se ha renombrado "Etiqueta de flujo" como
+  "Etiqueta del codificador".
+* Se ha eliminado la orden dedicada a etiquetar flujos de los codificadores
+  (f12). Las etiquetas de los codificadores se pueden definir en el diálogo
+  de opciones del codificador (alt+NVDA+0).
+* El foco del sistema ya no se moverá repetidamente a Studio, ni se
+  reproducirá la pista seleccionada cuando un codificador monitorizado en
+  segundo plano (Control+f11) se conecte o desconecte repetidamente.
+* En los codificadores SPL, se ha añadido la orden Control+f9 para conectar
+  todos los codificadores (igual que la orden f9).
 
 ## Versión 20.06
 
