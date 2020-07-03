@@ -129,27 +129,24 @@ Folgende Befehle stehen zur Verfügung, wenn Sie Encoder verwenden:
 
 * F9: Mit einem Streaming-Server verbinden.
 * F10 (nur SAM-Encoder): Trennt die Verbindung zum Streaming-Server.
-* STRG+F9/STRG+F10 (nur beim SAM-Encoder): Alle Encoder verbinden
-  bzw. trennen.
+* Control+F9: Connect all encoders.
+* Control+F10 (SAM encoder only): Disconnect all encoders.
 * F11: legt fest, ob NVDA zum Studio-Fenster für den ausgewählten Encoder
   wechseln soll, wenn dieser angeschlossen ist.
 * Shift+F11: legt fest, ob Studio den ersten ausgewählten Titel abspielen
   soll, wenn der Encoder an einen Streaming-Server angeschlossen ist.
 * Control+F11: Schaltet die Hintergrundüberwachnung des ausgewählten
   Encoders ein- und aus.
-* F12: Öffnet einen Dialog zur Eingabe einer benutzerdefinierten Bezeichnung
-  für den ausgewählten Encoder oder Stream.
-* STRG+F12: öffnet einen Dialog zur Auswahl des von Ihnen gelöschten
-  Encoders (für das Zurücksetzen von Streambezeichnungen und
-  Encodereinstellungen).
-* Alt+NVDA+0: Öffnet den Dialog Encoder-Einstellungen, um Optionen wie
-  Streambezeichnung zu konfigurieren.
+* Control+F12: opens a dialog to select the encoder you have deleted (to
+  realign encoder labels and settings).
+* Alt+NVDA+0: Opens encoder settings dialog to configure options such as
+  encoder label.
 
 Darüber hinaus stehen folgende Befehle für den Spaltenexplorer zur
 Verfügung:
 
 * STRG+NVDA+1: Position des Encoders.
-* STRG+NVDA+2: StreamBezeichnung.
+* Control+NVDA+2: encoder label.
 * STRG+NVDA+3 aus dem SAM-Encoder: Encoder-Format.
 * Strg+NVDA+3 aus SPL und AltaCast Encoder: Encoder-Einstellungen.
 * STRG+NvDA+4 aus dem SAM-Encoder: meldet den Encoder-Verbindungsstatus.
@@ -341,6 +338,25 @@ verwenden und NVDA 2012.3 oder höher installiert haben, können Sie einige
 Studio-Befehle über den Touchscreen ausführen. Tippen Sie zunächst einmal
 mit drei Fingern, um in den SPL-Touchmodus zu wechseln. Verwenden Sie dann
 die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
+
+## Version 20.07
+
+* In Studio's playlist viewer, NVDA will no longer appear to do nothing or
+  play error tones when attempting to delete tracks or after clearing the
+  loaded playlist while focused on playlist viewer.
+* When searching for tracks in Studio's insert tracks dialog, NVDA will
+  announce search results if results are found.
+* NVDA will no longer appear to do nothing or play error tones when trying
+  to switch to a newly created broadcast profile and save add-on settings.
+* In encoder settings, "stream label" has been renamed to "encoder label".
+* Dedicated stream labeler command (F12) has been removed from
+  encoders. Encoder labels can be defined from encoder settings dialog
+  (Alt+NVDA+0).
+* System focus will no longer move to Studio repeatedly or selected track
+  will be played when an encoder being monitored in the background
+  (Control+F11) connects and disconnects repeatedly.
+* In SPL encoders, added Control+F9 command to connect all encoders (same as
+  F9 command).
 
 ## Version 20.06
 
