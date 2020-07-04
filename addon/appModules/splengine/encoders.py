@@ -718,12 +718,11 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 	@scriptHandler.script(gesture="kb:control+f9")
 	def script_connectAll(self, gesture):
 		ui.message(_("Connecting..."))
-		speechMode = speech.speechMode
-		speech.speechMode = 0
-		wx.CallAfter(self._samContextMenu, 7)
+		import keyboardHandler
+		for key in ("applications", "downArrow", "downArrow", "downArrow", "downArrow", "downArrow", "downArrow", "enter"):
+			keyboardHandler.KeyboardInputGesture.fromName(key).send()
 		# Oi, status thread, can you keep an eye on the connection status for me?
 		if not self.backgroundMonitor: self.connectStart(manualConnect=True)
-		speech.speechMode = speechMode
 
 	@scriptHandler.script(gesture="kb:control+f10")
 	def script_disconnectAll(self, gesture):
