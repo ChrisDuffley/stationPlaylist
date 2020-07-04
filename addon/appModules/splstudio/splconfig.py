@@ -191,8 +191,6 @@ class ConfigHub(ChainMap):
 		# #73: listen to config save/reset actions from NVDA Core.
 		config.post_configSave.register(self.handlePostConfigSave)
 		config.post_configReset.register(self.handlePostConfigReset)
-		# 18.09: pilot features.
-		self._pendingPilotFeaturesToggle = False
 
 	# Various properties
 	@property
