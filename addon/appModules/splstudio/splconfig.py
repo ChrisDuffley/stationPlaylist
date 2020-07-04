@@ -621,16 +621,6 @@ class ConfigHub(ChainMap):
 		self.profiles[current], self.profiles[former] = self.profiles[former], self.profiles[current]
 		if showSwitchIndex: return current
 
-	# 18.09: determine if pilot features can be used.
-	# 19.03: split into two functions: the test drive checker function and a dev channel checker.
-	@property
-	def canEnablePilotFeatures(self):
-		return isDevVersion() and not self._pendingPilotFeaturesToggle
-
-	@property
-	def testDrive(self):
-		return self.canEnablePilotFeatures and self["Advanced"]["PilotFeatures"]
-
 
 # Default config spec container.
 # To be moved to a different place in 8.0.
