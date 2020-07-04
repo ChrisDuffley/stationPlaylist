@@ -813,12 +813,20 @@ class SPLEncoder(Encoder):
 						attemptTime = currentTime
 			if not manualConnect and not self.backgroundMonitor: return
 
+	# Connect selected encoders.
+	# #143 (20.09): just like SAM encoder's connect/disconnect all routines, use key press emulation.
+
 	@scriptHandler.script(
 		# Translators: input hep command for an encoder connection command.
 		description=_("Connects to a streaming server."),
 		gestures=["kb:f9", "kb:control+f9"]
 	)
 	def script_connect(self, gesture):
+		if self.getChild(1).name not in ("Disconnected", "AutoConnect stopped."): return
+		ui.message(_("Connecting..."))
+		import keyboardHandler
+		for key in ("applications", "downArrow", "enter"):
+			keyboardHandler.KeyboardInputGesture.fromName(key).send()
 		# Same as SAM's connection routine, but this time, keep an eye on self.name and a different connection flag.
 		connectButton = api.getForegroundObject().getChild(2)
 		if connectButton.name == "Disconnect": return
