@@ -727,12 +727,9 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 	@scriptHandler.script(gesture="kb:control+f10")
 	def script_disconnectAll(self, gesture):
 		ui.message(_("Disconnecting..."))
-		speechMode = speech.speechMode
-		speech.speechMode = 0
-		wx.CallAfter(self._samContextMenu, 8)
-		time.sleep(0.5)
-		speech.speechMode = speechMode
-		speech.cancelSpeech()
+		import keyboardHandler
+		for key in ("applications", "downArrow", "downArrow", "downArrow", "downArrow", "downArrow", "downArrow", "downArrow", "enter"):
+			keyboardHandler.KeyboardInputGesture.fromName(key).send()
 
 	# Announce SAM columns: encoder name/type, status and description.
 	@scriptHandler.script(gesture="kb:control+NVDA+3")
