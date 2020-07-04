@@ -1060,10 +1060,6 @@ class SayStatusPanel(gui.SettingsPanel):
 
 # Advanced options
 # This panel houses advanced options such as using SPL Controller command to invoke SPL Assistant.
-# More options will be added in 7.0.
-# 7.0: Auto update check will be configurable from this panel.
-# #6: this is one of a few panels that will make sure changes are okay to be saved (isValid).
-# It is also the only panel that will perform extra actions if OK or Apply is clicked from add-on settings dialog (postSave).
 class AdvancedOptionsPanel(gui.SettingsPanel):
 	# Translators: title of a panel to configure advanced SPL add-on options such as update checking.
 	title = _("Advanced")
@@ -1087,31 +1083,9 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 		except:
 			pass
 
-	def isValid(self):
-		if (splconfig.SPLConfig.canEnablePilotFeatures and not splconfig.SPLConfig["Advanced"]["PilotFeatures"] and self.pilotBuildCheckbox.IsChecked() and gui.messageBox(
-			# Translators: The confirmation prompt displayed when about to enable pilot flag (with risks involved).
-			_("You are about to enable pilot features. Please note that pilot features may include functionality that might be unstable at times and should be used for testing and sending feedback to the add-on developer. If you prefer to use stable features, please answer no and uncheck pilot features checkbox. Are you sure you wish to enable pilot features?"),
-			# Translators: The title of the channel switch confirmation dialog.
-			_("Enable pilot features"),
-			wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION, self
-		) == wx.NO):
-			return False
-		return True
-
 	def onSave(self):
-		# Pilot features flag will be checked in post-save method below.
 		splconfig.SPLConfig["Advanced"]["SPLConPassthrough"] = self.splConPassthroughCheckbox.Value
 		splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] = self.compatibilityLayouts[self.compatibilityList.GetSelection()][0]
-
-	def postSave(self):
-		if splconfig.SPLConfig.canEnablePilotFeatures and self.pilotBuildCheckbox.Value != splconfig.SPLConfig["Advanced"]["PilotFeatures"]:
-			wx.CallAfter(
-				# Translators: A dialog message shown when pilot features is turned on or off.
-				gui.messageBox, _("You have toggled pilot features checkbox. You must restart NVDA for the change to take effect."),
-				# Translators: Title of the pilot features dialog.
-				_("Pilot features"), wx.OK | wx.ICON_INFORMATION)
-			splconfig.SPLConfig["Advanced"]["PilotFeatures"] = self.pilotBuildCheckbox.Value
-			splconfig.SPLConfig._pendingPilotFeaturesToggle = True
 
 
 # A dialog to reset add-on config including encoder settings and others.
