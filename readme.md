@@ -70,8 +70,8 @@ The following commands are not assigned by default; if you wish to assign them, 
 
 The following commands are available when using encoders:
 
-* F9: connect to a streaming server.
-* F10 (SAM encoder only): Disconnect from the streaming server.
+* F9: connect the selected encoder.
+* F10 (SAM encoder only): Disconnect the selected encoder.
 * Control+F9: Connect all encoders.
 * Control+F10 (SAM encoder only): Disconnect all encoders.
 * F11: Toggles whether NVDA will switch to Studio window for the selected encoder if connected.
@@ -199,6 +199,8 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 * Various column navigation commands will behave like NVDA's own table navigation commands. Besides simplifying these commands, it brings benefits for low vision users and other benefits.
 * Vertical column navigation (Control+Alt+up/down arrow) commands are now availible for Creator, playlist editor, Remote VT, and Track Tool.
+* In SAM encoders, improved NVDA's responsivness when pressing Control+F9 or Control+F10 to connect or disconnect all encoders, respectively. This may result in increased verbosity when announcing the selected encoder information.
+* In SPL and AltaCast encoders, pressing F9 will now connect the selected encoder.
 
 ## Version 20.07
 
