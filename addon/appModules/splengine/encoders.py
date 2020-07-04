@@ -818,8 +818,8 @@ class SPLEncoder(Encoder):
 
 	@scriptHandler.script(
 		# Translators: input hep command for an encoder connection command.
-		description=_("Connects to a streaming server."),
-		gestures=["kb:f9", "kb:control+f9"]
+		description=_("Connects the selected encoder."),
+		gesture="kb:f9"
 	)
 	def script_connect(self, gesture):
 		if self.getChild(1).name not in ("Disconnected", "AutoConnect stopped."): return
