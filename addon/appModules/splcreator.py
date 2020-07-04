@@ -115,7 +115,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	def isPlaylistEditor(self):
 		if api.getForegroundObject().windowClassName != "TEditMain":
-			ui.message("You are not in playlist editor")
+			# Translators: announced in SPL Creator and Remote VT when trying to perform playlist status commands while outside of playlist editor.
+			ui.message(_("You are not in playlist editor"))
 			return False
 		return True
 
