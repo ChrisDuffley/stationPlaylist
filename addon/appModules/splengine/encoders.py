@@ -715,18 +715,14 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 	@scriptHandler.script(gesture="kb:control+f9")
 	def script_connectAll(self, gesture):
 		ui.message(_("Connecting..."))
-		import keyboardHandler
-		for key in ("applications", "downArrow", "downArrow", "downArrow", "downArrow", "downArrow", "downArrow", "enter"):
-			keyboardHandler.KeyboardInputGesture.fromName(key).send()
+		self._samContextMenu(6)
 		# Oi, status thread, can you keep an eye on the connection status for me?
 		if not self.backgroundMonitor: self.connectStart(manualConnect=True)
 
 	@scriptHandler.script(gesture="kb:control+f10")
 	def script_disconnectAll(self, gesture):
 		ui.message(_("Disconnecting..."))
-		import keyboardHandler
-		for key in ("applications", "downArrow", "downArrow", "downArrow", "downArrow", "downArrow", "downArrow", "downArrow", "enter"):
-			keyboardHandler.KeyboardInputGesture.fromName(key).send()
+		self._samContextMenu(7)
 
 	# Announce SAM columns: encoder name/type, status and description.
 	@scriptHandler.script(gesture="kb:control+NVDA+3")
