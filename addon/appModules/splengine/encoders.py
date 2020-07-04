@@ -703,17 +703,14 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 	# Connecting/disconnecting all encoders at once.
 	# Control+F9/Control+F10 hotkeys are broken. Thankfully, context menu retains these commands.
 	# #143 (20.09): manually open context menu and activate the correct item through keyboard key press emulation (keyboard gesture send loop).
+	# Presses refer to how many times down arrow must be 'pressed' once context menu opens.
 
-	def _samContextMenu(self, pos):
-		def _samContextMenuActivate(pos):
-			speech.cancelSpeech()
-			focus = api.getFocusObject()
-			focus.getChild(pos).doAction()
-		import keyboardHandler
-		contextMenu = keyboardHandler.KeyboardInputGesture.fromName("applications")
-		contextMenu.send()
-		wx.CallLater(100, _samContextMenuActivate, pos)
-		time.sleep(0.2)
+	def _samContextMenu(self, presses):
+		import itertools, keyboardHandler
+		keyboardHandler.KeyboardInputGesture.fromName("applications").send()
+		for key in itertools.repeat("downArrow", presses):
+			keyboardHandler.KeyboardInputGesture.fromName(key).send()
+		keyboardHandler.KeyboardInputGesture.fromName("enter").send()
 
 	@scriptHandler.script(gesture="kb:control+f9")
 	def script_connectAll(self, gesture):
