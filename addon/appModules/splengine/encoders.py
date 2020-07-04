@@ -702,7 +702,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 
 	# Connecting/disconnecting all encoders at once.
 	# Control+F9/Control+F10 hotkeys are broken. Thankfully, context menu retains these commands.
-	# Use object navigation and key press emulation hack.
+	# #143 (20.09): manually open context menu and activate the correct item through keyboard key press emulation (keyboard gesture send loop).
 
 	def _samContextMenu(self, pos):
 		def _samContextMenuActivate(pos):
