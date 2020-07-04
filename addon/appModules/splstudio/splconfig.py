@@ -79,7 +79,6 @@ SayStudioPlayerPosition = boolean(default=false)
 [Advanced]
 SPLConPassthrough = boolean(default=false)
 CompatibilityLayer = option("off", "jfw", default="off")
-PilotFeatures = boolean(default=false)
 [Startup]
 WelcomeDialog = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
