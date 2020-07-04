@@ -12,7 +12,7 @@ import config
 import configobj
 import globalVars
 import ui
-import speech
+import keyboardHandler
 import scriptHandler
 from NVDAObjects.IAccessible import IAccessible, sysListView32, getNVDAObjectFromEvent
 from winUser import user32, sendMessage, OBJID_CLIENT
@@ -706,7 +706,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 	# Presses refer to how many times down arrow must be 'pressed' once context menu opens.
 
 	def _samContextMenu(self, presses):
-		import itertools, keyboardHandler
+		import itertools
 		keyboardHandler.KeyboardInputGesture.fromName("applications").send()
 		for key in itertools.repeat("downArrow", presses):
 			keyboardHandler.KeyboardInputGesture.fromName(key).send()
@@ -817,7 +817,6 @@ class SPLEncoder(Encoder):
 	def script_connect(self, gesture):
 		if self.getChild(1).name not in ("Disconnected", "AutoConnect stopped."): return
 		ui.message(_("Connecting..."))
-		import keyboardHandler
 		for key in ("applications", "downArrow", "enter"):
 			keyboardHandler.KeyboardInputGesture.fromName(key).send()
 		# Same as SAM's connection routine, but this time, keep an eye on self.name and a different connection flag.
