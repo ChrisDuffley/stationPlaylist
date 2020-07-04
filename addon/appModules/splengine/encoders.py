@@ -828,13 +828,20 @@ class SPLEncoder(Encoder):
 		for key in ("applications", "downArrow", "enter"):
 			keyboardHandler.KeyboardInputGesture.fromName(key).send()
 		# Same as SAM's connection routine, but this time, keep an eye on self.name and a different connection flag.
+		if not self.backgroundMonitor: self.connectStart(manualConnect=True)
+
+	@scriptHandler.script(
+		# Translators: input hep command for an encoder connection command.
+		description=_("Connects all encoders."),
+		gesture="kb:control+f9"
+	)
+	def script_connectAll(self, gesture):
 		connectButton = api.getForegroundObject().getChild(2)
 		if connectButton.name == "Disconnect": return
 		ui.message(_("Connecting..."))
 		# Juggle the focus around.
 		connectButton.doAction()
 		self.setFocus()
-		# Same as SAM encoders.
 		if not self.backgroundMonitor: self.connectStart(manualConnect=True)
 
 	# Announce SPL Encoder columns: encoder settings and transfer rate.
