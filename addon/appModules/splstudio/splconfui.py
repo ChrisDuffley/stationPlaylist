@@ -1086,11 +1086,6 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 			self.compatibilityList.SetSelection(selection)
 		except:
 			pass
-		# 18.09: allow some dev snapshot users to test pilot features.
-		# Translators: A checkbox to enable pilot features (with risks involved).
-		self.pilotBuildCheckbox = advOptionsHelper.addItem(wx.CheckBox(self, label=_("Pilot features: I want to test and provide early &feedback on features under development")))
-		self.pilotBuildCheckbox.SetValue(splconfig.SPLConfig["Advanced"]["PilotFeatures"])
-		if not splconfig.SPLConfig.canEnablePilotFeatures: self.pilotBuildCheckbox.Disable()
 
 	def isValid(self):
 		if (splconfig.SPLConfig.canEnablePilotFeatures and not splconfig.SPLConfig["Advanced"]["PilotFeatures"] and self.pilotBuildCheckbox.IsChecked() and gui.messageBox(
