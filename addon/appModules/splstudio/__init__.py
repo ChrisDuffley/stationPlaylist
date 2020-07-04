@@ -692,10 +692,6 @@ class AppModule(appModuleHandler.AppModule):
 	def SPLConPassthrough(self):
 		return splconfig.SPLConfig["Advanced"]["SPLConPassthrough"]
 
-	# Can the global plugin use pilot features?
-	def SPLUtilsPilotFeatures(self):
-		return splconfig.SPLConfig.testDrive
-
 	# The only job of the below event is to notify others that Studio window has appeared for the first time.
 	# This is used to coordinate various status announcements.
 
