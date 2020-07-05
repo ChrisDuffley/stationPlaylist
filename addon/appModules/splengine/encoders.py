@@ -44,19 +44,19 @@ SPLConnectionStopOnError = set()
 
 
 # Configuration management.
-streamLabels = None
+encoderConfig = None
 
 
 # Load stream labels (and possibly other future goodies) from a file-based database.
 def loadStreamLabels():
-	global streamLabels, SPLEncoderLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError
+	global encoderConfig, SPLEncoderLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError
 	# 7.1: Make sure encoder settings map isn't corrupted.
 	# #131 (20.06): transplanted from Studio app module so the error message can be shown when an encoder gains focus.
 	try:
-		streamLabels = configobj.ConfigObj(os.path.join(globalVars.appArgs.configPath, "splencoders.ini"))
+		encoderConfig = configobj.ConfigObj(os.path.join(globalVars.appArgs.configPath, "splencoders.ini"))
 	except:
 		# To avoid type errors, create an empty dictionary.
-		streamLabels = {}
+		encoderConfig = {}
 		open(os.path.join(globalVars.appArgs.configPath, "splencoders.ini"), "w").close()
 		wx.CallAfter(
 			# Translators: Message displayed if errors were found in encoder configuration file.
@@ -66,46 +66,46 @@ def loadStreamLabels():
 		return
 	# Read encoder labels.
 	try:
-		SAMStreamLabels = dict(streamLabels["SAMEncoders"])
+		SAMStreamLabels = dict(encoderConfig["SAMEncoders"])
 	except KeyError:
 		SAMStreamLabels = {}
 	try:
-		SPLStreamLabels = dict(streamLabels["SPLEncoders"])
+		SPLStreamLabels = dict(encoderConfig["SPLEncoders"])
 	except KeyError:
 		SPLStreamLabels = {}
 	try:
-		ACStreamLabels = dict(streamLabels["AltaCastEncoders"])
+		ACStreamLabels = dict(encoderConfig["AltaCastEncoders"])
 	except KeyError:
 		ACStreamLabels = {}
 	# #137: prepare a unified view of encoder labels.
 	# 20.09 only: remove old encoder label sections after importing them (to be removed in 20.10).
 	try:
-		SPLEncoderLabels = dict(streamLabels["EncoderLabels"])
+		SPLEncoderLabels = dict(encoderConfig["EncoderLabels"])
 	except KeyError:
 		SPLEncoderLabels = {}
 	if len(SAMStreamLabels):
 		for pos in SAMStreamLabels:
 			SPLEncoderLabels[f"SAM {pos}"] = SAMStreamLabels[pos]
-		del streamLabels["SAMEncoders"]
+		del encoderConfig["SAMEncoders"]
 	if len(SPLStreamLabels):
 		for pos in SPLStreamLabels:
 			SPLEncoderLabels[f"SPL {pos}"] = SPLStreamLabels[pos]
-		del streamLabels["SPLEncoders"]
+		del encoderConfig["SPLEncoders"]
 	if len(ACStreamLabels):
 		for pos in ACStreamLabels:
 			SPLEncoderLabels[f"AltaCast {pos}"] = ACStreamLabels[pos]
-		del streamLabels["AltaCastEncoders"]
+		del encoderConfig["AltaCastEncoders"]
 	# Read other settings.
-	if "FocusToStudio" in streamLabels:
-		SPLFocusToStudio = set(streamLabels["FocusToStudio"])
-	if "PlayAfterConnecting" in streamLabels:
-		SPLPlayAfterConnecting = set(streamLabels["PlayAfterConnecting"])
-	if "BackgroundMonitor" in streamLabels:
-		SPLBackgroundMonitor = set(streamLabels["BackgroundMonitor"])
-	if "NoConnectionTone" in streamLabels:
-		SPLNoConnectionTone = set(streamLabels["NoConnectionTone"])
-	if "ConnectionStopOnError" in streamLabels:
-		SPLConnectionStopOnError = set(streamLabels["ConnectionStopOnError"])
+	if "FocusToStudio" in encoderConfig:
+		SPLFocusToStudio = set(encoderConfig["FocusToStudio"])
+	if "PlayAfterConnecting" in encoderConfig:
+		SPLPlayAfterConnecting = set(encoderConfig["PlayAfterConnecting"])
+	if "BackgroundMonitor" in encoderConfig:
+		SPLBackgroundMonitor = set(encoderConfig["BackgroundMonitor"])
+	if "NoConnectionTone" in encoderConfig:
+		SPLNoConnectionTone = set(encoderConfig["NoConnectionTone"])
+	if "ConnectionStopOnError" in encoderConfig:
+		SPLConnectionStopOnError = set(encoderConfig["ConnectionStopOnError"])
 	# 20.04: register config save and reset handlers.
 	config.post_configSave.register(saveStreamLabels)
 	config.post_configReset.register(resetStreamLabels)
@@ -142,39 +142,39 @@ def _removeEncoderID(encoderType, pos):
 
 # Save stream labels and various flags, called when closing app modules and when config save command is pressed.
 def saveStreamLabels():
-	global streamLabels, SPLEncoderLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError
+	global encoderConfig, SPLEncoderLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError
 	# Gather stream labels and flags.
-	streamLabels["EncoderLabels"] = dict(SPLEncoderLabels)
+	encoderConfig["EncoderLabels"] = dict(SPLEncoderLabels)
 	# For flags, convert flag sets into lists.
-	streamLabels["FocusToStudio"] = list(SPLFocusToStudio)
-	streamLabels["PlayAfterConnecting"] = list(SPLPlayAfterConnecting)
-	streamLabels["BackgroundMonitor"] = list(SPLBackgroundMonitor)
-	streamLabels["NoConnectionTone"] = list(SPLNoConnectionTone)
-	streamLabels["ConnectionStopOnError"] = list(SPLConnectionStopOnError)
+	encoderConfig["FocusToStudio"] = list(SPLFocusToStudio)
+	encoderConfig["PlayAfterConnecting"] = list(SPLPlayAfterConnecting)
+	encoderConfig["BackgroundMonitor"] = list(SPLBackgroundMonitor)
+	encoderConfig["NoConnectionTone"] = list(SPLNoConnectionTone)
+	encoderConfig["ConnectionStopOnError"] = list(SPLConnectionStopOnError)
 	# To save disk space, remove empty data.
-	for key in streamLabels.keys():
-		if not len(streamLabels[key]):
-			del streamLabels[key]
-	streamLabels.write()
+	for key in encoderConfig.keys():
+		if not len(encoderConfig[key]):
+			del encoderConfig[key]
+	encoderConfig.write()
 
 
 # Nullify various flag sets, otherwise memory leak occurs.
 # 20.04: if told to do so, save encoder settings and unregister config save handler.
 # In case this is called as part of a reset, unregister config save handler unconditionally.
 def cleanup(appTerminating=False, reset=False):
-	global streamLabels, SPLEncoderLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLBackgroundMonitorThreads, SPLNoConnectionTone, SPLConnectionStopOnError
+	global encoderConfig, SPLEncoderLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLBackgroundMonitorThreads, SPLNoConnectionTone, SPLConnectionStopOnError
 	# #132 (20.05): do not proceed if encoder settings database is None (no encoders were initialized).
-	if streamLabels is None: return
+	if encoderConfig is None: return
 	if appTerminating: saveStreamLabels()
 	if reset or appTerminating:
 		config.post_configSave.unregister(saveStreamLabels)
 		config.post_configReset.unregister(resetStreamLabels)
-	for flag in [streamLabels, SPLEncoderLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLBackgroundMonitorThreads, SPLNoConnectionTone, SPLConnectionStopOnError]:
+	for flag in [encoderConfig, SPLEncoderLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLBackgroundMonitorThreads, SPLNoConnectionTone, SPLConnectionStopOnError]:
 		if flag is not None: flag.clear()
 	# 20.04: save a "clean" copy after resetting encoder settings.
-	if reset: streamLabels.write()
+	if reset: encoderConfig.write()
 	# Nullify encoder settings.
-	streamLabels = None
+	encoderConfig = None
 
 
 # Reset encoder settings.
@@ -565,7 +565,7 @@ class Encoder(IAccessible):
 
 	def initOverlayClass(self):
 		# Load encoder settings upon request.
-		if streamLabels is None: loadStreamLabels()
+		if encoderConfig is None: loadStreamLabels()
 		# 6.2: Make sure background monitor threads are started if the flag is set.
 		if self.backgroundMonitor:
 			if self.encoderId in SPLBackgroundMonitorThreads:
