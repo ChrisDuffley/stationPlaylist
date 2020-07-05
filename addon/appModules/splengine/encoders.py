@@ -727,15 +727,15 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 	# Announce SAM columns: encoder name/type, status and description.
 	@scriptHandler.script(gesture="kb:control+NVDA+3")
 	def script_announceEncoderFormat(self, gesture):
-		ui.message(_("Format: {encoderFormat}").format(encoderFormat=self.encoderFormat))
+		ui.message("{0}: {1}".format(self.getChild(1).columnHeaderText, self.encoderFormat))
 
 	@scriptHandler.script(gesture="kb:control+NVDA+4")
 	def script_announceEncoderStatus(self, gesture):
-		ui.message(_("Status: {encoderStatus}").format(encoderStatus=self.getChild(2).name))
+		ui.message("{0}: {1}".format(self.getChild(2).columnHeaderText, self.getChild(2).name))
 
 	@scriptHandler.script(gesture="kb:control+NVDA+5")
 	def script_announceEncoderStatusDesc(self, gesture):
-		ui.message(_("Description: {encoderDescription}").format(encoderDescription=self.getChild(3).name))
+		ui.message("{0}: {1}".format(self.getChild(3).columnHeaderText, self.getChild(3).name))
 
 
 class SPLEncoder(Encoder):
@@ -839,11 +839,11 @@ class SPLEncoder(Encoder):
 	# Announce SPL Encoder columns: encoder settings and transfer rate.
 	@scriptHandler.script(gesture="kb:control+NVDA+3")
 	def script_announceEncoderSettings(self, gesture):
-		ui.message(_("Encoder Settings: {setting}").format(setting=self.encoderFormat))
+		ui.message("{0}: {1}".format(self.firstChild.columnHeaderText, self.encoderFormat))
 
 	@scriptHandler.script(gesture="kb:control+NVDA+4")
 	def script_announceEncoderTransfer(self, gesture):
-		ui.message(_("Transfer Rate: {transferRate}").format(transferRate=self.getChild(1).name))
+		ui.message("{0}: {1}".format(self.getChild(1).columnHeaderText, self.getChild(1).name))
 
 
 class AltaCastEncoder(SPLEncoder):
