@@ -1175,7 +1175,7 @@ class ResetDialog(wx.Dialog):
 			if self.resetEncodersCheckbox.Value:
 				if "appModules.splengine.encoders" in sys.modules:
 					import appModules.splengine.encoders
-					appModules.splengine.encoders.resetStreamLabels(factoryDefaults=True)
+					appModules.splengine.encoders.resetEncoderConfig(factoryDefaults=True)
 			_configDialogOpened = False
 			wx.CallAfter(
 				# Translators: A dialog message shown when settings were reset to defaults.
