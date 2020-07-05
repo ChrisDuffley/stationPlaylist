@@ -37,7 +37,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def terminate(self):
 		super(AppModule, self).terminate()
-		# Clear Playlist Editor status cache, otherwise it will generate errors when Creator restarts without restarting NVDA.
+		# Clear Playlist Editor status cache, otherwise it will generate errors when Remote VT restarts without restarting NVDA.
 		self._playlistEditorStatusCache.clear()
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
@@ -50,7 +50,8 @@ class AppModule(appModuleHandler.AppModule):
 				clsList.insert(0, SPLRemotePlaylistEditorItem)
 			elif obj.role == controlTypes.ROLE_LIST:
 				clsList.insert(0, sysListView32.List)
-		elif obj.windowClassName in ("TDemoRegForm", "TAboutForm"):
+		# Unlike creator, there is no demo intro dialog in Remote VT.
+		elif obj.windowClassName == "TAboutForm":
 			from NVDAObjects.behaviors import Dialog
 			clsList.insert(0, Dialog)
 
@@ -58,7 +59,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def isPlaylistEditor(self):
 		if api.getForegroundObject().windowClassName != "TEditMain":
-			ui.message("You are not in playlist editor")
+			ui.message(_("You are not in playlist editor"))
 			return False
 		return True
 
