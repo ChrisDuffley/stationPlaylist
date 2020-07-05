@@ -428,6 +428,19 @@ class Encoder(IAccessible):
 	def reportConnectionStatus(self, manualConnect=False):
 		raise NotImplementedError
 
+	# Respond to encoders being connected.
+	# Almost identical to version 17.08 iteration except for being private.
+	def _onConnect(self):
+		# Do not proceed if already focused on Studio window.
+		if api.getFocusObject().appModule.appName == "splstudio": return
+		if self.focusToStudio:
+			user32.SetForegroundWindow(user32.FindWindowW("TStudioForm", None))
+		if self.playAfterConnecting:
+			# Do not interupt the currently playing track.
+			SPLWin = user32.FindWindowW("SPLStudio", None)
+			if sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus) == 0:
+				sendMessage(SPLWin, 1024, 0, SPLPlay)
+
 	# A master flag setter.
 	# Set or clear a given flag for the encoder given the flag and flag container (currently a feature set).
 	# Also take in the flag key for storing it into the settings file.
