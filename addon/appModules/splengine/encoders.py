@@ -519,7 +519,7 @@ class Encoder(IAccessible):
 		gesture="kb:alt+NVDA+0",
 		category=_("StationPlaylist")
 	)
-	def script_encoderSettings(self, gesture):
+	def script_openEncoderConfigDialog(self, gesture):
 		try:
 			d = EncoderConfigDialog(gui.mainFrame, self)
 			gui.mainFrame.prePopup()
