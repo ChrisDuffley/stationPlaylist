@@ -498,14 +498,16 @@ class Encoder(IAccessible):
 		description=_("Opens a dialog to erase encoder labels and settings from an encoder that was deleted."),
 		gesture="kb:control+f12"
 	)
-	def script_encoderSettingsEraser(self, gesture):
-		choices = [str(pos) for pos in range(1, self.simpleParent.childCount)]
-		# Translators: The title of the encoder settings eraser dialog.
-		encoderSettingsEraserTitle = _("Encoder label and settings eraser")
-		# Translators: The text of the stream configuration eraser dialog.
-		encoderSettingsEraserText = _("Enter the position of the encoder you wish to delete or will delete")
+	def script_encoderLabelsSettingsEraser(self, gesture):
 		# 17.12: early versions of wxPython 4 does not have number entry dialog, so replace it with a combo box.
-		dlg = wx.SingleChoiceDialog(gui.mainFrame, encoderSettingsEraserText, encoderSettingsEraserTitle, choices=choices)
+		dlg = wx.SingleChoiceDialog(
+			gui.mainFrame,
+			# Translators: The text of the stream configuration eraser dialog.
+			_("Enter the position of the encoder you wish to delete or will delete"),
+			# Translators: The title of the encoder settings eraser dialog.
+			_("Encoder label and settings eraser"),
+			choices=[str(pos) for pos in range(1, self.simpleParent.childCount)]
+		)
 		dlg.SetSelection(self.IAccessibleChildID-1)
 		def callback(result):
 			if result == wx.ID_OK:
