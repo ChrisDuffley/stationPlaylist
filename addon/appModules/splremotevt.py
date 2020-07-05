@@ -5,12 +5,10 @@
 # Basic support for StationPlaylist Remote VT Client.
 # Borrows heavily from creator as the user interface is quite similar with changes specific to VT Client.
 
-import appModuleHandler
 import addonHandler
-import scriptHandler
 import globalVars
 import ui
-import api
+from . import splcreator
 from .splstudio import SPLTrackItem
 addonHandler.initTranslation()
 
@@ -23,10 +21,10 @@ class SPLRemotePlaylistEditorItem(SPLTrackItem):
 	_curColumnNumber = 0
 
 
-class AppModule(appModuleHandler.AppModule):
+class AppModule(splcreator.AppModule):
 
 	def __init__(self, *args, **kwargs):
-		super(AppModule, self).__init__(*args, **kwargs)
+		super(splcreator.AppModule, self).__init__(*args, **kwargs)
 		# Announce VT Client version at startup unless minimal flag is set.
 		try:
 			if not globalVars.appArgs.minimal:
@@ -36,7 +34,7 @@ class AppModule(appModuleHandler.AppModule):
 			pass
 
 	def terminate(self):
-		super(AppModule, self).terminate()
+		super(splcreator.AppModule, self).terminate()
 		# Clear Playlist Editor status cache, otherwise it will generate errors when Remote VT restarts without restarting NVDA.
 		self._playlistEditorStatusCache.clear()
 
