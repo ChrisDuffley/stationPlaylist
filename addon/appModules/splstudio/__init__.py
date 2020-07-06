@@ -190,6 +190,20 @@ class SPLTrackItem(sysListView32.ListItem):
 			# Translators: Presented when a specific column header is not found.
 			ui.message(_("{headerText} not found").format(headerText=header))
 
+	@scriptHandler.script(
+		# Translators: input help mode message for columns viewer command.
+		description=_("Presents data for all columns in the currently selected track"),
+		gesture="kb:control+NVDA+-")
+	def script_trackColumnsViewer(self, gesture):
+		# #61 (18.06): a direct copy of column data gatherer from playlist transcripts.
+		# 18.07: just call the gatherer function with "blank" as the readable string and add column header afterwards.
+		# 20.09: fetch column headers and texts from child columns, meaning columns viewer will reflect visual display order.
+		columnContents = []
+		for column in self.children:
+			columnContents.append("{}: {}".format(column.columnHeaderText, column.name if column.name is not None else _("blank")))
+		# Translators: Title of the column data window.
+		ui.browseableMessage("\n".join(columnContents), title=_("Track data"))
+
 
 class SPLStudioTrackItem(SPLTrackItem):
 	"""A base class for providing utility scripts when SPL Studio track entries are focused, such as location text and column navigation."""
