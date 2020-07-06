@@ -47,24 +47,6 @@ class TrackToolItem(SPLTrackItem):
 	def exploreColumns(self):
 		return splconfig.SPLConfig["General"]["ExploreColumnsTT"]
 
-	@scriptHandler.script(
-		# Translators: input help mode message for columns viewer command.
-		description=_("Presents data for all columns in the currently selected track"),
-		gesture="kb:control+NVDA+-")
-	def script_trackColumnsViewer(self, gesture):
-		# #61 (18.06): a direct copy of column data gatherer from playlist transcripts.
-		# 20.02: customized for Track Tool (no status column).
-		import ui
-		columnHeaders = indexOf(self.appModule.productVersion)
-		columns = list(range(len(columnHeaders)))
-		columnContents = [self._getColumnContentRaw(col) for col in columns]
-		for pos in range(len(columnContents)):
-			if columnContents[pos] is None: columnContents[pos] = _("blank")
-			# Manually add header text until column gatherer adds headers support.
-			columnContents[pos] = ": ".join([columnHeaders[pos], columnContents[pos]])
-		# Translators: Title of the column data window.
-		ui.browseableMessage("\n".join(columnContents), title=_("Track data"))
-
 
 class AppModule(appModuleHandler.AppModule):
 
