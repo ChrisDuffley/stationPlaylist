@@ -39,7 +39,7 @@ Most of these will work in Studio only unless otherwise specified.
 * Control+Alt+Home/End (while focused on a track in Studio, Creator, Remote VT, and Track Tool): Move to first/last track column.
 * Control+Alt+up/down arrow (while focused on a track in Studio, Creator, Remote VT, and Track Tool): Move to previous/next track and announce specific columns.
 * Control+NVDA+1 through 0 (while focused on a track in Studio, Creator (including Playlist Editor), Remote VT, and Track Tool): Announce column content for a specified column (first ten columns by default). Pressing this command twice will display column information on a browse mode window.
-* Control+NVDA+- (hyphen while focused on a track in Studio, Creator, and Track Tool): display data for all columns in a track on a browse mode window.
+* Control+NVDA+- (hyphen while focused on a track in Studio, Creator, Remote VT, and Track Tool): display data for all columns in a track on a browse mode window.
 * Alt+NVDA+C while focused on a track (Studio only): announces track comments if any.
 * Alt+NVDA+0 from Studio window: Opens the Studio add-on configuration dialog.
 * Alt+NVDA+P from Studio window: Opens the Studio broadcast profiles dialog.
@@ -197,8 +197,10 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Version 20.09
 
-* Various column navigation commands will behave like NVDA's own table navigation commands. Besides simplifying these commands, it brings benefits for low vision users and other benefits.
+* Various column navigation commands will behave like NVDA's own table navigation commands. Besides simplifying these commands, it brings benefits such as ease of use by low vision users.
 * Vertical column navigation (Control+Alt+up/down arrow) commands are now availible for Creator, playlist editor, Remote VT, and Track Tool.
+* Track columns viewer command (Control+NVDA+hyphen) is now availible in Creator's Playlist Editor and Remote VT.
+* Track columns viewer command will respect column order displayed on screen.
 * In SAM encoders, improved NVDA's responsivness when pressing Control+F9 or Control+F10 to connect or disconnect all encoders, respectively. This may result in increased verbosity when announcing the selected encoder information.
 * In SPL and AltaCast encoders, pressing F9 will now connect the selected encoder.
 
