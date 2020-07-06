@@ -59,7 +59,7 @@ class TrackToolItem(SPLTrackItem):
 		columns = list(range(len(columnHeaders)))
 		columnContents = [self._getColumnContentRaw(col) for col in columns]
 		for pos in range(len(columnContents)):
-			if columnContents[pos] is None: columnContents[pos] = "blank"
+			if columnContents[pos] is None: columnContents[pos] = _("blank")
 			# Manually add header text until column gatherer adds headers support.
 			columnContents[pos] = ": ".join([columnHeaders[pos], columnContents[pos]])
 		# Translators: Title of the column data window.
