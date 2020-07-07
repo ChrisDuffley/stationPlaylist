@@ -887,10 +887,10 @@ class PlaylistTranscriptsPanel(ColumnAnnouncementsBasePanel):
 		playlistTranscriptsHelper.addItem(columnOrderGroup)
 
 		# wxPython 4 contains RearrangeList to allow item orders to be changed automatically.
-		# Because wxPython 3 doesn't include this, work around by using a variant of list box and move up/down buttons.
+		# Due to usability quirks (focus bouncing and what not), work around by using a variant of list box and move up/down buttons.
 		# 17.04: The label for the list below is above the list, so move move up/down buttons to the right of the list box.
-		# Translators: The label for a setting in SPL add-on dialog to select column announcement order.
-		self.trackColumns = playlistTranscriptsHelper.addLabeledControl(_("Column &order:"), wx.ListBox, choices=self.columnOrder)
+		# 20.09: the list and move up/down buttons are now part of a grouping.
+		self.trackColumns = columnOrderGroup.addItem(wx.ListBox( self, choices=self.columnOrder))
 		self.trackColumns.Bind(wx.EVT_LISTBOX, self.onColumnSelection)
 		self.trackColumns.SetSelection(0)
 
