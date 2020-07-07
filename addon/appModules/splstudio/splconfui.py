@@ -838,12 +838,10 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 		self.trackColumns.SetSelection(0)
 
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
-		# Translators: The label for a button in column announcement dialog to change column position for the selected column.
-		self.upButton = wx.Button(self, wx.ID_ANY, label=_("Move &up"))
+		self.upButton = wx.Button(self, wx.ID_UP)
 		self.upButton.Bind(wx.EVT_BUTTON, self.onMoveUp)
 		self.upButton.Disable()
-		# Translators: The label for a button in column announcement dialog to change column position for the selected column.
-		self.dnButton = wx.Button(self, wx.ID_ANY, label=_("Move &down"))
+		self.dnButton = wx.Button(self, wx.ID_DOWN)
 		self.dnButton.Bind(wx.EVT_BUTTON, self.onMoveDown)
 		sizer.sizer.AddMany((self.upButton, self.dnButton))
 		colAnnouncementsHelper.addItem(sizer.sizer)
@@ -894,12 +892,10 @@ class PlaylistTranscriptsPanel(ColumnAnnouncementsBasePanel):
 		self.trackColumns.SetSelection(0)
 
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
-		# Translators: The label for a button in column announcement dialog to change column position for the selected column.
-		self.upButton = wx.Button(self, wx.ID_ANY, label=_("Move &up"))
+		self.upButton = wx.Button(self, wx.ID_UP)
 		self.upButton.Bind(wx.EVT_BUTTON, self.onMoveUp)
 		self.upButton.Disable()
-		# Translators: The label for a button in column announcement dialog to change column position for the selected column.
-		self.dnButton = wx.Button(self, wx.ID_ANY, label=_("Move &down"))
+		self.dnButton = wx.Button(self, wx.ID_DOWN)
 		self.dnButton.Bind(wx.EVT_BUTTON, self.onMoveDown)
 		sizer.sizer.AddMany((self.upButton, self.dnButton))
 		playlistTranscriptsHelper.addItem(sizer.sizer)
