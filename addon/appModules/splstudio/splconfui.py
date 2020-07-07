@@ -829,22 +829,26 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 		self.checkedColumns.SetCheckedStrings(self.includedColumns)
 		self.checkedColumns.SetSelection(0)
 
+		# Translators: The label for a group in SPL add-on dialog to select column announcement order.
+		columnOrderGroup = gui.guiHelper.BoxSizerHelper(self, sizer=wx.StaticBoxSizer(wx.StaticBox(self, label=_("Column order")), wx.HORIZONTAL))
+		colAnnouncementsHelper.addItem(columnOrderGroup)
+
 		# wxPython 4 contains RearrangeList to allow item orders to be changed automatically.
-		# Because wxPython 3 doesn't include this, work around by using a variant of list box and move up/down buttons.
+		# Due to usability quirks (focus bouncing and what not), work around by using a variant of list box and move up/down buttons.
 		# 17.04: The label for the list below is above the list, so move move up/down buttons to the right of the list box.
-		# Translators: The label for a setting in SPL add-on dialog to select column announcement order.
-		self.trackColumns = colAnnouncementsHelper.addLabeledControl(_("Column &order:"), wx.ListBox, choices=self.columnOrder)
+		# 20.09: the list and move up/down buttons are now part of a grouping.
+		self.trackColumns = columnOrderGroup.addItem(wx.ListBox( self, choices=self.columnOrder))
 		self.trackColumns.Bind(wx.EVT_LISTBOX, self.onColumnSelection)
 		self.trackColumns.SetSelection(0)
 
-		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
+		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 		self.upButton = wx.Button(self, wx.ID_UP)
 		self.upButton.Bind(wx.EVT_BUTTON, self.onMoveUp)
 		self.upButton.Disable()
 		self.dnButton = wx.Button(self, wx.ID_DOWN)
 		self.dnButton.Bind(wx.EVT_BUTTON, self.onMoveDown)
 		sizer.sizer.AddMany((self.upButton, self.dnButton))
-		colAnnouncementsHelper.addItem(sizer.sizer)
+		columnOrderGroup.addItem(sizer.sizer)
 
 		# Translators: the label for a setting in SPL add-on settings to toggle whether column headers should be included when announcing track information.
 		self.columnHeadersCheckbox = colAnnouncementsHelper.addItem(wx.CheckBox(self, label=_("Include column &headers when announcing track information")))
