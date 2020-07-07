@@ -883,6 +883,9 @@ class PlaylistTranscriptsPanel(ColumnAnnouncementsBasePanel):
 		self.checkedColumns.SetCheckedStrings(self.includedColumns)
 		self.checkedColumns.SetSelection(0)
 
+		columnOrderGroup = gui.guiHelper.BoxSizerHelper(self, sizer=wx.StaticBoxSizer(wx.StaticBox(self, label=_("Column order")), wx.HORIZONTAL))
+		playlistTranscriptsHelper.addItem(columnOrderGroup)
+
 		# wxPython 4 contains RearrangeList to allow item orders to be changed automatically.
 		# Because wxPython 3 doesn't include this, work around by using a variant of list box and move up/down buttons.
 		# 17.04: The label for the list below is above the list, so move move up/down buttons to the right of the list box.
