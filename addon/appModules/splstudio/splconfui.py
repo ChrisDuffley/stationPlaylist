@@ -71,7 +71,7 @@ class BroadcastProfilesDialog(wx.Dialog):
 		self.AffirmativeId = self.changeStateButton.Id
 		self.changeStateButton.SetDefault()
 		changeProfilesSizer.Add(self.changeStateButton)
-		profilesListGroupContents.Add(changeProfilesSizer, flag = wx.EXPAND)
+		profilesListGroupContents.Add(changeProfilesSizer, flag=wx.EXPAND)
 		profilesListGroupContents.AddSpacer(gui.guiHelper.SPACE_BETWEEN_ASSOCIATED_CONTROL_HORIZONTAL)
 
 		# Profile controls code credit: NV Access (except copy button).
@@ -842,7 +842,7 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 		# Due to usability quirks (focus bouncing and what not), work around by using a variant of list box and move up/down buttons.
 		# 17.04: The label for the list below is above the list, so move move up/down buttons to the right of the list box.
 		# 20.09: the list and move up/down buttons are now part of a grouping.
-		self.trackColumns = columnOrderGroup.addItem(wx.ListBox( self, choices=self.columnOrder))
+		self.trackColumns = columnOrderGroup.addItem(wx.ListBox(self, choices=self.columnOrder))
 		self.trackColumns.Bind(wx.EVT_LISTBOX, self.onColumnSelection)
 		self.trackColumns.SetSelection(0)
 
@@ -895,7 +895,7 @@ class PlaylistTranscriptsPanel(ColumnAnnouncementsBasePanel):
 		# Due to usability quirks (focus bouncing and what not), work around by using a variant of list box and move up/down buttons.
 		# 17.04: The label for the list below is above the list, so move move up/down buttons to the right of the list box.
 		# 20.09: the list and move up/down buttons are now part of a grouping.
-		self.trackColumns = columnOrderGroup.addItem(wx.ListBox( self, choices=self.columnOrder))
+		self.trackColumns = columnOrderGroup.addItem(wx.ListBox(self, choices=self.columnOrder))
 		self.trackColumns.Bind(wx.EVT_LISTBOX, self.onColumnSelection)
 		self.trackColumns.SetSelection(0)
 
