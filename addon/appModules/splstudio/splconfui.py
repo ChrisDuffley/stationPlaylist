@@ -814,7 +814,8 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 	def makeSettings(self, settingsSizer):
 		colAnnouncementsHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 		# Without manual conversion below, it produces a rare bug where clicking cancel after changing column inclusion causes new set to be retained.
-		self.includedColumns = set(splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"])
+		# Of course take away artist and title.
+		self.includedColumns = set(splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"]) - {"Artist", "Title"}
 		self.columnOrder = splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"]
 
 		# Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
@@ -825,13 +826,9 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 		labelText = _("&Select columns to be announced\n(artist and title are announced by default):")
 
 		# Same as metadata dialog (wx.CheckListBox isn't user friendly).
-		# Gather values for checkboxes except artist and title.
 		# 6.1: Split these columns into rows.
 		# 17.04: Gather items into a single list instead of three.
 		# #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
-		# For this one, remove Artist and Title.
-		self.includedColumns.discard("Artist")
-		self.includedColumns.discard("Title")
 		checkableColumns = ("Duration", "Intro", "Category", "Filename", "Outro", "Year", "Album", "Genre", "Mood", "Energy", "Tempo", "BPM", "Gender", "Rating", "Time Scheduled")
 		self.checkedColumns = colAnnouncementsHelper.addLabeledControl(labelText, CustomCheckListBox, choices=checkableColumns)
 		self.checkedColumns.SetCheckedStrings(self.includedColumns)
@@ -876,20 +873,16 @@ class PlaylistTranscriptsPanel(ColumnAnnouncementsBasePanel):
 	def makeSettings(self, settingsSizer):
 		playlistTranscriptsHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
-		# Again manually create a new set.
-		self.includedColumns = set(splconfig.SPLConfig["PlaylistTranscripts"]["IncludedColumns"])
+		# Again manually create a new set minus artist and title.
+		self.includedColumns = set(splconfig.SPLConfig["PlaylistTranscripts"]["IncludedColumns"]) - {"Artist", "Title"}
 		self.columnOrder = splconfig.SPLConfig["PlaylistTranscripts"]["ColumnOrder"]
 
 		# Translators: Help text to select columns to be announced.
 		labelText = _("&Select columns to be included in playlist transcripts\n(artist and title are always included):")
 
-		# Gather values for checkboxes except artist and title.
 		# 6.1: Split these columns into rows.
 		# 17.04: Gather items into a single list instead of three.
 		# #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
-		# For this one, remove Artist and Title.
-		self.includedColumns.discard("Artist")
-		self.includedColumns.discard("Title")
 		checkableColumns = ("Duration", "Intro", "Category", "Filename", "Outro", "Year", "Album", "Genre", "Mood", "Energy", "Tempo", "BPM", "Gender", "Rating", "Time Scheduled")
 		self.checkedColumns = playlistTranscriptsHelper.addLabeledControl(labelText, CustomCheckListBox, choices=checkableColumns)
 		self.checkedColumns.SetCheckedStrings(self.includedColumns)
