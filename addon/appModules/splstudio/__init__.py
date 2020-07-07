@@ -321,8 +321,8 @@ class SPLStudioTrackItem(SPLTrackItem):
 		nav = api.getNavigatorObject()
 		if nav != self and nav.parent == self:
 			self.__class__._savedColumnNumber = nav.columnNumber
-		row.setFocus(), row.setFocus()
-		splbase.selectTrack(row.IAccessibleChildID-1)
+		# Do action method will set focus to and select the row in question.
+		row.doAction()
 
 	# Overlay class version of Columns Explorer.
 
@@ -1194,8 +1194,8 @@ class AppModule(appModuleHandler.AppModule):
 			# We need to fire set focus event twice and exit this routine (return if 5.0x).
 			# 16.10.1/15.2 LTS: Just select this track in order to prevent a dispute between NVDA and SPL in regards to focused track.
 			# 16.11: Call setFocus if it is post-5.01, as SPL API can be used to select the desired track.
-			splbase.selectTrack(track.IAccessibleChildID-1)
-			track.setFocus(), track.setFocus()
+			# 20.09: doAction method will do this instead.
+			track.doAction()
 		else:
 			# Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
 			wx.CallAfter(gui.messageBox, _("Search string not found."), translate("Find Error"), wx.OK | wx.ICON_ERROR)
@@ -2221,8 +2221,8 @@ class AppModule(appModuleHandler.AppModule):
 			else:
 				track = self._trackLocator(self.placeMarker[1], obj=api.getFocusObject().parent.firstChild, columns=[self.placeMarker[0]])
 				# 16.11: Just like Track Finder, use select track function to select the place marker track.
-				splbase.selectTrack(track.IAccessibleChildID-1)
-				track.setFocus(), track.setFocus()
+				# 20.09: perform doAction instead.
+				track.doAction()
 
 	def script_metadataStreamingAnnouncer(self, gesture):
 		# 8.0: Call the module-level function directly.
