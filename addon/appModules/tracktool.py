@@ -8,7 +8,6 @@
 
 import appModuleHandler
 import addonHandler
-import scriptHandler
 import tones
 from NVDAObjects.IAccessible import sysListView32
 from .splstudio import splconfig, SPLTrackItem
