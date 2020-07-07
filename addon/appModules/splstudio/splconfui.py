@@ -894,14 +894,14 @@ class PlaylistTranscriptsPanel(ColumnAnnouncementsBasePanel):
 		self.trackColumns.Bind(wx.EVT_LISTBOX, self.onColumnSelection)
 		self.trackColumns.SetSelection(0)
 
-		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
+		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 		self.upButton = wx.Button(self, wx.ID_UP)
 		self.upButton.Bind(wx.EVT_BUTTON, self.onMoveUp)
 		self.upButton.Disable()
 		self.dnButton = wx.Button(self, wx.ID_DOWN)
 		self.dnButton.Bind(wx.EVT_BUTTON, self.onMoveDown)
 		sizer.sizer.AddMany((self.upButton, self.dnButton))
-		playlistTranscriptsHelper.addItem(sizer.sizer)
+		columnOrderGroup.addItem(sizer.sizer)
 
 	def onSave(self):
 		splconfig.SPLConfig["PlaylistTranscripts"]["IncludedColumns"] = set(self.checkedColumns.GetCheckedStrings()) | {"Artist", "Title"}
