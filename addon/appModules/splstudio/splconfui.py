@@ -38,6 +38,9 @@ class BroadcastProfilesDialog(wx.Dialog):
 		_configDialogOpened = True
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		broadcastProfilesHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
+		# Profiles list and activate button on the left, management buttons on the right (credit: NV Access).
+		profilesListGroupSizer = wx.StaticBoxSizer(wx.StaticBox(self), wx.HORIZONTAL)
+		profilesListGroupContents = wx.BoxSizer(wx.HORIZONTAL)
 		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 
 		# Broadcast profile controls were inspired by Config Profiles dialog in NVDA Core.
@@ -48,13 +51,15 @@ class BroadcastProfilesDialog(wx.Dialog):
 		# #129 (20.04): explanatory text will be provided when attempting to open this dialog, not here.
 		self.profileNames = list(splconfig.SPLConfig.profileNames)
 		self.profileNames[0] = splconfig.defaultProfileName
-		# Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
-		self.profiles = broadcastProfilesHelper.addLabeledControl(_("Broadcast &profile:"), wx.ListBox, choices=self.displayProfiles(list(self.profileNames)))
+		changeProfilesSizer = wx.BoxSizer(wx.VERTICAL)
+		self.profiles = wx.ListBox(self, choices=self.displayProfiles(list(self.profileNames)))
 		self.profiles.Bind(wx.EVT_LISTBOX, self.onProfileSelection)
 		try:
 			self.profiles.SetSelection(self.profileNames.index(splconfig.SPLConfig.activeProfile))
 		except:
 			pass
+		changeProfilesSizer.Add(self.profiles, proportion=1.0)
+		changeProfilesSizer.AddSpacer(gui.guiHelper.SPACE_BETWEEN_BUTTONS_VERTICAL)
 
 		# Borrowed directly from NvDA Core (credit: NV Access)
 		# This allows Enter key to be pressed to activate the selected profile.
@@ -65,37 +70,40 @@ class BroadcastProfilesDialog(wx.Dialog):
 		self.changeStateButton.Disable()
 		self.AffirmativeId = self.changeStateButton.Id
 		self.changeStateButton.SetDefault()
-		broadcastProfilesHelper.addItem(self.changeStateButton)
+		changeProfilesSizer.Add(self.changeStateButton)
+		profilesListGroupContents.Add(changeProfilesSizer, flag = wx.EXPAND)
+		profilesListGroupContents.AddSpacer(gui.guiHelper.SPACE_BETWEEN_ASSOCIATED_CONTROL_HORIZONTAL)
 
 		# Profile controls code credit: NV Access (except copy button).
 		# Most control labels come from NvDA Core.
 		# 17.10: if restrictions such as volatile config are applied, disable this area entirely.
 		# #129 (20.04): no need for this check in standalone dialog.
-		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
-		newButton = wx.Button(self, label=translate("&New"))
+		buttonHelper = gui.guiHelper.ButtonHelper(wx.VERTICAL)
+		newButton = buttonHelper.addButton(self, label=translate("&New"))
 		newButton.Bind(wx.EVT_BUTTON, self.onNew)
 		# Translators: The label of a button to copy a broadcast profile.
-		copyButton = wx.Button(self, label=_("Cop&y"))
+		copyButton = buttonHelper.addButton(self, label=_("Cop&y"))
 		copyButton.Bind(wx.EVT_BUTTON, self.onCopy)
-		self.renameButton = wx.Button(self, label=translate("&Rename"))
+		self.renameButton = buttonHelper.addButton(self, label=translate("&Rename"))
 		self.renameButton.Bind(wx.EVT_BUTTON, self.onRename)
-		self.deleteButton = wx.Button(self, label=translate("&Delete"))
+		self.deleteButton = buttonHelper.addButton(self, label=translate("&Delete"))
 		self.deleteButton.Bind(wx.EVT_BUTTON, self.onDelete)
-		self.triggerButton = wx.Button(self, label=translate("&Triggers..."))
+		self.triggerButton = buttonHelper.addButton(self, label=translate("&Triggers..."))
 		self.triggerButton.Bind(wx.EVT_BUTTON, self.onTriggers)
-		sizer.sizer.AddMany((newButton, copyButton, self.renameButton, self.deleteButton, self.triggerButton))
 		if self.profiles.GetSelection() == 0:
 			self.renameButton.Disable()
 			self.deleteButton.Disable()
 			self.triggerButton.Disable()
-		broadcastProfilesHelper.addItem(sizer.sizer)
+		profilesListGroupContents.Add(buttonHelper.sizer)
+		profilesListGroupSizer.Add(profilesListGroupContents, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
+		broadcastProfilesHelper.addItem(profilesListGroupSizer)
 		self.switchProfile = splconfig.SPLConfig.instantSwitch
 		self.activeProfile = splconfig.SPLConfig.activeProfile
 		# Used as sanity check in case switch profile is renamed or deleted.
 		self.switchProfileRenamed = False
 		self.switchProfileDeleted = False
 
-		# Close button logic comes from NVDA Core (creidt: NV Access)
+		# Close button logic comes from NVDA Core (credit: NV Access)
 		closeButton = wx.Button(self, wx.ID_CLOSE, label=translate("&Close"))
 		closeButton.Bind(wx.EVT_BUTTON, lambda evt: self.Close())
 		broadcastProfilesHelper.addDialogDismissButtons(closeButton)
