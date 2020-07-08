@@ -632,7 +632,6 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 	def reportConnectionStatus(self, manualConnect=False):
 		# A fake child object holds crucial information about connection status.
 		# In order to not block NVDA commands, this will be done using a different thread.
-		SPLWin = user32.FindWindowW("SPLStudio", None)
 		attemptTime = time.time()
 		messageCache = ""
 		# Status message flags.
@@ -681,13 +680,8 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 					# #141 (20.07): do not focus to Studio or play first selected track if background monitoring is on and this encoder was connected before.
 					# Don't forget that follow-up actions should be performed if this is a manual connect (no background monitoring).
 					if not self.backgroundMonitor or (self.backgroundMonitor and not connectedBefore):
-						if self.focusToStudio:
-							user32.SetForegroundWindow(user32.FindWindowW("TStudioForm", None))
-						# #37 (17.08.1): if run from another function, the message will not be sent, so must be done here.
-						if self.playAfterConnecting:
-							# Do not interupt the currently playing track.
-							if sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus) == 0:
-								sendMessage(SPLWin, 1024, 0, SPLPlay)
+						# 20.09: queue actions such as focus to Studio and playing the selected track.
+						wx.CallAfter(self._onConnect)
 						if not connectedBefore: connectedBefore = True
 					if not encoding: encoding = True
 			else:
