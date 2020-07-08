@@ -775,6 +775,40 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 # #97 (19.04): converted into a base panel (to be flagged as "abstract" later).
 class ColumnAnnouncementsBasePanel(gui.SettingsPanel):
 
+	def _onMakeSettingsBase(self, sHelper, includedColumnsLabel):
+		# Provides common user interface elements for column inclusion/order controls across settings panels (leave it as a private method).
+
+		# Same as metadata dialog (wx.CheckListBox isn't user friendly).
+		# Gather values for checkboxes except artist and title.
+		# 6.1: Split these columns into rows.
+		# 17.04: Gather items into a single list instead of three.
+		# #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
+		checkableColumns = ("Duration", "Intro", "Category", "Filename", "Outro", "Year", "Album", "Genre", "Mood", "Energy", "Tempo", "BPM", "Gender", "Rating", "Time Scheduled")
+		self.checkedColumns = sHelper.addLabeledControl(includedColumnsLabel, CustomCheckListBox, choices=checkableColumns)
+		self.checkedColumns.SetCheckedStrings(self.includedColumns)
+		self.checkedColumns.SetSelection(0)
+
+		# Translators: The label for a group in SPL add-on dialog to select column announcement order.
+		columnOrderGroup = gui.guiHelper.BoxSizerHelper(self, sizer=wx.StaticBoxSizer(wx.StaticBox(self, label=_("Column order")), wx.HORIZONTAL))
+		sHelper.addItem(columnOrderGroup)
+
+		# wxPython 4 contains RearrangeList to allow item orders to be changed automatically.
+		# Due to usability quirks (focus bouncing and what not), work around by using a variant of list box and move up/down buttons.
+		# 17.04: The label for the list below is above the list, so move move up/down buttons to the right of the list box.
+		# 20.09: the list and move up/down buttons are now part of a grouping.
+		self.trackColumns = columnOrderGroup.addItem(wx.ListBox(self, choices=self.columnOrder))
+		self.trackColumns.Bind(wx.EVT_LISTBOX, self.onColumnSelection)
+		self.trackColumns.SetSelection(0)
+
+		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
+		self.upButton = wx.Button(self, wx.ID_UP)
+		self.upButton.Bind(wx.EVT_BUTTON, self.onMoveUp)
+		self.upButton.Disable()
+		self.dnButton = wx.Button(self, wx.ID_DOWN)
+		self.dnButton.Bind(wx.EVT_BUTTON, self.onMoveDown)
+		sizer.sizer.AddMany((self.upButton, self.dnButton))
+		columnOrderGroup.addItem(sizer.sizer)
+
 	def onColumnSelection(self, evt):
 		selIndex = self.trackColumns.GetSelection()
 		self.upButton.Disable() if selIndex == 0 else self.upButton.Enable()
