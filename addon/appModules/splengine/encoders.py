@@ -763,7 +763,6 @@ class SPLEncoder(Encoder):
 
 	def reportConnectionStatus(self, manualConnect=False):
 		# Same routine as SAM encoder: use a thread to prevent blocking NVDA commands.
-		SPLWin = user32.FindWindowW("SPLStudio", None)
 		attemptTime = time.time()
 		messageCache = ""
 		# Status flags.
@@ -798,11 +797,8 @@ class SPLEncoder(Encoder):
 					tones.beep(1000, 150)
 					# Same as SAM encoder: do not do this while background monitoring is on and this encoder was once connected before unless this is a manual connect.
 					if not self.backgroundMonitor or (self.backgroundMonitor and not connectedBefore):
-						if self.focusToStudio:
-							user32.SetForegroundWindow(user32.FindWindowW("TStudioForm", None))
-						if self.playAfterConnecting:
-							if sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus) == 0:
-								sendMessage(SPLWin, 1024, 0, SPLPlay)
+						# 20.09: queue actions such as focus to Studio and playing the selected track.
+						wx.CallAfter(self._onConnect)
 						if not connectedBefore: connectedBefore = True
 					if not connected: connected = True
 			else:
