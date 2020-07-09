@@ -197,10 +197,6 @@ class ConfigHub(ChainMap):
 		return self.profiles[0].name
 
 	@property
-	def volatileConfig(self):
-		return self._volatileConfig
-
-	@property
 	def normalProfileOnly(self):
 		return self._normalProfileOnly
 
