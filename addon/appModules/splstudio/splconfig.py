@@ -205,7 +205,7 @@ class ConfigHub(ChainMap):
 
 	@property
 	def configRestricted(self):
-		return self.volatileConfig or self.normalProfileOnly or self.configInMemory
+		return self.normalProfileOnly or self.configInMemory
 
 	# Profile switching flags.
 	_profileSwitchFlags = {"instant": 0x1}
@@ -317,7 +317,7 @@ class ConfigHub(ChainMap):
 	def createProfile(self, path, profileName=None, parent=None):
 		# 17.10: No, not when restrictions are applied.
 		if self.configRestricted:
-			raise RuntimeError("Broadcast profiles are volatile, only normal profile is in use, or config was loaded from memory")
+			raise RuntimeError("Only normal profile is in use or config was loaded from memory")
 		self.maps.append(self._unlockConfig(path, profileName=profileName, parent=parent, validateNow=True))
 		self.profileNames.append(profileName)
 		self.newProfiles.add(profileName)
@@ -327,7 +327,7 @@ class ConfigHub(ChainMap):
 	def renameProfile(self, oldName, newName):
 		# 17.10: No, not when restrictions are applied.
 		if self.configRestricted:
-			raise RuntimeError("Broadcast profiles are volatile, only normal profile is in use, or config was loaded from memory")
+			raise RuntimeError("Only normal profile is in use or config was loaded from memory")
 		newNamePath = newName + ".ini"
 		newProfile = os.path.join(SPLProfiles, newNamePath)
 		if oldName.lower() != newName.lower() and os.path.isfile(newProfile):
@@ -350,7 +350,7 @@ class ConfigHub(ChainMap):
 	def deleteProfile(self, name):
 		# 17.10: No, not when restrictions are applied.
 		if self.configRestricted:
-			raise RuntimeError("Broadcast profiles are volatile, only normal profile is in use, or config was loaded from memory")
+			raise RuntimeError("Only normal profile is in use or config was loaded from memory")
 		# Bring normal profile to the front if it isn't.
 		# Optimization: Tell the swapper that we need index to the normal profile for this case.
 		configPos = self.swapProfiles(name, defaultProfileName, showSwitchIndex=True) if name == self.activeProfile else self.profileIndexByName(name)
