@@ -364,8 +364,6 @@ class ConfigHub(ChainMap):
 		self.newProfiles.discard(name)
 
 	def _cacheConfig(self, conf):
-		# 17.10: although normal profile is taken care of when the ConfigHub loads, broadcast profiles may not know about volatile config flag.
-		if self.volatileConfig: return
 		global _SPLCache
 		if _SPLCache is None: _SPLCache = {}
 		key = None if conf.filename == SPLIni else conf.name
