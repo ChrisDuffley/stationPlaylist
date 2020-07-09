@@ -147,8 +147,8 @@ class ConfigHub(ChainMap):
 			self.maps[0]["General"]["VerticalColumnAnnounce"] = None
 		self.profileNames.append(None)  # Signifying normal profile.
 		# Always cache normal profile upon startup.
-		# 17.10: and no, not when config is volatile.
-		if not self.volatileConfig:
+		# 17.10: and no, not when config was loaded from memory.
+		if not self.configInMemory:
 			self._cacheConfig(self.maps[0])
 			# Remove deprecated keys.
 			# This action must be performed after caching, otherwise the newly modified profile will not be saved.
@@ -384,12 +384,10 @@ class ConfigHub(ChainMap):
 			raise KeyError('Key not found: {0!r}'.format(key))
 
 	def save(self):
-		# Save all config profiles.
+		# Save all config profiles unless config was loaded from memory.
 		# #73: also responds to config save notification.
 		# In case this is called when NVDA or last SPL component exits, just follow through, as profile history and new profiles list would be cleared as part of general process cleanup.
-		# 17.09: but not when they are volatile.
-		# 17.10: and if in-memory config flag is set.
-		if (self.volatileConfig or self.configInMemory): return
+		if self.configInMemory: return
 		# 7.0: Save normal profile first.
 		# Temporarily merge normal profile.
 		# 8.0: Locate the index instead.
@@ -433,8 +431,7 @@ class ConfigHub(ChainMap):
 					self._cacheConfig(configuration)
 
 	def handlePostConfigSave(self):
-		# Call the volatile version of save function above.
-		if (self.volatileConfig or self.configInMemory): return
+		if self.configInMemory: return
 		self.save()
 
 	# Reset config.
