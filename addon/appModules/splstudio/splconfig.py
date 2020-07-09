@@ -437,45 +437,6 @@ class ConfigHub(ChainMap):
 					# just like normal profile, cache the profile again provided that it was done already and if options in the cache and the live profile are different.
 					self._cacheConfig(configuration)
 
-	def _saveVolatile(self, configSaveAction=False):
-		# Similar to save function except keeps the config hub alive, useful for testing new options or troubleshooting settings.
-		# #73: also used to save settings when notified by config save action.
-		# In case this is called when NVDA exits, just follow through, as profile history and new profiles list would be cleared as part of general process cleanup.
-		if self.volatileConfig:
-			raise RuntimeError("SPL config is already volatile")
-		if not configSaveAction: self._volatileConfig = True
-		normalProfile = self.profileIndexByName(defaultProfileName)
-		_preSave(self.profiles[normalProfile])
-		if self.resetHappened or shouldSave(self.profiles[normalProfile]):
-			# 17.09: temporarily save a copy of the current column headers set.
-			includedColumnsTemp = set(self.profiles[normalProfile]["ColumnAnnouncement"]["IncludedColumns"])
-			self.profiles[normalProfile]["ColumnAnnouncement"]["IncludedColumns"] = list(self.profiles[normalProfile]["ColumnAnnouncement"]["IncludedColumns"])
-			# 18.08: also for Playlist Transcripts.
-			includedColumnsTemp2 = set(self.profiles[normalProfile]["PlaylistTranscripts"]["IncludedColumns"])
-			self.profiles[normalProfile]["PlaylistTranscripts"]["IncludedColumns"] = list(self.profiles[normalProfile]["PlaylistTranscripts"]["IncludedColumns"])
-			self.profiles[normalProfile].write()
-			self.profiles[normalProfile]["ColumnAnnouncement"]["IncludedColumns"] = includedColumnsTemp
-			self.profiles[normalProfile]["PlaylistTranscripts"]["IncludedColumns"] = includedColumnsTemp2
-			# Don't forget to update profile cache, otherwise subsequent changes are lost.
-			if configSaveAction: self._cacheConfig(self.profiles[normalProfile])
-		for configuration in self.profiles:
-			# Normal profile is done.
-			if configuration.name == defaultProfileName: continue
-			if configuration is not None:
-				# 7.0: See if profiles themselves must be saved.
-				# This must be done now, otherwise changes to broadcast profiles (cached) will not be saved as presave removes them.
-				# 8.0: Bypass cache check routine if this is a new profile or if reset happened.
-				# Takes advantage of the fact that Python's "or" operator evaluates from left to right, considerably saving time.
-				if self.resetHappened or configuration.name in self.newProfiles or (configuration.name in _SPLCache and shouldSave(configuration)):
-					# Without keeping a copy of config dictionary (and restoring from it later), settings will be lost when presave check runs.
-					confSettings = configuration.dict()
-					configuration["ColumnAnnouncement"]["IncludedColumns"] = list(configuration["ColumnAnnouncement"]["IncludedColumns"])
-					_preSave(configuration)
-					configuration.write()
-					configuration.update(confSettings)
-					# just like normal profile, cache the profile again provided that it was done already and if options in the cache and the live profile are different.
-					if configSaveAction and configuration.name in _SPLCache: self._cacheConfig(configuration)
-
 	def handlePostConfigSave(self):
 		# Call the volatile version of save function above.
 		if (self.volatileConfig or self.configInMemory): return
