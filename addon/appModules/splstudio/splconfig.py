@@ -390,6 +390,8 @@ class ConfigHub(ChainMap):
 
 	def save(self):
 		# Save all config profiles.
+		# #73: also responds to config save notification.
+		# In case this is called when NVDA or last SPL component exits, just follow through, as profile history and new profiles list would be cleared as part of general process cleanup.
 		# 17.09: but not when they are volatile.
 		# 17.10: and if in-memory config flag is set.
 		if (self.volatileConfig or self.configInMemory): return
@@ -477,7 +479,7 @@ class ConfigHub(ChainMap):
 	def handlePostConfigSave(self):
 		# Call the volatile version of save function above.
 		if (self.volatileConfig or self.configInMemory): return
-		self._saveVolatile(configSaveAction=True)
+		self.save()
 
 	# Reset config.
 	# Profile indicates the name of the profile to be reset.
