@@ -128,9 +128,8 @@ class ConfigHub(ChainMap):
 		# #64 (18.07): keep an eye on which SPL component opened this map.
 		self.splComponents = set()
 		self.splComponents.add(splComponent)
-		# 17.09 only: a private variable to be set when config must become volatile.
+		# 17.09 only: a set of private variables to restrict configuration management such as using in-memory config.
 		# 17.10: now pull it in from command line.
-		self._volatileConfig = "--spl-volatileconfig" in globalVars.appArgsExtra
 		self._configInMemory = "--spl-configinmemory" in globalVars.appArgsExtra
 		self._normalProfileOnly = "--spl-normalprofileonly" in globalVars.appArgsExtra
 		if self.configInMemory: self._normalProfileOnly = True
