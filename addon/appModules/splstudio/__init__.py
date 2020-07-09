@@ -172,13 +172,24 @@ class SPLTrackItem(sysListView32.ListItem):
 			column = self.indexOf(header)
 		except AttributeError:
 			# #117 (20.02): for track items with no custom Columns Explorer support, refer to visual column layout.
-			# Note that zero-based indexing is still used.
-			column = columnPos
+			# #72: probe column order array from the list (parent).
+			# #65 (18.08): use column header method (at least the method body) provided by the class itself.
+			# This will work properly if the list (parent) is (or recognized as) SysListView32.List.
+			# Note that for column announcement, zero-based indexing is still used.
+			column = self.parent._columnOrderArray[column]
+			header = self._getColumnHeaderRaw(colNumber)
 		if column is not None:
+			columnContent = self._getColumnContentRaw(column)
 			# #61 (18.06): pressed once will announce column data, twice will present it in a browse mode window.
-			if scriptHandler.getLastScriptRepeatCount() == 0: self.announceColumnContent(column, header=header)
+			if scriptHandler.getLastScriptRepeatCount() == 0:
+				# Translators: Standard message for announcing column content.
+				if columnContent: ui.message(_("{header}: {content}").format(header=header, content=columnContent))
+				else:
+					# Translators: Spoken when column content is blank.
+					speech.speakMessage(_("{header}: blank").format(header=header))
+					# Translators: Brailled to indicate empty column content.
+					braille.handler.message(_("{header}: ()").format(header=header))
 			else:
-				columnContent = self._getColumnContentRaw(column)
 				if columnContent is None:
 					# Translators: presented when column information for a track is empty.
 					columnContent = _("blank")
