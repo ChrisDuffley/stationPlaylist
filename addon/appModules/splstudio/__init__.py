@@ -978,6 +978,9 @@ class AppModule(appModuleHandler.AppModule):
 		# At the same time, close any opened SPL add-on dialogs.
 		splactions.SPLActionProfileSwitched.unregister(self.actionProfileSwitched)
 		splactions.SPLActionSettingsReset.unregister(self.actionSettingsReset)
+		# 20.09: don't forget about metadata connection announcement handlers.
+		splactions.SPLActionProfileSwitched.unregister(splmisc.metadata_actionProfileSwitched)
+		splactions.SPLActionSettingsReset.unregister(splmisc.metadata_actionSettingsReset)
 		splactions.SPLActionAppTerminating.notify()
 		debugOutput("closing microphone alarm/interval thread")
 		global micAlarmT, micAlarmT2
