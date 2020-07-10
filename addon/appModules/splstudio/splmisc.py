@@ -492,15 +492,10 @@ def metadata_actionProfileSwitched(configDialogActive=False, settingsReset=False
 		_earlyMetadataAnnouncerInternal(metadataStatus())
 
 
-splactions.SPLActionProfileSwitched.register(metadata_actionProfileSwitched)
-
-
 # The only job of this action handler is to call profile switch handler above with special flags.
 def metadata_actionSettingsReset(factoryDefaults=False):
 	metadata_actionProfileSwitched(settingsReset=True)
 
-
-splactions.SPLActionSettingsReset.register(metadata_actionSettingsReset)
 
 # Playlist transcripts processor
 # Takes a snapshot of the active playlist (a 2-D array) and transforms it into various formats.

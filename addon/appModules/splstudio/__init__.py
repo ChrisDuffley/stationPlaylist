@@ -581,6 +581,9 @@ class AppModule(appModuleHandler.AppModule):
 		# #94 (19.03/18.09.7-LTS): also listen to profile reset action.
 		splactions.SPLActionProfileSwitched.register(self.actionProfileSwitched)
 		splactions.SPLActionSettingsReset.register(self.actionSettingsReset)
+		# 20.09: to avoid a resource leak, metadata actions must be registered here, not when splmisc module is being imported.
+		splactions.SPLActionProfileSwitched.register(splmisc.metadata_actionProfileSwitched)
+		splactions.SPLActionSettingsReset.register(splmisc.metadata_actionSettingsReset)
 		debugOutput("loading add-on settings")
 		splconfig.initialize()
 		# Announce status changes while using other programs.
