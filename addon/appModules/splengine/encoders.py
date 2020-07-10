@@ -682,8 +682,8 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 					if not self.backgroundMonitor or (self.backgroundMonitor and not connectedBefore):
 						# 20.09: queue actions such as focus to Studio and playing the selected track.
 						wx.CallAfter(self._onConnect)
-						if not connectedBefore: connectedBefore = True
-					if not encoding: encoding = True
+						connectedBefore = True
+					encoding = True
 			else:
 				if not connecting: connecting = True
 				if encoding: encoding = False
@@ -799,8 +799,8 @@ class SPLEncoder(Encoder):
 					if not self.backgroundMonitor or (self.backgroundMonitor and not connectedBefore):
 						# 20.09: queue actions such as focus to Studio and playing the selected track.
 						wx.CallAfter(self._onConnect)
-						if not connectedBefore: connectedBefore = True
-					if not connected: connected = True
+						connectedBefore = True
+					connected = True
 			else:
 				if connected: connected = False
 				if not connecting: connecting = True
