@@ -157,8 +157,8 @@ class SPLTrackItem(sysListView32.ListItem):
 			# #65 (18.08): use column header method (at least the method body) provided by the class itself.
 			# This will work properly if the list (parent) is (or recognized as) SysListView32.List.
 			# Note that for column announcement, zero-based indexing is still used.
-			column = self.parent._columnOrderArray[column]
-			header = self._getColumnHeaderRaw(colNumber)
+			column = self.parent._columnOrderArray[columnPos]
+			header = self._getColumnHeaderRaw(column)
 		if column is not None:
 			columnContent = self._getColumnContentRaw(column)
 			# #61 (18.06): pressed once will announce column data, twice will present it in a browse mode window.
