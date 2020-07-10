@@ -37,18 +37,26 @@ msgstr "Zobrazí informácie o všetkých metadátach pre aktuálnu skladbu"
 msgid "Track data"
 msgstr "Informácie o udalosti"
 
+#. Translators: announced in SPL Creator and Remote VT when trying to perform playlist status commands while outside of playlist editor.
+#, fuzzy
+msgid "You are not in playlist editor"
+msgstr "Nie ste v playliste a preto nie je možné zobraziť prehliadač jinglov."
+
 #. Translators: Presented when microphone has been active for a while.
 msgid "Microphone active"
 msgstr "Mikrofón zapnutý"
 
+#. Translators: Standard message for announcing column content.
 #, python-brace-format
 msgid "{header}: {content}"
 msgstr "{header}: {content}"
 
+#. Translators: Spoken when column content is blank.
 #, python-brace-format
 msgid "{header}: blank"
 msgstr "{header}: prázdny"
 
+#. Translators: Brailled to indicate empty column content.
 #, python-brace-format
 msgid "{header}: ()"
 msgstr "{header}: ()"
@@ -1617,11 +1625,6 @@ msgstr "Aktívne pripojenia: {encodersConnected}"
 msgid "No encoders connected"
 msgstr "Žiadne aktívne pripojenia"
 
-#. Translators: Status message for encoder monitoring.
-#, python-brace-format
-msgid "{encoder} {encoderNumber}: {status}"
-msgstr "{encoder} {encoderNumber}: {status}"
-
 #. Translators: Input help mode message in SAM Encoder window.
 msgid ""
 "Toggles whether NVDA will switch to Studio when connected to a streaming "
@@ -1867,3 +1870,6 @@ msgstr ""
 "Zlepšuje prístupnosť programu Station Playlist.\n"
 "Navyše pridáva globálne skratky, ktoré sa dajú použiť aj mimo hlavného okna "
 "SPL."
+
+#~ msgid "{encoder} {encoderNumber}: {status}"
+#~ msgstr "{encoder} {encoderNumber}: {status}"
