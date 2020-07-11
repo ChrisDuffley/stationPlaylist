@@ -28,9 +28,6 @@ class SPLCreatorItem(SPLTrackItem):
 	"""An entry in SPL Creator (mostly tracks).
 	"""
 
-	# Keep a record of which column is being looked at.
-	_curColumnNumber = 0
-
 	def indexOf(self, header):
 		try:
 			return indexOf(self.appModule.productVersion).index(header)
@@ -45,9 +42,7 @@ class SPLCreatorItem(SPLTrackItem):
 class SPLPlaylistEditorItem(SPLTrackItem):
 	"""An entry in SPL Creator's Playlist Editor.
 	"""
-
-	# Keep a record of which column is being looked at.
-	_curColumnNumber = 0
+	pass
 
 
 class AppModule(appModuleHandler.AppModule):
@@ -67,7 +62,6 @@ class AppModule(appModuleHandler.AppModule):
 	def terminate(self):
 		super(AppModule, self).terminate()
 		splconfig.closeConfig("splcreator")
-		SPLCreatorItem._curColumnNumber = 0
 		# Clear Playlist Editor status cache, otherwise it will generate errors when Creator restarts without restarting NVDA.
 		self._playlistEditorStatusCache.clear()
 

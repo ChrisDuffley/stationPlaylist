@@ -200,9 +200,6 @@ class SPLTrackItem(sysListView32.ListItem):
 class SPLStudioTrackItem(SPLTrackItem):
 	"""A base class for providing utility scripts when SPL Studio track entries are focused, such as location text and column navigation."""
 
-	# Keep a record of which column is being looked at.
-	_curColumnNumber = None
-
 	def event_stateChange(self):
 		# Why is it that NVDA keeps announcing "not selected" when track items are scrolled?
 		if controlTypes.STATE_SELECTED not in self.states:

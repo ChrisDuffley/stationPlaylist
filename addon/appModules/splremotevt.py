@@ -16,9 +16,7 @@ addonHandler.initTranslation()
 class SPLRemotePlaylistEditorItem(SPLTrackItem):
 	"""An entry in SPL VT Remote Playlist Editor.
 	"""
-
-	# Keep a record of which column is being looked at.
-	_curColumnNumber = 0
+	pass
 
 
 class AppModule(splcreator.AppModule):

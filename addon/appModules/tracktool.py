@@ -27,9 +27,6 @@ class TrackToolItem(SPLTrackItem):
 	"""An entry in Track Tool, used to implement some exciting features.
 	"""
 
-	# Keep a record of which column is being looked at.
-	_curColumnNumber = 0
-
 	def reportFocus(self):
 		# Play a beep when intro exists.
 		if ", Intro:" in self.description:
@@ -57,7 +54,6 @@ class AppModule(appModuleHandler.AppModule):
 	def terminate(self):
 		super(AppModule, self).terminate()
 		splconfig.closeConfig("tracktool")
-		TrackToolItem._curColumnNumber = 0
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		import controlTypes
