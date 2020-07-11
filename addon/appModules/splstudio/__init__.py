@@ -679,9 +679,13 @@ class AppModule(appModuleHandler.AppModule):
 			if not user32.FindWindowW("SPLStudio", None): return
 			if not self.libraryScanning: self.script_libraryScanMonitor(None)
 		# #86 (18.12/18.09.6-LTS): certain internal markers require presence of a playlist, otherwise unexpected things may happen.
-		if not splbase.studioAPI(0, 124):
+		trackCount = splbase.studioAPI(0, 124)
+		if not trackCount:
 			if self._focusedTrack is not None: self._focusedTrack = None
 			if self._analysisMarker is not None: self._analysisMarker = None
+		# #145 (20.09: playlist analysis marker value must be below track count.
+		if self._analysisMarker is not None and not 0 <= self._analysisMarker < trackCount:
+			self._analysisMarker = None
 
 	# Let the global plugin know if SPLController passthrough is allowed.
 	def SPLConPassthrough(self):
