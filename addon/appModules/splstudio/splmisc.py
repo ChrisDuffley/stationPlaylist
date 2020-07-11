@@ -580,24 +580,6 @@ def playlist2txt(start, end, transcriptAction):
 SPLPlaylistTranscriptFormats.append(("txt", playlist2txt, "plain text with one line per entry"))
 
 
-def playlist2csv(start, end, transcriptAction):
-	playlistTranscripts = []
-	columnHeaders = columnPresentationOrder()
-	playlistTranscripts.append("\"{0}\"\n".format("\",\"".join([col for col in columnHeaders])))
-	obj = start
-	columnPos = [obj.indexOf(column) for column in columnHeaders]
-	while obj not in (None, end):
-		columnContents = obj._getColumnContents(columns=columnPos, readable=True)
-		playlistTranscripts.append("\"{0}\"\n".format("\",\"".join([content for content in columnContents])))
-		obj = obj.next
-	if transcriptAction == 0: displayPlaylistTranscripts(playlistTranscripts)
-	elif transcriptAction == 1: copyPlaylistTranscriptsToClipboard(playlistTranscripts)
-	elif transcriptAction == 2: savePlaylistTranscriptsToFile(playlistTranscripts, "csv")
-
-
-SPLPlaylistTranscriptFormats.append(("csv", playlist2csv, "Comma-separated values"))
-
-
 def playlist2htmlTable(start, end, transcriptAction):
 	if transcriptAction == 1:
 		playlistTranscripts = ["<html><head><title>Playlist Transcripts</title></head>"]
@@ -657,6 +639,24 @@ def playlist2mdTable(start, end, transcriptAction):
 
 
 SPLPlaylistTranscriptFormats.append(("mdtable", playlist2mdTable, "Table in Markdown format"))
+
+
+def playlist2csv(start, end, transcriptAction):
+	playlistTranscripts = []
+	columnHeaders = columnPresentationOrder()
+	playlistTranscripts.append("\"{0}\"\n".format("\",\"".join([col for col in columnHeaders])))
+	obj = start
+	columnPos = [obj.indexOf(column) for column in columnHeaders]
+	while obj not in (None, end):
+		columnContents = obj._getColumnContents(columns=columnPos, readable=True)
+		playlistTranscripts.append("\"{0}\"\n".format("\",\"".join([content for content in columnContents])))
+		obj = obj.next
+	if transcriptAction == 0: displayPlaylistTranscripts(playlistTranscripts)
+	elif transcriptAction == 1: copyPlaylistTranscriptsToClipboard(playlistTranscripts)
+	elif transcriptAction == 2: savePlaylistTranscriptsToFile(playlistTranscripts, "csv")
+
+
+SPLPlaylistTranscriptFormats.append(("csv", playlist2csv, "Comma-separated values"))
 
 # Playlist transcripts help desk
 _plTranscriptsDialogOpened = False
@@ -723,7 +723,8 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 			# Translators: one of the playlist transcript actions.
 			_("save to file"),
 		)
-		self.copy2clipPossible = [0, 1, 4]
+		# Clipboard copying is possible for plain text (0), markdown table (3), CSV (4).
+		self.copy2clipPossible = [0, 3, 4]
 
 		# Translators: The label in playlist transcripts dialog to select transcript action.
 		self.transcriptAction = plTranscriptsSizerHelper.addLabeledControl(_("Transcript action:"), wx.Choice, choices=self.transcriptActions)
