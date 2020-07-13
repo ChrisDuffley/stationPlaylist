@@ -441,16 +441,6 @@ class Encoder(IAccessible):
 			if sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus) == 0:
 				sendMessage(SPLWin, 1024, 0, SPLPlay)
 
-	# A master flag setter.
-	# Set or clear a given flag for the encoder given the flag and flag container (currently a feature set).
-	# Also take in the flag key for storing it into the settings file.
-	# The flag will then be written to the configuration file.
-	# 7.0: Don't dump flags to disk unless told.
-	# 20.04: do not dump flags to disk at all, as a dedicated save action will do it.
-	# 20.09 optimization: unconditionally do set add/discard.
-	def _setFlags(self, flag, flagMap):
-		flagMap.add(self.encoderId) if flag else flagMap.discard(self.encoderId)
-
 	# Now the flag configuration scripts.
 
 	@scriptHandler.script(
