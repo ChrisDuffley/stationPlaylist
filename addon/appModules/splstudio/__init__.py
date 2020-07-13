@@ -98,7 +98,8 @@ class SPLTrackItem(sysListView32.ListItem):
 	Subclasses should provide custom routines for various attributes, including global ones to suit their needs.
 
 	Each subclass is named after the app module name where tracks are encountered, such as SPLStudioTrackItem for Studio.
-	Subclasses of module-specific subclasses are named after SPL version, for example SPL510TrackItem for studio 5.10.
+	Subclasses of module-specific subclasses are named after SPL version, for example SPL510TrackItem for studio 5.10 if version-specific handling is required.
+	Classes representing different parts of an app are given descriptive names such as StudioPlaylistViewerItem for tracks found in Studio's Playlist Viewer (main window).
 	"""
 
 	def _get_name(self):
@@ -198,7 +199,13 @@ class SPLTrackItem(sysListView32.ListItem):
 
 
 class SPLStudioTrackItem(SPLTrackItem):
-	"""A base class for providing utility scripts when SPL Studio track entries are focused, such as location text and column navigation."""
+	"""A representative class of Studio track items outside of Playlist Viewer."""
+	pass
+
+
+class StudioPlaylistViewerItem(SPLTrackItem):
+	"""A class representing items found in Playlist Viewer (main window).
+	It provides utility scripts when Playlist Viewer entries are focused, such as location text and enhanced column navigation."""
 
 	def event_stateChange(self):
 		# Why is it that NVDA keeps announcing "not selected" when track items are scrolled?
@@ -725,6 +732,8 @@ class AppModule(appModuleHandler.AppModule):
 				# Track item window style has changed in Studio 5.31.
 				trackItemWindowStyle = 1443991617 if self.productVersion >= "5.31" else 1443991625
 				if abs(windowStyle - trackItemWindowStyle) % 0x100000 == 0:
+					clsList.insert(0, StudioPlaylistViewerItem)
+				else:
 					clsList.insert(0, SPLStudioTrackItem)
 			# #69 (18.08): allow actual list views to be treated as SysListView32.List so column count and other data can be retrieved easily.
 			elif role == controlTypes.ROLE_LIST:
