@@ -187,7 +187,7 @@ class ConfigHub(ChainMap):
 		# Reset flag (only engaged if reset did happen).
 		self.resetHappened = False
 		# #73: listen to config save/reset actions from NVDA Core.
-		config.post_configSave.register(self.handlePostConfigSave)
+		config.post_configSave.register(self.save)
 		config.post_configReset.register(self.handlePostConfigReset)
 
 	# Various properties
@@ -427,10 +427,6 @@ class ConfigHub(ChainMap):
 					configuration.update(confSettings)
 					# just like normal profile, cache the profile again provided that it was done already and if options in the cache and the live profile are different.
 					self._cacheConfig(configuration)
-
-	def handlePostConfigSave(self):
-		if self.configInMemory: return
-		self.save()
 
 	# Reset config.
 	# Profile indicates the name of the profile to be reset.
@@ -751,7 +747,7 @@ def closeConfig(splComponent):
 	if len(SPLConfig.splComponents) == 0:
 		SPLConfig.save()
 		# No need to keep config save/reset registration alive.
-		config.post_configSave.unregister(SPLConfig.handlePostConfigSave)
+		config.post_configSave.unregister(SPLConfig.save)
 		config.post_configReset.unregister(SPLConfig.handlePostConfigReset)
 		SPLConfig = None
 		_SPLCache.clear()
