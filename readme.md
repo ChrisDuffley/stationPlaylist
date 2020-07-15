@@ -198,6 +198,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Version 20.09
 
 * Due to changes in NVDA, --spl-configvolatile command line switch is no longer availible to make add-on settings read-only. You can emulate this by unchecking "Save configuration when exiting NVDA" checkbox from NVDA's general settings panel.
+* Removed pilot features setting from Advanced settings category under add-on settings (Alt+NvDA+0), used to let development snapshot users test bleeding-ege code.
 * Column navigation commands in Studio are now availible in track lists found in listener requests, insert tracks and other screens.
 * Various column navigation commands will behave like NVDA's own table navigation commands. Besides simplifying these commands, it brings benefits such as ease of use by low vision users.
 * Vertical column navigation (Control+Alt+up/down arrow) commands are now availible for Creator, playlist editor, Remote VT, and Track Tool.
