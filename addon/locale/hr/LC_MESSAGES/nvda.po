@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2014-11-28 19:00+1000\n"
-"PO-Revision-Date: 2020-06-11 23:32+0200\n"
+"PO-Revision-Date: 2020-07-10 11:56+0200\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: \n"
 "Language: hr\n"
@@ -40,11 +40,8 @@ msgid "Track data"
 msgstr "Podaci snimke"
 
 #. Translators: announced in SPL Creator and Remote VT when trying to perform playlist status commands while outside of playlist editor.
-#, fuzzy
 msgid "You are not in playlist editor"
-msgstr ""
-"Ne nalaziš se u prikazu popisa snimaka, nije moguće ući u istraživač "
-"džìnglova"
+msgstr "Ne nalaziš se u uređivaču popisa snimaka"
 
 #. Translators: Presented when microphone has been active for a while.
 msgid "Microphone active"
@@ -307,7 +304,7 @@ msgstr "Istraživač džinglova je aktivan"
 
 #. Translators: Presented when microphone was on for more than a specified time in microphone alarm dialog.
 msgid "Warning: Microphone active"
-msgstr "Upozorenje: Mikrofon je uključen"
+msgstr "Upozorenje: Mikrofon je aktivan"
 
 #. Translators: Presented when end of introduction is approaching (example output: 5 sec left in track introduction).
 #, python-brace-format
@@ -784,8 +781,8 @@ msgid ""
 "in unpredictable state. Are you sure you wish to reset Studio add-on "
 "settings to factory defaults?"
 msgstr ""
-"Aktivno je trenutano mijenjanje profila. Resetiranjem Studio dodatka, "
-"normalni profil će postati aktivan, a postavke profila za trenutno "
+"Aktivno je trenutno mijenjanje profila. Resetiranjem postavki Studio "
+"dodatka, normalni profil će postati aktivan, a postavke profila za trenutno "
 "mijenjanje će ostati u nepredviđenom stanju. Stvarno želiš resetirati "
 "postavke Studio dodatka na izvorne vrijednosti?"
 
@@ -855,7 +852,7 @@ msgid ""
 "\n"
 "Thank you."
 msgstr ""
-"Dobrodošli u NVDA dodatak StationPlaylist Studio,\n"
+"Dobro došli u NVDA dodatak StationPlaylist Studio,\n"
 "pomagač za emitiranje pomoću programa Station Playlist Studio, upotrebom "
 "NVDA čitača ekrana.\n"
 "\n"
@@ -883,7 +880,7 @@ msgstr ""
 
 #. Translators: Title of a dialog displayed when the add-on starts presenting basic information, similar to NVDA's own welcome dialog.
 msgid "Welcome to StationPlaylist add-on"
-msgstr "Dobrodošli u StationPlaylist dodatak"
+msgstr "Dobro došli u StationPlaylist dodatak"
 
 #. Translators: A checkbox to show welcome dialog.
 msgid "Show welcome dialog when I start Studio"
@@ -1920,6 +1917,3 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist Studio.\n"
 "Također, dodaje pristup naredbama za Studio s bilo kojeg mjesta."
-
-#~ msgid "{encoder} {encoderNumber}: {status}"
-#~ msgstr "{encoder} {encoderNumber}: {status}"
