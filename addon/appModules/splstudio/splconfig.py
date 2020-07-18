@@ -473,32 +473,6 @@ class ConfigHub(ChainMap):
 		# The below action will ultimately call profile switch handler so subsystems can take appropriate action.
 		splactions.SPLActionSettingsReset.notify(factoryDefaults=factoryDefaults)
 
-	# Reload config.
-	# Go through profiles and reinitialize them.
-	def reload(self, profile=None):
-		profilePool = [] if profile is not None else self.profiles
-		if profile is not None:
-			if not self.profileExists(profile):
-				raise ValueError("The specified profile does not exist")
-			else: profilePool.append(self.profileByName(profile))
-		for conf in profilePool:
-			# Update the profile with data coming from the disk.
-			# No need to cache the updated profile again as cached copy is same as the saved profile.
-			# For now, whatever profile that was active will be used.
-			savedProfile = self._unlockConfig(conf.filename, profileName=conf.name, prefill=conf.filename == SPLIni, validateNow=True).dict()
-			conf.update(savedProfile)
-			conf["ColumnAnnouncement"]["IncludedColumns"] = set(conf["ColumnAnnouncement"]["IncludedColumns"])
-			# Just like reset method, if dealing with normal profile, transform playlist transcripts setting.
-			if conf.filename == SPLIni:
-				conf["PlaylistTranscripts"]["IncludedColumns"] = set(conf["PlaylistTranscripts"]["IncludedColumns"])
-				# Just like constructor, remove deprecated keys if any.
-				deprecatedKeys = get_extra_values(conf)
-				for section, key in deprecatedKeys:
-					if section == (): continue
-					del conf[section[0]][key]
-		# #94 (19.02/18.09.7-LTS): same as reset method but settings from disk will be applied.
-		splactions.SPLActionSettingsReset.notify(factoryDefaults=False)
-
 	def handlePostConfigReset(self, factoryDefaults=False, resetViaConfigDialog=False):
 		def factoryResetInternal(resetViaConfigDialog=False):
 			# An internal function to perform confirmation message presentation in order to avoid freezes.
