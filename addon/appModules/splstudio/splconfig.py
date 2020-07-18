@@ -435,13 +435,16 @@ class ConfigHub(ChainMap):
 			if not self.profileExists(profile):
 				raise ValueError("The specified profile does not exist")
 			else: profilePool.append(self.profileByName(profile))
+		# 20.09: keep complete and profile-specific defaults handy.
+		defaultConfig = _SPLDefaults.dict()
+		defaultProfileConfig = {sect: key for sect, key in defaultConfig.items() if sect in _mutatableSettings}
 		for conf in profilePool:
 			# Retrieve the profile path, as ConfigObj.reset nullifies it.
 			profilePath = conf.filename
 			conf.reset()
 			conf.filename = profilePath
-			# Although copy profile function is used, it is really a reset.
-			copyProfile(_SPLDefaults, conf, complete=profilePath == SPLIni)
+			# 20.09: just like complete reset when loading profiles, update settings from defaults.
+			conf.update(defaultProfileConfig if profilePath != SPLIni else defaultConfig)
 			# Convert certain settings to a different format.
 			conf["ColumnAnnouncement"]["IncludedColumns"] = set(_SPLDefaults["ColumnAnnouncement"]["IncludedColumns"])
 		# Switch back to normal profile via a custom variant of swap routine.
