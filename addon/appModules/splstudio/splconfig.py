@@ -662,15 +662,6 @@ def initialize():
 _SPLCache = {}
 
 
-# Copy settings across profiles.
-# Setting complete flag controls whether profile-specific settings are applied (true otherwise, only set when resetting profiles).
-# 8.0: Simplified thanks to in-place swapping.
-# 17.10: is this necessary now?
-def copyProfile(sourceProfile, targetProfile, complete=False):
-	for section in list(sourceProfile.keys()) if complete else _mutatableSettings:
-		targetProfile[section] = dict(sourceProfile[section])
-
-
 # Last but not least...
 # Module level version of get profile flags function.
 # Optional keyword arguments are to be added when called from dialogs such as add-on settings.
