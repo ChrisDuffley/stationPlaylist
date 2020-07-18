@@ -95,11 +95,6 @@ defaultProfileName = _("Normal profile")
 _SPLComponents_ = ("splstudio", "splcreator", "tracktool")
 
 
-# There are times when a feature must be tested by more users without introducing regressions to stable branch users.
-def isDevVersion():
-	SPLAddonManifest = addonHandler.Addon(os.path.join(os.path.dirname(__file__), "..", "..")).manifest
-	return SPLAddonManifest['updateChannel'] == "dev"
-
 # 8.0: Run-time config storage and management will use ConfigHub data structure, a subclass of chain map.
 # A chain map allows a dictionary to look up predefined mappings to locate a key.
 # When mutating a value, chain map defaults to using the topmost (zeroth) map, which isn't desirable if one wishes to use a specific map.
