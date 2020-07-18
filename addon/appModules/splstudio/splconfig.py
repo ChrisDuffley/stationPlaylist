@@ -134,8 +134,8 @@ class ConfigHub(ChainMap):
 		# But data conversion must take place.
 		if not self.configInMemory: self.maps[0] = self._unlockConfig(SPLIni, profileName=defaultProfileName, prefill=True, validateNow=True)
 		else:
-			self.maps[0] = ConfigObj(None, configspec=confspec, encoding="UTF-8")
-			copyProfile(_SPLDefaults, self.maps[0], complete=True)
+			# 20.09: get the dictionary version of default settings map.
+			self.maps[0] = ConfigObj(_SPLDefaults.dict(), configspec=confspec, encoding="UTF-8")
 			self.maps[0].name = defaultProfileName
 			self.maps[0]["ColumnAnnouncement"]["IncludedColumns"] = set(self.maps[0]["ColumnAnnouncement"]["IncludedColumns"])
 			self.maps[0]["PlaylistTranscripts"]["IncludedColumns"] = set(self.maps[0]["PlaylistTranscripts"]["IncludedColumns"])
