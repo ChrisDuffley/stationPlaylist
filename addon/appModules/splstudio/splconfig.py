@@ -260,7 +260,11 @@ class ConfigHub(ChainMap):
 			# Case 1: restore settings to defaults when 5.x config validation has failed on all values.
 			# 6.0: In case this is a user profile, apply base configuration.
 			# 8.0: Call copy profile function directly to reduce overhead.
-			copyProfile(_SPLDefaults, SPLConfigCheckpoint, complete=SPLConfigCheckpoint.filename == SPLIni)
+			# 20.09: reset all settings from default settings map directly.
+			defaultConfig = _SPLDefaults.dict()
+			if SPLConfigCheckpoint.filename != SPLIni:
+				defaultConfig = {sect: key for sect, key in defaultConfig.items() if sect in _mutatableSettings}
+			SPLConfigCheckpoint.update(defaultConfig)
 			_configLoadStatus[profileName] = "completeReset"
 		elif isinstance(configTest, dict):
 			# Case 2: For 5.x and later, attempt to reconstruct the failed values.
