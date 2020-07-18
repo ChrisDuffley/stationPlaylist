@@ -582,11 +582,6 @@ _val = Validator()
 _SPLDefaults.validate(_val, copy=True)
 
 
-# Display an error dialog when configuration validation fails.
-def runConfigErrorDialog(errorText, errorType):
-	wx.CallAfter(gui.messageBox, errorText, errorType, wx.OK | wx.ICON_ERROR)
-
-
 # In case one or more profiles had config issues, look up the error message from the following map.
 _configErrors = {
 	"fileReset": "Settings reset to defaults due to configuration file coruption",
@@ -637,8 +632,6 @@ def initialize():
 	except (IOError, EOFError, pickle.UnpicklingError):
 		pass
 	if len(_configLoadStatus):
-		# Translators: Standard error title for configuration error.
-		title = _("Studio add-on Configuration error")
 		messages = []
 		# 6.1: Display just the error message if the only corrupt profile is the normal profile.
 		if len(_configLoadStatus) == 1 and SPLConfig.activeProfile in _configLoadStatus:
@@ -652,7 +645,8 @@ def initialize():
 				error = _configErrors[_configLoadStatus[profile]]
 				messages.append("{profileName}: {errorMessage}".format(profileName=profile, errorMessage=error))
 		_configLoadStatus.clear()
-		runConfigErrorDialog("\n".join(messages), title)
+		# Translators: Standard error title for configuration error.
+		wx.CallAfter(gui.messageBox, "\n".join(messages), _("Studio add-on Configuration error"), wx.OK | wx.ICON_ERROR)
 
 
 # Cache a copy of the loaded config.
