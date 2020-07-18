@@ -427,9 +427,11 @@ class ConfigHub(ChainMap):
 					# just like normal profile, cache the profile again provided that it was done already and if options in the cache and the live profile are different.
 					self._cacheConfig(configuration)
 
-	# Reset config.
-	# Profile indicates the name of the profile to be reset.
-	def reset(self, profile=None):
+	# Reset or reload config.
+	# Factory defaults value specifies what will happen (True = reset, False = reload).
+	# Reload is identical to reset except profiles will be updated with data coming from disk.
+	# Profile indicates the name of the profile to reset or reload.
+	def reset(self, factoryDefaults=False, profile=None):
 		profilePool = [] if profile is not None else self.profiles
 		if profile is not None:
 			if not self.profileExists(profile):
@@ -440,24 +442,36 @@ class ConfigHub(ChainMap):
 		defaultProfileConfig = {sect: key for sect, key in defaultConfig.items() if sect in _mutatableSettings}
 		for conf in profilePool:
 			# Retrieve the profile path, as ConfigObj.reset nullifies it.
-			profilePath = conf.filename
-			conf.reset()
-			conf.filename = profilePath
+			# ConfigObj.reload cannot be used as it leaves config in invalidated state.
+			if factoryDefaults:
+				profilePath = conf.filename
+				conf.reset()
+				conf.filename = profilePath
+				sourceProfile = defaultProfileConfig if profilePath != SPLIni else defaultConfig
+			else:
+				sourceProfile = self._unlockConfig(conf.filename, profileName=conf.name, prefill=conf.filename == SPLIni, validateNow=True).dict()
 			# 20.09: just like complete reset when loading profiles, update settings from defaults.
-			conf.update(defaultProfileConfig if profilePath != SPLIni else defaultConfig)
+			conf.update(sourceProfile)
 			# Convert certain settings to a different format.
-			conf["ColumnAnnouncement"]["IncludedColumns"] = set(_SPLDefaults["ColumnAnnouncement"]["IncludedColumns"])
-		# Switch back to normal profile via a custom variant of swap routine.
-		if self.activeProfile != defaultProfileName:
-			npIndex = self.profileIndexByName(defaultProfileName)
-			self.profiles[0], self.profiles[npIndex] = self.profiles[npIndex], self.profiles[0]
-		# 8.0 optimization: Tell other modules that reset was done in order to postpone disk writes until the end.
-		self.resetHappened = True
-		# 18.08: don't forget to change type for Playlist Transcripts/included columns set.
-		self["PlaylistTranscripts"]["IncludedColumns"] = set(_SPLDefaults["PlaylistTranscripts"]["IncludedColumns"])
-		# #94 (19.02/18.09.7-LTS): notify other subsystems to use default settings, as timers and other routines might not see default settings.
+			conf["ColumnAnnouncement"]["IncludedColumns"] = set(conf["ColumnAnnouncement"]["IncludedColumns"])
+			# 18.08: if this is normal profile, don't forget to change type for Playlist Transcripts/included columns set.
+			if conf.filename == SPLIni:
+				conf["PlaylistTranscripts"]["IncludedColumns"] = set(conf["PlaylistTranscripts"]["IncludedColumns"])
+				# Just like constructor, remove deprecated keys if any.
+				deprecatedKeys = get_extra_values(conf)
+				for section, key in deprecatedKeys:
+					if section == (): continue
+					del conf[section[0]][key]
+		# If this is a reset, switch back to normal profile via a custom variant of swap routine.
+		if factoryDefaults:
+			if self.activeProfile != defaultProfileName:
+				npIndex = self.profileIndexByName(defaultProfileName)
+				self.profiles[0], self.profiles[npIndex] = self.profiles[npIndex], self.profiles[0]
+			# 8.0 optimization: Tell other modules that reset was done in order to postpone disk writes until the end.
+			self.resetHappened = True
+		# #94 (19.02/18.09.7-LTS): notify other subsystems to use default or reloaded settings, as timers and other routines might not see default settings.
 		# The below action will ultimately call profile switch handler so subsystems can take appropriate action.
-		splactions.SPLActionSettingsReset.notify(factoryDefaults=True)
+		splactions.SPLActionSettingsReset.notify(factoryDefaults=factoryDefaults)
 
 	# Reload config.
 	# Go through profiles and reinitialize them.
