@@ -431,7 +431,24 @@ class ConfigHub(ChainMap):
 	# Factory defaults value specifies what will happen (True = reset, False = reload).
 	# Reload is identical to reset except profiles will be updated with data coming from disk.
 	# Profile indicates the name of the profile to reset or reload.
-	def reset(self, factoryDefaults=False, profile=None):
+	# Sometimes confirmation message will be shown, especially if instant switch profile is active.
+	# Config dialog flag is a special flag reserved for use by add-on settings dialog.
+	def reset(self, factoryDefaults=False, profile=None, askForConfirmation=False, resetViaConfigDialog=False):
+		if resetViaConfigDialog:
+			askForConfirmation = factoryDefaults and self._switchProfileFlags
+		if askForConfirmation:
+			# present a confirmation message from the main thread.
+			# #96 (19.02/18.09.7-LTS): this is more so if a switch profile is active.
+			# If this is done from add-on settings/reset panel, communicate 'no' with an exception.
+			if gui.messageBox(
+				# Translators: Message displayed when attempting to reset Studio add-on settings while an instant switch profile is active.
+				_("An instant switch profile is active. Resetting Studio add-on settings means normal profile will become active and switch profile settings will be left in unpredictable state. Are you sure you wish to reset Studio add-on settings to factory defaults?"),
+				# Translators: The title of the confirmation dialog for Studio add-on settings reset.
+				_("SPL Studio add-on reset"),
+				wx.YES_NO | wx.NO_DEFAULT | wx.ICON_WARNING
+			) == wx.NO:
+				if not resetViaConfigDialog: return
+				else: raise RuntimeError("Instant switch profile must remain active, reset cannot proceed")
 		profilePool = [] if profile is not None else self.profiles
 		if profile is not None:
 			if not self.profileExists(profile):
@@ -476,26 +493,10 @@ class ConfigHub(ChainMap):
 		# The below action will ultimately call profile switch handler so subsystems can take appropriate action.
 		splactions.SPLActionSettingsReset.notify(factoryDefaults=factoryDefaults)
 
-	def handlePostConfigReset(self, factoryDefaults=False, resetViaConfigDialog=False):
-		def factoryResetInternal(resetViaConfigDialog=False):
-			# An internal function to perform confirmation message presentation in order to avoid freezes.
-			# Also, if done from add-on settings dialog, communicate failure through an exception.
-			# #96 (19.02/18.09.7-LTS): ask once more if a switch profile is active.
-			if self._switchProfileFlags:
-				if gui.messageBox(
-					# Translators: Message displayed when attempting to reset Studio add-on settings while an instant switch profile is active.
-					_("An instant switch profile is active. Resetting Studio add-on settings means normal profile will become active and switch profile settings will be left in unpredictable state. Are you sure you wish to reset Studio add-on settings to factory defaults?"),
-					# Translators: The title of the confirmation dialog for Studio add-on settings reset.
-					_("SPL Studio add-on reset"),
-					wx.YES_NO | wx.NO_DEFAULT | wx.ICON_WARNING
-				) == wx.NO:
-					if not resetViaConfigDialog: return
-					else: raise RuntimeError("Instant switch profile must remain active, reset cannot proceed")
-			self.reset()
-		if not factoryDefaults: self.reload()
-		else:
-			# Because gui.messageBox freezes if not done from main thread, queue it if and only if this is done from the keyboard or via NVDA menu.
-			factoryResetInternal(True) if resetViaConfigDialog else wx.CallAfter(factoryResetInternal)
+	def handlePostConfigReset(self, factoryDefaults=False):
+		# Confirmation message must be presented on the main thread to avoid freezes.
+		# For this reason, reset method should not be called from threads other than main thread unless confirmation is not needed.
+		wx.CallAfter(self.reset, factoryDefaults=factoryDefaults, askForConfirmation=factoryDefaults and self._switchProfileFlags)
 
 	def profileIndexByName(self, name):
 		# 8.0 optimization: Only traverse the profiles list if head (active profile) or tail does not yield profile name in question.
