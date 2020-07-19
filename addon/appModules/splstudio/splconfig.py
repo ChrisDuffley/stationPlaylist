@@ -462,8 +462,11 @@ class ConfigHub(ChainMap):
 				for section, key in deprecatedKeys:
 					if section == (): continue
 					del conf[section[0]][key]
-		# If this is a reset, switch back to normal profile via a custom variant of swap routine.
+		# If this is a reset, switch back to normal profile via a custom variant of swap routine, along with nullifying profile switches.
 		if factoryDefaults:
+			self.prevProfile = None
+			self.switchHistory = [None]
+			self._switchProfileFlags = 0
 			if self.activeProfile != defaultProfileName:
 				npIndex = self.profileIndexByName(defaultProfileName)
 				self.profiles[0], self.profiles[npIndex] = self.profiles[npIndex], self.profiles[0]
@@ -488,9 +491,6 @@ class ConfigHub(ChainMap):
 				) == wx.NO:
 					if not resetViaConfigDialog: return
 					else: raise RuntimeError("Instant switch profile must remain active, reset cannot proceed")
-				self.prevProfile = None
-				self.switchHistory = [None]
-				self._switchProfileFlags = 0
 			self.reset()
 		if not factoryDefaults: self.reload()
 		else:
