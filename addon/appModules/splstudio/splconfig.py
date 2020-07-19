@@ -144,7 +144,7 @@ class ConfigHub(ChainMap):
 		# Always cache normal profile upon startup.
 		# 17.10: and no, not when config was loaded from memory.
 		if not self.configInMemory:
-			self._cacheConfig(self.maps[0])
+			self._cacheProfile(self.maps[0])
 			# Remove deprecated keys.
 			# This action must be performed after caching, otherwise the newly modified profile will not be saved.
 			# For each deprecated/removed key, parse section/subsection.
@@ -362,7 +362,7 @@ class ConfigHub(ChainMap):
 		del self.profileNames[profilePos]
 		self.newProfiles.discard(name)
 
-	def _cacheConfig(self, conf):
+	def _cacheProfile(self, conf):
 		global _SPLCache
 		if _SPLCache is None: _SPLCache = {}
 		key = None if conf.filename == SPLIni else conf.name
@@ -407,7 +407,7 @@ class ConfigHub(ChainMap):
 			self.profiles[normalProfile]["ColumnAnnouncement"]["IncludedColumns"] = includedColumnsTemp
 			self.profiles[normalProfile]["PlaylistTranscripts"]["IncludedColumns"] = includedColumnsTemp2
 			# Don't forget to update profile cache, otherwise subsequent changes are lost.
-			self._cacheConfig(self.profiles[normalProfile])
+			self._cacheProfile(self.profiles[normalProfile])
 		# Now save broadcast profiles.
 		for configuration in self.profiles:
 			# Normal profile is done.
@@ -425,7 +425,7 @@ class ConfigHub(ChainMap):
 					configuration.write()
 					configuration.update(confSettings)
 					# just like normal profile, cache the profile again provided that it was done already and if options in the cache and the live profile are different.
-					self._cacheConfig(configuration)
+					self._cacheProfile(configuration)
 
 	# Reset or reload config.
 	# Factory defaults value specifies what will happen (True = reset, False = reload).
@@ -553,7 +553,7 @@ class ConfigHub(ChainMap):
 		global _SPLCache
 		# 18.03: be sure to check if config cache is even online.
 		if _SPLCache is not None and newProfile != defaultProfileName and newProfile not in _SPLCache:
-			self._cacheConfig(self.profileByName(newProfile))
+			self._cacheProfile(self.profileByName(newProfile))
 
 	def switchProfileEnd(self, prevProfile, newProfile, switchType):
 		if switchType != "instant":

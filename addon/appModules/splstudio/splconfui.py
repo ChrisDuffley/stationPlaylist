@@ -278,7 +278,7 @@ class BroadcastProfilesDialog(wx.Dialog):
 			# #71 (18.07): must be done here, otherwise cache failure occurs where settings won't be saved when in fact it may have been changed from add-on settings.
 			try:
 				if selectedProfile != splconfig.defaultProfileName and selectedProfile not in splconfig._SPLCache:
-					splconfig.SPLConfig._cacheConfig(splconfig.SPLConfig.profileByName(selectedProfile))
+					splconfig.SPLConfig._cacheProfile(splconfig.SPLConfig.profileByName(selectedProfile))
 			except NameError:
 				pass
 		splconfig.SPLConfig.instantSwitch = self.switchProfile
