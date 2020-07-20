@@ -511,6 +511,23 @@ class ConfigHub(ChainMap):
 	def profileByName(self, name):
 		return self.profiles[self.profileIndexByName(name)]
 
+	# Returns list of flags associated with a given profile.
+	# Optional keyword arguments are to be added when called from dialogs such as add-on settings.
+	# A crucial kwarg is contained, and if so, profile flags set will be returned.
+	def getProfileFlags(self, name, active=None, instant=None, contained=False):
+		flags = set()
+		if active is None: active = self.activeProfile
+		if instant is None: instant = self.instantSwitch
+		if name == active:
+			# Translators: A flag indicating the currently active broadcast profile.
+			flags.add(_("active"))
+		if name == instant:
+			# Translators: A flag indicating the broadcast profile is an instant switch profile.
+			flags.add(_("instant switch"))
+		if not contained:
+			return name if len(flags) == 0 else "{0} <{1}>".format(name, ", ".join(flags))
+		else: return flags
+
 	# Switch between profiles.
 	# This involves promoting and demoting normal profile.
 	# 17.10: this will never be invoked if only normal profile is in use or if config was loaded from memory alone.
@@ -648,25 +665,6 @@ def initialize():
 # This comes in handy when saving configuration to disk. For the most part, no change occurs to config.
 # This helps prolong life of a solid-state drive (preventing unnecessary writes).
 _SPLCache = {}
-
-
-# Last but not least...
-# Module level version of get profile flags function.
-# Optional keyword arguments are to be added when called from dialogs such as add-on settings.
-# A crucial kwarg is contained, and if so, profile flags set will be returned.
-def getProfileFlags(name, active=None, instant=None, contained=False):
-	flags = set()
-	if active is None: active = SPLConfig.activeProfile
-	if instant is None: instant = SPLConfig.instantSwitch
-	if name == active:
-		# Translators: A flag indicating the currently active broadcast profile.
-		flags.add(_("active"))
-	if name == instant:
-		# Translators: A flag indicating the broadcast profile is an instant switch profile.
-		flags.add(_("instant switch"))
-	if not contained:
-		return name if len(flags) == 0 else "{0} <{1}>".format(name, ", ".join(flags))
-	else: return flags
 
 
 # Perform some extra work before writing the config file.
