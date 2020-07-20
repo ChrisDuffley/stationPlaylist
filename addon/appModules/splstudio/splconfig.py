@@ -398,15 +398,13 @@ class ConfigHub(ChainMap):
 			# 7.0: This will be repeated for broadcast profiles later.
 			# 8.0: Conversion will happen here, as conversion to list is necessary before writing it to disk (if told to do so).
 			# 17.09: before doing that, temporarily save a copy of the current column headers set.
-			includedColumnsTemp = set(normalProfile["ColumnAnnouncement"]["IncludedColumns"])
+			# 20.09: have a temporary settings dictionary handy for updating the actual profile.
+			profileSettings = normalProfile.dict()
 			normalProfile["ColumnAnnouncement"]["IncludedColumns"] = list(normalProfile["ColumnAnnouncement"]["IncludedColumns"])
-			# 18.08: also for Playlist Transcripts.
-			includedColumnsTemp2 = set(normalProfile["PlaylistTranscripts"]["IncludedColumns"])
 			# 18.08: also convert included columns in playlist transcripts.
 			normalProfile["PlaylistTranscripts"]["IncludedColumns"] = list(normalProfile["PlaylistTranscripts"]["IncludedColumns"])
 			normalProfile.write()
-			normalProfile["ColumnAnnouncement"]["IncludedColumns"] = includedColumnsTemp
-			normalProfile["PlaylistTranscripts"]["IncludedColumns"] = includedColumnsTemp2
+			normalProfile.update(profileSettings)
 			# Don't forget to update profile cache, otherwise subsequent changes are lost.
 			self._cacheProfile(normalProfile)
 		# Now save broadcast profiles.
