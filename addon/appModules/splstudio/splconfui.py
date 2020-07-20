@@ -51,11 +51,14 @@ class BroadcastProfilesDialog(wx.Dialog):
 		# #129 (20.04): explanatory text will be provided when attempting to open this dialog, not here.
 		self.profileNames = list(splconfig.SPLConfig.profileNames)
 		self.profileNames[0] = splconfig.defaultProfileName
+		self.activeProfile = splconfig.SPLConfig.activeProfile
+		self.switchProfile = splconfig.SPLConfig.instantSwitch
 		changeProfilesSizer = wx.BoxSizer(wx.VERTICAL)
-		self.profiles = wx.ListBox(self, choices=self.displayProfiles(list(self.profileNames)))
+		# Include profile flags such as instant profile string for display purposes.
+		self.profiles = wx.ListBox(self, choices=[self.getProfileFlags(profile, contained=False) for profile in self.profileNames])
 		self.profiles.Bind(wx.EVT_LISTBOX, self.onProfileSelection)
 		try:
-			self.profiles.SetSelection(self.profileNames.index(splconfig.SPLConfig.activeProfile))
+			self.profiles.SetSelection(self.profileNames.index(self.activeProfile))
 		except:
 			pass
 		changeProfilesSizer.Add(self.profiles, proportion=1.0)
@@ -97,8 +100,6 @@ class BroadcastProfilesDialog(wx.Dialog):
 		profilesListGroupContents.Add(buttonHelper.sizer)
 		profilesListGroupSizer.Add(profilesListGroupContents, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 		broadcastProfilesHelper.addItem(profilesListGroupSizer)
-		self.switchProfile = splconfig.SPLConfig.instantSwitch
-		self.activeProfile = splconfig.SPLConfig.activeProfile
 		# Used as sanity check in case switch profile is renamed or deleted.
 		self.switchProfileRenamed = False
 		self.switchProfileDeleted = False
