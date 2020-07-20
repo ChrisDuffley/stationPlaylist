@@ -388,26 +388,27 @@ class ConfigHub(ChainMap):
 		# 7.0: Save normal profile first.
 		# Temporarily merge normal profile.
 		# 8.0: Locate the index instead.
-		normalProfile = self.profileIndexByName(defaultProfileName)
-		_preSave(self.profiles[normalProfile])
+		# 20.09: work directly with normal profile.
+		normalProfile = self.profileByName(defaultProfileName)
+		_preSave(normalProfile)
 		# Disk write optimization check please.
 		# 8.0: Bypass this if profiles were reset.
-		if self.resetHappened or shouldSave(self.profiles[normalProfile]):
+		if self.resetHappened or shouldSave(normalProfile):
 			# 6.1: Transform column inclusion data structure (for normal profile) now.
 			# 7.0: This will be repeated for broadcast profiles later.
 			# 8.0: Conversion will happen here, as conversion to list is necessary before writing it to disk (if told to do so).
 			# 17.09: before doing that, temporarily save a copy of the current column headers set.
-			includedColumnsTemp = set(self.profiles[normalProfile]["ColumnAnnouncement"]["IncludedColumns"])
-			self.profiles[normalProfile]["ColumnAnnouncement"]["IncludedColumns"] = list(self.profiles[normalProfile]["ColumnAnnouncement"]["IncludedColumns"])
+			includedColumnsTemp = set(normalProfile["ColumnAnnouncement"]["IncludedColumns"])
+			normalProfile["ColumnAnnouncement"]["IncludedColumns"] = list(normalProfile["ColumnAnnouncement"]["IncludedColumns"])
 			# 18.08: also for Playlist Transcripts.
-			includedColumnsTemp2 = set(self.profiles[normalProfile]["PlaylistTranscripts"]["IncludedColumns"])
+			includedColumnsTemp2 = set(normalProfile["PlaylistTranscripts"]["IncludedColumns"])
 			# 18.08: also convert included columns in playlist transcripts.
-			self.profiles[normalProfile]["PlaylistTranscripts"]["IncludedColumns"] = list(self.profiles[normalProfile]["PlaylistTranscripts"]["IncludedColumns"])
-			self.profiles[normalProfile].write()
-			self.profiles[normalProfile]["ColumnAnnouncement"]["IncludedColumns"] = includedColumnsTemp
-			self.profiles[normalProfile]["PlaylistTranscripts"]["IncludedColumns"] = includedColumnsTemp2
+			normalProfile["PlaylistTranscripts"]["IncludedColumns"] = list(normalProfile["PlaylistTranscripts"]["IncludedColumns"])
+			normalProfile.write()
+			normalProfile["ColumnAnnouncement"]["IncludedColumns"] = includedColumnsTemp
+			normalProfile["PlaylistTranscripts"]["IncludedColumns"] = includedColumnsTemp2
 			# Don't forget to update profile cache, otherwise subsequent changes are lost.
-			self._cacheProfile(self.profiles[normalProfile])
+			self._cacheProfile(normalProfile)
 		# Now save broadcast profiles.
 		for profile in self.profiles:
 			# Normal profile is done.
