@@ -409,23 +409,23 @@ class ConfigHub(ChainMap):
 			# Don't forget to update profile cache, otherwise subsequent changes are lost.
 			self._cacheProfile(self.profiles[normalProfile])
 		# Now save broadcast profiles.
-		for configuration in self.profiles:
+		for profile in self.profiles:
 			# Normal profile is done.
-			if configuration.name == defaultProfileName: continue
-			if configuration is not None:
+			if profile.name == defaultProfileName: continue
+			if profile is not None:
 				# 7.0: See if profiles themselves must be saved.
 				# This must be done now, otherwise changes to broadcast profiles (cached) will not be saved as presave removes them.
 				# 8.0: Bypass cache check routine if this is a new profile or if reset happened.
 				# Takes advantage of the fact that Python's "or" operator evaluates from left to right, considerably saving time.
-				if self.resetHappened or configuration.name in self.newProfiles or (configuration.name in _SPLCache and shouldSave(configuration)):
+				if self.resetHappened or profile.name in self.newProfiles or (profile.name in _SPLCache and shouldSave(profile)):
 					# Without keeping a copy of config dictionary (and restoring from it later), settings will be lost when presave check runs.
-					confSettings = configuration.dict()
-					configuration["ColumnAnnouncement"]["IncludedColumns"] = list(configuration["ColumnAnnouncement"]["IncludedColumns"])
-					_preSave(configuration)
-					configuration.write()
-					configuration.update(confSettings)
+					profileSettings = profile.dict()
+					profile["ColumnAnnouncement"]["IncludedColumns"] = list(profile["ColumnAnnouncement"]["IncludedColumns"])
+					_preSave(profile)
+					profile.write()
+					profile.update(profileSettings)
 					# just like normal profile, cache the profile again provided that it was done already and if options in the cache and the live profile are different.
-					self._cacheProfile(configuration)
+					self._cacheProfile(profile)
 
 	# Reset or reload config.
 	# Factory defaults value specifies what will happen (True = reset, False = reload).
