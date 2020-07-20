@@ -117,12 +117,6 @@ class BroadcastProfilesDialog(wx.Dialog):
 		self.profiles.SetFocus()
 		self.CentreOnScreen()
 
-	# Include profile flags such as instant profile string for display purposes.
-	def displayProfiles(self, profiles):
-		for index in range(len(profiles)):
-			profiles[index] = splconfig.SPLConfig.getProfileFlags(profiles[index])
-		return profiles
-
 	# Load settings from profiles.
 	# #6: set selected profile flag so other panels can pull in appropriate settings.
 	def onProfileSelection(self, evt):
