@@ -446,11 +446,12 @@ class ConfigHub(ChainMap):
 				# This must be done now, otherwise changes to broadcast profiles (cached) will not be saved as presave removes them.
 				# 8.0: Bypass cache check routine if this is a new profile or if reset happened.
 				# Takes advantage of the fact that Python's "or" operator evaluates from left to right, considerably saving time.
-				if self.resetHappened or profile.name in self.newProfiles or (profile.name in _SPLCache and shouldSave(profile)):
+				# Although nothing should be returned when calling dict.get with nonexistent keys, return the current profile for ease of comparison.
+				if self.resetHappened or profile.name in self.newProfiles or _SPLCache.get(profile.name, profile) != profile:
 					# Without keeping a copy of config dictionary (and restoring from it later), settings will be lost when presave check runs.
 					profileSettings = profile.dict()
 					profile["ColumnAnnouncement"]["IncludedColumns"] = list(profile["ColumnAnnouncement"]["IncludedColumns"])
-					_preSave(profile)
+					self._preSave(profile)
 					profile.write()
 					profile.update(profileSettings)
 					# just like normal profile, cache the profile again provided that it was done already and if options in the cache and the live profile are different.
