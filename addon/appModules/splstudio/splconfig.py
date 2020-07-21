@@ -698,15 +698,6 @@ def initialize():
 _SPLCache = {}
 
 
-# Check if the profile should be written to disk.
-# For the most part, no setting will be modified.
-def shouldSave(profile):
-	tree = None if profile.filename == SPLIni else profile.name
-	# 8.0: Streamline the whole process by comparing values alone instead of walking the entire dictionary.
-	# The old loop will be kept in 7.x/LTS for compatibility and to reduce risks associated with accidental saving/discard.
-	return _SPLCache[tree] != profile
-
-
 # Close config database if needed.
 def closeConfig(splComponent):
 	global SPLConfig, _SPLCache
