@@ -380,6 +380,36 @@ class ConfigHub(ChainMap):
 		except KeyError:
 			raise KeyError('Key not found: {0!r}'.format(key))
 
+	# Perform some extra work before writing the config file.
+	def _preSave(self, profile):
+		# Perform global setting processing only for the normal profile.
+		# 7.0: if this is a second pass, index 0 may not be normal profile at all.
+		# Use profile path instead.
+		if profile.filename == SPLIni:
+			SPLSwitchProfile = self.instantSwitch
+			# Cache instant profile for later use.
+			if SPLSwitchProfile is not None:
+				profile["InstantProfile"] = SPLSwitchProfile
+			else:
+				try:
+					del profile["InstantProfile"]
+				except KeyError:
+					pass
+		# For other profiles, remove global settings before writing to disk.
+		else:
+			# 6.1: Make sure column inclusion aren't same as default values.
+			if len(profile["ColumnAnnouncement"]["IncludedColumns"]) == 17:
+				del profile["ColumnAnnouncement"]["IncludedColumns"]
+			for setting in list(profile.keys()):
+				for key in list(profile[setting].keys()):
+					try:
+						if profile[setting][key] == _SPLDefaults[setting][key]:
+							del profile[setting][key]
+					except KeyError:
+						pass
+				if setting in profile and not len(profile[setting]):
+					del profile[setting]
+
 	def save(self):
 		# Save all config profiles unless config was loaded from memory.
 		# #73: also responds to config save notification.
@@ -665,37 +695,6 @@ def initialize():
 # This comes in handy when saving configuration to disk. For the most part, no change occurs to config.
 # This helps prolong life of a solid-state drive (preventing unnecessary writes).
 _SPLCache = {}
-
-
-# Perform some extra work before writing the config file.
-def _preSave(conf):
-	# Perform global setting processing only for the normal profile.
-	# 7.0: if this is a second pass, index 0 may not be normal profile at all.
-	# Use profile path instead.
-	if conf.filename == SPLIni:
-		SPLSwitchProfile = SPLConfig.instantSwitch
-		# Cache instant profile for later use.
-		if SPLSwitchProfile is not None:
-			conf["InstantProfile"] = SPLSwitchProfile
-		else:
-			try:
-				del conf["InstantProfile"]
-			except KeyError:
-				pass
-	# For other profiles, remove global settings before writing to disk.
-	else:
-		# 6.1: Make sure column inclusion aren't same as default values.
-		if len(conf["ColumnAnnouncement"]["IncludedColumns"]) == 17:
-			del conf["ColumnAnnouncement"]["IncludedColumns"]
-		for setting in list(conf.keys()):
-			for key in list(conf[setting].keys()):
-				try:
-					if conf[setting][key] == _SPLDefaults[setting][key]:
-						del conf[setting][key]
-				except KeyError:
-					pass
-			if setting in conf and not len(conf[setting]):
-				del conf[setting]
 
 
 # Check if the profile should be written to disk.
