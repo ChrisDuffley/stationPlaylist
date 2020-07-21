@@ -420,10 +420,10 @@ class ConfigHub(ChainMap):
 		# 8.0: Locate the index instead.
 		# 20.09: work directly with normal profile.
 		normalProfile = self.profileByName(defaultProfileName)
-		_preSave(normalProfile)
+		self._preSave(normalProfile)
 		# Disk write optimization check please.
 		# 8.0: Bypass this if profiles were reset.
-		if self.resetHappened or shouldSave(normalProfile):
+		if self.resetHappened or _SPLCache[None] != normalProfile:
 			# 6.1: Transform column inclusion data structure (for normal profile) now.
 			# 7.0: This will be repeated for broadcast profiles later.
 			# 8.0: Conversion will happen here, as conversion to list is necessary before writing it to disk (if told to do so).
