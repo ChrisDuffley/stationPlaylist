@@ -11,6 +11,7 @@
 
 # Minimum version: SPL 5.20, NvDA 2019.3.
 
+from functools import wraps
 import os
 import time
 import threading
@@ -42,6 +43,20 @@ import addonHandler
 addonHandler.initTranslation()
 from .spldebugging import debugOutput
 from ..skipTranslation import translate
+
+
+# The finally function for status announcement scripts in this module (source: Tyler Spivey's code).
+def finally_(func, final):
+	"""Calls final after func, even if it fails."""
+	def wrap(f):
+		@wraps(f)
+		def new(*args, **kwargs):
+			try:
+				func(*args, **kwargs)
+			finally:
+				final()
+		return new
+	return wrap(final)
 
 # Make sure the broadcaster is running a compatible version.
 SPLMinVersion = "5.20"
@@ -1823,9 +1838,7 @@ class AppModule(appModuleHandler.AppModule):
 		script = appModuleHandler.AppModule.getScript(self, gesture)
 		if not script:
 			script = self.script_error
-		# Just use finally function from the global plugin to reduce code duplication.
-		import globalPlugins.splUtils
-		return globalPlugins.splUtils.finally_(script, self.finish)
+		return finally_(script, self.finish)
 
 	def finish(self):
 		self.SPLAssistant = False
