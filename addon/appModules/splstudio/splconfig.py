@@ -817,12 +817,12 @@ Thank you.""")
 
 # And to open the above dialog and any other dialogs.
 # 18.09: return immediately after opening old ver dialog if minimal flag is set.
-def showStartupDialogs(oldVer=False, oldVerReturn=False):
+def showStartupDialogs(oldVer=False):
 	# Old version reminder if this is such a case.
 	# 17.10: and also used to give people a chance to switch to LTS.
 	# 20.06: controlled by a temporary flag that can come and go.
 	# To be resurrected later.
-	# if oldVerReturn: return
+	# if oldVer: return
 	if globalVars.appArgs.minimal: return
 	if SPLConfig["Startup"]["WelcomeDialog"]:
 		gui.mainFrame.prePopup()
