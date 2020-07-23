@@ -823,6 +823,7 @@ def showStartupDialogs(oldVer=False, oldVerReturn=False):
 	# 20.06: controlled by a temporary flag that can come and go.
 	# To be resurrected later.
 	# if oldVerReturn: return
+	if globalVars.appArgs.minimal: return
 	if SPLConfig["Startup"]["WelcomeDialog"]:
 		gui.mainFrame.prePopup()
 		WelcomeDialog(gui.mainFrame).Show()
