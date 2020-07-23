@@ -81,6 +81,7 @@ SPLConPassthrough = boolean(default=false)
 CompatibilityLayer = option("off", "jfw", default="off")
 [Startup]
 WelcomeDialog = boolean(default=true)
+Studio520 = boolean(default=true)
 """), encoding="UTF-8", list_values=False)
 confspec.newlines = "\r\n"
 SPLConfig = None
@@ -822,7 +823,10 @@ def showStartupDialogs(oldVer=False):
 	# 17.10: and also used to give people a chance to switch to LTS.
 	# 20.06: controlled by a temporary flag that can come and go.
 	# To be resurrected later.
-	# if oldVer: return
+	if oldVer and SPLConfig["Startup"]["Studio520"]:
+		gui.messageBox("You are using Studio 5.20. StationPlaylist add-on 20.09.x will be the last long-term support release to support this version of Studio. If you need to use Studio 5.20, please switch to long-term support channel by going to addons.nvda-project.org, selecting StationPlaylist, and selecting long-term version link.", "Old SPL version")
+		SPLConfig["Startup"]["Studio520"] = False
+		return
 	if globalVars.appArgs.minimal: return
 	if SPLConfig["Startup"]["WelcomeDialog"]:
 		gui.mainFrame.prePopup()
