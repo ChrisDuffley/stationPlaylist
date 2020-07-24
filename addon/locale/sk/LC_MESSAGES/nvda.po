@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-06-10 10:59-0700\n"
+"PO-Revision-Date: 2020-07-18 07:23+0100\n"
 "Last-Translator: Ondrej Rosík <ondrej.rosik@gmail.com>\n"
 "Language-Team: \n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 1.6.11\n"
 
 #. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
 msgid ""
@@ -29,37 +29,13 @@ msgstr ""
 msgid "Old Windows version"
 msgstr "Staršia verzia operačného systému"
 
-#. Translators: input help mode message for columns viewer command.
-msgid "Presents data for all columns in the currently selected track"
-msgstr "Zobrazí informácie o všetkých metadátach pre aktuálnu skladbu"
-
-#. Translators: Title of the column data window.
-msgid "Track data"
-msgstr "Informácie o udalosti"
-
 #. Translators: announced in SPL Creator and Remote VT when trying to perform playlist status commands while outside of playlist editor.
-#, fuzzy
 msgid "You are not in playlist editor"
-msgstr "Nie ste v playliste a preto nie je možné zobraziť prehliadač jinglov."
+msgstr "Nie ste v playliste"
 
 #. Translators: Presented when microphone has been active for a while.
 msgid "Microphone active"
 msgstr "Mikrofón zapnutý"
-
-#. Translators: Standard message for announcing column content.
-#, python-brace-format
-msgid "{header}: {content}"
-msgstr "{header}: {content}"
-
-#. Translators: Spoken when column content is blank.
-#, python-brace-format
-msgid "{header}: blank"
-msgstr "{header}: prázdny"
-
-#. Translators: Brailled to indicate empty column content.
-#, python-brace-format
-msgid "{header}: ()"
-msgstr "{header}: ()"
 
 #. Translators: input help mode message for column explorer commands.
 msgid ""
@@ -81,43 +57,42 @@ msgstr "Station Playlist"
 msgid "Column {columnPosition} not found"
 msgstr "Nepodarilo sa nájsť {columnPosition}"
 
+#. Translators: Standard message for announcing column content.
+#, python-brace-format
+msgid "{header}: {content}"
+msgstr "{header}: {content}"
+
+#. Translators: Spoken when column content is blank.
+#, python-brace-format
+msgid "{header}: blank"
+msgstr "{header}: prázdny"
+
+#. Translators: Brailled to indicate empty column content.
+#, python-brace-format
+msgid "{header}: ()"
+msgstr "{header}: ()"
+
 #. Translators: presented when column information for a track is empty.
 msgid "blank"
 msgstr "prázdny"
+
+#. Translators: Title of the column data window.
+msgid "Track data"
+msgstr "Informácie o udalosti"
 
 #. Translators: Presented when a specific column header is not found.
 #, python-brace-format
 msgid "{headerText} not found"
 msgstr "{headerText} nebol nájdený."
 
+#. Translators: input help mode message for columns viewer command.
+msgid "Presents data for all columns in the currently selected track"
+msgstr "Zobrazí informácie o všetkých metadátach pre aktuálnu skladbu"
+
 #. Translators: location text for a playlist item (example: item 1 of 10).
 #, python-brace-format
 msgid "Item {current} of {total}"
 msgstr "{current} z {total}"
-
-#. Translators: Presented when no track status is found in Studio 5.10.
-msgid "Status not found"
-msgstr "Stav nebol nájdený"
-
-#. Translators: Status information for a checked track in Studio 5.10.
-#, python-brace-format
-msgid "Status: {name}"
-msgstr "Stav: {name}"
-
-#. Translators: Standard message for announcing column content.
-#, python-brace-format
-msgid "{checkStatus}{header}: {content}"
-msgstr "{checkStatus}{header}: {content}"
-
-#. Translators: Spoken when column content is blank.
-#, python-brace-format
-msgid "{checkStatus}{header}: blank"
-msgstr "{checkStatus}{header}: prázdny"
-
-#. Translators: Brailled to indicate empty column content.
-#, python-brace-format
-msgid "{checkStatus}{header}: ()"
-msgstr "{checkStatus}{header}: ()"
 
 msgid "Has comment"
 msgstr "Obsahuje komentár"
@@ -771,6 +746,15 @@ msgstr ""
 msgid "SPL Studio add-on reset"
 msgstr "Obnovenie nastavení doplnku SPL studio"
 
+#. Translators: A flag indicating the currently active broadcast profile.
+msgid "active"
+msgstr "Aktívny"
+
+#. Translators: A flag indicating the broadcast profile is an instant switch profile.
+#. Instant switch flag is set on another profile, so remove the flag first.
+msgid "instant switch"
+msgstr "Ručná aktivácia"
+
 #. Translators: Presented when switch to instant switch profile was successful.
 #, python-brace-format
 msgid "Switching to {newProfileName}"
@@ -784,15 +768,6 @@ msgstr "Vraciam sa na {previousProfile}"
 #. Translators: Standard error title for configuration error.
 msgid "Studio add-on Configuration error"
 msgstr "Chyba nastavení doplnku SPL Studio"
-
-#. Translators: A flag indicating the currently active broadcast profile.
-msgid "active"
-msgstr "Aktívny"
-
-#. Translators: A flag indicating the broadcast profile is an instant switch profile.
-#. Instant switch flag is set on another profile, so remove the flag first.
-msgid "instant switch"
-msgstr "Ručná aktivácia"
 
 #. Translators: announced when only normal profile is in use.
 msgid "Only normal profile is in use"
@@ -941,10 +916,6 @@ msgstr "Oznamovať počet položiek"
 #. Translators: title of a dialog to configure broadcast profiles.
 msgid "SPL Broadcast Profiles"
 msgstr "Vysielacie profily"
-
-#. Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
-msgid "Broadcast &profile:"
-msgstr "Vysielací &Profil:"
 
 #. Borrowed directly from NvDA Core (credit: NV Access)
 #. This allows Enter key to be pressed to activate the selected profile.
@@ -1227,6 +1198,11 @@ msgstr "Upozornenia a vysielanie &Metadát"
 msgid "&Select the URL for metadata streaming upon request:"
 msgstr "&Vyberte url na vysielanie metadát."
 
+#. Translators: The label for a group in SPL add-on dialog to select column announcement order.
+#, fuzzy
+msgid "Column order"
+msgstr "P&oradie metadát:"
+
 #. Translators: title of a panel to configure column announcements (order and what columns should be announced).
 msgid "Column announcements"
 msgstr "Oznamovanie metadát"
@@ -1242,21 +1218,6 @@ msgid ""
 msgstr ""
 "&Vyberte metadáta, ktoré chcete oznamovať\n"
 "(Predvolene sú oznamované interpret a názov skladby):"
-
-#. wxPython 4 contains RearrangeList to allow item orders to be changed automatically.
-#. Because wxPython 3 doesn't include this, work around by using a variant of list box and move up/down buttons.
-#. 17.04: The label for the list below is above the list, so move move up/down buttons to the right of the list box.
-#. Translators: The label for a setting in SPL add-on dialog to select column announcement order.
-msgid "Column &order:"
-msgstr "P&oradie metadát:"
-
-#. Translators: The label for a button in column announcement dialog to change column position for the selected column.
-msgid "Move &up"
-msgstr "Posunúť &hore"
-
-#. Translators: The label for a button in column announcement dialog to change column position for the selected column.
-msgid "Move &down"
-msgstr "Posunúť &dole"
 
 #. Translators: the label for a setting in SPL add-on settings to toggle whether column headers should be included when announcing track information.
 msgid "Include column &headers when announcing track information"
@@ -1341,43 +1302,6 @@ msgstr "Povoliť aktiváciu &SPL asistenta z kontroléra"
 #. Translators: The label for a setting in SPL add-on dialog to set keyboard layout for SPL Assistant.
 msgid "SPL Assistant command &layout:"
 msgstr "&Rozloženie príkazov:"
-
-#. 18.09: allow some dev snapshot users to test pilot features.
-#. Translators: A checkbox to enable pilot features (with risks involved).
-msgid ""
-"Pilot features: I want to test and provide early &feedback on features under "
-"development"
-msgstr ""
-"&Testovanie: chcem testovať nové funkcie doplnku pred oficiálnym vydaním"
-
-#. Translators: The confirmation prompt displayed when about to enable pilot flag (with risks involved).
-msgid ""
-"You are about to enable pilot features. Please note that pilot features may "
-"include functionality that might be unstable at times and should be used for "
-"testing and sending feedback to the add-on developer. If you prefer to use "
-"stable features, please answer no and uncheck pilot features checkbox. Are "
-"you sure you wish to enable pilot features?"
-msgstr ""
-"Chystáte sa aktivovať testovanie nových funkcií. Upozorňujeme, že sa k vám "
-"môžu dostať aj verzie doplnku, ktoré nebudú stabilné. Môžete nám hlásiť, čo "
-"nefunguje a prispieť tak k zlepšeniu doplnku. Ak nechcete testovať nové "
-"funkcie, odpovedzte nie a odčiarknite funkciu testovanie. Naozaj chcete "
-"testovať nové funkcie?"
-
-#. Translators: The title of the channel switch confirmation dialog.
-msgid "Enable pilot features"
-msgstr "Povoliť testovanie"
-
-#. Translators: A dialog message shown when pilot features is turned on or off.
-msgid ""
-"You have toggled pilot features checkbox. You must restart NVDA for the "
-"change to take effect."
-msgstr ""
-"Zmenili ste nastavenie funkcie testovanie. Zmeny sa prejavia po reštarte."
-
-#. Translators: Title of the pilot features dialog.
-msgid "Pilot features"
-msgstr "Testovanie"
 
 #. Translators: Title of the dialog to reset various add-on settings.
 #. Translators: title of a panel to reset add-on settings.
@@ -1678,13 +1602,13 @@ msgid ""
 "deleted."
 msgstr "Umožní zmazať nastavenia pre odstránené pripojenie."
 
-#. Translators: The title of the encoder settings eraser dialog.
-msgid "Encoder label and settings eraser"
-msgstr "Zmazanie pripojení"
-
 #. Translators: The text of the stream configuration eraser dialog.
 msgid "Enter the position of the encoder you wish to delete or will delete"
 msgstr "Zadajte pozíciu pripojenia, ktoré plánujete odstrániť"
+
+#. Translators: The title of the encoder settings eraser dialog.
+msgid "Encoder label and settings eraser"
+msgstr "Zmazanie pripojení"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid ""
@@ -1724,29 +1648,15 @@ msgstr "pripájam..."
 msgid "Disconnecting..."
 msgstr "odpájam..."
 
-#, python-brace-format
-msgid "Format: {encoderFormat}"
-msgstr "Formát: {encoderFormat}"
-
-#, python-brace-format
-msgid "Status: {encoderStatus}"
-msgstr "Stav: {encoderStatus}"
-
-#, python-brace-format
-msgid "Description: {encoderDescription}"
-msgstr "Popis: {encoderDescription}"
-
 #. Translators: input hep command for an encoder connection command.
-msgid "Connects to a streaming server."
+#, fuzzy
+msgid "Connects the selected encoder."
 msgstr "pripojí na vysielací server."
 
-#, python-brace-format
-msgid "Encoder Settings: {setting}"
-msgstr "Nastavenia pripojenia: {setting}"
-
-#, python-brace-format
-msgid "Transfer Rate: {transferRate}"
-msgstr "Prenosová rýchlosť: {transferRate}"
+#. Translators: input hep command for an encoder connection command.
+#, fuzzy
+msgid "Connects all encoders."
+msgstr "pripojí na vysielací server."
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
@@ -1870,6 +1780,76 @@ msgstr ""
 "Zlepšuje prístupnosť programu Station Playlist.\n"
 "Navyše pridáva globálne skratky, ktoré sa dajú použiť aj mimo hlavného okna "
 "SPL."
+
+#~ msgid "Status not found"
+#~ msgstr "Stav nebol nájdený"
+
+#~ msgid "Status: {name}"
+#~ msgstr "Stav: {name}"
+
+#~ msgid "{checkStatus}{header}: {content}"
+#~ msgstr "{checkStatus}{header}: {content}"
+
+#~ msgid "{checkStatus}{header}: blank"
+#~ msgstr "{checkStatus}{header}: prázdny"
+
+#~ msgid "{checkStatus}{header}: ()"
+#~ msgstr "{checkStatus}{header}: ()"
+
+#~ msgid "Broadcast &profile:"
+#~ msgstr "Vysielací &Profil:"
+
+#~ msgid "Move &up"
+#~ msgstr "Posunúť &hore"
+
+#~ msgid "Move &down"
+#~ msgstr "Posunúť &dole"
+
+#~ msgid ""
+#~ "Pilot features: I want to test and provide early &feedback on features "
+#~ "under development"
+#~ msgstr ""
+#~ "&Testovanie: chcem testovať nové funkcie doplnku pred oficiálnym vydaním"
+
+#~ msgid ""
+#~ "You are about to enable pilot features. Please note that pilot features "
+#~ "may include functionality that might be unstable at times and should be "
+#~ "used for testing and sending feedback to the add-on developer. If you "
+#~ "prefer to use stable features, please answer no and uncheck pilot "
+#~ "features checkbox. Are you sure you wish to enable pilot features?"
+#~ msgstr ""
+#~ "Chystáte sa aktivovať testovanie nových funkcií. Upozorňujeme, že sa k "
+#~ "vám môžu dostať aj verzie doplnku, ktoré nebudú stabilné. Môžete nám "
+#~ "hlásiť, čo nefunguje a prispieť tak k zlepšeniu doplnku. Ak nechcete "
+#~ "testovať nové funkcie, odpovedzte nie a odčiarknite funkciu testovanie. "
+#~ "Naozaj chcete testovať nové funkcie?"
+
+#~ msgid "Enable pilot features"
+#~ msgstr "Povoliť testovanie"
+
+#~ msgid ""
+#~ "You have toggled pilot features checkbox. You must restart NVDA for the "
+#~ "change to take effect."
+#~ msgstr ""
+#~ "Zmenili ste nastavenie funkcie testovanie. Zmeny sa prejavia po reštarte."
+
+#~ msgid "Pilot features"
+#~ msgstr "Testovanie"
+
+#~ msgid "Format: {encoderFormat}"
+#~ msgstr "Formát: {encoderFormat}"
+
+#~ msgid "Status: {encoderStatus}"
+#~ msgstr "Stav: {encoderStatus}"
+
+#~ msgid "Description: {encoderDescription}"
+#~ msgstr "Popis: {encoderDescription}"
+
+#~ msgid "Encoder Settings: {setting}"
+#~ msgstr "Nastavenia pripojenia: {setting}"
+
+#~ msgid "Transfer Rate: {transferRate}"
+#~ msgstr "Prenosová rýchlosť: {transferRate}"
 
 #~ msgid "{encoder} {encoderNumber}: {status}"
 #~ msgstr "{encoder} {encoderNumber}: {status}"

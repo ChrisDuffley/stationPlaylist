@@ -28,15 +28,6 @@ msgstr ""
 msgid "Old Windows version"
 msgstr "Otkrivena je starija verzija Windowsa"
 
-#. Translators: input help mode message for columns viewer command.
-msgid "Presents data for all columns in the currently selected track"
-msgstr ""
-
-#. Translators: Title of the column data window.
-#, fuzzy
-msgid "Track data"
-msgstr "Uvodni zapis"
-
 #. Translators: announced in SPL Creator and Remote VT when trying to perform playlist status commands while outside of playlist editor.
 #, fuzzy
 msgid "You are not in playlist editor"
@@ -46,21 +37,6 @@ msgstr ""
 #. Translators: Presented when microphone has been active for a while.
 msgid "Microphone active"
 msgstr "Mikrofon aktivan"
-
-#. Translators: Standard message for announcing column content.
-#, python-brace-format
-msgid "{header}: {content}"
-msgstr "{header}: {content}"
-
-#. Translators: Spoken when column content is blank.
-#, python-brace-format
-msgid "{header}: blank"
-msgstr "{header}: prazno"
-
-#. Translators: Brailled to indicate empty column content.
-#, python-brace-format
-msgid "{header}: ()"
-msgstr "{header}: ()"
 
 #. Translators: input help mode message for column explorer commands.
 msgid ""
@@ -81,43 +57,43 @@ msgstr "StationPlaylist Studio"
 msgid "Column {columnPosition} not found"
 msgstr ""
 
+#. Translators: Standard message for announcing column content.
+#, python-brace-format
+msgid "{header}: {content}"
+msgstr "{header}: {content}"
+
+#. Translators: Spoken when column content is blank.
+#, python-brace-format
+msgid "{header}: blank"
+msgstr "{header}: prazno"
+
+#. Translators: Brailled to indicate empty column content.
+#, python-brace-format
+msgid "{header}: ()"
+msgstr "{header}: ()"
+
 #. Translators: presented when column information for a track is empty.
 msgid "blank"
 msgstr ""
+
+#. Translators: Title of the column data window.
+#, fuzzy
+msgid "Track data"
+msgstr "Uvodni zapis"
 
 #. Translators: Presented when a specific column header is not found.
 #, python-brace-format
 msgid "{headerText} not found"
 msgstr "{headerText} nije pronađen"
 
+#. Translators: input help mode message for columns viewer command.
+msgid "Presents data for all columns in the currently selected track"
+msgstr ""
+
 #. Translators: location text for a playlist item (example: item 1 of 10).
 #, python-brace-format
 msgid "Item {current} of {total}"
 msgstr "Stavka{current} od{total}"
-
-#. Translators: Presented when no track status is found in Studio 5.10.
-msgid "Status not found"
-msgstr "Status nije pronađen"
-
-#. Translators: Status information for a checked track in Studio 5.10.
-#, python-brace-format
-msgid "Status: {name}"
-msgstr "Status: {name}"
-
-#. Translators: Standard message for announcing column content.
-#, python-brace-format
-msgid "{checkStatus}{header}: {content}"
-msgstr "{checkStatus}{header}: {content}"
-
-#. Translators: Spoken when column content is blank.
-#, python-brace-format
-msgid "{checkStatus}{header}: blank"
-msgstr "{checkStatus}{header}: prazno"
-
-#. Translators: Brailled to indicate empty column content.
-#, python-brace-format
-msgid "{checkStatus}{header}: ()"
-msgstr "{checkStatus}{header}: ()"
 
 msgid "Has comment"
 msgstr "Ima komentar"
@@ -792,6 +768,15 @@ msgstr ""
 msgid "SPL Studio add-on reset"
 msgstr "Podešavanja Studio dodatka"
 
+#. Translators: A flag indicating the currently active broadcast profile.
+msgid "active"
+msgstr "Aktivan"
+
+#. Translators: A flag indicating the broadcast profile is an instant switch profile.
+#. Instant switch flag is set on another profile, so remove the flag first.
+msgid "instant switch"
+msgstr "Trenutna promena"
+
 #. Translators: Presented when switch to instant switch profile was successful.
 #, python-brace-format
 msgid "Switching to {newProfileName}"
@@ -805,15 +790,6 @@ msgstr "Vraćanje na profil{previousProfile}"
 #. Translators: Standard error title for configuration error.
 msgid "Studio add-on Configuration error"
 msgstr "Greška u podešavanjima Studio dodatka"
-
-#. Translators: A flag indicating the currently active broadcast profile.
-msgid "active"
-msgstr "Aktivan"
-
-#. Translators: A flag indicating the broadcast profile is an instant switch profile.
-#. Instant switch flag is set on another profile, so remove the flag first.
-msgid "instant switch"
-msgstr "Trenutna promena"
 
 #. Translators: announced when only normal profile is in use.
 msgid "Only normal profile is in use"
@@ -970,10 +946,6 @@ msgstr "Broj skeniranja"
 #. Translators: title of a dialog to configure broadcast profiles.
 #, fuzzy
 msgid "SPL Broadcast Profiles"
-msgstr "&Profil strima:"
-
-#. Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
-msgid "Broadcast &profile:"
 msgstr "&Profil strima:"
 
 #. Borrowed directly from NvDA Core (credit: NV Access)
@@ -1270,6 +1242,11 @@ msgstr "&Obaveštenja za metadata strimove i povezivanja"
 msgid "&Select the URL for metadata streaming upon request:"
 msgstr "Izaberite adresu za metadata strimove nakon zahteva"
 
+#. Translators: The label for a group in SPL add-on dialog to select column announcement order.
+#, fuzzy
+msgid "Column order"
+msgstr "&Red kolona:"
+
 #. Translators: title of a panel to configure column announcements (order and what columns should be announced).
 #, fuzzy
 msgid "Column announcements"
@@ -1287,21 +1264,6 @@ msgid ""
 msgstr ""
 "Izaberite kolone koje se izgovaraju(izvođač i naslov se izgovaraju po "
 "podrazumevanim podešavanjima"
-
-#. wxPython 4 contains RearrangeList to allow item orders to be changed automatically.
-#. Because wxPython 3 doesn't include this, work around by using a variant of list box and move up/down buttons.
-#. 17.04: The label for the list below is above the list, so move move up/down buttons to the right of the list box.
-#. Translators: The label for a setting in SPL add-on dialog to select column announcement order.
-msgid "Column &order:"
-msgstr "&Red kolona:"
-
-#. Translators: The label for a button in column announcement dialog to change column position for the selected column.
-msgid "Move &up"
-msgstr "Pomeri &gore"
-
-#. Translators: The label for a button in column announcement dialog to change column position for the selected column.
-msgid "Move &down"
-msgstr "Pomeri &dole"
 
 #. Translators: the label for a setting in SPL add-on settings to toggle whether column headers should be included when announcing track information.
 msgid "Include column &headers when announcing track information"
@@ -1394,43 +1356,6 @@ msgstr "&Dozvoli SPL kontroler komandi da aktivira SPL asistent"
 #. Translators: The label for a setting in SPL add-on dialog to set keyboard layout for SPL Assistant.
 msgid "SPL Assistant command &layout:"
 msgstr "SPL asistent raspored komandi:"
-
-#. 18.09: allow some dev snapshot users to test pilot features.
-#. Translators: A checkbox to enable pilot features (with risks involved).
-msgid ""
-"Pilot features: I want to test and provide early &feedback on features under "
-"development"
-msgstr ""
-
-#. Translators: The confirmation prompt displayed when about to enable pilot flag (with risks involved).
-#, fuzzy
-msgid ""
-"You are about to enable pilot features. Please note that pilot features may "
-"include functionality that might be unstable at times and should be used for "
-"testing and sending feedback to the add-on developer. If you prefer to use "
-"stable features, please answer no and uncheck pilot features checkbox. Are "
-"you sure you wish to enable pilot features?"
-msgstr ""
-"You are about to switch to the Test Drive Fast (try) builds channel, the "
-"fastest and most unstable development channel. Please note that the selected "
-"channel may come with updates that might be unstable at times and should be "
-"used for testing and sending feedback to the add-on developer. If you prefer "
-"to use stable releases, please answer no and switch to a more stable update "
-"channel. Are you sure you wish to switch to Test Drive Fast channel?"
-
-#. Translators: The title of the channel switch confirmation dialog.
-msgid "Enable pilot features"
-msgstr ""
-
-#. Translators: A dialog message shown when pilot features is turned on or off.
-msgid ""
-"You have toggled pilot features checkbox. You must restart NVDA for the "
-"change to take effect."
-msgstr ""
-
-#. Translators: Title of the pilot features dialog.
-msgid "Pilot features"
-msgstr ""
 
 #. Translators: Title of the dialog to reset various add-on settings.
 #. Translators: title of a panel to reset add-on settings.
@@ -1740,14 +1665,14 @@ msgid ""
 "deleted."
 msgstr "Otvara dijalog za brisanje oznake strimova za određen enkoder"
 
+#. Translators: The text of the stream configuration eraser dialog.
+msgid "Enter the position of the encoder you wish to delete or will delete"
+msgstr "Upišite poziciju enkodera koji želite da obrišete"
+
 #. Translators: The title of the encoder settings eraser dialog.
 #, fuzzy
 msgid "Encoder label and settings eraser"
 msgstr "Brisač podešavanja i oznaka strimova"
-
-#. Translators: The text of the stream configuration eraser dialog.
-msgid "Enter the position of the encoder you wish to delete or will delete"
-msgstr "Upišite poziciju enkodera koji želite da obrišete"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 #, fuzzy
@@ -1790,29 +1715,15 @@ msgstr "Povezivanje..."
 msgid "Disconnecting..."
 msgstr "Prekidanje veze..."
 
-#, python-brace-format
-msgid "Format: {encoderFormat}"
-msgstr ""
-
-#, fuzzy, python-brace-format
-msgid "Status: {encoderStatus}"
-msgstr "Status: {name}"
-
-#, python-brace-format
-msgid "Description: {encoderDescription}"
-msgstr ""
-
 #. Translators: input hep command for an encoder connection command.
-msgid "Connects to a streaming server."
+#, fuzzy
+msgid "Connects the selected encoder."
 msgstr "Povezuje se na server za strimovanje"
 
-#, python-brace-format
-msgid "Encoder Settings: {setting}"
-msgstr "Podešavanja enkodera: {setting}"
-
-#, python-brace-format
-msgid "Transfer Rate: {transferRate}"
-msgstr "Brzina: {transferRate}"
+#. Translators: input hep command for an encoder connection command.
+#, fuzzy
+msgid "Connects all encoders."
+msgstr "Povezuje se na server za strimovanje"
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
@@ -1942,6 +1853,56 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist Studio.\n"
 "Takođe, dodaje globalne komande za studio bilo gde."
+
+#~ msgid "Status not found"
+#~ msgstr "Status nije pronađen"
+
+#~ msgid "Status: {name}"
+#~ msgstr "Status: {name}"
+
+#~ msgid "{checkStatus}{header}: {content}"
+#~ msgstr "{checkStatus}{header}: {content}"
+
+#~ msgid "{checkStatus}{header}: blank"
+#~ msgstr "{checkStatus}{header}: prazno"
+
+#~ msgid "{checkStatus}{header}: ()"
+#~ msgstr "{checkStatus}{header}: ()"
+
+#~ msgid "Broadcast &profile:"
+#~ msgstr "&Profil strima:"
+
+#~ msgid "Move &up"
+#~ msgstr "Pomeri &gore"
+
+#~ msgid "Move &down"
+#~ msgstr "Pomeri &dole"
+
+#, fuzzy
+#~ msgid ""
+#~ "You are about to enable pilot features. Please note that pilot features "
+#~ "may include functionality that might be unstable at times and should be "
+#~ "used for testing and sending feedback to the add-on developer. If you "
+#~ "prefer to use stable features, please answer no and uncheck pilot "
+#~ "features checkbox. Are you sure you wish to enable pilot features?"
+#~ msgstr ""
+#~ "You are about to switch to the Test Drive Fast (try) builds channel, the "
+#~ "fastest and most unstable development channel. Please note that the "
+#~ "selected channel may come with updates that might be unstable at times "
+#~ "and should be used for testing and sending feedback to the add-on "
+#~ "developer. If you prefer to use stable releases, please answer no and "
+#~ "switch to a more stable update channel. Are you sure you wish to switch "
+#~ "to Test Drive Fast channel?"
+
+#, fuzzy
+#~ msgid "Status: {encoderStatus}"
+#~ msgstr "Status: {name}"
+
+#~ msgid "Encoder Settings: {setting}"
+#~ msgstr "Podešavanja enkodera: {setting}"
+
+#~ msgid "Transfer Rate: {transferRate}"
+#~ msgstr "Brzina: {transferRate}"
 
 #~ msgid "{encoder} {encoderNumber}: {status}"
 #~ msgstr "{encoder} {encoderNumber}: {status}"

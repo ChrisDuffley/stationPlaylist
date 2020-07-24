@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 17.02\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2017-02-03 19:00+1000\n"
-"PO-Revision-Date: 2020-06-10 10:58-0700\n"
+"PO-Revision-Date: 2020-07-20 11:26+0700\n"
 "Last-Translator: Dang Manh Cuong <dangmanhcuong@gmail.com>\n"
 "Language-Team: \n"
 "Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 1.6.11\n"
 
 #. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
 msgid ""
@@ -28,38 +28,13 @@ msgstr ""
 msgid "Old Windows version"
 msgstr "Phiên bản Windows cũ"
 
-#. Translators: input help mode message for columns viewer command.
-msgid "Presents data for all columns in the currently selected track"
-msgstr "Trình bày tất cả các cột dữ liệu cho track đang được chọn"
-
-#. Translators: Title of the column data window.
-msgid "Track data"
-msgstr "Dữ liệu track"
-
 #. Translators: announced in SPL Creator and Remote VT when trying to perform playlist status commands while outside of playlist editor.
-#, fuzzy
 msgid "You are not in playlist editor"
-msgstr ""
-"Bạn không ở trong trình xem danh sách phát, không thể vào cart explorer"
+msgstr "Bạn không ở trong trình chỉnh sửa danh sách phát"
 
 #. Translators: Presented when microphone has been active for a while.
 msgid "Microphone active"
 msgstr "Microphone hoạt động"
-
-#. Translators: Standard message for announcing column content.
-#, python-brace-format
-msgid "{header}: {content}"
-msgstr "{header}: {content}"
-
-#. Translators: Spoken when column content is blank.
-#, python-brace-format
-msgid "{header}: blank"
-msgstr "{header}: rỗng"
-
-#. Translators: Brailled to indicate empty column content.
-#, python-brace-format
-msgid "{header}: ()"
-msgstr "{header}: ()"
 
 #. Translators: input help mode message for column explorer commands.
 msgid ""
@@ -81,43 +56,42 @@ msgstr "StationPlaylist"
 msgid "Column {columnPosition} not found"
 msgstr "Không tìm thấy cột {columnPosition}"
 
+#. Translators: Standard message for announcing column content.
+#, python-brace-format
+msgid "{header}: {content}"
+msgstr "{header}: {content}"
+
+#. Translators: Spoken when column content is blank.
+#, python-brace-format
+msgid "{header}: blank"
+msgstr "{header}: rỗng"
+
+#. Translators: Brailled to indicate empty column content.
+#, python-brace-format
+msgid "{header}: ()"
+msgstr "{header}: ()"
+
 #. Translators: presented when column information for a track is empty.
 msgid "blank"
 msgstr "rỗng"
+
+#. Translators: Title of the column data window.
+msgid "Track data"
+msgstr "Dữ liệu track"
 
 #. Translators: Presented when a specific column header is not found.
 #, python-brace-format
 msgid "{headerText} not found"
 msgstr "không tìm thấy {headerText}"
 
+#. Translators: input help mode message for columns viewer command.
+msgid "Presents data for all columns in the currently selected track"
+msgstr "Trình bày tất cả các cột dữ liệu cho track đang được chọn"
+
 #. Translators: location text for a playlist item (example: item 1 of 10).
 #, python-brace-format
 msgid "Item {current} of {total}"
 msgstr "Mục {current} của {total}"
-
-#. Translators: Presented when no track status is found in Studio 5.10.
-msgid "Status not found"
-msgstr "Không tìm thấy trạng thái"
-
-#. Translators: Status information for a checked track in Studio 5.10.
-#, python-brace-format
-msgid "Status: {name}"
-msgstr "Trạng thái: {name}"
-
-#. Translators: Standard message for announcing column content.
-#, python-brace-format
-msgid "{checkStatus}{header}: {content}"
-msgstr "{checkStatus}{header}: {content}"
-
-#. Translators: Spoken when column content is blank.
-#, python-brace-format
-msgid "{checkStatus}{header}: blank"
-msgstr "{checkStatus}{header}: rỗng"
-
-#. Translators: Brailled to indicate empty column content.
-#, python-brace-format
-msgid "{checkStatus}{header}: ()"
-msgstr "{checkStatus}{header}: ()"
 
 msgid "Has comment"
 msgstr "Có chú thích"
@@ -781,6 +755,15 @@ msgstr ""
 msgid "SPL Studio add-on reset"
 msgstr "Khôi phục cài đặt SPL Studio add-on"
 
+#. Translators: A flag indicating the currently active broadcast profile.
+msgid "active"
+msgstr "hoạt động"
+
+#. Translators: A flag indicating the broadcast profile is an instant switch profile.
+#. Instant switch flag is set on another profile, so remove the flag first.
+msgid "instant switch"
+msgstr "chuyển nhanh"
+
 #. Translators: Presented when switch to instant switch profile was successful.
 #, python-brace-format
 msgid "Switching to {newProfileName}"
@@ -794,15 +777,6 @@ msgstr "Đang trở về {previousProfile}"
 #. Translators: Standard error title for configuration error.
 msgid "Studio add-on Configuration error"
 msgstr "Studio add-on lỗi cấu hình"
-
-#. Translators: A flag indicating the currently active broadcast profile.
-msgid "active"
-msgstr "hoạt động"
-
-#. Translators: A flag indicating the broadcast profile is an instant switch profile.
-#. Instant switch flag is set on another profile, so remove the flag first.
-msgid "instant switch"
-msgstr "chuyển nhanh"
 
 #. Translators: announced when only normal profile is in use.
 msgid "Only normal profile is in use"
@@ -954,10 +928,6 @@ msgstr "Lượt quét"
 #. Translators: title of a dialog to configure broadcast profiles.
 msgid "SPL Broadcast Profiles"
 msgstr "Hồ sơ phát thanh SPL"
-
-#. Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
-msgid "Broadcast &profile:"
-msgstr "Cấu hình &phát thanh:"
 
 #. Borrowed directly from NvDA Core (credit: NV Access)
 #. This allows Enter key to be pressed to activate the selected profile.
@@ -1241,6 +1211,11 @@ msgstr "Thông báo và kết nối &truyền siêu dữ liệu"
 msgid "&Select the URL for metadata streaming upon request:"
 msgstr "&Chọn URL cho truyền siêu dữ liệu theo yêu cầu:"
 
+#. Translators: The label for a group in SPL add-on dialog to select column announcement order.
+#, fuzzy
+msgid "Column order"
+msgstr "Sắp xếp &cột:"
+
 #. Translators: title of a panel to configure column announcements (order and what columns should be announced).
 msgid "Column announcements"
 msgstr "Thông báo các cột"
@@ -1254,21 +1229,6 @@ msgid ""
 "&Select columns to be announced\n"
 "(artist and title are announced by default):"
 msgstr "&Chọn các cột để thông báo (ca sĩ và tựa đề mặc định được thông báo:"
-
-#. wxPython 4 contains RearrangeList to allow item orders to be changed automatically.
-#. Because wxPython 3 doesn't include this, work around by using a variant of list box and move up/down buttons.
-#. 17.04: The label for the list below is above the list, so move move up/down buttons to the right of the list box.
-#. Translators: The label for a setting in SPL add-on dialog to select column announcement order.
-msgid "Column &order:"
-msgstr "Sắp xếp &cột:"
-
-#. Translators: The label for a button in column announcement dialog to change column position for the selected column.
-msgid "Move &up"
-msgstr "Di chuyển &lên"
-
-#. Translators: The label for a button in column announcement dialog to change column position for the selected column.
-msgid "Move &down"
-msgstr "Di chuyển &xuống"
 
 #. Translators: the label for a setting in SPL add-on settings to toggle whether column headers should be included when announcing track information.
 msgid "Include column &headers when announcing track information"
@@ -1353,45 +1313,6 @@ msgstr "Cho phép lệnh điề&u khiển SPL gọi SPL Assistant layer"
 #. Translators: The label for a setting in SPL add-on dialog to set keyboard layout for SPL Assistant.
 msgid "SPL Assistant command &layout:"
 msgstr "Kiểu lệnh SP&L Assistant:"
-
-#. 18.09: allow some dev snapshot users to test pilot features.
-#. Translators: A checkbox to enable pilot features (with risks involved).
-msgid ""
-"Pilot features: I want to test and provide early &feedback on features under "
-"development"
-msgstr ""
-"Các tính năng thử nghiệm: Tôi muốn kiểm tra và gửi &phản hồi sớm về các tính "
-"năng đang được thử nghiệm"
-
-#. Translators: The confirmation prompt displayed when about to enable pilot flag (with risks involved).
-msgid ""
-"You are about to enable pilot features. Please note that pilot features may "
-"include functionality that might be unstable at times and should be used for "
-"testing and sending feedback to the add-on developer. If you prefer to use "
-"stable features, please answer no and uncheck pilot features checkbox. Are "
-"you sure you wish to enable pilot features?"
-msgstr ""
-"Bạn sắp bật các tính năng thử nghiệm. Xin lưu ý rằng các tính năng thử "
-"nghiệm có thể bao gồm các chức năng hiện chưa chính thức được dùng và chỉ "
-"nên dùng để kiểm tra và gửi phản hồi cho người phát triển add-on. Nếu chỉ "
-"thích dùng các tính năng chính thức, hãy trả lời không và bỏ chọn hộp kiểm "
-"các tính năng thử nghiệm. Bạn có muốn bật tính năng thử nghiệm không?"
-
-#. Translators: The title of the channel switch confirmation dialog.
-msgid "Enable pilot features"
-msgstr "Bật các tính năng thử nghiệm"
-
-#. Translators: A dialog message shown when pilot features is turned on or off.
-msgid ""
-"You have toggled pilot features checkbox. You must restart NVDA for the "
-"change to take effect."
-msgstr ""
-"Bạn đã bật / tắt hộp kiểm các tính năng thử nghiệm. Bạn phải khởi động lại "
-"NVDA để thay đổi có hiệu lực."
-
-#. Translators: Title of the pilot features dialog.
-msgid "Pilot features"
-msgstr "Các tính năng thử nghiệm"
 
 #. Translators: Title of the dialog to reset various add-on settings.
 #. Translators: title of a panel to reset add-on settings.
@@ -1701,13 +1622,13 @@ msgstr ""
 "Mở một hộp thoại để xóa các nhãn mã hóa và các thiết lạp từ một bộ mã hóa đã "
 "bị xóa."
 
-#. Translators: The title of the encoder settings eraser dialog.
-msgid "Encoder label and settings eraser"
-msgstr "Nhãn mã hóa và xóa các cài đặt"
-
 #. Translators: The text of the stream configuration eraser dialog.
 msgid "Enter the position of the encoder you wish to delete or will delete"
 msgstr "Nhập vị trí của bộ mã hóa bạn muốn xóa hoặc sẽ xóa"
+
+#. Translators: The title of the encoder settings eraser dialog.
+msgid "Encoder label and settings eraser"
+msgstr "Nhãn mã hóa và xóa các cài đặt"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid ""
@@ -1748,29 +1669,15 @@ msgstr "Đang kết nối..."
 msgid "Disconnecting..."
 msgstr "Đang ngắt kết nối..."
 
-#, python-brace-format
-msgid "Format: {encoderFormat}"
-msgstr "Định dạng: {encoderFormat}"
-
-#, python-brace-format
-msgid "Status: {encoderStatus}"
-msgstr "Trạng thái: {encoderStatus}"
-
-#, python-brace-format
-msgid "Description: {encoderDescription}"
-msgstr "Mô tả: {encoderDescription}"
-
 #. Translators: input hep command for an encoder connection command.
-msgid "Connects to a streaming server."
+#, fuzzy
+msgid "Connects the selected encoder."
 msgstr "Kết nối với một máy chủ đang phát."
 
-#, python-brace-format
-msgid "Encoder Settings: {setting}"
-msgstr "Cài đặt mã hóa: {setting}"
-
-#, python-brace-format
-msgid "Transfer Rate: {transferRate}"
-msgstr "Tốc độ truyền tải: {transferRate}"
+#. Translators: input hep command for an encoder connection command.
+#, fuzzy
+msgid "Connects all encoders."
+msgstr "Kết nối với một máy chủ đang phát."
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
@@ -1897,6 +1804,78 @@ msgid ""
 msgstr ""
 "Cải thiện hỗ trợ cho StationPlaylist Studio.\n"
 "Ngoài ra là thêm các lệnh toàn cục cho studio từ bất cứ đâu."
+
+#~ msgid "Status not found"
+#~ msgstr "Không tìm thấy trạng thái"
+
+#~ msgid "Status: {name}"
+#~ msgstr "Trạng thái: {name}"
+
+#~ msgid "{checkStatus}{header}: {content}"
+#~ msgstr "{checkStatus}{header}: {content}"
+
+#~ msgid "{checkStatus}{header}: blank"
+#~ msgstr "{checkStatus}{header}: rỗng"
+
+#~ msgid "{checkStatus}{header}: ()"
+#~ msgstr "{checkStatus}{header}: ()"
+
+#~ msgid "Broadcast &profile:"
+#~ msgstr "Cấu hình &phát thanh:"
+
+#~ msgid "Move &up"
+#~ msgstr "Di chuyển &lên"
+
+#~ msgid "Move &down"
+#~ msgstr "Di chuyển &xuống"
+
+#~ msgid ""
+#~ "Pilot features: I want to test and provide early &feedback on features "
+#~ "under development"
+#~ msgstr ""
+#~ "Các tính năng thử nghiệm: Tôi muốn kiểm tra và gửi &phản hồi sớm về các "
+#~ "tính năng đang được thử nghiệm"
+
+#~ msgid ""
+#~ "You are about to enable pilot features. Please note that pilot features "
+#~ "may include functionality that might be unstable at times and should be "
+#~ "used for testing and sending feedback to the add-on developer. If you "
+#~ "prefer to use stable features, please answer no and uncheck pilot "
+#~ "features checkbox. Are you sure you wish to enable pilot features?"
+#~ msgstr ""
+#~ "Bạn sắp bật các tính năng thử nghiệm. Xin lưu ý rằng các tính năng thử "
+#~ "nghiệm có thể bao gồm các chức năng hiện chưa chính thức được dùng và chỉ "
+#~ "nên dùng để kiểm tra và gửi phản hồi cho người phát triển add-on. Nếu chỉ "
+#~ "thích dùng các tính năng chính thức, hãy trả lời không và bỏ chọn hộp "
+#~ "kiểm các tính năng thử nghiệm. Bạn có muốn bật tính năng thử nghiệm không?"
+
+#~ msgid "Enable pilot features"
+#~ msgstr "Bật các tính năng thử nghiệm"
+
+#~ msgid ""
+#~ "You have toggled pilot features checkbox. You must restart NVDA for the "
+#~ "change to take effect."
+#~ msgstr ""
+#~ "Bạn đã bật / tắt hộp kiểm các tính năng thử nghiệm. Bạn phải khởi động "
+#~ "lại NVDA để thay đổi có hiệu lực."
+
+#~ msgid "Pilot features"
+#~ msgstr "Các tính năng thử nghiệm"
+
+#~ msgid "Format: {encoderFormat}"
+#~ msgstr "Định dạng: {encoderFormat}"
+
+#~ msgid "Status: {encoderStatus}"
+#~ msgstr "Trạng thái: {encoderStatus}"
+
+#~ msgid "Description: {encoderDescription}"
+#~ msgstr "Mô tả: {encoderDescription}"
+
+#~ msgid "Encoder Settings: {setting}"
+#~ msgstr "Cài đặt mã hóa: {setting}"
+
+#~ msgid "Transfer Rate: {transferRate}"
+#~ msgstr "Tốc độ truyền tải: {transferRate}"
 
 #~ msgid "{encoder} {encoderNumber}: {status}"
 #~ msgstr "{encoder} {encoderNumber}: {status}"

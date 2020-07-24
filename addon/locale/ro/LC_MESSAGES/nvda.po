@@ -29,14 +29,6 @@ msgstr ""
 msgid "Old Windows version"
 msgstr "Versiune veche de Windows"
 
-#. Translators: input help mode message for columns viewer command.
-msgid "Presents data for all columns in the currently selected track"
-msgstr "Prezintă datele pentru toate coloanele din piesa curent-selectată"
-
-#. Translators: Title of the column data window.
-msgid "Track data"
-msgstr "Date despre melodie"
-
 #. Translators: announced in SPL Creator and Remote VT when trying to perform playlist status commands while outside of playlist editor.
 #, fuzzy
 msgid "You are not in playlist editor"
@@ -46,21 +38,6 @@ msgstr ""
 #. Translators: Presented when microphone has been active for a while.
 msgid "Microphone active"
 msgstr "Microfon activ"
-
-#. Translators: Standard message for announcing column content.
-#, python-brace-format
-msgid "{header}: {content}"
-msgstr "{header}: {content}"
-
-#. Translators: Spoken when column content is blank.
-#, python-brace-format
-msgid "{header}: blank"
-msgstr "{header}: gol"
-
-#. Translators: Brailled to indicate empty column content.
-#, python-brace-format
-msgid "{header}: ()"
-msgstr "{header}: ()"
 
 #. Translators: input help mode message for column explorer commands.
 msgid ""
@@ -82,43 +59,42 @@ msgstr "StationPlaylist"
 msgid "Column {columnPosition} not found"
 msgstr ""
 
+#. Translators: Standard message for announcing column content.
+#, python-brace-format
+msgid "{header}: {content}"
+msgstr "{header}: {content}"
+
+#. Translators: Spoken when column content is blank.
+#, python-brace-format
+msgid "{header}: blank"
+msgstr "{header}: gol"
+
+#. Translators: Brailled to indicate empty column content.
+#, python-brace-format
+msgid "{header}: ()"
+msgstr "{header}: ()"
+
 #. Translators: presented when column information for a track is empty.
 msgid "blank"
 msgstr "gol"
+
+#. Translators: Title of the column data window.
+msgid "Track data"
+msgstr "Date despre melodie"
 
 #. Translators: Presented when a specific column header is not found.
 #, python-brace-format
 msgid "{headerText} not found"
 msgstr "{headerText} negăsit"
 
+#. Translators: input help mode message for columns viewer command.
+msgid "Presents data for all columns in the currently selected track"
+msgstr "Prezintă datele pentru toate coloanele din piesa curent-selectată"
+
 #. Translators: location text for a playlist item (example: item 1 of 10).
 #, python-brace-format
 msgid "Item {current} of {total}"
 msgstr "Element {current} din {total}"
-
-#. Translators: Presented when no track status is found in Studio 5.10.
-msgid "Status not found"
-msgstr "Stare negăsită"
-
-#. Translators: Status information for a checked track in Studio 5.10.
-#, python-brace-format
-msgid "Status: {name}"
-msgstr "Stare: {name}"
-
-#. Translators: Standard message for announcing column content.
-#, python-brace-format
-msgid "{checkStatus}{header}: {content}"
-msgstr "{checkStatus}{header}: {content}"
-
-#. Translators: Spoken when column content is blank.
-#, python-brace-format
-msgid "{checkStatus}{header}: blank"
-msgstr "{checkStatus}{header}: gol"
-
-#. Translators: Brailled to indicate empty column content.
-#, python-brace-format
-msgid "{checkStatus}{header}: ()"
-msgstr "{checkStatus}{header}: blank"
 
 msgid "Has comment"
 msgstr "Are comentariu"
@@ -809,6 +785,15 @@ msgstr ""
 msgid "SPL Studio add-on reset"
 msgstr "Verifică actualizări addon"
 
+#. Translators: A flag indicating the currently active broadcast profile.
+msgid "active"
+msgstr "activ"
+
+#. Translators: A flag indicating the broadcast profile is an instant switch profile.
+#. Instant switch flag is set on another profile, so remove the flag first.
+msgid "instant switch"
+msgstr "comutare instantanee"
+
 #. Translators: Presented when switch to instant switch profile was successful.
 #, python-brace-format
 msgid "Switching to {newProfileName}"
@@ -822,15 +807,6 @@ msgstr "Întoarcere la {previousProfile}"
 #. Translators: Standard error title for configuration error.
 msgid "Studio add-on Configuration error"
 msgstr "Eroare la configurarea add-onului Studio"
-
-#. Translators: A flag indicating the currently active broadcast profile.
-msgid "active"
-msgstr "activ"
-
-#. Translators: A flag indicating the broadcast profile is an instant switch profile.
-#. Instant switch flag is set on another profile, so remove the flag first.
-msgid "instant switch"
-msgstr "comutare instantanee"
 
 #. Translators: announced when only normal profile is in use.
 msgid "Only normal profile is in use"
@@ -984,10 +960,6 @@ msgstr "Numărul de scanări"
 #, fuzzy
 msgid "SPL Broadcast Profiles"
 msgstr "Profiluri de emisie"
-
-#. Translators: The label for a setting in SPL add-on dialog to select a broadcast profile.
-msgid "Broadcast &profile:"
-msgstr "&Profil de emisie:"
 
 #. Borrowed directly from NvDA Core (credit: NV Access)
 #. This allows Enter key to be pressed to activate the selected profile.
@@ -1281,6 +1253,11 @@ msgstr "Notificare și conectare emisie &metadata"
 msgid "&Select the URL for metadata streaming upon request:"
 msgstr "&Selectează URL-ul pentru cererea de emisie metadata:"
 
+#. Translators: The label for a group in SPL add-on dialog to select column announcement order.
+#, fuzzy
+msgid "Column order"
+msgstr "&Ordinea coloanelor:"
+
 #. Translators: title of a panel to configure column announcements (order and what columns should be announced).
 #, fuzzy
 msgid "Column announcements"
@@ -1298,21 +1275,6 @@ msgid ""
 msgstr ""
 "Selectează coloanele pentru a fi anunțate (artistul și numele melodiei vor "
 "fi anunțate în mod implicit)"
-
-#. wxPython 4 contains RearrangeList to allow item orders to be changed automatically.
-#. Because wxPython 3 doesn't include this, work around by using a variant of list box and move up/down buttons.
-#. 17.04: The label for the list below is above the list, so move move up/down buttons to the right of the list box.
-#. Translators: The label for a setting in SPL add-on dialog to select column announcement order.
-msgid "Column &order:"
-msgstr "&Ordinea coloanelor:"
-
-#. Translators: The label for a button in column announcement dialog to change column position for the selected column.
-msgid "Move &up"
-msgstr "Mută în &sus"
-
-#. Translators: The label for a button in column announcement dialog to change column position for the selected column.
-msgid "Move &down"
-msgstr "Mută în &jos"
 
 #. Translators: the label for a setting in SPL add-on settings to toggle whether column headers should be included when announcing track information.
 msgid "Include column &headers when announcing track information"
@@ -1403,49 +1365,6 @@ msgstr ""
 #. Translators: The label for a setting in SPL add-on dialog to set keyboard layout for SPL Assistant.
 msgid "SPL Assistant command &layout:"
 msgstr "Dispoziția comenzi&lor asistentului SPL:"
-
-#. 18.09: allow some dev snapshot users to test pilot features.
-#. Translators: A checkbox to enable pilot features (with risks involved).
-msgid ""
-"Pilot features: I want to test and provide early &feedback on features under "
-"development"
-msgstr ""
-"Caracteristici pilot: Vreau să testez și să ofer &feedback prematur la "
-"caracteristicile aflate în dezvoltare"
-
-#. Translators: The confirmation prompt displayed when about to enable pilot flag (with risks involved).
-#, fuzzy
-msgid ""
-"You are about to enable pilot features. Please note that pilot features may "
-"include functionality that might be unstable at times and should be used for "
-"testing and sending feedback to the add-on developer. If you prefer to use "
-"stable features, please answer no and uncheck pilot features checkbox. Are "
-"you sure you wish to enable pilot features?"
-msgstr ""
-"Sunteți pe cale să treceți la Testarea Unității Rapide(încercați) "
-"construcțiile canalului, cel mai rapid și mai instabil canal de dezvoltare. "
-"Vă rugăm să rețineți că canalul selectat poate veni cu actualizări care ar "
-"putea fi uneori instabile și ar trebui să fie utilizate pentru testarea și "
-"trimiterea de feedback dezvoltatorului de extensii. Dacă preferați să "
-"utilizați funcții stabile, răspundeți nu și treceți la un canal de "
-"actualizare mai stabil. Sigur doriți să treceți la cel mai rapid canal de "
-"dezvoltare?"
-
-#. Translators: The title of the channel switch confirmation dialog.
-msgid "Enable pilot features"
-msgstr "Activează caracteristicile pilot"
-
-#. Translators: A dialog message shown when pilot features is turned on or off.
-msgid ""
-"You have toggled pilot features checkbox. You must restart NVDA for the "
-"change to take effect."
-msgstr ""
-"Ați activat caseta de bifat a caracteristicilor pilot. Trebuie să reporniți "
-"NVDA pentru ca modificarea să aibă efect."
-
-#. Translators: Title of the pilot features dialog.
-msgid "Pilot features"
-msgstr "Caracteristici pilot"
 
 #. Translators: Title of the dialog to reset various add-on settings.
 #. Translators: title of a panel to reset add-on settings.
@@ -1756,16 +1675,16 @@ msgstr ""
 "Se deschide un dialog pentru a șterge etichetele de stream și setările unui "
 "encoder care este deja șters."
 
-#. Translators: The title of the encoder settings eraser dialog.
-#, fuzzy
-msgid "Encoder label and settings eraser"
-msgstr "Etichetare stream și ștergere setări"
-
 #. Translators: The text of the stream configuration eraser dialog.
 msgid "Enter the position of the encoder you wish to delete or will delete"
 msgstr ""
 "Introduceți poziția encoderului pe care doriți să îl ștergeți sau pe care îl "
 "veți șterge"
+
+#. Translators: The title of the encoder settings eraser dialog.
+#, fuzzy
+msgid "Encoder label and settings eraser"
+msgstr "Etichetare stream și ștergere setări"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 #, fuzzy
@@ -1809,29 +1728,15 @@ msgstr "Se conectează..."
 msgid "Disconnecting..."
 msgstr "Se deconectează..."
 
-#, python-brace-format
-msgid "Format: {encoderFormat}"
-msgstr ""
-
-#, fuzzy, python-brace-format
-msgid "Status: {encoderStatus}"
-msgstr "Stare: {name}"
-
-#, python-brace-format
-msgid "Description: {encoderDescription}"
-msgstr ""
-
 #. Translators: input hep command for an encoder connection command.
-msgid "Connects to a streaming server."
+#, fuzzy
+msgid "Connects the selected encoder."
 msgstr "Conectează-te la un streaming server."
 
-#, fuzzy, python-brace-format
-msgid "Encoder Settings: {setting}"
-msgstr "Eroare setări encoder"
-
-#, python-brace-format
-msgid "Transfer Rate: {transferRate}"
-msgstr "Frecvență de transfer: {transferRate}"
+#. Translators: input hep command for an encoder connection command.
+#, fuzzy
+msgid "Connects all encoders."
+msgstr "Conectează-te la un streaming server."
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
@@ -1960,6 +1865,78 @@ msgid ""
 msgstr ""
 "Conține suport pentru StationPlaylist Studio.\n"
 "De asemenea, adaugă comenzi globale pentru studio de oriunde."
+
+#~ msgid "Status not found"
+#~ msgstr "Stare negăsită"
+
+#~ msgid "Status: {name}"
+#~ msgstr "Stare: {name}"
+
+#~ msgid "{checkStatus}{header}: {content}"
+#~ msgstr "{checkStatus}{header}: {content}"
+
+#~ msgid "{checkStatus}{header}: blank"
+#~ msgstr "{checkStatus}{header}: gol"
+
+#~ msgid "{checkStatus}{header}: ()"
+#~ msgstr "{checkStatus}{header}: blank"
+
+#~ msgid "Broadcast &profile:"
+#~ msgstr "&Profil de emisie:"
+
+#~ msgid "Move &up"
+#~ msgstr "Mută în &sus"
+
+#~ msgid "Move &down"
+#~ msgstr "Mută în &jos"
+
+#~ msgid ""
+#~ "Pilot features: I want to test and provide early &feedback on features "
+#~ "under development"
+#~ msgstr ""
+#~ "Caracteristici pilot: Vreau să testez și să ofer &feedback prematur la "
+#~ "caracteristicile aflate în dezvoltare"
+
+#, fuzzy
+#~ msgid ""
+#~ "You are about to enable pilot features. Please note that pilot features "
+#~ "may include functionality that might be unstable at times and should be "
+#~ "used for testing and sending feedback to the add-on developer. If you "
+#~ "prefer to use stable features, please answer no and uncheck pilot "
+#~ "features checkbox. Are you sure you wish to enable pilot features?"
+#~ msgstr ""
+#~ "Sunteți pe cale să treceți la Testarea Unității Rapide(încercați) "
+#~ "construcțiile canalului, cel mai rapid și mai instabil canal de "
+#~ "dezvoltare. Vă rugăm să rețineți că canalul selectat poate veni cu "
+#~ "actualizări care ar putea fi uneori instabile și ar trebui să fie "
+#~ "utilizate pentru testarea și trimiterea de feedback dezvoltatorului de "
+#~ "extensii. Dacă preferați să utilizați funcții stabile, răspundeți nu și "
+#~ "treceți la un canal de actualizare mai stabil. Sigur doriți să treceți la "
+#~ "cel mai rapid canal de dezvoltare?"
+
+#~ msgid "Enable pilot features"
+#~ msgstr "Activează caracteristicile pilot"
+
+#~ msgid ""
+#~ "You have toggled pilot features checkbox. You must restart NVDA for the "
+#~ "change to take effect."
+#~ msgstr ""
+#~ "Ați activat caseta de bifat a caracteristicilor pilot. Trebuie să "
+#~ "reporniți NVDA pentru ca modificarea să aibă efect."
+
+#~ msgid "Pilot features"
+#~ msgstr "Caracteristici pilot"
+
+#, fuzzy
+#~ msgid "Status: {encoderStatus}"
+#~ msgstr "Stare: {name}"
+
+#, fuzzy
+#~ msgid "Encoder Settings: {setting}"
+#~ msgstr "Eroare setări encoder"
+
+#~ msgid "Transfer Rate: {transferRate}"
+#~ msgstr "Frecvență de transfer: {transferRate}"
 
 #~ msgid "{encoder} {encoderNumber}: {status}"
 #~ msgstr "{encoder} {encoderNumber}: {status}"

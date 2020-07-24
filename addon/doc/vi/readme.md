@@ -3,7 +3,7 @@
 * Tác giả: Geoff Shang, Joseph Lee và các cộng tác viên khác
 * Tải về [phiên bản chính thức][1]
 * Tải về [phiên bản thử nghiệm][2]
-* NVDA compatibility: 2019.3 to 2020.2
+* NVDA tương thích: 2019.3 đến 2020.2
 
 Gói add-on này cung cấp sự cải thiện cho việc sử dụng StationPlaylist Studio
 và các ứng dụng StationPlaylist khác, cũng như cung cấp các tiện ích để điều
@@ -116,22 +116,22 @@ Các phím lệnh sau  đây hoạt động khi sử dụng các bộ mã hóa:
 
 * F9: kết nối tới một máy chủ đang phát.
 * F10 (chỉ khi dùng SAM encoder): ngắt kết nối khỏi một máy chủ đang phát.
-* Control+F9: Connect all encoders.
-* Control+F10 (SAM encoder only): Disconnect all encoders.
+* Control+F9: kết nối tất cả bộ mã hóa.
+* Control+F10 (chỉ khi dùng SAM encoder): ngắt kết nối tất cả các bộ mã hóa.
 * F11: bật tắt chế độ để NVDA chuyển đến cửa sổ Studio cho bộ mã hóa được
   chọn nếu đã kết nối.
 * Shift+F11: bật tắt chế độ để Studio sẽ phát track đầu tiên được chọn khi
   bộ mã hóa được kết nối đến một máy chủ đang phát.
 * Control+F11: bật tắt chế độ theo dõi ngầm của bộ mã hóa được chọn.
-* Control+F12: opens a dialog to select the encoder you have deleted (to
-  realign encoder labels and settings).
-* Alt+NVDA+0: Opens encoder settings dialog to configure options such as
-  encoder label.
+* Control+F12: mở hộp thoại chọn bộ mã hóa đã xóa (sắp xếp lại các cài đặt
+  của nhãn phát và các bộ mã hóa).
+* Alt+NVDA+0: mở hộp thoại cài đặt mã hóa để cấu hình các tùy chọn như nhãn
+  mã hóa.
 
 Ngoài ra, có các lệnh để xem lại cột bao gồm:
 
 * Control+NVDA+1: vị trí mã hóa.
-* Control+NVDA+2: encoder label.
+* Control+NVDA+2: nhãn mã hóa.
 * Control+NVDA+3 từ SAM Encoder: định dạng mã hóa.
 * Control+NVDA+3 từ SPL và AltaCast Encoder: cài đặt mã hóa.
 * Control+NvDA+4 từ SAM Encoder: trạng thái kết nối bộ mã hóa.
@@ -299,24 +299,24 @@ NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio t
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
 
-## Version 20.07
+## Phiên bản 20.07
 
-* In Studio's playlist viewer, NVDA will no longer appear to do nothing or
-  play error tones when attempting to delete tracks or after clearing the
-  loaded playlist while focused on playlist viewer.
-* When searching for tracks in Studio's insert tracks dialog, NVDA will
-  announce search results if results are found.
-* NVDA will no longer appear to do nothing or play error tones when trying
-  to switch to a newly created broadcast profile and save add-on settings.
-* In encoder settings, "stream label" has been renamed to "encoder label".
-* Dedicated stream labeler command (F12) has been removed from
-  encoders. Encoder labels can be defined from encoder settings dialog
-  (Alt+NVDA+0).
-* System focus will no longer move to Studio repeatedly or selected track
-  will be played when an encoder being monitored in the background
-  (Control+F11) connects and disconnects repeatedly.
-* In SPL encoders, added Control+F9 command to connect all encoders (same as
-  F9 command).
+* Trong trình xem danh sách phát của Studio, NVDA sẽ không còn tình trạng
+  không làm gì hoặc phát âm thanh báo lỗi khi nỗ lực xóa các track hay sau
+  khi xóa một danh sách phát đã tại khi con trỏ ở tại trình xem danh sách
+  phát.
+* Khi tìm track trong hộp thoại chèn track của Studio, NVDA sẽ đọc kết quả
+  tìm kiếm nếu tìm thấy chúng.
+* NVDA sẽ không còn tình trạng không làm gì hoặc phát âm thanh báo lỗi khi
+  chuyển đến một hồ sơ phát thanh mới tạo và lưu các thiết lập của add-on.
+* Trong cài đặt mã hóa, "nhãn phát" đã được đổi tên thành "nhãn mã hóa".
+* Đã gỡ bỏ lệnh riêng cho bộ nhãn phát (F12). Có thể quy định các nhãn mã
+  hóa từ hộp thoại cài đặt mã hóa (Alt+NVDA+0).
+* Con trỏ hệ thống sẽ không chuyển đến Studio dạng lặp đi lặp lại hay các
+  track được chọn sẽ được phát khi một bộ mã hóa đang được theo dõi ngầm
+  (Control+F11) cứ kết nối và ngắt kết nối.
+* Trong SPL encoders, đã thêm lệnh Control+F9 để kết nối tất cả các bộ mã
+  hóa (giống như lệnh F9).
 
 ## Phiên bản 20.06
 
