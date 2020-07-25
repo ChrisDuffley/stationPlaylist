@@ -58,6 +58,7 @@ def finally_(func, final):
 		return new
 	return wrap(final)
 
+
 # Make sure the broadcaster is running a compatible version.
 SPLMinVersion = "5.20"
 
@@ -635,7 +636,7 @@ class AppModule(appModuleHandler.AppModule):
 		# 17.10: not when minimal startup flag is set.
 		# 18.08.1: sometimes, wxPython 4 says wx.App isn't ready.
 		try:
-			wx.CallAfter(splconfig.showStartupDialogs, oldVer=self.SPLCurVersion==SPLMinVersion)
+			wx.CallAfter(splconfig.showStartupDialogs, oldVer=self.SPLCurVersion == SPLMinVersion)
 		except:
 			pass
 
