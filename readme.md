@@ -3,6 +3,7 @@
 * Authors: Geoff Shang, Joseph Lee and other contributors
 * Download [stable version][1]
 * Download [development version][2]
+* Download [long-term support version][3] - for Studio 5.20 users
 * NVDA compatibility: 2019.3 to 2020.2
 
 This add-on package provides improved usage of StationPlaylist Studio and other StationPlaylist apps, as well as providing utilities to control Studio from anywhere. Supported apps include Studio, Creator, Track Tool, VT Recorder, and Streamer, as well as SAM, SPL, and AltaCast encoders.
@@ -195,7 +196,9 @@ You can save settings for specific shows into broadcast profiles. These profiles
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
-## Version 20.09
+## Version 20.09-LTS
+
+Version 20.09.x is the last release series to support Studio 5.20 and based on old technologies, with future releases supporting Studio 5.30 and more recent NVDA features. Some new features will be backported to 20.09.x if needed.
 
 * Due to changes in NVDA, --spl-configvolatile command line switch is no longer availible to make add-on settings read-only. You can emulate this by unchecking "Save configuration when exiting NVDA" checkbox from NVDA's general settings panel.
 * Removed pilot features setting from Advanced settings category under add-on settings (Alt+NvDA+0), used to let development snapshot users test bleeding-ege code.
@@ -406,6 +409,8 @@ Please see changelog link for release notes for old add-on releases.
 [1]: https://addons.nvda-project.org/files/get.php?file=spl
 
 [2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
+
+[3]: https://addons.nvda-project.org/files/get.php?file=spl-lts20
 
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 
