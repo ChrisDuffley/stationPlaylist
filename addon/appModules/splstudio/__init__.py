@@ -614,7 +614,6 @@ class AppModule(appModuleHandler.AppModule):
 		eventHandler.requestEvents(eventName="nameChange", processId=self.processID, windowClassName="TStaticText")
 		# Also for requests window.
 		eventHandler.requestEvents(eventName="show", processId=self.processID, windowClassName="TRequests")
-		self.backgroundStatusMonitor = True
 		debugOutput("preparing GUI subsystem")
 		try:
 			self.prefsMenu = gui.mainFrame.sysTrayIcon.preferencesMenu
