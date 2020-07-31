@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 17.02\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2017-02-03 19:00+1000\n"
-"PO-Revision-Date: 2020-07-20 11:26+0700\n"
+"PO-Revision-Date: 2020-07-24 22:57+0700\n"
 "Last-Translator: Dang Manh Cuong <dangmanhcuong@gmail.com>\n"
 "Language-Team: \n"
 "Language: vi\n"
@@ -1212,9 +1212,8 @@ msgid "&Select the URL for metadata streaming upon request:"
 msgstr "&Chọn URL cho truyền siêu dữ liệu theo yêu cầu:"
 
 #. Translators: The label for a group in SPL add-on dialog to select column announcement order.
-#, fuzzy
 msgid "Column order"
-msgstr "Sắp xếp &cột:"
+msgstr "Sắp xếp cột:"
 
 #. Translators: title of a panel to configure column announcements (order and what columns should be announced).
 msgid "Column announcements"
@@ -1670,14 +1669,12 @@ msgid "Disconnecting..."
 msgstr "Đang ngắt kết nối..."
 
 #. Translators: input hep command for an encoder connection command.
-#, fuzzy
 msgid "Connects the selected encoder."
-msgstr "Kết nối với một máy chủ đang phát."
+msgstr "Kết nối bộ mã hóa đã chọn."
 
 #. Translators: input hep command for an encoder connection command.
-#, fuzzy
 msgid "Connects all encoders."
-msgstr "Kết nối với một máy chủ đang phát."
+msgstr "Kết nối tất cả bộ mã hóa."
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.

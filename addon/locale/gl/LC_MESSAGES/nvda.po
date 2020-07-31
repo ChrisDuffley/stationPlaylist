@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-06-10 10:59-0700\n"
+"PO-Revision-Date: 2020-07-24 11:49+0200\n"
 "Last-Translator: Iván Novegil Cancelas <ivan.novegil.cancelas@gmail.com>\n"
 "Language-Team: Add-ons translation team <oprisniki@gmail.com>\n"
 "Language: gl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 2.4\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
@@ -32,11 +32,8 @@ msgid "Old Windows version"
 msgstr "Versión vella de Windows"
 
 #. Translators: announced in SPL Creator and Remote VT when trying to perform playlist status commands while outside of playlist editor.
-#, fuzzy
 msgid "You are not in playlist editor"
-msgstr ""
-"Non estás no visualizador de lista de reprodución, non podes entrar no "
-"explorador de cart"
+msgstr "Non estás no editor de lista de reprodución"
 
 #. Translators: Presented when microphone has been active for a while.
 msgid "Microphone active"
@@ -1241,9 +1238,8 @@ msgid "&Select the URL for metadata streaming upon request:"
 msgstr "&Selecionar a URL para metadatos de streaming baixo demanda:"
 
 #. Translators: The label for a group in SPL add-on dialog to select column announcement order.
-#, fuzzy
 msgid "Column order"
-msgstr "&orde de columna:"
+msgstr "Orde de columnas"
 
 #. Translators: title of a panel to configure column announcements (order and what columns should be announced).
 msgid "Column announcements"
@@ -1706,14 +1702,12 @@ msgid "Disconnecting..."
 msgstr "Desconectando..."
 
 #. Translators: input hep command for an encoder connection command.
-#, fuzzy
 msgid "Connects the selected encoder."
-msgstr "Conecta a un servidor de streaming."
+msgstr "Conecta o codificador seleccionado."
 
 #. Translators: input hep command for an encoder connection command.
-#, fuzzy
 msgid "Connects all encoders."
-msgstr "Conecta a un servidor de streaming."
+msgstr "Conecta todos os codificadores."
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.

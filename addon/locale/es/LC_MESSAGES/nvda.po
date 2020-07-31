@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-07-10 14:01+0200\n"
+"PO-Revision-Date: 2020-07-24 11:59+0200\n"
 "Last-Translator: José Manuel Delicado <jmdaweb@hotmail.com>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 2.4\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
@@ -1247,9 +1247,8 @@ msgid "&Select the URL for metadata streaming upon request:"
 msgstr "&Seleccionar la URL para metadatos de streaming bajo demanda:"
 
 #. Translators: The label for a group in SPL add-on dialog to select column announcement order.
-#, fuzzy
 msgid "Column order"
-msgstr "&orden de columna:"
+msgstr "Orden de columnas"
 
 #. Translators: title of a panel to configure column announcements (order and what columns should be announced).
 msgid "Column announcements"
@@ -1716,14 +1715,12 @@ msgid "Disconnecting..."
 msgstr "Desconectando..."
 
 #. Translators: input hep command for an encoder connection command.
-#, fuzzy
 msgid "Connects the selected encoder."
-msgstr "Conecta a un servidor de streaming."
+msgstr "Conecta el codificador seleccionado."
 
 #. Translators: input hep command for an encoder connection command.
-#, fuzzy
 msgid "Connects all encoders."
-msgstr "Conecta a un servidor de streaming."
+msgstr "Conecta todos los codificadores."
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
@@ -1851,80 +1848,3 @@ msgid ""
 msgstr ""
 "Mejora el soporte para Station Playlist Studio.\n"
 "Además, agrega comandos globales para el estudio desde cualquier parte."
-
-#~ msgid "Status not found"
-#~ msgstr "Estado no encontrado"
-
-#~ msgid "Status: {name}"
-#~ msgstr "Estado: {name}"
-
-#~ msgid "{checkStatus}{header}: {content}"
-#~ msgstr "{checkStatus}{header}: {content}"
-
-#~ msgid "{checkStatus}{header}: blank"
-#~ msgstr "{checkStatus}{header}: en branco"
-
-#~ msgid "{checkStatus}{header}: ()"
-#~ msgstr "{checkStatus}{header}: ()"
-
-#~ msgid "Broadcast &profile:"
-#~ msgstr "&Perfil emisión:"
-
-#~ msgid "Move &up"
-#~ msgstr "Mover &arriba"
-
-#~ msgid "Move &down"
-#~ msgstr "Mover a&bajo"
-
-#~ msgid ""
-#~ "Pilot features: I want to test and provide early &feedback on features "
-#~ "under development"
-#~ msgstr ""
-#~ "Características piloto: Quiero probar y proporcionar &retroalimentación "
-#~ "temprana sobre las características en desarrollo"
-
-#~ msgid ""
-#~ "You are about to enable pilot features. Please note that pilot features "
-#~ "may include functionality that might be unstable at times and should be "
-#~ "used for testing and sending feedback to the add-on developer. If you "
-#~ "prefer to use stable features, please answer no and uncheck pilot "
-#~ "features checkbox. Are you sure you wish to enable pilot features?"
-#~ msgstr ""
-#~ "Estás a punto de habilitar las características piloto. Ten en cuenta que "
-#~ "las características piloto pueden incluir funcionalidades que pueden ser "
-#~ "inestables en ocasiones y que deben utilizarse para probar y enviar "
-#~ "comentarios al desarrollador del complemento. Si prefieres utilizar "
-#~ "características estables, responde no y desmarca la casilla de "
-#~ "verificación de características piloto. ¿Estás seguro de que deseas "
-#~ "activar las características piloto?"
-
-#~ msgid "Enable pilot features"
-#~ msgstr "Activar características piloto"
-
-#~ msgid ""
-#~ "You have toggled pilot features checkbox. You must restart NVDA for the "
-#~ "change to take effect."
-#~ msgstr ""
-#~ "Has conmutado la casilla de verificación características piloto. Debes "
-#~ "reiniciar NVDA para que los cambios tengan efecto."
-
-#~ msgid "Pilot features"
-#~ msgstr "Características piloto"
-
-#~ msgid "Format: {encoderFormat}"
-#~ msgstr "Formato: {encoderFormat}"
-
-#~ msgid "Status: {encoderStatus}"
-#~ msgstr "Estado: {encoderStatus}"
-
-#~ msgid "Description: {encoderDescription}"
-#~ msgstr "Descripción: {encoderDescription}"
-
-#~ msgid "Encoder Settings: {setting}"
-#~ msgstr "Opciones de Codificador: {setting}"
-
-#~ msgid "Transfer Rate: {transferRate}"
-#~ msgstr "Velocidad de Transferencia: {transferRate}"
-
-#~ msgid "{encoder} {encoderNumber}: {status}"
-#~ msgstr "{encoder} {encoderNumber}: {status}"
