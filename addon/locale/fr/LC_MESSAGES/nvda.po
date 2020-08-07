@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 19.02\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-06-10 11:00-0700\n"
+"PO-Revision-Date: 2020-08-02 08:53-0700\n"
 "Last-Translator: Michel Such <michel.such@free.fr>\n"
 "Language-Team: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language: fr\n"
@@ -1897,81 +1897,3 @@ msgid ""
 msgstr ""
 "Améliore la prise en charge de StationPlaylist Studio.\n"
 "En outre, ajoute des commandes globales pour studio où que vous soyez."
-
-#~ msgid "Status not found"
-#~ msgstr "Statut introuvable"
-
-#~ msgid "Status: {name}"
-#~ msgstr "Statut : {name}"
-
-#~ msgid "{checkStatus}{header}: {content}"
-#~ msgstr "{checkStatus}{header} : {content}"
-
-#~ msgid "{checkStatus}{header}: blank"
-#~ msgstr "{checkStatus}{header} : vide"
-
-#~ msgid "{checkStatus}{header}: ()"
-#~ msgstr "{checkStatus}{header} : ()"
-
-#~ msgid "Broadcast &profile:"
-#~ msgstr "&Profil de diffusion :"
-
-#~ msgid "Move &up"
-#~ msgstr "Déplacer vers le &haut"
-
-#~ msgid "Move &down"
-#~ msgstr "Déplacer vers le &bas"
-
-#~ msgid ""
-#~ "Pilot features: I want to test and provide early &feedback on features "
-#~ "under development"
-#~ msgstr ""
-#~ "Fonctionnalités pilotes : Je souhaite tester et fournir rapidement des "
-#~ "&commentaires sur les fonctionnalités en cours de développement."
-
-#~ msgid ""
-#~ "You are about to enable pilot features. Please note that pilot features "
-#~ "may include functionality that might be unstable at times and should be "
-#~ "used for testing and sending feedback to the add-on developer. If you "
-#~ "prefer to use stable features, please answer no and uncheck pilot "
-#~ "features checkbox. Are you sure you wish to enable pilot features?"
-#~ msgstr ""
-#~ "Vous êtes sur le point d'activer les fonctionnalités pilotes. Veuillez "
-#~ "noter que les fonctionnalités pilotes peuvent inclure des fonctionnalités "
-#~ "qui peuvent être instables à certains moments et doivent être utilisées "
-#~ "pour tester et envoyer des commentaires au développeur de l'extension. Si "
-#~ "vous préférez utiliser des fonctionnalités stables, répondez non et "
-#~ "décochez la case à cocher Fonctions pilotes. Êtes-vous sûr de vouloir "
-#~ "activer les fonctionnalités pilotes?"
-
-#~ msgid "Enable pilot features"
-#~ msgstr "Activer les fonctionnalités pilotes"
-
-#~ msgid ""
-#~ "You have toggled pilot features checkbox. You must restart NVDA for the "
-#~ "change to take effect."
-#~ msgstr ""
-#~ "Vous avez activé la case à cocher Fonctions pilotes. Vous devez "
-#~ "redémarrer NVDA pour que la modification prenne effet."
-
-#~ msgid "Pilot features"
-#~ msgstr "Fonctionnalités pilotes"
-
-#~ msgid "Format: {encoderFormat}"
-#~ msgstr "Format : {encoderFormat}"
-
-#, fuzzy
-#~ msgid "Status: {encoderStatus}"
-#~ msgstr "Statut : {name}"
-
-#~ msgid "Description: {encoderDescription}"
-#~ msgstr "Description : {encoderDescription}"
-
-#~ msgid "Encoder Settings: {setting}"
-#~ msgstr "Paramètres de l'Encodeur : {setting}"
-
-#~ msgid "Transfer Rate: {transferRate}"
-#~ msgstr "Taux de Transfert : {transferRate}"
-
-#~ msgid "{encoder} {encoderNumber}: {status}"
-#~ msgstr "{encoder} {encoderNumber} : {status}"

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-06-10 11:00-0700\n"
+"PO-Revision-Date: 2020-08-05 08:19+0200\n"
 "Last-Translator: René Linke <rene.linke@hamburg.de>\n"
 "Language-Team: Deutsch <bernd_dorer@yahoo.de>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 2.3.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
@@ -32,11 +32,8 @@ msgid "Old Windows version"
 msgstr "Veraltete Windows-Version"
 
 #. Translators: announced in SPL Creator and Remote VT when trying to perform playlist status commands while outside of playlist editor.
-#, fuzzy
 msgid "You are not in playlist editor"
-msgstr ""
-"Sie befinden sich nicht in der Ansicht für die Playlist. Hier können Sie den "
-"Cart-Explorer nicht aufrufen"
+msgstr "Sie befinden sich nicht im Playlist-Editor"
 
 #. Translators: Presented when microphone has been active for a while.
 msgid "Microphone active"
@@ -527,27 +524,25 @@ msgid "Average: {playlistAverageDuration}"
 msgstr "Durchschnittlich: {playlistAverageDuration}"
 
 #. Translators: one of the results for playlist snapshots feature for announcing top artist in a playlist.
-#, fuzzy
 msgid "Top artist: {} ({})"
-msgstr "Top-Interpreten: %s (%s)"
+msgstr "Top-Künstler: {} ({})"
 
 #. Translators: one of the results for playlist snapshots feature when there is no top artist.
 msgid "Top artist: none"
-msgstr "Top-Interpreten: Keine"
+msgstr "Top-Künstler: Keine"
 
 #. Translators: one of the results for playlist snapshots feature when there is no top artist (formatted for browse mode).
-#, fuzzy
 msgid "Top artists: none"
-msgstr "Top-Interpreten: Keine"
+msgstr "Top-Künstler: Keine"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 msgid "Top artists:"
-msgstr "Top-Interpreten:"
+msgstr "Top-Künstler:"
 
 #. Translators: one of the results for playlist snapshots feature when there is no artist information.
 #, python-brace-format
 msgid "No artist information ({artistCount})"
-msgstr "Keine Informationen zu Interpreten ({artistCount})"
+msgstr "Keine Informationen über den Künstler ({artistCount})"
 
 #. Translators: one of the results for playlist snapshots feature for artist count information.
 #, python-brace-format
@@ -555,9 +550,8 @@ msgid "{artistName} ({artistCount})"
 msgstr "{artistName} ({artistCount})"
 
 #. Translators: one of the results for playlist snapshots feature for announcing top track category in a playlist.
-#, fuzzy
 msgid "Top category: {} ({})"
-msgstr "Top-Kategorie: %s (%s)"
+msgstr "Top-Kategorie: {} ({})"
 
 #. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
 msgid "Categories:"
@@ -568,16 +562,14 @@ msgid "{categoryName} ({categoryCount})"
 msgstr "{categoryName} ({categoryCount})"
 
 #. Translators: one of the results for playlist snapshots feature for announcing top genre in a playlist.
-#, fuzzy
 msgid "Top genre: {} ({})"
-msgstr "Top-Genres: %s (%s)"
+msgstr "Top-Genre: {} ({})"
 
 #. Translators: one of the results for playlist snapshots feature when there is no top genre.
 msgid "Top genre: none"
 msgstr "Top-Genres: Keine"
 
 #. Translators: one of the results for playlist snapshots feature when there is no top genre (formatted for browse mode).
-#, fuzzy
 msgid "Top genres: none"
 msgstr "Top-Genres: Keine"
 
@@ -712,7 +704,7 @@ msgid ""
 "artists"
 msgstr ""
 "Zeigt Informationen zu Playlist-Snapshots wie Anzahl der Titel und Top-"
-"Interpreten an"
+"Künstler an"
 
 #. Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
 msgid "Add-on settings dialog is open, cannot switch profiles"
@@ -771,17 +763,16 @@ msgid "Normal profile"
 msgstr "Normales Profil"
 
 #. Translators: Message displayed when attempting to reset Studio add-on settings while an instant switch profile is active.
-#, fuzzy
 msgid ""
 "An instant switch profile is active. Resetting Studio add-on settings means "
 "normal profile will become active and switch profile settings will be left "
 "in unpredictable state. Are you sure you wish to reset Studio add-on "
 "settings to factory defaults?"
 msgstr ""
-"Ein Sofortwechsel oder ein zeitbasiertes Profil ist aktiv. Das Zurücksetzen "
-"der SPL-Einstellungen bedeutet, dass das normale Profil aktiv wird und die "
-"Schalterprofil-Einstellungen in einem unvorhersehbaren Zustand bleiben. "
-"Möchten Sie die SPL-Einstellungen der Erweiterung auf die Standard-"
+"Ein Sofortwechselprofil ist aktiv. Das Zurücksetzen der Studio-"
+"Zusatzeinstellungen bedeutet, dass das normale Profil aktiv wird und die "
+"Schalterprofileinstellungen in einem unvorhersehbaren Zustand belassen "
+"werden. Möchten Sie wirklich die Studio-Zusatzeinstellungen auf die Standard-"
 "Einstellungen zurücksetzen?"
 
 #. Translators: The title of the confirmation dialog for Studio add-on settings reset.
@@ -1193,11 +1184,11 @@ msgstr "Durchschnittsdauer der Titel"
 
 #. Translators: the label for a setting in SPL add-on settings to include track artist count in playlist snapshots window.
 msgid "Artist count"
-msgstr "Anzahl der Interpreten"
+msgstr "Anzahl der Künstler"
 
 #. Translators: the label for a setting in SPL add-on settings to set top artist count limit in playlist snapshots window.
 msgid "Top artist count (0 displays all artists)"
-msgstr "Anzahl der Top Interpreten (0 zeigt alle Interpreten an)"
+msgstr "Anzahl der Top-Künstler (0 zeigt alle an)"
 
 #. Translators: the label for a setting in SPL add-on settings to include track category count in playlist snapshots window.
 msgid "Category count"
@@ -1263,9 +1254,8 @@ msgid "&Select the URL for metadata streaming upon request:"
 msgstr "URL für das Metadaten-Streaming auf Anfrage aus&wählen:"
 
 #. Translators: The label for a group in SPL add-on dialog to select column announcement order.
-#, fuzzy
 msgid "Column order"
-msgstr "Reihenfolge der Spalten:"
+msgstr "Reihenfolge der Spalten"
 
 #. Translators: title of a panel to configure column announcements (order and what columns should be announced).
 msgid "Column announcements"
@@ -1281,7 +1271,7 @@ msgid ""
 "(artist and title are announced by default):"
 msgstr ""
 "Wählen Sie die Spalten, die ausgegeben werden sollen.\n"
-"(Interpret und Titel werden standardmäßig ausgegeben):"
+"(Künstler und Titel werden standardmäßig ausgegeben):"
 
 #. Translators: the label for a setting in SPL add-on settings to toggle whether column headers should be included when announcing track information.
 msgid "Include column &headers when announcing track information"
@@ -1300,7 +1290,7 @@ msgid ""
 msgstr ""
 "&Auswählen von Spalten, die in Wiedergabelistentranskripte aufgenommen "
 "werden sollen\n"
-"(Interpreten und Titel sind immer enthalten):"
+"(Künstler und Titel sind immer enthalten):"
 
 #. Translators: title of a panel to configure columns explorer settings.
 msgid "Columns explorer"
@@ -1445,8 +1435,8 @@ msgstr ""
 
 msgid "Enter or select the name or the artist of the track you wish to &search"
 msgstr ""
-"Geben Sie den zusuchenden Namen oder den Interpreten des Titels ein oder "
-"wählen Sie ihn aus"
+"Geben Sie den zusuchenden Namen oder den Künstler des Titels ein oder wählen "
+"Sie ihn aus"
 
 msgid "Enter or select text to be &searched in a column"
 msgstr ""
@@ -1578,11 +1568,12 @@ msgstr "Transcript-Aktion:"
 #. Translators: Message displayed if errors were found in encoder configuration file.
 msgid "Your encoder settings had errors and were reset to defaults."
 msgstr ""
+"Auf Grund eines Fehlers wurden die Encoder-Einstellungen auf die "
+"Standardwerte zurückgesetzt."
 
 #. Translators: Title of the encoder settings error dialog.
-#, fuzzy
 msgid "SPL add-on Encoder settings error"
-msgstr "Fehler in den Encoder-Einstellungen"
+msgstr "Einstellungsfehler im Encoder der SPL-Erweiterung"
 
 #. Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
 #, python-brace-format
@@ -1591,7 +1582,7 @@ msgstr "Encoder-Einstellungen für {name}"
 
 #. Translators: An edit field in encoder settings to set a label for this encoder.
 msgid "Encoder &label"
-msgstr ""
+msgstr "Encoder-&Beschreibung"
 
 #. Translators: A checkbox in encoder settings to set if NvDA should switch focus to Studio window when connected.
 msgid "&Focus to Studio when connected"
@@ -1611,15 +1602,15 @@ msgstr "Spielt Status der Verbindung ab &Piepton während Verbindungsaufbau"
 
 #. Translators: A checkbox in encoder settings to set if NVDA should announce connection progress until an encoder connects.
 msgid "Announce connection &status until encoder connects"
-msgstr ""
+msgstr "Verbindungs&tatus solange melden, bis sich der Encoder verbindet"
 
 #. Translators: presented when no streaming encoders were found when trying to obtain connection status.
 msgid "No encoders found"
-msgstr "Keine Encoder gefunden."
+msgstr "Keine Encoder gefunden"
 
 #. Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
 msgid "Only one encoder type can be active at once"
-msgstr "Es kann nur ein Encoder-Typ gleichzeitig aktiv sein."
+msgstr "Es kann nur ein Encoder-Typ gleichzeitig aktiv sein"
 
 #. Translators: presented when at least one encoder is connected.
 #, python-brace-format
@@ -1628,7 +1619,7 @@ msgstr "Verbundene Encoder: {encodersConnected}"
 
 #. Translators: presented when no encoders are connected.
 msgid "No encoders connected"
-msgstr "Keine Encoder verbunden."
+msgstr "Keine Encoder verbunden"
 
 #. Translators: Input help mode message in SAM Encoder window.
 msgid ""
@@ -1651,7 +1642,7 @@ msgid ""
 "Toggles whether Studio will play the first song when connected to a "
 "streaming server."
 msgstr ""
-"legt fest, ob Studio nach dem Verbindungsaufbau den ersten Titel aus der "
+"Legt fest, ob Studio nach dem Verbindungsaufbau den ersten Titel aus der "
 "titelliste abspielen soll."
 
 #. Translators: Presented when toggling the setting to play selected song when connected to a streaming server.
@@ -1666,7 +1657,7 @@ msgstr "Ersten Titel nach dem Verbindungsaufbau nicht abspielen"
 msgid ""
 "Toggles whether NVDA will monitor the selected encoder in the background."
 msgstr ""
-"legt fest, ob NVDA den ausgewählten Encoder im Hintergrund überwachen soll."
+"Legt fest, ob NVDA den ausgewählten Encoder im Hintergrund überwachen soll."
 
 #. Translators: Presented when toggling the setting to monitor the selected encoder.
 #, python-brace-format
@@ -1683,33 +1674,28 @@ msgid "Encoder monitoring canceled"
 msgstr "Encoderüberwachung abgebrochen"
 
 #. Translators: Input help mode message in SAM Encoder window.
-#, fuzzy
 msgid ""
 "Opens a dialog to erase encoder labels and settings from an encoder that was "
 "deleted."
 msgstr ""
-"Öffnet einen Dialog, mit dem Beschriftungen und Einstellungen gelöschter "
-"Encoder entfernt werden können."
+"Öffnet ein Dialogfeld zum Löschen von Messgerätebeschriftungen und -"
+"einstellungen von einem Messgerät, das gelöscht wurde."
 
 #. Translators: The text of the stream configuration eraser dialog.
 msgid "Enter the position of the encoder you wish to delete or will delete"
 msgstr "Geben Sie die Position des Encoddrs ein, den Sie löschen möchten"
 
 #. Translators: The title of the encoder settings eraser dialog.
-#, fuzzy
 msgid "Encoder label and settings eraser"
-msgstr ""
-"Einstellungen zum Löschen der Streambezeichnungen und Zurücksetzen anderer "
-"Einstellungen"
+msgstr "Radierer für Encoder-Etiketten und Einstellungen"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-#, fuzzy
 msgid ""
 "Shows encoder settings dialog to configure various encoder settings such as "
 "encoder label."
 msgstr ""
-"Zeigt das Encoder-Konfiguationsdialog, wo beispielsweise Streambezeichnungen "
-"eingestellt werden können."
+"Zeigt das Dialogfeld Encoder-Einstellungen zur Konfiguration verschiedener "
+"Encoder-Einstellungen, wie z. B. Encoder-Beschreibung."
 
 #. Translators: Text of the dialog when another alarm dialog is open.
 msgid "Another encoder settings dialog is open."
@@ -1720,8 +1706,8 @@ msgid ""
 "If pressed once, reports the current time including seconds. If pressed "
 "twice, reports the current date"
 msgstr ""
-"Bei ein Mal drücken der Tastenkombination wird die aktuelle Uhrzeit "
-"einschließlich Sekunden und bei zwei Mal drücken das aktuelle Datum angesagt."
+"Bei einmaligem Drücken wird die aktuelle Zeit einschließlich Sekunden "
+"angezeigt. Bei zweimaligem Drücken wird das aktuelle Datum angezeigt."
 
 #, python-brace-format
 msgid "Position: {pos}"
@@ -1731,9 +1717,8 @@ msgstr "Position: {pos}"
 msgid "Label: {label}"
 msgstr "Bezeichnung: {label}"
 
-#, fuzzy
 msgid "No encoder label"
-msgstr "Keine Encoder gefunden."
+msgstr "Keine Encoder-Beschreibung"
 
 #. Translators: Presented when an Encoder is trying to connect to a streaming server.
 msgid "Connecting..."
@@ -1744,14 +1729,12 @@ msgid "Disconnecting..."
 msgstr "Verbindung trennen..."
 
 #. Translators: input hep command for an encoder connection command.
-#, fuzzy
 msgid "Connects the selected encoder."
-msgstr "Stellt die Verbindung mit einem Streaming-Server her."
+msgstr "Verbindet den ausgewählten Encoder."
 
 #. Translators: input hep command for an encoder connection command.
-#, fuzzy
 msgid "Connects all encoders."
-msgstr "Stellt die Verbindung mit einem Streaming-Server her."
+msgstr "Verbindet alle Encoder."
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
@@ -1880,75 +1863,3 @@ msgstr ""
 "Verbessert die Unterstützung für Station Playlist Studio.\n"
 "Des weiteren fügt es Tastenkombinationen für das Studio aus beliebigen "
 "Programmen hinzu."
-
-#~ msgid "Status not found"
-#~ msgstr "Status nicht gefunden"
-
-#~ msgid "Status: {name}"
-#~ msgstr "Status: {name}"
-
-#~ msgid "{checkStatus}{header}: {content}"
-#~ msgstr "{checkStatus}{header}: {content}"
-
-#~ msgid "{checkStatus}{header}: blank"
-#~ msgstr "{checkStatus}{header}: Keine"
-
-#~ msgid "{checkStatus}{header}: ()"
-#~ msgstr "{checkStatus}{header}: ()"
-
-#~ msgid "Broadcast &profile:"
-#~ msgstr "Sendungs&profil:"
-
-#~ msgid "Move &up"
-#~ msgstr "Aufwärts bewegen"
-
-#~ msgid "Move &down"
-#~ msgstr "Abwärts bewegen"
-
-#~ msgid ""
-#~ "Pilot features: I want to test and provide early &feedback on features "
-#~ "under development"
-#~ msgstr ""
-#~ "Pilot-&Funktionen: Ich möchte testen und frühzeitig Feedback zu Features "
-#~ "in der Entwicklung geben"
-
-#~ msgid ""
-#~ "You are about to enable pilot features. Please note that pilot features "
-#~ "may include functionality that might be unstable at times and should be "
-#~ "used for testing and sending feedback to the add-on developer. If you "
-#~ "prefer to use stable features, please answer no and uncheck pilot "
-#~ "features checkbox. Are you sure you wish to enable pilot features?"
-#~ msgstr ""
-#~ "Sie sind dabei, Pilotfunktionen zu aktivieren. Bitte beachten Sie, dass "
-#~ "Pilotfunktionen Funktionen beinhalten können, die manchmal instabil sein "
-#~ "können und zum Testen und Senden von Feedback an den Entwickler der "
-#~ "Erweiterung verwendet werden sollten. Wenn Sie es vorziehen, stabile "
-#~ "Funktionen zu verwenden, antworten Sie bitte auf Nein und deaktivieren "
-#~ "Sie das Kontrollkästchen Pilot-Funktionen. Sind Sie sicher, dass Sie "
-#~ "Pilot-Funktionen aktivieren möchten?"
-
-#~ msgid "Enable pilot features"
-#~ msgstr "Pilotfunktionen aktivieren"
-
-#~ msgid ""
-#~ "You have toggled pilot features checkbox. You must restart NVDA for the "
-#~ "change to take effect."
-#~ msgstr ""
-#~ "Sie haben das Kontrollkästchen Pilotfunktionen aktiviert. Sie müssen NVDA "
-#~ "neu starten, damit die Änderung wirksam wird."
-
-#~ msgid "Pilot features"
-#~ msgstr "Pilot-Features"
-
-#, fuzzy
-#~ msgid "Status: {encoderStatus}"
-#~ msgstr "Status: {name}"
-
-#~ msgid "Encoder Settings: {setting}"
-#~ msgstr "Encoder-Einstellungen: {setting}"
-
-#~ msgid "Transfer Rate: {transferRate}"
-#~ msgstr "Übertragungsgeschwindigkeit: {transferRate}"
-
-#~ msgid "{encoder} {encoderNumber}: {status}"
-#~ msgstr "{encoder} {encoderNumber}: {status}"

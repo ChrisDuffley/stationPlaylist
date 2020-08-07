@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 6.4\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2016-03-04 19:00+1000\n"
-"PO-Revision-Date: 2020-06-10 10:59-0700\n"
+"PO-Revision-Date: 2020-08-02 08:57-0700\n"
 "Last-Translator: Florian Ionașcu <florianionascu@hotmail.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -1865,78 +1865,3 @@ msgid ""
 msgstr ""
 "Conține suport pentru StationPlaylist Studio.\n"
 "De asemenea, adaugă comenzi globale pentru studio de oriunde."
-
-#~ msgid "Status not found"
-#~ msgstr "Stare negăsită"
-
-#~ msgid "Status: {name}"
-#~ msgstr "Stare: {name}"
-
-#~ msgid "{checkStatus}{header}: {content}"
-#~ msgstr "{checkStatus}{header}: {content}"
-
-#~ msgid "{checkStatus}{header}: blank"
-#~ msgstr "{checkStatus}{header}: gol"
-
-#~ msgid "{checkStatus}{header}: ()"
-#~ msgstr "{checkStatus}{header}: blank"
-
-#~ msgid "Broadcast &profile:"
-#~ msgstr "&Profil de emisie:"
-
-#~ msgid "Move &up"
-#~ msgstr "Mută în &sus"
-
-#~ msgid "Move &down"
-#~ msgstr "Mută în &jos"
-
-#~ msgid ""
-#~ "Pilot features: I want to test and provide early &feedback on features "
-#~ "under development"
-#~ msgstr ""
-#~ "Caracteristici pilot: Vreau să testez și să ofer &feedback prematur la "
-#~ "caracteristicile aflate în dezvoltare"
-
-#, fuzzy
-#~ msgid ""
-#~ "You are about to enable pilot features. Please note that pilot features "
-#~ "may include functionality that might be unstable at times and should be "
-#~ "used for testing and sending feedback to the add-on developer. If you "
-#~ "prefer to use stable features, please answer no and uncheck pilot "
-#~ "features checkbox. Are you sure you wish to enable pilot features?"
-#~ msgstr ""
-#~ "Sunteți pe cale să treceți la Testarea Unității Rapide(încercați) "
-#~ "construcțiile canalului, cel mai rapid și mai instabil canal de "
-#~ "dezvoltare. Vă rugăm să rețineți că canalul selectat poate veni cu "
-#~ "actualizări care ar putea fi uneori instabile și ar trebui să fie "
-#~ "utilizate pentru testarea și trimiterea de feedback dezvoltatorului de "
-#~ "extensii. Dacă preferați să utilizați funcții stabile, răspundeți nu și "
-#~ "treceți la un canal de actualizare mai stabil. Sigur doriți să treceți la "
-#~ "cel mai rapid canal de dezvoltare?"
-
-#~ msgid "Enable pilot features"
-#~ msgstr "Activează caracteristicile pilot"
-
-#~ msgid ""
-#~ "You have toggled pilot features checkbox. You must restart NVDA for the "
-#~ "change to take effect."
-#~ msgstr ""
-#~ "Ați activat caseta de bifat a caracteristicilor pilot. Trebuie să "
-#~ "reporniți NVDA pentru ca modificarea să aibă efect."
-
-#~ msgid "Pilot features"
-#~ msgstr "Caracteristici pilot"
-
-#, fuzzy
-#~ msgid "Status: {encoderStatus}"
-#~ msgstr "Stare: {name}"
-
-#, fuzzy
-#~ msgid "Encoder Settings: {setting}"
-#~ msgstr "Eroare setări encoder"
-
-#~ msgid "Transfer Rate: {transferRate}"
-#~ msgstr "Frecvență de transfer: {transferRate}"
-
-#~ msgid "{encoder} {encoderNumber}: {status}"
-#~ msgstr "{encoder} {encoderNumber}: {status}"

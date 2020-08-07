@@ -3,7 +3,7 @@
 * Autoren: Geoff Shang, Joseph Lee und weitere Mitwirkende
 * [Stabile Version herunterladen][1]
 * [Entwicklerversion herunterladen][2]
-* NVDA compatibility: 2019.3 to 2020.2
+* NVDA-Kompatibilität: 2019.3 bis 2020.2
 
 Dieses Zusatzpaket bietet eine verbesserte Nutzung von StationPlaylist
 Studio und anderen StationPlaylist-Anwendungen sowie Dienstprogramme zur
@@ -22,9 +22,9 @@ WICHTIGE HINWEISE:
 * Wenn Sie Windows 8 oder höher verwenden, setzen Sie die Reduzierung der
   Lautstärke anderer Audioquellen auf "nie" im Dialog Sprachausgabe im
   NVDA-Einstellungsmenü.
-* Starting from 2018, [changelogs for old add-on releases][5] will be found
-  on GitHub. This add-on readme will list changes from version 18.09 (2018
-  onwards).
+* Seit 2018 werden [Änderungen für alte Versionen der Erweiterung][5] auf
+  GitHub zu finden sein. Diese Readme-Datei für die Änderungen der
+  Erweiterung ab Version 18.09 (ab 2018) auflisten.
 * Bestimmte Funktionen sind nicht mehr verfügbar, z.B. während NVDA im
   abgesicherten Modus ausgeführt wird.
 * Aufgrund technischer Einschränkungen können Sie diese Erweiterung nicht
@@ -32,11 +32,12 @@ WICHTIGE HINWEISE:
 * Features, die als "experimentell" gekennzeichnet sind, sollen etwas vor
   einer zukünftigen Version testen, sodass sie nicht in stabilen Versionen
   aktiviert werden.
-* While Studio is running, you can save, reload saved settings, or reset
-  add-on settings to defaults by pressing Control+NVDA+C, Control+NVDA+R
-  once, or Control+NVDA+R three times, respectively. This is also applicable
-  to encoder settings - you can save and reset (not reload) encoder settings
-  if using encoders.
+* Während die Studio-Software läuft, können Sie gespeicherte Einstellungen
+  speichern, wieder laden oder Zusatzeinstellungen auf die Standardwerte
+  zurücksetzen, indem Sie Strg+NVDA+C, Strg+NVDA+R einmal bzw. Strg+NVDA+R
+  dreimal drücken. Dies gilt auch für die Encoder-Einstellungen - Sie können
+  Encoder-Einstellungen speichern und zurücksetzen (nicht neu laden), wenn
+  Sie Encoder verwenden.
 
 ## Tastenkürzel
 
@@ -52,18 +53,22 @@ angegeben.
   aus dem Studio-Fenster: Zeigt die Sendezeit an z.B. 5 Minuten bis zur
   vollen Stunde. Wenn Sie diesen Befehl zweimal drücken, werden Minuten und
   Sekunden bis zur vollen Stunde angesagt.
-* Alt+NVDA+1 (two finger flick right in SPL mode) from Studio window: Opens
-  alarms category in Studio add-on configuration dialog.
-* Alt+NVDA+1 from Creator's Playlist Editor and Remote VT playlist editor:
-  Announces scheduled time for the loaded playlist.
-* Alt+NVDA+2 from Creator's Playlist Editor and Remote VT playlist editor:
-  Announces total playlist duration.
+* Alt+NVDA+1 (im SPL-Modus mit zwei Fingern nach rechts wischen) aus dem
+  Studio-Fenster: Öffnet die Kategorie Alarm-Einstellungen im
+  Studio-Zusatzkonfigurationsfenster.
+* Alt+NVDA+1 aus dem Playlist-Editor des Creators und dem
+  Remote-VT-Playlist-Editor: Meldet die geplante Zeit für die
+  Wiedergabeliste.
+* Alt+NVDA+2 aus dem Playlist-Editor des Creators und dem
+  Remote-VT-Playlist-Editor: Meldet die Gesamtdauer der Wiedergabeliste.
 * Alt+NVDA+3 aus dem Studio-Fenster: legt den Cart-Explorer fest, um die
   Zuordnung von Carts zu lernen.
-* Alt+NVDA+3 from Creator's Playlist Editor and Remote VT playlist editor:
-  Announces when the selected track is scheduled to play.
-* Alt+NVDA+4 from Creator's Playlist Editor and Remote VT playlist editor:
-  Announces rotation and category associated with the loaded playlist.
+* Alt+NVDA+3 aus dem Playlist-Editor des Creators und dem
+  Remote-VT-Playlist-Editor: Zeigt an, wann die Wiedergabe des ausgewählten
+  Titels geplant ist.
+* Alt+NVDA+4 aus dem Playlist-Editor des Creators und dem
+  Remote-VT-Playlist-Editor: Meldet die Rotation und die Kategorie, die mit
+  der die Wiedergabeliste verbunden ist.
 * STRG+NVDA+f aus dem Studio-Fenster: Öffnet einen Dialog, um einen Titel
   basierend auf Künstler oder Titelbezeichnung zu finden. Drücken Sie
   NVDA+F3, um vorwärts zu suchen oder NVDA+Umschalt+F3, um rückwärts zu
@@ -71,18 +76,19 @@ angegeben.
 * Alt+NVDA+R aus dem Studio-Fenster: Benachrichtigungseinstellungen für
   Bibliothek-Scans.
 * Strg+Umschalt+X aus dem Studio-Fenster: Braille-Timer-Einstellungen.
-* Control+Alt+left/right arrow (while focused on a track in Studio, Creator,
-  Remote VT, and Track Tool): Announce previous/next track column.
-* Control+Alt+Home/End (while focused on a track in Studio, Creator, Remote
-  VT, and Track Tool): Announce first/last track column.
+* Strg+Alt+Pfeil nach links/rechts (während der Fokus auf einer Spur in
+  Studio, Creator, Remote VT und Track Tool liegt): Vorherige bzw. nächste
+  Track-Spalte ansagen.
+* Strg+Alt+Pos1/Ende (während der Fokus auf einem Track in Studio, Creator,
+  Remote-VT und Track Tool liegt): Erste und letzte Track-Spalte ansagen.
 * Strg+Alt+Pfeil nach oben/unten (während der Fokus nur auf einen Titel in
   Studio gerichtet ist): Zur vorherigen oder nächsten Spur wechseln und
   bestimmte Spalten mitteilen.
-* Control+NVDA+1 through 0 (while focused on a track in Studio, Creator
-  (including Playlist Editor), Remote VT, and Track Tool): Announce column
-  content for a specified column (first ten columns by default). Pressing
-  this command twice will display column information on a browse mode
-  window.
+* Strg+NVDA+1 bis 0 (während der Fokus auf einem Track in Studio, Creator
+  (einschließlich im Playlist-Editor), Remote-VT und Track Tool liegt):
+  Spalteninhalt für eine bestimmte Spalte ankündigen (standardmäßig die
+  ersten zehn Spalten). Wenn Sie diesen Befehl zweimal drücken, werden die
+  Spalteninformationen in einem Fenster im Blätternmodus angezeigt.
 * Strg+NVDA+- (Bindestrich bei Fokussierung auf eine Spur in Studio, Creator
   und Titelwerkzeug): Anzeige der Daten für alle Spalten einer Spur im
   Lesemodus.
@@ -90,7 +96,7 @@ angegeben.
   Track-Kommentare, falls vorhanden.
 * Alt+NVDA+0 aus dem Studio-Fenster: Öffnet den Konfigurationsdialog der
   SPL-Erweiterung.
-* Alt+NVDA+P from Studio window: Opens the Studio broadcast profiles dialog.
+* Alt+NVDA+P aus dem Studio-Fenster: Öffnet die Studio-Sendeprofile.
 * Alt+NVDA+Minus (Bindestrich) aus dem Studio-Fenster: Senden Sie Feedback
   an den Entwickler der Erweiterung mit der E-Mail-Programm.
 * Alt+NVDA+F1: öffnet das Willkommensdialog.
@@ -129,24 +135,24 @@ Folgende Befehle stehen zur Verfügung, wenn Sie Encoder verwenden:
 
 * F9: Mit einem Streaming-Server verbinden.
 * F10 (nur SAM-Encoder): Trennt die Verbindung zum Streaming-Server.
-* Control+F9: Connect all encoders.
-* Control+F10 (SAM encoder only): Disconnect all encoders.
+* Strg+F9: Verbindet alle Encoder.
+* Strg+F10 (nur SAM-Encoder): Alle Encoder trennen.
 * F11: legt fest, ob NVDA zum Studio-Fenster für den ausgewählten Encoder
   wechseln soll, wenn dieser angeschlossen ist.
 * Shift+F11: legt fest, ob Studio den ersten ausgewählten Titel abspielen
   soll, wenn der Encoder an einen Streaming-Server angeschlossen ist.
 * Control+F11: Schaltet die Hintergrundüberwachnung des ausgewählten
   Encoders ein- und aus.
-* Control+F12: opens a dialog to select the encoder you have deleted (to
-  realign encoder labels and settings).
-* Alt+NVDA+0: Opens encoder settings dialog to configure options such as
-  encoder label.
+* Strg+F12: Öffnet ein Dialogfeld zur Auswahl des ausgelöschten Encoders
+  (zur Neuausrichtung der Encoder-Beschreibung und Einstellungen).
+* Alt+NVDA+0: Öffnet das Dialogfeld der Encoder-Einstellungen, um Optionen
+  wie z. B. die Encoder-Beschreibung zu konfigurieren.
 
 Darüber hinaus stehen folgende Befehle für den Spaltenexplorer zur
 Verfügung:
 
 * STRG+NVDA+1: Position des Encoders.
-* Control+NVDA+2: encoder label.
+* Strg+NVDA+2: Encoder-Beschreibung.
 * STRG+NVDA+3 aus dem SAM-Encoder: Encoder-Format.
 * Strg+NVDA+3 aus SPL und AltaCast Encoder: Encoder-Einstellungen.
 * STRG+NvDA+4 aus dem SAM-Encoder: meldet den Encoder-Verbindungsstatus.
@@ -168,27 +174,28 @@ anderen Screenreadern simuliert.
 Folgende Befehle stehen zur Verfügung:
 
 * A: Automatisierung.
-* C (Shift+C in JAWS layout): Title for the currently playing track.
-* C (JAWS layout): Toggle cart explorer (playlist viewer only).
+* C (Umschalt+C im JAWS-Layout): Name des aktuell abgespielten Titels.
+* C (JAWS-Layout): Cart-Explorer umschalten (nur in der Ansicht der
+  Wiedergabelisten).
 * D (R in der JAWS-Darstellung): Restdauer der Playlist (wenn eine
   Fehlermeldung angezeigt wird, wechseln Sie zum Playlist-Viewer und geben
   Sie diesen Befehl ein).
-* E: Metadata streaming status.
+* E: Metadaten-Streaming-Status.
 * Umschalt+1 bis 4, Umschalt+0: Status für einzelne Metadaten-Streaming-URLs
   (0 ist für DSP-Encoder).
 * F: Titel suchen (nur im Playlist-Viewer).
 * H: Dauer der Titel in dieser Stunde.
 * Umschalt+H: Verbleibende Spieldauer für den Stundenplatzhalter.
-* I (L in JAWS layout): Listener count.
+* I (L im JAWS-Layout): Anzahl der Zuhörer.
 * K: springt zum Lesezeichentitel (nur im Playlist-Viewer).
 * Strg+K: Aktuellen Titel als Lesezeichentitel setzen (nur im
   Playlist-viewer).
-* L (Shift+L in JAWS layout): Line in.
+* L (Umschalt+L im JAWS-Layout): Line-In.
 * M: Mikrofon.
 * N: Titel der nächst geplante Datei.
 * P: Wiedergabestatus (Wiedergabe oder angehalten).
 * Umschalt+P: Pitch des aktuellen Titels.
-* R (Shift+E in JAWS layout): Record to file enabled/disabled.
+* R (Umschalt+E im JAWS-Layout): Datensatz in Datei aktiviert/deaktiviert.
 * Umschalt+R: Überwachung des Bibliothek-Scans läuft...
 * S: Titel beginnt (geplant).
 * Umschalt+S: Zeit bis zur Wiedergabe des ausgewählten Titels (Titel startet
@@ -246,23 +253,24 @@ Die verfügbaren Befehle für den SPL-Controller sind:
 * Drücken Sie die Taste H, um einen Hilfe-Dialog anzuzeigen, in dem die
   verfügbaren Befehle aufgelistet sind.
 
-## Track and microphone alarms
+## Track- und Mikrofon-Alarm
 
-By default, NVDA will play a beep if five seconds are left in the track
-(outro) and/or intro, as well as to hear a beep if microphone has been
-active for a while. To configure track and microphone alarms, press
-Alt+NVDA+1 to open alarms settings in Studio add-on settings screen. You can
-also use this screen to configure if you'll hear a beep, a message or both
-when alarms are turned on.
+Standardmäßig gibt NVDA einen Piepton ab, wenn noch fünf Sekunden im Track
+(Outro) und/oder Intro verbleiben, sowie einen Piepton, wenn das Mikrofon
+eine Zeit lang aktiv war. Um Track- und Mikrofon-Alarme zu konfigurieren,
+drücken Sie Alt+NVDA+1, um die Alarm-Einstellungen in den
+Zusatz-Einstellungen zu öffnen. Sie können ihn auch verwenden, um zu
+konfigurieren, ob Sie einen Piepton, eine Nachricht oder beides hören, wenn
+die Alarme eingeschaltet werden.
 
 ## Titelfinder
 
-Wenn Sie schnell einen Song nach Interpreten oder Titelbezeichnung aus der
+Wenn Sie schnell einen Song nach Künstler oder Titelbezeichnung aus der
 Titelliste finden möchten, drücken Sie STRG+NVDA+F. Geben Sie den Namen des
-Interpreten oder den Namen des Titels ein oder wählen Sie ihn aus. NVDA wird
+Künstlers oder den Namen des Titels ein oder wählen Sie ihn aus. NVDA wird
 den Cursor entweder beim gefundenen Titel platzieren oder einen Fehler
 anzeigen, wenn der gesuchte Titel nicht gefunden wurde. Um einen zuvor
-eingegebenen Titel oder Interpreten zu finden, drücken Sie NVDA+F3 oder
+eingegebenen Titel oder Künstler zu finden, drücken Sie NVDA+F3 oder
 NVDA+Umschalt+F3. Somit such NVDA vorwärts oder rückwärts.
 
 Hinweis: Im Titelfinder wird zwischen Groß- und Kleinschreibung
@@ -290,21 +298,18 @@ erreicht haben.
 
 ## Spaltenexplorer
 
-By pressing Control+NVDA+1 through 0, you can obtain contents of specific
-columns. By default, these are first ten columns for a track item (in
-Studio: artist, title, duration, intro, outro, category, year, album, genre,
-mood). For playlist editor in Creator and Remote VT client, column data
-depends on column order as shown on screen. In Studio, Creator's main track
-list, and Track Tool, column slots are preset regardless of column order on
-screen and can be configured from add-on settings dialog under columns
-explorer category.
+Durch Drücken von Strg+NVDA+1 bis 0 oder SPL-Assistent, 1 bis 0, können Sie
+den Inhalt bestimmter Spalten erhalten. Standardmäßig sind dies Künstler,
+Titel, Dauer, Intro, Outro, Kategorie, Jahr, Album, Genre und Stimmung. Sie
+können konfigurieren, welche Spalten über den Spalten-Explorer-Dialog, der
+sich in den Einstellungen der Erweiterung befindet, erkundet werden sollen.
 
 ## Playlist-Statistiken
 
 Sie können im SPL-Assistenten F8 drücken, während Sie sich auf eine
 Wiedergabeliste in Studio konzentrieren, um verschiedene Statistiken über
 eine Wiedergabeliste zu erhalten. Die Statistik beinhaltet beispielsweise
-die Anzahl der Titel, der längste Titel, der beste Interpret und so
+die Anzahl der Titel, der längste Titel, der beste Künstler und so
 weiter. Nach der Zuweisung eines benutzerdefinierten Befehls für diese
 Funktion führt ein zweimaliges Drücken des benutzerdefinierten Befehls dazu,
 dass NVDA die Schnappschuss-Informationen der Wiedergabeliste als Webseite
@@ -325,11 +330,12 @@ auch das Einstellungsmenü von NVDA aufrufen und den Punkt Einstellungen für
 SPL-Studio auswählen. Dieser Dialog dient auch zur Verwaltung von
 Broadcast-Profilen.
 
-## Broadcast profiles dialog
+## Dialogfeld der Sendeprofile
 
-You can save settings for specific shows into broadcast profiles. These
-profiles can be managed via SPL broadcast profiles dialog which can be
-accessed by pressing Alt+NVDA+P from Studio window.
+Sie können Einstellungen für bestimmte Sendungen in Sendeprofilen
+speichern. Diese Profile können über das Dialogfeld SPL-Sendeprofile
+verwaltet werden, auf das durch Drücken von Alt+NVDA+P im Studio-Fenster
+zugegriffen werden kann.
 
 ## SPL-Touchmodus
 
@@ -341,87 +347,100 @@ die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
 
 ## Version 20.07
 
-* In Studio's playlist viewer, NVDA will no longer appear to do nothing or
-  play error tones when attempting to delete tracks or after clearing the
-  loaded playlist while focused on playlist viewer.
-* When searching for tracks in Studio's insert tracks dialog, NVDA will
-  announce search results if results are found.
-* NVDA will no longer appear to do nothing or play error tones when trying
-  to switch to a newly created broadcast profile and save add-on settings.
-* In encoder settings, "stream label" has been renamed to "encoder label".
-* Dedicated stream labeler command (F12) has been removed from
-  encoders. Encoder labels can be defined from encoder settings dialog
-  (Alt+NVDA+0).
-* System focus will no longer move to Studio repeatedly or selected track
-  will be played when an encoder being monitored in the background
-  (Control+F11) connects and disconnects repeatedly.
-* In SPL encoders, added Control+F9 command to connect all encoders (same as
-  F9 command).
+* Im Wiedergabelisten-Viewer von Studio scheint NVDA nicht mehr nichts zu
+  tun oder Fehlertöne abzuspielen, wenn versucht wird, Titel zu löschen oder
+  nachdem die geladene Wiedergabeliste gelöscht wurde, während der
+  Wiedergabelisten-Viewer fokussiert war.
+* Bei der Suche nach Tracks im Dialogfeld Tracks einfügen von Studio meldet
+  NVDA die Suchergebnisse, wenn Ergebnisse gefunden werden.
+* NVDA scheint nicht mehr nichts zu tun oder Fehlertöne wiederzugeben, wenn
+  versucht wird, zu einem neu erstellten Sendeprofil zu wechseln und
+  Zusatz-Einstellungen zu speichern.
+* In den Encoder-Einstellungen wurde die Stream-Beschreibung in
+  Encoder-Beschreibung" umbenann.
+* Der dedizierter Befehl zur Stream-Beschreibung (F12) wurde aus den
+  Encodern entfernt. Encoder-Beschreibungen können in den
+  Encoder-Einstellungen definiert werden (Alt+NVDA+0).
+* Der Systemfokus bewegt sich nicht mehr wiederholt zu Studio oder die
+  ausgewählte Spur wird abgespielt, wenn ein im Hintergrund (Strg+F11)
+  überwachter Encoder wiederholt ein- und ausgeschaltet wird.
+* Bei SPL-Encodern wurde der Befehl Strg+F9 hinzugefügt, um alle Encoder zu
+  verbinden (wie F9).
 
 ## Version 20.06
 
-* Resolved many coding style issues and potential bugs with Flake8.
-* Fixed many instances of encoders support feature messages spoken in
-  English despite translated into other languages.
-* Time-based broadcast profiles feature has been removed.
-* Window-Eyes command layout for SPL Assistant has been removed. Window-Eyes
-  command layout users will be migrated to NVDA layout.
-* As audio ducking feature in NVDA does not impact streaming from Studio
-  except for specific hardware setups, audio ducking reminder dialog has
-  been removed.
-* When errors are found in encoder settings, it is no longer necessary to
-  switch to Studio window to let NVDA reset settings to defaults. You must
-  now switch to an encoder from encoders window to let NVDA reset encoder
-  settings.
-* The title of encoder settings dialog for SAM encoders now displays encoder
-  format rather than encoder position.
+* Mit Flake8 wurden viele Probleme im Code und potenzielle Fehler behoben.
+* Viele Fälle, in denen Meldungen der Encoder Features trotz Übersetzung in
+  andere Sprachen auf Englisch unterstützt wurden, wurden behoben.
+* Die Funktion der zeitbasierten Sendeprofile wurde entfernt.
+* Das Befehlslayout von Window-Eyes für den SPL-Assistenten wurde
+  entfernt. Benutzer des Befehlslayouts von Window-Eyes werden zum
+  NVDA-Layout migriert.
+* Da die Funktion zum Reduzieren anderer Audio-Quellen in NVDA das Streaming
+  aus Studio nicht beeinflusst, außer bei bestimmten
+  Hardware-Konfigurationen, wurde der entsprechende Erinnerungsdialog
+  entfernt.
+* Wenn Fehler in den Encoder-Einstellungen gefunden werden, ist es nicht
+  mehr notwendig, zum Studio-Fenster zu wechseln, damit NVDA die
+  Einstellungen auf die Standardwerte zurücksetzen kann. Sie müssen nun vom
+  Encoder-Fenster zu einem Encoder wechseln, um NVDA-Encoder-Einstellungen
+  zurücksetzen zu lassen.
+* Der Titel des Dialogfelds für Enkodereinstellungen für SAM-Enkoder zeigt
+  jetzt das Enkoderformat und nicht mehr die Enkoderposition an.
 
 ## Version 20.05
 
-* Initial support for Remote VT (voice track) client, including remote
-  playlist editor with same commands as Creator's playlist editor.
-* Commands used to open separate alarm settings dialogs (Alt+NVDA+1,
-  Alt+NVDA+2, Alt+NVDA+4) has been combined into Alt+NvDA+1 and will now
-  open alarms settings in SPL add-on settings screen where track outro/intro
-  and microphone alarm settings can be found.
-* In triggers dialog found in broadcast profiles dialog, removed the user
-  interface associated with time-based broadcast profiles feature such as
-  profile switch day/time/duration fields.
-* Profile switch countdown setting found in broadcast profiles dialog has
-  been removed.
-* As Window-Eyes is no longer supported by Vispero since 2017, SPL Assistant
-  command layout for Window-Eyes is deprecated and will be removed in a
-  future add-on release. A warning will be shown at startup urging users to
-  change SPL Assistant command layout to NVDA (default) or JAWS.
-* When using Columns Explorer slots (Control+NvDA+number row commands) or
-  column navigation commands (Control+Alt+home/end/left arrow/right arrow)
-  in Creator and Remote VT client, NVDA will no longer announce wrong column
-  data after changing column position on screen via mouse.
-* In encoders and Streamer, NVDA will no longer appear to do nothing or play
-  error tones when exiting NVDA while focused on something other than
-  encoders list without moving focus to encoders first.
+* Anfängliche Unterstützung für den Remote-VT-Client (Voice Tracking),
+  einschließlich Remote-Playlist-Editor mit denselben Befehlen wie der
+  Playlist-Editor des Creators.
+* Befehle, die zum Öffnen separater Alarmeinstellungsdialoge (Alt+NVDA+1,
+  Alt+NVDA+2, Alt+NVDA+4) verwendet werden, wurden zu Alt+NVDA+1
+  zusammengefasst und öffnen nun die Alarm-Einstellungen im
+  SPL-Zusatz-Einstellungsbildschirm, wo die Einstellungen für das Intro
+  bzw. Abspann des Tracks und Mikrofonalarm gefunden werden können.
+* Die Trigger, der in den Sendeprofile gefunden wurde, wurde die
+  Benutzeroberfläche entfernt, die mit zeitbasierten Sendeprofilen verbunden
+  ist, wie z. B. die Felder für die Profilumschaltung Tag/Uhrzeit/Dauer.
+* Die im Dialogfeld für Sendeprofile gefundene Countdown-Einstellung für den
+  Profilwechsel wurde entfernt.
+* Da Window-Eyes seit 2017 nicht mehr von Vispero unterstützt wird, ist das
+  Befehlslayout des SPL-Assistenten für Window-Eyes veraltet und wird in
+  einem zukünftigen Release der Erweiterung entfernt werden. Beim Start wird
+  eine Warnung angezeigt, indem der Benutzer aufgefordert wird, das
+  Befehlslayout des SPL-Assistenten auf NVDA (Standard) oder auf JAWS zu
+  ändern.
+* Bei der Verwendung des Spalten-Explorers (Strg+NVDA+Ziffernreihe) oder
+  Spaltennavigationsbefehlen (Strg+Alt+Pos1/Ende/Pfeil nach links/rechts) im
+  Creator und Remote-VT-Client meldet NVDA nach Änderung der Spaltenposition
+  auf dem Bildschirm per Maus keine falschen Spaltendaten mehr.
+* In Encodern und Streamern scheint NVDA beim Beenden von NVDA nicht mehr
+  nichts zu tun oder Fehlertöne abzuspielen, während man sich auf etwas
+  anderes als die Encoder-Liste konzentriert, ohne den Fokus zuerst auf die
+  Encoder zu richten.
 
 ## Version 20.04
 
-* Time-based broadcast profiles feature is deprecated. A warning message
-  will be shown when first starting Studio after installing add-on 20.04 if
-  you have defined one or more time-based broadcast profiles.
-* Broadcast profiles management has been split from SPL add-on settings
-  dialog into its own dialog. You can access broadcast profiles dialog by
-  pressing Alt+NVDA+P from Studio window.
-* Due to duplication with Control+NVDA+number row commands for Studio
-  tracks, columns explorer commands from SPL Assistant (number row) has been
-  removed.
-* Changed error message shown when trying to open a Studio add-on settings
-  dialog (such as metadata streaming dialog) while another settings dialog
-  (such as end of track alarm dialog) is active. The new error message is
-  same as the message shown when trying to open multiple NVDA settings
-  dialogs.
-* NVDA will no longer play error tones or appear to do nothing when clicking
-  OK button from Columns Explorer dialog after configuring column slots.
-* In encoders, you can now save and reset encoder settings (including stream
-  labels) by pressing Control+NVDA+C or Control+NVDA+R three times,
-  respectively.
+* Die Funktion der zeitbasierten Sendeprofile ist veraltet. Wenn Sie ein
+  oder mehrere zeitbasierte Sendeprofile definiert haben, wird beim ersten
+  Start von Studio nach der Installation der Version 20.04 eine Warnmeldung
+  angezeigt.
+* Die Verwaltung der Sendeprofile wurde vom SPL-Zusatzeinstellungsdialog in
+  einen eigenen Dialog aufgeteilt. Sie können auf die Sendeprofile
+  zugreifen, indem Sie Alt+NVDA+P im Studio-Fenster drücken.
+* Auf Grund der Duplizierung mit Strg+NVDA+Ziffernreihe für Studio-Spuren
+  wurden die Spaltenexplorer-Befehle aus dem SPL-Assistenten entfernt.
+* Geänderte Fehlermeldung, die angezeigt wird, wenn versucht wird, ein
+  Studio-Zusatzeinstellungsdialogfeld (z. B. Metadaten-Streaming-Dialogfeld)
+  zu öffnen, während ein anderes Einstellungsdialogfeld
+  (z. B. Alarmdialogfeld für das Ende der Spur) aktiv ist. Die neue
+  Fehlermeldung entspricht der Meldung, die angezeigt wird, wenn versucht
+  wird, mehrere NVDA-Einstellungsdialoge zu öffnen.
+* NVDA verursacht keine Fehlertöne mehr oder scheint nichts zu tun, wenn
+  nach der Konfiguration der Spalten in dem Spalten-Explorer auf die
+  Schaltfläche "OK" geklickt wird.
+* In den Encodern können Sie nun Encoder-Einstellungen (einschließlich
+  Stream-Bezeichnungen) durch dreimaliges Drücken von Strg+NVDA+C
+  bzw. Strg+NVDA+R speichern und zurücksetzen.
 
 ## Version 20.03
 
@@ -436,14 +455,14 @@ die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
 * Auf Grund der Entfernung der automatischen Ansage des abspielenden Titels
   wurde die Einstellung zur Konfiguration dieser Funktion aus der Kategorie
   Zusatzeinstellungen bzw. Status-Ankündigung entfernt.
-* In encoders, NvDA will play connection tone every half a second while an
-  encoder is connecting.
+* Bei Encodern spielt NVDA jede halbe Sekunde einen Verbindungston ab,
+  während ein Encoder verbunden ist.
 * Bei Encodern meldet NVDA nun Meldungen über Verbindungsversuche, bis ein
   Encoder tatsächlich angeschlossen ist. Zuvor stoppte NVDA, wenn ein Fehler
   auftrat.
-* A new setting has been added to encoder settings to let NvDA announce
-  connection messages until the selected encoder is connected. This setting
-  is enabled by default.
+* Eine neue Einstellung zu den Encoder-Einstellungen wurde hinzugefügt,
+  damit NVDA über Verbindungsmeldungen informiert, bis der ausgewählte
+  Encoder verbunden ist. Diese Einstellung ist standardmäßig aktiviert.
 
 ## Version 20.02
 
@@ -589,10 +608,11 @@ Version 19.06 unterstützt SPL 5.20 und neuer.
   zurückgesetzt.
 * Der Dialog "Erweiterungseinstellungen für Studio" im Bereich "Erweiterte
   Optionen" wurde in "Erweitert" umbenannt.
-* 19.03 experimental: in column announcements and playlist transcripts
-  panels (add-on settings), custom column inclusion/order controls will be
-  visible up front instead of having to select a button to open a dialog to
-  configure these settings.
+* 19.03 Experimentell: In den Panels für Spaltenankündigungen und
+  Playlist-Transkriptionen (Zusatz-Einstellungen) werden benutzerdefinierte
+  Spalteneinschluss- bzw. Kontrollen im Vordergrund sichtbar sein, anstatt
+  eine Schaltfläche auswählen zu müssen, um einen Dialog zur Konfiguration
+  dieser Einstellungen zu öffnen.
 
 ## Version 19.02
 

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 4.2\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2015-02-06 19:00+1000\n"
-"PO-Revision-Date: 2020-06-10 10:59-0700\n"
+"PO-Revision-Date: 2020-08-02 08:58-0700\n"
 "Last-Translator: Nikola Jović <wwenikola123@gmail.com>\n"
 "Language-Team: \n"
 "Language: sr\n"
@@ -1853,56 +1853,3 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist Studio.\n"
 "Takođe, dodaje globalne komande za studio bilo gde."
-
-#~ msgid "Status not found"
-#~ msgstr "Status nije pronađen"
-
-#~ msgid "Status: {name}"
-#~ msgstr "Status: {name}"
-
-#~ msgid "{checkStatus}{header}: {content}"
-#~ msgstr "{checkStatus}{header}: {content}"
-
-#~ msgid "{checkStatus}{header}: blank"
-#~ msgstr "{checkStatus}{header}: prazno"
-
-#~ msgid "{checkStatus}{header}: ()"
-#~ msgstr "{checkStatus}{header}: ()"
-
-#~ msgid "Broadcast &profile:"
-#~ msgstr "&Profil strima:"
-
-#~ msgid "Move &up"
-#~ msgstr "Pomeri &gore"
-
-#~ msgid "Move &down"
-#~ msgstr "Pomeri &dole"
-
-#, fuzzy
-#~ msgid ""
-#~ "You are about to enable pilot features. Please note that pilot features "
-#~ "may include functionality that might be unstable at times and should be "
-#~ "used for testing and sending feedback to the add-on developer. If you "
-#~ "prefer to use stable features, please answer no and uncheck pilot "
-#~ "features checkbox. Are you sure you wish to enable pilot features?"
-#~ msgstr ""
-#~ "You are about to switch to the Test Drive Fast (try) builds channel, the "
-#~ "fastest and most unstable development channel. Please note that the "
-#~ "selected channel may come with updates that might be unstable at times "
-#~ "and should be used for testing and sending feedback to the add-on "
-#~ "developer. If you prefer to use stable releases, please answer no and "
-#~ "switch to a more stable update channel. Are you sure you wish to switch "
-#~ "to Test Drive Fast channel?"
-
-#, fuzzy
-#~ msgid "Status: {encoderStatus}"
-#~ msgstr "Status: {name}"
-
-#~ msgid "Encoder Settings: {setting}"
-#~ msgstr "Podešavanja enkodera: {setting}"
-
-#~ msgid "Transfer Rate: {transferRate}"
-#~ msgstr "Brzina: {transferRate}"
-
-#~ msgid "{encoder} {encoderNumber}: {status}"
-#~ msgstr "{encoder} {encoderNumber}: {status}"

@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 17.02\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2017-02-03 19:00+1000\n"
-"PO-Revision-Date: 2020-07-24 22:57+0700\n"
+"PO-Revision-Date: 2020-08-02 08:58-0700\n"
 "Last-Translator: Dang Manh Cuong <dangmanhcuong@gmail.com>\n"
 "Language-Team: \n"
 "Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.11\n"
+"X-Generator: Poedit 1.8.9\n"
 
 #. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
 msgid ""
@@ -1801,78 +1801,3 @@ msgid ""
 msgstr ""
 "Cải thiện hỗ trợ cho StationPlaylist Studio.\n"
 "Ngoài ra là thêm các lệnh toàn cục cho studio từ bất cứ đâu."
-
-#~ msgid "Status not found"
-#~ msgstr "Không tìm thấy trạng thái"
-
-#~ msgid "Status: {name}"
-#~ msgstr "Trạng thái: {name}"
-
-#~ msgid "{checkStatus}{header}: {content}"
-#~ msgstr "{checkStatus}{header}: {content}"
-
-#~ msgid "{checkStatus}{header}: blank"
-#~ msgstr "{checkStatus}{header}: rỗng"
-
-#~ msgid "{checkStatus}{header}: ()"
-#~ msgstr "{checkStatus}{header}: ()"
-
-#~ msgid "Broadcast &profile:"
-#~ msgstr "Cấu hình &phát thanh:"
-
-#~ msgid "Move &up"
-#~ msgstr "Di chuyển &lên"
-
-#~ msgid "Move &down"
-#~ msgstr "Di chuyển &xuống"
-
-#~ msgid ""
-#~ "Pilot features: I want to test and provide early &feedback on features "
-#~ "under development"
-#~ msgstr ""
-#~ "Các tính năng thử nghiệm: Tôi muốn kiểm tra và gửi &phản hồi sớm về các "
-#~ "tính năng đang được thử nghiệm"
-
-#~ msgid ""
-#~ "You are about to enable pilot features. Please note that pilot features "
-#~ "may include functionality that might be unstable at times and should be "
-#~ "used for testing and sending feedback to the add-on developer. If you "
-#~ "prefer to use stable features, please answer no and uncheck pilot "
-#~ "features checkbox. Are you sure you wish to enable pilot features?"
-#~ msgstr ""
-#~ "Bạn sắp bật các tính năng thử nghiệm. Xin lưu ý rằng các tính năng thử "
-#~ "nghiệm có thể bao gồm các chức năng hiện chưa chính thức được dùng và chỉ "
-#~ "nên dùng để kiểm tra và gửi phản hồi cho người phát triển add-on. Nếu chỉ "
-#~ "thích dùng các tính năng chính thức, hãy trả lời không và bỏ chọn hộp "
-#~ "kiểm các tính năng thử nghiệm. Bạn có muốn bật tính năng thử nghiệm không?"
-
-#~ msgid "Enable pilot features"
-#~ msgstr "Bật các tính năng thử nghiệm"
-
-#~ msgid ""
-#~ "You have toggled pilot features checkbox. You must restart NVDA for the "
-#~ "change to take effect."
-#~ msgstr ""
-#~ "Bạn đã bật / tắt hộp kiểm các tính năng thử nghiệm. Bạn phải khởi động "
-#~ "lại NVDA để thay đổi có hiệu lực."
-
-#~ msgid "Pilot features"
-#~ msgstr "Các tính năng thử nghiệm"
-
-#~ msgid "Format: {encoderFormat}"
-#~ msgstr "Định dạng: {encoderFormat}"
-
-#~ msgid "Status: {encoderStatus}"
-#~ msgstr "Trạng thái: {encoderStatus}"
-
-#~ msgid "Description: {encoderDescription}"
-#~ msgstr "Mô tả: {encoderDescription}"
-
-#~ msgid "Encoder Settings: {setting}"
-#~ msgstr "Cài đặt mã hóa: {setting}"
-
-#~ msgid "Transfer Rate: {transferRate}"
-#~ msgstr "Tốc độ truyền tải: {transferRate}"
-
-#~ msgid "{encoder} {encoderNumber}: {status}"
-#~ msgstr "{encoder} {encoderNumber}: {status}"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 5.5\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2015-09-25 19:00+1000\n"
-"PO-Revision-Date: 2020-06-10 10:59-0700\n"
+"PO-Revision-Date: 2020-08-02 08:54-0700\n"
 "Last-Translator: shmuel naaman <shmuel_naaman@yahoo.com>\n"
 "Language-Team: Shmuel Naaman <nvda.israel@gmail.com>\n"
 "Language: he\n"
@@ -1767,70 +1767,3 @@ msgid ""
 msgstr ""
 "מנגיש את תוכנת StationPlaylist  Studio  .  \n"
 "בנוסף, מאפשר ביצוע פקודות מכל מקום אחר במחשב."
-
-#~ msgid "Status not found"
-#~ msgstr "מצב נוכחי לא מזוהה"
-
-#~ msgid "Status: {name}"
-#~ msgstr "מצב: {name}"
-
-#~ msgid "{checkStatus}{header}: {content}"
-#~ msgstr "{checkStatus}{header}: {content}"
-
-#~ msgid "{checkStatus}{header}: blank"
-#~ msgstr "{checkStatus}{header}: ריק"
-
-#~ msgid "{checkStatus}{header}: ()"
-#~ msgstr "{checkStatus}{header}: ()"
-
-#~ msgid "Broadcast &profile:"
-#~ msgstr "שידור ופרופיל:"
-
-#~ msgid "Move &up"
-#~ msgstr "העבר למ&עלה"
-
-#~ msgid "Move &down"
-#~ msgstr "העבר למ&טה"
-
-#~ msgid ""
-#~ "Pilot features: I want to test and provide early &feedback on features "
-#~ "under development"
-#~ msgstr "תכונות ניסיוניות: אני רוצה לבדוק ולספק משוב &מוקדם על תכונות בפיתוח"
-
-#~ msgid ""
-#~ "You are about to enable pilot features. Please note that pilot features "
-#~ "may include functionality that might be unstable at times and should be "
-#~ "used for testing and sending feedback to the add-on developer. If you "
-#~ "prefer to use stable features, please answer no and uncheck pilot "
-#~ "features checkbox. Are you sure you wish to enable pilot features?"
-#~ msgstr ""
-#~ "אתה עומד להפעיל תכונות פיילוט. לידיעתך, תכונות פיילוט עשויות לכלול "
-#~ "פונקציונליות שעשויה להיות לא יציבה בזמנים ויש להשתמש בה לבדיקה ולשלוח "
-#~ "משוב למפתח התוספים. אם אתה מעדיף להשתמש בתכונות יציבות, השב על תיבת "
-#~ "הסימון 'אל תבטל את הסימון'. האם אתה בטוח שברצונך להפעיל תכונות ניסיוניות?"
-
-#~ msgid "Enable pilot features"
-#~ msgstr "הפעל תכונות ניסיוניות"
-
-#~ msgid ""
-#~ "You have toggled pilot features checkbox. You must restart NVDA for the "
-#~ "change to take effect."
-#~ msgstr ""
-#~ "סימנת את תיבת הסימון לתכונות בפיתוח. עליך להפעיל מחדש את NVDA כדי שהשינוי "
-#~ "ייכנס לתוקף."
-
-#~ msgid "Pilot features"
-#~ msgstr "תכונה ניסיונית"
-
-#, fuzzy
-#~ msgid "Status: {encoderStatus}"
-#~ msgstr "מצב: {name}"
-
-#~ msgid "Encoder Settings: {setting}"
-#~ msgstr "הגדרות מגנון זרימה:  {setting}"
-
-#~ msgid "Transfer Rate: {transferRate}"
-#~ msgstr "קצב העברה: : {transferRate}"
-
-#~ msgid "{encoder} {encoderNumber}: {status}"
-#~ msgstr "{encoder} {encoderNumber}: {status}"

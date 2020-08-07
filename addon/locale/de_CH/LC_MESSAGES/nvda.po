@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-06-10 11:00-0700\n"
+"PO-Revision-Date: 2020-08-02 08:52-0700\n"
 "Last-Translator: Adriani Botez <adriani.botez@gmail.com>\n"
 "Language-Team: Deutsch <bernd_dorer@yahoo.de>\n"
 "Language: de_CH\n"
@@ -1902,57 +1902,3 @@ msgstr ""
 "Verbessert die Unterstützung für Station Playlist Studio.\n"
 "Des weiteren fügt es Tastenkombinationen für das Studio aus beliebigen "
 "Programmen hinzu."
-
-#~ msgid "Status not found"
-#~ msgstr "Status nicht gefunden"
-
-#~ msgid "Status: {name}"
-#~ msgstr "Status: {name}"
-
-#~ msgid "{checkStatus}{header}: {content}"
-#~ msgstr "{checkStatus}{header}: {content}"
-
-#~ msgid "{checkStatus}{header}: blank"
-#~ msgstr "{checkStatus}{header}: Leer"
-
-#~ msgid "{checkStatus}{header}: ()"
-#~ msgstr "{checkStatus}{header}: ()"
-
-#~ msgid "Broadcast &profile:"
-#~ msgstr "Sendungs&Profil:"
-
-#~ msgid "Move &up"
-#~ msgstr "Aufwärts bewegen"
-
-#~ msgid "Move &down"
-#~ msgstr "Abwärts bewegen"
-
-#, fuzzy
-#~ msgid ""
-#~ "You are about to enable pilot features. Please note that pilot features "
-#~ "may include functionality that might be unstable at times and should be "
-#~ "used for testing and sending feedback to the add-on developer. If you "
-#~ "prefer to use stable features, please answer no and uncheck pilot "
-#~ "features checkbox. Are you sure you wish to enable pilot features?"
-#~ msgstr ""
-#~ "Sie sind gerade dabei, auf den Test Drive Fast (Try) Builds Channel "
-#~ "umzuschalten, den schnellsten und instabilsten Entwicklungskanal. Bitte "
-#~ "beachten Sie, dass der ausgewählte Kanal möglicherweise Updates enthält, "
-#~ "die zurzeit instabil sind und zum Testen und Senden von Feedback an den "
-#~ "Erweiterungsentwickler verwendet werden sollten. Wenn Sie lieber stabile "
-#~ "Releases verwenden möchten, antworten Sie bitte mit Nein und wechseln Sie "
-#~ "zu einem stabileren Aktualisierungskanal. Sind Sie sicher, dass Sie auf "
-#~ "den Kanal Test Drive Fast umschalten möchten?"
-
-#, fuzzy
-#~ msgid "Status: {encoderStatus}"
-#~ msgstr "Status: {name}"
-
-#~ msgid "Encoder Settings: {setting}"
-#~ msgstr "Encoder-Einstellungen: {setting}"
-
-#~ msgid "Transfer Rate: {transferRate}"
-#~ msgstr "Übertragungsgeschwindigkeit: {transferRate}"
-
-#~ msgid "{encoder} {encoderNumber}: {status}"
-#~ msgstr "{encoder} {encoderNumber}: {status}"

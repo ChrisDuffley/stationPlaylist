@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-07-24 11:49+0200\n"
+"PO-Revision-Date: 2020-08-02 08:53-0700\n"
 "Last-Translator: Iván Novegil Cancelas <ivan.novegil.cancelas@gmail.com>\n"
 "Language-Team: Add-ons translation team <oprisniki@gmail.com>\n"
 "Language: gl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4\n"
+"X-Generator: Poedit 1.8.9\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
@@ -1835,80 +1835,3 @@ msgid ""
 msgstr ""
 "Mellora o soporte para Station Playlist Studio.\n"
 "Ademáis, engade ordes globais para o estudio dende calquera parte."
-
-#~ msgid "Status not found"
-#~ msgstr "Estado non atopado"
-
-#~ msgid "Status: {name}"
-#~ msgstr "Estado: {name}"
-
-#~ msgid "{checkStatus}{header}: {content}"
-#~ msgstr "{checkStatus}{header}: {content}"
-
-#~ msgid "{checkStatus}{header}: blank"
-#~ msgstr "{checkStatus}{header}: en blanco"
-
-#~ msgid "{checkStatus}{header}: ()"
-#~ msgstr "{checkStatus}{header}: ()"
-
-#~ msgid "Broadcast &profile:"
-#~ msgstr "&Perfil emisión:"
-
-#~ msgid "Move &up"
-#~ msgstr "Mover &arriba"
-
-#~ msgid "Move &down"
-#~ msgstr "Mover a&baixo"
-
-#~ msgid ""
-#~ "Pilot features: I want to test and provide early &feedback on features "
-#~ "under development"
-#~ msgstr ""
-#~ "Características piloto: Quero probar e proporcionar &retroalimentación de "
-#~ "cedo sobre as características en desenvolvemento"
-
-#~ msgid ""
-#~ "You are about to enable pilot features. Please note that pilot features "
-#~ "may include functionality that might be unstable at times and should be "
-#~ "used for testing and sending feedback to the add-on developer. If you "
-#~ "prefer to use stable features, please answer no and uncheck pilot "
-#~ "features checkbox. Are you sure you wish to enable pilot features?"
-#~ msgstr ""
-#~ "Estás a piques activar as características piloto. Ten en conta que as "
-#~ "características piloto poden incluir funcionalidades que poden seren "
-#~ "inestables en ocasións e que deben usarse para probar e enviar "
-#~ "comentarios ao desenvolvedor do complemento. Se prefires usar "
-#~ "características estables, responde non e desmarca a Caixa de verificación "
-#~ "de características piloto. ¿Estás seguro de que desexas activar as "
-#~ "características piloto?"
-
-#~ msgid "Enable pilot features"
-#~ msgstr "Activar características piloto"
-
-#~ msgid ""
-#~ "You have toggled pilot features checkbox. You must restart NVDA for the "
-#~ "change to take effect."
-#~ msgstr ""
-#~ "Conmutaches a Caixa de verificación características piloto. Debes "
-#~ "reiniciar o NVDA para que os cambios teñan efecto."
-
-#~ msgid "Pilot features"
-#~ msgstr "Características piloto"
-
-#~ msgid "Format: {encoderFormat}"
-#~ msgstr "Formato: {encoderFormat}"
-
-#~ msgid "Status: {encoderStatus}"
-#~ msgstr "Estado: {encoderStatus}"
-
-#~ msgid "Description: {encoderDescription}"
-#~ msgstr "Descrición: {encoderDescription}"
-
-#~ msgid "Encoder Settings: {setting}"
-#~ msgstr "Opcións do Codificador: {setting}"
-
-#~ msgid "Transfer Rate: {transferRate}"
-#~ msgstr "Taxa de Transferencia: {transferRate}"
-
-#~ msgid "{encoder} {encoderNumber}: {status}"
-#~ msgstr "{encoder} {encoderNumber}: {status}"
