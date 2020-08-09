@@ -118,7 +118,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	)
 	def script_focusToSPLWindow(self, gesture):
 		# Don't do anything if we're already focus on SPL Studio.
-		if "splstudio" in api.getForegroundObject().appModule.appModuleName: return
+		if "splstudio" in api.getForegroundObject().appModule.appName: return
 		SPLHwnd = user32.FindWindowW("SPLStudio", None)
 		if not SPLHwnd: ui.message(_("SPL Studio is not running."))
 		# 17.01: SetForegroundWindow function is better, as there's no need to traverse top-level windows and allows users to "switch" to SPL window if the window is minimized.
@@ -136,7 +136,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# 1. If SPL Studio is not running, print an error message.
 		# 2. If we're already  in SPL, ask the app module if SPL Assistant can be invoked with this command.
 		foregroundAppMod = api.getForegroundObject().appModule
-		if "splstudio" in foregroundAppMod.appModuleName:
+		if "splstudio" in foregroundAppMod.appName:
 			if not foregroundAppMod.SPLConPassthrough():
 				# Translators: Presented when NVDA cannot enter SPL Controller layer since SPL Studio is focused.
 				ui.message(_("You are already in SPL Studio window. For status commands, use SPL Assistant commands."))
