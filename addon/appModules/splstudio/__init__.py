@@ -1558,7 +1558,9 @@ class AppModule(appModuleHandler.AppModule):
 				tones.beep(550, 100)
 				# No need to provide translatable string - just use index.
 				ui.message("{0}".format(count))
-			else: ui.message(_("{itemCount} items scanned").format(itemCount=count))
+			else:
+				# Translators: Presented when library scan is in progress.
+				ui.message(_("{itemCount} items scanned").format(itemCount=count))
 
 	# Place markers.
 	placeMarker = None
@@ -2151,7 +2153,8 @@ class AppModule(appModuleHandler.AppModule):
 		trackStarts = divmod(splbase.studioAPI(3, 27), 1000)
 		# For this method, all three components of time display (hour, minute, second) must be present.
 		# In case it is midnight (0.0 but sometimes shown as 86399.999 due to rounding error), just say "midnight".
-		if trackStarts in ((86399, 999), (0, 0)): ui.message("00:00:00")
+		if trackStarts in ((86399, 999), (0, 0)):
+			ui.message("00:00:00")
 		else:
 			self.announceTime(trackStarts[0]+1 if trackStarts[1] == 999 else trackStarts[0], ms=False)
 
