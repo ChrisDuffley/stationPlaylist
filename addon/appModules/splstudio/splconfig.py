@@ -21,6 +21,7 @@ from . import splactions
 from . import spldebugging
 import addonHandler
 addonHandler.initTranslation()
+from ..skipTranslation import translate
 
 # Configuration management
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
@@ -878,7 +879,7 @@ messagePool = {
 	"BrailleTimer": {
 		"off": (
 			# Translators: A setting in braille timer options.
-			_("Braille timer off"), _("Off")),
+			_("Braille timer off"), translate("Off")),
 		"outro": (
 			# Translators: A setting in braille timer options.
 			_("Braille track endings"),
@@ -897,7 +898,7 @@ messagePool = {
 	"LibraryScanAnnounce": {
 		"off": (
 			# Translators: A setting in library scan announcement options.
-			_("Do not announce library scans"), _("Off")),
+			_("Do not announce library scans"), translate("Off")),
 		"ending": (
 			# Translators: A setting in library scan announcement options.
 			_("Announce start and end of a library scan"), _("Start and end only")),

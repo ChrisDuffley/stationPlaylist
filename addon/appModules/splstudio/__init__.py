@@ -365,7 +365,8 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 		if filename is not None and filename in splconfig.trackComments:
 			if level == 0:
 				if splconfig.SPLConfig["General"]["TrackCommentAnnounce"] in ("message", "both"):
-					ui.message(_("Has comment"))
+					# Message comes from NVDA Core.
+					ui.message(translate("has comment"))
 				if splconfig.SPLConfig["General"]["TrackCommentAnnounce"] in ("beep", "both"):
 					tones.beep(1024, 100)
 			elif level == 1:
@@ -1117,16 +1118,16 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Scripts which rely on API.
 	@scriptHandler.script(
-		# Translators: Input help mode message for a command in StationPlaylist add-on.
-		description=_("Announces the remaining track time."),
+		# Message comes from Foobar 2000 app module, part of NVDA Core.
+		description=translate("Reports the remaining time of the currently playing track, if any"),
 		gestures=["kb:control+alt+t", "ts(SPL):2finger_flickDown"])
 	def script_sayRemainingTime(self, gesture):
 		if splbase.studioIsRunning():
 			self.announceTime(splbase.studioAPI(3, 105), offset=1)
 
 	@scriptHandler.script(
-		# Translators: Input help mode message for a command in StationPlaylist add-on.
-		description=_("Announces the elapsed time for the currently playing track."),
+		# Message comes from Foobar 2000 app module, part of NVDA Core.
+		description=translate("Reports the elapsed time of the currently playing track, if any"),
 		gesture="kb:alt+shift+t")
 	def script_sayElapsedTime(self, gesture):
 		if splbase.studioIsRunning():
@@ -2081,8 +2082,8 @@ class AppModule(appModuleHandler.AppModule):
 			return
 		try:
 			if not splbase.studioAPI(0, 39):
-				# Translators: Presented when there is no information for the next track.
-				nextTrack = _("No track is playing")
+				# Message comes from Foobar 2000 app module, part of NVDA Core.
+				nextTrack = translate("No track playing")
 			else:
 				obj = self.status(self.SPLNextTrackTitle)
 				# Translators: Presented when there is no information for the next track.
@@ -2108,8 +2109,8 @@ class AppModule(appModuleHandler.AppModule):
 			return
 		try:
 			if not splbase.studioAPI(0, 39):
-				# Translators: Presented when there is no information for the current track.
-				currentTrack = _("No track is playing")
+				# Message comes from Foobar 2000 app module, part of NVDA Core.
+				currentTrack = translate("No track playing")
 			else:
 				obj = self.status(self.SPLCurrentTrackTitle)
 				# Translators: Presented when there is no information for the current track.

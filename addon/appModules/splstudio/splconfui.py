@@ -158,10 +158,10 @@ class BroadcastProfilesDialog(wx.Dialog):
 		profilePos = self.profileNames.index(oldName)
 		# #70 (18.07): in wxPython 4, name for the value keyword argument for text entry dialog constructor has changed.
 		with wx.TextEntryDialog(
-			# Translators: The label of a field to enter a new name for a broadcast profile.
-			self, _("New name:"),
-			# Translators: The title of the dialog to rename a profile.
-			_("Rename Profile"), value=oldName
+			# Message comes from NVDA Core.
+			self, translate("New name:"),
+			# Message comes from NVDA Core.
+			translate("Rename Profile"), value=oldName
 		) as d:
 			if d.ShowModal() == wx.ID_CANCEL:
 				return
@@ -172,9 +172,8 @@ class BroadcastProfilesDialog(wx.Dialog):
 			splconfig.SPLConfig.renameProfile(oldName, newName)
 		except RuntimeError:
 			gui.messageBox(
-				# Translators: An error displayed when renaming a configuration profile
-				# and a profile with the new name already exists.
-				_("That profile already exists. Please choose a different name."),
+				# Message comes from NVDA Core.
+				translate("That profile already exists. Please choose a different name."),
 				translate("Error"), wx.OK | wx.ICON_ERROR, self)
 			return
 		if self.switchProfile == oldName:
@@ -219,8 +218,8 @@ class BroadcastProfilesDialog(wx.Dialog):
 		if gui.messageBox(
 			# Translators: The confirmation prompt displayed when the user requests to delete a broadcast profile.
 			_("Are you sure you want to delete this profile? This cannot be undone."),
-			# Translators: The title of the confirmation dialog for deletion of a profile.
-			_("Confirm Deletion"),
+			# Message comes from NVDA Core.
+			translate("Confirm Deletion"),
 			wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION, self
 		) == wx.NO:
 			return
@@ -306,8 +305,8 @@ class NewProfileDialog(wx.Dialog):
 	def __init__(self, parent, copy=False):
 		self.copy = copy
 		if not self.copy:
-			# Translators: The title of the dialog to create a new broadcast profile.
-			dialogTitle = _("New Profile")
+			# Message comes from NVDA Core.
+			dialogTitle = translate("New Profile")
 		else:
 			# Translators: The title of the dialog to copy a broadcast profile.
 			dialogTitle = _("Copy Profile")
@@ -315,8 +314,8 @@ class NewProfileDialog(wx.Dialog):
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		newProfileSizerHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
-		# Translators: The label of a field to enter the name of a new broadcast profile.
-		self.profileName = newProfileSizerHelper.addLabeledControl(_("Profile name:"), wx.TextCtrl)
+		# Message comes from NVDA Core.
+		self.profileName = newProfileSizerHelper.addLabeledControl(translate("Profile name:"), wx.TextCtrl)
 
 		if self.copy:
 			# Translators: The label for a setting in SPL add-on dialog to select a base  profile for copying.
@@ -342,8 +341,8 @@ class NewProfileDialog(wx.Dialog):
 			return
 		if name in parent.profileNames:
 			gui.messageBox(
-				# Translators: An error displayed when the user attempts to create a profile which already exists.
-				_("That profile already exists. Please choose a different name."),
+				# Message comes from NVDA Core.
+				translate("That profile already exists. Please choose a different name."),
 				translate("Error"), wx.OK | wx.ICON_ERROR, self)
 			return
 		namePath = name + ".ini"
@@ -421,8 +420,8 @@ class TriggersDialog(wx.Dialog):
 
 # A collection of general settings for the add-on.
 class GeneralSettingsPanel(gui.SettingsPanel):
-	# Translators: title of a panel to configure various general add-on settings such as top and bottom announcement for playlists.
-	title = _("General")
+	# Message comes from NVDA Core.
+	title = translate("General")
 
 	def makeSettings(self, settingsSizer):
 		generalSettingsHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
@@ -447,7 +446,7 @@ class GeneralSettingsPanel(gui.SettingsPanel):
 			pass
 
 		self.brailleTimerValues = [
-			("off", _("Off")),
+			("off", translate("Off")),
 			# Translators: One of the braille timer settings.
 			("outro", _("Track ending")),
 			# Translators: One of the braille timer settings.
@@ -465,7 +464,7 @@ class GeneralSettingsPanel(gui.SettingsPanel):
 			pass
 
 		self.libScanValues = [
-			("off", _("Off")),
+			("off", translate("Off")),
 			# Translators: One of the library scan announcement settings.
 			("ending", _("Start and end only")),
 			# Translators: One of the library scan announcement settings.
@@ -502,7 +501,7 @@ class GeneralSettingsPanel(gui.SettingsPanel):
 		self.categorySoundsCheckbox.SetValue(splconfig.SPLConfig["General"]["CategorySounds"])
 
 		self.trackCommentValues = [
-			("off", _("Off")),
+			("off", translate("Off")),
 			# Translators: One of the track comment notification settings.
 			("message", _("Message")),
 			# Translators: One of the track comment notification settings.
@@ -736,7 +735,7 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 		metadataSizerHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
 		self.metadataValues = [
-			("off", _("Off")),
+			("off", translate("Off")),
 			# Translators: One of the metadata notification settings.
 			("startup", _("When Studio starts")),
 			# Translators: One of the metadata notification settings.
@@ -1051,8 +1050,8 @@ class SayStatusPanel(gui.SettingsPanel):
 # Advanced options
 # This panel houses advanced options such as using SPL Controller command to invoke SPL Assistant.
 class AdvancedOptionsPanel(gui.SettingsPanel):
-	# Translators: title of a panel to configure advanced SPL add-on options such as update checking.
-	title = _("Advanced")
+	# Message comes from NVDA Core.
+	title = translate("Advanced")
 
 	def makeSettings(self, settingsSizer):
 		advOptionsHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
