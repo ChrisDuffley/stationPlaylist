@@ -128,12 +128,14 @@ class ConfigHub(ChainMap):
 		# 17.10: now pull it in from command line.
 		self._configInMemory = "--spl-configinmemory" in globalVars.appArgsExtra
 		self._normalProfileOnly = "--spl-normalprofileonly" in globalVars.appArgsExtra
-		if self.configInMemory: self._normalProfileOnly = True
+		if self.configInMemory:
+			self._normalProfileOnly = True
 		# For presentational purposes.
 		self.profileNames = []
 		# 17.10: if config will be stored on RAM, this step is skipped, resulting in faster startup.
 		# But data conversion must take place.
-		if not self.configInMemory: self.maps[0] = self._unlockConfig(SPLIni, profileName=defaultProfileName, prefill=True, validateNow=True)
+		if not self.configInMemory:
+			self.maps[0] = self._unlockConfig(SPLIni, profileName=defaultProfileName, prefill=True, validateNow=True)
 		else:
 			# 20.09: get the dictionary version of default settings map.
 			self.maps[0] = ConfigObj(_SPLDefaults.dict(), configspec=confspec, encoding="UTF-8")

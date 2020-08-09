@@ -700,12 +700,15 @@ class AppModule(appModuleHandler.AppModule):
 		if splbase.studioAPI(1, 32) >= 0:
 			if not user32.FindWindowW("SPLStudio", None):
 				return
-			if not self.libraryScanning: self.script_libraryScanMonitor(None)
+			if not self.libraryScanning:
+				self.script_libraryScanMonitor(None)
 		# #86 (18.12/18.09.6-LTS): certain internal markers require presence of a playlist, otherwise unexpected things may happen.
 		trackCount = splbase.studioAPI(0, 124)
 		if not trackCount:
-			if self._focusedTrack is not None: self._focusedTrack = None
-			if self._analysisMarker is not None: self._analysisMarker = None
+			if self._focusedTrack is not None:
+				self._focusedTrack = None
+			if self._analysisMarker is not None:
+				self._analysisMarker = None
 		# #145 (20.09: playlist analysis marker value must be below track count.
 		if self._analysisMarker is not None and not 0 <= self._analysisMarker < trackCount:
 			self._analysisMarker = None
@@ -818,7 +821,8 @@ class AppModule(appModuleHandler.AppModule):
 						if self.scanCount % 100 == 0:
 							self._libraryScanAnnouncer(obj.name[1:obj.name.find("]")], splconfig.SPLConfig["General"]["LibraryScanAnnounce"])
 					if not self.libraryScanning:
-						if self.productVersion not in noLibScanMonitor: self.libraryScanning = True
+						if self.productVersion not in noLibScanMonitor:
+							self.libraryScanning = True
 				elif "match" in obj.name:
 					# 20.07: announce search/match results from insert tracks dialog while there is no library rescan in progress.
 					# Only announce match count as the whole thing is very verbose, and results text would have been checked by status bar checker anyway.
@@ -831,7 +835,8 @@ class AppModule(appModuleHandler.AppModule):
 							else:
 								# Translators: Presented when library scan is complete.
 								ui.message(_("Scan complete with {scanCount} items").format(scanCount=obj.name.split()[3]))
-						if self.libraryScanning: self.libraryScanning = False
+						if self.libraryScanning:
+							self.libraryScanning = False
 						self.scanCount = 0
 			else:
 				# 16.12: Because cart edit text shows cart insert status, exclude this from toggle state announcement.
@@ -939,7 +944,8 @@ class AppModule(appModuleHandler.AppModule):
 	# Respond to profile switches if asked.
 	def actionProfileSwitched(self):
 		# #38 (17.11/15.10-LTS): obtain microphone alarm status.
-		if splbase._SPLWin is not None: self.doExtraAction(self.sayStatus(2, statusText=True))
+		if splbase._SPLWin is not None:
+			self.doExtraAction(self.sayStatus(2, statusText=True))
 
 	def actionSettingsReset(self, factoryDefaults=False):
 		global micAlarmT, micAlarmT2
@@ -948,7 +954,8 @@ class AppModule(appModuleHandler.AppModule):
 		micAlarmT = None
 		if micAlarmT2 is not None: micAlarmT2.Stop()
 		micAlarmT2 = None
-		if splbase._SPLWin is not None: self.doExtraAction(self.sayStatus(2, statusText=True))
+		if splbase._SPLWin is not None:
+			self.doExtraAction(self.sayStatus(2, statusText=True))
 
 	# Alarm announcement: Alarm notification via beeps, speech or both.
 	def alarmAnnounce(self, timeText, tone, duration, intro=False):
@@ -1096,14 +1103,16 @@ class AppModule(appModuleHandler.AppModule):
 		description=_("Announces the remaining track time."),
 		gestures=["kb:control+alt+t", "ts(SPL):2finger_flickDown"])
 	def script_sayRemainingTime(self, gesture):
-		if splbase.studioIsRunning(): self.announceTime(splbase.studioAPI(3, 105), offset=1)
+		if splbase.studioIsRunning():
+			self.announceTime(splbase.studioAPI(3, 105), offset=1)
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Announces the elapsed time for the currently playing track."),
 		gesture="kb:alt+shift+t")
 	def script_sayElapsedTime(self, gesture):
-		if splbase.studioIsRunning(): self.announceTime(splbase.studioAPI(0, 105))
+		if splbase.studioIsRunning():
+			self.announceTime(splbase.studioAPI(0, 105))
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
@@ -1216,8 +1225,10 @@ class AppModule(appModuleHandler.AppModule):
 		# #32 (17.06/15.8 LTS): Update search text even if the track with the search term in columns does not exist.
 		# #27 (17.08): especially if the search history is empty.
 		# Thankfully, track finder dialog will populate the first item, but it is better to check a second time for debugging purposes.
-		if self.findText is None: self.findText = []
-		if text not in self.findText: self.findText.insert(0, text)
+		if self.findText is None:
+			self.findText = []
+		if text not in self.findText:
+			self.findText.insert(0, text)
 		# #33 (17.06/15.8-LTS): In case the track is NULL (seen when attempting to perform forward search from the last track and what not), this function should fail instead of raising attribute error.
 		if obj is not None and column is None:
 			column = [obj.indexOf("Artist"), obj.indexOf("Title")]
@@ -1297,13 +1308,15 @@ class AppModule(appModuleHandler.AppModule):
 		description=_("Finds a track in the track list."),
 		gesture="kb:control+nvda+f")
 	def script_findTrack(self, gesture):
-		if self._trackFinderCheck(0): self.trackFinderGUI()
+		if self._trackFinderCheck(0):
+			self.trackFinderGUI()
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Finds text in columns."))
 	def script_columnSearch(self, gesture):
-		if self._trackFinderCheck(1): self.trackFinderGUI(columnSearch=True)
+		if self._trackFinderCheck(1):
+			self.trackFinderGUI(columnSearch=True)
 
 	# Find next and previous scripts.
 
@@ -1313,7 +1326,8 @@ class AppModule(appModuleHandler.AppModule):
 		gesture="kb:nvda+f3")
 	def script_findTrackNext(self, gesture):
 		if self._trackFinderCheck(0):
-			if self.findText is None: self.trackFinderGUI()
+			if self.findText is None:
+				self.trackFinderGUI()
 			else:
 				startObj = api.getFocusObject()
 				if api.getForegroundObject().windowClassName == "TStudioForm" and startObj.role == controlTypes.ROLE_LIST:
@@ -1326,7 +1340,8 @@ class AppModule(appModuleHandler.AppModule):
 		gesture="kb:shift+nvda+f3")
 	def script_findTrackPrevious(self, gesture):
 		if self._trackFinderCheck(0):
-			if self.findText is None: self.trackFinderGUI()
+			if self.findText is None:
+				self.trackFinderGUI()
 			else:
 				startObj = api.getFocusObject()
 				if api.getForegroundObject().windowClassName == "TStudioForm" and startObj.role == controlTypes.ROLE_LIST:
@@ -1456,7 +1471,8 @@ class AppModule(appModuleHandler.AppModule):
 		if fg.windowClassName == "TTrackInsertForm":
 			# Translators: Presented when library scan has started.
 			ui.message(_("Scan start")) if not splconfig.SPLConfig["General"]["BeepAnnounce"] else tones.beep(740, 100)
-			if self.productVersion not in noLibScanMonitor: self.libraryScanning = True
+			if self.productVersion not in noLibScanMonitor:
+				self.libraryScanning = True
 
 	# Report library scan (number of items scanned) in the background.
 	def monitorLibraryScan(self):
@@ -1890,8 +1906,10 @@ class AppModule(appModuleHandler.AppModule):
 			# To prevent entering wrong gesture while the layer is active.
 			self.clearGestureBindings()
 			# 7.0: choose the required compatibility layer.
-			if splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "off": self.bindGestures(self.__SPLAssistantGestures)
-			elif splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "jfw": self.bindGestures(self.__SPLAssistantJFWGestures)
+			if splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "off":
+				self.bindGestures(self.__SPLAssistantGestures)
+			elif splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "jfw":
+				self.bindGestures(self.__SPLAssistantJFWGestures)
 			for i in range(5):
 				self.bindGesture(f"kb:shift+{i}", "metadataEnabled")
 			self.SPLAssistant = True
@@ -2092,7 +2110,8 @@ class AppModule(appModuleHandler.AppModule):
 		# For this method, all three components of time display (hour, minute, second) must be present.
 		# In case it is midnight (0.0 but sometimes shown as 86399.999 due to rounding error), just say "midnight".
 		if trackStarts in ((86399, 999), (0, 0)): ui.message("00:00:00")
-		else: self.announceTime(trackStarts[0]+1 if trackStarts[1] == 999 else trackStarts[0], ms=False)
+		else:
+			self.announceTime(trackStarts[0]+1 if trackStarts[1] == 999 else trackStarts[0], ms=False)
 
 	def script_sayScheduledToPlay(self, gesture):
 		# 7.0: This script announces length of time remaining until the selected track will play.

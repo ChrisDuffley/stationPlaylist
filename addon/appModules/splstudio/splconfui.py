@@ -812,7 +812,8 @@ class ColumnAnnouncementsBasePanel(gui.SettingsPanel):
 		self.upButton.Disable() if selIndex == 0 else self.upButton.Enable()
 		if selIndex == self.trackColumns.GetCount()-1:
 			self.dnButton.Disable()
-		else: self.dnButton.Enable()
+		else:
+			self.dnButton.Enable()
 
 	def onMoveUp(self, evt):
 		tones.beep(1000, 200)

@@ -494,7 +494,8 @@ class Encoder(IAccessible):
 					monitoring = SPLBackgroundMonitorThreads[self.encoderId].is_alive()
 				except KeyError:
 					monitoring = False
-				if not monitoring: self.connectStart()
+				if not monitoring:
+					self.connectStart()
 		else:
 			SPLBackgroundMonitor.clear()
 			# Translators: Announced when background encoder monitoring is canceled.
@@ -699,7 +700,8 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 		ui.message(_("Connecting..."))
 		# Oi, status thread, can you keep an eye on the connection status for me?
 		# To be packaged into a new function in 7.0.
-		if not self.backgroundMonitor: self.connectStart(manualConnect=True)
+		if not self.backgroundMonitor:
+			self.connectStart(manualConnect=True)
 
 	@scriptHandler.script(gesture="kb:f10")
 	def script_disconnect(self, gesture):
@@ -724,7 +726,8 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 		ui.message(_("Connecting..."))
 		self._samContextMenu(6)
 		# Oi, status thread, can you keep an eye on the connection status for me?
-		if not self.backgroundMonitor: self.connectStart(manualConnect=True)
+		if not self.backgroundMonitor:
+			self.connectStart(manualConnect=True)
 
 	@scriptHandler.script(gesture="kb:control+f10")
 	def script_disconnectAll(self, gesture):
@@ -826,7 +829,8 @@ class SPLEncoder(Encoder):
 		for key in ("applications", "downArrow", "enter"):
 			keyboardHandler.KeyboardInputGesture.fromName(key).send()
 		# Same as SAM's connection routine, but this time, keep an eye on self.name and a different connection flag.
-		if not self.backgroundMonitor: self.connectStart(manualConnect=True)
+		if not self.backgroundMonitor:
+			self.connectStart(manualConnect=True)
 
 	@scriptHandler.script(
 		# Translators: input hep command for an encoder connection command.
@@ -841,7 +845,8 @@ class SPLEncoder(Encoder):
 		# Juggle the focus around.
 		connectButton.doAction()
 		self.setFocus()
-		if not self.backgroundMonitor: self.connectStart(manualConnect=True)
+		if not self.backgroundMonitor:
+			self.connectStart(manualConnect=True)
 
 	# Announce SPL Encoder columns: encoder settings and transfer rate.
 	@scriptHandler.script(gesture="kb:control+NVDA+3")
