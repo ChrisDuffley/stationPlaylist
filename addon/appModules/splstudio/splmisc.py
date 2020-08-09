@@ -266,7 +266,8 @@ def _populateCarts(carts, cartlst, modifier, standardEdition=False, refresh=Fals
 		else: identifier = numberRow[pos-13]
 		cart = identifier if not modifier else "+".join([modifier, identifier])
 		if noEntry and refresh:
-			if cart in carts: del carts[cart]
+			if cart in carts:
+				del carts[cart]
 		else:
 			carts[cart] = cartName
 

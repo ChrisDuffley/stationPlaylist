@@ -120,7 +120,8 @@ def _removeEncoderID(encoderType, pos):
 		if encoderID in encoderSettings:
 			# Other than encoder labels (a dictionary), others are sets.
 			if isinstance(encoderSettings, set): encoderSettings.remove(encoderID)
-			else: del encoderSettings[encoderID]
+			else:
+				del encoderSettings[encoderID]
 		# In flag sets, unless members are sorted, encoders will appear in random order (a downside of using sets, as their ordering is quite unpredictable).
 		# The below list comprehension also works for dictionaries as it will iterate over keys.
 		currentEncoders = sorted([x for x in encoderSettings if x.startswith(encoderType)])

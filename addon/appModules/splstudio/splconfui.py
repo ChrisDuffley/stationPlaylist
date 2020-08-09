@@ -235,7 +235,8 @@ class BroadcastProfilesDialog(wx.Dialog):
 			self.switchProfileDeleted = True
 		self.profiles.Delete(index)
 		del self.profileNames[profilePos]
-		if name in splconfig._SPLCache: del splconfig._SPLCache[name]
+		if name in splconfig._SPLCache:
+			del splconfig._SPLCache[name]
 		# 6.3: Select normal profile if the active profile is gone.
 		# 7.0: Consult profile names instead.
 		try:

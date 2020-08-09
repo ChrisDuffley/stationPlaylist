@@ -393,7 +393,8 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 			if result == wx.ID_OK:
 				if dlg.GetValue() is None:
 					return
-				elif dlg.GetValue() == "": del splconfig.trackComments[filename]
+				elif dlg.GetValue() == "":
+					del splconfig.trackComments[filename]
 				else: splconfig.trackComments[filename] = dlg.GetValue()
 		gui.runScriptModalDialog(dlg, callback)
 
