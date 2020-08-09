@@ -32,7 +32,8 @@ def finally_(func, final):
 	return wrap(final)
 
 
-# SPL Studio uses WM messages to send and receive data, similar to Winamp (see NVDA source/appModules/winamp.py for more information).
+# SPL Studio uses WM messages to send and receive data, similar to Winamp.
+# See NVDA source/appModules/winamp.py for more information.
 
 # A handle to studio window.
 SPLWin = 0
@@ -83,13 +84,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def __init__(self):
 		super(GlobalPlugin, self).__init__()
-		# #19.04/18.09.8-LTS: don't even think about proceeding in secure screens.
+		# 19.04/18.09.8-LTS: don't even think about proceeding in secure screens.
 		# Also, skip over the rest if appx is in effect.
 		if globalVars.appArgs.secure or config.isAppX: return
 
-	# Global layer environment (see the app module for more information).
+	# Global layer environment (see Studio app module for more information).
 
-	# Control SPL from anywhere.
+	# Control Studio from anywhere.
 	SPLController = False
 	# Manual definitions of cart keys.
 	fnCartKeys = ("f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11", "f12")
@@ -134,7 +135,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		global SPLWin
 		# Error checks:
 		# 1. If SPL Studio is not running, print an error message.
-		# 2. If we're already  in SPL, ask the app module if SPL Assistant can be invoked with this command.
+		# 2. If we're already  in Studio, ask Studio app module if SPL Assistant can be invoked with this command.
 		foregroundAppMod = api.getForegroundObject().appModule
 		if "splstudio" in foregroundAppMod.appName:
 			if not foregroundAppMod.SPLConPassthrough():
@@ -242,7 +243,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Translators: Presented when no track is playing in StationPlaylist Studio.
 		if remainingTime < 0: ui.message(_("There is no track playing."))
 		else:
-			# 7.0: Present remaining time in hh:mm:ss format for enhanced experience (borrowed from the app module).
+			# 7.0: Present remaining time in hh:mm:ss format for enhanced experience (borrowed from Studio app module).
 			# 17.09 optimization: perform in-place string construction instead of using objects and building a list, results in fewer bytecode instructions.
 			# The string formatter will zero-fill minutes and seconds if less than 10.
 			# 19.11.1/18.09.13-LTS: use floor division due to division differences between Python 2 and 3.

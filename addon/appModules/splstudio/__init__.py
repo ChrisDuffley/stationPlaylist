@@ -67,7 +67,7 @@ micAlarmT = None
 micAlarmT2 = None
 libScanT = None
 
-# Blacklisted versions of Studio where library scanning functionality is broken.
+# Versions of Studio where library scanning functionality is broken.
 noLibScanMonitor = []
 
 
