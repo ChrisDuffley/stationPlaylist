@@ -181,8 +181,9 @@ class SPLTrackItem(sysListView32.ListItem):
 			columnContent = self._getColumnContentRaw(column)
 			# #61 (18.06): pressed once will announce column data, twice will present it in a browse mode window.
 			if scriptHandler.getLastScriptRepeatCount() == 0:
-				# Translators: Standard message for announcing column content.
-				if columnContent: ui.message(_("{header}: {content}").format(header=header, content=columnContent))
+				if columnContent:
+					# Translators: Standard message for announcing column content.
+					ui.message(_("{header}: {content}").format(header=header, content=columnContent))
 				else:
 					# Translators: Spoken when column content is blank.
 					speech.speakMessage(_("{header}: blank").format(header=header))
@@ -1307,10 +1308,12 @@ class AppModule(appModuleHandler.AppModule):
 
 	def trackFinderGUI(self, columnSearch=False):
 		try:
-			# Translators: Title for track finder dialog.
-			if not columnSearch: title = _("Find track")
-			# Translators: Title for column search dialog.
-			else: title = _("Column search")
+			if not columnSearch:
+				# Translators: Title for track finder dialog.
+				title = _("Find track")
+			else:
+				# Translators: Title for column search dialog.
+				title = _("Column search")
 			startObj = api.getFocusObject()
 			if api.getForegroundObject().windowClassName == "TStudioForm" and startObj.role == controlTypes.ROLE_LIST:
 				startObj = startObj.firstChild
@@ -1628,16 +1631,19 @@ class AppModule(appModuleHandler.AppModule):
 		# Also let NvDA announce generic error messages listed below if told to do so, and for some cases, not at all because the caller will announce them.
 		playlistViewerFocused = api.getForegroundObject().windowClassName == "TStudioForm"
 		if playlistViewerRequired and not playlistViewerFocused:
-			# Translators: an error message presented when performing some playlist commands while focused on places other than Playlist Viewer.
-			if announceErrors: ui.message(_("Please return to playlist viewer before invoking this command."))
+			if announceErrors:
+				# Translators: an error message presented when performing some playlist commands while focused on places other than Playlist Viewer.
+				ui.message(_("Please return to playlist viewer before invoking this command."))
 			return self.SPLPlaylistNotFocused
 		if not splbase.studioAPI(0, 124):
-			# Translators: an error message presented when performing some playlist commands while no playlist has been loaded.
-			if announceErrors: ui.message(_("No playlist has been loaded."))
+			if announceErrors:
+				# Translators: an error message presented when performing some playlist commands while no playlist has been loaded.
+				ui.message(_("No playlist has been loaded."))
 			return self.SPLPlaylistNotLoaded
 		if mustSelectTrack and self._focusedTrack is None:
-			# Translators: an error message presented when performing some playlist commands while no tracks are selected/focused.
-			if announceErrors: ui.message(_("Please select a track from playlist viewer before invoking this command."))
+			if announceErrors:
+				# Translators: an error message presented when performing some playlist commands while no tracks are selected/focused.
+				ui.message(_("Please select a track from playlist viewer before invoking this command."))
 			return self.SPLPlaylistLastFocusUnknown
 		return self.SPLPlaylistNoErrors
 
@@ -2342,10 +2348,12 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_layerHelp(self, gesture):
 		compatibility = splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]
-		# Translators: The title for SPL Assistant help dialog.
-		if compatibility == "off": title = _("SPL Assistant help")
-		# Translators: The title for SPL Assistant help dialog.
-		elif compatibility == "jfw": title = _("SPL Assistant help for JAWS layout")
+		if compatibility == "off":
+			# Translators: The title for SPL Assistant help dialog.
+			title = _("SPL Assistant help")
+		elif compatibility == "jfw":
+			# Translators: The title for SPL Assistant help dialog.
+			title = _("SPL Assistant help for JAWS layout")
 		wx.CallAfter(gui.messageBox, SPLAssistantHelp[compatibility], title)
 
 	def script_openOnlineDoc(self, gesture):

@@ -25,8 +25,9 @@ def studioIsRunning(justChecking=False):
 	)
 	if not isStudioAlive:
 		debugOutput("Studio is not alive")
-		# Translators: A message informing users that Studio is not running so certain commands will not work.
-		if not justChecking: ui.message(_("Studio main window not found"))
+		if not justChecking:
+			# Translators: A message informing users that Studio is not running so certain commands will not work.
+			ui.message(_("Studio main window not found"))
 	return isStudioAlive
 
 

@@ -221,8 +221,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def script_pause(self, gesture):
 		playingNow = sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus)
-		# Translators: Presented when no track is playing in StationPlaylist Studio.
-		if not playingNow: ui.message(_("There is no track playing. Try pausing while a track is playing."))
+		if not playingNow:
+			# Translators: Presented when no track is playing in StationPlaylist Studio.
+			ui.message(_("There is no track playing. Try pausing while a track is playing."))
 		elif playingNow == 3:
 			sendMessage(SPLWin, 1024, 0, SPLPause)
 		else:
@@ -246,8 +247,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def script_remainingTime(self, gesture):
 		remainingTime = sendMessage(SPLWin, 1024, 3, SPLCurTrackPlaybackTime)
-		# Translators: Presented when no track is playing in StationPlaylist Studio.
-		if remainingTime < 0: ui.message(_("There is no track playing."))
+		if remainingTime < 0:
+			# Translators: Presented when no track is playing in StationPlaylist Studio.
+			ui.message(_("There is no track playing."))
 		else:
 			# 7.0: Present remaining time in hh:mm:ss format for enhanced experience (borrowed from Studio app module).
 			# 17.09 optimization: perform in-place string construction instead of using objects and building a list, results in fewer bytecode instructions.

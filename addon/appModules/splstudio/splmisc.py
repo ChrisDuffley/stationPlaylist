@@ -424,20 +424,26 @@ def metadataStatus():
 	# Announce streaming status when told to do so.
 	status = None
 	if not len(streamCount):
-		# Translators: Status message for metadata streaming.
-		if not dsp: status = _("No metadata streaming URL's defined")
-		# Translators: Status message for metadata streaming.
-		else: status = _("Metadata streaming configured for DSP encoder")
+		if not dsp:
+			# Translators: Status message for metadata streaming.
+			status = _("No metadata streaming URL's defined")
+		else:
+			# Translators: Status message for metadata streaming.
+			status = _("Metadata streaming configured for DSP encoder")
 	elif len(streamCount) == 1:
-		# Translators: Status message for metadata streaming.
-		if dsp: status = _("Metadata streaming configured for DSP encoder and URL {URL}").format(URL=streamCount[0])
-		# Translators: Status message for metadata streaming.
-		else: status = _("Metadata streaming configured for URL {URL}").format(URL=streamCount[0])
+		if dsp:
+			# Translators: Status message for metadata streaming.
+			status = _("Metadata streaming configured for DSP encoder and URL {URL}").format(URL=streamCount[0])
+		else:
+			# Translators: Status message for metadata streaming.
+			status = _("Metadata streaming configured for URL {URL}").format(URL=streamCount[0])
 	else:
-		# Translators: Status message for metadata streaming.
-		if dsp: status = _("Metadata streaming configured for DSP encoder and URL's {URL}").format(URL=", ".join(streamCount))
-		# Translators: Status message for metadata streaming.
-		else: status = _("Metadata streaming configured for URL's {URL}").format(URL=", ".join(streamCount))
+		if dsp:
+			# Translators: Status message for metadata streaming.
+			status = _("Metadata streaming configured for DSP encoder and URL's {URL}").format(URL=", ".join(streamCount))
+		else:
+			# Translators: Status message for metadata streaming.
+			status = _("Metadata streaming configured for URL's {URL}").format(URL=", ".join(streamCount))
 	return status
 
 
