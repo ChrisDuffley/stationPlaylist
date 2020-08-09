@@ -166,7 +166,8 @@ class BroadcastProfilesDialog(wx.Dialog):
 			if d.ShowModal() == wx.ID_CANCEL:
 				return
 			newName = api.filterFileName(d.Value)
-		if oldName == newName: return
+		if oldName == newName:
+			return
 		try:
 			splconfig.SPLConfig.renameProfile(oldName, newName)
 		except RuntimeError:

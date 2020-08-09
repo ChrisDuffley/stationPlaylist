@@ -86,7 +86,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		super(GlobalPlugin, self).__init__()
 		# 19.04/18.09.8-LTS: don't even think about proceeding in secure screens.
 		# Also, skip over the rest if appx is in effect.
-		if globalVars.appArgs.secure or config.isAppX: return
+		if globalVars.appArgs.secure or config.isAppX:
+			return
 
 	# Global layer environment (see Studio app module for more information).
 
@@ -119,7 +120,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	)
 	def script_focusToSPLWindow(self, gesture):
 		# Don't do anything if we're already focus on SPL Studio.
-		if "splstudio" in api.getForegroundObject().appModule.appName: return
+		if "splstudio" in api.getForegroundObject().appModule.appName:
+			return
 		SPLHwnd = user32.FindWindowW("SPLStudio", None)
 		if not SPLHwnd: ui.message(_("SPL Studio is not running."))
 		# 17.01: SetForegroundWindow function is better, as there's no need to traverse top-level windows and allows users to "switch" to SPL window if the window is minimized.

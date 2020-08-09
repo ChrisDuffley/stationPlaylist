@@ -415,7 +415,8 @@ class ConfigHub(ChainMap):
 		# Save all config profiles unless config was loaded from memory.
 		# #73: also responds to config save notification.
 		# In case this is called when NVDA or last SPL component exits, just follow through, as profile history and new profiles list would be cleared as part of general process cleanup.
-		if self.configInMemory: return
+		if self.configInMemory:
+			return
 		# 7.0: Save normal profile first.
 		# Temporarily merge normal profile.
 		# 8.0: Locate the index instead.
@@ -478,7 +479,8 @@ class ConfigHub(ChainMap):
 				_("SPL Studio add-on reset"),
 				wx.YES_NO | wx.NO_DEFAULT | wx.ICON_WARNING
 			) == wx.NO:
-				if not resetViaConfigDialog: return
+				if not resetViaConfigDialog:
+					return
 				else: raise RuntimeError("Instant switch profile must remain active, reset cannot proceed")
 		profilePool = [] if profile is not None else self.profiles
 		if profile is not None:
@@ -558,7 +560,8 @@ class ConfigHub(ChainMap):
 			flags.add(_("instant switch"))
 		if not contained:
 			return name if len(flags) == 0 else "{0} <{1}>".format(name, ", ".join(flags))
-		else: return flags
+		else:
+			return flags
 
 	# Switch between profiles.
 	# This involves promoting and demoting normal profile.
@@ -616,7 +619,8 @@ class ConfigHub(ChainMap):
 	def swapProfiles(self, prevProfile, newProfile, showSwitchIndex=False):
 		former, current = self.profileIndexByName(prevProfile if prevProfile is not None else self.switchHistory[-1]), self.profileIndexByName(newProfile)
 		self.profiles[current], self.profiles[former] = self.profiles[former], self.profiles[current]
-		if showSwitchIndex: return current
+		if showSwitchIndex:
+			return current
 
 
 # Default config spec container.
@@ -707,7 +711,8 @@ def closeConfig(splComponent):
 	# The below loop will be run from the component app module's terminate method, but before that, the app module associated with the component would have been deleted from the running table.
 	# This is subject to change based on NVDA Core changes.
 	for app in appModuleHandler.runningTable.values():
-		if app.appName == splComponent: return
+		if app.appName == splComponent:
+			return
 	SPLConfig.splComponents.discard(splComponent)
 	if len(SPLConfig.splComponents) == 0:
 		SPLConfig.save()
@@ -827,7 +832,8 @@ def showStartupDialogs(oldVer=False):
 		gui.messageBox("You are using Studio 5.20. StationPlaylist add-on 20.09.x will be the last long-term support release to support this version of Studio. If you need to use Studio 5.20, please switch to long-term support channel by going to addons.nvda-project.org, selecting StationPlaylist, and selecting long-term version link.", "Old SPL version")
 		SPLConfig["Startup"]["Studio520"] = False
 		return
-	if globalVars.appArgs.minimal: return
+	if globalVars.appArgs.minimal:
+		return
 	if SPLConfig["Startup"]["WelcomeDialog"]:
 		gui.mainFrame.prePopup()
 		WelcomeDialog(gui.mainFrame).Show()

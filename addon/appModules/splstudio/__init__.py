@@ -391,7 +391,8 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 			_("Track comment"), value=comment)
 		def callback(result):
 			if result == wx.ID_OK:
-				if dlg.GetValue() is None: return
+				if dlg.GetValue() is None:
+					return
 				elif dlg.GetValue() == "": del splconfig.trackComments[filename]
 				else: splconfig.trackComments[filename] = dlg.GetValue()
 		gui.runScriptModalDialog(dlg, callback)
@@ -581,7 +582,8 @@ class AppModule(appModuleHandler.AppModule):
 	def __init__(self, *args, **kwargs):
 		# #110 (19.08): assertion thrown when attempting to locate Studio window handle because the locator thread is queued from main thread when app is gone.
 		# This is seen when restarting NVDA while studio add-on settings screen was active.
-		if wx.GetApp() is None: return
+		if wx.GetApp() is None:
+			return
 		super(AppModule, self).__init__(*args, **kwargs)
 		if self.SPLCurVersion < SPLMinVersion:
 			raise RuntimeError("Unsupported version of Studio is running, exiting app module")
@@ -695,7 +697,8 @@ class AppModule(appModuleHandler.AppModule):
 		# Thankfully, current lib scan reporter function will not proceed when library scan is happening via Insert Tracks dialog.
 		# #92 (19.01.1/18.09.7-LTS): if Studio dies, zero will be returned, so check for window handle once more.
 		if splbase.studioAPI(1, 32) >= 0:
-			if not user32.FindWindowW("SPLStudio", None): return
+			if not user32.FindWindowW("SPLStudio", None):
+				return
 			if not self.libraryScanning: self.script_libraryScanMonitor(None)
 		# #86 (18.12/18.09.6-LTS): certain internal markers require presence of a playlist, otherwise unexpected things may happen.
 		trackCount = splbase.studioAPI(0, 124)
@@ -781,7 +784,8 @@ class AppModule(appModuleHandler.AppModule):
 		if name.startswith("  Up time:"):
 			return False
 		elif name.startswith("Scheduled for"):
-			if self.scheduledTimeCache == name: return False
+			if self.scheduledTimeCache == name:
+				return False
 			self.scheduledTimeCache = name
 			return splconfig.SPLConfig["SayStatus"]["SayScheduledFor"]
 		elif "Listener" in name:
@@ -1105,7 +1109,8 @@ class AppModule(appModuleHandler.AppModule):
 		description=_("Announces broadcaster time. If pressed twice, reports minutes and seconds left to top of the hour."),
 		gestures=["kb:shift+nvda+f12", "ts(SPL):2finger_flickUp"])
 	def script_sayBroadcasterTime(self, gesture):
-		if not splbase.studioIsRunning(): return
+		if not splbase.studioIsRunning():
+			return
 		# Says things such as "25 minutes to 2" and "5 past 11".
 		# #29: Also announces top of hour timer (mm:ss), the clock next to broadcaster time.
 		# Parse the local time and say it similar to how Studio presents broadcaster time.
@@ -1134,7 +1139,8 @@ class AppModule(appModuleHandler.AppModule):
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Announces time including seconds."))
 	def script_sayCompleteTime(self, gesture):
-		if not splbase.studioIsRunning(): return
+		if not splbase.studioIsRunning():
+			return
 		import winKernel
 		# Says complete time in hours, minutes and seconds via kernel32's routines.
 		ui.message(winKernel.GetTimeFormat(winKernel.LOCALE_USER_DEFAULT, 0, None, None))
@@ -1245,7 +1251,8 @@ class AppModule(appModuleHandler.AppModule):
 	# But first, check if track finder can be invoked.
 	# Attempt level specifies which track finder to open (0 = Track Finder, 1 = Column Search, 2 = Time range).
 	def _trackFinderCheck(self, attemptLevel):
-		if not splbase.studioIsRunning(): return False
+		if not splbase.studioIsRunning():
+			return False
 		playlistErrors = self.canPerformPlaylistCommands(announceErrors=False)
 		if playlistErrors == self.SPLPlaylistNotFocused:
 			if attemptLevel == 0:
@@ -1379,7 +1386,8 @@ class AppModule(appModuleHandler.AppModule):
 		description=_("Toggles cart explorer to learn cart assignments."),
 		gesture="kb:alt+nvda+3")
 	def script_toggleCartExplorer(self, gesture):
-		if not splbase.studioIsRunning(): return
+		if not splbase.studioIsRunning():
+			return
 		if not self.cartExplorer:
 			# Prevent cart explorer from being engaged outside of playlist viewer.
 			# Todo for 6.0: Let users set cart banks.
@@ -1476,7 +1484,8 @@ class AppModule(appModuleHandler.AppModule):
 		# 17.04: Use the constant directly, as 5.10 and later provides a convenient method to detect completion of library scans.
 		scanCount = splbase.studioAPI(1, 32)
 		while scanCount >= 0:
-			if not self.libraryScanning or not user32.FindWindowW("SPLStudio", None): return
+			if not self.libraryScanning or not user32.FindWindowW("SPLStudio", None):
+				return
 			time.sleep(1)
 			# Do not continue if we're back on insert tracks form or library scan is finished.
 			if api.getForegroundObject().windowClassName == "TTrackInsertForm" or not self.libraryScanning:
@@ -1935,7 +1944,8 @@ class AppModule(appModuleHandler.AppModule):
 						obj = obj.getChild(child)
 				else: obj = fg.getChild(statusIndex)
 				self._cachedStatusObjs[infoIndex] = obj
-			else: return api.getFocusObject()
+			else:
+				return api.getFocusObject()
 		return self._cachedStatusObjs[infoIndex]
 
 	# Status flags for Studio 5.20 API.
@@ -1951,7 +1961,8 @@ class AppModule(appModuleHandler.AppModule):
 	def sayStatus(self, index, statusText=False):
 		status = self._statusBarMessages[index][splbase.studioAPI(index, 39)]
 		# #38 (17.11/15.10-LTS): return status text if asked.
-		if statusText: return status
+		if statusText:
+			return status
 		ui.message(status if splconfig.SPLConfig["General"]["MessageVerbosity"] == "beginner" else status.split()[-1])
 
 	# The layer commands themselves.

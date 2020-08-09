@@ -164,7 +164,8 @@ def saveEncoderConfig():
 def cleanup(appTerminating=False, reset=False):
 	global encoderConfig, SPLEncoderLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLBackgroundMonitorThreads, SPLNoConnectionTone, SPLConnectionStopOnError
 	# #132 (20.05): do not proceed if encoder settings database is None (no encoders were initialized).
-	if encoderConfig is None: return
+	if encoderConfig is None:
+		return
 	if appTerminating: saveEncoderConfig()
 	if reset or appTerminating:
 		config.post_configSave.unregister(saveEncoderConfig)
@@ -418,7 +419,8 @@ class Encoder(IAccessible):
 	# By default background encoding (no manual connect) is assumed.
 	def connectStart(self, manualConnect=False):
 		# 20.09: don't bother if another thread is monitoring this encoder.
-		if self.encoderId in SPLBackgroundMonitorThreads and SPLBackgroundMonitorThreads[self.encoderId].is_alive(): return
+		if self.encoderId in SPLBackgroundMonitorThreads and SPLBackgroundMonitorThreads[self.encoderId].is_alive():
+			return
 		statusThread = threading.Thread(target=self.reportConnectionStatus, kwargs=dict(manualConnect=manualConnect))
 		statusThread.start()
 		SPLBackgroundMonitorThreads[self.encoderId] = statusThread
@@ -432,7 +434,8 @@ class Encoder(IAccessible):
 	# Almost identical to version 17.08 iteration except for being private.
 	def _onConnect(self):
 		# Do not proceed if already focused on Studio window.
-		if api.getFocusObject().appModule.appName == "splstudio": return
+		if api.getFocusObject().appModule.appName == "splstudio":
+			return
 		if self.focusToStudio:
 			user32.SetForegroundWindow(user32.FindWindowW("TStudioForm", None))
 		if self.playAfterConnecting:
@@ -577,7 +580,8 @@ class Encoder(IAccessible):
 				if not SPLBackgroundMonitorThreads[self.encoderId].is_alive():
 					del SPLBackgroundMonitorThreads[self.encoderId]
 				# If it is indeed alive... Otherwise another thread will be created to keep an eye on this encoder (undesirable).
-				else: return
+				else:
+					return
 			self.connectStart()
 
 	def reportFocus(self):
@@ -640,11 +644,13 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 				# Don't leave zombie objects around.
 				return
 			# Encoding status object will die if encoder entry is deleted while being monitored.
-			if not status: return
+			if not status:
+				return
 			# Status and description are two separate texts.
 			if not messageCache.startswith(status):
 				messageCache = "; ".join([status, statusDetails])
-				if not messageCache: return
+				if not messageCache:
+					return
 				if not messageCache.startswith("Encoding"):
 					self.encoderStatusMessage(messageCache)
 			if messageCache.startswith("Idle"):
@@ -682,7 +688,8 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 				if currentTime-attemptTime >= 0.5 and self.connectionTone:
 					tones.beep(500, 50)
 					attemptTime = currentTime
-			if not manualConnect and not self.backgroundMonitor: return
+			if not manualConnect and not self.backgroundMonitor:
+				return
 
 	@scriptHandler.script(gesture="kb:f9")
 	def script_connect(self, gesture):
@@ -768,7 +775,8 @@ class SPLEncoder(Encoder):
 				return
 			if messageCache != status:
 				messageCache = status
-				if not messageCache: return
+				if not messageCache:
+					return
 				if "Kbps" not in messageCache:
 					self.encoderStatusMessage(messageCache)
 			# 20.09: If all encoders are told to connect but then auto-connect stops for the selected encoder, a manually started thread (invoked by a user command) will continue to run.
@@ -799,7 +807,8 @@ class SPLEncoder(Encoder):
 					if currentTime-attemptTime >= 0.5 and self.connectionTone:
 						tones.beep(500, 50)
 						attemptTime = currentTime
-			if not manualConnect and not self.backgroundMonitor: return
+			if not manualConnect and not self.backgroundMonitor:
+				return
 
 	# Connect selected encoders.
 	# #143 (20.09): just like SAM encoder's connect/disconnect all routines, use key press emulation.
@@ -810,7 +819,8 @@ class SPLEncoder(Encoder):
 		gesture="kb:f9"
 	)
 	def script_connect(self, gesture):
-		if self.getChild(1).name not in ("Disconnected", "AutoConnect stopped."): return
+		if self.getChild(1).name not in ("Disconnected", "AutoConnect stopped."):
+			return
 		ui.message(_("Connecting..."))
 		for key in ("applications", "downArrow", "enter"):
 			keyboardHandler.KeyboardInputGesture.fromName(key).send()
@@ -824,7 +834,8 @@ class SPLEncoder(Encoder):
 	)
 	def script_connectAll(self, gesture):
 		connectButton = api.getForegroundObject().getChild(2)
-		if connectButton.name == "Disconnect": return
+		if connectButton.name == "Disconnect":
+			return
 		ui.message(_("Connecting..."))
 		# Juggle the focus around.
 		connectButton.doAction()
