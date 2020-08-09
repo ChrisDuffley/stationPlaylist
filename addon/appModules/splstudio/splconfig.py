@@ -116,7 +116,8 @@ class ConfigHub(ChainMap):
 
 	def __init__(self, splComponent=None):
 		# Check SPL components to make sure malicious actors don't tamper with it.
-		if splComponent is None: splComponent = "splstudio"
+		if splComponent is None:
+			splComponent = "splstudio"
 		if splComponent not in _SPLComponents_:
 			raise RuntimeError("Not a StationPlaylist component, cannot create SPL add-on Config Hub database")
 		# Create a "fake" map entry, to be replaced by the normal profile later.
@@ -156,7 +157,8 @@ class ConfigHub(ChainMap):
 			# However, there are certain keys that must be kept across sessions or must be handled separately.
 			deprecatedKeys = get_extra_values(self.maps[0])
 			for section, key in deprecatedKeys:
-				if section == (): continue
+				if section == ():
+					continue
 				# Unless otherwise specified, all keys are level 1 (section/key).
 				del self.maps[0][section[0]][key]
 		# Moving onto broadcast profiles if any.
@@ -290,7 +292,8 @@ class ConfigHub(ChainMap):
 		fields = _SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
 		invalidFields = 0
 		for field in fields:
-			if field not in columnOrder: invalidFields += 1
+			if field not in columnOrder:
+				invalidFields += 1
 		if invalidFields or len(columnOrder) != 17:
 			if profileName in _configLoadStatus and _configLoadStatus[profileName] == "partialReset":
 				_configLoadStatus[profileName] = "partialAndColumnOrderReset"
@@ -367,7 +370,8 @@ class ConfigHub(ChainMap):
 
 	def _cacheProfile(self, conf):
 		global _SPLCache
-		if _SPLCache is None: _SPLCache = {}
+		if _SPLCache is None:
+			_SPLCache = {}
 		key = None if conf.filename == SPLIni else conf.name
 		_SPLCache[key] = {}
 		# 8.0: Caching the dictionary (items) is enough.
@@ -444,7 +448,8 @@ class ConfigHub(ChainMap):
 		# Now save broadcast profiles.
 		for profile in self.profiles:
 			# Normal profile is done.
-			if profile.name == defaultProfileName: continue
+			if profile.name == defaultProfileName:
+				continue
 			if profile is not None:
 				# 7.0: See if profiles themselves must be saved.
 				# This must be done now, otherwise changes to broadcast profiles (cached) will not be saved as presave removes them.
@@ -483,12 +488,14 @@ class ConfigHub(ChainMap):
 			) == wx.NO:
 				if not resetViaConfigDialog:
 					return
-				else: raise RuntimeError("Instant switch profile must remain active, reset cannot proceed")
+				else:
+					raise RuntimeError("Instant switch profile must remain active, reset cannot proceed")
 		profilePool = [] if profile is not None else self.profiles
 		if profile is not None:
 			if not self.profileExists(profile):
 				raise ValueError("The specified profile does not exist")
-			else: profilePool.append(self.profileByName(profile))
+			else:
+				profilePool.append(self.profileByName(profile))
 		# 20.09: keep complete and profile-specific defaults handy.
 		defaultConfig = _SPLDefaults.dict()
 		defaultProfileConfig = {sect: key for sect, key in defaultConfig.items() if sect in _mutatableSettings}
@@ -512,7 +519,8 @@ class ConfigHub(ChainMap):
 				# Just like constructor, remove deprecated keys if any.
 				deprecatedKeys = get_extra_values(conf)
 				for section, key in deprecatedKeys:
-					if section == (): continue
+					if section == ():
+						continue
 					del conf[section[0]][key]
 		# If this is a reset, switch back to normal profile via a custom variant of swap routine, along with nullifying profile switches.
 		if factoryDefaults:
@@ -552,8 +560,10 @@ class ConfigHub(ChainMap):
 	# A crucial kwarg is contained, and if so, profile flags set will be returned.
 	def getProfileFlags(self, name, active=None, instant=None, contained=False):
 		flags = set()
-		if active is None: active = self.activeProfile
-		if instant is None: instant = self.instantSwitch
+		if active is None:
+			active = self.activeProfile
+		if instant is None:
+			instant = self.instantSwitch
 		if name == active:
 			# Translators: A flag indicating the currently active broadcast profile.
 			flags.add(_("active"))
@@ -654,8 +664,10 @@ trackComments = {}
 def openConfig(splComponent):
 	global SPLConfig
 	# #64 (18.07): skip this step if another SPL component (such as Creator) opened this.
-	if SPLConfig is None: SPLConfig = ConfigHub(splComponent=splComponent)
-	else: SPLConfig.splComponents.add(splComponent)
+	if SPLConfig is None:
+		SPLConfig = ConfigHub(splComponent=splComponent)
+	else:
+		SPLConfig.splComponents.add(splComponent)
 
 
 def initialize():

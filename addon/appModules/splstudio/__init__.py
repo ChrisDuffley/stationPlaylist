@@ -155,7 +155,8 @@ class SPLTrackItem(sysListView32.ListItem):
 	def script_columnExplorer(self, gesture):
 		# Due to the below formula, columns explorer will be restricted to number commands.
 		columnPos = int(gesture.displayName.split("+")[-1])
-		if columnPos == 0: columnPos = 10
+		if columnPos == 0:
+			columnPos = 10
 		# #115 (20.02): do not proceed if parent list reports less than 10 columns.
 		if columnPos > self.parent.columnCount:
 			debugOutput(f"Column {columnPos} is out of range for this item")
@@ -268,7 +269,8 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 			for header in columnOrder:
 				if header in columnsToInclude:
 					index = self.indexOf(header)
-					if index is None: continue  # Header not found, mostly encountered in Studio 5.0x.
+					if index is None:
+						continue  # Header not found, mostly encountered in Studio 5.0x.
 					content = self._getColumnContentRaw(index)
 					if content:
 						descriptionPieces.append("{}: {}".format(header, content) if includeColumnHeaders else content)
@@ -285,7 +287,8 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 				colNumber = self._savedColumnNumber-1 if verticalColumnAnnounce is None else self.indexOf(verticalColumnAnnounce)
 			# Add track check status to column data if needed by using a customized move to column number method.
 			cell = self.getChild(colNumber)
-			if colNumber > 0 and self.name: cell.name = "{0} {1}".format(self.name, cell.name)
+			if colNumber > 0 and self.name:
+				cell.name = "{0} {1}".format(self.name, cell.name)
 			self._moveToColumn(cell)
 		# 7.0: Let the app module keep a reference to this track.
 		self.appModule._focusedTrack = self
@@ -312,7 +315,8 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 		columnContents = [self._getColumnContentRaw(col) for col in columns]
 		if readable:
 			for pos in range(len(columnContents)):
-				if columnContents[pos] is None: columnContents[pos] = ""
+				if columnContents[pos] is None:
+					columnContents[pos] = ""
 		return columnContents
 
 	# Now the scripts.
@@ -395,7 +399,8 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 					return
 				elif dlg.GetValue() == "":
 					del splconfig.trackComments[filename]
-				else: splconfig.trackComments[filename] = dlg.GetValue()
+				else:
+					splconfig.trackComments[filename] = dlg.GetValue()
 		gui.runScriptModalDialog(dlg, callback)
 
 	@scriptHandler.script(
@@ -831,7 +836,8 @@ class AppModule(appModuleHandler.AppModule):
 						ui.message(" ".join(obj.name.split()[:2]))
 					else:
 						if splconfig.SPLConfig["General"]["LibraryScanAnnounce"] != "off" and self.libraryScanning:
-							if splconfig.SPLConfig["General"]["BeepAnnounce"]: tones.beep(370, 100)
+							if splconfig.SPLConfig["General"]["BeepAnnounce"]:
+								tones.beep(370, 100)
 							else:
 								# Translators: Presented when library scan is complete.
 								ui.message(_("Scan complete with {scanCount} items").format(scanCount=obj.name.split()[3]))
@@ -918,9 +924,11 @@ class AppModule(appModuleHandler.AppModule):
 		micAlarm = splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"]
 		# #38 (17.11/15.10-lts): only enter microphone alarm area if alarm should be turned on.
 		if not micAlarm:
-			if micAlarmT is not None: micAlarmT.cancel()
+			if micAlarmT is not None:
+				micAlarmT.cancel()
 			micAlarmT = None
-			if micAlarmT2 is not None: micAlarmT2.Stop()
+			if micAlarmT2 is not None:
+				micAlarmT2.Stop()
 			micAlarmT2 = None
 		else:
 			# Play an alarm sound (courtesy of Jerry Mader from Mader Radio).
@@ -936,9 +944,11 @@ class AppModule(appModuleHandler.AppModule):
 					micAlarmT = threading.Timer(micAlarm, messageSound, args=[micAlarmWav, micAlarmMessage])
 					micAlarmT.start()
 			elif status == "Microphone Off":
-				if micAlarmT is not None: micAlarmT.cancel()
+				if micAlarmT is not None:
+					micAlarmT.cancel()
 				micAlarmT = None
-				if micAlarmT2 is not None: micAlarmT2.Stop()
+				if micAlarmT2 is not None:
+					micAlarmT2.Stop()
 				micAlarmT2 = None
 
 	# Respond to profile switches if asked.
@@ -950,9 +960,11 @@ class AppModule(appModuleHandler.AppModule):
 	def actionSettingsReset(self, factoryDefaults=False):
 		global micAlarmT, micAlarmT2
 		# Regardless of factory defaults flag, turn off microphone alarm timers.
-		if micAlarmT is not None: micAlarmT.cancel()
+		if micAlarmT is not None:
+			micAlarmT.cancel()
 		micAlarmT = None
-		if micAlarmT2 is not None: micAlarmT2.Stop()
+		if micAlarmT2 is not None:
+			micAlarmT2.Stop()
 		micAlarmT2 = None
 		if splbase._SPLWin is not None:
 			self.doExtraAction(self.sayStatus(2, statusText=True))
@@ -995,7 +1007,8 @@ class AppModule(appModuleHandler.AppModule):
 			if "SPL" in touchHandler.availableTouchModes:
 				# If we have too many touch modes, pop all except the original entries.
 				for mode in touchHandler.availableTouchModes:
-					if mode == "SPL": touchHandler.availableTouchModes.pop()
+					if mode == "SPL":
+						touchHandler.availableTouchModes.pop()
 			try:
 				del touchHandler.touchModeLabels["spl"]
 			except KeyError:
@@ -1024,9 +1037,11 @@ class AppModule(appModuleHandler.AppModule):
 		splactions.SPLActionAppTerminating.notify()
 		debugOutput("closing microphone alarm/interval thread")
 		global micAlarmT, micAlarmT2
-		if micAlarmT is not None: micAlarmT.cancel()
+		if micAlarmT is not None:
+			micAlarmT.cancel()
 		micAlarmT = None
-		if micAlarmT2 is not None: micAlarmT2.Stop()
+		if micAlarmT2 is not None:
+			micAlarmT2.Stop()
 		micAlarmT2 = None
 		debugOutput("saving add-on settings")
 		splconfig.terminate()
@@ -1053,11 +1068,13 @@ class AppModule(appModuleHandler.AppModule):
 		# Don't forget to reset timestamps for cart files.
 		splmisc._cartEditTimestamps = [0, 0, 0, 0]
 		# Just to make sure:
-		if splbase._SPLWin: splbase._SPLWin = None
+		if splbase._SPLWin:
+			splbase._SPLWin = None
 		# 17.10: remove add-on specific command-line switches.
 		# This is necessary in order to restore full config functionality when NVDA restarts.
 		for cmdSwitch in globalVars.appArgsExtra:
-			if cmdSwitch.startswith("--spl-"): globalVars.appArgsExtra.remove(cmdSwitch)
+			if cmdSwitch.startswith("--spl-"):
+				globalVars.appArgsExtra.remove(cmdSwitch)
 
 	# Script sections (for ease of maintenance):
 	# Time-related: elapsed time, end of track alarm, etc.
@@ -1132,14 +1149,17 @@ class AppModule(appModuleHandler.AppModule):
 			if h not in (0, 12):
 				h %= 12
 			if m == 0:
-				if h == 0: h += 12
+				if h == 0:
+					h += 12
 				# Messages in this method should not be translated.
 				ui.message("{hour} o'clock".format(hour=h))
 			elif 1 <= m <= 30:
-				if h == 0: h += 12
+				if h == 0:
+					h += 12
 				ui.message("{minute} min past {hour}".format(minute=m, hour=h))
 			else:
-				if h == 12: h = 1
+				if h == 12:
+					h = 1
 				m = 60-m
 				ui.message("{minute} min to {hour}".format(minute=m, hour=h+1))
 		else:
@@ -1434,9 +1454,11 @@ class AppModule(appModuleHandler.AppModule):
 		if api.getForegroundObject().windowClassName != "TStudioForm":
 			gesture.send()
 			return
-		if scriptHandler.getLastScriptRepeatCount() >= 1: gesture.send()
+		if scriptHandler.getLastScriptRepeatCount() >= 1:
+			gesture.send()
 		else:
-			if gesture.displayName in self.carts: ui.message(self.carts[gesture.displayName])
+			if gesture.displayName in self.carts:
+				ui.message(self.carts[gesture.displayName])
 			elif self.carts["standardLicense"] and (len(gesture.displayName) == 1 or gesture.displayName[-2] == "+"):
 				# Translators: Presented when cart command is unavailable.
 				ui.message(_("Cart command unavailable"))
@@ -1541,7 +1563,8 @@ class AppModule(appModuleHandler.AppModule):
 	# Is the place marker set on this track?
 	# Track argument is None (only useful for debugging purposes).
 	def isPlaceMarkerTrack(self, track=None):
-		if track is None: track = api.getFocusObject()
+		if track is None:
+			track = api.getFocusObject()
 		# 20.07: no, only list items can become place marker tracks.
 		if track.role != controlTypes.ROLE_LISTITEM:
 			raise ValueError("Only list items can be marked as a place marker track")
@@ -1649,7 +1672,8 @@ class AppModule(appModuleHandler.AppModule):
 	# This is used in track time analysis when multiple tracks are selected.
 	# This is also called from playlist duration scripts.
 	def playlistDuration(self, start=None, end=None):
-		if start is None: start = api.getFocusObject()
+		if start is None:
+			start = api.getFocusObject()
 		duration = start.indexOf("Duration")
 		totalDuration = 0
 		obj = start
@@ -1659,7 +1683,8 @@ class AppModule(appModuleHandler.AppModule):
 			if segue not in (None, "00:00"):
 				hms = segue.split(":")
 				totalDuration += (int(hms[-2])*60) + int(hms[-1])
-				if len(hms) == 3: totalDuration += int(hms[0])*3600
+				if len(hms) == 3:
+					totalDuration += int(hms[0])*3600
 			obj = obj.next
 		return totalDuration
 
@@ -1705,11 +1730,14 @@ class AppModule(appModuleHandler.AppModule):
 			if segue not in (None, "00:00"):
 				hms = segue.split(":")
 				totalDuration += (int(hms[-2])*60) + int(hms[-1])
-				if len(hms) == 3: totalDuration += int(hms[0])*3600
+				if len(hms) == 3:
+					totalDuration += int(hms[0])*3600
 			obj = obj.next
 		# #55 (18.05): use total track count if it is an entire playlist, if not, resort to categories count.
-		if completePlaylistSnapshot: snapshot["PlaylistItemCount"] = splbase.studioAPI(0, 124)
-		else: snapshot["PlaylistItemCount"] = len(categories)
+		if completePlaylistSnapshot:
+			snapshot["PlaylistItemCount"] = splbase.studioAPI(0, 124)
+		else:
+			snapshot["PlaylistItemCount"] = len(categories)
 		snapshot["PlaylistTrackCount"] = len(artists)
 		snapshot["PlaylistDurationTotal"] = self._ms2time(totalDuration, ms=False)
 		if "DurationMinMax" in snapshotFlags:
@@ -1724,9 +1752,12 @@ class AppModule(appModuleHandler.AppModule):
 				snapshot["PlaylistDurationAverage"] = "00:00"
 		if "CategoryCount" in snapshotFlags or "ArtistCount" in snapshotFlags or "GenreCount" in snapshotFlags:
 			import collections
-			if "CategoryCount" in snapshotFlags: snapshot["PlaylistCategoryCount"] = collections.Counter(categories)
-			if "ArtistCount" in snapshotFlags: snapshot["PlaylistArtistCount"] = collections.Counter(artists)
-			if "GenreCount" in snapshotFlags: snapshot["PlaylistGenreCount"] = collections.Counter(genres)
+			if "CategoryCount" in snapshotFlags:
+				snapshot["PlaylistCategoryCount"] = collections.Counter(categories)
+			if "ArtistCount" in snapshotFlags:
+				snapshot["PlaylistArtistCount"] = collections.Counter(artists)
+			if "GenreCount" in snapshotFlags:
+				snapshot["PlaylistGenreCount"] = collections.Counter(genres)
 		return snapshot
 
 	# Output formatter for playlist snapshots.
@@ -1914,7 +1945,8 @@ class AppModule(appModuleHandler.AppModule):
 				self.bindGesture(f"kb:shift+{i}", "metadataEnabled")
 			self.SPLAssistant = True
 			tones.beep(512, 50)
-			if splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "jfw": ui.message("JAWS")
+			if splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] == "jfw":
+				ui.message("JAWS")
 		except WindowsError:
 			return
 
@@ -1961,7 +1993,8 @@ class AppModule(appModuleHandler.AppModule):
 				if isinstance(statusIndex, list):
 					for child in statusIndex:
 						obj = obj.getChild(child)
-				else: obj = fg.getChild(statusIndex)
+				else:
+					obj = fg.getChild(statusIndex)
 				self._cachedStatusObjs[infoIndex] = obj
 			else:
 				return api.getFocusObject()
@@ -2005,9 +2038,12 @@ class AppModule(appModuleHandler.AppModule):
 		# 16.12: Because cart edit status also shows cart insert status, verbosity control will not apply.
 		cartEdit = splbase.studioAPI(5, 39)
 		cartInsert = splbase.studioAPI(6, 39)
-		if cartEdit: ui.message("Cart Edit On")
-		elif not cartEdit and cartInsert: ui.message("Cart Insert On")
-		else: ui.message("Cart Edit Off")
+		if cartEdit:
+			ui.message("Cart Edit On")
+		elif not cartEdit and cartInsert:
+			ui.message("Cart Insert On")
+		else:
+			ui.message("Cart Edit Off")
 
 	def script_sayHourTrackDuration(self, gesture):
 		self.announceTime(splbase.studioAPI(0, 27))

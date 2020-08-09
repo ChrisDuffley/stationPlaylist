@@ -109,7 +109,8 @@ class SPLFindDialog(wx.Dialog):
 			startObj = self.obj
 			if appMod.findText is None or (len(appMod.findText) and (text == appMod.findText[0] or text in appMod.findText)):
 				startObj = startObj.next
-				if appMod.findText is None: appMod.findText = [text]
+				if appMod.findText is None:
+					appMod.findText = [text]
 				# #27: Move the new text to the top of the search history.
 				if text in appMod.findText and text != appMod.findText[0]:
 					oldTextIndex = appMod.findText.index(text)
@@ -248,22 +249,28 @@ class SPLTimeRangeDialog(wx.Dialog):
 def _populateCarts(carts, cartlst, modifier, standardEdition=False, refresh=False):
 	# The real cart string parser, a helper for cart explorer for building cart entries.
 	# 5.2: Discard number row if SPL Standard is in use.
-	if standardEdition: cartlst = cartlst[:12]
+	if standardEdition:
+		cartlst = cartlst[:12]
 	# 18.08 (optimization): this is number row (except on Studio Standard), so assign identifier based on the below static list.
 	numberRow = "1234567890-="
 	for entry in cartlst:
 		# An unassigned cart is stored with three consecutive commas, so skip it.
 		# 17.04: If refresh is on, the cart we're dealing with is the actual carts dictionary that was built previously.
 		noEntry = ",,," in entry
-		if noEntry and not refresh: continue
+		if noEntry and not refresh:
+			continue
 		# Pos between 1 and 12 = function carts, 13 through 24 = number row carts, modifiers are checked.
 		pos = cartlst.index(entry)+1
 		# If a cart name has commas or other characters, SPL surrounds the cart name with quotes (""), so parse it as well.
-		if not entry.startswith('"'): cartName = entry.split(",")[0]
-		else: cartName = entry.split('"')[1]
-		if pos <= 12: identifier = f"f{pos}"
+		if not entry.startswith('"'):
+			cartName = entry.split(",")[0]
+		else:
+			cartName = entry.split('"')[1]
+		if pos <= 12:
+			identifier = f"f{pos}"
 		# For number row (except Studio Standard), subtract 13 because pos starts at 1, so by the time it comes to number row, it'll be 13.
-		else: identifier = numberRow[pos-13]
+		else:
+			identifier = numberRow[pos-13]
 		cart = identifier if not modifier else "+".join([modifier, identifier])
 		if noEntry and refresh:
 			if cart in carts:
@@ -287,8 +294,10 @@ def cartExplorerInit(StudioTitle, cartFiles=None, refresh=False, carts=None):
 	# use a combination of SPL user name and static cart location to locate cart bank files.
 	# Once the cart banks are located, use the routines in the populate method above to assign carts.
 	# Since sstandard edition does not support number row carts, skip them if told to do so.
-	if carts is None: carts = {"standardLicense": StudioTitle.startswith("StationPlaylist Studio Standard")}
-	if refresh: carts["modifiedBanks"] = []
+	if carts is None:
+		carts = {"standardLicense": StudioTitle.startswith("StationPlaylist Studio Standard")}
+	if refresh:
+		carts["modifiedBanks"] = []
 	# Obtain the "real" path for SPL via environment variables and open the cart data folder.
 	cartsDataPath = os.path.join(os.environ["PROGRAMFILES"], "StationPlaylist", "Data")  # Provided that Studio was installed using default path.
 	if cartFiles is None:
@@ -437,7 +446,8 @@ def metadataStatus():
 # This is necessary in order to allow extension points to work correctly and to not hold up other registered action handlers.
 # A special startup flag will be used so other text sequences will not be cut off.
 def _metadataAnnouncerInternal(status, startup=False):
-	if not startup: speech.cancelSpeech()
+	if not startup:
+		speech.cancelSpeech()
 	queueHandler.queueFunction(queueHandler.eventQueue, ui.message, status)
 	nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_Metadata.wav"))
 	# #51 (18.03/15.14-LTS): close link to metadata announcer thread when finished.
@@ -487,7 +497,8 @@ def metadata_actionProfileSwitched(configDialogActive=False, settingsReset=False
 		if not handle:
 			_delayMetadataAction = True
 			return
-		if not settingsReset: metadataConnector()
+		if not settingsReset:
+			metadataConnector()
 		# #47 (18.02/15.13-LTS): call the internal announcer via wx.CallLater in order to not hold up action handler queue.
 		# #51 (18.03/15.14-LTS): wx.CallLater isn't enough - there must be ability to cancel it.
 		_earlyMetadataAnnouncerInternal(metadataStatus())
@@ -573,9 +584,12 @@ def playlist2msaa(start, end, additionalDecorations=False, prefix="", suffix="")
 
 def playlist2txt(start, end, transcriptAction):
 	playlistTranscripts = playlist2msaa(start, end)
-	if transcriptAction == 0: displayPlaylistTranscripts(playlistTranscripts)
-	elif transcriptAction == 1: copyPlaylistTranscriptsToClipboard(playlistTranscripts)
-	elif transcriptAction == 2: savePlaylistTranscriptsToFile(playlistTranscripts, "txt")
+	if transcriptAction == 0:
+		displayPlaylistTranscripts(playlistTranscripts)
+	elif transcriptAction == 1:
+		copyPlaylistTranscriptsToClipboard(playlistTranscripts)
+	elif transcriptAction == 2:
+		savePlaylistTranscriptsToFile(playlistTranscripts, "txt")
 
 
 SPLPlaylistTranscriptFormats.append(("txt", playlist2txt, "plain text with one line per entry"))
@@ -586,7 +600,8 @@ def playlist2htmlTable(start, end, transcriptAction):
 		playlistTranscripts = ["<html><head><title>Playlist Transcripts</title></head>"]
 		playlistTranscripts.append("<body>")
 		playlistTranscripts.append("Playlist Transcripts - use table navigation commands to review track information")
-	else: playlistTranscripts = ["Playlist Transcripts - use table navigation commands to review track information"]
+	else:
+		playlistTranscripts = ["Playlist Transcripts - use table navigation commands to review track information"]
 	playlistTranscripts.append("<p>")
 	columnHeaders = columnPresentationOrder()
 	playlistTranscripts.append("<table><tr><th>{trackHeaders}</tr>".format(trackHeaders="<th>".join(columnHeaders)))
@@ -597,7 +612,8 @@ def playlist2htmlTable(start, end, transcriptAction):
 		playlistTranscripts.append("<tr><td>{trackContents}</tr>".format(trackContents="<td>".join(columnContents)))
 		obj = obj.next
 	playlistTranscripts.append("</table>")
-	if transcriptAction == 0: displayPlaylistTranscripts(playlistTranscripts, HTMLDecoration=True)
+	if transcriptAction == 0:
+		displayPlaylistTranscripts(playlistTranscripts, HTMLDecoration=True)
 	elif transcriptAction == 1:
 		playlistTranscripts.append("</body></html>")
 		savePlaylistTranscriptsToFile(playlistTranscripts, "htm")
@@ -611,11 +627,13 @@ def playlist2htmlList(start, end, transcriptAction):
 		playlistTranscripts = ["<html><head><title>Playlist Transcripts</title></head>"]
 		playlistTranscripts.append("<body>")
 		playlistTranscripts.append("Playlist Transcripts - use list navigation commands to review track information")
-	else: playlistTranscripts = ["Playlist Transcripts - use list navigation commands to review track information"]
+	else:
+		playlistTranscripts = ["Playlist Transcripts - use list navigation commands to review track information"]
 	playlistTranscripts.append("<p><ol>")
 	playlistTranscripts += playlist2msaa(start, end, additionalDecorations=True, prefix="<li>")
 	playlistTranscripts.append("</ol>")
-	if transcriptAction == 0: displayPlaylistTranscripts(playlistTranscripts, HTMLDecoration=True)
+	if transcriptAction == 0:
+		displayPlaylistTranscripts(playlistTranscripts, HTMLDecoration=True)
 	elif transcriptAction == 1:
 		playlistTranscripts.append("</body></html>")
 		savePlaylistTranscriptsToFile(playlistTranscripts, "htm")
@@ -634,9 +652,12 @@ def playlist2mdTable(start, end, transcriptAction):
 		columnContents = obj._getColumnContents(columns=columnPos, readable=True)
 		playlistTranscripts.append("| {trackContents} |\n".format(trackContents=" | ".join(columnContents)))
 		obj = obj.next
-	if transcriptAction == 0: displayPlaylistTranscripts(playlistTranscripts)
-	elif transcriptAction == 1: copyPlaylistTranscriptsToClipboard(playlistTranscripts)
-	elif transcriptAction == 2: savePlaylistTranscriptsToFile(playlistTranscripts, "md")
+	if transcriptAction == 0:
+		displayPlaylistTranscripts(playlistTranscripts)
+	elif transcriptAction == 1:
+		copyPlaylistTranscriptsToClipboard(playlistTranscripts)
+	elif transcriptAction == 2:
+		savePlaylistTranscriptsToFile(playlistTranscripts, "md")
 
 
 SPLPlaylistTranscriptFormats.append(("mdtable", playlist2mdTable, "Table in Markdown format"))
@@ -652,9 +673,12 @@ def playlist2csv(start, end, transcriptAction):
 		columnContents = obj._getColumnContents(columns=columnPos, readable=True)
 		playlistTranscripts.append("\"{0}\"\n".format("\",\"".join([content for content in columnContents])))
 		obj = obj.next
-	if transcriptAction == 0: displayPlaylistTranscripts(playlistTranscripts)
-	elif transcriptAction == 1: copyPlaylistTranscriptsToClipboard(playlistTranscripts)
-	elif transcriptAction == 2: savePlaylistTranscriptsToFile(playlistTranscripts, "csv")
+	if transcriptAction == 0:
+		displayPlaylistTranscripts(playlistTranscripts)
+	elif transcriptAction == 1:
+		copyPlaylistTranscriptsToClipboard(playlistTranscripts)
+	elif transcriptAction == 2:
+		savePlaylistTranscriptsToFile(playlistTranscripts, "csv")
 
 
 SPLPlaylistTranscriptFormats.append(("csv", playlist2csv, "Comma-separated values"))

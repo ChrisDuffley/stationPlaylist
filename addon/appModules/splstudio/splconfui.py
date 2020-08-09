@@ -262,7 +262,8 @@ class BroadcastProfilesDialog(wx.Dialog):
 	# This is a sister function to profile flags retriever.
 	def setProfileFlags(self, index, action, flag, flags=None):
 		profile = self.profileNames[index]
-		if flags is None: flags = self.getProfileFlags(profile)
+		if flags is None:
+			flags = self.getProfileFlags(profile)
 		action = getattr(flags, action)
 		action(flag)
 		self.profiles.SetString(index, profile if not len(flags) else "{0} <{1}>".format(profile, ", ".join(flags)))
@@ -354,7 +355,8 @@ class NewProfileDialog(wx.Dialog):
 			baseConfig = splconfig.SPLConfig.profileByName(self.baseProfiles.GetStringSelection())
 			# #140 (20.07): it isn't enough to copy dictionaries - deep copy (config.dict()) must be performed to avoid accidental reference manipulation.
 			baseProfile = {sect: key for sect, key in baseConfig.dict().items() if sect in splconfig._mutatableSettings}
-		else: baseProfile = None
+		else:
+			baseProfile = None
 		splconfig.SPLConfig.createProfile(newProfilePath, profileName=name, parent=baseProfile)
 		parent.profileNames.append(name)
 		parent.profiles.Append(name)
@@ -588,7 +590,8 @@ class AlarmsPanel(gui.SettingsPanel):
 		from winUser import OBJID_CLIENT
 		from NVDAObjects.IAccessible import getNVDAObjectFromEvent
 		studioWindow = getNVDAObjectFromEvent(user32.FindWindowW("TStudioForm", None), OBJID_CLIENT, 0)
-		if studioWindow is not None: studioWindow.appModule.actionProfileSwitched()
+		if studioWindow is not None:
+			studioWindow.appModule.actionProfileSwitched()
 
 
 # Playlist snapshot flags
@@ -711,7 +714,8 @@ class MetadataStreamingDialog(wx.Dialog):
 		from . import splmisc
 		splmisc.metadataConnector(servers=metadataEnabled)
 		# 6.1: Store just toggled settings to profile if told to do so.
-		if self.applyCheckbox.Value: splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = metadataEnabled
+		if self.applyCheckbox.Value:
+			splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = metadataEnabled
 		self.Destroy()
 		_configDialogOpened = False
 
@@ -1001,9 +1005,12 @@ class ColumnsExplorerDialog(wx.Dialog):
 		# Note that item count is based on how many column combo boxes are present in this dialog.
 		# #63 (18.06): use levels instead due to introduction of Columns Explorer for SPL Creator.
 		slots = [self.columnSlots[slot].GetStringSelection() for slot in range(10)]
-		if self.level == 0: parent.exploreColumns = slots
-		elif self.level == 1: parent.exploreColumnsTT = slots
-		elif self.level == 2: parent.exploreColumnsCreator = slots
+		if self.level == 0:
+			parent.exploreColumns = slots
+		elif self.level == 1:
+			parent.exploreColumnsTT = slots
+		elif self.level == 2:
+			parent.exploreColumnsCreator = slots
 		parent.Enable()
 		self.Destroy()
 
@@ -1227,7 +1234,8 @@ def openAddonSettingsPanel(panel):
 	# #125 (20.05): checking for instance of base settings dialog class isn't enough - Python will look at actual class being instantiated, so keep the global flag.
 	if _configDialogOpened:
 		wx.CallAfter(_configDialogOpenError)
-	else: gui.mainFrame._popupSettingsDialog(SPLConfigDialog, panel)
+	else:
+		gui.mainFrame._popupSettingsDialog(SPLConfigDialog, panel)
 
 
 # Main add-on settings screen.

@@ -119,7 +119,8 @@ def _removeEncoderID(encoderType, pos):
 	for encoderSettings in (SPLEncoderLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError):
 		if encoderID in encoderSettings:
 			# Other than encoder labels (a dictionary), others are sets.
-			if isinstance(encoderSettings, set): encoderSettings.remove(encoderID)
+			if isinstance(encoderSettings, set):
+				encoderSettings.remove(encoderID)
 			else:
 				del encoderSettings[encoderID]
 		# In flag sets, unless members are sorted, encoders will appear in random order (a downside of using sets, as their ordering is quite unpredictable).
@@ -167,14 +168,17 @@ def cleanup(appTerminating=False, reset=False):
 	# #132 (20.05): do not proceed if encoder settings database is None (no encoders were initialized).
 	if encoderConfig is None:
 		return
-	if appTerminating: saveEncoderConfig()
+	if appTerminating:
+		saveEncoderConfig()
 	if reset or appTerminating:
 		config.post_configSave.unregister(saveEncoderConfig)
 		config.post_configReset.unregister(resetEncoderConfig)
 	for flag in [encoderConfig, SPLEncoderLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLBackgroundMonitorThreads, SPLNoConnectionTone, SPLConnectionStopOnError]:
-		if flag is not None: flag.clear()
+		if flag is not None:
+			flag.clear()
 	# 20.04: save a "clean" copy after resetting encoder settings.
-	if reset: encoderConfig.write()
+	if reset:
+		encoderConfig.write()
 	# Nullify encoder settings.
 	encoderConfig = None
 
@@ -182,7 +186,8 @@ def cleanup(appTerminating=False, reset=False):
 # Reset encoder settings.
 # Because simply reloading settings will introduce errors, respond only to proper reset signal (Control+NVDA+R three times).
 def resetEncoderConfig(factoryDefaults=False):
-	if factoryDefaults: cleanup(reset=True)
+	if factoryDefaults:
+		cleanup(reset=True)
 
 
 # Encoder configuration dialog.
@@ -260,7 +265,8 @@ class EncoderConfigDialog(wx.Dialog):
 		self.obj.connectionTone = self.connectionTone.Value
 		self.obj.announceStatusUntilConnected = self.announceStatusUntilConnected.Value
 		newEncoderLabel = self.encoderLabel.Value
-		if newEncoderLabel is None: newEncoderLabel = ""
+		if newEncoderLabel is None:
+			newEncoderLabel = ""
 		self.obj.encoderLabel = newEncoderLabel
 		self.Destroy()
 		global _configDialogOpened
@@ -575,7 +581,8 @@ class Encoder(IAccessible):
 
 	def initOverlayClass(self):
 		# Load encoder settings upon request.
-		if encoderConfig is None: loadEncoderConfig()
+		if encoderConfig is None:
+			loadEncoderConfig()
 		# 6.2: Make sure background monitor threads are started if the flag is set.
 		if self.backgroundMonitor:
 			if self.encoderId in SPLBackgroundMonitorThreads:
@@ -615,7 +622,8 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 	def _moveToRow(self, row):
 		# In addition to moving to the next or previous encoder entry, set focus on the new encoder entry once more.
 		super(SAMEncoder, self)._moveToRow(row)
-		if row is not None: row.setFocus()
+		if row is not None:
+			row.setFocus()
 
 	@property
 	def encoderFormat(self):
@@ -656,21 +664,28 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 				if not messageCache.startswith("Encoding"):
 					self.encoderStatusMessage(messageCache)
 			if messageCache.startswith("Idle"):
-				if encoding: encoding = False
+				if encoding:
+					encoding = False
 				if not idle:
 					tones.beep(250, 250)
 					idle = True
-				if manualConnect and (error or connecting): manualConnect = False
+				if manualConnect and (error or connecting):
+					manualConnect = False
 			elif messageCache.startswith("Error"):
 				# Announce the description of the error.
-				if manualConnect and not self.announceStatusUntilConnected: manualConnect = False
+				if manualConnect and not self.announceStatusUntilConnected:
+					manualConnect = False
 				if not error:
 					error = True
-				if encoding: encoding = False
-				if connecting: connecting = False
+				if encoding:
+					encoding = False
+				if connecting:
+					connecting = False
 			elif messageCache.startswith("Encoding"):
-				if manualConnect: manualConnect = False
-				if connecting: connecting = False
+				if manualConnect:
+					manualConnect = False
+				if connecting:
+					connecting = False
 				# We're on air, so exit unless told to monitor for connection changes.
 				if not encoding:
 					tones.beep(1000, 150)
@@ -683,9 +698,12 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 						connectedBefore = True
 					encoding = True
 			else:
-				if not connecting: connecting = True
-				if encoding: encoding = False
-				elif "Error" not in messageCache and error: error = False
+				if not connecting:
+					connecting = True
+				if encoding:
+					encoding = False
+				elif "Error" not in messageCache and error:
+					error = False
 				currentTime = time.time()
 				if currentTime-attemptTime >= 0.5 and self.connectionTone:
 					tones.beep(500, 50)
@@ -787,10 +805,13 @@ class SPLEncoder(Encoder):
 			# Therefore forcefully stop this thread if the latter message appears.
 			if messageCache in ("Disconnected", "AutoConnect stopped."):
 				connected = False
-				if manualConnect and connecting: manualConnect = False
+				if manualConnect and connecting:
+					manualConnect = False
 			elif "Unable to connect" in messageCache or "Failed" in messageCache or status == "AutoConnect stopped.":
-				if manualConnect and not self.announceStatusUntilConnected: manualConnect = False
-				if connected: connected = False
+				if manualConnect and not self.announceStatusUntilConnected:
+					manualConnect = False
+				if connected:
+					connected = False
 			elif "Kbps" in messageCache or "Connected" in messageCache:
 				connecting = False
 				manualConnect = False
@@ -804,8 +825,10 @@ class SPLEncoder(Encoder):
 						connectedBefore = True
 					connected = True
 			else:
-				if connected: connected = False
-				if not connecting: connecting = True
+				if connected:
+					connected = False
+				if not connecting:
+					connecting = True
 				if "Kbps" not in messageCache:
 					currentTime = time.time()
 					if currentTime-attemptTime >= 0.5 and self.connectionTone:

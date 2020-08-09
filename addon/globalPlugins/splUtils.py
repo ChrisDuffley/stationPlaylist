@@ -123,9 +123,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if "splstudio" in api.getForegroundObject().appModule.appName:
 			return
 		SPLHwnd = user32.FindWindowW("SPLStudio", None)
-		if not SPLHwnd: ui.message(_("SPL Studio is not running."))
+		if not SPLHwnd:
+			ui.message(_("SPL Studio is not running."))
 		# 17.01: SetForegroundWindow function is better, as there's no need to traverse top-level windows and allows users to "switch" to SPL window if the window is minimized.
-		else: user32.SetForegroundWindow(user32.FindWindowW("TStudioForm", None))
+		else:
+			user32.SetForegroundWindow(user32.FindWindowW("TStudioForm", None))
 
 	# The SPL Controller:
 	# This layer set allows the user to control various aspects of SPL Studio from anywhere.
@@ -221,8 +223,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		playingNow = sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus)
 		# Translators: Presented when no track is playing in StationPlaylist Studio.
 		if not playingNow: ui.message(_("There is no track playing. Try pausing while a track is playing."))
-		elif playingNow == 3: sendMessage(SPLWin, 1024, 0, SPLPause)
-		else: sendMessage(SPLWin, 1024, 1, SPLPause)
+		elif playingNow == 3:
+			sendMessage(SPLWin, 1024, 0, SPLPause)
+		else:
+			sendMessage(SPLWin, 1024, 1, SPLPause)
 		self.finish()
 
 	def script_libraryScanProgress(self, gesture):
@@ -250,7 +254,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			# The string formatter will zero-fill minutes and seconds if less than 10.
 			# 19.11.1/18.09.13-LTS: use floor division due to division differences between Python 2 and 3.
 			remainingTime = (remainingTime//1000)+1
-			if remainingTime == 0: ui.message("00:00")
+			if remainingTime == 0:
+				ui.message("00:00")
 			elif 1 <= remainingTime <= 59:
 				ui.message("00:{ss:02d}".format(ss=remainingTime))
 			else:
@@ -305,9 +310,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		statusInfo.append("Record to file On" if sendMessage(SPLWin, 1024, 4, SPLStatusInfo) else "Record to file Off")
 		cartEdit = sendMessage(SPLWin, 1024, 5, SPLStatusInfo)
 		cartInsert = sendMessage(SPLWin, 1024, 6, SPLStatusInfo)
-		if cartEdit: statusInfo.append("Cart Edit On")
-		elif not cartEdit and cartInsert: statusInfo.append("Cart Insert On")
-		else: statusInfo.append("Cart Edit Off")
+		if cartEdit:
+			statusInfo.append("Cart Edit On")
+		elif not cartEdit and cartInsert:
+			statusInfo.append("Cart Insert On")
+		else:
+			statusInfo.append("Cart Edit Off")
 		ui.message("; ".join(statusInfo))
 		self.finish()
 
@@ -336,7 +344,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if sendMessage(SPLWin, 1024, 0, SPLVersion) < 530:
 			cart = (cart * 0x00010000) + modifier
 		# Whereas simplified to cart bank setup in Studio 5.30 and later.
-		else: cart *= modifier
+		else:
+			cart *= modifier
 		sendMessage(SPLWin, 1024, cart, SPLCartPlayer)
 		self.finish()
 
