@@ -66,35 +66,9 @@ def loadEncoderConfig():
 		return
 	# Read encoder labels.
 	try:
-		SAMStreamLabels = dict(encoderConfig["SAMEncoders"])
-	except KeyError:
-		SAMStreamLabels = {}
-	try:
-		SPLStreamLabels = dict(encoderConfig["SPLEncoders"])
-	except KeyError:
-		SPLStreamLabels = {}
-	try:
-		ACStreamLabels = dict(encoderConfig["AltaCastEncoders"])
-	except KeyError:
-		ACStreamLabels = {}
-	# #137: prepare a unified view of encoder labels.
-	# 20.09 only: remove old encoder label sections after importing them (to be removed in 20.10).
-	try:
 		SPLEncoderLabels = dict(encoderConfig["EncoderLabels"])
 	except KeyError:
 		SPLEncoderLabels = {}
-	if len(SAMStreamLabels):
-		for pos in SAMStreamLabels:
-			SPLEncoderLabels[f"SAM {pos}"] = SAMStreamLabels[pos]
-		del encoderConfig["SAMEncoders"]
-	if len(SPLStreamLabels):
-		for pos in SPLStreamLabels:
-			SPLEncoderLabels[f"SPL {pos}"] = SPLStreamLabels[pos]
-		del encoderConfig["SPLEncoders"]
-	if len(ACStreamLabels):
-		for pos in ACStreamLabels:
-			SPLEncoderLabels[f"AltaCast {pos}"] = ACStreamLabels[pos]
-		del encoderConfig["AltaCastEncoders"]
 	# Read other settings.
 	if "FocusToStudio" in encoderConfig:
 		SPLFocusToStudio = set(encoderConfig["FocusToStudio"])
