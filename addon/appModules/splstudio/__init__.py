@@ -280,12 +280,12 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 			super(IAccessible, self).reportFocus()
 		else:
 			# Don't forget that column position starts at 1, not 0 (therefore subtract 1).
-			colNumber = self._savedColumnNumber-1
+			colNumber = self._savedColumnNumber - 1
 			verticalColumnAnnounce = splconfig.SPLConfig["General"]["VerticalColumnAnnounce"]
 			if verticalColumnAnnounce == "Status" or (verticalColumnAnnounce is None and self._savedColumnNumber == 1):
 				colNumber = 0
 			else:
-				colNumber = self._savedColumnNumber-1 if verticalColumnAnnounce is None else self.indexOf(verticalColumnAnnounce)
+				colNumber = self._savedColumnNumber - 1 if verticalColumnAnnounce is None else self.indexOf(verticalColumnAnnounce)
 			# Add track check status to column data if needed by using a customized move to column number method.
 			cell = self.getChild(colNumber)
 			if colNumber > 0 and self.name:
@@ -304,7 +304,7 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 	# #12 (18.04): select and set focus to this track.
 	def doAction(self, index=None):
 		self.setFocus(), self.setFocus()
-		splbase.selectTrack(self.IAccessibleChildID-1)
+		splbase.selectTrack(self.IAccessibleChildID - 1)
 
 	# Obtain column contents for all columns for this track.
 	# A convenience method that calls column content getter for a list of columns.
@@ -328,7 +328,7 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 	@scriptHandler.script(gesture="kb:downArrow")
 	def script_nextTrack(self, gesture):
 		gesture.send()
-		if self.IAccessibleChildID == self.parent.childCount-1 and splconfig.SPLConfig["General"]["TopBottomAnnounce"]:
+		if self.IAccessibleChildID == self.parent.childCount - 1 and splconfig.SPLConfig["General"]["TopBottomAnnounce"]:
 			tones.beep(2000, 100)
 
 	@scriptHandler.script(gesture="kb:upArrow")
@@ -411,7 +411,7 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 		gesture="kb:Alt+NVDA+C",
 		category=_("StationPlaylist"))
 	def script_announceTrackComment(self, gesture):
-		self.announceTrackComment(scriptHandler.getLastScriptRepeatCount()+1)
+		self.announceTrackComment(scriptHandler.getLastScriptRepeatCount() + 1)
 
 
 SPLAssistantHelp = {
@@ -500,7 +500,7 @@ class ReversedDialog(Dialog):
 		textList = []
 		childCount = len(children)
 		# For these dialogs, children are arranged in reverse tab order (very strange indeed).
-		for index in range(childCount-1, -1, -1):
+		for index in range(childCount - 1, -1, -1):
 			child = children[index]
 			childStates = child.states
 			childRole = child.role
@@ -529,13 +529,13 @@ class ReversedDialog(Dialog):
 			):
 				continue
 			# We should ignore a text object directly after a grouping object, as it's probably the grouping's description
-			if index > 0 and children[index-1].role == controlTypes.ROLE_GROUPING:
+			if index > 0 and children[index - 1].role == controlTypes.ROLE_GROUPING:
 				continue
 			# Like the last one, but a graphic might be before the grouping's description
-			if index > 1 and children[index-1].role == controlTypes.ROLE_GRAPHIC and children[index-2].role == controlTypes.ROLE_GROUPING:
+			if index > 1 and children[index - 1].role == controlTypes.ROLE_GRAPHIC and children[index - 2].role == controlTypes.ROLE_GROUPING:
 				continue
 			childName = child.name
-			if childName and index < (childCount-1) and children[index+1].role not in (controlTypes.ROLE_GRAPHIC, controlTypes.ROLE_STATICTEXT, controlTypes.ROLE_SEPARATOR, controlTypes.ROLE_WINDOW, controlTypes.ROLE_PANE, controlTypes.ROLE_BUTTON) and children[index+1].name == childName:
+			if childName and index < (childCount - 1) and children[index + 1].role not in (controlTypes.ROLE_GRAPHIC, controlTypes.ROLE_STATICTEXT, controlTypes.ROLE_SEPARATOR, controlTypes.ROLE_WINDOW, controlTypes.ROLE_PANE, controlTypes.ROLE_BUTTON) and children[index + 1].name == childName:
 				# This is almost certainly the label for the next object, so skip it.
 				continue
 			isNameIncluded = child.TextInfo is NVDAObjectTextInfo or childRole in (controlTypes.ROLE_LABEL, controlTypes.ROLE_STATICTEXT)
@@ -1104,7 +1104,7 @@ class AppModule(appModuleHandler.AppModule):
 		else:
 			if ms:
 				# 19.11.1/18.09.13-LTS: be sure to convert time into integer indirectly via floor division for maximum compatibility between Python 2 and 3.
-				t = (t//1000) if not offset else (t//1000)+offset
+				t = (t // 1000) if not offset else (t // 1000) + offset
 			mm, ss = divmod(t, 60)
 			if mm > 59 and (includeHours or (includeHours is None and splconfig.SPLConfig["General"]["TimeHourAnnounce"])):
 				hh, mm = divmod(mm, 60)
@@ -1162,10 +1162,10 @@ class AppModule(appModuleHandler.AppModule):
 			else:
 				if h == 12:
 					h = 1
-				m = 60-m
-				ui.message("{minute} min to {hour}".format(minute=m, hour=h+1))
+				m = 60 - m
+				ui.message("{minute} min to {hour}".format(minute=m, hour=h + 1))
 		else:
-			self.announceTime(3600-(m*60+localtime[5]), ms=False)
+			self.announceTime(3600 - (m * 60 + localtime[5]), ms=False)
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
@@ -1399,10 +1399,10 @@ class AppModule(appModuleHandler.AppModule):
 
 	def buildFNCarts(self):
 		for i in range(12):
-			self.bindGesture("kb:f{}".format(i+1), "cartExplorer")
-			self.bindGesture("kb:shift+f{}".format(i+1), "cartExplorer")
-			self.bindGesture("kb:control+f{}".format(i+1), "cartExplorer")
-			self.bindGesture("kb:alt+f{}".format(i+1), "cartExplorer")
+			self.bindGesture("kb:f{}".format(i + 1), "cartExplorer")
+			self.bindGesture("kb:shift+f{}".format(i + 1), "cartExplorer")
+			self.bindGesture("kb:control+f{}".format(i + 1), "cartExplorer")
+			self.bindGesture("kb:alt+f{}".format(i + 1), "cartExplorer")
 
 	def buildNumberCarts(self):
 		# It is much faster to work directly with number row keys.
@@ -1691,9 +1691,9 @@ class AppModule(appModuleHandler.AppModule):
 			segue = obj._getColumnContentRaw(duration)
 			if segue not in (None, "00:00"):
 				hms = segue.split(":")
-				totalDuration += (int(hms[-2])*60) + int(hms[-1])
+				totalDuration += (int(hms[-2]) * 60) + int(hms[-1])
 				if len(hms) == 3:
-					totalDuration += int(hms[0])*3600
+					totalDuration += int(hms[0]) * 3600
 			obj = obj.next
 		return totalDuration
 
@@ -1738,9 +1738,9 @@ class AppModule(appModuleHandler.AppModule):
 				maxTitle = trackTitle
 			if segue not in (None, "00:00"):
 				hms = segue.split(":")
-				totalDuration += (int(hms[-2])*60) + int(hms[-1])
+				totalDuration += (int(hms[-2]) * 60) + int(hms[-1])
 				if len(hms) == 3:
-					totalDuration += int(hms[0])*3600
+					totalDuration += int(hms[0]) * 3600
 			obj = obj.next
 		# #55 (18.05): use total track count if it is an entire playlist, if not, resort to categories count.
 		if completePlaylistSnapshot:
@@ -1756,7 +1756,7 @@ class AppModule(appModuleHandler.AppModule):
 			# #57 (18.04): zero division error may occur if the playlist consists of hour markers only.
 			try:
 				# 19.11.1/18.09.13-LTS: track count is an integer, so use floor division.
-				snapshot["PlaylistDurationAverage"] = self._ms2time(totalDuration//snapshot["PlaylistTrackCount"], ms=False)
+				snapshot["PlaylistDurationAverage"] = self._ms2time(totalDuration // snapshot["PlaylistTrackCount"], ms=False)
 			except ZeroDivisionError:
 				snapshot["PlaylistDurationAverage"] = "00:00"
 		if "CategoryCount" in snapshotFlags or "ArtistCount" in snapshotFlags or "GenreCount" in snapshotFlags:
@@ -2157,7 +2157,7 @@ class AppModule(appModuleHandler.AppModule):
 		if trackStarts in ((86399, 999), (0, 0)):
 			ui.message("00:00:00")
 		else:
-			self.announceTime(trackStarts[0]+1 if trackStarts[1] == 999 else trackStarts[0], ms=False)
+			self.announceTime(trackStarts[0] + 1 if trackStarts[1] == 999 else trackStarts[0], ms=False)
 
 	def script_sayScheduledToPlay(self, gesture):
 		# 7.0: This script announces length of time remaining until the selected track will play.
@@ -2196,7 +2196,7 @@ class AppModule(appModuleHandler.AppModule):
 		if self._trackAnalysisAllowed():
 			focus = api.getFocusObject()
 			if scriptHandler.getLastScriptRepeatCount() == 0:
-				self._analysisMarker = focus.IAccessibleChildID-1
+				self._analysisMarker = focus.IAccessibleChildID - 1
 				# Translators: Presented when track time analysis is turned on.
 				ui.message(_("Playlist analysis activated"))
 			else:
@@ -2215,20 +2215,20 @@ class AppModule(appModuleHandler.AppModule):
 				ui.message(_("No track selected as start of analysis marker, cannot perform time analysis"))
 				return
 			focus = api.getFocusObject()
-			trackPos = focus.IAccessibleChildID-1
+			trackPos = focus.IAccessibleChildID - 1
 			analysisBegin = min(self._analysisMarker, trackPos)
 			analysisEnd = max(self._analysisMarker, trackPos)
-			analysisRange = analysisEnd-analysisBegin+1
+			analysisRange = analysisEnd - analysisBegin + 1
 			# #75 (18.08): use segue instead as it gives more accurate information as to the actual total duration.
 			# Add a 1 because track position subtracts it for comparison purposes.
 			# 18.10: rework this so this feature can work on track objects directly.
-			totalLength = self.playlistDuration(start=focus.parent.getChild(analysisBegin), end=focus.parent.getChild(analysisEnd+1))
+			totalLength = self.playlistDuration(start=focus.parent.getChild(analysisBegin), end=focus.parent.getChild(analysisEnd + 1))
 			# Playlist duration method returns raw seconds, so do not force milliseconds, and in case of multiple tracks, multiply this by 1000.
 			if analysisRange == 1:
 				self.announceTime(totalLength, ms=False)
 			else:
 				# Translators: Presented when time analysis is done for a number of tracks (example output: Tracks: 3, totaling 5:00).
-				ui.message(_("Tracks: {numberOfSelectedTracks}, totaling {totalTime}").format(numberOfSelectedTracks=analysisRange, totalTime=self._ms2time(totalLength*1000)))
+				ui.message(_("Tracks: {numberOfSelectedTracks}, totaling {totalTime}").format(numberOfSelectedTracks=analysisRange, totalTime=self._ms2time(totalLength * 1000)))
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
@@ -2256,7 +2256,7 @@ class AppModule(appModuleHandler.AppModule):
 		start = obj.parent.firstChild if self._analysisMarker is None else None
 		end = None
 		if self._analysisMarker is not None:
-			trackPos = obj.IAccessibleChildID-1
+			trackPos = obj.IAccessibleChildID - 1
 			analysisBegin = min(self._analysisMarker, trackPos)
 			analysisEnd = max(self._analysisMarker, trackPos)
 			start = obj.parent.getChild(analysisBegin)
