@@ -111,9 +111,9 @@ def _removeEncoderID(encoderType, pos):
 			for item in currentEncoders[start:]:
 				if isinstance(encoderSettings, set):
 					encoderSettings.remove(item)
-					encoderSettings.add("{} {}".format(encoderType, int(item.split()[-1])-1))
+					encoderSettings.add("{} {}".format(encoderType, int(item.split()[-1]) - 1))
 				else:
-					encoderSettings["{} {}".format(encoderType, int(item.split()[-1])-1)] = encoderSettings.pop(item)
+					encoderSettings["{} {}".format(encoderType, int(item.split()[-1]) - 1)] = encoderSettings.pop(item)
 
 
 # Save encoder labels and various flags, called when closing app modules and when config save command is pressed.
@@ -496,7 +496,7 @@ class Encoder(IAccessible):
 			_("Encoder label and settings eraser"),
 			choices=[str(pos) for pos in range(1, self.simpleParent.childCount)]
 		)
-		dlg.SetSelection(self.IAccessibleChildID-1)
+		dlg.SetSelection(self.IAccessibleChildID - 1)
 		def callback(result):
 			if result == wx.ID_OK:
 				_removeEncoderID(self.encoderType, dlg.GetStringSelection())
@@ -679,7 +679,7 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 				elif "Error" not in messageCache and error:
 					error = False
 				currentTime = time.time()
-				if currentTime-attemptTime >= 0.5 and self.connectionTone:
+				if currentTime - attemptTime >= 0.5 and self.connectionTone:
 					tones.beep(500, 50)
 					attemptTime = currentTime
 			if not manualConnect and not self.backgroundMonitor:
@@ -805,7 +805,7 @@ class SPLEncoder(Encoder):
 					connecting = True
 				if "Kbps" not in messageCache:
 					currentTime = time.time()
-					if currentTime-attemptTime >= 0.5 and self.connectionTone:
+					if currentTime - attemptTime >= 0.5 and self.connectionTone:
 						tones.beep(500, 50)
 						attemptTime = currentTime
 			if not manualConnect and not self.backgroundMonitor:
