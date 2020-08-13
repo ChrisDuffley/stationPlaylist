@@ -105,7 +105,7 @@ class SPLFindDialog(wx.Dialog):
 		# Studio, are you alive?
 		if user32.FindWindowW("SPLStudio", None) and text:
 			appMod = self.obj.appModule
-			column = [self.columnHeaders.Selection+1] if self.columnSearch else None
+			column = [self.columnHeaders.Selection + 1] if self.columnSearch else None
 			startObj = self.obj
 			if appMod.findText is None or (len(appMod.findText) and (text == appMod.findText[0] or text in appMod.findText)):
 				startObj = startObj.next
@@ -215,7 +215,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 			obj = self.obj.next
 			# Manually locate tracks here.
 			while obj is not None:
-				filename = splbase.studioAPI(obj.IAccessibleChildID-1, 211)
+				filename = splbase.studioAPI(obj.IAccessibleChildID - 1, 211)
 				if minDuration <= splbase.studioAPI(filename, 30) <= maxDuration:
 					break
 				obj = obj.next
@@ -224,7 +224,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 				obj.setFocus()
 				# 16.11: Select the desired track manually.
 				# #45 (18.02): call select track function in splbase module.
-				splbase.selectTrack(obj.IAccessibleChildID-1)
+				splbase.selectTrack(obj.IAccessibleChildID - 1)
 			else:
 				wx.CallAfter(
 					# Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
@@ -260,7 +260,7 @@ def _populateCarts(carts, cartlst, modifier, standardEdition=False, refresh=Fals
 		if noEntry and not refresh:
 			continue
 		# Pos between 1 and 12 = function carts, 13 through 24 = number row carts, modifiers are checked.
-		pos = cartlst.index(entry)+1
+		pos = cartlst.index(entry) + 1
 		# If a cart name has commas or other characters, SPL surrounds the cart name with quotes (""), so parse it as well.
 		if not entry.startswith('"'):
 			cartName = entry.split(",")[0]
@@ -270,7 +270,7 @@ def _populateCarts(carts, cartlst, modifier, standardEdition=False, refresh=Fals
 			identifier = f"f{pos}"
 		# For number row (except Studio Standard), subtract 13 because pos starts at 1, so by the time it comes to number row, it'll be 13.
 		else:
-			identifier = numberRow[pos-13]
+			identifier = numberRow[pos - 13]
 		cart = identifier if not modifier else "+".join([modifier, identifier])
 		if noEntry and refresh:
 			if cart in carts:
@@ -306,7 +306,7 @@ def cartExplorerInit(StudioTitle, cartFiles=None, refresh=False, carts=None):
 		# Read *.cart files and process the cart entries within (be careful when these cart file names change between SPL releases).
 		cartFiles = ["main carts.cart", "shift carts.cart", "ctrl carts.cart", "alt carts.cart"]
 		if userNameIndex >= 0:
-			cartFiles = [StudioTitle[userNameIndex+2:]+" "+cartFile for cartFile in cartFiles]
+			cartFiles = [StudioTitle[userNameIndex + 2:] + " " + cartFile for cartFile in cartFiles]
 	faultyCarts = False
 	if not refresh:
 		_cartEditTimestamps = []

@@ -813,7 +813,7 @@ class ColumnAnnouncementsBasePanel(gui.SettingsPanel):
 	def onColumnSelection(self, evt):
 		selIndex = self.trackColumns.GetSelection()
 		self.upButton.Disable() if selIndex == 0 else self.upButton.Enable()
-		if selIndex == self.trackColumns.GetCount()-1:
+		if selIndex == self.trackColumns.GetCount() - 1:
 			self.dnButton.Disable()
 		else:
 			self.dnButton.Enable()
@@ -824,18 +824,18 @@ class ColumnAnnouncementsBasePanel(gui.SettingsPanel):
 		if selIndex > 0:
 			selItem = self.trackColumns.GetString(selIndex)
 			self.trackColumns.Delete(selIndex)
-			self.trackColumns.Insert(selItem, selIndex-1)
-			self.trackColumns.Select(selIndex-1)
+			self.trackColumns.Insert(selItem, selIndex - 1)
+			self.trackColumns.Select(selIndex - 1)
 			self.onColumnSelection(None)
 
 	def onMoveDown(self, evt):
 		tones.beep(500, 200)
 		selIndex = self.trackColumns.GetSelection()
-		if selIndex < self.trackColumns.GetCount()-1:
+		if selIndex < self.trackColumns.GetCount() - 1:
 			selItem = self.trackColumns.GetString(selIndex)
 			self.trackColumns.Delete(selIndex)
-			self.trackColumns.Insert(selItem, selIndex+1)
-			self.trackColumns.Select(selIndex+1)
+			self.trackColumns.Insert(selItem, selIndex + 1)
+			self.trackColumns.Select(selIndex + 1)
 			self.onColumnSelection(None)
 			# Hack: Wen the last item is selected, forcefully move the focus to "move up" button.
 			# This will cause NVDA to say "unavailable" as focus is lost momentarily. A bit anoying but a necessary hack.
@@ -971,7 +971,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		for slot in range(5):
 			# Translators: The label for a setting in SPL add-on dialog to select column for this column slot.
-			columns = sizer.addLabeledControl(_("Slot {position}").format(position=slot+1), wx.Choice, choices=cols)
+			columns = sizer.addLabeledControl(_("Slot {position}").format(position=slot + 1), wx.Choice, choices=cols)
 			try:
 				columns.SetSelection(cols.index(slots[slot]))
 			except:
@@ -981,7 +981,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		for slot in range(5, 10):
-			columns = sizer.addLabeledControl(_("Slot {position}").format(position=slot+1), wx.Choice, choices=cols)
+			columns = sizer.addLabeledControl(_("Slot {position}").format(position=slot + 1), wx.Choice, choices=cols)
 			try:
 				columns.SetSelection(cols.index(slots[slot]))
 			except:
