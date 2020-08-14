@@ -96,9 +96,6 @@ msgstr ""
 msgid "Item {current} of {total}"
 msgstr " {current} z {total}"
 
-msgid "Has comment"
-msgstr "Zawiera komentarz"
-
 #. Translators: Presented when track comment has been copied to clipboard.
 msgid "Track comment copied to clipboard"
 msgstr "Komentarz utworu skopiowano do schowka"
@@ -298,14 +295,6 @@ msgid "SPL mode"
 msgstr "Tryb SPL"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid "Announces the remaining track time."
-msgstr "Wypowiada pozostały czas ścieżki."
-
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid "Announces the elapsed time for the currently playing track."
-msgstr "Oznajmia czas, który upłynął dla aktualnie odtwarzanej ścieżki."
-
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid ""
 "Announces broadcaster time. If pressed twice, reports minutes and seconds "
 "left to top of the hour."
@@ -440,6 +429,7 @@ msgstr "Skanowanie zakończone z {itemCount} elementów"
 msgid "Scanning"
 msgstr "Skanowanie"
 
+#. Translators: Presented when library scan is in progress.
 #, python-brace-format
 msgid "{itemCount} items scanned"
 msgstr "{itemCount} elementów zeskanowano"
@@ -602,12 +592,6 @@ msgstr "Modyfikacja listy odtwarzania niedostępna."
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Announces title of the next track if any"
 msgstr "Wypowiada nazwę następnej ścieżki (jeśli adekwatne)"
-
-#. Translators: Presented when there is no information for the next track.
-#. Translators: Presented when there is no information for the current track.
-#, fuzzy
-msgid "No track is playing"
-msgstr "Żaden utwór nie jest odtwarzany"
 
 #. Translators: Presented when there is no information for the next track.
 #, fuzzy
@@ -851,9 +835,6 @@ msgstr "Komunikat"
 msgid "Braille timer off"
 msgstr "Timer brajlowski wyłączony"
 
-msgid "Off"
-msgstr "Brak"
-
 #. Translators: A setting in braille timer options.
 msgid "Braille track endings"
 msgstr "Wyświetlaj końce utworów w brajlu"
@@ -923,20 +904,6 @@ msgstr "Aktywny"
 msgid "Cop&y"
 msgstr "Kopiuj"
 
-#. Translators: The label of a field to enter a new name for a broadcast profile.
-msgid "New name:"
-msgstr "Nowa nazwa:"
-
-#. Translators: The title of the dialog to rename a profile.
-msgid "Rename Profile"
-msgstr "Zmień nazwę profilu"
-
-#. Translators: An error displayed when renaming a configuration profile
-#. and a profile with the new name already exists.
-#. Translators: An error displayed when the user attempts to create a profile which already exists.
-msgid "That profile already exists. Please choose a different name."
-msgstr "Taki profil już istnieje. Proszę, nazwij inaczej"
-
 #. Translators: Message reported when attempting to delete a profile in the midst of a broadcast.
 #, fuzzy
 msgid ""
@@ -967,21 +934,9 @@ msgstr "Usuń aktywny profil"
 msgid "Are you sure you want to delete this profile? This cannot be undone."
 msgstr "Jesteś pewien, że chcesz usunąć profil?"
 
-#. Translators: The title of the confirmation dialog for deletion of a profile.
-msgid "Confirm Deletion"
-msgstr "Potwierdź usunięcie"
-
-#. Translators: The title of the dialog to create a new broadcast profile.
-msgid "New Profile"
-msgstr "Nowy profil"
-
 #. Translators: The title of the dialog to copy a broadcast profile.
 msgid "Copy Profile"
 msgstr "Kopiuj profil"
-
-#. Translators: The label of a field to enter the name of a new broadcast profile.
-msgid "Profile name:"
-msgstr "Nazwa profilu:"
 
 #. Translators: The label for a setting in SPL add-on dialog to select a base  profile for copying.
 msgid "&Base profile:"
@@ -995,10 +950,6 @@ msgstr "Wyzwalacze profilu dla {profileName}"
 #. Translators: The label of a checkbox to toggle if selected profile is an instant switch profile.
 msgid "This is an &instant switch profile"
 msgstr "To jest \"szybki profil\""
-
-#. Translators: title of a panel to configure various general add-on settings such as top and bottom announcement for playlists.
-msgid "General"
-msgstr "ogólne"
 
 #. Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
 msgid "&Beep for status announcements"
@@ -1287,10 +1238,6 @@ msgid ""
 msgstr ""
 "Ogłaszaj również aktualny czas i odtwarzacz przy ogłaszaniu obecnego oraz "
 "następnego utworu"
-
-#. Translators: title of a panel to configure advanced SPL add-on options such as update checking.
-msgid "Advanced"
-msgstr "Zaawansowane"
 
 #. Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 msgid "Allow SPL C&ontroller command to invoke SPL Assistant layer"
@@ -1768,3 +1715,43 @@ msgid ""
 msgstr ""
 "Poprawia dostępność Station Playlist Studio.\n"
 "Ponadto, dodaje globalne komendy dla studia, dostępne z każdego miejsca."
+
+#~ msgid "Has comment"
+#~ msgstr "Zawiera komentarz"
+
+#~ msgid "Announces the remaining track time."
+#~ msgstr "Wypowiada pozostały czas ścieżki."
+
+#~ msgid "Announces the elapsed time for the currently playing track."
+#~ msgstr "Oznajmia czas, który upłynął dla aktualnie odtwarzanej ścieżki."
+
+#, fuzzy
+#~ msgid "No track is playing"
+#~ msgstr "Żaden utwór nie jest odtwarzany"
+
+#~ msgid "Off"
+#~ msgstr "Brak"
+
+#~ msgid "New name:"
+#~ msgstr "Nowa nazwa:"
+
+#~ msgid "Rename Profile"
+#~ msgstr "Zmień nazwę profilu"
+
+#~ msgid "That profile already exists. Please choose a different name."
+#~ msgstr "Taki profil już istnieje. Proszę, nazwij inaczej"
+
+#~ msgid "Confirm Deletion"
+#~ msgstr "Potwierdź usunięcie"
+
+#~ msgid "New Profile"
+#~ msgstr "Nowy profil"
+
+#~ msgid "Profile name:"
+#~ msgstr "Nazwa profilu:"
+
+#~ msgid "General"
+#~ msgstr "ogólne"
+
+#~ msgid "Advanced"
+#~ msgstr "Zaawansowane"

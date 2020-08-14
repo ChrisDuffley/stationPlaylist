@@ -3,6 +3,7 @@
 * Autori: Geoff Shang, Joseph Lee a ďalší
 * Stiahnuť [stabilnú verziu][1]
 * Stiahnuť [vývojovú verziu][2]
+* Download [long-term support version][3] - for Studio 5.20 users
 * NVDA compatibility: 2019.3 to 2020.2
 
 Doplnok zlepšuje prístupnosť Station Playlist Studio a ďalších pridružených
@@ -19,8 +20,9 @@ Dôležité:
 * Doplnok vyžaduje StationPlaylist suite od verzie 5.20.
 * Ak používate Systém od verzie Windows 8, odporúčame vám vypnúť funkciu
   automatického stišovania.
-* Od roku 2018 je [Zoznam zmien (anglicky)][5] na serveri GitHub. V tomto
-  dokumente sú uvedené zmeny od verzie 18.09.
+* Starting from 2018, [changelogs for old add-on releases][5] will be found
+  on GitHub. This add-on readme will list changes from version 20.01 (2020)
+  onwards.
 * Niektoré funkcie doplnku nemusia vždy fungovať, napríklad ak sa nachádzate
   na zabezpečenej obrazovke.
 * Z technických príčin nie je možné tento doplnok používať na verzii NVDA z
@@ -59,19 +61,20 @@ Väčšina skratiek je určených pre Studio, ak nie je uvedené inak.
   dozadu.
 * Alt+NVDA+R v okne Studio: Prepína oznamovanie skenovania knižnice.
 * Ctrl+Shift+X v okne Studio: Prepína zobrazenie na braillovskom riadku.
-* Ctrl+Alt+šípky doľava a doprava (pri zobrazení skladby v oknách Studio,
-  Creator, Remote VT, a Track Tool): Oznamuje metadáta vybratej skladby.
-* Ctrl+Alt+home a end (pri zobrazení skladby v oknách Studio, Creator,
-  Remote VT, a Track Tool): Oznámi prvú a poslednú informáciu o metadátach.
-* Ctrl+Alt+šípky hore a dole (pri zobrazení skladby v okne Studio): presunie
-  kurzor na nasledujúcu alebo predchádzajúcu skladbu a oznámi vybraté
-  metadáta.
+* Control+Alt+left/right arrow (while focused on a track in Studio, Creator,
+  Remote VT, and Track Tool): Move to previous/next track column.
+* Control+Alt+Home/End (while focused on a track in Studio, Creator, Remote
+  VT, and Track Tool): Move to first/last track column.
+* Control+Alt+up/down arrow (while focused on a track in Studio, Creator,
+  Remote VT, and Track Tool): Move to previous/next track and announce
+  specific columns.
 * Ctrl+NVDA+1 až 0 (Pri zobrazení skladby v okne Studio, Creator (vrátane
   úpravy playlistu), Remote VT, a Track Tool): Oznámi príslušné metadáta
   (prvých 10). Stlačené dvakrát rýchlo za sebou zobrazí metadáta v režime
   prehliadania.
-* Ctrl+NVDA+- (pomlčka pri zobrazení skladby v oknách Studio, Creator, a
-  Track Tool): Zobrazí všetky metadáta v režime prehliadania.
+* Control+NVDA+- (hyphen while focused on a track in Studio, Creator, Remote
+  VT, and Track Tool): display data for all columns in a track on a browse
+  mode window.
 * Alt+NVDA+C (pri zobrazení skladby v okne Studio): oznámi komentár k
   skladbe.
 * Alt+NVDA+0 z okna studio: Otvorí nastavenia doplnku.
@@ -107,8 +110,8 @@ v kontextovej ponuke aktivujte tlačidlo Pridať.
 
 Dostupné sú tieto príkazy:
 
-* F9: Pripojiť na vysielací server.
-* F10 (len sam Encoder): Odpojiť od vysielacieho servera.
+* F9: connect the selected encoder.
+* F10 (SAM encoder only): Disconnect the selected encoder.
 * Control+F9: Connect all encoders.
 * Control+F10 (SAM encoder only): Disconnect all encoders.
 * F11: Aktivuje a deaktivuje automatické prepnutie do okna Studio po
@@ -281,6 +284,38 @@ NVDA  od verzie 2012.3, môžete na ovládanie doplnku použiť dotykové
 príkazy. Najprv je potrebné dotknúť sa obrazovky tromi prstami. Následne
 vykonajte gestá spomenúté vyššie v tomto návode.
 
+## Version 20.09-LTS
+
+Version 20.09.x is the last release series to support Studio 5.20 and based
+on old technologies, with future releases supporting Studio 5.30 and more
+recent NVDA features. Some new features will be backported to 20.09.x if
+needed.
+
+* Due to changes in NVDA, --spl-configvolatile command line switch is no
+  longer availible to make add-on settings read-only. You can emulate this
+  by unchecking "Save configuration when exiting NVDA" checkbox from NVDA's
+  general settings panel.
+* Removed pilot features setting from Advanced settings category under
+  add-on settings (Alt+NvDA+0), used to let development snapshot users test
+  bleeding-edge code.
+* Column navigation commands in Studio are now availible in track lists
+  found in listener requests, insert tracks and other screens.
+* Various column navigation commands will behave like NVDA's own table
+  navigation commands. Besides simplifying these commands, it brings
+  benefits such as ease of use by low vision users.
+* Vertical column navigation (Control+Alt+up/down arrow) commands are now
+  availible for Creator, playlist editor, Remote VT, and Track Tool.
+* Track columns viewer command (Control+NVDA+hyphen) is now availible in
+  Creator's Playlist Editor and Remote VT.
+* Track columns viewer command will respect column order displayed on
+  screen.
+* In SAM encoders, improved NVDA's responsiveness when pressing Control+F9
+  or Control+F10 to connect or disconnect all encoders, respectively. This
+  may result in increased verbosity when announcing the selected encoder
+  information.
+* In SPL and AltaCast encoders, pressing F9 will now connect the selected
+  encoder.
+
 ## Version 20.07
 
 * In Studio's playlist viewer, NVDA will no longer appear to do nothing or
@@ -392,191 +427,6 @@ vykonajte gestá spomenúté vyššie v tomto návode.
 
 * Vyžadujeme NVDA od verzie 2019.3 nakoľko používame Python3.
 
-## verzia 19.11.1/18.09.13-LTS
-
-* Prvotná podpora pre StationPlaylist suite 5.40.
-* Ak používate NVDA od verzie 2019.3, funkcie na generovanie štatistiky
-  playllistu a oznamovanie času nehlásia chybu.
-* V zozname skladieb v okne Creator je od verzie 5.31 rozpoznaný stĺpec
-  jazyk.
-* V rôznych zoznamoch v okne creator NVDA pri prezeraní metadát správne
-  oznamuje stĺpce pri použití ctrl+nvda+číslice.
-
-## Verzia 19.11
-
-* Z podmnožiny príkazov skratka E oznamuje stav vybratého aktívneho enkodéra
-  a nie toho, ktorý je nastavený na monitorovanie na pozadí.
-* NVDA pri štarte so zameraním na okno s nastavením enkodéra viac nehlási
-  chybu.
-
-## verzia 19.10/18.09.12-LTS
-
-* Skrátené oznamovanie verzie aplikácie Studio po štarte.
-* pridané oznamovanie verzie aplikácie Creator po štarte.
-* 19.10: Je možné priradiť vlastnú skratku na zistenie stavu enkodéru a tak
-  zistiť stav odkiaľkoľvek.
-* Prvotná podpora pre AltaCast encoder (Winamp plugin musí byť rozpoznaný v
-  Studio). Má rovnaké príkazy ako vstavaný enkodér SPL.
-
-## Verzia 19.08.1
-
-* NVDA viac nehlási chybu, ak odstránite pripojenie, ktoré monitorujete na
-  pozadí.
-
-## Verzia 19.08/18.09.11-LTS
-
-* 19.08: Vyžaduje NVDA od verzie 2019.1.
-* 19.08: NVDA viac nehlási chybu, ak ho reštartujete a súčasne ponecháte
-  otvorené okno s nastaveniami doplnku.
-* NVDA si zapamätá nastavenia profilu aj vtedy, ak sa prepínate medzi
-  panelmi nastavení a premenujete profil v nastaveniach doplnku.
-* NVDA Zohľadňuje časovú aktiváciu profilov po aktivovaní tlačidla OK v
-  nastaveniach. Problém nastal po migrovaní do stromu nastavení.
-
-## Verzia 19.07/18.09.10-LTS
-
-* Doplnok premenovaný zo "Station playlist studio" na "Station playlist",
-  keďže teraz podporuje viacero aplikácií z ponuky Station playlist.
-* Opravené mierne bezpečnostné chyby.
-* Opravená chyba s ukladaním nastavení streamovania metadát a upozornenia na
-  zapnutý mikrofón.
-
-## Verzia 19.06/18.09.9-LTS
-
-Verzia 19.06 podporuje SPL Studio od verzie 5.20.
-
-* Prvotná podpora pre Station Playlist Streamer.
-* Ak je spustený Tracktool alebo Studio a spustíte nové okno aplikácie,
-  ktoré neskôr zatvoríte, doplnok sa naďalej bude správať korektne.
-* Pridané popisky prvkov v nastavení enkodéra.
-
-## Verzia 19.04.1
-
-* Opravené problémy s ukladaním nastavení, upravenými stĺpcami metadát a
-  prepisom playlistu.
-
-## Verzia 19.04/18.09.8-LTS
-
-* Množina príkazov SPL nebude fungovať, ak ste na zabezpečenej obrazovke,
-  alebo spúšťate verziu NVDA z Windows obchodu.
-* 19.04: Pri prepise playlistu a nastavovaní zobrazeného poradia metadát nie
-  je viac potrebné otvoriť nové okno. Všetko nastavíte priamo v aktívnom
-  okne.
-* V niektorých zoznamoch v okne Creator NVDA viac nehlási chybu.
-
-## verzia 19.03/18.09.7-LTS
-
-* Skratka Ctrl+NVDA+R načíta uložené nastavenia aj pre tento
-  doplnok. Rovnako trojité stlačenie vynuluje aj nastavenia doplnku.
-* Premenované pokročilé nastavenia len na pokročilé.
-* 19.03 experimentálne: Pri prepise playlistu a nastavovaní zobrazeného
-  poradia metadát nie je viac potrebné otvoriť nové okno. Všetko nastavíte
-  priamo v aktívnom okne.
-
-## Verzia 19.02
-
-* Odstránená kontrola aktualizácie doplnku. Doplnok aktualizujte cez
-  aktualizačný nástroj pre doplnky.
-* NVDA viac nehlási chybu po nastavení intervalu upozornenia na zapnutý
-  mikrofón.
-* NVDA pri pokuse obnoviť nastavenia doplnku upozorní, ak je aktívny iný
-  profil.
-* NVDA po obnove nastavení vypne upozornenie na zapnutý mikrofón a
-  upozornenie na streamovanie metadát.
-
-## Verzia 19.01.1
-
-* NVDA po zatvorení okna Studio viac nehlási skenovanie knižnice.
-
-## Verzia 19.01/18.09.6-LTS
-
-* Vyžaduje sa NVDA od verzie 2018.4.
-* Upravený kód pre Python 3.
-* 19.01: Namiesto vlastných prekladov v niektorých situáciách používame
-  priamo správy integrované v NVDA.
-* 19.01: Odstránená podpora pre aktualizáciu doplnku. Aktualizujte pomocou
-  aktualizačného nástroja pre doplnky NVDA.
-* Upravená odozva pri nahrávaní vstupov a súčasnom použití aplikácie Voice
-  Track Recorder. Stále je ale zhoršená odozva pri súčasnom použití Studio a
-  Voice Track Recorder.
-* NVDA zobrazí chybu pri pokuse otvoriť novú inštanciu okna s nastavením
-  enkodéru.
-
-## Verzia 18.12
-
-* Úpravy pre budúce verzie NVDA.
-* Opravené oznamovanie správ doplnku v Angličtine v situáciách, keď bol
-  dostupný preklad.
-* Po kontrole aktualizácie doplnku sa táto nenainštaluje, ak vyžaduje novú
-  verziu NVDA.
-* Pri použití niektorých funkcií je potrebné najprv zamerať playlist a
-  vybrať konkrétnu skladbu. Týka sa zisťovania času (d), štatistiky
-  playlistu (F8), a prepisu playlistu (shift+F8).
-* Pre zobrazenie ostávajúceho času do konca odohratia playlistu (zložený
-  príkaz nasledovaný písmenom D) je potrebné byť v zozname skladieb a mať
-  vybratú skladbu.
-* V okne SAM Encoder je možné prezerať stav pripojenia pomocou príkazov na
-  navigáciu v tabuľke (ctrl+alt+šípky).
-
-## Verzia 18.11/18.09.5-LTS
-
-Verzia 18.11.1 nahrádza 18.11 ktorá má lepšiu podporu pre Studio 5.31.
-
-* Prvotná podpora pre StationPlaylist Studio 5.31.
-* Odteraz je možné získať štatistiku a prepis playlistu aj v prípade, že je
-  zameraný zoznam skladieb a nie je vybratá prvá skladba.
-* NVDA viac nehlási chybu ak sa pokúšate zistiť stav streamovania metadát
-  pri spúšťaní okna Studio.
-* Oznamovanie streamovania metadát a iné stavové informácie sú oznamované v
-  celku a navzájom sa neprerušujú.
-
-## verzia 18.10.2/18.09.4-LTS
-
-* Odteraz je možné zatvoriť nastavenia doplnku po stlačení tlačidla použiť a
-  následnom stlačení tlačidla OK alebo zrušiť.
-
-## verzia 18.10.1/18.09.3-LTS
-
-* Opravené viaceré problémy s enkodérmi, konkrétne napríklad neoznamovanie
-  stavu pripojenia, nespustenie prvej skladby z playlistu po pripojení,
-  alebo nefunkčné automatické zameranie okna Studio po pripojení. Všetko
-  bolo spôsobené prechodom na wxPython 4 (NVDA od verzie 2018.3).
-
-## Verzia 18.10
-
-* Kompatibilné s NVDA od verzie 2018.3.
-* Upravený kód pre Python 3.
-
-## verzia 18.09.1-LTS
-
-* Pri prepise playlistu do html tabuľky sa viac na generovanie hlavičiek
-  nepoužívajú Python list string.
-
-## verzia 18.09-LTS
-
-Verzia 18.09.x je posledná, ktorá podporuje Studio 5.10 so staršou
-technológiou. Od verzie 18.10 podporujeme Studio 5.11/5.20. Niektoré nové
-funkcie môžu byť časom portované aj do verzie 18.09.
-
-* Vyžadujeme NVDA od verzie 2018.3 lebo prechádzame na wxPython 4.
-* Nastavenia doplnku sú prispôsobené pre strom s nastaveniami predstavený v
-  NVDA od verzie 2018.2.
-* Testovacie verzie boli skombinované do jednej vývojovej verzie. Vývojové
-  verzie budete dostávať po začiarknutí príslušného políčka v pokročilých
-  nastaveniach.
-* Odteraz nie je možné nastaviť aktualizačný kanál. Ak chcete prejsť na
-  vývojovú verziu doplnku, z tejto stránky si stiahnite vývojovú verziu.
-* Začiarkávacie políčka pre vybratie metadát na prepis a oznamovanie, ako aj
-  začiarkávacie polia pre pripojenia boli zmenené na zoznamso začiarkávacími
-  poliami.
-* NVDA si zapamätá špecifické nastavenia pre konkrétny profil pri zmene
-  panela s nastaveniami. Jedná sa o upozornenia, oznamovanie metadát a
-  streamovanie metadát.
-* Prepis playlistu je možné uložiť vo formáte CSV (zoznam oddelený
-  čiarkami\v).
-* Skratka na uloženie nastavení ctrl+nvda+c uloží aj nastavenia
-  doplnku. Vyžaduje sa NVDA od verzie 2018.3.
-
 ## Staršie verzie
 
 Výpis zmien pre staršie verzie doplnku nájdete na samostatnej stránke
@@ -587,6 +437,8 @@ Výpis zmien pre staršie verzie doplnku nájdete na samostatnej stránke
 [1]: https://addons.nvda-project.org/files/get.php?file=spl
 
 [2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
+
+[3]: https://addons.nvda-project.org/files/get.php?file=spl-lts20
 
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 

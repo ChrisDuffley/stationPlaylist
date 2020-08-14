@@ -95,9 +95,6 @@ msgstr ""
 msgid "Item {current} of {total}"
 msgstr "Stavka{current} od{total}"
 
-msgid "Has comment"
-msgstr "Ima komentar"
-
 #. Translators: Presented when track comment has been copied to clipboard.
 msgid "Track comment copied to clipboard"
 msgstr "Komentar zapisa kopiran u privremenu memoriju"
@@ -296,14 +293,6 @@ msgid "SPL mode"
 msgstr "SPL režim"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid "Announces the remaining track time."
-msgstr "Izgovara preostalo vreme zapisa"
-
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid "Announces the elapsed time for the currently playing track."
-msgstr "Izgovara proteklo vreme zapisa koji se trenutno reprodukuje"
-
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid ""
 "Announces broadcaster time. If pressed twice, reports minutes and seconds "
 "left to top of the hour."
@@ -438,6 +427,7 @@ msgstr "Skeniranje završeno sa {itemCount} stavki"
 msgid "Scanning"
 msgstr "Skeniranje"
 
+#. Translators: Presented when library scan is in progress.
 #, python-brace-format
 msgid "{itemCount} items scanned"
 msgstr "{itemCount} stavki skenirano"
@@ -606,12 +596,6 @@ msgstr "Izmena liste za reprodukciju nije dostupna"
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Announces title of the next track if any"
 msgstr "Izgovara naslov sledećeg zapisa ako postoji"
-
-#. Translators: Presented when there is no information for the next track.
-#. Translators: Presented when there is no information for the current track.
-#, fuzzy
-msgid "No track is playing"
-msgstr "Nijedan zapis se ne reprodukuje"
 
 #. Translators: Presented when there is no information for the next track.
 #, fuzzy
@@ -887,9 +871,6 @@ msgstr "Reči"
 msgid "Braille timer off"
 msgstr "Brajev tajmer isključen"
 
-msgid "Off"
-msgstr "Isključen"
-
 #. Translators: A setting in braille timer options.
 msgid "Braille track endings"
 msgstr "Brajev kraj zapisa"
@@ -959,20 +940,6 @@ msgstr "Aktivan"
 msgid "Cop&y"
 msgstr "&Kopiraj"
 
-#. Translators: The label of a field to enter a new name for a broadcast profile.
-msgid "New name:"
-msgstr "Novo ime:"
-
-#. Translators: The title of the dialog to rename a profile.
-msgid "Rename Profile"
-msgstr "Preimenuj profil"
-
-#. Translators: An error displayed when renaming a configuration profile
-#. and a profile with the new name already exists.
-#. Translators: An error displayed when the user attempts to create a profile which already exists.
-msgid "That profile already exists. Please choose a different name."
-msgstr "Taj profil već postoji. Molimo izaberite drugo ime"
-
 #. Translators: Message reported when attempting to delete a profile in the midst of a broadcast.
 #, fuzzy
 msgid ""
@@ -1007,21 +974,9 @@ msgstr ""
 "Da li ste sigurni da želite da obrišete ovaj profil? Ovo ne može biti "
 "poništeno"
 
-#. Translators: The title of the confirmation dialog for deletion of a profile.
-msgid "Confirm Deletion"
-msgstr "Potvrdi brisanje"
-
-#. Translators: The title of the dialog to create a new broadcast profile.
-msgid "New Profile"
-msgstr "Novi profil"
-
 #. Translators: The title of the dialog to copy a broadcast profile.
 msgid "Copy Profile"
 msgstr "Kopiraj profil"
-
-#. Translators: The label of a field to enter the name of a new broadcast profile.
-msgid "Profile name:"
-msgstr "Ime profila:"
 
 #. Translators: The label for a setting in SPL add-on dialog to select a base  profile for copying.
 msgid "&Base profile:"
@@ -1035,10 +990,6 @@ msgstr "Aktivatori profila za{profileName}"
 #. Translators: The label of a checkbox to toggle if selected profile is an instant switch profile.
 msgid "This is an &instant switch profile"
 msgstr "&Ovo je profil za trenutnu promenu"
-
-#. Translators: title of a panel to configure various general add-on settings such as top and bottom announcement for playlists.
-msgid "General"
-msgstr ""
 
 #. Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
 msgid "&Beep for status announcements"
@@ -1343,11 +1294,6 @@ msgid ""
 msgstr ""
 "Uključi &poziciju reprodukovanja zapisa u toku izgovaranja informacija o "
 "trenutnom i sledećem zapisu"
-
-#. Translators: title of a panel to configure advanced SPL add-on options such as update checking.
-#, fuzzy
-msgid "Advanced"
-msgstr "Napredan"
 
 #. Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 msgid "Allow SPL C&ontroller command to invoke SPL Assistant layer"
@@ -1853,3 +1799,41 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist Studio.\n"
 "Takođe, dodaje globalne komande za studio bilo gde."
+
+#~ msgid "Has comment"
+#~ msgstr "Ima komentar"
+
+#~ msgid "Announces the remaining track time."
+#~ msgstr "Izgovara preostalo vreme zapisa"
+
+#~ msgid "Announces the elapsed time for the currently playing track."
+#~ msgstr "Izgovara proteklo vreme zapisa koji se trenutno reprodukuje"
+
+#, fuzzy
+#~ msgid "No track is playing"
+#~ msgstr "Nijedan zapis se ne reprodukuje"
+
+#~ msgid "Off"
+#~ msgstr "Isključen"
+
+#~ msgid "New name:"
+#~ msgstr "Novo ime:"
+
+#~ msgid "Rename Profile"
+#~ msgstr "Preimenuj profil"
+
+#~ msgid "That profile already exists. Please choose a different name."
+#~ msgstr "Taj profil već postoji. Molimo izaberite drugo ime"
+
+#~ msgid "Confirm Deletion"
+#~ msgstr "Potvrdi brisanje"
+
+#~ msgid "New Profile"
+#~ msgstr "Novi profil"
+
+#~ msgid "Profile name:"
+#~ msgstr "Ime profila:"
+
+#, fuzzy
+#~ msgid "Advanced"
+#~ msgstr "Napredan"

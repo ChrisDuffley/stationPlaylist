@@ -96,9 +96,6 @@ msgstr "Prezintă datele pentru toate coloanele din piesa curent-selectată"
 msgid "Item {current} of {total}"
 msgstr "Element {current} din {total}"
 
-msgid "Has comment"
-msgstr "Are comentariu"
-
 #. Translators: Presented when track comment has been copied to clipboard.
 msgid "Track comment copied to clipboard"
 msgstr "Comentariul melodiei copiat pe planșetă"
@@ -301,14 +298,6 @@ msgid "SPL mode"
 msgstr "Mod SPL"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid "Announces the remaining track time."
-msgstr "Anunță timpul rămas din melodiie."
-
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid "Announces the elapsed time for the currently playing track."
-msgstr "Anunță timpul scurs pentru melodiia curentă."
-
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid ""
 "Announces broadcaster time. If pressed twice, reports minutes and seconds "
 "left to top of the hour."
@@ -443,6 +432,7 @@ msgstr "Scanare completă cu {itemCount} elemente"
 msgid "Scanning"
 msgstr "Scanare"
 
+#. Translators: Presented when library scan is in progress.
 #, python-brace-format
 msgid "{itemCount} items scanned"
 msgstr "{itemCount} elemente au fost scanate"
@@ -614,12 +604,6 @@ msgstr "Modificare playlist nedisponibilă"
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Announces title of the next track if any"
 msgstr "Anunță titlul următoarei melodi dacă există"
-
-#. Translators: Presented when there is no information for the next track.
-#. Translators: Presented when there is no information for the current track.
-#, fuzzy
-msgid "No track is playing"
-msgstr "Nicio melodie nu se redă."
 
 #. Translators: Presented when there is no information for the next track.
 #, fuzzy
@@ -900,9 +884,6 @@ msgstr "Cuvinte"
 msgid "Braille timer off"
 msgstr "Cronometrul braille dezactivat"
 
-msgid "Off"
-msgstr "Dezactivat"
-
 #. Translators: A setting in braille timer options.
 msgid "Braille track endings"
 msgstr "Sfârșitul melodiei în mod braille"
@@ -972,20 +953,6 @@ msgstr "activ"
 msgid "Cop&y"
 msgstr "&Copiază"
 
-#. Translators: The label of a field to enter a new name for a broadcast profile.
-msgid "New name:"
-msgstr "Nume nou:"
-
-#. Translators: The title of the dialog to rename a profile.
-msgid "Rename Profile"
-msgstr "Redenumire profil"
-
-#. Translators: An error displayed when renaming a configuration profile
-#. and a profile with the new name already exists.
-#. Translators: An error displayed when the user attempts to create a profile which already exists.
-msgid "That profile already exists. Please choose a different name."
-msgstr "Acest profil deja există. Alegeți un alt nume de profil."
-
 #. Translators: Message reported when attempting to delete a profile in the midst of a broadcast.
 #, fuzzy
 msgid ""
@@ -1019,21 +986,9 @@ msgstr "Ștergeți profilul activ"
 msgid "Are you sure you want to delete this profile? This cannot be undone."
 msgstr "Sigur doriți să ştergeți acest profil? Acest lucru este ireversibil."
 
-#. Translators: The title of the confirmation dialog for deletion of a profile.
-msgid "Confirm Deletion"
-msgstr "Confirmare ştergere"
-
-#. Translators: The title of the dialog to create a new broadcast profile.
-msgid "New Profile"
-msgstr "Profil nou"
-
 #. Translators: The title of the dialog to copy a broadcast profile.
 msgid "Copy Profile"
 msgstr "Copiere profil"
-
-#. Translators: The label of a field to enter the name of a new broadcast profile.
-msgid "Profile name:"
-msgstr "Nume profil:"
 
 #. Translators: The label for a setting in SPL add-on dialog to select a base  profile for copying.
 msgid "&Base profile:"
@@ -1047,10 +1002,6 @@ msgstr "Declanșatoare de profil pentru {profileName}"
 #. Translators: The label of a checkbox to toggle if selected profile is an instant switch profile.
 msgid "This is an &instant switch profile"
 msgstr "Acest profil este un profil de comutare &instantanee"
-
-#. Translators: title of a panel to configure various general add-on settings such as top and bottom announcement for playlists.
-msgid "General"
-msgstr "General"
 
 #. Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
 msgid "&Beep for status announcements"
@@ -1351,11 +1302,6 @@ msgid ""
 msgstr ""
 "Include &poziția piesei de redare atunci când sunt anunțate informații "
 "despre melodiile actuale și viitoare"
-
-#. Translators: title of a panel to configure advanced SPL add-on options such as update checking.
-#, fuzzy
-msgid "Advanced"
-msgstr "Avansat"
 
 #. Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 msgid "Allow SPL C&ontroller command to invoke SPL Assistant layer"
@@ -1865,3 +1811,44 @@ msgid ""
 msgstr ""
 "Conține suport pentru StationPlaylist Studio.\n"
 "De asemenea, adaugă comenzi globale pentru studio de oriunde."
+
+#~ msgid "Has comment"
+#~ msgstr "Are comentariu"
+
+#~ msgid "Announces the remaining track time."
+#~ msgstr "Anunță timpul rămas din melodiie."
+
+#~ msgid "Announces the elapsed time for the currently playing track."
+#~ msgstr "Anunță timpul scurs pentru melodiia curentă."
+
+#, fuzzy
+#~ msgid "No track is playing"
+#~ msgstr "Nicio melodie nu se redă."
+
+#~ msgid "Off"
+#~ msgstr "Dezactivat"
+
+#~ msgid "New name:"
+#~ msgstr "Nume nou:"
+
+#~ msgid "Rename Profile"
+#~ msgstr "Redenumire profil"
+
+#~ msgid "That profile already exists. Please choose a different name."
+#~ msgstr "Acest profil deja există. Alegeți un alt nume de profil."
+
+#~ msgid "Confirm Deletion"
+#~ msgstr "Confirmare ştergere"
+
+#~ msgid "New Profile"
+#~ msgstr "Profil nou"
+
+#~ msgid "Profile name:"
+#~ msgstr "Nume profil:"
+
+#~ msgid "General"
+#~ msgstr "General"
+
+#, fuzzy
+#~ msgid "Advanced"
+#~ msgstr "Avansat"
