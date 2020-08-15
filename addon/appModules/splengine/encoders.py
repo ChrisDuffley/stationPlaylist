@@ -497,6 +497,7 @@ class Encoder(IAccessible):
 			choices=[str(pos) for pos in range(1, self.simpleParent.childCount)]
 		)
 		dlg.SetSelection(self.IAccessibleChildID - 1)
+
 		def callback(result):
 			if result == wx.ID_OK:
 				_removeEncoderID(self.encoderType, dlg.GetStringSelection())

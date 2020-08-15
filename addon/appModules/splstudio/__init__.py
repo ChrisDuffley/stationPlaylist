@@ -395,6 +395,7 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 			gui.mainFrame, _("Track comment"),
 			# Translators: The title of the track comments dialog.
 			_("Track comment"), value=comment)
+
 		def callback(result):
 			if result == wx.ID_OK:
 				if dlg.GetValue() is None:
