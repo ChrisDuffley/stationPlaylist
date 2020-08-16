@@ -440,10 +440,7 @@ class GeneralSettingsPanel(gui.SettingsPanel):
 		self.verbosityList = generalSettingsHelper.addLabeledControl(_("Message &verbosity:"), wx.Choice, choices=[x[1] for x in self.verbosityLevels])
 		currentVerbosity = splconfig.SPLConfig["General"]["MessageVerbosity"]
 		selection = next((x for x, y in enumerate(self.verbosityLevels) if y[0] == currentVerbosity))
-		try:
-			self.verbosityList.SetSelection(selection)
-		except:
-			pass
+		self.verbosityList.SetSelection(selection)
 
 		self.brailleTimerValues = [
 			("off", translate("Off")),
@@ -458,10 +455,7 @@ class GeneralSettingsPanel(gui.SettingsPanel):
 		self.brailleTimerList = generalSettingsHelper.addLabeledControl(_("&Braille timer:"), wx.Choice, choices=[x[1] for x in self.brailleTimerValues])
 		brailleTimerCurValue = splconfig.SPLConfig["General"]["BrailleTimer"]
 		selection = next((x for x, y in enumerate(self.brailleTimerValues) if y[0] == brailleTimerCurValue))
-		try:
-			self.brailleTimerList.SetSelection(selection)
-		except:
-			pass
+		self.brailleTimerList.SetSelection(selection)
 
 		self.libScanValues = [
 			("off", translate("Off")),
@@ -476,10 +470,7 @@ class GeneralSettingsPanel(gui.SettingsPanel):
 		self.libScanList = generalSettingsHelper.addLabeledControl(_("&Library scan announcement:"), wx.Choice, choices=[x[1] for x in self.libScanValues])
 		libScanCurValue = splconfig.SPLConfig["General"]["LibraryScanAnnounce"]
 		selection = next((x for x, y in enumerate(self.libScanValues) if y[0] == libScanCurValue))
-		try:
-			self.libScanList.SetSelection(selection)
-		except:
-			pass
+		self.libScanList.SetSelection(selection)
 
 		# Translators: the label for a setting in SPL add-on settings to announce time including hours.
 		self.hourAnnounceCheckbox = generalSettingsHelper.addItem(wx.CheckBox(self, label=_("Include &hours when announcing track or playlist duration")))
@@ -491,10 +482,7 @@ class GeneralSettingsPanel(gui.SettingsPanel):
 		self.verticalColumnsList = generalSettingsHelper.addLabeledControl(verticalColLabel, wx.Choice, choices=[_("whichever column I am reviewing"), "Status"] + splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])
 		verticalColumn = splconfig.SPLConfig["General"]["VerticalColumnAnnounce"]
 		selection = self.verticalColumnsList.FindString(verticalColumn) if verticalColumn is not None else 0
-		try:
-			self.verticalColumnsList.SetSelection(selection)
-		except:
-			pass
+		self.verticalColumnsList.SetSelection(selection)
 
 		# Translators: the label for a setting in SPL add-on settings to toggle category sound announcement.
 		self.categorySoundsCheckbox = generalSettingsHelper.addItem(wx.CheckBox(self, label=_("&Beep for different track categories")))
@@ -513,10 +501,7 @@ class GeneralSettingsPanel(gui.SettingsPanel):
 		self.trackCommentList = generalSettingsHelper.addLabeledControl(_("&Track comment announcement:"), wx.Choice, choices=[x[1] for x in self.trackCommentValues])
 		trackCommentCurValue = splconfig.SPLConfig["General"]["TrackCommentAnnounce"]
 		selection = next((x for x, y in enumerate(self.trackCommentValues) if y[0] == trackCommentCurValue))
-		try:
-			self.trackCommentList.SetSelection(selection)
-		except:
-			pass
+		self.trackCommentList.SetSelection(selection)
 
 		# Translators: the label for a setting in SPL add-on settings to toggle top and bottom notification.
 		self.topBottomCheckbox = generalSettingsHelper.addItem(wx.CheckBox(self, label=_("Notify when located at &top or bottom of playlist viewer")))
@@ -570,10 +555,7 @@ class AlarmsPanel(gui.SettingsPanel):
 		self.alarmAnnounceList = alarmsCenterHelper.addLabeledControl(_("&Alarm notification:"), wx.Choice, choices=[x[1] for x in self.alarmAnnounceValues])
 		alarmAnnounceCurValue = splconfig.SPLConfig["General"]["AlarmAnnounce"]
 		selection = next((x for x, y in enumerate(self.alarmAnnounceValues) if y[0] == alarmAnnounceCurValue))
-		try:
-			self.alarmAnnounceList.SetSelection(selection)
-		except:
-			pass
+		self.alarmAnnounceList.SetSelection(selection)
 
 	def onSave(self):
 		splconfig.SPLConfig["General"]["AlarmAnnounce"] = self.alarmAnnounceValues[self.alarmAnnounceList.GetSelection()][0]
@@ -745,10 +727,7 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 		self.metadataList = metadataSizerHelper.addLabeledControl(_("&Metadata streaming notification and connection"), wx.Choice, choices=[x[1] for x in self.metadataValues])
 		metadataCurValue = splconfig.SPLConfig["General"]["MetadataReminder"]
 		selection = next((x for x, y in enumerate(self.metadataValues) if y[0] == metadataCurValue))
-		try:
-			self.metadataList.SetSelection(selection)
-		except:
-			pass
+		self.metadataList.SetSelection(selection)
 
 		# WX's native CheckListBox isn't user friendly.
 		# Therefore use checkboxes laid out across the top.
@@ -1067,10 +1046,7 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 		]
 		self.compatibilityList = advOptionsHelper.addLabeledControl(labelText, wx.Choice, choices=[x[1] for x in self.compatibilityLayouts])
 		selection = next((x for x, y in enumerate(self.compatibilityLayouts) if y[0] == splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]))
-		try:
-			self.compatibilityList.SetSelection(selection)
-		except:
-			pass
+		self.compatibilityList.SetSelection(selection)
 
 	def onSave(self):
 		splconfig.SPLConfig["Advanced"]["SPLConPassthrough"] = self.splConPassthroughCheckbox.Value
