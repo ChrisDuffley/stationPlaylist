@@ -12,6 +12,7 @@
 # Minimum version: SPL 5.20, NVDA 2019.3.
 
 from functools import wraps
+from comtypes import COMError
 import os
 import time
 import threading
@@ -122,7 +123,7 @@ class SPLTrackItem(sysListView32.ListItem):
 		# 20.07: COM error is thrown when attempting to look up the name of this "track" when a playlist is cleared.
 		try:
 			return self.IAccessibleObject.accName(self.IAccessibleChildID)
-		except:
+		except COMError:
 			return""
 
 	def _get_description(self):
@@ -130,7 +131,7 @@ class SPLTrackItem(sysListView32.ListItem):
 		# 19.04/18.09.8-LTS: sometimes, description must be None because it is already dealing with what appears to be a SysListView32 object, resulting in COM error.
 		try:
 			return self.IAccessibleObject.accDescription(self.IAccessibleChildID)
-		except:
+		except COMError:
 			return ""
 
 	# #103: provide an abstract index of function.
