@@ -54,7 +54,7 @@ def loadEncoderConfig():
 	# #131 (20.06): transplanted from Studio app module so the error message can be shown when an encoder gains focus.
 	try:
 		encoderConfig = configobj.ConfigObj(os.path.join(globalVars.appArgs.configPath, "splencoders.ini"))
-	except:
+	except configobj.ConfigObjError:
 		# To avoid type errors, create an empty dictionary.
 		encoderConfig = {}
 		open(os.path.join(globalVars.appArgs.configPath, "splencoders.ini"), "w").close()
