@@ -607,7 +607,7 @@ class AppModule(appModuleHandler.AppModule):
 			if not globalVars.appArgs.minimal:
 				# No translation.
 				ui.message("SPL Studio {SPLVersion}".format(SPLVersion=self.SPLCurVersion))
-		except:
+		except Exception:
 			pass
 		# #40 (17.12): react to profile switches.
 		# #94 (19.03/18.09.7-LTS): also listen to profile reset action.
@@ -648,7 +648,7 @@ class AppModule(appModuleHandler.AppModule):
 		# 18.08.1: sometimes, wxPython 4 says wx.App isn't ready.
 		try:
 			wx.CallAfter(splconfig.showStartupDialogs, oldVer=self.SPLCurVersion == SPLMinVersion)
-		except:
+		except Exception:
 			pass
 
 	# Locate the handle for main window for caching purposes.
@@ -672,7 +672,7 @@ class AppModule(appModuleHandler.AppModule):
 		try:
 			self._SPLStudioMonitor = wx.PyTimer(self.studioAPIMonitor)
 			wx.CallAfter(self._SPLStudioMonitor.Start, 1000)
-		except:
+		except Exception:
 			pass
 		# Remind me to broadcast metadata information.
 		# 18.04: also when delayed action is needed because metadata action handler couldn't locate Studio handle itself.
@@ -893,7 +893,7 @@ class AppModule(appModuleHandler.AppModule):
 					wavFile = os.path.join(os.path.dirname(__file__), "SPL_off.wav")
 					try:
 						messageSound(wavFile, msg)
-					except:
+					except Exception:
 						pass
 				else:
 					tones.beep(500, 100)
@@ -903,7 +903,7 @@ class AppModule(appModuleHandler.AppModule):
 					wavFile = os.path.join(os.path.dirname(__file__), "SPL_on.wav")
 					try:
 						messageSound(wavFile, msg)
-					except:
+					except Exception:
 						pass
 				else:
 					tones.beep(1000, 100)

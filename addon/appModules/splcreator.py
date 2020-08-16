@@ -54,7 +54,7 @@ class AppModule(appModuleHandler.AppModule):
 			if not globalVars.appArgs.minimal:
 				# No translation.
 				ui.message("SPL Creator {SPLVersion}".format(SPLVersion=self.productVersion))
-		except:
+		except Exception:
 			pass
 		# #64 (18.07): load config database if not done already.
 		splconfig.openConfig("splcreator")

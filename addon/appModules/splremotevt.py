@@ -28,7 +28,7 @@ class AppModule(splcreator.AppModule):
 			if not globalVars.appArgs.minimal:
 				# No translation.
 				ui.message("SPL VT Client {SPLVersion}".format(SPLVersion=self.productVersion))
-		except:
+		except Exception:
 			pass
 
 	def terminate(self):
