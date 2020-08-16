@@ -9,7 +9,7 @@ import os
 from io import StringIO
 import pickle
 from collections import ChainMap
-from configobj import ConfigObj, get_extra_values
+from configobj import ConfigObj, get_extra_values, ConfigObjError
 # ConfigObj 5.1.0 and later integrates validate module.
 from configobj.validate import Validator
 import config
@@ -239,7 +239,7 @@ class ConfigHub(ChainMap):
 		# If so, reset everything back to factory defaults.
 		try:
 			SPLConfigCheckpoint = ConfigObj(path, configspec=confspec if prefill else confspecprofiles, encoding="UTF-8")
-		except:
+		except ConfigObjError:
 			open(path, "w").close()
 			SPLConfigCheckpoint = ConfigObj(path, configspec=confspec if prefill else confspecprofiles, encoding="UTF-8")
 			_configLoadStatus[profileName] = "fileReset"
