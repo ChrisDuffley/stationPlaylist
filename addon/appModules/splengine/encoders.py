@@ -625,8 +625,8 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 			try:
 				status = self._getColumnContentRaw(2)
 				statusDetails = self._getColumnContentRaw(3)
-			except:
-				# Don't leave zombie objects around.
+			except AttributeError:
+				# Seen when NVDA exits while connecting or background monitor is on.
 				return
 			# Encoding status object will die if encoder entry is deleted while being monitored.
 			if not status:
@@ -767,8 +767,8 @@ class SPLEncoder(Encoder):
 			time.sleep(0.001)
 			try:
 				status = self._getColumnContentRaw(1)
-			except:
-				# Don't leave zombie objects around.
+			except AttributeError:
+				# Seen when NVDA exits while connecting or background monitor is on.
 				return
 			if messageCache != status:
 				messageCache = status
