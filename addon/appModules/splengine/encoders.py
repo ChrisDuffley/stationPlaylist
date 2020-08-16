@@ -393,7 +393,7 @@ class Encoder(IAccessible):
 				ui.message("{}: {}".format(self.encoderId, message))
 			else:
 				ui.message(message)
-		except:
+		except Exception:
 			pass
 
 	# Encoder connection reporter thread.
