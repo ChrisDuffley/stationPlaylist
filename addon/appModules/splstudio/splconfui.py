@@ -57,10 +57,7 @@ class BroadcastProfilesDialog(wx.Dialog):
 		# Include profile flags such as instant profile string for display purposes.
 		self.profiles = wx.ListBox(self, choices=[self.getProfileFlags(profile, contained=False) for profile in self.profileNames])
 		self.profiles.Bind(wx.EVT_LISTBOX, self.onProfileSelection)
-		try:
-			self.profiles.SetSelection(self.profileNames.index(self.activeProfile))
-		except:
-			pass
+		self.profiles.SetSelection(self.profileNames.index(self.activeProfile))
 		changeProfilesSizer.Add(self.profiles, proportion=1.0)
 		changeProfilesSizer.AddSpacer(gui.guiHelper.SPACE_BETWEEN_BUTTONS_VERTICAL)
 
@@ -320,10 +317,7 @@ class NewProfileDialog(wx.Dialog):
 		if self.copy:
 			# Translators: The label for a setting in SPL add-on dialog to select a base  profile for copying.
 			self.baseProfiles = newProfileSizerHelper.addLabeledControl(_("&Base profile:"), wx.Choice, choices=parent.profileNames)
-			try:
-				self.baseProfiles.SetSelection(parent.profiles.GetSelection())
-			except:
-				pass
+			self.baseProfiles.SetSelection(parent.profiles.GetSelection())
 
 		newProfileSizerHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
