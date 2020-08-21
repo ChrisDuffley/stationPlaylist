@@ -94,8 +94,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	# Control Studio from anywhere.
 	SPLController = False
 	# Manual definitions of cart keys.
-	fnCartKeys = ("f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11", "f12")
-	numCartKeys = ("1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=")
+	cartKeys = (
+		# Function key carts (Studio all editions)
+		"f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11", "f12",
+		# Number row (all editions except Standard)
+		"1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "="
+	)
 
 	def getScript(self, gesture):
 		if not self.SPLController:

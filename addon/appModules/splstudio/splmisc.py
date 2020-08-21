@@ -245,14 +245,20 @@ class SPLTimeRangeDialog(wx.Dialog):
 
 # Cart Explorer helper.
 
+# Manual definitions of cart keys.
+cartKeys = (
+	# Function key carts (Studio all editions)
+	"f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11", "f12",
+	# Number row (all editions except Standard)
+	"1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "="
+)
+
 
 def _populateCarts(carts, cartlst, modifier, standardEdition=False, refresh=False):
 	# The real cart string parser, a helper for cart explorer for building cart entries.
 	# 5.2: Discard number row if SPL Standard is in use.
 	if standardEdition:
 		cartlst = cartlst[:12]
-	# 18.08 (optimization): this is number row (except on Studio Standard), so assign identifier based on the below static list.
-	numberRow = "1234567890-="
 	# #148 (20.10): obtain cart entry position through enumerate function.
 	# Pos 1 through 12 = function carts, 13 through 24 = number row carts.
 	for pos, entry in enumerate(cartlst, start=1):
