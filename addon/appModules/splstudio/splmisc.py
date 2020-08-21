@@ -580,9 +580,10 @@ def playlist2msaa(start, end, additionalDecorations=False, prefix="", suffix="")
 		columnContents = obj._getColumnContents(columns=columnPos)
 		# Filter empty columns.
 		filteredContent = []
-		for column in range(len(columnPos)):
-			if columnContents[column] is not None:
-				filteredContent.append("{}: {}".format(columnHeaders[column], columnContents[column]))
+		# #148 (20.10): work directly with column content and position rather than going through column pos index.
+		for column, content in enumerate(columnContents):
+			if content is not None:
+				filteredContent.append("{}: {}".format(columnHeaders[column], content))
 		playlistTranscripts.append("{0}{1}{2}".format(prefix, "; ".join(filteredContent), suffix))
 		obj = obj.next
 	return playlistTranscripts
