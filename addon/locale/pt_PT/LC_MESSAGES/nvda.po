@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 3.2\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-08-02 08:57-0700\n"
+"PO-Revision-Date: 2020-08-14 09:28-0700\n"
 "Last-Translator: Ângelo Miguel Abrantes <ampa4374@gmail.com>\n"
 "Language-Team: Equipa Portuguesa do NVDA <angelomiguelabrantes@gmail.com; "
 "rui.fontes@tiflotecnia.com>\n"
@@ -1681,40 +1681,3 @@ msgid ""
 msgstr ""
 "Melhora o suporte para StationPlaylist Studio.\n"
 "Além disso, adiciona comandos globais para o estúdio em todos os lugares."
-
-#~ msgid "Has comment"
-#~ msgstr "Tem comentário"
-
-#~ msgid "Announces the remaining track time."
-#~ msgstr "Anuncia o rtempo restante da pista"
-
-#~ msgid "Announces the elapsed time for the currently playing track."
-#~ msgstr "Anuncia o tempo decorrido para a pista actualmente em reprodução"
-
-#~ msgid "Off"
-#~ msgstr "Desligado"
-
-#~ msgid "New name:"
-#~ msgstr "Novo nome"
-
-#~ msgid "Rename Profile"
-#~ msgstr "Renomear perfil"
-
-#~ msgid "That profile already exists. Please choose a different name."
-#~ msgstr "Este perfil já existe; escolha um nome diferente"
-
-#~ msgid "Confirm Deletion"
-#~ msgstr "Confirmar o apagamento"
-
-#~ msgid "New Profile"
-#~ msgstr "Novo perfil"
-
-#~ msgid "Profile name:"
-#~ msgstr "Nome do perfil"
-
-#~ msgid "General"
-#~ msgstr "Geral"
-
-#, fuzzy
-#~ msgid "Advanced"
-#~ msgstr "Avançado"

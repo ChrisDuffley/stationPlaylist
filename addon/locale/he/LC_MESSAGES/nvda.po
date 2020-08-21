@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 5.5\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2015-09-25 19:00+1000\n"
-"PO-Revision-Date: 2020-08-02 08:54-0700\n"
+"PO-Revision-Date: 2020-08-14 09:24-0700\n"
 "Last-Translator: shmuel naaman <shmuel_naaman@yahoo.com>\n"
 "Language-Team: Shmuel Naaman <nvda.israel@gmail.com>\n"
 "Language: he\n"
@@ -1713,44 +1713,3 @@ msgid ""
 msgstr ""
 "מנגיש את תוכנת StationPlaylist  Studio  .  \n"
 "בנוסף, מאפשר ביצוע פקודות מכל מקום אחר במחשב."
-
-#~ msgid "Has comment"
-#~ msgstr "קיימת הערה"
-
-#~ msgid "Announces the remaining track time."
-#~ msgstr "הקראת הזמן הנותר."
-
-#~ msgid "Announces the elapsed time for the currently playing track."
-#~ msgstr "הקראת הזמן שעבר בנגינת הרצועה הנוכחית."
-
-#, fuzzy
-#~ msgid "No track is playing"
-#~ msgstr "אין רצועה בנגינה כעת."
-
-#~ msgid "Off"
-#~ msgstr "לא פעיל"
-
-#~ msgid "New name:"
-#~ msgstr "שם חדש:"
-
-#~ msgid "Rename Profile"
-#~ msgstr "שינוי שם פרופיל"
-
-#~ msgid "That profile already exists. Please choose a different name."
-#~ msgstr "קיים כבר פרופיל עם שם דומה. נא לבחור בשם אחר."
-
-#~ msgid "Confirm Deletion"
-#~ msgstr "אישור מחיקה"
-
-#~ msgid "New Profile"
-#~ msgstr "פרופיל חדש"
-
-#~ msgid "Profile name:"
-#~ msgstr "שם הרופיל:"
-
-#~ msgid "General"
-#~ msgstr "כללי"
-
-#, fuzzy
-#~ msgid "Advanced"
-#~ msgstr "מתקדם"

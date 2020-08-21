@@ -3,7 +3,7 @@
 * Autores: Geoff Shang, Joseph Lee e outros colaboradores
 * Descargar [versión estable][1]
 * Descargar [versión de desenvolvemento][2]
-* Download [long-term support version][3] - for Studio 5.20 users
+* Descargar [versión de soporte estendido][3] - para usuarios do Studio 5.20
 * Compatibilidade con NVDA: da 2019.3 á 2020.2
 
 Este paquete de complementos proporciona unhha utilización mellorada do
@@ -22,9 +22,9 @@ NOTAS IMPORTANTES:
 * Este complemento require o paquete StationPlaylist 5.20 ou posterior.
 * Se usas o Windows 8 ou posterior, para unha mellor experiencia,
   deshabilita o modo atenuación de audio.
-* Starting from 2018, [changelogs for old add-on releases][5] will be found
-  on GitHub. This add-on readme will list changes from version 20.01 (2020)
-  onwards.
+* A partires de 2018, os [rexistros de cambios para versións vellas][5]
+  atoparanse en GitHub. Este readme do complemento listará cambios dende a
+  versión 20.01 (2020) en diante.
 * Certas características do complemento non funcionarán baixo algunhas
   condicións, incluindo a execución do NVDA en modo seguro.
 * Debido a limitacións técnicas, non podes instalar nin usar este
@@ -77,21 +77,22 @@ contrario.
   escaneado da biblioteca.
 * Control+Shift+X dende a ventá do Studio: Pasos para as opcións do
   temporizador braille.
-* Control+Alt+left/right arrow (while focused on a track in Studio, Creator,
-  Remote VT, and Track Tool): Move to previous/next track column.
-* Control+Alt+Home/End (while focused on a track in Studio, Creator, Remote
-  VT, and Track Tool): Move to first/last track column.
-* Control+Alt+up/down arrow (while focused on a track in Studio, Creator,
-  Remote VT, and Track Tool): Move to previous/next track and announce
-  specific columns.
+* Control+Alt+frechas dereita e esquerda (mentres se enfoca nunha pista no
+  Studio, Creator, Remote VT ou TrackTool): Moverse á columna
+  anterior/seguinte da pista.
+* Control+Alt+inicio/fin (mentres se enfoca nunha pista no Studio, Creator,
+  Remote VT e Track Tool): Moverse á primeira/última columna da pista.
+* Control+Alt+frecha arriba/abaixo (mentres se enfoque unha pista en Studio,
+  Creator, Remote VT e Track Tool): Moverse á pista seguinte ou anterior e
+  anunciar columnas específicas.
 * Control+NVDA+1 a 0 (cun track enfocado en Studio, Creator -inclúe o editor
   de listas de reprodución-, Remote VT e Track Tool): Anunciar contido da
   columna para unha columna especificada (primeiras dez columnas por
   defecto). Premer este atallo dúas veces amosará a información de columna
   nunha xanela de modo exploración.
-* Control+NVDA+- (hyphen while focused on a track in Studio, Creator, Remote
-  VT, and Track Tool): display data for all columns in a track on a browse
-  mode window.
+* Control+NVDA+- (guión, mentres se enfoca unha pista en Studio, Creator,
+  Remote VT e Track Tool): amosar datos de todas as columnas dunha pista
+  nunha xanela de modo exploración.
 * Alt+NVDA+C mentres se enfoca unha pista (só Studio): anuncia os
   comentarios da pista se os hai.
 * Alt+NVDA+0 dende a ventá do Studio: Abre o diálogo de configuración do
@@ -133,8 +134,8 @@ xesto que queres utilizar.
 
 As seguintes ordes están dispoñibles cando se utilizan os codificadores:
 
-* F9: connect the selected encoder.
-* F10 (SAM encoder only): Disconnect the selected encoder.
+* F9: conecta o codificador seleccionado.
+* F10 (só codificador SAM): Desconecta o codificador seleccionado.
 * Control+F9: Conectar todos os codificadores.
 * Control+F10 (só codificador SAM): Desconecta todos os codificadores.
 * F11: Conmuta se NVDA cambiará á ventá do Studio para o codificador
@@ -341,37 +342,43 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
-## Version 20.09-LTS
+## Versión 20.09-LTS
 
-Version 20.09.x is the last release series to support Studio 5.20 and based
-on old technologies, with future releases supporting Studio 5.30 and more
-recent NVDA features. Some new features will be backported to 20.09.x if
-needed.
+A versión 20.09.x é a última serie de publicacións en soportar Studio 5.20 e
+basados en tecnoloxías vellas, soportando versións futuras Studio 5.30 e
+novas características do NVDA. Algunhas características retroportaranse á
+20.09.x de ser necesario.
 
-* Due to changes in NVDA, --spl-configvolatile command line switch is no
-  longer availible to make add-on settings read-only. You can emulate this
-  by unchecking "Save configuration when exiting NVDA" checkbox from NVDA's
-  general settings panel.
-* Removed pilot features setting from Advanced settings category under
-  add-on settings (Alt+NvDA+0), used to let development snapshot users test
-  bleeding-edge code.
-* Column navigation commands in Studio are now availible in track lists
-  found in listener requests, insert tracks and other screens.
-* Various column navigation commands will behave like NVDA's own table
-  navigation commands. Besides simplifying these commands, it brings
-  benefits such as ease of use by low vision users.
-* Vertical column navigation (Control+Alt+up/down arrow) commands are now
-  availible for Creator, playlist editor, Remote VT, and Track Tool.
-* Track columns viewer command (Control+NVDA+hyphen) is now availible in
-  Creator's Playlist Editor and Remote VT.
-* Track columns viewer command will respect column order displayed on
-  screen.
-* In SAM encoders, improved NVDA's responsiveness when pressing Control+F9
-  or Control+F10 to connect or disconnect all encoders, respectively. This
-  may result in increased verbosity when announcing the selected encoder
-  information.
-* In SPL and AltaCast encoders, pressing F9 will now connect the selected
-  encoder.
+* Debido a cambios en NVDA, a opción de liña de comandos
+  --spl-configvolatile xa non está dispoñible para facer as opcións do
+  complemento de só lectura. Podes emular isto desmarcando a caixa de
+  verificación "Gardar configuración ao saír do NVDA" dende o panel xeral
+  das opcións de NVDA.
+* Eliminada a opción características piloto da categoría de opcións
+  avanzadas nas opcións do complemento (Alt+NvDA+0), utilizada para permitir
+  aos usuarios de versións de desenvolvemento probar código ó bordo do
+  precipicio.
+* As ordes de navegación por columnas en Studio están agora dispoñibles na
+  lista de pistas localizada en peticións dos oíntes, insertar pistas e
+  outras pantallas.
+* Varias ordes de navegación por columnas comportaranse como as ordes de
+  navegación por tablas do propio NVDA. Ademais de simplificar estas ordes,
+  trae beneficios como maior facilidad de uso para usuarios con baixa
+  visión.
+* As ordes de navegación vertical por columnas (Control+Alt+frecha
+  arriba/abaixo) están agora dispoñibles para Creator, o editor de listas de
+  reprodución, Remote VT e Track Tool.
+* A orde do visualizador de columnas de pista (Control+NVDA+guión) está
+  agora dispoñible no editor de listas de reprodución de Creator e Remote
+  VT.
+* A orde do visualizador de columnas de pista respectará a orde de columnas
+  mostrada na pantalla.
+* En codificadores SAM, mellorada a responsividade do NVDA ao premer
+  Control+F9 e Control+F10 para conectar ou desconectar tódolos
+  codificadores, respectivamente. Isto podería resultar nun incremento da
+  verbosidade ao anunciar a información do codificador seleccionado.
+* En codificadores SPL e AltaCast, agora premer F9 conectará o codificador
+  seleccionado.
 
 ## Versión 20.07
 

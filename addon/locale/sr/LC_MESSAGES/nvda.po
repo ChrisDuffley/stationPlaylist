@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 4.2\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2015-02-06 19:00+1000\n"
-"PO-Revision-Date: 2020-08-02 08:58-0700\n"
+"PO-Revision-Date: 2020-08-14 09:29-0700\n"
 "Last-Translator: Nikola Jović <wwenikola123@gmail.com>\n"
 "Language-Team: \n"
 "Language: sr\n"
@@ -1799,41 +1799,3 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist Studio.\n"
 "Takođe, dodaje globalne komande za studio bilo gde."
-
-#~ msgid "Has comment"
-#~ msgstr "Ima komentar"
-
-#~ msgid "Announces the remaining track time."
-#~ msgstr "Izgovara preostalo vreme zapisa"
-
-#~ msgid "Announces the elapsed time for the currently playing track."
-#~ msgstr "Izgovara proteklo vreme zapisa koji se trenutno reprodukuje"
-
-#, fuzzy
-#~ msgid "No track is playing"
-#~ msgstr "Nijedan zapis se ne reprodukuje"
-
-#~ msgid "Off"
-#~ msgstr "Isključen"
-
-#~ msgid "New name:"
-#~ msgstr "Novo ime:"
-
-#~ msgid "Rename Profile"
-#~ msgstr "Preimenuj profil"
-
-#~ msgid "That profile already exists. Please choose a different name."
-#~ msgstr "Taj profil već postoji. Molimo izaberite drugo ime"
-
-#~ msgid "Confirm Deletion"
-#~ msgstr "Potvrdi brisanje"
-
-#~ msgid "New Profile"
-#~ msgstr "Novi profil"
-
-#~ msgid "Profile name:"
-#~ msgstr "Ime profila:"
-
-#, fuzzy
-#~ msgid "Advanced"
-#~ msgstr "Napredan"

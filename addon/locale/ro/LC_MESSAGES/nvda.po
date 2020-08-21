@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 6.4\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: 2016-03-04 19:00+1000\n"
-"PO-Revision-Date: 2020-08-02 08:57-0700\n"
+"PO-Revision-Date: 2020-08-14 09:28-0700\n"
 "Last-Translator: Florian Ionașcu <florianionascu@hotmail.com>\n"
 "Language-Team: \n"
 "Language: ro\n"
@@ -1811,44 +1811,3 @@ msgid ""
 msgstr ""
 "Conține suport pentru StationPlaylist Studio.\n"
 "De asemenea, adaugă comenzi globale pentru studio de oriunde."
-
-#~ msgid "Has comment"
-#~ msgstr "Are comentariu"
-
-#~ msgid "Announces the remaining track time."
-#~ msgstr "Anunță timpul rămas din melodiie."
-
-#~ msgid "Announces the elapsed time for the currently playing track."
-#~ msgstr "Anunță timpul scurs pentru melodiia curentă."
-
-#, fuzzy
-#~ msgid "No track is playing"
-#~ msgstr "Nicio melodie nu se redă."
-
-#~ msgid "Off"
-#~ msgstr "Dezactivat"
-
-#~ msgid "New name:"
-#~ msgstr "Nume nou:"
-
-#~ msgid "Rename Profile"
-#~ msgstr "Redenumire profil"
-
-#~ msgid "That profile already exists. Please choose a different name."
-#~ msgstr "Acest profil deja există. Alegeți un alt nume de profil."
-
-#~ msgid "Confirm Deletion"
-#~ msgstr "Confirmare ştergere"
-
-#~ msgid "New Profile"
-#~ msgstr "Profil nou"
-
-#~ msgid "Profile name:"
-#~ msgstr "Nume profil:"
-
-#~ msgid "General"
-#~ msgstr "General"
-
-#, fuzzy
-#~ msgid "Advanced"
-#~ msgstr "Avansat"

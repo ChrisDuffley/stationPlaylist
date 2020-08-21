@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-08-02 08:56-0700\n"
+"PO-Revision-Date: 2020-08-14 09:27-0700\n"
 "Last-Translator: zvonimir stanecic <zvonimirek222@yandex.com>\n"
 "Language-Team: Polish <killer@tyflonet.com>\n"
 "Language: pl\n"
@@ -1715,43 +1715,3 @@ msgid ""
 msgstr ""
 "Poprawia dostępność Station Playlist Studio.\n"
 "Ponadto, dodaje globalne komendy dla studia, dostępne z każdego miejsca."
-
-#~ msgid "Has comment"
-#~ msgstr "Zawiera komentarz"
-
-#~ msgid "Announces the remaining track time."
-#~ msgstr "Wypowiada pozostały czas ścieżki."
-
-#~ msgid "Announces the elapsed time for the currently playing track."
-#~ msgstr "Oznajmia czas, który upłynął dla aktualnie odtwarzanej ścieżki."
-
-#, fuzzy
-#~ msgid "No track is playing"
-#~ msgstr "Żaden utwór nie jest odtwarzany"
-
-#~ msgid "Off"
-#~ msgstr "Brak"
-
-#~ msgid "New name:"
-#~ msgstr "Nowa nazwa:"
-
-#~ msgid "Rename Profile"
-#~ msgstr "Zmień nazwę profilu"
-
-#~ msgid "That profile already exists. Please choose a different name."
-#~ msgstr "Taki profil już istnieje. Proszę, nazwij inaczej"
-
-#~ msgid "Confirm Deletion"
-#~ msgstr "Potwierdź usunięcie"
-
-#~ msgid "New Profile"
-#~ msgstr "Nowy profil"
-
-#~ msgid "Profile name:"
-#~ msgstr "Nazwa profilu:"
-
-#~ msgid "General"
-#~ msgstr "ogólne"
-
-#~ msgid "Advanced"
-#~ msgstr "Zaawansowane"
