@@ -273,8 +273,7 @@ def _populateCarts(carts, cartlst, modifier, standardEdition=False, refresh=Fals
 			cartName = entry.split(",")[0]
 		else:
 			cartName = entry.split('"')[1]
-		identifier = cartKeys[pos]
-		cart = identifier if not modifier else "+".join([modifier, identifier])
+		cart = cartKeys[pos] if not modifier else "+".join([modifier, cartKeys[pos]])
 		if noEntry and refresh:
 			if cart in carts:
 				del carts[cart]
