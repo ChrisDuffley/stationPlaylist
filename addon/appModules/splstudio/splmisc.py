@@ -253,14 +253,14 @@ def _populateCarts(carts, cartlst, modifier, standardEdition=False, refresh=Fals
 		cartlst = cartlst[:12]
 	# 18.08 (optimization): this is number row (except on Studio Standard), so assign identifier based on the below static list.
 	numberRow = "1234567890-="
-	for entry in cartlst:
+	# #148 (20.10): obtain cart entry position through enumerate function.
+	# Pos 1 through 12 = function carts, 13 through 24 = number row carts.
+	for pos, entry in enumerate(cartlst, start=1):
 		# An unassigned cart is stored with three consecutive commas, so skip it.
 		# 17.04: If refresh is on, the cart we're dealing with is the actual carts dictionary that was built previously.
 		noEntry = ",,," in entry
 		if noEntry and not refresh:
 			continue
-		# Pos between 1 and 12 = function carts, 13 through 24 = number row carts, modifiers are checked.
-		pos = cartlst.index(entry) + 1
 		# If a cart name has commas or other characters, SPL surrounds the cart name with quotes (""), so parse it as well.
 		if not entry.startswith('"'):
 			cartName = entry.split(",")[0]
