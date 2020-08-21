@@ -319,8 +319,9 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 			columns = list(range(18))
 		columnContents = [self._getColumnContentRaw(col) for col in columns]
 		if readable:
-			for pos in range(len(columnContents)):
-				if columnContents[pos] is None:
+			# #148 (20.10): Use enumerate function to obtain both column content and position in one go rather than using a range based on list length.
+			for pos, content in enumerate(columnContents):
+				if content is None:
 					columnContents[pos] = ""
 		return columnContents
 
