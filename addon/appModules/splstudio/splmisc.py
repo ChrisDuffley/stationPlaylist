@@ -261,7 +261,8 @@ def _populateCarts(carts, cartlst, modifier, standardEdition=False, refresh=Fals
 		cartlst = cartlst[:12]
 	# #148 (20.10): obtain cart entry position through enumerate function.
 	# Pos 1 through 12 = function carts, 13 through 24 = number row carts.
-	for pos, entry in enumerate(cartlst, start=1):
+	# #147 (20.10): note that 1 is subtracted from cart position as a tuple will be used to lookup cart keys.
+	for pos, entry in enumerate(cartlst):
 		# An unassigned cart is stored with three consecutive commas, so skip it.
 		# 17.04: If refresh is on, the cart we're dealing with is the actual carts dictionary that was built previously.
 		noEntry = ",,," in entry
@@ -272,11 +273,7 @@ def _populateCarts(carts, cartlst, modifier, standardEdition=False, refresh=Fals
 			cartName = entry.split(",")[0]
 		else:
 			cartName = entry.split('"')[1]
-		if pos <= 12:
-			identifier = f"f{pos}"
-		# For number row (except Studio Standard), subtract 13 because pos starts at 1, so by the time it comes to number row, it'll be 13.
-		else:
-			identifier = numberRow[pos - 13]
+		identifier = cartKeys[pos]
 		cart = identifier if not modifier else "+".join([modifier, identifier])
 		if noEntry and refresh:
 			if cart in carts:
