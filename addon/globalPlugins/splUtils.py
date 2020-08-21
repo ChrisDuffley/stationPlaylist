@@ -344,7 +344,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		modifier = (None, "shift", "ctrl", "alt").index(modifier) + 1
 		# #85 (18.11.1/18.09.5-LTS): Cart index formula has changed in Studio 5.30.
 		# Both start with the following (add 1 to cart index to comply with Studio API).
-		cart = (self.fnCartKeys + self.numCartKeys).index(cart) + 1
+		cart = self.cartKeys.index(cart) + 1
 		# Studio 5.20 and earlier requires setting high (cart) and low (modifier) words (multiplying by 64K+1).
 		if sendMessage(SPLWin, 1024, 0, SPLVersion) < 530:
 			cart = (cart * 0x00010000) + modifier
