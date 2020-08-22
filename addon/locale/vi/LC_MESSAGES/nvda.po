@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: stationPlaylist 17.02\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
-"POT-Creation-Date: 2017-02-03 19:00+1000\n"
-"PO-Revision-Date: 2020-08-02 08:58-0700\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2020-08-14 09:30-0700\n"
 "Last-Translator: Dang Manh Cuong <dangmanhcuong@gmail.com>\n"
 "Language-Team: \n"
 "Language: vi\n"
@@ -92,9 +92,6 @@ msgstr "Trình bày tất cả các cột dữ liệu cho track đang được c
 #, python-brace-format
 msgid "Item {current} of {total}"
 msgstr "Mục {current} của {total}"
-
-msgid "Has comment"
-msgstr "Có chú thích"
 
 #. Translators: Presented when track comment has been copied to clipboard.
 msgid "Track comment copied to clipboard"
@@ -294,14 +291,6 @@ msgid "SPL mode"
 msgstr "Chế độ SPL"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid "Announces the remaining track time."
-msgstr "Thông báo thời gian còn lại của track."
-
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
-msgid "Announces the elapsed time for the currently playing track."
-msgstr "Thông báo thời gian đã trôi qua của track đang phát."
-
-#. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid ""
 "Announces broadcaster time. If pressed twice, reports minutes and seconds "
 "left to top of the hour."
@@ -433,6 +422,7 @@ msgstr "Đã quét xong với {itemCount} mục"
 msgid "Scanning"
 msgstr "Đang quét"
 
+#. Translators: Presented when library scan is in progress.
 #, python-brace-format
 msgid "{itemCount} items scanned"
 msgstr "{itemCount} mục đã quét"
@@ -592,11 +582,6 @@ msgstr "Sửa đổi danh sách phát không sẵn sàng"
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid "Announces title of the next track if any"
 msgstr "Thông báo tựa đề track kế tiếp nếu có"
-
-#. Translators: Presented when there is no information for the next track.
-#. Translators: Presented when there is no information for the current track.
-msgid "No track is playing"
-msgstr "Không có track nào đang phát"
 
 #. Translators: Presented when there is no information for the next track.
 msgid "No next track scheduled"
@@ -869,9 +854,6 @@ msgstr "Từ"
 msgid "Braille timer off"
 msgstr "Tắt hẹn giờ chữ nổi"
 
-msgid "Off"
-msgstr "Tắt"
-
 #. Translators: A setting in braille timer options.
 msgid "Braille track endings"
 msgstr "Track chữ nổi kết thúc"
@@ -939,20 +921,6 @@ msgstr "Kích hoạt"
 msgid "Cop&y"
 msgstr "&Sao chép"
 
-#. Translators: The label of a field to enter a new name for a broadcast profile.
-msgid "New name:"
-msgstr "Tên mới:"
-
-#. Translators: The title of the dialog to rename a profile.
-msgid "Rename Profile"
-msgstr "Đổi tên hồ sơ"
-
-#. Translators: An error displayed when renaming a configuration profile
-#. and a profile with the new name already exists.
-#. Translators: An error displayed when the user attempts to create a profile which already exists.
-msgid "That profile already exists. Please choose a different name."
-msgstr "Đã có tên hồ sơ này. Vui lòng chọn tên khác."
-
 #. Translators: Message reported when attempting to delete a profile in the midst of a broadcast.
 msgid ""
 "An instant switch profile might be active or you are in the midst of a "
@@ -983,21 +951,9 @@ msgstr "Xóa hồ sơ hiện hành"
 msgid "Are you sure you want to delete this profile? This cannot be undone."
 msgstr "Bạn có chắc muốn xóa hồ sơ này không? Thao tác này không thể phục hồi."
 
-#. Translators: The title of the confirmation dialog for deletion of a profile.
-msgid "Confirm Deletion"
-msgstr "Xác nhận xóa"
-
-#. Translators: The title of the dialog to create a new broadcast profile.
-msgid "New Profile"
-msgstr "Hồ sơ mới"
-
 #. Translators: The title of the dialog to copy a broadcast profile.
 msgid "Copy Profile"
 msgstr "Sao chép hồ sơ"
-
-#. Translators: The label of a field to enter the name of a new broadcast profile.
-msgid "Profile name:"
-msgstr "Tên hồ sơ:"
 
 #. Translators: The label for a setting in SPL add-on dialog to select a base  profile for copying.
 msgid "&Base profile:"
@@ -1011,10 +967,6 @@ msgstr "Tác nhân hồ sơ cho {profileName}"
 #. Translators: The label of a checkbox to toggle if selected profile is an instant switch profile.
 msgid "This is an &instant switch profile"
 msgstr "Đây là hồ sơ chuyển nhanh"
-
-#. Translators: title of a panel to configure various general add-on settings such as top and bottom announcement for playlists.
-msgid "General"
-msgstr "Chung"
 
 #. Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
 msgid "&Beep for status announcements"
@@ -1300,10 +1252,6 @@ msgid ""
 "information"
 msgstr ""
 "Bao gồm &vị trí track khi thông báo thông tin của track hiện tại và track kế"
-
-#. Translators: title of a panel to configure advanced SPL add-on options such as update checking.
-msgid "Advanced"
-msgstr "Nâng cao"
 
 #. Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 msgid "Allow SPL C&ontroller command to invoke SPL Assistant layer"

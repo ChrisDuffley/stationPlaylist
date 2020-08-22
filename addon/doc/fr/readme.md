@@ -3,6 +3,7 @@
 * Auteurs: Geoff Shang, Joseph Lee et d'autres contributeurs.
 * Télécharger [version stable][1]
 * Télécharger [la version de développement][2]
+* Download [long-term support version][3] - for Studio 5.20 users
 * NVDA compatibility: 2019.3 to 2020.2
 
 This add-on package provides improved usage of StationPlaylist Studio and
@@ -21,8 +22,8 @@ NOTES IMPORTANTES :
 * Si vous utilisez Windows 8 ou ultérieur, pour une meilleure expérience,
   désactiver le Mode d'atténuation audio.
 * Starting from 2018, [changelogs for old add-on releases][5] will be found
-  on GitHub. This add-on readme will list changes from version 18.09 (2018
-  onwards).
+  on GitHub. This add-on readme will list changes from version 20.01 (2020)
+  onwards.
 * Certaines fonctionnalités de l'extension ne fonctionneront pas dans
   certaines conditions, notamment l'exécution de NVDA en mode sécurisé.
 * En raison de limitations techniques, vous ne pouvez pas installer ou
@@ -70,19 +71,20 @@ contraire.
 * Contrôle+Maj+X depuis la fenêtre de Studio : Parcourt les paramètres du
   minuteur braille.
 * Control+Alt+left/right arrow (while focused on a track in Studio, Creator,
-  Remote VT, and Track Tool): Announce previous/next track column.
+  Remote VT, and Track Tool): Move to previous/next track column.
 * Control+Alt+Home/End (while focused on a track in Studio, Creator, Remote
-  VT, and Track Tool): Announce first/last track column.
-* Control+Alt+up/down arrow (while focused on a track in Studio only): Move
-  to previous or next track and announce specific columns.
+  VT, and Track Tool): Move to first/last track column.
+* Control+Alt+up/down arrow (while focused on a track in Studio, Creator,
+  Remote VT, and Track Tool): Move to previous/next track and announce
+  specific columns.
 * Control+NVDA+1 through 0 (while focused on a track in Studio, Creator
   (including Playlist Editor), Remote VT, and Track Tool): Announce column
   content for a specified column (first ten columns by default). Pressing
   this command twice will display column information on a browse mode
   window.
-* Control+NVDA+- (hyphen while focused on a track in Studio, Creator, and
-  Track Tool): display data for all columns in a track on a browse mode
-  window.
+* Control+NVDA+- (hyphen while focused on a track in Studio, Creator, Remote
+  VT, and Track Tool): display data for all columns in a track on a browse
+  mode window.
 * Alt+NVDA+C alors que  a été mis en focus sur une piste (Studio
   uniquement): annonce les commentaires de piste le cas échéant.
 * Alt+NVDA+0 depuis la fenêtre de Studio : Ouvre le dialogue de
@@ -123,8 +125,8 @@ below and select "Add", then type the gesutre you wish to use.
 
 The following commands are available when using encoders:
 
-* F9 : Se connecter à un serveur de streaming.
-* F10 (Encodeur SAM uniquement) : Se déconnecter d'un serveur de streaming.
+* F9: connect the selected encoder.
+* F10 (SAM encoder only): Disconnect the selected encoder.
 * Control+F9: Connect all encoders.
 * Control+F10 (SAM encoder only): Disconnect all encoders.
 * F11 : Détermine si NVDA bascule vers la fenêtre Studio pour l'encodeur
@@ -328,6 +330,38 @@ un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
 
+## Version 20.09-LTS
+
+Version 20.09.x is the last release series to support Studio 5.20 and based
+on old technologies, with future releases supporting Studio 5.30 and more
+recent NVDA features. Some new features will be backported to 20.09.x if
+needed.
+
+* Due to changes in NVDA, --spl-configvolatile command line switch is no
+  longer availible to make add-on settings read-only. You can emulate this
+  by unchecking "Save configuration when exiting NVDA" checkbox from NVDA's
+  general settings panel.
+* Removed pilot features setting from Advanced settings category under
+  add-on settings (Alt+NvDA+0), used to let development snapshot users test
+  bleeding-edge code.
+* Column navigation commands in Studio are now availible in track lists
+  found in listener requests, insert tracks and other screens.
+* Various column navigation commands will behave like NVDA's own table
+  navigation commands. Besides simplifying these commands, it brings
+  benefits such as ease of use by low vision users.
+* Vertical column navigation (Control+Alt+up/down arrow) commands are now
+  availible for Creator, playlist editor, Remote VT, and Track Tool.
+* Track columns viewer command (Control+NVDA+hyphen) is now availible in
+  Creator's Playlist Editor and Remote VT.
+* Track columns viewer command will respect column order displayed on
+  screen.
+* In SAM encoders, improved NVDA's responsiveness when pressing Control+F9
+  or Control+F10 to connect or disconnect all encoders, respectively. This
+  may result in increased verbosity when announcing the selected encoder
+  information.
+* In SPL and AltaCast encoders, pressing F9 will now connect the selected
+  encoder.
+
 ## Version 20.07
 
 * In Studio's playlist viewer, NVDA will no longer appear to do nothing or
@@ -465,250 +499,6 @@ ci-dessus pour exécuter des commandes.
 
 * NVDA 2019.3 or later is required due to extensive use of Python 3.
 
-## Version 19.11.1/18.09.13-LTS
-
-* Initial support for StationPlaylist suite 5.40.
-* In Studio, playlist snapshots (SPL Assistant, F8) and various time
-  announcement commands such as remaining time (Control+Alt+T) will no
-  longer cause NVDA to play error tones or do nothing if using NVDA 2019.3
-  or later.
-* In Creator's track list items, "Language" column added in Creator 5.31 and
-  later is properly recognized.
-* In various lists in Creator apart from track list, NVDA will no longer
-  announce odd column information if Control+NVDA+number row command is
-  pressed.
-
-## Version 19.11
-
-* Encoder status command from SPL Controller (E) will announce connection
-  status for the active encoder set instead of encoders being monitored in
-  the background.
-* NVDA will no longer appear to do nothing or play error tones when it
-  starts while an encoder window is focused.
-
-## Version 19.10/18.09.12-LTS
-
-* Shortened the version announcement message for Studio when it starts.
-* Version information for Creator will be announced when it starts.
-* 19.10: custom command can be assigned for encoder status command from SPL
-  Controller (E) so it can be used from everywhere.
-* Initial support for AltaCast encoder (Winamp plugin and must be recognized
-  by Studio). Commands are same as SPL Encoder.
-
-## Version 19.08.1
-
-* In SAM encoders, NVDA will no longer appear to do nothing or play error
-  tones if an encoder entry is deleted while being monitored in the
-  background.
-
-## Version 19.08/18.09.11-LTS
-
-* 19.08: NVDA 2019.1 or later is required.
-* 19.08: NVDA will no longer appear to do nothing or play error tones when
-  restarting it while Studio add-on settings dialog is open.
-* NVDA will remember profile-specific setttings when switching between
-  settings panels even after renaming the currently selected broadcast
-  profile from add-on settings.
-* NVDA will no longer forget to honor changes to time-based profiles when OK
-  button is pressed to close add-on settings. This bug has been present
-  since migrating to multi-page settings in 2018.
-
-## Version 19.07/18.09.10-LTS
-
-* Renamed the add-on from "StationPlaylist Studio" to "StationPlaylist" to
-  better describe apps and features supported by this add-on.
-* Améliorations de la sécurité interne.
-* If microphone alarm or metadata streaming settings are changed from add-on
-  settings, NVDA will no longer fail to apply changed settings. This
-  resolves an issue where microphone alarm did not start or stop properly
-  after changing settings via add-on settings.
-
-## Version 19.06/18.09.9-LTS
-
-Version 19.06 supports SPL Studio 5.20 and later.
-
-* Initial support for StationPlaylist Streamer.
-* While running various Studio apps such as Track Tool and Studio, if a
-  second instance of the app is started and then exits, NVDA will no longer
-  cause Studio add-on configuration routines to produce errors and stop
-  working correctly.
-* Added labels for various options in SPL Encoder configuration dialog.
-
-## Version 19.04.1
-
-* Fixed several issues with redesigned column announcements and playlist
-  transcripts panels in add-on settings, including changes to custom column
-  order and inclusion not being reflected when saving and/or switching
-  between panels.
-
-## Version 19.04/18.09.8-LTS
-
-* Various global commands such as entering SPL Controller and switching to
-  Studio window will be turned off if NVDA is running in secure mode or as a
-  Windows Store application.
-* 19.04: in column announcements and playlist transcripts panels (add-on
-  settings), custom column inclusion/order controls will be visible up front
-  instead of having to select a button to open a dialog to configure these
-  settings.
-* In Creator, NVDA will no longer play error tones or appear to do nothing
-  when focused on certain lists.
-
-## Version 19.03/18.09.7-LTS
-
-* L'appui sur Contrôle+NVDA+R pour recharger les paramètres sauvegardés
-  rechargera maintenant aussi les paramètres de l'extension Studio, et un
-  triple appui sur cette commande réinitialisera également les paramètres
-  par défaut de l'extension Studio ainsi que les paramètres NVDA.
-* Le dialogue de paramètres de l'extension Studio "Options avancées" a été
-  renommé en "Avancé".
-* 19.03 experimental: in column announcements and playlist transcripts
-  panels (add-on settings), custom column inclusion/order controls will be
-  visible up front instead of having to select a button to open a dialog to
-  configure these settings.
-
-## Version 19.02
-
-* Suppression de la fonctionnalité de vérification de mise à jour autonome
-  de l'extension y compris la commande de vérification de mise à jour à
-  partir de l'Assistant SPL (Contrôle+Maj+U) et les options de vérification
-  de mise à jour à partir des paramètres de l'extension. La vérification de
-  mise à jour de l'extension est maintenant effectuée par Add-on Updater.
-* NVDA ne semble plus rien faire ou ne lit plus une tonalité d'erreur
-  lorsque l'intervalle d'activation du microphone est défini, il est utilisé
-  pour se souvenir lors de la diffusion que le microphone est actif avec des
-  bips périodiques.
-* Lors de la réinitialisation des paramètres de l'extension à partir du
-  dialogue Paramètres extension / panneau réinitialisation, NVDA demandra à
-  nouveau si un changement de profil immédiat ou un profil basé sur l'heure
-  est actif.
-* After resetting Studio add-on settings, NVDA will turn off microphone
-  alarm timer and announce metadata streaming status, similar to after
-  switching between broadcast profiles.
-
-## Version 19.01.1
-
-* NVDA n'annoncera plus "Contrôle du balayage de la bibliothèque en cours"
-  après la fermeture de Studio dans certaines situations.
-
-## Version 19.01/18.09.6-LTS
-
-* NVDA 2018.4 ou ultérieur est requis.
-* Davantage de changements de code pour rendre l'extension compatible avec
-  Python 3.
-* 19.01: certaines traductions de message de cette extension ressembleront à
-  des messages NVDA.
-* 19.01: la fonctionnalité Rechercher les mises à jour de l'extension n'est
-  plus disponible. Un message d'erreur apparaît lorsque vous essayez
-  d'utiliser l'Assistant SPL, Contrôle+Maj+U pour rechercher des mises à
-  jour. Pour les futures mises à jour, veuillez utiliser l'extension Add-on
-  Updater.
-* Légères améliorations des performances lors de l'utilisation de NVDA avec
-  des applications autres que Studio lorsque Voice Track Recorder est
-  actif. NVDA continuera d'afficher des problèmes de performances lors de
-  l'utilisation de Studio lui-même avec Voice Track Recorder actif.
-* Dans les encodeurs, si un dialogue Paramètres de l'encodeur est ouvert
-  (Alt+NVDA+0), NVDA affichera un message d'erreur si vous essayez d'ouvrir
-  un eautre dialogue Paramètres de l'encodeur.
-
-## Version 18.12
-
-* Changements internes afin de rendre l'extension compatible avec les
-  futures versions de NVDA.
-* Correction de nombreuses occurrences de messages de l'extension annoncés
-  en anglais malgré leur traduction dans d'autres langues.
-* Si vous utilisez l'Assistant SPL pour rechercher des mises à jour de
-  l'extension (Assistant SPL, Contrôle+Maj+U), NVDA n'installe pas de
-  nouvelles versions de l'extension si elles nécessitent une version plus
-  récente de NVDA.
-* Certaines commandes de l'assistant SPL exigent désormais que la
-  visionneuse de playlist soit visible et complété par une playlist. Dans
-  certains cas, une piste est focalisée. Les commandes concernées incluent
-  la durée restante (D), les instantanés de playlist (F8) et les
-  transcriptions de Playlist (Maj + F8).
-* La commande pour la durée restante de la playlist (Assistant SPL, D) exige
-  désormais qu'une piste depuis la visionneuse de playlist soit focalisée.
-* Dans les encodeurs de SAM, vous pouvez désormais utiliser les commandes de
-  navigation dans les tableaux (Contrôle+Alt+touches fléchées) pour examiner
-  diverses informations sur l'état de l'encodeur.
-
-## Version 18.11/18.09.5-LTS
-
-Note: 18.11.1 remplace 18.11 afin de mieux prendre en charge Studio 5.31.
-
-* Premier support de StationPlaylist Studio 5.31.
-* Vous pouvez maintenant obtenir des instantanés de playlist (Assistant SPL,
-  F8) et des transcriptions (Assistant SPL, Maj+F8) alors qu'une playlist
-  est chargée mais la première piste n'a pas le focus.
-* NVDA ne semblera plus rien faire et ne jouera pas des tonalités d'erreur
-  en essayant d'obtenir le statut de diffusion des métadonnées au démarrage
-  de Studio s'il est configuré pour le faire.
-* S'il est configuré pour annoncer l'état de la diffusion des métadonnées au
-  démarrage , , l'annonce de l'état de diffusion des métadonnées et ne sera
-  plus coupé les annonces relatives aux modifications de la barre d'état, et
-  inversement.
-
-## Version 18.10.2/18.09.4-LTS
-
-* Correction de l'incapacité de fermer l'écran Paramètres de l'extension si
-  le bouton Appliquer a été appuyé et que les boutons OK ou Annuler ont
-  ensuite été pressés.
-
-## Version 18.10.1/18.09.3-LTS
-
-* Résolution de plusieurs problèmes liés à la fonction de l'annonce de
-  connexion de l'encodeur, y compris le fait de ne pas annoncer les statut
-  des messages, de ne pas lire la première piste sélectionnée ou de ne pas
-  basculer à la fenêtre Studio lorsqu'il est connectée. Ces bugs sont causés
-  par wxPython 4 (NVDA 2018.3 ou ultérieur).
-
-## Version 18.10
-
-* NVDA 2018.3 ou ultérieur est requis.
-* Changements internes afin de rendre l'extension plus compatible avec
-  Python 3.
-
-## Version 18.09.1-LTS
-
-* Lors de l'obtention de transcriptions de playlist au format de tableau
-  HTML, les titres de colonnes ne sont plus affichés sous la forme d'une
-  chaîne de liste Python.
-
-## Version 18.09-LTS
-
-La version 18.09.x est la dernière série à prendre en charge Studio 5.10 et
-elle est basée sur les anciennes technologies, avec la 18.10 et versions
-ultérieures prenant en charge Studio 5.11 / 5.20 et des nouvelles
-fonctionnalités si nécessaire, certaines nouvelles fonctionnalités seront
-redirigées vers la 18.09.x.
-
-* NVDA 2018.3 ou une version ultérieure est recommandée en raison de
-  l'introduction de wxPython 4.
-* L'écran des paramètres des extensions est désormais entièrement basé sur
-  une interface multi-pages dérivée de NVDA 2018.2 et versions ultérieures.
-* Test Drive Fast et Slow ont combiné le canal "développement" avec une
-  option permettant aux utilisateurs de snapshot  de développement de tester
-  les fonctionnalités pilotes en cochant la nouvelle case à cocher
-  "Fonctions pilotes" du panneau Paramètres avancés. Les utilisateurs
-  d'abord sur Test Drive Fast Ring continuera à tester les fonctionnalités
-  du pilote.
-* La possibilité de sélectionner un canal différent pour la mise à jour de
-  l'extension à partir des paramètres de l'extension a été supprimée. Les
-  utilisateurs qui souhaitent basculer vers un canal de version différent
-  devraient visiter le site comunautaire des extensions NVDA
-  (addons.nvda-project.org), sélectionnez StationPlaylist Studio, puis
-  téléchargez la version appropriée.
-* Les cases à cocher d'inclusion de colonne pour l'annonce de colonne et les
-  transcriptions de playlist, ainsi que les cases à cocher pour les flux de
-  métadonnées ont été converties en contrôles de liste vérifiables.
-* When switching between settings panels, NVDA will remember current
-  settings for profile-specific settings (alarms, column announcements,
-  metadata streaming settings).
-* Ajout du format CSV (valeurs séparées par des virgules) en tant que format
-  de transcriptions de playlist.
-* En appuyant sur Ctrl+NVDA+C pour enregistrer les paramètres, vous
-  sauvegarderez également les paramètres de l'extension Studio (nécessite
-  NVDA 2018.3).
-
 ## Anciennes versions
 
 S'il vous plaît voir le lien changelog pour les notes de version  pour les
@@ -719,6 +509,8 @@ anciennes versions de l'extension.
 [1]: https://addons.nvda-project.org/files/get.php?file=spl
 
 [2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
+
+[3]: https://addons.nvda-project.org/files/get.php?file=spl-lts20
 
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 
