@@ -1417,9 +1417,13 @@ class AppModule(appModuleHandler.AppModule):
 
 	def cartsBuilder(self, build=True):
 		# A function to build and return cart commands.
+		# #147 (20.10): fetch cart keys from a dedicated tuple found in splmisc module.
 		if build:
-			self.buildFNCarts()
-			self.buildNumberCarts()
+			for cart in splmisc.cartKeys:
+				self.bindGesture(f"kb:{cart}", "cartExplorer")
+				self.bindGesture(f"kb:shift+{cart}", "cartExplorer")
+				self.bindGesture(f"kb:control+{cart}", "cartExplorer")
+				self.bindGesture(f"kb:alt+{cart}", "cartExplorer")
 		else:
 			self.clearGestureBindings()
 			self.bindGestures(self.__gestures)
