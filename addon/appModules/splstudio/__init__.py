@@ -1398,22 +1398,7 @@ class AppModule(appModuleHandler.AppModule):
 	# The carts dictionary (key = cart gesture, item = cart name).
 	carts = {}
 
-	# Assigning carts.
-
-	def buildFNCarts(self):
-		for i in range(12):
-			self.bindGesture("kb:f{}".format(i + 1), "cartExplorer")
-			self.bindGesture("kb:shift+f{}".format(i + 1), "cartExplorer")
-			self.bindGesture("kb:control+f{}".format(i + 1), "cartExplorer")
-			self.bindGesture("kb:alt+f{}".format(i + 1), "cartExplorer")
-
-	def buildNumberCarts(self):
-		# It is much faster to work directly with number row keys.
-		for i in "1234567890-=":
-			self.bindGesture("kb:{}".format(i), "cartExplorer")
-			self.bindGesture("kb:shift+{}".format(i), "cartExplorer")
-			self.bindGesture("kb:control+{}".format(i), "cartExplorer")
-			self.bindGesture("kb:alt+{}".format(i), "cartExplorer")
+	# Assigning and building carts.
 
 	def cartsBuilder(self, build=True):
 		# A function to build and return cart commands.
