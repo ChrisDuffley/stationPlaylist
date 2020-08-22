@@ -1918,8 +1918,7 @@ class AppModule(appModuleHandler.AppModule):
 		self.clearGestureBindings()
 		self.bindGestures(self.__gestures)
 		if self.cartExplorer:
-			self.buildFNCarts()
-			self.buildNumberCarts()
+			self.cartsBuilder()
 
 	def script_error(self, gesture):
 		tones.beep(120, 100)
