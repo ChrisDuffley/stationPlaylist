@@ -41,7 +41,7 @@ class AppModule(appModuleHandler.AppModule):
 	def terminate(self):
 		super(AppModule, self).terminate()
 		# 6.3: Memory leak results if encoder flag sets and other encoder support maps aren't cleaned up.
-		# This also could have allowed a hacker to modify the flags set (highly unlikely) so NvDA could get confused next time Studio loads.
+		# This also could have allowed a hacker to modify the flags set (highly unlikely) so NVDA could get confused next time Studio loads.
 		# #105 (19.07): SPL Engine is responsible for hosting encoder DLL's.
 		# #104 (19.07/18.09.10-LTS): any app module deriving from this (including Streamer) must clean up encoders database.
 		# #98: this is still the case even though encoders support is part of the SPL Engine app module package.

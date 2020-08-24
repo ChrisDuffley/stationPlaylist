@@ -9,7 +9,7 @@
 # Renamed to StationPlaylist in 2019 in order to describe the scope of this add-on.
 # For SPL Studio Controller, focus movement, SAM Encoder support and other utilities, see the global plugin version of this app module.
 
-# Minimum version: SPL 5.20, NvDA 2019.3.
+# Minimum version: SPL 5.20, NVDA 2019.3.
 
 from functools import wraps
 from comtypes import COMError
@@ -257,7 +257,7 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 		# 7.0: Comments please.
 		if splconfig.SPLConfig["General"]["TrackCommentAnnounce"] != "off":
 			self.announceTrackComment(0)
-		# 6.3: Catch an unusual case where screen order is off yet column order is same as screen order and NvDA is told to announce all columns.
+		# 6.3: Catch an unusual case where screen order is off yet column order is same as screen order and NVDA is told to announce all columns.
 		# 17.04: Even if vertical column commands are performed, build description pieces for consistency.
 		# 19.06: have the column inclusion and order keys handy in order to avoid attribute lookup.
 		columnsToInclude = splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"]
@@ -814,7 +814,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Now the actual event.
 	def event_nameChange(self, obj, nextHandler):
-		# Do not let NvDA get name for None object when SPL window is maximized.
+		# Do not let NVDA get name for None object when SPL window is maximized.
 		if not obj.name:
 			return
 		# Only announce changes in status bar objects when told to do so.
@@ -1623,7 +1623,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	def canPerformPlaylistCommands(self, playlistViewerRequired=True, mustSelectTrack=False, announceErrors=True):
 		# #81: most commands do require that playlist viewer must be the foreground window (focused), hence the keyword argument.
-		# Also let NvDA announce generic error messages listed below if told to do so, and for some cases, not at all because the caller will announce them.
+		# Also let NVDA announce generic error messages listed below if told to do so, and for some cases, not at all because the caller will announce them.
 		playlistViewerFocused = api.getForegroundObject().windowClassName == "TStudioForm"
 		if playlistViewerRequired and not playlistViewerFocused:
 			if announceErrors:

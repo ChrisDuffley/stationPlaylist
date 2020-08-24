@@ -201,7 +201,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 Version 20.09.x is the last release series to support Studio 5.20 and based on old technologies, with future releases supporting Studio 5.30 and more recent NVDA features. Some new features will be backported to 20.09.x if needed.
 
 * Due to changes in NVDA, --spl-configvolatile command line switch is no longer availible to make add-on settings read-only. You can emulate this by unchecking "Save configuration when exiting NVDA" checkbox from NVDA's general settings panel.
-* Removed pilot features setting from Advanced settings category under add-on settings (Alt+NvDA+0), used to let development snapshot users test bleeding-edge code.
+* Removed pilot features setting from Advanced settings category under add-on settings (Alt+NVDA+0), used to let development snapshot users test bleeding-edge code.
 * Column navigation commands in Studio are now availible in track lists found in listener requests, insert tracks and other screens.
 * Various column navigation commands will behave like NVDA's own table navigation commands. Besides simplifying these commands, it brings benefits such as ease of use by low vision users.
 * Vertical column navigation (Control+Alt+up/down arrow) commands are now availible for Creator, playlist editor, Remote VT, and Track Tool.
@@ -233,11 +233,11 @@ Version 20.09.x is the last release series to support Studio 5.20 and based on o
 ## Version 20.05
 
 * Initial support for Remote VT (voice track) client, including remote playlist editor with same commands as Creator's playlist editor.
-* Commands used to open separate alarm settings dialogs (Alt+NVDA+1, Alt+NVDA+2, Alt+NVDA+4) has been combined into Alt+NvDA+1 and will now open alarms settings in SPL add-on settings screen where track outro/intro and microphone alarm settings can be found.
+* Commands used to open separate alarm settings dialogs (Alt+NVDA+1, Alt+NVDA+2, Alt+NVDA+4) has been combined into Alt+NVDA+1 and will now open alarms settings in SPL add-on settings screen where track outro/intro and microphone alarm settings can be found.
 * In triggers dialog found in broadcast profiles dialog, removed the user interface associated with time-based broadcast profiles feature such as profile switch day/time/duration fields.
 * Profile switch countdown setting found in broadcast profiles dialog has been removed.
 * As Window-Eyes is no longer supported by Vispero since 2017, SPL Assistant command layout for Window-Eyes is deprecated and will be removed in a future add-on release. A warning will be shown at startup urging users to change SPL Assistant command layout to NVDA (default) or JAWS.
-* When using Columns Explorer slots (Control+NvDA+number row commands) or column navigation commands (Control+Alt+home/end/left arrow/right arrow) in Creator and Remote VT client, NVDA will no longer announce wrong column data after changing column position on screen via mouse.
+* When using Columns Explorer slots (Control+NVDA+number row commands) or column navigation commands (Control+Alt+home/end/left arrow/right arrow) in Creator and Remote VT client, NVDA will no longer announce wrong column data after changing column position on screen via mouse.
 * In encoders and Streamer, NVDA will no longer appear to do nothing or play error tones when exiting NVDA while focused on something other than encoders list without moving focus to encoders first.
 
 ## Version 20.04
@@ -254,9 +254,9 @@ Version 20.09.x is the last release series to support Studio 5.20 and based on o
 * Columns Explorer will now announce first ten columns by default (existing installations will continue to use old column slots).
 * The ability to announce name of the playing track automatically from places other than Studio has been removed. This feature, introduced in add-on 5.6 as a workaround for Studio 5.1x, is no longer functional. Users must now use SPL Controller and/or Assistant layer command to hear title of the currently playing track from everywhere (C).
 * Due to removal of automatic announcement of playing track title, the setting to configure this feature has been removed from add-on settings/status announcement category.
-* In encoders, NvDA will play connection tone every half a second while an encoder is connecting.
+* In encoders, NVDA will play connection tone every half a second while an encoder is connecting.
 * In encoders, NVDA will now announce connection attempt messages until an encoder is actually connected. Previously NVDA stopped when an error was encountered.
-* A new setting has been added to encoder settings to let NvDA announce connection messages until the selected encoder is connected. This setting is enabled by default.
+* A new setting has been added to encoder settings to let NVDA announce connection messages until the selected encoder is connected. This setting is enabled by default.
 
 ## Version 20.02
 

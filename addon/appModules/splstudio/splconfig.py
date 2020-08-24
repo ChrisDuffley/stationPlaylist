@@ -786,7 +786,7 @@ def instantProfileSwitch():
 # Startup dialogs.
 
 
-# Welcome dialog (emulating NvDA Core)
+# Welcome dialog (emulating NVDA Core)
 class WelcomeDialog(wx.Dialog):
 
 	# Translators: A message giving basic information about the add-on.

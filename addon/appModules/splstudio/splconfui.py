@@ -61,7 +61,7 @@ class BroadcastProfilesDialog(wx.Dialog):
 		changeProfilesSizer.Add(self.profiles, proportion=1.0)
 		changeProfilesSizer.AddSpacer(gui.guiHelper.SPACE_BETWEEN_BUTTONS_VERTICAL)
 
-		# Borrowed directly from NvDA Core (credit: NV Access)
+		# Borrowed directly from NVDA Core (credit: NV Access)
 		# This allows Enter key to be pressed to activate the selected profile.
 		# Translators: label for a button to activate the selected broadcast profile.
 		self.changeStateButton = wx.Button(self, label=_("Activate"))
@@ -75,7 +75,7 @@ class BroadcastProfilesDialog(wx.Dialog):
 		profilesListGroupContents.AddSpacer(gui.guiHelper.SPACE_BETWEEN_ASSOCIATED_CONTROL_HORIZONTAL)
 
 		# Profile controls code credit: NV Access (except copy button).
-		# Most control labels come from NvDA Core.
+		# Most control labels come from NVDA Core.
 		# 17.10: if restrictions such as volatile config are applied, disable this area entirely.
 		# #129 (20.04): no need for this check in standalone dialog.
 		buttonHelper = gui.guiHelper.ButtonHelper(wx.VERTICAL)
@@ -296,7 +296,7 @@ class BroadcastProfilesDialog(wx.Dialog):
 		self.onClose(None)
 
 
-# New broadcast profile dialog: Modification of new config profile dialog from NvDA Core.
+# New broadcast profile dialog: Modification of new config profile dialog from NVDA Core.
 class NewProfileDialog(wx.Dialog):
 
 	def __init__(self, parent, copy=False):

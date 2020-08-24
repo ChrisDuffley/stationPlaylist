@@ -207,16 +207,16 @@ class EncoderConfigDialog(wx.Dialog):
 		self.encoderLabel = encoderConfigHelper.addLabeledControl(_("Encoder &label"), wx.TextCtrl)
 		self.encoderLabel.SetValue(self.curEncoderLabel if self.curEncoderLabel is not None else "")
 
-		# Translators: A checkbox in encoder settings to set if NvDA should switch focus to Studio window when connected.
+		# Translators: A checkbox in encoder settings to set if NVDA should switch focus to Studio window when connected.
 		self.focusToStudio = encoderConfigHelper.addItem(wx.CheckBox(self, label=_("&Focus to Studio when connected")))
 		self.focusToStudio.SetValue(obj.focusToStudio)
-		# Translators: A checkbox in encoder settings to set if NvDA should play the next track when connected.
+		# Translators: A checkbox in encoder settings to set if NVDA should play the next track when connected.
 		self.playAfterConnecting = encoderConfigHelper.addItem(wx.CheckBox(self, label=_("&Play first track when connected")))
 		self.playAfterConnecting.SetValue(obj.playAfterConnecting)
-		# Translators: A checkbox in encoder settings to set if NvDA should monitor the status of this encoder in the background.
+		# Translators: A checkbox in encoder settings to set if NVDA should monitor the status of this encoder in the background.
 		self.backgroundMonitor = encoderConfigHelper.addItem(wx.CheckBox(self, label=_("Enable background connection &monitoring")))
 		self.backgroundMonitor.SetValue(obj.backgroundMonitor)
-		# Translators: A checkbox in encoder settings to set if NvDA should play connection progress tone.
+		# Translators: A checkbox in encoder settings to set if NVDA should play connection progress tone.
 		self.connectionTone = encoderConfigHelper.addItem(wx.CheckBox(self, label=_("Play connection status &beep while connecting")))
 		self.connectionTone.SetValue(obj.connectionTone)
 		# Translators: A checkbox in encoder settings to set if NVDA should announce connection progress until an encoder connects.
