@@ -338,20 +338,20 @@ recent NVDA features. Some new features will be backported to 20.09.x if
 needed.
 
 * Due to changes in NVDA, --spl-configvolatile command line switch is no
-  longer availible to make add-on settings read-only. You can emulate this
+  longer available to make add-on settings read-only. You can emulate this
   by unchecking "Save configuration when exiting NVDA" checkbox from NVDA's
   general settings panel.
 * Removed pilot features setting from Advanced settings category under
-  add-on settings (Alt+NvDA+0), used to let development snapshot users test
+  add-on settings (Alt+NVDA+0), used to let development snapshot users test
   bleeding-edge code.
-* Column navigation commands in Studio are now availible in track lists
+* Column navigation commands in Studio are now available in track lists
   found in listener requests, insert tracks and other screens.
 * Various column navigation commands will behave like NVDA's own table
   navigation commands. Besides simplifying these commands, it brings
   benefits such as ease of use by low vision users.
 * Vertical column navigation (Control+Alt+up/down arrow) commands are now
-  availible for Creator, playlist editor, Remote VT, and Track Tool.
-* Track columns viewer command (Control+NVDA+hyphen) is now availible in
+  available for Creator, playlist editor, Remote VT, and Track Tool.
+* Track columns viewer command (Control+NVDA+hyphen) is now available in
   Creator's Playlist Editor and Remote VT.
 * Track columns viewer command will respect column order displayed on
   screen.
@@ -404,7 +404,7 @@ needed.
 * Initial support for Remote VT (voice track) client, including remote
   playlist editor with same commands as Creator's playlist editor.
 * Commands used to open separate alarm settings dialogs (Alt+NVDA+1,
-  Alt+NVDA+2, Alt+NVDA+4) has been combined into Alt+NvDA+1 and will now
+  Alt+NVDA+2, Alt+NVDA+4) has been combined into Alt+NVDA+1 and will now
   open alarms settings in SPL add-on settings screen where track outro/intro
   and microphone alarm settings can be found.
 * In triggers dialog found in broadcast profiles dialog, removed the user
@@ -416,7 +416,7 @@ needed.
   command layout for Window-Eyes is deprecated and will be removed in a
   future add-on release. A warning will be shown at startup urging users to
   change SPL Assistant command layout to NVDA (default) or JAWS.
-* When using Columns Explorer slots (Control+NvDA+number row commands) or
+* When using Columns Explorer slots (Control+NVDA+number row commands) or
   column navigation commands (Control+Alt+home/end/left arrow/right arrow)
   in Creator and Remote VT client, NVDA will no longer announce wrong column
   data after changing column position on screen via mouse.
@@ -458,12 +458,12 @@ needed.
 * Due to removal of automatic announcement of playing track title, the
   setting to configure this feature has been removed from add-on
   settings/status announcement category.
-* In encoders, NvDA will play connection tone every half a second while an
+* In encoders, NVDA will play connection tone every half a second while an
   encoder is connecting.
 * In encoders, NVDA will now announce connection attempt messages until an
   encoder is actually connected. Previously NVDA stopped when an error was
   encountered.
-* A new setting has been added to encoder settings to let NvDA announce
+* A new setting has been added to encoder settings to let NVDA announce
   connection messages until the selected encoder is connected. This setting
   is enabled by default.
 

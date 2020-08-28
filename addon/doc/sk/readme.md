@@ -292,20 +292,20 @@ recent NVDA features. Some new features will be backported to 20.09.x if
 needed.
 
 * Due to changes in NVDA, --spl-configvolatile command line switch is no
-  longer availible to make add-on settings read-only. You can emulate this
+  longer available to make add-on settings read-only. You can emulate this
   by unchecking "Save configuration when exiting NVDA" checkbox from NVDA's
   general settings panel.
 * Removed pilot features setting from Advanced settings category under
-  add-on settings (Alt+NvDA+0), used to let development snapshot users test
+  add-on settings (Alt+NVDA+0), used to let development snapshot users test
   bleeding-edge code.
-* Column navigation commands in Studio are now availible in track lists
+* Column navigation commands in Studio are now available in track lists
   found in listener requests, insert tracks and other screens.
 * Various column navigation commands will behave like NVDA's own table
   navigation commands. Besides simplifying these commands, it brings
   benefits such as ease of use by low vision users.
 * Vertical column navigation (Control+Alt+up/down arrow) commands are now
-  availible for Creator, playlist editor, Remote VT, and Track Tool.
-* Track columns viewer command (Control+NVDA+hyphen) is now availible in
+  available for Creator, playlist editor, Remote VT, and Track Tool.
+* Track columns viewer command (Control+NVDA+hyphen) is now available in
   Creator's Playlist Editor and Remote VT.
 * Track columns viewer command will respect column order displayed on
   screen.
@@ -354,9 +354,10 @@ needed.
 * Prvotná podpora pre aplikáciu na nahrávanie vstupov Remote VT (voice
   track), a tiež podpora pre remote playlist editor s rovnakými príkazmi ako
   Creator.
-* Príkazy na otvorenie nastavení upozornení (alt+nvda+1, alt+nvda+2,
-  alt+nvda+4) sú odteraz zlúčené do jedného okna, ktoré otvoríte skratkou
-  alt+nvda+1.
+* Commands used to open separate alarm settings dialogs (Alt+NVDA+1,
+  Alt+NVDA+2, Alt+NVDA+4) has been combined into Alt+NVDA+1 and will now
+  open alarms settings in SPL add-on settings screen where track outro/intro
+  and microphone alarm settings can be found.
 * Odstránená možnos nastaviť čas a dĺžku trvania spusteného profilu.
 * Odstránená možnosť odpočítavania pri spustení časovaného profilu.
 * Keďže čítač obrazovky Window-Eyes už firma Vispero  nevyvíja od roku 2017,
@@ -364,8 +365,10 @@ needed.
   obrazovky. Ak používate rozloženie pre Window-eyes, NVDA na túto
   skutočnosť upozorní a odporučí nastavenie iného rozloženia (JAWS alebo
   NVDA).
-* Ak zmeníte poradie metadát myšou a následne použijete skratky na
-  prezeranie metadát, NVDA zohľadní zmenyy
+* When using Columns Explorer slots (Control+NVDA+number row commands) or
+  column navigation commands (Control+Alt+home/end/left arrow/right arrow)
+  in Creator and Remote VT client, NVDA will no longer announce wrong column
+  data after changing column position on screen via mouse.
 * Ak ukončíte NVDA a nemáte v okne s nastavením enkodéra zameraný zoznam
   pripojení, NVDA viac nehlási chybu a dá sa ukončiť bez nutnosti zamerať
   zoznam pripojení.
@@ -395,11 +398,13 @@ needed.
   používa zložený príkaz. Automatické oznamovanie viac nie je podporované.
 * Odstránené nepotrebné nastavenie na automatické oznamovanie hrajúcej
   skladby.
-* NVDA oznamuje pripájanie dvakrát za sekundu pípaním.
+* In encoders, NVDA will play connection tone every half a second while an
+  encoder is connecting.
 * NVDA oznamuje chyby pripojenia aj v prípade, že dôjde k chybeale pokus o
   pripájanie pokračuje.
-* Do nastavení pridaná možnosť oznamovať stav pripájania až po úspešné
-  pripojenie. Predvolene je zapnuté.
+* A new setting has been added to encoder settings to let NVDA announce
+  connection messages until the selected encoder is connected. This setting
+  is enabled by default.
 
 ## verzia 20.02
 
