@@ -315,7 +315,7 @@ lại 20.09.x nếu cần.
   trong bảng cài đặt chung của NVDA.
 * Đã gỡ bỏ cài đặt các tính năng thử nghiệm trong phân loại cài đặt nâng cao
   trong cài đặt add-on (Alt+NvDA+0), vốn được sử dụng cho người dùng các bản
-  thử nghiệm kiểm tra các đoạn mã.
+  thử nghiệm kiểm tra các đoạn mã bleeding-edge.
 * Các lệnh điều hướng bảng trong Studio giờ đã có trong danh sách track được
   tìm thấy theo yêu cầu của người nghe, chèn track và các màn hình khác.
 * Nhiều lệnh điều hướng cột sẽ hoạt động như lệnh điều hướng trong bảng của

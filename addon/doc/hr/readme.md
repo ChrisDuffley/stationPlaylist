@@ -76,9 +76,9 @@ Većina njih radi samo u programu Studio, ukoliko nešto drugo nije navedeno.
 * Kontrol+Alt+Home/End (tijekom fokusiranja jedne snimke u programima
   Studio, Creator, Remote VT i Track Tool): prijeđi na prvi ili zadnji
   stupac snimaka.
-* Kontrol+Alt+strelica gore ili dolje (samo tijekom fokusiranja na snimku u
-  programu Studio): prijeđi na prethodnu ili sljedeću snimku i najavi
-  određene stupce.
+* Kontrol+Alt+strelica gore ili dolje (tijekom fokusiranja na snimku u
+  programu Studio, Creator, Remote VT i Track Tool): prijeđi na prethodnu
+  ili sljedeću snimku i najavi određene stupce.
 * Kontrol+NVDA+1 do 0 (tijekom fokusiranja trake u programima Studio,
   Creator (uključujući Playlist Editor), Remote VT i Track Tool): najavi
   sadržaj stupca za određeni stupac (standardno za prvih deset
@@ -324,38 +324,39 @@ operacijskim sustavom Windows 8 ili novijim i ako imaš instaliran NVDA
 na dodir. Za prebacivanje na modus SPL-a, dodirni ekran s tri prsta. Zatim
 koristi gore navedene dodirne naredbe za njihovo izvršavanje.
 
-## Version 20.09-LTS
+## Verzija 20.09-LTS
 
-Version 20.09.x is the last release series to support Studio 5.20 and based
-on old technologies, with future releases supporting Studio 5.30 and more
-recent NVDA features. Some new features will be backported to 20.09.x if
-needed.
+Verzija 20.09.x posljednja je serija izdanja koja podržava Studio 5.20 i
+temelji se na starim tehnologijama, a buduća izdanja podržavaju Studio 5.30
+i novije NVDA funkcije. Po potrebi će se neke nove funkcije portirati natrag
+na verziju 20.09.x.
 
-* Due to changes in NVDA, --spl-configvolatile command line switch is no
-  longer availible to make add-on settings read-only. You can emulate this
-  by unchecking "Save configuration when exiting NVDA" checkbox from NVDA's
-  general settings panel.
-* Removed pilot features setting from Advanced settings category under
-  add-on settings (Alt+NvDA+0), used to let development snapshot users test
-  bleeding-edge code.
+* Zbog promjena u NVDA-u, prekidač --spl-configvolatile u naredbenom retku
+  više nije dostupan za postavljanje postavki dodatka u stanje
+  samo-za-čitanje. To možeš emulirati, ako odznačiš potvrdni okvir „Spremi
+  konfiguraciju prilikom isključivanja NVDA” na ploči općih postavki za
+  NVDA.
+* Uklonjene su postavke probne funkcije iz kategorije „Napredne postavke” u
+  postavkama dodataka (Alt+NVDA+0), koje su koristili programeri za
+  testiranje najnovijih kodova.
 * Naredbe za navigaciju stupaca u programu Studio sada su dostupne u
   popisima snimaka koji se nalaze u ekranima zahtjeva slušatelja, umetanja
   zapisa i drugima.
-* Various column navigation commands will behave like NVDA's own table
-  navigation commands. Besides simplifying these commands, it brings
-  benefits such as ease of use by low vision users.
-* Vertical column navigation (Control+Alt+up/down arrow) commands are now
-  availible for Creator, playlist editor, Remote VT, and Track Tool.
-* Track columns viewer command (Control+NVDA+hyphen) is now availible in
-  Creator's Playlist Editor and Remote VT.
-* Track columns viewer command will respect column order displayed on
-  screen.
-* In SAM encoders, improved NVDA's responsiveness when pressing Control+F9
-  or Control+F10 to connect or disconnect all encoders, respectively. This
-  may result in increased verbosity when announcing the selected encoder
-  information.
-* In SPL and AltaCast encoders, pressing F9 will now connect the selected
-  encoder.
+* Razne naredbe za kretanje po stupcima ponašat će se kao NVDA-ove naredbe
+  za kretanje po tablicama. Osim što se time pojednostavljuju same naredbe,
+  slabovidnim osobama olakšava njihovu upotrebu.
+* Naredbe za okomito kretanje po stupcima (kontrol+Alt+strelica gore/dolje)
+  sada su dostupne za Creator, Playlist Editor, Remote VT i Track Tool.
+* Naredba za prikaz stupaca snimaka (kontrol+NVDA+crtica) sada je dostupna u
+  Playlist Editoru Creatora i Remote VT.
+* Naredba za prikaz stupaca snimaka poštivat će redoslijed stupaca prikazan
+  na ekranu.
+* U SAM koderima, poboljšana je NVDA reakcija pritiskom tipki kontrol+F9 ili
+  kontrol+F10 za spajanje odnosno odspajanje svih kodera. To može
+  rezultirati u pretjerano opširnom opisu tijekom najave podataka odabranog
+  kodera.
+* U koderima SPL i AltaCast pritiskom tipke F9 sada će se povezati odabrani
+  koder.
 
 ## Verzija 20.07
 
@@ -412,7 +413,7 @@ needed.
   command layout for Window-Eyes is deprecated and will be removed in a
   future add-on release. A warning will be shown at startup urging users to
   change SPL Assistant command layout to NVDA (default) or JAWS.
-* When using Columns Explorer slots (Control+NvDA+number row commands) or
+* When using Columns Explorer slots (Control+NVDA+number row commands) or
   column navigation commands (Control+Alt+home/end/left arrow/right arrow)
   in Creator and Remote VT client, NVDA will no longer announce wrong column
   data after changing column position on screen via mouse.
@@ -458,7 +459,7 @@ needed.
 * Zbog uklanjanja automatske najave naslova snimke, postavka za
   konfiguriranje ove funkcije uklonjena je iz postavki dodatka/kategorija
   najave stanja.
-* In encoders, NvDA will play connection tone every half a second while an
+* In encoders, NVDA will play connection tone every half a second while an
   encoder is connecting.
 * In encoders, NVDA will now announce connection attempt messages until an
   encoder is actually connected. Previously NVDA stopped when an error was

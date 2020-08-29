@@ -355,13 +355,13 @@ alten Technologien basiert. Zukünftige Versionen unterstützen Studio 5.30
 und neuere NVDA-Funktionen. Einige neue Funktionen werden bei Bedarf auf
 20.09.x zurückportiert.
 
-* Auf Grund von Änderungen in NVDA, ist der Kommandozeilenparameter
-  --spl-configvolatile nicht länger mehr verfügbar, um die Einstellungen vor
-  Änderungen zu schützen. Sie können dies über das Kontrollfeld
-  "Konfiguration beim Beenden speichern" aus NVDA heraus in den
-  Einstellungen unter Allgemeines emulieren.
-* Die Einstellung für Pilotfunktionen wurde aus der Kategorie "Erweiterte
-  Einstellungen" in Einstellungen der Erweiterung (Alt+NvDA+0) entfernt,
+* Auf Grund von Änderungen in NVDA steht der Befehlszeilenparameter
+  "--spl-configvolatile" nicht mehr zur Verfügung, um Einstellungen der
+  Erweiterung nicht mehr überschreiben zu können. Dies können Sie emulieren,
+  indem Sie das Kontrollkästchen "Konfiguration beim Beenden von NVDA
+  speichern" in den allgemeinen Einstellungen von NVDA deaktivieren.
+* Die Einstellung für Pilotfunktionen wurde aus der Kategorie der Erweiterte
+  Einstellungen in den Einstellungen der ERweiterung (Alt+NVDA+0) entfernt,
   damit Benutzer von Entwicklungs-Snapshots den Bleeding-Edge-Code testen
   können.
 * Die Befehle für die Spaltennavigation in Studio sind jetzt in Titellisten
@@ -437,8 +437,8 @@ und neuere NVDA-Funktionen. Einige neue Funktionen werden bei Bedarf auf
 * Befehle, die zum Öffnen separater Alarmeinstellungsdialoge (Alt+NVDA+1,
   Alt+NVDA+2, Alt+NVDA+4) verwendet werden, wurden zu Alt+NVDA+1
   zusammengefasst und öffnen nun die Alarm-Einstellungen im
-  SPL-Zusatz-Einstellungsbildschirm, wo die Einstellungen für das Intro
-  bzw. Abspann des Tracks und Mikrofonalarm gefunden werden können.
+  SPL-Zusatzeinstellungsbildschirm, in dem die Einstellungen für
+  Intro/Epilog der Spur und Mikrofonalarme gefunden werden können.
 * Die Trigger, der in den Sendeprofile gefunden wurde, wurde die
   Benutzeroberfläche entfernt, die mit zeitbasierten Sendeprofilen verbunden
   ist, wie z. B. die Felder für die Profilumschaltung Tag/Uhrzeit/Dauer.
@@ -450,10 +450,11 @@ und neuere NVDA-Funktionen. Einige neue Funktionen werden bei Bedarf auf
   eine Warnung angezeigt, indem der Benutzer aufgefordert wird, das
   Befehlslayout des SPL-Assistenten auf NVDA (Standard) oder auf JAWS zu
   ändern.
-* Bei der Verwendung des Spalten-Explorers (Strg+NVDA+Ziffernreihe) oder
-  Spaltennavigationsbefehlen (Strg+Alt+Pos1/Ende/Pfeil nach links/rechts) im
-  Creator und Remote-VT-Client meldet NVDA nach Änderung der Spaltenposition
-  auf dem Bildschirm per Maus keine falschen Spaltendaten mehr.
+* Bei der Verwendung von Spalten-Explorer-Slots (Strg+NVDA+Ziffernreihe)
+  oder Spaltennavigationsbefehlen (Strg+Alt+Pos1/Ende/Pfeil nach
+  links/Rechts) im Creator und Remote-Voice-Tracking-Client meldet NVDA nach
+  Änderung der Spaltenposition auf dem Bildschirm per Maus keine falschen
+  Spaltendaten mehr.
 * In Encodern und Streamern scheint NVDA beim Beenden von NVDA nicht mehr
   nichts zu tun oder Fehlertöne abzuspielen, während man sich auf etwas
   anderes als die Encoder-Liste konzentriert, ohne den Fokus zuerst auf die
@@ -496,14 +497,14 @@ und neuere NVDA-Funktionen. Einige neue Funktionen werden bei Bedarf auf
 * Auf Grund der Entfernung der automatischen Ansage des abspielenden Titels
   wurde die Einstellung zur Konfiguration dieser Funktion aus der Kategorie
   Zusatzeinstellungen bzw. Status-Ankündigung entfernt.
-* Bei Encodern spielt NVDA jede halbe Sekunde einen Verbindungston ab,
-  während ein Encoder verbunden ist.
+* Bei Encodern spielt NVDA den Verbindungston jede halbe Sekunde ab, sobald
+  ein Encoder verbunden ist.
 * Bei Encodern meldet NVDA nun Meldungen über Verbindungsversuche, bis ein
   Encoder tatsächlich angeschlossen ist. Zuvor stoppte NVDA, wenn ein Fehler
   auftrat.
-* Eine neue Einstellung zu den Encoder-Einstellungen wurde hinzugefügt,
-  damit NVDA über Verbindungsmeldungen informiert, bis der ausgewählte
-  Encoder verbunden ist. Diese Einstellung ist standardmäßig aktiviert.
+* Es wurde eine neue Einstellung zu den Encoder-Einstellungen hinzugefügt,
+  damit NVDA Verbindungsmeldungen miteilt, bis der ausgewählte Encoder
+  verbunden ist. Diese Einstellung ist standardmäßig aktiviert.
 
 ## Version 20.02
 

@@ -354,7 +354,7 @@ novas características do NVDA. Algunhas características retroportaranse á
   complemento de só lectura. Podes emular isto desmarcando a caixa de
   verificación "Gardar configuración ao saír do NVDA" dende o panel xeral
   das opcións de NVDA.
-* Eliminada a opción características piloto da categoría de opcións
+* Eliminada a opción características piloto da categoría de Opcións
   avanzadas nas opcións do complemento (Alt+NvDA+0), utilizada para permitir
   aos usuarios de versións de desenvolvemento probar código ó bordo do
   precipicio.
@@ -369,7 +369,7 @@ novas características do NVDA. Algunhas características retroportaranse á
   arriba/abaixo) están agora dispoñibles para Creator, o editor de listas de
   reprodución, Remote VT e Track Tool.
 * A orde do visualizador de columnas de pista (Control+NVDA+guión) está
-  agora dispoñible no editor de listas de reprodución de Creator e Remote
+  agora dispoñible no editor de listas de reprodución de Creator e en Remote
   VT.
 * A orde do visualizador de columnas de pista respectará a orde de columnas
   mostrada na pantalla.
@@ -428,7 +428,7 @@ novas características do NVDA. Algunhas características retroportaranse á
 * Soporte inicial para o cliente Remote VT (Voice Track), incluíndo o editor
   de listas reprodución cos mesmos atallos que o editor de listas de
   reprodución de Creator.
-* A orde para abrir os diálogos separados de opcións de alarma (Alt+NVDA+1,
+* As ordes para abrir diálogos separados de opcións de alarma (Alt+NVDA+1,
   Alt+NVDA+2 e Alt+NVDA+4) combináronse en Alt+NVDA+1 e agora abriranse as
   opcións das alarmas na pantalla de opcións do complemento SPL onde se
   poden atopar a outro/intro de pista e as opcións de alarma do micrófono.
@@ -445,8 +445,9 @@ novas características do NVDA. Algunhas características retroportaranse á
   (predeterminado) ou JAWS.
 * Ao utilizar lotes do explorador de columnas (ordes Control+NvDA+fila de
   números) ou ordes de navegación por columnas (ctrl+alt+inicio/fin/frecha
-  esquerda/frecha dereita) en Creator e Remote VT, NVDA non anunciará datos
-  de columna incorrectos despois de cambiar a posición de columna vía rato.
+  esquerda/frecha dereita) en Creator e o cliente Remote VT, NVDA non
+  anunciará datos de columna incorrectos despois de cambiar a posición da
+  columna na pantalla vía rato.
 * En codificadores e Streamer, NVDA xa non parecerá non facer nada ou
   reproducirá tons de erro ao saír do NVDA mentres se enfoque en algo
   diferente da lista de codificadores sen mover o foco aos codificadores

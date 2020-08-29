@@ -443,7 +443,7 @@ la versión 20.09.x si fuera necesario.
   (Alt+NVDA+1, Alt+NVDA+2, Alt+NVDA+4) se han combinado en Alt+NVDA+1, y
   ahora abrirán los ajustes de la alarma en la pantalla de opciones del
   complemento de SPL, donde se pueden encontrar las opciones de alarma del
-  micrófono y de la introducción y la conclusión.
+  micrófono y de la introducción y la conclusión de pista.
 * En el diálogo de disparadores que hay dentro del diálogo de perfiles de
   emisión, se ha eliminado la interfaz de usuario asociada a la función de
   perfiles de emisión basados en tiempo, como los campos de cambio de perfil
@@ -457,7 +457,7 @@ la versión 20.09.x si fuera necesario.
   del asistente de SPL a NVDA (por defecto) o JAWS.
 * Al usar slots en el explorador de columnas (órdenes control+NVDA+fila
   numérica) u órdenes de navegación por columnas (Control+alt+inicio / fin /
-  flecha izquierda / flecha derecha) en Creator o el cliente Remote VT, NVDA
+  flecha izquierda / flecha derecha) en Creator y el cliente Remote VT, NVDA
   ya no anunciará los datos de columna incorrectos tras cambiar la posición
   de columna en pantalla mediante el ratón.
 * En los codificadores y Streamer, NVDA ya no parecerá hacer nada o
