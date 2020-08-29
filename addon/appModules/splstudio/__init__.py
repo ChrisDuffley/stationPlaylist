@@ -234,7 +234,7 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 	@scriptHandler.script(gesture="kb:space")
 	def script_select(self, gesture):
 		gesture.send()
-		speech.speakMessage(self.name)
+		speech.speakMessage(self.firstChild.name)
 		braille.handler.handleUpdate(self)
 
 	# Read selected columns.
