@@ -171,6 +171,16 @@ class ConfigHub(ChainMap):
 					if ext == ".ini":
 						self.maps.append(self._unlockConfig(os.path.join(SPLProfiles, profile), profileName=name, validateNow=True))
 						self.profileNames.append(name)
+						# 20.10: remove deprecated keys from profiles, too.
+						deprecatedKeys = get_extra_values(self.maps[-1])
+						# Cache this profile if deprecated keys are found so that newly edited profile can be saved properly.
+						if len(deprecatedKeys):
+							self._cacheProfile(self.maps[-1])
+						for section, key in deprecatedKeys:
+							if section == ():
+								continue
+							# Just like normal profile, unless otherwise specified, all keys are level 1 (section/key).
+							del self.maps[-1][section[0]][key]
 			except WindowsError:
 				pass
 		# Runtime flags (profiles and profile switching flag come from NVDA Core's ConfigManager).
