@@ -8,8 +8,6 @@ _ = lambda x: x
 
 # Add-on information variables
 addon_info = {
-	# for previously unpublished addons, please follow the community guidelines at:
-	# https://bitbucket.org/nvdaaddonteam/todo/raw/master/guideLines.txt
 	# add-on Name, internal for nvda
 	"addon_name": "stationPlaylist",
 	# Add-on summary, usually the user visible name of the addon.
@@ -22,7 +20,7 @@ In addition, adds global commands for the studio from everywhere."""),
 	# version
 	"addon_version": "20.09",
 	# Author(s)
-	"addon_author": u"Geoff Shang, Joseph Lee and other contributors",
+	"addon_author": "Geoff Shang, Joseph Lee and other contributors",
 	# URL for the add-on documentation support
 	"addon_url": "https://addons.nvda-project.org/",
 	# Documentation file name
