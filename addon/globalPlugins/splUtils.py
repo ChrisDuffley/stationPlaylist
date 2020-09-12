@@ -130,8 +130,15 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if not SPLHwnd:
 			ui.message(_("SPL Studio is not running."))
 		# 17.01: SetForegroundWindow function is better, as there's no need to traverse top-level windows and allows users to "switch" to SPL window if the window is minimized.
+		# #150 (20.10/20.09.2-LTS): even then, make sure Studio window is visible.
 		else:
-			user32.SetForegroundWindow(user32.FindWindowW("TStudioForm", None))
+			import windowUtils
+			try:
+				studioWindow = windowUtils.findDescendantWindow(api.getDesktopObject().windowHandle, visible=True, className="TStudioForm")
+				user32.SetForegroundWindow(studioWindow)
+			except LookupError:
+				# Translators: presented when SPL Studio window is minimized.
+				ui.message(_("SPL Studio is minimized to system tray."))
 
 	# The SPL Controller:
 	# This layer set allows the user to control various aspects of SPL Studio from anywhere.
