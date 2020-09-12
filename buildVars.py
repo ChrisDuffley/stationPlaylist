@@ -30,7 +30,7 @@ In addition, adds global commands for the studio from everywhere."""),
 	# Last NVDA version supported/tested
 	"addon_lastTestedNVDAVersion": "2020.3.0",
 	# Add-on update channel (default is stable)
-	"addon_updateChannel": None,
+	"addon_updateChannel": "lts20",
 }
 
 
