@@ -5,9 +5,7 @@
 
 from logHandler import log
 import globalVars
-SPLDebuggingFramework = globalVars.appArgs.debugLogging
 
 
 def debugOutput(message):
-	if SPLDebuggingFramework:
-		log.debug(f"SPL: {message}")
+	log.debug(f"SPL: {message}")
