@@ -196,6 +196,13 @@ You can save settings for specific shows into broadcast profiles. These profiles
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 20.10/20.09.2-LTS
+
+* Due to changes to encoder settings file format, installing an older version of this add-on after installing this version will cause unpredictable behavior.
+* It is no longer necessary to restart NVDA with debug logging mode to read debug messages from log viewer. You can view log messages if log level is set to "debug" from NVDA's general settings panel.
+* In Studio's playlist viewer, NVDA will not include column headers if this setting is disabled from add-on settings and custom column order or inclusion settings are not defined.
+* When SPL Studio is minimized to the system tray (notification area), NVDA will announce this fact when trying to switch to Studio from other programs either through a dedicated command or as a result of an encoder connecting.
+
 ## Version 20.09-LTS
 
 Version 20.09.x is the last release series to support Studio 5.20 and based on old technologies, with future releases supporting Studio 5.30 and more recent NVDA features. Some new features will be backported to 20.09.x if needed.
