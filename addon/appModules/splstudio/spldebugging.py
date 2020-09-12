@@ -4,7 +4,6 @@
 # Provides debug output and other diagnostics probes.
 
 from logHandler import log
-import globalVars
 
 
 def debugOutput(message):
