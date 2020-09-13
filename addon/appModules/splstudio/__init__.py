@@ -242,10 +242,12 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 		if splconfig.SPLConfig["General"]["TrackCommentAnnounce"] != "off":
 			self.announceTrackComment(0)
 		# 20.10/20.09.2-LTS: do not include column headers in track description text if this is the case.
+		# 20.11: emulate building SysListView32.ListItem name string, to be removed in 2021.
 		if not splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"]:
-			self.description = ", ".join([column.name for column in self.children[1:] if column.name])
+			self.name = "; ".join([column.name for column in self.children if column.name])
 		# 6.3: Catch an unusual case where screen order is off yet column order is same as screen order and NVDA is told to announce all columns.
 		# 17.04: Even if vertical column commands are performed, build description pieces for consistency.
+		# 20.11: build name pieces, as SysListView32.ListItem class nullifies description.
 		# 19.06: have the column inclusion and order keys handy in order to avoid attribute lookup.
 		columnsToInclude = splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"]
 		columnOrder = splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"]
@@ -253,8 +255,11 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 			not splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"]
 			and (columnOrder != splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"] or len(columnsToInclude) != 17)
 		):
-			descriptionPieces = []
+			trackNamePieces = []
 			includeColumnHeaders = splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"]
+			# Include status (actual item name as reported by MSAA) if present.
+			if self.firstChild.name:
+				trackNamePieces.append(self.firstChild.name)
 			for header in columnOrder:
 				if header in columnsToInclude:
 					index = self.indexOf(header)
@@ -262,8 +267,8 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 						continue  # Header not found, mostly encountered in Studio 5.0x.
 					content = self._getColumnContentRaw(index)
 					if content:
-						descriptionPieces.append("{}: {}".format(header, content) if includeColumnHeaders else content)
-			self.description = ", ".join(descriptionPieces)
+						trackNamePieces.append("{}: {}".format(header, content) if includeColumnHeaders else content)
+			self.name = "; ".join(trackNamePieces)
 		if self._savedColumnNumber is None:
 			super(IAccessible, self).reportFocus()
 		else:
