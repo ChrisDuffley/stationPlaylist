@@ -594,13 +594,6 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 
 	encoderType = "SAM"
 
-	def _get_name(self):
-		return self.IAccessibleObject.accName(self.IAccessibleChildID)
-
-	def _get_description(self):
-		# #87 (18.09.6-LTS only): SysListView32.ListItem nullifies description, so resort to fetching it via IAccessible.
-		return self.IAccessibleObject.accDescription(self.IAccessibleChildID)
-
 	def _moveToRow(self, row):
 		# In addition to moving to the next or previous encoder entry, set focus on the new encoder entry once more.
 		super(SAMEncoder, self)._moveToRow(row)
