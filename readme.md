@@ -201,6 +201,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * Due to changes to encoder settings file format, installing an older version of this add-on after installing this version will cause unpredictable behavior.
 * It is no longer necessary to restart NVDA with debug logging mode to read debug messages from log viewer. You can view log messages if log level is set to "debug" from NVDA's general settings panel.
 * In Studio's playlist viewer, NVDA will not include column headers if this setting is disabled from add-on settings and custom column order or inclusion settings are not defined.
+* 20.10: column header inclusion setting from add-on settings is deprecated and will be removed in a future release. In the future NVDA's own table column header setting will control column header announcements across SPL suite and encoders.
 * When SPL Studio is minimized to the system tray (notification area), NVDA will announce this fact when trying to switch to Studio from other programs either through a dedicated command or as a result of an encoder connecting.
 
 ## Version 20.09-LTS
