@@ -171,7 +171,7 @@ class ConfigHub(ChainMap):
 					if ext == ".ini":
 						self.maps.append(self._unlockConfig(os.path.join(SPLProfiles, profile), profileName=name, validateNow=True))
 						self.profileNames.append(name)
-						# 20.10: remove deprecated keys from profiles, too.
+						# 20.10/20.09.2-LTS: remove deprecated keys from profiles, too.
 						deprecatedKeys = get_extra_values(self.maps[-1])
 						# Cache this profile if deprecated keys are found so that newly edited profile can be saved properly.
 						if len(deprecatedKeys):

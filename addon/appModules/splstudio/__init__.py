@@ -257,7 +257,7 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 		# 7.0: Comments please.
 		if splconfig.SPLConfig["General"]["TrackCommentAnnounce"] != "off":
 			self.announceTrackComment(0)
-		# 20.10: do not include column headers in track description text if this is the case.
+		# 20.10/20.09.2-LTS: do not include column headers in track description text if this is the case.
 		if not splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"]:
 			self.description = ", ".join([column.name for column in self.children[1:] if column.name])
 		# 6.3: Catch an unusual case where screen order is off yet column order is same as screen order and NVDA is told to announce all columns.
