@@ -12,7 +12,6 @@
 # Minimum version: SPL 5.20, NVDA 2019.3.
 
 from functools import wraps
-from comtypes import COMError
 import os
 import time
 import threading
@@ -118,21 +117,6 @@ class SPLTrackItem(sysListView32.ListItem):
 	Subclasses of module-specific subclasses are named after SPL version, for example SPL510TrackItem for studio 5.10 if version-specific handling is required.
 	Classes representing different parts of an app are given descriptive names such as StudioPlaylistViewerItem for tracks found in Studio's Playlist Viewer (main window).
 	"""
-
-	def _get_name(self):
-		# 20.07: COM error is thrown when attempting to look up the name of this "track" when a playlist is cleared.
-		try:
-			return self.IAccessibleObject.accName(self.IAccessibleChildID)
-		except COMError:
-			return""
-
-	def _get_description(self):
-		# SysListView32.ListItem nullifies description, so resort to fetching it via IAccessible.
-		# 19.04/18.09.8-LTS: sometimes, description must be None because it is already dealing with what appears to be a SysListView32 object, resulting in COM error.
-		try:
-			return self.IAccessibleObject.accDescription(self.IAccessibleChildID)
-		except COMError:
-			return ""
 
 	# #103: provide an abstract index of function.
 	@abstractmethod
