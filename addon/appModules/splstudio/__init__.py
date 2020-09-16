@@ -564,16 +564,9 @@ class SPLTimePicker(IAccessible):
 
 	@scriptHandler.script(gestures=["kb:upArrow", "kb:downArrow"])
 	def script_changeTimePickerValue(self, gesture):
+		# 20.11: slightly modified "read current line" script without complexities of tree interceptor and caret.
 		gesture.send()
-		import treeInterceptorHandler
-		obj = api.getFocusObject()
-		treeInterceptor = obj.treeInterceptor
-		if isinstance(treeInterceptor, treeInterceptorHandler.DocumentTreeInterceptor) and not treeInterceptor.passThrough:
-			obj = treeInterceptor
-		try:
-			info = obj.makeTextInfo(textInfos.POSITION_CARET)
-		except (NotImplementedError, RuntimeError):
-			info = obj.makeTextInfo(textInfos.POSITION_FIRST)
+		info = api.getFocusObject().makeTextInfo(textInfos.POSITION_FIRST)
 		info.expand(textInfos.UNIT_LINE)
 		# 20.03: NVDA 2020.1 includes output reason enumeration, deprecating output reason flags.
 		# Until support for NVDA 2019.3 is dropped, use both paths.
