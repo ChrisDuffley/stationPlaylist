@@ -4,7 +4,7 @@
 * Télécharger [version stable][1]
 * Télécharger [la version de développement][2]
 * Download [long-term support version][3] - for Studio 5.20 users
-* NVDA compatibility: 2019.3 to 2020.2
+* NVDA compatibility: 2019.3 to 2020.3
 
 This add-on package provides improved usage of StationPlaylist Studio and
 other StationPlaylist apps, as well as providing utilities to control Studio
@@ -329,6 +329,26 @@ ultérieure installé, vous pouvez exécuter certaines commandes Studio depuis
 un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
+
+## Version 20.10/20.09.2-LTS
+
+* Due to changes to encoder settings file format, installing an older
+  version of this add-on after installing this version will cause
+  unpredictable behavior.
+* It is no longer necessary to restart NVDA with debug logging mode to read
+  debug messages from log viewer. You can view debug messages if log level
+  is set to "debug" from NVDA's general settings panel.
+* In Studio's playlist viewer, NVDA will not include column headers if this
+  setting is disabled from add-on settings and custom column order or
+  inclusion settings are not defined.
+* 20.10: column header inclusion setting from add-on settings is deprecated
+  and will be removed in a future release. In the future NVDA's own table
+  column header setting will control column header announcements across SPL
+  suite and encoders.
+* When SPL Studio is minimized to the system tray (notification area), NVDA
+  will announce this fact when trying to switch to Studio from other
+  programs either through a dedicated command or as a result of an encoder
+  connecting.
 
 ## Version 20.09-LTS
 

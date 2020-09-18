@@ -893,7 +893,7 @@ msgstr "Zeskanowanych obiektów"
 msgid "SPL Broadcast Profiles"
 msgstr "Profile nadawania"
 
-#. Borrowed directly from NvDA Core (credit: NV Access)
+#. Borrowed directly from NVDA Core (credit: NV Access)
 #. This allows Enter key to be pressed to activate the selected profile.
 #. Translators: label for a button to activate the selected broadcast profile.
 #, fuzzy
@@ -1455,19 +1455,19 @@ msgstr "Właściwości dla {name}"
 msgid "Encoder &label"
 msgstr ""
 
-#. Translators: A checkbox in encoder settings to set if NvDA should switch focus to Studio window when connected.
+#. Translators: A checkbox in encoder settings to set if NVDA should switch focus to Studio window when connected.
 msgid "&Focus to Studio when connected"
 msgstr "Przełączaj do studia po połączeniu"
 
-#. Translators: A checkbox in encoder settings to set if NvDA should play the next track when connected.
+#. Translators: A checkbox in encoder settings to set if NVDA should play the next track when connected.
 msgid "&Play first track when connected"
 msgstr "Odtwarzaj pierwszy kawałek po połączeniu"
 
-#. Translators: A checkbox in encoder settings to set if NvDA should monitor the status of this encoder in the background.
+#. Translators: A checkbox in encoder settings to set if NVDA should monitor the status of this encoder in the background.
 msgid "Enable background connection &monitoring"
 msgstr "Włącz monitorowanie połączenia w tle"
 
-#. Translators: A checkbox in encoder settings to set if NvDA should play connection progress tone.
+#. Translators: A checkbox in encoder settings to set if NVDA should play connection progress tone.
 msgid "Play connection status &beep while connecting"
 msgstr "Dźwięk podczas połączenia"
 
@@ -1491,6 +1491,11 @@ msgstr "Połączonych enkoderów: {encodersConnected}"
 #. Translators: presented when no encoders are connected.
 msgid "No encoders connected"
 msgstr "Nie ma podłączonych enkoderów"
+
+#. Translators: presented when SPL Studio window is minimized.
+#, fuzzy
+msgid "SPL Studio is minimized to system tray."
+msgstr "SPL Studio nie jest uruchomione."
 
 #. Translators: Input help mode message in SAM Encoder window.
 msgid ""

@@ -5,7 +5,7 @@
 * Preuzmi [razvojnu verziju][2]
 * Preuzmi [verziju s dugoročnom podrškom][3] – za korisnike porgrama Studio
   5.20
-* NVDA kompatibilnost: 2019.3 do 2020.2
+* NVDA kompatibilnost: 2019.3 do 2020.3
 
 Ovaj paket dodataka omogućava bolje korištenje programa StationPlaylist
 Studio i drugih StationPlaylist programa te pruža alate za kontrolu programa
@@ -323,6 +323,28 @@ operacijskim sustavom Windows 8 ili novijim i ako imaš instaliran NVDA
 2012.3 ili noviji, možeš izvršiti neke Studio naredbe na ekranu osjetljivim
 na dodir. Za prebacivanje na modus SPL-a, dodirni ekran s tri prsta. Zatim
 koristi gore navedene dodirne naredbe za njihovo izvršavanje.
+
+## Version 20.10/20.09.2-LTS
+
+* Zbog promjena u datotečnom formatu postavki kodera, instaliranje starije
+  verzije ovog dodatka će nakon instaliranja ove verzije prouzročiti
+  nepredvidivo ponašanje.
+* Više nije potrebno ponovo pokrenuti NVDA u modusu zapisivanja otklanjanje
+  grešaka, da bi se čitale poruke za otklanjanje grešaka iz preglednika
+  dnevnika. Poruke za otklanjanje grešaka možeš pregledati, ako je razina
+  dnevnika postavljena na „Otklanjanje grešaka” u NVDA-ovoj ploči općih
+  postavki.
+* In Studio's playlist viewer, NVDA will not include column headers if this
+  setting is disabled from add-on settings and custom column order or
+  inclusion settings are not defined.
+* 20.10: column header inclusion setting from add-on settings is deprecated
+  and will be removed in a future release. In the future NVDA's own table
+  column header setting will control column header announcements across SPL
+  suite and encoders.
+* When SPL Studio is minimized to the system tray (notification area), NVDA
+  will announce this fact when trying to switch to Studio from other
+  programs either through a dedicated command or as a result of an encoder
+  connecting.
 
 ## Verzija 20.09-LTS
 

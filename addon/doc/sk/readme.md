@@ -3,8 +3,8 @@
 * Autori: Geoff Shang, Joseph Lee a ďalší
 * Stiahnuť [stabilnú verziu][1]
 * Stiahnuť [vývojovú verziu][2]
-* Download [long-term support version][3] - for Studio 5.20 users
-* NVDA compatibility: 2019.3 to 2020.2
+* Stiahnuť [Verziu s dlhodobou podporou][3] - pre Studio v 5.20
+* Funguje s NVDA 2019.3 až 2020.3
 
 Doplnok zlepšuje prístupnosť Station Playlist Studio a ďalších pridružených
 aplikácií a tiež umožňuje ovládať Station Playlist mimo hlavného okna
@@ -20,9 +20,8 @@ Dôležité:
 * Doplnok vyžaduje StationPlaylist suite od verzie 5.20.
 * Ak používate Systém od verzie Windows 8, odporúčame vám vypnúť funkciu
   automatického stišovania.
-* Starting from 2018, [changelogs for old add-on releases][5] will be found
-  on GitHub. This add-on readme will list changes from version 20.01 (2020)
-  onwards.
+* Od roku 2018 je [Zoznam zmien (anglicky)][5] na serveri GitHub. V tomto
+  dokumente sú uvedené zmeny od verzie 20.01 (2020) 
 * Niektoré funkcie doplnku nemusia vždy fungovať, napríklad ak sa nachádzate
   na zabezpečenej obrazovke.
 * Z technických príčin nie je možné tento doplnok používať na verzii NVDA z
@@ -61,20 +60,20 @@ Väčšina skratiek je určených pre Studio, ak nie je uvedené inak.
   dozadu.
 * Alt+NVDA+R v okne Studio: Prepína oznamovanie skenovania knižnice.
 * Ctrl+Shift+X v okne Studio: Prepína zobrazenie na braillovskom riadku.
-* Control+Alt+left/right arrow (while focused on a track in Studio, Creator,
-  Remote VT, and Track Tool): Move to previous/next track column.
-* Control+Alt+Home/End (while focused on a track in Studio, Creator, Remote
-  VT, and Track Tool): Move to first/last track column.
-* Control+Alt+up/down arrow (while focused on a track in Studio, Creator,
-  Remote VT, and Track Tool): Move to previous/next track and announce
-  specific columns.
+* Ctrl+Alt+šípky doľava a doprava (pri zobrazení skladby v oknách Studio,
+  Creator, Remote VT, a Track Tool): presunie kurzor na predchádzajúci alebo
+  nasledujúci stĺpec.
+* Ctrl+Alt+home a end (pri zobrazení skladby v oknách Studio, Creator,
+  Remote VT, a Track Tool): presunie kurzor na prvý alebo posledný stĺpec.
+* Ctrl+Alt+šípky hore a dole (pri zobrazení skladby v okne Studio): presunie
+  kurzor na nasledujúcu alebo predchádzajúcu skladbu a oznámi vybraté
+  metadáta.
 * Ctrl+NVDA+1 až 0 (Pri zobrazení skladby v okne Studio, Creator (vrátane
   úpravy playlistu), Remote VT, a Track Tool): Oznámi príslušné metadáta
   (prvých 10). Stlačené dvakrát rýchlo za sebou zobrazí metadáta v režime
   prehliadania.
-* Control+NVDA+- (hyphen while focused on a track in Studio, Creator, Remote
-  VT, and Track Tool): display data for all columns in a track on a browse
-  mode window.
+* Ctrl+NVDA+- (pomlčka pri zobrazení skladby v oknách Studio, Creator, a
+  Track Tool): Zobrazí všetky metadáta v režime prehliadania.
 * Alt+NVDA+C (pri zobrazení skladby v okne Studio): oznámi komentár k
   skladbe.
 * Alt+NVDA+0 z okna studio: Otvorí nastavenia doplnku.
@@ -110,24 +109,24 @@ v kontextovej ponuke aktivujte tlačidlo Pridať.
 
 Dostupné sú tieto príkazy:
 
-* F9: connect the selected encoder.
-* F10 (SAM encoder only): Disconnect the selected encoder.
-* Control+F9: Connect all encoders.
-* Control+F10 (SAM encoder only): Disconnect all encoders.
+* F9: Pripojiť zvolený stream.
+* F10 (SAM encoder): Odpojí zvolený stream.
+* Ctrl+F9: Pripojiť všetky streami.
+* Ctrl+F10 (len SAM encoder): odpojí všetky streami.
 * F11: Aktivuje a deaktivuje automatické prepnutie do okna Studio po
   pripojení.
 * Shift+F11: určuje, či sa automaticky prehrá prvá vybratá skladba po
   pripojení na server.
 * Ctrl+F11: Zapína a vypína monitorovanie vybratého pripojenia na pozadí.
-* Control+F12: opens a dialog to select the encoder you have deleted (to
-  realign encoder labels and settings).
-* Alt+NVDA+0: Opens encoder settings dialog to configure options such as
-  encoder label.
+* ctrl+F12: Otvorí okno na výber odstráneného streamu (kde môžete zmeniť
+  názvy a nastavenia).
+* Alt+NVDA+0: Otvorí nastavenia enkodéra, kde je možné napríklad nastaviť
+  názov.
 
 Dostupné sú tieto príkazy na prezeranie stĺpcov:
 
 * Ctrl+NVDA+1: Pozícia enkodéra.
-* Control+NVDA+2: encoder label.
+* Ctrl+NVDA+2: Názov pripojenia.
 * Ctrl+nvda+3 z okna Sam Encoder: Formát.
 * Ctrl+nvda+3 z aplikácie SPL a AltaCast Encoder: Nastavenia enkodéra.
 * Ctrl+nvda+4 z okna SAM Encoder: Stav pripojenia.
@@ -284,56 +283,70 @@ NVDA  od verzie 2012.3, môžete na ovládanie doplnku použiť dotykové
 príkazy. Najprv je potrebné dotknúť sa obrazovky tromi prstami. Následne
 vykonajte gestá spomenúté vyššie v tomto návode.
 
-## Version 20.09-LTS
+## Version 20.10/20.09.2-LTS
 
-Version 20.09.x is the last release series to support Studio 5.20 and based
-on old technologies, with future releases supporting Studio 5.30 and more
-recent NVDA features. Some new features will be backported to 20.09.x if
-needed.
+* Due to changes to encoder settings file format, installing an older
+  version of this add-on after installing this version will cause
+  unpredictable behavior.
+* It is no longer necessary to restart NVDA with debug logging mode to read
+  debug messages from log viewer. You can view debug messages if log level
+  is set to "debug" from NVDA's general settings panel.
+* In Studio's playlist viewer, NVDA will not include column headers if this
+  setting is disabled from add-on settings and custom column order or
+  inclusion settings are not defined.
+* 20.10: column header inclusion setting from add-on settings is deprecated
+  and will be removed in a future release. In the future NVDA's own table
+  column header setting will control column header announcements across SPL
+  suite and encoders.
+* When SPL Studio is minimized to the system tray (notification area), NVDA
+  will announce this fact when trying to switch to Studio from other
+  programs either through a dedicated command or as a result of an encoder
+  connecting.
 
-* Due to changes in NVDA, --spl-configvolatile command line switch is no
-  longer available to make add-on settings read-only. You can emulate this
-  by unchecking "Save configuration when exiting NVDA" checkbox from NVDA's
-  general settings panel.
-* Removed pilot features setting from Advanced settings category under
-  add-on settings (Alt+NVDA+0), used to let development snapshot users test
-  bleeding-edge code.
-* Column navigation commands in Studio are now available in track lists
-  found in listener requests, insert tracks and other screens.
-* Various column navigation commands will behave like NVDA's own table
-  navigation commands. Besides simplifying these commands, it brings
-  benefits such as ease of use by low vision users.
-* Vertical column navigation (Control+Alt+up/down arrow) commands are now
-  available for Creator, playlist editor, Remote VT, and Track Tool.
-* Track columns viewer command (Control+NVDA+hyphen) is now available in
-  Creator's Playlist Editor and Remote VT.
-* Track columns viewer command will respect column order displayed on
-  screen.
-* In SAM encoders, improved NVDA's responsiveness when pressing Control+F9
-  or Control+F10 to connect or disconnect all encoders, respectively. This
-  may result in increased verbosity when announcing the selected encoder
-  information.
-* In SPL and AltaCast encoders, pressing F9 will now connect the selected
+## verzia 20.09-LTS
+
+Verzia 20.09.x je posledná, ktorá podporuje Studio 5.20 so staršou
+technológiou. Od verzie 18.10 podporujeme Studio 5.30. Niektoré nové funkcie
+môžu byť časom portované aj do verzie 20.09.X.
+
+* Vzhľadom na úpravy v aktuálnych verziách NVDA, nie je viac možné
+  nastavenia doplnku chrániť proti zápisu príkazom
+  --spl-configvolatile. Odteraz je potrebné priamo v nastaveniach NVDA v
+  časti všeobecné odčiarknuť možnosť Uložiť nastavenia pri ukončení.
+* Odstránená možnosť testovať pylotné funkcie.
+* Navigácia po stĺpcoch s metadátami je odteraz dostupná tiež v žiadostiach
+  od poslucháčov, pri vkladaní skladieb cez dialóg vložiť a tiež v ostatných
+  dialógoch.
+* Navigácia po metadátach odteraz funguje rovnako, ako štandardná navigácia
+  NVDA po tabuľkách. Okrem zjednodušenia skratiek je tento spôsob výhodný aj
+  pre slabozrakých používateľov.
+* Vertikálna navigácia (ctrl+alt+šípky hore a dole) odteraz funguje v oknách
+  Creator, playlist editor, Remote VT, a Track Tool.
+* Zobrazenie metadát (ctrl+nvda+-) funguje pri úprave playlistu v okne
+  Creator a REmote VT.
+* Poradie je zobrazené tak, ako na obrazovke.
+* Zrýchlená odozva pri práci so streamami v oknách SAM enkodéra, konkrétne
+  pri pripájaní (ctrl+F9) a odpájaní (ctrl+F10).
+* Skratkou F9 je možné v okne AltaCast a SPL enkodéra pripojiť vybratý
+  stream.
+
+## verzia 20.07
+
+* NVDA správne reaguje pri pokuse zmazať položku z playlistu alebo vymazať
+  celý playlist.
+* Ak v okne vkladania súboru použijete vyhľadávanie v knižnici, NVDA
+  oznamuje nájdené položky.
+* NVDA nehlási chybu a nezamrzne, pri zmene vysielacieho profilu a uložení
+  nastavení.
+* Premenovaná položka názov streamu v nastaveniach (týka sa anglickej verzie
+  doplnku).
+* Odstránená skratka F12 na pomenovanie streamu. Názov streamu je možné
+  definovať v nastaveniach doplnku alt+nvda+0.
+* Ak ste určili, že sa po pripojení streamu má zamerať okno Studio alebo sa
+  má prehrať vybratá skladba, NVDA viac nebude presúvať fokus pri výpadkoch
+  pripojenia.
+* Pridaná skratka ctrl+F9 pre pripojenie všetkých streamov v okne SPL
   encoder.
-
-## Version 20.07
-
-* In Studio's playlist viewer, NVDA will no longer appear to do nothing or
-  play error tones when attempting to delete tracks or after clearing the
-  loaded playlist while focused on playlist viewer.
-* When searching for tracks in Studio's insert tracks dialog, NVDA will
-  announce search results if results are found.
-* NVDA will no longer appear to do nothing or play error tones when trying
-  to switch to a newly created broadcast profile and save add-on settings.
-* In encoder settings, "stream label" has been renamed to "encoder label".
-* Dedicated stream labeler command (F12) has been removed from
-  encoders. Encoder labels can be defined from encoder settings dialog
-  (Alt+NVDA+0).
-* System focus will no longer move to Studio repeatedly or selected track
-  will be played when an encoder being monitored in the background
-  (Control+F11) connects and disconnects repeatedly.
-* In SPL encoders, added Control+F9 command to connect all encoders (same as
-  F9 command).
 
 ## verzia 20.06
 
@@ -354,10 +367,10 @@ needed.
 * Prvotná podpora pre aplikáciu na nahrávanie vstupov Remote VT (voice
   track), a tiež podpora pre remote playlist editor s rovnakými príkazmi ako
   Creator.
-* Commands used to open separate alarm settings dialogs (Alt+NVDA+1,
-  Alt+NVDA+2, Alt+NVDA+4) has been combined into Alt+NVDA+1 and will now
-  open alarms settings in SPL add-on settings screen where track outro/intro
-  and microphone alarm settings can be found.
+* Príkazy na otvorenie nastavení upozornení (alt+nvda+1, alt+nvda+2,
+  alt+nvda+4) sú odteraz zlúčené do jedného okna, ktoré otvoríte skratkou
+  alt+nvda+1. Tu môžete nastaviť upozornenie na začiatok a koniec skladby a
+  zapnutý mikrofón.
 * Odstránená možnos nastaviť čas a dĺžku trvania spusteného profilu.
 * Odstránená možnosť odpočítavania pri spustení časovaného profilu.
 * Keďže čítač obrazovky Window-Eyes už firma Vispero  nevyvíja od roku 2017,
@@ -365,10 +378,8 @@ needed.
   obrazovky. Ak používate rozloženie pre Window-eyes, NVDA na túto
   skutočnosť upozorní a odporučí nastavenie iného rozloženia (JAWS alebo
   NVDA).
-* When using Columns Explorer slots (Control+NVDA+number row commands) or
-  column navigation commands (Control+Alt+home/end/left arrow/right arrow)
-  in Creator and Remote VT client, NVDA will no longer announce wrong column
-  data after changing column position on screen via mouse.
+* Ak zmeníte poradie metadát myšou a následne použijete skratky na
+  prezeranie metadát, NVDA správne zohľadní zmeny.
 * Ak ukončíte NVDA a nemáte v okne s nastavením enkodéra zameraný zoznam
   pripojení, NVDA viac nehlási chybu a dá sa ukončiť bez nutnosti zamerať
   zoznam pripojení.
@@ -398,13 +409,11 @@ needed.
   používa zložený príkaz. Automatické oznamovanie viac nie je podporované.
 * Odstránené nepotrebné nastavenie na automatické oznamovanie hrajúcej
   skladby.
-* In encoders, NVDA will play connection tone every half a second while an
-  encoder is connecting.
+* NVDA oznamuje pripájanie dvakrát za sekundu pípaním.
 * NVDA oznamuje chyby pripojenia aj v prípade, že dôjde k chybeale pokus o
   pripájanie pokračuje.
-* A new setting has been added to encoder settings to let NVDA announce
-  connection messages until the selected encoder is connected. This setting
-  is enabled by default.
+* Do nastavení pridaná možnosť oznamovať stav pripájania až po úspešné
+  pripojenie. Predvolene je zapnuté.
 
 ## verzia 20.02
 

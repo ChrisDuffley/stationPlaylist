@@ -911,7 +911,7 @@ msgstr "Lượt quét"
 msgid "SPL Broadcast Profiles"
 msgstr "Hồ sơ phát thanh SPL"
 
-#. Borrowed directly from NvDA Core (credit: NV Access)
+#. Borrowed directly from NVDA Core (credit: NV Access)
 #. This allows Enter key to be pressed to activate the selected profile.
 #. Translators: label for a button to activate the selected broadcast profile.
 msgid "Activate"
@@ -1473,19 +1473,19 @@ msgstr "Cài đặt mã hóa cho {name}"
 msgid "Encoder &label"
 msgstr "&Nhãn cho bộ mã hóa"
 
-#. Translators: A checkbox in encoder settings to set if NvDA should switch focus to Studio window when connected.
+#. Translators: A checkbox in encoder settings to set if NVDA should switch focus to Studio window when connected.
 msgid "&Focus to Studio when connected"
 msgstr "&Chuyển về Studio khi đã kết nối"
 
-#. Translators: A checkbox in encoder settings to set if NvDA should play the next track when connected.
+#. Translators: A checkbox in encoder settings to set if NVDA should play the next track when connected.
 msgid "&Play first track when connected"
 msgstr "&Phát track đầu tiên khi kết nối"
 
-#. Translators: A checkbox in encoder settings to set if NvDA should monitor the status of this encoder in the background.
+#. Translators: A checkbox in encoder settings to set if NVDA should monitor the status of this encoder in the background.
 msgid "Enable background connection &monitoring"
 msgstr "Bật kết nối và theo dõi ngầ&m"
 
-#. Translators: A checkbox in encoder settings to set if NvDA should play connection progress tone.
+#. Translators: A checkbox in encoder settings to set if NVDA should play connection progress tone.
 msgid "Play connection status &beep while connecting"
 msgstr "Phát trạng thái kết nối &beep trong khi kết nối"
 
@@ -1509,6 +1509,11 @@ msgstr "Các bộ mã hóa đã kết nối: {encodersConnected}"
 #. Translators: presented when no encoders are connected.
 msgid "No encoders connected"
 msgstr "Không có bộ mã hóa nào được kết nối"
+
+#. Translators: presented when SPL Studio window is minimized.
+#, fuzzy
+msgid "SPL Studio is minimized to system tray."
+msgstr "SPL Studio không chạy."
 
 #. Translators: Input help mode message in SAM Encoder window.
 msgid ""
