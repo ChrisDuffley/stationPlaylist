@@ -4,7 +4,7 @@
 * Descargar [Versión estable][1]
 * Descargar [versión de desarrollo][2]
 * Descargar [versión de soporte extendido][3] - Para usuarios de Studio 5.20
-* Compatibilidad con NVDA: de 2019.3 a 2020.2
+* Compatibilidad con NVDA: de 2019.3 a 2020.3
 
 Este paquete de complementos proporciona una utilización mejorada de Station
 Playlist Studio y otras aplicaciones de StationPlaylist, así como utilidades
@@ -351,6 +351,30 @@ Windows 8 o posterior y tienes NVDA 2012.3 o posterior instalado, puedes
 realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
+
+## Versión 20.10/20.09.2-LTS
+
+* A causa de algunos cambios en el formato del archivo de configuración de
+  los codificadores, instalar una versión más antigua del complemento
+  después de instalar esta puede dar como resultado un comportamiento
+  impredecible.
+* Ya no es necesario reiniciar NVDA con el modo registro de depuración para
+  leer mensajes de depuración en el visualizador del registro. Se pueden ver
+  los mensajes de depuración si el nivel de registro se ajusta en
+  "Depuración" desde el panel de opciones generales de NVDA.
+* En el visualizador de listas de reproducción de Studio, NVDA no incluirá
+  las cabeceras de columna si esta opción está desactivada en la
+  configuración del complemento y no se han definido opciones de inclusión u
+  orden personalizado de columnas.
+* 20.10: el ajuste de inclusión de cabeceras de columna desde las opciones
+  del complemento ha quedado obsoleto y se eliminará en una futura
+  versión. En el futuro, la propia opción de cabeceras de columna de NVDA
+  controlará el anuncio de cabeceras de columna en el conjunto de SPL y los
+  codificadores.
+* Cuando se minimice SPL Studio a la bandeja del sistema (área de
+  notificaciones), NVDA lo anunciará al intentar pasar a Studio desde otros
+  programas, ya sea mediante una orden dedicada o como resultado de un
+  codificador conectándose.
 
 ## Versión 20.09-LTS
 

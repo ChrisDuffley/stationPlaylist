@@ -4,7 +4,7 @@
 * Tải về [phiên bản chính thức][1]
 * Tải về [phiên bản thử nghiệm][2]
 * Tải về [phiên bản hỗ trợ lâu dài][3] - cho người dùng Studio 5.20
-* NVDA tương thích: 2019.3 đến 2020.2
+* NVDA compatibility: 2019.3 to 2020.3
 
 Gói add-on này cung cấp sự cải thiện cho việc sử dụng StationPlaylist Studio
 và các ứng dụng StationPlaylist khác, cũng như cung cấp các tiện ích để điều
@@ -301,6 +301,26 @@ Nếu dùng Studio trên một máy tính cảm ứng chạy Windows 8 trở lê
 NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio từ mành hình
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
+
+## Version 20.10/20.09.2-LTS
+
+* Due to changes to encoder settings file format, installing an older
+  version of this add-on after installing this version will cause
+  unpredictable behavior.
+* It is no longer necessary to restart NVDA with debug logging mode to read
+  debug messages from log viewer. You can view debug messages if log level
+  is set to "debug" from NVDA's general settings panel.
+* In Studio's playlist viewer, NVDA will not include column headers if this
+  setting is disabled from add-on settings and custom column order or
+  inclusion settings are not defined.
+* 20.10: column header inclusion setting from add-on settings is deprecated
+  and will be removed in a future release. In the future NVDA's own table
+  column header setting will control column header announcements across SPL
+  suite and encoders.
+* When SPL Studio is minimized to the system tray (notification area), NVDA
+  will announce this fact when trying to switch to Studio from other
+  programs either through a dedicated command or as a result of an encoder
+  connecting.
 
 ## Phiên bản 20.09-LTS
 

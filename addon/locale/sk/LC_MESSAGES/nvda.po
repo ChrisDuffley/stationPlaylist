@@ -899,7 +899,7 @@ msgstr "Oznamovať počet položiek"
 msgid "SPL Broadcast Profiles"
 msgstr "Vysielacie profily"
 
-#. Borrowed directly from NvDA Core (credit: NV Access)
+#. Borrowed directly from NVDA Core (credit: NV Access)
 #. This allows Enter key to be pressed to activate the selected profile.
 #. Translators: label for a button to activate the selected broadcast profile.
 msgid "Activate"
@@ -1459,19 +1459,19 @@ msgstr "Nastavenia pripojenia pre {name}"
 msgid "Encoder &label"
 msgstr "&Názov pripojenia"
 
-#. Translators: A checkbox in encoder settings to set if NvDA should switch focus to Studio window when connected.
+#. Translators: A checkbox in encoder settings to set if NVDA should switch focus to Studio window when connected.
 msgid "&Focus to Studio when connected"
 msgstr "&zamerať okno SPL studio po pripojení"
 
-#. Translators: A checkbox in encoder settings to set if NvDA should play the next track when connected.
+#. Translators: A checkbox in encoder settings to set if NVDA should play the next track when connected.
 msgid "&Play first track when connected"
 msgstr "&Prehrať prvú položku playlistu po pripojení"
 
-#. Translators: A checkbox in encoder settings to set if NvDA should monitor the status of this encoder in the background.
+#. Translators: A checkbox in encoder settings to set if NVDA should monitor the status of this encoder in the background.
 msgid "Enable background connection &monitoring"
 msgstr "sledovať na pozadí"
 
-#. Translators: A checkbox in encoder settings to set if NvDA should play connection progress tone.
+#. Translators: A checkbox in encoder settings to set if NVDA should play connection progress tone.
 msgid "Play connection status &beep while connecting"
 msgstr "Oznamovať stav pripojenia pípaním"
 
@@ -1495,6 +1495,11 @@ msgstr "Aktívne pripojenia: {encodersConnected}"
 #. Translators: presented when no encoders are connected.
 msgid "No encoders connected"
 msgstr "Žiadne aktívne pripojenia"
+
+#. Translators: presented when SPL Studio window is minimized.
+#, fuzzy
+msgid "SPL Studio is minimized to system tray."
+msgstr "SPL studio nie je spustený."
 
 #. Translators: Input help mode message in SAM Encoder window.
 msgid ""

@@ -965,7 +965,7 @@ msgstr "Nombre de balayage"
 msgid "SPL Broadcast Profiles"
 msgstr "Profil de diffusion"
 
-#. Borrowed directly from NvDA Core (credit: NV Access)
+#. Borrowed directly from NVDA Core (credit: NV Access)
 #. This allows Enter key to be pressed to activate the selected profile.
 #. Translators: label for a button to activate the selected broadcast profile.
 #, fuzzy
@@ -1550,19 +1550,19 @@ msgstr "Paramètres de l'encodeur pour {name}"
 msgid "Encoder &label"
 msgstr "&étiquette d'Encodeur"
 
-#. Translators: A checkbox in encoder settings to set if NvDA should switch focus to Studio window when connected.
+#. Translators: A checkbox in encoder settings to set if NVDA should switch focus to Studio window when connected.
 msgid "&Focus to Studio when connected"
 msgstr "Mettez le &focus vers Studio lorsqu'il est connecté"
 
-#. Translators: A checkbox in encoder settings to set if NvDA should play the next track when connected.
+#. Translators: A checkbox in encoder settings to set if NVDA should play the next track when connected.
 msgid "&Play first track when connected"
 msgstr "&Lire la première piste lorsqu'il est connecté"
 
-#. Translators: A checkbox in encoder settings to set if NvDA should monitor the status of this encoder in the background.
+#. Translators: A checkbox in encoder settings to set if NVDA should monitor the status of this encoder in the background.
 msgid "Enable background connection &monitoring"
 msgstr "Activer la &surveillance de la connexion en arrière-plan"
 
-#. Translators: A checkbox in encoder settings to set if NvDA should play connection progress tone.
+#. Translators: A checkbox in encoder settings to set if NVDA should play connection progress tone.
 msgid "Play connection status &beep while connecting"
 msgstr "Lire le statut de la connexion en &bip lors de la connexion"
 
@@ -1587,6 +1587,11 @@ msgstr "Encodeurs connectés : {encodersConnected}"
 #. Translators: presented when no encoders are connected.
 msgid "No encoders connected"
 msgstr "Aucun encodeur connecté"
+
+#. Translators: presented when SPL Studio window is minimized.
+#, fuzzy
+msgid "SPL Studio is minimized to system tray."
+msgstr "SPL Studio n'est pas en cours d'exécution."
 
 #. Translators: Input help mode message in SAM Encoder window.
 msgid ""
