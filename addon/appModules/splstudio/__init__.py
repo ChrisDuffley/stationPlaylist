@@ -557,12 +557,7 @@ class SPLTimePicker(IAccessible):
 		gesture.send()
 		info = api.getFocusObject().makeTextInfo(textInfos.POSITION_FIRST)
 		info.expand(textInfos.UNIT_LINE)
-		# 20.03: NVDA 2020.1 includes output reason enumeration, deprecating output reason flags.
-		# Until support for NVDA 2019.3 is dropped, use both paths.
-		if hasattr(controlTypes, "OutputReason"):
-			speech.speakTextInfo(info, unit=textInfos.UNIT_LINE, reason=controlTypes.OutputReason.CARET)
-		else:
-			speech.speakTextInfo(info, unit=textInfos.UNIT_LINE, reason=controlTypes.REASON_CARET)
+		speech.speakTextInfo(info, unit=textInfos.UNIT_LINE, reason=controlTypes.OutputReason.CARET)
 
 
 class AppModule(appModuleHandler.AppModule):
