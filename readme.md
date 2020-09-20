@@ -201,6 +201,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * NVDA 2020.1 or later is required.
 * Column presentation format for track and encoder items across StationPlaylist suite (including SAM encoder) is now based on SysListView32 list item format.
 * NVDA will now announce column information for tracks throughout SPL suite regardless of "report object description" setting in NVDA's object presentation settings panel. For best experience, leave this setting on.
+* In Studio's playlist viewer, custom column order and inclusion setting will affect how track columns are presented when using object navigation to move between tracks, including current navigator object announcement.
 
 ## Version 20.10/20.09.2-LTS
 
