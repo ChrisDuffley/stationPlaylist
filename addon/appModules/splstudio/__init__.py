@@ -211,10 +211,6 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 	It provides utility scripts when Playlist Viewer entries are focused, such as location text and enhanced column navigation."""
 
 	def _get_name(self):
-		# 20.10/20.09.2-LTS: do not include column headers in track description text if this is the case.
-		# 20.11: emulate building SysListView32.ListItem name string, to be removed in 2021.
-		if not splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"]:
-			self.name = "; ".join([column.name for column in self.children if column.name])
 		# 6.3: Catch an unusual case where screen order is off yet column order is same as screen order and NVDA is told to announce all columns.
 		# 17.04: Even if vertical column commands are performed, build description pieces for consistency.
 		# 20.11: build name pieces, as SysListView32.ListItem class nullifies description.
@@ -238,8 +234,15 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 					content = self._getColumnContentRaw(index)
 					if content:
 						trackNamePieces.append("{}: {}".format(header, content) if includeColumnHeaders else content)
-			self.name = "; ".join(trackNamePieces)
-		return self.name
+			trackName = "; ".join(trackNamePieces)
+		else:
+			# 20.10/20.09.2-LTS: do not include column headers in track description text if this is the case.
+			# 20.11: emulate building SysListView32.ListItem name string, to be removed in 2021.
+			if not splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"]:
+				trackName = "; ".join([column.name for column in self.children if column.name])
+			else:
+				trackName = super(StudioPlaylistViewerItem, self).name
+		return trackName
 
 	def event_stateChange(self):
 		# Why is it that NVDA keeps announcing "not selected" when track items are scrolled?
