@@ -575,18 +575,19 @@ class Encoder(IAccessible):
 					return
 			self.connectStart()
 
-	def reportFocus(self):
+	def _get_name(self):
 		try:
 			encoderLabel = self.encoderLabel
 		except TypeError:
 			encoderLabel = None
+		name = super(Encoder, self).name
 		# Announce encoder label if it exists.
 		if encoderLabel is not None:
 			try:
-				self.name = "(" + encoderLabel + ") " + self.name
+				name = "(" + encoderLabel + ") " + name
 			except TypeError:
 				pass
-		super(Encoder, self).reportFocus()
+		return name
 
 
 class SAMEncoder(Encoder, sysListView32.ListItem):
