@@ -514,7 +514,7 @@ class Encoder(IAccessible):
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
 		description=_("Shows encoder settings dialog to configure various encoder settings such as encoder label."),
-		gesture="kb:alt+NVDA+0",
+		gestures=["kb:alt+NVDA+0", "kb:f12"],
 		category=_("StationPlaylist")
 	)
 	def script_openEncoderConfigDialog(self, gesture):
