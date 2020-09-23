@@ -79,7 +79,7 @@ The following commands are available when using encoders:
 * Shift+F11: Toggles whether Studio will play the first selected track when encoder is connected to a streaming server.
 * Control+F11: Toggles background monitoring of the selected encoder.
 * Control+F12: opens a dialog to select the encoder you have deleted (to realign encoder labels and settings).
-* Alt+NVDA+0: Opens encoder settings dialog to configure options such as encoder label.
+* Alt+NVDA+0 and F12: Opens encoder settings dialog to configure options such as encoder label.
 
 In addition, column review commands are available, including:
 
@@ -202,6 +202,8 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * Column presentation format for track and encoder items across StationPlaylist suite (including SAM encoder) is now based on SysListView32 list item format.
 * NVDA will now announce column information for tracks throughout SPL suite regardless of "report object description" setting in NVDA's object presentation settings panel. For best experience, leave this setting on.
 * In Studio's playlist viewer, custom column order and inclusion setting will affect how track columns are presented when using object navigation to move between tracks, including current navigator object announcement.
+* In encoders, encoder labels will be announced when performing object navigation commands in addition to pressing up or down arrow keys to move between encoders.
+* In encoders, in addition to Alt+NVDA+number row 0, pressing F12 will also open encoder settings dialog for the selected encoder.
 
 ## Version 20.10/20.09.2-LTS
 
