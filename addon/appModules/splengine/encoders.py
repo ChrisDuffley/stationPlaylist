@@ -302,6 +302,20 @@ class Encoder(IAccessible):
 	Most importantly, each encoder class must provide a unique identifying string to identify the type of the encoder (e.g. SAM for SAM encoder).
 	"""
 
+	def _get_name(self):
+		try:
+			encoderLabel = self.encoderLabel
+		except TypeError:
+			encoderLabel = None
+		name = super(Encoder, self).name
+		# Announce encoder label if it exists.
+		if encoderLabel is not None:
+			try:
+				name = "(" + encoderLabel + ") " + name
+			except TypeError:
+				pass
+		return name
+
 	# Some helper functions
 	# 17.08: most are properties.
 
@@ -574,20 +588,6 @@ class Encoder(IAccessible):
 				else:
 					return
 			self.connectStart()
-
-	def _get_name(self):
-		try:
-			encoderLabel = self.encoderLabel
-		except TypeError:
-			encoderLabel = None
-		name = super(Encoder, self).name
-		# Announce encoder label if it exists.
-		if encoderLabel is not None:
-			try:
-				name = "(" + encoderLabel + ") " + name
-			except TypeError:
-				pass
-		return name
 
 
 class SAMEncoder(Encoder, sysListView32.ListItem):
