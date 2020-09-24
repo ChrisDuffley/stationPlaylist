@@ -303,10 +303,7 @@ class Encoder(IAccessible):
 	"""
 
 	def _get_name(self):
-		try:
-			encoderLabel = self.encoderLabel
-		except TypeError:
-			encoderLabel = None
+		encoderLabel = self.encoderLabel
 		name = super(Encoder, self).name
 		# Announce encoder label if it exists.
 		if encoderLabel is not None:
