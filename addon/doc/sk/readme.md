@@ -283,25 +283,20 @@ NVDA  od verzie 2012.3, môžete na ovládanie doplnku použiť dotykové
 príkazy. Najprv je potrebné dotknúť sa obrazovky tromi prstami. Následne
 vykonajte gestá spomenúté vyššie v tomto návode.
 
-## Version 20.10/20.09.2-LTS
+## Verzia 20.10/20.09.2-LTS
 
-* Due to changes to encoder settings file format, installing an older
-  version of this add-on after installing this version will cause
-  unpredictable behavior.
-* It is no longer necessary to restart NVDA with debug logging mode to read
-  debug messages from log viewer. You can view debug messages if log level
-  is set to "debug" from NVDA's general settings panel.
-* In Studio's playlist viewer, NVDA will not include column headers if this
-  setting is disabled from add-on settings and custom column order or
-  inclusion settings are not defined.
-* 20.10: column header inclusion setting from add-on settings is deprecated
-  and will be removed in a future release. In the future NVDA's own table
-  column header setting will control column header announcements across SPL
-  suite and encoders.
-* When SPL Studio is minimized to the system tray (notification area), NVDA
-  will announce this fact when trying to switch to Studio from other
-  programs either through a dedicated command or as a result of an encoder
-  connecting.
+* Z dôvodu zmien v súboroch s nastaveniami streamov nie je možné z tejto
+  verzie prejsť na staršiu verziu doplnku. Pri pokuse prejsť na staršiu
+  verziu sa môžete stretnúť s nečakanými problémami.
+* Odteraz nie je potrebné reštartovať NVDA, ak chcete do logu zapisovať
+  informácie od úrovne debug. Stačí len nastaviť úroveň záznamu.
+* Odteraz NVDA v playliste v okne Studio neoznamuje hlavičky stĺpcov, ak je
+  oznamovanie vypnuté, ale súčasne nie je definované poradie stĺpcov.
+* 20.10: Odstránené oznamovanie hlavičiek v playlistoch. Doplnok sa bude
+  riadiť nastaveniami NVDA.
+* Ak je SPL studio minimalizované na systémový panel, NVDA túto skutočnosť
+  oznámi pri pokuse aktivovať okno Studio po pripojení streamu alebo pri
+  použití klávesovej skratky.
 
 ## verzia 20.09-LTS
 

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-08-14 09:24-0700\n"
+"PO-Revision-Date: 2020-09-18 19:23+0200\n"
 "Last-Translator: Iván Novegil Cancelas <ivan.novegil.cancelas@gmail.com>\n"
 "Language-Team: Add-ons translation team <oprisniki@gmail.com>\n"
 "Language: gl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 2.4.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
@@ -1542,9 +1542,8 @@ msgid "No encoders connected"
 msgstr "Non hai codificadores conectados"
 
 #. Translators: presented when SPL Studio window is minimized.
-#, fuzzy
 msgid "SPL Studio is minimized to system tray."
-msgstr "Non se está a executar o SPL Studio."
+msgstr "SPL Studio está minimizado na bandexa do sistema."
 
 #. Translators: Input help mode message in SAM Encoder window.
 msgid ""
