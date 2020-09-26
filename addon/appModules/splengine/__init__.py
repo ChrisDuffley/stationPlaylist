@@ -77,9 +77,6 @@ class AppModule(appModuleHandler.AppModule):
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		# Detect encoders.
-		# #107 (19.08): for now SPL Utils global plugin will be checked, but in the future, look into supporting encoders via an app module package.
-		# 19.11: if SPL Engine or Streamer is focused when NVDA starts, it results in error because global plugin portion isn't loaded yet.
-		# #98: now part of SPL Engine app module package, so no need to worry about global plugin workaround.
 		from . import encoders
 		if obj.windowClassName == "TListView":
 			# #87: add support for table navigation commands by coercing encoder list and entries into SysListView32 family.
