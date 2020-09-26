@@ -7,7 +7,8 @@
 # Initial release: Jamie's focus hack plus auto-announcement of status items.
 # Additional work done by Joseph Lee and other contributors.
 # Renamed to StationPlaylist in 2019 in order to describe the scope of this add-on.
-# For SPL Studio Controller, focus movement, SAM Encoder support and other utilities, see the global plugin version of this app module.
+# For SPL Studio Controller, focus movement, SAM Encoder support and other utilities,
+# see the global plugin version of this app module.
 
 # Minimum version: SPL 5.20, NVDA 2020.1.
 
@@ -107,7 +108,8 @@ _SPLCategoryTones = {
 
 
 # Routines for track items themselves (prepare for future work).
-# #65 (18.07): this base class represents trakc items across StationPlaylist suites such as Studio, Creator and Track Tool.
+# #65 (18.07): this base class represents trakc items
+# across StationPlaylist suites such as Studio, Creator and Track Tool.
 class SPLTrackItem(sysListView32.ListItem):
 	"""An abstract class representing track items across SPL suite of applications such as Studio, Creator and Track Tool.
 	This class provides basic properties, scripts and methods such as Columns Explorer and others.
@@ -192,8 +194,10 @@ class SPLTrackItem(sysListView32.ListItem):
 		gesture="kb:control+NVDA+-")
 	def script_trackColumnsViewer(self, gesture):
 		# #61 (18.06): a direct copy of column data gatherer from playlist transcripts.
-		# 18.07: just call the gatherer function with "blank" as the readable string and add column header afterwards.
-		# 20.09: fetch column headers and texts from child columns, meaning columns viewer will reflect visual display order.
+		# 18.07: just call the gatherer function with "blank" as the readable string
+		# and add column header afterwards.
+		# 20.09: fetch column headers and texts from child columns,
+		# meaning columns viewer will reflect visual display order.
 		columnContents = []
 		for column in self.children:
 			columnContents.append("{}: {}".format(column.columnHeaderText, column.name if column.name is not None else _("blank")))
@@ -211,7 +215,8 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 	It provides utility scripts when Playlist Viewer entries are focused, such as location text and enhanced column navigation."""
 
 	def _get_name(self):
-		# 6.3: Catch an unusual case where screen order is off yet column order is same as screen order and NVDA is told to announce all columns.
+		# 6.3: Catch an unusual case where screen order is off yet column order is same as screen order
+		# and NVDA is told to announce all columns.
 		# 17.04: Even if vertical column commands are performed, build description pieces for consistency.
 		# 20.11: build name pieces, as SysListView32.ListItem class nullifies description.
 		# 19.06: have the column inclusion and order keys handy in order to avoid attribute lookup.
@@ -314,7 +319,8 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 			columns = list(range(18))
 		columnContents = [self._getColumnContentRaw(col) for col in columns]
 		if readable:
-			# #148 (20.10): Use enumerate function to obtain both column content and position in one go rather than using a range based on list length.
+			# #148 (20.10): Use enumerate function to obtain both column content and position in one go
+			# rather than using a range based on list length.
 			for pos, content in enumerate(columnContents):
 				if content is None:
 					columnContents[pos] = ""
@@ -382,7 +388,8 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 				# Translators: Presented when there is no track comment for the focused track.
 				ui.message(_("No comment"))
 			elif level >= 3:
-				# 16.12: timed break notes shows an odd value for filename (seconds in integers followed by a colon), potentially confusing users.)
+				# 16.12: timed break notes shows an odd value for filename (seconds in integers followed by a colon),
+				# potentially confusing users.)
 				if filename and not filename.endswith(":"):
 					self._trackCommentsEntry(filename, "")
 				else:
@@ -529,7 +536,8 @@ class ReversedDialog(Dialog):
 				or (childRole == controlTypes.ROLE_EDITABLETEXT and controlTypes.STATE_READONLY in childStates and controlTypes.STATE_MULTILINE not in childStates)
 			):
 				continue
-			# We should ignore a text object directly after a grouping object, as it's probably the grouping's description
+			# We should ignore a text object directly after a grouping object,
+			# as it's probably the grouping's description
 			if index > 0 and children[index - 1].role == controlTypes.ROLE_GROUPING:
 				continue
 			# Like the last one, but a graphic might be before the grouping's description
@@ -577,7 +585,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Prepare the settings dialog among other things.
 	def __init__(self, *args, **kwargs):
-		# #110 (19.08): assertion thrown when attempting to locate Studio window handle because the locator thread is queued from main thread when app is gone.
+		# #110 (19.08): assertion thrown when attempting to locate Studio window handle
+		# because the locator thread is queued from main thread when app is gone.
 		# This is seen when restarting NVDA while studio add-on settings screen was active.
 		if wx.GetApp() is None:
 			return
@@ -585,8 +594,10 @@ class AppModule(appModuleHandler.AppModule):
 		if self.SPLCurVersion < SPLMinVersion:
 			raise RuntimeError("Unsupported version of Studio is running, exiting app module")
 		debugOutput(f"Using SPL Studio version {self.SPLCurVersion}")
-		# #84: if foreground object is defined, this is a true Studio start, otherwise this is an NVDA restart with Studio running.
-		# The latter is possible because app module constructor can run before NVDA finishes initializing, particularly if system focus is located somewhere other than Taskbar.
+		# #84: if foreground object is defined, this is a true Studio start,
+		# otherwise this is an NVDA restart with Studio running.
+		# The latter is possible because app module constructor can run before NVDA finishes initializing,
+		# particularly if system focus is located somewhere other than Taskbar.
 		# Note that this is an internal implementation detail and is subject to change without notice.
 		debugOutput("Studio is starting" if api.getForegroundObject() is not None else "Studio is already running")
 		# 17.09: do this if minimal startup flag is not present.
@@ -600,7 +611,8 @@ class AppModule(appModuleHandler.AppModule):
 		# #94 (19.03/18.09.7-LTS): also listen to profile reset action.
 		splactions.SPLActionProfileSwitched.register(self.actionProfileSwitched)
 		splactions.SPLActionSettingsReset.register(self.actionSettingsReset)
-		# 20.09: to avoid a resource leak, metadata actions must be registered here, not when splmisc module is being imported.
+		# 20.09: to avoid a resource leak, metadata actions must be registered here,
+		# not when splmisc module is being imported.
 		splactions.SPLActionProfileSwitched.register(splmisc.metadata_actionProfileSwitched)
 		splactions.SPLActionSettingsReset.register(splmisc.metadata_actionSettingsReset)
 		debugOutput("loading add-on settings")
@@ -619,13 +631,15 @@ class AppModule(appModuleHandler.AppModule):
 		except AttributeError:
 			debugOutput("failed to initialize GUI subsystem")
 			self.prefsMenu = None
-		# #82 (18.11/18.09.5-lts): notify others when Studio window gets focused the first time in order to synchronize announcement order.
+		# #82 (18.11/18.09.5-lts): notify others when Studio window gets focused the first time
+		# in order to synchronize announcement order.
 		self._initStudioWindowFocused = threading.Event()
 		# Let me know the Studio window handle.
 		# 6.1: Do not allow this thread to run forever (seen when evaluation times out and the app module starts).
 		self.noMoreHandle = threading.Event()
 		debugOutput("locating Studio window handle")
-		# If this is started right away, foreground and focus objects will be NULL according to NVDA if NVDA restarts while Studio is running.
+		# If this is started right away, foreground and focus objects will be NULL according to NVDA
+		# if NVDA restarts while Studio is running.
 		t = threading.Thread(target=self._locateSPLHwnd)
 		wx.CallAfter(t.start)
 		# Display startup dialogs if any.
@@ -660,7 +674,8 @@ class AppModule(appModuleHandler.AppModule):
 		except Exception:
 			pass
 		# Remind me to broadcast metadata information.
-		# 18.04: also when delayed action is needed because metadata action handler couldn't locate Studio handle itself.
+		# 18.04: also when delayed action is needed
+		# because metadata action handler couldn't locate Studio handle itself.
 		if splconfig.SPLConfig["General"]["MetadataReminder"] == "startup" or splmisc._delayMetadataAction:
 			splmisc._delayMetadataAction = False
 			# If told to remind and connect, metadata streaming will be enabled at this time.
@@ -669,11 +684,15 @@ class AppModule(appModuleHandler.AppModule):
 			# 17.11: call the connector.
 			splmisc.metadataConnector()
 			# #40 (18.02): call the internal announcer in order to not hold up action handler queue.
-			# #51 (18.03/15.14-LTS): if this is called within two seconds (status time-out), status will be announced multiple times.
-			# 18.04: hopefully the error message won't be shown as this is supposed to run right after locating Studio handle.
+			# #51 (18.03/15.14-LTS): if this is called within two seconds (status time-out),
+			# status will be announced multiple times.
+			# 18.04: hopefully the error message won't be shown as this is
+			# supposed to run right after locating Studio handle.
 			# #82 (18.11/18.09.5-lts): wait until Studio window shows up (foreground or background) for the first time.
-			# #83: if NVDA restarts while Studio is running and foreground window is something other than playlist viewer, the below method won't work at all.
-			# Thankfully, NVDA's notion of foreground window depends on a global variable, and if it is not set, this is a restart with Studio running, so just announce it.
+			# #83: if NVDA restarts while Studio is running and foreground window is
+			# something other than playlist viewer, the below method won't work at all.
+			# Thankfully, NVDA's notion of foreground window depends on a global variable,
+			# and if it is not set, this is a restart with Studio running, so just announce it.
 			if api.getForegroundObject() is not None:
 				self._initStudioWindowFocused.wait()
 			splmisc._earlyMetadataAnnouncerInternal(splmisc.metadataStatus(), startup=True)
@@ -689,14 +708,16 @@ class AppModule(appModuleHandler.AppModule):
 				self._SPLStudioMonitor = None
 				return
 		# #41 (18.04): background library scan detection.
-		# Thankfully, current lib scan reporter function will not proceed when library scan is happening via Insert Tracks dialog.
+		# Thankfully, current lib scan reporter function will not proceed
+		# when library scan is happening via Insert Tracks dialog.
 		# #92 (19.01.1/18.09.7-LTS): if Studio dies, zero will be returned, so check for window handle once more.
 		if splbase.studioAPI(1, 32) >= 0:
 			if not user32.FindWindowW("SPLStudio", None):
 				return
 			if not self.libraryScanning:
 				self.script_libraryScanMonitor(None)
-		# #86 (18.12/18.09.6-LTS): certain internal markers require presence of a playlist, otherwise unexpected things may happen.
+		# #86 (18.12/18.09.6-LTS): certain internal markers require presence of a playlist,
+		# otherwise unexpected things may happen.
 		trackCount = splbase.studioAPI(0, 124)
 		if not trackCount:
 			if self._focusedTrack is not None:
@@ -726,7 +747,9 @@ class AppModule(appModuleHandler.AppModule):
 		# Radio button group names are not recognized as grouping, so work around this.
 		elif obj.windowClassName == "TRadioGroup":
 			obj.role = controlTypes.ROLE_GROUPING
-		# In certain edit fields and combo boxes, the field name is written to the screen, and there's no way to fetch the object for this text. Thus use review position text.
+		# In certain edit fields and combo boxes, the field name is written to the screen,
+		# and there's no way to fetch the object for this text.
+		# Thus use review position text.
 		elif obj.windowClassName in ("TEdit", "TComboBox") and not obj.name:
 			import review
 			fieldName, fieldObj = review.getScreenPosition(obj)
@@ -751,7 +774,8 @@ class AppModule(appModuleHandler.AppModule):
 					clsList.insert(0, StudioPlaylistViewerItem)
 				else:
 					clsList.insert(0, SPLStudioTrackItem)
-			# #69 (18.08): allow actual list views to be treated as SysListView32.List so column count and other data can be retrieved easily.
+			# #69 (18.08): allow actual list views to be treated as SysListView32.List
+			# so column count and other data can be retrieved easily.
 			elif role == controlTypes.ROLE_LIST:
 				clsList.insert(0, sysListView32.List)
 		# 7.2: Recognize known dialogs.
@@ -818,8 +842,10 @@ class AppModule(appModuleHandler.AppModule):
 						if self.productVersion not in noLibScanMonitor:
 							self.libraryScanning = True
 				elif "match" in obj.name:
-					# 20.07: announce search/match results from insert tracks dialog while there is no library rescan in progress.
-					# Only announce match count as the whole thing is very verbose, and results text would have been checked by status bar checker anyway.
+					# 20.07: announce search/match results from insert tracks dialog
+					# while there is no library rescan in progress.
+					# Only announce match count as the whole thing is very verbose,
+					# and results text would have been checked by status bar checker anyway.
 					if not self.libraryScanning:
 						self.matchedResultsCache = obj.name
 						ui.message(" ".join(obj.name.split()[:2]))
@@ -965,7 +991,8 @@ class AppModule(appModuleHandler.AppModule):
 		if splconfig.SPLConfig["General"]["AlarmAnnounce"] in ("message", "both"):
 			alarmTime = int(timeText.split(":")[1])
 			if intro:
-				# Translators: Presented when end of introduction is approaching (example output: 5 sec left in track introduction).
+				# Translators: Presented when end of introduction is approaching
+				# (example output: 5 sec left in track introduction).
 				ui.message(_("Warning: {seconds} sec left in track introduction").format(seconds=str(alarmTime)))
 			else:
 				# Translators: Presented when end of track is approaching.
@@ -1087,7 +1114,7 @@ class AppModule(appModuleHandler.AppModule):
 			return "00:00"
 		else:
 			if ms:
-				# 19.11.1/18.09.13-LTS: be sure to convert time into integer indirectly via floor division for maximum compatibility between Python 2 and 3.
+				# 19.11.1/18.09.13-LTS: be sure to convert time into integer indirectly via floor division.
 				t = (t // 1000) if not offset else (t // 1000) + offset
 			mm, ss = divmod(t, 60)
 			if mm > 59 and (includeHours or (includeHours is None and splconfig.SPLConfig["General"]["TimeHourAnnounce"])):
@@ -1177,7 +1204,8 @@ class AppModule(appModuleHandler.AppModule):
 		description=_("Opens SPL Studio add-on configuration dialog."),
 		gesture="kb:alt+NVDA+0")
 	def script_openConfigDialog(self, gesture):
-		# 20.05: rather than calling the config dialog open event, call the open dialog function directly to avoid indirection.
+		# 20.05: rather than calling the config dialog open event,
+		# call the open dialog function directly to avoid indirection.
 		wx.CallAfter(splconfui.openAddonSettingsPanel, None)
 
 	@scriptHandler.script(
@@ -1230,23 +1258,28 @@ class AppModule(appModuleHandler.AppModule):
 		speech.cancelSpeech()
 		# #32 (17.06/15.8 LTS): Update search text even if the track with the search term in columns does not exist.
 		# #27 (17.08): especially if the search history is empty.
-		# Thankfully, track finder dialog will populate the first item, but it is better to check a second time for debugging purposes.
+		# Thankfully, track finder dialog will populate the first item,
+		# but it is better to check a second time for debugging purposes.
 		if self.findText is None:
 			self.findText = []
 		if text not in self.findText:
 			self.findText.insert(0, text)
-		# #33 (17.06/15.8-LTS): In case the track is NULL (seen when attempting to perform forward search from the last track and what not), this function should fail instead of raising attribute error.
+		# #33 (17.06/15.8-LTS): In case the track is NULL
+		# (seen when attempting to perform forward search from the last track and what not),
+		# this function should fail instead of raising attribute error.
 		if obj is not None and column is None:
 			column = [obj.indexOf("Artist"), obj.indexOf("Title")]
 		track = self._trackLocator(text, obj=obj, directionForward=directionForward, columns=column)
 		if track:
 			# We need to fire set focus event twice and exit this routine (return if 5.0x).
-			# 16.10.1/15.2 LTS: Just select this track in order to prevent a dispute between NVDA and SPL in regards to focused track.
+			# 16.10.1/15.2 LTS: Just select this track in order to
+			# prevent a dispute between NVDA and SPL in regards to focused track.
 			# 16.11: Call setFocus if it is post-5.01, as SPL API can be used to select the desired track.
 			# 20.09: doAction method will do this instead.
 			track.doAction()
 		else:
-			# Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
+			# Translators: Standard dialog message when an item one wishes to search is not found
+			# (copy this from main nvda.po).
 			wx.CallAfter(gui.messageBox, _("Search string not found."), translate("Find Error"), wx.OK | wx.ICON_ERROR)
 
 	# Split from track finder in 2015.
@@ -1255,7 +1288,8 @@ class AppModule(appModuleHandler.AppModule):
 	def _trackLocator(self, text, obj=api.getFocusObject(), directionForward=True, columns=None):
 		nextTrack = "next" if directionForward else "previous"
 		while obj is not None:
-			# Do not use column content attribute, because sometimes NVDA will say it isn't a track item when in fact it is.
+			# Do not use column content attribute, because sometimes NVDA will say
+			# it isn't a track item when in fact it is.
 			# If this happens, use the module level version of column content getter.
 			# Optimization: search column texts.
 			for column in columns:
@@ -1283,7 +1317,8 @@ class AppModule(appModuleHandler.AppModule):
 				# Translators: Presented when a user attempts to find tracks but is not at the track list.
 				ui.message(_("Time range finder is available only in track list."))
 			return False
-		# 17.06/15.8-LTS: use Studio API to find out if a playlist is even loaded, otherwise Track Finder will fail to notice a playlist.
+		# 17.06/15.8-LTS: use Studio API to find out if a playlist is even loaded,
+		# otherwise Track Finder will fail to notice a playlist.
 		# #81 (18.12): all taken care of by playlist checker method.
 		elif playlistErrors == self.SPLPlaylistNotLoaded:
 			# Translators: Presented when a user wishes to find a track but didn't add any tracks.
@@ -1444,7 +1479,9 @@ class AppModule(appModuleHandler.AppModule):
 				ui.message(_("Cart unassigned"))
 
 	# Library scan announcement
-	# Announces progress of a library scan (launched from insert tracks dialog by pressing Control+Shift+R or from rescan option from Options dialog).
+	# Announces progress of a library scan
+	# (launched from insert tracks dialog by pressing Control+Shift+R
+	# or from rescan option from Options dialog).
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.
@@ -1497,7 +1534,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	def libraryScanReporter(self):
 		scanIter = 0
-		# 17.04: Use the constant directly, as 5.10 and later provides a convenient method to detect completion of library scans.
+		# 17.04: Use the constant directly,
+		# as 5.10 and later provides a convenient method to detect completion of library scans.
 		scanCount = splbase.studioAPI(1, 32)
 		while scanCount >= 0:
 			if not self.libraryScanning or not user32.FindWindowW("SPLStudio", None):
@@ -1562,7 +1600,8 @@ class AppModule(appModuleHandler.AppModule):
 			pass
 
 	# Metadata streaming manager
-	# Obtains information on metadata streaming for each URL, notifying the broadcaster if told to do so upon startup.
+	# Obtains information on metadata streaming for each URL,
+	# notifying the broadcaster if told to do so upon startup.
 	# Also allows broadcasters to toggle metadata streaming.
 
 	# The script version to open the manage metadata URL's dialog.
@@ -1581,7 +1620,8 @@ class AppModule(appModuleHandler.AppModule):
 			return
 		try:
 			# #44 (18.02): do not rely on Studio API function object as its workings (including arguments) may change.
-			# Use a flag to tell the streaming dialog that this is invoked from somewhere other than add-on settings dialog.
+			# Use a flag to tell the streaming dialog that this is
+			# invoked from somewhere other than add-on settings dialog.
 			d = splconfui.MetadataStreamingDialog(gui.mainFrame)
 			gui.mainFrame.prePopup()
 			d.Raise()
@@ -1593,8 +1633,10 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Playlist Analyzer
 	# These include track time analysis, playlist snapshots, and some form of playlist transcripts and others.
-	# Although not directly related to this, track finder and its friends, as well as remaining playlist duration command also fall under playlist analyzer.
-	# A playlist must be loaded and visible in order for these to work, or for some, most recent focused track must be known.
+	# Although not directly related to this, track finder and its friends,
+	# as well as remaining playlist duration command also fall under playlist analyzer.
+	# A playlist must be loaded and visible in order for these to work,
+	# or for some, most recent focused track must be known.
 
 	# Possible playlist errors.
 	SPLPlaylistNoErrors = 0
@@ -1603,22 +1645,27 @@ class AppModule(appModuleHandler.AppModule):
 	SPLPlaylistLastFocusUnknown = 3
 
 	def canPerformPlaylistCommands(self, playlistViewerRequired=True, mustSelectTrack=False, announceErrors=True):
-		# #81: most commands do require that playlist viewer must be the foreground window (focused), hence the keyword argument.
-		# Also let NVDA announce generic error messages listed below if told to do so, and for some cases, not at all because the caller will announce them.
+		# #81: most commands do require that playlist viewer must be
+		# the foreground window (focused), hence the keyword argument.
+		# Also let NVDA announce generic error messages listed below if told to do so,
+		# and for some cases, not at all because the caller will announce them.
 		playlistViewerFocused = api.getForegroundObject().windowClassName == "TStudioForm"
 		if playlistViewerRequired and not playlistViewerFocused:
 			if announceErrors:
-				# Translators: an error message presented when performing some playlist commands while focused on places other than Playlist Viewer.
+				# Translators: an error message presented when performing some playlist commands
+				# while focused on places other than Playlist Viewer.
 				ui.message(_("Please return to playlist viewer before invoking this command."))
 			return self.SPLPlaylistNotFocused
 		if not splbase.studioAPI(0, 124):
 			if announceErrors:
-				# Translators: an error message presented when performing some playlist commands while no playlist has been loaded.
+				# Translators: an error message presented when performing some playlist commands
+				# while no playlist has been loaded.
 				ui.message(_("No playlist has been loaded."))
 			return self.SPLPlaylistNotLoaded
 		if mustSelectTrack and self._focusedTrack is None:
 			if announceErrors:
-				# Translators: an error message presented when performing some playlist commands while no tracks are selected/focused.
+				# Translators: an error message presented when performing some playlist commands
+				# while no tracks are selected/focused.
 				ui.message(_("Please select a track from playlist viewer before invoking this command."))
 			return self.SPLPlaylistLastFocusUnknown
 		return self.SPLPlaylistNoErrors
@@ -1637,7 +1684,8 @@ class AppModule(appModuleHandler.AppModule):
 		# #81 (18.12): just return result of consulting playlist dispatch along with error messages if any.
 		playlistErrors = self.canPerformPlaylistCommands(mustSelectTrack=mustSelectTrack, announceErrors=False)
 		if playlistErrors == self.SPLPlaylistNotFocused:
-			# Translators: Presented when playlist analyzer cannot be performed because user is not focused on playlist viewer.
+			# Translators: Presented when playlist analyzer cannot be performed
+			# because user is not focused on playlist viewer.
 			ui.message(_("Not in playlist viewer, cannot perform playlist analysis."))
 			return False
 		elif playlistErrors == self.SPLPlaylistNotLoaded:
@@ -1672,7 +1720,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Playlist snapshots
 	# Data to be gathered comes from a set of flags.
-	# By default, playlist duration (including shortest and average), category summary and other statistics will be gathered.
+	# By default, playlist duration (including shortest and average),
+	# category summary and other statistics will be gathered.
 	def playlistSnapshots(self, obj, end, snapshotFlags=None):
 		# #55 (18.05): is this a complete snapshot?
 		completePlaylistSnapshot = obj.IAccessibleChildID == 1 and end is None
@@ -1705,7 +1754,8 @@ class AppModule(appModuleHandler.AppModule):
 			if segue and (min is None or segue < min):
 				min = segue
 				minTitle = trackTitle
-			# 19.11.1/18.09.13-LTS: also do the same for max as Python 3 does not allow comparison between objects and None.
+			# 19.11.1/18.09.13-LTS: also do the same for max
+			# as Python 3 does not allow comparison between objects and None.
 			if segue and (max is None or segue > max):
 				max = segue
 				maxTitle = trackTitle
@@ -1746,21 +1796,28 @@ class AppModule(appModuleHandler.AppModule):
 	# Pressing once will speak and/or braille it, pressing twice or more will output this info to an HTML file.
 
 	def playlistSnapshotOutput(self, snapshot, scriptCount):
-		# Translators: one of the results for playlist snapshots feature for announcing total number of items in a playlist.
+		# Translators: one of the results for playlist snapshots feature
+		# for announcing total number of items in a playlist.
 		statusInfo = [_("Items: {playlistItemCount}").format(playlistItemCount=snapshot["PlaylistItemCount"])]
-		# Translators: one of the results for playlist snapshots feature for announcing total number of tracks in a playlist.
+		# Translators: one of the results for playlist snapshots feature
+		# for announcing total number of tracks in a playlist.
 		statusInfo.append(_("Tracks: {playlistTrackCount}").format(playlistTrackCount=snapshot["PlaylistTrackCount"]))
-		# Translators: one of the results for playlist snapshots feature for announcing total duration of a playlist.
+		# Translators: one of the results for playlist snapshots feature
+		# for announcing total duration of a playlist.
 		statusInfo.append(_("Duration: {playlistTotalDuration}").format(playlistTotalDuration=snapshot["PlaylistDurationTotal"]))
 		if "PlaylistDurationMin" in snapshot:
-			# Translators: one of the results for playlist snapshots feature for announcing shortest track name and duration of a playlist.
+			# Translators: one of the results for playlist snapshots feature
+			# for announcing shortest track name and duration of a playlist.
 			statusInfo.append(_("Shortest: {playlistShortestTrack}").format(playlistShortestTrack=snapshot["PlaylistDurationMin"]))
-			# Translators: one of the results for playlist snapshots feature for announcing longest track name and duration of a playlist.
+			# Translators: one of the results for playlist snapshots feature
+			# for announcing longest track name and duration of a playlist.
 			statusInfo.append(_("Longest: {playlistLongestTrack}").format(playlistLongestTrack=snapshot["PlaylistDurationMax"]))
 		if "PlaylistDurationAverage" in snapshot:
-			# Translators: one of the results for playlist snapshots feature for announcing average duration for tracks in a playlist.
+			# Translators: one of the results for playlist snapshots feature
+			# for announcing average duration for tracks in a playlist.
 			statusInfo.append(_("Average: {playlistAverageDuration}").format(playlistAverageDuration=snapshot["PlaylistDurationAverage"]))
-		# 20.09 optimization: for top artists and genres, report statistics if there is an actual common entries counter.
+		# 20.09 optimization: for top artists and genres, report statistics
+		# if there is an actual common entries counter.
 		if "PlaylistArtistCount" in snapshot:
 			artistCount = splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCountLimit"]
 			artists = snapshot["PlaylistArtistCount"].most_common(None if not artistCount else artistCount)
@@ -1769,23 +1826,28 @@ class AppModule(appModuleHandler.AppModule):
 					# Translators: one of the results for playlist snapshots feature for announcing top artist in a playlist.
 					statusInfo.append(_("Top artist: {} ({})").format(artists[0][0], artists[0][1]))
 				except IndexError:
-					# Translators: one of the results for playlist snapshots feature when there is no top artist.
+					# Translators: one of the results for playlist snapshots feature
+					# when there is no top artist.
 					statusInfo.append(_("Top artist: none"))
 			elif scriptCount == 1:
 				if len(artists) == 0:
-					# Translators: one of the results for playlist snapshots feature when there is no top artist (formatted for browse mode).
+					# Translators: one of the results for playlist snapshots feature
+					# when there is no top artist (formatted for browse mode).
 					statusInfo.append(_("Top artists: none"))
 				else:
 					artistList = []
-					# Translators: one of the results for playlist snapshots feature, a heading for a group of items.
+					# Translators: one of the results for playlist snapshots feature,
+					# a heading for a group of items.
 					header = _("Top artists:")
 					for item in artists:
 						artist, count = item
 						if artist is None:
-							# Translators: one of the results for playlist snapshots feature when there is no artist information.
+							# Translators: one of the results for playlist snapshots feature
+							# when there is no artist information.
 							info = _("No artist information ({artistCount})").format(artistCount=count)
 						else:
-							# Translators: one of the results for playlist snapshots feature for artist count information.
+							# Translators: one of the results for playlist snapshots feature
+							# for artist count information.
 							info = _("{artistName} ({artistCount})").format(artistName=artist, artistCount=count)
 						artistList.append("<li>{}</li>".format(info))
 					statusInfo.append("".join([header, "<ol>", "\n".join(artistList), "</ol>"]))
@@ -1793,11 +1855,13 @@ class AppModule(appModuleHandler.AppModule):
 			categoryCount = splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCountLimit"]
 			categories = snapshot["PlaylistCategoryCount"].most_common(None if not categoryCount else categoryCount)
 			if scriptCount == 0:
-				# Translators: one of the results for playlist snapshots feature for announcing top track category in a playlist.
+				# Translators: one of the results for playlist snapshots feature
+				# for announcing top track category in a playlist.
 				statusInfo.append(_("Top category: {} ({})").format(categories[0][0], categories[0][1]))
 			elif scriptCount == 1:
 				categoryList = []
-				# Translators: one of the results for playlist snapshots feature, a heading for a group of items.
+				# Translators: one of the results for playlist snapshots feature,
+				# a heading for a group of items.
 				header = _("Categories:")
 				for item in categories:
 					category, count = item
@@ -1811,26 +1875,32 @@ class AppModule(appModuleHandler.AppModule):
 			genres = snapshot["PlaylistGenreCount"].most_common(None if not genreCount else genreCount)
 			if scriptCount == 0:
 				try:
-					# Translators: one of the results for playlist snapshots feature for announcing top genre in a playlist.
+					# Translators: one of the results for playlist snapshots feature
+					# for announcing top genre in a playlist.
 					statusInfo.append(_("Top genre: {} ({})").format(genres[0][0], genres[0][1]))
 				except IndexError:
-					# Translators: one of the results for playlist snapshots feature when there is no top genre.
+					# Translators: one of the results for playlist snapshots feature
+					# when there is no top genre.
 					statusInfo.append(_("Top genre: none"))
 			elif scriptCount == 1:
 				if len(genres) == 0:
-					# Translators: one of the results for playlist snapshots feature when there is no top genre (formatted for browse mode).
+					# Translators: one of the results for playlist snapshots feature
+					# when there is no top genre (formatted for browse mode).
 					statusInfo.append(_("Top genres: none"))
 				else:
 					genreList = []
-					# Translators: one of the results for playlist snapshots feature, a heading for a group of items.
+					# Translators: one of the results for playlist snapshots feature,
+					# a heading for a group of items.
 					header = _("Top genres:")
 					for item in genres:
 						genre, count = item
 						if genre is None:
-							# Translators: one of the results for playlist snapshots feature when there is no genre information for an item.
+							# Translators: one of the results for playlist snapshots feature
+							# when there is no genre information for an item.
 							info = _("No genre information ({genreCount})").format(genreCount=count)
 						else:
-							# Translators: one of the results for playlist snapshots feature for genre count information.
+							# Translators: one of the results for playlist snapshots feature
+							# for genre count information.
 							info = _("{genreName} ({genreCount})").format(genreName=genre, genreCount=count)
 						genreList.append("<li>{}</li>".format(info))
 					statusInfo.append("".join([header, "<ol>", "\n".join(genreList), "</ol>"]))
@@ -1842,7 +1912,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Some handlers for native commands.
 
-	# In Studio 5.0x, when deleting a track, NVDA announces wrong track item due to focus bouncing (not the case in 5.10 and later).
+	# In Studio 5.0x, when deleting a track, NVDA announces wrong track item due to focus bouncing
+	# (not the case in 5.10 and later).
 	# The below hack is sensitive to changes in NVDA core.
 	deletedFocusObj = False
 
@@ -1940,8 +2011,11 @@ class AppModule(appModuleHandler.AppModule):
 	SPLTemperature = 7
 
 	# Table of child constants based on versions
-	# These are scattered throughout the screen, so one can use foreground.getChild(index) to fetch them (getChild tip from Jamie Teh (NV Access)).
-	# Because 5.x (an perhaps future releases) uses different screen layout, look up the needed constant from the table below (row = info needed, column = version).
+	# These are scattered throughout the screen, so one can use foreground.getChild(index) to fetch them
+	# (getChild tip from Jamie Teh (NV Access/Mozilla)).
+	# Because 5.x (an perhaps future releases) uses different screen layout,
+	# look up the needed constant from the table below
+	# (row = info needed, column = version).
 	# As of 19.08, the below table is based on Studio 5.20.
 	# #119 (20.03): a list indicates iterative descent to locate the actual objects.
 	statusObjs = {
@@ -1966,10 +2040,12 @@ class AppModule(appModuleHandler.AppModule):
 				# 17.08: several SPL Controller commands will use this route.
 				fg = getNVDAObjectFromEvent(user32.FindWindowW("TStudioForm", None), OBJID_CLIENT, 0)
 			statusIndex = self.statusObjs[infoIndex]
-			# 7.0: sometimes (especially when first loaded), OBJID_CLIENT fails, so resort to retrieving focused object instead.
+			# 7.0: sometimes (especially when first loaded), OBJID_CLIENT fails,
+			# so resort to retrieving focused object instead.
 			if fg is not None and fg.childCount > 1:
 				obj = fg
-				# #119 (20.03): for some status items, an object one level below info index must be fetched, evidenced by different window handles.
+				# #119 (20.03): for some status items, an object one level below info index must be fetched,
+				# evidenced by different window handles.
 				# For situations like this (a list of navigational child indecies), an iterative descent will be used.
 				if isinstance(statusIndex, list):
 					for child in statusIndex:
@@ -1990,7 +2066,8 @@ class AppModule(appModuleHandler.AppModule):
 		("Record to file Off", "Record to file On"),
 	)
 
-	# In the layer commands below, sayStatus function is used if screen objects or API must be used (API is for Studio 5.20 and later).
+	# In the layer commands below, sayStatus function is used if screen objects or API must be used
+	# (API is for Studio 5.20 and later).
 	def sayStatus(self, index, statusText=False):
 		status = self._statusBarMessages[index][splbase.studioAPI(index, 39)]
 		# #38 (17.11/15.10-LTS): return status text if asked.
@@ -2060,7 +2137,8 @@ class AppModule(appModuleHandler.AppModule):
 				obj = self.status(self.SPLNextTrackTitle)
 				# Translators: Presented when there is no information for the next track.
 				nextTrack = _("No next track scheduled") if obj.name is None else obj.name
-			# #34 (17.08): normally, player position (name of the internal player in Studio) would not be announced, but might be useful for some broadcasters with mixers.
+			# #34 (17.08): normally, player position (name of the internal player in Studio) would not be announced,
+			# but might be useful for some broadcasters with mixers.
 			if splconfig.SPLConfig["SayStatus"]["SayStudioPlayerPosition"]:
 				player = self.status(self.SPLNextPlayer).name
 				ui.message(", ".join([player, nextTrack]))
@@ -2121,7 +2199,8 @@ class AppModule(appModuleHandler.AppModule):
 		ui.message(obj.name)
 
 	def script_sayScheduledTime(self, gesture):
-		# 7.0: Scheduled is the time originally specified in Studio, scheduled to play is broadcast time based on current time.
+		# 7.0: Scheduled is the time originally specified in Studio,
+		# scheduled to play is broadcast time based on current time.
 		# Sometimes, hour markers return seconds.999 due to rounding error, hence this must be taken care of here.
 		trackStarts = divmod(splbase.studioAPI(3, 27), 1000)
 		# For this method, all three components of time display (hour, minute, second) must be present.
@@ -2133,7 +2212,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_sayScheduledToPlay(self, gesture):
 		# 7.0: This script announces length of time remaining until the selected track will play.
-		# This is the only time hour announcement should not be used in order to conform to what's displayed on screen.
+		# This is the only time hour announcement should not be used
+		# in order to conform to what's displayed on screen.
 		self.announceTime(splbase.studioAPI(4, 27), includeHours=False)
 
 	def script_sayListenerCount(self, gesture):
@@ -2195,11 +2275,13 @@ class AppModule(appModuleHandler.AppModule):
 			# Add a 1 because track position subtracts it for comparison purposes.
 			# 18.10: rework this so this feature can work on track objects directly.
 			totalLength = self.playlistDuration(start=focus.parent.getChild(analysisBegin), end=focus.parent.getChild(analysisEnd + 1))
-			# Playlist duration method returns raw seconds, so do not force milliseconds, and in case of multiple tracks, multiply this by 1000.
+			# Playlist duration method returns raw seconds, so do not force milliseconds,
+			# and in case of multiple tracks, multiply this by 1000.
 			if analysisRange == 1:
 				self.announceTime(totalLength, ms=False)
 			else:
-				# Translators: Presented when time analysis is done for a number of tracks (example output: Tracks: 3, totaling 5:00).
+				# Translators: Presented when time analysis is done for a number of tracks
+				# (example output: Tracks: 3, totaling 5:00).
 				ui.message(_("Tracks: {numberOfSelectedTracks}, totaling {totalTime}").format(numberOfSelectedTracks=analysisRange, totalTime=self._ms2time(totalLength * 1000)))
 
 	@scriptHandler.script(
@@ -2219,7 +2301,8 @@ class AppModule(appModuleHandler.AppModule):
 		# Display the decorated HTML window on the first press if told to do so.
 		if splconfig.SPLConfig["PlaylistSnapshots"]["ShowResultsWindowOnFirstPress"]:
 			scriptCount += 1
-		# Never allow this to be invoked more than twice, as it causes performance degredation and multiple HTML windows are opened.
+		# Never allow this to be invoked more than twice, as it causes
+		# performance degredation and multiple HTML windows are opened.
 		if scriptCount >= 2:
 			self.finish()
 			return
@@ -2261,7 +2344,8 @@ class AppModule(appModuleHandler.AppModule):
 	def script_switchProfiles(self, gesture):
 		# #118 (20.02): do not allow profile switching while add-on settings screen is shown.
 		if splconfui._configDialogOpened:
-			# Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
+			# Translators: Presented when trying to switch to an instant switch profile
+			# when add-on settings dialog is active.
 			ui.message(_("Add-on settings dialog is open, cannot switch profiles"))
 			return
 		splconfig.instantProfileSwitch()
