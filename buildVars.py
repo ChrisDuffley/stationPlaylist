@@ -3,7 +3,7 @@
 # Build customizations
 # Change this file instead of sconstruct or manifest files, whenever possible.
 
-# Full getext (please don't change)
+# Full getext
 def _(arg):
 	return arg
 
