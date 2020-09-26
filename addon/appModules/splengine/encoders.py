@@ -435,7 +435,7 @@ class Encoder(IAccessible):
 	# Now the flag configuration scripts.
 
 	@scriptHandler.script(
-		# Translators: Input help mode message in SAM Encoder window.
+		# Translators: Input help mode message for an encoder settings command.
 		description=_("Toggles whether NVDA will switch to Studio when connected to a streaming server."),
 		gesture="kb:f11"
 	)
@@ -449,31 +449,31 @@ class Encoder(IAccessible):
 		self.focusToStudio = not self.focusToStudio
 
 	@scriptHandler.script(
-		# Translators: Input help mode message in SAM Encoder window.
+		# Translators: Input help mode message for an encoder settings command.
 		description=_("Toggles whether Studio will play the first song when connected to a streaming server."),
 		gesture="kb:shift+f11"
 	)
 	def script_togglePlay(self, gesture):
 		if not self.playAfterConnecting:
-			# Translators: Presented when toggling the setting to play selected song when connected to a streaming server.
+			# Translators: Presented when toggling the setting to play the selected track in Studio when connected to a streaming server.
 			ui.message(_("Play first track after connecting"))
 		else:
-			# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+			# Translators: Presented when toggling the setting to play the selected track in Studio when connected to a streaming server.
 			ui.message(_("Do not play first track after connecting"))
 		self.playAfterConnecting = not self.playAfterConnecting
 
 	@scriptHandler.script(
-		# Translators: Input help mode message in SAM Encoder window.
+		# Translators: Input help mode message for an encoder settings command.
 		description=_("Toggles whether NVDA will monitor the selected encoder in the background."),
 		gesture="kb:control+f11"
 	)
 	def script_toggleBackgroundEncoderMonitor(self, gesture):
 		if scriptHandler.getLastScriptRepeatCount() == 0:
 			if not self.backgroundMonitor:
-				# Translators: Presented when toggling the setting to monitor the selected encoder.
+				# Translators: Presented when toggling the setting to monitor the selected encoder in the background.
 				ui.message(_("Monitoring encoder {encoderNumber}").format(encoderNumber=self.IAccessibleChildID))
 			else:
-				# Translators: Presented when toggling the setting to monitor the selected encoder.
+				# Translators: Presented when toggling the setting to monitor the selected encoder in the background.
 				ui.message(_("Encoder {encoderNumber} will not be monitored").format(encoderNumber=self.IAccessibleChildID))
 			self.backgroundMonitor = not self.backgroundMonitor
 			if self.backgroundMonitor:
@@ -489,7 +489,7 @@ class Encoder(IAccessible):
 			ui.message(_("Encoder monitoring canceled"))
 
 	@scriptHandler.script(
-		# Translators: Input help mode message in SAM Encoder window.
+		# Translators: Input help mode message for an encoder settings command.
 		description=_("Opens a dialog to erase encoder labels and settings from an encoder that was deleted."),
 		gesture="kb:control+f12"
 	)
