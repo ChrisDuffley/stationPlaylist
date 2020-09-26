@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-08-14 09:29-0700\n"
+"PO-Revision-Date: 2020-09-20 09:39+0100\n"
 "Last-Translator: Ondrej Rosík <ondrej.rosik@gmail.com>\n"
 "Language-Team: \n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 1.6.11\n"
 
 #. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
 msgid ""
@@ -1497,9 +1497,8 @@ msgid "No encoders connected"
 msgstr "Žiadne aktívne pripojenia"
 
 #. Translators: presented when SPL Studio window is minimized.
-#, fuzzy
 msgid "SPL Studio is minimized to system tray."
-msgstr "SPL studio nie je spustený."
+msgstr "SPL studio minimalizované na systémovom panely."
 
 #. Translators: Input help mode message in SAM Encoder window.
 msgid ""

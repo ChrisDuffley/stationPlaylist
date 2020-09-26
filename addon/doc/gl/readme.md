@@ -4,7 +4,7 @@
 * Descargar [versión estable][1]
 * Descargar [versión de desenvolvemento][2]
 * Descargar [versión de soporte estendido][3] - para usuarios do Studio 5.20
-* NVDA compatibility: 2019.3 to 2020.3
+* Compatibilidade con NVDA: da 2019.3 á 2020.3
 
 Este paquete de complementos proporciona unhha utilización mellorada do
 Station Playlist Studio e outras apps de Station Playlist, así como
@@ -342,25 +342,28 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
-## Version 20.10/20.09.2-LTS
+## Versión 20.10/20.09.2-LTS
 
-* Due to changes to encoder settings file format, installing an older
-  version of this add-on after installing this version will cause
-  unpredictable behavior.
-* It is no longer necessary to restart NVDA with debug logging mode to read
-  debug messages from log viewer. You can view debug messages if log level
-  is set to "debug" from NVDA's general settings panel.
-* In Studio's playlist viewer, NVDA will not include column headers if this
-  setting is disabled from add-on settings and custom column order or
-  inclusion settings are not defined.
-* 20.10: column header inclusion setting from add-on settings is deprecated
-  and will be removed in a future release. In the future NVDA's own table
-  column header setting will control column header announcements across SPL
-  suite and encoders.
-* When SPL Studio is minimized to the system tray (notification area), NVDA
-  will announce this fact when trying to switch to Studio from other
-  programs either through a dedicated command or as a result of an encoder
-  connecting.
+* Debido a trocos no formato do archivo de opcións dos codificadores,
+  instalar unha versión antiga deste complemento tras instalar ésta causará
+  un comportamento impredecible.
+* Xa non é necesario reiniciar NVDA en modo de rexistro de depuración para
+  ler as mensaxes de depuración dende o visualizador de rexistro. Podes ver
+  as mensaxes de depuración se o nivel de rexistro está establecido en
+  "depuración" dende o panel xeral das opcións do NVDA.
+* No visualizador de listas de reprodución de Studio, NVDA non incluirá
+  encabezados de columnas se esta opción está deshabilitada dende as opcións
+  do complemento e a orde persoalizada de columnas ou os axustes de
+  inclusión non están definidos.
+* 20.10: a opción de inclusión de encabezados de columna nos axustes do
+  complemento está obsoleta e eliminarase nunha versión futura. No futuro o
+  anunciado de encabezados de columna no paquete SPL e os codificadores
+  controlarao o axuste do propio NVDA sobre os encabezados de columna de
+  táboa.
+* Cando SPL Studio estea minimizado na bandexa do sistema (área de
+  notificacións), NVDA anunciará esta circunstancia ao tentar saltar a
+  Studio dende outros programas, xa sexa mediante un atallo dedicado ou como
+  resultado da conexión dun codificador.
 
 ## Versión 20.09-LTS
 

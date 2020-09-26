@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: stationPlaylist\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-08-14 09:25-0700\n"
+"PO-Revision-Date: 2020-09-18 14:23+0200\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: \n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 2.4.1\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 
@@ -1536,9 +1536,8 @@ msgid "No encoders connected"
 msgstr "Nema povezanih kodera"
 
 #. Translators: presented when SPL Studio window is minimized.
-#, fuzzy
 msgid "SPL Studio is minimized to system tray."
-msgstr "SPL Studio nije pokrenut."
+msgstr "SPL Studio je sklopljen u traku sustava."
 
 #. Translators: Input help mode message in SAM Encoder window.
 msgid ""
