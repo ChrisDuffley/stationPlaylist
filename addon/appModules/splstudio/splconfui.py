@@ -875,15 +875,15 @@ class ColumnsExplorerPanel(gui.SettingsPanel):
 	def makeSettings(self, settingsSizer):
 		colExplorerHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
-		# Translators: The label of a button to configure columns explorer slots (SPL Assistant, number row keys to announce specific columns).
+		# Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0) for StationPlaylist Studio.
 		columnsExplorerButton = wx.Button(self, label=_("Columns E&xplorer..."))
 		columnsExplorerButton.Bind(wx.EVT_BUTTON, self.onColumnsExplorer)
 		self.exploreColumns = splconfig.SPLConfig["General"]["ExploreColumns"]
-		# Translators: The label of a button to configure columns explorer slots for Track Tool (SPL Assistant, number row keys to announce specific columns).
+		# Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0) for Track Tool.
 		columnsExplorerTTButton = wx.Button(self, label=_("Columns Explorer for &Track Tool..."))
 		columnsExplorerTTButton.Bind(wx.EVT_BUTTON, self.onColumnsExplorerTT)
 		self.exploreColumnsTT = splconfig.SPLConfig["General"]["ExploreColumnsTT"]
-		# Translators: The label of a button to configure columns explorer slots (SPL Assistant, number row keys to announce specific columns).
+		# Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0) for StationPlaylist Creator.
 		columnsExplorerCreatorButton = wx.Button(self, label=_("Columns Explorer for &SPL Creator..."))
 		columnsExplorerCreatorButton.Bind(wx.EVT_BUTTON, self.onColumnsExplorerCreator)
 		self.exploreColumnsCreator = splconfig.SPLConfig["General"]["ExploreColumnsCreator"]
