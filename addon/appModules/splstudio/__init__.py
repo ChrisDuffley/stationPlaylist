@@ -616,8 +616,6 @@ class AppModule(appModuleHandler.AppModule):
 		debugOutput("loading add-on settings")
 		splconfig.initialize()
 		# Announce status changes while using other programs.
-		# This requires NVDA core support and will be available in 6.0 and later (cannot be ported to earlier versions).
-		# For now, handle all background events, but in the end, make this configurable.
 		import eventHandler
 		eventHandler.requestEvents(eventName="nameChange", processId=self.processID, windowClassName="TStatusBar")
 		eventHandler.requestEvents(eventName="nameChange", processId=self.processID, windowClassName="TStaticText")
@@ -1054,9 +1052,6 @@ class AppModule(appModuleHandler.AppModule):
 		if self._SPLStudioMonitor is not None:
 			self._SPLStudioMonitor.Stop()
 			self._SPLStudioMonitor = None
-		# #54 (18.04): no more PyDeadObjectError in wxPython 4, so catch ALL exceptions until NVDA stable release with wxPython 4 is out.
-		# 18.08: call appropriate Remove function based on wxPython version in use.
-		# 18.09: use wx.Menu.Remove directly.
 		try:
 			self.prefsMenu.Remove(self.SPLSettings)
 		except (RuntimeError, AttributeError):
@@ -1655,7 +1650,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Also gather various data about the playlist.
 	_analysisMarker = None
 
-	# Trakc time analysis and playlist snapshots, and to some extent, some parts of playlist transcripts  require main playlist viewer to be the foreground window.
+	# Trakc time analysis and playlist snapshots, and to some extent, some parts of playlist transcripts require main playlist viewer to be the foreground window.
 	# Track time analysis does require knowing the start and ending track, while others do not.
 	def _trackAnalysisAllowed(self, mustSelectTrack=True):
 		if not splbase.studioIsRunning():
