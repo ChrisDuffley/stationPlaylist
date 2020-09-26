@@ -153,7 +153,6 @@ class BroadcastProfilesDialog(wx.Dialog):
 		oldName = state[0]
 		index = self.profiles.Selection
 		profilePos = self.profileNames.index(oldName)
-		# #70 (18.07): in wxPython 4, name for the value keyword argument for text entry dialog constructor has changed.
 		with wx.TextEntryDialog(
 			# Message comes from NVDA Core.
 			self, translate("New name:"),
@@ -187,11 +186,8 @@ class BroadcastProfilesDialog(wx.Dialog):
 		self.profiles.SetFocus()
 
 	def onDelete(self, evt):
-		# Prevent profile deletion while a trigger is active (in the midst of a broadcast), otherwise flags such as instant switch and time-based profiles become inconsistent.
+		# Prevent profile deletion while in the midst of a broadcast i.e. instant switch profile is active, otherwise flags such as instant switch profile become inconsistent.
 		# 6.4: This was seen after deleting a profile one position before the previously active profile.
-		# 7.0: One should never delete the currently active time-based profile.
-		# 7.1: Find a way to safely proceed via two-step verification if trying to delete currently active time-based profile.
-		# 20.06: just focus on instant switch profile.
 		if splconfig.SPLConfig.prevProfile is not None:
 			gui.messageBox(
 				# Translators: Message reported when attempting to delete a profile in the midst of a broadcast.
@@ -366,6 +362,7 @@ class NewProfileDialog(wx.Dialog):
 
 # Broadcast profile triggers dialog.
 # This dialog is similar to NVDA Core's profile triggers dialog and allows one to configure when to trigger this profile.
+# As of 20.07, the only trigger flag is instant switch profile.
 class TriggersDialog(wx.Dialog):
 
 	def __init__(self, parent, profile):
@@ -472,7 +469,7 @@ class GeneralSettingsPanel(gui.SettingsPanel):
 
 		# Translators: The label for a setting in SPL add-on dialog to set vertical column.
 		verticalColLabel = _("&Vertical column navigation announcement:")
-		# Translators: One of the options for vertical column navigation denoting NVDA will announce current column positoin (e.g. second column position from the left).
+		# Translators: One of the options for vertical column navigation denoting NVDA will announce current column position (e.g. second column position from the left).
 		self.verticalColumnsList = generalSettingsHelper.addLabeledControl(verticalColLabel, wx.Choice, choices=[_("whichever column I am reviewing"), "Status"] + splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])
 		verticalColumn = splconfig.SPLConfig["General"]["VerticalColumnAnnounce"]
 		selection = self.verticalColumnsList.FindString(verticalColumn) if verticalColumn is not None else 0
