@@ -33,14 +33,16 @@ class AppModule(splcreator.AppModule):
 
 	def terminate(self):
 		super(splcreator.AppModule, self).terminate()
-		# Clear Playlist Editor status cache, otherwise it will generate errors when Remote VT restarts without restarting NVDA.
+		# Just like Creator, clear Playlist Editor status cache,
+		# otherwise it will generate errors when Remote VT restarts without restarting NVDA.
 		self._playlistEditorStatusCache.clear()
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		import controlTypes
 		from NVDAObjects.IAccessible import sysListView32
 		# 20.02: tracks list uses a different window class name other than "TListView".
-		# Resort to window style and other tricks if other lists with the class name below is found and are not tracks list.
+		# Resort to window style and other tricks if other lists with the class name below is found
+		# yet are not tracks list.
 		if obj.windowClassName == "TTntListView.UnicodeClass":
 			if obj.role == controlTypes.ROLE_LISTITEM:
 				clsList.insert(0, SPLRemotePlaylistEditorItem)
@@ -52,5 +54,6 @@ class AppModule(splcreator.AppModule):
 			clsList.insert(0, Dialog)
 
 	# Playlist editor is same as Creator except it responds a bit faster.
-	# Without keeping a copy of status cache, NVDA will announce wrong values as Creator app module's cache will be used.
+	# Without keeping a copy of status cache, NVDA will announce wrong values
+	# as Creator app module's cache will be used.
 	_playlistEditorStatusCache = {}

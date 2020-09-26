@@ -62,13 +62,15 @@ class AppModule(appModuleHandler.AppModule):
 	def terminate(self):
 		super(AppModule, self).terminate()
 		splconfig.closeConfig("splcreator")
-		# Clear Playlist Editor status cache, otherwise it will generate errors when Creator restarts without restarting NVDA.
+		# Clear Playlist Editor status cache,
+		# otherwise it will generate errors when Creator restarts without restarting NVDA.
 		self._playlistEditorStatusCache.clear()
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		import controlTypes
 		# 20.02: tracks list uses a different window class name other than "TListView".
-		# Resort to window style and other tricks if other lists with the class name below is found and are not tracks list.
+		# Resort to window style and other tricks if other lists with the class name below is found
+		# yet are not tracks list.
 		if obj.windowClassName == "TTntListView.UnicodeClass":
 			if obj.role == controlTypes.ROLE_LISTITEM:
 				clsList.insert(0, SPLCreatorItem if obj.windowStyle == 1443958857 else SPLPlaylistEditorItem)
@@ -82,12 +84,14 @@ class AppModule(appModuleHandler.AppModule):
 
 	def isPlaylistEditor(self):
 		if api.getForegroundObject().windowClassName != "TEditMain":
-			# Translators: announced in SPL Creator and Remote VT when trying to perform playlist status commands while outside of playlist editor.
+			# Translators: announced in SPL Creator and Remote VT
+			# when trying to perform playlist status commands while outside of playlist editor.
 			ui.message(_("You are not in playlist editor"))
 			return False
 		return True
 
-	# Just like Studio, status items are scattered around the screen in Playlist Editor, and takes a really long time to fetch things.
+	# Just like Studio, status items are scattered around the screen in Playlist Editor,
+	# and takes a really long time to fetch things.
 	SPLEditorDateTime = 0
 	SPLEditorDuration = 1
 	SPLEditorStatusBar = 2
