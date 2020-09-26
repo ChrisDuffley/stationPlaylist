@@ -101,11 +101,8 @@ _SPLComponents_ = ("splstudio", "splcreator", "tracktool")
 # When mutating a value, chain map defaults to using the topmost (zeroth) map, which isn't desirable if one wishes to use a specific map.
 # This also introduces a problem whereby new key/value pairs are created (highly undesirable if global settings are modified via scripts).
 # Therefore the ConfigHub subclass modifies item getter/setter to give favorable treatment to the currently active "map" (broadcast profile in use), with a flag indicating the name of the currently active map.
-# Using chain map also simplifies profile switching routine, as all that is needed is move the active map flag around.
+# Using chain map also simplifies profile switching routine, as all that is needed is moving the active map flag around.
 # Finally, because this is a class, additional methods and properties are used, which frees the config dictionary from the burden of carrying global flags such as the name of the instant switch profile and others.
-# To preserve backward compatibility with add-on 7.x, module-level functions formerly used for profile management will call corresponding methods in ConfigHub structure (to be deprecated in 9.0 and will be gone no later than 10.0).
-
-
 class ConfigHub(ChainMap):
 	"""A hub of broadcast profiles, a subclass of ChainMap.
 	Apart from giving favorable treatments to the active map and adding custom methods and properties, this structure is identical to chain map structure.
