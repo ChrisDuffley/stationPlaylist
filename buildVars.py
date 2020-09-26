@@ -4,8 +4,7 @@
 # Change this file instead of sconstruct or manifest files, whenever possible.
 
 # Full getext (please don't change)
-def _(arg):
-	return arg
+_ = lambda x: x  # NOQA: E731 # Never, EVER change this line
 
 
 # Add-on information variables
