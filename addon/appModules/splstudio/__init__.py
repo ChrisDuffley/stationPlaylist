@@ -1962,7 +1962,7 @@ class AppModule(appModuleHandler.AppModule):
 	SPLTemperature = 7
 
 	# Table of child constants based on versions
-	# These are scattered throughout the screen, so one can use foreground.getChild(index) to fetch them (getChild tip from Jamie Teh (NV Access)).
+	# These are scattered throughout the screen, so one can use foreground.getChild(index) to fetch them (getChild tip from Jamie Teh (NV Access/Mozilla)).
 	# Because 5.x (an perhaps future releases) uses different screen layout, look up the needed constant from the table below (row = info needed, column = version).
 	# As of 19.08, the below table is based on Studio 5.20.
 	# #119 (20.03): a list indicates iterative descent to locate the actual objects.
