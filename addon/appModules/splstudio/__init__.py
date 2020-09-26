@@ -1676,7 +1676,8 @@ class AppModule(appModuleHandler.AppModule):
 	# Also gather various data about the playlist.
 	_analysisMarker = None
 
-	# Trakc time analysis and playlist snapshots, and to some extent, some parts of playlist transcripts require main playlist viewer to be the foreground window.
+	# Trakc time analysis and playlist snapshots, and to some extent, some parts of playlist transcripts
+	# require main playlist viewer to be the foreground window.
 	# Track time analysis does require knowing the start and ending track, while others do not.
 	def _trackAnalysisAllowed(self, mustSelectTrack=True):
 		if not splbase.studioIsRunning():
