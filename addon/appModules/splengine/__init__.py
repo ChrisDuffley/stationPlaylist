@@ -8,7 +8,8 @@ import appModuleHandler
 import controlTypes
 from NVDAObjects.IAccessible import sysListView32
 
-# For SPL encoder config screen at least, control iD's are different, which allows labels to be generated easily.
+# For SPL encoder config screen at least, control iD's are different,
+# which allows labels to be generated easily.
 encoderSettingsLabels = {
 	1008: "Quality",
 	1009: "Sample Rate",
@@ -41,11 +42,14 @@ class AppModule(appModuleHandler.AppModule):
 	def terminate(self):
 		super(AppModule, self).terminate()
 		# 6.3: Memory leak results if encoder flag sets and other encoder support maps aren't cleaned up.
-		# This also could have allowed a hacker to modify the flags set (highly unlikely) so NVDA could get confused next time Studio loads.
+		# This also could have allowed a hacker to modify the flags set (highly unlikely)
+		# so NVDA could get confused next time Studio loads.
 		# #105 (19.07): SPL Engine is responsible for hosting encoder DLL's.
-		# #104 (19.07/18.09.10-LTS): any app module deriving from this (including Streamer) must clean up encoders database.
+		# #104 (19.07/18.09.10-LTS): any app module deriving from this (including Streamer)
+		# must clean up encoders database.
 		# #98: this is still the case even though encoders support is part of the SPL Engine app module package.
-		# This introduces a side effect where encoders database might be reopened if both SPL Engine and Streamer are active and one of them dies.
+		# This introduces a side effect where encoders database might be reopened
+		# if both SPL Engine and Streamer are active and one of them dies.
 		# For now, ignore this condition.
 		from . import encoders
 		encoders.cleanup(appTerminating=True)
@@ -79,11 +83,13 @@ class AppModule(appModuleHandler.AppModule):
 		# Detect encoders.
 		from . import encoders
 		if obj.windowClassName == "TListView":
-			# #87: add support for table navigation commands by coercing encoder list and entries into SysListView32 family.
+			# #87: add support for table navigation commands
+			# by coercing encoder list and entries into SysListView32 family.
 			if obj.role == controlTypes.ROLE_LISTITEM:
 				clsList.insert(0, encoders.SAMEncoder)
 			elif obj.role == controlTypes.ROLE_LIST:
 				clsList.insert(0, sysListView32.List)
 		elif obj.windowClassName == "SysListView32" and obj.role == controlTypes.ROLE_LISTITEM:
-			# #113 (19.10/18.09.12-LTS): AltaCast encoder list has a name whereas SPL Encoder doesn't.
+			# #113 (19.10/18.09.12-LTS): AltaCast encoder list has a name
+			# whereas SPL Encoder doesn't.
 			clsList.insert(0, encoders.AltaCastEncoder if obj.parent.name == "List1" else encoders.SPLEncoder)

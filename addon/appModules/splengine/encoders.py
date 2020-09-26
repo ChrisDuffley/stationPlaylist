@@ -51,7 +51,7 @@ encoderConfig = None
 def loadEncoderConfig():
 	global encoderConfig, SPLEncoderLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError
 	# 7.1: Make sure encoder settings map isn't corrupted.
-	# #131 (20.06): transplanted from Studio app module so the error message can be shown when an encoder gains focus.
+	# #131 (20.06): encoder focus error message routine was transplanted from Studio app module.
 	try:
 		encoderConfig = configobj.ConfigObj(os.path.join(globalVars.appArgs.configPath, "splencoders.ini"))
 	except configobj.ConfigObjError:
@@ -97,7 +97,8 @@ def _removeEncoderID(encoderType, pos):
 				encoderSettings.remove(encoderID)
 			else:
 				del encoderSettings[encoderID]
-		# In flag sets, unless members are sorted, encoders will appear in random order (a downside of using sets, as their ordering is quite unpredictable).
+		# In flag sets, unless members are sorted, encoders will appear in random order
+		# (a downside of using sets, as their ordering is quite unpredictable).
 		# The below list comprehension also works for dictionaries as it will iterate over keys.
 		currentEncoders = sorted([x for x in encoderSettings if x.startswith(encoderType)])
 		if len(currentEncoders) and encoderID < currentEncoders[-1]:
@@ -116,7 +117,7 @@ def _removeEncoderID(encoderType, pos):
 					encoderSettings["{} {}".format(encoderType, int(item.split()[-1]) - 1)] = encoderSettings.pop(item)
 
 
-# Save encoder labels and various flags, called when closing app modules and when config save command is pressed.
+# Save encoder labels and flags, called when closing app modules and/or config save command is pressed.
 def saveEncoderConfig():
 	global encoderConfig, SPLEncoderLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError
 	# Gather stream labels and flags.
@@ -158,7 +159,8 @@ def cleanup(appTerminating=False, reset=False):
 
 
 # Reset encoder settings.
-# Because simply reloading settings will introduce errors, respond only to proper reset signal (Control+NVDA+R three times).
+# Because simply reloading settings will introduce errors,
+# respond only to proper reset signal (Control+NVDA+R three times).
 def resetEncoderConfig(factoryDefaults=False):
 	if factoryDefaults:
 		cleanup(reset=True)
@@ -207,19 +209,24 @@ class EncoderConfigDialog(wx.Dialog):
 		self.encoderLabel = encoderConfigHelper.addLabeledControl(_("Encoder &label"), wx.TextCtrl)
 		self.encoderLabel.SetValue(self.curEncoderLabel if self.curEncoderLabel is not None else "")
 
-		# Translators: A checkbox in encoder settings to set if NVDA should switch focus to Studio window when connected.
+		# Translators: A checkbox in encoder settings
+		# to set if NVDA should move focus to Studio window when connected.
 		self.focusToStudio = encoderConfigHelper.addItem(wx.CheckBox(self, label=_("&Focus to Studio when connected")))
 		self.focusToStudio.SetValue(obj.focusToStudio)
-		# Translators: A checkbox in encoder settings to set if NVDA should play the next track when connected.
+		# Translators: A checkbox in encoder settings
+		# to set if NVDA should play the next track when connected.
 		self.playAfterConnecting = encoderConfigHelper.addItem(wx.CheckBox(self, label=_("&Play first track when connected")))
 		self.playAfterConnecting.SetValue(obj.playAfterConnecting)
-		# Translators: A checkbox in encoder settings to set if NVDA should monitor the status of this encoder in the background.
+		# Translators: A checkbox in encoder settings
+		# to set if NVDA should monitor the status of this encoder in the background.
 		self.backgroundMonitor = encoderConfigHelper.addItem(wx.CheckBox(self, label=_("Enable background connection &monitoring")))
 		self.backgroundMonitor.SetValue(obj.backgroundMonitor)
-		# Translators: A checkbox in encoder settings to set if NVDA should play connection progress tone.
+		# Translators: A checkbox in encoder settings
+		# to set if NVDA should play connection progress tone.
 		self.connectionTone = encoderConfigHelper.addItem(wx.CheckBox(self, label=_("Play connection status &beep while connecting")))
 		self.connectionTone.SetValue(obj.connectionTone)
-		# Translators: A checkbox in encoder settings to set if NVDA should announce connection progress until an encoder connects.
+		# Translators: A checkbox in encoder settings
+		# to set if NVDA should announce connection progress until an encoder connects.
 		self.announceStatusUntilConnected = encoderConfigHelper.addItem(wx.CheckBox(self, label=_("Announce connection &status until encoder connects")))
 		self.announceStatusUntilConnected.SetValue(obj.announceStatusUntilConnected)
 
@@ -278,7 +285,8 @@ def announceEncoderConnectionStatus():
 		# Translators: presented when no streaming encoders were found when trying to obtain connection status.
 		ui.message(_("No encoders found"))
 	elif samEncoderWindow and sysListView32EncoderWindow:
-		# Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
+		# Translators: presented when more than one encoder type is active
+		# when trying to obtain encoder connection status.
 		ui.message(_("Only one encoder type can be active at once"))
 	else:
 		encoderWindow = max(samEncoderWindow, sysListView32EncoderWindow)
@@ -394,11 +402,13 @@ class Encoder(IAccessible):
 
 	# Format the status message to prepare for monitoring multiple encoders.
 	def encoderStatusMessage(self, message):
-		# #79 (18.10.1/18.09.3-lts): wxPython 4 is more strict about where timers can be invoked from, and the below function is called from a thread other than the main one, which causes an exception to be logged.
+		# #79 (18.10.1/18.09.3-lts): wxPython 4 is more strict about where timers can be invoked from.
+		# An exception will be logged if called from a thread other than the main one.
 		# This is especially the case with some speech synthesizers and/or braille displays.
 		try:
 			# #135 (20.06): find out how many background monitor threads for this encoder type are still active.
-			# #136 (20.07): encoder monitoring can cross encoder type boundaries (multiple encoder types can be monitored at once).
+			# #136 (20.07): encoder monitoring can cross encoder type boundaries
+			# (multiple encoder types can be monitored at once).
 			# Include encoder ID if multiple encoders have one encoder entry being monitored.
 			if len([thread for thread in SPLBackgroundMonitorThreads.values() if thread.is_alive()]) > 1:
 				ui.message("{}: {}".format(self.encoderId, message))
@@ -452,10 +462,12 @@ class Encoder(IAccessible):
 	)
 	def script_toggleFocusToStudio(self, gesture):
 		if not self.focusToStudio:
-			# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+			# Translators: Presented when toggling the setting
+			# to switch to Studio when connected to a streaming server.
 			ui.message(_("Switch to Studio after connecting"))
 		else:
-			# Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+			# Translators: Presented when toggling the setting
+			# to switch to Studio when connected to a streaming server.
 			ui.message(_("Do not switch to Studio after connecting"))
 		self.focusToStudio = not self.focusToStudio
 
@@ -466,10 +478,12 @@ class Encoder(IAccessible):
 	)
 	def script_togglePlay(self, gesture):
 		if not self.playAfterConnecting:
-			# Translators: Presented when toggling the setting to play the selected track in Studio when connected to a streaming server.
+			# Translators: Presented when toggling the setting
+			# to play the selected track in Studio when connected to a streaming server.
 			ui.message(_("Play first track after connecting"))
 		else:
-			# Translators: Presented when toggling the setting to play the selected track in Studio when connected to a streaming server.
+			# Translators: Presented when toggling the setting
+			# to play the selected track in Studio when connected to a streaming server.
 			ui.message(_("Do not play first track after connecting"))
 		self.playAfterConnecting = not self.playAfterConnecting
 
@@ -481,10 +495,12 @@ class Encoder(IAccessible):
 	def script_toggleBackgroundEncoderMonitor(self, gesture):
 		if scriptHandler.getLastScriptRepeatCount() == 0:
 			if not self.backgroundMonitor:
-				# Translators: Presented when toggling the setting to monitor the selected encoder in the background.
+				# Translators: Presented when toggling the setting
+				# to monitor the selected encoder in the background.
 				ui.message(_("Monitoring encoder {encoderNumber}").format(encoderNumber=self.IAccessibleChildID))
 			else:
-				# Translators: Presented when toggling the setting to monitor the selected encoder in the background.
+				# Translators: Presented when toggling the setting
+				# to monitor the selected encoder in the background.
 				ui.message(_("Encoder {encoderNumber} will not be monitored").format(encoderNumber=self.IAccessibleChildID))
 			self.backgroundMonitor = not self.backgroundMonitor
 			if self.backgroundMonitor:
@@ -581,7 +597,8 @@ class Encoder(IAccessible):
 			if self.encoderId in SPLBackgroundMonitorThreads:
 				if not SPLBackgroundMonitorThreads[self.encoderId].is_alive():
 					del SPLBackgroundMonitorThreads[self.encoderId]
-				# If it is indeed alive... Otherwise another thread will be created to keep an eye on this encoder (undesirable).
+				# If it is indeed alive...
+				# Otherwise another thread will be created to keep an eye on this encoder (undesirable).
 				else:
 					return
 			self.connectStart()
@@ -663,8 +680,10 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 				if not encoding:
 					tones.beep(1000, 150)
 					self.encoderStatusMessage(messageCache)
-					# #141 (20.07): do not focus to Studio or play first selected track if background monitoring is on and this encoder was connected before.
-					# Don't forget that follow-up actions should be performed if this is a manual connect (no background monitoring).
+					# #141 (20.07): do not focus to Studio or play first selected track
+					# if background monitoring is on and this encoder was connected before.
+					# Don't forget that follow-up actions should be performed
+					# if this is a manual connect (no background monitoring).
 					if not self.backgroundMonitor or (self.backgroundMonitor and not connectedBefore):
 						# 20.09: queue actions such as focus to Studio and playing the selected track.
 						wx.CallAfter(self._onConnect)
@@ -702,7 +721,8 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 
 	# Connecting/disconnecting all encoders at once.
 	# Control+F9/Control+F10 hotkeys are broken. Thankfully, context menu retains these commands.
-	# #143 (20.09): manually open context menu and activate the correct item through keyboard key press emulation (keyboard gesture send loop).
+	# #143 (20.09): manually open context menu and activate the correct item
+	# through keyboard key press emulation (keyboard gesture send loop).
 	# Presses refer to how many times down arrow must be 'pressed' once context menu opens.
 
 	def _samContextMenu(self, presses):
@@ -774,7 +794,8 @@ class SPLEncoder(Encoder):
 					return
 				if "Kbps" not in messageCache:
 					self.encoderStatusMessage(messageCache)
-			# 20.09: If all encoders are told to connect but then auto-connect stops for the selected encoder, a manually started thread (invoked by a user command) will continue to run.
+			# 20.09: If all encoders are told to connect but then auto-connect stops for the selected encoder,
+			# a manually started thread (invoked by a user command) will continue to run.
 			# Therefore forcefully stop this thread if the latter message appears.
 			if messageCache in ("Disconnected", "AutoConnect stopped."):
 				connected = False
@@ -791,7 +812,8 @@ class SPLEncoder(Encoder):
 				# We're on air, so exit.
 				if not connected:
 					tones.beep(1000, 150)
-					# Same as SAM encoder: do not do this while background monitoring is on and this encoder was once connected before unless this is a manual connect.
+					# Same as SAM encoder: do not do this while background monitoring is on
+					# and this encoder was once connected before unless this is a manual connect.
 					if not self.backgroundMonitor or (self.backgroundMonitor and not connectedBefore):
 						# 20.09: queue actions such as focus to Studio and playing the selected track.
 						wx.CallAfter(self._onConnect)
