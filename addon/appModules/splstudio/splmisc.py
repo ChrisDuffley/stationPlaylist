@@ -227,7 +227,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 				splbase.selectTrack(obj.IAccessibleChildID - 1)
 			else:
 				wx.CallAfter(
-					# Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
+					# Translators: Presented when a track with a duration between minimum and maximum duration is not found.
 					gui.messageBox, _("No track with duration between minimum and maximum duration."),
 					# Translators: Standard error title for find error (copy this from main nvda.po).
 					_("Time range find error"), wx.OK | wx.ICON_ERROR)
