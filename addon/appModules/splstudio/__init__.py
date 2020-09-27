@@ -2074,7 +2074,9 @@ class AppModule(appModuleHandler.AppModule):
 		# #38 (17.11/15.10-LTS): return status text if asked.
 		if statusText:
 			return status
-		ui.message(status if splconfig.SPLConfig["General"]["MessageVerbosity"] == "beginner" else status.split()[-1])
+		if splconfig.SPLConfig["General"]["MessageVerbosity"] == "advanced":
+			status = status.split()[-1]
+		ui.message(status)
 
 	# The layer commands themselves.
 
@@ -2234,8 +2236,11 @@ class AppModule(appModuleHandler.AppModule):
 				ui.message(_("{itemCount} items in the library").format(itemCount=splbase.studioAPI(0, 32)))
 				return
 			self.libraryScanning = True
-			# Translators: Presented when attempting to start library scan.
-			ui.message(_("Monitoring library scan")) if not splconfig.SPLConfig["General"]["BeepAnnounce"] else tones.beep(740, 100)
+			if not splconfig.SPLConfig["General"]["BeepAnnounce"]:
+				# Translators: Presented when attempting to start library scan.
+				ui.message(_("Monitoring library scan"))
+			else:
+				tones.beep(740, 100)
 			self.monitorLibraryScan()
 		else:
 			# Translators: Presented when library scan is already in progress.
