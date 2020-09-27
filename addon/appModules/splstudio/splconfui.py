@@ -186,7 +186,8 @@ class BroadcastProfilesDialog(wx.Dialog):
 		self.profiles.SetFocus()
 
 	def onDelete(self, evt):
-		# Prevent profile deletion while in the midst of a broadcast i.e. instant switch profile is active, otherwise flags such as instant switch profile become inconsistent.
+		# Prevent profile deletion while in the midst of a broadcast i.e. instant switch profile is active,
+		# otherwise flags such as instant switch profile become inconsistent.
 		# 6.4: This was seen after deleting a profile one position before the previously active profile.
 		if splconfig.SPLConfig.prevProfile is not None:
 			gui.messageBox(
@@ -199,7 +200,8 @@ class BroadcastProfilesDialog(wx.Dialog):
 		# 17.11/15.10-lts: ask once more if deleting an active profile.
 		if name == self.activeProfile:
 			if gui.messageBox(
-				# Translators: The confirmation prompt displayed when the user requests to delete the active broadcast profile.
+				# Translators: The confirmation prompt displayed
+				# when the user requests to delete the active broadcast profile.
 				_("You are about to delete the currently active profile. Select yes if you wish to proceed."),
 				# Translators: The title of the confirmation dialog for deletion of a profile.
 				_("Delete active profile"),
@@ -217,7 +219,8 @@ class BroadcastProfilesDialog(wx.Dialog):
 		) == wx.NO:
 			return
 		splconfig.SPLConfig.deleteProfile(name)
-		# 17.11: make sure to connect to the right set of metadata servers and enable/disable microphone alarm if appropriate.
+		# 17.11: make sure to connect to the right set of metadata servers
+		# and enable/disable microphone alarm if appropriate.
 		splactions.SPLActionProfileSwitched.notify(configDialogActive=True)
 		if name == self.switchProfile or name == self.activeProfile:
 			# 17.11/15.10-LTS: go through the below path if and only if instant switch profile is gone.
@@ -245,7 +248,8 @@ class BroadcastProfilesDialog(wx.Dialog):
 
 	# Obtain profile flags for a given profile.
 	# This is a proxy to the splconfig module level profile flag retriever with custom strings/maps as arguments.
-	# Contained flag is set to False if this is called for display purposes, otherwise it is used to set flags based on flag set.
+	# Contained flag is set to False if this is called for display purposes,
+	# otherwise it is used to set flags based on flag set.
 	def getProfileFlags(self, name, contained=True):
 		return splconfig.SPLConfig.getProfileFlags(name, active=self.activeProfile, instant=self.switchProfile, contained=contained)
 
@@ -266,7 +270,8 @@ class BroadcastProfilesDialog(wx.Dialog):
 			splconfig.SPLConfig.swapProfiles(splconfig.SPLConfig.activeProfile, selectedProfile)
 			# 8.0: Make sure NVDA knows this must be cached (except for normal profile).
 			# 17.10: but not when config is volatile.
-			# #71 (18.07): must be done here, otherwise cache failure occurs where settings won't be saved when in fact it may have been changed from add-on settings.
+			# #71 (18.07): must be done here, otherwise cache failure occurs where settings won't be saved
+			# when in fact it may have been changed from add-on settings.
 			try:
 				if selectedProfile != splconfig.defaultProfileName and selectedProfile not in splconfig._SPLCache:
 					splconfig.SPLConfig._cacheProfile(splconfig.SPLConfig.profileByName(selectedProfile))
@@ -342,7 +347,8 @@ class NewProfileDialog(wx.Dialog):
 		# LTS optimization: just build base profile dictionary here if copying a profile.
 		if self.copy:
 			baseConfig = splconfig.SPLConfig.profileByName(self.baseProfiles.GetStringSelection())
-			# #140 (20.07): it isn't enough to copy dictionaries - deep copy (config.dict()) must be performed to avoid accidental reference manipulation.
+			# #140 (20.07): it isn't enough to copy dictionaries.
+			# Deep copy (config.dict()) must be performed to avoid accidental reference manipulation.
 			baseProfile = {sect: key for sect, key in baseConfig.dict().items() if sect in splconfig._mutatableSettings}
 		else:
 			baseProfile = None
@@ -361,7 +367,8 @@ class NewProfileDialog(wx.Dialog):
 
 
 # Broadcast profile triggers dialog.
-# This dialog is similar to NVDA Core's profile triggers dialog and allows one to configure when to trigger this profile.
+# This dialog is similar to NVDA Core's profile triggers dialog
+# and allows one to configure when to trigger this profile.
 # As of 20.07, the only trigger flag is instant switch profile.
 class TriggersDialog(wx.Dialog):
 
@@ -417,7 +424,8 @@ class GeneralSettingsPanel(gui.SettingsPanel):
 	def makeSettings(self, settingsSizer):
 		generalSettingsHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
-		# Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
+		# Translators: the label for a setting in SPL add-on settings
+		# to set status announcement between words and beeps.
 		self.beepAnnounceCheckbox = generalSettingsHelper.addItem(wx.CheckBox(self, label=_("&Beep for status announcements")))
 		self.beepAnnounceCheckbox.SetValue(splconfig.SPLConfig["General"]["BeepAnnounce"])
 
@@ -469,7 +477,8 @@ class GeneralSettingsPanel(gui.SettingsPanel):
 
 		# Translators: The label for a setting in SPL add-on dialog to set vertical column.
 		verticalColLabel = _("&Vertical column navigation announcement:")
-		# Translators: One of the options for vertical column navigation denoting NVDA will announce current column position (e.g. second column position from the left).
+		# Translators: One of the options for vertical column navigation
+		# denoting NVDA will announce current column position (e.g. second column position from the left).
 		self.verticalColumnsList = generalSettingsHelper.addLabeledControl(verticalColLabel, wx.Choice, choices=[_("whichever column I am reviewing"), "Status"] + splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])
 		verticalColumn = splconfig.SPLConfig["General"]["VerticalColumnAnnounce"]
 		selection = self.verticalColumnsList.FindString(verticalColumn) if verticalColumn is not None else 0
@@ -580,28 +589,37 @@ class PlaylistSnapshotsPanel(gui.SettingsPanel):
 		Track count and total duration are always included.""")
 		playlistSnapshotsHelper.addItem(wx.StaticText(self, label=labelText))
 
-		# Translators: the label for a setting in SPL add-on settings to include shortest and longest track duration in playlist snapshots window.
+		# Translators: the label for a setting in SPL add-on settings
+		# to include shortest and longest track duration in playlist snapshots window.
 		self.playlistDurationMinMaxCheckbox = playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Shortest and longest tracks")))
 		self.playlistDurationMinMaxCheckbox.SetValue(splconfig.SPLConfig["PlaylistSnapshots"]["DurationMinMax"])
-		# Translators: the label for a setting in SPL add-on settings to include average track duration in playlist snapshots window.
+		# Translators: the label for a setting in SPL add-on settings
+		# to include average track duration in playlist snapshots window.
 		self.playlistDurationAverageCheckbox = playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Average track duration")))
 		self.playlistDurationAverageCheckbox.SetValue(splconfig.SPLConfig["PlaylistSnapshots"]["DurationAverage"])
-		# Translators: the label for a setting in SPL add-on settings to include track artist count in playlist snapshots window.
+		# Translators: the label for a setting in SPL add-on settings
+		# to include track artist count in playlist snapshots window.
 		self.playlistArtistCountCheckbox = playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Artist count")))
 		self.playlistArtistCountCheckbox.SetValue(splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCount"])
-		# Translators: the label for a setting in SPL add-on settings to set top artist count limit in playlist snapshots window.
+		# Translators: the label for a setting in SPL add-on settings
+		# to set top artist count limit in playlist snapshots window.
 		self.playlistArtistCountLimit = playlistSnapshotsHelper.addLabeledControl(_("Top artist count (0 displays all artists)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=10, initial=splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCountLimit"])
-		# Translators: the label for a setting in SPL add-on settings to include track category count in playlist snapshots window.
+		# Translators: the label for a setting in SPL add-on settings
+		# to include track category count in playlist snapshots window.
 		self.playlistCategoryCountCheckbox = playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Category count")))
 		self.playlistCategoryCountCheckbox.SetValue(splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCount"])
-		# Translators: the label for a setting in SPL add-on settings to set top track category count limit in playlist snapshots window.
+		# Translators: the label for a setting in SPL add-on settings
+		# to set top track category count limit in playlist snapshots window.
 		self.playlistCategoryCountLimit = playlistSnapshotsHelper.addLabeledControl(_("Top category count (0 displays all categories)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=10, initial=splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCountLimit"])
-		# Translators: the label for a setting in SPL add-on settings to include track genre count in playlist snapshots window.
+		# Translators: the label for a setting in SPL add-on settings
+		# to include track genre count in playlist snapshots window.
 		self.playlistGenreCountCheckbox = playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Genre count")))
 		self.playlistGenreCountCheckbox.SetValue(splconfig.SPLConfig["PlaylistSnapshots"]["GenreCount"])
-		# Translators: the label for a setting in SPL add-on settings to set top track genre count limit in playlist snapshots window.
+		# Translators: the label for a setting in SPL add-on settings
+		# to set top track genre count limit in playlist snapshots window.
 		self.playlistGenreCountLimit = playlistSnapshotsHelper.addLabeledControl(_("Top genre count (0 displays all genres)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=10, initial=splconfig.SPLConfig["PlaylistSnapshots"]["GenreCountLimit"])
-		# Translators: the label for a setting in SPL add-on settings to show playlist snaphsots window when the snapshots command is pressed once.
+		# Translators: the label for a setting in SPL add-on settings
+		# to show playlist snaphsots window when the snapshots command is pressed once.
 		self.resultsWindowOnFirstPressCheckbox = playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("&Show results window when playlist snapshots command is performed once")))
 		self.resultsWindowOnFirstPressCheckbox.SetValue(splconfig.SPLConfig["PlaylistSnapshots"]["ShowResultsWindowOnFirstPress"])
 
@@ -643,7 +661,8 @@ class MetadataStreamingDialog(wx.Dialog):
 		# Use a weakref so the instance can die.
 		MetadataStreamingDialog._instance = weakref.ref(self)
 
-		# Translators: Title of a dialog to configure metadata streaming status for DSP encoder and four additional URL's.
+		# Translators: Title of a dialog to configure metadata streaming status
+		# for DSP encoder and four additional URL's.
 		super(MetadataStreamingDialog, self).__init__(parent, title=_("Metadata streaming options"))
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		metadataSizerHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
@@ -665,7 +684,8 @@ class MetadataStreamingDialog(wx.Dialog):
 			self.checkedStreams.Check(stream, check=streams[stream])
 		self.checkedStreams.SetSelection(0)
 
-		# Translators: A checkbox to let metadata streaming status be applied to the currently active broadcast profile.
+		# Translators: A checkbox to let metadata streaming status
+		# be applied to the currently active broadcast profile.
 		self.applyCheckbox = metadataSizerHelper.addItem(wx.CheckBox(self, label=_("&Apply streaming changes to the selected profile")))
 		self.applyCheckbox.SetValue(True)
 
@@ -701,7 +721,8 @@ class MetadataStreamingDialog(wx.Dialog):
 
 
 class MetadataStreamingPanel(gui.SettingsPanel):
-	# Translators: title of a panel to configure metadata streaming status for DSP encoder and four additional URL's.
+	# Translators: title of a panel to configure metadata streaming status
+	# for DSP encoder and four additional URL's.
 	title = _("Metadata streaming")
 
 	def makeSettings(self, settingsSizer):
@@ -714,7 +735,8 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 			# Translators: One of the metadata notification settings.
 			("instant", _("When instant switch profile is active"))
 		]
-		# Translators: the label for a setting in SPL add-on settings to be notified that metadata streaming is enabled.
+		# Translators: the label for a setting in SPL add-on settings
+		# to be notified that metadata streaming is enabled.
 		self.metadataList = metadataSizerHelper.addLabeledControl(_("&Metadata streaming notification and connection"), wx.Choice, choices=[x[1] for x in self.metadataValues])
 		metadataCurValue = splconfig.SPLConfig["General"]["MetadataReminder"]
 		selection = next((x for x, y in enumerate(self.metadataValues) if y[0] == metadataCurValue))
@@ -747,7 +769,8 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 class ColumnAnnouncementsBasePanel(gui.SettingsPanel):
 
 	def _onMakeSettingsBase(self, sHelper, includedColumnsLabel):
-		# Provides common user interface elements for column inclusion/order controls across settings panels (leave it as a private method).
+		# Provides common user interface elements for column inclusion/order controls across settings panels
+		# (leave it as a private method).
 
 		# Same as metadata dialog (wx.CheckListBox isn't user friendly).
 		# Gather values for checkboxes except artist and title.
@@ -764,8 +787,10 @@ class ColumnAnnouncementsBasePanel(gui.SettingsPanel):
 		sHelper.addItem(columnOrderGroup)
 
 		# wxPython 4 contains RearrangeList to allow item orders to be changed automatically.
-		# Due to usability quirks (focus bouncing and what not), work around by using a variant of list box and move up/down buttons.
-		# 17.04: The label for the list below is above the list, so move move up/down buttons to the right of the list box.
+		# Due to usability quirks (focus bouncing and what not), work around by
+		# using a variant of list box and move up/down buttons.
+		# 17.04: The label for the list below is above the list,
+		# so move move up/down buttons to the right of the list box.
 		# 20.09: the list and move up/down buttons are now part of a grouping.
 		self.trackColumns = columnOrderGroup.addItem(wx.ListBox(self, choices=self.columnOrder))
 		self.trackColumns.Bind(wx.EVT_LISTBOX, self.onColumnSelection)
@@ -808,18 +833,21 @@ class ColumnAnnouncementsBasePanel(gui.SettingsPanel):
 			self.trackColumns.Select(selIndex + 1)
 			self.onColumnSelection(None)
 			# Hack: Wen the last item is selected, forcefully move the focus to "move up" button.
-			# This will cause NVDA to say "unavailable" as focus is lost momentarily. A bit anoying but a necessary hack.
+			# This will cause NVDA to say "unavailable" as focus is lost momentarily.
+			# A bit anoying but a necessary hack.
 			if self.FindFocus().GetId() == wx.ID_OK:
 				self.upButton.SetFocus()
 
 
 class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
-	# Translators: title of a panel to configure column announcements (order and what columns should be announced).
+	# Translators: title of a panel to configure column announcements
+	# (order and what columns should be announced).
 	title = _("Column announcements")
 
 	def makeSettings(self, settingsSizer):
 		colAnnouncementsHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
-		# Without manual conversion below, it produces a rare bug where clicking cancel after changing column inclusion causes new set to be retained.
+		# Without manual conversion below, it produces a rare bug
+		# where clicking cancel after changing column inclusion causes new set to be retained.
 		# Of course take away artist and title.
 		self.includedColumns = set(splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"]) - {"Artist", "Title"}
 		self.columnOrder = splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"]
@@ -833,7 +861,8 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 		# 20.09: column inclusion/order are processed via a private method.
 		self._onMakeSettingsBase(colAnnouncementsHelper, labelText)
 
-		# Translators: the label for a setting in SPL add-on settings to toggle whether column headers should be included when announcing track information.
+		# Translators: the label for a setting in SPL add-on settings
+		# to toggle whether column headers should be included when announcing track information.
 		self.columnHeadersCheckbox = colAnnouncementsHelper.addItem(wx.CheckBox(self, label=_("Include column &headers when announcing track information")))
 		self.columnHeadersCheckbox.SetValue(splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"])
 
@@ -857,7 +886,8 @@ class PlaylistTranscriptsPanel(ColumnAnnouncementsBasePanel):
 
 		# Translators: Help text to select columns to be announced.
 		labelText = _("&Select columns to be included in playlist transcripts\n(artist and title are always included):")
-		# 20.09: just like column announcements panel, column inclusion and order controls are generated by the base class.
+		# 20.09: just like column announcements panel,
+		# column inclusion and order controls are generated by the base class.
 		self._onMakeSettingsBase(playlistTranscriptsHelper, labelText)
 
 	def onSave(self):
@@ -867,7 +897,8 @@ class PlaylistTranscriptsPanel(ColumnAnnouncementsBasePanel):
 
 # Columns Explorer for Studio, Track Tool and Creator
 # Configure which column will be announced when Control+NVDA+number row keys are pressed.
-# In 2018, the panel will house Columns Explorer buttons, but eventually columns combo boxes should be part of main settings interface.
+# In 2018, the panel will house Columns Explorer buttons, but eventually
+# columns combo boxes should be part of main settings interface.
 class ColumnsExplorerPanel(gui.SettingsPanel):
 	# Translators: title of a panel to configure columns explorer settings.
 	title = _("Columns explorer")
@@ -875,15 +906,18 @@ class ColumnsExplorerPanel(gui.SettingsPanel):
 	def makeSettings(self, settingsSizer):
 		colExplorerHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
-		# Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0) for StationPlaylist Studio.
+		# Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
+		# for StationPlaylist Studio.
 		columnsExplorerButton = wx.Button(self, label=_("Columns E&xplorer..."))
 		columnsExplorerButton.Bind(wx.EVT_BUTTON, self.onColumnsExplorer)
 		self.exploreColumns = splconfig.SPLConfig["General"]["ExploreColumns"]
-		# Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0) for Track Tool.
+		# Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
+		# for Track Tool.
 		columnsExplorerTTButton = wx.Button(self, label=_("Columns Explorer for &Track Tool..."))
 		columnsExplorerTTButton.Bind(wx.EVT_BUTTON, self.onColumnsExplorerTT)
 		self.exploreColumnsTT = splconfig.SPLConfig["General"]["ExploreColumnsTT"]
-		# Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0) for StationPlaylist Creator.
+		# Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
+		# for StationPlaylist Creator.
 		columnsExplorerCreatorButton = wx.Button(self, label=_("Columns Explorer for &SPL Creator..."))
 		columnsExplorerCreatorButton.Bind(wx.EVT_BUTTON, self.onColumnsExplorerCreator)
 		self.exploreColumnsCreator = splconfig.SPLConfig["General"]["ExploreColumnsCreator"]
@@ -970,7 +1004,8 @@ class ColumnsExplorerDialog(wx.Dialog):
 
 	def onOk(self, evt):
 		parent = self.Parent
-		# #62 (18.06): manually build a list so changes won't be retained when Cancel button is clicked from main settings, caused by reference problem.
+		# #62 (18.06): manually build a list so changes won't be retained
+		# when Cancel button is clicked from main settings, caused by reference problem.
 		# Note that item count is based on how many column combo boxes are present in this dialog.
 		# #63 (18.06): use levels instead due to introduction of Columns Explorer for SPL Creator.
 		slots = [self.columnSlots[slot].GetStringSelection() for slot in range(10)]
@@ -1006,7 +1041,8 @@ class SayStatusPanel(gui.SettingsPanel):
 		# Translators: the label for a setting in SPL add-on settings to announce currently playing cart.
 		self.cartNameCheckbox = sayStatusHelper.addItem(wx.CheckBox(self, label=_("&Announce name of the currently playing cart")))
 		self.cartNameCheckbox.SetValue(splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"])
-		# Translators: the label for a setting in SPL add-on settings to announce player position for the current and next tracks.
+		# Translators: the label for a setting in SPL add-on settings
+		# to announce player position for the current and next tracks.
 		self.playerPositionCheckbox = sayStatusHelper.addItem(wx.CheckBox(self, label=_("Include track player &position when announcing current and next track information")))
 		self.playerPositionCheckbox.SetValue(splconfig.SPLConfig["SayStatus"]["SayStudioPlayerPosition"])
 
@@ -1197,7 +1233,8 @@ def _configDialogOpenError():
 def openAddonSettingsPanel(panel):
 	# 5.2: Guard against alarm dialogs.
 	# #129 (20.04): also check for broadcast profiles dialog.
-	# #125 (20.05): checking for instance of base settings dialog class isn't enough - Python will look at actual class being instantiated, so keep the global flag.
+	# #125 (20.05): checking for instance of base settings dialog class isn't enough.
+	# Python will look at actual class being instantiated, so keep the global flag.
 	if _configDialogOpened:
 		wx.CallAfter(_configDialogOpenError)
 	else:
