@@ -129,7 +129,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		SPLHwnd = user32.FindWindowW("SPLStudio", None)
 		if not SPLHwnd:
 			ui.message(_("SPL Studio is not running."))
-		# 17.01: SetForegroundWindow function is better, as there's no need to traverse top-level windows and allows users to "switch" to SPL window if the window is minimized.
+		# 17.01: SetForegroundWindow function is better, as there's no need to traverse top-level windows
+		# and allows users to "switch" to SPL window if the window is minimized.
 		# #150 (20.10/20.09.2-LTS): even then, make sure Studio window is visible.
 		else:
 			import windowUtils
@@ -172,7 +173,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self.bindGestures(self.__SPLControllerGestures)
 			# 17.12: also bind cart keys.
 			# Exclude number row if Studio Standard is running.
-			# #147 (20.10): truncate to function key carts if Studio Standard is in use as cart keys are now a single list.
+			# #147 (20.10): truncate to function key carts if Studio Standard is in use
+			# as cart keys are now a single list.
 			lastCart = 24 if not getWindowText(user32.FindWindowW("TStudioForm", None)).startswith("StationPlaylist Studio Standard") else 12
 			for cart in self.cartKeys[:lastCart]:
 				self.bindGesture(f"kb:{cart}", "cartsWithoutBorders")
@@ -262,7 +264,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			ui.message(_("There is no track playing."))
 		else:
 			# 7.0: Present remaining time in hh:mm:ss format for enhanced experience (borrowed from Studio app module).
-			# 17.09 optimization: perform in-place string construction instead of using objects and building a list, results in fewer bytecode instructions.
+			# 17.09 optimization: perform in-place string construction instead of
+			# using objects and building a list, results in fewer bytecode instructions.
 			# The string formatter will zero-fill minutes and seconds if less than 10.
 			# 19.11.1/18.09.13-LTS: use floor division due to division differences between Python 2 and 3.
 			remainingTime = (remainingTime // 1000) + 1
@@ -290,7 +293,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			ui.message(_("SPL Studio is not running."))
 			self.finish()
 			return
-		# #98: ask SPL Engine app module for encoder connection status, which in turn will call the one found in encoders support module.
+		# #98: ask SPL Engine app module for encoder connection status,
+		# which in turn will call the one found in encoders support module.
 		# Do nothing if SPL Engine app module isn't present or any kind of error occurs.
 		try:
 			import appModules.splengine
@@ -311,8 +315,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			ui.message(_("SPL Studio is not running."))
 			self.finish()
 			return
-		# Studio 5.20 and later allows fetching status bar info from anywhere via Studio API, including playback and automation status.
-		# For consistency reasons (because of the Studio status bar), messages in this method will remain in English.
+		# Studio 5.20 and later allows fetching status bar info from anywhere via Studio API,
+		# including playback and automation status.
+		# For consistency reasons (because of the Studio status bar),
+		# messages in this method will remain in English.
 		statusInfo = []
 		playingNow = sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus)
 		statusInfo.append("Play status: playing" if playingNow else "Play status: stopped")
