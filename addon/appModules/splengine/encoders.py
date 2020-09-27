@@ -90,7 +90,11 @@ def loadEncoderConfig():
 def _removeEncoderID(encoderType, pos):
 	encoderID = " ".join([encoderType, pos])
 	# Go through each feature map/set, remove the encoder ID and manipulate encoder positions.
-	for encoderSettings in (SPLEncoderLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError):
+	for encoderSettings in (
+		SPLEncoderLabels, SPLFocusToStudio,
+		SPLPlayAfterConnecting, SPLBackgroundMonitor,
+		SPLNoConnectionTone, SPLConnectionStopOnError
+	):
 		if encoderID in encoderSettings:
 			# Other than encoder labels (a dictionary), others are sets.
 			if isinstance(encoderSettings, set):
@@ -148,7 +152,12 @@ def cleanup(appTerminating=False, reset=False):
 	if reset or appTerminating:
 		config.post_configSave.unregister(saveEncoderConfig)
 		config.post_configReset.unregister(resetEncoderConfig)
-	for flag in [encoderConfig, SPLEncoderLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLBackgroundMonitorThreads, SPLNoConnectionTone, SPLConnectionStopOnError]:
+	for flag in [
+		encoderConfig, SPLEncoderLabels,
+		SPLFocusToStudio, SPLPlayAfterConnecting,
+		SPLBackgroundMonitor, SPLBackgroundMonitorThreads,
+		SPLNoConnectionTone, SPLConnectionStopOnError
+	]:
 		if flag is not None:
 			flag.clear()
 	# 20.04: save a "clean" copy after resetting encoder settings.
