@@ -227,7 +227,8 @@ class SPLTimeRangeDialog(wx.Dialog):
 				splbase.selectTrack(obj.IAccessibleChildID - 1)
 			else:
 				wx.CallAfter(
-					# Translators: Presented when a track with a duration between minimum and maximum duration is not found.
+					# Translators: Presented when a track with a duration
+					# between minimum and maximum duration is not found.
 					gui.messageBox, _("No track with duration between minimum and maximum duration."),
 					# Translators: Standard error title for find error (copy this from main nvda.po).
 					_("Time range find error"), wx.OK | wx.ICON_ERROR)
@@ -264,11 +265,13 @@ def _populateCarts(carts, cartlst, modifier, standardEdition=False, refresh=Fals
 	# #147 (20.10): note that 1 is subtracted from cart position as a tuple will be used to lookup cart keys.
 	for pos, entry in enumerate(cartlst):
 		# An unassigned cart is stored with three consecutive commas, so skip it.
-		# 17.04: If refresh is on, the cart we're dealing with is the actual carts dictionary that was built previously.
+		# 17.04: If refresh is on, the cart we're dealing with
+		# is the actual carts dictionary that was built previously.
 		noEntry = ",,," in entry
 		if noEntry and not refresh:
 			continue
-		# If a cart name has commas or other characters, SPL surrounds the cart name with quotes (""), so parse it as well.
+		# If a cart name has commas or other characters, SPL surrounds the cart name with quotes (""),
+		# so parse it as well.
 		if not entry.startswith('"'):
 			cartName = entry.split(",")[0]
 		else:
@@ -301,11 +304,13 @@ def cartExplorerInit(StudioTitle, cartFiles=None, refresh=False, carts=None):
 	if refresh:
 		carts["modifiedBanks"] = []
 	# Obtain the "real" path for SPL via environment variables and open the cart data folder.
-	cartsDataPath = os.path.join(os.environ["PROGRAMFILES"], "StationPlaylist", "Data")  # Provided that Studio was installed using default path.
+	# Provided that Studio was installed using default path.
+	cartsDataPath = os.path.join(os.environ["PROGRAMFILES"], "StationPlaylist", "Data")
 	if cartFiles is None:
 		# See if multiple users are using SPl Studio.
 		userNameIndex = StudioTitle.find("-")
-		# Read *.cart files and process the cart entries within (be careful when these cart file names change between SPL releases).
+		# Read *.cart files and process the cart entries within
+		# (be careful when these cart file names change between SPL releases).
 		cartFiles = ["main carts.cart", "shift carts.cart", "ctrl carts.cart", "alt carts.cart"]
 		if userNameIndex >= 0:
 			cartFiles = [StudioTitle[userNameIndex + 2:] + " " + cartFile for cartFile in cartFiles]
@@ -313,7 +318,8 @@ def cartExplorerInit(StudioTitle, cartFiles=None, refresh=False, carts=None):
 	if not refresh:
 		_cartEditTimestamps = []
 	for f in cartFiles:
-		# Only do this if told to build cart banks from scratch, as refresh flag is set if cart explorer is active in the first place.
+		# Only do this if told to build cart banks from scratch,
+		# as refresh flag is set if cart explorer is active in the first place.
 		try:
 			mod = f.split()[-2]  # Checking for modifier string such as ctrl.
 			# Todo: Check just in case some SPL flavors doesn't ship with a particular cart file.
@@ -335,9 +341,11 @@ def cartExplorerInit(StudioTitle, cartFiles=None, refresh=False, carts=None):
 		_cartEditTimestamps.append(cartTimestamp)
 		with open(cartFile) as cartInfo:
 			cl = [row for row in reader(cartInfo)]
-		# 17.04 (optimization): let empty string represent main cart bank to avoid this being partially consulted up to 24 times.
+		# 17.04 (optimization): let empty string represent main cart bank to
+		# avoid this being partially consulted up to 24 times.
 		# The below method will just check for string length, which is faster than looking for specific substring.
-		_populateCarts(carts, cl[1], mod if mod != "main" else "", standardEdition=carts["standardLicense"], refresh=refresh)  # See the comment for _populate method above.
+		# See the comment for _populate carts method for details.
+		_populateCarts(carts, cl[1], mod if mod != "main" else "", standardEdition=carts["standardLicense"], refresh=refresh)
 		if not refresh:
 			debugOutput(f"carts processed so far: {(len(carts)-1)}")
 	carts["faultyCarts"] = faultyCarts
@@ -390,7 +398,8 @@ class SPLCountdownTimer(object):
 
 
 # Gather streaming flags into a list.
-# 18.04: raise runtime error if list is nothing (thankfully the splbase's StudioAPI will return None if Studio handle is not found).
+# 18.04: raise runtime error if list is nothing
+# (thankfully the splbase's StudioAPI will return None if Studio handle is not found).
 def metadataList():
 	metadata = [splbase.studioAPI(pos, 36) for pos in range(5)]
 	if metadata == [None, None, None, None, None]:
@@ -399,7 +408,8 @@ def metadataList():
 
 
 # Metadata server connector, to be utilized from many modules.
-# Servers refer to a list of connection flags to pass to Studio API, and if not present, will be pulled from add-on settings.
+# Servers refer to a list of connection flags to pass to Studio API,
+# and if not present, will be pulled from add-on settings.
 def metadataConnector(servers=None):
 	if servers is None:
 		from . import splconfig
@@ -451,7 +461,8 @@ def metadataStatus():
 
 # Internal metadata status announcer.
 # The idea is to pause for a while and announce the status message and playing the accompanying wave file.
-# This is necessary in order to allow extension points to work correctly and to not hold up other registered action handlers.
+# This is necessary in order to allow extension points to work correctly
+# and to not hold up other registered action handlers.
 # A special startup flag will be used so other text sequences will not be cut off.
 def _metadataAnnouncerInternal(status, startup=False):
 	if not startup:
@@ -482,7 +493,8 @@ _delayMetadataAction = False
 
 # Connect and/or announce metadata status when broadcast profile switching occurs.
 # The config dialog active flag is only invoked when being notified while add-on settings dialog is focused.
-# Settings reset flag is used to prevent metadata server connection when settings are reloaded from disk or reset to defaults.
+# Settings reset flag is used to prevent metadata server connection
+# when settings are reloaded from disk or reset to defaults.
 def metadata_actionProfileSwitched(configDialogActive=False, settingsReset=False):
 	from . import splconfig
 	# Only connect if add-on settings is active in order to avoid wasting thread running time.
@@ -491,7 +503,8 @@ def metadata_actionProfileSwitched(configDialogActive=False, settingsReset=False
 		return
 	global _delayMetadataAction
 	# Ordinarily, errors would have been dealt with, but Action.notify will catch errors and log messages.
-	# #40 (18.02): the only possible error is if Studio handle is invalid, which won't be the case, otherwise no point handling this action.
+	# #40 (18.02): the only possible error is if Studio handle is invalid, which won't be the case,
+	# otherwise no point handling this action.
 	# #49 (18.03): no, don't announce this if the app module is told to announce metadata status at startup only.
 	if splconfig.SPLConfig["General"]["MetadataReminder"] == "instant":
 		# If told to remind and connect, metadata streaming will be enabled at this time.
@@ -500,14 +513,16 @@ def metadata_actionProfileSwitched(configDialogActive=False, settingsReset=False
 		# 17.11: call the connector.
 		# 18.02: transfered to the action handler and greatly simplified.
 		# 18.04: ask the handle finder to return to this place if Studio handle isn't ready.
-		# This is typically the case when launching Studio and profile switch occurs while demo registration screen is up.
+		# This is typically the case when launching Studio
+		# and profile switch occurs while demo registration screen is up.
 		handle = user32.FindWindowW("SPLStudio", None)
 		if not handle:
 			_delayMetadataAction = True
 			return
 		if not settingsReset:
 			metadataConnector()
-		# #47 (18.02/15.13-LTS): call the internal announcer via wx.CallLater in order to not hold up action handler queue.
+		# #47 (18.02/15.13-LTS): call the internal announcer via wx.CallLater
+		# in order to not hold up action handler queue.
 		# #51 (18.03/15.14-LTS): wx.CallLater isn't enough - there must be ability to cancel it.
 		_earlyMetadataAnnouncerInternal(metadataStatus())
 
@@ -524,7 +539,8 @@ SPLPlaylistTranscriptFormats = []
 
 
 # Obtain column presentation order.
-# Although this is useful in playlist transcripts, it can also be useful for column announcement inclusion and order.
+# Although this is useful in playlist transcripts,
+# it can also be useful for column announcement inclusion and order.
 def columnPresentationOrder():
 	from . import splconfig
 	return [
@@ -533,7 +549,8 @@ def columnPresentationOrder():
 
 # Various post-transcript actions.
 # For each converter, after transcribing the playlist, additional actions will be performed.
-# Actions can include viewing the transcript, copying to clipboard (text style format only), and saving to a file.
+# Actions can include viewing the transcript,
+# copying to clipboard (text style format only), and saving to a file.
 
 
 def displayPlaylistTranscripts(transcript, HTMLDecoration=False):
@@ -548,7 +565,8 @@ def copyPlaylistTranscriptsToClipboard(playlistTranscripts):
 
 
 def savePlaylistTranscriptsToFile(playlistTranscripts, extension, location=None):
-	# By default playlist transcripts will be saved to a subfolder in user's Documents folder named "nvdasplPlaylistTranscripts".
+	# By default playlist transcripts will be saved to a subfolder in user's Documents folder
+	# named "nvdasplPlaylistTranscripts".
 	# Each transcript file will be named yyyymmdd-hhmmss-splPlaylistTranscript.ext.
 	transcriptFileLocation = os.path.join(os.environ["userprofile"], "Documents", "nvdasplPlaylistTranscripts")
 	if not os.path.exists(transcriptFileLocation):
@@ -774,7 +792,8 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 		self.transcriptRange.SetFocus()
 
 	def onTranscriptFormatSelection(self, evt):
-		# Not all formats support all actions (for example, HTML table does not support copying to clipboard unless formatting is provided).
+		# Not all formats support all actions
+		# (for example, HTML table does not support copying to clipboard unless formatting is provided).
 		action = self.transcriptFormat.GetSelection()
 		self.transcriptAction.Clear()
 		if action in self.copy2clipPossible:
