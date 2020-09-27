@@ -4,9 +4,9 @@
 # Provides the configuration management package for SPL Studio app module.
 # For miscellaneous dialogs and tool, see SPLMisc module.
 # For UI surrounding this module, see splconfui module.
+# For the add-on settings specification, see splconfspec module.
 
 import os
-from io import StringIO
 import pickle
 from collections import ChainMap
 from configobj import ConfigObj, get_extra_values, ConfigObjError
