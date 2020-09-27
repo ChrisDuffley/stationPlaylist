@@ -301,10 +301,13 @@ def announceEncoderConnectionStatus():
 				connectedEncoders.append(encoder.encoderId)
 		if len(connectedEncoders) > 0:
 			# Translators: presented when at least one encoder is connected.
-			ui.message(_("Connected encoders: {encodersConnected}").format(encodersConnected=", ".join(connectedEncoders)))
+			encodersConnectedMessage = _("Connected encoders: {encodersConnected}").format(
+				encodersConnected=", ".join(connectedEncoders)
+			)
 		else:
 			# Translators: presented when no encoders are connected.
-			ui.message(_("No encoders connected"))
+			encodersConnectedMessage = _("No encoders connected")
+		ui.message(encodersConnectedMessage)
 
 
 class Encoder(IAccessible):
@@ -501,11 +504,16 @@ class Encoder(IAccessible):
 			if not self.backgroundMonitor:
 				# Translators: Presented when toggling the setting
 				# to monitor the selected encoder in the background.
-				ui.message(_("Monitoring encoder {encoderNumber}").format(encoderNumber=self.IAccessibleChildID))
+				monitorMessage = _("Monitoring encoder {encoderNumber}").format(
+					encoderNumber=self.IAccessibleChildID
+				)
 			else:
 				# Translators: Presented when toggling the setting
 				# to monitor the selected encoder in the background.
-				ui.message(_("Encoder {encoderNumber} will not be monitored").format(encoderNumber=self.IAccessibleChildID))
+				monitorMessage = _("Encoder {encoderNumber} will not be monitored").format(
+					encoderNumber=self.IAccessibleChildID
+				)
+			ui.message(monitorMessage)
 			self.backgroundMonitor = not self.backgroundMonitor
 			if self.backgroundMonitor:
 				try:
