@@ -15,7 +15,8 @@ _SPLWin = None
 
 
 # Check if Studio itself is running.
-# This is to make sure custom commands for SPL Assistant commands and other app module gestures display appropriate error messages.
+# This is to make sure custom commands for SPL Assistant commands
+# and other app module gestures display appropriate error messages.
 # 19.02: some checks will need to omit message output.
 def studioIsRunning(justChecking=False):
 	# Keep the boolean flag handy because of message output.
@@ -36,7 +37,8 @@ def studioIsRunning(justChecking=False):
 # #45 (18.02): returns whatever result SendMessage function says.
 # If debugging framework is on, print arg, command and other values.
 # 18.05: strengthen this by checking for the handle once more.
-# #92 (19.03): SendMessage function returns something from anything (including from dead window handles), so really make sure Studio window handle is alive.
+# #92 (19.03): SendMessage function returns something from anything (including from dead window handles),
+# so really make sure Studio window handle is alive.
 def studioAPI(arg, command):
 	if not studioIsRunning(justChecking=True):
 		return
