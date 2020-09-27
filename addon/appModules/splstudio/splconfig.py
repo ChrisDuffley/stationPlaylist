@@ -98,11 +98,17 @@ _SPLComponents_ = ("splstudio", "splcreator", "tracktool")
 
 # 8.0: Run-time config storage and management will use ConfigHub data structure, a subclass of chain map.
 # A chain map allows a dictionary to look up predefined mappings to locate a key.
-# When mutating a value, chain map defaults to using the topmost (zeroth) map, which isn't desirable if one wishes to use a specific map.
-# This also introduces a problem whereby new key/value pairs are created (highly undesirable if global settings are modified via scripts).
-# Therefore the ConfigHub subclass modifies item getter/setter to give favorable treatment to the currently active "map" (broadcast profile in use), with a flag indicating the name of the currently active map.
-# Using chain map also simplifies profile switching routine, as all that is needed is moving the active map flag around.
-# Finally, because this is a class, additional methods and properties are used, which frees the config dictionary from the burden of carrying global flags such as the name of the instant switch profile and others.
+# When mutating a value, chain map defaults to using the topmost (zeroth) map,
+# which isn't desirable if one wishes to use a specific map.
+# This also introduces a problem whereby new key/value pairs are created
+# (highly undesirable if global settings are modified via scripts).
+# Therefore the ConfigHub subclass modifies item getter/setter
+# to give favorable treatment to the currently active "map" (broadcast profile in use),
+# with a flag indicating the name of the currently active map.
+# Using chain map also simplifies profile switching routine,
+# as all that is needed is moving the active map flag around.
+# Finally, because this is a class, additional methods and properties are used, which frees the config map
+# from the burden of carrying global flags such as the name of the instant switch profile and others.
 class ConfigHub(ChainMap):
 	"""A hub of broadcast profiles, a subclass of ChainMap.
 	Apart from giving favorable treatments to the active map and adding custom methods and properties, this structure is identical to chain map structure.
@@ -122,8 +128,7 @@ class ConfigHub(ChainMap):
 		# #64 (18.07): keep an eye on which SPL component opened this map.
 		self.splComponents = set()
 		self.splComponents.add(splComponent)
-		# 17.09 only: a set of private variables to restrict configuration management such as using in-memory config.
-		# 17.10: now pull it in from command line.
+		# 17.10: config restrictions such as in-memory config come from command line.
 		self._configInMemory = "--spl-configinmemory" in globalVars.appArgsExtra
 		self._normalProfileOnly = "--spl-normalprofileonly" in globalVars.appArgsExtra
 		if self.configInMemory:
@@ -149,8 +154,10 @@ class ConfigHub(ChainMap):
 			# Remove deprecated keys.
 			# This action must be performed after caching, otherwise the newly modified profile will not be saved.
 			# For each deprecated/removed key, parse section/subsection.
-			# #95 (19.02/18.09.7-LTS): Configobj 4.7.0 ships with a more elegant way to obtain all extra values in one go, making deprecated keys definition unnecessary.
-			# A list of 2-tuples will be returned, with each entry recording the section name path tuple (requires parsing) and key, respectively.
+			# #95 (19.02/18.09.7-LTS): Configobj 4.7.0 ships with a more elegant way to obtain
+			# all extra values in one go, making deprecated keys definition unnecessary.
+			# A list of 2-tuples will be returned, with each entry recording
+			# the section name path tuple (requires parsing) and key, respectively.
 			# However, there are certain keys that must be kept across sessions or must be handled separately.
 			deprecatedKeys = get_extra_values(self.maps[0])
 			for section, key in deprecatedKeys:
@@ -230,7 +237,8 @@ class ConfigHub(ChainMap):
 	# 8.0: Don't validate profiles other than normal profile in the beginning.
 	def _unlockConfig(self, path, profileName=None, prefill=False, parent=None, validateNow=False):
 		# 7.0: Suppose this is one of the steps taken when copying settings when instantiating a new profile.
-		# If so, go through same procedure as though config passes validation tests, as all values from parent are in the right format.
+		# If so, go through same procedure as though config passes validation tests,
+		# as all values from parent are in the right format.
 		if parent is not None:
 			SPLConfigCheckpoint = ConfigObj(parent, encoding="UTF-8")
 			SPLConfigCheckpoint.filename = path
@@ -240,7 +248,8 @@ class ConfigHub(ChainMap):
 		# To be mutated only during unlock routine.
 		global _configLoadStatus
 		# Optimization: Profiles other than normal profile contains profile-specific sections only.
-		# This speeds up profile loading routine significantly as there is no need to call a function to strip global settings.
+		# This speeds up profile loading routine significantly
+		# as there is no need to call a function to strip global settings.
 		# 7.0: What if profiles have parsing errors?
 		# If so, reset everything back to factory defaults.
 		try:
@@ -267,7 +276,8 @@ class ConfigHub(ChainMap):
 	def _validateConfig(self, SPLConfigCheckpoint, profileName=None, prefill=False):
 		global _configLoadStatus
 		configTest = SPLConfigCheckpoint.validate(_val, copy=prefill, preserve_errors=True)
-		# Validator may return "True" if everything is okay, "False" for unrecoverable error, or a dictionary of failed keys.
+		# Validator may return "True" if everything is okay,
+		# "False" for unrecoverable error, or a dictionary of failed keys.
 		if isinstance(configTest, bool) and not configTest:
 			# Case 1: restore settings to defaults when 5.x config validation has failed on all values.
 			# 6.0: In case this is a user profile, apply base configuration.
@@ -285,7 +295,8 @@ class ConfigHub(ChainMap):
 			for setting in list(configTest.keys()):
 				if isinstance(configTest[setting], dict):
 					for failedKey in list(configTest[setting].keys()):
-						# 7.0 optimization: just reload from defaults dictionary, as broadcast profiles contain profile-specific settings only.
+						# 7.0 optimization: just reload from defaults dictionary,
+						# as broadcast profiles contain profile-specific settings only.
 						SPLConfigCheckpoint[setting][failedKey] = _SPLDefaults[setting][failedKey]
 			# 7.0: Disqualified from being cached this time.
 			SPLConfigCheckpoint.write()
@@ -427,7 +438,8 @@ class ConfigHub(ChainMap):
 	def save(self):
 		# Save all config profiles unless config was loaded from memory.
 		# #73: also responds to config save notification.
-		# In case this is called when NVDA or last SPL component exits, just follow through, as profile history and new profiles list would be cleared as part of general process cleanup.
+		# In case this is called when NVDA or last SPL component exits, just follow through,
+		# as profile history and new profiles list would be cleared as part of general process cleanup.
 		if self.configInMemory:
 			return
 		# 7.0: Save normal profile first.
@@ -441,7 +453,8 @@ class ConfigHub(ChainMap):
 		if self.resetHappened or _SPLCache[None] != normalProfile:
 			# 6.1: Transform column inclusion data structure (for normal profile) now.
 			# 7.0: This will be repeated for broadcast profiles later.
-			# 8.0: Conversion will happen here, as conversion to list is necessary before writing it to disk (if told to do so).
+			# 8.0: Conversion will happen here, as conversion to list
+			# is necessary before writing it to disk (if told to do so).
 			# 17.09: before doing that, temporarily save a copy of the current column headers set.
 			# 20.09: have a temporary settings dictionary handy for updating the actual profile.
 			profileSettings = normalProfile.dict()
@@ -459,18 +472,22 @@ class ConfigHub(ChainMap):
 				continue
 			if profile is not None:
 				# 7.0: See if profiles themselves must be saved.
-				# This must be done now, otherwise changes to broadcast profiles (cached) will not be saved as presave removes them.
+				# This must be done now, otherwise changes to broadcast profiles (cached) will
+				# not be saved as presave removes them.
 				# 8.0: Bypass cache check routine if this is a new profile or if reset happened.
-				# Takes advantage of the fact that Python's "or" operator evaluates from left to right, considerably saving time.
-				# Although nothing should be returned when calling dict.get with nonexistent keys, return the current profile for ease of comparison.
+				# Takes advantage of the fact that Python's "or" operator evaluates from left to right.
+				# Although nothing should be returned when calling dict.get with nonexistent keys,
+				# return the current profile for ease of comparison.
 				if self.resetHappened or profile.name in self.newProfiles or _SPLCache.get(profile.name, profile) != profile:
-					# Without keeping a copy of config dictionary (and restoring from it later), settings will be lost when presave check runs.
+					# Without keeping a copy of config dictionary (and restoring from it later),
+					# settings will be lost when presave check runs.
 					profileSettings = profile.dict()
 					profile["ColumnAnnouncement"]["IncludedColumns"] = list(profile["ColumnAnnouncement"]["IncludedColumns"])
 					self._preSave(profile)
 					profile.write()
 					profile.update(profileSettings)
-					# just like normal profile, cache the profile again provided that it was done already and if options in the cache and the live profile are different.
+					# just like normal profile, cache the profile again provided that it was done already
+					# and if options in the cache and the live profile are different.
 					self._cacheProfile(profile)
 
 	# Reset or reload config.
@@ -487,7 +504,8 @@ class ConfigHub(ChainMap):
 			# #96 (19.02/18.09.7-LTS): this is more so if a switch profile is active.
 			# If this is done from add-on settings/reset panel, communicate 'no' with an exception.
 			if gui.messageBox(
-				# Translators: Message displayed when attempting to reset Studio add-on settings while an instant switch profile is active.
+				# Translators: Message displayed when attempting to reset Studio add-on settings
+				# while an instant switch profile is active.
 				_("An instant switch profile is active. Resetting Studio add-on settings means normal profile will become active and switch profile settings will be left in unpredictable state. Are you sure you wish to reset Studio add-on settings to factory defaults?"),
 				# Translators: The title of the confirmation dialog for Studio add-on settings reset.
 				_("SPL Studio add-on reset"),
@@ -520,7 +538,8 @@ class ConfigHub(ChainMap):
 			conf.update(sourceProfile)
 			# Convert certain settings to a different format.
 			conf["ColumnAnnouncement"]["IncludedColumns"] = set(conf["ColumnAnnouncement"]["IncludedColumns"])
-			# 18.08: if this is normal profile, don't forget to change type for Playlist Transcripts/included columns set.
+			# 18.08: if this is normal profile, don't forget
+			# to change type for Playlist Transcripts/included columns set.
 			if conf.filename == SPLIni:
 				conf["PlaylistTranscripts"]["IncludedColumns"] = set(conf["PlaylistTranscripts"]["IncludedColumns"])
 				# Just like constructor, remove deprecated keys if any.
@@ -529,7 +548,8 @@ class ConfigHub(ChainMap):
 					if section == ():
 						continue
 					del conf[section[0]][key]
-		# If this is a reset, switch back to normal profile via a custom variant of swap routine, along with nullifying profile switches.
+		# If this is a reset, switch back to normal profile via a custom variant of swap routine,
+		# along with nullifying profile switches.
 		if factoryDefaults:
 			self.prevProfile = None
 			self.switchHistory = [None]
@@ -537,19 +557,24 @@ class ConfigHub(ChainMap):
 			if self.activeProfile != defaultProfileName:
 				npIndex = self.profileIndexByName(defaultProfileName)
 				self.profiles[0], self.profiles[npIndex] = self.profiles[npIndex], self.profiles[0]
-			# 8.0 optimization: Tell other modules that reset was done in order to postpone disk writes until the end.
+			# 8.0 optimization: Tell other modules that reset was done
+			# in order to postpone disk writes until the end.
 			self.resetHappened = True
-		# #94 (19.02/18.09.7-LTS): notify other subsystems to use default or reloaded settings, as timers and other routines might not see default settings.
-		# The below action will ultimately call profile switch handler so subsystems can take appropriate action.
+		# #94 (19.02/18.09.7-LTS): notify other subsystems to use default or reloaded settings,
+		# as timers and other routines might not see default settings.
+		# The below action will ultimately call profile switch handler
+		# so subsystems can take appropriate action.
 		splactions.SPLActionSettingsReset.notify(factoryDefaults=factoryDefaults)
 
 	def handlePostConfigReset(self, factoryDefaults=False):
 		# Confirmation message must be presented on the main thread to avoid freezes.
-		# For this reason, reset method should not be called from threads other than main thread unless confirmation is not needed.
+		# For this reason, reset method should not be called from threads other than main thread
+		# unless confirmation is not needed.
 		wx.CallAfter(self.reset, factoryDefaults=factoryDefaults, askForConfirmation=factoryDefaults and self._switchProfileFlags)
 
 	def profileIndexByName(self, name):
-		# 8.0 optimization: Only traverse the profiles list if head (active profile) or tail does not yield profile name in question.
+		# 8.0 optimization: Only traverse the profiles list
+		# if head (active profile) or tail does not yield profile name in question.
 		if name == self.activeProfile:
 			return 0
 		elif name == self.profiles[-1].name:
@@ -584,7 +609,8 @@ class ConfigHub(ChainMap):
 
 	# Switch between profiles.
 	# This involves promoting and demoting normal profile.
-	# 17.10: this will never be invoked if only normal profile is in use or if config was loaded from memory alone.
+	# 17.10: this will never be invoked if only normal profile is in use
+	# or if config was loaded from memory alone.
 	def switchProfile(self, prevProfile, newProfile, switchFlags=None):
 		if self.normalProfileOnly or self.configInMemory:
 			raise RuntimeError("Only normal profile is in use or config was loaded from memory, cannot switch profiles")
@@ -610,7 +636,8 @@ class ConfigHub(ChainMap):
 
 	# Switch start/end functions.
 	# To be called from the module when starting or ending a profile switch.
-	# The only difference is the switch type, which will then set appropriate flag to be passed to switchProfile method above, with xor used to set the flags.
+	# The only difference is the switch type, which will then set appropriate flag
+	# to be passed to switchProfile method above, with xor used to set the flags.
 	# 20.06: time-based profile flag is gone (only instant switch flag remains).
 	def switchProfileStart(self, prevProfile, newProfile, switchType):
 		if switchType != "instant":
@@ -678,12 +705,9 @@ def openConfig(splComponent):
 
 
 def initialize():
+	global SPLConfig, _configLoadStatus, trackComments
 	# Load the default config from a list of profiles.
 	# 8.0: All this work will be performed when ConfigHub loads.
-	global SPLConfig, _configLoadStatus, trackComments
-	# 7.0: Store the config as a dictionary.
-	# This opens up many possibilities, including config caching, loading specific sections only and others (the latter saves memory).
-	# 8.0: Replaced by ConfigHub object.
 	# #64 (18.07): performed by openConfig function.
 	openConfig("splstudio")
 	# Locate instant profile and do something otherwise.
@@ -727,9 +751,11 @@ _SPLCache = {}
 # Close config database if needed.
 def closeConfig(splComponent):
 	global SPLConfig, _SPLCache
-	# #99 (19.06/18.09.9-LTS): if more than one instance of a given SPL component executable is running, do not remove the component from the components registry.
+	# #99 (19.06/18.09.9-LTS): if more than one instance of a given SPL component executable is running,
+	# do not remove the component from the components registry.
 	import appModuleHandler
-	# The below loop will be run from the component app module's terminate method, but before that, the app module associated with the component would have been deleted from the running table.
+	# The below loop will be run from the component app module's terminate method, but before that,
+	# the app module associated with the component would have been deleted from the running table.
 	# This is subject to change based on NVDA Core changes.
 	for app in appModuleHandler.runningTable.values():
 		if app.appName == splComponent:
@@ -766,16 +792,19 @@ def instantProfileSwitch():
 		return
 	SPLSwitchProfile = SPLConfig.instantSwitch
 	if SPLSwitchProfile is None:
-		# Translators: Presented when trying to switch to an instant switch profile when the instant switch profile is not defined.
+		# Translators: Presented when trying to switch to an instant switch profile
+		# when the instant switch profile is not defined.
 		ui.message(_("No instant switch profile is defined"))
 	else:
 		if SPLConfig.prevProfile is None:
 			if SPLConfig.activeProfile == SPLSwitchProfile:
-				# Translators: Presented when trying to switch to an instant switch profile when one is already using the instant switch profile.
+				# Translators: Presented when trying to switch to an instant switch profile
+				# when one is already using the instant switch profile.
 				ui.message(_("You are already in the instant switch profile"))
 				return
 			# Switch to the given profile.
-			# 6.1: Do to referencing nature of Python, use the profile index function to locate the index for the soon to be deactivated profile.
+			# 6.1: Do to referencing nature of Python, use the profile index function
+			# to locate the index for the soon to be deactivated profile.
 			# 7.0: Store the profile name instead in order to prevent profile index mangling if profiles are deleted.
 			# Pass in the prev profile, which will be None for instant profile switch.
 			# 7.0: Now activate "activeProfile" argument which controls the behavior of the function below.
@@ -816,7 +845,8 @@ Have something to say about the add-on? Press Control+NVDA+hyphen (-) to send a 
 Thank you.""")
 
 	def __init__(self, parent):
-		# Translators: Title of a dialog displayed when the add-on starts presenting basic information, similar to NVDA's own welcome dialog.
+		# Translators: Title of a dialog displayed when the add-on starts presenting basic information,
+		# similar to NVDA's own welcome dialog.
 		super(WelcomeDialog, self).__init__(parent, title=_("Welcome to StationPlaylist add-on"))
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
@@ -860,7 +890,8 @@ def showStartupDialogs(oldVer=False):
 # Message verbosity pool.
 # To be moved to its own module in add-on 7.0.
 # This is a multimap, consisting of category, value and message.
-# Most of the categories are same as confspec keys, hence the below message function is invoked when settings are changed.
+# Most of the categories are same as confspec keys,
+# hence the below message function is invoked when settings are changed.
 def message(category, value):
 	verbosityLevels = ("beginner", "advanced")
 	ui.message(messagePool[category][value][verbosityLevels.index(SPLConfig["General"]["MessageVerbosity"])])
