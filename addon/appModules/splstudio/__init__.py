@@ -2281,9 +2281,13 @@ class AppModule(appModuleHandler.AppModule):
 			if analysisRange == 1:
 				self.announceTime(totalLength, ms=False)
 			else:
-				# Translators: Presented when time analysis is done for a number of tracks
-				# (example output: Tracks: 3, totaling 5:00).
-				ui.message(_("Tracks: {numberOfSelectedTracks}, totaling {totalTime}").format(numberOfSelectedTracks=analysisRange, totalTime=self._ms2time(totalLength * 1000)))
+				ui.message(
+					# Translators: Presented when time analysis is done for a number of tracks
+					# (example output: Tracks: 3, totaling 5:00).
+					_("Tracks: {numberOfSelectedTracks}, totaling {totalTime}").format(
+						numberOfSelectedTracks=analysisRange, totalTime=self._ms2time(totalLength * 1000)
+					)
+				)
 
 	@scriptHandler.script(
 		# Translators: Input help mode message for a command in StationPlaylist add-on.

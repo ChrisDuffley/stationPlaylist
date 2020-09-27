@@ -258,8 +258,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.finish()
 
 	def script_listenerCount(self, gesture):
-		# Translators: Announces number of stream listeners.
-		ui.message(_("Listener count: {listenerCount}").format(listenerCount=sendMessage(SPLWin, 1024, 0, SPLListenerCount)))
+		ui.message(
+			# Translators: Announces number of stream listeners.
+			_("Listener count: {listenerCount}").format(
+				listenerCount=sendMessage(SPLWin, 1024, 0, SPLListenerCount)
+			)
+		)
 		self.finish()
 
 	def script_remainingTime(self, gesture):
