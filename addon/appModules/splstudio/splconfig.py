@@ -781,9 +781,11 @@ Highlights of StationPlaylist add-on include:
 * And much more.
 
 Visit www.stationplaylist.com for details on StationPlaylist suite of applications.
-Visit StationPlaylist entry on NVDA Community Add-ons page (addons.nvda-project.org) for add-on details and to read the documentation.
+Visit StationPlaylist entry on NVDA Community Add-ons page (addons.nvda-project.org)
+for add-on details and to read the documentation.
 Want to see this dialog again? Just press Alt+NVDA+F1 while using Studio to return to this dialog.
-Have something to say about the add-on? Press Alt+NVDA+hyphen (-) to send a feedback to the developer of this add-on using your default email program.
+Have something to say about the add-on?
+Press Alt+NVDA+hyphen (-) to send feedback to the developer of this add-on using your default email program.
 
 Thank you.""")
 
