@@ -503,10 +503,12 @@ class ReversedDialog(Dialog):
 
 	@classmethod
 	def getDialogText(cls, obj, allowFocusedDescendants=True):
-		"""This classmethod walks through the children of the given object, and collects up and returns any text that seems to be  part of a dialog's message text.
+		"""This classmethod walks through the children of the given object, and collects up and
+		returns any text that seems to be  part of a dialog's message text.
 		@param obj: the object who's children you want to collect the text from
 		@type obj: L{IAccessible}
-		@param allowFocusedDescendants: if false no text will be returned at all if one of the descendants is focused.
+		@param allowFocusedDescendants: if false no text will be returned at all
+		if one of the descendants is focused.
 		@type allowFocusedDescendants: boolean
 		"""
 		children = obj.children
