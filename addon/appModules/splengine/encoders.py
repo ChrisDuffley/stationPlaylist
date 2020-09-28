@@ -321,9 +321,11 @@ def announceEncoderConnectionStatus():
 
 class Encoder(IAccessible):
 	"""Represents an encoder from within StationPlaylist Studio or Streamer.
-	This abstract base encoder provides scripts for all encoders such as encoder settings dialog and toggling focusing to Studio when connected.
+	This abstract base encoder provides scripts for all encoders such as encoder settings dialog
+	and toggling focusing to Studio when connected.
 	Subclasses must provide scripts to handle encoder connection and connection announcement routines.
-	Most importantly, each encoder class must provide a unique identifying string to identify the type of the encoder (e.g. SAM for SAM encoder).
+	Most importantly, each encoder class must provide a unique string to identify the encoder type
+	(e.g. SAM for SAM encoder).
 	"""
 
 	def _get_name(self):

@@ -111,13 +111,17 @@ _SPLCategoryTones = {
 # #65 (18.07): this base class represents trakc items
 # across StationPlaylist suites such as Studio, Creator and Track Tool.
 class SPLTrackItem(sysListView32.ListItem):
-	"""An abstract class representing track items across SPL suite of applications such as Studio, Creator and Track Tool.
+	"""An abstract class representing track items across SPL suite of applications
+	such as Studio, Creator, and Track Tool.
 	This class provides basic properties, scripts and methods such as Columns Explorer and others.
 	Subclasses should provide custom routines for various attributes, including global ones to suit their needs.
 
-	Each subclass is named after the app module name where tracks are encountered, such as SPLStudioTrackItem for Studio.
-	Subclasses of module-specific subclasses are named after SPL version, for example SPL510TrackItem for studio 5.10 if version-specific handling is required.
-	Classes representing different parts of an app are given descriptive names such as StudioPlaylistViewerItem for tracks found in Studio's Playlist Viewer (main window).
+	Each subclass is named after the app module name where tracks are encountered,
+	such as SPLStudioTrackItem for Studio.
+	Subclasses of module-specific subclasses are named after SPL version, for example
+	SPL510TrackItem for studio 5.10 if version-specific handling is required.
+	Classes representing different parts of an app are given descriptive names such as
+	StudioPlaylistViewerItem for tracks found in Studio's Playlist Viewer (main window).
 	"""
 
 	# #103: provide an abstract index of function.
@@ -212,7 +216,8 @@ class SPLStudioTrackItem(SPLTrackItem):
 
 class StudioPlaylistViewerItem(SPLTrackItem):
 	"""A class representing items found in Playlist Viewer (main window).
-	It provides utility scripts when Playlist Viewer entries are focused, such as location text and enhanced column navigation."""
+	It provides utility scripts when Playlist Viewer entries are focused,
+	such as location text and enhanced column navigation."""
 
 	def _get_name(self):
 		# 6.3: Catch an unusual case where screen order is off yet column order is same as screen order

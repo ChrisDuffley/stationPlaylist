@@ -54,7 +54,8 @@ _SPLComponents_ = ("splstudio", "splcreator", "tracktool")
 # from the burden of carrying global flags such as the name of the instant switch profile and others.
 class ConfigHub(ChainMap):
 	"""A hub of broadcast profiles, a subclass of ChainMap.
-	Apart from giving favorable treatments to the active map and adding custom methods and properties, this structure is identical to chain map structure.
+	Apart from giving favorable treatments to the active map and adding custom methods and properties,
+	this structure is identical to chain map structure.
 
 	The constructor takes an optional parameter that specifies which StationPlaylist component opened this map.
 	The default value is None, which means Studio (splstudio.exe) app module opened this.
