@@ -204,7 +204,11 @@ class SPLTrackItem(sysListView32.ListItem):
 		# meaning columns viewer will reflect visual display order.
 		columnContents = []
 		for column in self.children:
-			columnContents.append("{}: {}".format(column.columnHeaderText, column.name if column.name is not None else _("blank")))
+			columnContents.append(
+				"{}: {}".format(
+					column.columnHeaderText, column.name if column.name is not None else _("blank")
+				)
+			)
 		# Translators: Title of the column data window.
 		ui.browseableMessage("\n".join(columnContents), title=_("Track data"))
 
@@ -848,7 +852,10 @@ class AppModule(appModuleHandler.AppModule):
 						# If library scan is in progress, announce its progress when told to do so.
 						self.scanCount += 1
 						if self.scanCount % 100 == 0:
-							self._libraryScanAnnouncer(obj.name[1:obj.name.find("]")], splconfig.SPLConfig["General"]["LibraryScanAnnounce"])
+							self._libraryScanAnnouncer(
+								obj.name[1:obj.name.find("]")],
+								splconfig.SPLConfig["General"]["LibraryScanAnnounce"]
+							)
 					if not self.libraryScanning:
 						if self.productVersion not in noLibScanMonitor:
 							self.libraryScanning = True
@@ -1348,7 +1355,11 @@ class AppModule(appModuleHandler.AppModule):
 			startObj = api.getFocusObject()
 			if api.getForegroundObject().windowClassName == "TStudioForm" and startObj.role == controlTypes.ROLE_LIST:
 				startObj = startObj.firstChild
-			d = splmisc.SPLFindDialog(gui.mainFrame, startObj, self.findText[0] if self.findText and len(self.findText) else "", title, columnSearch=columnSearch)
+			d = splmisc.SPLFindDialog(
+				gui.mainFrame, startObj,
+				self.findText[0] if self.findText and len(self.findText) else "",
+				title, columnSearch=columnSearch
+			)
 			gui.mainFrame.prePopup()
 			d.Raise()
 			d.Show()
@@ -2291,7 +2302,9 @@ class AppModule(appModuleHandler.AppModule):
 			# #75 (18.08): use segue instead as it gives more accurate information as to the actual total duration.
 			# Add a 1 because track position subtracts it for comparison purposes.
 			# 18.10: rework this so this feature can work on track objects directly.
-			totalLength = self.playlistDuration(start=focus.parent.getChild(analysisBegin), end=focus.parent.getChild(analysisEnd + 1))
+			totalLength = self.playlistDuration(
+				start=focus.parent.getChild(analysisBegin), end=focus.parent.getChild(analysisEnd + 1)
+			)
 			# Playlist duration method returns raw seconds, so do not force milliseconds,
 			# and in case of multiple tracks, multiply this by 1000.
 			if analysisRange == 1:
@@ -2396,7 +2409,11 @@ class AppModule(appModuleHandler.AppModule):
 				# Translators: Presented when no place marker is found.
 				ui.message(_("No place marker found"))
 			else:
-				track = self._trackLocator(self.placeMarker[1], obj=api.getFocusObject().parent.firstChild, columns=[self.placeMarker[0]])
+				track = self._trackLocator(
+					self.placeMarker[1],
+					obj=api.getFocusObject().parent.firstChild,
+					columns=[self.placeMarker[0]]
+				)
 				# 16.11: Just like Track Finder, use select track function to select the place marker track.
 				# 20.09: perform doAction instead.
 				track.doAction()
