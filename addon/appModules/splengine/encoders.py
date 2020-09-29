@@ -291,7 +291,9 @@ def announceEncoderConnectionStatus():
 		except LookupError:
 			samEncoderWindow = 0
 	try:
-		sysListView32EncoderWindow = windowUtils.findDescendantWindow(desktopHwnd, className="SysListView32", controlID=1004)
+		sysListView32EncoderWindow = windowUtils.findDescendantWindow(
+			desktopHwnd, className="SysListView32", controlID=1004
+		)
 	except LookupError:
 		sysListView32EncoderWindow = 0
 	if not samEncoderWindow and not sysListView32EncoderWindow:
@@ -441,7 +443,9 @@ class Encoder(IAccessible):
 		# 20.09: don't bother if another thread is monitoring this encoder.
 		if self.encoderId in SPLBackgroundMonitorThreads and SPLBackgroundMonitorThreads[self.encoderId].is_alive():
 			return
-		statusThread = threading.Thread(target=self.reportConnectionStatus, kwargs=dict(manualConnect=manualConnect))
+		statusThread = threading.Thread(
+			target=self.reportConnectionStatus, kwargs=dict(manualConnect=manualConnect)
+		)
 		statusThread.start()
 		SPLBackgroundMonitorThreads[self.encoderId] = statusThread
 
@@ -460,7 +464,9 @@ class Encoder(IAccessible):
 		if self.focusToStudio:
 			import windowUtils
 			try:
-				studioWindow = windowUtils.findDescendantWindow(api.getDesktopObject().windowHandle, visible=True, className="TStudioForm")
+				studioWindow = windowUtils.findDescendantWindow(
+					api.getDesktopObject().windowHandle, visible=True, className="TStudioForm"
+				)
 				user32.SetForegroundWindow(studioWindow)
 			except LookupError:
 				# Translators: presented when SPL Studio window is minimized.
