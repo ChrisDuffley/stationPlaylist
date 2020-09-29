@@ -615,12 +615,16 @@ class ConfigHub(ChainMap):
 		if switchType == "instant" and not self.instantSwitchProfileActive:
 			raise RuntimeError("Instant switch flag is already off")
 		spldebugging.debugOutput(f"Profile switching end: type = {switchType}, previous profile is {prevProfile}, new profile is {newProfile}")
-		self.switchProfile(prevProfile, newProfile, switchFlags=self._switchProfileFlags ^ self._profileSwitchFlags[switchType])
+		self.switchProfile(
+			prevProfile, newProfile,
+			switchFlags=self._switchProfileFlags ^ self._profileSwitchFlags[switchType]
+		)
 
 	# Used from config dialog and other places.
 	# Show switch index is used when deleting profiles so it doesn't have to look up index for old profiles.
 	def swapProfiles(self, prevProfile, newProfile, showSwitchIndex=False):
-		former, current = self.profileIndexByName(prevProfile if prevProfile is not None else self.switchHistory[-1]), self.profileIndexByName(newProfile)
+		former = self.profileIndexByName(prevProfile if prevProfile is not None else self.switchHistory[-1])
+		current = self.profileIndexByName(newProfile)
 		self.profiles[current], self.profiles[former] = self.profiles[former], self.profiles[current]
 		if showSwitchIndex:
 			return current
