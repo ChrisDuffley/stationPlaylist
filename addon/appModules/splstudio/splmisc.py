@@ -606,9 +606,9 @@ def playlist2htmlTable(start, end, transcriptAction):
 	if transcriptAction == 1:
 		playlistTranscripts = ["<html><head><title>Playlist Transcripts</title></head>"]
 		playlistTranscripts.append("<body>")
-		playlistTranscripts.append("Playlist Transcripts - use table navigation commands to review track information")
+		playlistTranscripts.append("<h1>Playlist Transcripts</h1>")
 	else:
-		playlistTranscripts = ["Playlist Transcripts - use table navigation commands to review track information"]
+		playlistTranscripts = ["<h1>Playlist Transcripts</h1>"]
 	playlistTranscripts.append("<p>")
 	columnHeaders = columnPresentationOrder()
 	playlistTranscripts.append("<table><tr><th>{trackHeaders}</tr>".format(trackHeaders="<th>".join(columnHeaders)))
@@ -633,9 +633,9 @@ def playlist2htmlList(start, end, transcriptAction):
 	if transcriptAction == 1:
 		playlistTranscripts = ["<html><head><title>Playlist Transcripts</title></head>"]
 		playlistTranscripts.append("<body>")
-		playlistTranscripts.append("Playlist Transcripts - use list navigation commands to review track information")
+		playlistTranscripts.append("<h1>Playlist Transcripts</h1>")
 	else:
-		playlistTranscripts = ["Playlist Transcripts - use list navigation commands to review track information"]
+		playlistTranscripts = ["<h1>Playlist Transcripts</h1>"]
 	playlistTranscripts.append("<p><ol>")
 	playlistTranscripts += playlist2msaa(start, end, additionalDecorations=True, prefix="<li>")
 	playlistTranscripts.append("</ol>")
