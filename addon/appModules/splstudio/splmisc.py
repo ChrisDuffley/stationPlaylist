@@ -345,7 +345,10 @@ def cartExplorerInit(StudioTitle, cartFiles=None, refresh=False, carts=None):
 		# avoid this being partially consulted up to 24 times.
 		# The below method will just check for string length, which is faster than looking for specific substring.
 		# See the comment for _populate carts method for details.
-		_populateCarts(carts, cl[1], mod if mod != "main" else "", standardEdition=carts["standardLicense"], refresh=refresh)
+		_populateCarts(
+			carts, cl[1], mod if mod != "main" else "",
+			standardEdition=carts["standardLicense"], refresh=refresh
+		)
 		if not refresh:
 			debugOutput(f"carts processed so far: {(len(carts)-1)}")
 	carts["faultyCarts"] = faultyCarts
@@ -483,7 +486,9 @@ def _earlyMetadataAnnouncerInternal(status, startup=False):
 	if _earlyMetadataAnnouncer is not None:
 		_earlyMetadataAnnouncer.cancel()
 		_earlyMetadataAnnouncer = None
-	_earlyMetadataAnnouncer = threading.Timer(2, _metadataAnnouncerInternal, args=[status], kwargs={"startup": startup})
+	_earlyMetadataAnnouncer = threading.Timer(
+		2, _metadataAnnouncerInternal, args=[status], kwargs={"startup": startup}
+	)
 	_earlyMetadataAnnouncer.start()
 
 
@@ -574,7 +579,9 @@ def savePlaylistTranscriptsToFile(playlistTranscripts, extension, location=None)
 	import datetime
 	transcriptTimestamp = datetime.datetime.now()
 	transcriptFilename = "{0}{1:02d}{2:02d}-{3:02d}{4:02d}{5:02d}-splPlaylistTranscript.{6}".format(
-		transcriptTimestamp.year, transcriptTimestamp.month, transcriptTimestamp.day, transcriptTimestamp.hour, transcriptTimestamp.minute, transcriptTimestamp.second, extension)
+		transcriptTimestamp.year, transcriptTimestamp.month, transcriptTimestamp.day,
+		transcriptTimestamp.hour, transcriptTimestamp.minute, transcriptTimestamp.second, extension
+	)
 	transcriptPath = os.path.join(transcriptFileLocation, transcriptFilename)
 	with open(transcriptPath, "w") as transcript:
 		transcript.writelines(playlistTranscripts)
@@ -631,7 +638,11 @@ def playlist2htmlTable(start, end, transcriptAction):
 		playlistTranscripts = ["<h1>Playlist Transcripts</h1>"]
 	playlistTranscripts.append("<p>")
 	columnHeaders = columnPresentationOrder()
-	playlistTranscripts.append("<table><tr><th>{trackHeaders}</tr>".format(trackHeaders="<th>".join(columnHeaders)))
+	playlistTranscripts.append(
+		"<table><tr><th>{trackHeaders}</tr>".format(
+			trackHeaders="<th>".join(columnHeaders)
+		)
+	)
 	obj = start
 	columnPos = [obj.indexOf(column) for column in columnHeaders]
 	while obj not in (None, end):
@@ -815,11 +826,17 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 			start = self.obj
 		if transcriptRange == 3:
 			# Try to locate boundaries for current hour slot.
-			start = self.obj.appModule._trackLocator("Hour Marker", obj=self.obj, directionForward=False, columns=[self.obj.indexOf("Category")])
-			end = self.obj.appModule._trackLocator("Hour Marker", obj=self.obj, columns=[self.obj.indexOf("Category")])
+			start = self.obj.appModule._trackLocator(
+				"Hour Marker", obj=self.obj, directionForward=False, columns=[self.obj.indexOf("Category")]
+			)
+			end = self.obj.appModule._trackLocator(
+				"Hour Marker", obj=self.obj, columns=[self.obj.indexOf("Category")]
+			)
 			# What if current track is indeed an hour marker?
 			if end == self.obj:
-				end = self.obj.appModule._trackLocator("Hour Marker", obj=self.obj.next, columns=[self.obj.indexOf("Category")])
+				end = self.obj.appModule._trackLocator(
+					"Hour Marker", obj=self.obj.next, columns=[self.obj.indexOf("Category")]
+				)
 		wx.CallLater(200, SPLPlaylistTranscriptFormats[self.transcriptFormat.Selection][1], start, end, self.transcriptAction.Selection)
 		self.Destroy()
 		_plTranscriptsDialogOpened = False
