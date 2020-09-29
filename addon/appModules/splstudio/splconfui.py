@@ -533,14 +533,17 @@ class AlarmsPanel(gui.SettingsPanel):
 		alarmsCenterHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
 		self.outroAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&End of track alarm in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=59, initial=splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"])
+
 		self.outroToggleCheckBox = alarmsCenterHelper.addItem(wx.CheckBox(self, label=_("&Notify when end of track is approaching")))
 		self.outroToggleCheckBox.SetValue(splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"])
 
 		self.introAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&Track intro alarm in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=9, initial=splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"])
+
 		self.introToggleCheckBox = alarmsCenterHelper.addItem(wx.CheckBox(self, label=_("&Notify when end of introduction is approaching")))
 		self.introToggleCheckBox.SetValue(splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"])
 
 		self.micAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&Microphone alarm in seconds (0 disables the alarm)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=7200, initial=splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"])
+
 		self.micIntervalEntry = alarmsCenterHelper.addLabeledControl(_("Microphone alarm &interval in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=60, initial=splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"])
 
 		self.alarmAnnounceValues = [
@@ -593,31 +596,39 @@ class PlaylistSnapshotsPanel(gui.SettingsPanel):
 		# to include shortest and longest track duration in playlist snapshots window.
 		self.playlistDurationMinMaxCheckbox = playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Shortest and longest tracks")))
 		self.playlistDurationMinMaxCheckbox.SetValue(splconfig.SPLConfig["PlaylistSnapshots"]["DurationMinMax"])
+
 		# Translators: the label for a setting in SPL add-on settings
 		# to include average track duration in playlist snapshots window.
 		self.playlistDurationAverageCheckbox = playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Average track duration")))
 		self.playlistDurationAverageCheckbox.SetValue(splconfig.SPLConfig["PlaylistSnapshots"]["DurationAverage"])
+
 		# Translators: the label for a setting in SPL add-on settings
 		# to include track artist count in playlist snapshots window.
 		self.playlistArtistCountCheckbox = playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Artist count")))
 		self.playlistArtistCountCheckbox.SetValue(splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCount"])
+
 		# Translators: the label for a setting in SPL add-on settings
 		# to set top artist count limit in playlist snapshots window.
 		self.playlistArtistCountLimit = playlistSnapshotsHelper.addLabeledControl(_("Top artist count (0 displays all artists)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=10, initial=splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCountLimit"])
+
 		# Translators: the label for a setting in SPL add-on settings
 		# to include track category count in playlist snapshots window.
 		self.playlistCategoryCountCheckbox = playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Category count")))
 		self.playlistCategoryCountCheckbox.SetValue(splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCount"])
+
 		# Translators: the label for a setting in SPL add-on settings
 		# to set top track category count limit in playlist snapshots window.
 		self.playlistCategoryCountLimit = playlistSnapshotsHelper.addLabeledControl(_("Top category count (0 displays all categories)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=10, initial=splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCountLimit"])
+
 		# Translators: the label for a setting in SPL add-on settings
 		# to include track genre count in playlist snapshots window.
 		self.playlistGenreCountCheckbox = playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Genre count")))
 		self.playlistGenreCountCheckbox.SetValue(splconfig.SPLConfig["PlaylistSnapshots"]["GenreCount"])
+
 		# Translators: the label for a setting in SPL add-on settings
 		# to set top track genre count limit in playlist snapshots window.
 		self.playlistGenreCountLimit = playlistSnapshotsHelper.addLabeledControl(_("Top genre count (0 displays all genres)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=10, initial=splconfig.SPLConfig["PlaylistSnapshots"]["GenreCountLimit"])
+
 		# Translators: the label for a setting in SPL add-on settings
 		# to show playlist snaphsots window when the snapshots command is pressed once.
 		self.resultsWindowOnFirstPressCheckbox = playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("&Show results window when playlist snapshots command is performed once")))
@@ -911,11 +922,13 @@ class ColumnsExplorerPanel(gui.SettingsPanel):
 		columnsExplorerButton = wx.Button(self, label=_("Columns E&xplorer..."))
 		columnsExplorerButton.Bind(wx.EVT_BUTTON, self.onColumnsExplorer)
 		self.exploreColumns = splconfig.SPLConfig["General"]["ExploreColumns"]
+
 		# Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 		# for Track Tool.
 		columnsExplorerTTButton = wx.Button(self, label=_("Columns Explorer for &Track Tool..."))
 		columnsExplorerTTButton.Bind(wx.EVT_BUTTON, self.onColumnsExplorerTT)
 		self.exploreColumnsTT = splconfig.SPLConfig["General"]["ExploreColumnsTT"]
+
 		# Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 		# for StationPlaylist Creator.
 		columnsExplorerCreatorButton = wx.Button(self, label=_("Columns Explorer for &SPL Creator..."))
@@ -1035,12 +1048,15 @@ class SayStatusPanel(gui.SettingsPanel):
 		# Translators: the label for a setting in SPL add-on settings to announce scheduled time.
 		self.scheduledForCheckbox = sayStatusHelper.addItem(wx.CheckBox(self, label=_("Announce &scheduled time for the selected track")))
 		self.scheduledForCheckbox.SetValue(splconfig.SPLConfig["SayStatus"]["SayScheduledFor"])
+
 		# Translators: the label for a setting in SPL add-on settings to announce listener count.
 		self.listenerCountCheckbox = sayStatusHelper.addItem(wx.CheckBox(self, label=_("Announce &listener count")))
 		self.listenerCountCheckbox.SetValue(splconfig.SPLConfig["SayStatus"]["SayListenerCount"])
+
 		# Translators: the label for a setting in SPL add-on settings to announce currently playing cart.
 		self.cartNameCheckbox = sayStatusHelper.addItem(wx.CheckBox(self, label=_("&Announce name of the currently playing cart")))
 		self.cartNameCheckbox.SetValue(splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"])
+
 		# Translators: the label for a setting in SPL add-on settings
 		# to announce player position for the current and next tracks.
 		self.playerPositionCheckbox = sayStatusHelper.addItem(wx.CheckBox(self, label=_("Include track player &position when announcing current and next track information")))
@@ -1065,6 +1081,7 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 		# Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
 		self.splConPassthroughCheckbox = advOptionsHelper.addItem(wx.CheckBox(self, label=_("Allow SPL C&ontroller command to invoke SPL Assistant layer")))
 		self.splConPassthroughCheckbox.SetValue(splconfig.SPLConfig["Advanced"]["SPLConPassthrough"])
+
 		# Translators: The label for a setting in SPL add-on dialog to set keyboard layout for SPL Assistant.
 		labelText = _("SPL Assistant command &layout:")
 		self.compatibilityLayouts = [
@@ -1092,8 +1109,10 @@ class ResetDialog(wx.Dialog):
 
 		# Translators: the label for resetting profile triggers.
 		self.resetInstantProfileCheckbox = resetHelper.addItem(wx.CheckBox(self, label=_("Reset instant switch profile")))
+
 		# Translators: the label for resetting encoder settings.
 		self.resetEncodersCheckbox = resetHelper.addItem(wx.CheckBox(self, label=_("Remove encoder settings")))
+
 		# Translators: the label for resetting track comments.
 		self.resetTrackCommentsCheckbox = resetHelper.addItem(wx.CheckBox(self, label=_("Erase track comments")))
 
