@@ -251,7 +251,9 @@ class BroadcastProfilesDialog(wx.Dialog):
 	# Contained flag is set to False if this is called for display purposes,
 	# otherwise it is used to set flags based on flag set.
 	def getProfileFlags(self, name, contained=True):
-		return splconfig.SPLConfig.getProfileFlags(name, active=self.activeProfile, instant=self.switchProfile, contained=contained)
+		return splconfig.SPLConfig.getProfileFlags(
+			name, active=self.activeProfile, instant=self.switchProfile, contained=contained
+		)
 
 	# Handle flag modifications such as when toggling instant switch.
 	# Unless given, flags will be queried.

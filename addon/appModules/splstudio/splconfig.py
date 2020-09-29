@@ -116,7 +116,11 @@ class ConfigHub(ChainMap):
 				for profile in os.listdir(SPLProfiles):
 					name, ext = os.path.splitext(profile)
 					if ext == ".ini":
-						self.maps.append(self._unlockConfig(os.path.join(SPLProfiles, profile), profileName=name, validateNow=True))
+						self.maps.append(
+							self._unlockConfig(
+								os.path.join(SPLProfiles, profile), profileName=name, validateNow=True
+							)
+						)
 						self.profileNames.append(name)
 						# 20.10/20.09.2-LTS: remove deprecated keys from profiles, too.
 						deprecatedKeys = get_extra_values(self.maps[-1])
@@ -197,10 +201,14 @@ class ConfigHub(ChainMap):
 		# 7.0: What if profiles have parsing errors?
 		# If so, reset everything back to factory defaults.
 		try:
-			SPLConfigCheckpoint = ConfigObj(path, configspec=confspec if prefill else confspecprofiles, encoding="UTF-8")
+			SPLConfigCheckpoint = ConfigObj(
+				path, configspec=confspec if prefill else confspecprofiles, encoding="UTF-8"
+			)
 		except ConfigObjError:
 			open(path, "w").close()
-			SPLConfigCheckpoint = ConfigObj(path, configspec=confspec if prefill else confspecprofiles, encoding="UTF-8")
+			SPLConfigCheckpoint = ConfigObj(
+				path, configspec=confspec if prefill else confspecprofiles, encoding="UTF-8"
+			)
 			_configLoadStatus[profileName] = "fileReset"
 		# 5.2 and later: check to make sure all values are correct.
 		# 7.0: Make sure errors are displayed as config keys are now sections and may need to go through subkeys.
@@ -477,7 +485,9 @@ class ConfigHub(ChainMap):
 				conf.filename = profilePath
 				sourceProfile = defaultProfileConfig if profilePath != SPLIni else defaultConfig
 			else:
-				sourceProfile = self._unlockConfig(conf.filename, profileName=conf.name, prefill=conf.filename == SPLIni, validateNow=True).dict()
+				sourceProfile = self._unlockConfig(
+					conf.filename, profileName=conf.name, prefill=conf.filename == SPLIni, validateNow=True
+				).dict()
 			# 20.09: just like complete reset when loading profiles, update settings from defaults.
 			conf.update(sourceProfile)
 			# Convert certain settings to a different format.
@@ -589,7 +599,10 @@ class ConfigHub(ChainMap):
 		if switchType == "instant" and self.instantSwitchProfileActive:
 			raise RuntimeError("Instant switch flag is already on")
 		spldebugging.debugOutput(f"Profile switching start: type = {switchType}, previous profile is {prevProfile}, new profile is {newProfile}")
-		self.switchProfile(prevProfile, newProfile, switchFlags=self._switchProfileFlags ^ self._profileSwitchFlags[switchType])
+		self.switchProfile(
+			prevProfile, newProfile,
+			switchFlags=self._switchProfileFlags ^ self._profileSwitchFlags[switchType]
+		)
 		# 8.0: Cache the new profile.
 		global _SPLCache
 		# 18.03: be sure to check if config cache is even online.
