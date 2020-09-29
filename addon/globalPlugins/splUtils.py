@@ -135,7 +135,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		else:
 			import windowUtils
 			try:
-				studioWindow = windowUtils.findDescendantWindow(api.getDesktopObject().windowHandle, visible=True, className="TStudioForm")
+				studioWindow = windowUtils.findDescendantWindow(
+					api.getDesktopObject().windowHandle, visible=True, className="TStudioForm"
+				)
 				user32.SetForegroundWindow(studioWindow)
 			except LookupError:
 				# Translators: presented when SPL Studio window is minimized.
