@@ -231,7 +231,8 @@ class SPLTimeRangeDialog(wx.Dialog):
 					# between minimum and maximum duration is not found.
 					gui.messageBox, _("No track with duration between minimum and maximum duration."),
 					# Translators: Standard error title for find error (copy this from main nvda.po).
-					_("Time range find error"), wx.OK | wx.ICON_ERROR)
+					_("Time range find error"), wx.OK | wx.ICON_ERROR
+				)
 		_findDialogOpened = False
 
 	def onCancel(self, evt):
@@ -837,7 +838,10 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 				end = self.obj.appModule._trackLocator(
 					"Hour Marker", obj=self.obj.next, columns=[self.obj.indexOf("Category")]
 				)
-		wx.CallLater(200, SPLPlaylistTranscriptFormats[self.transcriptFormat.Selection][1], start, end, self.transcriptAction.Selection)
+		wx.CallLater(
+			200, SPLPlaylistTranscriptFormats[self.transcriptFormat.Selection][1],
+			start, end, self.transcriptAction.Selection
+		)
 		self.Destroy()
 		_plTranscriptsDialogOpened = False
 

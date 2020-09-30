@@ -524,7 +524,10 @@ class ConfigHub(ChainMap):
 		# Confirmation message must be presented on the main thread to avoid freezes.
 		# For this reason, reset method should not be called from threads other than main thread
 		# unless confirmation is not needed.
-		wx.CallAfter(self.reset, factoryDefaults=factoryDefaults, askForConfirmation=factoryDefaults and self._switchProfileFlags)
+		wx.CallAfter(
+			self.reset, factoryDefaults=factoryDefaults,
+			askForConfirmation=factoryDefaults and self._switchProfileFlags
+		)
 
 	def profileIndexByName(self, name):
 		# 8.0 optimization: Only traverse the profiles list
@@ -699,8 +702,11 @@ def initialize():
 				error = _configErrors[_configLoadStatus[profile]]
 				messages.append("{profileName}: {errorMessage}".format(profileName=profile, errorMessage=error))
 		_configLoadStatus.clear()
-		# Translators: Standard error title for configuration error.
-		wx.CallAfter(gui.messageBox, "\n".join(messages), _("Studio add-on Configuration error"), wx.OK | wx.ICON_ERROR)
+		wx.CallAfter(
+			gui.messageBox, "\n".join(messages),
+			# Translators: Standard error title for configuration error.
+			_("Studio add-on Configuration error"), wx.OK | wx.ICON_ERROR
+		)
 
 
 # Cache a copy of the loaded config.

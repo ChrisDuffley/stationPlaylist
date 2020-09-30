@@ -1163,7 +1163,8 @@ class ResetDialog(wx.Dialog):
 				# Translators: A dialog message shown when settings were reset to defaults.
 				gui.messageBox, _("Successfully applied default add-on settings."),
 				# Translators: Title of the reset config dialog.
-				_("Reset configuration"), wx.OK | wx.ICON_INFORMATION)
+				_("Reset configuration"), wx.OK | wx.ICON_INFORMATION
+			)
 		self.Destroy()
 		# #6: because the parent isn't add-on settings but the categories/panel sizer, fetch its ancestor.
 		parent.Parent.Parent.Destroy()
@@ -1274,8 +1275,11 @@ def onBroadcastProfilesDialog(evt):
 		return
 	# Present an error message if only normal profile is in use.
 	if splconfig.SPLConfig.configInMemory or splconfig.SPLConfig.normalProfileOnly:
-		# Translators: presented when only normal profile is in use.
-		wx.CallAfter(gui.messageBox, _("Normal profile is in use, cannot open broadcast profiles dialog."), _("SPL Broadcast Profiles"), wx.OK | wx.ICON_ERROR)
+		wx.CallAfter(
+			# Translators: presented when only normal profile is in use.
+			gui.messageBox, _("Normal profile is in use, cannot open broadcast profiles dialog."),
+			_("SPL Broadcast Profiles"), wx.OK | wx.ICON_ERROR
+		)
 		return
 	gui.mainFrame.prePopup()
 	BroadcastProfilesDialog(gui.mainFrame).Show()
