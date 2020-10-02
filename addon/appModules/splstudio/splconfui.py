@@ -1043,7 +1043,9 @@ class ColumnsExplorerPanel(gui.SettingsPanel):
 		columnsExplorerCreatorButton = wx.Button(self, label=_("Columns Explorer for &SPL Creator..."))
 		columnsExplorerCreatorButton.Bind(wx.EVT_BUTTON, self.onColumnsExplorerCreator)
 		self.exploreColumnsCreator = splconfig.SPLConfig["General"]["ExploreColumnsCreator"]
-		colExplorerHelper.sizer.AddMany((columnsExplorerButton, columnsExplorerTTButton, columnsExplorerCreatorButton))
+		colExplorerHelper.sizer.AddMany(
+			(columnsExplorerButton, columnsExplorerTTButton, columnsExplorerCreatorButton)
+		)
 
 	def onSave(self):
 		splconfig.SPLConfig["General"]["ExploreColumns"] = self.exploreColumns
@@ -1078,12 +1080,20 @@ class ColumnsExplorerDialog(wx.Dialog):
 		elif level == 1:
 			# Translators: The title of Columns Explorer configuration dialog.
 			actualTitle = _("Columns Explorer for Track Tool")
-			cols = ("Artist", "Title", "Duration", "Cue", "Overlap", "Intro", "Segue", "Filename", "Album", "CD Code", "Outro", "Year", "URL 1", "URL 2", "Genre")
+			cols = (
+				"Artist", "Title", "Duration", "Cue", "Overlap",
+				"Intro", "Segue", "Filename", "Album", "CD Code",
+				"Outro", "Year", "URL 1", "URL 2", "Genre"
+			)
 			slots = parent.exploreColumnsTT
 		elif level == 2:
 			# Translators: The title of Columns Explorer configuration dialog.
 			actualTitle = _("Columns Explorer for SPL Creator")
-			cols = ("Artist", "Title", "Position", "Cue", "Intro", "Outro", "Segue", "Duration", "Last Scheduled", "7 Days", "Date Restriction", "Year", "Album", "Genre", "Mood", "Energy", "Tempo", "BPM", "Gender", "Rating", "File Created", "Filename", "Client", "Other", "Intro Link", "Outro Link")
+			cols = (
+				"Artist", "Title", "Position", "Cue", "Intro", "Outro", "Segue", "Duration", "Last Scheduled",
+				"7 Days", "Date Restriction", "Year", "Album", "Genre", "Mood", "Energy", "Tempo", "BPM",
+				"Gender", "Rating", "File Created", "Filename", "Client", "Other", "Intro Link", "Outro Link"
+			)
 			slots = parent.exploreColumnsCreator
 		# Gather column slots.
 		self.columnSlots = []
@@ -1096,7 +1106,8 @@ class ColumnsExplorerDialog(wx.Dialog):
 		# 17.04: Five by two grid layout as 5.0x is no longer supported.
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		for slot in range(5):
-			# Translators: The label for a setting in SPL add-on dialog to select column for this column slot.
+			# Translators: The label for a setting in SPL add-on settings
+			# to select column for this column slot.
 			columns = sizer.addLabeledControl(_("Slot {position}").format(position=slot + 1), wx.Choice, choices=cols)
 			try:
 				columns.SetSelection(cols.index(slots[slot]))
@@ -1154,21 +1165,28 @@ class SayStatusPanel(gui.SettingsPanel):
 	def makeSettings(self, settingsSizer):
 		sayStatusHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
-		# Translators: the label for a setting in SPL add-on settings to announce scheduled time.
-		self.scheduledForCheckbox = sayStatusHelper.addItem(wx.CheckBox(self, label=_("Announce &scheduled time for the selected track")))
+		# Translators: the label for a setting in SPL add-on settings
+		# to announce scheduled time.
+		scheduledForLabel = _("Announce &scheduled time for the selected track")
+		self.scheduledForCheckbox = sayStatusHelper.addItem(wx.CheckBox(self, label=scheduledForLabel))
 		self.scheduledForCheckbox.SetValue(splconfig.SPLConfig["SayStatus"]["SayScheduledFor"])
 
-		# Translators: the label for a setting in SPL add-on settings to announce listener count.
-		self.listenerCountCheckbox = sayStatusHelper.addItem(wx.CheckBox(self, label=_("Announce &listener count")))
+		# Translators: the label for a setting in SPL add-on settings
+		# to announce listener count.
+		listenerCountLabel = _("Announce &listener count")
+		self.listenerCountCheckbox = sayStatusHelper.addItem(wx.CheckBox(self, label=listenerCountLabel))
 		self.listenerCountCheckbox.SetValue(splconfig.SPLConfig["SayStatus"]["SayListenerCount"])
 
-		# Translators: the label for a setting in SPL add-on settings to announce currently playing cart.
-		self.cartNameCheckbox = sayStatusHelper.addItem(wx.CheckBox(self, label=_("&Announce name of the currently playing cart")))
+		# Translators: the label for a setting in SPL add-on settings
+		# to announce currently playing cart.
+		cartNameLabel = _("&Announce name of the currently playing cart")
+		self.cartNameCheckbox = sayStatusHelper.addItem(wx.CheckBox(self, label=cartNameLabel))
 		self.cartNameCheckbox.SetValue(splconfig.SPLConfig["SayStatus"]["SayPlayingCartName"])
 
 		# Translators: the label for a setting in SPL add-on settings
 		# to announce player position for the current and next tracks.
-		self.playerPositionCheckbox = sayStatusHelper.addItem(wx.CheckBox(self, label=_("Include track player &position when announcing current and next track information")))
+		playerPositionLabel = _("Include track player &position when announcing current and next track information")
+		self.playerPositionCheckbox = sayStatusHelper.addItem(wx.CheckBox(self, label=playerPositionLabel))
 		self.playerPositionCheckbox.SetValue(splconfig.SPLConfig["SayStatus"]["SayStudioPlayerPosition"])
 
 	def onSave(self):
