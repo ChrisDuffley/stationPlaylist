@@ -636,51 +636,81 @@ class PlaylistSnapshotsPanel(gui.SettingsPanel):
 	def makeSettings(self, settingsSizer):
 		playlistSnapshotsHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
-		# Translators: Help text for playlist snapshots dialog.
+		# Translators: Help text for playlist snapshots panel.
 		labelText = _("""Select information to be included when obtaining playlist snapshots.
 		Track count and total duration are always included.""")
 		playlistSnapshotsHelper.addItem(wx.StaticText(self, label=labelText))
 
 		# Translators: the label for a setting in SPL add-on settings
 		# to include shortest and longest track duration in playlist snapshots window.
-		self.playlistDurationMinMaxCheckbox = playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Shortest and longest tracks")))
+		durationMinMaxLabel = _("Shortest and longest tracks")
+		self.playlistDurationMinMaxCheckbox = playlistSnapshotsHelper.addItem(
+			wx.CheckBox(self, label=durationMinMaxLabel)
+		)
 		self.playlistDurationMinMaxCheckbox.SetValue(splconfig.SPLConfig["PlaylistSnapshots"]["DurationMinMax"])
 
 		# Translators: the label for a setting in SPL add-on settings
 		# to include average track duration in playlist snapshots window.
-		self.playlistDurationAverageCheckbox = playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Average track duration")))
+		durationAverageLabel = _("Average track duration")
+		self.playlistDurationAverageCheckbox = playlistSnapshotsHelper.addItem(
+			wx.CheckBox(self, label=durationAverageLabel)
+		)
 		self.playlistDurationAverageCheckbox.SetValue(splconfig.SPLConfig["PlaylistSnapshots"]["DurationAverage"])
 
 		# Translators: the label for a setting in SPL add-on settings
 		# to include track artist count in playlist snapshots window.
-		self.playlistArtistCountCheckbox = playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Artist count")))
+		artistCountLabel = _("Artist count")
+		self.playlistArtistCountCheckbox = playlistSnapshotsHelper.addItem(
+			wx.CheckBox(self, label=artistCountLabel)
+		)
 		self.playlistArtistCountCheckbox.SetValue(splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCount"])
 
 		# Translators: the label for a setting in SPL add-on settings
 		# to set top artist count limit in playlist snapshots window.
-		self.playlistArtistCountLimit = playlistSnapshotsHelper.addLabeledControl(_("Top artist count (0 displays all artists)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=10, initial=splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCountLimit"])
+		artistCountLimitLabel = _("Top artist count (0 displays all artists)")
+		self.playlistArtistCountLimit = playlistSnapshotsHelper.addLabeledControl(
+			artistCountLimitLabel, gui.nvdaControls.SelectOnFocusSpinCtrl,
+			min=0, max=10, initial=splconfig.SPLConfig["PlaylistSnapshots"]["ArtistCountLimit"]
+		)
 
 		# Translators: the label for a setting in SPL add-on settings
 		# to include track category count in playlist snapshots window.
-		self.playlistCategoryCountCheckbox = playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Category count")))
+		categoryCountLabel = _("Category count")
+		self.playlistCategoryCountCheckbox = playlistSnapshotsHelper.addItem(
+			wx.CheckBox(self, label=categoryCountLabel)
+		)
 		self.playlistCategoryCountCheckbox.SetValue(splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCount"])
 
 		# Translators: the label for a setting in SPL add-on settings
 		# to set top track category count limit in playlist snapshots window.
-		self.playlistCategoryCountLimit = playlistSnapshotsHelper.addLabeledControl(_("Top category count (0 displays all categories)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=10, initial=splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCountLimit"])
+		categoryCountLimitLabel = _("Top category count (0 displays all categories)")
+		self.playlistCategoryCountLimit = playlistSnapshotsHelper.addLabeledControl(
+			categoryCountLimitLabel, gui.nvdaControls.SelectOnFocusSpinCtrl,
+			min=0, max=10, initial=splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCountLimit"]
+		)
 
 		# Translators: the label for a setting in SPL add-on settings
 		# to include track genre count in playlist snapshots window.
-		self.playlistGenreCountCheckbox = playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("Genre count")))
+		genreCountLabel = _("Genre count")
+		self.playlistGenreCountCheckbox = playlistSnapshotsHelper.addItem(
+			wx.CheckBox(self, label=genreCountLabel)
+		)
 		self.playlistGenreCountCheckbox.SetValue(splconfig.SPLConfig["PlaylistSnapshots"]["GenreCount"])
 
 		# Translators: the label for a setting in SPL add-on settings
 		# to set top track genre count limit in playlist snapshots window.
-		self.playlistGenreCountLimit = playlistSnapshotsHelper.addLabeledControl(_("Top genre count (0 displays all genres)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=10, initial=splconfig.SPLConfig["PlaylistSnapshots"]["GenreCountLimit"])
+		genreCountLimitLabel = _("Top genre count (0 displays all genres)")
+		self.playlistGenreCountLimit = playlistSnapshotsHelper.addLabeledControl(
+			genreCountLimitLabel, gui.nvdaControls.SelectOnFocusSpinCtrl,
+			min=0, max=10, initial=splconfig.SPLConfig["PlaylistSnapshots"]["GenreCountLimit"]
+		)
 
 		# Translators: the label for a setting in SPL add-on settings
-		# to show playlist snaphsots window when the snapshots command is pressed once.
-		self.resultsWindowOnFirstPressCheckbox = playlistSnapshotsHelper.addItem(wx.CheckBox(self, label=_("&Show results window when playlist snapshots command is performed once")))
+		# to show playlist snapshots window when the snapshots command is pressed once.
+		resultsWindowOnFirstPressLabel = _("&Show results window when playlist snapshots command is performed once")
+		self.resultsWindowOnFirstPressCheckbox = playlistSnapshotsHelper.addItem(
+			wx.CheckBox(self, label=resultsWindowOnFirstPressLabel)
+		)
 		self.resultsWindowOnFirstPressCheckbox.SetValue(splconfig.SPLConfig["PlaylistSnapshots"]["ShowResultsWindowOnFirstPress"])
 
 	def onSave(self):
