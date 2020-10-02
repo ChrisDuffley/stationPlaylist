@@ -1205,17 +1205,22 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 	def makeSettings(self, settingsSizer):
 		advOptionsHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
-		# Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
-		self.splConPassthroughCheckbox = advOptionsHelper.addItem(wx.CheckBox(self, label=_("Allow SPL C&ontroller command to invoke SPL Assistant layer")))
+		# Translators: The label for a checkbox in SPL add-on settings
+		# to toggle if SPL Controller command can be used to invoke Assistant layer.
+		splConPassthroughLabel = _("Allow SPL C&ontroller command to invoke SPL Assistant layer")
+		self.splConPassthroughCheckbox = advOptionsHelper.addItem(wx.CheckBox(self, label=splConPassthroughLabel))
 		self.splConPassthroughCheckbox.SetValue(splconfig.SPLConfig["Advanced"]["SPLConPassthrough"])
 
-		# Translators: The label for a setting in SPL add-on dialog to set keyboard layout for SPL Assistant.
-		labelText = _("SPL Assistant command &layout:")
 		self.compatibilityLayouts = [
 			("off", "NVDA"),
 			("jfw", "JAWS for Windows")
 		]
-		self.compatibilityList = advOptionsHelper.addLabeledControl(labelText, wx.Choice, choices=[x[1] for x in self.compatibilityLayouts])
+		# Translators: The label for a setting in SPL add-on settings
+		# to set keyboard layout for SPL Assistant.
+		compatibilityListLabel = _("SPL Assistant command &layout:")
+		self.compatibilityList = advOptionsHelper.addLabeledControl(
+			compatibilityListLabel, wx.Choice, choices=[x[1] for x in self.compatibilityLayouts]
+		)
 		selection = next((x for x, y in enumerate(self.compatibilityLayouts) if y[0] == splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]))
 		self.compatibilityList.SetSelection(selection)
 
@@ -1234,14 +1239,24 @@ class ResetDialog(wx.Dialog):
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		resetHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
-		# Translators: the label for resetting profile triggers.
-		self.resetInstantProfileCheckbox = resetHelper.addItem(wx.CheckBox(self, label=_("Reset instant switch profile")))
+		# Translators: the label for a checkbox in SPL add-on settings
+		# to reset instant switch profile.
+		resetInstantProfileLabel = _("Reset instant switch profile")
+		self.resetInstantProfileCheckbox = resetHelper.addItem(
+			wx.CheckBox(self, label=resetInstantProfileLabel)
+		)
 
-		# Translators: the label for resetting encoder settings.
-		self.resetEncodersCheckbox = resetHelper.addItem(wx.CheckBox(self, label=_("Remove encoder settings")))
+		# Translators: the label for a checkbox in SPL add-on settings
+		# to reset encoder settings.
+		resetEncodersLabel = _("Remove encoder settings")
+		self.resetEncodersCheckbox = resetHelper.addItem(wx.CheckBox(self, label=resetEncodersLabel))
 
-		# Translators: the label for resetting track comments.
-		self.resetTrackCommentsCheckbox = resetHelper.addItem(wx.CheckBox(self, label=_("Erase track comments")))
+		# Translators: the label for a checkbox in SPL add-on settings
+		# to reset track comments.
+		resetTrackCommentsLabel = _("Erase track comments")
+		self.resetTrackCommentsCheckbox = resetHelper.addItem(
+			wx.CheckBox(self, label=resetTrackCommentsLabel)
+		)
 
 		resetHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
