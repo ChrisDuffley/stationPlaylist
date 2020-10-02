@@ -880,13 +880,23 @@ class ColumnAnnouncementsBasePanel(gui.SettingsPanel):
 		# 6.1: Split these columns into rows.
 		# 17.04: Gather items into a single list instead of three.
 		# #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
-		checkableColumns = ("Duration", "Intro", "Category", "Filename", "Outro", "Year", "Album", "Genre", "Mood", "Energy", "Tempo", "BPM", "Gender", "Rating", "Time Scheduled")
-		self.checkedColumns = sHelper.addLabeledControl(includedColumnsLabel, CustomCheckListBox, choices=checkableColumns)
+		checkableColumns = (
+			"Duration", "Intro", "Category", "Filename", "Outro",
+			"Year", "Album", "Genre", "Mood", "Energy",
+			"Tempo", "BPM", "Gender", "Rating", "Time Scheduled"
+		)
+		self.checkedColumns = sHelper.addLabeledControl(
+			includedColumnsLabel, CustomCheckListBox, choices=checkableColumns
+		)
 		self.checkedColumns.SetCheckedStrings(self.includedColumns)
 		self.checkedColumns.SetSelection(0)
 
-		# Translators: The label for a group in SPL add-on dialog to select column announcement order.
-		columnOrderGroup = gui.guiHelper.BoxSizerHelper(self, sizer=wx.StaticBoxSizer(wx.StaticBox(self, label=_("Column order")), wx.HORIZONTAL))
+		# Translators: The label for a group in SPL add-on settings
+		# to select column announcement order.
+		columnOrderGroupLabel = _("Column order")
+		columnOrderGroup = gui.guiHelper.BoxSizerHelper(
+			self, sizer=wx.StaticBoxSizer(wx.StaticBox(self, label=columnOrderGroupLabel), wx.HORIZONTAL)
+		)
 		sHelper.addItem(columnOrderGroup)
 
 		# wxPython 4 contains RearrangeList to allow item orders to be changed automatically.
@@ -955,8 +965,12 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 		self.includedColumns = set(splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"]) - {"Artist", "Title"}
 		self.columnOrder = splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"]
 
-		# Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
-		self.columnOrderCheckbox = colAnnouncementsHelper.addItem(wx.CheckBox(self, wx.ID_ANY, label=_("Announce columns in the &order shown on screen")))
+		# Translators: the label for a setting in SPL add-on settings
+		# to toggle custom column announcement.
+		columnOrderLabel = _("Announce columns in the &order shown on screen")
+		self.columnOrderCheckbox = colAnnouncementsHelper.addItem(
+			wx.CheckBox(self, wx.ID_ANY, label=columnOrderLabel)
+		)
 		self.columnOrderCheckbox.SetValue(splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"])
 
 		# Translators: Help text to select columns to be announced.
@@ -966,7 +980,10 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 
 		# Translators: the label for a setting in SPL add-on settings
 		# to toggle whether column headers should be included when announcing track information.
-		self.columnHeadersCheckbox = colAnnouncementsHelper.addItem(wx.CheckBox(self, label=_("Include column &headers when announcing track information")))
+		columnHeadersLabel = _("Include column &headers when announcing track information")
+		self.columnHeadersCheckbox = colAnnouncementsHelper.addItem(
+			wx.CheckBox(self, label=columnHeadersLabel)
+		)
 		self.columnHeadersCheckbox.SetValue(splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"])
 
 	def onSave(self):
@@ -977,7 +994,7 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 
 
 class PlaylistTranscriptsPanel(ColumnAnnouncementsBasePanel):
-	# Translators: Title of a panel to configure playlsit transcripts options.
+	# Translators: Title of a panel to configure playlist transcripts options.
 	title = _("Playlist transcripts")
 
 	def makeSettings(self, settingsSizer):
