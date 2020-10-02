@@ -559,19 +559,37 @@ class AlarmsPanel(gui.SettingsPanel):
 	def makeSettings(self, settingsSizer):
 		alarmsCenterHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
-		self.outroAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&End of track alarm in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=59, initial=splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"])
+		outroAlarmLabel = _("&End of track alarm in seconds")
+		self.outroAlarmEntry = alarmsCenterHelper.addLabeledControl(
+			outroAlarmLabel, gui.nvdaControls.SelectOnFocusSpinCtrl,
+			min=1, max=59, initial=splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"]
+		)
 
-		self.outroToggleCheckBox = alarmsCenterHelper.addItem(wx.CheckBox(self, label=_("&Notify when end of track is approaching")))
+		outroToggleLabel = _("&Notify when end of track is approaching")
+		self.outroToggleCheckBox = alarmsCenterHelper.addItem(wx.CheckBox(self, label=outroToggleLabel))
 		self.outroToggleCheckBox.SetValue(splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"])
 
-		self.introAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&Track intro alarm in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=1, max=9, initial=splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"])
+		introAlarmLabel = _("&Track intro alarm in seconds")
+		self.introAlarmEntry = alarmsCenterHelper.addLabeledControl(
+			introAlarmLabel, gui.nvdaControls.SelectOnFocusSpinCtrl,
+			min=1, max=9, initial=splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"]
+		)
 
-		self.introToggleCheckBox = alarmsCenterHelper.addItem(wx.CheckBox(self, label=_("&Notify when end of introduction is approaching")))
+		introToggleLabel = _("&Notify when end of introduction is approaching")
+		self.introToggleCheckBox = alarmsCenterHelper.addItem(wx.CheckBox(self, label=introToggleLabel))
 		self.introToggleCheckBox.SetValue(splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"])
 
-		self.micAlarmEntry = alarmsCenterHelper.addLabeledControl(_("&Microphone alarm in seconds (0 disables the alarm)"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=7200, initial=splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"])
+		micAlarmLabel = _("&Microphone alarm in seconds (0 disables the alarm)")
+		self.micAlarmEntry = alarmsCenterHelper.addLabeledControl(
+			micAlarmLabel, gui.nvdaControls.SelectOnFocusSpinCtrl,
+			min=0, max=7200, initial=splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"]
+		)
 
-		self.micIntervalEntry = alarmsCenterHelper.addLabeledControl(_("Microphone alarm &interval in seconds"), gui.nvdaControls.SelectOnFocusSpinCtrl, min=0, max=60, initial=splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"])
+		micIntervalLabel = _("Microphone alarm &interval in seconds")
+		self.micIntervalEntry = alarmsCenterHelper.addLabeledControl(
+			micIntervalLabel, gui.nvdaControls.SelectOnFocusSpinCtrl,
+			min=0, max=60, initial=splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarmInterval"]
+		)
 
 		self.alarmAnnounceValues = [
 			# Translators: One of the alarm notification options.
@@ -581,8 +599,12 @@ class AlarmsPanel(gui.SettingsPanel):
 			# Translators: One of the alarm notification options.
 			("both", _("both beep and message"))
 		]
-		# Translators: The label for a setting in SPL add-on dialog to control alarm announcement type.
-		self.alarmAnnounceList = alarmsCenterHelper.addLabeledControl(_("&Alarm notification:"), wx.Choice, choices=[x[1] for x in self.alarmAnnounceValues])
+		# Translators: The label for a setting in SPL add-on settings
+		# to configure alarm announcement type.
+		alarmAnnounceListLabel = _("&Alarm notification:")
+		self.alarmAnnounceList = alarmsCenterHelper.addLabeledControl(
+			alarmAnnounceListLabel, wx.Choice, choices=[x[1] for x in self.alarmAnnounceValues]
+		)
 		alarmAnnounceCurValue = splconfig.SPLConfig["General"]["AlarmAnnounce"]
 		selection = next((x for x, y in enumerate(self.alarmAnnounceValues) if y[0] == alarmAnnounceCurValue))
 		self.alarmAnnounceList.SetSelection(selection)
