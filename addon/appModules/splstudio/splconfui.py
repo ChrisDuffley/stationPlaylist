@@ -769,14 +769,19 @@ class MetadataStreamingDialog(wx.Dialog):
 		# #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
 		from . import splmisc
 		streams = splmisc.metadataList()
-		self.checkedStreams = metadataSizerHelper.addLabeledControl(_("&Stream:"), CustomCheckListBox, choices=metadataStreamLabels)
+		self.checkedStreams = metadataSizerHelper.addLabeledControl(
+			_("&Stream:"), CustomCheckListBox, choices=metadataStreamLabels
+		)
 		for stream in range(5):
 			self.checkedStreams.Check(stream, check=streams[stream])
 		self.checkedStreams.SetSelection(0)
 
 		# Translators: A checkbox to let metadata streaming status
 		# be applied to the currently active broadcast profile.
-		self.applyCheckbox = metadataSizerHelper.addItem(wx.CheckBox(self, label=_("&Apply streaming changes to the selected profile")))
+		applyLabel = _("&Apply streaming changes to the selected profile")
+		self.applyCheckbox = metadataSizerHelper.addItem(
+			wx.CheckBox(self, label=applyLabel)
+		)
 		self.applyCheckbox.SetValue(True)
 
 		metadataSizerHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
@@ -827,7 +832,10 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 		]
 		# Translators: the label for a setting in SPL add-on settings
 		# to be notified that metadata streaming is enabled.
-		self.metadataList = metadataSizerHelper.addLabeledControl(_("&Metadata streaming notification and connection"), wx.Choice, choices=[x[1] for x in self.metadataValues])
+		metadataListLabel = _("&Metadata streaming notification and connection")
+		self.metadataList = metadataSizerHelper.addLabeledControl(
+			metadataListLabel, wx.Choice, choices=[x[1] for x in self.metadataValues]
+		)
 		metadataCurValue = splconfig.SPLConfig["General"]["MetadataReminder"]
 		selection = next((x for x, y in enumerate(self.metadataValues) if y[0] == metadataCurValue))
 		self.metadataList.SetSelection(selection)
@@ -838,9 +846,14 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 		# Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
 		# Add checkboxes for each stream, beginning with the DSP encoder.
 		# #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
-		self.checkedStreams = metadataSizerHelper.addLabeledControl(_("&Select the URL for metadata streaming upon request:"), CustomCheckListBox, choices=metadataStreamLabels)
+		checkedStreamsLabel = _("&Select the URL for metadata streaming upon request:")
+		self.checkedStreams = metadataSizerHelper.addLabeledControl(
+			checkedStreamsLabel, CustomCheckListBox, choices=metadataStreamLabels
+		)
 		for stream in range(5):
-			self.checkedStreams.Check(stream, check=splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"][stream])
+			self.checkedStreams.Check(
+				stream, check=splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"][stream]
+			)
 		self.checkedStreams.SetSelection(0)
 
 	def onSave(self):
