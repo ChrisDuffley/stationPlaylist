@@ -86,8 +86,11 @@ class SPLFindDialog(wx.Dialog):
 
 		if columnSearch:
 			from . import splconfig
-			# Translators: The label in track finder to search columns.
-			self.columnHeaders = findSizerHelper.addLabeledControl(_("C&olumn to search:"), wx.Choice, choices=splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])
+			self.columnHeaders = findSizerHelper.addLabeledControl(
+				# Translators: The label in track finder to search columns.
+				_("C&olumn to search:"), wx.Choice,
+				choices=splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
+			)
 			self.columnHeaders.SetSelection(0)
 
 		findSizerHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
@@ -771,11 +774,17 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 		)
 
 		# Translators: The label in playlist transcripts dialog to select playlist transcript range.
-		self.transcriptRange = plTranscriptsSizerHelper.addLabeledControl(_("Transcript range:"), wx.Choice, choices=self.transcriptRanges)
+		transcriptRangeLabel = _("Transcript range:")
+		self.transcriptRange = plTranscriptsSizerHelper.addLabeledControl(
+			transcriptRangeLabel, wx.Choice, choices=self.transcriptRanges
+		)
 		self.transcriptRange.SetSelection(0)
 
 		# Translators: The label in playlist transcripts dialog to select transcript output format.
-		self.transcriptFormat = plTranscriptsSizerHelper.addLabeledControl(_("Transcript format:"), wx.Choice, choices=[output[2] for output in SPLPlaylistTranscriptFormats])
+		transcriptFormatLabel = _("Transcript format:")
+		self.transcriptFormat = plTranscriptsSizerHelper.addLabeledControl(
+			transcriptFormatLabel, wx.Choice, choices=[output[2] for output in SPLPlaylistTranscriptFormats]
+		)
 		self.transcriptFormat.Bind(wx.EVT_CHOICE, self.onTranscriptFormatSelection)
 		self.transcriptFormat.SetSelection(0)
 
@@ -791,7 +800,10 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 		self.copy2clipPossible = [0, 3, 4]
 
 		# Translators: The label in playlist transcripts dialog to select transcript action.
-		self.transcriptAction = plTranscriptsSizerHelper.addLabeledControl(_("Transcript action:"), wx.Choice, choices=self.transcriptActions)
+		transcriptActionLabel = _("Transcript action:")
+		self.transcriptAction = plTranscriptsSizerHelper.addLabeledControl(
+			transcriptActionLabel, wx.Choice, choices=self.transcriptActions
+		)
 		self.transcriptAction.SetSelection(0)
 
 		plTranscriptsSizerHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
