@@ -615,7 +615,8 @@ class ConfigHub(ChainMap):
 		if switchType == "instant" and self.instantSwitchProfileActive:
 			raise RuntimeError("Instant switch flag is already on")
 		spldebugging.debugOutput(
-			f"Profile switching start: type = {switchType}, previous profile is {prevProfile}, new profile is {newProfile}"
+			"Profile switching start: "
+			f"type = {switchType}, previous profile is {prevProfile}, new profile is {newProfile}"
 		)
 		self.switchProfile(
 			prevProfile, newProfile,
@@ -633,7 +634,8 @@ class ConfigHub(ChainMap):
 		if switchType == "instant" and not self.instantSwitchProfileActive:
 			raise RuntimeError("Instant switch flag is already off")
 		spldebugging.debugOutput(
-			f"Profile switching end: type = {switchType}, previous profile is {prevProfile}, new profile is {newProfile}"
+			"Profile switching end: "
+			f"type = {switchType}, previous profile is {prevProfile}, new profile is {newProfile}"
 		)
 		self.switchProfile(
 			prevProfile, newProfile,
