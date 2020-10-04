@@ -177,7 +177,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			# Exclude number row if Studio Standard is running.
 			# #147 (20.10): truncate to function key carts if Studio Standard is in use
 			# as cart keys are now a single list.
-			lastCart = 24 if not getWindowText(user32.FindWindowW("TStudioForm", None)).startswith("StationPlaylist Studio Standard") else 12
+			if not getWindowText(
+				user32.FindWindowW("TStudioForm", None)
+			).startswith("StationPlaylist Studio Standard"):
+				lastCart = 24
+			else:
+				lastCart = 12
 			for cart in self.cartKeys[:lastCart]:
 				self.bindGesture(f"kb:{cart}", "cartsWithoutBorders")
 				self.bindGesture(f"kb:shift+{cart}", "cartsWithoutBorders")

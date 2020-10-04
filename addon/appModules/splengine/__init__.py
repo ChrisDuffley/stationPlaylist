@@ -71,7 +71,10 @@ class AppModule(appModuleHandler.AppModule):
 					configTab = obj.parent.parent.parent.previous.previous.previous.firstChild
 				activeTab = 0 if windowControlID in (1019, 1020) else 1
 				try:
-					obj.name = encoderSettingsLabels[windowControlID][0 if controlTypes.STATE_SELECTED in configTab.getChild(activeTab).states else 1]
+					if controlTypes.STATE_SELECTED in configTab.getChild(activeTab).states:
+						obj.name = encoderSettingsLabels[windowControlID][0]
+					else:
+						obj.name = encoderSettingsLabels[windowControlID][1]
 				except AttributeError:
 					pass
 			else:

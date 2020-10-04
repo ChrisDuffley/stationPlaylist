@@ -137,7 +137,10 @@ class ConfigHub(ChainMap):
 		# Runtime flags (profiles and profile switching flag come from NVDA Core's ConfigManager).
 		self.profiles = self.maps
 		# Active profile name is retrieved via the below property function.
-		self.instantSwitch = self.profiles[0]["InstantProfile"] if ("InstantProfile" in self.profiles[0] and not self.normalProfileOnly) else None
+		if "InstantProfile" in self.profiles[0] and not self.normalProfileOnly:
+			self.instantSwitch = self.profiles[0]["InstantProfile"]
+		else:
+			self.instantSwitch = None
 		self.prevProfile = None
 		# A bit vector used to store profile switching flags.
 		self._switchProfileFlags = 0
@@ -328,7 +331,10 @@ class ConfigHub(ChainMap):
 			raise RuntimeError("Only normal profile is in use or config was loaded from memory")
 		# Bring normal profile to the front if it isn't.
 		# Optimization: Tell the swapper that we need index to the normal profile for this case.
-		configPos = self.swapProfiles(name, defaultProfileName, showSwitchIndex=True) if name == self.activeProfile else self.profileIndexByName(name)
+		if name == self.activeProfile:
+			configPos = self.swapProfiles(name, defaultProfileName, showSwitchIndex=True)
+		else:
+			configPos = self.profileIndexByName(name)
 		profilePos = self.profileNames.index(name)
 		try:
 			os.remove(self.profiles[configPos].filename)
