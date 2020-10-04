@@ -2034,7 +2034,8 @@ class AppModule(appModuleHandler.AppModule):
 			# Translators: Input help mode message for a layer command in StationPlaylist add-on.
 			"The SPL Assistant layer command. "
 			"See the add-on guide for more information on available commands."
-		))
+		)
+	)
 	def script_SPLAssistantToggle(self, gesture):
 		# Enter the layer command if an only if we're in the track list to allow easier gesture assignment.
 		# 7.0: This requirement has been relaxed (commands themselves will check for specific conditions).
