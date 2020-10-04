@@ -581,7 +581,9 @@ class ConfigHub(ChainMap):
 	# or if config was loaded from memory alone.
 	def switchProfile(self, prevProfile, newProfile, switchFlags=None):
 		if self.normalProfileOnly or self.configInMemory:
-			raise RuntimeError("Only normal profile is in use or config was loaded from memory, cannot switch profiles")
+			raise RuntimeError(
+				"Only normal profile is in use or config was loaded from memory, cannot switch profiles"
+			)
 		# Check profile flags (for now, instant switch (0x1)).
 		if switchFlags is not None and not 0 <= switchFlags < 0x2:
 			raise RuntimeError("Profile switch flag out of range")
@@ -612,7 +614,9 @@ class ConfigHub(ChainMap):
 			raise RuntimeError("Incorrect profile switch type specified")
 		if switchType == "instant" and self.instantSwitchProfileActive:
 			raise RuntimeError("Instant switch flag is already on")
-		spldebugging.debugOutput(f"Profile switching start: type = {switchType}, previous profile is {prevProfile}, new profile is {newProfile}")
+		spldebugging.debugOutput(
+			f"Profile switching start: type = {switchType}, previous profile is {prevProfile}, new profile is {newProfile}"
+		)
 		self.switchProfile(
 			prevProfile, newProfile,
 			switchFlags=self._switchProfileFlags ^ self._profileSwitchFlags[switchType]
@@ -628,7 +632,9 @@ class ConfigHub(ChainMap):
 			raise RuntimeError("Incorrect profile switch type specified")
 		if switchType == "instant" and not self.instantSwitchProfileActive:
 			raise RuntimeError("Instant switch flag is already off")
-		spldebugging.debugOutput(f"Profile switching end: type = {switchType}, previous profile is {prevProfile}, new profile is {newProfile}")
+		spldebugging.debugOutput(
+			f"Profile switching end: type = {switchType}, previous profile is {prevProfile}, new profile is {newProfile}"
+		)
 		self.switchProfile(
 			prevProfile, newProfile,
 			switchFlags=self._switchProfileFlags ^ self._profileSwitchFlags[switchType]
