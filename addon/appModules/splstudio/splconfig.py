@@ -456,9 +456,14 @@ class ConfigHub(ChainMap):
 			# #96 (19.02/18.09.7-LTS): this is more so if a switch profile is active.
 			# If this is done from add-on settings/reset panel, communicate 'no' with an exception.
 			if gui.messageBox(
-				# Translators: Message displayed when attempting to reset Studio add-on settings
-				# while an instant switch profile is active.
-				_("An instant switch profile is active. Resetting Studio add-on settings means normal profile will become active and switch profile settings will be left in unpredictable state. Are you sure you wish to reset Studio add-on settings to factory defaults?"),
+				_(
+					# Translators: Message displayed when attempting to reset Studio add-on settings
+					# while an instant switch profile is active.
+					"An instant switch profile is active. "
+					"Resetting Studio add-on settings means normal profile will become active "
+					"and switch profile settings will be left in unpredictable state. "
+					"Are you sure you wish to reset Studio add-on settings to factory defaults?"
+				),
 				# Translators: The title of the confirmation dialog for Studio add-on settings reset.
 				_("SPL Studio add-on reset"),
 				wx.YES_NO | wx.NO_DEFAULT | wx.ICON_WARNING
