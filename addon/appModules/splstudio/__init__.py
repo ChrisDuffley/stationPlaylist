@@ -312,7 +312,9 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 	# A friendly way to report track position via location text.
 	def _get_locationText(self):
 		# Translators: location text for a playlist item (example: item 1 of 10).
-		return _("Item {current} of {total}").format(current=self.IAccessibleChildID, total=splbase.studioAPI(0, 124))
+		return _("Item {current} of {total}").format(
+			current=self.IAccessibleChildID, total=splbase.studioAPI(0, 124)
+		)
 
 	# #12 (18.04): select and set focus to this track.
 	def doAction(self, index=None):
@@ -1819,26 +1821,40 @@ class AppModule(appModuleHandler.AppModule):
 	# Pressing once will speak and/or braille it, pressing twice or more will output this info to an HTML file.
 
 	def playlistSnapshotOutput(self, snapshot, scriptCount):
-		# Translators: one of the results for playlist snapshots feature
-		# for announcing total number of items in a playlist.
-		statusInfo = [_("Items: {playlistItemCount}").format(playlistItemCount=snapshot["PlaylistItemCount"])]
-		# Translators: one of the results for playlist snapshots feature
-		# for announcing total number of tracks in a playlist.
-		statusInfo.append(_("Tracks: {playlistTrackCount}").format(playlistTrackCount=snapshot["PlaylistTrackCount"]))
-		# Translators: one of the results for playlist snapshots feature
-		# for announcing total duration of a playlist.
-		statusInfo.append(_("Duration: {playlistTotalDuration}").format(playlistTotalDuration=snapshot["PlaylistDurationTotal"]))
+		statusInfo = [
+			# Translators: one of the results for playlist snapshots feature
+			# for announcing total number of items in a playlist.
+			_("Items: {playlistItemCount}").format(playlistItemCount=snapshot["PlaylistItemCount"])
+		]
+		statusInfo.append(
+			# Translators: one of the results for playlist snapshots feature
+			# for announcing total number of tracks in a playlist.
+			_("Tracks: {playlistTrackCount}").format(playlistTrackCount=snapshot["PlaylistTrackCount"])
+		)
+		statusInfo.append(
+			# Translators: one of the results for playlist snapshots feature
+			# for announcing total duration of a playlist.
+			_("Duration: {playlistTotalDuration}").format(playlistTotalDuration=snapshot["PlaylistDurationTotal"])
+		)
 		if "PlaylistDurationMin" in snapshot:
-			# Translators: one of the results for playlist snapshots feature
-			# for announcing shortest track name and duration of a playlist.
-			statusInfo.append(_("Shortest: {playlistShortestTrack}").format(playlistShortestTrack=snapshot["PlaylistDurationMin"]))
-			# Translators: one of the results for playlist snapshots feature
-			# for announcing longest track name and duration of a playlist.
-			statusInfo.append(_("Longest: {playlistLongestTrack}").format(playlistLongestTrack=snapshot["PlaylistDurationMax"]))
+			statusInfo.append(
+				# Translators: one of the results for playlist snapshots feature
+				# for announcing shortest track name and duration of a playlist.
+				_("Shortest: {playlistShortestTrack}").format(playlistShortestTrack=snapshot["PlaylistDurationMin"])
+			)
+			statusInfo.append(
+				# Translators: one of the results for playlist snapshots feature
+				# for announcing longest track name and duration of a playlist.
+				_("Longest: {playlistLongestTrack}").format(playlistLongestTrack=snapshot["PlaylistDurationMax"])
+			)
 		if "PlaylistDurationAverage" in snapshot:
-			# Translators: one of the results for playlist snapshots feature
-			# for announcing average duration for tracks in a playlist.
-			statusInfo.append(_("Average: {playlistAverageDuration}").format(playlistAverageDuration=snapshot["PlaylistDurationAverage"]))
+			statusInfo.append(
+				# Translators: one of the results for playlist snapshots feature
+				# for announcing average duration for tracks in a playlist.
+				_("Average: {playlistAverageDuration}").format(
+					playlistAverageDuration=snapshot["PlaylistDurationAverage"]
+				)
+			)
 		# 20.09 optimization: for top artists and genres, report statistics
 		# if there is an actual common entries counter.
 		if "PlaylistArtistCount" in snapshot:
@@ -1846,17 +1862,24 @@ class AppModule(appModuleHandler.AppModule):
 			artists = snapshot["PlaylistArtistCount"].most_common(None if not artistCount else artistCount)
 			if scriptCount == 0:
 				try:
-					# Translators: one of the results for playlist snapshots feature for announcing top artist in a playlist.
-					statusInfo.append(_("Top artist: {} ({})").format(artists[0][0], artists[0][1]))
+					statusInfo.append(
+						# Translators: one of the results for playlist snapshots feature
+						# for announcing top artist in a playlist.
+						_("Top artist: {} ({})").format(artists[0][0], artists[0][1])
+					)
 				except IndexError:
-					# Translators: one of the results for playlist snapshots feature
-					# when there is no top artist.
-					statusInfo.append(_("Top artist: none"))
+					statusInfo.append(
+						# Translators: one of the results for playlist snapshots feature
+						# when there is no top artist.
+						_("Top artist: none")
+					)
 			elif scriptCount == 1:
 				if len(artists) == 0:
-					# Translators: one of the results for playlist snapshots feature
-					# when there is no top artist (formatted for browse mode).
-					statusInfo.append(_("Top artists: none"))
+					statusInfo.append(
+						# Translators: one of the results for playlist snapshots feature
+						# when there is no top artist (formatted for browse mode).
+						_("Top artists: none")
+					)
 				else:
 					artistList = []
 					# Translators: one of the results for playlist snapshots feature,
@@ -1878,9 +1901,11 @@ class AppModule(appModuleHandler.AppModule):
 			categoryCount = splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCountLimit"]
 			categories = snapshot["PlaylistCategoryCount"].most_common(None if not categoryCount else categoryCount)
 			if scriptCount == 0:
-				# Translators: one of the results for playlist snapshots feature
-				# for announcing top track category in a playlist.
-				statusInfo.append(_("Top category: {} ({})").format(categories[0][0], categories[0][1]))
+				statusInfo.append(
+					# Translators: one of the results for playlist snapshots feature
+					# for announcing top track category in a playlist.
+					_("Top category: {} ({})").format(categories[0][0], categories[0][1])
+				)
 			elif scriptCount == 1:
 				categoryList = []
 				# Translators: one of the results for playlist snapshots feature,
@@ -1898,18 +1923,24 @@ class AppModule(appModuleHandler.AppModule):
 			genres = snapshot["PlaylistGenreCount"].most_common(None if not genreCount else genreCount)
 			if scriptCount == 0:
 				try:
-					# Translators: one of the results for playlist snapshots feature
-					# for announcing top genre in a playlist.
-					statusInfo.append(_("Top genre: {} ({})").format(genres[0][0], genres[0][1]))
+					statusInfo.append(
+						# Translators: one of the results for playlist snapshots feature
+						# for announcing top genre in a playlist.
+						_("Top genre: {} ({})").format(genres[0][0], genres[0][1])
+					)
 				except IndexError:
-					# Translators: one of the results for playlist snapshots feature
-					# when there is no top genre.
-					statusInfo.append(_("Top genre: none"))
+					statusInfo.append(
+						# Translators: one of the results for playlist snapshots feature
+						# when there is no top genre.
+						_("Top genre: none")
+					)
 			elif scriptCount == 1:
 				if len(genres) == 0:
-					# Translators: one of the results for playlist snapshots feature
-					# when there is no top genre (formatted for browse mode).
-					statusInfo.append(_("Top genres: none"))
+					statusInfo.append(
+						# Translators: one of the results for playlist snapshots feature
+						# when there is no top genre (formatted for browse mode).
+						_("Top genres: none")
+					)
 				else:
 					genreList = []
 					# Translators: one of the results for playlist snapshots feature,
