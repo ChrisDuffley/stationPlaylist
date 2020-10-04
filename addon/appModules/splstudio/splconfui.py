@@ -172,7 +172,8 @@ class BroadcastProfilesDialog(wx.Dialog):
 			gui.messageBox(
 				# Message comes from NVDA Core.
 				translate("That profile already exists. Please choose a different name."),
-				translate("Error"), wx.OK | wx.ICON_ERROR, self)
+				translate("Error"), wx.OK | wx.ICON_ERROR, self
+			)
 			return
 		if self.switchProfile == oldName:
 			self.switchProfile = newName
@@ -196,7 +197,8 @@ class BroadcastProfilesDialog(wx.Dialog):
 				# Translators: Message reported when attempting to delete a profile in the midst of a broadcast.
 				_("An instant switch profile might be active or you are in the midst of a broadcast. If so, please press SPL Assistant, F12 to switch back to a previously active profile before opening broadcast profiles dialog to delete a profile."),
 				# Translators: Title of a dialog shown when profile cannot be deleted.
-				_("Profile delete error"), wx.OK | wx.ICON_ERROR, self)
+				_("Profile delete error"), wx.OK | wx.ICON_ERROR, self
+			)
 			return
 		name = self.profiles.GetStringSelection().split(" <")[0]
 		# 17.11/15.10-lts: ask once more if deleting an active profile.
@@ -345,7 +347,8 @@ class NewProfileDialog(wx.Dialog):
 			gui.messageBox(
 				# Message comes from NVDA Core.
 				translate("That profile already exists. Please choose a different name."),
-				translate("Error"), wx.OK | wx.ICON_ERROR, self)
+				translate("Error"), wx.OK | wx.ICON_ERROR, self
+			)
 			return
 		namePath = name + ".ini"
 		if not os.path.exists(splconfig.SPLProfiles):
@@ -1396,7 +1399,10 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 # Centralize error handling for various SPL add-on settings dialogs.
 # The below error message came directly from NVDA Core's settings dialog opener method (credit: NV Access)
 def _configDialogOpenError():
-	gui.messageBox(translate("An NVDA settings dialog is already open. Please close it first."), translate("Error"), style=wx.OK | wx.ICON_ERROR)
+	gui.messageBox(
+		translate("An NVDA settings dialog is already open. Please close it first."),
+		translate("Error"), style=wx.OK | wx.ICON_ERROR
+	)
 
 
 # #125 (20.05): open any settings panel from main add-on settings, also checking if other dialogs are open.
