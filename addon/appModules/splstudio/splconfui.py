@@ -363,7 +363,10 @@ class NewProfileDialog(wx.Dialog):
 			baseConfig = splconfig.SPLConfig.profileByName(self.baseProfiles.GetStringSelection())
 			# #140 (20.07): it isn't enough to copy dictionaries.
 			# Deep copy (config.dict()) must be performed to avoid accidental reference manipulation.
-			baseProfile = {sect: key for sect, key in baseConfig.dict().items() if sect in splconfig._mutatableSettings}
+			baseProfile = {
+				sect: key for sect, key in baseConfig.dict().items()
+				if sect in splconfig._mutatableSettings
+			}
 		else:
 			baseProfile = None
 		splconfig.SPLConfig.createProfile(newProfilePath, profileName=name, parent=baseProfile)
@@ -1242,7 +1245,8 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 		self.compatibilityList = advOptionsHelper.addLabeledControl(
 			compatibilityListLabel, wx.Choice, choices=[x[1] for x in self.compatibilityLayouts]
 		)
-		selection = next((x for x, y in enumerate(self.compatibilityLayouts) if y[0] == splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]))
+		compatibilityCurValue = splconfig.SPLConfig["Advanced"]["CompatibilityLayer"]
+		selection = next((x for x, y in enumerate(self.compatibilityLayouts) if y[0] == compatibilityCurValue))
 		self.compatibilityList.SetSelection(selection)
 
 	def onSave(self):
