@@ -600,8 +600,11 @@ class Encoder(IAccessible):
 
 	# Announce complete time including seconds (slight change from global commands version).
 	@scriptHandler.script(
-		# Translators: Input help mode message for report date and time command.
-		description=_("If pressed once, reports the current time including seconds. If pressed twice, reports the current date"),
+		description=_(
+			# Translators: Input help mode message for report date and time command.
+			"If pressed once, reports the current time including seconds. "
+			"If pressed twice, reports the current date"
+		),
 		gesture="kb:NVDA+F12",
 		category=_("StationPlaylist")
 	)

@@ -138,8 +138,11 @@ class SPLTrackItem(sysListView32.ListItem):
 		self._moveToColumnNumber(self.childCount)
 
 	@scriptHandler.script(
-		# Translators: input help mode message for column explorer commands.
-		description=_("Pressing once announces data for a track column, pressing twice will present column data in a browse mode window"),
+		description=_(
+			# Translators: input help mode message for column explorer commands.
+			"Pressing once announces data for a track column, "
+			"pressing twice will present column data in a browse mode window"
+		),
 		# 19.02: script decorator can take in a list of gestures, thus take advantage of it.
 		gestures=[f"kb:control+nvda+{i}" for i in range(10)],
 		category=_("StationPlaylist"))
@@ -425,8 +428,11 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 		gui.runScriptModalDialog(dlg, callback)
 
 	@scriptHandler.script(
-		# Translators: Input help message for track comment announcemnet command in SPL Studio.
-		description=_("Announces track comment if any. Press twice to copy this information to the clipboard, and press three times to open a dialog to add, change or remove track comments"),
+		description=_(
+			# Translators: Input help message for track comment announcemnet command in SPL Studio.
+			"Announces track comment if any. Press twice to copy this information to the clipboard, "
+			"and press three times to open a dialog to add, change or remove track comments"
+		),
 		gesture="kb:Alt+NVDA+C",
 		category=_("StationPlaylist"))
 	def script_announceTrackComment(self, gesture):
@@ -1165,8 +1171,11 @@ class AppModule(appModuleHandler.AppModule):
 			self.announceTime(splbase.studioAPI(0, 105))
 
 	@scriptHandler.script(
-		# Translators: Input help mode message for a command in StationPlaylist add-on.
-		description=_("Announces broadcaster time. If pressed twice, reports minutes and seconds left to top of the hour."),
+		description=_(
+			# Translators: Input help mode message for a command in StationPlaylist add-on.
+			"Announces broadcaster time. "
+			"If pressed twice, reports minutes and seconds left to top of the hour."
+		),
 		gestures=["kb:shift+nvda+f12", "ts(SPL):2finger_flickUp"])
 	def script_sayBroadcasterTime(self, gesture):
 		if not splbase.studioIsRunning():
@@ -2021,8 +2030,11 @@ class AppModule(appModuleHandler.AppModule):
 	# The SPL Assistant layer driver.
 
 	@scriptHandler.script(
-		# Translators: Input help mode message for a layer command in StationPlaylist add-on.
-		description=_("The SPL Assistant layer command. See the add-on guide for more information on available commands."))
+		description=_(
+			# Translators: Input help mode message for a layer command in StationPlaylist add-on.
+			"The SPL Assistant layer command. "
+			"See the add-on guide for more information on available commands."
+		))
 	def script_SPLAssistantToggle(self, gesture):
 		# Enter the layer command if an only if we're in the track list to allow easier gesture assignment.
 		# 7.0: This requirement has been relaxed (commands themselves will check for specific conditions).
