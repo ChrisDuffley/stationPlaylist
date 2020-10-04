@@ -1677,7 +1677,12 @@ class AppModule(appModuleHandler.AppModule):
 	SPLPlaylistNotLoaded = 2
 	SPLPlaylistLastFocusUnknown = 3
 
-	def canPerformPlaylistCommands(self, playlistViewerRequired=True, mustSelectTrack=False, announceErrors=True):
+	def canPerformPlaylistCommands(
+			self,
+			playlistViewerRequired=True,
+			mustSelectTrack=False,
+			announceErrors=True
+	):
 		# #81: most commands do require that playlist viewer must be
 		# the foreground window (focused), hence the keyword argument.
 		# Also let NVDA announce generic error messages listed below if told to do so,
