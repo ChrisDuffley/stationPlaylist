@@ -55,7 +55,9 @@ class BroadcastProfilesDialog(wx.Dialog):
 		self.switchProfile = splconfig.SPLConfig.instantSwitch
 		changeProfilesSizer = wx.BoxSizer(wx.VERTICAL)
 		# Include profile flags such as instant profile string for display purposes.
-		self.profiles = wx.ListBox(self, choices=[self.getProfileFlags(profile, contained=False) for profile in self.profileNames])
+		self.profiles = wx.ListBox(
+			self, choices=[self.getProfileFlags(profile, contained=False) for profile in self.profileNames]
+		)
 		self.profiles.Bind(wx.EVT_LISTBOX, self.onProfileSelection)
 		self.profiles.SetSelection(self.profileNames.index(self.activeProfile))
 		changeProfilesSizer.Add(self.profiles, proportion=1.0)
@@ -318,8 +320,11 @@ class NewProfileDialog(wx.Dialog):
 		self.profileName = newProfileSizerHelper.addLabeledControl(translate("Profile name:"), wx.TextCtrl)
 
 		if self.copy:
-			# Translators: The label for a setting in SPL add-on dialog to select a base  profile for copying.
-			self.baseProfiles = newProfileSizerHelper.addLabeledControl(_("&Base profile:"), wx.Choice, choices=parent.profileNames)
+			self.baseProfiles = newProfileSizerHelper.addLabeledControl(
+				# Translators: The label for a setting in SPL add-on dialog
+				# to select a base  profile for copying.
+				_("&Base profile:"), wx.Choice, choices=parent.profileNames
+			)
 			self.baseProfiles.SetSelection(parent.profiles.GetSelection())
 
 		newProfileSizerHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
@@ -376,14 +381,17 @@ class TriggersDialog(wx.Dialog):
 
 	def __init__(self, parent, profile):
 		# Translators: The title of the broadcast profile triggers dialog.
-		super(TriggersDialog, self).__init__(parent, title=_("Profile triggers for {profileName}").format(profileName=profile))
+		title = _("Profile triggers for {profileName}").format(profileName=profile)
+		super(TriggersDialog, self).__init__(parent, title=title)
 		self.profile = profile
 		self.selection = parent.profiles.GetSelection()
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		triggersHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
-		# Translators: The label of a checkbox to toggle if selected profile is an instant switch profile.
-		self.instantSwitchCheckbox = triggersHelper.addItem(wx.CheckBox(self, label=_("This is an &instant switch profile")))
+		# Translators: The label of a checkbox in SPL profile triggers dialog
+		# to toggle if selected profile is an instant switch profile.
+		instantSwitchLabel = _("This is an &instant switch profile")
+		self.instantSwitchCheckbox = triggersHelper.addItem(wx.CheckBox(self, label=instantSwitchLabel))
 		self.instantSwitchCheckbox.SetValue(parent.switchProfile == profile)
 
 		triggersHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
