@@ -729,7 +729,9 @@ class PlaylistSnapshotsPanel(gui.SettingsPanel):
 		self.resultsWindowOnFirstPressCheckbox = playlistSnapshotsHelper.addItem(
 			wx.CheckBox(self, label=resultsWindowOnFirstPressLabel)
 		)
-		self.resultsWindowOnFirstPressCheckbox.SetValue(splconfig.SPLConfig["PlaylistSnapshots"]["ShowResultsWindowOnFirstPress"])
+		self.resultsWindowOnFirstPressCheckbox.SetValue(
+			splconfig.SPLConfig["PlaylistSnapshots"]["ShowResultsWindowOnFirstPress"]
+		)
 
 	def onSave(self):
 		splconfig.SPLConfig["PlaylistSnapshots"]["DurationMinMax"] = self.playlistDurationMinMaxCheckbox.Value
