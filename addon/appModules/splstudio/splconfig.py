@@ -436,7 +436,10 @@ class ConfigHub(ChainMap):
 				# Takes advantage of the fact that Python's "or" operator evaluates from left to right.
 				# Although nothing should be returned when calling dict.get with nonexistent keys,
 				# return the current profile for ease of comparison.
-				if self.resetHappened or profile.name in self.newProfiles or _SPLCache.get(profile.name, profile) != profile:
+				if (
+					self.resetHappened or profile.name in self.newProfiles
+					or _SPLCache.get(profile.name, profile) != profile
+				):
 					# Without keeping a copy of config dictionary (and restoring from it later),
 					# settings will be lost when presave check runs.
 					profileSettings = profile.dict()

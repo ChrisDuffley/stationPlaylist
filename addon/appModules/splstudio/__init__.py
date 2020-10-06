@@ -235,8 +235,10 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 		columnsToInclude = splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"]
 		columnOrder = splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"]
 		if (
-			not splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"]
-			and (columnOrder != splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"] or len(columnsToInclude) != 17)
+			not splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] and (
+				columnOrder != splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
+				or len(columnsToInclude) != 17
+			)
 		):
 			trackNamePieces = []
 			includeColumnHeaders = splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"]
@@ -348,7 +350,10 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 	@scriptHandler.script(gesture="kb:downArrow")
 	def script_nextTrack(self, gesture):
 		gesture.send()
-		if self.IAccessibleChildID == self.parent.childCount - 1 and splconfig.SPLConfig["General"]["TopBottomAnnounce"]:
+		if (
+			self.IAccessibleChildID == self.parent.childCount - 1
+			and splconfig.SPLConfig["General"]["TopBottomAnnounce"]
+		):
 			tones.beep(2000, 100)
 
 	@scriptHandler.script(gesture="kb:upArrow")
@@ -765,7 +770,11 @@ class AppModule(appModuleHandler.AppModule):
 
 	def event_NVDAObject_init(self, obj):
 		# From 0.01: previously focused item fires focus event when it shouldn't.
-		if obj.windowClassName == "TListView" and obj.role in (controlTypes.ROLE_CHECKBOX, controlTypes.ROLE_LISTITEM) and controlTypes.STATE_FOCUSED not in obj.states:
+		if (
+			obj.windowClassName == "TListView"
+			and obj.role in (controlTypes.ROLE_CHECKBOX, controlTypes.ROLE_LISTITEM)
+			and controlTypes.STATE_FOCUSED not in obj.states
+		):
 			obj.shouldAllowIAccessibleFocusEvent = False
 		# Radio button group names are not recognized as grouping, so work around this.
 		elif obj.windowClassName == "TRadioGroup":
@@ -899,7 +908,10 @@ class AppModule(appModuleHandler.AppModule):
 			if obj.simplePrevious is not None:
 				if obj.simplePrevious.name == "Remaining Time":
 					# End of track for SPL 5.x.
-					if splconfig.SPLConfig["General"]["BrailleTimer"] in ("outro", "both") and api.getForegroundObject().processID == self.processID:
+					if (
+						splconfig.SPLConfig["General"]["BrailleTimer"] in ("outro", "both")
+						and api.getForegroundObject().processID == self.processID
+					):
 						braille.handler.message(obj.name)
 					if (
 						obj.name == "00:{0:02d}".format(splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"])
@@ -908,7 +920,10 @@ class AppModule(appModuleHandler.AppModule):
 						self.alarmAnnounce(obj.name, 440, 200)
 				elif obj.simplePrevious.name == "Remaining Song Ramp":
 					# Song intro for SPL 5.x.
-					if splconfig.SPLConfig["General"]["BrailleTimer"] in ("intro", "both") and api.getForegroundObject().processID == self.processID:
+					if (
+						splconfig.SPLConfig["General"]["BrailleTimer"] in ("intro", "both")
+						and api.getForegroundObject().processID == self.processID
+					):
 						braille.handler.message(obj.name)
 					if (
 						obj.name == "00:{0:02d}".format(splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"])
@@ -1143,7 +1158,13 @@ class AppModule(appModuleHandler.AppModule):
 				# 19.11.1/18.09.13-LTS: be sure to convert time into integer indirectly via floor division.
 				t = (t // 1000) if not offset else (t // 1000) + offset
 			mm, ss = divmod(t, 60)
-			if mm > 59 and (includeHours or (includeHours is None and splconfig.SPLConfig["General"]["TimeHourAnnounce"])):
+			if (
+				mm > 59 and (
+					includeHours or (
+						includeHours is None and splconfig.SPLConfig["General"]["TimeHourAnnounce"]
+					)
+				)
+			):
 				hh, mm = divmod(mm, 60)
 				# Hour value is also filled with leading zero's.
 				# 6.1: Optimize the string builder so it can return just one string.
@@ -1552,7 +1573,10 @@ class AppModule(appModuleHandler.AppModule):
 			self.libraryScanning = False
 			return
 		time.sleep(0.1)
-		if api.getForegroundObject().windowClassName == "TTrackInsertForm" and self.productVersion in noLibScanMonitor:
+		if (
+			api.getForegroundObject().windowClassName == "TTrackInsertForm"
+			and self.productVersion in noLibScanMonitor
+		):
 			self.libraryScanning = False
 			return
 		# 17.04: Library scan may have finished while this thread was sleeping.
