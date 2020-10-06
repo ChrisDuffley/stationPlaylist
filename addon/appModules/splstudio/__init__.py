@@ -561,7 +561,11 @@ class ReversedDialog(Dialog):
 				# Static text, labels and links
 				childRole in (controlTypes.ROLE_STATICTEXT, controlTypes.ROLE_LABEL, controlTypes.ROLE_LINK)
 				# Read-only, non-multiline edit fields
-				or (childRole == controlTypes.ROLE_EDITABLETEXT and controlTypes.STATE_READONLY in childStates and controlTypes.STATE_MULTILINE not in childStates)
+				or (
+					childRole == controlTypes.ROLE_EDITABLETEXT
+					and controlTypes.STATE_READONLY in childStates
+					and controlTypes.STATE_MULTILINE not in childStates
+				)
 			):
 				continue
 			# We should ignore a text object directly after a grouping object,
@@ -569,13 +573,26 @@ class ReversedDialog(Dialog):
 			if index > 0 and children[index - 1].role == controlTypes.ROLE_GROUPING:
 				continue
 			# Like the last one, but a graphic might be before the grouping's description
-			if index > 1 and children[index - 1].role == controlTypes.ROLE_GRAPHIC and children[index - 2].role == controlTypes.ROLE_GROUPING:
+			if (
+				index > 1
+				and children[index - 1].role == controlTypes.ROLE_GRAPHIC
+				and children[index - 2].role == controlTypes.ROLE_GROUPING
+			):
 				continue
 			childName = child.name
-			if childName and index < (childCount - 1) and children[index + 1].role not in (controlTypes.ROLE_GRAPHIC, controlTypes.ROLE_STATICTEXT, controlTypes.ROLE_SEPARATOR, controlTypes.ROLE_WINDOW, controlTypes.ROLE_PANE, controlTypes.ROLE_BUTTON) and children[index + 1].name == childName:
+			if (
+				childName and index < (childCount - 1)
+				and children[index + 1].role not in (
+					controlTypes.ROLE_GRAPHIC, controlTypes.ROLE_STATICTEXT, controlTypes.ROLE_SEPARATOR,
+					controlTypes.ROLE_WINDOW, controlTypes.ROLE_PANE, controlTypes.ROLE_BUTTON
+				)
+				and children[index + 1].name == childName
+			):
 				# This is almost certainly the label for the next object, so skip it.
 				continue
-			isNameIncluded = child.TextInfo is NVDAObjectTextInfo or childRole in (controlTypes.ROLE_LABEL, controlTypes.ROLE_STATICTEXT)
+			isNameIncluded = child.TextInfo is NVDAObjectTextInfo or childRole in (
+				controlTypes.ROLE_LABEL, controlTypes.ROLE_STATICTEXT
+			)
 			childText = child.makeTextInfo(textInfos.POSITION_ALL).text
 			if not childText or childText.isspace() and child.TextInfo is not NVDAObjectTextInfo:
 				childText = child.basicText
