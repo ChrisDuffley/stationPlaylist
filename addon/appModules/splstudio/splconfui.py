@@ -558,13 +558,23 @@ class GeneralSettingsPanel(gui.SettingsPanel):
 
 	def onSave(self):
 		splconfig.SPLConfig["General"]["BeepAnnounce"] = self.beepAnnounceCheckbox.Value
-		splconfig.SPLConfig["General"]["MessageVerbosity"] = self.verbosityLevels[self.verbosityList.GetSelection()][0]
-		splconfig.SPLConfig["General"]["BrailleTimer"] = self.brailleTimerValues[self.brailleTimerList.GetSelection()][0]
-		splconfig.SPLConfig["General"]["LibraryScanAnnounce"] = self.libScanValues[self.libScanList.GetSelection()][0]
+		splconfig.SPLConfig["General"]["MessageVerbosity"] = (
+			self.verbosityLevels[self.verbosityList.GetSelection()][0]
+		)
+		splconfig.SPLConfig["General"]["BrailleTimer"] = (
+			self.brailleTimerValues[self.brailleTimerList.GetSelection()][0]
+		)
+		splconfig.SPLConfig["General"]["LibraryScanAnnounce"] = (
+			self.libScanValues[self.libScanList.GetSelection()][0]
+		)
 		splconfig.SPLConfig["General"]["TimeHourAnnounce"] = self.hourAnnounceCheckbox.Value
-		splconfig.SPLConfig["General"]["VerticalColumnAnnounce"] = self.verticalColumnsList.GetStringSelection() if self.verticalColumnsList.GetSelection() != 0 else None
+		splconfig.SPLConfig["General"]["VerticalColumnAnnounce"] = (
+			self.verticalColumnsList.GetStringSelection() if self.verticalColumnsList.GetSelection() != 0 else None
+		)
 		splconfig.SPLConfig["General"]["CategorySounds"] = self.categorySoundsCheckbox.Value
-		splconfig.SPLConfig["General"]["TrackCommentAnnounce"] = self.trackCommentValues[self.trackCommentList.GetSelection()][0]
+		splconfig.SPLConfig["General"]["TrackCommentAnnounce"] = (
+			self.trackCommentValues[self.trackCommentList.GetSelection()][0]
+		)
 		splconfig.SPLConfig["General"]["TopBottomAnnounce"] = self.topBottomCheckbox.Value
 		splconfig.SPLConfig["General"]["RequestsAlert"] = self.requestsAlertCheckbox.Value
 
@@ -628,7 +638,9 @@ class AlarmsPanel(gui.SettingsPanel):
 		self.alarmAnnounceList.SetSelection(selection)
 
 	def onSave(self):
-		splconfig.SPLConfig["General"]["AlarmAnnounce"] = self.alarmAnnounceValues[self.alarmAnnounceList.GetSelection()][0]
+		splconfig.SPLConfig["General"]["AlarmAnnounce"] = (
+			self.alarmAnnounceValues[self.alarmAnnounceList.GetSelection()][0]
+		)
 		splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"] = self.outroAlarmEntry.GetValue()
 		splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"] = self.outroToggleCheckBox.GetValue()
 		splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"] = self.introAlarmEntry.GetValue()
@@ -742,7 +754,9 @@ class PlaylistSnapshotsPanel(gui.SettingsPanel):
 		splconfig.SPLConfig["PlaylistSnapshots"]["CategoryCountLimit"] = self.playlistCategoryCountLimit.GetValue()
 		splconfig.SPLConfig["PlaylistSnapshots"]["GenreCount"] = self.playlistGenreCountCheckbox.Value
 		splconfig.SPLConfig["PlaylistSnapshots"]["GenreCountLimit"] = self.playlistGenreCountLimit.GetValue()
-		splconfig.SPLConfig["PlaylistSnapshots"]["ShowResultsWindowOnFirstPress"] = self.resultsWindowOnFirstPressCheckbox.Value
+		splconfig.SPLConfig["PlaylistSnapshots"]["ShowResultsWindowOnFirstPress"] = (
+			self.resultsWindowOnFirstPressCheckbox.Value
+		)
 
 
 # Metadata reminder controller.
@@ -877,9 +891,13 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 		self.checkedStreams.SetSelection(0)
 
 	def onSave(self):
-		splconfig.SPLConfig["General"]["MetadataReminder"] = self.metadataValues[self.metadataList.GetSelection()][0]
+		splconfig.SPLConfig["General"]["MetadataReminder"] = (
+			self.metadataValues[self.metadataList.GetSelection()][0]
+		)
 		# #76 (18.09-LTS): traverse check list box and build boolean list accordingly.
-		splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = [self.checkedStreams.IsChecked(url) for url in range(5)]
+		splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"] = [
+			self.checkedStreams.IsChecked(url) for url in range(5)
+		]
 		# Try connecting to metadata streaming servers if any.
 		from . import splmisc
 		splmisc.metadata_actionProfileSwitched(configDialogActive=True)
@@ -1253,7 +1271,9 @@ class AdvancedOptionsPanel(gui.SettingsPanel):
 
 	def onSave(self):
 		splconfig.SPLConfig["Advanced"]["SPLConPassthrough"] = self.splConPassthroughCheckbox.Value
-		splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] = self.compatibilityLayouts[self.compatibilityList.GetSelection()][0]
+		splconfig.SPLConfig["Advanced"]["CompatibilityLayer"] = (
+			self.compatibilityLayouts[self.compatibilityList.GetSelection()][0]
+		)
 
 
 # A dialog to reset add-on config including encoder settings and others.
