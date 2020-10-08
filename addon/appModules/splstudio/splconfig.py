@@ -87,8 +87,13 @@ class ConfigHub(ChainMap):
 			# 20.09: get the dictionary version of default settings map.
 			self.maps[0] = ConfigObj(_SPLDefaults.dict(), configspec=confspec, encoding="UTF-8")
 			self.maps[0].name = defaultProfileName
-			self.maps[0]["ColumnAnnouncement"]["IncludedColumns"] = set(self.maps[0]["ColumnAnnouncement"]["IncludedColumns"])
-			self.maps[0]["PlaylistTranscripts"]["IncludedColumns"] = set(self.maps[0]["PlaylistTranscripts"]["IncludedColumns"])
+			# Convert the following to runtime data structures.
+			self.maps[0]["ColumnAnnouncement"]["IncludedColumns"] = set(
+				self.maps[0]["ColumnAnnouncement"]["IncludedColumns"]
+			)
+			self.maps[0]["PlaylistTranscripts"]["IncludedColumns"] = set(
+				self.maps[0]["PlaylistTranscripts"]["IncludedColumns"]
+			)
 			self.maps[0]["General"]["VerticalColumnAnnounce"] = None
 		self.profileNames.append(None)  # Signifying normal profile.
 		# Always cache normal profile upon startup.
@@ -416,9 +421,13 @@ class ConfigHub(ChainMap):
 			# 17.09: before doing that, temporarily save a copy of the current column headers set.
 			# 20.09: have a temporary settings dictionary handy for updating the actual profile.
 			profileSettings = normalProfile.dict()
-			normalProfile["ColumnAnnouncement"]["IncludedColumns"] = list(normalProfile["ColumnAnnouncement"]["IncludedColumns"])
+			normalProfile["ColumnAnnouncement"]["IncludedColumns"] = list(
+				normalProfile["ColumnAnnouncement"]["IncludedColumns"]
+			)
 			# 18.08: also convert included columns in playlist transcripts.
-			normalProfile["PlaylistTranscripts"]["IncludedColumns"] = list(normalProfile["PlaylistTranscripts"]["IncludedColumns"])
+			normalProfile["PlaylistTranscripts"]["IncludedColumns"] = list(
+				normalProfile["PlaylistTranscripts"]["IncludedColumns"]
+			)
 			normalProfile.write()
 			normalProfile.update(profileSettings)
 			# Don't forget to update profile cache, otherwise subsequent changes are lost.
