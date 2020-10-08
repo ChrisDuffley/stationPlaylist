@@ -1000,7 +1000,9 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 		# Without manual conversion below, it produces a rare bug
 		# where clicking cancel after changing column inclusion causes new set to be retained.
 		# Of course take away artist and title.
-		self.includedColumns = set(splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"]) - {"Artist", "Title"}
+		self.includedColumns = (
+			set(splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"]) - {"Artist", "Title"}
+		)
 		self.columnOrder = splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"]
 
 		# Translators: the label for a setting in SPL add-on settings
@@ -1029,7 +1031,9 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 
 	def onSave(self):
 		splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
-		splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"] = set(self.checkedColumns.GetCheckedStrings()) | {"Artist", "Title"}
+		splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"] = (
+			set(self.checkedColumns.GetCheckedStrings()) | {"Artist", "Title"}
+		)
 		splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"] = self.trackColumns.GetItems()
 		splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.Value
 
@@ -1042,7 +1046,9 @@ class PlaylistTranscriptsPanel(ColumnAnnouncementsBasePanel):
 		playlistTranscriptsHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
 		# Again manually create a new set minus artist and title.
-		self.includedColumns = set(splconfig.SPLConfig["PlaylistTranscripts"]["IncludedColumns"]) - {"Artist", "Title"}
+		self.includedColumns = (
+			set(splconfig.SPLConfig["PlaylistTranscripts"]["IncludedColumns"]) - {"Artist", "Title"}
+		)
 		self.columnOrder = splconfig.SPLConfig["PlaylistTranscripts"]["ColumnOrder"]
 
 		labelText = _(
@@ -1055,7 +1061,9 @@ class PlaylistTranscriptsPanel(ColumnAnnouncementsBasePanel):
 		self._onMakeSettingsBase(playlistTranscriptsHelper, labelText)
 
 	def onSave(self):
-		splconfig.SPLConfig["PlaylistTranscripts"]["IncludedColumns"] = set(self.checkedColumns.GetCheckedStrings()) | {"Artist", "Title"}
+		splconfig.SPLConfig["PlaylistTranscripts"]["IncludedColumns"] = (
+			set(self.checkedColumns.GetCheckedStrings()) | {"Artist", "Title"}
+		)
 		splconfig.SPLConfig["PlaylistTranscripts"]["ColumnOrder"] = self.trackColumns.GetItems()
 
 
