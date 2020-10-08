@@ -391,7 +391,10 @@ class Encoder(IAccessible):
 	def focusToStudio(self, flag):
 		if not isinstance(flag, bool):
 			raise TypeError("Flag must be a boolean")
-		SPLFocusToStudio.add(self.encoderId) if flag else SPLFocusToStudio.discard(self.encoderId)
+		if flag:
+			SPLFocusToStudio.add(self.encoderId)
+		else:
+			SPLFocusToStudio.discard(self.encoderId)
 
 	@property
 	def playAfterConnecting(self):
@@ -401,7 +404,10 @@ class Encoder(IAccessible):
 	def playAfterConnecting(self, flag):
 		if not isinstance(flag, bool):
 			raise TypeError("Flag must be a boolean")
-		SPLPlayAfterConnecting.add(self.encoderId) if flag else SPLPlayAfterConnecting.discard(self.encoderId)
+		if flag:
+			SPLPlayAfterConnecting.add(self.encoderId)
+		else:
+			SPLPlayAfterConnecting.discard(self.encoderId)
 
 	@property
 	def backgroundMonitor(self):
@@ -411,7 +417,10 @@ class Encoder(IAccessible):
 	def backgroundMonitor(self, flag):
 		if not isinstance(flag, bool):
 			raise TypeError("Flag must be a boolean")
-		SPLBackgroundMonitor.add(self.encoderId) if flag else SPLBackgroundMonitor.discard(self.encoderId)
+		if flag:
+			SPLBackgroundMonitor.add(self.encoderId)
+		else:
+			SPLBackgroundMonitor.discard(self.encoderId)
 
 	# For the next two properties, setter should invert the flag.
 
@@ -423,7 +432,10 @@ class Encoder(IAccessible):
 	def connectionTone(self, flag):
 		if not isinstance(flag, bool):
 			raise TypeError("Flag must be a boolean")
-		SPLNoConnectionTone.add(self.encoderId) if not flag else SPLNoConnectionTone.discard(self.encoderId)
+		if not flag:
+			SPLNoConnectionTone.add(self.encoderId)
+		else:
+			SPLNoConnectionTone.discard(self.encoderId)
 
 	@property
 	def announceStatusUntilConnected(self):
@@ -433,7 +445,10 @@ class Encoder(IAccessible):
 	def announceStatusUntilConnected(self, flag):
 		if not isinstance(flag, bool):
 			raise TypeError("Flag must be a boolean")
-		SPLConnectionStopOnError.add(self.encoderId) if not flag else SPLConnectionStopOnError.discard(self.encoderId)
+		if not flag:
+			SPLConnectionStopOnError.add(self.encoderId)
+		else:
+			SPLConnectionStopOnError.discard(self.encoderId)
 
 	# Format the status message to prepare for monitoring multiple encoders.
 	def encoderStatusMessage(self, message):
