@@ -337,11 +337,21 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# messages in this method will remain in English.
 		statusInfo = []
 		playingNow = sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus)
-		statusInfo.append("Play status: playing" if playingNow else "Play status: stopped")
-		statusInfo.append("Automation On" if sendMessage(SPLWin, 1024, 1, SPLStatusInfo) else "Automation Off")
-		statusInfo.append("Microphone On" if sendMessage(SPLWin, 1024, 2, SPLStatusInfo) else "Microphone Off")
-		statusInfo.append("Line-In On" if sendMessage(SPLWin, 1024, 3, SPLStatusInfo) else "Line-In Off")
-		statusInfo.append("Record to file On" if sendMessage(SPLWin, 1024, 4, SPLStatusInfo) else "Record to file Off")
+		statusInfo.append(
+			"Play status: playing" if playingNow else "Play status: stopped"
+		)
+		statusInfo.append(
+			"Automation On" if sendMessage(SPLWin, 1024, 1, SPLStatusInfo) else "Automation Off"
+		)
+		statusInfo.append(
+			"Microphone On" if sendMessage(SPLWin, 1024, 2, SPLStatusInfo) else "Microphone Off"
+		)
+		statusInfo.append(
+			"Line-In On" if sendMessage(SPLWin, 1024, 3, SPLStatusInfo) else "Line-In Off"
+		)
+		statusInfo.append(
+			"Record to file On" if sendMessage(SPLWin, 1024, 4, SPLStatusInfo) else "Record to file Off"
+		)
 		cartEdit = sendMessage(SPLWin, 1024, 5, SPLStatusInfo)
 		cartInsert = sendMessage(SPLWin, 1024, 6, SPLStatusInfo)
 		if cartEdit:
