@@ -49,7 +49,8 @@ encoderConfig = None
 
 # Load encoder config (including labels and other goodies) from a file-based database.
 def loadEncoderConfig():
-	global encoderConfig, SPLEncoderLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError
+	# 20.11 (Flake8 E501): define global variables when first used, not here due to line length.
+	global encoderConfig
 	# 7.1: Make sure encoder settings map isn't corrupted.
 	# #131 (20.06): encoder focus error message routine was transplanted from Studio app module.
 	try:
@@ -66,17 +67,20 @@ def loadEncoderConfig():
 		)
 		return
 	# Read encoder labels.
+	global SPLEncoderLabels
 	try:
 		SPLEncoderLabels = dict(encoderConfig["EncoderLabels"])
 	except KeyError:
 		SPLEncoderLabels = {}
 	# Read other settings.
+	global SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor
 	if "FocusToStudio" in encoderConfig:
 		SPLFocusToStudio = set(encoderConfig["FocusToStudio"])
 	if "PlayAfterConnecting" in encoderConfig:
 		SPLPlayAfterConnecting = set(encoderConfig["PlayAfterConnecting"])
 	if "BackgroundMonitor" in encoderConfig:
 		SPLBackgroundMonitor = set(encoderConfig["BackgroundMonitor"])
+	global SPLNoConnectionTone, SPLConnectionStopOnError
 	if "NoConnectionTone" in encoderConfig:
 		SPLNoConnectionTone = set(encoderConfig["NoConnectionTone"])
 	if "ConnectionStopOnError" in encoderConfig:
@@ -124,8 +128,8 @@ def _removeEncoderID(encoderType, pos):
 
 # Save encoder labels and flags, called when closing app modules and/or config save command is pressed.
 def saveEncoderConfig():
-	global encoderConfig, SPLEncoderLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError
 	# Gather stream labels and flags.
+	# 20.11: dictionaries and sets are global items.
 	encoderConfig["EncoderLabels"] = dict(SPLEncoderLabels)
 	# For flags, convert flag sets into lists.
 	encoderConfig["FocusToStudio"] = list(SPLFocusToStudio)
@@ -144,7 +148,8 @@ def saveEncoderConfig():
 # 20.04: if told to do so, save encoder settings and unregister config save handler.
 # In case this is called as part of a reset, unregister config save handler unconditionally.
 def cleanup(appTerminating=False, reset=False):
-	global encoderConfig, SPLEncoderLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLBackgroundMonitorThreads, SPLNoConnectionTone, SPLConnectionStopOnError
+	# 20.11 (Flake8 E501): apart from encoder config, other flag containers are global variables.
+	global encoderConfig
 	# #132 (20.05): do not proceed if encoder settings database is None (no encoders were initialized).
 	if encoderConfig is None:
 		return
