@@ -302,8 +302,10 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 			verticalColumnAnnounce = splconfig.SPLConfig["General"]["VerticalColumnAnnounce"]
 			if verticalColumnAnnounce == "Status" or (verticalColumnAnnounce is None and self._savedColumnNumber == 1):
 				colNumber = 0
+			elif verticalColumnAnnounce is None:
+				colNumber = self._savedColumnNumber - 1
 			else:
-				colNumber = self._savedColumnNumber - 1 if verticalColumnAnnounce is None else list(self.parent._columnOrderArray).index(self.indexOf(verticalColumnAnnounce))
+				colNumber = list(self.parent._columnOrderArray).index(self.indexOf(verticalColumnAnnounce))
 			# Add track check status to column data if needed by using a customized move to column number method.
 			cell = self.getChild(colNumber)
 			if colNumber > 0 and self.firstChild.name:
