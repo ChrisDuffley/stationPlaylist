@@ -198,6 +198,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Version 20.11
 
+* Resolved more coding style issues and potential bugs with Flake8.
 * NVDA 2020.1 or later is required.
 * Fixed various issues with add-on welcome dialog (Alt+NVDA+F1 from Studio), including wrong command shown for add-on feedback (Alt+NVDA+Hyphen).
 * Column presentation format for track and encoder items across StationPlaylist suite (including SAM encoder) is now based on SysListView32 list item format.
