@@ -116,7 +116,10 @@ class SPLFindDialog(wx.Dialog):
 			appMod = self.obj.appModule
 			column = [self.columnHeaders.Selection + 1] if self.columnSearch else None
 			startObj = self.obj
-			if appMod.findText is None or (len(appMod.findText) and (text == appMod.findText[0] or text in appMod.findText)):
+			if (
+				appMod.findText is None
+				or (len(appMod.findText) and (text == appMod.findText[0] or text in appMod.findText))
+			):
 				startObj = startObj.next
 				if appMod.findText is None:
 					appMod.findText = [text]
