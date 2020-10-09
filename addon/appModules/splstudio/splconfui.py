@@ -512,9 +512,13 @@ class GeneralSettingsPanel(gui.SettingsPanel):
 
 		# Translators: The label for a setting in SPL add-on dialog to set vertical column.
 		verticalColLabel = _("&Vertical column navigation announcement:")
+		verticalColChoices = ["Status"] + splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
 		# Translators: One of the options for vertical column navigation
 		# denoting NVDA will announce current column position (e.g. second column position from the left).
-		self.verticalColumnsList = generalSettingsHelper.addLabeledControl(verticalColLabel, wx.Choice, choices=[_("whichever column I am reviewing"), "Status"] + splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])
+		verticalColChoices.insert(0, _("whichever column I am reviewing"))
+		self.verticalColumnsList = generalSettingsHelper.addLabeledControl(
+			verticalColLabel, wx.Choice, choices=verticalColChoices
+		)
 		verticalColumn = splconfig.SPLConfig["General"]["VerticalColumnAnnounce"]
 		selection = self.verticalColumnsList.FindString(verticalColumn) if verticalColumn is not None else 0
 		self.verticalColumnsList.SetSelection(selection)
