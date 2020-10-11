@@ -20,6 +20,7 @@ from abc import abstractmethod
 import controlTypes
 import appModuleHandler
 import api
+import config
 import globalVars
 import scriptHandler
 import ui
@@ -241,7 +242,7 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 			)
 		):
 			trackNamePieces = []
-			includeColumnHeaders = splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"]
+			includeColumnHeaders = config.conf["documentFormatting"]["reportTableHeaders"]
 			# Include status (actual item name as reported by MSAA) if present.
 			if self.firstChild.name:
 				trackNamePieces.append(self.firstChild.name)
