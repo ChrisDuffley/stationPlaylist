@@ -256,12 +256,7 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 						trackNamePieces.append("{}: {}".format(header, content) if includeColumnHeaders else content)
 			trackName = "; ".join(trackNamePieces)
 		else:
-			# 20.10/20.09.2-LTS: do not include column headers in track description text if this is the case.
-			# 20.11: emulate building SysListView32.ListItem name string, to be removed in 2021.
-			if not splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"]:
-				trackName = "; ".join([column.name for column in self.children if column.name])
-			else:
-				trackName = super(StudioPlaylistViewerItem, self).name
+			trackName = super(StudioPlaylistViewerItem, self).name
 		return trackName
 
 	def event_stateChange(self):
