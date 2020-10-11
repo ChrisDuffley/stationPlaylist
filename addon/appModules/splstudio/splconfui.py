@@ -1025,21 +1025,12 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 		# 20.09: column inclusion/order are processed via a private method.
 		self._onMakeSettingsBase(colAnnouncementsHelper, labelText)
 
-		# Translators: the label for a setting in SPL add-on settings
-		# to toggle whether column headers should be included when announcing track information.
-		columnHeadersLabel = _("Include column &headers when announcing track information")
-		self.columnHeadersCheckbox = colAnnouncementsHelper.addItem(
-			wx.CheckBox(self, label=columnHeadersLabel)
-		)
-		self.columnHeadersCheckbox.SetValue(splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"])
-
 	def onSave(self):
 		splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = self.columnOrderCheckbox.Value
 		splconfig.SPLConfig["ColumnAnnouncement"]["IncludedColumns"] = (
 			set(self.checkedColumns.GetCheckedStrings()) | {"Artist", "Title"}
 		)
 		splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"] = self.trackColumns.GetItems()
-		splconfig.SPLConfig["ColumnAnnouncement"]["IncludeColumnHeaders"] = self.columnHeadersCheckbox.Value
 
 
 class PlaylistTranscriptsPanel(ColumnAnnouncementsBasePanel):
