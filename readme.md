@@ -79,7 +79,7 @@ The following commands are available when using encoders:
 * Shift+F11: Toggles whether Studio will play the first selected track when encoder is connected to a streaming server.
 * Control+F11: Toggles background monitoring of the selected encoder.
 * Control+F12: opens a dialog to select the encoder you have deleted (to realign encoder labels and settings).
-* Alt+NVDA+0: Opens encoder settings dialog to configure options such as encoder label.
+* Alt+NVDA+0 and F12: Opens encoder settings dialog to configure options such as encoder label.
 
 In addition, column review commands are available, including:
 
@@ -195,6 +195,13 @@ You can save settings for specific shows into broadcast profiles. These profiles
 ## SPL touch mode
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
+
+## Version 20.09.3-LTS
+
+* Fixed various issues with add-on welcome dialog (Alt+NVDA+F1 from Studio), including wrong command shown for add-on feedback (Alt+NVDA+Hyphen).
+* If vertical column announcement is set to a value other than "whichever column I'm reviewing", NVDA will no longer announce wrong column data after changing column position on screen via mouse.
+* improved playlist transcripts (SPL Assistant, Shift+F8) presentation when viewing the transcript in HTML table or list format.
+* In encoders, in addition to Alt+NVDA+number row 0, pressing F12 will also open encoder settings dialog for the selected encoder.
 
 ## Version 20.09.2-LTS
 
