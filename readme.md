@@ -196,10 +196,10 @@ You can save settings for specific shows into broadcast profiles. These profiles
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
-## Version 20.11
+## Version 20.11/20.09.3-LTS
 
-* Resolved more coding style issues and potential bugs with Flake8.
 * NVDA 2020.1 or later is required.
+* Resolved more coding style issues and potential bugs with Flake8.
 * Fixed various issues with add-on welcome dialog (Alt+NVDA+F1 from Studio), including wrong command shown for add-on feedback (Alt+NVDA+Hyphen).
 * Column presentation format for track and encoder items across StationPlaylist suite (including SAM encoder) is now based on SysListView32 list item format.
 * NVDA will now announce column information for tracks throughout SPL suite regardless of "report object description" setting in NVDA's object presentation settings panel. For best experience, leave this setting on.
