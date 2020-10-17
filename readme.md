@@ -196,6 +196,10 @@ You can save settings for specific shows into broadcast profiles. These profiles
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 21.01
+
+* Column header inclusion setting from add-on settings has been removed. NVDA's own table column header setting will control column header announcements across SPL suite and encoders.
+
 ## Version 20.11/20.09.3-LTS
 
 * 20.11: NVDA 2020.1 or later is required.
