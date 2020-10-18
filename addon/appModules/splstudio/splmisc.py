@@ -14,6 +14,7 @@ import nvwave
 import queueHandler
 import speech
 import ui
+import versionInfo
 import addonHandler
 addonHandler.initTranslation()
 from winUser import user32
@@ -101,7 +102,12 @@ class SPLFindDialog(wx.Dialog):
 			)
 			self.columnHeaders.SetSelection(0)
 
-		findSizerHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
+		# #152 (21.01): add UI separator if NVDA 2020.3 or later is active.
+		# Add a separator if column search is active, otherwise only find prompt is displayed.
+		if (versionInfo.version_year, versionInfo.version_major) >= (2020, 3):
+			findSizerHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=columnSearch)
+		else:
+			findSizerHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
 		mainSizer.Add(findSizerHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
@@ -205,7 +211,11 @@ class SPLTimeRangeDialog(wx.Dialog):
 		)
 
 		# #68: wx.BoxSizer.AddSizer no longer exists in wxPython 4.
-		timeRangeHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
+		# #152 (21.01): add UI separator if NVDA 2020.3 or later is active.
+		if (versionInfo.version_year, versionInfo.version_major) >= (2020, 3):
+			timeRangeHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=True)
+		else:
+			timeRangeHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
 		mainSizer.Add(timeRangeHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
