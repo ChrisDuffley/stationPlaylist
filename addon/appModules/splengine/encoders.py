@@ -12,6 +12,7 @@ import config
 import configobj
 import globalVars
 import ui
+import versionInfo
 import keyboardHandler
 import scriptHandler
 from NVDAObjects.IAccessible import IAccessible, sysListView32, getNVDAObjectFromEvent
@@ -258,7 +259,11 @@ class EncoderConfigDialog(wx.Dialog):
 		)
 		self.announceStatusUntilConnected.SetValue(obj.announceStatusUntilConnected)
 
-		encoderConfigHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
+		# #152 (21.01): add UI separator if NVDA 2020.3 or later is active.
+		if (versionInfo.version_year, versionInfo.version_major) >= (2020, 3):
+			encoderConfigHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=True)
+		else:
+			encoderConfigHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
 		mainSizer.Add(encoderConfigHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
