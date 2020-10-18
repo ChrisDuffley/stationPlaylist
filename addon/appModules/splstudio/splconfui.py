@@ -387,7 +387,12 @@ class TriggersDialog(wx.Dialog):
 		self.instantSwitchCheckbox = triggersHelper.addItem(wx.CheckBox(self, label=_("This is an &instant switch profile")))
 		self.instantSwitchCheckbox.SetValue(parent.switchProfile == profile)
 
-		triggersHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
+		# #152 (21.01): add UI separator if NVDA 2020.3 or later is active.
+		# Unlike other dialogs, the only change is button bits as the only prompt is instant switch checkbox.
+		if (versionInfo.version_year, versionInfo.version_major) >= (2020, 3):
+			triggersHelper.addDialogDismissButtons(wx.OK | wx.CANCEL)
+		else:
+			triggersHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
 		mainSizer.Add(triggersHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
