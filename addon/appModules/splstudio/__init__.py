@@ -1081,6 +1081,7 @@ class AppModule(appModuleHandler.AppModule):
 			if "SPL" not in touchHandler.availableTouchModes:
 				touchHandler.availableTouchModes.append("SPL")
 				# Add the human-readable representation also.
+				# Translators: the label for a dedicated touch mode for SPL Studio.
 				touchHandler.touchModeLabels["spl"] = _("SPL mode")
 
 	def event_appModule_loseFocus(self):
@@ -1984,6 +1985,8 @@ class AppModule(appModuleHandler.AppModule):
 					category, count = item
 					category = category.replace("<", "")
 					category = category.replace(">", "")
+					# Translators: one of the results for playlist snapshots feature
+					# for category count information.
 					info = _("{categoryName} ({categoryCount})").format(categoryName=category, categoryCount=count)
 					categoryList.append("<li>{}</li>".format(info))
 				statusInfo.append("".join([header, "<ol>", "\n".join(categoryList), "</ol>"]))

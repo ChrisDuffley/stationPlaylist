@@ -587,6 +587,7 @@ def copyPlaylistTranscriptsToClipboard(playlistTranscripts):
 	# Only text style transcript such as pure text and Markdown supports copying contents to clipboard.
 	import api
 	api.copyToClip("\r\n".join(playlistTranscripts))
+	# Translators: presented when playlist transcript data was copied to the clipboard.
 	ui.message(_("Playlist data copied to clipboard"))
 
 
