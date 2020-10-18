@@ -173,14 +173,16 @@ class SPLTimeRangeDialog(wx.Dialog):
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 
-		# Translators: the label for a group to specify minimum track duration in track range finder dialog.
+		# Translators: the label for a group to specify minimum track duration in time range finder dialog.
 		minSizer = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Minimum duration")), wx.HORIZONTAL)
+		# Translators: the minute label in time range finder dialog.
 		prompt = wx.StaticText(self, wx.ID_ANY, label=_("Minute"))
 		minSizer.Add(prompt)
 		self.minMinEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=59)
 		self.minMinEntry.SetValue(3)
 		self.minMinEntry.SetSelection(-1, -1)
 		minSizer.Add(self.minMinEntry)
+		# Translators: the second label in time range finder dialog.
 		prompt = wx.StaticText(self, wx.ID_ANY, label=_("Second"))
 		minSizer.Add(prompt)
 		self.minSecEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=59)
@@ -189,7 +191,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 		minSizer.Add(self.minSecEntry)
 		mainSizer.Add(minSizer, border=20, flag=wx.LEFT | wx.RIGHT | wx.TOP)
 
-		# Translators: the label for a group to specify maximum track duration in track range finder dialog.
+		# Translators: the label for a group to specify maximum track duration in time range finder dialog.
 		maxSizer = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Maximum duration")), wx.HORIZONTAL)
 		prompt = wx.StaticText(self, wx.ID_ANY, label=_("Minute"))
 		maxSizer.Add(prompt)
