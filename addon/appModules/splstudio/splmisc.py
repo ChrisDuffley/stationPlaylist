@@ -74,8 +74,10 @@ class SPLFindDialog(wx.Dialog):
 		self.obj = obj
 		self.columnSearch = columnSearch
 		if not columnSearch:
+			# Translators: the label for find prompt in track finder dialog.
 			findPrompt = _("Enter or select the name or the artist of the track you wish to &search")
 		else:
+			# Translators: the label for find prompt in column search dialog.
 			findPrompt = _("Enter or select text to be &searched in a column")
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
@@ -171,6 +173,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 
+		# Translators: the label for a group to specify minimum track duration in track range finder dialog.
 		minSizer = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Minimum duration")), wx.HORIZONTAL)
 		prompt = wx.StaticText(self, wx.ID_ANY, label=_("Minute"))
 		minSizer.Add(prompt)
@@ -186,6 +189,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 		minSizer.Add(self.minSecEntry)
 		mainSizer.Add(minSizer, border=20, flag=wx.LEFT | wx.RIGHT | wx.TOP)
 
+		# Translators: the label for a group to specify maximum track duration in track range finder dialog.
 		maxSizer = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Maximum duration")), wx.HORIZONTAL)
 		prompt = wx.StaticText(self, wx.ID_ANY, label=_("Minute"))
 		maxSizer.Add(prompt)

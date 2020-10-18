@@ -591,32 +591,44 @@ class AlarmsPanel(gui.SettingsPanel):
 	def makeSettings(self, settingsSizer):
 		alarmsCenterHelper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
+		# Translators: the label for a setting in SPL add-on settings
+		# To set end of track alarm in seconds.
 		outroAlarmLabel = _("&End of track alarm in seconds")
 		self.outroAlarmEntry = alarmsCenterHelper.addLabeledControl(
 			outroAlarmLabel, gui.nvdaControls.SelectOnFocusSpinCtrl,
 			min=1, max=59, initial=splconfig.SPLConfig["IntroOutroAlarms"]["EndOfTrackTime"]
 		)
 
+		# Translators: the label for a setting in SPL add-on settings
+		# to enable end of track alarm.
 		outroToggleLabel = _("&Notify when end of track is approaching")
 		self.outroToggleCheckBox = alarmsCenterHelper.addItem(wx.CheckBox(self, label=outroToggleLabel))
 		self.outroToggleCheckBox.SetValue(splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"])
 
+		# Translators: the label for a setting in SPL add-on settings
+		# To set trakc intro alarm in seconds.
 		introAlarmLabel = _("&Track intro alarm in seconds")
 		self.introAlarmEntry = alarmsCenterHelper.addLabeledControl(
 			introAlarmLabel, gui.nvdaControls.SelectOnFocusSpinCtrl,
 			min=1, max=9, initial=splconfig.SPLConfig["IntroOutroAlarms"]["SongRampTime"]
 		)
 
+		# Translators: the label for a setting in SPL add-on settings
+		# to enable track intro alarm.
 		introToggleLabel = _("&Notify when end of introduction is approaching")
 		self.introToggleCheckBox = alarmsCenterHelper.addItem(wx.CheckBox(self, label=introToggleLabel))
 		self.introToggleCheckBox.SetValue(splconfig.SPLConfig["IntroOutroAlarms"]["SaySongRamp"])
 
+		# Translators: the label for a setting in SPL add-on settings
+		# to set microphone active alarm in seconds.
 		micAlarmLabel = _("&Microphone alarm in seconds (0 disables the alarm)")
 		self.micAlarmEntry = alarmsCenterHelper.addLabeledControl(
 			micAlarmLabel, gui.nvdaControls.SelectOnFocusSpinCtrl,
 			min=0, max=7200, initial=splconfig.SPLConfig["MicrophoneAlarm"]["MicAlarm"]
 		)
 
+		# Translators: the label for a setting in SPL add-on settings
+		# to set microphone active alarm interval in seconds.
 		micIntervalLabel = _("Microphone alarm &interval in seconds")
 		self.micIntervalEntry = alarmsCenterHelper.addLabeledControl(
 			micIntervalLabel, gui.nvdaControls.SelectOnFocusSpinCtrl,
@@ -796,6 +808,7 @@ class MetadataStreamingDialog(wx.Dialog):
 		metadataSizerHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 
+		# Translators: dialog description for metadata streaming options dialog.
 		labelText = _("Check to enable metadata streaming, uncheck to disable.")
 		metadataSizerHelper.addItem(wx.StaticText(self, label=labelText))
 
@@ -808,6 +821,8 @@ class MetadataStreamingDialog(wx.Dialog):
 		from . import splmisc
 		streams = splmisc.metadataList()
 		self.checkedStreams = metadataSizerHelper.addLabeledControl(
+			# Translators: the label for a setting in SPL add-on settings
+			# to configure streaming status for metadata streams.
 			_("&Stream:"), CustomCheckListBox, choices=metadataStreamLabels
 		)
 		for stream in range(5):
@@ -884,6 +899,8 @@ class MetadataStreamingPanel(gui.SettingsPanel):
 		# Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
 		# Add checkboxes for each stream, beginning with the DSP encoder.
 		# #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
+		# # Translators: the label for a setting in SPL add-on settings
+		# to configure streaming status for metadata streams.
 		checkedStreamsLabel = _("&Select the URL for metadata streaming upon request:")
 		self.checkedStreams = metadataSizerHelper.addLabeledControl(
 			checkedStreamsLabel, CustomCheckListBox, choices=metadataStreamLabels

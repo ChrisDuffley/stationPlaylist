@@ -673,7 +673,14 @@ class AppModule(appModuleHandler.AppModule):
 		debugOutput("preparing GUI subsystem")
 		try:
 			self.prefsMenu = gui.mainFrame.sysTrayIcon.preferencesMenu
-			self.SPLSettings = self.prefsMenu.Append(wx.ID_ANY, _("SPL Studio Settings..."), _("SPL settings"))
+			self.SPLSettings = self.prefsMenu.Append(
+				wx.ID_ANY,
+				# Translators: the label for a menu item in NVDA Preferences menu
+				# to open SPL Studio add-on settings.
+				_("SPL Studio Settings..."),
+				# Translators: tooltip for SPL Studio settings dialog.
+				_("SPL settings")
+			)
 			gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, splconfui.onConfigDialog, self.SPLSettings)
 		except AttributeError:
 			debugOutput("failed to initialize GUI subsystem")
