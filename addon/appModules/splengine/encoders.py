@@ -640,6 +640,7 @@ class Encoder(IAccessible):
 	# This base class implements encoder position and labels.
 	@scriptHandler.script(gesture="kb:control+NVDA+1")
 	def script_announceEncoderPosition(self, gesture):
+		# Translators: describes the current encoder position.
 		ui.message(_("Position: {pos}").format(pos=self.IAccessibleChildID))
 
 	@scriptHandler.script(gesture="kb:control+NVDA+2")
@@ -649,8 +650,10 @@ class Encoder(IAccessible):
 		except TypeError:
 			encoderLabel = None
 		if encoderLabel:
+			# Translators: describes the current encoder label if any.
 			ui.message(_("Label: {label}").format(label=encoderLabel))
 		else:
+			# Translators: describes the current encoder label if any.
 			ui.message(_("No encoder label"))
 
 	def initOverlayClass(self):
