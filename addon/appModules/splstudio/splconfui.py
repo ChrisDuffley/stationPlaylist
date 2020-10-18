@@ -15,6 +15,7 @@ import api
 import wx
 from winUser import user32
 import tones
+import versionInfo
 import addonHandler
 addonHandler.initTranslation()
 from . import splconfig
@@ -104,7 +105,11 @@ class BroadcastProfilesDialog(wx.Dialog):
 		# Close button logic comes from NVDA Core (credit: NV Access)
 		closeButton = wx.Button(self, wx.ID_CLOSE, label=translate("&Close"))
 		closeButton.Bind(wx.EVT_BUTTON, lambda evt: self.Close())
-		broadcastProfilesHelper.addDialogDismissButtons(closeButton)
+		# #152 (21.01): add UI separator if NVDA 2020.3 or later is active.
+		if (versionInfo.version_year, versionInfo.version_major) >= (2020, 3):
+			broadcastProfilesHelper.addDialogDismissButtons(closeButton, separated=True)
+		else:
+			broadcastProfilesHelper.addDialogDismissButtons(closeButton)
 		self.Bind(wx.EVT_CLOSE, self.onClose)
 		self.EscapeId = wx.ID_CLOSE
 
@@ -315,7 +320,12 @@ class NewProfileDialog(wx.Dialog):
 			self.baseProfiles = newProfileSizerHelper.addLabeledControl(_("&Base profile:"), wx.Choice, choices=parent.profileNames)
 			self.baseProfiles.SetSelection(parent.profiles.GetSelection())
 
-		newProfileSizerHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
+		# #152 (21.01): add UI separator if NVDA 2020.3 or later is active.
+		# Do not add a separator if base profile list is not shown.
+		if (versionInfo.version_year, versionInfo.version_major) >= (2020, 3):
+			newProfileSizerHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=self.copy)
+		else:
+			newProfileSizerHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
 		mainSizer.Add(newProfileSizerHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
@@ -669,7 +679,11 @@ class MetadataStreamingDialog(wx.Dialog):
 		self.applyCheckbox = metadataSizerHelper.addItem(wx.CheckBox(self, label=_("&Apply streaming changes to the selected profile")))
 		self.applyCheckbox.SetValue(True)
 
-		metadataSizerHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
+		# #152 (21.01): add UI separator if NVDA 2020.3 or later is active.
+		if (versionInfo.version_year, versionInfo.version_major) >= (2020, 3):
+			metadataSizerHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=True)
+		else:
+			metadataSizerHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
 		mainSizer.Add(metadataSizerHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
@@ -959,7 +973,11 @@ class ColumnsExplorerDialog(wx.Dialog):
 			self.columnSlots.append(columns)
 		colExplorerHelper.addItem(sizer.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 
-		colExplorerHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
+		# #152 (21.01): add UI separator if NVDA 2020.3 or later is active.
+		if (versionInfo.version_year, versionInfo.version_major) >= (2020, 3):
+			colExplorerHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=True)
+		else:
+			colExplorerHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
 		mainSizer.Add(colExplorerHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
@@ -1061,7 +1079,11 @@ class ResetDialog(wx.Dialog):
 		# Translators: the label for resetting track comments.
 		self.resetTrackCommentsCheckbox = resetHelper.addItem(wx.CheckBox(self, label=_("Erase track comments")))
 
-		resetHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
+		# #152 (21.01): add UI separator if NVDA 2020.3 or later is active.
+		if (versionInfo.version_year, versionInfo.version_major) >= (2020, 3):
+			resetHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=True)
+		else:
+			resetHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
 		mainSizer.Add(resetHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
