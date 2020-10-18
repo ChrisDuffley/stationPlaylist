@@ -774,7 +774,11 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 		self.transcriptAction = plTranscriptsSizerHelper.addLabeledControl(_("Transcript action:"), wx.Choice, choices=self.transcriptActions)
 		self.transcriptAction.SetSelection(0)
 
-		plTranscriptsSizerHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
+		# #152 (21.01): add UI separator if NVDA 2020.3 or later is active.
+		if (versionInfo.version_year, versionInfo.version_major) >= (2020, 3):
+			plTranscriptsSizerHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=True)
+		else:
+			plTranscriptsSizerHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
 		mainSizer.Add(plTranscriptsSizerHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
