@@ -171,48 +171,46 @@ class SPLTimeRangeDialog(wx.Dialog):
 		self.obj = obj
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
+		timeRangeHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 
-		# Translators: the label for a group to specify minimum track duration in time range finder dialog.
-		minSizer = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Minimum duration")), wx.HORIZONTAL)
-		# Translators: the minute label in time range finder dialog.
-		prompt = wx.StaticText(self, wx.ID_ANY, label=_("Minute"))
-		minSizer.Add(prompt)
-		self.minMinEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=59)
-		self.minMinEntry.SetValue(3)
-		self.minMinEntry.SetSelection(-1, -1)
-		minSizer.Add(self.minMinEntry)
-		# Translators: the second label in time range finder dialog.
-		prompt = wx.StaticText(self, wx.ID_ANY, label=_("Second"))
-		minSizer.Add(prompt)
-		self.minSecEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=59)
-		self.minSecEntry.SetValue(0)
-		self.minSecEntry.SetSelection(-1, -1)
-		minSizer.Add(self.minSecEntry)
-		mainSizer.Add(minSizer, border=20, flag=wx.LEFT | wx.RIGHT | wx.TOP)
+		minRangeGroup = gui.guiHelper.BoxSizerHelper(
+			# Translators: the label for a group to specify minimum track duration in time range finder dialog.
+			self, sizer=wx.StaticBoxSizer(wx.StaticBox(self, label=_("Minimum duration")), wx.HORIZONTAL)
+		)
+		timeRangeHelper.addItem(minRangeGroup)
+		self.minMinEntry = minRangeGroup.addLabeledControl(
+			# Translators: the minute label in time range finder dialog.
+			_("Minute"), gui.nvdaControls.SelectOnFocusSpinCtrl,
+			min=0, max=59, initial=3
+		)
+		self.minSecEntry = minRangeGroup.addLabeledControl(
+			# Translators: the second label in time range finder dialog.
+			_("Second"), gui.nvdaControls.SelectOnFocusSpinCtrl,
+			min=0, max=59, initial=0
+		)
 
-		# Translators: the label for a group to specify maximum track duration in time range finder dialog.
-		maxSizer = wx.StaticBoxSizer(wx.StaticBox(self, wx.ID_ANY, _("Maximum duration")), wx.HORIZONTAL)
-		prompt = wx.StaticText(self, wx.ID_ANY, label=_("Minute"))
-		maxSizer.Add(prompt)
-		self.maxMinEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=59)
-		self.maxMinEntry.SetValue(5)
-		self.maxMinEntry.SetSelection(-1, -1)
-		maxSizer.Add(self.maxMinEntry)
-		prompt = wx.StaticText(self, wx.ID_ANY, label=_("Second"))
-		maxSizer.Add(prompt)
-		self.maxSecEntry = wx.SpinCtrl(self, wx.ID_ANY, min=0, max=59)
-		self.maxSecEntry.SetValue(0)
-		self.maxSecEntry.SetSelection(-1, -1)
-		maxSizer.Add(self.maxSecEntry)
-		mainSizer.Add(maxSizer, border=20, flag=wx.LEFT | wx.RIGHT | wx.TOP)
+		maxRangeGroup = gui.guiHelper.BoxSizerHelper(
+			# Translators: the label for a group to specify maximum track duration in time range finder dialog.
+			self, sizer=wx.StaticBoxSizer(wx.StaticBox(self, label=_("Maximum duration")), wx.HORIZONTAL)
+		)
+		timeRangeHelper.addItem(maxRangeGroup)
+		self.maxMinEntry = maxRangeGroup.addLabeledControl(
+			_("Minute"), gui.nvdaControls.SelectOnFocusSpinCtrl,
+			min=0, max=59, initial=5
+		)
+		self.maxSecEntry = maxRangeGroup.addLabeledControl(
+			_("Second"), gui.nvdaControls.SelectOnFocusSpinCtrl,
+			min=0, max=59, initial=0
+		)
 
 		# #68: wx.BoxSizer.AddSizer no longer exists in wxPython 4.
-		mainSizer.Add(self.CreateButtonSizer(wx.OK | wx.CANCEL))
+		timeRangeHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
+		mainSizer.Add(timeRangeHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 		mainSizer.Fit(self)
-		self.SetSizer(mainSizer)
+		self.Sizer = mainSizer
 		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
 		self.minMinEntry.SetFocus()
 
