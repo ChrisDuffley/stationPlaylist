@@ -4,7 +4,7 @@
 * Download [stable version][1]
 * Download [development version][2]
 * Download [long-term support version][3] - for Studio 5.20 users
-* NVDA compatibility: 2020.1 to 2020.3
+* NVDA compatibility: 2020.3
 
 This add-on package provides improved usage of StationPlaylist Studio and other StationPlaylist apps, as well as providing utilities to control Studio from anywhere. Supported apps include Studio, Creator, Track Tool, VT Recorder, and Streamer, as well as SAM, SPL, and AltaCast encoders.
 
@@ -198,6 +198,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Version 21.01
 
+* NVDA 2020.3 or later is required.
 * Column header inclusion setting from add-on settings has been removed. NVDA's own table column header setting will control column header announcements across SPL suite and encoders.
 
 ## Version 20.11/20.09.3-LTS
