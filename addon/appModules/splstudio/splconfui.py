@@ -15,7 +15,6 @@ import api
 import wx
 from winUser import user32
 import tones
-import versionInfo
 import addonHandler
 addonHandler.initTranslation()
 from . import splconfig
@@ -107,11 +106,7 @@ class BroadcastProfilesDialog(wx.Dialog):
 		# Close button logic comes from NVDA Core (credit: NV Access)
 		closeButton = wx.Button(self, wx.ID_CLOSE, label=translate("&Close"))
 		closeButton.Bind(wx.EVT_BUTTON, lambda evt: self.Close())
-		# #152 (21.01): add UI separator if NVDA 2020.3 or later is active.
-		if (versionInfo.version_year, versionInfo.version_major) >= (2020, 3):
-			broadcastProfilesHelper.addDialogDismissButtons(closeButton, separated=True)
-		else:
-			broadcastProfilesHelper.addDialogDismissButtons(closeButton)
+		broadcastProfilesHelper.addDialogDismissButtons(closeButton, separated=True)
 		self.Bind(wx.EVT_CLOSE, self.onClose)
 		self.EscapeId = wx.ID_CLOSE
 
@@ -338,12 +333,8 @@ class NewProfileDialog(wx.Dialog):
 			)
 			self.baseProfiles.SetSelection(parent.profiles.GetSelection())
 
-		# #152 (21.01): add UI separator if NVDA 2020.3 or later is active.
-		# Do not add a separator if base profile list is not shown.
-		if (versionInfo.version_year, versionInfo.version_major) >= (2020, 3):
-			newProfileSizerHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=self.copy)
-		else:
-			newProfileSizerHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
+		# #152 (21.01): do not add a separator if base profile list is not shown.
+		newProfileSizerHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=self.copy)
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
 		mainSizer.Add(newProfileSizerHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
@@ -414,12 +405,9 @@ class TriggersDialog(wx.Dialog):
 		self.instantSwitchCheckbox = triggersHelper.addItem(wx.CheckBox(self, label=instantSwitchLabel))
 		self.instantSwitchCheckbox.SetValue(parent.switchProfile == profile)
 
-		# #152 (21.01): add UI separator if NVDA 2020.3 or later is active.
-		# Unlike other dialogs, the only change is button bits as the only prompt is instant switch checkbox.
-		if (versionInfo.version_year, versionInfo.version_major) >= (2020, 3):
-			triggersHelper.addDialogDismissButtons(wx.OK | wx.CANCEL)
-		else:
-			triggersHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
+		# #152 (21.01): unlike other dialogs, the only change is button bits
+		# as the only prompt is instant switch checkbox.
+		triggersHelper.addDialogDismissButtons(wx.OK | wx.CANCEL)
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
 		mainSizer.Add(triggersHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
@@ -852,11 +840,7 @@ class MetadataStreamingDialog(wx.Dialog):
 		)
 		self.applyCheckbox.SetValue(True)
 
-		# #152 (21.01): add UI separator if NVDA 2020.3 or later is active.
-		if (versionInfo.version_year, versionInfo.version_major) >= (2020, 3):
-			metadataSizerHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=True)
-		else:
-			metadataSizerHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
+		metadataSizerHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=True)
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
 		mainSizer.Add(metadataSizerHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
@@ -1209,11 +1193,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 			self.columnSlots.append(columns)
 		colExplorerHelper.addItem(sizer.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 
-		# #152 (21.01): add UI separator if NVDA 2020.3 or later is active.
-		if (versionInfo.version_year, versionInfo.version_major) >= (2020, 3):
-			colExplorerHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=True)
-		else:
-			colExplorerHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
+		colExplorerHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=True)
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
 		mainSizer.Add(colExplorerHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
@@ -1348,11 +1328,7 @@ class ResetDialog(wx.Dialog):
 			wx.CheckBox(self, label=resetTrackCommentsLabel)
 		)
 
-		# #152 (21.01): add UI separator if NVDA 2020.3 or later is active.
-		if (versionInfo.version_year, versionInfo.version_major) >= (2020, 3):
-			resetHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=True)
-		else:
-			resetHelper.addDialogDismissButtons(self.CreateButtonSizer(wx.OK | wx.CANCEL))
+		resetHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=True)
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
 		self.Bind(wx.EVT_BUTTON, self.onCancel, id=wx.ID_CANCEL)
 		mainSizer.Add(resetHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
