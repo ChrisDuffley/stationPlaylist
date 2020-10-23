@@ -5,7 +5,7 @@
 * Preuzmi [razvojnu verziju][2]
 * Preuzmi [verziju s dugoročnom podrškom][3] – za korisnike porgrama Studio
   5.20
-* NVDA kompatibilnost: 2019.3 do 2020.3
+* NVDA kompatibilnost: 2020.1 do 2020.3
 
 Ovaj paket dodataka omogućava bolje korištenje programa StationPlaylist
 Studio i drugih StationPlaylist programa te pruža alate za kontrolu programa

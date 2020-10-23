@@ -5,7 +5,7 @@
 * [Entwicklerversion herunterladen][2]
 * [Version für Benutzer von Studio 5.20 mit Langzeit-Unterstützung][3]
   herunterladen
-* NVDA-Kompatibilität: 2019.3 bis 2020.3
+* NVDA compatibility: 2020.1 to 2020.3
 
 Dieses Zusatzpaket bietet eine verbesserte Nutzung von StationPlaylist
 Studio und anderen StationPlaylist-Anwendungen sowie Dienstprogramme zur

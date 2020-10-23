@@ -4,7 +4,7 @@
 * Tải về [phiên bản chính thức][1]
 * Tải về [phiên bản thử nghiệm][2]
 * Tải về [phiên bản hỗ trợ lâu dài][3] - cho người dùng Studio 5.20
-* NVDA compatibility: 2019.3 to 2020.3
+* NVDA compatibility: 2020.1 to 2020.3
 
 Gói add-on này cung cấp sự cải thiện cho việc sử dụng StationPlaylist Studio
 và các ứng dụng StationPlaylist khác, cũng như cung cấp các tiện ích để điều
