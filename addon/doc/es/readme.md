@@ -4,7 +4,7 @@
 * Descargar [Versión estable][1]
 * Descargar [versión de desarrollo][2]
 * Descargar [versión de soporte extendido][3] - Para usuarios de Studio 5.20
-* Compatibilidad con NVDA: de 2019.3 a 2020.3
+* Compatibilidad con NVDA: de 2020.1 a 2020.3
 
 Este paquete de complementos proporciona una utilización mejorada de Station
 Playlist Studio y otras aplicaciones de StationPlaylist, así como utilidades

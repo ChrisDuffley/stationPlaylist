@@ -4,7 +4,7 @@
 * Stiahnuť [stabilnú verziu][1]
 * Stiahnuť [vývojovú verziu][2]
 * Stiahnuť [Verziu s dlhodobou podporou][3] - pre Studio v 5.20
-* Funguje s NVDA 2019.3 až 2020.3
+* NVDA compatibility: 2020.1 to 2020.3
 
 Doplnok zlepšuje prístupnosť Station Playlist Studio a ďalších pridružených
 aplikácií a tiež umožňuje ovládať Station Playlist mimo hlavného okna
