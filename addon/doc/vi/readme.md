@@ -4,7 +4,7 @@
 * Tải về [phiên bản chính thức][1]
 * Tải về [phiên bản thử nghiệm][2]
 * Tải về [phiên bản hỗ trợ lâu dài][3] - cho người dùng Studio 5.20
-* NVDA compatibility: 2020.1 to 2020.3
+* NVDA tương thích: 2020.1 đến 2020.3
 
 Gói add-on này cung cấp sự cải thiện cho việc sử dụng StationPlaylist Studio
 và các ứng dụng StationPlaylist khác, cũng như cung cấp các tiện ích để điều
@@ -302,7 +302,7 @@ NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio t
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
 
-## Version 20.10/20.09.2-LTS
+## Phiên bản 20.10/20.09.2-LTS
 
 * Due to changes to encoder settings file format, installing an older
   version of this add-on after installing this version will cause
