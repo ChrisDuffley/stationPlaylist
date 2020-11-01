@@ -7,7 +7,7 @@
 import appModuleHandler
 import eventHandler
 from winUser import user32
-from .splstudio import spldebugging
+from logHandler import log
 
 
 class AppModule(appModuleHandler.AppModule):
@@ -15,7 +15,7 @@ class AppModule(appModuleHandler.AppModule):
 	def __init__(self, *args, **kwargs):
 		super(AppModule, self).__init__(*args, **kwargs)
 		if user32.FindWindowW("SPLStudio", None):
-			spldebugging.debugOutput("VT Recorder is online, disabling background event tracking for Studio")
+			log.debug("SPL: VT Recorder is online, disabling background event tracking for Studio")
 			# Python 3: using dict.items directly for maximum Python compatibility.
 			# #90 (19.01/18.09.6-LTS): use Six renames if needed.
 			for pid, appMod in appModuleHandler.runningTable.items():
@@ -25,12 +25,12 @@ class AppModule(appModuleHandler.AppModule):
 					eventHandler.handleAppTerminate(appMod)
 					break
 		else:
-			spldebugging.debugOutput("Studio is not running")
+			log.debug("SPL: Studio is not running")
 
 	def terminate(self):
 		super(AppModule, self).terminate()
 		if user32.FindWindowW("SPLStudio", None):
-			spldebugging.debugOutput("VT Recorder is offline, enabling background event tracking for Studio")
+			log.debug("SPL: VT Recorder is offline, enabling background event tracking for Studio")
 			for pid, appMod in appModuleHandler.runningTable.items():
 				if appMod.appName == "splstudio":
 					eventHandler.requestEvents(eventName="nameChange", processId=pid, windowClassName="TStatusBar")
@@ -38,4 +38,4 @@ class AppModule(appModuleHandler.AppModule):
 					eventHandler.requestEvents(eventName="show", processId=pid, windowClassName="TRequests")
 					break
 		else:
-			spldebugging.debugOutput("Studio Recorder is offline and Studio is offline")
+			log.debug("SPL: Studio Recorder is offline and Studio is offline")
