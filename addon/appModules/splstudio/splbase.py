@@ -6,7 +6,7 @@
 
 import ui
 from winUser import sendMessage, user32
-from .spldebugging import debugOutput
+from logHandler import log
 import addonHandler
 addonHandler.initTranslation()
 
@@ -25,7 +25,7 @@ def studioIsRunning(justChecking=False):
 		or (_SPLWin is None and user32.FindWindowW("SPLStudio", None) != 0)
 	)
 	if not isStudioAlive:
-		debugOutput("Studio is not alive")
+		log.debug("SPL: Studio is not alive")
 		if not justChecking:
 			# Translators: A message informing users that Studio is not running so certain commands will not work.
 			ui.message(_("Studio main window not found"))
@@ -35,21 +35,21 @@ def studioIsRunning(justChecking=False):
 # Use SPL Studio API to obtain needed values.
 # A thin wrapper around user32.SendMessage function with Studio handle and WM_USER supplied.
 # #45 (18.02): returns whatever result SendMessage function says.
-# If debugging framework is on, print arg, command and other values.
+# If NVDA is in debug mode, print arg, command and other values.
 # 18.05: strengthen this by checking for the handle once more.
 # #92 (19.03): SendMessage function returns something from anything (including from dead window handles),
 # so really make sure Studio window handle is alive.
 def studioAPI(arg, command):
 	if not studioIsRunning(justChecking=True):
 		return
-	debugOutput(f"Studio API wParem is {arg}, lParem is {command}")
+	log.debug(f"SPL: Studio API wParem is {arg}, lParem is {command}")
 	val = sendMessage(_SPLWin, 1024, arg, command)
-	debugOutput(f"Studio API result is {val}")
+	log.debug(f"SPL: Studio API result is {val}")
 	return val
 
 
 # Select a track upon request.
 def selectTrack(trackIndex):
 	studioAPI(-1, 121)
-	debugOutput(f"selecting track index {trackIndex}")
+	log.debug(f"SPL: selecting track index {trackIndex}")
 	studioAPI(trackIndex, 121)

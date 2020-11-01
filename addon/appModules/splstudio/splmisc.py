@@ -14,11 +14,11 @@ import nvwave
 import queueHandler
 import speech
 import ui
+from logHandler import log
 import addonHandler
 addonHandler.initTranslation()
 from winUser import user32
 from . import splbase
-from .spldebugging import debugOutput
 from . import splactions
 from ..skipTranslation import translate
 
@@ -313,7 +313,7 @@ _cartEditTimestamps = None
 # Carts dictionary is used if and only if refresh is on, as it'll modify live carts.
 def cartExplorerInit(StudioTitle, cartFiles=None, refresh=False, carts=None):
 	global _cartEditTimestamps
-	debugOutput("refreshing Cart Explorer" if refresh else "preparing cart Explorer")
+	log.debug("SPL: refreshing Cart Explorer" if refresh else "preparing cart Explorer")
 	# Use cart files in SPL's data folder to build carts dictionary.
 	# use a combination of SPL user name and static cart location to locate cart bank files.
 	# Once the cart banks are located, use the routines in the populate method above to assign carts.
@@ -352,10 +352,10 @@ def cartExplorerInit(StudioTitle, cartFiles=None, refresh=False, carts=None):
 		if not refresh and not os.path.isfile(cartFile):
 			faultyCarts = True
 			continue
-		debugOutput(f"examining carts from file {cartFile}")
+		log.debug(f"SPL: examining carts from file {cartFile}")
 		cartTimestamp = os.path.getmtime(cartFile)
 		if refresh and _cartEditTimestamps[cartFiles.index(f)] == cartTimestamp:
-			debugOutput("no changes to cart bank, skipping")
+			log.debug("SPL: no changes to cart bank, skipping")
 			continue
 		_cartEditTimestamps.append(cartTimestamp)
 		with open(cartFile) as cartInfo:
@@ -369,9 +369,9 @@ def cartExplorerInit(StudioTitle, cartFiles=None, refresh=False, carts=None):
 			standardEdition=carts["standardLicense"], refresh=refresh
 		)
 		if not refresh:
-			debugOutput(f"carts processed so far: {(len(carts)-1)}")
+			log.debug(f"SPL: carts processed so far: {(len(carts)-1)}")
 	carts["faultyCarts"] = faultyCarts
-	debugOutput(f"total carts processed: {(len(carts)-2)}")
+	log.debug(f"SPL: total carts processed: {(len(carts)-2)}")
 	return carts
 
 

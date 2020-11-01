@@ -17,8 +17,8 @@ import globalVars
 import ui
 import gui
 import wx
+from logHandler import log
 from . import splactions
-from . import spldebugging
 from .splconfspec import confspec
 import addonHandler
 addonHandler.initTranslation()
@@ -626,8 +626,8 @@ class ConfigHub(ChainMap):
 			raise RuntimeError("Incorrect profile switch type specified")
 		if switchType == "instant" and self.instantSwitchProfileActive:
 			raise RuntimeError("Instant switch flag is already on")
-		spldebugging.debugOutput(
-			"Profile switching start: "
+		log.debug(
+			"SPL: profile switching start: "
 			f"type = {switchType}, previous profile is {prevProfile}, new profile is {newProfile}"
 		)
 		self.switchProfile(
@@ -645,8 +645,8 @@ class ConfigHub(ChainMap):
 			raise RuntimeError("Incorrect profile switch type specified")
 		if switchType == "instant" and not self.instantSwitchProfileActive:
 			raise RuntimeError("Instant switch flag is already off")
-		spldebugging.debugOutput(
-			"Profile switching end: "
+		log.debug(
+			"SPL: profile switching end: "
 			f"type = {switchType}, previous profile is {prevProfile}, new profile is {newProfile}"
 		)
 		self.switchProfile(
@@ -707,7 +707,7 @@ def initialize():
 	openConfig("splstudio")
 	# Locate instant profile and do something otherwise.
 	if SPLConfig.instantSwitch is not None and SPLConfig.instantSwitch not in SPLConfig.profileNames:
-		spldebugging.debugOutput("Failed to locate instant switch profile")
+		log.debug("SPL: failed to locate instant switch profile")
 		_configLoadStatus[SPLConfig.activeProfile] = "noInstantProfile"
 		SPLConfig.instantSwitch = None
 	# 7.0: Load track comments if they exist.
