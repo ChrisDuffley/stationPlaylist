@@ -31,6 +31,7 @@ import touchHandler
 import gui
 import wx
 from winUser import user32, OBJID_CLIENT
+from logHandler import log
 from NVDAObjects import NVDAObjectTextInfo
 from NVDAObjects.IAccessible import IAccessible, getNVDAObjectFromEvent, sysListView32
 from NVDAObjects.behaviors import Dialog
@@ -43,7 +44,6 @@ from . import splmisc
 from . import splactions
 import addonHandler
 addonHandler.initTranslation()
-from .spldebugging import debugOutput
 from ..skipTranslation import translate
 
 
@@ -154,7 +154,7 @@ class SPLTrackItem(sysListView32.ListItem):
 			columnPos = 10
 		# #115 (20.02): do not proceed if parent list reports less than 10 columns.
 		if columnPos > self.parent.columnCount:
-			debugOutput(f"Column {columnPos} is out of range for this item")
+			log.debug(f"SPL: column {columnPos} is out of range for this item")
 			# Translators: Presented when column is out of range.
 			ui.message(_("Column {columnPosition} not found").format(columnPosition=columnPos))
 			return
@@ -636,7 +636,7 @@ class AppModule(appModuleHandler.AppModule):
 		super(AppModule, self).__init__(*args, **kwargs)
 		if self.SPLCurVersion < SPLMinVersion:
 			raise RuntimeError("Unsupported version of Studio is running, exiting app module")
-		debugOutput(f"Using SPL Studio version {self.SPLCurVersion}")
+		log.debug(f"SPL: using SPL Studio version {self.SPLCurVersion}")
 		# #84: if foreground object is defined, this is a true Studio start,
 		# otherwise this is an NVDA restart with Studio running.
 		# The latter is possible because app module constructor can run before NVDA finishes initializing,
@@ -658,7 +658,7 @@ class AppModule(appModuleHandler.AppModule):
 		# not when splmisc module is being imported.
 		splactions.SPLActionProfileSwitched.register(splmisc.metadata_actionProfileSwitched)
 		splactions.SPLActionSettingsReset.register(splmisc.metadata_actionSettingsReset)
-		debugOutput("loading add-on settings")
+		log.debug("SPL: loading add-on settings")
 		splconfig.initialize()
 		# Announce status changes while using other programs.
 		import eventHandler
@@ -666,7 +666,7 @@ class AppModule(appModuleHandler.AppModule):
 		eventHandler.requestEvents(eventName="nameChange", processId=self.processID, windowClassName="TStaticText")
 		# Also for requests window.
 		eventHandler.requestEvents(eventName="show", processId=self.processID, windowClassName="TRequests")
-		debugOutput("preparing GUI subsystem")
+		log.debug("SPL: preparing GUI subsystem")
 		try:
 			self.prefsMenu = gui.mainFrame.sysTrayIcon.preferencesMenu
 			self.SPLSettings = self.prefsMenu.Append(
@@ -679,7 +679,7 @@ class AppModule(appModuleHandler.AppModule):
 			)
 			gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, splconfui.onConfigDialog, self.SPLSettings)
 		except AttributeError:
-			debugOutput("failed to initialize GUI subsystem")
+			log.debug("SPL: failed to initialize GUI subsystem")
 			self.prefsMenu = None
 		# #82 (18.11/18.09.5-lts): notify others when Studio window gets focused the first time
 		# in order to synchronize announcement order.
@@ -687,7 +687,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Let me know the Studio window handle.
 		# 6.1: Do not allow this thread to run forever (seen when evaluation times out and the app module starts).
 		self.noMoreHandle = threading.Event()
-		debugOutput("locating Studio window handle")
+		log.debug("SPL: locating Studio window handle")
 		# If this is started right away, foreground and focus objects will be NULL according to NVDA
 		# if NVDA restarts while Studio is running.
 		t = threading.Thread(target=self._locateSPLHwnd)
@@ -715,7 +715,7 @@ class AppModule(appModuleHandler.AppModule):
 		# Only this thread will have privilege of notifying handle's existence.
 		with threading.Lock():
 			splbase._SPLWin = hwnd
-			debugOutput(f"Studio handle is {hwnd}")
+			log.debug(f"SPL: Studio handle is {hwnd}")
 		# #41 (18.04): start background monitor.
 		# 18.08: unless Studio is exiting.
 		try:
@@ -1104,7 +1104,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Save configuration and perform other tasks when terminating.
 	def terminate(self):
 		super(AppModule, self).terminate()
-		debugOutput("terminating app module")
+		log.debug("SPL: terminating app module")
 		# #39 (17.11/15.10-lts): terminate microphone alarm/interval threads, otherwise errors are seen.
 		# #40 (17.12): replace this with a handler that responds to app module exit signal.
 		# Also allows profile switch handler to unregister itself as well.
@@ -1115,7 +1115,7 @@ class AppModule(appModuleHandler.AppModule):
 		splactions.SPLActionProfileSwitched.unregister(splmisc.metadata_actionProfileSwitched)
 		splactions.SPLActionSettingsReset.unregister(splmisc.metadata_actionSettingsReset)
 		splactions.SPLActionAppTerminating.notify()
-		debugOutput("closing microphone alarm/interval thread")
+		log.debug("SPL: closing microphone alarm/interval thread")
 		global micAlarmT, micAlarmT2
 		if micAlarmT is not None:
 			micAlarmT.cancel()
@@ -1123,7 +1123,7 @@ class AppModule(appModuleHandler.AppModule):
 		if micAlarmT2 is not None:
 			micAlarmT2.Stop()
 		micAlarmT2 = None
-		debugOutput("saving add-on settings")
+		log.debug("SPL: saving add-on settings")
 		splconfig.terminate()
 		# Delete focused track reference.
 		self._focusedTrack = None
