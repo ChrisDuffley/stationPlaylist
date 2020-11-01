@@ -642,7 +642,10 @@ class AppModule(appModuleHandler.AppModule):
 		# The latter is possible because app module constructor can run before NVDA finishes initializing,
 		# particularly if system focus is located somewhere other than Taskbar.
 		# Note that this is an internal implementation detail and is subject to change without notice.
-		debugOutput("Studio is starting" if api.getForegroundObject() is not None else "Studio is already running")
+		if api.getForegroundObject() is not None:
+			log.debug("SPL: Studio is starting")
+		else:
+			log.debug("SPL: Studio is already running")
 		# 17.09: do this if minimal startup flag is not present.
 		try:
 			if not globalVars.appArgs.minimal:
