@@ -105,7 +105,7 @@ class BroadcastProfilesDialog(wx.Dialog):
 		# Close button logic comes from NVDA Core (credit: NV Access)
 		closeButton = wx.Button(self, wx.ID_CLOSE, label=translate("&Close"))
 		closeButton.Bind(wx.EVT_BUTTON, lambda evt: self.Close())
-		# #152 (21.01): add UI separator if NVDA 2020.3 or later is active.
+		# #152 (21.01/20.09.4-LTS): add UI separator if NVDA 2020.3 or later is active.
 		if (versionInfo.version_year, versionInfo.version_major) >= (2020, 3):
 			broadcastProfilesHelper.addDialogDismissButtons(closeButton, separated=True)
 		else:
@@ -320,7 +320,7 @@ class NewProfileDialog(wx.Dialog):
 			self.baseProfiles = newProfileSizerHelper.addLabeledControl(_("&Base profile:"), wx.Choice, choices=parent.profileNames)
 			self.baseProfiles.SetSelection(parent.profiles.GetSelection())
 
-		# #152 (21.01): add UI separator if NVDA 2020.3 or later is active.
+		# #152 (21.01/20.09.4-LTS): add UI separator if NVDA 2020.3 or later is active.
 		# Do not add a separator if base profile list is not shown.
 		if (versionInfo.version_year, versionInfo.version_major) >= (2020, 3):
 			newProfileSizerHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=self.copy)
@@ -387,7 +387,7 @@ class TriggersDialog(wx.Dialog):
 		self.instantSwitchCheckbox = triggersHelper.addItem(wx.CheckBox(self, label=_("This is an &instant switch profile")))
 		self.instantSwitchCheckbox.SetValue(parent.switchProfile == profile)
 
-		# #152 (21.01): add UI separator if NVDA 2020.3 or later is active.
+		# #152 (21.01/20.09.4-LTS): add UI separator if NVDA 2020.3 or later is active.
 		# Unlike other dialogs, the only change is button bits as the only prompt is instant switch checkbox.
 		if (versionInfo.version_year, versionInfo.version_major) >= (2020, 3):
 			triggersHelper.addDialogDismissButtons(wx.OK | wx.CANCEL)
@@ -684,7 +684,7 @@ class MetadataStreamingDialog(wx.Dialog):
 		self.applyCheckbox = metadataSizerHelper.addItem(wx.CheckBox(self, label=_("&Apply streaming changes to the selected profile")))
 		self.applyCheckbox.SetValue(True)
 
-		# #152 (21.01): add UI separator if NVDA 2020.3 or later is active.
+		# #152 (21.01/20.09.4-LTS): add UI separator if NVDA 2020.3 or later is active.
 		if (versionInfo.version_year, versionInfo.version_major) >= (2020, 3):
 			metadataSizerHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=True)
 		else:
@@ -978,7 +978,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 			self.columnSlots.append(columns)
 		colExplorerHelper.addItem(sizer.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 
-		# #152 (21.01): add UI separator if NVDA 2020.3 or later is active.
+		# #152 (21.01/20.09.4-LTS): add UI separator if NVDA 2020.3 or later is active.
 		if (versionInfo.version_year, versionInfo.version_major) >= (2020, 3):
 			colExplorerHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=True)
 		else:
@@ -1084,7 +1084,7 @@ class ResetDialog(wx.Dialog):
 		# Translators: the label for resetting track comments.
 		self.resetTrackCommentsCheckbox = resetHelper.addItem(wx.CheckBox(self, label=_("Erase track comments")))
 
-		# #152 (21.01): add UI separator if NVDA 2020.3 or later is active.
+		# #152 (21.01/20.09.4-LTS): add UI separator if NVDA 2020.3 or later is active.
 		if (versionInfo.version_year, versionInfo.version_major) >= (2020, 3):
 			resetHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=True)
 		else:

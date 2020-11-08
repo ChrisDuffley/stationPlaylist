@@ -91,7 +91,7 @@ class SPLFindDialog(wx.Dialog):
 			self.columnHeaders = findSizerHelper.addLabeledControl(_("C&olumn to search:"), wx.Choice, choices=splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"])
 			self.columnHeaders.SetSelection(0)
 
-		# #152 (21.01): add UI separator if NVDA 2020.3 or later is active.
+		# #152 (21.01/20.09.4-LTS): add UI separator if NVDA 2020.3 or later is active.
 		# Add a separator if column search is active, otherwise only find prompt is displayed.
 		if (versionInfo.version_year, versionInfo.version_major) >= (2020, 3):
 			findSizerHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=columnSearch)
@@ -197,7 +197,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 		)
 
 		# #68: wx.BoxSizer.AddSizer no longer exists in wxPython 4.
-		# #152 (21.01): add UI separator if NVDA 2020.3 or later is active.
+		# #152 (21.01/20.09.4-LTS): add UI separator if NVDA 2020.3 or later is active.
 		if (versionInfo.version_year, versionInfo.version_major) >= (2020, 3):
 			timeRangeHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=True)
 		else:
@@ -774,7 +774,7 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 		self.transcriptAction = plTranscriptsSizerHelper.addLabeledControl(_("Transcript action:"), wx.Choice, choices=self.transcriptActions)
 		self.transcriptAction.SetSelection(0)
 
-		# #152 (21.01): add UI separator if NVDA 2020.3 or later is active.
+		# #152 (21.01/20.09.4-LTS): add UI separator if NVDA 2020.3 or later is active.
 		if (versionInfo.version_year, versionInfo.version_major) >= (2020, 3):
 			plTranscriptsSizerHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=True)
 		else:

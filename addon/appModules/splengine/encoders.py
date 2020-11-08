@@ -224,7 +224,7 @@ class EncoderConfigDialog(wx.Dialog):
 		self.announceStatusUntilConnected = encoderConfigHelper.addItem(wx.CheckBox(self, label=_("Announce connection &status until encoder connects")))
 		self.announceStatusUntilConnected.SetValue(obj.announceStatusUntilConnected)
 
-		# #152 (21.01): add UI separator if NVDA 2020.3 or later is active.
+		# #152 (21.01/20.09.4-LTS): add UI separator if NVDA 2020.3 or later is active.
 		if (versionInfo.version_year, versionInfo.version_major) >= (2020, 3):
 			encoderConfigHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=True)
 		else:
