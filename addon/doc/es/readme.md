@@ -149,7 +149,7 @@ Las siguientes órdenes  están disponibles al utilizar los codificadores:
 * Control+F12: abre un diálogo para seleccionar el codificador que has
   eliminado (para realinear las etiquetas del codificador y las opciones del
   codificador).
-* Alt+NVDA+0: abre el diálogo opciones del codificador para configurar
+* Alt+NVDA+0 y f12: abre el diálogo opciones del codificador para configurar
   ajustes tales como su etiqueta.
 
 Además, las órdenes de revisión de columna están disponibles, incluyendo:
@@ -351,6 +351,41 @@ Windows 8 o posterior y tienes NVDA 2012.3 o posterior instalado, puedes
 realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
+
+## Versión 20.11/20.09.3-LTS
+
+* 20.11: se requiere NVDA 2020.1 o posterior.
+* 20.11: se han resuelto más problemas de estilo del código y fallos
+  potenciales con Flake8.
+* Corregidos diversos problemas con el diálogo de bienvenida del complemento
+  (alt+NVDA+f1 desde Studio), incluyendo el de mostrar la orden equivocada
+  para los comentarios del complemento (alt+NVDA+guión).
+* 20.11: el formato de presentación de columnas para elementos de
+  codificador y pista a través de la suite StationPlaylist (incluyendo el
+  codificador SAM) ahora está basado en el formato del elemento de lista
+  SysListView32.
+* 20.11: ahora NVDA anunciará la información de columna en pistas en toda la
+  suite de StationPlaylist sin importar el estado de la opción "Anunciar
+  descripciones de objeto" configurada en el panel de opciones Presentación
+  de objetos de NVDA. Para tener la mejor experiencia, deja esta opción
+  activada.
+* 20.11: el en visor de listas de reproducción de Studio, las opciones de
+  inclusión de columnas y orden personalizado afectarán a la forma de
+  presentar las columnas de pista cuando se utilice la navegación de objetos
+  para desplazarse entre pistas, incluyendo el anuncio del objeto actual.
+* Si se configura el anuncio de columnas verticales con un valor distinto a
+  "cualquier columna que se revise", NVDA ya no anunciará datos de columna
+  incorrectos tras cambiar la posición de las columnas en pantalla mediante
+  el ratón.
+* se ha mejorado la presentación de las transcripciones de lista de
+  reproducción (asistente de SPL, shift+f8) al visualizarlas en formatos
+  HTML de lista o tabla.
+* 20.11: en los codificadores, se anunciarán las etiquetas de los
+  codificadores cuando se ejecuten órdenes de navegación por objetos además
+  de pulsar flechas arriba y abajo para moverse entre los codificadores.
+* En los codificadores, además de alt+NVDA+0 de la fila numérica, al pulsar
+  f12 también se abrirá el diálogo de opciones del codificador para el
+  codificador seleccionado.
 
 ## Versión 20.10/20.09.2-LTS
 

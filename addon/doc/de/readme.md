@@ -148,8 +148,8 @@ Folgende Befehle stehen zur Verfügung, wenn Sie Encoder verwenden:
   Encoders ein- und aus.
 * Strg+F12: Öffnet ein Dialogfeld zur Auswahl des ausgelöschten Encoders
   (zur Neuausrichtung der Encoder-Beschreibung und Einstellungen).
-* Alt+NVDA+0: Öffnet das Dialogfeld der Encoder-Einstellungen, um Optionen
-  wie z. B. die Encoder-Beschreibung zu konfigurieren.
+* Alt+NVDA+0 and F12: Opens encoder settings dialog to configure options
+  such as encoder label.
 
 Darüber hinaus stehen folgende Befehle für den Spaltenexplorer zur
 Verfügung:
@@ -347,6 +347,33 @@ verwenden und NVDA 2012.3 oder höher installiert haben, können Sie einige
 Studio-Befehle über den Touchscreen ausführen. Tippen Sie zunächst einmal
 mit drei Fingern, um in den SPL-Touchmodus zu wechseln. Verwenden Sie dann
 die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
+
+## Version 20.11/20.09.3-LTS
+
+* 20.11: NVDA 2020.1 or later is required.
+* 20.11: Resolved more coding style issues and potential bugs with Flake8.
+* Fixed various issues with add-on welcome dialog (Alt+NVDA+F1 from Studio),
+  including wrong command shown for add-on feedback (Alt+NVDA+Hyphen).
+* 20.11: Column presentation format for track and encoder items across
+  StationPlaylist suite (including SAM encoder) is now based on
+  SysListView32 list item format.
+* 20.11: NVDA will now announce column information for tracks throughout SPL
+  suite regardless of "report object description" setting in NVDA's object
+  presentation settings panel. For best experience, leave this setting on.
+* 20.11: In Studio's playlist viewer, custom column order and inclusion
+  setting will affect how track columns are presented when using object
+  navigation to move between tracks, including current navigator object
+  announcement.
+* If vertical column announcement is set to a value other than "whichever
+  column I'm reviewing", NVDA will no longer announce wrong column data
+  after changing column position on screen via mouse.
+* improved playlist transcripts (SPL Assistant, Shift+F8) presentation when
+  viewing the transcript in HTML table or list format.
+* 20.11: In encoders, encoder labels will be announced when performing
+  object navigation commands in addition to pressing up or down arrow keys
+  to move between encoders.
+* In encoders, in addition to Alt+NVDA+number row 0, pressing F12 will also
+  open encoder settings dialog for the selected encoder.
 
 ## Version 20.10/20.09.2-LTS
 

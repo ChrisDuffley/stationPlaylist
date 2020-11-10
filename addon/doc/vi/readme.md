@@ -128,8 +128,8 @@ Các phím lệnh sau  đây hoạt động khi sử dụng các bộ mã hóa:
 * Control+F11: bật tắt chế độ theo dõi ngầm của bộ mã hóa được chọn.
 * Control+F12: mở hộp thoại chọn bộ mã hóa đã xóa (sắp xếp lại các cài đặt
   của nhãn phát và các bộ mã hóa).
-* Alt+NVDA+0: mở hộp thoại cài đặt mã hóa để cấu hình các tùy chọn như nhãn
-  mã hóa.
+* Alt+NVDA+0 and F12: Opens encoder settings dialog to configure options
+  such as encoder label.
 
 Ngoài ra, có các lệnh để xem lại cột bao gồm:
 
@@ -301,6 +301,33 @@ Nếu dùng Studio trên một máy tính cảm ứng chạy Windows 8 trở lê
 NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio từ mành hình
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
+
+## Version 20.11/20.09.3-LTS
+
+* 20.11: NVDA 2020.1 or later is required.
+* 20.11: Resolved more coding style issues and potential bugs with Flake8.
+* Fixed various issues with add-on welcome dialog (Alt+NVDA+F1 from Studio),
+  including wrong command shown for add-on feedback (Alt+NVDA+Hyphen).
+* 20.11: Column presentation format for track and encoder items across
+  StationPlaylist suite (including SAM encoder) is now based on
+  SysListView32 list item format.
+* 20.11: NVDA will now announce column information for tracks throughout SPL
+  suite regardless of "report object description" setting in NVDA's object
+  presentation settings panel. For best experience, leave this setting on.
+* 20.11: In Studio's playlist viewer, custom column order and inclusion
+  setting will affect how track columns are presented when using object
+  navigation to move between tracks, including current navigator object
+  announcement.
+* If vertical column announcement is set to a value other than "whichever
+  column I'm reviewing", NVDA will no longer announce wrong column data
+  after changing column position on screen via mouse.
+* improved playlist transcripts (SPL Assistant, Shift+F8) presentation when
+  viewing the transcript in HTML table or list format.
+* 20.11: In encoders, encoder labels will be announced when performing
+  object navigation commands in addition to pressing up or down arrow keys
+  to move between encoders.
+* In encoders, in addition to Alt+NVDA+number row 0, pressing F12 will also
+  open encoder settings dialog for the selected encoder.
 
 ## Phiên bản 20.10/20.09.2-LTS
 
