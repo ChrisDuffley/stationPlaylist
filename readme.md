@@ -199,8 +199,12 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Version 21.01
 
 * NVDA 2020.3 or later is required.
-* Improvements to presentation of various add-on dialogs thanks to NVDA 2020.3 features.
 * Column header inclusion setting from add-on settings has been removed. NVDA's own table column header setting will control column header announcements across SPL suite and encoders.
+
+## Version 20.11.1/20.09.4-LTS
+
+* Initial support for StationPlaylist suite 5.50.
+* Improvements to presentation of various add-on dialogs thanks to NVDA 2020.3 features.
 
 ## Version 20.11/20.09.3-LTS
 
