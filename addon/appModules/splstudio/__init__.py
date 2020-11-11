@@ -1533,7 +1533,8 @@ class AppModule(appModuleHandler.AppModule):
 				break
 			scanIter += 1
 			if scanIter % 5 == 0 and splconfig.SPLConfig["General"]["LibraryScanAnnounce"] not in ("off", "ending"):
-				self._libraryScanAnnouncer(scanCount, splconfig.SPLConfig["General"]["LibraryScanAnnounce"])
+				# 21.01/20.09.5-LTS: queue the announcement to main thread because of braille handler thread.
+				wx.CallAfter(self._libraryScanAnnouncer, scanCount, splconfig.SPLConfig["General"]["LibraryScanAnnounce"])
 		self.libraryScanning = False
 		# 18.04: what if config database died?
 		if splconfig.SPLConfig and splconfig.SPLConfig["General"]["LibraryScanAnnounce"] != "off":
