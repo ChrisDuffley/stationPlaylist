@@ -41,6 +41,7 @@ Most of these will work in Studio only unless otherwise specified.
 * Control+Alt+up/down arrow (while focused on a track in Studio, Creator, Remote VT, and Track Tool): Move to previous/next track and announce specific columns.
 * Control+NVDA+1 through 0 (while focused on a track in Studio, Creator (including Playlist Editor), Remote VT, and Track Tool): Announce column content for a specified column (first ten columns by default). Pressing this command twice will display column information on a browse mode window.
 * Control+NVDA+- (hyphen while focused on a track in Studio, Creator, Remote VT, and Track Tool): display data for all columns in a track on a browse mode window.
+* NVDA+V while focused on a track (Studio's playlist viewer only): toggles track column announcement between screen order and custom order.
 * Alt+NVDA+C while focused on a track (Studio only): announces track comments if any.
 * Alt+NVDA+0 from Studio window: Opens the Studio add-on configuration dialog.
 * Alt+NVDA+P from Studio window: Opens the Studio broadcast profiles dialog.
@@ -175,6 +176,10 @@ To obtain length to play selected tracks, mark current track for start of track 
 ## Columns Explorer
 
 By pressing Control+NVDA+1 through 0, you can obtain contents of specific columns. By default, these are first ten columns for a track item (in Studio: artist, title, duration, intro, outro, category, year, album, genre, mood). For playlist editor in Creator and Remote VT client, column data depends on column order as shown on screen. In Studio, Creator's main track list, and Track Tool, column slots are preset regardless of column order on screen and can be configured from add-on settings dialog under columns explorer category.
+
+## Track column announcement
+
+You can ask NVDA to announce track columns found in Studio's playlist viewer in the order it appears on screen or using a custom order and/or exclude certain columns. Press NVDA+V to toggle this behavior while focused on a track in Studio's playlist viewer. To customize column inclusion and order, from column announcement settings panel in add-on settings, uncheck "Announce columns in the order shown on screen" and then customize included columns and/or column order.
 
 ## Playlist snapshots
 
