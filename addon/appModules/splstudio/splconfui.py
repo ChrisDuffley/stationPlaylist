@@ -1029,6 +1029,13 @@ class ColumnAnnouncementsPanel(ColumnAnnouncementsBasePanel):
 		)
 		self.columnOrder = splconfig.SPLConfig["ColumnAnnouncement"]["ColumnOrder"]
 
+		labelText = _(
+			# Translators: Help text explaining custom column order and inclusion controls.
+			"To apply custom column order and inclusion when announcing track columns in Studio's playlist viewer, "
+			"uncheck 'Announce columns in the order shown on screen' and configure column inclusion and order."
+		)
+		colAnnouncementsHelper.addItem(wx.StaticText(self, label=labelText))
+
 		# Translators: the label for a setting in SPL add-on settings
 		# to toggle custom column announcement.
 		columnOrderLabel = _("Announce columns in the &order shown on screen")
