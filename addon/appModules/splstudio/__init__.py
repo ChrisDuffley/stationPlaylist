@@ -360,6 +360,25 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 	def exploreColumns(self):
 		return splconfig.SPLConfig["General"]["ExploreColumns"]
 
+	# Toggle screen column order.
+	# Limited to playlist viewer as this is where the toggle should be performed.
+
+	@scriptHandler.script(
+		# Translators: Input help message for screen column order toggle command in SPL Studio.
+		description=_("Toggles track column announcement order between screen layout and custom order"),
+		gesture="kb:NVDA+V"
+	)
+	def script_toggleScreenColumnOrder(self, gesture):
+		if not splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"]:
+			splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = True
+			# Translators: presented when NVDA will present track columns in screen order.
+			ui.message(_("Use screen order when announcing track columns"))
+		else:
+			splconfig.SPLConfig["ColumnAnnouncement"]["UseScreenColumnOrder"] = False
+			# Translators: presented when NVDA will present track columns in custom order set by a user.
+			ui.message(_("Use custom order when announcing track columns"))
+		braille.handler.handleUpdate(self)
+
 	# Track comments.
 
 	# Track comment announcer.
