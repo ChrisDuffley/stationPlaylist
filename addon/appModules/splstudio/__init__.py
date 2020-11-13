@@ -10,7 +10,7 @@
 # For SPL Studio Controller, focus movement, SAM Encoder support and other utilities,
 # see the global plugin version of this app module.
 
-# Minimum version: SPL 5.20, NVDA 2020.1.
+# Minimum version: SPL 5.30, NVDA 2020.1.
 
 from functools import wraps
 import os
@@ -62,7 +62,7 @@ def finally_(func, final):
 
 
 # Make sure the broadcaster is running a compatible version.
-SPLMinVersion = "5.20"
+SPLMinVersion = "5.30"
 
 # Threads pool.
 micAlarmT = None
