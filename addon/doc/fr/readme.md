@@ -330,6 +330,12 @@ un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
 
+## Version 20.11.1/20.09.4-LTS
+
+* Initial support for StationPlaylist suite 5.50.
+* Improvements to presentation of various add-on dialogs thanks to NVDA
+  2020.3 features.
+
 ## Version 20.11/20.09.3-LTS
 
 * 20.11: NVDA 2020.1 or later is required.

@@ -352,6 +352,12 @@ realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
 
+## Versión 20.11.1/20.09.4-LTS
+
+* Soporte inicial para StationPlaylist Suite 5.50.
+* Mejoras para la presentación de varios diálogos del complemento gracias a
+  las características de NVDA 2020.3.
+
 ## Versión 20.11/20.09.3-LTS
 
 * 20.11: se requiere NVDA 2020.1 o posterior.

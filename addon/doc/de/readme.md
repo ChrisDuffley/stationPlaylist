@@ -5,7 +5,7 @@
 * [Entwicklerversion herunterladen][2]
 * [Version für Benutzer von Studio 5.20 mit Langzeit-Unterstützung][3]
   herunterladen
-* NVDA compatibility: 2020.1 to 2020.3
+* NVDA-Kompatibilität: 2020.1 bis 2020.3
 
 Dieses Zusatzpaket bietet eine verbesserte Nutzung von StationPlaylist
 Studio und anderen StationPlaylist-Anwendungen sowie Dienstprogramme zur
@@ -148,8 +148,8 @@ Folgende Befehle stehen zur Verfügung, wenn Sie Encoder verwenden:
   Encoders ein- und aus.
 * Strg+F12: Öffnet ein Dialogfeld zur Auswahl des ausgelöschten Encoders
   (zur Neuausrichtung der Encoder-Beschreibung und Einstellungen).
-* Alt+NVDA+0 and F12: Opens encoder settings dialog to configure options
-  such as encoder label.
+* Alt+NVDA+0 und F12: Öffnet das Dialogfeld für Encodereinstellungen zur
+  Konfiguration von Optionen wie z. B. Encoder-Beschreibungen.
 
 Darüber hinaus stehen folgende Befehle für den Spaltenexplorer zur
 Verfügung:
@@ -348,32 +348,45 @@ Studio-Befehle über den Touchscreen ausführen. Tippen Sie zunächst einmal
 mit drei Fingern, um in den SPL-Touchmodus zu wechseln. Verwenden Sie dann
 die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
 
+## Version 20.11.1/20.09.4-LTS
+
+* Erste Unterstützung für die StationPlaylist Suite 5.50.
+* Verbesserungen bei der Darstellung verschiedener Dialogfelder der
+  Erweiterung dank der Funktionen von NVDA 2020.3.
+
 ## Version 20.11/20.09.3-LTS
 
-* 20.11: NVDA 2020.1 or later is required.
-* 20.11: Resolved more coding style issues and potential bugs with Flake8.
-* Fixed various issues with add-on welcome dialog (Alt+NVDA+F1 from Studio),
-  including wrong command shown for add-on feedback (Alt+NVDA+Hyphen).
-* 20.11: Column presentation format for track and encoder items across
-  StationPlaylist suite (including SAM encoder) is now based on
-  SysListView32 list item format.
-* 20.11: NVDA will now announce column information for tracks throughout SPL
-  suite regardless of "report object description" setting in NVDA's object
-  presentation settings panel. For best experience, leave this setting on.
-* 20.11: In Studio's playlist viewer, custom column order and inclusion
-  setting will affect how track columns are presented when using object
-  navigation to move between tracks, including current navigator object
-  announcement.
-* If vertical column announcement is set to a value other than "whichever
-  column I'm reviewing", NVDA will no longer announce wrong column data
-  after changing column position on screen via mouse.
-* improved playlist transcripts (SPL Assistant, Shift+F8) presentation when
-  viewing the transcript in HTML table or list format.
-* 20.11: In encoders, encoder labels will be announced when performing
-  object navigation commands in addition to pressing up or down arrow keys
-  to move between encoders.
-* In encoders, in addition to Alt+NVDA+number row 0, pressing F12 will also
-  open encoder settings dialog for the selected encoder.
+* 20.11: NVDA 2020.1 oder neuer ist erforderlich.
+* 20.11: Mit Flake8 wurden weitere Probleme im Code und potenzielle Fehler
+  behoben.
+* Verschiedene Probleme mit dem Begrüßungsdialogfeld der Erweiterung
+  (Alt+NVDA+F1 aus Studio) wurden behoben, einschließlich des falschen
+  Befehls, der für das Add-On-Feedback angezeigt wurde (Alt+NVDA+Hyphen).
+* 20.11: Das Spaltenpräsentationsformat für Track- und Encoder-Elemente in
+  der gesamten StationPlaylist-Suite (einschließlich SAM-Encoder) basiert
+  jetzt auf dem SysListView32-Listenelementformat.
+* 20.11: NVDA wird nun Spalteninformationen für Spuren in der gesamten
+  SPL-Suite mitteilen, unabhängig von der Einstellung "Objektbeschreibung
+  melden" im Einstellungsfenster für die Objektpräsentation von
+  NVDA. Behalten Sie nach Möglichkeit diese Einstellung bei.
+* 20.11: Im Playlist-Viewer von Studio beeinflussen die benutzerdefinierte
+  Spaltenreihenfolge und die Einschlusseinstellung die Art und Weise, wie
+  die Trackspalten dargestellt werden, wenn die Objekt-Navigation verwendet
+  wird, um sich zwischen den einzlnen titeln zu bewegen, einschließlich der
+  Ansage des aktuellen Navigator-Objekts.
+* Wenn vertikale Spalten auf einen anderen Wert als die, die gerade geprüft
+  wird, eingestellt ist, kündigt NVDA keine falschen Spaltendaten mehr an,
+  nachdem die Spaltenposition auf dem Bildschirm mit der Maus geändert
+  wurde.
+* Verbesserte Darstellung von Wiedergabelisten-Transkripten (SPL-Assistent,
+  Umschalt+F8) beim Betrachten des Transkripte im HTML-Tabellen- oder
+  Listenformat.
+* 20.11: In Encodern werden Encoder-Beschreibungen mitgeteilt, wenn
+  Objekt-Navigationsbefehle ausgeführt werden, zusätzlich zum Drücken der
+  Auf- oder Ab-Pfeiltasten, um sich zwischen den Encodern zu bewegen.
+* Beim Encodern wird durch Drücken von F12 zusätzlich zu
+  Alt+NVDA+Zahlenreihe 0 auch das Dialogfeld zur Encoder-Einstellungen für
+  den ausgewählten Encoder geöffnet.
 
 ## Version 20.10/20.09.2-LTS
 

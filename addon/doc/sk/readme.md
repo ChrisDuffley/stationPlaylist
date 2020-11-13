@@ -283,6 +283,12 @@ NVDA  od verzie 2012.3, môžete na ovládanie doplnku použiť dotykové
 príkazy. Najprv je potrebné dotknúť sa obrazovky tromi prstami. Následne
 vykonajte gestá spomenúté vyššie v tomto návode.
 
+## Version 20.11.1/20.09.4-LTS
+
+* Initial support for StationPlaylist suite 5.50.
+* Improvements to presentation of various add-on dialogs thanks to NVDA
+  2020.3 features.
+
 ## Version 20.11/20.09.3-LTS
 
 * 20.11: NVDA 2020.1 or later is required.

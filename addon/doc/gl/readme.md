@@ -342,6 +342,12 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
+## Version 20.11.1/20.09.4-LTS
+
+* Initial support for StationPlaylist suite 5.50.
+* Improvements to presentation of various add-on dialogs thanks to NVDA
+  2020.3 features.
+
 ## Versión 20.11/20.09.3-LTS
 
 * 20.11: Requírese NVDA 2020.1 ou posterior.
