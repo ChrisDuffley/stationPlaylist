@@ -302,6 +302,12 @@ NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio t
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
 
+## Version 20.11.1/20.09.4-LTS
+
+* Initial support for StationPlaylist suite 5.50.
+* Improvements to presentation of various add-on dialogs thanks to NVDA
+  2020.3 features.
+
 ## Version 20.11/20.09.3-LTS
 
 * 20.11: NVDA 2020.1 or later is required.
