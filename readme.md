@@ -203,6 +203,8 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Version 21.01
 
+Version 21.01 supports SPL Studio 5.30 and later.
+
 * NVDA 2020.3 or later is required.
 * Column header inclusion setting from add-on settings has been removed. NVDA's own table column header setting will control column header announcements across SPL suite and encoders.
 * NVDA will no longer stop announcing library scan progress if configured to announce scan progress while using a braille display.
