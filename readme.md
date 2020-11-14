@@ -12,7 +12,7 @@ For more information about the add-on, read the [add-on guide][4]. For developer
 
 IMPORTANT NOTES:
 
-* This add-on requires StationPlaylist suite 5.20 or later.
+* This add-on requires StationPlaylist suite 5.30 or later.
 * If using Windows 8 or later, for best experience, disable audio ducking mode.
 * Starting from 2018, [changelogs for old add-on releases][5] will be found on GitHub. This add-on readme will list changes from version 20.01 (2020) onwards.
 * Certain add-on features won't work under some conditions, including running NVDA in secure mode.
