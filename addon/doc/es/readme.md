@@ -95,8 +95,8 @@ contrario.
 * Control+NVDA+- (guión cuando una pista tiene el foco en Studio, Creator,
   Remote VT o herramienta de pista): mostrar datos de todas las columnas de
   una pista en una ventana en modo exploración.
-* Alt+NVDA+C mientras se enfoca una pista (sólo Studio): anuncia los
-  comentarios de pista si los hay.
+* Alt+NVDA+C mientras se enfoca una pista (sólo en el visor de listas de
+  reproducción de Studio): anuncia los comentarios de pista si los hay.
 * Alt+NVDA+0 desde la ventana Studio: abre el diálogo de configuración del
   complemento para Studio.
 * Alt+NVDA+p desde la ventana de Studio: abre el diálogo de perfiles de

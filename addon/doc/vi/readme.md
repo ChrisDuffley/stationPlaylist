@@ -79,8 +79,8 @@ lập khác.
 * Control+NVDA+- (trừ khi con trỏ ở một track trong Studio, Creator, Remote
   VT và Track Tool): hiển thị dữ liệu của tất cả các cột trong một track
   trên một cửa sổ ở chế độ duyệt.
-* Alt+NVDA+C khi đứng tại một track (chỉ trong Studio): thông báo chú thích
-  track nếu có.
+* Alt+NVDA+C while focused on a track (Studio's playlist viewer only):
+  announces track comments if any.
 * Alt+NVDA+0 từ cửa sổ Studio: mở hộp thoại cấu hình add-on của Studio.
 * Alt+NVDA+P từ cửa sổ Studio: mở hộp thoại các hồ sơ phát thanh của Studio.
 * Alt+NVDA+- (trừ) từ cửa sổ Studio: gửi phản hồi cho nhóm phát triển add-on
