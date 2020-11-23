@@ -42,7 +42,7 @@ Most of these will work in Studio only unless otherwise specified.
 * Control+NVDA+1 through 0 (while focused on a track in Studio, Creator (including Playlist Editor), Remote VT, and Track Tool): Announce column content for a specified column (first ten columns by default). Pressing this command twice will display column information on a browse mode window.
 * Control+NVDA+- (hyphen while focused on a track in Studio, Creator, Remote VT, and Track Tool): display data for all columns in a track on a browse mode window.
 * NVDA+V while focused on a track (Studio's playlist viewer only): toggles track column announcement between screen order and custom order.
-* Alt+NVDA+C while focused on a track (Studio only): announces track comments if any.
+* Alt+NVDA+C while focused on a track (Studio's playlist viewer only): announces track comments if any.
 * Alt+NVDA+0 from Studio window: Opens the Studio add-on configuration dialog.
 * Alt+NVDA+P from Studio window: Opens the Studio broadcast profiles dialog.
 * Alt+NVDA+- (hyphen) from Studio window: Send feedback to add-on developer using the default email client.
