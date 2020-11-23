@@ -74,8 +74,8 @@ Väčšina skratiek je určených pre Studio, ak nie je uvedené inak.
   prehliadania.
 * Ctrl+NVDA+- (pomlčka pri zobrazení skladby v oknách Studio, Creator, a
   Track Tool): Zobrazí všetky metadáta v režime prehliadania.
-* Alt+NVDA+C (pri zobrazení skladby v okne Studio): oznámi komentár k
-  skladbe.
+* Alt+NVDA+C while focused on a track (Studio's playlist viewer only):
+  announces track comments if any.
 * Alt+NVDA+0 z okna studio: Otvorí nastavenia doplnku.
 * Alt+NVDA+p z okna studio: Otvorí nastavenia vysielacích profilov.
 * Alt+NVDA+- (pomlčka) z okna studio: Otvorí predvoleného e-mailového

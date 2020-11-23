@@ -93,8 +93,8 @@ contrario.
 * Control+NVDA+- (guión, mentres se enfoca unha pista en Studio, Creator,
   Remote VT e Track Tool): amosar datos de todas as columnas dunha pista
   nunha xanela de modo exploración.
-* Alt+NVDA+C mentres se enfoca unha pista (só Studio): anuncia os
-  comentarios da pista se os hai.
+* Alt+NVDA+C mentres se enfoca unha pista (só visualizador de listas de
+  reprodución de Studio): anuncia os comentarios da pista se os hai.
 * Alt+NVDA+0 dende a ventá do Studio: Abre o diálogo de configuración do
   complemento.
 * Alt+NVDA+P dende a ventá de Studio: Abre o diálogo de perfiles de
@@ -342,11 +342,11 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
-## Version 20.11.1/20.09.4-LTS
+## Versión 20.11.1/20.09.4-LTS
 
-* Initial support for StationPlaylist suite 5.50.
-* Improvements to presentation of various add-on dialogs thanks to NVDA
-  2020.3 features.
+* Soporte inicial para o paquete StationPlaylist 5.50.
+* Melloras para a presentación de varios diálogos do complemento gracias ás
+  características do NVDA 2020.3.
 
 ## Versión 20.11/20.09.3-LTS
 

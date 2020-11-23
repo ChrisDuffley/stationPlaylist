@@ -85,8 +85,8 @@ contraire.
 * Control+NVDA+- (hyphen while focused on a track in Studio, Creator, Remote
   VT, and Track Tool): display data for all columns in a track on a browse
   mode window.
-* Alt+NVDA+C alors que  a été mis en focus sur une piste (Studio
-  uniquement): annonce les commentaires de piste le cas échéant.
+* Alt+NVDA+C while focused on a track (Studio's playlist viewer only):
+  announces track comments if any.
 * Alt+NVDA+0 depuis la fenêtre de Studio : Ouvre le dialogue de
   configuration de l'extension Studio.
 * Alt+NVDA+P from Studio window: Opens the Studio broadcast profiles dialog.

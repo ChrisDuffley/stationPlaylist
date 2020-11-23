@@ -87,8 +87,8 @@ Većina njih radi samo u programu Studio, ukoliko nešto drugo nije navedeno.
 * Kontrol+NVDA+- (crtica tijekom fokusiranja jedne snimke u programu Studio,
   Creator, Remote VT i Track Tool): prikaži podatke svih stupaca u snimci na
   prozoru modusa pregledavanja.
-* Alt+NVDA+C tijekom fokusiranja na snimku (samo Studio): najavljuje
-  komentare snimke, ukoliko ih ima.
+* Alt+NVDA+C tijekom fokusiranja na snimku (samo u prikazu popisa snimaka za
+  Studio): najavljuje komentare snimke, ukoliko ih ima.
 * Alt+NVDA+0 u prozoru Studija: otvara dijaloški okvir za konfiguriranje
   dodataka.
 * Alt+NVDA+P u prozoru Studija: otvara dijaloški okvir za profile
@@ -138,8 +138,8 @@ Tijekom korištenja kodera dostupne su sljedeće naredbe:
 * Kontrol+F11: Uključuje i isključuje praćenje odabranog kodera u pozadini.
 * Kontrol+F12: Otvara dijaloški okvir za biranje izbrisanih kodera (kako bi
   se uskladile oznake kodera i postavke).
-* Alt+NVDA+0 and F12: Opens encoder settings dialog to configure options
-  such as encoder label.
+* Alt+NVDA+0 i F12: Otvara dijaloški okvir postavki kodera za konfiguriranje
+  opcija kao što je oznaka kodera.
 
 Dodatno tome, dostupne su naredbe za pregled stupaca, uključujući sljedeće:
 
@@ -324,18 +324,20 @@ operacijskim sustavom Windows 8 ili novijim i ako imaš instaliran NVDA
 na dodir. Za prebacivanje na modus SPL-a, dodirni ekran s tri prsta. Zatim
 koristi gore navedene dodirne naredbe za njihovo izvršavanje.
 
-## Version 20.11.1/20.09.4-LTS
+## Verzija 20.11.1/20.09.4-LTS
 
-* Initial support for StationPlaylist suite 5.50.
-* Improvements to presentation of various add-on dialogs thanks to NVDA
-  2020.3 features.
+* Prva podrška za StationPlaylist paket 5.50.
+* Poboljšanja u prezentaciji raznih dijaloških okvira dodataka zahvaljujući
+  funkcijama čitača NVDA 2020.3.
 
-## Version 20.11/20.09.3-LTS
+## Verzija 20.11/20.09.3-LTS
 
-* 20.11: NVDA 2020.1 or later is required.
-* 20.11: Resolved more coding style issues and potential bugs with Flake8.
-* Fixed various issues with add-on welcome dialog (Alt+NVDA+F1 from Studio),
-  including wrong command shown for add-on feedback (Alt+NVDA+Hyphen).
+* 20.11: Potrebna je verzija NVDA čitača 2020.1 ili novija.
+* 20.11: Riješeni su daljnji problemi sa stilom kodiranja kao i potencijalne
+  greške s Flake8.
+* Ispravljeni su razni problemi s dijaloškim okvirom dobrodošlice dodataka
+  (Alt+NVDA+F1 iz Studija), uključujući pogrešnu naredbu koja se prikazuje
+  za povratne informacije o dodatku (Alt+NVDA+crtica).
 * 20.11: Column presentation format for track and encoder items across
   StationPlaylist suite (including SAM encoder) is now based on
   SysListView32 list item format.
