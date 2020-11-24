@@ -250,7 +250,7 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 				if header in columnsToInclude:
 					index = self.indexOf(header)
 					if index is None:
-						continue  # Header not found, mostly encountered in Studio 5.0x.
+						continue
 					content = self._getColumnContentRaw(index)
 					if content:
 						trackNamePieces.append("{}: {}".format(header, content) if includeColumnHeaders else content)
@@ -951,7 +951,7 @@ class AppModule(appModuleHandler.AppModule):
 		elif obj.windowClassName == "TStaticText":
 			if obj.simplePrevious is not None:
 				if obj.simplePrevious.name == "Remaining Time":
-					# End of track for SPL 5.x.
+					# End of track text.
 					if (
 						splconfig.SPLConfig["General"]["BrailleTimer"] in ("outro", "both")
 						and api.getForegroundObject().processID == self.processID
@@ -963,7 +963,7 @@ class AppModule(appModuleHandler.AppModule):
 					):
 						self.alarmAnnounce(obj.name, 440, 200)
 				elif obj.simplePrevious.name == "Remaining Song Ramp":
-					# Song intro for SPL 5.x.
+					# Song intro content.
 					if (
 						splconfig.SPLConfig["General"]["BrailleTimer"] in ("intro", "both")
 						and api.getForegroundObject().processID == self.processID
@@ -1366,10 +1366,10 @@ class AppModule(appModuleHandler.AppModule):
 			column = [obj.indexOf("Artist"), obj.indexOf("Title")]
 		track = self._trackLocator(text, obj=obj, directionForward=directionForward, columns=column)
 		if track:
-			# We need to fire set focus event twice and exit this routine (return if 5.0x).
+			# We need to fire set focus event twice and exit this routine.
 			# 16.10.1/15.2 LTS: Just select this track in order to
 			# prevent a dispute between NVDA and SPL in regards to focused track.
-			# 16.11: Call setFocus if it is post-5.01, as SPL API can be used to select the desired track.
+			# 16.11: Call setFocus as SPL API can be used to select the desired track.
 			# 20.09: doAction method will do this instead.
 			track.doAction()
 		else:
@@ -1636,8 +1636,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	def libraryScanReporter(self):
 		scanIter = 0
-		# 17.04: Use the constant directly,
-		# as 5.10 and later provides a convenient method to detect completion of library scans.
+		# 17.04: Use the constant directly
+		# as Studio provides a convenient method to detect completion of library scans.
 		scanCount = splbase.studioAPI(1, 32)
 		while scanCount >= 0:
 			if not self.libraryScanning or not user32.FindWindowW("SPLStudio", None):
@@ -2057,8 +2057,6 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Some handlers for native commands.
 
-	# In Studio 5.0x, when deleting a track, NVDA announces wrong track item due to focus bouncing
-	# (not the case in 5.10 and later).
 	# The below hack is sensitive to changes in NVDA core.
 	deletedFocusObj = False
 

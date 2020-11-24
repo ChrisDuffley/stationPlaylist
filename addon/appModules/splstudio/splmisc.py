@@ -238,7 +238,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 					break
 				obj = obj.next
 			if obj is not None:
-				# This time, set focus once, as doing it twice causes focus problems only if using Studio 5.10 or later.
+				# Set focus only once, as do action method on tracks will set focus twice.
 				obj.setFocus()
 				# 16.11: Select the desired track manually.
 				# #45 (18.02): call select track function in splbase module.
