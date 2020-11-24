@@ -42,7 +42,7 @@ Most of these will work in Studio only unless otherwise specified.
 * Control+NVDA+1 through 0 (while focused on a track in Studio, Creator (including Playlist Editor), Remote VT, and Track Tool): Announce column content for a specified column (first ten columns by default). Pressing this command twice will display column information on a browse mode window.
 * Control+NVDA+- (hyphen while focused on a track in Studio, Creator, Remote VT, and Track Tool): display data for all columns in a track on a browse mode window.
 * NVDA+V while focused on a track (Studio's playlist viewer only): toggles track column announcement between screen order and custom order.
-* Alt+NVDA+C while focused on a track (Studio only): announces track comments if any.
+* Alt+NVDA+C while focused on a track (Studio's playlist viewer only): announces track comments if any.
 * Alt+NVDA+0 from Studio window: Opens the Studio add-on configuration dialog.
 * Alt+NVDA+P from Studio window: Opens the Studio broadcast profiles dialog.
 * Alt+NVDA+- (hyphen) from Studio window: Send feedback to add-on developer using the default email client.
@@ -207,8 +207,8 @@ Version 21.01 supports SPL Studio 5.30 and later.
 
 * NVDA 2020.3 or later is required.
 * Column header inclusion setting from add-on settings has been removed. NVDA's own table column header setting will control column header announcements across SPL suite and encoders.
-* NVDA will no longer stop announcing library scan progress if configured to announce scan progress while using a braille display.
 * Added a command to toggle screen versus custom column inclusion and order setting (NVDA+V). Note that this command is available only when focused on a track in Studio's playlist viewer.
+* NVDA will no longer stop announcing library scan progress if configured to announce scan progress while using a braille display.
 
 ## Version 20.11.1/20.09.4-LTS
 
