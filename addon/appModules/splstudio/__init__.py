@@ -786,8 +786,8 @@ class AppModule(appModuleHandler.AppModule):
 		# 7.2: Recognize known dialogs.
 		elif obj.windowClassName in ("TDemoRegForm", "TOpenPlaylist"):
 			clsList.insert(0, Dialog)
-		# For About dialog in Studio 5.1x and later.
-		elif obj.windowClassName == "TAboutForm" and self.SPLCurVersion >= "5.1":
+		# For Studio's About dialog to reverse dialog content traversal.
+		elif obj.windowClassName == "TAboutForm":
 			clsList.insert(0, ReversedDialog)
 		# Temporary cue time picker and friends.
 		elif obj.windowClassName == "TDateTimePicker":
