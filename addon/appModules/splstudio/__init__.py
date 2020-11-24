@@ -10,7 +10,7 @@
 # For SPL Studio Controller, focus movement, SAM Encoder support and other utilities,
 # see the global plugin version of this app module.
 
-# Minimum version: SPL 5.30, NVDA 2020.1.
+# Minimum version: SPL 5.30, NVDA 2020.3.
 
 from functools import wraps
 import os
