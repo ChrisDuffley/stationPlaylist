@@ -962,8 +962,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		colExplorerHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 
-		# 7.0: Studio 5.0x columns.
-		# 17.04: Five by two grid layout as 5.0x is no longer supported.
+		# 17.04: Display column combo boxes in a five by two grid.
 		sizer = gui.guiHelper.BoxSizerHelper(self, orientation=wx.HORIZONTAL)
 		for slot in range(5):
 			# Translators: The label for a setting in SPL add-on dialog to select column for this column slot.
