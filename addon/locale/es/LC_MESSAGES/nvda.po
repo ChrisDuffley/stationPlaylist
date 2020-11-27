@@ -99,6 +99,22 @@ msgstr ""
 msgid "Item {current} of {total}"
 msgstr "Elemento {current} de {total}"
 
+#. Translators: Input help message for screen column order toggle command in SPL Studio.
+msgid ""
+"Toggles track column announcement order between screen layout and custom "
+"order"
+msgstr ""
+
+#. Translators: presented when NVDA will present track columns in screen order.
+#, fuzzy
+msgid "Use screen order when announcing track columns"
+msgstr "Incluir &encabezados de columna al anunciar información de pista"
+
+#. Translators: presented when NVDA will present track columns in custom order set by a user.
+#, fuzzy
+msgid "Use custom order when announcing track columns"
+msgstr "Incluir &encabezados de columna al anunciar información de pista"
+
 #. Translators: Presented when track comment has been copied to clipboard.
 msgid "Track comment copied to clipboard"
 msgstr "Comentario de pista copiado al portapapeles"
@@ -1293,6 +1309,13 @@ msgstr "Orden de columnas"
 msgid "Column announcements"
 msgstr "Anunciado de columnas"
 
+#. Translators: Help text explaining custom column order and inclusion controls.
+msgid ""
+"To apply custom column order and inclusion when announcing track columns in "
+"Studio's playlist viewer, uncheck 'Announce columns in the order shown on "
+"screen' and configure column inclusion and order."
+msgstr ""
+
 #. Translators: the label for a setting in SPL add-on settings
 #. to toggle custom column announcement.
 msgid "Announce columns in the &order shown on screen"
@@ -1305,11 +1328,6 @@ msgid ""
 msgstr ""
 "&Selecciona las columnas a ser anunciadas\n"
 "(artista y título se anuncian predeterminadamente):"
-
-#. Translators: the label for a setting in SPL add-on settings
-#. to toggle whether column headers should be included when announcing track information.
-msgid "Include column &headers when announcing track information"
-msgstr "Incluir &encabezados de columna al anunciar información de pista"
 
 #. Translators: Title of a panel to configure playlist transcripts options.
 msgid "Playlist transcripts"

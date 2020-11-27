@@ -95,6 +95,22 @@ msgstr "Trình bày tất cả các cột dữ liệu cho track đang được c
 msgid "Item {current} of {total}"
 msgstr "Mục {current} của {total}"
 
+#. Translators: Input help message for screen column order toggle command in SPL Studio.
+msgid ""
+"Toggles track column announcement order between screen layout and custom "
+"order"
+msgstr ""
+
+#. Translators: presented when NVDA will present track columns in screen order.
+#, fuzzy
+msgid "Use screen order when announcing track columns"
+msgstr "Bao gồm cột và tiêu đề khi thông báo thông tin track"
+
+#. Translators: presented when NVDA will present track columns in custom order set by a user.
+#, fuzzy
+msgid "Use custom order when announcing track columns"
+msgstr "Bao gồm cột và tiêu đề khi thông báo thông tin track"
+
 #. Translators: Presented when track comment has been copied to clipboard.
 msgid "Track comment copied to clipboard"
 msgstr "Đã chép chú thích track vào bộ nhớ tạm"
@@ -1257,6 +1273,13 @@ msgstr "Sắp xếp cột:"
 msgid "Column announcements"
 msgstr "Thông báo các cột"
 
+#. Translators: Help text explaining custom column order and inclusion controls.
+msgid ""
+"To apply custom column order and inclusion when announcing track columns in "
+"Studio's playlist viewer, uncheck 'Announce columns in the order shown on "
+"screen' and configure column inclusion and order."
+msgstr ""
+
 #. Translators: the label for a setting in SPL add-on settings
 #. to toggle custom column announcement.
 msgid "Announce columns in the &order shown on screen"
@@ -1267,11 +1290,6 @@ msgid ""
 "&Select columns to be announced\n"
 "(artist and title are announced by default):"
 msgstr "&Chọn các cột để thông báo (ca sĩ và tựa đề mặc định được thông báo:"
-
-#. Translators: the label for a setting in SPL add-on settings
-#. to toggle whether column headers should be included when announcing track information.
-msgid "Include column &headers when announcing track information"
-msgstr "Bao gồm cột và tiêu đề khi thông báo thông tin track"
 
 #. Translators: Title of a panel to configure playlist transcripts options.
 msgid "Playlist transcripts"

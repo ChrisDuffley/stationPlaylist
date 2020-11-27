@@ -28,7 +28,8 @@ msgstr ""
 msgid "Old Windows version"
 msgstr "Otkrivena je starija verzija Windowsa"
 
-#. Translators: announced in SPL Creator and Remote VT when trying to perform playlist status commands while outside of playlist editor.
+#. Translators: announced in SPL Creator and Remote VT
+#. when trying to perform playlist status commands while outside of playlist editor.
 #, fuzzy
 msgid "You are not in playlist editor"
 msgstr ""
@@ -47,7 +48,8 @@ msgstr ""
 #. Translators: Script category for StationPlaylist add-on commands in input gestures dialog.
 #. Translators: Script category for StationPlaylist commands in input gestures dialog.
 #. Add-on summary, usually the user visible name of the addon.
-#. Translators: Summary for this add-on to be shown on installation and add-on information.
+#. Translators: Summary for this add-on
+#. to be shown on installation and add-on information found in Add-ons Manager.
 #, fuzzy
 msgid "StationPlaylist"
 msgstr "StationPlaylist Studio"
@@ -94,6 +96,22 @@ msgstr ""
 #, python-brace-format
 msgid "Item {current} of {total}"
 msgstr "Stavka{current} od{total}"
+
+#. Translators: Input help message for screen column order toggle command in SPL Studio.
+msgid ""
+"Toggles track column announcement order between screen layout and custom "
+"order"
+msgstr ""
+
+#. Translators: presented when NVDA will present track columns in screen order.
+#, fuzzy
+msgid "Use screen order when announcing track columns"
+msgstr "Uključi zaglavlja &kolona u izgovoru informacija o zapisima"
+
+#. Translators: presented when NVDA will present track columns in custom order set by a user.
+#, fuzzy
+msgid "Use custom order when announcing track columns"
+msgstr "Uključi zaglavlja &kolona u izgovoru informacija o zapisima"
 
 #. Translators: Presented when track comment has been copied to clipboard.
 msgid "Track comment copied to clipboard"
@@ -259,9 +277,12 @@ msgstr ""
 "F12: Prebaci se na profil za trenutnu promenu.\n"
 "Šift+F1: Otvori online uputstvo."
 
+#. Translators: the label for a menu item in NVDA Preferences menu
+#. to open SPL Studio add-on settings.
 msgid "SPL Studio Settings..."
 msgstr "SPL Studio podešavanja..."
 
+#. Translators: tooltip for SPL Studio settings dialog.
 msgid "SPL settings"
 msgstr "SPL podešavanja"
 
@@ -278,7 +299,8 @@ msgstr "Istraživač karata je aktiviran"
 msgid "Warning: Microphone active"
 msgstr "Upozorenje: Mikrofon aktivan"
 
-#. Translators: Presented when end of introduction is approaching (example output: 5 sec left in track introduction).
+#. Translators: Presented when end of introduction is approaching
+#. (example output: 5 sec left in track introduction).
 #, python-brace-format
 msgid "Warning: {seconds} sec left in track introduction"
 msgstr "Upozorenje: {seconds} sekundi preostalo u uvodnom zapisu"
@@ -289,6 +311,7 @@ msgid "Warning: {seconds} sec remaining"
 msgstr "Upozorenje: {seconds} sekundi preostalo"
 
 #. Add the human-readable representation also.
+#. Translators: the label for a dedicated touch mode for SPL Studio.
 msgid "SPL mode"
 msgstr "SPL režim"
 
@@ -326,7 +349,8 @@ msgstr "Otvara dijalog dobrodošlice dodatka SPL studio"
 msgid "Toggles between various braille timer settings."
 msgstr "Prebacuje se između različitih podešavanja brajevog tajmera"
 
-#. Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
+#. Translators: Standard dialog message when an item one wishes to search is not found
+#. (copy this from main nvda.po).
 msgid "Search string not found."
 msgstr "Tekst pretrage nije pronađen"
 
@@ -440,22 +464,26 @@ msgstr "Otvara dijalog za brzo uključivanje ili isključivanje metadata strima"
 msgid "Cannot open metadata streaming dialog"
 msgstr "Nemoguće otvoriti metadata dijalog strima"
 
-#. Translators: an error message presented when performing some playlist commands while focused on places other than Playlist Viewer.
+#. Translators: an error message presented when performing some playlist commands
+#. while focused on places other than Playlist Viewer.
 #, fuzzy
 msgid "Please return to playlist viewer before invoking this command."
 msgstr "Morate dodati zapise pre korišćenja ove komande"
 
-#. Translators: an error message presented when performing some playlist commands while no playlist has been loaded.
+#. Translators: an error message presented when performing some playlist commands
+#. while no playlist has been loaded.
 msgid "No playlist has been loaded."
 msgstr "Nijedna lista za reprodukciju nije učitana"
 
-#. Translators: an error message presented when performing some playlist commands while no tracks are selected/focused.
+#. Translators: an error message presented when performing some playlist commands
+#. while no tracks are selected/focused.
 #, fuzzy
 msgid ""
 "Please select a track from playlist viewer before invoking this command."
 msgstr "Morate dodati zapise pre korišćenja ove komande"
 
-#. Translators: Presented when playlist analyzer cannot be performed because user is not focused on playlist viewer.
+#. Translators: Presented when playlist analyzer cannot be performed
+#. because user is not focused on playlist viewer.
 #, fuzzy
 msgid "Not in playlist viewer, cannot perform playlist analysis."
 msgstr ""
@@ -472,103 +500,125 @@ msgstr "Nijedna lista za reprodukciju nije učitana"
 msgid "No tracks are selected, cannot perform playlist analysis."
 msgstr "Nijedan zapis nije izabran, nemoguće izvršiti vremensku analizu zapisa"
 
-#. Translators: one of the results for playlist snapshots feature for announcing total number of items in a playlist.
+#. Translators: one of the results for playlist snapshots feature
+#. for announcing total number of items in a playlist.
 #, python-brace-format
 msgid "Items: {playlistItemCount}"
 msgstr "Stavke: {playlistItemCount}"
 
-#. Translators: one of the results for playlist snapshots feature for announcing total number of tracks in a playlist.
+#. Translators: one of the results for playlist snapshots feature
+#. for announcing total number of tracks in a playlist.
 #, python-brace-format
 msgid "Tracks: {playlistTrackCount}"
 msgstr "Zapisi: {playlistTrackCount}"
 
-#. Translators: one of the results for playlist snapshots feature for announcing total duration of a playlist.
+#. Translators: one of the results for playlist snapshots feature
+#. for announcing total duration of a playlist.
 #, python-brace-format
 msgid "Duration: {playlistTotalDuration}"
 msgstr "Trajanje: {playlistTotalDuration}"
 
-#. Translators: one of the results for playlist snapshots feature for announcing shortest track name and duration of a playlist.
+#. Translators: one of the results for playlist snapshots feature
+#. for announcing shortest track name and duration of a playlist.
 #, python-brace-format
 msgid "Shortest: {playlistShortestTrack}"
 msgstr "najkraće: {playlistShortestTrack}"
 
-#. Translators: one of the results for playlist snapshots feature for announcing longest track name and duration of a playlist.
+#. Translators: one of the results for playlist snapshots feature
+#. for announcing longest track name and duration of a playlist.
 #, python-brace-format
 msgid "Longest: {playlistLongestTrack}"
 msgstr "Najduže: {playlistLongestTrack}"
 
-#. Translators: one of the results for playlist snapshots feature for announcing average duration for tracks in a playlist.
+#. Translators: one of the results for playlist snapshots feature
+#. for announcing average duration for tracks in a playlist.
 #, python-brace-format
 msgid "Average: {playlistAverageDuration}"
 msgstr "Prosečno: {playlistAverageDuration}"
 
-#. Translators: one of the results for playlist snapshots feature for announcing top artist in a playlist.
+#. Translators: one of the results for playlist snapshots feature
+#. for announcing top artist in a playlist.
 #, fuzzy
 msgid "Top artist: {} ({})"
 msgstr "Izvođač na vrhu: %s (%s)"
 
-#. Translators: one of the results for playlist snapshots feature when there is no top artist.
+#. Translators: one of the results for playlist snapshots feature
+#. when there is no top artist.
 #, fuzzy
 msgid "Top artist: none"
 msgstr "Izvođači na vrhu:"
 
-#. Translators: one of the results for playlist snapshots feature when there is no top artist (formatted for browse mode).
+#. Translators: one of the results for playlist snapshots feature
+#. when there is no top artist (formatted for browse mode).
 #, fuzzy
 msgid "Top artists: none"
 msgstr "Izvođači na vrhu:"
 
-#. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
+#. Translators: one of the results for playlist snapshots feature,
+#. a heading for a group of items.
 msgid "Top artists:"
 msgstr "Izvođači na vrhu:"
 
-#. Translators: one of the results for playlist snapshots feature when there is no artist information.
+#. Translators: one of the results for playlist snapshots feature
+#. when there is no artist information.
 #, python-brace-format
 msgid "No artist information ({artistCount})"
 msgstr "Nema informacija o izvođačima({artistCount})"
 
-#. Translators: one of the results for playlist snapshots feature for artist count information.
+#. Translators: one of the results for playlist snapshots feature
+#. for artist count information.
 #, python-brace-format
 msgid "{artistName} ({artistCount})"
 msgstr "{artistName} ({artistCount})"
 
-#. Translators: one of the results for playlist snapshots feature for announcing top track category in a playlist.
+#. Translators: one of the results for playlist snapshots feature
+#. for announcing top track category in a playlist.
 #, fuzzy
 msgid "Top category: {} ({})"
 msgstr "Kategorija na vrhu: %s (%s)"
 
-#. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
+#. Translators: one of the results for playlist snapshots feature,
+#. a heading for a group of items.
 msgid "Categories:"
 msgstr "Kategorije:"
 
+#. Translators: one of the results for playlist snapshots feature
+#. for category count information.
 #, python-brace-format
 msgid "{categoryName} ({categoryCount})"
 msgstr "{categoryName} ({categoryCount})"
 
-#. Translators: one of the results for playlist snapshots feature for announcing top genre in a playlist.
+#. Translators: one of the results for playlist snapshots feature
+#. for announcing top genre in a playlist.
 #, fuzzy
 msgid "Top genre: {} ({})"
 msgstr "Vrsta na vrhu: %s (%s)"
 
-#. Translators: one of the results for playlist snapshots feature when there is no top genre.
+#. Translators: one of the results for playlist snapshots feature
+#. when there is no top genre.
 #, fuzzy
 msgid "Top genre: none"
 msgstr "Vrste na vrhu:"
 
-#. Translators: one of the results for playlist snapshots feature when there is no top genre (formatted for browse mode).
+#. Translators: one of the results for playlist snapshots feature
+#. when there is no top genre (formatted for browse mode).
 #, fuzzy
 msgid "Top genres: none"
 msgstr "Vrste na vrhu:"
 
-#. Translators: one of the results for playlist snapshots feature, a heading for a group of items.
+#. Translators: one of the results for playlist snapshots feature,
+#. a heading for a group of items.
 msgid "Top genres:"
 msgstr "Vrste na vrhu:"
 
-#. Translators: one of the results for playlist snapshots feature when there is no genre information for an item.
+#. Translators: one of the results for playlist snapshots feature
+#. when there is no genre information for an item.
 #, python-brace-format
 msgid "No genre information ({genreCount})"
 msgstr "Nema informacija o vrstama({genreCount})"
 
-#. Translators: one of the results for playlist snapshots feature for genre count information.
+#. Translators: one of the results for playlist snapshots feature
+#. for genre count information.
 #, python-brace-format
 msgid "{genreName} ({genreCount})"
 msgstr "{genreName} ({genreCount})"
@@ -672,7 +722,8 @@ msgstr ""
 "Nijedan zapis nije označen kao početni marker, nemoguće izvršiti vremensku "
 "analizu"
 
-#. Translators: Presented when time analysis is done for a number of tracks (example output: Tracks: 3, totaling 5:00).
+#. Translators: Presented when time analysis is done for a number of tracks
+#. (example output: Tracks: 3, totaling 5:00).
 #, python-brace-format
 msgid "Tracks: {numberOfSelectedTracks}, totaling {totalTime}"
 msgstr "Zapisi: {numberOfSelectedTracks}, ukupno vreme{totalTime}"
@@ -685,7 +736,8 @@ msgstr ""
 "Prikazuje informacije statistike liste za reprodukciju kao što su broj "
 "zapisa i izvođači na vrhu"
 
-#. Translators: Presented when trying to switch to an instant switch profile when add-on settings dialog is active.
+#. Translators: Presented when trying to switch to an instant switch profile
+#. when add-on settings dialog is active.
 msgid "Add-on settings dialog is open, cannot switch profiles"
 msgstr "Dijalog za podešavanja dodatka je otvoren, nemoguće promeniti profile"
 
@@ -739,7 +791,8 @@ msgstr "Glavni prozor Studija nije pronađen"
 msgid "Normal profile"
 msgstr "Standardan profil"
 
-#. Translators: Message displayed when attempting to reset Studio add-on settings while an instant switch profile is active.
+#. Translators: Message displayed when attempting to reset Studio add-on settings
+#. while an instant switch profile is active.
 msgid ""
 "An instant switch profile is active. Resetting Studio add-on settings means "
 "normal profile will become active and switch profile settings will be left "
@@ -779,11 +832,13 @@ msgstr "Greška u podešavanjima Studio dodatka"
 msgid "Only normal profile is in use"
 msgstr "Samo standardan profil se koristi"
 
-#. Translators: Presented when trying to switch to an instant switch profile when the instant switch profile is not defined.
+#. Translators: Presented when trying to switch to an instant switch profile
+#. when the instant switch profile is not defined.
 msgid "No instant switch profile is defined"
 msgstr "Nijedan profil za trenutnu promenu nije definisan"
 
-#. Translators: Presented when trying to switch to an instant switch profile when one is already using the instant switch profile.
+#. Translators: Presented when trying to switch to an instant switch profile
+#. when one is already using the instant switch profile.
 msgid "You are already in the instant switch profile"
 msgstr "Već ste u profilu za trenutnu promenu"
 
@@ -805,13 +860,13 @@ msgid ""
 "Visit www.stationplaylist.com for details on StationPlaylist suite of "
 "applications.\n"
 "Visit StationPlaylist entry on NVDA Community Add-ons page (addons.nvda-"
-"project.org) for more information on the add-on and to read the "
-"documentation.\n"
+"project.org)\n"
+"for add-on details and to read the documentation.\n"
 "Want to see this dialog again? Just press Alt+NVDA+F1 while using Studio to "
 "return to this dialog.\n"
-"Have something to say about the add-on? Press Control+NVDA+hyphen (-) to "
-"send a feedback to the developer of this add-on using your default email "
-"program.\n"
+"Have something to say about the add-on?\n"
+"Press Alt+NVDA+hyphen (-) to send feedback to the developer of this add-on "
+"using your default email program.\n"
 "\n"
 "Thank you."
 msgstr ""
@@ -842,7 +897,8 @@ msgstr ""
 "\n"
 "Hvala."
 
-#. Translators: Title of a dialog displayed when the add-on starts presenting basic information, similar to NVDA's own welcome dialog.
+#. Translators: Title of a dialog displayed when the add-on starts presenting basic information,
+#. similar to NVDA's own welcome dialog.
 #, fuzzy
 msgid "Welcome to StationPlaylist add-on"
 msgstr "Dobrodošli u dodatak Station Playlist Studio"
@@ -956,7 +1012,8 @@ msgstr ""
 msgid "Profile delete error"
 msgstr "Greška u brisanju profila"
 
-#. Translators: The confirmation prompt displayed when the user requests to delete the active broadcast profile.
+#. Translators: The confirmation prompt displayed
+#. when the user requests to delete the active broadcast profile.
 msgid ""
 "You are about to delete the currently active profile. Select yes if you wish "
 "to proceed."
@@ -978,7 +1035,8 @@ msgstr ""
 msgid "Copy Profile"
 msgstr "Kopiraj profil"
 
-#. Translators: The label for a setting in SPL add-on dialog to select a base  profile for copying.
+#. Translators: The label for a setting in SPL add-on dialog
+#. to select a base  profile for copying.
 msgid "&Base profile:"
 msgstr "&Osnovni profil:"
 
@@ -987,11 +1045,13 @@ msgstr "&Osnovni profil:"
 msgid "Profile triggers for {profileName}"
 msgstr "Aktivatori profila za{profileName}"
 
-#. Translators: The label of a checkbox to toggle if selected profile is an instant switch profile.
+#. Translators: The label of a checkbox in SPL profile triggers dialog
+#. to toggle if selected profile is an instant switch profile.
 msgid "This is an &instant switch profile"
 msgstr "&Ovo je profil za trenutnu promenu"
 
-#. Translators: the label for a setting in SPL add-on settings to set status announcement between words and beeps.
+#. Translators: the label for a setting in SPL add-on settings
+#. to set status announcement between words and beeps.
 msgid "&Beep for status announcements"
 msgstr "&Pištanje za izgovor statusa"
 
@@ -1003,7 +1063,8 @@ msgstr "Početnik"
 msgid "advanced"
 msgstr "Napredan"
 
-#. Translators: The label for a setting in SPL add-on dialog to set message verbosity.
+#. Translators: the label for a setting in SPL add-on settings
+#. to set message verbosity.
 msgid "Message &verbosity:"
 msgstr "Pričljivost &poruka"
 
@@ -1019,15 +1080,18 @@ msgstr "Uvodni zapis"
 msgid "Track intro and ending"
 msgstr "Uvodni zapis i kraj"
 
-#. Translators: The label for a setting in SPL add-on dialog to control braille timer.
+#. Translators: the label for a setting in SPL add-on settings
+#. to configure braille timer.
 msgid "&Braille timer:"
 msgstr "&Brajev tajmer"
 
-#. Translators: The label for a setting in SPL add-on dialog to control library scan announcement.
+#. Translators: The label for a setting in SPL add-on settings
+#. to control library scan announcement.
 msgid "&Library scan announcement:"
 msgstr "&Izgovor skeniranja biblioteke"
 
-#. Translators: the label for a setting in SPL add-on settings to announce time including hours.
+#. Translators: the label for a setting in SPL add-on settings
+#. to announce time including hours.
 msgid "Include &hours when announcing track or playlist duration"
 msgstr "&Uključi sate u izgovoru trajanja liste za reprodukciju ili zapisa"
 
@@ -1035,11 +1099,13 @@ msgstr "&Uključi sate u izgovoru trajanja liste za reprodukciju ili zapisa"
 msgid "&Vertical column navigation announcement:"
 msgstr "&Izgovor uspravne navigacije kolona"
 
-#. Translators: One of the options for vertical column navigation denoting NVDA will announce current column positoin (e.g. second column position from the left).
+#. Translators: One of the options for vertical column navigation
+#. denoting NVDA will announce current column position (e.g. second column position from the left).
 msgid "whichever column I am reviewing"
 msgstr "Koju god kolonu pregledam"
 
-#. Translators: the label for a setting in SPL add-on settings to toggle category sound announcement.
+#. Translators: the label for a setting in SPL add-on settings
+#. to toggle category sound announcement.
 msgid "&Beep for different track categories"
 msgstr "&Pišti za različite kategorije zapisa"
 
@@ -1051,16 +1117,19 @@ msgstr "Poruka"
 msgid "Beep"
 msgstr "Pištanje"
 
-#. Translators: the label for a setting in SPL add-on settings to set how track comments are announced.
+#. Translators: the label for a setting in SPL add-on settings
+#. to set how track comments are announced.
 msgid "&Track comment announcement:"
 msgstr "&Izgovor komentara zapisa:"
 
-#. Translators: the label for a setting in SPL add-on settings to toggle top and bottom notification.
+#. Translators: the label for a setting in SPL add-on settings
+#. to toggle top and bottom notification.
 msgid "Notify when located at &top or bottom of playlist viewer"
 msgstr ""
 "&Obavesti kada se nalazim na vrhu ili dnu prikaza liste za reprodukciju"
 
-#. Translators: the label for a setting in SPL add-on settings to enable requests alert.
+#. Translators: the label for a setting in SPL add-on settings
+#. to enable requests alert.
 msgid "Play a sound when listener &requests arrive"
 msgstr "&Reprodukuj zvukove kada stignu zahtevi slušaoca"
 
@@ -1069,21 +1138,33 @@ msgstr "&Reprodukuj zvukove kada stignu zahtevi slušaoca"
 msgid "Alarms"
 msgstr "Centar alarma"
 
+#. Translators: the label for a setting in SPL add-on settings
+#. To set end of track alarm in seconds.
 msgid "&End of track alarm in seconds"
 msgstr "&Alarm za kraj zapisa u sekundama"
 
+#. Translators: the label for a setting in SPL add-on settings
+#. to enable end of track alarm.
 msgid "&Notify when end of track is approaching"
 msgstr "&Obavesti kada se kraj pesme približava"
 
+#. Translators: the label for a setting in SPL add-on settings
+#. To set trakc intro alarm in seconds.
 msgid "&Track intro alarm in seconds"
 msgstr "&Alarm za uvodni zapis u sekundama"
 
+#. Translators: the label for a setting in SPL add-on settings
+#. to enable track intro alarm.
 msgid "&Notify when end of introduction is approaching"
 msgstr "&Obavesti kada se kraj uvoda približava"
 
+#. Translators: the label for a setting in SPL add-on settings
+#. to set microphone active alarm in seconds.
 msgid "&Microphone alarm in seconds (0 disables the alarm)"
 msgstr "&Alarm mikrofona u sekundama(0 isključuje alarm)"
 
+#. Translators: the label for a setting in SPL add-on settings
+#. to set microphone active alarm interval in seconds.
 msgid "Microphone alarm &interval in seconds"
 msgstr "Interval alarma mikrofona u &sekundama"
 
@@ -1099,11 +1180,12 @@ msgstr "Poruka"
 msgid "both beep and message"
 msgstr "Pištanje i poruka"
 
-#. Translators: The label for a setting in SPL add-on dialog to control alarm announcement type.
+#. Translators: The label for a setting in SPL add-on settings
+#. to configure alarm announcement type.
 msgid "&Alarm notification:"
 msgstr "&Obaveštenje alarma:"
 
-#. Translators: Help text for playlist snapshots dialog.
+#. Translators: Help text for playlist snapshots panel.
 msgid ""
 "Select information to be included when obtaining playlist snapshots.\n"
 "\t\tTrack count and total duration are always included."
@@ -1112,61 +1194,76 @@ msgstr ""
 "reprodukciju.\n"
 "\t\tBroj zapisa i ukupno trajanje su uvek uključeni."
 
-#. Translators: the label for a setting in SPL add-on settings to include shortest and longest track duration in playlist snapshots window.
+#. Translators: the label for a setting in SPL add-on settings
+#. to include shortest and longest track duration in playlist snapshots window.
 msgid "Shortest and longest tracks"
 msgstr "Najkraći i najduži zapisi"
 
-#. Translators: the label for a setting in SPL add-on settings to include average track duration in playlist snapshots window.
+#. Translators: the label for a setting in SPL add-on settings
+#. to include average track duration in playlist snapshots window.
 msgid "Average track duration"
 msgstr "Prosečno trajanje zapisa"
 
-#. Translators: the label for a setting in SPL add-on settings to include track artist count in playlist snapshots window.
+#. Translators: the label for a setting in SPL add-on settings
+#. to include track artist count in playlist snapshots window.
 msgid "Artist count"
 msgstr "Broj izvođača"
 
-#. Translators: the label for a setting in SPL add-on settings to set top artist count limit in playlist snapshots window.
+#. Translators: the label for a setting in SPL add-on settings
+#. to set top artist count limit in playlist snapshots window.
 msgid "Top artist count (0 displays all artists)"
 msgstr "Broj izvođača na vrhu(0 prikazuje sve izvođače)"
 
-#. Translators: the label for a setting in SPL add-on settings to include track category count in playlist snapshots window.
+#. Translators: the label for a setting in SPL add-on settings
+#. to include track category count in playlist snapshots window.
 msgid "Category count"
 msgstr "Broj kategorija"
 
-#. Translators: the label for a setting in SPL add-on settings to set top track category count limit in playlist snapshots window.
+#. Translators: the label for a setting in SPL add-on settings
+#. to set top track category count limit in playlist snapshots window.
 msgid "Top category count (0 displays all categories)"
 msgstr "Broj kategorija na vrhu(0 prikazuje sve kategorije)"
 
-#. Translators: the label for a setting in SPL add-on settings to include track genre count in playlist snapshots window.
+#. Translators: the label for a setting in SPL add-on settings
+#. to include track genre count in playlist snapshots window.
 msgid "Genre count"
 msgstr "Broj vrsta"
 
-#. Translators: the label for a setting in SPL add-on settings to set top track genre count limit in playlist snapshots window.
+#. Translators: the label for a setting in SPL add-on settings
+#. to set top track genre count limit in playlist snapshots window.
 msgid "Top genre count (0 displays all genres)"
 msgstr "Broj vrsta na vrhu(0 prikazuje sve vrste)"
 
-#. Translators: the label for a setting in SPL add-on settings to show playlist snaphsots window when the snapshots command is pressed once.
+#. Translators: the label for a setting in SPL add-on settings
+#. to show playlist snapshots window when the snapshots command is pressed once.
 msgid "&Show results window when playlist snapshots command is performed once"
 msgstr ""
 "&Prikaži prozor sa rezultatima kada se komanda za statistiku liste za "
 "reprodukciju koristi jednom"
 
-#. Translators: Title of a dialog to configure metadata streaming status for DSP encoder and four additional URL's.
+#. Translators: Title of a dialog to configure metadata streaming status
+#. for DSP encoder and four additional URL's.
 msgid "Metadata streaming options"
 msgstr "Podešavanja metadata strimova"
 
+#. Translators: dialog description for metadata streaming options dialog.
 msgid "Check to enable metadata streaming, uncheck to disable."
 msgstr ""
 "Označite da uključite metadata strimove, ili nemojte označiti da ih "
 "isključite"
 
+#. Translators: the label for a setting in SPL add-on settings
+#. to configure streaming status for metadata streams.
 msgid "&Stream:"
 msgstr ""
 
-#. Translators: A checkbox to let metadata streaming status be applied to the currently active broadcast profile.
+#. Translators: A checkbox to let metadata streaming status
+#. be applied to the currently active broadcast profile.
 msgid "&Apply streaming changes to the selected profile"
 msgstr "&Primeni promene strimova za izabran profil"
 
-#. Translators: title of a panel to configure metadata streaming status for DSP encoder and four additional URL's.
+#. Translators: title of a panel to configure metadata streaming status
+#. for DSP encoder and four additional URL's.
 #, fuzzy
 msgid "Metadata streaming"
 msgstr "Podešavanja metadata strimova"
@@ -1179,7 +1276,8 @@ msgstr "Kada se Studio pokrene"
 msgid "When instant switch profile is active"
 msgstr "Kada je profil za trenutnu promenu aktivan"
 
-#. Translators: the label for a setting in SPL add-on settings to be notified that metadata streaming is enabled.
+#. Translators: the label for a setting in SPL add-on settings
+#. to be notified that metadata streaming is enabled.
 msgid "&Metadata streaming notification and connection"
 msgstr "&Obaveštenja za metadata strimove i povezivanja"
 
@@ -1189,21 +1287,33 @@ msgstr "&Obaveštenja za metadata strimove i povezivanja"
 #. Only one loop is needed as helper.addLabelControl returns the checkbox itself and that can be appended.
 #. Add checkboxes for each stream, beginning with the DSP encoder.
 #. #76 (18.09-LTS): completely changed to use custom check list box (NVDA Core issue 7491).
+#. # Translators: the label for a setting in SPL add-on settings
+#. to configure streaming status for metadata streams.
 #, fuzzy
 msgid "&Select the URL for metadata streaming upon request:"
 msgstr "Izaberite adresu za metadata strimove nakon zahteva"
 
-#. Translators: The label for a group in SPL add-on dialog to select column announcement order.
+#. Translators: The label for a group in SPL add-on settings
+#. to select column announcement order.
 #, fuzzy
 msgid "Column order"
 msgstr "&Red kolona:"
 
-#. Translators: title of a panel to configure column announcements (order and what columns should be announced).
+#. Translators: title of a panel to configure column announcements
+#. (order and what columns should be announced).
 #, fuzzy
 msgid "Column announcements"
 msgstr "Upravljaj izgovaranjem kolona"
 
-#. Translators: the label for a setting in SPL add-on settings to toggle custom column announcement.
+#. Translators: Help text explaining custom column order and inclusion controls.
+msgid ""
+"To apply custom column order and inclusion when announcing track columns in "
+"Studio's playlist viewer, uncheck 'Announce columns in the order shown on "
+"screen' and configure column inclusion and order."
+msgstr ""
+
+#. Translators: the label for a setting in SPL add-on settings
+#. to toggle custom column announcement.
 msgid "Announce columns in the &order shown on screen"
 msgstr "&Izgovori kolone u redu u kom su prikazane na ekranu"
 
@@ -1216,11 +1326,7 @@ msgstr ""
 "Izaberite kolone koje se izgovaraju(izvođač i naslov se izgovaraju po "
 "podrazumevanim podešavanjima"
 
-#. Translators: the label for a setting in SPL add-on settings to toggle whether column headers should be included when announcing track information.
-msgid "Include column &headers when announcing track information"
-msgstr "Uključi zaglavlja &kolona u izgovoru informacija o zapisima"
-
-#. Translators: Title of a panel to configure playlsit transcripts options.
+#. Translators: Title of a panel to configure playlist transcripts options.
 #, fuzzy
 msgid "Playlist transcripts"
 msgstr "Statistike liste zareprodukciju"
@@ -1240,15 +1346,18 @@ msgstr ""
 msgid "Columns explorer"
 msgstr "Istraživač kolona"
 
-#. Translators: The label of a button to configure columns explorer slots (SPL Assistant, number row keys to announce specific columns).
+#. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
+#. for StationPlaylist Studio.
 msgid "Columns E&xplorer..."
 msgstr "&Istraživač kolona"
 
-#. Translators: The label of a button to configure columns explorer slots for Track Tool (SPL Assistant, number row keys to announce specific columns).
+#. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
+#. for Track Tool.
 msgid "Columns Explorer for &Track Tool..."
 msgstr "Istraživač &kolona za alat zapisa"
 
-#. Translators: The label of a button to configure columns explorer slots (SPL Assistant, number row keys to announce specific columns).
+#. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
+#. for StationPlaylist Creator.
 #, fuzzy
 msgid "Columns Explorer for &SPL Creator..."
 msgstr "Istraživač &kolona za alat zapisa"
@@ -1266,7 +1375,8 @@ msgstr "Istraživač kolona za alat zapisa"
 msgid "Columns Explorer for SPL Creator"
 msgstr "Istraživač kolona za alat zapisa"
 
-#. Translators: The label for a setting in SPL add-on dialog to select column for this column slot.
+#. Translators: The label for a setting in SPL add-on settings
+#. to select column for this column slot.
 #, python-brace-format
 msgid "Slot {position}"
 msgstr "Mesto{position}"
@@ -1275,19 +1385,23 @@ msgstr "Mesto{position}"
 msgid "Status announcements"
 msgstr "Izgovor statusa"
 
-#. Translators: the label for a setting in SPL add-on settings to announce scheduled time.
+#. Translators: the label for a setting in SPL add-on settings
+#. to announce scheduled time.
 msgid "Announce &scheduled time for the selected track"
 msgstr "&Izgovori vreme za sledeći zapis"
 
-#. Translators: the label for a setting in SPL add-on settings to announce listener count.
+#. Translators: the label for a setting in SPL add-on settings
+#. to announce listener count.
 msgid "Announce &listener count"
 msgstr "&Izgovori broj slušaoca"
 
-#. Translators: the label for a setting in SPL add-on settings to announce currently playing cart.
+#. Translators: the label for a setting in SPL add-on settings
+#. to announce currently playing cart.
 msgid "&Announce name of the currently playing cart"
 msgstr "&Izgovori ime karte koja se trenutno reprodukuje"
 
-#. Translators: the label for a setting in SPL add-on settings to announce player position for the current and next tracks.
+#. Translators: the label for a setting in SPL add-on settings
+#. to announce player position for the current and next tracks.
 msgid ""
 "Include track player &position when announcing current and next track "
 "information"
@@ -1295,11 +1409,13 @@ msgstr ""
 "Uključi &poziciju reprodukovanja zapisa u toku izgovaranja informacija o "
 "trenutnom i sledećem zapisu"
 
-#. Translators: A checkbox to toggle if SPL Controller command can be used to invoke Assistant layer.
+#. Translators: The label for a checkbox in SPL add-on settings
+#. to toggle if SPL Controller command can be used to invoke Assistant layer.
 msgid "Allow SPL C&ontroller command to invoke SPL Assistant layer"
 msgstr "&Dozvoli SPL kontroler komandi da aktivira SPL asistent"
 
-#. Translators: The label for a setting in SPL add-on dialog to set keyboard layout for SPL Assistant.
+#. Translators: The label for a setting in SPL add-on settings
+#. to set keyboard layout for SPL Assistant.
 msgid "SPL Assistant command &layout:"
 msgstr "SPL asistent raspored komandi:"
 
@@ -1308,15 +1424,18 @@ msgstr "SPL asistent raspored komandi:"
 msgid "Reset settings"
 msgstr "Vrati podešavanja"
 
-#. Translators: the label for resetting profile triggers.
+#. Translators: the label for a checkbox in SPL add-on settings
+#. to reset instant switch profile.
 msgid "Reset instant switch profile"
 msgstr "Vrati profil za trenutnu promenu"
 
-#. Translators: the label for resetting encoder settings.
+#. Translators: the label for a checkbox in SPL add-on settings
+#. to reset encoder settings.
 msgid "Remove encoder settings"
 msgstr "Ukloni podešavanja enkodera"
 
-#. Translators: the label for resetting track comments.
+#. Translators: the label for a checkbox in SPL add-on settings
+#. to reset track comments.
 msgid "Erase track comments"
 msgstr "Obriši komentare zapisa"
 
@@ -1337,7 +1456,7 @@ msgstr "Uspešno primenjena podrazumevana podešavanja dodatka."
 msgid "Reset configuration"
 msgstr "Vrati podešavanja"
 
-#. Translators: Help text explaijning what will happen when settings are reset.
+#. Translators: Help text explaining what will happen when settings are reset.
 msgid ""
 "Warning! Selecting Reset button and choosing various reset options will "
 "reset add-on settings to defaults."
@@ -1364,10 +1483,12 @@ msgstr "Drugi dijalog pretrage je otvoren"
 msgid "An unexpected error has occured when trying to open find dialog."
 msgstr ""
 
+#. Translators: the label for find prompt in track finder dialog.
 msgid "Enter or select the name or the artist of the track you wish to &search"
 msgstr ""
 "&Upišite ili izaberite ime izvođača ili zapisa kojeg želite da pronađete"
 
+#. Translators: the label for find prompt in column search dialog.
 msgid "Enter or select text to be &searched in a column"
 msgstr "Upišite ili izaberite tekst koji treba da bude pronađen u &koloni"
 
@@ -1379,15 +1500,19 @@ msgstr "k&olona za pretragu"
 msgid "Time range finder"
 msgstr "Pronalazač opsega vremena"
 
+#. Translators: the label for a group to specify minimum track duration in time range finder dialog.
 msgid "Minimum duration"
 msgstr "Minimalno trajanje"
 
+#. Translators: the minute label in time range finder dialog.
 msgid "Minute"
 msgstr "Minut"
 
+#. Translators: the second label in time range finder dialog.
 msgid "Second"
 msgstr "Sekunda"
 
+#. Translators: the label for a group to specify maximum track duration in time range finder dialog.
 msgid "Maximum duration"
 msgstr "Maksimalno trajanje"
 
@@ -1395,7 +1520,8 @@ msgstr "Maksimalno trajanje"
 msgid "Minimum duration is greater than the maximum duration."
 msgstr "Minimalno trajanje je veće od maksimalnog trajanja."
 
-#. Translators: Standard dialog message when an item one wishes to search is not found (copy this from main nvda.po).
+#. Translators: Presented when a track with a duration
+#. between minimum and maximum duration is not found.
 msgid "No track with duration between minimum and maximum duration."
 msgstr "Nema zapisa sa trajanjem između minimalnog i maksimalnog vremena"
 
@@ -1447,6 +1573,7 @@ msgstr "Metadata strimovanje podešeno za adrese{URL}"
 msgid "Playlist Transcripts"
 msgstr "Statistike liste zareprodukciju"
 
+#. Translators: presented when playlist transcript data was copied to the clipboard.
 #, fuzzy
 msgid "Playlist data copied to clipboard"
 msgstr "Komentar zapisa kopiran u privremenu memoriju"
@@ -1513,27 +1640,33 @@ msgstr "Greška u podešavanjima enkodera"
 msgid "Encoder settings for {name}"
 msgstr "Podešavanja enkodera za{name}"
 
-#. Translators: An edit field in encoder settings to set a label for this encoder.
+#. Translators: An edit field in encoder settings
+#. to set a label for this encoder.
 msgid "Encoder &label"
 msgstr ""
 
-#. Translators: A checkbox in encoder settings to set if NVDA should switch focus to Studio window when connected.
+#. Translators: A checkbox in encoder settings
+#. to set if NVDA should move focus to Studio window when connected.
 msgid "&Focus to Studio when connected"
 msgstr "&Fokusiraj se na Studio nakon povezivanja"
 
-#. Translators: A checkbox in encoder settings to set if NVDA should play the next track when connected.
+#. Translators: A checkbox in encoder settings
+#. to set if NVDA should play the next track when connected.
 msgid "&Play first track when connected"
 msgstr "&Reprodukuj prvi zapis nakon povezivanja"
 
-#. Translators: A checkbox in encoder settings to set if NVDA should monitor the status of this encoder in the background.
+#. Translators: A checkbox in encoder settings
+#. to set if NVDA should monitor the status of this encoder in the background.
 msgid "Enable background connection &monitoring"
 msgstr "&Omogući povezivanje i gledanje u pozadini"
 
-#. Translators: A checkbox in encoder settings to set if NVDA should play connection progress tone.
+#. Translators: A checkbox in encoder settings
+#. to set if NVDA should play connection progress tone.
 msgid "Play connection status &beep while connecting"
 msgstr "&Reprodukuj pištanja statusa povezivanja u toku povezivanja"
 
-#. Translators: A checkbox in encoder settings to set if NVDA should announce connection progress until an encoder connects.
+#. Translators: A checkbox in encoder settings
+#. to set if NVDA should announce connection progress until an encoder connects.
 msgid "Announce connection &status until encoder connects"
 msgstr ""
 
@@ -1542,7 +1675,8 @@ msgstr ""
 msgid "No encoders found"
 msgstr "Marker nije pronađen"
 
-#. Translators: presented when more than one encoder type is active when trying to obtain encoder connection status.
+#. Translators: presented when more than one encoder type is active
+#. when trying to obtain encoder connection status.
 msgid "Only one encoder type can be active at once"
 msgstr ""
 
@@ -1560,7 +1694,7 @@ msgstr ""
 msgid "SPL Studio is minimized to system tray."
 msgstr "SPL studio nije pokrenut"
 
-#. Translators: Input help mode message in SAM Encoder window.
+#. Translators: Input help mode message for an encoder settings command.
 msgid ""
 "Toggles whether NVDA will switch to Studio when connected to a streaming "
 "server."
@@ -1568,39 +1702,45 @@ msgstr ""
 "Odlučuje da li NVDA treba da se prebaci na Studio kada se povežete na server "
 "za strimovanje"
 
-#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+#. Translators: Presented when toggling the setting
+#. to switch to Studio when connected to a streaming server.
 msgid "Switch to Studio after connecting"
 msgstr "Prebaci se na Studio nakon povezivanja"
 
-#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+#. Translators: Presented when toggling the setting
+#. to switch to Studio when connected to a streaming server.
 msgid "Do not switch to Studio after connecting"
 msgstr "Ne prebacuj se na Studio nakon povezivanja"
 
-#. Translators: Input help mode message in SAM Encoder window.
+#. Translators: Input help mode message for an encoder settings command.
 msgid ""
 "Toggles whether Studio will play the first song when connected to a "
 "streaming server."
 msgstr "Odlučuje da li će Studio reprodukovati prvi zapis nakon povezivanja"
 
-#. Translators: Presented when toggling the setting to play selected song when connected to a streaming server.
+#. Translators: Presented when toggling the setting
+#. to play the selected track in Studio when connected to a streaming server.
 msgid "Play first track after connecting"
 msgstr "Reprodukuj prvi zapis nakon povezivanja"
 
-#. Translators: Presented when toggling the setting to switch to Studio when connected to a streaming server.
+#. Translators: Presented when toggling the setting
+#. to play the selected track in Studio when connected to a streaming server.
 msgid "Do not play first track after connecting"
 msgstr "Ne reprodukuj prvi zapis nakon povezivanja"
 
-#. Translators: Input help mode message in SAM Encoder window.
+#. Translators: Input help mode message for an encoder settings command.
 msgid ""
 "Toggles whether NVDA will monitor the selected encoder in the background."
 msgstr "Odlučuje da li će NVDA pratiti izabran enkoder u pozadini"
 
-#. Translators: Presented when toggling the setting to monitor the selected encoder.
+#. Translators: Presented when toggling the setting
+#. to monitor the selected encoder in the background.
 #, python-brace-format
 msgid "Monitoring encoder {encoderNumber}"
 msgstr "Gledanje enkodera{encoderNumber}"
 
-#. Translators: Presented when toggling the setting to monitor the selected encoder.
+#. Translators: Presented when toggling the setting
+#. to monitor the selected encoder in the background.
 #, python-brace-format
 msgid "Encoder {encoderNumber} will not be monitored"
 msgstr "Enkoder{encoderNumber} neće biti gledan"
@@ -1609,7 +1749,7 @@ msgstr "Enkoder{encoderNumber} neće biti gledan"
 msgid "Encoder monitoring canceled"
 msgstr "Gledanje enkodera obustavljeno"
 
-#. Translators: Input help mode message in SAM Encoder window.
+#. Translators: Input help mode message for an encoder settings command.
 #, fuzzy
 msgid ""
 "Opens a dialog to erase encoder labels and settings from an encoder that was "
@@ -1634,7 +1774,7 @@ msgstr ""
 "Prikazuje dijalog za podešavanje različitih podešavanja enkodera kao što su "
 "oznaka strima"
 
-#. Translators: Text of the dialog when another alarm dialog is open.
+#. Translators: Text of the dialog when another encoder settings dialog is open.
 msgid "Another encoder settings dialog is open."
 msgstr "Drugi dijalog sa podešavanjima enkodera je otvoren."
 
@@ -1646,14 +1786,17 @@ msgstr ""
 "Ako se pritisne jednom, prijavljuje trenutno vreme uključujući sekunde. Ako "
 "se pritisne dva puta, prijavljuje datum"
 
+#. Translators: describes the current encoder position.
 #, python-brace-format
 msgid "Position: {pos}"
 msgstr "Pozicija: {pos}"
 
+#. Translators: describes the current encoder label if any.
 #, python-brace-format
 msgid "Label: {label}"
 msgstr "Oznaka: {label}"
 
+#. Translators: describes the current encoder label if any.
 #, fuzzy
 msgid "No encoder label"
 msgstr "Marker nije pronađen"

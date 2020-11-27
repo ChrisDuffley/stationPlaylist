@@ -98,6 +98,22 @@ msgstr "Prikazuje podatke svih stupaca u trenutačno odabranoj snimci"
 msgid "Item {current} of {total}"
 msgstr "Stavka {current} od {total}"
 
+#. Translators: Input help message for screen column order toggle command in SPL Studio.
+msgid ""
+"Toggles track column announcement order between screen layout and custom "
+"order"
+msgstr ""
+
+#. Translators: presented when NVDA will present track columns in screen order.
+#, fuzzy
+msgid "Use screen order when announcing track columns"
+msgstr "Uključi zaglavlja &stupaca pri najavljivanju informacija o snimkama"
+
+#. Translators: presented when NVDA will present track columns in custom order set by a user.
+#, fuzzy
+msgid "Use custom order when announcing track columns"
+msgstr "Uključi zaglavlja &stupaca pri najavljivanju informacija o snimkama"
+
 #. Translators: Presented when track comment has been copied to clipboard.
 msgid "Track comment copied to clipboard"
 msgstr "Komentar snimke kopiran je u međuspremnik"
@@ -1276,6 +1292,13 @@ msgstr "Redoslijed stupaca"
 msgid "Column announcements"
 msgstr "Najavljivanje stupaca"
 
+#. Translators: Help text explaining custom column order and inclusion controls.
+msgid ""
+"To apply custom column order and inclusion when announcing track columns in "
+"Studio's playlist viewer, uncheck 'Announce columns in the order shown on "
+"screen' and configure column inclusion and order."
+msgstr ""
+
 #. Translators: the label for a setting in SPL add-on settings
 #. to toggle custom column announcement.
 msgid "Announce columns in the &order shown on screen"
@@ -1288,11 +1311,6 @@ msgid ""
 msgstr ""
 "&Odaberi stupce za najavljivanje\n"
 "(izvođač i naslov se standardno izgovaraju)"
-
-#. Translators: the label for a setting in SPL add-on settings
-#. to toggle whether column headers should be included when announcing track information.
-msgid "Include column &headers when announcing track information"
-msgstr "Uključi zaglavlja &stupaca pri najavljivanju informacija o snimkama"
 
 #. Translators: Title of a panel to configure playlist transcripts options.
 msgid "Playlist transcripts"
