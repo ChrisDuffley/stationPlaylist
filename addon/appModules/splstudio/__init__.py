@@ -599,7 +599,6 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Translators: Script category for StationPlaylist add-on commands in input gestures dialog.
 	scriptCategory = _("StationPlaylist")
-	SPLCurVersion = appModuleHandler.AppModule.productVersion
 	_focusedTrack = None
 	# Monitor Studio API routines.
 	_SPLStudioMonitor = None
@@ -611,9 +610,9 @@ class AppModule(appModuleHandler.AppModule):
 		if wx.GetApp() is None:
 			return
 		super(AppModule, self).__init__(*args, **kwargs)
-		if self.SPLCurVersion < SPLMinVersion:
+		if self.productVersion < SPLMinVersion:
 			raise RuntimeError("Unsupported version of Studio is running, exiting app module")
-		debugOutput(f"Using SPL Studio version {self.SPLCurVersion}")
+		debugOutput(f"Using SPL Studio version {self.productVersion}")
 		# #84: if foreground object is defined, this is a true Studio start, otherwise this is an NVDA restart with Studio running.
 		# The latter is possible because app module constructor can run before NVDA finishes initializing, particularly if system focus is located somewhere other than Taskbar.
 		# Note that this is an internal implementation detail and is subject to change without notice.
@@ -622,7 +621,7 @@ class AppModule(appModuleHandler.AppModule):
 		try:
 			if not globalVars.appArgs.minimal:
 				# No translation.
-				ui.message("SPL Studio {SPLVersion}".format(SPLVersion=self.SPLCurVersion))
+				ui.message("SPL Studio {SPLVersion}".format(SPLVersion=self.productVersion))
 		except Exception:
 			pass
 		# #40 (17.12): react to profile switches.
@@ -661,7 +660,7 @@ class AppModule(appModuleHandler.AppModule):
 		# 17.10: not when minimal startup flag is set.
 		# 18.08.1: sometimes, wxPython 4 says wx.App isn't ready.
 		try:
-			wx.CallAfter(splconfig.showStartupDialogs, oldVer=self.SPLCurVersion == SPLMinVersion)
+			wx.CallAfter(splconfig.showStartupDialogs, oldVer=self.productVersion == SPLMinVersion)
 		except Exception:
 			pass
 
