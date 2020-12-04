@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: stationPlaylist\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-10-23 15:57+0200\n"
+"PO-Revision-Date: 2020-12-01 01:09+0100\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: \n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 2.4.2\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 
@@ -103,16 +103,16 @@ msgid ""
 "Toggles track column announcement order between screen layout and custom "
 "order"
 msgstr ""
+"Uključuje/isključuje redoslijed najave stupaca između rasporeda ekrana i "
+"prilagođenog redoslijeda"
 
 #. Translators: presented when NVDA will present track columns in screen order.
-#, fuzzy
 msgid "Use screen order when announcing track columns"
-msgstr "Uključi zaglavlja &stupaca pri najavljivanju informacija o snimkama"
+msgstr "Koristi rasporeda ekrana za najavljivanje stupaca snimaka"
 
 #. Translators: presented when NVDA will present track columns in custom order set by a user.
-#, fuzzy
 msgid "Use custom order when announcing track columns"
-msgstr "Uključi zaglavlja &stupaca pri najavljivanju informacija o snimkama"
+msgstr "Koristi prilagođeni redoslijed za najavljivanje stupaca snimaka"
 
 #. Translators: Presented when track comment has been copied to clipboard.
 msgid "Track comment copied to clipboard"
@@ -1298,6 +1298,10 @@ msgid ""
 "Studio's playlist viewer, uncheck 'Announce columns in the order shown on "
 "screen' and configure column inclusion and order."
 msgstr ""
+"Za primjenu prilagođenog redoslijeda stupaca i uključivanje prilikom "
+"najavljivanja stupaca snimaka u pregledniku popisa za reprodukciju Studija, "
+"deaktiviraj opciju „Najavi stupce redoslijedom koji se prikazuje na ekranu” "
+"i konfiguriraj uključivanje i redoslijed stupaca."
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to toggle custom column announcement.

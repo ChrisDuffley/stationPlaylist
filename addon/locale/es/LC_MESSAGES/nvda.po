@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-10-23 11:48+0200\n"
+"PO-Revision-Date: 2020-11-27 10:15+0100\n"
 "Last-Translator: José Manuel Delicado <jmdaweb@hotmail.com>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 2.4.2\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
@@ -104,16 +104,16 @@ msgid ""
 "Toggles track column announcement order between screen layout and custom "
 "order"
 msgstr ""
+"Alterna el orden de anuncio de las columnas de pista entre disposición en "
+"pantalla y orden personalizado"
 
 #. Translators: presented when NVDA will present track columns in screen order.
-#, fuzzy
 msgid "Use screen order when announcing track columns"
-msgstr "Incluir &encabezados de columna al anunciar información de pista"
+msgstr "Usar orden en pantalla al anunciar columnas de pista"
 
 #. Translators: presented when NVDA will present track columns in custom order set by a user.
-#, fuzzy
 msgid "Use custom order when announcing track columns"
-msgstr "Incluir &encabezados de columna al anunciar información de pista"
+msgstr "Usar orden personalizado al anunciar columnas de pista"
 
 #. Translators: Presented when track comment has been copied to clipboard.
 msgid "Track comment copied to clipboard"
@@ -1315,6 +1315,10 @@ msgid ""
 "Studio's playlist viewer, uncheck 'Announce columns in the order shown on "
 "screen' and configure column inclusion and order."
 msgstr ""
+"Para aplicar inclusión y orden de columnas personalizado al anunciar "
+"columnas de pista en el visualizador de listas de reproducción de Studio, "
+"desmarca 'Anunciar columnas en el orden mostrado en pantalla' y configura la "
+"inclusión y el orden de las columnas."
 
 #. Translators: the label for a setting in SPL add-on settings
 #. to toggle custom column announcement.

@@ -95,8 +95,9 @@ angegeben.
 * Strg+NVDA+- (Bindestrich bei Fokussierung auf eine Spur in Studio,
   Creator, Remote-Voice-Tracking und Track-Tool): Anzeige der Daten für alle
   Spalten einer Spur im Lesemodus.
-* Alt+NVDA+C while focused on a track (Studio's playlist viewer only):
-  announces track comments if any.
+* Alt+NVDA+C während der Fokus auf einem Titel steht, (nur
+  Studio-Playlistenbetrachter): werden Titel-Kommentare falls vorhanden
+  gemeldet.
 * Alt+NVDA+0 aus dem Studio-Fenster: Öffnet den Konfigurationsdialog der
   SPL-Erweiterung.
 * Alt+NVDA+P aus dem Studio-Fenster: Öffnet die Studio-Sendeprofile.
