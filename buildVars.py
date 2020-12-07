@@ -28,7 +28,7 @@ In addition, adds global commands for the studio from everywhere."""),
 	# Minimum NVDA version supported
 	"addon_minimumNVDAVersion": "2019.3",
 	# Last NVDA version supported/tested
-	"addon_lastTestedNVDAVersion": "2020.4",
+	"addon_lastTestedNVDAVersion": "2021.1",
 	# Add-on update channel (default is stable)
 	"addon_updateChannel": "lts20",
 }
