@@ -201,12 +201,12 @@ You can save settings for specific shows into broadcast profiles. These profiles
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
-## Version 21.01
+## Version 21.01/20.09.5-LTS
 
 Version 21.01 supports SPL Studio 5.30 and later.
 
-* NVDA 2020.3 or later is required.
-* Column header inclusion setting from add-on settings has been removed. NVDA's own table column header setting will control column header announcements across SPL suite and encoders.
+* 21.01: NVDA 2020.3 or later is required.
+* 21.01: column header inclusion setting from add-on settings has been removed. NVDA's own table column header setting will control column header announcements across SPL suite and encoders.
 * Added a command to toggle screen versus custom column inclusion and order setting (NVDA+V). Note that this command is available only when focused on a track in Studio's playlist viewer.
 * NVDA will no longer stop announcing library scan progress if configured to announce scan progress while using a braille display.
 
