@@ -2370,7 +2370,7 @@ class AppModule(appModuleHandler.AppModule):
 		elif compatibility == "jfw":
 			# Translators: The title for SPL Assistant help dialog.
 			title = _("SPL Assistant help for JAWS layout")
-		wx.CallAfter(gui.messageBox, SPLAssistantHelp[compatibility], title)
+		ui.browseableMessage(SPLAssistantHelp[compatibility], title=title)
 
 	def script_openOnlineDoc(self, gesture):
 		# 18.09: show appropriate user guide version based on currently installed channel.
