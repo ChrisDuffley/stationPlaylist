@@ -7,8 +7,6 @@ from functools import wraps
 import globalPluginHandler
 import api
 import ui
-import gui
-import wx
 import scriptHandler
 import globalVars
 import config
