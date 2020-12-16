@@ -1579,7 +1579,6 @@ msgstr "Liga-se a um servidor de transmissão."
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
 msgid ""
-"\n"
 "After entering SPL Controller, press:\n"
 "A: Turn automation on.\n"
 "Shift+A: Turn automation off.\n"
