@@ -55,8 +55,7 @@ SPLCurTrackPlaybackTime = 105
 
 # Help message for SPL Controller
 # Translators: the dialog text for SPL Controller help.
-SPLConHelp = _("""
-After entering SPL Controller, press:
+SPLConHelp = _("""After entering SPL Controller, press:
 A: Turn automation on.
 Shift+A: Turn automation off.
 M: Turn microphone on.
@@ -359,8 +358,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		self.finish()
 
 	def script_conHelp(self, gesture):
-		# Translators: The title for SPL Controller help dialog.
-		wx.CallAfter(gui.messageBox, SPLConHelp, _("SPL Controller help"))
+		# Translators: The title for SPL Controller help screen.
+		ui.browseableMessage(SPLConHelp, title=_("SPL Controller help"))
 		self.finish()
 
 	__SPLControllerGestures = {
