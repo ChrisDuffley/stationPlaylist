@@ -1773,8 +1773,8 @@ msgstr "Kết nối tất cả bộ mã hóa."
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
+#, fuzzy
 msgid ""
-"\n"
 "After entering SPL Controller, press:\n"
 "A: Turn automation on.\n"
 "Shift+A: Turn automation off.\n"
@@ -1884,7 +1884,7 @@ msgstr ""
 "Thông báo trạng thái của Studio như trạng thái phát track từ các chương "
 "trình khác"
 
-#. Translators: The title for SPL Controller help dialog.
+#. Translators: The title for SPL Controller help screen.
 msgid "SPL Controller help"
 msgstr "Trợ giúp bộ điều khiển SPL"
 

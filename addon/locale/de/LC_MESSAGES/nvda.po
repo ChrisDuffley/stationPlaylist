@@ -1833,8 +1833,8 @@ msgstr "Verbindet alle Encoder."
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
+#, fuzzy
 msgid ""
-"\n"
 "After entering SPL Controller, press:\n"
 "A: Turn automation on.\n"
 "Shift+A: Turn automation off.\n"
@@ -1945,7 +1945,7 @@ msgstr ""
 "Teilt den Studio-Status mit, wie z. B. den Status der Titelwiedergabe aus "
 "anderen Programmen"
 
-#. Translators: The title for SPL Controller help dialog.
+#. Translators: The title for SPL Controller help screen.
 msgid "SPL Controller help"
 msgstr "Hilfe zur SPL-Steuerung"
 

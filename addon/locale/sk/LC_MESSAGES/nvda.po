@@ -1753,8 +1753,8 @@ msgstr "Pripojí všetky enkodéri."
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
+#, fuzzy
 msgid ""
-"\n"
 "After entering SPL Controller, press:\n"
 "A: Turn automation on.\n"
 "Shift+A: Turn automation off.\n"
@@ -1860,7 +1860,7 @@ msgstr ""
 "Oznamuje stav štúdia (napríklad prehrávanie) ak je v popredí okno inej "
 "aplikácie."
 
-#. Translators: The title for SPL Controller help dialog.
+#. Translators: The title for SPL Controller help screen.
 msgid "SPL Controller help"
 msgstr "Pomocník pre spl kontrolér"
 

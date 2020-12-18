@@ -1834,8 +1834,8 @@ msgstr "Conectează-te la un streaming server."
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
+#, fuzzy
 msgid ""
-"\n"
 "After entering SPL Controller, press:\n"
 "A: Turn automation on.\n"
 "Shift+A: Turn automation off.\n"
@@ -1947,7 +1947,7 @@ msgid ""
 msgstr ""
 "Anunță starea Studio, cum ar fi starea redării piesei din alte programe"
 
-#. Translators: The title for SPL Controller help dialog.
+#. Translators: The title for SPL Controller help screen.
 msgid "SPL Controller help"
 msgstr "Ajutor controler SPL"
 

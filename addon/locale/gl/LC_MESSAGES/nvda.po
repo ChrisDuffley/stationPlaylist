@@ -1810,8 +1810,8 @@ msgstr "Conecta todos os codificadores."
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
+#, fuzzy
 msgid ""
-"\n"
 "After entering SPL Controller, press:\n"
 "A: Turn automation on.\n"
 "Shift+A: Turn automation off.\n"
@@ -1922,7 +1922,7 @@ msgstr ""
 "Anuncia o estado do Studio coma o estado da pista en reprodución dende "
 "outros programas"
 
-#. Translators: The title for SPL Controller help dialog.
+#. Translators: The title for SPL Controller help screen.
 msgid "SPL Controller help"
 msgstr "Axuda do SPL Controller"
 
