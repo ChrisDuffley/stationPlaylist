@@ -204,6 +204,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Version 20.09.5-LTS
 
 * Added a command to toggle screen versus custom column inclusion and order setting (NVDA+V). Note that this command is available only when focused on a track in Studio's playlist viewer.
+* SPL Assistant and Controller layer help will be presented as a browse mode document instead of a dialog.
 * NVDA will no longer stop announcing library scan progress if configured to announce scan progress while using a braille display.
 
 ## Version 20.09.4-LTS
