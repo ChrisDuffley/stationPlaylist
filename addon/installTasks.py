@@ -1,5 +1,5 @@
 # StationPlaylist add-on installation tasks
-# Copyright 2015-2020 Joseph Lee and others, released under GPL.
+# Copyright 2015-2020 Joseph Lee, released under GPL.
 
 # Provides needed routines during add-on installation and removal.
 # Partly based on other add-ons, particularly Place Markers by Noelia Martinez (thanks add-on authors).
