@@ -7,7 +7,7 @@
 # Initial release: Jamie's focus hack plus auto-announcement of status items.
 # Additional work done by Joseph Lee and other contributors.
 # Renamed to StationPlaylist in 2019 in order to describe the scope of this add-on.
-# For SPL Studio Controller, focus movement, SAM Encoder support and other utilities, see the global plugin version of this app module.
+# For SPL Studio Controller, focus movement and other utilities, see the global plugin version of this app module.
 
 # Minimum version: SPL 5.20, NVDA 2019.3.
 

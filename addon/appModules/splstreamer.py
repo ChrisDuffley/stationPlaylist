@@ -1,6 +1,6 @@
 # StationPlaylist Streamer
 # An app module and global plugin package for NVDA
-# Copyright 2019-2020 Joseph Lee and others, released under GPL.
+# Copyright 2019-2020 Joseph Lee, released under GPL.
 
 # Support for StationPlaylist Straemer
 # A standalone app used for broadcast streaming when using something other than Studio for broadcasting.

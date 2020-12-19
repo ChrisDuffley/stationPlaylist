@@ -1,6 +1,6 @@
 # StationPlaylist Remote VT Client
 # An app module and global plugin package for NVDA
-# Copyright 2020 Joseph Lee and others, released under GPL.
+# Copyright 2020 Joseph Lee, released under GPL.
 
 # Basic support for StationPlaylist Remote VT Client.
 # Borrows heavily from creator as the user interface is quite similar with changes specific to VT Client.

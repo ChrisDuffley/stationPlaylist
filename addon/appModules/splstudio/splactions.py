@@ -1,6 +1,6 @@
 # SPL Studio Actions
 # An app module and global plugin package for NVDA
-# Copyright 2017-2020 Joseph Lee and others, released under GPL.
+# Copyright 2017-2020 Joseph Lee, released under GPL.
 # Defines various actions to be carried out by various add-on modules, powered by extension points.
 # This module provides services for other modules, not the other way around.
 # Thus, importing other add-on modules should not be attempted unless granted.
