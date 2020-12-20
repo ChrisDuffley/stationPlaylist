@@ -14,7 +14,7 @@ IMPORTANT NOTES:
 
 * This add-on requires StationPlaylist suite 5.30 (5.20 for 20.09.x-LTS) or later.
 * If using Windows 8 or later, for best experience, disable audio ducking mode.
-* Starting from 2018, [changelogs for old add-on releases][5] will be found on GitHub. This add-on readme will list changes from version 20.01 (2020) onwards.
+* Starting from 2018, [changelogs for old add-on releases][5] will be found on GitHub. This add-on readme will list changes from version 20.09 (2020) onwards.
 * While Studio is running, you can save, reload saved settings, or reset add-on settings to defaults by pressing Control+NVDA+C, Control+NVDA+R once, or Control+NVDA+R three times, respectively. This is also applicable to encoder settings - you can save and reset (not reload) encoder settings if using encoders.
 
 ## Shortcut keys
@@ -251,70 +251,6 @@ Version 20.09.x is the last release series to support Studio 5.20 and based on o
 * Track columns viewer command will respect column order displayed on screen.
 * In SAM encoders, improved NVDA's responsiveness when pressing Control+F9 or Control+F10 to connect or disconnect all encoders, respectively. This may result in increased verbosity when announcing the selected encoder information.
 * In SPL and AltaCast encoders, pressing F9 will now connect the selected encoder.
-
-## Version 20.07
-
-* In Studio's playlist viewer, NVDA will no longer appear to do nothing or play error tones when attempting to delete tracks or after clearing the loaded playlist while focused on playlist viewer.
-* When searching for tracks in Studio's insert tracks dialog, NVDA will announce search results if results are found.
-* NVDA will no longer appear to do nothing or play error tones when trying to switch to a newly created broadcast profile and save add-on settings.
-* In encoder settings, "stream label" has been renamed to "encoder label".
-* Dedicated stream labeler command (F12) has been removed from encoders. Encoder labels can be defined from encoder settings dialog (Alt+NVDA+0).
-* System focus will no longer move to Studio repeatedly or selected track will be played when an encoder being monitored in the background (Control+F11) connects and disconnects repeatedly.
-* In SPL encoders, added Control+F9 command to connect all encoders (same as F9 command).
-
-## Version 20.06
-
-* Resolved many coding style issues and potential bugs with Flake8.
-* Fixed many instances of encoders support feature messages spoken in English despite translated into other languages.
-* Time-based broadcast profiles feature has been removed.
-* Window-Eyes command layout for SPL Assistant has been removed. Window-Eyes command layout users will be migrated to NVDA layout.
-* As audio ducking feature in NVDA does not impact streaming from Studio except for specific hardware setups, audio ducking reminder dialog has been removed.
-* When errors are found in encoder settings, it is no longer necessary to switch to Studio window to let NVDA reset settings to defaults. You must now switch to an encoder from encoders window to let NVDA reset encoder settings.
-* The title of encoder settings dialog for SAM encoders now displays encoder format rather than encoder position.
-
-## Version 20.05
-
-* Initial support for Remote VT (voice track) client, including remote playlist editor with same commands as Creator's playlist editor.
-* Commands used to open separate alarm settings dialogs (Alt+NVDA+1, Alt+NVDA+2, Alt+NVDA+4) has been combined into Alt+NVDA+1 and will now open alarms settings in SPL add-on settings screen where track outro/intro and microphone alarm settings can be found.
-* In triggers dialog found in broadcast profiles dialog, removed the user interface associated with time-based broadcast profiles feature such as profile switch day/time/duration fields.
-* Profile switch countdown setting found in broadcast profiles dialog has been removed.
-* As Window-Eyes is no longer supported by Vispero since 2017, SPL Assistant command layout for Window-Eyes is deprecated and will be removed in a future add-on release. A warning will be shown at startup urging users to change SPL Assistant command layout to NVDA (default) or JAWS.
-* When using Columns Explorer slots (Control+NVDA+number row commands) or column navigation commands (Control+Alt+home/end/left arrow/right arrow) in Creator and Remote VT client, NVDA will no longer announce wrong column data after changing column position on screen via mouse.
-* In encoders and Streamer, NVDA will no longer appear to do nothing or play error tones when exiting NVDA while focused on something other than encoders list without moving focus to encoders first.
-
-## Version 20.04
-
-* Time-based broadcast profiles feature is deprecated. A warning message will be shown when first starting Studio after installing add-on 20.04 if you have defined one or more time-based broadcast profiles.
-* Broadcast profiles management has been split from SPL add-on settings dialog into its own dialog. You can access broadcast profiles dialog by pressing Alt+NVDA+P from Studio window.
-* Due to duplication with Control+NVDA+number row commands for Studio tracks, columns explorer commands from SPL Assistant (number row) has been removed.
-* Changed error message shown when trying to open a Studio add-on settings dialog (such as metadata streaming dialog) while another settings dialog (such as end of track alarm dialog) is active. The new error message is same as the message shown when trying to open multiple NVDA settings dialogs.
-* NVDA will no longer play error tones or appear to do nothing when clicking OK button from Columns Explorer dialog after configuring column slots.
-* In encoders, you can now save and reset encoder settings (including stream labels) by pressing Control+NVDA+C or Control+NVDA+R three times, respectively.
-
-## Version 20.03
-
-* Columns Explorer will now announce first ten columns by default (existing installations will continue to use old column slots).
-* The ability to announce name of the playing track automatically from places other than Studio has been removed. This feature, introduced in add-on 5.6 as a workaround for Studio 5.1x, is no longer functional. Users must now use SPL Controller and/or Assistant layer command to hear title of the currently playing track from everywhere (C).
-* Due to removal of automatic announcement of playing track title, the setting to configure this feature has been removed from add-on settings/status announcement category.
-* In encoders, NVDA will play connection tone every half a second while an encoder is connecting.
-* In encoders, NVDA will now announce connection attempt messages until an encoder is actually connected. Previously NVDA stopped when an error was encountered.
-* A new setting has been added to encoder settings to let NVDA announce connection messages until the selected encoder is connected. This setting is enabled by default.
-
-## Version 20.02
-
-* Initial support for StationPlaylist Creator's Playlist Editor.
-* Added Alt+NVDA+number row commands to announce various status information in Playlist Editor. These include date and time for the playlist (1), total playlist duration (2), when the selected track is scheduled to play (3), and rotation and category (4).
-* While focused on a track in Creator and Track Tool (except in Creator's Playlist Editor), pressing Control+NVDA+Dash will display data for all columns on a browse mode window.
-* If NVDA Recognizes a track list item with less than 10 columns, NVDA will no longer announce headers for nonexistent columns if Control+NVDA+number row for out of range column is pressed.
-* In creator, NVDA will no longer announce column information if Control+NVDA+number row keys are pressed while focused on places other than track list.
-* When a track is playing, NVDA will no longer announce "no track is playing" if obtaining information about current and next tracks via SPL Assistant or SPL Controller.
-* If an alarm options dialog (intro, outro, microphone) is open, NVDA will no longer appear to do nothing or play error tone if attempting to open a second instance of any alarm dialog.
-* When trying to switch between active profile and an instant profile via SPL Assistant (F12), NVDA will present a message if attempting to do so while add-on settings screen is open.
-* In encoders, NVDA will no longer forget to apply no connection tone setting for encoders when NVDA is restarted.
-
-## Version 20.01
-
-* NVDA 2019.3 or later is required due to extensive use of Python 3.
 
 ## Older releases
 
