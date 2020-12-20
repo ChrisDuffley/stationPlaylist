@@ -137,21 +137,25 @@ The SPL Controller is a set of layered commands you can use to control SPL Studi
 
 The available SPL Controller commands are:
 
-* Press P to play the next selected track.
-* Press U to pause or unpause playback.
-* Press S to stop the track with fade out, or to stop the track instantly, press T.
-* Press M or Shift+M to turn on or off the microphone, respectively, or press N to enable microphone without fade.
-* Press A to enable automation or Shift+A to disable it.
-* Press L to enable line-in input or Shift+L to disable it.
-* Press R to hear remaining time for the currently playing track.
-* Press Shift+R to get a report on library scan progress.
-* Press C to let NVDA announce name and duration of the currently playing track.
-* Press Shift+C to let NVDA announce name and duration of the upcoming track if any.
-* Press E to hear which encoders are connected.
-* Press I to obtain listener count.
-* Press Q to obtain various status information about Studio including whether a track is playing, microphone is on and others.
-* Press cart keys (F1, Control+1, for example) to play assigned carts from anywhere.
-* Press H to show a help dialog which lists available commands.
+* P: Play the next selected track.
+* U: Pause or unpause playback.
+* S: Stop the track with fade out.
+* T: Instant stop.
+* M: Turn on microphone.
+* Shift+M: Turn off microphone.
+* A: Turn on automation.
+* Shift+A: Turn off automation.
+* L: Turn on line-in input.
+* Shift+L: Turn off line-in input.
+* R: Remaining time for the currently playing track.
+* Shift+R: Library scan progress.
+* C: Title and duration of the currently playing track.
+* Shift+C: Title and duration of the upcoming track if any.
+* E: Encoder connection status.
+* I: Listener count.
+* Q: Studio status information such as whether a track is playing, microphone is on and others.
+* Cart keys (F1, Control+1, for example): Play assigned carts from anywhere.
+* H: Layer help.
 
 ## Track and microphone alarms
 
