@@ -2072,13 +2072,6 @@ class AppModule(appModuleHandler.AppModule):
 			if not libScanT or (libScanT and not libScanT.is_alive()):
 				self.monitorLibraryScan()
 
-	# The developer would like to get feedback from you.
-	@scriptHandler.script(
-		description="Opens the default email client to send an email to the add-on developer",
-		gesture="kb:alt+nvda+-")
-	def script_sendFeedbackEmail(self, gesture):
-		os.startfile("mailto:joseph.lee22590@gmail.com")
-
 	# SPL Assistant: reports status on playback, operation, etc.
 	# Used layer command approach to save gesture assignments.
 	# Most were borrowed from JFW and Window-Eyes layer scripts (Window-Eyes command layout removed in 2020).
