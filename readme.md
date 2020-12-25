@@ -42,7 +42,6 @@ Most of these will work in Studio only unless otherwise specified.
 * Alt+NVDA+C while focused on a track (Studio's playlist viewer only): announces track comments if any.
 * Alt+NVDA+0 from Studio window: Opens the Studio add-on configuration dialog.
 * Alt+NVDA+P from Studio window: Opens the Studio broadcast profiles dialog.
-* Alt+NVDA+- (hyphen) from Studio window: Send feedback to add-on developer using the default email client.
 * Alt+NVDA+F1: Open welcome dialog.
 
 ## Unassigned commands
@@ -201,6 +200,10 @@ You can save settings for specific shows into broadcast profiles. These profiles
 ## SPL touch mode
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
+
+## Version 21.03
+
+* Removed feedback email command (Alt+NVDA+Hyphen). Please send feedback to add-on devleopers using the contact information provided from Add-ons Manager.
 
 ## Version 21.01/20.09.5-LTS
 
