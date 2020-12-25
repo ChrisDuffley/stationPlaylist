@@ -5,32 +5,24 @@
 * Preuzmi [razvojnu verziju][2]
 * Preuzmi [verziju s dugoročnom podrškom][3] – za korisnike porgrama Studio
   5.20
-* NVDA kompatibilnost: 2020.1 do 2020.3
+* NVDA kompatibilnost: 2020.3 do 2020.4
 
 Ovaj paket dodataka omogućava bolje korištenje programa StationPlaylist
 Studio i drugih StationPlaylist programa te pruža alate za kontrolu programa
 Studio s bilo kojeg mjesta. Podržava sljedeće programe: Studio, Creator,
 Track Tool, VT Recorder i Streamer, kao i SAM, SPL i AltaCast kodere.
 
-Za više informacija o dodatku, pročitaj [priručnik dodatka][4]. Za
-programere koji žele saznati kako unaprijediti dodatak, postoji datoteka
-buildInstructions.txt, koja se nalazi na najvišoj razini repozitorija
-izvornog koda.
+For more information about the add-on, read the [add-on guide][4].
 
 VAŽNE NAPOMENE:
 
-* Ovaj dodatak zahtijeva StationPlaylist izdanje 5.20 ili noviju verziju.
+* Ovaj dodatak zahtijeva StationPlaylist izdanje 5.30 (5.20 za 20.09.x-LTS)
+  ili noviju verziju.
 * Korisnicima sustava Windows 8 ili novijeg, preporučamo deaktivirati modus
   stišavanja zvuka.
 * Od 2018. godine pa nadalje, [zapisi o promjenama za stara izdanja][5]
   nalaze se na GitHubu. Readme datoteka dodatka sadrži popis promjena od
-  verzije 20.01 (2020.) pa nadalje.
-* Određene funkcije dodatka neće raditi pod nekim uvjetima, uključujući
-  pokretanje NVDA čitača u sigurnom modusu.
-* Zbog tehničkih ograničenja, ovaj se dodatak ne može instalirati ili
-  koristiti u Windows Store verziji NVDA čitača.
-* Funkcije označene kao „eksperimentalne” služe za testiranje nečega prije
-  objavljivanja. One stoga neće biti aktivirane u stabilnim izdanjima.
+  verzije 20.09 (2020.) pa nadalje.
 * Dok je Studio pokrenut, moguće je spremiti postavke, ponovo učitati
   spremljene postavke ili resetirati postavke dodatka na standardne
   vrijednosti pritiskom tipki kontrol+NVDA+C, pritiskom tipki kontrol+NVDA+R
@@ -87,6 +79,9 @@ Većina njih radi samo u programu Studio, ukoliko nešto drugo nije navedeno.
 * Kontrol+NVDA+- (crtica tijekom fokusiranja jedne snimke u programu Studio,
   Creator, Remote VT i Track Tool): prikaži podatke svih stupaca u snimci na
   prozoru modusa pregledavanja.
+* NVDA+V tijekom fokusiranja na snimku (samo u prikazu popisa snimaka za
+  Studio): mijenja najavljivanje snimke između ekranskog i prilagođenog
+  redoslijeda.
 * Alt+NVDA+C tijekom fokusiranja na snimku (samo u prikazu popisa snimaka za
   Studio): najavljuje komentare snimke, ukoliko ih ima.
 * Alt+NVDA+0 u prozoru Studija: otvara dijaloški okvir za konfiguriranje
@@ -214,28 +209,27 @@ isključivanje mikrofona ili sviranje sljedeće snimke.
 
 Dostupne naredbe za SPL Kontroler su:
 
-* Pritisni P za sviranje sljedeće odabrane snimke.
-* Pritisni U za pauzu ili za nastavljanje sviranja.
-* Pritisni S za zaustavljanje snimke sa stišavanjem. Za trenutno
-  zaustavljanje, pritisni T.
-* Pritisni M ili Šift+M za uključivanje ili isključivanje
-  mikrofona. Pritisni N za aktiviranje mikrofona bez stišavanja.
-* Pritisni A za aktiviranje automacije ili Šift+A za njeno deaktiviranje.
-* Pritisni L za aktiviranje line-in ulaza ili Šift+L za njegovo
-  deaktiviranje.
-* Pritisni R za slušanje preostalog vremena trenutačno svirane snimke.
-* Pritisni Šift+R za dobivanje izvještaja o napretku skeniranja biblioteke.
-* Pritisni C kako bi NVDA najavio ime i trajanje trenutačno svirane snimke.
-* Pritisni Šift+C kako bi NVDA najavio ime i trajanje nadolazeće snimke, ako
-  je ima.
-* Pritisni E za slušanje podatka o tome koji su koderi povezani.
-* Pritisni I za broj slušatelja.
-* Pritisni Q za razne informacije o stanjima u programu Studio, npr. je li
-  se svira neka snimka, je li mikrofon uključen ili nije i drugo.
-* Pritisni tipke za džinglove (npr. F1, Kontrol+1) za sviranje dodijeljenih
-  džinglova s bilo kojeg mjesta.
-* Pritisni H za prikaz dijaloškog okvira za pomoć s popisom dostupnih
-  naredbi.
+* P: Sviraj sljedeće odabrane snimke.
+* U: Pauza ili nastavljanje sviranja.
+* S: Prekini svirati snimku sa stišavanjem.
+* T: Trenutan prekid.
+* M: Uključi mikrofon.
+* Shift+M: Isključi mikrofon.
+* A: Uključi automatizaciju.
+* Shift+A: Isključi automatizaciju.
+* L: Uključi line-in unos.
+* Shift+L: Isključi line-in unos.
+* R: Preostalo vrijeme trenutačno svirane snimke.
+* Šift+R: Napredovanje skeniranja biblioteke.
+* C: Naslov i trajanje trenutačno svirane snimke.
+* Šift+C: Naslov i trajanje nadolazeće snimke, ako je ima.
+* E: Stanje veze kodera.
+* I: Broj slušatelja.
+* Q: Informacije o stanjima u programu Studio, npr. je li se svira neka
+  snimka, je li mikrofon uključen ili nije i drugo.
+* Tipke za džinglove (npr. F1, Kontrol+1): Sviraj dodijeljene džinglove s
+  bilo kojeg mjesta.
+* H: Pomoć za slojeve.
 
 ## Alarmi za snimke i mikrofon
 
@@ -286,6 +280,16 @@ mjesta u stupcima se prikazuju bez obzira na redoslijed stupaca na ekranu i
 mogu se konfigurirati u dijaloškom okviru postavki dodataka u kategoriji
 istraživača stupaca.
 
+## Track column announcement
+
+You can ask NVDA to announce track columns found in Studio's playlist viewer
+in the order it appears on screen or using a custom order and/or exclude
+certain columns. Press NVDA+V to toggle this behavior while focused on a
+track in Studio's playlist viewer. To customize column inclusion and order,
+from column announcement settings panel in add-on settings, uncheck
+"Announce columns in the order shown on screen" and then customize included
+columns and/or column order.
+
 ## Statistika popisa snimaka
 
 Pritisni SPL Asistent, F8 tijekom fokusa na popis snimaka u programu Studio
@@ -323,6 +327,23 @@ operacijskim sustavom Windows 8 ili novijim i ako imaš instaliran NVDA
 2012.3 ili noviji, možeš izvršiti neke Studio naredbe na ekranu osjetljivim
 na dodir. Za prebacivanje na modus SPL-a, dodirni ekran s tri prsta. Zatim
 koristi gore navedene dodirne naredbe za njihovo izvršavanje.
+
+## Verzija 21.01/20.09.5-LTS
+
+Verzija 21.01 podržava SPL Studio 5.30 i novije.
+
+* 21.01: Potrebna je verzija NVDA čitača 2020.3 ili novija.
+* 21.01: Postavka uključivanja zaglavlja stupca uklonjena je iz postavki
+  dodatka. NVDA postavke zaglavlja stupaca tablice upravljat će
+  najavljivanjem zaglavlja stupaca u SPL paketu i koderima.
+* Dodana je naredba za prebacivanje ekrana u odnosu na prilagođeno
+  uključivanje stupaca i postavljanje redoslijeda (NVDA + V). Imaj na umu da
+  je ova naredba dostupna samo kad je fokusirana snimka u pregledniku popisa
+  snimaka Studija.
+* SPL Assistant and Controller layer help will be presented as a browse mode
+  document instead of a dialog.
+* NVDA will no longer stop announcing library scan progress if configured to
+  announce scan progress while using a braille display.
 
 ## Verzija 20.11.1/20.09.4-LTS
 
@@ -414,147 +435,6 @@ na verziju 20.09.x.
   kodera.
 * U koderima SPL i AltaCast pritiskom tipke F9 sada će se povezati odabrani
   koder.
-
-## Verzija 20.07
-
-* In Studio's playlist viewer, NVDA will no longer appear to do nothing or
-  play error tones when attempting to delete tracks or after clearing the
-  loaded playlist while focused on playlist viewer.
-* When searching for tracks in Studio's insert tracks dialog, NVDA will
-  announce search results if results are found.
-* NVDA will no longer appear to do nothing or play error tones when trying
-  to switch to a newly created broadcast profile and save add-on settings.
-* In encoder settings, "stream label" has been renamed to "encoder label".
-* Naredba za označavanje prijenosa (F12) uklonjena je iz kodera. Oznake
-  kodera mogu se definirati u dijaloškom okviru postavki kodera
-  (Alt+NVDA+0).
-* System focus will no longer move to Studio repeatedly or selected track
-  will be played when an encoder being monitored in the background
-  (Control+F11) connects and disconnects repeatedly.
-* In SPL encoders, added Control+F9 command to connect all encoders (same as
-  F9 command).
-
-## Verzija 20.06
-
-* Resolved many coding style issues and potential bugs with Flake8.
-* Ispravljeni su mnogi slučajevi kodera s govorom poruka na engleskom
-  jeziku, iako su prevedene na druge jezike.
-* Funkcija vremenski određenih profila emitiranja je uklonjenja.
-* Window-Eyes command layout for SPL Assistant has been removed. Window-Eyes
-  command layout users will be migrated to NVDA layout.
-* Budući da funkcija stišavanja zvuka u NVDA-u ne utječe na prijenos iz
-  Studija, osim na specifičnim hardverskim postavama, dijaloški okvir
-  podsjetnika za stišavanje zvuka je uklonjen.
-* When errors are found in encoder settings, it is no longer necessary to
-  switch to Studio window to let NVDA reset settings to defaults. You must
-  now switch to an encoder from encoders window to let NVDA reset encoder
-  settings.
-* The title of encoder settings dialog for SAM encoders now displays encoder
-  format rather than encoder position.
-
-## Verzija 20.05
-
-* Initial support for Remote VT (voice track) client, including remote
-  playlist editor with same commands as Creator's playlist editor.
-* Nardbe koje se upotrebljavaju za otvaranje dijaloškog okvira postavki
-  različitih alarma (Alt+NVDA+1, Alt+NVDA+2, Alt+NVDA+4) spojena su u
-  Alt+NVDA+1 te će sada otvoriti postavke alarma u postavkama SPL dodatka,
-  gdje se mogu pronaći postavke alarma za završni ili uvodni dio snimke i za
-  mikrofon.
-* In triggers dialog found in broadcast profiles dialog, removed the user
-  interface associated with time-based broadcast profiles feature such as
-  profile switch day/time/duration fields.
-* Profile switch countdown setting found in broadcast profiles dialog has
-  been removed.
-* As Window-Eyes is no longer supported by Vispero since 2017, SPL Assistant
-  command layout for Window-Eyes is deprecated and will be removed in a
-  future add-on release. A warning will be shown at startup urging users to
-  change SPL Assistant command layout to NVDA (default) or JAWS.
-* When using Columns Explorer slots (Control+NVDA+number row commands) or
-  column navigation commands (Control+Alt+home/end/left arrow/right arrow)
-  in Creator and Remote VT client, NVDA will no longer announce wrong column
-  data after changing column position on screen via mouse.
-* In encoders and Streamer, NVDA will no longer appear to do nothing or play
-  error tones when exiting NVDA while focused on something other than
-  encoders list without moving focus to encoders first.
-
-## Verzija 20.04
-
-* Funkcija vremenski određenih profila emitiranja je zastarjela. Prilikom
-  prvog pokretanja Studija, prikazat će se poruka upozorenja nakon
-  instaliranja dodatka 20.04, ako postoji jedan ili više vremenski određenih
-  profila emitiranja.
-* Upravljanje profilima emitiranja odvojeno je iz dijaloškog okvira postavki
-  SPL dodatka u vlastiti dijaloški okvir. Dijaloškom okviru profila
-  emitiranja moguće je pristupiti pritiskom na Alt+NVDA+P u prozoru programa
-  Studio.
-* Zbog dupliciranja s naredbama za Studio zapise kao što su
-  kontrol+NVDA+brojčani redak tipkovnice, naredbe istrživača stupaca
-  uklonjene su iz SPL Assistant-a (brojčani redak tipkovnice).
-* Izmijenjena je poruka o grešci, koja se prikazuje prilikom pokušaja
-  otvaranja dijaloškog okvira postavki Studio-dodatka (kao što je dijaloški
-  okvir za prijenos metapodataka) dok je jedan drugi dijaloški okvir
-  postavki aktivan (poput dijaloškog okvira alarma za kraj snimke). Nova
-  poruka o grešci jednaka je poruci koja se prikazuje prilikom pokušaja
-  otvaranja višestrukih dijaloških okvira NVDA postavki.
-* NVDA više neće svirati tonove greške niti izgledati kao da se ništa ne
-  radi, kad se u dijaloškom okviru „Istraživača stupaca” pritisne gumb „U
-  redu”, nakon konfiguriranja slotova stupaca.
-* U koderima je sada moguće spremiti i resetirati postavke kodera
-  (uključujući oznake prijenosa) pritiskom tipki kontrol+NVDA+C ili
-  pritiskom tipki kontrol+NVDA+R tri puta.
-
-## Version 20.03
-
-* Istraživač stupaca sada će standardno najaviti prvih deset stupaca
-  (postojeće instalacije nastavit će koristiti stare slotove stupaca).
-* The ability to announce name of the playing track automatically from
-  places other than Studio has been removed. This feature, introduced in
-  add-on 5.6 as a workaround for Studio 5.1x, is no longer functional. Users
-  must now use SPL Controller and/or Assistant layer command to hear title
-  of the currently playing track from everywhere (C).
-* Zbog uklanjanja automatske najave naslova snimke, postavka za
-  konfiguriranje ove funkcije uklonjena je iz postavki dodatka/kategorija
-  najave stanja.
-* In encoders, NVDA will play connection tone every half a second while an
-  encoder is connecting.
-* In encoders, NVDA will now announce connection attempt messages until an
-  encoder is actually connected. Previously NVDA stopped when an error was
-  encountered.
-* Dodana je nova postavka kodera kako bi se omogućilo da NvDA najavi vezu
-  sve dok se odabrani koder ne spoji. Ova je postavka standardno aktivirana.
-
-## Version 20.02
-
-* Prva podrška za Playlist Editora StationPlaylist Creatora.
-* Dodane su naredbe Alt+NVDA+brojčani redak tipkovnice, za najavu raznih
-  informacija o stanju u Playlist Editoru. To uključuje datum i vrijeme za
-  popis snimaka (1), ukupno trajanje popisa snimaka (2), planirano vrijeme
-  sviranja (3) te rotaciju i kategoriju (4).
-* Dok je fokusiran na zapis u alatu Creator i Track Tool (osim u Playlist
-  Editoru Creatora), pritiskom na Kontrol+NVDA+crtica prikazat će se podaci
-  za sve stupce u prozoru načina pregledavanja.
-* If NVDA Recognizes a track list item with less than 10 columns, NVDA will
-  no longer announce headers for nonexistent columns if Control+NVDA+number
-  row for out of range column is pressed.
-* In creator, NVDA will no longer announce column information if
-  Control+NVDA+number row keys are pressed while focused on places other
-  than track list.
-* When a track is playing, NVDA will no longer announce "no track is
-  playing" if obtaining information about current and next tracks via SPL
-  Assistant or SPL Controller.
-* If an alarm options dialog (intro, outro, microphone) is open, NVDA will
-  no longer appear to do nothing or play error tone if attempting to open a
-  second instance of any alarm dialog.
-* When trying to switch between active profile and an instant profile via
-  SPL Assistant (F12), NVDA will present a message if attempting to do so
-  while add-on settings screen is open.
-* In encoders, NVDA will no longer forget to apply no connection tone
-  setting for encoders when NVDA is restarted.
-
-## Version 20.01
-
-* NVDA 2019.3 or later is required due to extensive use of Python 3.
 
 ## Older releases
 

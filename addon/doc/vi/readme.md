@@ -4,32 +4,24 @@
 * Tải về [phiên bản chính thức][1]
 * Tải về [phiên bản thử nghiệm][2]
 * Tải về [phiên bản hỗ trợ lâu dài][3] - cho người dùng Studio 5.20
-* NVDA tương thích: 2020.1 đến 2020.3
+* NVDA compatibility: 2020.3 to 2020.4
 
 Gói add-on này cung cấp sự cải thiện cho việc sử dụng StationPlaylist Studio
 và các ứng dụng StationPlaylist khác, cũng như cung cấp các tiện ích để điều
 khiển Studio ở bất cứ đâu. Các ứng dụng được hỗ trợ bao gồm Studio, Creator,
 Track Tool, VT Recorder và Streamer, cả các bộ mã hóa SAM, SPL và AltaCast.
 
-Để biết thêm thông tin về add-on này, xem [hướng dẫn sử dụng add-on][4]. Với
-những người phát triển add-on quan tâm đến việc tạo add-on, xem tập tin
-buildInstructions.txt ở thư mục gốc trong mã nguồn của add-on.
+For more information about the add-on, read the [add-on guide][4].
 
 CÁC LƯU Ý QUAN TRỌNG:
 
-* Add-on này yêu cầu bộ StationPlaylist 5.20 trở lên.
+* This add-on requires StationPlaylist suite 5.30 (5.20 for 20.09.x-LTS) or
+  later.
 * Nếu dùng Windows 8 trở lên, hãy tắt chế độ giảm âm thanh để có trải nghiệm
   tốt nhất.
-* Từ 2018, [bản ghi những thay đổi cho các bản phát hành cũ của add-on][5]
-  sẽ được tìm thấy trên GitHub. Tập tin readme của add-on này sẽ liệt kê các
-  thay đổi từ phiên bản 20.01 (2020 trở đi).
-* Vài tính năng nhất định của add-on sẽ không hoạt động trong vài điều kiện,
-  bao gồm chạy NVDA trong chế độ bảo vệ.
-* Vì những giới hạn kĩ thuật, bạn không thể cài hay dùng add-on này với
-  phiên bản NVDA từ Windows Store.
-* Các tính năng được đánh dấu "thử nghiệm" là để kiểm tra vài thứ trước khi
-  phát hành rộng rãi, vậy nên chúng sẽ không được bật trong các bản phát
-  hành chính thức.
+* Starting from 2018, [changelogs for old add-on releases][5] will be found
+  on GitHub. This add-on readme will list changes from version 20.09 (2020)
+  onwards.
 * Khi đang chạy Studio, bạn có thể lưu, gọi các thiết lập đã lưu hoặc khôi
   phục các thiết lập của add-on về mặc định bằng cách bấm Control+NVDA+C,
   Control+NVDA+R một lần, hoặc Control+NVDA+R ba lần. điều này cũng được áp
@@ -79,6 +71,8 @@ lập khác.
 * Control+NVDA+- (trừ khi con trỏ ở một track trong Studio, Creator, Remote
   VT và Track Tool): hiển thị dữ liệu của tất cả các cột trong một track
   trên một cửa sổ ở chế độ duyệt.
+* NVDA+V while focused on a track (Studio's playlist viewer only): toggles
+  track column announcement between screen order and custom order.
 * Alt+NVDA+C while focused on a track (Studio's playlist viewer only):
   announces track comments if any.
 * Alt+NVDA+0 từ cửa sổ Studio: mở hộp thoại cấu hình add-on của Studio.
@@ -203,24 +197,26 @@ Studio như bật / tắt microphone hoặc phát track kế.
 
 Các lệnh của bộ điều khiển SPL bao gồm:
 
-* Bấm P để phát track kế được chọn.
-* Bấm U để tạm dừng và tiếp tục phát.
-* Bấm S để dừng một track nhỏ dần, hoặc dừng nhanh một track, bấm T.
-* Bấm M hay Shift+M để bật / tắt microphone, hoặc bấm N để bật microphone mà
-  không có hiệu ứng fade.
-* Bấm A để bật tự động hóa hoặc Shift+A để tắt.
-* Bấm L để bật đầu vào line-in hoặc Shift+L để tắt.
-* Bấm R để biết thời gian còn lại của track đang phát.
-* Bấm Shift+R để xem báo cáo về tiến trình quét thư viện.
-* Bấm C để NVDA thông báo tên và thời lượng của track đang phát.
-* Bấm Shift+C để NVDA thông báo tên và thời lượng của track sắp tới nếu có.
-* Bấm E để biết bộ mã hóa nào đã kết nối.
-* Bấm I để thu thập số lượng người nghe.
-* Bấm Q để thu thập nhiều thông tin trạng thái về Studio bao gồm việc có một
-  track đang phát, microphone đang bật và các thông tin khác.
-* Bấm các phím cart (ví dụ F1, Control+1) để phát cart được gán từ bất cứ
-  đâu.
-* Bấm H để hiện hộp thoại trợ giúp với toàn bộ các lệnh được liệt kê.
+* P: Play the next selected track.
+* U: Pause or unpause playback.
+* S: Stop the track with fade out.
+* T: Instant stop.
+* M: Turn on microphone.
+* Shift+M: Turn off microphone.
+* A: Turn on automation.
+* Shift+A: Turn off automation.
+* L: Turn on line-in input.
+* Shift+L: Turn off line-in input.
+* R: Remaining time for the currently playing track.
+* Shift+R: Library scan progress.
+* C: Title and duration of the currently playing track.
+* Shift+C: Title and duration of the upcoming track if any.
+* E: Encoder connection status.
+* I: Listener count.
+* Q: Studio status information such as whether a track is playing,
+  microphone is on and others.
+* Cart keys (F1, Control+1, for example): Play assigned carts from anywhere.
+* H: Layer help.
 
 ## Báo hiệu track và microphone
 
@@ -268,6 +264,16 @@ các track chính của Creator và track tool, các cột được xếp theo s
 trên màn hình và có thể cấu hình trong hộp thoại cài đặt add-on, ở phân loại
 khám phá cột.
 
+## Track column announcement
+
+You can ask NVDA to announce track columns found in Studio's playlist viewer
+in the order it appears on screen or using a custom order and/or exclude
+certain columns. Press NVDA+V to toggle this behavior while focused on a
+track in Studio's playlist viewer. To customize column inclusion and order,
+from column announcement settings panel in add-on settings, uncheck
+"Announce columns in the order shown on screen" and then customize included
+columns and/or column order.
+
 ## Ảnh chụp danh sách phát
 
 Bạn có thể bấm SPL Assistant, F8 khi đứng ở tại một danh sách phát trong
@@ -301,6 +307,22 @@ Nếu dùng Studio trên một máy tính cảm ứng chạy Windows 8 trở lê
 NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio từ mành hình
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
+
+## Version 21.01/20.09.5-LTS
+
+Version 21.01 supports SPL Studio 5.30 and later.
+
+* 21.01: NVDA 2020.3 or later is required.
+* 21.01: column header inclusion setting from add-on settings has been
+  removed. NVDA's own table column header setting will control column header
+  announcements across SPL suite and encoders.
+* Added a command to toggle screen versus custom column inclusion and order
+  setting (NVDA+V). Note that this command is available only when focused on
+  a track in Studio's playlist viewer.
+* SPL Assistant and Controller layer help will be presented as a browse mode
+  document instead of a dialog.
+* NVDA will no longer stop announcing library scan progress if configured to
+  announce scan progress while using a braille display.
 
 ## Version 20.11.1/20.09.4-LTS
 
@@ -387,142 +409,6 @@ lại 20.09.x nếu cần.
   thông tin bộ mã hóa được chọn.
 * Trong SPL và các bộ mã hóa AltaCast, bấm F9 sẽ kết nối bộ mã hóa được
   chọn.
-
-## Phiên bản 20.07
-
-* Trong trình xem danh sách phát của Studio, NVDA sẽ không còn tình trạng
-  không làm gì hoặc phát âm thanh báo lỗi khi nỗ lực xóa các track hay sau
-  khi xóa một danh sách phát đã tại khi con trỏ ở tại trình xem danh sách
-  phát.
-* Khi tìm track trong hộp thoại chèn track của Studio, NVDA sẽ đọc kết quả
-  tìm kiếm nếu tìm thấy chúng.
-* NVDA sẽ không còn tình trạng không làm gì hoặc phát âm thanh báo lỗi khi
-  chuyển đến một hồ sơ phát thanh mới tạo và lưu các thiết lập của add-on.
-* Trong cài đặt mã hóa, "nhãn phát" đã được đổi tên thành "nhãn mã hóa".
-* Đã gỡ bỏ lệnh riêng cho bộ nhãn phát (F12). Có thể quy định các nhãn mã
-  hóa từ hộp thoại cài đặt mã hóa (Alt+NVDA+0).
-* Con trỏ hệ thống sẽ không chuyển đến Studio dạng lặp đi lặp lại hay các
-  track được chọn sẽ được phát khi một bộ mã hóa đang được theo dõi ngầm
-  (Control+F11) cứ kết nối và ngắt kết nối.
-* Trong SPL encoders, đã thêm lệnh Control+F9 để kết nối tất cả các bộ mã
-  hóa (giống như lệnh F9).
-
-## Phiên bản 20.06
-
-* Giải quyết nhiều vấn đề về kiểu mã nguồn và các lỗi tiềm năng với Flake8.
-* Sửa nhiều lỗi thông điệp nhanh hỗ trợ các bộ mã hóa trong tiếng Anh dù đã
-  được dịch sang các ngôn ngữ khác.
-* Tính năng các hồ sơ phát thanh theo thời gian  đã bị gỡ bỏ.
-* Kiểu lệnh của Window-Eyes cho SPL Assistant đã bị gỡ bỏ. Những người dùng
-  kiểu lệnh này sẽ phải chuyển sang kiểu lệnh của NVDA.
-* Vì tính năng giảm âm của NVDA không có tác dụng với việc phát thanh từ
-  Studio, trừ khi thiết lập vài thứ về phần cứng, hộp thoại nhắc nhớ tính
-  năng này đã bị gỡ bỏ.
-* Khi có lỗi trong các cài đặt mã hóa, không cần phải chuyển đến cửa sổ
-  Studio để NVDA khôi phục các thiết lập về mặc định. Giờ đây bạn phải
-  chuyển đến một bộ mã hóa từ cửa sổ các bộ mã hóa để NVDA khôi phục các
-  thiết lập.
-* Tên của hộp thoại cài đặt các bộ mã hóa cho SAM encoders giờ đây hiển thị
-  định dạng mã hóa thay vì vị trí bộ mã hóa.
-
-## Phiên bản 20.05
-
-* Bắt đầu hỗ trợ cho Remote VT (voice track) client, bao gồm remote playlist
-  editor với các lệnh giống như Creator's playlist editor.
-* Những lệnh dùng để mở các hộp thoại cài đặt báo hiệu riêng lẻ (Alt+NVDA+1,
-  Alt+NVDA+2, Alt+NVDA+4) đã được gom lại thành Alt+NvDA+1 và giờ đây sẽ mở
-  cài đặt báo hiệu trong cài đặt SPL add-on, nơi có thể tìm thấy cài đặt
-  giới thiệu / kết thúc track và microphone.
-* Ở hộp thoại các tác nhân được tìm thấy trong hộp thoại hồ sơ phát thanh,
-  gỡ bỏ giao diện người dùng được gắn với tính năng hồ sơ phát thanh theo
-  thời gian như các ô chuyển hồ sơ theo ngày / giờ / thời lượng.
-* Đã gỡ bỏ các thiết lập chuyển hồ sơ đếm ngược được tìm thấy trong hộp
-  thoại hồ sơ phát thanh.
-* Vì Window-Eyes không còn được hỗ trợ bởi Vispero từ 2017, kiểu phím lệnh
-  SPL Assistant cho Window-Eyes đã được lược đi và sẽ bị gỡ bỏ ở một phiên
-  bản trong tương lai của add-on. Một cảnh báo sẽ hiển thị khi khởi động yêu
-  cầu người dùng thay đổi kiểu lệnh SPL Assistant sang kiểu lệnh của NVDA
-  (mặc định) hay JAWS.
-* Khi dùng các lệnh khám phá cột (Control+NvDA+phím số) hay các lệnh điều
-  hướng cột (Control+Alt+home/end/mũi tên trái/phải) trong Creator và Remote
-  VT client, NVDA sẽ không còn tình trạng thông báo sai cột dữ liệu sau khi
-  thay đổi vị trí cột trên màn hình bằng chuột.
-* Trong các bộ mã hóa và Streamer, NVDA sẽ không còn tình trạng không làm gì
-  hoặc phát âm thanh báo lỗi khi khởi động trong lúc một cửa sổ mã hóa đang
-  có focus.
-
-## Phiên bản 20.04
-
-* Tính năng các hồ sơ phát thanh theo thời gian đã được lược bỏ. Sẽ có một
-  thông điệp cảnh báo hiện lên ở lần khởi động Studio đầu tiên sau khi cài
-  đặt add-on 20.04 trong trường hợp bạn đã quy định một hay một vài hồ sơ
-  phát thanh theo thời gian.
-* Việc quản lý các hồ sơ phát thanh đã được tách từ hộp thoại cài đặt add-on
-  SPL thành một hộp thoại riêng. Bạn có thể truy cập hộp thoại này bằng cách
-  bấm Alt+NVDA+P từ cửa sổ Studio.
-* Vì sự trùng lặp với các lệnh Control+NVDA+phím số của Studio tracks, các
-  lệnh khám phá cột từ SPL Assistant (phím số) đã bị gỡ bỏ.
-* Thay đổi thông điệp báo lỗi hiển thị khi nỗ lực mở một hộp thoại cài đặt
-  add-on của Studio (hộp thoại truyền siêu dữ liệu chẳng hạn) trong khi một
-  hộp thoại cài đặt khác (hộp thoại báo hiệu cuối track chẳng hạn) đang hoạt
-  động. Thông điệp báo lỗi mới giống với thông điệp hiển thị khi nỗ lực mở
-  nhiều hộp thoại cài đặt của NVDA.
-* NVDA sẽ không còn phát âm thanh báo lỗi hoặc không làm gì khi bấm nút OK
-  từ hộp thoại khám phá côt sau khi cấu hình các phần của cột.
-* Trong các bộ mã hóa, giờ bạn có thể lưu và phục hồi các thiết lập của bộ
-  mã hóa (bao gồm nhãn phát thanh) bằng cách bấm Control+NVDA+C hay
-  Control+NVDA+R nhanh ba lần.
-
-## Phiên bản 20.03
-
-* Hộp thoại khám phá cột giờ đây sẽ mặc định thông báo 10 cột đầu tiên (các
-  cài đặt có sẵn vẫn sẽ dung thiết lập cũ).
-* Đã bỏ tính năng tự thông báo tên của track đang phát ở các cửa sổ khác
-  Studio. Tính năng này được giới thiệu trong add-on 5.6 như một giải pháp
-  cho Studio 5.1x, nó không còn hoạt động nữa. Người dùng giờ đây phải sử
-  dụng lệnh của SPL Controller hay Assistant layer để nghe tên của  track
-  đang phát từ bất cứ đâu (C).
-* Do việc gỡ bỏ tính năng tự thông báo tên của track đang phát, phần thiết
-  lập cho tính năng này cũng được gỡ bỏ trong bản cài đặt add-on.
-* Trong các bộ mã hóa, NVDA sẽ phát âm báo kết nối mỗi nửa giây khi một bộ
-  mã hóa đang kết nối.
-* Trong các bộ mã hóa, NVDA giờ đây sẽ đọc thông điệp đang kết nối cho đến
-  khi thật sự có một bộ mã hóa được kết nối. Trước đây NVDA bị dừng khi có
-  lỗi xảy ra.
-* Một thiết lập mới đã được thêm vào bảng cài đặt mã hóa để NVDA đọc thông
-  điệp đang kết nối cho đến khi bộ mã hóa đã chọn được kết nối. Thiết lập
-  này mặc định được bật.
-
-## Phiên bản 20.02
-
-* Bắt đầu hỗ trợ cho StationPlaylist Creator's Playlist Editor.
-* Đã thêm các lệnh Alt+NVDA+phím số để thông báo nhiều thông tin trạng thái
-  trong Playlist Editor. Chúng bao gồm ngày và giờ cho danh sách phát (1),
-  tổng thời gian danh sách phát (2), khi track được chọn đã lên lịch phát
-  (3), vòng xoay và phân loại (4).
-* Khi đứng ở một track trong Creator và Track Tool (ngoại trừ trong
-  Creator's Playlist Editor), bấm Control+NVDA+trừ sẽ hiển thị dữ liệu của
-  tất cả các cột trên một cửa sổ chế độ duyệt.
-* Nếu NVDA nhận ra một thành phần trong danh sách track có ít hơn 10 cột,
-  NVDA sẽ không thông báo tiêu đề các cột không tồn tại khi bấm
-  Control+NVDA+các số ngoài vùng có tiêu đề cột.
-* Trong creator, NVDA sẽ không còn thông báo thông tin cột nếu bấm
-  Control+NVDA+các phím số khi không đứng tại danh sách track.
-* Khi một track đang phát, NVDA sẽ không còn thông báo "không có track nào
-  đang phát" nếu lấy thông tin về track hiện tại và kế tiếp thông qua SPL
-  Assistant hay SPL Controller.
-* Nếu một hộp thoại tùy chỉnh báo hiệu (nhạc hiệu, nhạc kết thúc,
-  microphone) được mở, NVDA sẽ không còn phát âm thanh báo lỗi hoặc không
-  làm gì nếu dự định mở một hộp thoại báo hiệu thứ hai.
-* Khi nỗ lực chuyển giữa hồ sơ đang hoạt động và một hồ sơ chuyển nhanh
-  thông qua SPL Assistant (F12), NVDA sẽ hiện một thông điệp nếu làm vậy khi
-  đang mở màn hình cài đặt add-on.
-* Trong các bộ mã hóa, NVDA sẽ không còn quên áp dụng âm báo không có kết
-  nối cho các bộ mã hóa khi NVDA bị khởi động lại.
-
-## Phiên bản 20.01
-
-* Yêu cầu NVDA 2019.3 trở lên vì sử dụng Python 3.
 
 ## Các bản phát hành cũ hơn
 
