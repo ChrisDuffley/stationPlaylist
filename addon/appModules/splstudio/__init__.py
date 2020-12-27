@@ -1,6 +1,6 @@
 # StationPlaylist (formerly StationPlaylist Studio)
 # An app module and global plugin package for NVDA
-# Copyright 2011, 2013-2020, Geoff Shang, Joseph Lee and others, released under GPL.
+# Copyright 2011, 2013-2021 Geoff Shang, Joseph Lee and others, released under GPL.
 # The primary function of this appModule is to provide meaningful feedback to users of SplStudio
 # by allowing speaking of items which cannot be easily found.
 # Version 0.01 - 7 April 2011:

@@ -1,5 +1,5 @@
 # StationPlaylist encoders support
-# Copyright 2015-2020 Joseph Lee, released under GPL.
+# Copyright 2015-2021 Joseph Lee, released under GPL.
 # Split from main global plugin in 2015, transferred to SPL Engine app module in 2020.
 
 import threading

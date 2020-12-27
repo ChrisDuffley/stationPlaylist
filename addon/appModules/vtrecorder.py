@@ -1,6 +1,6 @@
 # StationPlaylist VT Recorder
 # An app module and global plugin package for NVDA
-# Copyright 2018-2020 Joseph Lee, released under GPL.
+# Copyright 2018-2021 Joseph Lee, released under GPL.
 
 # Basic support for SPL Voice Track Recorder.
 
