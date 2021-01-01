@@ -12,10 +12,7 @@ Studio i drugih StationPlaylist programa te pruža alate za kontrolu programa
 Studio s bilo kojeg mjesta. Podržava sljedeće programe: Studio, Creator,
 Track Tool, VT Recorder i Streamer, kao i SAM, SPL i AltaCast kodere.
 
-Za više informacija o dodatku, pročitaj [priručnik dodatka][4]. Za
-programere koji žele saznati kako unaprijediti dodatak, postoji datoteka
-buildInstructions.txt, koja se nalazi na najvišoj razini repozitorija
-izvornog koda.
+Za više informacija o dodatku, pročitaj [priručnik dodatka][4].
 
 VAŽNE NAPOMENE:
 
@@ -25,12 +22,6 @@ VAŽNE NAPOMENE:
 * Od 2018. godine pa nadalje, [zapisi o promjenama za stara izdanja][5]
   nalaze se na GitHubu. Readme datoteka dodatka sadrži popis promjena od
   verzije 20.01 (2020.) pa nadalje.
-* Određene funkcije dodatka neće raditi pod nekim uvjetima, uključujući
-  pokretanje NVDA čitača u sigurnom modusu.
-* Zbog tehničkih ograničenja, ovaj se dodatak ne može instalirati ili
-  koristiti u Windows Store verziji NVDA čitača.
-* Funkcije označene kao „eksperimentalne” služe za testiranje nečega prije
-  objavljivanja. One stoga neće biti aktivirane u stabilnim izdanjima.
 * Dok je Studio pokrenut, moguće je spremiti postavke, ponovo učitati
   spremljene postavke ili resetirati postavke dodatka na standardne
   vrijednosti pritiskom tipki kontrol+NVDA+C, pritiskom tipki kontrol+NVDA+R

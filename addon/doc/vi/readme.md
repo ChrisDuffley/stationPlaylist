@@ -11,9 +11,7 @@ và các ứng dụng StationPlaylist khác, cũng như cung cấp các tiện �
 khiển Studio ở bất cứ đâu. Các ứng dụng được hỗ trợ bao gồm Studio, Creator,
 Track Tool, VT Recorder và Streamer, cả các bộ mã hóa SAM, SPL và AltaCast.
 
-Để biết thêm thông tin về add-on này, xem [hướng dẫn sử dụng add-on][4]. Với
-những người phát triển add-on quan tâm đến việc tạo add-on, xem tập tin
-buildInstructions.txt ở thư mục gốc trong mã nguồn của add-on.
+Để biết thêm thông tin về add-on này, xem [hướng dẫn sử dụng add-on][4].
 
 CÁC LƯU Ý QUAN TRỌNG:
 
@@ -23,13 +21,6 @@ CÁC LƯU Ý QUAN TRỌNG:
 * Từ 2018, [bản ghi những thay đổi cho các bản phát hành cũ của add-on][5]
   sẽ được tìm thấy trên GitHub. Tập tin readme của add-on này sẽ liệt kê các
   thay đổi từ phiên bản 20.01 (2020 trở đi).
-* Vài tính năng nhất định của add-on sẽ không hoạt động trong vài điều kiện,
-  bao gồm chạy NVDA trong chế độ bảo vệ.
-* Vì những giới hạn kĩ thuật, bạn không thể cài hay dùng add-on này với
-  phiên bản NVDA từ Windows Store.
-* Các tính năng được đánh dấu "thử nghiệm" là để kiểm tra vài thứ trước khi
-  phát hành rộng rãi, vậy nên chúng sẽ không được bật trong các bản phát
-  hành chính thức.
 * Khi đang chạy Studio, bạn có thể lưu, gọi các thiết lập đã lưu hoặc khôi
   phục các thiết lập của add-on về mặc định bằng cách bấm Control+NVDA+C,
   Control+NVDA+R một lần, hoặc Control+NVDA+R ba lần. điều này cũng được áp

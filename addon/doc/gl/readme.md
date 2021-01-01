@@ -12,10 +12,7 @@ utilidades para controlar o Studio dende calquera lugar. As apps soportadas
 inclúen Studio, Creator, Track Tool, VT Recorder, e Streamer, así como os
 codificadores SAM, SPLe AltaCast.
 
-Para máis información acerca do complemento, le a [guía do
-complemento][4]. Para os desenvolvedores que queran saber cómo compilar o
-complemento, consulta buildInstructions.txt localizado na raíz do
-repositorio do código fonte.
+Para máis información sobre o complemento, le a [guía do complemento][4].
 
 NOTAS IMPORTANTES:
 
@@ -25,13 +22,6 @@ NOTAS IMPORTANTES:
 * A partires de 2018, os [rexistros de cambios para versións vellas][5]
   atoparanse en GitHub. Este readme do complemento listará cambios dende a
   versión 20.01 (2020) en diante.
-* Certas características do complemento non funcionarán baixo algunhas
-  condicións, incluindo a execución do NVDA en modo seguro.
-* Debido a limitacións técnicas, non podes instalar nin usar este
-  complemento na versión de Windows Store do NVDA.
-* As características marcadas como "experimental" están concebidas para
-  probar algo antes dunha publicación máis ampla, polo que non estarán
-  habilitadas en versións estables.
 * Cando Studio está en execución, podes gardar, recargar as opcións
   gardadas, ou restablecer as opcións do complemento ás de fábrica premendo
   Control+NVDA+C, Control+NVDA+R unha vez, ou Control+NVDA+R tres veces,

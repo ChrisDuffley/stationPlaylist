@@ -11,10 +11,7 @@ other StationPlaylist apps, as well as providing utilities to control Studio
 from anywhere. Supported apps include Studio, Creator, Track Tool, VT
 Recorder, and Streamer, as well as SAM, SPL, and AltaCast encoders.
 
-For more information about the add-on, read the [add-on guide][4]. For
-developers seeking to know how to build the add-on, see
-buildInstructions.txt located at the root of the add-on source code
-repository.
+For more information about the add-on, read the [add-on guide][4].
 
 NOTES IMPORTANTES :
 
@@ -24,13 +21,6 @@ NOTES IMPORTANTES :
 * Starting from 2018, [changelogs for old add-on releases][5] will be found
   on GitHub. This add-on readme will list changes from version 20.01 (2020)
   onwards.
-* Certaines fonctionnalités de l'extension ne fonctionneront pas dans
-  certaines conditions, notamment l'exécution de NVDA en mode sécurisé.
-* En raison de limitations techniques, vous ne pouvez pas installer ou
-  utiliser cette extension sur la version Windows Store de NVDA.
-* Les fonctionnalités marquées comme "expérimental" servent à tester quelque
-  chose avant une publication plus vaste, elles ne seront donc pas activées
-  dans les versions stables.
 * While Studio is running, you can save, reload saved settings, or reset
   add-on settings to defaults by pressing Control+NVDA+C, Control+NVDA+R
   once, or Control+NVDA+R three times, respectively. This is also applicable

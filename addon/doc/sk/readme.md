@@ -11,9 +11,7 @@ aplikácií a tiež umožňuje ovládať Station Playlist mimo hlavného okna
 aplikácie. Podporuje tiež aplikácie Studio, Creator, Track Tool, VT
 Recorder, Streamer, a tiež SAM, SPL, a AltaCast enkodéri.
 
-Podrobnosti si môžete prečítať v [dokumentácii (anglicky)][4]. Ak chcete
-zostaviť vlastnú verziu, pozrite si inštrukcie v súbore
-buildInstructions.txt v hlavnom priečinku repozitára doplnku (anglicky).
+Podrobnosti si môžete prečítať v [dokumentácii (anglicky)][4].
 
 Dôležité:
 
@@ -23,12 +21,6 @@ Dôležité:
 * Starting from 2018, [changelogs for old add-on releases][5] will be found
   on GitHub. This add-on readme will list changes from version 20.01 (2020)
   onwards.
-* Niektoré funkcie doplnku nemusia vždy fungovať, napríklad ak sa nachádzate
-  na zabezpečenej obrazovke.
-* Z technických príčin nie je možné tento doplnok používať na verzii NVDA z
-  Windows obchodu.
-* Funkcie označené ako experimentálne sú v štádiu testovania a nie sú zatiaľ
-  zaradené do stabilnej verzie doplnku.
 * Z okna SPL studio je možné uložiť nastavenia skratkou ctrl+nvda+c. Môžete
   tiež načítať uložené nastavenia skratkou ctrl+nvda+r. Takisto je možné
   obnoviť pôvodné nastavenia skratkou nvda+ctrl+r stlačením trikrát rýchlo

@@ -12,10 +12,7 @@ para controlar Studio desde cualquier lugar. Entre las aplicaciones
 soportadas se encuentran Studio, Creator, la herramienta de pista, VT
 Recorder y Streamer, así como los codificadores SAM, SPL y AltaCast.
 
-Para más información acerca del complemento, lee la [guía del
-complemento][4]. Para los desarrolladores que busquen cómo compilar el
-complemento, consulta buildInstructions.txt localizado en la raíz del
-repositorio del código fuente del complemento.
+Para más información sobre este complemento, lee su [guía][4].
 
 NOTAS IMPORTANTES:
 
@@ -25,13 +22,6 @@ NOTAS IMPORTANTES:
 * A partir de 2018, los [registros de cambios para versiones antiguas][5] se
   encontrarán en GitHub. Este léeme del complemento listará cambios desde la
   versión 20.01 (2020) en adelante.
-* Ciertas características del complemento no funcionarán bajo algunas
-  condiciones, incluyendo la ejecución de NVDA en modo seguro.
-* Debido a limitaciones técnicas, no puedes instalar ni utilizar este
-  complemento en la versión de Windows Store de NVDA.
-* Las funciones marcadas como "experimentales" están pensadas para ser
-  probadas antes de una liberación más amplia, por lo que no estarán
-  habilitadas en las versiones estables.
 * Cuando Studio está en ejecución, se pueden guardar, restablecer o poner
   los valores de fábrica del complemento pulsando control+NVDA+c,
   control+NVDA+r una vez o control+NVDA+r tres veces, respectivamente. Esto

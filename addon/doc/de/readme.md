@@ -13,10 +13,7 @@ Steuerung von Studio von überall. Zu den unterstützten Anwendungen gehören
 Studio, Creator, Track Tool, VT Recorder und Streamer sowie SAM, SPL und
 AltaCast Encoder.
 
-Weitere Informationen über die Erweiterungfinden Sie in der [Anleitung der
-Erweiterung][4]. Entwickler, die wissen möchten, wie das Add-On gebaut wird,
-finden die Datei "buildInstructions.txt", die sich im Hauptverzeichnis des
-Repository der Erweiterung befindet.
+Weitere Informationen zur Erweiterung finden Sie in der [Anleitung][4].
 
 WICHTIGE HINWEISE:
 
@@ -27,13 +24,6 @@ WICHTIGE HINWEISE:
 * Seit 2018 werden [Changelogs für alte Versionen der Erweiterung][5] auf
   GitHub zu finden sein. Diese Readme-Datei für Erweiterungen wird
   Änderungen ab Version 20.01 (2020) auflisten.
-* Bestimmte Funktionen sind nicht mehr verfügbar, z.B. während NVDA im
-  abgesicherten Modus ausgeführt wird.
-* Aufgrund technischer Einschränkungen können Sie diese Erweiterung nicht
-  auf der Windows-Store-Version von NVDA installieren oder verwenden.
-* Features, die als "experimentell" gekennzeichnet sind, sollen etwas vor
-  einer zukünftigen Version testen, sodass sie nicht in stabilen Versionen
-  aktiviert werden.
 * Während die Studio-Software läuft, können Sie gespeicherte Einstellungen
   speichern, wieder laden oder Zusatzeinstellungen auf die Standardwerte
   zurücksetzen, indem Sie Strg+NVDA+C, Strg+NVDA+R einmal bzw. Strg+NVDA+R
