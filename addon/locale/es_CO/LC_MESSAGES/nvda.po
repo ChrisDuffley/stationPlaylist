@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2016-02-25 23:59-0800\n"
+"PO-Revision-Date: 2021-01-01 14:52-0800\n"
 "Last-Translator: Slann tonich <reydelasmaquinas@outlook.com>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.5\n"
+"X-Generator: Poedit 1.8.9\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: Presented when only Track Tool is running (Track Dial requires Studio to be running as well).
@@ -1639,15 +1639,3 @@ msgid ""
 msgstr ""
 "Mejora el soporte para Station Playlist Studio.\n"
 "Además, agrega comandos globales para el estudio desde cualquier parte."
-
-#~ msgid "Remaining time not available"
-#~ msgstr "Tiempo restante no disponible"
-
-#~ msgid "Elapsed time not available"
-#~ msgstr "Tiempo transcurrido no disponible"
-
-#~ msgid "Broadcaster time not available"
-#~ msgstr "Tiempo de emisión no disponible"
-
-#~ msgid "Cannot obtain time in hours, minutes and seconds"
-#~ msgstr "Imposible obtener el tiempo en horas, minutos y segundos"
