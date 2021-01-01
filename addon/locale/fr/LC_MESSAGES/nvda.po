@@ -843,9 +843,6 @@ msgid ""
 "documentation.\n"
 "Want to see this dialog again? Just press Alt+NVDA+F1 while using Studio to "
 "return to this dialog.\n"
-"Have something to say about the add-on? Press Alt+NVDA+hyphen (-) to "
-"send a feedback to the developer of this add-on using your default email "
-"program.\n"
 "\n"
 "Thank you."
 msgstr ""
@@ -869,17 +866,13 @@ msgstr ""
 "l'extension et pour lire la documentation.\n"
 "Vous voulez voir ce dialogue à nouveau ? Il suffit d'appuyer sur Alt+NVDA+F1 "
 "lors de l’utilisation de Studio pour revenir à  ce dialogue.\n"
-"Avez-vous quelque chose à dire au sujet d' l'extension ? Appuyer sur Alt"
-"+NVDA+tiret (-) pour envoyer une réaction (retour d'information) au "
-"développeur de ce module complémentaire en utilisant  votre programme de "
-"courrier par défaut.\n"
 "\n"
 "Merci."
 
 #. Translators: Title of a dialog displayed when the add-on starts presenting basic information, similar to NVDA's own welcome dialog.
 #, fuzzy
 msgid "Welcome to StationPlaylist add-on"
-msgstr "Bienvenue dans l'extension StationPlaylist Studio"
+msgstr "Bienvenue dans l'extension StationPlaylist"
 
 #. Translators: A checkbox to show welcome dialog.
 msgid "Show welcome dialog when I start Studio"
