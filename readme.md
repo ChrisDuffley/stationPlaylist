@@ -15,9 +15,6 @@ IMPORTANT NOTES:
 * This add-on requires StationPlaylist suite 5.20 or later.
 * If using Windows 8 or later, for best experience, disable audio ducking mode.
 * Starting from 2018, [changelogs for old add-on releases][5] will be found on GitHub. This add-on readme will list changes from version 20.01 (2020) onwards.
-* Certain add-on features won't work under some conditions, including running NVDA in secure mode.
-* Due to tecnical limitations, you cannot install or use this add-on on Windows Store version of NVDA.
-* Features marked as "experimental" are meant to test something before a wider release, so they will not be enabled in stable releases.
 * While Studio is running, you can save, reload saved settings, or reset add-on settings to defaults by pressing Control+NVDA+C, Control+NVDA+R once, or Control+NVDA+R three times, respectively. This is also applicable to encoder settings - you can save and reset (not reload) encoder settings if using encoders.
 
 ## Shortcut keys
