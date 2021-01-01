@@ -853,6 +853,7 @@ msgid "You are already in the instant switch profile"
 msgstr "Ya estás en el perfil cambio instantáneo"
 
 #. Translators: A message giving basic information about the add-on.
+#, fuzzy
 msgid ""
 "Welcome to StationPlaylist add-on for NVDA,\n"
 "your companion to broadcasting with SPL Studio using NVDA screen reader.\n"
@@ -873,9 +874,6 @@ msgid ""
 "for add-on details and to read the documentation.\n"
 "Want to see this dialog again? Just press Alt+NVDA+F1 while using Studio to "
 "return to this dialog.\n"
-"Have something to say about the add-on?\n"
-"Press Alt+NVDA+hyphen (-) to send feedback to the developer of this add-on "
-"using your default email program.\n"
 "\n"
 "Thank you."
 msgstr ""
