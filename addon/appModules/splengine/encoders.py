@@ -50,14 +50,15 @@ encoderConfig = None
 # Load encoder config (including labels and other goodies) from a file-based database.
 def loadEncoderConfig():
 	global encoderConfig, SPLEncoderLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError
+	encoderConfigPath = os.path.join(globalVars.appArgs.configPath, "splencoders.ini")
 	# 7.1: Make sure encoder settings map isn't corrupted.
 	# #131 (20.06): transplanted from Studio app module so the error message can be shown when an encoder gains focus.
 	try:
-		encoderConfig = configobj.ConfigObj(os.path.join(globalVars.appArgs.configPath, "splencoders.ini"))
+		encoderConfig = configobj.ConfigObj(encoderConfigPath)
 	except configobj.ConfigObjError:
 		# To avoid type and runtime errors, create an empty ConfigObj.
-		open(os.path.join(globalVars.appArgs.configPath, "splencoders.ini"), "w").close()
-		encoderConfig = configobj.ConfigObj(os.path.join(globalVars.appArgs.configPath, "splencoders.ini"))
+		open(encoderConfigPath, "w").close()
+		encoderConfig = configobj.ConfigObj(encoderConfigPath)
 		wx.CallAfter(
 			# Translators: Message displayed if errors were found in encoder configuration file.
 			gui.messageBox, _("Your encoder settings had errors and were reset to defaults."),
