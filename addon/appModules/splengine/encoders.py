@@ -55,9 +55,9 @@ def loadEncoderConfig():
 	try:
 		encoderConfig = configobj.ConfigObj(os.path.join(globalVars.appArgs.configPath, "splencoders.ini"))
 	except configobj.ConfigObjError:
-		# To avoid type errors, create an empty dictionary.
-		encoderConfig = {}
+		# To avoid type and runtime errors, create an empty ConfigObj.
 		open(os.path.join(globalVars.appArgs.configPath, "splencoders.ini"), "w").close()
+		encoderConfig = configobj.ConfigObj(os.path.join(globalVars.appArgs.configPath, "splencoders.ini"))
 		wx.CallAfter(
 			# Translators: Message displayed if errors were found in encoder configuration file.
 			gui.messageBox, _("Your encoder settings had errors and were reset to defaults."),
