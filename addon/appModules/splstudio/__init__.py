@@ -1164,7 +1164,7 @@ class AppModule(appModuleHandler.AppModule):
 		self.carts.clear()
 		self._cachedStatusObjs.clear()
 		# Don't forget to reset timestamps for cart files.
-		splmisc._cartEditTimestamps = [0, 0, 0, 0]
+		splmisc._cartEditTimestamps = None
 		# Just to make sure:
 		if splbase._SPLWin:
 			splbase._SPLWin = None
