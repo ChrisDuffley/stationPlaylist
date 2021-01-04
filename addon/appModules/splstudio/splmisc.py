@@ -320,8 +320,6 @@ def cartExplorerInit(StudioTitle, cartFiles=None, refresh=False, carts=None):
 	# Since sstandard edition does not support number row carts, skip them if told to do so.
 	if carts is None:
 		carts = {"standardLicense": StudioTitle.startswith("StationPlaylist Studio Standard")}
-	if refresh:
-		carts["modifiedBanks"] = []
 	# Obtain the "real" path for SPL via environment variables and open the cart data folder.
 	# Provided that Studio was installed using default path.
 	cartsDataPath = os.path.join(os.environ["PROGRAMFILES"], "StationPlaylist", "Data")
