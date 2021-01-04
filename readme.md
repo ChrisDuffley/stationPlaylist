@@ -205,6 +205,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 * Minimum Windows release requirement is now tied to NVDA releases.
 * Removed feedback email command (Alt+NVDA+Hyphen). Please send feedback to add-on developers using the contact information provided from Add-ons Manager.
+* NVDA will no longer fail to save changes to encoder settings after errors are encountered when loading encoder settings and subsequently settings are reset to defaults.
 
 ## Version 21.01/20.09.5-LTS
 
