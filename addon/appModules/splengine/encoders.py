@@ -50,14 +50,15 @@ encoderConfig = None
 def loadEncoderConfig():
 	# 20.11 (Flake8 E501): define global variables when first used, not here due to line length.
 	global encoderConfig
+	encoderConfigPath = os.path.join(globalVars.appArgs.configPath, "splencoders.ini")
 	# 7.1: Make sure encoder settings map isn't corrupted.
 	# #131 (20.06): encoder focus error message routine was transplanted from Studio app module.
 	try:
-		encoderConfig = configobj.ConfigObj(os.path.join(globalVars.appArgs.configPath, "splencoders.ini"))
+		encoderConfig = configobj.ConfigObj(encoderConfigPath)
 	except configobj.ConfigObjError:
 		# To avoid type and runtime errors, create an empty ConfigObj.
-		open(os.path.join(globalVars.appArgs.configPath, "splencoders.ini"), "w").close()
-		encoderConfig = configobj.ConfigObj(os.path.join(globalVars.appArgs.configPath, "splencoders.ini"))
+		open(encoderConfigPath, "w").close()
+		encoderConfig = configobj.ConfigObj(encoderConfigPath)
 		wx.CallAfter(
 			# Translators: Message displayed if errors were found in encoder configuration file.
 			gui.messageBox, _("Your encoder settings had errors and were reset to defaults."),
