@@ -392,7 +392,7 @@ class ConfigHub(ChainMap):
 		try:
 			del self.maps[pos][key]
 		except KeyError:
-			raise KeyError('Key not found: {0!r}'.format(key))
+			raise KeyError(f'Key not found: {key!r}')
 
 	# Perform some extra work before writing the config file.
 	def _preSave(self, profile):
