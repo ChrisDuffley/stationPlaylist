@@ -479,7 +479,7 @@ class ConfigHub(ChainMap):
 	# Profile indicates the name of the profile to reset or reload.
 	# Sometimes confirmation message will be shown, especially if instant switch profile is active.
 	# Config dialog flag is a special flag reserved for use by add-on settings dialog.
-	def reset(self, factoryDefaults=False, profile=None, askForConfirmation=False, resetViaConfigDialog=False):
+	def reset(self, factoryDefaults=False, askForConfirmation=False, resetViaConfigDialog=False):
 		if resetViaConfigDialog:
 			askForConfirmation = factoryDefaults and self._switchProfileFlags
 		if askForConfirmation:
@@ -497,12 +497,7 @@ class ConfigHub(ChainMap):
 					return
 				else:
 					raise RuntimeError("Instant switch profile must remain active, reset cannot proceed")
-		profilePool = [] if profile is not None else self.profiles
-		if profile is not None:
-			if not self.profileExists(profile):
-				raise ValueError("The specified profile does not exist")
-			else:
-				profilePool.append(self.profileByName(profile))
+		profilePool = self.profiles
 		# 20.09: keep complete and profile-specific defaults handy.
 		defaultConfig = _SPLDefaults.dict()
 		defaultProfileConfig = {sect: key for sect, key in defaultConfig.items() if sect in _mutatableSettings}
