@@ -671,9 +671,8 @@ class AppModule(appModuleHandler.AppModule):
 			time.sleep(1)
 			# If the demo copy expires and the app module begins, this loop will spin forever.
 			# Make sure this loop catches this case.
-			if self.noMoreHandle.isSet():
+			if self.noMoreHandle.is_set():
 				self.noMoreHandle.clear()
-				self.noMoreHandle = None
 				return
 			hwnd = user32.FindWindowW("SPLStudio", None)
 		# Only this thread will have privilege of notifying handle's existence.
@@ -743,7 +742,7 @@ class AppModule(appModuleHandler.AppModule):
 	# This is used to coordinate various status announcements.
 
 	def event_foreground(self, obj, nextHandler):
-		if not self._initStudioWindowFocused.isSet() and obj.windowClassName == "TStudioForm":
+		if not self._initStudioWindowFocused.is_set() and obj.windowClassName == "TStudioForm":
 			self._initStudioWindowFocused.set()
 		nextHandler()
 
