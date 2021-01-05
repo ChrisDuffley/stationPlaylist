@@ -360,7 +360,9 @@ class NewProfileDialog(wx.Dialog):
 			os.mkdir(splconfig.SPLProfiles)
 		newProfilePath = os.path.join(splconfig.SPLProfiles, namePath)
 		# LTS optimization: just build base profile dictionary here if copying a profile.
-		if self.copy:
+		if not self.copy:
+			baseProfile = None
+		else:
 			baseConfig = splconfig.SPLConfig.profileByName(self.baseProfiles.GetStringSelection())
 			# #140 (20.07): it isn't enough to copy dictionaries.
 			# Deep copy (config.dict()) must be performed to avoid accidental reference manipulation.
@@ -368,8 +370,6 @@ class NewProfileDialog(wx.Dialog):
 				sect: key for sect, key in baseConfig.dict().items()
 				if sect in splconfig._mutatableSettings
 			}
-		else:
-			baseProfile = None
 		splconfig.SPLConfig.createProfile(newProfilePath, profileName=name, parent=baseProfile)
 		parent.profileNames.append(name)
 		parent.profiles.Append(name)
