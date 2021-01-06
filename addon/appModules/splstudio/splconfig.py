@@ -490,36 +490,35 @@ class ConfigHub(ChainMap):
 					return
 				else:
 					raise RuntimeError("Instant switch profile must remain active, reset cannot proceed")
-		profilePool = self.profiles
 		# 20.09: keep complete and profile-specific defaults handy.
 		defaultConfig = _SPLDefaults.dict()
 		defaultProfileConfig = {sect: key for sect, key in defaultConfig.items() if sect in _mutatableSettings}
-		for conf in profilePool:
+		for profile in self.profiles:
 			# Retrieve the profile path, as ConfigObj.reset nullifies it.
 			# ConfigObj.reload cannot be used as it leaves config in invalidated state.
 			if factoryDefaults:
-				profilePath = conf.filename
-				conf.reset()
-				conf.filename = profilePath
+				profilePath = profile.filename
+				profile.reset()
+				profile.filename = profilePath
 				sourceProfile = defaultProfileConfig if profilePath != SPLIni else defaultConfig
 			else:
 				sourceProfile = self._unlockConfig(
-					conf.filename, profileName=conf.name, prefill=conf.filename == SPLIni, validateNow=True
+					profile.filename, profileName=profile.name, prefill=profile.filename == SPLIni, validateNow=True
 				).dict()
 			# 20.09: just like complete reset when loading profiles, update settings from defaults.
-			conf.update(sourceProfile)
+			profile.update(sourceProfile)
 			# Convert certain settings to a different format.
-			conf["ColumnAnnouncement"]["IncludedColumns"] = set(conf["ColumnAnnouncement"]["IncludedColumns"])
+			profile["ColumnAnnouncement"]["IncludedColumns"] = set(profile["ColumnAnnouncement"]["IncludedColumns"])
 			# 18.08: if this is normal profile, don't forget
 			# to change type for Playlist Transcripts/included columns set.
-			if conf.filename == SPLIni:
-				conf["PlaylistTranscripts"]["IncludedColumns"] = set(conf["PlaylistTranscripts"]["IncludedColumns"])
+			if profile.filename == SPLIni:
+				profile["PlaylistTranscripts"]["IncludedColumns"] = set(profile["PlaylistTranscripts"]["IncludedColumns"])
 				# Just like constructor, remove deprecated keys if any.
-				deprecatedKeys = get_extra_values(conf)
+				deprecatedKeys = get_extra_values(profile)
 				for section, key in deprecatedKeys:
 					if section == ():
 						continue
-					del conf[section[0]][key]
+					del profile[section[0]][key]
 		# If this is a reset, switch back to normal profile via a custom variant of swap routine,
 		# along with nullifying profile switches.
 		if factoryDefaults:
