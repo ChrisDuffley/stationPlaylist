@@ -810,7 +810,21 @@ Want to see this dialog again? Just press Alt+NVDA+F1 while using Studio to retu
 
 Thank you.""")
 
+	_instance = None
+
+	def __new__(cls, parent):
+		# Make this a singleton.
+		inst = cls._instance() if cls._instance else None
+		if not inst:
+			return super(cls, cls).__new__(cls, parent)
+		return inst
+
 	def __init__(self, parent):
+		inst = WelcomeDialog._instance() if WelcomeDialog._instance else None
+		if inst:
+			return
+		# Use a weakref so the instance can die.
+		WelcomeDialog._instance = weakref.ref(self)
 		# Translators: Title of a dialog displayed when the add-on starts presenting basic information, similar to NVDA's own welcome dialog.
 		super(WelcomeDialog, self).__init__(parent, title=_("Welcome to StationPlaylist add-on"))
 		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
