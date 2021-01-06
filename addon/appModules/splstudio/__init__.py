@@ -1314,7 +1314,9 @@ class AppModule(appModuleHandler.AppModule):
 		gesture="kb:alt+NVDA+f1")
 	def script_openWelcomeDialog(self, gesture):
 		gui.mainFrame.prePopup()
-		splconfig.WelcomeDialog(gui.mainFrame).Show()
+		d = splconfig.WelcomeDialog(gui.mainFrame)
+		d.Raise()
+		d.Show()
 		gui.mainFrame.postPopup()
 
 	# Other commands (track finder and others)
