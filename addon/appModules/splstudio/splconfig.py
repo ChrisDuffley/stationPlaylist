@@ -9,6 +9,7 @@
 import os
 import pickle
 from collections import ChainMap
+import weakref
 from configobj import ConfigObj, get_extra_values, ConfigObjError
 # ConfigObj 5.1.0 and later integrates validate module.
 from configobj.validate import Validator
@@ -840,6 +841,7 @@ Thank you.""")
 		# Translators: Title of a dialog displayed when the add-on starts presenting basic information,
 		# similar to NVDA's own welcome dialog.
 		super(WelcomeDialog, self).__init__(parent, title=_("Welcome to StationPlaylist add-on"))
+		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 
@@ -861,6 +863,9 @@ Thank you.""")
 	def onOk(self, evt):
 		global SPLConfig
 		SPLConfig["Startup"]["WelcomeDialog"] = self.showWelcomeDialog.Value
+		self.Destroy()
+
+	def onAppTerminate(self):
 		self.Destroy()
 
 
