@@ -757,26 +757,27 @@ def plTranscriptsDialogError():
 
 class SPLPlaylistTranscriptsDialog(wx.Dialog):
 
-	_instance = None
+	@classmethod
+	def _instance(cls):
+		return None
 
-	def __new__(cls, parent, *args, **kwargs):
+	def __new__(cls, *args, **kwargs):
 		# Make this a singleton and prompt an error dialog if it isn't.
 		if _plTranscriptsDialogOpened:
 			raise RuntimeError("An instance of playlist transcripts dialog is opened")
-		inst = cls._instance() if cls._instance else None
-		if not inst:
-			return super(cls, cls).__new__(cls, parent, *args, **kwargs)
-		return inst
+		instance = SPLPlaylistTranscriptsDialog._instance()
+		if instance is None:
+			return super(SPLPlaylistTranscriptsDialog, cls).__new__(cls, *args, **kwargs)
+		return instance
 
 	def __init__(self, parent, obj):
-		inst = SPLPlaylistTranscriptsDialog._instance() if SPLPlaylistTranscriptsDialog._instance else None
-		if inst:
+		if SPLPlaylistTranscriptsDialog._instance() is not None:
 			return
 		# Use a weakref so the instance can die.
 		SPLPlaylistTranscriptsDialog._instance = weakref.ref(self)
 
 		# Translators: the Playlist transcripts dialog title.
-		super(SPLPlaylistTranscriptsDialog, self).__init__(parent, wx.ID_ANY, _("Playlist Transcripts"))
+		super().__init__(parent, wx.ID_ANY, _("Playlist Transcripts"))
 		self.obj = obj
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
