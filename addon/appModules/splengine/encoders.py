@@ -187,21 +187,22 @@ _configDialogOpened = False
 
 class EncoderConfigDialog(wx.Dialog):
 
-	# The following comes from exit dialog class from GUI package (credit: NV Access and Zahari from Bulgaria).
-	_instance = None
+	# Instance check comes from NVDA Core's Add-ons Manager (credit: NV Access)
+	@classmethod
+	def _instance(cls):
+		return None
 
-	def __new__(cls, parent, *args, **kwargs):
+	def __new__(cls, *args, **kwargs):
 		# Make this a singleton and prompt an error dialog if it isn't.
 		if _configDialogOpened:
 			raise RuntimeError("An instance of encoder settings dialog is opened")
-		inst = cls._instance() if cls._instance else None
-		if not inst:
-			return super(cls, cls).__new__(cls, parent, *args, **kwargs)
-		return inst
+		instance = EncoderConfigDialog._instance()
+		if instance is None:
+			return super(EncoderConfigDialog, cls).__new__(cls, *args, **kwargs)
+		return instance
 
 	def __init__(self, parent, obj):
-		inst = EncoderConfigDialog._instance() if EncoderConfigDialog._instance else None
-		if inst:
+		if EncoderConfigDialog._instance() is not None:
 			return
 		# Use a weakref so the instance can die.
 		import weakref
@@ -212,7 +213,7 @@ class EncoderConfigDialog(wx.Dialog):
 		self.curEncoderLabel = obj.encoderLabel
 		# Translators: The title of the encoder settings dialog (example: Encoder settings for SAM 1").
 		title = _("Encoder settings for {name}").format(name=obj.encoderFormat)
-		super(EncoderConfigDialog, self).__init__(parent, wx.ID_ANY, title)
+		super().__init__(parent, wx.ID_ANY, title)
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		encoderConfigHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 		# And to close this automatically when Studio dies.
