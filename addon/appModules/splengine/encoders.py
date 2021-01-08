@@ -5,6 +5,7 @@
 import threading
 import time
 import os
+import weakref
 from abc import abstractmethod
 import api
 import config
@@ -188,7 +189,6 @@ class EncoderConfigDialog(wx.Dialog):
 		if inst:
 			return
 		# Use a weakref so the instance can die.
-		import weakref
 		EncoderConfigDialog._instance = weakref.ref(self)
 
 		# Encoder format text is used as part of the dialog title.
