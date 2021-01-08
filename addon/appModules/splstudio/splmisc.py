@@ -52,25 +52,26 @@ def _finderError():
 
 class SPLFindDialog(wx.Dialog):
 
-	_instance = None
+	@classmethod
+	def _instance(cls):
+		return None
 
-	def __new__(cls, parent, *args, **kwargs):
+	def __new__(cls, *args, **kwargs):
 		# Make this a singleton and prompt an error dialog if it isn't.
 		if _findDialogOpened:
 			raise RuntimeError("An instance of find dialog is opened")
-		inst = cls._instance() if cls._instance else None
-		if not inst:
-			return super(cls, cls).__new__(cls, parent, *args, **kwargs)
-		return inst
+		instance = SPLFindDialog._instance()
+		if instance is None:
+			return super(SPLFindDialog, cls).__new__(cls, *args, **kwargs)
+		return instance
 
 	def __init__(self, parent, obj, text, title, columnSearch=False):
-		inst = SPLFindDialog._instance() if SPLFindDialog._instance else None
-		if inst:
+		if SPLFindDialog._instance() is not None:
 			return
 		# Use a weakref so the instance can die.
 		SPLFindDialog._instance = weakref.ref(self)
 
-		super(SPLFindDialog, self).__init__(parent, wx.ID_ANY, title)
+		super().__init__(parent, wx.ID_ANY, title)
 		self.obj = obj
 		self.columnSearch = columnSearch
 		if not columnSearch:
@@ -149,26 +150,27 @@ class SPLFindDialog(wx.Dialog):
 # Similar to track finder, locate tracks with duration that falls between min and max.
 class SPLTimeRangeDialog(wx.Dialog):
 
-	_instance = None
+	@classmethod
+	def _instance(cls):
+		return None
 
-	def __new__(cls, parent, *args, **kwargs):
+	def __new__(cls, *args, **kwargs):
 		# Make this a singleton and prompt an error dialog if it isn't.
 		if _findDialogOpened:
 			raise RuntimeError("An instance of find dialog is opened")
-		inst = cls._instance() if cls._instance else None
-		if not inst:
-			return super(cls, cls).__new__(cls, parent, *args, **kwargs)
-		return inst
+		instance = SPLTimeRangeDialog._instance()
+		if instance is None:
+			return super(SPLTimeRangeDialog, cls).__new__(cls, *args, **kwargs)
+		return instance
 
 	def __init__(self, parent, obj):
-		inst = SPLTimeRangeDialog._instance() if SPLTimeRangeDialog._instance else None
-		if inst:
+		if SPLTimeRangeDialog._instance() is not None:
 			return
 		# Use a weakref so the instance can die.
 		SPLTimeRangeDialog._instance = weakref.ref(self)
 
 		# Translators: The title of a dialog to find tracks with duration within a specified range.
-		super(SPLTimeRangeDialog, self).__init__(parent, wx.ID_ANY, _("Time range finder"))
+		super().__init__(parent, wx.ID_ANY, _("Time range finder"))
 		self.obj = obj
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
