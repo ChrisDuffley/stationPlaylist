@@ -786,27 +786,29 @@ metadataStreamLabels = ("DSP encoder", "URL 1", "URL 2", "URL 3", "URL 4")
 class MetadataStreamingDialog(wx.Dialog):
 	"""A dialog to toggle metadata streaming quickly and optionally save changes to add-on configuration.
 	"""
-	_instance = None
 
-	def __new__(cls, parent, *args, **kwargs):
+	@classmethod
+	def _instance(cls):
+		return None
+
+	def __new__(cls, *args, **kwargs):
 		# Make this a singleton and prompt an error dialog if it isn't.
 		if _configDialogOpened:
 			raise RuntimeError("An instance of metadata streaming dialog is opened")
-		inst = cls._instance() if cls._instance else None
-		if not inst:
-			return super(cls, cls).__new__(cls, parent, *args, **kwargs)
-		return inst
+		instance = MetadataStreamingDialog._instance()
+		if instance is None:
+			return super(MetadataStreamingDialog, cls).__new__(cls, *args, **kwargs)
+		return instance
 
 	def __init__(self, parent):
-		inst = MetadataStreamingDialog._instance() if MetadataStreamingDialog._instance else None
-		if inst:
+		if MetadataStreamingDialog._instance() is not None:
 			return
 		# Use a weakref so the instance can die.
 		MetadataStreamingDialog._instance = weakref.ref(self)
 
 		# Translators: Title of a dialog to configure metadata streaming status
 		# for DSP encoder and four additional URL's.
-		super(MetadataStreamingDialog, self).__init__(parent, title=_("Metadata streaming options"))
+		super().__init__(parent, title=_("Metadata streaming options"))
 		mainSizer = wx.BoxSizer(wx.VERTICAL)
 		metadataSizerHelper = gui.guiHelper.BoxSizerHelper(self, orientation=wx.VERTICAL)
 		splactions.SPLActionAppTerminating.register(self.onAppTerminate)
