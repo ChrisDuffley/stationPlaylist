@@ -1054,7 +1054,7 @@ class AppModule(appModuleHandler.AppModule):
 		# #38 (17.11/15.10-LTS): obtain microphone alarm status.
 		# 21.03/20.09.6-LTS: only if Studio is still alive.
 		if splbase.studioIsRunning(justChecking=True):
-			self.doExtraAction(self.sayStatus(2, statusText=True))
+			self.doExtraAction(self._statusBarMessages[2][splbase.studioAPI(2, 39)])
 
 	def actionSettingsReset(self, factoryDefaults=False):
 		global micAlarmT, micAlarmT2
@@ -1066,7 +1066,7 @@ class AppModule(appModuleHandler.AppModule):
 			micAlarmT2.Stop()
 		micAlarmT2 = None
 		if splbase.studioIsRunning(justChecking=True):
-			self.doExtraAction(self.sayStatus(2, statusText=True))
+			self.doExtraAction(self._statusBarMessages[2][splbase.studioAPI(2, 39)])
 
 	# Alarm announcement: Alarm notification via beeps, speech or both.
 	def alarmAnnounce(self, timeText, tone, duration, intro=False):
@@ -2209,11 +2209,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	# In the layer commands below, sayStatus function is used if screen objects or API must be used
 	# (API is for Studio 5.20 and later).
-	def sayStatus(self, index, statusText=False):
+	def sayStatus(self, index):
 		status = self._statusBarMessages[index][splbase.studioAPI(index, 39)]
-		# #38 (17.11/15.10-LTS): return status text if asked.
-		if statusText:
-			return status
 		if splconfig.SPLConfig["General"]["MessageVerbosity"] == "advanced":
 			status = status.split()[-1]
 		ui.message(status)
