@@ -422,9 +422,16 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 
 		def callback(result):
 			if result == wx.ID_OK:
-				if dlg.GetValue() is None:
+				newComment = dlg.GetValue()
+				# No need to deal with track comments if Studio is gone and/or value is empty.
+				# 21.03/20.09.6-LTS optimization: same values are not allowed.
+				if (
+					newComment is None
+					or newComment == comment
+					or not splbase.studioIsRunning(justChecking=True)
+				):
 					return
-				elif dlg.GetValue() == "":
+				elif newComment == "":
 					# #156 (21.03/20.09.6-LTS): guard against nonexistent filenames.
 					try:
 						del splconfig.trackComments[filename]
