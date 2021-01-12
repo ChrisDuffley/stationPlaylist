@@ -444,7 +444,11 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 				if dlg.GetValue() is None:
 					return
 				elif dlg.GetValue() == "":
-					del splconfig.trackComments[filename]
+					# #156 (21.03/20.09.6-LTS): guard against nonexistent filenames.
+					try:
+						del splconfig.trackComments[filename]
+					except KeyError:
+						pass
 				else:
 					splconfig.trackComments[filename] = dlg.GetValue()
 		gui.runScriptModalDialog(dlg, callback)
