@@ -469,7 +469,10 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 		gesture="kb:Alt+NVDA+C",
 		category=_("StationPlaylist"))
 	def script_announceTrackComment(self, gesture):
-		self.announceTrackComment(scriptHandler.getLastScriptRepeatCount() + 1)
+		scriptRepeatCount = scriptHandler.getLastScriptRepeatCount()
+		# 21.03/20.09.6-LTS: do not allow many track comment dialog instances from appearing.
+		if scriptRepeatCount <= 2:
+			self.announceTrackComment(scriptRepeatCount + 1)
 
 
 SPLAssistantHelp = {
