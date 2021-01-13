@@ -381,7 +381,6 @@ class ConfigHub(ChainMap):
 		if _SPLCache is None:
 			_SPLCache = {}
 		key = None if conf.filename == SPLIni else conf.name
-		_SPLCache[key] = {}
 		# 8.0: Caching the dictionary (items) is enough.
 		# Do not just copy dictionaries, as it copies references.
 		# 20.09: thankfully conf.dict method performs a "deep copy" (returns a fresh dictionary with data inside).
