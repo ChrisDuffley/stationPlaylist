@@ -202,6 +202,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * Minimum Windows release requirement is now tied to NVDA releases.
 * Removed feedback email command (Alt+NVDA+Hyphen). Please send feedback to add-on developers using the contact information provided from Add-ons Manager.
 * Fixed numerous bugs with add-on welcome dialog (Alt+NVDA+F1 from Studio window), including multiple welcome dialogs being shown and NVDA appearing to do nothing or playing error tones when welcome dialog remains open after Studio exits.
+* Fixed numerous bugs with track comments dialog (Alt+NVDA+C three times from a track in Studio), including an error tone heard when trying to save comments and many track comment dialogs appearing if Alt+NVDA+C is pressed many times. If track comments dialog is still shown after Studio is closed, comments will not be saved.
 * NVDA will no longer fail to save changes to encoder settings after errors are encountered when loading encoder settings and subsequently settings are reset to defaults.
 
 ## Version 20.09.5-LTS
