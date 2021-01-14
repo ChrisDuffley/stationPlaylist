@@ -1773,7 +1773,7 @@ class AppModule(appModuleHandler.AppModule):
 				artists.append(obj._getColumnContentRaw(artist))
 				genres.append(obj._getColumnContentRaw(genre))
 			# 21.03/20.09.6-LTS: convert segue to an integer for ease of min/max comparison.
-			# NVDA 2020.4 returns an empty string instead of None in order to64-bit
+			# NVDA 2020.4 returns an empty string instead of None in order to
 			# avoid errors with 64-bit SysListView32 controls.
 			# For compatibility, check both None and an empty string.
 			if segue not in (None, ""):
