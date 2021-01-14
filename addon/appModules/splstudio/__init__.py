@@ -1877,31 +1877,26 @@ class AppModule(appModuleHandler.AppModule):
 				artists.append(obj._getColumnContentRaw(artist))
 				genres.append(obj._getColumnContentRaw(genre))
 			# 21.03/20.09.6-LTS: convert segue to an integer for ease of min/max comparison.
-			# Use a different variable to hold segue as segue is used later for total duration calculation.
 			if segue not in (None, ""):
 				hms = segue.split(":")
-				segue2 = (int(hms[-2]) * 60) + int(hms[-1])
+				segue = (int(hms[-2]) * 60) + int(hms[-1])
 				if len(hms) == 3:
-					segue2 += int(hms[0]) * 3600
+					segue += int(hms[0]) * 3600
+				totalDuration += segue
 				if min is None:
-					min = segue2
+					min = segue
 				if max is None:
-					max = segue2
+					max = segue
 				# Shortest and longest tracks.
 				# #22: assign min to the first segue in order to not forget title of the shortest track.
-				if segue2 <= min:
-					min = segue2
+				if segue <= min:
+					min = segue
 					minTitle = trackTitle
 				# 19.11.1/18.09.13-LTS: also do the same for max
 				# as Python 3 does not allow comparison between objects and None.
-				if segue2 >= max:
-					max = segue2
+				if segue >= max:
+					max = segue
 					maxTitle = trackTitle
-			if segue not in (None, "", "00:00"):
-				hms = segue.split(":")
-				totalDuration += (int(hms[-2]) * 60) + int(hms[-1])
-				if len(hms) == 3:
-					totalDuration += int(hms[0]) * 3600
 			obj = obj.next
 		# #55 (18.05): use total track count if it is an entire playlist, if not, resort to categories count.
 		if completePlaylistSnapshot:
