@@ -1718,7 +1718,7 @@ class AppModule(appModuleHandler.AppModule):
 		while obj not in (None, end):
 			# Technically segue.
 			segue = obj._getColumnContentRaw(duration)
-			if segue not in (None, "00:00"):
+			if segue not in (None, "", "00:00"):
 				hms = segue.split(":")
 				totalDuration += (int(hms[-2]) * 60) + int(hms[-1])
 				if len(hms) == 3:
@@ -1765,7 +1765,7 @@ class AppModule(appModuleHandler.AppModule):
 			if segue and (max is None or segue > max):
 				max = segue
 				maxTitle = trackTitle
-			if segue not in (None, "00:00"):
+			if segue not in (None, "", "00:00"):
 				hms = segue.split(":")
 				totalDuration += (int(hms[-2]) * 60) + int(hms[-1])
 				if len(hms) == 3:
