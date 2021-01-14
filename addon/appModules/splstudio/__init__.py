@@ -1876,16 +1876,27 @@ class AppModule(appModuleHandler.AppModule):
 			if categories[-1] != "Hour Marker":
 				artists.append(obj._getColumnContentRaw(artist))
 				genres.append(obj._getColumnContentRaw(genre))
-			# Shortest and longest tracks.
-			# #22: assign min to the first segue in order to not forget title of the shortest track.
-			if segue and (min is None or segue < min):
-				min = segue
-				minTitle = trackTitle
-			# 19.11.1/18.09.13-LTS: also do the same for max
-			# as Python 3 does not allow comparison between objects and None.
-			if segue and (max is None or segue > max):
-				max = segue
-				maxTitle = trackTitle
+			# 21.03/20.09.6-LTS: convert segue to an integer for ease of min/max comparison.
+			# Use a different variable to hold segue as segue is used later for total duration calculation.
+			if segue not in (None, ""):
+				hms = segue.split(":")
+				segue2 = (int(hms[-2]) * 60) + int(hms[-1])
+				if len(hms) == 3:
+					segue2 += int(hms[0]) * 3600
+				if min is None:
+					min = segue2
+				if max is None:
+					max = segue2
+				# Shortest and longest tracks.
+				# #22: assign min to the first segue in order to not forget title of the shortest track.
+				if segue2 <= min:
+					min = segue2
+					minTitle = trackTitle
+				# 19.11.1/18.09.13-LTS: also do the same for max
+				# as Python 3 does not allow comparison between objects and None.
+				if segue2 >= max:
+					max = segue2
+					maxTitle = trackTitle
 			if segue not in (None, "", "00:00"):
 				hms = segue.split(":")
 				totalDuration += (int(hms[-2]) * 60) + int(hms[-1])
@@ -1900,7 +1911,9 @@ class AppModule(appModuleHandler.AppModule):
 		snapshot["PlaylistTrackCount"] = len(artists)
 		snapshot["PlaylistDurationTotal"] = self._ms2time(totalDuration, ms=False)
 		if "DurationMinMax" in snapshotFlags:
+			min = self._ms2time(min, ms=False)
 			snapshot["PlaylistDurationMin"] = "{} ({})".format(minTitle, min)
+			max = self._ms2time(max, ms=False)
 			snapshot["PlaylistDurationMax"] = "{} ({})".format(maxTitle, max)
 		if "DurationAverage" in snapshotFlags:
 			# #57 (18.04): zero division error may occur if the playlist consists of hour markers only.
