@@ -132,7 +132,8 @@ class SPLTrackItem(sysListView32.ListItem):
 	# right after starting NVDA while Studio is focused.
 	def _getColumnContentRaw(self, index):
 		columnContent = super(SPLTrackItem, self)._getColumnContentRaw(index)
-		if columnContent is None:
+		# Don't bother asking out proc unless this is NVDA 2020.4 or later.
+		if columnContent is None and hasattr(self, "_getColumnContentRawOutProc"):
 			columnContent = self._getColumnContentRawOutProc(index)
 		# For compatibility, return None instead of an empty string if value is indeed empty.
 		return columnContent if columnContent else None
