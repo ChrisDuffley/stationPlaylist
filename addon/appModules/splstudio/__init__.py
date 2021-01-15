@@ -1874,11 +1874,12 @@ class AppModule(appModuleHandler.AppModule):
 			]
 		duration = obj.indexOf("Duration")
 		title = obj.indexOf("Title")
+		# A tuple list of duration in seconds (integer) and track titles.
+		# Used to obtain total duration, average, shortest, and longest tracks.
+		trackLengths = []
+		totalDuration = 0
 		artist = obj.indexOf("Artist")
 		artists = []
-		min, max = None, None
-		minTitle, maxTitle = None, None
-		totalDuration = 0
 		category = obj.indexOf("Category")
 		categories = []
 		genre = obj.indexOf("Genre")
@@ -1902,20 +1903,7 @@ class AppModule(appModuleHandler.AppModule):
 				if len(hms) == 3:
 					segue += int(hms[0]) * 3600
 				totalDuration += segue
-				if min is None:
-					min = segue
-				if max is None:
-					max = segue
-				# Shortest and longest tracks.
-				# #22: assign min to the first segue in order to not forget title of the shortest track.
-				if segue <= min:
-					min = segue
-					minTitle = trackTitle
-				# 19.11.1/18.09.13-LTS: also do the same for max
-				# as Python 3 does not allow comparison between objects and None.
-				if segue >= max:
-					max = segue
-					maxTitle = trackTitle
+				trackLengths.append((segue, trackTitle))
 			obj = obj.next
 		# #55 (18.05): use total track count if it is an entire playlist, if not, resort to categories count.
 		if completePlaylistSnapshot:
@@ -1924,11 +1912,19 @@ class AppModule(appModuleHandler.AppModule):
 			snapshot["PlaylistItemCount"] = len(categories)
 		snapshot["PlaylistTrackCount"] = len(artists)
 		snapshot["PlaylistDurationTotal"] = self._ms2time(totalDuration, ms=False)
+		# Shortest and longest tracks.
 		if "DurationMinMax" in snapshotFlags:
-			min = self._ms2time(min, ms=False)
-			snapshot["PlaylistDurationMin"] = "{} ({})".format(minTitle, min)
-			max = self._ms2time(max, ms=False)
-			snapshot["PlaylistDurationMax"] = "{} ({})".format(maxTitle, max)
+			trackDurations = [track[0] for track in trackLengths]
+			shortest = min(trackDurations)
+			shortestIndex = trackDurations.index(shortest)
+			snapshot["PlaylistDurationMin"] = "{} ({})".format(
+				trackLengths[shortestIndex][1], self._ms2time(trackLengths[shortestIndex][0], ms=False)
+			)
+			longest = max(trackDurations)
+			longestIndex = trackDurations.index(longest)
+			snapshot["PlaylistDurationMax"] = "{} ({})".format(
+				trackLengths[longestIndex][1], self._ms2time(trackLengths[longestIndex][0], ms=False)
+			)
 		if "DurationAverage" in snapshotFlags:
 			# #57 (18.04): zero division error may occur if the playlist consists of hour markers only.
 			try:
