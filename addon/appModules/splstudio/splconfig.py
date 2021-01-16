@@ -523,7 +523,7 @@ class ConfigHub(ChainMap):
 		# along with nullifying profile switches.
 		if factoryDefaults:
 			self.prevProfile = None
-			self.switchHistory = [None]
+			self.switchHistory = [self.activeProfile]
 			self._switchProfileFlags = 0
 			if self.activeProfile != defaultProfileName:
 				npIndex = self.profileIndexByName(defaultProfileName)
