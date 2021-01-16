@@ -468,7 +468,7 @@ class ConfigHub(ChainMap):
 	# Config dialog flag is a special flag reserved for use by add-on settings dialog.
 	def reset(self, factoryDefaults=False, askForConfirmation=False, resetViaConfigDialog=False):
 		if resetViaConfigDialog:
-			askForConfirmation = factoryDefaults and self._switchProfileFlags
+			askForConfirmation = bool(factoryDefaults and self._switchProfileFlags)
 		if askForConfirmation:
 			# present a confirmation message from the main thread.
 			# #96 (19.02/18.09.7-LTS): this is more so if a switch profile is active.
