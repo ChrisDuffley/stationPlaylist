@@ -370,7 +370,7 @@ class NewProfileDialog(wx.Dialog):
 				sect: key for sect, key in baseConfig.dict().items()
 				if sect in splconfig._mutatableSettings
 			}
-		splconfig.SPLConfig.createProfile(newProfilePath, profileName=name, parent=baseProfile)
+		splconfig.SPLConfig.createProfile(newProfilePath, name, parent=baseProfile)
 		parent.profileNames.append(name)
 		parent.profiles.Append(name)
 		parent.profiles.Selection = parent.profiles.Count - 1
