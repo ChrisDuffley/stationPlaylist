@@ -527,7 +527,7 @@ class ConfigHub(ChainMap):
 		# If this is a reset, switch back to normal profile via a custom variant of swap routine, along with nullifying profile switches.
 		if factoryDefaults:
 			self.prevProfile = None
-			self.switchHistory = [None]
+			self.switchHistory = [self.activeProfile]
 			self._switchProfileFlags = 0
 			if self.activeProfile != defaultProfileName:
 				npIndex = self.profileIndexByName(defaultProfileName)
