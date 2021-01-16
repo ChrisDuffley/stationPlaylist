@@ -327,13 +327,13 @@ class ConfigHub(ChainMap):
 
 	# Create profile: public function to access the two private ones above (used when creating a new profile).
 	# Mechanics borrowed from NVDA Core's config.conf with modifications for this add-on.
-	def createProfile(self, path, profileName=None, parent=None):
+	def createProfile(self, path, name, parent=None):
 		# 17.10: No, not when restrictions are applied.
 		if self.configRestricted:
 			raise RuntimeError("Only normal profile is in use or config was loaded from memory")
-		self.maps.append(self._unlockConfig(path, profileName=profileName, parent=parent, validateNow=True))
-		self.profileNames.append(profileName)
-		self.newProfiles.add(profileName)
+		self.maps.append(self._unlockConfig(path, profileName=name, parent=parent, validateNow=True))
+		self.profileNames.append(name)
+		self.newProfiles.add(name)
 
 	# Rename and delete profiles.
 	# Mechanics powered by similar routines in NVDA Core's config.conf.
