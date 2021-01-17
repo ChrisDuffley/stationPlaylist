@@ -381,41 +381,6 @@ def cartExplorerRefresh(studioTitle, currentCarts):
 	return cartExplorerInit(studioTitle, refresh=True, carts=currentCarts)
 
 
-# Countdown timer.
-# This is utilized by many services, chiefly profile triggers routine.
-# 20.06: no longer actively used, kept for possible uses in the future.
-class SPLCountdownTimer(object):
-
-	def __init__(self, duration, func, threshold):
-		# Threshold is used to instruct this timer when to start countdown announcement.
-		self.duration = duration
-		self.total = duration
-		self.func = func
-		self.threshold = threshold
-
-	def Start(self):
-		self.timer = wx.PyTimer(self.countdown)
-		ui.message(_("Countdown started"))
-		# #58 (18.04.1): timers must be started from main thread.
-		wx.CallAfter(self.timer.Start, 1000)
-
-	def Stop(self):
-		self.timer.Stop()
-
-	def IsRunning(self):
-		return self.timer.IsRunning()
-
-	def countdown(self):
-		self.duration -= 1
-		if self.duration == 0:
-			ui.message(_("Timer complete"))
-			if self.func is not None:
-				self.func()
-			self.Stop()
-		elif 0 < self.duration <= self.threshold:
-			ui.message(str(self.duration))
-
-
 # Metadata and encoders management, including connection, announcement and so on.
 
 
