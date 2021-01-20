@@ -1374,6 +1374,14 @@ class AppModule(appModuleHandler.AppModule):
 		gesture="kb:control+nvda+f")
 	def script_findTrack(self, gesture):
 		if self._trackFinderCheck(0):
+			if self.findText is not None:
+				# 21.03/20.09.6-LTS: avoid type error when opening track finder dialog.
+				# This is applicable for track finder, next/previous track finder, and column search.
+				self.findText = list(filter(lambda x: x not in (None, ""), self.findText))
+				# Nullify find text list if it is empty for compatibility with code checking for None.
+				# This is more so for find next/previous, therefore repeated in those scripts as well.
+				if not len(self.findText):
+					self.findText = None
 			self.trackFinderGUI()
 
 	@scriptHandler.script(
