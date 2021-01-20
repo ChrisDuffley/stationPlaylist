@@ -1494,6 +1494,10 @@ class AppModule(appModuleHandler.AppModule):
 		description=_("Finds text in columns."))
 	def script_columnSearch(self, gesture):
 		if self._trackFinderCheck(1):
+			if self.findText is not None:
+				self.findText = list(filter(lambda x: x not in (None, ""), self.findText))
+				if not len(self.findText):
+					self.findText = None
 			self.trackFinderGUI(columnSearch=True)
 
 	# Find next and previous scripts.
@@ -1504,6 +1508,11 @@ class AppModule(appModuleHandler.AppModule):
 		gesture="kb:nvda+f3")
 	def script_findTrackNext(self, gesture):
 		if self._trackFinderCheck(0):
+			# Although counterintuitive, filtering must take place here as well to avoid finding nothing or everything.
+			# Passing in None or an empty string to track finder results in "finding" the next track.
+			self.findText = list(filter(lambda x: x not in (None, ""), self.findText))
+			if not len(self.findText):
+				self.findText = None
 			if self.findText is None:
 				self.trackFinderGUI()
 			else:
@@ -1518,6 +1527,10 @@ class AppModule(appModuleHandler.AppModule):
 		gesture="kb:shift+nvda+f3")
 	def script_findTrackPrevious(self, gesture):
 		if self._trackFinderCheck(0):
+			# Same as find next: filter find text list here, too.
+			self.findText = list(filter(lambda x: x not in (None, ""), self.findText))
+			if not len(self.findText):
+				self.findText = None
 			if self.findText is None:
 				self.trackFinderGUI()
 			else:
