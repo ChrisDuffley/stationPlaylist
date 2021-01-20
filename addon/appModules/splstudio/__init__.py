@@ -2361,7 +2361,10 @@ class AppModule(appModuleHandler.AppModule):
 		# 7.0: Place marker command will still be restricted to playlist viewer in order to prevent focus bouncing.
 		# #81: no more custom message for place marker track, as the generic one will be enough for now.
 		if self.canPerformPlaylistCommands() == self.SPLPlaylistNoErrors:
-			if self.placeMarker is None:
+			# 21.03/20.09.6-LTS: guard against place marker filename becoming nothing.
+			if self.placeMarker in (None, ""):
+				# Nullify place marker if it holds incorrect data.
+				self.placeMarker = None
 				# Translators: Presented when no place marker is found.
 				ui.message(_("No place marker found"))
 			else:
