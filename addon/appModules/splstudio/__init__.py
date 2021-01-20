@@ -1716,9 +1716,7 @@ class AppModule(appModuleHandler.AppModule):
 		# 20.07: no, only list items can become place marker tracks.
 		if track.role != controlTypes.ROLE_LISTITEM:
 			raise ValueError("Only list items can be marked as a place marker track")
-		index = track.indexOf("Filename")
-		filename = track._getColumnContentRaw(index)
-		if self.placeMarker == (index, filename):
+		if self.placeMarker == track._getColumnContentRaw(track.indexOf("Filename")):
 			return True
 		return False
 
@@ -2546,7 +2544,7 @@ class AppModule(appModuleHandler.AppModule):
 			return
 		filename = obj._getColumnContentRaw(index)
 		if filename:
-			self.placeMarker = (index, filename)
+			self.placeMarker = filename
 			# Translators: Presented when place marker track is set.
 			ui.message(_("place marker set"))
 		else:
@@ -2561,11 +2559,8 @@ class AppModule(appModuleHandler.AppModule):
 				# Translators: Presented when no place marker is found.
 				ui.message(_("No place marker found"))
 			else:
-				track = self._trackLocator(
-					self.placeMarker[1],
-					obj=api.getFocusObject().parent.firstChild,
-					columns=[self.placeMarker[0]]
-				)
+				obj = api.getFocusObject().parent.firstChild
+				track = self._trackLocator(self.placeMarker, obj=obj, columns=[obj.indexOf("Filename")])
 				# 21.03/20.09.6-LTS: only do the following if a track is found.
 				if track:
 					# 16.11: Just like Track Finder, use select track function to select the place marker track.
