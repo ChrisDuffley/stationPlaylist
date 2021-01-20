@@ -2566,9 +2566,15 @@ class AppModule(appModuleHandler.AppModule):
 					obj=api.getFocusObject().parent.firstChild,
 					columns=[self.placeMarker[0]]
 				)
-				# 16.11: Just like Track Finder, use select track function to select the place marker track.
-				# 20.09: perform doAction instead.
-				track.doAction()
+				# 21.03/20.09.6-LTS: only do the following if a track is found.
+				if track:
+					# 16.11: Just like Track Finder, use select track function to select the place marker track.
+					# 20.09: perform doAction instead.
+					track.doAction()
+				else:
+					# 21.03/20.09.6-LTS: bogus place marker, so nullify it.
+					self.placeMarker = None
+					ui.message(_("No place marker found"))
 
 	def script_metadataStreamingAnnouncer(self, gesture):
 		# 8.0: Call the module-level function directly.
