@@ -306,7 +306,7 @@ def _populateCarts(carts, cartlst, modifier, standardEdition=False, refresh=Fals
 
 
 # Cart file timestamps.
-_cartEditTimestamps = None
+_cartEditTimestamps = []
 
 
 # Initialize Cart Explorer i.e. fetch carts.
