@@ -451,6 +451,10 @@ def metadataStatus():
 			return _("Metadata streaming configured for URL's {URL}").format(URL=urls)
 
 
+# Handle a case where instant profile ssitch occurs twice within the switch time-out.
+_earlyMetadataAnnouncer = None
+
+
 # Internal metadata status announcer.
 # The idea is to pause for a while and announce the status message and playing the accompanying wave file.
 # This is necessary in order to allow extension points to work correctly
@@ -464,10 +468,6 @@ def _metadataAnnouncerInternal(status, startup=False):
 	# #51 (18.03/15.14-LTS): close link to metadata announcer thread when finished.
 	global _earlyMetadataAnnouncer
 	_earlyMetadataAnnouncer = None
-
-
-# Handle a case where instant profile ssitch occurs twice within the switch time-out.
-_earlyMetadataAnnouncer = None
 
 
 def _earlyMetadataAnnouncerInternal(status, startup=False):
