@@ -394,8 +394,6 @@ class ConfigHub(ChainMap):
 
 	def _cacheProfile(self, conf):
 		global _SPLCache
-		if _SPLCache is None:
-			_SPLCache = {}
 		key = None if conf.filename == SPLIni else conf.name
 		# 8.0: Caching the dictionary (items) is enough.
 		# Do not just copy dictionaries, as it copies references.
@@ -731,7 +729,7 @@ def closeConfig(splComponent):
 		config.post_configReset.unregister(SPLConfig.handlePostConfigReset)
 		SPLConfig = None
 		_SPLCache.clear()
-		_SPLCache = None
+		_SPLCache = {}
 
 
 # Terminate the config and related subsystems.
