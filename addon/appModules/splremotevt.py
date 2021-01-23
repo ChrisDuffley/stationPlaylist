@@ -5,6 +5,9 @@
 # Basic support for StationPlaylist Remote VT Client.
 # Borrows heavily from creator as the user interface is quite similar with changes specific to VT Client.
 
+# #155 (21.03): remove __future__ import when NVDA runs under Python 3.10.
+from __future__ import annotations
+from typing import Any
 import addonHandler
 import globalVars
 import ui

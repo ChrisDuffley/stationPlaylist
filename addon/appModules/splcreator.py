@@ -4,6 +4,9 @@
 
 # Basic support for StationPlaylist Creator.
 
+# #155 (21.03): remove __future__ import when NVDA runs under Python 3.10.
+from __future__ import annotations
+from typing import Any
 import appModuleHandler
 import addonHandler
 import scriptHandler

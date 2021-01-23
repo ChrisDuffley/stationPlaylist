@@ -6,6 +6,9 @@
 # For UI surrounding this module, see splconfui module.
 # For the add-on settings specification, see splconfspec module.
 
+# #155 (21.03): remove __future__ import when NVDA runs under Python 3.10.
+from __future__ import annotations
+from typing import Optional, Any
 import os
 import pickle
 from collections import ChainMap

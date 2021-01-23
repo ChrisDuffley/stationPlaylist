@@ -2,6 +2,8 @@
 # Copyright 2015-2021 Joseph Lee, released under GPL.
 # Split from main global plugin in 2015, transferred to SPL Engine app module in 2020.
 
+# #155 (21.03): remove __future__ import when NVDA runs under Python 3.10.
+from __future__ import annotations
 import threading
 import time
 import os

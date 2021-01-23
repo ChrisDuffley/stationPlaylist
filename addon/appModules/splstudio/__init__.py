@@ -12,6 +12,9 @@
 
 # Minimum version: SPL 5.30, NVDA 2020.3.
 
+# #155 (21.03): remove __future__ import when NVDA runs under Python 3.10.
+from __future__ import annotations
+from typing import Any
 from functools import wraps
 import os
 import time
