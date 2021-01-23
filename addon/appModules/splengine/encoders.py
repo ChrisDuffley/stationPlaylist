@@ -103,11 +103,14 @@ def _removeEncoderID(encoderType, pos):
 		SPLPlayAfterConnecting, SPLBackgroundMonitor,
 		SPLNoConnectionTone, SPLConnectionStopOnError
 	):
+		# 21.03/20.09.6-LTS: encoder settings must be either a set or a dictionary unless changed in the future.
+		if not isinstance(encoderSettings, (set, dict)):
+			return
 		if encoderID in encoderSettings:
 			# Other than encoder labels (a dictionary), others are sets.
 			if isinstance(encoderSettings, set):
 				encoderSettings.remove(encoderID)
-			else:
+			elif isinstance(encoderSettings, dict):
 				del encoderSettings[encoderID]
 		# In flag sets, unless members are sorted, encoders will appear in random order
 		# (a downside of using sets, as their ordering is quite unpredictable).
@@ -125,7 +128,7 @@ def _removeEncoderID(encoderType, pos):
 				if isinstance(encoderSettings, set):
 					encoderSettings.remove(item)
 					encoderSettings.add("{} {}".format(encoderType, int(item.split()[-1]) - 1))
-				else:
+				elif isinstance(encoderSettings, dict):
 					encoderSettings["{} {}".format(encoderType, int(item.split()[-1]) - 1)] = encoderSettings.pop(item)
 
 
