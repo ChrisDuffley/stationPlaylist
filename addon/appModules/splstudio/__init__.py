@@ -68,7 +68,7 @@ def finally_(func, final):
 SPLMinVersion = "5.30"
 
 # Threads pool.
-micAlarmT = None
+micAlarmT: Optional[threading.Timer] = None
 micAlarmT2 = None
 libScanT = None
 
