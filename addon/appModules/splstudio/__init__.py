@@ -73,7 +73,7 @@ micAlarmT2 = None
 libScanT = None
 
 # Versions of Studio where library scanning functionality is broken.
-noLibScanMonitor = []
+noLibScanMonitor: list[str] = []
 
 
 # Braille and play a sound in response to an alarm or an event.
@@ -1563,7 +1563,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Cart explorer
 	cartExplorer = False
 	# The carts dictionary (key = cart gesture, item = cart name).
-	carts = {}
+	carts: dict[str, Any] = {}
 
 	# Assigning and building carts.
 
@@ -2227,7 +2227,7 @@ class AppModule(appModuleHandler.AppModule):
 		SPLTemperature: [7, 0],  # Temperature for the current city.
 	}
 
-	_cachedStatusObjs = {}
+	_cachedStatusObjs: dict[int, Any] = {}
 
 	# Called in the layer commands themselves.
 	# 16.11: in Studio 5.20, it is possible to obtain some of these via the API, hence the API method is used.

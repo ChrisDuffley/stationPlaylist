@@ -38,7 +38,7 @@ SPLPlayAfterConnecting = set()
 # Use a thread to monitor status changes for encoders.
 SPLBackgroundMonitor = set()
 # A collection of encoder status monitor threads.
-SPLBackgroundMonitorThreads = {}
+SPLBackgroundMonitorThreads: dict[str, threading.Thread] = {}
 # Do not play connection tone while an encoder is connecting.
 SPLNoConnectionTone = set()
 # Stop announcing connection status messages when an error is encountered.

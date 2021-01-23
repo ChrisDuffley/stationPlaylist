@@ -107,7 +107,7 @@ class AppModule(appModuleHandler.AppModule):
 	SPLEditorDateTime = 0
 	SPLEditorDuration = 1
 	SPLEditorStatusBar = 2
-	_playlistEditorStatusCache = {}
+	_playlistEditorStatusCache: dict[int, Any] = {}
 
 	@scriptHandler.script(gesture="kb:alt+NVDA+1")
 	def script_playlistDateTime(self, gesture):

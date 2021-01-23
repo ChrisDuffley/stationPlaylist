@@ -59,4 +59,4 @@ class AppModule(splcreator.AppModule):
 	# Playlist editor is same as Creator except it responds a bit faster.
 	# Without keeping a copy of status cache, NVDA will announce wrong values
 	# as Creator app module's cache will be used.
-	_playlistEditorStatusCache = {}
+	_playlistEditorStatusCache: dict[int, Any] = {}
