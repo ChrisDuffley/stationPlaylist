@@ -16,7 +16,8 @@ class TEditNoLabel(IAccessible):
 		return "Buffer Size {0} ms".format(self.value)
 
 
-class AppModule(AppModule):
+# #155 (21.03): AppModule base class comes from SPL Engine app module but Mypy doesn't know that.
+class AppModule(AppModule):  # type: ignore[no-redef]
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		# Try adding labels written to the screen in case edit fields are encountered.
