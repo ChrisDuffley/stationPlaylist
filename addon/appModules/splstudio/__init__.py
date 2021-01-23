@@ -1405,9 +1405,10 @@ class AppModule(appModuleHandler.AppModule):
 		if self._trackFinderCheck(0):
 			# Although counterintuitive, filtering must take place here as well to avoid finding nothing or everything.
 			# Passing in None or an empty string to track finder results in "finding" the next track.
-			self.findText = list(filter(lambda x: x not in (None, ""), self.findText))
-			if not len(self.findText):
-				self.findText = None
+			if self.findText is not None:
+				self.findText = list(filter(lambda x: x not in (None, ""), self.findText))
+				if not len(self.findText):
+					self.findText = None
 			if self.findText is None:
 				self.trackFinderGUI()
 			else:
@@ -1423,9 +1424,10 @@ class AppModule(appModuleHandler.AppModule):
 	def script_findTrackPrevious(self, gesture):
 		if self._trackFinderCheck(0):
 			# Same as find next: filter find text list here, too.
-			self.findText = list(filter(lambda x: x not in (None, ""), self.findText))
-			if not len(self.findText):
-				self.findText = None
+			if self.findText is not None:
+				self.findText = list(filter(lambda x: x not in (None, ""), self.findText))
+				if not len(self.findText):
+					self.findText = None
 			if self.findText is None:
 				self.trackFinderGUI()
 			else:
