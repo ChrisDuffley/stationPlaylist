@@ -45,6 +45,18 @@ confspecprofiles = {sect: key for sect, key in confspec.items() if sect in _muta
 defaultProfileName = _("Normal profile")
 # StationPlaylist components.
 _SPLComponents_ = ("splstudio", "splcreator", "tracktool")
+# In case one or more profiles had config issues, look up the error message from the following map.
+_configErrors = {
+	"fileReset": "Settings reset to defaults due to configuration file coruption",
+	"completeReset": "All settings reset to defaults",
+	"partialReset": "Some settings reset to defaults",
+	"columnOrderReset": "Column announcement order reset to defaults",
+	"partialAndColumnOrderReset": "Some settings, including column announcement order reset to defaults",
+	"noInstantProfile": "Cannot find instant profile"
+}
+
+# Record config error status for profiles if any.
+_configLoadStatus: dict[str, str] = {}  # Key = filename, value is pass or no pass.
 
 
 # 8.0: Run-time config storage and management will use ConfigHub data structure, a subclass of chain map.
@@ -670,22 +682,6 @@ class ConfigHub(ChainMap):
 _SPLDefaults = ConfigObj(None, configspec=confspec, encoding="UTF-8")
 _val = Validator()
 _SPLDefaults.validate(_val, copy=True)
-
-
-# In case one or more profiles had config issues, look up the error message from the following map.
-_configErrors = {
-	"fileReset": "Settings reset to defaults due to configuration file coruption",
-	"completeReset": "All settings reset to defaults",
-	"partialReset": "Some settings reset to defaults",
-	"columnOrderReset": "Column announcement order reset to defaults",
-	"partialAndColumnOrderReset": "Some settings, including column announcement order reset to defaults",
-	"noInstantProfile": "Cannot find instant profile"
-}
-
-# To be run in app module constructor.
-# With the load function below, prepare config and other things upon request.
-# Prompt the config error dialog only once.
-_configLoadStatus: dict[str, str] = {}  # Key = filename, value is pass or no pass.
 # Track comments map.
 trackComments = {}
 
