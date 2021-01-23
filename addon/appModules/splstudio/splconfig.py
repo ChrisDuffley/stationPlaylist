@@ -685,7 +685,7 @@ _configErrors = {
 # To be run in app module constructor.
 # With the load function below, prepare config and other things upon request.
 # Prompt the config error dialog only once.
-_configLoadStatus = {}  # Key = filename, value is pass or no pass.
+_configLoadStatus: dict[str, str] = {}  # Key = filename, value is pass or no pass.
 # Track comments map.
 trackComments = {}
 

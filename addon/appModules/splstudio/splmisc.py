@@ -4,6 +4,8 @@
 # Miscellaneous functions and user interfaces
 # Split from config module in 2015.
 
+# #155 (21.03): remove __future__ import when NVDA runs under Python 3.10.
+from __future__ import annotations
 import weakref
 import os
 import threading
@@ -306,7 +308,7 @@ def _populateCarts(carts, cartlst, modifier, standardEdition=False, refresh=Fals
 
 
 # Cart file timestamps.
-_cartEditTimestamps = []
+_cartEditTimestamps: list[float] = []
 
 
 # Initialize Cart Explorer i.e. fetch carts.

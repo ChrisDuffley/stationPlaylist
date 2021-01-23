@@ -14,7 +14,7 @@
 
 # #155 (21.03): remove __future__ import when NVDA runs under Python 3.10.
 from __future__ import annotations
-from typing import Any
+from typing import Any, Optional
 from functools import wraps
 import os
 import time
@@ -1378,7 +1378,8 @@ class AppModule(appModuleHandler.AppModule):
 	# 6.0: Split this routine into two functions, with the while loop moving to a function of its own.
 	# This new function will be used by track finder and place marker locator.
 	# 17.08: now it is a list that records search history.
-	findText = None
+	# 21.03: accept both None and str because it will be filtered to remove None anyway.
+	findText: Optional[list[Optional[str]]] = None
 
 	def trackFinder(self, text, obj, directionForward=True, column=None):
 		speech.cancelSpeech()
