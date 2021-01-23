@@ -95,7 +95,7 @@ def _removeEncoderID(encoderType, pos):
 	for encoderSettings in (SPLEncoderLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError):
 		# 21.03/20.09.6-LTS: encoder settings must be either a set or a dictionary unless changed in the future.
 		if not isinstance(encoderSettings, (set, dict)):
-			return
+			continue
 		if encoderID in encoderSettings:
 			# Other than encoder labels (a dictionary), others are sets.
 			if isinstance(encoderSettings, set):
