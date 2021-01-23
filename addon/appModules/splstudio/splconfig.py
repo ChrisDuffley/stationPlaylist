@@ -32,6 +32,10 @@ from ..skipTranslation import translate
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
 SPLProfiles = os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "profiles")
 SPLConfig = None
+# Cache a copy of the loaded config.
+# This comes in handy when saving configuration to disk. For the most part, no change occurs to config.
+# This helps prolong life of a solid-state drive (preventing unnecessary writes).
+_SPLCache = {}
 # The following settings can be changed in profiles:
 _mutatableSettings = ("IntroOutroAlarms", "MicrophoneAlarm", "MetadataStreaming", "ColumnAnnouncement")
 # 7.0: Profile-specific confspec (might be removed once a more optimal way to validate sections is found).
@@ -735,12 +739,6 @@ def initialize():
 			# Translators: Standard error title for configuration error.
 			_("Studio add-on Configuration error"), wx.OK | wx.ICON_ERROR
 		)
-
-
-# Cache a copy of the loaded config.
-# This comes in handy when saving configuration to disk. For the most part, no change occurs to config.
-# This helps prolong life of a solid-state drive (preventing unnecessary writes).
-_SPLCache = {}
 
 
 # Close config database if needed.
