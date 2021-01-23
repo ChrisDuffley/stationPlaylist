@@ -31,7 +31,7 @@ from ..skipTranslation import translate
 # Configuration management
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")
 SPLProfiles = os.path.join(globalVars.appArgs.configPath, "addons", "stationPlaylist", "profiles")
-SPLConfig = None
+SPLConfig: Optional[ConfigHub] = None
 # Cache a copy of the loaded config.
 # This comes in handy when saving configuration to disk. For the most part, no change occurs to config.
 # This helps prolong life of a solid-state drive (preventing unnecessary writes).

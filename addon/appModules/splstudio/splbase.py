@@ -4,6 +4,7 @@
 
 # Base services for Studio app module and support modules
 
+from typing import Optional
 import ui
 from winUser import sendMessage, user32
 from logHandler import log
@@ -11,7 +12,7 @@ import addonHandler
 addonHandler.initTranslation()
 
 # Cache the handle to main Studio window.
-_SPLWin = None
+_SPLWin: Optional[int] = None
 
 
 # Check if Studio itself is running.

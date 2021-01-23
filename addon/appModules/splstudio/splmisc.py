@@ -6,6 +6,7 @@
 
 # #155 (21.03): remove __future__ import when NVDA runs under Python 3.10.
 from __future__ import annotations
+from typing import Optional
 import weakref
 import os
 import threading
@@ -452,7 +453,7 @@ def metadataStatus():
 
 
 # Handle a case where instant profile ssitch occurs twice within the switch time-out.
-_earlyMetadataAnnouncer = None
+_earlyMetadataAnnouncer: Optional[threading.Timer] = None
 
 
 # Internal metadata status announcer.

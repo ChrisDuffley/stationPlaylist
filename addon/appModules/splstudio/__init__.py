@@ -70,7 +70,7 @@ SPLMinVersion = "5.30"
 # Threads pool.
 micAlarmT: Optional[threading.Timer] = None
 micAlarmT2 = None
-libScanT = None
+libScanT: Optional[threading.Thread] = None
 
 # Versions of Studio where library scanning functionality is broken.
 noLibScanMonitor: list[str] = []
@@ -670,7 +670,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Translators: Script category for StationPlaylist add-on commands in input gestures dialog.
 	scriptCategory = _("StationPlaylist")
-	_focusedTrack = None
+	_focusedTrack: Optional[Any] = None
 	# Monitor Studio API routines.
 	_SPLStudioMonitor = None
 
