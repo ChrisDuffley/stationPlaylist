@@ -20,7 +20,7 @@ addonHandler.initTranslation()
 
 # Return a tuple of column headers.
 # This is just a thinly disguised indexOf function from Studio's track item class.
-def indexOf(creatorVersion):
+def indexOf(creatorVersion: str) -> tuple[str, ...]:
 	# Nine columns per line for each tuple.
 	if creatorVersion >= "5.31":
 		return (

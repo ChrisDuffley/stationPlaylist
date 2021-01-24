@@ -7,6 +7,8 @@
 # Each track is a list item with descriptions such as title, file name, intro time and so forth.
 # One can press TAB to move along the controls for Track Tool.
 
+# #155 (21.03): remove __future__ import when NVDA runs under Python 3.10.
+from __future__ import annotations
 import appModuleHandler
 import addonHandler
 import tones
@@ -17,7 +19,7 @@ addonHandler.initTranslation()
 
 # Return a tuple of column headers.
 # This is just a thinly disguised indexOf function from Studio's track item class.
-def indexOf(ttVersion):
+def indexOf(ttVersion: str) -> tuple[str, ...]:
 	# Nine columns per line for each tuple.
 	if ttVersion < "5.31":
 		return (

@@ -50,7 +50,7 @@ encoderConfig = None
 
 
 # Load encoder config (including labels and other goodies) from a file-based database.
-def loadEncoderConfig():
+def loadEncoderConfig() -> None:
 	# 20.11 (Flake8 E501): define global variables when first used, not here due to line length.
 	global encoderConfig
 	encoderConfigPath = os.path.join(globalVars.appArgs.configPath, "splencoders.ini")
@@ -95,7 +95,7 @@ def loadEncoderConfig():
 
 # Remove encoder ID from various settings maps and sets.
 # This is a private module level function in order for it to be invoked by humans alone.
-def _removeEncoderID(encoderType, pos):
+def _removeEncoderID(encoderType: str, pos: str) -> None:
 	encoderID = " ".join([encoderType, pos])
 	# Go through each feature map/set, remove the encoder ID and manipulate encoder positions.
 	for encoderSettings in (
@@ -133,7 +133,7 @@ def _removeEncoderID(encoderType, pos):
 
 
 # Save encoder labels and flags, called when closing app modules and/or config save command is pressed.
-def saveEncoderConfig():
+def saveEncoderConfig() -> None:
 	# Gather stream labels and flags.
 	# 20.11: dictionaries and sets are global items.
 	encoderConfig["EncoderLabels"] = dict(SPLEncoderLabels)
@@ -153,7 +153,7 @@ def saveEncoderConfig():
 # Nullify various flag sets, otherwise memory leak occurs.
 # 20.04: if told to do so, save encoder settings and unregister config save handler.
 # In case this is called as part of a reset, unregister config save handler unconditionally.
-def cleanup(appTerminating=False, reset=False):
+def cleanup(appTerminating: bool = False, reset: bool = False) -> None:
 	# 20.11 (Flake8 E501): apart from encoder config, other flag containers are global variables.
 	global encoderConfig
 	# #132 (20.05): do not proceed if encoder settings database is None (no encoders were initialized).
@@ -182,7 +182,7 @@ def cleanup(appTerminating=False, reset=False):
 # Reset encoder settings.
 # Because simply reloading settings will introduce errors,
 # respond only to proper reset signal (Control+NVDA+R three times).
-def resetEncoderConfig(factoryDefaults=False):
+def resetEncoderConfig(factoryDefaults: bool = False) -> None:
 	if factoryDefaults:
 		cleanup(reset=True)
 
@@ -297,7 +297,7 @@ class EncoderConfigDialog(wx.Dialog):
 
 
 # Announce connected encoders if any.
-def announceEncoderConnectionStatus():
+def announceEncoderConnectionStatus() -> None:
 	import windowUtils
 	# For SAM encoders, descend into encoder window after locating the foreground window.
 	# For others, look for a specific SysListView32 control.

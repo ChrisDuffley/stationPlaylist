@@ -19,7 +19,7 @@ _SPLWin: Optional[int] = None
 # This is to make sure custom commands for SPL Assistant commands
 # and other app module gestures display appropriate error messages.
 # 19.02: some checks will need to omit message output.
-def studioIsRunning(justChecking=False):
+def studioIsRunning(justChecking: bool = False) -> bool:
 	# Keep the boolean flag handy because of message output.
 	isStudioAlive = (
 		(_SPLWin is not None and _SPLWin == user32.FindWindowW("SPLStudio", None))
@@ -40,7 +40,7 @@ def studioIsRunning(justChecking=False):
 # 18.05: strengthen this by checking for the handle once more.
 # #92 (19.03): SendMessage function returns something from anything (including from dead window handles),
 # so really make sure Studio window handle is alive.
-def studioAPI(arg, command):
+def studioAPI(arg: int, command: int) -> Optional[int]:
 	if not studioIsRunning(justChecking=True):
 		return
 	log.debug(f"SPL: Studio API wParem is {arg}, lParem is {command}")
@@ -50,7 +50,7 @@ def studioAPI(arg, command):
 
 
 # Select a track upon request.
-def selectTrack(trackIndex):
+def selectTrack(trackIndex: int) -> None:
 	studioAPI(-1, 121)
 	log.debug(f"SPL: selecting track index {trackIndex}")
 	studioAPI(trackIndex, 121)

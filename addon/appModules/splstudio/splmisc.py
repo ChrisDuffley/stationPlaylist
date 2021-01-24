@@ -6,7 +6,7 @@
 
 # #155 (21.03): remove __future__ import when NVDA runs under Python 3.10.
 from __future__ import annotations
-from typing import Optional
+from typing import Any, Optional
 import weakref
 import os
 import threading
@@ -37,7 +37,7 @@ _findDialogOpened = False
 
 # Track Finder error dialog.
 # This will be refactored into something else.
-def _finderError():
+def _finderError() -> None:
 	global _findDialogOpened
 	if _findDialogOpened:
 		gui.messageBox(
@@ -279,7 +279,7 @@ cartKeys = (
 )
 
 
-def _populateCarts(carts, cartlst, modifier, standardEdition=False, refresh=False):
+def _populateCarts(carts: dict[str, Any], cartlst: list[str], modifier: str, standardEdition: bool = False, refresh: bool = False) -> None:
 	# The real cart string parser, a helper for cart explorer for building cart entries.
 	# 5.2: Discard number row if SPL Standard is in use.
 	if standardEdition:
@@ -316,7 +316,7 @@ _cartEditTimestamps: list[float] = []
 # Cart files list is for future use when custom cart names are used.
 # if told to refresh, timestamps will be checked and updated banks will be reassigned.
 # Carts dictionary is used if and only if refresh is on, as it'll modify live carts.
-def cartExplorerInit(StudioTitle, cartFiles=None, refresh=False, carts=None):
+def cartExplorerInit(StudioTitle: str, cartFiles: Optional[list[str]] = None, refresh: bool = False, carts: dict[str, Any] = None) -> dict[str, Any]:
 	global _cartEditTimestamps
 	log.debug("SPL: refreshing Cart Explorer" if refresh else "preparing cart Explorer")
 	# Use cart files in SPL's data folder to build carts dictionary.
@@ -380,7 +380,7 @@ def cartExplorerInit(StudioTitle, cartFiles=None, refresh=False, carts=None):
 
 # Refresh carts upon request.
 # calls cart explorer init with special (internal) flags.
-def cartExplorerRefresh(studioTitle, currentCarts):
+def cartExplorerRefresh(studioTitle: str, currentCarts: dict[str, Any]) -> dict[str, Any]:
 	return cartExplorerInit(studioTitle, refresh=True, carts=currentCarts)
 
 
@@ -390,7 +390,7 @@ def cartExplorerRefresh(studioTitle, currentCarts):
 # Gather streaming flags into a list.
 # 18.04: raise runtime error if list is nothing
 # (thankfully the splbase's StudioAPI will return None if Studio handle is not found).
-def metadataList():
+def metadataList() -> list[int]:
 	metadata = [splbase.studioAPI(pos, 36) for pos in range(5)]
 	if metadata == [None, None, None, None, None]:
 		raise RuntimeError("Studio handle not found, no metadata list to return")
@@ -400,7 +400,7 @@ def metadataList():
 # Metadata server connector, to be utilized from many modules.
 # Servers refer to a list of connection flags to pass to Studio API,
 # and if not present, will be pulled from add-on settings.
-def metadataConnector(servers=None):
+def metadataConnector(servers: Optional[list[bool]] = None) -> None:
 	if servers is None:
 		from . import splconfig
 		servers = splconfig.SPLConfig["MetadataStreaming"]["MetadataEnabled"]
@@ -411,7 +411,7 @@ def metadataConnector(servers=None):
 
 # Metadata status formatter.
 # 18.04: say something if Studio handle is not found.
-def metadataStatus():
+def metadataStatus() -> str:
 	try:
 		streams = metadataList()
 	except RuntimeError:
@@ -461,7 +461,7 @@ _earlyMetadataAnnouncer: Optional[threading.Timer] = None
 # This is necessary in order to allow extension points to work correctly
 # and to not hold up other registered action handlers.
 # A special startup flag will be used so other text sequences will not be cut off.
-def _metadataAnnouncerInternal(status, startup=False):
+def _metadataAnnouncerInternal(status: str, startup: bool = False) -> None:
 	if not startup:
 		speech.cancelSpeech()
 	queueHandler.queueFunction(queueHandler.eventQueue, ui.message, status)
@@ -471,7 +471,7 @@ def _metadataAnnouncerInternal(status, startup=False):
 	_earlyMetadataAnnouncer = None
 
 
-def _earlyMetadataAnnouncerInternal(status, startup=False):
+def _earlyMetadataAnnouncerInternal(status: str, startup: bool = False) -> None:
 	global _earlyMetadataAnnouncer
 	if _earlyMetadataAnnouncer is not None:
 		_earlyMetadataAnnouncer.cancel()
@@ -490,7 +490,7 @@ _delayMetadataAction = False
 # The config dialog active flag is only invoked when being notified while add-on settings dialog is focused.
 # Settings reset flag is used to prevent metadata server connection
 # when settings are reloaded from disk or reset to defaults.
-def metadata_actionProfileSwitched(configDialogActive=False, settingsReset=False):
+def metadata_actionProfileSwitched(configDialogActive: bool = False, settingsReset: bool = False) -> None:
 	from . import splconfig
 	# Only connect if add-on settings is active in order to avoid wasting thread running time.
 	if configDialogActive:
@@ -523,7 +523,7 @@ def metadata_actionProfileSwitched(configDialogActive=False, settingsReset=False
 
 
 # The only job of this action handler is to call profile switch handler above with special flags.
-def metadata_actionSettingsReset(factoryDefaults=False):
+def metadata_actionSettingsReset(factoryDefaults: bool = False) -> None:
 	metadata_actionProfileSwitched(settingsReset=True)
 
 
@@ -536,7 +536,7 @@ SPLPlaylistTranscriptFormats = []
 # Obtain column presentation order.
 # Although this is useful in playlist transcripts,
 # it can also be useful for column announcement inclusion and order.
-def columnPresentationOrder():
+def columnPresentationOrder() -> list[str]:
 	from . import splconfig
 	return [
 		column for column in splconfig.SPLConfig["PlaylistTranscripts"]["ColumnOrder"]
@@ -548,11 +548,11 @@ def columnPresentationOrder():
 # copying to clipboard (text style format only), and saving to a file.
 
 
-def displayPlaylistTranscripts(transcript, HTMLDecoration=False):
+def displayPlaylistTranscripts(transcript: list[str], HTMLDecoration: bool = False) -> None:
 	ui.browseableMessage("\n".join(transcript), title=_("Playlist Transcripts"), isHtml=HTMLDecoration)
 
 
-def copyPlaylistTranscriptsToClipboard(playlistTranscripts):
+def copyPlaylistTranscriptsToClipboard(playlistTranscripts: list[str]) -> None:
 	# Only text style transcript such as pure text and Markdown supports copying contents to clipboard.
 	import api
 	api.copyToClip("\r\n".join(playlistTranscripts))
@@ -560,7 +560,7 @@ def copyPlaylistTranscriptsToClipboard(playlistTranscripts):
 	ui.message(_("Playlist data copied to clipboard"))
 
 
-def savePlaylistTranscriptsToFile(playlistTranscripts, extension, location=None):
+def savePlaylistTranscriptsToFile(playlistTranscripts: list[str], extension: str, location: Optional[str] = None) -> None:
 	# By default playlist transcripts will be saved to a subfolder in user's Documents folder
 	# named "nvdasplPlaylistTranscripts".
 	# Each transcript file will be named yyyymmdd-hhmmss-splPlaylistTranscript.ext.
@@ -583,7 +583,7 @@ def savePlaylistTranscriptsToFile(playlistTranscripts, extension, location=None)
 # For text file 1 and HTML list 1, it expects playlist data in the format presented by MSAA.
 # Header will not be included if additional decorations will be done (mostly for HTML and others).
 # Prefix and suffix denote text to be added around entries (useful for various additional decoration rules).
-def playlist2msaa(start, end, additionalDecorations=False, prefix="", suffix=""):
+def playlist2msaa(start: Any, end: Any, additionalDecorations: bool = False, prefix: str = "", suffix: str = "") -> list[str]:
 	playlistTranscripts = []
 	# Just pure text, ready for the clipboard or writing to a txt file.
 	if not additionalDecorations:
@@ -607,7 +607,7 @@ def playlist2msaa(start, end, additionalDecorations=False, prefix="", suffix="")
 	return playlistTranscripts
 
 
-def playlist2txt(start, end, transcriptAction):
+def playlist2txt(start: Any, end: Any, transcriptAction: int) -> None:
 	playlistTranscripts = playlist2msaa(start, end)
 	if transcriptAction == 0:
 		displayPlaylistTranscripts(playlistTranscripts)
@@ -620,7 +620,7 @@ def playlist2txt(start, end, transcriptAction):
 SPLPlaylistTranscriptFormats.append(("txt", playlist2txt, "plain text with one line per entry"))
 
 
-def playlist2htmlTable(start, end, transcriptAction):
+def playlist2htmlTable(start: Any, end: Any, transcriptAction: int) -> None:
 	if transcriptAction == 1:
 		playlistTranscripts = ["<html><head><title>Playlist Transcripts</title></head>"]
 		playlistTranscripts.append("<body>")
@@ -651,7 +651,7 @@ def playlist2htmlTable(start, end, transcriptAction):
 SPLPlaylistTranscriptFormats.append(("htmltable", playlist2htmlTable, "Table in HTML format"))
 
 
-def playlist2htmlList(start, end, transcriptAction):
+def playlist2htmlList(start: Any, end: Any, transcriptAction: int) -> None:
 	if transcriptAction == 1:
 		playlistTranscripts = ["<html><head><title>Playlist Transcripts</title></head>"]
 		playlistTranscripts.append("<body>")
@@ -671,7 +671,7 @@ def playlist2htmlList(start, end, transcriptAction):
 SPLPlaylistTranscriptFormats.append(("htmllist", playlist2htmlList, "Data list in HTML format"))
 
 
-def playlist2mdTable(start, end, transcriptAction):
+def playlist2mdTable(start: Any, end: Any, transcriptAction: int) -> None:
 	playlistTranscripts = []
 	columnHeaders = columnPresentationOrder()
 	playlistTranscripts.append("| {headers} |\n".format(headers=" | ".join(columnHeaders)))
@@ -692,7 +692,7 @@ def playlist2mdTable(start, end, transcriptAction):
 SPLPlaylistTranscriptFormats.append(("mdtable", playlist2mdTable, "Table in Markdown format"))
 
 
-def playlist2csv(start, end, transcriptAction):
+def playlist2csv(start: Any, end: Any, transcriptAction: int) -> None:
 	playlistTranscripts = []
 	columnHeaders = columnPresentationOrder()
 	playlistTranscripts.append("\"{0}\"\n".format("\",\"".join([col for col in columnHeaders])))
@@ -716,7 +716,7 @@ SPLPlaylistTranscriptFormats.append(("csv", playlist2csv, "Comma-separated value
 _plTranscriptsDialogOpened = False
 
 
-def plTranscriptsDialogError():
+def plTranscriptsDialogError() -> None:
 	gui.messageBox(
 		# Translators: Text of the dialog when another playlist transcripts dialog is open.
 		_("Another playlist transcripts dialog is open."), translate("Error"), style=wx.OK | wx.ICON_ERROR

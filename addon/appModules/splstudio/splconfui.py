@@ -1469,7 +1469,7 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 
 # Centralize error handling for various SPL add-on settings dialogs.
 # The below error message came directly from NVDA Core's settings dialog opener method (credit: NV Access)
-def _configDialogOpenError():
+def _configDialogOpenError() -> None:
 	gui.messageBox(
 		translate("An NVDA settings dialog is already open. Please close it first."),
 		translate("Error"), style=wx.OK | wx.ICON_ERROR

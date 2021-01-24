@@ -32,7 +32,7 @@ encoderSettingsLabels = {
 
 # #98: call the one from encoders module directly.
 # This is an indirect jump due to SPL Controller's encoder connection status  command.
-def announceEncoderConnectionStatus():
+def announceEncoderConnectionStatus() -> None:
 	from . import encoders
 	encoders.announceEncoderConnectionStatus()
 

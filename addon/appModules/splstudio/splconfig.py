@@ -685,7 +685,7 @@ trackComments = {}
 
 
 # Open config database, used mostly from modules other than Studio.
-def openConfig(splComponent):
+def openConfig(splComponent: str) -> None:
 	global SPLConfig
 	# #64 (18.07): skip this step if another SPL component (such as Creator) opened this.
 	if SPLConfig is None:
@@ -694,7 +694,7 @@ def openConfig(splComponent):
 		SPLConfig.splComponents.add(splComponent)
 
 
-def initialize():
+def initialize() -> None:
 	global SPLConfig, _configLoadStatus, trackComments
 	# Load the default config from a list of profiles.
 	# 8.0: All this work will be performed when ConfigHub loads.
@@ -736,7 +736,7 @@ def initialize():
 
 
 # Close config database if needed.
-def closeConfig(splComponent):
+def closeConfig(splComponent: str) -> None:
 	global SPLConfig, _SPLCache
 	# #99 (19.06/18.09.9-LTS): if more than one instance of a given SPL component executable is running,
 	# do not remove the component from the components registry.
@@ -759,7 +759,7 @@ def closeConfig(splComponent):
 
 
 # Terminate the config and related subsystems.
-def terminate():
+def terminate() -> None:
 	global SPLConfig, _SPLCache
 	# Dump track comments.
 	with open(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"), "wb") as f:
@@ -771,7 +771,7 @@ def terminate():
 
 
 # Called from within the app module.
-def instantProfileSwitch():
+def instantProfileSwitch() -> None:
 	# 17.10: What if only normal profile is in use?
 	if SPLConfig.normalProfileOnly:
 		# Translators: announced when only normal profile is in use.
@@ -880,7 +880,7 @@ Thank you.""")
 
 # And to open the above dialog and any other dialogs.
 # 18.09: return immediately after opening old ver dialog if minimal flag is set.
-def showStartupDialogs(oldVer=False):
+def showStartupDialogs(oldVer: bool = False) -> None:
 	# Old version reminder if this is such a case.
 	# 17.10: and also used to give people a chance to switch to LTS.
 	# 20.06: controlled by a temporary flag that can come and go.
@@ -898,7 +898,7 @@ def showStartupDialogs(oldVer=False):
 # This is a multimap, consisting of category, value and message.
 # Most of the categories are same as confspec keys,
 # hence the below message function is invoked when settings are changed.
-def message(category, value):
+def message(category: str, value: str) -> None:
 	verbosityLevels = ("beginner", "advanced")
 	ui.message(messagePool[category][value][verbosityLevels.index(SPLConfig["General"]["MessageVerbosity"])])
 

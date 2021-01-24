@@ -77,13 +77,13 @@ noLibScanMonitor: list[str] = []
 
 
 # Braille and play a sound in response to an alarm or an event.
-def messageSound(wavFile, message):
+def messageSound(wavFile: str, message: str) -> None:
 	nvwave.playWaveFile(wavFile)
 	braille.handler.message(message)
 
 
 # A special version for microphone alarm (continuous or not).
-def _micAlarmAnnouncer():
+def _micAlarmAnnouncer() -> None:
 	if splconfig.SPLConfig["General"]["AlarmAnnounce"] in ("beep", "both"):
 		nvwave.playWaveFile(os.path.join(os.path.dirname(__file__), "SPL_MicAlarm.wav"))
 	if splconfig.SPLConfig["General"]["AlarmAnnounce"] in ("message", "both"):
@@ -92,7 +92,7 @@ def _micAlarmAnnouncer():
 
 
 # Manage microphone alarm announcement.
-def micAlarmManager(micAlarmWav, micAlarmMessage):
+def micAlarmManager(micAlarmWav: str, micAlarmMessage: str) -> None:
 	messageSound(micAlarmWav, micAlarmMessage)
 	# Play an alarm sound (courtesy of Jerry Mader from Mader Radio).
 	global micAlarmT2
