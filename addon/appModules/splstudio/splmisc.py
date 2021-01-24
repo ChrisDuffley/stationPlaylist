@@ -279,7 +279,10 @@ cartKeys = (
 )
 
 
-def _populateCarts(carts: dict[str, Any], cartlst: list[str], modifier: str, standardEdition: bool = False, refresh: bool = False) -> None:
+def _populateCarts(
+		carts: dict[str, Any], cartlst: list[str],
+		modifier: str, standardEdition: bool = False, refresh: bool = False
+) -> None:
 	# The real cart string parser, a helper for cart explorer for building cart entries.
 	# 5.2: Discard number row if SPL Standard is in use.
 	if standardEdition:
@@ -316,7 +319,9 @@ _cartEditTimestamps: list[float] = []
 # Cart files list is for future use when custom cart names are used.
 # if told to refresh, timestamps will be checked and updated banks will be reassigned.
 # Carts dictionary is used if and only if refresh is on, as it'll modify live carts.
-def cartExplorerInit(StudioTitle: str, cartFiles: Optional[list[str]] = None, refresh: bool = False, carts: dict[str, Any] = None) -> dict[str, Any]:
+def cartExplorerInit(
+		StudioTitle: str, cartFiles: Optional[list[str]] = None, refresh: bool = False, carts: dict[str, Any] = None
+) -> dict[str, Any]:
 	global _cartEditTimestamps
 	log.debug("SPL: refreshing Cart Explorer" if refresh else "preparing cart Explorer")
 	# Use cart files in SPL's data folder to build carts dictionary.
@@ -560,7 +565,9 @@ def copyPlaylistTranscriptsToClipboard(playlistTranscripts: list[str]) -> None:
 	ui.message(_("Playlist data copied to clipboard"))
 
 
-def savePlaylistTranscriptsToFile(playlistTranscripts: list[str], extension: str, location: Optional[str] = None) -> None:
+def savePlaylistTranscriptsToFile(
+		playlistTranscripts: list[str], extension: str, location: Optional[str] = None
+) -> None:
 	# By default playlist transcripts will be saved to a subfolder in user's Documents folder
 	# named "nvdasplPlaylistTranscripts".
 	# Each transcript file will be named yyyymmdd-hhmmss-splPlaylistTranscript.ext.
@@ -583,7 +590,9 @@ def savePlaylistTranscriptsToFile(playlistTranscripts: list[str], extension: str
 # For text file 1 and HTML list 1, it expects playlist data in the format presented by MSAA.
 # Header will not be included if additional decorations will be done (mostly for HTML and others).
 # Prefix and suffix denote text to be added around entries (useful for various additional decoration rules).
-def playlist2msaa(start: Any, end: Any, additionalDecorations: bool = False, prefix: str = "", suffix: str = "") -> list[str]:
+def playlist2msaa(
+		start: Any, end: Any, additionalDecorations: bool = False, prefix: str = "", suffix: str = ""
+) -> list[str]:
 	playlistTranscripts = []
 	# Just pure text, ready for the clipboard or writing to a txt file.
 	if not additionalDecorations:
