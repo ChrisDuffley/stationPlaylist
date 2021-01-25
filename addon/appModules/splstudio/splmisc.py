@@ -320,7 +320,7 @@ _cartEditTimestamps: list[float] = []
 # if told to refresh, timestamps will be checked and updated banks will be reassigned.
 # Carts dictionary is used if and only if refresh is on, as it'll modify live carts.
 def cartExplorerInit(
-		StudioTitle: str, cartFiles: Optional[list[str]] = None, refresh: bool = False, carts: dict[str, Any] = None
+		StudioTitle: str, cartFiles: Optional[list[str]] = None, refresh: bool = False, carts: Optional[dict[str, Any]] = None
 ) -> dict[str, Any]:
 	global _cartEditTimestamps
 	log.debug("SPL: refreshing Cart Explorer" if refresh else "preparing cart Explorer")
