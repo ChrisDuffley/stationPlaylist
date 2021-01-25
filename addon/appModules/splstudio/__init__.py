@@ -143,7 +143,7 @@ class SPLTrackItem(sysListView32.ListItem):
 
 	# #103: provide an abstract index of function.
 	@abstractmethod
-	def indexOf(self, columnHeader):
+	def indexOf(self, columnHeader: str) -> Optional[int]:
 		return None
 
 	@scriptHandler.script(gesture="kb:control+alt+home")
@@ -291,7 +291,7 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 	# 8.0: Make this a public function.
 	# #109 (19.08): now standardized around this function.
 	# #142 (20.09): do not ignore Status column (0) just because it is the name of the track as reported by MSAA.
-	def indexOf(self, columnHeader):
+	def indexOf(self, columnHeader: str) -> Optional[int]:
 		try:
 			columnHeaders = ["Status"] + splconfig._SPLDefaults["ColumnAnnouncement"]["ColumnOrder"]
 			return columnHeaders.index(columnHeader)
@@ -344,7 +344,7 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 	# A convenience method that calls column content getter for a list of columns.
 	# Readable flag will transform None into an empty string, suitable for output.
 	# #61 (18.07): readable flag will become a string parameter to be used in columns viewer.
-	def _getColumnContents(self, columns=None, readable=False):
+	def _getColumnContents(self, columns: Optional[list[int]] = None, readable: bool = False) -> list[Optional[str]]:
 		if columns is None:
 			columns = list(range(18))
 		columnContents = [self._getColumnContentRaw(col) for col in columns]
@@ -391,7 +391,7 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 	# Overlay class version of Columns Explorer.
 
 	@property
-	def exploreColumns(self):
+	def exploreColumns(self) -> list[str]:
 		return splconfig.SPLConfig["General"]["ExploreColumns"]
 
 	# Toggle screen column order.
@@ -418,7 +418,7 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 	# Track comment announcer.
 	# Levels indicate what should be done.
 	# 0 indicates reportFocus, subsequent levels indicate script repeat count+1.
-	def announceTrackComment(self, level):
+	def announceTrackComment(self, level: int) -> None:
 		filename = self._getColumnContentRaw(self.indexOf("Filename"))
 		if filename is not None and filename in splconfig.trackComments:
 			if level == 0:
@@ -449,7 +449,7 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 					ui.message(_("Comments cannot be added to this kind of track"))
 
 	# A proxy function to call the track comments entry dialog.
-	def _trackCommentsEntry(self, filename, comment):
+	def _trackCommentsEntry(self, filename: str, comment: str) -> None:
 		dlg = wx.TextEntryDialog(
 			gui.mainFrame, _("Track comment"),
 			# Translators: The title of the track comments dialog.

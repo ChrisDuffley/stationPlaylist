@@ -6,7 +6,7 @@
 
 # #155 (21.03): remove __future__ import when NVDA runs under Python 3.10.
 from __future__ import annotations
-from typing import Any
+from typing import Any, Optional
 import appModuleHandler
 import addonHandler
 import scriptHandler
@@ -40,14 +40,14 @@ class SPLCreatorItem(SPLTrackItem):
 	"""An entry in SPL Creator (mostly tracks).
 	"""
 
-	def indexOf(self, header):
+	def indexOf(self, header: str) -> Optional[int]:
 		try:
 			return indexOf(self.appModule.productVersion).index(header)
 		except ValueError:
 			return None
 
 	@property
-	def exploreColumns(self):
+	def exploreColumns(self) -> list[str]:
 		return splconfig.SPLConfig["General"]["ExploreColumnsCreator"]
 
 
