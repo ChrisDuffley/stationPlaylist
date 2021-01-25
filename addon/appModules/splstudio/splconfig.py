@@ -8,7 +8,7 @@
 
 # #155 (21.03): remove __future__ import when NVDA runs under Python 3.10.
 from __future__ import annotations
-from typing import Optional, Any
+from typing import Optional, Any, Union
 import os
 import pickle
 from collections import ChainMap
@@ -81,7 +81,7 @@ class ConfigHub(ChainMap):
 	The default value is None, which means Studio (splstudio.exe) app module opened this.
 	"""
 
-	def __init__(self, splComponent=None):
+	def __init__(self, splComponent: Optional[str] = None) -> None:
 		# Check SPL components to make sure malicious actors don't tamper with it.
 		if splComponent is None:
 			splComponent = "splstudio"
@@ -182,36 +182,36 @@ class ConfigHub(ChainMap):
 
 	# Various properties
 	@property
-	def activeProfile(self):
+	def activeProfile(self) -> str:
 		return self.profiles[0].name
 
 	@property
-	def normalProfileOnly(self):
+	def normalProfileOnly(self) -> bool:
 		return self._normalProfileOnly
 
 	@property
-	def configInMemory(self):
+	def configInMemory(self) -> bool:
 		return self._configInMemory
 
 	@property
-	def configRestricted(self):
+	def configRestricted(self) -> bool:
 		return self.normalProfileOnly or self.configInMemory
 
 	# Profile switching flags.
 	_profileSwitchFlags = {"instant": 0x1}
 
 	@property
-	def switchProfileFlags(self):
+	def switchProfileFlags(self) -> int:
 		return self._switchProfileFlags
 
 	@property
-	def instantSwitchProfileActive(self):
+	def instantSwitchProfileActive(self) -> bool:
 		return bool(self._switchProfileFlags & self._profileSwitchFlags["instant"])
 
 	# Unlock (load) profiles from files.
 	# 7.0: Allow new profile settings to be overridden by a parent profile.
 	# 8.0: Don't validate profiles other than normal profile in the beginning.
-	def _unlockConfig(self, path, profileName=None, prefill=False, parent=None, validateNow=False):
+	def _unlockConfig(self, path: str, profileName: Optional[str] = None, prefill: bool = False, parent: Optional[dict[Any, Any]] = None, validateNow: bool = False) -> ConfigObj:
 		# 7.0: Suppose this is one of the steps taken when copying settings when instantiating a new profile.
 		# If so, go through same procedure as though config passes validation tests,
 		# as all values from parent are in the right format.
@@ -253,7 +253,7 @@ class ConfigHub(ChainMap):
 
 	# Config validation.
 	# Separated from unlock routine in 8.0.
-	def _validateConfig(self, SPLConfigCheckpoint, profileName=None, prefill=False):
+	def _validateConfig(self, SPLConfigCheckpoint: ConfigObj, profileName: Optional[str] = None, prefill: bool = False) -> None:
 		global _configLoadStatus
 		configTest = SPLConfigCheckpoint.validate(_val, copy=prefill, preserve_errors=True)
 		# Validator may return "True" if everything is okay,
@@ -283,7 +283,7 @@ class ConfigHub(ChainMap):
 			_configLoadStatus[profileName] = "partialReset"
 
 	# Extra initialization steps such as converting value types.
-	def _extraInitSteps(self, conf, profileName=None):
+	def _extraInitSteps(self, conf: ConfigObj, profileName: Optional[str] = None) -> None:
 		global _configLoadStatus
 		columnOrder = conf["ColumnAnnouncement"]["ColumnOrder"]
 		# Catch suttle errors.
@@ -317,7 +317,7 @@ class ConfigHub(ChainMap):
 
 	# Create profile: public function to access the two private ones above (used when creating a new profile).
 	# Mechanics borrowed from NVDA Core's config.conf with modifications for this add-on.
-	def createProfile(self, path, name, parent=None):
+	def createProfile(self, path: str, name: str, parent: Optional[dict[Any, Any]] = None) -> None:
 		# 17.10: No, not when restrictions are applied.
 		if self.configRestricted:
 			raise RuntimeError("Only normal profile is in use or config was loaded from memory")
@@ -327,7 +327,7 @@ class ConfigHub(ChainMap):
 
 	# Rename and delete profiles.
 	# Mechanics powered by similar routines in NVDA Core's config.conf.
-	def renameProfile(self, oldName, newName):
+	def renameProfile(self, oldName: str, newName: str) -> None:
 		# 17.10: No, not when restrictions are applied.
 		if self.configRestricted:
 			raise RuntimeError("Only normal profile is in use or config was loaded from memory")
@@ -350,7 +350,7 @@ class ConfigHub(ChainMap):
 			self.newProfiles.discard(oldName)
 			self.newProfiles.add(newName)
 
-	def deleteProfile(self, name):
+	def deleteProfile(self, name: str) -> None:
 		# 17.10: No, not when restrictions are applied.
 		if self.configRestricted:
 			raise RuntimeError("Only normal profile is in use or config was loaded from memory")
@@ -369,7 +369,7 @@ class ConfigHub(ChainMap):
 		del self.profileNames[profilePos]
 		self.newProfiles.discard(name)
 
-	def _cacheProfile(self, conf):
+	def _cacheProfile(self, conf: ConfigObj) -> None:
 		global _SPLCache
 		key = None if conf.filename == SPLIni else conf.name
 		# 8.0: Caching the dictionary (items) is enough.
@@ -386,7 +386,7 @@ class ConfigHub(ChainMap):
 			raise KeyError(f'Key not found: {key!r}')
 
 	# Perform some extra work before writing the config file.
-	def _preSave(self, profile):
+	def _preSave(self, profile: ConfigObj) -> None:
 		# Perform global setting processing only for the normal profile.
 		# 7.0: if this is a second pass, index 0 may not be normal profile at all.
 		# Use profile path instead.
@@ -415,7 +415,7 @@ class ConfigHub(ChainMap):
 				if setting in profile and not len(profile[setting]):
 					del profile[setting]
 
-	def save(self):
+	def save(self) -> None:
 		# Save all config profiles unless config was loaded from memory.
 		# #73: also responds to config save notification.
 		# In case this is called when NVDA or last SPL component exits, just follow through,
@@ -483,7 +483,7 @@ class ConfigHub(ChainMap):
 	# Profile indicates the name of the profile to reset or reload.
 	# Sometimes confirmation message will be shown, especially if instant switch profile is active.
 	# Config dialog flag is a special flag reserved for use by add-on settings dialog.
-	def reset(self, factoryDefaults=False, askForConfirmation=False, resetViaConfigDialog=False):
+	def reset(self, factoryDefaults: bool = False, askForConfirmation: bool = False, resetViaConfigDialog: bool = False) -> None:
 		if resetViaConfigDialog:
 			askForConfirmation = bool(factoryDefaults and self._switchProfileFlags)
 		if askForConfirmation:
@@ -554,7 +554,7 @@ class ConfigHub(ChainMap):
 		# so subsystems can take appropriate action.
 		splactions.SPLActionSettingsReset.notify(factoryDefaults=factoryDefaults)
 
-	def handlePostConfigReset(self, factoryDefaults=False):
+	def handlePostConfigReset(self, factoryDefaults: bool = False) -> None:
 		# Confirmation message must be presented on the main thread to avoid freezes.
 		# For this reason, reset method should not be called from threads other than main thread
 		# unless confirmation is not needed.
@@ -563,7 +563,7 @@ class ConfigHub(ChainMap):
 			askForConfirmation=factoryDefaults and self._switchProfileFlags
 		)
 
-	def profileIndexByName(self, name):
+	def profileIndexByName(self, name: str) -> int:
 		# 8.0 optimization: Only traverse the profiles list
 		# if head (active profile) or tail does not yield profile name in question.
 		if name == self.activeProfile:
@@ -575,13 +575,13 @@ class ConfigHub(ChainMap):
 		except ValueError:
 			raise ValueError("The specified profile does not exist")
 
-	def profileByName(self, name):
+	def profileByName(self, name: str) -> ConfigObj:
 		return self.profiles[self.profileIndexByName(name)]
 
 	# Returns list of flags associated with a given profile.
 	# Optional keyword arguments are to be added when called from dialogs such as add-on settings.
 	# A crucial kwarg is contained, and if so, profile flags set will be returned.
-	def getProfileFlags(self, name, active=None, instant=None, contained=False):
+	def getProfileFlags(self, name: str, active: Optional[str] = None, instant: Optional[str] = None, contained: bool = False) -> Union[str, set[str]]:
 		flags = set()
 		if active is None:
 			active = self.activeProfile
@@ -602,7 +602,7 @@ class ConfigHub(ChainMap):
 	# This involves promoting and demoting normal profile.
 	# 17.10: this will never be invoked if only normal profile is in use
 	# or if config was loaded from memory alone.
-	def switchProfile(self, prevProfile, newProfile, switchFlags):
+	def switchProfile(self, prevProfile: Optional[str], newProfile: str, switchFlags: Optional[int]) -> None:
 		if self.normalProfileOnly or self.configInMemory:
 			raise RuntimeError(
 				"Only normal profile is in use or config was loaded from memory, cannot switch profiles"
@@ -632,7 +632,7 @@ class ConfigHub(ChainMap):
 	# The only difference is the switch type, which will then set appropriate flag
 	# to be passed to switchProfile method above, with xor used to set the flags.
 	# 20.06: time-based profile flag is gone (only instant switch flag remains).
-	def switchProfileStart(self, prevProfile, newProfile, switchType):
+	def switchProfileStart(self, prevProfile: Optional[str], newProfile: str, switchType: str) -> None:
 		if switchType != "instant":
 			raise RuntimeError("Incorrect profile switch type specified")
 		if switchType == "instant" and self.instantSwitchProfileActive:
@@ -651,7 +651,7 @@ class ConfigHub(ChainMap):
 		if _SPLCache is not None and newProfile != defaultProfileName and newProfile not in _SPLCache:
 			self._cacheProfile(self.profileByName(newProfile))
 
-	def switchProfileEnd(self, prevProfile, newProfile, switchType):
+	def switchProfileEnd(self, prevProfile: Optional[str], newProfile: str, switchType: str) -> None:
 		if switchType != "instant":
 			raise RuntimeError("Incorrect profile switch type specified")
 		if switchType == "instant" and not self.instantSwitchProfileActive:
@@ -667,7 +667,7 @@ class ConfigHub(ChainMap):
 
 	# Used from config dialog and other places.
 	# Show switch index is used when deleting profiles so it doesn't have to look up index for old profiles.
-	def swapProfiles(self, prevProfile, newProfile, showSwitchIndex=False):
+	def swapProfiles(self, prevProfile: Optional[str], newProfile: str, showSwitchIndex: bool = False) -> Optional[int]:
 		former = self.profileIndexByName(prevProfile if prevProfile is not None else self.switchHistory[-1])
 		current = self.profileIndexByName(newProfile)
 		self.profiles[current], self.profiles[former] = self.profiles[former], self.profiles[current]
