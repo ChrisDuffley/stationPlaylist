@@ -752,7 +752,7 @@ class AppModule(appModuleHandler.AppModule):
 			pass
 
 	# Locate the handle for main window for caching purposes.
-	def _locateSPLHwnd(self):
+	def _locateSPLHwnd(self) -> None:
 		hwnd = user32.FindWindowW("SPLStudio", None)
 		while not hwnd:
 			time.sleep(1)
@@ -800,7 +800,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Studio API heartbeat.
 	# Although useful for library scan detection, it can be extended to cover other features.
 
-	def studioAPIMonitor(self):
+	def studioAPIMonitor(self) -> None:
 		# Only proceed if Studio handle is valid.
 		if not user32.FindWindowW("SPLStudio", None):
 			if self._SPLStudioMonitor is not None:
@@ -829,7 +829,7 @@ class AppModule(appModuleHandler.AppModule):
 			self._analysisMarker = None
 
 	# Let the global plugin know if SPLController passthrough is allowed.
-	def SPLConPassthrough(self):
+	def SPLConPassthrough(self) -> bool:
 		return splconfig.SPLConfig["Advanced"]["SPLConPassthrough"]
 
 	# The only job of the below event is to notify others that Studio window has appeared for the first time.
@@ -905,7 +905,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Note: There are two status bars, hence the need to exclude Up time so it doesn't announce every minute.
 	# Unfortunately, Window handles and WindowControlIDs seem to change, so can't be used.
 	# Only announce changes if told to do so via the following function.
-	def _TStatusBarChanged(self, obj):
+	def _TStatusBarChanged(self, obj: Any) -> bool:
 		name = obj.name
 		if name.startswith("  Up time:"):
 			return False
@@ -1007,7 +1007,7 @@ class AppModule(appModuleHandler.AppModule):
 	# JL's additions
 
 	# Handle toggle messages.
-	def _toggleMessage(self, msg):
+	def _toggleMessage(self, msg: str) -> None:
 		if splconfig.SPLConfig["General"]["MessageVerbosity"] != "beginner":
 			msg = msg.split()[-1]
 		if splconfig.SPLConfig["General"]["BeepAnnounce"]:
@@ -1036,7 +1036,7 @@ class AppModule(appModuleHandler.AppModule):
 			ui.message(msg)
 
 	# Perform extra action in specific situations (mic alarm, for example).
-	def doExtraAction(self, status):
+	def doExtraAction(self, status: str) -> None:
 		# Be sure to only deal with cart mode changes if Cart Explorer is on.
 		# Optimization: Return early if the below condition is true.
 		if self.cartExplorer and status.startswith("Cart") and status.endswith((" On", " Off")):
@@ -1080,13 +1080,13 @@ class AppModule(appModuleHandler.AppModule):
 				micAlarmT2 = None
 
 	# Respond to profile switches if asked.
-	def actionProfileSwitched(self):
+	def actionProfileSwitched(self) -> None:
 		# #38 (17.11/15.10-LTS): obtain microphone alarm status.
 		# 21.03/20.09.6-LTS: only if Studio is still alive.
 		if splbase.studioIsRunning(justChecking=True):
 			self.doExtraAction(self._statusBarMessages[2][splbase.studioAPI(2, 39)])
 
-	def actionSettingsReset(self, factoryDefaults=False):
+	def actionSettingsReset(self, factoryDefaults: bool = False) -> None:
 		global micAlarmT, micAlarmT2
 		# Regardless of factory defaults flag, turn off microphone alarm timers.
 		if micAlarmT is not None:
@@ -1099,7 +1099,7 @@ class AppModule(appModuleHandler.AppModule):
 			self.doExtraAction(self._statusBarMessages[2][splbase.studioAPI(2, 39)])
 
 	# Alarm announcement: Alarm notification via beeps, speech or both.
-	def alarmAnnounce(self, timeText, tone, duration, intro=False):
+	def alarmAnnounce(self, timeText: str, tone: float, duration: int, intro: bool = False) -> None:
 		if splconfig.SPLConfig["General"]["AlarmAnnounce"] in ("beep", "both"):
 			tones.beep(tone, duration)
 		if splconfig.SPLConfig["General"]["AlarmAnnounce"] in ("message", "both"):
@@ -1215,7 +1215,7 @@ class AppModule(appModuleHandler.AppModule):
 	# 6.0: Split this into two functions: the announcer (below) and formatter.
 	# 7.0: The ms (millisecond) argument will be used when announcing playlist remainder.
 	# 16.12: Include hours by default unless told not to do so.
-	def announceTime(self, t, offset=None, ms=True, includeHours=None):
+	def announceTime(self, t: int, offset: Optional[int] = None, ms: bool = True, includeHours: Optional[bool] = None) -> None:
 		if t <= 0:
 			ui.message("00:00")
 		else:
@@ -1224,7 +1224,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Formatter: given time in milliseconds, convert it to human-readable format.
 	# 7.0: There will be times when one will deal with time in seconds.
 	# 16.12: For some cases, do not include hour slot when trying to conform to what Studio displays.)
-	def _ms2time(self, t, offset=None, ms=True, includeHours=None):
+	def _ms2time(self, t: int, offset: Optional[int] = None, ms: bool = True, includeHours: Optional[bool] = None) -> str:
 		if t <= 0:
 			return "00:00"
 		else:
@@ -1381,7 +1381,7 @@ class AppModule(appModuleHandler.AppModule):
 	# 21.03: accept both None and str because it will be filtered to remove None anyway.
 	findText: Optional[list[Optional[str]]] = None
 
-	def trackFinder(self, text, obj, directionForward=True, column=None):
+	def trackFinder(self, text: str, obj: Any, directionForward: bool = True, column: Optional[list[int]] = None) -> None:
 		speech.cancelSpeech()
 		# #32 (17.06/15.8 LTS): Update search text even if the track with the search term in columns does not exist.
 		# #27 (17.08): especially if the search history is empty.
@@ -1412,7 +1412,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Split from track finder in 2015.
 	# Return a track with the given search criteria.
 	# Column is a list of columns to be searched (if none, it'll be artist and title).
-	def _trackLocator(self, text, obj=api.getFocusObject(), directionForward=True, columns=None):
+	def _trackLocator(self, text: str, obj: Any = api.getFocusObject(), directionForward: bool = True, columns: Optional[list[int]] = None) -> Any:
 		nextTrack = "next" if directionForward else "previous"
 		while obj is not None:
 			# Do not use column content attribute, because sometimes NVDA will say
@@ -1429,7 +1429,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Find a specific track based on a searched text.
 	# But first, check if track finder can be invoked.
 	# Attempt level specifies which track finder to open (0 = Track Finder, 1 = Column Search, 2 = Time range).
-	def _trackFinderCheck(self, attemptLevel):
+	def _trackFinderCheck(self, attemptLevel: int) -> bool:
 		if not splbase.studioIsRunning():
 			return False
 		playlistErrors = self.canPerformPlaylistCommands(announceErrors=False)
@@ -1453,7 +1453,7 @@ class AppModule(appModuleHandler.AppModule):
 			return False
 		return True
 
-	def trackFinderGUI(self, columnSearch=False):
+	def trackFinderGUI(self, columnSearch: bool = False) -> None:
 		try:
 			if not columnSearch:
 				# Translators: Title for track finder dialog.
@@ -1570,7 +1570,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Assigning and building carts.
 
-	def cartsBuilder(self, build=True):
+	def cartsBuilder(self, build: bool = True) -> None:
 		# A function to build and return cart commands.
 		# #147 (20.10): fetch cart keys from a dedicated tuple found in splmisc module.
 		if build:
@@ -1665,7 +1665,7 @@ class AppModule(appModuleHandler.AppModule):
 				self.libraryScanning = True
 
 	# Report library scan (number of items scanned) in the background.
-	def monitorLibraryScan(self):
+	def monitorLibraryScan(self) -> None:
 		global libScanT
 		if libScanT and libScanT.is_alive() and api.getForegroundObject().windowClassName == "TTrackInsertForm":
 			return
@@ -1689,7 +1689,7 @@ class AppModule(appModuleHandler.AppModule):
 			libScanT.daemon = True
 			libScanT.start()
 
-	def libraryScanReporter(self):
+	def libraryScanReporter(self) -> None:
 		scanIter = 0
 		# 17.04: Use the constant directly
 		# as Studio provides a convenient method to detect completion of library scans.
@@ -1719,7 +1719,7 @@ class AppModule(appModuleHandler.AppModule):
 				ui.message(_("Scan complete with {itemCount} items").format(itemCount=splbase.studioAPI(0, 32)))
 
 	# Take care of library scanning announcement.
-	def _libraryScanAnnouncer(self, count, announcementType):
+	def _libraryScanAnnouncer(self, count: int, announcementType: str) -> None:
 		if announcementType == "progress":
 			# Translators: Presented when library scan is in progress.
 			tones.beep(550, 100) if splconfig.SPLConfig["General"]["BeepAnnounce"] else ui.message(_("Scanning"))
@@ -1737,7 +1737,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Is the place marker set on this track?
 	# Track argument is None (only useful for debugging purposes).
-	def isPlaceMarkerTrack(self, track=None):
+	def isPlaceMarkerTrack(self, track: Any = None) -> bool:
 		if track is None:
 			track = api.getFocusObject()
 		# 20.07: no, only list items can become place marker tracks.
@@ -1748,7 +1748,7 @@ class AppModule(appModuleHandler.AppModule):
 		return False
 
 	# Used in delete track workaround routine.
-	def preTrackRemoval(self):
+	def preTrackRemoval(self) -> None:
 		try:
 			if self.isPlaceMarkerTrack(track=api.getFocusObject()):
 				self.placeMarker = None
@@ -1802,10 +1802,10 @@ class AppModule(appModuleHandler.AppModule):
 
 	def canPerformPlaylistCommands(
 			self,
-			playlistViewerRequired=True,
-			mustSelectTrack=False,
-			announceErrors=True
-	):
+			playlistViewerRequired: bool = True,
+			mustSelectTrack: bool = False,
+			announceErrors: bool = True
+	) -> int:
 		# #81: most commands do require that playlist viewer must be
 		# the foreground window (focused), hence the keyword argument.
 		# Also let NVDA announce generic error messages listed below if told to do so,
@@ -1840,7 +1840,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Trakc time analysis and playlist snapshots, and to some extent, some parts of playlist transcripts
 	# require main playlist viewer to be the foreground window.
 	# Track time analysis does require knowing the start and ending track, while others do not.
-	def _trackAnalysisAllowed(self, mustSelectTrack=True):
+	def _trackAnalysisAllowed(self, mustSelectTrack: bool = True) -> bool:
 		if not splbase.studioIsRunning():
 			return False
 		# #81 (18.12): just return result of consulting playlist dispatch along with error messages if any.
@@ -1863,7 +1863,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Return total duration of a range of tracks.
 	# This is used in track time analysis when multiple tracks are selected.
 	# This is also called from playlist duration scripts.
-	def playlistDuration(self, start=None, end=None):
+	def playlistDuration(self, start: Any = None, end: Any = None) -> int:
 		if start is None:
 			start = api.getFocusObject()
 		duration = start.indexOf("Duration")
@@ -1887,7 +1887,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Data to be gathered comes from a set of flags.
 	# By default, playlist duration (including shortest and average),
 	# category summary and other statistics will be gathered.
-	def playlistSnapshots(self, obj, end, snapshotFlags=None):
+	def playlistSnapshots(self, obj: Any, end: Any, snapshotFlags: Optional[list[str]] = None) -> dict[str, Any]:
 		# #55 (18.05): is this a complete snapshot?
 		completePlaylistSnapshot = obj.IAccessibleChildID == 1 and end is None
 		# Track count and total duration are always included.
@@ -1972,7 +1972,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Output formatter for playlist snapshots.
 	# Pressing once will speak and/or braille it, pressing twice or more will output this info to an HTML file.
 
-	def playlistSnapshotOutput(self, snapshot, scriptCount):
+	def playlistSnapshotOutput(self, snapshot: dict[str, Any], scriptCount: int) -> None:
 		statusInfo = [
 			# Translators: one of the results for playlist snapshots feature
 			# for announcing total number of items in a playlist.
@@ -2234,7 +2234,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Called in the layer commands themselves.
 	# 16.11: in Studio 5.20, it is possible to obtain some of these via the API, hence the API method is used.
-	def status(self, infoIndex):
+	def status(self, infoIndex: int) -> Any:
 		# Look up the cached objects first for faster response.
 		if infoIndex not in self._cachedStatusObjs:
 			fg = api.getForegroundObject()
@@ -2271,7 +2271,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# In the layer commands below, sayStatus function is used if screen objects or API must be used
 	# (API is for Studio 5.20 and later).
-	def sayStatus(self, index):
+	def sayStatus(self, index: int) -> None:
 		status = self._statusBarMessages[index][splbase.studioAPI(index, 39)]
 		if splconfig.SPLConfig["General"]["MessageVerbosity"] == "advanced":
 			status = status.split()[-1]
