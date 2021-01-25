@@ -93,15 +93,15 @@ class ConfigHub(ChainMap):
 		# #155 (21.03): re-initialize maps to be a list of config objects to satisfy Mypy and friends.
 		self.maps: list[ConfigObj] = [{}]
 		# #64 (18.07): keep an eye on which SPL component opened this map.
-		self.splComponents = set()
+		self.splComponents: set[str] = set()
 		self.splComponents.add(splComponent)
 		# 17.10: config restrictions such as in-memory config come from command line.
-		self._configInMemory = "--spl-configinmemory" in globalVars.appArgsExtra
-		self._normalProfileOnly = "--spl-normalprofileonly" in globalVars.appArgsExtra
+		self._configInMemory: bool = "--spl-configinmemory" in globalVars.appArgsExtra
+		self._normalProfileOnly: bool = "--spl-normalprofileonly" in globalVars.appArgsExtra
 		if self.configInMemory:
 			self._normalProfileOnly = True
 		# For presentational purposes.
-		self.profileNames = []
+		self.profileNames: list[Optional[str]] = []
 		# 17.10: if config will be stored on RAM, this step is skipped, resulting in faster startup.
 		# But data conversion must take place.
 		if not self.configInMemory:
@@ -169,16 +169,16 @@ class ConfigHub(ChainMap):
 			self.instantSwitch = self.profiles[0]["InstantProfile"]
 		else:
 			self.instantSwitch = None
-		self.prevProfile = None
+		self.prevProfile: Optional[str] = None
 		# A bit vector used to store profile switching flags.
-		self._switchProfileFlags = 0
+		self._switchProfileFlags: int = 0
 		# Switch history is a stack of previously activated profile(s), replacing prev profile flag from 7.x days.
 		# Initially normal profile will sit in here.
-		self.switchHistory = [self.activeProfile]
+		self.switchHistory: list[str] = [self.activeProfile]
 		# Record new profiles if any.
-		self.newProfiles = set()
+		self.newProfiles: set[str] = set()
 		# Reset flag (only engaged if reset did happen).
-		self.resetHappened = False
+		self.resetHappened: bool = False
 		# #73: listen to config save/reset actions from NVDA Core.
 		config.post_configSave.register(self.save)
 		config.post_configReset.register(self.handlePostConfigReset)
@@ -201,7 +201,7 @@ class ConfigHub(ChainMap):
 		return self.normalProfileOnly or self.configInMemory
 
 	# Profile switching flags.
-	_profileSwitchFlags = {"instant": 0x1}
+	_profileSwitchFlags: dict[str, int] = {"instant": 0x1}
 
 	@property
 	def switchProfileFlags(self) -> int:
