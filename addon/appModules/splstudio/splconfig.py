@@ -615,7 +615,7 @@ class ConfigHub(ChainMap):
 	# This involves promoting and demoting normal profile.
 	# 17.10: this will never be invoked if only normal profile is in use
 	# or if config was loaded from memory alone.
-	def switchProfile(self, prevProfile: Optional[str], newProfile: str, switchFlags: Optional[int]) -> None:
+	def switchProfile(self, prevProfile: Optional[str], newProfile: str, switchFlags: int) -> None:
 		if self.normalProfileOnly or self.configInMemory:
 			raise RuntimeError(
 				"Only normal profile is in use or config was loaded from memory, cannot switch profiles"
