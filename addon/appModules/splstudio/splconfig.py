@@ -211,7 +211,10 @@ class ConfigHub(ChainMap):
 	# Unlock (load) profiles from files.
 	# 7.0: Allow new profile settings to be overridden by a parent profile.
 	# 8.0: Don't validate profiles other than normal profile in the beginning.
-	def _unlockConfig(self, path: str, profileName: Optional[str] = None, prefill: bool = False, parent: Optional[dict[Any, Any]] = None, validateNow: bool = False) -> ConfigObj:
+	def _unlockConfig(
+			self, path: str, profileName: Optional[str] = None, prefill: bool = False,
+			parent: Optional[dict[Any, Any]] = None, validateNow: bool = False
+	) -> ConfigObj:
 		# 7.0: Suppose this is one of the steps taken when copying settings when instantiating a new profile.
 		# If so, go through same procedure as though config passes validation tests,
 		# as all values from parent are in the right format.
@@ -253,7 +256,9 @@ class ConfigHub(ChainMap):
 
 	# Config validation.
 	# Separated from unlock routine in 8.0.
-	def _validateConfig(self, SPLConfigCheckpoint: ConfigObj, profileName: Optional[str] = None, prefill: bool = False) -> None:
+	def _validateConfig(
+			self, SPLConfigCheckpoint: ConfigObj, profileName: Optional[str] = None, prefill: bool = False
+	) -> None:
 		global _configLoadStatus
 		configTest = SPLConfigCheckpoint.validate(_val, copy=prefill, preserve_errors=True)
 		# Validator may return "True" if everything is okay,
@@ -483,7 +488,10 @@ class ConfigHub(ChainMap):
 	# Profile indicates the name of the profile to reset or reload.
 	# Sometimes confirmation message will be shown, especially if instant switch profile is active.
 	# Config dialog flag is a special flag reserved for use by add-on settings dialog.
-	def reset(self, factoryDefaults: bool = False, askForConfirmation: bool = False, resetViaConfigDialog: bool = False) -> None:
+	def reset(
+			self, factoryDefaults: bool = False,
+			askForConfirmation: bool = False, resetViaConfigDialog: bool = False
+	) -> None:
 		if resetViaConfigDialog:
 			askForConfirmation = bool(factoryDefaults and self._switchProfileFlags)
 		if askForConfirmation:
@@ -581,7 +589,9 @@ class ConfigHub(ChainMap):
 	# Returns list of flags associated with a given profile.
 	# Optional keyword arguments are to be added when called from dialogs such as add-on settings.
 	# A crucial kwarg is contained, and if so, profile flags set will be returned.
-	def getProfileFlags(self, name: str, active: Optional[str] = None, instant: Optional[str] = None, contained: bool = False) -> Union[str, set[str]]:
+	def getProfileFlags(
+			self, name: str, active: Optional[str] = None, instant: Optional[str] = None, contained: bool = False
+	) -> Union[str, set[str]]:
 		flags = set()
 		if active is None:
 			active = self.activeProfile
@@ -667,7 +677,9 @@ class ConfigHub(ChainMap):
 
 	# Used from config dialog and other places.
 	# Show switch index is used when deleting profiles so it doesn't have to look up index for old profiles.
-	def swapProfiles(self, prevProfile: Optional[str], newProfile: str, showSwitchIndex: bool = False) -> Optional[int]:
+	def swapProfiles(
+			self, prevProfile: Optional[str], newProfile: str, showSwitchIndex: bool = False
+	) -> Optional[int]:
 		former = self.profileIndexByName(prevProfile if prevProfile is not None else self.switchHistory[-1])
 		current = self.profileIndexByName(newProfile)
 		self.profiles[current], self.profiles[former] = self.profiles[former], self.profiles[current]

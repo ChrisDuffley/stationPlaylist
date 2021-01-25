@@ -344,7 +344,9 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 	# A convenience method that calls column content getter for a list of columns.
 	# Readable flag will transform None into an empty string, suitable for output.
 	# #61 (18.07): readable flag will become a string parameter to be used in columns viewer.
-	def _getColumnContents(self, columns: Optional[list[int]] = None, readable: bool = False) -> list[Optional[str]]:
+	def _getColumnContents(
+			self, columns: Optional[list[int]] = None, readable: bool = False
+	) -> list[Optional[str]]:
 		if columns is None:
 			columns = list(range(18))
 		columnContents = [self._getColumnContentRaw(col) for col in columns]
@@ -1215,7 +1217,9 @@ class AppModule(appModuleHandler.AppModule):
 	# 6.0: Split this into two functions: the announcer (below) and formatter.
 	# 7.0: The ms (millisecond) argument will be used when announcing playlist remainder.
 	# 16.12: Include hours by default unless told not to do so.
-	def announceTime(self, t: int, offset: Optional[int] = None, ms: bool = True, includeHours: Optional[bool] = None) -> None:
+	def announceTime(
+			self, t: int, offset: Optional[int] = None, ms: bool = True, includeHours: Optional[bool] = None
+	) -> None:
 		if t <= 0:
 			ui.message("00:00")
 		else:
@@ -1224,7 +1228,9 @@ class AppModule(appModuleHandler.AppModule):
 	# Formatter: given time in milliseconds, convert it to human-readable format.
 	# 7.0: There will be times when one will deal with time in seconds.
 	# 16.12: For some cases, do not include hour slot when trying to conform to what Studio displays.)
-	def _ms2time(self, t: int, offset: Optional[int] = None, ms: bool = True, includeHours: Optional[bool] = None) -> str:
+	def _ms2time(
+			self, t: int, offset: Optional[int] = None, ms: bool = True, includeHours: Optional[bool] = None
+	) -> str:
 		if t <= 0:
 			return "00:00"
 		else:
@@ -1381,7 +1387,9 @@ class AppModule(appModuleHandler.AppModule):
 	# 21.03: accept both None and str because it will be filtered to remove None anyway.
 	findText: Optional[list[Optional[str]]] = None
 
-	def trackFinder(self, text: str, obj: Any, directionForward: bool = True, column: Optional[list[int]] = None) -> None:
+	def trackFinder(
+			self, text: str, obj: Any, directionForward: bool = True, column: Optional[list[int]] = None
+	) -> None:
 		speech.cancelSpeech()
 		# #32 (17.06/15.8 LTS): Update search text even if the track with the search term in columns does not exist.
 		# #27 (17.08): especially if the search history is empty.
@@ -1412,7 +1420,10 @@ class AppModule(appModuleHandler.AppModule):
 	# Split from track finder in 2015.
 	# Return a track with the given search criteria.
 	# Column is a list of columns to be searched (if none, it'll be artist and title).
-	def _trackLocator(self, text: str, obj: Any = api.getFocusObject(), directionForward: bool = True, columns: Optional[list[int]] = None) -> Any:
+	def _trackLocator(
+			self, text: str, obj: Any = api.getFocusObject(),
+			directionForward: bool = True, columns: Optional[list[int]] = None
+	) -> Any:
 		nextTrack = "next" if directionForward else "previous"
 		while obj is not None:
 			# Do not use column content attribute, because sometimes NVDA will say
