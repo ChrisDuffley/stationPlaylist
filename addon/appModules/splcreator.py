@@ -94,7 +94,7 @@ class AppModule(appModuleHandler.AppModule):
 
 	# The following scripts are designed to work while using Playlist Editor.
 
-	def isPlaylistEditor(self):
+	def isPlaylistEditor(self) -> bool:
 		if api.getForegroundObject().windowClassName != "TEditMain":
 			# Translators: announced in SPL Creator and Remote VT
 			# when trying to perform playlist status commands while outside of playlist editor.
