@@ -2080,11 +2080,11 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Status flags for Studio 5.20 API.
 	_statusBarMessages = (
-		("Play status: Stopped", "Play status: Playing"),
-		("Automation Off", "Automation On"),
-		("Microphone Off", "Microphone On"),
-		("Line-In Off", "Line-In On"),
-		("Record to file Off", "Record to file On"),
+		["Play status: Stopped", "Play status: Playing"],
+		["Automation Off", "Automation On"],
+		["Microphone Off", "Microphone On"],
+		["Line-In Off", "Line-In On"],
+		["Record to file Off", "Record to file On"],
 	)
 
 	# In the layer commands below, sayStatus function is used if screen objects or API must be used (API is for Studio 5.20 and later).
