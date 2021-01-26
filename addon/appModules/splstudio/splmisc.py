@@ -121,7 +121,8 @@ class SPLFindDialog(wx.Dialog):
 		# Studio, are you alive?
 		if user32.FindWindowW("SPLStudio", None) and text:
 			appMod = self.obj.appModule
-			column = [self.columnHeaders.Selection + 1] if self.columnSearch else None
+			# 21.03/20.09.6-LTS: search columns should not be None - list of integers expected.
+			column = [self.columnHeaders.Selection + 1] if self.columnSearch else []
 			startObj = self.obj
 			if (
 				appMod.findText is None
