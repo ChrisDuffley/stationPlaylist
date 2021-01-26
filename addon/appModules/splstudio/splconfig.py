@@ -245,7 +245,7 @@ class ConfigHub(ChainMap):
 	# Unlock (load) profiles from files.
 	# 7.0: Allow new profile settings to be overridden by a parent profile.
 	# 8.0: Don't validate profiles other than normal profile in the beginning.
-	def _unlockConfig(self, path, profileName=None, prefill=False, parent=None, validateNow=False):
+	def _unlockConfig(self, path, profileName="", prefill=False, parent=None, validateNow=False):
 		# 21.03/20.09.6-LTS: profile name should be defined to help config status dictionary.
 		# Resort to path's basename (without extension) if no profile name is specified.
 		if not profileName:
@@ -285,7 +285,7 @@ class ConfigHub(ChainMap):
 
 	# Config validation.
 	# Separated from unlock routine in 8.0.
-	def _validateConfig(self, SPLConfigCheckpoint, profileName=None, prefill=False):
+	def _validateConfig(self, SPLConfigCheckpoint, profileName="", prefill=False):
 		global _configLoadStatus
 		configTest = SPLConfigCheckpoint.validate(_val, copy=prefill, preserve_errors=True)
 		# Validator may return "True" if everything is okay, "False" for unrecoverable error, or a dictionary of failed keys.
@@ -313,7 +313,7 @@ class ConfigHub(ChainMap):
 			_configLoadStatus[profileName] = "partialReset"
 
 	# Extra initialization steps such as converting value types.
-	def _extraInitSteps(self, conf, profileName=None):
+	def _extraInitSteps(self, conf, profileName=""):
 		global _configLoadStatus
 		columnOrder = conf["ColumnAnnouncement"]["ColumnOrder"]
 		# Catch suttle errors.
