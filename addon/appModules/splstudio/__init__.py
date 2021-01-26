@@ -1385,7 +1385,7 @@ class AppModule(appModuleHandler.AppModule):
 	# This new function will be used by track finder and place marker locator.
 	# 17.08: now it is a list that records search history.
 	# 21.03: accept both None and str because it will be filtered to remove None anyway.
-	findText: Optional[list[Optional[str]]] = None
+	findText: Optional[list[str]] = None
 
 	def trackFinder(
 			self, text: str, obj: Any, directionForward: bool = True, column: Optional[list[int]] = None
