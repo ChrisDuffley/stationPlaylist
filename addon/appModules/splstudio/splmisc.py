@@ -397,7 +397,7 @@ def cartExplorerRefresh(studioTitle: str, currentCarts: dict[str, Any]) -> dict[
 # Gather streaming flags into a list.
 # 18.04: raise runtime error if list is nothing
 # (thankfully the splbase's StudioAPI will return None if Studio handle is not found).
-def metadataList() -> list[int]:
+def metadataList() -> list[Optional[int]]:
 	metadata = [splbase.studioAPI(pos, 36) for pos in range(5)]
 	if metadata == [None, None, None, None, None]:
 		raise RuntimeError("Studio handle not found, no metadata list to return")
