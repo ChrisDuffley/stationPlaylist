@@ -1902,7 +1902,8 @@ class AppModule(appModuleHandler.AppModule):
 		# #55 (18.05): is this a complete snapshot?
 		completePlaylistSnapshot = obj.IAccessibleChildID == 1 and end is None
 		# Track count and total duration are always included.
-		snapshot = {}
+		# #155 (21.03): annotate snapshot map to avoid type annotation issues when assigning key/value pairs.
+		snapshot: dict[str, Any] = {}
 		if snapshotFlags is None:
 			snapshotFlags = [
 				flag for flag in splconfig.SPLConfig["PlaylistSnapshots"]
