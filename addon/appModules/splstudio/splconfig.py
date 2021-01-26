@@ -218,6 +218,10 @@ class ConfigHub(ChainMap):
 			self, path: str, profileName: Optional[str] = None, prefill: bool = False,
 			parent: Optional[dict[Any, Any]] = None, validateNow: bool = False
 	) -> ConfigObj:
+		# 21.03/20.09.6-LTS: profile name should be defined to help config status dictionary.
+		# Resort to path's basename (without extension) if no profile name is specified.
+		if not profileName:
+			profileName = os.path.splitext(os.path.basename(path))[0]
 		# 7.0: Suppose this is one of the steps taken when copying settings when instantiating a new profile.
 		# If so, go through same procedure as though config passes validation tests,
 		# as all values from parent are in the right format.
