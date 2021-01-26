@@ -366,12 +366,10 @@ class ConfigHub(ChainMap):
 		# 17.10: No, not when restrictions are applied.
 		if self.configRestricted:
 			raise RuntimeError("Only normal profile is in use or config was loaded from memory")
-		# Bring normal profile to the front if it isn't.
-		# Optimization: Tell the swapper that we need index to the normal profile for this case.
+		# Bring normal profile to the front if deleting the active profile.
 		if name == self.activeProfile:
-			configPos = self.swapProfiles(name, defaultProfileName, showSwitchIndex=True)
-		else:
-			configPos = self.profileIndexByName(name)
+			self.swapProfiles(name, defaultProfileName)
+		configPos = self.profileIndexByName(name)
 		profilePos = self.profileNames.index(name)
 		try:
 			os.remove(self.profiles[configPos].filename)
