@@ -1388,7 +1388,7 @@ class AppModule(appModuleHandler.AppModule):
 	findText: Optional[list[str]] = None
 
 	def trackFinder(
-			self, text: str, obj: Any, directionForward: bool = True, column: Optional[list[int]] = None
+			self, text: str, obj: Any, directionForward: bool = True, column: list[int] = []
 	) -> None:
 		speech.cancelSpeech()
 		# #32 (17.06/15.8 LTS): Update search text even if the track with the search term in columns does not exist.
@@ -1422,7 +1422,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Column is a list of columns to be searched.
 	def _trackLocator(
 			self, text: str, obj: Any = api.getFocusObject(),
-			directionForward: bool = True, columns: Optional[list[int]] = None
+			directionForward: bool = True, columns: list[int] = []
 	) -> Any:
 		# 21.03/20.09.6-LTS: it doesn't make sense to search for tracks if text and/or columns are not specified.
 		# It is also an optimization because the below loop will not be run if any of the following are true.
