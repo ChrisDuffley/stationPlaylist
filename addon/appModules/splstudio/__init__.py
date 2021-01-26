@@ -1283,7 +1283,7 @@ class AppModule(appModuleHandler.AppModule):
 	# 17.08: now it is a list that records search history.
 	findText = None
 
-	def trackFinder(self, text, obj, directionForward=True, column=None):
+	def trackFinder(self, text, obj, directionForward=True, column=[]):
 		speech.cancelSpeech()
 		# #32 (17.06/15.8 LTS): Update search text even if the track with the search term in columns does not exist.
 		# #27 (17.08): especially if the search history is empty.
@@ -1309,7 +1309,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Split from track finder in 2015.
 	# Return a track with the given search criteria.
 	# Column is a list of columns to be searched.
-	def _trackLocator(self, text, obj=api.getFocusObject(), directionForward=True, columns=None):
+	def _trackLocator(self, text, obj=api.getFocusObject(), directionForward=True, columns=[]):
 		# 21.03/20.09.6-LTS: it doesn't make sense to search for tracks if text and/or columns are not specified.
 		# It is also an optimization because the below loop will not be run if any of the following are true.
 		if not text or not columns:
