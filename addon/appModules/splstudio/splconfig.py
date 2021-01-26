@@ -682,14 +682,10 @@ class ConfigHub(ChainMap):
 
 	# Used from config dialog and other places.
 	# Show switch index is used when deleting profiles so it doesn't have to look up index for old profiles.
-	def swapProfiles(
-			self, prevProfile: Optional[str], newProfile: str, showSwitchIndex: bool = False
-	) -> Optional[int]:
+	def swapProfiles(self, prevProfile: Optional[str], newProfile: str) -> None:
 		former = self.profileIndexByName(prevProfile if prevProfile is not None else self.switchHistory[-1])
 		current = self.profileIndexByName(newProfile)
 		self.profiles[current], self.profiles[former] = self.profiles[former], self.profiles[current]
-		if showSwitchIndex:
-			return current
 
 
 # Default config spec container.
