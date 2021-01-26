@@ -1419,11 +1419,15 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Split from track finder in 2015.
 	# Return a track with the given search criteria.
-	# Column is a list of columns to be searched (if none, it'll be artist and title).
+	# Column is a list of columns to be searched.
 	def _trackLocator(
 			self, text: str, obj: Any = api.getFocusObject(),
 			directionForward: bool = True, columns: Optional[list[int]] = None
 	) -> Any:
+		# 21.03/20.09.6-LTS: it doesn't make sense to search for tracks if text and/or columns are not specified.
+		# It is also an optimization because the below loop will not be run if any of the following are true.
+		if not text or not columns:
+			return None
 		nextTrack = "next" if directionForward else "previous"
 		while obj is not None:
 			# Do not use column content attribute, because sometimes NVDA will say
