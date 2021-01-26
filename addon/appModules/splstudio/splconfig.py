@@ -246,6 +246,10 @@ class ConfigHub(ChainMap):
 	# 7.0: Allow new profile settings to be overridden by a parent profile.
 	# 8.0: Don't validate profiles other than normal profile in the beginning.
 	def _unlockConfig(self, path, profileName=None, prefill=False, parent=None, validateNow=False):
+		# 21.03/20.09.6-LTS: profile name should be defined to help config status dictionary.
+		# Resort to path's basename (without extension) if no profile name is specified.
+		if not profileName:
+			profileName = os.path.splitext(os.path.basename(path))[0]
 		# 7.0: Suppose this is one of the steps taken when copying settings when instantiating a new profile.
 		# If so, go through same procedure as though config passes validation tests, as all values from parent are in the right format.
 		if parent is not None:
