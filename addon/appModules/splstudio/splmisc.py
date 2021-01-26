@@ -399,7 +399,10 @@ def cartExplorerRefresh(studioTitle: str, currentCarts: dict[str, Any]) -> dict[
 # (thankfully the splbase's StudioAPI will return None if Studio handle is not found).
 def metadataList() -> list[Optional[int]]:
 	metadata = [splbase.studioAPI(pos, 36) for pos in range(5)]
-	if metadata == [None, None, None, None, None]:
+	# 21.03/20.09.6-LTS: make sure None is not included in metadata list,
+	# otherwise it results in no metadata data for streams.
+	# This could happen if Studio dies while retrieving metadata list with some items returning None.
+	if None in metadata:
 		raise RuntimeError("Studio handle not found, no metadata list to return")
 	return metadata
 
