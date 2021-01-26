@@ -42,7 +42,7 @@ def studioIsRunning(justChecking: bool = False) -> bool:
 # so really make sure Studio window handle is alive.
 def studioAPI(arg: int, command: int) -> Optional[int]:
 	if not studioIsRunning(justChecking=True):
-		return
+		return None
 	log.debug(f"SPL: Studio API wParem is {arg}, lParem is {command}")
 	val = sendMessage(_SPLWin, 1024, arg, command)
 	log.debug(f"SPL: Studio API result is {val}")
