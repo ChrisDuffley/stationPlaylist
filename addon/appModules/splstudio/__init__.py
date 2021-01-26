@@ -1293,7 +1293,7 @@ class AppModule(appModuleHandler.AppModule):
 		if text not in self.findText:
 			self.findText.insert(0, text)
 		# #33 (17.06/15.8-LTS): In case the track is NULL (seen when attempting to perform forward search from the last track and what not), this function should fail instead of raising attribute error.
-		if obj is not None and column is None:
+		if obj is not None and not column:
 			column = [obj.indexOf("Artist"), obj.indexOf("Title")]
 		track = self._trackLocator(text, obj=obj, directionForward=directionForward, columns=column)
 		if track:
