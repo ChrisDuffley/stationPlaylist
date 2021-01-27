@@ -1225,7 +1225,7 @@ class AppModule(appModuleHandler.AppModule):
 	# 16.12: Include hours by default unless told not to do so.
 	# #155 (21.03): time can be None, in which case it will do nothing.
 	def announceTime(
-			self, t: int, offset: Optional[int] = None, ms: bool = True, includeHours: Optional[bool] = None
+			self, t: Optional[int], offset: Optional[int] = None, ms: bool = True, includeHours: Optional[bool] = None
 	) -> None:
 		if t is None:
 			return
