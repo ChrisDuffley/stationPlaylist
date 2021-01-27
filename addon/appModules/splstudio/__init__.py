@@ -2442,7 +2442,11 @@ class AppModule(appModuleHandler.AppModule):
 		# 7.0: Scheduled is the time originally specified in Studio,
 		# scheduled to play is broadcast time based on current time.
 		# Sometimes, hour markers return seconds.999 due to rounding error, hence this must be taken care of here.
-		trackStarts = divmod(splbase.studioAPI(3, 27), 1000)
+		# #155 (21.03): Studio API can return None if Studio dies.
+		trackStarts: optional[int] = splbase.studioAPI(3, 27)
+		if trackStarts is None:
+			return
+		trackStarts = divmod(trackStarts, 1000)
 		# For this method, all three components of time display (hour, minute, second) must be present.
 		# In case it is midnight (0.0 but sometimes shown as 86399.999 due to rounding error), just say "midnight".
 		if trackStarts in ((86399, 999), (0, 0)):
