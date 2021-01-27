@@ -813,7 +813,9 @@ class AppModule(appModuleHandler.AppModule):
 		# Thankfully, current lib scan reporter function will not proceed
 		# when library scan is happening via Insert Tracks dialog.
 		# #92 (19.01.1/18.09.7-LTS): if Studio dies, zero will be returned, so check for window handle once more.
-		if splbase.studioAPI(1, 32) >= 0:
+		# #155 (21.03): library scan count must be an integer.
+		libScanCount: Optional[int] = splbase.studioAPI(1, 32)
+		if libScanCount and libScanCount >= 0:
 			if not user32.FindWindowW("SPLStudio", None):
 				return
 			if not self.libraryScanning:
@@ -827,7 +829,11 @@ class AppModule(appModuleHandler.AppModule):
 			if self._analysisMarker is not None:
 				self._analysisMarker = None
 		# #145 (20.09: playlist analysis marker value must be below track count.
-		if self._analysisMarker is not None and not 0 <= self._analysisMarker < trackCount:
+		# #155 (21.03): and track count must be an integer.
+		if (
+			self._analysisMarker is not None and trackCount is not None
+			and not 0 <= self._analysisMarker < trackCount
+		):
 			self._analysisMarker = None
 
 	# Let the global plugin know if SPLController passthrough is allowed.
