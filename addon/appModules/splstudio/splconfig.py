@@ -760,6 +760,9 @@ def closeConfig(splComponent: str) -> None:
 	for app in appModuleHandler.runningTable.values():
 		if app.appName == splComponent:
 			return
+	# 21.03/20.09.6-LTS: there's no way this function will work without SPLConfig being alive.
+	if SPLConfig is None:
+		raise RuntimeError("Attempting to close SPL config which no longer exists")
 	SPLConfig.splComponents.discard(splComponent)
 	if len(SPLConfig.splComponents) == 0:
 		SPLConfig.save()
@@ -785,6 +788,9 @@ def terminate() -> None:
 
 # Called from within the app module.
 def instantProfileSwitch() -> None:
+	# 21.03/20.09.6-LTS: SPLConfig, are you alive?
+	if SPLConfig is None:
+		raise RuntimeError("SPL config is gone, cannot switch profiles")
 	# 17.10: What if only normal profile is in use?
 	if SPLConfig.normalProfileOnly:
 		# Translators: announced when only normal profile is in use.
