@@ -713,6 +713,11 @@ def initialize() -> None:
 	# 8.0: All this work will be performed when ConfigHub loads.
 	# #64 (18.07): performed by openConfig function.
 	openConfig("splstudio")
+	# #155 (21.03): Mypy will say that SPLConfig is None when in fact it is ready
+	# simply because openConfig function does not return SPLConfig.
+	# Therefore do a None guard check just to tell Mypy it is safe to proceed.
+	if SPLConfig is None:
+		return
 	# Locate instant profile and do something otherwise.
 	if SPLConfig.instantSwitch is not None and SPLConfig.instantSwitch not in SPLConfig.profileNames:
 		log.debug("SPL: failed to locate instant switch profile")
