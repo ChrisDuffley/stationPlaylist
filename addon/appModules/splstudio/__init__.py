@@ -1696,15 +1696,19 @@ class AppModule(appModuleHandler.AppModule):
 			self.libraryScanning = False
 			return
 		time.sleep(0.1)
+		# Is library scan count still an integer?
+		libScanCount = splbase.studioAPI(1, 32)
 		if (
-			api.getForegroundObject().windowClassName == "TTrackInsertForm"
-			and self.productVersion in noLibScanMonitor
+			libScanCount is None
+			or (
+				api.getForegroundObject().windowClassName == "TTrackInsertForm"
+				and self.productVersion in noLibScanMonitor
+			)
 		):
 			self.libraryScanning = False
 			return
 		# 17.04: Library scan may have finished while this thread was sleeping.
-		libScanCount = splbase.studioAPI(1, 32)
-		if libScanCount is not None and libScanCount < 0:
+		if libScanCount < 0:
 			self.libraryScanning = False
 			# Translators: Presented when library scanning is finished.
 			ui.message(_("{itemCount} items in the library").format(itemCount=splbase.studioAPI(0, 32)))
