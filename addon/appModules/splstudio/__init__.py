@@ -1223,9 +1223,12 @@ class AppModule(appModuleHandler.AppModule):
 	# 6.0: Split this into two functions: the announcer (below) and formatter.
 	# 7.0: The ms (millisecond) argument will be used when announcing playlist remainder.
 	# 16.12: Include hours by default unless told not to do so.
+	# #155 (21.03): time can be None, in which case it will do nothing.
 	def announceTime(
 			self, t: int, offset: Optional[int] = None, ms: bool = True, includeHours: Optional[bool] = None
 	) -> None:
+		if t is None:
+			return
 		if t <= 0:
 			ui.message("00:00")
 		else:
