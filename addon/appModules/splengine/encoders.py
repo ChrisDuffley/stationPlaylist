@@ -124,6 +124,9 @@ def _removeEncoderID(encoderType, pos):
 # Save encoder labels and various flags, called when closing app modules and when config save command is pressed.
 def saveEncoderConfig():
 	global encoderConfig, SPLEncoderLabels, SPLFocusToStudio, SPLPlayAfterConnecting, SPLBackgroundMonitor, SPLNoConnectionTone, SPLConnectionStopOnError
+	# 21.03/20.09.6-LTS: is encoder config even alive?
+	if encoderConfig is None:
+		raise RuntimeError("Encoder config is not defined, cannot save encoder settings")
 	# Gather stream labels and flags.
 	encoderConfig["EncoderLabels"] = dict(SPLEncoderLabels)
 	# For flags, convert flag sets into lists.
