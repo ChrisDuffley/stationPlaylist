@@ -2466,7 +2466,12 @@ class AppModule(appModuleHandler.AppModule):
 
 	def script_libraryScanMonitor(self, gesture):
 		if not self.libraryScanning:
-			if splbase.studioAPI(1, 32) < 0:
+			# #155 (21.03): if library scan count is None, then final scan count would also be None.
+			libScanCount = splbase.studioAPI(1, 32)
+			# Do nothing if library scan count is indeed None.
+			if libScanCount is None:
+				return
+			if libScanCount < 0:
 				ui.message(_("{itemCount} items in the library").format(itemCount=splbase.studioAPI(0, 32)))
 				return
 			self.libraryScanning = True
