@@ -2443,7 +2443,7 @@ class AppModule(appModuleHandler.AppModule):
 		# scheduled to play is broadcast time based on current time.
 		# Sometimes, hour markers return seconds.999 due to rounding error, hence this must be taken care of here.
 		# #155 (21.03): Studio API can return None if Studio dies.
-		trackStarts: optional[int] = splbase.studioAPI(3, 27)
+		trackStarts: Optional[int] = splbase.studioAPI(3, 27)
 		if trackStarts is None:
 			return
 		trackStarts = divmod(trackStarts, 1000)
