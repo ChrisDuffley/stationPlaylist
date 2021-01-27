@@ -1856,7 +1856,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Return total length of the selected tracks upon request.
 	# Analysis command (SPL Assistant) will be assignable.
 	# Also gather various data about the playlist.
-	_analysisMarker = None
+	_analysisMarker: Optional[int] = None
 
 	# Trakc time analysis and playlist snapshots, and to some extent, some parts of playlist transcripts
 	# require main playlist viewer to be the foreground window.
