@@ -1603,6 +1603,11 @@ class AppModule(appModuleHandler.AppModule):
 				return
 			# Scan count may have changed during sleep.
 			scanCount = splbase.studioAPI(1, 32)
+			# 21.03/20.09.6-LTS: return early if scan count is None (Studio dies).
+			# This also means library scan progress will not be announced (makes sense since Studio is gone).
+			if scanCount is None:
+				self.libraryScanning = False
+				return
 			if scanCount < 0:
 				break
 			scanIter += 1
