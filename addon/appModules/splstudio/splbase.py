@@ -46,6 +46,10 @@ def studioAPI(arg: int, command: int) -> Optional[int]:
 	log.debug(f"SPL: Studio API wParem is {arg}, lParem is {command}")
 	val = sendMessage(_SPLWin, 1024, arg, command)
 	log.debug(f"SPL: Studio API result is {val}")
+	# 21.03/20.09.6-LTS: SendMessage function might be stuck while Studio exits, resulting in NULL window handle.
+	if not user32.FindWindowW("SPLStudio", None):
+		val = None
+		log.debug("Studio window is gone, Studio API result is None")
 	return val
 
 
