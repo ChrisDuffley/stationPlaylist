@@ -1690,7 +1690,9 @@ class AppModule(appModuleHandler.AppModule):
 		global libScanT
 		if libScanT and libScanT.is_alive() and api.getForegroundObject().windowClassName == "TTrackInsertForm":
 			return
-		if splbase.studioAPI(1, 32) < 0:
+		# #155 (21.03): ideally library scan count would be an integer.
+		libScanCount: Optional[int] = splbase.studioAPI(1, 32)
+		if libScanCount is not None and libScanCount < 0:
 			self.libraryScanning = False
 			return
 		time.sleep(0.1)
@@ -1701,7 +1703,8 @@ class AppModule(appModuleHandler.AppModule):
 			self.libraryScanning = False
 			return
 		# 17.04: Library scan may have finished while this thread was sleeping.
-		if splbase.studioAPI(1, 32) < 0:
+		libScanCount = splbase.studioAPI(1, 32)
+		if libScanCount is not None and libScanCount < 0:
 			self.libraryScanning = False
 			# Translators: Presented when library scanning is finished.
 			ui.message(_("{itemCount} items in the library").format(itemCount=splbase.studioAPI(0, 32)))
@@ -1714,8 +1717,9 @@ class AppModule(appModuleHandler.AppModule):
 		scanIter = 0
 		# 17.04: Use the constant directly
 		# as Studio provides a convenient method to detect completion of library scans.
-		scanCount = splbase.studioAPI(1, 32)
-		while scanCount >= 0:
+		# #155 (21.03): And make sure it is an integer, too.
+		scanCount: Optional[int] = splbase.studioAPI(1, 32)
+		while scanCount is not None and scanCount >= 0:
 			if not self.libraryScanning or not user32.FindWindowW("SPLStudio", None):
 				return
 			time.sleep(1)
@@ -1724,6 +1728,11 @@ class AppModule(appModuleHandler.AppModule):
 				return
 			# Scan count may have changed during sleep.
 			scanCount = splbase.studioAPI(1, 32)
+			# #155 (21.03): return early if scan count is None (Studio dies).
+			# This also means library scan progress will not be announced (makes sense since Studio is gone).
+			if scanCount is None:
+				self.libraryScanning = False
+				return
 			if scanCount < 0:
 				break
 			scanIter += 1
