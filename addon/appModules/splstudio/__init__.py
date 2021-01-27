@@ -1767,7 +1767,7 @@ class AppModule(appModuleHandler.AppModule):
 				ui.message(_("{itemCount} items scanned").format(itemCount=count))
 
 	# Place markers.
-	placeMarker = None
+	placeMarker: Optional[str] = None
 
 	# Is the place marker set on this track?
 	# Track argument is None (only useful for debugging purposes).
