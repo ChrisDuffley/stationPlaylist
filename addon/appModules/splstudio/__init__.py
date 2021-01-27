@@ -2618,12 +2618,8 @@ class AppModule(appModuleHandler.AppModule):
 		# #81: no more custom message for place marker track, as the generic one will be enough for now.
 		if self.canPerformPlaylistCommands() == self.SPLPlaylistNoErrors:
 			# 21.03/20.09.6-LTS: guard against place marker filename becoming nothing.
-			if self.placeMarker in (None, ""):
-				# Nullify place marker if it holds incorrect data.
-				self.placeMarker = None
-				# Translators: Presented when no place marker is found.
-				ui.message(_("No place marker found"))
-			else:
+			# #155 (21.03): an extra check to make sure it is indeed a string.
+			if self.placeMarker is not None and self.placeMarker != "":
 				obj = api.getFocusObject().parent.firstChild
 				track = self._trackLocator(self.placeMarker, obj=obj, columns=[obj.indexOf("Filename")])
 				# 21.03/20.09.6-LTS: only do the following if a track is found.
@@ -2635,6 +2631,11 @@ class AppModule(appModuleHandler.AppModule):
 					# 21.03/20.09.6-LTS: bogus place marker, so nullify it.
 					self.placeMarker = None
 					ui.message(_("No place marker found"))
+			else:
+				# Nullify place marker if it holds incorrect data.
+				self.placeMarker = None
+				# Translators: Presented when no place marker is found.
+				ui.message(_("No place marker found"))
 
 	def script_metadataStreamingAnnouncer(self, gesture):
 		# 8.0: Call the module-level function directly.
