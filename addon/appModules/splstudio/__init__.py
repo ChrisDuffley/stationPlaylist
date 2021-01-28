@@ -2310,7 +2310,11 @@ class AppModule(appModuleHandler.AppModule):
 	# In the layer commands below, sayStatus function is used if screen objects or API must be used
 	# (API is for Studio 5.20 and later).
 	def sayStatus(self, index: int) -> None:
-		status = self._statusBarMessages[index][splbase.studioAPI(index, 39)]
+		# 21.03/20.09.6-LTS: no, status index must be an integer.
+		studioStatus = splbase.studioAPI(index, 39)
+		if studioStatus is None:
+			return
+		status = self._statusBarMessages[index][studioStatus]
 		if splconfig.SPLConfig["General"]["MessageVerbosity"] == "advanced":
 			status = status.split()[-1]
 		ui.message(status)
