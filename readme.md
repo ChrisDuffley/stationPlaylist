@@ -205,6 +205,8 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 * Minimum Windows release requirement is now tied to NVDA releases.
 * Removed feedback email command (Alt+NVDA+Hyphen). Please send feedback to add-on developers using the contact information provided from Add-ons Manager.
+* 21.03: parts of the add-on source code now include type annotations.
+* 21.03: made the add-on code more robust with help from Mypy (a Python static type checker). In particular, fixed several long-standing bugs such as NVDA not being able to reset add-on settings to defaults under some circumstances and attempting to save encoder settings when not loaded. Some prominent bug fixes were also backported to 20.09.6-LTS.
 * Fixed numerous bugs with add-on welcome dialog (Alt+NVDA+F1 from Studio window), including multiple welcome dialogs being shown and NVDA appearing to do nothing or playing error tones when welcome dialog remains open after Studio exits.
 * Fixed numerous bugs with track comments dialog (Alt+NVDA+C three times from a track in Studio), including an error tone heard when trying to save comments and many track comment dialogs appearing if Alt+NVDA+C is pressed many times. If track comments dialog is still shown after Studio is closed, comments will not be saved.
 * Various column commands such as columns explorer (Control+NVDA+number row) no longer gives erroneous results when performed after NVDA is restarted while focused on a track in Studio. This affects NVDA 2020.4 or later.
