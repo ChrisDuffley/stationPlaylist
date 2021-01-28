@@ -1090,9 +1090,10 @@ class AppModule(appModuleHandler.AppModule):
 	# Respond to profile switches if asked.
 	def actionProfileSwitched(self) -> None:
 		# #38 (17.11/15.10-LTS): obtain microphone alarm status.
-		# 21.03/20.09.6-LTS: only if Studio is still alive.
-		if splbase.studioIsRunning(justChecking=True):
-			self.doExtraAction(self._statusBarMessages[2][splbase.studioAPI(2, 39)])
+		# 21.03/20.09.6-LTS: only if Studio is still alive and Studio API says something.
+		status = splbase.studioAPI(2, 39)
+		if splbase.studioIsRunning(justChecking=True) and status is not None:
+			self.doExtraAction(self._statusBarMessages[2][status])
 
 	def actionSettingsReset(self, factoryDefaults: bool = False) -> None:
 		global micAlarmT, micAlarmT2
@@ -1103,8 +1104,9 @@ class AppModule(appModuleHandler.AppModule):
 		if micAlarmT2 is not None:
 			micAlarmT2.Stop()
 		micAlarmT2 = None
-		if splbase.studioIsRunning(justChecking=True):
-			self.doExtraAction(self._statusBarMessages[2][splbase.studioAPI(2, 39)])
+		status = splbase.studioAPI(2, 39)
+		if splbase.studioIsRunning(justChecking=True) and status is not None:
+			self.doExtraAction(self._statusBarMessages[2][status])
 
 	# Alarm announcement: Alarm notification via beeps, speech or both.
 	def alarmAnnounce(self, timeText: str, tone: float, duration: int, intro: bool = False) -> None:
