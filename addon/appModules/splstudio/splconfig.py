@@ -927,7 +927,7 @@ def message(category: str, value: str) -> None:
 	ui.message(messagePool[category][value][verbosityLevels.index(SPLConfig["General"]["MessageVerbosity"])])
 
 
-messagePool = {
+messagePool: dict[str, Any] = {
 	"BeepAnnounce": {
 		True: (
 			# Translators: Reported when status announcement is set to beeps in SPL Studio.
