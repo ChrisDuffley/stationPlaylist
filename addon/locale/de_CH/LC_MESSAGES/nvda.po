@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-08-14 09:22-0700\n"
+"PO-Revision-Date: 2021-01-23 09:01-0800\n"
 "Last-Translator: Robert Hänggi <aarjay.robert@gmail.com>\n"
 "Language-Team: \n"
 "Language: de_CH\n"
@@ -18,18 +18,6 @@ msgstr ""
 "X-Generator: Poedit 1.8.9\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-
-#. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
-msgid ""
-"You are using an older version of Windows. This add-on requires Windows 7 "
-"Service Pack 1 or later."
-msgstr ""
-"Sie verwenden noch eine ältere Version von Windows. Diese Erweiterung "
-"erfordert Windows 7 Service Pack 1 oder neuer."
-
-#. Translators: Title of a dialog shown when installing StationPlaylist add-on on old Windows releases.
-msgid "Old Windows version"
-msgstr "Veraltete Windows-Version"
 
 #. Translators: announced in SPL Creator and Remote VT
 #. when trying to perform playlist status commands while outside of playlist editor.
@@ -859,7 +847,6 @@ msgid "You are already in the instant switch profile"
 msgstr "Sie befinden sich bereits im Profil für den Sofortwechsel"
 
 #. Translators: A message giving basic information about the add-on.
-#, fuzzy
 msgid ""
 "Welcome to StationPlaylist add-on for NVDA,\n"
 "your companion to broadcasting with SPL Studio using NVDA screen reader.\n"
@@ -880,38 +867,9 @@ msgid ""
 "for add-on details and to read the documentation.\n"
 "Want to see this dialog again? Just press Alt+NVDA+F1 while using Studio to "
 "return to this dialog.\n"
-"Have something to say about the add-on?\n"
-"Press Alt+NVDA+hyphen (-) to send feedback to the developer of this add-on "
-"using your default email program.\n"
 "\n"
 "Thank you."
 msgstr ""
-"Willkommen bei der Erweiterung StationPlaylist für NVDA,\n"
-"Ihr Begleiter bei der Übertragung mit SPL-Studio mit NVDA.\n"
-"\n"
-"Zu den Highlights dieser Erweiterung gehören:\n"
-"* Layer-Befehle zum Abrufen von Statusinformationen.\n"
-"* Verschiedene Möglichkeiten zur Untersuchung von Titelspalten.\n"
-"* Verschiedene Möglichkeiten, um Titel zu finden.\n"
-"* Cart-Explorer zum Erlernen von Cart-Zuweisungen.\n"
-"* Umfassende Einstellungen und Dokumentation.\n"
-"* Völlig frei, quelloffen und von der Gemeinschaft gesteuert.\n"
-"* Und vieles mehr.\n"
-"\n"
-"Besuchen Sie www.stationplaylist.com für Einzelheiten zu den Anwendungen der "
-"StationPlaylist-Suite.\n"
-"Besuchen Sie www.nvda-project.org (die Webseite für die NVDA-Erweiterungen) "
-"und suchen Sie dort nach dem Eintrag \"StationPlaylist\", um weitere "
-"Informationen über die Erweiterung zu erhalten und zum Lesen der "
-"Dokumentation.\n"
-"Möchten Sie dieses Dialogfeld noch einmal angezeigt bekommen? Drücken Sie "
-"einfach Alt+NVDA+F1, während Sie das Studio verwenden, um zu diesem "
-"Dialogfeld zurückzukehren.\n"
-"Möchten Sie etwas über die Erweiterung melden? Drücken Sie Strg+NVDA+Minus, "
-"um mit Ihrem E-Mail-Programm ein Feedback an den Entwickler dieser "
-"Erweiterung zu senden.\n"
-"\n"
-"Vielen Dank."
 
 #. Translators: Title of a dialog displayed when the add-on starts presenting basic information,
 #. similar to NVDA's own welcome dialog.
@@ -1550,12 +1508,6 @@ msgstr "Keine Titel mit Laufzeit zwischen Mindest- und Höchstdauer."
 #. Translators: Standard error title for find error (copy this from main nvda.po).
 msgid "Time range find error"
 msgstr "Zeitbereich, um Fehler zu finden"
-
-msgid "Countdown started"
-msgstr "Countdown gestartet"
-
-msgid "Timer complete"
-msgstr "Timer fertig"
 
 #. Translators: presented when metadata streaming status cannot be obtained.
 msgid "Cannot obtain metadata streaming status information"

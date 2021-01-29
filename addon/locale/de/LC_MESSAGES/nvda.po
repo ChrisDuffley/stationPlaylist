@@ -8,28 +8,16 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2021-01-01 12:55+0100\n"
+"PO-Revision-Date: 2021-01-23 09:01-0800\n"
 "Last-Translator: René Linke <rene.linke@hamburg.de>\n"
 "Language-Team: Deutsch <bernd_dorer@yahoo.de>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 1.8.9\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-
-#. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
-msgid ""
-"You are using an older version of Windows. This add-on requires Windows 7 "
-"Service Pack 1 or later."
-msgstr ""
-"Sie verwenden noch eine ältere Version von Windows. Diese Erweiterung "
-"erfordert Windows 7 Service Pack 1 oder neuer."
-
-#. Translators: Title of a dialog shown when installing StationPlaylist add-on on old Windows releases.
-msgid "Old Windows version"
-msgstr "Veraltete Windows-Version"
 
 #. Translators: announced in SPL Creator and Remote VT
 #. when trying to perform playlist status commands while outside of playlist editor.
@@ -1548,12 +1536,6 @@ msgstr "Keine Titel mit Laufzeit zwischen Mindest- und Höchstdauer."
 #. Translators: Standard error title for find error (copy this from main nvda.po).
 msgid "Time range find error"
 msgstr "Zeitbereich, um Fehler zu finden"
-
-msgid "Countdown started"
-msgstr "Countdown gestartet"
-
-msgid "Timer complete"
-msgstr "Timer fertig"
 
 #. Translators: presented when metadata streaming status cannot be obtained.
 msgid "Cannot obtain metadata streaming status information"

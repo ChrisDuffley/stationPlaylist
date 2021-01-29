@@ -8,26 +8,14 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-09-20 09:39+0100\n"
+"PO-Revision-Date: 2021-01-23 08:54-0800\n"
 "Last-Translator: Ondrej Rosík <ondrej.rosik@gmail.com>\n"
 "Language-Team: \n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.11\n"
-
-#. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
-msgid ""
-"You are using an older version of Windows. This add-on requires Windows 7 "
-"Service Pack 1 or later."
-msgstr ""
-"Používate staršiu verziu operačného systému Windows. Doplnok funguje od "
-"verzie Windows 7 Service pack 1."
-
-#. Translators: Title of a dialog shown when installing StationPlaylist add-on on old Windows releases.
-msgid "Old Windows version"
-msgstr "Staršia verzia operačného systému"
+"X-Generator: Poedit 1.8.9\n"
 
 #. Translators: announced in SPL Creator and Remote VT
 #. when trying to perform playlist status commands while outside of playlist editor.
@@ -822,7 +810,6 @@ msgid "You are already in the instant switch profile"
 msgstr "Profil je už aktivovaný"
 
 #. Translators: A message giving basic information about the add-on.
-#, fuzzy
 msgid ""
 "Welcome to StationPlaylist add-on for NVDA,\n"
 "your companion to broadcasting with SPL Studio using NVDA screen reader.\n"
@@ -843,32 +830,9 @@ msgid ""
 "for add-on details and to read the documentation.\n"
 "Want to see this dialog again? Just press Alt+NVDA+F1 while using Studio to "
 "return to this dialog.\n"
-"Have something to say about the add-on?\n"
-"Press Alt+NVDA+hyphen (-) to send feedback to the developer of this add-on "
-"using your default email program.\n"
 "\n"
 "Thank you."
 msgstr ""
-"Vitajte v doplnku pre StationPlaylist add-on,\n"
-"Vášho sprievodcu pri vysielaní internetového rádia cez SPL Studio.\n"
-"\n"
-"Prednosti tohto doplnku zahŕňajú:\n"
-"* Príkazy na zistenie stavu funkcii.\n"
-"* Príkazy na zistenie metadát v skladbách.\n"
-"* Viaceré možnosti vyhľadávania v zozname skladieb.\n"
-"* Prezeranie v zozname jinglov.\n"
-"* Podrobné nastavenia a dokumentáciu.\n"
-"* Všetko zdarma, s otvoreným kódom a podporou širokej komunity.\n"
-"* A oveľa viac.\n"
-"\n"
-"Podrobnosti o sete aplikácii Station playlist nájdete na www.stationplaylist."
-"com.\n"
-"Podrobnosti a návod k tomuto doplnku nájdete na stránke addons.nvda-project."
-"org.\n"
-"Tento dialóg môžete kedykoľvek zobraziť skratkou Alt+NVDA+F1 v okne SPL.\n"
-"Ak mi chcete poslať e-mail, stlačte Ctrl+NVDA+-.\n"
-"\n"
-"Ďakujem."
 
 #. Translators: Title of a dialog displayed when the add-on starts presenting basic information,
 #. similar to NVDA's own welcome dialog.
@@ -1477,12 +1441,6 @@ msgstr "Zadaným krytériám nevyhovuje žiadna skladba."
 #. Translators: Standard error title for find error (copy this from main nvda.po).
 msgid "Time range find error"
 msgstr "Chyba"
-
-msgid "Countdown started"
-msgstr "Odpočítavam"
-
-msgid "Timer complete"
-msgstr "Odpočítavanie dokončené"
 
 #. Translators: presented when metadata streaming status cannot be obtained.
 msgid "Cannot obtain metadata streaming status information"

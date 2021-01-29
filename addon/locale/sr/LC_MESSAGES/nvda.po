@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: stationPlaylist 4.2\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
-"POT-Creation-Date: 2015-02-06 19:00+1000\n"
-"PO-Revision-Date: 2020-08-14 09:29-0700\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2021-01-23 08:53-0800\n"
 "Last-Translator: Nikola Jović <wwenikola123@gmail.com>\n"
 "Language-Team: \n"
 "Language: sr\n"
@@ -1515,12 +1515,6 @@ msgstr "Nema zapisa sa trajanjem između minimalnog i maksimalnog vremena"
 msgid "Time range find error"
 msgstr "Greška pronalazača opsega vremena"
 
-msgid "Countdown started"
-msgstr "Odbrojavanje započeto"
-
-msgid "Timer complete"
-msgstr "Tajmer završen"
-
 #. Translators: presented when metadata streaming status cannot be obtained.
 #, fuzzy
 msgid "Cannot obtain metadata streaming status information"
@@ -1932,7 +1926,3 @@ msgid ""
 msgstr ""
 "Poboljšava podršku za StationPlaylist Studio.\n"
 "Takođe, dodaje globalne komande za studio bilo gde."
-
-#, fuzzy
-#~ msgid "Old Windows version"
-#~ msgstr "Otkrivena je starija verzija Windowsa"

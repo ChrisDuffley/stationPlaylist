@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 19.02\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-08-14 09:23-0700\n"
+"PO-Revision-Date: 2021-01-23 08:59-0800\n"
 "Last-Translator: Michel Such <michel.such@free.fr>\n"
 "Language-Team: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language: fr\n"
@@ -17,18 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.9\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-
-#. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
-msgid ""
-"You are using an older version of Windows. This add-on requires Windows 7 "
-"Service Pack 1 or later."
-msgstr ""
-"Vous utilisez une ancienne version de Windows. Cette extension nécessite "
-"Windows 7 Service Pack 1 ou version ultérieure."
-
-#. Translators: Title of a dialog shown when installing StationPlaylist add-on on old Windows releases.
-msgid "Old Windows version"
-msgstr "Ancienne version de Windows"
 
 #. Translators: announced in SPL Creator and Remote VT
 #. when trying to perform playlist status commands while outside of playlist editor.
@@ -881,7 +869,6 @@ msgid "You are already in the instant switch profile"
 msgstr "Vous êtes déjà dans le changement de profil immédiat"
 
 #. Translators: A message giving basic information about the add-on.
-#, fuzzy
 msgid ""
 "Welcome to StationPlaylist add-on for NVDA,\n"
 "your companion to broadcasting with SPL Studio using NVDA screen reader.\n"
@@ -902,38 +889,9 @@ msgid ""
 "for add-on details and to read the documentation.\n"
 "Want to see this dialog again? Just press Alt+NVDA+F1 while using Studio to "
 "return to this dialog.\n"
-"Have something to say about the add-on?\n"
-"Press Alt+NVDA+hyphen (-) to send feedback to the developer of this add-on "
-"using your default email program.\n"
 "\n"
 "Thank you."
 msgstr ""
-"Bienvenue dans l'extension StationPlaylist Studio pour NVDA,\n"
-"votre compagnon pour la diffusion avec SPL Studio utilisant  le lecteur "
-"d'écran  NVDA.\n"
-"\n"
-"Les points forts de l'extension StationPlaylist Studio incluent :\n"
-"* Commandes en couche  pour l'obtention d'informations sur le statut.\n"
-"* Différentes façons d’examiner les colonnes de piste.\n"
-"* Différentes façons de trouver des pistes.\n"
-"* Explorateur de Chariot pour apprendre les assignations de chariot.\n"
-"* Paramètres et documentation clairs.\n"
-"* Complètement libre, open-source et maintenu par la communauté.\n"
-"* Et bien plus encore.\n"
-"\n"
-"Visitez www.stationplaylist.com pour plus d'informations sur StationPlaylist "
-"Studio.\n"
-"Consultez l'entrée  de StationPlaylist sur  la page de la Communauté des "
-"Extensions de NVDA (addons.nvda-project.org) pour plus d’informations sur "
-"l'extension et pour lire la documentation.\n"
-"Vous voulez voir ce dialogue à nouveau ? Il suffit d'appuyer sur Alt+NVDA+F1 "
-"lors de l’utilisation de Studio pour revenir à  ce dialogue.\n"
-"Avez-vous quelque chose à dire au sujet d' l'extension ? Appuyer sur Contrôle"
-"+NVDA+tiret (-) pour envoyer une réaction (retour d'information) au "
-"développeur de ce module complémentaire en utilisant  votre programme de "
-"courrier par défaut.\n"
-"\n"
-"Merci."
 
 #. Translators: Title of a dialog displayed when the add-on starts presenting basic information,
 #. similar to NVDA's own welcome dialog.
@@ -1567,12 +1525,6 @@ msgstr "Aucune piste avec la durée entre minimale et maximale."
 msgid "Time range find error"
 msgstr "Erreur trouver dans l'intervalle de temps"
 
-msgid "Countdown started"
-msgstr "Le compte à rebours a commencé"
-
-msgid "Timer complete"
-msgstr "Minuteur complet"
-
 #. Translators: presented when metadata streaming status cannot be obtained.
 msgid "Cannot obtain metadata streaming status information"
 msgstr ""
@@ -1862,9 +1814,7 @@ msgstr "Se connecter à un serveur de flux."
 
 #. Help message for SPL Controller
 #. Translators: the dialog text for SPL Controller help.
-#, fuzzy
 msgid ""
-"\n"
 "After entering SPL Controller, press:\n"
 "A: Turn automation on.\n"
 "Shift+A: Turn automation off.\n"
@@ -1886,27 +1836,6 @@ msgid ""
 "Function keys and number row keys with or without Shift, Alt, and Control "
 "keys: Play carts."
 msgstr ""
-"\n"
-"Une fois dans le contrôleur SPL, appuyez sur :\n"
-"A : Activer l'automatisation.\n"
-"Maj+A : Désactiver l'automatisation.\n"
-"M : Activer le microphone.\n"
-"Maj+M : Désactiver le microphone.\n"
-"N : Activation du microphone sans fondu.\n"
-"L : Activer l'entrée ligne.\n"
-"Maj+L :Désactiver l'entrée ligne.\n"
-"P : Lecture.\n"
-"U : Pause.\n"
-"S : Arrêt avec fondu.\n"
-"T : Arrêt instantané.\n"
-"C : Annoncer le nom et la durée pour la piste en cours de lecture.\n"
-"E : Annoncer si des encodeurs sont surveillés.\n"
-"I : Annoncer le nombre d'auditeurs.\n"
-"Q : Annoncer l'information  du statut de Studio.\n"
-"R : Temps restant pour la piste en cours de lecture.\n"
-"Maj+R : avancement du balayage de la bibliothèque.\n"
-"Touches de fonctions et ligne des touches numériques avec ou sans touches "
-"Maj, Alt, et Contrôle : Lire les chariots."
 
 #. Translators: Input help mode message for a command to switch to StationPlaylist Studio from any program.
 msgid "Moves to SPL Studio window from other programs."
@@ -1982,7 +1911,7 @@ msgstr ""
 "Annonce le statut de Studio tel que le statut de la lecture de la piste à "
 "partir d'autres programmes"
 
-#. Translators: The title for SPL Controller help dialog.
+#. Translators: The title for SPL Controller help screen.
 msgid "SPL Controller help"
 msgstr "Aide du Contrôleur SPL"
 
