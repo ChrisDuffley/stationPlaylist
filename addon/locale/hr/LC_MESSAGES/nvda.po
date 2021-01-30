@@ -19,18 +19,6 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 
-#. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
-msgid ""
-"You are using an older version of Windows. This add-on requires Windows 7 "
-"Service Pack 1 or later."
-msgstr ""
-"Koristiš stariju verziju sustava Windows. Za ovaj dodatak je potreban "
-"Windows 7 Service Pack 1 ili noviji."
-
-#. Translators: Title of a dialog shown when installing StationPlaylist add-on on old Windows releases.
-msgid "Old Windows version"
-msgstr "Stara Windows verzija"
-
 #. Translators: announced in SPL Creator and Remote VT when trying to perform playlist status commands while outside of playlist editor.
 msgid "You are not in playlist editor"
 msgstr "Ne nalaziš se u uređivaču popisa snimaka"

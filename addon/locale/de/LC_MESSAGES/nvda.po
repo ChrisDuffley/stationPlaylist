@@ -19,18 +19,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
-msgid ""
-"You are using an older version of Windows. This add-on requires Windows 7 "
-"Service Pack 1 or later."
-msgstr ""
-"Sie verwenden noch eine ältere Version von Windows. Diese Erweiterung "
-"erfordert Windows 7 Service Pack 1 oder neuer."
-
-#. Translators: Title of a dialog shown when installing StationPlaylist add-on on old Windows releases.
-msgid "Old Windows version"
-msgstr "Veraltete Windows-Version"
-
 #. Translators: announced in SPL Creator and Remote VT when trying to perform playlist status commands while outside of playlist editor.
 msgid "You are not in playlist editor"
 msgstr "Sie befinden sich nicht im Playlist-Editor"

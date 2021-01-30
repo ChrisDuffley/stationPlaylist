@@ -16,18 +16,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.9\n"
 
-#. Translators: Presented when attempting to install StationPlaylist add-on on unsupported Windows releases.
-msgid ""
-"You are using an older version of Windows. This add-on requires Windows 7 "
-"Service Pack 1 or later."
-msgstr ""
-"Bạn đang dùng một phiên bản Windows cũ. Add-on này yêu cầu Windows 7 Service "
-"Pack 1 trở lên."
-
-#. Translators: Title of a dialog shown when installing StationPlaylist add-on on old Windows releases.
-msgid "Old Windows version"
-msgstr "Phiên bản Windows cũ"
-
 #. Translators: announced in SPL Creator and Remote VT when trying to perform playlist status commands while outside of playlist editor.
 msgid "You are not in playlist editor"
 msgstr "Bạn không ở trong trình chỉnh sửa danh sách phát"
