@@ -930,17 +930,6 @@ def message(category: str, value: str) -> None:
 
 
 messagePool: dict[str, Any] = {
-	"BeepAnnounce": {
-		True: (
-			# Translators: Reported when status announcement is set to beeps in SPL Studio.
-			_("Status announcement beeps"),
-			# Translators: Reported when status announcement is set to beeps in SPL Studio.
-			_("Beeps")),
-		False: (
-			# Translators: Reported when status announcement is set to beeps in SPL Studio.
-			_("Status announcement words"),
-			# Translators: Reported when status announcement is set to beeps in SPL Studio.
-			_("Words"))},
 	"BrailleTimer": {
 		"off": (
 			# Translators: A setting in braille timer options.
