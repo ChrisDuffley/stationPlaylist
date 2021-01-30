@@ -741,10 +741,12 @@ def closeConfig(splComponent):
 
 # Terminate the config and related subsystems.
 def terminate():
-	global SPLConfig, _SPLCache
-	# Dump track comments.
+	global trackComments
+	# Dump and clear track comments.
 	with open(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"), "wb") as f:
 		pickle.dump(trackComments, f, protocol=4)
+	trackComments.clear()
+	trackComments = {}
 	# Now save profiles.
 	# 8.0: Call the save method.
 	# #64 (18.07): separated into its own function in 2018.
