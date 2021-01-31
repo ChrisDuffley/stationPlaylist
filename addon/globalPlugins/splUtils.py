@@ -102,6 +102,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		return finally_(script, self.finish)
 
 	def finish(self):
+		# 21.03/20.09.6-LTS: clear SPL window handle.
+		global SPLWin
+		SPLWin = 0
 		self.SPLController = False
 		self.clearGestureBindings()
 
