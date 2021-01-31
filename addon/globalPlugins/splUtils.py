@@ -281,8 +281,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	)
 	def script_encoderStatus(self, gesture):
 		# Go through below procedure, as custom commands can be assigned for this script.
-		SPLWin = user32.FindWindowW("SPLStudio", None)
-		if not SPLWin:
+		SPLHwnd = user32.FindWindowW("SPLStudio", None)
+		if not SPLHwnd:
 			ui.message(_("SPL Studio is not running."))
 			self.finish()
 			return
@@ -302,22 +302,22 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	)
 	def script_statusInfo(self, gesture):
 		# Go through below procedure, as custom commands can be assigned for this script.
-		SPLWin = user32.FindWindowW("SPLStudio", None)
-		if not SPLWin:
+		SPLHwnd = user32.FindWindowW("SPLStudio", None)
+		if not SPLHwnd:
 			ui.message(_("SPL Studio is not running."))
 			self.finish()
 			return
 		# Studio 5.20 and later allows fetching status bar info from anywhere via Studio API, including playback and automation status.
 		# For consistency reasons (because of the Studio status bar), messages in this method will remain in English.
 		statusInfo = []
-		playingNow = sendMessage(SPLWin, 1024, 0, SPL_TrackPlaybackStatus)
+		playingNow = sendMessage(SPLHwnd, 1024, 0, SPL_TrackPlaybackStatus)
 		statusInfo.append("Play status: playing" if playingNow else "Play status: stopped")
-		statusInfo.append("Automation On" if sendMessage(SPLWin, 1024, 1, SPLStatusInfo) else "Automation Off")
-		statusInfo.append("Microphone On" if sendMessage(SPLWin, 1024, 2, SPLStatusInfo) else "Microphone Off")
-		statusInfo.append("Line-In On" if sendMessage(SPLWin, 1024, 3, SPLStatusInfo) else "Line-In Off")
-		statusInfo.append("Record to file On" if sendMessage(SPLWin, 1024, 4, SPLStatusInfo) else "Record to file Off")
-		cartEdit = sendMessage(SPLWin, 1024, 5, SPLStatusInfo)
-		cartInsert = sendMessage(SPLWin, 1024, 6, SPLStatusInfo)
+		statusInfo.append("Automation On" if sendMessage(SPLHwnd, 1024, 1, SPLStatusInfo) else "Automation Off")
+		statusInfo.append("Microphone On" if sendMessage(SPLHwnd, 1024, 2, SPLStatusInfo) else "Microphone Off")
+		statusInfo.append("Line-In On" if sendMessage(SPLHwnd, 1024, 3, SPLStatusInfo) else "Line-In Off")
+		statusInfo.append("Record to file On" if sendMessage(SPLHwnd, 1024, 4, SPLStatusInfo) else "Record to file Off")
+		cartEdit = sendMessage(SPLHwnd, 1024, 5, SPLStatusInfo)
+		cartInsert = sendMessage(SPLHwnd, 1024, 6, SPLStatusInfo)
 		if cartEdit:
 			statusInfo.append("Cart Edit On")
 		elif not cartEdit and cartInsert:
