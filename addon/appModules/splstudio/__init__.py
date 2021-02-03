@@ -176,41 +176,39 @@ class SPLTrackItem(sysListView32.ListItem):
 			return
 		columnPos -= 1
 		header = None
-		try:
+		# 21.03: search for the correct column (child object) based on the header from explore columns list.
+		# Because of this, track items must expose individual columns as child objects.
+		if hasattr(self, "exploreColumns"):
+			columnHeaders = [child.columnHeaderText for child in self.children]
 			header = self.exploreColumns[columnPos]
-			# #103: only concrete implementations will return the correct index.
-			column = self.indexOf(header)
-		except AttributeError:
-			# #117 (20.02): for track items with no custom Columns Explorer support, refer to visual column layout.
-			# #72: probe column order array from the list (parent).
-			# #65 (18.08): use column header method (at least the method body) provided by the class itself.
-			# This will work properly if the list (parent) is (or recognized as) SysListView32.List.
-			# Note that for column announcement, zero-based indexing is still used.
-			column = self.parent._columnOrderArray[columnPos]
-			header = self._getColumnHeaderRaw(column)
-		if column is not None:
-			columnContent = self._getColumnContentRaw(column)
-			# #61 (18.06): pressed once will announce column data, twice will present it in a browse mode window.
-			if scriptHandler.getLastScriptRepeatCount() == 0:
-				if columnContent:
-					# Translators: Standard message for announcing column content.
-					ui.message(_("{header}: {content}").format(header=header, content=columnContent))
-				else:
-					# Translators: Spoken when column content is blank.
-					speech.speakMessage(_("{header}: blank").format(header=header))
-					# Translators: Brailled to indicate empty column content.
-					braille.handler.message(_("{header}: ()").format(header=header))
+			# Only possible if explore columns list is defined and running an older version of SPL suite.
+			if header not in columnHeaders:
+				# Translators: Presented when a specific column header is not found.
+				ui.message(_("{headerText} not found").format(headerText=header))
+				return
+			columnPos = columnHeaders.index(header)
+		column = self.getChild(columnPos)
+		columnContent = column.name
+		if header is None:
+			header = column.columnHeaderText
+		# #61 (18.06): pressed once will announce column data, twice will present it in a browse mode window.
+		if scriptHandler.getLastScriptRepeatCount() == 0:
+			if columnContent:
+				# Translators: Standard message for announcing column content.
+				ui.message(_("{header}: {content}").format(header=header, content=columnContent))
 			else:
-				if columnContent is None:
-					# Translators: presented when column information for a track is empty.
-					columnContent = _("blank")
-				ui.browseableMessage(
-					"{0}: {1}".format(header, columnContent),
-					# Translators: Title of the column data window.
-					title=_("Track data"))
+				# Translators: Spoken when column content is blank.
+				speech.speakMessage(_("{header}: blank").format(header=header))
+				# Translators: Brailled to indicate empty column content.
+				braille.handler.message(_("{header}: ()").format(header=header))
 		else:
-			# Translators: Presented when a specific column header is not found.
-			ui.message(_("{headerText} not found").format(headerText=header))
+			if not columnContent:
+				# Translators: presented when column information for a track is empty.
+				columnContent = _("blank")
+			ui.browseableMessage(
+				"{0}: {1}".format(header, columnContent),
+				# Translators: Title of the column data window.
+				title=_("Track data"))
 
 	@scriptHandler.script(
 		# Translators: input help mode message for columns viewer command.
