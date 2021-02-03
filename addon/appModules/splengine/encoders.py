@@ -356,6 +356,20 @@ class Encoder(IAccessible):
 				pass
 		return name
 
+	# 21.03/20.09.6-LTS: column content out proc was added in NVDA 2020.4
+	# to avoid errors with 64-bit SysListView32 controls.
+	# Because original column content raw method returns None if out proc fails, call the raw method twice.
+	# This resolves an issue where NVDA may fail to obtain column content when focused on an encoder
+	# right after starting NVDA while focused on encoder entries.
+	# In fact, this is the same workaround as in SPL track item class from Studio app module.
+	def _getColumnContentRaw(self, index):
+		columnContent = super(Encoder, self)._getColumnContentRaw(index)
+		# Don't bother asking out proc unless this is NVDA 2020.4 or later.
+		if columnContent is None and hasattr(self, "_getColumnContentRawOutProc"):
+			columnContent = self._getColumnContentRawOutProc(index)
+		# For compatibility, return None instead of an empty string if value is indeed empty.
+		return columnContent if columnContent else None
+
 	# Some helper functions
 	# 17.08: most are properties.
 
