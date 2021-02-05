@@ -730,8 +730,8 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 		while True:
 			time.sleep(0.001)
 			try:
-				status = self._getColumnContentRaw(2)
-				statusDetails = self._getColumnContentRaw(3)
+				status = self.getChild(2).name
+				statusDetails = self.getChild(3).name
 			except AttributeError:
 				# Seen when NVDA exits while connecting or background monitor is on.
 				return
@@ -876,7 +876,7 @@ class SPLEncoder(Encoder):
 		while True:
 			time.sleep(0.001)
 			try:
-				status = self._getColumnContentRaw(1)
+				status = self.getChild(1).name
 			except AttributeError:
 				# Seen when NVDA exits while connecting or background monitor is on.
 				return
