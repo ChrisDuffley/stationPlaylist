@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2021-01-23 09:01-0800\n"
+"PO-Revision-Date: 2021-02-06 11:04-0800\n"
 "Last-Translator: Robert Hänggi <aarjay.robert@gmail.com>\n"
 "Language-Team: \n"
 "Language: de_CH\n"
@@ -49,6 +49,11 @@ msgstr "StationPlaylist"
 msgid "Column {columnPosition} not found"
 msgstr "Spalte {columnPosition} nicht gefunden"
 
+#. Translators: Presented when a specific column header is not found.
+#, python-brace-format
+msgid "{headerText} not found"
+msgstr "{headerText} nicht gefunden"
+
 #. Translators: Standard message for announcing column content.
 #, python-brace-format
 msgid "{header}: {content}"
@@ -71,11 +76,6 @@ msgstr "Leer"
 #. Translators: Title of the column data window.
 msgid "Track data"
 msgstr "Titeldaten"
-
-#. Translators: Presented when a specific column header is not found.
-#, python-brace-format
-msgid "{headerText} not found"
-msgstr "{headerText} nicht gefunden"
 
 #. Translators: input help mode message for columns viewer command.
 msgid "Presents data for all columns in the currently selected track"
@@ -879,22 +879,6 @@ msgstr "Willkommen zur StationPlaylist-Erweiterung"
 #. Translators: A checkbox to show welcome dialog.
 msgid "Show welcome dialog when I start Studio"
 msgstr "Willkommensdialog beim Starten der Studio-Erweiterung anzeigen"
-
-#. Translators: Reported when status announcement is set to beeps in SPL Studio.
-msgid "Status announcement beeps"
-msgstr "Signaltöne bei Statusmeldungen"
-
-#. Translators: Reported when status announcement is set to beeps in SPL Studio.
-msgid "Beeps"
-msgstr "Signaltöne"
-
-#. Translators: Reported when status announcement is set to beeps in SPL Studio.
-msgid "Status announcement words"
-msgstr "Wörter bei Statusmeldungen"
-
-#. Translators: Reported when status announcement is set to beeps in SPL Studio.
-msgid "Words"
-msgstr "Wörter"
 
 #. Translators: A setting in braille timer options.
 msgid "Braille timer off"

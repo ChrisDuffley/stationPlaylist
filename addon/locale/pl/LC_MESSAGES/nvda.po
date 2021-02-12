@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 1.1-dev\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2021-01-23 08:56-0800\n"
+"PO-Revision-Date: 2021-02-06 11:01-0800\n"
 "Last-Translator: zvonimir stanecic <zvonimirek222@yandex.com>\n"
 "Language-Team: Polish <killer@tyflonet.com>\n"
 "Language: pl\n"
@@ -48,6 +48,11 @@ msgstr "StationPlaylist"
 msgid "Column {columnPosition} not found"
 msgstr ""
 
+#. Translators: Presented when a specific column header is not found.
+#, python-brace-format
+msgid "{headerText} not found"
+msgstr "{headerText} nieznaleziono"
+
 #. Translators: Standard message for announcing column content.
 #, python-brace-format
 msgid "{header}: {content}"
@@ -70,11 +75,6 @@ msgstr "pusto"
 #. Translators: Title of the column data window.
 msgid "Track data"
 msgstr "Dane utworu"
-
-#. Translators: Presented when a specific column header is not found.
-#, python-brace-format
-msgid "{headerText} not found"
-msgstr "{headerText} nieznaleziono"
 
 #. Translators: input help mode message for columns viewer command.
 msgid "Presents data for all columns in the currently selected track"
@@ -855,22 +855,6 @@ msgstr "Witamy w Station Playlist Studio"
 #. Translators: A checkbox to show welcome dialog.
 msgid "Show welcome dialog when I start Studio"
 msgstr "Pokazuj okno powitalne po uruchomieniu Studia"
-
-#. Translators: Reported when status announcement is set to beeps in SPL Studio.
-msgid "Status announcement beeps"
-msgstr "Przełącz oznajmianie dźwięki"
-
-#. Translators: Reported when status announcement is set to beeps in SPL Studio.
-msgid "Beeps"
-msgstr "Dźwięki"
-
-#. Translators: Reported when status announcement is set to beeps in SPL Studio.
-msgid "Status announcement words"
-msgstr "Przełącz oznajmianie mowa"
-
-#. Translators: Reported when status announcement is set to beeps in SPL Studio.
-msgid "Words"
-msgstr "Komunikat"
 
 #. Translators: A setting in braille timer options.
 msgid "Braille timer off"

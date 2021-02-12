@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2021-01-23 09:00-0800\n"
+"PO-Revision-Date: 2021-02-06 11:04-0800\n"
 "Last-Translator: José Manuel Delicado <jmdaweb@hotmail.com>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -49,6 +49,11 @@ msgstr "StationPlaylist"
 msgid "Column {columnPosition} not found"
 msgstr "Columna {columnPosition} no encontrada"
 
+#. Translators: Presented when a specific column header is not found.
+#, python-brace-format
+msgid "{headerText} not found"
+msgstr "{headerText} no encontrado"
+
 #. Translators: Standard message for announcing column content.
 #, python-brace-format
 msgid "{header}: {content}"
@@ -71,11 +76,6 @@ msgstr "en blanco"
 #. Translators: Title of the column data window.
 msgid "Track data"
 msgstr "Datos de pista"
-
-#. Translators: Presented when a specific column header is not found.
-#, python-brace-format
-msgid "{headerText} not found"
-msgstr "{headerText} no encontrado"
 
 #. Translators: input help mode message for columns viewer command.
 msgid "Presents data for all columns in the currently selected track"
@@ -895,22 +895,6 @@ msgstr "Bienvenido al complemento StationPlaylist"
 #. Translators: A checkbox to show welcome dialog.
 msgid "Show welcome dialog when I start Studio"
 msgstr "Mostrar el diálogo de bienvenida al iniciar Studio"
-
-#. Translators: Reported when status announcement is set to beeps in SPL Studio.
-msgid "Status announcement beeps"
-msgstr "Anunciado de estado en pitidos"
-
-#. Translators: Reported when status announcement is set to beeps in SPL Studio.
-msgid "Beeps"
-msgstr "Pitidos"
-
-#. Translators: Reported when status announcement is set to beeps in SPL Studio.
-msgid "Status announcement words"
-msgstr "Anunciado de estado en palabras"
-
-#. Translators: Reported when status announcement is set to beeps in SPL Studio.
-msgid "Words"
-msgstr "Palabras"
 
 #. Translators: A setting in braille timer options.
 msgid "Braille timer off"

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 17.02\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2021-01-23 08:53-0800\n"
+"PO-Revision-Date: 2021-02-06 10:59-0800\n"
 "Last-Translator: Dang Manh Cuong <dangmanhcuong@gmail.com>\n"
 "Language-Team: \n"
 "Language: vi\n"
@@ -46,6 +46,11 @@ msgstr "StationPlaylist"
 msgid "Column {columnPosition} not found"
 msgstr "Không tìm thấy cột {columnPosition}"
 
+#. Translators: Presented when a specific column header is not found.
+#, python-brace-format
+msgid "{headerText} not found"
+msgstr "không tìm thấy {headerText}"
+
 #. Translators: Standard message for announcing column content.
 #, python-brace-format
 msgid "{header}: {content}"
@@ -68,11 +73,6 @@ msgstr "rỗng"
 #. Translators: Title of the column data window.
 msgid "Track data"
 msgstr "Dữ liệu track"
-
-#. Translators: Presented when a specific column header is not found.
-#, python-brace-format
-msgid "{headerText} not found"
-msgstr "không tìm thấy {headerText}"
 
 #. Translators: input help mode message for columns viewer command.
 msgid "Presents data for all columns in the currently selected track"
@@ -875,22 +875,6 @@ msgstr "Chào mừng đến với StationPlaylist add-on"
 #. Translators: A checkbox to show welcome dialog.
 msgid "Show welcome dialog when I start Studio"
 msgstr "Hiện hộp thoại chào mừng khi khởi động Studio"
-
-#. Translators: Reported when status announcement is set to beeps in SPL Studio.
-msgid "Status announcement beeps"
-msgstr "Thông báo trạng thái beeps"
-
-#. Translators: Reported when status announcement is set to beeps in SPL Studio.
-msgid "Beeps"
-msgstr "Beep"
-
-#. Translators: Reported when status announcement is set to beeps in SPL Studio.
-msgid "Status announcement words"
-msgstr "Thông báo trạng thái từ"
-
-#. Translators: Reported when status announcement is set to beeps in SPL Studio.
-msgid "Words"
-msgstr "Từ"
 
 #. Translators: A setting in braille timer options.
 msgid "Braille timer off"

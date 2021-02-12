@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2021-01-23 08:57-0800\n"
+"PO-Revision-Date: 2021-02-06 11:02-0800\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: \n"
 "Language: hr\n"
@@ -49,6 +49,11 @@ msgstr "StationPlaylist"
 msgid "Column {columnPosition} not found"
 msgstr "Stupac {columnPosition} nije pronađen"
 
+#. Translators: Presented when a specific column header is not found.
+#, python-brace-format
+msgid "{headerText} not found"
+msgstr "{headerText} nije pronađeno"
+
 #. Translators: Standard message for announcing column content.
 #, python-brace-format
 msgid "{header}: {content}"
@@ -71,11 +76,6 @@ msgstr "prazno"
 #. Translators: Title of the column data window.
 msgid "Track data"
 msgstr "Podaci snimke"
-
-#. Translators: Presented when a specific column header is not found.
-#, python-brace-format
-msgid "{headerText} not found"
-msgstr "{headerText} nije pronađeno"
 
 #. Translators: input help mode message for columns viewer command.
 msgid "Presents data for all columns in the currently selected track"
@@ -885,22 +885,6 @@ msgstr "Dobro došli u StationPlaylist dodatak"
 msgid "Show welcome dialog when I start Studio"
 msgstr ""
 "Prikaži dijaloški okvir dobrodošlice tijekom pokretanja programa Studio"
-
-#. Translators: Reported when status announcement is set to beeps in SPL Studio.
-msgid "Status announcement beeps"
-msgstr "Najavljivanje stanja zvučnim signalima"
-
-#. Translators: Reported when status announcement is set to beeps in SPL Studio.
-msgid "Beeps"
-msgstr "Zvučni signali"
-
-#. Translators: Reported when status announcement is set to beeps in SPL Studio.
-msgid "Status announcement words"
-msgstr "Najavljivanje stanja riječima"
-
-#. Translators: Reported when status announcement is set to beeps in SPL Studio.
-msgid "Words"
-msgstr "Riječi"
 
 #. Translators: A setting in braille timer options.
 msgid "Braille timer off"
