@@ -131,13 +131,13 @@ class SPLTrackItem(sysListView32.ListItem):
 	# 21.03/20.09.6-LTS: column content out proc was added in NVDA 2020.4
 	# to avoid errors with 64-bit SysListView32 controls.
 	# Because original column content raw method returns None if out proc fails, call the raw method twice.
+	# 21.05: follow regular column content getter code path from NVDA 2020.4 or later.
 	# This resolves an issue where NVDA may fail to obtain column content when focused on a track
 	# right after starting NVDA while Studio is focused.
 	def _getColumnContentRaw(self, index):
+		if not self.appModule.helperLocalBindingHandle:
+			return self._getColumnContentRawOutProc(index)
 		columnContent = super(SPLTrackItem, self)._getColumnContentRaw(index)
-		# Don't bother asking out proc unless this is NVDA 2020.4 or later.
-		if columnContent is None and hasattr(self, "_getColumnContentRawOutProc"):
-			columnContent = self._getColumnContentRawOutProc(index)
 		# For compatibility, return None instead of an empty string if value is indeed empty.
 		return columnContent if columnContent else None
 
