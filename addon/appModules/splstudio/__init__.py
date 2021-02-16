@@ -197,10 +197,12 @@ class SPLTrackItem(sysListView32.ListItem):
 				# Translators: Standard message for announcing column content.
 				ui.message(_("{header}: {content}").format(header=header, content=columnContent))
 			else:
-				# Translators: Spoken when column content is blank.
-				speech.speakMessage(_("{header}: blank").format(header=header))
-				# Translators: Brailled to indicate empty column content.
-				braille.handler.message(_("{header}: ()").format(header=header))
+				ui.message(
+					# Translators: Spoken when column content is blank.
+					_("{header}: blank").format(header=header),
+					# Translators: Brailled to indicate empty column content.
+					brailleText=_("{header}: ()").format(header=header)
+				)
 		else:
 			if not columnContent:
 				# Translators: presented when column information for a track is empty.
