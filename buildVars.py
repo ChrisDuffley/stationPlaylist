@@ -23,7 +23,7 @@ addon_info = {
 	"addon_summary": _("StationPlaylist"),
 	# Add-on description
 	# Translators: Long description to be shown for this add-on on add-on information from add-ons manager
-	"addon_description": _("""Enhances support for StationPlaylist Studio.
+	"addon_description": _("""Enhances support for StationPlaylist apps.
 In addition, adds global commands for the studio from everywhere."""),
 	# version
 	"addon_version": "21.01",
