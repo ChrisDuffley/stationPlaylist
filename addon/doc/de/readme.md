@@ -96,8 +96,6 @@ angegeben.
 * Alt+NVDA+0 aus dem Studio-Fenster: Öffnet den Konfigurationsdialog der
   SPL-Erweiterung.
 * Alt+NVDA+P aus dem Studio-Fenster: Öffnet die Studio-Sendeprofile.
-* Alt+NVDA+Minus (Bindestrich) aus dem Studio-Fenster: Senden Sie Feedback
-  an den Entwickler der Erweiterung mit der E-Mail-Programm.
 * Alt+NVDA+F1: öffnet das Willkommensdialog.
 
 ## Nicht zugewiesene Befehle
@@ -350,6 +348,47 @@ verwenden und NVDA 2012.3 oder höher installiert haben, können Sie einige
 Studio-Befehle über den Touchscreen ausführen. Tippen Sie zunächst einmal
 mit drei Fingern, um in den SPL-Touchmodus zu wechseln. Verwenden Sie dann
 die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
+
+## Version 21.03/20.09.6-LTS
+
+* Die Mindestanforderungen für Windows-Versionen sind jetzt an
+  NVDA-Versionen gebunden.
+* Der Befehl für Feedback per E-Mail (Alt+NVDA+Bindestrich) wurde
+  entfernt. Bitte senden Sie Feedback an Add-On-Entwickler unter Verwendung
+  der Kontaktinformationen, die in der Verwaltung der Erweiterungen
+  bereitgestellt werden.
+* 21.03: Teile des Quellcodes der Erweiterung enthalten nun Typ-Anmerkungen.
+* 21.03: Der Code der Erweiterung wurde mit Hilfe von Mypy (einem statischen
+  Python-Typ-Prüfer) robuster. Insbesondere wurden einige langjährige Fehler
+  behoben, z. B., dass NVDA unter bestimmten Umständen die Einstellungen der
+  Erweiterung nicht auf die Standardeinstellungen zurücksetzen konnte und
+  versuchte, die Encodereinstellungen zu speichern, wenn sie nicht geladen
+  waren. Einige bekannte Fehlerkorrekturen wurden ebenfalls auf 20.09.6-LTS
+  zurückportiert.
+* Es wurden zahlreiche Fehler mit dem Begrüßungsdialog hinzugefügt
+  (Alt+NVDA+F1 aus dem Studio-Fenster heraus), einschließlich der Anzeige
+  mehrerer Begrüßungsdialoge und der Tatsache, dass NVDA scheinbar nichts
+  macht oder Fehlertöne ausgibt, wenn der Begrüßungsdialog nach dem Beenden
+  von Studio geöffnet bleibt.
+* Es wurden zahlreiche Fehler im Dialogfeld "Titelkommentare" behoben
+  (Alt+NVDA+C dreimal von einem Titel in Studio), einschließlich eines
+  Fehlertons beim Speichern von Kommentaren und vieler Dialogfelder für
+  Titelkommentare, die angezeigt werden, wenn Alt+NVDA+C mehrmals gedrückt
+  wird. Wenn das Dialogfeld "Kommentare verfolgen" nach dem Schließen von
+  Studio weiterhin angezeigt wird, werden Kommentare nicht gespeichert.
+* Verschiedene Spaltenbefehle wie der Spalten-Explorer
+  (Strg+NVDA+Zahlenreihe) in Studio-Spuren und Ankündigungen des
+  Encoder-Status führen nicht mehr zu fehlerhaften Ergebnissen, wenn sie
+  nach dem Neustart von NVDA ausgeführt werden, während sie sich auf Spuren
+  oder Encoder konzentrieren. Dies betrifft NVDA 2020.4 oder höher.
+* Es wurden zahlreiche Probleme mit Wiedergabelisten-Snapshots
+  (SPL-Assistent, F8) behoben, einschließlich der Umstand, Snapshot-Daten
+  abzurufen und falsche Tracks als kürzeste oder längste Tracks zu melden.
+* NVDA meldet nun nicht mehr "0 Elemente in der Bibliothek", wenn Studio
+  mitten in einem Scan-Vorgan der Bibliothek beendet wird.
+* NVDA konnte Änderungen an den Encoder-Einstellungen nicht mehr speichern,
+  nachdem beim Laden selbiger Fehler aufgetreten sind und die Einstellungen
+  anschließend auf die Standardeinstellungen zurückgesetzt werden.
 
 ## Version 21.01 / 20.09.5-LTS
 

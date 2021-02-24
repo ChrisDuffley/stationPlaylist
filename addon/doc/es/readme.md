@@ -95,9 +95,6 @@ contrario.
   complemento para Studio.
 * Alt+NVDA+p desde la ventana de Studio: abre el diálogo de perfiles de
   emisión de Studio.
-* Alt+NVDA+- (guión) desde la ventana de Studio: envía retroalimentación al
-  desarrollador del complemento utilizando el cliente de correo
-  predeterminado.
 * Alt+NVDA+F1: abre el diálogo de bienvenida.
 
 ## Órdenes sin asignar
@@ -351,6 +348,49 @@ Windows 8 o posterior y tienes NVDA 2012.3 o posterior instalado, puedes
 realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
+
+## Versión 21.03/20.09.6-LTS
+
+* El requisito de versión mínima de Windows ahora va unido a las versiones
+  de NVDA.
+* Se ha eliminado la orden de comentarios por correo electrónico
+  (alt+NVDA+guión). Por favor, envía comentarios a los desarrolladores de
+  complementos utilizando la información de contacto proporcionada en el
+  administrador de complementos.
+* 21.03: partes del código fuente del complemento ahora incluyen anotaciones
+  de tipo.
+* 21.03: se ha hecho el código del complemento más robusto con la ayuda de
+  Mypy (un comprobador de tipos estáticos de Python). En particular, se han
+  corregido varios fallos de larga duración como el que impedía que NVDA
+  pudiera restablecer las opciones del complemento a sus valores por defecto
+  bajo algunas circunstancias y el que intentaba guardar las opciones del
+  codificador cuando no estaban cargadas. Algunas correcciones de fallos
+  destacables se han llevado también a la versión 20.09.6-LTS.
+* Se han corregido numerosos fallos en el diálogo de bienvenida del
+  complemento (alt+NVDA+f1 desde la ventana de Studio), incluyendo que se
+  mostraran varios diálogos de bienvenida o que NVDA se pusiera a reproducir
+  tonos de error o no reaccionara si se cerraba Studio y el diálogo de
+  bienvenida permanecía abierto.
+* Se han corregido numerosos fallos en el diálogo de comentarios de pista
+  (alt+NVDA+c tres veces desde una pista en Studio), incluyendo un tono de
+  error que se oía al intentar guardar comentarios y el hecho de que el
+  diálogo de comentarios de pista apareciera varias veces si se pulsaba
+  alt+NVDA+c muchas veces. Si el diálogo de comentarios de pista continúa
+  mostrándose después de cerrar Studio, los comentarios no se guardarán.
+* Diversas órdenes de columna, como el explorador de columnas
+  (control+NVDA+fila numérica) en las pistas de Studio y los anuncios de
+  estado del codificador ya no devuelven resultados erróneos al ejecutarse
+  después de reiniciar NVDA con el foco en pistas o codificadores. Esto
+  afecta a NVDA 2020.4 o posterior.
+* Se han corregido varios fallos con las instantáneas de listas de
+  reproducción (Asistente de SPL, f8), incluyendo la incapacidad de obtener
+  datos de las instantáneas y anunciar las pistas incorrectas como las más
+  largas o las más cortas.
+* NVDA ya no anunciará "0 elementos en la biblioteca" cuando se salga de
+  Studio en mitad de un análisis de biblioteca.
+* NVDA ya no fallará al guardar los cambios en las opciones del codificador
+  después de que se encuentren errores al cargar estas opciones y
+  seguidamente se restablezcan a valores por defecto.
 
 ## Versión 21.01/20.09.5-LTS
 

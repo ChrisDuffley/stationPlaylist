@@ -83,9 +83,6 @@ contraire.
 * Alt+NVDA+0 depuis la fenêtre de Studio : Ouvre le dialogue de
   configuration de l'extension Studio.
 * Alt+NVDA+P from Studio window: Opens the Studio broadcast profiles dialog.
-* Alt+NVDA+- (tiret) depuis la fenêtre de Studio : Envoyez vos commentaires
-  au développeur de l'extension en utilisant le client de messagerie par
-  défaut.
 * Alt+NVDA+F1: Ouvre le dialogue de bienvenue.
 
 ## Commandes non assignées
@@ -325,6 +322,40 @@ ultérieure installé, vous pouvez exécuter certaines commandes Studio depuis
 un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
+
+## Version 21.03/20.09.6-LTS
+
+* Minimum Windows release requirement is now tied to NVDA releases.
+* Removed feedback email command (Alt+NVDA+Hyphen). Please send feedback to
+  add-on developers using the contact information provided from Add-ons
+  Manager.
+* 21.03: parts of the add-on source code now include type annotations.
+* 21.03: made the add-on code more robust with help from Mypy (a Python
+  static type checker). In particular, fixed several long-standing bugs such
+  as NVDA not being able to reset add-on settings to defaults under some
+  circumstances and attempting to save encoder settings when not
+  loaded. Some prominent bug fixes were also backported to 20.09.6-LTS.
+* Fixed numerous bugs with add-on welcome dialog (Alt+NVDA+F1 from Studio
+  window), including multiple welcome dialogs being shown and NVDA appearing
+  to do nothing or playing error tones when welcome dialog remains open
+  after Studio exits.
+* Fixed numerous bugs with track comments dialog (Alt+NVDA+C three times
+  from a track in Studio), including an error tone heard when trying to save
+  comments and many track comment dialogs appearing if Alt+NVDA+C is pressed
+  many times. If track comments dialog is still shown after Studio is
+  closed, comments will not be saved.
+* Various column commands such as columns explorer (Control+NVDA+number row)
+  in Studio tracks and encoder status announcements no longer gives
+  erroneous results when performed after NVDA is restarted while focused on
+  tracks or encoders. This affects NVDA 2020.4 or later.
+* Fixed numerous issues with playlist snapshots (SPL Assistant, F8),
+  including inability to obtain snapshot data and reporting wrong tracks as
+  shortest or longest tracks.
+* NVDA will no longer announce "0 items in the library" when Studio exits in
+  the middle of a library scan.
+* NVDA will no longer fail to save changes to encoder settings after errors
+  are encountered when loading encoder settings and subsequently settings
+  are reset to defaults.
 
 ## Version 21.01/20.09.5-LTS
 
