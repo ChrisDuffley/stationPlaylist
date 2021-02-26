@@ -1874,8 +1874,9 @@ msgstr "Pomoć za SPL Kontroler"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+#, fuzzy
 msgid ""
-"Enhances support for StationPlaylist Studio.\n"
+"Enhances support for StationPlaylist apps.\n"
 "In addition, adds global commands for the studio from everywhere."
 msgstr ""
 "Poboljšava podršku za StationPlaylist Studio.\n"

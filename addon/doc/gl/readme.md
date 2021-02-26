@@ -342,39 +342,44 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
-## Version 21.03/20.09.6-LTS
+## Versión 21.03/20.09.6-LTS
 
-* Minimum Windows release requirement is now tied to NVDA releases.
-* Removed feedback email command (Alt+NVDA+Hyphen). Please send feedback to
-  add-on developers using the contact information provided from Add-ons
-  Manager.
-* 21.03: parts of the add-on source code now include type annotations.
-* 21.03: made the add-on code more robust with help from Mypy (a Python
-  static type checker). In particular, fixed several long-standing bugs such
-  as NVDA not being able to reset add-on settings to defaults under some
-  circumstances and attempting to save encoder settings when not
-  loaded. Some prominent bug fixes were also backported to 20.09.6-LTS.
-* Fixed numerous bugs with add-on welcome dialog (Alt+NVDA+F1 from Studio
-  window), including multiple welcome dialogs being shown and NVDA appearing
-  to do nothing or playing error tones when welcome dialog remains open
-  after Studio exits.
-* Fixed numerous bugs with track comments dialog (Alt+NVDA+C three times
-  from a track in Studio), including an error tone heard when trying to save
-  comments and many track comment dialogs appearing if Alt+NVDA+C is pressed
-  many times. If track comments dialog is still shown after Studio is
-  closed, comments will not be saved.
-* Various column commands such as columns explorer (Control+NVDA+number row)
-  in Studio tracks and encoder status announcements no longer gives
-  erroneous results when performed after NVDA is restarted while focused on
-  tracks or encoders. This affects NVDA 2020.4 or later.
-* Fixed numerous issues with playlist snapshots (SPL Assistant, F8),
-  including inability to obtain snapshot data and reporting wrong tracks as
-  shortest or longest tracks.
-* NVDA will no longer announce "0 items in the library" when Studio exits in
-  the middle of a library scan.
-* NVDA will no longer fail to save changes to encoder settings after errors
-  are encountered when loading encoder settings and subsequently settings
-  are reset to defaults.
+* O requerimento de versión mínima de Windows está agora ligado ás versións
+  de NVDA.
+* Eliminado o atallo de correo de comentarios (Alt+NVDA+Guión). Por favor,
+  envía comentarios ós desenvolvedores de complementos utilizando a
+  información de contacto proporcionada no administrador de complementos.
+* 21.03: algunhas partes do código fonte agora inclúen anotacións de tipo.
+* 21.03: faise o código do complemento máis robusto coa axuda de Mypy (un
+  comprobador de tipo estático de Python). Especificamente, arranxados
+  varios erros que viñan de longo como a imposibilidade para NVDA de
+  restablecer a configuración do complemento baixo certas circunstancias, ou
+  a realización de intentos de gardar as opcións do codificador sen estar
+  cargado. algúns arranxos importantes tamén se levaron á 20.09.6-LTS.
+* Arranxados numerosos erros no diálogo de benvida do complemento
+  (Alt+NVDA+F1 dende a ventá de Studio), incluíndo a mostra de varios
+  diálogos de benvida e NVDA aparentando non facer nada ou reproducindo tons
+  de erro cando se deixaba aberto o diálogo de benvida despois do peche de
+  Studio.
+* Arranxados numerosos erros co diálogo de comentarios da pista (NVDA+Alt+C
+  tres veces dende unha pista en Studio), incluída a reprodución dun ton de
+  erro ao tentar gardar comentarios, e a aparición de de varios diálogos de
+  comentarios de pista se se premía NVDA+Alt+C varias veces. Se o diálogo de
+  comentarios de pista aínda se mostra despois do peche de Studio, os
+  comentarios non se gardarán.
+* Varios atallos de columnas como o explorador de columnas
+  (control+NVDA+fila de números) en pistas de Studio e anuncios de estado do
+  codificador xa non proporcionan un resultado erróneo ao premérense tras un
+  reinicio de NVDA enfocando pistas ou codificadores. Isto afecta a NVDA
+  2020.4 ou posterior.
+* Arranxados numerosos erros coas capturas de listas de reprodución
+  (Asistente SPL, F8), incluíndo a imposibilidade de obter datos das
+  capturas e o anuncio da pista incorrecta como pista máis curta ou longa.
+* NVDA xa non anunciará "0 elementos na biblioteca" tras pechar Studio no
+  medio dun escaneado de biblioteca.
+* NVDA xa non fallará gardando os cambios nas opcións do codificador despois
+  de que se encontren errores cargando as opcións do codificador e por
+  conseguinte as opcións se reseteen ós valores predeterminados.
 
 ## Versión 21.01/20.09.5-LTS
 
