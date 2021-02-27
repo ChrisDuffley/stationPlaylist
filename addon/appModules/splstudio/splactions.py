@@ -10,14 +10,8 @@
 
 import extensionPoints
 
-# Studio handle found, app module is fully ready.
-SPLActionAppReady = extensionPoints.Action()
-# Add-on settings were loaded.
-SPLActionSettingsLoaded = extensionPoints.Action()
 # Switching broadcast profiles.
 SPLActionProfileSwitched = extensionPoints.Action()
-# Settings are being saved.
-SPLActionSettingsSaved = extensionPoints.Action()
 # Settings are reloading or set to factory defaults.
 SPLActionSettingsReset = extensionPoints.Action()
 # Studio is terminating.
