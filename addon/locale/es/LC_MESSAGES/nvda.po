@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 17.04\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2021-02-06 11:04-0800\n"
+"PO-Revision-Date: 2021-03-03 11:54+0100\n"
 "Last-Translator: José Manuel Delicado <jmdaweb@hotmail.com>\n"
 "Language-Team: Add-ons translation team <LL@li.org>\n"
 "Language: es_ES\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 2.4.2\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: announced in SPL Creator and Remote VT
@@ -1899,10 +1899,9 @@ msgstr "Ayuda del SPL Controller"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
-#, fuzzy
 msgid ""
 "Enhances support for StationPlaylist apps.\n"
 "In addition, adds global commands for the studio from everywhere."
 msgstr ""
-"Mejora el soporte para Station Playlist Studio.\n"
+"Mejora el soporte para las aplicaciones de StationPlaylist.\n"
 "Además, agrega comandos globales para el estudio desde cualquier parte."

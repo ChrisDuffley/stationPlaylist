@@ -12,7 +12,7 @@ Studio i drugih StationPlaylist programa te pruža alate za kontrolu programa
 Studio s bilo kojeg mjesta. Podržava sljedeće programe: Studio, Creator,
 Track Tool, VT Recorder i Streamer, kao i SAM, SPL i AltaCast kodere.
 
-For more information about the add-on, read the [add-on guide][4].
+Za daljnje informacije o dodatku pročitaj [priručnik za dodatke] [4].
 
 VAŽNE NAPOMENE:
 
