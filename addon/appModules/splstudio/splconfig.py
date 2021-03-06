@@ -25,8 +25,8 @@ from logHandler import log
 from . import splactions
 from .splconfspec import confspec
 import addonHandler
-addonHandler.initTranslation()
 from ..skipTranslation import translate
+addonHandler.initTranslation()
 
 # Configuration management
 SPLIni = os.path.join(globalVars.appArgs.configPath, "splstudio.ini")

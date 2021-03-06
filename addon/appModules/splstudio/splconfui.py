@@ -16,10 +16,10 @@ import wx
 from winUser import user32
 import tones
 import addonHandler
-addonHandler.initTranslation()
 from . import splconfig
 from . import splactions
 from ..skipTranslation import translate
+addonHandler.initTranslation()
 
 # Due to syntax/variable name issues, the actual add-on settings class can be found at the end of this module.
 

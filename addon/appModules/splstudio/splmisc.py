@@ -19,11 +19,11 @@ import speech
 import ui
 from logHandler import log
 import addonHandler
-addonHandler.initTranslation()
 from winUser import user32
 from . import splbase
 from . import splactions
 from ..skipTranslation import translate
+addonHandler.initTranslation()
 
 
 # A custom combo box for cases where combo boxes are not choice controls.

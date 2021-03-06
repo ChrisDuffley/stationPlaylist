@@ -46,8 +46,8 @@ from . import splconfui
 from . import splmisc
 from . import splactions
 import addonHandler
-addonHandler.initTranslation()
 from ..skipTranslation import translate
+addonHandler.initTranslation()
 
 
 # The finally function for status announcement scripts in this module (source: Tyler Spivey's code).
