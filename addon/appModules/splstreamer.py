@@ -6,8 +6,10 @@
 # A standalone app used for broadcast streaming when using something other than Studio for broadcasting.
 # For the most part, features are identical to SPL Engine except for Streamer UI workarounds.
 
-from .splengine import *
+# An alias of SPL Engine app module with UI workarounds, so inform linters such as Flake8.
+from .splengine import *  # NOQA: F403
 from NVDAObjects.IAccessible import IAccessible
+import controlTypes
 
 
 class TEditNoLabel(IAccessible):
@@ -17,7 +19,8 @@ class TEditNoLabel(IAccessible):
 
 
 # #155 (21.03): AppModule base class comes from SPL Engine app module but Mypy doesn't know that.
-class AppModule(AppModule):  # type: ignore[no-redef]
+# On the other hand, Flake8 says parts of the below line are undefined, so ignore it.
+class AppModule(AppModule):  # type: ignore[no-redef]  # NOQA: F405
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		# Try adding labels written to the screen in case edit fields are encountered.
