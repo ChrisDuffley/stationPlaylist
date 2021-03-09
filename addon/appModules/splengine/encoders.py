@@ -564,9 +564,9 @@ class Encoder(IAccessible):
 	def script_encoderDateTime(self, gesture):
 		import winKernel
 		if scriptHandler.getLastScriptRepeatCount() == 0:
-			text = winKernel.GetTimeFormat(winKernel.LOCALE_USER_DEFAULT, 0, None, None)
+			text = winKernel.GetTimeFormatEx(winKernel.LOCALE_NAME_USER_DEFAULT, 0, None, None)
 		else:
-			text = winKernel.GetDateFormat(winKernel.LOCALE_USER_DEFAULT, winKernel.DATE_LONGDATE, None, None)
+			text = winKernel.GetDateFormatEx(winKernel.LOCALE_NAME_USER_DEFAULT, winKernel.DATE_LONGDATE, None, None)
 		ui.message(text)
 
 	# Various column announcement scripts.
