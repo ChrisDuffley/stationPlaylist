@@ -2455,13 +2455,9 @@ class AppModule(appModuleHandler.AppModule):
 		ui.browseableMessage(SPLAssistantHelp[compatibility], title=title)
 
 	def script_openOnlineDoc(self, gesture):
-		# 18.09: show appropriate user guide version based on currently installed channel.
-		SPLAddonManifest = addonHandler.Addon(os.path.join(os.path.dirname(__file__), "..", "..")).manifest
-		updateChannel = SPLAddonManifest.get("updateChannel")
-		if "-dev" in SPLAddonManifest['version'] or updateChannel == "dev":
-			os.startfile("https://github.com/josephsl/stationplaylist/wiki/SPLDevAddonGuide")
-		else:
-			os.startfile("https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide")
+		# IMPORTANT: add-on maintainers MUST create a wiki or a similar area in add-on repo to host add-on guide.
+		# Add-on guide link MUST point to such a document.
+		os.startfile("https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide")
 
 	__SPLAssistantGestures = {
 		"kb:p": "sayPlayStatus",
