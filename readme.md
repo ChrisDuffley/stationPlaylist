@@ -4,7 +4,7 @@
 * Download [stable version][1]
 * Download [development version][2]
 * Download [long-term support version][3] - for Studio 5.20 users
-* NVDA compatibility: 2019.3 to 2020.4
+* NVDA compatibility: 2019.3 to 2021.1
 
 This add-on package provides improved usage of StationPlaylist Studio and other StationPlaylist apps, as well as providing utilities to control Studio from anywhere. Supported apps include Studio, Creator, Track Tool, VT Recorder, and Streamer, as well as SAM, SPL, and AltaCast encoders.
 
@@ -196,6 +196,10 @@ You can save settings for specific shows into broadcast profiles. These profiles
 ## SPL touch mode
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
+
+## Version 20.09.7-LTS
+
+* In encoders, NVDA no longer fails to announce date and time information when performing date/time command (NVDA+F12). This affects NVDA 2021.1 or later.
 
 ## Version 20.09.6-LTS
 
