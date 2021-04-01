@@ -2,7 +2,6 @@
 
 * Authors: Geoff Shang, Joseph Lee and other contributors
 * Download [stable version][1]
-* Download [long-term support version][3] - for Studio 5.20 users
 * NVDA compatibility: 2020.4
 
 This add-on package provides improved usage of StationPlaylist Studio and other StationPlaylist apps, as well as providing utilities to control Studio from anywhere. Supported apps include Studio, Creator, Track Tool, VT Recorder, and Streamer, as well as SAM, SPL, and AltaCast encoders.
@@ -273,8 +272,6 @@ Version 20.09.x is the last release series to support Studio 5.20 and based on o
 Please see changelog link for release notes for old add-on releases.
 
 [1]: https://addons.nvda-project.org/files/get.php?file=spl
-
-[3]: https://addons.nvda-project.org/files/get.php?file=spl-lts20
 
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 
