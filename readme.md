@@ -2,7 +2,6 @@
 
 * Authors: Geoff Shang, Joseph Lee and other contributors
 * Download [stable version][1]
-* Download [development version][2]
 * Download [long-term support version][3] - for Studio 5.20 users
 * NVDA compatibility: 2019.3 to 2021.1
 
@@ -324,8 +323,6 @@ Version 20.09.x is the last release series to support Studio 5.20 and based on o
 Please see changelog link for release notes for old add-on releases.
 
 [1]: https://addons.nvda-project.org/files/get.php?file=spl
-
-[2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
 
 [3]: https://addons.nvda-project.org/files/get.php?file=spl-lts20
 
