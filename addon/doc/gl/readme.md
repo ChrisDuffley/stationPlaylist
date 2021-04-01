@@ -2,7 +2,6 @@
 
 * Autores: Geoff Shang, Joseph Lee e outros colaboradores
 * Descargar [versión estable][1]
-* Descargar [versión de desenvolvemento][2]
 * Descargar [versión de soporte estendido][3] - para usuarios do Studio 5.20
 * Compatibilidade con NVDA: da 2019.3 á 2020.2
 
@@ -532,8 +531,6 @@ vellas do complemento.
 [[!tag dev stable]]
 
 [1]: https://addons.nvda-project.org/files/get.php?file=spl
-
-[2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
 
 [3]: https://addons.nvda-project.org/files/get.php?file=spl-lts20
 

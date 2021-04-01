@@ -2,7 +2,6 @@
 
 * Autori: Geoff Shang, Joseph Lee a ďalší
 * Stiahnuť [stabilnú verziu][1]
-* Stiahnuť [vývojovú verziu][2]
 * Download [long-term support version][3] - for Studio 5.20 users
 * NVDA compatibility: 2019.3 to 2020.2
 
@@ -432,8 +431,6 @@ Výpis zmien pre staršie verzie doplnku nájdete na samostatnej stránke
 [[!tag dev stable]]
 
 [1]: https://addons.nvda-project.org/files/get.php?file=spl
-
-[2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
 
 [3]: https://addons.nvda-project.org/files/get.php?file=spl-lts20
 

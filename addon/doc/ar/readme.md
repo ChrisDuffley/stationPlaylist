@@ -2,7 +2,6 @@
 
 * مطورو الإضافة: Geoff Shang, Joseph Lee وآخرون
 * تحميل [الإصدار النهائي][1]
-* تحميل [الإصدار التجريبي][2]
 
 تقوم هذه الإضافة البرمجية بتحسين استخدام الكفيف لتطبيق Station Playlist
 Studio, فضلا عن إضافة أدوات للتحكم في الأستوديو من أي مكان.
@@ -952,8 +951,6 @@ Please see changelog link for release notes for old add-on releases.
 [[!tag dev stable]]
 
 [1]: https://addons.nvda-project.org/files/get.php?file=spl
-
-[2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
 
 [3]: http://www.josephsl.net/files/nvdaaddons/getupdate.php?file=spl-lts16
 

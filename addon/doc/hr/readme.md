@@ -2,7 +2,6 @@
 
 * Autori: Geoff Shang, Joseph Lee i drugi doprinositelji
 * Preuzmi [stabilnu verziju][1]
-* Preuzmi [razvojnu verziju][2]
 * Preuzmi [verziju s dugoročnom podrškom][3] – za korisnike porgrama Studio
   5.20
 * NVDA kompatibilnost: 2019.3 do 2020.2
@@ -497,8 +496,6 @@ Please see changelog link for release notes for old add-on releases.
 [[!tag dev stable]]
 
 [1]: https://addons.nvda-project.org/files/get.php?file=spl
-
-[2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
 
 [3]: https://addons.nvda-project.org/files/get.php?file=spl-lts20
 

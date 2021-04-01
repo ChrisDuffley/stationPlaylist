@@ -2,7 +2,6 @@
 
 * Автори: Geoff Shang, Joseph Lee и други сътрудници
 * Изтегляне [стабилна версия][1]
-* Изтегляне [работна версия][2]
 
 This add-on package provides improved usage of StationPlaylist Studio, as
 well as providing utilities to control the Studio from anywhere.
@@ -810,8 +809,6 @@ for stable releases.
 [[!tag dev stable]]
 
 [1]: http://addons.nvda-project.org/files/get.php?file=spl
-
-[2]: http://addons.nvda-project.org/files/get.php?file=spl-dev
 
 [3]: https://bitbucket.org/nvdaaddonteam/stationplaylist/wiki/SPLAddonGuide
 

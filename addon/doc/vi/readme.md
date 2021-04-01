@@ -2,7 +2,6 @@
 
 * Tác giả: Geoff Shang, Joseph Lee và các cộng tác viên khác
 * Tải về [phiên bản chính thức][1]
-* Tải về [phiên bản thử nghiệm][2]
 * Tải về [phiên bản hỗ trợ lâu dài][3] - cho người dùng Studio 5.20
 * NVDA tương thích: 2019.3 đến 2020.2
 
@@ -470,8 +469,6 @@ hành cũ của add-on.
 [[!tag dev stable]]
 
 [1]: https://addons.nvda-project.org/files/get.php?file=spl
-
-[2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
 
 [3]: https://addons.nvda-project.org/files/get.php?file=spl-lts20
 

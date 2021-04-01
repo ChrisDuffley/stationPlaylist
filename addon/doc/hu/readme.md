@@ -2,7 +2,6 @@
 
 * Készítők: Geoff Shang, Joseph Lee, és további közreműködők
 * Letöltés [Stabil verzió][1]
-* Letöltés [Fejlesztői verzió][2]
 
 Ez a kiegészítő javítja a Station Playlist Studio nevű online
 rádióadás-vezérlő program használhatóságát, egyúttal egy olyan
@@ -1071,8 +1070,6 @@ A kiegészítő 4.0 verziója a Studio 5.00 és későbbi kiadásait támogatja.
 [[!tag dev stable]]
 
 [1]: https://addons.nvda-project.org/files/get.php?file=spl
-
-[2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
 
 [3]: http://josephsl.net/files/nvdaaddons/get.php?file=spl-lts16
 
