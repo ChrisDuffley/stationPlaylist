@@ -2,17 +2,17 @@
 
 * Authors: Geoff Shang, Joseph Lee and other contributors
 * Download [stable version][1]
-* NVDA compatibility: 2020.4
+* NVDA compatibility: 2020.4 to 2021.1
 
 This add-on package provides improved usage of StationPlaylist Studio and other StationPlaylist apps, as well as providing utilities to control Studio from anywhere. Supported apps include Studio, Creator, Track Tool, VT Recorder, and Streamer, as well as SAM, SPL, and AltaCast encoders.
 
-For more information about the add-on, read the [add-on guide][4].
+For more information about the add-on, read the [add-on guide][2].
 
 IMPORTANT NOTES:
 
-* This add-on requires StationPlaylist suite 5.30 (5.20 for 20.09.x-LTS) or later.
+* This add-on requires StationPlaylist suite 5.30 or later.
 * If using Windows 8 or later, for best experience, disable audio ducking mode.
-* Starting from 2018, [changelogs for old add-on releases][5] will be found on GitHub. This add-on readme will list changes from version 20.09 (2020) onwards.
+* Starting from 2018, [changelogs for old add-on releases][3] will be found on GitHub. This add-on readme will list changes from version 20.09 (2020) onwards.
 * While Studio is running, you can save, reload saved settings, or reset add-on settings to defaults by pressing Control+NVDA+C, Control+NVDA+R once, or Control+NVDA+R three times, respectively. This is also applicable to encoder settings - you can save and reset (not reload) encoder settings if using encoders.
 
 ## Shortcut keys
@@ -273,6 +273,6 @@ Please see changelog link for release notes for old add-on releases.
 
 [1]: https://addons.nvda-project.org/files/get.php?file=spl
 
-[4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
+[2]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 
-[5]: https://github.com/josephsl/stationplaylist/wiki/splchangelog
+[3]: https://github.com/josephsl/stationplaylist/wiki/splchangelog
