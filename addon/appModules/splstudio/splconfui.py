@@ -341,7 +341,7 @@ class NewProfileDialog(wx.Dialog):
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
 		self.profileName.SetFocus()
-		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+		self.CenterOnScreen()
 
 	def onOk(self, evt):
 		parent = self.Parent
@@ -413,7 +413,7 @@ class TriggersDialog(wx.Dialog):
 		mainSizer.Add(triggersHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 		mainSizer.Fit(self)
 		self.SetSizer(mainSizer)
-		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+		self.CenterOnScreen()
 		self.instantSwitchCheckbox.SetFocus()
 
 	def onOk(self, evt):
@@ -849,7 +849,7 @@ class MetadataStreamingDialog(wx.Dialog):
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
 		self.checkedStreams.SetFocus()
-		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+		self.CenterOnScreen()
 
 	def onOk(self, evt):
 		global _configDialogOpened
@@ -1208,7 +1208,7 @@ class ColumnsExplorerDialog(wx.Dialog):
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
 		self.columnSlots[0].SetFocus()
-		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+		self.CenterOnScreen()
 
 	def onOk(self, evt):
 		parent = self.Parent
@@ -1343,7 +1343,7 @@ class ResetDialog(wx.Dialog):
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
 		self.resetInstantProfileCheckbox.SetFocus()
-		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+		self.CenterOnScreen()
 
 	def onOk(self, evt):
 		parent = self.Parent

@@ -893,7 +893,7 @@ Thank you.""")
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
 		self.showWelcomeDialog.SetFocus()
-		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+		self.CenterOnScreen()
 
 	def onOk(self, evt):
 		global SPLConfig

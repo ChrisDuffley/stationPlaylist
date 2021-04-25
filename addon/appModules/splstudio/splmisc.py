@@ -112,7 +112,7 @@ class SPLFindDialog(wx.Dialog):
 		mainSizer.Add(findSizerHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
-		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+		self.CenterOnScreen()
 		self.findEntry.SetFocus()
 
 	def onOk(self, evt):
@@ -218,7 +218,7 @@ class SPLTimeRangeDialog(wx.Dialog):
 		mainSizer.Add(timeRangeHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
-		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+		self.CenterOnScreen()
 		self.minMinEntry.SetFocus()
 
 	def onOk(self, evt):
@@ -816,7 +816,7 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 		mainSizer.Add(plTranscriptsSizerHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 		mainSizer.Fit(self)
 		self.Sizer = mainSizer
-		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+		self.CenterOnScreen()
 		self.transcriptRange.SetFocus()
 
 	def onTranscriptFormatSelection(self, evt):

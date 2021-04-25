@@ -274,7 +274,7 @@ class EncoderConfigDialog(wx.Dialog):
 		mainSizer.Add(encoderConfigHelper.sizer, border=gui.guiHelper.BORDER_FOR_DIALOGS, flag=wx.ALL)
 		mainSizer.Fit(self)
 		self.SetSizer(mainSizer)
-		self.Center(wx.BOTH | wx.CENTER_ON_SCREEN)
+		self.CenterOnScreen()
 		self.encoderLabel.SetFocus()
 
 	def onOk(self, evt):
