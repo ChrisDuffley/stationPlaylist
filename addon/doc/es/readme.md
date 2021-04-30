@@ -3,7 +3,6 @@
 * Autores: Geoff Shang, Joseph Lee y otros colaboradores
 * Descargar [Versión estable][1]
 * Descargar [versión de desarrollo][2]
-* Descargar [versión de soporte extendido][3] - Para usuarios de Studio 5.20
 * Compatibilidad con NVDA: de 2020.3 a 2020.4
 
 Este paquete de complementos proporciona una utilización mejorada de Station
@@ -349,6 +348,13 @@ realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
 
+## Versión 21.04/20.09.7-LTS
+
+* 21.04: se requiere NVDA 2020.4 o posterior.
+* En los codificadores, NVDA ya no falla al anunciar la información de fecha
+  y hora cuando se realiza la orden de hora / fecha (NVDA+f12). Esto afecta
+  a NVDA 2021.1 o posterior.
+
 ## Versión 21.03/20.09.6-LTS
 
 * El requisito de versión mínima de Windows ahora va unido a las versiones
@@ -524,8 +530,6 @@ versiones antiguas del complemento.
 [1]: https://addons.nvda-project.org/files/get.php?file=spl
 
 [2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
-
-[3]: https://addons.nvda-project.org/files/get.php?file=spl-lts20
 
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 

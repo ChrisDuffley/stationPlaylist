@@ -3,7 +3,6 @@
 * Autori: Geoff Shang, Joseph Lee a ďalší
 * Stiahnuť [stabilnú verziu][1]
 * Stiahnuť [vývojovú verziu][2]
-* Stiahnuť [Verziu s dlhodobou podporou][3] - pre Studio v 5.20
 * NVDA compatibility: 2020.3 to 2020.4
 
 Doplnok zlepšuje prístupnosť Station Playlist Studio a ďalších pridružených
@@ -290,6 +289,13 @@ NVDA  od verzie 2012.3, môžete na ovládanie doplnku použiť dotykové
 príkazy. Najprv je potrebné dotknúť sa obrazovky tromi prstami. Následne
 vykonajte gestá spomenúté vyššie v tomto návode.
 
+## Version 21.04/20.09.7-LTS
+
+* 21.04: NVDA 2020.4 or later is required.
+* In encoders, NVDA no longer fails to announce date and time information
+  when performing date/time command (NVDA+F12). This affects NVDA 2021.1 or
+  later.
+
 ## Version 21.03/20.09.6-LTS
 
 * Minimum Windows release requirement is now tied to NVDA releases.
@@ -425,8 +431,6 @@ Výpis zmien pre staršie verzie doplnku nájdete na samostatnej stránke
 [1]: https://addons.nvda-project.org/files/get.php?file=spl
 
 [2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
-
-[3]: https://addons.nvda-project.org/files/get.php?file=spl-lts20
 
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 

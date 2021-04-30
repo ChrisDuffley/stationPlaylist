@@ -3,7 +3,6 @@
 * Autores: Geoff Shang, Joseph Lee e outros colaboradores
 * Descargar [versión estable][1]
 * Descargar [versión de desenvolvemento][2]
-* Descargar [versión de soporte estendido][3] - para usuarios do Studio 5.20
 * Compatibilidade con NVDA: da 2020.3 á 2020.4
 
 Este paquete de complementos proporciona unhha utilización mellorada do
@@ -342,6 +341,13 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
+## Versión 21.04/20.09.7-LTS
+
+* 21.04: Requírese NVDA 2020.4 ou posterior.
+* Nos codificadores, NVDA xa non falla ó anunciar a información de data e
+  hora ao executar ordes de data/hora (NVDA+F12). Isto afecta a NVDA 2021.1
+  ou posterior.
+
 ## Versión 21.03/20.09.6-LTS
 
 * O requerimento de versión mínima de Windows está agora ligado ás versións
@@ -509,8 +515,6 @@ vellas do complemento.
 [1]: https://addons.nvda-project.org/files/get.php?file=spl
 
 [2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
-
-[3]: https://addons.nvda-project.org/files/get.php?file=spl-lts20
 
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 

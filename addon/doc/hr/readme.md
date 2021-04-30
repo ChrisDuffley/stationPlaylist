@@ -3,8 +3,6 @@
 * Autori: Geoff Shang, Joseph Lee i drugi doprinositelji
 * Preuzmi [stabilnu verziju][1]
 * Preuzmi [razvojnu verziju][2]
-* Preuzmi [verziju s dugoročnom podrškom][3] – za korisnike porgrama Studio
-  5.20
 * NVDA kompatibilnost: 2020.3 do 2020.4
 
 Ovaj paket dodataka omogućava bolje korištenje programa StationPlaylist
@@ -326,6 +324,13 @@ operacijskim sustavom Windows 8 ili novijim i ako imaš instaliran NVDA
 na dodir. Za prebacivanje na modus SPL-a, dodirni ekran s tri prsta. Zatim
 koristi gore navedene dodirne naredbe za njihovo izvršavanje.
 
+## Version 21.04/20.09.7-LTS
+
+* 21.04: NVDA 2020.4 or later is required.
+* In encoders, NVDA no longer fails to announce date and time information
+  when performing date/time command (NVDA+F12). This affects NVDA 2021.1 or
+  later.
+
 ## Version 21.03/20.09.6-LTS
 
 * Minimum Windows release requirement is now tied to NVDA releases.
@@ -477,8 +482,6 @@ Please see changelog link for release notes for old add-on releases.
 [1]: https://addons.nvda-project.org/files/get.php?file=spl
 
 [2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
-
-[3]: https://addons.nvda-project.org/files/get.php?file=spl-lts20
 
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 

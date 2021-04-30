@@ -3,7 +3,6 @@
 * Tác giả: Geoff Shang, Joseph Lee và các cộng tác viên khác
 * Tải về [phiên bản chính thức][1]
 * Tải về [phiên bản thử nghiệm][2]
-* Tải về [phiên bản hỗ trợ lâu dài][3] - cho người dùng Studio 5.20
 * NVDA compatibility: 2020.3 to 2020.4
 
 Gói add-on này cung cấp sự cải thiện cho việc sử dụng StationPlaylist Studio
@@ -306,6 +305,13 @@ NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio t
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
 
+## Version 21.04/20.09.7-LTS
+
+* 21.04: NVDA 2020.4 or later is required.
+* In encoders, NVDA no longer fails to announce date and time information
+  when performing date/time command (NVDA+F12). This affects NVDA 2021.1 or
+  later.
+
 ## Version 21.03/20.09.6-LTS
 
 * Minimum Windows release requirement is now tied to NVDA releases.
@@ -452,8 +458,6 @@ hành cũ của add-on.
 [1]: https://addons.nvda-project.org/files/get.php?file=spl
 
 [2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
-
-[3]: https://addons.nvda-project.org/files/get.php?file=spl-lts20
 
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 

@@ -3,8 +3,6 @@
 * Autoren: Geoff Shang, Joseph Lee und weitere Mitwirkende
 * [Stabile Version herunterladen][1]
 * [Entwicklerversion herunterladen][2]
-* [Version für Benutzer von Studio 5.20 mit Langzeit-Unterstützung][3]
-  herunterladen
 * NVDA-Kompatibilität: 2020.3 bis 2020.4
 
 Dieses Zusatzpaket bietet eine verbesserte Nutzung von StationPlaylist
@@ -349,6 +347,13 @@ Studio-Befehle über den Touchscreen ausführen. Tippen Sie zunächst einmal
 mit drei Fingern, um in den SPL-Touchmodus zu wechseln. Verwenden Sie dann
 die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
 
+## Version 21.04/20.09.7-LTS
+
+* 21.04: NVDA 2020.4 or later is required.
+* In encoders, NVDA no longer fails to announce date and time information
+  when performing date/time command (NVDA+F12). This affects NVDA 2021.1 or
+  later.
+
 ## Version 21.03/20.09.6-LTS
 
 * Die Mindestanforderungen für Windows-Versionen sind jetzt an
@@ -521,8 +526,6 @@ Für weitere Änderungsnotizen beachten Sie den Link zu den Änderungsnotizen
 [1]: https://addons.nvda-project.org/files/get.php?file=spl
 
 [2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
-
-[3]: https://addons.nvda-project.org/files/get.php?file=spl-lts20
 
 [4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 
