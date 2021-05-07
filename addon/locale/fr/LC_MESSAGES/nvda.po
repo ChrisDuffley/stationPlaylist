@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist 19.02\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2021-02-06 11:03-0800\n"
+"PO-Revision-Date: 2021-05-07 01:03-0700\n"
 "Last-Translator: Michel Such <michel.such@free.fr>\n"
 "Language-Team: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language: fr\n"
@@ -1901,10 +1901,9 @@ msgstr "Aide du Contrôleur SPL"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
-#, fuzzy
 msgid ""
 "Enhances support for StationPlaylist apps.\n"
 "In addition, adds global commands for the studio from everywhere."
 msgstr ""
-"Améliore la prise en charge de StationPlaylist Studio.\n"
+"Améliore la prise en charge de StationPlaylist.\n"
 "En outre, ajoute des commandes globales pour studio où que vous soyez."

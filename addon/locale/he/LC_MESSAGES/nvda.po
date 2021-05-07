@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stationPlaylist 5.5\n"
 "Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2021-02-06 11:03-0800\n"
+"PO-Revision-Date: 2021-05-07 01:06-0700\n"
 "Last-Translator: shmuel naaman <shmuel_naaman@yahoo.com>\n"
 "Language-Team: Shmuel Naaman <nvda.israel@gmail.com>\n"
 "Language: he\n"
@@ -1798,10 +1798,9 @@ msgstr "עזרה על תוכנת SPL"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
-#, fuzzy
 msgid ""
 "Enhances support for StationPlaylist apps.\n"
 "In addition, adds global commands for the studio from everywhere."
 msgstr ""
-"מנגיש את תוכנת StationPlaylist  Studio  .  \n"
+"מנגיש את תוכנת StationPlaylist.\n"
 "בנוסף, מאפשר ביצוע פקודות מכל מקום אחר במחשב."
