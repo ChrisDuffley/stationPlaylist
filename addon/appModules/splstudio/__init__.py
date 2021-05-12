@@ -1327,7 +1327,7 @@ class AppModule(appModuleHandler.AppModule):
 			return
 		import winKernel
 		# Says complete time in hours, minutes and seconds via kernel32's routines.
-		ui.message(winKernel.GetTimeFormat(winKernel.LOCALE_USER_DEFAULT, 0, None, None))
+		ui.message(winKernel.GetTimeFormatEx(winKernel.LOCALE_NAME_USER_DEFAULT, 0, None, None))
 
 	# Show the Alarms panel in add-on settings screen.
 
