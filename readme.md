@@ -204,6 +204,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Version 21.06
 
 * NVDA will no longer do nothing or play error tones when trying to open various add-on dialogs such as encoder settings dialog. This is a critical fix required to support NVDA 2021.1.
+* NVDA will no longer appear to do nothing or play error tones when trying to announce complete time (hours, minutes, seconds) from Studio (command unassigned). This affects NVDA 2021.1 or later.
 
 ## Version 21.04/20.09.7-LTS
 
