@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: stationPlaylist 4.2\n"
-"Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
+"Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: 2021-05-07 01:12-0700\n"
 "Last-Translator: Nikola Jović <wwenikola123@gmail.com>\n"
