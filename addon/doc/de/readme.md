@@ -349,10 +349,9 @@ die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
 
 ## Version 21.04/20.09.7-LTS
 
-* 21.04: NVDA 2020.4 or later is required.
-* In encoders, NVDA no longer fails to announce date and time information
-  when performing date/time command (NVDA+F12). This affects NVDA 2021.1 or
-  later.
+* 21.04: NVDA 2020.4 oder neuer ist erforderlich.
+* In Encodern schlägt die Ansage von Datum und Uhrzeit beim drücken von
+  NVDA+F12 nicht mehr fehl. Dies betrifft NVDA 2020.1 und neuer.
 
 ## Version 21.03/20.09.6-LTS
 
