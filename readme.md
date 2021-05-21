@@ -2,7 +2,7 @@
 
 * Authors: Geoff Shang, Joseph Lee and other contributors
 * Download [stable version][1]
-* NVDA compatibility: 2020.4 to 2021.1
+* NVDA compatibility: 2020.4 and beyond
 
 Note: I (Joseph Lee) am looking for people who will maintain StationPlaylist add-on from September 1, 2021 onwards.
 
