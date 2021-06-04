@@ -2,8 +2,7 @@
 
 * Autoren: Geoff Shang, Joseph Lee und weitere Mitwirkende
 * [Stabile Version herunterladen][1]
-* [Entwicklerversion herunterladen][2]
-* NVDA-Kompatibilität: 2020.3 bis 2020.4
+* NVDA compatibility: 2020.4 and beyond
 
 Dieses Zusatzpaket bietet eine verbesserte Nutzung von StationPlaylist
 Studio und anderen StationPlaylist-Anwendungen sowie Dienstprogramme zur
@@ -11,18 +10,17 @@ Steuerung von Studio von überall. Zu den unterstützten Anwendungen gehören
 Studio, Creator, Track Tool, VT Recorder und Streamer sowie SAM, SPL und
 AltaCast Encoder.
 
-Weitere Informationen zur Erweiterung finden Sie in der [Anleitung][4].
+For more information about the add-on, read the [add-on guide][2].
 
 WICHTIGE HINWEISE:
 
-* Für diese Erweiterung ist StationPlaylist Suite 5.30 (5.20 für
-  20.09.x-LTS) oder neuer erforderlich.
+* This add-on requires StationPlaylist suite 5.30 or later.
 * Wenn Sie Windows 8 oder höher verwenden, setzen Sie die Reduzierung der
   Lautstärke anderer Audioquellen auf "nie" im Dialog Sprachausgabe im
   NVDA-Einstellungsmenü.
-* Seit 2018 finden Sie das [Änderungsprotokoll für alte Versionen der
-  Erweiterung][5] auf GitHub. In dieser Readme-Datei der Erweiterung werden
-  Änderungen ab Version 20.09 (2020) aufgeführt.
+* Starting from 2018, [changelogs for old add-on releases][3] will be found
+  on GitHub. This add-on readme will list changes from version 20.09 (2020)
+  onwards.
 * Während die Studio-Software läuft, können Sie gespeicherte Einstellungen
   speichern, wieder laden oder Zusatzeinstellungen auf die Standardwerte
   zurücksetzen, indem Sie Strg+NVDA+C, Strg+NVDA+R einmal bzw. Strg+NVDA+R
@@ -347,6 +345,15 @@ Studio-Befehle über den Touchscreen ausführen. Tippen Sie zunächst einmal
 mit drei Fingern, um in den SPL-Touchmodus zu wechseln. Verwenden Sie dann
 die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
 
+## Version 21.06
+
+* NVDA will no longer do nothing or play error tones when trying to open
+  various add-on dialogs such as encoder settings dialog. This is a critical
+  fix required to support NVDA 2021.1.
+* NVDA will no longer appear to do nothing or play error tones when trying
+  to announce complete time (hours, minutes, seconds) from Studio (command
+  unassigned). This affects NVDA 2021.1 or later.
+
 ## Version 21.04/20.09.7-LTS
 
 * 21.04: NVDA 2020.4 oder neuer ist erforderlich.
@@ -524,8 +531,6 @@ Für weitere Änderungsnotizen beachten Sie den Link zu den Änderungsnotizen
 
 [1]: https://addons.nvda-project.org/files/get.php?file=spl
 
-[2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
+[2]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 
-[4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
-
-[5]: https://github.com/josephsl/stationplaylist/wiki/splchangelog
+[3]: https://github.com/josephsl/stationplaylist/wiki/splchangelog

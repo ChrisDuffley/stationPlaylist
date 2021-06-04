@@ -2,23 +2,21 @@
 
 * Autori: Geoff Shang, Joseph Lee a ďalší
 * Stiahnuť [stabilnú verziu][1]
-* Stiahnuť [vývojovú verziu][2]
-* NVDA compatibility: 2020.3 to 2020.4
+* NVDA compatibility: 2020.4 and beyond
 
 Doplnok zlepšuje prístupnosť Station Playlist Studio a ďalších pridružených
 aplikácií a tiež umožňuje ovládať Station Playlist mimo hlavného okna
 aplikácie. Podporuje tiež aplikácie Studio, Creator, Track Tool, VT
 Recorder, Streamer, a tiež SAM, SPL, a AltaCast enkodéri.
 
-For more information about the add-on, read the [add-on guide][4].
+For more information about the add-on, read the [add-on guide][2].
 
 Dôležité:
 
-* This add-on requires StationPlaylist suite 5.30 (5.20 for 20.09.x-LTS) or
-  later.
+* This add-on requires StationPlaylist suite 5.30 or later.
 * Ak používate Systém od verzie Windows 8, odporúčame vám vypnúť funkciu
   automatického stišovania.
-* Starting from 2018, [changelogs for old add-on releases][5] will be found
+* Starting from 2018, [changelogs for old add-on releases][3] will be found
   on GitHub. This add-on readme will list changes from version 20.09 (2020)
   onwards.
 * Z okna SPL studio je možné uložiť nastavenia skratkou ctrl+nvda+c. Môžete
@@ -289,6 +287,15 @@ NVDA  od verzie 2012.3, môžete na ovládanie doplnku použiť dotykové
 príkazy. Najprv je potrebné dotknúť sa obrazovky tromi prstami. Následne
 vykonajte gestá spomenúté vyššie v tomto návode.
 
+## Version 21.06
+
+* NVDA will no longer do nothing or play error tones when trying to open
+  various add-on dialogs such as encoder settings dialog. This is a critical
+  fix required to support NVDA 2021.1.
+* NVDA will no longer appear to do nothing or play error tones when trying
+  to announce complete time (hours, minutes, seconds) from Studio (command
+  unassigned). This affects NVDA 2021.1 or later.
+
 ## Version 21.04/20.09.7-LTS
 
 * 21.04: NVDA 2020.4 or later is required.
@@ -430,8 +437,6 @@ Výpis zmien pre staršie verzie doplnku nájdete na samostatnej stránke
 
 [1]: https://addons.nvda-project.org/files/get.php?file=spl
 
-[2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
+[2]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 
-[4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
-
-[5]: https://github.com/josephsl/stationplaylist/wiki/splchangelog
+[3]: https://github.com/josephsl/stationplaylist/wiki/splchangelog

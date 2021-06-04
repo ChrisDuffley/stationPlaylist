@@ -2,25 +2,23 @@
 
 * Autori: Geoff Shang, Joseph Lee i drugi doprinositelji
 * Preuzmi [stabilnu verziju][1]
-* Preuzmi [razvojnu verziju][2]
-* NVDA kompatibilnost: 2020.3 do 2020.4
+* NVDA compatibility: 2020.4 and beyond
 
 Ovaj paket dodataka omogućava bolje korištenje programa StationPlaylist
 Studio i drugih StationPlaylist programa te pruža alate za kontrolu programa
 Studio s bilo kojeg mjesta. Podržava sljedeće programe: Studio, Creator,
 Track Tool, VT Recorder i Streamer, kao i SAM, SPL i AltaCast kodere.
 
-Za daljnje informacije o dodatku pročitaj [priručnik za dodatke] [4].
+For more information about the add-on, read the [add-on guide][2].
 
 VAŽNE NAPOMENE:
 
-* Ovaj dodatak zahtijeva StationPlaylist izdanje 5.30 (5.20 za 20.09.x-LTS)
-  ili noviju verziju.
+* This add-on requires StationPlaylist suite 5.30 or later.
 * Korisnicima sustava Windows 8 ili novijeg, preporučamo deaktivirati modus
   stišavanja zvuka.
-* Od 2018. godine pa nadalje, [zapisi o promjenama za stara izdanja][5]
-  nalaze se na GitHubu. Readme datoteka dodatka sadrži popis promjena od
-  verzije 20.09 (2020.) pa nadalje.
+* Starting from 2018, [changelogs for old add-on releases][3] will be found
+  on GitHub. This add-on readme will list changes from version 20.09 (2020)
+  onwards.
 * Dok je Studio pokrenut, moguće je spremiti postavke, ponovo učitati
   spremljene postavke ili resetirati postavke dodatka na standardne
   vrijednosti pritiskom tipki kontrol+NVDA+C, pritiskom tipki kontrol+NVDA+R
@@ -324,6 +322,15 @@ operacijskim sustavom Windows 8 ili novijim i ako imaš instaliran NVDA
 na dodir. Za prebacivanje na modus SPL-a, dodirni ekran s tri prsta. Zatim
 koristi gore navedene dodirne naredbe za njihovo izvršavanje.
 
+## Version 21.06
+
+* NVDA will no longer do nothing or play error tones when trying to open
+  various add-on dialogs such as encoder settings dialog. This is a critical
+  fix required to support NVDA 2021.1.
+* NVDA will no longer appear to do nothing or play error tones when trying
+  to announce complete time (hours, minutes, seconds) from Studio (command
+  unassigned). This affects NVDA 2021.1 or later.
+
 ## Version 21.04/20.09.7-LTS
 
 * 21.04: NVDA 2020.4 or later is required.
@@ -481,8 +488,6 @@ Please see changelog link for release notes for old add-on releases.
 
 [1]: https://addons.nvda-project.org/files/get.php?file=spl
 
-[2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
+[2]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 
-[4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
-
-[5]: https://github.com/josephsl/stationplaylist/wiki/splchangelog
+[3]: https://github.com/josephsl/stationplaylist/wiki/splchangelog

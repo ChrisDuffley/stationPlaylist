@@ -2,8 +2,7 @@
 
 * Autores: Geoff Shang, Joseph Lee y otros colaboradores
 * Descargar [Versión estable][1]
-* Descargar [versión de desarrollo][2]
-* Compatibilidad con NVDA: de 2020.3 a 2020.4
+* Compatibilidad con NVDA: 2020.4 y posterior
 
 Este paquete de complementos proporciona una utilización mejorada de Station
 Playlist Studio y otras aplicaciones de StationPlaylist, así como utilidades
@@ -11,15 +10,14 @@ para controlar Studio desde cualquier lugar. Entre las aplicaciones
 soportadas se encuentran Studio, Creator, la herramienta de pista, VT
 Recorder y Streamer, así como los codificadores SAM, SPL y AltaCast.
 
-Para más información sobre este complemento, lee su [guía][4].
+Para más información sobre este complemento, lee su [guía][2].
 
 NOTAS IMPORTANTES:
 
-* Este complemento requiere StationPlaylist Suite 5.30 (5.20 para
-  20.09.x-LTS) o posterior.
+* Este complemento requiere StationPlaylist Suite 5.30 o posterior.
 * Si utilizas Windows 8 o posterior, para una mejor experiencia, deshabilita
   el modo atenuación de audio.
-* A partir de 2018, los [registros de cambios para versiones antiguas][5] se
+* A partir de 2018, los [registros de cambios para versiones antiguas][3] se
   encontrarán en GitHub. Este léeme del complemento listará cambios desde la
   versión 20.09 (2020) en adelante.
 * Cuando Studio está en ejecución, se pueden guardar, restablecer o poner
@@ -348,6 +346,16 @@ realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
 
+## Versión 21.06
+
+* NVDA ya no parecerá hacer nada o reproducir tonos de error al intentar
+  abrir diversos diálogos del complemento, como la configuración del
+  codificador. Esta es una corrección crítica necesaria para dar soporte a
+  NVDA 2021.1.
+* NVDA ya no parecerá hacer nada o reproducir tonos de error al intentar
+  anunciar la hora completa (horas, minutos y segundos) desde Studio (gesto
+  sin asignar). Esto afecta a NVDA 2021.1 o posterior.
+
 ## Versión 21.04/20.09.7-LTS
 
 * 21.04: se requiere NVDA 2020.4 o posterior.
@@ -529,8 +537,6 @@ versiones antiguas del complemento.
 
 [1]: https://addons.nvda-project.org/files/get.php?file=spl
 
-[2]: https://addons.nvda-project.org/files/get.php?file=spl-dev
+[2]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
 
-[4]: https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide
-
-[5]: https://github.com/josephsl/stationplaylist/wiki/splchangelog
+[3]: https://github.com/josephsl/stationplaylist/wiki/splchangelog
