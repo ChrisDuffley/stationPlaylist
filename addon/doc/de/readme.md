@@ -2,7 +2,7 @@
 
 * Autoren: Geoff Shang, Joseph Lee und weitere Mitwirkende
 * [Stabile Version herunterladen][1]
-* NVDA compatibility: 2020.4 and beyond
+* NVDA-Kompatibilität: 2020.4 und neuer
 
 Dieses Zusatzpaket bietet eine verbesserte Nutzung von StationPlaylist
 Studio und anderen StationPlaylist-Anwendungen sowie Dienstprogramme zur
@@ -10,17 +10,18 @@ Steuerung von Studio von überall. Zu den unterstützten Anwendungen gehören
 Studio, Creator, Track Tool, VT Recorder und Streamer sowie SAM, SPL und
 AltaCast Encoder.
 
-For more information about the add-on, read the [add-on guide][2].
+Weitere Informationen zur Erweiterung finden Sie in der
+[Add-On-Anleitung][2].
 
 WICHTIGE HINWEISE:
 
-* This add-on requires StationPlaylist suite 5.30 or later.
+* Diese Erweiterung unterstützt die StationPlaylist Suite 5.30 oder neuer.
 * Wenn Sie Windows 8 oder höher verwenden, setzen Sie die Reduzierung der
   Lautstärke anderer Audioquellen auf "nie" im Dialog Sprachausgabe im
   NVDA-Einstellungsmenü.
-* Starting from 2018, [changelogs for old add-on releases][3] will be found
-  on GitHub. This add-on readme will list changes from version 20.09 (2020)
-  onwards.
+* Seit 2018 sind [Änderungsprotokolle für alte Releases der Erweiterung][3]
+  auf GitHub zu finden. Die Readme der Erweiterung listet Änderungen ab
+  Version 20.09 (2020) auf.
 * Während die Studio-Software läuft, können Sie gespeicherte Einstellungen
   speichern, wieder laden oder Zusatzeinstellungen auf die Standardwerte
   zurücksetzen, indem Sie Strg+NVDA+C, Strg+NVDA+R einmal bzw. Strg+NVDA+R
@@ -347,12 +348,14 @@ die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
 
 ## Version 21.06
 
-* NVDA will no longer do nothing or play error tones when trying to open
-  various add-on dialogs such as encoder settings dialog. This is a critical
-  fix required to support NVDA 2021.1.
-* NVDA will no longer appear to do nothing or play error tones when trying
-  to announce complete time (hours, minutes, seconds) from Studio (command
-  unassigned). This affects NVDA 2021.1 or later.
+* NVDA wird beim Versuch, verschiedene Dialogfelder der Erweiterung wie den
+  Encoder-Einstellungsdialog zu öffnen, nichts mehr tun oder Fehlertöne
+  abspielen. Dies ist ein kritischer Fix, der für die Unterstützung von NVDA
+  2021.1 erforderlich ist.
+* NVDA scheint nichts mehr zu unternehmen oder Fehlertöne abzuspielen, wenn
+  versucht wird, die vollständige Zeit (Stunden, Minuten, Sekunden) von
+  Studio aus anzukündigen (Befehl nicht zugewiesen). Dies betrifft NVDA
+  2021.1 oder neuer.
 
 ## Version 21.04/20.09.7-LTS
 
