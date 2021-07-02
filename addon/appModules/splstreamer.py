@@ -9,7 +9,6 @@
 # An alias of SPL Engine app module with UI workarounds, so inform linters such as Flake8.
 from .splengine import *  # NOQA: F403
 from NVDAObjects.IAccessible import IAccessible
-import controlTypes
 
 
 class TEditNoLabel(IAccessible):
@@ -23,6 +22,7 @@ class TEditNoLabel(IAccessible):
 class AppModule(AppModule):  # type: ignore[no-redef]  # NOQA: F405
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
+		import controlTypes
 		# Try adding labels written to the screen in case edit fields are encountered.
 		# After doing this, return immediately so SPL Engine app module can detect encoders.
 		if obj.windowClassName == "TEdit" and not obj.name and controlTypes.STATE_READONLY in obj.states:
