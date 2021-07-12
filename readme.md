@@ -4,7 +4,7 @@
 * Download [stable version][1]
 * NVDA compatibility: 2020.4 and beyond
 
-Note: I (Joseph Lee) am looking for people who will maintain StationPlaylist add-on from September 1, 2021 onwards.
+Note: I (Joseph Lee) am looking for people who will maintain StationPlaylist add-on from January 1, 2022 onwards.
 
 This add-on package provides improved usage of StationPlaylist Studio and other StationPlaylist apps, as well as providing utilities to control Studio from anywhere. Supported apps include Studio, Creator, Track Tool, VT Recorder, and Streamer, as well as SAM, SPL, and AltaCast encoders.
 
