@@ -201,6 +201,10 @@ You can save settings for specific shows into broadcast profiles. These profiles
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 21.08
+
+* In SAM encoders, NVDA will no longer play a tone if the selected encoder becomes idle as this tone is really meant to help when debugging the add-on.
+
 ## Version 21.06
 
 * NVDA will no longer do nothing or play error tones when trying to open various add-on dialogs such as encoder settings dialog. This is a critical fix required to support NVDA 2021.1.
