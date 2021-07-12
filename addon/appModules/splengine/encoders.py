@@ -707,7 +707,6 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 		attemptTime = time.time()
 		messageCache = ""
 		# Status message flags.
-		idle = False
 		error = False
 		connecting = False
 		encoding = False
@@ -734,9 +733,6 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 			if messageCache.startswith("Idle"):
 				if encoding:
 					encoding = False
-				if not idle:
-					tones.beep(250, 250)
-					idle = True
 				if manualConnect and (error or connecting):
 					manualConnect = False
 			elif messageCache.startswith("Error"):
