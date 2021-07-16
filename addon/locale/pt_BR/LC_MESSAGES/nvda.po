@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist add-on\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2020-04-10 19:10+1000\n"
-"PO-Revision-Date: 2021-07-03 13:38-0300\n"
+"PO-Revision-Date: 2021-07-09 18:22-0300\n"
 "Last-Translator: Tiago Melo Casal <tcasal@intervox.nce.ufrj.br>\n"
 "Language-Team: NVDA Brazilian Portuguese translation team (Equipe de "
 "tradução do NVDA para Português Brasileiro) <clever97@gmail.com>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 1.6.11\n"
 
 #. Translators: announced in SPL Creator and Remote VT
 #. when trying to perform playlist status commands while outside of playlist editor.
@@ -1890,10 +1890,9 @@ msgstr "Ajuda do Controlador SPL"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
-#, fuzzy
 msgid ""
 "Enhances support for StationPlaylist apps.\n"
 "In addition, adds global commands for the studio from everywhere."
 msgstr ""
-"Melhora o suporte para StationPlaylist Studio.\n"
+"Melhora o suporte para aplicativos StationPlaylist.\n"
 "Além disso, adiciona comandos globais para o Studio em qualquer lugar."
