@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: StationPlaylist add-on\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2020-04-10 19:10+1000\n"
-"PO-Revision-Date: 2021-07-09 18:22-0300\n"
+"PO-Revision-Date: 2021-07-20 23:16-0300\n"
 "Last-Translator: Tiago Melo Casal <tcasal@intervox.nce.ufrj.br>\n"
 "Language-Team: NVDA Brazilian Portuguese translation team (Equipe de "
 "tradução do NVDA para Português Brasileiro) <clever97@gmail.com>\n"
@@ -184,7 +184,7 @@ msgstr ""
 "S: Hora programada para a faixa.\n"
 "Shift+S: Tempo até que a faixa selecionada seja reproduzida.\n"
 "T: Modo de edição/inserção de cart (carrinho).\n"
-"U: Tempo de estúdio.\n"
+"U: Tempo em atividade do Studio.\n"
 "W: Clima e temperatura.\n"
 "Y: Modificação da lista de reprodução.\n"
 "F8: Tira instantâneos (snapshots) da lista de reprodução, como contagem de "
@@ -255,7 +255,7 @@ msgstr ""
 "S: Hora programada para a faixa.\n"
 "Shift+S: Tempo até que a faixa selecionada seja reproduzida.\n"
 "T: Modo de edição/inserção de cart (carrinho).\n"
-"U: Tempo de estúdio.\n"
+"U: Tempo em atividade do Studio.\n"
 "W: Clima e temperatura.\n"
 "Y: Modificação da lista de reprodução.\n"
 "F8: Tira instantâneos (snapshots) da lista de reprodução, como contagem de "
@@ -620,7 +620,7 @@ msgid ""
 "The SPL Assistant layer command. See the add-on guide for more information "
 "on available commands."
 msgstr ""
-"A camada de comando do Assistente SPL. Consulte o guia do complemento para "
+"O comando da camada Assistente SPL. Consulte o guia do complemento para "
 "obter mais informações sobre os comandos disponíveis."
 
 #. Translators: Presented when SPL Assistant cannot be invoked.
@@ -690,11 +690,11 @@ msgstr ""
 
 #. Translators: Presented when track time analysis is turned on.
 msgid "Playlist analysis activated"
-msgstr "Análise da lista de reprodução ativada"
+msgstr "Ativada análise da lista de reprodução"
 
 #. Translators: Presented when track time analysis is turned off.
 msgid "Playlist analysis deactivated"
-msgstr "Análise da lista de reprodução desativada"
+msgstr "Desativada análise da lista de reprodução"
 
 #. Translators: Input help mode message for a command in StationPlaylist add-on.
 msgid ""
@@ -862,8 +862,8 @@ msgid ""
 "Thank you."
 msgstr ""
 "Bem-vindo(a) ao complemento StationPlaylist para NVDA,\n"
-"seu companheiro para a transmissão com SPL Studio usando o leitor de tela "
-"NVDA.\n"
+"seu companheiro para a transmissão — broadcasting — com SPL Studio usando o "
+"leitor de tela NVDA.\n"
 "\n"
 "Os destaques do complemento StationPlaylist incluem:\n"
 "* Comandos de camada para obter informações de status.\n"
@@ -924,11 +924,11 @@ msgstr "Ambos"
 
 #. Translators: A setting in library scan announcement options.
 msgid "Do not announce library scans"
-msgstr "Não anuncia varrimentos de biblioteca"
+msgstr "Não anuncia varredura de biblioteca"
 
 #. Translators: A setting in library scan announcement options.
 msgid "Announce start and end of a library scan"
-msgstr "Anuncia início e fim de varrimento de biblioteca"
+msgstr "Anuncia início e fim duma varredura de biblioteca"
 
 #. Translators: One of the library scan announcement settings.
 msgid "Start and end only"
@@ -936,24 +936,23 @@ msgstr "Apenas início e fim"
 
 #. Translators: A setting in library scan announcement options.
 msgid "Announce the progress of a library scan"
-msgstr "Anuncia o progresso do varrimento da biblioteca"
+msgstr "Anuncia o progresso de varredura da biblioteca"
 
 #. Translators: One of the library scan announcement settings.
 msgid "Scan progress"
-msgstr "Progresso do varrimento"
+msgstr "Progresso da varredura"
 
 #. Translators: A setting in library scan announcement options.
 msgid "Announce progress and item count of a library scan"
-msgstr ""
-"Anuncia o progresso e a contagem de itens de um varrimento da biblioteca"
+msgstr "Anuncia o progresso e a contagem de itens duma varredura de biblioteca"
 
 #. Translators: One of the library scan announcement settings.
 msgid "Scan count"
-msgstr "Resultado do varrimento"
+msgstr "Resultado da varredura"
 
 #. Translators: title of a dialog to configure broadcast profiles.
 msgid "SPL Broadcast Profiles"
-msgstr "Perfis de transmissão SPL"
+msgstr "Perfis de Transmissão SPL"
 
 #. Borrowed directly from NVDA Core (credit: NV Access)
 #. This allows Enter key to be pressed to activate the selected profile.
@@ -1222,7 +1221,7 @@ msgstr ""
 #. Translators: the label for a setting in SPL add-on settings
 #. to configure streaming status for metadata streams.
 msgid "&Stream:"
-msgstr "Fluxo (Transmis&são):"
+msgstr "Fluxo — &Stream:"
 
 #. Translators: A checkbox to let metadata streaming status
 #. be applied to the currently active broadcast profile.
@@ -1232,7 +1231,7 @@ msgstr "&Aplicar mudanças de fluxo (transmissão) no perfil selecionado"
 #. Translators: title of a panel to configure metadata streaming status
 #. for DSP encoder and four additional URL's.
 msgid "Metadata streaming"
-msgstr "Fluxo de metadados"
+msgstr "Fluxo — streaming — de metadados"
 
 #. Translators: One of the metadata notification settings.
 msgid "When Studio starts"
@@ -1257,7 +1256,7 @@ msgstr "Notificação e conexão de fluxo (transmissão) de &metadados"
 #. to configure streaming status for metadata streams.
 msgid "&Select the URL for metadata streaming upon request:"
 msgstr ""
-"&Selecione o URL para fluxo (transmissão) de metadados mediante solicitação:"
+"&Selecione o URL para fluxo — streaming — de metadados mediante solicitação:"
 
 #. Translators: The label for a group in SPL add-on settings
 #. to select column announcement order.
@@ -1318,7 +1317,7 @@ msgstr "E&xplorador de Colunas..."
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for Track Tool.
 msgid "Columns Explorer for &Track Tool..."
-msgstr "Explorador de Colunas para Ferramen&tas de Faixa..."
+msgstr "Explorador de Colunas para Ferramen&ta de Faixa..."
 
 #. Translators: The label of a button to configure columns explorer slots (Control+NvDA+1 through 0)
 #. for StationPlaylist Creator.
@@ -1375,7 +1374,7 @@ msgstr ""
 #. to toggle if SPL Controller command can be used to invoke Assistant layer.
 msgid "Allow SPL C&ontroller command to invoke SPL Assistant layer"
 msgstr ""
-"Permitir que o comando do c&ontrolador SPL invoque a camada do Assistente SPL"
+"Permitir que o comando do C&ontrolador SPL invoque a camada Assistente SPL"
 
 #. Translators: The label for a setting in SPL add-on settings
 #. to set keyboard layout for SPL Assistant.
@@ -1598,7 +1597,7 @@ msgstr "Configurações do codificador para {name}"
 #. Translators: An edit field in encoder settings
 #. to set a label for this encoder.
 msgid "Encoder &label"
-msgstr "Rótu&lo do codificador"
+msgstr "Rótu&lo do codificador — encoder"
 
 #. Translators: A checkbox in encoder settings
 #. to set if NVDA should move focus to Studio window when connected.
@@ -1646,7 +1645,7 @@ msgstr "Sem codificadores conectados"
 #. Translators: presented when SPL Studio window is minimized.
 msgid "SPL Studio is minimized to system tray."
 msgstr ""
-"O SPL Studio é minimizado para bandeja do sistema (área de notificação)."
+"O SPL Studio é minimizado para bandeja do sistema — área de notificação."
 
 #. Translators: Input help mode message for an encoder settings command.
 msgid ""
@@ -1654,7 +1653,7 @@ msgid ""
 "server."
 msgstr ""
 "Alterna se o NVDA irá mudar para o Studio quando conectado a um servidor de "
-"transmissão em fluxo."
+"transmissão em fluxo — streaming."
 
 #. Translators: Presented when toggling the setting
 #. to switch to Studio when connected to a streaming server.
@@ -1828,8 +1827,8 @@ msgstr "O SPL Studio não está em execução."
 #. Translators: Input help mode message for a layer command in StationPlaylist add-on.
 msgid "SPl Controller layer command. See add-on guide for available commands."
 msgstr ""
-"Comando de camada do Controlador SPL. Consulte o guia do complemento para "
-"obter os comandos disponíveis."
+"Comando da camada Controlador SPL. Consulte o guia do complemento para obter "
+"os comandos disponíveis."
 
 #. Translators: Presented when NVDA cannot enter SPL Controller layer since SPL Studio is focused.
 msgid ""
