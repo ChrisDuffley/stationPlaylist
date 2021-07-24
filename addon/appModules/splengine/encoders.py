@@ -731,25 +731,19 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 				if not messageCache.startswith("Encoding"):
 					self.encoderStatusMessage(messageCache)
 			if messageCache.startswith("Idle"):
-				if encoding:
-					encoding = False
+				encoding = False
 				if manualConnect and (error or connecting):
 					manualConnect = False
 			elif messageCache.startswith("Error"):
 				# Announce the description of the error.
 				if manualConnect and not self.announceStatusUntilConnected:
 					manualConnect = False
-				if not error:
-					error = True
-				if encoding:
-					encoding = False
-				if connecting:
-					connecting = False
+				error = True
+				encoding = False
+				connecting = False
 			elif messageCache.startswith("Encoding"):
-				if manualConnect:
-					manualConnect = False
-				if connecting:
-					connecting = False
+				manualConnect = False
+				connecting = False
 				# We're on air, so exit unless told to monitor for connection changes.
 				if not encoding:
 					tones.beep(1000, 150)
@@ -764,11 +758,9 @@ class SAMEncoder(Encoder, sysListView32.ListItem):
 						connectedBefore = True
 					encoding = True
 			else:
-				if not connecting:
-					connecting = True
-				if encoding:
-					encoding = False
-				elif "Error" not in messageCache and error:
+				connecting = True
+				encoding = False
+				if "Error" not in messageCache and error:
 					error = False
 				currentTime = time.time()
 				if currentTime - attemptTime >= 0.5 and self.connectionTone:
