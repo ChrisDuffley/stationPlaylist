@@ -870,8 +870,7 @@ class SPLEncoder(Encoder):
 			elif "Unable to connect" in messageCache or "Failed" in messageCache or status == "AutoConnect stopped.":
 				if manualConnect and not self.announceStatusUntilConnected:
 					manualConnect = False
-				if connected:
-					connected = False
+				connected = False
 			elif "Kbps" in messageCache or "Connected" in messageCache:
 				connecting = False
 				manualConnect = False
@@ -886,10 +885,8 @@ class SPLEncoder(Encoder):
 						connectedBefore = True
 					connected = True
 			else:
-				if connected:
-					connected = False
-				if not connecting:
-					connecting = True
+				connected = False
+				connecting = True
 				if "Kbps" not in messageCache:
 					currentTime = time.time()
 					if currentTime - attemptTime >= 0.5 and self.connectionTone:
