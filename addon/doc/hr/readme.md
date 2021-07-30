@@ -322,6 +322,12 @@ operacijskim sustavom Windows 8 ili novijim i ako imaš instaliran NVDA
 na dodir. Za prebacivanje na modus SPL-a, dodirni ekran s tri prsta. Zatim
 koristi gore navedene dodirne naredbe za njihovo izvršavanje.
 
+## Version 21.08
+
+* In SAM encoders, NVDA will no longer play a tone if the selected encoder
+  becomes idle as this tone is really meant to help when debugging the
+  add-on.
+
 ## Version 21.06
 
 * NVDA will no longer do nothing or play error tones when trying to open

@@ -344,6 +344,12 @@ poderá executar alguns comandos do Studio a partir da tela de
 toque. Primeiro, toque com três dedos para alternar para o modo SPL e, em
 seguida, use os comandos de toque listados acima para executar os comandos.
 
+## Version 21.08
+
+* In SAM encoders, NVDA will no longer play a tone if the selected encoder
+  becomes idle as this tone is really meant to help when debugging the
+  add-on.
+
 ## Versão 21.06
 
 * O NVDA não fará mais nada ou reproduzirá tons de erro ao tentar abrir

@@ -346,6 +346,12 @@ Studio-Befehle über den Touchscreen ausführen. Tippen Sie zunächst einmal
 mit drei Fingern, um in den SPL-Touchmodus zu wechseln. Verwenden Sie dann
 die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
 
+## Version 21.08
+
+* In SAM encoders, NVDA will no longer play a tone if the selected encoder
+  becomes idle as this tone is really meant to help when debugging the
+  add-on.
+
 ## Version 21.06
 
 * NVDA wird beim Versuch, verschiedene Dialogfelder der Erweiterung wie den

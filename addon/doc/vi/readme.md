@@ -303,6 +303,12 @@ NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio t
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
 
+## Version 21.08
+
+* In SAM encoders, NVDA will no longer play a tone if the selected encoder
+  becomes idle as this tone is really meant to help when debugging the
+  add-on.
+
 ## Version 21.06
 
 * NVDA will no longer do nothing or play error tones when trying to open

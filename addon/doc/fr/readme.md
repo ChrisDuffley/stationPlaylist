@@ -353,6 +353,12 @@ un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
 
+## Version 21.08
+
+* In SAM encoders, NVDA will no longer play a tone if the selected encoder
+  becomes idle as this tone is really meant to help when debugging the
+  add-on.
+
 ## Version 21.06
 
 * NVDA ne se figera plus ou ne jouera plus de tonalités d'erreur en essayant

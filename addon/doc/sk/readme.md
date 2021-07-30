@@ -287,6 +287,12 @@ NVDA  od verzie 2012.3, môžete na ovládanie doplnku použiť dotykové
 príkazy. Najprv je potrebné dotknúť sa obrazovky tromi prstami. Následne
 vykonajte gestá spomenúté vyššie v tomto návode.
 
+## Version 21.08
+
+* In SAM encoders, NVDA will no longer play a tone if the selected encoder
+  becomes idle as this tone is really meant to help when debugging the
+  add-on.
+
 ## Version 21.06
 
 * NVDA will no longer do nothing or play error tones when trying to open
