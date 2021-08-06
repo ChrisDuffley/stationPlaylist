@@ -339,11 +339,11 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
-## Version 21.08
+## Versión 21.08
 
-* In SAM encoders, NVDA will no longer play a tone if the selected encoder
-  becomes idle as this tone is really meant to help when debugging the
-  add-on.
+* En codificadores SAM, NVDA xa non reproducirá un ton de erro se o
+  codificador seleccionado pasa a estar inactivo xa que este ton realmente
+  está pensado para axudar cando se depure o complemento.
 
 ## Versión 21.06
 
