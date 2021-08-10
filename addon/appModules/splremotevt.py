@@ -47,9 +47,9 @@ class AppModule(splcreator.AppModule):
 		# Resort to window style and other tricks if other lists with the class name below is found
 		# yet are not tracks list.
 		if obj.windowClassName == "TTntListView.UnicodeClass":
-			if obj.role == controlTypes.ROLE_LISTITEM:
+			if obj.role == controlTypes.Role.LISTITEM:
 				clsList.insert(0, SPLRemotePlaylistEditorItem)
-			elif obj.role == controlTypes.ROLE_LIST:
+			elif obj.role == controlTypes.Role.LIST:
 				clsList.insert(0, sysListView32.List)
 		# Unlike creator, there is no demo intro dialog in Remote VT.
 		elif obj.windowClassName == "TAboutForm":
