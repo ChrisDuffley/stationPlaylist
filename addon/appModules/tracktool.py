@@ -73,7 +73,7 @@ class AppModule(appModuleHandler.AppModule):
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
 		import controlTypes
 		if obj.windowClassName == "TTntListView.UnicodeClass":
-			if obj.role == controlTypes.ROLE_LISTITEM:
+			if obj.role == controlTypes.Role.LISTITEM:
 				clsList.insert(0, TrackToolItem)
-			elif obj.role == controlTypes.ROLE_LIST:
+			elif obj.role == controlTypes.Role.LIST:
 				clsList.insert(0, sysListView32.List)
