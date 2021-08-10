@@ -25,7 +25,7 @@ class AppModule(AppModule):  # type: ignore[no-redef]  # NOQA: F405
 		import controlTypes
 		# Try adding labels written to the screen in case edit fields are encountered.
 		# After doing this, return immediately so SPL Engine app module can detect encoders.
-		if obj.windowClassName == "TEdit" and not obj.name and controlTypes.STATE_READONLY in obj.states:
+		if obj.windowClassName == "TEdit" and not obj.name and controlTypes.State.READONLY in obj.states:
 			clsList.insert(0, TEditNoLabel)
 			return
 		# #107 (19.08): the rest is defined in SPL Engine app module.

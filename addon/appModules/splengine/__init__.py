@@ -60,7 +60,7 @@ class AppModule(appModuleHandler.AppModule):
 		if obj.windowControlID == 1023:
 			obj.name = "ICQ #"
 			return
-		if not obj.name and obj.role != controlTypes.ROLE_WINDOW:
+		if not obj.name and obj.role != controlTypes.Role.WINDOW:
 			# Same ID's are used across controls, distinguishable by looking at which configuration tab is active.
 			windowControlID = obj.windowControlID
 			if windowControlID in (1019, 1020, 1024, 1025):
@@ -71,7 +71,7 @@ class AppModule(appModuleHandler.AppModule):
 					configTab = obj.parent.parent.parent.previous.previous.previous.firstChild
 				activeTab = 0 if windowControlID in (1019, 1020) else 1
 				try:
-					if controlTypes.STATE_SELECTED in configTab.getChild(activeTab).states:
+					if controlTypes.State.SELECTED in configTab.getChild(activeTab).states:
 						obj.name = encoderSettingsLabels[windowControlID][0]
 					else:
 						obj.name = encoderSettingsLabels[windowControlID][1]
@@ -88,11 +88,11 @@ class AppModule(appModuleHandler.AppModule):
 		if obj.windowClassName == "TListView":
 			# #87: add support for table navigation commands
 			# by coercing encoder list and entries into SysListView32 family.
-			if obj.role == controlTypes.ROLE_LISTITEM:
+			if obj.role == controlTypes.Role.LISTITEM:
 				clsList.insert(0, encoders.SAMEncoder)
-			elif obj.role == controlTypes.ROLE_LIST:
+			elif obj.role == controlTypes.Role.LIST:
 				clsList.insert(0, sysListView32.List)
-		elif obj.windowClassName == "SysListView32" and obj.role == controlTypes.ROLE_LISTITEM:
+		elif obj.windowClassName == "SysListView32" and obj.role == controlTypes.Role.LISTITEM:
 			# #113 (19.10/18.09.12-LTS): AltaCast encoder list has a name
 			# whereas SPL Encoder doesn't.
 			clsList.insert(0, encoders.AltaCastEncoder if obj.parent.name == "List1" else encoders.SPLEncoder)
