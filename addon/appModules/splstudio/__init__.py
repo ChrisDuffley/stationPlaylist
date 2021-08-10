@@ -277,7 +277,7 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 
 	def event_stateChange(self):
 		# Why is it that NVDA keeps announcing "not selected" when track items are scrolled?
-		if controlTypes.STATE_SELECTED not in self.states:
+		if controlTypes.State.SELECTED not in self.states:
 			pass
 
 	@scriptHandler.script(gesture="kb:space")
@@ -586,13 +586,13 @@ class ReversedDialog(Dialog):
 			childStates = child.states
 			childRole = child.role
 			# We don't want to handle invisible or unavailable objects
-			if controlTypes.STATE_INVISIBLE in childStates or controlTypes.STATE_UNAVAILABLE in childStates:
+			if controlTypes.State.INVISIBLE in childStates or controlTypes.State.UNAVAILABLE in childStates:
 				continue
 			# For particular objects, we want to descend in to them and get their children's message text
 			if childRole in (
-				controlTypes.ROLE_PROPERTYPAGE, controlTypes.ROLE_PANE, controlTypes.ROLE_PANEL,
-				controlTypes.ROLE_WINDOW, controlTypes.ROLE_GROUPING, controlTypes.ROLE_PARAGRAPH,
-				controlTypes.ROLE_SECTION, controlTypes.ROLE_TEXTFRAME, controlTypes.ROLE_UNKNOWN
+				controlTypes.Role.PROPERTYPAGE, controlTypes.Role.PANE, controlTypes.Role.PANEL,
+				controlTypes.Role.WINDOW, controlTypes.Role.GROUPING, controlTypes.Role.PARAGRAPH,
+				controlTypes.Role.SECTION, controlTypes.Role.TEXTFRAME, controlTypes.Role.UNKNOWN
 			):
 				# Grab text from descendants, but not for a child which inherits from Dialog and has focusable descendants
 				# Stops double reporting when focus is in a property page in a dialog
@@ -603,44 +603,44 @@ class ReversedDialog(Dialog):
 					return None
 				continue
 			# If the child is focused  we should just stop and return None
-			if not allowFocusedDescendants and controlTypes.STATE_FOCUSED in child.states:
+			if not allowFocusedDescendants and controlTypes.State.FOCUSED in child.states:
 				return None
 			# We only want text from certain controls.
 			if not (
 				# Static text, labels and links
-				childRole in (controlTypes.ROLE_STATICTEXT, controlTypes.ROLE_LABEL, controlTypes.ROLE_LINK)
+				childRole in (controlTypes.Role.STATICTEXT, controlTypes.Role.LABEL, controlTypes.Role.LINK)
 				# Read-only, non-multiline edit fields
 				or (
-					childRole == controlTypes.ROLE_EDITABLETEXT
-					and controlTypes.STATE_READONLY in childStates
-					and controlTypes.STATE_MULTILINE not in childStates
+					childRole == controlTypes.Role.EDITABLETEXT
+					and controlTypes.State.READONLY in childStates
+					and controlTypes.State.MULTILINE not in childStates
 				)
 			):
 				continue
 			# We should ignore a text object directly after a grouping object,
 			# as it's probably the grouping's description
-			if index > 0 and children[index - 1].role == controlTypes.ROLE_GROUPING:
+			if index > 0 and children[index - 1].role == controlTypes.Role.GROUPING:
 				continue
 			# Like the last one, but a graphic might be before the grouping's description
 			if (
 				index > 1
-				and children[index - 1].role == controlTypes.ROLE_GRAPHIC
-				and children[index - 2].role == controlTypes.ROLE_GROUPING
+				and children[index - 1].role == controlTypes.Role.GRAPHIC
+				and children[index - 2].role == controlTypes.Role.GROUPING
 			):
 				continue
 			childName = child.name
 			if (
 				childName and index < (childCount - 1)
 				and children[index + 1].role not in (
-					controlTypes.ROLE_GRAPHIC, controlTypes.ROLE_STATICTEXT, controlTypes.ROLE_SEPARATOR,
-					controlTypes.ROLE_WINDOW, controlTypes.ROLE_PANE, controlTypes.ROLE_BUTTON
+					controlTypes.Role.GRAPHIC, controlTypes.Role.STATICTEXT, controlTypes.Role.SEPARATOR,
+					controlTypes.Role.WINDOW, controlTypes.Role.PANE, controlTypes.Role.BUTTON
 				)
 				and children[index + 1].name == childName
 			):
 				# This is almost certainly the label for the next object, so skip it.
 				continue
 			isNameIncluded = child.TextInfo is NVDAObjectTextInfo or childRole in (
-				controlTypes.ROLE_LABEL, controlTypes.ROLE_STATICTEXT
+				controlTypes.Role.LABEL, controlTypes.Role.STATICTEXT
 			)
 			childText = child.makeTextInfo(textInfos.POSITION_ALL).text
 			if not childText or childText.isspace() and child.TextInfo is not NVDAObjectTextInfo:
@@ -852,13 +852,13 @@ class AppModule(appModuleHandler.AppModule):
 		# From 0.01: previously focused item fires focus event when it shouldn't.
 		if (
 			obj.windowClassName == "TListView"
-			and obj.role in (controlTypes.ROLE_CHECKBOX, controlTypes.ROLE_LISTITEM)
-			and controlTypes.STATE_FOCUSED not in obj.states
+			and obj.role in (controlTypes.Role.CHECKBOX, controlTypes.Role.LISTITEM)
+			and controlTypes.State.FOCUSED not in obj.states
 		):
 			obj.shouldAllowIAccessibleFocusEvent = False
 		# Radio button group names are not recognized as grouping, so work around this.
 		elif obj.windowClassName == "TRadioGroup":
-			obj.role = controlTypes.ROLE_GROUPING
+			obj.role = controlTypes.Role.GROUPING
 		# In certain edit fields and combo boxes, the field name is written to the screen,
 		# and there's no way to fetch the object for this text.
 		# Thus use review position text.
@@ -879,7 +879,7 @@ class AppModule(appModuleHandler.AppModule):
 		except AttributeError:
 			windowStyle = 0
 		if obj.windowClassName == "TTntListView.UnicodeClass":
-			if role == controlTypes.ROLE_LISTITEM:
+			if role == controlTypes.Role.LISTITEM:
 				# Track item window style has changed in Studio 5.31.
 				trackItemWindowStyle = 1443991617 if self.productVersion >= "5.31" else 1443991625
 				if abs(windowStyle - trackItemWindowStyle) % 0x100000 == 0:
@@ -888,7 +888,7 @@ class AppModule(appModuleHandler.AppModule):
 					clsList.insert(0, SPLStudioTrackItem)
 			# #69 (18.08): allow actual list views to be treated as SysListView32.List
 			# so column count and other data can be retrieved easily.
-			elif role == controlTypes.ROLE_LIST:
+			elif role == controlTypes.Role.LIST:
 				clsList.insert(0, sysListView32.List)
 		# 7.2: Recognize known dialogs.
 		elif obj.windowClassName in ("TDemoRegForm", "TOpenPlaylist"):
@@ -1488,7 +1488,7 @@ class AppModule(appModuleHandler.AppModule):
 				# Translators: Title for column search dialog.
 				title = _("Column search")
 			startObj = api.getFocusObject()
-			if api.getForegroundObject().windowClassName == "TStudioForm" and startObj.role == controlTypes.ROLE_LIST:
+			if api.getForegroundObject().windowClassName == "TStudioForm" and startObj.role == controlTypes.Role.LIST:
 				startObj = startObj.firstChild
 			d = splmisc.SPLFindDialog(
 				gui.mainFrame, startObj,
@@ -1548,7 +1548,7 @@ class AppModule(appModuleHandler.AppModule):
 				self.trackFinderGUI()
 			else:
 				startObj = api.getFocusObject()
-				if api.getForegroundObject().windowClassName == "TStudioForm" and startObj.role == controlTypes.ROLE_LIST:
+				if api.getForegroundObject().windowClassName == "TStudioForm" and startObj.role == controlTypes.Role.LIST:
 					startObj = startObj.firstChild
 				self.trackFinder(self.findText[0], obj=startObj.next)
 
@@ -1567,7 +1567,7 @@ class AppModule(appModuleHandler.AppModule):
 				self.trackFinderGUI()
 			else:
 				startObj = api.getFocusObject()
-				if api.getForegroundObject().windowClassName == "TStudioForm" and startObj.role == controlTypes.ROLE_LIST:
+				if api.getForegroundObject().windowClassName == "TStudioForm" and startObj.role == controlTypes.Role.LIST:
 					startObj = startObj.lastChild
 				self.trackFinder(self.findText[0], obj=startObj.previous, directionForward=False)
 
@@ -1780,7 +1780,7 @@ class AppModule(appModuleHandler.AppModule):
 		if track is None:
 			track = api.getFocusObject()
 		# 20.07: no, only list items can become place marker tracks.
-		if track.role != controlTypes.ROLE_LISTITEM:
+		if track.role != controlTypes.Role.LISTITEM:
 			raise ValueError("Only list items can be marked as a place marker track")
 		if self.placeMarker == track._getColumnContentRaw(track.indexOf("Filename")):
 			return True
@@ -2359,7 +2359,7 @@ class AppModule(appModuleHandler.AppModule):
 	def script_sayPlaylistRemainingDuration(self, gesture):
 		if self.canPerformPlaylistCommands() == self.SPLPlaylistNoErrors:
 			obj = api.getFocusObject()
-			if obj.role == controlTypes.ROLE_LIST:
+			if obj.role == controlTypes.Role.LIST:
 				obj = obj.firstChild
 			self.announceTime(self.playlistDuration(start=obj), ms=False)
 
@@ -2560,7 +2560,7 @@ class AppModule(appModuleHandler.AppModule):
 			self.finish()
 			return
 		obj = api.getFocusObject()
-		if obj.role == controlTypes.ROLE_LIST:
+		if obj.role == controlTypes.Role.LIST:
 			obj = obj.firstChild
 		scriptCount = scriptHandler.getLastScriptRepeatCount()
 		# Display the decorated HTML window on the first press if told to do so.
@@ -2593,7 +2593,7 @@ class AppModule(appModuleHandler.AppModule):
 			self.finish()
 			return
 		obj = api.getFocusObject()
-		if obj.role == controlTypes.ROLE_LIST:
+		if obj.role == controlTypes.Role.LIST:
 			obj = obj.firstChild
 		try:
 			d = splmisc.SPLPlaylistTranscriptsDialog(gui.mainFrame, obj)
