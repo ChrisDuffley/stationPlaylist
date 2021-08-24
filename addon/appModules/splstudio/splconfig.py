@@ -283,7 +283,6 @@ class ConfigHub(ChainMap):
 						# 7.0 optimization: just reload from defaults dictionary,
 						# as broadcast profiles contain profile-specific settings only.
 						SPLConfigCheckpoint[setting][failedKey] = _SPLDefaults[setting][failedKey]
-			# 7.0: Disqualified from being cached this time.
 			SPLConfigCheckpoint.write()
 			_configLoadStatus[profileName] = "partialReset"
 
@@ -445,13 +444,6 @@ class ConfigHub(ChainMap):
 			if profile.name == defaultProfileName:
 				continue
 			if profile is not None:
-				# 7.0: See if profiles themselves must be saved.
-				# This must be done now, otherwise changes to broadcast profiles (cached) will
-				# not be saved as presave removes them.
-				# 8.0: Bypass cache check routine if this is a new profile or if reset happened.
-				# Takes advantage of the fact that Python's "or" operator evaluates from left to right.
-				# Although nothing should be returned when calling dict.get with nonexistent keys,
-				# return the current profile for ease of comparison.
 				# Without keeping a copy of config dictionary (and restoring from it later),
 				# settings will be lost when presave check runs.
 				profileSettings = profile.dict()
