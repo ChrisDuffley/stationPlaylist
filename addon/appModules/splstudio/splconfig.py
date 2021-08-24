@@ -372,16 +372,6 @@ class ConfigHub(ChainMap):
 		del self.profileNames[profilePos]
 		self.newProfiles.discard(name)
 
-	def _cacheProfile(self, conf: ConfigObj) -> None:
-		# #157 (21.10): no need to cache profiles anymore as SSD technology has matured.
-		return
-		global _SPLCache
-		key = None if conf.filename == SPLIni else conf.name
-		# 8.0: Caching the dictionary (items) is enough.
-		# Do not just copy dictionaries, as it copies references.
-		# 20.09: thankfully conf.dict method performs a "deep copy" (returns a fresh dictionary with data inside).
-		_SPLCache[key] = conf.dict()
-
 	def __delitem__(self, key):
 		# Consult profile-specific key first before deleting anything.
 		pos = 0 if key in _mutatableSettings else [profile.name for profile in self.maps].index(defaultProfileName)
