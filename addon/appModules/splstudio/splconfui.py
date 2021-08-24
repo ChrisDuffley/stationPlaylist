@@ -278,15 +278,6 @@ class BroadcastProfilesDialog(wx.Dialog):
 		selectedProfile = self.profiles.GetStringSelection().split(" <")[0]
 		if splconfig.SPLConfig.activeProfile != selectedProfile:
 			splconfig.SPLConfig.swapProfiles(splconfig.SPLConfig.activeProfile, selectedProfile)
-			# 8.0: Make sure NVDA knows this must be cached (except for normal profile).
-			# 17.10: but not when config is volatile.
-			# #71 (18.07): must be done here, otherwise cache failure occurs where settings won't be saved
-			# when in fact it may have been changed from add-on settings.
-			try:
-				if selectedProfile != splconfig.defaultProfileName and selectedProfile not in splconfig._SPLCache:
-					splconfig.SPLConfig._cacheProfile(splconfig.SPLConfig.profileByName(selectedProfile))
-			except NameError:
-				pass
 		splconfig.SPLConfig.instantSwitch = self.switchProfile
 		# Make sure to nullify prev profile if instant switch profile is gone.
 		# 7.0: Don't do the following in the midst of a broadcast.
