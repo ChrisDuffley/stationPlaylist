@@ -380,6 +380,8 @@ class ConfigHub(ChainMap):
 		self.newProfiles.discard(name)
 
 	def _cacheProfile(self, conf: ConfigObj) -> None:
+		# #157 (21.10): no need to cache profiles anymore as SSD technology has matured.
+		return
 		global _SPLCache
 		key = None if conf.filename == SPLIni else conf.name
 		# 8.0: Caching the dictionary (items) is enough.
