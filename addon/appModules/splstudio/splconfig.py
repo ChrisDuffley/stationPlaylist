@@ -423,23 +423,22 @@ class ConfigHub(ChainMap):
 		# 20.09: work directly with normal profile.
 		normalProfile = self.profileByName(defaultProfileName)
 		self._preSave(normalProfile)
-		if self.resetHappened:
-			# 6.1: Transform column inclusion data structure (for normal profile) now.
-			# 7.0: This will be repeated for broadcast profiles later.
-			# 8.0: Conversion will happen here, as conversion to list
-			# is necessary before writing it to disk (if told to do so).
-			# 17.09: before doing that, temporarily save a copy of the current column headers set.
-			# 20.09: have a temporary settings dictionary handy for updating the actual profile.
-			profileSettings = normalProfile.dict()
-			normalProfile["ColumnAnnouncement"]["IncludedColumns"] = list(
-				normalProfile["ColumnAnnouncement"]["IncludedColumns"]
-			)
-			# 18.08: also convert included columns in playlist transcripts.
-			normalProfile["PlaylistTranscripts"]["IncludedColumns"] = list(
-				normalProfile["PlaylistTranscripts"]["IncludedColumns"]
-			)
-			normalProfile.write()
-			normalProfile.update(profileSettings)
+		# 6.1: Transform column inclusion data structure (for normal profile) now.
+		# 7.0: This will be repeated for broadcast profiles later.
+		# 8.0: Conversion will happen here, as conversion to list
+		# is necessary before writing it to disk (if told to do so).
+		# 17.09: before doing that, temporarily save a copy of the current column headers set.
+		# 20.09: have a temporary settings dictionary handy for updating the actual profile.
+		profileSettings = normalProfile.dict()
+		normalProfile["ColumnAnnouncement"]["IncludedColumns"] = list(
+			normalProfile["ColumnAnnouncement"]["IncludedColumns"]
+		)
+		# 18.08: also convert included columns in playlist transcripts.
+		normalProfile["PlaylistTranscripts"]["IncludedColumns"] = list(
+			normalProfile["PlaylistTranscripts"]["IncludedColumns"]
+		)
+		normalProfile.write()
+		normalProfile.update(profileSettings)
 		# Now save broadcast profiles.
 		for profile in self.profiles:
 			# Normal profile is done.
@@ -453,16 +452,13 @@ class ConfigHub(ChainMap):
 				# Takes advantage of the fact that Python's "or" operator evaluates from left to right.
 				# Although nothing should be returned when calling dict.get with nonexistent keys,
 				# return the current profile for ease of comparison.
-				if (
-					self.resetHappened or profile.name in self.newProfiles
-				):
-					# Without keeping a copy of config dictionary (and restoring from it later),
-					# settings will be lost when presave check runs.
-					profileSettings = profile.dict()
-					profile["ColumnAnnouncement"]["IncludedColumns"] = list(profile["ColumnAnnouncement"]["IncludedColumns"])
-					self._preSave(profile)
-					profile.write()
-					profile.update(profileSettings)
+				# Without keeping a copy of config dictionary (and restoring from it later),
+				# settings will be lost when presave check runs.
+				profileSettings = profile.dict()
+				profile["ColumnAnnouncement"]["IncludedColumns"] = list(profile["ColumnAnnouncement"]["IncludedColumns"])
+				self._preSave(profile)
+				profile.write()
+				profile.update(profileSettings)
 
 	# Reset or reload config.
 	# Factory defaults value specifies what will happen (True = reset, False = reload).
