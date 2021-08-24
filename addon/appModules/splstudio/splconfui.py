@@ -181,9 +181,6 @@ class BroadcastProfilesDialog(wx.Dialog):
 		if self.activeProfile == oldName:
 			self.activeProfile = newName
 		self.profileNames[profilePos] = newName
-		if oldName in splconfig._SPLCache:
-			splconfig._SPLCache[newName] = splconfig._SPLCache[oldName]
-			del splconfig._SPLCache[oldName]
 		self.profiles.SetString(index, " <".join([newName, state[1]]) if len(state) > 1 else newName)
 		self.profiles.Selection = index
 		self.profiles.SetFocus()
@@ -238,8 +235,6 @@ class BroadcastProfilesDialog(wx.Dialog):
 			self.switchProfileDeleted = True
 		self.profiles.Delete(index)
 		del self.profileNames[profilePos]
-		if name in splconfig._SPLCache:
-			del splconfig._SPLCache[name]
 		# 6.3: Select normal profile if the active profile is gone.
 		# 7.0: Consult profile names instead.
 		try:
