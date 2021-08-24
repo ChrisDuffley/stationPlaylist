@@ -412,34 +412,17 @@ class ConfigHub(ChainMap):
 		# as profile history and new profiles list would be cleared as part of general process cleanup.
 		if self.configInMemory:
 			return
-		# 7.0: Save normal profile first.
-		# Temporarily merge normal profile.
-		# 8.0: Locate the index instead.
-		# 20.09: work directly with normal profile.
-		profile = self.profileByName(defaultProfileName)
-		self._preSave(profile)
-		# 6.1: Transform column inclusion data structure (for normal profile) now.
-		# 7.0: This will be repeated for broadcast profiles later.
-		# 8.0: Conversion will happen here, as conversion to list
-		# is necessary before writing it to disk (if told to do so).
-		# 17.09: before doing that, temporarily save a copy of the current column headers set.
-		# 20.09: have a temporary settings dictionary handy for updating the actual profile.
-		profileSettings = profile.dict()
-		profile["ColumnAnnouncement"]["IncludedColumns"] = list(profile["ColumnAnnouncement"]["IncludedColumns"])
-		# 18.08: also convert included columns in playlist transcripts.
-		profile["PlaylistTranscripts"]["IncludedColumns"] = list(profile["PlaylistTranscripts"]["IncludedColumns"])
-		profile.write()
-		profile.update(profileSettings)
-		# Now save broadcast profiles.
 		for profile in self.profiles:
-			# Normal profile is done.
-			if profile.name == defaultProfileName:
-				continue
 			if profile is not None:
 				# Without keeping a copy of config dictionary (and restoring from it later),
 				# settings will be lost when presave check runs.
 				profileSettings = profile.dict()
 				profile["ColumnAnnouncement"]["IncludedColumns"] = list(profile["ColumnAnnouncement"]["IncludedColumns"])
+				if profile.name == defaultProfileName:
+					# 18.08: also convert included columns in playlist transcripts.
+					profile["PlaylistTranscripts"]["IncludedColumns"] = list(
+						profile["PlaylistTranscripts"]["IncludedColumns"]
+					)
 				self._preSave(profile)
 				profile.write()
 				profile.update(profileSettings)
