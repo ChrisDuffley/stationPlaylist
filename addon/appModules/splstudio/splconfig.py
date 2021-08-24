@@ -119,12 +119,8 @@ class ConfigHub(ChainMap):
 			)
 			self.maps[0]["General"]["VerticalColumnAnnounce"] = None
 		self.profileNames.append(None)  # Signifying normal profile.
-		# Always cache normal profile upon startup.
-		# 17.10: and no, not when config was loaded from memory.
 		if not self.configInMemory:
-			self._cacheProfile(self.maps[0])
 			# Remove deprecated keys.
-			# This action must be performed after caching, otherwise the newly modified profile will not be saved.
 			# For each deprecated/removed key, parse section/subsection.
 			# #95 (19.02/18.09.7-LTS): Configobj 4.7.0 ships with a more elegant way to obtain
 			# all extra values in one go, making deprecated keys definition unnecessary.
@@ -152,9 +148,6 @@ class ConfigHub(ChainMap):
 						self.profileNames.append(name)
 						# 20.10/20.09.2-LTS: remove deprecated keys from profiles, too.
 						deprecatedKeys = get_extra_values(self.maps[-1])
-						# Cache this profile if deprecated keys are found so that newly edited profile can be saved properly.
-						if len(deprecatedKeys):
-							self._cacheProfile(self.maps[-1])
 						for section, key in deprecatedKeys:
 							if section == ():
 								continue
