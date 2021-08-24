@@ -452,8 +452,6 @@ class ConfigHub(ChainMap):
 			)
 			normalProfile.write()
 			normalProfile.update(profileSettings)
-			# Don't forget to update profile cache, otherwise subsequent changes are lost.
-			self._cacheProfile(normalProfile)
 		# Now save broadcast profiles.
 		for profile in self.profiles:
 			# Normal profile is done.
@@ -478,9 +476,6 @@ class ConfigHub(ChainMap):
 					self._preSave(profile)
 					profile.write()
 					profile.update(profileSettings)
-					# just like normal profile, cache the profile again provided that it was done already
-					# and if options in the cache and the live profile are different.
-					self._cacheProfile(profile)
 
 	# Reset or reload config.
 	# Factory defaults value specifies what will happen (True = reset, False = reload).
