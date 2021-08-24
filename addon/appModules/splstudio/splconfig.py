@@ -727,7 +727,7 @@ def initialize() -> None:
 
 # Close config database if needed.
 def closeConfig(splComponent: str) -> None:
-	global SPLConfig, _SPLCache
+	global SPLConfig
 	# #99 (19.06/18.09.9-LTS): if more than one instance of a given SPL component executable is running,
 	# do not remove the component from the components registry.
 	import appModuleHandler
@@ -747,8 +747,6 @@ def closeConfig(splComponent: str) -> None:
 		config.post_configSave.unregister(SPLConfig.save)
 		config.post_configReset.unregister(SPLConfig.handlePostConfigReset)
 		SPLConfig = None
-		_SPLCache.clear()
-		_SPLCache = {}
 
 
 # Terminate the config and related subsystems.
