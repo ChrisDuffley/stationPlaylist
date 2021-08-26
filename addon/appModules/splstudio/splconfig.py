@@ -482,12 +482,8 @@ class ConfigHub(ChainMap):
 			# to change type for Playlist Transcripts/included columns set.
 			if profile.filename == SPLIni:
 				profile["PlaylistTranscripts"]["IncludedColumns"] = set(profile["PlaylistTranscripts"]["IncludedColumns"])
-			# Just like constructor, remove deprecated keys if any.
-			deprecatedKeys = get_extra_values(profile)
-			for section, key in deprecatedKeys:
-				if section == ():
-					continue
-				del profile[section[0]][key]
+			# Just like constructor, remove deprecated settings if any.
+			self.removeDeprecatedSettings(profile)
 		# If this is a reset, switch back to normal profile via a custom variant of swap routine,
 		# along with nullifying profile switches.
 		if factoryDefaults:
