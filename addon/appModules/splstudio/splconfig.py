@@ -229,7 +229,7 @@ class ConfigHub(ChainMap):
 		SPLConfigCheckpoint.name = profileName
 		# Remove deprecated settings.
 		# 21.10: formerly part of the constructor, transferred to a dedicated method.
-		self.removeDeprecatedSettings(SPLConfigCheckpoint)
+		self._removeDeprecatedSettings(SPLConfigCheckpoint)
 		return SPLConfigCheckpoint
 
 	# Config validation.
@@ -298,7 +298,7 @@ class ConfigHub(ChainMap):
 		conf["PlaylistTranscripts"]["IncludedColumns"] = set(conf["PlaylistTranscripts"]["IncludedColumns"])
 
 	# Remove deprecated sections/keys.
-	def removeDeprecatedSettings(self, profile: ConfigObj) -> None:
+	def _removeDeprecatedSettings(self, profile: ConfigObj) -> None:
 		# For each deprecated/removed setting, parse section/subsection.
 		# #95 (19.02/18.09.7-LTS): Configobj 4.7.0 ships with a more elegant way to obtain
 		# all extra values in one go, making deprecated setting definition unnecessary.
