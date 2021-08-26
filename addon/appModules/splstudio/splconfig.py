@@ -429,7 +429,6 @@ class ConfigHub(ChainMap):
 	# Reset or reload config.
 	# Factory defaults value specifies what will happen (True = reset, False = reload).
 	# Reload is identical to reset except profiles will be updated with data coming from disk.
-	# Profile indicates the name of the profile to reset or reload.
 	# Sometimes confirmation message will be shown, especially if instant switch profile is active.
 	# Config dialog flag is a special flag reserved for use by add-on settings dialog.
 	def reset(
