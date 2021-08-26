@@ -116,19 +116,9 @@ class ConfigHub(ChainMap):
 			self.maps[0]["General"]["VerticalColumnAnnounce"] = None
 		self.profileNames.append(None)  # Signifying normal profile.
 		if not self.configInMemory:
-			# Remove deprecated keys.
-			# For each deprecated/removed key, parse section/subsection.
-			# #95 (19.02/18.09.7-LTS): Configobj 4.7.0 ships with a more elegant way to obtain
-			# all extra values in one go, making deprecated keys definition unnecessary.
-			# A list of 2-tuples will be returned, with each entry recording
-			# the section name path tuple (requires parsing) and key, respectively.
-			# However, there are certain keys that must be kept across sessions or must be handled separately.
-			deprecatedKeys = get_extra_values(self.maps[0])
-			for section, key in deprecatedKeys:
-				if section == ():
-					continue
-				# Unless otherwise specified, all keys are level 1 (section/key).
-				del self.maps[0][section[0]][key]
+			# Remove deprecated settings.
+			# 21.10: formerly part of the constructor, transferred to a dedicated method.
+			self.removeDeprecatedSettings(self.maps[0])
 		# Moving onto broadcast profiles if any.
 		# 17.10: but not when only normal profile should be used.
 		if not self.normalProfileOnly:
@@ -142,13 +132,8 @@ class ConfigHub(ChainMap):
 							)
 						)
 						self.profileNames.append(name)
-						# 20.10/20.09.2-LTS: remove deprecated keys from profiles, too.
-						deprecatedKeys = get_extra_values(self.maps[-1])
-						for section, key in deprecatedKeys:
-							if section == ():
-								continue
-							# Just like normal profile, unless otherwise specified, all keys are level 1 (section/key).
-							del self.maps[-1][section[0]][key]
+						# 20.10/20.09.2-LTS: remove deprecated settings from profiles, too.
+						self.removeDeprecatedSettings(self.maps[-1])
 			except WindowsError:
 				pass
 		# Runtime flags (profiles and profile switching flag come from NVDA Core's ConfigManager).
