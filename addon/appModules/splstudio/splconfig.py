@@ -115,10 +115,6 @@ class ConfigHub(ChainMap):
 			)
 			self.maps[0]["General"]["VerticalColumnAnnounce"] = None
 		self.profileNames.append(None)  # Signifying normal profile.
-		if not self.configInMemory:
-			# Remove deprecated settings.
-			# 21.10: formerly part of the constructor, transferred to a dedicated method.
-			self.removeDeprecatedSettings(self.maps[0])
 		# Moving onto broadcast profiles if any.
 		# 17.10: but not when only normal profile should be used.
 		if not self.normalProfileOnly:
@@ -132,8 +128,6 @@ class ConfigHub(ChainMap):
 							)
 						)
 						self.profileNames.append(name)
-						# 20.10/20.09.2-LTS: remove deprecated settings from profiles, too.
-						self.removeDeprecatedSettings(self.maps[-1])
 			except WindowsError:
 				pass
 		# Runtime flags (profiles and profile switching flag come from NVDA Core's ConfigManager).
