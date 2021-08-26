@@ -315,6 +315,21 @@ class ConfigHub(ChainMap):
 		# 18.08: same thing for included columns in Playlist Transcripts.
 		conf["PlaylistTranscripts"]["IncludedColumns"] = set(conf["PlaylistTranscripts"]["IncludedColumns"])
 
+	# Remove deprecated sections/keys.
+	def removeDeprecatedSettings(self, profile: ConfigObj) -> None:
+		# For each deprecated/removed setting, parse section/subsection.
+		# #95 (19.02/18.09.7-LTS): Configobj 4.7.0 ships with a more elegant way to obtain
+		# all extra values in one go, making deprecated setting definition unnecessary.
+		# A list of 2-tuples will be returned, with each entry recording
+		# the section name path tuple (requires parsing) and key, respectively.
+		# However, there are certain flags that must be kept across sessions or must be handled separately.
+		deprecatedSettings = get_extra_values(profile)
+		for section, key in deprecatedSettings:
+			if section == ():
+				continue
+			# Unless otherwise specified, all settings are level 1 (section/key).
+			del profile[section[0]][key]
+
 	# Create profile: public function to access the two private ones above (used when creating a new profile).
 	# Mechanics borrowed from NVDA Core's config.conf with modifications for this add-on.
 	def createProfile(self, path: str, name: str, parent: Optional[dict[Any, Any]] = None) -> None:
