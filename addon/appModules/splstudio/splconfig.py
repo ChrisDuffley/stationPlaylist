@@ -413,19 +413,18 @@ class ConfigHub(ChainMap):
 		if self.configInMemory:
 			return
 		for profile in self.profiles:
-			if profile is not None:
-				# Without keeping a copy of config dictionary (and restoring from it later),
-				# settings will be lost when presave check runs.
-				profileSettings = profile.dict()
-				profile["ColumnAnnouncement"]["IncludedColumns"] = list(profile["ColumnAnnouncement"]["IncludedColumns"])
-				if profile.name == defaultProfileName:
-					# 18.08: also convert included columns in playlist transcripts.
-					profile["PlaylistTranscripts"]["IncludedColumns"] = list(
-						profile["PlaylistTranscripts"]["IncludedColumns"]
-					)
-				self._preSave(profile)
-				profile.write()
-				profile.update(profileSettings)
+			# Without keeping a copy of config dictionary (and restoring from it later),
+			# settings will be lost when presave check runs.
+			profileSettings = profile.dict()
+			profile["ColumnAnnouncement"]["IncludedColumns"] = list(profile["ColumnAnnouncement"]["IncludedColumns"])
+			if profile.name == defaultProfileName:
+				# 18.08: also convert included columns in playlist transcripts.
+				profile["PlaylistTranscripts"]["IncludedColumns"] = list(
+					profile["PlaylistTranscripts"]["IncludedColumns"]
+				)
+			self._preSave(profile)
+			profile.write()
+			profile.update(profileSettings)
 
 	# Reset or reload config.
 	# Factory defaults value specifies what will happen (True = reset, False = reload).
