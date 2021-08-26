@@ -233,6 +233,9 @@ class ConfigHub(ChainMap):
 		except KeyError:
 			pass
 		SPLConfigCheckpoint.name = profileName
+		# Remove deprecated settings.
+		# 21.10: formerly part of the constructor, transferred to a dedicated method.
+		self.removeDeprecatedSettings(SPLConfigCheckpoint)
 		return SPLConfigCheckpoint
 
 	# Config validation.
