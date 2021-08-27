@@ -143,8 +143,6 @@ class ConfigHub(ChainMap):
 		# Switch history is a stack of previously activated profile(s), replacing prev profile flag from 7.x days.
 		# Initially normal profile will sit in here.
 		self.switchHistory: list[str] = [self.activeProfile]
-		# Record new profiles if any.
-		self.newProfiles: set[str] = set()
 		# #73: listen to config save/reset actions from NVDA Core.
 		config.post_configSave.register(self.save)
 		config.post_configReset.register(self.handlePostConfigReset)
@@ -318,7 +316,6 @@ class ConfigHub(ChainMap):
 			raise RuntimeError("Only normal profile is in use or config was loaded from memory")
 		self.maps.append(self._unlockConfig(path, profileName=name, parent=parent, validateNow=True))
 		self.profileNames.append(name)
-		self.newProfiles.add(name)
 
 	# Rename and delete profiles.
 	# Mechanics powered by similar routines in NVDA Core's config.conf.
@@ -340,10 +337,6 @@ class ConfigHub(ChainMap):
 		self.profileNames[profilePos] = newName
 		self.profiles[configPos].name = newName
 		self.profiles[configPos].filename = newProfile
-		# Just in case a new profile has been renamed...
-		if oldName in self.newProfiles:
-			self.newProfiles.discard(oldName)
-			self.newProfiles.add(newName)
 
 	def deleteProfile(self, name: str) -> None:
 		# 17.10: No, not when restrictions are applied.
@@ -360,7 +353,6 @@ class ConfigHub(ChainMap):
 			pass
 		del self.profiles[configPos]
 		del self.profileNames[profilePos]
-		self.newProfiles.discard(name)
 
 	def __delitem__(self, key):
 		# Consult profile-specific key first before deleting anything.
