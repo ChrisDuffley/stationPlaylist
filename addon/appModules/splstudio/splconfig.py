@@ -145,8 +145,6 @@ class ConfigHub(ChainMap):
 		self.switchHistory: list[str] = [self.activeProfile]
 		# Record new profiles if any.
 		self.newProfiles: set[str] = set()
-		# Reset flag (only engaged if reset did happen).
-		self.resetHappened: bool = False
 		# #73: listen to config save/reset actions from NVDA Core.
 		config.post_configSave.register(self.save)
 		config.post_configReset.register(self.handlePostConfigReset)
@@ -487,9 +485,6 @@ class ConfigHub(ChainMap):
 			if self.activeProfile != defaultProfileName:
 				npIndex = self.profileIndexByName(defaultProfileName)
 				self.profiles[0], self.profiles[npIndex] = self.profiles[npIndex], self.profiles[0]
-			# 8.0 optimization: Tell other modules that reset was done
-			# in order to postpone disk writes until the end.
-			self.resetHappened = True
 		# #94 (19.02/18.09.7-LTS): notify other subsystems to use default or reloaded settings,
 		# as timers and other routines might not see default settings.
 		# The below action will ultimately call profile switch handler
