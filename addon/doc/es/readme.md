@@ -19,7 +19,7 @@ NOTAS IMPORTANTES:
   el modo atenuación de audio.
 * A partir de 2018, los [registros de cambios para versiones antiguas][3] se
   encontrarán en GitHub. Este léeme del complemento listará cambios desde la
-  versión 20.09 (2020) en adelante.
+  versión 21.06 (2021) en adelante.
 * Cuando Studio está en ejecución, se pueden guardar, restablecer o poner
   los valores de fábrica del complemento pulsando control+NVDA+c,
   control+NVDA+r una vez o control+NVDA+r tres veces, respectivamente. Esto
@@ -346,11 +346,11 @@ realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
 
-## Version 21.08
+## Versión 21.08
 
-* In SAM encoders, NVDA will no longer play a tone if the selected encoder
-  becomes idle as this tone is really meant to help when debugging the
-  add-on.
+* En los codificadores SAM, NVDA ya no reproducirá un tono si el codificador
+  seleccionado se pone en espera, ya que este tono realmente está pensado
+  para ayudar durante la depuración del complemento.
 
 ## Versión 21.06
 
@@ -361,178 +361,6 @@ un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 * NVDA ya no parecerá hacer nada o reproducir tonos de error al intentar
   anunciar la hora completa (horas, minutos y segundos) desde Studio (gesto
   sin asignar). Esto afecta a NVDA 2021.1 o posterior.
-
-## Versión 21.04/20.09.7-LTS
-
-* 21.04: se requiere NVDA 2020.4 o posterior.
-* En los codificadores, NVDA ya no falla al anunciar la información de fecha
-  y hora cuando se realiza la orden de hora / fecha (NVDA+f12). Esto afecta
-  a NVDA 2021.1 o posterior.
-
-## Versión 21.03/20.09.6-LTS
-
-* El requisito de versión mínima de Windows ahora va unido a las versiones
-  de NVDA.
-* Se ha eliminado la orden de comentarios por correo electrónico
-  (alt+NVDA+guión). Por favor, envía comentarios a los desarrolladores de
-  complementos utilizando la información de contacto proporcionada en el
-  administrador de complementos.
-* 21.03: partes del código fuente del complemento ahora incluyen anotaciones
-  de tipo.
-* 21.03: se ha hecho el código del complemento más robusto con la ayuda de
-  Mypy (un comprobador de tipos estáticos de Python). En particular, se han
-  corregido varios fallos de larga duración como el que impedía que NVDA
-  pudiera restablecer las opciones del complemento a sus valores por defecto
-  bajo algunas circunstancias y el que intentaba guardar las opciones del
-  codificador cuando no estaban cargadas. Algunas correcciones de fallos
-  destacables se han llevado también a la versión 20.09.6-LTS.
-* Se han corregido numerosos fallos en el diálogo de bienvenida del
-  complemento (alt+NVDA+f1 desde la ventana de Studio), incluyendo que se
-  mostraran varios diálogos de bienvenida o que NVDA se pusiera a reproducir
-  tonos de error o no reaccionara si se cerraba Studio y el diálogo de
-  bienvenida permanecía abierto.
-* Se han corregido numerosos fallos en el diálogo de comentarios de pista
-  (alt+NVDA+c tres veces desde una pista en Studio), incluyendo un tono de
-  error que se oía al intentar guardar comentarios y el hecho de que el
-  diálogo de comentarios de pista apareciera varias veces si se pulsaba
-  alt+NVDA+c muchas veces. Si el diálogo de comentarios de pista continúa
-  mostrándose después de cerrar Studio, los comentarios no se guardarán.
-* Diversas órdenes de columna, como el explorador de columnas
-  (control+NVDA+fila numérica) en las pistas de Studio y los anuncios de
-  estado del codificador ya no devuelven resultados erróneos al ejecutarse
-  después de reiniciar NVDA con el foco en pistas o codificadores. Esto
-  afecta a NVDA 2020.4 o posterior.
-* Se han corregido varios fallos con las instantáneas de listas de
-  reproducción (Asistente de SPL, f8), incluyendo la incapacidad de obtener
-  datos de las instantáneas y anunciar las pistas incorrectas como las más
-  largas o las más cortas.
-* NVDA ya no anunciará "0 elementos en la biblioteca" cuando se salga de
-  Studio en mitad de un análisis de biblioteca.
-* NVDA ya no fallará al guardar los cambios en las opciones del codificador
-  después de que se encuentren errores al cargar estas opciones y
-  seguidamente se restablezcan a valores por defecto.
-
-## Versión 21.01/20.09.5-LTS
-
-La versión 21.01 soporta Studio 5.30 y posteriores.
-
-* 21.01: se requiere NVDA 2020.3 o posterior.
-* 21.01: se ha eliminado la opción de inclusión de cabeceras de columna de
-  las opciones del complemento. La propia opción de NVDA de cabeceras de
-  tabla controlará los anuncios de cabeceras de columna en la suite SPL y
-  los codificadores.
-* Se ha añadido una orden para conmutar el ajuste de inclusión y orden
-  personalizado de columnas vs. columnas en pantalla (NVDA+v). Ten en cuenta
-  que esta orden sólo está disponible si el foco se encuentra sobre una
-  pista en el visualizador de listas de reproducción de Studio.
-* Las ayudas del asistente de SPL y la capa del controlador se presentarán
-  en un documento explorable en vez de hacerlo en un diálogo.
-* NVDA ya no dejará de anunciar el progreso de análisis de la biblioteca si
-  se ha configurado para anunciar el progreso del análisis mientras se usa
-  una pantalla Braille.
-
-## Versión 20.11.1/20.09.4-LTS
-
-* Soporte inicial para StationPlaylist Suite 5.50.
-* Mejoras para la presentación de varios diálogos del complemento gracias a
-  las características de NVDA 2020.3.
-
-## Versión 20.11/20.09.3-LTS
-
-* 20.11: se requiere NVDA 2020.1 o posterior.
-* 20.11: se han resuelto más problemas de estilo del código y fallos
-  potenciales con Flake8.
-* Corregidos diversos problemas con el diálogo de bienvenida del complemento
-  (alt+NVDA+f1 desde Studio), incluyendo el de mostrar la orden equivocada
-  para los comentarios del complemento (alt+NVDA+guión).
-* 20.11: el formato de presentación de columnas para elementos de
-  codificador y pista a través de la suite StationPlaylist (incluyendo el
-  codificador SAM) ahora está basado en el formato del elemento de lista
-  SysListView32.
-* 20.11: ahora NVDA anunciará la información de columna en pistas en toda la
-  suite de StationPlaylist sin importar el estado de la opción "Anunciar
-  descripciones de objeto" configurada en el panel de opciones Presentación
-  de objetos de NVDA. Para tener la mejor experiencia, deja esta opción
-  activada.
-* 20.11: el en visor de listas de reproducción de Studio, las opciones de
-  inclusión de columnas y orden personalizado afectarán a la forma de
-  presentar las columnas de pista cuando se utilice la navegación de objetos
-  para desplazarse entre pistas, incluyendo el anuncio del objeto actual.
-* Si se configura el anuncio de columnas verticales con un valor distinto a
-  "cualquier columna que se revise", NVDA ya no anunciará datos de columna
-  incorrectos tras cambiar la posición de las columnas en pantalla mediante
-  el ratón.
-* se ha mejorado la presentación de las transcripciones de lista de
-  reproducción (asistente de SPL, shift+f8) al visualizarlas en formatos
-  HTML de lista o tabla.
-* 20.11: en los codificadores, se anunciarán las etiquetas de los
-  codificadores cuando se ejecuten órdenes de navegación por objetos además
-  de pulsar flechas arriba y abajo para moverse entre los codificadores.
-* En los codificadores, además de alt+NVDA+0 de la fila numérica, al pulsar
-  f12 también se abrirá el diálogo de opciones del codificador para el
-  codificador seleccionado.
-
-## Versión 20.10/20.09.2-LTS
-
-* A causa de algunos cambios en el formato del archivo de configuración de
-  los codificadores, instalar una versión más antigua del complemento
-  después de instalar esta puede dar como resultado un comportamiento
-  impredecible.
-* Ya no es necesario reiniciar NVDA con el modo registro de depuración para
-  leer mensajes de depuración en el visualizador del registro. Se pueden ver
-  los mensajes de depuración si el nivel de registro se ajusta en
-  "Depuración" desde el panel de opciones generales de NVDA.
-* En el visualizador de listas de reproducción de Studio, NVDA no incluirá
-  las cabeceras de columna si esta opción está desactivada en la
-  configuración del complemento y no se han definido opciones de inclusión u
-  orden personalizado de columnas.
-* 20.10: el ajuste de inclusión de cabeceras de columna desde las opciones
-  del complemento ha quedado obsoleto y se eliminará en una futura
-  versión. En el futuro, la propia opción de cabeceras de columna de NVDA
-  controlará el anuncio de cabeceras de columna en el conjunto de SPL y los
-  codificadores.
-* Cuando se minimice SPL Studio a la bandeja del sistema (área de
-  notificaciones), NVDA lo anunciará al intentar pasar a Studio desde otros
-  programas, ya sea mediante una orden dedicada o como resultado de un
-  codificador conectándose.
-
-## Versión 20.09-LTS
-
-La versión 20.09.x es la última que se basa en antiguas tecnologías y da
-soporte a Studio 5.20. Las versiones futuras darán soporte a Studio 5.30 y
-las funciones más recientes de NVDA. Algunas nuevas funciones se llevarán a
-la versión 20.09.x si fuera necesario.
-
-* A causa de los cambios en NVDA, el parámetro de la línea de órdenes
-  --spl-configvolatile ya no se encuentra disponible para hacer de sólo
-  lectura la configuración del complemento. Se puede emular este
-  comportamiento desmarcando la casilla "Guardar configuración al salir de
-  NVDA" en el panel de opciones generales de NVDA.
-* Se ha eliminado el ajuste de características piloto que había en las
-  opciones avanzadas de la configuración del complemento (alt+NVDA+0), que
-  permitía a los usuarios de versiones de desarrollo probar código
-  inestable.
-* Las órdenes de navegación por columnas de Studio ahora están disponibles
-  también en las listas de pistas que se encuentran en solicitudes de
-  oyentes, inserción de pistas y otras pantallas.
-* Diversas órdenes de navegación por columnas se comportarán como las
-  propias órdenes de NVDA de navegación por tablas. Además de simplificar
-  estas órdenes, esto trae beneficios como la facilidad de uso para personas
-  con baja visión.
-* Las órdenes de navegación vertical por columnas (control+alt+flechas
-  arriba y abajo) se encuentran disponibles en Creator, el editor de listas
-  de reproducción, Remote VT y la herramienta de pista.
-* La orden de visualizador de columnas de pista (Control+NVDA+guión) se
-  encuentra ahora disponible en el editor de listas de reproducción de
-  Creator y Remote VT.
-* La orden de visualizador de columnas de pista respetará el orden de
-  columnas mostrado en pantalla.
-* Se ha mejorado el rendimiento de NVDA en los codificadores SAM al pulsar
-  control+f9 o control+f10 para conectar o desconectar todos los
-  codificadores, respectivamente. Esto puede dar como resultado más
-  información al anunciar los detalles del codificador seleccionado.
-* En los codificadores SPL y AltaCast, al pulsar f9 se conectará el
-  codificador seleccionado.
 
 ## Versiones antiguas
 

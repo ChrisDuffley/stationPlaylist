@@ -17,7 +17,7 @@ Dôležité:
 * Ak používate Systém od verzie Windows 8, odporúčame vám vypnúť funkciu
   automatického stišovania.
 * Starting from 2018, [changelogs for old add-on releases][3] will be found
-  on GitHub. This add-on readme will list changes from version 20.09 (2020)
+  on GitHub. This add-on readme will list changes from version 21.06 (2021)
   onwards.
 * Z okna SPL studio je možné uložiť nastavenia skratkou ctrl+nvda+c. Môžete
   tiež načítať uložené nastavenia skratkou ctrl+nvda+r. Takisto je možné
@@ -301,138 +301,6 @@ vykonajte gestá spomenúté vyššie v tomto návode.
 * NVDA will no longer appear to do nothing or play error tones when trying
   to announce complete time (hours, minutes, seconds) from Studio (command
   unassigned). This affects NVDA 2021.1 or later.
-
-## Version 21.04/20.09.7-LTS
-
-* 21.04: NVDA 2020.4 or later is required.
-* In encoders, NVDA no longer fails to announce date and time information
-  when performing date/time command (NVDA+F12). This affects NVDA 2021.1 or
-  later.
-
-## Version 21.03/20.09.6-LTS
-
-* Minimum Windows release requirement is now tied to NVDA releases.
-* Removed feedback email command (Alt+NVDA+Hyphen). Please send feedback to
-  add-on developers using the contact information provided from Add-ons
-  Manager.
-* 21.03: parts of the add-on source code now include type annotations.
-* 21.03: made the add-on code more robust with help from Mypy (a Python
-  static type checker). In particular, fixed several long-standing bugs such
-  as NVDA not being able to reset add-on settings to defaults under some
-  circumstances and attempting to save encoder settings when not
-  loaded. Some prominent bug fixes were also backported to 20.09.6-LTS.
-* Fixed numerous bugs with add-on welcome dialog (Alt+NVDA+F1 from Studio
-  window), including multiple welcome dialogs being shown and NVDA appearing
-  to do nothing or playing error tones when welcome dialog remains open
-  after Studio exits.
-* Fixed numerous bugs with track comments dialog (Alt+NVDA+C three times
-  from a track in Studio), including an error tone heard when trying to save
-  comments and many track comment dialogs appearing if Alt+NVDA+C is pressed
-  many times. If track comments dialog is still shown after Studio is
-  closed, comments will not be saved.
-* Various column commands such as columns explorer (Control+NVDA+number row)
-  in Studio tracks and encoder status announcements no longer gives
-  erroneous results when performed after NVDA is restarted while focused on
-  tracks or encoders. This affects NVDA 2020.4 or later.
-* Fixed numerous issues with playlist snapshots (SPL Assistant, F8),
-  including inability to obtain snapshot data and reporting wrong tracks as
-  shortest or longest tracks.
-* NVDA will no longer announce "0 items in the library" when Studio exits in
-  the middle of a library scan.
-* NVDA will no longer fail to save changes to encoder settings after errors
-  are encountered when loading encoder settings and subsequently settings
-  are reset to defaults.
-
-## Version 21.01/20.09.5-LTS
-
-Version 21.01 supports SPL Studio 5.30 and later.
-
-* 21.01: NVDA 2020.3 or later is required.
-* 21.01: column header inclusion setting from add-on settings has been
-  removed. NVDA's own table column header setting will control column header
-  announcements across SPL suite and encoders.
-* Added a command to toggle screen versus custom column inclusion and order
-  setting (NVDA+V). Note that this command is available only when focused on
-  a track in Studio's playlist viewer.
-* SPL Assistant and Controller layer help will be presented as a browse mode
-  document instead of a dialog.
-* NVDA will no longer stop announcing library scan progress if configured to
-  announce scan progress while using a braille display.
-
-## Version 20.11.1/20.09.4-LTS
-
-* Initial support for StationPlaylist suite 5.50.
-* Improvements to presentation of various add-on dialogs thanks to NVDA
-  2020.3 features.
-
-## Version 20.11/20.09.3-LTS
-
-* 20.11: NVDA 2020.1 or later is required.
-* 20.11: Resolved more coding style issues and potential bugs with Flake8.
-* Fixed various issues with add-on welcome dialog (Alt+NVDA+F1 from Studio),
-  including wrong command shown for add-on feedback (Alt+NVDA+Hyphen).
-* 20.11: Column presentation format for track and encoder items across
-  StationPlaylist suite (including SAM encoder) is now based on
-  SysListView32 list item format.
-* 20.11: NVDA will now announce column information for tracks throughout SPL
-  suite regardless of "report object description" setting in NVDA's object
-  presentation settings panel. For best experience, leave this setting on.
-* 20.11: In Studio's playlist viewer, custom column order and inclusion
-  setting will affect how track columns are presented when using object
-  navigation to move between tracks, including current navigator object
-  announcement.
-* If vertical column announcement is set to a value other than "whichever
-  column I'm reviewing", NVDA will no longer announce wrong column data
-  after changing column position on screen via mouse.
-* improved playlist transcripts (SPL Assistant, Shift+F8) presentation when
-  viewing the transcript in HTML table or list format.
-* 20.11: In encoders, encoder labels will be announced when performing
-  object navigation commands in addition to pressing up or down arrow keys
-  to move between encoders.
-* In encoders, in addition to Alt+NVDA+number row 0, pressing F12 will also
-  open encoder settings dialog for the selected encoder.
-
-## Verzia 20.10/20.09.2-LTS
-
-* Z dôvodu zmien v súboroch s nastaveniami streamov nie je možné z tejto
-  verzie prejsť na staršiu verziu doplnku. Pri pokuse prejsť na staršiu
-  verziu sa môžete stretnúť s nečakanými problémami.
-* Odteraz nie je potrebné reštartovať NVDA, ak chcete do logu zapisovať
-  informácie od úrovne debug. Stačí len nastaviť úroveň záznamu.
-* Odteraz NVDA v playliste v okne Studio neoznamuje hlavičky stĺpcov, ak je
-  oznamovanie vypnuté, ale súčasne nie je definované poradie stĺpcov.
-* 20.10: Odstránené oznamovanie hlavičiek v playlistoch. Doplnok sa bude
-  riadiť nastaveniami NVDA.
-* Ak je SPL studio minimalizované na systémový panel, NVDA túto skutočnosť
-  oznámi pri pokuse aktivovať okno Studio po pripojení streamu alebo pri
-  použití klávesovej skratky.
-
-## verzia 20.09-LTS
-
-Verzia 20.09.x je posledná, ktorá podporuje Studio 5.20 so staršou
-technológiou. Od verzie 18.10 podporujeme Studio 5.30. Niektoré nové funkcie
-môžu byť časom portované aj do verzie 20.09.X.
-
-* Vzhľadom na úpravy v aktuálnych verziách NVDA, nie je viac možné
-  nastavenia doplnku chrániť proti zápisu príkazom
-  --spl-configvolatile. Odteraz je potrebné priamo v nastaveniach NVDA v
-  časti všeobecné odčiarknuť možnosť Uložiť nastavenia pri ukončení.
-* Odstránená možnosť testovať pylotné funkcie.
-* Navigácia po stĺpcoch s metadátami je odteraz dostupná tiež v žiadostiach
-  od poslucháčov, pri vkladaní skladieb cez dialóg vložiť a tiež v ostatných
-  dialógoch.
-* Navigácia po metadátach odteraz funguje rovnako, ako štandardná navigácia
-  NVDA po tabuľkách. Okrem zjednodušenia skratiek je tento spôsob výhodný aj
-  pre slabozrakých používateľov.
-* Vertikálna navigácia (ctrl+alt+šípky hore a dole) odteraz funguje v oknách
-  Creator, playlist editor, Remote VT, a Track Tool.
-* Zobrazenie metadát (ctrl+nvda+-) funguje pri úprave playlistu v okne
-  Creator a REmote VT.
-* Poradie je zobrazené tak, ako na obrazovke.
-* Zrýchlená odozva pri práci so streamami v oknách SAM enkodéra, konkrétne
-  pri pripájaní (ctrl+F9) a odpájaní (ctrl+F10).
-* Skratkou F9 je možné v okne AltaCast a SPL enkodéra pripojiť vybratý
-  stream.
 
 ## Staršie verzie
 
