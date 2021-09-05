@@ -50,8 +50,7 @@ SPLStatusInfo = 39
 SPL_TrackPlaybackStatus = 104
 SPLCurTrackPlaybackTime = 105
 
-# Help message for SPL Controller
-# Translators: the dialog text for SPL Controller help.
+# Translators: the text for SPL Controller help.
 SPLConHelp = _("""After entering SPL Controller, press:
 A: Turn automation on.
 Shift+A: Turn automation off.
