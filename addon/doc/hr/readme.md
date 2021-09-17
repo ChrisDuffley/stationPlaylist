@@ -2,7 +2,7 @@
 
 * Autori: Geoff Shang, Joseph Lee i drugi doprinositelji
 * Preuzmi [stabilnu verziju][1]
-* NVDA compatibility: 2020.4 and beyond
+* NVDA compatibility: 2021.2 and beyond
 
 Ovaj paket dodataka omogućava bolje korištenje programa StationPlaylist
 Studio i drugih StationPlaylist programa te pruža alate za kontrolu programa
@@ -321,6 +321,11 @@ operacijskim sustavom Windows 8 ili novijim i ako imaš instaliran NVDA
 2012.3 ili noviji, možeš izvršiti neke Studio naredbe na ekranu osjetljivim
 na dodir. Za prebacivanje na modus SPL-a, dodirni ekran s tri prsta. Zatim
 koristi gore navedene dodirne naredbe za njihovo izvršavanje.
+
+## Version 21.10
+
+* NVDA 2021.2 or later is required due to changes to NVDA that affects this
+  add-on.
 
 ## Version 21.08
 

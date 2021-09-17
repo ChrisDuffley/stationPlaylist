@@ -2,7 +2,7 @@
 
 * Autori: Geoff Shang, Joseph Lee și alți contributori
 * Descărcați [versiunea stabilă][1]
-* NVDA compatibility: 2020.4 and beyond
+* NVDA compatibility: 2021.2 and beyond
 
 This add-on package provides improved usage of StationPlaylist Studio and
 other StationPlaylist apps, as well as providing utilities to control Studio
@@ -315,6 +315,11 @@ sau o versiune ulterioară și aveți NVDA 2012.3 sau mai recent instalat,
 puteți efectua unele comenzi Studio de pe ecranul tactil. Utilizați mai
 întâi trei atingeri cu degetul pentru a comuta la modul SPL, apoi utilizați
 comenzile de atingere listate mai sus pentru a efectua comenzi.
+
+## Version 21.10
+
+* NVDA 2021.2 or later is required due to changes to NVDA that affects this
+  add-on.
 
 ## Version 21.08
 

@@ -2,7 +2,7 @@
 
 * Autores: Geoff Shang, Joseph Lee e outros contribuidores
 * Baixe a [versão estável][1]
-* Compatibilidade com NVDA: 2020.4 e além
+* NVDA compatibility: 2021.2 and beyond
 
 Este pacote de complemento fornece uso aprimorado do StationPlaylist Studio
 e outros aplicativos StationPlaylist, além de fornecer utilitários para
@@ -342,6 +342,11 @@ com Windows 8 ou posterior e tiver o NVDA 2012.3 ou posterior instalado,
 poderá executar alguns comandos do Studio a partir da tela de
 toque. Primeiro, toque com três dedos para alternar para o modo SPL e, em
 seguida, use os comandos de toque listados acima para executar os comandos.
+
+## Version 21.10
+
+* NVDA 2021.2 or later is required due to changes to NVDA that affects this
+  add-on.
 
 ## Version 21.08
 
