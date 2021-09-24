@@ -46,7 +46,7 @@ Most of these will work in Studio only unless otherwise specified.
 
 ## Unassigned commands
 
-The following commands are not assigned by default; if you wish to assign them, use Input Gestures dialog to add custom commands. To do so, from Studio window, open NVDA menu, Preferences, then Input Gestures. Expand StationPlaylist category, then locate unassigned commands from the list below and select "Add", then type the gesutre you wish to use.
+The following commands are not assigned by default; if you wish to assign them, use Input Gestures dialog to add custom commands. To do so, from Studio window, open NVDA menu, Preferences, then Input Gestures. Expand StationPlaylist category, then locate unassigned commands from the list below and select "Add", then type the gesture you wish to use.
 
 * Switching to SPL Studio window from any program.
 * SPL Controller layer.
