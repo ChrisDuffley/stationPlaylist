@@ -97,13 +97,11 @@ angegeben.
 
 ## Nicht zugewiesene Befehle
 
-Die folgenden Befehle sind standardmäßig nicht zugewiesen; wenn Sie sie
-zuweisen möchten, verwenden Sie den Dialog Eingabegesten, um
-benutzerdefinierte Befehle hinzuzufügen. Öffnen Sie dazu im Studio-Fenster
-das NVDA-Menü, Einstellungen und dann Eingaben. Erweitern Sie die Kategorie
-StationPlaylist, suchen Sie dann nicht zugewiesene Befehle aus der Liste
-unten und wählen Sie "Hinzufügen" aus, geben Sie dann den die Taste oder
-Tastenkombination ein, die Sie verwenden möchten.
+The following commands are not assigned by default; if you wish to assign
+them, use Input Gestures dialog to add custom commands. To do so, from
+Studio window, open NVDA menu, Preferences, then Input Gestures. Expand
+StationPlaylist category, then locate unassigned commands from the list
+below and select "Add", then type the gesture you wish to use.
 
 * Das wechseln zum SPL Studio-Fenster aus einem beliebigen Programm.
 * Befehlsschicht des SPL-Controllers.

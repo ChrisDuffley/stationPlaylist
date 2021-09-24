@@ -94,12 +94,11 @@ contraire.
 
 ## Commandes non assignées
 
-Les commandes suivantes ne sont pas assignées par défaut; Si vous souhaitez
-les assigner, utilisez le dialogu des Gestes de Commande pour ajouter des
-commandes personnalisées. Pour ce faire, depuis la fenêtre de Studio, ouvrez
-le menu NVDA, Préférences, puis Gestes de commande. Développez la catégorie
-StationPlaylist, puis localisez les commandes non assignées dans la liste et
-sélectionnez "Ajouter" puis tapez le geste que vous désirez utiliser.
+The following commands are not assigned by default; if you wish to assign
+them, use Input Gestures dialog to add custom commands. To do so, from
+Studio window, open NVDA menu, Preferences, then Input Gestures. Expand
+StationPlaylist category, then locate unassigned commands from the list
+below and select "Add", then type the gesture you wish to use.
 
 * Basculement vers la fenêtre SPL Studio depuis n'importe quel programme.
 * Couche Contrôleur SPL.

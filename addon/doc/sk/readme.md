@@ -75,10 +75,11 @@ Väčšina skratiek je určených pre Studio, ak nie je uvedené inak.
 
 ## Funkcie bez klávesových skratiek
 
-Nasledujúce funkcie nemajú predvolene priradené klávesové skratky. Môžete
-ich priradiť, ak z okna Station Playlist otvoríte dialóg klávesové
-skratky. Tam hľadajte vetvu Station playlist. Po vybratí príslušnej funkcie
-v kontextovej ponuke aktivujte tlačidlo Pridať.
+The following commands are not assigned by default; if you wish to assign
+them, use Input Gestures dialog to add custom commands. To do so, from
+Studio window, open NVDA menu, Preferences, then Input Gestures. Expand
+StationPlaylist category, then locate unassigned commands from the list
+below and select "Add", then type the gesture you wish to use.
 
 * Zobrazenie okna Studio odkiaľkoľvek.
 * Podpríkazy na ovládanie a informácie stavu SPL.

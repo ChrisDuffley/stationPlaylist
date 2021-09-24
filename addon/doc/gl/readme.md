@@ -2,7 +2,7 @@
 
 * Autores: Geoff Shang, Joseph Lee e outros colaboradores
 * Descargar [versión estable][1]
-* NVDA compatibility: 2021.2 and beyond
+* Compatibilidade con NVDA: 2021.2 en diante
 
 Este paquete de complementos proporciona unhha utilización mellorada do
 Station Playlist Studio e outras apps de Station Playlist, así como
@@ -94,12 +94,12 @@ contrario.
 
 ## Ordes non asignadas
 
-Os seguintes comandos están sen asignar por defecto; se desexas asignalos,
+Os seguintes atallos están sen asignar por defecto; se desexas asignalos,
 utiliza o diálogo Xestos de Entrada para engadir ordes persoalizadas. Para
-facelo, abre o menú NVDA dende a ventá de Studio, Preferencias, logo Xestos
-de Entrada. Expande a categoría StationPlaylist, logo localiza os comandos
-sen asignar dende a seguinte lista e selecciona "Engadir", logo escribe o
-xesto que queres utilizar.
+facelo, dende a ventá de Studio, abre o menú NVDA dende a ventá de Studio,
+Preferencias, logo Xestos de Entrada. Expande a categoría StationPlaylist,
+logo localiza os comandos sen asignar dende a seguinte lista e selecciona
+"Engadir", logo escribe o xesto que queres utilizar.
 
 * Cambia á ventá SPL Studio dende calquera programa.
 * Capa SPL Controller.
@@ -339,10 +339,10 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
-## Version 21.10
+## Versión 21.10
 
-* NVDA 2021.2 or later is required due to changes to NVDA that affects this
-  add-on.
+* Requírese NVDA 2021.2 ou posterior debido a cambios en NVDA que afectan a
+  este complemento.
 
 ## Versión 21.08
 

@@ -78,11 +78,11 @@ lập khác.
 
 ## Các lệnh chưa được gán thao tác
 
-Các lệnh sau mặc định không được gán thao tác; nếu muốn gán cho chúng, hãy
-dùng hộp thoại quản lý thao tác để thêm các lệnh tùy biến. Để làm điều này,
-từ cửa sổ Studio, mở trình đơn NVDA, tùy chỉnh, Quản lý thao tác. mở phân
-loại StationPlaylist, tìm đến các lệnh chưa gán thao tác từ danh sách bên
-dưới rồi chọn "Thêm", và nhập vào thao tác bạn muốn sử dụng.
+The following commands are not assigned by default; if you wish to assign
+them, use Input Gestures dialog to add custom commands. To do so, from
+Studio window, open NVDA menu, Preferences, then Input Gestures. Expand
+StationPlaylist category, then locate unassigned commands from the list
+below and select "Add", then type the gesture you wish to use.
 
 * Chuyển từ một chương trình bất kì đến cửa sổ SPL Studio .
 * Lệnh cho bộ điều khiển SPL.

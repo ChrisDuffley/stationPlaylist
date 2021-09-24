@@ -95,12 +95,11 @@ outra forma.
 
 ## Comandos não atribuídos
 
-Os comandos a seguir não são atribuídos por padrão; se desejar atribuí-los,
-use o diálogo Definir comandos — Gestos de entrada — para adicionar comandos
-personalizados. Para fazer isso, na janela do Studio, abra o menu NVDA,
-Preferências e Definir comandos. Expanda a categoria StationPlaylist,
-localize os comandos não atribuídos na lista abaixo e selecione "Adicionar"
-e digite o comando — gesto — que deseja usar.
+The following commands are not assigned by default; if you wish to assign
+them, use Input Gestures dialog to add custom commands. To do so, from
+Studio window, open NVDA menu, Preferences, then Input Gestures. Expand
+StationPlaylist category, then locate unassigned commands from the list
+below and select "Add", then type the gesture you wish to use.
 
 * Mudar para a janela SPL Studio a partir de qualquer programa.
 * Camada de controlador SPL.

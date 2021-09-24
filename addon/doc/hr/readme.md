@@ -88,11 +88,11 @@ Većina njih radi samo u programu Studio, ukoliko nešto drugo nije navedeno.
 
 ## Nedodijeljene naredbe
 
-Sljedeće naredbe standardno nisu dodijeljene; ako ih želiš dodijeliti,
-koristi dijaloški okvir „Ulazne geste” za dodavanje prilagođenih naredbi. U
-prozoru programa Studio, otvori „Postavke” u NVDA izborniku, a zatim „Ulazne
-geste”. Rasklopi kategoriju StationPlaylist. Pronađi nedodijeljene naredbe s
-donjeg popisa, odaberi „Dodaj” i upiši gestu koju želiš koristiti.
+The following commands are not assigned by default; if you wish to assign
+them, use Input Gestures dialog to add custom commands. To do so, from
+Studio window, open NVDA menu, Preferences, then Input Gestures. Expand
+StationPlaylist category, then locate unassigned commands from the list
+below and select "Add", then type the gesture you wish to use.
 
 * Prebacivanje na SPL Studio prozor iz bilo koje aplikacije..
 * Sloj SPL Kontroler.

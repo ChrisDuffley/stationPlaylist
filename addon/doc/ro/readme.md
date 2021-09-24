@@ -87,7 +87,7 @@ The following commands are not assigned by default; if you wish to assign
 them, use Input Gestures dialog to add custom commands. To do so, from
 Studio window, open NVDA menu, Preferences, then Input Gestures. Expand
 StationPlaylist category, then locate unassigned commands from the list
-below and select "Add", then type the gesutre you wish to use.
+below and select "Add", then type the gesture you wish to use.
 
 * Comutare la fereastra SPL din orice program.
 * Layer SPL controler
