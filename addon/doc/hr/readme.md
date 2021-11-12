@@ -2,23 +2,23 @@
 
 * Autori: Geoff Shang, Joseph Lee i drugi doprinositelji
 * Preuzmi [stabilnu verziju][1]
-* NVDA compatibility: 2021.2 and beyond
+* NVDA kompatibilnost: 2021.2 i nadalje
 
 Ovaj paket dodataka omogućava bolje korištenje programa StationPlaylist
 Studio i drugih StationPlaylist programa te pruža alate za kontrolu programa
 Studio s bilo kojeg mjesta. Podržava sljedeće programe: Studio, Creator,
 Track Tool, VT Recorder i Streamer, kao i SAM, SPL i AltaCast kodere.
 
-For more information about the add-on, read the [add-on guide][2].
+Za daljnje informacije o dodatku pročitaj [priručnik za dodatke][2].
 
 VAŽNE NAPOMENE:
 
-* This add-on requires StationPlaylist suite 5.30 or later.
+* Ovaj dodatak zahtijeva StationPlaylist izdanje 5.30 ili noviju verziju.
 * Korisnicima sustava Windows 8 ili novijeg, preporučamo deaktivirati modus
   stišavanja zvuka.
-* Starting from 2018, [changelogs for old add-on releases][3] will be found
-  on GitHub. This add-on readme will list changes from version 21.06 (2021)
-  onwards.
+* Od 2018. godine pa nadalje, [zapisi o promjenama za stara izdanja][3]
+  nalaze se na GitHubu. Readme datoteka dodatka sadrži popis promjena od
+  verzije 21.06 (2021) i nadalje.
 * Dok je Studio pokrenut, moguće je spremiti postavke, ponovo učitati
   spremljene postavke ili resetirati postavke dodatka na standardne
   vrijednosti pritiskom tipki kontrol+NVDA+C, pritiskom tipki kontrol+NVDA+R
@@ -322,18 +322,18 @@ operacijskim sustavom Windows 8 ili novijim i ako imaš instaliran NVDA
 na dodir. Za prebacivanje na modus SPL-a, dodirni ekran s tri prsta. Zatim
 koristi gore navedene dodirne naredbe za njihovo izvršavanje.
 
-## Version 21.10
+## Verzija 21.10
 
 * NVDA 2021.2 or later is required due to changes to NVDA that affects this
   add-on.
 
-## Version 21.08
+## Verzija 21.08
 
 * In SAM encoders, NVDA will no longer play a tone if the selected encoder
   becomes idle as this tone is really meant to help when debugging the
   add-on.
 
-## Version 21.06
+## Verzija 21.06
 
 * NVDA will no longer do nothing or play error tones when trying to open
   various add-on dialogs such as encoder settings dialog. This is a critical
@@ -342,7 +342,7 @@ koristi gore navedene dodirne naredbe za njihovo izvršavanje.
   to announce complete time (hours, minutes, seconds) from Studio (command
   unassigned). This affects NVDA 2021.1 or later.
 
-## Older releases
+## Starija izdanja
 
 Please see changelog link for release notes for old add-on releases.
 

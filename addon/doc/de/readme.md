@@ -2,7 +2,7 @@
 
 * Autoren: Geoff Shang, Joseph Lee und weitere Mitwirkende
 * [Stabile Version herunterladen][1]
-* NVDA compatibility: 2021.2 and beyond
+* NVDA-Kompatibilität: 2021.2 und neuer
 
 Dieses Zusatzpaket bietet eine verbesserte Nutzung von StationPlaylist
 Studio und anderen StationPlaylist-Anwendungen sowie Dienstprogramme zur
@@ -19,9 +19,9 @@ WICHTIGE HINWEISE:
 * Wenn Sie Windows 8 oder höher verwenden, setzen Sie die Reduzierung der
   Lautstärke anderer Audioquellen auf "nie" im Dialog Sprachausgabe im
   NVDA-Einstellungsmenü.
-* Starting from 2018, [changelogs for old add-on releases][3] will be found
-  on GitHub. This add-on readme will list changes from version 21.06 (2021)
-  onwards.
+* Seit 2018 sind [Änderungsprotokolle für alte Versionen der Erweiterung][3]
+  auf GitHub zu finden. Die Readme der Erweiterung listet Änderungen ab
+  Version 21.06 aus dem Jahr 2021 auf.
 * Während die Studio-Software läuft, können Sie gespeicherte Einstellungen
   speichern, wieder laden oder Zusatzeinstellungen auf die Standardwerte
   zurücksetzen, indem Sie Strg+NVDA+C, Strg+NVDA+R einmal bzw. Strg+NVDA+R
@@ -97,11 +97,13 @@ angegeben.
 
 ## Nicht zugewiesene Befehle
 
-The following commands are not assigned by default; if you wish to assign
-them, use Input Gestures dialog to add custom commands. To do so, from
-Studio window, open NVDA menu, Preferences, then Input Gestures. Expand
-StationPlaylist category, then locate unassigned commands from the list
-below and select "Add", then type the gesture you wish to use.
+Die folgenden Befehle sind standardmäßig nicht zugewiesen; wenn Sie sie
+zuweisen möchten, verwenden Sie den Dialog Eingabegesten, um
+benutzerdefinierte Befehle hinzuzufügen. Öffnen Sie dazu im Studio-Fenster
+das NVDA-Menü, Einstellungen und dann Eingaben. Erweitern Sie die Kategorie
+StationPlaylist, suchen Sie dann nicht zugewiesene Befehle aus der Liste
+unten und wählen Sie "Hinzufügen" aus, geben Sie dann die Taste oder
+Tastenkombination ein, welche Sie verwenden möchten.
 
 * Das wechseln zum SPL Studio-Fenster aus einem beliebigen Programm.
 * Befehlsschicht des SPL-Controllers.
@@ -346,14 +348,13 @@ die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
 
 ## Version 21.10
 
-* NVDA 2021.2 or later is required due to changes to NVDA that affects this
-  add-on.
+* NVDA 2021.2 oder neuer ist erforderlich, da die Änderungen diese
+  Erweiterung betreffen.
 
 ## Version 21.08
 
-* In SAM encoders, NVDA will no longer play a tone if the selected encoder
-  becomes idle as this tone is really meant to help when debugging the
-  add-on.
+* In SAM-Encodern spielt NVDA keinen Fehlerton ab, wenn der ausgewählte
+  beschäftigt ist. Dieser Ton ist nur zur Fehler-Untersuchung gedacht.
 
 ## Version 21.06
 
