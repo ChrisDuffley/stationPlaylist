@@ -2270,18 +2270,29 @@ class AppModule(appModuleHandler.AppModule):
 	# Table of child constants based on versions
 	# These are scattered throughout the screen, so one can use foreground.getChild(index) to fetch them
 	# (getChild tip from Jamie Teh (NV Access/Mozilla)).
-	# Because 5.x (an perhaps future releases) uses different screen layout,
+	# Because 5.x, 6.x, an possible future releases may use different screen layouts,
 	# look up the needed constant from the table below
 	# (row = info needed, column = version).
-	# As of 19.08, the below table is based on Studio 5.20.
+	# As of 21.11, the below table is based on Studio 5.20 and 6.0.
+	# A separate dictionary is provided for Studio 6 due to screen layout changes.
 	# #119 (20.03): a list indicates iterative descent to locate the actual objects.
 	statusObjs = {
-		SPLSystemStatus: -2,  # The second status bar containing system status such as up time.
-		SPLNextTrackTitle: [8, 0],  # Name and duration of the next track if any.
-		SPLNextPlayer: [11, 0],  # Name and duration of the next track if any.
-		SPLCurrentTrackTitle: [9, 0],  # Name of the currently playing track.
-		SPLCurrentPlayer: [12, 0],  # Name of the currently playing track.
-		SPLTemperature: [7, 0],  # Temperature for the current city.
+		"5": {
+			SPLSystemStatus: -2,  # The second status bar containing system status such as up time.
+			SPLNextTrackTitle: [8, 0],  # Name and duration of the next track if any.
+			SPLNextPlayer: [11, 0],  # Name and duration of the next track if any.
+			SPLCurrentTrackTitle: [9, 0],  # Name of the currently playing track.
+			SPLCurrentPlayer: [12, 0],  # Name of the currently playing track.
+			SPLTemperature: [7, 0],  # Temperature for the current city.
+		},
+		"6": {
+			SPLSystemStatus: [-1, -2],  # The second status bar containing system status such as up time.
+			SPLNextTrackTitle: [-1, 1, 2, 0],  # Name and duration of the next track if any.
+			SPLNextPlayer: [-1, 1, 2, 1],  # Name and duration of the next track if any.
+			SPLCurrentTrackTitle: [-1, 1, 9],  # Name of the currently playing track.
+			SPLCurrentPlayer: [-1, 1, 9, 0],  # Name of the currently playing track.
+			SPLTemperature: [-1, 7, 0],  # Temperature for the current city.
+		}
 	}
 
 	_cachedStatusObjs: dict[int, Any] = {}
@@ -2296,7 +2307,9 @@ class AppModule(appModuleHandler.AppModule):
 				# 6.1: Allow gesture-based functions to look up status information even if Studio window isn't focused.
 				# 17.08: several SPL Controller commands will use this route.
 				fg = getNVDAObjectFromEvent(user32.FindWindowW("TStudioForm", None), OBJID_CLIENT, 0)
-			statusIndex = self.statusObjs[infoIndex]
+			# Support 5.x and 6.x screen layouts.
+			studioVersion = "6" if self.productVersion.startswith("6") else "5"
+			statusIndex = self.statusObjs[studioVersion][infoIndex]
 			# 7.0: sometimes (especially when first loaded), OBJID_CLIENT fails,
 			# so resort to retrieving focused object instead.
 			if fg is not None and fg.childCount > 1:
