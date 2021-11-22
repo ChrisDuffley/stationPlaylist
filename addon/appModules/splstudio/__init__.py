@@ -870,6 +870,9 @@ class AppModule(appModuleHandler.AppModule):
 				obj.name = fieldName.text.replace(obj.windowText, "")
 			else:
 				obj.name = fieldName.text
+		# Status bar labels are not found in Studio 6 but is written to the screen.
+		elif obj.windowClassName == "TStatusBar" and obj.name is None:
+			obj.name = obj.displayText
 
 	# Some controls which needs special routines.
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
