@@ -1638,7 +1638,11 @@ class AppModule(appModuleHandler.AppModule):
 				# Translators: Presented when cart explorer cannot be entered.
 				ui.message(_("You are not in playlist viewer, cannot enter cart explorer"))
 				return
-			self.carts = splmisc.cartExplorerInit(fg.name)
+			# 21.11: Studio 6 demo uses "Demo" as default user name, therefore remove user name.
+			studioTitle = fg.name
+			if "Demo - Demo" in studioTitle:
+				studioTitle = "StationPlaylist Studio Demo"
+			self.carts = splmisc.cartExplorerInit(studioTitle)
 			if self.carts["faultyCarts"]:
 				# Translators: presented when cart explorer could not be switched on.
 				ui.message(_("Some or all carts could not be assigned, cannot enter cart explorer"))
