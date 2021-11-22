@@ -987,9 +987,17 @@ class AppModule(appModuleHandler.AppModule):
 					# Activate mic alarm or announce when cart explorer is active.
 					self.doExtraAction(obj.name)
 		# Monitor the end of track and song intro time and announce it.
+		# Note that Studio 5.x and 6 uses different layouts.
 		elif obj.windowClassName == "TStaticText":
 			if obj.simplePrevious is not None:
-				if obj.simplePrevious.name == "Remaining Time":
+				studio6layout = (
+					self.productVersion >= "6.0"
+					and obj.simplePrevious.name == "Track Starts"
+				)
+				if (
+					(self.productVersion < "6.0" and obj.simplePrevious.name == "Remaining Time")
+					or (studio6layout and obj.parent.parent.firstChild.name == "Remaining")
+				):
 					# End of track text.
 					if (
 						splconfig.SPLConfig["General"]["BrailleTimer"] in ("outro", "both")
@@ -1001,7 +1009,10 @@ class AppModule(appModuleHandler.AppModule):
 						and splconfig.SPLConfig["IntroOutroAlarms"]["SayEndOfTrack"]
 					):
 						self.alarmAnnounce(obj.name, 440, 200)
-				elif obj.simplePrevious.name == "Remaining Song Ramp":
+				elif (
+					(self.productVersion < "6.0" and obj.simplePrevious.name == "Remaining Song Ramp")
+					or (studio6layout and obj.parent.parent.firstChild.name == "Song Ramp")
+				):
 					# Song intro content.
 					if (
 						splconfig.SPLConfig["General"]["BrailleTimer"] in ("intro", "both")
