@@ -201,6 +201,10 @@ You can save settings for specific shows into broadcast profiles. These profiles
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
 
+## Version 22.01
+
+* If add-on specific command-line switches such as "--spl-configinmemory" is specified when starting NVDA, NVDA will no longer add the specified parameter each time it loads Studio thereby changing the add-on behavior every time Studio is used.
+
 ## Version 21.11
 
 * Initial support for StationPlaylist suite 6.0.
