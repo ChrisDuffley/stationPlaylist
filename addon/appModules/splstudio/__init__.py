@@ -16,7 +16,6 @@
 from __future__ import annotations
 from typing import Any, Optional
 from functools import wraps
-import sys
 import os
 import time
 import threading
@@ -1223,15 +1222,6 @@ class AppModule(appModuleHandler.AppModule):
 		# Just to make sure:
 		if splbase._SPLWin:
 			splbase._SPLWin = None
-		# 17.10: remove add-on specific command-line switches.
-		# This is necessary in order to restore full config functionality when Studio restarts.
-		for cmdSwitch in globalVars.appArgsExtra:
-			if cmdSwitch.startswith("--spl-"):
-				globalVars.appArgsExtra.remove(cmdSwitch)
-		# 22.01: also remove command-line switches from sys.argv, too.
-		for cmdSwitch in sys.argv:
-			if cmdSwitch.startswith("--spl-"):
-				sys.argv.remove(cmdSwitch)
 
 	# Script sections (for ease of maintenance):
 	# Time-related: elapsed time, end of track alarm, etc.

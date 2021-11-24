@@ -3,6 +3,7 @@
 # Adds a few utility features such as switching focus to the SPL Studio window and some global scripts.
 
 from functools import wraps
+import sys
 import globalPluginHandler
 import api
 import ui
@@ -83,6 +84,20 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Also, skip over the rest if appx is in effect.
 		if globalVars.appArgs.secure or config.isAppX:
 			return
+
+	def terminate(self):
+		super(GlobalPlugin, self).terminate()
+		# 17.10: remove add-on specific command-line switches.
+		# This is necessary in order to restore full config functionality when NVDA restarts.
+		# 22.01: transferred from Studio app module to SPL Utilities global plugin
+		# so command-line switches can remain in effect throughout NVDA session, not Studio session.
+		for cmdSwitch in globalVars.appArgsExtra:
+			if cmdSwitch.startswith("--spl-"):
+				globalVars.appArgsExtra.remove(cmdSwitch)
+		# 22.01: also remove command-line switches from sys.argv, too.
+		for cmdSwitch in sys.argv:
+			if cmdSwitch.startswith("--spl-"):
+				sys.argv.remove(cmdSwitch)
 
 	# Global layer environment (see Studio app module for more information).
 
