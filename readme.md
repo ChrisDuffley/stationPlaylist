@@ -203,7 +203,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Version 22.01
 
-* If add-on specific command-line switches such as "--spl-configinmemory" is specified when starting NVDA, NVDA will no longer add the specified parameter each time it loads Studio thereby changing the add-on behavior every time Studio is used.
+* If add-on specific command-line switches such as "--spl-configinmemory" is specified when starting NVDA, NVDA will no longer add the specified parameter each time NVDA and/or Studio runs. Restart NVDA to restore normal functionality (without command-line switches).
 
 ## Version 21.11
 
