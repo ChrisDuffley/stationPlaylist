@@ -14,7 +14,7 @@ IMPORTANT NOTES:
 
 * This add-on requires StationPlaylist suite 5.30 or later.
 * If using Windows 8 or later, for best experience, disable audio ducking mode.
-* Starting from 2018, [changelogs for old add-on releases][3] will be found on GitHub. This add-on readme will list changes from version 21.06 (2021) onwards.
+* Starting from 2018, [changelogs for old add-on releases][3] will be found on GitHub. This add-on readme will list changes from version 21.10 (2021) onwards.
 * While Studio is running, you can save, reload saved settings, or reset add-on settings to defaults by pressing Control+NVDA+C, Control+NVDA+R once, or Control+NVDA+R three times, respectively. This is also applicable to encoder settings - you can save and reset (not reload) encoder settings if using encoders.
 
 ## Shortcut keys
@@ -212,15 +212,6 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Version 21.10
 
 * NVDA 2021.2 or later is required due to changes to NVDA that affects this add-on.
-
-## Version 21.08
-
-* In SAM encoders, NVDA will no longer play a tone if the selected encoder becomes idle as this tone is really meant to help when debugging the add-on.
-
-## Version 21.06
-
-* NVDA will no longer do nothing or play error tones when trying to open various add-on dialogs such as encoder settings dialog. This is a critical fix required to support NVDA 2021.1.
-* NVDA will no longer appear to do nothing or play error tones when trying to announce complete time (hours, minutes, seconds) from Studio (command unassigned). This affects NVDA 2021.1 or later.
 
 ## Older releases
 
