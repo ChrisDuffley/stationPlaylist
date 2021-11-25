@@ -100,9 +100,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if globalVars.appArgs.secure or config.isAppX:
 			return
 		# Tell NVDA that the add-on accepts additional command-line switches.
-		# This replaces globalVars.appARgsExtra in NVDA 2022.1.
+		# This replaces globalVars.appArgsExtra in NVDA 2022.1.
+		# For older releases, remove extra command-line switches from sys.argv via process args function.
 		if hasattr(addonHandler, "isCLIParamKnown"):
 			addonHandler.isCLIParamKnown.register(processArgs)
+		else:
+			for cmdSwitch in sys.argv:
+				processArgs(cmdSwitch)
 
 	def terminate(self):
 		super(GlobalPlugin, self).terminate()
