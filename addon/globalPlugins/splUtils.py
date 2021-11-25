@@ -73,6 +73,21 @@ Shift+R: Library scan progress.
 Function keys and number row keys with or without Shift, Alt, and Control keys: Play carts.""")
 
 
+# Process add-on specific command-line switches.
+# --spl-configinmemory: load add-on settings from memory as if the add-on is run for the first time.
+# --spl-normalprofileonly: load only the default broadcast profile.
+def processArgs(cliArgument: str) -> bool:
+	splAddonCLIParems = ("--spl-configinmemory", "--spl-normalprofileonly")
+	if cliArgument in splAddonCLIParems:
+		# Remove the command-line switch from sys.argv so the add-on can
+		# function normally unless restarted with these switches added.
+		# This should not be part of global plugin terminate method because sys.argv is kept
+		# when NVDA is restarted from Exit NVDA dialog.
+		sys.argv.remove(cliArgument)
+		return True
+	return False
+
+
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	# Translators: Script category for StationPlaylist commands in input gestures dialog.
@@ -84,6 +99,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Also, skip over the rest if appx is in effect.
 		if globalVars.appArgs.secure or config.isAppX:
 			return
+		# Tell NVDA that the add-on accepts additional command-line switches.
+		# This replaces globalVars.appARgsExtra in NVDA 2022.1.
+		if hasattr(addonHandler, "isCLIParamKnown"):
+			addonHandler.isCLIParamKnown.register(processArgs)
 
 	def terminate(self):
 		super(GlobalPlugin, self).terminate()
