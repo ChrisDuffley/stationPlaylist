@@ -108,20 +108,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			for cmdSwitch in sys.argv:
 				processArgs(cmdSwitch)
 
-	def terminate(self):
-		super(GlobalPlugin, self).terminate()
-		# 17.10: remove add-on specific command-line switches.
-		# This is necessary in order to restore full config functionality when NVDA restarts.
-		# 22.01: transferred from Studio app module to SPL Utilities global plugin
-		# so command-line switches can remain in effect throughout NVDA session, not Studio session.
-		for cmdSwitch in globalVars.appArgsExtra:
-			if cmdSwitch.startswith("--spl-"):
-				globalVars.appArgsExtra.remove(cmdSwitch)
-		# 22.01: also remove command-line switches from sys.argv, too.
-		for cmdSwitch in sys.argv:
-			if cmdSwitch.startswith("--spl-"):
-				sys.argv.remove(cmdSwitch)
-
 	# Global layer environment (see Studio app module for more information).
 
 	# Control Studio from anywhere.
