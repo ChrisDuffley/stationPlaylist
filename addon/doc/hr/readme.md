@@ -16,9 +16,9 @@ VAŽNE NAPOMENE:
 * Ovaj dodatak zahtijeva StationPlaylist izdanje 5.30 ili noviju verziju.
 * Korisnicima sustava Windows 8 ili novijeg, preporučamo deaktivirati modus
   stišavanja zvuka.
-* Od 2018. godine pa nadalje, [zapisi o promjenama za stara izdanja][3]
-  nalaze se na GitHubu. Readme datoteka dodatka sadrži popis promjena od
-  verzije 21.06 (2021) i nadalje.
+* Starting from 2018, [changelogs for old add-on releases][3] will be found
+  on GitHub. This add-on readme will list changes from version 21.10 (2021)
+  onwards.
 * Dok je Studio pokrenut, moguće je spremiti postavke, ponovo učitati
   spremljene postavke ili resetirati postavke dodatka na standardne
   vrijednosti pritiskom tipki kontrol+NVDA+C, pritiskom tipki kontrol+NVDA+R
@@ -322,25 +322,21 @@ operacijskim sustavom Windows 8 ili novijim i ako imaš instaliran NVDA
 na dodir. Za prebacivanje na modus SPL-a, dodirni ekran s tri prsta. Zatim
 koristi gore navedene dodirne naredbe za njihovo izvršavanje.
 
+## Version 22.01
+
+* If add-on specific command-line switches such as "--spl-configinmemory" is
+  specified when starting NVDA, NVDA will no longer add the specified
+  parameter each time NVDA and/or Studio runs. Restart NVDA to restore
+  normal functionality (without command-line switches).
+
+## Version 21.11
+
+* Initial support for StationPlaylist suite 6.0.
+
 ## Verzija 21.10
 
 * NVDA 2021.2 or later is required due to changes to NVDA that affects this
   add-on.
-
-## Verzija 21.08
-
-* In SAM encoders, NVDA will no longer play a tone if the selected encoder
-  becomes idle as this tone is really meant to help when debugging the
-  add-on.
-
-## Verzija 21.06
-
-* NVDA will no longer do nothing or play error tones when trying to open
-  various add-on dialogs such as encoder settings dialog. This is a critical
-  fix required to support NVDA 2021.1.
-* NVDA will no longer appear to do nothing or play error tones when trying
-  to announce complete time (hours, minutes, seconds) from Studio (command
-  unassigned). This affects NVDA 2021.1 or later.
 
 ## Starija izdanja
 

@@ -17,7 +17,7 @@ NOTE IMPORTANTE:
 * Dacă utilizați Windows 8 sau o versiune ulterioară, pentru cea mai bună
   experiență, dezactivați modul de atenuare audio.
 * Starting from 2018, [changelogs for old add-on releases][3] will be found
-  on GitHub. This add-on readme will list changes from version 21.06 (2021)
+  on GitHub. This add-on readme will list changes from version 21.10 (2021)
   onwards.
 * While Studio is running, you can save, reload saved settings, or reset
   add-on settings to defaults by pressing Control+NVDA+C, Control+NVDA+R
@@ -316,25 +316,21 @@ puteți efectua unele comenzi Studio de pe ecranul tactil. Utilizați mai
 întâi trei atingeri cu degetul pentru a comuta la modul SPL, apoi utilizați
 comenzile de atingere listate mai sus pentru a efectua comenzi.
 
+## Version 22.01
+
+* If add-on specific command-line switches such as "--spl-configinmemory" is
+  specified when starting NVDA, NVDA will no longer add the specified
+  parameter each time NVDA and/or Studio runs. Restart NVDA to restore
+  normal functionality (without command-line switches).
+
+## Version 21.11
+
+* Initial support for StationPlaylist suite 6.0.
+
 ## Version 21.10
 
 * NVDA 2021.2 or later is required due to changes to NVDA that affects this
   add-on.
-
-## Version 21.08
-
-* In SAM encoders, NVDA will no longer play a tone if the selected encoder
-  becomes idle as this tone is really meant to help when debugging the
-  add-on.
-
-## Version 21.06
-
-* NVDA will no longer do nothing or play error tones when trying to open
-  various add-on dialogs such as encoder settings dialog. This is a critical
-  fix required to support NVDA 2021.1.
-* NVDA will no longer appear to do nothing or play error tones when trying
-  to announce complete time (hours, minutes, seconds) from Studio (command
-  unassigned). This affects NVDA 2021.1 or later.
 
 ## Distribuții mai vechi
 

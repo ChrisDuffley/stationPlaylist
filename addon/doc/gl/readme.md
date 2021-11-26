@@ -19,7 +19,7 @@ NOTAS IMPORTANTES:
   deshabilita o modo atenuación de audio.
 * A partires de 2018, os [rexistros de cambios para versións vellas][3]
   atoparanse en GitHub. Este readme do complemento listará cambios dende a
-  versión 21.06 (2021) en diante.
+  versión 21.10 (2021) en diante.
 * Cando Studio está en execución, podes gardar, recargar as opcións
   gardadas, ou restablecer as opcións do complemento ás de fábrica premendo
   Control+NVDA+C, Control+NVDA+R unha vez, ou Control+NVDA+R tres veces,
@@ -339,26 +339,22 @@ realizar algunhas ordes do Studio dende a pantalla tactil. Primeiro usa un
 toque con tgres dedos para cambiar a modo SPL, logo usa as ordes tactiles
 listadas arriba para realizar ordes.
 
+## Versión 22.01
+
+* Se se especifican argumentos de liña de ordes específicos do complemento
+  como "--spl-configinmemory" ao iniciar NVDA, NVDA xa non engadirá o
+  parámetro específico cada vez que NVDA e/ou Studio se executen. Reinicia
+  NVDA para restaurar a funcionalidade normal (sen argumentos de liña de
+  ordes).
+
+## Versión 21.11
+
+* Soporte inicial para o paquete StationPlaylist 6.0.
+
 ## Versión 21.10
 
 * Requírese NVDA 2021.2 ou posterior debido a cambios en NVDA que afectan a
   este complemento.
-
-## Versión 21.08
-
-* En codificadores SAM, NVDA xa non reproducirá un ton de erro se o
-  codificador seleccionado pasa a estar inactivo xa que este ton realmente
-  está pensado para axudar cando se depure o complemento.
-
-## Versión 21.06
-
-* NVDA xa non fará nada ou non reproducirá un ton de erro ao tentar abrir
-  varios diálogos do complemento como o diálogo de axustes do
-  codificador. Éste é un arranxo crítico requerido para soportar NVDA
-  2021.1.
-* NVDA xa non parecerá non facer nada ou non reproducirá tons de erro ao
-  anunciar o tempo completo (horas, minutos, segundos) dende Studio (orde
-  sen asignar). Isto afecta a NVDA 2021.1 e posteriores.
 
 ## Versións vellas
 

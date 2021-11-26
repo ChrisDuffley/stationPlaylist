@@ -19,7 +19,7 @@ NOTAS IMPORTANTES:
 * Se estiver usando o Windows 8 ou posterior, para obter a melhor
   experiência, desative o modo de áudio prioritário (redução de áudio).
 * Starting from 2018, [changelogs for old add-on releases][3] will be found
-  on GitHub. This add-on readme will list changes from version 21.06 (2021)
+  on GitHub. This add-on readme will list changes from version 21.10 (2021)
   onwards.
 * Enquanto o Studio está em execução, você pode salvar, recarregar as
   configurações salvas ou redefinir as configurações do complemento para os
@@ -342,26 +342,21 @@ poderá executar alguns comandos do Studio a partir da tela de
 toque. Primeiro, toque com três dedos para alternar para o modo SPL e, em
 seguida, use os comandos de toque listados acima para executar os comandos.
 
+## Version 22.01
+
+* If add-on specific command-line switches such as "--spl-configinmemory" is
+  specified when starting NVDA, NVDA will no longer add the specified
+  parameter each time NVDA and/or Studio runs. Restart NVDA to restore
+  normal functionality (without command-line switches).
+
+## Version 21.11
+
+* Initial support for StationPlaylist suite 6.0.
+
 ## Version 21.10
 
 * NVDA 2021.2 or later is required due to changes to NVDA that affects this
   add-on.
-
-## Version 21.08
-
-* In SAM encoders, NVDA will no longer play a tone if the selected encoder
-  becomes idle as this tone is really meant to help when debugging the
-  add-on.
-
-## Versão 21.06
-
-* O NVDA não fará mais nada ou reproduzirá tons de erro ao tentar abrir
-  várias caixas de diálogo do complemento, como o diálogo de configurações
-  do codificador. Esta é uma correção crítica necessária para oferecer
-  suporte ao NVDA 2021.1.
-* O NVDA não parecerá mais não fazer nada ou reproduzir tons de erro ao
-  tentar anunciar o tempo completo (horas, minutos, segundos) do Studio
-  (comando não atribuído). Isso afeta o NVDA 2021.1 ou posterior.
 
 ## Versões mais antigas
 

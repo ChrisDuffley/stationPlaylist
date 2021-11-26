@@ -17,7 +17,7 @@ CÁC LƯU Ý QUAN TRỌNG:
 * Nếu dùng Windows 8 trở lên, hãy tắt chế độ giảm âm thanh để có trải nghiệm
   tốt nhất.
 * Starting from 2018, [changelogs for old add-on releases][3] will be found
-  on GitHub. This add-on readme will list changes from version 21.06 (2021)
+  on GitHub. This add-on readme will list changes from version 21.10 (2021)
   onwards.
 * Khi đang chạy Studio, bạn có thể lưu, gọi các thiết lập đã lưu hoặc khôi
   phục các thiết lập của add-on về mặc định bằng cách bấm Control+NVDA+C,
@@ -303,25 +303,21 @@ NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio t
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
 
+## Version 22.01
+
+* If add-on specific command-line switches such as "--spl-configinmemory" is
+  specified when starting NVDA, NVDA will no longer add the specified
+  parameter each time NVDA and/or Studio runs. Restart NVDA to restore
+  normal functionality (without command-line switches).
+
+## Version 21.11
+
+* Initial support for StationPlaylist suite 6.0.
+
 ## Version 21.10
 
 * NVDA 2021.2 or later is required due to changes to NVDA that affects this
   add-on.
-
-## Version 21.08
-
-* In SAM encoders, NVDA will no longer play a tone if the selected encoder
-  becomes idle as this tone is really meant to help when debugging the
-  add-on.
-
-## Version 21.06
-
-* NVDA will no longer do nothing or play error tones when trying to open
-  various add-on dialogs such as encoder settings dialog. This is a critical
-  fix required to support NVDA 2021.1.
-* NVDA will no longer appear to do nothing or play error tones when trying
-  to announce complete time (hours, minutes, seconds) from Studio (command
-  unassigned). This affects NVDA 2021.1 or later.
 
 ## Các bản phát hành cũ hơn
 

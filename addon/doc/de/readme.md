@@ -19,9 +19,9 @@ WICHTIGE HINWEISE:
 * Wenn Sie Windows 8 oder höher verwenden, setzen Sie die Reduzierung der
   Lautstärke anderer Audioquellen auf "nie" im Dialog Sprachausgabe im
   NVDA-Einstellungsmenü.
-* Seit 2018 sind [Änderungsprotokolle für alte Versionen der Erweiterung][3]
-  auf GitHub zu finden. Die Readme der Erweiterung listet Änderungen ab
-  Version 21.06 aus dem Jahr 2021 auf.
+* Starting from 2018, [changelogs for old add-on releases][3] will be found
+  on GitHub. This add-on readme will list changes from version 21.10 (2021)
+  onwards.
 * Während die Studio-Software läuft, können Sie gespeicherte Einstellungen
   speichern, wieder laden oder Zusatzeinstellungen auf die Standardwerte
   zurücksetzen, indem Sie Strg+NVDA+C, Strg+NVDA+R einmal bzw. Strg+NVDA+R
@@ -346,26 +346,21 @@ Studio-Befehle über den Touchscreen ausführen. Tippen Sie zunächst einmal
 mit drei Fingern, um in den SPL-Touchmodus zu wechseln. Verwenden Sie dann
 die oben aufgeführten Touch-Befehle, um Befehle auszuführen.
 
+## Version 22.01
+
+* If add-on specific command-line switches such as "--spl-configinmemory" is
+  specified when starting NVDA, NVDA will no longer add the specified
+  parameter each time NVDA and/or Studio runs. Restart NVDA to restore
+  normal functionality (without command-line switches).
+
+## Version 21.11
+
+* Initial support for StationPlaylist suite 6.0.
+
 ## Version 21.10
 
 * NVDA 2021.2 oder neuer ist erforderlich, da die Änderungen diese
   Erweiterung betreffen.
-
-## Version 21.08
-
-* In SAM-Encodern spielt NVDA keinen Fehlerton ab, wenn der ausgewählte
-  beschäftigt ist. Dieser Ton ist nur zur Fehler-Untersuchung gedacht.
-
-## Version 21.06
-
-* NVDA wird beim Versuch, verschiedene Dialogfelder der Erweiterung wie den
-  Encoder-Einstellungsdialog zu öffnen, nichts mehr tun oder Fehlertöne
-  abspielen. Dies ist ein kritischer Fix, der für die Unterstützung von NVDA
-  2021.1 erforderlich ist.
-* NVDA scheint nichts mehr zu unternehmen oder Fehlertöne abzuspielen, wenn
-  versucht wird, die vollständige Zeit (Stunden, Minuten, Sekunden) von
-  Studio aus anzukündigen (Befehl nicht zugewiesen). Dies betrifft NVDA
-  2021.1 oder neuer.
 
 ## Ältere Versionen
 
