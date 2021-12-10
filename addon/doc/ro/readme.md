@@ -2,7 +2,7 @@
 
 * Autori: Geoff Shang, Joseph Lee și alți contributori
 * Descărcați [versiunea stabilă][1]
-* NVDA compatibility: 2021.2 and beyond
+* NVDA compatibility: 2021.2 and later
 
 This add-on package provides improved usage of StationPlaylist Studio and
 other StationPlaylist apps, as well as providing utilities to control Studio

@@ -2,7 +2,7 @@
 
 * Autoren: Geoff Shang, Joseph Lee und weitere Mitwirkende
 * [Stabile Version herunterladen][1]
-* NVDA-Kompatibilität: 2021.2 und neuer
+* NVDA compatibility: 2021.2 and later
 
 Dieses Zusatzpaket bietet eine verbesserte Nutzung von StationPlaylist
 Studio und anderen StationPlaylist-Anwendungen sowie Dienstprogramme zur

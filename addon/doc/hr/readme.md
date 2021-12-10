@@ -2,7 +2,7 @@
 
 * Autori: Geoff Shang, Joseph Lee i drugi doprinositelji
 * Preuzmi [stabilnu verziju][1]
-* NVDA kompatibilnost: 2021.2 i nadalje
+* NVDA compatibility: 2021.2 and later
 
 Ovaj paket dodataka omogućava bolje korištenje programa StationPlaylist
 Studio i drugih StationPlaylist programa te pruža alate za kontrolu programa
