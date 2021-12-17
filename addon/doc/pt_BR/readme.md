@@ -2,7 +2,7 @@
 
 * Autores: Geoff Shang, Joseph Lee e outros contribuidores
 * Baixe a [versão estável][1]
-* NVDA compatibility: 2021.2 and later
+* Compatibilidade com NVDA: 2021.2 e posteriores
 
 Este pacote de complemento fornece uso aprimorado do StationPlaylist Studio
 e outros aplicativos StationPlaylist, além de fornecer utilitários para
@@ -18,9 +18,10 @@ NOTAS IMPORTANTES:
 * Este complemento requer a suíte StationPlaylist 5.30 ou posterior.
 * Se estiver usando o Windows 8 ou posterior, para obter a melhor
   experiência, desative o modo de áudio prioritário (redução de áudio).
-* Starting from 2018, [changelogs for old add-on releases][3] will be found
-  on GitHub. This add-on readme will list changes from version 21.10 (2021)
-  onwards.
+* A partir de 2018, os changelogs — registro de alterações — para versões
+  antigas de complementos serão encontrados no GitHub. Este readme — leia-me
+  — do complemento irá listar as alterações da versão 21.10 (2021) em
+  diante.
 * Enquanto o Studio está em execução, você pode salvar, recarregar as
   configurações salvas ou redefinir as configurações do complemento para os
   padrões pressionando Control+NVDA+C, Control+NVDA+R uma vez ou
@@ -95,11 +96,12 @@ outra forma.
 
 ## Comandos não atribuídos
 
-The following commands are not assigned by default; if you wish to assign
-them, use Input Gestures dialog to add custom commands. To do so, from
-Studio window, open NVDA menu, Preferences, then Input Gestures. Expand
-StationPlaylist category, then locate unassigned commands from the list
-below and select "Add", then type the gesture you wish to use.
+Os comandos a seguir não são atribuídos por padrão; se desejar atribuí-los,
+use o diálogo Definir comandos — Gestos de entrada — para adicionar comandos
+personalizados. Para fazer isso, na janela do Studio, abra o menu NVDA,
+Preferências e Definir comandos. Expanda a categoria StationPlaylist,
+localize os comandos não atribuídos na lista abaixo e selecione "Adicionar"
+e digite o comando — gesto — que deseja usar.
 
 * Mudar para a janela SPL Studio a partir de qualquer programa.
 * Camada de controlador SPL.
@@ -342,21 +344,22 @@ poderá executar alguns comandos do Studio a partir da tela de
 toque. Primeiro, toque com três dedos para alternar para o modo SPL e, em
 seguida, use os comandos de toque listados acima para executar os comandos.
 
-## Version 22.01
+## Versão 22.01
 
-* If add-on specific command-line switches such as "--spl-configinmemory" is
-  specified when starting NVDA, NVDA will no longer add the specified
-  parameter each time NVDA and/or Studio runs. Restart NVDA to restore
-  normal functionality (without command-line switches).
+* Se adicionar opções de linha de comando específicas como
+  "--spl-configinmemory" for especificada ao iniciar o NVDA, o NVDA não
+  adicionará mais o parâmetro especificado toda vez que o NVDA e/ou Studio
+  for executado. Reinicie o NVDA para restaurar a funcionalidade normal (sem
+  opções de linha de comando).
 
-## Version 21.11
+## Versão 21.11
 
-* Initial support for StationPlaylist suite 6.0.
+* Suporte inicial para a suíte StationPlaylist 6.0.
 
-## Version 21.10
+## Versão 21.10
 
-* NVDA 2021.2 or later is required due to changes to NVDA that affects this
-  add-on.
+* O NVDA 2021.2 ou posterior é necessário devido a mudanças no NVDA que
+  afetam este complemento.
 
 ## Versões mais antigas
 
