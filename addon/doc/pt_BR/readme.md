@@ -2,7 +2,7 @@
 
 * Autores: Geoff Shang, Joseph Lee e outros contribuidores
 * Baixe a [versão estável][1]
-* Compatibilidade com NVDA: 2021.2 e posteriores
+* NVDA compatibility: 2021.3 and later
 
 Este pacote de complemento fornece uso aprimorado do StationPlaylist Studio
 e outros aplicativos StationPlaylist, além de fornecer utilitários para

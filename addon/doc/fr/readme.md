@@ -2,7 +2,7 @@
 
 * Auteurs: Geoff Shang, Joseph Lee et d'autres contributeurs.
 * Télécharger [version stable][1]
-* NVDA compatibility: 2021.2 and later
+* NVDA compatibility: 2021.3 and later
 
 Cette extension améliore l'utilisation de Station Playlist Studio, mais elle
 fournit aussi des utilitaires pour contrôler le Studio où que vous soyez.

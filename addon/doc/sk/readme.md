@@ -2,7 +2,7 @@
 
 * Autori: Geoff Shang, Joseph Lee a ďalší
 * Stiahnuť [stabilnú verziu][1]
-* NVDA compatibility: 2021.2 and later
+* NVDA compatibility: 2021.3 and later
 
 Doplnok zlepšuje prístupnosť Station Playlist Studio a ďalších pridružených
 aplikácií a tiež umožňuje ovládať Station Playlist mimo hlavného okna
