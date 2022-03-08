@@ -138,6 +138,9 @@ def saveEncoderConfig() -> None:
 	# 21.03/20.09.6-LTS: is encoder config even alive?
 	if encoderConfig is None:
 		raise RuntimeError("Encoder config is not defined, cannot save encoder settings")
+	# 22.03 (security): ignore all this if in secure mode.
+	if globalVars.appArgs.secure:
+		return
 	# Gather stream labels and flags.
 	# 20.11: dictionaries and sets are global items.
 	encoderConfig["EncoderLabels"] = dict(SPLEncoderLabels)
