@@ -401,7 +401,8 @@ class ConfigHub(ChainMap):
 		# #73: also responds to config save notification.
 		# In case this is called when NVDA or last SPL component exits, just follow through,
 		# as profile history and new profiles list would be cleared as part of general process cleanup.
-		if self.configInMemory:
+		# 22.03 (security): also do not write config in secure mode.
+		if self.configInMemory or globalVars.appArgs.secure:
 			return
 		for profile in self.profiles:
 			# Without keeping a copy of config dictionary (and restoring from it later),
