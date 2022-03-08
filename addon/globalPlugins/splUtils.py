@@ -88,6 +88,12 @@ def processArgs(cliArgument: str) -> bool:
 	return False
 
 
+# 22.03 (security): disable the global plugin altogether in secure mode.
+def secureModeAware(cls):
+	return globalPluginHandler.GlobalPlugin if globalVars.appArgs.secure else cls
+
+
+@secureModeAware
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	# Translators: Script category for StationPlaylist commands in input gestures dialog.
