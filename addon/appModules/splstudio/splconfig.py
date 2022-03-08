@@ -697,8 +697,10 @@ def closeConfig(splComponent: str) -> None:
 def terminate() -> None:
 	global trackComments
 	# Dump and clear track comments.
-	with open(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"), "wb") as f:
-		pickle.dump(trackComments, f, protocol=4)
+	# 22.03 (security): but not in secure mode.
+	if not globalVars.appArgs.secure:
+		with open(os.path.join(globalVars.appArgs.configPath, "spltrackcomments.pickle"), "wb") as f:
+			pickle.dump(trackComments, f, protocol=4)
 	trackComments.clear()
 	trackComments = {}
 	# Now save profiles.
