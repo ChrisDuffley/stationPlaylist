@@ -13,6 +13,7 @@ import os
 import weakref
 import api
 import wx
+import globalVars
 from winUser import user32
 import tones
 import addonHandler
@@ -79,6 +80,7 @@ class BroadcastProfilesDialog(wx.Dialog):
 		# Profile controls code credit: NV Access (except copy button).
 		# Most control labels come from NVDA Core.
 		# 17.10: if restrictions such as volatile config are applied, disable this area entirely.
+		# 22.03 (security): restrictions also include NVDA in secure mode.
 		# #129 (20.04): no need for this check in standalone dialog.
 		buttonHelper = gui.guiHelper.ButtonHelper(wx.VERTICAL)
 		newButton = buttonHelper.addButton(self, label=translate("&New"))
@@ -92,7 +94,10 @@ class BroadcastProfilesDialog(wx.Dialog):
 		self.deleteButton.Bind(wx.EVT_BUTTON, self.onDelete)
 		self.triggerButton = buttonHelper.addButton(self, label=translate("&Triggers..."))
 		self.triggerButton.Bind(wx.EVT_BUTTON, self.onTriggers)
-		if self.profiles.GetSelection() == 0:
+		if globalVars.appArgs.secure:
+			newButton.Disable()
+			copyButton.Disable()
+		if self.profiles.GetSelection() == 0 or globalVars.appArgs.secure:
 			self.renameButton.Disable()
 			self.deleteButton.Disable()
 			self.triggerButton.Disable()
@@ -130,7 +135,7 @@ class BroadcastProfilesDialog(wx.Dialog):
 			self.changeStateButton.Disable()
 		else:
 			self.changeStateButton.Enable()
-		if selection == 0:
+		if selection == 0 or globalVars.appArgs.secure:
 			self.renameButton.Disable()
 			self.deleteButton.Disable()
 			self.triggerButton.Disable()
