@@ -566,8 +566,6 @@ def displayPlaylistTranscripts(transcript: list[str], HTMLDecoration: bool = Fal
 def copyPlaylistTranscriptsToClipboard(playlistTranscripts: list[str]) -> None:
 	# 22.03 (security): do not copy transcripts to clipboard in secure mode.
 	if globalVars.appArgs.secure:
-		# Translators: presented when playlist transcript data cannot be copied to the clipboard.
-		ui.message(_("Unable to copy Playlist data to clipboard"))
 		return
 	# Only text style transcript such as pure text and Markdown supports copying contents to clipboard.
 	import api
@@ -581,8 +579,6 @@ def savePlaylistTranscriptsToFile(
 ) -> None:
 	# 22.03 (security): do not save transcripts to files in secure mode.
 	if globalVars.appArgs.secure:
-		# Translators: presented when playlist transcript data cannot be saved to files.
-		ui.message(_("Unable to save Playlist data"))
 		return
 	# By default playlist transcripts will be saved to a subfolder in user's Documents folder
 	# named "nvdasplPlaylistTranscripts".
