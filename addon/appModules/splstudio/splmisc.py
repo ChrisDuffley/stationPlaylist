@@ -13,6 +13,7 @@ import threading
 from _csv import reader  # For cart explorer.
 import gui
 import wx
+import globalVars
 import nvwave
 import queueHandler
 import speech
@@ -563,6 +564,11 @@ def displayPlaylistTranscripts(transcript: list[str], HTMLDecoration: bool = Fal
 
 
 def copyPlaylistTranscriptsToClipboard(playlistTranscripts: list[str]) -> None:
+	# 22.03 (security): do not copy transcripts to clipboard in secure mode.
+	if globalVars.appArgs.secure:
+		# Translators: presented when playlist transcript data cannot be copied to the clipboard.
+		ui.message(_("Unable to copy Playlist data to clipboard"))
+		return
 	# Only text style transcript such as pure text and Markdown supports copying contents to clipboard.
 	import api
 	api.copyToClip("\r\n".join(playlistTranscripts))
@@ -573,6 +579,11 @@ def copyPlaylistTranscriptsToClipboard(playlistTranscripts: list[str]) -> None:
 def savePlaylistTranscriptsToFile(
 		playlistTranscripts: list[str], extension: str, location: Optional[str] = None
 ) -> None:
+	# 22.03 (security): do not save transcripts to files in secure mode.
+	if globalVars.appArgs.secure:
+		# Translators: presented when playlist transcript data cannot be saved to files.
+		ui.message(_("Unable to save Playlist data"))
+		return
 	# By default playlist transcripts will be saved to a subfolder in user's Documents folder
 	# named "nvdasplPlaylistTranscripts".
 	# Each transcript file will be named yyyymmdd-hhmmss-splPlaylistTranscript.ext.
