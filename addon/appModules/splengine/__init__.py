@@ -6,6 +6,7 @@
 
 import appModuleHandler
 import controlTypes
+import globalVars
 from NVDAObjects.IAccessible import sysListView32
 
 # For SPL encoder config screen at least, control iD's are different,
@@ -37,6 +38,12 @@ def announceEncoderConnectionStatus() -> None:
 	encoders.announceEncoderConnectionStatus()
 
 
+# 22.03 (security): disable the app module altogether in secure mode.
+def secureModeAware(cls):
+	return appModuleHandler.AppModule if globalVars.appArgs.secure else cls
+
+
+@secureModeAware
 class AppModule(appModuleHandler.AppModule):
 
 	def terminate(self):
