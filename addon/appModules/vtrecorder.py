@@ -6,10 +6,17 @@
 
 import appModuleHandler
 import eventHandler
+import globalVars
 from winUser import user32
 from logHandler import log
 
 
+# 22.03 (security): disable the app module altogether in secure mode.
+def secureModeAware(cls):
+	return appModuleHandler.AppModule if globalVars.appArgs.secure else cls
+
+
+@secureModeAware
 class AppModule(appModuleHandler.AppModule):
 
 	def __init__(self, *args, **kwargs):

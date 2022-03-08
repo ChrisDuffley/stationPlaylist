@@ -22,6 +22,12 @@ class SPLRemotePlaylistEditorItem(SPLTrackItem):
 	pass
 
 
+# 22.03 (security): disable the app module altogether in secure mode.
+def secureModeAware(cls):
+	return appModuleHandler.AppModule if globalVars.appArgs.secure else cls
+
+
+@secureModeAware
 class AppModule(splcreator.AppModule):
 
 	def __init__(self, *args, **kwargs):
