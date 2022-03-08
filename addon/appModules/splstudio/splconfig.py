@@ -166,7 +166,7 @@ class ConfigHub(ChainMap):
 
 	@property
 	def configRestricted(self) -> bool:
-		return self.normalProfileOnly or self.configInMemory
+		return self.normalProfileOnly or self.configInMemory or globalVars.appArgs.secure
 
 	# Profile switching flags.
 	_profileSwitchFlags: dict[str, int] = {"instant": 0x1}
@@ -316,8 +316,9 @@ class ConfigHub(ChainMap):
 	# Mechanics borrowed from NVDA Core's config.conf with modifications for this add-on.
 	def createProfile(self, path: str, name: str, parent: Optional[dict[Any, Any]] = None) -> None:
 		# 17.10: No, not when restrictions are applied.
+		# 22.03 (security): also covers secure mode.
 		if self.configRestricted:
-			raise RuntimeError("Only normal profile is in use or config was loaded from memory")
+			raise RuntimeError("Config restricted: normal profile only, config in memory, or secure mode")
 		self.maps.append(self._unlockConfig(path, profileName=name, parent=parent, validateNow=True))
 		self.profileNames.append(name)
 
@@ -325,8 +326,9 @@ class ConfigHub(ChainMap):
 	# Mechanics powered by similar routines in NVDA Core's config.conf.
 	def renameProfile(self, oldName: str, newName: str) -> None:
 		# 17.10: No, not when restrictions are applied.
+		# 22.03 (security): also covers secure mode.
 		if self.configRestricted:
-			raise RuntimeError("Only normal profile is in use or config was loaded from memory")
+			raise RuntimeError("Config restricted: normal profile only, config in memory, or secure mode")
 		newNamePath = newName + ".ini"
 		newProfile = os.path.join(SPLProfiles, newNamePath)
 		if oldName.lower() != newName.lower() and os.path.isfile(newProfile):
@@ -344,8 +346,9 @@ class ConfigHub(ChainMap):
 
 	def deleteProfile(self, name: str) -> None:
 		# 17.10: No, not when restrictions are applied.
+		# 22.03 (security): also covers secure mode.
 		if self.configRestricted:
-			raise RuntimeError("Only normal profile is in use or config was loaded from memory")
+			raise RuntimeError("Config restricted: normal profile only, config in memory, or secure mode")
 		# Bring normal profile to the front if deleting the active profile.
 		if name == self.activeProfile:
 			self.swapProfiles(name, defaultProfileName)
