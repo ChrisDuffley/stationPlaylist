@@ -2729,11 +2729,6 @@ class AppModule(appModuleHandler.AppModule):
 			title = _("SPL Assistant help for JAWS layout")
 		ui.browseableMessage(SPLAssistantHelp[compatibility], title=title)
 
-	def script_openOnlineDoc(self, gesture):
-		# IMPORTANT: add-on maintainers MUST create a wiki or a similar area in add-on repo to host add-on guide.
-		# Add-on guide link MUST point to such a document.
-		os.startfile("https://github.com/josephsl/stationplaylist/wiki/SPLAddonGuide")
-
 	__SPLAssistantGestures = {
 		"kb:p": "sayPlayStatus",
 		"kb:a": "sayAutomationStatus",
@@ -2764,7 +2759,6 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:k": "findPlaceMarker",
 		"kb:e": "metadataStreamingAnnouncer",
 		"kb:f1": "layerHelp",
-		"kb:shift+f1": "openOnlineDoc",
 	}
 
 	__SPLAssistantJFWGestures = {
@@ -2798,5 +2792,4 @@ class AppModule(appModuleHandler.AppModule):
 		"kb:k": "findPlaceMarker",
 		"kb:e": "metadataStreamingAnnouncer",
 		"kb:f1": "layerHelp",
-		"kb:shift+f1": "openOnlineDoc",
 	}
