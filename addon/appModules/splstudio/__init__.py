@@ -523,8 +523,7 @@ F8: Take playlist snapshots such as track count, longest track and so on.
 Shift+F8: Obtain playlist transcripts in a variety of formats.
 F9: Mark current track as start of track time analysis.
 F10: Perform track time analysis.
-F12: Switch to an instant switch profile.
-Shift+F1: Open online user guide."""),
+F12: Switch to an instant switch profile."""),
 	# Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
 	"jfw": _("""After entering SPL Assistant, press:
 A: Automation.
@@ -556,8 +555,7 @@ F8: Take playlist snapshots such as track count, longest track and so on.
 Shift+F8: Obtain playlist transcripts in a variety of formats.
 F9: Mark current track as start of track time analysis.
 F10: Perform track time analysis.
-F12: Switch to an instant switch profile.
-Shift+F1: Open online user guide.""")}
+F12: Switch to an instant switch profile.""")}
 
 
 # Provide a way to fetch dialog description in reverse order.
