@@ -8,6 +8,7 @@
 
 # An alias of SPL Engine app module with UI workarounds, so inform linters such as Flake8.
 from .splengine import *  # NOQA: F403
+import appModuleHandler
 import globalVars
 from NVDAObjects.IAccessible import IAccessible
 
