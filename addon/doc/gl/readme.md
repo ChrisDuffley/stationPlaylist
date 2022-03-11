@@ -205,7 +205,6 @@ As ordes dispoñibles son:
   reprodución).
 * F12: cambia entre un perfil actual e un predefinido.
 * F1: Capa de axuda.
-* Shift+F1: abre a guía do usuario en liña.
 
 ## SPL Controller
 

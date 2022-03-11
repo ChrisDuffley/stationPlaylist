@@ -191,7 +191,6 @@ Dostupne naredbe su:
 * F10: Izvrši vremensku analizu snimke (samo u prikazu popisa snimaka).
 * F12: Mijenjaj profil između trenutačnog i unaprijed definiranog.
 * F1: Pomoć za slojeve.
-* Šift+F1: Otvori korisnički priručnik na internetu.
 
 ## SPL Kontroler
 

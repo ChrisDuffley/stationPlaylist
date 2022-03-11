@@ -127,6 +127,7 @@ msgstr ""
 "alebo upraviť komentár."
 
 #. Translators: The text of the help command in SPL Assistant layer.
+#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -157,8 +158,7 @@ msgid ""
 "Shift+F8: Obtain playlist transcripts in a variety of formats.\n"
 "F9: Mark current track as start of track time analysis.\n"
 "F10: Perform track time analysis.\n"
-"F12: Switch to an instant switch profile.\n"
-"Shift+F1: Open online user guide."
+"F12: Switch to an instant switch profile."
 msgstr ""
 "Po otvorení SPL asistenta máte k dispozícii tieto možnosti:\n"
 "A: Spustí Autopilota.\n"
@@ -194,6 +194,7 @@ msgstr ""
 "Shift+F1: Otvorí online používateľskú príručku."
 
 #. Translators: The text of the help command in SPL Assistant layer when JFW layer is active.
+#, fuzzy
 msgid ""
 "After entering SPL Assistant, press:\n"
 "A: Automation.\n"
@@ -226,8 +227,7 @@ msgid ""
 "Shift+F8: Obtain playlist transcripts in a variety of formats.\n"
 "F9: Mark current track as start of track time analysis.\n"
 "F10: Perform track time analysis.\n"
-"F12: Switch to an instant switch profile.\n"
-"Shift+F1: Open online user guide."
+"F12: Switch to an instant switch profile."
 msgstr ""
 "Po otvorení SPL asistenta máte k dispozícii tieto možnosti:\n"
 "A: Spustí Autopilota.\n"
@@ -741,11 +741,11 @@ msgstr "Vypnuté vysielanie metadát na {URLPosition}"
 msgid "Metadata streaming on DSP encoder disabled"
 msgstr "Vypnuté vysielanie metadát na DSP pripojení"
 
-#. Translators: The title for SPL Assistant help dialog.
+#. Translators: The title for SPL Assistant help screen.
 msgid "SPL Assistant help"
 msgstr "Pomocník SPL asistenta"
 
-#. Translators: The title for SPL Assistant help dialog.
+#. Translators: The title for SPL Assistant help screen.
 msgid "SPL Assistant help for JAWS layout"
 msgstr "Pomocník SPL asistenta rozloženie pre čítač obrazovky JAWS"
 
@@ -1693,8 +1693,7 @@ msgstr "pripojí vybratý enkodér."
 msgid "Connects all encoders."
 msgstr "Pripojí všetky enkodéri."
 
-#. Help message for SPL Controller
-#. Translators: the dialog text for SPL Controller help.
+#. Translators: the text for SPL Controller help.
 #, fuzzy
 msgid ""
 "After entering SPL Controller, press:\n"

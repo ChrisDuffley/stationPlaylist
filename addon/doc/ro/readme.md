@@ -186,7 +186,6 @@ Comenzile disponibile sunt:
   redare).
 * F12: Comută între un profil curent și unul predefinit.
 * F1: Ajutor layer.
-* Shift+F1: Deschide ghidul online al utilizatorului.
 
 ## SPL Controller
 

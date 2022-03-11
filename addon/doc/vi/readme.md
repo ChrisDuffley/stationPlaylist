@@ -181,7 +181,6 @@ Các lệnh được hỗ trợ bao gồm:
   danh sách phát).
 * F12: chuyển đổi giữa hồ sơ hiện tại và hồ sơ được chỉ định trước.
 * F1: trợ giúp phím lệnh.
-* Shift+F1: mở tài liệu hướng dẫn trực tuyến.
 
 ## Bộ điều khiển SPL
 

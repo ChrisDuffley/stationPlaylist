@@ -206,7 +206,6 @@ Folgende Befehle stehen zur Verfügung:
 * F10: führt die Titel-zeitanalyse durch (nur im Playlist-Viewer).
 * F12: schaltet zwischen aktuellen und einem vordefinierten Profil um.
 * F1: Hilfe für die Befehlsschicht.
-* Umschalt+F1: Öffnet das Online-Benutzerhandbuch.
 
 ## SPL-Controller
 

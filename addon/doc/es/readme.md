@@ -210,7 +210,6 @@ Las órdenes disponibles son:
   de reproducción).
 * F12: cambia entre el perfil actual y uno predefinido.
 * F1: Ayuda de la capa.
-* Shift+F1: abre la guía del usuario en línea.
 
 ## SPL Controller
 

@@ -206,7 +206,6 @@ Os comandos disponíveis são:
   reprodução).
 * F12: Alternar entre o perfil atual e um predefinido.
 * F1: Ajuda da camada.
-* Shift+F1: Abre o guia do usuário online.
 
 ## Controlador SPL
 

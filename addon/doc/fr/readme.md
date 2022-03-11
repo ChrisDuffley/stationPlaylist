@@ -210,7 +210,6 @@ Les commandes disponibles sont :
   uniquement).
 * F12 : basculer entre un profil en cours et un profil prédéfini.
 * F1: Aide couche.
-* Maj+F1 : Ouvre le guide de l'utilisateur en ligne.
 
 ## Contrôleur SPL
 

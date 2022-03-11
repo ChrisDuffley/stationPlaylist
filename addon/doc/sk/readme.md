@@ -172,7 +172,6 @@ Dostupné sú tieto príkazy:
 * F10: Analyzuje skladby (zo zobrazenia skladieb).
 * F12: Prepína medzi konfiguračnými profilmi.
 * F1: Oznámi funkcie a klávesové skratky.
-* Shift+F1: Otvorí online používateľskú príručku.
 
 ## príkazy na ovládanie SPL
 
