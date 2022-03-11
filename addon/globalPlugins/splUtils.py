@@ -101,11 +101,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def __init__(self):
 		super(GlobalPlugin, self).__init__()
-		# 19.04/18.09.8-LTS: don't even think about proceeding in secure screens.
-		# 22.03: taken care of by secure mode decorator.
-		# Also, skip over the rest if appx is in effect.
-		if config.isAppX:
-			return
 		# Tell NVDA that the add-on accepts additional command-line switches.
 		# This replaces globalVars.appArgsExtra in NVDA 2022.1.
 		# For older releases, remove extra command-line switches from sys.argv via process args function.
