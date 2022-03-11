@@ -46,7 +46,6 @@ def indexOf(ttVersion: str) -> tuple[str, ...]:
 		)
 
 
-
 class TrackToolItem(SPLTrackItem):
 	"""An entry in Track Tool, used to implement some exciting features.
 	"""
