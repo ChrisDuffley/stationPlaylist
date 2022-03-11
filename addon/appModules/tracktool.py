@@ -69,11 +69,11 @@ class TrackToolItem(SPLTrackItem):
 
 
 # 22.03 (security): disable the app module altogether in secure mode.
-def secureModeAware(cls):
+def disableInSecureMode(cls):
 	return appModuleHandler.AppModule if globalVars.appArgs.secure else cls
 
 
-@secureModeAware
+@disableInSecureMode
 class AppModule(appModuleHandler.AppModule):
 
 	def __init__(self, *args, **kwargs):

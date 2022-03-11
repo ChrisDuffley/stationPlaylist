@@ -19,13 +19,13 @@ class TEditNoLabel(IAccessible):
 
 
 # 22.03 (security): disable the app module altogether in secure mode.
-def secureModeAware(cls):
+def disableInSecureMode(cls):
 	return appModuleHandler.AppModule if globalVars.appArgs.secure else cls
 
 
 # #155 (21.03): AppModule base class comes from SPL Engine app module but Mypy doesn't know that.
 # On the other hand, Flake8 says parts of the below line are undefined, so ignore it.
-@secureModeAware
+@disableInSecureMode
 class AppModule(AppModule):  # type: ignore[no-redef]  # NOQA: F405
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
