@@ -9,7 +9,6 @@ import api
 import ui
 import scriptHandler
 import globalVars
-import config
 from NVDAObjects.IAccessible import getNVDAObjectFromEvent
 from winUser import user32, sendMessage, OBJID_CLIENT, getWindowText
 import addonHandler
