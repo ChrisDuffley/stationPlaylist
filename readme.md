@@ -13,6 +13,7 @@ For more information about the add-on, read the [add-on guide][2].
 IMPORTANT NOTES:
 
 * This add-on requires StationPlaylist suite 5.30 or later.
+* This add-on is not intended to be used in secure screens.
 * If using Windows 8 or later, for best experience, disable audio ducking mode.
 * Starting from 2018, [changelogs for old add-on releases][3] will be found on GitHub. This add-on readme will list changes from version 21.10 (2021) onwards.
 * While Studio is running, you can save, reload saved settings, or reset add-on settings to defaults by pressing Control+NVDA+C, Control+NVDA+R once, or Control+NVDA+R three times, respectively. This is also applicable to encoder settings - you can save and reset (not reload) encoder settings if using encoders.
@@ -125,7 +126,6 @@ The available commands are:
 * F10: Perform track time analysis (playlist viewer only).
 * F12: Switch between current and a predefined profile.
 * F1: Layer help.
-* Shift+F1: Opens online user guide.
 
 ## SPL Controller
 
@@ -200,6 +200,12 @@ You can save settings for specific shows into broadcast profiles. These profiles
 ## SPL touch mode
 
 If you are using Studio on a touchscreen computer running Windows 8 or later and have NVDA 2012.3 or later installed, you can perform some Studio commands from the touchscreen. First use three finger tap to switch to SPL mode, then use the touch commands listed above to perform commands.
+
+## Version 22.03
+
+* NVDA 2021.3 or later is required.
+* To improve security, add-on commands cannot be performed while using Studio suite of applications if NVDA is running in secure mode.
+* To improve security, online user guide command from SPL Assistant (Shift+F1) has been removed.
 
 ## Version 22.01
 
