@@ -13,7 +13,7 @@ For more information about the add-on, read the [add-on guide][2].
 IMPORTANT NOTES:
 
 * This add-on requires StationPlaylist suite 5.30 or later.
-* This add-on is not intended to be used in secure screens.
+* Some add-on features will be disabled or limited if NVDA is running in secure mode such as in logon screen.
 * If using Windows 8 or later, for best experience, disable audio ducking mode.
 * Starting from 2018, [changelogs for old add-on releases][3] will be found on GitHub. This add-on readme will list changes from version 21.10 (2021) onwards.
 * While Studio is running, you can save, reload saved settings, or reset add-on settings to defaults by pressing Control+NVDA+C, Control+NVDA+R once, or Control+NVDA+R three times, respectively. This is also applicable to encoder settings - you can save and reset (not reload) encoder settings if using encoders.
@@ -204,7 +204,9 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 ## Version 22.03
 
 * NVDA 2021.3 or later is required.
-* To improve security, add-on commands cannot be performed while using Studio suite of applications if NVDA is running in secure mode.
+* It is no longer possible to perform the following commands if NVDA is running in secure mode: all SPL Controller layer commands, switching to Studio from other programs, obtaining Studio status and encoder status from other programs.
+* It is no longer possible to copy track comments to the clipboard or add or change comments if NVDA is running in secure mode.
+* It is no longer possible to copy playlist transcripts to clipboard or save it to a file if NVDA is running in secure mode. Only viewing transcripts will be allowed in secure mode.
 * To improve security, online user guide command from SPL Assistant (Shift+F1) has been removed.
 * In Studio, NVDA will no longer do nothing or play error tones if attempting to obtain playlist snapshots (SPL Assistant, F8) if the loaded playlist consists only of hour markers.
 
