@@ -49,10 +49,12 @@ Most of these will work in Studio only unless otherwise specified.
 
 The following commands are not assigned by default; if you wish to assign them, use Input Gestures dialog to add custom commands. To do so, from Studio window, open NVDA menu, Preferences, then Input Gestures. Expand StationPlaylist category, then locate unassigned commands from the list below and select "Add", then type the gesture you wish to use.
 
-* Switching to SPL Studio window from any program.
-* SPL Controller layer.
-* Announcing Studio status such as track playback from other programs.
-* Announcing encoder connection status from any program.
+Important: some of these commands will not work if NVDA is running in secure mode such as from login screen.
+
+* Switching to SPL Studio window from any program (unavailable in secure mode).
+* SPL Controller layer (unavailable in secure mode).
+* Announcing Studio status such as track playback from other programs (unavailable in secure mode).
+* Announcing encoder connection status from any program (unavailable in secure mode).
 * SPL Assistant layer from SPL Studio.
 * Announce time including seconds from SPL Studio.
 * Announcing temperature.
@@ -131,6 +133,8 @@ The available commands are:
 
 The SPL Controller is a set of layered commands you can use to control SPL Studio anywhere. Press the SPL Controller layer command, and NVDA will say, "SPL Controller." Press another command to control various Studio settings such as microphone on/off or play the next track.
 
+Important: SPL Controller layer commands are disabled if NVDA is running in secure mode.
+
 The available SPL Controller commands are:
 
 * P: Play the next selected track.
@@ -191,7 +195,7 @@ Pressing SPL Assistant, Shift+F8 will present a dialog to let you request playli
 
 ## Configuration dialog
 
-From studio window, you can press Alt+NVDA+0 to open the add-on configuration dialog. Alternatively, go to NVDA's preferences menu and select SPL Studio Settings item. This dialog is also used to manage broadcast profiles.
+From studio window, you can press Alt+NVDA+0 to open the add-on configuration dialog. Alternatively, go to NVDA's preferences menu and select SPL Studio Settings item. Not all settings are available if NVDA is running in secure mode.
 
 ## Broadcast profiles dialog
 
