@@ -206,6 +206,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * NVDA 2021.3 or later is required.
 * To improve security, add-on commands cannot be performed while using Studio suite of applications if NVDA is running in secure mode.
 * To improve security, online user guide command from SPL Assistant (Shift+F1) has been removed.
+* In Studio, NVDA will no longer do nothing or play error tones if attempting to obtain playlist snapshots (SPL Assistant, F8) if the loaded playlist consists only of hour markers.
 
 ## Version 22.01
 
