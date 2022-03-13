@@ -1428,9 +1428,11 @@ class SPLConfigDialog(gui.MultiCategorySettingsDialog):
 		ColumnsExplorerPanel,
 		PlaylistTranscriptsPanel,
 		SayStatusPanel,
-		AdvancedOptionsPanel,
-		ResetSettingsPanel,
 	]
+	# 22.03 (security): only add the following panels if not in secure mode.
+	if not globalVars.appArgs.secure:
+		categoryClasses.append(AdvancedOptionsPanel)
+		categoryClasses.append(ResetSettingsPanel)
 
 	def makeSettings(self, settingsSizer):
 		super(SPLConfigDialog, self).makeSettings(settingsSizer)
