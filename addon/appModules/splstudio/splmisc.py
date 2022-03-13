@@ -799,15 +799,15 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 		self.transcriptFormat.Bind(wx.EVT_CHOICE, self.onTranscriptFormatSelection)
 		self.transcriptFormat.SetSelection(0)
 
-		self.transcriptActions = (
+		# Translators: one of the playlist transcript actions.
+		self.transcriptActions = [		_("view transcript")]
+		# 22.03 (security): disable clipboard copying or file saving functions in secure mode.
+		if not globalVars.appArgs.secure:
 			# Translators: one of the playlist transcript actions.
-			_("view transcript"),
+			self.transcriptActions.append(_("copy to clipboard"))
 			# Translators: one of the playlist transcript actions.
-			_("copy to clipboard"),
-			# Translators: one of the playlist transcript actions.
-			_("save to file"),
-		)
-		# Clipboard copying is possible for plain text (0), markdown table (3), CSV (4).
+			self.transcriptActions.append(_("save to file"))
+		# Clipboard copying is possible for plain text (0), markdown table (3), CSV (4) but not in secure mode.
 		self.copy2clipPossible = [0, 3, 4]
 
 		# Translators: The label in playlist transcripts dialog to select transcript action.
@@ -827,6 +827,9 @@ class SPLPlaylistTranscriptsDialog(wx.Dialog):
 		self.transcriptRange.SetFocus()
 
 	def onTranscriptFormatSelection(self, evt):
+		# 22.03 (security): disable options other than viewing the transcript in secure mode.
+		if globalVars.appArgs.secure:
+			return
 		# Not all formats support all actions
 		# (for example, HTML table does not support copying to clipboard unless formatting is provided).
 		action = self.transcriptFormat.GetSelection()
