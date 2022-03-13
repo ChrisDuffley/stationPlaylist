@@ -1,6 +1,6 @@
 # SPL Studio Configuration user interfaces
 # An app module and global plugin package for NVDA
-# Copyright 2016-2021 Joseph Lee, released under GPL.
+# Copyright 2016-2022 Joseph Lee, released under GPL.
 # Split from SPL config module in 2016.
 # Provides the configuration management UI package for SPL Studio app module.
 # For code which provides foundation for code in this module, see splconfig module.
