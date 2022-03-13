@@ -832,6 +832,10 @@ class MetadataStreamingDialog(wx.Dialog):
 			wx.CheckBox(self, label=applyLabel)
 		)
 		self.applyCheckbox.SetValue(True)
+		# 22.03 (security): no, apply to config checkbox should be disabled in secure mode.
+		# Although metadata streaming settings may appear to be saved, it is ultimately discarded in the end.
+		if globalVars.appArgs.secure:
+			self.applyCheckbox.Disable()
 
 		metadataSizerHelper.addDialogDismissButtons(wx.OK | wx.CANCEL, separated=True)
 		self.Bind(wx.EVT_BUTTON, self.onOk, id=wx.ID_OK)
