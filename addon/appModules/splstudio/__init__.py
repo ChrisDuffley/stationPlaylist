@@ -1997,16 +1997,18 @@ class AppModule(appModuleHandler.AppModule):
 		# Shortest and longest tracks.
 		if "DurationMinMax" in snapshotFlags:
 			trackDurations = [track[0] for track in trackLengths]
-			shortest = min(trackDurations)
-			shortestIndex = trackDurations.index(shortest)
-			snapshot["PlaylistDurationMin"] = "{} ({})".format(
-				trackLengths[shortestIndex][1], self._ms2time(trackLengths[shortestIndex][0], ms=False)
-			)
-			longest = max(trackDurations)
-			longestIndex = trackDurations.index(longest)
-			snapshot["PlaylistDurationMax"] = "{} ({})".format(
-				trackLengths[longestIndex][1], self._ms2time(trackLengths[longestIndex][0], ms=False)
-			)
+			# #159 (22.03): do not record shortest/longest tracks if the playlist consists of hour markers.
+			if len(trackDurations) > 0:
+				shortest = min(trackDurations)
+				shortestIndex = trackDurations.index(shortest)
+				snapshot["PlaylistDurationMin"] = "{} ({})".format(
+					trackLengths[shortestIndex][1], self._ms2time(trackLengths[shortestIndex][0], ms=False)
+				)
+				longest = max(trackDurations)
+				longestIndex = trackDurations.index(longest)
+				snapshot["PlaylistDurationMax"] = "{} ({})".format(
+					trackLengths[longestIndex][1], self._ms2time(trackLengths[longestIndex][0], ms=False)
+				)
 		if "DurationAverage" in snapshotFlags:
 			# #57 (18.04): zero division error may occur if the playlist consists of hour markers only.
 			try:
