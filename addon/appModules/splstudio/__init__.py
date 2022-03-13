@@ -489,6 +489,9 @@ class StudioPlaylistViewerItem(SPLTrackItem):
 	def script_announceTrackComment(self, gesture):
 		scriptRepeatCount = scriptHandler.getLastScriptRepeatCount()
 		# 21.03/20.09.6-LTS: do not allow many track comment dialog instances from appearing.
+		# 22.03 (security): do not allow comments to be copied or changed in secure mode.
+		if globalVars.appArgs.secure:
+			scriptRepeatCount = 0
 		if scriptRepeatCount <= 2:
 			self.announceTrackComment(scriptRepeatCount + 1)
 
