@@ -8,7 +8,6 @@
 # #155 (21.03): remove __future__ import when NVDA runs under Python 3.10.
 from __future__ import annotations
 from typing import Any
-import appModuleHandler
 import addonHandler
 import globalVars
 import ui
@@ -23,12 +22,6 @@ class SPLRemotePlaylistEditorItem(SPLTrackItem):
 	pass
 
 
-# 22.03 (security): disable the app module altogether in secure mode.
-def disableInSecureMode(cls):
-	return appModuleHandler.AppModule if globalVars.appArgs.secure else cls
-
-
-@disableInSecureMode
 class AppModule(splcreator.AppModule):
 
 	def __init__(self, *args, **kwargs):

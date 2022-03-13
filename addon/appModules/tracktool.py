@@ -12,7 +12,6 @@ from __future__ import annotations
 from typing import Optional
 import appModuleHandler
 import addonHandler
-import globalVars
 import tones
 from NVDAObjects.IAccessible import sysListView32
 from .splstudio import splconfig, SPLTrackItem
@@ -67,12 +66,6 @@ class TrackToolItem(SPLTrackItem):
 		return splconfig.SPLConfig["General"]["ExploreColumnsTT"]
 
 
-# 22.03 (security): disable the app module altogether in secure mode.
-def disableInSecureMode(cls):
-	return appModuleHandler.AppModule if globalVars.appArgs.secure else cls
-
-
-@disableInSecureMode
 class AppModule(appModuleHandler.AppModule):
 
 	def __init__(self, *args, **kwargs):

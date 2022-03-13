@@ -669,12 +669,6 @@ class SPLTimePicker(IAccessible):
 		speech.speakTextInfo(info, unit=textInfos.UNIT_LINE, reason=controlTypes.OutputReason.CARET)
 
 
-# 22.03 (security): disable the app module altogether in secure mode.
-def disableInSecureMode(cls):
-	return appModuleHandler.AppModule if globalVars.appArgs.secure else cls
-
-
-@disableInSecureMode
 class AppModule(appModuleHandler.AppModule):
 
 	# Translators: Script category for StationPlaylist add-on commands in input gestures dialog.

@@ -63,12 +63,6 @@ class SPLPlaylistEditorItem(SPLTrackItem):
 	pass
 
 
-# 22.03 (security): disable the app module altogether in secure mode.
-def disableInSecureMode(cls):
-	return appModuleHandler.AppModule if globalVars.appArgs.secure else cls
-
-
-@disableInSecureMode
 class AppModule(appModuleHandler.AppModule):
 
 	def __init__(self, *args, **kwargs):
