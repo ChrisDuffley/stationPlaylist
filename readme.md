@@ -208,6 +208,8 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * It is no longer possible to copy track comments to the clipboard or add or change comments if NVDA is running in secure mode.
 * It is no longer possible to copy playlist transcripts to clipboard or save it to a file if NVDA is running in secure mode. Only viewing transcripts will be allowed in secure mode.
 * To improve security, online user guide command from SPL Assistant (Shift+F1) has been removed.
+* It is no longer possible to create, copy, rename, delete, or configure instant switch status for broadcast profiles if NVDA is running in secure mode.
+* It is no longer possible to configure advanced add-on settings or reset settings to defaults from add-on settings screen if NVDA is running in secure mode.
 * In Studio, NVDA will no longer do nothing or play error tones if attempting to obtain playlist snapshots (SPL Assistant, F8) if the loaded playlist consists only of hour markers.
 
 ## Version 22.01
