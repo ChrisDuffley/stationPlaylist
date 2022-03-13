@@ -207,7 +207,10 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Version 22.03
 
+This is the last stable version to support Windows 7 Service Pack 1, 8, and 8.1.
+
 * NVDA 2021.3 or later is required.
+* A warning message will be displayed when attempting to install the add-on on Windows 7, 8, and 8.1.
 * It is no longer possible to perform the following commands if NVDA is running in secure mode: all SPL Controller layer commands, switching to Studio from other programs, obtaining Studio status and encoder status from other programs.
 * It is no longer possible to copy track comments to the clipboard or add or change comments if NVDA is running in secure mode.
 * It is no longer possible to copy playlist transcripts to clipboard or save it to a file if NVDA is running in secure mode. Only viewing transcripts will be allowed in secure mode.
