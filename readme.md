@@ -15,7 +15,7 @@ IMPORTANT NOTES:
 * This add-on requires StationPlaylist suite 5.30 or later.
 * Some add-on features will be disabled or limited if NVDA is running in secure mode such as in logon screen.
 * If using Windows 8 or later, for best experience, disable audio ducking mode.
-* Starting from 2018, [changelogs for old add-on releases][3] will be found on GitHub. This add-on readme will list changes from version 21.10 (2021) onwards.
+* Starting from 2018, [changelogs for old add-on releases][3] will be found on GitHub. This add-on readme will list changes from version 22.03 (2022) onwards.
 * While Studio is running, you can save, reload saved settings, or reset add-on settings to defaults by pressing Control+NVDA+C, Control+NVDA+R once, or Control+NVDA+R three times, respectively. This is also applicable to encoder settings - you can save and reset (not reload) encoder settings if using encoders.
 
 ## Shortcut keys
@@ -215,18 +215,6 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 * It is no longer possible to create, copy, rename, delete, or configure instant switch status for broadcast profiles if NVDA is running in secure mode.
 * It is no longer possible to configure advanced add-on settings or reset settings to defaults from add-on settings screen if NVDA is running in secure mode.
 * In Studio, NVDA will no longer do nothing or play error tones if attempting to obtain playlist snapshots (SPL Assistant, F8) if the loaded playlist consists only of hour markers.
-
-## Version 22.01
-
-* If add-on specific command-line switches such as "--spl-configinmemory" is specified when starting NVDA, NVDA will no longer add the specified parameter each time NVDA and/or Studio runs. Restart NVDA to restore normal functionality (without command-line switches).
-
-## Version 21.11
-
-* Initial support for StationPlaylist suite 6.0.
-
-## Version 21.10
-
-* NVDA 2021.2 or later is required due to changes to NVDA that affects this add-on.
 
 ## Older releases
 
