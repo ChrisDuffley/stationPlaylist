@@ -47,6 +47,9 @@ class SPLCreatorItem(SPLTrackItem):
 	"""
 
 	def indexOf(self, header: str) -> Optional[int]:
+		# 22.03: Creator 6 renamed Date Restriction column to Restrictions.
+		if self.appModule.productVersion >= "6.0" and header == "Date Restriction":
+			header = "Restrictions"
 		try:
 			return indexOf(self.appModule.productVersion).index(header)
 		except ValueError:
