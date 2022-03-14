@@ -207,7 +207,7 @@ If you are using Studio on a touchscreen computer running Windows 8 or later and
 
 ## Version 22.03
 
-This is the last stable version to support Windows 7 Service Pack 1, 8, and 8.1.
+This is the last stable version to support Studio 5.30 as wel as Windows 7 Service Pack 1, 8, and 8.1.
 
 * NVDA 2021.3 or later is required.
 * A warning message will be displayed when attempting to install the add-on on Windows 7, 8, and 8.1.
