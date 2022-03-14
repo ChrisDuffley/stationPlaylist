@@ -218,6 +218,7 @@ This is the last stable version to support Studio 5.30 as wel as Windows 7 Servi
 * It is no longer possible to create, copy, rename, delete, or configure instant switch status for broadcast profiles if NVDA is running in secure mode.
 * It is no longer possible to configure advanced add-on settings or reset settings to defaults from add-on settings screen if NVDA is running in secure mode.
 * In Studio, NVDA will no longer do nothing or play error tones if attempting to obtain playlist snapshots (SPL Assistant, F8) if the loaded playlist consists only of hour markers.
+* In Creator 6.0, NVDA will no longer appear to do nothing when one of the columns explorer column is "Date Restriction" as the column has been renamed to "Restrictions".
 
 ## Older releases
 
