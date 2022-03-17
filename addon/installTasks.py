@@ -23,6 +23,7 @@ def onInstall():
 			# Translators: title of the dialog shown when trying to install the add-on on an old version of Windows.
 			_("Old Windows version"), wx.OK | wx.ICON_WARNING
 		)
+		raise RuntimeError("Attempting to install StationPlaylist add-on on Windows releases earlier than 10")
 	profiles = os.path.join(os.path.dirname(__file__), "..", "stationPlaylist", "profiles")
 	# Import old profiles.
 	if os.path.exists(profiles):
