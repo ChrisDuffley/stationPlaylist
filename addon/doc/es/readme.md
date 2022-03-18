@@ -15,11 +15,14 @@ Para más información sobre este complemento, lee su [guía][2].
 NOTAS IMPORTANTES:
 
 * Este complemento requiere StationPlaylist Suite 5.30 o posterior.
+* Algunas funciones del complemento quedan deshabilitadas o muy limitadas si
+  NVDA se ejecuta en modo seguro, como por ejemplo en la pantalla de inicio
+  de sesión.
 * Si utilizas Windows 8 o posterior, para una mejor experiencia, deshabilita
   el modo atenuación de audio.
 * A partir de 2018, los [registros de cambios para versiones antiguas][3] se
   encontrarán en GitHub. Este léeme del complemento listará cambios desde la
-  versión 21.10 (2021) en adelante.
+  versión 22.03 (2022) en adelante.
 * Cuando Studio está en ejecución, se pueden guardar, restablecer o poner
   los valores de fábrica del complemento pulsando control+NVDA+c,
   control+NVDA+r una vez o control+NVDA+r tres veces, respectivamente. Esto
@@ -103,11 +106,16 @@ Preferencias, Gestos de entrada. Expande la categoría StationPlaylist y
 busca las órdenes sin asignar de la siguiente lista, elige "Añadir" y teclea
 la orden que quieres usar.
 
-* Cambia a la ventana SPL Studio desde cualquier programa.
-* SPL Controller layer.
+Importante: algunas de estas órdenes no funcionarán si NVDA se ejecuta en
+modo seguro, por ejemplo en la pantalla de inicio de sesión.
+
+* Cambiar a la ventana SPL Studio desde cualquier programa (no disponible en
+  modo seguro).
+* Capa de controlador de SPL (no disponible en modo seguro)
 * Anunciar el estado de Studio tal como reproducción de pista desde otros
-  programas.
-* Anunciar el estado de conexión del codificador desde cualquier programa.
+  programas (no disponible en modo seguro).
+* Anunciar el estado de conexión del codificador desde cualquier programa
+  (no disponible en modo seguro).
 * Capa SPL Assistant desde SPL Studio.
 * Anuncia el tiempo incluyendo segundos desde SPL Studio.
 * Anuncia la temperatura.
@@ -219,6 +227,9 @@ del SPL Controller, y NVDA dirá, "SPL Controller." Pulsa otra orden para
 controlar varias opciones del Studio tales como micrófono
 activado/desactivado o reproducir la siguiente pista.
 
+Importante: las órdenes de capa del controlador de SPL se deshabilitan si
+NVDA se ejecuta en modo seguro.
+
 Las órdenes disponibles para el SPL Controller son:
 
 * P: reproducir la siguiente pista seleccionada.
@@ -327,8 +338,8 @@ formatos, incluyendo en un formato de texto plano, y tabla HTML o una lista.
 
 Desde la ventana de studio, puedes pulsar Alt+NVDA+0 para abrir el diálogo
 de configuración del complemento. Alternativamente, ve al menú Preferencias
-de NVDA y selecciona el elemento Opciones de SPL Studio. Este diálogo
-también se utiliza para administrar los perfiles de transmisión.
+de NVDA y selecciona el elemento Opciones de SPL Studio. No todas las
+opciones están disponibles si NVDA se ejecuta en modo seguro.
 
 ## El diálogo de perfiles de emisión
 
@@ -345,21 +356,37 @@ realizar algunas órdenes de Studio desde la pantalla táctil. Primero utiliza
 un toque con tres dedos para cambiar a modo SPL, entonces utiliza las
 órdenes táctiles listadas arriba para llevar a cabo tareas.
 
-## Versión 22.01
+## Versión 22.03
 
-* Si se pasan argumentos de línea de órdenes del complemento al iniciar
-  NVDA, como "--spl-configinmemory", NVDA ya no añadirá el parámetro
-  específico cada vez que se carguen NVDA o Studio. Reinicia NVDA para
-  restaurar la funcionalidad normal (sin argumentos de la línea de órdenes).
+Esta es la última versión estable que soporta Studio 5.30, así como Windows
+7 Service Pack 1, 8 y 8.1.
 
-## Versión 21.11
-
-* Soporte inicial para StationPlaylist Suite 6.0.
-
-## Versión 21.10
-
-* Se requiere NVDA 2021.2 o posterior a causa de cambios en NVDA que afectan
-  a este complemento.
+* Se requiere NVDA 2021.3 o posterior.
+* Se mostrará un mensaje de aviso al intentar instalar el complemento en
+  Windows 7, 8 y 8.1.
+* Ya no es posible realizar las siguientes órdenes si NVDA se ejecuta en
+  modo seguro: todas las órdenes de la capa del controlador de SPL, pasar a
+  Studio desde otros programas y obtener el estado de Studio y los
+  codificadores desde otros programas.
+* Ya no es posible copiar los comentarios de pista al portapapeles o cambiar
+  comentarios si NVDA se ejecuta en modo seguro.
+* Ya no es posible copiar transcripciones de listas de reproducción al
+  portapapeles o guardarlas en un archivo si NVDA se ejecuta en modo
+  seguro. En este modo, sólo se permite verlas.
+* Para mejorar la seguridad, la orden de la guía de usuario en línea del
+  asistente de SPL (shift+f1) se ha eliminado.
+* Ya no es posible crear, copiar, renombrar, eliminar o configurar el estado
+  de conmutación para perfiles de emisión si NVDA se ejecuta en modo seguro.
+* Ya no es posible configurar opciones avanzadas del complemento o
+  restablecer a valores por defecto desde la pantalla de opciones del
+  complemento si NVDA se ejecuta en modo seguro.
+* En Studio, NVDA ya no parecerá hacer nada o reproducirá tonos de error si
+  se intentan obtener instantáneas de la lista de reproducción (asistente de
+  SPL, f8) si la lista de reproducción cargada sólo contiene marcadores
+  horarios.
+* En Creator 6.0, NVDA ya no parecerá hacer nada cuando una columna del
+  explorador de columnas sea "restricción de fecha", ya que la columna se ha
+  renombrado como "restricciones".
 
 ## Versiones antiguas
 

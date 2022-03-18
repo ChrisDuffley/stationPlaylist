@@ -14,10 +14,12 @@ For more information about the add-on, read the [add-on guide][2].
 CÁC LƯU Ý QUAN TRỌNG:
 
 * This add-on requires StationPlaylist suite 5.30 or later.
+* Some add-on features will be disabled or limited if NVDA is running in
+  secure mode such as in logon screen.
 * Nếu dùng Windows 8 trở lên, hãy tắt chế độ giảm âm thanh để có trải nghiệm
   tốt nhất.
 * Starting from 2018, [changelogs for old add-on releases][3] will be found
-  on GitHub. This add-on readme will list changes from version 21.10 (2021)
+  on GitHub. This add-on readme will list changes from version 22.03 (2022)
   onwards.
 * Khi đang chạy Studio, bạn có thể lưu, gọi các thiết lập đã lưu hoặc khôi
   phục các thiết lập của add-on về mặc định bằng cách bấm Control+NVDA+C,
@@ -84,11 +86,16 @@ Studio window, open NVDA menu, Preferences, then Input Gestures. Expand
 StationPlaylist category, then locate unassigned commands from the list
 below and select "Add", then type the gesture you wish to use.
 
-* Chuyển từ một chương trình bất kì đến cửa sổ SPL Studio .
-* Lệnh cho bộ điều khiển SPL.
-* Thông báo trạng thái Studio như track đang phát từ một chương trình bất
-  kì.
-* Thông báo trạng thái kết nối mã hóa từ bất kì chương trình nào.
+Important: some of these commands will not work if NVDA is running in secure
+mode such as from login screen.
+
+* Switching to SPL Studio window from any program (unavailable in secure
+  mode).
+* SPL Controller layer (unavailable in secure mode).
+* Announcing Studio status such as track playback from other programs
+  (unavailable in secure mode).
+* Announcing encoder connection status from any program (unavailable in
+  secure mode).
 * SPL Assistant layer từ SPL Studio.
 * Thông báo giờ bao gồm giây từ SPL Studio.
 * Thông báo nhiệt độ.
@@ -189,6 +196,9 @@ Studio bất cứ đâu. Bấm các lệnh của bộ điều khiển SPL, và N
 điều khiển SPL." Bấm các phím lệnh khác để thực hiện nhiều cài đặt của
 Studio như bật / tắt microphone hoặc phát track kế.
 
+Important: SPL Controller layer commands are disabled if NVDA is running in
+secure mode.
+
 Các lệnh của bộ điều khiển SPL bao gồm:
 
 * P: Play the next selected track.
@@ -285,9 +295,10 @@ hoặc một danh sách.
 
 ## Hộp thoại cấu hình
 
-Từ cửa sổ studio, bạn có thể bấm Alt+NVDA+0 để mở hộp thoại cấu hình
-add-on. Cách khác, vào trình đơn tùy chỉnh của NVDA và chọn mục Cài đặt SPL
-Studio. Hộp thoại này cũng dùng để quản lý các hồ sơ phát thanh.
+From studio window, you can press Alt+NVDA+0 to open the add-on
+configuration dialog. Alternatively, go to NVDA's preferences menu and
+select SPL Studio Settings item. Not all settings are available if NVDA is
+running in secure mode.
 
 ## Hộp thoại hồ sơ phát thanh
 
@@ -302,21 +313,37 @@ NVDA 2012.3 trở lên, bạn có thể thực hiện vài lệnh của Studio t
 cảm ứng. Trước tiên, dùng thao tác chạm ba ngón để chuyển sang chế độ SPL,
 và sử dụng các thao tác cảm ứng đã liệt kê ở trên để thực hiện các lệnh.
 
-## Version 22.01
+## Version 22.03
 
-* If add-on specific command-line switches such as "--spl-configinmemory" is
-  specified when starting NVDA, NVDA will no longer add the specified
-  parameter each time NVDA and/or Studio runs. Restart NVDA to restore
-  normal functionality (without command-line switches).
+This is the last stable version to support Studio 5.30 as wel as Windows 7
+Service Pack 1, 8, and 8.1.
 
-## Version 21.11
-
-* Initial support for StationPlaylist suite 6.0.
-
-## Version 21.10
-
-* NVDA 2021.2 or later is required due to changes to NVDA that affects this
-  add-on.
+* NVDA 2021.3 or later is required.
+* A warning message will be displayed when attempting to install the add-on
+  on Windows 7, 8, and 8.1.
+* It is no longer possible to perform the following commands if NVDA is
+  running in secure mode: all SPL Controller layer commands, switching to
+  Studio from other programs, obtaining Studio status and encoder status
+  from other programs.
+* It is no longer possible to copy track comments to the clipboard or add or
+  change comments if NVDA is running in secure mode.
+* It is no longer possible to copy playlist transcripts to clipboard or save
+  it to a file if NVDA is running in secure mode. Only viewing transcripts
+  will be allowed in secure mode.
+* To improve security, online user guide command from SPL Assistant
+  (Shift+F1) has been removed.
+* It is no longer possible to create, copy, rename, delete, or configure
+  instant switch status for broadcast profiles if NVDA is running in secure
+  mode.
+* It is no longer possible to configure advanced add-on settings or reset
+  settings to defaults from add-on settings screen if NVDA is running in
+  secure mode.
+* In Studio, NVDA will no longer do nothing or play error tones if
+  attempting to obtain playlist snapshots (SPL Assistant, F8) if the loaded
+  playlist consists only of hour markers.
+* In Creator 6.0, NVDA will no longer appear to do nothing when one of the
+  columns explorer column is "Date Restriction" as the column has been
+  renamed to "Restrictions".
 
 ## Các bản phát hành cũ hơn
 

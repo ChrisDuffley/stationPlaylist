@@ -2,7 +2,7 @@
 
 * Auteurs: Geoff Shang, Joseph Lee et d'autres contributeurs.
 * Télécharger [version stable][1]
-* NVDA compatibility: 2021.3 and later
+* Compatibilité NVDA: 2021.3 et ultérieures.
 
 Cette extension améliore l'utilisation de Station Playlist Studio, mais elle
 fournit aussi des utilitaires pour contrôler le Studio où que vous soyez.
@@ -14,10 +14,12 @@ NOTES IMPORTANTES :
 
 * Cette extension nécessite  StationPlaylist Studio 5.30 ou version
   ultérieure.
+* Some add-on features will be disabled or limited if NVDA is running in
+  secure mode such as in logon screen.
 * Si vous utilisez Windows 8 ou ultérieur, pour une meilleure expérience,
   désactiver le Mode d'atténuation audio.
 * Starting from 2018, [changelogs for old add-on releases][3] will be found
-  on GitHub. This add-on readme will list changes from version 21.10 (2021)
+  on GitHub. This add-on readme will list changes from version 22.03 (2022)
   onwards.
 * Pendant que Studio est en cours d'exécution, vous pouvez sauvegarder,
   recharger les paramètres sauvegardés, ou rétablir les paramètres par
@@ -94,18 +96,23 @@ contraire.
 
 ## Commandes non assignées
 
-The following commands are not assigned by default; if you wish to assign
-them, use Input Gestures dialog to add custom commands. To do so, from
-Studio window, open NVDA menu, Preferences, then Input Gestures. Expand
-StationPlaylist category, then locate unassigned commands from the list
-below and select "Add", then type the gesture you wish to use.
+Les commandes suivantes ne sont pas assignées par défaut; Si vous souhaitez
+les assigner, utilisez le dialogu des Gestes de Commande pour ajouter des
+commandes personnalisées. Pour ce faire, depuis la fenêtre de Studio, ouvrez
+le menu NVDA, Préférences, puis Gestes de commande. Développez la catégorie
+StationPlaylist, puis localisez les commandes non assignées dans la liste et
+sélectionnez "Ajouter" puis tapez le geste que vous désirez utiliser.
 
-* Basculement vers la fenêtre SPL Studio depuis n'importe quel programme.
-* Couche Contrôleur SPL.
-* Annonçant le statut de Studio, comme la lecture de pistes à partir
-  d'autres programmes.
-* Annonce de l'état de connexion de l'encodeur à partir de n'importe quel
-  programme.
+Important: some of these commands will not work if NVDA is running in secure
+mode such as from login screen.
+
+* Switching to SPL Studio window from any program (unavailable in secure
+  mode).
+* SPL Controller layer (unavailable in secure mode).
+* Announcing Studio status such as track playback from other programs
+  (unavailable in secure mode).
+* Announcing encoder connection status from any program (unavailable in
+  secure mode).
 * Couche Assistant SPL depuis SPL Studio.
 * Annoncer le temps y compris les secondes depuis SPL Studio.
 * Annonce de la température.
@@ -219,6 +226,9 @@ couche Contrôleur SPL, et NVDA dira, "Contrôleur SPL." Appuyez sur une autre
 commande pour contrôler divers paramètres Studio comme activer/désactiver un
 microphone ou lire la piste suivante.
 
+Important: SPL Controller layer commands are disabled if NVDA is running in
+secure mode.
+
 Les commandes disponibles pour le Contrôleur SPL sont:
 
 * P : lire la prochaine piste sélectionnée.
@@ -326,10 +336,10 @@ liste.
 
 ## Boîte de dialogue configuration
 
-Depuis la fenêtre studio, vous pouvez appuyer sur Alt+NVDA+0 pour ouvrir la
-boîte de dialogue configuration de l'extension. Sinon, allez dans le menu
-préférences de NVDA et sélectionnez l'élément Paramètres SPL Studio. Cette
-boîte de dialogue est également utilisé pour gérer les profils de diffusion.
+From studio window, you can press Alt+NVDA+0 to open the add-on
+configuration dialog. Alternatively, go to NVDA's preferences menu and
+select SPL Studio Settings item. Not all settings are available if NVDA is
+running in secure mode.
 
 ## Dialogue profils de diffusion
 
@@ -347,21 +357,37 @@ un écran tactile. Tout d'abord utiliser une tape à trois doigts pour
 basculer en mode SPL, puis utilisez les commandes tactile énumérées
 ci-dessus pour exécuter des commandes.
 
-## Version 22.01
+## Version 22.03
 
-* If add-on specific command-line switches such as "--spl-configinmemory" is
-  specified when starting NVDA, NVDA will no longer add the specified
-  parameter each time NVDA and/or Studio runs. Restart NVDA to restore
-  normal functionality (without command-line switches).
+This is the last stable version to support Studio 5.30 as wel as Windows 7
+Service Pack 1, 8, and 8.1.
 
-## Version 21.11
-
-* Initial support for StationPlaylist suite 6.0.
-
-## Version 21.10
-
-* NVDA 2021.2 or later is required due to changes to NVDA that affects this
-  add-on.
+* NVDA 2021.3 or later is required.
+* A warning message will be displayed when attempting to install the add-on
+  on Windows 7, 8, and 8.1.
+* It is no longer possible to perform the following commands if NVDA is
+  running in secure mode: all SPL Controller layer commands, switching to
+  Studio from other programs, obtaining Studio status and encoder status
+  from other programs.
+* It is no longer possible to copy track comments to the clipboard or add or
+  change comments if NVDA is running in secure mode.
+* It is no longer possible to copy playlist transcripts to clipboard or save
+  it to a file if NVDA is running in secure mode. Only viewing transcripts
+  will be allowed in secure mode.
+* To improve security, online user guide command from SPL Assistant
+  (Shift+F1) has been removed.
+* It is no longer possible to create, copy, rename, delete, or configure
+  instant switch status for broadcast profiles if NVDA is running in secure
+  mode.
+* It is no longer possible to configure advanced add-on settings or reset
+  settings to defaults from add-on settings screen if NVDA is running in
+  secure mode.
+* In Studio, NVDA will no longer do nothing or play error tones if
+  attempting to obtain playlist snapshots (SPL Assistant, F8) if the loaded
+  playlist consists only of hour markers.
+* In Creator 6.0, NVDA will no longer appear to do nothing when one of the
+  columns explorer column is "Date Restriction" as the column has been
+  renamed to "Restrictions".
 
 ## Anciennes versions
 
